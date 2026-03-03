@@ -118,14 +118,30 @@ class CKWebAPI:
     Does NOT replace anything -- just exposes existing capabilities.
     """
 
-    def __init__(self, engine=None):
+    def __init__(self, engine=None, cors: bool = False):
         self.engine = engine
         self.sessions = SessionStore()
         self._app = None
 
         if HAS_FLASK:
             self._app = Flask('ck_web')
+            if cors:
+                self._add_cors()
             self._register_routes()
+
+    def _add_cors(self):
+        """Add CORS headers so the website can talk to this API."""
+        @self._app.after_request
+        def cors_headers(response):
+            response.headers['Access-Control-Allow-Origin'] = '*'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+            response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+            return response
+
+        @self._app.route('/', defaults={'path': ''}, methods=['OPTIONS'])
+        @self._app.route('/<path:path>', methods=['OPTIONS'])
+        def handle_options(path):
+            return '', 204
 
     def _register_routes(self):
         """Register Flask routes."""
@@ -155,14 +171,13 @@ class CKWebAPI:
 
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:
-        """Process a chat message through CK's full pipeline.
+        """Process a chat message through CK's FULL TIG pipeline.
 
-        1. Record user turn
-        2. Feed through dialogue engine (claim extraction + response)
-        3. Apply coherence field context
-        4. Generate response using CK's operator-native voice
-        5. Record CK's turn
-        6. Return response with coherence data
+        Uses receive_text() -- the complete organism pipeline:
+          BEING -> GATE1 -> DOING -> GATE2 -> BECOMING -> GATE3
+          D2 -> CL -> chain walk -> truth lattice -> compilation loop -> voice
+
+        Returns CK's response + full experience state.
         """
         if not self.engine:
             return {
@@ -172,94 +187,260 @@ class CKWebAPI:
                 'operators': [],
             }
 
-        # Record user input
-        coherence = self.engine.brain.coherence
+        # Snapshot state before processing
+        coherence_before = self._safe_coherence()
         band_names = ['GREEN', 'YELLOW', 'RED']
-        band_idx = self.engine.body.heartbeat.band
-        band = band_names[min(band_idx, 2)]
 
-        self.sessions.add_turn(session_id, 'user', text, coherence, band)
+        # Record user input
+        band = self._safe_band()
+        self.sessions.add_turn(session_id, 'user', text,
+                                coherence_before, band)
 
-        # Process through dialogue engine
+        # === FULL TIG PIPELINE ===
+        # receive_text() runs the complete organism:
+        #   D2 operator pipeline, dialogue, truth lattice,
+        #   world lattice, compilation loop (9 passes max),
+        #   voice composition with D2 self-verification
         try:
-            response_text = self.engine.dialogue.process(
-                text, self.engine.brain.coherence)
+            response_text = self.engine.receive_text(text)
         except Exception:
-            # Fallback to voice system
+            # Fallback: try dialogue engine directly
             try:
-                response_text = self.engine.voice.get_response(
-                    'conversation',
-                    self.engine.development.stage,
-                    self.engine.emotion.current.primary)
+                response_text = self.engine.dialogue.process(
+                    text, self._safe_coherence())
             except Exception:
-                response_text = "..."
+                # Last resort: voice system
+                try:
+                    response_text = self.engine.voice.get_response(
+                        'conversation',
+                        self.engine.development.stage,
+                        self.engine.emotion.current.primary)
+                except Exception:
+                    response_text = "..."
 
-        # Get operator context
+        # Drain any additional UI messages from the engine
+        extra_messages = []
+        try:
+            for sender, msg_text in self.engine.drain_ui_messages(limit=5):
+                if sender == 'ck' and msg_text != response_text:
+                    extra_messages.append(msg_text)
+        except Exception:
+            pass
+
+        # Snapshot state AFTER processing (CK has changed from the experience)
+        coherence_after = self._safe_coherence()
+        band_after = self._safe_band()
+
+        # Operator history
         recent_ops = list(self.engine.operator_history)[-10:]
         op_names = [OP_NAMES[o] if 0 <= o < NUM_OPS else 'VOID'
                     for o in recent_ops]
 
         # Coherence Action state
-        ca_state = {}
-        if hasattr(self.engine, 'coherence_action'):
-            ca = self.engine.coherence_action.state
-            ca_state = {
-                'action': round(ca.action, 4),
-                'l_gr': round(ca.l_gr, 3),
-                's_ternary': round(ca.s_ternary, 3),
-                'c_harm': round(ca.c_harm, 3),
-                'coherent': ca.coherent,
-            }
+        ca_state = self._safe_coherence_action()
 
         # Record CK's response
         self.sessions.add_turn(session_id, 'ck', response_text,
-                                coherence, band)
+                                coherence_after, band_after)
 
         # Log to paper trail
         if hasattr(self.engine, 'activity_log') and self.engine.activity_log:
-            self.engine.activity_log.log('query',
-                f"Web chat: '{text[:100]}' -> '{response_text[:100]}'",
-                coherence=coherence)
+            try:
+                self.engine.activity_log.log('query',
+                    f"Web chat: '{text[:100]}' -> '{response_text[:100]}'",
+                    coherence=coherence_after)
+            except Exception:
+                pass
 
-        return {
+        # Build the full experience response
+        result = {
             'text': response_text,
-            'band': band,
-            'coherence': round(coherence, 4),
+            'band': band_after,
+            'coherence': round(coherence_after, 4),
             'operators': op_names,
-            'mode': self.engine.brain.mode,
-            'emotion': (self.engine.emotion.current.primary
-                        if hasattr(self.engine.emotion.current, 'primary')
-                        else 'neutral'),
+            'mode': self._safe_mode(),
+            'emotion': self._safe_emotion(),
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
         }
 
+        # Experience data: what CK measured in your words
+        result['experience'] = self._build_experience(
+            coherence_before, coherence_after, extra_messages)
+
+        return result
+
+    def _build_experience(self, coh_before, coh_after, extra_messages):
+        """Build the experience snapshot -- what CK lived through."""
+        exp = {}
+
+        # Coherence delta: did the conversation help or hurt?
+        exp['coherence_delta'] = round(coh_after - coh_before, 4)
+
+        # Development stage
+        try:
+            exp['stage'] = self.engine.dev_stage_name
+        except Exception:
+            exp['stage'] = str(self.engine.development.stage)
+
+        # Field coherence (N-dimensional)
+        try:
+            exp['field_coherence'] = round(
+                self.engine.coherence_field.field_coherence, 4)
+            exp['consensus'] = self.engine.coherence_field.consensus_name
+        except Exception:
+            pass
+
+        # Knowledge growth
+        try:
+            exp['truths'] = self.engine.truth.total_entries
+        except Exception:
+            pass
+        try:
+            exp['concepts'] = self.engine.concept_count
+        except Exception:
+            pass
+        try:
+            exp['crystals'] = len(self.engine.crystals) \
+                if hasattr(self.engine, 'crystals') else 0
+        except Exception:
+            pass
+
+        # Tick count (how long CK has been alive)
+        exp['tick'] = self.engine.tick_count
+
+        # Extra messages from the engine (if any)
+        if extra_messages:
+            exp['extra'] = extra_messages[:3]
+
+        # Breath phase
+        try:
+            exp['breath'] = self.engine.breath_phase_name
+        except Exception:
+            pass
+
+        return exp
+
+    # ── Safe accessors (engine state may not always be available) ──
+
+    def _safe_coherence(self):
+        try:
+            return self.engine.brain.coherence
+        except Exception:
+            try:
+                return self.engine.coherence
+            except Exception:
+                return 0.0
+
+    def _safe_band(self):
+        band_names = ['GREEN', 'YELLOW', 'RED']
+        try:
+            return band_names[min(self.engine.body.heartbeat.band, 2)]
+        except Exception:
+            try:
+                return self.engine.band_name
+            except Exception:
+                return 'RED'
+
+    def _safe_mode(self):
+        try:
+            return self.engine.mode_name
+        except Exception:
+            try:
+                return self.engine.brain.mode
+            except Exception:
+                return 'OBSERVE'
+
+    def _safe_emotion(self):
+        try:
+            return self.engine.emotion_primary
+        except Exception:
+            try:
+                return self.engine.emotion.current.primary
+            except Exception:
+                return 'neutral'
+
+    def _safe_coherence_action(self):
+        try:
+            if hasattr(self.engine, 'coherence_action'):
+                ca = self.engine.coherence_action.state
+                return {
+                    'action': round(ca.action, 4),
+                    'l_gr': round(ca.l_gr, 3),
+                    's_ternary': round(ca.s_ternary, 3),
+                    'c_harm': round(ca.c_harm, 3),
+                    'coherent': ca.coherent,
+                }
+        except Exception:
+            pass
+        return {}
+
     def get_state(self) -> dict:
-        """Get CK's current state for UI display."""
+        """Get CK's current state -- the full organism snapshot."""
         if not self.engine:
             return {'status': 'offline'}
 
-        band_names = ['GREEN', 'YELLOW', 'RED']
-        mode_names = ['OBSERVE', 'CLASSIFY', 'CRYSTALLIZE', 'SOVEREIGN']
-
-        return {
+        state = {
             'status': 'alive',
-            'coherence': round(self.engine.brain.coherence, 4),
-            'band': band_names[min(self.engine.body.heartbeat.band, 2)],
-            'mode': mode_names[min(self.engine.brain.mode, 3)],
+            'coherence': round(self._safe_coherence(), 4),
+            'band': self._safe_band(),
+            'mode': self._safe_mode(),
+            'emotion': self._safe_emotion(),
             'tick': self.engine.tick_count,
-            'ticks_per_second': round(self.engine.ticks_per_second, 1),
-            'emotion': (self.engine.emotion.current.primary
-                        if hasattr(self.engine.emotion.current, 'primary')
-                        else 'neutral'),
-            'stage': self.engine.development.stage,
-            'field_coherence': round(
-                self.engine.coherence_field.field_coherence, 4),
-            'consensus': self.engine.coherence_field.consensus_name,
-            'crystals': len(self.engine.crystals)
-                if hasattr(self.engine, 'crystals') else 0,
-            'truths': self.engine.truth.total_entries,
         }
+
+        # Ticks per second (heartbeat rate)
+        try:
+            state['ticks_per_second'] = round(self.engine.ticks_per_second, 1)
+        except Exception:
+            state['ticks_per_second'] = 0
+
+        # Operator
+        try:
+            recent_ops = list(self.engine.operator_history)[-3:]
+            state['operator'] = OP_NAMES[recent_ops[-1]] if recent_ops else 'HARMONY'
+        except Exception:
+            state['operator'] = 'HARMONY'
+
+        # Development stage
+        try:
+            state['stage'] = self.engine.dev_stage_name
+        except Exception:
+            try:
+                state['stage'] = str(self.engine.development.stage)
+            except Exception:
+                state['stage'] = '0'
+
+        # Field coherence
+        try:
+            state['field_coherence'] = round(
+                self.engine.coherence_field.field_coherence, 4)
+            state['consensus'] = self.engine.coherence_field.consensus_name
+        except Exception:
+            pass
+
+        # Knowledge
+        try:
+            state['truths'] = self.engine.truth.total_entries
+        except Exception:
+            state['truths'] = 0
+        try:
+            state['concepts'] = self.engine.concept_count
+        except Exception:
+            pass
+        try:
+            state['crystals'] = len(self.engine.crystals) \
+                if hasattr(self.engine, 'crystals') else 0
+        except Exception:
+            state['crystals'] = 0
+
+        # Breath
+        try:
+            state['breath'] = self.engine.breath_phase_name
+        except Exception:
+            pass
+
+        return state
 
     def get_metrics(self) -> dict:
         """Get admin metrics (health, security, calibration)."""

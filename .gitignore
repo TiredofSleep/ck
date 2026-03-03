@@ -55,5 +55,11 @@ nul
 *~
 .claude/
 
+# ── Generated dictionary files (rebuild via build_dictionary.py) ──
+targets/website/ck_dictionary.json
+targets/website/ck_dict_tier2.json
+targets/website/ck_dict.js
+targets/website/ck_dict_tier1.js
+
 # ── Archive (old Gen9 files) ──
 archive/
