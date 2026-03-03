@@ -1,7 +1,7 @@
 {
     "_comment": "Royal Pulse Engine config -- R16 Desktop target",
     "_version": "1.0.0",
-    "_target": "r16_desktop",
+    "_target": "ck_desktop",
 
     "pulse_tick_hz": 1.0,
     "engine_tick_divisor": 50,

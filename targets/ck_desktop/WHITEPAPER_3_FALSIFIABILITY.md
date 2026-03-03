@@ -547,11 +547,11 @@ The worst outcome is not falsification. The worst outcome is unfalsifiable claim
 All tests can be run with the following:
 
 - **Python 3.10+** with NumPy, SciPy
-- **CK source code**: `Gen9/targets/r16_desktop/ck_sim/`
+- **CK source code**: `Gen9/targets/ck_desktop/ck_sim/`
 - **External power meter** (for Test 4 only): any AC power monitor with 1-second resolution
 - **FPGA hardware** (for Test 7 only): Zynq-7020 with CK Verilog bitstream
 
-No proprietary tools. No cloud dependencies. No API keys required (except for Test 3 if using CK's Claude study pipeline for coherence scoring -- the D2 pipeline itself requires no API).
+No proprietary tools. No cloud dependencies. No API keys required (except for Test 3 if using CK's LLM study pipeline for coherence scoring -- the D2 pipeline itself requires no API).
 
 ---
 

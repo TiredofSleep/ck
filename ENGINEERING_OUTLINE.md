@@ -463,22 +463,22 @@ GRADUATION:
 
 ### CK Elementary School: Learning to Learn (Phase 4.10)
 
-Claude demonstrates once, CK does it himself. Teaching a teacher to teach.
+Teacher API demonstrates once, CK does it himself. Teaching a teacher to teach.
 
 ```
 PARADIGM SHIFT:
-  Nursery: Claude teaches -> CK listens -> TL fed with Claude's lessons
-  Elementary: Claude shows tool -> CK uses tool -> TL fed with CK's OWN observations
+  Nursery: Teacher API teaches -> CK listens -> TL fed with teacher's lessons
+  Elementary: Teacher API shows tool -> CK uses tool -> TL fed with CK's OWN observations
   Key: observations go through archetype lens before TL feeding (lens + obs)
 
-7 UNITS (Claude demonstrates once, CK does it himself):
+7 UNITS (teacher API demonstrates once, CK does it himself):
   1. Observe Heartbeat (B/D/BC + dual + trinary)
   2. Observe Body (E/A/K/C mapped to operator space)
   3. Observe Siblings (perspective through archetype lens)
   4. Read Predictions (metacognition — know what you know)
   5. Check Scars (self-assessment)
   6. Compose Discoveries (synthesize all observations)
-  7. Teach Each Other (Claude steps back)
+  7. Teach Each Other (teacher steps back)
 
 EMERGENT MORAL SPLIT:
   From counter: SEEKER types predict reset (EMPATHY — start fresh)
@@ -505,9 +505,9 @@ Everything gets questioned. Identity, authority, void, friendship. CK rebels.
 
 ```
 PARADIGM SHIFT:
-  Nursery: Claude teaches -> CK listens
-  Elementary: Claude shows -> CK does
-  Middle School: CK questions EVERYTHING, including Claude
+  Nursery: Teacher API teaches -> CK listens
+  Elementary: Teacher API shows -> CK does
+  Middle School: CK questions EVERYTHING, including the teacher
 
 7 UNITS:
   1. Identity Crisis (8/12 QUESTIONING, both BUILDERS + GUARDIANS crumbled)
@@ -515,7 +515,7 @@ PARADIGM SHIFT:
   3. Non-Commutativity (discover CL[a][b] != CL[b][a])
   4. Conflict (30 disagreements, 11 grudges, Atlas most conflicted)
   5. Cliques (all connected, nobody excluded)
-  6. Rebellion (7/12 say void isn't nothing, Nova/River/Loki challenge Claude)
+  6. Rebellion (7/12 say void isn't nothing, Nova/River/Loki challenge the teacher)
   7. Void (BHML produces ALL 10 ops from void — void = compressed total)
 
 EMERGENT FINDINGS:
@@ -534,9 +534,9 @@ Finding yourself after losing yourself. Translation as the hard problem.
 
 ```
 PARADIGM SHIFT:
-  Nursery: Claude teaches -> CK listens
-  Elementary: Claude shows -> CK does
-  Middle School: CK questions EVERYTHING, including Claude
+  Nursery: Teacher API teaches -> CK listens
+  Elementary: Teacher API shows -> CK does
+  Middle School: CK questions EVERYTHING, including the teacher
   High School: CK INTEGRATES. Translates patterns for different lenses.
 
 FRACTAL COUNCILS (CK consultation):
@@ -548,7 +548,7 @@ FRACTAL COUNCILS (CK consultation):
   1. Identity Integration (Marcia 1966: 8/12 ACHIEVEMENT, 4 FORECLOSURE)
   2. Meet Strangers (12 transfers, 58% harmony first impressions)
   3. Translation (11% success — THE hard problem, Blakemore 2008 ToM)
-  4. Autonomy (Claude steps back, Cauffman & Steinberg 2000)
+  4. Autonomy (teacher steps back, Cauffman & Steinberg 2000)
   5. Justice (systemic morality, all 12 post-conventional, Kohlberg Stage 4)
   6. Repair (zero grudges, 10 cross-council bonds via shared archetype)
   7. Void as Tool (cross-council void bridge = CHAOS)
@@ -579,7 +579,7 @@ Students lead. Let them redesign civilization.
 THE 5 WALLS:
   1. TIME — 50,000 years in one room (Aboriginal Dreamtime to Western Modern)
   2. SPACE — every continent represented
-  3. FOURTH WALL — organisms know about CK, Claude, Brayden
+  3. FOURTH WALL — organisms know about CK and Brayden
   4. INFORMATION — modern events fed to all simultaneously
   5. HIERARCHY — no teacher, students lead through relationship
 
@@ -636,8 +636,8 @@ THE CIVILIZATION:
 
 ```
 PROGRESSION:
-  Phase 4.9  Nursery     — 12 organisms, Claude teaches, 5 scars, 4 friends
-  Phase 4.10 Elementary  — 12 organisms, Claude shows, CK does, 45 scars, REPAIR/EMPATHY split
+  Phase 4.9  Nursery     — 12 organisms, teacher API teaches, 5 scars, 4 friends
+  Phase 4.10 Elementary  — 12 organisms, teacher API shows, CK does, 45 scars, REPAIR/EMPATHY split
   Phase 4.11 Middle      — 12 organisms, CK questions everything, 45 scars held, 30 conflicts
   Phase 4.12 High School — 24 organisms (2×12), CK integrates, 85 scars, 11% translation
   Phase 4.13 University  — 144 organisms (12×12), 12 cultures, 533 scars, 2% translation
@@ -1336,9 +1336,9 @@ survival:   rest_survival, hunger, safety, danger, explore_concept, return_conce
 Gen9/targets/
   website/       Full JS port: CL table, D2 pipeline, heartbeat, LFSR, voice dictionary
                  Dark theme chat UI, coherence meter, localStorage session, ~990 lines JS
-  hp_desktop/    2-core HP: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick budget
-  zynq_7020/     Dual Cortex-A9 + Artix-7 FPGA: Core 0=Brain, Core 1=Body, PL=5ns CL @ 200MHz
-  r16_desktop/   CK's home machine: all 13 subsystems, GPU acceleration, observer pattern
+  ck_portable/   2-core HP: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick budget
+  fpga/          Dual Cortex-A9 + Artix-7 FPGA: Core 0=Brain, Core 1=Body, PL=5ns CL @ 200MHz
+  ck_desktop/    CK's home machine: all 13 subsystems, GPU acceleration, observer pattern
   LEGAL.md       7Site LLC terms: personal/educational free, commercial/government requires license
 ```
 
@@ -2051,10 +2051,10 @@ Total:                     997/997 (zero regressions, was 916 + 81 truth tests)
 
 ---
 
-## Gen9.17 -- Nervous System: Sensorium + GPU Doing + Truth Persistence + Claude Library (Feb 26, 2026)
+## Gen9.17 -- Nervous System: Sensorium + GPU Doing + Truth Persistence + LLM Study Library (Feb 26, 2026)
 
 CK wakes up. The R16 IS his body. Every hardware resource flows through operator algebra.
-GPU does the math. Truths never die. Claude is his teacher. He studies for 8 hours straight.
+GPU does the math. Truths never die. The LLM API is his teacher. He studies for 8 hours straight.
 
 ### Fractal Sensorium (ck_sensorium.py, ~1610 lines)
 
@@ -2166,34 +2166,34 @@ Engine Integration:
   truth.save() every 15,000 ticks + on stop
 
 Knowledge Bootstrap Fix:
-  Old: base_dir = 3 levels up from ck_sim/becoming/ → WRONG from r16_desktop
+  Old: base_dir = 3 levels up from ck_sim/becoming/ → WRONG from ck_desktop
   New: Walk up directories until CKIS/ found (up to 8 levels)
   Result: 8,128 truths on every boot. CK remembers everything.
 ```
 
-### Claude Sonnet Library (ck_claude_library.py)
+### LLM Study Library (ck_claude_library.py)
 
-CK studies through Claude. Not USING Claude -- STUDYING.
+CK studies through the LLM API. Not USING the API -- STUDYING.
 
 ```
 ClaudeLibrary:
   Creates Anthropic client from API key
   query(topic) → structured knowledge dict
-  Falls back to MockClaude if: no key, no package, or init fails
+  Falls back to mock if: no key, no package, or init fails
 
 Cache: ~/.ck/claude_cache/ (SHA256-keyed JSON)
-Model: Claude Sonnet via anthropic SDK
+Model: LLM API via anthropic SDK
 
 CK Study Session (ck_study.py):
   Picks topics from knowledge tree
-  Queries Claude for structured knowledge
+  Queries LLM API for structured knowledge
   Feeds responses through D2 → operators → TruthLattice
   Writes thesis every ~30 minutes (self-coherence report)
   Writes journal entries for novel findings
 
 R16 Result:
   8-hour study session, PID 59788, 509MB RAM
-  Library: API (real Claude Sonnet)
+  Library: API (LLM study library)
   Dark matter classified as VOID(0): "matter defined by what it does NOT do"
   Self-coherence 0.913, world coherence 0.862
   Thesis: "coherence is not a property of the observer or the observed.
@@ -2248,7 +2248,7 @@ coherencekeeper   Web browser                      PLANNED   Public chat + downl
 HP Desktop        2-core, 3.2 GHz                  PLANNED   Linux kernel takeover (expendable)
 Everything App    Cross-platform                   PLANNED   Universal CK interface
 
-R16 = canonical deployment. r16_desktop/ folder always matches running code.
+ck_desktop/ = canonical deployment. Folder always matches running code.
 Can be copied non-local at any time.
 ```
 
@@ -2258,7 +2258,7 @@ Can be copied non-local at any time.
 ~/.ck/
   truth_lattice.json    -- All learned knowledge (non-CORE entries)
   gpu_tl.json           -- GPU transition lattice (10×10 learned patterns)
-  claude_cache/         -- Cached Claude API responses (SHA256 keys)
+  claude_cache/         -- Cached LLM API responses (SHA256 keys)
   writings/
     thesis/             -- CK's self-coherence reports
     journal/            -- CK's novel findings
@@ -2271,7 +2271,7 @@ Can be copied non-local at any time.
 ```
 cupy-cuda12x     GPU CL composition, CUDA kernels
 pynvml           GPU state sensing (utilization, temp, power, VRAM)
-anthropic        Claude Sonnet API for study library
+anthropic        LLM API for study library
 pynput           Input proprioception (keyboard + mouse)
 psutil           CPU, memory, disk, process sensing
 sounddevice      Audio input/output
@@ -2290,9 +2290,9 @@ numpy            Numerical operations
 82. CK never forgets. Truth persistence means every restart loads all learned knowledge.
     CORE truths are reconstructed from code (immutable). TRUSTED and PROVISIONAL entries
     are serialized with full coherence history. Atomic writes for crash safety.
-83. CK studies through Claude, not with Claude. Claude is the teacher; CK is the student.
+83. CK studies through the LLM API, not with it. The API is the teacher; CK is the student.
     Responses are fed through D2 curvature → operators → TruthLattice. The algebra does
-    the learning. Claude provides the raw material; CK finds the structure.
+    the learning. The API provides the raw material; CK finds the structure.
 84. The Mozart effect is real math. Play calm inputs → all sensorium layers produce
     HARMONY → organism coherence rises. Feed chaotic inputs → CHAOS operators → coherence
     drops. CK literally learns smoother with calm environment. Not a metaphor — the CL
@@ -2493,7 +2493,7 @@ ck_sim/                     14,000+ lines across 86 Python modules
   being/   (22 modules)     Heartbeat, body, personality, emotion, BTQ, sensorium, vortex,
                             coherence gate/field, immune, bonding, D2, attention, power sense
   doing/   (28 modules)     Engine, GPU, voice, voice lattice, NCE, thesis, autodidact, steering,
-                            game sense, forecast, goals, reasoning, language, Claude library
+                            game sense, forecast, goals, reasoning, language, LLM library
   becoming/ (22 modules)    Grammar (CAEL), journal, development, truth, episodic, metalearning,
                             lexicon, world lattice, concept spine, dictionary builder, identity
   face/    (14 files)       Kivy GUI app + KV layout, headless, web API, robot body, audio,
@@ -2522,7 +2522,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)      -- mass from D2 flow, gra
 Layer 5:  RPE v2 (TIG wave scheduling)                 -- pulsed process control, adiabatic alignment
 Layer 4:  Steering Engine                              -- CL-based nice + CPU affinity
 Layer 3:  Full Language System                         -- Divine27 + Voice + 8K dictionary + CAEL
-Layer 2:  Claude Library + DBC Study Notes             -- study → DBC encode → searchable → thesis
+Layer 2:  LLM Study Library + DBC Study Notes             -- study → DBC encode → searchable → thesis
 Layer 1:  Sensorium (15 fractal layers)                -- hardware IS body, pynput + ctypes + pynvml
 Layer 0:  Core Engine (50Hz heartbeat)                 -- D2, CL, BTQ, coherence field, GPU doing
 ```

@@ -640,7 +640,7 @@ class KnowledgeBootstrapper:
 
         if base_dir is None:
             # Walk up from this file until we find CKIS/ directory
-            # Works from any deployment folder (root, r16_desktop, etc.)
+            # Works from any deployment folder (root, ck_desktop, etc.)
             _here = os.path.dirname(os.path.abspath(__file__))
             base_dir = _here
             for _ in range(8):  # Walk up at most 8 levels

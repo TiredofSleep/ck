@@ -73,5 +73,4 @@ Arkansas, USA
 
 ---
 
-*Built with Claude (Anthropic) as development partner.*
 *529 tests. 41 problems. 0 falsifications. 9 honest gaps.*

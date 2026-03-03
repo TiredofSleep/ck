@@ -2,7 +2,7 @@
 REM ============================================================
 REM  CK Coherence Machine -- R16 Desktop Launcher (Windows)
 REM ============================================================
-REM  Run from THIS directory (r16_desktop/).
+REM  Run from THIS directory (ck_desktop/).
 REM  CK needs: Python 3.10+, Kivy, requests, beautifulsoup4
 REM
 REM  First time setup:

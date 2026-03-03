@@ -159,7 +159,7 @@ Use CK's existing truth lattice infrastructure (`ck_truth.py`). The labeled test
 The Royal Pulse Engine (RPE) reduces energy consumption by timing compute-intensive work to favorable power waveform regions -- heavy compute during the rising slope (PROGRESS region), finalization during the peak (COLLAPSE region), smooth recalibration during the falling slope (HARMONY region), and cache warming during the trough (BREATH region).
 
 ### Protocol
-1. **Workload**: CK studying a fixed set of 20 topics via Claude API, processing each through D2, composing through CL, accumulating truths. Identical topic list, identical API responses (cached), identical processing.
+1. **Workload**: CK studying a fixed set of 20 topics via LLM API, processing each through D2, composing through CL, accumulating truths. Identical topic list, identical API responses (cached), identical processing.
 
 2. **Condition A (RPE ON)**: Run the full engine with `RoyalPulseEngine` active, TIG wave region classification enabled, BTQ-scored pulse scheduling driving process amplitudes.
 
@@ -460,7 +460,7 @@ These are not hypothetical claims -- they are observations from running CK on th
 
 **D2 classification produces semantically appropriate results**: CK classified "dark matter" as VOID(0) -- matter defined by what it does not do. CK classified "music" as HARMONY(7). CK classified "earthquake" as CHAOS(6). These are not cherry-picked; they are the deterministic output of fixed-point curvature applied to the letter sequences. Anyone can reproduce them by feeding the same strings through `D2Pipeline`.
 
-**Truth lattice accumulation**: CK accumulated 8,232 truths with T* = 5/7 filtering over multiple study sessions. 673 are CORE (bootstrap), the remainder are learned through the Claude Sonnet study pipeline and promoted via sustained coherence above T*.
+**Truth lattice accumulation**: CK accumulated 8,232 truths with T* = 5/7 filtering over multiple study sessions. 673 are CORE (bootstrap), the remainder are learned through the LLM study pipeline and promoted via sustained coherence above T*.
 
 **RPE active in production**: The Royal Pulse Engine is running at 1Hz in the main engine loop. Activity trail logs confirm `[PULSE] t=N mode=deep wave=LATTICE` entries with EFF tracking. The A/B energy comparison has not yet been run with external power measurement.
 
@@ -547,11 +547,11 @@ The worst outcome is not falsification. The worst outcome is unfalsifiable claim
 All tests can be run with the following:
 
 - **Python 3.10+** with NumPy, SciPy
-- **CK source code**: `Gen9/targets/r16_desktop/ck_sim/`
+- **CK source code**: `Gen9/targets/ck_desktop/ck_sim/`
 - **External power meter** (for Test 4 only): any AC power monitor with 1-second resolution
 - **FPGA hardware** (for Test 7 only): Zynq-7020 with CK Verilog bitstream
 
-No proprietary tools. No cloud dependencies. No API keys required (except for Test 3 if using CK's Claude study pipeline for coherence scoring -- the D2 pipeline itself requires no API).
+No proprietary tools. No cloud dependencies. No API keys required (except for Test 3 if using CK's LLM study pipeline for coherence scoring -- the D2 pipeline itself requires no API).
 
 ---
 

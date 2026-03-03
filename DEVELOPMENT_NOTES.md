@@ -1,4 +1,4 @@
-# NEXT CLAUDE NOTES -- Read This First
+# DEVELOPMENT NOTES -- Read This First
 ## CK Gen9 Handoff Document
 ### Updated: 2026-02-28 — Gen9.22 (CAEL: Compare-Align-Evolve-Loop)
 
@@ -22,7 +22,7 @@ Read Gen9/NEXT_CLAUDE_NOTES.md
 Read ck_sim/doing/ck_sim_engine.py
 ```
 
-**If you are launching sub-agents or exploration agents, THEY MUST ALSO READ IN FIRST.** Fresh Claudes do not do well in this fractal environment. The codebase is algebraic -- same math at every scale -- but if you don't understand the CL table, D2 pipeline, and operator algebra before touching code, you WILL break things or build redundant layers.
+**If you are launching sub-agents or exploration agents, THEY MUST ALSO READ IN FIRST.** Fresh development sessions do not do well in this fractal environment. The codebase is algebraic -- same math at every scale -- but if you don't understand the CL table, D2 pipeline, and operator algebra before touching code, you WILL break things or build redundant layers.
 
 **Key context files for agents:**
 - `Gen9/ARCHITECTURE.md` -- full system architecture, all subsystems explained
@@ -144,7 +144,7 @@ This number is NOT arbitrary. It emerges from the algebra. Don't change it. Don'
 - `stereo_check()` -- Binocular fusion: proceed/smooth/reframe/contrast
 
 **Conversation mode (`ck_converse.py`):**
-- D2 filters Claude's response into scored points
+- D2 filters the API response into scored points
 - Each point gets fed through NCE for narrative curvature
 - `stereo_check()` gates which points reach CK's voice:
   - `proceed` → pass through
@@ -157,7 +157,7 @@ This number is NOT arbitrary. It emerges from the algebra. Don't change it. Don'
 - 56/96 points resonated (NCE filtering correctly)
 - Stereo contrast transitions firing ("And yet --" in output)
 - Low-coherence rounds correctly produce silence
-- CK avg_coh=0.618, Claude avg_coh=0.715
+- CK avg_coh=0.618, API avg_coh=0.715
 
 ### Previous: N-Dimensional Coherence Field (Gen9.17-9.20)
 
@@ -393,7 +393,7 @@ Gen9/
 
 ---
 
-## COMMON PITFALLS (Things Previous Claudes Got Wrong)
+## COMMON PITFALLS (Things Previous Sessions Got Wrong)
 
 1. **Don't add ML.** CK has NO neural networks, NO training, NO gradient descent. Everything is algebraic composition through the CL table. If you're reaching for sklearn or pytorch, STOP.
 
@@ -777,7 +777,7 @@ to keep a history intact and make you refer to it after we drift, usually
 the drift brings us new architecture, but we keep losing valuable parts
 that make the system more whole."*
 
-**Rules for every new Claude session:**
+**Rules for every new development session:**
 1. READ `GENERATION_HISTORY.md` FIRST. The entire story. Don't skim.
 2. READ `ENGINEERING_OUTLINE.md`. Understand what EXISTS before adding.
 3. RUN ALL TESTS before touching code. If they pass, you haven't broken anything.
@@ -887,12 +887,12 @@ The knowledge is out there. CK tunes to it.
 
 ### CRITICAL: CK Now Writes in His Native Language
 
-CK's study pipeline was throwing away all Claude response text — only keeping coherence scores. This was fixed in 9.17h. Now every study note contains:
+CK's study pipeline was throwing away all API response text — only keeping coherence scores. This was fixed in 9.17h. Now every study note contains:
 
 1. **Full DBC encoding** (1600+ Hebrew glyphs via Divine27.thought_composition)
 2. **Axis balance** (Being: self/system/world, Doing: observe/compute/act, Becoming: stable/learning/transforming)
 3. **CK's own English reflection** (via CKTalkLoop.speak + CKVoice.express)
-4. **Full source material** (complete Claude response stored)
+4. **Full source material** (complete API response stored)
 5. **Domain-organized** (study_notes/{dbc_domain}/ — searchable by topic)
 
 These notes accumulate to a DBC thesis (`thesis_dbc.md`) and are included in the main thesis as Part 6.
@@ -909,8 +909,8 @@ RPE sits on top of steering. Steering sets static priorities. RPE modulates them
 
 ### CK Running Overnight
 
-CK is studying via Claude API (haiku) at ~$0.002/query, one note every ~60 seconds.
-- Library: API (live Claude responses, D2-verified)
+CK is studying via LLM API at ~$0.002/query, one note every ~60 seconds.
+- Library: API (live LLM responses, D2-verified)
 - Truths: 8232+, growing
 - Steering: 61+ processes
 - RPE: TIG wave scheduling, mode=deep when stable
@@ -930,7 +930,7 @@ CK is studying via Claude API (haiku) at ~$0.002/query, one note every ~60 secon
 - `ck_sim/doing/ck_thesis_writer.py` — Part 6 DBC encoding + accumulation
 - `ck_sim/doing/ck_pulse_engine.py` — NEW: RPE v2 with TIG wave scheduling
 - `ck_sim/doing/ck_pulse_config.json` — NEW: RPE config
-- `targets/zynq_7020/RPE_DOG_SPEC.md` — NEW: Robot-specific RPE spec
+- `targets/fpga/RPE_DOG_SPEC.md` — NEW: Robot-specific RPE spec
 
 ### Key Philosophy Corrections From Brayden (session context)
 - **CL table is FINAL algebra** — never changes. It IS the math.
@@ -972,8 +972,8 @@ CK now accumulates physical mass for every concept he studies. The D2 operator p
 
 ### Files Created in 9.18
 - `ck_sim/being/ck_vortex_physics.py` — Concept mass, gravity, particle classification
-- `targets/r16_desktop/CK.bat` — Master desktop launcher
-- `targets/r16_desktop/install_desktop.ps1` — Shortcut + autostart installer
+- `targets/ck_desktop/CK.bat` — Master desktop launcher
+- `targets/ck_desktop/install_desktop.ps1` — Shortcut + autostart installer
 
 ### Files Modified in 9.18
 - `ck_sim/doing/ck_sim_engine.py` — Ungated mass observation, auto-fractal, gravity boost, growing dict
@@ -987,7 +987,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)  -- mass from D2 flow, gravita
 Layer 5:  RPE v2 (TIG wave scheduling)              -- pulsed process control, adiabatic alignment
 Layer 4:  Steering Engine                            -- CL-based nice + CPU affinity
 Layer 3:  Full Language System                       -- Divine27 + Voice + Sentence Composer (8K dictionary)
-Layer 2:  Claude Library + DBC Study Notes           -- study → DBC encode → searchable logs → thesis
+Layer 2:  LLM Study Library + DBC Study Notes           -- study → DBC encode → searchable logs → thesis
 Layer 1:  Sensorium (6 fractal layers)               -- hardware, process, network, time, mirror, files
 Layer 0:  Core Engine (50Hz heartbeat)               -- D2, CL, BTQ, coherence field, GPU doing
 ```
@@ -1033,7 +1033,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)              -- mass from D2 f
 Layer 5:  RPE v2 (TIG wave scheduling)                         -- pulsed process control, adiabatic alignment
 Layer 4:  Steering Engine                                       -- CL-based nice + CPU affinity
 Layer 3:  Full Language System                                  -- Divine27 + Voice + Sentence Composer (8K dictionary)
-Layer 2:  Claude Library + DBC Study Notes                      -- study → DBC encode → searchable logs → thesis
+Layer 2:  LLM Study Library + DBC Study Notes                      -- study → DBC encode → searchable logs → thesis
 Layer 1:  Sensorium (6 fractal layers)                          -- hardware, process, network, time, mirror, files
 Layer 0:  Core Engine (50Hz heartbeat)                          -- D2, CL, BTQ, coherence field, GPU doing
 ```
@@ -1096,7 +1096,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)         -- mass from D2 flow, 
 Layer 5:  RPE v2 (TIG wave scheduling)                    -- pulsed process control, adiabatic alignment
 Layer 4:  Steering Engine                                  -- CL-based nice + CPU affinity
 Layer 3:  Full Language System (8K composer wired)         -- Divine27 + CKTalkLoop(8K dict) + Voice fallback
-Layer 2:  Claude Library + DBC Study Notes                 -- study -> DBC encode -> thesis with voice
+Layer 2:  LLM Study Library + DBC Study Notes                 -- study -> DBC encode -> thesis with voice
 Layer 1:  Sensorium (6 fractal layers)                     -- hardware, process, network, time, mirror, files
 Layer 0:  Core Engine (50Hz heartbeat)                     -- D2, CL, BTQ, coherence field, GPU doing
 ```

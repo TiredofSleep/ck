@@ -2526,9 +2526,9 @@ Gait generation is sinusoidal: `target = base ± amplitude * sin(phase + leg_off
 | Target | Key Files | Architecture |
 |--------|-----------|-------------|
 | **website/** | index.html, style.css, ck_core.js (~990 lines), README, ENGINEER_NOTES | Full JS port: exact CL table, D2 pipeline, heartbeat, LFSR, voice dictionary. Dark theme chat UI, coherence meter with color transitions, localStorage session persistence |
-| **hp_desktop/** | README, ENGINEER_NOTES | 2-core HP with webcam: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick headroom (112× realtime). Bare silicon target. |
-| **zynq_7020/** | README, ENGINEER_NOTES | Dual Cortex-A9 @ 667MHz + Artix-7 FPGA. Core 0 = Brain (BTQ), Core 1 = Body (execution), PL Fabric = 5ns CL composition @ 200MHz. Shared BRAM layout, Q1.14 fixed-point D2. |
-| **r16_desktop/** | README, ENGINEER_NOTES | CK's home machine: all 13 subsystems, GPU acceleration, observer pattern, coherence field. SimBody development target. |
+| **ck_portable/** | README, ENGINEER_NOTES | 2-core HP with webcam: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick headroom (112× realtime). Bare silicon target. |
+| **fpga/** | README, ENGINEER_NOTES | Dual Cortex-A9 @ 667MHz + Artix-7 FPGA. Core 0 = Brain (BTQ), Core 1 = Body (execution), PL Fabric = 5ns CL composition @ 200MHz. Shared BRAM layout, Q1.14 fixed-point D2. |
+| **ck_desktop/** | README, ENGINEER_NOTES | CK's home machine: all 13 subsystems, GPU acceleration, observer pattern, coherence field. SimBody development target. |
 | **LEGAL.md** | Shared | 7Site LLC terms: personal/educational free, commercial/government requires written license |
 
 ### New Files Created (Gen9.11)
@@ -2540,9 +2540,9 @@ Gait generation is sinusoidal: `target = base ± amplitude * sin(phase + leg_off
 | ck_robot_body.py | ~490 | Robot dog embodiment: GaitController, NavigationState, UARTBridge, RobotDogBody, BehaviorPlanner |
 | ck_robot_body_tests.py | ~350 | 47 tests across 7 test classes |
 | Gen9/targets/website/* | ~1,600 | Full JavaScript port of CK core + chat UI |
-| Gen9/targets/hp_desktop/* | ~200 | HP deployment guide + engineer notes |
-| Gen9/targets/zynq_7020/* | ~300 | Zynq deployment guide + engineer notes |
-| Gen9/targets/r16_desktop/* | ~200 | R16 deployment guide + engineer notes |
+| Gen9/targets/ck_portable/* | ~200 | Portable deployment guide + engineer notes |
+| Gen9/targets/fpga/* | ~300 | FPGA deployment guide + engineer notes |
+| Gen9/targets/ck_desktop/* | ~200 | Desktop deployment guide + engineer notes |
 | Gen9/targets/LEGAL.md | ~50 | Shared legal terms |
 
 ### Test Results (Gen9.11)

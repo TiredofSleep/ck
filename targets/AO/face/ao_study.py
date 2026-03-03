@@ -643,7 +643,7 @@ def main():
         for key_path in [
             os.path.join(script_dir, '.api_key'),
             os.path.join(os.path.dirname(script_dir), '.api_key'),
-            os.path.join(script_dir, '..', '..', 'r16_desktop', '.api_key'),
+            os.path.join(script_dir, '..', '..', 'ck_desktop', '.api_key'),
         ]:
             if os.path.exists(key_path):
                 with open(key_path, 'r') as f:

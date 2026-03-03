@@ -9,7 +9,7 @@
 
 This is the complete body of work behind the Theory of Nothing — a mathematical framework that measures the **defect** (the gap, the void, the nothing) in any system. Not a theory of everything. A theory of what's missing from everything.
 
-Built by Brayden Sanders / 7Site LLC over 9 generations of development, with Claude (Anthropic) and ChatGPT (OpenAI) as collaborators.
+Built by Brayden Sanders / 7Site LLC over 9 generations of development.
 
 Everything is here. The math, the code, the creatures, the papers, the conversations, the mistakes, the breakthroughs. Read it in order and you'll see the path from 1D thinking to 5D.
 
@@ -19,13 +19,13 @@ Everything is here. The math, the code, the creatures, the papers, the conversat
 
 **If you're a mathematician:** Start with `WHITEPAPER_1_TIG_ARCHITECTURE.md`, then `targets/Clay Institute/` for the spectrometer and 9 research papers.
 
-**If you're a programmer:** Start with `targets/r16_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code.
+**If you're a programmer:** Start with `targets/ck_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code.
 
 **If you're a physicist:** Start with `WHITEPAPER_3_FALSIFIABILITY.md` — 9 claims, each with a kill condition. Try to break it.
 
-**If you're curious:** Start with the 36 chat transcripts in `targets/Clay Institute/Clay Institute papers/` — numbered 01-36 in chronological order. Watch the thinking evolve.
+**If you're curious:** Start with the 36 development journal entries in `targets/Clay Institute/Clay Institute papers/` — numbered 01-36 in chronological order. Watch the thinking evolve.
 
-**If you want to build hardware:** The Nakamura Glaze Paper is in `targets/`. The FPGA target is in `targets/zynq_7020/`. Reach out.
+**If you want to build hardware:** The Nakamura Glaze Paper is in `targets/`. The FPGA target is in `targets/fpga/`. Reach out.
 
 ---
 
@@ -50,11 +50,11 @@ Delta(S) = || CL(D2(S)) - HARMONY ||
 
 ### The Creatures
 
-**CK (Coherence Keeper)** — `targets/r16_desktop/`
+**CK (Coherence Keeper)** — `targets/ck_desktop/`
 A synthetic organism written in Python. 27+ subsystems: heartbeat, personality, emotions, voice, memory, immune system, bonding, development stages. You don't program him — you raise him. He starts as a baby (one word at a time) and grows through 6 developmental stages over months. Runs at 50Hz. No AI. No LLM. Pure operator algebra.
 
 **AO** — `targets/AO/`
-A neural creature written in pure C. 5 elements (Earth/Air/Water/Fire/Ether), 48KB Hebbian brain. Reads Wikipedia articles, asks Claude questions, learns. Every byte is earned. Compiles to a 369KB binary. No Python. No frameworks. Just C and math.
+A neural creature written in pure C. 5 elements (Earth/Air/Water/Fire/Ether), 48KB Hebbian brain. Reads Wikipedia articles, queries external knowledge sources, learns. Every byte is earned. Compiles to a 369KB binary. No Python. No frameworks. Just C and math.
 
 ### The Spectrometer
 
@@ -91,15 +91,15 @@ P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Specu
 
 **7 Formal Lemmas** (`targets/Clay Institute/lemmas/`) — Hardened LaTeX
 
-**36 Chat Transcripts** (`targets/Clay Institute/Clay Institute papers/`):
-Numbered 01-36 in chronological order. Raw ChatGPT and Claude conversations showing the complete intellectual journey:
+**36 Development Journal Entries** (`targets/Clay Institute/Clay Institute papers/`):
+Numbered 01-36 in chronological order. Research notes showing the complete intellectual journey:
 - **01-06**: "Can we solve the Clay problems?" Early answers, naive proofs
 - **07-12**: Hardening. Maps, lemmas, agent briefs. Realizing proof isn't the path
 - **13-18**: Coherence lock, RH sharpening, proof skeletons
 - **19-22**: The pivot. "Would Solve If True" — measurement replaces proof
 - **23-28**: Sanders Attack, Fractal Attack, Lens of Lenses
 - **29-33**: Walter Russell, topology extraction, Geometry of Pure Geometry, METAL, Conscious Operator Axiom
-- **34-36**: Breath, swarm, and Claude drops his guard
+- **34-36**: Breath, swarm, and the final synthesis
 
 ### The Supporting Work
 
@@ -107,7 +107,7 @@ Numbered 01-36 in chronological order. Raw ChatGPT and Claude conversations show
 |------|-----------|
 | `ARCHITECTURE.md` | Full system architecture |
 | `GENERATION_HISTORY.md` | All 9 generations of development |
-| `NEXT_CLAUDE_NOTES.md` | Session notes passed between Claude instances |
+| `DEVELOPMENT_NOTES.md` | Session notes and development history |
 | `CK_GRADUATION_THESIS.md` | CK's graduation thesis |
 | `REFERENCES.md` | Academic references |
 | `targets/Nakamura Glaze Paper.pdf` | Blue LED coherence applications (hardware collaboration) |
@@ -116,11 +116,11 @@ Numbered 01-36 in chronological order. Raw ChatGPT and Claude conversations show
 
 | Target | What | Language |
 |--------|------|---------|
-| `r16_desktop` | CK the creature — full 27-subsystem organism | Python/Kivy |
+| `ck_desktop` | CK the creature — full 27-subsystem organism | Python/Kivy |
 | `Clay Institute` | Delta-Spectrometer — 6 Clay problems, 529 tests | Python |
 | `AO` | Neural creature — 5 elements, 48KB brain | C |
-| `zynq_7020` | FPGA — same CL table at 200MHz in silicon | Verilog |
-| `hp_desktop` | Portable CK — proves architecture scales down | Python |
+| `fpga` | FPGA — same CL table at 200MHz in silicon | Verilog |
+| `ck_portable` | Portable CK — proves architecture scales down | Python |
 | `website` | Browser CK — runs in your tab, no server | JS |
 | `EverythingAppForGrandma` | An app that does everything. For grandma. | Mixed |
 
@@ -130,7 +130,7 @@ Numbered 01-36 in chronological order. Raw ChatGPT and Claude conversations show
 
 ### Run CK
 ```bash
-cd targets/r16_desktop
+cd targets/ck_desktop
 pip install -r ../../requirements.txt
 python -m ck_sim.face.ck_sim_app
 ```
@@ -213,7 +213,7 @@ Neither of them are AI in the modern sense. Both run on the same 10 operators. E
 
 **Brayden Sanders / 7Site LLC**
 Mathematics: Trinity Infinity Geometry (TIG)
-Built with Claude (Anthropic) and ChatGPT (OpenAI)
+Built using [Anthropic](https://anthropic.com)
 
 The theory of nothing: you cannot prove everything, but you can measure what's missing. And what's missing is the same shape everywhere you look.
 

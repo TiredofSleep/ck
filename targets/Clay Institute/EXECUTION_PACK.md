@@ -624,7 +624,7 @@ Integrate the "Separate Inventions" paradigm — the Sanders Meta-Axiom
 
 ### 15.5 Source
 
-`Clay Institute papers/Separate Inventions.docx` — ChatGPT dialogue developing the
+`Clay Institute papers/Separate Inventions.docx` — research dialogue developing the
 invention/invariant distinction, culminating in a publication-ready Foundations section.
 
 ---
@@ -682,7 +682,7 @@ where Π_{M_I} projects onto the invariant submanifold.
 
 ### 16.5 Source
 
-`Clay Institute papers/Sanders pack.docx` — ChatGPT dialogue developing the "mathematical
+`Clay Institute papers/Sanders pack.docx` — development dialogue developing the "mathematical
 sandpaper" insight: all known refinement operators are Lyapunov flows, and CF's Δ should be
 upgraded to the same status.
 

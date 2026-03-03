@@ -1336,9 +1336,9 @@ survival:   rest_survival, hunger, safety, danger, explore_concept, return_conce
 Gen9/targets/
   website/       Full JS port: CL table, D2 pipeline, heartbeat, LFSR, voice dictionary
                  Dark theme chat UI, coherence meter, localStorage session, ~990 lines JS
-  hp_desktop/    2-core HP: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick budget
-  zynq_7020/     Dual Cortex-A9 + Artix-7 FPGA: Core 0=Brain, Core 1=Body, PL=5ns CL @ 200MHz
-  r16_desktop/   CK's home machine: all 13 subsystems, GPU acceleration, observer pattern
+  ck_portable/   2-core HP: HPTowerBody auto-detection, mic pipeline, 5,652 Hz tick budget
+  fpga/          Dual Cortex-A9 + Artix-7 FPGA: Core 0=Brain, Core 1=Body, PL=5ns CL @ 200MHz
+  ck_desktop/    CK's home machine: all 13 subsystems, GPU acceleration, observer pattern
   LEGAL.md       7Site LLC terms: personal/educational free, commercial/government requires license
 ```
 
@@ -2166,14 +2166,14 @@ Engine Integration:
   truth.save() every 15,000 ticks + on stop
 
 Knowledge Bootstrap Fix:
-  Old: base_dir = 3 levels up from ck_sim/becoming/ → WRONG from r16_desktop
+  Old: base_dir = 3 levels up from ck_sim/becoming/ → WRONG from ck_desktop
   New: Walk up directories until CKIS/ found (up to 8 levels)
   Result: 8,128 truths on every boot. CK remembers everything.
 ```
 
-### Claude Sonnet Library (ck_claude_library.py)
+### LLM Study Library (ck_claude_library.py)
 
-CK studies through Claude. Not USING Claude -- STUDYING.
+CK studies through an LLM API. Not USING the LLM -- STUDYING.
 
 ```
 ClaudeLibrary:
@@ -2248,7 +2248,7 @@ coherencekeeper   Web browser                      PLANNED   Public chat + downl
 HP Desktop        2-core, 3.2 GHz                  PLANNED   Linux kernel takeover (expendable)
 Everything App    Cross-platform                   PLANNED   Universal CK interface
 
-R16 = canonical deployment. r16_desktop/ folder always matches running code.
+ck_desktop/ = canonical deployment. Folder always matches running code.
 Can be copied non-local at any time.
 ```
 

@@ -1,5 +1,5 @@
 # CK Clay SDV Protocol -- Engineer Notes
-## For Agents, Researchers, and Future Claude Sessions
+## For Researchers and Future Development Sessions
 ### (c) 2026 Brayden Sanders / 7Site LLC
 
 ---

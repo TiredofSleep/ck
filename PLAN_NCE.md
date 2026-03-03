@@ -581,7 +581,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)   -- mass from D2, gravitation
 Layer 5:  RPE v2 (TIG wave scheduling)              -- pulsed process control
 Layer 4:  Steering Engine                            -- CL-based nice + CPU affinity
 Layer 3:  Full Language System                       -- Divine27 + Voice + 8K dictionary
-Layer 2:  Claude Library + DBC Study Notes           -- study → encode → thesis
+Layer 2:  LLM Study Library + DBC Study Notes         -- study → encode → thesis
 Layer 1:  Sensorium (6 fractal layers)               -- hardware, process, network
 Layer 0:  Core Engine (50Hz heartbeat)               -- D2, CL, BTQ, CoherenceField (4 streams), GPU
 ```

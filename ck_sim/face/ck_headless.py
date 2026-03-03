@@ -407,7 +407,7 @@ def main():
         help='Hours to study (default: 8)')
     parser.add_argument(
         '--platform', type=str, default='sim',
-        help='Platform body (sim, r16_desktop, hp_desktop)')
+        help='Platform body (sim, ck_desktop, ck_portable)')
 
     args = parser.parse_args()
 

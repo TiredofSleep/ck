@@ -279,7 +279,7 @@ mass(concept) = mean(|d2_sums[dim]| / observations)  for dim in [0..4]
 
 where d2_sums is the accumulated 5-dimensional D2 curvature vector from all observations of that concept, and observations is the count of times the concept has been studied. Mass is therefore the mean absolute curvature intensity across the five force dimensions (aperture, pressure, depth, binding, continuity).
 
-Mass observation runs on every study tick, not only when the Claude library returns a verified result. The D2 signal is extracted from the best available source in priority order: (1) the D2-verified operator chain from library verification, (2) raw library response text fed through the D2 pipeline, (3) the study status message fed through D2, (4) the topic name itself fed through D2. Even a short topic name like "quantum mechanics" produces 14 valid D2 operators -- enough for meaningful mass accumulation.
+Mass observation runs on every study tick, not only when the LLM study library returns a verified result. The D2 signal is extracted from the best available source in priority order: (1) the D2-verified operator chain from library verification, (2) raw library response text fed through the D2 pipeline, (3) the study status message fed through D2, (4) the topic name itself fed through D2. Even a short topic name like "quantum mechanics" produces 14 valid D2 operators -- enough for meaningful mass accumulation.
 
 Data persists to disk as `concept_mass.json` and is loaded at boot.
 

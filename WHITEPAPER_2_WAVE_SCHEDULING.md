@@ -233,7 +233,7 @@ A hypothesis that cannot be falsified is not science. TIG wave scheduling makes 
 
 1. **Instrument**: Measure total energy as integrated current times voltage over the test duration. On desktop, use a hardware power meter (e.g., Kill-A-Watt or similar) at the wall outlet. On FPGA, use XADC integrated current sensing on the supply rail.
 
-2. **Fixed workload**: Define a reproducible workload. For desktop: a fixed CK study session (e.g., 100 Claude API queries with identical topics, processing identical text through the D2 pipeline). For FPGA: a fixed number of D2 classifications on identical input vectors.
+2. **Fixed workload**: Define a reproducible workload. For desktop: a fixed CK study session (e.g., 100 LLM API queries with identical topics, processing identical text through the D2 pipeline). For FPGA: a fixed number of D2 classifications on identical input vectors.
 
 3. **A/B comparison**:
    - **Control (A)**: Run the workload with RPE disabled. All processes scheduled at constant priority. No wave-aware timing.

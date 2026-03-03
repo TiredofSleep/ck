@@ -2,7 +2,7 @@
 
 Source: Slingshot controller design (2026-02-27).
 Grounded portions preserved here for the physical robot target.
-Desktop-applicable portions were extracted to `r16_desktop/ck_sim/doing/ck_pulse_engine.py`.
+Desktop-applicable portions were extracted to `ck_desktop/ck_sim/doing/ck_pulse_engine.py`.
 
 ---
 

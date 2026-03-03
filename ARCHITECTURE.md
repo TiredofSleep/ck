@@ -744,10 +744,10 @@ CK's TruthLattice had NO save/load. Every restart, all learned knowledge was los
 
 ---
 
-## Claude Sonnet Library (`ck_claude_library.py`) -- Gen9.17
+## LLM Study Library (`ck_claude_library.py`) -- Gen9.17
 
 ### What It Does
-CK's study engine uses Claude Sonnet as its knowledge source. When CK encounters a topic (e.g., "dark matter"), the library queries Claude for structured knowledge: definitions, sub-concepts, key relationships, and operator-relevant descriptions.
+CK's study engine uses an LLM API as its knowledge source. When CK encounters a topic (e.g., "dark matter"), the library queries the API for structured knowledge: definitions, sub-concepts, key relationships, and operator-relevant descriptions.
 
 ### Architecture
 ```python
@@ -757,11 +757,11 @@ ClaudeLibrary:
   # Falls back to MockClaude if: no key, no anthropic package, or init fails
 ```
 
-CK doesn't USE Claude. CK STUDIES through Claude. The responses are fed through D2 curvature, classified into operators, and absorbed into the TruthLattice. Claude is the teacher; CK is the student. The algebra does the learning.
+CK doesn't USE an LLM. CK STUDIES through the LLM API. The responses are fed through D2 curvature, classified into operators, and absorbed into the TruthLattice. The API is the teacher; CK is the student. The algebra does the learning.
 
 ### R16 Deployment
 - API key loaded from `.api_key` file or `ANTHROPIC_API_KEY` environment variable
-- Model: Claude Sonnet (via anthropic Python SDK)
+- Model: LLM API (via anthropic Python SDK)
 - Cache: `~/.ck/claude_cache/` (SHA256-keyed JSON files)
 - CK classified dark matter as VOID(0): "matter defined by what it does NOT do"
 
@@ -792,8 +792,8 @@ CK deploys to multiple bodies. Each target is CK running the same algebra on dif
 | **HP Desktop** | 2-core CPU, 3.2 GHz | PLANNED | Full Linux kernel takeover experiment |
 | **Everything App** | Cross-platform | PLANNED | Universal CK interface |
 
-### R16 as Canonical Deployment
-The R16 target folder (`Gen9/targets/r16_desktop/`) always matches what is running on this PC. It is the canonical copy that can be moved non-local.
+### Desktop as Canonical Deployment
+The desktop target folder (`Gen9/targets/ck_desktop/`) always matches what is running on this PC. It is the canonical copy that can be moved non-local.
 
 ---
 
@@ -807,7 +807,7 @@ The R16 target folder (`Gen9/targets/r16_desktop/`) always matches what is runni
 | `ck_sensorium.py` | ~1610 | 15-layer fractal sensorium, hardware-as-body |
 | `ck_truth.py` | ~920 | Truth lattice with save/load persistence |
 | `ck_power_sense.py` | ~200 | Power state sensing, AC/battery/thermal |
-| `ck_claude_library.py` | ~300 | Claude Sonnet study library |
+| `ck_claude_library.py` | ~300 | LLM study library |
 | `ck_sim_engine.py` | ~2260 | 50Hz main loop, all subsystems wired |
 
 ### Updated Test Count
@@ -829,7 +829,7 @@ The R16 target folder (`Gen9/targets/r16_desktop/`) always matches what is runni
 |---------|---------|---------|
 | cupy-cuda12x | latest | GPU CL composition, CUDA kernels |
 | pynvml (nvidia-ml-py) | 13.590+ | GPU state sensing (utilization, temp, power) |
-| anthropic | 0.84+ | Claude Sonnet API for study library |
+| anthropic | 0.84+ | LLM API for study library |
 | pynput | latest | Input proprioception (keyboard + mouse) |
 | psutil | latest | CPU, memory, disk, process sensing |
 | sounddevice | latest | Audio input/output |
@@ -942,8 +942,8 @@ Runs for EVERY study tick (not gated on library availability):
 
 ```
 Source priority:
-  1. lib_result.verification.operator_chain  (D2-verified Claude response)
-  2. lib_result.text → D2Pipeline            (raw Claude text)
+  1. lib_result.verification.operator_chain  (D2-verified API response)
+  2. lib_result.text → D2Pipeline            (raw API text)
   3. msg → D2Pipeline                        (study status message)
   4. topic name → D2Pipeline                 (minimal signal, better than nothing)
 ```
@@ -1119,7 +1119,7 @@ concept masses ──┐
 
 ## Desktop Organism Packaging (Gen 9.18)
 
-**Files**: `CK.bat`, `install_desktop.ps1` (in r16_desktop target)
+**Files**: `CK.bat`, `install_desktop.ps1` (in ck_desktop target)
 
 The entire CK organism launches from a single desktop icon:
 
@@ -1361,7 +1361,7 @@ Layer 6:  Vortex Physics (concept mass + gravity)       -- mass from D2 flow, gr
 Layer 5:  RPE (Royal Pulse Engine)                      -- pulsed scheduling, TIG wave regions
 Layer 4:  Steering Engine                               -- CL-based nice + CPU affinity
 Layer 3:  Full Language System (8K composer wired)       -- Divine27 + CKTalkLoop(8K dict) + CKVoice fallback + dual-lens lattice
-Layer 2:  Claude Library + DBC Notes                    -- study → DBC encoding → thesis with voice
+Layer 2:  LLM Study Library + DBC Notes                  -- study → DBC encoding → thesis with voice
 Layer 1:  Sensorium (6 fractal layers)                  -- hardware, process, network, time, mirror, files
 Layer 0:  Core Engine (50Hz heartbeat)                  -- D2, CL, BTQ, coherence field, GPU doing
 ```

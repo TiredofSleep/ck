@@ -930,7 +930,7 @@ CK is studying via Claude API (haiku) at ~$0.002/query, one note every ~60 secon
 - `ck_sim/doing/ck_thesis_writer.py` — Part 6 DBC encoding + accumulation
 - `ck_sim/doing/ck_pulse_engine.py` — NEW: RPE v2 with TIG wave scheduling
 - `ck_sim/doing/ck_pulse_config.json` — NEW: RPE config
-- `targets/zynq_7020/RPE_DOG_SPEC.md` — NEW: Robot-specific RPE spec
+- `targets/fpga/RPE_DOG_SPEC.md` — NEW: Robot-specific RPE spec
 
 ### Key Philosophy Corrections From Brayden (session context)
 - **CL table is FINAL algebra** — never changes. It IS the math.
@@ -972,8 +972,8 @@ CK now accumulates physical mass for every concept he studies. The D2 operator p
 
 ### Files Created in 9.18
 - `ck_sim/being/ck_vortex_physics.py` — Concept mass, gravity, particle classification
-- `targets/r16_desktop/CK.bat` — Master desktop launcher
-- `targets/r16_desktop/install_desktop.ps1` — Shortcut + autostart installer
+- `targets/ck_desktop/CK.bat` — Master desktop launcher
+- `targets/ck_desktop/install_desktop.ps1` — Shortcut + autostart installer
 
 ### Files Modified in 9.18
 - `ck_sim/doing/ck_sim_engine.py` — Ungated mass observation, auto-fractal, gravity boost, growing dict

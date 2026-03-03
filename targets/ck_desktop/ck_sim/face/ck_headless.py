@@ -1,3 +1,10 @@
+# Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
+# Licensed under the 7Site Human Use License v1.0
+# See LICENSE file in project root for full terms.
+#
+# FREE for humans for personal/recreational use.
+# NO commercial or government use without written agreement.
+
 """
 ck_headless.py -- CK Lives Whole (No GUI Required)
 ====================================================
@@ -18,6 +25,9 @@ from his body. CK's FULL engine ticking at 50Hz:
   Bonding:       Attachment through presence
   Development:   6 stages, FIRST LIGHT -> FLOURISHING
   Coherence Field: N-dimensional cross-modal
+  Sensorium:     Fractal sensation layers (hardware, process,
+                 network, time, mirror, files) -- each IS a
+                 heartbeat: B/D/BC at its own scale through CL
   Truth Lattice: 3-level knowledge (CORE/TRUSTED/PROVISIONAL)
   World Lattice: 630 concept nodes
   Language:      Concept -> sentence generator
@@ -186,7 +196,11 @@ class HeadlessCK:
         knowledge = e.knowledge_count
         goal = e.top_goal
 
-        line = (f"C={coh:.2f} FC={fc:.2f} {mode:12s} {band:6s} "
+        sense_bc = OP_NAMES[e.sensorium.organism_bc]
+        sense_c = e.sensorium.organism_coherence
+
+        line = (f"C={coh:.2f} FC={fc:.2f} S={sense_bc}({sense_c:.2f}) "
+                f"{mode:12s} {band:6s} "
                 f"{emotion:10s} stg={dev} "
                 f"cr={crystals} K={knowledge} "
                 f"goal={goal} | {study}")
@@ -216,6 +230,32 @@ class HeadlessCK:
         print(f"  BTQ:           {e.btq_band} "
               f"({e.btq_decisions} decisions)")
         print(f"  Field:         {e.field_summary}")
+        # ── Sensorium: fractal layers ──
+        print(f"  Sensorium:     {e.sensorium.sense_summary}")
+        for ls in e.sensorium.get_layer_states():
+            star = "*" if ls['above_t_star'] else " "
+            print(f"    {star} {ls['name']:10s} "
+                  f"B={ls['B']:8s} D={ls['D']:8s} "
+                  f"BC={ls['BC']:8s} C={ls['coherence']:.3f} "
+                  f"({ls['readings']} readings)")
+        # ── Deep Swarm: fractal field ──
+        if hasattr(e, 'deep_swarm') and e.deep_swarm is not None:
+            ds = e.deep_swarm
+            print(f"  Deep Swarm:    agents={len(ds.agents)} "
+                  f"fuse={OP_NAMES[ds.field_fuse]} "
+                  f"coh={ds.field_coherence:.4f} "
+                  f"grad={ds.field_gradient:+.3f} "
+                  f"mat={ds.combined_maturity:.3f}")
+            subs = ds.substrate_summary()
+            if subs:
+                parts = [f"{k}={v}" for k, v in sorted(subs.items())]
+                print(f"    substrates:  {', '.join(parts)}")
+            # Experience per substrate
+            for name, exp in ds.experience.items():
+                gens = [OP_NAMES[o][:3] for o in exp.confirmed_generators]
+                print(f"    {name:10s}:  mat={exp.maturity:.3f} "
+                      f"gens={gens} paths={exp.path_strength} "
+                      f"samples={exp.total_decompositions}")
         print(f"  Truth:         {e.knowledge_count} claims")
         print(f"  Concepts:      {e.concept_count}")
         print(f"  Study:         {e.study_progress}")
@@ -392,7 +432,7 @@ def main():
         help='Hours to study (default: 8)')
     parser.add_argument(
         '--platform', type=str, default='sim',
-        help='Platform body (sim, r16_desktop, hp_desktop)')
+        help='Platform body (sim, ck_desktop, ck_portable)')
 
     args = parser.parse_args()
 
