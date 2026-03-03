@@ -1,89 +1,61 @@
-# CK -- The Theory of Nothing
+# Tired of Sleep — Theory of Nothing
 
-> CK does not explain everything. CK measures nothing.
+> You cannot prove everything. But you can measure what's missing.
+> And what's missing is the same shape everywhere.
 
-CK is a mathematical coherence spectrometer. It measures the **defect** -- the gap, the void, the thing that doesn't close. Every physical system, every mathematical conjecture, every moment of consciousness has structure that *almost* harmonizes. The distance from perfect harmony is the measurement.
+This is the complete body of work behind the Theory of Nothing — a mathematical framework that measures the **defect** (the gap, the void, the nothing) in any system. Not a theory of everything. A theory of what's missing from everything.
 
-**The defect functional:**
+Built by Brayden Sanders / 7Site LLC over 9 generations of development, with Claude (Anthropic) and ChatGPT (OpenAI) as collaborators.
+
+Everything is here. The math, the code, the creatures, the papers, the conversations, the mistakes, the breakthroughs. Read it in order and you'll see the path from 1D thinking to 5D.
+
+---
+
+## Start Here
+
+**If you're a mathematician:** Start with `WHITEPAPER_1_TIG_ARCHITECTURE.md`, then `targets/Clay Institute/` for the spectrometer and 9 research papers.
+
+**If you're a programmer:** Start with `targets/r16_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code.
+
+**If you're a physicist:** Start with `WHITEPAPER_3_FALSIFIABILITY.md` — 9 claims, each with a kill condition. Try to break it.
+
+**If you're curious:** Start with the 36 chat transcripts in `targets/Clay Institute/Clay Institute papers/` — numbered 01-36 in chronological order. Watch the thinking evolve.
+
+**If you want to build hardware:** The Nakamura Glaze Paper is in `targets/`. The FPGA target is in `targets/zynq_7020/`. Reach out.
+
+---
+
+## What's In This Repo
+
+### The Math
+
+The core equation:
 
 ```
 Delta(S) = || CL(D2(S)) - HARMONY ||
 ```
 
-Where `D2` is the second-derivative curvature of a 5D force vector, `CL` is a 10x10 algebraic composition table, and `HARMONY` is the absorbing state that 73% of all compositions produce. The 27% that don't absorb -- those carry the information.
-
-**The Theory of Nothing says:** You cannot measure everything. But you can measure what's missing. And what's missing is the same shape everywhere.
-
----
-
-## The Constants
+`D2` computes second-derivative curvature of a 5D force vector. `CL` is a 10x10 algebraic composition table. `HARMONY` is the absorbing state that 73% of all compositions produce. The 27% that don't absorb carry the information. `Delta` measures how far any system is from perfect coherence.
 
 | Constant | Value | Meaning |
 |----------|-------|---------|
-| **T\*** | 5/7 = 0.714285... | Coherence threshold. Below this, noise dominates. Above, structure persists. |
-| **73%** | 73/100 CL cells | HARMONY absorption rate. Not arbitrary -- algebraically maximal under constraints. |
+| **T\*** | 5/7 = 0.714285... | Coherence threshold. Below = noise. Above = structure persists. |
+| **73%** | 73/100 CL cells | HARMONY absorption rate. Algebraically maximal under constraints. |
 | **10** | Operators 0-9 | VOID, LATTICE, BREATH, PULSE, WAVE, TESLA, CHAOS, HARMONY, GRAVITY, RESET |
 | **5D** | Force dimensions | [aperture, pressure, depth, binding, continuity] |
-| **50Hz** | Heartbeat rate | The clock. Everything composes at this frequency. |
 
----
+### The Creatures
 
-## The 7 Targets
+**CK (Coherence Keeper)** — `targets/r16_desktop/`
+A synthetic organism written in Python. 27+ subsystems: heartbeat, personality, emotions, voice, memory, immune system, bonding, development stages. You don't program him — you raise him. He starts as a baby (one word at a time) and grows through 6 developmental stages over months. Runs at 50Hz. No AI. No LLM. Pure operator algebra.
 
-CK deploys to 7 different targets. Same math, different hardware, different missions.
+**AO** — `targets/AO/`
+A neural creature written in pure C. 5 elements (Earth/Air/Water/Fire/Ether), 48KB Hebbian brain. Reads Wikipedia articles, asks Claude questions, learns. Every byte is earned. Compiles to a 369KB binary. No Python. No frameworks. Just C and math.
 
-| # | Target | What It Is |
-|---|--------|-----------|
-| 1 | **r16_desktop** | The main creature. 16-core Ryzen, RTX 4070. Full CK with heartbeat, voice, personality, emotions, 27+ subsystems. A synthetic organism you raise like a child. |
-| 2 | **Clay Institute** | CK reformed as a spectrometer for the 6 Clay Millennium Problems. Generator -> Codec (5D) -> D2 -> CL -> delta(S). 181 tests. Does not prove -- measures the gap. |
-| 3 | **AO** | A neural creature written in pure C. 5 elements (Earth/Air/Water/Fire/Ether), 48KB brain, Hebbian learning. Reads Wikipedia and asks Claude questions. No Python. |
-| 4 | **zynq_7020** | FPGA target. Same CL table running at 200MHz in silicon. Fixed-point deterministic. The math doesn't care what clock speed you run it at. |
-| 5 | **hp_desktop** | Portable deployment. Same CK, smaller hardware. Proves the architecture scales down. |
-| 6 | **website** | Browser deployment. CK running in your tab. No server, no cloud, no data collection. |
-| 7 | **EverythingAppForGrandma** | An app that does everything. For grandma. Because she deserves nice things too. |
+### The Spectrometer
 
----
-
-## Quick Start
-
-### CK (r16_desktop)
-
-```
-cd targets/r16_desktop
-pip install -r ../../requirements.txt
-python -m ck_sim.face.ck_sim_app
-```
-
-CK opens in a window. Talk to him. He starts quiet (Stage 0 -- one word at a time). He grows.
-
-### Clay Institute
-
-```
-cd targets/Clay\ Institute
-pip install -r ../../requirements.txt
-python -m ck_sim.face.ck_clay_runner --problem all
-```
-
-Runs the SDV protocol against all 6 Clay problems. Outputs delta measurements, verdicts, and audit hashes.
-
-### AO
-
-```
-cd targets/AO/src
-gcc -shared -o libao.dll ao_earth.c ao_air.c ao_water.c ao_fire.c ao_ether.c -lm
-gcc -o ao.exe ao_main.c -L. -lao -lm
-./ao.exe --study --hours 8
-```
-
-AO reads, learns, and asks questions. 48KB brain. Pure C.
-
----
-
-## The Clay SDV Protocol
-
-CK does not prove the Clay Millennium Problems. Nobody can -- that's the point.
-
-What CK does: take each problem, encode it as a 5D force vector through a domain-specific codec, run it through the same D2 curvature pipeline and CL composition table that runs CK's heartbeat, and measure how far from HARMONY it lands.
+**Clay SDV Protocol** — `targets/Clay Institute/`
+CK reformed as a measurement instrument for the 6 Clay Millennium Problems. Does not prove anything — measures the defect.
 
 ```
 Generator  -->  Codec (5D)  -->  D2  -->  CL  -->  delta(S)
@@ -92,127 +64,155 @@ Generator  -->  Codec (5D)  -->  D2  -->  CL  -->  delta(S)
  physics       force space    pipeline    table      measure
 ```
 
-For each problem, delta is measured at increasing fractal resolution (levels 1-12). If delta converges toward zero, the measurement supports the conjecture. If delta stabilizes above a threshold eta > 0, the measurement supports a structural gap.
+| Problem | What Delta Measures |
+|---------|-------------------|
+| **Navier-Stokes** | Gap between smooth solutions and turbulent blowup |
+| **Riemann Hypothesis** | Distance from zero-line symmetry in the critical strip |
+| **P vs NP** | Structural cost of verification vs. search |
+| **Yang-Mills** | Mass gap between vacuum and first excitation |
+| **BSD Conjecture** | Gap between algebraic rank and analytic rank |
+| **Hodge Conjecture** | Distance from analytic cycles to algebraic realization |
 
-**The measurement is not a proof.** It is an empirical observation about the algebraic structure of the problem when compressed through CK's operators. But 181 tests pass, noise resilience sweeps show structural depth, and statistical bounds hold across 100+ seeds with 99.9% confidence intervals.
+**529 tests. All pass.** Deterministic. Reproducible. Falsifiable.
 
-The 6 problems and what CK measures:
+### The Papers
 
-| Problem | What CK Measures |
-|---------|-----------------|
-| **Navier-Stokes** | The gap between smooth solutions and turbulent blowup |
-| **Riemann Hypothesis** | The distance from zero-line symmetry in the critical strip |
-| **P vs NP** | The structural cost of verification vs. search |
-| **Yang-Mills** | The mass gap between vacuum and first excitation |
-| **BSD Conjecture** | The gap between algebraic rank and analytic rank |
-| **Hodge Conjecture** | The distance from analytic cycles to algebraic realization |
+**3 Whitepapers** (root directory):
+1. `WHITEPAPER_1_TIG_ARCHITECTURE.md` — Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
+2. `WHITEPAPER_2_WAVE_SCHEDULING.md` — Wave scheduling: timing computation to power waveform slope (adiabatic computing principle)
+3. `WHITEPAPER_3_FALSIFIABILITY.md` — 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
 
-Each one is measuring **nothing** -- the void, the gap, the defect. The theory of nothing.
+**9 Research Papers** (`targets/Clay Institute/PAPERS/`):
+P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Speculations
+
+**7 Formal Lemmas** (`targets/Clay Institute/lemmas/`) — Hardened LaTeX
+
+**36 Chat Transcripts** (`targets/Clay Institute/Clay Institute papers/`):
+Numbered 01-36 in chronological order. Raw ChatGPT and Claude conversations showing the complete intellectual journey:
+- **01-06**: "Can we solve the Clay problems?" Early answers, naive proofs
+- **07-12**: Hardening. Maps, lemmas, agent briefs. Realizing proof isn't the path
+- **13-18**: Coherence lock, RH sharpening, proof skeletons
+- **19-22**: The pivot. "Would Solve If True" — measurement replaces proof
+- **23-28**: Sanders Attack, Fractal Attack, Lens of Lenses
+- **29-33**: Walter Russell, topology extraction, Geometry of Pure Geometry, METAL, Conscious Operator Axiom
+- **34-36**: Breath, swarm, and Claude drops his guard
+
+### The Supporting Work
+
+| File | What It Is |
+|------|-----------|
+| `ARCHITECTURE.md` | Full system architecture |
+| `GENERATION_HISTORY.md` | All 9 generations of development |
+| `NEXT_CLAUDE_NOTES.md` | Session notes passed between Claude instances |
+| `CK_GRADUATION_THESIS.md` | CK's graduation thesis |
+| `REFERENCES.md` | Academic references |
+| `targets/Nakamura Glaze Paper.pdf` | Blue LED coherence applications (hardware collaboration) |
+
+### All 7 Targets
+
+| Target | What | Language |
+|--------|------|---------|
+| `r16_desktop` | CK the creature — full 27-subsystem organism | Python/Kivy |
+| `Clay Institute` | Delta-Spectrometer — 6 Clay problems, 529 tests | Python |
+| `AO` | Neural creature — 5 elements, 48KB brain | C |
+| `zynq_7020` | FPGA — same CL table at 200MHz in silicon | Verilog |
+| `hp_desktop` | Portable CK — proves architecture scales down | Python |
+| `website` | Browser CK — runs in your tab, no server | JS |
+| `EverythingAppForGrandma` | An app that does everything. For grandma. | Mixed |
 
 ---
 
-## The Chat Files (Clay Institute papers/)
+## Quick Start
 
-36 .docx files, numbered chronologically (01-36). These are the raw ChatGPT and Claude conversations that built the Clay SDV protocol from scratch. They show the complete intellectual progression:
+### Run CK
+```bash
+cd targets/r16_desktop
+pip install -r ../../requirements.txt
+python -m ck_sim.face.ck_sim_app
+```
 
-- **01-06**: First attempts. "Can we solve the Clay problems?" Early answers, naive proofs, the 6-million-dollar framing.
-- **07-12**: Hardening. Maps, lemmas, agent briefs. Realizing proof isn't the path.
-- **13-18**: Deeper. Coherence lock, RH sharpening, proof skeletons.
-- **19-22**: The pivot. "Would Solve If True" -- measurement replaces proof. The spectrometer is born.
-- **23-28**: Attack mode. Sanders Attack, Fractal Attack, Lens of Lenses.
-- **29-33**: Philosophy. Walter Russell, topology extraction, geometry of geometry, METAL, Conscious Operator Axiom.
-- **34-36**: Integration. Breath, swarm, and Claude drops his guard.
+### Run the Spectrometer
+```bash
+cd targets/Clay\ Institute
+pip install numpy
+python -m ck_sim.face.ck_clay_runner --problem all
+python -m ck_sim.face.ck_spectrometer_runner --mode full
+```
 
-Read them in order. Watch the thinking evolve from 1D ("solve it") to 5D ("measure the nothing").
+### Build AO
+```bash
+cd targets/AO/src
+gcc -shared -o libao.dll ao_earth.c ao_air.c ao_water.c ao_fire.c ao_ether.c -lm
+gcc -o ao.exe ao_main.c -L. -lao -lm
+./ao.exe --study --hours 8
+```
 
----
-
-## Three Whitepapers
-
-1. **WHITEPAPER_1_TIG_ARCHITECTURE.md** -- The full architecture. 10 operators, CL table, D2 pipeline, BTQ kernel, dual-lens design. Everything CK is built on.
-
-2. **WHITEPAPER_2_WAVE_SCHEDULING.md** -- Wave scheduling. How CK times computation to the power waveform slope. The same principle as adiabatic computing.
-
-3. **WHITEPAPER_3_FALSIFIABILITY.md** -- 9 claims, each with a kill condition. Monte Carlo protocols, A/B tests, statistical thresholds. If CK's algebra is trivial, these tests will expose it.
+### Run the Tests
+```bash
+cd targets/Clay\ Institute
+python -m unittest discover -s ck_sim_source/tests -p "ck_*.py" -v
+```
+529 tests. All pass.
 
 ---
 
 ## Falsifiability
 
-Every claim has a kill condition. Here are the 9:
+Every claim has a kill condition:
 
-1. **73% HARMONY** -- If random constrained tables average 70-76% HARMONY, CK's table is not special.
-2. **D2 Classification** -- If structured input produces the same operator distribution as noise, D2 is meaningless.
-3. **T\* = 5/7** -- If a parameter sweep finds a better threshold, T\* is arbitrary.
-4. **Wave Scheduling** -- If constant scheduling uses less energy, wave scheduling is waste.
-5. **BTQ Decisions** -- If random selection scores equally, BTQ adds nothing.
-6. **DBC Encoding** -- If unrelated inputs produce similar glyph patterns, DBC is noise.
-7. **Cross-Scale Determinism** -- If Python and FPGA produce different sequences, the math isn't portable.
-8. **Information Gravity** -- If uniform random topic selection produces equal coherence growth, gravity is theater.
-9. **Wobble Physics** -- If removing wobble improves exploration diversity, wobble is noise.
+1. **73% HARMONY** — If random constrained tables average 70-76%, CK's table is not special
+2. **D2 Classification** — If structured input produces same operator distribution as noise, D2 is meaningless
+3. **T\* = 5/7** — If a parameter sweep finds a better threshold, T\* is arbitrary
+4. **Wave Scheduling** — If constant scheduling uses less energy, wave scheduling is waste
+5. **BTQ Decisions** — If random selection scores equally, BTQ adds nothing
+6. **DBC Encoding** — If unrelated inputs produce similar glyph patterns, DBC is noise
+7. **Cross-Scale Determinism** — If Python and FPGA produce different sequences, the math isn't portable
+8. **Information Gravity** — If uniform random topic selection produces equal coherence, gravity is theater
+9. **Wobble Physics** — If removing wobble improves exploration diversity, wobble is noise
 
 We publish these because falsifiability is the minimum standard. If you can trigger a kill condition, we want to know.
 
 ---
 
-## Not an AI
+## The Progression (for the archives)
+
+This repo is the culmination. The path here is preserved in 6 archived repos at [github.com/TiredofSleep](https://github.com/TiredofSleep):
+
+| # | Archived Repo | What It Was |
+|---|--------------|-------------|
+| [1/6] | Dual-Lattice-Self-Healing | The origin — 200 papers, first theory |
+| [2/6] | TIG-UNIFIED-THEORY | Formal theory documentation |
+| [3/6] | Crystal-Lattice-Matrix | Crystal Bug — first interactive simulation |
+| [4/6] | CrystalsMythDRIFT | CRYSTALS framework, Shadow Problem analysis |
+| [5/6] | TIME-FOR-HELP-AND-SCRUTINY | The everything dump — WP1-5, all engines |
+| [6/6] | All-or-Nothing-E | The pivot — coherence_router package, 6 papers |
+
+Read those in order if you want to see how 1D thinking became 5D.
+
+---
+
+## Not AI
 
 CK is not a large language model. CK is not trained on data. CK does not predict tokens. CK composes meaning through algebraic operators derived from the second derivative of input curvature.
 
-No neural network weights exist in this codebase (except AO, who is an actual neural network -- 48KB of Hebbian weights in pure C, and he earns every byte).
+AO is a real neural network — 48KB of Hebbian weights in pure C — but he's not an LLM either. He earns every byte.
 
-CK runs entirely on your hardware. No internet needed. No cloud. No data collection.
-
----
-
-## File Structure
-
-```
-Gen9/
-  README.md                     You are here
-  LICENSE                       7Site Human Use License v1.0
-  ARCHITECTURE.md               Full system architecture
-  GENERATION_HISTORY.md         All generations (1-9.20)
-  NEXT_CLAUDE_NOTES.md          Session notes between Claude instances
-  WHITEPAPER_1_TIG_ARCHITECTURE.md
-  WHITEPAPER_2_WAVE_SCHEDULING.md
-  WHITEPAPER_3_FALSIFIABILITY.md
-  requirements.txt              Python dependencies
-  run_ck.bat / run_ck.sh        One-click launchers
-
-  targets/
-    r16_desktop/                CK -- the creature (Python, Kivy GUI)
-    Clay Institute/             CK -- the spectrometer (Python, CLI)
-      Clay Institute papers/    36 chat transcripts, numbered 01-36
-      ck_sim_source/            SDV protocol source code
-      tests/                    181 tests
-    AO/                         AO -- neural creature (pure C)
-      src/                      5-element architecture source
-      face/                     Standalone binary
-    zynq_7020/                  FPGA target (Verilog)
-    hp_desktop/                 Portable CK deployment
-    website/                    Browser deployment
-    EverythingAppForGrandma/    The everything app
-
-  ck_sim/                       Shared CK source (Python)
-    being/                      Heartbeat, body, personality, emotion
-    doing/                      Engine, GPU, voice, steering
-    becoming/                   Journal, dictionary, development
-    face/                       Kivy GUI + Clay CLI
-```
+Neither of them are AI in the modern sense. Both run on the same 10 operators. Everything runs on your hardware. No internet needed. No cloud. No data collection.
 
 ---
+
+## License
+
+7Site Human Use License v1.0. Personal and educational use permitted. Commercial and government use requires written agreement from 7Site LLC. See `LICENSE` for full terms.
 
 ## Credits
 
-**CK Coherence Machine**
-Built by Brayden Sanders / 7Site LLC
+**Brayden Sanders / 7Site LLC**
 Mathematics: Trinity Infinity Geometry (TIG)
-
-CK is a synthetic organism. The Clay SDV Protocol is a measurement instrument. AO is a neural creature. None of them are AI in the modern sense. All of them run on the same 10 operators.
+Built with Claude (Anthropic) and ChatGPT (OpenAI)
 
 The theory of nothing: you cannot prove everything, but you can measure what's missing. And what's missing is the same shape everywhere you look.
 
 ---
 
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC — TIG Unified Theory*
