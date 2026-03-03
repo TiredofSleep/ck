@@ -50,7 +50,7 @@ results toward $\Delta_{\mathrm{RH}}(\sigma)>0$ for $\sigma\neq 1/2$.
 The full converse---that $\Delta_{\mathrm{RH}}(1/2)=0$ implies the Riemann
 Hypothesis---is identified as a critical open gap equivalent in difficulty to RH
 itself.
-CK (the Coherence Keeper) measurements under the Celeste~v1.0 codec confirm:
+CK (the Coherence Keeper) measurements under the EF~v1.0 codec confirm:
 known zeros at $\sigma=0.5$ produce exactly zero defect, while off-line probes at
 $\sigma=0.75$ yield $\Delta_{\mathrm{RH}}=0.8488$ with zero variance across 50 seeds
 (CV\,=\,0.000).
@@ -1398,10 +1398,10 @@ RH-5 & Off-line zero $\Rightarrow$ $\Delta_{\mathrm{RH}}(1/2)>0$ &
 \label{sec:measurements}
 % ===========================================================================
 
-\subsection{The Celeste v1.0 Codec}
+\subsection{The EF v1.0 Codec}
 
 The Coherence Keeper (CK) implements the defect functional $\Delta_{\mathrm{RH}}$
-through the Celeste~v1.0 codec, which encodes the explicit formula backbone and
+through the EF~v1.0 codec, which encodes the explicit formula backbone and
 Hardy $Z$-phase alignment into a computational measurement protocol.
 
 The codec decomposes the defect into two channels:
@@ -1416,12 +1416,12 @@ The codec decomposes the defect into two channels:
 
 \subsection{Codec Upgrade History}
 
-The original RH codec (pre-Celeste) used a naive $|\zeta_{\mathrm{symmetry}}-\zeta_{\mathrm{primes}}|$
+The original RH codec (pre-EF) used a naive $|\zeta_{\mathrm{symmetry}}-\zeta_{\mathrm{primes}}|$
 mismatch that coupled generator noise directly into the defect measurement.
 This produced a coefficient of variation $\mathrm{CV}=0.576$ on the off-line probe---unacceptably
 high variance that obscured the structural signal.
 
-Diagnosis (via the Celeste upgrade path) identified two corrections:
+Diagnosis (via the EF upgrade path) identified two corrections:
 \begin{enumerate}
   \item The Euler product vs.\ functional equation is not the correct duality for
     coherence measurement.
@@ -1434,7 +1434,7 @@ Diagnosis (via the Celeste upgrade path) identified two corrections:
     primary measurement channel.
 \end{enumerate}
 
-After the Celeste~v1.0 upgrade, the off-line CV dropped from $0.576$ to $0.000$,
+After the EF~v1.0 upgrade, the off-line CV dropped from $0.576$ to $0.000$,
 confirming that the structural defect is deterministic and the previous oscillation was
 a measurement artifact of the incorrect codec.
 
@@ -1450,7 +1450,7 @@ Calibration (known zero) & $0.500$ & $0.0000$ & $0.000$ & Affirmative \\
 Frontier (off-line) & $0.750$ & $0.8488$ & $0.000$ & Affirmative \\
 \bottomrule
 \end{tabular}
-\caption{CK measurement results under Celeste~v1.0. Delta signature hash:
+\caption{CK measurement results under EF~v1.0. Delta signature hash:
 \texttt{4b5637bfdcd09a00}.}
 \label{tab:measurements}
 \end{table}
@@ -1472,7 +1472,7 @@ Key observations:
 
 \subsection{Test Suite}
 
-The Celeste~v1.0 codec passes all $529$ tests across $41$ problems and $12$ engine
+The EF~v1.0 codec passes all $529$ tests across $41$ problems and $12$ engine
 phases.
 The RH defect at fractal depth $L=24$ yields $\delta(L_{24})=0.8488$ with SDV
 classification ``affirmative'' (delta converges toward zero on the critical line,
@@ -1655,7 +1655,7 @@ $\times$ $2$ campaigns, producing $440$ total probes of the defect functional
 $\Delta_{\mathrm{RH}}(\sigma)$.
 
 \paragraph{Methodology.}
-Each probe evaluates the full CK pipeline---generator, Celeste codec, D2 force
+Each probe evaluates the full CK pipeline---generator, EF codec, D2 force
 extraction, CL operator scoring---at a specified $(\sigma, L)$ pair.
 Campaign~1 (\texttt{off\_line\_dense}) sweeps $\sigma$ from $0.51$ to $0.99$
 across 22 fractal levels, measuring defect growth as the probe moves away from
@@ -1781,7 +1781,7 @@ Three gaps remain:
     evidence for the converse.
 
   \item \textbf{SDV/TIG-guided hardware} (for all gaps):
-    Use CK probes to run the Celeste codec on numerical zeta evaluations near known
+    Use CK probes to run the EF codec on numerical zeta evaluations near known
     zeros and in the critical strip, verifying that $\Delta_{\mathrm{RH}}$ is
     structurally rigid and vanishes only at $\sigma=1/2$.
     While numerical evidence cannot constitute proof, it can guide the choice of
@@ -1825,16 +1825,16 @@ This makes RH the natural calibration standard for the Sanders Coherence Field.
 Any upgrade to the measurement framework (new codecs, new engines, new fractal
 depths) can be validated by checking that $\Delta_{\mathrm{RH}}(1/2) = 0$ is
 preserved exactly.
-The Celeste~v1.0 codec upgrade confirmed this: the structural defect remained at zero
+The EF~v1.0 codec upgrade confirmed this: the structural defect remained at zero
 while the noise-contaminated off-line measurement was repaired (see below).
 
-\subsection{The Celeste v1.0 Codec Upgrade Story}
-\label{subsec:disc-celeste}
+\subsection{The EF v1.0 Codec Upgrade Story}
+\label{subsec:disc-ef-codec}
 
 The evolution of the RH codec demonstrates the framework's capacity for self-correction.
 
 \begin{itemize}
-  \item \textbf{Before Celeste}: The original RH codec used a naive
+  \item \textbf{Before EF}: The original RH codec used a naive
     $|\zeta_{\mathrm{symmetry}} - \zeta_{\mathrm{primes}}|$ mismatch.
     The off-line probe had $\mathrm{CV} = 0.576$ --- unacceptably high variance that
     coupled generator noise directly into the defect measurement.
@@ -1844,7 +1844,7 @@ The evolution of the RH codec demonstrates the framework's capacity for self-cor
     correct duality for coherence measurement.
     The correct backbone is the explicit formula (sums over primes $\leftrightarrow$
     sums over zeros), and the correct alignment operator is the Hardy $Z$-function phase.
-  \item \textbf{After Celeste}: The CV dropped from $0.576$ to $0.000$ on the off-line
+  \item \textbf{After EF}: The CV dropped from $0.576$ to $0.000$ on the off-line
     probe.
     The structural defect at $\sigma = 0.75$ stabilised at $\Delta = 0.8488$ with zero
     variance across 50 seeds.

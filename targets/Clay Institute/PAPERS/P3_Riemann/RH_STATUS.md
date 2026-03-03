@@ -12,11 +12,11 @@
 | Abstract | COMPLETE |
 | Introduction | COMPLETE (v1.6: historical arc Riemann->Conrey, GUE, Berry-Keating) |
 | Background | COMPLETE (v1.6: analytic continuation, von Mangoldt, Weil, Beurling-Selberg, Selberg class, zero-counting) |
-| Coherence Framework | COMPLETE (v1.6: SDV components, Celeste codec formalization, delta=0 iff sigma=1/2) |
+| Coherence Framework | COMPLETE (v1.6: SDV components, EF codec formalization, delta=0 iff sigma=1/2) |
 | Main Lemmas | COMPLETE (EF+ZP+PN+FPC) |
 | Proofs | COMPLETE (v1.6: expanded RH-3 Beurling-Selberg, RH-4 intermediate steps, RH-5 cancellation obstruction) |
 | CK Measurement Evidence | COMPLETE (v1.4 engine evidence + RH-5 deep probe) |
-| Discussion | COMPLETE (calibration kernel, Celeste, sigma=T*, Berry-Keating, cross-problem) (v1.7: D1 first-derivative subsection added) |
+| Discussion | COMPLETE (calibration kernel, EF codec, sigma=T*, Berry-Keating, cross-problem) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: summary, 3 gaps, falsification F1-F5) |
 | Bibliography | COMPLETE (v1.6: 9 new entries) |
 
@@ -36,12 +36,12 @@
 - [x] Prime Noise Boundedness (Lemma PN) -- `RH_Paper_Scaffold.tex` Section 5
 - [x] Fixed-Point Coherence under TIG Recursion (Lemma FPC) -- `RH_Paper_Scaffold.tex` Section 5
 
-## RH Codec Upgrade — Celeste v1.0 (February 2026)
+## RH Codec Upgrade — EF v1.0 (February 2026)
 
 **Problem**: Original RH codec used naive |zeta_symmetry - zeta_primes| mismatch.
 Off-line generator had noise coupled directly to `sym_val`, causing CV=0.576 in vOmega T6.
 
-**Diagnosis** (via Celeste/ChatGPT relay):
+**Diagnosis** (via ChatGPT relay):
 - Euler product vs functional equation is not the right duality for measurement
 - The correct backbone is the **explicit formula**: sum over primes <-> sum over zeros
 - The correct alignment operator is the **Hardy Z-function phase**: Z(t) = e^{i*theta(t)} * zeta(1/2+it)
@@ -110,8 +110,8 @@ Oscillating scaling behavior (R^2 = 0.004) is consistent with the quasi-periodic
 - **Combined RH defect**: delta_RH(sigma) = delta_EF(sigma) + delta_ZP(sigma); vanishes if and only if sigma = 1/2
 - **EF-Delta Conjecture**: For all non-trivial zeros rho = beta + i*gamma of zeta(s), delta_RH(beta) = 0 implies beta = 1/2 -- the defect functional is a sufficient criterion for the critical line
 - **"Would solve if true" status**: Proving the EF-Delta Conjecture would establish RH by showing the defect functional has a unique zero at the critical line
-- **Proof programme**: (1) Establish monotonicity of delta_EF in |sigma - 1/2| (quadratic lower bound via Celeste codec), (2) Prove Hardy Z-phase rigidity (Z(t) real only on sigma = 1/2), (3) Combine for unconditional contradiction at beta_0 != 1/2
-- **CK empirical evidence**: CV = 0.000 after Celeste v1.0 codec upgrade, monotonic off-line delta, 0 falsifications in 10,000 seeds, oscillating scaling captures quasi-periodic zeta structure
+- **Proof programme**: (1) Establish monotonicity of delta_EF in |sigma - 1/2| (quadratic lower bound via EF codec), (2) Prove Hardy Z-phase rigidity (Z(t) real only on sigma = 1/2), (3) Combine for unconditional contradiction at beta_0 != 1/2
+- **CK empirical evidence**: CV = 0.000 after EF v1.0 codec upgrade, monotonic off-line delta, 0 falsifications in 10,000 seeds, oscillating scaling captures quasi-periodic zeta structure
 
 ### v1.4 Delta-Spectrometer Integration (March 2026)
 
@@ -143,7 +143,7 @@ Oscillating scaling behavior (R^2 = 0.004) is consistent with the quasi-periodic
    - Lemma FPC (Fixed-Point Coherence): delta_RH(1/2, L_k) = 0 for all k >= 3
 4. **Expanded Discussion (Section 7)**:
    - RH as calibration kernel of the framework
-   - Celeste v1.0 codec upgrade story (CV 0.576 -> 0.000)
+   - EF v1.0 codec upgrade story (CV 0.576 -> 0.000)
    - Breath sigma=0.714 ~ T*=5/7 coincidence analysis
    - Berry-Keating connection: self-adjointness locus = zero defect locus
    - Cross-problem: RH vs Hodge breath comparison, anti-correlation r=-0.664

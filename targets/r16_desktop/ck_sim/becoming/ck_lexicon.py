@@ -13,7 +13,7 @@ Operator: LATTICE (1) -- the lexicon IS a lattice of meaning.
 CK's universal lexicon. Maps words across languages to concept nodes via
 operator signatures computed from PHONEMES, not spelling.
 
-Celeste's key insight: "Spelling is a lossy historical artifact; phonemes
+Key insight: "Spelling is a lossy historical artifact; phonemes
 are closer to motor physics." The IPA-to-Hebrew-root mapping preserves
 articulatory physics: bilabials → PE/BET/MEM, velars → KAF/GIMEL,
 nasals → MEM/NUN, glides → VAV/YOD.

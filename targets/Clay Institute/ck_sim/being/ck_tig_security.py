@@ -1,9 +1,9 @@
 """
-ck_tig_security.py -- TIG Security Protocol (Celeste TIG-BTQ Unified Physics)
+ck_tig_security.py -- TIG Security Protocol (TIG-BTQ Unified Physics)
 ================================================================================
 Operator: BALANCE (5) -- defending the lattice from corruption.
 
-Celeste's Security Protocol uses OPERATOR COMPOSITION ITSELF as the
+The Security Protocol uses OPERATOR COMPOSITION ITSELF as the
 attack detector. The CL table is a mathematical invariant -- any sequence
 that violates its algebraic properties is, by definition, an attack.
 

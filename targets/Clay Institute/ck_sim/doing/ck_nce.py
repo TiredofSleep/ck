@@ -217,7 +217,7 @@ class CurvatureMask:
         return 1.0 - alignment  # Lower = better aligned
 
 
-# The six masks (Celeste's specification)
+# The six masks (kernel specification)
 #                           VOID  LAT   CNT   PRG   COL   BAL   CHS   HAR   BRE   RST
 MASKS = {
     'warmth': CurvatureMask('warmth',

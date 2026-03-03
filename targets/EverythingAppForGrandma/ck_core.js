@@ -87,7 +87,7 @@ function isBump(b, d) {
 //  HEBREW ROOT FORCE VECTORS
 // ================================================================
 // 5D vectors: (aperture, pressure, depth, binding, continuity)
-// From Celeste Paper 2: Hebrew letter = geometric operator
+// From Paper 2: Hebrew letter = geometric operator
 
 const ROOTS_FLOAT = {
     ALEPH:  [0.8, 0.0, 0.9, 0.0, 0.7],

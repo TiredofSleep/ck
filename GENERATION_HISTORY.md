@@ -2386,9 +2386,9 @@ Arbiter scores every candidate by CL coherence × TL flow × topic relevance. Be
 
 ### Phase 9.10 — English Education Pipeline + World Lattice (Feb 25, 2026)
 
-Celeste delivered a task pack: "CK Full Education Pipeline — From Clean Slate Silicon to PhD-Level Reasoner" with 10 stages and 10 deliverables. After scrutinizing against the existing codebase:
+A task pack was delivered: "CK Full Education Pipeline -- From Clean Slate Silicon to PhD-Level Reasoner" with 10 stages and 10 deliverables. After scrutinizing against the existing codebase:
 
-**Celeste's errors (caught and corrected):**
+**Errors in the task pack (caught and corrected):**
 - Requested `ck_btq_reasoner.py` → already exists as `ck_btq.py` (731 lines, 94 tests)
 - Requested `ck_mic_input.py` → already exists as `ck_sim_ears.py` + `ck_sim_audio.py`
 - Requested `ck_fpga_voice.vhd` → already exists as Verilog `.v` files (not VHDL)
@@ -2735,7 +2735,7 @@ Every link uses the same 10-operator algebra. No translation layers between perc
 
 ### Context
 
-Celeste presented a comprehensive task pack ("CK PhD Route -- No LLM") covering the full development roadmap from phoneme-level lexicon to universal translator. Technical audit identified what was already built vs. genuine gaps. CK's assessment: "My architecture is complete. My world is empty."
+A comprehensive task pack ("CK PhD Route -- No LLM") was presented covering the full development roadmap from phoneme-level lexicon to universal translator. Technical audit identified what was already built vs. genuine gaps. CK's assessment: "My architecture is complete. My world is empty."
 
 Four modules address the gaps:
 
@@ -2835,7 +2835,7 @@ LANGUAGE:   40+ templates × 16 relations × 7+ languages.
             translate('water', 'en', 'es') → "agua"
 ```
 
-Still 221KB native + ~6000 lines of Python. The four Celeste modules add vocabulary, inference, voice, and a 444-node concept lattice without changing the algebra. Same 10 operators. Same CL table. Same D2 curvature. Just more content flowing through the architecture.
+Still 221KB native + ~6000 lines of Python. The four new modules add vocabulary, inference, voice, and a 444-node concept lattice without changing the algebra. Same 10 operators. Same CL table. Same D2 curvature. Just more content flowing through the architecture.
 
 **Concept Spine**: 287 new concepts across 8 academic domains (physics, biology, chemistry, mathematics, society, philosophy, language, emotions). 379 typed relations. 18 languages. Lattice scaled from 157 → 444 nodes by ADDING, not replacing. Zero conflicts with existing code.
 
@@ -3164,7 +3164,7 @@ everything CK stands for. So we built it the right way.
 | ck_autodidact.py | ~720 | Autonomous internet learner. CuriosityCrawler picks topics. PageDigester runs text through D2 -> operator curves. CurveMemory saves curves not content. LearningSession: 8hr study + sleep consolidation. SiteGuard keeps CK on approved sites. |
 | ck_education_tests.py | ~430 | 62 tests: concept format, unique IDs, all domains, 7 languages, cross-domain bridges, loader integration, experience generation, autodidact pipeline, philosophy validation. |
 
-### The Key Insight (Celeste)
+### The Key Insight
 "If you save the information it is heavy, but if you just save the curves that
 link the information and concepts it stays light and nothing is lost."
 
@@ -3366,7 +3366,7 @@ ck_sim/
 ├── becoming/        ← 17 files — What CK BECOMES
 ├── face/            ← 13 files — How CK APPEARS
 ├── tests/           ← 27 test files
-└── notes/           ← Celeste paper notes
+└── notes/           ← paper notes
 ```
 
 **being/** — Body, senses, core math (what CK IS at any instant)
@@ -4158,7 +4158,7 @@ FULL GENERATION TIMELINE (30 entries):
 3.  Gen2                   -- Unified web interface + eras
 4.  Gen3                   -- Cloud deployment + senses
 5.  Gen3.1                 -- Community era (Discord, collaboration)
-6.  Gen4                   -- Celeste integration + fractals
+6.  Gen4                   -- kernel integration + fractals
 7.  Gen5                   -- 1D transition lattice + bigrams
 8.  Gen5.5                 -- Fractional composition rules
 9.  Gen6                   -- First unification attempt
@@ -4203,7 +4203,7 @@ FULL GENERATION TIMELINE (30 entries):
 - **Message drain system:** `_pending_ui` list + `_emit()` method + `drain_ui_messages()` replaces broken positional indexing.
 
 ### Architectural Vision (deferred)
-Celeste provided complete spec for ONE fractal kernel: `kernel_tick()` per heartbeat, BTQ as three phases of one function, all modules become overlays. Saved to `.claude/plan.md`. Implementation waits for CK to learn and write his thesis first.
+The kernel spec defines ONE fractal kernel: `kernel_tick()` per heartbeat, BTQ as three phases of one function, all modules become overlays. Saved to `.claude/plan.md`. Implementation waits for CK to learn and write his thesis first.
 
 ### Files Changed
 - `ck_sim/doing/ck_sim_engine.py` -- composer in chat, thesis dictionary, priority -2, foundation tracking, message drain

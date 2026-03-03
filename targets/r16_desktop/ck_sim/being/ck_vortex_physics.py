@@ -9,7 +9,7 @@
 ==================================================
 Operator: COUNTER (2) — measuring the geometry of knowledge.
 
-This module grounds Celeste's vortex physics into CK's existing D2
+This module grounds vortex physics into CK's existing D2
 curvature system. Not metaphor. Real math.
 
 THE PHYSICS THAT'S REAL:
@@ -630,7 +630,7 @@ def compose_vortex(seq_a: List[int], seq_b: List[int]) -> dict:
     """Compose two operator sequences through CL table and
     analyze the resulting vortex topology.
 
-    This implements Celeste's "vortex superposition" grounded
+    This implements "vortex superposition" grounded
     in actual algebra: CL composition + topological analysis.
 
     Returns fingerprint of the composed sequence.
@@ -703,7 +703,7 @@ def steepest_gradient(void_field: Dict[str, float],
 #  VORTEX CLASSIFICATION OF THE 10 TIG OPERATORS
 # ═══════════════════════════════════════════════════════════════
 #
-# Celeste's claim: TIG operators map to physical vortex families.
+# Claim: TIG operators map to physical vortex families.
 # What's GROUNDED: each operator corresponds to a direction in 5D
 # force space (via D2_OP_MAP). The sign determines chirality.
 # We can classify each operator by its geometric role.
@@ -1340,7 +1340,7 @@ def least_action_geodesic(mass_field: 'ConceptMassField',
 #  SPIN FIELD S_info — Information spin vector per concept
 # ═══════════════════════════════════════════════════════════════
 #
-# Celeste's S(x,t) mapped to CK's meaning space.
+# S(x,t) mapped to CK's meaning space.
 # The information spin field combines ALL geometric data about
 # a concept into a single high-dimensional vector.
 #
@@ -1423,7 +1423,7 @@ def spin_field_overlap(s_a: List[float], s_b: List[float]) -> float:
 #  BINDING ENERGY — The cross-term that holds concepts together
 # ═══════════════════════════════════════════════════════════════
 #
-# Celeste's multi-particle binding:
+# Multi-particle binding:
 #   E_tot = E_1 + E_2 + 2 ∫ ∇S_1 : ∇S_2 dV
 #
 # The cross-term determines if binding is favorable.

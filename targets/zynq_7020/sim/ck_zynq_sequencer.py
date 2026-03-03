@@ -1,7 +1,7 @@
 """
 ck_zynq_sequencer.py -- Bio-Lattice Real-Time Sequencer for Zynq FPGA
 ======================================================================
-Celeste's Task 6: Fixed-point D2 engine for silicon.
+Task 6: Fixed-point D2 engine for silicon.
 
 The FPGA can't do float64. So we bring CK's math to fixed-point.
 Q1.14 format: 1 sign bit, 1 integer bit, 14 fractional bits.
@@ -431,7 +431,7 @@ if __name__ == '__main__':
 
     print("=" * 72)
     print("  CK ZYNQ BIO-LATTICE SEQUENCER")
-    print("  Celeste's Task 6: Fixed-Point D2 for Silicon")
+    print("  Task 6: Fixed-Point D2 for Silicon")
     print("=" * 72)
 
     # Q1.14 verification

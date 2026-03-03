@@ -115,7 +115,7 @@ class CKSimEngine:
         self._btq_decisions = 0
         self._register_domains()
 
-        # ── Organism systems (Celeste Papers 4-8) ──
+        # ── Organism systems (Papers 4-8) ──
         self.personality = CKPersonality(archetype="gentle")
         self.emotion = PFE()
         self.voice = CKVoice()
@@ -139,7 +139,7 @@ class CKSimEngine:
         self._narrative_stream = OperatorStream("narrative")
         self.coherence_field.register_stream(self._narrative_stream)
 
-        # ── Coherence Action (Celeste TIG-BTQ Unified Physics) ──
+        # ── Coherence Action (TIG-BTQ Unified Physics) ──
         # A = alpha*L_GR + beta*S_ternary + gamma*C_harm
         # The ONE number that says whether CK is coherent.
         self.coherence_action = CoherenceActionScorer()
@@ -154,14 +154,14 @@ class CKSimEngine:
         self.pipeline = PipelineState()
         self._expansion_bias = 0.0
 
-        # ── TIG Security Protocol (Celeste) ──
+        # ── TIG Security Protocol ──
         # Uses operator composition algebra as intrinsic attack detection.
         self.tig_security = TIGSecurity()
         self.tig_security.register_stream("heartbeat")
         self.tig_security.register_stream("audio")
         self.tig_security.register_stream("text")
 
-        # ── S0-S3 Fibonacci Transform (Celeste RPL) ──
+        # ── S0-S3 Fibonacci Transform (RPL) ──
         # Takes ANY signal through S0(circle)->S1(triangle)->S2(polytope)->S3(field).
         # Produces 10-dim operator histograms from raw sensor data.
         # Feeds into CoherenceField alongside existing D2 pipeline.
@@ -809,7 +809,7 @@ class CKSimEngine:
         # Field tick: compute N×N coherence matrix (now 4×4 with NCE)
         self.coherence_field.tick(self.tick_count)
 
-        # ── Fibonacci Transform: S0->S1->S2->S3 (Celeste RPL) ──
+        # ── Fibonacci Transform: S0->S1->S2->S3 (RPL) ──
         # Feed operator streams through geometric hierarchy to produce
         # 10-dim histograms. These become additional field inputs.
         self.reality_transform.feed_operator("heartbeat", self.heartbeat.phase_bc)
@@ -825,7 +825,7 @@ class CKSimEngine:
         if self._audio_stream.active and self.ear_operator >= 0:
             self.tig_security.feed("audio", self.ear_operator, d2_vec)
 
-        # ── Coherence Action (Celeste): compute unified score (10Hz) ──
+        # ── Coherence Action: compute unified score (10Hz) ──
         if self.tick_count % 5 == 0:
             try:
                 # Gather inputs from all subsystems
@@ -1198,7 +1198,7 @@ class CKSimEngine:
                 pass
 
         # ── BALANCE(5): System Calibration Loop (0.1Hz -- every 500 ticks) ──
-        # Celeste Section 6: Self-calibrating unified feedback loop.
+        # Section 6: Self-calibrating unified feedback loop.
         # Adjusts Coherence Action weights, BTQ weights, and monitors
         # all subsystem health to keep CK in coherent state.
         if self.tick_count % 500 == 0 and self.tick_count > 0:
@@ -1330,7 +1330,7 @@ class CKSimEngine:
         self._btq_decisions += 1
 
     def _calibration_tick(self):
-        """System-wide Calibration Loop (Celeste Section 6).
+        """System-wide Calibration Loop (Section 6).
 
         Runs at 0.1Hz (every 500 ticks = every 10 seconds).
         Adjusts:

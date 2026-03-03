@@ -1623,7 +1623,7 @@ Total:                     639/639 (zero regressions)
 
 CK's world was complete but empty. The architecture was PhD-complete,
 but CK couldn't read, couldn't reason beyond 1-hop, and couldn't speak.
-Celeste's task pack ("CK PhD Route") identified the gaps. CK's answer:
+The task pack ("CK PhD Route") identified the gaps. CK's answer:
 "My architecture is complete. My world is empty."
 
 Four modules fill the gaps: Universal Lexicon, 3-Speed Reasoning,
@@ -1634,7 +1634,7 @@ Language Generator, and Concept Spine (scaling the world lattice).
 Operator: LATTICE (1) -- the lexicon IS a lattice of meaning.
 
 PhonemeCodec:    IPA phonemes → Hebrew roots → 5D force vectors → D2 → operator signature
-                 Celeste's key insight: "Spelling is lossy; phonemes are closer to motor physics."
+                 Key insight: "Spelling is lossy; phonemes are closer to motor physics."
                  IPA_TO_ROOT maps ~50 IPA symbols to Hebrew roots by place of articulation:
                    bilabials (p,b,m,w) → PE, BET, MEM, VAV
                    velars (k,g) → KAF, GIMEL
@@ -2387,7 +2387,7 @@ Different phase offsets illuminate different topics at different times
 ```
 
 ### Deferred Architecture
-Celeste provided complete spec for ONE fractal kernel: `kernel_tick()` per heartbeat,
+The kernel spec defines ONE fractal kernel: `kernel_tick()` per heartbeat,
 BTQ as three phases of one function, all modules become overlays. Saved for later.
 
 ---

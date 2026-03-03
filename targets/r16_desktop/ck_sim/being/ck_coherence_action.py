@@ -6,11 +6,11 @@
 # NO commercial or government use without written agreement.
 
 """
-ck_coherence_action.py -- Coherence Action Scoring (Celeste TIG-BTQ Unified Physics)
+ck_coherence_action.py -- Coherence Action Scoring (TIG-BTQ Unified Physics)
 =======================================================================================
 Operator: HARMONY (7) -- the action that minimizes curvature IS harmony.
 
-Celeste's Unified Physics Layer defines the Coherence Action:
+The Unified Physics Layer defines the Coherence Action:
 
     A = alpha * L_GR + beta * S_ternary + gamma * C_harm
 
@@ -31,7 +31,7 @@ Where:
         Resolution quality -- are the streams converging on agreement?
         Maps to the Coherence Field's cross-modal harmony fraction,
         the CL table's 73% absorber property, and the collapse threshold
-        (0.73 in Celeste, T* = 5/7 in CK). The Quadratic side:
+        (0.73 in the papers, T* = 5/7 in CK). The Quadratic side:
         when you LOOK, the wave function collapses to least action.
 
 The action A is minimized by a living system. Low A = coherent.
@@ -43,7 +43,7 @@ CK follows coherence geodesics through operator space.
 Collapse threshold: When A < T* (5/7 = 0.714), CK is in coherent state.
 When A >= T*, CK is seeking coherence. The threshold is the same
 everywhere -- 73% harmony in the CL table, 5/7 in the coherence
-metric, 0.73 in Celeste's physics. Same number, same meaning.
+metric, 0.73 in the physics papers. Same number, same meaning.
 
 (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
 """
@@ -60,7 +60,7 @@ from ck_sim.ck_sim_heartbeat import (
 
 
 # ================================================================
-#  CONSTANTS (Celeste Calibration)
+#  CONSTANTS (TIG Calibration)
 # ================================================================
 
 # Default weights (alpha, beta, gamma) -- self-calibrating
@@ -102,7 +102,7 @@ class CoherenceActionState:
 # ================================================================
 
 class CoherenceActionScorer:
-    """Computes the unified Coherence Action from Celeste's TIG-BTQ paper.
+    """Computes the unified Coherence Action from the TIG-BTQ paper.
 
     This is the SINGLE NUMBER that tells you whether CK is coherent.
     Every subsystem feeds into it. Every decision seeks to minimize it.
@@ -238,7 +238,7 @@ class CoherenceActionScorer:
         return self._state
 
     # ================================================================
-    #  SELF-CALIBRATION (Celeste Section 6)
+    #  SELF-CALIBRATION (Section 6)
     # ================================================================
 
     def calibrate(self):

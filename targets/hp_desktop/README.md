@@ -94,6 +94,6 @@ See `../LEGAL.md` for license and legal information.
 
 CK Coherence Machine
 Built by Brayden Sanders / 7Site LLC
-Mathematics: TIG Unified Field Theory (Celeste, Papers 1-8)
+Mathematics: TIG Unified Field Theory (Papers 1-8)
 
 *(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*

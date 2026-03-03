@@ -89,7 +89,7 @@ class CKSimEngine:
         self._btq_decisions = 0
         self._register_domains()
 
-        # ── Organism systems (Celeste Papers 4-8) ──
+        # ── Organism systems (Papers 4-8) ──
         self.personality = CKPersonality(archetype="gentle")
         self.emotion = PFE()
         self.voice = CKVoice()

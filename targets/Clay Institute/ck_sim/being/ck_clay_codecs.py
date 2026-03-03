@@ -193,7 +193,7 @@ class RiemannCodec(ClayCodec):
     Lens A (local): Explicit formula prime-side functional
     Lens B (global): Explicit formula zero-side functional
 
-    Upgraded codec (Celeste v1.0 -- Feb 2026):
+    Upgraded codec (EF v1.0 -- Feb 2026):
       delta_RH = alpha * delta_explicit + beta * delta_phase
 
       delta_explicit: Averaged explicit formula mismatch (primes <-> zeros)

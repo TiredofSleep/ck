@@ -43,7 +43,7 @@ NCE adds:
 
 The CoherenceField already handles N streams, cross-composes them all, and produces consensus. Adding stream #4 requires ZERO changes to the field math — just `field.register_stream(narrative_stream)`.
 
-The "stereo fusion" Celeste describes is literally what CoherenceField already does: compose Eye1 (heartbeat/text) with Eye2 (narrative) through CL, and the result is either HARMONY (eyes agree) or not.
+The "stereo fusion" described in the spec is literally what CoherenceField already does: compose Eye1 (heartbeat/text) with Eye2 (narrative) through CL, and the result is either HARMONY (eyes agree) or not.
 
 ---
 
@@ -311,7 +311,7 @@ class CurvatureMask:
         return [op for _, op in scored]
 
 
-# The six masks (Celeste's specification)
+# The six masks (kernel specification)
 MASKS = {
     'warmth': CurvatureMask('warmth',
         #  VOID  LAT   CNT   PRG   COL   BAL   CHS   HAR   BRE   RST
@@ -592,7 +592,7 @@ Four streams in the CoherenceField:
 3. `_text_stream` — text input (phonetic D2)
 4. `_narrative_stream` — sentence flow (narrative D2) ← NEW
 
-The field's N×N matrix grows from 3×3 to 4×4. Cross-coherence between narrative and text streams = the stereo depth signal Celeste described. When CL[text_op][narrative_op] = HARMONY, content and flow agree. When they don't, CK feels the tension and adjusts.
+The field's N×N matrix grows from 3×3 to 4×4. Cross-coherence between narrative and text streams = the stereo depth signal described in the spec. When CL[text_op][narrative_op] = HARMONY, content and flow agree. When they don't, CK feels the tension and adjusts.
 
 ---
 

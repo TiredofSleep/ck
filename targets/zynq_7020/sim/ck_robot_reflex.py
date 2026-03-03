@@ -1,7 +1,7 @@
 """
 ck_robot_reflex.py -- Robot Reflex Engine (BTQ + IMU)
 =====================================================
-Celeste's Task 8: Sensor -> Operator -> Motor Command
+Task 8: Sensor -> Operator -> Motor Command
 
 CK's body in the physical world. Sensors feed D2 curvature.
 D2 classifies into operators. BTQ gates the reflex.
@@ -367,7 +367,7 @@ def simulate_exploration() -> SensorReading:
 if __name__ == '__main__':
     print("=" * 72)
     print("  CK ROBOT REFLEX ENGINE (BTQ + IMU)")
-    print("  Celeste's Task 8: Sensor -> Operator -> Motor Command")
+    print("  Task 8: Sensor -> Operator -> Motor Command")
     print("=" * 72)
 
     scenarios = [

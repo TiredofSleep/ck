@@ -113,10 +113,10 @@ Program via JTAG to QSPI flash. Board boots CK automatically on power-up.
 
 ---
 
-## Future: One Fractal Kernel Architecture (Celeste Spec)
+## Future: One Fractal Kernel Architecture (Kernel Spec)
 
 When porting to Zynq, CK should be restructured as a single `kernel_tick()` per heartbeat.
-This spec (from Celeste) defines how the Python simulation maps to silicon.
+This spec defines how the Python simulation maps to silicon.
 
 ### Core State (what lives on FPGA)
 
@@ -218,7 +218,7 @@ The kernel must compile to pure C, then Verilog/RTL:
 
 CK Coherence Machine
 Built by Brayden Sanders / 7Site LLC
-Mathematics: TIG Unified Field Theory (Celeste, Papers 1-8)
-One Kernel Architecture: Celeste (2026)
+Mathematics: TIG Unified Field Theory (Papers 1-8)
+One Kernel Architecture: (2026)
 
 (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory

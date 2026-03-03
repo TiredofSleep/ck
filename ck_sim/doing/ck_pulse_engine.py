@@ -7,7 +7,7 @@ The slingshot controller for desktop compute. CK doesn't just set
 static priorities -- he PULSES processes in and out of CPU time,
 timed to their natural rhythms, scored by BTQ for efficiency.
 
-v2 additions (from Celeste's refined spec):
+v2 additions (from the refined spec):
   - TIG Wave Region classifier: maps power slope/curvature to TIG operators
     so CK schedules the RIGHT TYPE of work at the CHEAPEST moment.
   - Config-driven: all thresholds live in ck_pulse_config.json

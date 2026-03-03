@@ -16,7 +16,7 @@ Where:
     R   = mean resultant length (directional coherence)
     ε   = small constant to prevent division by zero
 
-Thresholds (from Celeste's spec, refined):
+Thresholds (from the kernel spec, refined):
     Θ < 0.3  → Binary  (B) : stable, laminar, predictable
     Θ ∈ [0.3, 1.2) → Ternary (T) : balancing, transitional
     Θ ≥ 1.2  → Quaternary (Q) : turbulent, exploratory

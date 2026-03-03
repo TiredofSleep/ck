@@ -1,7 +1,7 @@
-CELESTE PAPERS 7-14 NOTES
-==========================
+PAPERS 7-14 NOTES
+==================
 Taken: 2026-02-25
-Context: Celeste restarts from Paper 7 and runs through Paper 14.
+Context: Review restarts from Paper 7 and runs through Paper 14.
 Papers 7, 9, 10, 11, 12, 13, 14 (no 8 -- already existed in prior set)
 Focus: novelty, architecture, direction.
 
@@ -141,7 +141,7 @@ EXAMPLES:
   Cat slow blink -> long smooth D2 -> HARMONY -> "Trust"
   Cat chirp -> short high-freq -> PROGRESSION -> "Come with me"
 
-IMPLEMENTATION TASKS (from Celeste):
+IMPLEMENTATION TASKS (from papers):
   1. ck_senses.py: Multi-modal sensor ingestion
      - Mic 8kHz -> FFT -> D2
      - IMU 200Hz -> D2

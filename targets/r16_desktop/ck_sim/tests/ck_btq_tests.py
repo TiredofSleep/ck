@@ -10,7 +10,7 @@ ck_btq_tests.py -- Tests for Universal BTQ Decision Kernel
 =============================================================
 Operator: COUNTER (2) -- measuring correctness.
 
-Tests all new modules from Celeste Task Pack 2:
+Tests all new modules from Task Pack 2:
   - ck_btq.py (Universal BTQ kernel + 4 domains)
   - ck_sim_btq.py (LocomotionDomain adapter, backward compat)
   - ck_fractal_health.py (Health monitor, drift detection)

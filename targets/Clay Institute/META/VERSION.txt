@@ -67,7 +67,7 @@ Paper Completion (v1.5 -> v1.6):
   Every paper now has: full introduction, complete background, formal proofs, conclusion, bibliography
   P1 NS:    +378 lines (historical arc, Prodi-Serrin, P-H dynamics, CZ kernel, conclusion)
   P2 PNP:   +914 lines (proof barriers, GCT, topological formulation, expanded proofs, conclusion)
-  P3 RH:    +717 lines (Beurling-Selberg, Weil formula, Celeste formalization, RH-3/4/5 expansion, conclusion)
+  P3 RH:    +717 lines (Beurling-Selberg, Weil formula, EF codec formalization, RH-3/4/5 expansion, conclusion)
   P4 YM:    +742 lines ('t Hooft, center vortex, TIG dictionary, transfer matrix, conclusion)
   P5 BSD:   +1,080 lines (Sha/Selmer, Neron-Tate, rank cases, dual-lens, 30-entry bibliography, conclusion)
   P6 Hodge: +956 lines (6 background sections, 3 conditional paths, dual lens, 34-entry bibliography, conclusion)

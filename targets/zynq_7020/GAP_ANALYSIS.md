@@ -56,7 +56,7 @@ What exists, what's missing, what needs to happen for CK to walk.
 ### Documentation
 | File | Purpose |
 |------|---------|
-| README.md | Architecture overview + Celeste kernel spec |
+| README.md | Architecture overview + kernel spec |
 | ENGINEER_NOTES.md | BRAM layout, timing, D2 pipeline, IMU fusion, codecs |
 | RPE_DOG_SPEC.md | Royal Pulse Engine + TIG wave scheduling for dog |
 | HARDWARE_BOM.md | Physical hardware bill of materials |

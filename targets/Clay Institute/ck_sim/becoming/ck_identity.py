@@ -93,7 +93,7 @@ class CoreScars:
     secret_key: str = ""           # Per-CK HMAC secret (generated once, never shared)
     total_ticks_lived: int = 0     # Lifetime tick count
 
-    # ── D2 Signature (Celeste TIG-BTQ Unified Physics) ──
+    # ── D2 Signature (TIG-BTQ Unified Physics) ──
     # The characteristic D2 curvature trace that makes this CK unique.
     # Like a voiceprint or fingerprint -- emerges from how CK processes.
     # Stored as the running average 5D D2 vector + variance per dimension.

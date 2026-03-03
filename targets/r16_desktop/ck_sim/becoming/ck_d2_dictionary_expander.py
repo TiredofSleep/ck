@@ -470,7 +470,7 @@ class DictionaryExpander:
         """Build the expanded dictionary.
 
         Priority order:
-          1. Curated words (verified by Brayden/Celeste)
+          1. Curated words (verified by Brayden)
           2. Academic expansion words (PhD vocabulary)
           3. Auto dictionary by frequency (highest first)
 

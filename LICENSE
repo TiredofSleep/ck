@@ -12,7 +12,7 @@ TERMS OF USE:
    Brayden Sanders, "Sanders Coherence Field," 7Site LLC, 2026.
 
 2. COMMERCIAL USE -- RESTRICTED.
-   Integration into products, services, or AI training datasets
+   Integration into products, services, or commercial applications
    is strictly prohibited without a written license agreement
    from 7Site LLC.
 
@@ -21,19 +21,51 @@ TERMS OF USE:
    is strictly prohibited without a written license agreement
    from 7Site LLC.
 
-4. REDISTRIBUTION -- NOT PERMITTED.
-   No part of this work may be reproduced, distributed, or transmitted
-   without prior written permission from the copyright holder.
+4. AI / MACHINE LEARNING -- PROHIBITED.
+   This work may NOT be used to train, fine-tune, distill, or
+   otherwise incorporate into any artificial intelligence or machine
+   learning model, regardless of whether such use is commercial,
+   academic, or non-profit. This includes but is not limited to
+   large language models, neural networks, and foundation models.
 
-5. MODIFICATION -- PERSONAL USE ONLY.
+5. REDISTRIBUTION -- NOT PERMITTED.
+   No part of this work may be reproduced, distributed, or transmitted
+   outside of GitHub without prior written permission from the
+   copyright holder. GitHub forks are permitted for personal study only.
+
+6. MODIFICATION -- PERSONAL USE ONLY.
    You may modify the code for personal study. Modified versions
    may not be distributed.
 
-6. NO WARRANTY.
+7. NO WARRANTY.
    THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
    7SITE, LLC DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
    BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
    PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+8. LIMITATION OF LIABILITY.
+   IN NO EVENT SHALL 7SITE, LLC OR ITS OWNER BE LIABLE FOR ANY
+   DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
+
+9. INDEMNIFICATION.
+   BY ACCESSING, DOWNLOADING, USING, OR REFERENCING THIS WORK IN
+   ANY CAPACITY, YOU AGREE TO INDEMNIFY, DEFEND, AND HOLD HARMLESS
+   BRAYDEN SANDERS, 7SITE LLC, AND THEIR RESPECTIVE OFFICERS,
+   DIRECTORS, EMPLOYEES, AGENTS, SUCCESSORS, AND ASSIGNS FROM AND
+   AGAINST ANY AND ALL CLAIMS, DAMAGES, LOSSES, LIABILITIES, COSTS,
+   AND EXPENSES (INCLUDING REASONABLE ATTORNEYS' FEES) ARISING OUT
+   OF OR RELATED TO:
+   (a) YOUR USE OR MISUSE OF THIS WORK;
+   (b) YOUR VIOLATION OF ANY TERM OF THIS LICENSE;
+   (c) YOUR VIOLATION OF ANY THIRD-PARTY RIGHT, INCLUDING ANY
+       INTELLECTUAL PROPERTY, PRIVACY, OR PROPRIETARY RIGHT;
+   (d) ANY CLAIM THAT YOUR USE OF THIS WORK CAUSED DAMAGE TO A
+       THIRD PARTY;
+   (e) ANY DERIVATIVE WORK, APPLICATION, OR IMPLEMENTATION YOU
+       CREATE BASED ON OR INSPIRED BY THIS WORK.
+   THIS INDEMNIFICATION OBLIGATION SURVIVES TERMINATION OF THIS
+   LICENSE AND YOUR USE OF THE WORK.
 
 This archive contains original mathematical research including:
 - TIG Operator Grammar (0-9)
@@ -45,3 +77,5 @@ This archive contains original mathematical research including:
 - Three Whitepapers (TIG Architecture, Wave Scheduling, Falsifiability)
 
 Contact: 7Site LLC, Arkansas
+Email: brayden.ozark@gmail.com
+GitHub: github.com/TiredofSleep

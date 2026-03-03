@@ -271,7 +271,7 @@ The hardening plan is successful when:
 ## vOmega Final Recursive Core Test
 
 **Date**: February 2026
-**Result**: 7/7 PASS (after RH codec upgrade — Celeste v1.0)
+**Result**: 7/7 PASS (after RH codec upgrade — EF v1.0)
 
 | Test | Name | Result |
 |------|------|--------|
@@ -283,7 +283,7 @@ The hardening plan is successful when:
 | T6 | Noise-As-Information | PASS (RH CV=0.000 after codec upgrade) |
 | T7 | Central Kernel Extraction | PASS |
 
-**RH Codec Upgrade (Celeste v1.0)**:
+**RH Codec Upgrade (EF v1.0)**:
 - **Problem**: RH off-line codec had noise coupled to Euler-symmetry mismatch (CV=0.576)
 - **Fix**: Replaced naive ζ_symmetry vs ζ_primes with explicit formula backbone + Hardy Z-phase alignment
 - **Result**: RH CV dropped from 0.576 to 0.000. All 6 problems now noise-stable.

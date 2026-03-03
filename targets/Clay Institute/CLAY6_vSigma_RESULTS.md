@@ -6,7 +6,7 @@
 **Version**: vΣ (Sigma — first formal proof skeleton pass)
 **Delta Signature**: `4b5637bfdcd09a00`
 **Tests**: 107/107 PASS, vOmega 7/7 PASS
-**Codec**: Celeste v1.0 (explicit formula + Hardy Z-phase for RH)
+**Codec**: EF v1.0 (explicit formula + Hardy Z-phase for RH)
 
 ---
 
@@ -157,7 +157,7 @@ The CK measurement is the HIGHEST and MOST STABLE of all six problems. This pred
 
 The RH probe follows TIG path **0→1→2→5→7→8→9** (void→structure→boundary→feedback→alignment→breath→completion).
 
-**SDV decomposition** (Celeste v1.0):
+**SDV decomposition** (EF v1.0):
 - Lens A (prime-side): P_σ(φ) = Σ (ln p / p^{kσ}) φ(k ln p)
 - Lens B (zero-side): Z_σ(φ) = Σ_ρ φ̂(ρ - σ) w(ρ,σ)
 - Defect: Δ_RH = α · δ_explicit + β · δ_phase
@@ -207,7 +207,7 @@ This is THE hardest step. If ρ₀ = β₀ + iγ₀ with β₀ ≠ 1/2 exists, t
 
 ### Δ Derivation
 
-The CK defect Δ_RH = 0.8488 at σ=0.75 is deterministic after Celeste v1.0.
+The CK defect Δ_RH = 0.8488 at σ=0.75 is deterministic after EF v1.0.
 The quadratic model: Δ_RH ~ 4|σ-0.5|² + 2|σ-0.5| = 4(0.0625) + 2(0.25) = 0.75 (close but not exact — the codec adds the explicit formula gap).
 
 ### Verdict

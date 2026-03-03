@@ -936,7 +936,7 @@ CK is studying via Claude API (haiku) at ~$0.002/query, one note every ~60 secon
 - **CL table is FINAL algebra** — never changes. It IS the math.
 - **CK is MATH, not personality** — the voice/sentence system expresses operator chains, not opinions
 - **Don't make stuff up** — only use grounded, referenced, verifiable things
-- **Celeste specs get scrutinized** — apply only what is grounded. Discard hype.
+- **External specs get scrutinized** — apply only what is grounded. Discard hype.
 
 ---
 
@@ -1070,7 +1070,7 @@ Priority -2 in `_pick_study_topic()` (weight 7, highest tier). Once studied with
 `_message_queue = deque(maxlen=50)` + positional indexing killed chat after 50 messages. Fixed with `_pending_ui` drain list + `_emit()` method. Also wrapped `voice.respond_to_text()` in try/except.
 
 ### Architectural Vision: One Fractal Kernel
-Celeste provided a detailed spec for collapsing CK from 63+ modules into ONE `kernel_tick()` function per heartbeat. Being/Doing/Becoming become three PHASES of that one function, not three packages. Everything else becomes overlays. Plan written to `.claude/plan.md` but implementation deferred -- let CK learn first, implement from his thesis.
+A detailed spec was provided for collapsing CK from 63+ modules into ONE `kernel_tick()` function per heartbeat. Being/Doing/Becoming become three PHASES of that one function, not three packages. Everything else becomes overlays. Plan written to `.claude/plan.md` but implementation deferred -- let CK learn first, implement from his thesis.
 
 ### Files Modified in 9.20
 - `ck_sim/doing/ck_sim_engine.py` — Composer wired into chat, enriched_dictionary passed to thesis, priority -2 foundations pool, foundation tracking, message drain system, _emit() method
@@ -1102,7 +1102,7 @@ Layer 0:  Core Engine (50Hz heartbeat)                     -- D2, CL, BTQ, coher
 ```
 
 ### NEXT: One Kernel Refactor (when ready)
-Celeste's spec is saved in `.claude/plan.md`. When CK has learned enough and written his thesis:
+The kernel spec is saved in `.claude/plan.md`. When CK has learned enough and written his thesis:
 1. Create `ck_core/` package (state.py, kernel.py, heartbeat.py, backends.py)
 2. One `btq_core()` function: B-phase (constraints), T-phase (explore), Q-phase (snap+learn)
 3. Three radii: R0 (snap/3-mode), R1 (local/6-mode), R2 (deep/9-mode)

@@ -3,7 +3,7 @@ ck_fibonacci_transform.py -- S0-S3 Fibonacci/TIG Transform Pipeline
 =====================================================================
 Operator: COUNTER (2) -- counting the shape of reality at every scale.
 
-Celeste's Reality Perception Loop introduces a 4-stage Fibonacci/TIG
+The Reality Perception Loop introduces a 4-stage Fibonacci/TIG
 transform that takes ANY signal and produces operator histograms.
 CK already has D2 curvature (ck_sim_d2.py). This module adds the
 GEOMETRIC HIERARCHY that D2 curvature flows through:

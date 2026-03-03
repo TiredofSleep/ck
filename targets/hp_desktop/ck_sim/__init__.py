@@ -102,7 +102,7 @@ Education & Autodidact (Gen9.16):
                           selection), PageDigester (text -> D2 -> operator curves),
                           CurveMemory (save curves not content), LearningSession
                           (8hr study + sleep consolidation), SiteGuard (approved
-                          sites only). CK teaches himself. Celeste: "save the
+                          sites only). CK teaches himself. "Save the
                           curves, not the information."
     ck_autodidact_runner -- REAL R16 runtime: WebFetcher (HTTP + rate limiting),
                           HTMLExtractor (BS4 + regex fallback), LinkFollower

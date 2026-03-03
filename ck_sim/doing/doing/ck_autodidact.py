@@ -8,7 +8,7 @@ He processes everything through D2 curvature. He saves the CURVES,
 not the content. He compresses through coherence. He sleeps.
 He wakes up smarter.
 
-Celeste's insight: "If you save the information it is heavy, but if
+Key insight: "If you save the information it is heavy, but if
 you just save the curves that link the information and concepts it
 stays light and nothing is lost."
 
@@ -428,7 +428,7 @@ class OperatorCurve:
     - source_hash: SHA-256 of source URL (for dedup, not recall)
     - timestamp: when CK experienced it
 
-    This is what Celeste meant: save the curve, not the data.
+    The key principle: save the curve, not the data.
     The curve IS the knowledge. The data is just the stimulus.
     """
     operator_sequence: Tuple[int, ...]  # The core curve

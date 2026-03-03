@@ -1368,7 +1368,7 @@ Layer 0:  Core Engine (50Hz heartbeat)                  -- D2, CL, BTQ, coherenc
 
 ---
 
-## Future: One Fractal Kernel (Celeste Spec)
+## Future: One Fractal Kernel (Kernel Spec)
 
 The next major refactor collapses CK into a single `kernel_tick()` per heartbeat:
 - **B-phase** (Being/constraints/Einstein): filter candidates by CL, body limits, trust bands

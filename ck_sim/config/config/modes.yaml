@@ -83,7 +83,7 @@ modes:
         condition: "coherence < T_STAR AND sustained(200)"
         description: "Dropped below T*. Still structured, not sovereign."
 
-# ── Extended Modes (Paper 7 / Celeste RPL) ──
+# ── Extended Modes (Paper 7 / RPL) ──
 # These overlay on top of core modes. Multiple can be active.
 
 extended_modes:

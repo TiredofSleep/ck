@@ -1,5 +1,6 @@
 Sanders Coherence Field
 (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+DOI: 10.5281/zenodo.18852047
 
 FOR HUMAN USE ONLY.
 No commercial or government use without written agreement from 7Site LLC.
@@ -29,5 +30,10 @@ TERMS OF USE:
    license agreement from 7Site LLC.
 5. Academic citation is permitted with proper attribution to:
    Brayden Sanders, "Sanders Coherence Field," 7Site LLC, 2026.
+6. This work may NOT be used to train, fine-tune, distill, or
+   otherwise incorporate into any artificial intelligence or machine
+   learning model, regardless of purpose.
 
 Contact: 7Site LLC, Arkansas
+Email: brayden.ozark@gmail.com
+GitHub: github.com/TiredofSleep

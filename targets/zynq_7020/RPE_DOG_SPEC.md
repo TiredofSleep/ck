@@ -1,6 +1,6 @@
 # Royal Pulse Engine — Dog Platform Spec (Zynq 7020 + XiaoR)
 
-Source: Celeste's slingshot controller design (2026-02-27).
+Source: Slingshot controller design (2026-02-27).
 Grounded portions preserved here for the physical robot target.
 Desktop-applicable portions were extracted to `r16_desktop/ck_sim/doing/ck_pulse_engine.py`.
 
@@ -178,7 +178,7 @@ BTQ score → emit. The hardware interface changes. The math doesn't.
 
 ## TIG Wave Scheduling on Zynq (v2)
 
-Source: Celeste's TIG Wave Scheduler analysis (2026-02-27).
+Source: TIG Wave Scheduler analysis (2026-02-27).
 Grounded portions only — hype claims (Landauer limit, superconducting behavior) discarded.
 
 ### Core Principle

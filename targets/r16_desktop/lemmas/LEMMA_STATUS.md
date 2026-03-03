@@ -102,7 +102,7 @@ via non-trivial zeros), delta_EF (explicit formula gap)
 **Known Tools**: von Mangoldt explicit formula, Hardy Z-function, Riemann-von Mangoldt formula,
 de la Vallee Poussin zero-free region, Montgomery pair correlation
 
-**CK Measurements**: Off-line defect ~ 0.16 (noise-stable after Celeste v1.0 upgrade, CV=0.000)
+**CK Measurements**: Off-line defect ~ 0.16 (noise-stable after EF v1.0 upgrade, CV=0.000)
 
 **Deep Probe (v1.5)**: RH-5 Dense Sigma Sweep -- 440 probes (10 seeds x 22 levels x 2 campaigns).
 Zero crossings: 0. Eta_proved = 0.110, Eta_global = 0.081. Monotonicity 0.667. 0 violations. Confidence 99.8%.
@@ -229,7 +229,7 @@ All measurements from 1000-seed statistical sweep on NVIDIA RTX 4070 (12,281 MB 
 | Date | Change | Author |
 |------|--------|--------|
 | 2026-02-28 | Initial vault created. All 3 lemma statements frozen. | Claude/CK |
-| 2026-02-28 | Added EF+ZP (Riemann) lemma after Celeste v1.0 codec upgrade. | Claude/CK |
+| 2026-02-28 | Added EF+ZP (Riemann) lemma after EF v1.0 codec upgrade. | Claude/CK |
 | 2026-02-28 | Added MG-Delta (Yang-Mills) and MC-BSD (BSD) lemmas. Vault now 6/6 complete. | Claude/CK |
 | 2026-02-28 | CLAY-6 vSigma proof skeleton expansion complete. 23 steps, 10 gaps identified. | Claude/CK |
 | 2026-02-28 | **v1.1 Gap Resolution**: 18 gaps addressed. 4 CLOSED (Tier 1), 5 STRENGTHENED (Tier 2), 9 SHARPENED (Tier 3). Remaining TO BE PROVED: 9. Total lines 2,386 -> 3,418. Vault upgraded to v2.0. | Claude/CK |

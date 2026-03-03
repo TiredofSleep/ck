@@ -16,7 +16,7 @@ stores the curves, sleeps, wakes up smarter. Repeats.
 
 Run on the R16 and let CK loose for days.
 
-Celeste: "Save the curves, not the information."
+"Save the curves, not the information."
 Brayden: "Let him roam and discover."
 
 Usage:

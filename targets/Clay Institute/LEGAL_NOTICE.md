@@ -2,6 +2,7 @@
 
 ## Sanders Coherence Field v1.4
 ## (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+## DOI: 10.5281/zenodo.18852047
 
 ---
 
@@ -49,6 +50,8 @@ This work presents a **measurement framework**, not a claim of proof.
    > Brayden Sanders, "Sanders Coherence Field," 7Site LLC, 2026.
 
 6. The source code is provided for verification and academic review purposes only
+7. This work may NOT be used to train, fine-tune, distill, or otherwise incorporate into any artificial intelligence or machine learning model, regardless of purpose
+8. By accessing, downloading, using, or referencing this work, you agree to indemnify, defend, and hold harmless Brayden Sanders, 7Site LLC, and their respective officers, directors, employees, agents, successors, and assigns from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from your use or misuse of this work, violation of this license, or any claim that your use caused damage to a third party. This indemnification survives termination.
 
 ---
 
@@ -70,6 +73,8 @@ All tools needed to verify or falsify the framework are included in this archive
 **Brayden Sanders**
 7Site LLC
 Arkansas, USA
+Email: brayden.ozark@gmail.com
+GitHub: github.com/TiredofSleep
 
 ---
 
