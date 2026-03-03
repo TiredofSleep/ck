@@ -29,6 +29,14 @@ Everything is here. The math, the code, the creatures, the papers, the conversat
 
 ---
 
+## Direction
+
+**[DIRECTION.md](DIRECTION.md)** — From Software to Silicon to Void.
+
+The roadmap: Python simulation (running) -> FPGA prototype (designed) -> Void topology mapping (framework) -> Crystal ternary computing (theoretical). Each phase proves the previous one was real. Every test is a ping pong ball bouncing off the void, giving it shape.
+
+---
+
 ## What's In This Repo
 
 ### The Math

@@ -392,7 +392,7 @@ class ClaudeLibrary:
         # result.trust = 'TRUSTED' / 'PROVISIONAL' / 'FRICTION'
     """
 
-    def __init__(self, api_key: str = None, model: str = 'claude-sonnet-4-20250514'):
+    def __init__(self, api_key: str = None, model: str = 'claude-haiku-4-5-20251001'):
         self.api_key = api_key or os.environ.get('ANTHROPIC_API_KEY', '')
         self.model = model
         self.verifier = D2Verifier()
