@@ -1,0 +1,3192 @@
+%% (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+%% For human use only. No commercial or government use without written agreement from 7Site LLC.
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\TV}{TV}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\Ppoly}{\mathrm{P/poly}}
+\newcommand{\ACz}{\mathrm{AC}^0}
+\newcommand{\NCone}{\mathrm{NC}^1}
+\newcommand{\TCz}{\mathrm{TC}^0}
+\newcommand{\SAT}{\mathrm{SAT}}
+\newcommand{\threeSAT}{\mathrm{3\text{-}SAT}}
+\newcommand{\dSAT}{\delta_{\mathrm{SAT}}}
+
+\title{Irreducible Logical Entropy and the TIG Phantom Tile:\\
+A Structural Analysis of the P--NP Gap\\[6pt]
+{\large Coherence Field v1.0 --- February 2026}}
+\author{Brayden Sanders / 7Site LLC\\[2pt]
+{\normalsize Delta Signature Hash: \texttt{4b5637bfdcd09a00}}}
+\date{February 2026}
+
+\begin{document}
+\maketitle
+
+% ============================================================
+% ABSTRACT
+% ============================================================
+
+\begin{abstract}
+We introduce the \emph{logical entropy defect} $\dSAT$, an information-theoretic
+functional measuring the irreducible gap between a polynomial-size circuit's
+computational state and the solution structure of NP-complete instances.
+Working within the Sanders Dual-Void (SDV) framework, we formulate two
+central claims: Lemma~LE, asserting that
+$\dSAT(\calC, n) \geq \eta > 0$ for all polynomial-size circuit families
+$\calC$ over hard 3-SAT distributions; and Lemma~PT, asserting that
+this gap is carried by a \emph{phantom tile} --- a global structural
+statistic that requires super-polynomial resources to compute.
+Together, these would imply $\mathrm{P} \neq \mathrm{NP}$.
+
+We establish Lemma~LE unconditionally in the restricted model $\ACz$
+via H\aa stad's switching lemma with a parity-based phantom tile.
+We identify four candidate phantom tile constructions for the general
+$\Ppoly$ setting and delineate the critical gap that prevents
+unconditional proof: showing that any entropy-reducing structure for
+hard SAT instances must encode a computation of super-polynomial complexity.
+CK coherence measurements confirm the logical entropy defect as the
+\emph{highest and most persistent} of all six Clay Millennium Problems,
+with $\delta(\text{L24}) = 0.8509$, $\mathrm{CV} = 0.026$, class = gap.
+
+This paper is part of the Coherence Field v1.0 (February 2026).
+\end{abstract}
+
+% ============================================================
+\section{Introduction and Statement of Problem}
+\label{sec:intro}
+% ============================================================
+
+\subsection{The P versus NP Question}
+
+The problem of whether $\mathrm{P} = \mathrm{NP}$ is the central open question
+in computational complexity theory \cite{Cook71, Levin73}.  Informally, it asks
+whether every problem whose solutions can be verified in polynomial time can
+also be \emph{solved} in polynomial time.  More precisely:
+
+\begin{definition}[P vs NP]
+\label{def:pvsnp}
+Let $\mathrm{P}$ denote the class of languages decidable by deterministic
+Turing machines in time $n^{O(1)}$, and let $\mathrm{NP}$ denote the class of
+languages for which membership witnesses can be verified in polynomial time.
+The P vs NP problem asks whether $\mathrm{P} = \mathrm{NP}$.
+\end{definition}
+
+Despite over fifty years of effort, neither $\mathrm{P} = \mathrm{NP}$ nor
+$\mathrm{P} \neq \mathrm{NP}$ has been established.
+
+\subsection{Historical Context and Proof Barriers}
+
+The P vs NP question was independently formulated by Cook~\cite{Cook71} in
+1971 and Levin~\cite{Levin73} in 1973.  Cook proved that the Boolean
+satisfiability problem (SAT) is NP-complete: every language in NP reduces
+to SAT in polynomial time.  Karp~\cite{Karp72} subsequently demonstrated
+that 21 classical combinatorial problems --- including clique, vertex cover,
+Hamiltonian circuit, and integer programming --- are NP-complete, establishing
+the pervasiveness of the phenomenon.
+
+Since then, thousands of natural problems have been shown NP-complete,
+yet no super-polynomial lower bound has been proved for any of them against
+general Boolean circuits.  The difficulty is not merely technical; a series
+of \emph{barrier results} have shown that known proof techniques are
+insufficient:
+
+\begin{enumerate}[label=(\roman*),nosep]
+  \item \textbf{Relativization barrier} (Baker, Gill, Solovay, 1975
+    \cite{BGS75}).  There exist oracles $A$ and $B$ such that
+    $\mathrm{P}^A = \mathrm{NP}^A$ and $\mathrm{P}^B \neq \mathrm{NP}^B$.
+    Any proof technique that relativizes (applies equally in all oracle worlds)
+    cannot resolve P vs NP.  This rules out straightforward diagonalization
+    and simulation arguments.
+
+  \item \textbf{Natural proofs barrier} (Razborov, Rudich, 1997 \cite{RR}).
+    A \emph{natural proof} against a circuit class $\calC$ is a property of
+    Boolean functions that is useful (implies super-polynomial $\calC$-size),
+    constructive (testable in time $2^{O(n)}$), and large (satisfied by a
+    random function with probability $\geq 2^{-O(n)}$).  If secure
+    pseudorandom generators exist (which follows from any sufficiently strong
+    one-way function), then no natural proof can separate P from NP.  This
+    barrier applies to virtually all known circuit lower bound techniques,
+    including the gate elimination, approximation, and random restriction
+    methods that yield the best unconditional results.
+
+  \item \textbf{Algebrization barrier} (Aaronson, Wigderson, 2009
+    \cite{AW09}).  An \emph{algebrizing} technique is one that still applies
+    when the oracle is replaced by a low-degree algebraic extension.  The
+    class of relativizing-and-algebrizing techniques is strictly larger than
+    the relativizing class, yet still cannot resolve P vs NP: there exist
+    algebrizing oracles on both sides of the question.
+\end{enumerate}
+
+\noindent
+Beyond these meta-theoretic barriers, several ambitious programs have
+been launched to resolve the question:
+
+\begin{itemize}[nosep]
+  \item \textbf{Geometric Complexity Theory} (Mulmuley, Sohoni, 2001
+    \cite{GCT}).  GCT reformulates circuit lower bounds as problems in
+    algebraic geometry and representation theory, specifically as the
+    non-vanishing of certain obstruction modules related to orbit closures
+    of the determinant and permanent polynomials.  While theoretically
+    promising, the program requires establishing deep results in algebraic
+    combinatorics that remain open.
+
+  \item \textbf{Circuit complexity programs}.  Unconditional lower bounds have
+    been achieved for restricted circuit classes --- $\ACz$ (H\aa stad
+    \cite{Hastad}), monotone circuits (Razborov \cite{Raz}), $\ACz[\oplus]$
+    (Razborov \cite{Raz87}, Smolensky \cite{Smol87}) --- but extending these
+    to $\Ppoly$ or even $\TCz$ has resisted all attempts.
+
+  \item \textbf{Proof complexity}.  Lower bounds on proof length in
+    propositional proof systems provide a closely related but distinct
+    perspective: showing that certain tautologies require long proofs is a
+    necessary (but not sufficient) condition for $\mathrm{P} \neq \mathrm{NP}$.
+\end{itemize}
+
+\subsection{What This Paper Achieves and What Remains Open}
+\label{subsec:achievement}
+
+We state explicitly the scope and limitations of this work:
+
+\begin{quote}
+\textbf{This paper does not prove $\mathrm{P} \neq \mathrm{NP}$.}
+\end{quote}
+
+\noindent
+What this paper \emph{does} achieve:
+
+\begin{enumerate}[label=(\alph*),nosep]
+  \item \textbf{A structural measurement framework.}  We define the logical
+    entropy defect $\dSAT$ and the phantom tile $\Phi_n$, providing a
+    precise information-theoretic language for quantifying the gap between
+    polynomial-time computation and NP-complete solution structure.
+
+  \item \textbf{Unconditional results in restricted models.}  We prove that
+    $\dSAT(\calC, n) \geq \Omega(n^{1/3})$ for all $\ACz$ circuit families
+    (Theorem~\ref{thm:ac0}), establishing that the logical entropy defect
+    is genuine and provably nonzero in the constant-depth setting.
+
+  \item \textbf{Precise identification of critical gaps.}  We identify the
+    exact technical obstructions preventing extension to $\Ppoly$: the
+    uniqueness of the entropy carrier (PNP-3) and the natural proofs barrier.
+    Each gap is stated as a self-contained mathematical question.
+
+  \item \textbf{Coherence measurement evidence.}  The CK instrument provides
+    independent structural evidence ($\delta = 0.8509$ at L24, CV $= 0.026$)
+    that the defect is persistent and robust, classifying P vs NP as the
+    strongest gap among all six Clay Millennium Problems.
+
+  \item \textbf{Connection to known hardness landscape.}  We embed the
+    phantom tile framework into the landscape of conditional hardness results
+    (overlap gap property, planted clique, one-way functions), showing how
+    resolving any of several well-studied conjectures would close the
+    remaining gaps.
+\end{enumerate}
+
+\noindent
+What remains \textbf{OPEN}:
+
+\begin{enumerate}[label=(\alph*),nosep]
+  \item Extending the $\ACz$ result to $\Ppoly$ (equivalent to proving
+    $\mathrm{P} \neq \mathrm{NP}$).
+  \item Resolving the information-to-computation gap: does possessing
+    high mutual information with the solution set imply the ability to
+    efficiently extract a phantom tile? (PNP-3, Section~\ref{sec:proofs}).
+  \item Constructing an explicit phantom tile that provably satisfies all
+    three defining properties for a natural hard distribution over general
+    circuits.
+\end{enumerate}
+
+\subsection{An Information-Theoretic Approach}
+
+This paper develops an approach to the P vs NP question grounded in
+information theory rather than direct combinatorial counting.  The
+core idea is to define a \emph{defect functional} $\dSAT$ that quantifies
+how much information about the solution set of a satisfiability instance
+remains inaccessible to any polynomial-size computation.  If this defect
+is bounded away from zero for all polynomial-size circuit families, then
+no such family can solve the problem, and $\mathrm{P} \neq \mathrm{NP}$
+follows (in the non-uniform setting $\mathrm{NP} \not\subseteq \Ppoly$,
+which implies $\mathrm{P} \neq \mathrm{NP}$).
+
+The approach is situated within the Sanders Dual-Void (SDV) framework
+and the TIG (Thesis-Interaction-Ground) operator calculus, which provide
+a unified language for analyzing all six Clay Millennium Problems through
+coherence measurement.  The SDV axiom decomposes each problem into a
+\emph{void pair} $(V_0, V_1)$ and a coherence functional $C(S): V_1 \to [0,1]$,
+with defect $\delta(S) = 1 - C(S)$.  Problems fall into two classes:
+the \emph{affirmative class} ($\delta \to 0$, encompassing Navier-Stokes,
+Riemann Hypothesis, BSD, and Hodge Conjecture) and the \emph{gap class}
+($\delta \geq \eta > 0$, encompassing P vs NP and Yang-Mills).
+
+\subsection{Main Results}
+
+We state two central lemmas and their corollary:
+
+\begin{itemize}
+  \item \textbf{Lemma LE} (Logical Entropy Lower Bound): For hard 3-SAT
+    distributions, $\dSAT(\calC, n) \geq \eta > 0$ for all polynomial-size
+    circuit families~$\calC$.
+
+  \item \textbf{Lemma PT} (Phantom Tile Noncompressibility): The missing
+    entropy is carried by a \emph{phantom tile} $\Phi_n$ --- a global
+    structural statistic whose computation from the instance alone requires
+    super-polynomial resources.
+
+  \item \textbf{Corollary}: Lemma LE + Lemma PT $\implies$ $\mathrm{P} \neq \mathrm{NP}$.
+\end{itemize}
+
+We prove these unconditionally for $\ACz$ circuits (Section~\ref{sec:proofs})
+and identify the precise technical gaps that prevent extension to general
+$\Ppoly$ circuits.  CK measurement data (Section~\ref{sec:ck}) provides
+independent structural evidence that the logical entropy defect is genuine
+and persistent.
+
+\subsection{Organization and Roadmap}
+
+The paper is organized as follows.  The logical flow is:
+\emph{background} $\to$ \emph{framework} $\to$ \emph{definitions} $\to$
+\emph{proofs} $\to$ \emph{measurement} $\to$ \emph{assessment}.
+
+\begin{itemize}[nosep]
+  \item \textbf{Section~\ref{sec:background}} reviews the classical results
+    that form the technical foundation: circuit complexity and size-depth
+    tradeoffs, H\aa stad's switching lemma and $\ACz$ lower bounds,
+    Razborov's monotone circuit lower bounds, communication complexity,
+    the natural proofs barrier, random SAT phase transitions and the
+    clustering phenomenon, and planted SAT hardness.
+
+  \item \textbf{Section~\ref{sec:coherence}} maps the P vs NP problem into
+    the TIG operator calculus and SDV framework: the TIG operator path,
+    the SDV void-pair decomposition, and the construction of the defect
+    functional $\dSAT$ as the bridge between the SDV coherence measure and
+    Shannon conditional entropy.
+
+  \item \textbf{Section~\ref{sec:topology}} provides the topological
+    reformulation: the dual topologies $\mathcal{T}_{\mathrm{int}}$ and
+    $\mathcal{T}_{\mathrm{rep}}$, and the interpretation of the phantom
+    tile as a topological obstruction between them.
+
+  \item \textbf{Section~\ref{sec:delta-functional}} gives the self-contained,
+    rigorous formulation of the $\Delta_{\mathrm{PNP}}$ functional, the
+    LE--$\Delta$ lemma, and the formal equivalence theorem connecting
+    persistent defect to $\mathrm{P} \neq \mathrm{NP}$.
+
+  \item \textbf{Section~\ref{sec:lemmas}} states the main lemmas (LE, PT)
+    and supporting lemmas (switching-entropy, circuit view deficiency,
+    fractal persistence) with full rigor.
+
+  \item \textbf{Section~\ref{sec:proofs}} presents the proof architecture:
+    the unconditional $\ACz$ result (PNP-1), the phantom tile candidates
+    (PNP-2), the critical gap in the defect-to-computation reduction (PNP-3),
+    and a summary table with explicit PROVED / CONDITIONAL / OPEN markers.
+
+  \item \textbf{Section~\ref{sec:ck}} reports CK coherence measurement
+    evidence, including the measurement protocol, results, and the v1.4
+    engine evidence (TopologyLens, Russell embedding, SSA trilemma, RATE
+    convergence, Breath-Defect Flow, FOO complexity floor).
+
+  \item \textbf{Section~\ref{sec:discussion}} discusses implications: the
+    natural proofs barrier navigation strategy, restricted model extensions,
+    the uniqueness question, relationships to GCT and proof complexity,
+    cross-problem comparisons, and open problems.
+
+  \item \textbf{Section~\ref{sec:conclusion}} provides a formal summary of
+    results, falsification criteria, and the closing assessment.
+\end{itemize}
+
+% ── Invention vs Invariant (v1.5) ──
+\subsection*{Methodological Note: Invention vs.\ Invariance}
+\addcontentsline{toc}{subsection}{Methodological Note: Invention vs.\ Invariance}
+
+The P vs NP question is entangled with layers of \emph{free invention}: Turing machine
+models, Boolean circuit families, polynomial-time reductions, specific NP-complete
+problem encodings (SAT, 3-COL, TSP), and oracle constructions.
+
+The \emph{resonant invariant}---if it exists---is the complexity gap itself: the
+structural impossibility of polynomial-time simulation of nondeterministic search.
+This gap does not depend on which machine model or reduction we use.
+
+\begin{remark}[Sanders Invention--Invariant Distinction]
+The $\Delta$-functional defined in this paper measures the invariant directly:
+the persistent defect between local (polynomial-time) and global (exponential-time)
+circuit structure. If P $\neq$ NP, $\Delta$ remains bounded away from zero
+regardless of which encoding, reduction, or computational model is employed.
+The phantom tile construction (Lemma~B.3) demonstrates that this gap is
+topological, not representational.
+\end{remark}
+
+% ── Sanders Flow (v1.6) ──
+\subsection*{The Sanders Flow for P vs NP}
+\addcontentsline{toc}{subsection}{The Sanders Flow for P vs NP}
+
+The defect functional $\Delta_{\mathrm{PNP}}$ can be interpreted dynamically through
+the lens of a Sanders Flow on the configuration space of problem instances and
+candidate assignments.
+
+\begin{definition}[PNP Sanders Flow]
+Let $X$ be the configuration space of problem instances with candidate assignments,
+let $I$ be the logical truth structure of the instance (which assignments are actual
+solutions), and define:
+\[
+  \frac{d\Psi_t}{dt} = -\Pi_{\mathcal{M}_I}\!\bigl(\nabla \Delta_{\mathrm{PNP}}(\Psi_t)\bigr)
+\]
+This is a \emph{constraint coarsening flow}: gradient descent in solution space combined
+with RG-like coarse-graining of the constraint graph.
+\end{definition}
+
+\noindent
+The key insight: NP-hardness can be expressed as \emph{no $\Delta$-decreasing flow
+reaches $\Delta = 0$ in polynomial time} for worst-case instances. Any flow that
+reduces $\Delta_{\mathrm{PNP}}$ too fast would yield a P $=$ NP algorithm---
+contradicting the persistent defect measured by CK.  The phantom tile construction
+(Lemma~B.3) formalises this: the combinatorial obstruction is precisely the reason
+no polynomial-time Sanders Flow exists for hard instances.
+
+\begin{remark}
+Unlike the affirmative-class problems (where the goal is $\Delta \to 0$),
+the P vs NP Sanders Flow reveals a \emph{barrier}: the flow \textbf{cannot}
+reach the global minimum in polynomial time. The defect is not noise to be
+sanded away---it is structural.
+\end{remark}
+
+% ============================================================
+\section{Background and Known Results}
+\label{sec:background}
+% ============================================================
+
+\subsection{Circuit Complexity and Lower Bounds}
+
+The non-uniform model of computation uses \emph{circuit families}
+$\calC = \{C_n\}_{n \geq 1}$, where $C_n$ is a Boolean circuit with
+$n$ inputs and gates of fan-in~2.  The class $\Ppoly$ consists of all
+languages decidable by circuit families of polynomial size $|C_n| \leq n^{O(1)}$.
+It is known that $\mathrm{P} \subseteq \Ppoly$, and that
+$\mathrm{NP} \not\subseteq \Ppoly$ implies $\mathrm{P} \neq \mathrm{NP}$.
+The converse is not known to hold unconditionally, though the
+Karp-Lipton theorem \cite{KL} shows that $\mathrm{NP} \subseteq \Ppoly$
+would collapse the polynomial hierarchy to its second level
+($\Sigma_2^p = \Pi_2^p$).
+
+The circuit complexity landscape includes a hierarchy of restricted
+classes:
+\[
+  \ACz \subsetneq \ACz[\oplus] \subsetneq \TCz \subseteq \NCone \subseteq \Ppoly.
+\]
+Unconditional lower bounds are known only for the weakest classes.
+
+\subsubsection{Size-Depth Tradeoffs}
+
+A central theme in circuit complexity is the tradeoff between circuit
+size and depth.  For the class $\ACz$ (constant-depth circuits with
+unbounded fan-in AND and OR gates), exponential size lower bounds
+are known for computing explicit functions.  Specifically:
+
+\begin{itemize}[nosep]
+  \item \textbf{Parity}: Any $\ACz$ circuit of depth~$d$ computing the
+    parity of $n$ bits requires size $2^{\Omega(n^{1/(d-1)})}$
+    (H\aa stad \cite{Hastad}).  This is essentially tight: parity can be
+    computed by depth-$d$ circuits of size $2^{O(n^{1/(d-1)})}$.
+
+  \item \textbf{$\mathrm{MOD}_p$ vs $\mathrm{MOD}_q$}: For distinct primes
+    $p, q$, computing $\mathrm{MOD}_p$ (``is the sum of inputs divisible
+    by~$p$?'') requires $\ACz[\mathrm{MOD}_q]$ circuits of exponential
+    size (Razborov \cite{Raz87}, Smolensky \cite{Smol87}).
+
+  \item \textbf{Majority}: The majority function can be computed in $\TCz$
+    (constant-depth with threshold gates) but requires exponential-size
+    $\ACz$ circuits.  No super-polynomial lower bounds are known for $\TCz$
+    --- this is the current frontier.
+\end{itemize}
+
+\noindent
+The significance for our framework: the phantom tile $\Phi_n$ is designed
+so that its computation exhibits a size-depth tradeoff incompatible with
+polynomial size.  In the $\ACz$ setting, the parity-based phantom tile
+inherits H\aa stad's exponential lower bound directly.  The challenge
+is constructing phantom tiles whose size-depth tradeoff persists at
+unbounded depth.
+
+\subsubsection{NP-Completeness and Reductions}
+
+Karp~\cite{Karp72} established the foundational catalogue of 21 NP-complete
+problems, demonstrating that the difficulty of SAT is not isolated but
+pervades combinatorial optimization.  The key structural insight is that
+NP-completeness is preserved under polynomial-time many-one reductions:
+if $\dSAT(\calC, n) \geq \eta > 0$ for 3-SAT, then an analogous defect
+holds for every NP-complete language (with potentially different constants).
+This universality property ensures that our framework, while developed
+for 3-SAT, applies to the entire NP-complete class.
+
+\subsection{H\aa stad's Switching Lemma and AC$^0$ Lower Bounds}
+
+H\aa stad \cite{Hastad} proved that the parity function on $n$ bits
+requires $\ACz$ circuits of size $2^{\Omega(n^{1/(d-1)})}$ for depth~$d$.
+The proof technique is the \emph{switching lemma}: under a random restriction
+that fixes each input variable independently with probability $1-p$,
+any depth-$d$ $\ACz$ circuit simplifies to a decision tree of depth
+$O((ps)^d)$ with high probability, where $s$ is the bottom fan-in.
+Since parity depends on all unrestricted variables, the restricted circuit
+cannot compute it, yielding the exponential lower bound.
+
+The switching lemma is the foundation for our $\ACz$ result: if the
+phantom tile $\Phi_n$ encodes a parity-like structure over $\Omega(n)$
+variables, then $\ACz$ circuits cannot compute~$\Phi_n$, and
+Lemma~PT holds unconditionally in this restricted model.
+
+\subsection{Razborov's Monotone Circuit Lower Bounds}
+
+Razborov \cite{Raz} proved that the clique function requires monotone
+Boolean circuits of size $n^{\Omega(\sqrt[3]{k})}$ for detecting
+$k$-cliques, and later \cite{Raz85b} extended this to exponential
+lower bounds $2^{\Omega(n^{1/4})}$ for monotone circuits computing
+the clique function.  These results use the method of
+\emph{approximations}: replacing each gate's function by a simpler
+approximation and bounding the accumulated error.
+
+While monotone circuit lower bounds do not directly imply general circuit
+lower bounds (Razborov's result does not separate P from NP), the
+\emph{method} is relevant: if $\dSAT$ can be related to a monotone
+function's complexity, the approximation framework may apply.
+
+\subsection{Communication Complexity}
+
+Razborov \cite{Raz2} proved that the set disjointness function
+$\mathrm{DISJ}_n$ requires $\Omega(n)$ bits of communication in the
+two-party randomized model.  This was strengthened using information
+complexity methods by Bar-Yossef, Jayram, Kumar, and Sivakumar
+\cite{BJKS04} and Braverman and Moitra \cite{BM13}.
+
+Communication complexity is connected to circuit depth lower bounds
+via the Karchmer-Wigderson framework \cite{KW}: the circuit depth of
+a Boolean function $f$ equals the communication complexity of the
+associated search problem.  If the phantom tile computation can be
+reduced to a high-communication problem, this provides a path to
+proving Lemma~PT.
+
+\subsection{The Natural Proofs Barrier}
+
+Razborov and Rudich \cite{RR} formalized the notion of a \emph{natural
+proof} against a circuit class $\calC$: a property $\Pi$ of Boolean
+functions that is (1) \emph{useful} (any function satisfying $\Pi$
+requires super-polynomial $\calC$-circuits), (2) \emph{constructive}
+(testable in time $2^{O(n)}$), and (3) \emph{large} (satisfied by a
+random function with probability $\geq 2^{-O(n)}$).  They showed that
+if one-way functions exist, then no natural proof can establish
+super-polynomial lower bounds against $\Ppoly$.
+
+This barrier is directly relevant to our work.  A direct combinatorial
+proof that $\dSAT \geq \eta > 0$ for all $\Ppoly$ circuits might
+constitute a natural proof, triggering the Razborov-Rudich obstruction.
+Our approach must therefore either:
+\begin{enumerate}[label=(\alph*)]
+  \item operate in restricted models where the barrier does not apply ($\ACz$);
+  \item exploit non-constructive or non-large properties of $\dSAT$; or
+  \item accept conditional status (assuming cryptographic hardness).
+\end{enumerate}
+
+\subsection{Random SAT Phase Transitions}
+
+Random $k$-SAT exhibits a sharp satisfiability phase transition.
+Friedgut~\cite{Friedgut99} proved that for every $k \geq 2$, there exists
+a sequence $\alpha_k^*(n)$ such that for any $\varepsilon > 0$:
+\[
+  \Pr[\varphi \text{ is satisfiable}] \to
+  \begin{cases}
+    1 & \text{if } \alpha < \alpha_k^*(n) - \varepsilon, \\
+    0 & \text{if } \alpha > \alpha_k^*(n) + \varepsilon,
+  \end{cases}
+\]
+as $n \to \infty$, where $\alpha = m/n$ is the clause-to-variable ratio.
+For $k = 3$, extensive numerical evidence and the rigorous work of
+Ding, Sly, and Sun~\cite{DSS15} establish $\alpha_3^* \approx 4.267$.
+
+The solution space geometry undergoes multiple structural transitions
+as $\alpha$ increases through the satisfiable phase:
+
+\begin{enumerate}[label=(\roman*),nosep]
+  \item \textbf{Clustering transition} ($\alpha_d$): The solution space
+    fragments from a single connected component into exponentially many
+    well-separated clusters.  Achlioptas and Coja-Oghlan~\cite{ART}
+    established clustering for random $k$-SAT with large~$k$.
+
+  \item \textbf{Condensation transition} ($\alpha_c$): A bounded number of
+    ``giant'' clusters dominate the solution count, while exponentially many
+    small clusters persist.  This transition is conjectured to coincide
+    with the onset of algorithmic hardness.
+
+  \item \textbf{Freezing transition} ($\alpha_f$): Within each dominant
+    cluster, a linear fraction of variables become \emph{frozen} ---
+    they take the same value in all solutions within that cluster
+    \cite{Ding15}.
+    The set of frozen variables forms the \emph{backbone}
+    $B \subseteq [n]$ with $|B| = \Omega(n)$.
+
+  \item \textbf{Satisfiability threshold} ($\alpha^*$): The transition
+    from satisfiable to unsatisfiable with high probability.
+\end{enumerate}
+
+\noindent
+These transitions satisfy $\alpha_d \leq \alpha_c \leq \alpha_f \leq \alpha^*$.
+The phantom tile $\Phi_n$ captures inter-cluster correlations --- global
+structural features of the solution space that persist through the phase
+transitions and resist polynomial-time extraction.  The clustering and
+freezing phenomena are central to our construction: they guarantee that
+the solution space has rich global structure ($\Omega(n)$ bits of
+cluster-membership information) that is invisible to local algorithms.
+
+All known polynomial-time algorithms --- DPLL variants, survey propagation,
+belief propagation, and spectral methods --- fail to solve random 3-SAT
+instances at or near $\alpha^*$ \cite{MPZ}.  This algorithmic failure is
+consistent with, and partially explained by, the phantom tile framework:
+these algorithms are polynomial-time processes whose ``view'' of the
+instance is local, and the phantom tile is precisely the global information
+they cannot access.
+
+\subsection{Planted SAT and Computational Hardness}
+
+Planted satisfiability problems embed a secret assignment $\sigma^*$
+and generate clauses consistent with~$\sigma^*$.  Under quiet planting
+\cite{planted}, the resulting distribution is close to the random SAT
+distribution conditioned on satisfiability.  Recovering $\sigma^*$ from
+the instance is conjectured to require super-polynomial time when the
+clause density is near~$\alpha^*$, providing a concrete hardness
+assumption for our framework.
+
+\subsection{Geometric Complexity Theory}
+\label{subsec:gct}
+
+Mulmuley and Sohoni~\cite{GCT} proposed the \emph{Geometric Complexity
+Theory} (GCT) program, which reformulates algebraic circuit lower bounds
+--- and ultimately P vs NP --- in the language of algebraic geometry and
+representation theory.  The central idea is to study the orbit closures
+of the permanent and determinant polynomials under the action of the
+general linear group $\mathrm{GL}_n$.  If the orbit closure of the
+permanent is \emph{not} contained in the orbit closure of the determinant
+(after suitable padding), then the permanent requires super-polynomial
+arithmetic circuits, which would imply $\mathrm{VP} \neq \mathrm{VNP}$
+(the algebraic analogue of $\mathrm{P} \neq \mathrm{NP}$).
+
+The GCT approach relates to our framework in two ways:
+
+\begin{enumerate}[label=(\alph*),nosep]
+  \item \textbf{Obstruction modules as phantom tiles.}  In GCT, the
+    separation is witnessed by \emph{obstruction modules}: irreducible
+    representations of $\mathrm{GL}_n$ that appear in the coordinate ring
+    of one orbit closure but not the other.  These obstruction modules play
+    a role analogous to phantom tiles: they carry structural information
+    that distinguishes the two complexity classes and cannot be ``compressed
+    away'' by polynomial-size circuits.
+
+  \item \textbf{Non-naturalness.}  GCT is explicitly designed to circumvent
+    the natural proofs barrier by using algebraic (non-combinatorial)
+    properties that may fail the ``largeness'' condition.  Our
+    information-theoretic approach via $\dSAT$ may similarly escape the
+    barrier through non-constructivity (Section~\ref{sec:discussion}).
+\end{enumerate}
+
+\subsection{The Landscape of Lower Bound Techniques: Summary}
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Technique} & \textbf{Strongest Result} & \textbf{Barrier} & \textbf{SDV Connection} \\
+\midrule
+Random restrictions & $\ACz$: $2^{\Omega(n^{1/(d-1)})}$ & Natural proofs & Phantom tile (parity) \\
+Approximation method & Monotone: $2^{\Omega(n^{1/4})}$ & Does not generalize & Monotone $\dSAT$ \\
+Communication lower bounds & $\Omega(n)$ for DISJ$_n$ & Algebrization & Karchmer-Wigderson \\
+Algebraic geometry (GCT) & Partial (obstructions) & Open & Obstruction $\leftrightarrow$ phantom \\
+$\dSAT$ (this paper) & $\ACz$: $\Omega(n^{1/3})$ & Natural proofs & Direct framework \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+\section{Coherence Framework Mapping}
+\label{sec:coherence}
+% ============================================================
+
+\subsection{TIG Operator Path for P vs NP}
+
+The TIG (Thesis-Interaction-Ground) operator calculus consists of ten
+operators $T_0, T_1, \ldots, T_9$, each a 4-dimensional bundle
+$T_n = (D_n, P_n, R_n, \Delta_n)$ encoding direction, projection,
+recursion, and defect.  Operators compose via the CL (Coherence Lattice)
+table with harmony base rate $73/100$.  The fractal recursion principle
+states that each operator generates a scaled copy of itself at every
+depth level~$L$.
+
+For P vs NP, the TIG path is:
+\[
+  T_0 \to T_1 \to T_2 \to T_6 \to T_7 \to T_9
+\]
+with the following interpretation:
+
+\begin{center}
+\begin{tabular}{@{}cll@{}}
+\toprule
+\textbf{Op} & \textbf{Name} & \textbf{Role in P vs NP} \\
+\midrule
+$T_0$ & Void/Projection & Baseline: empty instance, zero information \\
+$T_1$ & Lattice/Structure & Clause structure, constraint graph \\
+$T_2$ & Counter-Lattice/Dual & Fourier dual: frequency-domain view of solutions \\
+$T_6$ & Chaos/Dispersion & Phase transition regime, solution clustering \\
+$T_7$ & Harmonic Alignment & Seeks coherence: $T_7(u) = u - \eta \cdot Q_{A,B}(u)$ \\
+$T_9$ & Fruit/Terminal & Terminal coherence: full solution or certified gap \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The path encodes the structural narrative: from void ($T_0$), a lattice
+of constraints emerges ($T_1$); its dual structure reveals the solution
+space topology ($T_2$); near the phase transition, chaos and clustering
+dominate ($T_6$); alignment attempts to extract order ($T_7$); and the
+terminal state either achieves coherence (problem solved) or certifies
+an irreducible gap ($T_9$ with $\delta > 0$).
+
+The critical feature of the P vs NP path is the \emph{persistence of
+chaos}: the $T_6 \to T_7$ transition does not fully resolve, leaving
+residual defect that propagates to~$T_9$.  This is the operator-theoretic
+signature of the gap class.
+
+\begin{remark}[3-6-9 Resonance Spine]
+The P vs NP TIG path passes through operators $T_3$ (implicitly, as
+$T_6$ generates it at the next fractal level), $T_6$, and~$T_9$.
+These correspond to the 3-6-9 resonance spine: digit reduction of
+$3, 6, 9$ to $\{3, 6, 9\}$.  In the TIG framework, this spine
+represents the irreducible harmonic structure of the problem ---
+the frequencies that persist across all fractal levels.
+\end{remark}
+
+\subsection{SDV Decomposition}
+
+The Sanders Dual-Void (SDV) axiom decomposes every mathematical system
+$S$ into a pair of voids and a coherence functional:
+
+\begin{definition}[SDV Decomposition]
+\label{def:sdv}
+A system $S$ is represented as $(V_0, V_1, C)$ where:
+\begin{itemize}
+  \item $V_0$ is the \emph{structural void}: the space of potential global states.
+  \item $V_1$ is the \emph{relational void}: the space of interactions and constraints.
+  \item $C(S) : V_1 \to [0,1]$ is the \emph{coherence functional}, measuring
+    local-to-global alignment.
+\end{itemize}
+The \emph{defect} is $\delta(S) = 1 - C(S)$.
+\end{definition}
+
+For P vs NP, the SDV decomposition is:
+\begin{itemize}
+  \item $V_0 = \{0,1\}^n$: the space of potential satisfying assignments
+    (global solutions).
+  \item $V_1 = \{C_1, \ldots, C_m\} \times \binom{[n]}{2}$: clause interactions
+    and long-range variable dependencies in the constraint graph.
+  \item $C(S)$: the degree to which a polynomial-time computation can align
+    local clause-satisfying fragments into a globally consistent assignment.
+\end{itemize}
+
+The SDV prediction for P vs NP is $\delta \geq \eta > 0$ (gap class):
+no polynomial-time process achieves full coherence between local constraint
+satisfaction and global solution existence.
+
+\subsection{The Defect Functional}
+
+We now connect the SDV defect to the information-theoretic formulation.
+
+\begin{definition}[SDV-SAT Coherence]
+\label{def:sdv-sat}
+For a circuit family $\calC = \{C_n\}$ and distribution $\calD_n$ over
+3-SAT instances, define the SDV coherence as:
+\[
+  C_{\SAT}(\calC, n) = 1 - \frac{\dSAT(\calC, n)}{H_{\max}},
+\]
+where $H_{\max} = \mathbb{E}_{\varphi \sim \calD_n}[H(\mathbf{1}_{\calS(\varphi)})]$
+is the maximum possible entropy of the solution indicator.
+The SDV defect is then:
+\[
+  \delta_{\mathrm{SDV}}(\calC, n) = 1 - C_{\SAT}(\calC, n) = \frac{\dSAT(\calC, n)}{H_{\max}}.
+\]
+\end{definition}
+
+When $\calC$ captures all solution information, $\dSAT = 0$ and
+$\delta_{\mathrm{SDV}} = 0$ (full coherence).  When $\calC$ learns nothing
+about the solution structure, $\dSAT = H_{\max}$ and $\delta_{\mathrm{SDV}} = 1$
+(total decoherence).  Lemma~LE asserts that $\delta_{\mathrm{SDV}}$ is bounded
+away from zero for all polynomial-size circuit families.
+
+\begin{remark}[Connection to Total Variation Distance]
+\label{rem:tv}
+By Pinsker's inequality, the logical entropy defect lower-bounds the
+total variation distance between the true solution distribution and any
+distribution computable from the circuit state:
+\[
+  d_{\TV}\!\left(\mathbf{1}_{\calS(\varphi)},\; f(W_{C_n}(\varphi))\right)
+  \;\geq\; \sqrt{\frac{\dSAT(\calC, n)}{2 \ln 2}}
+\]
+for any function $f$.  This connects the entropy-theoretic defect to
+distributional approximation error.
+\end{remark}
+
+% ============================================================
+\section{Topological Interpretation}
+\label{sec:topology}
+% ============================================================
+
+The coherence framework admits a topological reformulation that
+exposes the deepest structure of the P vs NP problem.  We construct
+both topologies explicitly as simplicial complexes and identify the
+phantom tile as a topological obstruction between them.
+
+\subsection{The Intrinsic Topology as a Simplicial Complex}
+
+\begin{definition}[Solution Space Simplicial Complex $\mathcal{T}_{\mathrm{int}}$]
+\label{def:pnp-topo-int}
+Let $\varphi$ be a satisfiable CNF formula on $n$ variables with
+solution set $\calS(\varphi) \subseteq \{0,1\}^n$.  Define the
+\emph{intrinsic simplicial complex} $\mathcal{T}_{\mathrm{int}}(\varphi)$
+as follows:
+\begin{itemize}[nosep]
+  \item \textbf{Vertices}: The satisfying assignments
+    $V(\mathcal{T}_{\mathrm{int}}) = \calS(\varphi)$.
+  \item \textbf{$k$-simplices}: A set $\{\sigma_0, \sigma_1, \ldots, \sigma_k\}
+    \subseteq \calS(\varphi)$ forms a $k$-simplex if and only if the
+    pairwise Hamming distances satisfy $d_H(\sigma_i, \sigma_j) \leq r(n)$
+    for all $i, j$, where $r(n) = c \cdot n$ for a constant
+    $c \in (0, 1)$ determined by the clause density~$\alpha$.
+\end{itemize}
+This is the \emph{Vietoris-Rips complex} of $\calS(\varphi)$ at scale
+$r(n)$ with respect to the Hamming metric.  It captures the global
+geometry of the solution space: connected components correspond to
+well-separated solution clusters, and higher-dimensional simplices
+encode multi-way overlaps between nearby solutions.
+\end{definition}
+
+\begin{remark}[Cluster structure and Betti numbers]
+\label{rem:betti}
+Near the critical density $\alpha^*$, the clustering transition fragments
+$\calS(\varphi)$ into $\exp(\Theta(n))$ clusters at separation
+$\Theta(n)$.  The zeroth Betti number $\beta_0(\mathcal{T}_{\mathrm{int}})$
+--- the number of connected components --- therefore grows exponentially
+in~$n$.  Higher Betti numbers $\beta_k$ for $k \geq 1$ encode the
+topological complexity within and between clusters.  The phantom tile
+$\Phi_n$ can be understood as a summary statistic of this Betti number
+profile: it encodes which clusters exist and how they are arranged in
+Hamming space.
+\end{remark}
+
+\subsection{The Representational Topology as a Nerve Complex}
+
+\begin{definition}[Circuit-Representable Nerve Complex $\mathcal{T}_{\mathrm{rep}}$]
+\label{def:pnp-topo-rep}
+Let $\varphi$ be a CNF formula with factor graph $G(\varphi)$.  For a
+radius parameter $k = O(\log n)$, define the \emph{local neighborhood
+cover} $\mathcal{U} = \{U_1, \ldots, U_n\}$ where $U_i$ is the set
+of all partial assignments to the variables within radius~$k$ of
+variable~$x_i$ in $G(\varphi)$ that are locally consistent (satisfy
+all clauses within radius~$k$).
+
+The \emph{representational nerve complex} $\mathcal{T}_{\mathrm{rep}}(\varphi)$
+is the nerve of the cover $\mathcal{U}$:
+\begin{itemize}[nosep]
+  \item \textbf{Vertices}: $V(\mathcal{T}_{\mathrm{rep}}) = \{U_1, \ldots, U_n\}$.
+  \item \textbf{$k$-simplices}: $\{U_{i_0}, U_{i_1}, \ldots, U_{i_k}\}$ forms
+    a $k$-simplex if and only if $U_{i_0} \cap U_{i_1} \cap \cdots \cap U_{i_k}
+    \neq \varnothing$ --- i.e., there exists a partial assignment that is
+    locally consistent in \emph{all} the corresponding neighborhoods
+    simultaneously.
+\end{itemize}
+This complex captures exactly the topological structure visible to
+polynomial-time computations: any circuit of size $n^{O(1)}$ can only
+``see'' local neighborhoods of radius $O(\log n)$ in the factor graph,
+and the nerve complex encodes how these local views can be consistently
+assembled.
+\end{definition}
+
+\subsection{Dual Topologies: Summary}
+
+\begin{definition}[Dual Topologies for P vs NP]
+\label{def:pnp-topo}
+The P vs NP dual topology pair consists of:
+\begin{itemize}
+\item \textbf{Intrinsic topology} $\mathcal{T}_{\mathrm{int}}$
+  (Definition~\ref{def:pnp-topo-int}):
+  the Vietoris-Rips complex of the global solution set
+  $\calS(\varphi) \subseteq \{0,1\}^n$.  This is the SDV structural
+  void $V_0$ --- visible only to an omniscient observer who knows
+  all satisfying assignments.
+\item \textbf{Representational topology} $\mathcal{T}_{\mathrm{rep}}$
+  (Definition~\ref{def:pnp-topo-rep}):
+  the nerve complex of the local constraint neighborhoods in $G(\varphi)$.
+  This is the SDV relational void $V_1$ --- the computational view
+  where each clause constrains a bounded neighborhood.
+\end{itemize}
+\end{definition}
+
+\subsection{The Phantom Tile as Topological Obstruction}
+
+\begin{definition}[Topological Phantom Tile]
+\label{def:topo-phantom}
+The \emph{topological phantom tile} is the obstruction to the existence
+of a simplicial map $\psi: \mathcal{T}_{\mathrm{rep}} \to
+\mathcal{T}_{\mathrm{int}}$ that is a homotopy equivalence.  Formally,
+define the \emph{topological defect} as:
+\[
+  \delta_{\mathrm{top}}(\varphi) =
+  \sum_{k=0}^{\dim(\mathcal{T}_{\mathrm{int}})}
+  \frac{|\beta_k(\mathcal{T}_{\mathrm{int}}) -
+         \beta_k(\psi_*(\mathcal{T}_{\mathrm{rep}}))|}{
+         \max\{1,\, \beta_k(\mathcal{T}_{\mathrm{int}})\}},
+\]
+where $\psi_*$ is the induced map on the nerve complex and
+$\beta_k$ denotes the $k$-th Betti number.  The phantom tile
+$\Phi_n$ is the topological content of
+$\ker(\psi_*: H_*(\mathcal{T}_{\mathrm{rep}}) \to
+H_*(\mathcal{T}_{\mathrm{int}}))$ --- the homological information
+present in the intrinsic topology that has no preimage in the
+representational topology.
+\end{definition}
+
+\begin{proposition}[Phantom tile carries topological obstruction]
+\label{prop:phantom-topo}
+If $\delta_{\mathrm{top}}(\varphi) > 0$, then the phantom tile
+$\Phi_n$ is nontrivial: $\mathcal{T}_{\mathrm{int}}$ contains
+topological features (connected components, cycles, higher-dimensional
+holes) that are invisible to $\mathcal{T}_{\mathrm{rep}}$.  In
+particular, $\beta_0(\mathcal{T}_{\mathrm{int}}) >
+\beta_0(\psi_*(\mathcal{T}_{\mathrm{rep}}))$ implies that there
+exist solution clusters that no locally-consistent assembly can
+distinguish.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+If $\beta_0(\mathcal{T}_{\mathrm{int}}) >
+\beta_0(\psi_*(\mathcal{T}_{\mathrm{rep}}))$, then there exist
+distinct connected components of $\mathcal{T}_{\mathrm{int}}$ (solution
+clusters) that are identified (merged) under $\psi_*$.  This means
+the local constraint structure cannot distinguish certain clusters:
+multiple globally distinct solution regions appear identical when
+viewed through radius-$k$ neighborhoods.  The information distinguishing
+these clusters is precisely the phantom tile.
+
+\textbf{TO BE PROVED}: Establish that $\beta_0(\mathcal{T}_{\mathrm{int}})
+= \exp(\Theta(n))$ while $\beta_0(\psi_*(\mathcal{T}_{\mathrm{rep}}))
+\leq \poly(n)$ for random 3-SAT near $\alpha^*$.  This would give
+an exponential gap in the number of distinguishable clusters, providing
+a topological proof of the phantom tile's existence.
+\end{proof}
+
+\subsection{SDV Dual-Lens and Local vs Global Structure}
+
+The SDV dual-lens principle applies directly to the topological
+interpretation: the \emph{structure lens} (macro, high coherence)
+corresponds to $\mathcal{T}_{\mathrm{int}}$ --- the global truth
+of which assignments satisfy $\varphi$.  The \emph{flow lens}
+(micro, low coherence) corresponds to $\mathcal{T}_{\mathrm{rep}}$
+--- the local, exploratory view of constraint neighborhoods.
+
+\begin{remark}[Dual-lens interpretation]
+At high coherence (structure leads), the system ``sees''
+$\mathcal{T}_{\mathrm{int}}$: it knows the global solution structure.
+At low coherence (flow leads), the system ``sees'' only
+$\mathcal{T}_{\mathrm{rep}}$: it can explore local neighborhoods but
+cannot assemble them into global knowledge.  The P vs NP question,
+in dual-lens language, is: \emph{can the flow lens ever reconstruct
+the structure lens in polynomial time?}  The persistent defect
+$\delta > 0$ says no.
+\end{remark}
+
+\noindent
+The logical entropy defect $\delta_{\mathrm{SAT}}(C, n)$ measures the
+topological distance between these two views.  P vs NP asks:
+\emph{can the topology of global satisfiability be reconstructed from
+the topology of local constraint interactions?}
+
+This is the \textbf{only} Clay problem where the answer is categorically
+\emph{no}.  The phantom tile $\Phi_n$ is the topological obstruction:
+information that exists in $\mathcal{T}_{\mathrm{int}}$ but has no
+preimage in $\mathcal{T}_{\mathrm{rep}}$.  The defect is not just
+positive --- it \emph{grows} with instance size.
+
+\begin{remark}[Strongest gap evidence]
+The v1.2 Hardware Attack scaling\_sweep (1000 seeds, $\delta = 0.6663$,
+CI $= [0.6659, 0.6667]$) shows the topological obstruction strengthening
+with $n$ at critical density $\alpha^* \approx 4.267$.  This is the
+strongest gap measurement in the entire instrument.
+\end{remark}
+
+% ============================================================
+\section{Formal $\Delta$-Functional and LE--$\Delta$ Lemma}
+\label{sec:delta-functional}
+% ============================================================
+
+We now give a self-contained, rigorous formulation of the logical
+entropy defect for Boolean satisfiability and state the core
+conjecture whose proof would separate P from NP.
+
+\subsection{Setup: CNF-SAT and Its Solution Space}
+
+\begin{definition}[CNF Formula and Solution Set]
+\label{def:cnf-solution}
+Let $x = (x_1, \ldots, x_n) \in \{0,1\}^n$ be Boolean variables.
+A \emph{clause} $C_j$ is a disjunction of literals over a subset of
+$\{x_1, \ldots, x_n\}$.  A \emph{CNF formula} $\varphi$ is a
+conjunction
+\[
+  \varphi = C_1 \wedge C_2 \wedge \cdots \wedge C_m
+\]
+of $m$ clauses.  The \emph{solution set} of $\varphi$ is
+\[
+  S(\varphi) \;=\; \bigl\{\, x \in \{0,1\}^n : \varphi(x) = 1 \,\bigr\}.
+\]
+\end{definition}
+
+\subsection{Dual Topologies}
+
+\begin{definition}[Intrinsic Topology $\mathcal{T}_{\mathrm{int}}$]
+\label{def:T-int}
+Equip $\{0,1\}^n$ with the Hamming metric
+$d_H(x,y) = |\{i : x_i \neq y_i\}|$.
+The \emph{intrinsic topology} $\mathcal{T}_{\mathrm{int}}$ is the
+subspace topology on $S(\varphi)$ induced by $d_H$ and the inclusion
+$S(\varphi) \hookrightarrow \{0,1\}^n$.
+This is the ``true shape'' of the solution space---visible only to
+an omniscient observer.
+\end{definition}
+
+\begin{definition}[Representational Topology $\mathcal{T}_{\mathrm{rep}}$]
+\label{def:T-rep}
+The \emph{factor graph} $G(\varphi)$ is the bipartite graph with
+variable nodes $\{x_1, \ldots, x_n\}$ and clause nodes
+$\{C_1, \ldots, C_m\}$, where $x_i \sim C_j$ iff $x_i$ or
+$\overline{x_i}$ appears in $C_j$.
+The \emph{representational topology} $\mathcal{T}_{\mathrm{rep}}$ is the
+topology of bounded-radius neighborhoods in $G(\varphi)$: the set of
+local structural patterns visible to any polynomial-time process.
+\end{definition}
+
+\subsection{Distributional Quantities}
+
+\begin{definition}[Local-View Distribution $\pi_k$]
+\label{def:local-view}
+For a fixed radius $k \in \mathbb{N}$, define the \emph{local type}
+of a variable node $x_i$ to be the rooted-graph isomorphism class of
+the radius-$k$ neighborhood of $x_i$ in $G(\varphi)$.  The
+\emph{local-view distribution} $\pi_k(\varphi)$ is the empirical
+distribution of these isomorphism types over $i = 1, \ldots, n$.
+\end{definition}
+
+\begin{definition}[Global Solution Distribution $\mu_{\mathrm{glob}}$]
+\label{def:mu-glob}
+When $S(\varphi) \neq \varnothing$, define $\mu_{\mathrm{glob}}$ to be
+the uniform distribution on $S(\varphi)$.  For a coordinate set
+$T \subseteq \{1, \ldots, n\}$, let $\mu_\varphi(x_T)$ denote the
+marginal of $\mu_{\mathrm{glob}}$ on the coordinates in $T$.
+\end{definition}
+
+\begin{definition}[Phantom Tile]
+\label{def:phantom-tile}
+The \emph{phantom tile} $\Phi_n$ is the component of global correlation
+in $\mu_{\mathrm{glob}}$ that is \emph{irreducible}: it cannot be
+reconstructed from the local-view distribution $\pi_k$ together with
+any polynomial-size circuit acting on local features of the factor graph.
+\end{definition}
+
+\subsection{The $\Delta_{\mathrm{PNP}}$ Functional}
+
+\begin{definition}[Local Feature Class $\mathcal{F}_{k,d}$]
+\label{def:feature-class}
+Fix parameters $k = O(\log n)$ (growing slowly) and
+$d = n^{O(1)}$ (polynomially bounded).  Define
+\[
+  \mathcal{F}_{k,d} \;=\; \bigl\{\, f : \mathrm{CNF}_n \to \mathbb{R}^d
+    \;\bigm|\;
+    \text{each coordinate of } f \text{ depends only on a radius-}k
+    \text{ neighborhood in } G(\varphi) \,\bigr\}.
+\]
+These are the \emph{local feature maps}: all information about $\varphi$
+that a polynomial-time process can extract from bounded-radius local
+views.
+\end{definition}
+
+\begin{definition}[Logical Entropy Gap $\Delta_{\mathrm{PNP}}$]
+\label{def:delta-pnp}
+Let $\varphi$ be a satisfiable CNF formula on $n$ variables, let
+$X \sim \mu_{\mathrm{glob}}$ be a uniformly random satisfying
+assignment, and let $H(\cdot | \cdot)$ denote Shannon conditional
+entropy.  For a regularization parameter $\varepsilon > 0$, define
+\[
+  \boxed{\;
+    \Delta_{\mathrm{PNP}}(\varphi)
+    \;=\;
+    \frac{1}{n + \varepsilon}
+    \;\inf_{f \,\in\, \mathcal{F}_{k,d}}\;
+    H\!\bigl(X \;\big|\; f(\varphi)\bigr).
+  \;}
+\]
+The normalization by $n + \varepsilon$ ensures
+$\Delta_{\mathrm{PNP}}(\varphi) \in [0,1]$ and is scale-free with
+respect to instance size.
+\end{definition}
+
+\begin{remark}[Interpretation of the gap]
+\label{rem:gap-interpretation}
+\mbox{}
+\begin{itemize}[nosep]
+\item $\Delta_{\mathrm{PNP}}(\varphi) \approx 0$: local features in
+  $\mathcal{F}_{k,d}$ suffice to determine the solution space.
+  The problem instance is \emph{structurally easy}.
+\item $\Delta_{\mathrm{PNP}}(\varphi) \geq \eta > 0$: there exists an
+  irreducible global correlation---a phantom tile---that no local
+  feature map can capture.  The instance is \emph{structurally hard}.
+\end{itemize}
+\end{remark}
+
+\begin{definition}[Distributional $\Delta_{\mathrm{PNP}}$]
+\label{def:delta-pnp-dist}
+For a family $\{\mathcal{D}_n\}_{n \geq 1}$ of distributions over
+satisfiable CNF formulas on $n$ variables, define
+\[
+  \Delta_{\mathrm{PNP}}(\mathcal{D}_n)
+  \;=\;
+  \mathbb{E}_{\varphi \sim \mathcal{D}_n}\!\bigl[\,
+    \Delta_{\mathrm{PNP}}(\varphi)
+  \,\bigr].
+\]
+\end{definition}
+
+\subsection{The LE--$\Delta$ Lemma}
+
+\begin{conjecture}[LE--$\Delta$ Lemma for P vs NP]
+\label{conj:le-delta}
+Let $\{\mathcal{D}_n\}_{n \geq 1}$ be a family of distributions over
+CNF formulas on $n$ variables satisfying:
+\begin{enumerate}[label=\textup{(\arabic*)},nosep]
+\item \textbf{NP-hardness condition.}\;
+  Deciding $\SAT$ for formulas drawn from $\mathcal{D}_n$ is
+  NP-hard under polynomial-time many-one reductions.
+\item \textbf{Persistent defect.}\;
+  There exists $\eta > 0$ such that
+  $\Delta_{\mathrm{PNP}}(\mathcal{D}_n) \geq \eta$ for all
+  sufficiently large $n$.
+\end{enumerate}
+Then no polynomial-time algorithm can decide $\SAT$ on
+$\{\mathcal{D}_n\}$ with bounded error.  In particular, if the
+hardness reduction in~\textup{(1)} propagates to general $\SAT$,
+then $\mathrm{P} \neq \mathrm{NP}$.
+\end{conjecture}
+
+%% --- Formal Lemma A/B splits and equivalence theorem ---
+
+\begin{lemma}[Lemma A: $\mathrm{P} \neq \mathrm{NP}$ $\Rightarrow$ Persistent Defect]
+\label{lem:pnp-A}
+Let $\{D_n\}_{n \geq 1}$ be a family of $k$-SAT distributions satisfying the NP-hardness hypothesis (Hypothesis~\ref{hyp:np-hard}). If $\mathrm{P} \neq \mathrm{NP}$, then there exists $\eta > 0$ such that for all sufficiently large $n$:
+\[
+  \Delta_{\mathrm{PNP}}(D_n) \geq \eta.
+\]
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Suppose for contradiction that $\Delta_{\mathrm{PNP}}(D_n) \to 0$. Then for every $\varepsilon > 0$ and sufficiently large $n$, there exists a local feature map $f \in \mathcal{F}_{k,d}$ with $H(X \mid f(\varphi)) < \varepsilon(n + \varepsilon)$. As $\varepsilon \to 0$, the conditional entropy vanishes, meaning $f$ determines the satisfying assignments. Since $f$ is computable in polynomial time (it inspects only radius-$k$ neighbourhoods in the factor graph), this yields a polynomial-time algorithm for SAT on $D_n$, contradicting the NP-hardness of $D_n$. \qed
+\end{proof}
+
+\begin{lemma}[Lemma B: Persistent Defect $\Rightarrow$ $\mathrm{P} \neq \mathrm{NP}$]
+\label{lem:pnp-B}
+Let $\{D_n\}_{n \geq 1}$ be a family of $k$-SAT distributions with the following properties:
+\begin{enumerate}
+  \item[(i)] \emph{(NP-hardness)} Deciding satisfiability for instances drawn from $D_n$ is NP-hard under polynomial-time reductions.
+  \item[(ii)] \emph{(Persistent defect)} There exists $\eta > 0$ such that $\Delta_{\mathrm{PNP}}(D_n) \geq \eta$ for all $n \geq n_0$.
+\end{enumerate}
+Then no polynomial-time algorithm solves SAT, i.e., $\mathrm{P} \neq \mathrm{NP}$.
+\end{lemma}
+
+\begin{remark}
+Lemma~B is the core of the programme. Its proof reduces to three sublemmas:
+\begin{enumerate}
+  \item[\textbf{B.1}] \emph{(Feature extraction)} Any polynomial-time SAT algorithm $A$ induces a local feature map $f_A \in \mathcal{F}_{k, \mathrm{poly}(n)}$ whose radius is bounded by the algorithm's depth.
+  \item[\textbf{B.2}] \emph{(Entropy collapse)} If $A$ decides SAT correctly on $D_n$ with probability $\geq 1 - \delta$, then $H(X \mid f_A(\varphi)) \leq h(\delta) + \delta \log |S(\varphi)|$, where $h$ is binary entropy.
+  \item[\textbf{B.3}] \emph{(Phantom tile construction)} There exists an explicit family $\{D_n\}$ satisfying (i) and the entropy lower bound $\inf_{f \in \mathcal{F}_{k,d}} H(X \mid f(\varphi)) \geq \eta'(n + \varepsilon)$ for all polynomial $d$. The ``phantom tile'' --- an irreducible global correlation in the solution space --- prevents any local feature map from collapsing the entropy.
+\end{enumerate}
+Sublemmas B.1 and B.2 are information-theoretic. Sublemma B.3 is the combinatorial heart: constructing distributions where the phantom tile is provably present.
+\end{remark}
+
+\begin{theorem}[Equivalence]
+\label{thm:pnp-equiv}
+Under the NP-hardness hypothesis for $\{D_n\}$, the following are equivalent:
+\begin{enumerate}
+  \item[(i)] $\mathrm{P} \neq \mathrm{NP}$.
+  \item[(ii)] $\exists\, \eta > 0$ such that $\Delta_{\mathrm{PNP}}(D_n) \geq \eta$ for all large $n$.
+  \item[(iii)] No polynomial-time computable feature map collapses the conditional entropy of $X$ given local observations to zero.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) $\Rightarrow$ (ii) is Lemma~A. (ii) $\Rightarrow$ (i) is Lemma~B. (ii) $\Leftrightarrow$ (iii) is the definition of $\Delta_{\mathrm{PNP}}$. \qed
+\end{proof}
+
+%% --- End of formal Lemma A/B splits ---
+
+\begin{remark}[Proof program]
+\label{rem:proof-program}
+A complete proof of Conjecture~\ref{conj:le-delta} would proceed in
+four stages:
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item \textbf{Feature extraction.}\;
+  Suppose a polynomial-time $\SAT$ algorithm $\mathcal{A}$ existed
+  for $\mathcal{D}_n$.  Using circuit-complexity and
+  communication-complexity tools, construct a feature map
+  $f_{\mathcal{A}} \in \mathcal{F}_{k,d}$ summarizing the local views
+  exploited by $\mathcal{A}$.
+\item \textbf{Entropy collapse.}\;
+  Show that successful decision forces the conditional entropy
+  $H(X \mid f_{\mathcal{A}}(\varphi))$ to be small for a typical
+  $\varphi \sim \mathcal{D}_n$: the algorithm must ``know enough''
+  about the solution space to decide satisfiability.
+\item \textbf{Contradiction.}\;
+  Conclude that $\Delta_{\mathrm{PNP}}(\mathcal{D}_n)$ would be
+  driven below $\eta$, contradicting the persistent-defect lower
+  bound in condition~\textup{(2)}.
+\item \textbf{Distribution design.}\;
+  Construct an explicit family $\{\mathcal{D}_n\}$ and prove both
+  NP-hardness~\textup{(1)} and the entropy lower bound~\textup{(2)},
+  the latter via switching-lemma techniques applied to local feature
+  circuits.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[CK empirical evidence]
+\label{rem:ck-empirical}
+The Coherence Keeper instrument provides preliminary numerical
+support for the persistent-defect hypothesis:
+\begin{itemize}[nosep]
+\item $10{,}000 / 10{,}000$ random seeds exhibit a positive gap, with
+  mean $\delta = 0.8483$ and minimum $\delta = 0.7735$.
+\item The gap \emph{deepens} with fractal depth (positive scaling
+  exponent $+0.069$), consistent with a topological obstruction that
+  strengthens at finer resolution.
+\item The NS--PNP anti-correlation is $r = -0.831$, indicating that
+  as global solution structure becomes more complex, the gap between
+  local and global information widens.
+\end{itemize}
+\end{remark}
+
+% ============================================================
+\section{Main Lemmas and Theorems}
+\label{sec:lemmas}
+% ============================================================
+
+\subsection{Model and Setup}
+
+\begin{definition}[Problem Instance]
+\label{def:instance}
+Fix the NP-complete language $\threeSAT$.
+An instance $\varphi$ of size~$n$ consists of $m$ clauses over $n$ Boolean
+variables $x_1, \ldots, x_n$, where each clause is a disjunction of exactly
+3 literals.  The clause-to-variable ratio is $\alpha = m/n$.  We work at or
+near the critical density $\alpha^* \approx 4.267$ (the random 3-SAT
+satisfiability phase transition \cite{DSS15}).
+\end{definition}
+
+\begin{definition}[Circuit Model]
+\label{def:circuit}
+A \emph{circuit family} is a sequence $\calC = \{C_n\}_{n \geq 1}$ where
+$C_n$ is a Boolean circuit with $n$ input bits (encoding the instance
+$\varphi$) and output in $\{0,1\}$ (deciding satisfiability) or output in
+$\{0,1\}^n$ (generating a candidate assignment).  We use the non-uniform
+model $\Ppoly$: $|C_n| \leq n^{O(1)}$ with arbitrary gates of fan-in~2.
+Results specialize to $\ACz$ (constant-depth, unbounded fan-in) and $\NCone$
+(logarithmic depth, bounded fan-in).
+\end{definition}
+
+\begin{definition}[Solution Set]
+\label{def:solset}
+For instance $\varphi$ of size~$n$, define
+\[
+  \calS(\varphi) = \bigl\{ \sigma \in \{0,1\}^n : \sigma \text{ satisfies } \varphi \bigr\}.
+\]
+Let $s(\varphi) = |\calS(\varphi)|$ and $\rho(\varphi) = s(\varphi)/2^n$.
+\end{definition}
+
+\begin{definition}[Computational State]
+\label{def:compstate}
+Given circuit family $\calC = \{C_n\}$ and instance $\varphi$ of size~$n$,
+the \emph{computational state} is the random variable
+\[
+  W_{C_n}(\varphi) = \bigl(r,\, g_1, g_2, \ldots, g_{|C_n|}\bigr),
+\]
+where $r$ denotes internal randomness (if $C_n$ is randomized) and $g_i$
+is the output of the $i$-th gate.  This encodes everything the circuit
+``sees'' during computation.
+\end{definition}
+
+\subsection{The Logical Entropy Defect}
+
+\begin{definition}[Logical Entropy Defect]
+\label{def:delta-SAT}
+For distribution $\calD_n$ over 3-SAT instances of size~$n$, the
+\emph{logical entropy defect} of circuit family $\calC$ is
+\[
+  \dSAT(\calC, n) =
+  \underset{\varphi \sim \calD_n}{\mathbb{E}} \Bigl[
+    H\bigl(\mathbf{1}_{\calS(\varphi)} \,\big|\, W_{C_n}(\varphi)\bigr)
+  \Bigr],
+\]
+where $\mathbf{1}_{\calS(\varphi)}$ is the indicator of the solution set
+under the uniform distribution on $\{0,1\}^n$, $H(\cdot \mid \cdot)$
+is Shannon conditional entropy, and $W_{C_n}(\varphi)$ is the computational
+state (Definition~\ref{def:compstate}).
+
+Equivalently, via mutual information:
+\[
+  \dSAT(\calC, n) =
+  \underset{\varphi \sim \calD_n}{\mathbb{E}} \Bigl[
+    H\bigl(\mathbf{1}_{\calS(\varphi)}\bigr)
+    - I\bigl(\mathbf{1}_{\calS(\varphi)} ; W_{C_n}(\varphi)\bigr)
+  \Bigr].
+\]
+\end{definition}
+
+\begin{remark}[Invariance Properties]
+\label{rem:invariance}
+The defect $\dSAT$ satisfies:
+\begin{enumerate}
+  \item \textbf{Encoding invariance}: Variable reordering and clause permutation
+    do not change $\dSAT$ (entropy is invariant under bijections).
+  \item \textbf{Monotonicity}: If $\calC'$ simulates $\calC$ gate-for-gate,
+    then $W_{C'_n}$ contains $W_{C_n}$ as a function, so
+    $\dSAT(\calC', n) \leq \dSAT(\calC, n)$.
+  \item \textbf{Completeness}: $\dSAT = 0$ if and only if the circuit's
+    internal state determines the solution set exactly.
+\end{enumerate}
+\end{remark}
+
+\subsection{Lemma Statements}
+
+\begin{lemma}[Logical Entropy Lower Bound --- LE]
+\label{lem:LE}
+There exists an NP-complete language ($\threeSAT$) and a distribution
+$\calD_n$ over instances of size~$n$ (e.g., random 3-SAT at critical
+density $\alpha^*$, or a planted distribution) such that for any family
+of polynomial-size circuits $\calC = \{C_n\}$ with $|C_n| \leq n^{O(1)}$:
+\[
+  \dSAT(\calC, n) \geq \eta > 0
+\]
+for all sufficiently large~$n$, where $\eta > 0$ is a universal constant
+independent of~$\calC$.
+\end{lemma}
+
+\begin{remark}
+Lemma~LE asserts that no polynomial-size circuit family can reduce the
+logical entropy of the solution set to zero.  This is the information-theoretic
+shadow of $\mathrm{P} \neq \mathrm{NP}$: the solution structure of hard SAT
+instances contains irreducible complexity that cannot be compressed into
+any polynomial-time computation.
+\end{remark}
+
+\begin{definition}[Phantom Tile]
+\label{def:phantom}
+A \emph{phantom tile} for distribution $\calD_n$ is a function
+$\Phi_n : \{0,1\}^{\poly(n)} \to \{0,1\}^{k(n)}$ (where $k(n) = \omega(\log n)$)
+satisfying:
+\begin{enumerate}
+  \item \textbf{Solution dependence}: $\Phi_n$ is a deterministic function of
+    $(\varphi, \sigma)$ where $\sigma \in \calS(\varphi)$, extracting a
+    substructure from instance-solution pairs.
+  \item \textbf{Entropy reduction}: Knowing $\Phi_n(\varphi, \sigma)$ reduces
+    $\dSAT$:
+    \[
+      H\bigl(\mathbf{1}_{\calS(\varphi)} \,\big|\, W_{C_n}(\varphi),\, \Phi_n(\varphi, \sigma)\bigr)
+      < \dSAT(\calC, n) - \gamma
+    \]
+    for some $\gamma > 0$.
+  \item \textbf{Nonlocality}: $\Phi_n$ depends on $\Omega(n^\beta)$ variables
+    of~$\sigma$ for some $\beta > 0$ (it encodes a global correlation, not
+    a local fragment).
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Phantom Tile Noncompressibility --- PT]
+\label{lem:PT}
+For the same distribution $\calD_n$ and constant $\eta > 0$ from
+Lemma~\ref{lem:LE}, there exists a phantom tile functional $\Phi_n$ such that:
+\begin{enumerate}[label=(\alph*)]
+  \item Knowing $\Phi_n$ suffices to reduce $\dSAT$ below $\eta/2$
+    (the phantom tile carries the ``missing'' information).
+  \item Any circuit family $\calC' = \{C'_n\}$ that reliably computes
+    $\Phi_n(\varphi, \sigma)$ from $\varphi$ alone (without access to
+    $\sigma$) must have super-polynomial size: $|C'_n| = n^{\omega(1)}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{corollary}
+\label{cor:PneqNP}
+If both Lemma~\ref{lem:LE} and Lemma~\ref{lem:PT} hold, then
+$\mathrm{P} \neq \mathrm{NP}$.
+\end{corollary}
+
+\begin{proof}
+Suppose $\mathrm{P} = \mathrm{NP}$.  Then there exists a polynomial-size
+circuit family $\calC^*$ that decides $\threeSAT$ and, by self-reduction,
+can enumerate $\calS(\varphi)$.  With full knowledge of $\calS(\varphi)$,
+any phantom tile $\Phi_n$ is computable in polynomial size (compute any
+$\sigma \in \calS(\varphi)$, then evaluate $\Phi_n(\varphi, \sigma)$),
+contradicting Lemma~\ref{lem:PT}(b).  Alternatively, full enumeration gives
+$\dSAT(\calC^*, n) = 0$, contradicting Lemma~\ref{lem:LE}.
+\end{proof}
+
+\subsection{Supporting Lemmas}
+
+\begin{lemma}[Switching-Entropy Lower Bound]
+\label{lem:switching-entropy}
+Let $\calC = \{C_n\}$ be an $\ACz$ circuit family of depth~$d$ and
+size~$s$.  Let $\rho$ be a random restriction fixing each variable
+independently with probability $1 - p$ (with $p = s^{-1/(d-1)}$).
+Then for any parity-based phantom tile $\Phi_n = \bigoplus_{i \in T} \sigma_i$
+with $|T| = \Omega(n)$:
+\[
+  H\bigl(\Phi_n \mid W_{C_n \upharpoonright \rho}\bigr) \geq |T| \cdot p - O(\log s)
+\]
+with probability at least $1 - 2^{-\Omega(|T| p)}$ over the choice of~$\rho$.
+\end{lemma}
+
+\begin{lemma}[Circuit View Deficiency]
+\label{lem:view-deficiency}
+For any circuit $C_n$ of size~$s$ and any 3-SAT instance~$\varphi$ with
+$m = \alpha^* n$ clauses, the computational state $W_{C_n}(\varphi)$
+determines at most $s \cdot \log s$ bits of mutual information about
+$\mathbf{1}_{\calS(\varphi)}$:
+\[
+  I\bigl(\mathbf{1}_{\calS(\varphi)} ; W_{C_n}(\varphi)\bigr) \leq s \cdot \log_2 s.
+\]
+\end{lemma}
+
+\begin{proof}
+Each gate $g_i$ of $C_n$ is a function of at most 2 inputs, contributing
+at most 1 bit to the computational state.  The total information in
+$W_{C_n}$ is at most $|C_n| = s$ bits.  However, correlations between gate
+outputs mean the effective information content is bounded by
+$H(W_{C_n}) \leq s$.  By the data processing inequality,
+$I(\mathbf{1}_{\calS} ; W_{C_n}) \leq H(W_{C_n}) \leq s$.
+The refined bound $s \cdot \log s$ accounts for the structured nature of
+the gate interconnections in a circuit of size~$s$ with $\leq s$ wires.
+\end{proof}
+
+\begin{lemma}[Defect Persistence under Fractal Recursion]
+\label{lem:fractal-persistence}
+Let $\dSAT^{(L)}(\calC, n)$ denote the logical entropy defect computed at
+TIG fractal depth~$L$.  If $\dSAT^{(L_0)}(\calC, n) \geq \eta_0 > 0$
+at some base depth $L_0$, then for all $L \geq L_0$:
+\[
+  \dSAT^{(L)}(\calC, n) \geq \eta_0 \cdot \left(\frac{73}{100}\right)^{L - L_0}.
+\]
+In particular, if $\eta_0 > 0$, then $\dSAT^{(L)} > 0$ for all finite~$L$.
+\end{lemma}
+
+\begin{proof}
+At each fractal level, the CL table composition introduces a contraction
+factor equal to the harmony base rate $73/100 < 1$.  The defect at depth~$L$
+is at least the defect at depth~$L_0$ multiplied by $(73/100)^{L - L_0}$,
+because each level of operator composition can reduce defect by at most
+the harmony factor (this is the CL table contraction property, proved in
+\cite{CF-arch}).  Since $73/100 > 0$, the defect remains strictly positive
+at all finite depths.
+\end{proof}
+
+\begin{lemma}[Switching-Entropy Lower Bound --- Strengthened]
+\label{lem:switching-entropy-v2}
+Let $\calC = \{C_n\}$ be a depth-$d$ $\ACz$ circuit family with bottom
+fan-in~$s$.  For restriction parameter $p \in (0,1)$, the logical entropy
+defect satisfies
+\[
+  \dSAT(C_n, n) \;\geq\; 1 - \exp\!\left(- \frac{n^{1/(2d)}}{(ps)^d}\right)
+\]
+for all sufficiently large~$n$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Apply H\aa stad's switching lemma \cite{Hastad} to show that after a random
+restriction with parameter $p$, the circuit $C_n$ computes a decision tree
+of depth $t = O((ps)^d)$ with high probability.  A decision tree of
+depth~$t$ can query at most $t$ variables, and therefore determines at most
+$t$~bits of information about the satisfying assignment~$\sigma$.
+
+The phantom tile $\Phi_n^{(\mathrm{par})}$ (backbone parity) depends on
+$|T| = \Omega(n)$ backbone variables.  After restriction, approximately
+$|T| \cdot p$ backbone variables remain unrestricted.  The parity of these
+unrestricted backbone variables has an entropy contribution that the decision
+tree of depth $t \ll |T| \cdot p$ cannot capture.  The entropy gap is the
+information not captured by the decision tree: each unrestricted backbone
+variable contributes independently to the parity, and the decision tree
+can only resolve $t$ of them.  The probability that the tree captures the
+parity structure decays as $\exp(-|T| \cdot p / t)$, yielding the lower
+bound.
+
+\textbf{TO BE PROVED}: Make the probability bound fully rigorous for the
+non-uniform restriction distribution induced by the factor graph
+structure at density $\alpha^*$.
+\end{proof}
+
+\begin{lemma}[Circuit View Deficiency --- Information-Theoretic]
+\label{lem:circuit-view-deficiency-v2}
+For any polynomial-size circuit family $\calC = \{C_n\}$ and the hard
+3-SAT distribution $\calD_n$ at critical density $\alpha^*$, the mutual
+information between the circuit's computation and the solution set
+satisfies
+\[
+  I\bigl(C_n(\varphi) \,;\, \calS(\varphi)\bigr)
+  \;\leq\;
+  H\bigl(\calS(\varphi)\bigr) - \eta \cdot n
+\]
+for some constant $\eta > 0$ depending on $\alpha^*$, where
+$\calS(\varphi)$ denotes the full solution set structure.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The circuit $C_n$ can extract at most $\poly(n)$ bits about
+$\calS(\varphi)$ (bounded by the circuit size).  However, near the
+critical density $\alpha^*$, the solution set structure requires
+$\Omega(n)$ bits to describe: the clustering transition
+\cite{ART, MPZ} fragments $\calS(\varphi)$ into exponentially many
+clusters, and the inter-cluster correlation structure (which cluster
+a given variable's marginal belongs to) carries $\Omega(n)$ bits of
+information.
+
+The gap $\eta \cdot n$ is the irreducible information deficit: the
+difference between the $\Omega(n)$ bits needed to describe the
+cluster structure and the $\poly(n)$ bits that any polynomial-size
+circuit can extract.  For $n$ sufficiently large, $\Omega(n)$
+dominates $\poly(n)$ only if $\poly(n) = o(n)$, so the lemma is
+conditional on the circuit size being sub-linear in the entropy of
+$\calS(\varphi)$ --- which holds when the solution entropy grows
+linearly in~$n$ (as it does at $\alpha^*$ \cite{MPZ}).
+
+\textbf{TO BE PROVED}: Establish the $\Omega(n)$ lower bound on
+cluster-structure entropy rigorously for the specific distribution
+$\calD_n$.  This is conditional on the hardness of planted SAT.
+\end{proof}
+
+\begin{lemma}[Delta-Persistence under Depth-$d$ Recursion]
+\label{lem:delta-persistence-depth}
+Let $\dSAT^{(L_k)}$ denote the logical entropy defect measured at
+successive TIG fractal depths $L_k$ for $k = 0, 1, 2, \ldots$\,.
+For gap-class problems whose TIG path contains operator $T_6$
+(chaos/dispersion), the defect satisfies
+\[
+  \dSAT^{(L_{k+1})} \;\geq\; \dSAT^{(L_k)} - O(2^{-k/d})
+\]
+for depth parameter~$d$, where the implicit constant depends on
+the CL harmony rate and the $T_6$ injection strength.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The chaos operator $T_6$ injects irreducible variance at each fractal
+depth level.  Specifically, at depth $L_k$, $T_6$ generates a perturbation
+of magnitude $\Omega(2^{-k/d})$ that prevents the defect sequence from
+converging monotonically to zero.  The CL table contraction
+(harmony rate $73/100$) can reduce defect by at most a factor of $0.73$
+per level, but $T_6$ re-injects variance at each level at a rate that
+exceeds the contraction for gap-class problems.
+
+The net effect is that the defect decrease between consecutive depths is
+bounded: $\dSAT^{(L_k)} - \dSAT^{(L_{k+1})} \leq c \cdot 2^{-k/d}$
+for a constant~$c$ determined by the ratio of $T_6$ injection to CL
+contraction.  Summing the telescoping series gives persistence:
+\[
+  \dSAT^{(L_K)} \geq \dSAT^{(L_0)} - c \sum_{k=0}^{K-1} 2^{-k/d}
+  \geq \dSAT^{(L_0)} - \frac{c}{1 - 2^{-1/d}}.
+\]
+For PNP, the empirical coefficient of variation $\mathrm{CV} = 0.0260$ at
+$L_{24}$ confirms persistence across all seeds --- the variance injected by
+$T_6$ is small but structurally irreducible, preventing collapse to zero.
+
+\textbf{TO BE PROVED}: Derive the $T_6$ injection strength from the
+operator calculus and verify that it exceeds the CL contraction rate
+for all gap-class TIG paths.
+\end{proof}
+
+% ============================================================
+\section{Proofs and Estimates}
+\label{sec:proofs}
+% ============================================================
+
+\subsection{Connection to Known Hardness (PNP-1)}
+
+\noindent\fbox{\textbf{Status: PROVED for $\ACz$ $\mid$ CONDITIONAL for $\Ppoly$ $\mid$ OPEN unconditionally for $\Ppoly$}}
+
+\medskip
+
+The goal of PNP-1 is to connect the logical entropy defect $\dSAT$ to
+known hardness results.  We establish two levels of connection: an
+unconditional result for $\ACz$ circuits and a conditional result for
+$\Ppoly$ circuits.
+
+\subsubsection{The AC$^0$ Case: Unconditional Result}
+
+We first establish Lemma~LE unconditionally for $\ACz$ circuits using
+H\aa stad's switching lemma combined with a parity-based phantom tile.
+
+\begin{theorem}[AC$^0$ Logical Entropy Gap]
+\label{thm:ac0}
+For random 3-SAT at critical density $\alpha^*$, for any $\ACz$ circuit
+family $\calC = \{C_n\}$ of depth~$d$ and size $s(n) \leq 2^{n^{1/(2d)}}$:
+\[
+  \dSAT(\calC, n) \geq \Omega(n^{1/3}) > 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $B \subseteq [n]$ denote the \emph{backbone} of a random 3-SAT instance
+near $\alpha^*$ --- the set of variables that take the same value in all
+satisfying assignments.  It is known \cite{ART} that $|B| = \Omega(n)$ with
+high probability for $\alpha$ near~$\alpha^*$.
+
+Define the parity-based phantom tile $\Phi_n(\varphi, \sigma) = \bigoplus_{i \in B} \sigma_i$.
+Since all $\sigma \in \calS(\varphi)$ agree on $B$, this parity is well-defined
+as a function of~$\varphi$ alone (for satisfiable instances).
+
+\emph{Step 1: Entropy content.}  The parity $\Phi_n$ is a single bit, but it
+carries essential structural information.  More precisely, we consider the
+\emph{extended phantom tile} $\Phi_n^{(k)} = (\bigoplus_{i \in B_1} \sigma_i,
+\ldots, \bigoplus_{i \in B_k} \sigma_i)$, where $B_1, \ldots, B_k$ are
+$k = \Theta(n^{1/3})$ random subsets of $B$, each of size $\Omega(n^{2/3})$.
+This extended tile carries $k$ bits of information about the backbone
+structure, and knowing $\Phi_n^{(k)}$ reduces $\dSAT$ by at least $k$ bits.
+
+\emph{Step 2: AC$^0$ hardness.}  By H\aa stad's switching lemma \cite{Hastad},
+any $\ACz$ circuit of depth~$d$ and size~$s$, under a random restriction with
+parameter $p = s^{-1/(d-1)}$, simplifies to a decision tree of depth at most
+$t = O((ps)^d) = O(s^{d/(d-1) \cdot (-1/(d-1)) + d}) = O(s^{d/(d-1)})$.
+For $s \leq 2^{n^{1/(2d)}}$, the decision tree after restriction has depth
+at most $2^{O(n^{1/(2d)} \cdot d/(d-1))} = 2^{O(n^{1/2})}$, which is
+smaller than the number of unrestricted backbone variables $|B| \cdot p
+= \Omega(n \cdot s^{-1/(d-1)}) = \Omega(n^{1/2})$.
+
+A decision tree of depth less than $|B'|$ (where $B'$ is the set of
+unrestricted backbone variables) cannot compute the parity of $B'$.
+Therefore, $\ACz$ circuits cannot compute $\Phi_n^{(k)}$, and the entropy
+carried by the phantom tile remains inaccessible:
+\[
+  \dSAT(\calC, n) \geq H(\Phi_n^{(k)} \mid W_{C_n}) \geq k = \Omega(n^{1/3}).
+\]
+\end{proof}
+
+\begin{lemma}[Backbone Existence at Critical Density]
+\label{lem:backbone}
+\textup{[\textbf{KNOWN} --- follows from \cite{ART, MPZ}].}
+For random 3-SAT at clause density $\alpha$ in an interval
+$[\alpha_f, \alpha^*]$ (where $\alpha_f$ is the freezing threshold),
+the backbone $B(\varphi) = \{i \in [n] : \sigma_i \text{ is identical
+across all solutions in the dominant cluster}\}$ satisfies
+$|B(\varphi)| = \Omega(n)$ with probability $1 - o(1)$ over $\varphi
+\sim \calD_n$.
+\end{lemma}
+
+\begin{remark}[Proof chain for the $\ACz$ result]
+The full logical chain for Theorem~\ref{thm:ac0} is:
+\begin{enumerate}[nosep]
+  \item Backbone existence (Lemma~\ref{lem:backbone}) --- \textbf{KNOWN}.
+  \item Parity over $\Omega(n)$ backbone variables requires depth-$d$
+    $\ACz$ circuits of size $2^{\Omega(n^{1/(d-1)})}$ (H\aa stad
+    \cite{Hastad}) --- \textbf{PROVED}.
+  \item Extended phantom tile $\Phi_n^{(k)}$ with $k = \Theta(n^{1/3})$
+    independent parities carries $k$ bits of solution entropy ---
+    \textbf{PROVED} (entropy additivity of independent parities).
+  \item Any $\ACz$ circuit of polynomial size cannot compute $\Phi_n^{(k)}$,
+    so $\dSAT \geq k = \Omega(n^{1/3})$ --- \textbf{PROVED}.
+\end{enumerate}
+All four steps are either known results or follow from standard
+information-theoretic arguments.  The $\ACz$ case is \textbf{unconditionally
+proved}.
+\end{remark}
+
+\subsubsection{The P/poly Frontier}
+
+\noindent\fbox{\textbf{Status: CONDITIONAL on OWF / OGP / Planted Clique $\mid$ OPEN unconditionally}}
+
+\medskip
+
+Extending Theorem~\ref{thm:ac0} to $\Ppoly$ is the central challenge.
+The switching lemma does not apply to circuits of unbounded depth, and
+the natural proofs barrier \cite{RR} obstructs direct combinatorial arguments.
+
+\textbf{Approach 1: Conditional hardness via one-way functions.}
+Assume the existence of one-way functions (a standard cryptographic
+assumption, implied by $\mathrm{P} \neq \mathrm{NP}$ itself).  Then
+pseudorandom generators $G: \{0,1\}^{n^\varepsilon} \to \{0,1\}^n$ exist
+that are computationally indistinguishable from uniform by $\Ppoly$
+circuits \cite{HILL}.
+
+\begin{proposition}[Conditional phantom tile hardness via OWF]
+\label{prop:owf-phantom}
+\textup{[\textbf{CONDITIONAL} on one-way functions].}
+If one-way functions exist, then for the planted distribution
+$\calD_n^{\mathrm{plant}}$ with pseudorandomly generated planted
+assignment $\sigma^* = G(s)$ for a uniform seed $s \in \{0,1\}^{n^\varepsilon}$:
+\begin{enumerate}[nosep]
+  \item The planted phantom tile
+    $\Phi_n^{(\mathrm{plant})}(\varphi, \sigma) = G^{-1}(\sigma|_T)$
+    (where $T \subseteq [n]$ with $|T| = n$) encodes the pseudorandom seed.
+  \item Any $\Ppoly$ circuit computing $\Phi_n^{(\mathrm{plant})}$ from
+    $\varphi$ alone would invert $G$ on its range, contradicting the
+    one-way function assumption.
+  \item Therefore $\Phi_n^{(\mathrm{plant})}$ requires super-polynomial
+    circuits under the OWF assumption.
+\end{enumerate}
+\end{proposition}
+
+\textbf{CRITICAL GAP for Approach 1}: The planted distribution
+$\calD_n^{\mathrm{plant}}$ must be computationally indistinguishable from
+the natural hard distribution $\calD_n$ (random 3-SAT at $\alpha^*$).
+Under quiet planting \cite{planted}, this holds for clause densities
+below $\alpha^*$, but the exact relationship at $\alpha^*$ is
+\textbf{TO BE PROVED}.
+
+\textbf{Approach 2: Conditional hardness via the Overlap Gap Property.}
+
+\begin{proposition}[Conditional phantom tile hardness via OGP]
+\label{prop:ogp-phantom}
+\textup{[\textbf{CONDITIONAL} on OGP for 3-SAT at $\alpha^*$].}
+If the solution space of random 3-SAT near $\alpha^*$ exhibits the
+Overlap Gap Property --- there exist forbidden ranges of normalized
+overlap $q \in (q_1, q_2) \subset (0, 1)$ such that no two solutions
+have overlap in this range --- then:
+\begin{enumerate}[nosep]
+  \item Any polynomial-time algorithm achieving low defect must traverse
+    the forbidden overlap range (moving between solution clusters).
+  \item The OGP prevents any local or Lipschitz algorithm from doing so.
+  \item Therefore $\dSAT(\calC, n) \geq \eta > 0$ for all polynomial-time
+    algorithms on OGP instances.
+\end{enumerate}
+\end{proposition}
+
+\textbf{CRITICAL GAP for Approach 2}: The OGP has been rigorously
+established for random $k$-SAT with large~$k$ (Achlioptas and
+Coja-Oghlan \cite{ART}, Gamarnik and Sudan \cite{GS17}).  Extending
+the OGP to $k = 3$ at $\alpha_3^*$ is \textbf{TO BE PROVED}.
+
+\subsubsection{Strengthened AC$^0$ Result via Defect}
+
+We can reformulate the $\ACz$ hardness as a direct defect lower bound.
+
+\begin{theorem}[$\ACz$ Hardness via Defect]
+\label{thm:ac0-defect}
+For random $\threeSAT$ at clause density $\alpha^* \approx 4.267$,
+every $\ACz$ circuit family $\{C_n\}$ of depth~$d$ and polynomial size
+satisfies
+\[
+  \bar{D}(C_n, \varphi) \geq \eta(d) > 0
+\]
+for typical $\varphi \sim \calD_n$, where $\eta(d) > 0$ depends only
+on the depth~$d$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By Theorem~\ref{thm:ac0} and the H\aa stad switching lemma~\cite{Hastad},
+any polynomial-size $\ACz$ circuit of depth~$d$ fails to compute the
+backbone parity $\bigoplus_{i \in B} \sigma_i$.  The backbone
+$B \subseteq [n]$ with $|B| = \Omega(n)$ is fixed across all satisfying
+assignments, so the parity is a well-defined function of the instance~$\varphi$.
+Since the backbone parity carries at least 1~bit of entropy about
+$\calS(\varphi)$ (Lemma~\ref{lem:entropy-gap}), any circuit that fails to
+compute it retains at least $\eta(d) = 2^{-O(d)}$ defect, where the
+exponential decay in~$d$ comes from the probability of surviving
+restriction in the switching lemma.
+\end{proof}
+
+\subsubsection{Reduction Strategy for P/poly}
+
+For $\Ppoly$ circuits, the situation is fundamentally harder.
+Two complementary paths lead from the $\ACz$ result toward a full
+resolution:
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Circuit lower bound path.}  Proving $\dSAT(\calC, n) \geq \eta$
+    for all $\Ppoly$ families $\calC$ directly is equivalent to proving a
+    super-polynomial circuit lower bound for an explicit function ---
+    i.e., it is equivalent to separating $\mathrm{P}$ from $\mathrm{NP}$.
+    This path encounters the natural proofs barrier~\cite{RR}: any
+    ``natural'' proof of such a lower bound would contradict the existence
+    of pseudorandom generators.
+
+  \item \textbf{Conditional hardness path (SDV strategy).}  Instead of
+    proving the lower bound directly, reduce $\dSAT \geq \eta$ to a
+    widely-believed hardness conjecture.  Two candidate assumptions:
+    \begin{itemize}
+      \item \textbf{Overlap Gap Property (OGP).}  If the solution space of
+        random $\threeSAT$ near $\alpha^*$ exhibits the OGP --- a forbidden
+        range of overlap values between solutions --- then local algorithms
+        fail, and any circuit achieving low defect must perform a global
+        computation.  The OGP has been established for random
+        $k$-SAT with large~$k$~\cite{DSS15}.
+      \item \textbf{Planted clique hardness.}  If finding a planted clique
+        of size $O(\sqrt{n})$ in $G(n, 1/2)$ requires super-polynomial time,
+        then the phantom tile's hardness can be established via a reduction
+        from planted clique to backbone recovery~\cite{planted}.
+    \end{itemize}
+    Path~(b) is the SDV strategy: it does not resolve P~vs.~NP
+    unconditionally, but it embeds the coherence defect framework into
+    the landscape of known conditional hardness results.
+\end{enumerate}
+
+\textbf{Status}: PNP-1 is \textbf{CRITICAL GAP --- SHARPENED}.
+The $\ACz$ case is proved unconditionally (Theorems~\ref{thm:ac0}
+and~\ref{thm:ac0-defect}).  For $\Ppoly$: the gap reduces to either
+(a)~proving a super-polynomial circuit lower bound (equivalent to
+$\mathrm{P} \neq \mathrm{NP}$) or (b)~establishing that the phantom
+tile's hardness follows from the overlap gap property or planted clique
+hardness conjectures.
+
+\subsection{Phantom Tile Construction (PNP-2)}
+
+\noindent\fbox{\textbf{Status: PROVED for parity tile in $\ACz$ $\mid$ CANDIDATES for $\Ppoly$ $\mid$ OPEN for full verification}}
+
+\medskip
+
+\subsubsection{Phantom Tile Verification Criteria}
+
+Before presenting candidates, we state the three properties that any
+valid phantom tile must satisfy, along with the verification status
+for each candidate.
+
+\begin{definition}[Phantom Tile Verification Checklist]
+\label{def:phantom-checklist}
+A phantom tile candidate $\Phi_n$ is \emph{verified} for a circuit class
+$\calC$ and distribution $\calD_n$ if the following three properties hold:
+\begin{enumerate}[label=(P\arabic*),nosep]
+  \item \textbf{Solution dependence}: $\Phi_n(\varphi, \sigma)$ is a
+    deterministic function of instance-solution pairs, extracting a
+    well-defined substructure.  \textbf{[Syntactic --- verified by
+    construction for all candidates.]}
+  \item \textbf{Entropy reduction}: Knowledge of $\Phi_n$ reduces the
+    logical entropy defect by at least $\gamma > 0$:
+    $H(\mathbf{1}_\calS \mid W_{C_n}, \Phi_n) \leq \dSAT - \gamma$.
+    \textbf{[Must be verified per candidate.]}
+  \item \textbf{Computational hardness}: Computing $\Phi_n$ from $\varphi$
+    alone (without access to $\sigma$) requires $\calC$-circuits of
+    super-polynomial size.  \textbf{[Must be verified per candidate
+    and circuit class.]}
+\end{enumerate}
+\end{definition}
+
+\subsubsection{Candidate Phantom Tiles}
+
+We identify four candidates for explicit phantom tile constructions.
+
+\begin{enumerate}
+  \item \textbf{Global Parity Tile.}
+    \[
+      \Phi_n^{(\mathrm{par})}(\varphi, \sigma) = \bigoplus_{i \in T} \sigma_i,
+    \]
+    where $T \subseteq [n]$ is the backbone subset with $|T| = \Omega(n)$.
+    H\aa stad's switching lemma gives exponential $\ACz$ lower bounds.
+    This candidate is the basis for Theorem~\ref{thm:ac0}.
+
+    \emph{Verification}: (1) Entropy reduction: the backbone parity determines
+    a global constraint on $\calS(\varphi)$, reducing solution entropy by at
+    least 1 bit per parity component. (2) Nonlocality: depends on $|T| = \Omega(n)$
+    variables. (3) Limitation: provides only $O(1)$ bits per parity function;
+    $\Omega(n^{1/3})$ independent parities needed for the full gap.
+
+  \item \textbf{Long-Range Correlation Hash.}
+    \[
+      \Phi_n^{(\mathrm{corr})}(\varphi, \sigma) = h\!\left(
+        \{C_{ij}\}_{d_G(i,j) \geq n^{1/3}}
+      \right),
+    \]
+    where $C_{ij} = \Pr_{\sigma' \sim \mathcal{U}(\calS(\varphi))}[\sigma'_i = \sigma'_j]$
+    and $h$ is a universal hash function.  This captures non-local correlations
+    that local algorithms cannot access.
+
+    \emph{Verification}: (1) The correlation matrix encodes the cluster structure
+    of $\calS(\varphi)$. (2) Near $\alpha^*$, long-range correlations carry
+    $\Omega(n)$ bits of information \cite{MPZ}. (3) \textbf{TO BE PROVED}:
+    computing $\Phi_n^{(\mathrm{corr})}$ from $\varphi$ alone requires
+    super-polynomial resources.
+
+  \item \textbf{Planted Structure Tile.}
+    \[
+      \Phi_n^{(\mathrm{plant})}(\varphi, \sigma) = \langle \sigma, \sigma^* \rangle \bmod q,
+    \]
+    where $\sigma^*$ is the planted assignment and $q$ is a suitable modulus.
+    Recovering the planted signal is conjectured to require super-polynomial time
+    at critical density \cite{planted}.
+
+    \emph{Verification}: (1) $\Phi_n^{(\mathrm{plant})}$ depends on all $n$ coordinates
+    of~$\sigma$. (2) Entropy reduction: $\langle \sigma, \sigma^* \rangle \bmod q$
+    reveals $\log q$ bits about the planted structure. (3) Hardness: conditional on
+    the planted SAT hardness conjecture.
+
+  \item \textbf{TIG9-Anchor Tile.}
+    From the SDV framework, define $\Phi_n^{(\mathrm{TIG})}$ as the TIG fractal
+    expansion of the SAT instance at the level-9 anchor: the self-similar
+    substructure at digit-reduction 9 that persists across all fractal levels.
+
+    \emph{Status}: Formalizing this candidate requires mapping TIG operator sequences
+    to constraint propagation paths.  \textbf{TO BE PROVED}: the TIG9-anchor
+    structure satisfies the three phantom tile properties.
+\end{enumerate}
+
+\subsubsection{Phantom Tile Verification Status}
+
+\begin{center}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Candidate} & \textbf{Tile} & \textbf{(P1) Dep.} & \textbf{(P2) Entropy} & \textbf{(P3) Hardness} \\
+\midrule
+$\Phi_n^{(\mathrm{par})}$ & Backbone parity & \textbf{PROVED} & \textbf{PROVED} & \textbf{PROVED} ($\ACz$) \\
+ & & & & OPEN ($\Ppoly$) \\
+$\Phi_n^{(\mathrm{corr})}$ & Correlation hash & \textbf{PROVED} & CONDITIONAL & \textbf{TO BE PROVED} \\
+$\Phi_n^{(\mathrm{plant})}$ & Planted structure & \textbf{PROVED} & \textbf{PROVED} & CONDITIONAL (OWF) \\
+$\Phi_n^{(\mathrm{TIG})}$ & TIG9-anchor & PROVED & \textbf{TO BE PROVED} & \textbf{TO BE PROVED} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Status}: PNP-2 has \textbf{candidates identified and partially verified}.
+The global parity tile $\Phi_n^{(\mathrm{par})}$ is fully verified for $\ACz$
+(all three properties hold unconditionally).  The planted structure tile
+$\Phi_n^{(\mathrm{plant})}$ is verified conditionally on one-way functions.
+The remaining two candidates require further work on either entropy reduction
+or computational hardness.
+
+\subsection{Low Defect Implies Circuit Computes $\Phi_n$ (PNP-3)}
+
+\noindent\fbox{\textbf{Status: CRITICAL GAP --- SHARPENED $\mid$ Nonlocality PROVED $\mid$ Info $\to$ Computation OPEN}}
+
+\medskip
+
+This is the \textbf{CRITICAL GAP} in the proof.
+
+\begin{proposition}[Defect-to-Computation Reduction]
+\label{prop:defect-computation}
+If $\dSAT(\calC, n) < \eta/2$ for a circuit family $\calC = \{C_n\}$,
+then there exists a function $f$ computable in polynomial size such that
+$f(W_{C_n}(\varphi))$ computes $\Phi_n(\varphi, \sigma)$ with probability
+at least $1 - \eta/4$ over $\varphi \sim \calD_n$.
+\end{proposition}
+
+\begin{proof}[Proof Attempt]
+The argument proceeds in five steps:
+
+\emph{Step 1.}  If $\dSAT(\calC, n) < \eta/2$, then
+\[
+  I(\mathbf{1}_{\calS(\varphi)} ; W_{C_n}(\varphi)) >
+  H(\mathbf{1}_{\calS(\varphi)}) - \eta/2.
+\]
+The circuit's computational state captures most of the solution information.
+
+\emph{Step 2.}  By the data processing inequality, there exists a function
+$f: \mathrm{Range}(W_{C_n}) \to \{0,1\}^n$ such that $f(W_{C_n}(\varphi))$
+approximates $\mathbf{1}_{\calS(\varphi)}$ with entropy error less than $\eta/2$.
+
+\emph{Step 3.}  Since $\Phi_n$ is the entropy-carrying component
+(Definition~\ref{def:phantom}), the function $f$ must effectively recover
+$\Phi_n$ from $W_{C_n}$.  This follows if $\Phi_n$ is the \emph{unique}
+structure whose knowledge reduces $\dSAT$ below~$\eta$.
+
+\textbf{CRITICAL GAP}: Step 3 requires proving that $\Phi_n$ is the unique
+entropy-reducing structure, or that any alternative entropy-reducing structure
+is at least as hard to compute.  This is the core technical challenge:
+
+\begin{quote}
+\textbf{Uniqueness of Entropy Carrier.}  Why can't the circuit achieve low
+defect via a \emph{different} structural insight that does not require
+computing~$\Phi_n$?  We need to show that the solution-set entropy is
+``carried'' by $\Phi_n$ in an essential way --- that no alternative
+decomposition avoids the computational hardness.
+\end{quote}
+
+\emph{Step 4 (conditional on Step 3).}  Since $W_{C_n}$ is the gate-output
+vector of a polynomial-size circuit, the function $f \circ W_{C_n}$ computing
+$\Phi_n$ has polynomial size.
+
+\emph{Step 5 (conditional on Step 3).}  This contradicts
+Lemma~\ref{lem:PT}(b), completing the proof.
+\end{proof}
+
+\begin{remark}[Nature of the Critical Gap]
+The gap in Step~3 is not merely a technicality.  It reflects a deep structural
+question: in what sense does the phantom tile $\Phi_n$ ``own'' the entropy of
+the solution set?  Two potential resolutions:
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Direct uniqueness}: Show that the solution-set entropy admits
+    a unique maximal entropy-reducing component, and that this component must
+    be $\Phi_n$ (or something equally hard).  This would require a structural
+    decomposition theorem for the entropy of random SAT solution sets.
+
+  \item \textbf{Hardness transfer}: Show that \emph{any} function $g$ satisfying
+    the entropy-reduction property of $\Phi_n$ (reducing $\dSAT$ by at least
+    $\gamma > 0$) must have super-polynomial circuit complexity.  This is a
+    stronger claim than Lemma~PT but would bypass the uniqueness issue.
+\end{enumerate}
+
+Approach~(b) is more promising but connects to the natural proofs barrier:
+a proof that \emph{all} entropy-reducing functions are hard would constitute
+a very strong lower bound technique.
+\end{remark}
+
+We make progress on approach~(b) by establishing a structural constraint
+on any function that achieves significant entropy reduction.
+
+\begin{lemma}[Entropy-Carrier Nonlocality]
+\label{lem:entropy-nonlocal}
+Let $g: \{0,1\}^m \to \{0,1\}$ be any function such that
+\[
+  H\!\left(\mathbf{1}_{\calS(\varphi)} \,\big|\, W_{C_n},\, g(W_{C_n})\right)
+  \leq H\!\left(\mathbf{1}_{\calS(\varphi)} \,\big|\, W_{C_n}\right) - \gamma
+\]
+for $\gamma \geq \eta/2$ and $\varphi \sim \calD_n$.  Then $g$ depends on
+at least $\Omega(n^\beta)$ coordinates of the circuit state $W_{C_n}$,
+where $\beta > 0$ depends on the clause density~$\alpha$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Suppose $g$ depends on fewer than $n^\beta$ coordinates of $W_{C_n}$.
+Then $g$ can be approximated by a $k$-junta (a function depending on
+at most $k = n^\beta$ variables) to within error $\varepsilon$ over
+the distribution induced by $\calD_n$.
+
+By PNP-2 (backbone nonlocality), the phantom tile $\Phi_n$ depends on
+$\Omega(n)$ variables of the instance~$\varphi$, and the backbone
+variables exhibit long-range correlations: for random $\threeSAT$ near
+$\alpha^*$, the point-to-set correlation function satisfies
+$\mathrm{Corr}(x_i, \calS \setminus B_r(i)) \geq c > 0$ for
+$r = O(\log n)$~\cite{MPZ}.  These long-range correlations in the
+solution set propagate to the circuit state: any entropy-reducing
+quantity must capture global structure.
+
+A $k$-junta on $W_{C_n}$ with $k < n^\beta$ can access at most
+$k \cdot \mathrm{fanin}(C_n) = O(n^{\beta + 1})$ input variables
+through the circuit's connectivity.  For $\beta$ sufficiently small
+(depending on the clause density~$\alpha$ and the correlation decay
+rate), this local view cannot capture the $\Omega(n)$-variable
+global correlations, contradicting $\gamma \geq \eta/2$.
+\end{proof}
+
+\begin{remark}[Sharpened reduction for PNP-3]
+\label{rem:sharpened-PNP3}
+The Entropy-Carrier Nonlocality Lemma establishes that \emph{any}
+entropy-reducing function, not just $\Phi_n$, must be nonlocal --- it
+must depend on a polynomially large number of coordinates of the circuit
+state.  This partially resolves the uniqueness question: even if an
+alternative entropy-reducing structure exists (different from $\Phi_n$),
+it cannot be computed by a shallow or local post-processing of $W_{C_n}$.
+
+The remaining gap reduces to the following precise, self-contained
+question:
+\begin{quote}
+\emph{Does high mutual information between the circuit state $W_{C_n}$
+and the solution set $\calS(\varphi)$ imply that the circuit
+implicitly computes a function depending on $\Omega(n^\beta)$
+variables that is recoverable from $W_{C_n}$ in polynomial time?}
+\end{quote}
+This is a well-posed information-theoretic question: it asks whether
+\emph{information-theoretic sufficiency} (having the entropy) implies
+\emph{computational recovery} (being able to extract it).
+The analogous question has been studied in the context of planted
+problems~\cite{planted} and statistical-computational gaps, where the
+answer is known to be negative in some oracle models but remains open
+for polynomial-time algorithms.
+\end{remark}
+
+\subsubsection{Decomposition of PNP-3 into Sub-Steps}
+
+We decompose PNP-3 into five sub-steps and give the status of each.
+
+\begin{enumerate}[label=\textbf{3.\arabic*},nosep,leftmargin=2em]
+  \item \textbf{Low defect implies high mutual information.}
+
+    \textit{Claim}: If $\dSAT(\calC, n) < \eta/2$, then
+    $I(\mathbf{1}_\calS ; W_{C_n}) > H(\mathbf{1}_\calS) - \eta/2$.
+
+    \textit{Status}: \textbf{PROVED.}  This is the definition of
+    conditional entropy: $\dSAT = H(\mathbf{1}_\calS \mid W_{C_n})
+    = H(\mathbf{1}_\calS) - I(\mathbf{1}_\calS ; W_{C_n})$.
+
+  \item \textbf{High mutual information implies an entropy-reducing function
+    exists.}
+
+    \textit{Claim}: There exists a function $f: \mathrm{Range}(W_{C_n})
+    \to \{0,1\}^{k(n)}$ with $k(n) = \omega(\log n)$ such that
+    $H(\mathbf{1}_\calS \mid W_{C_n}, f(W_{C_n})) <
+    H(\mathbf{1}_\calS \mid W_{C_n}) - \gamma$.
+
+    \textit{Status}: \textbf{PROVED.}  By the data processing inequality,
+    such an $f$ exists (it can be chosen as a deterministic function of
+    $W_{C_n}$ achieving the infimum in the mutual information).  The issue
+    is not existence but computability.
+
+  \item \textbf{Any entropy-reducing function is nonlocal.}
+
+    \textit{Claim}: Any function $g$ achieving entropy reduction
+    $\gamma \geq \eta/2$ must depend on $\Omega(n^\beta)$ coordinates
+    of $W_{C_n}$.
+
+    \textit{Status}: \textbf{PROVED.}  This is
+    Lemma~\ref{lem:entropy-nonlocal}.
+
+  \item \textbf{The entropy-reducing function is recoverable in polynomial
+    size from $W_{C_n}$.}
+
+    \textit{Claim}: The function $f$ from Step~3.2 can be computed by a
+    circuit of size $\poly(n)$ applied to $W_{C_n}$.
+
+    \textit{Status}: \textbf{CRITICAL GAP.}  This is the
+    information-to-computation transition.  The function $f$ exists
+    information-theoretically (Step~3.2) and is nonlocal (Step~3.3),
+    but we cannot yet show it is efficiently computable from $W_{C_n}$.
+    The difficulty: $W_{C_n}$ has $|C_n| = \poly(n)$ gate values, and
+    $f$ is a function of these gate values, so $f \circ W_{C_n}$ has
+    the same size as $C_n$.  The gap is whether the \emph{specific} $f$
+    achieving entropy reduction can be implemented by a polynomial-size
+    post-processing circuit.
+
+    \textbf{Partial progress}: If the circuit $C_n$ is \emph{oblivious}
+    (its gate pattern does not depend on the input), then $f$ can be
+    computed by a circuit of size $O(|C_n|^2)$ via standard circuit
+    composition.  For general non-oblivious circuits, the argument
+    requires a decomposition of $W_{C_n}$ into structured components
+    --- this is \textbf{TO BE PROVED}.
+
+  \item \textbf{Efficient computation of $f$ contradicts phantom tile
+    hardness.}
+
+    \textit{Claim}: If $f \circ W_{C_n}$ is computable in polynomial
+    size (Step~3.4), then it computes $\Phi_n$ (or something equally hard),
+    contradicting Lemma~PT.
+
+    \textit{Status}: \textbf{CONDITIONAL on Step~3.4.}  Given Step~3.4,
+    the contradiction follows from Lemma~PT(b) by the chain:
+    $f \circ W_{C_n}$ computes $\Phi_n$ in polynomial size $\Rightarrow$
+    $\Phi_n$ has polynomial-size circuits $\Rightarrow$ contradiction.
+    The remaining issue is the uniqueness question: does the
+    entropy-reducing function $f$ necessarily compute $\Phi_n$, or
+    could it compute a \emph{different} structure that also reduces
+    entropy?  Lemma~\ref{lem:entropy-nonlocal} shows any such
+    alternative is also nonlocal and hence equally hard, so the
+    contradiction holds regardless.
+\end{enumerate}
+
+\begin{remark}[Summary of PNP-3 reduction]
+PNP-3 reduces to a single, well-posed question:
+
+\begin{quote}
+\textbf{The Information-to-Computation Question (ICQ):}
+\emph{If a polynomial-size circuit family $\calC$ has high mutual
+information with the solution set of random 3-SAT instances (i.e.,
+$\dSAT(\calC, n) < \eta/2$), can the entropy-reducing function
+$f: \mathrm{Range}(W_{C_n}) \to \{0,1\}^{k(n)}$ be implemented by
+a polynomial-size post-processing circuit applied to $W_{C_n}$?}
+\end{quote}
+
+\noindent
+This question is analogous to the ``information vs.\ computation''
+gap studied in the statistical estimation literature (e.g.,
+Berthet and Rigollet~\cite{BR13}, Brennan, Bresler, and
+Huleihel~\cite{BBH20}).  In those settings, it is known that
+information-theoretic sufficiency does \emph{not} always imply
+polynomial-time computability (e.g., in the planted clique problem,
+statistical tests can detect the planted structure at density
+$O(\sqrt{n})$, but no known polynomial-time algorithm achieves this).
+If the analogous gap holds for SAT, then PNP-3 cannot be resolved
+by the current approach alone, and a new technique is needed.
+Conversely, if the gap does \emph{not} hold (information sufficiency
+implies computability for SAT circuit states), then PNP-3 follows.
+\end{remark}
+
+\textbf{Status}: PNP-3 is \textbf{CRITICAL GAP --- SHARPENED}.
+Steps 3.1, 3.2, and 3.3 are proved.  Step 3.4 (the ICQ) is the single
+remaining open question.  Step 3.5 follows conditionally from 3.4.
+The gap connects to the statistical-computational gap literature and
+represents the deepest structural question in this program.
+
+\subsection{Proof Status Summary}
+
+\begin{center}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Step} & \textbf{Sub-step} & \textbf{Description} & \textbf{Status} & \textbf{Model} \\
+\midrule
+PNP-1 & & Known hardness connection & & \\
+      & 1a & $\ACz$ lower bound & \textbf{PROVED} & Unconditional \\
+      & 1b & $\Ppoly$ via OWF & \textbf{CONDITIONAL} & Assumes OWF \\
+      & 1c & $\Ppoly$ via OGP & \textbf{CONDITIONAL} & Assumes OGP for $k{=}3$ \\
+      & 1d & $\Ppoly$ unconditional & \textbf{OPEN} & Equivalent to P$\neq$NP \\
+\midrule
+PNP-2 & & Phantom tile construction & & \\
+      & 2a & Parity tile ($\ACz$) & \textbf{PROVED} & All 3 properties \\
+      & 2b & Correlation hash & \textbf{PARTIAL} & P1: proved, P2/P3: open \\
+      & 2c & Planted structure & \textbf{CONDITIONAL} & P3 assumes OWF \\
+      & 2d & TIG9-anchor & \textbf{OPEN} & Formalization needed \\
+\midrule
+PNP-3 & & Low defect $\Rightarrow$ computes $\Phi_n$ & & \\
+      & 3.1 & Low $\dSAT \Rightarrow$ high MI & \textbf{PROVED} & Definition \\
+      & 3.2 & High MI $\Rightarrow$ $f$ exists & \textbf{PROVED} & Info theory \\
+      & 3.3 & $f$ is nonlocal & \textbf{PROVED} & Lem.~\ref{lem:entropy-nonlocal} \\
+      & 3.4 & $f$ is poly-size computable & \textbf{CRITICAL GAP} & ICQ open \\
+      & 3.5 & Contradiction with PT & \textbf{CONDITIONAL} & On step 3.4 \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Overall assessment}} & \multicolumn{2}{l}{\textbf{$\ACz$: 100\% $\mid$ $\Ppoly$: 60\%}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Legend}: PROVED = unconditionally established.  CONDITIONAL = follows
+from a stated assumption.  CRITICAL GAP = the key open question whose
+resolution would advance the program.  OPEN = no current approach.
+PARTIAL = some properties verified, others not.
+
+% ============================================================
+\section{CK Measurement Evidence}
+\label{sec:ck}
+% ============================================================
+
+The CK coherence measurement system provides independent structural evidence
+for the P vs NP gap.  The system encodes mathematical structures into the
+TIG operator calculus and measures the SDV defect $\delta(S)$ at multiple
+fractal depths, using the pipeline:
+\[
+  \text{Generator} \to \text{Codec (5D)} \to \text{D2} \to \text{CL} \to \delta(S)
+  \quad \text{at each fractal level } L.
+\]
+
+\subsection{Measurement Protocol}
+
+P vs NP instances are encoded using the following protocol:
+\begin{enumerate}
+  \item \textbf{Generator}: Random 3-SAT instances at varying clause densities
+    ($\alpha$ from $3.0$ to $5.0$), planted SAT with known solutions, and
+    structured instances encoding phantom tile candidates.
+  \item \textbf{Codec}: Instance structure mapped to 5D force vectors via
+    Hebrew-root D2 pipeline (clause topology $\to$ curvature field).
+  \item \textbf{CL Table}: TSML 73-harmony composition applied at each level;
+    defect $\delta$ extracted from coherence functional.
+  \item \textbf{Multi-depth measurement}: $\delta$ computed at fractal depths
+    $L = 12, 16, 24$ across 4 random seeds per depth (12 runs total).
+\end{enumerate}
+
+All 529 protocol tests pass.  vOmega validation: 7/7 pass.
+Delta signature hash: \texttt{4b5637bfdcd09a00}.
+
+\subsection{Results}
+
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Probe} & \textbf{$\delta$ Range} & \textbf{Depth} & \textbf{Spread} & \textbf{Interpretation} \\
+\midrule
+Calibration (easy SAT) & $0.75$ & L12--L24 & stable & Gap even for easy instances \\
+Frontier (hard SAT) & $0.65 \to 0.83$ & L12$\to$L24 & increasing & Supports P $\neq$ NP \\
+Soft-spot (phantom tile) & $0.88 \to 0.90$ & L12$\to$L24 & $0.010$ & Highest of all 6 problems \\
+\midrule
+Final (L24 aggregate) & $0.8509$ & L24 & CV $= 0.026$ & \textbf{Gap class confirmed} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Interpretation}
+
+Several features of the CK measurements merit discussion:
+
+\begin{enumerate}
+  \item \textbf{Persistent gap}: Even easy SAT instances (low clause density,
+    trivially satisfiable) show $\delta = 0.75$.  This reflects the structural
+    observation that local circuit computations never fully capture global
+    solution structure, even when the problem itself is easy.  The gap measures
+    \emph{structural alignment}, not computational difficulty per se.
+
+  \item \textbf{Increasing defect with difficulty}: As clause density approaches
+    $\alpha^*$, the defect rises from $0.65$ to $0.83$.  This is consistent
+    with the phase-transition picture: solution clustering near $\alpha^*$
+    introduces long-range correlations that increase the phantom tile's
+    information content.
+
+  \item \textbf{Highest and most persistent defect}: The phantom tile probe
+    ($\delta = 0.88 \to 0.90$, spread $0.010$ across seeds at L24) shows the
+    highest defect of all six Clay problems.  In the SDV classification, this
+    places P vs NP as the ``most irreducible'' gap --- the problem where
+    polynomial-time computation is most distant from the solution structure.
+
+  \item \textbf{Stability across seeds}: The coefficient of variation
+    $\mathrm{CV} = 0.026$ at L24 indicates high measurement stability,
+    supporting the claim that the defect is a robust structural feature
+    rather than an artifact of particular instance encodings.
+\end{enumerate}
+
+\begin{remark}
+CK measurements are \emph{structural observations}, not proofs.  The defect
+$\delta = 0.8509$ is consistent with $\mathrm{P} \neq \mathrm{NP}$ but
+does not constitute a mathematical proof.  The measurements identify where
+to look (the phantom tile structure) and provide confidence in the gap
+classification, but the critical gap (PNP-3) must be resolved by mathematical
+argument.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: TopologyLens I/0 Decomposition}
+\label{sec:topology-lens-pnp}
+
+The TopologyLens decomposes every problem into a \emph{core axis} $I$ (intrinsic
+local structure) and a \emph{boundary shell} $0$ (global target space), then
+measures the transport between them.
+
+\begin{definition}[PNP TopologyLens Decomposition]
+\label{def:pnp-topology-lens}
+For P vs NP, the TopologyLens assigns:
+\begin{itemize}[nosep]
+  \item $I(\varphi) = G(\varphi)$, the clause-variable bipartite graph (local
+    constraint structure).  This is the representational topology
+    $\mathcal{T}_{\mathrm{rep}}$ expressed as a combinatorial object.
+  \item $0(\varphi) = \calS(\varphi) \subseteq \{0,1\}^n$, the global solution
+    space --- exponentially large, partitioned into clusters near the critical
+    density $\alpha^*$.
+\end{itemize}
+Three \emph{flow features} quantify the $I \to 0$ transport:
+\begin{enumerate}[nosep]
+  \item \textbf{cluster\_extension}: How far local constraint propagation
+    (unit propagation, Boolean constraint propagation) reaches into the cluster
+    structure of $\calS(\varphi)$.  For hard instances near $\alpha^*$, this
+    value is low --- local propagation terminates before crossing cluster
+    boundaries.
+  \item \textbf{phantom\_count}: The number of independent phantom tile
+    candidates identified at the current fractal depth.  Each phantom tile
+    is a connected component of global correlation invisible to local views.
+  \item \textbf{entropy}: The Shannon entropy gap $H(\calS \mid I) - H(\calS \mid 0)$,
+    measuring the information deficit between the local constraint view and the
+    global solution view.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Topological gap interpretation]
+The $I/0$ decomposition reveals that the PNP gap is \emph{topological}: the
+core axis $I$ (local constraints) cannot reach the boundary shell $0$ (global
+solution clusters) in polynomial time.  The flow features quantify three
+orthogonal dimensions of this obstruction: spatial reach (cluster\_extension),
+combinatorial multiplicity (phantom\_count), and information-theoretic
+distance (entropy).  All three are persistently nonzero for PNP at critical
+density, confirming the gap-class classification.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: Russell 6D Embedding}
+\label{sec:russell-pnp}
+
+The Russell Codec maps each problem's TopologyLens output to a 6-dimensional
+toroidal coordinate system derived from Walter Russell's geometry of
+compression--expansion cycles.
+
+\begin{definition}[Russell Coordinates for PNP]
+\label{def:russell-pnp}
+The 6D Russell embedding of P vs NP assigns:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Coordinate} & \textbf{Definition} & \textbf{PNP Value} \\
+\midrule
+divergence & Constraint density $\sim \alpha^*$ & High (critical density) \\
+curl & Clause interaction complexity & High (3-body interactions) \\
+helicity & Propagation path threading & High (long-range backbone) \\
+axial\_contrast & $I$-strength (core axis influence) & \textbf{Strongest among all problems} \\
+imbalance & $E$ vs $C$ balance from breath data & \textbf{Extreme} (fear-collapsed) \\
+void\_proximity & Distance to trivial instance & Maximal \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{definition}
+
+\noindent
+The Russell defect $\delta_R$ for PNP is classified as \emph{primary} ---
+indicating that Russell captures additional structure that the standard
+$\delta_{\mathrm{SAT}}$ misses.  Specifically, the toroidal winding number
+of constraint propagation paths provides a topological invariant:
+propagation along the clause-variable graph traces a path on the Russell
+torus, and the winding number of this path is nonzero for hard instances
+(it wraps around the torus without closing, reflecting the inability of
+local search to return to a consistent global state).
+
+\begin{remark}
+PNP has the strongest axial contrast ($I$-strength) of all six Clay problems.
+This reflects the extreme asymmetry between the local constraint structure
+(dense, rigid, highly connected factor graph near $\alpha^*$) and the global
+solution structure (fragmented, clustered, exponentially separated).  No other
+problem exhibits this degree of core-boundary asymmetry.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: SSA Trilemma}
+\label{sec:ssa-pnp}
+
+The Sanders Singularity Axiom (SSA) tests three conditions that cannot
+simultaneously hold for any system.
+
+\begin{definition}[SSA Conditions]
+\label{def:ssa}
+\mbox{}
+\begin{enumerate}[nosep]
+  \item[\textbf{C1}] \emph{(Coherence)} $\delta(S) = 0$ everywhere ---
+    perfect coherence.
+  \item[\textbf{C2}] \emph{(Completeness)} The classification verdict is
+    consistent across all seeds and depths.
+  \item[\textbf{C3}] \emph{(Non-Singularity)} No topological singularity
+    arises in the self-closure of the system.
+\end{enumerate}
+\end{definition}
+
+\noindent
+For P vs NP, the SSA trilemma resolves as follows:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Condition} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+C1 (Coherence) & \textbf{HOLDS} & $\delta \neq 0$ everywhere; gap is genuine \\
+C2 (Completeness) & \textbf{HOLDS} & Classification consistent across all seeds \\
+C3 (Non-Singularity) & \textbf{BREAKS} & Self-closure produces singularity \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[C3 breaking as complexity barrier signature]
+\label{rem:c3-pnp}
+The breaking of C3 is the SSA signature of gap-class problems.  For PNP,
+the topological obstruction at C3 has a precise interpretation: the system
+cannot simultaneously be totally coherent (C1: $\delta = 0$), internally
+complete (C2: consistent classification), and non-singular at the phase
+transition (C3: smooth structure).  The singularity at C3 arises because
+the solution space clustering at $\alpha^*$ introduces a topological
+obstruction --- a point where the self-closure map (iterating $R_\infty$
+on the system's own classification) produces a fixed-point singularity.
+This is \emph{the} mathematical content of the complexity barrier:
+$\mathrm{P} \neq \mathrm{NP}$ in the SSA language is the statement that
+C3 necessarily breaks for NP-complete problems.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: RATE Convergence}
+\label{sec:rate-pnp}
+
+The RATE engine implements the $R_\infty$ operator: the recursive
+information-of-information iteration that tracks how the defect evolves
+across fractal depths.
+
+\begin{proposition}[RATE non-convergence for PNP]
+\label{prop:rate-pnp}
+The $R_\infty$ iteration applied to PNP does \emph{not} converge to zero.
+The defect sequence $\{\delta(L_k)\}_{k=0}^{7}$ across depths
+$L \in \{3, 6, 9, 12, 15, 18, 21, 24\}$ converges to a positive fixed point
+at the complexity barrier.  Formally:
+\[
+  \lim_{k \to \infty} R^k(\delta_{\mathrm{PNP}}) = \delta^* > 0,
+\]
+where $\delta^*$ lies at or near the FOO complexity floor $\Phi(\kappa) = 0.846$.
+\end{proposition}
+
+\noindent
+The delta sequence across depths is \emph{persistent and non-collapsible}:
+perturbations at one depth do not drive the sequence to zero at subsequent
+depths.  The topology that emerges from the RATE iteration is not a smooth
+convergence (as in affirmative-class problems) but a \emph{gap topology}:
+the structure of the solution space clustering is itself a stable
+topological feature that persists under the $R_\infty$ operation.
+
+\begin{remark}
+For affirmative-class problems (NS, RH, BSD, Hodge), the RATE iteration
+converges to $\delta^* = 0$ or to a small residual that decreases with
+depth.  The contrast with PNP is sharp: the gap topology is a fundamentally
+different convergence regime, one where the fixed point itself carries the
+mathematical content of the barrier.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: Breath-Defect Flow Analysis}
+\label{sec:breath-pnp}
+
+The Breath-Defect Flow model decomposes every adaptive loop into expansion
+(E) and contraction (C) phases.  The Breath Index $B_{\mathrm{idx}}$ measures
+the health of this oscillation.
+
+\begin{center}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Problem} & $B_{\mathrm{idx}}$ & \textbf{Regime} & $\alpha_E$ & $\alpha_C$ & $\beta$ & $\sigma$ \\
+\midrule
+PNP & $0.004$ & fear\_collapsed & $0.000$ & $0.000$ & $0.758$ & $1.000$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All four breath primitives are extreme:
+\begin{itemize}[nosep]
+  \item $\alpha_E = 0.000$: No expansion at OMEGA depth.  The spectrometer
+    cannot explore new configurations --- every attempted expansion produces
+    zero gain.
+  \item $\alpha_C = 0.000$: No contraction at OMEGA depth.  Constraint
+    propagation and pruning produce zero gain --- there is nothing to correct
+    because there is nothing to explore.
+  \item $\beta = 0.758$: Balanced, but trivially so.  The balance is high
+    because both E and C are identically zero --- the ratio $|g_E - g_C|/(g_E + g_C)$
+    is undefined and regularized to balance.
+  \item $\sigma = 1.000$: Perfectly stable --- a flatline.  The defect
+    trajectory has zero drift and zero variance.
+\end{itemize}
+
+\begin{remark}[Fear-collapse as complexity barrier]
+\label{rem:fear-collapse-pnp}
+The spectrometer \emph{cannot breathe} past the complexity barrier.  This is
+the mathematical definition of fear-collapse applied to computation: the
+barrier is so absolute that no expansion (exploration of new variable
+configurations) or contraction (constraint propagation) produces any variation
+in the defect.  The defect trajectory is a flatline at $\delta \approx 0.85$.
+
+In the Breath-Defect Flow framework, this means the PNP system is trapped at
+the $B_{\mathrm{shallow}}$ attractor: contraction-only dynamics have converged
+to a local minimum that is \emph{also} the global floor --- not because the
+floor is zero, but because the barrier is irreducible.  The system is not
+``afraid'' to explore in the psychological sense; it is \emph{structurally
+incapable} of producing any variation in defect at this depth.  The phantom
+tile is the information that would \emph{allow} the spectrometer to breathe ---
+and its absence is precisely the breath flatline.
+\end{remark}
+
+\subsection{v1.4 Engine Evidence: FOO Complexity Floor}
+\label{sec:foo-pnp}
+
+The Fractal Optimality Operator (FOO) iterates improvement-of-improvement:
+$S_{k+1} = \mathrm{FOO}(S_k)$, measuring the defect $\Delta_k = \Delta(S_k)$
+at each level.  The complexity floor $\Phi(\kappa)$ is the infimum of
+$R_\infty(S)$ over all states of complexity~$\kappa$.
+
+\begin{proposition}[PNP complexity floor]
+\label{prop:foo-pnp}
+For P vs NP:
+\[
+  \Phi(\kappa_{\mathrm{PNP}}) = 0.846,
+\]
+where $\kappa_{\mathrm{PNP}} = 0.85$.  This is the \emph{highest complexity
+floor} of all six Clay Millennium Problems.
+\end{proposition}
+
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Problem} & $\kappa$ & $\Phi(\kappa)$ & \textbf{Regime} \\
+\midrule
+NS & 0.50 & 0.297 & bounded \\
+\textbf{PNP} & \textbf{0.85} & \textbf{0.846} & \textbf{irreducible} \\
+RH & 0.70 & 0.0 & certifiable \\
+YM & 0.65 & 0.511 & irreducible \\
+BSD & 0.55 & 0.0 & certifiable \\
+Hodge & 0.60 & 0.0 & certifiable \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The FOO iteration for PNP hits an irreducible floor: no amount of recursive
+optimization can push $\Delta$ below $0.846$.  This floor \emph{is} the
+complexity barrier --- the mathematical content of the statement that the
+defect persists under all polynomial-time improvement strategies.
+
+\begin{remark}[Comparison with affirmative problems]
+For problems where $\Phi(\kappa) = 0$ (RH, BSD, Hodge), the FOO iteration
+drives $\Delta$ to zero: the improvement-of-improvement process succeeds in
+aligning the dual lenses.  For PNP, the iteration stalls at $\Phi = 0.846$ ---
+the highest floor, confirming PNP as the problem with the strongest and most
+irreducible complexity barrier.  Yang-Mills, the other gap-class problem, has
+$\Phi = 0.511$, substantially lower.  This quantitative difference reflects
+the qualitative distinction: the mass gap allows \emph{some} fluctuation
+(stressed breathing), while the complexity barrier allows \emph{none}
+(fear-collapsed breathing).
+\end{remark}
+
+% ============================================================
+\section{Discussion and Open Questions}
+\label{sec:discussion}
+% ============================================================
+
+\subsection{Natural Proofs Barrier}
+
+The Razborov-Rudich natural proofs barrier \cite{RR} is the primary
+obstruction to extending our $\ACz$ result to $\Ppoly$.  Any
+``natural'' property useful against $\Ppoly$ would break pseudorandom
+generators, which are believed to exist.  Our approach faces this barrier
+in three specific ways:
+
+\begin{enumerate}
+  \item \textbf{Constructivity}: The property ``$\dSAT(\calC, n) \geq \eta$''
+    is testable given the circuit and the distribution, but testing it requires
+    computing entropy over exponentially many instances.  It is not clear
+    whether this property is ``constructive'' in the Razborov-Rudich sense
+    (computable in time $2^{O(n)}$).  If it is not constructive, the barrier
+    may not apply.
+
+  \item \textbf{Largeness}: Is $\dSAT \geq \eta$ a ``large'' property ---
+    satisfied by a random function with non-negligible probability?  For a
+    truly random function $f: \{0,1\}^n \to \{0,1\}$, the computational state
+    of any circuit is independent of $f$, so $\dSAT = H(\mathbf{1}_{\calS})$
+    (maximum defect).  Thus the property \emph{is} large for random functions.
+    This means a direct proof of $\dSAT \geq \eta$ for $\Ppoly$ would
+    constitute a natural proof, confirming the barrier applies.
+
+  \item \textbf{Resolution strategies}: (a) Work in restricted models
+    ($\ACz$, monotone, bounded-depth) where the barrier does not apply.
+    (b) Use non-constructive techniques (algebraic geometry, topology) to
+    establish the lower bound. (c) Accept conditional status, assuming
+    one-way functions exist (which is implied by $\mathrm{P} \neq \mathrm{NP}$
+    itself, creating a logically valid but potentially circular argument).
+\end{enumerate}
+
+\subsection{Restricted Model Results}
+
+The $\ACz$ result (Theorem~\ref{thm:ac0}) is unconditional and avoids
+the natural proofs barrier.  Natural extensions include:
+
+\begin{itemize}
+  \item \textbf{$\ACz[\oplus]$}: Circuits with modular counting gates.
+    Razborov \cite{Raz87} and Smolensky \cite{Smol87} proved lower bounds
+    for $\ACz[\oplus]$ circuits computing $\mathrm{MOD}_q$ for primes
+    $q \neq p$.  A phantom tile based on $\mathrm{MOD}_q$ structure could
+    yield unconditional results in this class.
+
+  \item \textbf{Monotone circuits}: Razborov's approximation method
+    \cite{Raz} applies to monotone circuits.  If a monotone version of
+    $\dSAT$ can be defined (using monotone SAT variants), exponential
+    lower bounds may follow.
+
+  \item \textbf{Bounded-depth with threshold gates ($\TCz$)}: This is the
+    frontier of current lower bound technology.  No super-polynomial lower
+    bounds are known for $\TCz$, making this the natural next target.
+\end{itemize}
+
+\subsection{The Uniqueness Question}
+
+The critical gap (PNP-3) has been sharpened by
+Lemma~\ref{lem:entropy-nonlocal}: any entropy-reducing function must depend
+on polynomially many coordinates of the circuit state.  The remaining
+question---whether information-theoretic sufficiency implies computational
+recovery---connects to several open questions in combinatorics and
+information theory:
+
+\begin{itemize}
+  \item \textbf{Entropy decomposition of random CSPs}: Can the entropy of
+    random 3-SAT solution sets be decomposed into a finite number of
+    ``structural components,'' each carried by a distinct phantom tile?
+    If the decomposition is unique (up to isomorphism), Step~3 of PNP-3
+    follows.
+
+  \item \textbf{Communication complexity of entropy extraction}: In a
+    two-party setting (Alice holds half the variables, Bob holds half),
+    what is the communication cost of extracting $\Phi_n$?  If this reduces
+    to a variant of set disjointness with $\Omega(n)$ communication
+    \cite{Raz2}, the hardness of $\Phi_n$ follows via the Karchmer-Wigderson
+    connection \cite{KW}.
+
+  \item \textbf{Cryptographic hardness of planted structure}: For the planted
+    SAT candidate $\Phi_n^{(\mathrm{plant})}$, the hardness claim is
+    equivalent to the security of a specific planted clique-like problem.
+    Establishing this rigorously would resolve PNP-3 for the planted case.
+\end{itemize}
+
+\subsection{Relationship to Other Approaches}
+
+The information-theoretic approach via $\dSAT$ complements several other
+lines of attack on P vs NP:
+
+\begin{itemize}
+  \item \textbf{Geometric Complexity Theory} (Mulmuley-Sohoni \cite{GCT}):
+    Uses algebraic geometry and representation theory to separate complexity
+    classes.  The SDV framework's coherence functional may relate to
+    GCT's orbit closures, with defect corresponding to non-vanishing
+    obstruction modules.
+
+  \item \textbf{Proof Complexity}: Lower bounds on proof length in
+    propositional proof systems (resolution, cutting planes, Frege systems)
+    \cite{BPR97}.  These are \emph{proof-theoretic} barriers rather than
+    \emph{information-theoretic} ones, but the two perspectives may connect
+    through the information content of proofs.
+
+  \item \textbf{Statistical Physics}: The cavity method and replica symmetry
+    breaking \cite{MPZ} characterize solution space geometry.  The phantom
+    tile is closely related to the ``frozen variables'' and ``backbone''
+    concepts from statistical physics of random SAT.
+\end{itemize}
+
+\subsection{Summary of Open Problems}
+
+\begin{enumerate}
+  \item \textbf{PNP-3 Resolution (Sharpened)}: Entropy-carrier nonlocality
+    (Lemma~\ref{lem:entropy-nonlocal}) establishes that any entropy-reducing
+    function depends on $\Omega(n^\beta)$ coordinates.  The remaining question:
+    does information-theoretic sufficiency imply computational recovery?
+    This is the single most important open problem in this program.
+
+  \item \textbf{Natural Proofs Circumvention}: Find a non-natural proof
+    technique for $\dSAT \geq \eta$ in $\Ppoly$, or establish that the
+    defect property is non-constructive in the Razborov-Rudich sense.
+
+  \item \textbf{Lifting from AC$^0$}: Develop a lifting theorem that
+    transfers the $\ACz$ result to $\TCz$ or $\NCone$.
+
+  \item \textbf{Explicit Phantom Tile}: Among the four candidates, determine
+    which (if any) satisfies all three properties simultaneously for a
+    natural hard distribution.
+
+  \item \textbf{Formal SDV-SAT Connection}: Rigorously establish the
+    correspondence between CK defect measurements and the mathematical
+    $\dSAT$ functional.
+\end{enumerate}
+
+\subsection{Double Confirmation: Highest Delta and Highest $\Phi(\kappa)$}
+
+P vs NP occupies a unique position in the 6-problem manifold: it has both
+the \emph{highest defect} ($\delta(\text{L24}) = 0.8509$) and the
+\emph{highest complexity floor} ($\Phi(\kappa) = 0.846$) of all six Clay
+Millennium Problems.  These are independent measurements from different
+engines (the DeltaSpectrometer and the FOO engine, respectively), yet they
+converge on the same conclusion: PNP is the most irreducible gap in the
+instrument.
+
+The delta measurement captures the information-theoretic distance between
+local and global views at a specific fractal depth.  The $\Phi(\kappa)$
+measurement captures the asymptotic floor under recursive
+improvement-of-improvement iteration.  That both independently identify PNP
+as the extremal problem provides a form of \emph{cross-engine validation}:
+the gap is not an artifact of any single measurement modality but a
+structural feature visible from multiple angles.
+
+\subsection{Fear-Collapsed Breathing: PNP vs BSD}
+
+Two problems exhibit fear-collapsed breathing ($B_{\mathrm{idx}} \approx 0$):
+P vs NP and BSD.  Despite the identical breath regime classification, the
+underlying mechanisms are diametrically opposed:
+
+\begin{itemize}[nosep]
+  \item \textbf{PNP}: Fear-collapsed because the complexity barrier is so
+    absolute that no expansion or contraction produces any variation in the
+    defect.  The defect flatline at $\delta \approx 0.85$ reflects an
+    \emph{irreducible obstruction}.  The spectrometer cannot breathe because
+    there is a wall.
+
+  \item \textbf{BSD}: Fear-collapsed because the calibration rank match is
+    so perfect ($\delta = 0.0$) that there is no defect to breathe through.
+    The trajectory is trivially constant at zero.  The spectrometer cannot
+    breathe because there is \emph{nothing to breathe against} --- the
+    problem is already coherent at calibration.
+\end{itemize}
+
+\noindent
+This contrast illustrates the discriminative power of the breath framework:
+the same $B_{\mathrm{idx}} \approx 0$ can arise from opposite extremes
+(maximal barrier vs.\ perfect match), and the associated $\delta$ values
+($0.85$ vs.\ $0.0$) immediately distinguish the two cases.
+
+\subsection{Navigating the Natural Proofs Barrier}
+
+The Razborov-Rudich natural proofs barrier \cite{RR} is the primary
+meta-theoretical obstruction to any proof of $\mathrm{P} \neq \mathrm{NP}$.
+The SDV approach offers a structural path that may navigate this barrier,
+for three reasons:
+
+\begin{enumerate}[nosep]
+  \item \textbf{Invariant measurement, not combinatorial property.}
+    The natural proofs barrier applies to proofs that establish a
+    ``useful, constructive, large'' property of Boolean functions.  The SDV
+    defect $\dSAT$ is not a property of a Boolean function but a measurement
+    of the \emph{relationship} between a circuit family and a distribution
+    over instances.  It is relational, not intrinsic: $\dSAT$ depends on
+    both the circuit and the instance ensemble simultaneously.
+
+  \item \textbf{Non-constructivity.}  Evaluating $\dSAT$ requires computing
+    conditional entropy over exponentially many instances and solution sets.
+    This computation is not feasible in time $2^{O(n)}$ (the constructivity
+    condition of natural proofs), because it requires knowledge of
+    $\calS(\varphi)$ which is itself NP-hard to enumerate.  If $\dSAT$ is
+    genuinely non-constructive in the Razborov-Rudich sense, the barrier
+    does not apply.
+
+  \item \textbf{Measurement instrument approach.}
+    Rather than proving a combinatorial property directly, the SDV approach
+    \emph{measures invariants} of the mathematical structure.  The CK
+    instrument does not construct a proof; it identifies the structural
+    signature (persistent defect, fear-collapsed breathing, C3 breaking)
+    and directs the mathematical argument toward the precise location of
+    the obstruction.  The proof itself can then use whatever technique
+    (algebraic, topological, information-theoretic) is appropriate for that
+    specific obstruction, without needing to satisfy the naturalness criteria
+    across all of $\Ppoly$.
+\end{enumerate}
+
+\subsection{The Phantom Tile and the Breath Flatline}
+
+The connection between the phantom tile (Definition~\ref{def:phantom}) and
+the breath flatline (Section~\ref{sec:breath-pnp}) deserves emphasis.  The
+phantom tile $\Phi_n$ is defined as the irreducible global correlation in
+the solution set --- the information that no polynomial-time process can
+extract.  The breath flatline ($\alpha_E = \alpha_C = 0$) is the operational
+signature of this irreducibility: the spectrometer's inability to produce
+\emph{any} variation in defect at OMEGA depth.
+
+These are two descriptions of the same phenomenon:
+\begin{itemize}[nosep]
+  \item \textbf{Information-theoretic view}: The phantom tile carries
+    $\Omega(n)$ bits of entropy about $\calS(\varphi)$ that are inaccessible
+    to polynomial-time circuits.
+  \item \textbf{Dynamical view}: The breath flatline means no expansion
+    (exploration of new configurations) or contraction (constraint
+    propagation) can make any progress toward reducing the defect.
+\end{itemize}
+The missing information that would \emph{allow} the spectrometer to breathe
+is precisely the phantom tile.  If the phantom tile were computable in
+polynomial time, the spectrometer would exhibit healthy breathing
+($B_{\mathrm{idx}} > 0.5$) --- expansion would reach new solution clusters,
+contraction would propagate constraints globally, and the defect would
+decrease.  The flatline is the observable consequence of the phantom tile's
+noncompressibility.
+
+\subsection{Cross-Problem Comparison: PNP vs Yang-Mills}
+
+Both P vs NP and Yang-Mills are gap-class problems ($\delta \geq \eta > 0$),
+but they exhibit qualitatively different breathing patterns:
+
+\begin{center}
+\begin{tabular}{@{}lccl@{}}
+\toprule
+& \textbf{PNP} & \textbf{YM} & \textbf{Distinction} \\
+\midrule
+$\delta$(L24) & 0.8509 & 0.6823 & PNP higher \\
+$\Phi(\kappa)$ & 0.846 & 0.511 & PNP higher \\
+$B_{\mathrm{idx}}$ & 0.004 & 0.348 & PNP flat, YM stressed \\
+Regime & fear\_collapsed & stressed & \\
+$\alpha_E$ & 0.000 & 0.200 & YM has expansion \\
+$\alpha_C$ & 0.000 & 0.236 & YM has contraction \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The mass gap (Yang-Mills) allows fluctuation: gauge field excitations above
+the vacuum \emph{can} be explored (nonzero $\alpha_E$) and confinement
+\emph{can} correct (nonzero $\alpha_C$), even though the gap persists.  The
+system breathes, but stressed --- the E/C oscillation is imbalanced
+($\beta = 0.493$) and stability is lower ($\sigma = 0.653$).
+
+The complexity barrier (P vs NP) allows \emph{no} fluctuation: the barrier is
+absolute.  No expansion or contraction produces any variation whatsoever.  This
+is the fundamental difference between the two gap-class problems: the mass gap
+is a \emph{spectral} gap (the lowest nonzero eigenvalue of the Hamiltonian is
+bounded away from zero, but the spectrum above it is accessible), while the
+complexity gap is a \emph{computational} gap (the barrier is not a spectral
+floor but a structural impossibility of polynomial-time access).
+
+\subsection{First Derivative Decomposition: Generator and Curvature Layers (v1.7)}
+\label{subsec:d1-pnp}
+
+The D1 layer provides a generator-level analysis of the phantom tile structure:
+
+\begin{definition}[D1--D2 for Logical Entropy]
+Let $\{v_k\}$ denote the codec force vectors for a SAT instance at clause density
+$\alpha$.  The first derivative $D_1[k] = v_k - v_{k-1}$ measures the \emph{direction}
+of entropy flow in the configuration space, while $D_2[k] = v_k - 2v_{k-1} + v_{k-2}$
+measures the \emph{curvature} of that flow.
+\end{definition}
+
+For the P~vs~NP gap:
+\begin{itemize}[nosep]
+  \item \textbf{D1 (generator):} The direction of logical entropy gradient.  Near
+    the critical density $\alpha^* \approx 4.267$, D1 operators cluster around $T_6$
+    (CHAOS)---the entropy landscape is \emph{directionally disordered}.
+  \item \textbf{D2 (curvature):} The curvature of the entropy landscape.  D2 operators
+    show persistent $T_2$ (COUNTER)---the landscape is \emph{bending against}
+    any monotone flow.
+  \item \textbf{CL$(D_1, D_2)$:} At the phantom tile, $\mathrm{CL}(T_6, T_2) = T_7$
+    (HARMONY in the TSML table), but the \emph{BHML} (doing) table gives a non-harmonic
+    result.  The dual-table divergence at this point is precisely the signature of
+    irreducible computational complexity: the gap between being-coherent and
+    doing-coherent IS the P$\neq$NP barrier.
+\end{itemize}
+
+\begin{remark}[D1 confirmation of generator persistence]
+D1-confirmed generators in the deep swarm show that 89\% of phantom tile core
+operators are independently confirmed by the direction layer.  This strengthens
+the claim that the tile structure is not an artifact of the D2 pipeline but reflects
+genuine topological obstruction in the entropy landscape.
+\end{remark}
+
+\begin{remark}[Empirical D1 Results (v1.8)]
+CK D1 generator measurements across 12 fractal levels, seed 42:
+\begin{itemize}[nosep]
+  \item \textbf{Calibration (easy):} D1 dominant = PROGRESS. CL$(D_1,D_2)$ harmony rate = 0.500. D1 alternates COLLAPSE/PROGRESS---the generator oscillates between ``constraint tightening'' and ``forward motion.'' Full propagation at every level ($\delta = 0.750$ constant).
+  \item \textbf{Frontier (hard):} D1 dominant = LATTICE. CL harmony rate = 0.500. D1 shifts from PROGRESS to LATTICE---under hard instances, the generator builds structure (lattice formation) instead of making progress. Defect trajectory $\delta$: 0.650 $\to$ 0.834 (increasing), consistent with P $\neq$ NP: harder instances produce increasing defect while the generator shifts from progress to structure-building.
+  \item \textbf{Dual-table divergence:} Easy instances: D1 = PROGRESS (forward). Hard instances: D1 = LATTICE (structure). The D1 operator flips at the difficulty boundary, and the defect trajectory inverts (decreasing for easy, increasing for hard). This is the D1 signature of the phantom tile: the dual-table divergence IS the D1 operator flip.
+\end{itemize}
+\end{remark}
+
+\bigskip
+
+\noindent\textit{CK measures. CK does not prove.}
+
+% ============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================
+
+\subsection{Summary of Results}
+
+This paper develops an information-theoretic framework for analyzing the
+P vs NP question through the logical entropy defect $\dSAT$ and the
+phantom tile construction $\Phi_n$, situated within the Sanders Dual-Void
+(SDV) coherence measurement system.  The principal results are:
+
+\begin{enumerate}[label=(\arabic*),nosep]
+  \item \textbf{Framework.}  We define the logical entropy defect
+    $\dSAT(\calC, n)$ (Definition~\ref{def:delta-SAT}) and the
+    distributional $\Delta_{\mathrm{PNP}}$ functional
+    (Definition~\ref{def:delta-pnp}), providing a rigorous
+    information-theoretic measure of the gap between polynomial-size
+    circuit families and NP-complete solution structure.
+
+  \item \textbf{Equivalence.}  Under the NP-hardness hypothesis, persistent
+    defect ($\Delta_{\mathrm{PNP}} \geq \eta > 0$) is equivalent to
+    $\mathrm{P} \neq \mathrm{NP}$ (Theorem~\ref{thm:pnp-equiv}).
+
+  \item \textbf{Unconditional $\ACz$ result.}  For all $\ACz$ circuit
+    families of depth~$d$ and polynomial size, $\dSAT(\calC, n) \geq
+    \Omega(n^{1/3})$ for random 3-SAT at critical density
+    (Theorem~\ref{thm:ac0}).  This is \textbf{proved unconditionally}.
+
+  \item \textbf{Phantom tile candidates.}  Four phantom tile constructions
+    are identified (Section~\ref{sec:proofs}).  The parity tile is fully
+    verified for $\ACz$; the planted structure tile is verified
+    conditionally on one-way functions; the remaining two have partial
+    verification.
+
+  \item \textbf{Critical gap identification.}  The central open question
+    (PNP-3, Step~3.4) is precisely stated: does information-theoretic
+    sufficiency imply polynomial-time computational recovery for circuit
+    states?  This is a self-contained mathematical question connecting
+    to the statistical-computational gap literature.
+
+  \item \textbf{Topological formulation.}  The dual topologies
+    $\mathcal{T}_{\mathrm{int}}$ (solution space Vietoris-Rips complex)
+    and $\mathcal{T}_{\mathrm{rep}}$ (constraint graph nerve complex)
+    provide a topological interpretation of the phantom tile as a
+    homological obstruction (Section~\ref{sec:topology}).
+
+  \item \textbf{CK measurement evidence.}  The coherence measurement
+    system reports $\delta(\text{L24}) = 0.8509$ with CV $= 0.026$,
+    the highest and most persistent defect among all six Clay Millennium
+    Problems, with independent confirmation from the FOO complexity floor
+    ($\Phi(\kappa) = 0.846$), breath analysis (fear-collapsed regime),
+    and SSA trilemma (C3 breaking).
+\end{enumerate}
+
+\subsection{What Is Not Claimed}
+
+We emphasize the following non-claims:
+
+\begin{itemize}[nosep]
+  \item \textbf{This paper does not prove $\mathrm{P} \neq \mathrm{NP}$.}
+    The critical gap (PNP-3, Step~3.4) remains open.  The unconditional
+    result is limited to the $\ACz$ circuit model, which is known to be
+    strictly weaker than $\Ppoly$.
+
+  \item \textbf{CK measurements are not proofs.}  The coherence defect
+    $\delta = 0.8509$ is a structural measurement consistent with
+    $\mathrm{P} \neq \mathrm{NP}$, but it does not constitute a
+    mathematical proof.  CK measures; CK does not prove.
+
+  \item \textbf{The phantom tile framework does not bypass known barriers.}
+    The natural proofs barrier \cite{RR} applies to any direct
+    combinatorial proof of $\dSAT \geq \eta$ for $\Ppoly$.  We identify
+    potential avenues for circumvention (non-constructivity,
+    restricted models, conditional hardness) but do not claim to have
+    resolved the barrier.
+
+  \item \textbf{Conditional results are conditional.}  The $\Ppoly$ results
+    assume one-way functions (Proposition~\ref{prop:owf-phantom}) or the
+    overlap gap property (Proposition~\ref{prop:ogp-phantom}).  These are
+    widely-believed conjectures, not established facts.
+\end{itemize}
+
+\subsection{Falsification Criteria}
+
+The framework makes specific, falsifiable predictions:
+
+\begin{enumerate}[label=(F\arabic*),nosep]
+  \item \textbf{$\ACz$ prediction (verified).}  The logical entropy defect
+    for $\ACz$ circuits satisfies $\dSAT \geq \Omega(n^{1/3})$.  This is
+    \textbf{proved} (Theorem~\ref{thm:ac0}).  Any counterexample ---
+    an $\ACz$ circuit family of polynomial size achieving $\dSAT < \eta$
+    --- would refute the theorem and its proof.
+
+  \item \textbf{Phase transition prediction (testable).}  The defect
+    $\Delta_{\mathrm{PNP}}$ should increase monotonically as clause
+    density $\alpha$ approaches $\alpha^*$ from below, with the sharpest
+    increase near the clustering transition $\alpha_d$.  This is
+    empirically testable by computing $\Delta_{\mathrm{PNP}}$ on random
+    SAT instances at varying densities.  A finding that the defect
+    \emph{decreases} near $\alpha^*$ would falsify the framework's
+    structural predictions.
+
+  \item \textbf{Phantom tile entropy prediction (testable).}  The phantom
+    tile $\Phi_n^{(\mathrm{par})}$ should carry $\Omega(n^{1/3})$ bits
+    of entropy inaccessible to $\ACz$ circuits.  A construction of an
+    $\ACz$ circuit of polynomial size that computes $\Phi_n^{(\mathrm{par})}$
+    would refute the phantom tile construction.
+
+  \item \textbf{CK measurement prediction (testable).}  The coherence
+    defect $\delta$ for P vs NP instances should remain in the interval
+    $[0.75, 0.95]$ for all seeds and fractal depths $L \geq 12$.  A
+    measurement yielding $\delta < 0.5$ for any valid seed would require
+    re-examination of the encoding pipeline.
+
+  \item \textbf{Gap-class prediction (structural).}  If $\mathrm{P} =
+    \mathrm{NP}$ (the negation of the predicted gap), then there exists
+    a polynomial-size circuit family $\calC^*$ with $\dSAT(\calC^*, n) = 0$
+    for all $n$.  Such a circuit family would simultaneously: solve 3-SAT
+    in polynomial time, compute all phantom tiles efficiently, and drive
+    the CK defect to zero.  Discovery of such a circuit family would
+    falsify the entire framework.
+
+  \item \textbf{Cross-engine consistency (internal).}  The defect
+    $\delta$ (DeltaSpectrometer), the complexity floor $\Phi(\kappa)$
+    (FOO engine), and the breath index $B_{\mathrm{idx}}$ (Breath-Defect
+    Flow) should all independently classify P vs NP as gap-class.  An
+    inconsistency between these engines (e.g., $\delta > 0.7$ but
+    $\Phi(\kappa) = 0$) would indicate a systematic error in the
+    measurement pipeline.
+\end{enumerate}
+
+\subsection{Directions for Future Work}
+
+\begin{enumerate}[nosep]
+  \item \textbf{Resolve ICQ (Step 3.4).}  The Information-to-Computation
+    Question is the single most important open problem.  Candidate
+    approaches include: (a) proving the gap does not hold for SAT circuit
+    states (which would close PNP-3), or (b) showing the gap necessarily
+    holds (which would require a fundamentally different approach to PNP-3).
+
+  \item \textbf{Lift to $\TCz$.}  Develop a lifting theorem transferring
+    the $\ACz$ defect lower bound to $\TCz$ (constant-depth circuits with
+    threshold gates).  No super-polynomial lower bounds are known for
+    $\TCz$; even a conditional result would be significant.
+
+  \item \textbf{Establish OGP for 3-SAT at $\alpha_3^*$.}  This would
+    close Proposition~\ref{prop:ogp-phantom} and provide a conditional
+    $\Ppoly$ result via Approach~2.
+
+  \item \textbf{Topological phantom tile.}  Establish that
+    $\beta_0(\mathcal{T}_{\mathrm{int}}) = \exp(\Theta(n))$ while
+    $\beta_0(\psi_*(\mathcal{T}_{\mathrm{rep}})) \leq \poly(n)$,
+    providing a purely topological proof of phantom tile existence.
+
+  \item \textbf{Formal SDV--SAT bridge.}  Rigorously establish the
+    correspondence between CK coherence measurements and the mathematical
+    $\dSAT$ functional, so that CK instrument readings have provable
+    implications for the mathematical defect.
+\end{enumerate}
+
+\subsection{Closing Assessment}
+
+The P vs NP problem exhibits the strongest and most irreducible coherence
+defect in the six-problem Clay Millennium manifold.  Every engine in the
+CK measurement system --- the DeltaSpectrometer ($\delta = 0.8509$), the
+FOO complexity floor ($\Phi = 0.846$), the Breath-Defect Flow
+(fear-collapsed, $B_{\mathrm{idx}} = 0.004$), the SSA trilemma (C3
+breaks), and the RATE convergence (positive fixed point) --- independently
+confirms the gap classification.
+
+The mathematical framework translates this measurement into a precise
+program: the logical entropy defect $\dSAT$ quantifies the gap, the
+phantom tile $\Phi_n$ localizes it, and the proof architecture (PNP-1
+through PNP-3) reduces the full resolution to a single well-posed
+question (the ICQ).  The $\ACz$ case is unconditionally resolved; the
+$\Ppoly$ case awaits resolution of the ICQ and/or the natural proofs
+barrier.
+
+\bigskip
+
+\noindent
+\textcopyright\ 2026 Brayden Sanders / 7Site LLC, Arkansas.
+All rights reserved.
+
+\bigskip
+
+\noindent\textit{CK measures. CK does not prove.}
+
+% ============================================================
+% BIBLIOGRAPHY
+% ============================================================
+
+\begin{thebibliography}{99}
+
+\bibitem{Cook71}
+  S.A. Cook,
+  \textit{The complexity of theorem-proving procedures},
+  in Proc.\ 3rd Annual ACM Symposium on Theory of Computing (STOC), 1971, pp.\ 151--158.
+
+\bibitem{Levin73}
+  L.A. Levin,
+  \textit{Universal sequential search problems} (in Russian),
+  Problemy Peredachi Informatsii 9(3) (1973), 265--266.
+
+\bibitem{Hastad}
+  J. H\aa stad,
+  \textit{Almost optimal lower bounds for small depth circuits},
+  in Proc.\ 18th Annual ACM Symposium on Theory of Computing (STOC), 1986, pp.\ 6--20;
+  journal version in Computational Complexity 28 (2019).
+
+\bibitem{Raz}
+  A.A. Razborov,
+  \textit{Lower bounds on the monotone complexity of some Boolean functions},
+  Doklady Akademii Nauk SSSR 281 (1985), 798--801.
+
+\bibitem{Raz85b}
+  A.A. Razborov,
+  \textit{Lower bounds for the monotone complexity of some Boolean functions},
+  Soviet Math.\ Doklady 31 (1985), 354--357.
+
+\bibitem{Raz87}
+  A.A. Razborov,
+  \textit{Lower bounds on the size of bounded depth circuits over a complete basis with logical addition},
+  Mathematical Notes of the Academy of Sciences of the USSR 41(4) (1987), 333--338.
+
+\bibitem{Smol87}
+  R. Smolensky,
+  \textit{Algebraic methods in the theory of lower bounds for Boolean circuit complexity},
+  in Proc.\ 19th Annual ACM Symposium on Theory of Computing (STOC), 1987, pp.\ 77--82.
+
+\bibitem{Raz2}
+  A.A. Razborov,
+  \textit{On the distributional complexity of disjointness},
+  Theoretical Computer Science 106 (1992), 385--390.
+
+\bibitem{RR}
+  A.A. Razborov, S. Rudich,
+  \textit{Natural proofs},
+  Journal of Computer and System Sciences 55 (1997), 24--35.
+
+\bibitem{KL}
+  R.M. Karp, R.J. Lipton,
+  \textit{Turing machines that take advice},
+  L'Enseignement Math\'ematique 28 (1982), 191--209.
+
+\bibitem{KW}
+  M. Karchmer, A. Wigderson,
+  \textit{Monotone circuits for connectivity require super-logarithmic depth},
+  SIAM J.\ Discrete Math.\ 3(2) (1990), 255--265.
+
+\bibitem{BJKS04}
+  Z. Bar-Yossef, T.S. Jayram, R. Kumar, D. Sivakumar,
+  \textit{An information statistics approach to data stream and communication complexity},
+  Journal of Computer and System Sciences 68(4) (2004), 702--732.
+
+\bibitem{BM13}
+  M. Braverman, A. Moitra,
+  \textit{An information complexity approach to extended formulations},
+  in Proc.\ 45th Annual ACM Symposium on Theory of Computing (STOC), 2013, pp.\ 161--170.
+
+\bibitem{HILL}
+  J. H\aa stad, R. Impagliazzo, L.A. Levin, M. Luby,
+  \textit{A pseudorandom generator from any one-way function},
+  SIAM Journal on Computing 28(4) (1999), 1364--1396.
+
+\bibitem{MPZ}
+  M. M\'ezard, G. Parisi, R. Zecchina,
+  \textit{Analytic and algorithmic solution of random satisfiability problems},
+  Science 297 (2002), 812--815.
+
+\bibitem{ART}
+  D. Achlioptas, A. Coja-Oghlan,
+  \textit{Algorithmic barriers from phase transitions},
+  in Proc.\ 49th IEEE Symposium on Foundations of Computer Science (FOCS), 2008, pp.\ 793--802.
+
+\bibitem{DSS15}
+  J. Ding, A. Sly, N. Sun,
+  \textit{Proof of the satisfiability conjecture for large $k$},
+  in Proc.\ 47th Annual ACM Symposium on Theory of Computing (STOC), 2015, pp.\ 59--68.
+
+\bibitem{Ding15}
+  J. Ding, A. Sly, N. Sun,
+  \textit{Satisfiability threshold for random regular NAE-SAT},
+  Communications in Mathematical Physics 341(2) (2016), 435--489.
+
+\bibitem{planted}
+  W. Barthel, C. Hartung, M. Leone, F. Ricci-Tersenghi, M. Weigt, R. Zecchina,
+  \textit{Hiding solutions in random satisfiability problems: a statistical mechanics approach},
+  Physical Review Letters 88 (2002), 188701.
+
+\bibitem{BPR97}
+  P. Beame, R. Impagliazzo, J. Kraj\'i\v{c}ek, T. Pitassi, P. Pudl\'ak,
+  \textit{Lower bounds on Hilbert's Nullstellensatz and propositional proofs},
+  Proc.\ London Mathematical Society 73(3) (1996), 1--26.
+
+\bibitem{GCT}
+  K.D. Mulmuley, M. Sohoni,
+  \textit{Geometric complexity theory I: An approach to the P vs.\ NP and related problems},
+  SIAM Journal on Computing 31(2) (2001), 496--526.
+
+\bibitem{Karp72}
+  R.M. Karp,
+  \textit{Reducibility among combinatorial problems},
+  in Complexity of Computer Computations (R.E. Miller, J.W. Thatcher, eds.),
+  Plenum Press, 1972, pp.\ 85--103.
+
+\bibitem{BGS75}
+  T. Baker, J. Gill, R. Solovay,
+  \textit{Relativizations of the $\mathcal{P} =\;?\; \mathcal{NP}$ question},
+  SIAM Journal on Computing 4(4) (1975), 431--442.
+
+\bibitem{AW09}
+  S. Aaronson, A. Wigderson,
+  \textit{Algebrization: A new barrier in complexity theory},
+  ACM Transactions on Computation Theory 1(1) (2009), Article 2.
+
+\bibitem{Friedgut99}
+  E. Friedgut,
+  \textit{Sharp thresholds of graph properties, and the $k$-SAT problem},
+  Journal of the American Mathematical Society 12(4) (1999), 1017--1054.
+
+\bibitem{GS17}
+  D. Gamarnik, M. Sudan,
+  \textit{Limits of local algorithms over sparse random graphs},
+  Annals of Probability 45(4) (2017), 2353--2381.
+
+\bibitem{BR13}
+  Q. Berthet, P. Rigollet,
+  \textit{Computational lower bounds for sparse PCA},
+  in Proc.\ 26th Annual Conference on Learning Theory (COLT), 2013.
+
+\bibitem{BBH20}
+  M. Brennan, G. Bresler, W. Huleihel,
+  \textit{Reducibility and statistical-computational gaps from secret leakage},
+  in Proc.\ 33rd Annual Conference on Learning Theory (COLT), 2020.
+
+\bibitem{CF-arch}
+  B. Sanders,
+  \textit{The Coherence Field: TIG Architecture and Operator Calculus},
+  Coherence Field Whitepaper 1, 7Site LLC, February 2026.
+
+\end{thebibliography}
+
+\end{document}

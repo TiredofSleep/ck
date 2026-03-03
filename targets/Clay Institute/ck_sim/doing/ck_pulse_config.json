@@ -1,0 +1,98 @@
+{
+    "_comment": "Royal Pulse Engine config -- R16 Desktop target",
+    "_version": "1.0.0",
+    "_target": "r16_desktop",
+
+    "pulse_tick_hz": 1.0,
+    "engine_tick_divisor": 50,
+
+    "safety": {
+        "cpu_temp_yield_c": 90,
+        "cpu_temp_throttle_c": 80,
+        "battery_soc_yield_pct": 10,
+        "battery_voltage_min_v": 10.5,
+        "max_nice_delta_per_tick": 5,
+        "protected_processes": [
+            "System", "csrss", "wininit", "services", "lsass",
+            "svchost", "explorer", "dwm", "winlogon", "smss",
+            "Registry", "fontdrvhost", "SecurityHealthService",
+            "python", "conhost", "cmd"
+        ]
+    },
+
+    "rhythm": {
+        "window_size": 32,
+        "min_ops_for_estimate": 4,
+        "smoothing_alpha": 0.3,
+        "f0_min_hz": 0.01,
+        "f0_max_hz": 25.0
+    },
+
+    "candidates": {
+        "n_per_process": 6,
+        "types": {
+            "resonant": 2,
+            "explore": 2,
+            "random_bounded": 1,
+            "yield": 1
+        },
+        "explore_phase_window_rad": 0.5,
+        "random_phase_max_rad": 1.5,
+        "_note_levy": "Bounded random, NOT unbounded Levy. Max jump = random_phase_max_rad."
+    },
+
+    "scoring": {
+        "eff_target_default": 0.7,
+        "lookahead_steps": 2,
+        "weights": {
+            "eff": 1.0,
+            "stability": 0.8,
+            "smoothness": 0.3,
+            "thermal": 1.2,
+            "task_progress": 0.6
+        },
+        "slingshot_bonus_max": 0.4,
+        "thermal_penalty_70c": 0.5,
+        "thermal_penalty_80c": 2.0
+    },
+
+    "pulse_output": {
+        "amplitude_min": 0.0,
+        "amplitude_max": 1.0,
+        "duration_min_fraction": 0.1,
+        "duration_max_fraction": 1.0,
+        "duration_default_fraction": 0.5
+    },
+
+    "compute_modes": {
+        "reactive": {
+            "description": "Thermal or battery critical. Yield everything non-essential.",
+            "eff_target": 0.3,
+            "max_boosted_pct": 0.1
+        },
+        "normal": {
+            "description": "Standard operation. Balance throughput and efficiency.",
+            "eff_target": 0.7,
+            "max_boosted_pct": 0.5
+        },
+        "deep": {
+            "description": "Full compute available. Maximize throughput, accept higher power.",
+            "eff_target": 0.9,
+            "max_boosted_pct": 0.9
+        }
+    },
+
+    "task_target": {
+        "_comment": "On R16, task_target = CK study throughput. Processes doing I/O for study get higher W_useful.",
+        "study_process_names": ["python", "curl", "ollama"],
+        "study_io_weight": 1.5,
+        "idle_spinner_weight": 0.2,
+        "system_service_weight": 0.5
+    },
+
+    "logging": {
+        "log_every_n_ticks": 10,
+        "max_decision_history": 200,
+        "verbose": false
+    }
+}

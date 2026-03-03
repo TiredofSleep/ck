@@ -1,0 +1,119 @@
+# ============================================================
+# CK Hardware Configuration -- What CK Can Sense and Do
+# ============================================================
+# Maps physical platforms to capabilities.
+# The engine reads this to know what senses are available.
+# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+
+platforms:
+  sim:
+    description: "Software simulation (Kivy GUI or headless)"
+    cpu: python_host
+    fpga: simulated
+    sensors:
+      - type: heartbeat
+        rate_hz: 50
+        source: ck_sim_heartbeat
+      - type: sensorium
+        rate_hz: 1
+        source: ck_sensorium
+        layers: [tick, hardware, process, network, time, mirror, files]
+      - type: keyboard
+        rate_hz: event
+        source: kivy_input
+    actuators:
+      - type: audio
+        source: ck_sim_audio
+        channels: 1
+        sample_rate: 44100
+      - type: led
+        source: ck_sim_led
+        channels: 3  # RGB
+      - type: display
+        source: ck_sim_app
+        type: kivy_gui
+
+  zynq_dog:
+    description: "Zynq-7020 FPGA board + XiaoR Geek robot dog body"
+    cpu: zynq7020_dual_arm_a9
+    fpga: artix7_pl_53k_luts
+    memory:
+      bram_kb: 560
+      ddr_mb: 512
+    sensors:
+      - type: imu
+        rate_hz: 500
+        source: fpga_imu_reflex
+        axes: 6  # 3 accel + 3 gyro
+      - type: mic
+        rate_hz: 16000
+        source: fpga_i2s_daisy
+        channels: 4
+      - type: proximity
+        rate_hz: 20
+        source: ultrasonic_ir
+        count: 3  # front, left, right
+      - type: battery
+        rate_hz: 1
+        source: adc_voltage
+      - type: temperature
+        rate_hz: 1
+        source: fpga_xadc
+      - type: servo_feedback
+        rate_hz: 50
+        source: pwm_readback
+        servos: 8
+      - type: camera
+        rate_hz: 15
+        source: ov5640_csi
+        resolution: 640x480
+        optional: true
+    actuators:
+      - type: servos
+        count: 8
+        source: fpga_pwm
+        rate_hz: 50
+      - type: speaker
+        source: fpga_class_d_pwm
+        model: dayton_ce28v2
+        impedance_ohm: 8
+
+  r16:
+    description: "Alienware R16 -- CK cortex (full brain)"
+    cpu: intel_i9_14900hx
+    gpu: nvidia_rtx4080
+    memory_gb: 32
+    role: cortex
+    services:
+      - ck_core
+      - btq_engine
+      - web_api
+      - swarm_coordinator
+      - thesis_writer
+      - claude_library
+
+  hp_tower:
+    description: "HP Linux tower -- CK lab/sandbox"
+    cpu: amd_ryzen
+    memory_gb: 64
+    role: lab
+    services:
+      - log_replay
+      - fuzz_testing
+      - kernel_profiler
+      - ci_runner
+
+# Network topology
+network:
+  protocol: zeromq_pubsub
+  master: r16
+  nodes:
+    - id: zynq01
+      role: reflex
+      connection: uart_115200
+      fallback: udp_lan
+    - id: hp01
+      role: lab
+      connection: tcp_lan
+  sync_rate_hz: 10
+  schema_version: 1

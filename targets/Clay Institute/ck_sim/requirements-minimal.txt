@@ -1,0 +1,7 @@
+# CK -- The Coherence Keeper
+# Minimal dependencies (headless mode, no GUI)
+# (c) 2026 Brayden Sanders / 7Site LLC
+
+numpy>=1.24.0            # Core math (D2, CL, vortex physics)
+requests>=2.31.0         # Web access (autodidact, Claude library)
+beautifulsoup4>=4.12.0   # HTML parsing (web study)

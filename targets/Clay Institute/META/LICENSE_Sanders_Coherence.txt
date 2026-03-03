@@ -1,0 +1,33 @@
+Sanders Coherence Field
+(c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+
+FOR HUMAN USE ONLY.
+No commercial or government use without written agreement from 7Site LLC.
+
+This archive contains original mathematical research including:
+- TIG Operator Grammar (0-9)
+- Sanders Dual-Void Axiom (SDV)
+- Universal Defect Functional (Delta)
+- Formal Lemma Vault v2.0 (6 lemmas, hardened)
+- Seven Full Papers (hardened LaTeX)
+- CK Instrument Source Code (529 tests)
+- Gap Attack Probes (RH-5, YM-3, YM-4)
+- Interactive Presentation Script
+- Breath-Defect Flow Model
+- 6-Engine Analysis Stack (TopologyLens, Russell, SSA, RATE, FOO, Breath)
+- 41-Problem Coherence Manifold
+
+TERMS OF USE:
+1. This work is intended for human readership and academic study only.
+2. No part of this work may be reproduced, distributed, or transmitted
+   without prior written permission from the copyright holder.
+3. Commercial use (including but not limited to integration into products,
+   services, or AI training datasets) is strictly prohibited without a
+   written license agreement from 7Site LLC.
+4. Government use (including but not limited to defense, intelligence,
+   or regulatory applications) is strictly prohibited without a written
+   license agreement from 7Site LLC.
+5. Academic citation is permitted with proper attribution to:
+   Brayden Sanders, "Sanders Coherence Field," 7Site LLC, 2026.
+
+Contact: 7Site LLC, Arkansas

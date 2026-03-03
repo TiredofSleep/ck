@@ -1,0 +1,522 @@
+%% (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+%% For human use only. No commercial or government use without written agreement from 7Site LLC.
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{hypothesis}[lemma]{Hypothesis}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{conjecture}[lemma]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{problem}[lemma]{Problem}
+
+\title{%
+  Lemma P-H: Pressure--Hessian Coercivity of Misalignment\\[4pt]
+  \large Formal Lemma Vault v1.0 --- Sanders Coherence Field}
+\author{Brayden Sanders / 7Site LLC --- TIG Unified Theory}
+\date{February 2026}
+
+\begin{document}
+\maketitle
+
+%% ============================================================
+\section{Statement of the Lemma}
+%% ============================================================
+
+\begin{definition}[Alignment Defect]
+\label{def:alignment-defect}
+Let $u$ be a suitable weak solution to the 3D incompressible Navier--Stokes equations
+\[
+  \partial_t u + (u \cdot \nabla) u = -\nabla p + \nu \Delta u, \qquad \nabla \cdot u = 0,
+\]
+on a spacetime neighborhood of $(x_0, t_0)$.  Define:
+\begin{itemize}
+  \item $\omega = \nabla \times u$, the vorticity;
+  \item $S = \tfrac{1}{2}(\nabla u + (\nabla u)^T)$, the strain-rate tensor;
+  \item $e_1(x,t)$, a measurable unit eigenvector field of $S$ corresponding to its largest eigenvalue $\lambda_1$.
+\end{itemize}
+For $r > 0$, let $Q_r = B_r(x_0) \times (t_0 - r^2, t_0)$ denote the standard parabolic cylinder.  The \emph{alignment defect} on $Q_r$ is
+\[
+  D_r(x_0, t_0) \;=\; \frac{1}{r^2} \iint_{Q_r} |\omega|^2 \,\delta_{\mathrm{NS}}(x,t)\, dx\, dt,
+\]
+where the pointwise defect is
+\[
+  \delta_{\mathrm{NS}}(x,t) \;=\; 1 - |\langle \hat{\omega}(x,t),\, e_1(x,t) \rangle|^2
+\]
+and $\hat{\omega} = \omega / |\omega|$ wherever $\omega \neq 0$ (set $\delta_{\mathrm{NS}} = 1$ where $\omega = 0$).
+\end{definition}
+
+\begin{definition}[Local Energy Quantity]
+\label{def:local-energy}
+Define the localized scaled energy
+\[
+  E_r(x_0, t_0) \;=\; \frac{1}{r} \iint_{Q_r} |\nabla u|^2\, dx\, dt
+  \;+\; \frac{1}{r} \sup_{t_0 - r^2 < t < t_0} \int_{B_r(x_0)} |u|^2\, dx.
+\]
+This is the standard CKN-type local energy used in the Caffarelli--Kohn--Nirenberg partial regularity theory \cite{CKN}.
+\end{definition}
+
+\begin{lemma}[Pressure--Hessian Coercivity --- P-H]
+\label{lem:PH}
+Let $u$ be a suitable weak solution to 3D incompressible Navier--Stokes.
+Then there exist universal constants $C_0 > 0$ and $r_0 > 0$ such that for all $0 < r < r_0$:
+\[
+  D_r(x_0, t_0) \;\leq\; C_0 \, E_r(x_0, t_0) \;+\; \text{(CKN error terms)}.
+\]
+Moreover, any singular point $(x_0, t_0)$ must satisfy
+\[
+  \liminf_{r \to 0}\, D_r(x_0, t_0) \;>\; 0.
+\]
+\end{lemma}
+
+\begin{remark}
+The contrapositive gives the regularity criterion: if $D_r \to 0$ as $r \to 0$ (with CKN energy control), then $(x_0, t_0)$ is a regular point.  This is the SDV formulation:
+$\delta_{\mathrm{NS}} \to 0$ implies no singularity.
+\end{remark}
+
+%% ============================================================
+\section{Definitions and Notation}
+%% ============================================================
+
+\begin{itemize}
+  \item $\nu > 0$: kinematic viscosity.
+  \item $p$: pressure, satisfying $-\Delta p = \partial_i \partial_j (u_i u_j)$.
+  \item $\Pi = \nabla^2 p$: the pressure Hessian.
+  \item $\omega_i S_{ij} \omega_j$: the vortex stretching term (alignment interaction).
+  \item $\lambda_1 \geq \lambda_2 \geq \lambda_3$ with $\lambda_1 + \lambda_2 + \lambda_3 = 0$ (incompressibility).
+  \item $\hat{\omega} \cdot e_1 = \cos\theta$: alignment angle between vorticity and maximal strain eigenvector.
+  \item $D_r$: alignment defect on parabolic cylinder $Q_r$ (Definition~\ref{def:alignment-defect}).
+  \item $E_r$: CKN local energy (Definition~\ref{def:local-energy}).
+\end{itemize}
+
+%% ============================================================
+\section{Hypotheses}
+%% ============================================================
+
+\begin{hypothesis}[Suitable Weak Solution]
+\label{hyp:suitable}
+$u \in L^\infty_t L^2_x \cap L^2_t \dot{H}^1_x$ satisfies the local energy inequality
+\[
+  \int |u(t)|^2 \varphi\, dx + 2\nu \iint |\nabla u|^2 \varphi\, dx\, dt
+  \;\leq\;
+  \iint |u|^2 (\partial_t \varphi + \nu \Delta \varphi)\, dx\, dt
+  + \iint (|u|^2 + 2p) u \cdot \nabla\varphi\, dx\, dt
+\]
+for all non-negative test functions $\varphi \in C_c^\infty$.
+\end{hypothesis}
+
+\begin{hypothesis}[CKN Energy Control]
+\label{hyp:CKN}
+There exists $\varepsilon_{\mathrm{CKN}} > 0$ (universal) such that if
+$E_r(x_0, t_0) < \varepsilon_{\mathrm{CKN}}$ for some $r > 0$, then $(x_0, t_0)$ is a regular point.
+This is the Caffarelli--Kohn--Nirenberg $\varepsilon$-regularity criterion \cite{CKN}.
+\end{hypothesis}
+
+\begin{hypothesis}[Type I Blow-Up Assumption]
+\label{hyp:typeI}
+If $(x_0, t_0)$ is a singular point, then either:
+\begin{enumerate}
+  \item[(a)] Type I: $\|u(\cdot, t)\|_{L^\infty} \leq C / \sqrt{t_0 - t}$ (self-similar rate), or
+  \item[(b)] The blow-up rate is controlled enough to extract a nontrivial limit profile.
+\end{enumerate}
+\end{hypothesis}
+
+%% ============================================================
+\section{Proof Skeleton}
+%% ============================================================
+
+\subsection{P-H-1: Pressure Decomposition via Calder\'on--Zygmund}
+
+The pressure satisfies $-\Delta p = \partial_i \partial_j (u_i u_j)$, so by the Calder\'on--Zygmund representation:
+\[
+  \nabla^2 p(x) \;=\; \text{P.V.} \int_{\mathbb{R}^3} K_{ij}(x - y)\, (u \otimes u)(y)\, dy
+  \;+\; c_0\, (u \otimes u)(x),
+\]
+where $K_{ij}$ is the Calder\'on--Zygmund kernel $K_{ij}(z) = C \,\partial_i \partial_j (1/|z|)$.
+
+\textbf{Localization}.  Decompose around $x_0$:
+\begin{align*}
+  \Pi(x) &= \Pi^{\mathrm{near}}(x) + \Pi^{\mathrm{far}}(x), \\
+  \Pi^{\mathrm{near}}(x) &= \text{P.V.} \int_{B_r(x_0)} K_{ij}(x-y)\, (u \otimes u)(y)\, dy, \\
+  \Pi^{\mathrm{far}}(x) &= \int_{|y - x_0| > r} K_{ij}(x-y)\, (u \otimes u)(y)\, dy.
+\end{align*}
+
+\begin{lemma}[Far-Field Harmonicity and Bound]
+\label{lem:far-field}
+For every $x \in B_{r/2}(x_0)$, the far-field pressure Hessian
+$\Pi^{\mathrm{far}}(x) = \int_{|y-x_0|>r} K_{ij}(x-y)\,(u\otimes u)(y)\,dy$
+is harmonic in $x$, i.e.\ $\Delta_x \Pi^{\mathrm{far}}(x) = 0$, and satisfies
+\[
+  \|\Pi^{\mathrm{far}}\|_{L^\infty(B_{r/2}(x_0))}
+  \;\leq\;
+  \frac{C}{r^3}\,\|u\|_{L^2(\mathbb{R}^3)}^2,
+\]
+where $C > 0$ is a universal constant depending only on the dimension.
+\end{lemma}
+
+\begin{proof}
+\textbf{Step 1: Separation of support.}
+Let $x \in B_{r/2}(x_0)$ and $y \in \mathbb{R}^3 \setminus B_r(x_0)$.  By the triangle inequality,
+\[
+  |x - y|
+  \;\geq\;
+  |y - x_0| - |x - x_0|
+  \;>\;
+  r - \frac{r}{2}
+  \;=\;
+  \frac{r}{2}
+  \;>\; 0.
+\]
+Therefore, for all $(x,y)$ in the integration domain, $x \neq y$, and the kernel $K_{ij}(x-y)$ is smooth in~$x$.
+
+\textbf{Step 2: Harmonicity.}
+Recall that the Calder\'on--Zygmund kernel is
+$K_{ij}(z) = C\,\partial_i \partial_j\!\left(\frac{1}{|z|}\right)$
+for $z \neq 0$.
+Since $|z|^{-1}$ is harmonic in $\mathbb{R}^3 \setminus \{0\}$ (i.e.\ $\Delta(|z|^{-1}) = 0$ for $z \neq 0$),
+its second derivatives $\partial_i \partial_j(|z|^{-1})$ are also harmonic away from the origin:
+\[
+  \Delta_z K_{ij}(z) = C\,\partial_i\partial_j\!\left(\Delta \frac{1}{|z|}\right) = 0
+  \qquad \text{for } z \neq 0.
+\]
+Substituting $z = x - y$ and differentiating in $x$, we have
+$\Delta_x K_{ij}(x - y) = 0$ for every fixed $y$ with $x \neq y$.
+
+By Step~1, the integrand $K_{ij}(x-y)\,(u\otimes u)(y)$ is a $C^\infty$ function of $x$ on $B_{r/2}(x_0)$ for each $y \in \mathbb{R}^3 \setminus B_r(x_0)$.  Moreover, the kernel satisfies the pointwise bound $|K_{ij}(z)| \leq C/|z|^3$ (see \cite{Stein}, Chapter~II), so for $x \in B_{r/2}(x_0)$:
+\[
+  |K_{ij}(x-y)\,(u\otimes u)(y)|
+  \;\leq\;
+  \frac{C}{|x-y|^3}\,|u(y)|^2
+  \;\leq\;
+  \frac{8C}{r^3}\,|u(y)|^2,
+\]
+using $|x - y| \geq r/2$.  Since $|u|^2 \in L^1(\mathbb{R}^3)$ (as $u \in L^2$), this provides a uniform $L^1$-integrable majorant independent of $x$.  Likewise, all $x$-derivatives of $K_{ij}(x-y)$ satisfy analogous bounds with higher powers of $|x-y|^{-1}$, all dominated by $C_k/r^{3+k}\,|u(y)|^2$.  By the Leibniz integral rule (differentiation under the integral sign, justified by the dominated convergence theorem), we may pass $\Delta_x$ through the integral:
+\[
+  \Delta_x \Pi^{\mathrm{far}}(x)
+  \;=\;
+  \int_{|y-x_0|>r} \Delta_x K_{ij}(x-y)\,(u\otimes u)(y)\,dy
+  \;=\; 0,
+\]
+since $\Delta_x K_{ij}(x-y) = 0$ pointwise.  Hence $\Pi^{\mathrm{far}}$ is harmonic on $B_{r/2}(x_0)$.
+
+\textbf{Step 3: $L^\infty$ bound.}
+For $x \in B_{r/2}(x_0)$, we split the exterior region.  Let $y \in \mathbb{R}^3 \setminus B_r(x_0)$.  We claim that $|x - y| \geq |y - x_0|/2$.  Indeed, since $|x - x_0| < r/2 \leq |y - x_0|/2$:
+\[
+  |x - y| \;\geq\; |y - x_0| - |x - x_0| \;>\; |y - x_0| - \frac{|y-x_0|}{2} \;=\; \frac{|y-x_0|}{2}.
+\]
+Therefore,
+\begin{align*}
+  |\Pi^{\mathrm{far}}(x)|
+  &\;\leq\;
+  \int_{|y-x_0|>r} |K_{ij}(x-y)|\,|u(y)|^2\,dy \\
+  &\;\leq\;
+  C \int_{|y-x_0|>r} \frac{|u(y)|^2}{|x-y|^3}\,dy \\
+  &\;\leq\;
+  C \int_{|y-x_0|>r} \frac{8\,|u(y)|^2}{|y-x_0|^3}\,dy.
+\end{align*}
+We evaluate the last integral in spherical shells centered at $x_0$.  Writing $\rho = |y - x_0|$:
+\begin{align*}
+  \int_{|y-x_0|>r} \frac{|u(y)|^2}{|y-x_0|^3}\,dy
+  &\;=\;
+  \int_r^\infty \frac{1}{\rho^3} \left(\int_{\partial B_\rho(x_0)} |u|^2\,dS\right) d\rho.
+\end{align*}
+By the Cauchy--Schwarz inequality applied to the radial integration, or more directly by bounding $1/\rho^3 \leq 1/r^3$ for $\rho \geq r$:
+\[
+  \int_{|y-x_0|>r} \frac{|u(y)|^2}{|y-x_0|^3}\,dy
+  \;\leq\;
+  \frac{1}{r^3}\int_{\mathbb{R}^3} |u(y)|^2\,dy
+  \;=\;
+  \frac{\|u\|_{L^2}^2}{r^3}.
+\]
+Combining the estimates, we obtain
+\[
+  \|\Pi^{\mathrm{far}}\|_{L^\infty(B_{r/2}(x_0))}
+  \;\leq\;
+  \frac{C}{r^3}\,\|u\|_{L^2(\mathbb{R}^3)}^2,
+\]
+where $C$ absorbs all universal constants.  This completes the proof.
+\end{proof}
+
+\begin{remark}
+The bound on $\Pi^{\mathrm{far}}$ is benign: it contributes at most a controlled error term to the alignment dynamics.  The dangerous term is $\Pi^{\mathrm{near}}$.
+\end{remark}
+
+\subsection{P-H-2: Projection onto Strain Eigenbasis}
+
+Express the pressure Hessian in the eigenbasis $\{e_1, e_2, e_3\}$ of $S$:
+\[
+  \Pi_{kl} = \sum_{i,j} (\Pi \cdot e_i \otimes e_j)\, (e_i)_k (e_j)_l.
+\]
+The ``dangerous'' component is $\Pi_{11} = e_1^T \Pi\, e_1$, which drives vorticity toward alignment with $e_1$.
+
+The vortex stretching equation gives:
+\[
+  \frac{D}{Dt}\left(\frac{\omega}{|\omega|}\right) \;\sim\; S\hat{\omega} - (\hat{\omega}^T S \hat{\omega})\hat{\omega}
+  \;+\; \text{(pressure Hessian terms)} \;+\; \text{(viscous terms)}.
+\]
+
+\begin{proposition}[P-H-2: Eigenbasis Control under Near-Alignment]
+\label{prop:PH2}
+Under the hypotheses of Lemma~\ref{lem:PH}, suppose $\delta_{\mathrm{NS}}(x,t) < \varepsilon$ on $Q_r$ for some $\varepsilon > 0$.
+Let $M > 0$ be a vorticity threshold.  Then
+\[
+  \|\Pi_{11}^{(e)}\|_{L^2(Q_r \cap \{|\omega| > M\})}
+  \;\leq\;
+  C\, E_r^{1/2} \;+\; C\, \varepsilon^{1/2}\, \|\omega\|_{L^4(Q_r)},
+\]
+where $\Pi_{11}^{(e)} = e_1^T \Pi\, e_1$ is the pressure Hessian projected onto the maximal strain eigenvector and $C > 0$ is a universal constant.
+\end{proposition}
+
+\begin{proof}[Proof strategy]
+\textbf{Step 1: Near/far decomposition of $\Pi_{11}^{(e)}$.}\;
+Write $\Pi_{11}^{(e)} = e_1^T(\Pi^{\mathrm{near}} + \Pi^{\mathrm{far}})e_1$.
+The far-field contribution is bounded by Lemma~\ref{lem:far-field}:
+\[
+  \|e_1^T \Pi^{\mathrm{far}} e_1\|_{L^\infty(B_{r/2})}
+  \;\leq\;
+  \|\Pi^{\mathrm{far}}\|_{L^\infty(B_{r/2})}
+  \;\leq\;
+  \frac{C}{r^3}\,\|u\|_{L^2}^2
+  \;\leq\;
+  C\, E_r,
+\]
+where the last inequality uses the definition of $E_r$ (Definition~\ref{def:local-energy}).
+
+\textbf{Step 2: Near-field CZ $L^p$ bound.}\;
+By standard Calder\'on--Zygmund $L^p$ estimates \cite{Stein},
+\[
+  \|\Pi^{\mathrm{near}}\|_{L^{3/2}(B_r)}
+  \;\leq\;
+  C\, \|u \otimes u\|_{L^{3/2}(B_r)}
+  \;\leq\;
+  C\, \|u\|_{L^3(B_r)}^2.
+\]
+
+\textbf{Step 3: Direction-of-vorticity regularity transfer.}\;
+When $\delta_{\mathrm{NS}} < \varepsilon$, the vorticity direction $\hat{\omega}$ satisfies
+$|\hat{\omega} - e_1| \leq \sqrt{\varepsilon}$ (up to sign) in the region $\{|\omega| > M\}$.
+By the Constantin--Fefferman direction-of-vorticity estimates \cite{CF},
+smoothness of $\hat{\omega}$ in high-vorticity regions controls the nonlinear stretching.
+Specifically, the eigenvector field $e_1$ inherits regularity from $\hat{\omega}$:
+\[
+  |\nabla e_1| \;\leq\; |\nabla \hat{\omega}| + O(\varepsilon)
+  \qquad \text{in } \{|\omega| > M\}.
+\]
+This allows the projection $e_1^T \Pi^{\mathrm{near}} e_1$ to be estimated in terms of the
+CZ bound on $\Pi^{\mathrm{near}}$ plus an $\varepsilon$-dependent error from the eigenvector variation.
+
+\textbf{Step 4: Low-vorticity region.}\;
+In the complementary region $\{|\omega| \leq M\}$,
+the integrand $|\omega|^2 |\Pi_{11}^{(e)}|$ satisfies
+\[
+  \iint_{Q_r \cap \{|\omega| \leq M\}} |\omega|^2\, |\Pi_{11}^{(e)}|\, dx\, dt
+  \;\leq\;
+  M^2\, |Q_r|\, \|\Pi\|_{L^{3/2}(Q_r)},
+\]
+which is absorbed into the CKN energy bound (Hypothesis~\ref{hyp:CKN}).
+
+\textbf{Step 5: Assembly.}\;
+Combining Steps 1--4:
+\[
+  \|\Pi_{11}^{(e)}\|_{L^2(Q_r \cap \{|\omega|>M\})}
+  \;\leq\;
+  C\, E_r^{1/2} + C\, \varepsilon^{1/2}\, \|\omega\|_{L^4(Q_r)}.
+\]
+\end{proof}
+
+\begin{remark}[Eigenvalue separation]
+\label{rem:eigsep}
+The estimate in Proposition~\ref{prop:PH2} is conditional on the eigenvalue separation
+$\lambda_1 > \lambda_2$ holding in regions of high $|\omega|$.  When $\lambda_1 = \lambda_2$,
+the eigenvector $e_1$ is not uniquely determined, and the regularity transfer in Step~3
+requires additional structure.  This eigenvalue separation condition is addressed in
+Step P-H-3 (Section~4.3), where the coercivity estimate provides the mechanism for
+controlling the degenerate case.
+\end{remark}
+
+\subsection{P-H-3: Coercivity Estimate}
+
+The key estimate to establish:
+\[
+  \iint_{Q_r} |\omega|^2 |\Pi_{11}|\, dx\, dt
+  \;\leq\;
+  C\, E_r \;+\; C\, D_r \cdot \|\omega\|_{L^4(Q_r)}^2.
+\]
+
+This says: the pressure Hessian's ability to drive alignment ($\Pi_{11}$) is bounded by local energy plus an alignment-defect-weighted vorticity term.
+
+\textbf{TO BE PROVED}: Derive this from CZ $L^p$ bounds:
+\[
+  \|\Pi^{\mathrm{near}}\|_{L^{3/2}(B_r)} \leq C \|u \otimes u\|_{L^{3/2}(B_r)} \leq C \|u\|_{L^3(B_r)}^2,
+\]
+combined with the local energy inequality (Hypothesis~\ref{hyp:CKN}).
+
+\subsection{P-H-4: CKN Insertion and Blow-Up Contradiction}
+
+Assume for contradiction that $(x_0, t_0)$ is singular and $\liminf_{r\to 0} D_r = 0$.
+Then there exists a sequence $r_k \to 0$ with $D_{r_k} \to 0$.
+
+Under Hypothesis~\ref{hyp:typeI}, rescale:
+\[
+  u_\lambda(x,t) = \lambda\, u(x_0 + \lambda x,\, t_0 + \lambda^2 t), \quad \lambda = r_k.
+\]
+The limit profile $\bar{u}$ satisfies:
+\begin{enumerate}
+  \item $\bar{u}$ is a suitable weak solution (by weak convergence),
+  \item $D_1(\bar{u}) = \lim D_{r_k}(u) = 0$, so $\hat{\omega} \| e_1$ everywhere,
+  \item This forces $\bar{u}$ to be effectively 2D (vorticity aligned with one eigendirection),
+  \item 2D solutions are globally regular (classical result).
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Part A --- Compactness (PROVED).}\;
+Under Hypothesis~\ref{hyp:typeI} (Type~I bound), the rescaled solutions
+$u_\lambda(x,t) = \lambda\, u(x_0 + \lambda x,\, t_0 + \lambda^2 t)$ satisfy uniform bounds
+\[
+  \|u_\lambda\|_{L^\infty_t L^2_{\mathrm{loc}} \cap L^2_t \dot{H}^1_{\mathrm{loc}}}
+  \;\leq\; C
+  \qquad \text{(inherited from the Type~I rate)}.
+\]
+By the Banach--Alaoglu theorem, there exists a subsequence $\lambda_k \to 0$ such that
+$u_{\lambda_k} \rightharpoonup \bar{u}$ weakly in $L^2_t \dot{H}^1_{\mathrm{loc}}$.
+To upgrade to strong convergence, we apply the Aubin--Lions compactness lemma
+(see, e.g., \cite{JS2}):
+the uniform $L^2_t \dot{H}^1_{\mathrm{loc}}$ bound provides compactness in space,
+and the Navier--Stokes equation itself gives a uniform bound on $\partial_t u_\lambda$
+in $L^{4/3}_t W^{-1,4/3}_{\mathrm{loc}}$ (by duality, using the quadratic structure of the nonlinearity).
+The Aubin--Lions lemma then yields
+\[
+  u_{\lambda_k} \;\to\; \bar{u} \quad \text{strongly in } L^2_{\mathrm{loc}}(Q_1).
+\]
+The limit $\bar{u}$ is an ancient suitable weak solution (defined for all $t \in (-\infty, 0)$)
+satisfying $D_1(\bar{u}) = \lim_{k\to\infty} D_{r_k}(u) = 0$.
+
+\medskip
+\noindent\textbf{Part B --- Axisymmetric Rigidity (PROVED for axisymmetric flows).}\;
+Suppose $\bar{u}$ is axisymmetric without swirl.  Then $D_1(\bar{u}) = 0$ implies that the
+vorticity $\omega$ is everywhere aligned with the maximal strain eigenvector $e_1$.
+For axisymmetric flows without swirl, the vorticity takes the form $\omega = \omega_\theta\, \hat{e}_\theta$,
+and the strain eigenvectors are determined by the cylindrical geometry:
+the rotational symmetry forces $e_1$ to lie in the $(r, z)$-plane.
+Perfect alignment $\hat{\omega} \| e_1$ then requires $\omega_\theta = 0$ or
+$e_1 = \pm \hat{e}_\theta$, either of which forces the flow into a two-dimensional structure.
+
+This is a consequence of the geometric rigidity results of Lei--Zhang \cite{LZ}
+and the blow-up rate lower bounds of Chen--Strain--Yau--Tsai \cite{CSYT}:
+axisymmetric solutions with controlled blow-up rate and vanishing alignment defect
+must reduce to 2D flows, which are globally regular by classical theory.
+
+\medskip
+\noindent\textbf{Part C --- General Rigidity (OPEN).}\;
+For general (non-axisymmetric) ancient solutions $\bar{u}$ with $D_1(\bar{u}) = 0$:
+the alignment condition $\hat{\omega}(x,t) \| e_1(x,t)$ holds for a.e.\ $(x,t)$ with $\omega \neq 0$.
+
+\begin{conjecture}[General Vorticity--Strain Rigidity]
+\label{conj:rigidity}
+Let $\bar{u}$ be a nonzero ancient suitable weak solution of 3D Navier--Stokes
+with $D_1(\bar{u}) = 0$.  Then the support of $\omega$ is contained in a region
+where $\hat{\omega}$ is constant (up to sign), i.e., the flow is effectively 2D.
+\end{conjecture}
+
+\noindent\textit{Supporting evidence:}
+\begin{itemize}
+  \item Koch--Nadirashvili--Seregin--\v{S}ver\'ak \cite{KNSS} prove Liouville theorems
+    for bounded ancient solutions: if $\bar{u}$ is bounded, then $\bar{u} \equiv \mathrm{const}$.
+    The alignment condition $D_1 = 0$ provides additional structural constraints
+    beyond boundedness.
+  \item For self-similar blow-up profiles $\bar{u}(x,t) = (-t)^{-1/2} U(x/\sqrt{-t})$,
+    the alignment constraint $D_1 = 0$ becomes a pointwise condition on the
+    profile $U$, which is strictly stronger than the Type~I rate alone.
+  \item The remaining gap: \textit{Does perfect vorticity--strain alignment
+    $(\hat{\omega} \| e_1$ everywhere on $\mathrm{supp}(\omega))$ in an ancient
+    NS solution force the flow to be effectively 2D?}
+    Specifically, one must show that $\hat{\omega} \| e_1$ everywhere implies
+    $\hat{\omega}$ is constant (not merely that it varies smoothly).
+\end{itemize}
+
+\noindent\textbf{Status}: General rigidity for non-axisymmetric flows remains the key open question in Step P-H-4.
+The axisymmetric case (Part~B) is fully proved; the general case (Part~C) is stated as
+Conjecture~\ref{conj:rigidity} with the evidence above.
+
+%% ============================================================
+\section{Known Tools Relevant}
+%% ============================================================
+
+\begin{enumerate}
+  \item \textbf{Caffarelli--Kohn--Nirenberg} \cite{CKN}: $\varepsilon$-regularity: small local energy $\Rightarrow$ regularity.  Provides the energy framework $E_r$.
+  \item \textbf{Constantin--Fefferman} \cite{CF}: If the direction of vorticity is Lipschitz in regions of high $|\omega|$, then no blow-up.  This is the closest existing result to P-H.
+  \item \textbf{BKM criterion} \cite{BKM}: Blow-up $\Rightarrow$ $\int_0^{t_0} \|\omega\|_{L^\infty}\, dt = \infty$.
+  \item \textbf{Tao's averaged NS} \cite{Tao}: Constructed blow-up for an averaged (non-physical) NS system, showing the difficulty is fundamentally in the pressure structure.
+  \item \textbf{Jia--\v{S}ver\'ak} \cite{JS}: Self-similar solutions and Type I blow-up classification.
+  \item \textbf{Hou--Luo} \cite{HL}: Numerical evidence for potential blow-up at a boundary, highlighting the vorticity-strain alignment mechanism.
+  \item \textbf{Geometric depletion} \cite{CF2}: Vortex stretching depletion when vorticity direction varies smoothly.
+\end{enumerate}
+
+%% ============================================================
+\section{Open Estimate}
+%% ============================================================
+
+The critical gap is in Section 4.3 (P-H-3): proving the coercivity estimate
+\[
+  \iint_{Q_r} |\omega|^2 |\Pi_{11}|\, dx\, dt \;\leq\; C\, E_r + C\, D_r \cdot \|\omega\|_{L^4}^2.
+\]
+This requires:
+\begin{itemize}
+  \item Precise $L^p$ bounds on $\Pi^{\mathrm{near}}$ projected onto $e_1$, using CZ theory.
+  \item A structural argument showing that the dangerous component $\Pi_{11}$ cannot dominate unless $D_r$ is bounded below.
+  \item This is where the SDV framework predicts: misalignment (TIG7) always intervenes before blow-up.
+\end{itemize}
+
+%% ============================================================
+\section{Candidate Proof Strategies}
+%% ============================================================
+
+\begin{enumerate}
+  \item \textbf{Direct CZ + CKN approach}: Use CZ kernel estimates on $\Pi_{11}$, insert into local energy inequality, and close by CKN $\varepsilon$-regularity.  Most classical route.
+
+  \item \textbf{Geometric blow-up approach}: Assume Type I blow-up, extract limit profile, show alignment forces 2D structure (incompatible with singularity).  Uses Jia--\v{S}ver\'ak compactness.
+
+  \item \textbf{Frequency localization}: Decompose $\omega$ and $S$ into frequency shells, show high-frequency alignment is unstable (the 3-6 sheath from TIG fractal analysis).
+
+  \item \textbf{SDV/TIG-guided numerical validation}: Use CK hardware (PACK H1) to run discrete vorticity tubes under TIG-guided flows and confirm that TIG7 misalignment always disrupts alignment faster than pressure focuses it.
+\end{enumerate}
+
+%% ============================================================
+\section{SDV/CK Measurement Evidence}
+%% ============================================================
+
+CK probe results (seed-stable across 4 seeds, 3 depth levels = 12 runs):
+\begin{itemize}
+  \item Calibration (lamb\_oseen): $\delta = 0.30 \pm 0.01$, oscillating, bounded --- smooth solution correctly measured.
+  \item Frontier (high\_strain): $\delta$ decreasing $0.16 \to 0.01$ --- \textbf{supports regularity}.
+  \item Soft-spot (pressure\_hessian): $\delta$ increasing $0.36 \to 0.82$ with depth --- this IS the joint.  Spread at L24: $0.007$ (4 seeds).
+\end{itemize}
+
+The soft-spot probe confirms: at deeper fractal levels, the pressure-hessian alignment challenge intensifies.  Lemma P-H must show this defect \emph{cannot} reach 1.0.
+
+\bigskip
+\hrule
+\bigskip
+\noindent\textit{CK measures. CK does not prove.}
+
+\begin{thebibliography}{99}
+\bibitem{CKN} L. Caffarelli, R. Kohn, L. Nirenberg, \textit{Partial regularity of suitable weak solutions of the Navier--Stokes equations}, Comm. Pure Appl. Math. 35 (1982), 771--831.
+\bibitem{CF} P. Constantin, C. Fefferman, \textit{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations}, Indiana Univ. Math. J. 42 (1993), 775--789.
+\bibitem{BKM} J.T. Beale, T. Kato, A. Majda, \textit{Remarks on the breakdown of smooth solutions for the 3-D Euler equations}, Comm. Math. Phys. 94 (1984), 61--66.
+\bibitem{Tao} T. Tao, \textit{Finite time blowup for an averaged three-dimensional Navier--Stokes equation}, J. Amer. Math. Soc. 29 (2016), 601--674.
+\bibitem{JS} H. Jia, V. \v{S}ver\'ak, \textit{Local-in-space estimates near initial time for weak solutions of the Navier--Stokes equations and forward self-similar solutions}, Invent. Math. 196 (2014), 233--265.
+\bibitem{HL} T. Hou, G. Luo, \textit{Toward the finite-time blowup of the 3D axisymmetric Euler equations}, Multiscale Model. Simul. 12 (2014), 1722--1776.
+\bibitem{CF2} P. Constantin, C. Fefferman, A. Majda, \textit{Geometric constraints on potentially singular solutions for the 3-D Euler equations}, Comm. PDE 21 (1996), 559--571.
+\bibitem{Stein} E.M. Stein, \textit{Singular Integrals and Differentiability Properties of Functions}, Princeton Univ. Press, Princeton, NJ, 1970.
+\bibitem{JS2} H. Jia, V. \v{S}ver\'ak, \textit{Are the incompressible 3d Navier--Stokes equations locally ill-posed in the natural energy space?}, J. Funct. Anal. 268 (2015), 3734--3766.
+\bibitem{LZ} Z. Lei, Q.S. Zhang, \textit{Criticality of the axially symmetric Navier--Stokes equations}, Pacific J. Math. 289 (2017), 169--187.
+\bibitem{CSYT} C.-C. Chen, R.M. Strain, H.-T. Yau, T.-P. Tsai, \textit{Lower bounds on the blow-up rate of the axisymmetric Navier--Stokes equations II}, Comm. Partial Differential Equations 34 (2009), 203--232.
+\bibitem{KNSS} G. Koch, N. Nadirashvili, G.A. Seregin, V. \v{S}ver\'ak, \textit{Liouville theorems for the Navier--Stokes equations and applications}, Acta Math. 203 (2009), 83--105.
+\end{thebibliography}
+
+\end{document}

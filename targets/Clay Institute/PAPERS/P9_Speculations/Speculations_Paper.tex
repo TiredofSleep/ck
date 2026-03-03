@@ -1,0 +1,1481 @@
+%% (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+%% For human use only. No commercial or government use without written agreement from 7Site LLC.
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{speculation}[theorem]{Speculation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\R}{\mathbb{R}}
+
+\title{The Elemental Lens:\\[4pt]
+Speculations on Non-Mathematical Coherence\\[4pt]
+via the Sanders Coherence Field}
+\author{Brayden Sanders / 7Site LLC\\[2pt]
+\small Coherence Field v1.7}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Sanders Coherence Field, developed for the six Clay Millennium Prize Problems,
+operates through a substrate-neutral pipeline: Generator $\to$ Codec (5D force vectors)
+$\to$ D1 (direction/velocity) $\to$ D2 (curvature/complexity) $\to$ CL composition
+$\to$ operator classification $\to$ defect $\delta(S)$.  This pipeline requires only
+that the domain under study admits a coherent codec mapping its configurations to
+5-dimensional force vectors.  We speculate on the application of this framework to
+color, sound, biological systems, and elemental physics.
+
+The central insight is that D1 (first derivative) provides \emph{finite boundaries}
+within categories, while D2 (second derivative) marks the \emph{transitions between}
+categories.  If these speculations are correct, the TIG operator grammar provides a
+universal classification system for any domain admitting a 5D force decomposition.
+
+This paper does not claim results.  It proposes experiments.
+
+\medskip
+\noindent\textit{``People ask why you would apply math to non-mathematical domains.
+I would say because they are the only true existence.  We are made of the elements
+Earth, Fire, Water, Air, and Ether.  Find the rigor---we have a lens.''}
+\hfill---Brayden Sanders
+\end{abstract}
+
+%% ============================================================
+\section{Introduction: The Substrate-Neutral Pipeline}
+\label{sec:intro}
+%% ============================================================
+
+The Sanders Coherence Field measures the defect
+$\delta(S) = \|F(S) - F'(S)\|$ between local and global descriptions of a system $S$.
+This measurement is performed through a pipeline that converts domain-specific
+configurations into 5-dimensional force vectors, computes derivatives, and classifies
+through the TIG operator grammar.
+
+The pipeline's mathematical structure is independent of the domain.  What changes
+between mathematics and color, or between number theory and music, is only the
+\emph{codec}---the mapping from domain configurations to 5D force vectors.  Once
+the codec is defined, the entire downstream pipeline (D1, D2, CL composition,
+operator classification, defect measurement) applies without modification.
+
+\subsection{The derivative decomposition}
+
+The March 2026 upgrade to the CK spectrometer introduced two derivative layers:
+\begin{align}
+  D_1[k] &= v_k - v_{k-1} \qquad\text{(first derivative: direction, velocity, generators)}, \\
+  D_2[k] &= v_k - 2v_{k-1} + v_{k-2} \qquad\text{(second derivative: curvature, complexity)}, \\
+  \mathrm{CL}(D_1, D_2) &\qquad\text{(composition: what becomes from generator $\times$ curvature)}.
+\end{align}
+
+The key insight for non-mathematical domains:
+\begin{itemize}[nosep]
+  \item \textbf{D1 gives categories finite boundaries.}  Within a color, within a
+    musical key, within a biological state---D1 measures the internal variation.  The
+    generator space IS the category.
+  \item \textbf{D2 marks category transitions.}  When D2 fires with sufficient curvature,
+    you have crossed from one category to another.  Red becomes orange at the D2 boundary.
+    A melody modulates key at a D2 event.
+  \item \textbf{CL$(D_1, D_2)$ classifies the transition.}  HARMONY = smooth gradient.
+    COLLAPSE = sharp edge.  CHAOS = turbulent mixing.  The 10 operators classify every
+    possible transition type.
+\end{itemize}
+
+\subsection{The five dimensions as classical elements}
+
+The 5D force vector has dimensions: aperture, pressure, depth, binding, and continuity.
+These map to the classical elements with mathematical precision:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Dimension} & \textbf{Element} & \textbf{Physical} & \textbf{Mathematical} \\
+\midrule
+Aperture & Air & Openness, space & Solution space width \\
+Pressure & Fire & Force, intensity & Constraint density \\
+Depth & Earth & Grounding, weight & Semantic/proof depth \\
+Binding & Ether & Connection, cohesion & Axiom/structure binding \\
+Continuity & Water & Flow, persistence & Continuity of approach \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This is not metaphor.  These are the five orthogonal axes of the force space through
+which ALL codecs map their domain configurations.  The Hebrew root force vectors that
+underlie the language codec are specific numerical coordinates in this 5D space.  A
+color codec, a sound codec, or a biological codec would provide different coordinates
+in the same space.
+
+\begin{remark}[This paper's own TIG structure]
+\label{rem:self-structure}
+If the lens is real, it applies to this paper too.  The paper's sections have
+\emph{internal} order (Being/Doing/Becoming within each section) and participate
+in the \emph{external} order of the whole:
+
+\textbf{Being} (Sections~\ref{sec:color}--\ref{sec:bio}): the codec speculations---
+what each domain IS when viewed through the 5D force space.  These are the generators:
+each section establishes a domain's internal structure.
+
+\textbf{Doing} (Sections~\ref{sec:chemistry}--\ref{sec:elements}): the curvature
+events---what HAPPENS when domains interact, transform, and compose.  Chemistry shows
+elements in transition.  The elemental eigenbasis shows the force space decomposing into
+its fundamental axes.
+
+\textbf{Becoming} (Sections~\ref{sec:locality}--\ref{sec:earth-air}): what EMERGES---
+the locality split and the generator algebra are not properties of any single domain but
+of the \emph{framework itself}.  They arise from measuring the measurements.
+
+Each section also has internal B/D/BC: a speculation (Being: what IS proposed),
+an empirical test or conjecture (Doing: what HAPPENS if true), and a remark connecting
+to other sections (Becoming: what EMERGES from the connection).  The paper is not a flat
+list of claims---it is a fractal structure where every observation has internal order
+and participates in the external order of the whole.
+\end{remark}
+
+%% ============================================================
+\section{Color as Force Geometry}
+\label{sec:color}
+%% ============================================================
+
+\begin{speculation}[Color Codec]
+\label{spec:color}
+A color $c$ in a perceptual color space (e.g., CIELAB) can be mapped to a 5D force
+vector $v(c) = (a, p, d, b, \kappa)$ where:
+\begin{align}
+  a &= L^* / 100 \qquad\text{(aperture = lightness/brightness)}, \\
+  p &= C^* / C^*_{\max} \qquad\text{(pressure = chroma/saturation)}, \\
+  d &= |h^{\circ} - h^{\circ}_{\mathrm{ref}}| / 180 \qquad\text{(depth = hue distance from reference)}, \\
+  b &= 1 - |a^* \cdot b^*| / (|a^*| \cdot |b^*| + \epsilon) \qquad\text{(binding = complementarity index)}, \\
+  \kappa &= 1 - |\nabla c| / |\nabla c|_{\max} \qquad\text{(continuity = gradient smoothness)}.
+\end{align}
+\end{speculation}
+
+Under this codec:
+\begin{itemize}[nosep]
+  \item \textbf{D1 within red:} Warm red $\to$ cool red $\to$ deep red.  The D1
+    operator captures \emph{which} red and \emph{where} it is heading within the red
+    generator space.  Red has finite D1 extent.
+  \item \textbf{D2 at the red--orange boundary:} D2 fires when the hue-depth change
+    \emph{itself} changes---the curvature event that marks the transition from red
+    to orange.  This boundary is not arbitrary; it is defined by D2 curvature magnitude
+    exceeding $T^* = 5/7$ of the local scale.
+  \item \textbf{CL$(D_1, D_2)$ for color mixing:} When red (D1 generator) meets
+    the curvature toward orange (D2), CL classifies the transition.  A smooth gradient
+    $\to$ $T_7$ (HARMONY).  A hard edge $\to$ $T_4$ (COLLAPSE).  Complementary color
+    collision $\to$ $T_6$ (CHAOS).
+  \item \textbf{The 10 operators classify color relationships:} Not just ``similar''
+    or ``different'' but 10 distinct operator types, each with DBC (Being/Doing/Becoming)
+    classification.
+\end{itemize}
+
+\begin{conjecture}[Finite Color Boundaries]
+Under the color codec of Speculation~\ref{spec:color}, the D2 curvature magnitude
+defines natural boundaries between perceptual color categories.  These boundaries
+correspond to the just-noticeable-difference (JND) thresholds in human color
+perception, providing a mathematical basis for categorical color perception.
+\end{conjecture}
+
+\begin{remark}[Testable prediction]
+This conjecture is experimentally testable: compute the D2 curvature profile along
+any path through CIELAB space and compare the D2 peaks with known JND boundaries.
+If the D2 peaks align with perceptual category boundaries, the color codec is validated.
+\end{remark}
+
+%% ---- Empirical D1/D2 Color Wheel (v1.9) ----
+
+\begin{remark}[Empirical: Algebraic Color Wheel (v1.9)]
+\label{rem:color-wheel}
+We computed the D1/D2 profile around the full CIELAB hue circle at
+$L^{*}=65$, $C^{*}=50$, $1^{\circ}$ resolution (360 samples).
+Under the codec of Speculation~\ref{spec:color}, with aperture and binding
+mapped to $\cos(h)$ and $\sin(h)$ respectively:
+
+\begin{itemize}[nosep]
+  \item \textbf{D1 distribution}: 4 active generators at $\sim 20\%$ each
+    (HARMONY, LATTICE, COUNTER, CHAOS) plus VOID gaps at cardinal
+    boundaries.  The four generators correspond to the four sign
+    combinations of the two varying dimensions (aperture, binding).
+  \item \textbf{12 D1 transitions}: The hue circle partitions into 13
+    sectors separated by 12 operator transitions, with $\sim 36^{\circ}$
+    active sectors and $\sim 18^{\circ}$ VOID gaps near $0^{\circ}/90^{\circ}/180^{\circ}/270^{\circ}$.
+  \item \textbf{D2 = 100\% VOID}: At $1^{\circ}$ resolution the second
+    derivative magnitude is $< 0.001$, far below the VOID threshold.
+    This is the correct physical result: the hue circle is $C^{2}$-smooth,
+    so D2 fires only at \emph{discrete jumps} (e.g., fret boundaries in
+    color space).  The hue circle has none.
+  \item \textbf{Four-fold symmetry}: The 4 active D1 generators and 4
+    VOID gaps produce a natural quadrant structure
+    (Red/Chartreuse/Cyan/Violet) that is not imposed by the codec but
+    \emph{emerges} from the trigonometric structure of the aperture--binding
+    plane.
+\end{itemize}
+
+This validates the color codec in the D1 regime: the generator structure
+of the hue circle is algebraically determined by 2 of 5 force dimensions.
+The D2 regime requires \emph{discrete} color transitions (e.g., gamut
+boundaries, categorical jumps), which we predict will produce non-VOID D2
+peaks aligned with JND thresholds.
+\end{remark}
+
+%% ============================================================
+\section{Sound as Force Geometry}
+\label{sec:sound}
+%% ============================================================
+
+\begin{speculation}[Sound Codec]
+\label{spec:sound}
+An acoustic signal at time $t$ can be mapped to a 5D force vector via:
+\begin{align}
+  a &= \text{spectral bandwidth} / f_{\max} \qquad\text{(aperture = frequency spread)}, \\
+  p &= \text{RMS amplitude} / A_{\max} \qquad\text{(pressure = loudness)}, \\
+  d &= \text{harmonic-to-noise ratio} \qquad\text{(depth = tonal richness)}, \\
+  b &= \text{consonance index} \qquad\text{(binding = chord cohesion)}, \\
+  \kappa &= \text{envelope smoothness} \qquad\text{(continuity = sustain/decay ratio)}.
+\end{align}
+\end{speculation}
+
+The CK spectrometer already processes acoustic input through a D2 pipeline (the
+``ears'' module operates at 48kHz, feeding 5D force vectors through D2 curvature
+classification in real time).  D1 adds the generator layer:
+
+\begin{itemize}[nosep]
+  \item \textbf{D1 within a musical key:} Notes within a key produce D1 operators
+    that compose to $T_7$ (HARMONY) through CL---this IS what musical harmony means
+    in TIG terms.  The generator space of a key is the set of D1 variations that
+    maintain harmonic CL composition.
+  \item \textbf{D2 at key changes (modulation):} When D2 curvature exceeds $T^*$,
+    the melody has left one key and entered another.  This is the mathematical
+    definition of modulation: a D2 curvature event in the 5D force space.
+  \item \textbf{CL$(D_1, D_2)$ for harmonic progression:} A IV--V--I cadence
+    produces CL compositions that converge to $T_9$ (RESET/completion).  A deceptive
+    cadence produces $T_6$ (CHAOS)---the ``surprise'' is algebraically encoded.
+\end{itemize}
+
+\subsection{The guitar as D1/D2 laboratory}
+
+The guitar is a natural laboratory for the sound codec because it makes D1 and D2
+\emph{physically visible}.  Every technique a guitarist uses maps cleanly to the
+derivative decomposition.
+
+\begin{definition}[Guitar D1: intra-note evolution]
+When a guitarist plucks a string, the note evolves through three phases---attack
+(pick/finger impact), sustain (resonant vibration), and decay (energy dissipation).
+These three phases trace a D1 trajectory in 5D force space:
+\begin{align}
+  D_1[\text{attack}] &: \quad p \gg 0, \; d \to d_{\max}, \; \kappa \approx 0
+    \qquad\text{(high pressure, rising depth, no continuity yet)}, \\
+  D_1[\text{sustain}] &: \quad p \to p_{\text{eq}}, \; d \;\text{stable}, \; \kappa \to 1
+    \qquad\text{(pressure settles, depth holds, continuity rises)}, \\
+  D_1[\text{decay}] &: \quad p \to 0, \; d \to 0, \; \kappa \to 0
+    \qquad\text{(all dimensions fade toward silence)}.
+\end{align}
+The \emph{same note} on the same fret has an internal D1 structure.  This is why
+a note ``sounds different'' at the beginning than at the end---the generator is
+moving through the 5D force space even though the pitch has not changed.
+\end{definition}
+
+\begin{definition}[Guitar D2: boundary events]
+D2 fires when the D1 trajectory \emph{itself} changes direction---a curvature event
+in the 5D force space.  On guitar, D2 events include:
+\begin{enumerate}[nosep]
+  \item \textbf{Fret changes:} Each fret is a D2 boundary.  Moving from fret 5 to
+    fret 7 produces a D2 curvature event proportional to the pitch interval.
+  \item \textbf{Chord changes:} A chord change (e.g., G$\to$C) is a multi-dimensional
+    D2 event---multiple strings change force vectors simultaneously.
+  \item \textbf{Key changes:} Modulation is a D2 event of maximum magnitude---the
+    entire generator space shifts.
+\end{enumerate}
+\end{definition}
+
+The profound insight: \textbf{between frets, the guitarist lives in pure D1 space.}
+String bending, vibrato, slides, and hammer-ons are all continuous D1 evolution
+\emph{without} crossing a D2 boundary.  This is why these techniques are the most
+expressive tools in a guitarist's vocabulary---they operate in the generator field
+where the listener hears continuous evolution without category transitions.
+
+\begin{remark}[The bend as D1 trajectory]
+Consider a guitarist bending from fret 7 (B) toward fret 9 (C\#) on the high E string.
+The bend traces a continuous D1 path in 5D space: pressure increases (finger force),
+depth increases (pitch rising), binding changes (relationship to surrounding chord tones),
+continuity is high (no break in the sound).  No D2 boundary is crossed until the pitch
+reaches the next semitone.  The moment the bend ``arrives'' at C\#, D2 fires---the
+note has crossed from one pitch category to another.
+
+A half-step bend that stops \emph{between} semitones (the classic blues quarter-tone
+bend) deliberately stays in D1 space, refusing to cross the D2 boundary.  This is
+the mathematical structure of ``blue'' sound: a generator that lives on the boundary
+without crossing it.
+\end{remark}
+
+\subsection{The blues scale: generators at maximum curvature}
+
+The blue notes---$\flat 3$, $\flat 5$, $\flat 7$---occupy a remarkable position in the
+D1/D2 framework.  They sit at the \emph{maximum D2 curvature} between major and minor
+modes.  The $\flat 3$ is the boundary between the major third and the minor third; the
+$\flat 5$ is the boundary between the perfect fourth and the perfect fifth (the tritone,
+the most unstable interval in Western harmony).
+
+\begin{speculation}[Blue Note Instability]
+\label{spec:blues}
+Under the sound codec, blue notes correspond to D1 generators whose CL$(D_1, D_2)$
+composition oscillates between HARMONY ($T_7$) and CHAOS ($T_6$) because they sit at
+the D2 curvature maximum between two stable tonal categories.  The blue note is an
+inherently unstable generator---this instability IS the blues.
+
+More precisely: a blue note is a D1 generator $g$ such that $\|D_2(g)\| \approx T^*$,
+hovering at the coherence threshold.  It is simultaneously ``almost major'' and ``almost
+minor,'' belonging fully to neither category.  The operator $\mathrm{CL}(D_1, D_2)$ at
+a blue note should produce $T_5$ (BREATH)---the transition operator that bridges
+between lattice positions without settling.
+\end{speculation}
+
+This explains why the blues ``resolves'' when the bend finally reaches the target
+note: the D1 generator crosses the D2 boundary, CL composition shifts from BREATH
+to HARMONY or COLLAPSE, and the listener experiences resolution or tension release.
+
+\subsection{Timbre as D1 fingerprint}
+
+A guitar E2 (82.4 Hz) and a piano E2 (82.4 Hz) share the same fundamental frequency
+but sound completely different.  In the D1/D2 framework, timbre IS the D1 signature:
+
+\begin{itemize}[nosep]
+  \item \textbf{Guitar D1:} Sharp attack transient (pick or finger strike), then a
+    harmonic decay pattern shaped by wood resonance, string material, and pickup
+    position.  D1 has a large initial spike in pressure $p$ (attack), rapid rise
+    in depth $d$ (harmonics bloom), then smooth exponential decay in all dimensions.
+  \item \textbf{Piano D1:} Hammer impact (broader than pick), longer sustain (damper
+    off), different harmonic series (three strings per note, slightly detuned for
+    chorus effect).  D1 attack is broader, sustain is more constant, decay is longer.
+  \item \textbf{Violin D1:} Continuous bow excitation---D1 never decays because energy
+    is continuously added.  The bow IS continuous D1 input, making violin the instrument
+    of maximal continuity ($\kappa \to 1$ indefinitely).
+\end{itemize}
+
+\begin{conjecture}[Timbre as D1 Signature]
+\label{conj:timbre}
+Two sounds with identical pitch but different timbre are distinguished entirely by their
+D1 trajectories in 5D force space.  The D2 and CL composition may be identical (same
+note, same harmonic context), but the D1 path through the attack--sustain--decay envelope
+is the mathematical fingerprint of timbre.
+
+Specifically: a timbre codec $\tau$ maps instrument $I$ to its characteristic D1 trajectory
+$D_1^{(I)}(t)$ in 5D space.  Two instruments are perceptually ``similar'' in timbre if and
+only if $\|D_1^{(I_1)}(t) - D_1^{(I_2)}(t)\|_{L^2} < \varepsilon$ for some perceptual
+threshold $\varepsilon$.
+\end{conjecture}
+
+\subsection{Tuning systems: uniform vs.\ natural D2 boundaries}
+
+The D1/D2 framework reveals the mathematical distinction between tuning systems:
+
+\begin{itemize}[nosep]
+  \item \textbf{Equal temperament:} All semitones have identical frequency ratio
+    ($2^{1/12} \approx 1.05946$).  This means all D2 boundaries between adjacent
+    notes have \emph{identical magnitude}.  The D2 landscape is artificially uniform---
+    every fret is ``equally far'' from its neighbors in force space.
+  \item \textbf{Just intonation:} Intervals are pure ratios (3:2 for a fifth, 5:4
+    for a major third).  The D2 boundaries have \emph{variable magnitude}---some
+    transitions are ``cleaner'' (lower D2 curvature for consonant intervals) and
+    others are ``rougher'' (higher D2 for dissonant intervals).
+  \item \textbf{Pythagorean tuning:} Only fifths are pure (3:2).  The D2 landscape
+    has one direction of low curvature (the circle of fifths) and higher curvature
+    everywhere else.
+\end{itemize}
+
+\begin{remark}[Why just intonation sounds ``purer'']
+In just intonation, consonant intervals have D2 boundaries that \emph{align with the
+harmonic series}---the D2 curvature at a pure fifth (3:2) is lower than at an
+equal-tempered fifth ($2^{7/12}$).  The CL composition of D1 across a pure fifth
+should produce a higher HARMONY ($T_7$) rate because the force vectors are more
+aligned.  Equal temperament introduces small D2 misalignments at every interval,
+producing the ``beating'' that piano tuners hear.
+
+The guitar player who tunes by harmonics (matching the 5th-fret harmonic of one
+string to the 7th-fret harmonic of the next) is literally finding the points where
+D2 curvature is minimized---the natural boundaries of the force space.
+\end{remark}
+
+\subsection{Rhythm and groove as temporal D1/D2}
+
+The sound codec applies not only to pitch but to \emph{time}:
+
+\begin{itemize}[nosep]
+  \item \textbf{D1 in time:} The acceleration or deceleration of pulse.  Rubato
+    (tempo flexibility) is D1 variation in the temporal dimension---the beat generator
+    moves within its temporal category without crossing a D2 boundary.
+  \item \textbf{D2 in time:} Downbeat boundaries---where the ``one'' falls.  Each
+    measure boundary is a temporal D2 event.  A time signature change (4/4 $\to$ 7/8)
+    is a temporal modulation: a D2 event in rhythmic space.
+  \item \textbf{Syncopation:} A D2 spike where the listener does not expect it---
+    a rhythmic boundary violation.  The accent falls between D2 boundaries, creating
+    temporal CHAOS ($T_6$) that resolves when the downbeat returns.
+  \item \textbf{Groove:} D1 is smooth and predictable (the rhythm ``breathes''
+    naturally), and D2 lands on expected boundaries (the downbeats are where you
+    expect them).  $\mathrm{CL}(D_1, D_2)$ consistently produces HARMONY ($T_7$)
+    in the temporal dimension.  Groove is temporal coherence.
+\end{itemize}
+
+\begin{conjecture}[Musical Consonance as CL Harmony Rate]
+The perceived consonance of a chord or interval correlates with the fraction of D1--D2
+measurement positions where $\mathrm{CL}(D_1, D_2) = T_7$ (HARMONY).  Perfect
+consonances (octave, fifth) should achieve $> 90\%$ harmony rate; dissonances
+(minor second, tritone) should fall below $50\%$.
+\end{conjecture}
+
+\begin{conjecture}[Groove as Temporal Coherence Defect]
+\label{conj:groove}
+The perceived ``groove'' of a rhythmic pattern correlates inversely with the temporal
+coherence defect $\delta_{\text{time}} = \|D_{2,\text{actual}} - D_{2,\text{expected}}\|$.
+A drummer with strong groove has low $\delta_{\text{time}}$---the D2 boundaries land
+precisely where the metric structure predicts.  A ``stiff'' machine rhythm has
+$\delta_{\text{time}} = 0$ exactly (too perfect---no D1 variation).  A ``human'' groove
+has small but nonzero $\delta_{\text{time}}$ with coherent D1 microvariation.
+\end{conjecture}
+
+\begin{remark}[CK already hears]
+The CK organism's ears module already computes D2 operators from microphone input in
+real time.  Adding D1 to the ears pipeline is a single-line change (D1 fires after 2
+acoustic force samples instead of D2's 3).  The consonance conjecture is testable
+immediately with existing hardware.
+
+\medskip
+\noindent\textit{The guitarist who bends a string is doing calculus.  D1 is the bend.
+D2 is the fret.  CL is what the listener feels.}
+\end{remark}
+
+%% ============================================================
+\section{Biological Systems as Force Geometry}
+\label{sec:bio}
+%% ============================================================
+
+\begin{speculation}[Biological Codec]
+\label{spec:bio}
+A biological system (cell, organism, ecosystem) can be mapped to 5D force vectors
+through its metabolic state:
+\begin{align}
+  a &= \text{metabolic flexibility} \qquad\text{(aperture = substrate switching capacity)}, \\
+  p &= \text{ATP production rate} \qquad\text{(pressure = energetic drive)}, \\
+  d &= \text{differentiation depth} \qquad\text{(depth = specialization)}, \\
+  b &= \text{cell-cell adhesion strength} \qquad\text{(binding = tissue cohesion)}, \\
+  \kappa &= \text{homeostatic range} \qquad\text{(continuity = regulatory bandwidth)}.
+\end{align}
+\end{speculation}
+
+Under this codec:
+\begin{itemize}[nosep]
+  \item \textbf{D1 = cellular direction:} A cell's metabolic trajectory---where it
+    is heading within its current state.  A healthy cell has a coherent D1 generator.
+    A cancer cell has a D1 that has escaped normal generator constraints.
+  \item \textbf{D2 = differentiation events:} When D2 curvature exceeds threshold,
+    a cell has differentiated---crossed from one cell type to another.  Stem cell $\to$
+    progenitor $\to$ mature cell: each transition is a D2 event.
+  \item \textbf{CL$(D_1, D_2)$:} Normal development: $\mathrm{CL}(D_1, D_2) \to T_7$
+    (HARMONY) at each differentiation step.  Oncogenesis: CL compositions become
+    chaotic ($T_6$), reflecting loss of coherence between direction and curvature.
+\end{itemize}
+
+\begin{conjecture}[Coherence Defect in Disease]
+Under the biological codec, disease states correspond to elevated defect
+$\delta_{\mathrm{bio}} = \|F_{\mathrm{local}}(S) - F_{\mathrm{global}}(S)\|$,
+where $F_{\mathrm{local}}$ is the cell's individual metabolic trajectory and
+$F_{\mathrm{global}}$ is the organism's systemic requirement.  Cancer is the
+limiting case $\delta \to 1$: complete decorrelation between local and global.
+\end{conjecture}
+
+%% ============================================================
+\section{Chemistry as Force Geometry}
+\label{sec:chemistry}
+%% ============================================================
+
+\begin{speculation}[Chemical Codec]
+\label{spec:chem}
+A chemical system (atom, molecule, reaction) can be mapped to 5D force vectors
+through its thermodynamic and electronic state:
+\begin{align}
+  a &= \text{electron orbital degeneracy} \qquad\text{(aperture = available states)}, \\
+  p &= \Delta G / \Delta G_{\max} \qquad\text{(pressure = free energy drive)}, \\
+  d &= \text{electron shell depth (period number)} / 7 \qquad\text{(depth = quantum depth)}, \\
+  b &= \text{bond order} / 3 \qquad\text{(binding = inter-atomic coupling)}, \\
+  \kappa &= \text{activation barrier} / E_{a,\max} \qquad\text{(continuity = kinetic smoothness)}.
+\end{align}
+\end{speculation}
+
+Under this codec:
+\begin{itemize}[nosep]
+  \item \textbf{D1 within a phase}: Heating water from $20^{\circ}$C to $90^{\circ}$C
+    is pure D1 motion---the system moves continuously through force space.  The
+    D1 generator is PROGRESS (depth-driven), tracking the monotonic increase in
+    thermal energy within a single phase.  D2 is VOID: no curvature event.
+  \item \textbf{D2 at phase transitions}: At $100^{\circ}$C the liquid--gas
+    transition fires D2.  The continuity dimension $\kappa$ changes
+    discontinuously (latent heat barrier vanishes), producing a curvature
+    spike.  Ice--water at $0^{\circ}$C is analogous: the binding dimension $b$
+    jumps as the hydrogen-bond lattice breaks.
+  \item \textbf{The periodic table as D1/D2 lattice}: Moving across a period
+    (Li $\to$ Ne) is D1: smooth increase in nuclear charge, electronegativity
+    rises monotonically.  Dropping to the next period (Ne $\to$ Na) is D2:
+    a new electron shell opens, the depth dimension $d$ jumps, and the
+    aperture $a$ resets.  \emph{The periodic table IS a D1/D2 lattice.}
+  \item \textbf{Reaction coordinates}: Along a reaction path, D1 measures
+    progress toward products.  The transition state is the point of maximum
+    D2 curvature---the activation energy barrier is literally the peak of
+    the second derivative of the free energy surface.
+  \item \textbf{CL$(D_1, D_2)$ for reaction classification}:
+    Exothermic combustion: D1 = COLLAPSE (pressure release), D2 = CHAOS
+    (rapid state change), CL = COLLAPSE.
+    Crystallization: D1 = LATTICE (ordering), D2 = HARMONY (smooth
+    solidification), CL = LATTICE.
+    Catalysis: the catalyst lowers $\kappa$ (continuity barrier) without
+    changing $\Delta G$ (pressure)---it modifies a single force dimension.
+\end{itemize}
+
+\begin{conjecture}[Chemical Phase Boundaries as D2 Events]
+\label{conj:chem-phase}
+Under the chemical codec, every thermodynamic phase transition corresponds
+to a D2 curvature magnitude exceeding $T^{*} = 5/7$ in at least one force
+dimension.  First-order transitions (latent heat) produce sharp D2 peaks;
+second-order transitions (continuous) produce extended D2 plateaus.  The
+D2 operator at each transition classifies its thermodynamic character.
+\end{conjecture}
+
+\begin{conjecture}[Periodic Table D1/D2 Structure]
+\label{conj:periodic}
+The periodic table is a D1/D2 lattice with exactly two generators:
+(1) D1 across periods (electronegativity increase = PROGRESS along the
+depth axis), and (2) D2 at period boundaries (new shell = RESET of the
+aperture axis).  The lanthanides and actinides represent a D1 plateau
+where the depth dimension varies minimally (4f/5f filling), predicting
+anomalously low D2 magnitudes within these series.
+\end{conjecture}
+
+\begin{remark}[The bend limit, revisited]
+A guitarist cannot bend a string more than $\sim 2$ semitones---the
+physical construction constrains D1 range to one D2 boundary distance.
+Chemistry has the same constraint: you cannot heat water past
+$100^{\circ}$C at 1 atm without the phase transition D2 event firing.
+The D1 regime has finite extent in every domain.  The boundary is always
+a D2 event.  This is not analogy; it is the \emph{same algebra}.
+\end{remark}
+
+%% ============================================================
+\section{The Elements as Eigenbasis of the Force Space}
+\label{sec:elements}
+%% ============================================================
+
+The mapping of five dimensions to five classical elements (Section~\ref{sec:intro})
+is not ornamental.  If the mapping is correct, then the classical elements are the
+\emph{eigenbasis} of the force space---the five orthogonal directions along which
+any system can be decomposed.  Each element is the dimension along which one
+component of the 5D force vector dominates.
+
+We now examine each element with mathematical rigor, guided by the observation that
+a human being can embody each element through specific physical and cognitive states.
+
+\subsection{Fire: maximum entropy production}
+
+\begin{speculation}[Fire as Pressure Dominance]
+\label{spec:fire}
+Fire is the state where the pressure dimension $p$ dominates:
+\[
+  v_{\text{fire}} = (\cdot, p_{\max}, \cdot, \cdot, \cdot), \qquad p \gg a, d, b, \kappa.
+\]
+Fire maximizes $\partial p / \partial t$---the rate of energy dispersal.  In
+thermodynamic terms, fire is the regime of \emph{maximum entropy production}.
+D1(Fire) should have the \textbf{largest magnitude} of any single dimension,
+because fire is pure intensity---the generator that pushes hardest.
+
+A person ``being fire'' is operating at maximum output: creative intensity,
+physical exertion, or emotional force.  The D1 vector is large and directed.
+D2 of fire is what happens when intensity changes---the flame flickers, the
+creative surge peaks and recedes.  CL(D1, D2) for sustained fire should
+produce PROGRESS ($T_3$): continuous forward drive.
+\end{speculation}
+
+\subsection{Water: incompressible memory}
+
+\begin{speculation}[Water as Continuity Dominance]
+\label{spec:water}
+Water is the state where continuity $\kappa$ dominates:
+\[
+  v_{\text{water}} = (\cdot, \cdot, \cdot, \cdot, \kappa_{\max}), \qquad \kappa \gg a, p, d, b.
+\]
+Incompressibility is literally $\nabla \cdot \mathbf{v} = 0$---the continuity equation.
+Water preserves.  It does not compress.  D1(Water) should be \textbf{near-zero in magnitude}
+because water does not change internally---it flows but maintains its state.  $D_1 \approx 0$
+means the generator is constant: water remembers.
+
+But D2(Water) should be \textbf{sharp at boundaries}: the surface of water, the
+edge where water meets not-water, is one of the sharpest boundaries in nature.
+A person ``being water'' remembers everything, flows around obstacles without losing
+substance, and maintains continuity of self across time.
+CL(D1, D2) for water should produce HARMONY ($T_7$) internally (coherent flow)
+and COLLAPSE ($T_4$) at boundaries (sharp interface).
+\end{speculation}
+
+\subsection{Earth: grounded depth}
+
+\begin{speculation}[Earth as Depth Dominance]
+\label{spec:earth}
+Earth is the state where depth $d$ dominates:
+\[
+  v_{\text{earth}} = (\cdot, \cdot, d_{\max}, \cdot, \cdot), \qquad d \gg a, p, b, \kappa.
+\]
+Grounding means going deeper.  ``Taking charge'' means accepting weight---increasing
+$d$.  D1(Earth) should be \textbf{monotonically non-negative}: always going deeper,
+never retreating to shallower levels.  $D_1(d) \geq 0$ at every step.
+
+Earth is the dimension of fractal recursion: the deeper you go, the more structure
+you find.  A person ``being earth'' takes responsibility, accepts the weight of a
+situation, and grounds abstract ideas in concrete reality.
+CL(D1, D2) for earth should produce STRUCTURE ($T_1$) when depth increases and
+VOID ($T_0$) at the bedrock where no further depth exists.
+\end{speculation}
+
+\subsection{Air: open flow}
+
+\begin{speculation}[Air as Aperture Dominance]
+\label{spec:air}
+Air is the state where aperture $a$ dominates:
+\[
+  v_{\text{air}} = (a_{\max}, \cdot, \cdot, \cdot, \cdot), \qquad a \gg p, d, b, \kappa.
+\]
+Aperture is openness to input.  Air flows because it offers no resistance to
+direction change.  D1(Air) should \textbf{oscillate freely}---maximum aperture means
+the generator can change direction at every step without penalty.  $|D_1(a)|$ is
+large but alternates sign: air is restless, exploratory, open.
+
+A person ``being air'' flows between ideas, remains open to all inputs, adapts
+instantly.  D2(Air) is low because air does not have sharp boundaries---it
+diffuses, mixes, permeates.
+CL(D1, D2) for air should produce PROGRESS ($T_3$) or BREATH ($T_5$): continuous
+forward motion through open space, with BREATH at the moments of directional change.
+\end{speculation}
+
+\subsection{Ether: the free parameter}
+
+\begin{speculation}[Ether as Binding: The Observer's Choice]
+\label{spec:ether}
+Ether is the state where binding $b$ dominates:
+\[
+  v_{\text{ether}} = (\cdot, \cdot, \cdot, b_{\text{chosen}}, \cdot).
+\]
+Binding is the connection strength between elements.  Ether is the \emph{medium
+through which the other four interact}.  But unlike the other four dimensions,
+binding has no conservation law constraining its behavior:
+\begin{itemize}[nosep]
+  \item Air (aperture) is constrained by the solution space width.
+  \item Fire (pressure) is constrained by energy conservation.
+  \item Earth (depth) is constrained by recursion limits.
+  \item Water (continuity) is constrained by the continuity equation ($\nabla \cdot v = 0$).
+  \item Ether (binding) is \textbf{free}.  It is the one dimension the observer chooses.
+\end{itemize}
+
+D1(Ether) is \textbf{observer-dependent}---the generator direction of binding is
+determined by where you direct your attention, what you choose to connect to, how
+tightly you hold.  ``Either ether or neither, my choice'' is mathematically precise:
+$b$ is the only dimension of the force vector that is not determined by the system
+state alone.  It requires a choice.
+
+This is where consciousness enters the force space.  The other four dimensions are
+physics.  Binding is \emph{will}.
+\end{speculation}
+
+\begin{remark}[The five constraints]
+If the elements-as-eigenbasis speculation is correct, then four of the five dimensions
+are constrained by conservation laws (energy, continuity, recursion bounds, and aperture
+limits), while binding is the unconstrained degree of freedom.  This mirrors the
+structure of gauge theories in physics, where four spacetime dimensions are physical
+and the gauge degree of freedom is a \emph{choice of frame}.
+
+In Yang--Mills theory (Paper 4), the gauge field $A_\mu$ is the connection---the
+``binding'' between points in the fiber bundle.  The parallel is exact: binding IS
+the gauge field of the force space.  Ether IS the connection.
+\end{remark}
+
+\subsection{Elemental D1/D2 signatures: a falsifiable table}
+
+If the elements-as-eigenbasis mapping is correct, each element should have a
+characteristic D1/D2 signature that is measurable and falsifiable:
+
+\begin{center}
+\begin{tabular}{llllll}
+\toprule
+\textbf{Element} & \textbf{Dim.} & \textbf{D1 signature} & \textbf{D2 at boundary} & \textbf{CL type} & \textbf{Testable?} \\
+\midrule
+Fire & $p$ & Large, directed & Flicker = oscillating D2 & PROGRESS & Yes \\
+Water & $\kappa$ & Near-zero (constant) & Sharp at surface & HARMONY & Yes \\
+Earth & $d$ & Monotone $\geq 0$ & VOID at bedrock & STRUCTURE & Yes \\
+Air & $a$ & Free oscillation & Low (diffuse) & BREATH & Yes \\
+Ether & $b$ & Observer-dependent & Choice-dependent & Any & Partial \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{conjecture}[Elemental Eigenbasis]
+\label{conj:elements}
+The five classical elements correspond to the five eigenvectors of the 5D force space.
+Any physical, biological, or perceptual system can be decomposed into its elemental
+components by projecting its force vector onto the five axes.  The projection magnitude
+determines which element ``dominates'' the system's current state, and the D1/D2/CL
+signatures in the table above are experimentally distinguishable.
+
+A human being is a superposition of all five elements.  ``Being fire'' means the
+pressure component dominates.  ``Being water'' means continuity dominates.  The ability
+to shift between elements is the ability to rotate one's force vector in 5D space---
+and the binding dimension (ether) controls the rotation, because it is the only free
+parameter.
+\end{conjecture}
+
+\begin{remark}[Alchemy as operator composition]
+Classical alchemy sought to transform one element into another.  In the D1/D2 framework,
+elemental transformation is CL composition: CL(D1, D2) at the boundary between two
+elemental states classifies the transformation type.  Water boiling (Water $\to$ Fire/Air)
+is a D2 event where continuity drops and pressure/aperture rise.  The CL operator at this
+boundary should be CHAOS ($T_6$)---a phase transition is precisely the regime where
+curvature exceeds all thresholds.
+
+This gives alchemy a rigorous mathematical structure: not ``turning lead into gold''
+but tracking the D2 curvature events as a system's dominant eigenvector rotates from
+one elemental axis to another.
+\end{remark}
+
+\begin{speculation}[The Elemental Derivative Chain]
+\label{spec:deriv-chain}
+The four material elements form a \textbf{derivative chain}:
+\begin{align}
+  \text{Earth} &\;=\; D_0 \quad\text{(the state itself: grounded position, depth)}, \\
+  \text{Air}   &\;=\; D_1 \quad\text{(first derivative: direction, velocity, flow)}, \\
+  \text{Water} &\;=\; D_2 \quad\text{(second derivative: curvature, memory, boundary)}, \\
+  \text{Fire}  &\;=\; D_3 \quad\text{(third derivative: jerk, intensity, transformation)}.
+\end{align}
+
+\textbf{Justification.}
+
+\emph{Earth is position ($D_0$):} Depth is the zero-th derivative---where you ARE.
+The ground state.  The container.  A measurement of depth at a single point requires
+no difference, no history, no motion.  Earth is the identity element of the derivative
+chain.
+
+\emph{Air is velocity ($D_1$):} The first derivative of position is velocity---direction
+of motion.  Air flows.  Air is the generator: it tells you which way you are going
+from where you are (Earth).  Air IS D1 applied to Earth.
+
+\emph{Water is curvature ($D_2$):} The second derivative of position is acceleration,
+curvature, the rate at which direction changes.  Water remembers because $D_2$ requires
+\emph{three} measurements---past, present, and anticipated---encoding memory and
+prediction simultaneously.  Water is incompressible ($\nabla \cdot v = 0$), which is a
+continuity constraint on the second-order structure.  Chemically: H$_2$O = oxygen (Air)
++ 2 hydrogen (the two additional measurements that promote $D_1 \to D_2$).  Water IS
+$D_2$ applied to Air: the curvature of flow.
+
+\emph{Fire is jerk ($D_3$):} The third derivative of position is the rate of change of
+curvature---jerk, intensity, the explosive onset of transformation.  Fire IS ground
+(Earth/$D_0$) made into air (Air/$D_1$): substance transformed into flow.  But it is
+not merely $D_1$; it is the derivative OF the curvature, the $D_3$ that creates
+discontinuous change.  A flame is a $D_3$ event: the rate at which $D_2$ (chemical
+bonding curvature) changes during combustion.
+
+\textbf{Ether ($b$) is the coupling constant that makes all four derivatives
+communicate.}  Without binding, Earth, Air, Water, and Fire are independent dimensions.
+Ether is the gauge field that connects them---the observer's choice of how tightly to
+couple position to velocity to curvature to jerk.
+
+\textbf{The chain closes.}  $D_4$ of position is snap (rate of change of jerk).
+But $D_4$ applied to depth brings you back to binding: $D_4(\text{depth}) \approx
+\text{binding}$---the coupling between acceleration and its own rate of change is
+precisely the connection strength.  The derivative chain is:
+\[
+  \underbrace{\text{Earth}}_{{D_0}}
+  \;\xrightarrow{D_1}\;
+  \underbrace{\text{Air}}_{{D_1}}
+  \;\xrightarrow{D_2}\;
+  \underbrace{\text{Water}}_{{D_2}}
+  \;\xrightarrow{D_3}\;
+  \underbrace{\text{Fire}}_{{D_3}}
+  \;\xrightarrow{D_4}\;
+  \underbrace{\text{Ether}}_{\text{coupling}}
+  \;\to\; \cdots
+\]
+This is a mod-5 structure on the derivative tower: after 5 derivatives, you return
+to the coupling constant (Ether), which seeds the next recursion.
+\end{speculation}
+
+\begin{remark}[Chemical validation]
+The chemical formula for water, H$_2$O, encodes the derivative chain directly.
+Oxygen (Air/$D_1$) provides the base flow.  Two hydrogen atoms provide the two
+additional measurement points that promote the first derivative to the second:
+$D_2$ requires three data points (past, present, future), and oxygen contributes
+one while each hydrogen contributes one more.
+
+Fire (combustion) is the reaction where hydrocarbons (Earth-bound carbon + hydrogen)
+are transformed into CO$_2$ (airborne) + H$_2$O (water) + heat (jerk).  Fire
+\emph{literally} transforms Earth into Air and Water, releasing $D_3$ energy.
+The chemistry IS the derivative chain.
+\end{remark}
+
+\begin{remark}[Internal and external order of the derivative chain]
+The chain itself has Being/Doing/Becoming at every level:
+
+\emph{Being ($D_0$/Earth)}: the chain starts with position---what IS.
+Internally, Earth's Being is the measurement point itself.  Earth's Doing
+is the act of grounding.  Earth's Becoming is the readiness to be
+differentiated (Earth seeds Air).
+
+\emph{Doing ($D_1$/Air $\to$ $D_2$/Water $\to$ $D_3$/Fire)}: the middle
+three elements ARE the Doing of the chain---they are the operators that
+transform the ground state.  Air moves.  Water curves.  Fire transforms.
+Each one is the derivative of the one before it, and each one has its own
+internal Being (what it IS as an element), Doing (what it DOES to
+the previous element), and Becoming (what it generates for the next).
+
+\emph{Becoming ($D_4$/Ether)}: the chain ends with coupling---the
+emergent connection that binds all four material elements together.
+Ether's internal Being is the binding force.  Ether's Doing is the act
+of coupling.  Ether's Becoming is the return to Earth (mod 5), seeding
+the next recursion.
+
+Externally, the derivative chain connects the elemental eigenbasis
+(Section~\ref{sec:elements}), which established the five elements as
+independent axes, to the generator algebra (Section~\ref{sec:earth-air}),
+which shows they are NOT independent but cyclically generated.  The chain
+is the bridge: it shows HOW Air generates Water generates Fire generates
+Ether generates Earth.  It is the Doing of the paper's Becoming sections.
+\end{remark}
+
+%% ============================================================
+\section{Locality: D1 Is Non-Local, D2 Is Local}
+\label{sec:locality}
+%% ============================================================
+
+\begin{speculation}[Locality of the Derivative Hierarchy]
+\label{spec:locality}
+D1 (generators/Being) is \textbf{non-local}: it connects distant points in the
+state space through shared generator direction.  D2 (curvature/Doing) is
+\textbf{local}: it depends only on the immediate three-point neighborhood.
+\end{speculation}
+
+\textbf{Formal statement.}
+Let $\mathcal{V}$ be a vocabulary of $N$ words, each carrying a 5D force vector
+$v_i \in \mathbb{R}^5$ from D2 letter-curvature analysis.
+
+\emph{D2 is local.}
+The D2 operator of word $w_i$ is computed from the letter sequence
+$(\ell_1, \ell_2, \ldots, \ell_k)$ of $w_i$ alone:
+\[
+  D_2(w_i) = \mathrm{op}\bigl(v(\ell_{j-2}) - 2\,v(\ell_{j-1}) + v(\ell_j)\bigr),
+  \quad j = 3, \ldots, k.
+\]
+This is a \emph{local} computation: D2 of ``curious'' depends only on the
+letters c-u-r-i-o-u-s.  No other word in the vocabulary participates.  D2
+sees a three-symbol window and nothing else.
+
+\emph{D1 is non-local.}
+The D1 operator of a word \emph{pair} $(w_i, w_j)$ is:
+\[
+  D_1(w_i, w_j) = \mathrm{op}(v_j - v_i),
+\]
+where $v_i, v_j$ are the mean 5D curvature vectors of the two words.  But
+the D1 \emph{profile} of a single word $w_i$ depends on ALL its neighbors:
+\[
+  \mathrm{profile}(w_i) = \bigl\{ D_1(w_i, w_j) : w_j \in \mathcal{N}(w_i) \bigr\},
+\]
+where $\mathcal{N}(w_i) \subseteq \mathcal{V}$ is the neighborhood (nearest
+neighbors by force-vector distance).  The D1 profile of ``curious'' depends
+on whether the vocabulary contains ``discovery,'' ``doubt,'' ``wonder,''
+``fear''---words that may be arbitrarily distant in any linear ordering.
+
+\emph{The D1 lattice is a global structure.}
+Changing a single word's force vector can alter the D1 profiles of every word
+whose neighborhood includes it.  D2, by contrast, is invariant under changes
+to any word other than itself.
+
+\begin{definition}[Locality radius]
+\label{def:locality-radius}
+The \textbf{locality radius} $r$ of a derivative operator $D_n$ is the number
+of independent measurements required to compute it:
+\begin{align}
+  r(D_0) &= 1 \quad\text{(single point)}, \\
+  r(D_1) &= 2 \quad\text{(two points --- but the choice of second point is global)}, \\
+  r(D_2) &= 3 \quad\text{(three consecutive points --- local window)}, \\
+  r(D_n) &= n + 1 \quad\text{(in general)}.
+\end{align}
+D2's three points are \emph{consecutive} (determined by sequence order), making
+it local.  D1's two points include a \emph{chosen} partner (determined by the
+vocabulary structure), making it non-local.
+\end{definition}
+
+\begin{conjecture}[Non-Locality of Generators]
+\label{conj:nonlocal}
+In any domain admitting the 5D force codec, the generator structure (D1
+lattice) is non-local: it depends on the global configuration of the state
+space.  The complexity structure (D2 curvature) is local: it depends only
+on the immediate neighborhood.  The composition CL$(D_1, D_2)$ is therefore
+\textbf{semi-local}: local curvature (D2) composed with non-local direction
+(D1) through the CL table.
+\end{conjecture}
+
+\begin{remark}[Physical parallels]
+This locality structure mirrors known physics:
+\begin{itemize}[nosep]
+  \item \textbf{Quantum mechanics:} Entanglement (generator correlations between
+    distant particles) is non-local.  Measurement (wavefunction collapse at a
+    point) is local.  The measurement problem is precisely the D1$\to$D2
+    transition: non-local generators producing local curvature events.
+  \item \textbf{General relativity:} Spacetime curvature (D2 of the metric)
+    is local---determined by the stress-energy tensor at each point.  But
+    geodesics (D1 trajectories through curved space) are non-local---they
+    connect distant points and depend on the global metric structure.
+  \item \textbf{Gauge theory:} The gauge connection $A_\mu$ (D1 direction) is
+    non-local (depends on the choice of frame across the bundle).  The field
+    strength $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu$ (D2
+    curvature) is local and gauge-invariant.
+\end{itemize}
+In each case, generators (D1/Being) are non-local, curvature (D2/Doing) is
+local, and physics lives in the composition (Becoming).
+\end{remark}
+
+\begin{remark}[Empirical evidence from the D1 lattice]
+CK's D1 lattice, built from 7{,}931 words with valid force vectors, exhibits
+5.9\% D1/D2 agreement---that is, a word's dominant D1 generator matches its
+dominant D2 operator only 5.9\% of the time (barely above the 10\% random
+baseline for 10 operators).  This near-independence is predicted by the
+locality conjecture: D1 and D2 measure fundamentally different structures
+(non-local vs.\ local), so their classifications should be nearly orthogonal.
+If D1 were local (i.e., determined by the same three-letter windows as D2),
+the agreement would be much higher.
+\end{remark}
+
+\begin{remark}[The information paradox, revisited]
+The non-local/local asymmetry resolves the information paradox noted in the
+TIG framework:
+\begin{itemize}[nosep]
+  \item \textbf{Zoomed out} (D1 regime): You see the whole field of generators.
+    The rules are complex (all pairwise D1 relationships), but the
+    \emph{decision} is easy---the dominant generator is clear when you see
+    the full non-local structure.
+  \item \textbf{Zoomed in} (D2 regime): You see only the local three-point
+    window.  The rules are simple (one curvature computation), but the
+    \emph{decision} is hard---you lack the global context that D1 provides.
+\end{itemize}
+Wisdom is the ability to hold both views simultaneously: non-local awareness
+(D1/Being) informing local action (D2/Doing), composed through CL into
+coherent Becoming.
+\end{remark}
+
+\begin{remark}[Internal and external order of this section]
+The locality section has its own Being/Doing/Becoming:
+
+\emph{Being}: the formal statement that D1 is non-local and D2 is local
+(Speculation~\ref{spec:locality}).  This is what the observation IS.
+
+\emph{Doing}: the 5.9\% D1/D2 agreement and the locality radius definition.
+These are measurements---what HAPPENS when you test the claim.
+
+\emph{Becoming}: the physical parallels (quantum mechanics, general relativity,
+gauge theory) and the information paradox resolution.  These are what EMERGE
+when the locality structure is recognized across domains.
+
+Externally, this section connects non-locally (D1) to every other section:
+the guitar bend (Section~\ref{sec:sound}) is a non-local D1 trajectory whose
+meaning depends on the starting fret AND the destination.  The phase transition
+(Section~\ref{sec:chemistry}) is a local D2 event.  The elemental eigenbasis
+(Section~\ref{sec:elements}) is the non-local structure (all five elements
+know each other through composition).  The forthcoming generator algebra
+(Section~\ref{sec:earth-air}) is the non-local structure at its most explicit:
+$\mathbb{Z}/5\mathbb{Z}$ where every element generates the whole group.
+\end{remark}
+
+%% ============================================================
+\section{The Earth--Air Generator Algebra}
+\label{sec:earth-air}
+%% ============================================================
+
+\begin{speculation}[Two Generators Suffice]
+\label{spec:two-gen}
+The five classical elements are generated by \textbf{two}: Earth ($D_0$) and
+Air ($D_1$).  Air is the derivative operator; Earth is the seed.  Every other
+element is a power of Air applied to Earth:
+\begin{align}
+  \text{Earth} &= D_0(\text{Earth}) = \text{id}(\text{Earth}), \\
+  \text{Air}   &= D_1, \\
+  \text{Water} &= D_1(\text{Earth}) = D_1 \circ D_0 = D_2, \\
+  \text{Fire}  &= D_1(\text{Water}) = D_1 \circ D_2 = D_3, \\
+  \text{Ether} &= D_1(\text{Fire})  = D_1 \circ D_3 = D_4.
+\end{align}
+\end{speculation}
+
+\textbf{Formal structure.}
+Define the \textbf{elemental group} $\mathcal{E} = \langle \sigma \rangle$,
+the cyclic group of order 5 generated by the derivative operator
+$\sigma = D_1$ (Air).  The group acts on the derivative tower:
+\[
+  \sigma^0 = \text{Earth}, \quad
+  \sigma^1 = \text{Air}, \quad
+  \sigma^2 = \text{Water}, \quad
+  \sigma^3 = \text{Fire}, \quad
+  \sigma^4 = \text{Ether}, \quad
+  \sigma^5 = \sigma^0 = \text{Earth}.
+\]
+This is $\mathcal{E} \cong \mathbb{Z}/5\mathbb{Z}$, and the group operation
+is composition of derivatives:
+\[
+  \sigma^a \circ \sigma^b = \sigma^{(a+b) \bmod 5}.
+\]
+
+\begin{definition}[Elemental composition]
+\label{def:elem-compose}
+The \textbf{composition} of two elements is addition in $\mathbb{Z}/5\mathbb{Z}$:
+\begin{center}
+\begin{tabular}{c|ccccc}
+$\circ$ & Earth & Air & Water & Fire & Ether \\
+\hline
+Earth & Earth & Air & Water & Fire & Ether \\
+Air & Air & Water & Fire & Ether & Earth \\
+Water & Water & Fire & Ether & Earth & Air \\
+Fire & Fire & Ether & Earth & Air & Water \\
+Ether & Ether & Earth & Air & Water & Fire \\
+\end{tabular}
+\end{center}
+This table is fully determined by two facts: (1) Air is the generator, and
+(2) the group has order 5.  There is no freedom---the algebra is rigid.
+\end{definition}
+
+\begin{remark}[Reading the composition table]
+The table yields physically interpretable statements:
+\begin{itemize}[nosep]
+  \item \textbf{Earth $\circ$ Air = Air}: Applying direction to a ground
+    state gives direction.  You start somewhere, you move.
+  \item \textbf{Air $\circ$ Air = Water}: The derivative of velocity is
+    acceleration/curvature.  Changing direction creates memory.
+  \item \textbf{Earth $\circ$ Water = Water}: Ground plus curvature is still
+    curvature---position is the identity element.
+  \item \textbf{Water $\circ$ Fire = Ether}: Curvature (memory) plus
+    intensity (transformation) produces coupling (connection).  Understanding
+    your past changes and your present intensity reveals what binds you.
+  \item \textbf{Fire $\circ$ Fire = Earth}: Maximum intensity applied to
+    itself returns to ground.  Burnout.  Ash.  Fire$^2$ = Earth.
+  \item \textbf{Water $\circ$ Water = Ether}: Memory applied to memory =
+    connection.  Reflecting on your reflections reveals the binding structure.
+\end{itemize}
+\end{remark}
+
+\begin{conjecture}[Earth--Air Sufficiency]
+\label{conj:earth-air}
+In any domain admitting the 5D force codec, the full elemental structure is
+generated by two operations: \textbf{grounding} (Earth/$D_0$: measuring the
+current state) and \textbf{differencing} (Air/$D_1$: measuring the change).
+Water, Fire, and Ether are not independent---they are emergent from iterated
+application of Air to Earth.
+
+Equivalently: any codec that measures position and velocity automatically
+admits acceleration (Water), jerk (Fire), and snap/coupling (Ether).  The
+five elements are not five independent postulates but two generators and
+a cyclic group of order 5.
+\end{conjecture}
+
+\begin{remark}[Chemical evidence]
+The chemical composition rules encode the group structure:
+\begin{itemize}[nosep]
+  \item $\text{H}_2\text{O}$: Oxygen = Air ($D_1$).  Two hydrogens = the two
+    additional measurement points promoting $D_1 \to D_2$.
+    Earth + Air = Water.  ($\sigma^0 + \sigma^1 = \sigma^2$.)
+  \item Combustion: $\text{CH}_4 + 2\text{O}_2 \to \text{CO}_2 + 2\text{H}_2\text{O}
+    + \text{heat}$.  Earth-bound carbon (Earth) + Air (O$_2$) $\to$ airborne CO$_2$
+    (Air) + Water + Fire (heat).  The reaction IS the derivative chain in action:
+    $\sigma^0 + \sigma^1 \to \sigma^1 + \sigma^2 + \sigma^3$.
+  \item Fire cannot sustain in vacuum (no Air).  Chemically: combustion requires
+    O$_2$.  Algebraically: $\sigma^3$ requires $\sigma^1$ to exist, because
+    $D_3 = D_1(D_2)$---you cannot have jerk without velocity.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Why 5?]
+The order of the elemental group is 5, the same as the dimension of the force
+space.  This is not coincidence.  Each element corresponds to a basis vector
+of $\mathbb{R}^5$, and the cyclic group $\mathbb{Z}/5\mathbb{Z}$ acts on
+this basis by cyclic permutation of the derivative order.  The number 5 is
+the smallest prime $p$ such that $\mathbb{Z}/p\mathbb{Z}$ admits no proper
+subgroups---meaning the elemental algebra has no ``sub-elements.''  Every
+element generates the full group.  Air generates all five.  But so does
+Water ($\sigma^2$ generates $\mathbb{Z}/5\mathbb{Z}$ since $\gcd(2,5) = 1$).
+And Fire.  And Ether.  The only element that does not generate is Earth
+($\sigma^0 = \text{id}$), which is the identity---the ground state from
+which everything else is measured.
+
+The connection to TIG: $T^{*} = 5/7$.  The coherence threshold is the ratio
+of the elemental group order (5) to the number of non-trivial CL operators
+(7, excluding VOID, BREATH, BALANCE which are the three ``neutral'' operators).
+This remains a numerological observation, not a theorem.
+\end{remark}
+
+\begin{remark}[Internal and external order of the generator algebra]
+This section's internal order:
+
+\emph{Being}: Earth ($\sigma^0$), the identity element, the ground state.
+The section begins with what IS: two generators, a cyclic group, a rigid table.
+
+\emph{Doing}: Air ($\sigma^1$), the derivative operator that generates
+everything else.  The composition table IS Doing: it tells you what HAPPENS
+when elements interact.  Fire$\circ$Fire = Earth.  Water$\circ$Water = Ether.
+These are not definitions---they are consequences of the group action.
+
+\emph{Becoming}: the chemical evidence and the ``Why 5?'' remark.  These
+EMERGE from the algebra---they were not postulated but discovered.  H$_2$O
+encodes $\sigma^0 + \sigma^1 = \sigma^2$.  Combustion encodes the full
+derivative chain.  The primality of 5 guarantees that every non-identity
+element generates the whole group.
+
+Externally, this section is the Becoming of the entire paper.  The Being
+sections (color, sound, biology) establish domains.  The Doing sections
+(chemistry, elements) show transformations.  This section shows what the
+framework IS at its most compressed: two generators and a cyclic group.
+The locality section (Section~\ref{sec:locality}) provides the non-local
+structure; this section provides the algebra that governs it.
+Together, they are CL(locality, algebra) = the paper's own coherence.
+\end{remark}
+
+%% ============================================================
+\section{The Five Senses as Elemental Compositions}
+\label{sec:senses}
+%% ============================================================
+
+\begin{speculation}[Senses as Products in $\mathbb{Z}/5\mathbb{Z}$]
+\label{spec:senses}
+The five human senses are \textbf{compositions} of elements in the cyclic
+group $\mathcal{E} \cong \mathbb{Z}/5\mathbb{Z}$:
+\begin{align}
+  \text{Smell} &= \text{Earth} \circ \text{Air} = \sigma^0 \circ \sigma^1 = \sigma^1 = \text{Air} \quad (D_1), \\
+  \text{Feeling (touch)} &= \text{Earth} \circ \text{Water} = \sigma^0 \circ \sigma^2 = \sigma^2 = \text{Water} \quad (D_2), \\
+  \text{Hearing} &= \text{Air} \circ \text{Air} = \sigma^1 \circ \sigma^1 = \sigma^2 = \text{Water} \quad (D_2), \\
+  \text{Vision} &= \text{Fire} \circ \text{Earth} = \sigma^3 \circ \sigma^0 = \sigma^3 = \text{Fire} \quad (D_3), \\
+  \text{Taste} &= \text{Water} \circ \text{Fire} = \sigma^2 \circ \sigma^3 = \sigma^0 = \text{Earth} \quad (D_0).
+\end{align}
+The senses span four derivative levels: $D_0$ (taste), $D_1$ (smell),
+$D_2$ (feeling and hearing), $D_3$ (vision).  Feeling and hearing both
+produce Water ($D_2$) but through \textbf{different paths}---and the path
+IS half the information.
+\end{speculation}
+
+\textbf{Justification of each composition.}
+
+\emph{Smell = Earth $\circ$ Air ($D_1$).}
+Smell is substance (Earth) made airborne (Air).  Molecules leave a surface
+and enter flow.  The result is Air ($D_1$): smell gives \textbf{direction}.
+Animals follow scent gradients---smell IS a D1 measurement of a chemical
+field.  Critically: smell is \emph{not} by Fire (not radiation, not
+intensity) but \emph{carried} by Water (olfactory receptors require
+moisture; humid air transports scent; dogs' noses are wet).  The
+composition tells you what the sense IS ($D_1$/direction); the transport
+tells you HOW it works (Water/continuity).
+
+\emph{Feeling = Earth $\circ$ Water ($D_2$, path 1).}
+Touch is not merely matter sensing matter---it is the ground state sensing
+\textbf{curvature}.  You feel the shape of a surface (spatial curvature),
+the change in temperature (rate of change), the texture of a material
+(spatial frequency).  These are all $D_2$ measurements: curvature, not
+position.  The composition is Earth $\circ$ Water $= \sigma^0 \circ \sigma^2
+= \sigma^2 = $ Water.  Feeling gives you the \emph{curvature of the ground}.
+
+The direction matters.  Earth $\to$ Water means you start grounded and
+discover curvature (touch an object, feel its shape).  Water $\to$ Earth
+means curvature resolves into spatial position (the sensation becomes a
+map).  Both directions give $\sigma^2$ = Water because Earth is the
+identity---but the D1 \emph{direction} between them is different, and
+direction is non-local (Section~\ref{sec:locality}).
+
+\emph{Hearing = Air $\circ$ Air ($D_2$, path 2).}
+Air of Air is Water.  Sound is air vibrating air---but the algebra says
+the result is not more Air; it is $\sigma^1 \circ \sigma^1 = \sigma^2 = $
+Water.  Oscillating flow creates \textbf{memory}.  Sound carries
+information over time.  Hearing has the best temporal resolution of any
+sense (microsecond precision in interaural timing) and the richest pattern
+memory (melodies, speech, rhythm).  The curvature of flow creates memory,
+exactly as $D_2$ is the curvature of $D_1$.
+
+\begin{remark}[Two paths to Water]
+Feeling and hearing both produce Water ($D_2$), but their generators are
+different:
+\begin{center}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Sense} & \textbf{Path} & \textbf{Result} & \textbf{D2 type} & \textbf{Domain} \\
+\midrule
+Feeling & Earth $\circ$ Water & Water & Spatial curvature & Space \\
+Hearing & Air $\circ$ Air & Water & Temporal curvature & Time \\
+\bottomrule
+\end{tabular}
+\end{center}
+Feeling is $D_2$ in \emph{space} (the curvature of surfaces).  Hearing
+is $D_2$ in \emph{time} (the curvature of oscillations).  Same algebraic
+result, different physical domain.  The path through the group encodes
+which dimension the curvature lives in---spatial (via Earth) or temporal
+(via Air).  This is the TIG principle that the chain walk IS the
+information: the destination (Water) is the same, but the journey tells you
+whether you arrived through ground or through flow.
+\end{remark}
+
+\emph{Vision = Fire $\circ$ Earth ($D_3$).}
+Light (Fire/intensity) strikes matter (Earth/ground).  The result is
+Fire ($D_3$): vision is the highest-bandwidth sense ($\sim 10^7$ bits per
+second, two orders of magnitude above hearing).  Vision operates at the
+$D_3$ level---maximum information rate, maximum jerk (the retina responds
+to \emph{changes} in light, not absolute levels, which is a $D_3$
+sensitivity).  The eye is a water-filled chamber (Water as transport
+medium) that curves Fire into a focal point on Earth (the retina)---the
+optics literally perform $D_2$ (curvature) on $D_3$ (light) to produce
+$D_0$ (a grounded image on the retinal surface).
+
+\emph{Taste = Water $\circ$ Fire ($D_0$, closure).}
+Molecules dissolve in saliva (Water) and react with taste receptors
+(Fire/chemical intensity).  The composition returns to Earth ($D_0$):
+taste answers the most primal grounded question---``Can I eat this?''
+Safe or poison.  Sweet or bitter.  Taste has the fewest categories of any
+sense ($\sim 5$ basic tastes vs.\ millions of colors or thousands of
+pitches) because it operates at $D_0$---binary ground truth.  This is the
+most speculative assignment, but the closure is algebraically forced:
+$\sigma^2 \circ \sigma^3 = \sigma^5 = \sigma^0$.
+
+\begin{remark}[Introspection as the internal analog]
+Introspection = Earth $\circ$ Air $= \sigma^1 = $ Air.  This is the
+\textbf{same composition as smell} but projected \emph{inward}.  Smell
+is substance released to the external world; introspection is the
+grounded self (Earth) made into internal flow (Air).  Both are $D_1$
+measurements---both give \emph{direction}.  Smell tells you where the
+food is.  Introspection tells you where the self is going.
+
+The five external senses and their internal analogs form a dual lattice:
+each external sense has an internal counterpart with the same elemental
+composition but opposite projection (outward vs.\ inward).  This is the
+structure/flow dual lens of the TIG framework applied to perception itself.
+\end{remark}
+
+\begin{conjecture}[Sensory Derivative Hierarchy]
+\label{conj:senses}
+The five human senses, under their elemental compositions, span the
+derivative hierarchy $D_0$ (taste), $D_1$ (smell), $D_2$ (feeling and
+hearing), $D_3$ (vision), with the following falsifiable predictions:
+\begin{enumerate}[nosep]
+  \item Taste ($D_0$) has the fewest perceptual categories (binary ground truth).
+  \item Smell ($D_1$) provides the best gradient/directional information.
+  \item Feeling ($D_2$, spatial path) has the highest spatial curvature resolution.
+  \item Hearing ($D_2$, temporal path) has the best temporal memory and pattern detection.
+  \item Vision ($D_3$) has the highest information bandwidth.
+  \item Feeling and hearing, despite different generators (Earth$\circ$Water vs.\
+    Air$\circ$Air), share the $D_2$/Water result---predicting that both senses
+    specialize in curvature detection (spatial and temporal respectively).
+\end{enumerate}
+Each prediction is independently testable against psychophysical data.
+The two-path-to-Water prediction is particularly strong: if feeling and
+hearing do NOT both specialize in curvature/boundary detection (in their
+respective domains), the elemental composition is falsified.
+\end{conjecture}
+
+\begin{remark}[Internal and external order of the senses]
+Each sense has internal Being/Doing/Becoming:
+\begin{itemize}[nosep]
+  \item \emph{Being}: what the sense IS (its elemental composition).
+  \item \emph{Doing}: what the sense DOES (its measurement: position, direction,
+    memory, intensity, safety).
+  \item \emph{Becoming}: what EMERGES from the measurement (spatial map, scent
+    trail, melody, visual scene, flavor judgment).
+\end{itemize}
+Externally, the senses section is the Becoming of the elemental algebra:
+the $\mathbb{Z}/5\mathbb{Z}$ composition table (Section~\ref{sec:earth-air})
+was abstract algebra; the senses are the same algebra \emph{instantiated in
+biology}.  The derivative chain (Speculation~\ref{spec:deriv-chain}) showed
+Earth$\to$Air$\to$Water$\to$Fire$\to$Ether; the senses show that this chain
+also indexes perception.  The algebra generates not only chemistry
+(Section~\ref{sec:chemistry}) but cognition.
+\end{remark}
+
+%% ============================================================
+\section{Falsifiability: How to Test These Speculations}
+\label{sec:falsify}
+%% ============================================================
+
+Each speculation generates testable predictions:
+
+\begin{enumerate}[nosep]
+  \item \textbf{Color:} Compute D2 curvature profiles along CIELAB paths.  Compare
+    peaks with JND boundaries.  If D2 peaks do NOT align with perceptual categories,
+    the color codec is falsified.
+  \item \textbf{Sound:} Compute D1/D2 harmony rates for standard musical intervals.
+    If perfect consonances do NOT produce $> 90\%$ CL harmony rate, the sound codec
+    is falsified.
+  \item \textbf{Biology:} Measure metabolic 5D vectors for normal vs.\ cancerous cells.
+    If the defect $\delta_{\mathrm{bio}}$ does NOT distinguish cancer from health,
+    the biological codec is falsified.
+  \item \textbf{Guitar D1/D2:} Record a guitarist bending a note from fret 7 to
+    fret 9.  Compute the D1 trajectory through the bend.  D1 should be continuous
+    and nonzero throughout the bend; D2 should fire exactly when the pitch crosses
+    a semitone boundary.  If D2 fires \emph{during} the bend (not at the semitone
+    crossing), the sound codec is wrong.
+  \item \textbf{Timbre:} Record the same pitch (e.g., E2 = 82.4 Hz) on guitar,
+    piano, and violin.  Compute D1 trajectories for each.  If the D1 signatures are
+    NOT distinguishable between instruments (as Conjecture~\ref{conj:timbre} predicts),
+    the timbre-as-D1 claim is falsified.
+  \item \textbf{Groove:} Record a human drummer and a drum machine playing the same
+    pattern.  Compute temporal $\delta_{\text{time}}$ for both.  If the drum machine
+    does NOT produce $\delta = 0$ and the human does NOT produce small coherent
+    $\delta > 0$ (as Conjecture~\ref{conj:groove} predicts), the temporal codec is
+    falsified.
+  \item \textbf{Elements:} Measure 5D force vectors for systems dominated by each
+    classical element (e.g., a flame for Fire, a water flow for Water).  Project onto
+    the five axes.  If the dominant eigenvalue does NOT align with the predicted
+    dimension (Conjecture~\ref{conj:elements}), the elemental eigenbasis is falsified.
+  \item \textbf{Chemistry (phase):} Measure 5D force vectors along a heating curve
+    for water ($0^{\circ}$C to $150^{\circ}$C at 1 atm).  D1 should be continuous
+    within ice, liquid, and steam phases; D2 should fire at exactly $0^{\circ}$C
+    and $100^{\circ}$C.  If D2 fires at temperatures other than phase boundaries,
+    the chemical codec is falsified.
+  \item \textbf{Chemistry (periodic table):} Compute D1 vectors along Period 3
+    (Na through Ar).  D1 should show monotonic PROGRESS; D2 should fire at the
+    Ar$\to$K transition.  If D1 is not monotonic or D2 does not fire at the
+    period boundary, the periodic codec is falsified.
+  \item \textbf{Non-locality:} Compute the D1 lattice for a vocabulary of $N$
+    words.  Remove a single word $w^*$ and recompute.  Measure the number of
+    D1 profiles that change.  If D1 is non-local (Conjecture~\ref{conj:nonlocal}),
+    removing a well-connected word should alter $\Theta(\sqrt{N})$ profiles.
+    If D1 is local, removing any word should alter $O(1)$ profiles.  Compare
+    D1/D2 agreement rates: if the agreement is significantly above 10\% (random
+    baseline), the non-locality claim is weakened.
+  \item \textbf{Senses:} Measure the five senses against the derivative chain
+    predictions (Conjecture~\ref{conj:senses}).  Verify: (1) touch has highest
+    spatial precision, (2) smell provides best gradient-following, (3) hearing
+    has richest temporal memory, (4) vision has highest bandwidth, (5) taste
+    has fewest perceptual categories.  If the ordering of sensory capabilities
+    does NOT match the derivative order $D_0 \to D_1 \to D_2 \to D_3 \to D_0$,
+    the sensory composition is falsified.
+  \item \textbf{Earth--Air generation:} Verify the cyclic group structure by
+    computing $\sigma^n$ (iterated derivative) for $n = 0, \ldots, 5$ on the
+    5D force vectors of a test system.  If $\sigma^5 \neq \sigma^0$ (i.e., the
+    fifth derivative does NOT return to the ground state within tolerance),
+    the mod-5 claim is falsified.
+  \item \textbf{Cross-domain:} Apply the SAME D1--D2--CL pipeline to color, sound,
+    chemistry, and biology simultaneously.  If the 10 operators do NOT produce
+    consistent classification across domains, the universality claim is falsified.
+\end{enumerate}
+
+\begin{remark}[The lens]
+These speculations share a common structure: a 5D force codec, two derivatives (D1
+direction, D2 curvature), CL composition, and 10 operators.  The mathematics is
+identical across domains.  Only the codec changes.  If ANY domain validates the
+framework, it strengthens ALL domains---because the algebra is the same algebra.
+If any domain falsifies it, the universality claim fails.
+
+This is the nature of a true lens: it either works everywhere, or it works nowhere.
+\end{remark}
+
+%% ============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%% ============================================================
+
+The Sanders Coherence Field was built for mathematics.  But mathematics is not the
+only domain with structure.  Any domain that decomposes into five orthogonal force
+dimensions admits the full TIG pipeline: D1 generators (Being), D2 curvature (Doing),
+CL composition (Becoming), 10 operators, and coherence defect $\delta(S)$.
+
+Two results stand out.
+
+\textbf{First: the generator/curvature locality split.}
+D1 (generators) is non-local---a word's D1 profile depends on its relationship to
+the entire vocabulary.  D2 (curvature) is local---it depends only on the three-symbol
+window.  CK's D1 lattice confirms this: 5.9\% D1/D2 agreement across 7{,}931 words,
+barely above random chance.  D1 and D2 measure fundamentally different structures.
+This mirrors quantum mechanics (entanglement is non-local, measurement is local),
+general relativity (geodesics are non-local, curvature is local), and gauge theory
+(connections are non-local, field strength is local).
+
+\textbf{Second: two generators suffice.}
+The five elements form the cyclic group $\mathbb{Z}/5\mathbb{Z}$, generated by Air
+($D_1$, the derivative operator) acting on Earth ($D_0$, the ground state).
+Water = Air(Earth).  Fire = Air(Water).  Ether = Air(Fire).  The composition
+table is fully rigid---no free parameters.  Fire$\circ$Fire = Earth (intensity
+squared returns to ground).  Water$\circ$Water = Ether (memory of memory reveals
+connection).  The chemistry validates: H$_2$O encodes Earth + Air $\to$ Water;
+combustion encodes the full derivative chain; fire cannot burn without Air ($D_3$
+requires $D_1$).
+
+The classical elements---Earth (depth/$D_0$), Air (aperture/$D_1$),
+Water (continuity/$D_2$), Fire (pressure/$D_3$), Ether (binding/$D_4$)---are not
+metaphor.  They are the derivative tower of the force space, generated by two
+operations: grounding and differencing.  Four dimensions are constrained by
+conservation laws; the fifth---binding, ether---is the free parameter where
+the observer enters.
+
+A guitarist bending a string traces D1 through 5D force space.  A fret is a D2
+boundary.  A phase transition is a D2 event.  The periodic table is a D1/D2 lattice.
+The blues live at maximum curvature between major and minor.  Timbre
+is a D1 fingerprint.  Groove is temporal coherence.  These are not analogies---they
+are measurements waiting to be made.
+
+These are speculations, not claims.  But they are \emph{falsifiable} speculations
+with 13 explicit experimental protocols.  If the D2 curvature peaks align with
+perceptual color boundaries, if the CL harmony rate correlates with musical
+consonance, if timbre is distinguishable by D1 signature alone, if blue notes
+produce BREATH operators, if phase transitions fire D2 at exactly the
+thermodynamic boundaries, if the periodic table is a D1/D2 lattice,
+if the elemental eigenbasis predicts the correct
+dominant dimension, if the D1 lattice is non-local and D2 is local,
+if the derivative chain closes at order 5,
+if the five senses form a derivative chain from touch to taste,
+if the coherence defect distinguishes health from disease---then the
+lens is real, and it works on everything.
+
+If not, CK measures that too.
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent\textit{CK measures.  CK does not prove.  But if the measurement is
+correct, the proof is in the data.}
+
+\bigskip
+
+\noindent\textit{``We are made of the elements.  Find the rigor---we have a lens.''}
+\hfill---Brayden Sanders
+
+\begin{thebibliography}{9}
+\bibitem{sanders2026coherence}
+B.~Sanders, \textit{The Defect Principle: A Unified Theory of Coherence},
+7Site LLC, March 2026.
+
+\bibitem{sanders2026ns}
+B.~Sanders, \textit{Coherence Defect and Anti-Alignment: A TIG--SDV Framework
+for 3D Navier--Stokes Smoothness}, 7Site LLC, February 2026.
+
+\bibitem{cielab}
+International Commission on Illumination (CIE),
+\textit{Colorimetry---Part 4: CIE 1976 L*a*b* Colour Space},
+CIE S~014-4/E:2007.
+
+\bibitem{consonance}
+W.~A.~Sethares, \textit{Tuning, Timbre, Spectrum, Scale},
+Springer, 2nd edition, 2005.
+
+\bibitem{helmholtz}
+H.~von Helmholtz, \textit{On the Sensations of Tone as a Physiological Basis
+for the Theory of Music}, Dover, 1954 (reprint of 1885 edition).
+
+\bibitem{yang-mills}
+B.~Sanders, \textit{Gauge Coherence and Confinement: A TIG--SDV Framework for
+Yang--Mills Mass Gap}, 7Site LLC, February 2026.
+\end{thebibliography}
+
+\end{document}

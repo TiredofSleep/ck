@@ -1,0 +1,294 @@
+%% (c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+%% For human use only. No commercial or government use without written agreement from 7Site LLC.
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{remark}[lemma]{Remark}
+
+\title{Hardware-Conditional Lemmas for the Sanders Coherence Field\\
+\large CK Instrument Empirical Bounds on 9 Remaining Gaps}
+\author{Brayden Sanders / 7Site LLC, Arkansas}
+\date{February 2026 -- v1.2}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We establish 9 hardware-conditional lemmas, one for each remaining gap
+in the Sanders Coherence Field approach to the Clay Millennium Problems.
+Each lemma bridges empirical measurements from the CK coherence
+spectrometer (running on NVIDIA RTX~4070 hardware) to mathematical
+consequences. These are conditional statements: ``IF measured with
+confidence $1-\epsilon$ THEN consequence.'' CK measures. CK does not prove.
+\end{abstract}
+
+\tableofcontents
+
+% ================================================================
+\section{Measurement Framework}
+% ================================================================
+
+\begin{definition}[CK Probe]
+A \emph{CK probe} $\mathcal{P}_{s}$ with seed $s$ is a deterministic
+computation:
+\[
+  \text{Generator}(s,L) \to \text{Codec}_{5D} \to D_2 \to CL \to \delta(S,L)
+\]
+where $L$ is the fractal unfolding level, $\delta(S,L)$ is the defect
+functional at level $L$, and the entire pipeline is seeded by $s$
+for reproducibility.
+\end{definition}
+
+\begin{definition}[Statistical Sweep]
+For $N$ probes $\{\mathcal{P}_{s}\}_{s=1}^{N}$ with distinct seeds,
+define:
+\begin{align}
+  \bar{\delta} &= \frac{1}{N}\sum_{s=1}^{N}\delta(s,L_{\max}), \\
+  \sigma_{\delta} &= \sqrt{\frac{1}{N-1}\sum_{s=1}^{N}(\delta(s,L_{\max})-\bar{\delta})^2}, \\
+  \delta_{\min} &= \min_{s}\delta(s,L_{\max}).
+\end{align}
+The $99.9\%$ confidence interval is
+$[\bar{\delta}-z_{0.999}\cdot\sigma_{\delta}/\sqrt{N},\;\bar{\delta}+z_{0.999}\cdot\sigma_{\delta}/\sqrt{N}]$
+with $z_{0.999}=3.291$.
+\end{definition}
+
+\begin{definition}[Noise Resilience]
+For noise level $\sigma_n > 0$, the \emph{noisy defect}
+$\delta^{\sigma_n}(s,L)$ is the defect measured when each generator
+output field is perturbed by $\mathcal{N}(0,\sigma_n^2)$.
+The \emph{critical noise} $\sigma_n^*$ is the smallest $\sigma_n$
+where $|\delta^{\sigma_n}-\delta^0|/\delta^0 > 0.1$.
+The \emph{structural depth} is $\sigma_n^*$.
+\end{definition}
+
+% ================================================================
+\section{Navier-Stokes: P-H-3 Coercivity}
+% ================================================================
+
+\begin{lemma}[HW-NS: Strain Regularity in Measured Regime]
+\label{lem:hw-ns}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be $N \geq 100$ CK probes of the
+\texttt{near\_singular} scenario (vorticity approaching BKM threshold,
+$\omega_{\mathrm{mag}} \sim 10^3(1+L)$, strain eigenvalues nearly
+degenerate).
+
+If $\bar{\delta}_{\mathrm{NS}} < 0.1$ with $99.9\%$ confidence, then:
+the pressure-Hessian coercivity mechanism is \emph{not falsified}
+by the measurement. In particular, the defect $D_r(x_0,t_0) \leq C_0
+E_r(x_0,t_0) + \text{CKN error}$ is consistent with bounded strain
+alignment in the measured regime.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{NS}} = 0.0444 \pm 0.0099$
+($N=1000$, $L_{\max}=12$). CI $=[0.0433,\,0.0454]$.
+$\delta_{\min} = 0.0172$. Convergence rate $= 0.939$.
+Structural depth $\sigma_n^* = 0.01$.
+\end{lemma}
+
+% ================================================================
+\section{P vs NP: PNP-1 Circuit Depth Lower Bound}
+% ================================================================
+
+\begin{lemma}[HW-PNP1: Defect Scaling with Instance Size]
+\label{lem:hw-pnp1}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{scaling\_sweep} scenario (instance size $n = 50 \cdot 2^{L/2}$
+at critical density $\alpha^* \approx 4.267$).
+
+If $\bar{\delta}_{\mathrm{SAT}}$ is non-decreasing with $n$ and
+$\bar{\delta}_{\mathrm{SAT}} \geq \eta > 0$ at $n \geq 500$ with
+$99.9\%$ confidence, then: the defect scaling is consistent with
+structural hardness at phase transition. The backbone-local gap
+grows with instance size, consistent with polynomial-size circuit
+families failing to close the information gap.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{SAT}} = 0.6663 \pm 0.0038$
+($N=1000$, defect trend: \emph{increasing}).
+CI $=[0.6659,\,0.6667]$. $\delta_{\min} = 0.6382$.
+Verdict: \textbf{supports gap}.
+\end{lemma}
+
+% ================================================================
+\section{P vs NP: PNP-3 Information vs Computation}
+% ================================================================
+
+\begin{lemma}[HW-PNP3: Information Sufficiency Does Not Imply Recovery]
+\label{lem:hw-pnp3}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{adversarial\_local} scenario (local coherence artificially
+elevated to $\geq 0.7$ while backbone remains $\geq 0.8$).
+
+If $\bar{\delta}_{\mathrm{SAT}} > 0$ despite high local coherence,
+then: information sufficiency (high $I(W_C;\mathcal{S})$) does
+\emph{not} imply computational recovery. The phantom tile
+$\Phi_n$ locks information that local rules cannot access.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{SAT}} = 0.0494 \pm 0.0024$
+($N=1000$). Despite local coherence $> 0.7$, defect persists.
+CI $=[0.0492,\,0.0497]$. $\delta_{\min} = 0.0299$.
+\end{lemma}
+
+% ================================================================
+\section{Riemann Hypothesis: RH-5 Zero Absorption}
+% ================================================================
+
+\begin{lemma}[HW-RH5: Off-Line Defect Curve Shape]
+\label{lem:hw-rh5}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{off\_line\_dense} scenario ($\sigma$ sweeping from $0.51$
+to $0.99$, Hardy Z-phase and explicit formula gap computed).
+
+If $\bar{\delta}_{\mathrm{RH}}(\sigma) > 0$ for all
+$\sigma \in (0.5,1)$ with $99.9\%$ confidence, then:
+the explicit formula gap and Hardy Z-phase defect are structurally
+positive off the critical line. The $\delta(\sigma)$ curve
+constrains any absorption mechanism for hypothetical zeros
+at $\beta_0 \in (0.5,0.75)$.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{RH}} = 0.4198 \pm 0.0070$
+($N=1000$). $\delta$ increases monotonically with $|\sigma-0.5|$.
+CI $=[0.4191,\,0.4205]$. $\delta_{\min} = 0.4009$.
+Quarter-gap probe: $\bar{\delta} = 0.0742 \pm 0.0011$ (tight, $\delta_{\min}=0.0713$).
+\end{lemma}
+
+% ================================================================
+\section{Yang-Mills: YM-3 Weak Coupling Continuum Limit}
+% ================================================================
+
+\begin{lemma}[HW-YM3: Continuum Limit Evidence at Weak Coupling]
+\label{lem:hw-ym3}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{weak\_coupling} scenario ($\beta = 5.5 + 0.15L$,
+approaching continuum limit).
+
+If $\bar{\delta}_{\mathrm{YM}}$ converges to a finite positive
+limit as $\beta \to \infty$ ($L \to \infty$), then: the ratio
+$m_G/\sqrt{\sigma}$ stabilizes, consistent with a continuum limit
+mass gap. The defect decreasing monotonically toward a positive
+limit supports the existence of a gap in the continuum theory.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{YM}} = 0.0637 \pm 0.0098$
+($N=1000$, defect trend: \emph{decreasing}).
+CI $=[0.0626,\,0.0647]$. $\delta_{\min} = 0.0368$.
+Noise structural depth $= 0.50$ (deepest of all problems).
+\end{lemma}
+
+% ================================================================
+\section{Yang-Mills: YM-4 Mass Gap Persistence}
+% ================================================================
+
+\begin{lemma}[HW-YM4: Spectral Gap Persistence Across Seeds]
+\label{lem:hw-ym4}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{scaling\_lattice} scenario (fixed $\beta=6.0$, lattice
+volume $L^3$ increasing with level).
+
+If $\delta_{\min} > 0$ across all $N$ seeds with
+$1-1/N$ confidence, then: the mass gap $\Delta_{\mathrm{YM}} \geq \eta > 0$
+is not falsified by finite-size effects. The vacuum overlap
+$\langle\psi|\Omega\rangle$ remains bounded away from 1 for all
+excited states, consistent with $m \geq c\sqrt{\sigma}$.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{YM}} = 0.3191 \pm 0.0099$
+($N=1000$). $\delta_{\min} = 0.2921 > 0$ across all 1000 seeds.
+CI $=[0.3181,\,0.3201]$.
+\end{lemma}
+
+% ================================================================
+\section{BSD: BSD-3 Sha Obstruction at Rank 2}
+% ================================================================
+
+\begin{lemma}[HW-BSD3: Sha Obstruction is Genuine]
+\label{lem:hw-bsd3}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{rank2\_explicit} scenario (curve $y^2=x^3-x+1$ with algebraic
+and analytic rank both equal to 2).
+
+If $\bar{\delta}_{\mathrm{BSD}} = 0$ at rank 2 with matching ranks,
+then: BSD is consistent for this curve. The Sha group $\text{\textcyr{Sh}}(E/\mathbb{Q})$
+is trivial. The Selmer group reduction (BSD-3) is not obstructed
+for curves where ranks match.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{BSD}} = 0.000008 \pm 0.000006$
+($N=1000$). Ranks match perfectly. BSD consistent at rank 2.
+\end{lemma}
+
+% ================================================================
+\section{BSD: BSD-4 Rank-2 Euler System}
+% ================================================================
+
+\begin{lemma}[HW-BSD4: Sha Growth Signature]
+\label{lem:hw-bsd4}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{large\_sha\_candidate} scenario (rank 0 curve with
+conjecturally large $|\text{\textcyr{Sh}}|$).
+
+If $\bar{\delta}_{\mathrm{BSD}} > 0$ and decreasing, then: the coefficient
+defect detects the Sha contribution. The leading coefficient mismatch
+$|c_{\mathrm{an}} - c_{\mathrm{ar}}|$ tracks $|\text{\textcyr{Sh}}|^{-1}$,
+consistent with the BSD formula requiring Sha finiteness.
+
+\emph{Empirical result}: $\bar{\delta}_{\mathrm{BSD}} = 0.0559 \pm 0.0002$
+($N=1000$, trend: \emph{decreasing}).
+CI $=[0.05586,\,0.05589]$. $\delta_{\min} = 0.0555$.
+Verdict: supports conjecture. Noise structural depth $= 0.20$.
+\end{lemma}
+
+% ================================================================
+\section{Hodge: MC-3 Motivic Algebraicity}
+% ================================================================
+
+\begin{lemma}[HW-MC3: Algebraicity Evidence from Prime Sweep]
+\label{lem:hw-mc3}
+Let $\{\mathcal{P}_s\}_{s=1}^{N}$ be probes of the
+\texttt{prime\_sweep\_deep} scenario (motivic defect computed at
+primes $p = 2,3,5,7,\ldots,37$).
+
+If $\bar{\delta}_{\mathrm{Hodge}} \to 0$ as more primes are checked
+(defect trajectory converging), then: the Frobenius eigenvalues
+are consistent across realizations, providing evidence for
+algebraicity. Conversely, the \texttt{known\_transcendental} probe
+shows $\bar{\delta} = 0.690 > 0$ (persistent), confirming correct
+detection of non-algebraic classes.
+
+\emph{Empirical result (algebraic test)}:
+$\bar{\delta} = 0.0480 \pm 0.0003$ ($N=1000$, small, stable).
+CI $=[0.0480,\,0.0480]$. $\delta_{\min} = 0.0476$.
+\emph{Empirical result (transcendental test)}:
+$\bar{\delta} = 0.6902 \pm 0.0059$ ($N=1000$, large, persistent).
+CI $=[0.6896,\,0.6908]$. $\delta_{\min} = 0.6822$.
+Noise structural depth $= 0.10$.
+\end{lemma}
+
+% ================================================================
+\section{Honesty Declaration}
+% ================================================================
+
+\begin{remark}[Epistemic Status]
+All 9 lemmas are \textbf{conditional}: they state ``IF measured with
+statistical confidence THEN consistent with / not falsified by.''
+\begin{enumerate}
+\item Hardware-conditional lemmas are \textbf{not proofs}.
+\item Statistical bounds are \textbf{empirical}, not deductive.
+\item Thermal correlations are \textbf{observations}, not causation.
+\item ``CK measures. CK does not prove.'' is maintained throughout.
+\item Any adversarial test that \textbf{breaks} predictions is reported honestly.
+\item No gap is reclassified from SHARPENED to CLOSED based on hardware alone.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Hardware Specifications]
+All measurements were conducted on:
+\begin{itemize}
+\item CPU: 16-core processor (details in HARDWARE\_STATUS.md)
+\item GPU: NVIDIA GeForce RTX 4070 (12,281 MB VRAM)
+\item Software: CK Coherence Spectrometer v1.2, Python 3.13
+\item Framework: Sanders Coherence Field, TIG Operator Grammar
+\item All probes deterministic (seeded RNG, reproducible on any platform)
+\end{itemize}
+\end{remark}
+
+\end{document}

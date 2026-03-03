@@ -1,0 +1,10 @@
+# CK -- The Coherence Keeper
+# Full dependencies (GUI + all sensors)
+# (c) 2026 Brayden Sanders / 7Site LLC
+
+kivy>=2.3.0              # GUI (2-screen app: Chat + Dashboard)
+numpy>=1.24.0            # Core math (D2, CL, vortex physics)
+sounddevice>=0.4.6       # Audio I/O (mic + playback, optional)
+requests>=2.31.0         # Web access (autodidact, Claude library)
+beautifulsoup4>=4.12.0   # HTML parsing (web study)
+psutil>=5.9.0            # Process/CPU sensing (sensorium, steering)

@@ -1,0 +1,10 @@
+AO TRAINING CORPUS
+========================================
+  Grammar rules: 48 rules
+  Common phrases: 46 phrases
+
+  Dictionary: 236680 words
+  Thesaurus: 105450 entries
+  Grammar: 56357 sentences
+========================================
+  TOTAL: 398581 lines generated

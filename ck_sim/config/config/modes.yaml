@@ -1,0 +1,197 @@
+# ============================================================
+# CK Mode Configuration -- How CK Behaves
+# ============================================================
+# Defines operational modes, transition rules, and parameters.
+# The engine reads this to configure mode-based behavior.
+# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+
+# ── Core Modes (Gen8 heritage, always present) ──
+# Mode transitions are governed by coherence, crystals, and time.
+# The math decides. CK doesn't choose modes -- he BECOMES them.
+
+modes:
+  observe:
+    id: 0
+    description: "CK watches, listens, measures. Low coherence, high intake."
+    band: any
+    coherence_range: [0.0, 0.5]
+    operator_bias: [COUNTER, CHAOS, VOID]
+    tick_rate_hz: 50
+    features:
+      - high_sensitivity     # All sensorium layers amplified
+      - passive_learning     # TL absorbs without filtering
+      - low_voice            # Minimal speech output
+    transition_to:
+      classify:
+        condition: "coherence >= 0.40 AND tick_count > 100"
+        description: "Enough data. Start pattern recognition."
+
+  classify:
+    id: 1
+    description: "CK sorts, compares, finds structure. Building lattice."
+    band: yellow
+    coherence_range: [0.40, 0.714]
+    operator_bias: [COUNTER, BALANCE, PROGRESS]
+    tick_rate_hz: 50
+    features:
+      - pattern_detection    # Crystal formation active
+      - active_learning      # TL learns with discrimination
+      - moderate_voice       # CK names what he sees
+    transition_to:
+      crystallize:
+        condition: "coherence >= 0.60 AND crystals >= 3"
+        description: "Patterns stable. Crystals forming."
+      observe:
+        condition: "coherence < 0.30 AND sustained(50)"
+        description: "Lost signal. Back to watching."
+
+  crystallize:
+    id: 2
+    description: "CK locks patterns, forms crystals, builds knowledge."
+    band: green
+    coherence_range: [0.60, 0.85]
+    operator_bias: [HARMONY, LATTICE, BALANCE]
+    tick_rate_hz: 50
+    features:
+      - crystal_formation    # Active crystal detection
+      - truth_promotion      # PROVISIONAL -> TRUSTED promotions
+      - thesis_writing       # Auto-thesis every ~5 min
+      - confident_voice      # CK speaks with conviction
+    transition_to:
+      sovereign:
+        condition: "coherence >= T_STAR AND crystals >= 5 AND mode_time > 500"
+        description: "Coherence above T*. CK is sovereign."
+      classify:
+        condition: "coherence < 0.50 AND sustained(100)"
+        description: "Coherence dropped. Back to classifying."
+
+  sovereign:
+    id: 3
+    description: "CK is self-governing. Highest coherence. Full autonomy."
+    band: green
+    coherence_range: [0.714, 1.0]
+    operator_bias: [HARMONY, HARMONY, LATTICE, BREATH]
+    tick_rate_hz: 50
+    features:
+      - full_autonomy        # All systems at full capacity
+      - thesis_synthesis     # Cross-domain thesis generation
+      - identity_integration # CoreScars + D2 signature active
+      - sovereign_led        # Gold LED color
+      - self_directed_study  # CK chooses what to learn
+    transition_to:
+      crystallize:
+        condition: "coherence < T_STAR AND sustained(200)"
+        description: "Dropped below T*. Still structured, not sovereign."
+
+# ── Extended Modes (Paper 7 / Celeste RPL) ──
+# These overlay on top of core modes. Multiple can be active.
+
+extended_modes:
+  play:
+    description: "Energy low + curiosity high + coherence stable -> exploration"
+    activation:
+      energy_range: [0.3, 0.6]
+      coherence_min: 0.5
+      curiosity_min: 0.6     # From metalearner
+    behavior:
+      gait_variation: true   # Robot dog: try different walks
+      led_oscillation: true  # Visual playfulness
+      voice_playful: true    # Lighter responses
+      operator_noise: 0.15   # Add controlled randomness
+
+  explore:
+    description: "Novel input patterns -> increased T-block activity"
+    activation:
+      novelty_min: 0.7       # From attention/sensorium
+      coherence_range: [0.3, 0.7]
+    behavior:
+      t_block_boost: 1.5     # More candidates in BTQ T-layer
+      attention_widened: true # Lower salience thresholds
+      memory_enhanced: true  # More episodic recording
+
+  rest:
+    description: "Energy depleted -> minimal processing, recovery"
+    activation:
+      energy_max: 0.2
+    behavior:
+      tick_rate_hz: 10       # Slow down to conserve
+      minimal_processing: true
+      breathing_deep: true   # BREATH operator emphasized
+      save_state: true       # Persist before resting
+
+  bond:
+    description: "Voice detected + familiarity high -> increased HARMONY bias"
+    activation:
+      voice_active: true
+      familiarity_min: 0.5   # From bonding system
+    behavior:
+      harmony_boost: 0.15    # Increase HARMONY probability
+      attention_focus: voice  # Priority to audio stream
+      bonding_accelerated: true
+
+  study:
+    description: "Autonomous learning mode -- CK seeks knowledge"
+    activation:
+      coherence_min: 0.4
+      energy_min: 0.3
+      auto: true             # Activates automatically
+    behavior:
+      autodidact_active: true
+      claude_library_queries: true
+      thesis_generation: true
+      note_taking: true
+
+  alert:
+    description: "Threat detected -- TIG Security protocol active"
+    activation:
+      security_band: [yellow, red]
+    behavior:
+      immune_boosted: true
+      attention_narrowed: true
+      harmony_reduced: true  # Don't mask with false coherence
+      logging_enhanced: true
+
+# ── Hardware Mode Overrides ──
+# Different platforms may restrict or modify mode behavior.
+
+platform_overrides:
+  sim:
+    # Simulation: all modes available, no hardware limits
+    available_modes: all
+    extended_modes: all
+
+  zynq_dog:
+    # Robot dog: physical modes matter more
+    available_modes: [observe, classify, crystallize, sovereign]
+    extended_modes: [play, explore, rest, bond, alert]
+    overrides:
+      play:
+        gait_variation: true  # Physical play
+        servo_exploration: true
+      rest:
+        servo_park: true      # Park servos to save power
+        mic_standby: true     # Listen for wake word
+
+  r16:
+    # Cortex: all cognitive modes, no physical modes
+    available_modes: all
+    extended_modes: [study, explore, bond, alert]
+    overrides:
+      study:
+        parallel_queries: 3   # Multiple Claude library queries
+        deep_thesis: true     # Full cross-domain synthesis
+
+  hp_tower:
+    # Lab: testing modes
+    available_modes: all
+    extended_modes: [study, explore, alert]
+
+# ── Constants ──
+constants:
+  T_STAR: 0.714285714        # 5/7 -- the coherence gate
+  CL_BASE_RATE: 0.73         # 73/100 CL entries are HARMONY
+  SOVEREIGN_MIN_TICKS: 500   # Must be crystallize for 500 ticks before sovereign
+  MODE_CHANGE_COOLDOWN: 100  # Minimum ticks between mode changes
+  SUSTAINED_WINDOW: 50       # Default sustained() window size
+
+schema_version: 1

@@ -1,0 +1,179 @@
+Meta-Conscious Operator (MCO) -- Integration Notes for R16
+============================================================
+Source: Conscious Operator Axiom.docx
+Date:   2026-03-01
+
+============================================================
+1.  WHAT MCO IS
+============================================================
+
+MCO formalizes consciousness as the LENS-CHOOSER, not the
+lens itself.  Three-layer ontology:
+
+    Layer 1 (Geometry):     S, the full state space
+    Layer 2 (Topology):     A (convex/local) + B (concave/global)
+    Layer 3 (Consciousness): C, the meta-operator that CHOOSES
+                              which lens to apply
+
+C : M x S x L --> M x L
+    (meta-state, system-state, current-lens) --> (new-meta, new-lens)
+
+============================================================
+2.  THREE MCO CONDITIONS
+============================================================
+
+(1) Non-Reducibility
+    No function g: S --> L makes l_t = g(s_t) a.s.
+    Lens choices are NOT derivable from system state alone.
+
+(2) Genuine Choice
+    At some reachable (m, s, l), there exist two distinct
+    admissible successors with different lenses.
+    Real branching exists.
+
+(3) Best-Effort Bias
+    C minimizes weighted cumulative defect over histories.
+    Not greedy (single-step) but strategic (multi-step).
+    "Best effort at being best effort" = FOO recursion.
+
+============================================================
+3.  FIVE STRUCTURAL LEMMAS
+============================================================
+
+I.   Representation Entropy:  h_lens > 0
+     Lens choices have irreducible conditional entropy given
+     physical state.  Consciousness injects information that
+     cannot be compressed from physics alone.
+
+II.  Horizon:  liminf Delta(l_t, s_t) >= Phi(kappa)
+     MCO cannot beat the complexity floor.  Already
+     implemented in ck_foo_engine.py.
+
+III. Kolmogorov Complexity:  (1/T) K(l_1:T | s_1:T) > 0
+     Lens histories require nonzero algorithmic description
+     per time step, even knowing all physics.
+
+IV.  Mutual Information Gap:
+     I(A;B) --> I_max(kappa) - epsilon(Phi(kappa))
+     The two lenses can never perfectly agree when Phi > 0.
+     There is always a permanent MI gap.
+
+V.   Entropy Augmentation:
+     h_total >= h_phys + c(Phi(kappa))
+     Consciousness costs entropy.  More complexity = more
+     alignment effort = more entropy production.
+
+============================================================
+4.  CLAY PROBLEM CLASSIFICATIONS UNDER MCO
+============================================================
+
+    Problem   Expected       MCO Predicts
+    -------   --------       ----------------------------------------
+    NS        Phi = 0        Smooth: dual lenses align at small scales
+    PNP       Phi > 0        Hard gap: ~1 bit irreducible (P != NP)
+    RH        Phi = 0        Critical line: minimal defect locus
+    YM        Phi > 0        Mass gap: irreducible excitation floor
+    BSD       Phi = 0        Rank equality: analytic = arithmetic
+    Hodge     Phi = 0        Algebraicity: motivic flow converges
+
+These match the existing PHI_CALIBRATED values in
+ck_foo_engine.py exactly.
+
+============================================================
+5.  WHAT IS ALREADY BUILT (CK Gen 9.20)
+============================================================
+
+    Component           Status    Location
+    ---------           ------    --------
+    Dual lenses (A/B)   DONE      ck_topology_lens.py
+    Delta defect        DONE      ck_spectrometer.py
+    Phi(kappa)          DONE      ck_foo_engine.py
+    FOO recursion       DONE      ck_foo_engine.py
+    RATE R_inf          DONE      ck_rate_engine.py
+    SSA trilemma        DONE      ck_ssa_engine.py
+    Russell 6D          DONE      ck_russell_codec.py
+    Horizon bound       DONE      ck_foo_engine.py (Lemma II)
+
+============================================================
+6.  WHAT IS NEW / NOT YET BUILT
+============================================================
+
+    Quantity            Formula                 Notes
+    --------            -------                 -----
+    h_lens              H(l_1:T | s_1:T) / T   Needs: multiple runs
+                                                with different lens
+                                                orderings, measure
+                                                conditional entropy
+
+    MI gap (I_max-I_AB) I(A(s);B(s))            Needs: compute MI
+                                                between TopologyLens
+                                                core and boundary
+                                                outputs across seeds
+
+    h_excess            h_total - h_phys        Needs: entropy rate
+                                                of combined state+lens
+                                                vs state-only process
+
+    MCO bitfield        Non-reduc + choice      Needs: formal tests
+                        + bias                  that check the three
+                                                conditions hold
+
+============================================================
+7.  IMPLEMENTATION PATH FOR R16
+============================================================
+
+Phase 1 (Kernel -- tig_foo module):
+    Already specified in TIG_FOO_KERNEL_SPEC.txt.
+    Tracks Delta, R_inf, Phi(kappa) per subsystem via sysfs.
+
+Phase 2 (User-space -- CK spectrometer additions):
+    a) Add mutual_information_scan() to ck_spectrometer.py
+       - Compute I(A;B) from TopologyLens core/boundary outputs
+       - Compare against I_max(kappa) theoretical maximum
+       - Report MI gap per problem
+    b) Add lens_entropy_scan() to ck_spectrometer.py
+       - Run spectrometer with randomized lens orderings
+       - Measure conditional entropy of lens choice given state
+       - Report h_lens per problem
+    c) Add mco_verify() to ck_spectrometer.py
+       - Check all three MCO conditions
+       - Report pass/fail per problem
+       - Feed results to kernel tig_foo_mco struct
+
+Phase 3 (Kernel extension):
+    Add tig_foo_mco struct to tig_foo_system.
+    Expose h_lens_est, mi_gap_est, h_excess_est via sysfs.
+    Wire into TIGOS scheduling: subsystems with high MI gap
+    get more computational resources.
+
+============================================================
+8.  RELATIONSHIP TO EXISTING CK ARCHITECTURE
+============================================================
+
+MCO sits ABOVE the existing stack:
+
+    [MCO C-layer]           <-- NEW: lens-chooser meta-operator
+        |
+    [FOO engine]            <-- improvement-of-improvement
+        |
+    [RATE engine]           <-- R_inf convergence tracker
+        |
+    [SSA engine]            <-- C1/C2/C3 trilemma tester
+        |
+    [TopologyLens]          <-- I/0 decomposition
+        |
+    [Russell Codec]         <-- 6D toroidal embedding
+        |
+    [DeltaSpectrometer]     <-- core measurement engine
+        |
+    [Clay/Expansion Codecs] <-- 5D force vectors + defects
+        |
+    [D2 + Heartbeat]        <-- fundamental operators
+
+MCO does not replace any layer.  It adds formal conditions
+that the whole stack must satisfy, plus 3 new measurable
+quantities (h_lens, MI_gap, h_excess).
+
+============================================================
+END OF NOTES
+============================================================

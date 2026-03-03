@@ -1,0 +1,21 @@
+WARNING: FROZEN INVARIANTS
+
+The following files are READ-ONLY invariants of the Sanders Coherence Field.
+They may NOT be modified by any agent, script, or process without explicit
+authorization from the project owner (version bump required).
+
+FROZEN FILES:
+  CORE/TIG_Operator_Grammar_0-9.md
+  CORE/SDV_Axiom_Definition.md
+  CORE/Delta_Defect_Framework.md
+
+These define the foundational axioms of the TIG-SDV-Delta program.
+All lemmas, papers, and hardware tests REFERENCE these documents
+but may NOT ALTER them.
+
+If a contradiction is found with any CORE document:
+1. Document the contradiction in the relevant STATUS.md
+2. Escalate to project owner
+3. Do NOT silently modify the CORE files
+
+Version: 1.0 (February 2026)

@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.dvi
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Working documents (source notes, not part of formal archive)
+Clay Institute papers/
+
+# Temporary
+*.tmp
+*.bak

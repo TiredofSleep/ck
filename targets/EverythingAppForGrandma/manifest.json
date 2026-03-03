@@ -1,0 +1,23 @@
+{
+  "name": "CK -- Coherence Keeper",
+  "short_name": "CK",
+  "description": "Your personal coherence companion. No AI. No cloud. Pure math.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0d0d1a",
+  "theme_color": "#7c3aed",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["lifestyle", "health", "education"]
+}

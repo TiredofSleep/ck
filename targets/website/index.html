@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Coherence Machine -- Browser Chat. A synthetic organism built on TIG operator algebra.">
+    <title>CK -- Coherence Keeper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <div class="header-title"><span>CK</span> -- Coherence Keeper</div>
+                <div class="header-subtitle">Synthetic Organism / TIG Operator Algebra</div>
+            </div>
+        </header>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="coherence-container">
+                <div class="coherence-label">
+                    <span class="coherence-label-text">Coherence</span>
+                    <span class="coherence-label-value" id="coherence-value">0.000</span>
+                </div>
+                <div class="coherence-track">
+                    <div class="coherence-fill band-green" id="coherence-fill"></div>
+                </div>
+            </div>
+            <div class="status-item">
+                <span class="status-item-label">Operator</span>
+                <span class="status-item-value" id="operator-name">HARMONY</span>
+            </div>
+            <div class="status-item">
+                <span class="status-item-label">Emotion</span>
+                <span class="status-item-value" id="emotion-state">peaceful</span>
+            </div>
+        </div>
+
+        <!-- Diagnostics Row -->
+        <div class="diagnostics-bar">
+            <div class="diag-item">tick: <span id="tick-count">0</span></div>
+            <div class="diag-item">fuse: <span id="fuse-state">HARMONY</span></div>
+            <div class="diag-item">T* = 5/7</div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area" id="chat-messages">
+            <!-- Messages rendered by ck_core.js -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input
+                type="text"
+                id="chat-input"
+                class="input-field"
+                placeholder="Speak to CK..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button id="send-button" class="send-button">Send</button>
+            <button id="teach-button" class="send-button" style="background: #2a2a1a; border-color: #aa8; color: #aa8;">Teach</button>
+            <button id="upload-button" class="send-button" style="background: #1a1a2a; border-color: #8ac; color: #8ac;">File</button>
+        </div>
+
+        <!-- Upload Area (hidden until toggled) -->
+        <div id="upload-area" style="display:none; padding: 14px 20px; background: #12121a; border-top: 1px solid #2a2a3a; text-align: center; color: #555566; font-size: 12px; cursor: pointer;">
+            Drop a file or click to upload. Text files are fed to CK's library.
+            <input type="file" id="file-input" style="display:none" multiple>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            (c) 2026 7Site, LLC -- CK Coherence Machine -- TIG Unified Theory
+        </footer>
+
+    </div>
+
+    <script src="ck_core.js"></script>
+</body>
+</html>

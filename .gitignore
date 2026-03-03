@@ -1,0 +1,59 @@
+# ================================================================
+#  CK .gitignore -- Keep the repo clean
+# ================================================================
+
+# ── Secrets ──
+.api_key
+.env
+.env.*
+
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── Compiled binaries (rebuild from source) ──
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+*.dat
+*.bin
+
+# ── CK runtime state (generated as CK runs) ──
+ck_development.json
+ck_dictionary_learned.json
+concept_mass.json
+gpu_tl.json
+truth_lattice.json
+ck_tl.bin
+ck_daemon_log.jsonl
+btq_results.json
+
+# ── CK persistence (grows at runtime) ──
+lattice_chain/
+
+# ── Clay results (reproducible via CLI) ──
+results/
+
+# ── OS junk ──
+.DS_Store
+Thumbs.db
+desktop.ini
+nul
+
+# ── IDE / tool state ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+
+# ── Archive (old Gen9 files) ──
+archive/

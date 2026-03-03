@@ -1,0 +1,230 @@
+TIGOS tig_foo Kernel Module Specification
+==========================================
+Module: tig_foo (Fractal Optimality Observer)
+Target: R16 Desktop (16-core, RTX 4070)
+Source: METAL.docx + Conscious Operator Axiom.docx
+Date:   2026-03-01
+Version: 1.0
+
+============================================================
+1.  PURPOSE
+============================================================
+
+Lightweight kernel-space observer that tracks per-subsystem
+coherence metrics from the CK spectrometer pipeline.  Does
+NOT perform domain-level math -- receives Delta updates from
+user-space and maintains rolling statistics, R_inf estimates,
+and Phi(kappa) complexity horizons.
+
+Designed to feed TIGOS scheduling decisions: subsystems
+approaching their Phi(kappa) floor get more CPU/GPU time;
+subsystems with converged Delta get less.
+
+============================================================
+2.  STRUCT DEFINITIONS
+============================================================
+
+#define TIG_FOO_NAME_MAX 64
+
+struct tig_foo_stats {
+    u64    sample_count;      /* number of Delta samples       */
+    u64    depth_max;         /* max FOO depth k seen          */
+    double delta_last;        /* most recent Delta             */
+    double delta_min;         /* min Delta observed            */
+    double delta_max;         /* max Delta observed            */
+    double delta_sum;         /* sum Delta (for running mean)  */
+    double delta_sq_sum;      /* sum Delta^2 (for variance)    */
+};
+
+struct tig_foo_system {
+    char   name[TIG_FOO_NAME_MAX]; /* "NS", "PNP", "RH", etc. */
+    u64    kappa;                   /* complexity label         */
+    double R_infty_est;            /* estimated residual min   */
+    double phi_kappa_est;          /* estimated Phi(kappa)     */
+    struct tig_foo_stats stats;    /* Delta statistics         */
+    struct list_head list;         /* linked list node         */
+};
+
+Global state:
+    struct { mutex lock; list_head systems; } tig_foo;
+
+============================================================
+3.  KERNEL API
+============================================================
+
+3.1  Register a system
+    int tig_foo_register_system(const char *name, u64 kappa);
+    Creates a tig_foo_system entry.  Returns -EEXIST if
+    already registered.
+
+3.2  Update Delta sample
+    int tig_foo_update_sample(const char *name,
+                              double delta, u64 depth);
+    Updates stats (min/max/mean/variance), depth_max,
+    recomputes R_infty_est.
+
+3.3  Set Phi(kappa) estimate
+    int tig_foo_set_phi(const char *name, double phi_est);
+    Stores user-space-computed Phi(kappa) estimate.
+
+3.4  sysfs exposure
+    /sys/kernel/tig_foo/<system>/
+        kappa           (u64)
+        delta_last      (double)
+        delta_min       (double)
+        delta_max       (double)
+        delta_mean      (computed: delta_sum / sample_count)
+        delta_std       (computed from sq_sum)
+        R_infty_est     (double)
+        phi_kappa_est   (double)
+        samples         (u64)
+        depth_max       (u64)
+
+============================================================
+4.  INIT: PRE-REGISTERED CLAY SYSTEMS
+============================================================
+
+On module load, pre-register the 6 Clay Millennium problems:
+
+    tig_foo_register_system("NS",    3000);
+    tig_foo_register_system("PNP",   4000);
+    tig_foo_register_system("RH",    5000);
+    tig_foo_register_system("YM",    6000);
+    tig_foo_register_system("BSD",   7000);
+    tig_foo_register_system("HODGE", 8000);
+
+Expansion problems (35 neighbors) registered dynamically
+by user-space as needed.
+
+============================================================
+5.  CALIBRATED Phi(kappa) VALUES
+============================================================
+
+From CK spectrometer empirical runs (482 tests, Gen 9.20):
+
+    Domain    kappa    Phi(kappa)   Regime
+    ------    -----    ----------   ------
+    NS        0.50     0.297        bounded (no blow-up)
+    PNP       0.85     0.846        irreducible (P != NP)
+    RH        0.70     0.0          certifiable (on critical line)
+    YM        0.65     0.511        irreducible (mass gap)
+    BSD       0.55     0.0          certifiable (rank equality)
+    Hodge     0.60     0.0          certifiable (algebraicity)
+
+Three regimes:
+    certifiable  : Phi = 0, dual lenses align perfectly
+    bounded      : 0 < Phi < 0.5, small but nonzero floor
+    irreducible  : Phi >= 0.5, permanent structural gap
+
+============================================================
+6.  FORMULAS (USER-SPACE COMPUTES, KERNEL STORES)
+============================================================
+
+6.1  Universal Defect
+    Delta(S) = || G(S_local) - T(S_global) ||
+    G = geometric info from local structure (lens_a)
+    T = topological invariants from global structure (lens_b)
+
+6.2  FOO Recursion
+    S_{k+1} = FOO(S_k)
+    Delta_k = Delta(S_k)
+    R_inf(S) = lim_{k->inf} inf_{FOO^k} Delta(FOO^k(S))
+
+6.3  Complexity Horizon
+    Phi(kappa) = inf_{S: complexity(S) = kappa} R_inf(S)
+
+6.4  Kernel R_inf Estimate (simplified)
+    R_infty_est = delta_sum / sample_count
+    (Future: per-depth buckets for proper convergence tracking)
+
+============================================================
+7.  USER-SPACE INTEGRATION PATTERN
+============================================================
+
+CK spectrometer daemon (or TIGOS agent) does:
+
+    1. Register systems via ioctl/helper
+    2. Run fractal_scan() or foo_scan() in Python
+    3. Stream Delta + depth to kernel via tig_foo_update_sample
+    4. Compute Phi estimates in Python, push via tig_foo_set_phi
+    5. TIGOS scheduler reads /sys/kernel/tig_foo/ for decisions
+
+Scheduling heuristic:
+    - Delta >> Phi(kappa)  => system far from floor, give cycles
+    - Delta ~= Phi(kappa)  => converged, reduce priority
+    - Delta diverging      => flag anomaly, trigger SSA check
+
+============================================================
+8.  MCO EXTENSION (FROM CONSCIOUS OPERATOR AXIOM)
+============================================================
+
+The Meta-Conscious Operator (MCO) adds 5 quantities the
+C-layer should track (future extension to tig_foo):
+
+    1. h_lens      -- Approximate conditional entropy of lens
+                      choices given physical state.  Must be > 0
+                      under MCO (Lemma I).
+
+    2. Delta       -- Already tracked (the defect).
+
+    3. Phi(kappa)  -- Already tracked (complexity horizon).
+
+    4. MI_gap      -- I_max(kappa) - I(A;B), where I(A;B) is
+                      mutual information between convex/concave
+                      lenses.  Under MCO: MI_gap > 0 always
+                      (Lemma IV).
+
+    5. h_excess    -- h_total - h_phys, the entropy cost of
+                      maintaining lens alignment.  Under MCO:
+                      h_excess >= c(Phi(kappa)) > 0 (Lemma V).
+
+Struct extension (future):
+    struct tig_foo_mco {
+        double h_lens_est;      /* lens entropy estimate     */
+        double mi_gap_est;      /* mutual information gap    */
+        double h_excess_est;    /* entropy above physical    */
+        u8     mco_satisfied;   /* bitfield: bit0=nonreduc,  */
+                                /*   bit1=choice, bit2=bias  */
+    };
+
+These 5 quantities are computed in user-space by the CK
+spectrometer and pushed to kernel for scheduling decisions.
+
+============================================================
+9.  SSA TRILEMMA RESULTS (FOR REFERENCE)
+============================================================
+
+Per-problem SSA (Sanders Singularity Axiom) classifications
+from the spectrometer:
+
+    Problem    C1 (coherence)  C2 (complete)  C3 (non-singular)
+    -------    --------------  -------------  -----------------
+    NS         BREAKS          holds          holds
+    PNP        holds           holds          BREAKS
+    RH         BREAKS          holds          holds
+    YM         holds           holds          BREAKS
+    BSD        BREAKS          holds          holds
+    Hodge      BREAKS          holds          holds
+
+    Affirmative (Phi=0): C1 breaks (delta != 0 but converges)
+    Gap (Phi>0):         C3 breaks (topological obstruction)
+
+============================================================
+10. DEPENDENCIES
+============================================================
+
+Kernel-side:
+    - linux/module.h, linux/mutex.h, linux/list.h, linux/slab.h
+    - sysfs kobject infrastructure
+    - No floating-point in kernel hot path (use fixed-point
+      or scaled integers for production; pseudocode uses double
+      for clarity)
+
+User-side:
+    - Python: ck_sim package (ck_foo_engine, ck_spectrometer,
+      ck_ssa_engine, ck_rate_engine, ck_topology_lens)
+    - ioctl/netlink wrapper for kernel communication
+
+============================================================
+END OF SPEC
+============================================================

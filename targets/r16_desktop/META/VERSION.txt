@@ -1,0 +1,62 @@
+Sanders-Coherence-Field v1.5
+Date: March 2026
+Author: Brayden Sanders / 7Site LLC, Arkansas
+(c) 2026 Brayden Sanders / 7Site LLC, Arkansas. All rights reserved.
+For human use only. No commercial or government use without written agreement from 7Site LLC.
+
+Core: FROZEN (TIG, SDV, Delta)
+Engines: TopologyLens, Russell Codec, SSA, RATE, FOO, Breath
+Problem Manifold: 41 problems (6 Clay + 13 Standalone + 18 Neighbor + 4 Bridge)
+Lemmas: 7 lemma files (6 formal + 1 hardware-conditional), 9 gaps closed/strengthened
+  Formal vault: 3,712 lines (was 3,418)
+  Hardware-conditional lemma: 289 lines (9 HW lemmas with 1000-seed empirical data)
+Papers: 8/8 EXPANDED (20,731+ total lines LaTeX)
+  P1 Navier-Stokes:    2,313 lines (90% complete)
+  P2 P vs NP:          2,235 lines (58% complete)
+  P3 Riemann:          2,011 lines (72% complete)
+  P4 Yang-Mills:       2,104 lines (48% complete)
+  P5 BSD:              2,014 lines (62% complete)
+  P6 Hodge:            2,032 lines (68% complete)
+  P7 Unified/Poincare: 1,900 lines (85% -- reference + engine validation)
+  P8 Unification:      8,122 lines (chapters 1-9 expanded)
+Hardware: EXECUTED (RTX 4070, 1000-seed statistical sweep, thermal probes, noise resilience)
+Tests: 529/529 PASS (107 base + 44 attack + 378 engine stack)
+Full Sweep: 36 runs, 0 anomalies, 0 contradictions
+Delta Signature: 4b5637bfdcd09a00 (vOmega 7/7 PASS)
+
+Gap Resolution (v1.0 -> v1.1):
+  Tier 1 CLOSED (4): P-H-1, YM-2, MC-1, BSD-2
+  Tier 2 STRENGTHENED (5): P-H-2, P-H-4, RH-3, RH-4, PNP-2
+  Tier 3 SHARPENED (9): P-H-3, PNP-1, PNP-3, RH-5, YM-3, YM-4, BSD-3, BSD-4, MC-3
+
+Hardware Attack (v1.1 -> v1.2):
+  Infrastructure: 3 new Python files (attack.py, thermal_probe.py, attack_runner.py)
+  Adversarial: 12 gap-targeted test cases (2 per generator)
+  Statistical: 1000-seed sweep, 12 levels, all 6 problems, 99.9% CI
+  Thermal: GPU monitoring on RTX 4070 (pynvml)
+  Noise: Structural depth measured for all 6 problems
+  HW-Conditional Lemmas: 9 (one per remaining gap, empirical bounds recorded)
+  Key findings:
+    PvsNP scaling: delta=0.666, CI=[0.666,0.667] -- SUPPORTS GAP
+    YM lattice: delta_min=0.292 > 0 across 1000 seeds
+    BSD rank-2: delta=0.000 (ranks match, BSD consistent)
+    Hodge transcendental: delta=0.690 (persistent, correct detection)
+    YM noise depth: 0.50 (deepest structural resilience)
+
+Engine Stack (v1.3 -> v1.4):
+  New engines: TopologyLens, Russell Codec, SSA, RATE, FOO, Breath
+  41-problem manifold: 6 Clay + 13 Standalone + 18 Neighbor + 4 Bridge
+  Critical fix: defect_delta -> delta_value across FOO, RATE, SSA engines
+  New CORE document: Breath_Defect_Flow.md (FROZEN v1.0)
+  Tests added: 33 breath + operational meta-lens tests
+  All existing delta measurements unchanged (additive only)
+
+Delivery Package (v1.4 -> v1.5):
+  Paper expansion: 8,523 -> 20,731+ lines across 8 papers
+  21 new supporting lemmas added across P1-P6
+  Gap attack probes: RH-5 dense sigma sweep, YM-3 continuum limit, YM-4 spectral gap
+  Standalone packaging: __init__.py files, __main__.py entry point
+  Interactive presentation script for Clay Institute demo
+  Engineering Guide for human readers
+  Legal notice and updated licensing
+  All 529 tests continue to pass (no regressions)

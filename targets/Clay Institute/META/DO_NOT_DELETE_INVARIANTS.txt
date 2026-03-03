@@ -1,0 +1,16 @@
+CRITICAL: INVARIANT PROTECTION
+
+The following directories and files are structurally essential
+and must NEVER be deleted:
+
+  CORE/           — Frozen axiom definitions
+  LEMMAS/         — Formal lemma vault (statements frozen)
+  lemmas/         — LaTeX lemma files (linked from LEMMAS/)
+  HARDENING_STATUS.md — Master tracking document
+  META/           — This directory
+
+Deletion of any of these files will break the integrity
+of the Sanders Coherence Field archive.
+
+If reorganization is needed, COPY first, then propose changes
+in DOCS/CHANGELOG.md for review.
