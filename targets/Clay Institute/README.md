@@ -1,7 +1,10 @@
 # Sanders Coherence Field v1.4
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
+
 **Author**: Brayden Sanders / 7Site LLC
 **Date**: March 2026
+**DOI**: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 **Status**: Phase 2 -- Full Engine Stack (TopologyLens + Russell + SSA + RATE + FOO + Breath)
 
 ---

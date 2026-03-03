@@ -1,7 +1,11 @@
 # Tired of Sleep — Theory of Nothing
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
+
 > You cannot prove everything. But you can measure what's missing.
 > And what's missing is the same shape everywhere.
+
+**DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)**
 
 This is the complete body of work behind the Theory of Nothing — a mathematical framework that measures the **defect** (the gap, the void, the nothing) in any system. Not a theory of everything. A theory of what's missing from everything.
 
