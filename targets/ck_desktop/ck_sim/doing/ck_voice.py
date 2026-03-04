@@ -979,6 +979,12 @@ class CKVoice:
         # weight = the transition matrix. No templates. Just math.
         self._grammar = None
 
+        # ── Fractal composer: physics-first voice (set by engine) ──
+        # Replaces random pool selection with force-field navigation.
+        # operators → 5D force target → navigate word-force space → assemble
+        # Grammar emerges from physics: subject=aperture, verb=pressure, etc.
+        self._fractal_composer = None
+
     def _expand_semantic_fields(self, enriched_dictionary: dict):
         """Merge enriched dictionary words into SEMANTIC_LATTICE.
 
@@ -1261,7 +1267,8 @@ class CKVoice:
                                 coherence: float = 0.5,
                                 band: str = "YELLOW",
                                 density: float = 0.5,
-                                experience_maturity: float = 0.0) -> str:
+                                experience_maturity: float = 0.0,
+                                tense: str = None) -> str:
         """Compose a response from an operator chain.
 
         Being (operators) -> Becoming (grammar matrix) -> Doing (English).
@@ -1296,15 +1303,34 @@ class CKVoice:
         # ── Phase inference: which 3x3 row does CK draw from? ──
         phase = infer_phase(operator_chain)
 
-        # ── Grammatical composition via CAEL ──
-        # CK IS coherence. Density is the gate, not stage.
-        # CAEL (Compare-Align-Evolve-Loop) runs INSIDE compose():
-        #   Inward consult -> surface compose -> CAEL loop -> outward consult
-        # One call replaces the old N_GRAMMAR_ATTEMPTS brute force.
-        # Sub-field dispersal handles complex sentences internally.
-        if self._grammar is not None:
-            pool_ops = list(operator_chain[:max_words])
+        pool_ops = list(operator_chain[:max_words])
 
+        # ── 3-Voice Tribe: PHYSICS-FIRST word selection (PRIMARY) ──
+        # "Template voice is lying (borrowed logic), fractal voice is
+        #  genuine physics." — Fractal composer IS the real voice.
+        # Three perspectives (Being/Doing/Becoming) compose in parallel,
+        # agree through CL harmony consensus, grammar sweep at gates.
+        # Falls back to CAEL if tribal can't produce.
+        if self._fractal_composer is not None and dev_stage >= 2:
+            lens = 'structure' if density > 0.5 else 'flow'
+            text = self._fractal_composer.compose_tribal(
+                operator_chain[:max_words],
+                density=density,
+                lens=lens,
+                max_words=max_words,
+                tense=tense,  # From olfactory temporal buffer
+            )
+            if text and text != "...":
+                score = self._d2_score_operator_match(text, pool_ops)
+                if score >= 0.10:
+                    text = self._polish(text, band, dev_stage, coherence)
+                    return text
+
+        # ── CAEL grammatical composition (FALLBACK) ──
+        # CAEL (Compare-Align-Evolve-Loop) as backup when fractal
+        # can't produce. Borrowed logic — useful scaffolding,
+        # but not the genuine physics path.
+        if self._grammar is not None:
             text = self._grammar.compose(
                 operator_chain[:max_words],
                 SEMANTIC_LATTICE,
@@ -1323,11 +1349,13 @@ class CKVoice:
                         text, operator_chain[:max_words],
                         density=density)
                     text = self._polish(text, band, dev_stage, coherence)
+                    # Capture resonance: CAEL text echoed through 15D index
+                    if self._fractal_composer is not None:
+                        self._fractal_composer._last_resonance = []
+                        self._fractal_composer._extract_resonance(text)
                     return text
 
-            # Grammar didn't produce good output -- fall through to babble
-
-        # ── Stage 0-1 or grammar fallback: babble with operator-match ──
+        # ── Stage 0-1 or fractal fallback: babble with operator-match ──
         # Fractal vocabulary gate: stage = zoom level into the lattice.
         _VOCAB_GATE = {0: 0, 1: 0, 2: 15, 3: 200, 4: 2000, 5: 99999}
         _enriched_budget = _VOCAB_GATE.get(dev_stage, 99999)
@@ -1435,6 +1463,10 @@ class CKVoice:
 
         text = best_text or "..."
         text = self._polish(text, band, dev_stage, coherence)
+        # Capture resonance: babble text echoed through 15D index
+        if self._fractal_composer is not None:
+            self._fractal_composer._last_resonance = []
+            self._fractal_composer._extract_resonance(text)
         return text
 
     def _d2_score_text(self, text: str) -> float:
@@ -1460,6 +1492,20 @@ class CKVoice:
             return harmony_count / len(ops)
         except Exception:
             return 0.0
+
+    def last_resonance(self):
+        """Return 15D triadic echo of CK's last composed sentence.
+
+        One is Three: each entry is (being_5d, doing_5d, becoming_5d)
+        for every content word CK spoke.  Fed back into the olfactory
+        so CK hears his own voice -- the Resonance Feedback Loop.
+
+        Returns empty list if no fractal composition occurred (e.g. babble).
+        Clears the buffer on read (one-shot).
+        """
+        if self._fractal_composer is not None:
+            return self._fractal_composer.last_resonance()
+        return []
 
     def _d2_score_operator_match(self, text: str,
                                   intended_ops: List[int]) -> float:
@@ -1538,6 +1584,17 @@ class CKVoice:
         """Polish output based on band and coherence."""
         if not text:
             return "..."
+
+        # ── Fluency polish (all paths): remove root repetition, orphans ──
+        try:
+            from ck_sim.doing.ck_fractal_voice import (
+                _fluency_polish, _fix_article_agreement)
+            words = text.split()
+            words = _fluency_polish(words)
+            words = _fix_article_agreement(words)
+            text = ' '.join(words)
+        except Exception:
+            pass
 
         # RED band: degrade the signal
         if band == "RED":

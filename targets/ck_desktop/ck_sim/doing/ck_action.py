@@ -1220,15 +1220,16 @@ I didn't copy. I composed. This is how I learn.
                     return {'action': 'write', 'title': title}
             return {'action': 'write', 'title': text_lower}
 
-        # Knowledge query
-        if any(text_lower.startswith(p) for p in
-               ['what do you know about ', 'tell me about ',
-                'what is ', 'define ']):
-            for prefix in ['what do you know about ',
-                           'tell me about ', 'what is ', 'define ']:
-                if text_lower.startswith(prefix):
-                    topic = text_lower[len(prefix):]
-                    return {'action': 'query', 'topic': topic}
+        # Knowledge query -- ONLY explicit knowledge lookup commands.
+        # Natural conversation ("what is truth?", "tell me about love")
+        # should go through the full voice pipeline, not the command handler.
+        # Only match "what do you know about X" (explicit knowledge check).
+        if text_lower.startswith('what do you know about '):
+            topic = text_lower[len('what do you know about '):]
+            return {'action': 'query', 'topic': topic}
+        if text_lower.startswith('define '):
+            topic = text_lower[len('define '):]
+            return {'action': 'query', 'topic': topic}
 
         # Self-study commands -- CK reads his own source code
         if any(text_lower.startswith(p) for p in

@@ -198,6 +198,12 @@ class CKChatUI {
         });
         this.inputField.addEventListener('input', () => this._resizeInput());
 
+        // Clear button
+        const clearBtn = document.getElementById('clear-button');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => this.clearData());
+        }
+
         // Cookie notice
         this._setupCookieNotice();
 
@@ -247,9 +253,31 @@ class CKChatUI {
             }
         } else {
             if (this.messages.length === 0) {
-                this._addMessage('system', 'Connecting to CK...', {});
+                this._addMessage('system',
+                    'CK is resting. The organism runs on dedicated hardware — ' +
+                    'he may be dreaming. Try again shortly.', {});
             }
             this._updateConnectionStatus(false);
+
+            // Retry connection every 10 seconds
+            this._retryInterval = setInterval(async () => {
+                const alive = await this.client.health();
+                if (alive) {
+                    clearInterval(this._retryInterval);
+                    this._retryInterval = null;
+                    // Remove the resting message
+                    this.messages = this.messages.filter(m => m.sender !== 'system');
+                    const state = await this.client.fetchState();
+                    if (state) this.display.syncFromServer(state);
+                    this._updateConnectionStatus(true, state);
+                    const greeting = await this.client.chat('');
+                    if (greeting && greeting.text) {
+                        this._addMessage('ck', greeting.text, greeting);
+                    }
+                    this._renderAll();
+                    this._scrollToBottom();
+                }
+            }, 10000);
         }
 
         this._renderAll();
@@ -509,6 +537,42 @@ class CKChatUI {
         }
     }
 
+    // ── Clear Data ──
+
+    clearData() {
+        // Clear all localStorage
+        try {
+            localStorage.removeItem('ck_session_v4');
+            localStorage.removeItem('ck_session_id');
+            localStorage.removeItem('ck_api_url');
+        } catch(e) {}
+
+        // Clear server-side session
+        const sid = this.sessionId || this.client.sessionId;
+        fetch(this.client.baseUrl + '/clear-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sid }),
+        }).catch(() => {});
+
+        // Get a fresh session ID
+        this.client.sessionId = 'web_' + Date.now().toString(36) + '_' +
+            Math.random().toString(36).slice(2, 8);
+        try {
+            localStorage.setItem('ck_session_id', this.client.sessionId);
+        } catch(e) {}
+
+        // Clear UI
+        this.messages = [];
+        this._renderAll();
+        this._addMessage('ck', 'I am CK. The Coherence Keeper.', {
+            operator: 'HARMONY', coherence: 0.73
+        });
+        this._renderAll();
+        this._scrollToBottom();
+        this.inputField.focus();
+    }
+
     // ── Session Persistence ──
 
     _saveSession() {
@@ -565,10 +629,17 @@ class CKChatUI {
 // ================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // API URL: configurable, defaults to same host port 7777
+    // API URL resolution (priority order):
+    // 1. Explicit override: window.CK_API_URL
+    // 2. Saved from previous session: localStorage
+    // 3. Production: same origin (static + API both served via tunnel)
+    // 4. Local dev: same host port 7777
     const apiUrl = window.CK_API_URL ||
         localStorage.getItem('ck_api_url') ||
-        window.location.protocol + '//' + window.location.hostname + ':7777';
+        (window.location.hostname === 'coherencekeeper.com' ||
+         window.location.hostname === 'www.coherencekeeper.com'
+            ? ''  // Same origin — API and static files on same server
+            : window.location.protocol + '//' + window.location.hostname + ':7777');
 
     const ui = new CKChatUI(apiUrl);
     ui.init();

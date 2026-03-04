@@ -130,18 +130,23 @@ class CKWebAPI:
             self._register_routes()
 
     def _add_cors(self):
-        """Add CORS headers so the website can talk to this API."""
+        """Add CORS headers so the website can talk to this API.
+
+        Uses after_request hook (applies to ALL responses) instead of
+        explicit OPTIONS route handlers.  This avoids 405 conflicts
+        when static file routes share the same path (e.g. '/' serves
+        index.html via GET, but an explicit OPTIONS route on '/' would
+        shadow the GET handler and cause 405 Method Not Allowed).
+        """
         @self._app.after_request
         def cors_headers(response):
             response.headers['Access-Control-Allow-Origin'] = '*'
             response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
             response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+            # Handle preflight OPTIONS requests transparently
+            if request.method == 'OPTIONS':
+                response.status_code = 204
             return response
-
-        @self._app.route('/', defaults={'path': ''}, methods=['OPTIONS'])
-        @self._app.route('/<path:path>', methods=['OPTIONS'])
-        def handle_options(path):
-            return '', 204
 
     def _register_routes(self):
         """Register Flask routes."""
@@ -168,6 +173,14 @@ class CKWebAPI:
         @app.route('/health', methods=['GET'])
         def health():
             return jsonify({'status': 'alive', 'timestamp': time.time()})
+
+        @app.route('/clear-session', methods=['POST'])
+        def clear_session():
+            data = request.get_json(silent=True) or {}
+            sid = data.get('session_id', '')
+            if sid and sid in self.sessions._sessions:
+                del self.sessions._sessions[sid]
+            return jsonify({'cleared': True})
 
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:
@@ -231,8 +244,12 @@ class CKWebAPI:
         coherence_after = self._safe_coherence()
         band_after = self._safe_band()
 
-        # Operator history
-        recent_ops = list(self.engine.operator_history)[-10:]
+        # Voice chain: actual operators used for this response (not heartbeat)
+        voice_chain = getattr(self.engine, '_last_voice_chain', None)
+        if voice_chain:
+            recent_ops = voice_chain[-10:]
+        else:
+            recent_ops = list(self.engine.operator_history)[-10:]
         op_names = [OP_NAMES[o] if 0 <= o < NUM_OPS else 'VOID'
                     for o in recent_ops]
 
@@ -333,7 +350,7 @@ class CKWebAPI:
                 return 0.0
 
     def _safe_band(self):
-        band_names = ['GREEN', 'YELLOW', 'RED']
+        band_names = ['RED', 'YELLOW', 'GREEN']
         try:
             return band_names[min(self.engine.body.heartbeat.band, 2)]
         except Exception:

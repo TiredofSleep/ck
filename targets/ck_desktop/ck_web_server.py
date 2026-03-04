@@ -30,7 +30,7 @@ import argparse
 
 # Add ck_desktop to path so we import the REAL CK
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-CK_DESKTOP = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'ck_desktop'))
+CK_DESKTOP = SCRIPT_DIR  # Already in ck_desktop
 sys.path.insert(0, CK_DESKTOP)
 
 
@@ -71,7 +71,7 @@ def main():
 
     # Serve static frontend files (index.html, style.css, ck_core.js)
     from flask import send_from_directory
-    STATIC_DIR = os.path.join(SCRIPT_DIR)
+    STATIC_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'website'))
 
     @api._app.route('/')
     def serve_index():

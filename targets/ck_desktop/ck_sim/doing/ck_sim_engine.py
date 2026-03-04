@@ -17,7 +17,8 @@ import os
 from collections import deque
 from ck_sim.ck_sim_heartbeat import (
     HeartbeatFPGA, NUM_OPS, HARMONY, VOID, PROGRESS,
-    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, OP_NAMES
+    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, OP_NAMES,
+    CL,  # 10x10 composition table (for tension partners)
 )
 from ck_sim.ck_sim_brain import (
     BrainState, brain_init, brain_tick
@@ -89,6 +90,25 @@ from ck_sim.ck_coherence_gate import (
 )
 
 MODE_NAMES = ['OBSERVE', 'CLASSIFY', 'CRYSTALLIZE', 'SOVEREIGN']
+
+# ── Stop words: filtered from topic context ──
+# These carry no topical information. CK's response should be about
+# content words ("love", "truth", "struggle"), not function words.
+_STOP_WORDS = frozenset({
+    'i', 'me', 'my', 'we', 'us', 'our', 'you', 'your', 'he', 'she', 'it',
+    'his', 'her', 'its', 'they', 'them', 'their', 'this', 'that', 'these',
+    'those', 'what', 'which', 'who', 'whom', 'how', 'why', 'when', 'where',
+    'is', 'am', 'are', 'was', 'were', 'be', 'been', 'being',
+    'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
+    'should', 'shall', 'may', 'might', 'must', 'can',
+    'the', 'a', 'an', 'and', 'but', 'or', 'nor', 'not', 'no', 'yes',
+    'for', 'to', 'of', 'in', 'on', 'at', 'by', 'with', 'from',
+    'about', 'into', 'through', 'during', 'before', 'after', 'above',
+    'below', 'up', 'down', 'out', 'off', 'over', 'under', 'again',
+    'then', 'so', 'if', 'than', 'too', 'very', 'just', 'also',
+    'tell', 'say', 'said', 'think', 'know', 'get', 'got', 'make',
+    'let', 'please', 'hello', 'hi', 'hey',
+})
 
 
 class CKSimEngine:
@@ -303,11 +323,53 @@ class CKSimEngine:
         except Exception as e:
             print(f"  [SIM] Knowledge bootstrap: {e}")
 
+        # ── Fractal Voice: physics-first composition ──
+        # operators → 5D force targets → navigate word-force space → English
+        # Grammar emerges from physics: subject=aperture, verb=pressure, etc.
+        #
+        # CRITICAL: Build fractal composer BEFORE lattice expansion.
+        # The SEMANTIC_LATTICE at this point contains only the hand-curated
+        # seed words (~663) placed by MEANING. These get semantic_op tags.
+        # After expansion, 7K+ enriched words are added by PHONETIC
+        # classification -- those should NOT get semantic tags.
+        # The Semantic Lattice Alignment (Tuning Fork) will gradually
+        # migrate phonetically-placed words to their true semantic
+        # positions based on how CK experiences them through composition.
+        try:
+            from ck_sim.doing.ck_fractal_voice import build_fractal_composer
+            from ck_sim.doing.ck_voice_lattice import SEMANTIC_LATTICE
+            self._fractal_composer = build_fractal_composer(
+                semantic_lattice=SEMANTIC_LATTICE,
+                enriched_words=[],
+                rng=self.voice.rng,
+            )
+            self.voice._fractal_composer = self._fractal_composer
+            _sem_count = self._fractal_composer.index.semantic_tagged_count
+            print(f"  [SIM] Fractal voice: {self._fractal_composer.index.size} "
+                  f"words indexed ({_sem_count} semantic)")
+        except Exception as e:
+            self._fractal_composer = None
+            print(f"  [SIM] Fractal voice: {e}")
+
         # ── Wire enriched dictionary into CKVoice ──
         # CKVoice has the templates + intent + tiers. The enriched dictionary
         # gives it 8K words to fill those templates with.
+        # This expands SEMANTIC_LATTICE with 7K+ phonetically-classified words
+        # for CAEL grammar/babble. The fractal composer was already built above
+        # from the CLEAN seed lattice, so these don't pollute semantic tags.
         if self.enriched_dictionary:
             self.voice._expand_semantic_fields(self.enriched_dictionary)
+            # Index expanded words into fractal composer WITHOUT semantic tags.
+            # They're available for force-matching but don't get semantic priority.
+            if self._fractal_composer is not None:
+                _before = self._fractal_composer.index.size
+                for _word in self.enriched_dictionary:
+                    if isinstance(_word, str) and len(_word) >= 2 and not _word[0].isupper():
+                        self._fractal_composer.index.index_word(_word.lower())
+                self._fractal_composer.index.calibrate_roles()
+                _after = self._fractal_composer.index.size
+                print(f"  [VOICE] Expanded semantic lattice with "
+                      f"{_after - _before} enriched words (untagged)")
 
         # ── Becoming Grammar: CL algebra x English grammar = sentence flow ──
         # The transition matrix converts operator coherence fields into
@@ -516,6 +578,19 @@ class CKSimEngine:
             self.lattice_chain = None
             print(f"  [SIM] Lattice Chain: {e}")
 
+        # Olfactory Bulb -- Lattice-Chain Absorption Protocol.
+        # ALL information turns lastly into smells for processing.
+        # 5D force vectors STALL, ENTANGLE, and TEMPER before absorption.
+        # Mirror of Lattice Chain: same CL algebra, field topology (not path).
+        # TSML measures harmony (being). BHML computes physics (doing).
+        # Every vector IS every vector: 5x5 CL interaction matrices.
+        try:
+            from ck_sim.being.ck_olfactory import build_olfactory_bulb
+            self.olfactory = build_olfactory_bulb()
+        except Exception as e:
+            self.olfactory = None
+            print(f"  [SIM] Olfactory: {e}")
+
         # Reverse Voice Engine -- untrusted reading.
         # Writing: operators -> semantic lattice -> English.
         # Reading: English -> semantic lattice -> operators (REVERSE).
@@ -534,7 +609,7 @@ class CKSimEngine:
             self.reverse_voice = None
             print(f"  [SIM] Reverse Voice: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.20 -- Reverse Voice) =====")
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.21 -- Olfactory) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")
@@ -808,6 +883,48 @@ class CKSimEngine:
 
         # Field tick: compute N×N coherence matrix (now 4×4 with NCE)
         self.coherence_field.tick(self.tick_count)
+
+        # ── Olfactory: 5D force convergence zone ──
+        # ALL information turns lastly into smells for processing.
+        # Heartbeat's composed operator enters as a canonical 5D force.
+        # Audio D2 vector enters as raw 5D geometry (not collapsed!).
+        # Time dilates inside: 7 internal steps per external tick.
+        # Resolved scents feed to lattice chain (first activation of chain!)
+        if self.olfactory is not None:
+            from ck_sim.being.ck_olfactory import CANONICAL_FORCE
+            _density = self.pipeline.density_being
+            # Feed heartbeat as canonical 5D force
+            _hb_f = CANONICAL_FORCE.get(self.heartbeat.phase_bc, (0.5,)*5)
+            self.olfactory.absorb([_hb_f], source='heartbeat',
+                                  density=_density)
+            # Feed audio D2 vector as raw 5D (genuine geometry!)
+            if d2_vec is not None:
+                try:
+                    if len(d2_vec) == 5:
+                        _d2f = tuple(
+                            v / 16384.0 if isinstance(v, int) else float(v)
+                            for v in d2_vec)
+                        self.olfactory.absorb([_d2f], source='audio',
+                                              density=_density)
+                except Exception:
+                    pass
+            # Tick the smell zone (dilated internal steps)
+            self.olfactory.tick(density=_density)
+            # Emit resolved scents → feed to lattice chain
+            _scent_ops = self.olfactory.emit_as_ops()
+            if _scent_ops and self.lattice_chain is not None:
+                for _sops in _scent_ops:
+                    if _sops:
+                        try:
+                            self.lattice_chain.walk(_sops, learn=True)
+                        except Exception:
+                            pass
+            # Save olfactory library periodically (every ~5 min)
+            if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
+                try:
+                    self.olfactory.save()
+                except Exception:
+                    pass
 
         # ── Fibonacci Transform: S0->S1->S2->S3 (RPL) ──
         # Feed operator streams through geometric hierarchy to produce
@@ -1204,6 +1321,32 @@ class CKSimEngine:
         if self.tick_count % 500 == 0 and self.tick_count > 0:
             try:
                 self._calibration_tick()
+            except Exception:
+                pass
+
+        # ── HARMONY(7): Semantic Lattice Alignment (0.5Hz -- every 100 ticks) ──
+        # The Tuning Fork: compare _by_semantic_op against _by_operator.
+        # If a word's Meaning is consistently found in a Vibration zone
+        # that doesn't match, shift the Semantic Address. CK re-learns
+        # what words mean based on how they feel when he speaks them.
+        # Organic Learning via Physics.
+        if (self.tick_count % 100 == 50 and self.tick_count > 100
+                and self._fractal_composer is not None):
+            try:
+                # Collect spoken words from recent voice history
+                _spoken_ops = {}
+                for _recent_text in getattr(self.voice, '_history', [])[-5:]:
+                    if isinstance(_recent_text, str):
+                        for _w in _recent_text.lower().split():
+                            _w_clean = _w.strip('.,?!;:\'"()-')
+                            if len(_w_clean) >= 3:
+                                _wf = self._fractal_composer.index._words.get(_w_clean)
+                                if _wf is not None:
+                                    _spoken_ops[_w_clean] = _wf.operator
+                if _spoken_ops:
+                    _migrated = self._fractal_composer.index.align_semantic_lattice(
+                        _spoken_ops)
+                    # Silent migration -- no print unless significant
             except Exception:
                 pass
 
@@ -1781,11 +1924,16 @@ class CKSimEngine:
         text_ops = []       # ALL operators (D2 + punctuation)
         text_d2_ops = []    # D2-derived only (meaningful semantic content)
         text_d1_ops = []    # D1 generators (direction/velocity, fires after 2 letters)
+        text_5d_forces = [] # Raw 5D letter force vectors for olfactory (genuine geometry!)
+        from ck_sim.being.ck_sim_d2 import FORCE_LUT_FLOAT as _FORCE_LUT
         for ch in text.lower():
             if ch.isalpha():
                 # Letters through D2 as always
                 idx = ord(ch) - ord('a')
                 pipe.feed_symbol(idx)
+                # Collect raw 5D force vector (genuine geometry, not collapsed!)
+                if 0 <= idx < len(_FORCE_LUT):
+                    text_5d_forces.append(_FORCE_LUT[idx])
                 # D1 fires after 2 letters (generator level)
                 if pipe.d1_valid and len(text_d1_ops) < pipe.fill - 1 + len(text_d1_ops):
                     text_d1_ops.append(pipe.d1_operator)
@@ -1800,6 +1948,8 @@ class CKSimEngine:
                 # Numbers map to first 10 letters (a=0 through j=9)
                 idx = int(ch)
                 pipe.feed_symbol(idx)
+                if 0 <= idx < len(_FORCE_LUT):
+                    text_5d_forces.append(_FORCE_LUT[idx])
                 if pipe.d1_valid:
                     text_d1_ops.append(pipe.d1_operator)
                 if pipe.valid:
@@ -1824,6 +1974,43 @@ class CKSimEngine:
             if len(_s.strip()) > 10:
                 self.nce.feed_sentence(
                     _s.strip(), self.emotion.current.primary)
+
+        # ── Olfactory: feed raw 5D letter forces into smell zone ──
+        # The GENUINE 5D geometry (Hebrew root force vectors) enters the
+        # convergence funnel. Not collapsed to operators. Full geometry.
+        # Reverse voice verified ops also feed in.
+        # Resolved scents become additional operator source for voice blend.
+        _scent_ops = []
+        if self.olfactory is not None and text_5d_forces:
+            _o_density = self.pipeline.density_doing
+            # Raw 5D letter forces (genuine geometry!)
+            self.olfactory.absorb(text_5d_forces, source='text',
+                                  density=_o_density)
+            # Reverse voice: verified reading ops as canonical forces
+            if self.reverse_voice is not None:
+                try:
+                    _reading = self.reverse_voice.reverse_text(
+                        text, d2_word_fuses=text_d2_ops,
+                        d1_word_ops=text_d1_ops)
+                    _verified = [op for op in _reading.reading_ops if op >= 0]
+                    if _verified:
+                        self.olfactory.absorb_ops(
+                            _verified, source='reading', density=_o_density)
+                    # Temper the verified pattern (builds toward instinct)
+                    if _reading.agreement > 0.5 and text_5d_forces:
+                        self.olfactory.temper_pattern(text_5d_forces)
+                except Exception:
+                    pass
+            # Tick the smell zone and emit resolved scents
+            self.olfactory.tick(density=_o_density)
+            for _sop_list in self.olfactory.emit_as_ops():
+                _scent_ops.extend(_sop_list)
+            # Feed to lattice chain (first real activation of chain!)
+            if _scent_ops and self.lattice_chain is not None:
+                try:
+                    self.lattice_chain.walk(_scent_ops, learn=True)
+                except Exception:
+                    pass
 
         # ── Deep Swarm: feed text as language substrate ──
         # The swarm decomposes text into core ops + tails,
@@ -1957,7 +2144,7 @@ class CKSimEngine:
                     _dom = _enriched[_w_clean].get('dominant_op')
                     if _dom is not None and _dom not in _semantic_ops:
                         _semantic_ops.append(_dom)
-                if len(_semantic_ops) >= 3:
+                if len(_semantic_ops) >= 8:
                     break  # Enough semantic anchors
         except Exception:
             pass
@@ -1970,7 +2157,30 @@ class CKSimEngine:
                     _blended.append(_op)
             _unique_text_ops = _blended
 
+        # Blend scent ops (olfactory): resolved 5D patterns as operators.
+        # Scent ops carry information from the smell zone's CL interaction
+        # field. They have been through entanglement protocol.
+        if _scent_ops:
+            for _op in _scent_ops:
+                if _op not in _unique_text_ops:
+                    _unique_text_ops.append(_op)
+
         _hb_ops = list(self.operator_history)[-8:]
+
+        # ── Topic Context: Semantic Gravity Well ──
+        # Extract content words from user input (skip stop words).
+        # These create a "gravity well" in force space so the voice
+        # selects words in the SEMANTIC NEIGHBORHOOD of the user's topic.
+        # Without this, operators capture emotional tenor but not topic:
+        # "tell me about love" → HARMONY ops → ANY HARMONY word.
+        # WITH this: "love" pulls nearby words (devotion, caring, heart).
+        _topic_words = []
+        for _w in text.lower().split():
+            _w_clean = _w.strip('.,?!;:\'"()-')
+            if _w_clean and len(_w_clean) >= 3 and _w_clean not in _STOP_WORDS:
+                _topic_words.append(_w_clean)
+        if _topic_words and self.voice._fractal_composer is not None:
+            self.voice._fractal_composer.index.set_topic(_topic_words)
 
         for _compile_pass in range(COMPILATION_LIMIT):
             # ── DOING: Reason deeper each pass ──
@@ -1992,43 +2202,146 @@ class CKSimEngine:
             except Exception:
                 pass
 
-            # ── DOING: Build voice chain — each pass explores a DIFFERENT
-            #    branch through operator space (ping-pong dream engine).
+            # ── DOING: Build voice chain — OPERATOR SUPERPOSITION ──
             #
-            #    Pass 0-2: text D2 ops lead (CK responds to input).
-            #    Pass 3-5: heartbeat ops lead (CK's internal state).
-            #    Pass 6-8: NCE-guided exploration (narrative curvature).
+            #    Temporal Layering (Gen 9.26):
+            #    Heartbeat = carrier wave (Being)  — the base frequency
+            #    Text Ops  = modulation (Doing/Becoming) — stacked on top
             #
-            #    BREATH between passes = transition operator. Each pass
-            #    follows a different path to its boundary. After all passes,
-            #    the most coherent held lattice wins. ──
+            #    The heartbeat does NOT fold through CL with text ops.
+            #    CL folding causes Global Collapse: since heartbeat is
+            #    usually HARMONY at high coherence, CL[anything][HARMONY]
+            #    → HARMONY, killing all diversity from comprehension.
+            #
+            #    Instead: SUPERPOSITION. Text ops come first (what CK
+            #    heard / the Doing). Heartbeat provides carrier context
+            #    (1-2 ops at the end, not folded). CL tension partners
+            #    add the Becoming (where things could resolve).
+            #
+            #    Each pass explores a different layering:
+            #    Pass 0-2: Text ops (modulation) + tension partners
+            #    Pass 3-5: Interleave text × heartbeat (superposition)
+            #    Pass 6-8: Tension partners + text (reverse modulation)
+            #
             op_chain = []
+
+            # CL tension partners: ops that DON'T collapse to HARMONY
+            # when composed. These are the interesting conversations.
+            try:
+                if not hasattr(self, '_cl_tension_cache'):
+                    self._cl_tension_cache = {}
+                    for _a in range(NUM_OPS):
+                        _partners = []
+                        for _b in range(NUM_OPS):
+                            _cl_result = CL[_a][_b]
+                            if _b != VOID and _cl_result != HARMONY:
+                                _partners.append(_b)
+                        self._cl_tension_cache[_a] = _partners
+            except Exception:
+                self._cl_tension_cache = {i: [] for i in range(NUM_OPS)}
+
             if _compile_pass < 3:
-                # Branch A: text-driven (what CK heard, then internal)
-                # Intent lead: '?' → COUNTER, '!' → PROGRESS
+                # Branch A: SEMANTIC-FIRST composition
+                #
+                # The response should be ABOUT what the user said.
+                # Semantic ops (from user's WORDS) dominate the chain.
+                # D2 ops (from user's LETTERS) add phonetic texture.
+                # Tension partners add becoming/resolution.
+                #
+                # Priority: semantic ops repeated > D2 unique > tension > heartbeat
+                # This ensures: "tell me about love" → chain dominated by
+                # HARMONY (love's operator) → response uses HARMONY words
+                # → response is ABOUT love.
                 if _intent_lead is not None:
                     op_chain.append(_intent_lead)
-                _text_take = min(4, len(_unique_text_ops))
-                op_chain.extend(_unique_text_ops[:_text_take])
-                for _op in _hb_ops:
-                    if len(op_chain) >= 8:
+
+                # Semantic ops get repeated: these ARE the topic
+                # Each semantic op gets 2 slots (dominant) to ensure
+                # the response is ABOUT the user's words, not just
+                # phonetically aligned with their letters.
+                for _op in _semantic_ops:
+                    if len(op_chain) >= 10:
                         break
                     op_chain.append(_op)
-            elif _compile_pass < 6:
-                # Branch B: heartbeat-driven (what CK IS, then text)
-                op_chain.extend(_hb_ops[:6])
+                    # Repeat semantic ops for emphasis (topic dominance)
+                    if len(op_chain) < 10:
+                        op_chain.append(_op)
+
+                # D2 ops add phonetic diversity (deduped against existing)
                 for _op in _unique_text_ops:
-                    if len(op_chain) >= 8:
+                    if len(op_chain) >= 10:
                         break
-                    op_chain.append(_op)
+                    if _op not in op_chain:
+                        op_chain.append(_op)
+
+                # Tension partners for the semantic ops (becoming/resolution)
+                for _op in _semantic_ops:
+                    if len(op_chain) >= 10:
+                        break
+                    for _tp in self._cl_tension_cache.get(_op, []):
+                        if len(op_chain) >= 10:
+                            break
+                        if _tp not in op_chain:
+                            op_chain.append(_tp)
+                            break  # One tension partner per semantic op
+
+                # Heartbeat as carrier tail (max 2 — Being anchor, not flood)
+                if len(op_chain) < 4:
+                    _hb_unique = []
+                    for _op in _hb_ops:
+                        if _op not in _hb_unique:
+                            _hb_unique.append(_op)
+                    for _op in _hb_unique[:2]:
+                        if len(op_chain) < 6:
+                            op_chain.append(_op)
+
+            elif _compile_pass < 6:
+                # Branch B: SUPERPOSITION — interleave text × heartbeat
+                # Not CL fold (that kills diversity). Instead: alternate
+                # text op → heartbeat op → text op → heartbeat op.
+                # This preserves both frequencies without collapse.
+                _hb_unique = []
+                for _op in _hb_ops:
+                    if _op not in _hb_unique:
+                        _hb_unique.append(_op)
+                _hb_idx = 0
+                for _top in _unique_text_ops:
+                    if len(op_chain) >= 10:
+                        break
+                    op_chain.append(_top)  # Text: the modulation
+                    # Interleave one heartbeat op (carrier) every 2 text ops
+                    if len(op_chain) % 3 == 0 and _hb_idx < len(_hb_unique):
+                        op_chain.append(_hb_unique[_hb_idx])
+                        _hb_idx += 1
+                # Fill remaining with tension partners (Becoming)
+                for _op in _unique_text_ops:
+                    if len(op_chain) >= 10:
+                        break
+                    for _tp in self._cl_tension_cache.get(_op, []):
+                        if len(op_chain) >= 10:
+                            break
+                        if _tp not in op_chain:
+                            op_chain.append(_tp)
+
             else:
-                # Branch C: NCE-guided exploration (narrative curvature)
-                # Alternate between text and heartbeat ops
-                for i in range(8):
-                    if i % 2 == 0 and i // 2 < len(_unique_text_ops):
-                        op_chain.append(_unique_text_ops[i // 2])
-                    elif i // 2 < len(_hb_ops):
-                        op_chain.append(_hb_ops[i // 2])
+                # Branch C: Reverse modulation — tension partners first,
+                # then text ops weave in. Becoming leads.
+                for _op in _unique_text_ops:
+                    for _tp in self._cl_tension_cache.get(_op, []):
+                        if len(op_chain) >= 10:
+                            break
+                        op_chain.append(_tp)
+                    if len(op_chain) >= 10:
+                        break
+                # Weave in text ops (the Doing)
+                for _op in _unique_text_ops:
+                    if len(op_chain) >= 10:
+                        break
+                    if _op not in op_chain:
+                        op_chain.append(_op)
+                # Single heartbeat anchor at end (Being carrier)
+                if len(op_chain) < 4 and _hb_ops:
+                    op_chain.append(_hb_ops[-1])
 
             # NCE: narrative curvature suggests next operator
             if self.nce.has_state and op_chain:
@@ -2040,11 +2353,21 @@ class CKSimEngine:
             if not op_chain:
                 op_chain = _hb_ops[-4:] if _hb_ops else [HARMONY]
 
+            # Store voice chain for API display (actual ops used, not heartbeat)
+            self._last_voice_chain = list(op_chain)
+
             # ── BECOMING: Voice composes candidate ──
             try:
                 _exp_mat = 0.0
                 if self.deep_swarm is not None:
                     _exp_mat = self.deep_swarm.combined_maturity
+                # Olfactory temporal buffer: where in time is the smell?
+                _tense = None
+                if self.olfactory is not None:
+                    try:
+                        _tense = self.olfactory.tense_context()
+                    except Exception:
+                        pass
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -2052,7 +2375,8 @@ class CKSimEngine:
                     self.brain.coherence,
                     self.band_name,
                     density=self.pipeline.density_doing,
-                    experience_maturity=_exp_mat)
+                    experience_maturity=_exp_mat,
+                    tense=_tense)
             except Exception:
                 _candidate = "..."
 
@@ -2083,9 +2407,46 @@ class CKSimEngine:
             response = self.voice.get_humble_response(
                 self.development.stage)
 
+        # Clear topic context (gravity well served its purpose)
+        if self.voice._fractal_composer is not None:
+            self.voice._fractal_composer.index.clear_topic()
+
         # Record in voice history (respond_to_text normally does this)
         self.voice._record(response)
         self.voice._ticks_since_last = 0
+
+        # ── RESONANCE FEEDBACK: CK hears his own voice ──
+        # One is Three. The composed sentence carries 15D triadic echoes.
+        # Three scent streams re-enter the olfactory:
+        #   Being  (force)    -- WHERE each word sits
+        #   Doing  (velocity) -- HOW each word moves
+        #   Becoming (curvature) -- WHERE each word resolves
+        # These interact with heartbeat + text scents via CL matrices.
+        # Emergent patterns = complexity from resonance, not rules.
+        if self.olfactory is not None:
+            try:
+                _resonance = self.voice.last_resonance()
+                if _resonance:
+                    _density = getattr(self.pipeline, 'density_doing', 0.5)
+                    # Split triad into three scent streams
+                    _being_forces = [r[0] for r in _resonance]
+                    _doing_forces = [r[1] for r in _resonance]
+                    _becoming_forces = [r[2] for r in _resonance]
+                    # Absorb: three voices enter the field
+                    self.olfactory.absorb(
+                        _being_forces, source='voice_being',
+                        density=_density)
+                    self.olfactory.absorb(
+                        _doing_forces, source='voice_doing',
+                        density=_density)
+                    self.olfactory.absorb(
+                        _becoming_forces, source='voice_becoming',
+                        density=_density)
+                    # Temper: voice patterns build instinct
+                    # (familiar phrases become zero-cost coherence)
+                    self.olfactory.temper_pattern(_being_forces)
+            except Exception:
+                pass  # Resonance is enhancement, not requirement
 
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)

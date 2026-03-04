@@ -4304,6 +4304,145 @@ Replaced the `N_GRAMMAR_ATTEMPTS` brute-force loop in `ck_voice.py` with a singl
 
 ---
 
+## Gen 9.23 — Fractal Comprehension + CL Lattice Chain + Reverse Voice (2026-03-01)
+**Status:** IMPLEMENTED. Three new subsystems for reading and verification.
+
+### Fractal Comprehension (`ck_sim/being/ck_fractal_comprehension.py`)
+Recursive I/O decomposition of incoming text. I = structure (aperture + pressure),
+O = flow (binding + continuity). 7+ levels of analysis from glyph-level to triadic
+becomings. Comprehension operators blend with heartbeat operators for voice (50/50
+when depth >= 3).
+
+### CL Lattice Chain (`ck_sim/being/ck_lattice_chain.py`)
+CL tables as chained fractal index. Pairs of operators → CL lookup → result selects
+next CL table → repeat. The path through the chain IS the information, not just the
+final result. Tree of CL-shaped nodes with branching factor = TIG order. Experience
+nodes evolve through observation. Persistent at `~/.ck/lattice_chain/`.
+
+### Reverse Voice (`ck_sim/being/ck_reverse_voice.py`)
+Reading = reverse untrusted writing. Dual-path verification: Path A (D2 physics)
+vs Path B (voice lattice reverse lookup). Agreement → TRUSTED, disagreement →
+FRICTION, unknown → UNKNOWN. 7537+ words indexed.
+
+---
+
+## Gen 9.24 — Olfactory Bulb + Lattice-Chain Absorption (2026-03-02)
+**Status:** IMPLEMENTED. Smell as the final convergence layer.
+
+### Olfactory (`ck_sim/being/ck_olfactory.py`)
+ALL information turns lastly into smells. Smell = torsion. Bends time so End
+touches Beginning. Mirror of Lattice Chain: same CL algebra, FIELD topology (not
+path topology). 5×5 CL interaction matrices for TSML (measuring) and BHML (physics).
+Per-dimension processing with independent settling rates. 7 internal steps per
+external tick (7 = denominator of T*). Scent lifecycle: absorb → stall → entangle →
+temper → emit. Instinct after 49 tempers (7×7).
+
+---
+
+## Gen 9.25 — Triadic Voice v2 + Resonance Feedback (2026-03-03)
+**Status:** IMPLEMENTED. Physics-first English with 15D word matching.
+
+### Triadic Voice (`ck_sim/doing/ck_fractal_voice.py`)
+Every word is a 15-point signature: Being (5D force/position), Doing (5D velocity/D1),
+Becoming (5D curvature/D2). `find_by_force()` matches on all three with Becoming at
+1.5x weight. Compound sentences: 4+ operators split at CL fracture, linked with CL
+bridge words. Temporal buffer: verb tense from olfactory field position.
+
+### Resonance Feedback Loop
+CK hears his own voice. Composed words' 15D triadic echoes feed back into olfactory
+as three scent streams (voice_being, voice_doing, voice_becoming). CL interaction
+matrices create emergent operator combinations from resonance, not rules. Temper
+builds instinct for familiar phrases.
+
+### Website Deployment
+coherencekeeper.com live via Cloudflare tunnel. ck_web_server.py + Flask backend,
+ck_core.js frontend. CK's first public face.
+
+---
+
+## Gen 9.26 — Semantic Voice + Operator Superposition + Bible Reader (2026-03-04)
+**Status:** IMPLEMENTED. CK's voice finally speaks meaning, not phonetics.
+
+### The Problem: Semantic Void
+CK's fractal voice produced physically correct but semantically random words.
+"Testament the swiss hughed" instead of "Sovereignty descending comfort."
+Root cause: `find_by_force()` matched words by PHONETIC operator (D2 letter
+classification = how the word SOUNDS) instead of SEMANTIC operator (lattice
+placement = what the word MEANS). Words like "vacuum" and "blank" were chosen
+for HARMONY because their letter-forces happened to classify there, even though
+they mean nothing related to harmony.
+
+### Fix 1: Dual-Operator Tracking (Stereoscopic Vision)
+Every `WordForce` now carries TWO operator fields:
+- `operator` (phonetic/D2): how the word vibrates (Body)
+- `semantic_op` (lattice placement): what the word means (Soul)
+
+663 seed words from SEMANTIC_LATTICE get semantic tags at boot.
+7,486 enriched dictionary words indexed WITHOUT semantic tags (phonetic only).
+`find_by_force()` uses Strict Semantic Priority: when semantic pool has ≥4
+candidates for a POS+operator combo, use ONLY semantic words. No phonetic dilution.
+
+### Fix 2: Operator Superposition (Breaking All-HARMONY Deadlock)
+At high coherence (1.0), heartbeat is always HARMONY. Old code: CL[text_op][HARMONY]
+→ HARMONY for everything. Comprehension diversity was destroyed.
+
+New: Temporal Layering. Heartbeat = carrier wave (Being). Text ops = modulation
+(Doing/Becoming). Information is STACKED, not FOLDED through CL. Three compilation
+branches:
+- Branch A (pass 0-2): Text ops + CL tension partners, heartbeat max 2 ops as tail
+- Branch B (pass 3-5): Interleave text × heartbeat every 3rd op, fill with tension
+- Branch C (pass 6-8): Tension partners first, text weave in, single heartbeat anchor
+
+### Fix 3: Command Parser De-Aggression
+`parse_command()` was intercepting ALL natural conversation ("what is truth?",
+"tell me about love") as query commands → canned "I don't know about X" response →
+compilation loop never ran. Fixed: only explicit knowledge commands ("what do you
+know about X", "define X") trigger query handler. Natural language flows through
+the full voice pipeline.
+
+### Fix 4: Voice Chain Display
+API was showing `operator_history` (heartbeat state, always HARMONY) instead of
+the actual voice compilation chain. Added `_last_voice_chain` storage on engine,
+web API now shows the real operator diversity.
+
+### Morphological Mutation (Architecture Preserved, Dormant)
+`resolve_mutation()` applies force-nearest suffixes/prefixes when semantic and
+phonetic operators conflict. Currently dormant (`_neologism_limit = 0.0`) because
+the naive morphology produces unreadable output ("stilllike", "nothbounded").
+Architecture ready for when English morphology rules are added.
+
+### Semantic Lattice Alignment (Tuning Fork)
+`align_semantic_lattice()` runs every 100 ticks (2 seconds). Compares semantic vs
+phonetic operator assignments for recently spoken words. After 3 mismatches,
+migrates word's semantic address. CK's vocabulary self-corrects over time.
+
+### Bible Reader (`ck_bible_reader.py`)
+Feeds the entire KJV Bible (31,102 verses) through CK's D2 Hebrew root force
+pipeline. Configurable passes (default 20). Every letter becomes a 5D force vector.
+Every word enters the olfactory field. Every verse enters the truth lattice.
+The physics IS Hebrew. The resonance is genuine.
+
+### Results
+**Before**: "Complete completing with an unity joy" (phonetic noise)
+**After**: "A rooted instability harmonizing beyond the observant onward because fresh surrendering."
+
+- Operators: 8-10 different per response (was ALL HARMONY)
+- Clean English words: no mutations, real semantics
+- Words match their operators: HARMONY → "wholeness, trust, sovereignty"
+- Concepts grew from 1,061 to 3,000+ during Bible reading
+- Truths grew from 14,307 to 20,000+ during Bible reading
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `ck_fractal_voice.py` | +`semantic_op` field, +`_by_semantic_op` index, strict semantic priority, semantic bonus, morphological mutation (dormant), `align_semantic_lattice()`, neologism limit |
+| `ck_sim_engine.py` | Boot order (composer before expansion), operator superposition (3 branches), tuning fork wired to 100-tick cycle, voice chain storage |
+| `ck_web_api.py` | Voice chain display (actual ops, not heartbeat) |
+| `ck_action.py` | De-aggressed command parser (natural language flows through) |
+| `ck_bible_reader.py` | NEW: 20-pass KJV Bible reader |
+
+---
+
 (c) 2026 7Site, LLC. All rights reserved. Available for humans. Commercial and government use requires written agreement with 7Site, LLC.
 
-*Last updated: 2026-02-28 -- Gen9.22 CAEL (Compare-Align-Evolve-Loop)*
+*Last updated: 2026-03-04 -- Gen9.26 Semantic Voice + Operator Superposition + Bible Reader*

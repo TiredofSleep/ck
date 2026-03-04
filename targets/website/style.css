@@ -191,6 +191,29 @@ html, body {
     color: var(--green);
 }
 
+/* Clear button */
+
+.clear-button {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.clear-button:hover {
+    background: var(--red-dim);
+    color: var(--red);
+    border-color: var(--red);
+}
+
 /* Coherence badge */
 
 .coherence-badge {
