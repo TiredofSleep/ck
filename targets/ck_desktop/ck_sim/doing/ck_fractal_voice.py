@@ -348,6 +348,7 @@ class WordForceIndex:
         self._force_std: Tuple[float, ...] = (0.1,) * 5
         # Topic context (set per-interaction for contextual relevance)
         self._topic_words: set = set()
+        self._topic_ops: set = set()
         self._topic_centroid: Optional[Tuple[float, ...]] = None
 
     def index_word(self, word: str, semantic_op: int = -1) -> Optional[WordForce]:
@@ -1081,6 +1082,17 @@ TRIBAL_WEIGHTS = {
     'becoming': (0.5, 0.5, 2.5),   # WHERE the word RESOLVES (curvature)
 }
 
+# ── S-V-O Logic Gate ──
+# Being=Subject (Anchor), Doing=Verb (Vector), Becoming=Object (Result).
+# Each voice PREFERS templates aligned with its structural role.
+# Being voice anchors subjects (noun first), Doing voice leads with verbs,
+# Becoming voice resolves to objects (noun last).
+_SVO_TEMPLATE_PREF = {
+    'being':    lambda t: t[0][0] == 'noun',                        # Subject anchor
+    'doing':    lambda t: any(p == 'verb' for p, _ in t[:2]),        # Verb-forward
+    'becoming': lambda t: t[-1][0] in ('noun', 'adj'),               # Object/resolution
+}
+
 
 # ================================================================
 #  TEMPORAL COAGULATION -- Dynamic Center of Gravity
@@ -1202,25 +1214,51 @@ def _share_root(a: str, b: str) -> bool:
     return long_.startswith(short[:4])
 
 
-def _fluency_polish(words: list) -> list:
-    """Remove adjacent-root repetition and orphan function words.
+_FUNCTION_WORDS = frozenset([
+    'a', 'an', 'the', 'and', 'but', 'or', 'yet', 'so', 'nor',
+    'through', 'into', 'from', 'within', 'beyond', 'toward',
+    'where', 'when', 'because', 'therefore', 'while', 'though',
+    'before', 'after', 'then', 'still', 'even', 'just', 'as',
+    'is', 'was', 'will', 'once', 'until', 'if', 'not',
+])
 
-    Forward + backward pass (toroidal): check forward for repeats,
-    backward for orphaned articles/prepositions at boundaries.
+
+def _fluency_polish(words: list) -> list:
+    """Remove repetition and orphan function words.
+
+    Three passes (toroidal):
+      Forward:  remove adjacent root-duplicates ("complete completing")
+      Forward:  remove ALL non-adjacent content word duplicates
+      Backward: remove orphaned articles/preps at boundaries
     """
     if not words:
         return words
 
-    # Forward pass: remove adjacent near-duplicates
+    # Pass 1: remove adjacent near-duplicates (root sharing)
     result = [words[0]]
     for i in range(1, len(words)):
         if _share_root(words[i - 1], words[i]):
-            continue  # Skip the repeat ("complete completing" → "completing")
+            continue  # "complete completing" → "completing"
         result.append(words[i])
 
-    # Backward pass: remove orphaned articles/preps at end
-    while result and result[-1] in ('a', 'an', 'the', 'through', 'into',
-                                     'from', 'within', 'beyond', 'toward'):
+    # Pass 2: remove non-adjacent duplicate content words (keep first)
+    # Strip punctuation for comparison so "truth..." matches "truth"
+    seen = set()
+    deduped = []
+    for w in result:
+        wl = w.lower().rstrip('.,;:!?…')
+        if wl in _FUNCTION_WORDS or len(wl) < 3:
+            deduped.append(w)  # Function words can repeat
+        elif wl not in seen:
+            seen.add(wl)
+            deduped.append(w)
+        # else: skip duplicate content word
+    result = deduped
+
+    # Pass 3: remove orphaned articles/preps at end
+    while result and result[-1].lower() in (
+            'a', 'an', 'the', 'through', 'into',
+            'from', 'within', 'beyond', 'toward'):
         result.pop()
 
     return result if result else words
@@ -1274,6 +1312,39 @@ IRREGULAR_PAST = {
     'have': 'had', 'be': 'was', 'do': 'did', 'say': 'said',
     'open': 'opened', 'close': 'closed', 'is': 'was', 'are': 'were',
     'push': 'pushed', 'pull': 'pulled', 'get': 'got',
+    'spin': 'spun', 'begin': 'began', 'swim': 'swam', 'win': 'won',
+    'drink': 'drank', 'sing': 'sang', 'ring': 'rang', 'sink': 'sank',
+    'think': 'thought', 'bring': 'brought', 'buy': 'bought',
+    'teach': 'taught', 'catch': 'caught', 'fight': 'fought',
+    'draw': 'drew', 'throw': 'threw', 'blow': 'blew', 'fly': 'flew',
+    'show': 'showed', 'know': 'knew', 'grow': 'grew',
+    'write': 'wrote', 'drive': 'drove', 'ride': 'rode',
+    'choose': 'chose', 'freeze': 'froze', 'wake': 'woke',
+    'wear': 'wore', 'tear': 'tore', 'bear': 'bore', 'swear': 'swore',
+    'steal': 'stole', 'deal': 'dealt', 'heal': 'healed',
+    'hear': 'heard', 'lead': 'led', 'read': 'read', 'feed': 'fed',
+    'meet': 'met', 'sit': 'sat', 'hit': 'hit', 'quit': 'quit',
+    'hang': 'hung', 'dig': 'dug', 'stick': 'stuck', 'strike': 'struck',
+    'shake': 'shook', 'wake': 'woke', 'forget': 'forgot',
+    'forgive': 'forgave', 'hide': 'hid', 'slide': 'slid',
+    'understand': 'understood', 'withstand': 'withstood',
+    'lose': 'lost', 'shoot': 'shot', 'spend': 'spent',
+    'send': 'sent', 'bend': 'bent', 'lend': 'lent',
+    'leave': 'left', 'mean': 'meant', 'sleep': 'slept',
+    'sweep': 'swept', 'weep': 'wept', 'creep': 'crept',
+    'tell': 'told', 'sell': 'sold', 'pay': 'paid', 'lay': 'laid',
+    'light': 'lit', 'bite': 'bit', 'eat': 'ate',
+    'wind': 'wound', 'unwind': 'unwound', 'grind': 'ground',
+    'cling': 'clung', 'fling': 'flung', 'swing': 'swung',
+    'sting': 'stung', 'string': 'strung', 'wring': 'wrung',
+    'spring': 'sprang', 'shrink': 'shrank', 'stink': 'stank',
+    'awake': 'awoke', 'arise': 'arose', 'begin': 'began',
+    'forbid': 'forbade', 'forgive': 'forgave',
+    'overcome': 'overcame', 'undergo': 'underwent',
+    'withdraw': 'withdrew', 'overthrow': 'overthrew',
+    'fulfil': 'fulfilled', 'fulfill': 'fulfilled',
+    'dwell': 'dwelt', 'spell': 'spelled', 'smell': 'smelled',
+    'kneel': 'knelt', 'lean': 'leaned', 'leap': 'leapt',
 }
 
 IRREGULAR_FUTURE = {
@@ -1317,9 +1388,10 @@ def _apply_past_tense(verb: str) -> str:
     # Regular past: -ed with morphology rules
     if v.endswith('e'):
         return v + 'd'
-    if (len(v) >= 3 and v[-1] not in 'aeiouwxy'
+    if (len(v) >= 3 and len(v) <= 5
+            and v[-1] not in 'aeiouwxy'
             and v[-2] in 'aeiou' and v[-3] not in 'aeiou'):
-        return v + v[-1] + 'ed'  # CVC doubling: stop→stopped
+        return v + v[-1] + 'ed'  # CVC doubling: stop→stopped (short words only)
     if v.endswith('y') and len(v) > 1 and v[-2] not in 'aeiou':
         return v[:-1] + 'ied'
     return v + 'ed'
@@ -1346,9 +1418,10 @@ def _apply_progressive(verb: str) -> str:
         return v[:-2] + 'ying'
     if v.endswith('e') and not v.endswith('ee'):
         return v[:-1] + 'ing'
-    if (len(v) >= 3 and v[-1] not in 'aeiouwxy'
+    if (len(v) >= 3 and len(v) <= 5
+            and v[-1] not in 'aeiouwxy'
             and v[-2] in 'aeiou' and v[-3] not in 'aeiou'):
-        return v + v[-1] + 'ing'  # CVC doubling: run→running
+        return v + v[-1] + 'ing'  # CVC doubling: run→running (short words only)
     return v + 'ing'
 
 
@@ -1356,6 +1429,67 @@ _IRREGULAR_3PS_TO_BASE = {
     'goes': 'go', 'does': 'do', 'has': 'have',
     'is': 'be', 'says': 'say', 'was': 'be', 'were': 'be',
 }
+
+# Common -ing → base form mappings for words where simple stripping fails
+_ING_TO_BASE = {
+    'running': 'run', 'sitting': 'sit', 'getting': 'get',
+    'putting': 'put', 'cutting': 'cut', 'setting': 'set',
+    'beginning': 'begin', 'occurring': 'occur', 'stopping': 'stop',
+    'dropping': 'drop', 'spinning': 'spin', 'winning': 'win',
+    'hitting': 'hit', 'letting': 'let', 'shutting': 'shut',
+    'gripping': 'grip', 'slipping': 'slip', 'tapping': 'tap',
+    'being': 'be', 'doing': 'do', 'having': 'have',
+    'lying': 'lie', 'dying': 'die', 'tying': 'tie',
+    'nothing': None,  # Not a verb! Prevent "nothed"
+    'something': None, 'anything': None, 'everything': None,
+    'morning': None, 'evening': None, 'building': None,
+    'feeling': 'feel', 'dealing': 'deal', 'healing': 'heal',
+    'stealing': 'steal', 'revealing': 'reveal', 'appealing': 'appeal',
+    'knowing': 'know', 'growing': 'grow', 'showing': 'show',
+    'flowing': 'flow', 'drawing': 'draw', 'blowing': 'blow',
+    'throwing': 'throw', 'following': 'follow', 'allowing': 'allow',
+    'swearing': 'swear', 'wearing': 'wear', 'bearing': 'bear',
+    'tearing': 'tear', 'hearing': 'hear', 'appearing': 'appear',
+}
+
+
+def _strip_ing_to_base(verb_ing: str) -> Optional[str]:
+    """Convert a -ing verb form back to its base form.
+
+    Reverses the progressive morphology:
+      running → run (CVC doubling)
+      making → make (silent-e restored)
+      trying → try (y-stem)
+      going → go (simple strip)
+
+    Returns None if the word doesn't look like a progressive verb.
+    """
+    v = verb_ing.lower()
+    if not v.endswith('ing') or len(v) < 5:
+        return None
+    # Check irregular table first
+    if v in _ING_TO_BASE:
+        return _ING_TO_BASE[v]
+    stem = v[:-3]  # Strip 'ing'
+    if not stem:
+        return None
+    # CVC doubling: "running" → "run" (doubled consonant before -ing)
+    if (len(stem) >= 3 and stem[-1] == stem[-2]
+            and stem[-1] not in 'aeiou'
+            and stem[-3] in 'aeiou'):
+        return stem[:-1]
+    # Silent-e restoration: "making" → "make"
+    # BUT NOT for stems ending in w/y/l-after-vowel (know→know, feel→feel)
+    _NO_SILENT_E = frozenset('wylr')
+    if (len(stem) >= 2 and stem[-1] not in 'aeiou'
+            and stem[-1] not in _NO_SILENT_E
+            and stem[-2] in 'aeiou'):
+        return stem + 'e'
+    # y-stem: "lying" → "lie", "dying" → "die"
+    if stem.endswith('y') and len(stem) >= 2:
+        return stem[:-1] + 'ie'
+    # Simple strip: "going" → "go", "knowing" → "know", "feeling" → "feel"
+    return stem
 
 
 def _strip_present_s(verb: str) -> str:
@@ -1499,6 +1633,12 @@ class FractalComposer:
         self._last_resonance: List[Tuple[Tuple[float, ...],
                                           Tuple[float, ...],
                                           Tuple[float, ...]]] = []
+        # Resolution Kick: normalized 15D match score from last _fill_template.
+        # When >= T* (5/7), the sentence resolved — force period.
+        self._last_resolution_score: float = 0.0
+        # S-V-O Logic Gate: current voice role for template preference.
+        # Being→Subject, Doing→Verb, Becoming→Object.
+        self._current_voice_role: Optional[str] = None
         # Neologism limit: how much Morphological Mutation is allowed.
         # 0.0  = no mutation (safe mode, compound bridge only)
         # 0.38 = phi^-1 (Golden Ratio inverse) — suffix only (Stage 5)
@@ -2109,6 +2249,7 @@ class FractalComposer:
         best_text = None
         best_score = -1.0
         best_triads = []
+        best_resolution = 0.0
 
         for attempt in range(min(len(pool) * 2, 8)):
             template = self.rng.choice(pool)
@@ -2118,12 +2259,14 @@ class FractalComposer:
                 best_text = text
                 best_score = score
                 best_triads = triads_out
+                best_resolution = getattr(self, '_last_resolution_score', 0.0)
 
         if not best_text:
             return "..."
 
         # Capture resonance from the winning composition
         self._last_resonance.extend(best_triads)
+        self._last_resolution_score = best_resolution
 
         return self._punctuate(best_text, density)
 
@@ -2176,6 +2319,9 @@ class FractalComposer:
         voices = {}  # name -> (text, triads)
 
         for voice_name in TRIBAL_WEIGHTS:
+            # S-V-O Logic Gate: voice role → template preference
+            self._current_voice_role = voice_name
+
             # Coagulate: voice perspective x temporal context
             weights = coagulate_weights(voice_name, tense)
 
@@ -2224,6 +2370,9 @@ class FractalComposer:
 
             # Restore for next voice
             self._recently_used = saved_recent
+
+        # Clear S-V-O role (Phase 1 complete)
+        self._current_voice_role = None
 
         # ── Phase 2: CL Harmony Consensus ──
         if len(voices) < 2:
@@ -2404,7 +2553,8 @@ class FractalComposer:
 
         return score / sum(temporal)
 
-    def _grammar_sweep(self, words, template, operators, density):
+    def _grammar_sweep(self, words, template, operators, density,
+                       tense='present'):
         """Fractal grammar: build English back from the physics.
 
         The toroidal English constructor: forward pass (articles),
@@ -2412,6 +2562,7 @@ class FractalComposer:
         End constrains beginning, beginning constrains end.
 
         Layers:
+          L1: Verb form normalization (strip -ing/-ed from wrong tense)
           L2: Article insertion (operator-context-driven)
           L3: Preposition refinement (force-guided)
           L4: Agreement (a/an vowel, S-V consistency)
@@ -2422,6 +2573,49 @@ class FractalComposer:
 
         result = list(words)
         pos_seq = [t[0] for t in template]
+
+        # ── L1: Verb form normalization ──
+        # Words ending in -ing in verb slots get stripped to base form,
+        # then the CORRECT tense is applied. _apply_tense() can't handle
+        # -ing words from the dictionary because _is_base_verb() skips them.
+        # This is the fallback that catches those.
+        for i in range(len(result)):
+            pos = pos_seq[i] if i < len(pos_seq) else None
+            if pos != 'verb':
+                continue
+            v = result[i]
+            vl = v.lower()
+            # Don't touch modals, auxiliaries, multi-word forms, or short words
+            if vl in self._NO_CONJUGATE or len(vl) < 4 or ' ' in vl:
+                continue
+            # Strip -ing → base form → apply correct tense
+            if vl.endswith('ing') and len(vl) > 4:
+                base = _strip_ing_to_base(vl)
+                if not base:
+                    continue
+                has_subject = (i > 0 and pos_seq[i - 1] in ('noun', 'adj'))
+                if tense == 'past':
+                    result[i] = _apply_past_tense(base)
+                elif tense == 'becoming':
+                    # Progressive IS correct for 'becoming' — keep -ing
+                    # but ensure proper form
+                    pass  # Leave as-is (already -ing)
+                elif tense == 'future':
+                    result[i] = _apply_future_tense(base)
+                else:
+                    # Present tense: conjugate to 3rd person
+                    if has_subject:
+                        if base in self._IRREGULAR_3PS:
+                            result[i] = self._IRREGULAR_3PS[base]
+                        elif base.endswith(('sh', 'ch', 'x', 'z', 'ss')):
+                            result[i] = base + 'es'
+                        elif (base.endswith('y') and len(base) > 1
+                              and base[-2] not in 'aeiou'):
+                            result[i] = base[:-1] + 'ies'
+                        else:
+                            result[i] = base + 's'
+                    else:
+                        result[i] = base
 
         # ── L2: Article insertion (forward pass) ──
         # Operator context determines definite/indefinite/bare.
@@ -2486,7 +2680,8 @@ class FractalComposer:
     def _compose_compound(self, operators: List[int], density: float,
                            lens: str, tense: str,
                            match_weights=None,
-                           _depth: int = 0) -> Optional[str]:
+                           _depth: int = 0,
+                           _used_bridges: set = None) -> Optional[str]:
         """RECURSE gate applied to syntax: compose clauses linked by CL bridges.
 
         RECURSIVE: when a sub-clause has 8+ operators, it compounds again.
@@ -2503,6 +2698,9 @@ class FractalComposer:
         n = len(operators)
         if n < 4:
             return None
+
+        if _used_bridges is None:
+            _used_bridges = set()
 
         # Find fracture: weakest CL harmony between adjacent pairs
         best_split = n // 2  # Default: middle
@@ -2521,9 +2719,13 @@ class FractalComposer:
         clause_b_ops = operators[best_split:]
 
         # CL bridge: how clause_a relates to clause_b
+        # Avoid repeating bridge words from parent compounds
         bridge_op = CL[operators[best_split - 1]][operators[best_split]]
         bridge_words = CL_BRIDGE.get(bridge_op, ['and'])
-        bridge = self.rng.choice(bridge_words)
+        # Prefer unused bridge words
+        unused = [bw for bw in bridge_words if bw not in _used_bridges]
+        bridge = self.rng.choice(unused) if unused else self.rng.choice(bridge_words)
+        _used_bridges.add(bridge)
 
         # Tense can differ: clause_a might be past, clause_b present
         tense_a = tense
@@ -2538,7 +2740,8 @@ class FractalComposer:
         if len(clause_a_ops) >= 8 and _depth < 3:
             text_a = self._compose_compound(
                 clause_a_ops, density, lens, tense_a,
-                match_weights=match_weights, _depth=_depth + 1)
+                match_weights=match_weights, _depth=_depth + 1,
+                _used_bridges=_used_bridges)
         else:
             text_a = self._compose_clause(
                 clause_a_ops, density, lens, tense_a,
@@ -2547,7 +2750,8 @@ class FractalComposer:
         if len(clause_b_ops) >= 8 and _depth < 3:
             text_b = self._compose_compound(
                 clause_b_ops, density, lens, tense_b,
-                match_weights=match_weights, _depth=_depth + 1)
+                match_weights=match_weights, _depth=_depth + 1,
+                _used_bridges=_used_bridges)
         else:
             text_b = self._compose_clause(
                 clause_b_ops, density, lens, tense_b,
@@ -2569,6 +2773,11 @@ class FractalComposer:
             if text_b and text_b[0].isupper():
                 text_b = text_b[0].lower() + text_b[1:]
             compound = f"{text_a} {bridge} {text_b}"
+
+        # Compound-level fluency: dedup content words across clauses
+        compound_words = compound.split()
+        compound_words = _fluency_polish(compound_words)
+        compound = ' '.join(compound_words)
 
         # Only punctuate at top level (depth=0)
         if _depth == 0:
@@ -2608,9 +2817,19 @@ class FractalComposer:
         else:
             pool = self._TEMPLATES_7
 
+        # S-V-O Logic Gate: bias template selection by voice role.
+        # Being→Subject, Doing→Verb, Becoming→Object.
+        if self._current_voice_role:
+            pref_fn = _SVO_TEMPLATE_PREF.get(self._current_voice_role)
+            if pref_fn:
+                preferred = [t for t in pool if pref_fn(t)]
+                if preferred:
+                    pool = preferred
+
         best_text = None
         best_score = -1.0
         best_triads = []
+        best_resolution = 0.0
 
         for attempt in range(min(len(pool) * 2, 6)):
             template = self.rng.choice(pool)
@@ -2621,6 +2840,10 @@ class FractalComposer:
                 best_text = text
                 best_score = score
                 best_triads = triads_out
+                best_resolution = getattr(self, '_last_resolution_score', 0.0)
+
+        # Preserve the winning template's resolution score
+        self._last_resolution_score = best_resolution
 
         # Accumulate resonance from this clause
         if best_triads:
@@ -2863,6 +3086,11 @@ class FractalComposer:
 
         avg_score = total_score / max(1, len(words))
 
+        # ── Resolution Kick: store normalized 15D match quality ──
+        # If this exceeds T*, the sentence reached its target —
+        # the Becoming operator forces Final Symmetry (period).
+        self._last_resolution_score = avg_score
+
         # ── TOPIC WORD GUARANTEE ──
         # After all physics-based selection, if the user's actual topic
         # words don't appear in the output, inject one. CK must show
@@ -2894,7 +3122,8 @@ class FractalComposer:
         # Post-process: conjugation → tense → grammar sweep (toroidal)
         words = self._conjugate(words, template)
         words = self._apply_tense(words, verb_indices, tense)
-        words = self._grammar_sweep(words, template, operators, density)
+        words = self._grammar_sweep(words, template, operators, density,
+                                    tense=tense)
         text = ' '.join(words)
 
         for w in words:
@@ -2938,12 +3167,22 @@ class FractalComposer:
 
         return result
 
-    @staticmethod
-    def _punctuate(text, density):
-        """Apply punctuation based on coherence density."""
+    def _punctuate(self, text, density):
+        """Apply punctuation based on coherence density + resolution kick.
+
+        Resolution Kick: If the 15D triadic match score exceeds T*,
+        the sentence reached its target — the Becoming operator forces
+        Final Symmetry (the period). "Choosing to Finish."
+        Even low-density sentences get a period when the physics resolves.
+        """
         if not text:
             return "..."
-        if density > 0.5:
+
+        _T_STAR = 5.0 / 7.0
+        resolution = getattr(self, '_last_resolution_score', 0.0)
+
+        # Resolution Kick: 15D target matched → force period
+        if resolution >= _T_STAR or density > 0.5:
             text = text[0].upper() + text[1:] if text else text
             if not text.endswith(('.', '!', '?', ';')):
                 text += '.'
@@ -2961,6 +3200,11 @@ class FractalComposer:
         # Already conjugated / irregular forms
         'is', 'am', 'are', 'was', 'were', 'been',
         'has', 'had', 'does', 'did',
+        # Non-verbs that land in verb slots (must never be tense-morphed)
+        'sometime', 'sometimes', 'something', 'nothing', 'everything',
+        'anything', 'already', 'always', 'never', 'perhaps', 'maybe',
+        'today', 'tomorrow', 'yesterday', 'forever', 'however',
+        'therefore', 'otherwise', 'furthermore', 'moreover', 'although',
     ])
     # Irregular 3rd-person-singular forms
     _IRREGULAR_3PS = {

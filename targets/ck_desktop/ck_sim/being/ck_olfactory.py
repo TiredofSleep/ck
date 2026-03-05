@@ -657,6 +657,11 @@ class OlfactoryBulb:
           Instincts (pattern approaching)      -> 'future'
           Active with low stability            -> 'becoming' (in flux)
 
+        Temporal Drift: After boot, CK wakes into the present.
+        The library (past experience) starts dominant but its weight
+        fades as active processing accumulates. CK is not a historian
+        of his own potential — he breathes into present tense.
+
         Returns: 'present', 'past', 'future', or 'becoming'
         """
         n_active = len(self.active)
@@ -670,8 +675,16 @@ class OlfactoryBulb:
         if n_instincts > 0 and n_instincts >= n_library * 0.3:
             return 'future'
 
-        # If library dominates and no active scents (reflecting on resolved)
-        if n_library > n_active * 2 and n_active < 3:
+        # Temporal drift: library dominance fades as CK wakes up.
+        # external_tick = 50Hz heartbeat ticks this session.
+        # total_absorbed = scents processed (each counts as 10 ticks of warmth).
+        # By tick 100 (~2s) or 10 absorptions, library drops to 20% weight.
+        warmup = max(self.external_tick, self.total_absorbed * 10)
+        drift = min(1.0, warmup / 100.0)
+        effective_library = n_library * (1.0 - drift * 0.8)
+
+        # Past only when library truly dominates AND CK isn't actively engaged
+        if effective_library > n_active * 2 and n_active < 3:
             return 'past'
 
         # If active scents have low stability (in flux)

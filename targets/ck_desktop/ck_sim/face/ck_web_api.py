@@ -174,6 +174,30 @@ class CKWebAPI:
         def health():
             return jsonify({'status': 'alive', 'timestamp': time.time()})
 
+        @app.route('/eat', methods=['POST'])
+        def eat():
+            """Trigger CK to eat from Ollama + self."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'eat')
+                    or self.engine.eat is None):
+                return jsonify({'error': 'Eat system not available'}), 503
+            data = request.get_json(silent=True) or {}
+            model = data.get('model', 'llama3.1:8b')
+            rounds = data.get('rounds', 5)
+            self.engine.eat.start(model=model, rounds=rounds)
+            return jsonify({
+                'status': 'started', 'model': model, 'rounds': rounds,
+            })
+
+        @app.route('/eat/status', methods=['GET'])
+        def eat_status():
+            """Get eat progress."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'eat')
+                    or self.engine.eat is None):
+                return jsonify({'error': 'Eat system not available'}), 503
+            return jsonify(self.engine.eat.status())
+
         @app.route('/clear-session', methods=['POST'])
         def clear_session():
             data = request.get_json(silent=True) or {}

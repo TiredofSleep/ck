@@ -76,6 +76,7 @@ _CK_ALIAS_MAP = {
     'ck_sim.ck_power_sense':        'ck_sim.being.ck_power_sense',
     'ck_sim.ck_vortex_physics':     'ck_sim.being.ck_vortex_physics',
     'ck_sim.ck_coherence_gate':     'ck_sim.being.ck_coherence_gate',
+    'ck_sim.ck_eat':                'ck_sim.being.ck_eat',
     # ── doing/ ──
     'ck_sim.ck_sim_engine':       'ck_sim.doing.ck_sim_engine',
     'ck_sim.ck_action':           'ck_sim.doing.ck_action',

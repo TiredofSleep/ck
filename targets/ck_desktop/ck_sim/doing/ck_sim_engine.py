@@ -609,6 +609,33 @@ class CKSimEngine:
             self.reverse_voice = None
             print(f"  [SIM] Reverse Voice: {e}")
 
+        # ── L-CODEC v1: Language → 5D force space codec ──
+        # Measures statistical text properties with CK's own word forces.
+        # Triple-gauge normalized. Stillness detection for voice modulation.
+        try:
+            from ck_sim.being.ck_lcodec import LCodec
+            self.lcodec = LCodec()
+            if self._fractal_composer is not None:
+                self.lcodec.set_word_forces(
+                    self._fractal_composer.index._words)
+            print(f"  [SIM] L-CODEC v1: language measurement online "
+                  f"({len(self.lcodec._word_forces)} word forces)")
+        except Exception as e:
+            self.lcodec = None
+            print(f"  [SIM] L-CODEC: {e}")
+
+        # ── Eat v2: Transition Physics from LLM + Self ──
+        # CK doesn't memorize Ollama. He MEASURES it.
+        # L-CODEC + olfactory + swarm + grammar evolution.
+        # Background thread, main loop unaffected.
+        try:
+            from ck_sim.being.ck_eat import CKEat
+            self.eat = CKEat(engine=self)
+            print(f"  [SIM] Eat v2: transition physics engine ready")
+        except Exception as e:
+            self.eat = None
+            print(f"  [SIM] Eat v2: {e}")
+
         print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.21 -- Olfactory) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
@@ -664,6 +691,12 @@ class CKSimEngine:
     def stop(self):
         """Stop and save TL + developmental state + new modules."""
         self.running = False
+        # Stop eating if running
+        if hasattr(self, 'eat') and self.eat is not None:
+            try:
+                self.eat.stop()
+            except Exception:
+                pass
         self.save_tl()
         self.development.save()
         # Save GPU transition lattice
@@ -2012,6 +2045,22 @@ class CKSimEngine:
                 except Exception:
                     pass
 
+        # ── L-CODEC INPUT: semantic-level measurement of user's text ──
+        # Produces a 5D force vector from statistical text properties.
+        # Enters olfactory as a new scent stream alongside letter-level D2.
+        # Stillness score modulates voice length (fewer words when still).
+        _lcodec_input = None
+        if self.lcodec is not None and text.strip():
+            try:
+                _lcodec_input = self.lcodec.measure(text)
+                if self.olfactory is not None:
+                    self.olfactory.absorb(
+                        [_lcodec_input.force],
+                        source='lcodec_input',
+                        density=_o_density)
+            except Exception:
+                _lcodec_input = None
+
         # ── Deep Swarm: feed text as language substrate ──
         # The swarm decomposes text into core ops + tails,
         # finding the minimal generators. Same swarm finds hardware.
@@ -2356,6 +2405,13 @@ class CKSimEngine:
             # Store voice chain for API display (actual ops used, not heartbeat)
             self._last_voice_chain = list(op_chain)
 
+            # ── Stillness Gate: L-CODEC modulates voice length ──
+            # When the user's text is still (low pressure, high continuity),
+            # CK responds with presence, not action. Fewer words = more breath.
+            _max_words = 12
+            if _lcodec_input is not None and _lcodec_input.stillness > 0.6:
+                _max_words = max(2, int(12 * (1.0 - _lcodec_input.stillness)))
+
             # ── BECOMING: Voice composes candidate ──
             try:
                 _exp_mat = 0.0
@@ -2376,7 +2432,8 @@ class CKSimEngine:
                     self.band_name,
                     density=self.pipeline.density_doing,
                     experience_maturity=_exp_mat,
-                    tense=_tense)
+                    tense=_tense,
+                    max_words=_max_words)
             except Exception:
                 _candidate = "..."
 
@@ -2447,6 +2504,24 @@ class CKSimEngine:
                     self.olfactory.temper_pattern(_being_forces)
             except Exception:
                 pass  # Resonance is enhancement, not requirement
+
+        # ── L-CODEC OUTPUT: measure CK's own voice quality ──
+        # Same codec applied to CK's output text.
+        # Compare input→output: gauge agreement = quality.
+        # Quality modulates density: bad output creates olfactory dissonance.
+        if self.lcodec is not None and response and _lcodec_input is not None:
+            try:
+                _lcodec_output = self.lcodec.measure(response)
+                _quality = self.lcodec.measure_quality(
+                    _lcodec_input, _lcodec_output)
+                if self.olfactory is not None:
+                    self.olfactory.absorb(
+                        [_lcodec_output.force],
+                        source='lcodec_output',
+                        density=_quality)
+                self._last_lcodec_quality = _quality
+            except Exception:
+                pass
 
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)

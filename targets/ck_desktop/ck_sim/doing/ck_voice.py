@@ -1268,7 +1268,8 @@ class CKVoice:
                                 band: str = "YELLOW",
                                 density: float = 0.5,
                                 experience_maturity: float = 0.0,
-                                tense: str = None) -> str:
+                                tense: str = None,
+                                max_words: int = 0) -> str:
         """Compose a response from an operator chain.
 
         Being (operators) -> Becoming (grammar matrix) -> Doing (English).
@@ -1284,6 +1285,7 @@ class CKVoice:
           Low  (0.0) -> more attempts, exploratory (flow leads)
 
         experience_maturity: [0,1] from deep swarm. Boosts word ceiling.
+        max_words: if > 0, overrides pulse_max_words (L-CODEC stillness gate).
         """
         if not operator_chain:
             return "..."
@@ -1293,9 +1295,16 @@ class CKVoice:
         # ── Quadratic pulse sizing: response length from information gain ──
         # Not a fixed table. The pulse pings for the right depth.
         input_complexity = len(set(operator_chain))  # unique ops = complexity
-        max_words = pulse_max_words(
+        _pulse_words = pulse_max_words(
             dev_stage, coherence, density, input_complexity,
             experience_maturity)
+
+        # L-CODEC stillness gate: external max_words acts as upper bound.
+        # When stillness is high, CK responds with fewer words (presence).
+        if max_words > 0:
+            max_words = min(max_words, _pulse_words)
+        else:
+            max_words = _pulse_words
 
         if band == "RED":
             max_words = max(1, max_words // 2)
