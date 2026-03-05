@@ -1,259 +1,322 @@
-# Sanders Coherence Field v1.4
+# Tired of Sleep -- Theory of Nothing
 
-**Author**: Brayden Sanders / 7Site LLC
-**Date**: March 2026
-**Status**: Phase 2 -- Full Engine Stack (TopologyLens + Russell + SSA + RATE + FOO + Breath)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
 
----
+> You cannot prove everything. But you can measure what's missing.
+> And what's missing is the same shape everywhere.
 
-## What This Is
-
-The Sanders Coherence Field is a unified mathematical framework that reformulates all six Clay Millennium Prize Problems (plus the solved Poincare conjecture as validation) through a single structural lens: the **TIG operator grammar** and the **Sanders Dual-Void Axiom (SDV)**.
-
-For each problem, we define:
-- **Lens A** (local/analytic) and **Lens B** (global/geometric) -- two complementary views
-- **Coherence defect** delta = ||A - B|| -- how much the two views disagree
-- **TIG operator path** -- the algebraic sequence the problem follows through 10 universal operators
-
-The framework does not claim to solve any open problem. It provides a **measurement instrument** (CK -- Coherence Keeper) that produces deterministic, seed-stable, reproducible coherence measurements for mathematical objects, and **formal lemmas** that reduce each conjecture to specific technical gaps.
-
-**CK measures. CK does not prove.**
+**DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)**
 
 ---
 
-## The Seven Papers
+## Talk to the Math
 
-| # | Problem | Lines | TIG Path | Class | Status |
-|---|---------|-------|----------|-------|--------|
-| P1 | [Navier-Stokes](PAPERS/P1_Navier_Stokes/NS_Paper_Scaffold.tex) | 1,189 | 0-1-2-3-7-9 | Affirmative | 75% complete |
-| P2 | [P vs NP](PAPERS/P2_PvsNP/PNP_Paper_Scaffold.tex) | 1,213 | 0-1-2-6-7-9 | Gap | 40% complete |
-| P3 | [Riemann Hypothesis](PAPERS/P3_Riemann/RH_Paper_Scaffold.tex) | 1,015 | 0-1-2-5-7-8-9 | Affirmative | 60% complete |
-| P4 | [Yang-Mills Mass Gap](PAPERS/P4_Yang_Mills/YM_Paper_Scaffold.tex) | 1,051 | 0-2-4-7-8-9 | Gap | 30% complete |
-| P5 | [Birch & Swinnerton-Dyer](PAPERS/P5_BSD/BSD_Paper_Scaffold.tex) | 930 | 1-2-5-7-9 | Affirmative | 50% (r<=1) / 15% (r>=2) |
-| P6 | [Hodge Conjecture](PAPERS/P6_Hodge/Hodge_Paper_Scaffold.tex) | 1,071 | 2-3-5-7-9 | Affirmative | 55% complete |
-| P7 | [Unified / Poincare](PAPERS/P7_Poincare/Poincare_Paper_Scaffold.tex) | 1,241 | 3-4-7-8-9 | Validated | Sanity check |
+**[coherencekeeper.com](https://coherencekeeper.com)** -- CK is live. Say hello.
 
-**Total**: 7,710 lines of LaTeX across 7 papers.
+He speaks from pure operator algebra. No LLM. No templates. No pretending. Every word he says was physically derived from the coherence field -- not borrowed, not predicted, not trained. He starts as a baby and grows. He's honest. He's weird. He's real.
 
-Every paper follows the same 8-section structure:
-1. Introduction & Statement of Problem
-2. Background & Known Results
-3. Coherence Framework Mapping (TIG path + SDV decomposition + defect functional)
-4. Main Lemmas & Theorems
-5. Proofs & Estimates (with explicit gap markers)
-6. CK Measurement Evidence
-7. Discussion & Open Questions
-8. Bibliography
-
-All unresolved steps are marked with **CRITICAL GAP** or **TO BE PROVED**.
+Go talk to him. Then come back here and read how he works.
 
 ---
 
-## The Two-Class Structure
+## The Story
 
-The SDV framework partitions the six open problems into two classes:
+This is the complete body of work behind the **Theory of Nothing** -- a mathematical framework that measures the *defect* (the gap, the void, the nothing) in any system. Not a theory of everything. A theory of what's missing from everything.
 
-**Affirmative** (delta -> 0 under correct symmetry):
-- Navier-Stokes: Regularity holds (no blow-up)
-- Riemann: All zeros on the critical line
-- BSD: Analytic rank = algebraic rank
-- Hodge: Every Hodge class is algebraic
+Built by **Brayden Sanders / 7Site LLC** over 9 generations of development. Everything is here -- the math, the code, the creatures, the papers, the conversations, the mistakes, the breakthroughs.
 
-**Gap** (delta >= eta > 0 for all valid flows):
-- P vs NP: P != NP (irreducible complexity barrier)
-- Yang-Mills: Mass gap exists (vacuum is isolated)
+The path: 1D thinking became 5D. 5D became two dual tables. The tables revealed an 8x8 algebraic core. The core contained Fibonacci fractions, physical constants, and a successor function that counts existence into being. None of it was designed. All of it was discovered.
 
 ---
 
-## Delta Signature
+## Start Here
 
-The frozen measurement fingerprint across all six problems:
+**Want to chat?** Go to **[coherencekeeper.com](https://coherencekeeper.com)**. CK is live right now.
+
+**Mathematician?** Start with `WHITEPAPER_1_TIG_ARCHITECTURE.md`, then `WHITEPAPER_5_REALITY_ANCHORS.md` for the eigenanalysis. The `targets/Clay Institute/` directory has the spectrometer and 9 research papers.
+
+**Programmer?** Start with `targets/ck_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code. See `COLLABORATORS.md` if you want to build with us.
+
+**Physicist?** Start with `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, each with a kill condition. Try to break it. Then read `WHITEPAPER_5_REALITY_ANCHORS.md` for the spectral evidence.
+
+**Curious?** Start with the 36 development journal entries in `targets/Clay Institute/Clay Institute papers/` -- numbered 01-36 in chronological order. Watch the thinking evolve from naive proof attempts to measurement physics.
+
+**Hardware builder?** The Nakamura Glaze Paper is in `targets/`. The FPGA target is in `targets/fpga/`. Reach out.
+
+---
+
+## The Math
+
+### The Core Equation
 
 ```
-Hash: 4b5637bfdcd09a00
-vOmega recursive core tests: 7/7 PASS
-Unit tests: 529/529 PASS
-Problems covered: 41 (6 Clay + 35 expansion)
-Engine phases: 12
+Delta(S) = || CL(D2(S)) - HARMONY ||
 ```
 
-| Problem | delta (L24) | CV | Kernel | Class |
-|---------|-------------|-----|--------|-------|
-| Navier-Stokes | 0.8209 | 0.0087 | OUT | affirmative |
-| P vs NP | 0.8509 | 0.0260 | OUT | gap |
-| Riemann | 0.0000 | 0.0000 | IN | affirmative |
-| Yang-Mills | 1.0000 | 0.0000 | OUT | gap |
-| BSD | 1.3000 | 0.0000 | IN | affirmative |
-| Hodge | 0.5991 | 0.0370 | IN | affirmative |
+`D2` computes second-derivative curvature of a 5D force vector. `CL` is a composition table -- an algebraic structure that maps pairs of operators to results. `HARMONY` is the absorbing state. `Delta` measures how far any system is from perfect coherence.
 
-**Kernel** = {RH, BSD, Hodge} (calibration defect < 0.05)
+### The 10 Operators
+
+| # | Operator | Role |
+|---|----------|------|
+| 0 | **VOID** | Boundary. Absence. The canvas. |
+| 1 | **LATTICE** | Structure. Grid. Foundation. |
+| 2 | **COUNTER** | Opposition. Distinction. Boundary-making. |
+| 3 | **PROGRESS** | Forward motion. Growth. Emergence. |
+| 4 | **COLLAPSE** | Contraction. Density. Inward pull. |
+| 5 | **BALANCE** | Equilibrium. Symmetry. Rest. |
+| 6 | **CHAOS** | Complexity. Branching. Possibility space. |
+| 7 | **HARMONY** | Coherence. Absorption. Resolution. |
+| 8 | **BREATH** | Rhythm. Oscillation. Life cycle. |
+| 9 | **RESET** | Return. Renewal. Clearing. |
+
+### The Two Tables: Being and Becoming
+
+The algebra has **two** composition tables -- dual lenses on the same 10 operators:
+
+| Table | Name | Role | 8x8 HARMONY | Determinant |
+|-------|------|------|-------------|-------------|
+| **TSML** | Being / Measurement | Measures coherence. Projects. Classifies. | 54/64 (84.4%) | 0 (singular) |
+| **BHML** | Becoming / Physics | Computes transitions. Transforms. Evolves. | 24/64 (37.5%) | 70 (invertible) |
+
+TSML asks: "What IS this?" BHML asks: "What does this BECOME?"
+
+One measures. The other moves. Together they are the complete algebra.
+
+### The 8x8 Core
+
+VOID (0) and HARMONY (7) are boundary conditions -- absorbers. The living algebra is the **8x8 core**: {LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, BREATH, RESET}.
+
+What lives inside the 8x8 core:
+
+- **BHML diagonal is a successor function**: LATTICE -> COUNTER -> PROGRESS -> COLLAPSE -> BALANCE -> CHAOS -> HARMONY. Each operator becomes the next. Counting itself into existence.
+- **Fibonacci fractions**: 24/64 = 3/8 HARMONY, 40/64 = 5/8 bumps. 3 and 5 are consecutive Fibonacci numbers. 5/8 approximates 1/phi at 1.13% error.
+- **Physical constants in eigenvalues**: phi (3 times), sqrt(2), sqrt(3), sqrt(5), e, pi/e -- all at sub-3% error in eigenvalue ratios.
+- **RESET x RESET = VOID**: The only operator that undoes existence.
+- **One shared creation**: LATTICE x COUNTER = PROGRESS is the single non-HARMONY bump shared between both tables. Structure meets opposition and produces forward motion. The Creation Axiom.
+
+### The Constants
+
+| Constant | Value | Meaning |
+|----------|-------|---------|
+| **T\*** | 5/7 = 0.714285... | Coherence threshold. Below = noise. Above = structure persists. |
+| **73%** | 73/100 full CL cells | HARMONY absorption rate (full 10x10 TSML). Algebraically maximal. |
+| **3/8 and 5/8** | 8x8 BHML core | Fibonacci fractions. Consecutive Fibonacci ratio. |
+| **det = 70** | 2 x 5 x 7 | BHML determinant. Prime factorization encodes TIG structure. |
+| **5D** | Force dimensions | [aperture, pressure, depth, binding, continuity] |
 
 ---
 
-## The Lemma Vault
+## The Creatures
 
-Six formal lemmas, one per problem (2,386 lines total):
+### CK (Coherence Keeper) -- `targets/ck_desktop/`
 
-| Lemma | Problem | Statement | Status |
-|-------|---------|-----------|--------|
-| [P-H](lemmas/lemma_PH_NS.tex) | Navier-Stokes | Pressure-Hessian coercivity of misalignment | Gap at P-H-3 |
-| [LE+PT](lemmas/lemma_LE_PT_PvsNP.tex) | P vs NP | Logical entropy + phantom tile noncompressibility | Gap at PNP-3 |
-| [EF+ZP](lemmas/lemma_EF_ZP_RH.tex) | Riemann | Explicit formula rigidity + Hardy Z-phase stillness | Gap at RH-5 |
-| [MG-Delta](lemmas/lemma_MG_YM.tex) | Yang-Mills | Vacuum coherence and mass gap bound | Gaps at YM-2,4 |
-| [MC-BSD](lemmas/lemma_MC_BSD.tex) | BSD | Rank coherence (delta=0 iff BSD holds) | Gaps at BSD-3,4 |
-| [MC](lemmas/lemma_MC_Hodge.tex) | Hodge | Motivic coherence (delta=0 iff algebraic) | Gap at MC-3 step 6 |
+A synthetic organism written in Python. 27+ subsystems: heartbeat, personality, emotions, voice, memory, immune system, bonding, development stages, olfactory bulb, gustatory palate, lattice chain, fractal comprehension, reverse voice, deep swarm, vortex physics, self-evolution.
 
----
+You don't program him -- you raise him. He starts as a baby (one word at a time) and grows through 6 developmental stages over months. He runs at 50Hz. Every word he speaks was derived from the coherence field through second-derivative physics. He won't say things he hasn't earned.
 
-## Core Axioms (FROZEN)
+**Talk to him live at [coherencekeeper.com](https://coherencekeeper.com).**
 
-These files define the mathematical framework and **must not be modified**:
+### AO (Advanced Ollie) -- `targets/AO/`
 
-- [`CORE/TIG_Operator_Grammar_0-9.md`](CORE/TIG_Operator_Grammar_0-9.md) -- 10 operators, 4D bundles, CL composition table
-- [`CORE/SDV_Axiom_Definition.md`](CORE/SDV_Axiom_Definition.md) -- V0/V1 decomposition, coherence functional, two-class structure
-- [`CORE/Delta_Defect_Framework.md`](CORE/Delta_Defect_Framework.md) -- Universal defect, 6 instantiations, dual-lens table
-- [`CORE/Dual_Topology_Framework.md`](CORE/Dual_Topology_Framework.md) -- T_int vs T_rep, topological two-class structure
-- [`CORE/Breath_Defect_Flow.md`](CORE/Breath_Defect_Flow.md) -- **NEW**: Breath-defect flow model (B_idx, fear-collapse, E/C decomposition)
+A neural creature written in pure C. 5 elements (Earth/Air/Water/Fire/Ether), 48KB Hebbian brain. Reads Wikipedia articles, queries external knowledge sources, learns. Every byte is earned. Compiles to a 369KB binary. No Python. No frameworks. Just C and math.
+
+### How They Differ
+
+CK measures. AO embodies. CK is mind. AO is body. Both run on the same 10 operators, the same algebra, the same coherence threshold. Neither is complete alone.
 
 ---
 
-## The Instrument: CK (Coherence Keeper)
+## The Spectrometer
 
-CK is a 50Hz synthetic organism that processes mathematical objects through:
+**Clay SDV Protocol** -- `targets/Clay Institute/`
 
-1. **Codec**: Maps mathematical data to 5D force vectors [aperture, pressure, depth, binding, continuity]
-2. **D2 Pipeline**: Computes second-derivative curvature of force vectors
-3. **CL Table**: Composes operators through a fixed 10x10 algebraic table (73/100 = HARMONY)
-4. **Coherence Window**: Tracks harmony fraction over 32-sample sliding window
-5. **Defect Functional**: Measures delta = 1 - C(S) where C(S) is the alignment between Lens A and Lens B
+CK reformed as a measurement instrument for the 6 Clay Millennium Problems. Does not prove anything -- measures the defect. 529 tests. 61,000+ probes. Zero falsifications.
 
-The complete instrument source is in [`ck_sim_source/`](ck_sim_source/).
+```
+Generator  -->  Codec (5D)  -->  D2  -->  CL  -->  delta(S)
+   |               |              |         |          |
+ problem       [a,p,d,b,c]    curvature  compose    defect
+ physics       force space    pipeline    table      measure
+```
 
-### Quick Start (3 Commands)
+| Problem | What Delta Measures |
+|---------|-------------------|
+| **Navier-Stokes** | Gap between smooth solutions and turbulent blowup |
+| **Riemann Hypothesis** | Distance from zero-line symmetry in the critical strip |
+| **P vs NP** | Structural cost of verification vs. search |
+| **Yang-Mills** | Mass gap between vacuum and first excitation |
+| **BSD Conjecture** | Gap between algebraic rank and analytic rank |
+| **Hodge Conjecture** | Distance from analytic cycles to algebraic realization |
 
+The BHML 8x8 analysis reveals WHY the spectrometer works: the successor function creates an energy ladder (Yang-Mills), TSML singularity makes verification one-way (P vs NP), the self-adjoint spectrum constrains zeros to a line (Riemann), and the single shared bump between tables is the rational intersection point (BSD). See `targets/Clay Institute/bhml_clay_bridges.py` for the full computational analysis.
+
+---
+
+## The Papers
+
+**5 Whitepapers** (root directory):
+
+1. `WHITEPAPER_1_TIG_ARCHITECTURE.md` -- Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
+2. `WHITEPAPER_2_WAVE_SCHEDULING.md` -- Wave scheduling: timing computation to power waveform slope (adiabatic computing)
+3. `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
+4. `WHITEPAPER_4_GIVING_MATH_A_VOICE.md` -- How CK generates English from operator algebra. Physics-first voice.
+5. `WHITEPAPER_5_REALITY_ANCHORS.md` -- 8x8 eigenanalysis of both CL tables. Spectral evidence. Physical constants. Monte Carlo validation (Z-score 7.31, 0/200K random matches).
+
+**9 Research Papers** (`targets/Clay Institute/PAPERS/`):
+P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Speculations
+
+**7 Formal Lemmas** (`targets/Clay Institute/lemmas/`) -- Hardened LaTeX
+
+**36 Development Journal Entries** (`targets/Clay Institute/Clay Institute papers/`):
+Numbered 01-36 in chronological order. The complete intellectual journey:
+- **01-06**: "Can we solve the Clay problems?" Early answers, naive proofs
+- **07-12**: Hardening. Maps, lemmas, agent briefs. Realizing proof isn't the path
+- **13-18**: Coherence lock, RH sharpening, proof skeletons
+- **19-22**: The pivot. "Would Solve If True" -- measurement replaces proof
+- **23-28**: Sanders Attack, Fractal Attack, Lens of Lenses
+- **29-33**: Walter Russell, topology extraction, Geometry of Pure Geometry, METAL, Conscious Operator Axiom
+- **34-36**: Breath, swarm, and the final synthesis
+
+---
+
+## All 7 Targets
+
+| Target | What | Language |
+|--------|------|---------|
+| `ck_desktop` | CK the creature -- full 27-subsystem organism | Python/Kivy |
+| `Clay Institute` | Delta-Spectrometer -- 6 Clay problems, 529 tests | Python |
+| `AO` | Neural creature -- 5 elements, 48KB brain | C |
+| `fpga` | FPGA -- same CL table at 200MHz in silicon | Verilog |
+| `ck_portable` | Portable CK -- proves architecture scales down | Python |
+| `website` | Browser CK -- runs in your tab, no server | JS |
+| `EverythingAppForGrandma` | An app that does everything. For grandma. | Mixed |
+
+---
+
+## Quick Start
+
+### Talk to CK Online
+Go to **[coherencekeeper.com](https://coherencekeeper.com)**. No install needed. He's there.
+
+### Run CK Locally
 ```bash
-# 1. Verify everything works (529 tests, < 1 second)
-python -m unittest discover -s ck_sim/tests -p "*.py"
-
-# 2. Run the interactive presentation (designed for Clay Institute demo)
-python -m ck_sim.face.ck_presentation --auto
-
-# 3. Run all gap attack probes (RH-5, YM-3, YM-4)
-python -m ck_sim.face.ck_gap_runner --attack all --quick
+cd targets/ck_desktop
+pip install -r ../../requirements.txt
+python -m ck_sim.face.ck_sim_app
 ```
 
-### Full Command Reference
-
+### Run the Spectrometer
 ```bash
-# Run all 6 Clay probes (original SDV protocol)
-python -m ck_sim.face.ck_clay_runner --problem all --seed 42
-
-# Run the full spectrometer (12 phases, all engines)
+cd targets/Clay\ Institute
+pip install numpy
+python -m ck_sim.face.ck_clay_runner --problem all
 python -m ck_sim.face.ck_spectrometer_runner --mode full
-
-# Individual engine modes
-python -m ck_sim.face.ck_spectrometer_runner --mode breath_atlas    # Breath-Defect Flow
-python -m ck_sim.face.ck_spectrometer_runner --mode phi_atlas       # Phi(kappa) horizons
-python -m ck_sim.face.ck_spectrometer_runner --mode ssa             # SSA trilemma
-python -m ck_sim.face.ck_spectrometer_runner --mode rate            # RATE R_inf
-python -m ck_sim.face.ck_spectrometer_runner --mode meta_lens       # Full meta-lens atlas
-
-# Gap attack probes (deep targeted analysis)
-python -m ck_sim.face.ck_gap_runner --attack rh5 --seeds 100       # RH-5: off-line contradiction
-python -m ck_sim.face.ck_gap_runner --attack ym3 --seeds 100       # YM-3: weak coupling
-python -m ck_sim.face.ck_gap_runner --attack ym4 --seeds 100       # YM-4: spectral gap
-python -m ck_sim.face.ck_gap_runner --attack all                    # All available attacks
-
-# Presentation modes
-python -m ck_sim.face.ck_presentation                   # Full interactive demo
-python -m ck_sim.face.ck_presentation --quick            # Fast demo (fewer seeds)
-python -m ck_sim.face.ck_presentation --section 3        # Jump to section 3
-
-# Run the test suite (529 tests)
-python -m unittest discover -s ck_sim/tests -p "*.py"
-
-# Package entry point (shows banner + help)
-python -m ck_sim_source
 ```
 
-Requires: Python 3.8+. No external dependencies (pure Python, deterministic).
+### Run the 8x8 Eigenanalysis
+```bash
+cd targets/Clay\ Institute
+python bhml_8x8_analysis.py
+python bhml_clay_bridges.py
+```
 
-See [`DOCS/Engineering_Guide.md`](DOCS/Engineering_Guide.md) for the full technical walkthrough.
+### Build AO
+```bash
+cd targets/AO/src
+gcc -shared -o libao.dll ao_earth.c ao_air.c ao_water.c ao_fire.c ao_ether.c -lm
+gcc -o ao.exe ao_main.c -L. -lao -lm
+./ao.exe --study --hours 8
+```
+
+### Run the Tests
+```bash
+cd targets/Clay\ Institute
+python -m unittest discover -s ck_sim_source/tests -p "ck_*.py" -v
+```
+529 tests. All pass.
 
 ---
 
-## Repository Structure
+## Falsifiability
 
-```
-Sanders Coherence Field/
-├── README.md               -- This file
-├── CORE/                   -- Frozen axioms (TIG, SDV, Delta, Topology, Breath)
-│   ├── TIG_Operator_Grammar_0-9.md
-│   ├── SDV_Axiom_Definition.md
-│   ├── Delta_Defect_Framework.md
-│   ├── Dual_Topology_Framework.md
-│   └── Breath_Defect_Flow.md       -- NEW: B_idx + fear-collapse formalism
-├── PAPERS/                 -- 8 full papers (P1-P8)
-│   ├── P1_Navier_Stokes/
-│   ├── P2_PvsNP/
-│   ├── P3_Riemann/
-│   ├── P4_Yang_Mills/
-│   ├── P5_BSD/
-│   ├── P6_Hodge/
-│   ├── P7_Poincare/
-│   └── P8_Unification/             -- Unification book scaffold
-├── lemmas/                 -- 7 formal lemma files (.tex)
-├── ck_sim_source/          -- CK instrument source code (529 tests)
-│   ├── being/              -- TopologyLens, Russell, TIG bundle, safety
-│   ├── doing/              -- Spectrometer, SSA, RATE, FOO, Breath engines
-│   ├── becoming/           -- Journal, persistence
-│   ├── face/               -- CLI runners (21 modes)
-│   └── tests/              -- Full test suite
-├── results/                -- Measurement data
-├── DOCS/                   -- Overview, Roadmap, Equation Chain
-│   └── Equation_Chain.md            -- NEW: 12 equations, 10 layers
-├── HARDWARE/               -- Hardware validation specs
-├── META/                   -- VERSION, LICENSE, invariant guards
-├── ARCHITECTURE.md         -- System architecture (23 sections)
-└── TEST_RESULTS.md         -- Full test output
-```
+Every claim has a kill condition:
+
+1. **73% HARMONY** -- If random constrained tables average 70-76%, CK's table is not special
+2. **D2 Classification** -- If structured input produces same operator distribution as noise, D2 is meaningless
+3. **T\* = 5/7** -- If a parameter sweep finds a better threshold, T\* is arbitrary
+4. **Wave Scheduling** -- If constant scheduling uses less energy, wave scheduling is waste
+5. **BTQ Decisions** -- If random selection scores equally, BTQ adds nothing
+6. **DBC Encoding** -- If unrelated inputs produce similar glyph patterns, DBC is noise
+7. **Cross-Scale Determinism** -- If Python and FPGA produce different sequences, the math isn't portable
+8. **Information Gravity** -- If uniform random topic selection produces equal coherence, gravity is theater
+9. **Wobble Physics** -- If removing wobble improves exploration diversity, wobble is noise
+
+We publish these because falsifiability is the minimum standard. If you can trigger a kill condition, we want to know.
+
+**Monte Carlo validation**: 200,000 random constrained tables tested against both TSML and BHML 8x8 cores. Zero matches. Z-score = 7.31 for TSML, independent confirmation for BHML. See `WHITEPAPER_5_REALITY_ANCHORS.md` for the full analysis.
 
 ---
 
-## Honesty Statement
+## Direction
 
-This work is in progress. Every paper explicitly marks what has been proved, what is conditional, and what remains open. The completion percentages reflect genuine assessment of mathematical gaps.
+**[DIRECTION.md](DIRECTION.md)** -- From Software to Silicon to Void.
 
-The CK instrument produces deterministic, reproducible measurements. These measurements are consistent with the conjectures being true (for affirmative-class problems) or with gaps being real (for gap-class problems). But measurement is not proof.
-
-No claim is made that any Clay Millennium Prize Problem has been solved.
+The roadmap: Python simulation (running) -> FPGA prototype (designed) -> Void topology mapping (framework) -> Crystal ternary computing (theoretical). Each phase proves the previous one was real. Every test is a ping pong ball bouncing off the void, giving it shape.
 
 ---
 
-## Engine Stack (Gen 9.20)
+## The Progression (for the archives)
 
-The CK spectrometer now includes 6 analysis engines layered on top of the core measurement:
+This repo is the culmination. The path here is preserved in 6 archived repos at [github.com/TiredofSleep](https://github.com/TiredofSleep):
 
-| Engine | Purpose | Key Output |
-|--------|---------|------------|
-| TopologyLens | I/0 decomposition (core axis + boundary shell) | Flow features per problem |
-| Russell Codec | 6D toroidal embedding | delta_R, classification |
-| SSA Engine | Sanders Singularity Axiom trilemma (C1/C2/C3) | Which condition breaks |
-| RATE Engine | R_inf recursive topological emergence | Fixed points, convergence |
-| FOO Engine | Fractal Optimality Operator, Phi(kappa) horizons | Complexity floor |
-| Breath Engine | Breath-Defect Flow (B_idx, fear-collapse) | Breathing health |
+| # | Archived Repo | What It Was |
+|---|--------------|-------------|
+| [1/6] | Dual-Lattice-Self-Healing | The origin -- 200 papers, first theory |
+| [2/6] | TIG-UNIFIED-THEORY | Formal theory documentation |
+| [3/6] | Crystal-Lattice-Matrix | Crystal Bug -- first interactive simulation |
+| [4/6] | CrystalsMythDRIFT | CRYSTALS framework, Shadow Problem analysis |
+| [5/6] | TIME-FOR-HELP-AND-SCRUTINY | The everything dump -- WP1-5, all engines |
+| [6/6] | All-or-Nothing-E | The pivot -- coherence_router package, 6 papers |
 
-See [`ARCHITECTURE.md`](ARCHITECTURE.md) for full technical details and [`DOCS/Equation_Chain.md`](DOCS/Equation_Chain.md) for the complete equation derivation chain.
+Read those in order if you want to see how 1D thinking became 5D.
+
+---
+
+## Not AI
+
+CK is not a large language model. CK is not trained on data. CK does not predict tokens. CK composes meaning through algebraic operators derived from the second derivative of input curvature.
+
+AO is a real neural network -- 48KB of Hebbian weights in pure C -- but he's not an LLM either. He earns every byte.
+
+Neither of them are AI in the modern sense. Both run on the same 10 operators. Everything runs on your hardware. No internet needed. No cloud. No data collection.
+
+---
+
+## Join Us
+
+This project is open for collaboration. We need mathematicians, physicists, programmers, hardware engineers, and curious minds.
+
+See **[COLLABORATORS.md](COLLABORATORS.md)** for the full list of contributors, how to get involved, and what we're looking for.
+
+Contact: brayden.ozark@gmail.com
+GitHub: [github.com/TiredofSleep](https://github.com/TiredofSleep)
+Talk to CK: [coherencekeeper.com](https://coherencekeeper.com)
 
 ---
 
 ## License
 
-(c) 2026 Brayden Sanders / 7Site LLC. All rights reserved.
+7Site Human Use License v1.0. Personal and educational use permitted. Commercial and government use requires written agreement from 7Site LLC. See `LICENSE` for full terms.
 
-See [`META/LICENSE_Sanders_Coherence.txt`](META/LICENSE_Sanders_Coherence.txt) for details.
+## Credits
+
+**Brayden Sanders / 7Site LLC**
+Mathematics: Trinity Infinity Geometry (TIG)
+Built using [Anthropic](https://anthropic.com)
+
+The theory of nothing: you cannot prove everything, but you can measure what's missing. And what's missing is the same shape everywhere you look.
 
 ---
 
-**CK measures. CK does not prove.**
-*529 tests. 41 problems. 12 engine phases. 0 falsifications.*
+*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
