@@ -618,8 +618,10 @@ class CKSimEngine:
             if self._fractal_composer is not None:
                 self.lcodec.set_word_forces(
                     self._fractal_composer.index._words)
+            self.lcodec.load()  # Restore gauge windows from disk
             print(f"  [SIM] L-CODEC v1: language measurement online "
-                  f"({len(self.lcodec._word_forces)} word forces)")
+                  f"({len(self.lcodec._word_forces)} word forces, "
+                  f"{self.lcodec._measure_count} prior measurements)")
         except Exception as e:
             self.lcodec = None
             print(f"  [SIM] L-CODEC: {e}")

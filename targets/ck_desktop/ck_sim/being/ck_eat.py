@@ -208,6 +208,11 @@ class CKEat:
         # Breath phase counter for fractal swell
         self._breath_phase = 0
 
+        # Voice journal: what CK said during eating
+        self._journal: List[dict] = []
+        self._journal_path = os.path.join(
+            os.path.expanduser('~'), '.ck', 'eat_journal.jsonl')
+
     # ── Measurement Core ──
 
     def measure_and_absorb(self, text: str, source: str) -> dict:
@@ -437,6 +442,18 @@ class CKEat:
         _words = len(composed.split())
         print(f"    [EAT] resonance: \"{composed[:60]}\" ({_words}w) "
               f"f={tuple(round(v, 2) for v in voice_result['force'])}")
+
+        # Journal: log what CK said
+        self._journal.append({
+            'round': self._status.rounds_complete + 1,
+            'time': time.time(),
+            'text': composed,
+            'force': [round(v, 4) for v in voice_result['force']],
+            'stillness': round(voice_result.get('stillness', 0.0), 4),
+            'olfactory_size': (self.engine.olfactory.library_size
+                               if self.engine.olfactory else 0),
+        })
+
         return voice_result
 
     # ── Self-Eating ──
@@ -749,7 +766,7 @@ class CKEat:
               f"trajectory: {self._force_trajectory_length:.3f}")
 
     def _save_experience(self):
-        """Persist swarm experience and olfactory library."""
+        """Persist swarm experience, olfactory library, and L-CODEC gauges."""
         try:
             if self.engine.deep_swarm is not None:
                 exp_path = os.path.join(
@@ -762,6 +779,22 @@ class CKEat:
         try:
             if self.engine.olfactory is not None:
                 self.engine.olfactory.save()
+        except Exception:
+            pass
+        try:
+            if self.engine.lcodec is not None:
+                self.engine.lcodec.save()
+        except Exception:
+            pass
+        # Append journal entries to disk (JSONL = one JSON per line)
+        try:
+            if self._journal:
+                os.makedirs(os.path.dirname(self._journal_path),
+                            exist_ok=True)
+                with open(self._journal_path, 'a', encoding='utf-8') as f:
+                    for entry in self._journal:
+                        f.write(json.dumps(entry) + '\n')
+                self._journal.clear()
         except Exception:
             pass
 

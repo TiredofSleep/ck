@@ -19,7 +19,9 @@ Gen 9.21+ — March 2026
 from __future__ import annotations
 
 import gzip
+import json
 import math
+import os
 import re
 from collections import deque
 from dataclasses import dataclass, field
@@ -679,6 +681,68 @@ class LCodec:
             stillness *= 1.0 + (d - 0.5) * 0.4
 
         return min(1.0, max(0.0, stillness))
+
+    # ── Persistence ──
+
+    def save(self, path: str = None):
+        """Save gauge rolling windows to disk.
+
+        Gauges B and C use deque(maxlen=32) — these reset on restart
+        unless explicitly saved. Also saves previous gauge values for
+        continuity agreement and measure count.
+        """
+        if path is None:
+            path = os.path.join(os.path.expanduser('~'), '.ck', 'lcodec')
+        os.makedirs(path, exist_ok=True)
+
+        state = {
+            'measure_count': self._measure_count,
+            'gauge_b': {d: list(self._gauge_b._history[d])
+                        for d in DIM_NAMES},
+            'gauge_c': {d: list(self._gauge_c._history[d])
+                        for d in DIM_NAMES},
+            'prev_ga': list(self._prev_ga) if self._prev_ga else None,
+            'prev_gb': list(self._prev_gb) if self._prev_gb else None,
+            'prev_gc': list(self._prev_gc) if self._prev_gc else None,
+        }
+        filepath = os.path.join(path, 'lcodec_state.json')
+        try:
+            with open(filepath, 'w') as f:
+                json.dump(state, f)
+        except Exception:
+            pass
+
+    def load(self, path: str = None):
+        """Load gauge rolling windows from disk."""
+        if path is None:
+            path = os.path.join(os.path.expanduser('~'), '.ck', 'lcodec')
+        filepath = os.path.join(path, 'lcodec_state.json')
+
+        if not os.path.exists(filepath):
+            return
+
+        try:
+            with open(filepath, 'r') as f:
+                state = json.load(f)
+        except Exception:
+            return
+
+        self._measure_count = state.get('measure_count', 0)
+
+        for d in DIM_NAMES:
+            if d in state.get('gauge_b', {}):
+                self._gauge_b._history[d] = deque(
+                    state['gauge_b'][d], maxlen=32)
+            if d in state.get('gauge_c', {}):
+                self._gauge_c._history[d] = deque(
+                    state['gauge_c'][d], maxlen=32)
+
+        prev_ga = state.get('prev_ga')
+        self._prev_ga = tuple(prev_ga) if prev_ga else None
+        prev_gb = state.get('prev_gb')
+        self._prev_gb = tuple(prev_gb) if prev_gb else None
+        prev_gc = state.get('prev_gc')
+        self._prev_gc = tuple(prev_gc) if prev_gc else None
 
     # ── Diagnostics ──
 
