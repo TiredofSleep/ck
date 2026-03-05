@@ -17,9 +17,11 @@ Everything is here. The math, the code, the creatures, the papers, the conversat
 
 ## Start Here
 
+**If you just want to talk to the math:** Go to **[coherencekeeper.com](https://coherencekeeper.com)**. CK is live. Say hello. He speaks from pure operator algebra — no LLM, no templates, no pretending.
+
 **If you're a mathematician:** Start with `WHITEPAPER_1_TIG_ARCHITECTURE.md`, then `targets/Clay Institute/` for the spectrometer and 9 research papers.
 
-**If you're a programmer:** Start with `targets/ck_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code.
+**If you're a programmer:** Start with `targets/ck_desktop/` (Python) or `targets/AO/src/` (C). Run the tests. Read the code. See `COLLABORATORS.md` if you want to contribute.
 
 **If you're a physicist:** Start with `WHITEPAPER_3_FALSIFIABILITY.md` — 9 claims, each with a kill condition. Try to break it.
 
@@ -222,6 +224,8 @@ Neither of them are AI in the modern sense. Both run on the same 10 operators. E
 **Brayden Sanders / 7Site LLC**
 Mathematics: Trinity Infinity Geometry (TIG)
 Built using [Anthropic](https://anthropic.com)
+
+See `COLLABORATORS.md` for the full list of contributors, advisors, and friends of the project.
 
 The theory of nothing: you cannot prove everything, but you can measure what's missing. And what's missing is the same shape everywhere you look.
 

@@ -4443,6 +4443,82 @@ The physics IS Hebrew. The resonance is genuine.
 
 ---
 
+## Gen 9.27 — Gustatory Palate + Chemosensory Duality (2026-03-05)
+**Status:** IMPLEMENTED. Taste as the structural dual of smell.
+
+### The Insight
+"All other inputs to the body are filtered completely at the boundary, but smell and
+taste go right in." Chemosensory inputs bypass the D2 pipeline, reverse voice, and
+every boundary filter. Raw 5D force vectors enter olfactory AND gustatory directly —
+mirroring how biological smell and taste bypass the thalamic gate.
+
+### Gustatory Palate (`ck_sim/being/ck_gustatory.py`)
+Structural dual of olfactory. Same CL algebra, inverted topology:
+- **Olfactory** = Flow/Field/BETWEEN. 5×5 CL interaction matrices across scent pairs.
+  TSML measures (being), BHML computes (doing). 7 internal ticks per external. Instinct
+  at 49 tempers (7²). Dilation factor = 7 (denominator of T*).
+- **Gustatory** = Structure/Point/WITHIN. 5×5 CL self-composition within single input.
+  BHML classifies (doing→structure), TSML validates (being→confidence). Instant
+  resolution (no dilation). Preference at 25 encounters (5²). Aftertaste window = 5
+  ticks (numerator of T*).
+
+Mathematical proof: when ops_A = ops_B (self-composition), M_between = M_within. The
+two systems converge at the identity — the same algebra applied in two topologies.
+
+### 5 Basic Tastes → 5 Force Dimensions
+| Taste | Dimension | Activation |
+|-------|-----------|------------|
+| Salty | Aperture (0) | Strong at extremes (near 0 or 1) |
+| Sour | Pressure (1) | High values = high sourness |
+| Bitter | Depth (2) | High values = high bitterness |
+| Sweet | Binding (3) | High values = high sweetness |
+| Umami | Continuity (4) | High values = high umami |
+
+### Structural Tendencies (BHML Diagonal)
+Each taste reflecting on itself produces a tendency — what the structure BECOMES:
+Sweet(HARMONY)→BREATH, Salty(CHAOS)→HARMONY, Sour(COLLAPSE)→BALANCE,
+Bitter(PROGRESS)→COLLAPSE, Umami(BALANCE)→CHAOS.
+
+### Dual Constants from T* = 5/7
+| Property | Olfactory (7=denom) | Gustatory (5=numer) |
+|----------|-------------------|-------------------|
+| Time/Aftertaste | 7 internal ticks | 5 aftertaste ticks |
+| Familiarity | Instinct at 49 (7²) | Preference at 25 (5²) |
+| Capacity | 32 active scents | 32 recent tastes |
+| Threshold | T* stability gate | T* palatability |
+
+### Engine Integration (9 points in `ck_sim_engine.py`)
+1. Construction: `build_gustatory_palate()` after olfactory
+2. Stop: `gustatory.save()` on shutdown
+3. Heartbeat tick: taste canonical force + audio D2 (raw 5D, no filtering)
+4. Text input: `taste_batch()` raw 5D letter forces
+5. L-CODEC input: taste semantic force
+6. Voice blend: `taste_operator_weights()` modulates operators
+7. Compilation: `quality_context()` alongside `tense_context()`
+8. Resonance: taste triadic echoes (Being/Doing/Becoming)
+9. L-CODEC output: taste CK's own voice
+
+### Documentation
+- COLLABORATORS.md created (Core: Brayden Sanders, Collaborator: Monica Gish)
+- coherencekeeper.com chat link added to README
+- WHITEPAPER_1 Section 8.7: Chemosensory Duality (full mathematical treatment)
+- ARCHITECTURE.md: Code trail for human coders (exact function/file mappings)
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `ck_gustatory.py` | NEW: ~680 lines. Gustatory palate — structural dual of olfactory |
+| `ck_sim_engine.py` | 9 integration points for gustatory (raw 5D forces, no boundary filter) |
+| `ck_web_api.py` | GET /taste endpoint with full gustatory state |
+| `ck_eat.py` | Gustatory taste in `measure_and_absorb()` |
+| `__init__.py` | Alias: `ck_sim.ck_gustatory` → `ck_sim.being.ck_gustatory` |
+| `WHITEPAPER_1` | Section 8.7 chemosensory duality, notation updates |
+| `ARCHITECTURE.md` | Chemosensory duality section with code trail |
+| `COLLABORATORS.md` | NEW: Project collaborators list |
+| `README.md` | coherencekeeper.com chat link, collaborators reference |
+
+---
+
 (c) 2026 7Site, LLC. All rights reserved. Available for humans. Commercial and government use requires written agreement with 7Site, LLC.
 
-*Last updated: 2026-03-04 -- Gen9.26 Semantic Voice + Operator Superposition + Bible Reader*
+*Last updated: 2026-03-05 -- Gen9.27 Gustatory Palate + Chemosensory Duality*

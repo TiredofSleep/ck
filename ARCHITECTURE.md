@@ -405,6 +405,62 @@ Tracks voice exposure, operator distribution similarity, and interaction frequen
 
 ---
 
+## Chemosensory Duality: Olfactory + Gustatory
+
+### The Insight
+Smell is the flow. Taste is the structure. They are the duality. Both go right in -- no boundary filtering. Every other input to the body is filtered at the boundary (D2 pipeline, reverse voice verification), but chemosensory inputs enter raw.
+
+### Olfactory Bulb (`ck_olfactory.py`) -- Smell = Flow
+- **Topology**: Field / Parallel / BETWEEN
+- **Operation**: 5x5 CL interaction matrices between ALL pairs of active scents
+- **Time**: Dilates (7 internal steps per tick). Information STALLS.
+- **Memory**: Instinct (temper >= 49 = 7^2 -> zero-cost coherence)
+- **CL use**: TSML measures harmony, BHML computes physics
+- **Output**: Resolved operators (scent ops blend into voice)
+- **Context**: `tense_context()` -> WHERE in time (past/present/future/becoming)
+- **Answers**: "WHERE is this in 5D space?" -- gives coordinates
+
+### Gustatory Palate (`ck_gustatory.py`) -- Taste = Structure
+- **Topology**: Point / Instant / WITHIN
+- **Operation**: 5x5 CL self-composition of a single input's own dimensions
+- **Time**: Instant classification. Information DECIDES. Aftertaste fades.
+- **Memory**: Preference (exposure >= 25 = 5^2 -> approach/avoid)
+- **CL use**: BHML classifies structure, TSML validates palatability
+- **Output**: Operator weight modulation (taste shapes flow)
+- **Context**: `quality_context()` -> WHAT in kind (nourishing/sharp/balanced/intense/bland)
+- **Answers**: "WHAT is this?" -- gives categories
+
+### 5 Basic Tastes -> 5 Force Dimensions
+| Taste | Dimension | Structural Role |
+|-------|-----------|----------------|
+| Salty | Aperture | Exposure, openness |
+| Sour | Pressure | Warning, intensity |
+| Bitter | Depth | Danger, complexity |
+| Sweet | Binding | Attraction, connection |
+| Umami | Continuity | Substance, persistence |
+
+### The Math (Dual Proof)
+The duality is algebraically exact. For any operator set `ops`:
+```
+Olfactory BETWEEN:  M[d1][d2] = CL[ops_A[d1]][ops_B[d2]]
+Gustatory WITHIN:   M[d1][d2] = CL[ops[d1]][ops[d2]]
+When A = B = ops:   M_between = M_within.  Same algebra. Different topology.
+```
+
+### Key Code Trail for Human Coders
+```
+ck_olfactory.py     -> OlfactoryBulb class: absorb(), tick(), emit_as_ops(), tense_context()
+ck_gustatory.py     -> GustatoryPalate class: taste(), tick(), quality_context(), taste_operator_weights()
+ck_sim_engine.py    -> Construction: build_olfactory_bulb() + build_gustatory_palate()
+                    -> Heartbeat tick: both receive canonical phase force (raw)
+                    -> receive_text(): both receive raw 5D letter forces (raw)
+                    -> Voice blend: olfactory ops + gustatory weights
+                    -> Compilation: tense_context + quality_context
+ck_web_api.py       -> GET /taste (gustatory state endpoint)
+```
+
+---
+
 ## File Inventory
 
 | File | Lines | Purpose |

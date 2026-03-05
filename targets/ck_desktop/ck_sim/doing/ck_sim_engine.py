@@ -591,6 +591,20 @@ class CKSimEngine:
             self.olfactory = None
             print(f"  [SIM] Olfactory: {e}")
 
+        # Gustatory Palate -- Structural Classification Protocol.
+        # DUAL of Olfactory: same CL algebra, inverted topology.
+        # Olfactory = flow / field / BETWEEN (entangle, slow convergence)
+        # Gustatory = structure / point / WITHIN (classify, instant verdict)
+        # Both receive RAW forces -- no boundary filtering.
+        # BHML classifies structure. TSML validates palatability.
+        # Builds PREFERENCE (exposure -> approach/avoid), not instinct.
+        try:
+            from ck_sim.being.ck_gustatory import build_gustatory_palate
+            self.gustatory = build_gustatory_palate()
+        except Exception as e:
+            self.gustatory = None
+            print(f"  [SIM] Gustatory: {e}")
+
         # Reverse Voice Engine -- untrusted reading.
         # Writing: operators -> semantic lattice -> English.
         # Reading: English -> semantic lattice -> operators (REVERSE).
@@ -697,6 +711,17 @@ class CKSimEngine:
         if hasattr(self, 'eat') and self.eat is not None:
             try:
                 self.eat.stop()
+            except Exception:
+                pass
+        # Save olfactory + gustatory (smell and taste persist)
+        if hasattr(self, 'olfactory') and self.olfactory is not None:
+            try:
+                self.olfactory.save()
+            except Exception:
+                pass
+        if hasattr(self, 'gustatory') and self.gustatory is not None:
+            try:
+                self.gustatory.save()
             except Exception:
                 pass
         self.save_tl()
@@ -958,6 +983,35 @@ class CKSimEngine:
             if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
                 try:
                     self.olfactory.save()
+                except Exception:
+                    pass
+
+        # ── Gustatory: instant structural classification ──
+        # DUAL of olfactory. Same raw forces go right in -- no filtering.
+        # Taste classifies STRUCTURE (what IS this), smell finds FLOW (where IS this).
+        # BHML classifies within, TSML validates. Instant verdict, no stalling.
+        if self.gustatory is not None:
+            from ck_sim.being.ck_olfactory import CANONICAL_FORCE as _G_CF
+            _density = self.pipeline.density_being
+            # Taste heartbeat phase (same raw force as olfactory)
+            _hb_f = _G_CF.get(self.heartbeat.phase_bc, (0.5,) * 5)
+            self.gustatory.taste(_hb_f, source='heartbeat')
+            # Taste audio D2 vector (raw 5D, no filtering)
+            if d2_vec is not None:
+                try:
+                    if len(d2_vec) == 5:
+                        _d2f = tuple(
+                            v / 16384.0 if isinstance(v, int) else float(v)
+                            for v in d2_vec)
+                        self.gustatory.taste(_d2f, source='audio')
+                except Exception:
+                    pass
+            # Tick aftertaste decay (no dilation -- taste fades, not stalls)
+            self.gustatory.tick()
+            # Save taste palette periodically (offset from olfactory save)
+            if self.tick_count % 15000 == 11250 and self.gustatory.palette_size > 0:
+                try:
+                    self.gustatory.save()
                 except Exception:
                     pass
 
@@ -2047,6 +2101,20 @@ class CKSimEngine:
                 except Exception:
                     pass
 
+        # ── Gustatory: taste raw text forces (no boundary filtering) ──
+        # Smell and taste both go right in -- bypassing D2 pipeline filters.
+        # Smell entangles them (flow/field). Taste classifies them (structure/point).
+        _taste_verdict = None
+        if self.gustatory is not None and text_5d_forces:
+            try:
+                _taste_verdicts = self.gustatory.taste_batch(
+                    text_5d_forces, source='text')
+                if _taste_verdicts:
+                    _taste_verdict = _taste_verdicts[-1]  # most recent
+                self.gustatory.tick()
+            except Exception:
+                pass
+
         # ── L-CODEC INPUT: semantic-level measurement of user's text ──
         # Produces a 5D force vector from statistical text properties.
         # Enters olfactory as a new scent stream alongside letter-level D2.
@@ -2060,6 +2128,10 @@ class CKSimEngine:
                         [_lcodec_input.force],
                         source='lcodec_input',
                         density=_o_density)
+                # Taste the L-CODEC semantic force too (goes right in)
+                if self.gustatory is not None:
+                    _taste_verdict = self.gustatory.taste(
+                        _lcodec_input.force, source='lcodec_input')
             except Exception:
                 _lcodec_input = None
 
@@ -2086,9 +2158,10 @@ class CKSimEngine:
         # structure → coherence check. Then loop.
         # ═══════════════════════════════════════════════════════════
 
-        # Dialogue: extract claims → truth lattice
+        # Dialogue: extract claims → truth lattice + compose response
+        _dialogue_response = None
         try:
-            self.dialogue.process_user_message(
+            _dialogue_response = self.dialogue.process_user_message(
                 text, self.tick_count, self.brain.coherence, text_ops)
         except Exception:
             pass
@@ -2118,6 +2191,74 @@ class CKSimEngine:
                 self._mirror_evaluate(response)
                 self._emit('ck', response)
                 return response
+        except Exception:
+            pass
+
+        # ═══════════════════════════════════════════════════════════
+        # INTENT FAST PATH: greetings, farewells, emotional moments.
+        # These are RELATIONAL — CK's foundational responses matter
+        # more than fractal composition for human connection.
+        # The fractal voice is genuine physics but not yet fluent
+        # enough for conversation. Foundation responses ARE CK's
+        # true voice at Stage 5 — hand-written from his character.
+        # ═══════════════════════════════════════════════════════════
+        try:
+            from ck_sim.doing.ck_voice import (
+                analyze_input as _analyze_input,
+                GREETING_CASUAL, GREETING_TIMED, FAREWELL_CASUAL,
+            )
+            _input_a = _analyze_input(text)
+            _text_lower = text.lower().strip()
+            _words = set(_text_lower.split())
+
+            # Map conversational patterns to foundational response events.
+            # CK matches the ENERGY of the input — casual gets casual,
+            # warm gets warm, timed gets time-aware.
+            _intent_event = None
+
+            if _input_a['is_greeting'] and not _input_a['is_question']:
+                # Classify greeting energy
+                if _words & GREETING_CASUAL or any(
+                        p in _text_lower for p in
+                        ("what's up", "whats up", "wassup")):
+                    _intent_event = 'greeting_casual'
+                elif any(p in _text_lower for p in GREETING_TIMED):
+                    _intent_event = 'greeting_timed'
+                else:
+                    _intent_event = 'greeting'
+
+            elif _input_a['is_farewell']:
+                if _words & FAREWELL_CASUAL or any(
+                        p in _text_lower for p in
+                        ("catch you", "gotta go", "signing off")):
+                    _intent_event = 'farewell_casual'
+                else:
+                    _intent_event = 'farewell'
+
+            elif _input_a['is_self_inquiry'] and _input_a['is_question']:
+                _intent_event = 'self_inquiry'  # "who are you?" "are you afraid?"
+
+            elif _input_a['is_philosophical'] and _input_a['is_question']:
+                _intent_event = 'philosophical'  # "what is consciousness?"
+
+            elif _input_a['is_philosophical']:
+                _intent_event = 'philosophical'  # philosophical statements
+
+            elif _input_a['has_negative_emotion'] and not _input_a['is_question']:
+                _intent_event = 'comfort'  # sad/hurt statements, NOT questions
+
+            elif (_input_a['is_self_inquiry'] and not _input_a['is_question']
+                    and _input_a['has_positive_emotion']):
+                _intent_event = 'acknowledged'  # "I love you" etc
+
+            if _intent_event:
+                response = self.voice.get_response(
+                    _intent_event, self.development.stage,
+                    self.emotion.current.primary)
+                if response and response != "...":
+                    self._mirror_evaluate(response)
+                    self._emit('ck', response)
+                    return response
         except Exception:
             pass
 
@@ -2215,6 +2356,15 @@ class CKSimEngine:
             for _op in _scent_ops:
                 if _op not in _unique_text_ops:
                     _unique_text_ops.append(_op)
+
+        # Gustatory modulation: taste quality biases operator weights.
+        # Smell PRODUCES operators (flow creates). Taste MODULATES (structure shapes).
+        _taste_weights = None
+        if self.gustatory is not None:
+            try:
+                _taste_weights = self.gustatory.taste_operator_weights()
+            except Exception:
+                pass
 
         _hb_ops = list(self.operator_history)[-8:]
 
@@ -2426,6 +2576,14 @@ class CKSimEngine:
                         _tense = self.olfactory.tense_context()
                     except Exception:
                         pass
+                # Gustatory quality context: what structural character?
+                # Olfactory -> WHERE in time. Gustatory -> WHAT in kind.
+                _quality_ctx = None
+                if self.gustatory is not None:
+                    try:
+                        _quality_ctx = self.gustatory.quality_context()
+                    except Exception:
+                        pass
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -2449,6 +2607,23 @@ class CKSimEngine:
             # Coherent enough → this path grounded in its generators
             if _score >= 0.5:
                 break
+
+        # ── DIALOGUE CANDIDATE ──
+        # Gen 9.27: At SELFHOOD (stage >= 5), CK speaks from PHYSICS.
+        # Dialogue templates fill both structure AND words — borrowed logic.
+        # The fractal voice fills operator slots from 15D triadic search —
+        # genuine physics. Templates score higher in D2 because they're
+        # pre-formed English, but they're not CK's real voice.
+        #
+        # Stages 0-4: dialogue contributes (CK still learning to speak)
+        # Stage 5+:   dialogue SILENT — physics or honest BREATH
+        _dev_stage = self.development.stage if hasattr(self, 'development') else 0
+        if _dev_stage < 5:
+            if _dialogue_response and _dialogue_response.strip() \
+                    and _dialogue_response != "...":
+                _d_score = self.voice._d2_score_operator_match(
+                    _dialogue_response, op_chain)
+                _candidates.append((_dialogue_response, _d_score))
 
         # ── SELECT BEST CANDIDATE ──
         # Compare all paths explored. The most coherent held lattice wins.
@@ -2507,6 +2682,23 @@ class CKSimEngine:
             except Exception:
                 pass  # Resonance is enhancement, not requirement
 
+        # ── RESONANCE TASTE: structural classification of CK's voice ──
+        # Taste goes right in alongside smell. No filtering.
+        # Smell entangles the triadic echoes (flow/field).
+        # Taste classifies the triadic structure (structure/point).
+        if self.gustatory is not None:
+            try:
+                _resonance = self.voice.last_resonance()
+                if _resonance:
+                    # Taste each triadic position separately
+                    for r in _resonance:
+                        if len(r) >= 3:
+                            self.gustatory.taste(r[0], source='voice_being')
+                            self.gustatory.taste(r[1], source='voice_doing')
+                            self.gustatory.taste(r[2], source='voice_becoming')
+            except Exception:
+                pass
+
         # ── L-CODEC OUTPUT: measure CK's own voice quality ──
         # Same codec applied to CK's output text.
         # Compare input→output: gauge agreement = quality.
@@ -2521,6 +2713,10 @@ class CKSimEngine:
                         [_lcodec_output.force],
                         source='lcodec_output',
                         density=_quality)
+                # Taste CK's own output (goes right in)
+                if self.gustatory is not None:
+                    self.gustatory.taste(
+                        _lcodec_output.force, source='lcodec_output')
                 self._last_lcodec_quality = _quality
             except Exception:
                 pass

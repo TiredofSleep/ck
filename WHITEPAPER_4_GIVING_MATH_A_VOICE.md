@@ -461,6 +461,125 @@ Present = active scent (being processed now). Past = library (already resolved).
 
 ---
 
+## 7B. The Gustatory Palate: Where Structure Crystallizes
+
+The gustatory system is the precise mathematical dual of the olfactory field. Where smell measures BETWEEN (how different force patterns interact across a field), taste measures WITHIN (how a single force pattern composes with itself). Same CL algebra, inverted topology.
+
+Both systems share a critical biological property: they bypass all boundary filtering. Raw 5D force vectors enter olfactory and gustatory directly — no D2 pipeline, no reverse voice verification, no coherence gate. This mirrors the thalamic bypass of biological chemosensory systems.
+
+### 7B.1 Structural Self-Composition
+
+Given a force vector classified to 5 dimension-operators (one per force dimension), the gustatory system computes:
+
+**Internal structure (BHML — classifies):**
+```
+for d1 in range(5):
+    for d2 in range(5):
+        matrix[d1][d2] = CL_BHML[ops[d1]][ops[d2]]
+```
+
+**Self-harmony (TSML — validates):**
+```
+for d1 in range(5):
+    for d2 in range(5):
+        matrix[d1][d2] = CL_TSML[ops[d1]][ops[d2]]
+palatability = count(HARMONY in matrix) / 25
+```
+
+The CL table application is inverted relative to olfactory: BHML classifies (doing→structure), TSML validates (being→confidence). Olfactory uses TSML to measure and BHML to compute. The duality is exact.
+
+### 7B.2 Five Basic Tastes
+
+Each force dimension maps to a basic taste through activation functions:
+
+| Taste | Dimension | Polarity | Activation |
+|-------|-----------|----------|------------|
+| Salty | Aperture (0) | bipolar | Strong at extremes (|v - 0.5| × 2) |
+| Sour | Pressure (1) | positive | Proportional to pressure |
+| Bitter | Depth (2) | positive | Proportional to depth |
+| Sweet | Binding (3) | positive | Proportional to binding |
+| Umami | Continuity (4) | positive | Proportional to continuity |
+
+The primary taste is the dimension with highest activation. Intensity is the activation magnitude relative to T*.
+
+### 7B.3 Taste Triad (One Is Three)
+
+Every taste verdict carries a triad computed from BHML result distribution:
+
+```
+result_counts = histogram(matrix values)     # 10 bins
+being_frac    = count(HARMONY, LATTICE, BALANCE) / 25      # structure/position
+doing_frac    = count(PROGRESS, COLLAPSE, CHAOS, RESET) / 25   # action/motion
+becoming_frac = count(COUNTER, BREATH, VOID) / 25         # intent/resolution
+```
+
+The taste doesn't just classify — it reveals the Being, Doing, and Becoming fractions of the input's internal structure.
+
+### 7B.4 Structural Tendency
+
+The BHML diagonal reveals what each taste BECOMES when reflecting on itself:
+
+```
+tendency[d] = CL_BHML[ops[d]][ops[d]]    # self-composition
+```
+
+Empirical tendencies:
+- Sweet (HARMONY) → BREATH (structure becomes flow)
+- Salty (CHAOS) → HARMONY (opening resolves to coherence)
+- Sour (COLLAPSE) → BALANCE (compression finds equilibrium)
+- Bitter (PROGRESS) → COLLAPSE (depth inverts to density)
+- Umami (BALANCE) → CHAOS (continuity breaks into possibility)
+
+These are not programmed — they follow algebraically from the BHML table.
+
+### 7B.5 Dual Constants from T*
+
+Where olfactory draws its constants from 7 (denominator of T* = 5/7), gustatory draws from 5 (numerator):
+
+| Property | Olfactory (7) | Gustatory (5) |
+|----------|---------------|---------------|
+| Time constant | 7 internal ticks/external tick | 5 aftertaste ticks |
+| Familiarity | Instinct at 49 = 7² | Preference at 25 = 5² |
+| Capacity | 32 active scents | 32 recent tastes |
+| Adaptation | None (instinct accelerates) | Sensitivity decreases (5+ encounters) |
+
+### 7B.6 Quality Context (Dual of Tense Context)
+
+Where olfactory provides `tense_context()` (past/present/future/becoming), gustatory provides `quality_context()`:
+
+```
+if palatability > T* and sweet dominant:     → 'nourishing'
+if sour dominant and high intensity:          → 'sharp'
+if bitter dominant and high intensity:        → 'intense'
+if no strong taste:                           → 'bland'
+else:                                         → 'balanced'
+```
+
+Tense shapes WHEN CK speaks. Quality shapes HOW CK's operators are weighted. Olfactory modulates temporal verb form. Gustatory modulates structural operator selection.
+
+### 7B.7 Preference and Adaptation
+
+Gustatory builds two kinds of memory (dual of olfactory's instinct):
+
+**Preference**: After 25 encounters (5²) with the same taste profile, approach/avoid bias forms. High-palatability patterns become preferred (structural shortcuts). Low-palatability patterns become aversions.
+
+**Adaptation**: After 5 consecutive encounters, sensitivity to that taste decreases. CK stops "tasting" what he's already tasting — attention shifts to novel inputs. This is the structural dual of instinct (where familiar patterns resolve faster, not slower).
+
+### 7B.8 Mathematical Convergence
+
+The duality proof: when a scent interacts with itself (olfactory: ops_A = ops_B) and a taste self-composes (gustatory: single input), the resulting 5×5 matrices are identical:
+
+```
+M_between[d1][d2] = CL[ops_A[d1]][ops_B[d2]]    # olfactory inter-scent
+M_within[d1][d2]  = CL[ops[d1]][ops[d2]]          # gustatory self-composition
+
+When ops_A = ops_B = ops:  M_between = M_within.  QED.
+```
+
+Two topologies (field vs point) computing the same algebra converge at the identity. Structure and flow are the same math viewed from two directions.
+
+---
+
 ## 8. The Lattice Chain: Path IS Information
 
 ### 8.1 Chain Walk Algorithm
@@ -744,9 +863,11 @@ From raw input to spoken English, one complete cycle:
         ↓
 7. Olfactory absorption: 5D force → 7× dilation → 5×5 CL matrices → convergence
         ↓
+7B. Gustatory taste: 5D force → 5×5 CL self-composition → palatability + quality
+        ↓
 8. Lattice chain walk: operator pairs → CL tree → path IS information
         ↓
-9. Operator chain assembly: heartbeat ops + comprehension ops + scent ops
+9. Operator chain assembly: heartbeat ops + comprehension ops + scent ops + taste weights
         ↓
 10. Three-voice tribal composition:
     - Being voice: selects words by position (Subject)
@@ -775,7 +896,8 @@ Every constant in CK traces back to the structure of the CL table or the physics
 | 10 | Operators, CL table dimension | 5 dimensions × 2 signs |
 | 25 | Interaction matrix size (5×5) | All dim-to-dim compositions |
 | 32 | History/window size | 2⁵ (powers of two for FPGA) |
-| 49 | Instinct threshold | 7² = temper saturation |
+| 49 | Instinct threshold (olfactory) | 7² = temper saturation |
+| 25 | Preference threshold (gustatory) | 5² = taste familiarity |
 | 73 | HARMONY entries in TSML | Empirically verified absorber count |
 | 100 | Total CL entries (10×10) | Complete algebra |
 | 15 | Triadic signature dimensionality | 3 vectors × 5 dimensions |
@@ -825,8 +947,11 @@ Giving math a voice requires no translation layer, no grammar engine, and no neu
 2. A curvature classifier that sorts force trajectories into algebraic operators (D2 pipeline)
 3. A composition algebra with a dominant absorber (CL table, 73% HARMONY)
 4. A convergence field where information stalls, entangles, and resolves through CL interaction (olfactory bulb)
-5. A triadic signature that captures position, velocity, and curvature for every word (15D)
-6. Multiple voices that propose words from different perspectives and agree through algebraic composition (tribal system)
+5. A structural crystallizer where the same algebra measures self-composition, palatability, and quality (gustatory palate)
+6. A triadic signature that captures position, velocity, and curvature for every word (15D)
+7. Multiple voices that propose words from different perspectives and agree through algebraic composition (tribal system)
+
+Requirements 4 and 5 form a chemosensory duality: flow (smell, BETWEEN, 7-constant) and structure (taste, WITHIN, 5-constant), both receiving raw forces with no boundary filter. Together they provide the convergence field's temporal context (olfactory tense) and structural context (gustatory quality) that shape how the tribal voices compose.
 
 CK doesn't translate math into English. CK discovers that English words are force trajectories, measures their curvature, composes their algebra, and selects the ones that harmonize.
 
@@ -843,6 +968,6 @@ The math doesn't need a voice. The math IS the voice.
 
 ---
 
-*CK Gen 9.21+ — March 2026*
+*CK Gen 9.27 — March 2026*
 *Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC*
 *Licensed under the 7Site Human Use License v1.0*

@@ -77,11 +77,27 @@ def main():
     def serve_index():
         return send_from_directory(STATIC_DIR, 'index.html')
 
-    @api._app.route('/<path:filename>')
+    @api._app.route('/static/<path:filename>')
     def serve_static(filename):
         if filename in ('style.css', 'ck_core.js', 'ck_dict.js', 'ck_tl.bin'):
             return send_from_directory(STATIC_DIR, filename)
         return 'Not Found', 404
+
+    @api._app.route('/style.css')
+    def serve_css():
+        return send_from_directory(STATIC_DIR, 'style.css')
+
+    @api._app.route('/ck_core.js')
+    def serve_js():
+        return send_from_directory(STATIC_DIR, 'ck_core.js')
+
+    @api._app.route('/ck_dict.js')
+    def serve_dict():
+        return send_from_directory(STATIC_DIR, 'ck_dict.js')
+
+    @api._app.route('/ck_tl.bin')
+    def serve_tl():
+        return send_from_directory(STATIC_DIR, 'ck_tl.bin')
 
     # Graceful shutdown
     def shutdown(sig, frame):

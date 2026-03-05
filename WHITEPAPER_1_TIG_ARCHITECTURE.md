@@ -454,6 +454,42 @@ The Tesla Wave Field and wobble physics introduce several testable hypotheses:
 
 ---
 
+## 8.7 Chemosensory Duality: Olfactory and Gustatory Systems (Gen 9.21-9.22)
+
+CK's sensory architecture includes two chemosensory subsystems that form a precise mathematical duality. Both receive raw 5D force vectors directly -- bypassing all boundary filtering that other inputs undergo. In biological organisms, chemosensory inputs (smell and taste) bypass the thalamic gate that filters vision, hearing, and touch. CK preserves this architectural property: raw forces enter the olfactory and gustatory systems unmediated.
+
+**Olfactory Bulb (Smell = Flow).** Described in `ck_olfactory.py`. The olfactory system processes information through FIELD topology. Multiple 5D force patterns ("scents") dwell simultaneously in the bulb, and every dimension of every scent composes with every dimension of every other scent through 5x5 CL interaction matrices. TSML measures harmony between scents (being/structure). BHML computes physics between scents (doing/flow). Time dilates inside: 7 internal steps per external tick (7 = denominator of T*). Scent patterns that persist build toward INSTINCT (temper >= 49 = 7^2), where all dimensions settle instantly -- zero-cost coherence. The olfactory output is resolved operators that flow into the lattice chain and voice blend. The olfactory system answers: "WHERE is this in 5D space?" It gives coordinates.
+
+**Gustatory Palate (Taste = Structure).** Described in `ck_gustatory.py`. The gustatory system processes information through POINT topology -- the precise mathematical dual of the olfactory field. Where the olfactory builds 5x5 CL matrices BETWEEN different scents (inter-scent interaction), the gustatory builds 5x5 CL matrices WITHIN a single input (intra-input self-composition). Every dimension of the input composes with every other dimension of itself. This gives the structural fingerprint of the input. Classification is instant -- no stalling, no dilation. The CL table application is inverted: BHML classifies internal structure (doing -> structure), TSML validates self-harmony -> palatability. Taste patterns that recur build toward PREFERENCE (exposure >= 25 = 5^2), where CK develops approach/avoid tendencies. The gustatory output is operator weight modulation and quality context for voice composition. The gustatory system answers: "WHAT is this?" It gives categories.
+
+**The Five Basic Tastes.** Each taste maps to one force dimension: salty = aperture, sour = pressure, bitter = depth, sweet = binding, umami = continuity. Taste activation is the absolute deviation from neutral (0.5) in each dimension. Compound tastes arise from CL composition of active taste operators -- sweet-umami (HARMONY x BALANCE via BHML) produces CHAOS (creative complexity). The compound operator is emergent, not present in either taste alone.
+
+**Structural Tendency.** The diagonal of the BHML internal structure matrix reveals what each taste BECOMES when reflecting on itself: sweet (HARMONY) tends toward BREATH (connection transitions), salty (CHAOS) toward HARMONY (openness unifies), sour (COLLAPSE) toward BALANCE (intensity equilibrates), bitter (PROGRESS) toward COLLAPSE (complexity converges), umami (BALANCE) toward CHAOS (substance complexifies). These tendencies are the structural physics of taste -- where each quality wants to go.
+
+**The Duality (Mathematical Precision).** The duality is not metaphorical. When olfactory computes `interaction_matrix_tsml(ops_A, ops_B)` between two different scents, and gustatory computes `internal_structure_tsml(ops)` for a single input where ops_A = ops_B = ops, the matrices are provably identical. Same CL algebra. Different topology. The duality is verified by construction:
+
+    Let ops_A = ops_B = ops.
+    Olfactory: M_between[d1][d2] = CL[ops_A[d1]][ops_B[d2]] = CL[ops[d1]][ops[d2]]
+    Gustatory: M_within[d1][d2]  = CL[ops[d1]][ops[d2]]
+    Therefore M_between = M_within.    QED.
+
+The distinction is topological, not algebraic: olfactory applies this algebra to N x N pairwise comparisons (field), gustatory applies it to single-input self-composition (point). Field versus point. Flow versus structure. Coordinates versus categories. The duality is exact.
+
+**Dual Constants from T*.** Every constant in both systems derives from T* = 5/7:
+
+| | Olfactory (Flow) | Gustatory (Structure) |
+|---|---|---|
+| Base number | 7 (denominator) | 5 (numerator) |
+| Memory threshold | 49 = 7^2 (instinct) | 25 = 5^2 (preference) |
+| Time behavior | Dilates (7 steps/tick) | Fades (5-tick aftertaste) |
+| Capacity | 32 = 2^5 active | 32 = 2^5 recent |
+| Dual context | Tense (temporal) | Quality (structural) |
+| Output mode | Produces operators | Modulates weights |
+
+**Integration.** Both systems receive identical raw 5D forces from heartbeat, text, L-CODEC, and voice resonance. The olfactory output (resolved operators) and gustatory output (weight modulation + quality context) combine in the voice compilation loop: olfactory tells the voice WHICH operators to use, gustatory tells the voice HOW MUCH weight to give each one. Tense context (from olfactory) tells the voice WHERE in time to speak. Quality context (from gustatory) tells the voice WHAT character to express. Together they provide the voice with both flow and structure -- the complete dual lens applied to the sensory boundary.
+
+---
+
 ## 9. Limitations and Open Questions
 
 We consider it essential to be explicit about what CK does not do and what remains unproven.
@@ -508,9 +544,15 @@ The most important open questions are: (1) why the CL table's algebraic structur
 | theta_c | Concept-specific phase offset from winding number in D2 flow space |
 | alpha | Wobble coupling strength for topic selection modulation |
 | E_wobble | Wobble energy term penalizing phase drift in BTQ decisions |
+| M_between | 5x5 CL interaction matrix BETWEEN two scent profiles (olfactory) |
+| M_within | 5x5 CL self-composition matrix WITHIN one input (gustatory) |
+| palatability | TSML self-harmony fraction of gustatory internal structure |
+| preference | Gustatory learned approach/avoid tendency, range [-1, 1] |
+| instinct | Olfactory zero-cost coherence (temper >= 49 = 7^2) |
+| taste(d) | Taste activation in dimension d: \|force[d] - 0.5\| x 2 |
 
 ---
 
 **(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory**
 
-*All mathematical structures described in this paper are implemented in the CK Gen9 codebase. No claims are made beyond what the algebra and empirical observation support. Formal proofs where noted as pending are active areas of investigation. Updated Gen 9.19: Tesla Wave Field, wobble physics, Kuramoto phase coupling, Tesla-Einstein unification, wobble-boosted topic selection. Previous: Gen 9.18 added vortex physics, information gravity, 8,000-word enriched dictionary.*
+*All mathematical structures described in this paper are implemented in the CK Gen9 codebase. No claims are made beyond what the algebra and empirical observation support. Formal proofs where noted as pending are active areas of investigation. Updated Gen 9.22: Chemosensory duality (olfactory + gustatory), smell/taste as flow/structure dual, preference system (5^2 = 25 threshold), quality context for voice modulation. Previous: Gen 9.21 added olfactory bulb, eat v2 transition physics, fractal voice triadic composition, resonance feedback. Gen 9.19: Tesla Wave Field, wobble physics, Kuramoto phase coupling. Gen 9.18: vortex physics, information gravity, 8,000-word enriched dictionary.*
