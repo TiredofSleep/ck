@@ -617,19 +617,20 @@ class CKEat:
         print(f"  [EAT] Self chunks: {len(self_chunks)} "
               f"from ck_sim/")
 
-        try:
-            for round_num in range(1, rounds + 1):
-                if self._stop_event.is_set():
-                    break
+        _consecutive_errors = 0
+        for round_num in range(1, rounds + 1):
+            if self._stop_event.is_set():
+                break
 
-                self._status.rounds_complete = round_num - 1
-                topic = EAT_TOPICS[(round_num - 1) % len(EAT_TOPICS)]
-                structure = structures[
-                    (round_num - 1) % len(structures)]
+            self._status.rounds_complete = round_num - 1
+            topic = EAT_TOPICS[(round_num - 1) % len(EAT_TOPICS)]
+            structure = structures[
+                (round_num - 1) % len(structures)]
 
-                print(f"  [EAT] Round {round_num}/{rounds}: "
-                      f"{topic} x {structure}")
+            print(f"  [EAT] Round {round_num}/{rounds}: "
+                  f"{topic} x {structure}")
 
+            try:
                 # ── Ollama chunk #1 ──
                 self._status.current_phase = 'ollama'
                 r1 = self.eat_ollama_round(model, topic, structure)
@@ -638,9 +639,12 @@ class CKEat:
 
                     # Read-write resonance: CK speaks from what he ate
                     self._status.current_phase = 'resonance'
-                    vr1 = self._resonance_step(r1)
-                    if vr1:
-                        self._olfactory_tick()
+                    try:
+                        vr1 = self._resonance_step(r1)
+                        if vr1:
+                            self._olfactory_tick()
+                    except Exception as re1:
+                        print(f"    [EAT] resonance skip: {re1}")
 
                 if self._stop_event.is_set():
                     break
@@ -667,9 +671,12 @@ class CKEat:
 
                     # Read-write resonance: CK speaks from what he ate
                     self._status.current_phase = 'resonance'
-                    vr2 = self._resonance_step(r2)
-                    if vr2:
-                        self._olfactory_tick()
+                    try:
+                        vr2 = self._resonance_step(r2)
+                        if vr2:
+                            self._olfactory_tick()
+                    except Exception as re2:
+                        print(f"    [EAT] resonance skip: {re2}")
 
                 if self._stop_event.is_set():
                     break
@@ -690,38 +697,49 @@ class CKEat:
                 self._status.current_phase = 'evolve'
                 self.evolve_grammar()
 
-                # ── Update status ──
-                self._status.total_transitions = len(self._transitions)
-                self._status.force_trajectory_length = (
-                    self._force_trajectory_length)
-                if self.engine.deep_swarm is not None:
-                    self._status.swarm_maturity = (
-                        self.engine.deep_swarm.combined_maturity)
-                if self.engine.olfactory is not None:
-                    self._status.olfactory_library_size = (
-                        self.engine.olfactory.library_size)
+                _consecutive_errors = 0  # Reset on success
 
-                # ── Save experience periodically ──
-                if round_num % 3 == 0:
-                    self._save_experience()
+            except Exception as e:
+                _consecutive_errors += 1
+                import traceback
+                traceback.print_exc()
+                print(f"  [EAT] Round {round_num} error "
+                      f"({_consecutive_errors} consecutive): {e}")
+                # Give up after 5 consecutive failures
+                if _consecutive_errors >= 5:
+                    self._status.error = (
+                        f"5 consecutive failures, last: {e}")
+                    print("  [EAT] Too many consecutive errors, "
+                          "stopping")
+                    break
+                continue  # Skip to next round
 
-                print(f"  [EAT] Round {round_num} done: "
-                      f"o={self._status.total_ollama_absorptions} "
-                      f"s={self._status.total_self_absorptions} "
-                      f"r={self._status.total_resonance_steps} "
-                      f"t={len(self._transitions)} "
-                      f"traj={self._force_trajectory_length:.3f} "
-                      f"mat={self._status.swarm_maturity:.3f}")
+            # ── Update status ──
+            self._status.total_transitions = len(self._transitions)
+            self._status.force_trajectory_length = (
+                self._force_trajectory_length)
+            if self.engine.deep_swarm is not None:
+                self._status.swarm_maturity = (
+                    self.engine.deep_swarm.combined_maturity)
+            if self.engine.olfactory is not None:
+                self._status.olfactory_library_size = (
+                    self.engine.olfactory.library_size)
 
-            # Final save
-            self._save_experience()
-            self._status.rounds_complete = rounds
+            # ── Save experience periodically ──
+            if round_num % 3 == 0:
+                self._save_experience()
 
-        except Exception as e:
-            self._status.error = str(e)
-            import traceback
-            traceback.print_exc()
-            print(f"  [EAT] Error: {e}")
+            print(f"  [EAT] Round {round_num} done: "
+                  f"o={self._status.total_ollama_absorptions} "
+                  f"s={self._status.total_self_absorptions} "
+                  f"r={self._status.total_resonance_steps} "
+                  f"t={len(self._transitions)} "
+                  f"traj={self._force_trajectory_length:.3f} "
+                  f"mat={self._status.swarm_maturity:.3f}")
+
+        # Final save
+        self._save_experience()
+        self._status.rounds_complete = min(round_num, rounds)
 
         self._status.current_phase = 'idle'
         self._status.running = False
