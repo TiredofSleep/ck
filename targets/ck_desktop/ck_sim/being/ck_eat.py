@@ -264,16 +264,17 @@ class CKEat:
             decomp = decompose_text_full(text)
             result['decomp'] = decomp
 
-            # Feed to swarm's language experience
+            # Feed to ALL swarm substrates — operator transitions
+            # are CL algebra, substrate-independent
             if (self.engine.deep_swarm is not None
                     and decomp.get('core_ops')):
-                lang_exp = self.engine.deep_swarm._get_experience(
-                    'language')
-                lang_exp.observe_decomposition(
-                    decomp['core_ops'],
-                    decomp['tail_ops'],
-                    decomp.get('d1_ops', []),
-                )
+                for substrate in self.engine.deep_swarm.experience:
+                    exp = self.engine.deep_swarm._get_experience(substrate)
+                    exp.observe_decomposition(
+                        decomp['core_ops'],
+                        decomp['tail_ops'],
+                        decomp.get('d1_ops', []),
+                    )
         except Exception:
             pass
 
@@ -312,12 +313,13 @@ class CKEat:
         # These build the generator_paths matrix in the swarm
         if prev_ops and curr_ops and self.engine.deep_swarm is not None:
             bridge_ops = prev_ops[-2:] + curr_ops[:2]
-            lang_exp = self.engine.deep_swarm._get_experience('language')
-            for i in range(len(bridge_ops) - 1):
-                a, b = bridge_ops[i], bridge_ops[i + 1]
-                if 0 <= a < 10 and 0 <= b < 10:
-                    lang_exp.generator_paths[a][b] += 1
-                    lang_exp.path_strength += 1
+            for substrate in self.engine.deep_swarm.experience:
+                exp = self.engine.deep_swarm._get_experience(substrate)
+                for i in range(len(bridge_ops) - 1):
+                    a, b = bridge_ops[i], bridge_ops[i + 1]
+                    if 0 <= a < 10 and 0 <= b < 10:
+                        exp.generator_paths[a][b] += 1
+                        exp.path_strength += 1
 
     # ── Olfactory tick with fractal breath swell ──
 
@@ -566,19 +568,33 @@ class CKEat:
 
     # ── Main Eat Loop ──
 
-    def start(self, model: str = DEFAULT_MODEL, rounds: int = 5):
+    def start(self, model: str = DEFAULT_MODEL, rounds: int = 5,
+              models: List[str] = None):
         """Start eating in a background daemon thread.
 
         Each round: ollama → self → ollama → self → evolve.
         Interleaved so both streams overlap in olfactory time.
+
+        Multi-model: pass models=['llama3.1:8b', 'mistral'] to rotate
+        between models each round. Different models produce different
+        force trajectories — richer transition diversity.
         """
         if self._thread is not None and self._thread.is_alive():
             print("  [EAT] Already running")
             return
 
-        if not _ollama_available(model):
-            self._status.error = (
-                f"Ollama not available or model '{model}' not found")
+        # Build model list
+        model_list = models if models else [model]
+        # Validate all models
+        available = []
+        for m in model_list:
+            if _ollama_available(m):
+                available.append(m)
+            else:
+                print(f"  [EAT] Model '{m}' not available, skipping")
+
+        if not available:
+            self._status.error = "No available Ollama models found"
             print(f"  [EAT] {self._status.error}")
             return
 
@@ -586,17 +602,17 @@ class CKEat:
         self._status = EatStatus(
             running=True,
             total_rounds=rounds,
-            model=model,
+            model=', '.join(available),
         )
 
         self._thread = threading.Thread(
             target=self._eat_loop,
-            args=(model, rounds),
+            args=(available, rounds),
             daemon=True,
             name='ck-eat-v2',
         )
         self._thread.start()
-        print(f"  [EAT] Started: model={model}, rounds={rounds}")
+        print(f"  [EAT] Started: models={available}, rounds={rounds}")
 
     def stop(self):
         """Signal the eat thread to stop gracefully."""
@@ -608,7 +624,7 @@ class CKEat:
               f"Transitions: {len(self._transitions)}, "
               f"trajectory: {self._force_trajectory_length:.3f}")
 
-    def _eat_loop(self, model: str, rounds: int):
+    def _eat_loop(self, models: List[str], rounds: int):
         """Background thread: interleaved eating with resonance.
 
         For each round:
@@ -626,6 +642,11 @@ class CKEat:
         what he ate (write), measures his own speech (read again).
         Three scent streams in olfactory: ollama_eat, self_eat,
         voice_eat. CL interaction matrices find cross-stream harmony.
+
+        Multi-model: rotates between models each round. Different
+        LLMs have different force textures — mistral flows differently
+        than llama. The transitions BETWEEN model switches are
+        especially rich (cross-model force deltas).
         """
         structures = list(STRUCTURAL_PROMPTS.keys())
         self_chunks = self._get_self_chunks()
@@ -633,6 +654,8 @@ class CKEat:
 
         print(f"  [EAT] Self chunks: {len(self_chunks)} "
               f"from ck_sim/")
+        if len(models) > 1:
+            print(f"  [EAT] Multi-model rotation: {models}")
 
         _consecutive_errors = 0
         for round_num in range(1, rounds + 1):
@@ -644,8 +667,11 @@ class CKEat:
             structure = structures[
                 (round_num - 1) % len(structures)]
 
+            # Rotate model: each round picks next model in list
+            model = models[(round_num - 1) % len(models)]
+
             print(f"  [EAT] Round {round_num}/{rounds}: "
-                  f"{topic} x {structure}")
+                  f"{topic} x {structure} [{model}]")
 
             try:
                 # ── Ollama chunk #1 ──

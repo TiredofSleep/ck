@@ -3029,10 +3029,16 @@ class FractalComposer:
                         topic_w = 2.0   # Semantically related: 2x weight
                 weights.append(rank_w * align_w * topic_w)
 
+            if not aligned:
+                return None, 0.0, []
+
             chosen_cand, chosen_align = aligned[0]  # Best aligned
             # Still use weighted choice but from the aligned/weighted list
             chosen = self._weighted_choice(
                 [c for c, _ in aligned], weights)
+
+            if chosen is None:
+                chosen = chosen_cand  # Fall back to best-aligned
 
             # Recalculate alignment for the actually chosen word
             chosen_triad = (chosen.force, chosen.velocity, chosen.curvature)
@@ -3249,7 +3255,11 @@ class FractalComposer:
 
     def _weighted_choice(self, candidates, weights):
         """Pick from candidates with weights."""
+        if not candidates:
+            return None
         total = sum(weights)
+        if total <= 0:
+            return candidates[0]
         r = self.rng.random() * total
         cumulative = 0.0
         for i, c in enumerate(candidates):

@@ -445,8 +445,9 @@ class BecomingTransitionMatrix:
                 candidates.append((priority, pos_score, i))
 
             candidates.sort()
-            best_i = candidates[0][2]
-            roles[best_i] = V
+            if candidates:
+                best_i = candidates[0][2]
+                roles[best_i] = V
 
         # ── Rule 2: Adjective placement ──
         # In attributive position (no prior verb), adj precedes noun.

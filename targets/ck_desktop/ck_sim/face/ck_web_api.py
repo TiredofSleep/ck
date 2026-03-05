@@ -183,10 +183,14 @@ class CKWebAPI:
                 return jsonify({'error': 'Eat system not available'}), 503
             data = request.get_json(silent=True) or {}
             model = data.get('model', 'llama3.1:8b')
+            models = data.get('models')  # Optional list for multi-model
             rounds = data.get('rounds', 5)
-            self.engine.eat.start(model=model, rounds=rounds)
+            self.engine.eat.start(
+                model=model, rounds=rounds, models=models)
+            used = models if models else [model]
             return jsonify({
-                'status': 'started', 'model': model, 'rounds': rounds,
+                'status': 'started', 'model': ', '.join(used),
+                'rounds': rounds,
             })
 
         @app.route('/eat/status', methods=['GET'])

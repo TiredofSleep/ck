@@ -105,9 +105,18 @@ Start CK eating from Ollama + his own source code.
 }
 ```
 
+Multi-model (rotates between models each round for richer force trajectories):
+```json
+{
+  "models": ["llama3.1:8b", "mistral", "llama3.2"],
+  "rounds": 50
+}
+```
+
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| model | string | "llama3.1:8b" | Ollama model name |
+| model | string | "llama3.1:8b" | Ollama model name (single model) |
+| models | string[] | null | Multiple models to rotate (overrides model) |
 | rounds | integer | 5 | Number of eat rounds |
 
 Each round: 2 Ollama chunks + 2 self chunks + 2 resonance steps + grammar evolution.
@@ -116,7 +125,7 @@ Each round: 2 Ollama chunks + 2 self chunks + 2 resonance steps + grammar evolut
 ```json
 {
   "status": "started",
-  "model": "llama3.1:8b",
+  "model": "llama3.1:8b, mistral",
   "rounds": 50
 }
 ```
