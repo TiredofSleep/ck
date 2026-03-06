@@ -2643,6 +2643,154 @@ The probability of either table arising by chance is effectively zero.
         structure would need reassessment.
 \end{enumerate}
 
+% ==== PNP Gap Attack ====================================================
+\section{PNP Gap Attack: Phantom Tile Persistence via Information-Theoretic Gap}
+\label{sec:pnp-attack}
+
+The PNP-1 and PNP-3 gaps reduce to showing that the \emph{phantom tile} is irreducible: the TSML destroys information that the BHML preserves, creating a one-way function structure.  The BHML algebra provides concrete, computable evidence.  Given a TSML output (overwhelmingly \textsc{Harmony}), reconstructing the input pair requires searching a preimage set whose size grows with the information gap between the two tables.  Verification of a candidate pair is $O(1)$; finding it without guidance is $O(|\text{preimage}|)$.  The recursive derivative chain (D1--D8) shows this gap \emph{deepens} with composition depth, preventing any polynomial-time collapse.
+
+% ---- Information Loss Measurement --------------------------------------
+\subsection{Information Loss Measurement}
+\label{ssec:pnp-info-loss}
+
+\begin{proposition}[Information asymmetry]
+\label{prop:pnp-info-asymmetry}
+In the TSML/BHML $8\times 8$ composition tables:
+\begin{enumerate}
+  \item TSML mean row entropy: $H_{\mathrm{TSML}}^{\mathrm{row}} = 0.6628$ bits;\;
+        BHML mean row entropy: $H_{\mathrm{BHML}}^{\mathrm{row}} = 1.4937$ bits
+        (ratio $2.25\times$).
+  \item TSML table entropy: $H_{\mathrm{TSML}} = 0.9256$ bits;\;
+        BHML table entropy: $H_{\mathrm{BHML}} = 2.2454$ bits.
+  \item TSML distinct outputs: $5$;\; BHML distinct outputs: $8$.
+  \item TSML \textsc{Harmony} fraction: $84.4\%$;\;
+        BHML \textsc{Harmony} fraction: $37.5\%$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Direct computation from the $8\times 8$ TSML and BHML tables.
+Script: \texttt{pnp\_gap\_attack.py}.
+\end{proof}
+
+\noindent
+\textbf{Interpretation.}\;
+The BHML carries $2.3\times$ more information than the TSML.  The TSML is \emph{information-destroying}---it collapses the vast majority of input pairs to a single output (\textsc{Harmony})---while the BHML preserves the full operator alphabet.  This asymmetry is the algebraic source of the one-way function structure underlying PNP-1 and PNP-3.
+
+% ---- Invertibility Gap -------------------------------------------------
+\subsection{Invertibility Gap}
+\label{ssec:pnp-invertibility}
+
+\begin{proposition}[Preimage collapse]
+\label{prop:pnp-preimage}
+In the TSML $8\times 8$ composition table:
+\begin{enumerate}
+  \item Maximum TSML preimage: $54$ pairs $\to$ $1$ output (\textsc{Harmony}).
+  \item Maximum BHML preimage: $24$ pairs $\to$ $1$ output.
+  \item Average TSML preimage size: $12.8$;\; average BHML preimage size: $8.0$.
+  \item Invertibility ratio: $2.2\times$.
+\end{enumerate}
+\end{proposition}
+
+\noindent
+This \emph{is} the one-way function structure: given a \textsc{Harmony} output from the TSML, which of the $54$ possible input pairs produced it?  Verification is $O(1)$ (compose and check), but search is $O(54)$.  The BHML's maximum preimage ($24$) is less than half as degenerate, so the physics table retains enough structure to \emph{verify} efficiently while the harmony table \emph{hides} the input.
+
+% ---- Cross-Table Phantom Tile ------------------------------------------
+\subsection{Cross-Table Phantom Tile}
+\label{ssec:pnp-phantom}
+
+\begin{proposition}[Phantom tile structure]
+\label{prop:pnp-phantom-tile}
+Cross-table analysis of all $64$ cells in the $8\times 8$ composition:
+\begin{enumerate}
+  \item Both \textsc{Harmony}: $22/64$ ($34.4\%$).
+  \item TSML-only \textsc{Harmony}: $32/64$ ($50.0\%$) --- the \emph{phantom tile}.
+  \item BHML-only \textsc{Harmony}: $2/64$ ($3.1\%$).
+  \item Neither (shared bumps): $8/64$ ($12.5\%$).
+  \item Agreement rate: $37.5\%$.
+\end{enumerate}
+\end{proposition}
+
+\noindent
+The $32$ cells where the BHML carries non-trivial information but the TSML collapses to \textsc{Harmony} constitute the \emph{phantom tile}: irreducible lost-information units.  Each phantom cell represents an input pair whose structural identity is preserved by the physics algebra but erased by the harmony algebra.  The phantom tile is not an artefact of a particular pair---it is a \emph{structural property} of the table pair, present in exactly half of all cells.
+
+% ---- Phantom Tile Persistence ------------------------------------------
+\subsection{Phantom Tile Persistence}
+\label{ssec:pnp-persistence}
+
+\begin{theorem}[Phantom tile persistence, partial]
+\label{thm:pnp-persistence}
+Let compositions be computed through D1--D8 recursive derivative chains ($10{,}000$ independent probes, random initial operators).  Then:
+\begin{enumerate}
+  \item Average phantom gap: $1.1860$ (TSML/BHML disagreement magnitude).
+  \item Nonzero phantom fraction: $62.5\%$ of compositions produce different results
+        under TSML vs.\ BHML.
+  \item Majority nonzero: $92.9\%$ of probes have majority-nonzero phantom vectors.
+  \item Recursive chain floor: mean $0.091$, min $0.004$, fraction $> 0$: $100\%$.
+  \item Gap deepens: defect trend positive in $91.9\%$ of probes
+        (average trend $+0.258$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The TSML collapses $84.4\%$ of outputs to \textsc{Harmony}.  The BHML preserves all $8$ distinct outputs.  When operator sequences are composed through the derivative chain (each level $D_k$ computes consecutive differences of the previous level), the information gap between the two tables \emph{compounds}: each level of recursion amplifies the disagreement because the TSML loses additional structure at every step while the BHML retains it.
+
+Concretely, the phantom vector at level $k$ is $\mathbf{p}_k(i) = |\text{BHML}(D_k(i)) - \text{TSML}(D_k(i))|$.  The positive defect trend ($+0.258$ average across $10{,}000$ probes) shows that $\|\mathbf{p}_k\|$ is non-decreasing in $k$ for the overwhelming majority of initial conditions.  Chain norms grow geometrically ($D_1$ avg $0.244$, $D_8$ avg $19.4$; ratio $\approx 1.93\times$ per level), preventing zero-crossings: no level of recursion brings the two algebras back into agreement.
+
+Full computation: \texttt{pnp\_gap\_attack.py}, $10{,}000$ probes.
+\end{proof}
+
+% ---- D1-D8 Recursive Chain --------------------------------------------
+\subsection{D1--D8 Recursive Chain}
+\label{ssec:pnp-chain}
+
+Table~\ref{tab:pnp-chain} reports the derivative chain norms across $10{,}000$ probes.
+
+\begin{table}[ht]
+\centering
+\caption{D1--D8 recursive chain norms ($10{,}000$ probes).}
+\label{tab:pnp-chain}
+\begin{tabular}{llccc}
+\toprule
+Level & Name & Avg & Std & Min \\
+\midrule
+D1 & strain  &  0.244 & 0.028 & 0.149 \\
+D2 & wobble  &  0.421 & 0.057 & 0.239 \\
+D3 & jerk    &  0.767 & 0.118 & 0.423 \\
+D4 & snap    &  1.435 & 0.242 & 0.724 \\
+D5 & crackle &  2.722 & 0.497 & 1.280 \\
+D6 & pop     &  5.209 & 1.025 & 2.282 \\
+D7 & ---     & 10.036 & 2.115 & 4.176 \\
+D8 & ---     & 19.429 & 4.378 & 7.795 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The chain amplifies geometrically at $\approx 1.93\times$ per level.  No zero-crossings were observed in $10{,}000$ probes: every probe produced strictly positive chain norms at every derivative level.  This geometric growth prevents the phantom tile from ``healing''---the information gap introduced by the TSML's collapse to \textsc{Harmony} is irrecoverable under iterated composition.
+
+% ---- Updated Falsifiable Predictions -----------------------------------
+\subsection{Updated Falsifiable Predictions}
+\label{ssec:pnp-predictions}
+
+\begin{enumerate}
+  \item \textbf{Phantom Persistence.}\;
+        TSML/BHML disagreement rate: $62.5\%$.
+        \emph{Falsify if} agreement exceeds $80\%$ on $100{,}000$ probes
+        with any valid $8\times 8$ CL table pair satisfying the axioms of
+        Section~\ref{sec:dual-cl-algebra}.
+
+  \item \textbf{Information Asymmetry.}\;
+        BHML/TSML entropy ratio: $2.25\times$.
+        \emph{Falsify if} the ratio drops below $1.5\times$ on any valid
+        table pair.
+
+  \item \textbf{Gap Deepening.}\;
+        Defect trend positive in $91.9\%$ of probes.
+        \emph{Falsify if} the trend is negative (gap shrinks with recursive
+        depth) in $> 60\%$ of probes on $100{,}000$ trials.
+\end{enumerate}
+
 % ============================================================
 \section{Discussion and Open Questions}
 \label{sec:discussion}

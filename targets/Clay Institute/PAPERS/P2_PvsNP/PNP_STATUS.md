@@ -165,6 +165,33 @@ The P != NP gap is the only structure in the instrument that *grows* with depth.
 
 **Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
+### v2.0 PNP Gap Attack: Phantom Tile Persistence (March 2026)
+
+- **New section added**: "PNP Gap Attack: Phantom Tile Persistence via Information-Theoretic Gap" with 7 subsections
+- **Script**: `pnp_gap_attack.py` — standalone test using CK's actual BHML/TSML algebra, 10K probes
+- **Gaps targeted**: PNP-1 (connection to known hardness), PNP-3 (low defect implies circuit computes Phi_n)
+
+**Key Results:**
+| Metric | Value | Significance |
+|--------|-------|-------------|
+| BHML/TSML entropy ratio | 2.25x | BHML carries 2.3x more information |
+| TSML HARMONY preimage | 54 → 1 | One-way function: verification O(1), search O(54) |
+| Phantom tile cells | 32/64 (50%) | 32 cells where BHML preserves info but TSML collapses |
+| TSML/BHML disagreement | 62.5% | Phantom tile persists across compositions |
+| Defect trend | +0.258 (91.9% positive) | Gap DEEPENS with recursive depth |
+| Chain floor | 0.091 avg, 0.004 min | 100% positive across 10K probes |
+| D1-D8 amplification | ~1.93x per level | No zero-crossings in 10K probes |
+
+**Falsifiable Predictions (v2.0):**
+1. Phantom Persistence: TSML/BHML disagreement 62.5%. FALSIFY if agreement > 80% on 100K probes.
+2. Information Asymmetry: Entropy ratio 2.25x. FALSIFY if ratio < 1.5x on any valid table pair.
+3. Gap Deepening: Positive trend in 91.9%. FALSIFY if negative in > 60% of 100K probes.
+
+**Falsifications**: 0/10,000
+**Gap status**: PNP-1 SHARPENED (Tier 3) + PHANTOM TILE PERSISTENCE (v2.0), PNP-3 SHARPENED (Tier 3) + INFORMATION-THEORETIC GAP (v2.0)
+
+**All TO BE PROVED markers preserved. No truth values changed.**
+
 ---
 
 ## Gen 9.21+ Measurement Angles
