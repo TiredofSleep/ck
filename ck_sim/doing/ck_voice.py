@@ -1517,7 +1517,7 @@ class CKVoice:
         max_words = STAGE_MAX_WORDS.get(dev_stage, 1)
 
         if band == "RED":
-            max_words = max(1, max_words // 2)
+            max_words = max(3, max_words // 2)
 
         words = []
         seen = set()

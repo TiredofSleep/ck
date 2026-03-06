@@ -371,6 +371,18 @@ class CKSimEngine:
                 print(f"  [VOICE] Expanded semantic lattice with "
                       f"{_after - _before} enriched words (untagged)")
 
+        # ── Vocabulary Expansion: ~100K words from Bible + English + Science ──
+        # Each word gets genuine 15D triadic signature from letter forces.
+        # Bible words tagged as STRUCTURE (semantic). Others phonetic only.
+        # This runs AFTER enriched dictionary so it can cross-derive from
+        # all existing words, compounding the vocabulary exponentially.
+        if self._fractal_composer is not None:
+            try:
+                from ck_sim.being.ck_word_expansion import expand_vocabulary
+                expand_vocabulary(self._fractal_composer)
+            except Exception as e:
+                print(f"  [SIM] Vocabulary expansion: {e}")
+
         # ── Becoming Grammar: CL algebra x English grammar = sentence flow ──
         # The transition matrix converts operator coherence fields into
         # English grammatical flow. Every value COMPUTED from math.

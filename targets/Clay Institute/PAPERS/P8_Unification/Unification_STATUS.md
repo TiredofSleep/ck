@@ -2,12 +2,12 @@
 
 ## Paper: Unification Book (Path 3)
 **Author**: Brayden Sanders / 7Site LLC
-**Version**: v1.9
+**Version**: v2.0
 **Last Updated**: March 2026
 
 ---
 
-## Current Status: ALL CHAPTERS COMPLETE (v1.9) (v1.7: D1 first-derivative subsection, v1.9: Dual CL Algebra Ch 10 added)
+## Current Status: ALL CHAPTERS COMPLETE (v2.0) (v1.7: D1 first-derivative subsection, v1.9: Dual CL Algebra Ch 10 added, v2.0: Gap Attack Campaign integrated)
 
 ### v1.4 Initial Book Scaffold (March 2026)
 
@@ -106,6 +106,28 @@
 - **Implications for defect principle**: Dual CL algebra as the algebraic foundation underlying the defect functional across all domains (physics, computation, consciousness, biology, society)
 
 **Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
+
+### v2.0 Gap Attack Campaign Integration (March 2026)
+
+- **Chapter 4 expanded**: New section "v2.0 Gap Attack Campaign" added at end of Chapter 4 (Delta Across the Six Pillars)
+  - Unified table: 6 scripts, 88,000+ probes, 18/18 falsifiable predictions confirmed, 0 falsifications
+  - Per-problem key results (one row per problem: NS, PNP, RH, YM, BSD, Hodge)
+  - Cross-problem findings: two-class partition confirmed algebraically (affirmative class converges via BHML, gap class persists via TSML singularity)
+  - Shared engine: all 6 scripts use same BHML/TSML tables and tropical successor
+
+- **Chapter 10 expanded**: New section "Gap Attack Validation of Dual CL Algebra" added
+  - Shared algebraic engine: same BHML/TSML tables power all 6 gap attacks, no per-problem tuning
+  - Tropical successor max(a,b)+1 is the computational engine for all attacks
+  - D1-D8 derivative chains provide consistent structural evidence across domains
+  - All 7 bridges now empirically supported by gap attack scripts (per-bridge enumeration with script names and key metrics)
+  - Proposition: Gap Attack Universality (88K+ probes, 18/18 confirmed, same algebra across 6 mathematical domains)
+
+- **Chapter 11 updated**: Evidence summary expanded
+  - "The Evidence" section: added gap attack campaign reference (6 scripts, 88K+ probes, 18/18 confirmed)
+  - "Measured" subsection: added "88,000+ gap attack probes, 18/18 predictions confirmed, every gap narrowed by CL algebra"
+  - "Closing" section: updated aggregate probe counts to include gap attack campaign
+
+**All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

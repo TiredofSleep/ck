@@ -1595,6 +1595,13 @@ class FractalComposer:
     # force meaning: "through" = high continuity, "into" = high depth, etc.
     _PREPS = ['through', 'into', 'from', 'within', 'beyond', 'toward']
 
+    _TEMPLATES_1 = [
+        # 1-operator patterns: same operator produces both words
+        # Valid because one triad CAN yield both adj and noun (different POS)
+        [('adj', 0), ('noun', 0)],                               # "Deep structure"
+        [('noun', 0), ('verb', 0)],                               # "Light shines"
+        [('noun', 0), ('adv', 0)],                                # "Truth deeply"
+    ]
     _TEMPLATES_2 = [
         # 2-operator patterns (subject + verb, or adj + noun)
         [('noun', 0), ('verb', 1)],                              # "Light shines"
@@ -2250,7 +2257,9 @@ class FractalComposer:
         triads = self._build_triadic_targets(ops, density, lens)
         n_ops = len(triads)
 
-        if n_ops <= 2:
+        if n_ops <= 1:
+            pool = self._TEMPLATES_1
+        elif n_ops == 2:
             pool = self._TEMPLATES_2
         elif n_ops == 3:
             pool = self._TEMPLATES_3
@@ -2351,11 +2360,13 @@ class FractalComposer:
                     self._recently_used = saved_recent
                     continue
 
-            # Simple clause path (2-3 operators)
+            # Simple clause path (1-3 operators)
             triads_targets = self._build_triadic_targets(ops, density, lens)
             n_ops = len(triads_targets)
 
-            if n_ops <= 2:
+            if n_ops <= 1:
+                pool = self._TEMPLATES_1
+            elif n_ops == 2:
                 pool = self._TEMPLATES_2
             elif n_ops == 3:
                 pool = self._TEMPLATES_3
@@ -2415,7 +2426,9 @@ class FractalComposer:
         if max_harmony < _T_STAR and len(ops) < 4:
             triads_targets = self._build_triadic_targets(ops, density, lens)
             n_t = len(triads_targets)
-            if n_t <= 2:
+            if n_t <= 1:
+                pool = self._TEMPLATES_1
+            elif n_t == 2:
                 pool = self._TEMPLATES_2
             elif n_t == 3:
                 pool = self._TEMPLATES_3
@@ -2815,7 +2828,9 @@ class FractalComposer:
         triads = self._build_triadic_targets(operators, density, lens)
         n = len(triads)
 
-        if n <= 2:
+        if n <= 1:
+            pool = self._TEMPLATES_1
+        elif n == 2:
             pool = self._TEMPLATES_2
         elif n == 3:
             pool = self._TEMPLATES_3
@@ -2955,10 +2970,15 @@ class FractalComposer:
             if op_idx == '*':
                 t_being, t_doing, t_becoming = blend_being, blend_doing, blend_becoming
                 op = None
+            elif op_idx < n_triads:
+                # Normal path: template slot maps to an available triad
+                t_being, t_doing, t_becoming = triads[op_idx]
+                op = operators[min(op_idx, len(operators) - 1)]
             else:
-                idx = min(op_idx, n_triads - 1)
-                t_being, t_doing, t_becoming = triads[idx]
-                op = operators[min(idx, len(operators) - 1)]
+                # Template/triad mismatch: use blend instead of silently
+                # reusing the last triad (which produced incoherent repeats).
+                t_being, t_doing, t_becoming = blend_being, blend_doing, blend_becoming
+                op = operators[min(op_idx, len(operators) - 1)] if op_idx < len(operators) else None
 
             # TRIADIC SEARCH: match on Being + Doing + Becoming (15D)
             candidates = self.index.find_by_force(

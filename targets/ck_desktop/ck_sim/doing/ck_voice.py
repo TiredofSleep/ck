@@ -1422,7 +1422,9 @@ class CKVoice:
             max_words = _pulse_words
 
         if band == "RED":
-            max_words = max(1, max_words // 2)
+            # Floor of 3 ensures enough operators for a real sentence.
+            # max(1,...) produced 1-op truncation → template mismatch.
+            max_words = max(3, max_words // 2)
 
         # ── Phase inference: which 3x3 row does CK draw from? ──
         phase = infer_phase(operator_chain)
@@ -1677,7 +1679,7 @@ class CKVoice:
         max_words = STAGE_MAX_WORDS.get(dev_stage, 1)
 
         if band == "RED":
-            max_words = max(1, max_words // 2)
+            max_words = max(3, max_words // 2)
 
         words = []
         seen = set()

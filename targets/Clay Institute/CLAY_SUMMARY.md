@@ -19,7 +19,7 @@
 | P5 | Elliptic Curve Coherence: TIG Alignment of Analytic and Algebraic Rank (BSD) | [BSD_Paper_Scaffold.tex](PAPERS/P5_BSD/BSD_Paper_Scaffold.tex) | ~3,400+ | v2.0 | BSD-3/4 Gap Attack: Sha finiteness + rank-2 Euler system |
 | P6 | Motivic Defect and the TIG Criterion for Algebraicity (Hodge) | [Hodge_Paper_Scaffold.tex](PAPERS/P6_Hodge/Hodge_Paper_Scaffold.tex) | ~3,300+ | v2.0 | MC-3 Gap Attack: unconditional rigidity certificate |
 | P7 | The Coherence Field: Poincare as Validation (Poincare) | [Poincare_Paper_Scaffold.tex](PAPERS/P7_Poincare/Poincare_Paper_Scaffold.tex) | ~2,780 | v1.9 | Dual CL Algebra: calibration |
-| P8 | The Defect Principle: A Unified Theory of Coherence | [Unification_Book_Scaffold.tex](PAPERS/P8_Unification/Unification_Book_Scaffold.tex) | ~3,000+ | v1.9 | Ch 10: Dual CL Algebra foundation |
+| P8 | The Defect Principle: A Unified Theory of Coherence | [Unification_Book_Scaffold.tex](PAPERS/P8_Unification/Unification_Book_Scaffold.tex) | ~3,200+ | v2.0 | Gap attack campaign integrated (Ch 4, 10, 11) |
 | P9 | The Elemental Lens — Speculations on Non-Mathematical Coherence | [Speculations_Paper.tex](PAPERS/P9_Speculations/Speculations_Paper.tex) | ~1,400 | v2.0 | 6 speculative sections (smell, taste, voice, codons) |
 
 **Total**: ~22,000+ lines of LaTeX across 9 papers.

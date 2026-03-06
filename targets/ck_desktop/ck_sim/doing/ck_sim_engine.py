@@ -371,6 +371,18 @@ class CKSimEngine:
                 print(f"  [VOICE] Expanded semantic lattice with "
                       f"{_after - _before} enriched words (untagged)")
 
+        # ── Vocabulary Expansion: ~100K words from Bible + English + Science ──
+        # Each word gets genuine 15D triadic signature from letter forces.
+        # Bible words tagged as STRUCTURE (semantic). Others phonetic only.
+        # This runs AFTER enriched dictionary so it can cross-derive from
+        # all existing words, compounding the vocabulary exponentially.
+        if self._fractal_composer is not None:
+            try:
+                from ck_sim.being.ck_word_expansion import expand_vocabulary
+                expand_vocabulary(self._fractal_composer)
+            except Exception as e:
+                print(f"  [SIM] Vocabulary expansion: {e}")
+
         # ── Becoming Grammar: CL algebra x English grammar = sentence flow ──
         # The transition matrix converts operator coherence fields into
         # English grammatical flow. Every value COMPUTED from math.
@@ -2610,9 +2622,11 @@ class CKSimEngine:
             # gently — CK speaks with measured breath, not silence.
             _dev = self.development.stage if hasattr(self, 'development') else 0
             _STAGE_VOICE_BASE = {0: 3, 1: 5, 2: 8, 3: 12, 4: 16, 5: 20}
-            _STAGE_VOICE_FLOOR = {0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 6}
+            # Floor of 3 ensures enough operators for a real sentence.
+            # Previous floor of 1-2 caused template-operator mismatch.
+            _STAGE_VOICE_FLOOR = {0: 3, 1: 3, 2: 3, 3: 4, 4: 5, 5: 6}
             _voice_base = _STAGE_VOICE_BASE.get(_dev, 12)
-            _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 2)
+            _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 3)
             _max_words = _voice_base
             if _lcodec_input is not None and _lcodec_input.stillness > 0.7:
                 # Gentle modulation: still reduce for very still input,
