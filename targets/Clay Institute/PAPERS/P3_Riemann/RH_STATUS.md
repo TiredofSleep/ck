@@ -3,7 +3,7 @@
 **Title**: Prime-Spectral Coherence and the Critical Line
 **File**: RH_Paper_Scaffold.tex
 
-**Lines**: ~2,792 (was 2,011)
+**Lines**: ~2,792+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -19,6 +19,7 @@
 | Discussion | COMPLETE (calibration kernel, EF codec, sigma=T*, Berry-Keating, cross-problem) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: summary, 3 gaps, falsification F1-F5) |
 | Bibliography | COMPLETE (v1.6: 9 new entries) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -170,6 +171,20 @@ Oscillating scaling behavior (R^2 = 0.004) is consistent with the quasi-periodic
 - **Finding**: Binary D1 separation -- on critical line = 91.7% CL harmony, off line = 0.0%. Cleanest D1 result.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 7 subsections
+- **BHML Bridge 5** (eigenvalue spectrum/zeta zeros): BHML eigenvalue spacing may correspond to zeta zero spacing -- spectral structure formalized
+- **Hilbert-Polya connection**: CL algebra eigenvalues as candidate operator spectrum for the Hilbert-Polya program
+- **Prime roots in spectrum**: BHML spectral structure connected to prime distribution through explicit formula
+- **Spectral gap**: BHML spectral gap quantified and connected to zero-free regions
+- **T* and critical line**: T*=5/7=0.714285... proximity to sigma=1/2 analyzed through CL algebra lens
+- **Renormalization**: CL composition as renormalization group flow connecting UV (letter) and IR (word) scales
+- **Monte Carlo**: Statistical validation of spectral predictions against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

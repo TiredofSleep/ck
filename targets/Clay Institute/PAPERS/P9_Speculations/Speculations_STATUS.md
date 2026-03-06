@@ -1,7 +1,7 @@
 # P9: The Elemental Lens -- Speculations on Non-Mathematical Coherence
 **File:** `Speculations_Paper.tex`
-**Lines:** ~1,100
-**Status:** EXPANDED DRAFT (v1.9)
+**Lines:** ~1,100+ (expanded v2.0: 6 speculative sections added to .tex)
+**Status:** EXPANDED DRAFT (v2.0)
 
 ## Sections
 | Section | Status |
@@ -18,6 +18,12 @@
 | Locality: D1 Non-Local, D2 Local | NEW (v1.9: formal definition, empirical 5.9% D1/D2 agreement) |
 | Earth-Air Generator Algebra | NEW (v1.9: Z/5Z cyclic group, composition table, chemical evidence) |
 | Falsifiability | EXPANDED (v1.9: 12 tests, up from 8) |
+| Smell as Torsion | NEW (v2.0: moved from STATUS-only to .tex) |
+| Taste as Instant Structure | NEW (v2.0: moved from STATUS-only to .tex) |
+| The Derivative Chain Extended | NEW (v2.0: D4=olfactory torsion, D5=gustatory classification, D6=lattice chain evolution) |
+| Triadic Voice as Force Alignment | NEW (v2.0: 15D triadic signatures, CL bridge conjunctions) |
+| The CL Generating Rule | NEW (v2.0: tropical successor, Godel arithmetic/logic duality) |
+| Codon Degeneracy | NEW (v2.0: 64-cell CL / 64-codon parallel, compression ratios) |
 | Conclusion | REWRITTEN (v1.9: locality split + two-generator sufficiency as headline results) |
 
 ## v1.9 New Content (March 2026)
@@ -71,9 +77,21 @@ Water, Fire, and Ether are emergent. The algebra is Z/5Z.
 
 If a domain admits a coherent 5D codec, the entire TIG machinery applies.
 
+## v2.0 Dual CL Algebra / Speculative Extensions Integration (March 2026)
+
+- **6 new sections added to .tex** (previously STATUS-only speculative extensions, now in actual paper):
+  1. **Smell as Torsion**: Olfactory bulb as torsion -- bends time so End touches Beginning. 7 internal steps per tick enforce temporal dilation. 5x5 CL interaction matrices. Lock-and-key vs vibration vs torsion models.
+  2. **Taste as Instant Structure**: Gustatory classification as structural dual of olfactory convergence. Point topology (instant) vs field topology (slow). CL table inversion (BHML classifies/TSML validates vs TSML measures/BHML computes). P vs NP parallel.
+  3. **The Derivative Chain Extended**: D4=olfactory torsion (snap), D5=gustatory classification, D6=lattice chain evolution. D4 bends the derivative chain itself. Mod-5 closure extended.
+  4. **Triadic Voice as Force Alignment**: 15-point triadic signatures (Being/Doing/Becoming x 5D). CL bridge map (HARMONY->"and", COUNTER->"but"). Language as force alignment below semantic content.
+  5. **The CL Generating Rule**: BHML core = tropical successor max(a,b)+1 (100/100 exact). Arithmetic (BHML: what comes next?) and logic (TSML: are these the same?) through same 10 operators. Godel's arithmetic/logic duality.
+  6. **Codon Degeneracy**: 64-cell CL algebra / 64-codon genetic code parallel. TSML 54/64 HARMONY vs DNA 61/64 coding. Information compression ratios compared.
+
+**These sections were previously documented in the STATUS.md "Gen 9.21+ Speculative Extensions" section only. They are now part of the actual .tex paper.**
+
 ---
 
-## Gen 9.21+ Speculative Extensions
+## Gen 9.21+ Speculative Extensions (NOW IN .TEX -- see v2.0 above)
 
 ### Smell as Torsion
 CK's olfactory bulb implements a principle: smell is torsion. It bends time so that End touches Beginning. Scent information STALLS in the olfactory zone -- 7 internal steps per external tick enforce temporal dilation. The stall is not delay; it is the computation. The entanglement of two scent profiles through 5×5 CL interaction matrices IS the measurement, not a precursor to it.

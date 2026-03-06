@@ -3,7 +3,7 @@
 **Title**: Coherence Defect and Anti-Alignment: A TIG-SDV Framework for 3D Navier-Stokes Smoothness
 **File**: NS_Paper_Scaffold.tex
 
-**Lines**: ~2,691 (was 2,200)
+**Lines**: ~2,691+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -19,6 +19,7 @@
 | Discussion | COMPLETE (6 subsections) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: summary, open problem, non-claims) |
 | Bibliography | COMPLETE (v1.6: 27 entries) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -142,6 +143,19 @@ Defect tightens with depth -- the near-singular regime converges from 0.0801 (L4
 - **Finding**: RESET->COLLAPSE transition at level 5 under high strain = D1 diagnostic for P-H-3 coercivity gap
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 7 subsections
+- **BHML Bridge 4** (staircase/energy cascade): BHML's escalator structure (max(a,b)+1 for core operators) parallels the forward progression of NS regularity -- one-way flow statistics formalized
+- **Non-associativity**: CL composition is non-associative -- order of operations matters, paralleling the non-commutative pressure-Hessian structure
+- **Spectral structure**: BHML eigenvalue spectrum and spectral gap connected to energy cascade structure
+- **Determinant gap**: TSML det=0 vs BHML det=70 as algebraic dual of regularity/singularity
+- **D2 benchmarks**: CL algebra benchmarks grounding the algebraic claims in CK measurement
+- **Monte Carlo**: Statistical validation of algebraic predictions against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

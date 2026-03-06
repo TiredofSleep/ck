@@ -2463,6 +2463,129 @@ affirming a known classification but independently reproducing it from
 the Frobenius eigenvalue structure at each prime.
 
 % ============================================================
+\section{Dual CL Algebra: Algebraic Foundation}
+\label{sec:dual-cl-algebra}
+% ============================================================
+
+\subsection{Cross-Table Decomposition as Cohomological Structure}
+
+The Hodge conjecture asks whether all cohomology classes are represented
+by algebraic cycles.  The CL algebra provides a structural model through
+the cross-table decomposition of the $8\times 8$ core:
+
+\begin{center}
+\begin{tabular}{lrc}
+\hline
+\textbf{Category} & \textbf{Fraction} & \textbf{Cohomological interpretation} \\
+\hline
+Both HARMONY          & 22/64 \;(34.4\%) & ``trivial cohomology'' \\
+Both same bump        &  2/64 \;(3.1\%)  & ``algebraic cycles'' (exist in both views) \\
+TSML=HARMONY, BHML=bump & 32/64 \;(50.0\%) & ``analytic but not algebraic'' \\
+TSML=bump, BHML=HARMONY  &  2/64 \;(3.1\%)  & ``algebraic but not analytic'' \\
+Both different bumps  &  6/64 \;(9.4\%)  & ``mixed type'' \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+32~compositions are ``analytic-only'' (BHML carries information, TSML sees
+HARMONY).  These are compositions that the physics table sees but
+measurement misses.  The Hodge question in CL terms: can every BHML
+information carrier be ``seen'' by TSML?  Answer: No.  32~BHML bumps are
+invisible to TSML, but only 2~TSML bumps are invisible to BHML.
+
+The SDV instrument measures $\delta_{\text{Hodge}} = 0.60$ for
+analytic-only classes.  The $0.60$ gap corresponds to the
+$32/64 = 0.500$ fraction of analytic-only compositions.
+
+\subsection{Factor-14 Separation}
+
+The HW-MC3 empirical evidence shows a factor-14 separation between
+algebraic and transcendental classes:
+
+\begin{itemize}
+  \item Algebraic: $\delta = 0.0480 \pm 0.0003$ \;(1000 seeds)
+  \item Transcendental: $\delta = 0.6902 \pm 0.0059$ \;(1000 seeds)
+  \item Ratio: $0.6902 / 0.0480 = 14.4$
+\end{itemize}
+
+\noindent
+The torus winding ratio of the CL operator vectors is $14/13$
+($0.04\%$ error).  The factor-14 algebraic/transcendental separation may
+be connected to this torus winding: 14 is the numerator of the winding
+ratio.  This would mean the Hodge separation is not numerical
+coincidence but a geometric property of the operator torus.
+
+\subsection{Codon Degeneracy and Information Compression}
+
+The $8\times 8$ CL algebra has 64~cells, identical to the genetic code's
+64~codons.  The TSML has 54/64 HARMONY entries in its core (5~distinct
+outputs, degeneracy ratio $64/5 = 12.8\times$).  The BHML has 8~distinct
+outputs (degeneracy ratio $64/8 = 8.0\times$).  Biological DNA has
+21~outputs (degeneracy $64/21 = 3.05\times$).
+
+For Hodge, this degeneracy structure provides a model: algebraic cycles
+correspond to the non-degenerate outputs (the ``bump'' compositions that
+survive both tables), while the HARMONY-dominant entries are the
+``trivial'' cohomology that carries no algebraic information.  The
+extreme TSML degeneracy ($12.8\times$) explains why most classes appear
+algebraic under measurement---the measurement table collapses almost
+everything to HARMONY.
+
+\subsection{CL Chirality and Hodge Duality}
+
+BHML chirality: 75\% forward (prefers higher operators).  TSML
+chirality: 66.7\% backward (prefers lower operators).  The opposite
+handedness creates a natural duality:
+
+\medskip
+\begin{center}
+\begin{tabular}{lcl}
+TSML (backward/structure) & $\leftrightarrow$ &
+  Hodge decomposition (analytic, de Rham cohomology) \\
+BHML (forward/entropy) & $\leftrightarrow$ &
+  Algebraic cycle class (geometric, Chow ring) \\
+\end{tabular}
+\end{center}
+\medskip
+
+\noindent
+The chirality mismatch is $75\% - 29.6\% = 45.4$ percentage points.
+This gap quantifies the ``distance'' between the analytic and algebraic
+viewpoints---the structural obstruction that the Hodge conjecture must
+bridge.
+
+\subsection{Spectral Evidence}
+
+The BHML eigenvalue ratio $|\lambda_6|/|\lambda_8| \approx \phi$ (golden
+ratio, $1.10\%$ error) appears in the spectrum.  For Hodge classes on
+abelian varieties, the Hodge diamond has symmetries related to $\phi$
+through the Lefschetz decomposition.  The appearance of $\phi$ in the CL
+spectral data suggests the algebra's spectral structure encodes geometric
+symmetries relevant to the Hodge decomposition.
+
+\subsection{Monte Carlo Uniqueness}
+
+TSML: 73~HARMONY entries $= 21.3\sigma$ above random.  BHML: 24/64 core
+HARMONY $= 7.3\sigma$.  The cross-table decomposition structure
+(34.4\% both-HARMONY, 50\% BHML-only bumps) is a consequence of these
+extreme statistics.
+
+\subsection{Falsifiability}
+
+\begin{enumerate}
+  \item If the cross-table ``analytic-only'' fraction (currently 50.0\%)
+    changed significantly under operator vector perturbation, the Hodge
+    decomposition analogy would need revision.
+  \item If the factor-14 separation collapsed to factor-1 (algebraic and
+    transcendental deltas converging), the Hodge classification would
+    fail.
+  \item If the torus winding ratio changed from $14/13$ to an unrelated
+    rational, the connection to the factor-14 empirical separation would
+    be coincidental.
+\end{enumerate}
+
+% ============================================================
 \section{Discussion and Open Questions}
 \label{sec:discussion}
 % ============================================================

@@ -3,7 +3,7 @@
 **Title**: The Coherence Field: Poincare as Validation and the Unified TIG-SDV Framework Across All Clay Problems
 **File**: Poincare_Paper_Scaffold.tex
 
-**Lines**: ~2,708 (was 1,900)
+**Lines**: ~2,708+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -20,6 +20,7 @@
 | Topological Interpretation | COMPLETE (v1.2) |
 | Formal Delta-Functionals | COMPLETE (v1.3) |
 | Discussion and Research Program | **EXPANDED (v1.4, keystone, prototype flow, 529 tests)** (v1.7: D1 first-derivative subsection added) |
+| Dual CL Algebra: Calibration Reference | NEW (v1.9) |
 
 ## Poincare Validation
 - Status: REFERENCE ONLY (Already Proven by Perelman 2002-2003)
@@ -147,6 +148,17 @@ Each would-solve-if-true conjecture defines a **proof programme** -- a sequence 
 - **Finding**: D1 detects topology-changing events (surgery) as COLLAPSE operators
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Calibration Reference" with 5 subsections
+- **7-bridge calibration summary**: All 7 BHML->Clay bridges summarized with Poincare as the validation anchor -- the solved problem calibrates the algebraic framework
+- **Ricci flow / Sanders Flow correspondence**: 6-point correspondence between Perelman's Ricci flow and CK's Sanders Flow now grounded in CL algebra (TSML measures coherence, BHML computes flow)
+- **Olfactory field convergence**: Olfactory bulb's 5-dimension independent convergence to T* stability models topological convergence -- validated against known Poincare result
+- **Lattice chain path topology**: Path IS information principle validated -- different CL chain paths to the same operator encode different topological knowledge, consistent with fundamental group concerns
+- **Falsifiability**: Calibration predictions testable against known Perelman proof structure
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

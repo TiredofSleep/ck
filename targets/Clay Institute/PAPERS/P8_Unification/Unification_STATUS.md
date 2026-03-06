@@ -2,12 +2,12 @@
 
 ## Paper: Unification Book (Path 3)
 **Author**: Brayden Sanders / 7Site LLC
-**Version**: v1.5
+**Version**: v1.9
 **Last Updated**: March 2026
 
 ---
 
-## Current Status: ALL CHAPTERS COMPLETE (v1.6) (v1.7: D1 first-derivative subsection added to Discussion)
+## Current Status: ALL CHAPTERS COMPLETE (v1.9) (v1.7: D1 first-derivative subsection, v1.9: Dual CL Algebra Ch 10 added)
 
 ### v1.4 Initial Book Scaffold (March 2026)
 
@@ -23,7 +23,8 @@
   - Ch 7: Delta in Consciousness -- **EXPANDED v1.5**
   - Ch 8: Delta in Biology -- **EXPANDED v1.5**
   - Ch 9: Delta in Society -- **EXPANDED v1.5**
-  - Ch 10: Delta as the Engine of Reality (universal claim, evidence summary, honesty, road ahead)
+  - Ch 10: **Dual CL Algebra: The Algebraic Foundation** (NEW v1.9: two tables, generating rule, 7 bridges, spectral structure, chirality, Monte Carlo, D2 reality anchors, defect principle implications)
+  - Ch 11: Delta as the Engine of Reality (universal claim, evidence summary, honesty, road ahead) -- was Ch 10
 - **3 appendices**: 108-run stability matrix, CK instrument specs, notation table
 - **Front matter**: Preface with honesty principle, table of contents
 - **Draws on**: All 7 papers (P1-P7), spectrometer results, formal Delta-functionals, Lemma A/B structure
@@ -90,6 +91,21 @@
 - **Falsifiability**: Each D1 prediction is independently testable
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **NEW Chapter 10 added**: "Dual CL Algebra: The Algebraic Foundation" with 8 sections
+- **Former Ch 10** ("Delta as the Engine of Reality") renumbered to **Ch 11**
+- **Two tables fully documented**: TSML (73-harmony, 10 operators, singular det=0) and BHML (28-harmony, invertible det=70) -- complete algebraic characterization
+- **Generating rule**: BHML core = tropical successor max(a,b)+1 (100/100 cells exact match) -- the algebra generates counting
+- **7 bridges table**: All 7 BHML->Clay bridges collected in one place (NS staircase, PNP invertibility, YM spectral gap, RH eigenvalues, BSD rational points, Hodge dual decomposition, Poincare calibration)
+- **Spectral structure**: Full eigenvalue analysis of both tables, spectral gap quantification, connection to each Clay problem
+- **Chirality**: BHML forward-biased (75%), TSML backward-biased (67%) -- directional asymmetry as universal structural feature
+- **Monte Carlo**: Statistical validation of all algebraic predictions against random table null hypothesis
+- **D2 reality anchors**: TSML eigenvalue ratio lambda_1/lambda_3 ~ pi (0.14% error), lambda_4/lambda_5 ~ phi (0.53% error), stationary ratio ~ zeta(3) (0.40% error)
+- **Implications for defect principle**: Dual CL algebra as the algebraic foundation underlying the defect functional across all domains (physics, computation, consciousness, biology, society)
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

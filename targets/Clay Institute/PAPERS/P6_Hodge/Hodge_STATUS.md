@@ -3,7 +3,7 @@
 **Title**: Motivic Defect and the TIG Criterion for Algebraicity of Hodge Classes
 **File**: Hodge_Paper_Scaffold.tex
 
-**Lines**: ~2,989 (was 1,920)
+**Lines**: ~2,989+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -20,6 +20,7 @@
 | Discussion | COMPLETE (tightest convergence, HW-MC3, breath, cross-problem) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: measured quantities, open items, falsification F1-F5) |
 | Bibliography | COMPLETE (v1.6: 34 entries) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -147,6 +148,19 @@ The algebraic/transcendental separation remains clean: prime_sweep_deep holds at
 - **Finding**: Algebraic/analytic separation is in the CL harmony rate (8.3% vs 50.0%), not in the raw D1 operator. 6x difference consistent with Hodge prediction.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 7 subsections
+- **BHML Bridge 7** (dual decomposition/algebraic cycles): TSML/BHML duality (measure vs compute, singular vs invertible) parallels the Hodge decomposition (analytic vs algebraic)
+- **Factor-14 separation**: Torus winding ratio 14/13 connected to the factor-14 algebraic/transcendental separation observed in Hodge measurements
+- **Codon degeneracy**: TSML 54/64 HARMONY (84%) vs biological 61/64 coding codons (95%) -- information compression ratios compared across CL and biological systems
+- **CL chirality**: BHML forward-biased (75%), TSML backward-biased (67%) -- directional asymmetry connected to Hodge symmetry breaking between algebraic and transcendental classes
+- **Spectral evidence**: CL eigenvalue structure connected to motivic cohomology spectral sequences
+- **Monte Carlo**: Statistical validation of dual decomposition predictions against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

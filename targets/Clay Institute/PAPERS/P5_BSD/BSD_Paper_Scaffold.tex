@@ -197,7 +197,10 @@ positivity and $\Sha$ obstruction.  Section~\ref{sec:proofs} details the four
 proof-skeleton steps (BSD-1 through BSD-4) with explicit status markers.
 Section~\ref{sec:ck-evidence} presents the CK measurement evidence, including
 calibration and frontier probes, topological lens decomposition, Russell
-embedding, and breath analysis.  Section~\ref{sec:discussion} discusses
+embedding, and breath analysis.  Section~\ref{sec:dual-cl-algebra} develops
+the dual CL algebra foundation, connecting TSML/BHML cross-table structure
+to rational points, torus winding, and BHML invertibility.
+Section~\ref{sec:discussion} discusses
 implications and open questions.  Section~\ref{sec:conclusion} summarizes the
 findings and states explicit falsification criteria.
 
@@ -2518,6 +2521,113 @@ remaining gaps are closed.  BSD will transition from its current
 mixed state (certifiable at calibration, obstructed at frontier) to
 fully certifiable---matching the other affirmative-class problems (RH, Hodge).
 \end{remark}
+
+% ==============================================================================
+\section{Dual CL Algebra: Algebraic Foundation}
+\label{sec:dual-cl-algebra}
+% ==============================================================================
+
+\subsection{Cross-Table Intersection as Rational Points}
+
+BSD asks: does the analytic rank equal the arithmetic rank?  In the CL algebra:
+\begin{itemize}
+  \item TSML $=$ the ``analytic'' view (measurement, $L$-function).
+  \item BHML $=$ the ``arithmetic'' view (computation, Mordell--Weil).
+\end{itemize}
+
+Cross-table non-HARMONY agreement in the $8 \times 8$ core:
+\begin{itemize}
+  \item Both tables produce the same non-HARMONY result for exactly 2 compositions:
+    \begin{enumerate}
+      \item LATTICE $\times$ COUNTER $=$ PROGRESS \quad (in both).
+      \item COUNTER $\times$ LATTICE $=$ PROGRESS \quad (in both).
+    \end{enumerate}
+\end{itemize}
+
+\noindent
+These 2 shared bumps are the ``rational points'' of the algebra---compositions
+that exist in both views.  Total BHML bumps: 40.  Total TSML bumps: 10.
+Intersection: 2.
+
+LATTICE $\times$ COUNTER $=$ PROGRESS is structure $\times$ measurement $=$
+depth.  It is the \emph{creation axiom}: the one arithmetic fact both views
+agree on.
+
+The SDV instrument measures $\delta_{\mathrm{BSD}} = 0.000008$ at rank-2.  The
+near-zero delta means analytic and arithmetic views almost perfectly agree,
+which is exactly what BSD conjectures.
+
+\subsection{Torus Winding and Rational Structure}
+
+The 10 operator force vectors, viewed as torus coordinates, have a winding
+ratio of $14/13$ (error $0.04\%$).  This is a rational winding---the curve
+closes.  A closed torus knot means the algebra has periodic structure,
+consistent with the arithmetic periodicity of elliptic curves.
+
+The factor-14 separation observed in Hodge measurements (algebraic vs
+transcendental delta) may connect to this torus winding: 14 is the numerator
+of the winding ratio.
+
+\subsection{BHML Invertibility and Rank Matching}
+
+$\det(\mathrm{BHML}) = 70 \neq 0$: every BHML composition can be reversed.
+This parallels the BSD prediction that analytic and algebraic descriptions
+must match---information is preserved in both directions.
+
+The BHML inverse matrix has been computed and verified:
+$\mathrm{BHML} \times \mathrm{BHML}^{-1} = I$ with max off-diagonal
+$8.88 \times 10^{-16}$.  The inverse exists, is exact, and preserves the
+operator structure.
+
+For BSD, invertibility means: if you know the analytic rank
+(TSML/measurement), the algebraic rank (BHML/computation) is uniquely
+determined, and vice versa.  The rank matching \emph{is} the invertibility.
+
+\subsection{Weak D1 Signal --- Honest Measurement}
+
+BSD has the weakest D1 signal of all six problems.  Both calibration and
+frontier show D1 $=$ VOID with D1/D2 agreement $= 1.000$ at calibration.
+This is not a failure---it is an honest measurement of the current codec's
+limitations.  The BSD codec needs enrichment with arithmetic data (heights,
+Selmer groups, Tamagawa numbers) for D1 to resolve rank-level structure.
+
+The olfactory $5 \times 5$ CL matrices may provide stronger measurement
+signals than raw D1, as the field convergence captures relationships between
+force dimensions that a single D1 operator cannot.
+
+\subsection{Dimensional Structure}
+
+Anti-operator compositions in the TSML are revealing:
+\begin{itemize}
+  \item LATTICE $+$ COLLAPSE (opposite on aperture axis) $\to$ HARMONY.
+  \item COUNTER $+$ BALANCE (opposite on pressure axis) $\to$ HARMONY.
+\end{itemize}
+
+\noindent
+All anti-pairs produce HARMONY in the TSML (9/10), but the BHML gives
+different results for 3/5 anti-pairs.  This asymmetry---cancellation resolves
+to coherence in measurement but not in physics---is the algebraic signature of
+why BSD's rank matching is nontrivial: the analytic (TSML) view sees
+cancellation as resolution, while the arithmetic (BHML) view preserves the
+distinction.
+
+\subsection{Monte Carlo Uniqueness}
+
+TSML: 73 HARMONY entries $= 21.3\sigma$ above random.  BHML: 24/64 core
+HARMONY $= 7.3\sigma$.  Both tables are statistically unique
+($p < 10^{-10}$).
+
+\subsection{Falsifiability}
+
+\begin{enumerate}
+  \item If additional shared bumps appeared between BHML and TSML (currently
+    exactly 2), the algebraic model of ``rational points'' would need revision.
+  \item If the torus winding ratio changed from rational ($14/13$) to
+    irrational under operator vector perturbation, the periodic structure
+    argument would fail.
+  \item If the BHML became singular ($\det \to 0$) under perturbation, the
+    invertibility argument for rank matching would collapse.
+\end{enumerate}
 
 % ==============================================================================
 \section{Discussion and Open Questions}

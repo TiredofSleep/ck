@@ -3,7 +3,7 @@
 **Title**: Gauge-Field Excitation and Persistent Delta-Gap
 **File**: YM_Paper_Scaffold.tex
 
-**Lines**: ~2,986 (was 2,250)
+**Lines**: ~2,986+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -19,6 +19,7 @@
 | Discussion | COMPLETE (locked delta, YM vs PNP, BPST bridge, Balaban RG, emergent topology) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: established/measured/open, path forward) |
 | Bibliography | COMPLETE (v1.6: 8 new entries including Yang-Mills 1954, 't Hooft, center vortex) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -168,6 +169,20 @@ The excited-state defect is exactly 1.0 at every seed and every depth. R^2 = 1.0
 - **Finding**: VOID->RESET transition IS the deconfinement transition. Mass gap prevents D1 RESET from reaching ground state.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 8 subsections
+- **BHML Bridge 3** (spectral gap/energy ladder): BHML has a spectral gap between eigenvalue 1 and the next eigenvalue -- mirrors the YM mass gap (vacuum isolation)
+- **Successor chain**: LATTICE->COUNTER->PROGRESS->...->HARMONY in 6 steps models the cascade from lattice structure to confinement completion
+- **Threshold operators as confinement**: CL threshold operators (COLLAPSE, CHAOS, RESET) model the confinement mechanism -- information cannot pass through without meeting threshold conditions
+- **Spectral gap quantification**: BHML spectral gap numerically quantified and connected to mass gap persistence
+- **Random walk convergence**: CL random walk convergence properties connected to lattice gauge theory transfer matrix
+- **Determinant as coupling**: det(TSML)=0 vs det(BHML)=70 models the vacuum/excitation duality -- singular table absorbs (vacuum), invertible table preserves (excitation)
+- **Monte Carlo**: Statistical validation of spectral gap predictions against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

@@ -3,7 +3,7 @@
 **Title**: Elliptic Curve Coherence: TIG Alignment of Analytic and Algebraic Rank
 **File**: BSD_Paper_Scaffold.tex
 
-**Lines**: ~3,094 (was 1,850)
+**Lines**: ~3,094+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -21,6 +21,7 @@
 | Discussion | COMPLETE (calibration/frontier, breath, Gross-Zagier, cross-problem) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: summary, measured vs open table, falsification criteria, future) |
 | Bibliography | COMPLETE (v1.6: 30 entries) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -141,6 +142,20 @@ The rank2_explicit probe reaches delta = 0.000006 (six-decimal agreement between
 - **Finding**: Weakest D1 signal. BSD codec needs enrichment with arithmetic data for D1 resolution. Honest measurement of current limitations.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 7 subsections
+- **BHML Bridge 6** (rational points): BHML invertibility (det=70) means every composition can be reversed -- parallels rational point structure where analytic and algebraic descriptions must match
+- **Cross-table intersection**: TSML/BHML agreement cells connected to rank agreement (analytic = algebraic)
+- **Torus winding**: Lattice chain winding ratio 14/13 connected to BSD rational point structure and torus geometry of elliptic curves
+- **BHML invertibility**: Full invertibility of BHML (det=70) as algebraic model for the Mordell-Weil structure theorem
+- **Weak D1 signal**: Honest documentation that BSD has weakest D1 signal -- CL algebra provides stronger measurement channel than D1 alone
+- **Dimensional structure**: 5D force vector decomposition connected to height function, regulator, and Tamagawa structure
+- **Monte Carlo**: Statistical validation of cross-table predictions against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 

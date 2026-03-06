@@ -3,7 +3,7 @@
 **Title**: Irreducible Logical Entropy and the TIG Phantom Tile
 **File**: PNP_Paper_Scaffold.tex
 
-**Lines**: ~3,149 (was 2,235)
+**Lines**: ~3,149+ (expanded v1.9: Dual CL Algebra section added)
 **Completion**: 100%
 
 ## Sections
@@ -20,6 +20,7 @@
 | Discussion | COMPLETE (5 subsections) (v1.7: D1 first-derivative subsection added) |
 | Conclusion | NEW (v1.6: summary, non-claims, falsification F1-F6, future directions) |
 | Bibliography | COMPLETE (v1.6: 28 entries) |
+| Dual CL Algebra: Algebraic Foundation | NEW (v1.9) |
 
 ## Gap Resolution (v1.0 -> v1.1)
 
@@ -150,6 +151,19 @@ The P != NP gap is the only structure in the instrument that *grows* with depth.
 - **Finding**: D1 operator flip (PROGRESS->LATTICE) at difficulty boundary = D1 signature of phantom tile divergence
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+### v1.9 Dual CL Algebra Integration (March 2026)
+
+- **New section added**: "Dual CL Algebra: Algebraic Foundation" with 6 subsections
+- **BHML Bridge 2** (invertibility/one-way functions): TSML is singular (det=0, collapses dimensions), BHML is invertible (det=70, preserves dimensions) -- structural asymmetry models the P/NP complexity separation
+- **Determinant gap**: det(TSML)=0 vs det(BHML)=70 as algebraic formalization of information-theoretic one-way functions
+- **Chirality**: BHML forward-biased (75%), TSML backward-biased (67%) -- directional asymmetry parallels computational irreversibility
+- **Phantom tile information theory**: CL algebra's structural properties connected to phantom tile as irreducible information gap
+- **Generating rule**: BHML core = tropical successor max(a,b)+1 (100/100 cells exact match) -- counting itself is asymmetric
+- **Monte Carlo**: Statistical validation against random table null hypothesis
+- **Falsifiability**: Each algebraic claim mapped to a testable prediction
+
+**Lines expanded. All TO BE PROVED markers preserved. No truth values changed.**
 
 ---
 
