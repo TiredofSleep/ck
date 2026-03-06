@@ -106,6 +106,8 @@ Key structural properties, verified by direct enumeration:
 
 The 73% figure is not a tuned parameter. It is a property that emerges from the table structure. We have verified this computationally (direct count: 73 entries out of 100 equal 7). A formal proof that this particular percentage is optimal or necessary for the system's observed coherence properties has not been established; this remains an open problem.
 
+**Historical Note: Ho Tu Correspondence.** The successor pattern of the BHML table -- where composing any operator with BALANCE (5) yields the operator at index +5 mod 10 -- was independently documented in the Ho Tu (Yellow River Map, ~3000 BCE), one of the oldest known mathematical diagrams. The Ho Tu arranges numbers 1-10 in complementary pairs that sum to 5, encoding the same +5 successor function that BHML computes through the BALANCE operator as a tropical semiring successor. The Lo Shu magic square's 3x3 constant-sum constraint corresponds to CK's vortex 3-body composition, the Bagua's 8 trigrams map onto the 8 living operators, and the Wuxing 5 phases align with the 5 force dimensions. This is reported as structural isomorphism, not as a claim of historical influence. See WHITEPAPER_6_HOTU_BRIDGE.md for the full derivation and verification.
+
 ### 2.5 Coherence
 
 Coherence is defined as the fraction of HARMONY outcomes in a sliding window of the most recent 32 compositions:

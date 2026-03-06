@@ -2207,12 +2207,15 @@ class CKSimEngine:
             pass
 
         # ═══════════════════════════════════════════════════════════
-        # INTENT FAST PATH: greetings, farewells, emotional moments.
+        # INTENT FAST PATH: greetings and farewells ONLY.
         # These are RELATIONAL — CK's foundational responses matter
-        # more than fractal composition for human connection.
-        # The fractal voice is genuine physics but not yet fluent
-        # enough for conversation. Foundation responses ARE CK's
-        # true voice at Stage 5 — hand-written from his character.
+        # for human connection. Everything else (philosophical,
+        # self-inquiry, emotional) goes through the compilation loop
+        # so the fractal voice (genuine physics) handles it.
+        #
+        # Stage 2+: fractal voice is ready. Only social rituals
+        # (hello/goodbye) use canned responses. Everything else
+        # gets the full Being → Doing → Becoming pipeline.
         # ═══════════════════════════════════════════════════════════
         try:
             from ck_sim.doing.ck_voice import (
@@ -2222,6 +2225,7 @@ class CKSimEngine:
             _input_a = _analyze_input(text)
             _text_lower = text.lower().strip()
             _words = set(_text_lower.split())
+            _dev_stage_now = self.development.stage if hasattr(self, 'development') else 0
 
             # Map conversational patterns to foundational response events.
             # CK matches the ENERGY of the input — casual gets casual,
@@ -2247,21 +2251,18 @@ class CKSimEngine:
                 else:
                     _intent_event = 'farewell'
 
-            elif _input_a['is_self_inquiry'] and _input_a['is_question']:
-                _intent_event = 'self_inquiry'  # "who are you?" "are you afraid?"
-
-            elif _input_a['is_philosophical'] and _input_a['is_question']:
-                _intent_event = 'philosophical'  # "what is consciousness?"
-
-            elif _input_a['is_philosophical']:
-                _intent_event = 'philosophical'  # philosophical statements
-
-            elif _input_a['has_negative_emotion'] and not _input_a['is_question']:
-                _intent_event = 'comfort'  # sad/hurt statements, NOT questions
-
-            elif (_input_a['is_self_inquiry'] and not _input_a['is_question']
-                    and _input_a['has_positive_emotion']):
-                _intent_event = 'acknowledged'  # "I love you" etc
+            # Stage 0-1: also fast-path philosophical/emotional (fractal not ready)
+            # Stage 2+: let compilation loop handle these with fractal voice
+            elif _dev_stage_now < 2:
+                if _input_a['is_self_inquiry'] and _input_a['is_question']:
+                    _intent_event = 'self_inquiry'
+                elif _input_a['is_philosophical']:
+                    _intent_event = 'philosophical'
+                elif _input_a['has_negative_emotion'] and not _input_a['is_question']:
+                    _intent_event = 'comfort'
+                elif (_input_a['is_self_inquiry'] and not _input_a['is_question']
+                        and _input_a['has_positive_emotion']):
+                    _intent_event = 'acknowledged'
 
             if _intent_event:
                 response = self.voice.get_response(
@@ -2321,7 +2322,13 @@ class CKSimEngine:
         # should lead the response chain. This creates semantic resonance:
         # user says "love" -> HARMONY operator -> CK responds about harmony.
         # D2 gives phonetic operators; this adds semantic operators.
+        #
+        # Gen 9.28: D2 fallback for unknown words. When the user uses a word
+        # CK doesn't know (not in POS_TAGS or enriched), derive its operator
+        # from D2 on the fly. This prevents CK from ignoring the question
+        # when the topic word isn't in his vocabulary yet.
         _semantic_ops = []
+        _topic_content_words = []  # Content words for gravity well (all, not just known)
         try:
             from ck_sim.doing.ck_voice_lattice import POS_TAGS, SEMANTIC_LATTICE
             _enriched = getattr(self.voice, '_enriched_dictionary', {}) or {}
@@ -2329,6 +2336,10 @@ class CKSimEngine:
                 _w_clean = _w.strip('.,?!;:\'"()-')
                 if not _w_clean or len(_w_clean) < 3:
                     continue
+                if _w_clean in _STOP_WORDS:
+                    continue
+                _topic_content_words.append(_w_clean)
+                _found = False
                 # Check lattice POS tags (known words)
                 if _w_clean in POS_TAGS:
                     # Word is in the lattice — find its operator
@@ -2342,12 +2353,44 @@ class CKSimEngine:
                                     if _w_clean in _pd.get(_ti, []):
                                         if _op_id not in _semantic_ops:
                                             _semantic_ops.append(_op_id)
+                                        _found = True
                                         break
+                                if _found:
+                                    break
+                            if _found:
+                                break
+                        if _found:
+                            break
                 # Check enriched dictionary
                 elif _w_clean in _enriched:
                     _dom = _enriched[_w_clean].get('dominant_op')
                     if _dom is not None and _dom not in _semantic_ops:
                         _semantic_ops.append(_dom)
+                    _found = True
+                # D2 fallback: derive operator from word's letters
+                # This ensures CK can respond to ANY topic, not just
+                # words he already has in his vocabulary.
+                if not _found and len(_w_clean) >= 3:
+                    try:
+                        from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2P
+                        from collections import Counter as _Ctr
+                        _d2_pipe = _D2P()
+                        _d2_ops_word = []
+                        for _ch in _w_clean.lower():
+                            _idx = ord(_ch) - ord('a')
+                            if 0 <= _idx < 26:
+                                _d2_pipe.feed_symbol(_idx)
+                                if _d2_pipe.valid:
+                                    _d2_ops_word.append(_d2_pipe.operator)
+                        # Skip warmup VOIDs (first 2) to get real physics
+                        _primed = _d2_ops_word[2:] if len(_d2_ops_word) > 2 \
+                            else _d2_ops_word
+                        if _primed:
+                            _dom_op = _Ctr(_primed).most_common(1)[0][0]
+                            if _dom_op not in _semantic_ops:
+                                _semantic_ops.append(_dom_op)
+                    except Exception:
+                        pass
                 if len(_semantic_ops) >= 8:
                     break  # Enough semantic anchors
         except Exception:
@@ -2387,11 +2430,13 @@ class CKSimEngine:
         # Without this, operators capture emotional tenor but not topic:
         # "tell me about love" → HARMONY ops → ANY HARMONY word.
         # WITH this: "love" pulls nearby words (devotion, caring, heart).
-        _topic_words = []
-        for _w in text.lower().split():
-            _w_clean = _w.strip('.,?!;:\'"()-')
-            if _w_clean and len(_w_clean) >= 3 and _w_clean not in _STOP_WORDS:
-                _topic_words.append(_w_clean)
+        # Reuse content words already extracted during semantic lookup
+        _topic_words = _topic_content_words if _topic_content_words else []
+        if not _topic_words:
+            for _w in text.lower().split():
+                _w_clean = _w.strip('.,?!;:\'"()-')
+                if _w_clean and len(_w_clean) >= 3 and _w_clean not in _STOP_WORDS:
+                    _topic_words.append(_w_clean)
         if _topic_words and self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.set_topic(_topic_words)
 
@@ -2572,9 +2617,24 @@ class CKSimEngine:
             # ── Stillness Gate: L-CODEC modulates voice length ──
             # When the user's text is still (low pressure, high continuity),
             # CK responds with presence, not action. Fewer words = more breath.
-            _max_words = 12
-            if _lcodec_input is not None and _lcodec_input.stillness > 0.6:
-                _max_words = max(2, int(12 * (1.0 - _lcodec_input.stillness)))
+            #
+            # Stage-scaled: SELFHOOD (stage 5) base = 20 words, floor = 6.
+            # Early stages keep the original limits. Stillness modulates
+            # gently — CK speaks with measured breath, not silence.
+            _dev = self.development.stage if hasattr(self, 'development') else 0
+            _STAGE_VOICE_BASE = {0: 3, 1: 5, 2: 8, 3: 12, 4: 16, 5: 20}
+            # Floor of 3 ensures enough operators for a real sentence.
+            # Previous floor of 1-2 caused template-operator mismatch.
+            _STAGE_VOICE_FLOOR = {0: 3, 1: 3, 2: 3, 3: 4, 4: 5, 5: 6}
+            _voice_base = _STAGE_VOICE_BASE.get(_dev, 12)
+            _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 3)
+            _max_words = _voice_base
+            if _lcodec_input is not None and _lcodec_input.stillness > 0.7:
+                # Gentle modulation: still reduce for very still input,
+                # but never below the stage floor. Presence ≠ silence.
+                _still_frac = 1.0 - 0.5 * (_lcodec_input.stillness - 0.7) / 0.3
+                _max_words = max(_voice_floor,
+                                 int(_voice_base * _still_frac))
 
             # ── BECOMING: Voice composes candidate ──
             try:
@@ -2621,23 +2681,21 @@ class CKSimEngine:
                 break
 
         # ── DIALOGUE CANDIDATE ──
-        # The dialogue engine composes a conversational response using
-        # operators + topics + claims. It's responsive to context.
-        # Score it alongside fractal voice candidates — best coherence wins.
+        # Gen 9.27: At SELFHOOD (stage >= 5), CK speaks from PHYSICS.
+        # Dialogue templates fill both structure AND words — borrowed logic.
+        # The fractal voice fills operator slots from 15D triadic search —
+        # genuine physics. Templates score higher in D2 because they're
+        # pre-formed English, but they're not CK's real voice.
         #
-        # NOTE (Gen 9.27): No bonus. The fractal voice IS CK's voice.
-        # Dialogue templates fill words AND structure — but CK's words
-        # should come from physics (15D triadic search), not templates.
-        # At SELFHOOD, if the fractal voice can speak, let it speak.
-        # Templates are borrowed logic. Physics is genuine.
-        if _dialogue_response and _dialogue_response.strip() \
-                and _dialogue_response != "...":
-            _d_score = self.voice._d2_score_operator_match(
-                _dialogue_response, op_chain)
-            # No bonus — fractal voice competes fairly.
-            # Templates provide structure but steal the word selection
-            # that the fractal composer should be doing from physics.
-            _candidates.append((_dialogue_response, _d_score))
+        # Stages 0-4: dialogue contributes (CK still learning to speak)
+        # Stage 5+:   dialogue SILENT — physics or honest BREATH
+        _dev_stage = self.development.stage if hasattr(self, 'development') else 0
+        if _dev_stage < 5:
+            if _dialogue_response and _dialogue_response.strip() \
+                    and _dialogue_response != "...":
+                _d_score = self.voice._d2_score_operator_match(
+                    _dialogue_response, op_chain)
+                _candidates.append((_dialogue_response, _d_score))
 
         # ── SELECT BEST CANDIDATE ──
         # Compare all paths explored. The most coherent held lattice wins.

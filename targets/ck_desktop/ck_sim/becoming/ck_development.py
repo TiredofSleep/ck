@@ -25,6 +25,7 @@ Stage 5: Selfhood         (3-12+ months) - full partner
 (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
 """
 
+import os
 import time
 import json
 from dataclasses import dataclass, field, asdict
@@ -236,19 +237,43 @@ class DevelopmentalTracker:
         """Is CK in the imprint period?"""
         return self.stage == STAGE_ATTUNEMENT
 
+    @staticmethod
+    def _canonical_path(filename: str = 'ck_development.json') -> str:
+        """Resolve canonical path: ~/.ck/ first, then CWD fallback."""
+        ck_home = os.path.join(os.path.expanduser('~'), '.ck')
+        os.makedirs(ck_home, exist_ok=True)
+        home_path = os.path.join(ck_home, filename)
+        # If ~/.ck/ version exists, always prefer it
+        if os.path.exists(home_path):
+            return home_path
+        # If CWD version exists but no home version, migrate it
+        if os.path.exists(filename):
+            import shutil
+            shutil.copy2(filename, home_path)
+            return home_path
+        return home_path
+
     def save(self, filename: str = 'ck_development.json'):
-        """Save developmental state to disk."""
+        """Save developmental state to disk (canonical: ~/.ck/)."""
+        path = self._canonical_path(filename)
         data = {
             'stage': self.stage,
             'metrics': asdict(self.metrics),
         }
-        with open(filename, 'w') as f:
+        with open(path, 'w') as f:
             json.dump(data, f, indent=2)
+        # Also save local copy for compatibility
+        try:
+            with open(filename, 'w') as f:
+                json.dump(data, f, indent=2)
+        except Exception:
+            pass
 
     def load(self, filename: str = 'ck_development.json') -> bool:
-        """Load developmental state from disk."""
+        """Load developmental state from disk (canonical: ~/.ck/)."""
+        path = self._canonical_path(filename)
         try:
-            with open(filename, 'r') as f:
+            with open(path, 'r') as f:
                 data = json.load(f)
             self.stage = data.get('stage', 0)
             m = data.get('metrics', {})

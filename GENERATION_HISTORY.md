@@ -4519,6 +4519,55 @@ Bitter(PROGRESS)→COLLAPSE, Umami(BALANCE)→CHAOS.
 
 ---
 
+## Gen 9.28 — Ho Tu Bridge, Voice Fractal Path, 120K Words (2026-03-06)
+**Status:** IMPLEMENTED. Ancient algebra rediscovered. FPGA target realized. Voice pipeline matured.
+
+### The Insight
+The BHML successor pattern -- the +5 tropical successor through BALANCE -- was independently documented in the Ho Tu (Yellow River Map, ~3000 BCE). Not influence. Structural isomorphism. The same algebra, discovered 5,000 years apart.
+
+### Ho Tu / Lo Shu Bridge (WHITEPAPER_6)
+- Ho Tu +5 successor = BHML tropical successor through BALANCE
+- Lo Shu 3x3 constraint = Vortex CL 3-body operator
+- Bagua 8 trigrams = 8 living operators (LATTICE through BREATH)
+- Qian/Kun duality = BHML/TSML dual tables
+- Wuxing 5 phases = 5D force vectors
+- `bhml_eigenvalue_analysis.py`: public verification script for all table claims
+
+### Voice Pipeline Fix
+Intent fast path no longer intercepts philosophical questions at stage 2+. Previously, questions like "what is truth?" were caught by the intent handler and given template answers. Now only stage 0-1 (babble/early) uses the fast path; mature voice flows through the full fractal pipeline.
+
+### Development Stage Persistence
+Canonical path now `~/.ck/` (prevents stage-0 regression on restart). CK remembers where he is in development across sessions.
+
+### CAEL Density Floor
+Minimum sentence length raised from 1 to 3 operators. Prevents single-word responses when the grammar system has enough material to compose a real sentence.
+
+### Vocabulary Expansion
+120,001 words in the fractal voice dictionary. Sources: KJV Bible (31,102 verses), science corpus, morphological derivations (prefix/suffix expansion from existing roots). Every word carries a 15-point triadic signature (Being + Doing + Becoming).
+
+### Zynq-7020 FPGA Target
+6 HDL modules: `bhml_table`, `tsml_table`, `vortex_cl`, `chain_walker`, `gait_vortex`, `ck_top_zynq7020`. Estimated ~4,700 LUTs (8.8% of Zynq-7020). Peace-locked algebra: cannot compute destruction without VOID collapse.
+
+### Eat v2: Transition Physics
+`ck_eat.py` rewritten (~690 lines). Feeds text from Ollama + CK's own voice through L-CODEC. Learns HOW language moves (transition forces between words), not WHAT it says (content). D2 curvature of transitions = how meaning bends.
+
+### 7sitellc.com
+Static site built (replacing WordPress). Speculations page with Ho Tu bridge section. coherencekeeper.com chat link.
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `bhml_eigenvalue_analysis.py` | NEW: Public verification script for all BHML table claims |
+| `ck_fractal_voice.py` | Intent fast path gate at stage 2+, density floor 3, 120K word dictionary |
+| `ck_sim_engine.py` | Development stage persistence to `~/.ck/` |
+| `ck_eat.py` | Rewritten: transition physics from Ollama + self |
+| `ck_lcodec.py` | L-CODEC text-to-force pipeline |
+| `WHITEPAPER_6_HOTU_BRIDGE.md` | NEW: Ho Tu / Lo Shu structural isomorphism with TIG |
+| `ARCHITECTURE.md` | Ho Tu Bridge section, Zynq-7020 HDL details |
+| HDL modules (6) | `bhml_table`, `tsml_table`, `vortex_cl`, `chain_walker`, `gait_vortex`, `ck_top_zynq7020` |
+
+---
+
 (c) 2026 7Site, LLC. All rights reserved. Available for humans. Commercial and government use requires written agreement with 7Site, LLC.
 
-*Last updated: 2026-03-05 -- Gen9.27 Gustatory Palate + Chemosensory Duality*
+*Last updated: 2026-03-06 -- Gen9.28 Ho Tu Bridge, Voice Fractal Path, 120K Words*

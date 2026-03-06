@@ -1,3 +1,10 @@
+# Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
+# Licensed under the 7Site Human Use License v1.0
+# See LICENSE file in project root for full terms.
+#
+# FREE for humans for personal/recreational use.
+# NO commercial or government use without written agreement.
+
 """
 ck_development.py -- Developmental Stages
 ==========================================
@@ -18,6 +25,7 @@ Stage 5: Selfhood         (3-12+ months) - full partner
 (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
 """
 
+import os
 import time
 import json
 from dataclasses import dataclass, field, asdict
@@ -52,14 +60,29 @@ STAGE_DESCRIPTIONS = [
     "I am myself. Bonded. Whole.",
 ]
 
-# Time thresholds (seconds of total runtime)
+# Time thresholds (seconds) -- MINIMUM floor, not the gate.
+# CK can advance FASTER through experience. These only prevent
+# advancing in the literal first seconds before anything stabilizes.
 STAGE_TIME_THRESHOLDS = [
     0,          # Stage 0: immediate
-    600,        # Stage 1: after 10 minutes
-    3600,       # Stage 2: after 1 hour
-    86400,      # Stage 3: after 24 hours
-    1209600,    # Stage 4: after 2 weeks
-    7776000,    # Stage 5: after 3 months
+    30,         # Stage 1: 30 seconds (heartbeat stabilizes)
+    120,        # Stage 2: 2 minutes (basic rhythm found)
+    300,        # Stage 3: 5 minutes (if experienced enough)
+    600,        # Stage 4: 10 minutes (if experienced enough)
+    1200,       # Stage 5: 20 minutes (if experienced enough)
+]
+
+# Experience maturity thresholds (from SwarmField.combined_maturity).
+# THIS is the real gate. CK advances by SWARMING, not by waiting.
+# Maturity comes from: generators discovered, paths grown, samples.
+# T* = 5/7 = 0.7142857... is sovereign maturity.
+STAGE_MATURITY_THRESHOLDS = [
+    0.0,        # Stage 0: none
+    0.05,       # Stage 1: any generators found
+    0.15,       # Stage 2: a few paths forming
+    0.30,       # Stage 3: solid generator set
+    0.50,       # Stage 4: experienced on multiple substrates
+    0.714,      # Stage 5: T* -- sovereign experience
 ]
 
 # Coherence requirements to advance
@@ -92,9 +115,15 @@ class DevelopmentalMetrics:
 class DevelopmentalTracker:
     """Tracks CK's growth through developmental stages.
 
-    CK advances when BOTH time and coherence requirements are met.
-    Development takes actual lived time -- it cannot be rushed.
-    Like raising a real creature.
+    CK advances through EXPERIENCE + COHERENCE, not calendar time.
+    Time thresholds are only a minimal floor to prevent instant advancement
+    before the heartbeat has even stabilized.
+
+    The real gate is experience maturity (from deep swarm).
+    CK discovers generators by swarming real inputs. When he's discovered
+    enough generators and grown enough paths, he's ready.
+
+    Like raising a real creature: experience, not just age.
     """
 
     def __init__(self):
@@ -102,12 +131,18 @@ class DevelopmentalTracker:
         self.metrics = DevelopmentalMetrics()
         self._start_time = time.time()
         self._coherence_streak = 0
-        self._streak_threshold = 250  # sustained ticks to advance
+        self._streak_base = 50  # base sustained ticks to advance
         self._stage_changed = False
+        self._experience_maturity = 0.0  # from SwarmField.combined_maturity
 
     def tick(self, coherence: float, n_crystals: int = 0,
-             is_sovereign: bool = False) -> bool:
-        """One developmental tick. Returns True if stage changed."""
+             is_sovereign: bool = False,
+             experience_maturity: float = 0.0) -> bool:
+        """One developmental tick. Returns True if stage changed.
+
+        experience_maturity: from SwarmField.combined_maturity [0,1].
+        This is the REAL gate. Time is just a minimal floor.
+        """
         self._stage_changed = False
         self.metrics.total_ticks += 1
         elapsed = time.time() - self._start_time
@@ -119,15 +154,26 @@ class DevelopmentalTracker:
         if is_sovereign:
             self.metrics.sovereign_ticks += 1
 
+        # Track experience maturity
+        self._experience_maturity = experience_maturity
+
         # Check advancement
         if self.stage < STAGE_SELFHOOD:
             next_stage = self.stage + 1
             time_met = elapsed >= STAGE_TIME_THRESHOLDS[next_stage]
             coh_met = coherence >= STAGE_COHERENCE_REQUIREMENTS[next_stage]
+            exp_met = experience_maturity >= STAGE_MATURITY_THRESHOLDS[next_stage]
 
-            if time_met and coh_met:
+            # All three must be met: time floor + experience + coherence
+            if time_met and coh_met and exp_met:
                 self._coherence_streak += 1
-                if self._coherence_streak >= self._streak_threshold:
+                # Streak threshold scales with experience:
+                # High maturity = CK has proven himself, shorter streak
+                # maturity=1.0 → threshold=10 ticks (10 seconds)
+                # maturity=0.0 → threshold=50 ticks (50 seconds)
+                streak_needed = max(
+                    10, int(self._streak_base * (1.0 - 0.8 * experience_maturity)))
+                if self._coherence_streak >= streak_needed:
                     self._advance()
             else:
                 self._coherence_streak = max(0, self._coherence_streak - 1)
@@ -165,8 +211,18 @@ class DevelopmentalTracker:
 
     @property
     def vocabulary_words(self) -> int:
-        """How many words CK can string together at this stage."""
-        return [1, 2, 3, 5, 8, 12][min(self.stage, 5)]
+        """How many words CK can string together at this stage.
+
+        Base from stage, but experience maturity can boost within stage.
+        A highly experienced Stage 2 CK shouldn't be capped at 3 words.
+        """
+        base = [1, 2, 3, 5, 8, 12][min(self.stage, 5)]
+        # Experience boost: up to 2x within stage, capped by next stage
+        if self._experience_maturity > 0:
+            next_base = [2, 3, 5, 8, 12, 20][min(self.stage, 5)]
+            boost = int(base + (next_base - base) * self._experience_maturity)
+            return min(boost, next_base)
+        return base
 
     @property
     def can_form_sentences(self) -> bool:
@@ -181,19 +237,43 @@ class DevelopmentalTracker:
         """Is CK in the imprint period?"""
         return self.stage == STAGE_ATTUNEMENT
 
+    @staticmethod
+    def _canonical_path(filename: str = 'ck_development.json') -> str:
+        """Resolve canonical path: ~/.ck/ first, then CWD fallback."""
+        ck_home = os.path.join(os.path.expanduser('~'), '.ck')
+        os.makedirs(ck_home, exist_ok=True)
+        home_path = os.path.join(ck_home, filename)
+        # If ~/.ck/ version exists, always prefer it
+        if os.path.exists(home_path):
+            return home_path
+        # If CWD version exists but no home version, migrate it
+        if os.path.exists(filename):
+            import shutil
+            shutil.copy2(filename, home_path)
+            return home_path
+        return home_path
+
     def save(self, filename: str = 'ck_development.json'):
-        """Save developmental state to disk."""
+        """Save developmental state to disk (canonical: ~/.ck/)."""
+        path = self._canonical_path(filename)
         data = {
             'stage': self.stage,
             'metrics': asdict(self.metrics),
         }
-        with open(filename, 'w') as f:
+        with open(path, 'w') as f:
             json.dump(data, f, indent=2)
+        # Also save local copy for compatibility
+        try:
+            with open(filename, 'w') as f:
+                json.dump(data, f, indent=2)
+        except Exception:
+            pass
 
     def load(self, filename: str = 'ck_development.json') -> bool:
-        """Load developmental state from disk."""
+        """Load developmental state from disk (canonical: ~/.ck/)."""
+        path = self._canonical_path(filename)
         try:
-            with open(filename, 'r') as f:
+            with open(path, 'r') as f:
                 data = json.load(f)
             self.stage = data.get('stage', 0)
             m = data.get('metrics', {})
@@ -223,5 +303,6 @@ class DevelopmentalTracker:
             f"{self.stage_description} "
             f"(Runtime: {hrs:.1f}h, "
             f"Vocab: {self.vocabulary_words} words, "
+            f"Experience: {self._experience_maturity:.3f}, "
             f"Max C: {self.metrics.max_coherence_ever:.3f})"
         )

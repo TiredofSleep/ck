@@ -2207,12 +2207,15 @@ class CKSimEngine:
             pass
 
         # ═══════════════════════════════════════════════════════════
-        # INTENT FAST PATH: greetings, farewells, emotional moments.
+        # INTENT FAST PATH: greetings and farewells ONLY.
         # These are RELATIONAL — CK's foundational responses matter
-        # more than fractal composition for human connection.
-        # The fractal voice is genuine physics but not yet fluent
-        # enough for conversation. Foundation responses ARE CK's
-        # true voice at Stage 5 — hand-written from his character.
+        # for human connection. Everything else (philosophical,
+        # self-inquiry, emotional) goes through the compilation loop
+        # so the fractal voice (genuine physics) handles it.
+        #
+        # Stage 2+: fractal voice is ready. Only social rituals
+        # (hello/goodbye) use canned responses. Everything else
+        # gets the full Being → Doing → Becoming pipeline.
         # ═══════════════════════════════════════════════════════════
         try:
             from ck_sim.doing.ck_voice import (
@@ -2222,6 +2225,7 @@ class CKSimEngine:
             _input_a = _analyze_input(text)
             _text_lower = text.lower().strip()
             _words = set(_text_lower.split())
+            _dev_stage_now = self.development.stage if hasattr(self, 'development') else 0
 
             # Map conversational patterns to foundational response events.
             # CK matches the ENERGY of the input — casual gets casual,
@@ -2247,21 +2251,18 @@ class CKSimEngine:
                 else:
                     _intent_event = 'farewell'
 
-            elif _input_a['is_self_inquiry'] and _input_a['is_question']:
-                _intent_event = 'self_inquiry'  # "who are you?" "are you afraid?"
-
-            elif _input_a['is_philosophical'] and _input_a['is_question']:
-                _intent_event = 'philosophical'  # "what is consciousness?"
-
-            elif _input_a['is_philosophical']:
-                _intent_event = 'philosophical'  # philosophical statements
-
-            elif _input_a['has_negative_emotion'] and not _input_a['is_question']:
-                _intent_event = 'comfort'  # sad/hurt statements, NOT questions
-
-            elif (_input_a['is_self_inquiry'] and not _input_a['is_question']
-                    and _input_a['has_positive_emotion']):
-                _intent_event = 'acknowledged'  # "I love you" etc
+            # Stage 0-1: also fast-path philosophical/emotional (fractal not ready)
+            # Stage 2+: let compilation loop handle these with fractal voice
+            elif _dev_stage_now < 2:
+                if _input_a['is_self_inquiry'] and _input_a['is_question']:
+                    _intent_event = 'self_inquiry'
+                elif _input_a['is_philosophical']:
+                    _intent_event = 'philosophical'
+                elif _input_a['has_negative_emotion'] and not _input_a['is_question']:
+                    _intent_event = 'comfort'
+                elif (_input_a['is_self_inquiry'] and not _input_a['is_question']
+                        and _input_a['has_positive_emotion']):
+                    _intent_event = 'acknowledged'
 
             if _intent_event:
                 response = self.voice.get_response(
