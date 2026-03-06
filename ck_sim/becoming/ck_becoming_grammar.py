@@ -506,8 +506,12 @@ class BecomingTransitionMatrix:
         if not operator_chain:
             return "..."
 
-        # Density gates max words (CL-derived)
-        max_words = self.max_words_for_density(density)
+        # Density provides a FLOOR, not a ceiling.
+        # The caller (compose_from_operators) already computed max_words
+        # via pulse_max_words + stillness gate and sliced operator_chain.
+        # CAEL respects the incoming chain length as the target.
+        _density_floor = self.max_words_for_density(density)
+        max_words = max(_density_floor, len(operator_chain))
         chain = list(operator_chain[:max_words])
 
         # Single word: center dot

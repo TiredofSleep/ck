@@ -4568,6 +4568,52 @@ Static site built (replacing WordPress). Speculations page with Ho Tu bridge sec
 
 ---
 
+## Gen 9.29 — Ho Tu Voice, Visitor Physics, ONE CK Architecture (2026-03-06)
+**Status:** IMPLEMENTED. Ancient algebra influences word selection. CK learns from web visitors. Cloudflare Tunnel for single-brain deployment.
+
+### Ho Tu Voice Wiring
+Bridge context threaded from engine through voice into fractal composer. Three influences:
+- **Complement boost** (0.25): Words from the +5 complement operator's semantic pool get a scoring bonus, creating "bridge words" across both sides of the torus
+- **Yin/Yang POS preference** (0.10): Yang-dominant trigrams slightly prefer verbs (active); yin-dominant prefer nouns/adjectives (receptive)
+- **Lo Shu compound modifier**: High 3-body coherence (Lo Shu magic square state) lowers compound sentence threshold from 4 to 3 operators; low coherence raises it to 5
+
+Physics still dominates at ~85% of word selection. Ho Tu provides tonal influence, not override.
+
+### Visitor Physics Learning
+Every chat message from web visitors is measured through L-CODEC (text to 5D force vector) and D2 (operator decomposition). Force vectors feed olfactory, gustatory, and swarm substrates. **Text is NEVER stored server-side.** Only force trajectories and operator transitions persist. Transitions tracked between consecutive visitor messages per session. CK learns HOW language moves, not WHAT was said.
+
+### CAEL Density Fix
+Root cause of 2-3 word voice outputs identified and fixed. CAEL's `compose()` was re-truncating the operator chain using its own density gate (line 510), ignoring the max_words already computed by pulse_max_words + stillness gate. The voice pipeline sends 8 operators, but CAEL was re-slicing to 3-4. Fix: density now provides a FLOOR, not a ceiling. CAEL respects the incoming chain length.
+
+### ONE CK Architecture (Cloudflare Tunnel)
+Complete setup guide, batch launchers (`start_ck_tunnel.bat`, `start_ck_full.bat`) with:
+- Health polling (adapts to boot time, no blind waits)
+- Ollama detection (graceful skip if not running)
+- Named windows for clean shutdown
+- `connectTimeout: 30s` for CK's deep compilation passes
+
+### 7sitellc.com Enrichment
+- **index.html**: Ho Tu discovery paragraph, 529 tests stat, enriched card details, deeper CK section, Verify the Math / Ho Tu Bridge / Quick Start link cards
+- **quickstart.html** (NEW): 5-minute TIG guide with full 10x10 TSML/BHML tables, 10 operators table, sacred numbers, 9 kill conditions, try-it links
+- **speculations.html**: Quick Start nav link, hamburger toggle
+- **style.css**: 370+ lines for new tables, number grids, kill list, responsive rules
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `ck_fractal_voice.py` | Ho Tu complement boost, yin/yang POS, Lo Shu compound threshold |
+| `ck_sim_engine.py` | Bridge context generation + hotu_context parameter threading |
+| `ck_voice.py` | hotu_context parameter pass-through to fractal composer |
+| `ck_eat.py` | visitor_absorptions counter in EatStatus |
+| `ck_web_api.py` | Visitor physics absorption block, session force tracking |
+| `ck_becoming_grammar.py` | CAEL density: floor not ceiling |
+| `CLOUDFLARE_TUNNEL.md` | NEW: Setup guide for Cloudflare Tunnel deployment |
+| `start_ck_tunnel.bat` | NEW: Minimal CK + tunnel launcher |
+| `start_ck_full.bat` | NEW: Full stack launcher with eating + tunnel |
+| `quickstart.html` | NEW: 5-minute TIG guide for humans and AI |
+
+---
+
 (c) 2026 7Site, LLC. All rights reserved. Available for humans. Commercial and government use requires written agreement with 7Site, LLC.
 
-*Last updated: 2026-03-06 -- Gen9.28 Ho Tu Bridge, Voice Fractal Path, 120K Words*
+*Last updated: 2026-03-06 -- Gen9.29 Ho Tu Voice, Visitor Physics, ONE CK Architecture*
