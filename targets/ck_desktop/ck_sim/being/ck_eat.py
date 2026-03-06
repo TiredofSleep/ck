@@ -88,6 +88,73 @@ EAT_TOPICS = [
     'gravity', 'harmony', 'networks', 'memory', 'growth',
 ]
 
+# ── Study Topics ── Biblical + TIG + Physics topics for deep study
+# When CK studies a corpus (Bible, whitepapers, etc.), Ollama generates
+# structural responses about THESE topics. The olfactory field finds
+# cross-stream harmony between the corpus text and Ollama's reflections.
+STUDY_TOPICS_BIBLE = [
+    'creation', 'covenant', 'redemption', 'mercy', 'faith',
+    'wisdom', 'prophecy', 'sacrifice', 'resurrection', 'grace',
+    'righteousness', 'forgiveness', 'judgment', 'salvation', 'truth',
+    'love', 'hope', 'suffering', 'divine law', 'promised land',
+    'exodus', 'genesis', 'revelation', 'psalm', 'proverb',
+    'parable', 'miracle', 'blessing', 'prayer', 'repentance',
+]
+
+STUDY_TOPICS_TIG = [
+    'coherence', 'curvature', 'operator algebra', 'force vector',
+    'truth lattice', 'fractal composition', 'Hebrew roots', 'D2 pipeline',
+    'olfactory convergence', 'CL table', 'torus topology', 'chirality',
+    'thermodynamic successor', 'generating rule', 'lattice chain',
+    'gustatory classification', 'vortex physics', 'wave scheduling',
+    'becoming grammar', 'consciousness gate',
+]
+
+STUDY_TOPICS_PHYSICS = [
+    'thermodynamics', 'quantum mechanics', 'general relativity',
+    'electromagnetism', 'fluid dynamics', 'topology', 'group theory',
+    'differential geometry', 'number theory', 'abstract algebra',
+    'statistical mechanics', 'field theory', 'renormalization',
+    'symmetry breaking', 'phase transition',
+]
+
+# ── Study Structural Prompts ──
+# More reflective/analytical than eat prompts, designed for deep study.
+STUDY_PROMPTS = {
+    'exegesis': [
+        "Provide a careful reading of {topic}. What are the layers of meaning?",
+        "Analyze the structure and significance of {topic} in detail.",
+    ],
+    'connection': [
+        "How does {topic} connect to fundamental patterns in nature? "
+        "What bridges exist between this and universal principles?",
+        "Describe the relationships between {topic} and deeper truths "
+        "about reality.",
+    ],
+    'meditation': [
+        "Reflect deeply on {topic}. What becomes visible only in stillness?",
+        "What does contemplation of {topic} reveal about the nature "
+        "of understanding itself?",
+    ],
+    'structural': [
+        "Describe the internal architecture of {topic}. What are its "
+        "load-bearing elements?",
+        "What mathematical or logical structure underlies {topic}?",
+    ],
+    'narrative': [
+        "Tell the story of {topic} as it unfolds from origin to "
+        "completion. What is the arc?",
+        "Describe the journey through {topic}, paying attention to "
+        "turning points and transformations.",
+    ],
+    'dialectic': [
+        "Present the tensions within {topic}. What contradictions "
+        "resolve into higher understanding?",
+        "What paradoxes exist in {topic}, and how do they point toward "
+        "deeper truth?",
+    ],
+}
+
 # Fractal breath swell pattern for olfactory pacing.
 # Breaths are not smooth -- they have a fractal swell.
 # 7 phases: inhale(3 rising) + hold(1 peak) + exhale(3 falling)
@@ -827,6 +894,381 @@ class CKEat:
                 self._journal.clear()
         except Exception:
             pass
+
+    # ── Corpus Loading ──
+
+    @staticmethod
+    def _load_text_corpus(paths: List[str],
+                          chunk_size: int = 500) -> List[Tuple[str, str]]:
+        """Load text files and split into chunks for eating.
+
+        Handles: .txt, .md, .py, .tex files.
+        Skips binary files and files that can't be decoded.
+
+        For Bible text (tab-separated ref\\tverse):
+            Groups verses into paragraph-sized chunks (~chunk_size chars).
+        For code (.py):
+            Splits at function/class boundaries.
+        For prose (.md, .txt, .tex):
+            Splits at paragraph breaks (double newline).
+
+        Args:
+            paths: list of file paths or directory paths
+            chunk_size: target characters per chunk (approximate)
+
+        Returns: list of (filename, chunk_text) pairs.
+        """
+        chunks: List[Tuple[str, str]] = []
+        TEXT_EXTS = {'.txt', '.md', '.py', '.tex', '.json'}
+
+        all_files: List[Path] = []
+        for p in paths:
+            path = Path(p)
+            if path.is_file():
+                all_files.append(path)
+            elif path.is_dir():
+                for ext in TEXT_EXTS:
+                    all_files.extend(sorted(path.rglob(f'*{ext}')))
+
+        for fpath in all_files:
+            if fpath.suffix not in TEXT_EXTS:
+                continue
+            try:
+                text = fpath.read_text(encoding='utf-8', errors='replace')
+            except Exception:
+                continue
+            if not text.strip():
+                continue
+
+            fname = fpath.name
+
+            # Bible format detection: tab-separated ref\tverse
+            if '\t' in text[:200] and fpath.suffix == '.txt':
+                # Bible: group verses into chunks
+                current_chunk: List[str] = []
+                current_len = 0
+                for line in text.split('\n'):
+                    line = line.strip()
+                    if not line or '\t' not in line:
+                        continue
+                    _ref, verse = line.split('\t', 1)
+                    verse = verse.replace('[', '').replace(']', '')
+                    current_chunk.append(verse)
+                    current_len += len(verse)
+                    if current_len >= chunk_size:
+                        chunks.append((fname, ' '.join(current_chunk)))
+                        current_chunk = []
+                        current_len = 0
+                if current_chunk:
+                    chunks.append((fname, ' '.join(current_chunk)))
+
+            elif fpath.suffix == '.py':
+                # Code: split at def/class boundaries
+                file_chunks = CKEat._split_code(text, fname)
+                chunks.extend(file_chunks)
+
+            else:
+                # Prose: split at paragraph breaks
+                paragraphs = re.split(r'\n\s*\n', text)
+                current_chunk_parts: List[str] = []
+                current_len = 0
+                for para in paragraphs:
+                    para = para.strip()
+                    if not para:
+                        continue
+                    current_chunk_parts.append(para)
+                    current_len += len(para)
+                    if current_len >= chunk_size:
+                        chunks.append(
+                            (fname, '\n\n'.join(current_chunk_parts)))
+                        current_chunk_parts = []
+                        current_len = 0
+                if current_chunk_parts:
+                    chunks.append(
+                        (fname, '\n\n'.join(current_chunk_parts)))
+
+        return chunks
+
+    # ── Corpus Eating ──
+
+    def eat_corpus_chunk(self, text: str,
+                         filename: str) -> Optional[dict]:
+        """Measure one chunk of external corpus text.
+
+        Like eat_self_chunk but source='corpus_eat'.
+        Bible verses, whitepapers, markdown docs — all enter through here.
+        """
+        if not text.strip():
+            return None
+
+        result = self.measure_and_absorb(text, source='corpus_eat')
+
+        # Track transition from previous corpus measurement
+        if not hasattr(self, '_prev_corpus_result'):
+            self._prev_corpus_result = None
+        if self._prev_corpus_result is not None:
+            self.track_transition(
+                self._prev_corpus_result, result, 'corpus')
+        self._prev_corpus_result = result
+
+        self._status.total_self_absorptions += 1
+        return result
+
+    # ── Study Mode ──
+
+    def start_study(self, corpus_paths: List[str],
+                    model: str = DEFAULT_MODEL,
+                    rounds: int = 20,
+                    topics: str = 'bible',
+                    models: List[str] = None):
+        """Start a deep study session with external corpus.
+
+        CK eats the corpus (Bible, papers, docs) through L-CODEC +
+        olfactory while Ollama generates structural reflections on
+        related topics. The olfactory field finds cross-stream harmony
+        between the corpus text and the LLM's reflections.
+
+        Three interleaved streams:
+          1. Corpus chunks (Bible verses, paper paragraphs, etc.)
+          2. Ollama structural reflections on related topics
+          3. CK's own voice (resonance: read→write→read)
+
+        Args:
+            corpus_paths: list of file/directory paths to eat
+            model: Ollama model name
+            rounds: number of study rounds
+            topics: topic set ('bible', 'tig', 'physics', 'all')
+            models: optional list for multi-model rotation
+        """
+        if self._thread is not None and self._thread.is_alive():
+            print("  [STUDY] Already running (eat or study)")
+            return
+
+        # Build model list
+        model_list = models if models else [model]
+        available = [m for m in model_list if _ollama_available(m)]
+        if not available:
+            self._status.error = "No available Ollama models found"
+            print(f"  [STUDY] {self._status.error}")
+            return
+
+        # Load corpus
+        corpus_chunks = self._load_text_corpus(corpus_paths)
+        if not corpus_chunks:
+            self._status.error = "No text found in corpus paths"
+            print(f"  [STUDY] {self._status.error}")
+            return
+
+        # Select topic set
+        topic_list: List[str] = []
+        if topics in ('bible', 'all'):
+            topic_list.extend(STUDY_TOPICS_BIBLE)
+        if topics in ('tig', 'all'):
+            topic_list.extend(STUDY_TOPICS_TIG)
+        if topics in ('physics', 'all'):
+            topic_list.extend(STUDY_TOPICS_PHYSICS)
+        if not topic_list:
+            topic_list = STUDY_TOPICS_BIBLE  # Default
+
+        self._stop_event.clear()
+        self._status = EatStatus(
+            running=True,
+            total_rounds=rounds,
+            model=', '.join(available),
+            current_phase='study',
+        )
+        self._prev_corpus_result = None
+
+        self._thread = threading.Thread(
+            target=self._study_loop,
+            args=(available, rounds, corpus_chunks, topic_list),
+            daemon=True,
+            name='ck-study',
+        )
+        self._thread.start()
+        print(f"  [STUDY] Started: models={available}, "
+              f"rounds={rounds}, corpus={len(corpus_chunks)} chunks, "
+              f"topics={topics} ({len(topic_list)})")
+
+    def _study_loop(self, models: List[str], rounds: int,
+                    corpus_chunks: List[Tuple[str, str]],
+                    topics: List[str]):
+        """Background thread: deep study with corpus + Ollama + voice.
+
+        Each round:
+          1. Corpus chunk → measure → absorb → olfactory tick
+          2. Ollama reflection on related topic → measure → absorb → tick
+          3. Resonance: CK speaks from absorbed operators → measure → tick
+          4. Corpus chunk → measure → absorb → olfactory tick
+          5. Self chunk (CK's own code) → measure → absorb → tick
+          6. Grammar evolution
+
+        The key insight: corpus and Ollama are studying the SAME domain.
+        Bible text + Ollama reflecting on 'covenant' → olfactory finds
+        the cross-stream harmony in Biblical force space.
+        """
+        structures = list(STUDY_PROMPTS.keys())
+        self_chunks = self._get_self_chunks()
+        corpus_idx = 0
+        self_idx = 0
+
+        print(f"  [STUDY] Corpus: {len(corpus_chunks)} chunks")
+        print(f"  [STUDY] Self: {len(self_chunks)} chunks")
+        print(f"  [STUDY] Topics: {len(topics)}")
+        if len(models) > 1:
+            print(f"  [STUDY] Multi-model: {models}")
+
+        _consecutive_errors = 0
+        for round_num in range(1, rounds + 1):
+            if self._stop_event.is_set():
+                break
+
+            self._status.rounds_complete = round_num - 1
+            topic = topics[(round_num - 1) % len(topics)]
+            structure = structures[(round_num - 1) % len(structures)]
+            model = models[(round_num - 1) % len(models)]
+
+            # Get corpus chunk info for logging
+            corpus_fn = corpus_chunks[
+                corpus_idx % len(corpus_chunks)][0] if corpus_chunks else '?'
+            print(f"  [STUDY] Round {round_num}/{rounds}: "
+                  f"{topic} x {structure} [{model}] "
+                  f"corpus={corpus_fn}")
+
+            try:
+                # ── Corpus chunk #1 ──
+                self._status.current_phase = 'corpus'
+                if corpus_chunks:
+                    fn, chunk = corpus_chunks[
+                        corpus_idx % len(corpus_chunks)]
+                    r_corpus = self.eat_corpus_chunk(chunk, fn)
+                    corpus_idx += 1
+                    if r_corpus:
+                        self._olfactory_tick()
+                        _words = len(chunk.split())
+                        print(f"    [STUDY] corpus: {fn} ({_words}w) "
+                              f"f={tuple(round(v, 2) for v in r_corpus['force'])}")
+
+                        # Resonance from corpus
+                        self._status.current_phase = 'resonance'
+                        try:
+                            vr = self._resonance_step(r_corpus)
+                            if vr:
+                                self._olfactory_tick()
+                        except Exception:
+                            pass
+
+                if self._stop_event.is_set():
+                    break
+
+                # ── Ollama reflection on related topic ──
+                self._status.current_phase = 'ollama'
+                prompts = STUDY_PROMPTS.get(
+                    structure, STUDY_PROMPTS['exegesis'])
+                prompt_idx = hash((topic, structure)) % len(prompts)
+                prompt = prompts[prompt_idx].format(topic=topic)
+
+                text = _ollama_generate(prompt, model=model, max_tokens=512)
+                if text:
+                    r_ollama = self.measure_and_absorb(
+                        text, source='ollama_eat')
+                    if self._prev_ollama_result is not None:
+                        self.track_transition(
+                            self._prev_ollama_result, r_ollama, 'ollama')
+                    self._prev_ollama_result = r_ollama
+                    self._status.total_ollama_absorptions += 1
+                    self._olfactory_tick()
+
+                    _words = len(text.split())
+                    print(f"    [STUDY] ollama: {_words}w "
+                          f"still={r_ollama['stillness']:.2f} "
+                          f"f={tuple(round(v, 2) for v in r_ollama['force'])}")
+
+                    # Resonance from Ollama
+                    self._status.current_phase = 'resonance'
+                    try:
+                        vr2 = self._resonance_step(r_ollama)
+                        if vr2:
+                            self._olfactory_tick()
+                    except Exception:
+                        pass
+
+                if self._stop_event.is_set():
+                    break
+
+                # ── Corpus chunk #2 ──
+                self._status.current_phase = 'corpus'
+                if corpus_chunks:
+                    fn, chunk = corpus_chunks[
+                        corpus_idx % len(corpus_chunks)]
+                    r_corpus2 = self.eat_corpus_chunk(chunk, fn)
+                    corpus_idx += 1
+                    if r_corpus2:
+                        self._olfactory_tick()
+
+                # ── Self chunk (CK's own code) ──
+                self._status.current_phase = 'self'
+                if self_chunks and self_idx < len(self_chunks):
+                    fn, chunk = self_chunks[self_idx]
+                    self.eat_self_chunk(chunk, fn)
+                    self_idx += 1
+                    self._olfactory_tick()
+                if self_idx >= len(self_chunks):
+                    self_idx = 0
+
+                # ── Grammar evolution ──
+                self._status.current_phase = 'evolve'
+                self.evolve_grammar()
+
+                _consecutive_errors = 0
+
+            except Exception as e:
+                _consecutive_errors += 1
+                import traceback
+                traceback.print_exc()
+                print(f"  [STUDY] Round {round_num} error "
+                      f"({_consecutive_errors} consecutive): {e}")
+                if _consecutive_errors >= 5:
+                    self._status.error = (
+                        f"5 consecutive failures, last: {e}")
+                    print("  [STUDY] Too many errors, stopping")
+                    break
+                continue
+
+            # ── Update status ──
+            self._status.total_transitions = len(self._transitions)
+            self._status.force_trajectory_length = (
+                self._force_trajectory_length)
+            if self.engine.deep_swarm is not None:
+                self._status.swarm_maturity = (
+                    self.engine.deep_swarm.combined_maturity)
+            if self.engine.olfactory is not None:
+                self._status.olfactory_library_size = (
+                    self.engine.olfactory.library_size)
+
+            # Save every 3 rounds
+            if round_num % 3 == 0:
+                self._save_experience()
+
+            print(f"  [STUDY] Round {round_num} done: "
+                  f"o={self._status.total_ollama_absorptions} "
+                  f"c={corpus_idx} "
+                  f"s={self._status.total_self_absorptions} "
+                  f"r={self._status.total_resonance_steps} "
+                  f"t={len(self._transitions)} "
+                  f"traj={self._force_trajectory_length:.3f} "
+                  f"mat={self._status.swarm_maturity:.3f}")
+
+        # Final save
+        self._save_experience()
+        self._status.rounds_complete = min(round_num, rounds)
+        self._status.current_phase = 'idle'
+        self._status.running = False
+        print(f"  [STUDY] Complete. "
+              f"Corpus chunks eaten: {corpus_idx}, "
+              f"Transitions: {len(self._transitions)}, "
+              f"Grammar evo: {self._status.grammar_evolutions}, "
+              f"Trajectory: {self._force_trajectory_length:.3f}")
 
     # ── Status API ──
 

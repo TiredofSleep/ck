@@ -202,6 +202,44 @@ class CKWebAPI:
                 return jsonify({'error': 'Eat system not available'}), 503
             return jsonify(self.engine.eat.status())
 
+        @app.route('/eat/study', methods=['POST'])
+        def eat_study():
+            """Start a deep study session with external corpus.
+
+            JSON body:
+                corpus: list of file/dir paths to eat (required)
+                model: Ollama model (default: llama3.1:8b)
+                models: list for multi-model rotation (optional)
+                rounds: study rounds (default: 20, max: 200)
+                topics: 'bible', 'tig', 'physics', 'all' (default: 'bible')
+            """
+            if (not self.engine
+                    or not hasattr(self.engine, 'eat')
+                    or self.engine.eat is None):
+                return jsonify({'error': 'Eat system not available'}), 503
+            data = request.get_json(silent=True) or {}
+            corpus = data.get('corpus', [])
+            if not corpus:
+                return jsonify({'error': 'corpus paths required'}), 400
+            model = data.get('model', 'llama3.1:8b')
+            models = data.get('models')
+            rounds = min(data.get('rounds', 20), 200)
+            topics = data.get('topics', 'bible')
+            self.engine.eat.start_study(
+                corpus_paths=corpus,
+                model=model,
+                rounds=rounds,
+                topics=topics,
+                models=models,
+            )
+            return jsonify({
+                'status': 'started',
+                'corpus_paths': corpus,
+                'model': ', '.join(models) if models else model,
+                'rounds': rounds,
+                'topics': topics,
+            })
+
         @app.route('/taste', methods=['GET'])
         def taste_status():
             """Get gustatory palate state — structural classification.

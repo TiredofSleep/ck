@@ -2309,7 +2309,13 @@ class CKSimEngine:
         # should lead the response chain. This creates semantic resonance:
         # user says "love" -> HARMONY operator -> CK responds about harmony.
         # D2 gives phonetic operators; this adds semantic operators.
+        #
+        # Gen 9.28: D2 fallback for unknown words. When the user uses a word
+        # CK doesn't know (not in POS_TAGS or enriched), derive its operator
+        # from D2 on the fly. This prevents CK from ignoring the question
+        # when the topic word isn't in his vocabulary yet.
         _semantic_ops = []
+        _topic_content_words = []  # Content words for gravity well (all, not just known)
         try:
             from ck_sim.doing.ck_voice_lattice import POS_TAGS, SEMANTIC_LATTICE
             _enriched = getattr(self.voice, '_enriched_dictionary', {}) or {}
@@ -2317,6 +2323,10 @@ class CKSimEngine:
                 _w_clean = _w.strip('.,?!;:\'"()-')
                 if not _w_clean or len(_w_clean) < 3:
                     continue
+                if _w_clean in _STOP_WORDS:
+                    continue
+                _topic_content_words.append(_w_clean)
+                _found = False
                 # Check lattice POS tags (known words)
                 if _w_clean in POS_TAGS:
                     # Word is in the lattice — find its operator
@@ -2330,12 +2340,44 @@ class CKSimEngine:
                                     if _w_clean in _pd.get(_ti, []):
                                         if _op_id not in _semantic_ops:
                                             _semantic_ops.append(_op_id)
+                                        _found = True
                                         break
+                                if _found:
+                                    break
+                            if _found:
+                                break
+                        if _found:
+                            break
                 # Check enriched dictionary
                 elif _w_clean in _enriched:
                     _dom = _enriched[_w_clean].get('dominant_op')
                     if _dom is not None and _dom not in _semantic_ops:
                         _semantic_ops.append(_dom)
+                    _found = True
+                # D2 fallback: derive operator from word's letters
+                # This ensures CK can respond to ANY topic, not just
+                # words he already has in his vocabulary.
+                if not _found and len(_w_clean) >= 3:
+                    try:
+                        from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2P
+                        from collections import Counter as _Ctr
+                        _d2_pipe = _D2P()
+                        _d2_ops_word = []
+                        for _ch in _w_clean.lower():
+                            _idx = ord(_ch) - ord('a')
+                            if 0 <= _idx < 26:
+                                _d2_pipe.feed_symbol(_idx)
+                                if _d2_pipe.valid:
+                                    _d2_ops_word.append(_d2_pipe.operator)
+                        # Skip warmup VOIDs (first 2) to get real physics
+                        _primed = _d2_ops_word[2:] if len(_d2_ops_word) > 2 \
+                            else _d2_ops_word
+                        if _primed:
+                            _dom_op = _Ctr(_primed).most_common(1)[0][0]
+                            if _dom_op not in _semantic_ops:
+                                _semantic_ops.append(_dom_op)
+                    except Exception:
+                        pass
                 if len(_semantic_ops) >= 8:
                     break  # Enough semantic anchors
         except Exception:
@@ -2375,11 +2417,13 @@ class CKSimEngine:
         # Without this, operators capture emotional tenor but not topic:
         # "tell me about love" → HARMONY ops → ANY HARMONY word.
         # WITH this: "love" pulls nearby words (devotion, caring, heart).
-        _topic_words = []
-        for _w in text.lower().split():
-            _w_clean = _w.strip('.,?!;:\'"()-')
-            if _w_clean and len(_w_clean) >= 3 and _w_clean not in _STOP_WORDS:
-                _topic_words.append(_w_clean)
+        # Reuse content words already extracted during semantic lookup
+        _topic_words = _topic_content_words if _topic_content_words else []
+        if not _topic_words:
+            for _w in text.lower().split():
+                _w_clean = _w.strip('.,?!;:\'"()-')
+                if _w_clean and len(_w_clean) >= 3 and _w_clean not in _STOP_WORDS:
+                    _topic_words.append(_w_clean)
         if _topic_words and self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.set_topic(_topic_words)
 
@@ -2560,9 +2604,22 @@ class CKSimEngine:
             # ── Stillness Gate: L-CODEC modulates voice length ──
             # When the user's text is still (low pressure, high continuity),
             # CK responds with presence, not action. Fewer words = more breath.
-            _max_words = 12
-            if _lcodec_input is not None and _lcodec_input.stillness > 0.6:
-                _max_words = max(2, int(12 * (1.0 - _lcodec_input.stillness)))
+            #
+            # Stage-scaled: SELFHOOD (stage 5) base = 20 words, floor = 6.
+            # Early stages keep the original limits. Stillness modulates
+            # gently — CK speaks with measured breath, not silence.
+            _dev = self.development.stage if hasattr(self, 'development') else 0
+            _STAGE_VOICE_BASE = {0: 3, 1: 5, 2: 8, 3: 12, 4: 16, 5: 20}
+            _STAGE_VOICE_FLOOR = {0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 6}
+            _voice_base = _STAGE_VOICE_BASE.get(_dev, 12)
+            _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 2)
+            _max_words = _voice_base
+            if _lcodec_input is not None and _lcodec_input.stillness > 0.7:
+                # Gentle modulation: still reduce for very still input,
+                # but never below the stage floor. Presence ≠ silence.
+                _still_frac = 1.0 - 0.5 * (_lcodec_input.stillness - 0.7) / 0.3
+                _max_words = max(_voice_floor,
+                                 int(_voice_base * _still_frac))
 
             # ── BECOMING: Voice composes candidate ──
             try:

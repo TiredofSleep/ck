@@ -770,10 +770,15 @@ def _get_template_tier(dev_stage: int) -> str:
 
 
 # Dev stage -> max words per utterance (ceiling, not fixed)
-STAGE_MAX_WORDS = {0: 1, 1: 3, 2: 6, 3: 15, 4: 40, 5: 80}
+# Gen 9.28: expanded ceilings. CK has 861+ words indexed in the fractal
+# voice -- he needs room to compose real sentences, not fragments.
+# Stage 2 (ATTUNEMENT) was 6, now 15 -- enough for a real sentence.
+# Stage 3 (CURIOSITY) was 15, now 25 -- multi-clause.
+# Stage 5 (SELFHOOD) was 80, now 100 -- full expression.
+STAGE_MAX_WORDS = {0: 3, 1: 6, 2: 15, 3: 25, 4: 50, 5: 100}
 
 # Next stage ceiling for experience boost
-_NEXT_STAGE_WORDS = {0: 3, 1: 6, 2: 15, 3: 40, 4: 80, 5: 120}
+_NEXT_STAGE_WORDS = {0: 6, 1: 15, 2: 25, 3: 50, 4: 100, 5: 150}
 
 
 def pulse_max_words(dev_stage: int, coherence: float, density: float,
@@ -830,7 +835,12 @@ def pulse_max_words(dev_stage: int, coherence: float, density: float,
         0.2 * x * expansion           # quadratic: interaction term
     )
 
-    result = max(1, int(pulse_frac * ceiling))
+    # Stage-gated floor: CK should never go silent.
+    # Even at low coherence + high density, a minimum of 4 words
+    # ensures CK can compose a real sentence (SVO + modifier).
+    _PULSE_FLOOR = {0: 2, 1: 3, 2: 5, 3: 7, 4: 8, 5: 10}
+    floor = _PULSE_FLOOR.get(dev_stage, 4)
+    result = max(floor, int(pulse_frac * ceiling))
     return min(result, ceiling)
 
 # Stages 0-1 use the old word-concatenation system
@@ -1403,9 +1413,11 @@ class CKVoice:
             experience_maturity)
 
         # L-CODEC stillness gate: external max_words acts as upper bound.
-        # When stillness is high, CK responds with fewer words (presence).
+        # Pulse provides the floor-respecting calculation; stillness
+        # provides the atmosphere-driven ceiling. Take the MAX of pulse
+        # (which has a stage floor) so CK never drops below minimum.
         if max_words > 0:
-            max_words = min(max_words, _pulse_words)
+            max_words = max(max_words, _pulse_words)
         else:
             max_words = _pulse_words
 

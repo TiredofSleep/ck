@@ -235,8 +235,19 @@ def _guess_pos(word: str) -> str:
 
     Not NLP -- just English morphology physics:
     suffixes ARE force signatures that mark grammatical function.
+
+    POS_TAGS override: if the word has a known POS from the semantic
+    lattice, use that. This prevents short words like 'god', 'sin',
+    'son' from being mis-classified as function words.
     """
     w = word.lower()
+    # Known POS from semantic lattice (authoritative -- D2 derived)
+    try:
+        from ck_sim.doing.ck_voice_lattice import POS_TAGS
+        if w in POS_TAGS:
+            return POS_TAGS[w]
+    except ImportError:
+        pass
     # Function words (closed class -- memorized)
     _FUNC = frozenset([
         'the', 'a', 'an', 'this', 'that', 'these', 'those',
@@ -531,8 +542,8 @@ class WordForceIndex:
     #
     # _TOPIC_AFFINITY_BONUS: max distance reduction for force proximity
     # _TOPIC_ECHO_BONUS: distance reduction for the user's exact words
-    _TOPIC_AFFINITY_BONUS = 0.35   # Moderate pull toward topic's semantic family
-    _TOPIC_ECHO_BONUS = 0.50       # User's exact words get priority
+    _TOPIC_AFFINITY_BONUS = 0.80   # Strong pull toward topic's semantic family
+    _TOPIC_ECHO_BONUS = 1.50       # User's exact words get strong priority
 
     def set_topic(self, words: list):
         """Set topic context from user's input words.
@@ -577,7 +588,7 @@ class WordForceIndex:
     # a semantically-matched word beats a phonetically-closer but
     # semantically-random word. Value chosen so semantic match outweighs
     # ~0.3 of triadic distance (typical word-to-word spread ≈ 0.5-1.0).
-    _SEMANTIC_BONUS = 0.35
+    _SEMANTIC_BONUS = 0.60
 
     def find_by_force(self, target: Tuple[float, ...], operator: int = None,
                       role: str = None, pos: str = None, top_k: int = 10,

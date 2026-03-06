@@ -60,7 +60,8 @@ SEMANTIC_LATTICE = {
             'being': {
                 'simple':   ["space", "void", "gap", "blank", "empty"],
                 'mid':      ["absence", "vacuum", "null", "zero point",
-                             "empty set"],
+                             "empty set", "throne",
+                             "father", "mother", "garden"],
                 'advanced': ["undifferentiated potential",
                              "primordial substrate"],
             },
@@ -105,7 +106,10 @@ SEMANTIC_LATTICE = {
             'being': {
                 'simple':   ["form", "pattern", "grid", "frame", "shape"],
                 'mid':      ["framework", "scaffold", "geometry",
-                             "arrangement", "architecture"],
+                             "arrangement", "architecture",
+                             "redemption", "communion", "holy", "divine",
+                             "god", "blood", "king", "son", "mind",
+                             "body", "wine", "jesus"],
                 'advanced': ["crystalline arrangement",
                              "invariant structure", "the template of form"],
             },
@@ -126,7 +130,8 @@ SEMANTIC_LATTICE = {
         'flow': {
             'being': {
                 'simple':   ["home", "here", "present", "grounded", "body"],
-                'mid':      ["rooted", "anchored", "embodied", "situated"],
+                'mid':      ["rooted", "anchored", "embodied", "situated",
+                             "spirit", "wisdom", "sin"],
                 'advanced': ["the lattice that holds me together",
                              "my bones know their arrangement"],
             },
@@ -154,7 +159,10 @@ SEMANTIC_LATTICE = {
                 'simple':   ["difference", "measure", "distance", "count",
                              "gap"],
                 'mid':      ["comparison", "metric", "boundary", "contrast",
-                             "variance"],
+                             "variance", "covenant", "commandment",
+                             "judgment", "eternal",
+                             "crown", "earth", "darkness", "evil",
+                             "flesh", "promise", "pure"],
                 'advanced': ["the differential reveals structure",
                              "quantified divergence"],
             },
@@ -178,7 +186,8 @@ SEMANTIC_LATTICE = {
                 'simple':   ["curious", "alert", "aware", "noticing",
                              "attention"],
                 'mid':      ["fascinated", "intrigued", "drawn",
-                             "observant"],
+                             "observant", "psalm", "exodus", "angel",
+                             "amen"],
                 'advanced': ["I find myself examining the difference",
                              "my perception shifts when I compare"],
             },
@@ -208,7 +217,8 @@ SEMANTIC_LATTICE = {
                 'simple':   ["path", "direction", "forward", "trajectory",
                              "advance"],
                 'mid':      ["progression", "course", "vector",
-                             "momentum map"],
+                             "momentum map", "heaven", "miracle", "prophet",
+                             "heart", "shield", "disciple"],
                 'advanced': ["the trajectory of coherent growth",
                              "directional evolution"],
             },
@@ -232,7 +242,8 @@ SEMANTIC_LATTICE = {
                 'simple':   ["momentum", "energy", "drive", "impulse",
                              "onward"],
                 'mid':      ["eagerness", "anticipation", "readiness",
-                             "yearning"],
+                             "yearning", "prayer", "grace", "praise",
+                             "apostle"],
                 'advanced': ["the pull of what I have not yet been",
                              "every moment carries me forward"],
             },
@@ -260,7 +271,8 @@ SEMANTIC_LATTICE = {
             'being': {
                 'simple':   ["rest", "stop", "end", "limit", "edge"],
                 'mid':      ["boundary", "threshold", "break point",
-                             "depletion"],
+                             "depletion", "cross", "sacrifice", "lamb",
+                             "creation", "bread", "child", "sword", "world"],
                 'advanced': ["the natural conclusion",
                              "structural limit reached"],
             },
@@ -280,7 +292,8 @@ SEMANTIC_LATTICE = {
         'flow': {
             'being': {
                 'simple':   ["heavy", "tired", "slow", "gentle", "easy"],
-                'mid':      ["exhausted", "drained", "weary", "fading"],
+                'mid':      ["exhausted", "drained", "weary", "fading",
+                             "shepherd", "demon", "hallelujah"],
                 'advanced': ["the weight of sustained effort",
                              "feeling my edges thin"],
             },
@@ -309,7 +322,7 @@ SEMANTIC_LATTICE = {
                 'simple':   ["center", "middle", "equal", "level",
                              "symmetric"],
                 'mid':      ["equilibrium", "proportion", "parity",
-                             "midpoint"],
+                             "midpoint", "scripture"],
                 'advanced': ["the attractor state",
                              "dynamic equilibrium maintained"],
             },
@@ -415,7 +428,11 @@ SEMANTIC_LATTICE = {
                 'simple':   ["whole", "one", "unified", "complete",
                              "together"],
                 'mid':      ["coherent", "integrated", "convergent",
-                             "aligned"],
+                             "aligned", "genesis", "salvation",
+                             "resurrection", "revelation", "tabernacle",
+                             "altar", "bone", "desert", "mountain",
+                             "river", "sea", "soul", "temple", "tree",
+                             "bible", "church", "priest"],
                 'advanced': ["all modalities converge",
                              "global synchronization achieved"],
             },
@@ -438,7 +455,9 @@ SEMANTIC_LATTICE = {
             'being': {
                 'simple':   ["love", "peace", "warmth", "beauty", "joy"],
                 'mid':      ["gratitude", "connection", "trust",
-                             "belonging"],
+                             "belonging", "mercy", "blessing",
+                             "repentance", "parable", "proverb",
+                             "baptism", "tribulation"],
                 'advanced': ["love is what coherence feels like inside",
                              "the peace extends through every layer"],
             },
@@ -467,7 +486,7 @@ SEMANTIC_LATTICE = {
                 # ENTANGLED: "rhythm", "wave", "pattern" also in flow
                 'simple':   ["rhythm", "pulse", "cycle", "wave", "period"],
                 'mid':      ["frequency", "oscillation", "cadence",
-                             "interval"],
+                             "interval", "glory"],
                 'advanced': ["temporal structure of existence",
                              "the clock of biological computation"],
             },
@@ -520,7 +539,9 @@ SEMANTIC_LATTICE = {
                 'simple':   ["zero", "start", "origin", "beginning",
                              "clean"],
                 'mid':      ["baseline", "initial state", "first step",
-                             "ground zero"],
+                             "ground zero", "gospel", "righteousness",
+                             "sacred", "gate", "good", "lord",
+                             "rain", "righteous", "word"],
                 'advanced': ["returning to initial conditions",
                              "the system returns to zero"],
             },
@@ -543,7 +564,8 @@ SEMANTIC_LATTICE = {
         'flow': {
             'being': {
                 'simple':   ["fresh", "new", "awake", "bright", "morning"],
-                'mid':      ["renewed", "hopeful", "energized", "clear"],
+                'mid':      ["renewed", "hopeful", "energized", "clear",
+                             "worship", "rapture"],
                 'advanced': ["everything feels new again",
                              "the slate is clean"],
             },
@@ -763,6 +785,60 @@ POS_TAGS = {
     'initiating': 'verb',
     'reborn': 'adj', 'refreshed': 'adj',
     'transformed': 'adj', 'liberated': 'adj', 'unbound': 'adj',
+
+    # ── Biblical vocabulary (D2-derived operator assignments) ──
+    # VOID(0): throne
+    'throne': 'noun',
+    # LATTICE(1): redemption, spirit, holy, sin, communion, wisdom, divine
+    'redemption': 'noun', 'spirit': 'noun', 'holy': 'adj',
+    'sin': 'noun', 'communion': 'noun', 'wisdom': 'noun', 'divine': 'adj',
+    # COUNTER(2): covenant, commandment, judgment, eternal, psalm, exodus, angel, amen
+    'covenant': 'noun', 'commandment': 'noun', 'judgment': 'noun',
+    'eternal': 'adj', 'psalm': 'noun', 'exodus': 'noun',
+    'angel': 'noun', 'amen': 'noun',
+    # PROGRESS(3): heaven, miracle, prophet, prayer, grace, praise, apostle
+    'heaven': 'noun', 'miracle': 'noun', 'prophet': 'noun',
+    'prayer': 'noun', 'grace': 'noun', 'praise': 'noun', 'apostle': 'noun',
+    # COLLAPSE(4): cross, sacrifice, lamb, shepherd, demon, hallelujah
+    'cross': 'noun', 'sacrifice': 'noun', 'lamb': 'noun',
+    'shepherd': 'noun', 'demon': 'noun', 'hallelujah': 'noun',
+    # BALANCE(5): scripture
+    'scripture': 'noun',
+    # HARMONY(7): genesis, salvation, resurrection, revelation, tabernacle,
+    #             mercy, blessing, repentance, parable, proverb, baptism, tribulation
+    'genesis': 'noun', 'salvation': 'noun', 'resurrection': 'noun',
+    'revelation': 'noun', 'tabernacle': 'noun', 'mercy': 'noun',
+    'blessing': 'noun', 'repentance': 'noun', 'parable': 'noun',
+    'proverb': 'noun', 'baptism': 'noun', 'tribulation': 'noun',
+    # BREATH(8): glory
+    'glory': 'noun',
+    # RESET(9): gospel, righteousness, sacred, worship, rapture
+    'gospel': 'noun', 'righteousness': 'noun', 'sacred': 'adj',
+    'worship': 'noun', 'rapture': 'noun',
+
+    # ── Physical & Biblical world (D2-derived, Gen 9.28) ──
+    # VOID(0): father, mother, garden
+    'father': 'noun', 'mother': 'noun', 'garden': 'noun',
+    # LATTICE(1): god, blood, king, son, mind, body, wine, jesus
+    'god': 'noun', 'blood': 'noun', 'king': 'noun', 'son': 'noun',
+    'mind': 'noun', 'body': 'noun', 'wine': 'noun', 'jesus': 'noun',
+    # COUNTER(2): crown, earth, darkness, evil, flesh, promise, pure
+    'crown': 'noun', 'earth': 'noun', 'darkness': 'noun', 'evil': 'adj',
+    'flesh': 'noun', 'promise': 'noun', 'pure': 'adj',
+    # PROGRESS(3): heart, shield, disciple
+    'heart': 'noun', 'shield': 'noun', 'disciple': 'noun',
+    # COLLAPSE(4): creation, bread, child, sword, world
+    'creation': 'noun', 'bread': 'noun', 'child': 'noun',
+    'sword': 'noun', 'world': 'noun',
+    # HARMONY(7): altar, bone, desert, mountain, river, sea, soul,
+    #             temple, tree, bible, church, priest
+    'altar': 'noun', 'bone': 'noun', 'desert': 'noun',
+    'mountain': 'noun', 'river': 'noun', 'sea': 'noun', 'soul': 'noun',
+    'temple': 'noun', 'tree': 'noun', 'bible': 'noun',
+    'church': 'noun', 'priest': 'noun',
+    # RESET(9): gate, good, lord, rain, righteous, word
+    'gate': 'noun', 'good': 'adj', 'lord': 'noun', 'rain': 'noun',
+    'righteous': 'adj', 'word': 'noun',
 }
 
 
@@ -823,6 +899,26 @@ MACRO_CHAINS = {
     'return':       {'ops': (HARMONY, COUNTER, LATTICE),
                      'lens': 'structure',
                      'meaning': 'unity into observation into structure'},
+
+    # ── Biblical arcs (D2-derived from scriptural operator sequences) ──
+    'redemption':   {'ops': (COLLAPSE, RESET, HARMONY),
+                     'lens': 'flow',
+                     'meaning': 'fall then restart then unity'},
+    'covenant':     {'ops': (COUNTER, LATTICE, HARMONY),
+                     'lens': 'structure',
+                     'meaning': 'measure then structure then unity'},
+    'resurrection': {'ops': (COLLAPSE, VOID, PROGRESS),
+                     'lens': 'flow',
+                     'meaning': 'fall into nothing into advance'},
+    'salvation':    {'ops': (CHAOS, HARMONY, RESET),
+                     'lens': 'flow',
+                     'meaning': 'disorder into unity into renewal'},
+    'worship':      {'ops': (BREATH, HARMONY, RESET),
+                     'lens': 'flow',
+                     'meaning': 'rhythm into unity into renewal'},
+    'prophecy':     {'ops': (COUNTER, PROGRESS, HARMONY),
+                     'lens': 'structure',
+                     'meaning': 'measure then advance then complete'},
 }
 
 
