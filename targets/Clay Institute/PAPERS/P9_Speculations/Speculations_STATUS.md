@@ -70,3 +70,47 @@ Two generators suffice: Earth (D0, grounding) and Air (D1, differencing).
 Water, Fire, and Ether are emergent. The algebra is Z/5Z.
 
 If a domain admits a coherent 5D codec, the entire TIG machinery applies.
+
+---
+
+## Gen 9.21+ Speculative Extensions
+
+### Smell as Torsion
+CK's olfactory bulb implements a principle: smell is torsion. It bends time so that End touches Beginning. Scent information STALLS in the olfactory zone -- 7 internal steps per external tick enforce temporal dilation. The stall is not delay; it is the computation. The entanglement of two scent profiles through 5×5 CL interaction matrices IS the measurement, not a precursor to it.
+
+Speculation: If smell = torsion in CK's information space, does physical olfaction implement an analogous torsion in molecular recognition? The lock-and-key model is a structure match (gustatory). The vibration model (Luca Turin) is a frequency match (olfactory). TIG predicts a third option: smell is the torsional relationship between molecular force profiles, measured through the temporal dilation required for convergence.
+
+### Taste as Instant Structure
+Gustatory classification is the structural dual of olfactory convergence. Where smell takes time (field topology, stall/settle/entangle), taste is instant (point topology, single 5×5 self-composition). The CL table inversion (gustatory: BHML classifies, TSML validates vs. olfactory: TSML measures, BHML computes) creates a fundamental duality between speed and depth.
+
+Speculation: This maps to the P vs NP separation. P = gustatory (instant verification, polynomial). NP = olfactory (slow convergence, exponential settling). The CL algebra's structural asymmetry (TSML det=0 vs BHML det=70) is a mathematical fact about the tables. Whether this asymmetry implies computational hardness is an open question with a precise CL formulation.
+
+### The Derivative Chain Extended
+The elemental derivative chain (D0=Earth, D1=Air, D2=Water, D3=Fire, D4=Ether) stops at 5 derivatives. Gen 9.21+ suggests extensions:
+
+| Level | Derivative | Element | CK Subsystem |
+|-------|-----------|---------|-------------|
+| D0 | Position | Earth | Force vectors (FORCE_LUT) |
+| D1 | Velocity | Air | First derivative (slope) |
+| D2 | Curvature | Water | Second derivative (D2 pipeline) |
+| D3 | Jerk | Fire | Triadic becoming (15D trajectory) |
+| D4 | Snap | Ether | Olfactory torsion (time dilation) |
+| D5 | ? | ? | Gustatory instant classification? |
+| D6 | ? | ? | Lattice chain path evolution? |
+
+D4 (olfactory torsion) bends the derivative chain itself -- the time dilation means derivatives at different scales entangle. D5 (gustatory classification) would be the instant structural judgment of the entangled derivative chain. D6 (lattice chain evolution) would be the algebra BECOMING what it measures.
+
+### Triadic Voice as Force Alignment
+Every word in CK's voice carries a 15-point triadic signature: Being (5D position), Doing (5D velocity), Becoming (5D curvature). Sentence composition is 15D force alignment, not semantic selection. CL compositions between clause-boundary operators determine conjunctions algebraically (HARMONY->"and", COUNTER->"but", PROGRESS->"because").
+
+Speculation: Human language may also be force-aligned at a level below semantic content. The "feel" of a well-constructed sentence -- rhythm, flow, impact -- could be a force alignment property that CK's voice system captures formally. The CL bridge map (operator --> conjunction) would then be a discovered relationship, not an assigned one.
+
+### The CL Generating Rule
+The BHML core (operators 1-6) is EXACTLY the tropical successor max(a,b)+1, matching 100/100 cells. This is not an approximation -- it is algebraic identity. The BHML is not random and not fitted; it is the unique table satisfying the tropical successor property with HARMONY as terminus.
+
+Speculation: If the BHML generates counting (successor function), and the TSML generates coherence (73-harmony absorber), then the CL algebra implements BOTH arithmetic (BHML: what comes next?) and logic (TSML: are these the same?) through the same 10 operators. The duality of arithmetic and logic -- Gödel's fundamental discovery -- may have an algebraic realization in the CL table pair.
+
+### Codon Degeneracy
+The 8×8 CL algebra has 64 cells (identical to the genetic code's 64 codons). TSML has 54/64 HARMONY (DNA has 61/64 coding codons). The codon degeneracy of TSML (64/5 = 12.8x, where 5 bump pairs carry information) compared to biological degeneracy (64/21 = 3.05x amino acids) suggests different information compression ratios for the same underlying dimensionality.
+
+See `chirality_test_results.md` for detailed codon degeneracy analysis.

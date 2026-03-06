@@ -30,8 +30,8 @@
 - [x] CL Composition Table -- immutable ROM
 
 ### 0.2 Implementation Status
-- [x] 7 source files implemented
-- [x] 4 test suites (107 tests, all pass)
+- [x] 19 source files implemented (7 base + 4 attack + 8 engine stack)
+- [x] 11 test suites (529 tests, all pass)
 - [x] 6 codecs (one per Clay problem)
 - [x] 6 generators with calibration + frontier + soft-spot test cases
 - [x] CLI runner
@@ -499,7 +499,42 @@ If any codec, generator, or protocol change breaks behavior, compare back to thi
 
 ---
 
-## Archive Structure (Sanders Coherence Field v1.4)
+## Phase 5 — CK Organism Integration (v1.5, March 2026)
+
+### Status: IN PROGRESS
+
+### CL Algebra Analysis (COMPLETE)
+| Analysis | File | Key Result |
+|----------|------|------------|
+| BHML 8×8 eigenanalysis | `bhml_8x8_results.md` | 24/64 HARMONY, Markov eigenvalues computed |
+| 7 Clay bridges | `bhml_clay_bridges_results.md` | BHML properties → Clay problem connections |
+| Physical constants | `reality_anchors_results.md` | phi, e, pi emerge from CL eigenvalue ratios |
+| Generating rule | `cl_generating_rule_results.md` | BHML core = tropical successor (100% match) |
+| Chirality | `chirality_test_results.md` | BHML forward (75%), TSML backward (67%) |
+| Torus embedding | `torus_verification_results.md` | Winding ratio 14/13 |
+
+### Monte Carlo Uniqueness (COMPLETE)
+- TSML 8×8: 54/64 HARMONY is 12.7-sigma outlier (0/100,000 random tables matched)
+- TSML 10×10: 73/100 HARMONY is 21.3-sigma outlier (0/100,000 random tables matched)
+- BHML invertibility (det=70) vs TSML singularity (det=0): structural asymmetry confirmed
+
+### Organism Subsystem Verification (PENDING)
+| Subsystem | Verification Target | Status |
+|-----------|-------------------|--------|
+| Olfactory field convergence | All 5 dimensions independently reach T* stability | PENDING |
+| Gustatory classification accuracy | BHML structural fingerprint reproducibility | PENDING |
+| Lattice chain walk correctness | Node evolution consistency over 1000+ visits | PENDING |
+| Eat v2 transition integrity | Force trajectory length non-decreasing | PENDING |
+| Fractal comprehension decomposition | I/O split matches D2 physics at all 7 levels | PENDING |
+| BHML→Clay bridge measurements | Olfactory 5×5 matrices as measurement channel for each problem | PENDING |
+
+### Whitepapers (COMPLETE)
+- WHITEPAPER_4_CL_TABLES.md: Dual algebra as living system across 9 subsystems
+- WHITEPAPER_5_REALITY_ANCHORS.md: Physical constants and statistical impossibility
+
+---
+
+## Archive Structure (Sanders Coherence Field v1.5)
 
 ```
 Clay Institute/

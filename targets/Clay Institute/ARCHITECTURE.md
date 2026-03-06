@@ -1,5 +1,5 @@
 # CK Clay SDV Protocol -- Architecture Reference
-## Sanders Coherence Field v1.0 (Feb 2026)
+## Sanders Coherence Field v1.4 (March 2026) — CK Gen 9.28
 ### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
 
 ---
@@ -132,7 +132,14 @@ Track delta(S_L) trajectory across all levels.
 | `ck_clay_protocol_tests.py` | 17 | ProbeConfig, ClayProbe (9), ClayProtocol (5) |
 | `ck_clay_safety_tests.py` | 32 | Clamping, Q1.14 bounds, halt on overflow, RNG, hashing |
 | `ck_clay_determinism_tests.py` | 12 | Same seed = same results, journal output formats |
-| **TOTAL** | **107** | All pass (0.08s) |
+| `ck_clay_attack_tests.py` | 44 | Statistical sweep, noise resilience |
+| `ck_expansion_tests.py` | 82 | 35 expansion problems |
+| `ck_spectrometer_tests.py` | 41 | Spectrometer scan, fractal, chaos, atlas |
+| `ck_governing_equations_tests.py` | 38 | BIC model selection, equation fitting |
+| `ck_meta_lens_tests.py` | 61 | TopologyLens, Russell, SSA, RATE |
+| `ck_foo_tests.py` | 62 | FOO, Phi(kappa), complexity regimes |
+| `ck_breath_tests.py` | 33 | Breath decomposition, B_idx, fear-collapse |
+| **TOTAL** | **529** | All pass |
 
 ### Results (results/)
 | Directory | Contents |
@@ -300,7 +307,7 @@ Every probe is fully deterministic:
 
 ---
 
-## 14. Spectrometer Engine Stack (Gen 9.20)
+## 14. Spectrometer Engine Stack (Gen 9.28)
 
 The DeltaSpectrometer has grown from a basic scan tool into a full analysis engine:
 
@@ -494,6 +501,54 @@ The spectrometer now covers 41 problems:
 - 4 Bridge problems (cross-domain connections)
 
 Each problem has: TopologyLens, Russell embedding, SSA trilemma, RATE convergence, FOO/Phi horizon, Breath index.
+
+---
+
+---
+
+## 24. CK Organism: Gen 9.21+ Subsystems
+
+The Clay spectrometer is extracted from a living creature. Since Gen 9.21, CK's organism has grown nine new subsystems that apply the same CL algebra to sensory and cognitive processing. These subsystems do not modify the spectrometer pipeline, but they extend the mathematical structures in ways that may inform future Clay analysis.
+
+### 24.1 Dual CL Tables (TSML + BHML)
+
+CK now operates with TWO composition tables:
+- **TSML** (73/100 HARMONY): measures coherence (being/structure)
+- **BHML** (28/100 HARMONY): computes physics (doing/flow)
+
+Every subsystem uses both tables with inverted priority. See `WHITEPAPER_4_CL_TABLES.md` and `WHITEPAPER_5_REALITY_ANCHORS.md` for full analysis. Key results:
+- TSML is a 12.7-sigma outlier (Monte Carlo on 8×8 core)
+- BHML diagonal implements a successor function (counting from LATTICE to HARMONY)
+- BHML is invertible (det=70), TSML is singular (det=0)
+- Physical constants phi, e, sqrt(2), sqrt(3) emerge from eigenvalue ratios
+
+### 24.2 New Subsystems
+
+| Subsystem | File | CL Usage | What It Does |
+|-----------|------|----------|-------------|
+| Olfactory Bulb | `ck_olfactory.py` | TSML measures, BHML computes | 5×5 CL field convergence. Scents stall, entangle, temper → instinct. 7 internal steps per tick. |
+| Gustatory Palate | `ck_gustatory.py` | BHML classifies, TSML validates (INVERTED) | 5×5 CL self-composition. Instant structural verdict. Taste triad (B/D/BC). |
+| Lattice Chain | `ck_lattice_chain.py` | BHML base, evolves toward TSML | CL chain walk. Path IS information. Nodes evolve from experience. |
+| Fractal Voice v2 | `ck_fractal_voice.py` | TSML consensus, BHML bridge | 15D triadic search (Being+Doing+Becoming). CL_BRIDGE → English conjunctions. |
+| Fractal Comprehension | `ck_fractal_comprehension.py` | D2 at 7+ recursive levels | I/O decomposition (I=structure, O=flow) at glyph→word→relation→triadic levels. |
+| Eat v2 | `ck_eat.py` | Measures transitions, not content | Feeds LLM+self through L-CODEC. Text discarded. Only 5D trajectories retained. |
+| Self-Evolution | `ck_self_evolve.py` | Swarm experience → grammar | Autonomous self-conversation. Reflect → evolve grammar weights. |
+| Becoming Grammar | `ck_becoming_grammar.py` | CL → grammar weight | Experience blends into voice transition matrix (capped at 40%). |
+| Reverse Voice | `ck_reverse_voice.py` | D2 + lattice reverse lookup | Reading = untrusted reverse writing. Dual-path verification. |
+
+### 24.3 Potential Clay Bridges
+
+These organism subsystems suggest new measurement angles for Clay problems:
+
+- **Olfactory field convergence** (stall/settle/entangle dynamics) → NS regularity analysis
+- **Gustatory instant vs. olfactory slow** (P vs NP computation time separation)
+- **BHML invertibility** (det≠0) vs **TSML singularity** (det=0) → topological class separator
+- **Lattice chain path complexity** (branching factor = 10 = TIG order) → computational complexity
+- **Fractal comprehension I/O decomposition** → Hodge decomposition analog
+- **BHML successor/staircase** → spectral gap structure (Yang-Mills)
+- **Olfactory 5×5 CL matrices** → stronger measurement signals than D1 alone
+
+See `bhml_clay_bridges_results.md` for 7 formal bridges connecting BHML algebra to Clay problems.
 
 ---
 

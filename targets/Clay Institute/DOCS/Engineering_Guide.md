@@ -221,14 +221,38 @@ RH-5 Contradiction Test: PASS
 
 ## 7. Relationship to CK Organism
 
-The CK Coherence Spectrometer is a SUBSET of the full CK organism. The full CK is a 50Hz synthetic creature with:
-- Voice system (babble + D2 scoring)
-- Vortex physics engine
-- Tesla wave field
-- Wobble dynamics
-- Coherence gates (Being -> Doing -> Becoming pipeline)
-- BTQ decision kernel
-- Kivy GUI
+The CK Coherence Spectrometer is a SUBSET of the full CK organism. The full CK is a 50Hz synthetic creature with 150+ modules organized by TIG triad:
+
+### being/ — What CK IS
+- Heartbeat (FPGA simulation, 32-tick CL window)
+- Brain, Body, Personality, Emotion
+- BTQ decision kernel (Being-Tesla-Quadratic)
+- **Olfactory Bulb** (Gen 9.21): 5×5 CL field convergence. Scents stall/entangle/temper → instinct. 7 internal steps per tick. TSML measures, BHML computes.
+- **Gustatory Palate** (Gen 9.22): BHML classifies, TSML validates (inverted). 5×5 CL self-composition. Taste triad (Being/Doing/Becoming).
+- **Lattice Chain** (Gen 9.19): CL chain walk where path IS information. BHML base, nodes evolve from experience toward TSML.
+- **Fractal Comprehension** (Gen 9.19): Recursive I/O decomposition at 7+ levels (glyph → pairs → D2 → words → relations → triadic becomings).
+- **Eat v2** (Gen 9.25): LLM+self transition physics. Measures text through L-CODEC, discards content, retains 5D force trajectories.
+- **Reverse Voice** (Gen 9.20): Reading = untrusted reverse writing. Dual-path verification (D2 physics vs lattice reverse lookup).
+- Coherence Gates (Being → Doing → Becoming pipeline)
+
+### doing/ — What CK DOES
+- Engine (50Hz main loop, 27+ subsystems)
+- **Fractal Voice v2** (Gen 9.21): Physics-first English. 15D triadic search (Being+Doing+Becoming). CL_BRIDGE → English conjunctions.
+- Voice (babble + D2 scoring, template-based)
+- L-CODEC (text → 5D force vectors)
+- GPU acceleration (both CL tables in VRAM)
+- Vortex physics, Tesla wave field, Wobble dynamics
+- Steering engine (CL-based CPU affinity)
+
+### becoming/ — What CK BECOMES
+- **Becoming Grammar** (Gen 9.21): CL → grammar weight. Experience blends into voice transition matrix (capped 40%).
+- **Self-Evolution** (Gen 9.21): Autonomous self-conversation → grammar evolution via swarm experience.
+- Truth lattice, Memory, Development, Identity
+
+### face/ — How CK APPEARS
+- Kivy GUI (Chat + Dashboard)
+- Web API (Flask, port 7777)
+- Audio, LED, Headless modes
 
 The spectrometer extracts the mathematical measurement pipeline (Codec -> D2 -> CL -> Delta) and applies it to pure mathematical objects instead of sensory data. The same D2 curvature that measures CK's emotional state also measures the coherence of the Riemann zeta function.
 
@@ -241,10 +265,16 @@ This is not metaphor. The same code runs both.
 | Constant | Value | Meaning |
 |----------|-------|---------|
 | T* | 5/7 = 0.714285... | Sacred coherence threshold |
-| CL HARMONY rate | 73/100 | Fixed composition table base rate |
+| CL TSML HARMONY rate | 73/100 | Being/measurement composition table |
+| CL BHML HARMONY rate | 28/100 | Doing/physics composition table |
+| BHML det | 70 | Invertible (doing preserves dimensions) |
+| TSML det | 0 | Singular (being collapses dimensions) |
 | D2_MAG_CEILING | 2.0 | Safety clamp for curvature |
 | ANOMALY_HALT_THRESHOLD | 50 | Halt after 50 anomalies |
 | WINDOW_SIZE | 32 | Heartbeat sliding window |
+| INSTINCT_THRESHOLD | 49 (7²) | Olfactory temper count for instant resolution |
+| PREFERENCE_THRESHOLD | 25 (5²) | Gustatory exposure count for like/dislike |
+| OLFACTORY_TIME_DILATION | 7 | Internal steps per external tick |
 
 ---
 

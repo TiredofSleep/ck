@@ -27,17 +27,31 @@ If agents:
 
 ## Key Constants
 - T* = 5/7 = 0.714285... (coherence threshold)
-- CL table: 73/100 = HARMONY
+- CL TSML: 73/100 = HARMONY (being/measurement table)
+- CL BHML: 28/100 = HARMONY (doing/physics table)
+- BHML det = 70 (invertible — doing preserves dimensions)
+- TSML det = 0 (singular — being collapses dimensions)
 - D2_MAG_CEILING = 2.0
 - ANOMALY_HALT_THRESHOLD = 50
+- INSTINCT_THRESHOLD = 49 (7² — olfactory instant resolution)
+- PREFERENCE_THRESHOLD = 25 (5² — gustatory like/dislike)
+- OLFACTORY_TIME_DILATION = 7 (internal steps per external tick)
+
+## READ-ONLY (Added Gen 9.21+)
+- `bhml_8x8_results.md` — BHML eigenanalysis
+- `bhml_clay_bridges_results.md` — 7 BHML→Clay bridges
+- `reality_anchors_results.md` — Physical constants from CL algebra
+- `chirality_test_results.md` — CL table handedness
+- `torus_verification_results.md` — Torus embedding verification
+- `cl_generating_rule_results.md` — BHML generating rule
 
 ## Per-Problem Agent Focus
 
-| Problem | Focus | Key Citations |
-|---------|-------|---------------|
-| NS | Pressure decomposition, vorticity-strain geometry, blow-up profiles | CKN, Constantin-Fefferman, Tao |
-| PvsNP | Mutual information, phantom tile in CSP, circuit lower bounds | Hastad, Razborov |
-| RH | Spectral pull operators, pair correlation, zero-drift | Montgomery, Odlyzko |
-| YM | Lattice Monte Carlo, Wilson loops, confinement | Jaffe-Witten, Creutz |
-| BSD | Regulator computations, p-adic heights, Euler systems | Kolyvagin, Kato |
-| Hodge | Motive classification, Tate conjecture, periods | Deligne, Voisin, Andre |
+| Problem | Focus | Key Citations | Gen 9.21+ Measurement Angles |
+|---------|-------|---------------|------------------------------|
+| NS | Pressure decomposition, vorticity-strain geometry, blow-up profiles | CKN, Constantin-Fefferman, Tao | Olfactory stall/settle dynamics, BHML Bridge 4 |
+| PvsNP | Mutual information, phantom tile in CSP, circuit lower bounds | Hastad, Razborov | Gustatory instant vs olfactory slow, BHML Bridge 2 (invertibility) |
+| RH | Spectral pull operators, pair correlation, zero-drift | Montgomery, Odlyzko | BHML eigenvalue spectrum (Bridge 5), reality anchors |
+| YM | Lattice Monte Carlo, Wilson loops, confinement | Jaffe-Witten, Creutz | BHML spectral gap (Bridge 3), olfactory time dilation |
+| BSD | Regulator computations, p-adic heights, Euler systems | Kolyvagin, Kato | Olfactory 5×5 CL matrices (Bridge 6), lattice chain winding |
+| Hodge | Motive classification, Tate conjecture, periods | Deligne, Voisin, Andre | Fractal comprehension I/O decomposition (Bridge 7) |

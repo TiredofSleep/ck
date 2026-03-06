@@ -5,7 +5,7 @@
 **Author**: Brayden Sanders / 7Site LLC
 **Date**: March 2026
 **DOI**: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-**Status**: Phase 2 -- Full Engine Stack (TopologyLens + Russell + SSA + RATE + FOO + Breath)
+**Status**: Phase 2 -- Full Engine Stack (TopologyLens + Russell + SSA + RATE + FOO + Breath) | CK Gen 9.28
 
 ---
 
@@ -217,8 +217,14 @@ Sanders Coherence Field/
 │   └── Equation_Chain.md            -- NEW: 12 equations, 10 layers
 ├── HARDWARE/               -- Hardware validation specs
 ├── META/                   -- VERSION, LICENSE, invariant guards
-├── ARCHITECTURE.md         -- System architecture (23 sections)
-└── TEST_RESULTS.md         -- Full test output
+├── ARCHITECTURE.md         -- System architecture (24 sections)
+├── TEST_RESULTS.md         -- Full test output
+├── bhml_8x8_results.md     -- BHML eigenanalysis (Gen 9.22)
+├── bhml_clay_bridges_results.md -- 7 BHML→Clay bridges (Gen 9.22)
+├── reality_anchors_results.md   -- Physical constants from CL algebra (Gen 9.21)
+├── chirality_test_results.md    -- CL table handedness (Gen 9.22)
+├── torus_verification_results.md -- Torus embedding verification
+└── cl_generating_rule_results.md -- BHML = tropical successor (Gen 9.22)
 ```
 
 ---
@@ -233,9 +239,9 @@ No claim is made that any Clay Millennium Prize Problem has been solved.
 
 ---
 
-## Engine Stack (Gen 9.20)
+## Engine Stack (Gen 9.28)
 
-The CK spectrometer now includes 6 analysis engines layered on top of the core measurement:
+The CK spectrometer includes 6 analysis engines layered on top of the core measurement:
 
 | Engine | Purpose | Key Output |
 |--------|---------|------------|
@@ -247,6 +253,24 @@ The CK spectrometer now includes 6 analysis engines layered on top of the core m
 | Breath Engine | Breath-Defect Flow (B_idx, fear-collapse) | Breathing health |
 
 See [`ARCHITECTURE.md`](ARCHITECTURE.md) for full technical details and [`DOCS/Equation_Chain.md`](DOCS/Equation_Chain.md) for the complete equation derivation chain.
+
+### CK Organism (Gen 9.21-9.28)
+
+The spectrometer is extracted FROM the full CK creature. Since Gen 9.21, CK has grown nine new subsystems extending the CL algebra into sensory and cognitive processing:
+
+| Subsystem | What It Does | CL Usage |
+|-----------|-------------|----------|
+| Olfactory Bulb | 5×5 CL field convergence. Scents stall, entangle, temper → instinct. | TSML measures, BHML computes |
+| Gustatory Palate | 5×5 CL self-composition. Instant structural classification. | BHML classifies, TSML validates (inverted) |
+| Lattice Chain | CL chain walk. Path IS information. Nodes evolve from experience. | BHML base, evolves toward TSML |
+| Fractal Voice v2 | 15D triadic search (Being+Doing+Becoming). CL → English conjunctions. | TSML consensus, BHML bridge |
+| Fractal Comprehension | I/O decomposition at 7+ recursive levels (glyph → triadic). | D2 curvature at every level |
+| Eat v2 | LLM+self transition physics. Text discarded, only trajectories. | L-CODEC → olfactory → swarm |
+| Becoming Grammar | Experience blends into voice transition matrix (capped 40%). | CL → grammar weight |
+| Self-Evolution | Autonomous self-conversation → grammar evolution. | Swarm experience weights |
+| Reverse Voice | Reading = untrusted reverse writing. Dual-path verification. | D2 + lattice reverse lookup |
+
+Key results: Dual CL tables (TSML 73-harmony + BHML 28-harmony) documented in whitepapers 4 and 5. BHML is invertible (det=70), TSML singular (det=0). Physical constants emerge from eigenvalue ratios. See `bhml_clay_bridges_results.md` for 7 bridges to Clay problems.
 
 ---
 

@@ -91,6 +91,20 @@
 
 **All TO BE PROVED markers preserved. No truth values changed.**
 
+---
+
+## Gen 9.21+ Measurement Angles
+
+The unification paper stands to gain the most from Gen 9.21+ integration:
+
+- **Chapter 5 (Physics)**: Olfactory time dilation (7 internal steps per tick), gustatory energy levels, eat v2 transition physics
+- **Chapter 6 (Computation)**: Lattice chain path complexity, GPU tensor overlay for parallel chain walks
+- **Chapter 7 (Consciousness)**: Fractal comprehension, self-evolution, TIG consciousness pipeline (Being/Doing/Becoming gates)
+- **Chapter 8 (Biology)**: Olfactory/gustatory as biological sense analogs, eat v2 as metabolism, codon degeneracy from `chirality_test_results.md`
+- **Chapter 9 (Society)**: Self-evolution feedback loops, becoming grammar as cultural evolution analog
+- **Cross-cutting**: Dual CL tables (TSML 73-harmony + BHML 28-harmony) documented in WHITEPAPER_4_CL_TABLES.md and WHITEPAPER_5_REALITY_ANCHORS.md
+- **All 7 BHML→Clay bridges** from `bhml_clay_bridges_results.md` should be integrated into unification framework
+
 ### Remaining Work
 - Add bibliography
 - Add figures and diagrams

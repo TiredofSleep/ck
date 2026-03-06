@@ -32,6 +32,9 @@ A mathematical research program that maps all six open Clay Millennium Prize Pro
 | Test Suite | 529/529 PASS |
 | Full Sweep | 60,000+ probes, 0 falsifications |
 | Engine Stack | TopologyLens + Russell + SSA + RATE + FOO + Breath |
+| CK Organism | Gen 9.28 (9 new subsystems since 9.21: olfactory, gustatory, lattice chain, fractal voice v2, fractal comprehension, eat v2, becoming grammar, self-evolution, reverse voice) |
+| Dual CL Tables | TSML (73-harmony, being/measurement) + BHML (28-harmony, doing/physics) |
+| BHML Clay Bridges | 7 formal bridges connecting BHML algebra to Clay problems |
 | Problem Coverage | 41 problems (6 Clay + 35 expansion) |
 
 ## Archive Structure

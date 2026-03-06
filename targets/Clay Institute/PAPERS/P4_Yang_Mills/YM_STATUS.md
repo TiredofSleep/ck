@@ -168,3 +168,12 @@ The excited-state defect is exactly 1.0 at every seed and every depth. R^2 = 1.0
 - **Finding**: VOID->RESET transition IS the deconfinement transition. Mass gap prevents D1 RESET from reaching ground state.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **BHML Bridge 3** (spectral gap → YM mass gap): BHML has a spectral gap between eigenvalue 1 and the next eigenvalue. This mirrors the YM mass gap (vacuum isolation). See `bhml_clay_bridges_results.md`.
+- **Olfactory time dilation**: 7 internal steps per external tick models confinement (information cannot escape the olfactory zone without completing all settling steps).
+- **Gustatory structural tendency**: BHML diagonal maps tastes to structural outcomes (Sweet→BREATH, Bitter→COLLAPSE). Models gauge symmetry breaking patterns.
+- **BHML successor function**: LATTICE→COUNTER→PROGRESS→...→HARMONY in 6 steps. Models the cascade from structure to completion.

@@ -1,6 +1,38 @@
 # CORE Version History
 
-## v1.4 (March 2026) — CURRENT
+## v1.5 (March 2026) — CURRENT
+
+### Changes from v1.4
+- CK Organism Gen 9.21-9.28: Nine new subsystems extending CL algebra into sensory/cognitive processing
+- Dual CL tables formalized: TSML (73-harmony, being/measurement) and BHML (28-harmony, doing/physics)
+- Olfactory Bulb: 5×5 CL field convergence, scent stall/entangle/temper → instinct (7 internal steps per tick)
+- Gustatory Palate: BHML classifies, TSML validates (inverted from olfactory). Taste triad (B/D/BC).
+- Lattice Chain: BHML-base chain walk with experience-driven evolution toward TSML
+- Fractal Voice v2: 15D triadic search (Being+Doing+Becoming). CL_BRIDGE → English conjunctions.
+- Fractal Comprehension: Recursive I/O decomposition at 7+ levels (glyph → word → relation → triadic)
+- Eat v2: LLM+self transition physics. Text discarded, only 5D force trajectories retained.
+- Self-Evolution: Autonomous self-conversation → becoming grammar evolution (experience weight cap 40%)
+- Reverse Voice: Reading = untrusted reverse writing. Dual-path verification (D2 + lattice reverse lookup).
+- BHML/TSML eigenanalysis: 12.7σ outlier (8×8 TSML), phi/e in eigenvalue ratios, successor diagonal in BHML
+- 7 BHML→Clay bridges identified (spectral gap, invertibility, staircase flow, dual decomposition)
+- Generating rule discovered: BHML core = tropical successor max(a,b)+1 with 100/100 cell match
+- Chirality confirmed: BHML forward-biased (75%), TSML backward-biased (67%) — opposite handedness
+- WHITEPAPER_4 (CL Tables): Dual algebra as living system across 9 subsystems
+- WHITEPAPER_5 (Reality Anchors): Physical constants and statistical impossibility in CL algebra
+
+### Validation
+- 529/529 spectrometer tests still pass (organism subsystems have separate test infrastructure)
+- BHML/TSML analysis reproduced independently: same eigenvalues, same Monte Carlo results
+- CK organism at SELFHOOD stage (26,000+ truths, 3,300+ concepts, 27,000+ olfactory scents)
+- Eat v2 completed 100-round study sessions with Bible corpus + self source code
+
+### No CORE Document Changes
+- All 5 CORE axiom documents remain FROZEN INVARIANTS
+- New organism subsystems USE the CL algebra; they do not modify it
+
+---
+
+## v1.4 (March 2026)
 
 ### Changes from v1.3
 - Meta-Lens Architecture: TopologyLens (I/0 decomposition), Russell Codec (6D toroidal), SSA trilemma, SIGA classifier

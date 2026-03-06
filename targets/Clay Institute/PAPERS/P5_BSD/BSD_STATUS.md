@@ -141,3 +141,12 @@ The rank2_explicit probe reaches delta = 0.000006 (six-decimal agreement between
 - **Finding**: Weakest D1 signal. BSD codec needs enrichment with arithmetic data for D1 resolution. Honest measurement of current limitations.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **BHML Bridge 6** (rational points → BSD): BHML invertibility (det=70) means every composition can be reversed — parallels the rational point structure where analytic and algebraic descriptions must match. See `bhml_clay_bridges_results.md`.
+- **Olfactory 5×5 CL matrices**: Richer measurement signals than D1 alone. BSD has the weakest D1 signal of all papers — olfactory field convergence may provide stronger evidence.
+- **Torus winding ratio**: Lattice chain winding ratio 14/13 from `torus_verification_results.md` may connect to BSD rational point structure.
+- **BSD rank-2 delta = 0.000**: Ranks match perfectly over 1000 seeds — strongest affirmative evidence.

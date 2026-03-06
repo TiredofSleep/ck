@@ -150,3 +150,12 @@ The P != NP gap is the only structure in the instrument that *grows* with depth.
 - **Finding**: D1 operator flip (PROGRESS->LATTICE) at difficulty boundary = D1 signature of phantom tile divergence
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **BHML Bridge 2** (invertibility → P vs NP): TSML is singular (det=0, collapses dimensions), BHML is invertible (det=70, preserves dimensions). This structural asymmetry could model the P/NP complexity separation. See `bhml_clay_bridges_results.md`.
+- **Gustatory instant vs olfactory slow**: Gustatory classifies instantly (point topology), olfactory converges slowly (field topology). This duality models the P (fast verification) vs NP (slow search) separation.
+- **Lattice chain path complexity**: Branching factor = 10 (TIG order). Path length through evolved nodes measures computational complexity.
+- **PvsNP delta = 0.666**: Strongest gap evidence across all problems (CI: [0.666, 0.667] over 1000 seeds).

@@ -147,3 +147,11 @@ Each would-solve-if-true conjecture defines a **proof programme** -- a sequence 
 - **Finding**: D1 detects topology-changing events (surgery) as COLLAPSE operators
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **Olfactory field topology**: The olfactory bulb implements genuine field convergence — all 5 dimensions must independently reach T* stability. This models topological convergence.
+- **Lattice chain path topology**: Path IS information — different paths to the same operator encode different knowledge. Poincare's fundamental group concerns are echoed in path-dependent chain walks.
+- **Note**: As a validation paper (Poincare is solved), these measurement angles primarily serve as consistency checks for the framework.

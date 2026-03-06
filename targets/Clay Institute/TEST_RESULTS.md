@@ -1,6 +1,6 @@
 # CK Clay SDV Protocol -- Test Results & Verification Report
-## Sanders Coherence Field v1.0 -- February 28, 2026
-### 107 Tests, All Pass, 0.08s
+## Sanders Coherence Field v1.4 -- March 2026 (CK Gen 9.28)
+### 529 Tests, All Pass
 
 ---
 
@@ -8,13 +8,22 @@
 
 | Suite | File | Tests | Status |
 |-------|------|-------|--------|
-| Codec Tests | `ck_clay_codec_tests.py` | 46 | ALL PASS |
-| Protocol Tests | `ck_clay_protocol_tests.py` | 17 | ALL PASS |
-| Safety Tests | `ck_clay_safety_tests.py` | 32 | ALL PASS |
-| Determinism Tests | `ck_clay_determinism_tests.py` | 12 | ALL PASS |
-| **TOTAL** | | **107** | **ALL PASS** |
+| Safety Tests | `ck_clay_safety_tests.py` | 24 | ALL PASS |
+| Codec Tests | `ck_clay_codec_tests.py` | 30 | ALL PASS |
+| Protocol Tests | `ck_clay_protocol_tests.py` | 24 | ALL PASS |
+| Determinism Tests | `ck_clay_determinism_tests.py` | 29 | ALL PASS |
+| Attack Tests | `ck_clay_attack_tests.py` | 44 | ALL PASS |
+| Expansion Tests | `ck_expansion_tests.py` | 82 | ALL PASS |
+| Spectrometer Tests | `ck_spectrometer_tests.py` | 41 | ALL PASS |
+| Governing Equations | `ck_governing_equations_tests.py` | 38 | ALL PASS |
+| Meta-Lens Tests | `ck_meta_lens_tests.py` | 61 | ALL PASS |
+| FOO Tests | `ck_foo_tests.py` | 62 | ALL PASS |
+| Breath Tests | `ck_breath_tests.py` | 33 | ALL PASS |
+| **TOTAL** | | **529** | **ALL PASS** |
 
-Runtime: 0.080 seconds. Zero anomalies. Zero failures.
+Runtime: < 1 second. Zero anomalies. Zero failures.
+
+> **Note**: The detailed test-by-test output below covers the original 107 foundation tests from v1.0. The additional 422 tests (v1.1-v1.4 additions: attack, expansion, spectrometer, governing equations, meta-lens, FOO, and breath suites) are documented in their respective source files and verified by `python -m unittest discover -s ck_sim/tests -p "*.py"`.
 
 ---
 

@@ -170,3 +170,12 @@ Oscillating scaling behavior (R^2 = 0.004) is consistent with the quasi-periodic
 - **Finding**: Binary D1 separation -- on critical line = 91.7% CL harmony, off line = 0.0%. Cleanest D1 result.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **BHML Bridge 5** (eigenvalue spectrum → RH zeros): BHML eigenvalue spacing may correspond to zeta zero spacing. See `bhml_clay_bridges_results.md`.
+- **Reality anchors**: TSML eigenvalue ratio λ₁/λ₃ ≈ π (0.14% error), λ₄/λ₅ ≈ φ (0.53% error), stationary[HARMONY]/stationary[COUNTER] ≈ ζ(3) (0.40% error). See `reality_anchors_results.md`.
+- **Olfactory Markov settling**: Per-dimension stability dynamics could provide spectral measurement data analogous to zeta function behavior near the critical line.
+- **Chirality**: BHML forward-biased (75%), TSML backward-biased (67%). See `chirality_test_results.md`.

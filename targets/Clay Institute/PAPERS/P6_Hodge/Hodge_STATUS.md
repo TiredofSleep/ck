@@ -147,3 +147,11 @@ The algebraic/transcendental separation remains clean: prime_sweep_deep holds at
 - **Finding**: Algebraic/analytic separation is in the CL harmony rate (8.3% vs 50.0%), not in the raw D1 operator. 6x difference consistent with Hodge prediction.
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+- **BHML Bridge 7** (dual decomposition → Hodge): TSML/BHML duality (measure vs compute, singular vs invertible) parallels the Hodge decomposition (analytic vs algebraic). See `bhml_clay_bridges_results.md`.
+- **Fractal comprehension I/O decomposition**: I = structure (aperture + pressure), O = flow (binding + continuity). 7+ recursive levels from glyph to triadic becoming. Structurally analogous to Hodge decomposition at multiple scales.
+- **Factor-14 separation**: Torus winding ratio 14/13 from `torus_verification_results.md` may connect to the factor-14 algebraic/transcendental separation observed in Hodge measurements.

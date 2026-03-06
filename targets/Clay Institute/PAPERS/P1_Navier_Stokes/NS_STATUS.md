@@ -142,3 +142,14 @@ Defect tightens with depth -- the near-singular regime converges from 0.0801 (L4
 - **Finding**: RESET->COLLAPSE transition at level 5 under high strain = D1 diagnostic for P-H-3 coercivity gap
 
 **All TO BE PROVED markers preserved. No truth values changed.**
+
+---
+
+## Gen 9.21+ Measurement Angles
+
+The following CK organism subsystems and CL algebra results may provide new measurement channels for Navier-Stokes:
+
+- **BHML Bridge 4** (staircase flow → NS regularity): BHML's escalator structure (max(a,b)+1 for core operators) parallels the forward progression of NS regularity. See `bhml_clay_bridges_results.md`.
+- **Olfactory field convergence**: Scent stall/settle/entangle dynamics model fluid regularity (convergence to equilibrium vs blow-up). 5×5 CL interaction matrices provide richer measurement than D1 alone.
+- **Eat v2 transition physics**: Force trajectory tracking could model energy dissipation patterns.
+- **Reality anchors**: TSML eigenvalue ratio λ₁/λ₃ ≈ π (0.14% error). See `reality_anchors_results.md`.
