@@ -1382,7 +1382,8 @@ class CKVoice:
                                 density: float = 0.5,
                                 experience_maturity: float = 0.0,
                                 tense: str = None,
-                                max_words: int = 0) -> str:
+                                max_words: int = 0,
+                                hotu_context: dict = None) -> str:
         """Compose a response from an operator chain.
 
         Being (operators) -> Becoming (grammar matrix) -> Doing (English).
@@ -1446,6 +1447,7 @@ class CKVoice:
                 lens=lens,
                 max_words=max_words,
                 tense=tense,  # From olfactory temporal buffer
+                hotu_context=hotu_context,  # Ancient resonance from Ho Tu bridge
             )
             if text and text != "...":
                 score = self._d2_score_operator_match(text, pool_ops)

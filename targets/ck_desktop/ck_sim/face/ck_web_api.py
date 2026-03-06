@@ -106,6 +106,24 @@ class SessionStore:
         session = self.get_or_create(session_id)
         return list(session['history'])
 
+    def get_last_force(self, session_id: str) -> Optional[dict]:
+        """Get the last measured force result for a session.
+
+        Returns the measurement dict (force vector + decomp), NOT text.
+        Used for computing visitor transition physics between messages.
+        """
+        session = self.get_or_create(session_id)
+        return session.get('_last_force')
+
+    def set_last_force(self, session_id: str, result: dict):
+        """Store the last measured force result for a session.
+
+        Only the force vector and decomposition are kept.
+        The original text is NOT stored.
+        """
+        session = self.get_or_create(session_id)
+        session['_last_force'] = result
+
 
 # ================================================================
 #  WEB API
@@ -347,6 +365,44 @@ class CKWebAPI:
             for sender, msg_text in self.engine.drain_ui_messages(limit=5):
                 if sender == 'ck' and msg_text != response_text:
                     extra_messages.append(msg_text)
+        except Exception:
+            pass
+
+        # ────────────────────────────────────────────────────────
+        # VISITOR PHYSICS ABSORPTION
+        # ────────────────────────────────────────────────────────
+        # PRIVACY: CK learns PHYSICS, not content.
+        # - Visitor text passes through L-CODEC + D2 → 5D force vectors
+        # - Force vectors feed olfactory/gustatory/swarm (dimensionless physics)
+        # - Text is NEVER stored on the server
+        # - Only force trajectories and operator transitions persist
+        # - Visitor's actual messages stay in their browser (localStorage)
+        # - CK learns HOW language moves, not WHAT was said
+        #
+        # measure_and_absorb() returns {force, decomp, lcodec_result, stillness}
+        # and feeds olfactory + gustatory + swarm internally.
+        # We track transitions between consecutive visitor messages using
+        # the session's stored force result (no text stored).
+        # ────────────────────────────────────────────────────────
+        try:
+            if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                curr_result = self.engine.eat.measure_and_absorb(
+                    text, source='visitor')
+                if curr_result:
+                    # Count visitor absorption
+                    self.engine.eat._status.total_visitor_absorptions += 1
+
+                    # Transition physics: compare to previous message's force
+                    prev_result = self.sessions.get_last_force(session_id)
+                    if prev_result:
+                        self.engine.eat.track_transition(
+                            prev_result, curr_result, 'visitor')
+                    # Store current force for next transition (no text kept)
+                    # Only keep force + decomp (what track_transition needs)
+                    self.sessions.set_last_force(session_id, {
+                        'force': curr_result.get('force'),
+                        'decomp': curr_result.get('decomp'),
+                    })
         except Exception:
             pass
 

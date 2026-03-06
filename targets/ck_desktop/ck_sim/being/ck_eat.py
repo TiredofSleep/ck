@@ -187,6 +187,7 @@ class EatStatus:
     model: str = ''
     total_ollama_absorptions: int = 0
     total_self_absorptions: int = 0
+    total_visitor_absorptions: int = 0
     total_resonance_steps: int = 0
     total_transitions: int = 0
     force_trajectory_length: float = 0.0
@@ -1281,6 +1282,7 @@ class CKEat:
             'model': self._status.model,
             'ollama_absorptions': self._status.total_ollama_absorptions,
             'self_absorptions': self._status.total_self_absorptions,
+            'visitor_absorptions': self._status.total_visitor_absorptions,
             'resonance_steps': self._status.total_resonance_steps,
             'total_transitions': self._status.total_transitions,
             'force_trajectory_length': round(

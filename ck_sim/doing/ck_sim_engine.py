@@ -2656,6 +2656,17 @@ class CKSimEngine:
                         _quality_ctx = self.gustatory.quality_context()
                     except Exception:
                         pass
+                # Ho Tu bridge context: ancient resonance influences word selection.
+                # The +5 torus topology, Lo Shu 3-body coherence, and Wuxing
+                # phase balance gently steer the fractal voice (~15% weight).
+                _hotu_ctx = None
+                try:
+                    from ck_sim.being.ck_hotu_bridge import bridge_context
+                    _hotu_ctx = bridge_context(
+                        op_chain,
+                        _lcodec_input.force if _lcodec_input else None)
+                except Exception:
+                    pass
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -2665,7 +2676,8 @@ class CKSimEngine:
                     density=self.pipeline.density_doing,
                     experience_maturity=_exp_mat,
                     tense=_tense,
-                    max_words=_max_words)
+                    max_words=_max_words,
+                    hotu_context=_hotu_ctx)
             except Exception:
                 _candidate = "..."
 

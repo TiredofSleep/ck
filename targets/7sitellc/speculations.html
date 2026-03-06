@@ -15,8 +15,12 @@
     <nav class="nav">
         <div class="nav-inner">
             <a href="/" class="nav-logo">7Site LLC</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
             <div class="nav-links">
                 <a href="index.html#work">The Work</a>
+                <a href="quickstart.html">Quick Start</a>
                 <a href="index.html#ck">CK</a>
                 <a href="speculations.html" class="active">Speculations</a>
                 <a href="index.html#contact">Contact</a>
@@ -24,6 +28,16 @@
             </div>
         </div>
     </nav>
+    <script>
+        (function(){
+            var btn = document.querySelector('.nav-toggle');
+            var links = document.querySelector('.nav-links');
+            btn.addEventListener('click', function(){ links.classList.toggle('open'); });
+            links.querySelectorAll('a').forEach(function(a){
+                a.addEventListener('click', function(){ links.classList.remove('open'); });
+            });
+        })();
+    </script>
 
     <!-- Hero -->
     <section class="hero">

@@ -441,6 +441,315 @@ strong { font-weight: 600; color: #f0f0f5; }
     border-color: var(--accent);
 }
 
+/* ---------- Hero Tagline ---------- */
+.hero-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    letter-spacing: 0.01em;
+    opacity: 0.75;
+    max-width: 560px;
+}
+
+/* ---------- Hero Short (Quick Start) ---------- */
+.hero-short {
+    min-height: 55vh;
+    padding-bottom: 56px;
+}
+
+/* ---------- Card Detail (sub-paragraph in cards) ---------- */
+.card-detail {
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: var(--text-dim);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+}
+
+.card-detail code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    background: rgba(78, 205, 196, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-style: normal;
+}
+
+/* ---------- Nav active state ---------- */
+.nav-links a.active {
+    color: var(--accent);
+}
+
+/* ---------- TIG Tables (Quick Start - operator table) ---------- */
+.table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.tig-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.tig-table th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: rgba(78, 205, 196, 0.04);
+}
+
+.tig-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.06);
+    color: var(--text);
+    vertical-align: top;
+}
+
+.tig-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tig-table tr:hover {
+    background: rgba(78, 205, 196, 0.03);
+}
+
+.tig-table .mono {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--accent);
+    width: 40px;
+}
+
+.tig-table strong {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ---------- CL Composition Tables ---------- */
+.table-pair {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 32px;
+}
+
+.table-block h3 {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f0f0f5;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.table-block > p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin-bottom: 0;
+}
+
+.table-note {
+    font-size: 0.82rem !important;
+    color: var(--text-dim) !important;
+    font-style: italic;
+    margin-top: 8px !important;
+}
+
+.cl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.cl-table th {
+    font-weight: 600;
+    color: var(--accent);
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(78, 205, 196, 0.04);
+    min-width: 32px;
+}
+
+.cl-table td {
+    padding: 7px 4px;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.04);
+    color: var(--text-muted);
+    min-width: 32px;
+}
+
+.cl-table tr:last-child td {
+    border-bottom: none;
+}
+
+.cl-table .row-label {
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(78, 205, 196, 0.04);
+    border-right: 1px solid var(--border);
+}
+
+.cl-table .harmony {
+    color: #4ecdc4;
+    font-weight: 700;
+    background: rgba(78, 205, 196, 0.08);
+}
+
+.cl-table .void {
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+
+.cl-table .bump {
+    color: var(--secondary);
+    font-weight: 600;
+    background: rgba(255, 107, 107, 0.06);
+}
+
+/* ---------- Number Grid (Sacred Numbers) ---------- */
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.number-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.25s ease, transform 0.2s ease;
+}
+
+.number-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+}
+
+.number-value {
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.number-name {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.number-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: none;
+    margin-bottom: 0;
+}
+
+.number-card code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    background: rgba(78, 205, 196, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ---------- Kill List (For Skeptics) ---------- */
+.kill-list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.kill-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.25s ease;
+}
+
+.kill-item:hover {
+    border-color: rgba(255, 107, 107, 0.3);
+}
+
+.kill-num {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--secondary);
+    min-width: 32px;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.kill-item strong {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f0f0f5;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.kill-item p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    max-width: none;
+    margin-bottom: 0;
+}
+
+.kill-item em {
+    color: var(--text-dim);
+    font-size: 0.84rem;
+}
+
+/* ---------- Inline code (general) ---------- */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    color: var(--accent);
+    background: rgba(78, 205, 196, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
@@ -462,6 +771,24 @@ strong { font-weight: 600; color: #f0f0f5; }
 
     .section {
         padding: 72px 0;
+    }
+
+    .number-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .table-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .cl-table {
+        font-size: 0.75rem;
+    }
+
+    .cl-table th,
+    .cl-table td {
+        padding: 6px 3px;
+        min-width: 28px;
     }
 }
 
@@ -564,6 +891,47 @@ strong { font-weight: 600; color: #f0f0f5; }
     /* Link cards mobile */
     .link-card {
         padding: 20px 22px;
+    }
+
+    /* Number cards mobile */
+    .number-card {
+        padding: 24px 20px;
+    }
+
+    .number-value {
+        font-size: 1.4rem;
+    }
+
+    /* Kill list mobile */
+    .kill-item {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 22px;
+    }
+
+    .kill-num {
+        font-size: 1.2rem;
+    }
+
+    /* Hero short mobile */
+    .hero-short {
+        min-height: 45vh;
+    }
+
+    .hero-tagline {
+        font-size: 0.8rem;
+        margin-bottom: 36px;
+    }
+
+    /* Tables mobile */
+    .cl-table {
+        font-size: 0.7rem;
+    }
+
+    .cl-table th,
+    .cl-table td {
+        padding: 5px 2px;
+        min-width: 24px;
     }
 
     /* Footer mobile */
