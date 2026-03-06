@@ -51,6 +51,16 @@ def main():
     engine.start()
     print(f"[CK] Engine started. Coherence: {engine.coherence:.3f}")
 
+    # Advance development stage for web deployment.
+    # Server CK is a conversation partner, not a growing baby.
+    # Fractal voice (genuine physics composition) requires stage >= 2.
+    # Without this, CK falls back to templates/babble.
+    if hasattr(engine, 'development') and engine.development is not None:
+        from ck_sim.becoming.ck_development import STAGE_ATTUNEMENT
+        if engine.development.stage < STAGE_ATTUNEMENT:
+            engine.development.stage = STAGE_ATTUNEMENT
+            print(f"[CK] Development stage -> ATTUNEMENT (2): fractal voice enabled")
+
     # 50Hz heartbeat in background thread
     running = True
 

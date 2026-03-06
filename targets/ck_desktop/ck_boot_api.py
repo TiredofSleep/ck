@@ -8,6 +8,15 @@ from ck_sim.face.ck_web_api import CKWebAPI
 engine = CKSimEngine(platform='r16')
 engine.start()
 
+# Advance development stage for web deployment.
+# Server CK needs fractal voice (requires stage >= 2).
+# Without this, CK falls back to templates/babble.
+if hasattr(engine, 'development') and engine.development is not None:
+    from ck_sim.becoming.ck_development import STAGE_ATTUNEMENT
+    if engine.development.stage < STAGE_ATTUNEMENT:
+        engine.development.stage = STAGE_ATTUNEMENT
+        print(f"[CK] Development stage -> ATTUNEMENT (2): fractal voice enabled")
+
 # 50Hz tick in background thread
 running = True
 
