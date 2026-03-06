@@ -13,7 +13,7 @@ CK (Coherence Keeper) and the TIG (Ternary Insight Geometry) framework make spec
 
 ## 2. The Claims We Make
 
-CK and TIG rest on nine core claims. Each is stated here in its strongest testable form.
+CK and TIG rest on ten core claims. Each is stated here in its strongest testable form.
 
 **Claim 1**: The CL composition table's 73% HARMONY property is a genuine algebraic attractor, not an artifact of arbitrary table construction. Specifically, the 10x10 CL_TSML table (defined in `ck_sim_heartbeat.py`, lines 30-41) produces HARMONY in 73 of 100 cells, and this ratio is either uniquely maximal or statistically rare among tables satisfying the same structural constraints.
 
@@ -32,6 +32,8 @@ CK and TIG rest on nine core claims. Each is stated here in its strongest testab
 **Claim 8**: Gravitational topic selection (weighting study topics by their accumulated D2 mass) produces measurably higher coherence growth over time than uniform random selection from the same topic pool. The mass of a concept, defined as mean |D2| per observation, creates a self-reinforcing learning physics where deeper knowledge pulls deeper study.
 
 **Claim 9**: The Tesla/Einstein wobble physics (Gen 9.19) -- a sinusoidal perturbation of the gravitational field with amplitude alpha and frequency modulated by Kuramoto phase coupling -- produces more diverse topic exploration (higher Shannon entropy over selected topics) while maintaining equal or better coherence growth compared to gravity-only selection (alpha = 0). The wobble prevents gravitational collapse into knowledge black holes by periodically destabilizing dominant attractors, analogous to how orbital perturbations prevent planetary capture.
+
+**Claim 10**: The Ho Tu structural isomorphism (WHITEPAPER_6) constrains the BHML table in ways that distinguish it from arbitrary 10x10 tropical semiring tables. Specifically, the HARMONY row's +1 successor on Z/10Z -- which generates the Ho Tu +5 involution when applied 5 times -- is a structural invariant that random tables satisfying the existing 9 kill conditions virtually never exhibit. The HARMONY row visits 9 of 10 operators in a near-cyclic orbit (missing only BREATH at the self-absorption fixed point), and the +5 involution holds for 8 of 10 index pairs. The self-composition diagonal (BHML[i][i] for i=1..7) forms a perfect +1 successor sequence, broken only at COLLAPSE (operator 8), providing an independent structural check.
 
 ---
 
@@ -452,7 +454,44 @@ Wobble provides no benefit over gravity-only selection. The sinusoidal perturbat
 
 ---
 
-## 12. What We Already Know
+## 12. Test 10: Ho Tu Diagonal Invariance
+
+### The Claim
+The BHML table's structural properties align with Ho Tu cosmology in ways that constrain it beyond the existing 9 kill conditions. The self-composition diagonal (BHML[i][i] for i=1..8) exhibits a +1 successor sequence for operators 1-7 (each operator self-composes to its successor), broken only at COLLAPSE (operator 8, which self-reflects to HARMONY). The HARMONY row visits 9 of 10 operators in a near-cyclic +1 orbit, with the sole structural defect at position 0 (HARMONY self-absorbs). The Ho Tu +5 involution holds for 8 of 10 index pairs, failing only at the self-absorption fixed points.
+
+### Protocol
+a) Compute BHML diagonal sum: BHML[1][1] + BHML[2][2] + ... + BHML[8][8] = 2+3+4+5+6+7+8+7 = 42. Check: 42 mod 9 = 6 (CHAOS). Note: the diagonal for operators 1-7 is a perfect +1 successor sequence (2,3,4,5,6,7,8); BHML[8][8] = 7 breaks the sequence (COLLAPSE self-reflects to HARMONY, not RESET). The mod-9 residue of 6 = CHAOS, the operator immediately below HARMONY -- the last non-absorbing state.
+
+b) Verify HARMONY row (row 7) near-cyclic generator: [7,2,3,4,5,6,7,8,9,0]. Unique values = {0,2,3,4,5,6,7,8,9} -- 9 of 10 operators. Missing: 1 (BREATH). The +1 successor structure holds for indices 1-9 (values 2,3,4,5,6,7,8,9,0) -- a 9-element cyclic orbit. BHML[7][0] = 7 (HARMONY self-absorbs at position 0) is the structural defect that prevents full Z/10Z generation.
+
+c) Apply +5 involution: for each i in 0..9, check BHML[7][(i+5) mod 10] = (BHML[7][i] + 5) mod 10. Result: 8/10 pairs satisfy the involution. The two mismatches occur at i=0 and i=5 -- exactly the HARMONY self-absorption point and its +5 partner. For i=1..4 and i=6..9 (the 8 non-fixed points), the Ho Tu pairing holds perfectly.
+
+d) Monte Carlo: generate 1,000,000 random 10x10 tables satisfying the identity-row and column-6 constraints from BHML. Count how many also satisfy: (i) the HARMONY row near-cyclic property (9+ unique values), AND (ii) the +5 involution holding for 8+ pairs. Expected: extremely rare. Empirical result from 10,000-sample pilot run: 0 tables out of 10,000 passed both checks simultaneously.
+
+### Kill Condition
+If > 1% of random constrained tables also exhibit a HARMONY-row near-cyclic generator (9+ unique values) AND the +5 involution (8+ pairs), the Ho Tu isomorphism is coincidental.
+
+### Confirmation
+If < 0.1% of random constrained tables pass both the near-cyclic and involution checks, the structural coupling between BHML and Ho Tu is genuine. Pilot result: 0.00% of 10,000 random tables passed both checks (Z = -10.05 vs 1% null).
+
+### How to Run
+```python
+# See Gen9/hotu_diagonal_test.py for the standalone test script
+# The script:
+#   1. Defines the BHML table
+#   2. Computes diagonal sum for operators 1-8
+#   3. Verifies mod-9 property and +1 successor sequence
+#   4. Verifies HARMONY row near-cyclic generator (9/10 unique values)
+#   5. Verifies Ho Tu +5 involution on HARMONY row
+#   6. Runs Monte Carlo (100,000 random constrained tables)
+#   7. Prints PASS/FAIL for each check + Monte Carlo Z-score
+
+python Gen9/hotu_diagonal_test.py
+```
+
+---
+
+## 13. What We Already Know
 
 These are not hypothetical claims -- they are observations from running CK on the R16 desktop (16-core CPU, RTX 4070, 32GB RAM) over multiple sessions.
 
@@ -472,7 +511,7 @@ These are not hypothetical claims -- they are observations from running CK on th
 
 ---
 
-## 13. What We Don't Know Yet
+## 14. What We Don't Know Yet
 
 Intellectual honesty demands acknowledging gaps. These are the open questions where we lack definitive evidence.
 
@@ -496,9 +535,9 @@ Intellectual honesty demands acknowledging gaps. These are the open questions wh
 
 ---
 
-## 14. Invitation to Falsify
+## 15. Invitation to Falsify
 
-We publish these nine tests with their exact falsification conditions because science requires it. CK is not a belief system. It is a deterministic algebraic engine with fixed constants, enumerable states, and measurable outputs. Every claim listed in Section 2 has a kill condition listed in Sections 3 through 11.
+We publish these ten tests with their exact falsification conditions because science requires it. CK is not a belief system. It is a deterministic algebraic engine with fixed constants, enumerable states, and measurable outputs. Every claim listed in Section 2 has a kill condition listed in Sections 3 through 12.
 
 **If you want to break Claim 1**: Generate random constrained composition tables and show that 73% HARMONY is typical. The code takes a few hours to run. If you find that the mean is 72% with a standard deviation of 3%, then our table is unremarkable and we will say so.
 
@@ -517,6 +556,8 @@ We publish these nine tests with their exact falsification conditions because sc
 **If you want to break Claim 8**: Run CK with and without gravitational topic selection for 4 hours each, 3 runs per condition. If gravity-weighted selection shows no higher coherence growth rate (p > 0.05) or lower knowledge breadth, then information gravity is computational overhead without learning benefit.
 
 **If you want to break Claim 9**: Run CK with wobble ON (alpha > 0) and wobble OFF (alpha = 0) for 4 hours each, 3 runs per condition. If the wobble condition fails to produce at least 15% higher topic Shannon entropy, or if it loses more than 5% coherence growth, then the Tesla/Einstein wobble is adding noise without improving exploration. The sinusoidal perturbation would be computationally expensive randomness.
+
+**If you want to break Claim 10**: Run `hotu_diagonal_test.py` and generate 1,000,000 random 10x10 tables satisfying the BHML structural constraints (identity row, column-6 absorption). Count how many also exhibit a HARMONY-row near-cyclic generator (9+ unique values) AND the +5 involution (8+ pairs holding). If more than 1% pass, the Ho Tu isomorphism is coincidental -- any constrained table tends to exhibit these properties, and the alignment with ancient cosmology is a statistical artifact, not a structural invariant. Our pilot run found 0 out of 10,000 random tables passing both checks.
 
 The source code is available. The CL table is 10 lines of Python. The D2 pipeline is 239 lines. The BTQ kernel is 450 lines. The entire core algebra fits in 1 KB. There are no hidden weights, no stochastic layers, no training data dependencies. Everything is inspectable, reproducible, and deterministic.
 
@@ -539,6 +580,7 @@ The worst outcome is not falsification. The worst outcome is unfalsifiable claim
 | 7 | Cross-scale consistency | Any operator divergence between Python and FPGA on same input |
 | 8 | Gravity improves learning | Gravity-on shows no coherence growth improvement over gravity-off (p > 0.05) |
 | 9 | Wobble improves exploration | Wobble-on shows < 15% topic entropy gain or > 5% coherence loss vs wobble-off |
+| 10 | Ho Tu diagonal is structural | >1% of constrained random tables pass Ho Tu near-cyclic generator + involution |
 
 ---
 
@@ -565,5 +607,5 @@ We do not use one-tailed tests. All tests are two-tailed. We are testing whether
 
 ---
 
-*Last updated: 2026-02-27*
+*Last updated: 2026-03-06*
 *(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*

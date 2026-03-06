@@ -289,25 +289,73 @@ class CKEat:
 
         The text is measured and DISCARDED — not stored.
 
+        IN vs OUT: "in is a little different than out"
+          IN  (ollama_eat, self_eat, corpus_eat, visitor):
+              External text is UNTRUSTED. Run through reverse voice
+              verification first. TRUSTED ops get full absorption.
+              FRICTION ops get reduced weight. UNKNOWN = measured only.
+              Reading gives the MAP.
+          OUT (voice_eat):
+              CK's own speech is SELF-DERIVED from the algebra.
+              Already been through fractal voice pipeline. No reverse
+              verification needed — absorb at full trust.
+              Writing gives the COORDINATES.
+
         Args:
             text: input text (from Ollama or from source code)
-            source: 'ollama_eat' or 'self_eat' (olfactory source tag)
+            source: 'ollama_eat', 'self_eat', 'voice_eat', 'visitor'
 
         Returns dict with:
             force: 5D force vector from L-CODEC
             decomp: D2 decomposition dict (core_ops, tail_ops, etc.)
             lcodec_result: full LCodecResult for quality comparison
             stillness: float from L-CODEC
+            trust_fraction: float [0,1] from reverse voice (IN only)
         """
         result: dict = {
             'force': (0.5,) * 5,
             'decomp': None,
             'lcodec_result': None,
             'stillness': 0.5,
+            'trust_fraction': 1.0,
         }
 
         if not text or not text.strip():
             return result
+
+        # ── IN vs OUT: reverse voice verification for external text ──
+        # OUT sources (voice_eat) skip this — already self-verified.
+        _is_out = source in ('voice_eat',)
+        _trust_weight = 1.0  # Full trust for OUT
+
+        if not _is_out and hasattr(self.engine, 'reverse_voice'):
+            rv = self.engine.reverse_voice
+            if rv is not None:
+                try:
+                    reading = rv.reverse_text(text)
+                    _total = max(1, reading.trusted_count
+                                 + reading.friction_count
+                                 + reading.unknown_count)
+                    # Trust fraction: TRUSTED=1.0, FRICTION=0.3, UNKNOWN=0.1
+                    _trust_weight = (
+                        reading.trusted_count * 1.0
+                        + reading.friction_count * 0.3
+                        + reading.unknown_count * 0.1
+                    ) / _total
+                    result['trust_fraction'] = _trust_weight
+
+                    # Feed verified ops into lattice chain (TRUSTED only)
+                    if (reading.trusted_count > 0
+                            and hasattr(self.engine, 'lattice_chain')
+                            and self.engine.lattice_chain is not None):
+                        _trusted_ops = [
+                            w.verified_op for w in reading.words
+                            if w.trust == 'TRUSTED' and w.verified_op >= 0
+                        ]
+                        if _trusted_ops:
+                            self.engine.lattice_chain.walk(_trusted_ops)
+                except Exception:
+                    pass  # Reverse voice unavailable — absorb at full trust
 
         # ── L-CODEC: text → 5D force vector ──
         if self.engine.lcodec is not None:
@@ -317,13 +365,17 @@ class CKEat:
                 result['lcodec_result'] = lc
                 result['stillness'] = lc.stillness
 
-                # Feed force into olfactory as a scent (goes right in)
+                # Feed force into olfactory as a scent
+                # Trust weight modulates density: low trust = lower density
+                # = olfactory absorbs more cautiously
                 if self.engine.olfactory is not None:
                     _density = getattr(
                         self.engine.pipeline, 'density_doing', 0.5)
+                    _effective_density = _density * _trust_weight
                     self.engine.olfactory.absorb(
-                        [lc.force], source=source, density=_density)
-                # Taste the force too (structural classification, goes right in)
+                        [lc.force], source=source,
+                        density=_effective_density)
+                # Taste the force too (structural classification)
                 if (hasattr(self.engine, 'gustatory')
                         and self.engine.gustatory is not None):
                     self.engine.gustatory.taste(lc.force, source=source)
@@ -338,15 +390,19 @@ class CKEat:
 
             # Feed to ALL swarm substrates — operator transitions
             # are CL algebra, substrate-independent
+            # Trust weight gates observation strength for IN sources
             if (self.engine.deep_swarm is not None
                     and decomp.get('core_ops')):
-                for substrate in self.engine.deep_swarm.experience:
-                    exp = self.engine.deep_swarm._get_experience(substrate)
-                    exp.observe_decomposition(
-                        decomp['core_ops'],
-                        decomp['tail_ops'],
-                        decomp.get('d1_ops', []),
-                    )
+                # For low-trust input, only observe if trust > 0.3
+                if _trust_weight > 0.3 or _is_out:
+                    for substrate in self.engine.deep_swarm.experience:
+                        exp = self.engine.deep_swarm._get_experience(
+                            substrate)
+                        exp.observe_decomposition(
+                            decomp['core_ops'],
+                            decomp['tail_ops'],
+                            decomp.get('d1_ops', []),
+                        )
         except Exception:
             pass
 
