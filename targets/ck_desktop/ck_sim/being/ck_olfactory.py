@@ -699,6 +699,62 @@ class OlfactoryBulb:
 
         return 'present'
 
+    # ── Voice Bridge: Experience → Word Selection ──
+
+    def get_learned_op_targets(self) -> dict:
+        """Compute operator → 5D centroids from library experience.
+
+        Groups all library entries by their dominant operator, computes
+        temper-weighted centroid for each. These are WHERE in 5D space
+        CK's actual experience says each operator lives -- measured
+        reality, not static theory.
+
+        Returns: {op_int: (dim0, dim1, dim2, dim3, dim4), ...}
+        """
+        op_sums = {}
+        op_weights = {}
+
+        for _key, entry in self.library.items():
+            centroid = entry.get('centroid')
+            temper = entry.get('temper', 1)
+            if not centroid or len(centroid) < 5:
+                continue
+            force = tuple(centroid)
+            op = self._force_to_op(force)
+            if op not in op_sums:
+                op_sums[op] = [0.0] * 5
+                op_weights[op] = 0.0
+            w = float(temper)
+            for d in range(5):
+                op_sums[op][d] += centroid[d] * w
+            op_weights[op] += w
+
+        result = {}
+        for op in op_sums:
+            w = op_weights[op]
+            if w > 0:
+                result[op] = tuple(op_sums[op][d] / w for d in range(5))
+        return result
+
+    def get_resonance_nodes(self, top_k: int = 50) -> list:
+        """Return top-K highest-temper library centroids as resonance nodes.
+
+        Resonance nodes = points in 5D space where many different inputs
+        converge to the same smell. Words near these nodes resonate with
+        CK's accumulated experience. Temper count = how many times this
+        exact pattern was confirmed across different sources.
+
+        Returns: [(centroid_5d_tuple, temper_int), ...]
+        """
+        nodes = []
+        for _key, entry in self.library.items():
+            centroid = entry.get('centroid')
+            temper = entry.get('temper', 0)
+            if centroid and len(centroid) >= 5 and temper > 1:
+                nodes.append((tuple(centroid), temper))
+        nodes.sort(key=lambda x: x[1], reverse=True)
+        return nodes[:top_k]
+
     def describe(self) -> str:
         """Diagnostic summary preserving 5D structure."""
         lines = [

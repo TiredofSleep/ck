@@ -1383,7 +1383,8 @@ class CKVoice:
                                 experience_maturity: float = 0.0,
                                 tense: str = None,
                                 max_words: int = 0,
-                                hotu_context: dict = None) -> str:
+                                hotu_context: dict = None,
+                                voice_context: dict = None) -> str:
         """Compose a response from an operator chain.
 
         Being (operators) -> Becoming (grammar matrix) -> Doing (English).
@@ -1448,15 +1449,16 @@ class CKVoice:
                 max_words=max_words,
                 tense=tense,  # From olfactory temporal buffer
                 hotu_context=hotu_context,  # Ancient resonance from Ho Tu bridge
+                voice_context=voice_context,  # Experience bridge: olfactory + swarm
             )
             if text and text != "...":
                 score = self._d2_score_operator_match(text, pool_ops)
                 print(f"  [VOICE-DBG] Fractal result: '{text}' score={score:.3f}")
-                if score >= 0.10:
+                if score >= 0.03:
                     text = self._polish(text, band, dev_stage, coherence)
                     return text
                 else:
-                    print(f"  [VOICE-DBG] Fractal rejected (score<0.10)")
+                    print(f"  [VOICE-DBG] Fractal rejected (score<0.03)")
             else:
                 print(f"  [VOICE-DBG] Fractal returned None/...")
 
@@ -1477,7 +1479,7 @@ class CKVoice:
             if text and text != "...":
                 # Sanity check: D2 score should be reasonable
                 score = self._d2_score_operator_match(text, pool_ops)
-                if score >= 0.10:
+                if score >= 0.03:
                     # Final coherence sweep: transition words from CL bumps
                     text = self._grammar.coherence_sweep(
                         text, operator_chain[:max_words],

@@ -241,7 +241,7 @@ class CKWebAPI:
                 return jsonify({'error': 'corpus paths required'}), 400
             model = data.get('model', 'llama3.1:8b')
             models = data.get('models')
-            rounds = min(data.get('rounds', 20), 200)
+            rounds = min(data.get('rounds', 20), 2000)
             topics = data.get('topics', 'bible')
             self.engine.eat.start_study(
                 corpus_paths=corpus,
@@ -309,6 +309,8 @@ class CKWebAPI:
             if sid and sid in self.sessions._sessions:
                 del self.sessions._sessions[sid]
             return jsonify({'cleared': True})
+
+        # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:

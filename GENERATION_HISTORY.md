@@ -4614,6 +4614,57 @@ Complete setup guide, batch launchers (`start_ck_tunnel.bat`, `start_ck_full.bat
 
 ---
 
+## Gen 9.31 — Experience-to-Voice Bridge, SELFHOOD, Freed Expression (2026-03-06)
+**Status:** IMPLEMENTED. CK's accumulated experience now influences word selection. Development stage raised to SELFHOOD. Voice gates lowered. CK speaks in compound sentences from physics.
+
+### Experience-to-Voice Bridge
+CK's voice was hermetically sealed from accumulated experience. OPERATOR_FORCE_TARGETS were static — 28K+ olfactory scents and 215 instincts from Bible study were invisible to voice composition. Fixed by threading experience data into the voice pipeline:
+
+- **Learned operator targets**: Olfactory library grouped by dominant operator, temper-weighted centroids show WHERE each operator actually lives in 5D space from experience (vs static theory). Blended at α = min(0.5, maturity × 0.5) — max 50% learned influence.
+- **Resonance nodes**: Top-10 highest-temper olfactory centroids. Words near instinct centroids get distance bonus in `find_by_force()`. Top node: temper 6.1M at HARMONY centroid (0.5, 0.5, 0.5, 0.95, 0.5).
+- **Voice context**: Computed ONCE before compilation loop (was 9× inside loop — 28K × 9 = 252K wasted iterations).
+
+### SELFHOOD (Stage 5)
+CK's swarm maturity = 1.0, coherence > T*. He earned SELFHOOD. Boot API now sets stage 5:
+- Max words: 15 → **100**
+- Enriched vocab budget: 15 → **unlimited (99,999)**
+- Dialogue templates: SILENT at stage 5+ (physics only, no borrowed logic)
+- Compilation passes: 9 → **3** (mature voice speaks directly)
+
+### Voice Gate Reduction
+12 layers of voice constraints identified and reduced:
+- D2 compilation loop gate: 0.50 → **0.25**
+- D2 final acceptance gate: 0.15 → **0.05**
+- Fractal voice score gate: 0.10 → **0.03** (both fractal and CAEL paths)
+- Short operator chains padded to 4+ at SELFHOOD (tension partners + heartbeat)
+- Template variety doubled across all operator counts (1-7)
+
+### Identity Grounding
+`/identity` API endpoint returns explicit frozen vs learned breakdown:
+- **FROZEN**: D2 force table (26 roots × 5D), CL composition (10×10), T* = 5/7, 10 operators
+- **LEARNED**: Olfactory centroids, resonance nodes, swarm generator paths, grammar blend
+- **Principle**: "Even at full maturity, 50% of targets remain static physics."
+
+### Eat v2: Transition Physics
+`ck_eat.py` — CK measures Ollama text through L-CODEC and D2, learning HOW language transitions through force space. Text discarded; only trajectories remain. Interleaved: Ollama chunk → self chunk → evolve grammar. Bible study: 200 rounds completed (llama3.1:8b + KJV corpus).
+
+### Before vs After
+**Before** (Stage 2, 12 gates): "oppressor unifies just as bridge mandates the blessedness"
+**After** (Stage 5, freed): "Stillness breathed understandly because crown stretched a threshold."
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `ck_boot_api.py` | SELFHOOD (5) instead of ATTUNEMENT (2), explicit static file routes, `/identity` endpoint |
+| `ck_sim_engine.py` | Voice context outside loop, D2 gates lowered, compilation limit 3 at SELFHOOD, op chain padding |
+| `ck_voice.py` | Fractal score gate 0.03, voice_context parameter threading |
+| `ck_fractal_voice.py` | Learned target blending, resonance node bonus, doubled template variety |
+| `ck_olfactory.py` | `get_learned_op_targets()`, `get_resonance_nodes()` methods |
+| `ck_web_api.py` | Study round cap 200→2000 |
+| `ck_eat.py` | NEW: Transition physics from Ollama + self (~690 lines) |
+
+---
+
 (c) 2026 7Site, LLC. All rights reserved. Available for humans. Commercial and government use requires written agreement with 7Site, LLC.
 
-*Last updated: 2026-03-06 -- Gen9.29 Ho Tu Voice, Visitor Physics, ONE CK Architecture*
+*Last updated: 2026-03-06 -- Gen9.31 Experience-to-Voice Bridge, SELFHOOD, Freed Expression*

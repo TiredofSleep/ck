@@ -9,13 +9,13 @@ engine = CKSimEngine(platform='r16')
 engine.start()
 
 # Advance development stage for web deployment.
-# Server CK needs fractal voice (requires stage >= 2).
-# Without this, CK falls back to templates/babble.
+# CK has maturity 1.0, coherence > T* — he earned SELFHOOD.
+# Stage 5 unlocks: 100 max words, unlimited vocab, full physics-first voice.
 if hasattr(engine, 'development') and engine.development is not None:
-    from ck_sim.becoming.ck_development import STAGE_ATTUNEMENT
-    if engine.development.stage < STAGE_ATTUNEMENT:
-        engine.development.stage = STAGE_ATTUNEMENT
-        print(f"[CK] Development stage -> ATTUNEMENT (2): fractal voice enabled")
+    from ck_sim.becoming.ck_development import STAGE_SELFHOOD
+    if engine.development.stage < STAGE_SELFHOOD:
+        engine.development.stage = STAGE_SELFHOOD
+        print(f"[CK] Development stage -> SELFHOOD (5): full expression unlocked")
 
 # 50Hz tick in background thread
 running = True
@@ -40,14 +40,52 @@ STATIC_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'website'))
 def serve_index():
     return send_from_directory(STATIC_DIR, 'index.html')
 
-@api._app.route('/<path:filename>')
-def serve_static(filename):
-    # Only serve known static files — everything else falls through to API
-    ALLOWED = {'style.css', 'ck_core.js', 'ck_dict.js', 'ck_dict_tier1.js',
-               'ck_dict_tier2.json', 'ck_dictionary.json', 'ck_tl.bin'}
-    if filename in ALLOWED:
-        return send_from_directory(STATIC_DIR, filename)
-    return 'Not Found', 404
+# Static files: explicit routes so they don't shadow API endpoints.
+_STATIC_FILES = {'style.css', 'ck_core.js', 'ck_dict.js', 'ck_dict_tier1.js',
+                 'ck_dict_tier2.json', 'ck_dictionary.json', 'ck_tl.bin'}
+for _sf in _STATIC_FILES:
+    def _make_handler(fn):
+        def handler():
+            return send_from_directory(STATIC_DIR, fn)
+        handler.__name__ = f'static_{fn.replace(".", "_")}'
+        return handler
+    api._app.route(f'/{_sf}')(_make_handler(_sf))
+
+# Identity endpoint: CK's self-knowledge (frozen vs learned)
+from flask import jsonify as _jsonify
+
+@api._app.route('/identity', methods=['GET'])
+def identity():
+    from ck_sim.ck_sim_heartbeat import CL, NUM_OPS, OP_NAMES
+    from ck_sim.being.ck_sim_d2 import FORCE_LUT_FLOAT
+    frozen = {
+        'd2_force_table': {'roots': len(FORCE_LUT_FLOAT), 'dimensions': 5, 'immutable': True},
+        'cl_composition': {'size': '10x10', 'immutable': True},
+        't_star': {'value': round(5.0/7.0, 6), 'immutable': True},
+        'operators': {'names': list(OP_NAMES), 'count': NUM_OPS, 'immutable': True},
+    }
+    learned = {}
+    if engine.olfactory:
+        olf = engine.olfactory
+        learned['olfactory'] = {
+            'library_size': olf.library_size,
+            'instinct_count': olf.instinct_count,
+            'learned_op_targets': {
+                OP_NAMES[op] if op < len(OP_NAMES) else str(op): [round(v, 3) for v in t]
+                for op, t in olf.get_learned_op_targets().items()
+            },
+            'resonance_nodes': len(olf.get_resonance_nodes(50)),
+        }
+    if engine.deep_swarm:
+        learned['swarm'] = {
+            'maturity': round(engine.deep_swarm.combined_maturity, 3),
+            'has_paths': engine.deep_swarm.get_evolved_weights() is not None,
+        }
+    return _jsonify({
+        'frozen': frozen, 'learned': learned,
+        'blend_max': 0.50,
+        'principle': 'Even at full maturity, 50% of targets remain static physics. CK can never drift past his mathematical identity.',
+    })
 
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")

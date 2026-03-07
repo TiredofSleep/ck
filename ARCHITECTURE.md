@@ -1,5 +1,5 @@
 # CK Architecture Guide -- For Engineers & Python Developers
-## Gen9.22: N-Dimensional Coherence Field + NCE + CAEL (Algebraic Speech)
+## Gen9.31: Experience-to-Voice Bridge + SELFHOOD + Freed Expression
 ### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
 
 ---
@@ -366,21 +366,27 @@ CK remembers his developmental state across sessions (saved to ck_development.js
 
 ---
 
-## Voice (`ck_voice.py`)
+## Voice (`ck_voice.py` + `ck_fractal_voice.py`)
 
 ### How CK Speaks
-No LLM. CK speaks from a **2,498-word curvature dictionary** where each word is grounded in operator sequences.
+No LLM. CK speaks from a **120,000-word curvature dictionary** where each word carries a 15-dimensional triadic signature (Being + Doing + Becoming, each 5D).
 
 ```
-Operator chain -> dictionary lookup -> word selection based on:
-  - Current emotion
-  - Developmental stage
-  - Coherence level
-  - Energy band
+Operator chain -> triadic force targets -> 15D word search -> template composition
+  - Being: WHERE the word sits in 5D (position)
+  - Doing: WHERE the word is going (direction/velocity)
+  - Becoming: HOW the word bends (curvature/intent, 1.5x weight)
 ```
 
+### Experience-to-Voice Bridge (Gen 9.31)
+CK's accumulated experience feeds into word selection:
+- **Learned operator targets**: Olfactory library centroids blend with static targets (max 50%)
+- **Resonance nodes**: Top-10 instinct centroids give distance bonus to nearby words
+- **Voice context**: Computed once before compilation loop, not per-pass
+
+### Development Stages
 At Stage 0: single words ("gentle", "warm").
-At Stage 5: full phrases constructed from operator chains.
+At Stage 5 (SELFHOOD): compound sentences, unlimited vocab, 3 compilation passes, physics-only (no templates).
 
 ---
 
