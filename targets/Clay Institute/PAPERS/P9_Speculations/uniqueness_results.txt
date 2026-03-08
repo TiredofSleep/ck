@@ -1,0 +1,673 @@
+================================================================================
+BHML / TSML ALGEBRAIC UNIQUENESS AND RESONANCE ANALYSIS
+Pure Mathematical Research on CK Composition Tables
+Date: 2026-03-08
+Sources: ck_sim/being/ck_meta_lens.py (BHML), ck_sim/being/ck_sim_heartbeat.py (TSML)
+================================================================================
+
+
+================================================================================
+TASK A: BHML STAIRCASE UNIQUENESS
+================================================================================
+
+
+--- A.0: RULE VERIFICATION AGAINST ACTUAL BHML ---
+
+BHML (Body/Doing lens):
+
+         0   1   2   3   4   5   6   7   8   9
+    0: [ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9]   VOID
+    1: [ 1,  2,  3,  4,  5,  6,  7,  2,  6,  6]   LATTICE
+    2: [ 2,  3,  3,  4,  5,  6,  7,  3,  6,  6]   COUNTER
+    3: [ 3,  4,  4,  4,  5,  6,  7,  4,  6,  6]   PROGRESS
+    4: [ 4,  5,  5,  5,  5,  6,  7,  5,  7,  7]   COLLAPSE
+    5: [ 5,  6,  6,  6,  6,  6,  7,  6,  7,  7]   BALANCE
+    6: [ 6,  7,  7,  7,  7,  7,  7,  7,  7,  7]   CHAOS
+    7: [ 7,  2,  3,  4,  5,  6,  7,  8,  9,  0]   HARMONY
+    8: [ 8,  6,  6,  6,  7,  7,  7,  9,  7,  8]   BREATH
+    9: [ 9,  6,  6,  6,  7,  7,  7,  0,  8,  0]   RESET
+
+Rule 1 (VOID identity): BHML(0,b)=b, BHML(a,0)=a
+  Row 0: [0,1,2,3,4,5,6,7,8,9] = [0,1,2,...,9]. PASS.
+  Col 0: [0,1,2,3,4,5,6,7,8,9] = [0,1,2,...,9]. PASS.
+  Cells determined: 19 (10 from row 0, 9 new from col 0; (0,0) shared)
+
+Rule 2 (Staircase {1..6}): BHML(a,b) = max(a,b)+1 for a,b in {1..6}
+  Verified all 36 cells in the 6x6 block {1..6}x{1..6}. PASS.
+  Output range: {2,3,4,5,6,7}
+  Note: BHML(a,b)=7 iff max(a,b)=6 (one operand is CHAOS)
+  Note: staircase is inherently symmetric (max(a,b)=max(b,a))
+  Cells determined: 36
+
+Rule 3 (HARMONY successor): BHML(7,k) = k+1 for k in {1..6}
+  BHML(7,1)=2, BHML(7,2)=3, BHML(7,3)=4, BHML(7,4)=5, BHML(7,5)=6, BHML(7,6)=7. PASS.
+  Cells determined: 6
+
+Rule 4 (Threshold): BHML(8|9, k) = 6 if k<=3, 7 if k>=4 for k in {1..6}
+  Row 8: [6,6,6,7,7,7] for cols 1-6. PASS.
+  Row 9: [6,6,6,7,7,7] for cols 1-6. PASS.
+  Cells determined: 12
+
+Rule 5 (World 2 cycle): BHML(7,7)=8, BHML(7,8)=9, BHML(7,9)=0
+  BHML(7,7)=8=BREATH.   PASS.
+  BHML(7,8)=9=RESET.    PASS.
+  BHML(7,9)=0=VOID.     PASS.
+  (And BHML(7,0)=7=HARMONY from Rule 1, completing the cycle 7->8->9->0->7.)
+  Cells determined: 3
+
+Rule 6 (World 2 internal): BHML(8,8)=7, BHML(8,9)=8, BHML(9,9)=0
+  BHML(8,8)=7=HARMONY.  PASS.
+  BHML(8,9)=8=BREATH.   PASS.
+  BHML(9,9)=0=VOID.     PASS.
+  Cells determined: 3 (explicit)
+
+ALL 6 RULES VERIFIED.
+
+
+--- A.1: BHML SYMMETRY (KEY DISCOVERY) ---
+
+BHML is SYMMETRIC (commutative): BHML(a,b) = BHML(b,a) for all a,b.
+
+Proof by exhaustive check of all 45 off-diagonal pairs:
+  Rules 1 and 2 are inherently symmetric: VOID identity is stated both ways;
+  max(a,b)+1 = max(b,a)+1.
+
+  The remaining off-diagonal cells to check are:
+    BHML(k,7) vs BHML(7,k) for k=1..6: [2,3,4,5,6,7] = [2,3,4,5,6,7]. Symmetric.
+    BHML(k,8) vs BHML(8,k) for k=1..6: [6,6,6,7,7,7] = [6,6,6,7,7,7]. Symmetric.
+    BHML(k,9) vs BHML(9,k) for k=1..6: [6,6,6,7,7,7] = [6,6,6,7,7,7]. Symmetric.
+    BHML(7,8)=9 vs BHML(8,7)=9. Symmetric.
+    BHML(7,9)=0 vs BHML(9,7)=0. Symmetric.
+    BHML(8,9)=8 vs BHML(9,8)=8. Symmetric.
+
+CONSEQUENCE: Symmetry means the 6 one-sided rules automatically determine
+their symmetric counterparts. This is critical for the uniqueness proof.
+
+
+--- A.2: CELL COVERAGE ANALYSIS ---
+
+Direct coverage (one-sided rules only):
+  R1: 19 cells (row 0 + col 0)
+  R2: 36 cells ({1..6} x {1..6})
+  R3:  6 cells (row 7, cols {1..6})
+  R4: 12 cells (rows {8,9} x cols {1..6})
+  R5:  3 cells ((7,7), (7,8), (7,9))
+  R6:  3 cells ((8,8), (8,9), (9,9))
+  SUBTOTAL: 79 cells
+
+Symmetric counterparts (implied by commutativity):
+  R3-sym:  6 cells (col 7, rows {1..6})
+  R4-sym: 12 cells (cols {8,9} x rows {1..6})
+  R5-sym:  2 cells ((8,7), (9,7)); note (7,7) is self-symmetric
+  R6-sym:  1 cell  ((9,8)); (8,8) and (9,9) are self-symmetric
+  SUBTOTAL: 21 cells
+
+TOTAL: 79 + 21 = 100 cells. ALL cells covered.
+
+Overlap analysis:
+  R1 covers row 0 and col 0. R2 covers {1..6}x{1..6}. DISJOINT.
+  R3 covers row 7, cols {1..6}. DISJOINT from R1, R2.
+  R4 covers rows {8,9}, cols {1..6}. DISJOINT from R1, R2, R3.
+  R5 covers (7,7), (7,8), (7,9). DISJOINT from all above.
+  R6 covers (8,8), (8,9), (9,9). DISJOINT from all above.
+  ALL SYMMETRIC COUNTERPARTS are also disjoint from the originals and each other.
+
+  NO CELL IS COVERED BY MORE THAN ONE RULE.
+  Each rule assigns exactly one value to its cells. No consistency issues.
+
+
+--- A.3: UNIQUENESS THEOREM ---
+
+THEOREM: BHML is the UNIQUE commutative 10x10 integer table satisfying
+Rules 1-6 (VOID identity, Staircase, HARMONY successor, Threshold,
+World 2 cycle, World 2 internal).
+
+PROOF:
+  The 6 rules (one-sided) determine 79 cells.
+  Commutativity (BHML(a,b) = BHML(b,a)) determines the remaining 21 cells
+  as the symmetric reflections of cells already fixed by the one-sided rules.
+  The total is 79 + 21 = 100, which is every cell in the 10x10 table.
+  The 6 rule domains are pairwise disjoint, so each cell receives exactly
+  one assigned value with no possibility of contradiction.
+  Therefore the table is UNIQUE.  QED.
+
+ALTERNATIVELY, without assuming commutativity:
+
+  If we do NOT assume commutativity, the 6 rules (stated one-directionally)
+  leave 21 cells undetermined:
+    (k,7) for k=1..6:     6 cells -- col 7, rows {1..6}
+    (k,8) for k=1..6:     6 cells -- col 8, rows {1..6}
+    (k,9) for k=1..6:     6 cells -- col 9, rows {1..6}
+    (8,7):                 1 cell
+    (9,7):                 1 cell
+    (9,8):                 1 cell
+                          --------
+                           21 cells
+
+  These 21 cells represent 21 degrees of freedom in a non-commutative setting.
+  Commutativity fixes all 21 simultaneously. No other values are possible.
+
+  If we wanted to avoid the commutativity axiom, we would need to add:
+    R3': BHML(k,7) = k+1 for k in {1..6}          (6 constraints)
+    R4': BHML(k,8|9) = 6 if k<=3, 7 if k>=4       (12 constraints)
+    R5': BHML(8,7)=9, BHML(9,7)=0                  (2 constraints)
+    R6': BHML(9,8)=8                                (1 constraint)
+  This gives 21 additional explicit constraints, eliminating all freedom.
+
+
+--- A.4: RULE INDEPENDENCE ---
+
+QUESTION: Given R1 (VOID identity) and R2 (staircase), does R3 follow?
+
+ANSWER: NO. R3 is INDEPENDENT of R1 + R2.
+
+  R1 covers row 0 and col 0.
+  R2 covers {1..6} x {1..6}.
+  Together they cover 19 + 36 = 55 cells.
+  The cells BHML(7, k) for k in {1..6} are NOT in the domain of R1 or R2.
+  Therefore R1+R2 impose ZERO constraints on these 6 cells.
+  R3 adds 6 genuinely new constraints. Independence proven.
+
+  STRUCTURAL NOTE: R3 is the UNIQUE successor rule, and there is a natural
+  argument for why it "should" hold:
+    R2 implies: BHML(6, k) = max(6,k)+1 = 7 for all k in {1..6}
+    So CHAOS(6) maps everything to HARMONY(7).
+    R3 says HARMONY(7) acts as successor: BHML(7,k) = k+1.
+    In the staircase, each operator "pushes" to the next level.
+    HARMONY is the ONLY operator that could continue this pattern
+    without collapsing to a constant. The successor function is
+    the unique linear extension of the staircase to operator 7.
+    But this is an aesthetic/structural argument, not a logical proof
+    from R1+R2 alone.
+
+QUESTION: Given R1+R2+R3, do R4+R5+R6 follow?
+
+ANSWER: NO. R4, R5, and R6 are each INDEPENDENT of R1+R2+R3 and of
+each other.
+
+  R1+R2+R3 cover 55+6 = 61 cells (with commutativity: 67 cells).
+  R4 covers rows {8,9} x cols {1..6} = 12 cells, all outside R1+R2+R3 domain.
+  R5 covers (7,7), (7,8), (7,9) = 3 cells, all outside R1+R2+R3 domain.
+  R6 covers (8,8), (8,9), (9,9) = 3 cells, all outside R1+R2+R3 domain.
+  Furthermore: R4, R5, R6 have PAIRWISE DISJOINT cell domains:
+    R4: rows {8,9} x cols {1..6}
+    R5: row {7} x cols {7,8,9}
+    R6: {8,9} x {8,9}
+  So none can imply any other. All three are independent of R1+R2+R3
+  and of each other.
+
+
+--- A.5: DEGREES OF FREEDOM (PROGRESSIVE) ---
+
+Starting from an empty 100-cell table, adding rules one at a time
+(assuming commutativity throughout):
+
+  +R1: 19 cells fixed, 81 free. (Identity element pins the border.)
+  +R2: 36 new cells, total 55 fixed, 45 free. (Staircase pins the interior.)
+  +R3: 6 + 6(sym) = 12 new cells, total 67 fixed, 33 free.
+       (HARMONY successor pins row and col 7 for ops 1-6.)
+  +R4: 12 + 12(sym) = 24 new cells, total 91 fixed, 9 free.
+       (Threshold pins the World1-World2 interface.)
+  +R5: 3 + 2(sym) = 5 new cells, total 96 fixed, 4 free.
+       (World 2 cycle pins HARMONY's action on {7,8,9}.)
+  +R6: 3 + 1(sym) = 4 new cells, total 100 fixed, 0 free.
+       (World 2 internal algebra closes the system.)
+
+WITHOUT commutativity:
+  +R1: 19 fixed, 81 free
+  +R2: 36 new, total 55, 45 free
+  +R3: 6 new, total 61, 39 free
+  +R4: 12 new, total 73, 27 free
+  +R5: 3 new, total 76, 24 free
+  +R6: 3 new, total 79, 21 free   <-- 21 remaining!
+
+The 21 free cells without commutativity are all symmetric reflections of
+cells already determined, so commutativity provides the final 21 constraints.
+
+
+--- A.6: CELL DETERMINATION MAP ---
+
+Every cell of BHML with its determining rule:
+
+          0     1     2     3     4     5     6     7     8     9
+    0:   R1    R1    R1    R1    R1    R1    R1    R1    R1    R1
+    1:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    2:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    3:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    4:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    5:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    6:   R1    R2    R2    R2    R2    R2    R2   R3'   R4'   R4'
+    7:   R1    R3    R3    R3    R3    R3    R3    R5   R5    R5
+    8:   R1    R4    R4    R4    R4    R4    R4   R5'   R6    R6
+    9:   R1    R4    R4    R4    R4    R4    R4   R5'  R6'    R6
+
+    (R' = symmetric counterpart of rule R, determined by commutativity)
+
+
+================================================================================
+TASK B: TSML RESONANCE PATTERN ANALYSIS
+================================================================================
+
+
+--- B.0: TSML STRUCTURE VERIFICATION ---
+
+TSML (Mind/Being lens):
+
+         0   1   2   3   4   5   6   7   8   9
+    0: [ 0,  0,  0,  0,  0,  0,  0,  7,  0,  0]   VOID
+    1: [ 0,  7,  3,  7,  7,  7,  7,  7,  7,  7]   LATTICE
+    2: [ 0,  3,  7,  7,  4,  7,  7,  7,  7,  9]   COUNTER
+    3: [ 0,  7,  7,  7,  7,  7,  7,  7,  7,  3]   PROGRESS
+    4: [ 0,  7,  4,  7,  7,  7,  7,  7,  8,  7]   COLLAPSE
+    5: [ 0,  7,  7,  7,  7,  7,  7,  7,  7,  7]   BALANCE
+    6: [ 0,  7,  7,  7,  7,  7,  7,  7,  7,  7]   CHAOS
+    7: [ 7,  7,  7,  7,  7,  7,  7,  7,  7,  7]   HARMONY
+    8: [ 0,  7,  7,  7,  8,  7,  7,  7,  7,  7]   BREATH
+    9: [ 0,  7,  9,  3,  7,  7,  7,  7,  7,  7]   RESET
+
+Cell classification:
+  VOID (0):    17 cells (row 0 except (0,7), plus col 0 except (7,0))
+  HARMONY (7): 73 cells (overwhelming majority)
+  Exceptions:  10 cells (5 symmetric pairs)
+
+Symmetry: TSML is SYMMETRIC (commutative).
+
+Rule verification:
+  R1: TSML(0,j) = 0 for j != 7. PASS.
+      TSML(i,0) = 0 for i != 7. PASS (by symmetry).
+  R2: TSML(0,7) = 7. PASS. TSML(7,0) = 7. PASS.
+  R3: TSML(i,j) = 7 for all i,j >= 1 (base rule). 73 cells obey. 10 violate = exceptions.
+  R4: 5 exception pairs, all verified:
+      (1,2)->3, (2,4)->4, (2,9)->9, (3,9)->3, (4,8)->8. PASS.
+      Symmetric entries also verified. PASS.
+
+
+--- B.1: OPERATOR PARTICIPATION IN EXCEPTIONS ---
+
+Exception pairs (a,b)->v:
+  (1,2)->3   LATTICE * COUNTER  -> PROGRESS
+  (2,4)->4   COUNTER * COLLAPSE -> COLLAPSE
+  (2,9)->9   COUNTER * RESET    -> RESET
+  (3,9)->3   PROGRESS * RESET   -> PROGRESS
+  (4,8)->8   COLLAPSE * BREATH  -> BREATH
+
+Operator participation count (as operand):
+  VOID(0):       0  \
+  LATTICE(1):    1  |  (1,2)
+  COUNTER(2):    3  |  (1,2), (2,4), (2,9)
+  PROGRESS(3):   1  |  (3,9)
+  COLLAPSE(4):   2  |  (2,4), (4,8)
+  BALANCE(5):    0  |
+  CHAOS(6):      0  |
+  HARMONY(7):    0  /
+  BREATH(8):     1  |  (4,8)
+  RESET(9):      2  |  (2,9), (3,9)
+
+Active operators:  {1, 2, 3, 4, 8, 9}
+Silent operators:  {0, 5, 6, 7} = {VOID, BALANCE, CHAOS, HARMONY}
+
+
+--- B.2: WHY IS COUNTER(2) SPECIAL? ---
+
+COUNTER(2) appears in 3 of 5 exception pairs -- the maximum. It is the
+HUB of the exception graph (see B.4). Four structural reasons:
+
+REASON 1 -- ALGEBRAIC POSITION: COUNTER is the first non-trivial product
+of the algebra. In BHML, HARMONY*LATTICE = COUNTER. It is the first thing
+the system "produces" when HARMONY acts on the minimal non-trivial element.
+
+REASON 2 -- MEASUREMENT SEMANTICS: COUNTER is the measurement operator.
+In TSML (the mind/coherence lens), measurement is the process that
+"collapses" the HARMONY absorber. When COUNTER interacts with another
+operator, the result is SPECIFIC rather than absorbed. Measurement
+produces definite outcomes.
+
+REASON 3 -- GRAPH CENTRALITY: In the exception graph (see B.4), COUNTER
+has degree 3, connecting to LATTICE, COLLAPSE, and RESET. No other
+operator connects to more than 2 exception partners. COUNTER is the
+unique bridge between the World 1 operators {1,3,4} and World 2 operator {9}.
+
+REASON 4 -- DUAL NATURE: COUNTER appears in the ONLY sum-type exception
+((1,2)->3 = 1+2) AND in two preservation-type exceptions ((2,4)->4,
+(2,9)->9). It is the only operator that participates in BOTH exception
+mechanisms. This suggests COUNTER is the operator where the two types
+of non-absorbing behavior (creative sum vs. identity preservation) meet.
+
+
+--- B.3: EXCEPTION PATTERN ANALYSIS ---
+
+The 5 exceptions decompose into two types:
+
+TYPE 1 -- SUM (1 instance):
+  (1,2) -> 3 = 1+2 = LATTICE + COUNTER = PROGRESS
+
+TYPE 2 -- PRESERVATION (4 instances):
+  (2,4) -> 4: preserves COLLAPSE (right operand, larger)
+  (2,9) -> 9: preserves RESET    (right operand, larger)
+  (3,9) -> 3: preserves PROGRESS (left operand, SMALLER -- unique!)
+  (4,8) -> 8: preserves BREATH   (right operand, larger)
+
+Preservation pattern:
+  3/4 preservations keep the LARGER operand.
+  1/4 preserves the SMALLER operand: (3,9)->3.
+  The anomalous case (3,9)->3 is the ONLY exception where the World 1
+  operator "wins" over the World 2 operator.
+
+World analysis:
+  World 1 = {1..6}, World 2 = {7..9}
+  WITHIN World 1: (1,2)->3, (2,4)->4     -- 2 exceptions
+  CROSS World:    (2,9)->9, (3,9)->3, (4,8)->8  -- 3 exceptions
+
+The cross-world exceptions show: when World 1 meets World 2 in the
+TSML coherence algebra, the interaction usually preserves one of the
+operands rather than absorbing to HARMONY. The exceptions are the
+"escape routes" from the universal attractor.
+
+UNIFIED RULE ATTEMPT:
+  For all exceptions: v in {a, b, a+b}.
+  The result is always "the simplest non-absorbed outcome."
+  (1,2)->3: additive (1+2=3 stays in World 1)
+  (2,4)->4: idempotent on COLLAPSE
+  (2,9)->9: idempotent on RESET
+  (3,9)->3: PROGRESS is preserved (the "learning" persists)
+  (4,8)->8: idempotent on BREATH
+  No single formula covers all 5, but the pattern is:
+  "Something SPECIFIC survives the HARMONY absorber."
+
+
+--- B.4: EXCEPTION GRAPH STRUCTURE ---
+
+The 5 exception pairs define an undirected graph:
+
+  Nodes: {LATTICE(1), COUNTER(2), PROGRESS(3), COLLAPSE(4), BREATH(8), RESET(9)}
+  Edges: {1-2, 2-4, 2-9, 3-9, 4-8}
+
+  |V| = 6 nodes
+  |E| = 5 edges
+  |E| = |V| - 1 --> the graph is a TREE (connected, acyclic)
+
+  Degree sequence:
+    LATTICE(1):   degree 1  (leaf)
+    COUNTER(2):   degree 3  (hub)
+    PROGRESS(3):  degree 1  (leaf)
+    COLLAPSE(4):  degree 2  (internal)
+    BREATH(8):    degree 1  (leaf)
+    RESET(9):     degree 2  (internal)
+
+  Structure: CATERPILLAR TREE with two arms from the hub:
+
+                    LATTICE(1)
+                        |
+    BREATH(8) --- COLLAPSE(4) --- COUNTER(2) --- RESET(9) --- PROGRESS(3)
+
+  Or equivalently as a rooted tree at COUNTER:
+
+                      COUNTER(2)
+                     /    |     \
+               LAT(1)  COL(4)  RESET(9)
+                         |       |
+                      BRE(8)  PROG(3)
+
+  This is a STAR with one pendant edge on two of three branches.
+  The tree has depth 2 from the root (COUNTER).
+  Path decomposition: two maximal paths of length 2 share the root.
+
+  TOPOLOGICAL INTERPRETATION:
+  The exception graph is a tree with COUNTER as the unique node of
+  degree >= 3. Removing COUNTER disconnects the graph into 3 components:
+    {LATTICE}, {COLLAPSE, BREATH}, {RESET, PROGRESS}
+  These correspond to:
+    - The pure "beginning" (LATTICE alone)
+    - The structure-world pair (COLLAPSE-BREATH bridge)
+    - The cycle-world pair (RESET-PROGRESS bridge)
+
+
+--- B.5: SILENT OPERATORS {0, 5, 6, 7} ---
+
+The 4 operators that NEVER appear in any exception:
+
+  VOID(0):    The null element. TSML(0,j) = 0 for j!=7.
+  BALANCE(5): The equilibrium. TSML(5,j) = 7 for j>=1, = 0 for j=0.
+  CHAOS(6):   World 1 maximum. TSML(6,j) = 7 for j>=1, = 0 for j=0.
+  HARMONY(7): The total absorber. TSML(7,j) = 7 for ALL j.
+
+WHY THESE FOUR?
+
+Property 1 -- FULLY DETERMINED BEHAVIOR:
+  VOID's behavior is completely determined by R1 (nullifier).
+  HARMONY's behavior is completely determined by R2+R3 (absorber + bridge).
+  BALANCE and CHAOS have IDENTICAL rows in TSML:
+    Row 5 = Row 6 = [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  They are "already absorbed" -- their behavior is the default R3 behavior
+  with zero deviation. There is no room for an exception because the
+  base rules already specify every cell.
+
+Property 2 -- ALGEBRAIC EXTREMES:
+  These 4 operators span the "boundary" of the operator algebra:
+    VOID(0)    = minimum (null element, additive identity)
+    BALANCE(5) = equilibrium (midpoint of {1..9})
+    CHAOS(6)   = maximum of World 1
+    HARMONY(7) = maximum (absorbing element, multiplicative identity)
+  The extremes {0, 7} are algebraically fixed: 0 is identity/null, 7 is absorber.
+  The mid-extremes {5, 6} are saturated: close enough to HARMONY that
+  the staircase already pushes them to absorption.
+
+Property 3 -- DIAGONAL FIXED POINTS:
+  TSML(0,0) = 0 (VOID is fixed: null*null = null)
+  TSML(7,7) = 7 (HARMONY is fixed: absorber*absorber = absorber)
+  TSML(5,5) = 7 != 5 (BALANCE is NOT a fixed point)
+  TSML(6,6) = 7 != 6 (CHAOS is NOT a fixed point)
+  Only VOID and HARMONY are diagonally idempotent.
+  BALANCE and CHAOS are silent but NOT fixed -- they are "pre-absorbed"
+  by the HARMONY attractor.
+
+DERIVABILITY:
+  The silent set is NOT derivable from a single algebraic property.
+  It requires the conjunction:
+    (a) null elements (0), OR
+    (b) total absorbers (7), OR
+    (c) operators whose default (R3) behavior leaves no cell available
+        for exceptions (5, 6 -- their entire non-VOID row is already 7).
+  The active operators {1,2,3,4,8,9} each have at least one cell where
+  the R3 default (HARMONY) is overridden. The silent operators have none.
+
+
+--- B.6: SPECTRAL PERTURBATION ANALYSIS ---
+
+Define TSML_pure as the "base" table with no exceptions:
+  TSML_pure(0,j) = 0 for j != 7
+  TSML_pure(0,7) = TSML_pure(7,0) = 7
+  TSML_pure(i,0) = 0 for i != 7
+  TSML_pure(i,j) = 7 for all i,j >= 1
+
+Then TSML = TSML_pure + Delta, where Delta is the perturbation matrix.
+
+PERTURBATION MATRIX Delta:
+  Delta has exactly 10 nonzero entries (5 symmetric pairs):
+
+          0   1   2   3   4   5   6   7   8   9
+    0: [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
+    1: [  0,  0, -4,  0,  0,  0,  0,  0,  0,  0]
+    2: [  0, -4,  0,  0, -3,  0,  0,  0,  0, +2]
+    3: [  0,  0,  0,  0,  0,  0,  0,  0,  0, -4]
+    4: [  0,  0, -3,  0,  0,  0,  0,  0, +1,  0]
+    5: [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
+    6: [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
+    7: [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
+    8: [  0,  0,  0,  0, +1,  0,  0,  0,  0,  0]
+    9: [  0,  0, +2, -4,  0,  0,  0,  0,  0,  0]
+
+PERTURBATION MAGNITUDES:
+  (1,2): delta = 3-7 = -4     |delta| = 4
+  (2,4): delta = 4-7 = -3     |delta| = 3
+  (2,9): delta = 9-7 = +2     |delta| = 2
+  (3,9): delta = 3-7 = -4     |delta| = 4
+  (4,8): delta = 8-7 = +1     |delta| = 1
+
+FROBENIUS NORM:
+  ||Delta||_F^2 = 2 * (4^2 + 3^2 + 2^2 + 4^2 + 1^2)
+               = 2 * (16 + 9 + 4 + 16 + 1)
+               = 2 * 46 = 92
+  ||Delta||_F  = sqrt(92) = 2*sqrt(23) = 9.5917...
+
+TRACE ANALYSIS:
+  tr(Delta) = 0 (all exceptions are off-diagonal)
+  Therefore: sum of Delta's eigenvalues = 0
+  The perturbation is TRACELESS -- it does not shift the total eigenvalue sum.
+
+ROW SUMS OF DELTA:
+  Row 0:  0
+  Row 1: -4
+  Row 2: -4 + (-3) + 2 = -5
+  Row 3: -4
+  Row 4: -3 + 1 = -2
+  Row 5:  0
+  Row 6:  0
+  Row 7:  0
+  Row 8:  1
+  Row 9:  2 + (-4) = -2
+  TOTAL: -4 + (-5) + (-4) + (-2) + 1 + (-2) = -16
+
+  The total mass shift is -16: the exceptions preferentially REDUCE
+  values from 7, pulling the algebra AWAY from total absorption.
+  Only (2,9)->9 and (4,8)->8 add mass (delta > 0).
+
+TRACE OF MATRIX POWERS (SPECTRAL INVARIANTS):
+  Let A = TSML_pure, B = TSML (actual).
+
+  tr(A):
+    A_pure diagonal: A(0,0)=0, A(i,i)=7 for i=1..9. tr(A) = 63.
+
+  tr(B):
+    B diagonal: B(0,0)=0, B(i,i)=7 for i=1..9. tr(B) = 63.
+
+  tr(A) = tr(B) = 63. (The diagonal is unperturbed.)
+
+  tr(A^2) = sum over i of sum_k A(i,k)^2:
+    Row 0: 0^2 * 9 + 7^2 = 49
+    Rows 1-6, 8, 9 (8 rows): each = 0^2 + 7^2*9 = 441 each. Total: 8*441 = 3528.
+    Row 7: 7^2 * 10 = 490.
+    tr(A^2) = 49 + 3528 + 490 = 4067.
+
+  tr(B^2) = sum over i of sum_k B(i,k)^2:
+    Row 0: 49
+    Row 1: 0 + 49 + 9 + 49*7 = 0+49+9+343 = 401
+    Row 2: 0 + 9 + 49 + 49 + 16 + 49*4 + 81 = 0+9+49+49+16+196+81 = 400
+    Row 3: 0 + 49*8 + 9 = 0+392+9 = 401
+    Row 4: 0 + 49 + 16 + 49*5 + 64 + 49 = 0+49+16+245+64+49 = 423
+    Row 5: 0 + 49*9 = 441
+    Row 6: 0 + 49*9 = 441
+    Row 7: 49*10 = 490
+    Row 8: 0 + 49*3 + 64 + 49*5 = 0+147+64+245 = 456
+    Row 9: 0 + 49 + 81 + 9 + 49*6 = 0+49+81+9+294 = 433
+    tr(B^2) = 49 + 401 + 400 + 401 + 423 + 441 + 441 + 490 + 456 + 433 = 3935
+
+  Delta_tr2 = tr(B^2) - tr(A^2) = 3935 - 4067 = -132
+
+  INTERPRETATION: The sum of squared eigenvalues DECREASES by 132.
+  The perturbation SPREADS the spectrum -- reducing the dominance of
+  the HARMONY eigenvalue. This is the algebraic signature of the
+  exceptions: they create spectral diversity where the pure table
+  has maximal concentration.
+
+COMMUTATOR:
+  Both TSML and TSML_pure are symmetric matrices.
+  Therefore [A, A^T] = [B, B^T] = 0.
+  Both are normal matrices with real eigenvalues.
+  The perturbation Delta is also symmetric, so it preserves normality.
+
+MINIMALITY ANALYSIS:
+  The perturbation has 5 independent parameters (the 5 bump-pair values).
+  Any subset of the 5 exceptions could be removed independently --
+  they occupy disjoint cell pairs. Possible perturbation tables:
+    0 exceptions: pure TSML (all 7s for i,j >= 1)
+    1 exception:  5 possible single-exception tables
+    2 exceptions: C(5,2) = 10 possible tables
+    ...
+    5 exceptions: the actual TSML (unique)
+
+  The 5-exception perturbation is NOT minimal for commutativity (any
+  subset of symmetric exceptions preserves commutativity). It is
+  NOT minimal for non-triviality (a single exception suffices).
+
+  The 5 exceptions are the SPECIFIC set determined by the physics:
+  the "bump pairs" from ck_brain.h. They represent the resonances
+  where the coherence algebra deviates from total absorption.
+
+  The Frobenius norm ||Delta||_F = 9.59 on a table with ||TSML||_F = 62.85
+  (since tr(B^2) = 3935, ||B||_F = sqrt(3935) = 62.73) gives a relative
+  perturbation of 9.59/62.73 = 15.3%. Small but non-trivial.
+
+
+================================================================================
+SUMMARY OF RESULTS
+================================================================================
+
+
+TASK A -- STAIRCASE UNIQUENESS:
+
+A.1 UNIQUENESS PROVED.
+    BHML is the UNIQUE commutative 10x10 table satisfying Rules 1-6.
+    The 6 rules (one-sided) + commutativity partition all 100 cells into
+    7 disjoint groups, each assigning exactly one value. No freedom remains.
+    Without commutativity, 21 cells are free, but commutativity fixes all 21.
+
+A.2 RULE 3 IS INDEPENDENT OF RULES 1+2.
+    R1+R2 leave row 7 (cols 1-6) completely unconstrained.
+    R3 adds 6 new constraints. However, R3 is the UNIQUE choice that makes
+    HARMONY a successor operator, continuing the staircase pattern.
+
+A.3 RULES 4, 5, 6 ARE MUTUALLY INDEPENDENT AND INDEPENDENT OF R1+R2+R3.
+    They occupy pairwise disjoint cell regions.
+    R4 constrains the World1-World2 interface (threshold behavior).
+    R5 constrains the World 2 cycle (HARMONY acts as cyclic shift).
+    R6 constrains the World 2 internal algebra.
+
+A.4 DEGREES OF FREEDOM:
+    Progressive: 100 -> 81 -> 45 -> 33 -> 9 -> 4 -> 0
+    (with commutativity applied at each step)
+    The 6 rules consume exactly all 100 degrees of freedom.
+
+A.5 BHML IS SYMMETRIC (commutative). Zero asymmetric pairs.
+    This was not assumed in the rule statement but is a property of the
+    specific values assigned. The symmetric threshold rule (R4') is a
+    consequence of R4 + commutativity, not an independent axiom.
+
+
+TASK B -- TSML RESONANCE PATTERN:
+
+B.1 PARTITION: Active = {1,2,3,4,8,9}, Silent = {0,5,6,7}.
+    73/100 cells are HARMONY, 17/100 are VOID, 10/100 are exceptions.
+
+B.2 COUNTER(2) IS THE ALGEBRAIC HUB.
+    Degree 3 in exception graph. First non-trivial product. Measurement
+    operator. Bridges World 1 and World 2. Participates in both exception
+    types (sum and preservation).
+
+B.3 TWO EXCEPTION TYPES: 1 sum (1+2=3), 4 preservations.
+    3/4 preservations keep the larger operand. The anomaly (3,9)->3
+    is the only case where a World 1 operator survives World 2 interaction.
+
+B.4 EXCEPTION GRAPH IS A TREE.
+    6 nodes, 5 edges, connected, acyclic. Caterpillar tree rooted at
+    COUNTER(2). Depth 2. Removing COUNTER disconnects into 3 components:
+    {LATTICE}, {COLLAPSE,BREATH}, {RESET,PROGRESS}.
+
+B.5 SILENT OPERATORS ARE THE ALGEBRAIC EXTREMES.
+    {VOID, HARMONY} = null element and absorber (algebraically forced).
+    {BALANCE, CHAOS} = pre-absorbed operators (all non-VOID cells = 7).
+    Silence is NOT a single algebraic property but the conjunction of
+    "fully determined by base rules."
+
+B.6 SPECTRAL PERTURBATION:
+    Delta is traceless, symmetric, with ||Delta||_F = 2*sqrt(23) = 9.59.
+    Relative perturbation: 15.3% of ||TSML||_F.
+    The perturbation REDUCES tr(A^2) by 132 (spreads the spectrum).
+    Total row-sum shift: -16 (net pull away from absorption).
+    The 5 exceptions are not minimal -- any subset preserves commutativity.
+    They are the specific resonances chosen by CK's physics.
+
+
+================================================================================
+END OF ANALYSIS
+================================================================================

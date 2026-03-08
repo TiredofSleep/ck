@@ -1,0 +1,3 @@
+Lie Algebra Dimension: 100
+Classification: gl(10,R)
+Method: Iterated commutators with normalized matrices, SVD rank

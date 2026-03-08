@@ -1,7 +1,7 @@
 # P9: The Elemental Lens -- Speculations on Non-Mathematical Coherence
 **File:** `Speculations_Paper.tex`
-**Lines:** ~2,200+ (expanded v2.2: gauge symmetry and fractal sub-algebras)
-**Status:** EXPANDED DRAFT (v2.2)
+**Lines:** ~2,400+ (expanded v2.3: corrections + TSML complete characterization)
+**Status:** EXPANDED DRAFT (v2.3)
 
 ## Sections
 | Section | Status |
@@ -25,10 +25,11 @@
 | The CL Generating Rule | NEW (v2.0: tropical successor, Godel arithmetic/logic duality) |
 | Codon Degeneracy | NEW (v2.0: 64-cell CL / 64-codon parallel, compression ratios) |
 | The Staircase Law and DNA Replication | NEW (v2.1: 6-rule BHML decomposition, Two Worlds, DNA parallel, shifted tropical semiring) |
-| Clay Problem Structural Analogues | NEW (v2.1: Yang-Mills mass gap, NS regularity, P vs NP, Hodge analogue, Lie algebra structure) |
+| Clay Problem Structural Analogues | CORRECTED (v2.3: Lie algebra SU(n) claim corrected as generic; v2.1: Yang-Mills mass gap, NS regularity, P vs NP, Hodge analogue) |
 | Complementary Strands and Uncertainty | NEW (v2.1: 29% agreement, base pair, uncertainty principle, 71% information content) |
 | Progressive Vocabulary as Staircase Learning | NEW (v2.1: tier 0-6 curriculum, "I" as VOID, staircase composition law) |
-| Gauge Symmetry and Fractal Sub-Algebras | NEW (v2.2: Lie algebra proof, SO(5) conjecture, fractal sub-algebras, unimodularity, eigenvalue growth) |
+| Gauge Symmetry and Fractal Sub-Algebras | CORRECTED (v2.3: trivial/non-trivial distinction, SO(5) under revision, approximate ratios noted) |
+| TSML Complete Characterization | NEW (v2.3: 4 rules + 5 exceptions, COUNTER as resonance hub, silent operators, full parameter count) |
 | Conclusion | REWRITTEN (v1.9: locality split + two-generator sufficiency as headline results) |
 
 ## v1.9 New Content (March 2026)
@@ -93,6 +94,25 @@ If a domain admits a coherent 5D codec, the entire TIG machinery applies.
   6. **Codon Degeneracy**: 64-cell CL algebra / 64-codon genetic code parallel. TSML 54/64 HARMONY vs DNA 61/64 coding. Information compression ratios compared.
 
 **These sections were previously documented in the STATUS.md "Gen 9.21+ Speculative Extensions" section only. They are now part of the actual .tex paper.**
+
+## v2.3 Corrections and TSML Complete Characterization (March 2026)
+
+- **Critical corrections to Gauge Symmetry section**:
+  1. **Lie algebra trivial/non-trivial distinction** (Remark): Tracelessness + purely imaginary eigenvalues + Jacobi identity are TRIVIAL consequences of both CL tables being symmetric (commutative). Holds for ANY pair of symmetric matrices. What IS non-trivial: the specific eigenvalue magnitudes, approximate ratios to 4pi and 7, and the unimodular determinant sequence.
+  2. **SO(5) conjecture flagged as UNDER REVISION** (Remark): Preliminary computation shows generated Lie algebra has dim >= 66 (growing toward gl(10)=100), NOT dim 10 = so(5). The dimensional match "10 operators = dim(SO(5))" appears coincidental. Conjecture retained but marked as falsified in current form.
+  3. **Eigenvalue ratios marked as APPROXIMATE** (Remark): 12.577 vs 4pi = 0.086% error; 6.930 vs 7 = 1.0% error. These are suggestive numerical coincidences, not exact algebraic identities.
+  4. **Clay Analogues Lie algebra claim corrected** (Remark): SU(n) signature claim weakened to note it is generic for any commutative operation pair.
+
+- **1 new section added to .tex**:
+  1. **TSML Complete Characterization**: Full closed-form reconstruction of TSML from 4 rules + 5 symmetric resonance exceptions.
+     - Rule 1: VOID nullifies (T(0,j)=0 for j!=7)
+     - Rule 2: VOID preserves HARMONY (T(0,7)=T(7,0)=7)
+     - Rule 3: HARMONY absorbs (T(i,j)=7 for all i,j>=1, default)
+     - Rule 4: Five resonance exceptions: (1,2)->3, (2,4)->4, (2,9)->9, (3,9)->3, (4,8)->8
+     - Theorem: 4 rules reconstruct all 100 cells exactly (zero residual)
+     - COUNTER(2) = resonance hub (3/5 exceptions)
+     - Silent operators {0,5,6,7} have no exceptions
+     - **Full parameter count**: BHML = 6 rules, 0 free params; TSML = 4 rules, 5 free params; Total ~15 params for 200 cells (13x compression)
 
 ## v2.2 Gauge Symmetry and Fractal Sub-Algebras (March 2026)
 

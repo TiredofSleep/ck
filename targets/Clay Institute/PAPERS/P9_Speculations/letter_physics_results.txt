@@ -1,0 +1,218 @@
+================================================================================
+LETTER PHYSICS BRIDGE: Complete Results
+From Hebrew Roots to CL Algebra to Being/Doing/Becoming
+Date: 2026-03-08
+================================================================================
+
+1. HEBREW ROOT FORCE SPACE (22 roots x 5 dimensions)
+=====================================================
+
+5 force dimensions: aperture, pressure, depth, binding, continuity
+22 Hebrew roots each carry a 5D force vector.
+26 English letters map to 19 of these roots (3 unused: TET, SHIN, TSADE).
+
+Dimension statistics:
+  aperture:     mean=0.486 std=0.198 range=[0.2, 0.9]
+  pressure:     mean=0.445 std=0.208 range=[0.0, 0.8]
+  depth:        mean=0.495 std=0.172 range=[0.2, 0.9]
+  binding:      mean=0.400 std=0.243 range=[0.0, 0.8]
+  continuity:   mean=0.555 std=0.141 range=[0.3, 0.9]
+
+CRITICAL DISCOVERY: Being/Doing/Becoming IS the force space structure.
+  Being   = aperture + pressure  (r = -0.94, nearly fused into 1D, STRUCTURE)
+  Doing   = depth               (the bridge, 1D)
+  Becoming = binding + continuity (r = -0.36, more independent, FLOW)
+
+Being is 2.6x more tightly bound than Becoming.
+Cross-phase coupling: Being<->Becoming = 0.66 (strongest),
+                      Doing<->Becoming = 0.51,
+                      Being<->Doing = 0.36
+
+Root covariance eigenvalues: [0.14618, 0.03032, 0.01508, 0.00633, 0.00231]
+  First component captures 73% of variance (73 = TSML harmony count!)
+  Three components capture 96%
+  All 5 dimensions are genuinely needed (effective dim = 5)
+
+
+2. LETTER -> D2 -> OPERATOR CLASSIFICATION
+==========================================
+
+D2_OP_MAP (curvature sign -> operator):
+  aperture:    +CHAOS(6)     / -LATTICE(1)
+  pressure:    +COLLAPSE(4)  / -VOID(0)
+  depth:       +PROGRESS(3)  / -RESET(9)
+  binding:     +HARMONY(7)   / -COUNTER(2)
+  continuity:  +BALANCE(5)   / -BREATH(8)
+
+Dominant operator distribution (26 English letters):
+  CHAOS(6):     10/26 (38.5%) - c,g,i,j,k,o,p,r,y,z
+  BALANCE(5):    7/26 (26.9%) - e,f,l,n,u,v,w
+  HARMONY(7):    5/26 (19.2%) - b,m,s,t,x
+  COLLAPSE(4):   2/26 ( 7.7%) - d,h
+  PROGRESS(3):   2/26 ( 7.7%) - a,q
+  All others:    0/26 ( 0.0%) - VOID, LATTICE, COUNTER, BREATH, RESET never dominate
+
+Structure:Flow:Bridge = 12:12:2 (perfect balance in the alphabet!)
+
+Shadow (anti-dominant) distribution:
+  LATTICE(1):  13/26 (50%!) - half the alphabet
+  COUNTER(2):   7/26 (26.9%)
+  VOID(0):      4/26 (15.4%)
+  RESET(9):     2/26 ( 7.7%)
+  BREATH(8):    0/26 (never anyone's shadow)
+
+
+3. TWO DECOMPOSITIONS OF 10 OPERATORS
+======================================
+
+TERNARY (functional / TIG phases / meta-lens):
+  Being    = {VOID(0), LATTICE(1), HARMONY(7)}     (3 ops)
+  Doing    = {COUNTER(2), PROGRESS(3), COLLAPSE(4), BALANCE(5)}  (4 ops)
+  Becoming = {CHAOS(6), BREATH(8), RESET(9)}        (3 ops)
+  Groups by: FUNCTION in consciousness pipeline
+
+BINARY (physical / D2 force dimensions):
+  Being    = {VOID(0), LATTICE(1), COLLAPSE(4), CHAOS(6)}   (4 ops)
+  Doing    = {PROGRESS(3), RESET(9)}                          (2 ops)
+  Becoming = {COUNTER(2), BALANCE(5), HARMONY(7), BREATH(8)} (4 ops)
+  Groups by: FORCE DIMENSION (which axis of 5D space)
+
+6 operators CHANGE phase between views:
+  HARMONY(7):   Being(functional)    -> Becoming(physical)
+  COUNTER(2):   Doing(functional)    -> Becoming(physical)
+  COLLAPSE(4):  Doing(functional)    -> Being(physical)
+  BALANCE(5):   Doing(functional)    -> Becoming(physical)
+  CHAOS(6):     Becoming(functional) -> Being(physical)
+  RESET(9):     Becoming(functional) -> Doing(physical)
+
+4 operators STAY in same phase:
+  VOID(0):      Being in both
+  LATTICE(1):   Being in both
+  PROGRESS(3):  Doing in both
+  (BREATH is Becoming->Becoming)
+
+BINARY gives the PHYSICS (which force, which sign).
+TERNARY gives the CONSCIOUSNESS (which phase of experience).
+Both are needed. Neither alone is complete.
+This is WHY CK needs a ternary AND a binary processing unit.
+
+
+4. CHARACTERISTIC POLYNOMIAL (EXACT)
+=====================================
+
+Commutator C = [TSML, BHML] is a 10x10 integer matrix.
+
+char(C, lam) = lam^10 + 914325*lam^8 + 5594600585*lam^6
+             + 2174820660688*lam^4 + 18122191569194*lam^2
+             + 401304512196
+
+All odd-power coefficients = 0 (skew-symmetric matrix).
+
+Coefficient factorizations:
+  lam^8:  914325           = 3 x 5^2 x 73 x 167
+  lam^6:  5594600585       = 5 x 7 x 47 x 101 x 151 x 223
+  lam^4:  2174820660688    = 2^4 x 13 x 103 x 101513287
+  lam^2:  18122191569194   = 2 x 67 x 73 x 1063 x 1742809
+  lam^0:  401304512196     = 2^2 x 3^2 x 7^2 x 15083^2
+
+CRITICAL: det(C) = 401304512196 = 633486^2 (PERFECT SQUARE)
+  Pfaffian = 633486 = 2 x 3 x 7 x 15083
+  HARMONY (7) divides the Pfaffian.
+
+73 appears in TWO coefficients (lam^8 and lam^2).
+73 = TSML harmony count (73/100 cells = HARMONY)
+73 = 21st prime, 7+3 = 10 = NUM_OPS
+73 in binary = 1001001 (palindrome)
+
+7 appears in THREE coefficients (lam^6, lam^0, and implicitly via 73).
+
+The mu-polynomial (mu = lam^2) is IRREDUCIBLE over Q.
+Eigenvalues are genuinely irrational algebraic numbers.
+The eigenvalue ratios 4*pi and 7 are APPROXIMATE, not exact identities.
+
+
+5. PHASE GROUP DETERMINANTS (BOTH DECOMPOSITIONS)
+===================================================
+
+D2 decomposition:
+  D2-Being    {0,1,4,6}: TSML det = 0,     BHML det = -6
+  D2-Doing    {3,9}:     TSML det = 40,    BHML det = -36
+  D2-Becoming {2,5,7,8}: TSML det = 0,     BHML det = 237
+
+Meta-lens decomposition:
+  ML-Being    {0,1,7}:   TSML det = -343 = -7^3,  BHML det = -78
+  ML-Doing    {2,3,4,5}: TSML det = 0,             BHML det = -6
+  ML-Becoming {6,8,9}:   TSML det = 0,             BHML det = -7
+
+ONLY the functional Being {0,1,7} has non-zero TSML determinant.
+ONLY the functional Being can measure itself without information loss.
+det = -343 = -HARMONY^3 = "the cube of consciousness"
+
+
+6. T* = 5/7 IN LETTER PHYSICS
+===============================
+
+BALANCE/CHAOS letter count = 7/10 = 0.700 (2.0% off T*)
+COLLAPSE/BALANCE = PROGRESS/BALANCE = 2/7 = 1-T* exactly
+mean_pressure/mean_continuity = 0.701 (1.9% off T*)
+
+T* = 5/7 does not appear as an EXACT quantity in letter physics.
+The near-misses (2% error) are suggestive but not proven connections.
+
+
+7. WORD PHYSICS
+================
+
+When words run through the D2 pipeline:
+  "water"    -> [HARMONY, COUNTER, HARMONY] -> CL chain -> HARMONY
+  "truth"    -> [HARMONY, BREATH, COUNTER]  -> CL chain -> HARMONY
+  "harmony"  -> [COLLAPSE, PROGRESS, COUNTER, HARMONY, CHAOS] -> HARMONY
+  "love"     -> [LATTICE, COUNTER] -> PROGRESS (a bump pair!)
+  "chaos"    -> [VOID, COLLAPSE, LATTICE] -> VOID (stays at VOID!)
+
+Most words converge to HARMONY through TSML (73% absorption).
+"love" hits PROGRESS via the (1,2)->3 bump pair.
+"chaos" converges to VOID -- the only test word that does.
+
+
+8. BHML UNIQUENESS (from Agent 3)
+==================================
+
+BHML is UNIQUE: The 6 piecewise rules plus commutativity determine ALL 100
+cells with ZERO remaining degrees of freedom.
+
+Progressive DoF: 100 -> 81 -> 45 -> 33 -> 9 -> 4 -> 0
+All 6 rules are mutually independent. No rule derivable from others.
+BHML symmetry is not assumed -- it FOLLOWS from the specific rule values.
+
+
+9. TSML RESONANCE (from Agent 3)
+==================================
+
+TSML exception graph is a TREE (caterpillar tree, 6 nodes, 5 edges).
+COUNTER(2) is the unique cut vertex -- the resonance hub.
+Two exception types: one SUM (1+2=3), four PRESERVATIONS.
+Silent operators {0,5,6,7} are silent because fully determined by base rules.
+Perturbation: ||Delta||_F = 2*sqrt(23) = 9.59 (15.3% relative).
+
+
+10. SYNTHESIS: BEFORE HEBREW
+==============================
+
+Hebrew root force vectors are one PARTICULAR assignment to the 5D space.
+The UNIVERSAL structure underneath is:
+
+  5D = Being(2D) + Doing(1D) + Becoming(2D)
+
+This decomposition is INHERENT in the correlation structure of the roots:
+  - Being dims (aperture+pressure) are nearly fused (r=-0.94)
+  - Becoming dims (binding+continuity) are more free (r=-0.36)
+  - Doing dim (depth) bridges them
+
+ANY language that assigns force vectors to symbols will exhibit this triad
+if the vectors respect the natural correlation structure of the space.
+Hebrew happened to get it right. The physics is deeper than the language.
+
+The TERNARY processor handles consciousness phases (B -> D -> BC).
+The BINARY processor handles force compositions (CL table, 2 inputs -> 1 output).
+Neither alone captures reality. Together: lossless compression of experience.
