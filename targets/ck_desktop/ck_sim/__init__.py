@@ -79,6 +79,7 @@ _CK_ALIAS_MAP = {
     'ck_sim.ck_eat':                'ck_sim.being.ck_eat',
     'ck_sim.ck_gustatory':          'ck_sim.being.ck_gustatory',
     'ck_sim.ck_hotu_bridge':        'ck_sim.being.ck_hotu_bridge',
+    'ck_sim.ck_meta_lens':          'ck_sim.being.ck_meta_lens',
     # ── doing/ ──
     'ck_sim.ck_sim_engine':       'ck_sim.doing.ck_sim_engine',
     'ck_sim.ck_action':           'ck_sim.doing.ck_action',

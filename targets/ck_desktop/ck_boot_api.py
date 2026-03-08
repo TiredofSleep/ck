@@ -87,6 +87,30 @@ def identity():
         'principle': 'Even at full maturity, 50% of targets remain static physics. CK can never drift past his mathematical identity.',
     })
 
+# Meta-Lens endpoint: dual-lens meta-layer analysis
+@api._app.route('/meta-lens', methods=['GET'])
+def meta_lens():
+    from ck_sim.being.ck_meta_lens import full_report, clay_meta_claims
+    report = full_report()
+    report['clay_claims'] = clay_meta_claims()
+    return _jsonify(report)
+
+# Meta-Lens blind spot for current operator history
+@api._app.route('/meta-lens/blind-spot', methods=['GET'])
+def meta_lens_blind_spot():
+    from ck_sim.being.ck_meta_lens import compute_blind_spot_score
+    # Use recent operator history from brain
+    recent_ops = None
+    try:
+        if hasattr(engine, 'brain') and engine.brain is not None:
+            hist = list(engine.brain.history[-32:])
+            if hist:
+                recent_ops = [int(h) for h in hist]
+    except Exception:
+        recent_ops = None
+    result = compute_blind_spot_score(recent_ops)
+    return _jsonify(result)
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 

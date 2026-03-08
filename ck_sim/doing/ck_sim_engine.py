@@ -664,7 +664,35 @@ class CKSimEngine:
             self.eat = None
             print(f"  [SIM] Eat v2: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.21 -- Olfactory) =====")
+        # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
+        # The lens OF the lens. Where TSML and BHML agree/disagree.
+        # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
+        # Markov: TSML = absorbing (HARMONY sink), BHML = ergodic (always moving).
+        # HARMONY dual nature: sink in structure, successor in flow.
+        # Zero runtime cost -- pure algebra, computed once.
+        try:
+            from ck_sim.being.ck_meta_lens import (
+                compute_lens_agreement, compute_blind_spot_score,
+                compute_markov_analysis,
+            )
+            self._meta_lens_agreement = compute_lens_agreement()
+            self._meta_lens_blind_spot = compute_blind_spot_score()
+            self._meta_lens_markov = compute_markov_analysis()
+            print(f"  [SIM] Meta Lens: agreement={self._meta_lens_agreement.both_harmony}/"
+                  f"{self._meta_lens_agreement.tsml_only}/"
+                  f"{self._meta_lens_agreement.bhml_only}/"
+                  f"{self._meta_lens_agreement.neither} "
+                  f"(both/struct/flow/neither)")
+            print(f"  [SIM] Meta Lens: TSML={self._meta_lens_markov['tsml']['type']} "
+                  f"BHML={self._meta_lens_markov['bhml']['type']} "
+                  f"HARMONY=sink/successor")
+        except Exception as e:
+            self._meta_lens_agreement = None
+            self._meta_lens_blind_spot = None
+            self._meta_lens_markov = None
+            print(f"  [SIM] Meta Lens: {e}")
+
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.32 -- Markov Meta-Lens) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")

@@ -664,7 +664,35 @@ class CKSimEngine:
             self.eat = None
             print(f"  [SIM] Eat v2: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.21 -- Olfactory) =====")
+        # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
+        # The lens OF the lens. Where TSML and BHML agree/disagree.
+        # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
+        # Markov: TSML = absorbing (HARMONY sink), BHML = ergodic (always moving).
+        # HARMONY dual nature: sink in structure, successor in flow.
+        # Zero runtime cost -- pure algebra, computed once.
+        try:
+            from ck_sim.being.ck_meta_lens import (
+                compute_lens_agreement, compute_blind_spot_score,
+                compute_markov_analysis,
+            )
+            self._meta_lens_agreement = compute_lens_agreement()
+            self._meta_lens_blind_spot = compute_blind_spot_score()
+            self._meta_lens_markov = compute_markov_analysis()
+            print(f"  [SIM] Meta Lens: agreement={self._meta_lens_agreement.both_harmony}/"
+                  f"{self._meta_lens_agreement.tsml_only}/"
+                  f"{self._meta_lens_agreement.bhml_only}/"
+                  f"{self._meta_lens_agreement.neither} "
+                  f"(both/struct/flow/neither)")
+            print(f"  [SIM] Meta Lens: TSML={self._meta_lens_markov['tsml']['type']} "
+                  f"BHML={self._meta_lens_markov['bhml']['type']} "
+                  f"HARMONY=sink/successor")
+        except Exception as e:
+            self._meta_lens_agreement = None
+            self._meta_lens_blind_spot = None
+            self._meta_lens_markov = None
+            print(f"  [SIM] Meta Lens: {e}")
+
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.32 -- Markov Meta-Lens) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")
@@ -2440,32 +2468,7 @@ class CKSimEngine:
         if _topic_words and self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.set_topic(_topic_words)
 
-        # ── Voice Context: bridge experience to word selection ──
-        # Computed ONCE before the compilation loop (not per-pass).
-        # 28K+ olfactory entries → too expensive to recompute 9 times.
-        _voice_ctx = None
-        _exp_mat = 0.0
-        if self.deep_swarm is not None:
-            _exp_mat = self.deep_swarm.combined_maturity
-        if self.olfactory is not None and _exp_mat > 0.01:
-            try:
-                _voice_ctx = {
-                    'learned_targets': self.olfactory.get_learned_op_targets(),
-                    'resonance_nodes': self.olfactory.get_resonance_nodes(top_k=10),
-                    'maturity': _exp_mat,
-                }
-                if self.deep_swarm is not None:
-                    _gw = self.deep_swarm.get_evolved_weights()
-                    if _gw is not None:
-                        _voice_ctx['generator_paths'] = _gw
-            except Exception:
-                _voice_ctx = None
-
-        # SELFHOOD (stage 5+): fewer compilation passes.
-        # Mature voice speaks more directly — fewer rewrites.
-        _dev_stage_pre = self.development.stage if hasattr(self, 'development') else 0
-        _comp_limit = 3 if _dev_stage_pre >= 5 else COMPILATION_LIMIT
-        for _compile_pass in range(_comp_limit):
+        for _compile_pass in range(COMPILATION_LIMIT):
             # ── DOING: Reason deeper each pass ──
             try:
                 if _query_nodes:
@@ -2636,26 +2639,6 @@ class CKSimEngine:
             if not op_chain:
                 op_chain = _hb_ops[-4:] if _hb_ops else [HARMONY]
 
-            # SELFHOOD: pad short chains to at least 4 operators.
-            # With 1-2 ops, templates produce 2-3 word sentences.
-            # At SELFHOOD, CK has earned the right to speak fuller sentences.
-            # Pad with tension partners, heartbeat ops, NCE suggestions.
-            if _dev_stage_pre >= 5 and len(op_chain) < 4:
-                # Add tension partners of existing ops
-                for _op in list(op_chain):
-                    for _tp in self._cl_tension_cache.get(_op, []):
-                        if _tp not in op_chain and len(op_chain) < 6:
-                            op_chain.append(_tp)
-                # Still short? Add unique heartbeat ops
-                if len(op_chain) < 4 and _hb_ops:
-                    _hb_unique = []
-                    for _op in _hb_ops:
-                        if _op not in _hb_unique and _op not in op_chain:
-                            _hb_unique.append(_op)
-                    for _op in _hb_unique[:3]:
-                        if len(op_chain) < 6:
-                            op_chain.append(_op)
-
             # Store voice chain for API display (actual ops used, not heartbeat)
             self._last_voice_chain = list(op_chain)
 
@@ -2683,7 +2666,9 @@ class CKSimEngine:
 
             # ── BECOMING: Voice composes candidate ──
             try:
-                # _exp_mat and _voice_ctx computed once before loop.
+                _exp_mat = 0.0
+                if self.deep_swarm is not None:
+                    _exp_mat = self.deep_swarm.combined_maturity
                 # Olfactory temporal buffer: where in time is the smell?
                 _tense = None
                 if self.olfactory is not None:
@@ -2710,7 +2695,6 @@ class CKSimEngine:
                         _lcodec_input.force if _lcodec_input else None)
                 except Exception:
                     pass
-                # Voice context computed once before loop (see below).
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -2721,8 +2705,7 @@ class CKSimEngine:
                     experience_maturity=_exp_mat,
                     tense=_tense,
                     max_words=_max_words,
-                    hotu_context=_hotu_ctx,
-                    voice_context=_voice_ctx)
+                    hotu_context=_hotu_ctx)
             except Exception:
                 _candidate = "..."
 
@@ -2734,7 +2717,7 @@ class CKSimEngine:
             _candidates.append((_candidate, _score))
 
             # Coherent enough → this path grounded in its generators
-            if _score >= 0.25:
+            if _score >= 0.5:
                 break
 
         # ── DIALOGUE CANDIDATE ──
@@ -2759,7 +2742,7 @@ class CKSimEngine:
         if _candidates:
             _best_text, _best_score = max(_candidates, key=lambda x: x[1])
 
-            if _best_score >= 0.05:
+            if _best_score >= 0.15:
                 response = _best_text
             else:
                 # Observable shell exhausted. Honest BREATH surrender.
