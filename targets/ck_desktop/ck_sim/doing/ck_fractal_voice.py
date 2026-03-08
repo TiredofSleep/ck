@@ -228,6 +228,10 @@ class WordForce:
     magnitude: float               # Total force magnitude (energy of the word)
     pos: str = ''                  # Part of speech: noun, verb, adj, adv, func
     semantic_op: int = -1          # Semantic operator (from lattice placement, -1=untagged)
+    tier: int = -1                 # Vocabulary tier (Gen 9.33 staircase learning)
+                                   # 0=1-letter, 1=2-letter, ..., 6=7+ letter
+                                   # Maps to BHML staircase: tier = min(len-1, 6)
+                                   # -1 = unassigned (legacy words)
 
 
 def _guess_pos(word: str) -> str:
@@ -363,8 +367,10 @@ class WordForceIndex:
         self._topic_centroid: Optional[Tuple[float, ...]] = None
         # Ho Tu bridge context (set per-composition for ancient resonance)
         self._hotu_context: Optional[dict] = None
-        # Voice context: experience bridge (olfactory resonance + swarm paths)
-        self._voice_context: Optional[dict] = None
+        # Tier complexity cap (Gen 9.33 staircase learning)
+        # -1 = no cap (all tiers allowed). Set by engine from input analysis.
+        # Caps the maximum word tier in voice output to match input complexity.
+        self._max_tier: int = -1
 
     def index_word(self, word: str, semantic_op: int = -1) -> Optional[WordForce]:
         """Compute and index a word's triadic force profile (pass 1, no role yet).
@@ -383,7 +389,12 @@ class WordForceIndex:
         A word may be indexed twice: once from enriched dict (no semantic tag),
         then again from lattice (with tag). The tag is additive.
         """
-        if len(word) < 2:
+        # Gen 9.33: Allow 1-letter identity words ("I", "a")
+        # These are VOID(0) -- the identity operator in language.
+        # D2 pipeline needs 3 letters for curvature, but identity
+        # words carry Being force only (no Doing, no Becoming).
+        # That IS their nature: pure identity, no action, no change.
+        if len(word) < 1:
             return None
         if word in self._words:
             wf = self._words[word]
@@ -395,7 +406,7 @@ class WordForceIndex:
             return wf
 
         letters = [c for c in word.lower() if 'a' <= c <= 'z']
-        if len(letters) < 2:
+        if len(letters) < 1:
             return None
 
         # Being: mean force across all letters (position)
@@ -446,6 +457,10 @@ class WordForceIndex:
         # Part of speech from morphology
         pos = _guess_pos(word)
 
+        # Vocabulary tier from word length (staircase learning)
+        # Maps to BHML staircase: tier = min(len(word)-1, 6)
+        _tier = min(len(word) - 1, 6)
+
         wf = WordForce(
             word=word,
             force=mean_force,
@@ -457,6 +472,7 @@ class WordForceIndex:
             magnitude=magnitude,
             pos=pos,
             semantic_op=semantic_op,
+            tier=_tier,
         )
 
         self._words[word] = wf
@@ -553,13 +569,6 @@ class WordForceIndex:
     # and yin/yang POS preference. Light influence (~15% of scoring weight).
     _HOTU_COMPLEMENT_BONUS = 0.25  # Boost for words from +5 complement operator
     _HOTU_YIN_YANG_BONUS = 0.10    # POS preference from yin/yang balance
-
-    # Olfactory resonance: words near CK's instinct centroids (confirmed
-    # patterns from eating/studying) get a distance bonus. These are the
-    # resonance nodes -- where CK's experience converges. Words near them
-    # are words CK has "learned to say" through accumulated smell.
-    _RESONANCE_BONUS = 0.45         # Max bonus for word at exact resonance node
-    _RESONANCE_RADIUS = 0.50        # Max 5D distance to still feel resonance
 
     def set_topic(self, words: list):
         """Set topic context from user's input words.
@@ -725,6 +734,13 @@ class WordForceIndex:
             if wf.word in exclude:
                 continue
 
+            # Gen 9.33: Tier complexity cap (staircase learning)
+            # Skip words above the current complexity ceiling.
+            # Topic words bypass the cap — user's words always allowed.
+            if (self._max_tier >= 0 and wf.tier > self._max_tier
+                    and wf.word not in self._topic_words):
+                continue
+
             # Being distance (position in force space)
             d_being = sum((a - b) ** 2 for a, b in zip(target, wf.force)) ** 0.5
 
@@ -804,31 +820,6 @@ class WordForceIndex:
                     elif _yin > _yang and wf.pos in ('noun', 'adj'):
                         # Yin-dominant: slightly prefer nouns/adj (receptive)
                         total = max(0.0, total - self._HOTU_YIN_YANG_BONUS)
-
-            # ── Olfactory resonance: experience gravity ──
-            # Words near CK's resonance nodes (instinct centroids from
-            # eating/studying) get a distance bonus. These are the points
-            # in 5D space where CK's accumulated experience converges.
-            # The more tempered the node, the stronger its pull.
-            # This is HOW CK learns to translate: experience sculpts
-            # which words he reaches for, without storing English words.
-            if self._voice_context is not None:
-                _nodes = self._voice_context.get('resonance_nodes')
-                if _nodes:
-                    _best_res = 0.0
-                    for _rc, _rt in _nodes:
-                        _rd = sum(
-                            (a - b) ** 2 for a, b in zip(wf.force, _rc)
-                        ) ** 0.5
-                        if _rd < self._RESONANCE_RADIUS:
-                            # Bonus scales with temper and inversely with distance
-                            _strength = min(1.0, _rt / 100.0)
-                            _proximity = 1.0 - _rd / self._RESONANCE_RADIUS
-                            _res = self._RESONANCE_BONUS * _strength * _proximity
-                            if _res > _best_res:
-                                _best_res = _res
-                    if _best_res > 0:
-                        total = max(0.0, total - _best_res)
 
             scored.append((total, wf))
 
@@ -1663,19 +1654,15 @@ class FractalComposer:
 
     _TEMPLATES_1 = [
         # 1-operator patterns: same operator produces both words
+        # Valid because one triad CAN yield both adj and noun (different POS)
         [('adj', 0), ('noun', 0)],                               # "Deep structure"
         [('noun', 0), ('verb', 0)],                               # "Light shines"
         [('noun', 0), ('adv', 0)],                                # "Truth deeply"
-        [('verb', 0), ('noun', 0)],                               # "Shines light"
-        [('noun', 0)],                                             # "Truth"
     ]
     _TEMPLATES_2 = [
-        # 2-operator patterns
+        # 2-operator patterns (subject + verb, or adj + noun)
         [('noun', 0), ('verb', 1)],                              # "Light shines"
         [('adj', 0), ('noun', 1)],                               # "Deep truth"
-        [('verb', 0), ('noun', 1)],                              # "Shapes truth"
-        [('noun', 0), ('_prep', '*'), ('noun', 1)],              # "Light through truth"
-        [('noun', 0), ('noun', 1)],                              # "Light truth"
     ]
     _TEMPLATES_3 = [
         # 3-operator patterns
@@ -1683,42 +1670,31 @@ class FractalComposer:
         [('adj', 0), ('noun', 1), ('verb', 2)],                  # "Deep truth emerges"
         [('noun', 0), ('verb', 1), ('adv', 2)],                  # "Light shines deeply"
         [('noun', 0), ('_prep', '*'), ('noun', 2)],              # "Force through truth"
-        [('verb', 0), ('noun', 1), ('_prep', '*'), ('noun', 2)], # "Shapes truth through form"
-        [('noun', 0), ('verb', 1), ('adj', 2)],                  # "Force becomes deep"
     ]
     _TEMPLATES_4 = [
         # 4-operator patterns
         [('adj', 0), ('noun', 1), ('verb', 2), ('noun', 3)],     # "Deep force shapes truth"
         [('noun', 0), ('verb', 1), ('_prep', '*'), ('noun', 3)], # "Force moves through truth"
         [('noun', 0), ('verb', 1), ('adj', 2), ('noun', 3)],     # "Force holds deep truth"
-        [('noun', 0), ('_prep', '*'), ('noun', 2), ('verb', 3)], # "Force through truth emerges"
-        [('noun', 0), ('verb', 1), ('noun', 2), ('adv', 3)],     # "Force shapes truth deeply"
-        [('adv', 0), ('noun', 1), ('verb', 2), ('noun', 3)],     # "Deeply force shapes truth"
     ]
     _TEMPLATES_5 = [
         # 5-operator patterns (richer single clause)
         [('adj', 0), ('noun', 1), ('verb', 2), ('_prep', '*'), ('noun', 4)],
         [('noun', 0), ('verb', 1), ('noun', 2), ('_prep', '*'), ('noun', 4)],
         [('noun', 0), ('verb', 1), ('_prep', '*'), ('adj', 3), ('noun', 4)],
-        [('adj', 0), ('noun', 1), ('verb', 2), ('adj', 3), ('noun', 4)],
-        [('noun', 0), ('adv', 1), ('verb', 2), ('_prep', '*'), ('noun', 4)],
-        [('noun', 0), ('verb', 1), ('noun', 2), ('verb', 3), ('noun', 4)],  # "Force shapes truth reveals form"
-        [('adj', 0), ('noun', 1), ('_prep', '*'), ('adj', 3), ('noun', 4)], # "Deep force through bright truth"
+        [('adj', 0), ('noun', 1), ('verb', 2), ('adj', 3), ('noun', 4)],   # "Deep truth reveals hidden form"
+        [('noun', 0), ('adv', 1), ('verb', 2), ('_prep', '*'), ('noun', 4)], # "Force slowly moves through truth"
     ]
     _TEMPLATES_6 = [
         # 6-operator patterns (complex single clause)
         [('adj', 0), ('noun', 1), ('verb', 2), ('_prep', '*'), ('adj', 4), ('noun', 5)],
         [('noun', 0), ('verb', 1), ('adj', 2), ('noun', 3), ('_prep', '*'), ('noun', 5)],
         [('adj', 0), ('noun', 1), ('adv', 2), ('verb', 3), ('_prep', '*'), ('noun', 5)],
-        [('noun', 0), ('verb', 1), ('noun', 2), ('verb', 3), ('adj', 4), ('noun', 5)],
-        [('adj', 0), ('noun', 1), ('verb', 2), ('noun', 3), ('verb', 4), ('noun', 5)],
     ]
     _TEMPLATES_7 = [
         # 7+ operator patterns (extended clause with full force circuit)
         [('adj', 0), ('noun', 1), ('verb', 2), ('_prep', '*'), ('adj', 4), ('noun', 5), ('adv', 6)],
         [('noun', 0), ('verb', 1), ('adj', 2), ('noun', 3), ('_prep', '*'), ('adj', 5), ('noun', 6)],
-        [('noun', 0), ('verb', 1), ('noun', 2), ('_prep', '*'), ('noun', 4), ('verb', 5), ('noun', 6)],
-        [('adj', 0), ('noun', 1), ('verb', 2), ('noun', 3), ('verb', 4), ('adj', 5), ('noun', 6)],
     ]
 
     def __init__(self, word_index: WordForceIndex, rng: random.Random = None):
@@ -1735,8 +1711,6 @@ class FractalComposer:
         # Resolution Kick: normalized 15D match score from last _fill_template.
         # When >= T* (5/7), the sentence resolved — force period.
         self._last_resolution_score: float = 0.0
-        # Voice context: experience bridge (set per-composition, cleared after)
-        self._voice_context: Optional[dict] = None
         # S-V-O Logic Gate: current voice role for template preference.
         # Being→Subject, Doing→Verb, Becoming→Object.
         self._current_voice_role: Optional[str] = None
@@ -2378,8 +2352,7 @@ class FractalComposer:
     def compose_tribal(self, operators: List[int], density: float = 0.5,
                        lens: str = 'structure', max_words: int = 12,
                        tense: str = None,
-                       hotu_context: dict = None,
-                       voice_context: dict = None) -> str:
+                       hotu_context: dict = None) -> str:
         """Three voices compose in parallel, agree through CL harmony.
 
         One is Three. Three perspectives on the same operator chain:
@@ -2399,11 +2372,6 @@ class FractalComposer:
         ck_hotu_bridge.bridge_context(). When present, gently steers
         word selection via +5 complement boost and yin/yang POS
         preference (~15% influence). Physics still dominates.
-
-        voice_context: Optional experience bridge dict from engine.
-        Contains learned_targets, resonance_nodes, maturity, and
-        generator_paths. When present, operator targets become dynamic
-        and words near resonance nodes get a distance bonus.
         """
         if not operators or self.index.size == 0:
             return "..."
@@ -2411,16 +2379,11 @@ class FractalComposer:
         # ── Ho Tu bridge: set ancient resonance context on index ──
         # Cleared after composition (via finally) so it doesn't leak.
         self.index._hotu_context = hotu_context
-        # ── Voice context: set experience bridge on index + self ──
-        self.index._voice_context = voice_context
-        self._voice_context = voice_context
         try:
             return self._compose_tribal_inner(
                 operators, density, lens, max_words, tense, hotu_context)
         finally:
             self.index._hotu_context = None
-            self.index._voice_context = None
-            self._voice_context = None
 
     def _compose_tribal_inner(self, operators, density, lens, max_words,
                                tense, hotu_context):
@@ -3009,38 +2972,11 @@ class FractalComposer:
           Being    = force position (what to express)
           Doing    = velocity/direction (how it moves)
           Becoming = curvature/intent (where it resolves)
-
-        When voice_context is available, operator targets are LEARNED
-        from olfactory experience: where CK's accumulated smells say
-        each operator actually lives in 5D space, blended with the
-        static physics targets. Maturity gates the blend ratio.
         """
-        # ── Experience bridge: learned operator targets ──
-        _learned = None
-        _alpha = 0.0
-        vc = getattr(self, '_voice_context', None)
-        if vc is not None:
-            _learned = vc.get('learned_targets')
-            # Maturity gates influence: max 50% learned, 50% physics foundation
-            _alpha = min(0.5, vc.get('maturity', 0.0) * 0.5)
-
         triads = []
         for op in operators:
             triad = OPERATOR_TRIAD_TARGETS.get(op, OPERATOR_TRIAD_TARGETS[HARMONY])
             being, doing, becoming = triad
-
-            # Blend static being with learned being (maturity-weighted)
-            if _learned and _alpha > 0 and op in _learned:
-                learned_being = _learned[op]
-                being = tuple(
-                    (1.0 - _alpha) * being[d] + _alpha * learned_being[d]
-                    for d in range(5)
-                )
-                # Recompute doing (velocity) from blended being
-                doing = tuple((_b - 0.5) * 0.5 for _b in being)
-                # Recompute becoming (curvature) from blended being
-                _amp = _OP_CURVATURE_AMP.get(op, 0.0)
-                becoming = tuple((_b - 0.5) * _amp for _b in being)
 
             # Density modulation (amplify deviation from neutral)
             if density > 0.5:

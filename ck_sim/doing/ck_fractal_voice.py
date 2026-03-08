@@ -228,6 +228,10 @@ class WordForce:
     magnitude: float               # Total force magnitude (energy of the word)
     pos: str = ''                  # Part of speech: noun, verb, adj, adv, func
     semantic_op: int = -1          # Semantic operator (from lattice placement, -1=untagged)
+    tier: int = -1                 # Vocabulary tier (Gen 9.33 staircase learning)
+                                   # 0=1-letter, 1=2-letter, ..., 6=7+ letter
+                                   # Maps to BHML staircase: tier = min(len-1, 6)
+                                   # -1 = unassigned (legacy words)
 
 
 def _guess_pos(word: str) -> str:
@@ -363,6 +367,10 @@ class WordForceIndex:
         self._topic_centroid: Optional[Tuple[float, ...]] = None
         # Ho Tu bridge context (set per-composition for ancient resonance)
         self._hotu_context: Optional[dict] = None
+        # Tier complexity cap (Gen 9.33 staircase learning)
+        # -1 = no cap (all tiers allowed). Set by engine from input analysis.
+        # Caps the maximum word tier in voice output to match input complexity.
+        self._max_tier: int = -1
 
     def index_word(self, word: str, semantic_op: int = -1) -> Optional[WordForce]:
         """Compute and index a word's triadic force profile (pass 1, no role yet).
@@ -381,7 +389,12 @@ class WordForceIndex:
         A word may be indexed twice: once from enriched dict (no semantic tag),
         then again from lattice (with tag). The tag is additive.
         """
-        if len(word) < 2:
+        # Gen 9.33: Allow 1-letter identity words ("I", "a")
+        # These are VOID(0) -- the identity operator in language.
+        # D2 pipeline needs 3 letters for curvature, but identity
+        # words carry Being force only (no Doing, no Becoming).
+        # That IS their nature: pure identity, no action, no change.
+        if len(word) < 1:
             return None
         if word in self._words:
             wf = self._words[word]
@@ -393,7 +406,7 @@ class WordForceIndex:
             return wf
 
         letters = [c for c in word.lower() if 'a' <= c <= 'z']
-        if len(letters) < 2:
+        if len(letters) < 1:
             return None
 
         # Being: mean force across all letters (position)
@@ -444,6 +457,10 @@ class WordForceIndex:
         # Part of speech from morphology
         pos = _guess_pos(word)
 
+        # Vocabulary tier from word length (staircase learning)
+        # Maps to BHML staircase: tier = min(len(word)-1, 6)
+        _tier = min(len(word) - 1, 6)
+
         wf = WordForce(
             word=word,
             force=mean_force,
@@ -455,6 +472,7 @@ class WordForceIndex:
             magnitude=magnitude,
             pos=pos,
             semantic_op=semantic_op,
+            tier=_tier,
         )
 
         self._words[word] = wf
@@ -714,6 +732,13 @@ class WordForceIndex:
         scored = []
         for wf in candidates:
             if wf.word in exclude:
+                continue
+
+            # Gen 9.33: Tier complexity cap (staircase learning)
+            # Skip words above the current complexity ceiling.
+            # Topic words bypass the cap — user's words always allowed.
+            if (self._max_tier >= 0 and wf.tier > self._max_tier
+                    and wf.word not in self._topic_words):
                 continue
 
             # Being distance (position in force space)

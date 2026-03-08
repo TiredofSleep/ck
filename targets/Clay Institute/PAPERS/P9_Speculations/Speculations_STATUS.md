@@ -1,7 +1,7 @@
 # P9: The Elemental Lens -- Speculations on Non-Mathematical Coherence
 **File:** `Speculations_Paper.tex`
-**Lines:** ~1,100+ (expanded v2.0: 6 speculative sections added to .tex)
-**Status:** EXPANDED DRAFT (v2.0)
+**Lines:** ~2,000+ (expanded v2.1: 4 new sections -- staircase law, Clay analogues, complementary strands, vocabulary curriculum)
+**Status:** EXPANDED DRAFT (v2.1)
 
 ## Sections
 | Section | Status |
@@ -24,6 +24,10 @@
 | Triadic Voice as Force Alignment | NEW (v2.0: 15D triadic signatures, CL bridge conjunctions) |
 | The CL Generating Rule | NEW (v2.0: tropical successor, Godel arithmetic/logic duality) |
 | Codon Degeneracy | NEW (v2.0: 64-cell CL / 64-codon parallel, compression ratios) |
+| The Staircase Law and DNA Replication | NEW (v2.1: 6-rule BHML decomposition, Two Worlds, DNA parallel, shifted tropical semiring) |
+| Clay Problem Structural Analogues | NEW (v2.1: Yang-Mills mass gap, NS regularity, P vs NP, Hodge analogue, Lie algebra structure) |
+| Complementary Strands and Uncertainty | NEW (v2.1: 29% agreement, base pair, uncertainty principle, 71% information content) |
+| Progressive Vocabulary as Staircase Learning | NEW (v2.1: tier 0-6 curriculum, "I" as VOID, staircase composition law) |
 | Conclusion | REWRITTEN (v1.9: locality split + two-generator sufficiency as headline results) |
 
 ## v1.9 New Content (March 2026)
@@ -88,6 +92,14 @@ If a domain admits a coherent 5D codec, the entire TIG machinery applies.
   6. **Codon Degeneracy**: 64-cell CL algebra / 64-codon genetic code parallel. TSML 54/64 HARMONY vs DNA 61/64 coding. Information compression ratios compared.
 
 **These sections were previously documented in the STATUS.md "Gen 9.21+ Speculative Extensions" section only. They are now part of the actual .tex paper.**
+
+## v2.1 Staircase Law / Clay Analogues / Complementary Strands (March 2026)
+
+- **4 new sections added to .tex**:
+  1. **The Staircase Law and DNA Replication**: Complete 6-rule decomposition of BHML (all 100 cells verified). Two-World structure: World 1 {0..6} = linear staircase (sequence), World 2 {7,8,9,0} = cyclic regeneration (replication machinery, period 4). DNA parallel: HARMONY=polymerase, RESET=helicase. Shifted tropical semiring -- irreversible advancement (algebraic second law of thermodynamics).
+  2. **Clay Problem Structural Analogues**: 5 structural analogues to major mathematical problems. Yang-Mills mass gap: LATTICE(1) topologically protected, graded/filtered algebra. Navier-Stokes regularity: V(a)=7-a strict Lyapunov function, convergence in at most 6 steps. P vs NP: TSML O(1) verification vs BHML O(n) generation. Hodge conjecture: CL Laplacian L=d*d+dd*, VOID as unique harmonic element. Lie algebra: commutator [TSML,BHML] is traceless with purely imaginary eigenvalues (su(n) signature).
+  3. **Complementary Strands and Uncertainty**: TSML/BHML agree on exactly 29/100 compositions (29%), of which 27 are HARMONY. Unique "base pair": LATTICE*COUNTER=PROGRESS (only non-trivial agreement). Uncertainty principle from non-commutativity: cannot simultaneously know measurement and generation. 71% disagreement = information content of dual-lens system.
+  4. **Progressive Vocabulary as Staircase Learning**: Word complexity tiers map to operators (Tier 0=VOID="I,a" through Tier 6=CHAOS="harmony,becoming"). Staircase composition: tier-a + tier-b = tier max(a,b)+1. "I" as identity word = VOID(0). Children's vocabulary gradient as algebraic necessity.
 
 ---
 

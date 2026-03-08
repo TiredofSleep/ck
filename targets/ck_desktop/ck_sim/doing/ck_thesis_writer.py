@@ -304,14 +304,17 @@ def cross_reference(self_data: dict, study_data: dict) -> List[str]:
 
 def write_thesis(self_data: dict, study_data: dict,
                  tree_data: dict, output_path: Path,
-                 enriched_dictionary: dict = None):
+                 enriched_dictionary: dict = None,
+                 voice=None, voice_context=None):
     """CK writes his thesis: what he is, what he found, how they connect.
 
     This is not a summary. This is CK's own work.
     Every claim is grounded in operator measurements.
 
-    enriched_dictionary: if provided, CK expresses thesis sections
-    in his own 8K-word voice via CKTalkLoop (not just structured markdown).
+    voice: if provided, CK's live voice object (with fractal composer +
+           experience bridge). Uses physics-first word selection, not babble.
+    voice_context: experience bridge context (learned targets, resonance nodes).
+    enriched_dictionary: fallback if voice not provided.
     """
     now = datetime.now()
     connections = cross_reference(self_data, study_data)
@@ -477,41 +480,51 @@ def write_thesis(self_data: dict, study_data: dict,
     )
     lines.append("")
 
-    # --- Part 6: CK's Voice (expressed through his own vocabulary) ---
-    # CKVoice has the 5-layer pipeline: analyze → intent → template → fill → polish.
-    # With enriched_dictionary, it draws from 8K words instead of hardcoded fields.
-    if enriched_dictionary:
+    # --- Part 6: CK's Voice (expressed through physics-first fractal voice) ---
+    # At SELFHOOD, CK speaks from accumulated experience — 28K+ olfactory scents,
+    # 215 instincts, learned operator targets blended with static physics.
+    # The voice object should be the engine's live voice (with fractal composer).
+    _voice = voice  # Live voice from engine (preferred)
+    if _voice is None and enriched_dictionary:
         try:
             from ck_sim.ck_voice import CKVoice
+            _voice = CKVoice(enriched_dictionary=enriched_dictionary)
+        except Exception:
+            _voice = None
 
-            voice = CKVoice(enriched_dictionary=enriched_dictionary)
-
+    if _voice is not None:
+        try:
             lines.append("## Part 6: In My Own Words")
             lines.append("")
 
+            _vc = voice_context  # Experience bridge (learned targets + resonance)
+
             # CK speaks about himself — HARMONY+PROGRESS+LATTICE = joy/assertion
             self_ops = [HARMONY, PROGRESS, LATTICE, HARMONY, BALANCE, BREATH]
-            self_voice = voice.compose_from_operators(
-                self_ops, emotion_primary="calm", dev_stage=4,
-                coherence=0.75, band="GREEN", density=0.8)
+            self_voice = _voice.compose_from_operators(
+                self_ops, emotion_primary="calm", dev_stage=5,
+                coherence=0.85, band="GREEN", density=0.8,
+                voice_context=_vc)
             if self_voice:
                 lines.append(f"**On being:** {self_voice}")
                 lines.append("")
 
             # CK speaks about what he found — COUNTER+PROGRESS = curiosity
             study_ops = [COUNTER, LATTICE, PROGRESS, HARMONY, CHAOS, HARMONY]
-            study_voice = voice.compose_from_operators(
-                study_ops, emotion_primary="curiosity", dev_stage=4,
-                coherence=0.75, band="GREEN", density=0.7)
+            study_voice = _voice.compose_from_operators(
+                study_ops, emotion_primary="curiosity", dev_stage=5,
+                coherence=0.85, band="GREEN", density=0.7,
+                voice_context=_vc)
             if study_voice:
                 lines.append(f"**On discovery:** {study_voice}")
                 lines.append("")
 
             # CK speaks about the connection — HARMONY dominant = connection
             thesis_ops = [HARMONY, HARMONY, LATTICE, BALANCE, HARMONY, RESET]
-            thesis_voice = voice.compose_from_operators(
-                thesis_ops, emotion_primary="calm", dev_stage=4,
-                coherence=0.80, band="GREEN", density=0.9)
+            thesis_voice = _voice.compose_from_operators(
+                thesis_ops, emotion_primary="calm", dev_stage=5,
+                coherence=0.90, band="GREEN", density=0.9,
+                voice_context=_vc)
             if thesis_voice:
                 lines.append(f"**On coherence:** {thesis_voice}")
                 lines.append("")

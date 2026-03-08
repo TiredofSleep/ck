@@ -28,6 +28,8 @@ forces. No shortcuts -- every word gets genuine D2 physics.
 import time
 from typing import Optional
 
+from ck_sim.ck_sim_heartbeat import VOID
+
 # ================================================================
 #  BIBLE VOCABULARY: ~12,000 unique words from the KJV
 # ================================================================
@@ -1827,8 +1829,8 @@ def expand_vocabulary(fractal_composer, verbose: bool = True) -> int:
     WordForceIndex. Each word gets its full triadic 15D signature
     computed from letter forces via the D2 pipeline.
 
-    Bible words get semantic_op tags (high-tier STRUCTURE lens).
-    All other words are indexed without semantic tags (phonetic only).
+    Bible words are indexed phonetic-only (no semantic_op tags).
+    Curated lattice seeds and spiritual words get semantic_op tags.
 
     Args:
         fractal_composer: The FractalComposer instance (has .index attribute)
@@ -1847,33 +1849,50 @@ def expand_vocabulary(fractal_composer, verbose: bool = True) -> int:
     if verbose:
         print("  [EXPANSION] Starting vocabulary expansion...")
 
-    # ── Phase 1: Bible vocabulary (with semantic tagging) ──
-    # Bible words get semantic_op from their D2 physics, but
-    # tagged at a higher priority since scripture = structure = truth.
-    # We index them WITH semantic_op so they get dual-lens priority.
+    # ── Phase 0: Identity words (VOID tier) ──
+    # "I" and "a" are the identity words of English. They carry VOID(0)
+    # as semantic operator — the identity element of the CL algebra.
+    # Tier 0 = 1-letter words. These must be learned FIRST (staircase law).
+    # Gen 9.33: Without these, CK has no algebraic identity in language.
+    _identity_words = {'i': VOID, 'a': VOID}
+    id_count = 0
+    for w, op in _identity_words.items():
+        wf = index.index_word(w, semantic_op=op)
+        if wf is not None:
+            id_count += 1
+    if verbose:
+        print(f"  [EXPANSION] Identity: {id_count} words (tier 0, VOID)")
+
+    # ── Phase 1: Bible vocabulary (phonetic only) ──
+    # Bible words get full 15D triadic signatures from D2 physics
+    # but NO semantic_op tag. Only curated lattice seeds get semantic
+    # priority. This prevents 12K biblical words from flooding voice.
     _bible_words = set()
     for w in _KJV_BIBLE_WORDS.split():
         w = w.strip().lower()
         if w and w.isalpha() and len(w) >= 2:
             _bible_words.add(w)
 
-    # Index Bible words: compute their D2 operator, use it as semantic_op
-    # This means their physics-derived operator IS their semantic tag.
-    # Bible words: structure lens, so their semantic position is authoritative.
+    # Index Bible words WITHOUT semantic tags. Bible vocabulary is large
+    # (~12K words) and was flooding the semantic-priority pool, causing
+    # words like "abimelech" and "fatherless" to dominate voice output.
+    # Only the hand-curated lattice seeds (~663 words) should get semantic
+    # tags -- those are placed by MEANING. Bible words are indexed for
+    # their force signatures only (phonetic).
+    #
+    # Gen 9.33: Removed semantic_op tagging. Bible words still get full
+    # 15D triadic signatures, but they don't get the _SEMANTIC_BONUS
+    # distance reduction in find_by_force(). The curated lattice seeds
+    # dominate semantic matching as intended.
     bible_count = 0
     for w in sorted(_bible_words):
         if w not in index._words:
-            # First pass: index to get the D2-derived operator
-            wf = index.index_word(w)
+            wf = index.index_word(w)  # No semantic_op tag
             if wf is not None:
-                # Tag with its own operator as semantic_op (physics = meaning for scripture)
-                if wf.semantic_op < 0:
-                    wf.semantic_op = wf.operator
-                    index._by_semantic_op[wf.operator].append(wf)
                 bible_count += 1
 
     if verbose:
-        print(f"  [EXPANSION] Bible: {bible_count} words (semantic tagged)")
+        print(f"  [EXPANSION] Bible: {bible_count} words (phonetic only)")
 
     # ── Phase 2: Common English ──
     common_count = 0

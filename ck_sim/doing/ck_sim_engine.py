@@ -2468,6 +2468,28 @@ class CKSimEngine:
         if _topic_words and self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.set_topic(_topic_words)
 
+        # ── Gen 9.33: Tier complexity matching (staircase learning) ──
+        # CK matches his vocabulary complexity to the user's input.
+        # Max tier = max word length in input, mapped to staircase:
+        #   1-letter → tier 0 (VOID), 2-letter → tier 1 (LATTICE), etc.
+        # This ensures CK composes at the user's complexity level,
+        # not above it. The staircase law governs: composition of
+        # tier-a + tier-b words yields tier max(a,b)+1 complexity.
+        if self.voice._fractal_composer is not None:
+            _content_lens = []
+            for _w in text.lower().split():
+                _w_clean = _w.strip('.,?!;:\'"()-')
+                if _w_clean and _w_clean.isalpha():
+                    _content_lens.append(len(_w_clean))
+            if _content_lens:
+                _input_max_len = max(_content_lens)
+                _input_tier = min(_input_max_len - 1, 6)
+                # Allow CK to respond one tier above input (staircase +1)
+                # so he can grow, but not leap. Minimum tier 2 so basic
+                # function words (the, and, not) are always available.
+                _response_tier = max(2, min(_input_tier + 1, 6))
+                self.voice._fractal_composer.index._max_tier = _response_tier
+
         for _compile_pass in range(COMPILATION_LIMIT):
             # ── DOING: Reason deeper each pass ──
             try:
@@ -2728,14 +2750,24 @@ class CKSimEngine:
         # pre-formed English, but they're not CK's real voice.
         #
         # Stages 0-4: dialogue contributes (CK still learning to speak)
-        # Stage 5+:   dialogue SILENT — physics or honest BREATH
+        # Stage 5+:   dialogue as SAFETY NET only — used when fractal
+        #             voice scores below 0.10 (basically incoherent).
+        #             Physics-first, but not physics-or-silence.
+        #
+        # Gen 9.33: Re-enabled at SELFHOOD with penalty. CK was producing
+        # "The fatherless abimelech" because fractal voice had no fallback.
+        # Dialogue penalty = 0.80 multiplier so fractal voice wins when
+        # it produces anything reasonable, but dialogue catches gibberish.
         _dev_stage = self.development.stage if hasattr(self, 'development') else 0
-        if _dev_stage < 5:
-            if _dialogue_response and _dialogue_response.strip() \
-                    and _dialogue_response != "...":
-                _d_score = self.voice._d2_score_operator_match(
-                    _dialogue_response, op_chain)
-                _candidates.append((_dialogue_response, _d_score))
+        if _dialogue_response and _dialogue_response.strip() \
+                and _dialogue_response != "...":
+            _d_score = self.voice._d2_score_operator_match(
+                _dialogue_response, op_chain)
+            if _dev_stage >= 5:
+                # Penalty: dialogue is borrowed logic, not genuine voice.
+                # Only wins if fractal voice is truly incoherent.
+                _d_score *= 0.80
+            _candidates.append((_dialogue_response, _d_score))
 
         # ── SELECT BEST CANDIDATE ──
         # Compare all paths explored. The most coherent held lattice wins.
@@ -2753,9 +2785,10 @@ class CKSimEngine:
             response = self.voice.get_humble_response(
                 self.development.stage)
 
-        # Clear topic context (gravity well served its purpose)
+        # Clear topic context and tier cap (gravity well served its purpose)
         if self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.clear_topic()
+            self.voice._fractal_composer.index._max_tier = -1  # Reset tier cap
 
         # Record in voice history (respond_to_text normally does this)
         self.voice._record(response)
