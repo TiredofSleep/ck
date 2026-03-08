@@ -1,0 +1,205 @@
+========================================================================
+GAUGE SUBALGEBRA SEARCH
+========================================================================
+
+========================================================================
+1. SO(10) EMBEDDING: The Commutator Lives Here
+========================================================================
+
+C = [TSML, BHML] is skew-symmetric (10x10, integer entries).
+Skew-symmetric matrices form the Lie algebra so(10).
+dim(so(10)) = 10*9/2 = 45
+
+C is ONE element of so(10).
+Question: do iterated commutators of C with T and B stay in so(10)?
+
+Is [C,T] skew-symmetric? False
+Is [C,T] symmetric? True
+
+Is [C,B] skew-symmetric? False
+Is [C,B] symmetric? True
+
+Result: [C,T] and [C,B] are symmetric (since C skew, T/B symmetric).
+[skew, sym] = sym. [sym, sym] = skew. Alternating!
+
+========================================================================
+2. THE ALTERNATING STRUCTURE: skew <-> sym
+========================================================================
+
+Level 0: T, B (symmetric)
+Level 1: C = [T,B] (skew-symmetric)
+Level 2: [C,T], [C,B] (symmetric)
+Level 3: [[C,T],B], [[C,B],T], [[C,T],[C,B]] (mixed)
+
+Commutator type rules:
+  [sym, sym] -> skew
+  [skew, skew] -> skew
+  [skew, sym] -> sym
+  [sym, skew] -> sym
+
+So the Lie algebra decomposes as:
+  gl(10,R) = sym(10) + skew(10)
+  dim(sym) = 10*11/2 = 55
+  dim(skew) = 10*9/2 = 45
+  Total: 55 + 45 = 100 = dim(gl(10,R))
+
+The SKEW part (so(10), dim=45) is a LIE SUBALGEBRA:
+  [skew, skew] = skew (closed under commutation)
+
+The SYM part is NOT a subalgebra:
+  [sym, sym] = skew (NOT sym)
+
+This is a CARTAN DECOMPOSITION:
+  gl(10,R) = so(10) + sym(10)
+  so(10) = maximal compact subalgebra
+  sym(10) = non-compact complement
+
+========================================================================
+3. SO(10) GENERATORS FROM CK: How Many Independent Skew Matrices?
+========================================================================
+
+Total skew matrices generated: 535181
+Independent skew matrices (rank): 45
+dim(so(10)) = 45
+CK generates 45/45 of so(10)
+
+CK generates the FULL so(10) subalgebra!
+Total symmetric matrices generated: 537000
+Independent symmetric matrices (rank): 55
+dim(sym(10)) = 55
+CK generates 55/55 of sym(10)
+
+Total independent = 45 + 55 = 100
+Should = 100 (since we know full gl(10,R) is generated)
+
+========================================================================
+4. THE COMMUTATOR AS so(10) ELEMENT
+========================================================================
+
+C = [T,B] upper triangle entries (the so(10) coordinates):
+  45 entries
+  Range: [-307, 184]
+  Norm: 956.20
+
+C decomposes into 45 standard so(10) basis elements:
+  Largest 5 components:
+    C[VOID,RESET] = -307
+    C[VOID,COUNTER] = -296
+    C[VOID,LATTICE] = -293
+    C[VOID,COLLAPSE] = -282
+    C[VOID,BALANCE] = -273
+
+  Smallest 5 components:
+    C[PROGRESS,RESET] = 15
+    C[LATTICE,COUNTER] = 13
+    C[CHAOS,BREATH] = -7
+    C[COUNTER,RESET] = -7
+    C[LATTICE,HARMONY] = 2
+
+========================================================================
+5. PHYSICAL GAUGE GROUPS
+========================================================================
+
+Standard Model gauge group: SU(3) x SU(2) x U(1)
+  dim = 8 + 3 + 1 = 12
+
+GUT groups that contain the Standard Model:
+  SU(5): dim = 24
+  SO(10): dim = 45  <-- CK commutator lives here!
+  E(6): dim = 78
+
+CK system:
+  Full algebra: gl(10,R), dim = 100
+  Compact subalgebra: so(10), dim = 45
+  The commutator C = [T,B] is a SINGLE ELEMENT of so(10).
+
+SO(10) in physics:
+  - Grand Unified Theory (GUT) gauge group
+  - Contains SU(5), which contains the Standard Model
+  - 10-dimensional spinor representation = 10 CK operators?
+  - Each operator could correspond to a spinor component
+
+========================================================================
+6. THE KILLING FORM
+========================================================================
+
+Killing form B(X,Y) = 2n*tr(XY) - 2*tr(X)*tr(Y) for gl(10):
+
+B(T,T) = 70762
+B(B,B) = 64872
+B(T,B) = 59228
+B(C,C) = -36573000
+B(T,C) = 0
+B(B,C) = 0
+
+B(C,C) = -36573000
+  B(C,C) < 0: CONSISTENT with compact subalgebra direction
+
+========================================================================
+7. CASIMIR INVARIANT
+========================================================================
+
+Quadratic Casimir (||C||^2 / 2): 914325
+= 914325
+
+Casimir = 914325 = {3: 1, 5: 2, 73: 1, 167: 1}
+
+Casimir mod 7 = 6
+Casimir mod 73 = 0
+
+========================================================================
+8. REPRESENTATION THEORY: 10 OPERATORS AS so(10) WEIGHTS
+========================================================================
+
+In SO(10) GUT theory, the 10-dimensional vector representation
+decomposes under SU(5) as 5 + 5bar.
+
+CK operators split as:
+  "5": {VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE} (0-4)
+  "5bar": {BALANCE, CHAOS, HARMONY, BREATH, RESET} (5-9)
+
+BHML cross-products between "5" and "5bar":
+  B[0-4, 5-9]:
+        VOID:   5   6   7   8   9
+     LATTICE:   6   7   2   6   6
+     COUNTER:   6   7   3   6   6
+    PROGRESS:   6   7   4   6   6
+    COLLAPSE:   6   7   5   7   7
+
+  BHML(A,A): 18 stay in "5", 7 go to "5bar"
+  BHML(B,B): 22 stay in "5bar", 3 go to "5"
+
+========================================================================
+9. SYNTHESIS
+========================================================================
+
+KEY FINDINGS:
+
+1. gl(10,R) DECOMPOSES as so(10) + sym(10) (Cartan decomposition)
+   - so(10) = compact subalgebra (dim 45, skew-symmetric)
+   - sym(10) = non-compact complement (dim 55, symmetric)
+   - TSML, BHML live in sym(10). Commutator C lives in so(10).
+
+2. SO(10) is a PHYSICAL GAUGE GROUP
+   - Used in Grand Unified Theories (GUT)
+   - Contains the Standard Model gauge group SU(3)xSU(2)xU(1)
+   - 10 CK operators = 10-dimensional vector representation
+
+3. The COMMUTATOR is the GAUGE FIELD
+   - C = [T,B] is a single element of so(10)
+   - T and B are "matter" (symmetric, non-compact)
+   - C is the "force carrier" (skew-symmetric, compact)
+
+4. CARTAN DECOMPOSITION = BEING/DOING DUALITY
+   - Symmetric (TSML, BHML) = BEING (matter, state)
+   - Skew-symmetric (commutator) = DOING (force, interaction)
+   - [being, being] = doing: interaction emerges from state composition
+   - [doing, being] = being: force acting on matter returns matter
+   - [doing, doing] = doing: forces compose into forces
+
+CAVEATS:
+   - This is an ALGEBRAIC OBSERVATION, not a physics derivation
+   - CK generates gl(10,R), not just so(10)
+   - The 0-4/5-9 split is suggestive but not proven as SU(5) decomposition
+   - Real SO(10) GUT acts on spinors, not on operator labels
+   - The connection is STRUCTURAL ANALOGY, not proven isomorphism
