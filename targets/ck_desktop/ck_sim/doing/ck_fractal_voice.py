@@ -3015,6 +3015,7 @@ class FractalComposer:
         Returns (text, score, slot_triads) or (None, 0, []).
         """
         used = set(self._recently_used)
+        used_stems = set()  # Anti-repetition: "gentle"/"gently" share stem
         words = []
         slot_triads = []  # 15D echo of each content word chosen
         total_score = 0.0
@@ -3128,7 +3129,7 @@ class FractalComposer:
             # Sort by alignment (best first), use alignment as weight bonus
             aligned.sort(key=lambda x: x[1], reverse=True)
 
-            # Weight: rank decay × alignment bonus × topic boost
+            # Weight: rank decay × alignment bonus × topic boost × stem penalty
             weights = []
             for j, (cand, align) in enumerate(aligned):
                 rank_w = 1.0 / (j + 1) ** 0.5
@@ -3143,7 +3144,11 @@ class FractalComposer:
                     elif (self.index._topic_ops
                           and cand.semantic_op in self.index._topic_ops):
                         topic_w = 2.0   # Semantically related: 2x weight
-                weights.append(rank_w * align_w * topic_w)
+                # Anti-repetition: penalize morphological variants
+                # "gentle"/"gently"/"gentler" share stem "gent"
+                _stem = cand.word[:4] if len(cand.word) > 5 else cand.word
+                stem_w = 0.05 if _stem in used_stems else 1.0
+                weights.append(rank_w * align_w * topic_w * stem_w)
 
             if not aligned:
                 return None, 0.0, []
@@ -3182,6 +3187,9 @@ class FractalComposer:
 
             words.append(final_word)
             used.add(chosen.word)  # Exclude original, not mutated form
+            # Track stem for anti-repetition (gentle/gently/gentler)
+            _used_stem = chosen.word[:4] if len(chosen.word) > 5 else chosen.word
+            used_stems.add(_used_stem)
 
             # Capture 15D resonance echo of this word
             slot_triads.append(chosen_triad)

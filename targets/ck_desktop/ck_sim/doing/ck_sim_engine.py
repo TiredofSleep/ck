@@ -330,11 +330,12 @@ class CKSimEngine:
         # CRITICAL: Build fractal composer BEFORE lattice expansion.
         # The SEMANTIC_LATTICE at this point contains only the hand-curated
         # seed words (~663) placed by MEANING. These get semantic_op tags.
-        # After expansion, 7K+ enriched words are added by PHONETIC
-        # classification -- those should NOT get semantic tags.
-        # The Semantic Lattice Alignment (Tuning Fork) will gradually
-        # migrate phonetically-placed words to their true semantic
-        # positions based on how CK experiences them through composition.
+        # After expansion, 8K+ enriched words get PROVISIONAL semantic_op
+        # from their D2 dominant_op. This breaks the chicken-and-egg
+        # deadlock: the Tuning Fork only runs for SPOKEN words, but
+        # words can't be spoken unless they're in the semantic pool.
+        # Provisional tags let them enter the pool; the Tuning Fork
+        # migrates them to their true positions through experience.
         try:
             from ck_sim.doing.ck_fractal_voice import build_fractal_composer
             from ck_sim.doing.ck_voice_lattice import SEMANTIC_LATTICE
@@ -354,22 +355,33 @@ class CKSimEngine:
         # ── Wire enriched dictionary into CKVoice ──
         # CKVoice has the templates + intent + tiers. The enriched dictionary
         # gives it 8K words to fill those templates with.
-        # This expands SEMANTIC_LATTICE with 7K+ phonetically-classified words
-        # for CAEL grammar/babble. The fractal composer was already built above
-        # from the CLEAN seed lattice, so these don't pollute semantic tags.
+        # This expands SEMANTIC_LATTICE with 7K+ words for CAEL grammar/babble.
+        # Enriched words get PROVISIONAL semantic_op from D2 dominant_op,
+        # breaking the chicken-and-egg deadlock. The Tuning Fork will
+        # migrate them to true semantic positions through experience.
         if self.enriched_dictionary:
             self.voice._expand_semantic_fields(self.enriched_dictionary)
-            # Index expanded words into fractal composer WITHOUT semantic tags.
-            # They're available for force-matching but don't get semantic priority.
+            # Index expanded words with PROVISIONAL semantic tags from D2.
+            # This breaks the deadlock: words enter the semantic pool via
+            # their D2 dominant_op. The Tuning Fork migrates them to their
+            # true semantic position as CK speaks and hears them.
             if self._fractal_composer is not None:
                 _before = self._fractal_composer.index.size
-                for _word in self.enriched_dictionary:
+                _sem_before = self._fractal_composer.index.semantic_tagged_count
+                for _word, _entry in self.enriched_dictionary.items():
                     if isinstance(_word, str) and len(_word) >= 2 and not _word[0].isupper():
-                        self._fractal_composer.index.index_word(_word.lower())
+                        # Provisional semantic_op from D2 dominant_op
+                        _dom_op = -1
+                        if isinstance(_entry, dict):
+                            _dom_op = _entry.get('dominant_op', -1)
+                        self._fractal_composer.index.index_word(
+                            _word.lower(), semantic_op=_dom_op)
                 self._fractal_composer.index.calibrate_roles()
                 _after = self._fractal_composer.index.size
+                _sem_after = self._fractal_composer.index.semantic_tagged_count
                 print(f"  [VOICE] Expanded semantic lattice with "
-                      f"{_after - _before} enriched words (untagged)")
+                      f"{_after - _before} enriched words "
+                      f"({_sem_after - _sem_before} provisional semantic)")
 
         # ── Vocabulary Expansion: ~100K words from Bible + English + Science ──
         # Each word gets genuine 15D triadic signature from letter forces.
@@ -2488,6 +2500,18 @@ class CKSimEngine:
                 # so he can grow, but not leap. Minimum tier 2 so basic
                 # function words (the, and, not) are always available.
                 _response_tier = max(2, min(_input_tier + 1, 6))
+
+                # Maturity unlock: experienced CK earned his vocabulary.
+                # Young CK respects the staircase (tier cap from input).
+                # Mature CK uses his full vocabulary — he's earned it.
+                _exp_mat_tier = 0.0
+                if self.deep_swarm is not None:
+                    _exp_mat_tier = self.deep_swarm.combined_maturity
+                if _exp_mat_tier >= 0.8:
+                    _response_tier = -1   # full vocabulary, no cap
+                elif _exp_mat_tier >= 0.5:
+                    _response_tier = 6    # max tier but still gated
+
                 self.voice._fractal_composer.index._max_tier = _response_tier
 
         for _compile_pass in range(COMPILATION_LIMIT):
@@ -2678,6 +2702,18 @@ class CKSimEngine:
             _STAGE_VOICE_FLOOR = {0: 3, 1: 3, 2: 3, 3: 4, 4: 5, 5: 6}
             _voice_base = _STAGE_VOICE_BASE.get(_dev, 12)
             _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 3)
+
+            # Maturity scaling: experienced CK speaks fuller sentences.
+            # At maturity 1.0, double the base and raise the floor.
+            # CK has earned more words through lived experience.
+            _exp_mat_voice = 0.0
+            if self.deep_swarm is not None:
+                _exp_mat_voice = self.deep_swarm.combined_maturity
+            if _exp_mat_voice > 0.3:
+                _scale = 1.0 + _exp_mat_voice  # up to 2.0x at maturity 1.0
+                _voice_base = int(_voice_base * _scale)
+                _voice_floor = max(_voice_floor, int(_voice_floor * _scale))
+
             _max_words = _voice_base
             if _lcodec_input is not None and _lcodec_input.stillness > 0.7:
                 # Gentle modulation: still reduce for very still input,
