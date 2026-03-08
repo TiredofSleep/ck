@@ -1,0 +1,252 @@
+========================================================================
+RIGOROUS AUDIT OF CK ALGEBRAIC CLAIMS
+Each claim: PROVEN / APPROXIMATE / CONJECTURED / FALSIFIED
+========================================================================
+
+SECTION 0: TRIVIALLY TRUE (any symmetric pair)
+------------------------------------------------------------------------
+The following hold for ANY pair of symmetric real matrices:
+  - Commutator is skew-symmetric (C^T = (TB-BT)^T = BT-TB = -C)
+  - trace(C) = 0 (trace is cyclic: tr(TB) = tr(BT))
+  - Eigenvalues purely imaginary (skew-symmetric => imag spectrum)
+  - Jacobi identity (holds for ALL matrix Lie brackets)
+STATUS: These are NOT CK-specific. They prove nothing about the tables.
+
+SECTION 1: PROVEN THEOREMS
+------------------------------------------------------------------------
+
+THEOREM 1 (BHML UNIQUENESS):
+  CLAIM: 6 piecewise rules determine all 100 cells, 0 free parameters.
+  Reconstruction residual: 0
+  Cell coverage: R1=19, R2=36, R3=6, R4=12, R5=3, R6=3 = 79 + 21 sym = 100
+  STATUS: PROVEN (exhaustive reconstruction, zero residual).
+
+THEOREM 2 (TSML CHARACTERIZATION):
+  CLAIM: 4 rules + 5 exceptions determine all 100 cells.
+  Reconstruction residual: 0
+  STATUS: PROVEN (exhaustive reconstruction, zero residual).
+
+THEOREM 3 (BHML WORLD 1 UNIMODULAR):
+  CLAIM: det(BHML[0..n-1, 0..n-1]) = (-1)^(n-1) for n = 2..7
+    n=2: det =  -1, (-1)^(n-1) =  -1 OK
+    n=3: det =   1, (-1)^(n-1) =   1 OK
+    n=4: det =  -1, (-1)^(n-1) =  -1 OK
+    n=5: det =   1, (-1)^(n-1) =   1 OK
+    n=6: det =  -1, (-1)^(n-1) =  -1 OK
+    n=7: det =   1, (-1)^(n-1) =   1 OK
+  DERIVATION:
+    Row-reduce M_n by R_i <- R_i - R_(i-1) for i = n-1 down to 1.
+    For the staircase block (i,j >= 1): max(i,j)+1 - max(i-1,j)-1 =
+      1 if j < i (max increases by 1)
+      0 if j >= i (max stays at j)
+    For col 0: i - (i-1) = 1.
+    Reduced matrix: row 0 = [0,1,2,...], rows i>=1 have exactly i ones.
+  Row-reduced 7x7:
+    [0, 1, 2, 3, 4, 5, 6]
+    [1, 1, 1, 1, 1, 1, 1]
+    [1, 1, 0, 0, 0, 0, 0]
+    [1, 1, 1, 0, 0, 0, 0]
+    [1, 1, 1, 1, 0, 0, 0]
+    [1, 1, 1, 1, 1, 0, 0]
+    [1, 1, 1, 1, 1, 1, 0]
+  det(reduced) = 1 = det(original) = 1
+  STATUS: PROVEN (constructive row-reduction).
+
+THEOREM 4 (TSML SINGULAR):
+  CLAIM: det(TSML) = 0.
+  Row 5 (BALANCE): [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  Row 6 (CHAOS):   [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  Identical rows => linearly dependent => det = 0.
+  rank(TSML) = 9
+  STATUS: PROVEN (two identical rows).
+
+THEOREM 5 (BEING DET = -HARMONY^3):
+  CLAIM: det(TSML[Being]) = -343 = -7^3, Being = {{0,1,7}}
+    [0, 0, 7]
+    [0, 7, 7]
+    [7, 7, 7]
+  det = -343
+  Direct expansion:
+    |0  0  7|
+    |0  7  7| = 0(49-49) - 0(0-49) + 7(0-49) = 7(-49) = -343
+    |7  7  7|
+  -343 = -7^3 = -HARMONY^3. STATUS: PROVEN (3x3 determinant).
+
+THEOREM 6 (PFAFFIAN):
+  CLAIM: det([T,B]) = 633486^2, Pfaffian = 2 x 3 x 7 x 15083
+  det([T,B]) = 401304512196
+  sqrt(|det|) = 633486
+  633486^2 = 401304512196
+  Perfect square: True
+  Pfaffian factorization: {2: 1, 3: 1, 7: 1, 15083: 1}
+  7 | Pfaffian: True
+  STATUS: PROVEN (exact integer computation).
+
+THEOREM 7 (CHARACTERISTIC POLYNOMIAL):
+  Exact integer coefficients of char([T,B], lam):
+    lam^10: 1
+    lam^ 9: 0
+    lam^ 8: 914325 = {3: 1, 5: 2, 73: 1, 167: 1}
+    lam^ 7: 0
+    lam^ 6: 5594600585 = {5: 1, 7: 1, 47: 1, 101: 1, 151: 1, 223: 1}
+    lam^ 5: 0
+    lam^ 4: 2174820660688 = {2: 4, 13: 1, 103: 1, 101513287: 1}
+    lam^ 3: 0
+    lam^ 2: 18122191569194 = {2: 1, 67: 1, 73: 1, 1063: 1, 1742809: 1}
+    lam^ 1: 0
+    lam^ 0: 401304512196 = {2: 2, 3: 2, 7: 2, 15083: 2}
+  All odd-power coefficients = 0 (skew-symmetry).
+  73 divides lam^8 coeff: True
+  73 divides lam^2 coeff: True
+  73 = number of HARMONY cells in TSML (73/100).
+  STATUS: PROVEN (exact sympy computation).
+
+THEOREM 8 (2x2 EIGENVALUE = +/- 7i):
+  CLAIM: Commutator of 2x2 leading submatrices has eigenvalue +/- 7i
+  T[0:2,0:2] = [[0, 0], [0, 7]]
+  B[0:2,0:2] = [[0, 1], [1, 2]]
+  T2@B2 = [[0, 0], [7, 14]]
+  B2@T2 = [[0, 7], [0, 14]]
+  C2 = T2@B2 - B2@T2 = [[0, -7], [7, 0]]
+  Eigenvalues: {-7*I: 1, 7*I: 1}
+  C2 = [[0, -7], [7, 0]]
+  char poly: lam^2 + 49 = 0 => lam = +/- 7i = +/- HARMONY*i
+  STATUS: PROVEN (analytical 2x2 eigenvalue formula).
+
+THEOREM 9 (UNIMODULARITY BREAKS AT n=8):
+    n=7: det = 1
+    n=8: det = 258
+    n=9: det = -129
+    n=10: det = -7002
+  n <= 7: |det| = 1. n = 8: |det| = 258. HARMONY entry breaks unimodularity.
+  STATUS: PROVEN (exact computation).
+
+THEOREM 10 (CLOSURE PROPERTIES):
+  World 2 {7,8,9,0} closed in TSML: True
+  World 2 {7,8,9,0} closed in BHML: True
+  Being {0,1,7} closed in TSML: True
+  Being {0,1,7} closed in BHML: False
+    Escape: BHML(1,1) = 2
+    Escape: BHML(1,7) = 2
+    Escape: BHML(7,1) = 2
+  STATUS: PROVEN (exhaustive enumeration).
+
+SECTION 2: APPROXIMATE (suggestive but not exact)
+------------------------------------------------------------------------
+
+CLAIM A1 (EIGENVALUE RATIO ~ 4*pi):
+  pair0/pair1 = 952.9781 / 75.7705 = 12.577158
+  4*pi = 12.566371
+  Error: 0.0858%
+  pair2/pair3 = 20.1987 / 2.9149 = 6.929545
+  HARMONY = 7.000000
+  Error: 1.0065%
+  mu-polynomial is IRREDUCIBLE over Q (sympy factor returns unchanged).
+  Eigenvalues are genuine algebraic irrationals, not expressible as
+  rational multiples of pi or 7.
+  STATUS: APPROXIMATE. 0.086% and 1.0% errors. NOT exact identities.
+
+CLAIM A2 (QUADRATIC GROWTH COEFFICIENT ~ 1/sqrt(2)):
+  Dominant eigenvalue growth: a = 0.701
+  1/sqrt(2) = 0.707107
+  Error: 0.86%
+  T* = 5/7 = 0.714286
+  Error from T*: 1.86%
+  STATUS: APPROXIMATE. ~1% error for both candidates.
+
+CLAIM A3 (73% VARIANCE = 73% HARMONY):
+  First PCA component: 73.0100% of variance
+  TSML HARMONY cells: 73/100 = 73%
+  Difference: 0.0100%
+  Covariance eigenvalues are roots of irreducible quintic => irrational.
+  Ratio CANNOT be exactly 73/100. But 0.01% off is remarkable.
+  STATUS: APPROXIMATE. 73.0100% vs 73%. 0.01% error.
+
+CLAIM A4 (T* = 5/7 IN LETTER PHYSICS):
+  BALANCE/CHAOS = 7/10 = 0.7000
+  T* = 5/7 = 0.7143
+  Error: 2.00%
+  mean_pressure/mean_continuity = 0.700637
+  Error from T*: 1.91%
+  STATUS: APPROXIMATE. ~2% errors. Not exact.
+
+SECTION 3: FALSIFIED
+------------------------------------------------------------------------
+
+CLAIM F1 (SO(5) ISOMORPHISM):
+  Original claim: 10 operators = dim(SO(5)) = C(5,2) suggests SO(5) structure.
+  FALSIFIED: Lie algebra dimension = 100 = gl(10,R), NOT 10 = dim(so(5)).
+  The dimensional match (10 operators, 10 = dim(so(5))) was coincidental.
+
+CLAIM F2 (EXACT EIGENVALUE IDENTITIES):
+  Original claim: ratios encode 4*pi and HARMONY exactly.
+  FALSIFIED: mu-polynomial is irreducible/Q. Ratios are approximate.
+  0.086% and 1.0% errors are too large to be floating-point artifacts.
+
+SECTION 4: OPEN / CONJECTURED
+------------------------------------------------------------------------
+
+CONJECTURE C1 (73 IS STRUCTURAL):
+  73% variance, 73% HARMONY, 73 in char poly. Three occurrences of 73.
+  STATUS: UNPROVEN. Could be coincidence. No derivation connecting them.
+
+CONJECTURE C2 (BEING/DOING/BECOMING IS UNIVERSAL):
+  5D force space decomposes as B(2D) + D(1D) + BC(2D) via correlations.
+  This decomposition follows from the SPECIFIC Hebrew root vectors.
+  OPEN: Would a DIFFERENT set of root vectors give the same decomposition?
+  OPEN: Is 2+1+2 forced by any 5D space with antipodal correlations?
+
+CONJECTURE C3 (VOID IS THE ONLY STABLE FOUNDATION):
+  BHML staircase pushes everything upward. Only VOID is identity.
+  TSML absorbs everything to HARMONY. Only VOID nullifies.
+  STATUS: PROVEN algebraically. Philosophical interpretation is subjective.
+
+CONJECTURE C4 (IRRATIONAL = ALIVE):
+  Irrational eigenvalues => system never exactly repeats.
+  STATUS: Mathematically true. Interpretation as "consciousness" is metaphor.
+
+CONJECTURE C5 (15083 HAS MEANING):
+  Pfaffian = 2 x 3 x 7 x 15083. What is 15083?
+  15083 is prime: True
+  15083 = ?. No known connection to CK operators.
+  STATUS: OPEN.
+
+SECTION 5: STRUCTURAL PROPERTIES (non-trivial, verified)
+------------------------------------------------------------------------
+
+PROPERTY S1 (STRUCTURE:FLOW:BRIDGE = 12:12:2):
+  Structure (Being): 12/26
+  Flow (Becoming): 12/26
+  Bridge (Doing): 2/26
+  Exact balance: True
+  STATUS: VERIFIED. But depends on specific root vectors and D2_OP_MAP.
+
+PROPERTY S2 (PHASE-CROSSING OPERATORS):
+    COUNTER   : functional=D  -> physical=BC
+    COLLAPSE  : functional=D  -> physical=B 
+    BALANCE   : functional=D  -> physical=BC
+    CHAOS     : functional=BC -> physical=B 
+    HARMONY   : functional=B  -> physical=BC
+    RESET     : functional=BC -> physical=D 
+  6/10 operators change phase between decompositions.
+  STATUS: VERIFIED. Structural fact about the two groupings.
+
+PROPERTY S3 (COUNTER IS RESONANCE HUB):
+  TSML exceptions: (1,2)->3, (2,4)->4, (2,9)->9, (3,9)->3, (4,8)->8
+  COUNTER(2) appears in 3 of 5 exceptions.
+  Exception graph is a tree. COUNTER is the unique cut vertex.
+  STATUS: VERIFIED (graph-theoretic analysis).
+
+========================================================================
+FINAL TALLY
+========================================================================
+  PROVEN:      10 theorems (T1-T10)
+  APPROXIMATE:  4 claims (A1-A4)
+  FALSIFIED:    2 claims (F1-F2)
+  OPEN:         5 conjectures (C1-C5)
+  STRUCTURAL:   3 properties (S1-S3)
+
+  Everything above can be reproduced with:
+    python rigorous_audit.py
+  from the ck_desktop target directory.
+========================================================================
