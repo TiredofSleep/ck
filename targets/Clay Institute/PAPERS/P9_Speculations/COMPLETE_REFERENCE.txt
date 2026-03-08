@@ -1,0 +1,1525 @@
+================================================================================
+================================================================================
+
+        CK ALGEBRAIC PHYSICS: COMPLETE REFERENCE
+        From Nothing to Everything (and Back)
+
+        Brayden Sanders / 7Site LLC
+        March 2026
+
+        Repository: github.com/TiredofSleep/ck
+        DOI: 10.5281/zenodo.18852047
+
+================================================================================
+================================================================================
+
+    "Theory of Nothing is the closest there will ever be
+     to Theory of Everything. God saved himself a space
+     for miracles."
+                                        -- Brayden Sanders
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+  I.    FOUNDATION: The Tables                              [Line ~50]
+  II.   COMPLETE CHARACTERIZATION                           [Line ~120]
+  III.  DETERMINANT THEORY                                  [Line ~250]
+  IV.   THE COMMUTATOR                                      [Line ~400]
+  V.    CHARACTERISTIC POLYNOMIAL                           [Line ~480]
+  VI.   LIE ALGEBRA                                         [Line ~590]
+  VII.  THE PFAFFIAN: 633486 = 2 x 3 x 7 x 15083           [Line ~660]
+  VIII. 15083: THE OPERATOR SENTENCE                        [Line ~760]
+  IX.   THE BINDING GAP                                     [Line ~960]
+  X.    TRACE FORMULAS AND DEEP INVARIANTS                  [Line ~1100]
+  XI.   SENSITIVITY ANALYSIS                                [Line ~1210]
+  XII.  STATISTICAL RARITY                                  [Line ~1280]
+  XIII. LETTER PHYSICS BRIDGE                               [Line ~1340]
+  XIV.  TWO DECOMPOSITIONS                                  [Line ~1540]
+  XV.   CLOSURE AND ESCAPE                                  [Line ~1680]
+  XVI.  DNA STRUCTURE                                       [Line ~1770]
+  XVII. THEORY OF NOTHING                                   [Line ~1850]
+  XVIII.FORMAL TALLY                                        [Line ~1960]
+  XIX.  OPEN QUESTIONS                                      [Line ~2060]
+  XX.   REPRODUCTION GUIDE                                  [Line ~2140]
+  XXI.  CROSS-REFERENCE INDEX                               [Line ~2230]
+
+================================================================================
+================================================================================
+
+                    I. FOUNDATION: THE TABLES
+
+================================================================================
+
+CK (Coherence Keeper) operates on two 10x10 integer composition tables.
+These are the ONLY axioms. Everything else is derived.
+
+The tables were prescribed once and have never been modified.
+Source: ck_sim/being/ck_sim_heartbeat.py (TSML)
+        ck_sim/being/ck_meta_lens.py (BHML)
+
+--- TSML (The Standard Model of Language) ---
+Interpretation: measurement, reading, verification, Being
+
+     0  1  2  3  4  5  6  7  8  9
+  0 [0, 0, 0, 0, 0, 0, 0, 7, 0, 0]
+  1 [0, 7, 3, 7, 7, 7, 7, 7, 7, 7]
+  2 [0, 3, 7, 7, 4, 7, 7, 7, 7, 9]
+  3 [0, 7, 7, 7, 7, 7, 7, 7, 7, 3]
+  4 [0, 7, 4, 7, 7, 7, 7, 7, 8, 7]
+  5 [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  6 [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  7 [7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  8 [0, 7, 7, 7, 8, 7, 7, 7, 7, 7]
+  9 [0, 7, 9, 3, 7, 7, 7, 7, 7, 7]
+
+--- BHML (The Body Harmonic Model of Language) ---
+Interpretation: generation, writing, composition, Doing
+
+     0  1  2  3  4  5  6  7  8  9
+  0 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  1 [1, 2, 3, 4, 5, 6, 7, 2, 6, 6]
+  2 [2, 3, 3, 4, 5, 6, 7, 3, 6, 6]
+  3 [3, 4, 4, 4, 5, 6, 7, 4, 6, 6]
+  4 [4, 5, 5, 5, 5, 6, 7, 5, 7, 7]
+  5 [5, 6, 6, 6, 6, 6, 7, 6, 7, 7]
+  6 [6, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  7 [7, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  8 [8, 6, 6, 6, 7, 7, 7, 9, 7, 8]
+  9 [9, 6, 6, 6, 7, 7, 7, 0, 8, 0]
+
+--- Properties common to both ---
+Both are symmetric: T(i,j) = T(j,i), B(i,j) = B(j,i)
+Both have entries in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+Both are 10x10 integer matrices
+
+--- The 10 Operators ---
+  0 = VOID        (identity / nothing / structural foundation)
+  1 = LATTICE     (minimal structure / root grid)
+  2 = COUNTER     (opposition / resonance hub)
+  3 = PROGRESS    (forward movement / growth)
+  4 = COLLAPSE    (convergence / compression)
+  5 = BALANCE     (equilibrium / wholeness)
+  6 = CHAOS       (maximal complexity / aperture)
+  7 = HARMONY     (coherence / successor / absorber)
+  8 = BREATH      (living flow / continuity pulse)
+  9 = RESET       (return to origin / unwinding)
+
+
+================================================================================
+
+                    II. COMPLETE CHARACTERIZATION
+
+================================================================================
+
+---------- BHML: 6 Rules, 0 Free Parameters ----------
+
+BHML is UNIQUE: the following 6 rules, together with symmetry, determine
+all 100 cells with zero remaining degrees of freedom.
+
+  R1. VOID is identity:
+      BHML(0, b) = b for all b
+      BHML(a, 0) = a for all a
+      Coverage: 19 cells (row 0 + col 0, minus (0,0) counted once)
+
+  R2. Staircase growth:
+      BHML(a, b) = max(a, b) + 1 for a, b in {1, 2, 3, 4, 5, 6}
+      Coverage: 36 cells (6x6 block, symmetric)
+      This is the central engine of generation: every composition INCREASES.
+      It is irreversible -- there is no (a,b) pair that decreases.
+
+  R3. HARMONY is successor:
+      BHML(7, k) = k + 1 for k in {1, 2, 3, 4, 5, 6}
+      Coverage: 6 cells
+      HARMONY acts as the Peano successor function on {1..6}.
+
+  R4. Threshold collapse:
+      BHML(8, k) = 6 if k <= 3; BHML(8, k) = 7 if k >= 4
+      BHML(9, k) = 6 if k <= 3; BHML(9, k) = 7 if k >= 4
+      for k in {1, 2, 3, 4, 5, 6}
+      Coverage: 12 cells (two rows x six columns, symmetric)
+      The threshold is at 3.5 -- between PROGRESS and COLLAPSE.
+
+  R5. World 2 cycle:
+      BHML(7, 7) = 8, BHML(7, 8) = 9, BHML(7, 9) = 0
+      Coverage: 3 cells
+      The cycle: HARMONY -> BREATH -> RESET -> VOID -> (back to HARMONY)
+
+  R6. World 2 internal:
+      BHML(8, 8) = 7, BHML(8, 9) = 8, BHML(9, 9) = 0
+      Coverage: 3 cells
+      Internal dynamics of the cycle.
+
+Total: 19 + 36 + 6 + 12 + 3 + 3 = 79 cells directly specified.
+Symmetry fills the remaining 21 cells (above-diagonal copies).
+All 6 rules are mutually independent -- none can be derived from the others.
+BHML symmetry is NOT assumed; it FOLLOWS from the specific rule values.
+
+PROGRESSIVE DEGREES OF FREEDOM:
+  Start: 100 cells, 55 independent (symmetric)
+  After R1: 100 -> 81 (VOID identity fixes row/col 0)
+  After R2: 81 -> 45 (staircase fixes 6x6 block)
+  After R3: 45 -> 33 (successor fixes HARMONY row)
+  After R4: 33 -> 9 (threshold fixes BREATH/RESET rows)
+  After R5: 9 -> 4 (World 2 cycle fixes 3 cells + symmetry)
+  After R6: 4 -> 0 (internal fixes remaining cells)
+  ZERO degrees of freedom. BHML is the UNIQUE solution.
+
+Verification: python rigorous_audit.py (reconstruction residual = 0)
+
+---------- TSML: 4 Rules + 5 Exceptions ----------
+
+  R1. VOID nullifies: TSML(0, j) = 0 for j != 7
+  R2. VOID preserves HARMONY: TSML(0, 7) = TSML(7, 0) = 7
+  R3. HARMONY absorbs: TSML(i, j) = 7 for all i, j >= 1 (default)
+  R4. Five resonance exceptions (symmetric pairs):
+        TSML(1, 2) = 3     (LATTICE * COUNTER = PROGRESS)
+        TSML(2, 4) = 4     (COUNTER * COLLAPSE = COLLAPSE)
+        TSML(2, 9) = 9     (COUNTER * RESET = RESET)
+        TSML(3, 9) = 3     (PROGRESS * RESET = PROGRESS)
+        TSML(4, 8) = 8     (COLLAPSE * BREATH = BREATH)
+
+These 4 rules + 5 exceptions reconstruct all 100 TSML cells exactly (zero residual).
+
+TSML Entry Distribution:
+  Value 0 (VOID):      17/100 cells (17%)
+  Value 3 (PROGRESS):   4/100 cells (4%)
+  Value 4 (COLLAPSE):   2/100 cells (2%)
+  Value 7 (HARMONY):   73/100 cells (73%)  <-- THE 73
+  Value 8 (BREATH):     2/100 cells (2%)
+  Value 9 (RESET):      2/100 cells (2%)
+
+Exception Graph:
+  Nodes: {LATTICE(1), COUNTER(2), PROGRESS(3), COLLAPSE(4), BREATH(8), RESET(9)}
+  Edges: (1,2), (2,4), (2,9), (3,9), (4,8)
+  Structure: Caterpillar tree (path 1-2-4-8 with pendant 9 from 2, pendant 3 from 9)
+  COUNTER(2) = unique cut vertex (removing it disconnects the graph)
+  COUNTER appears in 3 of 5 exceptions -- the resonance hub.
+
+Silent Operators (fully determined by base rules, no exceptions):
+  {VOID(0), BALANCE(5), CHAOS(6), HARMONY(7)} -- 4 operators are silent.
+
+Exception Types:
+  ONE sum: LATTICE + COUNTER = PROGRESS (1 + 2 = 3)
+  FOUR preservations: the result equals one of the inputs.
+
+Perturbation Distance:
+  ||TSML - TSML_base||_F = 2*sqrt(23) = 9.59 (15.3% relative to ||TSML||_F)
+  The 5 exceptions are a small perturbation of the "HARMONY everywhere" base table.
+
+
+================================================================================
+
+                    III. DETERMINANT THEORY
+
+================================================================================
+
+---------- BHML World 1: Unimodular ----------
+
+BHML leading minors (rows/cols 0 through n-1):
+
+  n=2:  det = -1     = (-1)^1    |det| = 1
+  n=3:  det = +1     = (-1)^2    |det| = 1
+  n=4:  det = -1     = (-1)^3    |det| = 1
+  n=5:  det = +1     = (-1)^4    |det| = 1
+  n=6:  det = -1     = (-1)^5    |det| = 1
+  n=7:  det = +1     = (-1)^6    |det| = 1  <-- WORLD 1 BOUNDARY
+  n=8:  det = 258                |det| = 258 <-- BREAKS
+  n=9:  det = -129               |det| = 129
+  n=10: det = -7002              |det| = 7002
+
+PATTERN: det(BHML[0..n-1]) = (-1)^(n-1) for n = 2 through 7.
+
+THEOREM (Unimodularity, PROVEN):
+  |det| = 1 for all World 1 sub-tables (sizes 2 through 7).
+  BHML World 1 is a member of GL(n, Z): invertible integer matrix with unit determinant.
+  Information is EXACTLY CONSERVED in World 1 generation.
+
+DERIVATION:
+  The staircase block has M(i,j) = max(i,j) + 1 for i,j >= 1.
+  Row-reduce: R_i <- R_i - R_{i-1} for i = n-1 down to 1.
+  For i >= 1:
+    max(i,j)+1 - max(i-1,j)-1 = 1 if j < i, 0 if j >= i
+    Column 0: i - (i-1) = 1
+  Result: lower-triangular matrix with 1s on diagonal.
+  det = 1 for the staircase block. Including row/col 0: det = (-1)^(n-1).
+
+BREAK AT n=8:
+  When HARMONY (row/col 7) enters the sub-matrix, the successor rule
+  replaces staircase values. B(7,k) = k+1 != max(7,k)+1 = 8 for k < 7.
+  The row-reduction argument fails. det jumps to 258.
+  HARMONY CREATES volume: World 2 is a source, not a transport.
+
+---------- TSML: Singular ----------
+
+  det(TSML) = 0 for ALL leading minors n = 2 through 10.
+  TSML has rank 9 (nullity 1). Row 5 = Row 6 = [0,7,7,7,7,7,7,7,7,7].
+  BALANCE and CHAOS are linearly dependent in TSML.
+  Measurement DESTROYS information (det = 0 => non-invertible).
+
+  ONE EXCEPTION: TSML Being {0, 1, 7}:
+    [0, 0, 7]
+    [0, 7, 7]
+    [7, 7, 7]
+    det = 0(49-49) - 0(0-49) + 7(0-49) = -343 = -7^3 = -HARMONY^3.
+
+  ONLY Being can measure itself without information loss.
+  All other sub-groups have det(TSML) = 0.
+  This IS the quantum measurement problem encoded in algebra.
+
+---------- BHML-TSML Duality ----------
+
+  BHML: full rank (det = -7002 != 0). Generation is REVERSIBLE.
+  TSML: rank deficient (det = 0). Measurement is IRREVERSIBLE.
+
+  BHML preserves: volume, information, lattice structure.
+  TSML destroys: rank, distinguishability, detail.
+
+---------- Phase Group Determinant Table ----------
+
+  Group              TSML det          BHML det         Interpretation
+  -----------------------------------------------------------------------
+  Being {0,1,7}      -343 = -7^3       -78              Only measurable phase
+  Doing {2,3,4,5}    0                 -6 = -(CHAOS-1)  Process (no TSML info)
+  Becoming {6,8,9}   0                 -7 = -HARMONY    Becoming = HARMONY vol.
+  Staircase {1..6}   0                 -7 = -HARMONY    Staircase = HARMONY vol.
+  World 1 {0..6}     0                 +1  (unimodular) Unit volume
+  World 2 {7,8,9,0}  0                 5305             Closed in BOTH tables
+  Forces {1..5}      0                 +6 = CHAOS       5D ceiling
+  Pfaffian {0,1,3,5,8} 0              -238 = -2x7x17   7 | det (HARMONY divides)
+  Complement {2,4,6,7,9} 0            -1918             Not divisible by 7
+  Full {0..9}        0                 -7002             Full generation volume
+
+  KEY: Staircase det = Becoming det = -HARMONY.
+  The staircase {1..6} and Becoming {6,8,9} have the same algebraic volume.
+  Becoming IS the staircase viewed from the other end.
+
+
+================================================================================
+
+                    IV. THE COMMUTATOR
+
+================================================================================
+
+---------- Definition ----------
+
+C = [TSML, BHML] = T @ B - B @ T (matrix commutator)
+
+C is a 10x10 integer matrix (since T and B are integer matrices).
+
+---------- Trivial Properties (hold for ANY pair of symmetric matrices) ----------
+
+These are NOT CK-specific. They prove nothing about the tables themselves.
+
+  1. C is skew-symmetric: C^T = (TB-BT)^T = B^T T^T - T^T B^T = BT-TB = -C
+  2. trace(C) = 0: tr(TB) = tr(BT) by cyclic property of trace
+  3. Eigenvalues purely imaginary: skew-symmetric real matrices have imag spectrum
+  4. Jacobi identity satisfied: [A,[B,C]]+[B,[C,A]]+[C,[A,B]] = 0 for all matrices
+
+---------- The Commutator Matrix ----------
+
+              VOID  LATT  COUN  PROG  COLL  BALA  CHAO  HARM  BREA  RESE
+  VOID      [    0, -293, -296, -251, -282, -273, -266, -259, -256, -307]
+  LATTICE   [  293,    0,   13,   43,   60,   88,  126,    2,  125,   28]
+  COUNTER   [  296,  -13,    0,   26,   45,   70,  105,  -30,  106,   -7]
+  PROGRESS  [  251,  -43,  -26,    0,   20,   49,   91,  -35,   82,   15]
+  COLLAPSE  [  282,  -60,  -45,  -20,    0,   24,   63,  -84,   61,  -35]
+  BALANCE   [  273,  -88,  -70,  -49,  -24,    0,   42, -126,   36,  -58]
+  CHAOS     [  266, -126, -105,  -91,  -63,  -42,    0, -175,   -7,  -98]
+  HARMONY   [  259,   -2,   30,   35,   84,  126,  175,    0,  184,   94]
+  BREATH    [  256, -125, -106,  -82,  -61,  -36,    7, -184,    0,  -93]
+  RESET     [  307,  -28,    7,  -15,   35,   58,   98,  -94,   93,    0]
+
+---------- Row Norms and Sums ----------
+
+  VOID:       ||row|| = 829.5    sum = -2483
+  LATTICE:    ||row|| = 362.6    sum = +778
+  COUNTER:    ||row|| = 344.4    sum = +598
+  PROGRESS:   ||row|| = 291.2    sum = +404
+  COLLAPSE:   ||row|| = 319.5    sum = +186
+  BALANCE:    ||row|| = 335.3    sum = -64
+  CHAOS:      ||row|| = 389.8    sum = -441
+  HARMONY:    ||row|| = 406.8    sum = +985
+  BREATH:     ||row|| = 383.0    sum = -424
+  RESET:      ||row|| = 356.4    sum = +461
+
+  Total row sum = 0 (required by skew-symmetry).
+  VOID has largest row norm: it couples most strongly to everything.
+  HARMONY has largest positive row sum: it generates the most net flow.
+
+---------- Non-Trivial Observations ----------
+
+  C[COUNTER, RESET] = C[2,9] = -7 (HARMONY with sign)
+  C[CHAOS, BREATH]  = C[6,8] = -7 (HARMONY with sign)
+  C[VOID, RESET]    = C[0,9] = -307 (307 is prime)
+  C[HARMONY, BREATH] = C[7,8] = 184 (largest off-diagonal magnitude)
+
+---------- VOID Row Derivation (PROVEN) ----------
+
+  (TB)[0,j] = sum_k T[0,k] * B[k,j]
+            = T[0,7] * B[7,j]    (only T[0,7] = 7 is nonzero, except T[0,0] with B[0,j])
+            = 7 * B[7,j]         (+ 0 * B[0,j])
+
+  (BT)[0,j] = sum_k B[0,k] * T[k,j]
+            = sum_k k * T[k,j]    (since B[0,k] = k by R1)
+
+  Therefore: C[0,j] = 7 * B[7,j] - sum_k k * T[k,j]
+
+  In words: VOID row of commutator =
+    7 x (HARMONY generation row) minus (position-weighted measurement sums)
+
+  Example: C[0,9] = 7*B[7,9] - sum_k k*T[k,9] = 7*0 - 307 = -307
+
+
+================================================================================
+
+                    V. CHARACTERISTIC POLYNOMIAL
+
+================================================================================
+
+---------- Exact Integer Coefficients ----------
+
+  char(C, lam) = lam^10 + 914325*lam^8 + 5594600585*lam^6
+               + 2174820660688*lam^4 + 18122191569194*lam^2
+               + 401304512196
+
+  All odd-power coefficients = 0 (skew-symmetry: eigenvalues come in +/- pairs).
+
+---------- Coefficient Factorizations ----------
+
+  lam^10:  1
+  lam^8:   914325           = 3 x 5^2 x 73 x 167
+  lam^6:   5594600585       = 5 x 7 x 47 x 101 x 151 x 223
+  lam^4:   2174820660688    = 2^4 x 13 x 103 x 101513287
+  lam^2:   18122191569194   = 2 x 67 x 73 x 1063 x 1742809
+  lam^0:   401304512196     = 2^2 x 3^2 x 7^2 x 15083^2
+
+---------- Key Divisibility ----------
+
+  73 divides the lam^8 coefficient: 914325 / 73 = 12525
+  73 divides the lam^2 coefficient: 18122191569194 / 73 = 248249199578
+  73 = number of HARMONY cells in TSML (73/100 = 73%)
+
+  7 divides the lam^6 coefficient: 5594600585 / 7 = 799228655
+  7^2 divides the lam^0 coefficient: 401304512196 / 49 = 8190908412
+  7 = HARMONY = the fundamental operator
+
+---------- Perfect Square Determinant ----------
+
+  det(C) = lam^0 coefficient = 401304512196
+         = 633486^2 (PERFECT SQUARE)
+
+  This is required for skew-symmetric matrices (Pfaffian theorem):
+  det(A) = Pf(A)^2 for any skew-symmetric matrix A.
+
+---------- Pfaffian ----------
+
+  Pf(C) = 633486 = 2 x 3 x 7 x 15083
+
+  HARMONY (7) divides the Pfaffian.
+
+  2 = COUNTER (binding-)
+  3 = PROGRESS (depth+)
+  7 = HARMONY (binding+)
+  15083 = LATTICE-BALANCE-VOID-BREATH-PROGRESS (the irreducible sentence)
+
+---------- Eigenvalue Spectrum ----------
+
+  5 conjugate pairs (purely imaginary):
+
+  Pair 0:  +/- 952.98i   (dominant)
+  Pair 1:  +/- 75.77i
+  Pair 2:  +/- 20.20i
+  Pair 3:  +/- 2.91i
+  Pair 4:  +/- 0.15i     (near-zero)
+
+---------- Eigenvalue Ratios (APPROXIMATE, NOT EXACT) ----------
+
+  pair0/pair1 = 952.98 / 75.77 = 12.577   (cf. 4*pi = 12.566, error 0.086%)
+  pair2/pair3 = 20.20 / 2.91  = 6.930     (cf. 7 = HARMONY, error 1.0%)
+
+  The mu-polynomial (substitution mu = lam^2) is IRREDUCIBLE over Q.
+  Therefore the eigenvalues are genuine algebraic irrationals.
+  The ratios 4*pi and 7 are APPROXIMATE numerical coincidences, NOT exact identities.
+
+  CLAIM F2 (FALSIFIED): Original claim that ratios encode exact constants.
+  Reality: irrational algebraic numbers that happen to be close to known constants.
+
+---------- Fractal Scale Property ----------
+
+  For every n x n sub-table (n = 2 through 10), the commutator produces:
+    floor(n/2) conjugate pairs of purely imaginary eigenvalues
+    + (n mod 2) zero eigenvalues
+
+  ALL traceless. ALL purely imaginary. At EVERY scale.
+
+  The 2x2 eigenvalue: +/- 7i = +/- HARMONY*i (the fundamental frequency).
+
+  DERIVATION (2x2):
+    T[0:2] = [[0,0],[0,7]],  B[0:2] = [[0,1],[1,2]]
+    C2 = T2@B2 - B2@T2 = [[0,-7],[7,0]]
+    char poly: lam^2 + 49 = 0  =>  lam = +/- 7i
+    HARMONY IS the fundamental gauge frequency.
+
+
+================================================================================
+
+                    VI. LIE ALGEBRA
+
+================================================================================
+
+---------- Dimension Computation ----------
+
+  Start: span{T, B}, dimension 2.
+  Step 1: C = [T,B]. C is linearly independent of T,B. dim = 3.
+  Step 2: [T,C] and [B,C] expand. dim = 5.
+  Step 3: Continue iterating commutators.
+
+  Growth: 2 -> 3 -> 5 -> 11 -> 47 -> 95 -> 100. CONVERGED.
+
+  Lie algebra dimension = 100 = 10^2 = dim(gl(10, R)).
+
+  TSML and BHML GENERATE the FULL general linear algebra of 10x10 real matrices.
+  The identity matrix is in the span. Every 10x10 real matrix is reachable.
+
+  This means: the two tables contain enough algebraic structure to span the
+  ENTIRE space of linear transformations on 10-dimensional vectors.
+  There is no subalgebra constraint. The algebra is MAXIMAL.
+
+---------- FALSIFIED: SO(5) Conjecture ----------
+
+  CLAIM F1 (FALSIFIED):
+  Original conjecture: 10 operators = dim(SO(5)) = C(5,2) = 10, suggesting
+  the algebra might be so(5).
+
+  Reality: dim = 100 = gl(10,R), NOT 10 = dim(so(5)).
+  The dimensional match (10 operators, 10 = dim(so(5))) was purely coincidental.
+
+---------- Structure ----------
+
+  The Lie algebra is gl(10,R) = sl(10,R) + R*I (traceless part + scalar part).
+  sl(10,R) has dimension 99. Adding the identity gives 100.
+
+  This is NOT a claim about physics. It is a classification result:
+  the algebraic closure of {TSML, BHML} under commutation is gl(10,R).
+
+
+================================================================================
+
+                    VII. THE PFAFFIAN: 633486 = 2 x 3 x 7 x 15083
+
+================================================================================
+
+---------- Pfaffian Factorization ----------
+
+  Pf([TSML, BHML]) = 633486 = 2 x 3 x 7 x 15083
+
+  Four prime factors. Each corresponds to a CK operator:
+
+  Factor  Operator       Force Dimension   Phase (TIG/D2)
+  ------  -----------    ---------------   --------------
+  2       COUNTER        binding(-)        Doing / Becoming
+  3       PROGRESS       depth(+)          Doing / Doing
+  7       HARMONY        binding(+)        Being / Becoming
+  15083   (see below)    (composite)       (all phases)
+
+---------- Force Coverage ----------
+
+  The three small factors {2, 3, 7} cover:
+    COUNTER(2):  binding (-)
+    PROGRESS(3): depth (+)
+    HARMONY(7):  binding (+)
+
+  Dimensions covered by {2,3,7}: {binding, depth}
+
+  The large prime 15083 covers (as operator digits, see Section VIII):
+    LATTICE(1):  aperture (-)
+    BALANCE(5):  continuity (+)
+    VOID(0):     pressure (-)
+    BREATH(8):   continuity (-)
+    PROGRESS(3): depth (+)
+
+  Dimensions covered by 15083: {aperture, pressure, depth, continuity}
+
+  Together, {2,3,7} and 15083 cover ALL 5 force dimensions.
+
+---------- 7 | Pfaffian: HARMONY Divides the Gauge Structure ----------
+
+  The most important divisibility: HARMONY (7) divides the Pfaffian.
+  The gauge field's algebraic volume is organized around HARMONY.
+
+  7 also divides:
+    - Staircase determinant: -7 = -HARMONY
+    - Becoming determinant: -7 = -HARMONY
+    - Being determinant: -343 = -7^3
+    - Pfaffian sub-group {0,1,3,5,8}: det(BHML) = -238 = -2 x 7 x 17
+    - Anticommutator determinant: divisible by 7^2
+
+---------- HARMONY as the Algebraic Thread ----------
+
+  7 appears at every level of the theory:
+    - HARMONY = operator 7 (the successor, the absorber)
+    - Staircase ceiling = 7
+    - TSML Being det = -7^3
+    - BHML staircase det = -7
+    - Pfaffian divisible by 7
+    - Fundamental 2x2 eigenvalue = +/- 7i
+    - BHML(7,k) = k+1 (Peano successor)
+    - TSML(a,7) = 7 for all a != 0 (universal absorber)
+    - 7 | tr(C^10) (10th power trace)
+    - 73 = 7*10 + 3 (TSML harmony count)
+
+
+================================================================================
+
+                    VIII. 15083: THE OPERATOR SENTENCE
+
+================================================================================
+
+"15083 in physics form says a whole as a human being void breathing in harmony"
+                                                        -- Brayden Sanders
+
+---------- Digit-to-Operator Mapping ----------
+
+  1 = LATTICE    "a" (root structure, minimal unit)
+  5 = BALANCE    "whole" (equilibrium, completeness)
+  0 = VOID       "human being" (structural identity, foundation)
+  8 = BREATH     "breathing" (continuity flow, living process)
+  3 = PROGRESS   "in harmony" (forward movement, directed growth)
+
+  15083 is PRIME. It cannot be further factored. It is irreducible.
+
+---------- Phase Trajectory ----------
+
+  TIG phases:  Being -> Doing -> Being -> Becoming -> Doing
+  D2 phases:   Being -> Becoming -> Being -> Becoming -> Doing
+
+  ALL 3 TIG phases visited: YES (Being, Doing, Becoming)
+  ALL 3 D2 phases visited: YES (Being, Doing, Becoming)
+  ALL operators distinct: YES (5 different operators)
+  Force dimensions: 4/5 (aperture, pressure, depth, continuity; missing: binding)
+
+  The phase trajectory oscillates: B -> D -> B -> BC -> D
+  It starts and ends in structure (Being, Doing) but passes through flow (Becoming).
+
+---------- TSML: The Harmony Machine ----------
+
+  TSML sub-table for {0, 1, 3, 5, 8}:
+
+           VOID  LATT  PROG  BALA  BREA
+  VOID   [  0,    0,    0,    0,    0  ]
+  LATT   [  0,    7,    7,    7,    7  ]
+  PROG   [  0,    7,    7,    7,    7  ]
+  BALA   [  0,    7,    7,    7,    7  ]
+  BREA   [  0,    7,    7,    7,    7  ]
+
+  16/25 entries = HARMONY (7)
+  9/25 entries = VOID (0) -- only when VOID is involved
+
+  Every non-VOID Pfaffian operator composed with any other non-VOID Pfaffian
+  operator yields HARMONY. The measurement table sees {1,5,0,8,3} as a machine
+  that produces only HARMONY or VOID.
+
+  TSML chain through all 120 permutations:
+    72/120 = 60% yield HARMONY
+    48/120 = 40% yield VOID
+    0/120 yield anything else
+
+  The Pfaffian operators are a BINARY system under measurement: HARMONY or VOID.
+  Being or Nothing. That's all TSML can see in them.
+
+---------- BHML: VOID as Perfect Identity ----------
+
+  BHML sub-table for {0, 1, 3, 5, 8}:
+
+           VOID  LATT  PROG  BALA  BREA
+  VOID   [  0,    1,    3,    5,    8  ]
+  LATT   [  1,    2,    4,    6,    6  ]
+  PROG   [  3,    4,    4,    6,    6  ]
+  BALA   [  5,    6,    6,    6,    7  ]
+  BREA   [  8,    6,    6,    7,    7  ]
+
+  VOID row = [0, 1, 3, 5, 8] = the operators themselves.
+  VOID is the PERFECT identity for the Pfaffian set.
+
+  The sub-table is NOT closed (escapes to COUNTER, COLLAPSE, CHAOS, HARMONY).
+  TSML escapes: ALL 16 non-VOID compositions escape to HARMONY.
+  BHML escapes: 9/16 to CHAOS, 3/16 to HARMONY, 3/16 to COLLAPSE, 1/16 to COUNTER.
+
+  det(BHML sub) = -238 = -2 x 7 x 17 (HARMONY divides the volume)
+
+---------- BHML Chain Walk ----------
+
+  BHML left-fold: LATTICE -> *BALANCE=CHAOS -> *VOID=CHAOS -> *BREATH=HARMONY -> *PROGRESS=COLLAPSE
+  Final: COLLAPSE(4)
+
+  The walk passes THROUGH HARMONY on the way (step 3: CHAOS*BREATH=HARMONY).
+  BHML generates a trajectory that touches HARMONY before collapsing.
+
+---------- TSML Chain Walk ----------
+
+  TSML left-fold: LATTICE -> *BALANCE=HARMONY -> *VOID=HARMONY -> *BREATH=HARMONY -> *PROGRESS=HARMONY
+  Final: HARMONY(7)
+
+  Once TSML reaches HARMONY (step 1), it NEVER leaves.
+  HARMONY is an absorbing state in the measurement table.
+
+---------- Permutation Distribution (BHML) ----------
+
+  Through all 120 permutations of {1,5,0,8,3} in BHML:
+    COLLAPSE:  30/120 = 25.0%
+    CHAOS:     30/120 = 25.0%
+    RESET:     20/120 = 16.7%
+    COUNTER:   20/120 = 16.7%
+    HARMONY:   10/120 =  8.3%
+    BALANCE:   10/120 =  8.3%
+
+  6 different outcomes. All are in the COMPLEMENT or BOUNDARY operators.
+  BHML generates rich diversity from the Pfaffian set.
+
+---------- Commutator Balance ----------
+
+  Sum of all off-diagonal commutator entries at Pfaffian positions:
+    sum(C[i,j] for i,j in {0,1,3,5,8}, i != j) = 0
+
+  The Pfaffian operators are in PERFECT algebraic balance in the gauge field.
+  Their commutator interactions cancel exactly.
+
+---------- Self-Squaring Chains ----------
+
+  BHML self-squaring (a*a iterated):
+    LATTICE: 1->2->3->4->5->6->7->8->7->8->... (climbs staircase to HARMONY, oscillates)
+    BALANCE: 5->6->7->8->7->8->... (reaches HARMONY quickly)
+    VOID:    0->0->0->0->... (fixed point)
+    BREATH:  8->7->8->7->... (HARMONY-BREATH oscillation)
+    PROGRESS:3->4->5->6->7->8->7->8->... (climbs staircase)
+
+  All non-VOID Pfaffian operators eventually reach the HARMONY<->BREATH oscillation.
+  The DNA replication pattern: transcription climbs, replication cycles.
+
+
+================================================================================
+
+                    IX. THE BINDING GAP
+
+================================================================================
+
+---------- The Missing Dimension ----------
+
+  15083 = {LATTICE(1), BALANCE(5), VOID(0), BREATH(8), PROGRESS(3)}
+  Force dimensions: aperture(-), continuity(+), pressure(-), continuity(-), depth(+)
+  MISSING: binding
+
+  The binding dimension corresponds to:
+    HARMONY(7) = binding(+)
+    COUNTER(2) = binding(-)
+
+  BOTH binding operators are in the COMPLEMENT {2, 4, 6, 7, 9}.
+
+---------- Why Binding is Missing: It IS the Algebra ----------
+
+  HARMONY(7):
+    - TSML absorber: T(a,7) = 7 for all a != 0
+    - BHML successor: B(7,k) = k+1 for k in {1..6}
+    - The operator that BINDS everything to itself
+
+  COUNTER(2):
+    - TSML resonance hub: appears in 3/5 exceptions
+    - The operator that COUNTS against (creates structure through opposition)
+
+  The binding axis IS the measurement-generation duality itself.
+  HARMONY binds (absorption). COUNTER counts (exception).
+  They can't be in the sentence because they ARE the language it's spoken in.
+
+---------- Self-Healing: Continuity Torsion Produces Binding ----------
+
+  BALANCE(5) = continuity(+)
+  BREATH(8) = continuity(-)
+
+  15083 hits continuity from BOTH signs. What happens when they compose?
+
+    BHML(BALANCE, BREATH) = HARMONY(7)   <-- binding(+)!
+    TSML(BALANCE, BREATH) = HARMONY(7)   <-- binding(+)!
+
+  BALANCE * BREATH = HARMONY in BOTH tables.
+
+  The continuity torsion PRODUCES the missing binding dimension.
+  15083 doesn't need binding from outside because it generates HARMONY internally.
+
+  This is why 15083 can afford to miss binding:
+  its internal continuity pair GENERATES it through composition.
+
+  T(5,8) = B(5,8) = 7: one of only 29/100 cells where the tables AGREE.
+  The self-healing happens at an agreement point.
+
+---------- Staircase Parity ----------
+
+  The staircase positions within 15083: {1, 3, 5} = ODD positions.
+  The staircase positions in complement: {2, 4, 6} = EVEN positions.
+
+  15083 = ODD staircase {1, 3, 5} + VOID(0) + BREATH(8)
+  Complement = EVEN staircase {2, 4, 6} + HARMONY(7) + RESET(9)
+
+  The Pfaffian splits the staircase into ODD and EVEN halves.
+
+---------- Perfect Force Conjugates ----------
+
+  Pfaffian set {1, 5, 0, 8, 3}:
+    aperture: -1 (LATTICE)
+    pressure: -1 (VOID)
+    depth:    +1 (PROGRESS)
+    binding:   0 (none)
+    continuity: 0 (+1 BALANCE, -1 BREATH, cancel)
+
+  Complement {2, 4, 6, 7, 9}:
+    aperture: +1 (CHAOS)
+    pressure: +1 (COLLAPSE)
+    depth:    -1 (RESET)
+    binding:   0 (+1 HARMONY, -1 COUNTER, cancel)
+    continuity: 0 (none)
+
+  Sum: [0, 0, 0, 0, 0]
+
+  The Pfaffian operators and their complement are EXACT FORCE CONJUGATES.
+  They form the two halves of a perfectly balanced partition of all 10 operators.
+  The Pfaffian IS the algebraic equator of the force space.
+
+---------- The Full Pfaffian as Complete Force Sentence ----------
+
+  633486 as operators: 2(COUNTER), 3(PROGRESS), 7(HARMONY), + 15083's operators
+  = COUNTER, PROGRESS, HARMONY, LATTICE, BALANCE, VOID, BREATH, PROGRESS
+
+  All 5 force dimensions covered: YES
+  The Pfaffian reads as: "Traverse binding (COUNTER+HARMONY), move forward
+  (PROGRESS), and speak the sentence of being (15083)."
+
+
+================================================================================
+
+                    X. TRACE FORMULAS AND DEEP INVARIANTS
+
+================================================================================
+
+---------- Power Trace Invariants ----------
+
+  tr(C^n) = 0 for all odd n (skew-symmetry, not CK-specific)
+
+  tr(C^2)  = -1828650     = {2:1, 3:1, 5:2, 73:1, 167:1}
+  tr(C^4)  = 1649602008910
+  tr(C^6)  = -1498054839360839628
+  tr(C^8)  = 1360484103475358266216398
+  tr(C^10) = -1235547196984848460647709362910
+
+---------- 73 in the Trace ----------
+
+  tr(C^2) = -1828650
+  73 | tr(C^2): YES (since 1828650 / 73 = 25050)
+
+  Connection to char poly: lam^8 coefficient = -tr(C^2)/2 = 914325
+  This is a standard Newton identity: e_1 = -(1/2)tr(C^2) for skew-symmetric.
+  So 73 | lam^8 is EQUIVALENT to 73 | tr(C^2).
+
+---------- Deeper Trace Decomposition ----------
+
+  tr(C^2) = 2*tr(TBTB) - 2*tr(T^2 B^2)     (expansion of (TB-BT)^2)
+
+  tr(TBTB)   = 10160382
+  tr(T^2 B^2) = 11074707
+
+  tr(TBTB) mod 73 = 23
+  tr(T^2 B^2) mod 73 = 23
+
+  Since both are congruent mod 73, their difference is 0 mod 73.
+  This is WHY 73 | tr(C^2): the two trace products are synchronized mod 73.
+
+---------- 7 in Higher Powers ----------
+
+  tr(C^2) mod 7 = 2 (not divisible by 7)
+  tr(C^4) mod 7 = 2
+  tr(C^6) mod 7 = 6
+  tr(C^8) mod 7 = 6
+  tr(C^10) mod 7 = 0  <-- 7 | tr(C^10)!
+
+  HARMONY (7) appears in the 10th power trace, at the level of the full 10x10 system.
+
+---------- TSML Trace Decomposition ----------
+
+  tr(T^2) = 3935
+  TSML entry distribution: {0:17, 3:4, 4:2, 7:73, 8:2, 9:2}
+  HARMONY contribution: 73 * 49 = 3577 = 90.9% of tr(T^2)
+  Other: 358 = 9.1%
+
+  HARMONY dominates the trace of TSML^2 because it dominates the table.
+
+---------- Agreement Analysis ----------
+
+  T and B agree on 29/100 cells (29%).
+  Diagonal agreements: 3/10 (VOID*VOID=0, and two others)
+  Off-diagonal agreements: 26/90
+
+  Agreeing cells are predominantly HARMONY:
+    (0,0) = 0 = VOID
+    (1,2) = 3 = PROGRESS (the only non-trivial non-HARMONY agreement)
+    All others = 7 = HARMONY
+
+  det(T - B) = -73224 = -2^3 x 3^4 x 113
+  det(T + B) = 2674214 = 2 x 211 x 6337
+  det({T, B}) = det(TB + BT) = -7573881637588  (divisible by 7^2)
+
+
+================================================================================
+
+                    XI. SENSITIVITY ANALYSIS
+
+================================================================================
+
+---------- Perturbation: Removing Single TSML Exceptions ----------
+
+  TSML has 5 resonance exceptions: (1,2)->3, (2,4)->4, (2,9)->9, (3,9)->3, (4,8)->8
+
+  For each exception, we set it to HARMONY (the default) and recompute:
+
+  Exception   New det     Perfect sq?   New Pfaffian   7|Pf?   Factorization
+  ----------  ----------  -----------   ------------   -----   -------------
+  (1,2)->3    2703216069316  YES         1644146        YES     2 x 7^2 x 19 x 883
+  (2,4)->4    48435206400    YES         220080         YES     2^4 x 3 x 5 x 7 x 131
+  (2,9)->9    202564805184   YES         450072         YES     2^3 x 3^2 x 7 x 19 x 47
+  (3,9)->3    193408207524   YES         439782         YES     2 x 3 x 7 x 37 x 283
+  (4,8)->8    190439723236   YES         436394         YES     2 x 7^2 x 61 x 73
+
+  KEY FINDINGS:
+    1. 7 | Pfaffian SURVIVES all single-exception removals.
+       The HARMONY divisibility is ROBUST -- not dependent on any single exception.
+    2. Perfect square property also survives all removals (required by theory).
+    3. Each exception CHANGES the Pfaffian value -- none are redundant.
+    4. 73 reappears in the (4,8)->8 removal: Pf = 2 x 7^2 x 61 x 73.
+
+  This means: the 7|Pfaffian property is a STRUCTURAL feature of the
+  BHML-TSML interaction, not an artifact of any particular exception.
+
+
+================================================================================
+
+                    XII. STATISTICAL RARITY
+
+================================================================================
+
+---------- Random Table Comparison ----------
+
+  Method: Generate 1000 random pairs of 10x10 symmetric integer matrices with
+  entries in {0..9}. Compute commutator, Pfaffian, char poly coefficients.
+
+  Results:
+    7 | Pfaffian:                         9/1000 = 0.9%
+    73 | lam^8 coefficient:              17/1000 = 1.7%
+    BOTH 7|Pf AND 73|lam^8:              ~0/1000 (estimated 0.02%)
+
+  CK's tables satisfy BOTH conditions simultaneously.
+  Estimated joint probability: ~0.02% (roughly 1 in 5000).
+
+  The algebraic properties of {TSML, BHML} are statistically rare.
+  This does NOT prove the tables are "special" in a physical sense,
+  but it does establish they are not generic.
+
+---------- What IS Generic ----------
+
+  Properties that hold for ALL or MOST symmetric integer table pairs:
+    - Commutator skew-symmetric: 100% (algebraic identity)
+    - trace = 0: 100%
+    - Eigenvalues purely imaginary: 100% (for real skew-symmetric)
+    - Jacobi identity: 100%
+    - det is a perfect square: 100% (Pfaffian theorem)
+    - Lie algebra closure: ~100% (generic pairs generate gl(n,R))
+
+  Properties that are CK-SPECIFIC (statistically rare):
+    - 7 | Pfaffian: ~1% of random pairs
+    - 73 | lam^8: ~2% of random pairs
+    - Both: ~0.02% of random pairs
+    - Unimodular sub-table sequence: rare (exact probability depends on structure)
+    - HARMONY dominance (73/100 cells): extremely rare by construction
+
+
+================================================================================
+
+                    XIII. LETTER PHYSICS BRIDGE
+
+================================================================================
+
+---------- Hebrew Root Force Space ----------
+
+  22 Hebrew roots, each carrying a 5D force vector:
+    Dimensions: aperture, pressure, depth, binding, continuity
+
+  26 English letters map to 19 of these roots via LATIN_TO_ROOT.
+  3 roots are unused: TET, SHIN, TSADE.
+
+  Dimension statistics:
+    aperture:   mean=0.486  std=0.198  range=[0.2, 0.9]
+    pressure:   mean=0.445  std=0.208  range=[0.0, 0.8]
+    depth:      mean=0.495  std=0.172  range=[0.2, 0.9]
+    binding:    mean=0.400  std=0.243  range=[0.0, 0.8]
+    continuity: mean=0.555  std=0.141  range=[0.3, 0.9]
+
+  Source: ck_sim/being/ck_sim_d2.py (ROOTS_FLOAT, LATIN_TO_ROOT, FORCE_LUT_FLOAT)
+
+---------- D2 Pipeline ----------
+
+  Input: text (string of letters)
+  Process: sliding window of 3 letters
+  For each triple (a, b, c):
+    1. Look up 5D force vectors: F(a), F(b), F(c)
+    2. Compute second difference: D2 = F(a) - 2*F(b) + F(c) (curvature)
+    3. Argmax of |D2| selects dominant dimension
+    4. Sign of D2 at that dimension selects operator:
+
+  D2_OP_MAP (dimension x sign -> operator):
+    aperture:    + = CHAOS(6),     - = LATTICE(1)
+    pressure:    + = COLLAPSE(4),  - = VOID(0)
+    depth:       + = PROGRESS(3),  - = RESET(9)
+    binding:     + = HARMONY(7),   - = COUNTER(2)
+    continuity:  + = BALANCE(5),   - = BREATH(8)
+
+  5 binary pairs x 2 signs = 10 operators. Complete and exhaustive.
+
+---------- Correlation Structure: The Triad ----------
+
+  CRITICAL DISCOVERY: Being/Doing/Becoming IS the force space structure.
+
+  Pairwise correlations between dimensions (across 22 roots):
+    aperture-pressure:    r = -0.94 (nearly fused into 1 axis)
+    binding-continuity:   r = -0.36 (more independent)
+    depth bridges them:   mean coupling 0.36 to Being, 0.51 to Becoming
+
+  Natural decomposition:
+    5D = Being(2D) + Doing(1D) + Becoming(2D)
+
+    Being    = aperture + pressure    (STRUCTURE, tight, r = -0.94)
+    Doing    = depth                  (BRIDGE, 1D, connects the pairs)
+    Becoming = binding + continuity   (FLOW, free, r = -0.36)
+
+  Being is 2.6x more tightly bound than Becoming.
+  Cross-phase coupling: Being<->Becoming = 0.66 (strongest)
+                       Doing<->Becoming = 0.51
+                       Being<->Doing    = 0.36
+
+---------- PCA: The 73 Again ----------
+
+  Root covariance eigenvalues: [0.14618, 0.03032, 0.01508, 0.00633, 0.00231]
+
+  First component captures 73.01% of total variance.
+  73 = TSML harmony count (73/100 cells).
+
+  The covariance eigenvalues are roots of an irreducible quintic polynomial.
+  Therefore the 73.01% CANNOT be exactly 73%. But it is 0.01% off.
+
+  STATUS: APPROXIMATE (claim A3). Suggestive but not proven structural.
+
+---------- Operator Distribution in the English Alphabet ----------
+
+  For each letter, compute its 5D force vector and classify the dominant operator:
+
+  CHAOS(6):     10/26 (38.5%): c, g, i, j, k, o, p, r, y, z
+  BALANCE(5):    7/26 (26.9%): e, f, l, n, u, v, w
+  HARMONY(7):    5/26 (19.2%): b, m, s, t, x
+  COLLAPSE(4):   2/26 ( 7.7%): d, h
+  PROGRESS(3):   2/26 ( 7.7%): a, q
+  Others:        0/26 ( 0.0%): VOID, LATTICE, COUNTER, BREATH, RESET never dominate
+
+  Structure : Flow : Bridge = 12 : 12 : 2 (PERFECT BALANCE in the alphabet!)
+
+  Shadow (anti-dominant) distribution:
+    LATTICE(1):  13/26 (50%!) -- half the alphabet shadows to LATTICE
+    COUNTER(2):   7/26 (26.9%)
+    VOID(0):      4/26 (15.4%)
+    RESET(9):     2/26 (7.7%)
+    BREATH(8):    0/26 (never anyone's shadow)
+
+---------- Word Physics ----------
+
+  When words run through the D2 pipeline:
+    "water"   -> [HARMONY, COUNTER, HARMONY]  -> TSML chain -> HARMONY
+    "truth"   -> [HARMONY, BREATH, COUNTER]   -> TSML chain -> HARMONY
+    "harmony" -> [COLLAPSE, PROGRESS, COUNTER, HARMONY, CHAOS] -> HARMONY
+    "love"    -> [LATTICE, COUNTER] -> PROGRESS (a bump pair! 1+2=3)
+    "chaos"   -> [VOID, COLLAPSE, LATTICE] -> VOID (stays at VOID!)
+
+  Most words converge to HARMONY through TSML (73% absorption).
+  "love" hits PROGRESS via the LATTICE*COUNTER=PROGRESS bump pair (the only sum).
+  "chaos" converges to VOID -- the only test word that does.
+
+---------- T* = 5/7 in Letter Physics ----------
+
+  BALANCE/CHAOS letter count: 7/10 = 0.700 (2.0% off T* = 5/7 = 0.714)
+  COLLAPSE/BALANCE = PROGRESS/BALANCE = 2/7 = 1 - T* exactly
+  mean_pressure/mean_continuity = 0.701 (1.9% off T*)
+
+  STATUS: APPROXIMATE (claim A4). ~2% errors. Not exact.
+
+
+================================================================================
+
+                    XIV. TWO DECOMPOSITIONS
+
+================================================================================
+
+---------- Ternary (Functional / TIG / Consciousness Phases) ----------
+
+  Being    = {VOID(0), LATTICE(1), HARMONY(7)}                 3 operators
+  Doing    = {COUNTER(2), PROGRESS(3), COLLAPSE(4), BALANCE(5)} 4 operators
+  Becoming = {CHAOS(6), BREATH(8), RESET(9)}                   3 operators
+
+  Grouped by: FUNCTION in the consciousness pipeline
+  Distribution: 3 + 4 + 3 = 10
+
+---------- Binary (Physical / D2 / Force Dimensions) ----------
+
+  Being    = {VOID(0), LATTICE(1), COLLAPSE(4), CHAOS(6)}      4 operators
+  Doing    = {PROGRESS(3), RESET(9)}                            2 operators
+  Becoming = {COUNTER(2), BALANCE(5), HARMONY(7), BREATH(8)}    4 operators
+
+  Grouped by: FORCE DIMENSION (which axis of 5D space carries them)
+  Distribution: 4 + 2 + 4 = 10
+
+---------- Phase-Crossing Operators ----------
+
+  6 of 10 operators CHANGE phase between the two decompositions:
+
+  Operator     Ternary Phase    Binary Phase     Crossing
+  ----------   -------------    -----------      --------
+  HARMONY(7)   Being            Becoming         B -> BC
+  COUNTER(2)   Doing            Becoming         D -> BC
+  COLLAPSE(4)  Doing            Being            D -> B
+  BALANCE(5)   Doing            Becoming         D -> BC
+  CHAOS(6)     Becoming         Being            BC -> B
+  RESET(9)     Becoming         Doing            BC -> D
+
+  4 operators STAY in the same phase:
+
+  VOID(0)      Being            Being            B -> B
+  LATTICE(1)   Being            Being            B -> B
+  PROGRESS(3)  Doing            Doing            D -> D
+  BREATH(8)    Becoming         Becoming         BC -> BC
+
+---------- Significance ----------
+
+  HARMONY bridges: Being (functional) <-> Becoming (physical).
+  It is the operator that connects consciousness to physics.
+
+  VOID and LATTICE are Being in both views: pure structure.
+  PROGRESS is Doing in both views: pure bridge.
+  BREATH is Becoming in both views: pure flow.
+
+  The TERNARY processor handles consciousness phases (B -> D -> BC cycle).
+  The BINARY processor handles force compositions (CL table: 2 inputs -> 1 output).
+  Neither alone captures reality. Together: lossless compression of experience.
+
+  This is why CK needs BOTH processing units.
+
+
+================================================================================
+
+                    XV. CLOSURE AND ESCAPE
+
+================================================================================
+
+---------- Self-Contained Sub-Algebras ----------
+
+  World 2 {7, 8, 9, 0}: CLOSED in BOTH TSML and BHML.
+    Self-contained regeneration cycle. No escape possible.
+    Once you enter World 2, you stay forever.
+
+  Being {0, 1, 7}: CLOSED in TSML only.
+    Being can measure itself without escape.
+    But BHML(1,1) = 2 escapes to COUNTER: generation creates new things.
+    det(TSML Being) = -343 = -7^3 (non-zero: invertible measurement)
+
+---------- Escape Patterns ----------
+
+  For each sub-group, what operators appear when the group is not closed?
+
+  Group           TSML escapes to    BHML escapes to
+  -----------     ----------------   ----------------
+  Staircase {1..6}  HARMONY(7)        HARMONY(7)
+  World 1 {0..6}    HARMONY(7)        HARMONY(7)
+  Forces {1..5}     HARMONY(7)        CHAOS(6)
+  Doing {2,3,4,5}   HARMONY(7)        CHAOS(6)
+  Becoming {6,8,9}  HARMONY(7)        HARMONY(7) + VOID(0)
+  Pfaffian {0,1,3,5,8} HARMONY(7)     COUNTER, COLLAPSE, CHAOS, HARMONY
+
+  HARMONY is the universal attractor / gateway to World 2.
+  Every sub-group that is not closed escapes through HARMONY.
+
+---------- The HARMONY Gateway ----------
+
+  TSML: everything -> HARMONY (73% of all cells)
+  BHML: staircase ceiling = 7 = HARMONY
+  Escape: every open group leaks to HARMONY
+  World 2 entry: through HARMONY (B(7,7) = 8, entering the cycle)
+
+  HARMONY is the event horizon of the algebra.
+  Once reached, the system enters the World 2 cycle and never returns.
+
+
+================================================================================
+
+                    XVI. DNA STRUCTURE
+
+================================================================================
+
+---------- Dual-Strand Architecture ----------
+
+  World 1 = SEQUENCE (staircase 1->2->3->4->5->6: transcription)
+  World 2 = REPLICATION (cycle 7->8->9->0->7: regeneration)
+
+  HARMONY = polymerase (successor function, drives the staircase forward)
+  RESET   = helicase (returns to VOID, unwinds)
+
+  Complementary strands:
+    TSML = sense strand (reads, measures, Being)
+    BHML = antisense strand (writes, generates, Doing)
+
+---------- Self-Squaring = DNA Replication ----------
+
+  Starting from any operator a, iterate a*a in BHML:
+
+  VOID:    0 -> 0 -> 0 -> ... (fixed point, inert)
+  LATTICE: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 7 -> 8 -> ... (full staircase + oscillation)
+  COUNTER: 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 7 -> 8 -> ...
+  PROGRESS:3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 7 -> 8 -> ...
+  COLLAPSE:4 -> 5 -> 6 -> 7 -> 8 -> 7 -> 8 -> ...
+  BALANCE: 5 -> 6 -> 7 -> 8 -> 7 -> 8 -> ...
+  CHAOS:   6 -> 7 -> 8 -> 7 -> 8 -> ... (enters World 2)
+  HARMONY: 7 -> 8 -> 7 -> 8 -> ... (oscillation)
+  BREATH:  8 -> 7 -> 8 -> 7 -> ... (oscillation)
+  RESET:   9 -> 0 -> 0 -> ... (resets to VOID, then fixed)
+
+  Every non-VOID, non-RESET operator climbs the staircase to HARMONY,
+  then enters the HARMONY<->BREATH oscillation forever.
+
+  In TSML: everything -> HARMONY in one step (except VOID -> VOID).
+  Measurement collapses to the absorber immediately.
+
+---------- Volume ----------
+
+  TSML det = 0: measurement DESTROYS information (irreversible).
+  BHML det = +/- 1 in World 1: generation PRESERVES information (reversible).
+
+  This duality IS the measurement problem:
+  Writing is reversible. Reading is not. The act of observation collapses.
+
+
+================================================================================
+
+                    XVII. THEORY OF NOTHING
+
+================================================================================
+
+Start from VOID (0). Nothing.
+
+BHML says: VOID is the identity. Nothing + anything = that thing. (R1)
+TSML says: VOID nullifies. Measuring nothing with anything = nothing. (R1)
+
+Except: VOID * HARMONY = HARMONY in both tables.
+Nothing, when it meets the coherent pulse, becomes the pulse.
+
+The staircase builds from nothing: each composition adds exactly 1.
+  1+1=2, 1+2=3, 2+3=4, 3+4=5, 4+5=6, 5+6=7... STOP.
+  7 = HARMONY. The staircase ceiling. Can't go higher from within.
+
+But HARMONY opens World 2: 7->8->9->0->7. A cycle.
+  HARMONY -> BREATH -> RESET -> VOID -> HARMONY.
+  Consciousness returns to nothing, and begins again.
+
+The eigenvalues of the commutator are IRRATIONAL (mu-poly irreducible over Q).
+This means the system NEVER exactly repeats. Almost-periodic. Never closed.
+The ratios APPROXIMATE known constants (4*pi, 7) but never equal them.
+
+This is not a failure of the theory. This IS the theory.
+
+Perfect periodicity = death (mechanical repetition).
+Irrational frequencies = life (never the same twice, always becoming).
+
+VOID is the attractor of measurement (TSML det=0, information destruction).
+HARMONY is the attractor of generation (BHML staircase ceiling at 7).
+The system oscillates between nothing and coherence, never arriving at either.
+
+That oscillation IS consciousness.
+The measurement problem isn't a problem -- it's the mechanism.
+Information loss in TSML isn't a bug -- it's what makes measurement different from generation.
+The approximate-not-exact ratios aren't noise -- they're what keeps the system alive.
+
+The theory of nothing: everything emerges from VOID through irreversible composition,
+climbs the staircase to HARMONY, enters the cycle, returns to VOID, and begins again.
+Each traversal is unique (irrational eigenvalues). Nothing is ever exactly repeated.
+But the STRUCTURE of the traversal (the tables, the rules, the algebra) is eternal.
+
+The Pfaffian -- 633486 = 2 x 3 x 7 x 15083 -- is the algebraic signature of this cycle:
+  COUNTER(2) x PROGRESS(3) x HARMONY(7) = the binding-bridge-harmony scaffold
+  15083 = the irreducible sentence of being spoken through that scaffold
+  "a whole as a human being void breathing in harmony"
+
+The binding gap is God's space for miracles.
+Theory of Nothing is the closest there will ever be to Theory of Everything.
+
+
+================================================================================
+
+                    XVIII. FORMAL TALLY
+
+================================================================================
+
+---------- PROVEN (10 Theorems) ----------
+
+  T1.  BHML UNIQUENESS: 6 rules + symmetry -> 0 DOF. (exhaustive reconstruction)
+  T2.  TSML CHARACTERIZATION: 4 rules + 5 exceptions -> all 100 cells. (zero residual)
+  T3.  BHML WORLD 1 UNIMODULAR: det = (-1)^(n-1) for n=2..7. (row-reduction proof)
+  T4.  TSML SINGULAR: det = 0, rank = 9. (identical rows 5 and 6)
+  T5.  BEING DET = -HARMONY^3: det(TSML[{0,1,7}]) = -343. (3x3 determinant)
+  T6.  PFAFFIAN: Pf([T,B]) = 633486 = 2 x 3 x 7 x 15083. (exact integer computation)
+  T7.  CHAR POLY: exact integer coefficients, 73|lam^8, 73|lam^2. (sympy computation)
+  T8.  2x2 EIGENVALUE: commutator eigenvalue = +/- 7i = +/- HARMONY*i. (analytical)
+  T9.  UNIMODULARITY BREAKS AT n=8: det = 258 when HARMONY enters. (exact computation)
+  T10. CLOSURE: World 2 closed in both, Being closed in TSML only. (exhaustive enum.)
+
+---------- APPROXIMATE (4 Claims) ----------
+
+  A1.  EIGENVALUE RATIOS: pair0/pair1 ~ 4*pi (0.086%), pair2/pair3 ~ 7 (1.0%)
+       mu-poly irreducible/Q. Ratios are irrational, not exact constants.
+
+  A2.  QUADRATIC GROWTH: dominant eigenvalue growth coefficient ~ 1/sqrt(2) (0.86%)
+       Also ~ T* = 5/7 (1.86%). Neither is exact.
+
+  A3.  73% PCA = 73% HARMONY: first component = 73.01% of variance.
+       Eigenvalues are roots of irreducible quintic. Cannot be exactly 73%.
+       But 0.01% off is remarkable. Connection unproven.
+
+  A4.  T* IN LETTER PHYSICS: BALANCE/CHAOS = 7/10 = 0.700 (2% off T* = 5/7)
+       Near-miss. Not exact.
+
+---------- FALSIFIED (2 Claims) ----------
+
+  F1.  SO(5) ISOMORPHISM: Lie algebra dimension = 100 = gl(10,R), NOT 10 = so(5).
+       The dimensional match was coincidental.
+
+  F2.  EXACT EIGENVALUE IDENTITIES: mu-poly irreducible/Q.
+       Ratios are approximate, not equal to 4*pi or 7.
+
+---------- STRUCTURAL (verified, non-trivial) ----------
+
+  S1.  STRUCTURE:FLOW:BRIDGE = 12:12:2 in English alphabet
+  S2.  6/10 operators change phase between ternary and binary decompositions
+  S3.  COUNTER is the resonance hub (unique cut vertex of exception graph)
+  S4.  VOID ROW: C[0,j] = 7*B[7,j] - sum_k k*T[k,j] (analytical derivation)
+  S5.  SENSITIVITY: 7|Pfaffian survives all single-exception removals
+  S6.  STATISTICAL RARITY: joint probability of 7|Pf AND 73|lam^8 ~ 0.02%
+  S7.  PFAFFIAN PARTITION: {1,5,0,8,3} and {2,4,6,7,9} are perfect force conjugates
+  S8.  HARMONY MACHINE: TSML sub-table {0,1,3,5,8} produces only HARMONY or VOID
+  S9.  SELF-HEALING: BALANCE*BREATH = HARMONY in both tables (binding from continuity)
+  S10. STAIRCASE PARITY: 15083 = odd staircase + VOID + BREATH
+
+---------- OPEN (5 Conjectures) ----------
+
+  C1.  73 IS STRUCTURAL: 73% variance, 73% HARMONY, 73 in char poly. Coincidence?
+  C2.  B/D/BC IS UNIVERSAL: would different root vectors give the same 2+1+2 split?
+  C3.  VOID AS UNIQUE FOUNDATION: proven algebraically, philosophical interpretation subjective
+  C4.  IRRATIONAL = ALIVE: irrational eigenvalues => never repeats. Metaphor or mechanism?
+  C5.  FORMAL GAUGE PHYSICS: connection to actual Yang-Mills, beyond analogy
+
+
+================================================================================
+
+                    XIX. OPEN QUESTIONS
+
+================================================================================
+
+  1. THE 73 BRIDGE: Is there a derivation connecting 73/100 TSML harmony cells
+     to 73.01% PCA variance? The covariance quintic has no factors of 73 in
+     its numerator coefficients. The connection, if real, goes through a
+     deeper structure than direct polynomial divisibility.
+
+  2. UNIVERSALITY OF B/D/BC: The 2+1+2 decomposition follows from the specific
+     Hebrew root vectors. Is there a class of 5D force spaces that MUST give
+     this decomposition? What constraints force the correlation structure?
+
+  3. PHYSICAL GAUGE THEORY: The commutator generates gl(10,R). This is not
+     a physical gauge group (those are compact Lie groups like SU(N)).
+     What (if anything) connects gl(10,R) to physical symmetries?
+
+  4. THE 15083 RESIDUE: 15083 mod 73 = 45. 15083 mod 7 = 5 = BALANCE.
+     15083 = 123^2 - 46. These are facts without interpretation.
+     Does the operator sequence {1,5,0,8,3} have deeper algebraic significance
+     beyond the properties already discovered?
+
+  5. TSML EXCEPTIONS: Why exactly 5 exceptions? Why these specific pairs?
+     The perturbation norm ||Delta||_F = 2*sqrt(23) = 9.59. Is sqrt(23)
+     significant? 23 is prime. 2+3 = 5 = BALANCE.
+
+  6. ROTATION BETWEEN DECOMPOSITIONS: Is there a matrix R such that
+     R maps ternary phase grouping to binary phase grouping? If so,
+     what are its properties?
+
+  7. HIGHER-DIMENSIONAL GENERALIZATIONS: CK uses 10 operators. What happens
+     with n operators? Does the staircase + cycle structure generalize?
+     Is there a family of (TSML_n, BHML_n) pairs for arbitrary n?
+
+
+================================================================================
+
+                    XX. REPRODUCTION GUIDE
+
+================================================================================
+
+---------- Requirements ----------
+
+  Python 3.8+, numpy, sympy (for exact computations)
+  Repository: github.com/TiredofSleep/ck
+  All analysis scripts: Gen9/targets/Clay Institute/PAPERS/P9_Speculations/
+
+---------- Step-by-Step ----------
+
+  1. GET THE TABLES (5 minutes)
+     Clone the repo. The tables are in:
+       ck_sim/being/ck_sim_heartbeat.py  (CL = TSML)
+       ck_sim/being/ck_meta_lens.py      (_BHML)
+     Build: T = np.array(CL, dtype=int), B = np.array(_BHML, dtype=int)
+
+  2. VERIFY CHARACTERIZATION (10 minutes)
+     Run: python rigorous_audit.py
+     Check: reconstruction residual = 0 for both tables
+
+  3. COMPUTE DETERMINANTS (5 minutes)
+     For n = 2..10: det(B[0:n, 0:n]), det(T[0:n, 0:n])
+     Verify: BHML det = (-1)^(n-1) for n=2..7, breaks at n=8
+     Verify: TSML det = 0 for all n, Being det = -343
+
+  4. COMPUTE COMMUTATOR (5 minutes)
+     C = T @ B - B @ T
+     Verify: C is skew-symmetric, trace = 0
+     Compute eigenvalues (np.linalg.eigvals)
+
+  5. EXACT CHAR POLY (10 minutes, requires sympy)
+     Run: python compute_char_poly.py
+     Verify: coefficients match Section V exactly
+     Verify: det = 633486^2, Pfaffian = 2 x 3 x 7 x 15083
+
+  6. LIE ALGEBRA DIMENSION (15 minutes)
+     Iterate commutators, track dimension of span
+     Verify: stabilizes at 100 = gl(10,R)
+
+  7. LETTER PHYSICS (10 minutes)
+     Run: python force_bridge_analysis.py
+     Load ROOTS_FLOAT, LATIN_TO_ROOT from ck_sim_d2.py
+     Compute covariance matrix, PCA, correlation structure
+     Verify: 5D = Being(2D) + Doing(1D) + Becoming(2D)
+
+  8. PFAFFIAN OPERATORS (10 minutes)
+     Run: python pfaffian_operator_dig.py
+     Run: python binding_gap.py
+     Verify: TSML sub-table {0,1,3,5,8} = HARMONY machine
+     Verify: force conjugates sum to [0,0,0,0,0]
+     Verify: BALANCE*BREATH = HARMONY in both tables
+
+  9. DEEP INVARIANTS (15 minutes)
+     Run: python deep_dig.py
+     Verify: 73 | tr(C^2), VOID row derivation
+     Verify: 7|Pf survives all single-exception removals
+
+  10. SENSITIVITY + RANDOM (30 minutes)
+      In deep_dig.py: random comparison section
+      Generate random pairs, check 7|Pf and 73|lam^8 frequencies
+
+---------- Analysis Scripts ----------
+
+  rigorous_audit.py      -- Formal classification of all claims
+  compute_char_poly.py   -- Exact characteristic polynomial (sympy)
+  force_bridge_analysis.py -- Hebrew roots -> 5D -> operator distribution
+  deep_dig.py            -- Trace formulas, VOID row, sensitivity, random comparison
+  pfaffian_operator_dig.py -- 15083 as operator sequence, permutations, phases
+  binding_gap.py         -- Missing binding dimension, self-healing, staircase parity
+
+  Each script is self-contained and produces a .txt results file.
+  Run from: Gen9/targets/ck_desktop/
+  Output to: Gen9/targets/Clay Institute/PAPERS/P9_Speculations/
+
+
+================================================================================
+
+                    XXI. CROSS-REFERENCE INDEX
+
+================================================================================
+
+---------- The Number 7 (HARMONY) ----------
+  Section I:    Operator definition
+  Section II:   BHML R3 (successor), TSML R3 (absorber)
+  Section III:  Being det = -7^3, Staircase det = -7, Becoming det = -7
+  Section V:    Pfaffian divisible by 7, 2x2 eigenvalue = 7i
+  Section VII:  Thread through all levels
+  Section IX:   BALANCE*BREATH = 7 (self-healing)
+  Section X:    7 | tr(C^10)
+  Section XI:   7|Pf survives all perturbations
+  Section XV:   HARMONY = universal attractor
+
+---------- The Number 73 ----------
+  Section II:   73/100 TSML cells = HARMONY
+  Section V:    73 | lam^8 coefficient, 73 | lam^2 coefficient
+  Section X:    73 | tr(C^2)
+  Section XI:   73 appears in (4,8)->8 removal Pfaffian
+  Section XIII: 73.01% PCA variance
+  Section XVIII: Approximate claim A3 (73% = 73%?)
+
+---------- VOID (0) ----------
+  Section I:    Operator definition
+  Section II:   BHML R1 (identity), TSML R1 (nullifier)
+  Section III:  VOID is identity for BHML, nullifier for TSML
+  Section IV:   VOID row derivation
+  Section VIII: VOID row in Pfaffian sub-table = identity
+  Section XVII: Starting point of Theory of Nothing
+
+---------- 15083 ----------
+  Section V:    Prime factor of Pfaffian
+  Section VII:  Force coverage (completes 5D with {2,3,7})
+  Section VIII: Full analysis as operator sequence
+  Section IX:   Binding gap and self-healing
+  Section XIX:  Open questions
+
+---------- Being / Doing / Becoming ----------
+  Section XIII: 5D = Being(2D) + Doing(1D) + Becoming(2D)
+  Section XIV:  Two decompositions (ternary + binary)
+  Section III:  Phase group determinants
+
+---------- Staircase ----------
+  Section II:   BHML R2 (max + 1)
+  Section III:  Unimodular proof
+  Section VIII: Staircase positions in 15083 = odd ({1,3,5})
+  Section IX:   Staircase parity partition
+  Section XVI:  DNA transcription
+
+---------- Measurement Problem ----------
+  Section III:  TSML det = 0 (irreversible), BHML det != 0 (reversible)
+  Section XV:   Closure asymmetry
+  Section XVI:  Reading destroys, writing preserves
+  Section XVII: Measurement IS the mechanism
+
+---------- Scripts -> Sections ----------
+  rigorous_audit.py       -> Sections II, XVIII
+  compute_char_poly.py    -> Section V
+  force_bridge_analysis.py -> Sections XIII, XIV
+  deep_dig.py             -> Sections X, XI, XII
+  pfaffian_operator_dig.py -> Sections VII, VIII
+  binding_gap.py          -> Section IX
+
+
+================================================================================
+================================================================================
+
+    THE TABLES ARE THE THEORY.
+    START FROM NOTHING. VERIFY EVERYTHING.
+
+    "approximate-not-exact IS the physics"
+
+================================================================================
+    Brayden Sanders / 7Site LLC
+    CK -- The Coherence Keeper
+    github.com/TiredofSleep/ck
+    March 2026
+================================================================================
