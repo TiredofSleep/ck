@@ -1,0 +1,216 @@
+========================================================================
+CARTAN STRESS TEST + GROK VERIFICATION PROBES
+========================================================================
+
+========================================================================
+1. LIE BRACKET CLOSURE VERIFICATION
+========================================================================
+
+[skew, skew] should be skew:
+  C = [T,B]: skew=True
+  [[C,T],[C,B]]: skew=True
+  [[C,T],T]: skew=True
+  [[C,B],B]: skew=True
+
+  Pairwise [skew_i, skew_j] -> skew?
+    [0,1]: skew=True
+    [0,2]: skew=True
+    [0,3]: skew=True
+    [1,2]: skew=True
+    [1,3]: skew=True
+    [2,3]: skew=True
+
+[skew, sym] should be sym:
+  [skew_0, sym_0]: sym=True
+  [skew_0, sym_1]: sym=True
+  [skew_1, sym_0]: sym=True
+  [skew_1, sym_1]: sym=True
+
+[sym, sym] should be skew:
+  [sym_0, sym_1]: skew=True
+  [sym_0, sym_2]: skew=True
+  [sym_0, sym_3]: skew=True
+  [sym_1, sym_2]: skew=True
+  [sym_1, sym_3]: skew=True
+  [sym_2, sym_3]: skew=True
+
+ALL CLOSURE RULES VERIFIED: True
+
+========================================================================
+2. CASIMIR ON SUBSPACES
+========================================================================
+
+Full Casimir C_2 = 914325
+  = 914325 = 3 * 5^2 * 73 * 167
+
+Casimir decomposition by Pfaffian partition {1,5,0,8,3} vs {2,4,6,7,9}:
+  C_2(P,P) = 324554  (within Pfaffian set)
+  C_2(Q,Q) = 75314  (within complement)
+  C_2(P,Q) = 514457  (cross-terms)
+  Sum = 914325 (should = 914325)
+
+  Ratio C_2(P,P)/C_2(Q,Q) = 4.309345
+  Cross fraction = 56.3%
+
+Casimir by phase group (diagonal blocks only):
+  Being        [0, 1, 7]               : C_2 =       152934  ( 16.7% of total)
+  Doing        [2, 3, 4]               : C_2 =         3101  (  0.3% of total)
+  Becoming     [5, 6, 8, 9]            : C_2 =        24726  (  2.7% of total)
+  World1       [0, 1, 2, 3, 4, 5, 6]   : C_2 =       526530  ( 57.6% of total)
+  World2       [7, 8, 9, 0]            : C_2 =       278207  ( 30.4% of total)
+  Staircase    [1, 2, 3, 4, 5, 6]      : C_2 =        65255  (  7.1% of total)
+
+Divisibility checks:
+  Being       : C_2 =       152934, mod 7 = 5, mod 73 = 72
+  Doing       : C_2 =         3101, mod 7 = 0, mod 73 = 35
+  Becoming    : C_2 =        24726, mod 7 = 2, mod 73 = 52
+  World1      : C_2 =       526530, mod 7 = 4, mod 73 = 54
+  World2      : C_2 =       278207, mod 7 = 6, mod 73 = 4
+  Staircase   : C_2 =        65255, mod 7 = 1, mod 73 = 66
+
+========================================================================
+3. KILLING ORTHOGONALITY STRESS TEST
+========================================================================
+
+Baseline: B(T,C) = 0.000000, B(B,C) = 0.000000
+
+Perturbing each TSML exception by +/-epsilon:
+     Exception    eps         B(T,C)         B(B,C)
+--------------------------------------------------------
+  (1,2)=3+0.01          0.0000          0.0000
+  (1,2)=3+0.1           0.0000          0.0000
+  (1,2)=3+1             0.0000          0.0000
+  (2,4)=4+0.01         -0.0000          0.0000
+  (2,4)=4+0.1           0.0000          0.0000
+  (2,4)=4+1             0.0000          0.0000
+  (2,9)=9+0.01         -0.0000          0.0000
+  (2,9)=9+0.1          -0.0000         -0.0000
+  (2,9)=9+1             0.0000          0.0000
+  (3,9)=3+0.01         -0.0000          0.0000
+  (3,9)=3+0.1           0.0000          0.0000
+  (3,9)=3+1             0.0000          0.0000
+  (4,8)=8+0.01         -0.0000         -0.0000
+  (4,8)=8+0.1          -0.0000         -0.0000
+  (4,8)=8+1             0.0000          0.0000
+
+Perturbing each BHML entry by epsilon=0.1:
+(Testing 10 random diagonal entries)
+     Entry         B(T,C)         B(B,C)
+------------------------------------------
+  B[8,8]+0.1          0.0000         -0.0000
+  B[1,1]+0.1          0.0000          0.0000
+  B[5,5]+0.1          0.0000          0.0000
+  B[0,0]+0.1          0.0000          0.0000
+  B[7,7]+0.1         -0.0000          0.0000
+  B[2,2]+0.1          0.0000          0.0000
+  B[9,9]+0.1          0.0000         -0.0000
+  B[4,4]+0.1          0.0000          0.0000
+  B[3,3]+0.1          0.0000          0.0000
+  B[6,6]+0.1          0.0000          0.0000
+
+CONTROL: B(A,C) for random symmetric matrices:
+  1000 random symmetric pairs tested
+  Pairs with B(A,[A,B])=0 AND B(B,[A,B])=0: 1000/1000
+
+ANALYTICAL RESULT:
+  B(A, [A,B]) = 2n*tr(A*(AB-BA)) - 2*tr(A)*tr(AB-BA)
+  tr(A*(AB-BA)) = tr(A^2*B) - tr(ABA) = tr(A^2*B) - tr(A^2*B) = 0  (cyclic trace)
+  tr(AB-BA) = 0  (cyclic trace)
+  Therefore B(A, [A,B]) = 0 for ALL symmetric A, B.
+
+  VERDICT: Killing orthogonality B(T,C)=B(B,C)=0 is TRIVIALLY TRUE
+  for any pair of symmetric matrices. This is NOT CK-specific.
+  It breaks under perturbation only because perturbation breaks symmetry.
+
+========================================================================
+4. STRUCTURE CONSTANTS OF so(10) FROM CK
+========================================================================
+
+Standard so(10) basis: 45 matrices E_{ij} - E_{ji}
+
+Commutator C = [T,B] in so(10) basis:
+  Top 10 components:
+    E(0,9): -307.0
+    E(0,2): -296.0
+    E(0,1): -293.0
+    E(0,4): -282.0
+    E(0,5): -273.0
+    E(0,6): -266.0
+    E(0,7): -259.0
+    E(0,8): -256.0
+    E(0,3): -251.0
+    E(7,8): 184.0
+
+  Bottom 5 components:
+    E(3,9): 15.0
+    E(1,2): 13.0
+    E(6,8): -7.0
+    E(2,9): -7.0
+    E(1,7): 2.0
+
+  Reconstruction error: 0.00e+00
+
+Sample structure constants f^c_{{ab}} for so(10):
+  (Standard so(10): f^{{kl}}_{{ij,mn}} = delta_jm*delta_in*delta_kl - ...)
+
+  f^(0, 3)_((0, 1),(0, 2)) = 0.0
+  f^(1, 3)_((0, 1),(0, 6)) = 0.0
+  f^(0, 8)_((0, 2),(0, 4)) = 0.0
+  f^(4, 5)_((1, 3),(2, 6)) = 0.0
+
+========================================================================
+5. COMMUTATOR STRUCTURE: THE VOID DOMINANCE
+========================================================================
+
+C[0,:] (VOID row of commutator):
+  [0, -293, -296, -251, -282, -273, -266, -259, -256, -307]
+
+Magnitude of C entries by row:
+  Row 0 (      VOID): ||C[0,:]|| = 829.5
+  Row 1 (   LATTICE): ||C[1,:]|| = 362.6
+  Row 2 (   COUNTER): ||C[2,:]|| = 344.4
+  Row 3 (  PROGRESS): ||C[3,:]|| = 291.2
+  Row 4 (  COLLAPSE): ||C[4,:]|| = 319.5
+  Row 5 (   BALANCE): ||C[5,:]|| = 335.3
+  Row 6 (     CHAOS): ||C[6,:]|| = 389.8
+  Row 7 (   HARMONY): ||C[7,:]|| = 406.8
+  Row 8 (    BREATH): ||C[8,:]|| = 383.0
+  Row 9 (     RESET): ||C[9,:]|| = 356.3
+
+VOID contributes what fraction of total Casimir?
+  ||C[0,:]||^2 + ||C[:,0]||^2 = 1376282
+  ||C||_F^2 = 1828650
+  VOID fraction = 75.3%
+
+========================================================================
+SYNTHESIS
+========================================================================
+
+PROBE 1 (Lie bracket closure):
+  [so(10), so(10)] in so(10): VERIFIED
+  [so(10), sym(10)] in sym(10): VERIFIED
+  [sym(10), sym(10)] in so(10): VERIFIED
+  Cartan decomposition is EXACT, not approximate.
+
+PROBE 2 (Casimir subspaces):
+  Full Casimir = 914325
+  Pfaffian set C_2(P,P) = 324554
+  Complement C_2(Q,Q) = 75314
+  Cross C_2(P,Q) = 514457
+  Cross fraction: 56.3% of total
+
+PROBE 3 (Killing orthogonality):
+  B(A, [A,B]) = 0 is TRIVIALLY TRUE for all symmetric A, B.
+  This is a CYCLIC TRACE identity, not CK-specific.
+  The non-trivial content is B(C,C) < 0 (compact direction)
+  and the specific value B(C,C) = -36573000.
+
+PROBE 4 (Structure constants):
+  CK commutator decomposes cleanly in so(10) basis.
+  Reconstruction error: 0.00e+00
+  Structure constants match standard so(10).
+
+CORRECTION TO RIGOROUS_AUDIT:
+  Killing orthogonality (B(T,C)=B(B,C)=0) should be moved from
+  "non-trivial" to "trivially true" category, alongside tracelessness
+  and purely imaginary eigenvalues. It holds for ANY symmetric pair.

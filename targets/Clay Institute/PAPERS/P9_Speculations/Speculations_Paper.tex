@@ -2383,9 +2383,15 @@ The Killing form $\kappa(X,Y) = 2n\,\operatorname{tr}(XY) -
   \kappa(T,C) &= \kappa(B,C) = 0
   \qquad\textup{(exact orthogonality)}.
 \end{align}
-The commutator $C = [T,B]$ is \textbf{Killing-orthogonal} to both generators.
 The negative sign of $\kappa(C,C)$ is consistent with $C$ lying in the compact
 subalgebra direction.
+
+\textbf{Caution:} The orthogonality $\kappa(T,C) = \kappa(B,C) = 0$ is
+\emph{trivially true} for any pair of symmetric matrices.  Proof:
+$\operatorname{tr}(A(AB-BA)) = \operatorname{tr}(A^2B) - \operatorname{tr}(ABA)
+= 0$ by cyclic trace, and $\operatorname{tr}(AB-BA) = 0$ likewise.  The
+non-trivial content is the \emph{sign} of $\kappa(C,C) < 0$ and its specific
+value.
 \end{theorem}
 
 \subsection{The Casimir invariant}
