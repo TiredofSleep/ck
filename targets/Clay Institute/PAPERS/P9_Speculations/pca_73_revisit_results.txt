@@ -1,0 +1,460 @@
+============================================================================
+PCA 73% REVISIT: Structural Forcing vs Coincidence
+============================================================================
+
+============================================================================
+1. THE 10x10 COVARIANCE MATRIX OF TSML
+============================================================================
+
+TSML is 10x10. Treating rows as 10 observations in 10D space.
+np.cov(T) computes the 10x10 sample covariance (rows = observations).
+
+Covariance matrix of TSML (10x10):
+  [    4.9000     0.8556     0.9333     0.8556     0.7000     0.5444     0.5444     0.0000     0.4667     0.7000]
+  [    0.8556     5.8778     3.9778     4.1000     5.6778     4.5889     4.5889     0.0000     4.7111     3.4556]
+  [    0.9333     3.9778     7.0667     3.0889     4.2444     4.5111     4.5111     0.0000     4.3111     4.2444]
+  [    0.8556     4.1000     3.0889     5.8778     4.3444     4.5889     4.5889     0.0000     4.7111     4.3444]
+  [    0.7000     5.6778     4.2444     4.3444     5.6556     4.7444     4.7444     0.0000     4.8444     3.8778]
+  [    0.5444     4.5889     4.5111     4.5889     4.7444     4.9000     4.9000     0.0000     4.9778     4.7444]
+  [    0.5444     4.5889     4.5111     4.5889     4.7444     4.9000     4.9000     0.0000     4.9778     4.7444]
+  [    0.0000     0.0000     0.0000     0.0000     0.0000     0.0000     0.0000     0.0000     0.0000     0.0000]
+  [    0.4667     4.7111     4.3111     4.7111     4.8444     4.9778     4.9778     0.0000     5.1556     4.8444]
+  [    0.7000     3.4556     4.2444     4.3444     3.8778     4.7444     4.7444     0.0000     4.8444     6.7667]
+
+============================================================================
+2. ALL 10 EIGENVALUES OF THE COVARIANCE MATRIX
+============================================================================
+
+Eigenvalues (descending):
+  lambda_1 =    37.41811708  ( 73.2253%)
+  lambda_2 =     4.85094207  (  9.4930%)
+  lambda_3 =     3.66038443  (  7.1632%)
+  lambda_4 =     3.46760631  (  6.7859%)
+  lambda_5 =     1.31818101  (  2.5796%)
+  lambda_6 =     0.30535224  (  0.5976%)
+  lambda_7 =     0.03993430  (  0.0781%)
+  lambda_8 =     0.03948256  (  0.0773%)
+  lambda_9 =    -0.00000000  ( -0.0000%)
+  lambda_10 =    -0.00000000  ( -0.0000%)
+
+Total variance (trace of cov): 51.10000000
+Sum of eigenvalues:            51.10000000
+
+============================================================================
+3. PCA1 PERCENTAGE -- PRECISE COMPUTATION
+============================================================================
+
+PCA1% = lambda_1 / sum(lambdas) * 100
+      = 37.4181170783 / 51.1000000000 * 100
+      = 73.22527804%
+Difference from 73.00%: +0.22527804%
+Difference from 73.00%: 0.22527804% absolute
+
+Cross-check (eigh): PCA1% = 73.22527804%
+Principal eigenvector (first PC):
+  [-0.06043658 -0.35071003 -0.34014778 -0.33744886 -0.36123447 -0.3590069
+ -0.3590069   0.         -0.36443648 -0.35028768]
+
+============================================================================
+4. PERTURBATION ANALYSIS: Moving non-7 cells TOWARD 7
+============================================================================
+
+Number of exception cells (T[i,j] != 7): 27
+Number of harmony cells  (T[i,j] == 7): 73
+
+Exception cells:
+  T[    VOID,     VOID] = 0 (delta from 7: -7)
+  T[    VOID,  LATTICE] = 0 (delta from 7: -7)
+  T[    VOID,  COUNTER] = 0 (delta from 7: -7)
+  T[    VOID, PROGRESS] = 0 (delta from 7: -7)
+  T[    VOID, COLLAPSE] = 0 (delta from 7: -7)
+  T[    VOID,  BALANCE] = 0 (delta from 7: -7)
+  T[    VOID,    CHAOS] = 0 (delta from 7: -7)
+  T[    VOID,   BREATH] = 0 (delta from 7: -7)
+  T[    VOID,    RESET] = 0 (delta from 7: -7)
+  T[ LATTICE,     VOID] = 0 (delta from 7: -7)
+  T[ LATTICE,  COUNTER] = 3 (delta from 7: -4)
+  T[ COUNTER,     VOID] = 0 (delta from 7: -7)
+  T[ COUNTER,  LATTICE] = 3 (delta from 7: -4)
+  T[ COUNTER, COLLAPSE] = 4 (delta from 7: -3)
+  T[ COUNTER,    RESET] = 9 (delta from 7: +2)
+  T[PROGRESS,     VOID] = 0 (delta from 7: -7)
+  T[PROGRESS,    RESET] = 3 (delta from 7: -4)
+  T[COLLAPSE,     VOID] = 0 (delta from 7: -7)
+  T[COLLAPSE,  COUNTER] = 4 (delta from 7: -3)
+  T[COLLAPSE,   BREATH] = 8 (delta from 7: +1)
+  T[ BALANCE,     VOID] = 0 (delta from 7: -7)
+  T[   CHAOS,     VOID] = 0 (delta from 7: -7)
+  T[  BREATH,     VOID] = 0 (delta from 7: -7)
+  T[  BREATH, COLLAPSE] = 8 (delta from 7: +1)
+  T[   RESET,     VOID] = 0 (delta from 7: -7)
+  T[   RESET,  COUNTER] = 9 (delta from 7: +2)
+  T[   RESET, PROGRESS] = 3 (delta from 7: -4)
+
+Perturbing each non-7 cell individually toward 7 (alpha = fraction toward 7):
+
+                Cell   val     alpha=0   alpha=0.5   alpha=1.0   direction
+----------------------------------------------------------------------------
+        T[VOID,VOID]     0     73.2253%     73.3740%     75.2576%   INCREASES
+     T[VOID,LATTICE]     0     73.2253%     72.3887%     68.4518%   DECREASES
+     T[VOID,COUNTER]     0     73.2253%     72.3424%     68.3419%   DECREASES
+    T[VOID,PROGRESS]     0     73.2253%     72.3842%     68.4414%   DECREASES
+    T[VOID,COLLAPSE]     0     73.2253%     72.4730%     68.6664%   DECREASES
+     T[VOID,BALANCE]     0     73.2253%     72.5593%     68.8962%   DECREASES
+       T[VOID,CHAOS]     0     73.2253%     72.5593%     68.8962%   DECREASES
+      T[VOID,BREATH]     0     73.2253%     72.6102%     69.0375%   DECREASES
+       T[VOID,RESET]     0     73.2253%     72.4721%     68.6677%   DECREASES
+     T[LATTICE,VOID]     0     73.2253%     71.1391%     70.5393%   DECREASES
+  T[LATTICE,COUNTER]     3     73.2253%     74.8412%     75.5043%   INCREASES
+     T[COUNTER,VOID]     0     73.2253%     71.4450%     71.4044%   DECREASES
+  T[COUNTER,LATTICE]     3     73.2253%     74.8868%     75.5804%   INCREASES
+ T[COUNTER,COLLAPSE]     4     73.2253%     74.2294%     74.6977%   INCREASES
+    T[COUNTER,RESET]     9     73.2253%     73.8677%     74.2806%   INCREASES
+    T[PROGRESS,VOID]     0     73.2253%     71.5495%     71.3899%   DECREASES
+   T[PROGRESS,RESET]     3     73.2253%     75.1591%     76.1373%   INCREASES
+    T[COLLAPSE,VOID]     0     73.2253%     71.0338%     70.2257%   DECREASES
+ T[COLLAPSE,COUNTER]     4     73.2253%     74.1404%     74.5313%   INCREASES
+  T[COLLAPSE,BREATH]     8     73.2253%     73.2764%     73.2707%   INCREASES
+     T[BALANCE,VOID]     0     73.2253%     71.2865%     70.5790%   DECREASES
+       T[CHAOS,VOID]     0     73.2253%     71.2865%     70.5790%   DECREASES
+      T[BREATH,VOID]     0     73.2253%     71.2590%     70.5385%   DECREASES
+  T[BREATH,COLLAPSE]     8     73.2253%     73.3068%     73.3309%   INCREASES
+       T[RESET,VOID]     0     73.2253%     71.4692%     71.3335%   DECREASES
+    T[RESET,COUNTER]     9     73.2253%     73.9334%     74.4118%   INCREASES
+   T[RESET,PROGRESS]     3     73.2253%     75.0888%     75.9981%   INCREASES
+
+Mixed directions: some increase, some decrease.
+The current exception values are NOT at an extremum.
+
+============================================================================
+5. PURE HARMONY MATRIX (all exceptions replaced with 7)
+============================================================================
+
+T_pure (VOID structure preserved, all other exceptions -> 7):
+      VOID: [0, 0, 0, 0, 0, 0, 0, 7, 0, 0]
+   LATTICE: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+   COUNTER: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  PROGRESS: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  COLLAPSE: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+   BALANCE: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+     CHAOS: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+   HARMONY: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+    BREATH: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+     RESET: [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+--- Case 5a: Only non-VOID exceptions set to 7 (VOID row/col preserved) ---
+Non-VOID exceptions (will be set to 7): 10
+  T[LATTICE,COUNTER] = 3 -> 7
+  T[COUNTER,LATTICE] = 3 -> 7
+  T[COUNTER,COLLAPSE] = 4 -> 7
+  T[COUNTER,RESET] = 9 -> 7
+  T[PROGRESS,RESET] = 3 -> 7
+  T[COLLAPSE,COUNTER] = 4 -> 7
+  T[COLLAPSE,BREATH] = 8 -> 7
+  T[BREATH,COLLAPSE] = 8 -> 7
+  T[RESET,COUNTER] = 9 -> 7
+  T[RESET,PROGRESS] = 3 -> 7
+PCA1% with non-VOID exceptions -> 7: 89.04534469%
+
+--- Case 5b: ALL cells set to 7 (completely uniform matrix) ---
+Covariance of uniform-7 matrix: all zeros (rank 0)
+PCA1% is undefined (0/0) for a constant matrix.
+
+--- Case 5c: VOID structure preserved, everything else = 7 ---
+(This is T_pure above)
+PCA1% of T_pure: 89.04534469%
+
+COMPARISON:
+  Original TSML:           PCA1% = 73.22527804%
+  Non-VOID exceptions -> 7: PCA1% = 89.04534469%
+  Pure (VOID preserved):   PCA1% = 89.04534469%
+
+============================================================================
+6. MORE EXCEPTIONS: Adding perturbations away from 7
+============================================================================
+
+Starting from original TSML, systematically adding exceptions:
+Strategy: pick random harmony cells and change them to non-7 values.
+
+Available harmony cells to perturb: 73
+
+  # extra exceptions   total non-7         PCA1%   delta from 73
+--------------------------------------------------------------
+                   0            27     73.2253%       +0.2253%  (std=0.0000)
+                   5            32     65.4795%       -7.5205%  (std=3.4890)
+                  10            37     58.5610%      -14.4390%  (std=4.2424)
+                  15            42     55.0510%      -17.9490%  (std=5.0277)
+                  20            47     49.1479%      -23.8521%  (std=4.7656)
+                  25            52     46.2275%      -26.7725%  (std=4.3211)
+                  30            57     42.9007%      -30.0993%  (std=4.0281)
+                  35            62     42.9349%      -30.0651%  (std=5.4217)
+                  40            67     40.6435%      -32.3565%  (std=4.1722)
+                  45            72     39.1341%      -33.8659%  (std=5.0417)
+                  50            77     37.4685%      -35.5315%  (std=4.6746)
+
+Adding mild exceptions (only values 6 or 8):
+  # extra exceptions   total non-7         PCA1%   delta from 73
+--------------------------------------------------------------
+                   0            27     73.2253%       +0.2253%  (std=0.0000)
+                   5            32     72.6553%       -0.3447%  (std=0.7183)
+                  10            37     72.2774%       -0.7226%  (std=0.8834)
+                  15            42     71.6997%       -1.3003%  (std=1.0270)
+                  20            47     71.2604%       -1.7396%  (std=1.0717)
+                  30            57     70.0578%       -2.9422%  (std=1.2502)
+                  40            67     68.7612%       -4.2388%  (std=1.6239)
+                  50            77     68.1600%       -4.8400%  (std=1.6005)
+
+============================================================================
+7. INVERSE PROBLEM: What exception values give EXACTLY 73%?
+============================================================================
+
+Non-VOID exceptions (10 cells):
+  T[LATTICE,COUNTER] = 3
+  T[COUNTER,LATTICE] = 3
+  T[COUNTER,COLLAPSE] = 4
+  T[COUNTER,RESET] = 9
+  T[PROGRESS,RESET] = 3
+  T[COLLAPSE,COUNTER] = 4
+  T[COLLAPSE,BREATH] = 8
+  T[BREATH,COLLAPSE] = 8
+  T[RESET,COUNTER] = 9
+  T[RESET,PROGRESS] = 3
+
+PCA1% as function of exception scale k:
+  (k=0: all exceptions = 7, k=1: original TSML)
+
+       k         PCA1%
+------------------------
+    0.00     89.045345%
+    0.25     87.803158%
+    0.50     84.453597%
+    0.75     79.398797%
+    1.00     73.225278%
+    1.25     66.541082%
+    1.50     59.853572%
+    2.00     47.743106%
+    3.00     31.732208%
+    5.00     34.203560%
+
+PCA1% at k=0: 89.045345%
+PCA1% at k=10: 37.930848%
+
+k for EXACTLY 73.0000%: k = 1.0086204348
+Verification: PCA1%(k=1.00862043) = 73.00000000%
+
+At k=1.00862043, the exception values would be:
+  T[LATTICE,COUNTER] = 2.965518  (actual: 3, delta: -0.034482)
+  T[COUNTER,LATTICE] = 2.965518  (actual: 3, delta: -0.034482)
+  T[COUNTER,COLLAPSE] = 3.974139  (actual: 4, delta: -0.025861)
+  T[COUNTER,RESET] = 9.017241  (actual: 9, delta: +0.017241)
+  T[PROGRESS,RESET] = 2.965518  (actual: 3, delta: -0.034482)
+  T[COLLAPSE,COUNTER] = 3.974139  (actual: 4, delta: -0.025861)
+  T[COLLAPSE,BREATH] = 8.008620  (actual: 8, delta: +0.008620)
+  T[BREATH,COLLAPSE] = 8.008620  (actual: 8, delta: +0.008620)
+  T[RESET,COUNTER] = 9.017241  (actual: 9, delta: +0.017241)
+  T[RESET,PROGRESS] = 2.965518  (actual: 3, delta: -0.034482)
+
+Distance from actual (k=1) to exact-73% (k=1.00862043):
+  |k - 1| = 0.0086204348
+  This is 0.86204348% scaling change.
+
+============================================================================
+8. SENSITIVITY ANALYSIS: d(PCA1%)/d(exception_value)
+============================================================================
+
+For each exception cell, compute the numerical derivative of PCA1%
+with respect to that cell value. Small derivative = ROBUST match.
+
+                     Cell   value      dPCA1/dv   % change per unit
+--------------------------------------------------------------------
+             T[VOID,VOID]       0     -0.231029           -0.231029%/unit
+          T[VOID,LATTICE]       0     +0.252447           +0.252447%/unit
+          T[VOID,COUNTER]       0     +0.241267           +0.241267%/unit
+         T[VOID,PROGRESS]       0     +0.251381           +0.251381%/unit
+         T[VOID,COLLAPSE]       0     +0.270965           +0.270965%/unit
+          T[VOID,BALANCE]       0     +0.288207           +0.288207%/unit
+            T[VOID,CHAOS]       0     +0.288207           +0.288207%/unit
+           T[VOID,BREATH]       0     +0.297701           +0.297701%/unit
+            T[VOID,RESET]       0     +0.270610           +0.270610%/unit
+          T[LATTICE,VOID]       0     -0.755375           -0.755375%/unit
+       T[LATTICE,COUNTER]       3     +1.030011           +1.030011%/unit
+          T[COUNTER,VOID]       0     -0.707886           -0.707886%/unit
+       T[COUNTER,LATTICE]       3     +1.057882           +1.057882%/unit
+      T[COUNTER,COLLAPSE]       4     +0.843665           +0.843665%/unit
+         T[COUNTER,RESET]       9     -0.750530           -0.750530%/unit
+         T[PROGRESS,VOID]       0     -0.655771           -0.655771%/unit
+        T[PROGRESS,RESET]       3     +1.189823           +1.189823%/unit
+         T[COLLAPSE,VOID]       0     -0.770736           -0.770736%/unit
+      T[COLLAPSE,COUNTER]       4     +0.778456           +0.778456%/unit
+       T[COLLAPSE,BREATH]       8     -0.157994           -0.157994%/unit
+          T[BALANCE,VOID]       0     -0.690317           -0.690317%/unit
+            T[CHAOS,VOID]       0     -0.690317           -0.690317%/unit
+           T[BREATH,VOID]       0     -0.699254           -0.699254%/unit
+       T[BREATH,COLLAPSE]       8     -0.219717           -0.219717%/unit
+            T[RESET,VOID]       0     -0.688515           -0.688515%/unit
+         T[RESET,COUNTER]       9     -0.817069           -0.817069%/unit
+        T[RESET,PROGRESS]       3     +1.152191           +1.152191%/unit
+
+For comparison, sensitivity of a few HARMONY cells:
+                     Cell   value      dPCA1/dv   % change per unit
+--------------------------------------------------------------------
+       T[LATTICE,LATTICE]       7     -0.178872           -0.178872%/unit
+       T[COUNTER,COUNTER]       7     -0.278801           -0.278801%/unit
+     T[PROGRESS,COLLAPSE]       7     -0.081957           -0.081957%/unit
+       T[BALANCE,BALANCE]       7     +0.164980           +0.164980%/unit
+       T[HARMONY,HARMONY]       7     +0.000000           +0.000000%/unit
+       T[LATTICE,BALANCE]       7     +0.028640           +0.028640%/unit
+        T[PROGRESS,CHAOS]       7     +0.014312           +0.014312%/unit
+          T[CHAOS,BREATH]       7     +0.221377           +0.221377%/unit
+
+============================================================================
+SENSITIVITY SUMMARY
+============================================================================
+
+Exception cell sensitivities |dPCA1/dv|:
+  Max:  1.189823%/unit
+  Min:  0.157994%/unit
+  Mean: 0.594345%/unit
+  RMS:  0.672114%/unit
+
+If ALL exceptions shift 1 unit toward 7 simultaneously:
+  Original PCA1%: 73.22527804%
+  Shifted PCA1%:  80.44327670%
+  Change:         +7.21799866%
+
+============================================================================
+9. THE STRUCTURAL FORCING ARGUMENT
+============================================================================
+
+PCA1% as a function of harmony count (N cells = 7, rest random):
+(VOID structure always preserved)
+
+Total non-VOID cells: 83
+Currently harmony (=7) among non-VOID: 73
+
+   N_harmony    N/non_void    mean PCA1%       std
+--------------------------------------------------
+           0         0.0%     33.9040%    4.3085
+           5         6.0%     33.2074%    4.3884
+          10        12.0%     34.4169%    4.2494
+          15        18.1%     36.0049%    4.3947
+          20        24.1%     36.6865%    4.4771
+          25        30.1%     38.8723%    4.0034
+          30        36.1%     40.5571%    4.1629
+          35        42.2%     43.3151%    4.0964
+          40        48.2%     46.0260%    4.0251
+          45        54.2%     49.8988%    4.0218
+          50        60.2%     53.1822%    4.0257
+          55        66.3%     58.3559%    4.0092
+          60        72.3%     58.9442%    3.8573
+          65        78.3%     65.5872%    4.1734
+          70        84.3%     68.6025%    4.7396
+          75        90.4%     76.5475%    2.9477
+          80        96.4%     81.5856%    3.7498
+
+============================================================================
+10. ANALYTICAL DECOMPOSITION: WHY IS PCA1% NEAR 73%?
+============================================================================
+
+Decomposition: T = T_harmony + T_deviation
+  ||T_harmony||_F = 59.808026
+  ||T_deviation||_F = 18.920888
+  ||T||_F = 62.729578
+  Energy ratio: ||T_harm||^2 / ||T||^2 = 0.90902160
+  = 90.9022%
+
+Frobenius energy decomposition:
+  Harmony energy: 73 * 7^2 = 3577
+  Exception energy: sum(v^2) = 358
+  Total: 3935
+  Harmony fraction: 3577/3935 = 90.9022%
+
+Centered analysis (T - row_means):
+  Row means: ['0.70', '5.90', '5.80', '5.90', '6.10', '6.30', '6.30', '7.00', '6.40', '6.10']
+
+  ||T_centered||_F^2 = 459.900000
+
+Total variance (sum of row variances, ddof=1): 51.10000000
+Trace of cov(T): 51.10000000
+
+============================================================================
+11. CRITICAL TEST: Is 73% an ATTRACTOR for 73-harmony matrices?
+============================================================================
+
+Fix 73 cells = 7. Vary the 27 exception values over ALL possible
+integer values 0-9 (excluding 7). What is the distribution of PCA1%?
+
+Sampled 10000 random exception configurations (73 harmony cells fixed):
+  Mean PCA1%:   68.034367%
+  Median PCA1%: 67.946334%
+  Std PCA1%:    5.236476%
+  Min PCA1%:    51.362692%
+  Max PCA1%:    85.998753%
+  Actual TSML:  73.225278%
+
+Distribution:
+    50.4-  51.6%:     2 
+    51.6-  52.9%:     1 
+    52.9-  54.2%:    11 
+    54.2-  55.4%:    28 #
+    55.4-  56.7%:    68 ###
+    56.7-  57.9%:   140 #######
+    57.9-  59.2%:   200 ##########
+    59.2-  60.5%:   294 ###############
+    60.5-  61.7%:   406 #####################
+    61.7-  63.0%:   569 #############################
+    63.0-  64.3%:   702 ####################################
+    64.3-  65.5%:   791 #########################################
+    65.5-  66.8%:   933 #################################################
+    66.8-  68.0%:   931 #################################################
+    68.0-  69.3%:   950 ##################################################
+    69.3-  70.6%:   848 ############################################
+    70.6-  71.8%:   781 #########################################
+    71.8-  73.1%:   645 #################################
+    73.1-  74.4%:   483 #########################
+    74.4-  75.6%:   437 #######################
+    75.6-  76.9%:   309 ################
+    76.9-  78.2%:   192 ##########
+    78.2-  79.4%:   121 ######
+    79.4-  80.7%:    71 ###
+    80.7-  81.9%:    49 ##
+    81.9-  83.2%:    26 #
+    83.2-  84.5%:     7 
+    84.5-  85.7%:     3 
+    85.7-  87.0%:     2 
+
+Fraction below 73%: 8265/10000 = 82.7%
+Fraction above 73%: 1735/10000 = 17.3%
+
+Actual TSML PCA1% percentile rank: 83.4%
+
+============================================================================
+12. FINAL VERDICT: FORCED, FREE, OR CONSTRAINED?
+============================================================================
+
+EVIDENCE SUMMARY:
+
+1. TSML PCA1% = 73.225278%
+   Distance from 73%: 0.225278%
+
+2. Pure harmony (non-VOID exc -> 7): PCA1% = 89.045345%
+   (This is the "73-cell attractor" value)
+
+3. Perturbation directions:
+   Cells where setting to 7 INCREASES PCA1%: 11/27
+   Cells where setting to 7 DECREASES PCA1%: 16/27
+
+4. Mean PCA1% over random 73-harmony configurations: 68.0344%
+   Std: 5.2365%
+
+5. Sensitivity magnitudes: max |dPCA1/dv| = 1.189823%/unit
+   A 1-unit change in an exception shifts PCA1% by at most ~1.19%
+
+INTERPRETATION:
+
+The PCA1% distribution is BROAD, suggesting the match is FRAGILE.
+With std = 5.24%, the 73% match is sensitive to
+the specific exception values chosen.
+
+The actual value is within 1 std of 73%, which is unremarkable
+given the distribution width.

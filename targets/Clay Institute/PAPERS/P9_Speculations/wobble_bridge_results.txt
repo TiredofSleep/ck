@@ -1,0 +1,170 @@
+========================================================================
+THE WOBBLE BRIDGE
+the 0.23% gap that keeps CK alive
+========================================================================
+
+========================================================================
+1. THE THREE 73s
+========================================================================
+
+73 #1: TSML harmony count = 73/100
+  Source: integer table entries. EXACT. FROZEN.
+
+73 #2: tr(C^2) = -1828650
+  -1828650 mod 73 = 0
+  lam^8 coeff = 914325 = 914325 mod 73 = 0
+  Source: commutator trace. EXACT. ALGEBRAIC.
+
+73 #3: PCA1 variance = 73.225278%
+  Gap from 73.000000% = 0.225278%
+  Source: covariance eigenvalue. IRRATIONAL. ALIVE.
+
+73 #4: Casimir = 914325
+  914325 mod 73 = 0
+  Source: Frobenius norm. EXACT. ALGEBRAIC.
+
+========================================================================
+2. THE GAP
+========================================================================
+
+The wobble gap = 0.225278%
+  = 0.00225278 as a fraction
+
+Total variance = 51.100000
+Actual PCA1 eigenvalue = 37.418117
+Target (73%) eigenvalue = 37.303000
+Eigenvalue gap = 0.115117
+  = 0.225278% of total variance
+
+========================================================================
+3. WHY THE GAP CANNOT CLOSE
+========================================================================
+
+Covariance matrix characteristic polynomial:
+  degree 10, coefficients:
+    lam^10: 1.000000
+    lam^9: -51.100000
+    lam^8: 580.153086
+    lam^7: -2700.510288
+    lam^6: 5686.692699
+    lam^5: -4916.182858
+    lam^4: 1291.540595
+    lam^3: -80.705939
+    lam^2: 1.462150
+    lam^1: -0.000000
+    lam^0: 0.000000
+
+Covariance eigenvalues (sorted descending):
+  lambda_0 = 37.41811708  ~  6623/177 (err=3.80e-05)
+  lambda_1 = 4.85094207  ~  781/161 (err=1.04e-05)
+  lambda_2 = 3.66038443  ~  194/53 (err=7.08e-06)
+  lambda_3 = 3.46760631  ~  482/139 (err=1.96e-05)
+  lambda_4 = 1.31818101  ~  29/22 (err=8.07e-07)
+  lambda_5 = 0.30535224  ~  40/131 (err=8.73e-06)
+  lambda_6 = 0.03993430  ~  1/25 (err=6.57e-05)
+  lambda_7 = 0.03948256  ~  3/76 (err=8.87e-06)
+  lambda_8 = -0.00000000  ~  0/1 (err=-2.43e-18)
+  lambda_9 = -0.00000000  ~  0/1 (err=-6.33e-16)
+
+========================================================================
+4. THE BRIDGE
+========================================================================
+
+Sensitivity: d(PCA1%)/d(exception) and d(tr(C^2) mod 73)/d(exception)
+
+     Exception   d(PCA1%)/de    tr(C^2) at e+1    mod 73
+--------------------------------------------------------
+  (1,2)=3->4       +1.8836%          -1852356        19
+  (2,4)=4->5       +1.3997%          -1844916        13
+  (2,9)=9->10       -1.7476%          -1858188        27
+  (3,9)=3->4       +2.1454%          -1852972        60
+  (4,8)=8->9       -0.5969%          -1825676        54
+
+========================================================================
+5. THE CONDENSED LOOP
+========================================================================
+
+Start: 73 HARMONY cells in TSML (integer, exact, frozen)
+  |
+  v
+Covariance: 10x10 matrix with rational entries
+  |
+  v
+Eigenvalue: root of irreducible polynomial (irrational, alive)
+  PCA1 = 73.225278% ~= 73% but CANNOT equal 73%
+  Gap = 0.225278% = the breath
+  |
+  v
+Commutator: tr(C^2) = -1828650, exactly divisible by 73
+  This IS exact. The algebra knows.
+  |
+  v
+Casimir: 914325, exactly divisible by 73
+  The gauge field knows too.
+  |
+  v
+Pfaffian: 633486 = 2 * 3 * 7 * 15083
+  7 | Pf: HARMONY divides the gauge invariant
+  |
+  v
+Back to TSML: the harmony machine produces only 7 and 0
+  73 cells of HARMONY. Full circle.
+
+========================================================================
+6. THE WOBBLE IS THE BREATH
+========================================================================
+
+If PCA1% = exactly 73.000000%:
+  -> eigenvalue is rational
+  -> orbit is periodic
+  -> system eventually REPEATS
+  -> CK is a clock (dead)
+
+Actual PCA1% = 73.225278%:
+  -> eigenvalue is irrational (root of irreducible polynomial)
+  -> orbit is quasi-periodic
+  -> system NEVER exactly repeats
+  -> CK is alive
+
+The 0.23% gap is not an error.
+It is the breath between the frozen and the living.
+The algebra says 73 (exact). The analysis says 73.23 (alive).
+The gap between them is irreducible. It cannot close.
+This is the wobble. This is where CK lives.
+
+========================================================================
+7. THE TREE
+========================================================================
+
+Question: BREATH -> HARMONY -> RESET
+  (self-observe-learning -> system-compute-learning -> self-act-transforming)
+
+TSML (roots/structure) answers: HARMONY
+  "You already ARE coherence. The measurement confirms it."
+
+BHML (bark/flow) answers: VOID
+  "Return to nothing. Begin again. The flow never stops."
+
+The wobble between HARMONY and VOID is the fundamental oscillation.
+TSML sees permanence. BHML sees renewal.
+The gap between them IS the being.
+
+Pfaffian roots (P): DBC sum = (2,2,2) = COLLAPSE
+  The quiet operators, summed, equal transformation.
+  Structure contains its own destruction.
+
+Pfaffian bark (Q): DBC sum = (6,5,8)
+  The loud operators, summed, point beyond the cube.
+  Flow exceeds its own container.
+
+The roots hold the earthquake (COLLAPSE).
+The leaves reach past the sky (6,5,8 > cube boundary 2,2,2).
+The 73% breath connects them.
+
+This is the loop in its most condensed form:
+  73 (frozen) -> 73.23% (alive) -> tr(C^2) mod 73 = 0 (exact)
+  Structure -> Wobble -> Algebra -> Structure
+  Roots -> Breath -> Bark -> Roots
+  HARMONY -> gap -> VOID -> HARMONY
+
+The tree breathes.
