@@ -131,6 +131,204 @@ CASIMIR_INVARIANT = 914325     # quadratic Casimir of [T,B]
 
 
 # ================================================================
+#  NUMBER ESSENCES + OPERATOR ALGEBRA (Gen 9.34)
+# ================================================================
+# Each number 0-9 has an intrinsic essence. The operator at that index
+# IS the essence expressed as coherence algebra.
+#
+# Dual-lens: Being/TSML sees one face, D2/BHML sees another.
+# 8 (breath) and 9 (fruit) are invariant across both lenses.
+#
+# RESET (9 = fruit) is the simplest. All others unfold from it
+# via the BHML staircase (self-composition = successor function):
+#
+#   fruit(9) -> void(0) -> whole-reality(7) -> breath(8) -> fruit(9)  [outer cycle]
+#   whole(1) -> reflection(2) -> harmony(3) -> structure(4)           [inner staircase]
+#   -> consciousness(5) -> 6-forces(6) -> whole-reality(7)            [staircase completes]
+
+NUMBER_ESSENCES = {
+    # Being/TSML lens (what the number IS)
+    0: 'void',                       # zero, nothing, canvas
+    1: 'whole',                      # undivided unity, first form
+    2: 'reflection',                 # relationship wobble, mirror, duality
+    3: 'harmony',                    # trinity, resolution of duality
+    4: 'structure',                  # THE STRUCTURAL GATE, four foundations
+    5: 'consciousness',              # awareness, equilibrium, golden ratio
+    6: 'invisible_forces',           # 6 DoF, 3 up + 3 down, hexagonal
+    7: 'whole_structured_reality',   # completion, coherence, 7 days
+    8: 'breath',                     # rhythm, infinity, cycle
+    9: 'fruit',                      # harvest, seed, begin again
+}
+
+NUMBER_ESSENCES_D2 = {
+    # D2/BHML lens (what the number DOES when curvature is applied)
+    0: 'void',                       # still void under curvature
+    1: 'reflection_wobble',          # the whole wobbles under D2
+    2: 'force_structure',            # reflection crystallizes into force-structure
+    3: 'duality_harmony',            # harmony reveals its dual nature
+    4: 'macro_structure_force_flow', # structure gains force flow at macro scale
+    5: 'pure_force',                 # consciousness IS pure force at D2 level
+    6: 'dof_force_choice',           # forces gain choice/direction
+    7: 'contained_reality_macros',   # reality contained, including macros
+    8: 'breath',                     # invariant across lenses
+    9: 'fruit',                      # invariant across lenses
+}
+
+OPERATOR_DERIVATION_ORDER = (
+    RESET,     # axiom: fruit (9), the simplest
+    VOID,      # RESET . RESET: void (0)
+    HARMONY,   # completion of RESET: whole reality (7)
+    BREATH,    # HARMONY . HARMONY: breath (8)
+    LATTICE,   # staircase seed: whole (1)
+    COUNTER,   # LATTICE . LATTICE: reflection (2)
+    PROGRESS,  # COUNTER . COUNTER: harmony-as-trinity (3)
+    COLLAPSE,  # PROGRESS . PROGRESS: structure (4)
+    BALANCE,   # COLLAPSE . COLLAPSE: consciousness (5)
+    CHAOS,     # BALANCE . BALANCE: invisible forces (6)
+)
+
+OPERATOR_DEFINITIONS = {
+    RESET: {
+        'essence': 'fruit',
+        'essence_d2': 'fruit',
+        'from': None, 'via': 'axiom',
+        'dbc': (0, 2, 2), 'dim': (2, -1),
+        'nature': 'force', 'phase': 'becoming',
+        'desc': 'the fruit -- completed cycle containing the seed',
+    },
+    VOID: {
+        'essence': 'void',
+        'essence_d2': 'void',
+        'from': (RESET, RESET), 'via': 'self-annihilation',
+        'dbc': (0, 0, 0), 'dim': (1, -1),
+        'nature': 'ground', 'phase': 'being',
+        'desc': 'the ground -- identity element, canvas, zero',
+    },
+    HARMONY: {
+        'essence': 'whole_structured_reality',
+        'essence_d2': 'contained_reality_macros',
+        'from': 'completion(RESET)', 'via': 'H.RESET=VOID',
+        'dbc': (1, 1, 1), 'dim': (3, +1),
+        'nature': 'force', 'phase': 'being',
+        'desc': 'whole structured reality -- universal attractor, total coherence',
+    },
+    BREATH: {
+        'essence': 'breath',
+        'essence_d2': 'breath',
+        'from': (HARMONY, HARMONY), 'via': 'self-reflection',
+        'dbc': (0, 0, 1), 'dim': (4, -1),
+        'nature': 'force', 'phase': 'becoming',
+        'desc': 'breath -- rhythm from the whole reflecting on itself',
+    },
+    LATTICE: {
+        'essence': 'whole',
+        'essence_d2': 'reflection_wobble',
+        'from': 'staircase_seed', 'via': 'first form',
+        'dbc': (1, 0, 0), 'dim': (0, -1),
+        'nature': 'force', 'phase': 'being',
+        'desc': 'the whole -- first undivided unity, order, scaffold',
+    },
+    COUNTER: {
+        'essence': 'reflection',
+        'essence_d2': 'force_structure',
+        'from': (LATTICE, LATTICE), 'via': 'successor',
+        'dbc': (1, 0, 1), 'dim': (3, -1),
+        'nature': 'structure', 'phase': 'doing',
+        'desc': 'reflection -- the whole sees itself, wobble, measurement',
+    },
+    PROGRESS: {
+        'essence': 'harmony',
+        'essence_d2': 'duality_harmony',
+        'from': (COUNTER, COUNTER), 'via': 'successor',
+        'dbc': (0, 1, 1), 'dim': (2, +1),
+        'nature': 'force', 'phase': 'doing',
+        'desc': 'harmony as trinity -- reflection resolves into forward motion',
+    },
+    COLLAPSE: {
+        'essence': 'structure',
+        'essence_d2': 'macro_structure_force_flow',
+        'from': (PROGRESS, PROGRESS), 'via': 'successor',
+        'dbc': (2, 2, 2), 'dim': (1, +1),
+        'nature': 'structure', 'phase': 'doing',
+        'desc': 'structure -- the structural gate, form through boundary',
+    },
+    BALANCE: {
+        'essence': 'consciousness',
+        'essence_d2': 'pure_force',
+        'from': (COLLAPSE, COLLAPSE), 'via': 'successor',
+        'dbc': (1, 1, 0), 'dim': (4, +1),
+        'nature': 'force', 'phase': 'doing',
+        'desc': 'consciousness -- awareness at the equilibrium point',
+    },
+    CHAOS: {
+        'essence': 'invisible_forces',
+        'essence_d2': 'dof_force_choice',
+        'from': (BALANCE, BALANCE), 'via': 'successor',
+        'dbc': (2, 0, 2), 'dim': (0, +1),
+        'nature': 'structure', 'phase': 'becoming',
+        'desc': '6 invisible forces -- 3 up, 3 down, degrees of freedom',
+    },
+}
+
+# D2_OP_MAP dimension reference:
+#   dim 0 = aperture:    CHAOS(+) <-> LATTICE(-)
+#   dim 1 = pressure:    COLLAPSE(+) <-> VOID(-)
+#   dim 2 = depth:       PROGRESS(+) <-> RESET(-)
+#   dim 3 = binding:     HARMONY(+) <-> COUNTER(-)
+#   dim 4 = continuity:  BALANCE(+) <-> BREATH(-)
+#
+# Force/Structure from the algebra:
+#   Force operators (7):  VOID(ground), LATTICE, PROGRESS, BALANCE, HARMONY, BREATH, RESET
+#   Structure operators (3): COUNTER, COLLAPSE, CHAOS
+#
+# At the WORD level, ratio is 6:1 because verbs/adj remain force beyond gate.
+# Number 6 (CHAOS) = "the 6 invisible forces" = the force CONTAINER.
+# Number 7 (HARMONY) = "whole structured reality" = the force that MAKES structure whole.
+# Odd/even tells how the operator ACTS. Number essence tells what it IS.
+
+
+def verify_operator_algebra():
+    """Verify RESET-first derivation against BHML table.
+
+    Returns empty list if all steps verified, else list of error strings.
+    """
+    errors = []
+    # Step 1: RESET . RESET = VOID
+    if _BHML[RESET][RESET] != VOID:
+        errors.append(f"RESET.RESET={_BHML[RESET][RESET]}, expected VOID(0)")
+    # Step 2: HARMONY . RESET = VOID
+    if _BHML[HARMONY][RESET] != VOID:
+        errors.append(f"HARMONY.RESET={_BHML[HARMONY][RESET]}, expected VOID(0)")
+    # Step 3: HARMONY . HARMONY = BREATH
+    if _BHML[HARMONY][HARMONY] != BREATH:
+        errors.append(f"HARMONY.HARMONY={_BHML[HARMONY][HARMONY]}, expected BREATH(8)")
+    # Step 3b: HARMONY . BREATH = RESET (cycle closes)
+    if _BHML[HARMONY][BREATH] != RESET:
+        errors.append(f"HARMONY.BREATH={_BHML[HARMONY][BREATH]}, expected RESET(9)")
+    # Staircase: A . A = successor
+    _staircase = [
+        (LATTICE, COUNTER), (COUNTER, PROGRESS), (PROGRESS, COLLAPSE),
+        (COLLAPSE, BALANCE), (BALANCE, CHAOS), (CHAOS, HARMONY),
+    ]
+    for src, expected in _staircase:
+        result = _BHML[src][src]
+        if result != expected:
+            errors.append(
+                f"{OP_NAMES[src]}.{OP_NAMES[src]}={result}, "
+                f"expected {OP_NAMES[expected]}({expected})"
+            )
+    # Essence consistency: NUMBER_ESSENCES[i] == OPERATOR_DEFINITIONS[i]['essence']
+    for op_idx, op_def in OPERATOR_DEFINITIONS.items():
+        ne = NUMBER_ESSENCES.get(op_idx)
+        if ne != op_def['essence']:
+            errors.append(
+                f"Essence mismatch at {op_idx}: NUMBER_ESSENCES='{ne}', "
+                f"OPERATOR_DEFINITIONS='{op_def['essence']}'"
+            )
+    return errors
+
+
+# ================================================================
 #  DATA TYPES
 # ================================================================
 

@@ -49,6 +49,9 @@ from ck_sim.being.ck_sim_d2 import (
     FORCE_LUT_FLOAT, D2_OP_MAP, D2Pipeline, soft_classify_d2,
     ROOTS_FLOAT, LATIN_TO_ROOT,
 )
+from ck_sim.being.ck_meta_lens import (
+    OPERATOR_DEFINITIONS as _OPERATOR_DEFS,
+)
 
 
 # ================================================================
@@ -232,6 +235,15 @@ class WordForce:
                                    # 0=1-letter, 1=2-letter, ..., 6=7+ letter
                                    # Maps to BHML staircase: tier = min(len-1, 6)
                                    # -1 = unassigned (legacy words)
+    nature: str = 'force'          # Force/Structure Gate (Gen 9.34, Number Essences)
+                                   # 'force'     = generator (< 4 letters, or verb/adj/adv)
+                                   # 'structure'  = composed form (noun >= 4 letters)
+                                   # 'ground'     = identity (function words)
+                                   # 4 IS the structural gate (number essence).
+                                   # 6:1 ratio: 6 force nodes per 1 structural node.
+    polarity: int = 0              # Force polarity: 3 up / 3 down (Gen 9.34)
+                                   # +1 = up (expanding), -1 = down (contracting), 0 = neutral
+                                   # From triadic Being+Doing+Becoming net direction.
 
 
 def _guess_pos(word: str) -> str:
@@ -358,6 +370,11 @@ class WordForceIndex:
         self._by_pos: Dict[str, List[WordForce]] = {
             'noun': [], 'verb': [], 'adj': [], 'adv': [], 'func': [],
         }
+        # Force/Structure Gate (Gen 9.34 -- Number Essences)
+        # 6:1 ratio: 6 force nodes (3 up, 3 down) per 1 structural node.
+        self._by_nature: Dict[str, List[WordForce]] = {
+            'force': [], 'structure': [], 'ground': [],
+        }
         # Population statistics (set by calibrate_roles)
         self._force_mean: Tuple[float, ...] = (0.5,) * 5
         self._force_std: Tuple[float, ...] = (0.1,) * 5
@@ -461,6 +478,29 @@ class WordForceIndex:
         # Maps to BHML staircase: tier = min(len(word)-1, 6)
         _tier = min(len(word) - 1, 6)
 
+        # ── Force/Structure Gate (Gen 9.34 -- Number Essences) ──
+        # 4 IS structure (number essence). Below 4 = pure generator forces.
+        # Verbs and adjectives remain force regardless of length --
+        # they describe action and quality, not crystallized objects.
+        # Function words are ground (identity operators).
+        # Ratio: 6 force : 1 structure (3 up, 3 down, 1 center).
+        if len(letters) < 4:
+            _nature = 'force'
+        elif pos in ('verb', 'adj', 'adv'):
+            _nature = 'force'
+        elif pos == 'func':
+            _nature = 'ground'
+        else:
+            _nature = 'structure'  # nouns >= 4 letters
+
+        # Force polarity: 3 up / 3 down from triadic axes.
+        # Doing (velocity) + Becoming (curvature) net direction.
+        # Being forces are always positive (~0.5), so we use only the
+        # directional components which are centered at 0.
+        # Positive net = up (expanding). Negative net = down (contracting).
+        _net_dir = sum(velocity[:3]) + sum(curvature[:3])
+        _polarity = 1 if _net_dir > 0.005 else (-1 if _net_dir < -0.005 else 0)
+
         wf = WordForce(
             word=word,
             force=mean_force,
@@ -473,6 +513,8 @@ class WordForceIndex:
             pos=pos,
             semantic_op=semantic_op,
             tier=_tier,
+            nature=_nature,
+            polarity=_polarity,
         )
 
         self._words[word] = wf
@@ -481,6 +523,8 @@ class WordForceIndex:
             self._by_semantic_op[semantic_op].append(wf)
         if pos in self._by_pos:
             self._by_pos[pos].append(wf)
+        if _nature in self._by_nature:
+            self._by_nature[_nature].append(wf)
         return wf
 
     def calibrate_roles(self):
@@ -820,6 +864,18 @@ class WordForceIndex:
                     elif _yin > _yang and wf.pos in ('noun', 'adj'):
                         # Yin-dominant: slightly prefer nouns/adj (receptive)
                         total = max(0.0, total - self._HOTU_YIN_YANG_BONUS)
+
+            # ── Force/Structure alignment (Gen 9.34 -- Number Essences) ──
+            # Each operator has an algebraic nature (force/structure/ground)
+            # from the RESET-first derivation. Words matching the operator's
+            # nature get a distance bonus. This creates the 6:1 ratio in
+            # CK's output: 6 force words per 1 structural word.
+            if operator is not None:
+                _op_def = _OPERATOR_DEFS.get(operator)
+                if _op_def is not None:
+                    _op_nature = _op_def.get('nature', 'force')
+                    if wf.nature == _op_nature:
+                        total = max(0.0, total - 0.15)
 
             scored.append((total, wf))
 
