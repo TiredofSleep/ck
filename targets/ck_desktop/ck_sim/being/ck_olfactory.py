@@ -168,12 +168,22 @@ _BEING_OPS = frozenset({VOID, LATTICE, HARMONY})
 _DOING_OPS = frozenset({COUNTER, PROGRESS, COLLAPSE, BALANCE})
 _BECOMING_OPS = frozenset({CHAOS, BREATH, RESET})
 
+# Pfaffian partition: force conjugates from [TSML, BHML] Pfaffian = 2*3*7*15083.
+# 15083 digits -> {LATTICE, BALANCE, VOID, BREATH, PROGRESS}
+_PFAFFIAN_SET = frozenset({LATTICE, BALANCE, VOID, BREATH, PROGRESS})    # harmony machine
+_PFAFFIAN_COMP = frozenset({COUNTER, COLLAPSE, CHAOS, HARMONY, RESET})   # complement
+
 
 def _dbc_class(op: int) -> str:
     if op in _BEING_OPS: return 'B'
     if op in _DOING_OPS: return 'D'
     if op in _BECOMING_OPS: return 'BC'
     return '?'
+
+
+def _pfaffian_class(op: int) -> str:
+    """Classify operator by Pfaffian partition: 'P' (set) or 'Q' (complement)."""
+    return 'P' if op in _PFAFFIAN_SET else 'Q'
 
 
 def _dim_to_op(value: float, dim: int) -> int:

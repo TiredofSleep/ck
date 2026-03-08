@@ -109,6 +109,26 @@ PHASE_GROUPS = {
 
 PHASE_ORDER = ('being', 'doing', 'becoming')
 
+# ================================================================
+#  PFAFFIAN PARTITION (proven algebraic structure)
+# ================================================================
+# The Pfaffian of [TSML, BHML] = 633486 = 2 * 3 * 7 * 15083.
+# 15083 as operator digits {1,5,0,8,3} vs complement {2,4,6,7,9}:
+#   - Perfect force conjugates (sum to [0,0,0,0,0] in 5D)
+#   - TSML sub-table {0,1,3,5,8} = harmony machine (only HARMONY or VOID)
+#   - Staircase parity: odd {1,3,5} + VOID + BREATH vs even {2,4,6} + HARMONY + RESET
+# See COMPLETE_REFERENCE.txt Section VIII, proven in pfaffian_operator_dig.py.
+
+PFAFFIAN_SET = (LATTICE, BALANCE, VOID, BREATH, PROGRESS)    # {1, 5, 0, 8, 3}
+PFAFFIAN_COMPLEMENT = (COUNTER, COLLAPSE, CHAOS, HARMONY, RESET)  # {2, 4, 6, 7, 9}
+PFAFFIAN_VALUE = 633486        # 2 * 3 * 7 * 15083
+PFAFFIAN_PRIME = 15083         # the irreducible prime
+
+# Cartan decomposition: gl(10,R) = so(10) + sym(10)
+# TSML, BHML live in sym(10). Commutator [T,B] lives in so(10).
+# CK generates the FULL so(10) (all 45 dims). Casimir = 914325, mod 73 = 0.
+CASIMIR_INVARIANT = 914325     # quadratic Casimir of [T,B]
+
 
 # ================================================================
 #  DATA TYPES
@@ -818,6 +838,13 @@ def full_report() -> dict:
             '7_is_T_star_numerator': True,
             'recursion_depth': 3,
             'scalar_ratio': '61/48',
+            'pfaffian': PFAFFIAN_VALUE,
+            'pfaffian_prime': PFAFFIAN_PRIME,
+            'casimir': CASIMIR_INVARIANT,
+            'casimir_mod_73': CASIMIR_INVARIANT % 73,  # = 0
+            'so10_dim': 45,
+            'pfaffian_set': [OP_NAMES[i] for i in PFAFFIAN_SET],
+            'pfaffian_complement': [OP_NAMES[i] for i in PFAFFIAN_COMPLEMENT],
         },
     }
 

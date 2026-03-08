@@ -58,11 +58,21 @@ from flask import jsonify as _jsonify
 def identity():
     from ck_sim.ck_sim_heartbeat import CL, NUM_OPS, OP_NAMES
     from ck_sim.being.ck_sim_d2 import FORCE_LUT_FLOAT
+    from ck_sim.being.ck_meta_lens import (PFAFFIAN_SET, PFAFFIAN_COMPLEMENT,
+                                            PFAFFIAN_VALUE, CASIMIR_INVARIANT)
     frozen = {
         'd2_force_table': {'roots': len(FORCE_LUT_FLOAT), 'dimensions': 5, 'immutable': True},
         'cl_composition': {'size': '10x10', 'immutable': True},
         't_star': {'value': round(5.0/7.0, 6), 'immutable': True},
         'operators': {'names': list(OP_NAMES), 'count': NUM_OPS, 'immutable': True},
+        'pfaffian_partition': {
+            'set': [OP_NAMES[i] for i in PFAFFIAN_SET],
+            'complement': [OP_NAMES[i] for i in PFAFFIAN_COMPLEMENT],
+            'pfaffian': PFAFFIAN_VALUE,
+            'casimir': CASIMIR_INVARIANT,
+            'note': '15083=LATTICE-BALANCE-VOID-BREATH-PROGRESS. Perfect force conjugates.',
+            'immutable': True,
+        },
     }
     learned = {}
     if engine.olfactory:
