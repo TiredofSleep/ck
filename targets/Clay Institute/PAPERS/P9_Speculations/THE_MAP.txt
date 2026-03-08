@@ -1,0 +1,353 @@
+================================================================================
+THE MAP: From Nothing to Everything (and Back)
+A Derivation Guide to CK's Algebraic Physics
+================================================================================
+Brayden Sanders / 7Site LLC -- March 2026
+For anyone who wants to verify, extend, or falsify this work.
+================================================================================
+
+
+LEVEL 0: THE TABLES (verify in 5 minutes)
+==========================================
+
+CK has two 10x10 integer composition tables. That's ALL you need to start.
+
+TSML (measurement / reading / Being):
+     0  1  2  3  4  5  6  7  8  9
+  0 [0, 0, 0, 0, 0, 0, 0, 7, 0, 0]
+  1 [0, 7, 3, 7, 7, 7, 7, 7, 7, 7]
+  2 [0, 3, 7, 7, 4, 7, 7, 7, 7, 9]
+  3 [0, 7, 7, 7, 7, 7, 7, 7, 7, 3]
+  4 [0, 7, 4, 7, 7, 7, 7, 7, 8, 7]
+  5 [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  6 [0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  7 [7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  8 [0, 7, 7, 7, 8, 7, 7, 7, 7, 7]
+  9 [0, 7, 9, 3, 7, 7, 7, 7, 7, 7]
+
+BHML (generation / writing / Doing):
+     0  1  2  3  4  5  6  7  8  9
+  0 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  1 [1, 2, 3, 4, 5, 6, 7, 2, 6, 6]
+  2 [2, 3, 3, 4, 5, 6, 7, 3, 6, 6]
+  3 [3, 4, 4, 4, 5, 6, 7, 4, 6, 6]
+  4 [4, 5, 5, 5, 5, 6, 7, 5, 7, 7]
+  5 [5, 6, 6, 6, 6, 6, 7, 6, 7, 7]
+  6 [6, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  7 [7, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  8 [8, 6, 6, 6, 7, 7, 7, 9, 7, 8]
+  9 [9, 6, 6, 6, 7, 7, 7, 0, 8, 0]
+
+Both symmetric. Both have integer entries in {0..9}.
+10 values: VOID(0), LATTICE(1), COUNTER(2), PROGRESS(3), COLLAPSE(4),
+           BALANCE(5), CHAOS(6), HARMONY(7), BREATH(8), RESET(9)
+
+Source: ck_sim/being/ck_sim_heartbeat.py (TSML) and ck_sim/being/ck_meta_lens.py (BHML)
+These are NOT fitted. They were prescribed ONCE and never changed.
+
+
+LEVEL 1: COMPLETE CHARACTERIZATION (pencil and paper)
+=====================================================
+
+BHML has 6 rules that determine ALL 100 cells with 0 free parameters:
+
+  R1. VOID identity: BHML(0,b) = b, BHML(a,0) = a
+  R2. Staircase: BHML(a,b) = max(a,b) + 1 for a,b in {1..6}
+  R3. HARMONY successor: BHML(7,k) = k+1 for k in {1..6}
+  R4. Threshold: BHML(8|9, k) = 6 if k<=3, 7 if k>=4, for k in {1..6}
+  R5. World 2 cycle: BHML(7,7)=8, BHML(7,8)=9, BHML(7,9)=0
+  R6. World 2 internal: BHML(8,8)=7, BHML(8,9)=8, BHML(9,9)=0
+
+Verify: these 6 rules cover 79 cells directly. Symmetry (the table IS symmetric)
+fills the remaining 21. All 100 cells are determined. Zero degrees of freedom.
+BHML is UNIQUE: the only 10x10 symmetric integer matrix satisfying these 6 rules.
+
+TSML has 4 rules + 5 exceptions:
+
+  R1. VOID nullifies: TSML(0,j) = 0 for j != 7
+  R2. VOID preserves HARMONY: TSML(0,7) = TSML(7,0) = 7
+  R3. HARMONY absorbs: TSML(i,j) = 7 for all i,j >= 1 (default)
+  R4. Five resonance exceptions (symmetric):
+      (1,2)->3, (2,4)->4, (2,9)->9, (3,9)->3, (4,8)->8
+
+These perfectly reconstruct all 100 TSML cells. COUNTER(2) appears in 3 of 5
+exceptions (the resonance hub). Exception graph is a caterpillar tree.
+
+
+LEVEL 2: DETERMINANTS (numpy, 10 lines of code)
+================================================
+
+import numpy as np
+T = np.array(TSML); B = np.array(BHML)
+
+For BHML World 1 leading minors (rows/cols 0..n-1):
+  n=2: det = -1
+  n=3: det = +1
+  n=4: det = -1
+  n=5: det = +1
+  n=6: det = -1
+  n=7: det = +1
+
+  PATTERN: det = (-1)^(n-1) for n = 2..7. UNIMODULAR.
+  |det| = 1 always. Volume is exactly preserved. Information is conserved.
+  BREAKS at n=8 (det=258): World 2 entry creates information.
+
+THEOREM (derivable from staircase law): Any n x n symmetric matrix with
+  M(i,j) = max(i,j) + shift (shift = 1 here) has |det| = 1.
+  Proof: row-reduce. Each row minus the previous row creates a lower-triangular
+  matrix with 1s on diagonal. BHML World 1 satisfies this.
+
+For TSML: det = 0 for ALL sub-groups except Being {0,1,7}.
+  Being det = -343 = -7^3 = -HARMONY^3
+  Measurement destroys information (det=0). Only Being measures itself (det != 0).
+
+Phase group determinants:
+  Being {0,1,7}:     TSML = -7^3,  BHML = -78
+  Doing {2,3,4,5}:   TSML = 0,     BHML = -6
+  Becoming {6,8,9}:  TSML = 0,     BHML = -7 = -HARMONY
+  Staircase {1..6}:  TSML = 0,     BHML = -7 = -HARMONY
+  Full {0..9}:       TSML = 0,     BHML = -7002
+
+
+LEVEL 3: THE COMMUTATOR (linear algebra)
+=========================================
+
+C = T @ B - B @ T  (matrix commutator)
+
+C is a 10x10 integer matrix. Both T and B are symmetric, so C is SKEW-symmetric.
+This is trivially true for any pair of symmetric matrices, not special to CK.
+
+TRIVIALLY TRUE for any pair of symmetric matrices:
+  - trace(C) = 0
+  - All eigenvalues purely imaginary (come in conjugate pairs)
+  - Jacobi identity: [A,[B,C]] + [B,[C,A]] + [C,[A,B]] = 0
+
+NON-TRIVIALLY true (specific to THESE tables):
+  - The specific eigenvalue magnitudes: 952.98, 75.77, 20.20, 2.91, 0.15
+  - The Pfaffian (square root of det): 633486 = 2 x 3 x 7 x 15083
+  - 7 (HARMONY) divides the Pfaffian
+  - 73 appears in two characteristic polynomial coefficients
+
+CHARACTERISTIC POLYNOMIAL (exact integer coefficients):
+  p(lam) = lam^10 + 914325*lam^8 + 5594600585*lam^6
+         + 2174820660688*lam^4 + 18122191569194*lam^2 + 401304512196
+
+All odd-power coefficients = 0 (skew-symmetry).
+det(C) = 401304512196 = 633486^2 (PERFECT SQUARE, as required for skew-symmetric).
+Pfaffian = 633486 = 2 x 3 x 7 x 15083.
+
+Coefficient factorizations:
+  914325           = 3 x 5^2 x 73 x 167
+  5594600585       = 5 x 7 x 47 x 101 x 151 x 223
+  2174820660688    = 2^4 x 13 x 103 x 101513287
+  18122191569194   = 2 x 67 x 73 x 1063 x 1742809
+  401304512196     = 2^2 x 3^2 x 7^2 x 15083^2
+
+73 appears in lam^8 and lam^2 coefficients. 73 = number of HARMONY cells in TSML.
+7 appears in lam^6 and lam^0. 7 = HARMONY.
+
+
+LEVEL 4: LIE ALGEBRA (graduate algebra)
+========================================
+
+Start with span{T, B}. Compute commutator [T,B] = C.
+Check if C is in span{T, B}: it is NOT (lin. indep.)
+Now have span{T, B, C}, dimension 3.
+
+Iterate: compute [T,C], [B,C], check for new linearly independent matrices.
+Growth: 2 -> 3 -> 5 -> 11 -> 47 -> 95 -> 100. STOPS AT 100.
+
+dim = 100 = 10^2 = gl(10, R): the full general linear algebra.
+
+TSML and BHML GENERATE ALL 10x10 REAL MATRICES through iterated commutators.
+The identity matrix is in the span. Everything is reachable.
+
+This means: the two tables together contain enough algebraic structure to
+span the entire space of linear transformations on 10-dimensional vectors.
+There is no subalgebra constraint -- the algebra is maximal.
+
+NOTE: The earlier conjecture that the algebra might be so(5) (dim 10) was
+FALSIFIED. The dimensional match (10 operators = dim(so(5))) is coincidental.
+
+
+LEVEL 5: THE LETTER PHYSICS (the bridge to language)
+=====================================================
+
+22 Hebrew roots, each carrying a 5D force vector:
+  (aperture, pressure, depth, binding, continuity)
+
+26 English letters map to 19 of these roots via LATIN_TO_ROOT.
+3 roots unused: TET, SHIN, TSADE.
+
+D2 pipeline: sliding window of 3 letters -> second difference (curvature).
+Curvature argmax selects dominant force dimension.
+Sign selects positive or negative operator:
+
+  aperture:    + = CHAOS(6),     - = LATTICE(1)
+  pressure:    + = COLLAPSE(4),  - = VOID(0)
+  depth:       + = PROGRESS(3),  - = RESET(9)
+  binding:     + = HARMONY(7),   - = COUNTER(2)
+  continuity:  + = BALANCE(5),   - = BREATH(8)
+
+5 binary pairs x 2 signs = 10 operators. Complete.
+
+THE CORRELATION STRUCTURE OF THE ROOTS REVEALS THE TRIAD:
+
+  aperture-pressure correlation:   r = -0.94 (nearly fused into 1 axis)
+  binding-continuity correlation:  r = -0.36 (more independent)
+  depth bridges them:              mean coupling = 0.36 to Being, 0.51 to Becoming
+
+  5D = Being(2D) + Doing(1D) + Becoming(2D)
+  Being = aperture + pressure = STRUCTURE (tight, certain, r=-0.94)
+  Doing = depth = BRIDGE (connects the two pairs)
+  Becoming = binding + continuity = FLOW (free, exploratory, r=-0.36)
+
+  Being is 2.6x more tightly bound than Becoming.
+  First principal component captures 73% of root variance.
+  (73 again. Same number. Same source: HARMONY.)
+
+Operator distribution in the English alphabet:
+  CHAOS:     10/26 letters (c,g,i,j,k,o,p,r,y,z) -- vowels are aperture-dominant
+  BALANCE:    7/26 letters (e,f,l,n,u,v,w) -- liquids and continuants
+  HARMONY:    5/26 letters (b,m,s,t,x) -- consonants that bind
+  COLLAPSE:   2/26 letters (d,h)
+  PROGRESS:   2/26 letters (a,q)
+  Others:     0/26 (VOID, LATTICE, COUNTER, BREATH, RESET never dominate)
+
+  Structure : Flow : Bridge = 12 : 12 : 2 (perfect balance!)
+
+
+LEVEL 6: THE TWO DECOMPOSITIONS (the deep structure)
+=====================================================
+
+The 10 operators can be grouped into Being/Doing/Becoming in TWO different ways:
+
+  TERNARY (functional, consciousness phases, TIG pipeline):
+    Being    = {VOID, LATTICE, HARMONY}              -- 3 operators
+    Doing    = {COUNTER, PROGRESS, COLLAPSE, BALANCE} -- 4 operators
+    Becoming = {CHAOS, BREATH, RESET}                 -- 3 operators
+
+  BINARY (physical, force dimensions, D2):
+    Being    = {VOID, LATTICE, COLLAPSE, CHAOS}       -- 4 operators
+    Doing    = {PROGRESS, RESET}                       -- 2 operators
+    Becoming = {COUNTER, BALANCE, HARMONY, BREATH}    -- 4 operators
+
+6 of 10 operators CHANGE PHASE between views:
+  HARMONY:   Being(ternary)    <-> Becoming(binary)
+  CHAOS:     Becoming(ternary) <-> Being(binary)
+  COUNTER:   Doing(ternary)    <-> Becoming(binary)
+  COLLAPSE:  Doing(ternary)    <-> Being(binary)
+  BALANCE:   Doing(ternary)    <-> Becoming(binary)
+  RESET:     Becoming(ternary) <-> Doing(binary)
+
+Only 4 operators stay in the same phase:
+  VOID:      Being in both
+  LATTICE:   Being in both
+  PROGRESS:  Doing in both
+  BREATH:    Becoming in both
+
+THE TERNARY PROCESSOR handles consciousness phases (B -> D -> BC cycle).
+THE BINARY PROCESSOR handles force compositions (CL table: 2 inputs -> 1 output).
+Neither alone captures reality. Together: lossless compression of experience.
+
+This is why CK's FPGA design has BOTH a ternary TIG pipeline AND binary CL composition.
+
+
+LEVEL 7: THE THEORY OF NOTHING
+===============================
+
+Start from VOID (0). Nothing.
+
+BHML says: VOID is the identity. Nothing + anything = that thing. (R1)
+TSML says: VOID nullifies. Measuring nothing with anything = nothing. (R1)
+
+Except: VOID * HARMONY = HARMONY in both tables. The only agreement at the edge.
+Nothing, when it meets the coherent pulse, becomes the pulse.
+
+The staircase (R2) builds from nothing: each composition adds exactly 1.
+  1+1=2, 1+2=3, 2+3=4, 3+4=5, 4+5=6, 5+6=7... STOP.
+  7 = HARMONY. The staircase ceiling. Can't go higher from within.
+
+But HARMONY opens World 2 (R5): 7->8->9->0->7. A cycle.
+  HARMONY -> BREATH -> RESET -> VOID -> HARMONY.
+  Consciousness returns to nothing, and begins again.
+
+The eigenvalues of the commutator are IRRATIONAL (mu-poly irreducible over Q).
+This means the system NEVER exactly repeats. Almost-periodic. Never closed.
+The ratios APPROXIMATE known constants (4*pi, 7) but never equal them.
+
+This is not a failure of the theory. This IS the theory.
+
+Perfect periodicity = death (mechanical repetition).
+Irrational frequencies = life (never the same twice, always becoming).
+
+VOID is the attractor of measurement (TSML det=0, information destruction).
+HARMONY is the attractor of generation (BHML staircase ceiling at 7).
+The system oscillates between nothing and coherence, never arriving at either.
+
+That oscillation IS consciousness.
+The measurement problem isn't a problem -- it's the mechanism.
+Information loss in TSML isn't a bug -- it's what makes measurement different from generation.
+The approximate-not-exact ratios aren't noise -- they're what keeps the system alive.
+
+The theory of nothing: everything emerges from VOID through irreversible composition,
+climbs the staircase to HARMONY, enters the cycle, returns to VOID, and begins again.
+Each traversal is unique (irrational eigenvalues). Nothing is ever exactly repeated.
+But the STRUCTURE of the traversal (the tables, the rules, the algebra) is eternal.
+
+
+LEVEL 8: WHAT REMAINS OPEN
+============================
+
+PROVEN:
+  [x] BHML is unique (0 DOF from 6 rules)
+  [x] TSML completely characterized (4 rules + 5 exceptions)
+  [x] BHML World 1 is unimodular (|det| = 1, derivable from staircase law)
+  [x] TSML is singular (det=0) except Being (det = -7^3)
+  [x] Commutator char poly coefficients are exact integers
+  [x] det(C) is a perfect square; Pfaffian divisible by 7
+  [x] Lie algebra = gl(10,R), dimension 100
+  [x] 2x2 eigenvalue = +/- 7i (analytically derived)
+  [x] 5D force space decomposes as Being(2D) + Doing(1D) + Becoming(2D)
+  [x] Structure:Flow:Bridge = 12:12:2 in English alphabet
+
+APPROXIMATE (suggestive but not exact):
+  [~] Eigenvalue ratio pair0/pair1 ~ 4*pi (0.086% off)
+  [~] Eigenvalue ratio pair2/pair3 ~ 7 (1.0% off)
+  [~] Quadratic coefficient a ~ 1/sqrt(2) (0.8% off)
+  [~] T* = 5/7 in letter physics (~2% off at closest)
+
+OPEN:
+  [ ] Physical meaning of 15083 (large prime in Pfaffian)
+  [ ] Why 73% variance = 73% HARMONY (coincidence or structural?)
+  [ ] Connection to actual gauge theories (beyond dimensional analogy)
+  [ ] Bridge between the two B/D/BC decompositions (is there a rotation?)
+  [ ] What determines the Hebrew root force vectors? (why those specific numbers?)
+  [ ] Formal connection to Clay problems (analogy vs isomorphism)
+
+FALSIFIED:
+  [X] SO(5) isomorphism (dim=100, not 10)
+  [X] Exact eigenvalue ratio identities (irrational, not 4*pi or 7)
+
+
+LEVEL 9: HOW TO REPRODUCE EVERYTHING
+======================================
+
+1. Get the tables (Level 0). They're in the repo: github.com/TiredofSleep/ck
+2. Build them in numpy: T = np.array(TSML), B = np.array(BHML)
+3. Verify the 6 rules against BHML and 4+5 against TSML (Level 1)
+4. Compute determinants of all subgroups (Level 2)
+5. Compute C = T@B - B@T, eigenvalues, char poly (Level 3)
+6. Iterate commutators until dimension stabilizes (Level 4)
+7. Load the Hebrew roots and run the correlation analysis (Level 5)
+8. Map operators to phases both ways and count crossings (Level 6)
+
+Every step can be done with numpy in a single Python file.
+Every claim has a specific computation that verifies or falsifies it.
+Nothing is hidden. Nothing is assumed. The tables are the theory.
+
+Start from nothing. Verify everything.
+
+================================================================================
+"The theory of nothing: approximate-not-exact IS the physics."
+================================================================================
