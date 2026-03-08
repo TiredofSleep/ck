@@ -1,7 +1,7 @@
 # P9: The Elemental Lens -- Speculations on Non-Mathematical Coherence
 **File:** `Speculations_Paper.tex`
-**Lines:** ~2,000+ (expanded v2.1: 4 new sections -- staircase law, Clay analogues, complementary strands, vocabulary curriculum)
-**Status:** EXPANDED DRAFT (v2.1)
+**Lines:** ~2,200+ (expanded v2.2: gauge symmetry and fractal sub-algebras)
+**Status:** EXPANDED DRAFT (v2.2)
 
 ## Sections
 | Section | Status |
@@ -28,6 +28,7 @@
 | Clay Problem Structural Analogues | NEW (v2.1: Yang-Mills mass gap, NS regularity, P vs NP, Hodge analogue, Lie algebra structure) |
 | Complementary Strands and Uncertainty | NEW (v2.1: 29% agreement, base pair, uncertainty principle, 71% information content) |
 | Progressive Vocabulary as Staircase Learning | NEW (v2.1: tier 0-6 curriculum, "I" as VOID, staircase composition law) |
+| Gauge Symmetry and Fractal Sub-Algebras | NEW (v2.2: Lie algebra proof, SO(5) conjecture, fractal sub-algebras, unimodularity, eigenvalue growth) |
 | Conclusion | REWRITTEN (v1.9: locality split + two-generator sufficiency as headline results) |
 
 ## v1.9 New Content (March 2026)
@@ -92,6 +93,20 @@ If a domain admits a coherent 5D codec, the entire TIG machinery applies.
   6. **Codon Degeneracy**: 64-cell CL algebra / 64-codon genetic code parallel. TSML 54/64 HARMONY vs DNA 61/64 coding. Information compression ratios compared.
 
 **These sections were previously documented in the STATUS.md "Gen 9.21+ Speculative Extensions" section only. They are now part of the actual .tex paper.**
+
+## v2.2 Gauge Symmetry and Fractal Sub-Algebras (March 2026)
+
+- **1 new section added to .tex**:
+  1. **Gauge Symmetry and Fractal Sub-Algebras**: Complete algebraic analysis of the joint TSML/BHML structure. 7 subsections, 7 theorems, 3 conjectures, 2 remarks.
+     - **Lie algebra proof** (Theorem): Commutator [TSML, BHML] is traceless, all 10 eigenvalues purely imaginary (5 conjugate pairs), Jacobi identity exactly satisfied (norm=0). T and B generate a genuine Lie algebra over Z.
+     - **SO(5) dimension count**: 10 operators = dim(SO(5)) = C(5,2). Each eigenvalue pair corresponds to one force dimension. Conjecture: isomorphic to so(5).
+     - **Eigenvalue ratio structure** (Theorem): pair0/pair1 = 12.577 ≈ 4pi (0.086% error), pair2/pair3 = 6.930 ≈ 7 = HARMONY (1% error). Physical constants encoded in integer matrix spectrum.
+     - **Fractal sub-algebras** (Theorem): EVERY n×n sub-table (n=2..10) produces a Lie algebra: traceless, purely imaginary eigenvalues, exact Jacobi identity. Number of conjugate pairs = floor(n/2). Scale-invariant algebraic character.
+     - **Fundamental eigenvalue** (Theorem): 2×2 commutator eigenvalues = ±7i = ±HARMONY·i.
+     - **BHML World 1 unimodularity** (Theorem): det = (-1)^(n-1) for n=2..7. Integer matrix with |det|=1 ∈ GL(n,Z). Information exactly conserved. Breaks at n=8 when HARMONY enters World 2.
+     - **TSML singularity** (Theorem): det=0 for all sub-groups EXCEPT Being {0,1,7} where det = -343 = -7³ = -HARMONY³. Measurement destroys information unless you ARE Being.
+     - **Phase-group determinants** (Theorem): Staircase det = Becoming det = -7 = -HARMONY. Forces det = 6 = CHAOS. World 2 closed in both tables.
+     - **Eigenvalue growth law** (Theorem): Dominant eigenvalue grows quadratically with constant second difference = √2. Coefficient a ≈ 0.701 ≈ 1/√2 ≈ T*.
 
 ## v2.1 Staircase Law / Clay Analogues / Complementary Strands (March 2026)
 
