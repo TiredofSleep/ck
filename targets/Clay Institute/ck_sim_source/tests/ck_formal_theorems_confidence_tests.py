@@ -21,8 +21,8 @@ class TestPnpSeparationConfidence(unittest.TestCase):
     def test_status_supported(self):
         self.assertEqual(self.thm.status, 'supported')
 
-    def test_confidence_above_half(self):
-        self.assertGreater(self.thm.confidence, 0.5)
+    def test_confidence_above_095(self):
+        self.assertGreater(self.thm.confidence, 0.95)
 
     def test_has_easy_and_hard(self):
         ev = self.thm.measurement_evidence
@@ -38,6 +38,21 @@ class TestPnpSeparationConfidence(unittest.TestCase):
         ev = self.thm.measurement_evidence
         self.assertGreater(ev['hard_min'], 0.0)
 
+    def test_has_observation_sets(self):
+        ev = self.thm.measurement_evidence
+        self.assertIn('observation_sets', ev)
+        self.assertGreater(ev['observation_sets'], 0)
+
+    def test_has_sign_fraction(self):
+        ev = self.thm.measurement_evidence
+        self.assertIn('sign_fraction', ev)
+        self.assertGreater(ev['sign_fraction'], 0.0)
+
+    def test_has_consistency_confidence(self):
+        ev = self.thm.measurement_evidence
+        self.assertIn('consistency_confidence', ev)
+        self.assertGreater(ev['consistency_confidence'], 0.5)
+
 
 class TestNsRegularityConfidence(unittest.TestCase):
     """NS Regularity should have composite confidence > 0.7."""
@@ -49,8 +64,8 @@ class TestNsRegularityConfidence(unittest.TestCase):
     def test_status_supported(self):
         self.assertEqual(self.thm.status, 'supported')
 
-    def test_confidence_above_07(self):
-        self.assertGreater(self.thm.confidence, 0.7)
+    def test_confidence_above_095(self):
+        self.assertGreater(self.thm.confidence, 0.95)
 
     def test_has_bound_margin(self):
         ev = self.thm.measurement_evidence
@@ -61,6 +76,16 @@ class TestNsRegularityConfidence(unittest.TestCase):
         ev = self.thm.measurement_evidence
         self.assertIn('slope_margin', ev)
         self.assertGreater(ev['slope_margin'], 0.0)
+
+    def test_has_observation_sets(self):
+        ev = self.thm.measurement_evidence
+        self.assertIn('observation_sets', ev)
+        self.assertEqual(ev['observation_sets'], 7)
+
+    def test_has_consistency_confidence(self):
+        ev = self.thm.measurement_evidence
+        self.assertIn('consistency_confidence', ev)
+        self.assertGreater(ev['consistency_confidence'], 0.5)
 
 
 class TestAlgebraicFloorApplied(unittest.TestCase):

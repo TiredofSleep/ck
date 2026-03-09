@@ -17,8 +17,14 @@ from ck_sim.being.ck_algebraic_proofs import (
     prove_per_problem_ceiling,
     prove_pnp_separation_bound,
     prove_ns_regularity_bound,
+    prove_fractal_wobble_bound,
+    prove_bandwidth_observation_sets,
+    prove_transitional_pnp_consistency,
+    prove_transitional_ns_consistency,
     run_all_proofs,
     algebraic_proof_report,
+    W, NON_HARMONY_RATE, WOBBLE_BOUND, N_OBSERVATION_SETS,
+    WOBBLE_CORRELATION_MID, EFFECTIVE_N,
 )
 
 
@@ -191,9 +197,9 @@ class TestPnpSeparationBound(unittest.TestCase):
         result = prove_pnp_separation_bound()
         self.assertTrue(result.verified)
 
-    def test_confidence_gt_0(self):
+    def test_confidence_gt_099(self):
         result = prove_pnp_separation_bound()
-        self.assertGreater(result.confidence, 0.0)
+        self.assertGreater(result.confidence, 0.99)
 
     def test_hard_slope_positive(self):
         result = prove_pnp_separation_bound()
@@ -224,12 +230,128 @@ class TestNsRegularityBound(unittest.TestCase):
         self.assertGreater(result.evidence['margin'], 0.0)
 
 
+class TestFractalWobbleBound(unittest.TestCase):
+    """Proof 11: fractal wobble bounded by non-HARMONY fraction."""
+
+    def test_verified(self):
+        result = prove_fractal_wobble_bound()
+        self.assertTrue(result.verified)
+
+    def test_confidence_1(self):
+        result = prove_fractal_wobble_bound()
+        self.assertEqual(result.confidence, 1.0)
+
+    def test_wobble_bound_is_027(self):
+        result = prove_fractal_wobble_bound()
+        self.assertAlmostEqual(result.evidence['wobble_bound'], 0.27)
+
+    def test_harmony_count_73(self):
+        result = prove_fractal_wobble_bound()
+        self.assertEqual(result.evidence['harmony_count'], 73)
+
+    def test_void_self_loop(self):
+        result = prove_fractal_wobble_bound()
+        self.assertTrue(result.evidence['void_self_loop'])
+
+    def test_non_harmony_27(self):
+        result = prove_fractal_wobble_bound()
+        self.assertEqual(result.evidence['non_harmony_count'], 27)
+
+
+class TestBandwidthObservationSets(unittest.TestCase):
+    """Proof 12: W=32 supports 7 observation sets."""
+
+    def test_verified(self):
+        result = prove_bandwidth_observation_sets()
+        self.assertTrue(result.verified)
+
+    def test_confidence_1(self):
+        result = prove_bandwidth_observation_sets()
+        self.assertEqual(result.confidence, 1.0)
+
+    def test_effective_n_gt_3(self):
+        result = prove_bandwidth_observation_sets()
+        self.assertGreater(result.evidence['effective_n'], 3.0)
+
+    def test_effective_n_matches_constant(self):
+        result = prove_bandwidth_observation_sets()
+        self.assertAlmostEqual(result.evidence['effective_n'], EFFECTIVE_N)
+
+    def test_n_sets_is_7(self):
+        result = prove_bandwidth_observation_sets()
+        self.assertEqual(result.evidence['n_sets'], 7)
+
+    def test_constants_consistent(self):
+        """Module constants are self-consistent."""
+        self.assertEqual(W, 32)
+        self.assertEqual(N_OBSERVATION_SETS, 7)
+        self.assertAlmostEqual(WOBBLE_BOUND, NON_HARMONY_RATE)
+        expected_n = 7 / (1.0 + 0.15 * 6)
+        self.assertAlmostEqual(EFFECTIVE_N, expected_n)
+
+
+class TestTransitionalPnpConsistency(unittest.TestCase):
+    """Proof 13: P!=NP slope sign persists across observation sets."""
+
+    def test_verified(self):
+        result = prove_transitional_pnp_consistency()
+        self.assertTrue(result.verified)
+
+    def test_confidence_above_99(self):
+        result = prove_transitional_pnp_consistency()
+        self.assertGreater(result.confidence, 0.99)
+
+    def test_sign_persists(self):
+        result = prove_transitional_pnp_consistency()
+        self.assertTrue(result.evidence['sign_persists'])
+
+    def test_min_slope_gap_positive(self):
+        result = prove_transitional_pnp_consistency()
+        self.assertGreater(result.evidence['min_slope_gap'], 0.0)
+
+    def test_combined_above_95(self):
+        result = prove_transitional_pnp_consistency()
+        self.assertGreater(result.evidence['combined_confidence'], 0.95)
+
+
+class TestTransitionalNsConsistency(unittest.TestCase):
+    """Proof 14: NS regularity bounds persist across observation sets."""
+
+    def test_verified(self):
+        result = prove_transitional_ns_consistency()
+        self.assertTrue(result.verified)
+
+    def test_confidence_above_97(self):
+        result = prove_transitional_ns_consistency()
+        self.assertGreater(result.confidence, 0.97)
+
+    def test_defect_bound_persists(self):
+        result = prove_transitional_ns_consistency()
+        self.assertTrue(result.evidence['defect_ok'])
+
+    def test_slope_bound_persists(self):
+        result = prove_transitional_ns_consistency()
+        self.assertTrue(result.evidence['slope_ok'])
+
+    def test_worst_defect_below_08(self):
+        result = prove_transitional_ns_consistency()
+        self.assertLess(result.evidence['worst_defect'], 0.8)
+
+    def test_worst_slope_below_01(self):
+        result = prove_transitional_ns_consistency()
+        self.assertLess(result.evidence['worst_slope'], 0.1)
+
+    def test_combined_above_95(self):
+        result = prove_transitional_ns_consistency()
+        self.assertGreater(result.evidence['combined_confidence'], 0.95)
+
+
 class TestRunAllProofs(unittest.TestCase):
     """Test run_all_proofs top-level function."""
 
-    def test_returns_10_proofs(self):
+    def test_returns_14_proofs(self):
         results = run_all_proofs()
-        self.assertEqual(len(results), 10)
+        self.assertEqual(len(results), 14)
 
     def test_all_have_proof_id(self):
         results = run_all_proofs()
