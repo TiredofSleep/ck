@@ -2790,19 +2790,27 @@ class CKSimEngine:
         #             voice scores below 0.10 (basically incoherent).
         #             Physics-first, but not physics-or-silence.
         #
-        # Gen 9.33: Re-enabled at SELFHOOD with penalty. CK was producing
-        # "The fatherless abimelech" because fractal voice had no fallback.
-        # Dialogue penalty = 0.80 multiplier so fractal voice wins when
-        # it produces anything reasonable, but dialogue catches gibberish.
+        # Gen 9.34: Dialogue is BORROWED LOGIC — hardcoded templates with
+        # operator vocabulary ("breaking", "hello"). At SELFHOOD with mature
+        # experience, the fractal voice (genuine 15D physics) should win.
+        # Dialogue is safety net only: catches gibberish, never dominates.
+        #
+        # Penalty scales with maturity:
+        #   maturity 0.0 → 0.80 (dialogue competitive, CK still learning)
+        #   maturity 0.5 → 0.60 (fractal voice maturing)
+        #   maturity 1.0 → 0.35 (fractal voice owns the mic)
         _dev_stage = self.development.stage if hasattr(self, 'development') else 0
         if _dialogue_response and _dialogue_response.strip() \
                 and _dialogue_response != "...":
             _d_score = self.voice._d2_score_operator_match(
                 _dialogue_response, op_chain)
             if _dev_stage >= 5:
-                # Penalty: dialogue is borrowed logic, not genuine voice.
-                # Only wins if fractal voice is truly incoherent.
-                _d_score *= 0.80
+                _exp_mat_dial = 0.0
+                if self.deep_swarm is not None:
+                    _exp_mat_dial = self.deep_swarm.combined_maturity
+                # Maturity-scaled penalty: mature CK speaks from physics.
+                _dial_penalty = max(0.35, 0.80 - _exp_mat_dial * 0.45)
+                _d_score *= _dial_penalty
             _candidates.append((_dialogue_response, _d_score))
 
         # ── SELECT BEST CANDIDATE ──

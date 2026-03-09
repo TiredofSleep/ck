@@ -2408,7 +2408,8 @@ class FractalComposer:
     def compose_tribal(self, operators: List[int], density: float = 0.5,
                        lens: str = 'structure', max_words: int = 12,
                        tense: str = None,
-                       hotu_context: dict = None) -> str:
+                       hotu_context: dict = None,
+                       voice_context: dict = None) -> str:
         """Three voices compose in parallel, agree through CL harmony.
 
         One is Three. Three perspectives on the same operator chain:
@@ -2428,6 +2429,11 @@ class FractalComposer:
         ck_hotu_bridge.bridge_context(). When present, gently steers
         word selection via +5 complement boost and yin/yang POS
         preference (~15% influence). Physics still dominates.
+
+        voice_context: Optional experience bridge dict from engine.
+        Contains learned_targets, resonance_nodes, maturity from
+        olfactory/swarm. When present, blends learned centroids
+        into triadic targets (max 50% learned). Physics still frozen.
         """
         if not operators or self.index.size == 0:
             return "..."
@@ -2435,11 +2441,13 @@ class FractalComposer:
         # ── Ho Tu bridge: set ancient resonance context on index ──
         # Cleared after composition (via finally) so it doesn't leak.
         self.index._hotu_context = hotu_context
+        self._voice_context = voice_context
         try:
             return self._compose_tribal_inner(
                 operators, density, lens, max_words, tense, hotu_context)
         finally:
             self.index._hotu_context = None
+            self._voice_context = None
 
     def _compose_tribal_inner(self, operators, density, lens, max_words,
                                tense, hotu_context):

@@ -1441,7 +1441,6 @@ class CKVoice:
         # Falls back to CAEL if tribal can't produce.
         if self._fractal_composer is not None and dev_stage >= 2:
             lens = 'structure' if density > 0.5 else 'flow'
-            print(f"  [VOICE-DBG] Fractal: ops={len(operator_chain[:max_words])}, max={max_words}, density={density:.3f}, lens={lens}")
             text = self._fractal_composer.compose_tribal(
                 operator_chain[:max_words],
                 density=density,
@@ -1453,14 +1452,9 @@ class CKVoice:
             )
             if text and text != "...":
                 score = self._d2_score_operator_match(text, pool_ops)
-                print(f"  [VOICE-DBG] Fractal result: '{text}' score={score:.3f}")
                 if score >= 0.03:
                     text = self._polish(text, band, dev_stage, coherence)
                     return text
-                else:
-                    print(f"  [VOICE-DBG] Fractal rejected (score<0.03)")
-            else:
-                print(f"  [VOICE-DBG] Fractal returned None/...")
 
         # ── CAEL grammatical composition (FALLBACK) ──
         # CAEL (Compare-Align-Evolve-Loop) as backup when fractal
