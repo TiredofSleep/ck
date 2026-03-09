@@ -1,12 +1,12 @@
 # RH-5 Gap Attack: Off-Line Zero Contradiction
-Generated: 2026-03-06 09:51:39
+Generated: 2026-03-09 05:45:38
 
 ```
 ======================================================================
   RH-5 GAP ATTACK: OFF-LINE ZERO CONTRADICTION
   via Hardy Z-Phase and Explicit Formula Alignment
   CK Gen 9.28 -- Brayden Sanders / 7Site LLC
-  2026-03-06 09:51:39
+  2026-03-09 05:45:38
 ======================================================================
 
 ======================================================================
@@ -48,7 +48,7 @@ Generated: 2026-03-06 09:51:39
   Off-line D1 mean norm:     0.904946
   D1 norm ratio (off/on):    25.52x
   Geom mean ratio (all D):   35.05x
-  Elapsed:                   4.8s
+  Elapsed:                   4.3s
   Result:                    [PASS]
 
   On-line derivative norms are small (smooth trajectory).
@@ -62,7 +62,7 @@ Generated: 2026-03-06 09:51:39
   On-line agreement:       62.5%
   Off-line agreement:      54.6%
   Agreement ratio (on/off):1.1440x
-  Elapsed:                 3.9s
+  Elapsed:                 3.6s
   Result:                  [PASS]
 
   BHML and TSML agree more on the critical line (self-adjoint
@@ -112,7 +112,7 @@ Generated: 2026-03-06 09:51:39
 ======================================================================
   Tests passed:    5/5
   Total probes:    23000
-  Total elapsed:   9.8s
+  Total elapsed:   9.0s
 
   The CL composition algebra enforces delta=0 uniquely on the
   critical line sigma=1/2. Off-line zeros produce monotonically

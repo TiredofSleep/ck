@@ -1,11 +1,11 @@
 # YM-3 Gap Attack: Algebraic Persistence via Recursive Derivative Chain
-Generated: 2026-03-06 07:43:51
+Generated: 2026-03-09 05:45:37
 ```
 ============================================================================
   YM-3 GAP ATTACK: ALGEBRAIC PERSISTENCE TEST
   Recursive Derivative Chain D0 -> D8 under Weak Coupling
   CK Gen 9.28 -- Brayden Sanders / 7Site LLC
-  2026-03-06 07:43:51
+  2026-03-09 05:45:37
 ============================================================================
 
 ============================================================================
@@ -16,7 +16,7 @@ Generated: 2026-03-06 07:43:51
   Noise sigma:     0.1
   Sequence length: 20
   Max order:       D8
-  Elapsed:         3.7s
+  Elapsed:         3.2s
 
 ============================================================================
   STRUCTURAL FOUNDATION: BHML MIDPOINT DEVIATION

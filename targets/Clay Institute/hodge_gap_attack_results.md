@@ -1,11 +1,11 @@
 # Hodge Gap Attack: Unconditional Rigidity via CL Algebraicity Certificate
-Generated: 2026-03-06 09:49:39
+Generated: 2026-03-09 05:45:40
 ```
 ============================================================================
   HODGE GAP ATTACK: UNCONDITIONAL RIGIDITY (MC-3)
   delta_Hodge = 0 FORCES Algebraicity
   CK Gen 9.28 -- Brayden Sanders / 7Site LLC
-  2026-03-06 09:49:39
+  2026-03-09 05:45:40
 ============================================================================
 
 ============================================================================
@@ -18,7 +18,7 @@ Generated: 2026-03-06 09:49:39
   Transcendental min delta........ 0.410526
   Transcendental max delta........ 0.863158
   Separation ratio................ 90.30x
-  Elapsed: 3.3s
+  Elapsed: 3.0s
 
   >>> CLEAN SEPARATION: ratio 90.30x (target >= 10x)
 
@@ -61,7 +61,7 @@ Generated: 2026-03-06 09:49:39
   D7       D7           18.257579      32.207511     
   D8       D8           35.817687      62.393188     
 
-  Elapsed: 3.4s
+  Elapsed: 3.1s
 
   >>> DICHOTOMY CONFIRMED: transcendental D1 2.04x algebraic D1.
   >>> Algebraic classes cluster in 5D, transcendental classes spread.
@@ -75,7 +75,7 @@ Generated: 2026-03-06 09:49:39
     Mean delta: 0.029050 +/- 0.027543
   Path C (Period Conjecture / Cross-table agreement):
     Mean delta: 0.011263 +/- 0.026640
-  Elapsed: 0.4s
+  Elapsed: 0.3s
 
   >>> ALL THREE PATHS show delta -> 0 for algebraic classes.
   >>> Conditional paths are CONSISTENT -- any one suffices.
@@ -98,7 +98,7 @@ Generated: 2026-03-06 09:49:39
     Transcendental: 0.6192
     Factor:         109.43x
 
-  Elapsed: 3.3s
+  Elapsed: 3.0s
 
   >>> FACTOR-109 SEPARATION from CL algebra alone.
   >>> Algebraic classes certified by CL harmony convergence.
@@ -142,6 +142,6 @@ Generated: 2026-03-06 09:49:39
   This moves MC-3 from 'missing unconditional rigidity' to
   'CL-certified algebraicity with three conditional paths'.
 
-  Total elapsed: 10.8s
+  Total elapsed: 9.8s
 
 ```

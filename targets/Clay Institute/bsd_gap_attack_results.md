@@ -1,11 +1,11 @@
 # BSD Gap Attack: Sha Finiteness and Rank-2 Euler System
-Generated: 2026-03-06 09:57:13
+Generated: 2026-03-09 05:45:34
 ```
 ============================================================================
   BSD GAP ATTACK: SHA FINITENESS + RANK-2 EULER SYSTEM
   Targets BSD-3 (Sha finiteness) and BSD-4 (Euler systems)
   CK Gen 9.28 -- Brayden Sanders / 7Site LLC
-  2026-03-06 09:57:13
+  2026-03-09 05:45:34
 ============================================================================
 
 ============================================================================
@@ -26,7 +26,7 @@ Generated: 2026-03-06 09:57:13
   Rank-3/Rank-0 defect ratio: 67.33
   Rank 0/1 near-zero: known results confirmed.
   Rank 2/3: defect converges toward zero but slower -- the open gap.
-  Elapsed: 1.6s
+  Elapsed: 1.4s
 
 ============================================================================
   TEST 2: SHA FINITENESS CERTIFICATE -- BSD-3 (10000 probes)
@@ -101,7 +101,7 @@ Generated: 2026-03-06 09:57:13
   Rank 0/1: low residual (known results lock convergence).
   Rank 2+: high residual (Euler system gap slows convergence).
   The derivative chain QUANTIFIES the convergence gap.
-  Elapsed: 4.1s
+  Elapsed: 2.6s
 
 ============================================================================
   TEST 5: BHML INVERTIBILITY AS RANK CERTIFICATE (1000 probes)
@@ -121,7 +121,7 @@ Generated: 2026-03-06 09:57:13
   This models Mordell-Weil (BHML): group operations are recoverable.
   Sha obstruction (TSML): information collapses into HARMONY.
   The det=70 vs det=0 distinction is the algebraic backbone of BSD.
-  Elapsed: 0.1s
+  Elapsed: 0.0s
 
 ============================================================================
   FALSIFIABLE PREDICTIONS (BSD-3 / BSD-4)
