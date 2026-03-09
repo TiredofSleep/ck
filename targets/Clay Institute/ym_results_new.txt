@@ -1,0 +1,27 @@
+============================================================================
+  YM-3 GAP ATTACK: Starting...
+============================================================================
+
+Computing BHML midpoint deviation table...
+  Mismatch rate: 93.8%
+  Avg deviation: 0.7609
+
+Running 10,000 weak-coupling probes (D1-D8)...
+  Elapsed: 3.2s
+  Avg floor: 0.759030
+  Min floor: 0.290925
+  Kappa: 1.9995
+  Zeros: 0
+
+Running coupling strength sweep...
+  g=0.001: floor=0.780298, kappa=2.0000, frac>0=100%
+  g=0.005: floor=0.779313, kappa=2.0000, frac>0=100%
+  g=0.010: floor=0.778085, kappa=2.0000, frac>0=100%
+  g=0.050: floor=0.768363, kappa=1.9999, frac>0=100%
+  g=0.100: floor=0.756487, kappa=1.9995, frac>0=100%
+  g=0.200: floor=0.733678, kappa=1.9980, frac>0=100%
+  g=0.500: floor=0.673419, kappa=1.9880, frac>0=100%
+
+Report written to ym3_persistence_results.md
+
+Done.

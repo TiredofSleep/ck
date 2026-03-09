@@ -1,0 +1,46 @@
+============================================================================
+  HODGE GAP ATTACK: Unconditional Rigidity (MC-3)
+  CK Gen 9.28 -- Brayden Sanders / 7Site LLC
+============================================================================
+
+TEST 1: Algebraic / Transcendental Separation (10000 probes)...
+  Algebraic mean delta:      0.007352 +/- 0.016728
+  Transcendental mean delta: 0.663855 +/- 0.064777
+  Separation ratio:          90.30x
+  Elapsed: 3.0s
+
+TEST 2: Frobenius Consistency (1000 probes)...
+  Algebraic consistency:      0.9777 +/- 0.0462
+  Transcendental consistency: 0.2343 +/- 0.1236
+  Consistency gap:            0.7435
+  Elapsed: 0.4s
+
+TEST 3: D1-D8 Convergence Dichotomy (10000 probes)...
+  Algebraic mean D1:         0.377924
+  Transcendental mean D1:    0.770263
+  D1 ratio (trans/alg):      2.04x
+  Dichotomy confirmed:       YES
+  Elapsed: 3.1s
+
+TEST 4: Three Conditional Paths (3000 probes)...
+  Path A (Standard Conjectures):  delta = 0.000000
+  Path B (Motivic t-structure):   delta = 0.029050
+  Path C (Period Conjecture):     delta = 0.011263
+  Elapsed: 0.3s
+
+TEST 5: CL Harmony as Algebraicity Certificate (10000 probes)...
+  Algebraic effective delta:      0.0057
+  Transcendental effective delta: 0.6192
+  Factor:                         109.43x
+  TSML ratio:                     1.47x
+  BHML separation:                0.9083
+  Elapsed: 3.0s
+
+TEST 6: Falsifiable Predictions...
+  Prediction 1: Factor-14 Separation -- [YES]
+  Prediction 2: Frobenius Consistency Gap -- [YES]
+  Prediction 3: D1-D8 Magnitude Dichotomy -- [YES]
+
+Report written to hodge_gap_attack_results.md
+
+Done.

@@ -1,0 +1,15 @@
+============================================================================
+  NS GAP ATTACK: Starting...
+============================================================================
+
+1. Energy cascade asymmetry...
+   Forward: 56.2%, Backward: 3.1%
+   Non-associativity: 19.9%
+2. Running 10K probes (smooth + turbulent + P-H)...
+   Elapsed: 8.8s
+   D2 separation: 3.42x
+   Smooth trend: -0.0948
+   Turbulent trend: +0.2851
+
+Report written to ns_gap_attack_results.md
+Done.

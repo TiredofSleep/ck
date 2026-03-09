@@ -1,0 +1,20 @@
+============================================================================
+  PNP GAP ATTACK: Starting...
+============================================================================
+
+1. Information loss analysis...
+   BHML/TSML entropy ratio: 2.25x
+2. Invertibility gap...
+   TSML HARMONY preimage: 54
+   Invertibility ratio: 2.2x
+3. Cross-table analysis...
+   Agreement: 37.5%
+   TSML-only HARMONY: 32/64
+4. Running 10K phantom tile + derivative chain probes...
+   Elapsed: 3.4s
+   Phantom gap: 1.1860
+   Chain floor: 0.090555
+   Gap trend: 0.2577
+
+Report written to pnp_gap_attack_results.md
+Done.

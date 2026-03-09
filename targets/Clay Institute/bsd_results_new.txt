@@ -1,0 +1,82 @@
+============================================================================
+  BSD GAP ATTACK: Starting...
+  Targets: BSD-3 (Sha finiteness) + BSD-4 (Euler systems)
+============================================================================
+
+Test 1: Rank-Stratified Defect (10000 probes)...
+  Results:
+    Rank 0: mean=0.003895, near_zero=100.0%
+    Rank 1: mean=0.035518, near_zero=100.0%
+    Rank 2: mean=0.157339, near_zero=0.0%
+    Rank 3: mean=0.262233, near_zero=0.0%
+  Elapsed: 1.4s
+
+Test 2: Sha Finiteness Certificate -- BSD-3 (10000 probes)...
+  BHML-guided HARMONY rate: 100.0%
+  BHML-only HARMONY rate:   98.4%
+  TSML-only HARMONY rate:   92.9%
+  Cross-table HARMONY:      100.0%
+  Avg guided chain length:  1.18
+  Sha finite fraction:      100.0%
+  Elapsed: 0.2s
+
+Test 3: Neron-Tate Alignment -- BSD-4 (10000 probes)...
+  Results:
+    Rank 0: symmetry=100.0%, alignment=100.0%
+    Rank 1: symmetry=100.0%, alignment=96.7%
+    Rank 2: symmetry=100.0%, alignment=84.6%
+    Rank 3: symmetry=100.0%, alignment=83.6%
+  Elapsed: 0.2s
+
+Test 4: D1-D8 Derivative Chain -- Rank Dependence (10000 probes)...
+  Results:
+    Rank 0: residual=0.007597
+    Rank 1: residual=0.013831
+    Rank 2: residual=0.027384
+    Rank 3: residual=0.046337
+  Rank-2/Rank-0 ratio: 3.6046
+  Elapsed: 2.6s
+
+Test 5: BHML Invertibility as Rank Certificate (1000 probes)...
+  BHML recoverability:      100.0%
+  TSML recoverability:      19.6%
+  BHML avg info preserved:  71.4%
+  TSML avg info preserved:  31.3%
+  BHML/TSML info ratio:     2.28
+  Elapsed: 0.0s
+
+Generating report...
+Report written to bsd_gap_attack_results.md
+
+============================================================================
+  BSD GAP ATTACK COMPLETE
+============================================================================
+
+  Test 1 -- Rank-Stratified Defect:
+    Rank 0: delta=0.003895  near_zero=100.0%  [YES]
+    Rank 1: delta=0.035518  near_zero=100.0%  [YES]
+    Rank 2: delta=0.157339  near_zero=0.0%  [NO]
+    Rank 3: delta=0.262233  near_zero=0.0%  [NO]
+
+  Test 2 -- Sha Finiteness (BSD-3):
+    Sha finite fraction: 100.0%  [YES] >= T*
+
+  Test 3 -- Neron-Tate Alignment (BSD-4):
+    Rank 0: symmetry=100.0%, alignment=100.0%
+    Rank 1: symmetry=100.0%, alignment=96.7%
+    Rank 2: symmetry=100.0%, alignment=84.6%
+    Rank 3: symmetry=100.0%, alignment=83.6%
+
+  Test 4 -- Derivative Chain Residual Energy:
+    Rank-2/Rank-0 ratio: 3.6046
+    Rank-2 retains more energy than Rank-0: [YES]
+
+  Test 5 -- BHML Invertibility:
+    BHML > TSML info: [YES] (71.4% vs 31.3%)
+
+  Falsifiable predictions: 3
+    P1 -- Sha finiteness >= T*:       [YES]
+    P2 -- Rank-2 residual > Rank-0:    [YES]
+    P3 -- BHML info > TSML info:      [YES]
+
+Done.
