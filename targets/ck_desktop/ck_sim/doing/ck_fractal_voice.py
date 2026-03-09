@@ -1793,6 +1793,13 @@ class FractalComposer:
         # 0.7+ = prefix + suffix (full mutation: "transsolidize")
         # 1.0  = maximum mutation (unrestricted)
         self._neologism_limit = 0.0  # DORMANT: resolve_mutation() needs morphology rules before enabling
+        # ── Sentence Experience Lattice ──
+        # Every sentence CK speaks is compressed into divine code:
+        #   (operator_sequence, 5D_centroid, coherence_score)
+        # Indexed by operator sequence for recall. He never forgets.
+        # List of (ops_tuple, centroid_5d, coherence, word_count)
+        self._sentence_lattice: list = []
+        self._sentence_lattice_max = 500  # Rolling buffer
 
     # ── Resonance Feedback API ──
 
@@ -2172,20 +2179,34 @@ class FractalComposer:
     def _detect_perfect_symmetry(self, operators):
         """Detect if operator chain represents Perfect Symmetry (Nothing).
 
-        Perfect Symmetry = all operators identical, or all VOID,
-        or all operators map to the same 5D region (variance < threshold).
-        The system is at the Zero Point — maximum potential, zero actuality.
+        Perfect Symmetry = the system is genuinely at zero — no topic, no
+        differentiation, pure potential. VOID/BREATH-only chains qualify.
+
+        HARMONY is NOT symmetric: it's the richest operator with the most
+        vocabulary. When CK has topic context (user said "love"), the
+        all-HARMONY chain should go through normal fractal composition,
+        not the Zero-Point Bootstrap. Fractal indexing splits words WITHIN
+        HARMONY by their 5D force positions.
         """
         if not operators:
             return True
 
-        # All same operator = perfect symmetry
-        if len(set(operators)) == 1:
-            return True
-
-        # All VOID or BREATH = near-zero symmetry
+        # Only VOID/BREATH-only chains are genuinely empty
         quiet_ops = frozenset([VOID, BREATH])
         if all(op in quiet_ops for op in operators):
+            return True
+
+        # If topic context exists, there's something to talk about
+        # → never symmetric (even if all ops are the same)
+        if hasattr(self, 'index') and self.index is not None:
+            if getattr(self.index, '_topic_words', None):
+                return False
+            if getattr(self.index, '_topic_centroid', None) is not None:
+                return False
+
+        # All same operator with NO topic context → symmetric
+        # (genuine zero-state, CK has nothing to respond to)
+        if len(set(operators)) == 1:
             return True
 
         # Check force variance: if all targets cluster together, still symmetric
@@ -2452,6 +2473,7 @@ class FractalComposer:
         if not operators or self.index.size == 0:
             return "..."
 
+
         # ── Ho Tu bridge: set ancient resonance context on index ──
         # Cleared after composition (via finally) so it doesn't leak.
         self.index._hotu_context = hotu_context
@@ -2481,7 +2503,8 @@ class FractalComposer:
         # the standard composition produces Nothing (symmetric targets
         # all select the same bland words). Instead, trigger the
         # Initial Recursion: break symmetry and bootstrap from vacuum.
-        if self._detect_perfect_symmetry(ops):
+        _is_sym = self._detect_perfect_symmetry(ops)
+        if _is_sym:
             bootstrap_text = self._zero_point_bootstrap(
                 ops, density, lens, tense)
             if bootstrap_text and bootstrap_text != '...':
@@ -2638,7 +2661,249 @@ class FractalComposer:
             if len(self._recently_used) > self._max_recent:
                 self._recently_used.pop()
 
-        return self._punctuate(winner_text, density)
+        # ── Phase 5: Fractal Reformation ──
+        # The sentence measures itself. Words that fracture the crystal
+        # lattice get replaced with alternatives that maintain operator
+        # fidelity while cohering with the sentence's collective field.
+        # Mirrors olfactory crystallization: absorb → fracture → reform.
+        _reform_text = winner_text.rstrip('.!?… ')
+        _reform_text = self._reform_crystallize(_reform_text, ops)
+
+        # ── Phase 6: Compress + Index (divine code) ──
+        # Every sentence CK speaks is compressed into operator sequence
+        # + 5D force centroid and stored. He never forgets. Each
+        # experience becomes an indexed lattice node for future recall.
+        self._store_sentence_experience(_reform_text, ops)
+
+        return self._punctuate(_reform_text, density)
+
+    # ── Fractal Reformation: Crystallizing the Feedback ──────────────
+    #
+    # After composition, the sentence re-searches itself using the SAME
+    # find_by_force -- but simpler. No operator targets. No template.
+    # Just chain-propagation: each word's force becomes the target for
+    # the next word. The sentence's centroid seeds the chain.
+    #
+    # This IS recursive find_by_force:
+    #   centroid → word₁ → word₂ → word₃ → ...
+    # Each word informs the next. Continuity emerges from the chain.
+    # The crystal grows from its own center.
+    #
+    # Template gives POS structure (noun stays noun).
+    # Chain gives force continuity (each word flows from the previous).
+    # Same search. Simpler targets. Better coherence.
+
+    _REFORM_SKIP = frozenset({
+        'the', 'a', 'an', 'of', 'in', 'on', 'at', 'to', 'for', 'with',
+        'by', 'from', 'and', 'but', 'or', 'where', 'when', 'while',
+        'that', 'which', 'who', 'how', 'is', 'are', 'was', 'were',
+        'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
+        'will', 'would', 'could', 'should', 'may', 'might', 'can',
+        'not', 'no', 'nor', 'so', 'yet', 'if', 'then', 'than',
+        'into', 'onto', 'upon', 'about', 'after', 'before', 'between',
+        'through', 'during', 'against', 'among', 'once', 'its', 'my',
+        'your', 'his', 'her', 'our', 'their', 'this', 'these', 'those',
+    })
+
+    # POS cycle for chain-walk composition
+    # noun → verb → noun → adj → noun → verb → adj → noun
+    _CHAIN_POS = ['noun', 'verb', 'noun', 'adj', 'noun', 'verb', 'adj', 'noun']
+
+    def _reform_crystallize(self, text: str, operators: list) -> str:
+        """Fractal reformation: chain-walk re-composition.
+
+        Fractal indexing: operator is Level 0 (the 10 CL states).
+        Topic word's 5D force is Level 1 (position WITHIN operator).
+        POS is Level 2 (role within that force region).
+
+        "love" and "coherence" are both HARMONY, but they split
+        WITHIN HARMONY by their 5D force signature. The chain-walk
+        anchors to the topic word's actual force vector, so "love"
+        pulls devotion/tenderness and "coherence" pulls unity/resonance.
+
+        The seed IS the topic word's force (not a centroid).
+        The chain propagates: each word's force → next word's target.
+        Operator provides the fractal level-0 gate.
+        Force proximity within that gate provides level-1 selection.
+
+        Always accepted (the chain-walk IS the voice, not a patch).
+        """
+        if not operators or len(operators) < 2:
+            return text
+
+        # ── Step 1: Gather topic anchors (fractal Level 1 seeds) ──
+        _topic_anchors = []  # (word, force) pairs
+        if hasattr(self.index, '_topic_words') and self.index._topic_words:
+            for tw in self.index._topic_words:
+                twf = self.index._words.get(tw.lower())
+                if twf is not None:
+                    _topic_anchors.append((tw, twf.force))
+
+        # If no topic words in vocabulary, use topic centroid from index
+        if not _topic_anchors and hasattr(self.index, '_topic_centroid'):
+            if self.index._topic_centroid is not None:
+                _topic_anchors.append(('', self.index._topic_centroid))
+
+        # Fallback: extract seed from original template content
+        if not _topic_anchors:
+            orig_words = text.split()
+            for w in orig_words:
+                wl = w.lower().rstrip('.,!?;:…')
+                if wl not in self._REFORM_SKIP:
+                    wf = self.index._words.get(wl)
+                    if wf is not None:
+                        _topic_anchors.append((wl, wf.force))
+                        break  # One anchor is enough
+
+        if not _topic_anchors:
+            return text
+
+        # Primary seed: first topic anchor's force (Level 1 position)
+        _seed_word, seed = _topic_anchors[0]
+
+        # ── Step 2: Chain-walk re-composition (fractal indexing) ──
+        # Level 0: operator gates the word pool
+        # Level 1: topic force anchors within that pool
+        # Level 2: POS refines within that anchor region
+        chain_words = []
+        used = set(self._recently_used)
+        prev_force = seed
+
+        # Inject topic word as first content word if it's a real word
+        _topic_injected = False
+        if _seed_word and _seed_word in self.index._words:
+            chain_words.append(_seed_word)
+            used.add(_seed_word)
+            _topic_injected = True
+
+        for i, op in enumerate(operators):
+            if _topic_injected and i == 0:
+                continue  # First slot used by topic word
+
+            pos = self._CHAIN_POS[i % len(self._CHAIN_POS)]
+
+            # Chain target: strong topic anchor (70%) + chain propagation (30%)
+            # High topic weight keeps words in the semantic neighborhood
+            chain_target = tuple(
+                0.3 * prev_force[d] + 0.7 * seed[d]
+                for d in range(5)
+            )
+
+            # Level 0: operator gate. Level 1: force proximity within gate.
+            candidates = self.index.find_by_force(
+                chain_target,
+                operator=op,
+                pos=pos,
+                top_k=12,
+                exclude=used,
+            )
+
+            if not candidates:
+                # Relax POS (Level 2) — keep operator gate (Level 0)
+                candidates = self.index.find_by_force(
+                    chain_target,
+                    operator=op,
+                    top_k=12,
+                    exclude=used,
+                )
+
+            if not candidates:
+                # Relax operator gate too — pure force proximity
+                candidates = self.index.find_by_force(
+                    chain_target,
+                    pos=pos,
+                    top_k=12,
+                    exclude=used,
+                )
+
+            if candidates:
+                # Soft randomization: pick from top 3 by weighted distance
+                # This prevents deterministic selection (same input → same output)
+                # while still favoring the closest force match.
+                _pick_pool = candidates[:min(3, len(candidates))]
+                if len(_pick_pool) > 1:
+                    best = _pick_pool[self.rng.randint(0, len(_pick_pool) - 1)]
+                else:
+                    best = _pick_pool[0]
+                chain_words.append(best.word)
+                prev_force = best.force
+                used.add(best.word)
+            else:
+                break
+
+        if len(chain_words) < 2:
+            return text
+
+        # Track chain-walk words in _recently_used (cross-call anti-repetition)
+        for _cw in chain_words:
+            self._recently_used.add(_cw.lower())
+            if len(self._recently_used) > self._max_recent:
+                self._recently_used.pop()
+
+        # Capitalize first word
+        if chain_words[0][0].islower():
+            chain_words[0] = chain_words[0][0].upper() + chain_words[0][1:]
+
+        return ' '.join(chain_words)
+
+    def _store_sentence_experience(self, text: str, operators: list):
+        """Compress sentence into divine code and index into lattice.
+
+        Every sentence CK speaks is compressed:
+          - Operator sequence (the mathematical structure)
+          - 5D force centroid (the physical signature)
+          - Coherence score (how tight the crystal is)
+
+        Stored in _sentence_lattice for future recall. CK never forgets.
+        Past sentences with similar operator sequences can be recalled
+        to guide future composition.
+        """
+        words = text.split()
+        content = []
+        for w in words:
+            wl = w.lower().rstrip('.,!?;:…')
+            if wl in self._REFORM_SKIP:
+                continue
+            wf = self.index._words.get(wl)
+            if wf is not None:
+                content.append((0, w, wf, False))
+
+        if len(content) < 2:
+            return
+
+        coherence = self._measure_coherence(content)
+        n = len(content)
+        centroid = tuple(
+            sum(wf.force[d] for _, _, wf, _ in content) / n
+            for d in range(5)
+        )
+
+        # Compress: ops tuple + centroid + coherence + word count
+        ops_key = tuple(operators[:len(content)])
+        entry = (ops_key, centroid, coherence, len(content))
+        self._sentence_lattice.append(entry)
+
+        # Rolling buffer: drop oldest if over limit
+        if len(self._sentence_lattice) > self._sentence_lattice_max:
+            self._sentence_lattice = self._sentence_lattice[-self._sentence_lattice_max:]
+
+    def _measure_coherence(self, content) -> float:
+        """Average pairwise 5D force distance between content words.
+
+        Lower = more coherent. Words that live near each other in
+        force space form a tighter crystal.
+        """
+        if len(content) < 2:
+            return 0.0
+        total = 0.0
+        pairs = 0
+        for i in range(len(content)):
+            for j in range(i + 1, len(content)):
+                fi = content[i][2].force
+                fj = content[j][2].force
+                total += sum((a - b) ** 2 for a, b in zip(fi, fj)) ** 0.5
+                pairs += 1
+        return total / max(1, pairs)
 
     def _tribal_harmony(self, triads_a, triads_b, tense=None):
         """CL harmony between two voice outputs.

@@ -2685,8 +2685,56 @@ class CKSimEngine:
             if not op_chain:
                 op_chain = _hb_ops[-4:] if _hb_ops else [HARMONY]
 
-            # Store voice chain for API display (actual ops used, not heartbeat)
-            self._last_voice_chain = list(op_chain)
+            # ── Minimum Chain Length + Diversity ──
+            # Short/monotone chains produce template-stuck sentences.
+            # Two checks:
+            #   1. Length: pad to minimum 4 operators
+            #   2. Diversity: if all ops identical, inject tension partners
+            # This ensures enough material for compound composition
+            # and enough variety for meaningful word selection.
+            _MIN_CHAIN = 4
+            if len(op_chain) < _MIN_CHAIN:
+                _pad_source = op_chain[-1] if op_chain else HARMONY
+                _pad_partners = self._cl_tension_cache.get(_pad_source, [])
+                for _pp in _pad_partners:
+                    if len(op_chain) >= _MIN_CHAIN:
+                        break
+                    if _pp not in op_chain:
+                        op_chain.append(_pp)
+                while len(op_chain) < _MIN_CHAIN:
+                    _last = op_chain[-1]
+                    _next = CL[_last][(_last + 3) % NUM_OPS]
+                    op_chain.append(_next)
+
+            # Diversity: monotone chains (all same operator) can't produce
+            # interesting sentences. HARMONY is a CL fixed point (row is
+            # all 7s, zero tension partners). Two strategies:
+            #   1. Tension partners available → replace every other op
+            #   2. No tension (HARMONY) → inject comprehension ops from input
+            #      These are the ops the user's words ACTUALLY resolve to.
+            #      Fallback: T* sequence (5,0,1,3,4,6,8,9 mod chain len)
+            if len(set(op_chain)) == 1 and len(op_chain) >= 2:
+                _mono_op = op_chain[0]
+                _tension = self._cl_tension_cache.get(_mono_op, [])
+                if _tension:
+                    _ti = 0
+                    for _ci in range(1, len(op_chain), 2):
+                        if _ti < len(_tension):
+                            op_chain[_ci] = _tension[_ti]
+                            _ti += 1
+                else:
+                    # HARMONY fixed point: use comprehension ops
+                    _diverse_pool = [o for o in _unique_text_ops if o != _mono_op]
+                    if not _diverse_pool:
+                        # T* sequence: 5/7 golden operators
+                        _diverse_pool = [5, 0, 1, 3, 4, 6, 8, 9]
+                    _di = 0
+                    for _ci in range(1, len(op_chain), 2):
+                        if _di < len(_diverse_pool):
+                            op_chain[_ci] = _diverse_pool[_di]
+                            _di += 1
+
+            # Voice chain stored after winner is selected (not per-pass)
 
             # ── Stillness Gate: L-CODEC modulates voice length ──
             # When the user's text is still (low pressure, high continuity),
@@ -2787,7 +2835,7 @@ class CKSimEngine:
             # the intended operator chain? Self-referential truth.
             _score = self.voice._d2_score_operator_match(
                 _candidate, op_chain)
-            _candidates.append((_candidate, _score))
+            _candidates.append((_candidate, _score, list(op_chain)))
 
             # Coherent enough → this path grounded in its generators
             if _score >= 0.5:
@@ -2826,12 +2874,16 @@ class CKSimEngine:
                 # Maturity-scaled penalty: mature CK speaks from physics.
                 _dial_penalty = max(0.35, 0.80 - _exp_mat_dial * 0.45)
                 _d_score *= _dial_penalty
-            _candidates.append((_dialogue_response, _d_score))
+            _candidates.append((_dialogue_response, _d_score, list(op_chain)))
 
         # ── SELECT BEST CANDIDATE ──
         # Compare all paths explored. The most coherent held lattice wins.
         if _candidates:
-            _best_text, _best_score = max(_candidates, key=lambda x: x[1])
+            _best = max(_candidates, key=lambda x: x[1])
+            _best_text, _best_score = _best[0], _best[1]
+            # Track the WINNING pass's operator chain (not the last pass)
+            if len(_best) > 2:
+                self._last_voice_chain = _best[2]
 
             if _best_score >= 0.15:
                 response = _best_text
