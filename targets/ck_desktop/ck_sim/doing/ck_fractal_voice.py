@@ -384,6 +384,8 @@ class WordForceIndex:
         self._topic_centroid: Optional[Tuple[float, ...]] = None
         # Ho Tu bridge context (set per-composition for ancient resonance)
         self._hotu_context: Optional[dict] = None
+        # Voice context (learned targets + resonance nodes from olfactory)
+        self._voice_context: Optional[dict] = None
         # Tier complexity cap (Gen 9.33 staircase learning)
         # -1 = no cap (all tiers allowed). Set by engine from input analysis.
         # Caps the maximum word tier in voice output to match input complexity.
@@ -876,6 +878,18 @@ class WordForceIndex:
                     _op_nature = _op_def.get('nature', 'force')
                     if wf.nature == _op_nature:
                         total = max(0.0, total - 0.15)
+
+            # ── Resonance bonus: experience-confirmed force nodes ──
+            if self._voice_context is not None:
+                _res_nodes = self._voice_context.get('resonance_nodes', [])
+                for _rc, _rt in _res_nodes[:10]:  # Top 10 for speed
+                    _d_res = sum(
+                        (a - b) ** 2 for a, b in zip(wf.force, _rc)
+                    ) ** 0.5
+                    if _d_res < 0.5:  # Within resonance radius
+                        _rb = 0.15 * min(1.0, _rt / 25.0) * (1.0 - _d_res / 0.5)
+                        total = max(0.0, total - _rb)
+                        break  # One resonance match is enough
 
             scored.append((total, wf))
 
@@ -2441,12 +2455,14 @@ class FractalComposer:
         # ── Ho Tu bridge: set ancient resonance context on index ──
         # Cleared after composition (via finally) so it doesn't leak.
         self.index._hotu_context = hotu_context
+        self.index._voice_context = voice_context
         self._voice_context = voice_context
         try:
             return self._compose_tribal_inner(
                 operators, density, lens, max_words, tense, hotu_context)
         finally:
             self.index._hotu_context = None
+            self.index._voice_context = None
             self._voice_context = None
 
     def _compose_tribal_inner(self, operators, density, lens, max_words,
@@ -3041,6 +3057,22 @@ class FractalComposer:
         for op in operators:
             triad = OPERATOR_TRIAD_TARGETS.get(op, OPERATOR_TRIAD_TARGETS[HARMONY])
             being, doing, becoming = triad
+
+            # ── Experience bridge: blend learned targets (max 50%) ──
+            if self._voice_context is not None:
+                _learned = self._voice_context.get('learned_targets', {})
+                _maturity = self._voice_context.get('maturity', 0.0)
+                _alpha = min(0.5, _maturity * 0.5)
+                if op in _learned and _alpha > 0:
+                    _lb = _learned[op]  # 5D centroid from olfactory
+                    being = tuple(
+                        (1.0 - _alpha) * s + _alpha * l
+                        for s, l in zip(being, _lb)
+                    )
+                    # Re-derive doing/becoming from blended being
+                    doing = tuple((b - 0.5) * 0.5 for b in being)
+                    _amp = _OP_CURVATURE_AMP.get(op, 0.0)
+                    becoming = tuple((b - 0.5) * _amp for b in being)
 
             # Density modulation (amplify deviation from neutral)
             if density > 0.5:
