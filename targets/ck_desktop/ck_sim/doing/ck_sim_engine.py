@@ -2753,6 +2753,20 @@ class CKSimEngine:
                         _lcodec_input.force if _lcodec_input else None)
                 except Exception:
                     pass
+                # Experience bridge: olfactory learned targets + resonance
+                # nodes + maturity → voice_context for fractal voice.
+                # Enables _build_triadic_targets() to blend learned centroids
+                # with static operator targets (max 50% learned, physics frozen).
+                _voice_ctx = None
+                if self.olfactory is not None:
+                    try:
+                        _voice_ctx = {
+                            'learned_targets': self.olfactory.get_learned_op_targets(),
+                            'resonance_nodes': self.olfactory.get_resonance_nodes(50),
+                            'maturity': _exp_mat,
+                        }
+                    except Exception:
+                        pass
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -2763,7 +2777,8 @@ class CKSimEngine:
                     experience_maturity=_exp_mat,
                     tense=_tense,
                     max_words=_max_words,
-                    hotu_context=_hotu_ctx)
+                    hotu_context=_hotu_ctx,
+                    voice_context=_voice_ctx)
             except Exception:
                 _candidate = "..."
 
