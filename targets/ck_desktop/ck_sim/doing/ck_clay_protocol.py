@@ -1,10 +1,3 @@
-# Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
-# Licensed under the 7Site Human Use License v1.0
-# See LICENSE file in project root for full terms.
-#
-# FREE for humans for personal/recreational use.
-# NO commercial or government use without written agreement.
-
 """
 ck_clay_protocol.py -- SDV Experiment Runner for Clay Millennium Problems
 =========================================================================
@@ -40,7 +33,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
 from ck_sim.being.ck_sdv_safety import (
-    CompressOnlySafety, clamp, safe_div, safe_sqrt, state_hash,
+    CompressOnlySafety, clamp, safe_div, safe_sqrt, safe_log, state_hash,
     probe_step_hash, DeterministicRNG
 )
 from ck_sim.being.ck_tig_bundle import (
@@ -85,7 +78,7 @@ class ProbeConfig:
     problem_id: str = 'navier_stokes'
     test_case: str = 'default'
     seed: int = 42
-    n_levels: int = 8          # Fractal unfolding depth
+    n_levels: int = 12         # Fractal unfolding depth
     warmup_ticks: int = 3      # CurvatureEngine needs 3 vectors to warm up
     tig_path: Optional[List[int]] = None  # Override default TIG path
 
@@ -123,6 +116,7 @@ class ProbeStepResult:
     coherence_action: float
     coherence_band: str         # GREEN / YELLOW / RED
     collapse_distance: float    # T* - action (positive = coherent)
+    universal_defect: float     # Symmetrized KL between lenses
     step_hash: str              # Determinism audit
     raw_reading: dict
 
@@ -177,6 +171,14 @@ class ProbeResult:
     defect_converges: bool = False   # Does defect trajectory converge to 0?
     defect_bounded_below: bool = False  # Is there a lower bound > 0?
 
+    # ── Convergence exponent (power-law rate) ──
+    convergence_exponent: float = 0.0       # beta from log-log fit (>0 = converging)
+    convergence_exponent_r2: float = 0.0    # R-squared of log-log fit
+
+    # ── Phase transition detection ──
+    phase_transition_level: int = -1        # Level where defect curve bends sharpest
+    phase_transition_strength: float = 0.0  # |d2(defect)| at transition point
+
     # ── 3-6-9 Spine analysis ──
     spine_defect_3: float = 0.0     # Defect carried by dr=3 words (sheath)
     spine_defect_6: float = 0.0     # Defect carried by dr=6 words (sheath)
@@ -215,6 +217,15 @@ class ProbeResult:
     # ── Dual fixed point ──
     lens_mismatches: List[float] = field(default_factory=list)
     dual_fixed_point_proximity: float = 0.0
+
+    # ── Universal defect (JSD between lenses) ──
+    universal_defects: List[float] = field(default_factory=list)
+    final_universal_defect: float = 0.0
+
+    # ── Becoming foundation (Theory of Nothing) ──
+    becoming_void_fraction: float = 0.0    # Fraction of CL(D1,D2) = VOID
+    becoming_harmony_fraction: float = 0.0 # Fraction of CL(D1,D2) = HARMONY
+    becoming_foundation: str = 'unknown'   # 'nothing' (VOID-dominated) or 'something' (HARMONY-dominated)
 
     # ── Problem class verdict ──
     problem_class: str = 'unknown'      # 'affirmative' or 'gap' (from DUAL_LENSES)
@@ -302,6 +313,7 @@ class ClayProbe:
             result.action_trajectory.append(step.coherence_action)
             result.master_lemma_defects.append(step.master_lemma_defect)
             result.lens_mismatches.append(step.lens_mismatch)
+            result.universal_defects.append(step.universal_defect)
             result.harmony_defect_series.append(
                 1.0 - (1.0 if step.operator == HARMONY else 0.0))
 
@@ -379,6 +391,9 @@ class ClayProbe:
         # Lens mismatch
         lens_mm = self.codec.lens_mismatch(raw)
 
+        # Universal defect (lens metric -- same formula for all 6 problems)
+        uni_defect = self.codec.universal_defect(raw)
+
         # Coherence action
         action_val = 1.0
         band = 'RED'
@@ -409,6 +424,7 @@ class ClayProbe:
             cl_d1_d2_name=OP_NAMES[cl_op] if 0 <= cl_op < NUM_OPS else 'UNKNOWN',
             master_lemma_defect=ml_defect,
             lens_mismatch=lens_mm,
+            universal_defect=uni_defect,
             coherence_action=action_val,
             coherence_band=band,
             collapse_distance=collapse_dist,
@@ -512,6 +528,19 @@ class ClayProbe:
         result.cl_harmony_rate = cl_counts.get(HARMONY, 0) / max(valid_count, 1)
         result.d1_d2_agreement = agree_count / max(valid_count, 1)
 
+        # Becoming foundation: VOID-fraction vs HARMONY-fraction of CL(D1,D2)
+        # Theory of Nothing: affirmative problems rest on VOID (nothing/stillness),
+        # gap problems are dominated by HARMONY (something that refuses to collapse)
+        if valid_count > 0:
+            result.becoming_void_fraction = cl_counts.get(VOID, 0) / valid_count
+            result.becoming_harmony_fraction = cl_counts.get(HARMONY, 0) / valid_count
+            if result.becoming_void_fraction > result.becoming_harmony_fraction:
+                result.becoming_foundation = 'nothing'
+            elif result.becoming_harmony_fraction > result.becoming_void_fraction:
+                result.becoming_foundation = 'something'
+            else:
+                result.becoming_foundation = 'balanced'
+
     def _analyze_defect_trajectory(self, result: ProbeResult):
         """Analyze how defect evolves across levels."""
         traj = result.defect_trajectory
@@ -555,6 +584,46 @@ class ClayProbe:
             last_quarter = traj[3 * n // 4:]
             result.defect_converges = all(d < 0.1 for d in last_quarter)
             result.defect_bounded_below = all(d > 0.05 for d in traj)
+
+        # ── Universal defect finalization ──
+        if result.universal_defects:
+            result.final_universal_defect = result.universal_defects[-1]
+
+        # ── Convergence exponent: power-law fit ──
+        # Model: delta_L ~ A * (L+1)^(-beta)
+        # => log(delta) = -beta * log(L+1) + log(A)
+        positive_defects = [(i, d) for i, d in enumerate(traj) if d > 1e-10]
+        if len(positive_defects) >= 3:
+            log_levels = [safe_log(i + 1) for i, _ in positive_defects]
+            log_defects = [safe_log(d) for _, d in positive_defects]
+            n_pos = len(positive_defects)
+            lx_mean = sum(log_levels) / n_pos
+            ly_mean = sum(log_defects) / n_pos
+            num_b = sum((log_levels[j] - lx_mean) * (log_defects[j] - ly_mean)
+                        for j in range(n_pos))
+            den_b = sum((log_levels[j] - lx_mean) ** 2 for j in range(n_pos))
+            if abs(den_b) > 1e-15:
+                beta_slope = safe_div(num_b, den_b)
+                result.convergence_exponent = -beta_slope
+                # R-squared of the log-log fit
+                ss_res = sum((log_defects[j] - (ly_mean + beta_slope * (log_levels[j] - lx_mean))) ** 2
+                             for j in range(n_pos))
+                ss_tot = sum((log_defects[j] - ly_mean) ** 2 for j in range(n_pos))
+                result.convergence_exponent_r2 = clamp(1.0 - safe_div(ss_res, ss_tot), 0.0, 1.0)
+
+        # ── Phase transition detection ──
+        # Second difference of defect trajectory: peak |d2| = sharpest bend
+        if n >= 3:
+            d2_defect = [traj[i + 1] - 2.0 * traj[i] + traj[i - 1] for i in range(1, n - 1)]
+            if d2_defect:
+                max_abs_d2 = 0.0
+                max_idx = 0
+                for idx_d2, val_d2 in enumerate(d2_defect):
+                    if abs(val_d2) > max_abs_d2:
+                        max_abs_d2 = abs(val_d2)
+                        max_idx = idx_d2
+                result.phase_transition_level = max_idx + 1
+                result.phase_transition_strength = max_abs_d2
 
     def _analyze_spine(self, result: ProbeResult):
         """Analyze 3-6-9 spine structure in operator sequence."""
@@ -710,7 +779,7 @@ class ClayProtocol:
         protocol.run_problem('navier_stokes', test_case='lamb_oseen')
     """
 
-    def __init__(self, seed: int = 42, n_levels: int = 8):
+    def __init__(self, seed: int = 42, n_levels: int = 12):
         self.seed = seed
         self.n_levels = n_levels
 
@@ -808,6 +877,10 @@ class ClayProtocol:
                 'd1_dominant': r.d1_dominant_operator_name,
                 'd1_d2_agreement': r.d1_d2_agreement,
                 'cl_harmony_rate': r.cl_harmony_rate,
+                # Becoming foundation (Theory of Nothing)
+                'becoming_void_fraction': r.becoming_void_fraction,
+                'becoming_harmony_fraction': r.becoming_harmony_fraction,
+                'becoming_foundation': r.becoming_foundation,
             }
             summary['problems'][pid] = info
 
@@ -820,5 +893,49 @@ class ClayProtocol:
                 summary['converging'].append(pid)
             if r.defect_bounded_below:
                 summary['persistent_defect'].append(pid)
+
+        # ── 6x6 Pearson correlation of defect trajectories ──
+        # Reveals which problems "see the same math" through the lens
+        problem_ids = list(results.keys())
+        max_len = max((len(results[pid].defect_trajectory) for pid in problem_ids), default=1)
+        padded = {}
+        for pid in problem_ids:
+            t = results[pid].defect_trajectory
+            padded[pid] = t + [t[-1]] * (max_len - len(t)) if t else [0.5] * max_len
+
+        corr_matrix = {}
+        for pid_a in problem_ids:
+            row = {}
+            traj_a = padded[pid_a]
+            mean_a = sum(traj_a) / max_len
+            for pid_b in problem_ids:
+                traj_b = padded[pid_b]
+                mean_b = sum(traj_b) / max_len
+                cov = sum((traj_a[k] - mean_a) * (traj_b[k] - mean_b)
+                          for k in range(max_len))
+                var_a = sum((traj_a[k] - mean_a) ** 2 for k in range(max_len))
+                var_b = sum((traj_b[k] - mean_b) ** 2 for k in range(max_len))
+                denom = safe_sqrt(var_a * var_b)
+                row[pid_b] = safe_div(cov, denom) if denom > 1e-10 else 0.0
+            corr_matrix[pid_a] = row
+        summary['correlation_matrix'] = corr_matrix
+
+        # ── CL table spectral analysis ──
+        # The 10x10 CL composition table is a mathematical constant.
+        # Its eigenstructure reveals the harmonic basis of the operator algebra.
+        try:
+            import numpy as np
+            cl_matrix = np.array(CL, dtype=float)
+            sym = (cl_matrix + cl_matrix.T) / 2.0
+            eigenvalues = sorted(np.linalg.eigvalsh(sym).tolist(), reverse=True)
+            spectral_gap = eigenvalues[0] - eigenvalues[1] if len(eigenvalues) >= 2 else 0.0
+            summary['cl_spectral'] = {
+                'eigenvalues': [round(ev, 6) for ev in eigenvalues],
+                'spectral_gap': round(spectral_gap, 6),
+                'dominant_eigenvalue': round(eigenvalues[0], 6),
+                'frobenius_norm': round(float(np.linalg.norm(cl_matrix, 'fro')), 6),
+            }
+        except ImportError:
+            summary['cl_spectral'] = {'eigenvalues': [], 'spectral_gap': 0.0}
 
         return summary

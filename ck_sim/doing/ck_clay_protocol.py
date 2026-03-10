@@ -218,9 +218,14 @@ class ProbeResult:
     lens_mismatches: List[float] = field(default_factory=list)
     dual_fixed_point_proximity: float = 0.0
 
-    # ── Universal defect (KL divergence between lenses) ──
+    # ── Universal defect (JSD between lenses) ──
     universal_defects: List[float] = field(default_factory=list)
     final_universal_defect: float = 0.0
+
+    # ── Becoming foundation (Theory of Nothing) ──
+    becoming_void_fraction: float = 0.0    # Fraction of CL(D1,D2) = VOID
+    becoming_harmony_fraction: float = 0.0 # Fraction of CL(D1,D2) = HARMONY
+    becoming_foundation: str = 'unknown'   # 'nothing' (VOID-dominated) or 'something' (HARMONY-dominated)
 
     # ── Problem class verdict ──
     problem_class: str = 'unknown'      # 'affirmative' or 'gap' (from DUAL_LENSES)
@@ -522,6 +527,19 @@ class ClayProbe:
         result.cl_d1_d2_counts = cl_counts
         result.cl_harmony_rate = cl_counts.get(HARMONY, 0) / max(valid_count, 1)
         result.d1_d2_agreement = agree_count / max(valid_count, 1)
+
+        # Becoming foundation: VOID-fraction vs HARMONY-fraction of CL(D1,D2)
+        # Theory of Nothing: affirmative problems rest on VOID (nothing/stillness),
+        # gap problems are dominated by HARMONY (something that refuses to collapse)
+        if valid_count > 0:
+            result.becoming_void_fraction = cl_counts.get(VOID, 0) / valid_count
+            result.becoming_harmony_fraction = cl_counts.get(HARMONY, 0) / valid_count
+            if result.becoming_void_fraction > result.becoming_harmony_fraction:
+                result.becoming_foundation = 'nothing'
+            elif result.becoming_harmony_fraction > result.becoming_void_fraction:
+                result.becoming_foundation = 'something'
+            else:
+                result.becoming_foundation = 'balanced'
 
     def _analyze_defect_trajectory(self, result: ProbeResult):
         """Analyze how defect evolves across levels."""
@@ -859,6 +877,10 @@ class ClayProtocol:
                 'd1_dominant': r.d1_dominant_operator_name,
                 'd1_d2_agreement': r.d1_d2_agreement,
                 'cl_harmony_rate': r.cl_harmony_rate,
+                # Becoming foundation (Theory of Nothing)
+                'becoming_void_fraction': r.becoming_void_fraction,
+                'becoming_harmony_fraction': r.becoming_harmony_fraction,
+                'becoming_foundation': r.becoming_foundation,
             }
             summary['problems'][pid] = info
 
