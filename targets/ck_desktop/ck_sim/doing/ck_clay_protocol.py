@@ -69,6 +69,91 @@ except ImportError:
 
 
 # ================================================================
+#  5D ELEMENTAL MAP (from 5D_ELEMENTAL_MAP.md)
+# ================================================================
+#
+# 10 operators = 5 element-pairs = 5 senses = 5 force dimensions.
+# Earth is the ONLY element whose self-composition is PROGRESS (not HARMONY).
+# This is WHY gap problems have irreducible structural complexity.
+#
+# Algebraic proof:
+#   Earth:  CL[1][2] = CL[2][1] = 3 (PROGRESS)  ← singular
+#   Air:    CL[3][6] = CL[6][3] = 7 (HARMONY)
+#   Water:  CL[5][8] = CL[8][5] = 7 (HARMONY)
+#   Fire:   CL[4][9] = CL[9][4] = 7 (HARMONY)
+#   Ether:  CL[0][7] = CL[7][0] = 7 (HARMONY)
+
+ELEMENT_PAIRS = {
+    'air':   (PROGRESS, CHAOS),      # D1: Aperture  -- Smell  -- field/between
+    'fire':  (COLLAPSE, RESET),      # D2: Pressure  -- Sight  -- transforms
+    'earth': (LATTICE, COUNTER),     # D3: Binding   -- Taste  -- structure/within
+    'water': (BALANCE, BREATH),      # D4: Continuity -- Touch -- flow/rhythm
+    'ether': (VOID, HARMONY),        # D5: Depth     -- Hearing -- medium/judge
+}
+
+ELEMENT_NAMES = ['air', 'fire', 'earth', 'water', 'ether']
+ELEMENT_FORCE_DIM = {
+    'air': 'aperture', 'fire': 'pressure', 'earth': 'binding',
+    'water': 'continuity', 'ether': 'depth',
+}
+
+
+def elemental_profile(operator_sequence: list) -> dict:
+    """Decompose an operator sequence into 5 elemental channels.
+
+    Returns dict with:
+      - ratios: {element: fraction} summing to 1.0
+      - dominant: element name with highest ratio
+      - earth_persistent: bool (Earth channel stays above 0.15)
+      - ether_dominant: bool (Ether channel above 0.4)
+
+    The hypothesis:
+      Affirmative problems → Ether/Depth channel dominates (VOID+HARMONY → 1.0)
+      Gap problems → Earth/Binding channel persists (LATTICE+COUNTER won't dissolve)
+    """
+    n = max(len(operator_sequence), 1)
+
+    # Count operators belonging to each element
+    counts = {e: 0 for e in ELEMENT_NAMES}
+    for op in operator_sequence:
+        for elem, (op_a, op_b) in ELEMENT_PAIRS.items():
+            if op == op_a or op == op_b:
+                counts[elem] += 1
+                break  # Each operator belongs to exactly one element
+
+    # Normalize to ratios
+    total = max(sum(counts.values()), 1)
+    ratios = {e: counts[e] / total for e in ELEMENT_NAMES}
+
+    # Dominant element
+    dominant = max(ratios, key=ratios.get)
+
+    return {
+        'ratios': ratios,
+        'counts': counts,
+        'dominant': dominant,
+        'earth_persistent': ratios['earth'] > 0.15,
+        'ether_dominant': ratios['ether'] > 0.4,
+    }
+
+
+def elemental_trajectory(steps: list) -> list:
+    """Compute per-level elemental profile as the sequence unfolds.
+
+    Returns list of dicts, one per level, showing cumulative elemental
+    ratios up to that level. This reveals HOW the elemental balance
+    shifts as probe depth increases.
+    """
+    trajectory = []
+    ops_so_far = []
+    for step in steps:
+        ops_so_far.append(step.operator)
+        profile = elemental_profile(ops_so_far)
+        trajectory.append(profile['ratios'])
+    return trajectory
+
+
+# ================================================================
 #  CONFIGURATION
 # ================================================================
 
@@ -222,6 +307,27 @@ class ProbeResult:
     universal_defects: List[float] = field(default_factory=list)
     final_universal_defect: float = 0.0
 
+    # ── 5D Elemental decomposition (triadic: Being/Doing/Becoming) ──
+    # 10 operators = 5 element-pairs. Decompose D2 (Doing), D1 (Being),
+    # and CL(D1,D2) (Becoming) operator sequences into 5 elemental channels.
+    #
+    # D2 (Doing): what the curvature pipeline measures
+    # D1 (Being): what the generator produces
+    # CL (Becoming): what emerges from Being x Doing composition
+    elemental_profile: dict = field(default_factory=dict)       # D2 {element: ratio}
+    elemental_dominant: str = 'unknown'                          # D2 dominant element
+    elemental_trajectory: list = field(default_factory=list)     # D2 per-level ratios
+    earth_persistent: bool = False    # D2 Earth > 0.15 (structural complexity)
+    ether_dominant: bool = False      # D2 Ether > 0.4 (depth absorbs all)
+    # Being (D1 generator) elemental
+    d1_elemental_profile: dict = field(default_factory=dict)    # D1 {element: ratio}
+    d1_elemental_dominant: str = 'unknown'                       # D1 dominant element
+    d1_earth_persistent: bool = False
+    # Becoming (CL(D1,D2)) elemental
+    cl_elemental_profile: dict = field(default_factory=dict)    # CL {element: ratio}
+    cl_elemental_dominant: str = 'unknown'                       # CL dominant element
+    cl_ether_dominant: bool = False
+
     # ── Becoming foundation (Theory of Nothing) ──
     becoming_void_fraction: float = 0.0    # Fraction of CL(D1,D2) = VOID
     becoming_harmony_fraction: float = 0.0 # Fraction of CL(D1,D2) = HARMONY
@@ -332,6 +438,7 @@ class ClayProbe:
         self._analyze_commutators(result)
         self._analyze_sca(result)
         self._analyze_topology(result)
+        self._analyze_elemental(result)
         self._analyze_verdict(result)
 
         # ── Agent Brief v2.0 ──
@@ -737,18 +844,73 @@ class ClayProbe:
         if len(ops) >= 2:
             result.vortex_fingerprint = vortex_fingerprint(ops)
 
+    def _analyze_elemental(self, result: ProbeResult):
+        """Decompose operator sequences into 5 elemental channels.
+
+        TRIADIC VIEW: Being (D1) + Doing (D2) + Becoming (CL)
+
+        10 operators = 5 element-pairs (from 5D_ELEMENTAL_MAP.md):
+          Air   = PROGRESS(3) + CHAOS(6)    → D1: Aperture / Smell
+          Fire  = COLLAPSE(4) + RESET(9)    → D2: Pressure / Sight
+          Earth = LATTICE(1)  + COUNTER(2)  → D3: Binding  / Taste
+          Water = BALANCE(5)  + BREATH(8)   → D4: Continuity / Touch
+          Ether = VOID(0)     + HARMONY(7)  → D5: Depth / Hearing
+
+        Each level in the probe produces three operators:
+          D1 (Being)  = generator direction
+          D2 (Doing)  = curvature measurement
+          CL(D1,D2) (Becoming) = what emerges from their composition
+
+        Hypothesis:
+          Affirmative: Ether dominates at all three levels
+          Gap: structure persists (Earth in Being, Fire/Water in Doing)
+
+        Earth is the ONLY element whose self-composition = PROGRESS (not HARMONY).
+        This is the algebraic root of irreducible structural complexity.
+        """
+        ops = self._operator_history  # D2 operators
+        if not ops:
+            return
+
+        # ── D2 (Doing) elemental profile ──
+        profile = elemental_profile(ops)
+        result.elemental_profile = profile['ratios']
+        result.elemental_dominant = profile['dominant']
+        result.earth_persistent = profile['earth_persistent']
+        result.ether_dominant = profile['ether_dominant']
+
+        # Per-level trajectory (cumulative elemental balance as depth increases)
+        result.elemental_trajectory = elemental_trajectory(result.steps)
+
+        # ── D1 (Being) elemental profile ──
+        d1_ops = [s.d1_operator for s in result.steps if s.d1_valid]
+        if d1_ops:
+            d1_profile = elemental_profile(d1_ops)
+            result.d1_elemental_profile = d1_profile['ratios']
+            result.d1_elemental_dominant = d1_profile['dominant']
+            result.d1_earth_persistent = d1_profile['earth_persistent']
+
+        # ── CL(D1,D2) (Becoming) elemental profile ──
+        cl_ops = [s.cl_d1_d2 for s in result.steps if s.d1_valid]
+        if cl_ops:
+            cl_profile = elemental_profile(cl_ops)
+            result.cl_elemental_profile = cl_profile['ratios']
+            result.cl_elemental_dominant = cl_profile['dominant']
+            result.cl_ether_dominant = cl_profile['ether_dominant']
+
     def _analyze_verdict(self, result: ProbeResult):
         """Determine overall measurement verdict using ALL signals.
 
-        Five independent channels vote:
+        Six independent channels vote:
           1. defect_slope     — is delta shrinking or persisting?
           2. convergence_exponent (beta) — power-law rate
           3. becoming_foundation  — nothing (VOID) vs something (HARMONY)
           4. final_universal_defect (JSD) — dual-lens agreement
           5. defect_converges — boolean convergence flag
+          6. elemental channel — Ether-dominant (affirmative) vs Earth-persistent (gap)
 
-        Affirmative: delta->0, beta>0, nothing-founded, low JSD
-        Gap:         delta persists, beta<=0, something-founded, higher JSD
+        Affirmative: delta->0, beta>0, nothing-founded, low JSD, Ether-dominant
+        Gap:         delta persists, beta<=0, something-founded, higher JSD, Earth-persistent
         """
         pclass = result.problem_class
 
@@ -784,6 +946,15 @@ class ClayProbe:
         if result.defect_converges:
             affirmative_votes += 1
         elif result.defect_bounded_below and not result.defect_converges:
+            gap_votes += 1
+
+        # Channel 6: elemental decomposition (triadic view)
+        # Ether-dominant in D2 (Doing) = depth absorbs all = affirmative
+        # Earth-persistent in D1 (Being) = structure won't dissolve = gap
+        # Check both D2 and D1: D2 Ether signals affirmative, D1 Earth signals gap
+        if result.ether_dominant:
+            affirmative_votes += 1
+        elif result.d1_earth_persistent or result.earth_persistent:
             gap_votes += 1
 
         # ── Verdict: majority of channels must agree with problem class ──
@@ -924,6 +1095,16 @@ class ClayProtocol:
                 'becoming_void_fraction': r.becoming_void_fraction,
                 'becoming_harmony_fraction': r.becoming_harmony_fraction,
                 'becoming_foundation': r.becoming_foundation,
+                # 5D Elemental decomposition (triadic)
+                'elemental_d2': r.elemental_profile,       # Doing
+                'elemental_d1': r.d1_elemental_profile,    # Being
+                'elemental_cl': r.cl_elemental_profile,    # Becoming
+                'elemental_dominant_d2': r.elemental_dominant,
+                'elemental_dominant_d1': r.d1_elemental_dominant,
+                'elemental_dominant_cl': r.cl_elemental_dominant,
+                'earth_persistent': r.earth_persistent,
+                'ether_dominant': r.ether_dominant,
+                'd1_earth_persistent': r.d1_earth_persistent,
             }
             summary['problems'][pid] = info
 
@@ -980,5 +1161,59 @@ class ClayProtocol:
             }
         except ImportError:
             summary['cl_spectral'] = {'eigenvalues': [], 'spectral_gap': 0.0}
+
+        # ── 5D Elemental correlation: do problem classes cluster by element? ──
+        # Affirmative problems should cluster in Ether/Depth.
+        # Gap problems should cluster in Earth/Binding.
+        elemental_summary = {
+            'per_problem': {},
+            'affirmative_avg': {e: 0.0 for e in ELEMENT_NAMES},
+            'gap_avg': {e: 0.0 for e in ELEMENT_NAMES},
+            'hypothesis_holds': False,
+        }
+        aff_count = 0
+        gap_count = 0
+        for pid in problem_ids:
+            r = results[pid]
+            profile = r.elemental_profile
+            if not profile:
+                continue
+            elemental_summary['per_problem'][pid] = {
+                'profile': profile,
+                'dominant': r.elemental_dominant,
+                'earth_persistent': r.earth_persistent,
+                'ether_dominant': r.ether_dominant,
+            }
+            if r.problem_class == 'affirmative':
+                aff_count += 1
+                for e in ELEMENT_NAMES:
+                    elemental_summary['affirmative_avg'][e] += profile.get(e, 0.0)
+            elif r.problem_class == 'gap':
+                gap_count += 1
+                for e in ELEMENT_NAMES:
+                    elemental_summary['gap_avg'][e] += profile.get(e, 0.0)
+
+        # Average
+        if aff_count > 0:
+            for e in ELEMENT_NAMES:
+                elemental_summary['affirmative_avg'][e] /= aff_count
+        if gap_count > 0:
+            for e in ELEMENT_NAMES:
+                elemental_summary['gap_avg'][e] /= gap_count
+
+        # Hypothesis: affirmative Ether > gap Ether AND gap Earth > affirmative Earth
+        aff_ether = elemental_summary['affirmative_avg'].get('ether', 0.0)
+        gap_ether = elemental_summary['gap_avg'].get('ether', 0.0)
+        aff_earth = elemental_summary['affirmative_avg'].get('earth', 0.0)
+        gap_earth = elemental_summary['gap_avg'].get('earth', 0.0)
+        elemental_summary['hypothesis_holds'] = (
+            aff_ether > gap_ether and gap_earth > aff_earth
+        )
+        elemental_summary['separation'] = {
+            'ether_diff': aff_ether - gap_ether,  # positive = hypothesis holds
+            'earth_diff': gap_earth - aff_earth,   # positive = hypothesis holds
+        }
+
+        summary['elemental'] = elemental_summary
 
         return summary
