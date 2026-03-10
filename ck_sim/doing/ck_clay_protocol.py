@@ -229,7 +229,9 @@ class ProbeResult:
 
     # ── Problem class verdict ──
     problem_class: str = 'unknown'      # 'affirmative' or 'gap' (from DUAL_LENSES)
-    measurement_verdict: str = 'unknown' # 'supports_conjecture', 'supports_gap', 'inconclusive'
+    measurement_verdict: str = 'unknown' # 'supports_conjecture', 'supports_gap', 'contradicts_*', 'inconclusive'
+    verdict_affirmative_votes: int = 0   # how many channels voted affirmative
+    verdict_gap_votes: int = 0           # how many channels voted gap
 
     # ── Agent Brief v2.0 ──
     brief_confidence: float = 0.0       # Current confidence from AGENT_BRIEFS
@@ -736,34 +738,75 @@ class ClayProbe:
             result.vortex_fingerprint = vortex_fingerprint(ops)
 
     def _analyze_verdict(self, result: ProbeResult):
-        """Determine overall measurement verdict.
+        """Determine overall measurement verdict using ALL signals.
 
-        Affirmative problems (NS, RH, BSD, Hodge):
-          delta -> 0 => supports conjecture
-          delta stays positive => inconclusive
+        Five independent channels vote:
+          1. defect_slope     — is delta shrinking or persisting?
+          2. convergence_exponent (beta) — power-law rate
+          3. becoming_foundation  — nothing (VOID) vs something (HARMONY)
+          4. final_universal_defect (JSD) — dual-lens agreement
+          5. defect_converges — boolean convergence flag
 
-        Gap problems (P vs NP, Yang-Mills):
-          delta >= eta > 0 => supports gap
-          delta -> 0 => inconclusive (would undermine gap claim)
+        Affirmative: delta->0, beta>0, nothing-founded, low JSD
+        Gap:         delta persists, beta<=0, something-founded, higher JSD
         """
         pclass = result.problem_class
 
+        # ── Count votes from each signal channel ──
+        affirmative_votes = 0
+        gap_votes = 0
+
+        # Channel 1: defect slope (negative = shrinking = affirmative)
+        if result.defect_slope < -0.001:
+            affirmative_votes += 1
+        elif result.defect_slope > 0.001:
+            gap_votes += 1
+
+        # Channel 2: convergence exponent (positive = converging = affirmative)
+        if result.convergence_exponent > 0.01:
+            affirmative_votes += 1
+        elif result.convergence_exponent < -0.01:
+            gap_votes += 1
+
+        # Channel 3: becoming foundation (nothing = affirmative, something = gap)
+        if result.becoming_foundation == 'nothing':
+            affirmative_votes += 1
+        elif result.becoming_foundation == 'something':
+            gap_votes += 1
+
+        # Channel 4: JSD (low = lenses agree = affirmative, high = divergence = gap)
+        if result.final_universal_defect < 0.05:
+            affirmative_votes += 1
+        elif result.final_universal_defect > 0.15:
+            gap_votes += 1
+
+        # Channel 5: boolean convergence flag
+        if result.defect_converges:
+            affirmative_votes += 1
+        elif result.defect_bounded_below and not result.defect_converges:
+            gap_votes += 1
+
+        # ── Verdict: majority of channels must agree with problem class ──
         if pclass == 'affirmative':
-            if result.defect_converges and result.defect_slope < -0.005:
+            if affirmative_votes >= 3:
                 result.measurement_verdict = 'supports_conjecture'
-            elif result.defect_bounded_below:
-                result.measurement_verdict = 'inconclusive'
+            elif gap_votes >= 3:
+                result.measurement_verdict = 'contradicts_conjecture'
             else:
                 result.measurement_verdict = 'inconclusive'
         elif pclass == 'gap':
-            if result.defect_bounded_below and result.defect_slope >= -0.005:
+            if gap_votes >= 3:
                 result.measurement_verdict = 'supports_gap'
-            elif result.defect_converges:
-                result.measurement_verdict = 'inconclusive'
+            elif affirmative_votes >= 3:
+                result.measurement_verdict = 'contradicts_gap'
             else:
                 result.measurement_verdict = 'inconclusive'
         else:
             result.measurement_verdict = 'inconclusive'
+
+        # Store vote counts for transparency
+        result.verdict_affirmative_votes = affirmative_votes
+        result.verdict_gap_votes = gap_votes
 
 
 # ================================================================
