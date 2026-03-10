@@ -78,7 +78,7 @@ class ProbeConfig:
     problem_id: str = 'navier_stokes'
     test_case: str = 'default'
     seed: int = 42
-    n_levels: int = 8          # Fractal unfolding depth
+    n_levels: int = 12         # Fractal unfolding depth
     warmup_ticks: int = 3      # CurvatureEngine needs 3 vectors to warm up
     tig_path: Optional[List[int]] = None  # Override default TIG path
 
@@ -761,7 +761,7 @@ class ClayProtocol:
         protocol.run_problem('navier_stokes', test_case='lamb_oseen')
     """
 
-    def __init__(self, seed: int = 42, n_levels: int = 8):
+    def __init__(self, seed: int = 42, n_levels: int = 12):
         self.seed = seed
         self.n_levels = n_levels
 

@@ -122,9 +122,15 @@ class NavierStokesGenerator(ClayGenerator):
         K2 = KX**2 + KY**2
         K2[0, 0] = 1.0  # Avoid division by zero
 
+        # 2/3-rule dealiasing mask (prevents aliasing at high levels)
+        k_cutoff_x = np.max(np.abs(kx)) * 2.0 / 3.0
+        k_cutoff_y = np.max(np.abs(ky)) * 2.0 / 3.0
+        dealias = ((np.abs(KX) <= k_cutoff_x) & (np.abs(KY) <= k_cutoff_y)).astype(float)
+
         # Time-step the vorticity equation (semi-implicit Euler)
         for _ in range(n_steps):
             omega_hat = fft2(omega)
+            omega_hat *= dealias  # suppress aliased modes
 
             # Velocity from vorticity: u = curl(psi), psi = -omega/k^2
             psi_hat = -omega_hat / K2
@@ -346,7 +352,7 @@ class NavierStokesGenerator(ClayGenerator):
             X, Y = np.meshgrid(x, y)
             # Concentrated vortex blob approaching BKM-like scenario
             r2 = (X - math.pi)**2 + (Y - math.pi)**2
-            amplitude = 1000.0 * (1.0 + level)
+            amplitude = min(1000.0 * (1.0 + level), 10000.0)
             core = 0.1  # Very thin core
             omega_init = amplitude * np.exp(-r2 / core**2)
         else:
@@ -558,7 +564,8 @@ class RiemannGenerator(ClayGenerator):
 
     def _quarter_gap(self, level: int) -> dict:
         """Probe hypothetical zeros at beta_0 in (0.5, 0.75) -- REAL zeta."""
-        betas = [0.55, 0.58, 0.60, 0.63, 0.65, 0.68, 0.70, 0.72, 0.74, 0.76, 0.80, 0.85]
+        betas = [0.55, 0.58, 0.60, 0.63, 0.65, 0.68, 0.70, 0.72,
+                 0.74, 0.76, 0.80, 0.85, 0.88, 0.91, 0.94, 0.97]
         idx = min(level, len(betas) - 1)
         beta_0 = betas[idx]
         return self._eval_zeta(beta_0, 14.134)
@@ -1273,7 +1280,7 @@ class BSDGenerator(ClayGenerator):
         """
         result = self._measure_curve('mismatch', level)
         # Amplify Sha effect with level
-        sha_order = 4.0 + level * 2.0
+        sha_order = min(4.0 + level * 2.0, 50.0)
         result['sha_order'] = sha_order
         # Recompute arithmetic coefficient with larger Sha
         a, b, conductor, _, torsion, regulator = self.CURVES['mismatch']
