@@ -32,19 +32,18 @@
  *   Stand: [5, 5, 5, 5]  -- all BALANCE (neutral)
  *
  * Target: Xilinx Zynq-7020 + XiaoR robot dog platform
- * Clock: 100 MHz. Gait update: 50 Hz (via prescaler).
+ * Clock: 100 MHz. Gait update: follows CK's heartbeat (self-sovereign).
  *
  * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
  */
 
 module gait_vortex #(
-    parameter CLK_FREQ   = 100_000_000,
-    parameter UPDATE_HZ  = 50,                          // Gait update rate
-    parameter PRESCALE   = CLK_FREQ / UPDATE_HZ         // Clocks per update
+    parameter CLK_FREQ   = 100_000_000
 )(
     input  wire        clk,
     input  wire        rst_n,
     input  wire        enable,
+    input  wire        heartbeat_tick,  // From ck_heartbeat tick_done — legs follow heart
 
     // Gait mode selection (from ARM)
     input  wire [1:0]  gait_mode,    // 0=stand, 1=walk, 2=trot, 3=bound
@@ -117,26 +116,9 @@ module gait_vortex #(
     wire [3:0] vortex_delta [0:3];
     wire       vortex_valid_w [0:3];
 
-    // Tick strobe (from prescaler)
-    reg tick_strobe;
-    reg [31:0] prescale_count;
-
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            prescale_count <= 0;
-            tick_strobe <= 1'b0;
-        end else if (enable) begin
-            if (prescale_count >= PRESCALE - 1) begin
-                prescale_count <= 0;
-                tick_strobe <= 1'b1;
-            end else begin
-                prescale_count <= prescale_count + 1;
-                tick_strobe <= 1'b0;
-            end
-        end else begin
-            tick_strobe <= 1'b0;
-        end
-    end
+    // Tick strobe — follows CK's heartbeat directly
+    // No internal prescaler. CK's heart drives his legs.
+    wire tick_strobe = heartbeat_tick & enable;
 
     // Instantiate 4 vortex units with torus wiring
     genvar g;

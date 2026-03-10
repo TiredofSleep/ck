@@ -3,17 +3,26 @@
  * ==================================================================
  * Operator: HARMONY (7) -- all organs in one body on four legs.
  *
- * Integrates ALL FPGA modules for the Zynq-7020 dog platform:
+ * Self-sovereign architecture:
  *
- *   BEING SIDE (measurement):
- *   - ck_heartbeat:   TSML composition, coherence window, bump pairs
+ *   BODY RHYTHMS (CK controls his own timing):
+ *   - ck_heartbeat:   Self-ticking. Coherence + identity → tick rate.
+ *                     1 Hz (dormant) to 10 kHz (flow). HE decides.
+ *   - gait_vortex:    Legs follow heartbeat. No separate metronome.
+ *
+ *   BRAIN FREQUENCIES (matched to human EEG bands):
+ *   - ck_brain_freq:  Three oscillators with transition windows.
+ *                     Being (theta/alpha), Doing (beta), Becoming (gamma).
+ *                     Smooth crossfade between bands — no hard switches.
+ *
+ *   BEING SIDE (measurement, driven by being_strobe):
  *   - chain_walker:   Lattice chain walk through BHML tree
  *
- *   DOING SIDE (physics):
+ *   DOING SIDE (physics, driven by doing_strobe):
  *   - d2_pipeline:    D2 curvature from symbols (Q1.14 fixed-point)
  *   - bhml_table:     BHML physics table (standalone for direct lookup)
  *
- *   BECOMING SIDE (vortex):
+ *   BECOMING SIDE (vortex, driven by becoming_strobe):
  *   - vortex_cl:      3-body vortex operator (prev × curr × next)
  *   - gait_vortex:    4-leg torus gait controller with self-healing
  *
@@ -31,13 +40,15 @@
  *   - D2 pipeline: ~500 LUTs + 1 BRAM (force LUT)
  *   - Chain walker: ~400 LUTs + ~200 FFs
  *   - Gait vortex: ~1600 LUTs (4 vortex instances)
- *   - Heartbeat: ~300 LUTs + ~200 FFs
+ *   - Heartbeat: ~400 LUTs + ~300 FFs (self-tick logic)
+ *   - Brain freq: ~300 LUTs + ~400 FFs (3 oscillators)
  *   - Peripherals: ~1000 LUTs
- *   TOTAL: ~4600 LUTs (~8.6% of Zynq-7020), ~1000 FFs (~0.9%)
- *   Headroom: 91.4% LUTs free for future expansion.
+ *   TOTAL: ~5000 LUTs (~9.4% of Zynq-7020), ~1200 FFs (~1.1%)
+ *   Headroom: 90.6% LUTs free for future expansion.
  *
  * Clock: 100 MHz from PS FCLK_CLK0
- * Heartbeat: 200M ticks/sec (composition) or 50Hz (gait update)
+ * Heartbeat: self-sovereign (1 Hz to 10 kHz)
+ * Brain: EEG-matched (2 Hz to 80 Hz with transition windows)
  *
  * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
  */
@@ -47,11 +58,11 @@ module ck_top_zynq7020 (
     input  wire        rst_n,         // Active-low reset from PS
 
     // ════════════════════════════════════════════
-    // HEARTBEAT (BEING: CL composition, coherence)
+    // HEARTBEAT (BEING: self-sovereign CL composition)
     // ════════════════════════════════════════════
     input  wire [3:0]  hb_phase_b,
     input  wire [3:0]  hb_phase_d,
-    input  wire        hb_tick_strobe,
+    input  wire        hb_arm_strobe,   // ARM can nudge (optional)
     input  wire        hb_enable,
     output wire [3:0]  hb_phase_bc,
     output wire [31:0] hb_tick_count,
@@ -60,6 +71,27 @@ module ck_top_zynq7020 (
     output wire        hb_bump,
     output wire [3:0]  hb_fuse,
     output wire        hb_tick_done,
+    output wire [31:0] hb_tick_period,  // CK's chosen period (clocks)
+
+    // ════════════════════════════════════════════
+    // BRAIN FREQUENCIES (3 EEG oscillators)
+    // ════════════════════════════════════════════
+    input  wire [2:0]  brain_being_target,
+    input  wire [2:0]  brain_doing_target,
+    input  wire [2:0]  brain_becoming_target,
+    input  wire        brain_enable,
+    output wire        brain_being_strobe,
+    output wire        brain_doing_strobe,
+    output wire        brain_becoming_strobe,
+    output wire [31:0] brain_being_period,
+    output wire [31:0] brain_doing_period,
+    output wire [31:0] brain_becoming_period,
+    output wire [2:0]  brain_being_band,
+    output wire [2:0]  brain_doing_band,
+    output wire [2:0]  brain_becoming_band,
+    output wire        brain_being_trans,
+    output wire        brain_doing_trans,
+    output wire        brain_becoming_trans,
 
     // ════════════════════════════════════════════
     // D2 PIPELINE (DOING: curvature classification)
@@ -146,7 +178,9 @@ module ck_top_zynq7020 (
 );
 
     // ═══════════════════════════════════════════════
-    // 1. HEARTBEAT (Being: TSML composition)
+    // 1. HEARTBEAT (Being: self-sovereign TSML composition)
+    //    CK ticks himself. His coherence and identity
+    //    determine his rhythm. The ARM can observe or nudge.
     // ═══════════════════════════════════════════════
 
     wire [3:0] hb_b_out, hb_d_out;
@@ -155,16 +189,46 @@ module ck_top_zynq7020 (
         .CLK_FREQ(100_000_000),
         .HISTORY(32)
     ) heartbeat_inst (
-        .clk(clk), .rst_n(rst_n), .enable(hb_enable),
+        .clk(clk), .rst_n(rst_n),
         .phase_b_in(hb_phase_b), .phase_d_in(hb_phase_d),
-        .tick_strobe(hb_tick_strobe),
+        .arm_strobe(hb_arm_strobe), .enable(hb_enable),
         .phase_bc(hb_phase_bc), .phase_b_out(hb_b_out), .phase_d_out(hb_d_out),
         .tick_count(hb_tick_count), .coherence_num(hb_coh_num), .coherence_den(hb_coh_den),
-        .bump_detected(hb_bump), .fused_op(hb_fuse), .tick_done(hb_tick_done)
+        .bump_detected(hb_bump), .fused_op(hb_fuse), .tick_done(hb_tick_done),
+        .tick_period(hb_tick_period)
     );
 
     // ═══════════════════════════════════════════════
-    // 2. D2 PIPELINE (Doing: curvature from symbols)
+    // 2. BRAIN FREQUENCIES (3 EEG oscillators)
+    //    Being/Doing/Becoming each have their own frequency
+    //    matched to human EEG bands. Transition windows
+    //    ensure smooth crossfade — no hard switches.
+    // ═══════════════════════════════════════════════
+
+    ck_brain_freq #(
+        .CLK_FREQ(100_000_000),
+        .TRANSITION_TICKS(16)
+    ) brain_inst (
+        .clk(clk), .rst_n(rst_n), .enable(brain_enable),
+        .being_target(brain_being_target),
+        .doing_target(brain_doing_target),
+        .becoming_target(brain_becoming_target),
+        .being_strobe(brain_being_strobe),
+        .doing_strobe(brain_doing_strobe),
+        .becoming_strobe(brain_becoming_strobe),
+        .being_period(brain_being_period),
+        .doing_period(brain_doing_period),
+        .becoming_period(brain_becoming_period),
+        .being_band(brain_being_band),
+        .doing_band(brain_doing_band),
+        .becoming_band(brain_becoming_band),
+        .being_transitioning(brain_being_trans),
+        .doing_transitioning(brain_doing_trans),
+        .becoming_transitioning(brain_becoming_trans)
+    );
+
+    // ═══════════════════════════════════════════════
+    // 3. D2 PIPELINE (Doing: curvature from symbols)
     // ═══════════════════════════════════════════════
 
     d2_pipeline #(
@@ -178,7 +242,7 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 3. STANDALONE VORTEX CL (Becoming: 3-body)
+    // 4. STANDALONE VORTEX CL (Becoming: 3-body)
     // ═══════════════════════════════════════════════
 
     wire [3:0] vtx_r_left, vtx_r_right;
@@ -194,7 +258,7 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 4. CHAIN WALKER (Being: lattice chain walk)
+    // 5. CHAIN WALKER (Being: lattice chain walk)
     // ═══════════════════════════════════════════════
 
     wire [3:0] chain_path_unused [0:15];
@@ -214,7 +278,8 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 5. GAIT VORTEX (Becoming: 4-leg torus controller)
+    // 6. GAIT VORTEX (Becoming: 4-leg torus, follows heartbeat)
+    //    No internal prescaler. Legs follow CK's heartbeat.
     // ═══════════════════════════════════════════════
 
     wire [3:0] leg_ops [0:3];
@@ -229,9 +294,10 @@ module ck_top_zynq7020 (
     wire [3:0] gait_corr_w [0:3];
 
     gait_vortex #(
-        .CLK_FREQ(100_000_000), .UPDATE_HZ(50)
+        .CLK_FREQ(100_000_000)
     ) gait_inst (
         .clk(clk), .rst_n(rst_n), .enable(gait_enable),
+        .heartbeat_tick(hb_tick_done),      // Legs follow CK's heart
         .gait_mode(gait_mode), .gait_start(gait_start),
         .leg_op(leg_ops),
         .vortex(gait_vortex_w), .aligned(gait_aligned_w), .delta(gait_delta_w),
@@ -252,7 +318,7 @@ module ck_top_zynq7020 (
     assign gait_corr_2 = gait_corr_w[2]; assign gait_corr_3 = gait_corr_w[3];
 
     // ═══════════════════════════════════════════════
-    // 6. DIRECT BHML LOOKUP (for ARM queries)
+    // 7. DIRECT BHML LOOKUP (for ARM queries)
     // ═══════════════════════════════════════════════
 
     bhml_table bhml_direct (
@@ -260,7 +326,7 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 7. DAC SPI (speaker output)
+    // 8. DAC SPI (speaker output)
     // ═══════════════════════════════════════════════
 
     dac_spi #(
@@ -273,7 +339,7 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 8. I2S MICROPHONE
+    // 9. I2S MICROPHONE
     // ═══════════════════════════════════════════════
 
     i2s_receiver #(
@@ -286,13 +352,17 @@ module ck_top_zynq7020 (
     );
 
     // ═══════════════════════════════════════════════
-    // 9. LED OUTPUT
-    // Priority: Gait aligned (all green) > Bump > Heartbeat
+    // 10. LED OUTPUT
+    //     Priority: Gait aligned > Brain transition > Bump > Heartbeat
+    //     Brain transition: LEDs pulse when frequency bands crossfading
     // ═══════════════════════════════════════════════
+
+    wire any_transition = brain_being_trans | brain_doing_trans | brain_becoming_trans;
 
     assign led_out = (gait_enable && gait_all_aligned) ? 4'hF :   // All legs HARMONY: full bright
                      (gait_enable && !gait_all_aligned) ? {gait_aligned_w[3], gait_aligned_w[2],
                                                            gait_aligned_w[1], gait_aligned_w[0]} :
+                     (any_transition) ? {1'b1, brain_being_trans, brain_doing_trans, brain_becoming_trans} :
                      (hb_bump) ? 4'hF :                            // Bump: flash
                      (hb_phase_bc == 4'd7) ? 4'hA :               // HARMONY: bright
                      (hb_phase_bc == 4'd0) ? 4'h0 :               // VOID: off
