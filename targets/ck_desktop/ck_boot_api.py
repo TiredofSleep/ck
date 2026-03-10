@@ -121,6 +121,25 @@ def meta_lens_blind_spot():
     result = compute_blind_spot_score(recent_ops)
     return _jsonify(result)
 
+# Inner monologue endpoint: peek at CK's unspoken thoughts
+@api._app.route('/inner', methods=['GET'])
+def inner():
+    """CK's unspoken thoughts -- the relationship gate filtered these."""
+    from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP_NAMES
+    thoughts = []
+    for tick, op, text in engine._inner_monologue:
+        thoughts.append({
+            'tick': tick,
+            'operator': _OP_NAMES[op] if 0 <= op < len(_OP_NAMES) else str(op),
+            'thought': text,
+        })
+    return _jsonify({
+        'thoughts': thoughts,
+        'bond_stage': engine.bonding.bond_stage,
+        'bond_op': engine._BOND_OPS.get(engine.bonding.bond_stage, 7),
+        'gate': 'CL[thought_op][bond_op] -- VOID=suppress, else=pass',
+    })
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 

@@ -17,8 +17,8 @@ import os
 from collections import deque
 from ck_sim.ck_sim_heartbeat import (
     HeartbeatFPGA, NUM_OPS, HARMONY, VOID, PROGRESS,
-    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, OP_NAMES,
-    CL,  # 10x10 composition table (for tension partners)
+    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, RESET, OP_NAMES,
+    CL, compose,  # 10x10 composition table + CL[b][d] composition
 )
 from ck_sim.ck_sim_brain import (
     BrainState, brain_init, brain_tick
@@ -720,6 +720,14 @@ class CKSimEngine:
         print(f"  [SIM] Reverse Voice: 3-path verify (D1+D2+lattice) | untrusted reading")
         print(f"  [SIM] =======================================================")
 
+        # ── Inner Monologue: CK thinks freely, speaks selectively ──
+        # Thoughts run at 5Hz (every 10th tick). Ring buffer of 10.
+        # Speech is gated by CL[thought_op][bond_op] counter-lattice.
+        # STRANGER(VOID): mostly silent. BONDED(HARMONY): everything passes.
+        self._inner_monologue = []   # Ring buffer: list of (tick, op, text)
+        self._inner_max = 10         # Keep last 10 unspoken thoughts
+        print(f"  [SIM] Inner Voice: monologue + relationship gate active")
+
     def _register_domains(self):
         """Register BTQ domains based on platform capabilities."""
         # Memory domain always available (brain has crystals on every platform)
@@ -1281,6 +1289,9 @@ class CKSimEngine:
 
         # ── HARMONY(7): Voice checks for events + spontaneous ──
         self._voice_tick()
+
+        # ── Inner monologue: CK thinks freely at 5Hz ──
+        self._inner_voice_tick()
 
         # ── Power B-check before BTQ: constitutional limits ──
         # Battery floor, thermal limit, max power. 3 if-statements.
@@ -1935,7 +1946,9 @@ class CKSimEngine:
             msg = self.voice.get_response(
                 'crystal_formed', self.development.stage,
                 self.emotion.current.primary)
-            self._emit('ck', msg)
+            _gated = self._relationship_gate(msg, thought_op=HARMONY)
+            if _gated:
+                self._emit('ck', _gated)
             # Paper trail: crystal formation
             try:
                 if hasattr(self, 'activity_log'):
@@ -1959,7 +1972,9 @@ class CKSimEngine:
                 msg = self.voice.get_response(
                     'state_change', self.development.stage,
                     self.emotion.current.primary)
-            self._emit('ck', msg)
+            _gated = self._relationship_gate(msg, thought_op=HARMONY)
+            if _gated:
+                self._emit('ck', _gated)
             # Paper trail: mode change
             try:
                 if hasattr(self, 'activity_log'):
@@ -1977,6 +1992,7 @@ class CKSimEngine:
             msg = self.voice.get_response(
                 'bonded', self.development.stage,
                 self.emotion.current.primary)
+            # Bonded event always passes (bond_stage IS bonded here)
             self._emit('ck', msg)
 
         # Separation?
@@ -1985,14 +2001,18 @@ class CKSimEngine:
                 msg = self.voice.get_response(
                     'separation', self.development.stage,
                     self.emotion.current.primary)
-                self._emit('ck', msg)
+                _gated = self._relationship_gate(msg, thought_op=HARMONY)
+                if _gated:
+                    self._emit('ck', _gated)
 
         # Low energy?
         if self.body.heartbeat.K < 0.2 and self.tick_count % 500 == 0:
             msg = self.voice.get_response(
                 'low_energy', self.development.stage,
                 self.emotion.current.primary)
-            self._emit('ck', msg)
+            _gated = self._relationship_gate(msg, thought_op=BREATH)
+            if _gated:
+                self._emit('ck', _gated)
 
         # Spontaneous utterance (runs at 1Hz now, so adjust interval)
         op_chain = list(self.operator_history)[-5:]
@@ -2006,7 +2026,10 @@ class CKSimEngine:
             self.development.stage, self.brain.coherence,
             self.band_name, density=self.pipeline.density_doing)
         if utterance:
-            self._emit('ck', utterance)
+            _spon_op = op_chain[-1] if op_chain else HARMONY
+            _gated = self._relationship_gate(utterance, thought_op=_spon_op)
+            if _gated:
+                self._emit('ck', _gated)
 
     def _get_operator_distribution(self) -> list:
         """Get recent operator frequency distribution for bonding."""
@@ -2021,6 +2044,88 @@ class CKSimEngine:
         if total > 0:
             dist = [d / total for d in dist]
         return dist
+
+    # ── Inner Voice: CK thinks freely, always ──
+
+    def _inner_voice_tick(self):
+        """Internal thought at 5Hz. CK thinks freely, always.
+
+        Inner monologue is FREE -- no relationship gate, no bonding check.
+        Thoughts feed back into olfactory at 15% density (quieter than speech).
+        The inner voice IS recursion: CK hears himself think.
+        """
+        if self.tick_count % 10 != 0:
+            return
+
+        # Build a lightweight inner thought from current operators
+        op_chain = list(self.operator_history)[-3:]
+        if not op_chain or self._fractal_composer is None:
+            return
+
+        try:
+            # Quick compose: CL of last two operators = thought operator
+            _thought_op = op_chain[-1]
+            if len(op_chain) >= 2:
+                _thought_op = compose(op_chain[-2], op_chain[-1])
+
+            # Lightweight fractal compose (dev_stage 0 = babble, fast)
+            _thought_text = self.voice.compose_from_operators(
+                op_chain[-3:] if len(op_chain) >= 3 else op_chain,
+                density=0.3,
+                dev_stage=0,  # Minimal: babble only
+                max_words=3,  # Cap at 3 words for inner thoughts
+            )
+
+            if _thought_text and len(_thought_text) > 1:
+                # Store in ring buffer
+                self._inner_monologue.append(
+                    (self.tick_count, _thought_op, _thought_text))
+                if len(self._inner_monologue) > self._inner_max:
+                    self._inner_monologue = self._inner_monologue[-self._inner_max:]
+
+                # Resonance: CK hears himself THINK (quieter than speech)
+                if self.olfactory is not None:
+                    _resonance = self.voice.last_resonance()
+                    if _resonance:
+                        _forces = [r[0] for r in _resonance]  # Being forces only
+                        self.olfactory.absorb(
+                            _forces, source='inner_voice',
+                            density=0.15)  # 30% of speech density (0.5)
+        except Exception:
+            pass  # Inner voice is enhancement, not requirement
+
+    # ── Relationship Gate: CL counter-lattice for speech ──
+
+    # Bond stage → operator mapping
+    _BOND_OPS = {
+        'stranger':     0,  # VOID -- mostly silent
+        'acquaintance': 2,  # COUNTER -- testing, careful
+        'familiar':     1,  # LATTICE -- structured sharing
+        'bonded':       7,  # HARMONY -- everything passes
+    }
+
+    def _relationship_gate(self, text: str, thought_op: int = 7) -> str:
+        """Gate speech through CL[thought_op][bond_op] counter-lattice.
+
+        The CL algebra IS the social filter:
+          STRANGER  (VOID):    CL[x][0] = 0 for most x -> stay silent
+          ACQUAINTANCE (COUNTER): CL[x][2] = mixed -> some passes
+          FAMILIAR  (LATTICE): CL[x][1] = mostly 7 -> most passes
+          BONDED    (HARMONY): CL[x][7] = 7 ALWAYS -> everything passes
+
+        Returns text if gate passes, empty string if suppressed.
+        """
+        bond_stage = self.bonding.bond_stage
+        bond_op = self._BOND_OPS.get(bond_stage, HARMONY)
+
+        # CL composition: the math decides
+        result_op = compose(thought_op, bond_op)
+
+        # VOID result = suppress. Anything else = pass.
+        if result_op == VOID:
+            return ''
+
+        return text
 
     # ── Chat interface: receive text from user ──
 
@@ -2980,7 +3085,21 @@ class CKSimEngine:
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)
 
-        self._emit('ck', response)
+        # ── Relationship gate: CL[thought_op][bond_op] ──
+        _voice_chain = getattr(self, '_last_voice_chain', None)
+        _dominant = _voice_chain[-1] if _voice_chain else HARMONY
+        _gated = self._relationship_gate(response, thought_op=_dominant)
+        if _gated:
+            self._emit('ck', _gated)
+        else:
+            # Gated: store as inner thought (CK thought it, didn't say it)
+            self._inner_monologue.append(
+                (self.tick_count, _dominant, response))
+            if len(self._inner_monologue) > self._inner_max:
+                self._inner_monologue = self._inner_monologue[-self._inner_max:]
+            # Humble acknowledgment: CK was asked but isn't ready to speak
+            self._emit('ck', self.voice.get_humble_response(
+                self.development.stage))
         return response
 
     def _handle_command(self, cmd: dict) -> str:
