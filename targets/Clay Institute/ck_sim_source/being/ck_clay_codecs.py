@@ -64,6 +64,38 @@ class ClayCodec(SensorCodec):
         n = min(len(a), len(b))
         return sum((a[i] - b[i]) ** 2 for i in range(n))
 
+    def universal_defect(self, raw: dict) -> float:
+        """Symmetrized KL divergence between dual lenses.
+
+        ONE formula for ALL 6 problems. The per-problem master_lemma_defect
+        is the READING. This universal_defect is the LENS.
+
+        KL(A||B) + KL(B||A) / 2 -- measures information divergence
+        between local/analytic and global/geometric views.
+        When lenses agree: 0. When they diverge: > 0.
+        """
+        a = self.lens_a(raw)
+        b = self.lens_b(raw)
+        n = min(len(a), len(b))
+        if n == 0:
+            return 0.0
+        # Convert to probability distributions via softmax
+        eps = 1e-10
+        max_a = max(a[:n]) if a else 0.0
+        max_b = max(b[:n]) if b else 0.0
+        exp_a = [math.exp(v - max_a) for v in a[:n]]
+        exp_b = [math.exp(v - max_b) for v in b[:n]]
+        sum_a = sum(exp_a) + eps * n
+        sum_b = sum(exp_b) + eps * n
+        p_a = [(e + eps) / sum_a for e in exp_a]
+        p_b = [(e + eps) / sum_b for e in exp_b]
+        # Symmetrized KL: (KL(A||B) + KL(B||A)) / 2
+        kl_ab = sum(p_a[i] * safe_log(safe_div(p_a[i], p_b[i], default=1.0))
+                    for i in range(n))
+        kl_ba = sum(p_b[i] * safe_log(safe_div(p_b[i], p_a[i], default=1.0))
+                    for i in range(n))
+        return max(0.0, (kl_ab + kl_ba) / 2.0)
+
     def master_lemma_defect(self, raw: dict) -> float:
         """Compute the per-problem Master Lemma defect delta.
 

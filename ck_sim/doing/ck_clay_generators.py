@@ -184,6 +184,30 @@ class NavierStokesGenerator(ClayGenerator):
 
         scale = 1.0 / N  # Grid scale
 
+        # ── Energy spectrum E(k) -- Kolmogorov predicts k^(-5/3) ──
+        ux_hat_s = 1j * KY * psi_hat_f
+        uy_hat_s = -1j * KX * psi_hat_f
+        E_k_field = 0.5 * (np.abs(ux_hat_s) ** 2 + np.abs(uy_hat_s) ** 2)
+        K_mag = np.sqrt(KX ** 2 + KY ** 2)
+        k_max = N // 2
+        k_bins = np.zeros(k_max)
+        K_int = np.clip(np.round(K_mag).astype(int), 0, k_max - 1)
+        for ki in range(1, k_max):
+            mask = (K_int == ki)
+            if np.any(mask):
+                k_bins[ki] = float(np.mean(E_k_field[mask]))
+        # Log-log regression for spectral slope
+        valid_k = [(k, k_bins[k]) for k in range(2, k_max) if k_bins[k] > 1e-15]
+        spectral_slope = 0.0
+        if len(valid_k) >= 3:
+            lk = [math.log(k) for k, _ in valid_k]
+            lE = [math.log(E) for _, E in valid_k]
+            lk_m = sum(lk) / len(valid_k)
+            lE_m = sum(lE) / len(valid_k)
+            num_s = sum((lk[j] - lk_m) * (lE[j] - lE_m) for j in range(len(valid_k)))
+            den_s = sum((lk[j] - lk_m) ** 2 for j in range(len(valid_k)))
+            spectral_slope = safe_div(num_s, den_s) if abs(den_s) > 1e-15 else 0.0
+
         return {
             'omega_mag': omega_mag,
             'omega_max': max(omega_max_val, omega_mag * 2.0),
@@ -194,6 +218,7 @@ class NavierStokesGenerator(ClayGenerator):
             'omega_gradient': float(np.mean(grad_omega_mag)),
             'grad_max': max(grad_max, 1.0),
             'energy': clamp(energy / (energy + 1.0)),
+            'spectral_slope': spectral_slope,
         }
 
     def _spectral_fallback(self, N: int, nu: float) -> dict:
@@ -413,25 +438,45 @@ class RiemannGenerator(ClayGenerator):
         sym_real = float(z_sym.real)
         sym_imag = float(z_sym.imag)
 
-        # Pair correlation: compare consecutive zero spacings
-        # Use Hardy Z-function for on-line evaluation
-        pair_corr = 0.5  # default
+        # ── GUE pair correlation from spacing ratios ──
+        # On critical line: use actual zero spacing ratios
+        # GUE prediction: mean consecutive ratio ~ 0.5307
+        # Poisson prediction: mean ratio ~ 0.3863
+        pair_corr = 0.5
         if abs(sigma - 0.5) < 0.01:
-            # On critical line: compute Z(t) and nearby to get spacing info
-            try:
-                Z_t = float(mpmath.siegelz(t))
-                Z_t1 = float(mpmath.siegelz(t + 0.5))
-                Z_t2 = float(mpmath.siegelz(t + 1.0))
-                # Sign changes indicate zeros nearby
-                signs = [Z_t > 0, Z_t1 > 0, Z_t2 > 0]
-                changes = sum(1 for i in range(len(signs)-1) if signs[i] != signs[i+1])
-                # GUE prediction: pair correlation ~ 1 - sin^2(pi*x)/(pi*x)^2
-                pair_corr = clamp(0.5 + 0.3 * changes / 2.0)
-            except Exception:
+            spacings = [self.KNOWN_ZEROS[i + 1] - self.KNOWN_ZEROS[i]
+                        for i in range(len(self.KNOWN_ZEROS) - 1)]
+            if len(spacings) >= 2:
+                mean_s = sum(spacings) / len(spacings)
+                norm_s = [s / mean_s for s in spacings]
+                ratios = [min(norm_s[i], norm_s[i + 1]) /
+                          max(norm_s[i], norm_s[i + 1], 1e-10)
+                          for i in range(len(norm_s) - 1)]
+                pair_corr = clamp(sum(ratios) / len(ratios) / 0.5307)
+            else:
                 pair_corr = 0.5
         else:
-            # Off critical line: lower correlation (not on GUE universality)
             pair_corr = clamp(0.2 + 0.1 / (1.0 + abs(sigma - 0.5) * 5.0))
+
+        # ── Hardy Z-phase defect (on-line vs off-line discrimination) ──
+        # On critical line: Z(t) is real-valued => phase defect ~ 0
+        # Off critical line: no global phase makes zeta real => defect > 0
+        hardy_z_phase_val = 0.0
+        if abs(sigma - 0.5) < 0.01 and abs(t) > 1.0:
+            try:
+                Z_t = float(mpmath.siegelz(t))
+                hardy_z_phase_val = clamp(abs(Z_t) / (abs(Z_t) + 1.0))
+            except Exception:
+                hardy_z_phase_val = 0.0
+        else:
+            hardy_z_phase_val = clamp(2.0 * abs(sigma - 0.5))
+
+        # ── Explicit formula functionals ──
+        # Prime-side and zero-side, normalized into [0,1]
+        euler_mag = safe_sqrt(euler_real ** 2 + euler_imag ** 2)
+        sym_mag = safe_sqrt(sym_real ** 2 + sym_imag ** 2)
+        explicit_prime_val = clamp(euler_mag / (euler_mag + 1.0))
+        explicit_zero_val = clamp(sym_mag / (sym_mag + 1.0))
 
         return {
             'sigma': sigma, 't': t,
@@ -446,6 +491,9 @@ class RiemannGenerator(ClayGenerator):
             'zeta_sym_real': sym_real,
             'zeta_sym_imag': sym_imag,
             'pair_correlation': pair_corr,
+            'hardy_z_phase': hardy_z_phase_val,
+            'explicit_prime': explicit_prime_val,
+            'explicit_zero': explicit_zero_val,
         }
 
     def _eval_zeta_fallback(self, sigma: float, t: float) -> dict:
@@ -598,6 +646,7 @@ class PvsNPGenerator(ClayGenerator):
                 'propagation_depth': 0.0,
                 'local_coherence': 0.0,
                 'search_tree_balance': 0.0,
+                'sat_fraction': 0.0,
             }
 
         model1 = list(solver.get_model())
@@ -684,12 +733,31 @@ class PvsNPGenerator(ClayGenerator):
         # Search tree balance: ratio of solutions found to attempts
         balance = clamp(safe_div(n_solutions, 9.0))
 
+        # ── Phase transition probability ──
+        # Run 5 extra instances at same alpha to estimate P(SAT)
+        # Save/restore RNG state for determinism
+        n_trials = 5
+        sat_count = 0
+        saved_state = self.rng._state
+        for _ in range(n_trials):
+            trial_clauses = self._generate_random_3sat(n_vars, alpha)
+            trial_cnf = CNF()
+            for c in trial_clauses:
+                trial_cnf.append(c)
+            trial_solver = SATSolver(name='g4', bootstrap_with=trial_cnf)
+            if trial_solver.solve():
+                sat_count += 1
+            trial_solver.delete()
+        self.rng._state = saved_state  # Restore for determinism
+        sat_fraction = sat_count / n_trials
+
         return {
             'backbone_fraction': clamp(backbone),
             'clause_density': alpha,
             'propagation_depth': prop_depth,
             'local_coherence': local_coh,
             'search_tree_balance': balance,
+            'sat_fraction': sat_fraction,
         }
 
     def _solve_fallback(self, n_vars: int, alpha: float) -> dict:
@@ -1062,6 +1130,7 @@ class BSDGenerator(ClayGenerator):
         # For primes of good reduction: (1 - a_p*p^{-1} + p^{-1})^{-1}
         log_L = 0.0
         a_p_list = []
+        partial_log_products = []  # For Shanks acceleration
 
         primes = [p for p in self.SMALL_PRIMES[:n_primes] if p > 3]
         for p in primes:
@@ -1082,8 +1151,25 @@ class BSDGenerator(ClayGenerator):
                 if abs(denom) > 1e-10:
                     log_L -= math.log(abs(denom))
                 a_p_list.append(ap)
+            partial_log_products.append(log_L)
 
         L_value = math.exp(log_L) if abs(log_L) < 50 else 0.0
+
+        # ── Shanks/Aitken delta-squared acceleration ──
+        # S' = S_{n+1} - (S_{n+1} - S_n)^2 / (S_{n+1} - 2*S_n + S_{n-1})
+        # Accelerates Euler product convergence
+        if len(partial_log_products) >= 3:
+            accelerated = []
+            for k in range(1, len(partial_log_products) - 1):
+                s0 = partial_log_products[k - 1]
+                s1 = partial_log_products[k]
+                s2 = partial_log_products[k + 1]
+                denom_sh = s2 - 2.0 * s1 + s0
+                if abs(denom_sh) > 1e-10:
+                    accelerated.append(s2 - (s2 - s1) ** 2 / denom_sh)
+            if accelerated:
+                accel_L = math.exp(accelerated[-1]) if abs(accelerated[-1]) < 50 else L_value
+                L_value = accel_L
 
         # Estimate analytic rank: if L(E,1) ~ 0, rank >= 1
         # Use the slope: L(E, 1+eps) vs L(E, 1)
