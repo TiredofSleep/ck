@@ -1,0 +1,1081 @@
+========================================================================
+  PERIODIC TABLE D2/D1/T ANALYSIS
+  TIG Unified Theory -- Chemistry Domain
+========================================================================
+  Elements: 54 (H through Xe)
+  5D mapping:
+    Aperture   <- Electronegativity  (Pauling)
+    Pressure   <- Ionization Energy   (eV)
+    Depth      <- Atomic Radius        (pm)
+    Binding    <- Electron Affinity     (eV)
+    Continuity <- Density               (log g/cm3)
+  T* = 5/7 = 0.714286
+
+########################################################################
+#  PART 1: PERIOD-WISE ANALYSIS (across rows)
+########################################################################
+
+========================================================================
+  Period 1
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     H    0.5500    0.5528    0.2000    0.2038    0.0000
+    He    0.0000    0.9995    0.1170    0.0000    0.0001
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     H->He  -0.5500   0.4467  -0.0830  -0.2038   0.0000     LATTICE  0.5500
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+
+========================================================================
+  Period 2
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    Li    0.2450    0.2192    0.6302    0.1670    0.1621
+    Be    0.3925    0.3790    0.4226    0.0000    0.3966
+     B    0.5100    0.3373    0.3283    0.0749    0.4570
+     C    0.6375    0.4577    0.2528    0.3414    0.4486
+     N    0.7600    0.5908    0.2113    0.0000    0.3074
+     O    0.8600    0.5536    0.1811    0.3949    0.3363
+     F    0.9950    0.7083    0.1585    0.9192    0.3758
+    Ne    0.0000    0.8766    0.1434    0.0000    0.2432
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    Li->Be   0.1475   0.1598  -0.2075  -0.1670   0.2345     BALANCE  0.2345
+     Be->B   0.1175  -0.0417  -0.0943   0.0749   0.0604       CHAOS  0.1175
+      B->C   0.1275   0.1204  -0.0755   0.2665  -0.0084     HARMONY  0.2665
+      C->N   0.1225   0.1331  -0.0415  -0.3414  -0.1411     COUNTER  0.3414
+      N->O   0.1000  -0.0372  -0.0302   0.3949   0.0288     HARMONY  0.3949
+      O->F   0.1350   0.1547  -0.0226   0.5243   0.0395     HARMONY  0.5243
+     F->Ne  -0.9950   0.1684  -0.0151  -0.9192  -0.1326     LATTICE  0.9950
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       Li,Be,B  -0.0300  -0.2015   0.1132   0.2419  -0.1741     HARMONY  0.2419
+        Be,B,C   0.0100   0.1621   0.0189   0.1916  -0.0688     HARMONY  0.1916
+         B,C,N  -0.0050   0.0127   0.0340  -0.6078  -0.1328     COUNTER  0.6078
+         C,N,O  -0.0225  -0.1703   0.0113   0.7362   0.1700     HARMONY  0.7362
+         N,O,F   0.0350   0.1919   0.0075   0.1295   0.0107    COLLAPSE  0.1919
+        O,F,Ne  -1.1300   0.0137   0.0075  -1.4435  -0.1721     COUNTER  1.4435
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+     B       CHAOS     HARMONY     HARMONY     HARMONY
+     C     HARMONY     HARMONY     HARMONY      BREATH
+     N     COUNTER     COUNTER     HARMONY    PROGRESS
+     O     HARMONY     HARMONY     HARMONY      BREATH
+     F     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Ne     LATTICE     COUNTER    PROGRESS    PROGRESS
+
+  Summary:
+    Elements:       8
+    D1 transitions: 7
+    D2 curvatures:  6
+
+    D1 distribution:
+         LATTICE:  1  ( 14.3%)
+         COUNTER:  1  ( 14.3%)
+         BALANCE:  1  ( 14.3%)
+           CHAOS:  1  ( 14.3%)
+         HARMONY:  3  ( 42.9%)
+
+    D2 distribution:
+         COUNTER:  2  ( 33.3%)
+        COLLAPSE:  1  ( 16.7%)
+         HARMONY:  3  ( 50.0%)
+
+    D2 HARMONY:     3/6 = 0.5000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 5/6 = 0.8333  >=T*
+    T(BHML) HARMONY: 1/6 = 0.1667  <T*
+
+========================================================================
+  Period 3
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    Na    0.2325    0.2089    0.7170    0.1481    0.2571
+    Mg    0.3275    0.3108    0.5472    0.0000    0.3817
+    Al    0.4025    0.2433    0.4453    0.1192    0.4957
+    Si    0.4750    0.3314    0.4189    0.3743    0.4557
+     P    0.5475    0.4263    0.3698    0.2016    0.3928
+     S    0.6450    0.4211    0.3321    0.5614    0.4247
+    Cl    0.7900    0.5272    0.2981    0.9765    0.5450
+    Ar    0.0000    0.6407    0.2679    0.0000    0.3880
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    Na->Mg   0.0950   0.1019  -0.1698  -0.1481   0.1245       RESET  0.1698
+    Mg->Al   0.0750  -0.0675  -0.1019   0.1192   0.1140     HARMONY  0.1192
+    Al->Si   0.0725   0.0880  -0.0264   0.2551  -0.0399     HARMONY  0.2551
+     Si->P   0.0725   0.0949  -0.0491  -0.1727  -0.0629     COUNTER  0.1727
+      P->S   0.0975  -0.0052  -0.0377   0.3597   0.0318     HARMONY  0.3597
+     S->Cl   0.1450   0.1060  -0.0340   0.4151   0.1204     HARMONY  0.4151
+    Cl->Ar  -0.7900   0.1135  -0.0302  -0.9765  -0.1571     COUNTER  0.9765
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+      Na,Mg,Al  -0.0200  -0.1694   0.0679   0.2673  -0.0106     HARMONY  0.2673
+      Mg,Al,Si  -0.0025   0.1555   0.0755   0.1359  -0.1539    COLLAPSE  0.1555
+       Al,Si,P   0.0000   0.0069  -0.0226  -0.4278  -0.0229     COUNTER  0.4278
+        Si,P,S   0.0250  -0.1001   0.0113   0.5324   0.0947     HARMONY  0.5324
+        P,S,Cl   0.0475   0.1112   0.0038   0.0554   0.0886    COLLAPSE  0.1112
+       S,Cl,Ar  -0.9350   0.0075   0.0038  -1.3916  -0.2775     COUNTER  1.3916
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Al     HARMONY     HARMONY     HARMONY      BREATH
+    Si     HARMONY    COLLAPSE     HARMONY     BALANCE
+     P     COUNTER     COUNTER     HARMONY    PROGRESS
+     S     HARMONY     HARMONY     HARMONY      BREATH
+    Cl     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Ar     COUNTER     COUNTER     HARMONY    PROGRESS
+
+  Summary:
+    Elements:       8
+    D1 transitions: 7
+    D2 curvatures:  6
+
+    D1 distribution:
+         COUNTER:  2  ( 28.6%)
+         HARMONY:  4  ( 57.1%)
+           RESET:  1  ( 14.3%)
+
+    D2 distribution:
+         COUNTER:  2  ( 33.3%)
+        COLLAPSE:  2  ( 33.3%)
+         HARMONY:  2  ( 33.3%)
+
+    D2 HARMONY:     2/6 = 0.3333
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 6/6 = 1.0000  >=T*
+    T(BHML) HARMONY: 0/6 = 0.0000  <T*
+
+========================================================================
+  Period 4
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     K    0.2050    0.1765    0.9170    0.1354    0.2356
+    Ca    0.2500    0.2485    0.7321    0.0049    0.3547
+    Sc    0.3400    0.2667    0.6943    0.0508    0.5239
+    Ti    0.3850    0.2776    0.6642    0.0214    0.6465
+     V    0.4075    0.2742    0.6453    0.1419    0.7433
+    Cr    0.4150    0.2751    0.6264    0.1800    0.7968
+    Mn    0.3875    0.3022    0.6075    0.0000    0.8096
+    Fe    0.4575    0.3212    0.5887    0.0408    0.8272
+    Co    0.4700    0.3204    0.5736    0.1789    0.8687
+    Ni    0.4775    0.3106    0.5623    0.3124    0.8690
+    Cu    0.4750    0.3141    0.5472    0.3338    0.8710
+    Zn    0.4125    0.3819    0.5358    0.0000    0.7942
+    Ga    0.4525    0.2439    0.5132    0.0811    0.7323
+    Ge    0.5025    0.3211    0.4717    0.3332    0.6988
+    As    0.5450    0.3979    0.4302    0.2189    0.7223
+    Se    0.6375    0.3964    0.3887    0.5462    0.6673
+    Br    0.7400    0.4802    0.3547    0.9092    0.5365
+    Kr    0.0000    0.5691    0.3321    0.0000    0.5903
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     K->Ca   0.0450   0.0720  -0.1849  -0.1305   0.1191       RESET  0.1849
+    Ca->Sc   0.0900   0.0182  -0.0377   0.0459   0.1692     BALANCE  0.1692
+    Sc->Ti   0.0450   0.0109  -0.0302  -0.0295   0.1226     BALANCE  0.1226
+     Ti->V   0.0225  -0.0033  -0.0189   0.1205   0.0968     HARMONY  0.1205
+     V->Cr   0.0075   0.0009  -0.0189   0.0381   0.0536     BALANCE  0.0536
+    Cr->Mn  -0.0275   0.0271  -0.0189  -0.1800   0.0127     COUNTER  0.1800
+    Mn->Fe   0.0700   0.0190  -0.0189   0.0408   0.0177       CHAOS  0.0700
+    Fe->Co   0.0125  -0.0009  -0.0151   0.1381   0.0415     HARMONY  0.1381
+    Co->Ni   0.0075  -0.0098  -0.0113   0.1335   0.0003     HARMONY  0.1335
+    Ni->Cu  -0.0025   0.0035  -0.0151   0.0214   0.0020     HARMONY  0.0214
+    Cu->Zn  -0.0625   0.0678  -0.0113  -0.3338  -0.0767     COUNTER  0.3338
+    Zn->Ga   0.0400  -0.1380  -0.0226   0.0811  -0.0620        VOID  0.1380
+    Ga->Ge   0.0500   0.0773  -0.0415   0.2522  -0.0335     HARMONY  0.2522
+    Ge->As   0.0425   0.0768  -0.0415  -0.1143   0.0235     COUNTER  0.1143
+    As->Se   0.0925  -0.0015  -0.0415   0.3273  -0.0549     HARMONY  0.3273
+    Se->Br   0.1025   0.0838  -0.0340   0.3630  -0.1308     HARMONY  0.3630
+    Br->Kr  -0.7400   0.0889  -0.0226  -0.9092   0.0538     COUNTER  0.9092
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       K,Ca,Sc   0.0450  -0.0538   0.1472   0.1765   0.0500     HARMONY  0.1765
+      Ca,Sc,Ti  -0.0450  -0.0074   0.0075  -0.0754  -0.0466     COUNTER  0.0754
+       Sc,Ti,V  -0.0225  -0.0142   0.0113   0.1500  -0.0258     HARMONY  0.1500
+       Ti,V,Cr  -0.0150   0.0042   0.0000  -0.0824  -0.0432     COUNTER  0.0824
+       V,Cr,Mn  -0.0350   0.0263   0.0000  -0.2181  -0.0408     COUNTER  0.2181
+      Cr,Mn,Fe   0.0975  -0.0081   0.0000   0.2208   0.0049     HARMONY  0.2208
+      Mn,Fe,Co  -0.0575  -0.0199   0.0038   0.0973   0.0238     HARMONY  0.0973
+      Fe,Co,Ni  -0.0050  -0.0089   0.0038  -0.0046  -0.0412      BREATH  0.0412
+      Co,Ni,Cu  -0.0100   0.0133  -0.0038  -0.1122   0.0017     COUNTER  0.1122
+      Ni,Cu,Zn  -0.0600   0.0643   0.0038  -0.3551  -0.0787     COUNTER  0.3551
+      Cu,Zn,Ga   0.1025  -0.2058  -0.0113   0.4149   0.0148     HARMONY  0.4149
+      Zn,Ga,Ge   0.0100   0.2153  -0.0189   0.1711   0.0285    COLLAPSE  0.2153
+      Ga,Ge,As  -0.0075  -0.0005   0.0000  -0.3665   0.0569     COUNTER  0.3665
+      Ge,As,Se   0.0500  -0.0783   0.0000   0.4416  -0.0784     HARMONY  0.4416
+      As,Se,Br   0.0100   0.0853   0.0075   0.0357  -0.0759    COLLAPSE  0.0853
+      Se,Br,Kr  -0.8425   0.0050   0.0113  -1.2722   0.1847     COUNTER  1.2722
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Sc     BALANCE     HARMONY     HARMONY       CHAOS
+    Ti     BALANCE     COUNTER     HARMONY       CHAOS
+     V     HARMONY     HARMONY     HARMONY      BREATH
+    Cr     BALANCE     COUNTER     HARMONY       CHAOS
+    Mn     COUNTER     COUNTER     HARMONY    PROGRESS
+    Fe       CHAOS     HARMONY     HARMONY     HARMONY
+    Co     HARMONY     HARMONY     HARMONY      BREATH
+    Ni     HARMONY      BREATH     HARMONY       RESET
+    Cu     HARMONY     COUNTER     HARMONY    PROGRESS
+    Zn     COUNTER     COUNTER     HARMONY    PROGRESS
+    Ga        VOID     HARMONY     HARMONY     HARMONY
+    Ge     HARMONY    COLLAPSE     HARMONY     BALANCE
+    As     COUNTER     COUNTER     HARMONY    PROGRESS
+    Se     HARMONY     HARMONY     HARMONY      BREATH
+    Br     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Kr     COUNTER     COUNTER     HARMONY    PROGRESS
+
+  Summary:
+    Elements:       18
+    D1 transitions: 17
+    D2 curvatures:  16
+
+    D1 distribution:
+            VOID:  1  (  5.9%)
+         COUNTER:  4  ( 23.5%)
+         BALANCE:  3  ( 17.6%)
+           CHAOS:  1  (  5.9%)
+         HARMONY:  7  ( 41.2%)
+           RESET:  1  (  5.9%)
+
+    D2 distribution:
+         COUNTER:  7  ( 43.8%)
+        COLLAPSE:  2  ( 12.5%)
+         HARMONY:  6  ( 37.5%)
+          BREATH:  1  (  6.2%)
+
+    D2 HARMONY:     6/16 = 0.3750
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 16/16 = 1.0000  >=T*
+    T(BHML) HARMONY: 2/16 = 0.1250  <T*
+
+========================================================================
+  Period 5
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    Rb    0.2050    0.1698    1.0000    0.1314    0.3520
+    Sr    0.2375    0.2315    0.8264    0.0141    0.4885
+     Y    0.3050    0.2527    0.8000    0.0830    0.6440
+    Zr    0.3325    0.2697    0.7774    0.1151    0.7638
+    Nb    0.4000    0.2748    0.7472    0.2414    0.8558
+    Mo    0.5400    0.2883    0.7170    0.2016    0.9161
+    Tc    0.4750    0.2959    0.6906    0.1486    0.9571
+    Ru    0.5500    0.2992    0.6717    0.2838    0.9826
+    Rh    0.5700    0.3032    0.6528    0.3073    0.9837
+    Pd    0.5500    0.3389    0.6377    0.1519    0.9725
+    Ag    0.4825    0.3080    0.6226    0.3519    0.9251
+    Cd    0.4225    0.3656    0.6075    0.0000    0.8590
+    In    0.4450    0.2352    0.5887    0.0811    0.8024
+    Sn    0.4900    0.2985    0.5472    0.3005    0.8003
+    Sb    0.5125    0.3499    0.5019    0.2830    0.7733
+    Te    0.5250    0.3663    0.4642    0.5327    0.7501
+     I    0.6650    0.4248    0.4340    0.8268    0.6745
+    Xe    0.0000    0.4931    0.4075    0.0000    0.7316
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    Rb->Sr   0.0325   0.0617  -0.1736  -0.1173   0.1365       RESET  0.1736
+     Sr->Y   0.0675   0.0212  -0.0264   0.0689   0.1555     BALANCE  0.1555
+     Y->Zr   0.0275   0.0170  -0.0226   0.0322   0.1198     BALANCE  0.1198
+    Zr->Nb   0.0675   0.0051  -0.0302   0.1262   0.0921     HARMONY  0.1262
+    Nb->Mo   0.1400   0.0135  -0.0302  -0.0397   0.0603       CHAOS  0.1400
+    Mo->Tc  -0.0650   0.0076  -0.0264  -0.0530   0.0409     LATTICE  0.0650
+    Tc->Ru   0.0750   0.0033  -0.0189   0.1351   0.0255     HARMONY  0.1351
+    Ru->Rh   0.0200   0.0040  -0.0189   0.0235   0.0011     HARMONY  0.0235
+    Rh->Pd  -0.0200   0.0357  -0.0151  -0.1554  -0.0112     COUNTER  0.1554
+    Pd->Ag  -0.0675  -0.0309  -0.0151   0.2000  -0.0474     HARMONY  0.2000
+    Ag->Cd  -0.0600   0.0576  -0.0151  -0.3519  -0.0661     COUNTER  0.3519
+    Cd->In   0.0225  -0.1304  -0.0189   0.0811  -0.0566        VOID  0.1304
+    In->Sn   0.0450   0.0633  -0.0415   0.2195  -0.0021     HARMONY  0.2195
+    Sn->Sb   0.0225   0.0514  -0.0453  -0.0176  -0.0270    COLLAPSE  0.0514
+    Sb->Te   0.0125   0.0163  -0.0377   0.2497  -0.0232     HARMONY  0.2497
+     Te->I   0.1400   0.0586  -0.0302   0.2941  -0.0756     HARMONY  0.2941
+     I->Xe  -0.6650   0.0683  -0.0264  -0.8268   0.0571     COUNTER  0.8268
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       Rb,Sr,Y   0.0350  -0.0405   0.1472   0.1862   0.0190     HARMONY  0.1862
+       Sr,Y,Zr  -0.0400  -0.0043   0.0038  -0.0368  -0.0358     LATTICE  0.0400
+       Y,Zr,Nb   0.0400  -0.0119  -0.0075   0.0941  -0.0277     HARMONY  0.0941
+      Zr,Nb,Mo   0.0725   0.0085   0.0000  -0.1659  -0.0318     COUNTER  0.1659
+      Nb,Mo,Tc  -0.2050  -0.0059   0.0038  -0.0132  -0.0193     LATTICE  0.2050
+      Mo,Tc,Ru   0.1400  -0.0043   0.0075   0.1881  -0.0154     HARMONY  0.1881
+      Tc,Ru,Rh  -0.0550   0.0007   0.0000  -0.1116  -0.0244     COUNTER  0.1116
+      Ru,Rh,Pd  -0.0400   0.0317   0.0038  -0.1789  -0.0123     COUNTER  0.1789
+      Rh,Pd,Ag  -0.0475  -0.0666   0.0000   0.3554  -0.0362     HARMONY  0.3554
+      Pd,Ag,Cd   0.0075   0.0886   0.0000  -0.5519  -0.0188     COUNTER  0.5519
+      Ag,Cd,In   0.0825  -0.1880  -0.0038   0.4330   0.0095     HARMONY  0.4330
+      Cd,In,Sn   0.0225   0.1937  -0.0226   0.1384   0.0546    COLLAPSE  0.1937
+      In,Sn,Sb  -0.0225  -0.0120  -0.0038  -0.2370  -0.0249     COUNTER  0.2370
+      Sn,Sb,Te  -0.0100  -0.0350   0.0075   0.2673   0.0038     HARMONY  0.2673
+       Sb,Te,I   0.1275   0.0422   0.0075   0.0443  -0.0524       CHAOS  0.1275
+       Te,I,Xe  -0.8050   0.0097   0.0038  -1.1208   0.1327     COUNTER  1.1208
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+     Y     BALANCE     HARMONY     HARMONY       CHAOS
+    Zr     BALANCE     LATTICE     HARMONY       CHAOS
+    Nb     HARMONY     HARMONY     HARMONY      BREATH
+    Mo       CHAOS     COUNTER     HARMONY     HARMONY
+    Tc     LATTICE     LATTICE     HARMONY     COUNTER
+    Ru     HARMONY     HARMONY     HARMONY      BREATH
+    Rh     HARMONY     COUNTER     HARMONY    PROGRESS
+    Pd     COUNTER     COUNTER     HARMONY    PROGRESS
+    Ag     HARMONY     HARMONY     HARMONY      BREATH
+    Cd     COUNTER     COUNTER     HARMONY    PROGRESS
+    In        VOID     HARMONY     HARMONY     HARMONY
+    Sn     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Sb    COLLAPSE     COUNTER    COLLAPSE     BALANCE
+    Te     HARMONY     HARMONY     HARMONY      BREATH
+     I     HARMONY       CHAOS     HARMONY     HARMONY
+    Xe     COUNTER     COUNTER     HARMONY    PROGRESS
+
+  Summary:
+    Elements:       18
+    D1 transitions: 17
+    D2 curvatures:  16
+
+    D1 distribution:
+            VOID:  1  (  5.9%)
+         LATTICE:  1  (  5.9%)
+         COUNTER:  3  ( 17.6%)
+        COLLAPSE:  1  (  5.9%)
+         BALANCE:  2  ( 11.8%)
+           CHAOS:  1  (  5.9%)
+         HARMONY:  7  ( 41.2%)
+           RESET:  1  (  5.9%)
+
+    D2 distribution:
+         LATTICE:  2  ( 12.5%)
+         COUNTER:  6  ( 37.5%)
+        COLLAPSE:  1  (  6.2%)
+           CHAOS:  1  (  6.2%)
+         HARMONY:  6  ( 37.5%)
+
+    D2 HARMONY:     6/16 = 0.3750
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 15/16 = 0.9375  >=T*
+    T(BHML) HARMONY: 3/16 = 0.1875  <T*
+
+########################################################################
+#  PART 2: GROUP-WISE ANALYSIS (down columns)
+########################################################################
+
+========================================================================
+  Group 1 (Alkali)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     H    0.5500    0.5528    0.2000    0.2038    0.0000
+    Li    0.2450    0.2192    0.6302    0.1670    0.1621
+    Na    0.2325    0.2089    0.7170    0.1481    0.2571
+     K    0.2050    0.1765    0.9170    0.1354    0.2356
+    Rb    0.2050    0.1698    1.0000    0.1314    0.3520
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     H->Li  -0.3050  -0.3336   0.4302  -0.0368   0.1621    PROGRESS  0.4302
+    Li->Na  -0.0125  -0.0103   0.0868  -0.0189   0.0950     BALANCE  0.0950
+     Na->K  -0.0275  -0.0324   0.2000  -0.0127  -0.0216    PROGRESS  0.2000
+     K->Rb   0.0000  -0.0067   0.0830  -0.0041   0.1165     BALANCE  0.1165
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       H,Li,Na   0.2925   0.3233  -0.3434   0.0178  -0.0671       RESET  0.3434
+       Li,Na,K  -0.0150  -0.0222   0.1132   0.0062  -0.1165      BREATH  0.1165
+       Na,K,Rb   0.0275   0.0258  -0.1170   0.0086   0.1380     BALANCE  0.1380
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Na     BALANCE       RESET     HARMONY     HARMONY
+     K    PROGRESS      BREATH     HARMONY       CHAOS
+    Rb     BALANCE     BALANCE     HARMONY       CHAOS
+
+  Summary:
+    Elements:       5
+    D1 transitions: 4
+    D2 curvatures:  3
+
+    D1 distribution:
+        PROGRESS:  2  ( 50.0%)
+         BALANCE:  2  ( 50.0%)
+
+    D2 distribution:
+         BALANCE:  1  ( 33.3%)
+          BREATH:  1  ( 33.3%)
+           RESET:  1  ( 33.3%)
+
+    D2 HARMONY:     0/3 = 0.0000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 3/3 = 1.0000  >=T*
+    T(BHML) HARMONY: 1/3 = 0.3333  <T*
+
+========================================================================
+  Group 2 (Alkaline)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    Be    0.3925    0.3790    0.4226    0.0000    0.3966
+    Mg    0.3275    0.3108    0.5472    0.0000    0.3817
+    Ca    0.2500    0.2485    0.7321    0.0049    0.3547
+    Sr    0.2375    0.2315    0.8264    0.0141    0.4885
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    Be->Mg  -0.0650  -0.0682   0.1245   0.0000  -0.0149    PROGRESS  0.1245
+    Mg->Ca  -0.0775  -0.0623   0.1849   0.0049  -0.0270    PROGRESS  0.1849
+    Ca->Sr  -0.0125  -0.0170   0.0943   0.0092   0.1338     BALANCE  0.1338
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+      Be,Mg,Ca  -0.0125   0.0059   0.0604   0.0049  -0.0120    PROGRESS  0.0604
+      Mg,Ca,Sr   0.0650   0.0453  -0.0906   0.0043   0.1608     BALANCE  0.1608
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Ca    PROGRESS    PROGRESS     HARMONY    COLLAPSE
+    Sr     BALANCE     BALANCE     HARMONY       CHAOS
+
+  Summary:
+    Elements:       4
+    D1 transitions: 3
+    D2 curvatures:  2
+
+    D1 distribution:
+        PROGRESS:  2  ( 66.7%)
+         BALANCE:  1  ( 33.3%)
+
+    D2 distribution:
+        PROGRESS:  1  ( 50.0%)
+         BALANCE:  1  ( 50.0%)
+
+    D2 HARMONY:     0/2 = 0.0000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 2/2 = 1.0000  >=T*
+    T(BHML) HARMONY: 0/2 = 0.0000  <T*
+
+========================================================================
+  Group 17 (Halogens)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     F    0.9950    0.7083    0.1585    0.9192    0.3758
+    Cl    0.7900    0.5272    0.2981    0.9765    0.5450
+    Br    0.7400    0.4802    0.3547    0.9092    0.5365
+     I    0.6650    0.4248    0.4340    0.8268    0.6745
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     F->Cl  -0.2050  -0.1811   0.1396   0.0573   0.1692     LATTICE  0.2050
+    Cl->Br  -0.0500  -0.0469   0.0566  -0.0673  -0.0085     COUNTER  0.0673
+     Br->I  -0.0750  -0.0554   0.0792  -0.0824   0.1380     BALANCE  0.1380
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       F,Cl,Br   0.1550   0.1342  -0.0830  -0.1246  -0.1778      BREATH  0.1778
+       Cl,Br,I  -0.0250  -0.0085   0.0226  -0.0151   0.1465     BALANCE  0.1465
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Br     COUNTER      BREATH     HARMONY       CHAOS
+     I     BALANCE     BALANCE     HARMONY       CHAOS
+
+  Summary:
+    Elements:       4
+    D1 transitions: 3
+    D2 curvatures:  2
+
+    D1 distribution:
+         LATTICE:  1  ( 33.3%)
+         COUNTER:  1  ( 33.3%)
+         BALANCE:  1  ( 33.3%)
+
+    D2 distribution:
+         BALANCE:  1  ( 50.0%)
+          BREATH:  1  ( 50.0%)
+
+    D2 HARMONY:     0/2 = 0.0000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 2/2 = 1.0000  >=T*
+    T(BHML) HARMONY: 0/2 = 0.0000  <T*
+
+========================================================================
+  Group 18 (Noble)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    He    0.0000    0.9995    0.1170    0.0000    0.0001
+    Ne    0.0000    0.8766    0.1434    0.0000    0.2432
+    Ar    0.0000    0.6407    0.2679    0.0000    0.3880
+    Kr    0.0000    0.5691    0.3321    0.0000    0.5903
+    Xe    0.0000    0.4931    0.4075    0.0000    0.7316
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    He->Ne   0.0000  -0.1228   0.0264   0.0000   0.2431     BALANCE  0.2431
+    Ne->Ar   0.0000  -0.2360   0.1245   0.0000   0.1448        VOID  0.2360
+    Ar->Kr   0.0000  -0.0715   0.0642   0.0000   0.2024     BALANCE  0.2024
+    Kr->Xe   0.0000  -0.0760   0.0755   0.0000   0.1412     BALANCE  0.1412
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+      He,Ne,Ar   0.0000  -0.1131   0.0981   0.0000  -0.0984        VOID  0.1131
+      Ne,Ar,Kr   0.0000   0.1644  -0.0604   0.0000   0.0576    COLLAPSE  0.1644
+      Ar,Kr,Xe   0.0000  -0.0045   0.0113   0.0000  -0.0611      BREATH  0.0611
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Ar        VOID        VOID        VOID        VOID
+    Kr     BALANCE    COLLAPSE     HARMONY       CHAOS
+    Xe     BALANCE      BREATH     HARMONY     HARMONY
+
+  Summary:
+    Elements:       5
+    D1 transitions: 4
+    D2 curvatures:  3
+
+    D1 distribution:
+            VOID:  1  ( 25.0%)
+         BALANCE:  3  ( 75.0%)
+
+    D2 distribution:
+            VOID:  1  ( 33.3%)
+        COLLAPSE:  1  ( 33.3%)
+          BREATH:  1  ( 33.3%)
+
+    D2 HARMONY:     0/3 = 0.0000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 2/3 = 0.6667  <T*
+    T(BHML) HARMONY: 1/3 = 0.3333  <T*
+
+========================================================================
+  Group 14 (Carbon)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     C    0.6375    0.4577    0.2528    0.3414    0.4486
+    Si    0.4750    0.3314    0.4189    0.3743    0.4557
+    Ge    0.5025    0.3211    0.4717    0.3332    0.6988
+    Sn    0.4900    0.2985    0.5472    0.3005    0.8003
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     C->Si  -0.1625  -0.1263   0.1660   0.0330   0.0071    PROGRESS  0.1660
+    Si->Ge   0.0275  -0.0102   0.0528  -0.0411   0.2431     BALANCE  0.2431
+    Ge->Sn  -0.0125  -0.0226   0.0755  -0.0327   0.1015     BALANCE  0.1015
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       C,Si,Ge   0.1900   0.1161  -0.1132  -0.0741   0.2360     BALANCE  0.2360
+      Si,Ge,Sn  -0.0400  -0.0124   0.0226   0.0084  -0.1416      BREATH  0.1416
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Ge     BALANCE     BALANCE     HARMONY       CHAOS
+    Sn     BALANCE      BREATH     HARMONY     HARMONY
+
+  Summary:
+    Elements:       4
+    D1 transitions: 3
+    D2 curvatures:  2
+
+    D1 distribution:
+        PROGRESS:  1  ( 33.3%)
+         BALANCE:  2  ( 66.7%)
+
+    D2 distribution:
+         BALANCE:  1  ( 50.0%)
+          BREATH:  1  ( 50.0%)
+
+    D2 HARMONY:     0/2 = 0.0000
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 2/2 = 1.0000  >=T*
+    T(BHML) HARMONY: 1/2 = 0.5000  <T*
+
+========================================================================
+  Transition 1st row
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+    Sc    0.3400    0.2667    0.6943    0.0508    0.5239
+    Ti    0.3850    0.2776    0.6642    0.0214    0.6465
+     V    0.4075    0.2742    0.6453    0.1419    0.7433
+    Cr    0.4150    0.2751    0.6264    0.1800    0.7968
+    Mn    0.3875    0.3022    0.6075    0.0000    0.8096
+    Fe    0.4575    0.3212    0.5887    0.0408    0.8272
+    Co    0.4700    0.3204    0.5736    0.1789    0.8687
+    Ni    0.4775    0.3106    0.5623    0.3124    0.8690
+    Cu    0.4750    0.3141    0.5472    0.3338    0.8710
+    Zn    0.4125    0.3819    0.5358    0.0000    0.7942
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+    Sc->Ti   0.0450   0.0109  -0.0302  -0.0295   0.1226     BALANCE  0.1226
+     Ti->V   0.0225  -0.0033  -0.0189   0.1205   0.0968     HARMONY  0.1205
+     V->Cr   0.0075   0.0009  -0.0189   0.0381   0.0536     BALANCE  0.0536
+    Cr->Mn  -0.0275   0.0271  -0.0189  -0.1800   0.0127     COUNTER  0.1800
+    Mn->Fe   0.0700   0.0190  -0.0189   0.0408   0.0177       CHAOS  0.0700
+    Fe->Co   0.0125  -0.0009  -0.0151   0.1381   0.0415     HARMONY  0.1381
+    Co->Ni   0.0075  -0.0098  -0.0113   0.1335   0.0003     HARMONY  0.1335
+    Ni->Cu  -0.0025   0.0035  -0.0151   0.0214   0.0020     HARMONY  0.0214
+    Cu->Zn  -0.0625   0.0678  -0.0113  -0.3338  -0.0767     COUNTER  0.3338
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       Sc,Ti,V  -0.0225  -0.0142   0.0113   0.1500  -0.0258     HARMONY  0.1500
+       Ti,V,Cr  -0.0150   0.0042   0.0000  -0.0824  -0.0432     COUNTER  0.0824
+       V,Cr,Mn  -0.0350   0.0263   0.0000  -0.2181  -0.0408     COUNTER  0.2181
+      Cr,Mn,Fe   0.0975  -0.0081   0.0000   0.2208   0.0049     HARMONY  0.2208
+      Mn,Fe,Co  -0.0575  -0.0199   0.0038   0.0973   0.0238     HARMONY  0.0973
+      Fe,Co,Ni  -0.0050  -0.0089   0.0038  -0.0046  -0.0412      BREATH  0.0412
+      Co,Ni,Cu  -0.0100   0.0133  -0.0038  -0.1122   0.0017     COUNTER  0.1122
+      Ni,Cu,Zn  -0.0600   0.0643   0.0038  -0.3551  -0.0787     COUNTER  0.3551
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+     V     HARMONY     HARMONY     HARMONY      BREATH
+    Cr     BALANCE     COUNTER     HARMONY       CHAOS
+    Mn     COUNTER     COUNTER     HARMONY    PROGRESS
+    Fe       CHAOS     HARMONY     HARMONY     HARMONY
+    Co     HARMONY     HARMONY     HARMONY      BREATH
+    Ni     HARMONY      BREATH     HARMONY       RESET
+    Cu     HARMONY     COUNTER     HARMONY    PROGRESS
+    Zn     COUNTER     COUNTER     HARMONY    PROGRESS
+
+  Summary:
+    Elements:       10
+    D1 transitions: 9
+    D2 curvatures:  8
+
+    D1 distribution:
+         COUNTER:  2  ( 22.2%)
+         BALANCE:  2  ( 22.2%)
+           CHAOS:  1  ( 11.1%)
+         HARMONY:  4  ( 44.4%)
+
+    D2 distribution:
+         COUNTER:  4  ( 50.0%)
+         HARMONY:  3  ( 37.5%)
+          BREATH:  1  ( 12.5%)
+
+    D2 HARMONY:     3/8 = 0.3750
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 8/8 = 1.0000  >=T*
+    T(BHML) HARMONY: 1/8 = 0.1250  <T*
+
+########################################################################
+#  PART 3: FULL PERIODIC TABLE SWEEP (Z=1 to Z=54)
+########################################################################
+
+========================================================================
+  Full Table (H -> Xe)
+========================================================================
+
+  Elem  Aperture  Pressure     Depth   Binding   Contin.
+        (electro)   (ion.E)  (radius)   (e.aff)   (dens.)
+  ----  --------  --------  --------  --------  --------
+     H    0.5500    0.5528    0.2000    0.2038    0.0000
+    He    0.0000    0.9995    0.1170    0.0000    0.0001
+    Li    0.2450    0.2192    0.6302    0.1670    0.1621
+    Be    0.3925    0.3790    0.4226    0.0000    0.3966
+     B    0.5100    0.3373    0.3283    0.0749    0.4570
+     C    0.6375    0.4577    0.2528    0.3414    0.4486
+     N    0.7600    0.5908    0.2113    0.0000    0.3074
+     O    0.8600    0.5536    0.1811    0.3949    0.3363
+     F    0.9950    0.7083    0.1585    0.9192    0.3758
+    Ne    0.0000    0.8766    0.1434    0.0000    0.2432
+    Na    0.2325    0.2089    0.7170    0.1481    0.2571
+    Mg    0.3275    0.3108    0.5472    0.0000    0.3817
+    Al    0.4025    0.2433    0.4453    0.1192    0.4957
+    Si    0.4750    0.3314    0.4189    0.3743    0.4557
+     P    0.5475    0.4263    0.3698    0.2016    0.3928
+     S    0.6450    0.4211    0.3321    0.5614    0.4247
+    Cl    0.7900    0.5272    0.2981    0.9765    0.5450
+    Ar    0.0000    0.6407    0.2679    0.0000    0.3880
+     K    0.2050    0.1765    0.9170    0.1354    0.2356
+    Ca    0.2500    0.2485    0.7321    0.0049    0.3547
+    Sc    0.3400    0.2667    0.6943    0.0508    0.5239
+    Ti    0.3850    0.2776    0.6642    0.0214    0.6465
+     V    0.4075    0.2742    0.6453    0.1419    0.7433
+    Cr    0.4150    0.2751    0.6264    0.1800    0.7968
+    Mn    0.3875    0.3022    0.6075    0.0000    0.8096
+    Fe    0.4575    0.3212    0.5887    0.0408    0.8272
+    Co    0.4700    0.3204    0.5736    0.1789    0.8687
+    Ni    0.4775    0.3106    0.5623    0.3124    0.8690
+    Cu    0.4750    0.3141    0.5472    0.3338    0.8710
+    Zn    0.4125    0.3819    0.5358    0.0000    0.7942
+    Ga    0.4525    0.2439    0.5132    0.0811    0.7323
+    Ge    0.5025    0.3211    0.4717    0.3332    0.6988
+    As    0.5450    0.3979    0.4302    0.2189    0.7223
+    Se    0.6375    0.3964    0.3887    0.5462    0.6673
+    Br    0.7400    0.4802    0.3547    0.9092    0.5365
+    Kr    0.0000    0.5691    0.3321    0.0000    0.5903
+    Rb    0.2050    0.1698    1.0000    0.1314    0.3520
+    Sr    0.2375    0.2315    0.8264    0.0141    0.4885
+     Y    0.3050    0.2527    0.8000    0.0830    0.6440
+    Zr    0.3325    0.2697    0.7774    0.1151    0.7638
+    Nb    0.4000    0.2748    0.7472    0.2414    0.8558
+    Mo    0.5400    0.2883    0.7170    0.2016    0.9161
+    Tc    0.4750    0.2959    0.6906    0.1486    0.9571
+    Ru    0.5500    0.2992    0.6717    0.2838    0.9826
+    Rh    0.5700    0.3032    0.6528    0.3073    0.9837
+    Pd    0.5500    0.3389    0.6377    0.1519    0.9725
+    Ag    0.4825    0.3080    0.6226    0.3519    0.9251
+    Cd    0.4225    0.3656    0.6075    0.0000    0.8590
+    In    0.4450    0.2352    0.5887    0.0811    0.8024
+    Sn    0.4900    0.2985    0.5472    0.3005    0.8003
+    Sb    0.5125    0.3499    0.5019    0.2830    0.7733
+    Te    0.5250    0.3663    0.4642    0.5327    0.7501
+     I    0.6650    0.4248    0.4340    0.8268    0.6745
+    Xe    0.0000    0.4931    0.4075    0.0000    0.7316
+
+  D1 Analysis (direction of change):
+     Trans    D1_ap    D1_pr    D1_dp    D1_bn    D1_cn          Op     Mag
+  --------  -------  -------  -------  -------  -------  ----------  ------
+     H->He  -0.5500   0.4467  -0.0830  -0.2038   0.0000     LATTICE  0.5500
+    He->Li   0.2450  -0.7803   0.5132   0.1670   0.1621        VOID  0.7803
+    Li->Be   0.1475   0.1598  -0.2075  -0.1670   0.2345     BALANCE  0.2345
+     Be->B   0.1175  -0.0417  -0.0943   0.0749   0.0604       CHAOS  0.1175
+      B->C   0.1275   0.1204  -0.0755   0.2665  -0.0084     HARMONY  0.2665
+      C->N   0.1225   0.1331  -0.0415  -0.3414  -0.1411     COUNTER  0.3414
+      N->O   0.1000  -0.0372  -0.0302   0.3949   0.0288     HARMONY  0.3949
+      O->F   0.1350   0.1547  -0.0226   0.5243   0.0395     HARMONY  0.5243
+     F->Ne  -0.9950   0.1684  -0.0151  -0.9192  -0.1326     LATTICE  0.9950
+    Ne->Na   0.2325  -0.6677   0.5736   0.1481   0.0139        VOID  0.6677
+    Na->Mg   0.0950   0.1019  -0.1698  -0.1481   0.1245       RESET  0.1698
+    Mg->Al   0.0750  -0.0675  -0.1019   0.1192   0.1140     HARMONY  0.1192
+    Al->Si   0.0725   0.0880  -0.0264   0.2551  -0.0399     HARMONY  0.2551
+     Si->P   0.0725   0.0949  -0.0491  -0.1727  -0.0629     COUNTER  0.1727
+      P->S   0.0975  -0.0052  -0.0377   0.3597   0.0318     HARMONY  0.3597
+     S->Cl   0.1450   0.1060  -0.0340   0.4151   0.1204     HARMONY  0.4151
+    Cl->Ar  -0.7900   0.1135  -0.0302  -0.9765  -0.1571     COUNTER  0.9765
+     Ar->K   0.2050  -0.4642   0.6491   0.1354  -0.1524    PROGRESS  0.6491
+     K->Ca   0.0450   0.0720  -0.1849  -0.1305   0.1191       RESET  0.1849
+    Ca->Sc   0.0900   0.0182  -0.0377   0.0459   0.1692     BALANCE  0.1692
+    Sc->Ti   0.0450   0.0109  -0.0302  -0.0295   0.1226     BALANCE  0.1226
+     Ti->V   0.0225  -0.0033  -0.0189   0.1205   0.0968     HARMONY  0.1205
+     V->Cr   0.0075   0.0009  -0.0189   0.0381   0.0536     BALANCE  0.0536
+    Cr->Mn  -0.0275   0.0271  -0.0189  -0.1800   0.0127     COUNTER  0.1800
+    Mn->Fe   0.0700   0.0190  -0.0189   0.0408   0.0177       CHAOS  0.0700
+    Fe->Co   0.0125  -0.0009  -0.0151   0.1381   0.0415     HARMONY  0.1381
+    Co->Ni   0.0075  -0.0098  -0.0113   0.1335   0.0003     HARMONY  0.1335
+    Ni->Cu  -0.0025   0.0035  -0.0151   0.0214   0.0020     HARMONY  0.0214
+    Cu->Zn  -0.0625   0.0678  -0.0113  -0.3338  -0.0767     COUNTER  0.3338
+    Zn->Ga   0.0400  -0.1380  -0.0226   0.0811  -0.0620        VOID  0.1380
+    Ga->Ge   0.0500   0.0773  -0.0415   0.2522  -0.0335     HARMONY  0.2522
+    Ge->As   0.0425   0.0768  -0.0415  -0.1143   0.0235     COUNTER  0.1143
+    As->Se   0.0925  -0.0015  -0.0415   0.3273  -0.0549     HARMONY  0.3273
+    Se->Br   0.1025   0.0838  -0.0340   0.3630  -0.1308     HARMONY  0.3630
+    Br->Kr  -0.7400   0.0889  -0.0226  -0.9092   0.0538     COUNTER  0.9092
+    Kr->Rb   0.2050  -0.3993   0.6679   0.1314  -0.2383    PROGRESS  0.6679
+    Rb->Sr   0.0325   0.0617  -0.1736  -0.1173   0.1365       RESET  0.1736
+     Sr->Y   0.0675   0.0212  -0.0264   0.0689   0.1555     BALANCE  0.1555
+     Y->Zr   0.0275   0.0170  -0.0226   0.0322   0.1198     BALANCE  0.1198
+    Zr->Nb   0.0675   0.0051  -0.0302   0.1262   0.0921     HARMONY  0.1262
+    Nb->Mo   0.1400   0.0135  -0.0302  -0.0397   0.0603       CHAOS  0.1400
+    Mo->Tc  -0.0650   0.0076  -0.0264  -0.0530   0.0409     LATTICE  0.0650
+    Tc->Ru   0.0750   0.0033  -0.0189   0.1351   0.0255     HARMONY  0.1351
+    Ru->Rh   0.0200   0.0040  -0.0189   0.0235   0.0011     HARMONY  0.0235
+    Rh->Pd  -0.0200   0.0357  -0.0151  -0.1554  -0.0112     COUNTER  0.1554
+    Pd->Ag  -0.0675  -0.0309  -0.0151   0.2000  -0.0474     HARMONY  0.2000
+    Ag->Cd  -0.0600   0.0576  -0.0151  -0.3519  -0.0661     COUNTER  0.3519
+    Cd->In   0.0225  -0.1304  -0.0189   0.0811  -0.0566        VOID  0.1304
+    In->Sn   0.0450   0.0633  -0.0415   0.2195  -0.0021     HARMONY  0.2195
+    Sn->Sb   0.0225   0.0514  -0.0453  -0.0176  -0.0270    COLLAPSE  0.0514
+    Sb->Te   0.0125   0.0163  -0.0377   0.2497  -0.0232     HARMONY  0.2497
+     Te->I   0.1400   0.0586  -0.0302   0.2941  -0.0756     HARMONY  0.2941
+     I->Xe  -0.6650   0.0683  -0.0264  -0.8268   0.0571     COUNTER  0.8268
+
+  D2 Analysis (curvature):
+        Triple    D2_ap    D2_pr    D2_dp    D2_bn    D2_cn          Op     Mag
+  ------------  -------  -------  -------  -------  -------  ----------  ------
+       H,He,Li   0.7950  -1.2270   0.5962   0.3708   0.1620        VOID  1.2270
+      He,Li,Be  -0.0975   0.9401  -0.7208  -0.3341   0.0724    COLLAPSE  0.9401
+       Li,Be,B  -0.0300  -0.2015   0.1132   0.2419  -0.1741     HARMONY  0.2419
+        Be,B,C   0.0100   0.1621   0.0189   0.1916  -0.0688     HARMONY  0.1916
+         B,C,N  -0.0050   0.0127   0.0340  -0.6078  -0.1328     COUNTER  0.6078
+         C,N,O  -0.0225  -0.1703   0.0113   0.7362   0.1700     HARMONY  0.7362
+         N,O,F   0.0350   0.1919   0.0075   0.1295   0.0107    COLLAPSE  0.1919
+        O,F,Ne  -1.1300   0.0137   0.0075  -1.4435  -0.1721     COUNTER  1.4435
+       F,Ne,Na   1.2275  -0.8361   0.5887   1.0673   0.1465       CHAOS  1.2275
+      Ne,Na,Mg  -0.1375   0.7696  -0.7434  -0.2962   0.1106    COLLAPSE  0.7696
+      Na,Mg,Al  -0.0200  -0.1694   0.0679   0.2673  -0.0106     HARMONY  0.2673
+      Mg,Al,Si  -0.0025   0.1555   0.0755   0.1359  -0.1539    COLLAPSE  0.1555
+       Al,Si,P   0.0000   0.0069  -0.0226  -0.4278  -0.0229     COUNTER  0.4278
+        Si,P,S   0.0250  -0.1001   0.0113   0.5324   0.0947     HARMONY  0.5324
+        P,S,Cl   0.0475   0.1112   0.0038   0.0554   0.0886    COLLAPSE  0.1112
+       S,Cl,Ar  -0.9350   0.0075   0.0038  -1.3916  -0.2775     COUNTER  1.3916
+       Cl,Ar,K   0.9950  -0.5777   0.6792   1.1119   0.0047     HARMONY  1.1119
+       Ar,K,Ca  -0.1600   0.5362  -0.8340  -0.2659   0.2716       RESET  0.8340
+       K,Ca,Sc   0.0450  -0.0538   0.1472   0.1765   0.0500     HARMONY  0.1765
+      Ca,Sc,Ti  -0.0450  -0.0074   0.0075  -0.0754  -0.0466     COUNTER  0.0754
+       Sc,Ti,V  -0.0225  -0.0142   0.0113   0.1500  -0.0258     HARMONY  0.1500
+       Ti,V,Cr  -0.0150   0.0042   0.0000  -0.0824  -0.0432     COUNTER  0.0824
+       V,Cr,Mn  -0.0350   0.0263   0.0000  -0.2181  -0.0408     COUNTER  0.2181
+      Cr,Mn,Fe   0.0975  -0.0081   0.0000   0.2208   0.0049     HARMONY  0.2208
+      Mn,Fe,Co  -0.0575  -0.0199   0.0038   0.0973   0.0238     HARMONY  0.0973
+      Fe,Co,Ni  -0.0050  -0.0089   0.0038  -0.0046  -0.0412      BREATH  0.0412
+      Co,Ni,Cu  -0.0100   0.0133  -0.0038  -0.1122   0.0017     COUNTER  0.1122
+      Ni,Cu,Zn  -0.0600   0.0643   0.0038  -0.3551  -0.0787     COUNTER  0.3551
+      Cu,Zn,Ga   0.1025  -0.2058  -0.0113   0.4149   0.0148     HARMONY  0.4149
+      Zn,Ga,Ge   0.0100   0.2153  -0.0189   0.1711   0.0285    COLLAPSE  0.2153
+      Ga,Ge,As  -0.0075  -0.0005   0.0000  -0.3665   0.0569     COUNTER  0.3665
+      Ge,As,Se   0.0500  -0.0783   0.0000   0.4416  -0.0784     HARMONY  0.4416
+      As,Se,Br   0.0100   0.0853   0.0075   0.0357  -0.0759    COLLAPSE  0.0853
+      Se,Br,Kr  -0.8425   0.0050   0.0113  -1.2722   0.1847     COUNTER  1.2722
+      Br,Kr,Rb   0.9450  -0.4882   0.6906   1.0405  -0.2922     HARMONY  1.0405
+      Kr,Rb,Sr  -0.1725   0.4610  -0.8415  -0.2486   0.3748       RESET  0.8415
+       Rb,Sr,Y   0.0350  -0.0405   0.1472   0.1862   0.0190     HARMONY  0.1862
+       Sr,Y,Zr  -0.0400  -0.0043   0.0038  -0.0368  -0.0358     LATTICE  0.0400
+       Y,Zr,Nb   0.0400  -0.0119  -0.0075   0.0941  -0.0277     HARMONY  0.0941
+      Zr,Nb,Mo   0.0725   0.0085   0.0000  -0.1659  -0.0318     COUNTER  0.1659
+      Nb,Mo,Tc  -0.2050  -0.0059   0.0038  -0.0132  -0.0193     LATTICE  0.2050
+      Mo,Tc,Ru   0.1400  -0.0043   0.0075   0.1881  -0.0154     HARMONY  0.1881
+      Tc,Ru,Rh  -0.0550   0.0007   0.0000  -0.1116  -0.0244     COUNTER  0.1116
+      Ru,Rh,Pd  -0.0400   0.0317   0.0038  -0.1789  -0.0123     COUNTER  0.1789
+      Rh,Pd,Ag  -0.0475  -0.0666   0.0000   0.3554  -0.0362     HARMONY  0.3554
+      Pd,Ag,Cd   0.0075   0.0886   0.0000  -0.5519  -0.0188     COUNTER  0.5519
+      Ag,Cd,In   0.0825  -0.1880  -0.0038   0.4330   0.0095     HARMONY  0.4330
+      Cd,In,Sn   0.0225   0.1937  -0.0226   0.1384   0.0546    COLLAPSE  0.1937
+      In,Sn,Sb  -0.0225  -0.0120  -0.0038  -0.2370  -0.0249     COUNTER  0.2370
+      Sn,Sb,Te  -0.0100  -0.0350   0.0075   0.2673   0.0038     HARMONY  0.2673
+       Sb,Te,I   0.1275   0.0422   0.0075   0.0443  -0.0524       CHAOS  0.1275
+       Te,I,Xe  -0.8050   0.0097   0.0038  -1.1208   0.1327     COUNTER  1.1208
+
+  T Composition (D1 x D2 -> Becoming):
+  Elem          D1          D2     T(TSML)     T(BHML)
+  ----  ----------  ----------  ----------  ----------
+    Li        VOID        VOID        VOID        VOID
+    Be     BALANCE    COLLAPSE     HARMONY       CHAOS
+     B       CHAOS     HARMONY     HARMONY     HARMONY
+     C     HARMONY     HARMONY     HARMONY      BREATH
+     N     COUNTER     COUNTER     HARMONY    PROGRESS
+     O     HARMONY     HARMONY     HARMONY      BREATH
+     F     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Ne     LATTICE     COUNTER    PROGRESS    PROGRESS
+    Na        VOID       CHAOS        VOID       CHAOS
+    Mg       RESET    COLLAPSE     HARMONY     HARMONY
+    Al     HARMONY     HARMONY     HARMONY      BREATH
+    Si     HARMONY    COLLAPSE     HARMONY     BALANCE
+     P     COUNTER     COUNTER     HARMONY    PROGRESS
+     S     HARMONY     HARMONY     HARMONY      BREATH
+    Cl     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Ar     COUNTER     COUNTER     HARMONY    PROGRESS
+     K    PROGRESS     HARMONY     HARMONY    COLLAPSE
+    Ca       RESET       RESET     HARMONY        VOID
+    Sc     BALANCE     HARMONY     HARMONY       CHAOS
+    Ti     BALANCE     COUNTER     HARMONY       CHAOS
+     V     HARMONY     HARMONY     HARMONY      BREATH
+    Cr     BALANCE     COUNTER     HARMONY       CHAOS
+    Mn     COUNTER     COUNTER     HARMONY    PROGRESS
+    Fe       CHAOS     HARMONY     HARMONY     HARMONY
+    Co     HARMONY     HARMONY     HARMONY      BREATH
+    Ni     HARMONY      BREATH     HARMONY       RESET
+    Cu     HARMONY     COUNTER     HARMONY    PROGRESS
+    Zn     COUNTER     COUNTER     HARMONY    PROGRESS
+    Ga        VOID     HARMONY     HARMONY     HARMONY
+    Ge     HARMONY    COLLAPSE     HARMONY     BALANCE
+    As     COUNTER     COUNTER     HARMONY    PROGRESS
+    Se     HARMONY     HARMONY     HARMONY      BREATH
+    Br     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Kr     COUNTER     COUNTER     HARMONY    PROGRESS
+    Rb    PROGRESS     HARMONY     HARMONY    COLLAPSE
+    Sr       RESET       RESET     HARMONY        VOID
+     Y     BALANCE     HARMONY     HARMONY       CHAOS
+    Zr     BALANCE     LATTICE     HARMONY       CHAOS
+    Nb     HARMONY     HARMONY     HARMONY      BREATH
+    Mo       CHAOS     COUNTER     HARMONY     HARMONY
+    Tc     LATTICE     LATTICE     HARMONY     COUNTER
+    Ru     HARMONY     HARMONY     HARMONY      BREATH
+    Rh     HARMONY     COUNTER     HARMONY    PROGRESS
+    Pd     COUNTER     COUNTER     HARMONY    PROGRESS
+    Ag     HARMONY     HARMONY     HARMONY      BREATH
+    Cd     COUNTER     COUNTER     HARMONY    PROGRESS
+    In        VOID     HARMONY     HARMONY     HARMONY
+    Sn     HARMONY    COLLAPSE     HARMONY     BALANCE
+    Sb    COLLAPSE     COUNTER    COLLAPSE     BALANCE
+    Te     HARMONY     HARMONY     HARMONY      BREATH
+     I     HARMONY       CHAOS     HARMONY     HARMONY
+    Xe     COUNTER     COUNTER     HARMONY    PROGRESS
+
+  Summary:
+    Elements:       54
+    D1 transitions: 53
+    D2 curvatures:  52
+
+    D1 distribution:
+            VOID:  4  (  7.5%)
+         LATTICE:  3  (  5.7%)
+         COUNTER: 10  ( 18.9%)
+        PROGRESS:  2  (  3.8%)
+        COLLAPSE:  1  (  1.9%)
+         BALANCE:  6  ( 11.3%)
+           CHAOS:  3  (  5.7%)
+         HARMONY: 21  ( 39.6%)
+           RESET:  3  (  5.7%)
+
+    D2 distribution:
+            VOID:  1  (  1.9%)
+         LATTICE:  2  (  3.8%)
+         COUNTER: 17  ( 32.7%)
+        COLLAPSE:  8  ( 15.4%)
+           CHAOS:  2  (  3.8%)
+         HARMONY: 19  ( 36.5%)
+          BREATH:  1  (  1.9%)
+           RESET:  2  (  3.8%)
+
+    D2 HARMONY:     19/52 = 0.3654
+    T* threshold:   0.7143
+    D2 >= T*:       NO
+
+    T(TSML) HARMONY: 48/52 = 0.9231  >=T*
+    T(BHML) HARMONY: 7/52 = 0.1346  <T*
+
+########################################################################
+#  PART 4: GLOBAL STATISTICS
+########################################################################
+
+  Full Table (sequential Z=1 to Z=54):
+    D2 HARMONY:      19/52 = 0.3654  <T*
+    T(TSML) HARMONY: 48/52 = 0.9231  >=T*
+    T(BHML) HARMONY: 7/52 = 0.1346  <T*
+
+    Full Table D2 operator distribution:
+            VOID:   1  (  1.9%)  ##
+         LATTICE:   2  (  3.8%)  ####
+         COUNTER:  17  ( 32.7%)  ###################################
+        COLLAPSE:   8  ( 15.4%)  ################
+           CHAOS:   2  (  3.8%)  ####
+         HARMONY:  19  ( 36.5%)  ########################################
+          BREATH:   1  (  1.9%)  ##
+           RESET:   2  (  3.8%)  ####
+
+    Full Table D1 operator distribution:
+            VOID:   4  (  7.5%)  #######
+         LATTICE:   3  (  5.7%)  #####
+         COUNTER:  10  ( 18.9%)  ###################
+        PROGRESS:   2  (  3.8%)  ###
+        COLLAPSE:   1  (  1.9%)  #
+         BALANCE:   6  ( 11.3%)  ###########
+           CHAOS:   3  (  5.7%)  #####
+         HARMONY:  21  ( 39.6%)  ########################################
+           RESET:   3  (  5.7%)  #####
+
+  Period Boundary Transitions (Noble Gas -> Alkali Metal):
+    Transition       D1 Op  Dominant dim  Magnitude
+  ------------  ----------  ------------  ---------
+        He->Li        VOID      pressure     0.7803
+        Ne->Na        VOID      pressure     0.6677
+         Ar->K    PROGRESS         depth     0.6491
+        Kr->Rb    PROGRESS         depth     0.6679
+
+  Chemistry Predictions from TIG:
+  ===============================
+
+  1. Noble gases (Group 18) should show VOID/RESET D2
+     (pressure curvature = ionization energy peaks)
+     Actual: Ne=COUNTER, Ar=COUNTER, Kr=COUNTER, Xe=COUNTER
+
+  2. Transition metals should show PROGRESS/BALANCE D2
+     (gradual depth decrease + steady binding)
+     Actual: V=HARMONY, Cr=COUNTER, Mn=COUNTER, Fe=HARMONY, Co=HARMONY, Ni=BREATH, Cu=COUNTER
+
+  3. Halogens should show strong BINDING curvature
+     (high electron affinity = HARMONY or COUNTER)
+     Actual: F=COLLAPSE(pr), Cl=COLLAPSE(pr), Br=COLLAPSE(pr), I=CHAOS(ap)
+
+========================================================================
+  D2 curvature IS chemistry.  Atomic structure IS force geometry.
+========================================================================

@@ -31,6 +31,9 @@
  *   Bound: [0, 0, 5, 5]  -- front/back synchronized
  *   Stand: [5, 5, 5, 5]  -- all BALANCE (neutral)
  *
+ * Ports use packed vectors for Verilog-2001 synthesis compatibility.
+ * Bit layout: [leg0 = bits 3:0, leg1 = bits 7:4, leg2 = bits 11:8, leg3 = bits 15:12]
+ *
  * Target: Xilinx Zynq-7020 + XiaoR robot dog platform
  * Clock: 100 MHz. Gait update: follows CK's heartbeat (self-sovereign).
  *
@@ -43,23 +46,23 @@ module gait_vortex #(
     input  wire        clk,
     input  wire        rst_n,
     input  wire        enable,
-    input  wire        heartbeat_tick,  // From ck_heartbeat tick_done — legs follow heart
+    input  wire        heartbeat_tick,  // From ck_heartbeat tick_done -- legs follow heart
 
     // Gait mode selection (from ARM)
     input  wire [1:0]  gait_mode,    // 0=stand, 1=walk, 2=trot, 3=bound
     input  wire        gait_start,   // Pulse to start gait
 
-    // Leg state inputs (from servo feedback or ARM command)
-    input  wire [3:0]  leg_op [0:3], // Current operator per leg
+    // Leg state inputs -- packed: {leg3[15:12], leg2[11:8], leg1[7:4], leg0[3:0]}
+    input  wire [15:0] leg_op_flat,
 
-    // Vortex outputs (per leg)
-    output reg  [3:0]  vortex [0:3],        // Vortex state per leg
-    output reg         aligned [0:3],       // Each leg aligned?
-    output reg  [3:0]  delta [0:3],         // Torus distance from HARMONY per leg
+    // Vortex outputs -- packed (same bit layout)
+    output reg  [15:0] vortex_flat,         // Vortex state per leg
+    output reg  [3:0]  aligned_flat,        // Each leg aligned? [bit per leg]
+    output reg  [15:0] delta_flat,          // Torus distance from HARMONY per leg
     output reg         all_aligned,         // ALL 4 legs in HARMONY?
 
     // Gait correction outputs (to servo command buffer)
-    output reg  [3:0]  correction_op [0:3], // Suggested correction per leg
+    output reg  [15:0] correction_op_flat,  // Suggested correction per leg
     output reg         correction_valid,    // New corrections ready
 
     // Global coherence
@@ -116,20 +119,22 @@ module gait_vortex #(
     wire [3:0] vortex_delta [0:3];
     wire       vortex_valid_w [0:3];
 
-    // Tick strobe — follows CK's heartbeat directly
+    // Tick strobe -- follows CK's heartbeat directly
     // No internal prescaler. CK's heart drives his legs.
     wire tick_strobe = heartbeat_tick & enable;
 
     // Instantiate 4 vortex units with torus wiring
+    // genvar expressions are constant at elaboration time, so
+    // ((g+3)%4)*4 etc. become fixed bit-slices per instance.
     genvar g;
     generate
         for (g = 0; g < 4; g = g + 1) begin : leg_vortex
             vortex_cl vortex_inst (
                 .clk(clk),
                 .rst_n(rst_n),
-                .prev_op(leg_op[(g + 3) % 4]),   // Previous leg (torus wrap)
-                .curr_op(leg_op[g]),               // Current leg
-                .next_op(leg_op[(g + 1) % 4]),     // Next leg (torus wrap)
+                .prev_op(leg_op_flat[((g + 3) % 4) * 4 +: 4]),  // Previous leg (torus wrap)
+                .curr_op(leg_op_flat[g * 4 +: 4]),                // Current leg
+                .next_op(leg_op_flat[((g + 1) % 4) * 4 +: 4]),   // Next leg (torus wrap)
                 .valid_in(tick_strobe),
                 .vortex_op(vortex_result[g]),
                 .vortex_valid(vortex_valid_w[g]),
@@ -160,12 +165,10 @@ module gait_vortex #(
             all_aligned        <= 1'b0;
             gait_coherence_num <= 0;
             gait_coherence_den <= 16'd4;
-            for (leg = 0; leg < 4; leg = leg + 1) begin
-                vortex[leg]        <= 4'd5;   // BALANCE default
-                aligned[leg]       <= 1'b0;
-                delta[leg]         <= 4'd0;
-                correction_op[leg] <= 4'd5;   // BALANCE target
-            end
+            vortex_flat        <= {4{4'd5}};    // All BALANCE default
+            aligned_flat       <= 4'b0000;
+            delta_flat         <= 16'd0;
+            correction_op_flat <= {4{4'd5}};    // All BALANCE target
         end else begin
             correction_valid <= 1'b0;
 
@@ -176,11 +179,11 @@ module gait_vortex #(
 
             // Process vortex results (2 clocks after tick_strobe)
             if (vortex_valid_w[0]) begin
-                // Latch vortex results
+                // Latch vortex results into packed outputs
                 for (leg = 0; leg < 4; leg = leg + 1) begin
-                    vortex[leg]  <= vortex_result[leg];
-                    aligned[leg] <= vortex_aligned[leg];
-                    delta[leg]   <= vortex_delta[leg];
+                    vortex_flat[leg*4 +: 4]  <= vortex_result[leg];
+                    aligned_flat[leg]        <= vortex_aligned[leg];
+                    delta_flat[leg*4 +: 4]   <= vortex_delta[leg];
                 end
 
                 // Count aligned legs
@@ -200,14 +203,14 @@ module gait_vortex #(
                     if (!vortex_aligned[leg]) begin
                         // Correction: target the gait phase operator for this leg
                         case (gait_mode)
-                            2'd0: correction_op[leg] <= 4'd5;  // Stand: all BALANCE
-                            2'd1: correction_op[leg] <= walk_phase[phase_idx][leg];
-                            2'd2: correction_op[leg] <= trot_phase[phase_idx][leg];
-                            2'd3: correction_op[leg] <= bound_phase[phase_idx][leg];
+                            2'd0: correction_op_flat[leg*4 +: 4] <= 4'd5;  // Stand: all BALANCE
+                            2'd1: correction_op_flat[leg*4 +: 4] <= walk_phase[phase_idx][leg];
+                            2'd2: correction_op_flat[leg*4 +: 4] <= trot_phase[phase_idx][leg];
+                            2'd3: correction_op_flat[leg*4 +: 4] <= bound_phase[phase_idx][leg];
                         endcase
                     end else begin
                         // Already aligned: maintain current
-                        correction_op[leg] <= leg_op[leg];
+                        correction_op_flat[leg*4 +: 4] <= leg_op_flat[leg*4 +: 4];
                     end
                 end
                 correction_valid <= 1'b1;

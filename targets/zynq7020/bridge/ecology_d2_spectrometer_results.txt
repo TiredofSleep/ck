@@ -1,0 +1,376 @@
+==============================================================================
+  ECOLOGY D2 SPECTROMETER -- Ecosystems as 5D Force Geometry
+  Dual-Lens Curvature Analysis of Biomes and Tipping Points
+==============================================================================
+
+==============================================================================
+SECTION 1: 5D FORCE VECTORS -- BIOME SIGNATURES
+==============================================================================
+
+  Aperture(NPP)  Pressure(species)  Depth(soil_C)  Binding(water)  Continuity(temp)
+
+  --- EXTREME BIOMES ---
+  [H] Polar Desert                  np=0.004  sp=0.010  sc=0.025  wa=0.040  te=0.167
+  [H] Hot Desert                    np=0.012  sp=0.040  sc=0.013  wa=0.020  te=0.917
+
+  --- COLD BIOMES ---
+  [H] Arctic Tundra                 np=0.056  sp=0.040  sc=0.062  wa=0.800  te=0.333
+  [H] Boreal Forest (Taiga)         np=0.160  sp=0.080  sc=0.125  wa=0.700  te=0.417
+
+  --- TEMPERATE BIOMES ---
+  [H] Temperate Grassland           np=0.200  sp=0.120  sc=0.125  wa=0.400  te=0.633
+  [H] Temperate Deciduous Forest    np=0.320  sp=0.240  sc=0.250  wa=0.300  te=0.667
+  [H] Mediterranean Scrub           np=0.200  sp=0.300  sc=0.125  wa=0.160  te=0.750
+
+  --- TROPICAL BIOMES ---
+  [H] Tropical Savanna              np=0.280  sp=0.400  sc=0.300  wa=0.200  te=0.917
+  [H] Tropical Monsoon Forest       np=0.480  sp=0.600  sc=0.500  wa=0.240  te=0.933
+  [H] Tropical Rainforest           np=0.880  sp=1.000  sc=0.750  wa=0.300  te=0.950
+
+  --- MARINE BIOMES ---
+  [H] Coral Reef (Marine)           np=0.600  sp=0.800  sc=0.875  wa=0.100  te=0.933
+  [H] Kelp Forest (Marine)          np=0.320  sp=0.240  sc=0.875  wa=0.060  te=0.700
+  [H] Open Ocean                    np=0.060  sp=0.060  sc=0.875  wa=0.020  te=0.750
+
+  --- TIPPING / DEGRADED STATES ---
+  [X] Amazon Dieback                np=0.200  sp=0.400  sc=0.300  wa=0.160  te=0.983
+  [X] Coral Reef Bleached           np=0.120  sp=0.200  sc=0.875  wa=0.060  te=0.983
+  [X] Permafrost Thaw               np=0.080  sp=0.050  sc=0.087  wa=0.300  te=0.500
+  [X] Desertified Grassland         np=0.032  sp=0.030  sc=0.050  wa=0.100  te=0.833
+  [X] Ocean Dead Zone               np=0.012  sp=0.010  sc=0.875  wa=0.000  te=0.800
+  [X] Boreal Dieoff/Shift           np=0.080  sp=0.040  sc=0.100  wa=0.400  te=0.533
+
+  Total biomes: 19
+  [H] = healthy, [X] = degraded/tipping
+
+==============================================================================
+SECTION 2: D2 OPERATOR CLASSIFICATION PER BIOME
+==============================================================================
+
+  Global centroid: np=0.216 sp=0.245 sc=0.378 wa=0.229 te=0.721
+
+  [H] Polar Desert                  op=BREATH      dim=-cn   mag=0.7538
+  [H] Arctic Tundra                 op=HARMONY     dim=+bn   mag=0.8020
+  [H] Boreal Forest (Taiga)         op=HARMONY     dim=+bn   mag=0.6392
+  [H] Temperate Grassland           op=RESET       dim=-dp   mag=0.3419
+  [H] Temperate Deciduous Forest    op=RESET       dim=-dp   mag=0.1879
+  [H] Mediterranean Scrub           op=RESET       dim=-dp   mag=0.2703
+  [H] Hot Desert                    op=RESET       dim=-dp   mag=0.5473
+  [H] Tropical Savanna              op=BALANCE     dim=+cn   mag=0.2708
+  [H] Tropical Monsoon Forest       op=COLLAPSE    dim=+pr   mag=0.5057
+  [H] Tropical Rainforest           op=COLLAPSE    dim=+pr   mag=1.0985
+  [H] Coral Reef (Marine)           op=COLLAPSE    dim=+pr   mag=0.8741
+  [H] Kelp Forest (Marine)          op=PROGRESS    dim=+dp   mag=0.5356
+  [H] Open Ocean                    op=PROGRESS    dim=+dp   mag=0.5916
+  [X] Amazon Dieback                op=BALANCE     dim=+cn   mag=0.3224
+  [X] Coral Reef Bleached           op=PROGRESS    dim=+dp   mag=0.5962
+  [X] Permafrost Thaw               op=RESET       dim=-dp   mag=0.4415
+  [X] Desertified Grassland         op=RESET       dim=-dp   mag=0.4660
+  [X] Ocean Dead Zone               op=PROGRESS    dim=+dp   mag=0.6344
+  [X] Boreal Dieoff/Shift           op=RESET       dim=-dp   mag=0.4498
+
+  Operator distribution:
+    PROGRESS  :  4 ( 21.1%)
+    COLLAPSE  :  3 ( 15.8%)
+    BALANCE   :  2 ( 10.5%)
+    HARMONY   :  2 ( 10.5%)
+    BREATH    :  1 (  5.3%)
+    RESET     :  7 ( 36.8%)
+
+  --- Healthy Biome Operators ---
+    PROGRESS  : 2
+    COLLAPSE  : 3
+    BALANCE   : 1
+    HARMONY   : 2
+    BREATH    : 1
+    RESET     : 4
+
+  --- Degraded/Tipping State Operators ---
+    PROGRESS  : 2
+    BALANCE   : 1
+    RESET     : 3
+
+==============================================================================
+SECTION 3: TIPPING POINT D2 -- HEALTHY vs DEGRADED DISTANCES
+==============================================================================
+
+5D distance between healthy biome and its degraded state.
+Larger distance = more catastrophic transition.
+
+  Amazon dieback             dist=1.0226  dom_shift=aperture      T(TSML)=HARMONY   T(BHML)=CHAOS   
+  Coral bleaching            dist=0.7710  dom_shift=pressure      T(TSML)=HARMONY   T(BHML)=BALANCE 
+  Permafrost thaw            dist=0.5283  dom_shift=binding       T(TSML)=HARMONY   T(BHML)=VOID    
+  Desertification            dist=0.4147  dom_shift=binding       T(TSML)=HARMONY   T(BHML)=VOID    
+  Ocean dead zone            dist=0.0878  dom_shift=continuity    T(TSML)=HARMONY   T(BHML)=COLLAPSE
+  Boreal dieoff              dist=0.3350  dom_shift=binding       T(TSML)=HARMONY   T(BHML)=VOID    
+
+==============================================================================
+SECTION 4: TRAJECTORY D2 -- ECOLOGICAL TRANSITIONS
+==============================================================================
+
+  --- Latitude Gradient (pole to equator) ---
+  Polar -> Tundra -> Boreal -> Temperate -> Tropical
+
+  [H] Arctic Tundra              COUNTER    |D2|=0.8660  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [H] Boreal Forest (Taiga)      COUNTER    |D2|=0.2565  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Temperate Grassland        HARMONY    |D2|=0.3194  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [H] Temperate Deciduous Forest  BALANCE    |D2|=0.2824  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  [H] Tropical Savanna           CHAOS      |D2|=0.3946  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Tropical Monsoon Forest    CHAOS      |D2|=0.2879  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.4012  Max |D2|: 0.8660
+  T(TSML) HARMONY: 6/6  T(BHML) HARMONY: 3/6  UNIFIED: 3/6
+
+  --- Primary Succession ---
+  Bare rock -> Grassland -> Shrub -> Forest
+
+  [H] Hot Desert                 BREATH     |D2|=0.8418  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [X] Desertified Grassland      HARMONY    |D2|=0.3087  T(TSML)=HARMONY  T(BHML)=RESET    WORKING
+  [H] Temperate Grassland        COUNTER    |D2|=0.4147  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [H] Temperate Grassland        PROGRESS   |D2|=0.2357  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  [H] Temperate Deciduous Forest  RESET      |D2|=0.2357  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  [H] Temperate Deciduous Forest  HARMONY    |D2|=0.5379  T(TSML)=HARMONY  T(BHML)=BREATH   WORKING
+  Avg |D2|: 0.4291  Max |D2|: 0.8418
+  T(TSML) HARMONY: 5/6  T(BHML) HARMONY: 1/6  UNIFIED: 1/6
+
+  --- Amazon Dieback Trajectory ---
+  Rainforest -> Degradation -> Savanna
+
+  [H] Tropical Rainforest        LATTICE    |D2|=0.6216  T(TSML)=HARMONY  T(BHML)=COUNTER  WORKING
+  [H] Tropical Monsoon Forest    COLLAPSE   |D2|=0.2485  T(TSML)=HARMONY  T(BHML)=BALANCE  WORKING
+  [X] Amazon Dieback             CHAOS      |D2|=0.4090  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [X] Amazon Dieback             CHAOS      |D2|=0.1116  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Tropical Savanna           LATTICE    |D2|=0.1116  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Tropical Savanna           VOID       |D2|=0.5271  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.3382  Max |D2|: 0.6216
+  T(TSML) HARMONY: 6/6  T(BHML) HARMONY: 4/6  UNIFIED: 4/6
+
+  --- Coral Reef Collapse ---
+  Healthy reef -> Bleaching -> Dead zone
+
+  [H] Coral Reef (Marine)        VOID       |D2|=0.7710  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [X] Coral Reef Bleached        COLLAPSE   |D2|=0.7710  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  [X] Coral Reef Bleached        VOID       |D2|=0.2915  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [X] Ocean Dead Zone            COLLAPSE   |D2|=0.2915  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  [X] Ocean Dead Zone            BREATH     |D2|=0.0878  T(TSML)=HARMONY  T(BHML)=RESET    WORKING
+  [H] Open Ocean                 BALANCE    |D2|=0.0878  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.3834  Max |D2|: 0.7710
+  T(TSML) HARMONY: 4/6  T(BHML) HARMONY: 3/6  UNIFIED: 3/6
+
+  --- Permafrost Carbon Bomb ---
+  Tundra -> Thaw -> Boreal shift
+
+  [H] Arctic Tundra              COUNTER    |D2|=0.5283  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [X] Permafrost Thaw            HARMONY    |D2|=0.5283  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [X] Permafrost Thaw            HARMONY    |D2|=0.1066  T(TSML)=HARMONY  T(BHML)=BREATH   WORKING
+  [X] Boreal Dieoff/Shift        COUNTER    |D2|=0.1066  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [X] Boreal Dieoff/Shift        CHAOS      |D2|=0.1773  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Temperate Grassland        LATTICE    |D2|=0.1773  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.2707  Max |D2|: 0.5283
+  T(TSML) HARMONY: 6/6  T(BHML) HARMONY: 2/6  UNIFIED: 2/6
+
+  --- Sahel Desertification ---
+  Savanna -> Overgrazing -> Desert
+
+  [H] Tropical Savanna           BREATH     |D2|=0.4855  T(TSML)=HARMONY  T(BHML)=RESET    WORKING
+  [H] Temperate Grassland        COUNTER    |D2|=0.7331  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  [X] Desertified Grassland      HARMONY    |D2|=0.4147  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [X] Desertified Grassland      BALANCE    |D2|=0.1235  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  [H] Hot Desert                 BREATH     |D2|=0.1235  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Hot Desert                 BREATH     |D2|=0.7510  T(TSML)=HARMONY  T(BHML)=RESET    WORKING
+  Avg |D2|: 0.4385  Max |D2|: 0.7510
+  T(TSML) HARMONY: 6/6  T(BHML) HARMONY: 1/6  UNIFIED: 1/6
+
+  --- Global Warming Cascade ---
+  Multiple tipping points in sequence
+
+  [X] Coral Reef Bleached        COLLAPSE   |D2|=1.8970  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  [H] Tropical Rainforest        LATTICE    |D2|=2.0708  T(TSML)=HARMONY  T(BHML)=BALANCE  WORKING
+  [X] Amazon Dieback             HARMONY    |D2|=1.2105  T(TSML)=HARMONY  T(BHML)=COUNTER  WORKING
+  [H] Arctic Tundra              COUNTER    |D2|=1.4834  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  [X] Permafrost Thaw            HARMONY    |D2|=0.9361  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  [H] Boreal Forest (Taiga)      COUNTER    |D2|=0.7513  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Avg |D2|: 1.3915  Max |D2|: 2.0708
+  T(TSML) HARMONY: 5/6  T(BHML) HARMONY: 0/6  UNIFIED: 0/6
+
+  --- Marine Productivity Gradient ---
+  Open ocean -> Kelp -> Coral reef -> Dead zone
+
+  [H] Open Ocean                 CHAOS      |D2|=0.3226  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Kelp Forest (Marine)       COLLAPSE   |D2|=0.4744  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [H] Coral Reef (Marine)        VOID       |D2|=0.6694  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  [H] Coral Reef (Marine)        VOID       |D2|=0.7710  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  [X] Coral Reef Bleached        COLLAPSE   |D2|=0.6011  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  [X] Ocean Dead Zone            COLLAPSE   |D2|=0.2915  T(TSML)=VOID     T(BHML)=COLLAPSE TENSION
+  Avg |D2|: 0.5217  Max |D2|: 0.7710
+  T(TSML) HARMONY: 3/6  T(BHML) HARMONY: 3/6  UNIFIED: 3/6
+
+==============================================================================
+SECTION 5: NATURAL vs COLLAPSE TRAJECTORIES
+==============================================================================
+
+Natural gradient (latitude) should be smooth (low D2).
+Collapse trajectories should spike (high D2) at tipping points.
+
+  Natural trajectories:
+    Latitude Gradient (pole to equator)  avg|D2|=0.4012  max|D2|=0.8660  gap=0.500
+    Primary Succession                   avg|D2|=0.4291  max|D2|=0.8418  gap=0.667
+    Marine Productivity Gradient         avg|D2|=0.5217  max|D2|=0.7710  gap=0.000
+  Collapse trajectories:
+    Amazon Dieback Trajectory            avg|D2|=0.3382  max|D2|=0.6216  gap=0.333
+    Coral Reef Collapse                  avg|D2|=0.3834  max|D2|=0.7710  gap=0.167
+    Permafrost Carbon Bomb               avg|D2|=0.2707  max|D2|=0.5283  gap=0.667
+    Sahel Desertification                avg|D2|=0.4385  max|D2|=0.7510  gap=0.833
+    Global Warming Cascade               avg|D2|=1.3915  max|D2|=2.0708  gap=0.833
+
+==============================================================================
+SECTION 6: VOID TOPOLOGY -- WHICH DIMENSIONS ARE SILENT?
+==============================================================================
+
+  [H] Polar Desert                  voids=0  []
+  [H] Arctic Tundra                 voids=0  []
+  [H] Boreal Forest (Taiga)         voids=0  []
+  [H] Temperate Grassland           voids=1  [ap]
+  [H] Temperate Deciduous Forest    voids=1  [pr]
+  [H] Mediterranean Scrub           voids=2  [ap,cn]
+  [H] Hot Desert                    voids=0  []
+  [H] Tropical Savanna              voids=1  [bn]
+  [H] Tropical Monsoon Forest       voids=1  [bn]
+  [H] Tropical Rainforest           voids=0  []
+  [H] Coral Reef (Marine)           voids=0  []
+  [H] Kelp Forest (Marine)          voids=2  [pr,cn]
+  [H] Open Ocean                    voids=1  [cn]
+  [X] Amazon Dieback                voids=1  [ap]
+  [X] Coral Reef Bleached           voids=1  [pr]
+  [X] Permafrost Thaw               voids=0  []
+  [X] Desertified Grassland         voids=0  []
+  [X] Ocean Dead Zone               voids=0  []
+  [X] Boreal Dieoff/Shift           voids=0  []
+
+==============================================================================
+SECTION 7: I/O BALANCE -- PRODUCTION vs REGULATION
+==============================================================================
+
+I = structure (NPP + species) = biological production/diversity
+O = flow (water + temperature) = physical environment
+Depth (soil carbon) mediates = ecological memory
+
+  [H] Polar Desert                  I=0.014  O=0.207  I/O=0.068  soil_C=0.025  PHYS
+  [H] Arctic Tundra                 I=0.096  O=1.133  I/O=0.085  soil_C=0.062  PHYS
+  [H] Boreal Forest (Taiga)         I=0.240  O=1.117  I/O=0.215  soil_C=0.125  PHYS
+  [H] Temperate Grassland           I=0.320  O=1.033  I/O=0.310  soil_C=0.125  PHYS
+  [H] Temperate Deciduous Forest    I=0.560  O=0.967  I/O=0.579  soil_C=0.250  PHYS
+  [H] Mediterranean Scrub           I=0.500  O=0.910  I/O=0.549  soil_C=0.125  PHYS
+  [H] Hot Desert                    I=0.052  O=0.937  I/O=0.056  soil_C=0.013  PHYS
+  [H] Tropical Savanna              I=0.680  O=1.117  I/O=0.609  soil_C=0.300  PHYS
+  [H] Tropical Monsoon Forest       I=1.080  O=1.173  I/O=0.920  soil_C=0.500  BALANCED
+  [H] Tropical Rainforest           I=1.880  O=1.250  I/O=1.504  soil_C=0.750  BIO
+  [H] Coral Reef (Marine)           I=1.400  O=1.033  I/O=1.355  soil_C=0.875  BIO
+  [H] Kelp Forest (Marine)          I=0.560  O=0.760  I/O=0.737  soil_C=0.875  PHYS
+  [H] Open Ocean                    I=0.120  O=0.770  I/O=0.156  soil_C=0.875  PHYS
+  [X] Amazon Dieback                I=0.600  O=1.143  I/O=0.525  soil_C=0.300  PHYS
+  [X] Coral Reef Bleached           I=0.320  O=1.043  I/O=0.307  soil_C=0.875  PHYS
+  [X] Permafrost Thaw               I=0.130  O=0.800  I/O=0.163  soil_C=0.087  PHYS
+  [X] Desertified Grassland         I=0.062  O=0.933  I/O=0.066  soil_C=0.050  PHYS
+  [X] Ocean Dead Zone               I=0.022  O=0.800  I/O=0.027  soil_C=0.875  PHYS
+  [X] Boreal Dieoff/Shift           I=0.120  O=0.933  I/O=0.129  soil_C=0.100  PHYS
+
+==============================================================================
+SECTION 8: LATITUDE GRADIENT AS NATURAL D2 PATH
+==============================================================================
+
+The latitude gradient (pole to equator) IS the natural ordering.
+D2 should increase monotonically toward the tropics (more curvature
+= faster change in ecosystem parameters per degree of latitude).
+
+  Polar Desert                  dist_from_tropics=1.7188
+  Arctic Tundra                 dist_from_tropics=1.6442
+  Boreal Forest (Taiga)         dist_from_tropics=1.4832
+  Temperate Grassland           dist_from_tropics=1.3182
+  Temperate Deciduous Forest    dist_from_tropics=1.1052
+  Tropical Savanna              dist_from_tropics=0.9662
+  Tropical Monsoon Forest       dist_from_tropics=0.6216
+  Tropical Rainforest           dist_from_tropics=0.0000
+
+==============================================================================
+SECTION 9: CROSS-BIOME CL COMPOSITION TABLE
+==============================================================================
+
+  T(TSML) Composition:
+                    Hot Desert  Arctic Tundra Boreal Forest  Temperate Deci Tropical Rainf Coral Reef (Ma Amazon Dieback Coral Reef Ble
+  Hot Desert           HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY       PROGRESS
+  Arctic Tundra        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Boreal Forest         HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Temperate Deci        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY       PROGRESS
+  Tropical Rainf        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Coral Reef (Ma        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Amazon Dieback        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Coral Reef Ble       PROGRESS        HARMONY        HARMONY       PROGRESS        HARMONY        HARMONY        HARMONY        HARMONY
+
+  TSML HARMONY: 60/64 = 0.9375
+  BHML HARMONY: 12/64 = 0.1875
+  UNIFIED:      12/64 = 0.1875
+
+==============================================================================
+SECTION 10: DIMENSION DOMINANCE IN ECOLOGICAL TRANSITIONS
+==============================================================================
+
+  Latitude Gradient (pole to equator)  dominant=binding       np=2 sp=0 sc=0 wa=3 te=1
+  Primary Succession                   dominant=binding       np=0 sp=0 sc=2 wa=3 te=1
+  Amazon Dieback Trajectory            dominant=aperture      np=4 sp=2 sc=0 wa=0 te=0
+  Coral Reef Collapse                  dominant=pressure      np=0 sp=4 sc=0 wa=0 te=2
+  Permafrost Carbon Bomb               dominant=binding       np=2 sp=0 sc=0 wa=4 te=0
+  Sahel Desertification                dominant=continuity    np=0 sp=0 sc=0 wa=2 te=4
+  Global Warming Cascade               dominant=binding       np=1 sp=1 sc=0 wa=4 te=0
+  Marine Productivity Gradient         dominant=pressure      np=1 sp=5 sc=0 wa=0 te=0
+
+  Global dimension dominance (48 total D2 points):
+    aperture    :  10 ( 20.8%)  ##########
+    pressure    :  12 ( 25.0%)  ############
+    depth       :   2 (  4.2%)  ##
+    binding     :  16 ( 33.3%)  ################
+    continuity  :   8 ( 16.7%)  ########
+
+==============================================================================
+SECTION 11: SYNTHESIS
+==============================================================================
+
+  FINDINGS:
+
+  1. TIPPING POINTS ARE D2 SPIKES
+     Collapse trajectories show higher D2 than natural gradients.
+
+  2. APERTURE (NPP) DRIVES BIOME CLASSIFICATION
+     Net primary productivity is the primary axis of biome identity.
+
+  3. DEGRADED STATES SHIFT OPERATOR CLASS
+     Healthy biomes span diverse operators.
+     Degraded states cluster toward LATTICE/VOID (low aperture).
+
+  4. LATITUDE GRADIENT IS MONOTONE IN 5D DISTANCE
+     Distance from tropical centroid increases monotonically poleward.
+
+  FALSIFIABLE PREDICTIONS:
+
+  P1: TIPPING POINT = D2 SPIKE
+      Ecosystem tipping points produce |D2| > 2x the |D2| of natural
+      succession transitions in the same biome.
+      Kill: tipping |D2| < 1.5x natural |D2| in field data.
+
+  P2: NPP COLLAPSE PRECEDES BIODIVERSITY LOSS
+      Aperture (NPP) drops before pressure (species) in all tipping
+      scenarios: the energy channel closes before diversity collapses.
+      Kill: species loss precedes NPP drop in 3+ tipping datasets.
+
+  P3: SOIL CARBON = ECOLOGICAL MEMORY
+      Depth dimension (soil carbon) predicts recovery time:
+      higher soil C = longer memory = slower but more complete recovery.
+      Kill: no correlation between soil C and recovery time in field data.
+
+  P4: DUAL-LENS GAP PREDICTS RESILIENCE
+      Biomes with high TSML-BHML gap are MORE vulnerable to tipping
+      (they ARE one thing but DO another = structural tension).
+      Kill: high-gap biomes are more resilient than low-gap in field data.
+
+==============================================================================
+  END OF ECOLOGY D2 SPECTROMETER ANALYSIS
+==============================================================================

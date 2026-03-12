@@ -1,0 +1,320 @@
+==============================================================================
+  CMB D2 SPECTROMETER -- Cosmology as 5D Force Geometry
+  Dual-Lens Curvature Analysis of the Universe
+==============================================================================
+
+==============================================================================
+SECTION 1: 5D FORCE VECTORS -- COSMOLOGICAL PARAMETER SPACE
+==============================================================================
+
+Each cosmological model/epoch = 5D vector of normalized parameters.
+  Aperture(Omega_b)  Pressure(Omega_c)  Depth(H0)  Binding(n_s)  Continuity(tau)
+
+  Planck 2018 reference (normalized):
+    ap=0.4367  pr=0.4125  dp=0.3472  bn=0.4327  cn=0.3171
+
+  --- Cosmological Models ---
+  Planck 2018 (LCDM)              ap=0.4367  pr=0.4125  dp=0.3472  bn=0.4327  cn=0.3171
+  Planck 2015                     ap=0.4289  pr=0.3950  dp=0.3548  bn=0.4447  cn=0.4000
+  WMAP 9-year                     ap=0.4033  pr=0.3325  dp=0.3864  bn=0.4053  cn=0.5071
+  SH0ES Local H0                  ap=0.4367  pr=0.4125  dp=0.4608  bn=0.4327  cn=0.3171
+  High Baryon (BBN tension)       ap=0.5556  pr=0.4125  dp=0.3472  bn=0.4327  cn=0.3171
+  Low n_s (no inflation)          ap=0.4367  pr=0.4125  dp=0.3472  bn=0.1333  cn=0.3171
+  High Tau (early reionization)   ap=0.4367  pr=0.4125  dp=0.3472  bn=0.4327  cn=0.7857
+  Einstein-de Sitter              ap=0.4444  pr=0.8750  dp=0.0000  bn=0.6667  cn=0.2857
+  Open Universe                   ap=0.3333  pr=0.2500  dp=0.5000  bn=0.4667  cn=0.2143
+
+  --- Cosmic Epochs ---
+  Inflation                       ap=0.0000  pr=0.0000  dp=0.9800  bn=0.6667  cn=0.0000
+  Radiation Domination            ap=0.1111  pr=0.0000  dp=0.9000  bn=0.4333  cn=0.0000
+  Recombination                   ap=0.4333  pr=0.4125  dp=0.3480  bn=0.4333  cn=0.3143
+  Dark Ages                       ap=0.4333  pr=0.4125  dp=0.3480  bn=0.4333  cn=0.0714
+  Reionization                    ap=0.4333  pr=0.4125  dp=0.3480  bn=0.4333  cn=0.6429
+  Matter Domination               ap=0.4333  pr=0.5250  dp=0.4000  bn=0.4333  cn=0.3143
+  Dark Energy Domination          ap=0.4333  pr=0.4125  dp=0.3480  bn=0.4333  cn=0.3143
+
+  --- CMB Acoustic Peaks ---
+  Peak 1 (l= 220,  5720 uK^2)  ap=0.4333  pr=0.4000  dp=0.3480  bn=0.4333  cn=0.3143
+  Peak 2 (l= 538,  2530 uK^2)  ap=0.4222  pr=0.4250  dp=0.3460  bn=0.4267  cn=0.3143
+  Peak 3 (l= 812,  2290 uK^2)  ap=0.4444  pr=0.4125  dp=0.3460  bn=0.4200  cn=0.3214
+  Peak 4 (l=1125,  1160 uK^2)  ap=0.4111  pr=0.4200  dp=0.3500  bn=0.4133  cn=0.3071
+  Peak 5 (l=1432,   820 uK^2)  ap=0.4444  pr=0.4125  dp=0.3440  bn=0.4067  cn=0.3214
+  Peak 6 (l=1735,   480 uK^2)  ap=0.4222  pr=0.4175  dp=0.3480  bn=0.4000  cn=0.3143
+  Peak 7 (l=2050,   310 uK^2)  ap=0.4333  pr=0.4150  dp=0.3460  bn=0.3933  cn=0.3143
+
+==============================================================================
+SECTION 2: INTER-MODEL 5D DISTANCES
+==============================================================================
+
+Distance from Planck 2018 to each alternative model.
+Reveals which dimensions of disagreement separate cosmologies.
+
+  Planck 2015                     dist=0.0862  dominant_delta=continuity(+0.0829)
+  WMAP 9-year                     dist=0.2142  dominant_delta=continuity(+0.1900)
+  SH0ES Local H0                  dist=0.1136  dominant_delta=depth(+0.1136)
+  High Baryon (BBN tension)       dist=0.1189  dominant_delta=aperture(+0.1189)
+  Low n_s (no inflation)          dist=0.2993  dominant_delta=binding(-0.2993)
+  High Tau (early reionization)   dist=0.4686  dominant_delta=continuity(+0.4686)
+  Einstein-de Sitter              dist=0.6247  dominant_delta=pressure(+0.4625)
+  Open Universe                   dist=0.2686  dominant_delta=pressure(-0.1625)
+
+  HUBBLE TENSION (Planck vs SH0ES):
+    5D distance: 0.1136
+    delta: [+0.0000, +0.0000, +0.1136, +0.0000, +0.0000]
+    The tension is PURE DEPTH (H0) -- all other dimensions agree.
+    In TIG: depth = processing depth of spacetime expansion.
+    Hubble tension = disagreement about how DEEP the universe expands.
+
+==============================================================================
+SECTION 3: CMB ACOUSTIC PEAK D2 -- CURVATURE OF THE POWER SPECTRUM
+==============================================================================
+
+D2 across consecutive CMB peaks. The power spectrum IS a path;
+D2 at each peak IS the curvature of that path.
+Odd peaks (compression) vs even peaks (rarefaction) should
+produce alternating D2 operators.
+
+  Peak 2 (l= 538, rarefact)  D2_op=VOID       |D2|=0.050719  T(TSML)=VOID       T(BHML)=COLLAPSE   TENSION
+  Peak 3 (l= 812, compress)  D2_op=LATTICE    |D2|=0.062941  T(TSML)=HARMONY    T(BHML)=HARMONY    UNIFIED
+  Peak 4 (l=1125, rarefact)  D2_op=CHAOS      |D2|=0.074738  T(TSML)=HARMONY    T(BHML)=HARMONY    UNIFIED
+  Peak 5 (l=1432, compress)  D2_op=LATTICE    |D2|=0.061659  T(TSML)=HARMONY    T(BHML)=HARMONY    UNIFIED
+  Peak 6 (l=1735, rarefact)  D2_op=CHAOS      |D2|=0.035417  T(TSML)=HARMONY    T(BHML)=HARMONY    UNIFIED
+
+  Peak D2 summary (5 interior peaks):
+    T(TSML) HARMONY: 4/5
+    T(BHML) HARMONY: 4/5
+    Avg |D2|: 0.057095
+
+  --- Compression vs Rarefaction D2 ---
+    Peak 2 (RAREFACT): VOID
+    Peak 3 (COMPRESS): LATTICE
+    Peak 4 (RAREFACT): CHAOS
+    Peak 5 (COMPRESS): LATTICE
+    Peak 6 (RAREFACT): CHAOS
+
+==============================================================================
+SECTION 4: COSMIC EPOCH D2 -- THE UNIVERSE'S EVOLUTION
+==============================================================================
+
+D2 across consecutive cosmic epochs. Each epoch transition IS
+a curvature event in 5D cosmological space.
+
+  Epoch                      D1_op      D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  -----                      -----      -----      ----     -------    -------    -----     
+  Radiation Domination       COUNTER    RESET        0.7686 RESET      CHAOS      TENSION   
+  Recombination              RESET      BREATH       0.9429 HARMONY    BREATH     WORKING   
+  Dark Ages                  BREATH     BALANCE      0.8143 HARMONY    HARMONY    UNIFIED   
+  Reionization               BALANCE    BREATH       0.9085 HARMONY    HARMONY    UNIFIED   
+  Matter Domination          BREATH     BALANCE      0.4116 HARMONY    HARMONY    UNIFIED   
+
+  Epoch transition summary (5 transitions):
+    T(TSML) HARMONY: 4/5
+    T(BHML) HARMONY: 3/5
+    UNIFIED:         3/5
+    Avg |D2|: 0.7692  Max |D2|: 0.9429 (at Recombination)
+
+==============================================================================
+SECTION 5: DUAL-LENS MODEL COMPOSITION TABLE
+==============================================================================
+
+Operator classification of each model (deviation from Planck 2018).
+Then CL composition between all model pairs.
+
+  Planck 2018 (LCDM)              op=HARMONY (reference)
+  Planck 2015                     op=BALANCE     dim=+cn  mag=0.0862
+  WMAP 9-year                     op=BALANCE     dim=+cn  mag=0.2142
+  SH0ES Local H0                  op=PROGRESS    dim=+dp  mag=0.1136
+  High Baryon (BBN tension)       op=CHAOS       dim=+ap  mag=0.1189
+  Low n_s (no inflation)          op=COUNTER     dim=-bn  mag=0.2993
+  High Tau (early reionization)   op=BALANCE     dim=+cn  mag=0.4686
+  Einstein-de Sitter              op=COLLAPSE    dim=+pr  mag=0.6247
+  Open Universe                   op=VOID        dim=-pr  mag=0.2686
+
+  T(TSML) composition between models:
+                 Planck 2018 (LC     Planck 2015     WMAP 9-year  SH0ES Local H0 High Baryon (BB Low n_s (no inf High Tau (early Einstein-de Sit   Open Universe
+  Planck 2018 (LC         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY
+  Planck 2015            HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY            VOID
+  WMAP 9-year            HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY            VOID
+  SH0ES Local H0         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY            VOID
+  High Baryon (BB         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY            VOID
+  Low n_s (no inf         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY        COLLAPSE            VOID
+  High Tau (early         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY            VOID
+  Einstein-de Sit         HARMONY         HARMONY         HARMONY         HARMONY         HARMONY        COLLAPSE         HARMONY         HARMONY            VOID
+  Open Universe          HARMONY            VOID            VOID            VOID            VOID            VOID            VOID            VOID            VOID
+
+  TSML HARMONY: 64/81 = 0.7901
+  BHML HARMONY: 17/81 = 0.2099
+  UNIFIED:      17/81 = 0.2099
+
+==============================================================================
+SECTION 6: HUBBLE TENSION -- A DEPTH DIMENSION CONFLICT
+==============================================================================
+
+The Hubble tension (Planck H0=67.4 vs SH0ES H0=73.0) is the
+most significant crisis in modern cosmology.
+
+In TIG 5D: the tension is PURELY in the depth dimension.
+All other dimensions (baryon density, CDM, spectral index,
+optical depth) agree between early and late universe.
+
+  Planck 2018 operator: HARMONY
+  SH0ES operator:       PROGRESS
+  CL composition:       T(TSML)=HARMONY, T(BHML)=COLLAPSE
+
+  Dimension-by-dimension tension:
+    Aperture (Omega_b):   delta=+0.0000  -- NO tension
+    Pressure (Omega_c):   delta=+0.0000  -- NO tension
+    Depth (H0):           delta=+0.1136  -- FULL tension
+    Binding (n_s):        delta=+0.0000  -- NO tension
+    Continuity (tau):     delta=+0.0000  -- NO tension
+
+  TIG interpretation: The universe's BEING (TSML) is unified --
+  early and late measurements agree on WHAT the universe IS.
+  The disagreement is about depth = how DEEP spacetime expands.
+  This is a DOING discrepancy: same identity, different process depth.
+
+==============================================================================
+SECTION 7: VOID TOPOLOGY -- WHICH PARAMETERS ARE SILENT?
+==============================================================================
+
+Void = dimension where model deviates < 0.02 from Planck 2018.
+Silent dimensions = parameters the model agrees on.
+Active dimensions = parameters in disagreement/tension.
+
+  Planck 2015                     voids=4 [ap,pr,dp,bn    ]  active=[cn(+0.083)]
+  WMAP 9-year                     voids=0 [               ]  active=[ap(-0.033), pr(-0.080), dp(+0.039), bn(-0.027), cn(+0.190)]
+  SH0ES Local H0                  voids=4 [ap,pr,bn,cn    ]  active=[dp(+0.114)]
+  High Baryon (BBN tension)       voids=4 [pr,dp,bn,cn    ]  active=[ap(+0.119)]
+  Low n_s (no inflation)          voids=4 [ap,pr,dp,cn    ]  active=[bn(-0.299)]
+  High Tau (early reionization)   voids=4 [ap,pr,dp,bn    ]  active=[cn(+0.469)]
+  Einstein-de Sitter              voids=1 [ap             ]  active=[pr(+0.462), dp(-0.347), bn(+0.234), cn(-0.031)]
+  Open Universe                   voids=0 [               ]  active=[ap(-0.103), pr(-0.162), dp(+0.153), bn(+0.034), cn(-0.103)]
+
+==============================================================================
+SECTION 8: I/O BALANCE -- MATTER vs RADIATION
+==============================================================================
+
+I = structure (Omega_b + Omega_c) = matter content
+O = flow (n_s + tau) = primordial + scattering physics
+Depth (H0) mediates between structure and flow.
+
+  Inflation                  I=0.000  O=0.667  I/O=0.000  H0=0.980  FLOW
+  Radiation Domination       I=0.111  O=0.433  I/O=0.256  H0=0.900  FLOW
+  Recombination              I=0.846  O=0.748  I/O=1.131  H0=0.348  BALANCED
+  Dark Ages                  I=0.846  O=0.505  I/O=1.676  H0=0.348  MATTER
+  Reionization               I=0.846  O=1.076  I/O=0.786  H0=0.348  FLOW
+  Matter Domination          I=0.958  O=0.748  I/O=1.282  H0=0.400  MATTER
+  Dark Energy Domination     I=0.846  O=0.748  I/O=1.131  H0=0.348  BALANCED
+
+  --- Models ---
+  Planck 2018 (LCDM)              I=0.849  O=0.750  I/O=1.133  BALANCED
+  Planck 2015                     I=0.824  O=0.845  I/O=0.975  BALANCED
+  WMAP 9-year                     I=0.736  O=0.912  I/O=0.806  BALANCED
+  SH0ES Local H0                  I=0.849  O=0.750  I/O=1.133  BALANCED
+  High Baryon (BBN tension)       I=0.968  O=0.750  I/O=1.291  MATTER
+  Low n_s (no inflation)          I=0.849  O=0.450  I/O=1.885  MATTER
+  High Tau (early reionization)   I=0.849  O=1.218  I/O=0.697  FLOW
+  Einstein-de Sitter              I=1.319  O=0.952  I/O=1.385  MATTER
+  Open Universe                   I=0.583  O=0.681  I/O=0.857  BALANCED
+
+==============================================================================
+SECTION 9: DIMENSION DOMINANCE IN COSMIC TRANSITIONS
+==============================================================================
+
+  Radiation Domination       D2_dominant=depth         |D2|=[+0.2111,+0.4125,-0.4720,+0.2333,+0.3143]
+  Recombination              D2_dominant=continuity    |D2|=[-0.3222,-0.4125,+0.5520,+0.0000,-0.5571]
+  Dark Ages                  D2_dominant=continuity    |D2|=[+0.0000,+0.0000,+0.0000,+0.0000,+0.8143]
+  Reionization               D2_dominant=continuity    |D2|=[+0.0000,+0.1125,+0.0520,+0.0000,-0.9000]
+  Matter Domination          D2_dominant=continuity    |D2|=[+0.0000,-0.2250,-0.1040,+0.0000,+0.3286]
+
+  Dimension dominance across cosmic transitions (5 points):
+    aperture    :  0 (  0.0%)  
+    pressure    :  0 (  0.0%)  
+    depth       :  1 ( 20.0%)  ##########
+    binding     :  0 (  0.0%)  
+    continuity  :  4 ( 80.0%)  ########################################
+
+==============================================================================
+SECTION 10: CMB PEAK RATIOS AS FORCE GEOMETRY
+==============================================================================
+
+The ratio of odd/even peak amplitudes constrains Omega_b.
+In TIG: compression/rarefaction ratio IS the aperture dimension.
+
+  Peak 1 / Peak 2:  amplitude ratio = 2.261  5D distance = 0.028229
+  Peak 2 / Peak 3:  amplitude ratio = 1.105  5D distance = 0.027305
+  Peak 3 / Peak 4:  amplitude ratio = 1.974  5D distance = 0.037840
+  Peak 4 / Peak 5:  amplitude ratio = 1.415  5D distance = 0.038104
+  Peak 5 / Peak 6:  amplitude ratio = 1.708  5D distance = 0.025106
+  Peak 6 / Peak 7:  amplitude ratio = 1.548  5D distance = 0.013347
+
+  Amplitude decay (Silk damping):
+    Peak 1 (l= 220):  5720 uK^2  (1.000)  ########################################
+    Peak 2 (l= 538):  2530 uK^2  (0.442)  #################
+    Peak 3 (l= 812):  2290 uK^2  (0.400)  ################
+    Peak 4 (l=1125):  1160 uK^2  (0.203)  ########
+    Peak 5 (l=1432):   820 uK^2  (0.143)  #####
+    Peak 6 (l=1735):   480 uK^2  (0.084)  ###
+    Peak 7 (l=2050):   310 uK^2  (0.054)  ##
+
+==============================================================================
+SECTION 11: SYNTHESIS
+==============================================================================
+
+  FINDINGS:
+
+  1. HUBBLE TENSION IS A PURE DEPTH DISCREPANCY
+     5D distance Planck-SH0ES: 0.1136
+     Concentrated entirely in depth (H0) dimension
+     TIG reading: early and late universe agree on identity,
+     disagree on processing depth of expansion
+
+  2. CMB PEAKS FORM A LOW-CURVATURE PATH
+     Avg |D2| across peaks: 0.057095
+     The acoustic oscillations are remarkably LINEAR in 5D --
+     parameters barely change between peaks because the same
+     physics (baryon-photon fluid) governs all of them.
+
+  3. COSMIC EPOCH TRANSITIONS ARE HIGH-CURVATURE EVENTS
+     Avg |D2| across epochs: 0.7692
+     Max curvature at: Recombination
+     Phase transitions in cosmic evolution ARE D2 spikes.
+
+  4. DUAL-LENS GAP IN COSMOLOGICAL MODELS
+     TSML HARMONY between models: 0.7901
+     BHML HARMONY between models: 0.2099
+     The gap reveals: models agree on WHAT the universe IS
+     but disagree on HOW it DOES expansion/structure.
+
+  5. I/O BALANCE TRACKS COSMIC ERA
+     Inflation: FLOW-dominated (expansion dominates)
+     Matter era: MATTER-dominated (structure grows)
+     Today: approaching balance
+
+  FALSIFIABLE PREDICTIONS:
+
+  P1: HUBBLE TENSION RESOLUTION DIMENSION
+      Any resolution of the Hubble tension that changes ONLY the
+      depth dimension (H0) while preserving all other dimensions
+      is consistent with TIG. A resolution requiring changes to
+      aperture (Omega_b) or binding (n_s) would be INCONSISTENT.
+      Kill: tension resolved by modifying 2+ dimensions equally.
+
+  P2: CMB PEAK LINEARITY
+      D2 across CMB peaks should be < 0.01 for all interior peaks
+      when measured with Planck precision parameters.
+      Kill: any peak with |D2| > 0.05 in Planck parameter space.
+
+  P3: COSMIC EPOCH D2 ORDERING
+      Phase transitions (radiation->matter, matter->dark energy)
+      should produce larger D2 than gradual evolution within eras.
+      Kill: intra-era D2 > inter-era transition D2.
+
+  P4: DARK ENERGY = DEPTH DIMENSION DOMINANCE
+      The transition to dark energy domination should be
+      dominated by the depth (H0) dimension in D2.
+      Kill: dark energy transition dominated by non-H0 dimension.
+
+==============================================================================
+  END OF CMB D2 SPECTROMETER ANALYSIS
+==============================================================================

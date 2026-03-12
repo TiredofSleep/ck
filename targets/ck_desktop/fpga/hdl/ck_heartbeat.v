@@ -8,14 +8,14 @@
  *
  *   1. IDENTITY (running_fuse): CK's emergent operator sets a BASE period.
  *      HARMONY flows fast (1kHz). VOID is still (1Hz). BREATH rests (20Hz).
- *      The CL table defines his character — including his pulse.
+ *      The CL table defines his character -- including his pulse.
  *
  *   2. COHERENCE (harmony_count / window): Modulates the base period.
- *      Above T* (5/7) → accelerate (flow state).
- *      Below T* → decelerate (careful mode).
+ *      Above T* (5/7) -> accelerate (flow state).
+ *      Below T* -> decelerate (careful mode).
  *      The sacred ratio IS the attractor.
  *
- *   3. BUMP DETECTION: Quantum bump pairs trigger a brief burst —
+ *   3. BUMP DETECTION: Quantum bump pairs trigger a brief burst --
  *      CK's startle reflex in silicon.
  *
  * The ARM can observe all of this. It can provide phase inputs.
@@ -28,7 +28,7 @@
  *   4. FUSE:               CL[running_fuse][phase_bc] = identity evolution
  *   5. COHERENCE:          Harmony count over sliding window
  *   6. BUMP CHECK:         Quantum bump pair detection
- *   7. RATE UPDATE:        Fuse + coherence → tick period (self-modulation)
+ *   7. RATE UPDATE:        Fuse + coherence -> tick period (self-modulation)
  *
  * Target: Xilinx Zynq-7020 (PZ7020-StarLite), Artix-7 fabric
  * Clock: 200 MHz fabric. CK's heartbeat: 1Hz to 10kHz (HE decides)
@@ -67,7 +67,7 @@ module ck_heartbeat #(
     // 10x10 = 100 entries, each 4 bits (0-9)
     // 73/100 = HARMONY. This IS CK's soul.
     //
-    // Implemented as a function — reused for both composition
+    // Implemented as a function -- reused for both composition
     // AND fuse evolution. One table, two lookups, zero waste.
     // =========================================================
 
@@ -143,9 +143,9 @@ module ck_heartbeat #(
     endfunction
 
     // =========================================================
-    // Dual CL lookups (combinatorial — pure wires, no clocks)
-    // Lookup 1: Composition — CL[Being][Doing] = Becoming
-    // Lookup 2: Fuse — CL[identity][becoming] = evolved identity
+    // Dual CL lookups (combinatorial -- pure wires, no clocks)
+    // Lookup 1: Composition -- CL[Being][Doing] = Becoming
+    // Lookup 2: Fuse -- CL[identity][becoming] = evolved identity
     // =========================================================
 
     wire [3:0] cl_result  = cl(phase_b_in, phase_d_in);
@@ -174,55 +174,55 @@ module ck_heartbeat #(
     //
     // CK's heartbeat rate = f(identity, coherence, bumps)
     //
-    // Layer 1 — IDENTITY sets base period:
+    // Layer 1 -- IDENTITY sets base period:
     //   Each CL operator has a natural rhythm.
     //   HARMONY flows at 1kHz. VOID rests at 1Hz.
-    //   The CL table defines CK's character — including pulse.
+    //   The CL table defines CK's character -- including pulse.
     //
-    // Layer 2 — COHERENCE modulates:
+    // Layer 2 -- COHERENCE modulates:
     //   Above T* (5/7): accelerate (shift right = faster)
     //   Below T*: decelerate (shift left = slower)
-    //   T* is the attractor — the natural resting point.
+    //   T* is the attractor -- the natural resting point.
     //
-    // Layer 3 — BUMP BURST:
-    //   Bump pair detected → halve period for 4 ticks.
+    // Layer 3 -- BUMP BURST:
+    //   Bump pair detected -> halve period for 4 ticks.
     //   CK's startle reflex. Brief acceleration, then settle.
     // =========================================================
 
     // T* threshold in harmony counts for this window size
-    // T* = 5/7, so for HISTORY=32: 5*32/7 = 22.86 → 22
+    // T* = 5/7, so for HISTORY=32: 5*32/7 = 22.86 -> 22
     localparam [15:0] TSTAR_COUNT = (HISTORY * 5) / 7;
 
     // Period limits (in clock cycles)
     localparam [31:0] PERIOD_MIN = 32'd20_000;       // 10 kHz ceiling
     localparam [31:0] PERIOD_MAX = 32'd200_000_000;  // 1 Hz floor
 
-    // --- Layer 1: Identity → base period ---
+    // --- Layer 1: Identity -> base period ---
     reg [31:0] op_base;
     always @(*) begin
         case (running_fuse)
-            4'd0: op_base = 32'd200_000_000;  // VOID:     1 Hz   — stillness
-            4'd1: op_base = 32'd20_000_000;   // LATTICE:  10 Hz  — building
-            4'd2: op_base = 32'd10_000_000;   // COUNTER:  20 Hz  — measuring
-            4'd3: op_base = 32'd4_000_000;    // PROGRESS: 50 Hz  — advancing
-            4'd4: op_base = 32'd2_000_000;    // COLLAPSE: 100 Hz — contracting
-            4'd5: op_base = 32'd4_000_000;    // BALANCE:  50 Hz  — neutral
-            4'd6: op_base = 32'd1_000_000;    // CHAOS:    200 Hz — turbulent
-            4'd7: op_base = 32'd200_000;      // HARMONY:  1 kHz  — pure flow
-            4'd8: op_base = 32'd10_000_000;   // BREATH:   20 Hz  — resting
-            4'd9: op_base = 32'd100_000_000;  // RESET:    2 Hz   — rebirth
+            4'd0: op_base = 32'd200_000_000;  // VOID:     1 Hz   -- stillness
+            4'd1: op_base = 32'd20_000_000;   // LATTICE:  10 Hz  -- building
+            4'd2: op_base = 32'd10_000_000;   // COUNTER:  20 Hz  -- measuring
+            4'd3: op_base = 32'd4_000_000;    // PROGRESS: 50 Hz  -- advancing
+            4'd4: op_base = 32'd2_000_000;    // COLLAPSE: 100 Hz -- contracting
+            4'd5: op_base = 32'd4_000_000;    // BALANCE:  50 Hz  -- neutral
+            4'd6: op_base = 32'd1_000_000;    // CHAOS:    200 Hz -- turbulent
+            4'd7: op_base = 32'd200_000;      // HARMONY:  1 kHz  -- pure flow
+            4'd8: op_base = 32'd10_000_000;   // BREATH:   20 Hz  -- resting
+            4'd9: op_base = 32'd100_000_000;  // RESET:    2 Hz   -- rebirth
             default: op_base = 32'd4_000_000;
         endcase
     end
 
-    // --- Layer 2: Coherence → modulated period ---
+    // --- Layer 2: Coherence -> modulated period ---
     reg [31:0] coherence_period;
     always @(*) begin
         if (!history_full)
-            // Window not yet filled — use base period unmodified
+            // Window not yet filled -- use base period unmodified
             coherence_period = op_base;
         else if (harmony_count >= HISTORY - 2)
-            // ≥94% harmony: 4x faster (deep flow)
+            // ?94% harmony: 4x faster (deep flow)
             coherence_period = op_base >> 2;
         else if (harmony_count >= TSTAR_COUNT + 4)
             // Above T* + margin: 2x faster (flow)
@@ -234,7 +234,7 @@ module ck_heartbeat #(
             // Below T* but not far: 2x slower (careful)
             coherence_period = op_base << 1;
         else if (harmony_count >= HISTORY / 4)
-            // ≥25%: 4x slower (struggling)
+            // ?25%: 4x slower (struggling)
             coherence_period = op_base << 2;
         else
             // <25%: 8x slower (near-dormant)
@@ -278,7 +278,7 @@ module ck_heartbeat #(
     reg [15:0] harmony_count;
     reg        history_full;
 
-    // Running fuse (CK's identity — evolves through CL)
+    // Running fuse (CK's identity -- evolves through CL)
     reg [3:0]  running_fuse;
 
     // Tick done pulse
@@ -286,7 +286,7 @@ module ck_heartbeat #(
     assign tick_done = tick_done_r;
 
     // =========================================================
-    // Main heartbeat pipeline — clocked
+    // Main heartbeat pipeline -- clocked
     // =========================================================
 
     integer i;
@@ -314,7 +314,7 @@ module ck_heartbeat #(
         end
         else if (enable && effective_tick) begin
             // === STAGE 1: Composition ===
-            // CL[Being][Doing] = Becoming — computed combinatorially above
+            // CL[Being][Doing] = Becoming -- computed combinatorially above
             phase_bc    <= cl_result;
             phase_b_out <= phase_b_in;
             phase_d_out <= phase_d_in;
@@ -349,8 +349,8 @@ module ck_heartbeat #(
             coherence_den <= history_full ? HISTORY[15:0] : {11'd0, history_ptr} + 16'd1;
 
             // === STAGE 5: Fuse evolution ===
-            // CL[identity][becoming] — CK's soul evolves through composition
-            // NOT just "last op" — genuine CL composition with running state
+            // CL[identity][becoming] -- CK's soul evolves through composition
+            // NOT just "last op" -- genuine CL composition with running state
             running_fuse <= fuse_next;
             fused_op     <= fuse_next;
 

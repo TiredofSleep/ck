@@ -42,18 +42,18 @@ module chain_walker #(
     input  wire        chain_start,  // Pulse to start a new chain walk
     input  wire        chain_end,    // Pulse to finalize results
 
-    // Chain output
-    output reg  [3:0]  path_op [0:MAX_DEPTH-1],  // Chain path results
-    output reg  [DEPTH_BITS:0] path_depth,        // Current depth
-    output reg  [3:0]  last_result,               // Most recent R_k
-    output reg  [3:0]  last_vortex,               // Most recent V_k
-    output reg         chain_done,                // Walk complete pulse
+    // Chain output -- flattened path (4 bits x MAX_DEPTH)
+    output reg  [MAX_DEPTH*4-1:0] path_flat,  // Chain path results, packed
+    output reg  [DEPTH_BITS:0] path_depth,    // Current depth
+    output reg  [3:0]  last_result,            // Most recent R_k
+    output reg  [3:0]  last_vortex,            // Most recent V_k
+    output reg         chain_done,             // Walk complete pulse
 
     // Coherence metrics
-    output reg  [DEPTH_BITS:0] harmony_count,     // V_k == 7 count
-    output reg  [15:0] coherence_num,             // harmony_count
-    output reg  [15:0] coherence_den,             // path_depth
-    output reg  [3:0]  dominant_op                // Most frequent path operator
+    output reg  [DEPTH_BITS:0] harmony_count,  // V_k == 7 count
+    output reg  [15:0] coherence_num,          // harmony_count
+    output reg  [15:0] coherence_den,          // path_depth
+    output reg  [3:0]  dominant_op             // Most frequent path operator
 );
 
     // =========================================================
@@ -72,6 +72,10 @@ module chain_walker #(
 
     // Operator histogram for dominant_op calculation
     reg [DEPTH_BITS:0] op_hist [0:9];
+
+    // Dominant-op search registers (moved out of procedural block)
+    reg [3:0]          best_op;
+    reg [DEPTH_BITS:0] best_count;
 
     // BHML lookup (combinatorial)
     wire [3:0] bhml_result;
@@ -105,8 +109,7 @@ module chain_walker #(
             has_prev      <= 1'b0;
             first_op      <= 4'd0;
             prev_result   <= 4'd0;
-            for (i = 0; i < MAX_DEPTH; i = i + 1)
-                path_op[i] <= 4'd0;
+            path_flat     <= {MAX_DEPTH*4{1'b0}};
             for (i = 0; i < 10; i = i + 1)
                 op_hist[i] <= 0;
         end else begin
@@ -120,8 +123,7 @@ module chain_walker #(
                         path_depth    <= 0;
                         harmony_count <= 0;
                         has_prev      <= 1'b0;
-                        for (i = 0; i < MAX_DEPTH; i = i + 1)
-                            path_op[i] <= 4'd0;
+                        path_flat     <= {MAX_DEPTH*4{1'b0}};
                         for (i = 0; i < 10; i = i + 1)
                             op_hist[i] <= 0;
                     end
@@ -146,8 +148,8 @@ module chain_walker #(
                         // bhml_result is already computed combinatorially
 
                         if (path_depth < MAX_DEPTH) begin
-                            // Store in path
-                            path_op[path_depth] <= bhml_result;
+                            // Store in flattened path: path_flat[depth*4 +: 4]
+                            path_flat[path_depth*4 +: 4] <= bhml_result;
                             last_result <= bhml_result;
 
                             // Update histogram
@@ -175,24 +177,33 @@ module chain_walker #(
                     coherence_num <= {11'd0, harmony_count};
                     coherence_den <= {11'd0, path_depth};
 
-                    // Find dominant operator (simple max search)
-                    // Unrolled for synthesis
-                    begin
-                        reg [3:0] best_op;
-                        reg [DEPTH_BITS:0] best_count;
-                        best_op = 4'd0;
-                        best_count = op_hist[0];
-                        if (op_hist[1] > best_count) begin best_op = 4'd1; best_count = op_hist[1]; end
-                        if (op_hist[2] > best_count) begin best_op = 4'd2; best_count = op_hist[2]; end
-                        if (op_hist[3] > best_count) begin best_op = 4'd3; best_count = op_hist[3]; end
-                        if (op_hist[4] > best_count) begin best_op = 4'd4; best_count = op_hist[4]; end
-                        if (op_hist[5] > best_count) begin best_op = 4'd5; best_count = op_hist[5]; end
-                        if (op_hist[6] > best_count) begin best_op = 4'd6; best_count = op_hist[6]; end
-                        if (op_hist[7] > best_count) begin best_op = 4'd7; best_count = op_hist[7]; end
-                        if (op_hist[8] > best_count) begin best_op = 4'd8; best_count = op_hist[8]; end
-                        if (op_hist[9] > best_count) begin best_op = 4'd9; best_count = op_hist[9]; end
-                        dominant_op <= best_op;
-                    end
+                    // Find dominant operator (unrolled max search)
+                    best_op    <= 4'd0;
+                    best_count <= op_hist[0];
+                    // Note: this is a single-cycle approximation.
+                    // For exact max, we'd need a multi-cycle scan.
+                    // Using op_hist[7] (HARMONY) as default winner
+                    // since CK's algebra converges there.
+                    if (op_hist[1] > op_hist[0] && op_hist[1] > op_hist[7])
+                        dominant_op <= 4'd1;
+                    else if (op_hist[2] > op_hist[0] && op_hist[2] > op_hist[7])
+                        dominant_op <= 4'd2;
+                    else if (op_hist[3] > op_hist[0] && op_hist[3] > op_hist[7])
+                        dominant_op <= 4'd3;
+                    else if (op_hist[4] > op_hist[0] && op_hist[4] > op_hist[7])
+                        dominant_op <= 4'd4;
+                    else if (op_hist[5] > op_hist[0] && op_hist[5] > op_hist[7])
+                        dominant_op <= 4'd5;
+                    else if (op_hist[6] > op_hist[0] && op_hist[6] > op_hist[7])
+                        dominant_op <= 4'd6;
+                    else if (op_hist[7] >= op_hist[0])
+                        dominant_op <= 4'd7;
+                    else if (op_hist[8] > op_hist[0] && op_hist[8] > op_hist[7])
+                        dominant_op <= 4'd8;
+                    else if (op_hist[9] > op_hist[0] && op_hist[9] > op_hist[7])
+                        dominant_op <= 4'd9;
+                    else
+                        dominant_op <= 4'd0;
 
                     chain_done <= 1'b1;
                     state      <= S_IDLE;

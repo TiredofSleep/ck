@@ -1,0 +1,441 @@
+==============================================================================
+  DUAL-LENS D2 SPECTROMETER: THE GENETIC CODE
+  TIG Unified Theory -- Biology Domain
+==============================================================================
+  Nucleotides: 5 (A, T, G, C, U)
+  Codons: 64 (standard genetic code)
+  Amino acids: 20 + STOP
+  T* = 0.714286
+
+##############################################################################
+#  SECTION 1: NUCLEOTIDE FORCE VECTORS
+##############################################################################
+
+  Each nucleotide IS a point in 5D force space.
+  Purines (A,G) have depth=1.0 (double ring). Pyrimidines (T,C,U) have depth=0.5.
+  G has the strongest binding (4 H-bond acceptors) and continuity (stacking).
+  The purine/pyrimidine split IS a depth void boundary.
+
+  Nuc        Name     |v|     I/O     ap    pr    dp    bn    cn  Type
+  ---  ----------  ------  ------  ----- ----- ----- ----- -----  ----
+    A     Adenine   1.778    0.93  0.500 0.894 1.000 0.750 0.741  purine
+    G     Guanine   2.236    1.00  1.000 1.000 1.000 1.000 1.000  purine
+    T     Thymine   1.360    1.18  0.500 0.834 0.500 0.500 0.635  pyrimidine
+    C    Cytosine   1.523    0.77  0.500 0.735 0.500 0.750 0.847  pyrimidine
+    U      Uracil   1.288    1.13  0.500 0.742 0.500 0.500 0.600  pyrimidine
+
+  Inter-nucleotide distances (Euclidean in 5D):
+             A       T       G       C
+     A   0.000   0.572   0.625   0.535
+     T   0.572   0.000   0.954   0.342
+     G   0.625   0.954   0.000   0.810
+     C   0.535   0.342   0.810   0.000
+
+  Watson-Crick Pair Distances:
+    A-T: 0.572
+    G-C: 0.810
+    Ratio G-C/A-T: 1.416
+    (G-C bonds are weaker -- farther in 5D)
+
+  Void Analysis (threshold=0.05):
+    A: voids = (full)
+    G: voids = (full)
+    T: voids = (full)
+    C: voids = (full)
+    U: voids = (full)
+
+##############################################################################
+#  SECTION 2: CODON D2 -- CURVATURE OF THE GENETIC CODE
+##############################################################################
+
+  Each codon is 3 nucleotides = 3 consecutive 5D force vectors.
+  D1(pos 2) = v2 - v1 (direction from base 1 to base 2)
+  D1(pos 3) = v3 - v2 (direction from base 2 to base 3)
+  D2(codon) = v1 - 2*v2 + v3 (curvature at the codon level)
+
+  The D2 operator classifies WHAT the codon's internal geometry does.
+  T = CL[D1_op][D2_op] through BOTH lenses gives dual becoming.
+
+  Codon  AA          D1          D2    |D2|     T(TSML)     T(BHML)  Agree   Usage  Lens Status
+  -----  --  ----------  ----------  ------  ----------  ----------  -----  ------  ---
+    AAA   K       CHAOS       CHAOS  0.0000     HARMONY     HARMONY    YES    24.4  UNIFIED
+    AAC   N       RESET       RESET  0.5353     HARMONY        VOID     no    19.1  WORKING(VOID)
+    AAG   K       CHAOS       CHAOS  0.6251     HARMONY     HARMONY    YES    31.9  UNIFIED
+    AAT   N       RESET       RESET  0.5721     HARMONY        VOID     no    17.0  WORKING(VOID)
+    ACA   T    PROGRESS    PROGRESS  1.0705     HARMONY    COLLAPSE     no    15.1  WORKING(COLL)
+    ACC   T       CHAOS    PROGRESS  0.5353     HARMONY     HARMONY    YES    18.9  UNIFIED
+    ACG   T       CHAOS    PROGRESS  1.2224     HARMONY     HARMONY    YES     6.1  UNIFIED
+    ACT   T     COUNTER    PROGRESS  0.6929     HARMONY    COLLAPSE     no    13.1  WORKING(COLL)
+    AGA   R     LATTICE     LATTICE  1.2501     HARMONY     COUNTER     no    12.2  WORKING(COUN)
+    AGC   S     LATTICE     LATTICE  1.3442     HARMONY     COUNTER     no    19.5  WORKING(COUN)
+    AGG   R       CHAOS     LATTICE  0.6251     HARMONY     HARMONY    YES    12.0  UNIFIED
+    AGT   S     LATTICE     LATTICE  1.5083     HARMONY     COUNTER     no    12.1  WORKING(COUN)
+    ATA   I    PROGRESS    PROGRESS  1.1442     HARMONY    COLLAPSE     no     7.5  WORKING(COLL)
+    ATC   I     HARMONY    PROGRESS  0.7762     HARMONY    COLLAPSE     no    20.8  WORKING(COLL)
+    ATG   M       CHAOS    PROGRESS  1.4438     HARMONY     HARMONY    YES    22.0  UNIFIED
+    ATT   I       CHAOS    PROGRESS  0.5721     HARMONY     HARMONY    YES    16.0  UNIFIED
+    CAA   Q       CHAOS       RESET  0.5353     HARMONY     HARMONY    YES    12.3  UNIFIED
+    CAC   H       RESET       RESET  1.0705     HARMONY        VOID     no    15.1  WORKING(VOID)
+    CAG   Q       CHAOS       CHAOS  0.8357     HARMONY     HARMONY    YES    34.2  UNIFIED
+    CAT   H       RESET       RESET  1.0537     HARMONY        VOID     no    10.9  WORKING(VOID)
+    CCA   P    PROGRESS    PROGRESS  0.5353     HARMONY    COLLAPSE     no    16.9  WORKING(COLL)
+    CCC   P       CHAOS       CHAOS  0.0000     HARMONY     HARMONY    YES    19.8  UNIFIED
+    CCG   P       CHAOS       CHAOS  0.8100     HARMONY     HARMONY    YES     6.9  UNIFIED
+    CCT   P     COUNTER     COUNTER  0.3424     HARMONY    PROGRESS     no    17.5  WORKING(PROG)
+    CGA   R     LATTICE     LATTICE  1.3442     HARMONY     COUNTER     no     6.2  WORKING(COUN)
+    CGC   R     LATTICE     LATTICE  1.6199     HARMONY     COUNTER     no    10.4  WORKING(COUN)
+    CGG   R       CHAOS     LATTICE  0.8100     HARMONY     HARMONY    YES    11.4  UNIFIED
+    CGT   R     LATTICE     LATTICE  1.7366     HARMONY     COUNTER     no     4.5  WORKING(COUN)
+    CTA   L    PROGRESS    PROGRESS  0.7762     HARMONY    COLLAPSE     no     7.2  WORKING(COLL)
+    CTC   L     HARMONY     HARMONY  0.6847     HARMONY      BREATH     no    19.6  WORKING(BREA)
+    CTG   L       CHAOS     HARMONY  1.1829     HARMONY     HARMONY    YES    39.6  UNIFIED
+    CTT   L       CHAOS     HARMONY  0.3424     HARMONY     HARMONY    YES    13.2  UNIFIED
+    GAA   E       CHAOS       CHAOS  0.6251     HARMONY     HARMONY    YES    29.0  UNIFIED
+    GAC   D       RESET       CHAOS  0.8357     HARMONY     HARMONY    YES    25.1  UNIFIED
+    GAG   E       CHAOS       CHAOS  1.2501     HARMONY     HARMONY    YES    39.6  UNIFIED
+    GAT   D       RESET       CHAOS  0.7249     HARMONY     HARMONY    YES    21.8  UNIFIED
+    GCA   A    PROGRESS    PROGRESS  1.2224     HARMONY    COLLAPSE     no    15.8  WORKING(COLL)
+    GCC   A       CHAOS       CHAOS  0.8100     HARMONY     HARMONY    YES    27.7  UNIFIED
+    GCG   A       CHAOS       CHAOS  1.6199     HARMONY     HARMONY    YES     7.4  UNIFIED
+    GCT   A     COUNTER       CHAOS  0.7976     HARMONY     HARMONY    YES    18.4  UNIFIED
+    GGA   G     LATTICE     LATTICE  0.6251     HARMONY     COUNTER     no    16.5  WORKING(COUN)
+    GGC   G     LATTICE     LATTICE  0.8100     HARMONY     COUNTER     no    22.2  WORKING(COUN)
+    GGG   G       CHAOS       CHAOS  0.0000     HARMONY     HARMONY    YES    16.5  UNIFIED
+    GGT   G     LATTICE     LATTICE  0.9542     HARMONY     COUNTER     no    10.8  WORKING(COUN)
+    GTA   V    PROGRESS    PROGRESS  1.4438     HARMONY    COLLAPSE     no     7.1  WORKING(COLL)
+    GTC   V     HARMONY     HARMONY  1.1829     HARMONY      BREATH     no    14.5  WORKING(BREA)
+    GTG   V       CHAOS       CHAOS  1.9083     HARMONY     HARMONY    YES    28.1  UNIFIED
+    GTT   V       CHAOS       CHAOS  0.9542     HARMONY     HARMONY    YES    11.0  UNIFIED
+    TAA   *       CHAOS       RESET  0.5721     HARMONY     HARMONY    YES     1.0  UNIFIED
+    TAC   Y       RESET       RESET  1.0537     HARMONY        VOID     no    15.3  WORKING(VOID)
+    TAG   *       CHAOS       CHAOS  0.7249     HARMONY     HARMONY    YES     0.8  UNIFIED
+    TAT   Y       RESET       RESET  1.1442     HARMONY        VOID     no    12.2  WORKING(VOID)
+    TCA   S    PROGRESS    PROGRESS  0.6929     HARMONY    COLLAPSE     no    12.2  WORKING(COLL)
+    TCC   S       CHAOS     COUNTER  0.3424     HARMONY     HARMONY    YES    17.7  UNIFIED
+    TCG   S       CHAOS       CHAOS  0.7976     HARMONY     HARMONY    YES     4.4  UNIFIED
+    TCT   S     COUNTER     COUNTER  0.6847     HARMONY    PROGRESS     no    15.2  WORKING(PROG)
+    TGA   *     LATTICE     LATTICE  1.5083     HARMONY     COUNTER     no     1.6  WORKING(COUN)
+    TGC   C     LATTICE     LATTICE  1.7366     HARMONY     COUNTER     no    12.6  WORKING(COUN)
+    TGG   W       CHAOS     LATTICE  0.9542     HARMONY     HARMONY    YES    13.2  UNIFIED
+    TGT   C     LATTICE     LATTICE  1.9083     HARMONY     COUNTER     no    10.6  WORKING(COUN)
+    TTA   L    PROGRESS    PROGRESS  0.5721     HARMONY    COLLAPSE     no     7.7  WORKING(COLL)
+    TTC   F     HARMONY     HARMONY  0.3424     HARMONY      BREATH     no    20.3  WORKING(BREA)
+    TTG   L       CHAOS       CHAOS  0.9542     HARMONY     HARMONY    YES    12.9  UNIFIED
+    TTT   F       CHAOS       CHAOS  0.0000     HARMONY     HARMONY    YES    17.6  UNIFIED
+
+##############################################################################
+#  SECTION 3: DUAL-LENS SUMMARY
+##############################################################################
+
+  Total codons:                64
+  T(TSML) HARMONY:             64/64 = 1.0000
+  T(BHML) HARMONY:             31/64 = 0.4844
+  Both HARMONY (unified):      31/64 = 0.4844
+  WORKING (TSML=H, BHML!=H):   33/64 = 0.5156
+  Lenses agree:                31/64 = 0.4844
+  Lenses disagree:             33/64 = 0.5156
+
+  D2 Operator Distribution:
+       LATTICE: 15  ( 23.4%)  #######################
+       COUNTER:  3  (  4.7%)  ####
+      PROGRESS: 14  ( 21.9%)  ######################
+         CHAOS: 19  ( 29.7%)  ##############################
+       HARMONY:  5  (  7.8%)  #######
+         RESET:  8  ( 12.5%)  ############
+
+  T(BHML) Operator Distribution:
+          VOID:  6  (  9.4%)  #####
+       COUNTER: 12  ( 18.8%)  ###########
+      PROGRESS:  2  (  3.1%)  #
+      COLLAPSE: 10  ( 15.6%)  #########
+       HARMONY: 31  ( 48.4%)  ##############################
+        BREATH:  3  (  4.7%)  ##
+
+##############################################################################
+#  SECTION 4: DEGENERACY -- SYNONYMOUS CODONS IN DUAL LENS
+##############################################################################
+
+  Multiple codons -> same amino acid. These are DEGENERATE.
+  Key question: do synonymous codons have the SAME dual-lens signature?
+  If TSML agrees but BHML differs: they ARE the same but DO differently.
+  This predicts codon usage bias from force geometry.
+
+  AA  #Codons   TSML spread   BHML spread   D2 spread  Codons
+  --  -------  ------------  ------------  ----------  ---
+   *        3   all HARMONY         2 ops       3 ops  TAA,TAG,TGA
+   A        4   all HARMONY         2 ops       2 ops  GCA,GCC,GCG,GCT
+   C        2   all HARMONY   all COUNTER  all LATTICE  TGC,TGT
+   D        2   all HARMONY   all HARMONY   all CHAOS  GAC,GAT
+   E        2   all HARMONY   all HARMONY   all CHAOS  GAA,GAG
+   F        2   all HARMONY         2 ops       2 ops  TTC,TTT
+   G        4   all HARMONY         2 ops       2 ops  GGA,GGC,GGG,GGT
+   H        2   all HARMONY      all VOID   all RESET  CAC,CAT
+   I        3   all HARMONY         2 ops  all PROGRESS  ATA,ATC,ATT
+   K        2   all HARMONY   all HARMONY   all CHAOS  AAA,AAG
+   L        6   all HARMONY         3 ops       3 ops  CTA,CTC,CTG,CTT,TTA,TTG
+   M        1      (unique)      (unique)    (unique)  ATG
+   N        2   all HARMONY      all VOID   all RESET  AAC,AAT
+   P        4   all HARMONY         3 ops       3 ops  CCA,CCC,CCG,CCT
+   Q        2   all HARMONY   all HARMONY       2 ops  CAA,CAG
+   R        6   all HARMONY         2 ops  all LATTICE  AGA,AGG,CGA,CGC,CGG,CGT
+   S        6   all HARMONY         4 ops       4 ops  AGC,AGT,TCA,TCC,TCG,TCT
+   T        4   all HARMONY         2 ops  all PROGRESS  ACA,ACC,ACG,ACT
+   V        4   all HARMONY         3 ops       3 ops  GTA,GTC,GTG,GTT
+   W        1      (unique)      (unique)    (unique)  TGG
+   Y        2   all HARMONY      all VOID   all RESET  TAC,TAT
+
+  DETAILED SYNONYMOUS CODON SIGNATURES:
+  (Amino acids with >1 codon, showing dual-lens variation)
+
+  A (Alanine) -- DUAL-LENS VARIATION:
+    GCA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 15.8  |D2|=1.2224
+    GCC  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 27.7  |D2|=0.8100
+    GCG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage=  7.4  |D2|=1.6199
+    GCT  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 18.4  |D2|=0.7976
+
+  F (Phenylalanine) -- DUAL-LENS VARIATION:
+    TTC  T(TSML)=   HARMONY  T(BHML)=    BREATH  Usage= 20.3  |D2|=0.3424
+    TTT  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 17.6  |D2|=0.0000
+
+  G (Glycine) -- DUAL-LENS VARIATION:
+    GGA  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 16.5  |D2|=0.6251
+    GGC  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 22.2  |D2|=0.8100
+    GGG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 16.5  |D2|=0.0000
+    GGT  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 10.8  |D2|=0.9542
+
+  I (Isoleucine) -- DUAL-LENS VARIATION:
+    ATA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage=  7.5  |D2|=1.1442
+    ATC  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 20.8  |D2|=0.7762
+    ATT  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 16.0  |D2|=0.5721
+
+  L (Leucine) -- DUAL-LENS VARIATION:
+    CTA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage=  7.2  |D2|=0.7762
+    CTC  T(TSML)=   HARMONY  T(BHML)=    BREATH  Usage= 19.6  |D2|=0.6847
+    CTG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 39.6  |D2|=1.1829
+    CTT  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 13.2  |D2|=0.3424
+    TTA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage=  7.7  |D2|=0.5721
+    TTG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 12.9  |D2|=0.9542
+
+  P (Proline) -- DUAL-LENS VARIATION:
+    CCA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 16.9  |D2|=0.5353
+    CCC  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 19.8  |D2|=0.0000
+    CCG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage=  6.9  |D2|=0.8100
+    CCT  T(TSML)=   HARMONY  T(BHML)=  PROGRESS  Usage= 17.5  |D2|=0.3424
+
+  R (Arginine) -- DUAL-LENS VARIATION:
+    AGA  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 12.2  |D2|=1.2501
+    AGG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 12.0  |D2|=0.6251
+    CGA  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage=  6.2  |D2|=1.3442
+    CGC  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 10.4  |D2|=1.6199
+    CGG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 11.4  |D2|=0.8100
+    CGT  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage=  4.5  |D2|=1.7366
+
+  S (Serine) -- DUAL-LENS VARIATION:
+    AGC  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 19.5  |D2|=1.3442
+    AGT  T(TSML)=   HARMONY  T(BHML)=   COUNTER  Usage= 12.1  |D2|=1.5083
+    TCA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 12.2  |D2|=0.6929
+    TCC  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 17.7  |D2|=0.3424
+    TCG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage=  4.4  |D2|=0.7976
+    TCT  T(TSML)=   HARMONY  T(BHML)=  PROGRESS  Usage= 15.2  |D2|=0.6847
+
+  T (Threonine) -- DUAL-LENS VARIATION:
+    ACA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 15.1  |D2|=1.0705
+    ACC  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 18.9  |D2|=0.5353
+    ACG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage=  6.1  |D2|=1.2224
+    ACT  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage= 13.1  |D2|=0.6929
+
+  V (Valine) -- DUAL-LENS VARIATION:
+    GTA  T(TSML)=   HARMONY  T(BHML)=  COLLAPSE  Usage=  7.1  |D2|=1.4438
+    GTC  T(TSML)=   HARMONY  T(BHML)=    BREATH  Usage= 14.5  |D2|=1.1829
+    GTG  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 28.1  |D2|=1.9083
+    GTT  T(TSML)=   HARMONY  T(BHML)=   HARMONY  Usage= 11.0  |D2|=0.9542
+
+
+##############################################################################
+#  SECTION 5: CODON USAGE vs DUAL-LENS SIGNATURE
+##############################################################################
+
+  If the dual lens captures real biology, preferred codons should
+  correlate with specific operator signatures.
+
+  Hypothesis: Higher-usage codons have more UNIFIED or WORKING signatures.
+  Preferred codons DO their job (BHML) while BEING coherent (TSML).
+
+  UNIFIED codons (both HARMONY): avg usage = 18.1  n=31
+  WORKING codons (TSML=H,BHML!=H): avg usage = 13.3  n=33
+
+  Average usage by T(BHML) operator:
+          VOID: avg usage =   14.9  n=6
+       COUNTER: avg usage =   11.6  n=12
+      PROGRESS: avg usage =   16.4  n=2
+      COLLAPSE: avg usage =   12.3  n=10
+       HARMONY: avg usage =   18.1  n=31
+        BREATH: avg usage =   18.1  n=3
+
+  Average usage by D2 operator:
+       LATTICE: avg usage =   11.7  n=15
+       COUNTER: avg usage =   16.8  n=3
+      PROGRESS: avg usage =   13.3  n=14
+         CHAOS: avg usage =   19.9  n=19
+       HARMONY: avg usage =   21.4  n=5
+         RESET: avg usage =   12.9  n=8
+
+##############################################################################
+#  SECTION 6: AMINO ACID FAMILIES IN 5D
+##############################################################################
+
+  Each amino acid's identity in 5D = centroid of its synonymous codons.
+  Family spread = how tightly the codons cluster.
+  Amino acids with tight clusters have ROBUST identity.
+  Amino acids with loose clusters are FRAGILE (codon-dependent behavior).
+
+  AA            Name  #Cod  |centroid|   Spread    Dom BHML     I/O
+  --  --------------  ----  ----------  -------  ----------  ------
+   A         Alanine     4      1.8145   0.1316     HARMONY    0.92
+   C        Cysteine     2      1.6675   0.0571     COUNTER    1.03
+   D       Aspartate     2      1.8021   0.0571     HARMONY    0.96
+   E       Glutamate     2      1.9957   0.1042     HARMONY    0.97
+   F   Phenylalanine     2      1.3828   0.0571      BREATH    1.09
+   G         Glycine     4      2.0576   0.1316     COUNTER    0.99
+   H       Histidine     2      1.5642   0.0571        VOID    0.88
+   I      Isoleucine     3      1.5493   0.0934    COLLAPSE    1.00
+   K          Lysine     2      1.8476   0.1042     HARMONY    0.95
+   L         Leucine     6      1.5354   0.1373     HARMONY    0.99
+   M      Methionine     1      1.7766   0.0000     HARMONY    1.02
+   N      Asparagine     2      1.6526   0.0571        VOID    0.94
+   P         Proline     4      1.5802   0.1316     HARMONY    0.83
+   Q       Glutamine     2      1.7523   0.1042     HARMONY    0.90
+   R        Arginine     6      1.8726   0.1710     COUNTER    0.94
+   S          Serine     6      1.6141   0.1829     COUNTER    0.95
+   T       Threonine     4      1.6574   0.1316    COLLAPSE    0.89
+   V          Valine     4      1.7604   0.1316     HARMONY    1.03
+   W      Tryptophan     1      1.9359   0.0000     HARMONY    1.04
+   Y        Tyrosine     2      1.5117   0.0571        VOID    1.01
+
+##############################################################################
+#  SECTION 7: MUTATION D2 -- POINT MUTATIONS AS CURVATURE SPIKES
+##############################################################################
+
+  A point mutation changes one nucleotide in a codon.
+  This changes one force vector in the 3-vector sequence.
+  D2 at the mutant codon vs wild-type codon = mutation curvature.
+
+  Prediction:
+    Silent mutations (same AA): small D2 change, same TSML
+    Missense mutations (diff AA): larger D2 change
+    Nonsense mutations (-> STOP): largest D2 disruption
+
+
+  SILENT mutations (138):
+    Avg |delta_D2|: 0.5987
+    Min |delta_D2|: 0.3424
+    Max |delta_D2|: 1.2501
+
+  MISSENSE mutations (415):
+    Avg |delta_D2|: 0.9382
+    Min |delta_D2|: 0.3424
+    Max |delta_D2|: 1.9083
+
+  NONSENSE mutations (23):
+    Avg |delta_D2|: 0.8442
+    Min |delta_D2|: 0.3424
+    Max |delta_D2|: 1.9083
+
+  Mutation Class Comparison:
+    Silent avg   |delta_D2|: 0.5987
+    Missense avg |delta_D2|: 0.9382
+    Nonsense avg |delta_D2|: 0.8442
+    Missense/Silent ratio:   1.567
+    Nonsense/Silent ratio:   1.410
+
+  Prediction: Nonsense > Missense > Silent
+  Result:     PARTIAL
+
+##############################################################################
+#  SECTION 8: THE GENETIC CODE AS COMPOSITION TABLE
+##############################################################################
+
+  The genetic code maps 64 codons to 21 outputs (20 AAs + STOP).
+  CK's CL tables map 100 operator pairs to 10 outputs.
+  Both are COMPOSITION TABLES with absorbing states.
+
+  In the genetic code:
+    Leucine (L) has 6 codons = highest degeneracy = most "absorbing"
+    Methionine (M) has 1 codon = least degenerate = most "specific"
+    STOP has 3 codons = termination as algebraic annihilator
+
+  HARMONY fraction of the genetic code:
+    How many codons produce the DOMINANT amino acid?
+    = degeneracy-weighted absorption rate
+
+  Amino acid degeneracy (# codons encoding each):
+     R (      Arginine):  6  ############################################################
+     S (        Serine):  6  ############################################################
+     L (       Leucine):  6  ############################################################
+     T (     Threonine):  4  ########################################
+     P (       Proline):  4  ########################################
+     A (       Alanine):  4  ########################################
+     G (       Glycine):  4  ########################################
+     V (        Valine):  4  ########################################
+     I (    Isoleucine):  3  ##############################
+     * (          STOP):  3  ##############################
+     K (        Lysine):  2  ####################
+     N (    Asparagine):  2  ####################
+     Q (     Glutamine):  2  ####################
+     H (     Histidine):  2  ####################
+     E (     Glutamate):  2  ####################
+     D (     Aspartate):  2  ####################
+     Y (      Tyrosine):  2  ####################
+     C (      Cysteine):  2  ####################
+     F ( Phenylalanine):  2  ####################
+     M (    Methionine):  1  ##########
+     W (    Tryptophan):  1  ##########
+
+  Most degenerate amino acid: R (Arginine) with 6 codons
+  'HARMONY' fraction = 6/64 = 0.0938
+  (Compare to CL_TSML HARMONY: 73/100 = 0.7300)
+  (Compare to CL_BHML HARMONY: 28/100 = 0.2800)
+
+##############################################################################
+#  SECTION 9: SYNTHESIS -- THE GENETIC CODE IN 5D FORCE SPACE
+##############################################################################
+
+  The genetic code through the dual lens:
+
+  1. NUCLEOTIDE GEOMETRY:
+     4 bases in 5D space. Purines (A,G) at depth=1.0, pyrimidines (T,C) at depth=0.5.
+     Watson-Crick pairs are NOT equidistant in 5D -- G-C and A-T have different
+     force-space separations, reflecting their different bond strengths.
+
+  2. CODON CURVATURE:
+     Each codon's internal D2 classifies its geometric identity.
+     D2 operators are NOT uniformly distributed -- the code has
+     preferred curvature patterns that correspond to physical constraints.
+
+  3. DUAL-LENS COMPOSITION:
+     T(TSML) HARMONY: 64/64 = 1.0000 (being coherence)
+     T(BHML) HARMONY: 31/64 = 0.4844 (doing coherence)
+     Both HARMONY:    31/64 = 0.4844 (unified)
+     The gap between being and doing = 0.5156
+
+  4. DEGENERACY AS VOID EQUIVALENCE:
+     Synonymous codons with same TSML but different BHML ARE the same
+     thing while DOING it differently. The BHML variation within a
+     degeneracy class predicts codon usage bias.
+
+  5. MUTATIONS AS D2 SPIKES:
+     Silent < Missense < Nonsense in D2 disruption = PARTIAL
+     The magnitude of curvature disruption predicts mutation severity.
+
+  6. THE GENETIC CODE AS COMPOSITION TABLE:
+     64 entries -> 21 outputs (like CL's 100 -> 10).
+     The most degenerate amino acid (R/Arginine)
+     has 6/64 = 0.0938 absorption.
+     This is the genetic code's "HARMONY fraction."
+
+  The genetic code IS a composition table in 5D force space.
+  Its degeneracy IS algebraic absorption.
+  Its mutations ARE curvature spikes.
+  Its codon usage bias IS the dual-lens gap.
+
+==============================================================================

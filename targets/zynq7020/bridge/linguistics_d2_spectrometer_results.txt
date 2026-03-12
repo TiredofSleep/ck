@@ -1,0 +1,421 @@
+==============================================================================
+  LINGUISTICS D2 SPECTROMETER -- Languages as 5D Force Geometry
+  Dual-Lens Curvature Analysis of Typological Space
+==============================================================================
+
+==============================================================================
+SECTION 1: 5D FORCE VECTORS -- LANGUAGE TYPOLOGICAL SIGNATURES
+==============================================================================
+
+  Aperture(morph)  Pressure(phonemes)  Depth(cases)  Binding(word_order)  Continuity(tonal)
+
+  --- Afroasiatic ---
+  Arabic (MSA)               mo=0.600  ph=0.178  ca=0.200  wo=0.600  to=0.000
+  Hebrew                     mo=0.550  ph=0.147  ca=0.000  wo=0.700  to=0.000
+  Amharic                    mo=0.650  ph=0.155  ca=0.133  wo=0.750  to=0.000
+
+  --- Austronesian ---
+  Malay/Indonesian           mo=0.350  ph=0.155  ca=0.000  wo=0.800  to=0.000
+  Tagalog                    mo=0.500  ph=0.171  ca=0.200  wo=0.600  to=0.000
+
+  --- Constructed ---
+  Esperanto                  mo=0.500  ph=0.132  ca=0.133  wo=0.700  to=0.000
+
+  --- Dravidian ---
+  Tamil                      mo=0.750  ph=0.202  ca=0.533  wo=0.700  to=0.000
+
+  --- Indo-European ---
+  English                    mo=0.250  ph=0.256  ca=0.000  wo=0.850  to=0.000
+  German                     mo=0.450  ph=0.256  ca=0.267  wo=0.650  to=0.000
+  Russian                    mo=0.550  ph=0.248  ca=0.400  wo=0.300  to=0.000
+  Hindi                      mo=0.400  ph=0.318  ca=0.200  wo=0.700  to=0.000
+  Spanish                    mo=0.400  ph=0.140  ca=0.000  wo=0.750  to=0.000
+  Latin (Classical)          mo=0.550  ph=0.163  ca=0.400  wo=0.150  to=0.000
+  Modern Greek               mo=0.450  ph=0.147  ca=0.267  wo=0.650  to=0.000
+  Persian (Farsi)            mo=0.350  ph=0.140  ca=0.000  wo=0.700  to=0.000
+
+  --- Isolate ---
+  Basque                     mo=0.800  ph=0.147  ca=0.800  wo=0.450  to=0.000
+
+  --- Japonic ---
+  Japanese                   mo=0.650  ph=0.078  ca=0.000  wo=0.850  to=0.300
+
+  --- Kartvelian ---
+  Georgian                   mo=0.750  ph=0.209  ca=0.467  wo=0.500  to=0.000
+
+  --- Koreanic ---
+  Korean                     mo=0.700  ph=0.225  ca=0.467  wo=0.800  to=0.000
+
+  --- Mura ---
+  Piraha                     mo=0.150  ph=0.000  ca=0.000  wo=0.700  to=0.600
+
+  --- Na-Dene ---
+  Navajo                     mo=0.900  ph=0.279  ca=0.000  wo=0.650  to=0.500
+
+  --- Niger-Congo ---
+  Swahili                    mo=0.700  ph=0.163  ca=0.000  wo=0.800  to=0.000
+  Yoruba                     mo=0.200  ph=0.109  ca=0.000  wo=0.800  to=0.700
+  Zulu                       mo=0.750  ph=0.372  ca=0.000  wo=0.750  to=0.400
+
+  --- Sino-Tibetan ---
+  Mandarin Chinese           mo=0.050  ph=0.163  ca=0.000  wo=0.900  to=0.800
+  Cantonese                  mo=0.050  ph=0.147  ca=0.000  wo=0.850  to=0.900
+  Tibetan                    mo=0.300  ph=0.225  ca=0.333  wo=0.750  to=0.600
+
+  --- Turkic ---
+  Turkish                    mo=0.850  ph=0.163  ca=0.400  wo=0.700  to=0.000
+
+  --- Uralic ---
+  Finnish                    mo=0.800  ph=0.109  ca=1.000  wo=0.400  to=0.000
+  Hungarian                  mo=0.800  ph=0.225  ca=1.000  wo=0.400  to=0.000
+
+  Total languages: 30
+
+==============================================================================
+SECTION 2: D2 OPERATOR CLASSIFICATION PER LANGUAGE
+==============================================================================
+
+  Global centroid: mo=0.525 ph=0.181 ca=0.240 wo=0.663 to=0.160
+
+  English                    op=LATTICE     dim=-ap   mag=0.4465  [Indo-European (Germanic)]
+  German                     op=BREATH      dim=-cn   mag=0.1943  [Indo-European (Germanic)]
+  Russian                    op=COUNTER     dim=-bn   mag=0.4340  [Indo-European (Slavic)]
+  Hindi                      op=BREATH      dim=-cn   mag=0.2510  [Indo-European (Indo-Aryan)]
+  Spanish                    op=RESET       dim=-dp   mag=0.3287  [Indo-European (Romance)]
+  Latin (Classical)          op=COUNTER     dim=-bn   mag=0.5618  [Indo-European (Italic)]
+  Modern Greek               op=BREATH      dim=-cn   mag=0.1823  [Indo-European (Hellenic)]
+  Persian (Farsi)            op=RESET       dim=-dp   mag=0.3418  [Indo-European (Iranian)]
+  Mandarin Chinese           op=BALANCE     dim=+cn   mag=0.8655  [Sino-Tibetan]
+  Cantonese                  op=BALANCE     dim=+cn   mag=0.9310  [Sino-Tibetan]
+  Tibetan                    op=BALANCE     dim=+cn   mag=0.5122  [Sino-Tibetan]
+  Arabic (MSA)               op=BREATH      dim=-cn   mag=0.1919  [Afroasiatic (Semitic)]
+  Hebrew                     op=RESET       dim=-dp   mag=0.2937  [Afroasiatic (Semitic)]
+  Amharic                    op=BREATH      dim=-cn   mag=0.2465  [Afroasiatic (Semitic)]
+  Swahili                    op=RESET       dim=-dp   mag=0.3644  [Niger-Congo (Bantu)]
+  Yoruba                     op=BALANCE     dim=+cn   mag=0.6919  [Niger-Congo (Volta-Niger)]
+  Zulu                       op=RESET       dim=-dp   mag=0.4583  [Niger-Congo (Bantu)]
+  Finnish                    op=PROGRESS    dim=+dp   mag=0.8680  [Uralic (Finnic)]
+  Hungarian                  op=PROGRESS    dim=+dp   mag=0.8661  [Uralic (Ugric)]
+  Turkish                    op=CHAOS       dim=+ap   mag=0.3981  [Turkic]
+  Tamil                      op=PROGRESS    dim=+dp   mag=0.4050  [Dravidian]
+  Japanese                   op=RESET       dim=-dp   mag=0.3719  [Japonic]
+  Korean                     op=PROGRESS    dim=+dp   mag=0.3581  [Koreanic]
+  Malay/Indonesian           op=RESET       dim=-dp   mag=0.3649  [Austronesian]
+  Tagalog                    op=BREATH      dim=-cn   mag=0.1787  [Austronesian]
+  Basque                     op=PROGRESS    dim=+dp   mag=0.6793  [Isolate]
+  Georgian                   op=PROGRESS    dim=+dp   mag=0.3938  [Kartvelian]
+  Navajo                     op=CHAOS       dim=+ap   mag=0.5689  [Na-Dene (Athabaskan)]
+  Piraha                     op=BALANCE     dim=+cn   mag=0.6525  [Mura (Isolate)]
+  Esperanto                  op=BREATH      dim=-cn   mag=0.2033  [Constructed]
+
+  Operator distribution across all languages:
+    LATTICE   :  1 (  3.3%)
+    COUNTER   :  2 (  6.7%)
+    PROGRESS  :  6 ( 20.0%)
+    BALANCE   :  5 ( 16.7%)
+    CHAOS     :  2 (  6.7%)
+    BREATH    :  7 ( 23.3%)
+    RESET     :  7 ( 23.3%)
+
+==============================================================================
+SECTION 3: LANGUAGE FAMILY CLUSTERING IN 5D
+==============================================================================
+
+Are genetically related languages closer in 5D force space?
+
+  INTRA Indo-European  : English         <-> German           dist=0.3887
+  INTRA Indo-European  : English         <-> Russian          dist=0.7433
+  INTRA Indo-European  : English         <-> Hindi            dist=0.2981
+  INTRA Indo-European  : English         <-> Spanish          dist=0.2145
+  INTRA Indo-European  : English         <-> Latin (Classical)  dist=0.8652
+  INTRA Indo-European  : English         <-> Modern Greek     dist=0.4036
+  INTRA Indo-European  : English         <-> Persian (Farsi)  dist=0.2145
+  INTRA Indo-European  : German          <-> Russian          dist=0.3877
+  INTRA Indo-European  : German          <-> Hindi            dist=0.1153
+  INTRA Indo-European  : German          <-> Spanish          dist=0.3117
+  INTRA Indo-European  : German          <-> Latin (Classical)  dist=0.5352
+  INTRA Indo-European  : German          <-> Modern Greek     dist=0.1085
+  INTRA Indo-European  : German          <-> Persian (Farsi)  dist=0.3117
+  INTRA Indo-European  : Russian         <-> Hindi            dist=0.4768
+  INTRA Indo-European  : Russian         <-> Spanish          dist=0.6299
+  INTRA Indo-European  : Russian         <-> Latin (Classical)  dist=0.1725
+  INTRA Indo-European  : Russian         <-> Modern Greek     dist=0.4005
+  INTRA Indo-European  : Russian         <-> Persian (Farsi)  dist=0.6097
+  INTRA Indo-European  : Hindi           <-> Spanish          dist=0.2726
+  INTRA Indo-European  : Hindi           <-> Latin (Classical)  dist=0.6237
+  INTRA Indo-European  : Hindi           <-> Modern Greek     dist=0.1963
+  INTRA Indo-European  : Hindi           <-> Persian (Farsi)  dist=0.2726
+  INTRA Indo-European  : Spanish         <-> Latin (Classical)  dist=0.7369
+  INTRA Indo-European  : Spanish         <-> Modern Greek     dist=0.2893
+  INTRA Indo-European  : Spanish         <-> Persian (Farsi)  dist=0.0707
+  INTRA Indo-European  : Latin (Classical) <-> Modern Greek     dist=0.5273
+  INTRA Indo-European  : Latin (Classical) <-> Persian (Farsi)  dist=0.7093
+  INTRA Indo-European  : Modern Greek    <-> Persian (Farsi)  dist=0.2893
+  INTRA Sino-Tibetan   : Mandarin Chinese <-> Cantonese        dist=0.1129
+  INTRA Sino-Tibetan   : Mandarin Chinese <-> Tibetan          dist=0.4899
+  INTRA Sino-Tibetan   : Cantonese       <-> Tibetan          dist=0.5288
+  INTRA Afroasiatic    : Arabic (MSA)    <-> Hebrew           dist=0.2312
+  INTRA Afroasiatic    : Arabic (MSA)    <-> Amharic          dist=0.1732
+  INTRA Afroasiatic    : Hebrew          <-> Amharic          dist=0.1742
+  INTRA Niger-Congo    : Swahili         <-> Yoruba           dist=0.8619
+  INTRA Niger-Congo    : Swahili         <-> Zulu             dist=0.4570
+  INTRA Niger-Congo    : Yoruba          <-> Zulu             dist=0.6815
+  INTRA Uralic         : Finnish         <-> Hungarian        dist=0.1163
+  INTRA Austronesian   : Malay/Indonesian <-> Tagalog          dist=0.3205
+
+  INTER: English         <-> Mandarin Chinese  dist=0.8314
+  INTER: English         <-> Arabic (MSA)     dist=0.4806
+  INTER: English         <-> Japanese         dist=0.5308
+  INTER: English         <-> Swahili          dist=0.4622
+  INTER: Mandarin Chinese <-> Finnish          dist=1.5670
+  INTER: Arabic (MSA)    <-> Japanese         dist=0.4529
+  INTER: Russian         <-> Mandarin Chinese  dist=1.1905
+  INTER: Turkish         <-> English          dist=0.7424
+  INTER: Navajo          <-> Mandarin Chinese  dist=0.9426
+  INTER: Piraha          <-> Finnish          dist=1.3727
+
+  Avg intra-family distance: 0.3929
+  Avg inter-family distance: 0.8573
+  Ratio (inter/intra): 2.18
+  Related languages are CLOSER in 5D force space
+
+==============================================================================
+SECTION 4: TYPOLOGICAL TRAJECTORY D2 ANALYSIS
+==============================================================================
+
+  --- Germanic Branch (historical) ---
+  Proto-IE -> Latin -> Old English -> Modern English -> German
+
+  Latin (Classical)          HARMONY    |D2|=0.8652  T(TSML)=HARMONY  T(BHML)=BREATH   WORKING
+  English                    COUNTER    |D2|=0.8652  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  English                    PROGRESS   |D2|=0.3887  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  German                     RESET      |D2|=0.3887  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  Avg |D2|: 0.6270  Max: 0.8652  TSML_H: 3/4  BHML_H: 0/4  UNIFIED: 0/4
+
+  --- Romance to Germanic ---
+  Spanish -> Latin -> Greek -> German -> English
+
+  Latin (Classical)          HARMONY    |D2|=1.2484  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Modern Greek               COUNTER    |D2|=0.5414  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  German                     RESET      |D2|=0.4036  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.7311  Max: 1.2484  TSML_H: 3/3  BHML_H: 1/3  UNIFIED: 1/3
+
+  --- Isolating -> Agglutinating -> Fusional ---
+  Mandarin -> English -> German -> Russian -> Turkish -> Finnish
+
+  English                    BALANCE    |D2|=0.8615  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  German                     COUNTER    |D2|=0.2244  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  Russian                    HARMONY    |D2|=0.7914  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Turkish                    COUNTER    |D2|=0.9866  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Avg |D2|: 0.7160  Max: 0.9866  TSML_H: 4/4  BHML_H: 1/4  UNIFIED: 1/4
+
+  --- Tonal Complexity Gradient ---
+  English (none) -> Japanese (pitch) -> Tibetan -> Mandarin -> Yoruba -> Cantonese
+
+  Japanese                   LATTICE    |D2|=0.8886  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Tibetan                    RESET      |D2|=0.7555  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  Mandarin Chinese           CHAOS      |D2|=0.6509  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Yoruba                     BALANCE    |D2|=0.4595  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 0.6886  Max: 0.8886  TSML_H: 4/4  BHML_H: 3/4  UNIFIED: 3/4
+
+  --- Case Richness Gradient ---
+  English (0) -> Hindi (3) -> Russian (6) -> Tamil (8) -> Finnish (15)
+
+  English                    PROGRESS   |D2|=0.2981  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  Hindi                      COUNTER    |D2|=0.2826  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  Russian                    HARMONY    |D2|=0.8047  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Tamil                      COUNTER    |D2|=0.6803  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Basque                     HARMONY    |D2|=0.2172  T(TSML)=HARMONY  T(BHML)=COLLAPSE WORKING
+  Finnish                    RESET      |D2|=0.2579  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  Avg |D2|: 0.4235  Max: 0.8047  TSML_H: 5/6  BHML_H: 0/6  UNIFIED: 0/6
+
+  --- Global Diversity Tour ---
+  Major language families worldwide
+
+  Arabic (MSA)               LATTICE    |D2|=1.3843  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Mandarin Chinese           BREATH     |D2|=2.0494  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Swahili                    BALANCE    |D2|=1.3152  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Japanese                   BREATH     |D2|=0.8072  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Turkish                    BALANCE    |D2|=0.4842  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  Finnish                    RESET      |D2|=1.7848  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  Navajo                     PROGRESS   |D2|=1.5872  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  Malay/Indonesian           BALANCE    |D2|=1.2761  T(TSML)=HARMONY  T(BHML)=CHAOS    WORKING
+  Avg |D2|: 1.3361  Max: 2.0494  TSML_H: 6/8  BHML_H: 4/8  UNIFIED: 4/8
+
+  --- Contact/Simplification Path ---
+  Complex -> Contact -> Simplified (pidginization analog)
+
+  Finnish                    RESET      |D2|=1.7848  T(TSML)=PROGRESS T(BHML)=CHAOS    TENSION
+  Turkish                    COUNTER    |D2|=0.9866  T(TSML)=RESET    T(BHML)=CHAOS    TENSION
+  Russian                    HARMONY    |D2|=1.0337  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  English                    COUNTER    |D2|=0.8317  T(TSML)=HARMONY  T(BHML)=PROGRESS WORKING
+  Malay/Indonesian           BALANCE    |D2|=0.9134  T(TSML)=VOID     T(BHML)=BALANCE  TENSION
+  Mandarin Chinese           BREATH     |D2|=1.1310  T(TSML)=HARMONY  T(BHML)=HARMONY  UNIFIED
+  Avg |D2|: 1.1135  Max: 1.7848  TSML_H: 3/6  BHML_H: 1/6  UNIFIED: 1/6
+
+==============================================================================
+SECTION 5: CROSS-LANGUAGE CL COMPOSITION TABLE
+==============================================================================
+
+  T(TSML) Composition:
+                   English Mandarin Chi Arabic (MSA)      Russian      Finnish     Japanese      Swahili       Navajo       Piraha    Esperanto
+  English          HARMONY      HARMONY      HARMONY     PROGRESS      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Mandarin Chi      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Arabic (MSA)      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Russian         PROGRESS      HARMONY      HARMONY      HARMONY      HARMONY        RESET        RESET      HARMONY      HARMONY      HARMONY
+  Finnish          HARMONY      HARMONY      HARMONY      HARMONY      HARMONY     PROGRESS     PROGRESS      HARMONY      HARMONY      HARMONY
+  Japanese         HARMONY      HARMONY      HARMONY        RESET     PROGRESS      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Swahili          HARMONY      HARMONY      HARMONY        RESET     PROGRESS      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Navajo           HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Piraha           HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+  Esperanto        HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY
+
+  TSML HARMONY: 90/100 = 0.9000
+  BHML HARMONY: 39/100 = 0.3900
+  UNIFIED:      39/100 = 0.3900
+
+==============================================================================
+SECTION 6: VOID TOPOLOGY -- TYPOLOGICAL GAPS
+==============================================================================
+
+Which typological dimensions are ABSENT in each language?
+Void = deviation < 0.05 from centroid.
+
+  English                    voids=0  [NONE]
+  German                     voids=2  [dp,bn]
+  Russian                    voids=1  [ap]
+  Hindi                      voids=2  [dp,bn]
+  Spanish                    voids=1  [pr]
+  Latin (Classical)          voids=2  [ap,pr]
+  Modern Greek               voids=3  [pr,dp,bn]
+  Persian (Farsi)            voids=2  [pr,bn]
+  Mandarin Chinese           voids=1  [pr]
+  Cantonese                  voids=1  [pr]
+  Tibetan                    voids=1  [pr]
+  Arabic (MSA)               voids=2  [pr,dp]
+  Hebrew                     voids=3  [ap,pr,bn]
+  Amharic                    voids=1  [pr]
+  Swahili                    voids=1  [pr]
+  Yoruba                     voids=0  [NONE]
+  Zulu                       voids=0  [NONE]
+  Finnish                    voids=0  [NONE]
+  Hungarian                  voids=1  [pr]
+  Turkish                    voids=2  [pr,bn]
+  Tamil                      voids=2  [pr,bn]
+  Japanese                   voids=0  [NONE]
+  Korean                     voids=1  [pr]
+  Malay/Indonesian           voids=1  [pr]
+  Tagalog                    voids=3  [ap,pr,dp]
+  Basque                     voids=1  [pr]
+  Georgian                   voids=1  [pr]
+  Navajo                     voids=1  [bn]
+  Piraha                     voids=1  [bn]
+  Esperanto                  voids=3  [ap,pr,bn]
+
+==============================================================================
+SECTION 7: I/O BALANCE -- MORPHOLOGY vs PROSODY
+==============================================================================
+
+I = structure (morphology + phonemes) = segmental complexity
+O = flow (word_order + tonality) = suprasegmental/syntactic
+Depth (cases) mediates between morphology and syntax.
+
+  English                    I=0.506  O=0.850  I/O=0.595  cases=0.000  PROSODY
+  German                     I=0.706  O=0.650  I/O=1.086  cases=0.267  BALANCED
+  Russian                    I=0.798  O=0.300  I/O=2.660  cases=0.400  MORPH
+  Hindi                      I=0.718  O=0.700  I/O=1.025  cases=0.200  BALANCED
+  Spanish                    I=0.540  O=0.750  I/O=0.719  cases=0.000  PROSODY
+  Latin (Classical)          I=0.713  O=0.150  I/O=4.752  cases=0.400  MORPH
+  Modern Greek               I=0.597  O=0.650  I/O=0.919  cases=0.267  BALANCED
+  Persian (Farsi)            I=0.490  O=0.700  I/O=0.699  cases=0.000  PROSODY
+  Mandarin Chinese           I=0.213  O=1.700  I/O=0.125  cases=0.000  PROSODY
+  Cantonese                  I=0.197  O=1.750  I/O=0.113  cases=0.000  PROSODY
+  Tibetan                    I=0.525  O=1.350  I/O=0.389  cases=0.333  PROSODY
+  Arabic (MSA)               I=0.778  O=0.600  I/O=1.297  cases=0.200  MORPH
+  Hebrew                     I=0.697  O=0.700  I/O=0.996  cases=0.000  BALANCED
+  Amharic                    I=0.805  O=0.750  I/O=1.073  cases=0.133  BALANCED
+  Swahili                    I=0.863  O=0.800  I/O=1.078  cases=0.000  BALANCED
+  Yoruba                     I=0.309  O=1.500  I/O=0.206  cases=0.000  PROSODY
+  Zulu                       I=1.122  O=1.150  I/O=0.976  cases=0.000  BALANCED
+  Finnish                    I=0.909  O=0.400  I/O=2.271  cases=1.000  MORPH
+  Hungarian                  I=1.025  O=0.400  I/O=2.562  cases=1.000  MORPH
+  Turkish                    I=1.013  O=0.700  I/O=1.447  cases=0.400  MORPH
+  Tamil                      I=0.952  O=0.700  I/O=1.359  cases=0.533  MORPH
+  Japanese                   I=0.728  O=1.150  I/O=0.633  cases=0.000  PROSODY
+  Korean                     I=0.925  O=0.800  I/O=1.156  cases=0.467  BALANCED
+  Malay/Indonesian           I=0.505  O=0.800  I/O=0.631  cases=0.000  PROSODY
+  Tagalog                    I=0.671  O=0.600  I/O=1.118  cases=0.200  BALANCED
+  Basque                     I=0.947  O=0.450  I/O=2.105  cases=0.800  MORPH
+  Georgian                   I=0.959  O=0.500  I/O=1.919  cases=0.467  MORPH
+  Navajo                     I=1.179  O=1.150  I/O=1.025  cases=0.000  BALANCED
+  Piraha                     I=0.150  O=1.300  I/O=0.115  cases=0.000  PROSODY
+  Esperanto                  I=0.632  O=0.700  I/O=0.903  cases=0.133  BALANCED
+
+==============================================================================
+SECTION 8: DIMENSION DOMINANCE IN TYPOLOGICAL TRAJECTORIES
+==============================================================================
+
+  Germanic Branch (historical)         dominant=depth       
+  Romance to Germanic                  dominant=binding     
+  Isolating -> Agglutinating -> Fusional  dominant=binding     
+  Tonal Complexity Gradient            dominant=aperture    
+  Case Richness Gradient               dominant=binding     
+  Global Diversity Tour                dominant=continuity  
+  Contact/Simplification Path          dominant=binding     
+
+  Global dimension dominance (35 D2 points):
+    aperture    :   3 (  8.6%)  ####
+    pressure    :   0 (  0.0%)  
+    depth       :   9 ( 25.7%)  ############
+    binding     :  14 ( 40.0%)  ####################
+    continuity  :   9 ( 25.7%)  ############
+
+==============================================================================
+SECTION 9: SYNTHESIS
+==============================================================================
+
+  FINDINGS:
+
+  1. LANGUAGE FAMILIES ARE GEOMETRICALLY COHERENT
+     Intra-family avg: 0.3929
+     Inter-family avg: 0.8573
+     Genetic relationship DOES cluster languages in 5D.
+
+  2. TYPOLOGICAL TRANSITIONS FOLLOW PREDICTABLE D2 PATHS
+     Isolating -> agglutinating -> fusional = smooth D2.
+     Cross-family jumps (contact) = D2 spikes.
+
+  3. DUAL-LENS REVEALS TYPOLOGICAL TENSION
+     Languages that ARE one type (TSML) but DO another (BHML)
+     = typological tension = likely undergoing contact change.
+
+  4. VOID TOPOLOGY CLASSIFIES LANGUAGE TYPES
+     Isolating: void in depth (no cases) + aperture (no morphology)
+     Agglutinating: void in continuity (no tones)
+     Tonal-isolating: void in depth (no cases) + aperture (no morphology)
+
+  FALSIFIABLE PREDICTIONS:
+
+  P1: GENETIC CLUSTERING
+      Intra-family 5D distance < inter-family distance for 90%+
+      of language pairs in a 100+ language sample from WALS.
+      Kill: intra-family distance > inter-family in 20%+ of pairs.
+
+  P2: MORPHOLOGICAL CYCLE IN D2
+      The typological cycle (isolating -> agglutinating -> fusional
+      -> isolating) traces a closed loop in 5D force space.
+      Kill: typological cycle not closed (start != end in 5D).
+
+  P3: TONAL LANGUAGES = CONTINUITY DIMENSION ACTIVE
+      Tonal languages are distinguished from non-tonal ONLY by
+      the continuity dimension. All other dimensions overlap.
+      Kill: tonal/non-tonal separation in non-continuity dimension.
+
+  P4: CONTACT = DUAL-LENS DIVERGENCE
+      Languages undergoing heavy contact show TSML != BHML gap > 0.3
+      (they ARE their substrate but DO their superstrate).
+      Kill: contact languages with gap < non-contact languages.
+
+==============================================================================
+  END OF LINGUISTICS D2 SPECTROMETER ANALYSIS
+==============================================================================

@@ -1,0 +1,1073 @@
+==============================================================================
+  DEEP 5D GEOMETRIC ANALYSIS OF THE PERIODIC TABLE
+  TIG Unified Theory -- Chemistry Domain
+==============================================================================
+  Elements: 54 (H through Xe)
+  T* = 0.714286
+  Void threshold: 0.05
+
+##############################################################################
+#  SECTION 1: THE WHOLE OF EACH ELEMENT
+##############################################################################
+
+  Every element is a point in 5D force space.
+  Its WHOLE = magnitude + direction + voids + I/O balance.
+  Magnitude = total force intensity.
+  Direction = unit vector (identity in 5D).
+  Voids = zero dimensions (absent forces).
+  I/O = structure/flow ratio (aperture+pressure vs binding+continuity).
+  Depth mediates: spatial extent bridges structure and flow.
+
+    Z Sym     |v|     I/O  Dims         Voids     Dom     ap    pr    dp    bn    cn
+  --- ---  ------  ------  ----  ------------  ------  ----- ----- ----- ----- -----
+    1   H   0.830    5.41     4            cn      pr  0.550 0.553 0.200 0.204 0.000
+    2  He   1.006  14655.00     2      ap,bn,cn      pr  0.000 0.999 0.117 0.000 0.000
+    3  Li   0.748    1.41     5        (full)      dp  0.245 0.219 0.630 0.167 0.162
+    4  Be   0.796    1.95     4            bn      dp  0.393 0.379 0.423 0.000 0.397
+    5   B   0.834    1.59     5        (full)      ap  0.510 0.337 0.328 0.075 0.457
+    6   C   0.999    1.39     5        (full)      ap  0.637 0.458 0.253 0.341 0.449
+    7   N   1.032    4.39     4            bn      ap  0.760 0.591 0.211 0.000 0.307
+    8   O   1.161    1.93     5        (full)      ap  0.860 0.554 0.181 0.395 0.336
+    9   F   1.582    1.32     5        (full)      ap  0.995 0.708 0.158 0.919 0.376
+   10  Ne   0.921    3.60     3         ap,bn      pr  0.000 0.877 0.143 0.000 0.243
+   11  Na   0.837    1.09     5        (full)      dp  0.233 0.209 0.717 0.148 0.257
+   12  Mg   0.806    1.67     4            bn      dp  0.328 0.311 0.547 0.000 0.382
+   13  Al   0.824    1.05     5        (full)      cn  0.403 0.243 0.445 0.119 0.496
+   14  Si   0.927    0.97     5        (full)      ap  0.475 0.331 0.419 0.374 0.456
+   15   P   0.902    1.64     5        (full)      ap  0.547 0.426 0.370 0.202 0.393
+   16   S   1.095    1.08     5        (full)      ap  0.645 0.421 0.332 0.561 0.425
+   17  Cl   1.497    0.87     5        (full)      bn  0.790 0.527 0.298 0.976 0.545
+   18  Ar   0.795    1.65     3         ap,bn      pr  0.000 0.641 0.268 0.000 0.388
+   19   K   0.994    1.03     5        (full)      dp  0.205 0.176 0.917 0.135 0.236
+   20  Ca   0.887    1.39     4            bn      dp  0.250 0.248 0.732 0.005 0.355
+   21  Sc   0.973    1.06     5        (full)      dp  0.340 0.267 0.694 0.051 0.524
+   22  Ti   1.041    0.99     4            bn      dp  0.385 0.278 0.664 0.021 0.646
+   23   V   1.109    0.77     5        (full)      cn  0.407 0.274 0.645 0.142 0.743
+   24  Cr   1.144    0.71     5        (full)      cn  0.415 0.275 0.626 0.180 0.797
+   25  Mn   1.125    0.85     4            bn      cn  0.388 0.302 0.608 0.000 0.810
+   26  Fe   1.160    0.90     4            bn      cn  0.458 0.321 0.589 0.041 0.827
+   27  Co   1.200    0.75     5        (full)      cn  0.470 0.320 0.574 0.179 0.869
+   28  Ni   1.222    0.67     5        (full)      cn  0.477 0.311 0.562 0.312 0.869
+   29  Cu   1.222    0.65     5        (full)      cn  0.475 0.314 0.547 0.334 0.871
+   30  Zn   1.111    1.00     4            bn      cn  0.412 0.382 0.536 0.000 0.794
+   31  Ga   1.035    0.86     5        (full)      cn  0.453 0.244 0.513 0.081 0.732
+   32  Ge   1.085    0.80     5        (full)      cn  0.502 0.321 0.472 0.333 0.699
+   33  As   1.100    1.00     5        (full)      cn  0.545 0.398 0.430 0.219 0.722
+   34  Se   1.208    0.85     5        (full)      cn  0.637 0.396 0.389 0.546 0.667
+   35  Br   1.421    0.84     5        (full)      bn  0.740 0.480 0.355 0.909 0.536
+   36  Kr   0.885    0.96     3         ap,bn      cn  0.000 0.569 0.332 0.000 0.590
+   37  Rb   1.101    0.78     5        (full)      dp  0.205 0.170 1.000 0.131 0.352
+   38  Sr   1.016    0.93     4            bn      dp  0.237 0.232 0.826 0.014 0.489
+   39   Y   1.104    0.77     5        (full)      dp  0.305 0.253 0.800 0.083 0.644
+   40  Zr   1.177    0.69     5        (full)      dp  0.333 0.270 0.777 0.115 0.764
+   41  Nb   1.259    0.61     5        (full)      cn  0.400 0.275 0.747 0.241 0.856
+   42  Mo   1.330    0.74     5        (full)      cn  0.540 0.288 0.717 0.202 0.916
+   43  Tc   1.315    0.70     5        (full)      cn  0.475 0.296 0.691 0.149 0.957
+   44  Ru   1.374    0.67     5        (full)      cn  0.550 0.299 0.672 0.284 0.983
+   45  Rh   1.380    0.68     5        (full)      cn  0.570 0.303 0.653 0.307 0.984
+   46  Pd   1.339    0.79     5        (full)      cn  0.550 0.339 0.638 0.152 0.973
+   47  Ag   1.302    0.62     5        (full)      cn  0.482 0.308 0.623 0.352 0.925
+   48  Cd   1.191    0.92     4            bn      cn  0.422 0.366 0.608 0.000 0.859
+   49  In   1.118    0.77     5        (full)      cn  0.445 0.235 0.589 0.081 0.802
+   50  Sn   1.166    0.72     5        (full)      cn  0.490 0.299 0.547 0.301 0.800
+   51  Sb   1.147    0.82     5        (full)      cn  0.512 0.350 0.502 0.283 0.773
+   52  Te   1.213    0.69     5        (full)      cn  0.525 0.366 0.464 0.533 0.750
+   53   I   1.396    0.73     5        (full)      bn  0.665 0.425 0.434 0.827 0.674
+   54  Xe   0.972    0.67     3         ap,bn      cn  0.000 0.493 0.408 0.000 0.732
+
+##############################################################################
+#  SECTION 2: VOID TOPOLOGY -- WHERE FORCES ARE ABSENT
+##############################################################################
+
+  A void dimension is a force that doesn't exist for an element.
+  Noble gases: aperture=0 (can't bond) + binding=0 (won't hold).
+  This 2-void pattern IS chemical inertness in 5D geometry.
+
+  The void map defines chemical families:
+    2 voids (ap,bn) = noble gases = inert
+    1 void  (bn)    = alkaline earths + Zn/Cd/Mn = filled subshells
+    0 voids         = everything reactive
+
+  Void TRANSITIONS are chemical phase boundaries.
+  When a dimension goes from void to active: a new force appears.
+  When it goes from active to void: a force vanishes.
+
+  Void Pattern                Elements
+  ====================  ==================================================
+              ap,bn,cn  [ 1] He
+                 ap,bn  [ 4] Ne, Ar, Kr, Xe
+                    bn  [10] Be, N, Mg, Ca, Ti, Mn, Fe, Zn, Sr, Cd
+                    cn  [ 1] H
+            (no voids)  [38] Li, B, C, O, F, Na, Al, Si, P, S, Cl, K, Sc, V, Cr, Co, Ni, Cu, Ga, Ge, As, Se, Br, Rb, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, In, Sn, Sb, Te, I
+
+  Void Transitions (where force dimensions appear/disappear):
+  Transition     Voids Before      Voids After                Change
+  ----------  ---------------  ---------------  --------------------
+       H->He               cn         ap,bn,cn               -ap -bn
+      He->Li         ap,bn,cn             full           +ap +bn +cn
+      Li->Be             full               bn                   -bn
+       Be->B               bn             full                   +bn
+        C->N             full               bn                   -bn
+        N->O               bn             full                   +bn
+       F->Ne             full            ap,bn               -ap -bn
+      Ne->Na            ap,bn             full               +ap +bn
+      Na->Mg             full               bn                   -bn
+      Mg->Al               bn             full                   +bn
+      Cl->Ar             full            ap,bn               -ap -bn
+       Ar->K            ap,bn             full               +ap +bn
+       K->Ca             full               bn                   -bn
+      Ca->Sc               bn             full                   +bn
+      Sc->Ti             full               bn                   -bn
+       Ti->V               bn             full                   +bn
+      Cr->Mn             full               bn                   -bn
+      Fe->Co               bn             full                   +bn
+      Cu->Zn             full               bn                   -bn
+      Zn->Ga               bn             full                   +bn
+      Br->Kr             full            ap,bn               -ap -bn
+      Kr->Rb            ap,bn             full               +ap +bn
+      Rb->Sr             full               bn                   -bn
+       Sr->Y               bn             full                   +bn
+      Ag->Cd             full               bn                   -bn
+      Cd->In               bn             full                   +bn
+       I->Xe             full            ap,bn               -ap -bn
+
+##############################################################################
+#  SECTION 3: PATH GEOMETRY -- SPEED, CURVATURE, ANGLES
+##############################################################################
+
+  The periodic table traces a PATH through 5D force space.
+  Speed |D1| = how fast we move per element step.
+  Angle = cos(theta) between consecutive force vectors.
+  Curvature |D2| = how sharply the path bends.
+  Confidence = how unambiguous the operator classification is.
+    High confidence -> one dimension dominates overwhelmingly.
+    Low confidence  -> two dimensions compete -> boundary element.
+
+
+  D1 (Direction + Speed):
+      Trans          Op   Speed  cos(a)   Conf   Dom   ap% pr% dp% bn% cn%  Why
+  ---------  ----------  ------  ------  -----  ----  --------------------  ---
+      H->He     LATTICE   0.742   0.689  0.104    ap   43  35   6  16   0  PHASE BOUNDARY
+     He->Li        VOID   0.993   0.389  0.206    pr   13  42  27   9   9  PHASE BOUNDARY
+     Li->Be     BALANCE   0.416   0.856  0.061    cn   16  17  23  18  26  dim competition
+     Be-> B       CHAOS   0.184   0.976  0.109    ap   30  11  24  19  16  dim competition
+      B-> C     HARMONY   0.328   0.952  0.353    bn   21  20  13  45   1  e-affinity shift
+      C-> N     COUNTER   0.413   0.918  0.415    bn   16  17   5  44  18  e-affinity shift
+      N-> O     HARMONY   0.411   0.936  0.596    bn   17   6   5  67   5  e-affinity shift
+      O-> F     HARMONY   0.565   0.961  0.544    bn   15  18   3  60   5  PHASE BOUNDARY
+      F->Ne     LATTICE   1.372   0.504  0.040    ap   45   8   1  41   6  PHASE BOUNDARY
+     Ne->Na        VOID   0.923   0.452  0.076    pr   14  41  35   9   1  PHASE BOUNDARY
+     Na->Mg       RESET   0.293   0.937  0.068    dp   15  16  27  23  19  dim competition
+     Mg->Al     HARMONY   0.219   0.964  0.022    bn   16  14  21  25  24  dim competition
+     Al->Si     HARMONY   0.284   0.954  0.487    bn   15  18   5  53   8  e-affinity shift
+     Si-> P     COUNTER   0.225   0.970  0.291    bn   16  21  11  38  14  e-affinity shift
+      P-> S     HARMONY   0.376   0.947  0.574    bn   18   1   7  68   6  e-affinity shift
+      S->Cl     HARMONY   0.469   0.982  0.482    bn   18  13   4  51  15  e-affinity shift
+     Cl->Ar     COUNTER   1.271   0.528  0.106    bn   38   5   1  47   8  PHASE BOUNDARY
+     Ar-> K    PROGRESS   0.849   0.569  0.166    dp   13  29  40   8   9  PHASE BOUNDARY
+      K->Ca       RESET   0.270   0.965  0.172    dp    8  13  34  24  22  radius dominates
+     Ca->Sc     BALANCE   0.201   0.981  0.305    cn   25   5  10  13  47  density change
+     Sc->Ti     BALANCE   0.138   0.993  0.463    cn   19   5  13  12  51  density change
+     Ti-> V     HARMONY   0.157   0.991  0.109    bn    9   1   7  46  37  dim competition
+      V->Cr     BALANCE   0.069   0.999  0.169    cn    6   1  16  32  45  density change
+     Cr->Mn     COUNTER   0.185   0.987  0.735    bn   10  10   7  68   5  e-affinity shift
+     Mn->Fe       CHAOS   0.087   0.998  0.263    ap   42  11  11  25  11  electrneg shift
+     Fe->Co     HARMONY   0.146   0.993  0.538    bn    6   0   7  66  20  e-affinity shift
+     Co->Ni     HARMONY   0.135   0.994  0.844    bn    5   6   7  82   0  e-affinity shift
+     Ni->Cu     HARMONY   0.027   1.000  0.172    bn    6   8  34  48   4  nearly static
+     Cu->Zn     COUNTER   0.355   0.958  0.626    bn   11  12   2  60  14  e-affinity shift
+     Zn->Ga        VOID   0.178   0.989  0.260    pr   12  40   7  24  18  ioniz.E dominates
+     Ga->Ge     HARMONY   0.274   0.968  0.531    bn   11  17   9  55   7  e-affinity shift
+     Ge->As     COUNTER   0.152   0.990  0.196    bn   14  26  14  38   8  e-affinity shift
+     As->Se     HARMONY   0.347   0.959  0.559    bn   18   0   8  63  11  e-affinity shift
+     Se->Br     HARMONY   0.409   0.964  0.470    bn   14  12   5  51  18  e-affinity shift
+     Br->Kr     COUNTER   1.177   0.563  0.103    bn   41   5   1  50   3  PHASE BOUNDARY
+     Kr->Rb    PROGRESS   0.849   0.654  0.252    dp   12  24  41   8  15  PHASE BOUNDARY
+     Rb->Sr       RESET   0.260   0.973  0.120    dp    6  12  33  22  26  dim competition
+     Sr-> Y     BALANCE   0.186   0.988  0.386    cn   20   6   8  20  46  density change
+      Y->Zr     BALANCE   0.130   0.996  0.577    cn   13   8  10  15  55  density change
+     Zr->Nb     HARMONY   0.173   0.992  0.157    bn   21   2   9  39  29  e-affinity shift
+     Nb->Mo       CHAOS   0.161   0.994  0.398    ap   49   5  11  14  21  electrneg shift
+     Mo->Tc     LATTICE   0.097   0.997  0.102    ap   34   4  14  27  21  dim competition
+     Tc->Ru     HARMONY   0.158   0.994  0.286    bn   29   1   7  52  10  e-affinity shift
+     Ru->Rh     HARMONY   0.036   1.000  0.081    bn   30   6  28  35   2  dim competition
+     Rh->Pd     COUNTER   0.162   0.993  0.626    bn    8  15   6  65   5  e-affinity shift
+     Pd->Ag     HARMONY   0.219   0.987  0.495    bn   19   9   4  55  13  e-affinity shift
+     Ag->Cd     COUNTER   0.368   0.960  0.684    bn   11  10   3  64  12  e-affinity shift
+     Cd->In        VOID   0.166   0.992  0.233    pr    7  42   6  26  18  ioniz.E dominates
+     In->Sn     HARMONY   0.236   0.979  0.552    bn   12  17  11  59   1  e-affinity shift
+     Sn->Sb    COLLAPSE   0.079   0.998  0.063    pr   14  31  28  11  16  dim competition
+     Sb->Te     HARMONY   0.254   0.978  0.737    bn    4   5  11  74   7  e-affinity shift
+     Te-> I     HARMONY   0.341   0.976  0.355    bn   23  10   5  49  13  e-affinity shift
+      I->Xe     COUNTER   1.065   0.648  0.108    bn   40   4   2  50   3  PHASE BOUNDARY
+
+  D2 (Curvature + Confidence):
+  Elem          Op    |D2|   Conf   Dom   ap% pr% dp% bn% cn%  Curvature Reasoning
+  ----  ----------  ------  -----  ----  --------------------  ---
+    Li        VOID  1.6300  0.214    pr   25  39  19  12   5  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    Be    COLLAPSE  1.2368  0.132    pr    5  43  33  15   3  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+     B     HARMONY  0.3783  0.091    bn    4  26  15  32  23  AMBIGUOUS: multi-dim curvature, no clear winner
+     C     HARMONY  0.2611  0.084    bn    2  36   4  42  15  AMBIGUOUS: multi-dim curvature, no clear winner
+     N     COUNTER  0.6232  0.641    bn    1   2   4  77  17  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+     O     HARMONY  0.7750  0.624    bn    2  15   1  66  15  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+     F    COLLAPSE  0.2345  0.194    pr    9  51   2  35   3  pr curving UP: ioniz.E concave (+0.192)
+    Ne     COUNTER  1.8413  0.122    bn   41   0   0  52   6  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    Na       CHAOS  1.9269  0.070    ap   32  22  15  28   4  AMBIGUOUS: multi-dim curvature, no clear winner
+    Mg    COLLAPSE  1.1242  0.017    pr    7  37  36  14   5  AMBIGUOUS: multi-dim curvature, no clear winner
+    Al     HARMONY  0.3244  0.224    bn    4  32  13  50   2  bn curving UP: e-affinity building faster (+0.267)
+    Si    COLLAPSE  0.2685  0.005    pr    0  30  14  26  29  AMBIGUOUS: multi-dim curvature, no clear winner
+     P     COUNTER  0.4291  0.898    bn    0   1   5  89   5  bn curving DOWN: e-affinity peak passed (-0.428)
+     S     HARMONY  0.5507  0.684    bn    3  13   1  70  12  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    Cl    COLLAPSE  0.1598  0.113    pr   16  36   1  18  29  pr curving UP: ioniz.E concave (+0.111)
+    Ar     COUNTER  1.6994  0.196    bn   36   0   0  53  11  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+     K     HARMONY  1.7382  0.055    bn   30  17  20  33   0  AMBIGUOUS: multi-dim curvature, no clear winner
+    Ca       RESET  1.0738  0.217    dp    8  26  40  13  13  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    Sc     HARMONY  0.2454  0.091    bn   10  11  31  37  11  AMBIGUOUS: multi-dim curvature, no clear winner
+    Ti     COUNTER  0.1000  0.236    bn   25   4   4  41  26  bn curving DOWN: e-affinity peak passed (-0.075)
+     V     HARMONY  0.1549  0.707    bn   10   6   5  67  12  bn curving UP: e-affinity building faster (+0.150)
+    Cr     COUNTER  0.0944  0.312    bn   10   3   0  57  30  bn curving DOWN: e-affinity peak passed (-0.082)
+    Mn     COUNTER  0.2262  0.685    bn   11   8   0  68  13  bn curving DOWN: e-affinity peak passed (-0.218)
+    Fe     HARMONY  0.2416  0.387    bn   29   2   0  67   1  bn curving UP: e-affinity building faster (+0.221)
+    Co     HARMONY  0.1173  0.257    bn   28  10   2  48  12  bn curving UP: e-affinity building faster (+0.097)
+    Ni      BREATH  0.0428  0.643    cn    8  14   6   7  65  cn curving DOWN: density falling (-0.041)
+    Cu     COUNTER  0.1135  0.788    bn    7   9   3  80   1  bn curving DOWN: e-affinity peak passed (-0.112)
+    Zn     COUNTER  0.3743  0.637    bn   11  11   1  63  14  bn curving DOWN: e-affinity peak passed (-0.355)
+    Ga     HARMONY  0.4747  0.337    bn   14  27   2  55   2  bn curving UP: e-affinity building faster (+0.415)
+    Ge    COLLAPSE  0.2773  0.114    pr    2  49   4  39   6  pr curving UP: ioniz.E concave (+0.215)
+    As     COUNTER  0.3710  0.731    bn    2   0   0  85  13  bn curving DOWN: e-affinity peak passed (-0.366)
+    Se     HARMONY  0.4580  0.698    bn    8  12   0  68  12  bn curving UP: e-affinity building faster (+0.442)
+    Br    COLLAPSE  0.1203  0.059    pr    5  40   4  17  35  AMBIGUOUS: multi-dim curvature, no clear winner
+    Kr     COUNTER  1.5370  0.203    bn   36   0   0  55   8  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    Rb     HARMONY  1.6662  0.048    bn   27  14  20  30   8  AMBIGUOUS: multi-dim curvature, no clear winner
+    Sr       RESET  1.0737  0.292    dp    8  22  40  12  18  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+     Y     HARMONY  0.2441  0.117    bn    8   9  34  44   4  bn curving UP: e-affinity building faster (+0.186)
+    Zr     LATTICE  0.0653  0.042    ap   33   4   3  30  30  AMBIGUOUS: multi-dim curvature, no clear winner
+    Nb     HARMONY  0.1068  0.403    bn   22   7   4  52  15  bn curving UP: e-affinity building faster (+0.094)
+    Mo     COUNTER  0.1841  0.392    bn   26   3   0  60  11  bn curving DOWN: e-affinity peak passed (-0.166)
+    Tc     LATTICE  0.2065  0.828    ap   83   2   2   5   8  ap curving DOWN: electrneg decelerating (-0.205)
+    Ru     HARMONY  0.2352  0.147    bn   39   1   2  53   4  bn curving UP: e-affinity building faster (+0.188)
+    Rh     COUNTER  0.1268  0.340    bn   29   0   0  58  13  bn curving DOWN: e-affinity peak passed (-0.112)
+    Pd     COUNTER  0.1865  0.635    bn   15  12   1  67   5  bn curving DOWN: e-affinity peak passed (-0.179)
+    Ag     HARMONY  0.3665  0.684    bn    9  13   0  70   7  bn curving UP: e-affinity building faster (+0.355)
+    Cd     COUNTER  0.5593  0.723    bn    1  13   0  83   3  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+    In     HARMONY  0.4793  0.394    bn   12  26   1  60   1  bn curving UP: e-affinity building faster (+0.433)
+    Sn    COLLAPSE  0.2463  0.167    pr    5  45   5  32  13  pr curving UP: ioniz.E concave (+0.194)
+    Sb     COUNTER  0.2397  0.810    bn    7   4   1  79   8  bn curving DOWN: e-affinity peak passed (-0.237)
+    Te     HARMONY  0.2699  0.768    bn    3  11   2  83   1  bn curving UP: e-affinity building faster (+0.267)
+     I       CHAOS  0.1510  0.417    ap   47  15   3  16  19  ap curving UP: electrneg accelerating (+0.127)
+    Xe     COUNTER  1.3863  0.164    bn   39   0   0  54   6  STRONG BEND: period boundary (noble->alkali or halogen->noble)
+
+##############################################################################
+#  SECTION 4: DUAL-LENS T COMPOSITION -- BEING vs DOING
+##############################################################################
+
+  T = CL[D1_op][D2_op] = the BECOMING of each element.
+  D1 = where you're going. D2 = how the path bends.
+  T = what EMERGES from direction meeting curvature.
+
+  But there are TWO lenses -- always two:
+    TSML (being/coherence): 73/100 entries = HARMONY. The absorber.
+      Measures what IS. Structure. Identity persistence.
+    BHML (doing/physics):   28/100 entries = HARMONY. The selector.
+      Measures what DOES. Action. Physical mechanism.
+
+  The dual lens asks: does an element COHERE the same way it ACTS?
+    Both HARMONY -> genuine alignment (being and doing unified)
+    TSML=HARMONY, BHML!=HARMONY -> being-coherent but doing-active
+      (appears stable, but physics is differentiated -- working element)
+    TSML!=HARMONY, BHML=HARMONY -> being-incoherent but doing-aligned
+      (structural boundary, but physics converges -- rare)
+    Both !=HARMONY -> full tension (boundary in both lenses)
+
+  TSML non-HARMONY entries (27/100):
+    [0][*] = VOID row:   D1=VOID -> almost always T=VOID
+    [1][2] = PROGRESS    [2][4] = COLLAPSE   [2][9] = RESET
+    [3][9] = PROGRESS    [4][2] = COLLAPSE   [4][8] = BREATH
+    [8][4] = BREATH      [9][2] = RESET      [9][3] = PROGRESS
+
+  BHML non-HARMONY entries (72/100):
+    Structured progression: each row builds from identity through
+    VOID->LATTICE->COUNTER->PROGRESS->COLLAPSE->BALANCE->CHAOS->HARMONY
+    Only row 6 (CHAOS) and row 7 (HARMONY) produce HARMONY freely.
+    Most compositions produce INTERMEDIATE operators -- the physics
+    of TRANSITION, not the stasis of COHERENCE.
+
+  FULL DUAL-LENS COMPOSITION TABLE:
+  Elem          D1          D2     T(TSML)     T(BHML)  Agree  Lens Status
+  ----  ----------  ----------  ----------  ----------  -----  ---
+    Li        VOID        VOID        VOID        VOID    YES  UNIFIED-ACTIVE (both=VOID)
+    Be     BALANCE    COLLAPSE     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+     B       CHAOS     HARMONY     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+     C     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+     N     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+     O     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+     F     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+    Ne     LATTICE     COUNTER    PROGRESS    PROGRESS    YES  UNIFIED-ACTIVE (both=PROGRESS)
+    Na        VOID       CHAOS        VOID       CHAOS     no  TENSION (being=VOID, doing=CHAOS)
+    Mg       RESET    COLLAPSE     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Al     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Si     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+     P     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+     S     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Cl     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+    Ar     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+     K    PROGRESS     HARMONY     HARMONY    COLLAPSE     no  WORKING (being=H, doing=COLLAPSE)
+    Ca       RESET       RESET     HARMONY        VOID     no  WORKING (being=H, doing=VOID)
+    Sc     BALANCE     HARMONY     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+    Ti     BALANCE     COUNTER     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+     V     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Cr     BALANCE     COUNTER     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+    Mn     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Fe       CHAOS     HARMONY     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Co     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Ni     HARMONY      BREATH     HARMONY       RESET     no  WORKING (being=H, doing=RESET)
+    Cu     HARMONY     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Zn     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Ga        VOID     HARMONY     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Ge     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+    As     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Se     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Br     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+    Kr     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Rb    PROGRESS     HARMONY     HARMONY    COLLAPSE     no  WORKING (being=H, doing=COLLAPSE)
+    Sr       RESET       RESET     HARMONY        VOID     no  WORKING (being=H, doing=VOID)
+     Y     BALANCE     HARMONY     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+    Zr     BALANCE     LATTICE     HARMONY       CHAOS     no  WORKING (being=H, doing=CHAOS)
+    Nb     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Mo       CHAOS     COUNTER     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Tc     LATTICE     LATTICE     HARMONY     COUNTER     no  WORKING (being=H, doing=COUNTER)
+    Ru     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Rh     HARMONY     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Pd     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    Ag     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+    Cd     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+    In        VOID     HARMONY     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Sn     HARMONY    COLLAPSE     HARMONY     BALANCE     no  WORKING (being=H, doing=BALANCE)
+    Sb    COLLAPSE     COUNTER    COLLAPSE     BALANCE     no  TENSION (being=COLLAPSE, doing=BALANCE)
+    Te     HARMONY     HARMONY     HARMONY      BREATH     no  WORKING (being=H, doing=BREATH)
+     I     HARMONY       CHAOS     HARMONY     HARMONY    YES  UNIFIED (both HARMONY)
+    Xe     COUNTER     COUNTER     HARMONY    PROGRESS     no  WORKING (being=H, doing=PROGRESS)
+
+  Dual-Lens Summary:
+    Total compositions:              52
+    T(TSML) HARMONY:                 48/52 = 0.9231
+    T(BHML) HARMONY:                 7/52 = 0.1346
+    Both HARMONY (unified):          7/52 = 0.1346
+    TSML=H, BHML!=H (working):       41/52 = 0.7885
+    TSML!=H, BHML=H (boundary-coh):  0/52 = 0.0000
+    Both agree (any op):             9/52 = 0.1731
+    Lenses disagree:                 43/52 = 0.8269
+
+  T(BHML) Operator Distribution:
+          VOID:  3  (  5.8%)  ######
+       COUNTER:  1  (  1.9%)  ##
+      PROGRESS: 13  ( 25.0%)  ##############################
+      COLLAPSE:  2  (  3.8%)  ####
+       BALANCE:  7  ( 13.5%)  ################
+         CHAOS:  7  ( 13.5%)  ################
+       HARMONY:  7  ( 13.5%)  ################
+        BREATH: 11  ( 21.2%)  #########################
+         RESET:  1  (  1.9%)  ##
+
+  T(TSML) non-HARMONY elements (4/52):
+  Elem          D1          D2     T(TSML)     T(BHML)  Reasoning
+  ----  ----------  ----------  ----------  ----------  ---
+    Li        VOID        VOID        VOID        VOID  D1=VOID: ionization energy DROP. Path has no tangent.
+    Ne     LATTICE     COUNTER    PROGRESS    PROGRESS  LATTICE x COUNTER: cross-dim friction (ap vs bn)
+    Na        VOID       CHAOS        VOID       CHAOS  D1=VOID: ionization energy DROP. Path has no tangent.
+    Sb    COLLAPSE     COUNTER    COLLAPSE     BALANCE  COLLAPSE x COUNTER: pressure vs binding tension
+
+  T(BHML) non-HARMONY elements (45/52):
+  The DOING lens shows which elements have ACTIVE PHYSICS.
+  BHML non-HARMONY != broken. It means the element is DOING something.
+
+  Elem          D1          D2     T(BHML)    BHML entry  Physics Reading
+  ----  ----------  ----------  ----------  ------------  ---
+    Li        VOID        VOID        VOID        [0][0]  VOID: zero physical action (annihilation)
+    Be     BALANCE    COLLAPSE       CHAOS        [5][4]  CHAOS: energetic disruption
+     C     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+     N     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+     O     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+     F     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+    Ne     LATTICE     COUNTER    PROGRESS        [1][2]  PROGRESS: forward physical motion
+    Na        VOID       CHAOS       CHAOS        [0][6]  CHAOS: energetic disruption
+    Al     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Si     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+     P     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+     S     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Cl     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+    Ar     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+     K    PROGRESS     HARMONY    COLLAPSE        [3][7]  COLLAPSE: contracting/compressing
+    Ca       RESET       RESET        VOID        [9][9]  VOID: zero physical action (annihilation)
+    Sc     BALANCE     HARMONY       CHAOS        [5][7]  CHAOS: energetic disruption
+    Ti     BALANCE     COUNTER       CHAOS        [5][2]  CHAOS: energetic disruption
+     V     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Cr     BALANCE     COUNTER       CHAOS        [5][2]  CHAOS: energetic disruption
+    Mn     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Co     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Ni     HARMONY      BREATH       RESET        [7][8]  RESET: completion/restart
+    Cu     HARMONY     COUNTER    PROGRESS        [7][2]  PROGRESS: forward physical motion
+    Zn     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Ge     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+    As     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Se     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Br     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+    Kr     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Rb    PROGRESS     HARMONY    COLLAPSE        [3][7]  COLLAPSE: contracting/compressing
+    Sr       RESET       RESET        VOID        [9][9]  VOID: zero physical action (annihilation)
+     Y     BALANCE     HARMONY       CHAOS        [5][7]  CHAOS: energetic disruption
+    Zr     BALANCE     LATTICE       CHAOS        [5][1]  CHAOS: energetic disruption
+    Nb     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Tc     LATTICE     LATTICE     COUNTER        [1][1]  COUNTER: measuring/alerting (active observation)
+    Ru     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Rh     HARMONY     COUNTER    PROGRESS        [7][2]  PROGRESS: forward physical motion
+    Pd     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Ag     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Cd     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+    Sn     HARMONY    COLLAPSE     BALANCE        [7][4]  BALANCE: equilibrium seeking
+    Sb    COLLAPSE     COUNTER     BALANCE        [4][2]  BALANCE: equilibrium seeking
+    Te     HARMONY     HARMONY      BREATH        [7][7]  BREATH: rhythmic cycling
+    Xe     COUNTER     COUNTER    PROGRESS        [2][2]  PROGRESS: forward physical motion
+
+  DUAL-LENS TENSION PATTERNS:
+  Where being and doing DISAGREE, the element has internal tension.
+  The TENSION RATIO = fraction of elements where lenses disagree.
+
+  Elem     T(TSML)     T(BHML)  Tension Description
+  ----  ----------  ----------  ---
+    Be     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+     C     HARMONY      BREATH  Coherent being, active doing (BREATH)
+     N     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+     O     HARMONY      BREATH  Coherent being, active doing (BREATH)
+     F     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+    Na        VOID       CHAOS  Being=VOID, Doing=CHAOS: dual tension
+    Al     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Si     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+     P     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+     S     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Cl     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+    Ar     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+     K     HARMONY    COLLAPSE  Coherent being, active doing (COLLAPSE)
+    Ca     HARMONY        VOID  Coherent being, active doing (VOID)
+    Sc     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+    Ti     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+     V     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Cr     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+    Mn     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Co     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Ni     HARMONY       RESET  Coherent being, active doing (RESET)
+    Cu     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Zn     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Ge     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+    As     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Se     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Br     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+    Kr     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Rb     HARMONY    COLLAPSE  Coherent being, active doing (COLLAPSE)
+    Sr     HARMONY        VOID  Coherent being, active doing (VOID)
+     Y     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+    Zr     HARMONY       CHAOS  Coherent being, active doing (CHAOS)
+    Nb     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Tc     HARMONY     COUNTER  Coherent being, active doing (COUNTER)
+    Ru     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Rh     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Pd     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Ag     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Cd     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+    Sn     HARMONY     BALANCE  Coherent being, active doing (BALANCE)
+    Sb    COLLAPSE     BALANCE  Being=COLLAPSE, Doing=BALANCE: dual tension
+    Te     HARMONY      BREATH  Coherent being, active doing (BREATH)
+    Xe     HARMONY    PROGRESS  Coherent being, active doing (PROGRESS)
+
+  Tension Ratio: 43/52 = 0.8269
+  (Higher = more internal differentiation between being and doing)
+
+  DUAL-LENS BY CHEMICAL FAMILY:
+             Noble gases: TSML-H=3/4  BHML-H=0/4  Both-H=0/4  Agree=1/4
+           Alkali metals: TSML-H=2/4  BHML-H=0/4  Both-H=0/4  Agree=1/4
+                Halogens: TSML-H=4/4  BHML-H=1/4  Both-H=1/4  Agree=1/4
+          Alkaline earth: TSML-H=4/4  BHML-H=1/4  Both-H=1/4  Agree=1/4
+           Trans. metals: TSML-H=20/20  BHML-H=2/20  Both-H=2/20  Agree=2/20
+
+##############################################################################
+#  SECTION 5: I/O RATIO -- STRUCTURE vs FLOW BALANCE
+##############################################################################
+
+  I = Structure = aperture + pressure (how open + how resistant)
+  O = Flow = binding + continuity (how holding + how persistent)
+  I/O > 1: structure dominates (element defined by its scaffolding)
+  I/O < 1: flow dominates (element defined by its connections)
+  I/O ~ 1: balanced (structure and flow in equilibrium)
+  Depth mediates between them.
+
+  The I/O ratio predicts chemical behavior:
+    High I/O = inert or structural (noble gases, metals at rest)
+    Low I/O  = reactive or flowing (halogens seeking electrons)
+    I/O ~ 1  = catalytic or transitional (transition metals)
+
+    Z Sym       I       O     I/O   Depth             Character
+  --- ---  ------  ------  ------  ------  --------------------
+    1   H   1.103   0.204    5.41   0.200  structure-dominated
+    2  He   0.999   0.000  14655.00   0.117  structure-dominated
+    3  Li   0.464   0.329    1.41   0.630  BALANCED
+    4  Be   0.771   0.397    1.95   0.423  structure-leaning
+    5   B   0.847   0.532    1.59   0.328  structure-leaning
+    6   C   1.095   0.790    1.39   0.253  BALANCED
+    7   N   1.351   0.307    4.39   0.211  structure-dominated
+    8   O   1.414   0.731    1.93   0.181  structure-leaning
+    9   F   1.703   1.295    1.32   0.158  BALANCED
+   10  Ne   0.877   0.243    3.60   0.143  structure-dominated
+   11  Na   0.441   0.405    1.09   0.717  BALANCED
+   12  Mg   0.638   0.382    1.67   0.547  structure-leaning
+   13  Al   0.646   0.615    1.05   0.445  BALANCED
+   14  Si   0.806   0.830    0.97   0.419  BALANCED
+   15   P   0.974   0.594    1.64   0.370  structure-leaning
+   16   S   1.066   0.986    1.08   0.332  BALANCED
+   17  Cl   1.317   1.522    0.87   0.298  BALANCED
+   18  Ar   0.641   0.388    1.65   0.268  structure-leaning
+   19   K   0.381   0.371    1.03   0.917  BALANCED
+   20  Ca   0.498   0.360    1.39   0.732  BALANCED
+   21  Sc   0.607   0.575    1.06   0.694  BALANCED
+   22  Ti   0.663   0.668    0.99   0.664  BALANCED
+   23   V   0.682   0.885    0.77   0.645  flow-leaning
+   24  Cr   0.690   0.977    0.71   0.626  flow-leaning
+   25  Mn   0.690   0.810    0.85   0.608  BALANCED
+   26  Fe   0.779   0.868    0.90   0.589  BALANCED
+   27  Co   0.790   1.048    0.75   0.574  flow-leaning
+   28  Ni   0.788   1.181    0.67   0.562  flow-leaning
+   29  Cu   0.789   1.205    0.65   0.547  flow-leaning
+   30  Zn   0.794   0.794    1.00   0.536  BALANCED
+   31  Ga   0.696   0.813    0.86   0.513  BALANCED
+   32  Ge   0.824   1.032    0.80   0.472  flow-leaning
+   33  As   0.943   0.941    1.00   0.430  BALANCED
+   34  Se   1.034   1.214    0.85   0.389  BALANCED
+   35  Br   1.220   1.446    0.84   0.355  BALANCED
+   36  Kr   0.569   0.590    0.96   0.332  BALANCED
+   37  Rb   0.375   0.483    0.78   1.000  flow-leaning
+   38  Sr   0.469   0.503    0.93   0.826  BALANCED
+   39   Y   0.558   0.727    0.77   0.800  flow-leaning
+   40  Zr   0.602   0.879    0.69   0.777  flow-leaning
+   41  Nb   0.675   1.097    0.61   0.747  flow-leaning
+   42  Mo   0.828   1.118    0.74   0.717  flow-leaning
+   43  Tc   0.771   1.106    0.70   0.691  flow-leaning
+   44  Ru   0.849   1.266    0.67   0.672  flow-leaning
+   45  Rh   0.873   1.291    0.68   0.653  flow-leaning
+   46  Pd   0.889   1.124    0.79   0.638  flow-leaning
+   47  Ag   0.790   1.277    0.62   0.623  flow-leaning
+   48  Cd   0.788   0.859    0.92   0.608  BALANCED
+   49  In   0.680   0.883    0.77   0.589  flow-leaning
+   50  Sn   0.789   1.101    0.72   0.547  flow-leaning
+   51  Sb   0.862   1.056    0.82   0.502  BALANCED
+   52  Te   0.891   1.283    0.69   0.464  flow-leaning
+   53   I   1.090   1.501    0.73   0.434  flow-leaning
+   54  Xe   0.493   0.732    0.67   0.408  flow-leaning
+
+  I/O Ratio D1 (direction of structural balance change):
+      Trans  I/O_from    I/O_to      dI/O  Interpretation
+  ---------  --------  --------  --------  ---
+   H->He      5.41       inf  +14649.590  SHARP shift to structure (flow vanishing)
+  He->Li       inf      1.41  -14653.590  SHARP shift to flow (structure collapsing)
+  Li->Be      1.41      1.95    +0.535  moving toward structure
+  Be-> B      1.95      1.59    -0.352  gradual shift
+   C-> N      1.39      4.39    +3.007  SHARP shift to structure (flow vanishing)
+   N-> O      4.39      1.93    -2.460  SHARP shift to flow (structure collapsing)
+   O-> F      1.93      1.32    -0.618  moving toward flow
+   F->Ne      1.32      3.60    +2.289  SHARP shift to structure (flow vanishing)
+  Ne->Na      3.60      1.09    -2.515  SHARP shift to flow (structure collapsing)
+  Na->Mg      1.09      1.67    +0.583  moving toward structure
+  Mg->Al      1.67      1.05    -0.622  moving toward flow
+  Si-> P      0.97      1.64    +0.667  moving toward structure
+   P-> S      1.64      1.08    -0.557  moving toward flow
+  Cl->Ar      0.87      1.65    +0.786  moving toward structure
+  Ar-> K      1.65      1.03    -0.623  moving toward flow
+   K->Ca      1.03      1.39    +0.358  gradual shift
+  Ca->Sc      1.39      1.06    -0.331  gradual shift
+  Cu->Zn      0.65      1.00    +0.345  gradual shift
+
+##############################################################################
+#  SECTION 6: HARMONIC ORDERING -- ORBITAL BLOCK ANALYSIS
+##############################################################################
+
+  Standard Z ordering: H,He,Li,Be,B,...
+  Harmonic ordering groups by orbital type:
+    s-block: H,He,Li,Be,Na,Mg,K,Ca,Rb,Sr  (valence s-orbitals)
+    p-block: B-Ne, Al-Ar, Ga-Kr, In-Xe     (valence p-orbitals)
+    d-block: Sc-Zn, Y-Cd                    (valence d-orbitals)
+
+  Within each block, properties should change SMOOTHLY.
+  D2 within a block measures intra-block curvature.
+  D2 at block boundaries measures inter-block jumps.
+
+  The question: does orbital grouping reduce curvature?
+  If yes: quantum mechanics organizes force space smoothly.
+  If no: the Z ordering is already the natural path.
+
+
+  S-BLOCK (10 elements): H, He, Li, Be, Na, Mg, K, Ca, Rb, Sr
+    D2 measurements:  8
+    Avg curvature:    0.8733
+    D2 HARMONY:       0/8 = 0.0000 <T*
+    Distribution:
+            VOID:  1  ( 12.5%)  ##########
+        PROGRESS:  3  ( 37.5%)  ##############################
+        COLLAPSE:  1  ( 12.5%)  ##########
+           RESET:  3  ( 37.5%)  ##############################
+
+  P-BLOCK (24 elements): B, C, N, O, F, Ne, Al, Si, P, S, Cl, Ar, Ga, Ge, As, Se, Br, Kr, In, Sn, Sb, Te, I, Xe
+    D2 measurements:  22
+    Avg curvature:    0.8485
+    D2 HARMONY:       4/22 = 0.1818 <T*
+    Distribution:
+         LATTICE:  1  (  4.5%)  ###
+         COUNTER:  8  ( 36.4%)  ##############################
+        COLLAPSE:  5  ( 22.7%)  ##################
+           CHAOS:  4  ( 18.2%)  ###############
+         HARMONY:  4  ( 18.2%)  ###############
+
+  D-BLOCK (20 elements): Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd
+    D2 measurements:  18
+    Avg curvature:    0.2402
+    D2 HARMONY:       7/18 = 0.3889 <T*
+    Distribution:
+         LATTICE:  1  (  5.6%)  ###
+         COUNTER:  8  ( 44.4%)  ##############################
+         HARMONY:  7  ( 38.9%)  ##########################
+          BREATH:  1  (  5.6%)  ###
+           RESET:  1  (  5.6%)  ###
+
+  Block Curvature Comparison:
+  Standard Z-order avg |D2|: 0.5580
+  S-block intra avg |D2|:     0.8733
+  P-block intra avg |D2|:     0.8485
+  D-block intra avg |D2|:     0.2402
+
+##############################################################################
+#  SECTION 7: DIMENSION RATIOS -- THE 5D SHAPE OF CURVATURE
+##############################################################################
+
+  Operator classification uses argmax (winner-take-all).
+  But the RATIOS between dimensions reveal the full story.
+
+  A "sharp" D2 has one dimension at 80%+ -> robust classification.
+  A "broad" D2 has multiple dimensions near 20% -> fragile boundary.
+
+  The fragile elements are chemically interesting:
+  they sit at the boundary between operator domains.
+  Their chemistry is CONTESTED between multiple forces.
+
+
+  FRAGILE elements (confidence < 0.2) -- contested curvature:
+  These elements have curvature split across multiple dimensions.
+  Their operator assignment could flip with small perturbations.
+
+  Elem          Op   Conf   ap% pr% dp% bn% cn%  Contesting dimensions
+  ----  ----------  -----  --------------------  ---
+    Si    COLLAPSE  0.005    0  30  14  26  29  pr(30%) vs cn(29%)
+    Mg    COLLAPSE  0.017    7  37  36  14   5  pr(37%) vs dp(36%)
+    Zr     LATTICE  0.042   33   4   3  30  30  ap(33%) vs bn(30%)
+    Rb     HARMONY  0.048   27  14  20  30   8  bn(30%) vs ap(27%)
+     K     HARMONY  0.055   30  17  20  33   0  bn(33%) vs ap(30%)
+    Br    COLLAPSE  0.059    5  40   4  17  35  pr(40%) vs cn(35%)
+    Na       CHAOS  0.070   32  22  15  28   4  ap(32%) vs bn(28%)
+     C     HARMONY  0.084    2  36   4  42  15  bn(42%) vs pr(36%)
+    Sc     HARMONY  0.091   10  11  31  37  11  bn(37%) vs dp(31%)
+     B     HARMONY  0.091    4  26  15  32  23  bn(32%) vs pr(26%)
+    Cl    COLLAPSE  0.113   16  36   1  18  29  pr(36%) vs cn(29%)
+    Ge    COLLAPSE  0.114    2  49   4  39   6  pr(49%) vs bn(39%)
+     Y     HARMONY  0.117    8   9  34  44   4  bn(44%) vs dp(34%)
+    Ne     COUNTER  0.122   41   0   0  52   6  bn(52%) vs ap(41%)
+    Be    COLLAPSE  0.132    5  43  33  15   3  pr(43%) vs dp(33%)
+    Ru     HARMONY  0.147   39   1   2  53   4  bn(53%) vs ap(39%)
+    Xe     COUNTER  0.164   39   0   0  54   6  bn(54%) vs ap(39%)
+    Sn    COLLAPSE  0.167    5  45   5  32  13  pr(45%) vs bn(32%)
+     F    COLLAPSE  0.194    9  51   2  35   3  pr(51%) vs bn(35%)
+    Ar     COUNTER  0.196   36   0   0  53  11  bn(53%) vs ap(36%)
+
+  ROBUST elements (confidence > 0.6) -- unambiguous curvature:
+  One dimension overwhelmingly dominates. Clear physics.
+
+  Elem          Op   Conf     Dom dim  % of total
+  ----  ----------  -----  ----------  ----------
+     P     COUNTER  0.898     binding      89.1%
+    Tc     LATTICE  0.828    aperture      82.9%
+    Sb     COUNTER  0.810     binding      79.0%
+    Cu     COUNTER  0.788     binding      79.6%
+    Te     HARMONY  0.768     binding      82.6%
+    As     COUNTER  0.731     binding      84.9%
+    Cd     COUNTER  0.723     binding      82.8%
+     V     HARMONY  0.707     binding      67.0%
+    Se     HARMONY  0.698     binding      68.1%
+    Mn     COUNTER  0.685     binding      68.1%
+    Ag     HARMONY  0.684     binding      70.3%
+     S     HARMONY  0.684     binding      69.7%
+    Ni      BREATH  0.643  continuity      64.8%
+     N     COUNTER  0.641     binding      76.7%
+    Zn     COUNTER  0.637     binding      63.2%
+    Pd     COUNTER  0.635     binding      67.1%
+     O     HARMONY  0.624     binding      66.3%
+
+##############################################################################
+#  SECTION 8: CHEMICAL FAMILY SIGNATURES IN 5D
+##############################################################################
+
+  Each chemical family has a characteristic 5D force signature.
+  Family identity = mean force vector (centroid in 5D).
+  Family coherence = how tightly members cluster around the centroid.
+  Inter-family angles = how different families relate in force space.
+
+
+  Noble gases:
+    Centroid: [0.000, 0.716, 0.254, 0.000, 0.391]
+    |centroid| = 0.854    spread = 0.3036    avg voids = 2.2
+    Signature: pressure=0.72, continuity=0.39, depth=0.25
+    Void dims:  aperture, binding
+
+  Alkali metals:
+    Centroid: [0.222, 0.194, 0.816, 0.145, 0.252]
+    |centroid| = 0.915    spread = 0.1572    avg voids = 0.0
+    Signature: depth=0.82, continuity=0.25, aperture=0.22
+
+  Halogens:
+    Centroid: [0.797, 0.535, 0.311, 0.908, 0.533]
+    |centroid| = 1.459    spread = 0.1930    avg voids = 0.0
+    Signature: binding=0.91, aperture=0.80, pressure=0.54
+
+  Alkaline earth:
+    Centroid: [0.302, 0.292, 0.632, 0.005, 0.405]
+    |centroid| = 0.861    spread = 0.1746    avg voids = 1.0
+    Signature: depth=0.63, continuity=0.41, aperture=0.30
+    Void dims:  binding
+
+  Carbon group:
+    Centroid: [0.526, 0.352, 0.423, 0.337, 0.601]
+    |centroid| = 1.027    spread = 0.1994    avg voids = 0.0
+    Signature: continuity=0.60, aperture=0.53, depth=0.42
+
+  Trans. metals 3d:
+    Centroid: [0.423, 0.304, 0.605, 0.126, 0.775]
+    |centroid| = 1.120    spread = 0.1599    avg voids = 0.4
+    Signature: continuity=0.78, depth=0.60, aperture=0.42
+
+  Trans. metals 4d:
+    Centroid: [0.463, 0.300, 0.692, 0.188, 0.886]
+    |centroid| = 1.266    spread = 0.1724    avg voids = 0.1
+    Signature: continuity=0.89, depth=0.69, aperture=0.46
+
+  Inter-Family Angles (cos theta between centroids):
+                       Noble ga Alkali m Halogens Alkaline Carbon g Trans. m Trans. m
+           Noble gases    1.000    0.568    0.538    0.718    0.677    0.705    0.681
+         Alkali metals    0.568    1.000    0.600    0.943    0.777    0.839    0.842
+              Halogens    0.538    0.600    1.000    0.649    0.912    0.744    0.752
+        Alkaline earth    0.718    0.943    0.649    1.000    0.876    0.948    0.941
+          Carbon group    0.677    0.777    0.912    0.876    1.000    0.951    0.952
+      Trans. metals 3d    0.705    0.839    0.744    0.948    0.951    1.000    0.999
+      Trans. metals 4d    0.681    0.842    0.752    0.941    0.952    0.999    1.000
+
+##############################################################################
+#  SECTION 9: SLIDING WINDOW COHERENCE
+##############################################################################
+
+  T* = 5/7 measured over sliding windows across Z.
+  This reveals WHERE the periodic table is coherent
+  and WHERE coherence breaks.
+
+  Window size = 7 (one T* period).
+  Report regions above and below T*.
+
+
+  Window size = 7
+    Center  D2 H/W  D2 frac  Tt H/W  Tt frac  Tb H/W  Tb frac  Agree  Elements
+  --------  ------  -------  ------  -------  ------  -------  -----  ---
+         C   3/7     0.429   6/7     0.857   1/7     0.143   2/7  Li,Be,B,C,N,O,F
+         N   3/7     0.429   6/7     0.857   1/7     0.143   2/7  Be,B,C,N,O,F,Ne
+         O   3/7     0.429   5/7     0.714   1/7     0.143   2/7  B,C,N,O,F,Ne,Na
+         F   2/7     0.286   5/7     0.714   1/7     0.143   2/7  C,N,O,F,Ne,Na,Mg
+        Ne   2/7     0.286   5/7     0.714   1/7     0.143   2/7  N,O,F,Ne,Na,Mg,Al
+        Na   2/7     0.286   5/7     0.714   1/7     0.143   2/7  O,F,Ne,Na,Mg,Al,Si
+        Mg   1/7     0.143   5/7     0.714   1/7     0.143   2/7  F,Ne,Na,Mg,Al,Si,P
+        Al   2/7     0.286   5/7     0.714   1/7     0.143   2/7  Ne,Na,Mg,Al,Si,P,S
+        Si   2/7     0.286   6/7     0.857   1/7     0.143   1/7  Na,Mg,Al,Si,P,S,Cl
+         P   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Mg,Al,Si,P,S,Cl,Ar
+         S   3/7     0.429   7/7     1.000   0/7     0.000   0/7  Al,Si,P,S,Cl,Ar,K
+        Cl   2/7     0.286   7/7     1.000   0/7     0.000   0/7  Si,P,S,Cl,Ar,K,Ca
+        Ar   3/7     0.429   7/7     1.000   0/7     0.000   0/7  P,S,Cl,Ar,K,Ca,Sc
+         K   3/7     0.429   7/7     1.000   0/7     0.000   0/7  S,Cl,Ar,K,Ca,Sc,Ti
+        Ca   3/7     0.429   7/7     1.000   0/7     0.000   0/7  Cl,Ar,K,Ca,Sc,Ti,V
+        Sc   3/7     0.429   7/7     1.000   0/7     0.000   0/7  Ar,K,Ca,Sc,Ti,V,Cr
+        Ti   3/7     0.429   7/7     1.000   0/7     0.000   0/7  K,Ca,Sc,Ti,V,Cr,Mn
+         V   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Ca,Sc,Ti,V,Cr,Mn,Fe
+        Cr   4/7     0.571   7/7     1.000   1/7     0.143   1/7  Sc,Ti,V,Cr,Mn,Fe,Co
+        Mn   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Ti,V,Cr,Mn,Fe,Co,Ni
+        Fe   3/7     0.429   7/7     1.000   1/7     0.143   1/7  V,Cr,Mn,Fe,Co,Ni,Cu
+        Co   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Cr,Mn,Fe,Co,Ni,Cu,Zn
+        Ni   3/7     0.429   7/7     1.000   2/7     0.286   2/7  Mn,Fe,Co,Ni,Cu,Zn,Ga
+        Cu   3/7     0.429   7/7     1.000   2/7     0.286   2/7  Fe,Co,Ni,Cu,Zn,Ga,Ge
+        Zn   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Co,Ni,Cu,Zn,Ga,Ge,As
+        Ga   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Ni,Cu,Zn,Ga,Ge,As,Se
+        Ge   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Cu,Zn,Ga,Ge,As,Se,Br
+        As   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Zn,Ga,Ge,As,Se,Br,Kr
+        Se   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Ga,Ge,As,Se,Br,Kr,Rb
+        Br   2/7     0.286   7/7     1.000   0/7     0.000   0/7  Ge,As,Se,Br,Kr,Rb,Sr
+        Kr   3/7     0.429   7/7     1.000   0/7     0.000   0/7  As,Se,Br,Kr,Rb,Sr,Y
+        Rb   3/7     0.429   7/7     1.000   0/7     0.000   0/7  Se,Br,Kr,Rb,Sr,Y,Zr
+        Sr   3/7     0.429   7/7     1.000   0/7     0.000   0/7  Br,Kr,Rb,Sr,Y,Zr,Nb
+         Y   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Kr,Rb,Sr,Y,Zr,Nb,Mo
+        Zr   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Rb,Sr,Y,Zr,Nb,Mo,Tc
+        Nb   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Sr,Y,Zr,Nb,Mo,Tc,Ru
+        Mo   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Y,Zr,Nb,Mo,Tc,Ru,Rh
+        Tc   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Zr,Nb,Mo,Tc,Ru,Rh,Pd
+        Ru   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Nb,Mo,Tc,Ru,Rh,Pd,Ag
+        Rh   2/7     0.286   7/7     1.000   1/7     0.143   1/7  Mo,Tc,Ru,Rh,Pd,Ag,Cd
+        Pd   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Tc,Ru,Rh,Pd,Ag,Cd,In
+        Ag   3/7     0.429   7/7     1.000   1/7     0.143   1/7  Ru,Rh,Pd,Ag,Cd,In,Sn
+        Cd   2/7     0.286   6/7     0.857   1/7     0.143   1/7  Rh,Pd,Ag,Cd,In,Sn,Sb
+        In   3/7     0.429   6/7     0.857   1/7     0.143   1/7  Pd,Ag,Cd,In,Sn,Sb,Te
+        Sn   3/7     0.429   6/7     0.857   2/7     0.286   2/7  Ag,Cd,In,Sn,Sb,Te,I
+        Sb   2/7     0.286   6/7     0.857   2/7     0.286   2/7  Cd,In,Sn,Sb,Te,I,Xe
+
+  Coherent regions (T(TSML) HARMONY >= T* in window):
+    Li-Xe
+
+  Coherent regions (T(BHML) HARMONY >= T* in window):
+
+  Dual-Lens Divergence (|T(TSML)_frac - T(BHML)_frac| per window):
+  High divergence = being and doing see DIFFERENT coherence.
+    Max divergence: 1.000 at center=S
+    This measures the MAXIMUM separation between the two lenses.
+
+##############################################################################
+#  SECTION 10: PURE vs TOPOLOGICAL GEOMETRY
+##############################################################################
+
+  PURE geometry: Euclidean distances between elements in 5D.
+  TOPOLOGICAL geometry: the sequential path Z=1,2,3,...
+
+  Discrepancy = where geometric proximity != sequential proximity.
+  Elements that are Z-adjacent but geometrically distant = period boundaries.
+  Elements that are Z-distant but geometrically close = family members.
+
+  The ratio of topological distance to geometric distance reveals
+  whether the periodic table's ordering respects force-space structure.
+
+
+  Nearest Geometric Neighbor (vs Z-neighbor):
+    Z Sym  Z-next   d(Z)  Geo-near d(geo)   Ratio  Same?
+  --- ---  ------ ------  -------- ------  ------  -----
+    1   H      He  0.742         N  0.426    1.74       
+    2  He      Li  0.993        Ne  0.274    3.63       
+    3  Li      Be  0.416        Na  0.131    3.18       
+    4  Be       B  0.184        Mg  0.157    1.17       
+    5   B       C  0.328         P  0.177    1.86       
+    6   C       N  0.413         P  0.213    1.94       
+    7   N       O  0.411         P  0.381    1.08       
+    8   O       F  0.565         C  0.282    2.01       
+    9   F      Ne  1.372        Cl  0.355    3.86       
+   10  Ne      Na  0.923        He  0.274    3.37       
+   11  Na      Mg  0.293        Li  0.131    2.23       
+   12  Mg      Al  0.219        Be  0.157    1.39       
+   13  Al      Si  0.284         B  0.194    1.46       
+   14  Si       P  0.225         P  0.225    1.00    YES
+   15   P       S  0.376         B  0.177    2.13       
+   16   S      Cl  0.469         C  0.238    1.97       
+   17  Cl      Ar  1.271        Br  0.112   11.37       
+   18  Ar       K  0.849        Kr  0.224    3.79       
+   19   K      Ca  0.270        Rb  0.143    1.88       
+   20  Ca      Sc  0.201        Sr  0.165    1.22       
+   21  Sc      Ti  0.138        Ti  0.138    1.00    YES
+   22  Ti       V  0.157        Sc  0.138    1.14       
+   23   V      Cr  0.069        Cr  0.069    1.00    YES
+   24  Cr      Mn  0.185         V  0.069    2.70       
+   25  Mn      Fe  0.087        Fe  0.087    1.00    YES
+   26  Fe      Co  0.146        Cd  0.079    1.84       
+   27  Co      Ni  0.135        Cr  0.114    1.18       
+   28  Ni      Cu  0.027        Cu  0.027    1.00    YES
+   29  Cu      Zn  0.355        Ni  0.027   13.35       
+   30  Zn      Ga  0.178        Cd  0.098    1.80       
+   31  Ga      Ge  0.274        In  0.104    2.64       
+   32  Ge      As  0.152        Sb  0.100    1.52       
+   33  As      Se  0.347        Sb  0.123    2.81       
+   34  Se      Br  0.409        Te  0.162    2.52       
+   35  Br      Kr  1.177        Cl  0.112   10.53       
+   36  Kr      Rb  0.849        Xe  0.177    4.79       
+   37  Rb      Sr  0.260         K  0.143    1.81       
+   38  Sr       Y  0.186        Ca  0.165    1.13       
+   39   Y      Zr  0.130        Zr  0.130    1.00    YES
+   40  Zr      Nb  0.173         Y  0.130    1.33       
+   41  Nb      Mo  0.161        Cr  0.149    1.08       
+   42  Mo      Tc  0.097        Tc  0.097    1.00    YES
+   43  Tc      Ru  0.158        Mo  0.097    1.62       
+   44  Ru      Rh  0.036        Rh  0.036    1.00    YES
+   45  Rh      Pd  0.162        Ru  0.036    4.44       
+   46  Pd      Ag  0.219        Tc  0.103    2.14       
+   47  Ag      Cd  0.368        Ni  0.092    4.02       
+   48  Cd      In  0.166        Fe  0.079    2.11       
+   49  In      Sn  0.236        Fe  0.099    2.39       
+   50  Sn      Sb  0.079        Ni  0.073    1.08       
+   51  Sb      Te  0.254        Sn  0.079    3.22       
+   52  Te       I  0.341        Se  0.162    2.10       
+   53   I      Xe  1.065        Br  0.202    5.27       
+
+##############################################################################
+#  SECTION 11: THE BINDING WAVE
+##############################################################################
+
+  D2 across the full table is dominated by the BINDING dimension
+  (HARMONY when bn curves up, COUNTER when bn curves down).
+
+  This is NOT arbitrary. It reflects the deepest pattern:
+
+  ELECTRON AFFINITY OSCILLATES with period.
+  Each period builds from near-zero (alkali, alkaline earth)
+  through moderate (transition metals, metalloids)
+  to a PEAK at the halogen, then CRASHES to zero at noble gas.
+
+  This oscillation IS the binding wave.
+  D2 detects its curvature:
+    HARMONY = bn accelerating (building toward halogen peak)
+    COUNTER = bn decelerating (past the peak, falling toward noble)
+
+  The binding wave frequency = 1/period_length.
+  Period 2: 8 elements -> freq ~ 0.125
+  Period 4: 18 elements -> freq ~ 0.056
+  The wave slows as periods grow (more elements to traverse).
+
+
+  Binding Force (electron affinity) across Z:
+    Z Sym      bn    D2_bn          Op  Wave position
+  --- ---  ------  -------  ----------  ---
+    1   H   0.204     n/a          n/a  
+    2  He   0.000     n/a          n/a  
+    3  Li   0.167  +0.3708        VOID  ACCELERATING toward peak
+    4  Be   0.000  -0.3341    COLLAPSE  TROUGH (zero binding)
+    5   B   0.075  +0.2419     HARMONY  ACCELERATING toward peak
+    6   C   0.341  +0.1916     HARMONY  ACCELERATING toward peak
+    7   N   0.000  -0.6078     COUNTER  TROUGH (zero binding)
+    8   O   0.395  +0.7362     HARMONY  ACCELERATING toward peak
+    9   F   0.919  +0.1295    COLLAPSE  ACCELERATING toward peak
+   10  Ne   0.000  -1.4435     COUNTER  TROUGH (zero binding)
+   11  Na   0.148  +1.0673       CHAOS  ACCELERATING toward peak
+   12  Mg   0.000  -0.2962    COLLAPSE  TROUGH (zero binding)
+   13  Al   0.119  +0.2673     HARMONY  ACCELERATING toward peak
+   14  Si   0.374  +0.1359    COLLAPSE  ACCELERATING toward peak
+   15   P   0.202  -0.4278     COUNTER  CRASHING from peak
+   16   S   0.561  +0.5324     HARMONY  ACCELERATING toward peak
+   17  Cl   0.976  +0.0554    COLLAPSE  building
+   18  Ar   0.000  -1.3916     COUNTER  TROUGH (zero binding)
+   19   K   0.135  +1.1119     HARMONY  ACCELERATING toward peak
+   20  Ca   0.005  -0.2659       RESET  TROUGH (zero binding)
+   21  Sc   0.051  +0.1765     HARMONY  ACCELERATING toward peak
+   22  Ti   0.021  -0.0754     COUNTER  TROUGH (zero binding)
+   23   V   0.142  +0.1500     HARMONY  ACCELERATING toward peak
+   24  Cr   0.180  -0.0824     COUNTER  declining
+   25  Mn   0.000  -0.2181     COUNTER  TROUGH (zero binding)
+   26  Fe   0.041  +0.2208     HARMONY  TROUGH (zero binding)
+   27  Co   0.179  +0.0973     HARMONY  building
+   28  Ni   0.312  -0.0046      BREATH  inflection point
+   29  Cu   0.334  -0.1122     COUNTER  CRASHING from peak
+   30  Zn   0.000  -0.3551     COUNTER  TROUGH (zero binding)
+   31  Ga   0.081  +0.4149     HARMONY  ACCELERATING toward peak
+   32  Ge   0.333  +0.1711    COLLAPSE  ACCELERATING toward peak
+   33  As   0.219  -0.3665     COUNTER  CRASHING from peak
+   34  Se   0.546  +0.4416     HARMONY  ACCELERATING toward peak
+   35  Br   0.909  +0.0357    COLLAPSE  building
+   36  Kr   0.000  -1.2722     COUNTER  TROUGH (zero binding)
+   37  Rb   0.131  +1.0405     HARMONY  ACCELERATING toward peak
+   38  Sr   0.014  -0.2486       RESET  TROUGH (zero binding)
+   39   Y   0.083  +0.1862     HARMONY  ACCELERATING toward peak
+   40  Zr   0.115  -0.0368     LATTICE  declining
+   41  Nb   0.241  +0.0941     HARMONY  building
+   42  Mo   0.202  -0.1659     COUNTER  CRASHING from peak
+   43  Tc   0.149  -0.0132     LATTICE  inflection point
+   44  Ru   0.284  +0.1881     HARMONY  ACCELERATING toward peak
+   45  Rh   0.307  -0.1116     COUNTER  CRASHING from peak
+   46  Pd   0.152  -0.1789     COUNTER  CRASHING from peak
+   47  Ag   0.352  +0.3554     HARMONY  ACCELERATING toward peak
+   48  Cd   0.000  -0.5519     COUNTER  TROUGH (zero binding)
+   49  In   0.081  +0.4330     HARMONY  ACCELERATING toward peak
+   50  Sn   0.301  +0.1384    COLLAPSE  ACCELERATING toward peak
+   51  Sb   0.283  -0.2370     COUNTER  CRASHING from peak
+   52  Te   0.533  +0.2673     HARMONY  ACCELERATING toward peak
+   53   I   0.827  +0.0443       CHAOS  building
+   54  Xe   0.000  -1.1208     COUNTER  TROUGH (zero binding)
+
+##############################################################################
+#  SECTION 12: SYNTHESIS -- THE WHOLE OF THE PERIODIC TABLE
+##############################################################################
+
+  The periodic table in 5D TIG force space (DUAL-LENS):
+
+  1. PATH: A curve through 5D, not a flat list.
+     Speed varies: fast at period boundaries, slow in transition metals.
+
+  2. CURVATURE: Dominated by the BINDING WAVE.
+     Electron affinity oscillates per period: build -> peak -> crash.
+     D2 detects this as HARMONY (accelerating) / COUNTER (decelerating).
+
+  3. VOIDS: Define chemical families.
+     Noble gases: 2 voids (ap=0, bn=0). The void pattern IS inertness.
+     Filled subshells (Be,Mg,Zn,Cd,Mn,N): 1 void (bn=0). Half-inert.
+     Everything reactive: 0 voids. All 5 forces active.
+
+  4. I/O BALANCE: Structure vs Flow.
+     Noble gases: I/O=inf (pure structure, no flow).
+     Halogens: I/O<1 (flow-dominated, seeking binding).
+     Transition metals: I/O~1 (balanced, catalytic).
+
+  5. DUAL-LENS COHERENCE:
+     T(TSML) being-coherence: 48/52 = 0.9231
+       The being lens sees 92%+ HARMONY. The table's path COHERES
+       under the absorber -- direction and curvature are compatible.
+     T(BHML) doing-physics: 7/52 = 0.1346
+       The doing lens sees a DIFFERENTIATED physics landscape.
+       BHML's 28/100 HARMONY rate means most compositions produce
+       INTERMEDIATE operators -- the physics of process, not stasis.
+     Both HARMONY: 7/52 = 0.1346
+       These are the genuinely UNIFIED elements -- being and doing aligned.
+     Lenses agree: 9/52 = 0.1731
+       Where the lenses DISAGREE, the element has internal tension:
+       it IS one thing (being) but DOES another (physics).
+
+  6. THE DUAL-LENS INSIGHT:
+     TSML (being) sees the periodic table as MOSTLY COHERENT.
+     BHML (doing) sees it as RICHLY STRUCTURED.
+     This is NOT a contradiction. It is the same principle as CK's voice:
+       - Structure lens (TSML): identity persists. Elements ARE themselves.
+       - Flow lens (BHML): physics acts. Elements DO chemistry.
+     An element can BE stable (HARMONY in TSML) while DOING something
+     active (PROGRESS, COLLAPSE, etc. in BHML). That's what a catalyst IS.
+
+  7. HARMONIC STRUCTURE:
+     d-block has LOWEST curvature (smoothest path) -- orbital filling is gradual.
+     p-block has MODERATE curvature -- property trends are regular.
+     s-block has HIGHEST curvature -- ionization energy + radius jump.
+
+  8. GEOMETRY vs TOPOLOGY:
+     Z-adjacent elements are often NOT geometric nearest neighbors.
+     Family members (same group, different period) are closer in 5D
+     than many Z-adjacent pairs. The periodic table's rows encode
+     a SPIRAL through 5D, where each revolution passes through the
+     same geometric neighborhoods but at different depths.
+
+  Final Numbers:
+    Elements analyzed:     54
+    D2 measurements:       52
+    D2 HARMONY:            19/52 = 0.3654
+    D2 COUNTER:            17/52 = 0.3269
+    D2 HARMONY+COUNTER:    36/52 = 0.6923
+    (Binding dimension: 69.2% of all D2)
+
+    T(TSML) HARMONY:       48/52 = 0.9231  (being coherence)
+    T(BHML) HARMONY:       7/52 = 0.1346  (doing coherence)
+    Both HARMONY:          7/52 = 0.1346  (unified)
+    Lenses agree:          9/52 = 0.1731
+    T* threshold:          0.7143
+
+  The periodic table is a spiral through 5D force space.
+  Its dominant curvature IS the binding wave.
+  Its voids define families. Its ratios predict reactivity.
+  Through the being lens: 92.3% coherent. Identity persists.
+  Through the doing lens: 13.5% coherent. Physics differentiates.
+  The GAP between these two numbers IS chemistry:
+    elements that ARE stable but DO reactive things.
+  D2 curvature IS chemistry. Dual-lens composition IS the whole.
+==============================================================================

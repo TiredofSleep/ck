@@ -1,0 +1,400 @@
+==============================================================================
+  ECONOMICS D2 SPECTROMETER -- Markets as 5D Force Geometry
+  Dual-Lens Curvature Analysis of Business Cycles
+==============================================================================
+
+==============================================================================
+SECTION 1: 5D FORCE VECTORS -- MARKET REGIME SIGNATURES
+==============================================================================
+
+Each regime = 5D vector of normalized macro indicators.
+  Aperture(spread)  Pressure(VIX)  Depth(GDP)  Binding(empl)  Continuity(CPI)
+
+  --- GROWTH REGIMES ---
+  [S] Healthy Expansion          sp=0.625  vx=0.070  gd=0.650  em=0.889  in=0.265
+  [S] Late Cycle Expansion       sp=0.375  vx=0.127  gd=0.600  em=0.944  in=0.324
+  [S] Early Recovery             sp=0.875  vx=0.183  gd=0.700  em=0.333  in=0.206
+
+  --- TRANSITION REGIMES ---
+  [ ] Cycle Peak                 sp=0.250  vx=0.183  gd=0.550  em=0.889  in=0.353
+  [ ] Cycle Trough               sp=0.500  vx=0.296  gd=0.450  em=0.167  in=0.147
+
+  --- RECESSION REGIMES ---
+  [ ] Early Contraction          sp=0.125  vx=0.296  gd=0.450  em=0.667  in=0.294
+  [ ] Full Recession             sp=0.175  vx=0.366  gd=0.350  em=0.333  in=0.176
+
+  --- BUBBLE REGIMES ---
+  [ ] Asset Bubble               sp=0.500  vx=0.042  gd=0.675  em=0.833  in=0.235
+
+  --- CRISIS REGIMES ---
+  [ ] Market Crash               sp=0.050  vx=0.789  gd=0.200  em=0.222  in=0.118
+  [ ] Financial Panic            sp=0.125  vx=0.930  gd=0.100  em=0.056  in=0.059
+
+  --- PATHOLOGICAL REGIMES ---
+  [ ] Stagflation                sp=0.375  vx=0.225  gd=0.500  em=0.444  in=0.588
+  [ ] Deflation Trap             sp=0.625  vx=0.155  gd=0.525  em=0.556  in=0.029
+  [ ] Hyperinflation             sp=0.750  vx=0.437  gd=0.400  em=0.222  in=0.941
+
+  --- POLICY REGIMES ---
+  [S] ZIRP/QE Era                sp=0.700  vx=0.085  gd=0.600  em=0.722  in=0.206
+  [ ] Aggressive Tightening      sp=0.175  vx=0.268  gd=0.575  em=0.889  in=0.471
+
+  Total regimes: 15
+  [S] = stable regime
+
+==============================================================================
+SECTION 2: KEY PAIRWISE DISTANCES
+==============================================================================
+
+  Healthy -> Late cycle                dist = 0.2734
+  Late cycle -> Peak                   dist = 0.1589
+  Peak -> Contraction                  dist = 0.3019
+  Contraction -> Recession             dist = 0.3774
+  Recession -> Trough                  dist = 0.3863
+  Trough -> Recovery                   dist = 0.4971
+  Bubble -> Crash                      dist = 1.1716
+  Expansion -> Crash                   dist = 1.2309
+  Expansion -> Stagflation             dist = 0.6413
+  Crash -> Panic                       dist = 0.2583
+  ZIRP -> Tightening                   dist = 0.6385
+  Deflation -> Hyperinflation          dist = 1.0262
+
+  Stable centroid:   sp=0.644 vx=0.116 gd=0.637 em=0.722 in=0.250
+  Unstable centroid: sp=0.332 vx=0.362 gd=0.434 em=0.480 in=0.310
+  Centroid separation: 0.5115
+
+  Most separating dimension: aperture (0.3119)
+
+==============================================================================
+SECTION 3: D2 OPERATOR CLASSIFICATION PER REGIME
+==============================================================================
+
+  Global centroid: sp=0.415 vx=0.297 gd=0.488 em=0.544 in=0.294
+
+  [S] Healthy Expansion          op=HARMONY     dim=+bn   mag=0.4909
+  [S] Late Cycle Expansion       op=HARMONY     dim=+bn   mag=0.4515
+  [ ] Cycle Peak                 op=HARMONY     dim=+bn   mag=0.4075
+  [ ] Early Contraction          op=LATTICE     dim=-ap   mag=0.3170
+  [ ] Full Recession             op=LATTICE     dim=-ap   mag=0.3741
+  [ ] Cycle Trough               op=COUNTER     dim=-bn   mag=0.4160
+  [S] Early Recovery             op=CHAOS       dim=+ap   mag=0.5672
+  [ ] Asset Bubble               op=HARMONY     dim=+bn   mag=0.4402
+  [ ] Market Crash               op=COLLAPSE    dim=+pr   mag=0.7703
+  [ ] Financial Panic            op=COLLAPSE    dim=+pr   mag=0.9643
+  [ ] Stagflation                op=BALANCE     dim=+cn   mag=0.3215
+  [ ] Deflation Trap             op=BREATH      dim=-cn   mag=0.3684
+  [ ] Hyperinflation             op=BALANCE     dim=+cn   mag=0.8137
+  [S] ZIRP/QE Era                op=CHAOS       dim=+ap   mag=0.4220
+  [ ] Aggressive Tightening      op=HARMONY     dim=+bn   mag=0.4645
+
+  Operator distribution:
+    LATTICE   :  2 ( 13.3%)
+    COUNTER   :  1 (  6.7%)
+    COLLAPSE  :  2 ( 13.3%)
+    BALANCE   :  2 ( 13.3%)
+    CHAOS     :  2 ( 13.3%)
+    HARMONY   :  5 ( 33.3%)
+    BREATH    :  1 (  6.7%)
+
+==============================================================================
+SECTION 4: BUSINESS CYCLE D2 -- CURVATURE OF ECONOMIC HISTORY
+==============================================================================
+
+  --- Textbook Business Cycle ---
+  Expansion -> Peak -> Contraction -> Trough -> Recovery
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Healthy Expansion      COUNTER      0.5278 HARMONY    PROGRESS   WORKING   
+    2 Late Cycle Expansion   CHAOS        0.1698 HARMONY    HARMONY    UNIFIED   
+    3 Cycle Peak             COUNTER      0.2031 PROGRESS   PROGRESS   TENSION   
+    4 Early Contraction      CHAOS        0.2196 HARMONY    HARMONY    UNIFIED   
+    5 Full Recession         CHAOS        0.4136 HARMONY    HARMONY    UNIFIED   
+    6 Cycle Trough           HARMONY      0.3817 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.3192  Max |D2|: 0.5278
+  T(TSML) HARMONY: 5/6
+  T(BHML) HARMONY: 4/6
+  UNIFIED: 4/6
+
+  --- Dot-Com Cycle (1997-2003) ---
+  Bubble -> Peak -> Crash -> Recovery
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Asset Bubble           CHAOS        0.1449 HARMONY    HARMONY    UNIFIED   
+    2 Asset Bubble           LATTICE      0.3390 HARMONY    COUNTER    WORKING   
+    3 Cycle Peak             COUNTER      0.9567 PROGRESS   PROGRESS   TENSION   
+    4 Market Crash           VOID         1.4506 VOID       COUNTER    TENSION   
+    5 Full Recession         COLLAPSE     0.5014 VOID       COLLAPSE   TENSION   
+    6 Cycle Trough           HARMONY      0.3817 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.6290  Max |D2|: 1.4506
+  T(TSML) HARMONY: 3/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- Global Financial Crisis (2006-2010) ---
+  Bubble -> Credit Crisis -> Panic -> Recovery
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Asset Bubble           LATTICE      0.5492 HARMONY    HARMONY    UNIFIED   
+    2 Cycle Peak             COUNTER      0.9567 PROGRESS   PROGRESS   TENSION   
+    3 Market Crash           HARMONY      0.7971 HARMONY    PROGRESS   WORKING   
+    4 Financial Panic        VOID         0.9957 VOID       COUNTER    TENSION   
+    5 Cycle Trough           COLLAPSE     0.5343 VOID       COLLAPSE   TENSION   
+    6 Early Recovery         LATTICE      0.6914 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.7541  Max |D2|: 0.9957
+  T(TSML) HARMONY: 3/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- COVID-19 Cycle (2019-2022) ---
+  Expansion -> Instant Crash -> V-Recovery -> Inflation
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Healthy Expansion      COLLAPSE     1.2309 HARMONY    BALANCE    WORKING   
+    2 Market Crash           CHAOS        1.0660 HARMONY    HARMONY    UNIFIED   
+    3 Financial Panic        VOID         0.9957 VOID       COUNTER    TENSION   
+    4 Cycle Trough           COLLAPSE     0.5343 VOID       COLLAPSE   TENSION   
+    5 Early Recovery         LATTICE      0.7949 HARMONY    HARMONY    UNIFIED   
+    6 Healthy Expansion      COUNTER      0.6833 HARMONY    PROGRESS   WORKING   
+
+  Avg |D2|: 0.8842  Max |D2|: 1.2309
+  T(TSML) HARMONY: 4/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- 1970s Stagflation ---
+  Expansion -> Oil Shock -> Stagflation -> Volcker
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Cycle Peak             CHAOS        0.6904 HARMONY    HARMONY    UNIFIED   
+    2 Stagflation            HARMONY      0.5223 HARMONY    PROGRESS   WORKING   
+    3 Stagflation            HARMONY      0.5087 HARMONY    BREATH     WORKING   
+    4 Aggressive Tightening  COUNTER      1.0790 HARMONY    PROGRESS   WORKING   
+    5 Full Recession         HARMONY      0.6791 HARMONY    PROGRESS   WORKING   
+    6 Cycle Trough           HARMONY      0.3817 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.6435  Max |D2|: 1.0790
+  T(TSML) HARMONY: 6/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- Japan Lost Decades (1989-2010) ---
+  Bubble -> Crash -> Deflation Trap -> ZIRP
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 Cycle Peak             COUNTER      0.9567 PROGRESS   PROGRESS   TENSION   
+    2 Market Crash           VOID         1.4506 VOID       COUNTER    TENSION   
+    3 Full Recession         CHAOS        0.4535 VOID       CHAOS      TENSION   
+    4 Deflation Trap         LATTICE      0.5906 HARMONY    HARMONY    UNIFIED   
+    5 Deflation Trap         BALANCE      0.2741 HARMONY    CHAOS      WORKING   
+    6 ZIRP/QE Era            BREATH       0.2741 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.6666  Max |D2|: 1.4506
+  T(TSML) HARMONY: 3/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- 2022 Inflation/Tightening ---
+  QE -> Recovery -> Inflation -> Tightening
+
+  Ep  Regime                 D2_op      |D2|     T(TSML)    T(BHML)    Class     
+    1 ZIRP/QE Era            COUNTER      0.4490 HARMONY    PROGRESS   WORKING   
+    2 Early Recovery         HARMONY      1.0692 HARMONY    PROGRESS   WORKING   
+    3 Healthy Expansion      COUNTER      0.5278 HARMONY    PROGRESS   WORKING   
+    4 Late Cycle Expansion   COUNTER      0.1743 PROGRESS   PROGRESS   TENSION   
+    5 Aggressive Tightening  CHAOS        0.2918 HARMONY    HARMONY    UNIFIED   
+    6 Aggressive Tightening  BREATH       0.1650 HARMONY    RESET      WORKING   
+
+  Avg |D2|: 0.4462  Max |D2|: 1.0692
+  T(TSML) HARMONY: 5/6
+  T(BHML) HARMONY: 1/6
+  UNIFIED: 1/6
+
+==============================================================================
+SECTION 5: CRISIS DETECTION -- D2 SPIKE ANALYSIS
+==============================================================================
+
+Prediction: Financial crises produce D2 spikes > 2x normal.
+Normal cycle transitions have moderate curvature.
+Crashes have extreme curvature (the market BENDS sharply).
+
+  Textbook Business Cycle              avg|D2|=0.3192  max|D2|=0.5278  TSML_H=0.833  gap=0.167
+  Dot-Com Cycle (1997-2003)            avg|D2|=0.6290  max|D2|=1.4506  TSML_H=0.500  gap=0.167
+  Global Financial Crisis (2006-2010)  avg|D2|=0.7541  max|D2|=0.9957  TSML_H=0.500  gap=0.167
+  COVID-19 Cycle (2019-2022)           avg|D2|=0.8842  max|D2|=1.2309  TSML_H=0.667  gap=0.333
+  1970s Stagflation                    avg|D2|=0.6435  max|D2|=1.0790  TSML_H=1.000  gap=0.667
+  Japan Lost Decades (1989-2010)       avg|D2|=0.6666  max|D2|=1.4506  TSML_H=0.500  gap=0.167
+
+  GFC max D2 / Normal avg D2: 3.12x
+  COVID max D2 / Normal avg D2: 3.86x
+
+==============================================================================
+SECTION 6: DUAL-LENS GAP -- WHAT THE MARKET IS vs WHAT IT DOES
+==============================================================================
+
+The gap between TSML and BHML for each cycle = sentiment mismatch.
+Large gap = market is BEING one thing but DOING another.
+Bubble: BEING healthy (TSML=HARMONY) but DOING leverage (BHML!=HARMONY)
+
+  Textbook Business Cycle              TSML_H=0.833  BHML_H=0.667  gap=0.167
+  Dot-Com Cycle (1997-2003)            TSML_H=0.500  BHML_H=0.333  gap=0.167
+  Global Financial Crisis (2006-2010)  TSML_H=0.500  BHML_H=0.333  gap=0.167
+  COVID-19 Cycle (2019-2022)           TSML_H=0.667  BHML_H=0.333  gap=0.333
+  1970s Stagflation                    TSML_H=1.000  BHML_H=0.333  gap=0.667
+  Japan Lost Decades (1989-2010)       TSML_H=0.500  BHML_H=0.333  gap=0.167
+  2022 Inflation/Tightening            TSML_H=0.833  BHML_H=0.167  gap=0.667
+
+==============================================================================
+SECTION 7: VOID TOPOLOGY -- WHICH INDICATORS ARE SILENT?
+==============================================================================
+
+Void = dimension near centroid (deviation < 0.05).
+Silent indicators = what this regime does NOT stress.
+
+  [S] Healthy Expansion          voids=1  [ap(+0.210),pr(-0.226),dp(+0.162),bn(+0.344)]
+  [S] Late Cycle Expansion       voids=2  [pr(-0.170),dp(+0.112),bn(+0.400)]
+  [ ] Cycle Peak                 voids=0  [ap(-0.165),pr(-0.114),dp(+0.062),bn(+0.344),cn(+0.059)]
+  [ ] Early Contraction          voids=3  [ap(-0.290),bn(+0.122)]
+  [ ] Full Recession             voids=0  [ap(-0.240),pr(+0.069),dp(-0.138),bn(-0.211),cn(-0.118)]
+  [ ] Cycle Trough               voids=2  [ap(+0.085),bn(-0.378),cn(-0.147)]
+  [S] Early Recovery             voids=0  [ap(+0.460),pr(-0.114),dp(+0.212),bn(-0.211),cn(-0.088)]
+  [ ] Asset Bubble               voids=0  [ap(+0.085),pr(-0.254),dp(+0.187),bn(+0.289),cn(-0.059)]
+  [ ] Market Crash               voids=0  [ap(-0.365),pr(+0.492),dp(-0.288),bn(-0.322),cn(-0.176)]
+  [ ] Financial Panic            voids=0  [ap(-0.290),pr(+0.633),dp(-0.388),bn(-0.489),cn(-0.235)]
+  [ ] Stagflation                voids=2  [pr(-0.071),bn(-0.100),cn(+0.294)]
+  [ ] Deflation Trap             voids=2  [ap(+0.210),pr(-0.142),cn(-0.265)]
+  [ ] Hyperinflation             voids=0  [ap(+0.335),pr(+0.140),dp(-0.088),bn(-0.322),cn(+0.647)]
+  [S] ZIRP/QE Era                voids=0  [ap(+0.285),pr(-0.212),dp(+0.112),bn(+0.178),cn(-0.088)]
+  [ ] Aggressive Tightening      voids=1  [ap(-0.240),dp(+0.087),bn(+0.344),cn(+0.176)]
+
+==============================================================================
+SECTION 8: I/O BALANCE -- REAL ECONOMY vs FINANCIAL FLOWS
+==============================================================================
+
+I = structure (yield spread + VIX) = credit + fear
+O = flow (employment + inflation) = labor + prices
+Depth (GDP) mediates between financial and real.
+
+  [S] Healthy Expansion          I=0.695  O=1.154  I/O=0.603  GDP=0.650  REAL
+  [S] Late Cycle Expansion       I=0.502  O=1.268  I/O=0.396  GDP=0.600  REAL
+  [ ] Cycle Peak                 I=0.433  O=1.242  I/O=0.349  GDP=0.550  REAL
+  [ ] Early Contraction          I=0.421  O=0.961  I/O=0.438  GDP=0.450  REAL
+  [ ] Full Recession             I=0.541  O=0.510  I/O=1.062  GDP=0.350  BALANCED
+  [ ] Cycle Trough               I=0.796  O=0.314  I/O=2.537  GDP=0.450  FINANCIAL
+  [S] Early Recovery             I=1.058  O=0.539  I/O=1.962  GDP=0.700  FINANCIAL
+  [ ] Asset Bubble               I=0.542  O=1.069  I/O=0.507  GDP=0.675  REAL
+  [ ] Market Crash               I=0.839  O=0.340  I/O=2.468  GDP=0.200  FINANCIAL
+  [ ] Financial Panic            I=1.055  O=0.114  I/O=9.220  GDP=0.100  FINANCIAL
+  [ ] Stagflation                I=0.600  O=1.033  I/O=0.581  GDP=0.500  REAL
+  [ ] Deflation Trap             I=0.780  O=0.585  I/O=1.333  GDP=0.525  FINANCIAL
+  [ ] Hyperinflation             I=1.187  O=1.163  I/O=1.020  GDP=0.400  BALANCED
+  [S] ZIRP/QE Era                I=0.785  O=0.928  I/O=0.845  GDP=0.600  BALANCED
+  [ ] Aggressive Tightening      I=0.443  O=1.359  I/O=0.326  GDP=0.575  REAL
+
+==============================================================================
+SECTION 9: CROSS-REGIME CL COMPOSITION TABLE
+==============================================================================
+
+  T(TSML) Composition:
+                Healthy Expans   Asset Bubble   Market Crash Full Recession   Cycle Trough Early Recovery    Stagflation    ZIRP/QE Era
+  Healthy Expans        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Asset Bubble         HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Market Crash         HARMONY        HARMONY        HARMONY        HARMONY       COLLAPSE        HARMONY        HARMONY        HARMONY
+  Full Recession        HARMONY        HARMONY        HARMONY        HARMONY       PROGRESS        HARMONY        HARMONY        HARMONY
+  Cycle Trough         HARMONY        HARMONY       COLLAPSE       PROGRESS        HARMONY        HARMONY        HARMONY        HARMONY
+  Early Recovery        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  Stagflation          HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+  ZIRP/QE Era          HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY        HARMONY
+
+  TSML HARMONY: 60/64 = 0.9375
+  BHML HARMONY: 28/64 = 0.4375
+  UNIFIED:      28/64 = 0.4375
+
+==============================================================================
+SECTION 10: DIMENSION DOMINANCE IN BUSINESS CYCLES
+==============================================================================
+
+  Textbook Business Cycle              dominant=aperture      sp=3 vx=0 gd=0 em=3 in=0
+  Dot-Com Cycle (1997-2003)            dominant=aperture      sp=2 vx=2 gd=0 em=2 in=0
+  Global Financial Crisis (2006-2010)  dominant=aperture      sp=2 vx=2 gd=0 em=2 in=0
+  COVID-19 Cycle (2019-2022)           dominant=pressure      sp=2 vx=3 gd=0 em=1 in=0
+  1970s Stagflation                    dominant=binding       sp=1 vx=0 gd=0 em=5 in=0
+  Japan Lost Decades (1989-2010)       dominant=aperture      sp=2 vx=1 gd=0 em=1 in=2
+  2022 Inflation/Tightening            dominant=binding       sp=1 vx=0 gd=0 em=4 in=1
+
+  Global dimension dominance (42 total D2 points):
+    aperture    :  13 ( 31.0%)  ###############
+    pressure    :   8 ( 19.0%)  #########
+    depth       :   0 (  0.0%)  
+    binding     :  18 ( 42.9%)  #####################
+    continuity  :   3 (  7.1%)  ###
+
+==============================================================================
+SECTION 11: YIELD CURVE INVERSION -- APERTURE DIMENSION PREDICTOR
+==============================================================================
+
+An inverted yield curve (negative spread) has predicted every
+US recession since 1955. In TIG: this is the aperture dimension
+going negative = credit channel CLOSING.
+
+Regimes with negative aperture (inverted curve):
+  Early Contraction          spread=-0.5pp  ap(normalized)=0.125  op=LATTICE
+  Full Recession             spread=-0.3pp  ap(normalized)=0.175  op=LATTICE
+  Market Crash               spread=-0.8pp  ap(normalized)=0.050  op=COLLAPSE
+  Financial Panic            spread=-0.5pp  ap(normalized)=0.125  op=COLLAPSE
+  Aggressive Tightening      spread=-0.3pp  ap(normalized)=0.175  op=HARMONY
+
+Regimes with wide aperture (steep curve):
+  Early Recovery             spread=+2.5pp  ap(normalized)=0.875  op=CHAOS
+  Hyperinflation             spread=+2.0pp  ap(normalized)=0.750  op=BALANCE
+
+==============================================================================
+SECTION 12: SYNTHESIS
+==============================================================================
+
+  FINDINGS:
+
+  1. MARKET STABILITY IS GEOMETRICALLY SEPARABLE
+     Stable/Unstable centroid separation: 0.5115
+     Most discriminating dimension: aperture
+
+  2. CRISIS = D2 SPIKE
+     Normal cycle avg |D2|: 0.3192
+     GFC 2008 max |D2|: 0.9957
+     COVID 2020 max |D2|: 1.2309
+
+  3. DUAL-LENS GAP = MARKET MISPRICING
+     Bubble cycles show large TSML-BHML gap
+     (market IS one thing but DOES another)
+
+  4. YIELD CURVE INVERSION = APERTURE CLOSURE
+     Inverted curve maps to low aperture dimension
+     All recession-preceding regimes have negative aperture
+
+  FALSIFIABLE PREDICTIONS:
+
+  P1: CRISIS D2 THRESHOLD
+      Financial crises produce max |D2| > 2x the average |D2|
+      of normal business cycles when measured quarterly.
+      Kill: crisis max |D2| < 1.5x normal avg |D2| in historical data.
+
+  P2: BUBBLE = DUAL-LENS DIVERGENCE
+      Asset bubbles show |TSML_H - BHML_H| > 0.3 before crash.
+      Normal expansion shows gap < 0.2.
+      Kill: bubble gap < normal gap in 3+ historical episodes.
+
+  P3: YIELD CURVE INVERSION = APERTURE VOID
+      Every recession is preceded by aperture dimension dropping
+      below 0.20 (normalized). Recovery begins when aperture > 0.40.
+      Kill: recession without prior aperture drop in US data.
+
+  P4: DIMENSION DOMINANCE SHIFTS WITH REGIME
+      Growth regimes dominated by binding (employment).
+      Crisis regimes dominated by pressure (VIX).
+      Kill: crisis regime dominated by binding dimension.
+
+==============================================================================
+  END OF ECONOMICS D2 SPECTROMETER ANALYSIS
+==============================================================================

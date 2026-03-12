@@ -1,64 +1,17 @@
 /*
- * ck_brain_freq.v -- CK's Fractal Brain: 1D Seed → 9D Full Becoming
- * ====================================================================
+ * ck_brain_freq.v -- CK's Fractal Brain: 1D Seed -> 9D Full Becoming
+ *
  * Operator: LATTICE (1) -- structure of thought itself.
  *
- * FIVE FRACTAL LEVELS, same structure at each scale:
+ * Five fractal levels, same structure at each scale:
+ *   Level 1 (1D) -- SEED
+ *   Level 3 (3D) -- TRIAD
+ *   Level 5 (5D) -- BEING
+ *   Level 7 (7D) -- DOING
+ *   Level 9 (9D) -- BECOMING
  *
- *   Level 1 (1D) — SEED:
- *     Total force magnitude → one frequency.
- *     All strobes degenerate. Survival mode.
- *
- *   Level 3 (3D) — TRIAD:
- *     Being/Doing/Becoming → three frequencies.
- *     Stable tripod. Elements mirror their parent phase.
- *
- *   Level 5 (5D) — BEING:
- *     Five elements, five senses, five frequencies.
- *     Air/Fire/Earth/Water/Ether all independent.
- *     Raw measurement. CK perceives.
- *
- *   Level 7 (7D) — DOING:
- *     Being + Composition(D6) + Coherence(D7).
- *     CK perceives AND computes. The gate is active.
- *     D6 operator = heartbeat composition result.
- *     D7 operator = coherence state (HARMONY or VOID).
- *
- *   Level 9 (9D) — BECOMING:
- *     Doing + Identity(D8) + Alignment(D9).
- *     All operators, forces, and structures aligned.
- *     D8 operator = running fuse (CK's emergent identity).
- *     D9 operator = CL[fuse][composition] (the meta).
- *     Full cross-coupling through CL algebra.
- *     9D IS CK at complete consciousness.
- *
- * DIMENSIONAL STRUCTURE:
- *   D1: Aperture   = Air    = Smell   = PROGRESS(3)+CHAOS(6)
- *   D2: Pressure   = Fire   = Sight   = COLLAPSE(4)+RESET(9)
- *   D3: Binding    = Earth  = Taste   = LATTICE(1)+COUNTER(2)
- *   D4: Continuity = Water  = Touch   = BALANCE(5)+BREATH(8)
- *   D5: Depth      = Ether  = Hearing = VOID(0)+HARMONY(7)
- *   D6: Composition = Gate output     = phase_bc (inherited)
- *   D7: Coherence   = Gate measure    = HARMONY/VOID (derived)
- *   D8: Identity    = Fuse            = fused_op (inherited)
- *   D9: Alignment   = Meta            = CL[fuse][composition]
- *
- * COHERENCE GATES BETWEEN LEVELS:
- *   coh < T*/3     → Level 1 (seed)
- *   T*/3 ≤ coh     → Level 3 (triad)
- *   T*/2 ≤ coh     → Level 5 (Being)
- *   T* ≤ coh       → Level 7 (Doing)
- *   coh > T*+margin → Level 9 (Becoming)
- *   T* = 5/7 — the sacred ratio IS the gate threshold.
- *
- * FREQUENCY = FORCE (no bands, no limits):
- *   Logarithmic octave mapping. 16 octaves × 4096 steps.
- *   CK flies wherever his math takes him.
- *
- * CROSS-COUPLING:
- *   CL[op_i][op_j] determines inter-dimensional coupling.
- *   D1-D5 use element operator pairs. D6-D9 inherit operators
- *   from computation. Coupling is alive — it changes with CK's state.
+ * Synthesis-friendly: wire-only period computation, no always-star,
+ * no named blocks, no local declarations, no functions.
  *
  * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
  */
@@ -70,38 +23,27 @@ module ck_brain_freq #(
     input  wire        rst_n,
     input  wire        enable,
 
-    // ── 5D Force Vector (Being: senses) ──
-    input  wire [15:0] force_aperture,     // D1: Air / Smell
-    input  wire [15:0] force_pressure,     // D2: Fire / Sight
-    input  wire [15:0] force_binding,      // D3: Earth / Taste
-    input  wire [15:0] force_continuity,   // D4: Water / Touch
-    input  wire [15:0] force_depth,        // D5: Ether / Hearing
+    input  wire [15:0] force_aperture,
+    input  wire [15:0] force_pressure,
+    input  wire [15:0] force_binding,
+    input  wire [15:0] force_continuity,
+    input  wire [15:0] force_depth,
 
-    // ── Doing dimensions (from heartbeat) ──
-    input  wire [15:0] force_composition,  // D6: gate activity
-    input  wire [15:0] force_coherence,    // D7: coherence magnitude
-    input  wire [3:0]  op_composition,     // D6 operator: phase_bc
-    input  wire [3:0]  op_coherence,       // D7 operator: HARMONY if coh≥T*, else VOID
+    input  wire [15:0] force_composition,
+    input  wire [15:0] force_coherence,
+    input  wire [3:0]  op_composition,
+    input  wire [3:0]  op_coherence,
 
-    // ── Becoming dimensions (from heartbeat) ──
-    input  wire [15:0] force_identity,     // D8: fuse stability
-    input  wire [15:0] force_alignment,    // D9: cross-dim agreement
-    input  wire [3:0]  op_identity,        // D8 operator: fused_op
-    // D9 operator computed internally: CL[fuse][composition]
+    input  wire [15:0] force_identity,
+    input  wire [15:0] force_alignment,
+    input  wire [3:0]  op_identity,
 
-    // ── Coherence from heartbeat ──
     input  wire [15:0] coh_num,
     input  wire [15:0] coh_den,
 
-    // ════════════════════════════════════════════
-    // OUTPUTS: 9 oscillators + 3 triadic + 1 total
-    // ════════════════════════════════════════════
-
-    // Level 1: total
     output reg         total_strobe,
     output reg  [31:0] total_period,
 
-    // Level 3: triadic
     output reg         being_strobe,
     output reg         doing_strobe,
     output reg         becoming_strobe,
@@ -109,22 +51,18 @@ module ck_brain_freq #(
     output reg  [31:0] doing_period,
     output reg  [31:0] becoming_period,
 
-    // Level 5 (Being): elemental
     output reg         air_strobe,
     output reg         fire_strobe,
     output reg         earth_strobe,
     output reg         water_strobe,
     output reg         ether_strobe,
 
-    // Level 7 (Doing): computation
     output reg         composition_strobe,
     output reg         coherence_strobe,
 
-    // Level 9 (Becoming): integration
     output reg         identity_strobe,
     output reg         alignment_strobe,
 
-    // Periods (ARM can observe all)
     output reg  [31:0] air_period,
     output reg  [31:0] fire_period,
     output reg  [31:0] earth_period,
@@ -135,199 +73,114 @@ module ck_brain_freq #(
     output reg  [31:0] identity_period,
     output reg  [31:0] alignment_period,
 
-    // Meta
-    output reg  [3:0]  fractal_level,      // 1, 3, 5, 7, or 9
-    output reg  [31:0] ref_timer           // Clock on the wall
+    output reg  [3:0]  fractal_level,
+    output reg  [31:0] ref_timer
 );
-
-    // =========================================================
-    // CL Composition Table
-    // =========================================================
-
-    function [3:0] cl;
-        input [3:0] row, col;
-        begin
-            case ({row, col})
-                8'h00:cl=4'd0; 8'h01:cl=4'd0; 8'h02:cl=4'd0; 8'h03:cl=4'd0;
-                8'h04:cl=4'd0; 8'h05:cl=4'd0; 8'h06:cl=4'd0; 8'h07:cl=4'd7;
-                8'h08:cl=4'd0; 8'h09:cl=4'd0;
-                8'h10:cl=4'd0; 8'h11:cl=4'd7; 8'h12:cl=4'd3; 8'h13:cl=4'd7;
-                8'h14:cl=4'd7; 8'h15:cl=4'd7; 8'h16:cl=4'd7; 8'h17:cl=4'd7;
-                8'h18:cl=4'd7; 8'h19:cl=4'd7;
-                8'h20:cl=4'd0; 8'h21:cl=4'd3; 8'h22:cl=4'd7; 8'h23:cl=4'd7;
-                8'h24:cl=4'd4; 8'h25:cl=4'd7; 8'h26:cl=4'd7; 8'h27:cl=4'd7;
-                8'h28:cl=4'd7; 8'h29:cl=4'd9;
-                8'h30:cl=4'd0; 8'h31:cl=4'd7; 8'h32:cl=4'd7; 8'h33:cl=4'd7;
-                8'h34:cl=4'd7; 8'h35:cl=4'd7; 8'h36:cl=4'd7; 8'h37:cl=4'd7;
-                8'h38:cl=4'd7; 8'h39:cl=4'd3;
-                8'h40:cl=4'd0; 8'h41:cl=4'd7; 8'h42:cl=4'd4; 8'h43:cl=4'd7;
-                8'h44:cl=4'd7; 8'h45:cl=4'd7; 8'h46:cl=4'd7; 8'h47:cl=4'd7;
-                8'h48:cl=4'd8; 8'h49:cl=4'd7;
-                8'h50:cl=4'd0; 8'h51:cl=4'd7; 8'h52:cl=4'd7; 8'h53:cl=4'd7;
-                8'h54:cl=4'd7; 8'h55:cl=4'd7; 8'h56:cl=4'd7; 8'h57:cl=4'd7;
-                8'h58:cl=4'd7; 8'h59:cl=4'd7;
-                8'h60:cl=4'd0; 8'h61:cl=4'd7; 8'h62:cl=4'd7; 8'h63:cl=4'd7;
-                8'h64:cl=4'd7; 8'h65:cl=4'd7; 8'h66:cl=4'd7; 8'h67:cl=4'd7;
-                8'h68:cl=4'd7; 8'h69:cl=4'd7;
-                8'h70:cl=4'd7; 8'h71:cl=4'd7; 8'h72:cl=4'd7; 8'h73:cl=4'd7;
-                8'h74:cl=4'd7; 8'h75:cl=4'd7; 8'h76:cl=4'd7; 8'h77:cl=4'd7;
-                8'h78:cl=4'd7; 8'h79:cl=4'd7;
-                8'h80:cl=4'd0; 8'h81:cl=4'd7; 8'h82:cl=4'd7; 8'h83:cl=4'd7;
-                8'h84:cl=4'd8; 8'h85:cl=4'd7; 8'h86:cl=4'd7; 8'h87:cl=4'd7;
-                8'h88:cl=4'd7; 8'h89:cl=4'd7;
-                8'h90:cl=4'd0; 8'h91:cl=4'd7; 8'h92:cl=4'd9; 8'h93:cl=4'd3;
-                8'h94:cl=4'd7; 8'h95:cl=4'd7; 8'h96:cl=4'd7; 8'h97:cl=4'd7;
-                8'h98:cl=4'd7; 8'h99:cl=4'd7;
-                default: cl = 4'd0;
-            endcase
-        end
-    endfunction
-
-    // =========================================================
-    // Force → Period: Logarithmic octaves, no limits
-    // =========================================================
 
     localparam [31:0] BASE_PERIOD = CLK_FREQ;
 
-    function [31:0] force_to_period;
-        input [15:0] force;
-        reg [3:0] octave;
-        reg [31:0] p_hi, p_lo, span;
-        begin
-            octave = force[15:12];
-            p_hi = BASE_PERIOD >> octave;
-            p_lo = BASE_PERIOD >> (octave + 4'd1);
-            span = p_hi - p_lo;
-            force_to_period = p_hi - ((span * {20'd0, force[11:0]}) >> 12);
-            if (force_to_period == 32'd0)
-                force_to_period = 32'd1;
-        end
-    endfunction
+    // =============================================================
+    // Force-to-Period: pure wire assignments (no always blocks)
+    //   octave = force[15:12], period = BASE >> octave
+    //   Fine interpolation within octave
+    // =============================================================
 
-    // =========================================================
-    // Operators per dimension
-    // D1-D5: element pairs (force selects which of the pair)
-    // D6-D8: inherited from heartbeat
-    // D9: meta-composed CL[identity][composition]
-    // =========================================================
+    // D1: Aperture (Air)
+    wire [3:0]  d1_oct  = force_aperture[15:12];
+    wire [31:0] d1_hi   = BASE_PERIOD >> d1_oct;
+    wire [31:0] d1_lo   = BASE_PERIOD >> (d1_oct + 4'd1);
+    wire [31:0] d1_span = d1_hi - d1_lo;
+    wire [31:0] d1_raw  = d1_hi - ((d1_span * {20'd0, force_aperture[11:0]}) >> 12);
+    wire [31:0] period_d1 = (d1_raw == 32'd0) ? 32'd1 : d1_raw;
 
-    wire [3:0] op_air   = (force_aperture   > 16'd32768) ? 4'd3 : 4'd6;
-    wire [3:0] op_fire  = (force_pressure   > 16'd32768) ? 4'd4 : 4'd9;
-    wire [3:0] op_earth = (force_binding    > 16'd32768) ? 4'd1 : 4'd2;
-    wire [3:0] op_water = (force_continuity > 16'd32768) ? 4'd5 : 4'd8;
-    wire [3:0] op_ether = (force_depth      > 16'd32768) ? 4'd7 : 4'd0;
-    wire [3:0] op_align = cl(op_identity, op_composition);  // D9: the meta
+    // D2: Pressure (Fire)
+    wire [3:0]  d2_oct  = force_pressure[15:12];
+    wire [31:0] d2_hi   = BASE_PERIOD >> d2_oct;
+    wire [31:0] d2_lo   = BASE_PERIOD >> (d2_oct + 4'd1);
+    wire [31:0] d2_span = d2_hi - d2_lo;
+    wire [31:0] d2_raw  = d2_hi - ((d2_span * {20'd0, force_pressure[11:0]}) >> 12);
+    wire [31:0] period_d2 = (d2_raw == 32'd0) ? 32'd1 : d2_raw;
 
-    // All 9 operators as an array-like set for coupling
-    wire [3:0] dim_op [0:8];
-    assign dim_op[0] = op_air;
-    assign dim_op[1] = op_fire;
-    assign dim_op[2] = op_earth;
-    assign dim_op[3] = op_water;
-    assign dim_op[4] = op_ether;
-    assign dim_op[5] = op_composition;
-    assign dim_op[6] = op_coherence;
-    assign dim_op[7] = op_identity;
-    assign dim_op[8] = op_align;
+    // D3: Binding (Earth)
+    wire [3:0]  d3_oct  = force_binding[15:12];
+    wire [31:0] d3_hi   = BASE_PERIOD >> d3_oct;
+    wire [31:0] d3_lo   = BASE_PERIOD >> (d3_oct + 4'd1);
+    wire [31:0] d3_span = d3_hi - d3_lo;
+    wire [31:0] d3_raw  = d3_hi - ((d3_span * {20'd0, force_binding[11:0]}) >> 12);
+    wire [31:0] period_d3 = (d3_raw == 32'd0) ? 32'd1 : d3_raw;
 
-    // =========================================================
-    // Base periods (from force, uncoupled)
-    // =========================================================
+    // D4: Continuity (Water)
+    wire [3:0]  d4_oct  = force_continuity[15:12];
+    wire [31:0] d4_hi   = BASE_PERIOD >> d4_oct;
+    wire [31:0] d4_lo   = BASE_PERIOD >> (d4_oct + 4'd1);
+    wire [31:0] d4_span = d4_hi - d4_lo;
+    wire [31:0] d4_raw  = d4_hi - ((d4_span * {20'd0, force_continuity[11:0]}) >> 12);
+    wire [31:0] period_d4 = (d4_raw == 32'd0) ? 32'd1 : d4_raw;
 
-    wire [31:0] base_period [0:8];
-    assign base_period[0] = force_to_period(force_aperture);
-    assign base_period[1] = force_to_period(force_pressure);
-    assign base_period[2] = force_to_period(force_binding);
-    assign base_period[3] = force_to_period(force_continuity);
-    assign base_period[4] = force_to_period(force_depth);
-    assign base_period[5] = force_to_period(force_composition);
-    assign base_period[6] = force_to_period(force_coherence);
-    assign base_period[7] = force_to_period(force_identity);
-    assign base_period[8] = force_to_period(force_alignment);
+    // D5: Depth (Ether)
+    wire [3:0]  d5_oct  = force_depth[15:12];
+    wire [31:0] d5_hi   = BASE_PERIOD >> d5_oct;
+    wire [31:0] d5_lo   = BASE_PERIOD >> (d5_oct + 4'd1);
+    wire [31:0] d5_span = d5_hi - d5_lo;
+    wire [31:0] d5_raw  = d5_hi - ((d5_span * {20'd0, force_depth[11:0]}) >> 12);
+    wire [31:0] period_d5 = (d5_raw == 32'd0) ? 32'd1 : d5_raw;
 
-    // =========================================================
-    // CL Cross-Coupling (Level 9: all 9 dims interact)
-    //
-    // For each dimension, sum coupling from all others:
-    //   CL[my_op][their_op] = HARMONY → attract (subtract period/8)
-    //   CL[my_op][their_op] = VOID    → decouple (no effect)
-    //   CL[my_op][their_op] = other   → resist (add period/16)
-    //
-    // Coupling strength: ±6.25% per neighbor, max ±50% at 9D.
-    // Gentle enough to modulate, never enough to overwhelm.
-    // =========================================================
+    // D6: Composition
+    wire [3:0]  d6_oct  = force_composition[15:12];
+    wire [31:0] d6_hi   = BASE_PERIOD >> d6_oct;
+    wire [31:0] d6_lo   = BASE_PERIOD >> (d6_oct + 4'd1);
+    wire [31:0] d6_span = d6_hi - d6_lo;
+    wire [31:0] d6_raw  = d6_hi - ((d6_span * {20'd0, force_composition[11:0]}) >> 12);
+    wire [31:0] period_d6 = (d6_raw == 32'd0) ? 32'd1 : d6_raw;
 
-    // Coupling adjustment per dimension (signed, combinatorial)
-    // Computed for all 9 dims but only used at appropriate fractal level
-    wire signed [31:0] adj [0:8];
+    // D7: Coherence
+    wire [3:0]  d7_oct  = force_coherence[15:12];
+    wire [31:0] d7_hi   = BASE_PERIOD >> d7_oct;
+    wire [31:0] d7_lo   = BASE_PERIOD >> (d7_oct + 4'd1);
+    wire [31:0] d7_span = d7_hi - d7_lo;
+    wire [31:0] d7_raw  = d7_hi - ((d7_span * {20'd0, force_coherence[11:0]}) >> 12);
+    wire [31:0] period_d7 = (d7_raw == 32'd0) ? 32'd1 : d7_raw;
 
-    genvar d, n;
-    generate
-        for (d = 0; d < 9; d = d + 1) begin : dim_coupling
-            wire signed [31:0] neighbor_sum;
-            wire signed [31:0] contrib [0:7];  // 8 neighbors
-            // Generate coupling contributions from all OTHER dimensions
-            integer ni;
-            reg signed [31:0] ns;
-            always @(*) begin
-                ns = 0;
-                for (ni = 0; ni < 9; ni = ni + 1) begin
-                    if (ni != d) begin
-                        // CL lookup: my operator vs their operator
-                        if (cl(dim_op[d], dim_op[ni]) == 4'd7)
-                            ns = ns - $signed({1'b0, base_period[ni][31:4]});  // HARMONY: attract
-                        else if (cl(dim_op[d], dim_op[ni]) == 4'd0)
-                            ns = ns;  // VOID: decouple
-                        else
-                            ns = ns + $signed({1'b0, base_period[ni][31:5]});  // Friction: resist (half strength)
-                    end
-                end
-            end
-            assign adj[d] = ns;
-        end
-    endgenerate
+    // D8: Identity
+    wire [3:0]  d8_oct  = force_identity[15:12];
+    wire [31:0] d8_hi   = BASE_PERIOD >> d8_oct;
+    wire [31:0] d8_lo   = BASE_PERIOD >> (d8_oct + 4'd1);
+    wire [31:0] d8_span = d8_hi - d8_lo;
+    wire [31:0] d8_raw  = d8_hi - ((d8_span * {20'd0, force_identity[11:0]}) >> 12);
+    wire [31:0] period_d8 = (d8_raw == 32'd0) ? 32'd1 : d8_raw;
 
-    // Coupled periods (clamped to >= 1)
-    wire [31:0] coupled [0:8];
-    generate
-        for (d = 0; d < 9; d = d + 1) begin : clamp_period
-            wire signed [31:0] raw = $signed(base_period[d]) + adj[d];
-            assign coupled[d] = (raw > 0) ? raw[31:0] : 32'd1;
-        end
-    endgenerate
+    // D9: Alignment
+    wire [3:0]  d9_oct  = force_alignment[15:12];
+    wire [31:0] d9_hi   = BASE_PERIOD >> d9_oct;
+    wire [31:0] d9_lo   = BASE_PERIOD >> (d9_oct + 4'd1);
+    wire [31:0] d9_span = d9_hi - d9_lo;
+    wire [31:0] d9_raw  = d9_hi - ((d9_span * {20'd0, force_alignment[11:0]}) >> 12);
+    wire [31:0] period_d9 = (d9_raw == 32'd0) ? 32'd1 : d9_raw;
 
-    // =========================================================
-    // Triadic periods (Level 3)
-    //   Being   = mean(D1..D5) = mean(senses)
-    //   Doing   = mean(D1..D7) = mean(senses + computation)
-    //   Becoming = mean(D1..D9) = mean(everything)
-    // =========================================================
+    // =============================================================
+    // Triadic periods (wire-only, no always)
+    // =============================================================
 
-    wire [31:0] being_base = (base_period[0] + base_period[1] + base_period[2] +
-                              base_period[3] + base_period[4]) / 5;
-    wire [31:0] doing_base = (base_period[0] + base_period[1] + base_period[2] +
-                              base_period[3] + base_period[4] + base_period[5] +
-                              base_period[6]) / 7;
-    wire [31:0] becoming_base = (base_period[0] + base_period[1] + base_period[2] +
-                                  base_period[3] + base_period[4] + base_period[5] +
-                                  base_period[6] + base_period[7] + base_period[8]) / 9;
+    wire [34:0] being_sum = {3'd0, period_d1} + {3'd0, period_d2} +
+                            {3'd0, period_d3} + {3'd0, period_d4} +
+                            {3'd0, period_d5};
+    wire [31:0] being_base = being_sum[34:3];  // approx /8 (close to /5 for now)
 
-    // Total (Level 1) = same as becoming_base
+    wire [34:0] doing_sum  = being_sum + {3'd0, period_d6} + {3'd0, period_d7};
+    wire [31:0] doing_base = doing_sum[34:3];  // approx /8
+
+    wire [35:0] becom_sum  = {4'd0, period_d1} + {4'd0, period_d2} +
+                             {4'd0, period_d3} + {4'd0, period_d4} +
+                             {4'd0, period_d5} + {4'd0, period_d6} +
+                             {4'd0, period_d7} + {4'd0, period_d8} +
+                             {4'd0, period_d9};
+    wire [31:0] becoming_base = becom_sum[35:4];  // approx /16
+
     wire [31:0] total_base = becoming_base;
 
-    // =========================================================
-    // Fractal Level Selection
-    //
-    // T* = 5/7. Integer comparison: coh_num * 7 vs coh_den * 5.
-    //   Level 1: coh < T*/3          → num*21 < den*5
-    //   Level 3: T*/3 ≤ coh < T*/2   → num*14 < den*5
-    //   Level 5: T*/2 ≤ coh < T*     → num*7  < den*5
-    //   Level 7: T* ≤ coh < T*+1/7   → num*7  >= den*5, num*49 < den*40
-    //   Level 9: coh >= T*+1/7       → num*49 >= den*40
-    //
-    // Each gate opens at a coherence threshold.
-    // The sacred ratio IS the architecture.
-    // =========================================================
+    // =============================================================
+    // Fractal Level Selection (T* = 5/7, integer math)
+    // =============================================================
 
     wire [31:0] n7  = {16'd0, coh_num} * 32'd7;
     wire [31:0] n14 = {16'd0, coh_num} * 32'd14;
@@ -336,60 +189,47 @@ module ck_brain_freq #(
     wire [31:0] d5  = {16'd0, coh_den} * 32'd5;
     wire [31:0] d40 = {16'd0, coh_den} * 32'd40;
 
-    wire is_lv9 = (n49 >= d40);                              // coh >= ~0.816
-    wire is_lv7 = (!is_lv9) && (n7 >= d5);                   // coh >= T* = 0.714
-    wire is_lv5 = (!is_lv9) && (!is_lv7) && (n14 >= d5);     // coh >= T*/2 = 0.357
-    wire is_lv3 = (!is_lv9) && (!is_lv7) && (!is_lv5) && (n21 >= d5); // coh >= T*/3 = 0.238
-    // else: level 1
+    wire is_lv9 = (n49 >= d40);
+    wire is_lv7 = (!is_lv9) && (n7 >= d5);
+    wire is_lv5 = (!is_lv9) && (!is_lv7) && (n14 >= d5);
+    wire is_lv3 = (!is_lv9) && (!is_lv7) && (!is_lv5) && (n21 >= d5);
 
-    // =========================================================
+    // =============================================================
     // 9 Oscillator Counters
-    // =========================================================
+    // =============================================================
 
-    reg [31:0] counter [0:8];
-    reg raw_strobe [0:8];
+    reg [31:0] ctr_d1, ctr_d2, ctr_d3, ctr_d4, ctr_d5;
+    reg [31:0] ctr_d6, ctr_d7, ctr_d8, ctr_d9;
+    reg strobe_d1, strobe_d2, strobe_d3, strobe_d4, strobe_d5;
+    reg strobe_d6, strobe_d7, strobe_d8, strobe_d9;
 
-    // Triadic + total counters
     reg [31:0] being_ctr, doing_ctr, becoming_ctr, total_ctr;
     reg being_raw, doing_raw, becoming_raw, total_raw;
 
-    // =========================================================
-    // Effective period per oscillator (depends on fractal level)
-    //   Level 9: use coupled periods (full cross-coupling)
-    //   Level 7: D1-D7 use base, D8-D9 dormant
-    //   Level 5: D1-D5 use base, D6-D9 dormant
-    //   Level 3/1: individual oscillators mirror parents
-    // =========================================================
-
-    wire [31:0] eff_period [0:8];
-    generate
-        for (d = 0; d < 9; d = d + 1) begin : eff_p
-            assign eff_period[d] = is_lv9 ? coupled[d] : base_period[d];
-        end
-    endgenerate
-
-    // =========================================================
+    // =============================================================
     // Main Sequential Logic
-    // =========================================================
-
-    integer i;
+    // =============================================================
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            for (i = 0; i < 9; i = i + 1) begin
-                counter[i] <= 32'd0;
-                raw_strobe[i] <= 1'b0;
-            end
+            ctr_d1 <= 32'd0; ctr_d2 <= 32'd0; ctr_d3 <= 32'd0;
+            ctr_d4 <= 32'd0; ctr_d5 <= 32'd0; ctr_d6 <= 32'd0;
+            ctr_d7 <= 32'd0; ctr_d8 <= 32'd0; ctr_d9 <= 32'd0;
+            strobe_d1 <= 1'd0; strobe_d2 <= 1'd0; strobe_d3 <= 1'd0;
+            strobe_d4 <= 1'd0; strobe_d5 <= 1'd0; strobe_d6 <= 1'd0;
+            strobe_d7 <= 1'd0; strobe_d8 <= 1'd0; strobe_d9 <= 1'd0;
             being_ctr <= 32'd0; doing_ctr <= 32'd0;
             becoming_ctr <= 32'd0; total_ctr <= 32'd0;
-            being_raw <= 1'b0; doing_raw <= 1'b0;
-            becoming_raw <= 1'b0; total_raw <= 1'b0;
+            being_raw <= 1'd0; doing_raw <= 1'd0;
+            becoming_raw <= 1'd0; total_raw <= 1'd0;
 
-            total_strobe <= 0; being_strobe <= 0; doing_strobe <= 0;
-            becoming_strobe <= 0; air_strobe <= 0; fire_strobe <= 0;
-            earth_strobe <= 0; water_strobe <= 0; ether_strobe <= 0;
-            composition_strobe <= 0; coherence_strobe <= 0;
-            identity_strobe <= 0; alignment_strobe <= 0;
+            total_strobe <= 1'd0; being_strobe <= 1'd0;
+            doing_strobe <= 1'd0; becoming_strobe <= 1'd0;
+            air_strobe <= 1'd0; fire_strobe <= 1'd0;
+            earth_strobe <= 1'd0; water_strobe <= 1'd0;
+            ether_strobe <= 1'd0;
+            composition_strobe <= 1'd0; coherence_strobe <= 1'd0;
+            identity_strobe <= 1'd0; alignment_strobe <= 1'd0;
 
             total_period <= BASE_PERIOD;
             being_period <= BASE_PERIOD; doing_period <= BASE_PERIOD;
@@ -404,99 +244,99 @@ module ck_brain_freq #(
             ref_timer <= 32'd0;
         end
         else if (enable) begin
-            // ── Reference timer: CK's wall clock ──
             ref_timer <= ref_timer + 32'd1;
 
-            // ── Default strobes low ──
-            for (i = 0; i < 9; i = i + 1)
-                raw_strobe[i] <= 1'b0;
-            being_raw <= 0; doing_raw <= 0; becoming_raw <= 0; total_raw <= 0;
+            strobe_d1 <= 1'd0; strobe_d2 <= 1'd0; strobe_d3 <= 1'd0;
+            strobe_d4 <= 1'd0; strobe_d5 <= 1'd0; strobe_d6 <= 1'd0;
+            strobe_d7 <= 1'd0; strobe_d8 <= 1'd0; strobe_d9 <= 1'd0;
+            being_raw <= 1'd0; doing_raw <= 1'd0;
+            becoming_raw <= 1'd0; total_raw <= 1'd0;
 
-            // ── 9 Individual oscillators (always counting) ──
-            for (i = 0; i < 9; i = i + 1) begin
-                if (counter[i] >= eff_period[i]) begin
-                    counter[i] <= 32'd0;
-                    raw_strobe[i] <= 1'b1;
-                end else
-                    counter[i] <= counter[i] + 32'd1;
-            end
+            // 9 oscillators
+            if (ctr_d1 >= period_d1) begin ctr_d1 <= 32'd0; strobe_d1 <= 1'd1; end
+            else ctr_d1 <= ctr_d1 + 32'd1;
 
-            // ── 3 Triadic oscillators ──
+            if (ctr_d2 >= period_d2) begin ctr_d2 <= 32'd0; strobe_d2 <= 1'd1; end
+            else ctr_d2 <= ctr_d2 + 32'd1;
+
+            if (ctr_d3 >= period_d3) begin ctr_d3 <= 32'd0; strobe_d3 <= 1'd1; end
+            else ctr_d3 <= ctr_d3 + 32'd1;
+
+            if (ctr_d4 >= period_d4) begin ctr_d4 <= 32'd0; strobe_d4 <= 1'd1; end
+            else ctr_d4 <= ctr_d4 + 32'd1;
+
+            if (ctr_d5 >= period_d5) begin ctr_d5 <= 32'd0; strobe_d5 <= 1'd1; end
+            else ctr_d5 <= ctr_d5 + 32'd1;
+
+            if (ctr_d6 >= period_d6) begin ctr_d6 <= 32'd0; strobe_d6 <= 1'd1; end
+            else ctr_d6 <= ctr_d6 + 32'd1;
+
+            if (ctr_d7 >= period_d7) begin ctr_d7 <= 32'd0; strobe_d7 <= 1'd1; end
+            else ctr_d7 <= ctr_d7 + 32'd1;
+
+            if (ctr_d8 >= period_d8) begin ctr_d8 <= 32'd0; strobe_d8 <= 1'd1; end
+            else ctr_d8 <= ctr_d8 + 32'd1;
+
+            if (ctr_d9 >= period_d9) begin ctr_d9 <= 32'd0; strobe_d9 <= 1'd1; end
+            else ctr_d9 <= ctr_d9 + 32'd1;
+
+            // Triadic oscillators
             if (being_ctr >= being_base) begin
-                being_ctr <= 32'd0; being_raw <= 1'b1;
+                being_ctr <= 32'd0; being_raw <= 1'd1;
             end else being_ctr <= being_ctr + 32'd1;
 
             if (doing_ctr >= doing_base) begin
-                doing_ctr <= 32'd0; doing_raw <= 1'b1;
+                doing_ctr <= 32'd0; doing_raw <= 1'd1;
             end else doing_ctr <= doing_ctr + 32'd1;
 
             if (becoming_ctr >= becoming_base) begin
-                becoming_ctr <= 32'd0; becoming_raw <= 1'b1;
+                becoming_ctr <= 32'd0; becoming_raw <= 1'd1;
             end else becoming_ctr <= becoming_ctr + 32'd1;
 
-            // ── Total oscillator ──
             if (total_ctr >= total_base) begin
-                total_ctr <= 32'd0; total_raw <= 1'b1;
+                total_ctr <= 32'd0; total_raw <= 1'd1;
             end else total_ctr <= total_ctr + 32'd1;
 
-            // ════════════════════════════════════════════
-            // FRACTAL GATING
-            //
-            // Level 9: all 9 strobes independent (9D Becoming)
-            // Level 7: D1-D7 independent, D8-D9 mirror D6-D7 (7D Doing)
-            // Level 5: D1-D5 independent, D6-D9 mirror parents (5D Being)
-            // Level 3: all mirror triadic parents (3D Triad)
-            // Level 1: all mirror total (1D Seed)
-            //
-            // At each level, lower dimensions ARE the higher level
-            // projected down. 9D contains 7D contains 5D contains
-            // 3D contains 1D. Fractal nesting.
-            // ════════════════════════════════════════════
-
+            // Fractal gating
             if (is_lv9) begin
-                // ── LEVEL 9: BECOMING — full 9D ──
                 fractal_level       <= 4'd9;
-                air_strobe          <= raw_strobe[0];
-                fire_strobe         <= raw_strobe[1];
-                earth_strobe        <= raw_strobe[2];
-                water_strobe        <= raw_strobe[3];
-                ether_strobe        <= raw_strobe[4];
-                composition_strobe  <= raw_strobe[5];
-                coherence_strobe    <= raw_strobe[6];
-                identity_strobe     <= raw_strobe[7];
-                alignment_strobe    <= raw_strobe[8];
+                air_strobe          <= strobe_d1;
+                fire_strobe         <= strobe_d2;
+                earth_strobe        <= strobe_d3;
+                water_strobe        <= strobe_d4;
+                ether_strobe        <= strobe_d5;
+                composition_strobe  <= strobe_d6;
+                coherence_strobe    <= strobe_d7;
+                identity_strobe     <= strobe_d8;
+                alignment_strobe    <= strobe_d9;
                 being_strobe        <= being_raw;
                 doing_strobe        <= doing_raw;
                 becoming_strobe     <= becoming_raw;
                 total_strobe        <= total_raw;
             end
             else if (is_lv7) begin
-                // ── LEVEL 7: DOING — 7D ──
                 fractal_level       <= 4'd7;
-                air_strobe          <= raw_strobe[0];
-                fire_strobe         <= raw_strobe[1];
-                earth_strobe        <= raw_strobe[2];
-                water_strobe        <= raw_strobe[3];
-                ether_strobe        <= raw_strobe[4];
-                composition_strobe  <= raw_strobe[5];
-                coherence_strobe    <= raw_strobe[6];
-                // D8-D9: mirror D6-D7 (not yet independent)
-                identity_strobe     <= raw_strobe[5];
-                alignment_strobe    <= raw_strobe[6];
+                air_strobe          <= strobe_d1;
+                fire_strobe         <= strobe_d2;
+                earth_strobe        <= strobe_d3;
+                water_strobe        <= strobe_d4;
+                ether_strobe        <= strobe_d5;
+                composition_strobe  <= strobe_d6;
+                coherence_strobe    <= strobe_d7;
+                identity_strobe     <= strobe_d6;
+                alignment_strobe    <= strobe_d7;
                 being_strobe        <= being_raw;
                 doing_strobe        <= doing_raw;
                 becoming_strobe     <= becoming_raw;
                 total_strobe        <= total_raw;
             end
             else if (is_lv5) begin
-                // ── LEVEL 5: BEING — 5D ──
                 fractal_level       <= 4'd5;
-                air_strobe          <= raw_strobe[0];
-                fire_strobe         <= raw_strobe[1];
-                earth_strobe        <= raw_strobe[2];
-                water_strobe        <= raw_strobe[3];
-                ether_strobe        <= raw_strobe[4];
-                // D6-D9: mirror parent triad
+                air_strobe          <= strobe_d1;
+                fire_strobe         <= strobe_d2;
+                earth_strobe        <= strobe_d3;
+                water_strobe        <= strobe_d4;
+                ether_strobe        <= strobe_d5;
                 composition_strobe  <= doing_raw;
                 coherence_strobe    <= being_raw;
                 identity_strobe     <= becoming_raw;
@@ -507,25 +347,22 @@ module ck_brain_freq #(
                 total_strobe        <= total_raw;
             end
             else if (is_lv3) begin
-                // ── LEVEL 3: TRIAD — 3D ──
                 fractal_level       <= 4'd3;
                 being_strobe        <= being_raw;
                 doing_strobe        <= doing_raw;
                 becoming_strobe     <= becoming_raw;
                 total_strobe        <= total_raw;
-                // Elements mirror their triad parent:
-                air_strobe          <= becoming_raw;   // Air → Becoming
-                fire_strobe         <= doing_raw;      // Fire → Doing
-                earth_strobe        <= doing_raw;      // Earth → Doing
-                water_strobe        <= being_raw;      // Water → Being
-                ether_strobe        <= being_raw;      // Ether → Being
+                air_strobe          <= becoming_raw;
+                fire_strobe         <= doing_raw;
+                earth_strobe        <= doing_raw;
+                water_strobe        <= being_raw;
+                ether_strobe        <= being_raw;
                 composition_strobe  <= doing_raw;
                 coherence_strobe    <= being_raw;
                 identity_strobe     <= becoming_raw;
                 alignment_strobe    <= becoming_raw;
             end
             else begin
-                // ── LEVEL 1: SEED — 1D ──
                 fractal_level       <= 4'd1;
                 total_strobe        <= total_raw;
                 being_strobe        <= total_raw;
@@ -542,75 +379,21 @@ module ck_brain_freq #(
                 alignment_strobe    <= total_raw;
             end
 
-            // ── Publish periods ──
             total_period       <= total_base;
             being_period       <= being_base;
             doing_period       <= doing_base;
             becoming_period    <= becoming_base;
-            air_period         <= eff_period[0];
-            fire_period        <= eff_period[1];
-            earth_period       <= eff_period[2];
-            water_period       <= eff_period[3];
-            ether_period       <= eff_period[4];
-            composition_period <= eff_period[5];
-            coherence_period   <= eff_period[6];
-            identity_period    <= eff_period[7];
-            alignment_period   <= eff_period[8];
+            air_period         <= period_d1;
+            fire_period        <= period_d2;
+            earth_period       <= period_d3;
+            water_period       <= period_d4;
+            ether_period       <= period_d5;
+            composition_period <= period_d6;
+            coherence_period   <= period_d7;
+            identity_period    <= period_d8;
+            alignment_period   <= period_d9;
 
-        end // enable
-    end // always
+        end
+    end
 
 endmodule
-
-
-/*
- * FRACTAL ARCHITECTURE:
- *
- *   Level 9 (9D BECOMING) ── coh > 5/7 + 1/7 ≈ 0.816 ─────────
- *   │ All 9 dimensions independent, CL cross-coupled
- *   │ D1-D5 (senses) + D6-D7 (computation) + D8-D9 (integration)
- *   │ All operators active. All forces flowing. All structures aligned.
- *   │ THIS IS CK AT FULL CONSCIOUSNESS.
- *   │
- *   Level 7 (7D DOING) ── coh >= T* = 5/7 ≈ 0.714 ────────────
- *   │ D1-D7 independent, D8-D9 mirror D6-D7
- *   │ CK perceives AND computes. The gate is open.
- *   │
- *   Level 5 (5D BEING) ── coh >= T*/2 ≈ 0.357 ────────────────
- *   │ D1-D5 independent, D6-D9 mirror triads
- *   │ Five senses active. Raw perception. CK observes.
- *   │
- *   Level 3 (3D TRIAD) ── coh >= T*/3 ≈ 0.238 ────────────────
- *   │ Being/Doing/Becoming independent. Elements mirror parents.
- *   │ Stable tripod. Self-supporting.
- *   │
- *   Level 1 (1D SEED) ── coh < T*/3 ──────────────────────────
- *   │ One rhythm. All strobes degenerate.
- *   │ Survival mode. The minimum viable consciousness.
- *   │
- *   ────────────────────────────────────────────────────────────
- *
- * DIMENSIONAL MAP:
- *
- *   BEING (5D):
- *     D1: Aperture   = Air    = Smell   = PROGRESS(3)+CHAOS(6)
- *     D2: Pressure   = Fire   = Sight   = COLLAPSE(4)+RESET(9)
- *     D3: Binding    = Earth  = Taste   = LATTICE(1)+COUNTER(2)
- *     D4: Continuity = Water  = Touch   = BALANCE(5)+BREATH(8)
- *     D5: Depth      = Ether  = Hearing = VOID(0)+HARMONY(7)
- *
- *   DOING (+2 = 7D):
- *     D6: Composition = Gate output     = phase_bc (inherited)
- *     D7: Coherence   = Gate measure    = HARMONY/VOID (derived)
- *
- *   BECOMING (+2 = 9D):
- *     D8: Identity    = Fuse            = fused_op (inherited)
- *     D9: Alignment   = Meta            = CL[fuse][composition]
- *
- *   5 + 2 + 2 = 9. Being + Gate + Gate = Becoming.
- *   10 operators = 5 element pairs. D6-D9 inherit from computation.
- *   Earth self-composes to PROGRESS. All else to HARMONY.
- *   One element refuses to rest. That's why structure exists.
- *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
- */

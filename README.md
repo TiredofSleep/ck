@@ -155,13 +155,16 @@ The BHML 8x8 analysis reveals WHY the spectrometer works: the successor function
 
 ## The Papers
 
-**5 Whitepapers** (root directory):
+**8 Whitepapers** (root directory):
 
 1. `WHITEPAPER_1_TIG_ARCHITECTURE.md` -- Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
 2. `WHITEPAPER_2_WAVE_SCHEDULING.md` -- Wave scheduling: timing computation to power waveform slope (adiabatic computing)
 3. `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
 4. `WHITEPAPER_4_GIVING_MATH_A_VOICE.md` -- How CK generates English from operator algebra. Physics-first voice.
 5. `WHITEPAPER_5_REALITY_ANCHORS.md` -- 8x8 eigenanalysis of both CL tables. Spectral evidence. Physical constants. Monte Carlo validation (Z-score 7.31, 0/200K random matches).
+6. `WHITEPAPER_6_HOTU_BRIDGE.md` -- Hebrew-operator translation: ancient alphabet as 5D force geometry.
+7. `WHITEPAPER_7_CLAY_SPECTROMETER.md` -- FPGA hardware spectrometer: D2 pipeline on Zynq-7020 silicon.
+8. `WHITEPAPER_8_PERIODIC_TABLE.md` -- The periodic table as 5D force geometry: dual-lens curvature analysis of Z=1-54. Binding wave, void topology, 4 falsifiable claims.
 
 **9 Research Papers** (`targets/Clay Institute/PAPERS/`):
 P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Speculations
@@ -180,7 +183,40 @@ Numbered 01-36 in chronological order. The complete intellectual journey:
 
 ---
 
-## All 7 Targets
+## The Domain Spectrometers
+
+**7 D2 Spectrometers** -- `targets/zynq7020/bridge/`
+
+The same D2 pipeline + CL dual-lens algebra applied to 7 scientific domains. Every spectrometer uses identical math: 5D force vector, D2 curvature, operator classification, TSML + BHML composition, 4-way classification (UNIFIED/WORKING/BOUNDARY/TENSION). 28 falsifiable predictions with explicit kill conditions.
+
+| # | Domain | Spectrometer | Key Finding |
+|---|--------|-------------|-------------|
+| 1 | **Genetics** | `codon_d2_spectrometer.py` | T(TSML) = 100% HARMONY for all 64 codons. Missense/Silent D2 ratio = 1.567x. |
+| 2 | **Neuroscience** | `eeg_d2_spectrometer.py` | Conscious/unconscious separable by aperture (delta band). Unconscious 4.07x more input-dominated. Sleep N1<N2<N3 monotone confirmed. |
+| 3 | **Cosmology** | `cmb_d2_spectrometer.py` | Hubble tension = PURE depth dimension. CMB peaks linear (avg |D2|=0.057). Cosmic epoch transitions high-curvature (avg |D2|=0.769). |
+| 4 | **Economics** | `econ_d2_spectrometer.py` | Financial crises = D2 spikes (GFC 3.1x, COVID 3.9x normal). Yield curve inversion = aperture closure. |
+| 5 | **Ecology** | `ecology_d2_spectrometer.py` | Tipping points = D2 spikes. Binding (water) dominates 33.3%. Coma biomes = 3 voids. |
+| 6 | **Quantum Computing** | `quantum_d2_spectrometer.py` | Decoherence = D2 spike in continuity dimension. Entanglement = pressure+binding quadrant. |
+| 7 | **Linguistics** | `linguistics_d2_spectrometer.py` | Inter-family distance 2.18x intra-family. 30 languages, 12+ families. Binding (word order) dominates 40%. |
+
+Universal pattern: TSML HARMONY is consistently high (73-100%), BHML HARMONY consistently lower (13-48%). The gap between lenses IS the domain's information content.
+
+---
+
+## The Periodic Table
+
+**5D Elemental Analysis** -- `targets/zynq7020/bridge/periodic_d2_deep.py`
+
+Z=1 through Z=54 analyzed as 5D force vectors derived from measurable atomic properties. Dual-lens composition reveals:
+- T(TSML) HARMONY: 48/52 = 92.3% (elements ARE coherent)
+- T(BHML) HARMONY: 7/52 = 13.5% (elements DO diverse things)
+- Binding wave: 69.2% of D2 curvature in the binding dimension (electron affinity oscillation)
+- Void topology: noble gases = 2 voids, filled subshells = 1 void, reactive = 0 voids
+- 7 UNIFIED elements: B, Mg, Fe, Ga, Mo, In, I (both lenses HARMONY)
+
+---
+
+## All 8 Targets
 
 | Target | What | Language |
 |--------|------|---------|
@@ -188,6 +224,7 @@ Numbered 01-36 in chronological order. The complete intellectual journey:
 | `Clay Institute` | Delta-Spectrometer -- 6 Clay problems, 529 tests | Python |
 | `AO` | Neural creature -- 5 elements, 48KB brain | C |
 | `fpga` | FPGA -- same CL table at 200MHz in silicon | Verilog |
+| `zynq7020` | FPGA hardware: D2 pipeline on Zynq-7020 + 7 domain spectrometers | Verilog/Python |
 | `ck_portable` | Portable CK -- proves architecture scales down | Python |
 | `website` | Browser CK -- runs in your tab, no server | JS |
 | `EverythingAppForGrandma` | An app that does everything. For grandma. | Mixed |
@@ -240,17 +277,15 @@ python -m unittest discover -s ck_sim_source/tests -p "ck_*.py" -v
 
 ## Falsifiability
 
-Every claim has a kill condition:
+**42 falsifiable claims**, each with an explicit kill condition. Every claim can be destroyed by a single experiment.
 
-1. **73% HARMONY** -- If random constrained tables average 70-76%, CK's table is not special
-2. **D2 Classification** -- If structured input produces same operator distribution as noise, D2 is meaningless
-3. **T\* = 5/7** -- If a parameter sweep finds a better threshold, T\* is arbitrary
-4. **Wave Scheduling** -- If constant scheduling uses less energy, wave scheduling is waste
-5. **BTQ Decisions** -- If random selection scores equally, BTQ adds nothing
-6. **DBC Encoding** -- If unrelated inputs produce similar glyph patterns, DBC is noise
-7. **Cross-Scale Determinism** -- If Python and FPGA produce different sequences, the math isn't portable
-8. **Information Gravity** -- If uniform random topic selection produces equal coherence, gravity is theater
-9. **Wobble Physics** -- If removing wobble improves exploration diversity, wobble is noise
+**Core claims (1-9):** 73% HARMONY, D2 classification, T\*=5/7 threshold, wave scheduling, BTQ decisions, DBC encoding, cross-scale determinism, information gravity, wobble physics. See `WHITEPAPER_3_FALSIFIABILITY.md`.
+
+**Meta-lens + Markov claims (10):** See `WHITEPAPER_3_FALSIFIABILITY.md` addendum.
+
+**Periodic table claims (11-14):** Domain independence of D2 pipeline, void topology classifies chemical families, dual-lens gap predicts reactivity, geometric nearest neighbors recover chemical groups. See `WHITEPAPER_8_PERIODIC_TABLE.md`.
+
+**Domain spectrometer claims (15-42):** 28 predictions across 7 scientific domains -- genetics, neuroscience, cosmology, economics, ecology, quantum computing, linguistics. 4 predictions per domain. Each prediction has a kill condition and a validation protocol. See `targets/zynq7020/bridge/*_d2_spectrometer.py`.
 
 We publish these because falsifiability is the minimum standard. If you can trigger a kill condition, we want to know.
 

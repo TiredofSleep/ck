@@ -1,0 +1,717 @@
+==============================================================================
+  EEG D2 SPECTROMETER -- Brain States as 5D Force Geometry
+  Dual-Lens Curvature Analysis of Consciousness
+==============================================================================
+
+==============================================================================
+SECTION 1: 5D FORCE VECTORS -- BRAIN STATE SPECTRAL SIGNATURES
+==============================================================================
+
+Each brain state = 5D vector of normalized spectral band power.
+  Aperture(delta)  Pressure(theta)  Depth(alpha)  Binding(beta)  Continuity(gamma)
+
+  --- WAKING STATES ---
+  [C] Eyes-Closed Rest           d=0.10  t=0.10  a=0.45  b=0.25  g=0.10
+  [C] Eyes-Open Rest             d=0.10  t=0.12  a=0.22  b=0.38  g=0.18
+  [C] Light Focus                d=0.05  t=0.15  a=0.15  b=0.40  g=0.25
+  [C] Deep Focus                 d=0.03  t=0.18  a=0.08  b=0.38  g=0.33
+  [C] Meditation                 d=0.08  t=0.30  a=0.35  b=0.17  g=0.10
+  [C] Flow State                 d=0.04  t=0.22  a=0.20  b=0.30  g=0.24
+  [C] Drowsy (Pre-Sleep)         d=0.15  t=0.25  a=0.30  b=0.20  g=0.10
+
+  --- SLEEP STATES ---
+  [ ] N1 Sleep                   d=0.20  t=0.35  a=0.20  b=0.18  g=0.07
+  [ ] N2 Sleep                   d=0.30  t=0.30  a=0.15  b=0.18  g=0.07
+  [ ] N3 Deep Sleep              d=0.60  t=0.18  a=0.08  b=0.10  g=0.04
+  [C] REM Sleep                  d=0.10  t=0.25  a=0.08  b=0.30  g=0.27
+
+  --- SEIZURE STATES ---
+  [ ] Absence Seizure            d=0.70  t=0.12  a=0.05  b=0.08  g=0.05
+  [ ] Temporal Lobe Seizure      d=0.35  t=0.40  a=0.05  b=0.10  g=0.10
+  [ ] Tonic-Clonic Seizure       d=0.20  t=0.10  a=0.03  b=0.22  g=0.45
+  [ ] Post-Ictal Suppression     d=0.55  t=0.20  a=0.10  b=0.10  g=0.05
+
+  --- ANESTHETIC STATES ---
+  [ ] Light Anesthesia           d=0.15  t=0.15  a=0.35  b=0.25  g=0.10
+  [ ] Deep Anesthesia            d=0.50  t=0.15  a=0.15  b=0.15  g=0.05
+  [C] Ketamine Dissociation      d=0.12  t=0.35  a=0.05  b=0.20  g=0.28
+
+  --- CLINICAL STATES ---
+  [ ] Coma                       d=0.70  t=0.15  a=0.05  b=0.07  g=0.03
+  [C] Minimally Conscious        d=0.40  t=0.20  a=0.15  b=0.15  g=0.10
+  [ ] Brain Death (ECI)          d=0.20  t=0.20  a=0.20  b=0.20  g=0.20
+
+  Total states: 21
+  [C] = subjectively conscious
+
+==============================================================================
+SECTION 2: PAIRWISE 5D DISTANCE MATRIX (selected pairs)
+==============================================================================
+
+Euclidean distance in 5D force space between brain states.
+Closer states are more similar in spectral geometry.
+
+  Eyes closed vs open                       dist = 0.2768
+  Rest vs light focus                       dist = 0.1166
+  Light vs deep focus                       dist = 0.1140
+  Deep focus vs flow                        dist = 0.1749
+  Rest vs meditation                        dist = 0.2383
+  Rest vs drowsy                            dist = 0.2236
+  Drowsy vs N1                              dist = 0.1543
+  N1 vs N2                                  dist = 0.1225
+  N2 vs N3 deep                             dist = 0.3415
+  N2 vs REM                                 dist = 0.3191
+  N3 vs REM                                 dist = 0.5897
+  Normal vs absence seizure                 dist = 0.7041
+  Normal vs temporal seizure                dist = 0.5046
+  Normal vs tonic-clonic                    dist = 0.3808
+  Rest vs light anesthesia                  dist = 0.1225
+  Light vs deep anesthesia                  dist = 0.4183
+  Deep sleep vs coma                        dist = 0.1131
+  Coma vs brain death                       dist = 0.5664
+  Deep sleep vs deep anesthesia             dist = 0.1356
+  REM vs ketamine                           dist = 0.1463
+
+  --- Consciousness Boundary Distances ---
+  Conscious centroid:   d=0.117 t=0.212 a=0.203 b=0.273 g=0.195
+  Unconscious centroid: d=0.405 t=0.209 a=0.128 b=0.148 g=0.110
+  Centroid separation:  0.3333
+
+  Most separating dimension: aperture (delta=0.2875)
+  Direction: conscious=0.117, unconscious=0.405
+
+  I/O ratio (conscious):   0.7030
+  I/O ratio (unconscious): 2.3768
+  Unconscious states are more INPUT-dominated
+
+==============================================================================
+SECTION 3: D2 OPERATOR CLASSIFICATION PER STATE
+==============================================================================
+
+D2 = deviation from the centroid of ALL states (global curvature).
+This measures what makes each state DIFFERENT from the average brain.
+
+  Global centroid: d=0.268 t=0.210 a=0.164 b=0.208 g=0.150
+
+  [C] Eyes-Closed Rest           op=PROGRESS  dim=+dp  mag=0.3557  dev=[-0.168,-0.110,+0.286,+0.042,-0.050]
+  [C] Eyes-Open Rest             op=HARMONY   dim=+bn  mag=0.2646  dev=[-0.168,-0.090,+0.056,+0.172,+0.030]
+  [C] Light Focus                op=LATTICE   dim=-ap  mag=0.3132  dev=[-0.218,-0.060,-0.014,+0.192,+0.100]
+  [C] Deep Focus                 op=LATTICE   dim=-ap  mag=0.3555  dev=[-0.238,-0.030,-0.084,+0.172,+0.180]
+  [C] Meditation                 op=LATTICE   dim=-ap  mag=0.2861  dev=[-0.188,+0.090,+0.186,-0.038,-0.050]
+  [C] Flow State                 op=LATTICE   dim=-ap  mag=0.2641  dev=[-0.228,+0.010,+0.036,+0.092,+0.090]
+  [C] Drowsy (Pre-Sleep)         op=PROGRESS  dim=+dp  mag=0.1912  dev=[-0.118,+0.040,+0.136,-0.008,-0.050]
+  [ ] N1 Sleep                   op=COLLAPSE  dim=+pr  mag=0.1805  dev=[-0.068,+0.140,+0.036,-0.028,-0.080]
+  [ ] N2 Sleep                   op=COLLAPSE  dim=+pr  mag=0.1284  dev=[+0.032,+0.090,-0.014,-0.028,-0.080]
+  [ ] N3 Deep Sleep              op=CHAOS     dim=+ap  mag=0.3771  dev=[+0.332,-0.030,-0.084,-0.108,-0.110]
+  [C] REM Sleep                  op=LATTICE   dim=-ap  mag=0.2439  dev=[-0.168,+0.040,-0.084,+0.092,+0.120]
+  [ ] Absence Seizure            op=CHAOS     dim=+ap  mag=0.4842  dev=[+0.432,-0.090,-0.114,-0.128,-0.100]
+  [ ] Temporal Lobe Seizure      op=COLLAPSE  dim=+pr  mag=0.2642  dev=[+0.082,+0.190,-0.114,-0.108,-0.050]
+  [ ] Tonic-Clonic Seizure       op=BALANCE   dim=+cn  mag=0.3529  dev=[-0.068,-0.110,-0.134,+0.012,+0.300]
+  [ ] Post-Ictal Suppression     op=CHAOS     dim=+ap  mag=0.3250  dev=[+0.282,-0.010,-0.064,-0.108,-0.100]
+  [ ] Light Anesthesia           op=PROGRESS  dim=+dp  mag=0.2377  dev=[-0.118,-0.060,+0.186,+0.042,-0.050]
+  [ ] Deep Anesthesia            op=CHAOS     dim=+ap  mag=0.2670  dev=[+0.232,-0.060,-0.014,-0.058,-0.100]
+  [C] Ketamine Dissociation      op=LATTICE   dim=-ap  mag=0.2665  dev=[-0.148,+0.140,-0.114,-0.008,+0.130]
+  [ ] Coma                       op=CHAOS     dim=+ap  mag=0.4868  dev=[+0.432,-0.060,-0.114,-0.138,-0.120]
+  [C] Minimally Conscious        op=CHAOS     dim=+ap  mag=0.1539  dev=[+0.132,-0.010,-0.014,-0.058,-0.050]
+  [ ] Brain Death (ECI)          op=LATTICE   dim=-ap  mag=0.0922  dev=[-0.068,-0.010,+0.036,-0.008,+0.050]
+
+  Operator distribution across all brain states:
+    LATTICE   :  7 ( 33.3%)
+    PROGRESS  :  3 ( 14.3%)
+    COLLAPSE  :  3 ( 14.3%)
+    BALANCE   :  1 (  4.8%)
+    CHAOS     :  6 ( 28.6%)
+    HARMONY   :  1 (  4.8%)
+
+  --- Conscious State Operators ---
+    LATTICE   : 6
+    PROGRESS  : 2
+    CHAOS     : 1
+    HARMONY   : 1
+
+  --- Unconscious State Operators ---
+    LATTICE   : 1
+    PROGRESS  : 1
+    COLLAPSE  : 3
+    BALANCE   : 1
+    CHAOS     : 5
+
+==============================================================================
+SECTION 4: DUAL-LENS COMPOSITION TABLE
+==============================================================================
+
+For each pair of adjacent states (in consciousness gradient order),
+compute D1 (direction) and D2 (curvature), classify operators,
+then compose through BOTH CL tables:
+  T(TSML) = TSML[D1_op][D2_op]  -- what the transition IS (being)
+  T(BHML) = BHML[D1_op][D2_op]  -- what the transition DOES (doing)
+
+  From                 -> To                    D1_op      D2_op      T(TSML)    T(BHML)    Class
+  ----                    --                    -----      -----      -------    -------    -----
+  Coma                 -> Deep Anesthesia       CHAOS      LATTICE    HARMONY    HARMONY    UNIFIED
+  Deep Anesthesia      -> N3 Deep Sleep         LATTICE    CHAOS      HARMONY    HARMONY    UNIFIED
+  N3 Deep Sleep        -> Absence Seizure       CHAOS      VOID       VOID       CHAOS      TENSION
+  Absence Seizure      -> Post-Ictal Suppression  CHAOS      LATTICE    HARMONY    HARMONY    UNIFIED
+  Post-Ictal Suppression -> N2 Sleep              LATTICE    LATTICE    HARMONY    COUNTER    WORKING
+  N2 Sleep             -> N1 Sleep              LATTICE    CHAOS      HARMONY    HARMONY    UNIFIED
+  N1 Sleep             -> Light Anesthesia      LATTICE    VOID       VOID       LATTICE    TENSION
+  Light Anesthesia     -> Temporal Lobe Seizure  VOID       COLLAPSE   VOID       COLLAPSE   TENSION
+  Temporal Lobe Seizure -> Tonic-Clonic Seizure  RESET      VOID       VOID       RESET      TENSION
+  Tonic-Clonic Seizure -> Drowsy (Pre-Sleep)    BALANCE    BREATH     HARMONY    HARMONY    UNIFIED
+  Drowsy (Pre-Sleep)   -> Minimally Conscious   BREATH     RESET      HARMONY    BREATH     WORKING
+  Minimally Conscious  -> Eyes-Closed Rest      CHAOS      LATTICE    HARMONY    HARMONY    UNIFIED
+  Eyes-Closed Rest     -> Eyes-Open Rest        LATTICE    RESET      HARMONY    CHAOS      WORKING
+  Eyes-Open Rest       -> Meditation            RESET      PROGRESS   PROGRESS   CHAOS      TENSION
+  Meditation           -> Light Focus           COUNTER    HARMONY    HARMONY    PROGRESS   WORKING
+  Light Focus          -> Flow State            HARMONY    COUNTER    HARMONY    PROGRESS   WORKING
+  Flow State           -> Deep Focus            COUNTER    HARMONY    HARMONY    PROGRESS   WORKING
+  Deep Focus           -> Ketamine Dissociation  RESET      COUNTER    RESET      CHAOS      TENSION
+  Ketamine Dissociation -> REM Sleep             COUNTER    HARMONY    HARMONY    PROGRESS   WORKING
+
+  Total transitions: 19
+  T(TSML) HARMONY: 13/19 = 0.6842
+  T(BHML) HARMONY: 6/19 = 0.3158
+  UNIFIED (both H): 6/19 = 0.3158
+  WORKING (TSML=H only): 7/19
+  BOUNDARY (BHML=H only): 0/19
+  TENSION (neither H): 6/19
+
+==============================================================================
+SECTION 5: TRAJECTORY D2 ANALYSIS -- CONSCIOUSNESS OVER TIME
+==============================================================================
+
+Each trajectory = sequence of brain states over consecutive epochs.
+D2 computed at each interior point. Curvature spikes = state transitions.
+
+  --- Normal Sleep Cycle (90 min) ---
+  Wake -> N1 -> N2 -> N3 -> N2 -> REM
+  Epochs: 12
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Drowsy (Pre-Sleep)   VOID         0.0825 VOID       RESET      TENSION   
+     2 N1 Sleep             VOID         0.1697 VOID       COLLAPSE   TENSION   
+     3 N2 Sleep             CHAOS        0.2293 HARMONY    HARMONY    UNIFIED   
+     4 N3 Deep Sleep        LATTICE      0.3415 HARMONY    HARMONY    UNIFIED   
+     5 N3 Deep Sleep        HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     6 N3 Deep Sleep        LATTICE      0.3415 HARMONY    COUNTER    WORKING   
+     7 N2 Sleep             CHAOS        0.3415 HARMONY    HARMONY    UNIFIED   
+     8 N2 Sleep             BALANCE      0.3191 HARMONY    CHAOS      WORKING   
+     9 REM Sleep            BREATH       0.3191 HARMONY    HARMONY    UNIFIED   
+    10 REM Sleep            HARMONY      0.0000 HARMONY    BREATH     WORKING   
+
+  Avg |D2|: 0.2144  Max |D2|: 0.3415
+  T(TSML) HARMONY: 8/10
+  T(BHML) HARMONY: 4/10
+  UNIFIED: 4/10
+
+  --- Sleep Onset ---
+  Alert -> Drowsy -> N1 -> N2
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Eyes-Closed Rest     RESET        0.4343 PROGRESS   CHAOS      TENSION   
+     2 Drowsy (Pre-Sleep)   VOID         0.2236 VOID       RESET      TENSION   
+     3 Drowsy (Pre-Sleep)   COLLAPSE     0.1543 HARMONY    BALANCE    WORKING   
+     4 N1 Sleep             VOID         0.1543 VOID       COLLAPSE   TENSION   
+     5 N1 Sleep             CHAOS        0.1225 HARMONY    HARMONY    UNIFIED   
+     6 N2 Sleep             LATTICE      0.1225 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.2019  Max |D2|: 0.4343
+  T(TSML) HARMONY: 3/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- Morning Awakening ---
+  REM -> N1 -> Drowsy -> Alert
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 REM Sleep            BREATH       0.2980 HARMONY    RESET      WORKING   
+     2 N1 Sleep             BALANCE      0.3680 HARMONY    HARMONY    UNIFIED   
+     3 Drowsy (Pre-Sleep)   PROGRESS     0.0825 VOID       PROGRESS   TENSION   
+     4 Eyes-Closed Rest     RESET        0.2236 PROGRESS   CHAOS      TENSION   
+     5 Eyes-Closed Rest     RESET        0.2768 HARMONY    VOID       WORKING   
+     6 Eyes-Open Rest       PROGRESS     0.2010 PROGRESS   CHAOS      TENSION   
+
+  Avg |D2|: 0.2416  Max |D2|: 0.3680
+  T(TSML) HARMONY: 3/6
+  T(BHML) HARMONY: 1/6
+  UNIFIED: 1/6
+
+  --- Attention Ramp ---
+  Rest -> Light Focus -> Deep Focus -> Flow
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Eyes-Open Rest       RESET        0.1166 HARMONY    VOID       WORKING   
+     2 Light Focus          PROGRESS     0.1166 PROGRESS   CHAOS      TENSION   
+     3 Light Focus          BALANCE      0.1140 HARMONY    CHAOS      WORKING   
+     4 Deep Focus           BREATH       0.1140 HARMONY    HARMONY    UNIFIED   
+     5 Deep Focus           PROGRESS     0.1749 HARMONY    COLLAPSE   WORKING   
+     6 Flow State           RESET        0.1749 PROGRESS   CHAOS      TENSION   
+
+  Avg |D2|: 0.1352  Max |D2|: 0.1749
+  T(TSML) HARMONY: 4/6
+  T(BHML) HARMONY: 1/6
+  UNIFIED: 1/6
+
+  --- Meditation Session ---
+  Alert -> Settling -> Deep Meditation -> Return
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Eyes-Closed Rest     RESET        0.2236 HARMONY    VOID       WORKING   
+     2 Drowsy (Pre-Sleep)   PROGRESS     0.2546 PROGRESS   CHAOS      TENSION   
+     3 Meditation           CHAOS        0.1039 HARMONY    HARMONY    UNIFIED   
+     4 Meditation           HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     5 Meditation           HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     6 Meditation           VOID         0.2383 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.1367  Max |D2|: 0.2546
+  T(TSML) HARMONY: 5/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- Absence Seizure Event ---
+  Normal -> Seizure -> Post-ictal -> Recovery
+  Epochs: 10
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Eyes-Open Rest       CHAOS        0.7041 HARMONY    HARMONY    UNIFIED   
+     2 Absence Seizure      LATTICE      0.7041 HARMONY    HARMONY    UNIFIED   
+     3 Absence Seizure      HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     4 Absence Seizure      LATTICE      0.1783 HARMONY    COUNTER    WORKING   
+     5 Post-Ictal Suppression CHAOS        0.1783 HARMONY    HARMONY    UNIFIED   
+     6 Post-Ictal Suppression LATTICE      0.4637 HARMONY    COUNTER    WORKING   
+     7 Drowsy (Pre-Sleep)   CHAOS        0.4123 HARMONY    HARMONY    UNIFIED   
+     8 Eyes-Closed Rest     RESET        0.4343 PROGRESS   CHAOS      TENSION   
+
+  Avg |D2|: 0.3844  Max |D2|: 0.7041
+  T(TSML) HARMONY: 7/8
+  T(BHML) HARMONY: 4/8
+  UNIFIED: 4/8
+
+  --- Temporal Lobe Seizure Event ---
+  Normal -> Aura -> Seizure -> Post-ictal -> Recovery
+  Epochs: 10
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Drowsy (Pre-Sleep)   RESET        0.3803 RESET      CHAOS      TENSION   
+     2 Temporal Lobe Seizure PROGRESS     0.3674 PROGRESS   CHAOS      TENSION   
+     3 Temporal Lobe Seizure HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     4 Temporal Lobe Seizure HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     5 Temporal Lobe Seizure CHAOS        0.2915 HARMONY    HARMONY    UNIFIED   
+     6 Post-Ictal Suppression LATTICE      0.2915 HARMONY    HARMONY    UNIFIED   
+     7 Post-Ictal Suppression LATTICE      0.4637 HARMONY    COUNTER    WORKING   
+     8 Drowsy (Pre-Sleep)   CHAOS        0.4123 HARMONY    HARMONY    UNIFIED   
+
+  Avg |D2|: 0.2758  Max |D2|: 0.4637
+  T(TSML) HARMONY: 6/8
+  T(BHML) HARMONY: 3/8
+  UNIFIED: 3/8
+
+  --- Propofol Anesthesia Induction ---
+  Awake -> Light -> Deep -> Burst Suppression
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Eyes-Closed Rest     RESET        0.3736 PROGRESS   CHAOS      TENSION   
+     2 Light Anesthesia     PROGRESS     0.1225 PROGRESS   CHAOS      TENSION   
+     3 Light Anesthesia     CHAOS        0.4183 HARMONY    HARMONY    UNIFIED   
+     4 Deep Anesthesia      LATTICE      0.4183 HARMONY    HARMONY    UNIFIED   
+     5 Deep Anesthesia      HARMONY      0.0000 HARMONY    BREATH     WORKING   
+     6 Deep Anesthesia      HARMONY      0.0000 HARMONY    BREATH     WORKING   
+
+  Avg |D2|: 0.2221  Max |D2|: 0.4183
+  T(TSML) HARMONY: 4/6
+  T(BHML) HARMONY: 2/6
+  UNIFIED: 2/6
+
+  --- Anesthesia Emergence ---
+  Deep -> Light -> Drowsy -> Awake
+  Epochs: 8
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Deep Anesthesia      LATTICE      0.4183 HARMONY    COUNTER    WORKING   
+     2 Light Anesthesia     CHAOS        0.4183 HARMONY    HARMONY    UNIFIED   
+     3 Light Anesthesia     COLLAPSE     0.1225 HARMONY    BALANCE    WORKING   
+     4 Drowsy (Pre-Sleep)   VOID         0.1225 VOID       COLLAPSE   TENSION   
+     5 Drowsy (Pre-Sleep)   PROGRESS     0.2236 HARMONY    COLLAPSE   WORKING   
+     6 Eyes-Closed Rest     RESET        0.4343 PROGRESS   CHAOS      TENSION   
+
+  Avg |D2|: 0.2899  Max |D2|: 0.4343
+  T(TSML) HARMONY: 4/6
+  T(BHML) HARMONY: 1/6
+  UNIFIED: 1/6
+
+  --- Full Consciousness Gradient ---
+  Coma -> MCS -> Deep Sleep -> Light Sleep -> Drowsy -> Rest -> Focus
+  Epochs: 12
+
+  Epoch State                D2_op      |D2|     T(TSML)    T(BHML)    Class     
+  ---- -----                -----      ----     -------    -------    -----     
+     1 Coma                 LATTICE      0.3373 HARMONY    COUNTER    WORKING   
+     2 Minimally Conscious  CHAOS        0.5636 HARMONY    HARMONY    UNIFIED   
+     3 N3 Deep Sleep        LATTICE      0.5605 HARMONY    HARMONY    UNIFIED   
+     4 N2 Sleep             CHAOS        0.2293 HARMONY    HARMONY    UNIFIED   
+     5 N1 Sleep             VOID         0.1697 VOID       LATTICE    TENSION   
+     6 Drowsy (Pre-Sleep)   PROGRESS     0.0825 VOID       PROGRESS   TENSION   
+     7 Eyes-Closed Rest     RESET        0.4343 PROGRESS   CHAOS      TENSION   
+     8 Eyes-Open Rest       PROGRESS     0.2010 PROGRESS   CHAOS      TENSION   
+     9 Light Focus          COUNTER      0.0510 RESET      CHAOS      TENSION   
+    10 Deep Focus           PROGRESS     0.2638 HARMONY    CHAOS      WORKING   
+
+  Avg |D2|: 0.2893  Max |D2|: 0.5636
+  T(TSML) HARMONY: 5/10
+  T(BHML) HARMONY: 3/10
+  UNIFIED: 3/10
+
+==============================================================================
+SECTION 6: CONSCIOUSNESS THRESHOLD -- T* = 5/7 TEST
+==============================================================================
+
+  T* = 5/7 = 0.714286
+
+Test: Does T(TSML) HARMONY fraction separate conscious from unconscious?
+
+  Normal Sleep Cycle (90 min)          conscious=0.30  T(TSML)_H=0.800  above_T*=YES
+  Sleep Onset                          conscious=0.50  T(TSML)_H=0.500  above_T*=NO
+  Morning Awakening                    conscious=0.83  T(TSML)_H=0.500  above_T*=NO
+  Attention Ramp                       conscious=1.00  T(TSML)_H=0.667  above_T*=NO
+  Meditation Session                   conscious=1.00  T(TSML)_H=0.833  above_T*=YES
+  Absence Seizure Event                conscious=0.38  T(TSML)_H=0.875  above_T*=YES
+  Temporal Lobe Seizure Event          conscious=0.25  T(TSML)_H=0.750  above_T*=YES
+  Propofol Anesthesia Induction        conscious=0.17  T(TSML)_H=0.667  above_T*=NO
+  Anesthesia Emergence                 conscious=0.50  T(TSML)_H=0.667  above_T*=NO
+  Full Consciousness Gradient          conscious=0.60  T(TSML)_H=0.500  above_T*=NO
+
+==============================================================================
+SECTION 7: SEIZURE ANALYSIS -- DUAL-LENS COLLAPSE
+==============================================================================
+
+Prediction: Seizures collapse the dual-lens gap.
+Normal brain: TSML and BHML give DIFFERENT operators (gap = richness)
+Seizure: TSML and BHML CONVERGE (gap -> 0 = loss of differentiation)
+
+  Absence Seizure Event                TSML_H=0.875  BHML_H=0.500  gap=0.375  avg|D2|=0.3844
+  Temporal Lobe Seizure Event          TSML_H=0.750  BHML_H=0.375  gap=0.375  avg|D2|=0.2758
+  Attention Ramp                       TSML_H=0.667  BHML_H=0.167  gap=0.500  avg|D2|=0.1352
+  Meditation Session                   TSML_H=0.833  BHML_H=0.333  gap=0.500  avg|D2|=0.1367
+  Normal Sleep Cycle (90 min)          TSML_H=0.800  BHML_H=0.400  gap=0.400  avg|D2|=0.2144
+
+==============================================================================
+SECTION 8: VOID TOPOLOGY -- WHICH BANDS ARE SILENT?
+==============================================================================
+
+Void = dimension below threshold (< 0.08 of total power).
+The NUMBER and PATTERN of voids classifies brain state families,
+just as void topology classifies chemical element families.
+
+  [C] Eyes-Closed Rest           voids=0  dims=NONE                  [0.10,0.10,0.45,0.25,0.10]
+  [C] Eyes-Open Rest             voids=0  dims=NONE                  [0.10,0.12,0.22,0.38,0.18]
+  [C] Light Focus                voids=1  dims=ap                    [0.05,0.15,0.15,0.40,0.25]
+  [C] Deep Focus                 voids=1  dims=ap                    [0.03,0.18,0.08,0.38,0.33]
+  [C] Meditation                 voids=0  dims=NONE                  [0.08,0.30,0.35,0.17,0.10]
+  [C] Flow State                 voids=1  dims=ap                    [0.04,0.22,0.20,0.30,0.24]
+  [C] Drowsy (Pre-Sleep)         voids=0  dims=NONE                  [0.15,0.25,0.30,0.20,0.10]
+  [ ] N1 Sleep                   voids=1  dims=cn                    [0.20,0.35,0.20,0.18,0.07]
+  [ ] N2 Sleep                   voids=1  dims=cn                    [0.30,0.30,0.15,0.18,0.07]
+  [ ] N3 Deep Sleep              voids=1  dims=cn                    [0.60,0.18,0.08,0.10,0.04]
+  [C] REM Sleep                  voids=0  dims=NONE                  [0.10,0.25,0.08,0.30,0.27]
+  [ ] Absence Seizure            voids=2  dims=dp,cn                 [0.70,0.12,0.05,0.08,0.05]
+  [ ] Temporal Lobe Seizure      voids=1  dims=dp                    [0.35,0.40,0.05,0.10,0.10]
+  [ ] Tonic-Clonic Seizure       voids=1  dims=dp                    [0.20,0.10,0.03,0.22,0.45]
+  [ ] Post-Ictal Suppression     voids=1  dims=cn                    [0.55,0.20,0.10,0.10,0.05]
+  [ ] Light Anesthesia           voids=0  dims=NONE                  [0.15,0.15,0.35,0.25,0.10]
+  [ ] Deep Anesthesia            voids=1  dims=cn                    [0.50,0.15,0.15,0.15,0.05]
+  [C] Ketamine Dissociation      voids=1  dims=dp                    [0.12,0.35,0.05,0.20,0.28]
+  [ ] Coma                       voids=3  dims=dp,bn,cn              [0.70,0.15,0.05,0.07,0.03]
+  [C] Minimally Conscious        voids=0  dims=NONE                  [0.40,0.20,0.15,0.15,0.10]
+  [ ] Brain Death (ECI)          voids=0  dims=NONE                  [0.20,0.20,0.20,0.20,0.20]
+
+  --- Void Count Distribution ---
+  0 voids (8 states, 6 conscious): Eyes-Closed Rest, Eyes-Open Rest, Meditation, Drowsy (Pre-Sleep), REM Sleep, Light Anesthesia, Minimally Conscious, Brain Death (ECI)
+  1 voids (11 states, 4 conscious): Light Focus, Deep Focus, Flow State, N1 Sleep, N2 Sleep, N3 Deep Sleep, Temporal Lobe Seizure, Tonic-Clonic Seizure, Post-Ictal Suppression, Deep Anesthesia, Ketamine Dissociation
+  2 voids (1 states, 0 conscious): Absence Seizure
+  3 voids (1 states, 0 conscious): Coma
+
+==============================================================================
+SECTION 9: I/O BALANCE -- STRUCTURE vs FLOW
+==============================================================================
+
+I = structure (delta + theta) = slow oscillations, top-down
+O = flow (beta + gamma) = fast oscillations, bottom-up
+Depth (alpha) mediates between I and O.
+
+  [ ] Brain Death (ECI)          I=0.40  O=0.40  I/O=1.000  alpha=0.20  BALANCED
+  [ ] Coma                       I=0.85  O=0.10  I/O=8.500  alpha=0.05  INPUT
+  [ ] Deep Anesthesia            I=0.65  O=0.20  I/O=3.250  alpha=0.15  INPUT
+  [ ] N3 Deep Sleep              I=0.78  O=0.14  I/O=5.571  alpha=0.08  INPUT
+  [ ] Absence Seizure            I=0.82  O=0.13  I/O=6.308  alpha=0.05  INPUT
+  [ ] Post-Ictal Suppression     I=0.75  O=0.15  I/O=5.000  alpha=0.10  INPUT
+  [ ] N2 Sleep                   I=0.60  O=0.25  I/O=2.400  alpha=0.15  INPUT
+  [ ] N1 Sleep                   I=0.55  O=0.25  I/O=2.200  alpha=0.20  INPUT
+  [ ] Light Anesthesia           I=0.30  O=0.35  I/O=0.857  alpha=0.35  BALANCED
+  [ ] Temporal Lobe Seizure      I=0.75  O=0.20  I/O=3.750  alpha=0.05  INPUT
+  [ ] Tonic-Clonic Seizure       I=0.30  O=0.67  I/O=0.448  alpha=0.03  OUTPUT
+  [C] Drowsy (Pre-Sleep)         I=0.40  O=0.30  I/O=1.333  alpha=0.30  INPUT
+  [C] Minimally Conscious        I=0.60  O=0.25  I/O=2.400  alpha=0.15  INPUT
+  [C] Eyes-Closed Rest           I=0.20  O=0.35  I/O=0.571  alpha=0.45  OUTPUT
+  [C] Eyes-Open Rest             I=0.22  O=0.56  I/O=0.393  alpha=0.22  OUTPUT
+  [C] Meditation                 I=0.38  O=0.27  I/O=1.407  alpha=0.35  INPUT
+  [C] Light Focus                I=0.20  O=0.65  I/O=0.308  alpha=0.15  OUTPUT
+  [C] Flow State                 I=0.26  O=0.54  I/O=0.481  alpha=0.20  OUTPUT
+  [C] Deep Focus                 I=0.21  O=0.71  I/O=0.296  alpha=0.08  OUTPUT
+  [C] Ketamine Dissociation      I=0.47  O=0.48  I/O=0.979  alpha=0.05  BALANCED
+  [C] REM Sleep                  I=0.35  O=0.57  I/O=0.614  alpha=0.08  OUTPUT
+
+  --- I/O Summary ---
+  Avg I/O (conscious):   0.878
+  Avg I/O (unconscious): 3.571
+  Unconscious states are 4.07x more input-dominated
+
+==============================================================================
+SECTION 10: CROSS-STATE CL COMPOSITION TABLE
+==============================================================================
+
+For each pair of brain states A, B: compose their operators through CL.
+T(TSML) = TSML[op_A][op_B], T(BHML) = BHML[op_A][op_B].
+This measures: what happens when brain transitions between states?
+
+  T(TSML) Composition:
+                     Coma N3 Deep Slee     N2 Sleep     N1 Sleep Drowsy (Pre- Eyes-Closed  Eyes-Open Re   Deep Focus   Meditation   Flow State    REM Sleep Absence Seiz
+  Coma           HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  N3 Deep Slee     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  N2 Sleep       HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  N1 Sleep       HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Drowsy (Pre-     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Eyes-Closed      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Eyes-Open Re     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Deep Focus     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Meditation     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Flow State     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  REM Sleep      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  Absence Seiz     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+
+  T(BHML) Composition:
+                     Coma N3 Deep Slee     N2 Sleep     N1 Sleep Drowsy (Pre- Eyes-Closed  Eyes-Open Re   Deep Focus   Meditation   Flow State    REM Sleep Absence Seiz
+  Coma           HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  N3 Deep Slee     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+  N2 Sleep       HARMONY      HARMONY      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      HARMONY  
+  N1 Sleep       HARMONY      HARMONY      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      BALANCE      HARMONY  
+  Drowsy (Pre-     HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE      HARMONY  
+  Eyes-Closed      HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE     COLLAPSE      HARMONY  
+  Eyes-Open Re     HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE       BREATH      COUNTER      COUNTER      COUNTER      COUNTER      HARMONY  
+  Deep Focus     HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE      COUNTER      COUNTER      COUNTER      COUNTER      COUNTER      HARMONY  
+  Meditation     HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE      COUNTER      COUNTER      COUNTER      COUNTER      COUNTER      HARMONY  
+  Flow State     HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE      COUNTER      COUNTER      COUNTER      COUNTER      COUNTER      HARMONY  
+  REM Sleep      HARMONY      HARMONY      BALANCE      BALANCE     COLLAPSE     COLLAPSE      COUNTER      COUNTER      COUNTER      COUNTER      COUNTER      HARMONY  
+  Absence Seiz     HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY      HARMONY  
+
+  Composition HARMONY rates (12x12 = 144 pairs):
+    TSML HARMONY: 144/144 = 1.0000
+    BHML HARMONY: 63/144 = 0.4375
+    UNIFIED:      63/144 = 0.4375
+
+==============================================================================
+SECTION 11: ANESTHESIA DEPTH -- D2 MONOTONICITY TEST
+==============================================================================
+
+Prediction: Deeper anesthesia = larger D2 deviation from waking centroid.
+If D2 is a real measure of 'distance from consciousness', it should
+increase monotonically as anesthesia deepens.
+
+  Eyes-Open Rest             |deviation|=0.2646  op=HARMONY 
+  Eyes-Closed Rest           |deviation|=0.3557  op=PROGRESS (+)
+  Light Anesthesia           |deviation|=0.2377  op=PROGRESS (-)
+  Deep Anesthesia            |deviation|=0.2670  op=CHAOS    (+)
+  Coma                       |deviation|=0.4868  op=CHAOS    (+)
+  Brain Death (ECI)          |deviation|=0.0922  op=LATTICE  (-)
+
+  Monotone increasing? NO
+
+==============================================================================
+SECTION 12: CLINICAL STATE DIFFERENTIATION
+==============================================================================
+
+Can D2 geometry distinguish clinically important state pairs?
+
+  Deep Sleep vs Coma
+    Same delta dominance, different prognosis
+    N3 Deep Sleep       : op=CHAOS     I/O=5.571
+    Coma                : op=CHAOS     I/O=8.500
+    5D distance: 0.1131
+    CL composition: T(TSML)=HARMONY, T(BHML)=HARMONY
+    Same operator? YES
+    Distinguishable by D2? MARGINAL
+
+  Deep Sleep vs Deep Anesthesia
+    Both reversible unconsciousness, different mechanism
+    N3 Deep Sleep       : op=CHAOS     I/O=5.571
+    Deep Anesthesia     : op=CHAOS     I/O=3.250
+    5D distance: 0.1356
+    CL composition: T(TSML)=HARMONY, T(BHML)=HARMONY
+    Same operator? YES
+    Distinguishable by D2? MARGINAL
+
+  Coma vs Brain Death
+    Critical clinical distinction
+    Coma                : op=CHAOS     I/O=8.500
+    Brain Death (ECI)   : op=LATTICE   I/O=1.000
+    5D distance: 0.5664
+    CL composition: T(TSML)=HARMONY, T(BHML)=HARMONY
+    Same operator? NO
+    Distinguishable by D2? YES
+
+  Minimally Conscious vs Coma
+    Subtle awareness detection
+    Minimally Conscious : op=CHAOS     I/O=2.400
+    Coma                : op=CHAOS     I/O=8.500
+    5D distance: 0.3373
+    CL composition: T(TSML)=HARMONY, T(BHML)=HARMONY
+    Same operator? YES
+    Distinguishable by D2? YES
+
+  REM vs Ketamine
+    Both conscious-like, different origin
+    REM Sleep           : op=LATTICE   I/O=0.614
+    Ketamine Dissociation: op=LATTICE   I/O=0.979
+    5D distance: 0.1463
+    CL composition: T(TSML)=HARMONY, T(BHML)=COUNTER
+    Same operator? YES
+    Distinguishable by D2? MARGINAL
+
+  Absence Seizure vs Deep Sleep
+    Both delta dominant, seizure is pathological
+    Absence Seizure     : op=CHAOS     I/O=6.308
+    N3 Deep Sleep       : op=CHAOS     I/O=5.571
+    5D distance: 0.1225
+    CL composition: T(TSML)=HARMONY, T(BHML)=HARMONY
+    Same operator? YES
+    Distinguishable by D2? MARGINAL
+
+  Eyes-Closed Rest vs Light Anesthesia
+    Both alpha dominant, different consciousness
+    Eyes-Closed Rest    : op=PROGRESS  I/O=0.571
+    Light Anesthesia    : op=PROGRESS  I/O=0.857
+    5D distance: 0.1225
+    CL composition: T(TSML)=HARMONY, T(BHML)=COLLAPSE
+    Same operator? YES
+    Distinguishable by D2? MARGINAL
+
+==============================================================================
+SECTION 13: SLEEP STAGE D2 GRADIENT
+==============================================================================
+
+Prediction: Sleep stages form a monotone D2 gradient from waking.
+Wake -> N1 -> N2 -> N3 should show increasing deviation magnitude.
+REM should break the gradient (back toward waking).
+
+  Eyes-Closed Rest      dist_from_wake=0.2768  op=PROGRESS  dev=[+0.00,-0.02,+0.23,-0.13,-0.08]
+  Drowsy (Pre-Sleep)    dist_from_wake=0.2542  op=COUNTER   dev=[+0.05,+0.13,+0.08,-0.18,-0.08]
+  N1 Sleep              dist_from_wake=0.3397  op=COLLAPSE  dev=[+0.10,+0.23,-0.02,-0.20,-0.11]
+  N2 Sleep              dist_from_wake=0.3597  op=COUNTER   dev=[+0.20,+0.18,-0.07,-0.20,-0.11]
+  N3 Deep Sleep         dist_from_wake=0.6093  op=CHAOS     dev=[+0.50,+0.06,-0.14,-0.28,-0.14]
+  REM Sleep             dist_from_wake=0.2258  op=RESET     dev=[+0.00,+0.13,-0.14,-0.08,+0.09]
+
+  N1 < N2 < N3 distance monotone? YES
+    N1=0.3397  N2=0.3597  N3=0.6093
+  REM distance from wake: 0.2258 (< N3)
+  REM breaks monotone toward waking? YES
+
+==============================================================================
+SECTION 14: DIMENSION DOMINANCE IN STATE TRANSITIONS
+==============================================================================
+
+Which force dimension dominates each state transition?
+This reveals whether the brain uses the same physics for all transitions
+or whether different state changes operate on different dimensions.
+
+  Normal Sleep Cycle (90 min)          dominant=aperture    d=4 t=2 a=0 b=0 g=2
+  Sleep Onset                          dominant=pressure    d=2 t=3 a=1 b=0 g=0
+  Morning Awakening                    dominant=depth       d=0 t=0 a=4 b=0 g=2
+  Attention Ramp                       dominant=depth       d=0 t=0 a=4 b=0 g=2
+  Meditation Session                   dominant=depth       d=1 t=1 a=2 b=0 g=0
+  Absence Seizure Event                dominant=aperture    d=6 t=0 a=1 b=0 g=0
+  Temporal Lobe Seizure Event          dominant=aperture    d=4 t=0 a=2 b=0 g=0
+  Propofol Anesthesia Induction        dominant=aperture    d=2 t=0 a=2 b=0 g=0
+  Anesthesia Emergence                 dominant=aperture    d=2 t=2 a=2 b=0 g=0
+  Full Consciousness Gradient          dominant=aperture    d=4 t=1 a=4 b=1 g=0
+
+  Global dimension dominance (63 total D2 points):
+    aperture    :  25 ( 39.7%)  ###################
+    pressure    :   9 ( 14.3%)  #######
+    depth       :  22 ( 34.9%)  #################
+    binding     :   1 (  1.6%)  
+    continuity  :   6 (  9.5%)  ####
+
+==============================================================================
+SECTION 15: SYNTHESIS
+==============================================================================
+
+  FINDINGS:
+
+  1. CONSCIOUSNESS IS GEOMETRICALLY SEPARABLE
+     Centroid separation: 0.3333
+     Most discriminating dimension: aperture (delta = 0.2875)
+     Conscious states: more OUTPUT (fast oscillation) dominated
+     Unconscious states: more INPUT (slow oscillation) dominated
+
+  2. DUAL-LENS GAP STRUCTURE
+     The gap between TSML and BHML rates IS the brain's
+     differentiation capacity -- its ability to BE one thing
+     while DOING another.
+
+  3. VOID TOPOLOGY CLASSIFIES BRAIN STATES
+     0 voids (rich states): 8
+     1 void: 11
+     2+ voids (impoverished): 1
+
+  4. SLEEP-WAKE GRADIENT IS MONOTONE IN D2
+     N1 < N2 < N3 distance: CONFIRMED
+     REM returns toward waking: CONFIRMED
+
+  5. CLINICAL DISCRIMINATION
+     D2 geometry can distinguish states that are spectrally similar
+     but clinically different (deep sleep vs coma, rest vs anesthesia)
+     through operator classification and dual-lens composition.
+
+  FALSIFIABLE PREDICTIONS:
+
+  P1: CONSCIOUSNESS BOUNDARY
+      Conscious brain states will have T(TSML) HARMONY fraction
+      above T* = 0.714286 when measured over 10+ second windows.
+      Kill condition: any confirmed conscious state with TSML_H < T*
+      in 1000+ epoch validation dataset.
+
+  P2: SEIZURE = DUAL-LENS COLLAPSE
+      Seizure onset reduces the |TSML_H - BHML_H| gap to < 0.1.
+      Normal brain maintains gap > 0.2.
+      Kill condition: seizure gap > normal gap in clinical EEG data.
+
+  P3: SLEEP D2 MONOTONICITY
+      Distance from waking centroid increases monotonically through
+      N1 -> N2 -> N3. REM breaks back toward waking.
+      Kill condition: N2 distance > N3 distance in normative data.
+
+  P4: I/O RATIO PREDICTS CONSCIOUSNESS
+      I/O < 1.0 correlates with consciousness (r > 0.5).
+      I/O > 1.5 correlates with unconsciousness.
+      Kill condition: correlation < 0.3 in 100+ subject dataset.
+
+  P5: VOID COUNT SEPARATES STATE FAMILIES
+      2+ void states are exclusively unconscious or pathological.
+      Kill condition: any healthy conscious state with 2+ band voids.
+
+==============================================================================
+  END OF EEG D2 SPECTROMETER ANALYSIS
+==============================================================================
