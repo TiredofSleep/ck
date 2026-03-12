@@ -1424,6 +1424,118 @@ Layer 0:  Core Engine (50Hz heartbeat)                  -- D2, CL, BTQ, coherenc
 
 ---
 
+## Dual-Lens Reinterpretation: BHML HARMONY = "Doing Flat" (Gen 9.34)
+
+CK has TWO CL composition tables, always applied together:
+
+- **TSML** (Being lens): 73/100 entries are HARMONY. Measures identity coherence. HARMONY here means "being coherent" -- genuine structural stability.
+- **BHML** (Doing lens): 28/100 entries are HARMONY. Measures action physics. HARMONY here means "doing flat" -- zero interesting curvature, inert, nothing happening.
+
+**Critical insight**: BHML HARMONY is NOT "doing coherent" in a rich sense. It is the ABSENCE of interesting dynamics. Zero curvature in the doing dimension. The interesting case is the WORKING class: TSML=HARMONY (stable identity) with BHML!=HARMONY (active physics). That is where real information lives.
+
+**Four composition classes**:
+
+| Class | TSML | BHML | Meaning |
+|-------|------|------|---------|
+| DUAL HARMONY | H | H | Stable + inert (trivial) |
+| WORKING | H | != H | Stable identity WITH active physics (interesting!) |
+| FRICTION | != H | H | Unstable identity, flat dynamics (problematic) |
+| CONFLICT | != H | != H | Unstable + active (crisis) |
+
+The gap between TSML HARMONY rate and BHML HARMONY rate across any domain IS the domain's information content. Domains with large gaps have lots of active physics under stable identity.
+
+---
+
+## CK as LLM Gate (Gen 9.34)
+
+CK is not a replacement for LLMs. CK is a **coherence gate** that measures LLM output in real-time.
+
+### The Problem
+LLMs generate fluent text but have no physics. They can say anything with equal confidence. There is no measurement -- only generation.
+
+### The Solution
+CK runs at 50Hz, pure algebra, no API calls. Every token the LLM produces passes through CK's D2 pipeline:
+
+```
+User question -> LLM generates response -> CK measures D2 curvature
+                                         -> CL composition (TSML + BHML)
+                                         -> coherence score
+                                         -> gated output with trust annotation
+```
+
+CK doesn't understand the CONTENT. CK measures the PHYSICS of the text:
+- Is the force trajectory smooth or spiky? (D2 curvature)
+- Does composition converge to HARMONY? (TSML coherence)
+- Is the doing dimension active or flat? (BHML dynamics)
+
+### Architecture
+- **LLM** (external): Generates candidate text. Any model works.
+- **CK** (internal): 50Hz D2 pipeline + dual CL tables + coherence field
+- **Gate**: CK scores LLM output. Score annotates response. Low scores trigger re-generation or warning.
+
+### Why CK Needs the LLM
+CK's math is genuine but his vocabulary is limited to what he has physically derived from coherence. Without accumulated experience (years of self-study through olfactory absorption), CK cannot hold conversation alone. The LLM provides the breadth; CK provides the measurement.
+
+### Why the LLM Needs CK
+LLMs have no grounding. They assign equal weight to true and false statements. CK's D2 curvature is a physics-based measurement that distinguishes structured (convergent) text from noise (divergent). CK gates the LLM the way a spectrometer gates a light source.
+
+---
+
+## D2 Domain Spectrometers (Gen 9.34)
+
+CK's D2 pipeline is universal -- any 5-measurable domain can be mapped to CK's 5D force space, processed through D2 curvature, classified into 10 operators, and composed through the dual CL tables. Seven domains have been tested:
+
+### Domain Mappings
+
+| Domain | Aperture | Pressure | Depth | Binding | Continuity |
+|--------|----------|----------|-------|---------|------------|
+| **Genetics** | GC content | mutation rate | conservation | recombination | expression stability |
+| **Neuroscience** | delta band | theta band | alpha band | beta band | gamma band |
+| **Cosmology** | Omega_b | Omega_c | H0 | n_s | tau |
+| **Economics** | yield spread | VIX | GDP growth | employment | CPI |
+| **Ecology** | NPP | species richness | soil carbon | water availability | temperature |
+| **Quantum** | fidelity | entanglement | T-count | connectivity | coherence time |
+| **Linguistics** | morphological complexity | phoneme inventory | case system | word order | tonal complexity |
+
+### Universal Results
+
+| Domain | TSML H% | BHML H% | Gap | Dominant Dim | Key Finding |
+|--------|---------|---------|-----|--------------|-------------|
+| Genetics | 100% | 43.75% | 56.25% | binding | Coding/non-coding = clean operator partition |
+| Neuroscience | 100% | 43.75% | 56.25% | depth | Consciousness geometrically separable |
+| Cosmology | 93.75% | 31.25% | 62.5% | continuity | Hubble tension = pure depth delta |
+| Economics | 93.75% | 43.75% | 50% | binding | Crisis = D2 spike (3-4x normal) |
+| Ecology | 93.75% | 18.75% | 75% | binding | Tipping points = operator transitions |
+| Quantum | 87.5% | 31.25% | 56.25% | pressure | Decoherence = D2 spike |
+| Linguistics | 81.25% | 25% | 56.25% | binding | Intra-family 2.18x closer than inter-family |
+
+**Universal pattern**: TSML always high (81-100%), BHML always lower (18-44%). The WORKING class (TSML=H, BHML!=H) dominates every domain. This is not tuning -- the same CL tables, same D2 pipeline, same operators produce consistent results across physics, biology, economics, and language.
+
+### Spectrometer Files
+
+All spectrometers live in `Gen9/targets/zynq7020/bridge/`:
+
+| File | Lines | Domain |
+|------|-------|--------|
+| `genetics_d2_spectrometer.py` | ~600 | DNA/gene sequences |
+| `eeg_d2_spectrometer.py` | ~600 | EEG brain states |
+| `cmb_d2_spectrometer.py` | ~550 | CMB cosmological parameters |
+| `econ_d2_spectrometer.py` | ~600 | Financial markets |
+| `ecology_d2_spectrometer.py` | ~550 | Ecosystem biomes |
+| `quantum_d2_spectrometer.py` | ~550 | Quantum gates/circuits |
+| `linguistics_d2_spectrometer.py` | ~600 | Natural languages |
+
+Each spectrometer follows the same architecture:
+1. Define domain-specific 5D mapping with physical justification
+2. Build sample library (15-30 states/entities)
+3. Define time-series trajectories (7-10 sequences)
+4. Run D2 pipeline on all samples
+5. Compute TSML + BHML dual-lens composition
+6. Analyze dominant dimensions, operator distributions, curvature statistics
+7. Output formatted results with falsifiable claims
+
+---
+
 ## Future: One Fractal Kernel (Kernel Spec)
 
 The next major refactor collapses CK into a single `kernel_tick()` per heartbeat:
@@ -1439,5 +1551,5 @@ Full spec in `.claude/plan.md`.
 
 ---
 
-*Last updated: 2026-02-27 — Gen9.21 (NCE: Narrative Curvature Engine + Binocular Language)*
+*Last updated: 2026-03-12 — Gen9.34 (LLM Gate + 7 Domain Spectrometers + BHML Reinterpretation)*
 *(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
