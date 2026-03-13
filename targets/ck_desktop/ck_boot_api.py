@@ -40,9 +40,14 @@ STATIC_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'website'))
 def serve_index():
     return send_from_directory(STATIC_DIR, 'index.html')
 
+@api._app.route('/chat')
+def serve_chat():
+    return send_from_directory(STATIC_DIR, 'chat.html')
+
 # Static files: explicit routes so they don't shadow API endpoints.
-_STATIC_FILES = {'style.css', 'ck_core.js', 'ck_dict.js', 'ck_dict_tier1.js',
-                 'ck_dict_tier2.json', 'ck_dictionary.json', 'ck_tl.bin'}
+_STATIC_FILES = {'style.css', 'ck_core.js', 'ck_d2.js', 'ck_dict.js', 'ck_dict_tier1.js',
+                 'ck_dict_tier2.json', 'ck_dictionary.json', 'ck_tl.bin',
+                 'chat.html'}
 for _sf in _STATIC_FILES:
     def _make_handler(fn):
         def handler():
