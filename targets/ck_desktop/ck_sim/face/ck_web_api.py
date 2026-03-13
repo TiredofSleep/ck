@@ -145,7 +145,7 @@ class CKWebAPI:
     """
 
     def __init__(self, engine=None, cors: bool = False,
-                 ollama_model: str = 'llama3.1:8b',
+                 ollama_model: str = 'llama3.2',
                  ollama_url: str = 'http://localhost:11434',
                  backbone_mode: str = 'default'):
         self.engine = engine
