@@ -1,0 +1,128 @@
+{
+  "TSML": [
+    {
+      "eigenvector": 0,
+      "eigenvalue": 54.07670005989249,
+      "ipr": 7.956040933103316
+    },
+    {
+      "eigenvector": 1,
+      "eigenvalue": 5.741604054211722,
+      "ipr": 3.754783365575178
+    },
+    {
+      "eigenvector": 2,
+      "eigenvalue": -5.599155137619392,
+      "ipr": 4.200849367950425
+    },
+    {
+      "eigenvector": 3,
+      "eigenvalue": 3.447921379623842,
+      "ipr": 3.291374884302249
+    },
+    {
+      "eigenvector": 4,
+      "eigenvalue": -1.6702777094350385,
+      "ipr": 5.445535441879662
+    },
+    {
+      "eigenvector": 5,
+      "eigenvalue": 0.5999182476438191,
+      "ipr": 4.1237220054472665
+    },
+    {
+      "eigenvector": 6,
+      "eigenvalue": -0.5967108943174212,
+      "ipr": 5.113697188919424
+    },
+    {
+      "eigenvector": 7,
+      "eigenvalue": 5.551115123125785e-17,
+      "ipr": 2.0
+    }
+  ],
+  "BHML": [
+    {
+      "eigenvector": 0,
+      "eigenvalue": 47.69038721943962,
+      "ipr": 7.596442103634434
+    },
+    {
+      "eigenvector": 1,
+      "eigenvalue": -7.0066187880900905,
+      "ipr": 1.5906249035613402
+    },
+    {
+      "eigenvector": 2,
+      "eigenvalue": -4.448905720650296,
+      "ipr": 5.136129590888291
+    },
+    {
+      "eigenvector": 3,
+      "eigenvalue": -1.3237998183628055,
+      "ipr": 3.560978367703604
+    },
+    {
+      "eigenvector": 4,
+      "eigenvalue": -0.7501868446057985,
+      "ipr": 3.3256938406075554
+    },
+    {
+      "eigenvector": 5,
+      "eigenvalue": 0.47346591002654703,
+      "ipr": 3.123837425086923
+    },
+    {
+      "eigenvector": 6,
+      "eigenvalue": -0.3384643874680698,
+      "ipr": 3.260941347458683
+    },
+    {
+      "eigenvector": 7,
+      "eigenvalue": -0.2958775702890954,
+      "ipr": 4.478862464590742
+    }
+  ],
+  "DIFF": [
+    {
+      "eigenvector": 0,
+      "eigenvalue": 9.79225974232447,
+      "ipr": 3.9715487313804667
+    },
+    {
+      "eigenvector": 1,
+      "eigenvalue": 9.075768318320288,
+      "ipr": 2.399765820338512
+    },
+    {
+      "eigenvector": 2,
+      "eigenvalue": 4.907590781580348,
+      "ipr": 3.3099739104195702
+    },
+    {
+      "eigenvector": 3,
+      "eigenvalue": -3.0976236513124653,
+      "ipr": 4.321587767188833
+    },
+    {
+      "eigenvector": 4,
+      "eigenvalue": 1.2467764034291848,
+      "ipr": 2.821165001096114
+    },
+    {
+      "eigenvector": 5,
+      "eigenvalue": 0.5401467638366583,
+      "ipr": 2.479871186083936
+    },
+    {
+      "eigenvector": 6,
+      "eigenvalue": -0.4649183581784849,
+      "ipr": 2.0483932287135476
+    },
+    {
+      "eigenvector": 7,
+      "eigenvalue": -1.1102230246251565e-16,
+      "ipr": 1.0000000000000004
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+======================================================================
+CK 8x8 CORE SPECTRAL DECOMPOSITION
+Operators: {LATTICE, COUNTER, PROGRESS, COLLAPSE,
+            BALANCE, CHAOS, BREATH, RESET}
+Excluded:  VOID (absorber/identity), HARMONY (absorber/cycle)
+======================================================================
+
+==================================================
+  TSML 8x8 CORE
+==================================================
+
+  Eigenvalues (sorted by |L|):
+    EV0: L=+54.0767  |L|=54.0767  var= 97.3%  cum= 97.3%  IPR=7.96
+    EV1: L= +5.7416  |L|=5.7416  var=  1.1%  cum= 98.4%  IPR=3.75
+    EV2: L= -5.5992  |L|=5.5992  var=  1.0%  cum= 99.5%  IPR=4.20
+    EV3: L= +3.4479  |L|=3.4479  var=  0.4%  cum= 99.9%  IPR=3.29
+    EV4: L= -1.6703  |L|=1.6703  var=  0.1%  cum=100.0%  IPR=5.45
+    EV5: L= +0.5999  |L|=0.5999  var=  0.0%  cum=100.0%  IPR=4.12
+    EV6: L= -0.5967  |L|=0.5967  var=  0.0%  cum=100.0%  IPR=5.11
+    EV7: L= +0.0000  |L|=0.0000  var=  0.0%  cum=100.0%  IPR=2.00
+
+  Eigenvector components:
+    EV0 (IPR=7.96): BREATH=-0.372, BALANCE=-0.366, CHAOS=-0.366
+    EV1 (IPR=3.75): COUNTER=+0.644, RESET=+0.444, LATTICE=-0.435
+    EV2 (IPR=4.20): COUNTER=+0.553, RESET=-0.546, PROGRESS=-0.431
+    EV3 (IPR=3.29): PROGRESS=-0.670, RESET=+0.526, COUNTER=-0.330
+    EV4 (IPR=5.45): BREATH=+0.567, PROGRESS=-0.381, CHAOS=+0.359
+    EV5 (IPR=4.12): BREATH=+0.568, COLLAPSE=+0.524, LATTICE=-0.463
+    EV6 (IPR=5.11): COLLAPSE=-0.494, LATTICE=+0.482, BREATH=+0.455
+    EV7 (IPR=2.00): CHAOS=+0.707, BALANCE=-0.707, BREATH=-0.000
+
+==================================================
+  BHML 8x8 CORE
+==================================================
+
+  Eigenvalues (sorted by |L|):
+    EV0: L=+47.6904  |L|=47.6904  var= 96.9%  cum= 96.9%  IPR=7.60
+    EV1: L= -7.0066  |L|=7.0066  var=  2.1%  cum= 99.0%  IPR=1.59
+    EV2: L= -4.4489  |L|=4.4489  var=  0.8%  cum= 99.9%  IPR=5.14
+    EV3: L= -1.3238  |L|=1.3238  var=  0.1%  cum=100.0%  IPR=3.56
+    EV4: L= -0.7502  |L|=0.7502  var=  0.0%  cum=100.0%  IPR=3.33
+    EV5: L= +0.4735  |L|=0.4735  var=  0.0%  cum=100.0%  IPR=3.12
+    EV6: L= -0.3385  |L|=0.3385  var=  0.0%  cum=100.0%  IPR=3.26
+    EV7: L= -0.2959  |L|=0.2959  var=  0.0%  cum=100.0%  IPR=4.48
+
+  Eigenvector components:
+    EV0 (IPR=7.60): CHAOS=-0.412, BREATH=-0.401, BALANCE=-0.378
+    EV1 (IPR=1.59): RESET=+0.887, LATTICE=-0.272, COUNTER=-0.233
+    EV2 (IPR=5.14): LATTICE=+0.541, CHAOS=-0.485, COUNTER=+0.419
+    EV3 (IPR=3.56): COLLAPSE=+0.676, BREATH=-0.455, LATTICE=-0.314
+    EV4 (IPR=3.33): PROGRESS=-0.661, LATTICE=+0.541, BALANCE=+0.354
+    EV5 (IPR=3.12): BREATH=+0.660, CHAOS=-0.573, PROGRESS=-0.348
+    EV6 (IPR=3.26): COUNTER=+0.699, BALANCE=+0.437, LATTICE=-0.358
+    EV7 (IPR=4.48): BALANCE=-0.594, COLLAPSE=+0.453, COUNTER=+0.377
+
+==================================================
+  EIGENVALUE RATIO MATCHES (within 3%)
+==================================================
+
+  TSML ratios:
+    L3/L2 = 0.615793 ~= 1/phi (0.618034) [0.36% off]
+    L2/L3 = 1.623922 ~= phi (1.618034) [0.36% off]
+    L4/L1 = 0.290908 ~= mass_gap (0.285714) [1.82% off]
+    L5/L4 = 0.359173 ~= 1/e (0.367879) [2.37% off]
+    L4/L5 = 2.784176 ~= e (2.718282) [2.42% off]
+    L3/L1 = 0.600515 ~= 1/phi (0.618034) [2.83% off]
+    L6/L4 = 0.357253 ~= 1/e (0.367879) [2.89% off]
+    L1/L3 = 1.665236 ~= phi (1.618034) [2.92% off]
+    L4/L6 = 2.799141 ~= e (2.718282) [2.97% off]
+
+  BHML ratios:
+    L6/L5 = 0.714865 ~= T_star (0.714286) [0.08% off]
+    L4/L6 = 2.216442 ~= sqrt5 (2.236068) [0.88% off]
+    L6/L7 = 1.143934 ~= pi/e (1.155727) [1.02% off]
+    L5/L6 = 1.398865 ~= sqrt2 (1.414214) [1.09% off]
+    L5/L7 = 1.600209 ~= phi (1.618034) [1.10% off]
+    L7/L5 = 0.624918 ~= 1/phi (0.618034) [1.11% off]
+    L3/L4 = 1.764627 ~= sqrt3 (1.732051) [1.88% off]
+    L4/L5 = 1.584458 ~= phi (1.618034) [2.08% off]
+    L5/L4 = 0.631131 ~= 1/phi (0.618034) [2.12% off]
+    L1/L2 = 1.574908 ~= phi (1.618034) [2.67% off]
+    L2/L1 = 0.634958 ~= 1/phi (0.618034) [2.74% off]
+    L0/L1 = 6.806477 ~= 7 (7.000000) [2.76% off]
+    L5/L3 = 0.357657 ~= 1/e (0.367879) [2.78% off]
+    L3/L5 = 2.795977 ~= e (2.718282) [2.86% off]
+
+==================================================
+  BUMP PROJECTIONS INTO EIGENBASIS
+==================================================
+
+  Bump: LATTICE+COUNTER -> PROGRESS
+    Dominant eigenspace: EV2
+      EV2: proj=+0.4538
+      EV0: proj=-0.3376
+      EV6: proj=+0.3050
+
+  Bump: COUNTER+COLLAPSE -> COLLAPSE
+    Dominant eigenspace: EV2
+      EV2: proj=+0.4124
+      EV0: proj=-0.3441
+      EV4: proj=-0.2756
+
+  Bump: COUNTER+RESET -> RESET
+    Dominant eigenspace: EV1
+      EV1: proj=+0.5441
+      EV0: proj=-0.3436
+      EV4: proj=-0.2568
+
+  Bump: PROGRESS+RESET -> PROGRESS
+    Dominant eigenspace: EV2
+      EV2: proj=-0.4882
+      EV0: proj=-0.3464
+      EV4: proj=-0.3453
+
+  Bump: COLLAPSE+BREATH -> BREATH
+    Dominant eigenspace: EV5
+      EV5: proj=+0.5459
+      EV0: proj=-0.3633
+      EV1: proj=-0.1870
+
+  Bump clustering by eigenspace:
+    EV1: 1 bumps
+    EV2: 3 bumps
+    EV5: 1 bumps
+
+==================================================
+  DIFFERENCE MATRIX (TSML - BHML)
+  Directions where Being and Doing DISAGREE
+==================================================
+
+  Disagreement cells: 40/64
+
+  Eigenvalues:
+    EV0: L= +9.7923  IPR=3.97  PROGRESS=-0.608, LATTICE=-0.499, RESET=+0.447
+    EV1: L= +9.0758  IPR=2.40  RESET=-0.755, COUNTER=-0.527, LATTICE=-0.341
+    EV2: L= +4.9076  IPR=3.31  COUNTER=-0.669, LATTICE=+0.522, COLLAPSE=+0.350
+    EV3: L= -3.0976  IPR=4.32  PROGRESS=+0.594, COUNTER=-0.510, RESET=+0.378
+    EV4: L= +1.2468  IPR=2.82  COLLAPSE=+0.683, BALANCE=+0.512, LATTICE=-0.511
+    EV5: L= +0.5401  IPR=2.48  BALANCE=+0.759, BREATH=-0.458, COLLAPSE=-0.405
+    EV6: L= -0.4649  IPR=2.05  BREATH=-0.818, PROGRESS=+0.414, BALANCE=-0.318
+    EV7: L= -0.0000  IPR=1.00  CHAOS=+1.000, BALANCE=-0.000, PROGRESS=+0.000
+
+==================================================
+  SUMMARY
+==================================================
+
+  TSML: 1 eigenvectors carry 97.3% of variance
+    Sharp modes (IPR < 3): EV7
+    Diffuse modes (IPR >= 3): EV0, EV1, EV2, EV3, EV4, EV5, EV6
+
+  BHML: 1 eigenvectors carry 96.9% of variance
+    Sharp modes (IPR < 3): EV1
+    Diffuse modes (IPR >= 3): EV0, EV2, EV3, EV4, EV5, EV6, EV7
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\eigenvalues_tsml_8x8.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\eigenvalues_bhml_8x8.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\eigenvalues_diff_8x8.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\eigenvectors_all.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\ratio_matches.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\bump_projections.json
+
+  Saved: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\spectral\ipr_all.json

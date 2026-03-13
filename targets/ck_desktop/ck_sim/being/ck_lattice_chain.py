@@ -231,6 +231,36 @@ class LatticeNode:
         """How far this node has evolved from base CL. 0.0 = identical."""
         return float(np.sum(self.table != _BASE_CL)) / (NUM_OPS * NUM_OPS)
 
+    def ipr(self) -> float:
+        """Inverse Participation Ratio of this node's CL table.
+
+        IPR = sum(p_i^2) where p_i = fraction of entries equal to operator i.
+
+        Low IPR (~0.1)  = uniform, no crystallization.
+        High IPR (~1.0) = single dominant operator, maximally crystallized.
+
+        Sudden IPR increase = GROKKING: node has transitioned from
+        memorization to structured algebraic representation.
+
+        Base BHML IPR ≈ 0.17. Base TSML IPR ≈ 0.56.
+        """
+        flat = self.table.flatten().astype(int)
+        total = len(flat)
+        probs = np.array([np.sum(flat == op) for op in range(NUM_OPS)],
+                         dtype=np.float64) / total
+        return float(np.sum(probs ** 2))
+
+    def grokking_delta(self) -> float:
+        """IPR delta from base CL. Positive = MORE crystallized than base.
+
+        If this exceeds ~0.05, the node has likely grokked.
+        """
+        base_flat = _BASE_CL.flatten().astype(int)
+        base_probs = np.array([np.sum(base_flat == op) for op in range(NUM_OPS)],
+                              dtype=np.float64) / len(base_flat)
+        base_ipr = float(np.sum(base_probs ** 2))
+        return self.ipr() - base_ipr
+
     def to_dict(self) -> dict:
         return {
             'depth': self.depth,
@@ -239,6 +269,7 @@ class LatticeNode:
             'visits': self.visit_counts.tolist(),
             'obs': self.obs_counts.tolist(),
             'total': self.total_visits,
+            'ipr': self.ipr(),
         }
 
     @classmethod
@@ -463,6 +494,19 @@ class LatticeChainEngine:
         max_d = max((p.depth for p in paths.values()), default=0)
         evolved = sum(1 for n in self._index.values() if n.divergence() > 0)
 
+        # IPR grokking scan: find nodes that have crystallized
+        grokked = []
+        for path_key, node in self._index.items():
+            delta = node.grokking_delta()
+            if delta > 0.05:  # 5% IPR increase = grokking detected
+                grokked.append({
+                    'path': path_key,
+                    'depth': node.depth,
+                    'ipr': node.ipr(),
+                    'delta': round(delta, 4),
+                    'visits': node.total_visits,
+                })
+
         return {
             'resonance': round(res, 4),
             'novelty': round(1.0 - res, 4),
@@ -470,6 +514,8 @@ class LatticeChainEngine:
             'nodes': self.total_nodes,
             'evolved': evolved,
             'walks': self.total_walks,
+            'grokked_nodes': len(grokked),
+            'grokked': grokked[:10],  # Top 10 grokked nodes
         }
 
     def chain_to_ops(self, paths: dict, max_ops: int = 8) -> list:

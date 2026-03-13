@@ -1,0 +1,252 @@
+[
+  {
+    "bump": "LATTICE+COUNTER",
+    "result": "PROGRESS",
+    "a": 1,
+    "b": 2,
+    "c": 3,
+    "projections": [
+      {
+        "eigenvector": 0,
+        "projection": -0.3376058646762877,
+        "abs_projection": 0.3376058646762877
+      },
+      {
+        "eigenvector": 1,
+        "projection": 0.10459981921780645,
+        "abs_projection": 0.10459981921780645
+      },
+      {
+        "eigenvector": 2,
+        "projection": 0.45383268634292995,
+        "abs_projection": 0.45383268634292995
+      },
+      {
+        "eigenvector": 3,
+        "projection": -0.0030725765490838275,
+        "abs_projection": 0.0030725765490838275
+      },
+      {
+        "eigenvector": 4,
+        "projection": -0.16699428066949693,
+        "abs_projection": 0.16699428066949693
+      },
+      {
+        "eigenvector": 5,
+        "projection": -0.21955137631716687,
+        "abs_projection": 0.21955137631716687
+      },
+      {
+        "eigenvector": 6,
+        "projection": 0.30498805454772004,
+        "abs_projection": 0.30498805454772004
+      },
+      {
+        "eigenvector": 7,
+        "projection": -5.3374531950775836e-17,
+        "abs_projection": 5.3374531950775836e-17
+      }
+    ],
+    "dominant_eigenspace": 2
+  },
+  {
+    "bump": "COUNTER+COLLAPSE",
+    "result": "COLLAPSE",
+    "a": 2,
+    "b": 4,
+    "c": 4,
+    "projections": [
+      {
+        "eigenvector": 0,
+        "projection": -0.34413798768317133,
+        "abs_projection": 0.34413798768317133
+      },
+      {
+        "eigenvector": 1,
+        "projection": 0.1568841559690998,
+        "abs_projection": 0.1568841559690998
+      },
+      {
+        "eigenvector": 2,
+        "projection": 0.41239907773621465,
+        "abs_projection": 0.41239907773621465
+      },
+      {
+        "eigenvector": 3,
+        "projection": -0.04981854002453094,
+        "abs_projection": 0.04981854002453094
+      },
+      {
+        "eigenvector": 4,
+        "projection": -0.2756260478193524,
+        "abs_projection": 0.2756260478193524
+      },
+      {
+        "eigenvector": 5,
+        "projection": 0.27368164632416614,
+        "abs_projection": 0.27368164632416614
+      },
+      {
+        "eigenvector": 6,
+        "projection": -0.18311242180737608,
+        "abs_projection": 0.18311242180737608
+      },
+      {
+        "eigenvector": 7,
+        "projection": 8.663175329773614e-17,
+        "abs_projection": 8.663175329773614e-17
+      }
+    ],
+    "dominant_eigenspace": 2
+  },
+  {
+    "bump": "COUNTER+RESET",
+    "result": "RESET",
+    "a": 2,
+    "b": 9,
+    "c": 9,
+    "projections": [
+      {
+        "eigenvector": 0,
+        "projection": -0.34357196228006,
+        "abs_projection": 0.34357196228006
+      },
+      {
+        "eigenvector": 1,
+        "projection": 0.5440996802060112,
+        "abs_projection": 0.5440996802060112
+      },
+      {
+        "eigenvector": 2,
+        "projection": 0.0036649494315019737,
+        "abs_projection": 0.0036649494315019737
+      },
+      {
+        "eigenvector": 3,
+        "projection": 0.09812608879184836,
+        "abs_projection": 0.09812608879184836
+      },
+      {
+        "eigenvector": 4,
+        "projection": -0.25677265611961664,
+        "abs_projection": 0.25677265611961664
+      },
+      {
+        "eigenvector": 5,
+        "projection": -0.008935568222753772,
+        "abs_projection": 0.008935568222753772
+      },
+      {
+        "eigenvector": 6,
+        "projection": 0.1012898922333221,
+        "abs_projection": 0.1012898922333221
+      },
+      {
+        "eigenvector": 7,
+        "projection": -9.742040295950923e-18,
+        "abs_projection": 9.742040295950923e-18
+      }
+    ],
+    "dominant_eigenspace": 1
+  },
+  {
+    "bump": "PROGRESS+RESET",
+    "result": "PROGRESS",
+    "a": 3,
+    "b": 9,
+    "c": 3,
+    "projections": [
+      {
+        "eigenvector": 0,
+        "projection": -0.34642684162530857,
+        "abs_projection": 0.34642684162530857
+      },
+      {
+        "eigenvector": 1,
+        "projection": 0.07426637397841898,
+        "abs_projection": 0.07426637397841898
+      },
+      {
+        "eigenvector": 2,
+        "projection": -0.48818903180677475,
+        "abs_projection": 0.48818903180677475
+      },
+      {
+        "eigenvector": 3,
+        "projection": -0.07165701112397371,
+        "abs_projection": 0.07165701112397371
+      },
+      {
+        "eigenvector": 4,
+        "projection": -0.3453221412640154,
+        "abs_projection": 0.3453221412640154
+      },
+      {
+        "eigenvector": 5,
+        "projection": -0.03459917909942597,
+        "abs_projection": 0.03459917909942597
+      },
+      {
+        "eigenvector": 6,
+        "projection": 0.10278719101344641,
+        "abs_projection": 0.10278719101344641
+      },
+      {
+        "eigenvector": 7,
+        "projection": 1.616048031828314e-17,
+        "abs_projection": 1.616048031828314e-17
+      }
+    ],
+    "dominant_eigenspace": 2
+  },
+  {
+    "bump": "COLLAPSE+BREATH",
+    "result": "BREATH",
+    "a": 4,
+    "b": 8,
+    "c": 8,
+    "projections": [
+      {
+        "eigenvector": 0,
+        "projection": -0.3633272562525136,
+        "abs_projection": 0.3633272562525136
+      },
+      {
+        "eigenvector": 1,
+        "projection": -0.18702084293289586,
+        "abs_projection": 0.18702084293289586
+      },
+      {
+        "eigenvector": 2,
+        "projection": 0.09124920827160762,
+        "abs_projection": 0.09124920827160762
+      },
+      {
+        "eigenvector": 3,
+        "projection": 0.11921241094224894,
+        "abs_projection": 0.11921241094224894
+      },
+      {
+        "eigenvector": 4,
+        "projection": 0.11006229266155848,
+        "abs_projection": 0.11006229266155848
+      },
+      {
+        "eigenvector": 5,
+        "projection": 0.5458833139358207,
+        "abs_projection": 0.5458833139358207
+      },
+      {
+        "eigenvector": 6,
+        "projection": -0.019395657770704344,
+        "abs_projection": 0.019395657770704344
+      },
+      {
+        "eigenvector": 7,
+        "projection": -6.763321614491578e-17,
+        "abs_projection": 6.763321614491578e-17
+      }
+    ],
+    "dominant_eigenspace": 5
+  }
+]
