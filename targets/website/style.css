@@ -235,6 +235,148 @@ html, body {
 .coherence-badge-value.band-yellow { color: var(--yellow); }
 .coherence-badge-value.band-red    { color: var(--red); }
 
+/* Dual coherence badge (TSML + BHML) */
+
+.coherence-dual-badge {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 4px 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.coh-badge-item {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.coh-badge-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+}
+
+.coh-badge-value {
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--green);
+}
+
+.coh-badge-value.coh-bhml {
+    color: var(--yellow);
+}
+
+.coh-badge-sep {
+    width: 1px;
+    height: 14px;
+    background: var(--border);
+    margin: 0 8px;
+}
+
+/* Source chip colors */
+
+.source-ollama { color: var(--blue) !important; }
+.source-ck     { color: var(--green) !important; }
+.source-local  { color: var(--yellow) !important; }
+
+/* Message source tag */
+
+.meta-source {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+}
+
+.meta-source-ollama {
+    color: var(--blue);
+    background: var(--blue-dim);
+}
+
+.meta-source-ck {
+    color: var(--green);
+    background: var(--green-dim);
+}
+
+/* D2 dual-lens bar on messages */
+
+.msg-d2-bar {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.msg-d2-track {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.d2-label {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    width: 32px;
+    flex-shrink: 0;
+}
+
+.d2-fill-track {
+    flex: 1;
+    height: 4px;
+    background: var(--bg-4);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.d2-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.d2-fill-tsml {
+    background: var(--green);
+    box-shadow: 0 0 4px var(--green-dim);
+}
+
+.d2-fill-bhml {
+    background: var(--yellow);
+    box-shadow: 0 0 4px var(--yellow-dim);
+}
+
+.d2-pct {
+    font-size: 9px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.msg-d2-info {
+    font-size: 9px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    margin-top: 1px;
+    padding-left: 38px;
+}
+
 /* ── Chat Area ── */
 
 .chat-area {
@@ -599,6 +741,8 @@ html, body {
 @media (max-width: 380px) {
     .header-subtitle { display: none; }
     .coherence-badge { display: none; }
+    .coherence-dual-badge { display: none; }
+    #source-chip { display: none; }
 
     .message-bubble {
         font-size: 13px;

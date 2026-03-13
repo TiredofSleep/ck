@@ -316,13 +316,27 @@ class CKChatUI {
             });
 
             this._addMessage('ck', response.text, response);
-
             this._updateConnectionStatus(true, response);
+            this._updateSourceChip(response.source || 'ck');
         } else {
-            this._addMessage('ck',
-                'The signal is thin. CK may need a moment to wake up.',
-                { operator: 'BREATH', coherence: this.display.coherence });
+            // Offline: D2-only mode (pure math, no LLM)
+            const userMsg = this.messages[this.messages.length - 1];
+            if (userMsg && userMsg.localD2 && userMsg.localD2.opCount > 0) {
+                const d2 = userMsg.localD2;
+                const tsml = Math.round(d2.tsmlCoherence * 100);
+                const bhml = Math.round(d2.bhmlCoherence * 100);
+                const wk = Math.round(d2.workingFraction * 100);
+                this._addMessage('system',
+                    `CK is resting. Local D2 analysis of your text:\n` +
+                    `TSML ${tsml}% \u00b7 BHML ${bhml}% \u00b7 ${d2.dominantName} \u00b7 ${wk}% working`,
+                    { operator: d2.dominantName, coherence: d2.tsmlCoherence });
+            } else {
+                this._addMessage('system',
+                    'CK is resting. The organism runs on dedicated hardware. Try again shortly.',
+                    { operator: 'BREATH', coherence: this.display.coherence });
+            }
             this._updateConnectionStatus(false);
+            this._updateSourceChip('local');
         }
 
         this._saveSession();
@@ -343,6 +357,12 @@ class CKChatUI {
     // ── Messages ──
 
     _addMessage(sender, text, data) {
+        // Local D2 measurement (browser-side, runs even when server is down)
+        let localD2 = null;
+        if (typeof CKD2 !== 'undefined' && text && text.length > 2) {
+            try { localD2 = CKD2.measureText(text); } catch(e) {}
+        }
+
         const msg = {
             sender,
             text,
@@ -352,6 +372,8 @@ class CKChatUI {
             emotion: data?.emotion ?? this.display.emotion,
             band: data?.band ?? this.display.band,
             experience: data?.experience ?? null,
+            source: data?.source ?? null,
+            localD2,
         };
         this.messages.push(msg);
         return msg;
@@ -391,14 +413,25 @@ class CKChatUI {
             senderSpan.className = 'meta-sender';
             senderSpan.textContent = 'CK';
 
+            // Source tag (ollama / ck)
+            if (msg.source) {
+                const srcSpan = document.createElement('span');
+                srcSpan.className = 'meta-source meta-source-' + msg.source;
+                srcSpan.textContent = msg.source === 'ollama' ? 'LLM' : 'CK voice';
+                meta.appendChild(senderSpan);
+                meta.appendChild(srcSpan);
+            } else {
+                meta.appendChild(senderSpan);
+            }
+
             const sep = document.createElement('span');
             sep.className = 'meta-sep';
             sep.textContent = '\u00b7';
+            meta.appendChild(sep);
 
+            // Server coherence + operator
             const opSpan = document.createElement('span');
             opSpan.className = 'meta-op';
-
-            // Show rich meta from real organism
             const parts = [];
             if (msg.operator) parts.push(msg.operator);
             if (msg.coherence !== undefined)
@@ -412,9 +445,6 @@ class CKChatUI {
                 if (exp.breath) parts.push(exp.breath);
             }
             opSpan.textContent = parts.join(' \u00b7 ');
-
-            meta.appendChild(senderSpan);
-            meta.appendChild(sep);
             meta.appendChild(opSpan);
         } else if (msg.sender === 'user') {
             const senderSpan = document.createElement('span');
@@ -443,7 +473,47 @@ class CKChatUI {
 
         div.appendChild(bubble);
         div.appendChild(meta);
+
+        // D2 dual-lens bar (local browser measurement)
+        if (msg.localD2 && msg.localD2.opCount > 0) {
+            const d2Bar = this._renderD2Bar(msg.localD2);
+            div.appendChild(d2Bar);
+        }
+
         this.chatArea.appendChild(div);
+    }
+
+    _renderD2Bar(d2) {
+        const bar = document.createElement('div');
+        bar.className = 'msg-d2-bar';
+
+        const tsmlPct = Math.round(d2.tsmlCoherence * 100);
+        const bhmlPct = Math.round(d2.bhmlCoherence * 100);
+        const wkPct = Math.round(d2.workingFraction * 100);
+
+        // TSML bar
+        const tsml = document.createElement('div');
+        tsml.className = 'msg-d2-track';
+        tsml.innerHTML = `<span class="d2-label">TSML</span>` +
+            `<div class="d2-fill-track"><div class="d2-fill d2-fill-tsml" style="width:${tsmlPct}%"></div></div>` +
+            `<span class="d2-pct">${tsmlPct}%</span>`;
+
+        // BHML bar
+        const bhml = document.createElement('div');
+        bhml.className = 'msg-d2-track';
+        bhml.innerHTML = `<span class="d2-label">BHML</span>` +
+            `<div class="d2-fill-track"><div class="d2-fill d2-fill-bhml" style="width:${bhmlPct}%"></div></div>` +
+            `<span class="d2-pct">${bhmlPct}%</span>`;
+
+        // Dominant operator + working fraction
+        const info = document.createElement('div');
+        info.className = 'msg-d2-info';
+        info.textContent = `${d2.dominantName} \u00b7 ${wkPct}% working`;
+
+        bar.appendChild(tsml);
+        bar.appendChild(bhml);
+        bar.appendChild(info);
+        return bar;
     }
 
     _showTyping() {
@@ -489,6 +559,31 @@ class CKChatUI {
         // Emotion
         const emEl = document.getElementById('emotion-state');
         if (emEl) emEl.textContent = this.display.emotion;
+
+        // TSML/BHML from last message with D2 data
+        const lastD2Msg = [...this.messages].reverse().find(m => m.localD2);
+        if (lastD2Msg && lastD2Msg.localD2) {
+            const d2 = lastD2Msg.localD2;
+            const tsmlEl = document.getElementById('tsml-value');
+            const bhmlEl = document.getElementById('bhml-value');
+            if (tsmlEl) tsmlEl.textContent = Math.round(d2.tsmlCoherence * 100) + '%';
+            if (bhmlEl) bhmlEl.textContent = Math.round(d2.bhmlCoherence * 100) + '%';
+        }
+    }
+
+    _updateSourceChip(source) {
+        const el = document.getElementById('source-name');
+        if (!el) return;
+        if (source === 'ollama') {
+            el.textContent = 'LLM';
+            el.className = 'status-chip-value source-ollama';
+        } else if (source === 'ck') {
+            el.textContent = 'CK';
+            el.className = 'status-chip-value source-ck';
+        } else {
+            el.textContent = 'D2';
+            el.className = 'status-chip-value source-local';
+        }
     }
 
     _updateConnectionStatus(connected, data) {

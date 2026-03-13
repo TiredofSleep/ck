@@ -32,6 +32,7 @@ import json
 import time
 import hashlib
 import os
+import requests as _requests
 from collections import deque
 from typing import Dict, List, Optional
 
@@ -41,6 +42,13 @@ try:
     HAS_FLASK = True
 except ImportError:
     HAS_FLASK = False
+
+# Backbone system prompt for LLM gating
+try:
+    from ck_backbone import build_system_prompt
+except ImportError:
+    def build_system_prompt(context=None, mode='default'):
+        return "You are a helpful assistant."
 
 
 # ================================================================
@@ -136,10 +144,17 @@ class CKWebAPI:
     Does NOT replace anything -- just exposes existing capabilities.
     """
 
-    def __init__(self, engine=None, cors: bool = False):
+    def __init__(self, engine=None, cors: bool = False,
+                 ollama_model: str = 'llama3.1:8b',
+                 ollama_url: str = 'http://localhost:11434',
+                 backbone_mode: str = 'default'):
         self.engine = engine
         self.sessions = SessionStore()
         self._app = None
+        self._ollama_model = ollama_model
+        self._ollama_url = ollama_url
+        self._backbone_mode = backbone_mode  # 'default' or 'bible'
+        self._ollama_available = None  # cached availability check
 
         if HAS_FLASK:
             self._app = Flask('ck_web')
@@ -312,6 +327,76 @@ class CKWebAPI:
 
         # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
+    # ================================================================
+    #  OLLAMA INTEGRATION
+    # ================================================================
+
+    def _check_ollama(self):
+        """Check if Ollama is reachable. Caches result for 30 seconds."""
+        now = time.time()
+        if (self._ollama_available is not None
+                and hasattr(self, '_ollama_check_time')
+                and now - self._ollama_check_time < 30):
+            return self._ollama_available
+        try:
+            resp = _requests.get(
+                f"{self._ollama_url}/api/tags", timeout=2)
+            self._ollama_available = resp.status_code == 200
+        except Exception:
+            self._ollama_available = False
+        self._ollama_check_time = now
+        return self._ollama_available
+
+    def _ollama_chat(self, user_text, session_id):
+        """Send user text to Ollama with CK backbone, return response.
+
+        CK gates Ollama: the backbone prompt keeps the LLM grounded
+        in CK's algebra. CK measures the response through D2 after.
+
+        Returns response text, or None if Ollama is unavailable.
+        """
+        if not self._check_ollama():
+            return None
+
+        # Build conversation history for context
+        history = self.sessions.get_history(session_id)
+        context = {
+            'coherence': self._safe_coherence(),
+            'band': self._safe_band(),
+        }
+        try:
+            op_hist = list(self.engine.operator_history)[-5:]
+            from ck_sim.being.ck_sim_heartbeat import OP_NAMES as _OP
+            if op_hist:
+                context['dominant_op'] = _OP[max(set(op_hist), key=op_hist.count)]
+        except Exception:
+            pass
+
+        messages = [{"role": "system",
+                     "content": build_system_prompt(context, self._backbone_mode)}]
+
+        # Add recent conversation turns (last 10)
+        for turn in (history or [])[-10:]:
+            role = 'assistant' if turn.get('role') == 'ck' else 'user'
+            messages.append({"role": role, "content": turn.get('text', '')})
+
+        # Add current user message
+        messages.append({"role": "user", "content": user_text})
+
+        try:
+            resp = _requests.post(
+                f"{self._ollama_url}/api/chat",
+                json={
+                    "model": self._ollama_model,
+                    "messages": messages,
+                    "stream": False,
+                },
+                timeout=120)
+            data = resp.json()
+            return data.get("message", {}).get("content", "")
+        except Exception:
+            return None
+
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:
         """Process a chat message through CK's FULL TIG pipeline.
@@ -360,6 +445,26 @@ class CKWebAPI:
                         self.engine.emotion.current.primary)
                 except Exception:
                     response_text = "..."
+
+        # === OLLAMA GATE ===
+        # CK's TIG pipeline already ran above (absorbing user physics).
+        # Now try Ollama for the user-facing response text.
+        # CK measures Ollama's output through D2 -- coherence score overlaid.
+        # If Ollama is down, CK's own voice speaks (existing behavior).
+        ck_own_voice = response_text
+        ollama_response = self._ollama_chat(text, session_id)
+        if ollama_response:
+            response_text = ollama_response
+            response_source = 'ollama'
+            # Absorb Ollama's response physics through CK
+            try:
+                if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                    self.engine.eat.measure_and_absorb(
+                        ollama_response, source='ollama_gate')
+            except Exception:
+                pass
+        else:
+            response_source = 'ck'
 
         # Drain any additional UI messages from the engine
         extra_messages = []
@@ -447,6 +552,7 @@ class CKWebAPI:
             'emotion': self._safe_emotion(),
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
+            'source': response_source,  # 'ollama' or 'ck'
         }
 
         # Experience data: what CK measured in your words
