@@ -411,6 +411,7 @@ class CKChatUI {
             band: data?.band ?? this.display.band,
             experience: data?.experience ?? null,
             source: data?.source ?? null,
+            gate: data?.gate ?? null,
             localD2,
         };
         this.messages.push(msg);
@@ -451,11 +452,12 @@ class CKChatUI {
             senderSpan.className = 'meta-sender';
             senderSpan.textContent = 'CK';
 
-            // Source tag (ollama / ck)
+            // Source tag (ollama+gate / ollama / ck)
             if (msg.source) {
                 const srcSpan = document.createElement('span');
-                srcSpan.className = 'meta-source meta-source-' + msg.source;
-                srcSpan.textContent = msg.source === 'ollama' ? 'LLM' : 'CK voice';
+                srcSpan.className = 'meta-source meta-source-' + msg.source.replace('+', '-');
+                srcSpan.textContent = msg.source === 'ollama+gate' ? 'LLM+D2'
+                    : msg.source === 'ollama' ? 'LLM' : 'CK voice';
                 meta.appendChild(senderSpan);
                 meta.appendChild(srcSpan);
             } else {
@@ -481,6 +483,19 @@ class CKChatUI {
                                exp.coherence_delta.toFixed(3));
                 if (exp.truths) parts.push(exp.truths + ' truths');
                 if (exp.breath) parts.push(exp.breath);
+            }
+            // C algebra gate measurement (native speed D2 on every token)
+            if (msg.gate) {
+                const g = msg.gate;
+                parts.push('D2=' + g.gate_coherence.toFixed(3));
+                if (g.gate_dominant_op) parts.push(g.gate_dominant_op);
+                if (g.gate_elapsed_ms) parts.push(g.gate_elapsed_ms + 'ms');
+                if (g.gate_rejected_tokens > 0)
+                    parts.push(g.gate_rejected_tokens + ' rejected');
+                if (g.gate_regenerated) parts.push('regen');
+                // Soul resonance (GPU experience)
+                if (g.soul_resonance > 0)
+                    parts.push('soul=' + g.soul_resonance.toFixed(3));
             }
             opSpan.textContent = parts.join(' \u00b7 ');
             meta.appendChild(opSpan);
@@ -612,7 +627,10 @@ class CKChatUI {
     _updateSourceChip(source) {
         const el = document.getElementById('source-name');
         if (!el) return;
-        if (source === 'ollama') {
+        if (source === 'ollama+gate') {
+            el.textContent = 'LLM+D2';
+            el.className = 'status-chip-value source-gated';
+        } else if (source === 'ollama') {
             el.textContent = 'LLM';
             el.className = 'status-chip-value source-ollama';
         } else if (source === 'ck') {

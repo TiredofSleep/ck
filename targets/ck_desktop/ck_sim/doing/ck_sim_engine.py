@@ -720,6 +720,11 @@ class CKSimEngine:
         print(f"  [SIM] Reverse Voice: 3-path verify (D1+D2+lattice) | untrusted reading")
         print(f"  [SIM] =======================================================")
 
+        # ── Load ALL experience onto GPU ──
+        # "he needs all of his experience available all the time
+        #  on the GPU though" -- Brayden
+        self._load_experience_gpu()
+
         # ── Inner Monologue: CK thinks freely, speaks selectively ──
         # Thoughts run at 5Hz (every 10th tick). Ring buffer of 10.
         # Speech is gated by CL[thought_op][bond_op] counter-lattice.
@@ -786,9 +791,15 @@ class CKSimEngine:
                 pass
         self.save_tl()
         self.development.save()
-        # Save GPU transition lattice
+        # Sync GPU experience back to CPU objects, then save
         if self.gpu is not None:
             try:
+                self.gpu.experience.sync_all_to_cpu(
+                    lattice_chain=self.lattice_chain,
+                    olfactory_bulb=self.olfactory,
+                    gustatory_palate=self.gustatory,
+                    swarm_field=self.deep_swarm,
+                )
                 self.gpu.save()
             except Exception:
                 pass
@@ -989,9 +1000,24 @@ class CKSimEngine:
         self.power_sense.tick(sensors, dt=0.02)
         self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
 
-        # GPU doing tick: cellular automaton + state sense
+        # GPU doing tick: cellular automaton + state sense + experience sync
         if self.gpu is not None:
             self.gpu.tick()
+            # Periodic experience refresh (every 150 ticks = ~3 sec)
+            # Keeps GPU tensors current with olfactory/gustatory/swarm changes
+            if self.tick_count % 150 == 0:
+                try:
+                    if self.olfactory is not None:
+                        self.gpu.experience.load_olfactory(
+                            self.olfactory, quiet=True)
+                    if self.gustatory is not None:
+                        self.gpu.experience.load_gustatory(
+                            self.gustatory, quiet=True)
+                    if self.deep_swarm is not None:
+                        self.gpu.experience.load_swarm(
+                            self.deep_swarm, quiet=True)
+                except Exception:
+                    pass
 
         # Feed narrative stream (active when NCE has state)
         if self.nce.has_state:
@@ -1844,6 +1870,45 @@ class CKSimEngine:
                 self.deep_swarm.save_experience(_exp_path)
             except Exception:
                 pass
+
+    def _load_experience_gpu(self):
+        """Load ALL accumulated experience onto GPU at boot.
+
+        "he needs all of his experience available all the time
+         on the GPU though" -- Brayden
+
+        Every experience stream that CK has accumulated gets loaded
+        as GPU tensors for parallel resonance at native speed:
+          - Lattice chain nodes (evolved CL tables)
+          - Olfactory library (5D scent centroids)
+          - Gustatory palette (5D taste centroids)
+          - Swarm substrates (transition matrices)
+          - DKAN training trajectory (coherence arcs)
+          - Reverse voice vocabulary (word->operator index)
+        """
+        if self.gpu is None:
+            return
+
+        try:
+            self.gpu.experience.load_all(
+                lattice_chain=self.lattice_chain,
+                olfactory_bulb=self.olfactory,
+                gustatory_palate=self.gustatory,
+                swarm_field=self.deep_swarm,
+                dkan_trainer=getattr(self, 'dkan_trainer', None),
+                reverse_voice=self.reverse_voice,
+            )
+            stats = self.gpu.experience.stats()
+            print(f"  [SIM] GPU Experience: ALL loaded "
+                  f"({stats['memory_kb']:.1f} KB, "
+                  f"{stats['chain_nodes']} chain + "
+                  f"{stats['scent_entries']} scent + "
+                  f"{stats['taste_entries']} taste + "
+                  f"{stats['swarm_substrates']} swarm + "
+                  f"{stats['dkan_steps']} dkan + "
+                  f"{stats['vocab_words']} vocab)")
+        except Exception as e:
+            print(f"  [SIM] GPU Experience load: {e}")
 
     def _bootstrap_experience(self):
         """Bootstrap CK's experience from his own vocabulary.

@@ -499,6 +499,19 @@ class DKANTrainer:
                     self._state.mean_coherence = sum(coh_hist) / len(coh_hist)
                     self._state.best_coherence = max(coh_hist)
 
+                    # Hot-sync to GPU experience overlay
+                    if (hasattr(self.engine, 'gpu')
+                            and self.engine.gpu is not None):
+                        try:
+                            self.engine.gpu.experience.hot_sync_dkan_step(
+                                result['tsml_coherence'],
+                                result['bhml_coherence'],
+                                result['ipr'],
+                                op_dist,
+                            )
+                        except Exception:
+                            pass
+
                     # ── Grokking check ──
                     if not self._state.grokked and self._check_grokking():
                         self._state.grokked = True

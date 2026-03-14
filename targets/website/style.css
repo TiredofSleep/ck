@@ -281,6 +281,7 @@ html, body {
 /* Source chip colors */
 
 .source-ollama { color: var(--blue) !important; }
+.source-gated  { color: var(--green) !important; }
 .source-ck     { color: var(--green) !important; }
 .source-local  { color: var(--yellow) !important; }
 
@@ -321,6 +322,11 @@ html, body {
 }
 
 .meta-source-ck {
+    color: var(--green);
+    background: var(--green-dim);
+}
+
+.meta-source-ollama-gate {
     color: var(--green);
     background: var(--green-dim);
 }

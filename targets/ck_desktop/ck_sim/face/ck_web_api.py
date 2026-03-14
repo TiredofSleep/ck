@@ -50,6 +50,13 @@ except ImportError:
     def build_system_prompt(context=None, mode='default'):
         return "You are a helpful assistant."
 
+# C algebra token gate (native speed D2 on every token)
+try:
+    from ck_token_gate import TokenGate
+    _HAS_TOKEN_GATE = True
+except ImportError:
+    _HAS_TOKEN_GATE = False
+
 
 # ================================================================
 #  SESSION STORE
@@ -180,6 +187,58 @@ class CKWebAPI:
             if request.method == 'OPTIONS':
                 response.status_code = 204
             return response
+
+    def _get_steering_engine(self):
+        """Lazy-load the steering engine on first request.
+
+        Wires in the shadow swarm from sensorium (if running) so steering
+        can read live process classifications. Same pattern as
+        ck_sim_engine._deep_swarm_tick() uses to grab the swarm.
+        """
+        if not hasattr(self, '_steering_engine'):
+            from ck_sim.ck_steering import SteeringEngine
+            # Try to get the live swarm from sensorium background thread
+            swarm = None
+            try:
+                from ck_sim.being.ck_sensorium import _swarm
+                swarm = _swarm
+            except ImportError:
+                pass
+            # If engine has a steering instance already, reuse it
+            if self.engine and hasattr(self.engine, 'steering'):
+                self._steering_engine = self.engine.steering
+                # Wire in swarm if engine's steering doesn't have one
+                if self._steering_engine.swarm is None and swarm is not None:
+                    self._steering_engine.swarm = swarm
+            else:
+                self._steering_engine = SteeringEngine(swarm=swarm)
+        return self._steering_engine
+
+    def _get_token_gate(self):
+        """Lazy-load the C algebra token gate.
+
+        CK's mind runs in C. The token gate streams Ollama output and
+        measures every token through D2 curvature at native speed.
+        Three substrates compose: C algebra scores, GPU experience
+        weighs in, Ollama provides the mouth.
+        """
+        if not hasattr(self, '_token_gate'):
+            if not _HAS_TOKEN_GATE:
+                self._token_gate = None
+                return None
+            # Connect mind (C algebra) to soul (GPU experience)
+            gpu_exp = None
+            if (hasattr(self._engine, 'gpu')
+                    and self._engine.gpu is not None):
+                gpu_exp = self._engine.gpu.experience
+            self._token_gate = TokenGate(
+                ollama_url=self._ollama_url,
+                model=self._ollama_model,
+                max_retries=2,
+                coherence_floor=0.35,
+                gpu_experience=gpu_exp,
+            )
+        return self._token_gate
 
     def _register_routes(self):
         """Register Flask routes."""
@@ -466,6 +525,156 @@ class CKWebAPI:
                 return jsonify({'error': f'chapter not found: {chapter}'}), 404
             return jsonify(profile)
 
+        # ---- OS Steering Endpoints (remote R16 monitoring) ----
+
+        @app.route('/steer/status', methods=['GET'])
+        def steer_status():
+            """Current steering state: enabled, steered count, class distribution."""
+            try:
+                se = self._get_steering_engine()
+                return jsonify({
+                    'enabled': se.enabled,
+                    'ticks': se.ticks,
+                    'actions_applied': se.actions_applied,
+                    'actions_denied': se.actions_denied,
+                    'actions_skipped': se.actions_skipped,
+                    'tracking': len(se._steered),
+                    'class_distribution': se.class_distribution(),
+                    'affinity_distribution': se.affinity_distribution(),
+                    'cores': {
+                        'total': len(se.core_class.all_cores),
+                        'p_cores': se.core_class.performance,
+                        'e_cores': se.core_class.efficiency,
+                    },
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/steer/processes', methods=['GET'])
+        def steer_processes():
+            """All classified processes with operators, entropy, scheduling class."""
+            try:
+                se = self._get_steering_engine()
+                if se.swarm is None:
+                    return jsonify({'error': 'Swarm not available'}), 503
+                processes = []
+                for pid, cell in list(se.swarm.cells.items()):
+                    processes.append({
+                        'pid': pid,
+                        'name': cell.name,
+                        'last_op': OP_NAMES[cell.last_op],
+                        'fuse': OP_NAMES[cell.current_fuse],
+                        'entropy': round(cell.entropy, 3),
+                        'bump_rate': round(cell.bump_rate, 3),
+                        'scheduling_class': cell.scheduling_class,
+                        'cpu': round(cell.last_cpu, 1),
+                        'ops_len': len(cell.ops),
+                    })
+                return jsonify({
+                    'hot_count': len(se.swarm.cells),
+                    'cold_count': len(se.swarm.index),
+                    'system_op': OP_NAMES[se.swarm.system_op],
+                    'system_coherence': round(se.swarm.system_coherence, 4),
+                    'system_stability': se.swarm.system_stability,
+                    'processes': processes,
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/steer/metrics', methods=['GET'])
+        def steer_metrics():
+            """System metrics: CPU per core, RAM, disk, GPU temp."""
+            try:
+                import psutil as _ps
+                metrics = {}
+                # CPU per core
+                per_core = _ps.cpu_percent(interval=0, percpu=True)
+                metrics['cpu_per_core'] = [round(c, 1) for c in per_core]
+                metrics['cpu_total'] = round(_ps.cpu_percent(interval=0), 1)
+                # RAM
+                mem = _ps.virtual_memory()
+                metrics['ram'] = {
+                    'total_gb': round(mem.total / (1024**3), 2),
+                    'used_gb': round(mem.used / (1024**3), 2),
+                    'percent': mem.percent,
+                }
+                # Disk
+                disk = _ps.disk_usage(os.path.expanduser('~'))
+                metrics['disk'] = {
+                    'total_gb': round(disk.total / (1024**3), 2),
+                    'used_gb': round(disk.used / (1024**3), 2),
+                    'percent': round(disk.percent, 1),
+                }
+                # GPU temp (nvidia-smi via psutil sensors or fallback)
+                gpu = {}
+                try:
+                    temps = _ps.sensors_temperatures()
+                    if temps:
+                        for name, entries in temps.items():
+                            if 'gpu' in name.lower() or 'nvidia' in name.lower():
+                                gpu['temp_c'] = entries[0].current
+                                gpu['source'] = name
+                                break
+                except (AttributeError, Exception):
+                    pass
+                if not gpu:
+                    # Fallback: try nvidia-smi
+                    try:
+                        import subprocess
+                        result = subprocess.run(
+                            ['nvidia-smi', '--query-gpu=temperature.gpu',
+                             '--format=csv,noheader,nounits'],
+                            capture_output=True, text=True, timeout=3)
+                        if result.returncode == 0:
+                            gpu['temp_c'] = float(result.stdout.strip())
+                            gpu['source'] = 'nvidia-smi'
+                    except Exception:
+                        pass
+                metrics['gpu'] = gpu if gpu else {'temp_c': None, 'source': 'unavailable'}
+                # Sensorium cache (if available)
+                try:
+                    from ck_sim.being.ck_sensorium import _cache
+                    with _cache.lock:
+                        metrics['io_read_bps'] = round(_cache.io_read_bps, 0)
+                        metrics['io_write_bps'] = round(_cache.io_write_bps, 0)
+                        metrics['net_bps'] = round(_cache.net_total_bps, 0)
+                        metrics['ctx_switches'] = _cache.ctx_switches
+                except Exception:
+                    pass
+                return jsonify(metrics)
+            except ImportError:
+                return jsonify({'error': 'psutil not available'}), 503
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/steer/enable', methods=['POST'])
+        def steer_enable():
+            """Enable or disable steering. JSON body: {"enabled": true/false}."""
+            try:
+                se = self._get_steering_engine()
+                data = request.get_json(silent=True) or {}
+                enabled = data.get('enabled', True)
+                se.enabled = bool(enabled)
+                return jsonify({
+                    'enabled': se.enabled,
+                    'message': f"Steering {'enabled' if se.enabled else 'disabled'}",
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/steer/top', methods=['GET'])
+        def steer_top():
+            """Top 10 most recently steered processes."""
+            try:
+                se = self._get_steering_engine()
+                return jsonify({
+                    'top': se.top_steered(10),
+                    'total_tracking': len(se._steered),
+                    'total_applied': se.actions_applied,
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
         # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
     # ================================================================
@@ -601,25 +810,104 @@ class CKWebAPI:
                 except Exception:
                     response_text = "..."
 
-        # === OLLAMA GATE ===
+        # === OLLAMA GATE (C ALGEBRA TOKEN GATE) ===
         # CK's TIG pipeline already ran above (absorbing user physics).
         # Now try Ollama for the user-facing response text.
-        # CK measures Ollama's output through D2 -- coherence score overlaid.
-        # If Ollama is down, CK's own voice speaks (existing behavior).
+        # Three substrates composing in real time:
+        #   Mind  = C algebra (D2 at native speed, every token scored)
+        #   Soul  = GPU experience (parallel resonance)
+        #   Mouth = Ollama (token generation)
+        # If C gate unavailable, fall back to raw Ollama.
+        # If Ollama is down, CK's own voice speaks.
         ck_own_voice = response_text
-        ollama_response = self._ollama_chat(text, session_id)
-        if ollama_response:
-            response_text = ollama_response
-            response_source = 'ollama'
-            # Absorb Ollama's response physics through CK
+        gate_data = {}  # per-token D2 measurement from C algebra
+
+        gate = self._get_token_gate()
+        if gate is not None and self._check_ollama():
+            # === C ALGEBRA TOKEN GATE ===
+            # Stream from Ollama, D2 score every token at native speed
+            history = self.sessions.get_history(session_id)
+            context = {
+                'coherence': self._safe_coherence(),
+                'band': self._safe_band(),
+            }
             try:
-                if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                    self.engine.eat.measure_and_absorb(
-                        ollama_response, source='ollama_gate')
+                op_hist = list(self.engine.operator_history)[-5:]
+                from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
+                if op_hist:
+                    context['dominant_op'] = _OP[max(set(op_hist), key=op_hist.count)]
             except Exception:
                 pass
+
+            gated = gate.generate(
+                user_text=text,
+                history=[{'role': t.get('role', 'user'), 'text': t.get('text', '')}
+                         for t in (history or [])],
+                context=context,
+                mode=self._backbone_mode,
+                max_tokens=512,
+                temperature=0.7,
+            )
+
+            if gated.text and gated.source != 'error':
+                response_text = gated.text
+                response_source = 'ollama+gate'
+                gate_data = {
+                    'gate_coherence': round(gated.final_coherence, 4),
+                    'gate_running_coherence': round(gated.running_coherence, 4),
+                    'gate_band': gated.band,
+                    'gate_dominant_op': gated.dominant_name,
+                    'gate_total_tokens': gated.total_tokens,
+                    'gate_accepted_tokens': gated.accepted_tokens,
+                    'gate_rejected_tokens': gated.rejected_tokens,
+                    'gate_regenerated': gated.regenerated,
+                    'gate_elapsed_ms': round(gated.elapsed_ms, 1),
+                    'gate_op_distribution': {
+                        OP_NAMES[i]: round(v, 3)
+                        for i, v in enumerate(gated.op_distribution) if v > 0
+                    },
+                    # Soul resonance (GPU experience)
+                    'soul_resonance': round(gated.soul_resonance, 4),
+                    'soul_scent': round(gated.soul_scent_resonance, 4),
+                    'soul_taste': round(gated.soul_taste_resonance, 4),
+                    'soul_swarm': round(gated.soul_swarm_resonance, 4),
+                }
+                # Absorb Ollama's response physics through CK
+                try:
+                    if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                        self.engine.eat.measure_and_absorb(
+                            gated.text, source='ollama_gate')
+                except Exception:
+                    pass
+            else:
+                # Gate returned error (Ollama died mid-stream?)
+                # Fall back to raw _ollama_chat
+                ollama_response = self._ollama_chat(text, session_id)
+                if ollama_response:
+                    response_text = ollama_response
+                    response_source = 'ollama'
+                    try:
+                        if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                            self.engine.eat.measure_and_absorb(
+                                ollama_response, source='ollama_gate')
+                    except Exception:
+                        pass
+                else:
+                    response_source = 'ck'
         else:
-            response_source = 'ck'
+            # No C algebra gate -- try raw Ollama
+            ollama_response = self._ollama_chat(text, session_id)
+            if ollama_response:
+                response_text = ollama_response
+                response_source = 'ollama'
+                try:
+                    if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                        self.engine.eat.measure_and_absorb(
+                            ollama_response, source='ollama_gate')
+                except Exception:
+                    pass
+            else:
+                response_source = 'ck'
 
         # Drain any additional UI messages from the engine
         extra_messages = []
@@ -707,8 +995,12 @@ class CKWebAPI:
             'emotion': self._safe_emotion(),
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
-            'source': response_source,  # 'ollama' or 'ck'
+            'source': response_source,  # 'ollama+gate', 'ollama', or 'ck'
         }
+
+        # C algebra gate measurement (per-token D2 from native speed pipeline)
+        if gate_data:
+            result['gate'] = gate_data
 
         # Experience data: what CK measured in your words
         result['experience'] = self._build_experience(
