@@ -280,6 +280,17 @@ class CKSimEngine:
         # The core stays light. Senses hook on to its movement.
         self.sensorium = build_sensorium(self)
 
+        # Wire the shadow swarm into steering so CK can steer the OS.
+        # build_sensorium starts the background thread which creates _swarm.
+        # Steering needs that reference to read live process classifications.
+        try:
+            from ck_sim.being.ck_sensorium import _swarm
+            if _swarm is not None and self.steering.swarm is None:
+                self.steering.swarm = _swarm
+                print("  [STEER] Swarm wired into steering -- CK steers the OS")
+        except ImportError:
+            pass
+
     def _init_experience_lattice(self):
         """Initialize the experience lattice -- knowledge, language, goals, actions.
 

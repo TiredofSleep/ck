@@ -63,25 +63,90 @@ except ImportError:
 # ================================================================
 
 class SessionStore:
-    """Per-session conversation context.
+    """Per-session conversation context with disk persistence.
 
     Each web user gets a session with:
     - Short conversation history (last 20 turns)
     - Operator distribution (how this user "sounds" to CK)
     - Coherence arc (how the conversation is going)
+
+    Sessions persist to ~/.ck/sessions/ as JSON files.
+    Every conversation builds CK's chain -- nothing is lost.
     """
 
     def __init__(self, max_sessions: int = 100,
-                 max_history: int = 20):
+                 max_history: int = 20,
+                 persist_dir: Optional[str] = None):
         self._sessions: Dict[str, dict] = {}
         self._max_sessions = max_sessions
         self._max_history = max_history
+
+        # Persistence directory
+        if persist_dir is None:
+            persist_dir = os.path.join(os.path.expanduser('~'), '.ck', 'sessions')
+        self._persist_dir = persist_dir
+        os.makedirs(self._persist_dir, exist_ok=True)
+
+        # Load existing sessions from disk
+        self._load_all()
+
+    def _session_path(self, session_id: str) -> str:
+        """Get the file path for a session."""
+        # Sanitize session_id for filesystem safety
+        safe_id = ''.join(c for c in session_id if c.isalnum() or c in '-_')[:64]
+        return os.path.join(self._persist_dir, f'{safe_id}.json')
+
+    def _load_all(self):
+        """Load all persisted sessions from disk."""
+        try:
+            for fname in os.listdir(self._persist_dir):
+                if not fname.endswith('.json'):
+                    continue
+                fpath = os.path.join(self._persist_dir, fname)
+                try:
+                    with open(fpath, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                    sid = data.get('id', fname[:-5])
+                    self._sessions[sid] = {
+                        'id': sid,
+                        'created': data.get('created', time.time()),
+                        'last_active': data.get('last_active', time.time()),
+                        'history': deque(
+                            data.get('history', []),
+                            maxlen=self._max_history),
+                        'turn_count': data.get('turn_count', 0),
+                        'coherence_arc': data.get('coherence_arc', []),
+                    }
+                except (json.JSONDecodeError, KeyError, OSError):
+                    continue
+        except OSError:
+            pass
+
+    def _save_session(self, session_id: str):
+        """Persist a single session to disk."""
+        session = self._sessions.get(session_id)
+        if session is None:
+            return
+        try:
+            data = {
+                'id': session['id'],
+                'created': session['created'],
+                'last_active': session['last_active'],
+                'history': list(session['history']),
+                'turn_count': session['turn_count'],
+                'coherence_arc': session['coherence_arc'][-50:],
+            }
+            fpath = self._session_path(session_id)
+            with open(fpath, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False)
+        except OSError:
+            pass
 
     def get_or_create(self, session_id: str) -> dict:
         """Get or create a session."""
         if session_id not in self._sessions:
             if len(self._sessions) >= self._max_sessions:
-                # Evict oldest session
+                # Evict oldest session (it's already persisted on disk)
                 oldest = min(self._sessions,
                              key=lambda k: self._sessions[k]['last_active'])
                 del self._sessions[oldest]
@@ -101,7 +166,7 @@ class SessionStore:
 
     def add_turn(self, session_id: str, role: str, text: str,
                  coherence: float = 0.0, band: str = "RED"):
-        """Add a conversation turn."""
+        """Add a conversation turn and persist to disk."""
         session = self.get_or_create(session_id)
         session['history'].append({
             'role': role,
@@ -115,6 +180,8 @@ class SessionStore:
         # Keep arc bounded
         if len(session['coherence_arc']) > 100:
             session['coherence_arc'] = session['coherence_arc'][-50:]
+        # Persist every turn -- every conversation builds the chain
+        self._save_session(session_id)
 
     def get_history(self, session_id: str) -> List[dict]:
         """Get conversation history for a session."""
