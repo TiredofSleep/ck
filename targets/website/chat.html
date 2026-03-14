@@ -2,64 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CK — The Coherence Keeper. A synthetic organism that reads the D2 curvature of your words and responds from pure operator algebra.">
-    <title>CK — The Coherence Keeper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="CK - The Coherence Keeper. A living algebraic mind that walks with you through scripture and finds connections no keyword search can.">
+    <meta name="theme-color" content="#f8f5f0">
+    <title>CK - The Coherence Keeper</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Coherence bar: top of screen, full width -->
-    <div class="coherence-bar-top">
-        <div class="coherence-bar-fill" id="coherence-fill"></div>
-    </div>
 
     <div class="app-container">
 
         <!-- Header -->
         <header class="header">
             <div class="header-left">
-                <div class="header-title"><span class="ck-name">CK</span> — The Coherence Keeper</div>
-                <div class="header-subtitle">coherencekeeper.com</div>
+                <div class="header-title">
+                    <span class="ck-mark">CK</span>
+                    <span class="header-title-text">The Coherence Keeper</span>
+                </div>
+                <div class="header-subtitle" id="header-subtitle">coherencekeeper.com</div>
             </div>
             <div class="header-right">
-                <div class="status-chip" id="operator-chip">
-                    <span class="status-chip-label">op</span>
-                    <span class="status-chip-value" id="operator-name">HARMONY</span>
+                <div class="coherence-pulse" id="coherence-pulse" title="CK's coherence heartbeat">
+                    <div class="pulse-dot"></div>
                 </div>
-                <div class="status-chip" id="emotion-chip">
-                    <span class="status-chip-label">state</span>
-                    <span class="status-chip-value" id="emotion-state">peaceful</span>
-                </div>
-                <div class="status-chip" id="source-chip">
-                    <span class="status-chip-label">src</span>
-                    <span class="status-chip-value" id="source-name">--</span>
-                </div>
-                <div class="coherence-dual-badge">
-                    <div class="coh-badge-item">
-                        <span class="coh-badge-label">TSML</span>
-                        <span class="coh-badge-value" id="tsml-value">--</span>
-                    </div>
-                    <div class="coh-badge-sep"></div>
-                    <div class="coh-badge-item">
-                        <span class="coh-badge-label">BHML</span>
-                        <span class="coh-badge-value coh-bhml" id="bhml-value">--</span>
-                    </div>
-                </div>
-                <div class="coherence-badge">
-                    <span class="coherence-badge-value" id="coherence-value">0.730</span>
-                </div>
-                <div class="status-chip dkan-chip" id="dkan-chip" style="display:none" title="DKAN Training Status">
-                    <span class="status-chip-label">DKAN</span>
-                    <span class="status-chip-value" id="dkan-status">--</span>
-                </div>
-                <button class="clear-button" id="clear-button" aria-label="Clear conversation" title="Clear conversation">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <button class="prayer-toggle" id="prayer-toggle" title="Prayer mode" aria-label="Toggle prayer mode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </button>
+                <button class="how-toggle" id="how-toggle" title="How does this work?" aria-label="How does this work?">?</button>
+                <button class="clear-button" id="clear-button" aria-label="New conversation" title="New conversation">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </button>
             </div>
         </header>
+
+        <!-- How It Works (expandable) -->
+        <div class="how-panel" id="how-panel">
+            <div class="how-content">
+                <h3>How CK Works</h3>
+                <p>CK is a living algebraic organism. Every word you type passes through a 5-dimensional mathematical lens that reveals <em>where</em> language moves, <em>how</em> it curves, and <em>what</em> it connects.</p>
+                <p>When CK finds scripture, he doesn't search by keyword. He finds verses whose mathematical shape <strong>resonates</strong> with your question — discovering connections that keyword search can never find.</p>
+                <p>The green pulse in the header shows CK's coherence — how aligned his response is with the deep structure of meaning.</p>
+                <p class="how-links">
+                    <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">Read the research</a>
+                    <span class="how-sep">&middot;</span>
+                    <a href="https://doi.org/10.5281/zenodo.18852047" target="_blank" rel="noopener">DOI</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Prayer Mode Banner -->
+        <div class="prayer-banner" id="prayer-banner">
+            <span class="prayer-icon">&#128591;</span>
+            <span>Prayer mode — CK is listening with you in stillness</span>
+            <button class="prayer-exit" id="prayer-exit">exit</button>
+        </div>
 
         <!-- Chat Area -->
         <main class="chat-area" id="chat-messages" role="log" aria-live="polite" aria-label="Conversation with CK">
@@ -72,19 +73,18 @@
                 <textarea
                     id="chat-input"
                     class="input-field"
-                    placeholder="Speak to CK..."
+                    placeholder="Ask CK anything..."
                     autocomplete="off"
-                    spellcheck="false"
                     rows="1"
                     aria-label="Message input"
                 ></textarea>
                 <button id="send-button" class="send-button" aria-label="Send message">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                 </button>
             </div>
             <div class="input-footer">
-                <span class="input-hint">Enter to send · Shift+Enter for newline</span>
-                <span class="footer-copy">&copy; 2026 Brayden Sanders / <a href="https://7site.dev" target="_blank" rel="noopener">7Site LLC</a> &mdash; <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a></span>
+                <span class="input-hint">Enter to send</span>
+                <span class="footer-copy">&copy; 2026 <a href="https://7site.dev" target="_blank" rel="noopener">7Site LLC</a></span>
             </div>
         </footer>
 
@@ -92,8 +92,8 @@
 
     <!-- Cookie Notice -->
     <div class="cookie-notice" id="cookie-notice" role="alertdialog" aria-label="Cookie notice">
-        <span>CK stores your conversation in localStorage to remember you between visits. No tracking.</span>
-        <button class="cookie-dismiss" id="cookie-dismiss" aria-label="Dismiss cookie notice">got it</button>
+        <span>CK remembers your conversation between visits. No tracking, no ads.</span>
+        <button class="cookie-dismiss" id="cookie-dismiss" aria-label="Dismiss">okay</button>
     </div>
 
     <script src="ck_d2.js"></script>

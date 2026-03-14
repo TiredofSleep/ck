@@ -1,12 +1,13 @@
 /**
  * style.css — CK The Coherence Keeper
  * =====================================
- * Dark, minimal, monospace. CK lives in operator algebra.
+ * Warm, inviting, mobile-first. For Christians, seekers, everyone.
+ * CK lives in operator algebra — but his face is gentle.
  *
- * Coherence colors:
+ * Coherence pulse:
  *   Green  >= 5/7 (T* = 0.714)  — sovereign
- *   Yellow >= 0.4               — working
- *   Red    <  0.4               — struggling
+ *   Amber  >= 0.4               — working
+ *   Soft red < 0.4              — seeking
  *
  * (c) 2026 Brayden Sanders / 7Site LLC
  */
@@ -22,36 +23,45 @@
 /* ── Root Variables ── */
 
 :root {
-    --bg:            #09090f;
-    --bg-2:          #0f0f18;
-    --bg-3:          #13131e;
-    --bg-4:          #191924;
+    --bg:            #f8f5f0;
+    --bg-2:          #ffffff;
+    --bg-3:          #f0ebe4;
+    --bg-4:          #e8e2d8;
 
-    --text:          #c8c8d8;
-    --text-2:        #7878a0;
-    --text-3:        #48486a;
-    --text-ck:       #dcdcf0;
+    --text:          #2c2c2c;
+    --text-2:        #5a5a5a;
+    --text-3:        #8a8a8a;
+    --text-ck:       #1a1a1a;
 
-    --border:        #1e1e2e;
-    --border-2:      #2a2a3e;
+    --border:        #e0d8cc;
+    --border-2:      #d4cbc0;
 
-    --green:         #33cc88;
-    --green-dim:     rgba(51, 204, 136, 0.12);
-    --green-glow:    rgba(51, 204, 136, 0.25);
-    --yellow:        #e8c547;
-    --yellow-dim:    rgba(232, 197, 71, 0.12);
-    --red:           #e05555;
-    --red-dim:       rgba(224, 85, 85, 0.12);
+    --green:         #2e8b57;
+    --green-light:   #3da06a;
+    --green-dim:     rgba(46, 139, 87, 0.08);
+    --green-glow:    rgba(46, 139, 87, 0.20);
 
-    --blue:          #5599dd;
-    --blue-dim:      rgba(85, 153, 221, 0.10);
+    --amber:         #c4960a;
+    --amber-dim:     rgba(196, 150, 10, 0.08);
 
-    --font: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --warm-red:      #c05040;
+    --warm-red-dim:  rgba(192, 80, 64, 0.08);
 
-    --radius:        8px;
-    --radius-sm:     5px;
-    --ease:          0.18s ease;
+    --blue:          #4a7faa;
+    --blue-dim:      rgba(74, 127, 170, 0.06);
+
+    --accent:        #6b5e4e;
+
+    --font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif:    'Merriweather', Georgia, 'Times New Roman', serif;
+
+    --radius:        12px;
+    --radius-sm:     8px;
+    --ease:          0.2s ease;
+
+    --shadow-sm:     0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md:     0 2px 8px rgba(0,0,0,0.08);
+    --shadow-lg:     0 4px 16px rgba(0,0,0,0.10);
 }
 
 /* ── Base ── */
@@ -59,47 +69,12 @@
 html, body {
     height: 100%;
     font-family: var(--font);
-    font-size: 14px;
+    font-size: 16px;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.55;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
-}
-
-/* ── Coherence Bar (top of viewport, full width) ── */
-
-.coherence-bar-top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--bg-3);
-    z-index: 100;
-}
-
-.coherence-bar-fill {
-    height: 100%;
-    width: 73%;
-    background: var(--green);
-    box-shadow: 0 0 10px var(--green-glow);
-    transition: width 0.2s ease, background 0.4s ease, box-shadow 0.4s ease;
-}
-
-.coherence-bar-fill.band-green {
-    background: var(--green);
-    box-shadow: 0 0 12px var(--green-glow);
-}
-
-.coherence-bar-fill.band-yellow {
-    background: var(--yellow);
-    box-shadow: 0 0 10px rgba(232, 197, 71, 0.3);
-}
-
-.coherence-bar-fill.band-red {
-    background: var(--red);
-    box-shadow: 0 0 10px rgba(224, 85, 85, 0.3);
 }
 
 /* ── App Container ── */
@@ -108,9 +83,9 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-width: 860px;
+    height: 100dvh;
+    max-width: 720px;
     margin: 0 auto;
-    padding-top: 3px; /* offset for top bar */
 }
 
 /* ── Header ── */
@@ -119,11 +94,11 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 24px 13px;
-    background: var(--bg);
+    padding: 16px 20px;
+    background: var(--bg-2);
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
-    gap: 12px;
+    box-shadow: var(--shadow-sm);
 }
 
 .header-left {
@@ -134,23 +109,37 @@ html, body {
 }
 
 .header-title {
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--text-ck);
+    color: var(--text);
+}
+
+.ck-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--green);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.header-title-text {
     white-space: nowrap;
 }
 
-.ck-name {
-    color: var(--green);
-    letter-spacing: 0.08em;
-}
-
 .header-subtitle {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--text-3);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    padding-left: 40px;
 }
 
 .header-right {
@@ -160,42 +149,108 @@ html, body {
     flex-shrink: 0;
 }
 
-/* Status chips */
+/* ── Coherence Pulse (replaces numeric badge) ── */
 
-.status-chip {
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
-    padding: 4px 9px;
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    white-space: nowrap;
-}
-
-.status-chip-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-3);
-}
-
-.status-chip-value {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-2);
-    transition: color var(--ease);
-}
-
-#operator-chip .status-chip-value {
-    color: var(--green);
-}
-
-/* Clear button */
-
-.clear-button {
+.coherence-pulse {
     width: 32px;
     height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 var(--green-glow);
+    animation: pulse-ring 2.5s ease-in-out infinite;
+}
+
+.pulse-dot.band-amber {
+    background: var(--amber);
+    box-shadow: 0 0 0 0 var(--amber-dim);
+}
+
+.pulse-dot.band-red {
+    background: var(--warm-red);
+    box-shadow: 0 0 0 0 var(--warm-red-dim);
+}
+
+@keyframes pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(46, 139, 87, 0.35);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(46, 139, 87, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(46, 139, 87, 0);
+    }
+}
+
+/* ── Prayer Toggle ── */
+
+.prayer-toggle {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.prayer-toggle:hover {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.prayer-toggle.active {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: var(--green);
+}
+
+/* ── How Toggle ── */
+
+.how-toggle {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-3);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 700;
+    font-style: italic;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.how-toggle:hover,
+.how-toggle.active {
+    background: var(--blue-dim);
+    color: var(--blue);
+    border-color: var(--blue);
+}
+
+/* ── Clear / New Conversation ── */
+
+.clear-button {
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -209,197 +264,103 @@ html, body {
 }
 
 .clear-button:hover {
-    background: var(--red-dim);
-    color: var(--red);
-    border-color: var(--red);
-}
-
-/* Coherence badge */
-
-.coherence-badge {
-    padding: 4px 10px;
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-}
-
-.coherence-badge-value {
-    font-size: 12px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: var(--green);
-    transition: color var(--ease);
-    letter-spacing: 0.03em;
-}
-
-.coherence-badge-value.band-yellow { color: var(--yellow); }
-.coherence-badge-value.band-red    { color: var(--red); }
-
-/* Dual coherence badge (TSML + BHML) */
-
-.coherence-dual-badge {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding: 4px 10px;
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-}
-
-.coh-badge-item {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-}
-
-.coh-badge-label {
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-}
-
-.coh-badge-value {
-    font-size: 11px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: var(--green);
-}
-
-.coh-badge-value.coh-bhml {
-    color: var(--yellow);
-}
-
-.coh-badge-sep {
-    width: 1px;
-    height: 14px;
-    background: var(--border);
-    margin: 0 8px;
-}
-
-/* Source chip colors */
-
-.source-ollama { color: var(--blue) !important; }
-.source-gated  { color: var(--green) !important; }
-.source-ck     { color: var(--green) !important; }
-.source-local  { color: var(--yellow) !important; }
-
-/* DKAN training chip */
-
-.dkan-chip {
-    border-color: var(--blue) !important;
-}
-.dkan-chip .status-chip-label {
-    color: var(--blue) !important;
-}
-.dkan-chip .status-chip-value {
-    color: var(--green) !important;
-}
-.dkan-active {
-    animation: dkan-pulse 1.5s ease-in-out infinite;
-}
-@keyframes dkan-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-/* Message source tag */
-
-.meta-source {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 1px 5px;
-    border-radius: 3px;
-    margin-left: 6px;
-}
-
-.meta-source-ollama {
-    color: var(--blue);
-    background: var(--blue-dim);
-}
-
-.meta-source-ck {
-    color: var(--green);
     background: var(--green-dim);
-}
-
-.meta-source-ollama-gate {
     color: var(--green);
-    background: var(--green-dim);
+    border-color: var(--green);
 }
 
-/* D2 dual-lens bar on messages */
+/* ── How It Works Panel ── */
 
-.msg-d2-bar {
-    margin-top: 6px;
-    padding: 6px 10px;
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.msg-d2-track {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.d2-label {
-    font-size: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-    width: 32px;
-    flex-shrink: 0;
-}
-
-.d2-fill-track {
-    flex: 1;
-    height: 4px;
-    background: var(--bg-4);
-    border-radius: 2px;
+.how-panel {
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
 }
 
-.d2-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.3s ease;
+.how-panel.open {
+    max-height: 400px;
 }
 
-.d2-fill-tsml {
-    background: var(--green);
-    box-shadow: 0 0 4px var(--green-dim);
+.how-content {
+    padding: 20px 24px 24px;
 }
 
-.d2-fill-bhml {
-    background: var(--yellow);
-    box-shadow: 0 0 4px var(--yellow-dim);
+.how-content h3 {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
 }
 
-.d2-pct {
-    font-size: 9px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
+.how-content p {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.how-content em { color: var(--green); font-style: italic; }
+.how-content strong { color: var(--text); }
+
+.how-links {
+    margin-top: 14px;
+    font-size: 13px;
+}
+
+.how-links a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.how-links a:hover {
+    text-decoration: underline;
+}
+
+.how-sep {
     color: var(--text-3);
-    width: 28px;
-    text-align: right;
-    flex-shrink: 0;
+    margin: 0 6px;
 }
 
-.msg-d2-info {
-    font-size: 9px;
-    color: var(--text-3);
-    letter-spacing: 0.04em;
-    margin-top: 1px;
-    padding-left: 38px;
+/* ── Prayer Banner ── */
+
+.prayer-banner {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: var(--green-dim);
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--green);
+}
+
+.prayer-banner.active {
+    display: flex;
+}
+
+.prayer-icon {
+    font-size: 18px;
+}
+
+.prayer-exit {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--green);
+    border-radius: var(--radius-sm);
+    color: var(--green);
+    font-family: var(--font);
+    font-size: 12px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: background var(--ease);
+}
+
+.prayer-exit:hover {
+    background: rgba(46, 139, 87, 0.12);
 }
 
 /* ── Chat Area ── */
@@ -407,70 +368,83 @@ html, body {
 .chat-area {
     flex: 1;
     overflow-y: auto;
-    padding: 24px 24px 16px;
+    padding: 20px 16px 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     background: var(--bg);
     scroll-behavior: smooth;
 }
 
 /* Scrollbar */
-.chat-area::-webkit-scrollbar        { width: 5px; }
+.chat-area::-webkit-scrollbar        { width: 4px; }
 .chat-area::-webkit-scrollbar-track  { background: transparent; }
-.chat-area::-webkit-scrollbar-thumb  { background: var(--border-2); border-radius: 3px; }
-.chat-area::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+.chat-area::-webkit-scrollbar-thumb  { background: var(--border-2); border-radius: 2px; }
 
 /* ── Messages ── */
 
 .message {
     display: flex;
     flex-direction: column;
-    max-width: 82%;
-    animation: msgIn 0.22s ease;
+    max-width: 88%;
+    animation: msgIn 0.25s ease;
 }
 
 @keyframes msgIn {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
 /* CK messages: left side */
 .message-ck {
     align-self: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 /* User messages: right side */
 .message-user {
     align-self: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 /* Message bubble */
 .message-bubble {
-    padding: 10px 15px;
+    padding: 14px 18px;
     border-radius: var(--radius);
     word-break: break-word;
-    line-height: 1.65;
+    line-height: 1.7;
 }
 
 .message-ck .message-bubble {
     background: var(--bg-2);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--green);
     color: var(--text-ck);
-    font-family: var(--font);
-    font-size: 14px;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    box-shadow: var(--shadow-sm);
 }
 
 .message-user .message-bubble {
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
-    border-right: 3px solid var(--blue);
-    color: var(--text-2);
-    font-family: var(--font-sans);
-    font-size: 14px;
+    background: var(--green);
+    border: none;
+    color: #fff;
+    font-family: var(--font);
+    font-size: 15px;
+    border-radius: var(--radius) var(--radius) 4px var(--radius);
+}
+
+/* Scripture references in CK responses */
+.scripture-ref {
+    color: var(--green);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--green);
+    cursor: pointer;
+    transition: color var(--ease);
+}
+
+.scripture-ref:hover {
+    color: var(--green-light);
 }
 
 /* Message meta line */
@@ -478,46 +452,90 @@ html, body {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 4px;
-    padding: 0 3px;
-    font-size: 10px;
+    margin-top: 6px;
+    padding: 0 4px;
+    font-size: 12px;
     color: var(--text-3);
-    letter-spacing: 0.04em;
 }
 
 .message-ck .message-meta { justify-content: flex-start; }
 .message-user .message-meta { justify-content: flex-end; }
 
 .meta-sender {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    font-weight: 600;
 }
 
 .message-ck .meta-sender { color: var(--green); }
-.message-user .meta-sender { color: var(--blue); }
+.message-user .meta-sender { color: var(--text-3); }
 
 .meta-sep { color: var(--border-2); }
 
-.meta-op { color: var(--text-3); font-size: 10px; }
+.meta-time {
+    color: var(--text-3);
+    font-size: 11px;
+}
+
+/* Share button on CK messages */
+.share-button {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-3);
+    font-family: var(--font);
+    font-size: 11px;
+    padding: 2px 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.share-button:hover {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.share-button svg {
+    width: 12px;
+    height: 12px;
+}
+
+.share-copied {
+    color: var(--green) !important;
+    border-color: var(--green) !important;
+}
+
+/* Source tag (subtle) */
+.meta-source {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text-3);
+    background: var(--bg-3);
+}
 
 /* Typing indicator */
 .message-typing .message-bubble {
-    padding: 12px 16px;
+    padding: 16px 20px;
 }
 
 .typing-dots {
     display: flex;
-    gap: 5px;
+    gap: 6px;
     align-items: center;
 }
 
 .typing-dots span {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     background: var(--green);
     border-radius: 50%;
-    opacity: 0.4;
+    opacity: 0.3;
     animation: dot-pulse 1.2s infinite;
 }
 
@@ -525,28 +543,8 @@ html, body {
 .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes dot-pulse {
-    0%, 80%, 100% { opacity: 0.4; transform: scale(1); }
-    40% { opacity: 1; transform: scale(1.3); }
-}
-
-/* Separator / time group */
-.chat-separator {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 8px 0;
-    font-size: 10px;
-    color: var(--text-3);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.chat-separator::before,
-.chat-separator::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+    0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
+    40% { opacity: 0.8; transform: scale(1.3); }
 }
 
 /* ── Input Area ── */
@@ -554,37 +552,38 @@ html, body {
 .input-area {
     display: flex;
     flex-direction: column;
-    gap: 0;
     background: var(--bg-2);
     border-top: 1px solid var(--border);
     flex-shrink: 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
 }
 
 .input-row {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-    padding: 14px 20px 12px;
+    padding: 14px 16px 10px;
 }
 
 .input-field {
     flex: 1;
-    padding: 10px 14px;
-    background: var(--bg-4);
-    border: 1px solid var(--border-2);
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     color: var(--text);
     font-family: var(--font);
-    font-size: 14px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.5;
     outline: none;
     resize: none;
     overflow: hidden;
-    min-height: 42px;
+    min-height: 48px;
     max-height: 140px;
     overflow-y: auto;
-    transition: border-color var(--ease);
-    scrollbar-width: thin;
+    transition: border-color var(--ease), box-shadow var(--ease);
+    /* Prevent iOS zoom on focus */
+    font-size: max(16px, 1rem);
 }
 
 .input-field::placeholder {
@@ -593,85 +592,83 @@ html, body {
 
 .input-field:focus {
     border-color: var(--green);
-    box-shadow: 0 0 0 1px var(--green-dim);
+    box-shadow: 0 0 0 3px var(--green-dim);
 }
 
 .send-button {
-    width: 42px;
-    height: 42px;
-    background: var(--green-dim);
-    border: 1px solid var(--green);
+    width: 48px;
+    height: 48px;
+    background: var(--green);
+    border: none;
     border-radius: var(--radius);
-    color: var(--green);
+    color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     transition: background var(--ease), transform 0.1s ease, box-shadow var(--ease);
+    box-shadow: var(--shadow-sm);
 }
 
 .send-button:hover {
-    background: var(--green);
-    color: var(--bg);
-    box-shadow: 0 0 12px var(--green-dim);
+    background: var(--green-light);
+    box-shadow: var(--shadow-md);
 }
 
 .send-button:active {
-    transform: scale(0.94);
+    transform: scale(0.95);
 }
 
 .input-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px 10px;
+    padding: 0 16px 10px;
     gap: 8px;
 }
 
 .input-hint {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-3);
-    letter-spacing: 0.04em;
 }
 
 .footer-copy {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-3);
-    letter-spacing: 0.03em;
     white-space: nowrap;
 }
 
 .footer-copy a {
     color: var(--text-3);
     text-decoration: none;
-    transition: color var(--ease);
 }
 
 .footer-copy a:hover {
     color: var(--text-2);
+    text-decoration: underline;
 }
 
 /* ── Cookie Notice ── */
 
 .cookie-notice {
     position: fixed;
-    bottom: 20px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 10px 18px;
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
+    gap: 14px;
+    padding: 12px 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-2);
-    max-width: 520px;
-    width: calc(100% - 40px);
+    max-width: 440px;
+    width: calc(100% - 32px);
     z-index: 200;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    box-shadow: var(--shadow-lg);
     animation: slideUp 0.3s ease;
 }
 
@@ -685,22 +682,22 @@ html, body {
 }
 
 .cookie-dismiss {
-    background: none;
-    border: 1px solid var(--border-2);
+    background: var(--green);
+    border: none;
     border-radius: var(--radius-sm);
-    color: var(--text-2);
+    color: #fff;
     font-family: var(--font);
-    font-size: 11px;
-    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
     cursor: pointer;
     white-space: nowrap;
-    transition: border-color var(--ease), color var(--ease);
+    transition: background var(--ease);
     flex-shrink: 0;
 }
 
 .cookie-dismiss:hover {
-    border-color: var(--green);
-    color: var(--green);
+    background: var(--green-light);
 }
 
 /* ── Selection ── */
@@ -710,66 +707,109 @@ html, body {
     color: var(--text);
 }
 
+/* ── Welcome Card ── */
+
+.welcome-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 8px 0 16px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.welcome-card h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.welcome-card p {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.welcome-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.welcome-prompt {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.welcome-prompt:hover {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: var(--green);
+}
+
 /* ── Responsive ── */
 
-@media (max-width: 640px) {
+@media (min-width: 768px) {
     .app-container {
-        max-width: 100%;
-    }
-
-    .header {
-        padding: 12px 16px;
-        gap: 8px;
-    }
-
-    .header-title {
-        font-size: 14px;
-    }
-
-    .header-right {
-        gap: 5px;
-    }
-
-    .status-chip {
-        padding: 3px 7px;
-    }
-
-    .status-chip-value {
-        font-size: 10px;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
     }
 
     .chat-area {
-        padding: 16px 14px 10px;
+        padding: 24px 24px 16px;
+    }
+
+    .message {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title-text {
+        font-size: 15px;
+    }
+
+    .header-subtitle {
+        padding-left: 40px;
+        font-size: 11px;
     }
 
     .message {
         max-width: 92%;
     }
 
-    .message-bubble {
-        font-size: 13px;
-    }
-
-    .input-row {
-        padding: 10px 14px 10px;
-    }
-
-    .input-footer {
-        padding: 0 14px 8px;
+    .message-ck .message-bubble {
+        font-size: 15px;
     }
 
     .input-hint {
         display: none;
     }
+
+    .how-toggle {
+        display: none;
+    }
 }
 
-@media (max-width: 380px) {
-    .header-subtitle { display: none; }
-    .coherence-badge { display: none; }
-    .coherence-dual-badge { display: none; }
-    #source-chip { display: none; }
+@media (max-width: 360px) {
+    .header-title-text {
+        display: none;
+    }
 
-    .message-bubble {
-        font-size: 13px;
+    .header-subtitle {
+        padding-left: 0;
     }
 }
