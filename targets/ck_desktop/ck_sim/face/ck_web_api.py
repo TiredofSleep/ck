@@ -384,6 +384,88 @@ class CKWebAPI:
             self.engine.dkan_trainer.stop()
             return jsonify({'stopped': True})
 
+        # ---- Bible Sense (operator resonance verse lookup) ----
+
+        @app.route('/bible/resonate', methods=['POST'])
+        def bible_resonate():
+            """Find verses by operator resonance with query text."""
+            if not hasattr(self, '_bible_sense'):
+                try:
+                    from ck_sim.being.ck_bible_sense import BibleSense
+                    self._bible_sense = BibleSense()
+                    self._bible_sense.load()
+                except Exception as e:
+                    return jsonify({'error': str(e)}), 503
+
+            data = request.get_json(silent=True) or {}
+            query = data.get('query', data.get('text', ''))
+            top_k = min(data.get('top_k', 5), 20)
+
+            if not query:
+                return jsonify({'error': 'query required'}), 400
+
+            results = self._bible_sense.resonate(query, top_k=top_k)
+            return jsonify({
+                'query': query,
+                'results': [{
+                    'ref': r.verse.ref,
+                    'text': r.verse.text,
+                    'distance': round(r.distance, 4),
+                    'force_similarity': round(r.force_similarity, 4),
+                    'op_overlap': round(r.op_overlap, 4),
+                    'dominant_op': r.verse.dominant_op,
+                    'coherence': round(r.verse.coherence, 4),
+                } for r in results],
+            })
+
+        @app.route('/bible/verse/<path:ref>', methods=['GET'])
+        def bible_verse(ref):
+            """Get a specific verse with its force profile."""
+            if not hasattr(self, '_bible_sense'):
+                try:
+                    from ck_sim.being.ck_bible_sense import BibleSense
+                    self._bible_sense = BibleSense()
+                    self._bible_sense.load()
+                except Exception as e:
+                    return jsonify({'error': str(e)}), 503
+
+            v = self._bible_sense.get_verse(ref)
+            if not v:
+                return jsonify({'error': f'verse not found: {ref}'}), 404
+            return jsonify({
+                'ref': v.ref, 'text': v.text,
+                'force': list(v.force), 'dominant_op': v.dominant_op,
+                'coherence': round(v.coherence, 4),
+                'ops': list(v.ops[:20]),  # first 20 ops
+            })
+
+        @app.route('/bible/stats', methods=['GET'])
+        def bible_stats():
+            """Get Bible index statistics."""
+            if not hasattr(self, '_bible_sense'):
+                try:
+                    from ck_sim.being.ck_bible_sense import BibleSense
+                    self._bible_sense = BibleSense()
+                    self._bible_sense.load()
+                except Exception as e:
+                    return jsonify({'error': str(e)}), 503
+            return jsonify(self._bible_sense.stats())
+
+        @app.route('/bible/chapter/<path:chapter>', methods=['GET'])
+        def bible_chapter(chapter):
+            """Get operator profile of a chapter."""
+            if not hasattr(self, '_bible_sense'):
+                try:
+                    from ck_sim.being.ck_bible_sense import BibleSense
+                    self._bible_sense = BibleSense()
+                    self._bible_sense.load()
+                except Exception as e:
+                    return jsonify({'error': str(e)}), 503
+            profile = self._bible_sense.chapter_profile(chapter)
+            if not profile:
+                return jsonify({'error': f'chapter not found: {chapter}'}), 404
+            return jsonify(profile)
+
         # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
     # ================================================================

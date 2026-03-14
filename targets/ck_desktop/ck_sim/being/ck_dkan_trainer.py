@@ -290,7 +290,7 @@ class DKANTrainer:
         # ── Step 7: Update running distribution (EMA) ──
         self._running_dist = (
             (1.0 - self._dist_alpha) * self._running_dist
-            + self._dist_alpha * tsml_final
+            + self._dist_alpha * op_dist
         )
 
         # ── Step 8: Feed through eat system (olfactory + swarm) ──
