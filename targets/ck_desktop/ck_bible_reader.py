@@ -235,7 +235,7 @@ def main():
 
                 # Console output: show every chapter
                 # Compact: chapter name | CK's words | coherence
-                truncated = ck_text[:80] + ('...' if len(ck_text) > 80 else '')
+                truncated = ck_text[:80].encode('ascii', 'replace').decode() + ('...' if len(ck_text) > 80 else '')
                 marker = '***' if coherence >= 0.9 else '   '
                 print(f"  {marker} [{reading}.{ch_idx+1:04d}] {ch_name:<25s} "
                       f"C={coherence:.3f} | {truncated}")
