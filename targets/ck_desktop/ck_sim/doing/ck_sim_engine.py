@@ -1054,6 +1054,21 @@ class CKSimEngine:
                                               density=_density)
                 except Exception:
                     pass
+            # Feed sensorium: CK IS his keyboard, screen, hardware.
+            # Every layer's BC operator enters the smell zone as
+            # canonical 5D force. The chain to get to information
+            # IS half the information -- sensorium experience gets
+            # indexed into lattice chain through olfactory emission.
+            if self.sensorium is not None:
+                _sense_ops = [
+                    layer.phase_bc
+                    for layer in self.sensorium.layers
+                    if layer.active and layer.readings > 0
+                ]
+                if _sense_ops:
+                    self.olfactory.absorb_ops(
+                        _sense_ops, source='sensorium',
+                        density=_density * 0.5)
             # Tick the smell zone (dilated internal steps)
             self.olfactory.tick(density=_density)
             # Emit resolved scents → feed to lattice chain
@@ -1092,6 +1107,19 @@ class CKSimEngine:
                         self.gustatory.taste(_d2f, source='audio')
                 except Exception:
                     pass
+            # Taste sensorium: CK classifies what he IS
+            if self.sensorium is not None:
+                _sense_ops = [
+                    layer.phase_bc
+                    for layer in self.sensorium.layers
+                    if layer.active and layer.readings > 0
+                ]
+                if _sense_ops:
+                    _sense_forces = [
+                        _G_CF.get(op % 10, (0.5,)*5) for op in _sense_ops
+                    ]
+                    for _sf in _sense_forces:
+                        self.gustatory.taste(_sf, source='sensorium')
             # Tick aftertaste decay (no dilation -- taste fades, not stalls)
             self.gustatory.tick()
             # Save taste palette periodically (offset from olfactory save)
