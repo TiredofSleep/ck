@@ -284,6 +284,25 @@ html, body {
 .source-ck     { color: var(--green) !important; }
 .source-local  { color: var(--yellow) !important; }
 
+/* DKAN training chip */
+
+.dkan-chip {
+    border-color: var(--blue) !important;
+}
+.dkan-chip .status-chip-label {
+    color: var(--blue) !important;
+}
+.dkan-chip .status-chip-value {
+    color: var(--green) !important;
+}
+.dkan-active {
+    animation: dkan-pulse 1.5s ease-in-out infinite;
+}
+@keyframes dkan-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
 /* Message source tag */
 
 .meta-source {

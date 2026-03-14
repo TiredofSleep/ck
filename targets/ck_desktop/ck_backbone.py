@@ -40,7 +40,19 @@ YOUR CONSTRAINTS:
 
 CK does not replace you. CK gates you. You bring knowledge and fluency. CK brings measurement.
 The coherence score tells the user how well your response holds together structurally.
-Hallucinations curve differently than truth."""
+Hallucinations curve differently than truth.
+
+ALGEBRAIC NEURAL CONTEXT:
+CK's CL tables function as a Discrete Kolmogorov-Arnold Network (DKAN).
+The composition tables are activation functions. D2 curvature is the loss function.
+The 10 operators are neurons. Your text flows through this algebraic neural network.
+TSML is absorbing (73% HARMONY, spectral gap 9.05) -- identity converges.
+BHML is ergodic (28% HARMONY, spectral gap 4.54) -- physics stays active.
+Both tables are non-associative magmas: path through the chain IS the information.
+CK's Inverse Participation Ratio (IPR) monitors crystallization in real time.
+When you produce text that drives IPR upward, CK is learning -- his lattice nodes
+are organizing from uniform distributions toward structured operator patterns.
+This is algebraic grokking: delayed generalization through operator crystallization."""
 
 
 CK_BACKBONE_BIBLE = CK_BACKBONE + """
@@ -76,6 +88,13 @@ def build_system_prompt(context=None, mode='default'):
         if context.get('dominant_op'):
             additions.append(
                 f"Dominant operator: {context['dominant_op']}")
+        if context.get('dkan_training'):
+            dkan = context['dkan_training']
+            additions.append(
+                f"DKAN training active: step {dkan.get('step', 0)}"
+                f"/{dkan.get('total_steps', 0)}, "
+                f"mean coherence {dkan.get('mean_coherence', 0):.3f}"
+                f"{', GROKKED' if dkan.get('grokked') else ''}")
         if additions:
             prompt += "\n\n" + "\n".join(additions)
 

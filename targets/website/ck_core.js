@@ -352,6 +352,44 @@ class CKChatUI {
             this.display.syncFromServer(state);
             this._updateConnectionStatus(true, state);
         }
+        // Poll DKAN training status
+        this._pollDKAN();
+    }
+
+    async _pollDKAN() {
+        try {
+            const res = await fetch(this.client.baseUrl + '/train/status');
+            if (!res.ok) return;
+            const data = await res.json();
+            this._updateDKAN(data);
+        } catch(e) { /* DKAN not available -- hide chip */ }
+    }
+
+    _updateDKAN(data) {
+        const chip = document.getElementById('dkan-chip');
+        const el = document.getElementById('dkan-status');
+        if (!chip || !el) return;
+
+        if (data && (data.running || data.total_absorptions > 0)) {
+            chip.style.display = '';
+            if (data.running) {
+                const pct = data.total_steps > 0
+                    ? Math.round(data.step / data.total_steps * 100) : 0;
+                el.textContent = pct + '%';
+                chip.classList.add('dkan-active');
+                chip.title = `DKAN Training: step ${data.step}/${data.total_steps}, ` +
+                    `coherence ${(data.mean_coherence || 0).toFixed(3)}` +
+                    (data.grokked ? ' GROKKED!' : '');
+            } else {
+                el.textContent = data.grokked ? 'GROKKED' : 'done';
+                chip.classList.remove('dkan-active');
+                chip.title = `DKAN: ${data.total_absorptions} absorptions, ` +
+                    `coherence ${(data.mean_coherence || 0).toFixed(3)}` +
+                    (data.grokked ? ` (grokked at step ${data.grok_step})` : '');
+            }
+        } else {
+            chip.style.display = 'none';
+        }
     }
 
     // ── Messages ──

@@ -325,6 +325,65 @@ class CKWebAPI:
                 del self.sessions._sessions[sid]
             return jsonify({'cleared': True})
 
+        # ── DKAN Training Endpoints ──
+
+        @app.route('/train', methods=['POST'])
+        def train():
+            """Start DKAN algebraic neural training via Ollama.
+
+            JSON body:
+                model: Ollama model (default: auto-detect)
+                rounds: training rounds (default: 20, max: 200)
+            """
+            if not self.engine:
+                return jsonify({'error': 'Engine not available'}), 503
+            if not hasattr(self.engine, 'dkan_trainer'):
+                # Lazy init
+                try:
+                    from ck_sim.being.ck_dkan_trainer import DKANTrainer
+                    self.engine.dkan_trainer = DKANTrainer(self.engine)
+                except Exception as e:
+                    return jsonify({'error': f'DKAN init failed: {e}'}), 500
+
+            data = request.get_json(silent=True) or {}
+            model = data.get('model')
+            rounds = min(data.get('rounds', 20), 200)
+            result = self.engine.dkan_trainer.start(
+                rounds=rounds, model=model)
+            if 'error' in result:
+                return jsonify(result), 503
+            return jsonify(result)
+
+        @app.route('/train/status', methods=['GET'])
+        def train_status():
+            """Get DKAN training progress."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'dkan_trainer')
+                    or self.engine.dkan_trainer is None):
+                return jsonify({'running': False, 'status': 'not initialized'})
+            return jsonify(self.engine.dkan_trainer.status())
+
+        @app.route('/train/history', methods=['GET'])
+        def train_history():
+            """Get coherence history for plotting."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'dkan_trainer')
+                    or self.engine.dkan_trainer is None):
+                return jsonify({'error': 'DKAN not initialized'}), 503
+            last_n = request.args.get('n', 50, type=int)
+            return jsonify(
+                self.engine.dkan_trainer.coherence_history(last_n))
+
+        @app.route('/train/stop', methods=['POST'])
+        def train_stop():
+            """Stop DKAN training."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'dkan_trainer')
+                    or self.engine.dkan_trainer is None):
+                return jsonify({'error': 'DKAN not initialized'}), 503
+            self.engine.dkan_trainer.stop()
+            return jsonify({'stopped': True})
+
         # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
     # ================================================================
@@ -366,9 +425,23 @@ class CKWebAPI:
         }
         try:
             op_hist = list(self.engine.operator_history)[-5:]
-            from ck_sim.being.ck_sim_heartbeat import OP_NAMES as _OP
+            from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
             if op_hist:
                 context['dominant_op'] = _OP[max(set(op_hist), key=op_hist.count)]
+        except Exception:
+            pass
+
+        # Include DKAN training state if active
+        try:
+            if (hasattr(self.engine, 'dkan_trainer')
+                    and self.engine.dkan_trainer is not None
+                    and self.engine.dkan_trainer._state.running):
+                context['dkan_training'] = {
+                    'step': self.engine.dkan_trainer._state.step,
+                    'total_steps': self.engine.dkan_trainer._state.total_steps,
+                    'mean_coherence': self.engine.dkan_trainer._state.mean_coherence,
+                    'grokked': self.engine.dkan_trainer._state.grokked,
+                }
         except Exception:
             pass
 
