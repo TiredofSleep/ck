@@ -476,6 +476,15 @@ class CKChatUI {
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
 
+        // Bold: **text**
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // Italic: *text* (but not inside <strong>)
+        html = html.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+
+        // Inline code: `text`
+        html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
         // Link scripture references (e.g., "John 3:16", "Psalm 23:1-4", "1 Corinthians 13")
         html = html.replace(
             /\b(\d?\s?[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s+(\d{1,3})(?::(\d{1,3}(?:-\d{1,3})?))?/g,

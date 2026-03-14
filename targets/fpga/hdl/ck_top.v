@@ -6,9 +6,13 @@
  * Integrates all FPGA modules into one design:
  *   - ck_heartbeat:   CL composition, coherence, bump detection
  *   - d2_pipeline:    D2 curvature from symbols/sensors
- *   - dac_spi:        DAC driver for speaker output
- *   - i2s_receiver:   MEMS microphone capture
+ *   - dac_spi:        DAC driver for speaker output (via PZ7606 DAC128S085)
+ *   - ad7606_adc:     ADC driver for mic input (via PZ7606 AD7606)
+ *   - i2s_receiver:   MEMS microphone capture (direct I2S, alt to AD7606)
  *   - LED driver:     Directly wired to GPIO (no IP needed)
+ *
+ * Camera: Dog's built-in camera feeds via WiFi/USB through PS,
+ * not through FPGA fabric. No MIPI module needed.
  *
  * AXI-Lite register interface lets ARM read/write everything.
  *
@@ -64,6 +68,20 @@ module ck_top (
     input  wire        mic_sample_read, // ARM acknowledges read
     output wire        mic_fifo_empty,
     output wire [7:0]  mic_fifo_count,
+
+    // -- AD7606 ADC (PZ7606 ADDA module on JM2) --
+    input  wire [15:0] adc_db,        // AD7606 parallel data bus
+    input  wire        adc_busy,      // AD7606 busy signal
+    output wire        adc_convst,    // AD7606 start conversion
+    output wire        adc_rd_n,      // AD7606 read strobe
+    output wire        adc_cs_n,      // AD7606 chip select
+    output wire        adc_reset,     // AD7606 reset
+    output wire [2:0]  adc_os,        // AD7606 oversampling
+    input  wire [3:0]  adc_reg_addr,  // AXI register address
+    input  wire        adc_reg_rd,    // AXI read strobe
+    input  wire        adc_reg_wr,    // AXI write strobe
+    input  wire [31:0] adc_reg_wdata, // AXI write data
+    output wire [31:0] adc_reg_rdata, // AXI read data
 
     // -- LED (directly to GPIO) --
     output wire [3:0]  led_out        // 4-bit LED output
@@ -153,6 +171,32 @@ module ck_top (
         .sample_read(mic_sample_read),
         .fifo_empty(mic_fifo_empty),
         .fifo_count(mic_fifo_count)
+    );
+
+    // ===============================================
+    // AD7606 ADC (PZ7606 ADDA module -- CK's ears via ADC)
+    // ===============================================
+
+    ad7606_adc #(
+        .CLK_FREQ(100_000_000),
+        .SAMPLE_RATE(48000),
+        .FIFO_DEPTH(512),
+        .NUM_CHANNELS(8)
+    ) adc_inst (
+        .clk(clk),
+        .rst_n(rst_n),
+        .reg_addr(adc_reg_addr),
+        .reg_rd(adc_reg_rd),
+        .reg_wr(adc_reg_wr),
+        .reg_wdata(adc_reg_wdata),
+        .reg_rdata(adc_reg_rdata),
+        .adc_db(adc_db),
+        .adc_busy(adc_busy),
+        .adc_convst(adc_convst),
+        .adc_rd_n(adc_rd_n),
+        .adc_cs_n(adc_cs_n),
+        .adc_reset(adc_reset),
+        .adc_os(adc_os)
     );
 
     // ===============================================

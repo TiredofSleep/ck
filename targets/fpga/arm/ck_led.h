@@ -36,8 +36,8 @@ typedef uint32_t CK_Color;
 #define CK_COLOR_SOVEREIGN CK_RGB(255, 200,  50)  /* Gold -- coherence >= T* */
 #define CK_COLOR_BUMP      CK_RGB(255, 255, 255)  /* White flash -- bump pair */
 
-/* LED GPIO base address -- adjust for your specific Puzhi board */
-#define CK_LED_GPIO_BASE   0x41200000  /* AXI GPIO IP base (Vivado-assigned) */
+/* LED GPIO base address (Vivado auto-assigned: axi_gpio_led) */
+#define CK_LED_GPIO_BASE   0x41260000  /* AXI GPIO IP base */
 #define CK_LED_GPIO_DATA   (CK_LED_GPIO_BASE + 0x00)
 #define CK_LED_GPIO_TRI    (CK_LED_GPIO_BASE + 0x04)
 

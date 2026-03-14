@@ -47,9 +47,9 @@
 
 /* ── Fractal Time Ratios ── */
 
-#define CK_RATIO_CALM       10  /* heartbeats per breath (C >= T*) */
-#define CK_RATIO_ALERT       5  /* heartbeats per breath (T*/2 <= C < T*) */
-#define CK_RATIO_FRACTAL     2  /* heartbeats per breath (C < T*/2) */
+#define CK_RATIO_CALM       10  /* heartbeats per breath (C >= T_star) */
+#define CK_RATIO_ALERT       5  /* heartbeats per breath (T_star/2 <= C) */
+#define CK_RATIO_FRACTAL     2  /* heartbeats per breath (C < T_star/2) */
 
 /* ── Heartbeat State ── */
 

@@ -42,20 +42,25 @@ void ck_brain_init(CK_BrainState* brain) {
 /* ── Read FPGA Heartbeat State ── */
 
 void ck_brain_read_fpga(CK_BrainState* brain) {
-    /* Read all heartbeat registers from PL via AXI-Lite */
-    brain->phase_bc    = (uint8_t)(REG_RD(CK_REG_PHASE_BC) & 0xF);
-    brain->tick_count  = REG_RD(CK_REG_TICK_COUNT);
-    brain->bump        = (bool)(REG_RD(CK_REG_BUMP) & 0x1);
-    brain->fused_op    = (uint8_t)(REG_RD(CK_REG_FUSE) & 0xF);
+    /* Read heartbeat state from packed AXI GPIO channels */
+    uint32_t ch1 = REG_RD(CK_REG_HB_RD_CH1);
+    uint32_t ch2 = REG_RD(CK_REG_HB_RD_CH2);
 
-    /* Echo back what the FPGA saw as inputs */
-    brain->phase_b = (uint8_t)(REG_RD(CK_REG_PHASE_B_OUT) & 0xF);
-    brain->phase_d = (uint8_t)(REG_RD(CK_REG_PHASE_D_OUT) & 0xF);
+    brain->phase_bc   = (uint8_t)CK_HB_RD_PHASE_BC(ch1);
+    brain->fused_op   = (uint8_t)CK_HB_RD_FUSE(ch1);
+    brain->bump       = (bool)CK_HB_RD_BUMP(ch1);
 
-    /* Compute coherence from FPGA's harmony counter */
-    uint16_t coh_num = (uint16_t)(REG_RD(CK_REG_COH_NUM) & 0xFFFF);
-    uint16_t coh_den = (uint16_t)(REG_RD(CK_REG_COH_DEN) & 0xFFFF);
-    brain->coherence = (coh_den > 0) ? (float)coh_num / (float)coh_den : 0.0f;
+    /* Echo inputs from channel 2 */
+    brain->phase_b    = (uint8_t)CK_HB_RD2_B_OUT(ch2);
+    brain->phase_d    = (uint8_t)CK_HB_RD2_D_OUT(ch2);
+
+    /* Coherence from packed channels */
+    uint16_t coh_num  = (uint16_t)CK_HB_RD_COH_NUM(ch1);
+    uint16_t coh_den  = (uint16_t)CK_HB_RD2_COH_DEN(ch2);
+    brain->coherence  = (coh_den > 0) ? (float)coh_num / (float)coh_den : 0.0f;
+
+    /* Tick count from upper bits of ch2 */
+    brain->tick_count = (ch2 >> 24) & 0xFF;  /* Low 8 bits only via GPIO */
 }
 
 /* ── One Sovereignty Tick ── */
@@ -95,8 +100,8 @@ void ck_brain_tick(CK_BrainState* brain) {
                 }
 
                 /* If coherence above T*, start looking for crystals */
-                uint16_t coh_num = (uint16_t)(REG_RD(CK_REG_COH_NUM) & 0xFFFF);
-                uint16_t coh_den = (uint16_t)(REG_RD(CK_REG_COH_DEN) & 0xFFFF);
+                uint16_t coh_num = (uint16_t)CK_HB_RD_COH_NUM(REG_RD(CK_REG_HB_RD_CH1));
+                uint16_t coh_den = (uint16_t)CK_HB_RD2_COH_DEN(REG_RD(CK_REG_HB_RD_CH2));
                 if (above_t_star(coh_num, coh_den) && brain->tl.total >= 500) {
                     brain->mode = 2;
                 }
@@ -108,8 +113,8 @@ void ck_brain_tick(CK_BrainState* brain) {
 
             /* Check for sovereignty (sustained coherence) */
             {
-                uint16_t coh_num = (uint16_t)(REG_RD(CK_REG_COH_NUM) & 0xFFFF);
-                uint16_t coh_den = (uint16_t)(REG_RD(CK_REG_COH_DEN) & 0xFFFF);
+                uint16_t coh_num = (uint16_t)CK_HB_RD_COH_NUM(REG_RD(CK_REG_HB_RD_CH1));
+                uint16_t coh_den = (uint16_t)CK_HB_RD2_COH_DEN(REG_RD(CK_REG_HB_RD_CH2));
                 if (above_t_star(coh_num, coh_den)) {
                     /* Check if any domain has sustained sovereignty */
                     for (int d = 0; d < brain->domain_count; d++) {

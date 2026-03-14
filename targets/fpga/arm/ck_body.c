@@ -5,16 +5,16 @@
  *
  * Port of ck_body.py to bare metal C.
  * Three interlocking rhythms that drive everything:
- *   Heartbeat: E/A/K triad → coherence → band classification
+ *   Heartbeat: E/A/K triad -> coherence -> band classification
  *   Breath:    4-phase cycle, fractal time compression
  *   Pulse:     Information flow gated by breath
  *
  * Key insight from ck_body.py:
- *   When falling (C < T*/2), breath COMPRESSES (2 beats/cycle)
+ *   When falling (C < T_star/2), breath COMPRESSES (2 beats/cycle)
  *   but dreams INTENSIFY (5 per beat, depth 8).
  *   More exploration in less time. Finding paths before lock-in.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders, 7Site LLC -- TIG Unified Theory
  */
 
 #include "ck_body.h"
@@ -82,9 +82,9 @@ static void breath_calc_durations(CK_BreathCycle* br, float coherence) {
     /*
      * Fractal time: breath rate adapts to coherence.
      *
-     * CALM (C >= T*):    10 beats/cycle, 1 dream/beat, depth 3
-     * ALERT (T*/2 <= C): 5 beats/cycle,  2 dreams/beat, depth 5
-     * FRACTAL (C < T*/2): 2 beats/cycle, 5 dreams/beat, depth 8
+     * CALM (C >= T_star):      10 beats/cycle, 1 dream/beat, depth 3
+     * ALERT (T_star/2 <= C):   5 beats/cycle,  2 dreams/beat, depth 5
+     * FRACTAL (C < T_star/2):  2 beats/cycle, 5 dreams/beat, depth 8
      *
      * Phase distribution within cycle:
      *   INHALE:   40% of cycle

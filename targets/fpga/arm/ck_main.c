@@ -89,21 +89,23 @@ static void enable_caches(void) {
 /* ── FPGA Enable ── */
 
 static void fpga_heartbeat_enable(void) {
-    /* Enable the heartbeat module in FPGA */
-    REG_WR(CK_REG_ENABLE, 1);
+    /* Enable the heartbeat module in FPGA via packed GPIO register */
+    REG_WR(CK_REG_HB_WR, CK_HB_WR_PACK(0, 0, 0, 1));
 }
 
 static void fpga_heartbeat_tick(CK_BrainState* brain, uint8_t b, uint8_t d) {
-    /* Write Being and Doing phases, strobe once */
-    REG_WR(CK_REG_PHASE_B, (uint32_t)b);
-    REG_WR(CK_REG_PHASE_D, (uint32_t)d);
-    REG_WR(CK_REG_TICK_STROBE, 1);
+    /* Write Being + Doing + strobe + enable in one packed write */
+    REG_WR(CK_REG_HB_WR, CK_HB_WR_PACK(b, d, 1, 1));
 
-    /* Wait for tick_done (should be immediate -- 1 clock cycle) */
+    /* Wait for tick_done */
     volatile int timeout = 1000;
-    while (!(REG_RD(CK_REG_TICK_DONE) & 1) && timeout > 0) {
-        timeout--;
-    }
+    uint32_t rd;
+    do {
+        rd = REG_RD(CK_REG_HB_RD_CH1);
+    } while (!CK_HB_RD_TICK_DONE(rd) && --timeout > 0);
+
+    /* Clear strobe */
+    REG_WR(CK_REG_HB_WR, CK_HB_WR_PACK(b, d, 0, 1));
 }
 
 /* ── Operator Source ── */
@@ -200,7 +202,7 @@ int main(void) {
     fpga_heartbeat_enable();
 
     /* 7. Seed LFSR from timer (physical entropy) */
-    lfsr_state = timer_now_us() ^ 0xCK7BEAD5;
+    lfsr_state = timer_now_us() ^ 0xC57BEAD5;
 
     /* 8. Signal ready: blue flash */
     ck_led_flash(CK_COLOR_HARMONY, 500);

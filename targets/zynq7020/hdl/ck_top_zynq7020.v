@@ -176,6 +176,11 @@ module ck_top_zynq7020 (
     output wire [23:0] mic_sample,
     output wire        mic_sample_valid,
     input  wire        mic_sample_read,
+    // Bus Servo UART (PL-side, separate from PS UART)
+    input  wire [7:0]  servo_uart_data,
+    input  wire        servo_uart_write,
+    output wire        servo_uart_busy,
+    output wire        servo_uart_tx_pin,  // Physical pin -> JM2 -> servo bus
     // LED
     output wire [3:0]  led_out
 );
@@ -348,6 +353,32 @@ module ck_top_zynq7020 (
     assign gait_corr_2 = gait_corr_flat[11:8];   assign gait_corr_3 = gait_corr_flat[15:12];
 
     // ===============================================
+    // 6b. SERVO CALIBRATION (operator -> PWM microseconds)
+    //     Reads gait_vortex correction outputs and maps to
+    //     calibrated joint angles. ARM reads these via AXI.
+    // ===============================================
+
+    wire [11:0] pwm_hip_0, pwm_knee_0, pwm_ankle_0;
+    wire [11:0] pwm_hip_1, pwm_knee_1, pwm_ankle_1;
+    wire [11:0] pwm_hip_2, pwm_knee_2, pwm_ankle_2;
+    wire [11:0] pwm_hip_3, pwm_knee_3, pwm_ankle_3;
+    wire        servo_valid;
+
+    servo_cal servo_inst (
+        .clk(clk), .rst_n(rst_n),
+        .leg_op_0(gait_corr_flat[3:0]),
+        .leg_op_1(gait_corr_flat[7:4]),
+        .leg_op_2(gait_corr_flat[11:8]),
+        .leg_op_3(gait_corr_flat[15:12]),
+        .update(gait_corr_valid),
+        .pwm_hip_0(pwm_hip_0),   .pwm_knee_0(pwm_knee_0),   .pwm_ankle_0(pwm_ankle_0),
+        .pwm_hip_1(pwm_hip_1),   .pwm_knee_1(pwm_knee_1),   .pwm_ankle_1(pwm_ankle_1),
+        .pwm_hip_2(pwm_hip_2),   .pwm_knee_2(pwm_knee_2),   .pwm_ankle_2(pwm_ankle_2),
+        .pwm_hip_3(pwm_hip_3),   .pwm_knee_3(pwm_knee_3),   .pwm_ankle_3(pwm_ankle_3),
+        .valid(servo_valid)
+    );
+
+    // ===============================================
     // 7. DIRECT BHML LOOKUP (for ARM queries)
     // ===============================================
 
@@ -382,7 +413,25 @@ module ck_top_zynq7020 (
     );
 
     // ===============================================
-    // 10. LED OUTPUT
+    // 10. BUS SERVO UART (PL-side, to XiaoR servo bus)
+    //     ARM writes bytes via AXI at CK_SERVO_UART_BASE.
+    //     FIFO buffers the LewanSoul packets.
+    // ===============================================
+
+    servo_uart_tx #(
+        .CLK_FREQ(100_000_000),
+        .BAUD_RATE(115200),
+        .FIFO_DEPTH(32)
+    ) servo_uart_inst (
+        .clk(clk), .rst_n(rst_n),
+        .tx_data(servo_uart_data),
+        .tx_write(servo_uart_write),
+        .tx_busy(servo_uart_busy),
+        .uart_tx(servo_uart_tx_pin)
+    );
+
+    // ===============================================
+    // 11. LED OUTPUT
     //     Priority: Gait aligned > Brain transition > Bump > Heartbeat
     //     Brain transition: LEDs pulse when frequency bands crossfading
     // ===============================================
