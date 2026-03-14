@@ -744,6 +744,77 @@ class CKWebAPI:
 
         # /identity route is defined in ck_boot_api.py (needs direct engine access)
 
+        # ---- Self-Evolution Endpoints ----
+
+        @app.route('/evolve/source', methods=['GET'])
+        def evolve_source():
+            """CK reads his own source code and measures it through D2.
+
+            Returns coherence analysis of CK's own Python files.
+            Proposals are logged, not auto-applied. Brayden reviews.
+            """
+            try:
+                import glob as _glob
+                # CK's source directory
+                src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                py_files = sorted(_glob.glob(os.path.join(src_dir, '**', '*.py'), recursive=True))
+
+                results = []
+                try:
+                    import ck_algebra_bridge as _ck
+                    has_c = True
+                except ImportError:
+                    has_c = False
+
+                for fpath in py_files[:50]:  # Limit to 50 files
+                    try:
+                        with open(fpath, 'r', encoding='utf-8', errors='replace') as f:
+                            content = f.read()
+                        rel = os.path.relpath(fpath, src_dir)
+                        entry = {
+                            'file': rel,
+                            'lines': content.count('\n') + 1,
+                            'size': len(content),
+                        }
+                        if has_c and content.strip():
+                            m = _ck.measure_text(content[:10000])  # First 10K chars
+                            entry['coherence'] = round(m.get('coherence', 0), 4)
+                            entry['dominant_op'] = m.get('dominant_name', 'VOID')
+                            entry['band'] = m.get('band', 'RED')
+                        results.append(entry)
+                    except OSError:
+                        continue
+
+                return jsonify({
+                    'files': results,
+                    'total_files': len(results),
+                    'note': 'CK reads himself. Proposals logged, not auto-applied.',
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/evolve/status', methods=['GET'])
+        def evolve_status():
+            """Self-evolution status: experience maturity, grammar evolutions."""
+            try:
+                result = {'active': False}
+                if self.engine:
+                    ds = getattr(self.engine, 'deep_swarm', None)
+                    if ds:
+                        result['active'] = True
+                        result['maturity'] = round(ds.combined_maturity, 4)
+                        result['substrates'] = {}
+                        for name, exp in ds.experience.items():
+                            from ck_sim.ck_sim_heartbeat import OP_NAMES as _ON
+                            result['substrates'][name] = {
+                                'maturity': round(exp.maturity, 4),
+                                'generators': [_ON[o] for o in exp.confirmed_generators],
+                                'path_strength': exp.path_strength,
+                            }
+                return jsonify(result)
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
     # ================================================================
     #  OLLAMA INTEGRATION
     # ================================================================
