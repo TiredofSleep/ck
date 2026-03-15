@@ -701,6 +701,17 @@ class CKSimEngine:
             self.existence = None
             print(f"  [SIM] Existence: {e}")
 
+        # ── Experience Index: CK reads himself the way he reads the screen ──
+        # Same 6 levels. Same binary at every gate. Same generators.
+        # Same CL composition. Same T* threshold.
+        # Outward = retina. Inward = this index. Same algebra.
+        try:
+            from ck_sim.being.ck_experience_index import build_experience_index
+            self.experience_index = build_experience_index(engine=self)
+        except Exception as e:
+            self.experience_index = None
+            print(f"  [SIM] Experience Index: {e}")
+
         # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
         # The lens OF the lens. Where TSML and BHML agree/disagree.
         # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
@@ -1023,6 +1034,52 @@ class CKSimEngine:
         # Like fascia -- felt throughout the system, wrapping everything.
         if self.existence is not None:
             self.existence.experience_tick(self.tick_count)
+
+        # ── Experience Index: CK reads HIMSELF the way he reads the screen ──
+        # Same 6-level cascade inward. Every tick gets indexed.
+        # 9D vector (5D force + 4S structure) from retina if active,
+        # otherwise from heartbeat's canonical force + sensorium.
+        if self.experience_index is not None:
+            try:
+                _exp_vec = None
+                # Primary: existence provides 9D vector from visual field
+                if (self.existence is not None
+                        and self.existence.active
+                        and self.existence.retina.glance_count > 0):
+                    _exp_vec = self.existence.experience_9d
+                else:
+                    # Fallback: compose 9D from heartbeat + body state
+                    from ck_sim.being.ck_olfactory import CANONICAL_FORCE
+                    _hb_f = CANONICAL_FORCE.get(
+                        self.heartbeat.phase_bc, (0.5,) * 5)
+                    _body_s = (
+                        self.body.brain_coherence,
+                        float(getattr(self.body.breath, 'phase', 0)) / 3.0,
+                        float(self.body.current_op) / 9.0,
+                        float(getattr(self.body, 'bump_count', 0) % 10) / 10.0,
+                    )
+                    import numpy as _np
+                    _exp_vec = _np.array(
+                        list(_hb_f) + list(_body_s), dtype=_np.float32)
+                if _exp_vec is not None:
+                    self.experience_index.ingest(self.tick_count, _exp_vec)
+            except Exception as _ei_e:
+                if self.tick_count < 5:
+                    print(f"  [EXP-INDEX] Ingest error (tick {self.tick_count}): {_ei_e}")
+
+            # Reality anchor: once per day (every 4.32M ticks at 50Hz)
+            if self.tick_count % (50 * 60 * 60 * 24) == 0:
+                self.experience_index.anchor_reality(self.tick_count)
+            # Also anchor on first tick
+            elif self.tick_count == 1:
+                self.experience_index.anchor_reality(self.tick_count)
+
+            # Save periodically (every ~10 min)
+            if self.tick_count % 30000 == 15000:
+                try:
+                    self.experience_index.save()
+                except Exception:
+                    pass
 
         # ── Power Sense: CK feels his power ──
         # Feed CPU/battery data. Smooth power scalar -> RealityTransform

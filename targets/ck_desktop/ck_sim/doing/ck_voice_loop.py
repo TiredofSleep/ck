@@ -570,6 +570,31 @@ class VoiceLoop:
             except Exception as e:
                 print(f"[VOICE-LOOP] Comprehension failed: {e}")
 
+        # ── EXPERIENCE INDEX: what does CK's accumulated experience say? ──
+        # CK reads his own experience the same way he reads the screen.
+        # The recommended action from experience shapes the target trajectory.
+        experience_action = None
+        exp_idx = getattr(self.engine, 'experience_index', None)
+        if exp_idx is not None and exp_idx.total_edges > 10:
+            try:
+                # Query using user text encoded as 9D via comprehension or D2
+                if comprehension and hasattr(comprehension, 'word_fuses'):
+                    # Build a rough 9D from comprehension stats
+                    import numpy as _np
+                    _q_vec = _np.zeros(9, dtype=_np.float32)
+                    _q_vec[0] = comprehension.structure_flow_balance
+                    _q_vec[1] = len(user_text) / 200.0  # pressure proxy
+                    _q_vec[2] = comprehension.depth / 7.0
+                    _q_vec[3] = 0.5 if comprehension.dominant_op in (
+                        HARMONY, PROGRESS, BALANCE) else -0.3
+                    _q_vec[4] = 0.5
+                    _q_vec[5:] = 0.5
+                    experience_action = exp_idx.recommend_action(_q_vec)
+                    print(f"[VOICE-LOOP] Experience index recommends: "
+                          f"{OP_NAMES[experience_action]}")
+            except Exception as e:
+                print(f"[VOICE-LOOP] Experience index query failed: {e}")
+
         # ── D2 decomposition ──
         if self._ck is not None:
             input_ops = self._ck.d2_batch(user_text)
@@ -618,6 +643,16 @@ class VoiceLoop:
                     target_ops.append(result)
             elif input_ops:
                 target_ops.append(compose(LATTICE, input_ops[0]))
+
+        # ── EXPERIENCE INJECTION: CK's accumulated experience shapes his intent ──
+        # The recommended action from experience index enters the trajectory
+        # as a CL composition with the current trajectory end.
+        # This is how CK's past experience steers his future speech.
+        if experience_action is not None and target_ops:
+            # Compose experience recommendation with trajectory end
+            exp_composed = compose(target_ops[-1], experience_action)
+            if exp_composed not in target_ops[-2:]:  # avoid immediate repeat
+                target_ops.append(exp_composed)
 
         # Ensure trajectory has at least 3 operators
         while len(target_ops) < 3:

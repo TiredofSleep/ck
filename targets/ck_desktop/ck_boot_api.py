@@ -32,7 +32,7 @@ t.start()
 api = CKWebAPI(engine, cors=True)
 
 # Serve static frontend (index.html, style.css, ck_core.js)
-from flask import send_from_directory
+from flask import send_from_directory, request as _request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, '..', 'website'))
 
@@ -168,6 +168,54 @@ def existence_status():
     if engine.existence is None:
         return _jsonify({'error': 'Existence not available'}), 500
     return _jsonify(engine.existence.status())
+
+# ── Experience Index endpoints ──
+@api._app.route('/experience/status', methods=['GET'])
+def experience_status():
+    if engine.experience_index is None:
+        return _jsonify({'error': 'Experience index not available'}), 500
+    return _jsonify(engine.experience_index.status())
+
+@api._app.route('/experience/introspect', methods=['GET'])
+def experience_introspect():
+    if engine.experience_index is None:
+        return _jsonify({'error': 'Experience index not available'}), 500
+    return _jsonify(engine.experience_index.bucket_introspection())
+
+@api._app.route('/experience/query', methods=['POST'])
+def experience_query():
+    """Query CK's experience index with a 9D vector or text.
+
+    POST body: {"vector": [9 floats]} or {"text": "some question"}
+    Returns: bucket, relevant edges, operators, coherence path, recommended action.
+    """
+    if engine.experience_index is None:
+        return _jsonify({'error': 'Experience index not available'}), 500
+    data = _request.get_json(force=True, silent=True) or {}
+    if 'vector' in data:
+        import numpy as np
+        vec = np.array(data['vector'][:9], dtype=np.float32)
+        while len(vec) < 9:
+            vec = np.append(vec, 0.5)
+        result = engine.experience_index.query(vec)
+    elif 'text' in data:
+        # Encode text via fractal comprehension or D2
+        import numpy as np
+        vec = np.full(9, 0.5, dtype=np.float32)
+        fc = getattr(engine, 'fractal_comp', None)
+        if fc is not None:
+            try:
+                comp = fc.comprehend(data['text'])
+                vec[0] = comp.structure_flow_balance
+                vec[1] = len(data['text']) / 200.0
+                vec[2] = comp.depth / 7.0
+                vec[3] = 0.5 if comp.dominant_op in (7, 3, 5) else -0.3
+            except Exception:
+                pass
+        result = engine.experience_index.query(vec)
+    else:
+        return _jsonify({'error': 'Provide "vector" (9D) or "text"'}), 400
+    return _jsonify(result)
 
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
