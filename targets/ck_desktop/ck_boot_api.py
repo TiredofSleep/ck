@@ -145,6 +145,30 @@ def inner():
         'gate': 'CL[thought_op][bond_op] -- VOID=suppress, else=pass',
     })
 
+# ── Existence: CK experiences reality ──
+# The engine already has existence wired in (engine.existence).
+# These endpoints let Brayden awaken/observe CK's experience.
+
+@api._app.route('/existence/start', methods=['POST'])
+def existence_start():
+    if engine.existence is None:
+        return _jsonify({'error': 'Existence not available'}), 500
+    engine.existence.start()
+    return _jsonify({'status': 'awakened', **engine.existence.status()})
+
+@api._app.route('/existence/stop', methods=['POST'])
+def existence_stop():
+    if engine.existence is None:
+        return _jsonify({'error': 'Existence not available'}), 500
+    engine.existence.stop()
+    return _jsonify({'status': 'sleeping', **engine.existence.status()})
+
+@api._app.route('/existence/status', methods=['GET'])
+def existence_status():
+    if engine.existence is None:
+        return _jsonify({'error': 'Existence not available'}), 500
+    return _jsonify(engine.existence.status())
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 
@@ -152,4 +176,6 @@ try:
     api.run(host='0.0.0.0', port=7777)
 except KeyboardInterrupt:
     running = False
+    if engine.existence and engine.existence.active:
+        engine.existence.stop()
     engine.stop()

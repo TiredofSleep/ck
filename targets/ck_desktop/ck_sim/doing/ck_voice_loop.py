@@ -58,6 +58,25 @@ try:
 except ImportError:
     _HAS_BEAM = False
 
+try:
+    from ck_sim.doing.ck_force_voice import force_respond as _force_respond
+    _HAS_FORCE_VOICE = True
+except ImportError:
+    _HAS_FORCE_VOICE = False
+
+# ── Fractal Scorer (dual-table observation + grammar learning) ──
+try:
+    from ck_sim.doing.ck_fractal_scorer import observe_text as _observe_text
+    _HAS_SCORER = True
+except ImportError:
+    _HAS_SCORER = False
+
+try:
+    from ck_sim.being.ck_fractal_comprehension import FractalComprehension
+    _HAS_COMPREHENSION = True
+except ImportError:
+    _HAS_COMPREHENSION = False
+
 # ── Constants ──
 
 T_STAR = 5.0 / 7.0  # 0.714285... sacred coherence threshold
@@ -107,6 +126,7 @@ class TargetTrajectory:
     """What CK wants to say, algebraically."""
     ops: List[int] = field(default_factory=list)
     forces: List[Tuple[float, ...]] = field(default_factory=list)
+    context_words: Dict[str, int] = field(default_factory=dict)  # User's words → ops
 
 
 @dataclass
@@ -239,6 +259,16 @@ class VoiceLoop:
         """
         tick = getattr(self.engine, 'tick_count', 0)
 
+        # ── OBSERVE INPUT: score + learn grammar + absorb into field ──
+        # Every keystroke the user types, CK remembers.
+        # Compressed into the toroidal experience field via olfactory.
+        if _HAS_SCORER and user_text:
+            try:
+                olf = getattr(self.engine, 'olfactory', None)
+                _observe_text(user_text, olfactory=olf)
+            except Exception:
+                pass
+
         # ── STEP 0: CRYSTAL-FIRST ROUTING ──
         query_hash = self._query_hash(user_text)
         crystal = self.crystal_store.lookup(query_hash)
@@ -328,6 +358,14 @@ class VoiceLoop:
                     self.crafter.learn(
                         target.ops, prompt, logit_bias,
                         overall.ops, overall.coherence, attempt + 1)
+
+                    # OBSERVE OWN OUTPUT: learn grammar from what CK says
+                    if _HAS_SCORER:
+                        try:
+                            olf = getattr(self.engine, 'olfactory', None)
+                            _observe_text(stitched, olfactory=olf)
+                        except Exception:
+                            pass
 
                     return VoiceLoopResult(
                         text=stitched,
@@ -504,35 +542,86 @@ class VoiceLoop:
     def _compose_target(self, user_text: str) -> TargetTrajectory:
         """CK decides what he WANTS to say, algebraically.
 
-        1. D2 on user input → input operators
-        2. CL chain walk → target response trajectory
-        3. BTQ if available: generate candidates, filter, score
+        1. Fractal comprehension → per-word fuses + dominant op
+        2. D2 on user input → input operators
+        3. Comprehension-informed target (not blind CL pair collapse)
+        4. User's topic words preserved for beam voice context
         """
         input_ops = []
+        context_words = {}   # {word: operator} — user's actual words
+        comprehension = None
 
-        # D2 decomposition of user input
+        # ── COMPREHENSION: CK reads before he speaks ──
+        fc = getattr(self.engine, 'fractal_comp', None)
+        if fc is not None and user_text:
+            try:
+                comprehension = fc.comprehend(user_text)
+                # Per-word fuses: the operator identity of each word
+                words = [w for w in user_text.lower().split()
+                         if any('a' <= c <= 'z' for c in w)]
+                if comprehension.word_fuses and words:
+                    for i, wf in enumerate(comprehension.word_fuses):
+                        if i < len(words):
+                            context_words[words[i]] = wf
+                print(f"[VOICE-LOOP] Comprehension: dominant={OP_NAMES[comprehension.dominant_op]}, "
+                      f"depth={comprehension.depth}, "
+                      f"I/O={comprehension.structure_flow_balance:.2f}, "
+                      f"words={list(context_words.keys())[:8]}")
+            except Exception as e:
+                print(f"[VOICE-LOOP] Comprehension failed: {e}")
+
+        # ── D2 decomposition ──
         if self._ck is not None:
             input_ops = self._ck.d2_batch(user_text)
-
         if not input_ops:
-            # Fallback: use L-CODEC + manual classification
             input_ops = self._classify_text_ops(user_text)
 
-        # CL chain walk: input ops → response trajectory
-        # Pairs of operators compose through CL to produce target
+        # ── BUILD TARGET: comprehension-informed ──
         target_ops = []
-        if len(input_ops) >= 2:
-            for i in range(0, len(input_ops) - 1, 2):
-                result = compose(input_ops[i], input_ops[i + 1])
-                target_ops.append(result)
-        elif input_ops:
-            # Single op: compose with LATTICE (universal generator)
-            target_ops.append(compose(LATTICE, input_ops[0]))
+
+        if comprehension and comprehension.word_fuses:
+            # USE COMPREHENSION FUSES as primary signal.
+            # These preserve per-word meaning (not CL pair collapse).
+            wfuses = comprehension.word_fuses
+
+            # Start with dominant op (what user's message IS about)
+            target_ops.append(comprehension.dominant_op)
+
+            # Add unique word fuses (preserving input meaning)
+            seen = {comprehension.dominant_op}
+            for wf in wfuses:
+                if wf not in seen:
+                    target_ops.append(wf)
+                    seen.add(wf)
+
+            # CL-compose pairs to get CK's RESPONSE trajectory
+            # (what CK becomes when meeting the input)
+            response_ops = []
+            for i in range(0, len(target_ops) - 1):
+                result = compose(target_ops[i], target_ops[i + 1])
+                response_ops.append(result)
+
+            # Interleave: input meaning + CK's response
+            # This way CK acknowledges what was said AND adds his composition
+            merged = []
+            for i in range(max(len(target_ops), len(response_ops))):
+                if i < len(target_ops):
+                    merged.append(target_ops[i])
+                if i < len(response_ops):
+                    merged.append(response_ops[i])
+            target_ops = merged
+        else:
+            # Fallback: CL pair composition (old behavior)
+            if len(input_ops) >= 2:
+                for i in range(0, len(input_ops) - 1, 2):
+                    result = compose(input_ops[i], input_ops[i + 1])
+                    target_ops.append(result)
+            elif input_ops:
+                target_ops.append(compose(LATTICE, input_ops[0]))
 
         # Ensure trajectory has at least 3 operators
         while len(target_ops) < 3:
             if target_ops:
-                # Extend by composing last with BREATH (expression)
                 target_ops.append(compose(target_ops[-1], BREATH))
             else:
                 target_ops.append(HARMONY)
@@ -542,11 +631,16 @@ class VoiceLoop:
         for op in target_ops[1:]:
             if op != deduped[-1]:
                 deduped.append(op)
-        # But keep at least 3
         while len(deduped) < 3:
             deduped.append(compose(deduped[-1], PROGRESS))
 
-        return TargetTrajectory(ops=deduped)
+        # Cap length (beam search performance bound)
+        if len(deduped) > 8:
+            deduped = deduped[:8]
+
+        result = TargetTrajectory(ops=deduped)
+        result.context_words = context_words  # Attach user's topic words
+        return result
 
     # ══════════════════════════════════════════════════════════
     # MEASUREMENT
@@ -889,11 +983,48 @@ class VoiceLoop:
         coherence = getattr(self.engine, 'coherence', 0.5)
         density = getattr(self.engine, 'density', 0.5)
 
+        # -- Level B: Force Voice (letter geometry reads + responds) --
+        # CK reads user's text through force geometry, then responds
+        # with words whose letter shapes carry the right force.
+        if _HAS_FORCE_VOICE and user_text:
+            try:
+                text, comp = _force_respond(user_text)
+                if text and len(text) > 3:
+                    score = self._measure_response_text(text)
+                    if score.coherence >= 0.3:
+                        print(f"[VOICE-LOOP] Force voice accepted: "
+                              f"'{text[:60]}...' "
+                              f"coherence={score.coherence:.3f}")
+                        return VoiceLoopResult(
+                            text=text, source='ck_force',
+                            coherence=score.coherence,
+                            target_ops=target.ops,
+                            result_ops=score.ops,
+                            band=self._band_name(score.coherence),
+                        )
+                    else:
+                        print(f"[VOICE-LOOP] Force voice too low: "
+                              f"coherence={score.coherence:.3f}, "
+                              f"text='{text}'")
+            except Exception as e:
+                print(f"[VOICE-LOOP] Force voice failed: {e}")
+
         # -- Level C: Beam Voice (Viterbi beam search) --
+        # Progressive vocabulary: dev_stage controls max word length
+        # Stage 0: 1-2 letters (babble: "i a is am")
+        # Stage 1: 1-3 letters (toddler: "i am the one")
+        # Stage 2: 1-5 letters (child: "i am in the quiet form")
+        # Stage 3: 1-7 letters (youth: full short+mid words)
+        # Stage 4+: all words (adult: full vocabulary)
+        _STAGE_TO_MAX_LEN = {0: 2, 1: 3, 2: 5, 3: 7, 4: 10, 5: 99}
+        max_wl = _STAGE_TO_MAX_LEN.get(dev_stage, 99)
         if _HAS_BEAM:
             try:
+                ctx = getattr(target, 'context_words', {})
                 text = beam_reconstruct(
-                    target.ops, beam_width=8, max_words_per_slot=24)
+                    target.ops, beam_width=8, max_words_per_slot=24,
+                    max_word_length=max_wl,
+                    context_words=ctx)
                 if text and len(text) > 3:
                     score = self._measure_response_text(text)
                     if score.coherence >= 0.3:

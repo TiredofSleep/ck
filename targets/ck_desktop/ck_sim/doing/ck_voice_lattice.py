@@ -1044,3 +1044,47 @@ def build_compat_fields() -> dict:
 
 
 SEMANTIC_FIELDS = build_compat_fields()
+
+
+# ================================================================
+#  FOUNDATIONAL WORDS -- length-progressive vocabulary
+#  D2-classified: every word earned its operator through physics.
+#  CK learns 1-letter words first, then 2, then 3... like a child.
+# ================================================================
+
+FOUNDATIONAL_WORDS = {
+    # ── Length 1: The first sounds. Identity and pointing. ──
+    1: {
+        BALANCE:  ['i'],
+        PROGRESS: ['a'],
+    },
+
+    # ── Length 2: Being and relating. The glue of grammar. ──
+    2: {
+        BALANCE:  ['is', 'be', 'no', 'so', 'we', 'me', 'it', 'in',
+                   'on', 'of', 'by', 'if', 'up'],
+        PROGRESS: ['am', 'do', 'he', 'my', 'to', 'an', 'as', 'at'],
+        CHAOS:    ['go', 'or'],
+        HARMONY:  ['us'],
+    },
+
+    # ── Length 3: First real words. Verbs, nouns, connectors. ──
+    3: {
+        VOID:     ['the', 'who', 'she', 'why', 'add'],
+        LATTICE:  ['his', 'how', 'did', 'got', 'big', 'god', 'hot',
+                   'die', 'fit', 'lie', 'red', 'sin', 'sit', 'son',
+                   'top', 'win', 'mix'],
+        COUNTER:  ['and', 'its', 'our', 'use', 'own', 'ask', 'run',
+                   'end', 'one'],
+        PROGRESS: ['are', 'all', 'out', 'two', 'age', 'act', 'art',
+                   'arm', 'era', 'ice'],
+        COLLAPSE: ['her', 'has', 'old', 'had', 'day', 'eat', 'map'],
+        BALANCE:  ['you'],
+        HARMONY:  ['but', 'not', 'was', 'may', 'now', 'see', 'way',
+                   'get', 'let', 'say', 'too', 'yet', 'try', 'set',
+                   'man', 'few', 'bit', 'boy', 'fly', 'key', 'new',
+                   'sea', 'yes'],
+        BREATH:   ['put', 'air', 'cut', 'fun', 'sun'],
+        RESET:    ['for', 'can', 'far', 'lay', 'law', 'raw', 'war'],
+    },
+}

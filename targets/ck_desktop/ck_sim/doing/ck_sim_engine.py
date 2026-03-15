@@ -687,6 +687,20 @@ class CKSimEngine:
             self.eat = None
             print(f"  [SIM] Eat v2: {e}")
 
+        # ── Existence: CK experiences reality ──
+        # Retina (visual field) + keyboard + mouse + internal state
+        # all compose through CL into ONE operator per glance.
+        # Like fascia in a body -- felt throughout the entire system.
+        # Not started by default. POST /existence/start to awaken.
+        self.existence = None
+        try:
+            from ck_sim.being.ck_retina import CKExistence
+            self.existence = CKExistence(engine=self)
+            print(f"  [SIM] Existence: retina + all-stream composition ready")
+        except Exception as e:
+            self.existence = None
+            print(f"  [SIM] Existence: {e}")
+
         # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
         # The lens OF the lens. Where TSML and BHML agree/disagree.
         # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
@@ -1003,6 +1017,12 @@ class CKSimEngine:
         # Feeds operators to coherence field + TL.
         # Core stays light -- this is ONE call.
         self.sensorium.tick(self.tick_count)
+
+        # ── Existence: CK experiences reality ──
+        # Retina + keyboard + mouse + internal state compose per glance.
+        # Like fascia -- felt throughout the system, wrapping everything.
+        if self.existence is not None:
+            self.existence.experience_tick(self.tick_count)
 
         # ── Power Sense: CK feels his power ──
         # Feed CPU/battery data. Smooth power scalar -> RealityTransform
