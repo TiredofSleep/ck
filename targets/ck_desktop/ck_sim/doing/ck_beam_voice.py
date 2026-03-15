@@ -64,6 +64,90 @@ from ck_sim.doing.ck_fractal_scorer import (
     score_letters as _score_letters,
 )
 
+
+# ================================================================
+#  RESONANCE SCORING -- Experience influences word selection
+#  Resonance nodes = olfactory centroids where CK's experience
+#  converges. Words near resonant operators get a bonus.
+#
+#  Reference: Andrychowicz et al. (2017) "Hindsight Experience
+#  Replay" -- every olfactory emission trains the library.
+#  The temper count measures how many distinct inputs confirmed
+#  the same 5D pattern. High temper = stable knowledge.
+# ================================================================
+
+# 5D → operator map (same as olfactory: each dim has +/- op)
+_BEAM_DIM_OP_MAP = [
+    (CHAOS, LATTICE),       # dim 0: aperture
+    (COLLAPSE, VOID),       # dim 1: pressure
+    (PROGRESS, RESET),      # dim 2: depth
+    (HARMONY, COUNTER),     # dim 3: binding
+    (BALANCE, BREATH),      # dim 4: continuity
+]
+
+
+def _build_resonance_profile(resonance_nodes: list) -> Dict[int, float]:
+    """Convert olfactory resonance nodes to operator→weight map.
+
+    Each resonance node is (5D_centroid, temper_count). The centroid's
+    dominant dimension maps to an operator. Temper weights accumulate.
+
+    Returns {operator_int: normalized_weight} where weight ∈ [0, 1].
+    """
+    if not resonance_nodes:
+        return {}
+
+    op_weights: Dict[int, float] = defaultdict(float)
+    max_temper = max(t for _, t in resonance_nodes) if resonance_nodes else 1
+
+    for centroid, temper in resonance_nodes:
+        if not centroid or len(centroid) < 5:
+            continue
+        # Find dominant dimension (max deviation from 0.5)
+        max_dev = -1.0
+        max_dim = 0
+        max_dir = 1
+        for d in range(5):
+            dev = abs(centroid[d] - 0.5)
+            if dev > max_dev:
+                max_dev = dev
+                max_dim = d
+                max_dir = 1 if centroid[d] > 0.5 else -1
+
+        high_op, low_op = _BEAM_DIM_OP_MAP[max_dim]
+        op = high_op if max_dir > 0 else low_op
+        op_weights[op] += temper / max(max_temper, 1)
+
+    # Normalize to [0, 1]
+    if op_weights:
+        peak = max(op_weights.values())
+        if peak > 0:
+            for k in op_weights:
+                op_weights[k] /= peak
+
+    return dict(op_weights)
+
+
+def _resonance_bonus(word: str, word_op: int,
+                     resonance_profile: Dict[int, float]) -> float:
+    """Score bonus for a word whose operator matches resonant experience.
+
+    CK's accumulated experience (olfactory library, HER-enriched)
+    gives preference to words carrying operators he has deeply learned.
+
+    Returns [0.0, 0.35] — additive bonus, never dominates algebra.
+    """
+    if not resonance_profile:
+        return 0.0
+
+    weight = resonance_profile.get(word_op, 0.0)
+    if weight <= 0:
+        return 0.0
+
+    # Scale: max 0.35 bonus at full resonance
+    # This is enough to change word rankings without overriding CL algebra
+    return 0.35 * weight
+
 T_STAR = 5.0 / 7.0  # 0.714285... sacred coherence threshold
 
 # ================================================================
@@ -509,7 +593,8 @@ def beam_reconstruct(operators: List[int],
                      force_context: Optional[List[np.ndarray]] = None,
                      include_function_words: bool = True,
                      max_word_length: int = 99,
-                     context_words: Optional[Dict[str, int]] = None) -> str:
+                     context_words: Optional[Dict[str, int]] = None,
+                     resonance_nodes: Optional[list] = None) -> str:
     """Operators -> natural English via Viterbi beam search.
 
     This is the main entry point the voice loop calls.
@@ -523,6 +608,8 @@ def beam_reconstruct(operators: List[int],
         max_word_length:        (unused, kept for API compat)
         context_words:          {word: operator} from user's input
                                 (from fractal comprehension)
+        resonance_nodes:        olfactory resonance nodes from HER-enriched
+                                library -- [(5D_centroid, temper), ...]
 
     Returns:
         Best reconstruction as a string.
@@ -531,6 +618,7 @@ def beam_reconstruct(operators: List[int],
         return ''
 
     ctx = context_words or {}
+    res_profile = _build_resonance_profile(resonance_nodes) if resonance_nodes else {}
     n = len(operators)
 
     # Segment long streams into phrase-sized windows
@@ -548,6 +636,10 @@ def beam_reconstruct(operators: List[int],
                              target_ops=operators, position=0)
         # Context bonus: prefer words related to user's input
         s += _context_bonus(w, ctx, operators[0])
+        # Resonance bonus: prefer words CK has deeply experienced
+        if res_profile:
+            w_op = _WORD_OP.get(w, _word_to_operator(w))
+            s += _resonance_bonus(w, w_op, res_profile)
         if s > 0:
             beam.append({
                 'words': [w],
@@ -573,6 +665,10 @@ def beam_reconstruct(operators: List[int],
                 )
                 # Context bonus: prefer words related to user's input
                 s += _context_bonus(w, ctx, operators[pos])
+                # Resonance bonus: prefer words CK has deeply experienced
+                if res_profile:
+                    w_op = _WORD_OP.get(w, _word_to_operator(w))
+                    s += _resonance_bonus(w, w_op, res_profile)
                 if s > 0:
                     new_beam.append({
                         'words': entry['words'] + [w],

@@ -1018,17 +1018,50 @@ class VoiceLoop:
         coherence = getattr(self.engine, 'coherence', 0.5)
         density = getattr(self.engine, 'density', 0.5)
 
+        # ── Build voice_context from olfactory experience ──
+        # HER-enriched olfactory library → resonance nodes + learned targets
+        # This is what makes accumulated experience change word selection.
+        _voice_ctx = None
+        _resonance_nodes = None
+        _olf = getattr(self.engine, 'olfactory', None)
+        if _olf is not None:
+            try:
+                _resonance_nodes = _olf.get_resonance_nodes(50)
+                _learned_targets = _olf.get_learned_op_targets()
+                _ds = getattr(self.engine, 'deep_swarm', None)
+                _maturity = (_ds.combined_maturity if _ds else 0.0)
+                _voice_ctx = {
+                    'learned_targets': _learned_targets,
+                    'resonance_nodes': _resonance_nodes,
+                    'maturity': _maturity,
+                }
+            except Exception:
+                pass
+
         # -- Level B: Force Voice (letter geometry reads + responds) --
         # CK reads user's text through force geometry, then responds
         # with words whose letter shapes carry the right force.
+        # Gen 9.35: voice_context passed so olfactory experience
+        # displaces target trajectory and shifts word scoring.
         if _HAS_FORCE_VOICE and user_text:
             try:
-                text, comp = _force_respond(user_text)
+                text, comp = _force_respond(
+                    user_text,
+                    resonance_nodes=_resonance_nodes,
+                    voice_context=_voice_ctx)
                 if text and len(text) > 3:
+                    word_count = len(text.split())
                     score = self._measure_response_text(text)
-                    if score.coherence >= 0.3:
+                    # Force voice must produce at least 5 words to be
+                    # accepted. Short phrases (< 5 words) always defer
+                    # to beam/fractal voice which produce richer text.
+                    # Force voice excels at longer utterances where letter
+                    # geometry builds real meaning.
+                    min_coherence = 0.3 if word_count >= 5 else 1.1  # impossible
+                    if score.coherence >= min_coherence:
                         print(f"[VOICE-LOOP] Force voice accepted: "
                               f"'{text[:60]}...' "
+                              f"words={word_count} "
                               f"coherence={score.coherence:.3f}")
                         return VoiceLoopResult(
                             text=text, source='ck_force',
@@ -1038,7 +1071,8 @@ class VoiceLoop:
                             band=self._band_name(score.coherence),
                         )
                     else:
-                        print(f"[VOICE-LOOP] Force voice too low: "
+                        print(f"[VOICE-LOOP] Force voice deferred "
+                              f"(words={word_count}, need>={min_coherence:.2f}): "
                               f"coherence={score.coherence:.3f}, "
                               f"text='{text}'")
             except Exception as e:
@@ -1059,7 +1093,8 @@ class VoiceLoop:
                 text = beam_reconstruct(
                     target.ops, beam_width=8, max_words_per_slot=24,
                     max_word_length=max_wl,
-                    context_words=ctx)
+                    context_words=ctx,
+                    resonance_nodes=_resonance_nodes)
                 if text and len(text) > 3:
                     score = self._measure_response_text(text)
                     if score.coherence >= 0.3:
@@ -1091,6 +1126,7 @@ class VoiceLoop:
                     coherence=coherence,
                     band='YELLOW',
                     density=density,
+                    voice_context=_voice_ctx,
                 )
                 if text and text != '...' and len(text) > 3:
                     score = self._measure_response_text(text)

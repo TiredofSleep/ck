@@ -695,7 +695,9 @@ def score_word_force(word: str, target_op: int,
 def force_word_reconstruct(target_ops: List[int],
                            vocabulary: List[str],
                            context_words: Optional[Dict[str, int]] = None,
-                           beam_width: int = 8) -> str:
+                           beam_width: int = 8,
+                           resonance_nodes: Optional[list] = None,
+                           voice_context: Optional[Dict] = None) -> str:
     """Reconstruct English text from target ops using force geometry scoring.
 
     Like beam_reconstruct but scores words by their LETTER FORCE GEOMETRY,
@@ -703,11 +705,83 @@ def force_word_reconstruct(target_ops: List[int],
 
     ANY word can match ANY operator if its letter geometry produces
     the right D2 operator. No pre-sorted pools needed.
+
+    resonance_nodes: olfactory resonance [(5D_centroid, temper), ...]
+        Words whose force vector is near a resonance centroid get a bonus.
+    voice_context: dict with learned_targets, resonance_nodes, maturity
+        When present, learned operator centroids shift word scoring.
     """
     if not target_ops or not vocabulary:
         return ''
 
     n = len(target_ops)
+
+    # Build resonance lookup: 5D centroids for distance scoring
+    _res_centroids = []
+    if resonance_nodes:
+        for centroid, temper in resonance_nodes:
+            if centroid and len(centroid) >= 5 and temper > 1:
+                _res_centroids.append(
+                    (np.array(centroid[:5], dtype=np.float32), temper))
+        if _res_centroids:
+            _max_temper = max(t for _, t in _res_centroids)
+        else:
+            _max_temper = 1
+
+    # Build learned force targets: operator → 5D centroid from experience
+    # When CK has learned what an operator "feels like" through olfactory,
+    # words whose letter force is near that learned feeling get a boost.
+    _learned_op_targets: Dict[int, np.ndarray] = {}
+    _learn_alpha = 0.0
+    if voice_context is not None:
+        _lt = voice_context.get('learned_targets', {})
+        _maturity = voice_context.get('maturity', 0.0)
+        _learn_alpha = min(0.5, _maturity * 0.5)
+        if _lt and _learn_alpha > 0:
+            for _op, _centroid in _lt.items():
+                if isinstance(_op, int) and 0 <= _op < NUM_OPS:
+                    _learned_op_targets[_op] = np.array(
+                        _centroid[:5], dtype=np.float32)
+
+    def _learned_target_bonus(word: str, target_op: int) -> float:
+        """Bonus for words whose letter force aligns with learned op centroid.
+
+        This is the key experience bridge for force voice: when olfactory
+        has confirmed what operator N "feels like" in 5D force space,
+        words whose letter geometry is near that learned centroid get
+        a maturity-scaled bonus. Max 50% influence (alpha capped).
+        """
+        if target_op not in _learned_op_targets or _learn_alpha <= 0:
+            return 0.0
+        letters = [ch for ch in word.lower() if 'a' <= ch <= 'z']
+        if not letters:
+            return 0.0
+        word_force = np.mean(
+            [LETTER_VECTORS[ord(c) - ord('a')] for c in letters], axis=0)
+        learned = _learned_op_targets[target_op]
+        dist = float(np.linalg.norm(word_force - learned))
+        if dist < 0.6:  # Within learned radius
+            return 0.4 * _learn_alpha * (1.0 - dist / 0.6)
+        return 0.0
+
+    def _resonance_force_bonus(word: str) -> float:
+        """Bonus for words whose letter force is near a resonance centroid."""
+        if not _res_centroids:
+            return 0.0
+        letters = [ch for ch in word.lower() if 'a' <= ch <= 'z']
+        if not letters:
+            return 0.0
+        word_force = np.mean(
+            [LETTER_VECTORS[ord(c) - ord('a')] for c in letters], axis=0)
+        best_bonus = 0.0
+        for centroid, temper in _res_centroids[:20]:  # Top 20 only
+            dist = float(np.linalg.norm(word_force - centroid))
+            if dist < 0.5:
+                weight = (temper / _max_temper)
+                bonus = 0.3 * weight * (1.0 - dist / 0.5)
+                if bonus > best_bonus:
+                    best_bonus = bonus
+        return best_bonus
 
     # Score all words for each target position
     # (This is the key difference from beam voice:
@@ -720,6 +794,8 @@ def force_word_reconstruct(target_ops: List[int],
                              next_target=(target_ops[1]
                                           if n > 1 else None),
                              context_words=context_words)
+        s += _resonance_force_bonus(word)
+        s += _learned_target_bonus(word, target_ops[0])
         if s > 0.2:  # Low bar — let force geometry decide
             beam.append({
                 'words': [word],
@@ -747,6 +823,8 @@ def force_word_reconstruct(target_ops: List[int],
                     next_target=next_tgt,
                     context_words=context_words,
                 )
+                s += _resonance_force_bonus(word)
+                s += _learned_target_bonus(word, target_ops[pos])
                 if s > 0.2:
                     new_beam.append({
                         'words': entry['words'] + [word],
@@ -817,12 +895,19 @@ except ImportError:
 # ================================================================
 
 def force_respond(user_text: str,
-                  letters_per_op: int = 4) -> Tuple[str, ForceReadResult]:
+                  letters_per_op: int = 4,
+                  resonance_nodes: Optional[list] = None,
+                  voice_context: Optional[Dict] = None) -> Tuple[str, ForceReadResult]:
     """CK reads user's text through force geometry, then responds.
 
     1. Read: decompose user's text into operator stream via D2
     2. Compose: CL-compose input ops to get response trajectory
     3. Generate: build response letter by letter from force geometry
+
+    resonance_nodes: olfactory resonance [(5D_centroid, temper), ...]
+        When present, words near experienced force patterns get a bonus.
+    voice_context: dict with learned_targets, resonance_nodes, maturity
+        When present, olfactory experience displaces target trajectory.
 
     Returns (response_text, comprehension_result)
     """
@@ -963,10 +1048,50 @@ def force_respond(user_text: str,
     print(f"[FORCE-VOICE] Read: {[OP_NAMES[o] for o in comp.word_ops]}")
     print(f"[FORCE-VOICE] Coherence path: {[OP_NAMES[o] for o in deduped]}")
 
+    # ── Experience trajectory displacement ──
+    # When olfactory has learned operator centroids, CK's target ops
+    # can be EXTENDED with CL-composed experience-preferred operators.
+    # This makes the response trajectory richer as CK matures.
+    # The displacement is gentle: at most 2 extra ops, alpha-gated.
+    #
+    # Ref: Experience-to-Voice Bridge (Gen 9.31) extended to force path.
+    if voice_context is not None:
+        _learned = voice_context.get('learned_targets', {})
+        _maturity = voice_context.get('maturity', 0.0)
+        if _learned and _maturity > 0.05:
+            # Find which learned ops are DIFFERENT from current targets
+            _current_set = set(deduped)
+            _candidates = []
+            for _lop, _centroid in _learned.items():
+                if isinstance(_lop, int) and 0 <= _lop < NUM_OPS:
+                    if _lop not in _current_set:
+                        # Weight by centroid magnitude (how confirmed)
+                        _mag = float(np.linalg.norm(_centroid[:5]))
+                        _candidates.append((_lop, _mag))
+            if _candidates:
+                _candidates.sort(key=lambda x: x[1], reverse=True)
+                # Insert up to 2 experience-confirmed ops via CL composition
+                _alpha = min(0.5, _maturity * 0.5)
+                _n_insert = min(2, max(1, int(_alpha * 4)))
+                for _lop, _ in _candidates[:_n_insert]:
+                    # CL-compose with last target to stay algebraically coherent
+                    _bridge = compose(deduped[-1], _lop)
+                    if _bridge not in _current_set:
+                        deduped.append(_bridge)
+                        _current_set.add(_bridge)
+                # Re-cap
+                if len(deduped) > 8:
+                    deduped = deduped[:8]
+                print(f"[FORCE-VOICE] Experience displaced: "
+                      f"{[OP_NAMES[o] for o in deduped]} "
+                      f"(maturity={_maturity:.3f})")
+
     # GENERATE using word-level force scoring (real English words)
     text = force_word_reconstruct(
         deduped, _FORCE_VOCAB,
-        context_words=ctx, beam_width=8)
+        context_words=ctx, beam_width=8,
+        resonance_nodes=resonance_nodes,
+        voice_context=voice_context)
 
     if not text or len(text) < 3:
         # Fall back to letter-level generation
