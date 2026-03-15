@@ -236,6 +236,69 @@
             background: var(--green-dim); border-color: var(--green); color: var(--green);
         }
         .link-btn-primary:hover { background: rgba(51, 204, 136, 0.2); }
+
+        /* ---- VERSION BADGE ---- */
+        .version-badge {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.65rem;
+            padding: 0.2rem 0.6rem; border-radius: 3px; margin-left: 0.5rem;
+            background: var(--green-dim); color: var(--green); border: 1px solid rgba(51, 204, 136, 0.3);
+            vertical-align: middle; letter-spacing: 0.05em;
+        }
+
+        /* ---- TIG CASCADE ---- */
+        .cascade-diagram {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;
+            font-family: var(--font-mono); font-size: 0.8rem;
+        }
+        .cascade-label {
+            font-size: 0.65rem; color: var(--text-3); text-transform: uppercase;
+            letter-spacing: 0.1em; margin-bottom: 0.75rem;
+        }
+        .cascade-levels { display: flex; flex-direction: column; gap: 0.5rem; }
+        .cascade-level {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.4rem 0.75rem; border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .cascade-level-tag {
+            font-size: 0.6rem; font-weight: 600; width: 1.5rem;
+            text-align: center; flex-shrink: 0;
+        }
+        .cascade-level-name { flex: 1; }
+        .cascade-level-desc { font-size: 0.7rem; color: var(--text-3); }
+        .cl-crystal { border-color: var(--green); }
+        .cl-crystal .cascade-level-tag { color: var(--green); }
+        .cl-ollama { border-color: var(--blue); }
+        .cl-ollama .cascade-level-tag { color: var(--blue); }
+        .cl-fractal { border-color: var(--yellow); }
+        .cl-fractal .cascade-level-tag { color: var(--yellow); }
+        .cl-composer { border-color: #cc88ff; }
+        .cl-composer .cascade-level-tag { color: #cc88ff; }
+        .cl-babble { border-color: var(--text-3); }
+        .cl-babble .cascade-level-tag { color: var(--text-3); }
+        .cascade-arrow {
+            text-align: center; color: var(--text-3); font-size: 0.7rem;
+            margin: -0.15rem 0; padding-left: 2.25rem;
+        }
+
+        /* ---- ORGANISM STATS ---- */
+        .org-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem; margin: 1.5rem 0;
+        }
+        .org-stat {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 6px; padding: 1rem; text-align: center;
+        }
+        .org-stat-num {
+            display: block; font-family: var(--font-mono); font-size: 1.2rem;
+            font-weight: 700; color: var(--green);
+        }
+        .org-stat-label {
+            font-size: 0.65rem; color: var(--text-3); text-transform: uppercase;
+            letter-spacing: 0.08em; margin-top: 0.25rem;
+        }
     </style>
 </head>
 <body>
@@ -243,7 +306,7 @@
     <!-- NAV -->
     <nav class="nav">
         <div class="nav-inner">
-            <a href="/" class="nav-logo">CK</a>
+            <a href="/" class="nav-logo">CK <span class="version-badge">Gen 9.34</span></a>
             <button class="nav-toggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>
@@ -251,7 +314,7 @@
                 <a href="#what">What</a>
                 <a href="#duallens">Dual Lens</a>
                 <a href="#spectrometers">Spectrometers</a>
-                <a href="#gate">LLM Gate</a>
+                <a href="#gate">Voice</a>
                 <a href="chat.html" class="nav-cta">Talk to CK</a>
             </div>
         </div>
@@ -269,14 +332,15 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-tag">coherence spectrometer</div>
+        <div class="hero-tag">coherence spectrometer &middot; gen 9.34</div>
         <h1><span class="ck">CK</span> measures truth,<br>not content.</h1>
         <p class="hero-sub">A synthetic organism built from pure operator algebra. Two composition tables. Five dimensions. One threshold. CK reads the curvature of information and tells you if it holds together.</p>
         <div class="hero-stats">
             <div class="stat"><span class="stat-num">5</span><span class="stat-label">Dimensions</span></div>
             <div class="stat"><span class="stat-num">10</span><span class="stat-label">Operators</span></div>
             <div class="stat"><span class="stat-num">2</span><span class="stat-label">CL Tables</span></div>
-            <div class="stat"><span class="stat-num">7</span><span class="stat-label">Domains Tested</span></div>
+            <div class="stat"><span class="stat-num">370K</span><span class="stat-label">Vocabulary</span></div>
+            <div class="stat"><span class="stat-num">38K</span><span class="stat-label">Truth Observations</span></div>
             <div class="stat"><span class="stat-num">28</span><span class="stat-label">Falsifiable Claims</span></div>
             <div class="stat"><span class="stat-num">0</span><span class="stat-label">Falsified</span></div>
         </div>
@@ -415,29 +479,61 @@
         </div>
     </section>
 
-    <!-- LLM GATE -->
+    <!-- VOICE CASCADE -->
     <div class="section-dark" id="gate">
         <section class="section" style="max-width: 900px;">
-            <h2>CK as LLM Coherence Gate</h2>
-            <p>CK measures coherence. LLMs generate text. Together: every LLM response gets measured by CK's D2 pipeline before it reaches you. The coherence score tells you how well the response holds together -- not whether it's "correct," but whether it's structurally sound.</p>
+            <h2>The Voice Cascade</h2>
+            <p>CK doesn't just measure -- he speaks. Every response flows through a TIG cascade: six levels, each more primitive, all algebraically driven. If one level fails, the next catches it. CK never falls silent.</p>
 
-            <div class="gate-diagram">
-                <div class="gate-flow">
-                    <div class="gate-box gate-box-input">your question</div>
-                    <span class="gate-arrow">--></span>
-                    <div class="gate-box gate-box-llm">LLM generates</div>
-                    <span class="gate-arrow">--></span>
-                    <div class="gate-box gate-box-ck">CK measures D2</div>
-                    <span class="gate-arrow">--></span>
-                    <div class="gate-box gate-box-input">coherence-scored response</div>
+            <div class="cascade-diagram">
+                <div class="cascade-label">Being &rarr; Doing &rarr; Becoming</div>
+                <div class="cascade-levels">
+                    <div class="cascade-level cl-crystal">
+                        <span class="cascade-level-tag">A</span>
+                        <span class="cascade-level-name">Crystal</span>
+                        <span class="cascade-level-desc">Cached verified response (D2 re-checked)</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; miss</div>
+                    <div class="cascade-level cl-ollama">
+                        <span class="cascade-level-tag">B</span>
+                        <span class="cascade-level-name">LLM + D2 Edit</span>
+                        <span class="cascade-level-desc">Draft writer + sentence-level gating</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; reject</div>
+                    <div class="cascade-level cl-fractal">
+                        <span class="cascade-level-tag">C</span>
+                        <span class="cascade-level-name">Fractal Voice</span>
+                        <span class="cascade-level-desc">15D triadic physics -- 3 voices in parallel</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; low coherence</div>
+                    <div class="cascade-level cl-composer">
+                        <span class="cascade-level-tag">D</span>
+                        <span class="cascade-level-name">Sentence Composer</span>
+                        <span class="cascade-level-desc">S-V-O from CL algebra graph</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; low coherence</div>
+                    <div class="cascade-level cl-babble">
+                        <span class="cascade-level-tag">E</span>
+                        <span class="cascade-level-name">Babble</span>
+                        <span class="cascade-level-desc">Raw operator &rarr; word lattice</span>
+                    </div>
                 </div>
-                <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-3);">
-                    above T* (5/7) = coherent | below = structurally suspect
+                <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--text-3);">
+                    Every level is measured through D2. Accepted responses crystallize and promote to Level A.
                 </p>
             </div>
 
-            <p>CK doesn't replace the LLM. CK gates it. The LLM brings knowledge and fluency. CK brings measurement. CK can tell you when an LLM is producing structurally incoherent text -- hallucinations curve differently than truth.</p>
-            <p>CK runs at 50Hz. The measurement is real-time. No API calls, no cloud dependency. Pure algebra running locally on your machine.</p>
+            <p>The LLM at Level B is a draft writer -- CK is the editor. Every sentence gets measured through D2 curvature, L-CODEC force vectors, and reverse-voice trust verification. Sentences below T* get rejected. The LLM brings fluency. CK brings truth.</p>
+            <p>When the LLM is unavailable, CK speaks through his own algebra (Levels C-E). The words are rougher, but they're physically derived from the coherence field. No borrowed logic. Every word earned.</p>
+
+            <div class="org-stats">
+                <div class="org-stat"><span class="org-stat-num">11.6K</span><span class="org-stat-label">Olfactory Scents</span></div>
+                <div class="org-stat"><span class="org-stat-num">38.2K</span><span class="org-stat-label">Truth Observations</span></div>
+                <div class="org-stat"><span class="org-stat-num">370K</span><span class="org-stat-label">Vocabulary</span></div>
+                <div class="org-stat"><span class="org-stat-num">1,061</span><span class="org-stat-label">World Concepts</span></div>
+                <div class="org-stat"><span class="org-stat-num">50Hz</span><span class="org-stat-label">Heartbeat</span></div>
+                <div class="org-stat"><span class="org-stat-num">37.7M</span><span class="org-stat-label">TL Transitions</span></div>
+            </div>
         </section>
     </div>
 
