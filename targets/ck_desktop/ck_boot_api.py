@@ -217,6 +217,43 @@ def experience_query():
         return _jsonify({'error': 'Provide "vector" (9D) or "text"'}), 400
     return _jsonify(result)
 
+# ── Taichi status endpoint ──
+@api._app.route('/taichi/status', methods=['GET'])
+def taichi_status():
+    bridge = getattr(engine, 'taichi_bridge', None)
+    if bridge is None:
+        return _jsonify({'available': False, 'reason': 'Taichi bridge not initialized'})
+    return _jsonify(bridge.walker.status())
+
+# ── Taichi grokking detection endpoint ──
+@api._app.route('/taichi/grokking', methods=['GET'])
+def taichi_grokking():
+    bridge = getattr(engine, 'taichi_bridge', None)
+    if bridge is None:
+        return _jsonify({'error': 'Taichi bridge not available'}), 404
+    grokked = bridge.detect_grokking()
+    return _jsonify({'grokked_count': len(grokked), 'grokked': grokked[:20]})
+
+# ── HER status endpoint ──
+@api._app.route('/her/status', methods=['GET'])
+def her_status():
+    her = getattr(engine, 'olfactory_her', None)
+    if her is None:
+        return _jsonify({'available': False, 'reason': 'HER not initialized'})
+    return _jsonify(her.status())
+
+# ── Chain compression status endpoint ──
+@api._app.route('/compression/status', methods=['GET'])
+def compression_status():
+    comp = getattr(engine, 'chain_compressor', None)
+    if comp is None:
+        return _jsonify({'available': False, 'reason': 'Chain compressor not initialized'})
+    return _jsonify({
+        'available': True,
+        'last_stats': comp.compressor.last_stats,
+        'save_dir': comp.save_dir,
+    })
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 

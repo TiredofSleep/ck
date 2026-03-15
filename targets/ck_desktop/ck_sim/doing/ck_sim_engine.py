@@ -712,6 +712,45 @@ class CKSimEngine:
             self.experience_index = None
             print(f"  [SIM] Experience Index: {e}")
 
+        # ── Taichi GPU Chain Walker: JIT-compiled parallel lattice chain walks ──
+        # Replaces/augments CuPy for the (N, 10, 10) experience overlay.
+        # @ti.kernel walks ALL chains simultaneously on RTX 4070.
+        # Resonance, IPR grokking detection, olfactory interaction -- all parallel.
+        try:
+            from ck_sim.being.ck_taichi_chains import build_taichi_bridge
+            if self.lattice_chain is not None:
+                self.taichi_bridge = build_taichi_bridge(self.lattice_chain)
+            else:
+                self.taichi_bridge = None
+        except Exception as e:
+            self.taichi_bridge = None
+            print(f"  [SIM] Taichi Bridge: {e}")
+
+        # ── Hindsight Experience Replay: learn from olfactory misses ──
+        # When a scent resolves to a DIFFERENT operator than intended,
+        # relabel with the achieved operator. Every failure is training data.
+        # Adapted from SB3 HER (Andrychowicz et al., 2017).
+        try:
+            from ck_sim.being.ck_hindsight_replay import build_olfactory_her
+            if self.olfactory is not None:
+                self.olfactory_her = build_olfactory_her(self.olfactory)
+            else:
+                self.olfactory_her = None
+        except Exception as e:
+            self.olfactory_her = None
+            print(f"  [SIM] Olfactory HER: {e}")
+
+        # ── WFA Chain Compression: self-similarity persistence ──
+        # Lattice chain persistence with WFA-inspired compression.
+        # SVD basis for shared algebraic structure across evolved CL tables.
+        # Delta + quantization + gzip. Backward compatible with JSON.
+        try:
+            from ck_sim.being.ck_chain_compression import build_compressed_persistence
+            self.chain_compressor = build_compressed_persistence()
+        except Exception as e:
+            self.chain_compressor = None
+            print(f"  [SIM] Chain Compression: {e}")
+
         # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
         # The lens OF the lens. Where TSML and BHML agree/disagree.
         # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
@@ -740,7 +779,7 @@ class CKSimEngine:
             self._meta_lens_markov = None
             print(f"  [SIM] Meta Lens: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.32 -- Markov Meta-Lens) =====")
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.35 -- Taichi+HER+WFA) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")
@@ -823,6 +862,19 @@ class CKSimEngine:
         if hasattr(self, 'gustatory') and self.gustatory is not None:
             try:
                 self.gustatory.save()
+            except Exception:
+                pass
+        # Save HER stats (hindsight replay)
+        if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
+            try:
+                self.olfactory_her.save()
+            except Exception:
+                pass
+        # Save lattice chain with WFA compression
+        if (hasattr(self, 'chain_compressor') and self.chain_compressor is not None
+                and self.lattice_chain is not None):
+            try:
+                self.chain_compressor.save(self.lattice_chain)
             except Exception:
                 pass
         self.save_tl()
@@ -1168,10 +1220,23 @@ class CKSimEngine:
                             self.lattice_chain.walk(_sops, learn=True)
                         except Exception:
                             pass
+            # HER: record emitted scents for hindsight replay
+            if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
+                try:
+                    _emitted = self.olfactory.emit()
+                    _target_op = self.heartbeat.phase_bc
+                    if _emitted:
+                        self.olfactory_her.post_emit(_emitted, _target_op)
+                    self.olfactory_her.replay_tick()
+                except Exception:
+                    pass
+
             # Save olfactory library periodically (every ~5 min)
             if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
                 try:
                     self.olfactory.save()
+                    if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
+                        self.olfactory_her.save()
                 except Exception:
                     pass
 
