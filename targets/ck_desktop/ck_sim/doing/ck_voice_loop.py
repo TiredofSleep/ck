@@ -51,6 +51,13 @@ from ck_sim.ck_sim_heartbeat import (
     compose,
 )
 
+# ── Beam Voice (Viterbi beam search) ──
+try:
+    from ck_sim.doing.ck_beam_voice import beam_reconstruct
+    _HAS_BEAM = True
+except ImportError:
+    _HAS_BEAM = False
+
 # ── Constants ──
 
 T_STAR = 5.0 / 7.0  # 0.714285... sacred coherence threshold
@@ -881,6 +888,30 @@ class VoiceLoop:
                    and self.engine.emotion.current.primary or 'neutral')
         coherence = getattr(self.engine, 'coherence', 0.5)
         density = getattr(self.engine, 'density', 0.5)
+
+        # -- Level C: Beam Voice (Viterbi beam search) --
+        if _HAS_BEAM:
+            try:
+                text = beam_reconstruct(
+                    target.ops, beam_width=8, max_words_per_slot=24)
+                if text and len(text) > 3:
+                    score = self._measure_response_text(text)
+                    if score.coherence >= 0.3:
+                        print(f"[VOICE-LOOP] Beam voice accepted: "
+                              f"'{text[:60]}...' "
+                              f"coherence={score.coherence:.3f}")
+                        return VoiceLoopResult(
+                            text=text, source='ck_beam',
+                            coherence=score.coherence,
+                            target_ops=target.ops,
+                            result_ops=score.ops,
+                            band=self._band_name(score.coherence),
+                        )
+                    else:
+                        print(f"[VOICE-LOOP] Beam voice too low: "
+                              f"coherence={score.coherence:.3f}")
+            except Exception as e:
+                print(f"[VOICE-LOOP] Beam voice failed: {e}")
 
         print("[VOICE-LOOP] Fallback cascade: trying fractal voice...")
 

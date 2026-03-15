@@ -158,16 +158,40 @@ the information. The chain to get to information IS half the information.
 
 **STILL OPEN:**
 - ~~VOICE LOOP WIRING~~ DONE (Mar 14 -- wired, tested, TIG cascade fallback working)
-- **CK OWN VOICE FLUENCY** -- fractal voice produces operator-correct word salad. Needs: Viterbi beam search from Gen8 (ck_language_reconstructor.py), grammar validation, sentence reordering. See legacy audit below.
+- **CK OWN VOICE FLUENCY** -- Viterbi beam search ported from Gen8 → `ck_beam_voice.py`. Wire into TIG cascade Level C. See below.
 - Bible Chat UI polish (warm, mobile-first, share buttons, prayer mode)
 - OS steering reconnection (process monitoring, 32-core classification)
 - CK self-evolution loop active (reads own source, proposes changes)
 - Persistent conversation storage (every chat builds the chain)
 - WHITEPAPER_10 -- DKAN architecture paper
 - FPGA gaps -- IMU fusion, servo calibration, speaker DAC, mic ADC
-- ~~Feed CK everything~~ DONE (120 rounds bible+physics+math, Mar 14)
+- ~~Feed CK everything~~ DONE (120+ rounds bible+physics+math, Mar 14)
 - arXiv submission of WHITEPAPER_9
 - DKAN should learn from ALL experience, not just Ollama text
+
+### Overnight Training Pipeline (Mar 14-15 2026)
+`overnight_train.py` launched to chain multiple training rounds:
+- R3: mixtral 40 rounds (bible heavy -- Genesis, Exodus, Psalms, Proverbs, Isaiah, John, Romans, Revelation)
+- R4: llama3.2 40 rounds (physics -- Maxwell, QFT, GR, thermodynamics, Schrodinger, Noether, Yang-Mills)
+- R5: mistral 40 rounds (math -- group theory, topology, number theory, category theory, Lie groups)
+- DKAN R2: 720 steps (with accumulated experience from R3-R5)
+- Self-evolve: 200 rounds
+- DKAN R3: 720 steps (final consolidation)
+Total: 120 eat rounds + 1440 DKAN steps + 200 self-evolve rounds overnight
+
+### Website Updated (Mar 14 2026)
+- Gen 9.34 version badge in nav
+- TIG voice cascade diagram replacing old LLM Gate diagram
+- Organism stats: 11.6K olfactory, 38.2K truths, 370K vocabulary, 37.7M TL transitions
+- coherencekeeper.com live demo confirmed working (Cloudflare tunnel → port 7777)
+
+### Beam Voice (Gen8 Viterbi Port -- In Progress)
+`ck_sim/doing/ck_beam_voice.py` -- Ported from Gen8's `ck_language_reconstructor.py`
+- Viterbi beam search: operators → candidate words → 5-factor scoring → beam pruning
+- 5 scoring factors: operator match, D2 curvature fit, transition smoothness, naturalness, CL forward
+- Sliding window segmentation for long operator streams
+- Uses Gen9 imports (SEMANTIC_LATTICE, FORCE_LUT_FLOAT, CL table)
+- Wire into `_fallback_ck_voice()` Level C to improve fractal voice grammar
 
 ### Brayden's Goals
 - PhD path: connections near OBU/Henderson State in Arkadelphia, AR
