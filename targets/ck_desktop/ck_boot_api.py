@@ -223,7 +223,10 @@ def taichi_status():
     bridge = getattr(engine, 'taichi_bridge', None)
     if bridge is None:
         return _jsonify({'available': False, 'reason': 'Taichi bridge not initialized'})
-    return _jsonify(bridge.walker.status())
+    try:
+        return _jsonify(bridge.walker.status())
+    except Exception as e:
+        return _jsonify({'available': True, 'error': str(e)})
 
 # ── Taichi grokking detection endpoint ──
 @api._app.route('/taichi/grokking', methods=['GET'])

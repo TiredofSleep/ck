@@ -45,9 +45,12 @@ CK ADAPTATION:
   "Fiasco is entanglement, take him deeper."
 
 CITATIONS:
-  Culik & Kari, 1993 -- "Image compression using WFA" (original WFA paper)
-  Loos, Frank -- Fiasco WFA compression (github.com/nzjrs/Fiasco)
-  Sanders, Brayden / 7Site LLC -- TIG Unified Theory, CK architecture, lattice chain design
+  Culik II, Karel & Kari, Jarkko, 1993 -- "Image Compression Using
+    Weighted Finite Automata" (Computers & Graphics 17(3))
+  Hafner, Ullrich, 1999 -- "Fiasco: An Adaptive WFA Image Coder"
+    (PhD thesis, Universitat Wurzburg; github.com/nzjrs/Fiasco)
+  Balle, Borja et al., 2014 -- "Spectral Learning of Weighted Automata"
+    (Machine Learning 96(1-2), spectral/SVD approach to WFA learning)
 
 COMPRESSION ARCHITECTURE:
   Level 1: Delta encoding (store diff from base CL, most diffs are 0)

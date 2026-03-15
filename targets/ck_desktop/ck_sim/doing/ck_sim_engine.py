@@ -1211,25 +1211,29 @@ class CKSimEngine:
                         density=_density * 0.5)
             # Tick the smell zone (dilated internal steps)
             self.olfactory.tick(density=_density)
-            # Emit resolved scents → feed to lattice chain
-            _scent_ops = self.olfactory.emit_as_ops()
-            if _scent_ops and self.lattice_chain is not None:
-                for _sops in _scent_ops:
-                    if _sops:
-                        try:
-                            self.lattice_chain.walk(_sops, learn=True)
-                        except Exception:
-                            pass
+            # Emit resolved scents (raw 5D) — HER records BEFORE ops conversion
+            _emitted_scents = self.olfactory.emit()
             # HER: record emitted scents for hindsight replay
-            if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
+            if _emitted_scents and hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
                 try:
-                    _emitted = self.olfactory.emit()
                     _target_op = self.heartbeat.phase_bc
-                    if _emitted:
-                        self.olfactory_her.post_emit(_emitted, _target_op)
+                    self.olfactory_her.post_emit(_emitted_scents, _target_op)
                     self.olfactory_her.replay_tick()
                 except Exception:
                     pass
+            # Convert emitted scents to ops → feed to lattice chain
+            if _emitted_scents and self.lattice_chain is not None:
+                for _scent in _emitted_scents:
+                    try:
+                        _sops = [self.olfactory._force_to_op(f)
+                                 for f in _scent.forces]
+                        if _sops:
+                            self.lattice_chain.walk(_sops, learn=True)
+                    except Exception:
+                        pass
+            # Temper emitted scents in library
+            for _scent in (_emitted_scents or []):
+                self.olfactory._temper_in_library(_scent)
 
             # Save olfactory library periodically (every ~5 min)
             if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:

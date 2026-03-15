@@ -23,8 +23,11 @@ Architecture:
   - CL interaction kernel: 5x5 matrix for olfactory (massively parallel)
 
 CITATIONS:
-  Hu et al., 2019 -- "Taichi: A Language for High-Performance Computation on Spatially Sparse Data"
-  Sanders, Brayden / 7Site LLC -- TIG Unified Theory, CK architecture, lattice chain design
+  Hu, Yuanming et al., 2019 -- "Taichi: A Language for High-Performance
+    Computation on Spatially Sparse Data Structures" (SIGGRAPH Asia 2019)
+  Hu, Yuanming et al., 2021 -- "DiffTaichi: Differentiable Programming for
+    Physical Simulation" (ICLR 2020)
+  github.com/taichi-dev/taichi -- Taichi Lang open-source project
 
 WHY TAICHI:
   - JIT compilation to GPU/CPU with @ti.kernel
@@ -68,7 +71,7 @@ def _init_taichi():
         return
     try:
         ti.init(arch=ti.cuda, default_ip=ti.i32, default_fp=ti.f32,
-                kernel_profiler=False)
+                device_memory_GB=4, kernel_profiler=False)
         print("  [TAICHI] CUDA backend (RTX 4070)")
     except Exception:
         try:

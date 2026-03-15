@@ -17,9 +17,12 @@ operator, we don't discard the failure -- we RELABEL it with the
 operator it DID achieve, turning every failure into valid experience.
 
 CITATIONS:
-  Andrychowicz et al., 2017 -- "Hindsight Experience Replay" (original HER paper)
-  Stable Baselines 3 contributors -- SB3 HER implementation (github.com/DLR-RM/stable-baselines3)
-  Sanders, Brayden / 7Site LLC -- TIG Unified Theory, CK architecture
+  Andrychowicz, Marcin et al., 2017 -- "Hindsight Experience Replay"
+    (NeurIPS 2017, OpenAI)
+  Raffin, Antonin et al. -- Stable Baselines 3 HER implementation
+    (github.com/DLR-RM/stable-baselines3)
+  Schaul, Tom et al., 2015 -- "Universal Value Function Approximators"
+    (ICML 2015, precursor goal-conditioned RL)
 
 ORIGINAL INSIGHT (from Andrychowicz et al.):
   In robotics, a robot trying to place a block at position A but placing
