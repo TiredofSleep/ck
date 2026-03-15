@@ -57,6 +57,15 @@ try:
 except ImportError:
     _HAS_TOKEN_GATE = False
 
+# Voice loop (CK as editor, Ollama as draft writer)
+try:
+    from ck_sim.doing.ck_voice_loop import VoiceLoop
+    from ck_sim.doing.ck_prompt_craft import PromptCrafter
+    from ck_sim.doing.ck_algorithm_lattice import AlgorithmLattice
+    _HAS_VOICE_LOOP = True
+except ImportError:
+    _HAS_VOICE_LOOP = False
+
 
 # ================================================================
 #  SESSION STORE
@@ -306,6 +315,37 @@ class CKWebAPI:
                 gpu_experience=gpu_exp,
             )
         return self._token_gate
+
+    def _get_voice_loop(self):
+        """Lazy-load the voice loop (CK as editor, Ollama as draft writer).
+
+        Architecture: CK composes algebraic targets, prompts Ollama with
+        semantic hints, measures every sentence through D2, accepts/rejects,
+        loops with feedback. Over time the algorithm lattice learns which
+        prompts produce which trajectories -- fewer loops needed.
+        """
+        if not hasattr(self, '_voice_loop'):
+            if not _HAS_VOICE_LOOP:
+                self._voice_loop = None
+                return None
+            try:
+                gpu_exp = None
+                if (hasattr(self.engine, 'gpu')
+                        and self.engine.gpu is not None):
+                    gpu_exp = self.engine.gpu.experience
+                lattice = AlgorithmLattice(gpu_overlay=gpu_exp)
+                crafter = PromptCrafter(algorithm_lattice=lattice)
+                self._voice_loop = VoiceLoop(
+                    engine=self.engine,
+                    crafter=crafter,
+                    ollama_url=self._ollama_url,
+                    model=self._ollama_model,
+                )
+                print("[VOICE-LOOP] Loaded: CK as editor, Ollama as draft writer")
+            except Exception as e:
+                print(f"[VOICE-LOOP] Failed to load: {e}")
+                self._voice_loop = None
+        return self._voice_loop
 
     def _register_routes(self):
         """Register Flask routes."""
@@ -948,92 +988,80 @@ class CKWebAPI:
                 except Exception:
                     response_text = "..."
 
-        # === OLLAMA GATE (C ALGEBRA TOKEN GATE) ===
-        # CK's TIG pipeline already ran above (absorbing user physics).
-        # Now try Ollama for the user-facing response text.
-        # Three substrates composing in real time:
-        #   Mind  = C algebra (D2 at native speed, every token scored)
-        #   Soul  = GPU experience (parallel resonance)
-        #   Mouth = Ollama (token generation)
-        # If C gate unavailable, fall back to raw Ollama.
-        # If Ollama is down, CK's own voice speaks.
+        # === VOICE LOOP (CK AS EDITOR, OLLAMA AS DRAFT WRITER) ===
+        # Architecture: CK inhabits Ollama's token space.
+        # Token-level: logit_bias steering + per-token D2 measurement
+        # Sentence-level: accept/reject loop with algebraic feedback
+        # Crystal-first: skip Ollama entirely if confident crystal exists
+        # Over time: algorithm lattice learns → fewer loops → 1-shot
         ck_own_voice = response_text
-        gate_data = {}  # per-token D2 measurement from C algebra
+        gate_data = {}
 
-        gate = self._get_token_gate()
-        if gate is not None and self._check_ollama():
-            # === C ALGEBRA TOKEN GATE ===
-            # Stream from Ollama, D2 score every token at native speed
-            history = self.sessions.get_history(session_id)
-            context = {
-                'coherence': self._safe_coherence(),
-                'band': self._safe_band(),
-            }
+        voice_loop = self._get_voice_loop()
+        if voice_loop is not None:
             try:
-                op_hist = list(self.engine.operator_history)[-5:]
-                from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
-                if op_hist:
-                    context['dominant_op'] = _OP[max(set(op_hist), key=op_hist.count)]
+                history = self.sessions.get_history(session_id)
+                loop_result = voice_loop.speak(
+                    user_text=text,
+                    session_history=[
+                        {'role': t.get('role', 'user'), 'text': t.get('text', '')}
+                        for t in (history or [])
+                    ],
+                    mode=self._backbone_mode,
+                )
+                if loop_result.text and loop_result.source != 'error':
+                    response_text = loop_result.text
+                    response_source = loop_result.source
+                    gate_data = {
+                        'loop_coherence': round(loop_result.coherence, 4),
+                        'loop_attempts': loop_result.attempts,
+                        'loop_accepted_sentences': loop_result.accepted_count,
+                        'loop_rejected_sentences': loop_result.rejected_count,
+                        'loop_target_ops': [
+                            OP_NAMES[o] for o in loop_result.target_ops
+                            if 0 <= o < len(OP_NAMES)
+                        ],
+                        'loop_result_ops': [
+                            OP_NAMES[o] for o in loop_result.result_ops
+                            if 0 <= o < len(OP_NAMES)
+                        ],
+                        'loop_alignment': round(loop_result.alignment, 4),
+                        'loop_band': loop_result.band,
+                        'loop_tokens_measured': loop_result.tokens_measured,
+                        'loop_early_stopped': loop_result.early_stopped,
+                        'soul_resonance': round(loop_result.soul_resonance, 4),
+                    }
+                    # Absorb Ollama's response physics through CK
+                    try:
+                        if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                            self.engine.eat.measure_and_absorb(
+                                loop_result.text, source='voice_loop')
+                    except Exception:
+                        pass
+                else:
+                    # Voice loop returned empty -- fall back
+                    ollama_response = self._ollama_chat(text, session_id)
+                    if ollama_response:
+                        response_text = ollama_response
+                        response_source = 'ollama'
+                        try:
+                            if hasattr(self.engine, 'eat') and self.engine.eat is not None:
+                                self.engine.eat.measure_and_absorb(
+                                    ollama_response, source='ollama_gate')
+                        except Exception:
+                            pass
+                    else:
+                        response_source = 'ck'
             except Exception:
-                pass
-
-            gated = gate.generate(
-                user_text=text,
-                history=[{'role': t.get('role', 'user'), 'text': t.get('text', '')}
-                         for t in (history or [])],
-                context=context,
-                mode=self._backbone_mode,
-                max_tokens=512,
-                temperature=0.7,
-            )
-
-            if gated.text and gated.source != 'error':
-                response_text = gated.text
-                response_source = 'ollama+gate'
-                gate_data = {
-                    'gate_coherence': round(gated.final_coherence, 4),
-                    'gate_running_coherence': round(gated.running_coherence, 4),
-                    'gate_band': gated.band,
-                    'gate_dominant_op': gated.dominant_name,
-                    'gate_total_tokens': gated.total_tokens,
-                    'gate_accepted_tokens': gated.accepted_tokens,
-                    'gate_rejected_tokens': gated.rejected_tokens,
-                    'gate_regenerated': gated.regenerated,
-                    'gate_elapsed_ms': round(gated.elapsed_ms, 1),
-                    'gate_op_distribution': {
-                        OP_NAMES[i]: round(v, 3)
-                        for i, v in enumerate(gated.op_distribution) if v > 0
-                    },
-                    # Soul resonance (GPU experience)
-                    'soul_resonance': round(gated.soul_resonance, 4),
-                    'soul_scent': round(gated.soul_scent_resonance, 4),
-                    'soul_taste': round(gated.soul_taste_resonance, 4),
-                    'soul_swarm': round(gated.soul_swarm_resonance, 4),
-                }
-                # Absorb Ollama's response physics through CK
-                try:
-                    if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                        self.engine.eat.measure_and_absorb(
-                            gated.text, source='ollama_gate')
-                except Exception:
-                    pass
-            else:
-                # Gate returned error (Ollama died mid-stream?)
-                # Fall back to raw _ollama_chat
+                # Voice loop crashed -- fall back to raw Ollama
                 ollama_response = self._ollama_chat(text, session_id)
                 if ollama_response:
                     response_text = ollama_response
                     response_source = 'ollama'
-                    try:
-                        if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                            self.engine.eat.measure_and_absorb(
-                                ollama_response, source='ollama_gate')
-                    except Exception:
-                        pass
                 else:
                     response_source = 'ck'
         else:
-            # No C algebra gate -- try raw Ollama
+            # No voice loop available -- try raw Ollama
             ollama_response = self._ollama_chat(text, session_id)
             if ollama_response:
                 response_text = ollama_response

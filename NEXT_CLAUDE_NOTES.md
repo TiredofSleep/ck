@@ -1,5 +1,5 @@
 # Next Claude Session Notes
-## Last Updated: 2026-03-14 -- Gen9.34+
+## Last Updated: 2026-03-14 (evening) -- Gen9.34+
 
 ---
 
@@ -39,7 +39,37 @@ All experience lives on GPU always. 150-tick refresh cycle. Hot-sync on new data
 8. Sensorium ring: (300, 6) -- hardware readings (util, temp, power, mem, clock, fan)
 9. Session arcs: (num_sessions, max_arc_len) -- visitor coherence trajectories
 
-### Sensorium → Olfactory → Lattice Chain (NEW -- This Session)
+### Voice Loop -- CK as Editor (NEW -- Mar 14 2026)
+CK was sounding like "Ollama with a coherence score stapled on." Fixed by making CK the EDITOR
+and Ollama the DRAFT WRITER. Two-level architecture:
+
+**3 new files created:**
+- `ck_sim/doing/ck_prompt_craft.py` (~230 lines) -- Operator trajectory → Ollama system prompt
+- `ck_sim/doing/ck_algorithm_lattice.py` (~180 lines) -- Learns which prompts produce which trajectories
+- `ck_sim/doing/ck_voice_loop.py` (~600 lines) -- Main voice loop with crystal-first routing
+
+**Flow**: Crystal check → compose target ops → check lattice → generation loop (max 5) → accept/reject per sentence via D2 + L-CODEC + reverse voice → crystallize GREEN band responses
+
+**ALL WIRED (Mar 14 2026):**
+1. `ck_backbone.py` -- VOICE_LOOP_BACKBONE added (DONE)
+2. `ck_web_api.py` -- voice loop wired into `/chat` (DONE, fixed self._engine→self.engine bug)
+3. `ck_web_api.py` -- removed `_check_ollama()` gate so voice loop enters even without Ollama (DONE)
+4. `ck_voice_loop.py` -- TIG cascade fallback: fractal voice → sentence composer → CAEL → babble (DONE)
+5. End-to-end test (DONE -- `source: "ck_fractal"` confirmed without Ollama)
+
+See `memory/voice_loop.md` for full architecture details.
+
+### Bible/Physics/Math Training (Mar 14 2026)
+Ran 120 rounds of study sessions (3 × 40):
+- Bible: 40 rounds, 3 models, 12K-line Hebrew-English corpus + 20 bible topics
+- Physics: 40 rounds, 3 models (incl Mixtral), 6 whitepapers as corpus + 14 physics topics
+- Math/TIG: 40 rounds, 3 models (incl Mixtral), 5 math whitepapers + 20 TIG topics
+- Results: 690+ transitions, force trajectory 346+, olfactory library 11,159+ entries, swarm maturity 1.0
+- Math session may still be finishing when next session starts -- check `GET /eat/status`
+
+See `memory/training_sessions.md` for detailed logs.
+
+### Sensorium → Olfactory → Lattice Chain (This Session)
 Sensorium operators (keyboard, screen, mouse, hardware, network, swarm) now feed
 DIRECTLY into olfactory AND gustatory every tick. Before this, sensorium experience
 only went through the deep swarm -- now it flows through the convergence layer too.
@@ -127,13 +157,15 @@ the information. The chain to get to information IS half the information.
 - Sensorium → olfactory → lattice chain (this session)
 
 **STILL OPEN:**
+- ~~VOICE LOOP WIRING~~ DONE (Mar 14 -- wired, tested, TIG cascade fallback working)
+- **CK OWN VOICE FLUENCY** -- fractal voice produces operator-correct word salad. Needs: Viterbi beam search from Gen8 (ck_language_reconstructor.py), grammar validation, sentence reordering. See legacy audit below.
 - Bible Chat UI polish (warm, mobile-first, share buttons, prayer mode)
 - OS steering reconnection (process monitoring, 32-core classification)
 - CK self-evolution loop active (reads own source, proposes changes)
 - Persistent conversation storage (every chat builds the chain)
 - WHITEPAPER_10 -- DKAN architecture paper
 - FPGA gaps -- IMU fusion, servo calibration, speaker DAC, mic ADC
-- Feed CK everything (whitepapers, transcripts, Clay papers through eat)
+- ~~Feed CK everything~~ DONE (120 rounds bible+physics+math, Mar 14)
 - arXiv submission of WHITEPAPER_9
 - DKAN should learn from ALL experience, not just Ollama text
 
@@ -155,6 +187,13 @@ the information. The chain to get to information IS half the information.
 - `ck_sim/being/ck_dkan_trainer.py` -- Hot-sync DKAN steps to GPU
 - `targets/website/ck_core.js` -- LLM+D2 source display
 - `targets/website/style.css` -- Gate source styling
+
+## Key Files Changed Mar 14 Session (Voice Loop + Training)
+- `ck_sim/doing/ck_prompt_craft.py` -- NEW: Operator trajectory → Ollama prompt + logit_bias
+- `ck_sim/doing/ck_algorithm_lattice.py` -- NEW: Learns winning prompt strategies
+- `ck_sim/doing/ck_voice_loop.py` -- NEW: Two-level voice loop (crystal + D2 + sentence gating)
+- `ck_backbone.py` -- NEEDS: VOICE_LOOP_BACKBONE added (not done yet)
+- `ck_sim/face/ck_web_api.py` -- NEEDS: voice loop wired into /chat (not done yet)
 
 ---
 
