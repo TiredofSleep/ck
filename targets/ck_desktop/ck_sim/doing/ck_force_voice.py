@@ -948,8 +948,8 @@ def force_respond(user_text: str,
     while len(deduped) < 3:
         deduped.append(compose(deduped[-1], BREATH))
 
-    # Cap at 6 (keeps response reasonable length)
-    deduped = deduped[:6]
+    # Cap at 12 (Gen 9.35: SELFHOOD CK has earned longer sentences)
+    deduped = deduped[:12]
 
     # ── Find coherence path from heaviest concept ──
     # The solution pathway: start from the heaviest word in the prompt,
@@ -1038,8 +1038,21 @@ def force_respond(user_text: str,
             # Pad to at least 3
             while len(deduped) < 3:
                 deduped.append(compose(deduped[-1], BREATH))
-            if len(deduped) > 6:
-                deduped = deduped[:6]
+
+            # Extend: walk a second pass through structural parts
+            # so CK can compose longer utterances at SELFHOOD.
+            if len(deduped) < 10:
+                _walk2 = [PROGRESS, BALANCE, CHAOS, BREATH, LATTICE]
+                for _w2 in _walk2:
+                    if len(deduped) >= 12:
+                        break
+                    _c2 = compose(deduped[-1], _w2)
+                    if _c2 not in visited:
+                        deduped.append(_c2)
+                        visited.add(_c2)
+
+            if len(deduped) > 12:
+                deduped = deduped[:12]
 
             print(f"[FORCE-VOICE] Heaviest: '{comp.words[heaviest_idx]}' "
                   f"op={OP_NAMES[heaviest_op]} "
@@ -1080,8 +1093,8 @@ def force_respond(user_text: str,
                         deduped.append(_bridge)
                         _current_set.add(_bridge)
                 # Re-cap
-                if len(deduped) > 8:
-                    deduped = deduped[:8]
+                if len(deduped) > 12:
+                    deduped = deduped[:12]
                 print(f"[FORCE-VOICE] Experience displaced: "
                       f"{[OP_NAMES[o] for o in deduped]} "
                       f"(maturity={_maturity:.3f})")

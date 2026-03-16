@@ -669,10 +669,60 @@ class VoiceLoop:
         while len(deduped) < 3:
             deduped.append(compose(deduped[-1], PROGRESS))
 
-        # Cap length (beam search performance bound)
-        if len(deduped) > 8:
-            deduped = deduped[:8]
+        # ── Free trajectory: heartbeat + CL interleave ──
+        # CL algebra converges to HARMONY quickly (by design: T*=5/7).
+        # To give CK longer trajectories, we interleave:
+        # 1. The input-derived trajectory (what the user said)
+        # 2. CK's CURRENT heartbeat operators (what CK IS right now)
+        # 3. CL compositions bridging them (how CK MEETS the input)
+        #
+        # This is genuine: the heartbeat is CK's real internal state.
+        # The bridges are algebraically honest CL compositions.
+        # CK speaks as much as his heartbeat + input give him.
+        _hb = getattr(self.engine, 'heartbeat', None)
+        if _hb is not None:
+            try:
+                # Read heartbeat's circular history buffer
+                if hasattr(_hb, 'history') and _hb.history is not None:
+                    _ptr = getattr(_hb, 'history_ptr', 0)
+                    _hsz = len(_hb.history)
+                    # Read last 10 entries before current pointer
+                    _hb_ops = []
+                    for _hi in range(10):
+                        _idx = (_ptr - 1 - _hi) % _hsz
+                        _val = int(_hb.history[_idx])
+                        if 0 <= _val < NUM_OPS:
+                            _hb_ops.append(_val)
+                    _hb_ops.reverse()  # chronological order
+                else:
+                    _hb_ops = [int(_hb.phase_bc)] * 3
+                # Interleave: for each heartbeat op, compose with last
+                # trajectory op to get a CL bridge, then add both.
+                _orig = list(deduped)
+                for _hop in _hb_ops:
+                    if not (0 <= _hop < NUM_OPS):
+                        continue
+                    _bridge = compose(deduped[-1], _hop)
+                    if _bridge != deduped[-1]:
+                        deduped.append(_bridge)
+                    if _hop != deduped[-1]:
+                        deduped.append(_hop)
+                    if len(deduped) >= 20:
+                        break
+                # Dedup consecutive
+                _clean = [deduped[0]]
+                for _o in deduped[1:]:
+                    if _o != _clean[-1]:
+                        _clean.append(_o)
+                deduped = _clean
+            except Exception as _hb_err:
+                print(f"[VOICE-LOOP] Heartbeat walk error: {_hb_err}")
+        else:
+            print(f"[VOICE-LOOP] No heartbeat on engine")
 
+        import sys
+        print(f"[VOICE-LOOP] Trajectory ({len(deduped)} ops): "
+              f"{[OP_NAMES[o] for o in deduped]}", flush=True)
         result = TargetTrajectory(ops=deduped)
         result.context_words = context_words  # Attach user's topic words
         return result
@@ -1096,10 +1146,34 @@ class VoiceLoop:
                     context_words=ctx,
                     resonance_nodes=_resonance_nodes)
                 if text and len(text) > 3:
+                    # ── Writing Desk: CK self-grades his own output ──
+                    # CK spills freely, then reads himself back.
+                    # Strategy: try the FULL text first. If it's coherent,
+                    # keep it all. If not, try progressively shorter spans
+                    # from the start (CK trims from the end, not the middle).
+                    # This keeps the algebraic opening but lets CK find
+                    # where his coherence trails off.
                     score = self._measure_response_text(text)
+                    words = text.split()
+                    if score.coherence < 0.3 and len(words) >= 6:
+                        # Full text incoherent — find longest coherent prefix
+                        best_text = text
+                        best_score = score
+                        # Try: full, 3/4, 2/3, 1/2, 1/3 of the text
+                        for frac in [0.75, 0.67, 0.5, 0.33]:
+                            wlen = max(5, int(len(words) * frac))
+                            window = ' '.join(words[:wlen])
+                            wscore = self._measure_response_text(window)
+                            if wscore.coherence >= 0.3:
+                                best_text = window
+                                best_score = wscore
+                                break  # Longest coherent prefix wins
+                        text = best_text
+                        score = best_score
                     if score.coherence >= 0.3:
                         print(f"[VOICE-LOOP] Beam voice accepted: "
-                              f"'{text[:60]}...' "
+                              f"'{text[:80]}...' "
+                              f"words={len(text.split())} "
                               f"coherence={score.coherence:.3f}")
                         return VoiceLoopResult(
                             text=text, source='ck_beam',
