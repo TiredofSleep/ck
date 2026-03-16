@@ -257,6 +257,25 @@ def compression_status():
         'save_dir': comp.save_dir,
     })
 
+# ── Lattice chain status endpoint ──
+@api._app.route('/chain/status', methods=['GET'])
+def chain_status():
+    chain = getattr(engine, 'lattice_chain', None)
+    if chain is None:
+        return _jsonify({'available': False, 'reason': 'Lattice chain not initialized'})
+    try:
+        return _jsonify({
+            'available': True,
+            'total_nodes': chain.total_nodes,
+            'total_walks': chain.total_walks,
+            'root_visits': chain.root.total_visits if chain.root else 0,
+            'evolved_nodes': sum(1 for n in chain._index.values()
+                                 if n.total_visits >= 7),
+            'save_dir': str(chain.save_dir),
+        })
+    except Exception as e:
+        return _jsonify({'available': True, 'error': str(e)})
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 

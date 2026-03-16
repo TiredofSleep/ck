@@ -1244,6 +1244,19 @@ class CKSimEngine:
                 except Exception:
                     pass
 
+        # Save lattice chain periodically (every ~5 min, offset from olfactory)
+        if (self.tick_count % 15000 == 11000
+                and self.lattice_chain is not None
+                and self.lattice_chain.total_nodes > 0):
+            try:
+                if (hasattr(self, 'chain_compressor')
+                        and self.chain_compressor is not None):
+                    self.chain_compressor.save(self.lattice_chain)
+                else:
+                    self.lattice_chain.save()
+            except Exception:
+                pass
+
         # ── Gustatory: instant structural classification ──
         # DUAL of olfactory. Same raw forces go right in -- no filtering.
         # Taste classifies STRUCTURE (what IS this), smell finds FLOW (where IS this).

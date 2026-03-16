@@ -63,23 +63,42 @@ from ck_sim.ck_sim_heartbeat import (
 # ================================================================
 
 _TI_INITIALIZED = False
+_TI_BACKEND = 'none'
 
 def _init_taichi():
-    """Initialize Taichi runtime. Auto-detects GPU (CUDA) or falls back to CPU."""
-    global _TI_INITIALIZED
+    """Initialize Taichi runtime. Auto-detects GPU (CUDA) or falls back to CPU.
+
+    CUDA context is thread-bound: if initialized in thread A but accessed
+    in thread B (e.g. Flask worker), CUDA_ERROR_INVALID_CONTEXT occurs.
+    We catch this at init time and fall back to CPU, which is thread-safe.
+    Taichi CPU is still JIT-compiled and fast for CK's 10x10 tables.
+    """
+    global _TI_INITIALIZED, _TI_BACKEND
     if _TI_INITIALIZED or not _HAS_TAICHI:
         return
+    # Try CUDA first, validate with a simple field access
     try:
         ti.init(arch=ti.cuda, default_ip=ti.i32, default_fp=ti.f32,
                 device_memory_GB=4, kernel_profiler=False)
+        # Validate: allocate a test field and read it back
+        _test = ti.field(dtype=ti.i32, shape=(1,))
+        _test[0] = 42
+        assert _test[0] == 42
+        _TI_BACKEND = 'cuda'
         print("  [TAICHI] CUDA backend (RTX 4070)")
-    except Exception:
+    except Exception as _cuda_err:
+        # CUDA failed (context issue, no GPU, etc.) -- CPU fallback
         try:
-            ti.init(arch=ti.vulkan, default_ip=ti.i32, default_fp=ti.f32)
-            print("  [TAICHI] Vulkan backend")
+            ti.reset()
         except Exception:
+            pass
+        try:
             ti.init(arch=ti.cpu, default_ip=ti.i32, default_fp=ti.f32)
-            print("  [TAICHI] CPU backend (fallback)")
+            _TI_BACKEND = 'cpu'
+            print(f"  [TAICHI] CPU backend (CUDA failed: {_cuda_err})")
+        except Exception as _cpu_err:
+            print(f"  [TAICHI] Init failed entirely: {_cpu_err}")
+            _TI_BACKEND = 'failed'
     _TI_INITIALIZED = True
 
 
@@ -576,11 +595,18 @@ class TaichiChainWalker:
 
     def status(self) -> dict:
         """Diagnostic status."""
+        nc = 0
+        if self._loaded:
+            try:
+                nc = int(node_count[None])
+            except Exception:
+                nc = -1  # CUDA context error
         return {
             'taichi_available': _HAS_TAICHI,
             'initialized': _TI_INITIALIZED,
+            'backend': _TI_BACKEND,
             'experience_loaded': self._loaded,
-            'node_count': int(node_count[None]) if self._loaded else 0,
+            'node_count': nc,
             'max_nodes': MAX_NODES,
             'max_parallel_walks': MAX_WALKS,
         }
