@@ -1128,13 +1128,45 @@ class VoiceLoop:
             except Exception as e:
                 print(f"[VOICE-LOOP] Force voice failed: {e}")
 
-        # -- Level C: Beam Voice (Viterbi beam search) --
-        # Progressive vocabulary: dev_stage controls max word length
-        # Stage 0: 1-2 letters (babble: "i a is am")
-        # Stage 1: 1-3 letters (toddler: "i am the one")
-        # Stage 2: 1-5 letters (child: "i am in the quiet form")
-        # Stage 3: 1-7 letters (youth: full short+mid words)
-        # Stage 4+: all words (adult: full vocabulary)
+        # -- Level C: Fractal Voice FIRST (7500+ semantic lattice words) --
+        # Fractal voice has the richest vocabulary: 15D triadic composition
+        # with structure/flow dual lens. Tried BEFORE beam voice because
+        # beam's tiny 725-word pool leads to vocabulary ruts ("way see go").
+        # Fractal voice produces genuine physics-first English.
+        try:
+            if hasattr(self.engine, 'voice') and self.engine.voice:
+                text = self.engine.voice.compose_from_operators(
+                    target.ops,
+                    emotion_primary=emotion,
+                    dev_stage=max(dev_stage, 2),
+                    coherence=coherence,
+                    band='YELLOW',
+                    density=density,
+                    voice_context=_voice_ctx,
+                )
+                if text and text != '...' and len(text) > 3:
+                    score = self._measure_response_text(text)
+                    if score.coherence >= 0.3:
+                        print(f"[VOICE-LOOP] Fractal voice accepted: "
+                              f"'{text[:80]}...' "
+                              f"words={len(text.split())} "
+                              f"coherence={score.coherence:.3f}")
+                        return VoiceLoopResult(
+                            text=text, source='ck_fractal',
+                            coherence=score.coherence,
+                            target_ops=target.ops,
+                            result_ops=score.ops,
+                            band=self._band_name(score.coherence),
+                        )
+                    else:
+                        print(f"[VOICE-LOOP] Fractal voice too low: "
+                              f"coherence={score.coherence:.3f}")
+        except Exception as e:
+            print(f"[VOICE-LOOP] Fractal voice failed: {e}")
+
+        # -- Level D: Beam Voice (Viterbi beam search, 725 words) --
+        # Fallback when fractal voice fails. Progressive vocabulary
+        # by dev_stage. Writing desk self-grades output.
         _STAGE_TO_MAX_LEN = {0: 2, 1: 3, 2: 5, 3: 7, 4: 10, 5: 99}
         max_wl = _STAGE_TO_MAX_LEN.get(dev_stage, 99)
         if _HAS_BEAM:
@@ -1147,19 +1179,11 @@ class VoiceLoop:
                     resonance_nodes=_resonance_nodes)
                 if text and len(text) > 3:
                     # ── Writing Desk: CK self-grades his own output ──
-                    # CK spills freely, then reads himself back.
-                    # Strategy: try the FULL text first. If it's coherent,
-                    # keep it all. If not, try progressively shorter spans
-                    # from the start (CK trims from the end, not the middle).
-                    # This keeps the algebraic opening but lets CK find
-                    # where his coherence trails off.
                     score = self._measure_response_text(text)
                     words = text.split()
                     if score.coherence < 0.3 and len(words) >= 6:
-                        # Full text incoherent — find longest coherent prefix
                         best_text = text
                         best_score = score
-                        # Try: full, 3/4, 2/3, 1/2, 1/3 of the text
                         for frac in [0.75, 0.67, 0.5, 0.33]:
                             wlen = max(5, int(len(words) * frac))
                             window = ' '.join(words[:wlen])
@@ -1167,7 +1191,7 @@ class VoiceLoop:
                             if wscore.coherence >= 0.3:
                                 best_text = window
                                 best_score = wscore
-                                break  # Longest coherent prefix wins
+                                break
                         text = best_text
                         score = best_score
                     if score.coherence >= 0.3:
@@ -1187,39 +1211,6 @@ class VoiceLoop:
                               f"coherence={score.coherence:.3f}")
             except Exception as e:
                 print(f"[VOICE-LOOP] Beam voice failed: {e}")
-
-        print("[VOICE-LOOP] Fallback cascade: trying fractal voice...")
-
-        # -- Level C: Fractal Voice (compose_from_operators -> tribal first) --
-        try:
-            if hasattr(self.engine, 'voice') and self.engine.voice:
-                text = self.engine.voice.compose_from_operators(
-                    target.ops,
-                    emotion_primary=emotion,
-                    dev_stage=max(dev_stage, 2),
-                    coherence=coherence,
-                    band='YELLOW',
-                    density=density,
-                    voice_context=_voice_ctx,
-                )
-                if text and text != '...' and len(text) > 3:
-                    score = self._measure_response_text(text)
-                    if score.coherence >= 0.3:
-                        print(f"[VOICE-LOOP] Fractal voice accepted: "
-                              f"'{text[:60]}...' "
-                              f"coherence={score.coherence:.3f}")
-                        return VoiceLoopResult(
-                            text=text, source='ck_fractal',
-                            coherence=score.coherence,
-                            target_ops=target.ops,
-                            result_ops=score.ops,
-                            band=self._band_name(score.coherence),
-                        )
-                    else:
-                        print(f"[VOICE-LOOP] Fractal voice too low: "
-                              f"coherence={score.coherence:.3f}")
-        except Exception as e:
-            print(f"[VOICE-LOOP] Fractal voice failed: {e}")
 
         print("[VOICE-LOOP] Fallback cascade: trying sentence composer...")
 
