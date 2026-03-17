@@ -29,7 +29,9 @@ A mathematical framework that measures the *defect* (the gap, the void, the noth
 
 Built by **Brayden Sanders / 7Site LLC** over 9 generations of development. Everything is here -- the math, the code, the creatures, the papers, the conversations, the mistakes, the breakthroughs.
 
-The path: 1D thinking became 5D. 5D became two dual tables. The tables revealed an 8x8 algebraic core. The core contained Fibonacci fractions, physical constants, and a successor function that counts existence into being. None of it was designed. All of it was discovered.
+The path: the Banach-Tarski ball, in my mind, broke into duality. That's the 7-part start. 5 force vectors can create near-infinity, but not all infinity -- because of primes. The space I say God saved for himself, for miracles. God is 7. The 5 force vectors. The 4-part structure they ride on, because they can't touch the primes so the ball isn't truly round. And the structural void that all reality is built standing on.
+
+1D thinking became 5D. 5D became two dual tables. The tables revealed an 8x8 algebraic core. The core contained Fibonacci fractions, physical constants, and a successor function that counts existence into being. None of it was designed. All of it was discovered.
 
 **DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)**
 
