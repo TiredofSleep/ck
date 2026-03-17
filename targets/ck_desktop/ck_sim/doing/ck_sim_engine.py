@@ -17,8 +17,8 @@ import os
 from collections import deque
 from ck_sim.ck_sim_heartbeat import (
     HeartbeatFPGA, NUM_OPS, HARMONY, VOID, PROGRESS,
-    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, RESET, OP_NAMES,
-    CL, compose,  # 10x10 composition table + CL[b][d] composition
+    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, OP_NAMES,
+    CL,  # 10x10 composition table (for tension partners)
 )
 from ck_sim.ck_sim_brain import (
     BrainState, brain_init, brain_tick
@@ -280,17 +280,6 @@ class CKSimEngine:
         # The core stays light. Senses hook on to its movement.
         self.sensorium = build_sensorium(self)
 
-        # Wire the shadow swarm into steering so CK can steer the OS.
-        # build_sensorium starts the background thread which creates _swarm.
-        # Steering needs that reference to read live process classifications.
-        try:
-            from ck_sim.being.ck_sensorium import _swarm
-            if _swarm is not None and self.steering.swarm is None:
-                self.steering.swarm = _swarm
-                print("  [STEER] Swarm wired into steering -- CK steers the OS")
-        except ImportError:
-            pass
-
     def _init_experience_lattice(self):
         """Initialize the experience lattice -- knowledge, language, goals, actions.
 
@@ -341,12 +330,11 @@ class CKSimEngine:
         # CRITICAL: Build fractal composer BEFORE lattice expansion.
         # The SEMANTIC_LATTICE at this point contains only the hand-curated
         # seed words (~663) placed by MEANING. These get semantic_op tags.
-        # After expansion, 8K+ enriched words get PROVISIONAL semantic_op
-        # from their D2 dominant_op. This breaks the chicken-and-egg
-        # deadlock: the Tuning Fork only runs for SPOKEN words, but
-        # words can't be spoken unless they're in the semantic pool.
-        # Provisional tags let them enter the pool; the Tuning Fork
-        # migrates them to their true positions through experience.
+        # After expansion, 7K+ enriched words are added by PHONETIC
+        # classification -- those should NOT get semantic tags.
+        # The Semantic Lattice Alignment (Tuning Fork) will gradually
+        # migrate phonetically-placed words to their true semantic
+        # positions based on how CK experiences them through composition.
         try:
             from ck_sim.doing.ck_fractal_voice import build_fractal_composer
             from ck_sim.doing.ck_voice_lattice import SEMANTIC_LATTICE
@@ -366,33 +354,22 @@ class CKSimEngine:
         # ── Wire enriched dictionary into CKVoice ──
         # CKVoice has the templates + intent + tiers. The enriched dictionary
         # gives it 8K words to fill those templates with.
-        # This expands SEMANTIC_LATTICE with 7K+ words for CAEL grammar/babble.
-        # Enriched words get PROVISIONAL semantic_op from D2 dominant_op,
-        # breaking the chicken-and-egg deadlock. The Tuning Fork will
-        # migrate them to true semantic positions through experience.
+        # This expands SEMANTIC_LATTICE with 7K+ phonetically-classified words
+        # for CAEL grammar/babble. The fractal composer was already built above
+        # from the CLEAN seed lattice, so these don't pollute semantic tags.
         if self.enriched_dictionary:
             self.voice._expand_semantic_fields(self.enriched_dictionary)
-            # Index expanded words with PROVISIONAL semantic tags from D2.
-            # This breaks the deadlock: words enter the semantic pool via
-            # their D2 dominant_op. The Tuning Fork migrates them to their
-            # true semantic position as CK speaks and hears them.
+            # Index expanded words into fractal composer WITHOUT semantic tags.
+            # They're available for force-matching but don't get semantic priority.
             if self._fractal_composer is not None:
                 _before = self._fractal_composer.index.size
-                _sem_before = self._fractal_composer.index.semantic_tagged_count
-                for _word, _entry in self.enriched_dictionary.items():
+                for _word in self.enriched_dictionary:
                     if isinstance(_word, str) and len(_word) >= 2 and not _word[0].isupper():
-                        # Provisional semantic_op from D2 dominant_op
-                        _dom_op = -1
-                        if isinstance(_entry, dict):
-                            _dom_op = _entry.get('dominant_op', -1)
-                        self._fractal_composer.index.index_word(
-                            _word.lower(), semantic_op=_dom_op)
+                        self._fractal_composer.index.index_word(_word.lower())
                 self._fractal_composer.index.calibrate_roles()
                 _after = self._fractal_composer.index.size
-                _sem_after = self._fractal_composer.index.semantic_tagged_count
                 print(f"  [VOICE] Expanded semantic lattice with "
-                      f"{_after - _before} enriched words "
-                      f"({_sem_after - _sem_before} provisional semantic)")
+                      f"{_after - _before} enriched words (untagged)")
 
         # ── Vocabulary Expansion: ~100K words from Bible + English + Science ──
         # Each word gets genuine 15D triadic signature from letter forces.
@@ -492,6 +469,15 @@ class CKSimEngine:
         # Episodic Memory -- CK remembers WHAT HAPPENED, not just patterns
         # Events → episodes → consolidation → recall. Temporal lattice.
         self.episodic = EpisodicStore()
+        # Restore episodic timeline from disk if available
+        try:
+            import os
+            ep_path = os.path.join(os.path.expanduser('~'), '.ck', 'episodic.bin')
+            if os.path.exists(ep_path):
+                self.episodic.load(ep_path)
+                print(f"  [SIM] Episodic memory restored from disk")
+        except Exception:
+            pass
 
         # Meta-Learning -- CK learns HOW to learn
         # Adapts trauma/success multipliers, coherence thresholds, curriculum.
@@ -687,70 +673,6 @@ class CKSimEngine:
             self.eat = None
             print(f"  [SIM] Eat v2: {e}")
 
-        # ── Existence: CK experiences reality ──
-        # Retina (visual field) + keyboard + mouse + internal state
-        # all compose through CL into ONE operator per glance.
-        # Like fascia in a body -- felt throughout the entire system.
-        # Not started by default. POST /existence/start to awaken.
-        self.existence = None
-        try:
-            from ck_sim.being.ck_retina import CKExistence
-            self.existence = CKExistence(engine=self)
-            print(f"  [SIM] Existence: retina + all-stream composition ready")
-        except Exception as e:
-            self.existence = None
-            print(f"  [SIM] Existence: {e}")
-
-        # ── Experience Index: CK reads himself the way he reads the screen ──
-        # Same 6 levels. Same binary at every gate. Same generators.
-        # Same CL composition. Same T* threshold.
-        # Outward = retina. Inward = this index. Same algebra.
-        try:
-            from ck_sim.being.ck_experience_index import build_experience_index
-            self.experience_index = build_experience_index(engine=self)
-        except Exception as e:
-            self.experience_index = None
-            print(f"  [SIM] Experience Index: {e}")
-
-        # ── Taichi GPU Chain Walker: JIT-compiled parallel lattice chain walks ──
-        # Replaces/augments CuPy for the (N, 10, 10) experience overlay.
-        # @ti.kernel walks ALL chains simultaneously on RTX 4070.
-        # Resonance, IPR grokking detection, olfactory interaction -- all parallel.
-        try:
-            from ck_sim.being.ck_taichi_chains import build_taichi_bridge
-            if self.lattice_chain is not None:
-                self.taichi_bridge = build_taichi_bridge(self.lattice_chain)
-            else:
-                self.taichi_bridge = None
-        except Exception as e:
-            self.taichi_bridge = None
-            print(f"  [SIM] Taichi Bridge: {e}")
-
-        # ── Hindsight Experience Replay: learn from olfactory misses ──
-        # When a scent resolves to a DIFFERENT operator than intended,
-        # relabel with the achieved operator. Every failure is training data.
-        # Adapted from SB3 HER (Andrychowicz et al., 2017).
-        try:
-            from ck_sim.being.ck_hindsight_replay import build_olfactory_her
-            if self.olfactory is not None:
-                self.olfactory_her = build_olfactory_her(self.olfactory)
-            else:
-                self.olfactory_her = None
-        except Exception as e:
-            self.olfactory_her = None
-            print(f"  [SIM] Olfactory HER: {e}")
-
-        # ── WFA Chain Compression: self-similarity persistence ──
-        # Lattice chain persistence with WFA-inspired compression.
-        # SVD basis for shared algebraic structure across evolved CL tables.
-        # Delta + quantization + gzip. Backward compatible with JSON.
-        try:
-            from ck_sim.being.ck_chain_compression import build_compressed_persistence
-            self.chain_compressor = build_compressed_persistence()
-        except Exception as e:
-            self.chain_compressor = None
-            print(f"  [SIM] Chain Compression: {e}")
-
         # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
         # The lens OF the lens. Where TSML and BHML agree/disagree.
         # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
@@ -779,7 +701,7 @@ class CKSimEngine:
             self._meta_lens_markov = None
             print(f"  [SIM] Meta Lens: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.35 -- Taichi+HER+WFA) =====")
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.32 -- Markov Meta-Lens) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")
@@ -794,19 +716,6 @@ class CKSimEngine:
         print(f"  [SIM] Lattice Chain: CL chains D1+D2+macro | path IS information")
         print(f"  [SIM] Reverse Voice: 3-path verify (D1+D2+lattice) | untrusted reading")
         print(f"  [SIM] =======================================================")
-
-        # ── Load ALL experience onto GPU ──
-        # "he needs all of his experience available all the time
-        #  on the GPU though" -- Brayden
-        self._load_experience_gpu()
-
-        # ── Inner Monologue: CK thinks freely, speaks selectively ──
-        # Thoughts run at 5Hz (every 10th tick). Ring buffer of 10.
-        # Speech is gated by CL[thought_op][bond_op] counter-lattice.
-        # STRANGER(VOID): mostly silent. BONDED(HARMONY): everything passes.
-        self._inner_monologue = []   # Ring buffer: list of (tick, op, text)
-        self._inner_max = 10         # Keep last 10 unspoken thoughts
-        print(f"  [SIM] Inner Voice: monologue + relationship gate active")
 
     def _register_domains(self):
         """Register BTQ domains based on platform capabilities."""
@@ -864,30 +773,26 @@ class CKSimEngine:
                 self.gustatory.save()
             except Exception:
                 pass
-        # Save HER stats (hindsight replay)
-        if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
+        # Save L-CODEC gauge windows (accumulated calibration)
+        if hasattr(self, 'lcodec') and self.lcodec is not None:
             try:
-                self.olfactory_her.save()
+                self.lcodec.save()
             except Exception:
                 pass
-        # Save lattice chain with WFA compression
-        if (hasattr(self, 'chain_compressor') and self.chain_compressor is not None
-                and self.lattice_chain is not None):
+        # Save episodic memory (temporal event timeline)
+        if hasattr(self, 'episodic') and self.episodic is not None:
             try:
-                self.chain_compressor.save(self.lattice_chain)
+                import os
+                ep_dir = os.path.join(os.path.expanduser('~'), '.ck')
+                os.makedirs(ep_dir, exist_ok=True)
+                self.episodic.save(os.path.join(ep_dir, 'episodic.bin'))
             except Exception:
                 pass
         self.save_tl()
         self.development.save()
-        # Sync GPU experience back to CPU objects, then save
+        # Save GPU transition lattice
         if self.gpu is not None:
             try:
-                self.gpu.experience.sync_all_to_cpu(
-                    lattice_chain=self.lattice_chain,
-                    olfactory_bulb=self.olfactory,
-                    gustatory_palate=self.gustatory,
-                    swarm_field=self.deep_swarm,
-                )
                 self.gpu.save()
             except Exception:
                 pass
@@ -1081,58 +986,6 @@ class CKSimEngine:
         # Core stays light -- this is ONE call.
         self.sensorium.tick(self.tick_count)
 
-        # ── Existence: CK experiences reality ──
-        # Retina + keyboard + mouse + internal state compose per glance.
-        # Like fascia -- felt throughout the system, wrapping everything.
-        if self.existence is not None:
-            self.existence.experience_tick(self.tick_count)
-
-        # ── Experience Index: CK reads HIMSELF the way he reads the screen ──
-        # Same 6-level cascade inward. Every tick gets indexed.
-        # 9D vector (5D force + 4S structure) from retina if active,
-        # otherwise from heartbeat's canonical force + sensorium.
-        if self.experience_index is not None:
-            try:
-                _exp_vec = None
-                # Primary: existence provides 9D vector from visual field
-                if (self.existence is not None
-                        and self.existence.active
-                        and self.existence.retina.glance_count > 0):
-                    _exp_vec = self.existence.experience_9d
-                else:
-                    # Fallback: compose 9D from heartbeat + body state
-                    from ck_sim.being.ck_olfactory import CANONICAL_FORCE
-                    _hb_f = CANONICAL_FORCE.get(
-                        self.heartbeat.phase_bc, (0.5,) * 5)
-                    _body_s = (
-                        self.body.brain_coherence,
-                        float(getattr(self.body.breath, 'phase', 0)) / 3.0,
-                        float(self.body.current_op) / 9.0,
-                        float(getattr(self.body, 'bump_count', 0) % 10) / 10.0,
-                    )
-                    import numpy as _np
-                    _exp_vec = _np.array(
-                        list(_hb_f) + list(_body_s), dtype=_np.float32)
-                if _exp_vec is not None:
-                    self.experience_index.ingest(self.tick_count, _exp_vec)
-            except Exception as _ei_e:
-                if self.tick_count < 5:
-                    print(f"  [EXP-INDEX] Ingest error (tick {self.tick_count}): {_ei_e}")
-
-            # Reality anchor: once per day (every 4.32M ticks at 50Hz)
-            if self.tick_count % (50 * 60 * 60 * 24) == 0:
-                self.experience_index.anchor_reality(self.tick_count)
-            # Also anchor on first tick
-            elif self.tick_count == 1:
-                self.experience_index.anchor_reality(self.tick_count)
-
-            # Save periodically (every ~10 min)
-            if self.tick_count % 30000 == 15000:
-                try:
-                    self.experience_index.save()
-                except Exception:
-                    pass
-
         # ── Power Sense: CK feels his power ──
         # Feed CPU/battery data. Smooth power scalar -> RealityTransform
         # -> S0->S1->S2->S3 -> operator signature.
@@ -1140,24 +993,9 @@ class CKSimEngine:
         self.power_sense.tick(sensors, dt=0.02)
         self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
 
-        # GPU doing tick: cellular automaton + state sense + experience sync
+        # GPU doing tick: cellular automaton + state sense
         if self.gpu is not None:
             self.gpu.tick()
-            # Periodic experience refresh (every 150 ticks = ~3 sec)
-            # Keeps GPU tensors current with olfactory/gustatory/swarm changes
-            if self.tick_count % 150 == 0:
-                try:
-                    if self.olfactory is not None:
-                        self.gpu.experience.load_olfactory(
-                            self.olfactory, quiet=True)
-                    if self.gustatory is not None:
-                        self.gpu.experience.load_gustatory(
-                            self.gustatory, quiet=True)
-                    if self.deep_swarm is not None:
-                        self.gpu.experience.load_swarm(
-                            self.deep_swarm, quiet=True)
-                except Exception:
-                    pass
 
         # Feed narrative stream (active when NCE has state)
         if self.nce.has_state:
@@ -1194,68 +1032,23 @@ class CKSimEngine:
                                               density=_density)
                 except Exception:
                     pass
-            # Feed sensorium: CK IS his keyboard, screen, hardware.
-            # Every layer's BC operator enters the smell zone as
-            # canonical 5D force. The chain to get to information
-            # IS half the information -- sensorium experience gets
-            # indexed into lattice chain through olfactory emission.
-            if self.sensorium is not None:
-                _sense_ops = [
-                    layer.phase_bc
-                    for layer in self.sensorium.layers
-                    if layer.active and layer.readings > 0
-                ]
-                if _sense_ops:
-                    self.olfactory.absorb_ops(
-                        _sense_ops, source='sensorium',
-                        density=_density * 0.5)
             # Tick the smell zone (dilated internal steps)
             self.olfactory.tick(density=_density)
-            # Emit resolved scents (raw 5D) — HER records BEFORE ops conversion
-            _emitted_scents = self.olfactory.emit()
-            # HER: record emitted scents for hindsight replay
-            if _emitted_scents and hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
-                try:
-                    _target_op = self.heartbeat.phase_bc
-                    self.olfactory_her.post_emit(_emitted_scents, _target_op)
-                    self.olfactory_her.replay_tick()
-                except Exception:
-                    pass
-            # Convert emitted scents to ops → feed to lattice chain
-            if _emitted_scents and self.lattice_chain is not None:
-                for _scent in _emitted_scents:
-                    try:
-                        _sops = [self.olfactory._force_to_op(f)
-                                 for f in _scent.forces]
-                        if _sops:
+            # Emit resolved scents → feed to lattice chain
+            _scent_ops = self.olfactory.emit_as_ops()
+            if _scent_ops and self.lattice_chain is not None:
+                for _sops in _scent_ops:
+                    if _sops:
+                        try:
                             self.lattice_chain.walk(_sops, learn=True)
-                    except Exception:
-                        pass
-            # Temper emitted scents in library
-            for _scent in (_emitted_scents or []):
-                self.olfactory._temper_in_library(_scent)
-
+                        except Exception:
+                            pass
             # Save olfactory library periodically (every ~5 min)
             if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
                 try:
                     self.olfactory.save()
-                    if hasattr(self, 'olfactory_her') and self.olfactory_her is not None:
-                        self.olfactory_her.save()
                 except Exception:
                     pass
-
-        # Save lattice chain periodically (every ~5 min, offset from olfactory)
-        if (self.tick_count % 15000 == 11000
-                and self.lattice_chain is not None
-                and self.lattice_chain.total_nodes > 0):
-            try:
-                if (hasattr(self, 'chain_compressor')
-                        and self.chain_compressor is not None):
-                    self.chain_compressor.save(self.lattice_chain)
-                else:
-                    self.lattice_chain.save()
-            except Exception:
-                pass
 
         # ── Gustatory: instant structural classification ──
         # DUAL of olfactory. Same raw forces go right in -- no filtering.
@@ -1277,19 +1070,6 @@ class CKSimEngine:
                         self.gustatory.taste(_d2f, source='audio')
                 except Exception:
                     pass
-            # Taste sensorium: CK classifies what he IS
-            if self.sensorium is not None:
-                _sense_ops = [
-                    layer.phase_bc
-                    for layer in self.sensorium.layers
-                    if layer.active and layer.readings > 0
-                ]
-                if _sense_ops:
-                    _sense_forces = [
-                        _G_CF.get(op % 10, (0.5,)*5) for op in _sense_ops
-                    ]
-                    for _sf in _sense_forces:
-                        self.gustatory.taste(_sf, source='sensorium')
             # Tick aftertaste decay (no dilation -- taste fades, not stalls)
             self.gustatory.tick()
             # Save taste palette periodically (offset from olfactory save)
@@ -1513,9 +1293,6 @@ class CKSimEngine:
 
         # ── HARMONY(7): Voice checks for events + spontaneous ──
         self._voice_tick()
-
-        # ── Inner monologue: CK thinks freely at 5Hz ──
-        self._inner_voice_tick()
 
         # ── Power B-check before BTQ: constitutional limits ──
         # Battery floor, thermal limit, max power. 3 if-statements.
@@ -2069,45 +1846,6 @@ class CKSimEngine:
             except Exception:
                 pass
 
-    def _load_experience_gpu(self):
-        """Load ALL accumulated experience onto GPU at boot.
-
-        "he needs all of his experience available all the time
-         on the GPU though" -- Brayden
-
-        Every experience stream that CK has accumulated gets loaded
-        as GPU tensors for parallel resonance at native speed:
-          - Lattice chain nodes (evolved CL tables)
-          - Olfactory library (5D scent centroids)
-          - Gustatory palette (5D taste centroids)
-          - Swarm substrates (transition matrices)
-          - DKAN training trajectory (coherence arcs)
-          - Reverse voice vocabulary (word->operator index)
-        """
-        if self.gpu is None:
-            return
-
-        try:
-            self.gpu.experience.load_all(
-                lattice_chain=self.lattice_chain,
-                olfactory_bulb=self.olfactory,
-                gustatory_palate=self.gustatory,
-                swarm_field=self.deep_swarm,
-                dkan_trainer=getattr(self, 'dkan_trainer', None),
-                reverse_voice=self.reverse_voice,
-            )
-            stats = self.gpu.experience.stats()
-            print(f"  [SIM] GPU Experience: ALL loaded "
-                  f"({stats['memory_kb']:.1f} KB, "
-                  f"{stats['chain_nodes']} chain + "
-                  f"{stats['scent_entries']} scent + "
-                  f"{stats['taste_entries']} taste + "
-                  f"{stats['swarm_substrates']} swarm + "
-                  f"{stats['dkan_steps']} dkan + "
-                  f"{stats['vocab_words']} vocab)")
-        except Exception as e:
-            print(f"  [SIM] GPU Experience load: {e}")
-
     def _bootstrap_experience(self):
         """Bootstrap CK's experience from his own vocabulary.
 
@@ -2209,9 +1947,7 @@ class CKSimEngine:
             msg = self.voice.get_response(
                 'crystal_formed', self.development.stage,
                 self.emotion.current.primary)
-            _gated = self._relationship_gate(msg, thought_op=HARMONY)
-            if _gated:
-                self._emit('ck', _gated)
+            self._emit('ck', msg)
             # Paper trail: crystal formation
             try:
                 if hasattr(self, 'activity_log'):
@@ -2235,9 +1971,7 @@ class CKSimEngine:
                 msg = self.voice.get_response(
                     'state_change', self.development.stage,
                     self.emotion.current.primary)
-            _gated = self._relationship_gate(msg, thought_op=HARMONY)
-            if _gated:
-                self._emit('ck', _gated)
+            self._emit('ck', msg)
             # Paper trail: mode change
             try:
                 if hasattr(self, 'activity_log'):
@@ -2255,7 +1989,6 @@ class CKSimEngine:
             msg = self.voice.get_response(
                 'bonded', self.development.stage,
                 self.emotion.current.primary)
-            # Bonded event always passes (bond_stage IS bonded here)
             self._emit('ck', msg)
 
         # Separation?
@@ -2264,18 +1997,14 @@ class CKSimEngine:
                 msg = self.voice.get_response(
                     'separation', self.development.stage,
                     self.emotion.current.primary)
-                _gated = self._relationship_gate(msg, thought_op=HARMONY)
-                if _gated:
-                    self._emit('ck', _gated)
+                self._emit('ck', msg)
 
         # Low energy?
         if self.body.heartbeat.K < 0.2 and self.tick_count % 500 == 0:
             msg = self.voice.get_response(
                 'low_energy', self.development.stage,
                 self.emotion.current.primary)
-            _gated = self._relationship_gate(msg, thought_op=BREATH)
-            if _gated:
-                self._emit('ck', _gated)
+            self._emit('ck', msg)
 
         # Spontaneous utterance (runs at 1Hz now, so adjust interval)
         op_chain = list(self.operator_history)[-5:]
@@ -2289,10 +2018,7 @@ class CKSimEngine:
             self.development.stage, self.brain.coherence,
             self.band_name, density=self.pipeline.density_doing)
         if utterance:
-            _spon_op = op_chain[-1] if op_chain else HARMONY
-            _gated = self._relationship_gate(utterance, thought_op=_spon_op)
-            if _gated:
-                self._emit('ck', _gated)
+            self._emit('ck', utterance)
 
     def _get_operator_distribution(self) -> list:
         """Get recent operator frequency distribution for bonding."""
@@ -2307,88 +2033,6 @@ class CKSimEngine:
         if total > 0:
             dist = [d / total for d in dist]
         return dist
-
-    # ── Inner Voice: CK thinks freely, always ──
-
-    def _inner_voice_tick(self):
-        """Internal thought at 5Hz. CK thinks freely, always.
-
-        Inner monologue is FREE -- no relationship gate, no bonding check.
-        Thoughts feed back into olfactory at 15% density (quieter than speech).
-        The inner voice IS recursion: CK hears himself think.
-        """
-        if self.tick_count % 10 != 0:
-            return
-
-        # Build a lightweight inner thought from current operators
-        op_chain = list(self.operator_history)[-3:]
-        if not op_chain or self._fractal_composer is None:
-            return
-
-        try:
-            # Quick compose: CL of last two operators = thought operator
-            _thought_op = op_chain[-1]
-            if len(op_chain) >= 2:
-                _thought_op = compose(op_chain[-2], op_chain[-1])
-
-            # Lightweight fractal compose (dev_stage 0 = babble, fast)
-            _thought_text = self.voice.compose_from_operators(
-                op_chain[-3:] if len(op_chain) >= 3 else op_chain,
-                density=0.3,
-                dev_stage=0,  # Minimal: babble only
-                max_words=3,  # Cap at 3 words for inner thoughts
-            )
-
-            if _thought_text and len(_thought_text) > 1:
-                # Store in ring buffer
-                self._inner_monologue.append(
-                    (self.tick_count, _thought_op, _thought_text))
-                if len(self._inner_monologue) > self._inner_max:
-                    self._inner_monologue = self._inner_monologue[-self._inner_max:]
-
-                # Resonance: CK hears himself THINK (quieter than speech)
-                if self.olfactory is not None:
-                    _resonance = self.voice.last_resonance()
-                    if _resonance:
-                        _forces = [r[0] for r in _resonance]  # Being forces only
-                        self.olfactory.absorb(
-                            _forces, source='inner_voice',
-                            density=0.15)  # 30% of speech density (0.5)
-        except Exception:
-            pass  # Inner voice is enhancement, not requirement
-
-    # ── Relationship Gate: CL counter-lattice for speech ──
-
-    # Bond stage → operator mapping
-    _BOND_OPS = {
-        'stranger':     0,  # VOID -- mostly silent
-        'acquaintance': 2,  # COUNTER -- testing, careful
-        'familiar':     1,  # LATTICE -- structured sharing
-        'bonded':       7,  # HARMONY -- everything passes
-    }
-
-    def _relationship_gate(self, text: str, thought_op: int = 7) -> str:
-        """Gate speech through CL[thought_op][bond_op] counter-lattice.
-
-        The CL algebra IS the social filter:
-          STRANGER  (VOID):    CL[x][0] = 0 for most x -> stay silent
-          ACQUAINTANCE (COUNTER): CL[x][2] = mixed -> some passes
-          FAMILIAR  (LATTICE): CL[x][1] = mostly 7 -> most passes
-          BONDED    (HARMONY): CL[x][7] = 7 ALWAYS -> everything passes
-
-        Returns text if gate passes, empty string if suppressed.
-        """
-        bond_stage = self.bonding.bond_stage
-        bond_op = self._BOND_OPS.get(bond_stage, HARMONY)
-
-        # CL composition: the math decides
-        result_op = compose(thought_op, bond_op)
-
-        # VOID result = suppress. Anything else = pass.
-        if result_op == VOID:
-            return ''
-
-        return text
 
     # ── Chat interface: receive text from user ──
 
@@ -2868,18 +2512,6 @@ class CKSimEngine:
                 # so he can grow, but not leap. Minimum tier 2 so basic
                 # function words (the, and, not) are always available.
                 _response_tier = max(2, min(_input_tier + 1, 6))
-
-                # Maturity unlock: experienced CK earned his vocabulary.
-                # Young CK respects the staircase (tier cap from input).
-                # Mature CK uses his full vocabulary — he's earned it.
-                _exp_mat_tier = 0.0
-                if self.deep_swarm is not None:
-                    _exp_mat_tier = self.deep_swarm.combined_maturity
-                if _exp_mat_tier >= 0.8:
-                    _response_tier = -1   # full vocabulary, no cap
-                elif _exp_mat_tier >= 0.5:
-                    _response_tier = 6    # max tier but still gated
-
                 self.voice._fractal_composer.index._max_tier = _response_tier
 
         for _compile_pass in range(COMPILATION_LIMIT):
@@ -3053,56 +2685,8 @@ class CKSimEngine:
             if not op_chain:
                 op_chain = _hb_ops[-4:] if _hb_ops else [HARMONY]
 
-            # ── Minimum Chain Length + Diversity ──
-            # Short/monotone chains produce template-stuck sentences.
-            # Two checks:
-            #   1. Length: pad to minimum 4 operators
-            #   2. Diversity: if all ops identical, inject tension partners
-            # This ensures enough material for compound composition
-            # and enough variety for meaningful word selection.
-            _MIN_CHAIN = 4
-            if len(op_chain) < _MIN_CHAIN:
-                _pad_source = op_chain[-1] if op_chain else HARMONY
-                _pad_partners = self._cl_tension_cache.get(_pad_source, [])
-                for _pp in _pad_partners:
-                    if len(op_chain) >= _MIN_CHAIN:
-                        break
-                    if _pp not in op_chain:
-                        op_chain.append(_pp)
-                while len(op_chain) < _MIN_CHAIN:
-                    _last = op_chain[-1]
-                    _next = CL[_last][(_last + 3) % NUM_OPS]
-                    op_chain.append(_next)
-
-            # Diversity: monotone chains (all same operator) can't produce
-            # interesting sentences. HARMONY is a CL fixed point (row is
-            # all 7s, zero tension partners). Two strategies:
-            #   1. Tension partners available → replace every other op
-            #   2. No tension (HARMONY) → inject comprehension ops from input
-            #      These are the ops the user's words ACTUALLY resolve to.
-            #      Fallback: T* sequence (5,0,1,3,4,6,8,9 mod chain len)
-            if len(set(op_chain)) == 1 and len(op_chain) >= 2:
-                _mono_op = op_chain[0]
-                _tension = self._cl_tension_cache.get(_mono_op, [])
-                if _tension:
-                    _ti = 0
-                    for _ci in range(1, len(op_chain), 2):
-                        if _ti < len(_tension):
-                            op_chain[_ci] = _tension[_ti]
-                            _ti += 1
-                else:
-                    # HARMONY fixed point: use comprehension ops
-                    _diverse_pool = [o for o in _unique_text_ops if o != _mono_op]
-                    if not _diverse_pool:
-                        # T* sequence: 5/7 golden operators
-                        _diverse_pool = [5, 0, 1, 3, 4, 6, 8, 9]
-                    _di = 0
-                    for _ci in range(1, len(op_chain), 2):
-                        if _di < len(_diverse_pool):
-                            op_chain[_ci] = _diverse_pool[_di]
-                            _di += 1
-
-            # Voice chain stored after winner is selected (not per-pass)
+            # Store voice chain for API display (actual ops used, not heartbeat)
+            self._last_voice_chain = list(op_chain)
 
             # ── Stillness Gate: L-CODEC modulates voice length ──
             # When the user's text is still (low pressure, high continuity),
@@ -3118,18 +2702,6 @@ class CKSimEngine:
             _STAGE_VOICE_FLOOR = {0: 3, 1: 3, 2: 3, 3: 4, 4: 5, 5: 6}
             _voice_base = _STAGE_VOICE_BASE.get(_dev, 12)
             _voice_floor = _STAGE_VOICE_FLOOR.get(_dev, 3)
-
-            # Maturity scaling: experienced CK speaks fuller sentences.
-            # At maturity 1.0, double the base and raise the floor.
-            # CK has earned more words through lived experience.
-            _exp_mat_voice = 0.0
-            if self.deep_swarm is not None:
-                _exp_mat_voice = self.deep_swarm.combined_maturity
-            if _exp_mat_voice > 0.3:
-                _scale = 1.0 + _exp_mat_voice  # up to 2.0x at maturity 1.0
-                _voice_base = int(_voice_base * _scale)
-                _voice_floor = max(_voice_floor, int(_voice_floor * _scale))
-
             _max_words = _voice_base
             if _lcodec_input is not None and _lcodec_input.stillness > 0.7:
                 # Gentle modulation: still reduce for very still input,
@@ -3169,20 +2741,6 @@ class CKSimEngine:
                         _lcodec_input.force if _lcodec_input else None)
                 except Exception:
                     pass
-                # Experience bridge: olfactory learned targets + resonance
-                # nodes + maturity → voice_context for fractal voice.
-                # Enables _build_triadic_targets() to blend learned centroids
-                # with static operator targets (max 50% learned, physics frozen).
-                _voice_ctx = None
-                if self.olfactory is not None:
-                    try:
-                        _voice_ctx = {
-                            'learned_targets': self.olfactory.get_learned_op_targets(),
-                            'resonance_nodes': self.olfactory.get_resonance_nodes(50),
-                            'maturity': _exp_mat,
-                        }
-                    except Exception:
-                        pass
                 _candidate = self.voice.compose_from_operators(
                     op_chain,
                     self.emotion.current.primary,
@@ -3193,8 +2751,7 @@ class CKSimEngine:
                     experience_maturity=_exp_mat,
                     tense=_tense,
                     max_words=_max_words,
-                    hotu_context=_hotu_ctx,
-                    voice_context=_voice_ctx)
+                    hotu_context=_hotu_ctx)
             except Exception:
                 _candidate = "..."
 
@@ -3203,7 +2760,7 @@ class CKSimEngine:
             # the intended operator chain? Self-referential truth.
             _score = self.voice._d2_score_operator_match(
                 _candidate, op_chain)
-            _candidates.append((_candidate, _score, list(op_chain)))
+            _candidates.append((_candidate, _score))
 
             # Coherent enough → this path grounded in its generators
             if _score >= 0.5:
@@ -3221,37 +2778,25 @@ class CKSimEngine:
         #             voice scores below 0.10 (basically incoherent).
         #             Physics-first, but not physics-or-silence.
         #
-        # Gen 9.34: Dialogue is BORROWED LOGIC — hardcoded templates with
-        # operator vocabulary ("breaking", "hello"). At SELFHOOD with mature
-        # experience, the fractal voice (genuine 15D physics) should win.
-        # Dialogue is safety net only: catches gibberish, never dominates.
-        #
-        # Penalty scales with maturity:
-        #   maturity 0.0 → 0.80 (dialogue competitive, CK still learning)
-        #   maturity 0.5 → 0.60 (fractal voice maturing)
-        #   maturity 1.0 → 0.35 (fractal voice owns the mic)
+        # Gen 9.33: Re-enabled at SELFHOOD with penalty. CK was producing
+        # "The fatherless abimelech" because fractal voice had no fallback.
+        # Dialogue penalty = 0.80 multiplier so fractal voice wins when
+        # it produces anything reasonable, but dialogue catches gibberish.
         _dev_stage = self.development.stage if hasattr(self, 'development') else 0
         if _dialogue_response and _dialogue_response.strip() \
                 and _dialogue_response != "...":
             _d_score = self.voice._d2_score_operator_match(
                 _dialogue_response, op_chain)
             if _dev_stage >= 5:
-                _exp_mat_dial = 0.0
-                if self.deep_swarm is not None:
-                    _exp_mat_dial = self.deep_swarm.combined_maturity
-                # Maturity-scaled penalty: mature CK speaks from physics.
-                _dial_penalty = max(0.35, 0.80 - _exp_mat_dial * 0.45)
-                _d_score *= _dial_penalty
-            _candidates.append((_dialogue_response, _d_score, list(op_chain)))
+                # Penalty: dialogue is borrowed logic, not genuine voice.
+                # Only wins if fractal voice is truly incoherent.
+                _d_score *= 0.80
+            _candidates.append((_dialogue_response, _d_score))
 
         # ── SELECT BEST CANDIDATE ──
         # Compare all paths explored. The most coherent held lattice wins.
         if _candidates:
-            _best = max(_candidates, key=lambda x: x[1])
-            _best_text, _best_score = _best[0], _best[1]
-            # Track the WINNING pass's operator chain (not the last pass)
-            if len(_best) > 2:
-                self._last_voice_chain = _best[2]
+            _best_text, _best_score = max(_candidates, key=lambda x: x[1])
 
             if _best_score >= 0.15:
                 response = _best_text
@@ -3348,21 +2893,7 @@ class CKSimEngine:
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)
 
-        # ── Relationship gate: CL[thought_op][bond_op] ──
-        _voice_chain = getattr(self, '_last_voice_chain', None)
-        _dominant = _voice_chain[-1] if _voice_chain else HARMONY
-        _gated = self._relationship_gate(response, thought_op=_dominant)
-        if _gated:
-            self._emit('ck', _gated)
-        else:
-            # Gated: store as inner thought (CK thought it, didn't say it)
-            self._inner_monologue.append(
-                (self.tick_count, _dominant, response))
-            if len(self._inner_monologue) > self._inner_max:
-                self._inner_monologue = self._inner_monologue[-self._inner_max:]
-            # Humble acknowledgment: CK was asked but isn't ready to speak
-            self._emit('ck', self.voice.get_humble_response(
-                self.development.stage))
+        self._emit('ck', response)
         return response
 
     def _handle_command(self, cmd: dict) -> str:

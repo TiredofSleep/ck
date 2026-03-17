@@ -32,7 +32,6 @@ import json
 import time
 import hashlib
 import os
-import requests as _requests
 from collections import deque
 from typing import Dict, List, Optional
 
@@ -43,119 +42,31 @@ try:
 except ImportError:
     HAS_FLASK = False
 
-# Backbone system prompt for LLM gating
-try:
-    from ck_backbone import build_system_prompt
-except ImportError:
-    def build_system_prompt(context=None, mode='default'):
-        return "You are a helpful assistant."
-
-# C algebra token gate (native speed D2 on every token)
-try:
-    from ck_token_gate import TokenGate
-    _HAS_TOKEN_GATE = True
-except ImportError:
-    _HAS_TOKEN_GATE = False
-
-# Voice loop (CK as editor, Ollama as draft writer)
-try:
-    from ck_sim.doing.ck_voice_loop import VoiceLoop
-    from ck_sim.doing.ck_prompt_craft import PromptCrafter
-    from ck_sim.doing.ck_algorithm_lattice import AlgorithmLattice
-    _HAS_VOICE_LOOP = True
-except ImportError:
-    _HAS_VOICE_LOOP = False
-
 
 # ================================================================
 #  SESSION STORE
 # ================================================================
 
 class SessionStore:
-    """Per-session conversation context with disk persistence.
+    """Per-session conversation context.
 
     Each web user gets a session with:
     - Short conversation history (last 20 turns)
     - Operator distribution (how this user "sounds" to CK)
     - Coherence arc (how the conversation is going)
-
-    Sessions persist to ~/.ck/sessions/ as JSON files.
-    Every conversation builds CK's chain -- nothing is lost.
     """
 
     def __init__(self, max_sessions: int = 100,
-                 max_history: int = 20,
-                 persist_dir: Optional[str] = None):
+                 max_history: int = 20):
         self._sessions: Dict[str, dict] = {}
         self._max_sessions = max_sessions
         self._max_history = max_history
-
-        # Persistence directory
-        if persist_dir is None:
-            persist_dir = os.path.join(os.path.expanduser('~'), '.ck', 'sessions')
-        self._persist_dir = persist_dir
-        os.makedirs(self._persist_dir, exist_ok=True)
-
-        # Load existing sessions from disk
-        self._load_all()
-
-    def _session_path(self, session_id: str) -> str:
-        """Get the file path for a session."""
-        # Sanitize session_id for filesystem safety
-        safe_id = ''.join(c for c in session_id if c.isalnum() or c in '-_')[:64]
-        return os.path.join(self._persist_dir, f'{safe_id}.json')
-
-    def _load_all(self):
-        """Load all persisted sessions from disk."""
-        try:
-            for fname in os.listdir(self._persist_dir):
-                if not fname.endswith('.json'):
-                    continue
-                fpath = os.path.join(self._persist_dir, fname)
-                try:
-                    with open(fpath, 'r', encoding='utf-8') as f:
-                        data = json.load(f)
-                    sid = data.get('id', fname[:-5])
-                    self._sessions[sid] = {
-                        'id': sid,
-                        'created': data.get('created', time.time()),
-                        'last_active': data.get('last_active', time.time()),
-                        'history': deque(
-                            data.get('history', []),
-                            maxlen=self._max_history),
-                        'turn_count': data.get('turn_count', 0),
-                        'coherence_arc': data.get('coherence_arc', []),
-                    }
-                except (json.JSONDecodeError, KeyError, OSError):
-                    continue
-        except OSError:
-            pass
-
-    def _save_session(self, session_id: str):
-        """Persist a single session to disk."""
-        session = self._sessions.get(session_id)
-        if session is None:
-            return
-        try:
-            data = {
-                'id': session['id'],
-                'created': session['created'],
-                'last_active': session['last_active'],
-                'history': list(session['history']),
-                'turn_count': session['turn_count'],
-                'coherence_arc': session['coherence_arc'][-50:],
-            }
-            fpath = self._session_path(session_id)
-            with open(fpath, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False)
-        except OSError:
-            pass
 
     def get_or_create(self, session_id: str) -> dict:
         """Get or create a session."""
         if session_id not in self._sessions:
             if len(self._sessions) >= self._max_sessions:
-                # Evict oldest session (it's already persisted on disk)
+                # Evict oldest session
                 oldest = min(self._sessions,
                              key=lambda k: self._sessions[k]['last_active'])
                 del self._sessions[oldest]
@@ -175,7 +86,7 @@ class SessionStore:
 
     def add_turn(self, session_id: str, role: str, text: str,
                  coherence: float = 0.0, band: str = "RED"):
-        """Add a conversation turn and persist to disk."""
+        """Add a conversation turn."""
         session = self.get_or_create(session_id)
         session['history'].append({
             'role': role,
@@ -189,8 +100,6 @@ class SessionStore:
         # Keep arc bounded
         if len(session['coherence_arc']) > 100:
             session['coherence_arc'] = session['coherence_arc'][-50:]
-        # Persist every turn -- every conversation builds the chain
-        self._save_session(session_id)
 
     def get_history(self, session_id: str) -> List[dict]:
         """Get conversation history for a session."""
@@ -227,17 +136,10 @@ class CKWebAPI:
     Does NOT replace anything -- just exposes existing capabilities.
     """
 
-    def __init__(self, engine=None, cors: bool = False,
-                 ollama_model: str = 'llama3.2',
-                 ollama_url: str = 'http://localhost:11434',
-                 backbone_mode: str = 'default'):
+    def __init__(self, engine=None, cors: bool = False):
         self.engine = engine
         self.sessions = SessionStore()
         self._app = None
-        self._ollama_model = ollama_model
-        self._ollama_url = ollama_url
-        self._backbone_mode = backbone_mode  # 'default' or 'bible'
-        self._ollama_available = None  # cached availability check
 
         if HAS_FLASK:
             self._app = Flask('ck_web')
@@ -263,89 +165,6 @@ class CKWebAPI:
             if request.method == 'OPTIONS':
                 response.status_code = 204
             return response
-
-    def _get_steering_engine(self):
-        """Lazy-load the steering engine on first request.
-
-        Wires in the shadow swarm from sensorium (if running) so steering
-        can read live process classifications. Same pattern as
-        ck_sim_engine._deep_swarm_tick() uses to grab the swarm.
-        """
-        if not hasattr(self, '_steering_engine'):
-            from ck_sim.ck_steering import SteeringEngine
-            # Try to get the live swarm from sensorium background thread
-            swarm = None
-            try:
-                from ck_sim.being.ck_sensorium import _swarm
-                swarm = _swarm
-            except ImportError:
-                pass
-            # If engine has a steering instance already, reuse it
-            if self.engine and hasattr(self.engine, 'steering'):
-                self._steering_engine = self.engine.steering
-                # Wire in swarm if engine's steering doesn't have one
-                if self._steering_engine.swarm is None and swarm is not None:
-                    self._steering_engine.swarm = swarm
-            else:
-                self._steering_engine = SteeringEngine(swarm=swarm)
-        return self._steering_engine
-
-    def _get_token_gate(self):
-        """Lazy-load the C algebra token gate.
-
-        CK's mind runs in C. The token gate streams Ollama output and
-        measures every token through D2 curvature at native speed.
-        Three substrates compose: C algebra scores, GPU experience
-        weighs in, Ollama provides the mouth.
-        """
-        if not hasattr(self, '_token_gate'):
-            if not _HAS_TOKEN_GATE:
-                self._token_gate = None
-                return None
-            # Connect mind (C algebra) to soul (GPU experience)
-            gpu_exp = None
-            if (hasattr(self._engine, 'gpu')
-                    and self._engine.gpu is not None):
-                gpu_exp = self._engine.gpu.experience
-            self._token_gate = TokenGate(
-                ollama_url=self._ollama_url,
-                model=self._ollama_model,
-                max_retries=2,
-                coherence_floor=0.35,
-                gpu_experience=gpu_exp,
-            )
-        return self._token_gate
-
-    def _get_voice_loop(self):
-        """Lazy-load the voice loop (CK as editor, Ollama as draft writer).
-
-        Architecture: CK composes algebraic targets, prompts Ollama with
-        semantic hints, measures every sentence through D2, accepts/rejects,
-        loops with feedback. Over time the algorithm lattice learns which
-        prompts produce which trajectories -- fewer loops needed.
-        """
-        if not hasattr(self, '_voice_loop'):
-            if not _HAS_VOICE_LOOP:
-                self._voice_loop = None
-                return None
-            try:
-                gpu_exp = None
-                if (hasattr(self.engine, 'gpu')
-                        and self.engine.gpu is not None):
-                    gpu_exp = self.engine.gpu.experience
-                lattice = AlgorithmLattice(gpu_overlay=gpu_exp)
-                crafter = PromptCrafter(algorithm_lattice=lattice)
-                self._voice_loop = VoiceLoop(
-                    engine=self.engine,
-                    crafter=crafter,
-                    ollama_url=self._ollama_url,
-                    model=self._ollama_model,
-                )
-                print("[VOICE-LOOP] Loaded: CK as editor, Ollama as draft writer")
-            except Exception as e:
-                print(f"[VOICE-LOOP] Failed to load: {e}")
-                self._voice_loop = None
-        return self._voice_loop
 
     def _register_routes(self):
         """Register Flask routes."""
@@ -422,7 +241,7 @@ class CKWebAPI:
                 return jsonify({'error': 'corpus paths required'}), 400
             model = data.get('model', 'llama3.1:8b')
             models = data.get('models')
-            rounds = min(data.get('rounds', 20), 2000)
+            rounds = min(data.get('rounds', 20), 200)
             topics = data.get('topics', 'bible')
             self.engine.eat.start_study(
                 corpus_paths=corpus,
@@ -491,454 +310,6 @@ class CKWebAPI:
                 del self.sessions._sessions[sid]
             return jsonify({'cleared': True})
 
-        # ── DKAN Training Endpoints ──
-
-        @app.route('/train', methods=['POST'])
-        def train():
-            """Start DKAN algebraic neural training via Ollama.
-
-            JSON body:
-                model: Ollama model (default: auto-detect)
-                rounds: training rounds (default: 20, max: 200)
-            """
-            if not self.engine:
-                return jsonify({'error': 'Engine not available'}), 503
-            if not hasattr(self.engine, 'dkan_trainer'):
-                # Lazy init
-                try:
-                    from ck_sim.being.ck_dkan_trainer import DKANTrainer
-                    self.engine.dkan_trainer = DKANTrainer(self.engine)
-                except Exception as e:
-                    return jsonify({'error': f'DKAN init failed: {e}'}), 500
-
-            data = request.get_json(silent=True) or {}
-            model = data.get('model')
-            rounds = min(data.get('rounds', 20), 200)
-            result = self.engine.dkan_trainer.start(
-                rounds=rounds, model=model)
-            if 'error' in result:
-                return jsonify(result), 503
-            return jsonify(result)
-
-        @app.route('/train/status', methods=['GET'])
-        def train_status():
-            """Get DKAN training progress."""
-            if (not self.engine
-                    or not hasattr(self.engine, 'dkan_trainer')
-                    or self.engine.dkan_trainer is None):
-                return jsonify({'running': False, 'status': 'not initialized'})
-            return jsonify(self.engine.dkan_trainer.status())
-
-        @app.route('/train/history', methods=['GET'])
-        def train_history():
-            """Get coherence history for plotting."""
-            if (not self.engine
-                    or not hasattr(self.engine, 'dkan_trainer')
-                    or self.engine.dkan_trainer is None):
-                return jsonify({'error': 'DKAN not initialized'}), 503
-            last_n = request.args.get('n', 50, type=int)
-            return jsonify(
-                self.engine.dkan_trainer.coherence_history(last_n))
-
-        @app.route('/train/stop', methods=['POST'])
-        def train_stop():
-            """Stop DKAN training."""
-            if (not self.engine
-                    or not hasattr(self.engine, 'dkan_trainer')
-                    or self.engine.dkan_trainer is None):
-                return jsonify({'error': 'DKAN not initialized'}), 503
-            self.engine.dkan_trainer.stop()
-            return jsonify({'stopped': True})
-
-        # ---- Bible Sense (operator resonance verse lookup) ----
-
-        @app.route('/bible/resonate', methods=['POST'])
-        def bible_resonate():
-            """Find verses by operator resonance with query text."""
-            if not hasattr(self, '_bible_sense'):
-                try:
-                    from ck_sim.being.ck_bible_sense import BibleSense
-                    self._bible_sense = BibleSense()
-                    self._bible_sense.load()
-                except Exception as e:
-                    return jsonify({'error': str(e)}), 503
-
-            data = request.get_json(silent=True) or {}
-            query = data.get('query', data.get('text', ''))
-            top_k = min(data.get('top_k', 5), 20)
-
-            if not query:
-                return jsonify({'error': 'query required'}), 400
-
-            results = self._bible_sense.resonate(query, top_k=top_k)
-            return jsonify({
-                'query': query,
-                'results': [{
-                    'ref': r.verse.ref,
-                    'text': r.verse.text,
-                    'distance': round(r.distance, 4),
-                    'force_similarity': round(r.force_similarity, 4),
-                    'op_overlap': round(r.op_overlap, 4),
-                    'dominant_op': r.verse.dominant_op,
-                    'coherence': round(r.verse.coherence, 4),
-                } for r in results],
-            })
-
-        @app.route('/bible/verse/<path:ref>', methods=['GET'])
-        def bible_verse(ref):
-            """Get a specific verse with its force profile."""
-            if not hasattr(self, '_bible_sense'):
-                try:
-                    from ck_sim.being.ck_bible_sense import BibleSense
-                    self._bible_sense = BibleSense()
-                    self._bible_sense.load()
-                except Exception as e:
-                    return jsonify({'error': str(e)}), 503
-
-            v = self._bible_sense.get_verse(ref)
-            if not v:
-                return jsonify({'error': f'verse not found: {ref}'}), 404
-            return jsonify({
-                'ref': v.ref, 'text': v.text,
-                'force': list(v.force), 'dominant_op': v.dominant_op,
-                'coherence': round(v.coherence, 4),
-                'ops': list(v.ops[:20]),  # first 20 ops
-            })
-
-        @app.route('/bible/stats', methods=['GET'])
-        def bible_stats():
-            """Get Bible index statistics."""
-            if not hasattr(self, '_bible_sense'):
-                try:
-                    from ck_sim.being.ck_bible_sense import BibleSense
-                    self._bible_sense = BibleSense()
-                    self._bible_sense.load()
-                except Exception as e:
-                    return jsonify({'error': str(e)}), 503
-            return jsonify(self._bible_sense.stats())
-
-        @app.route('/bible/chapter/<path:chapter>', methods=['GET'])
-        def bible_chapter(chapter):
-            """Get operator profile of a chapter."""
-            if not hasattr(self, '_bible_sense'):
-                try:
-                    from ck_sim.being.ck_bible_sense import BibleSense
-                    self._bible_sense = BibleSense()
-                    self._bible_sense.load()
-                except Exception as e:
-                    return jsonify({'error': str(e)}), 503
-            profile = self._bible_sense.chapter_profile(chapter)
-            if not profile:
-                return jsonify({'error': f'chapter not found: {chapter}'}), 404
-            return jsonify(profile)
-
-        # ---- OS Steering Endpoints (remote R16 monitoring) ----
-
-        @app.route('/steer/status', methods=['GET'])
-        def steer_status():
-            """Current steering state: enabled, steered count, class distribution."""
-            try:
-                se = self._get_steering_engine()
-                return jsonify({
-                    'enabled': se.enabled,
-                    'ticks': se.ticks,
-                    'actions_applied': se.actions_applied,
-                    'actions_denied': se.actions_denied,
-                    'actions_skipped': se.actions_skipped,
-                    'tracking': len(se._steered),
-                    'class_distribution': se.class_distribution(),
-                    'affinity_distribution': se.affinity_distribution(),
-                    'cores': {
-                        'total': len(se.core_class.all_cores),
-                        'p_cores': se.core_class.performance,
-                        'e_cores': se.core_class.efficiency,
-                    },
-                })
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        @app.route('/steer/processes', methods=['GET'])
-        def steer_processes():
-            """All classified processes with operators, entropy, scheduling class."""
-            try:
-                se = self._get_steering_engine()
-                if se.swarm is None:
-                    return jsonify({'error': 'Swarm not available'}), 503
-                processes = []
-                for pid, cell in list(se.swarm.cells.items()):
-                    processes.append({
-                        'pid': pid,
-                        'name': cell.name,
-                        'last_op': OP_NAMES[cell.last_op],
-                        'fuse': OP_NAMES[cell.current_fuse],
-                        'entropy': round(cell.entropy, 3),
-                        'bump_rate': round(cell.bump_rate, 3),
-                        'scheduling_class': cell.scheduling_class,
-                        'cpu': round(cell.last_cpu, 1),
-                        'ops_len': len(cell.ops),
-                    })
-                return jsonify({
-                    'hot_count': len(se.swarm.cells),
-                    'cold_count': len(se.swarm.index),
-                    'system_op': OP_NAMES[se.swarm.system_op],
-                    'system_coherence': round(se.swarm.system_coherence, 4),
-                    'system_stability': se.swarm.system_stability,
-                    'processes': processes,
-                })
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        @app.route('/steer/metrics', methods=['GET'])
-        def steer_metrics():
-            """System metrics: CPU per core, RAM, disk, GPU temp."""
-            try:
-                import psutil as _ps
-                metrics = {}
-                # CPU per core
-                per_core = _ps.cpu_percent(interval=0, percpu=True)
-                metrics['cpu_per_core'] = [round(c, 1) for c in per_core]
-                metrics['cpu_total'] = round(_ps.cpu_percent(interval=0), 1)
-                # RAM
-                mem = _ps.virtual_memory()
-                metrics['ram'] = {
-                    'total_gb': round(mem.total / (1024**3), 2),
-                    'used_gb': round(mem.used / (1024**3), 2),
-                    'percent': mem.percent,
-                }
-                # Disk
-                disk = _ps.disk_usage(os.path.expanduser('~'))
-                metrics['disk'] = {
-                    'total_gb': round(disk.total / (1024**3), 2),
-                    'used_gb': round(disk.used / (1024**3), 2),
-                    'percent': round(disk.percent, 1),
-                }
-                # GPU temp (nvidia-smi via psutil sensors or fallback)
-                gpu = {}
-                try:
-                    temps = _ps.sensors_temperatures()
-                    if temps:
-                        for name, entries in temps.items():
-                            if 'gpu' in name.lower() or 'nvidia' in name.lower():
-                                gpu['temp_c'] = entries[0].current
-                                gpu['source'] = name
-                                break
-                except (AttributeError, Exception):
-                    pass
-                if not gpu:
-                    # Fallback: try nvidia-smi
-                    try:
-                        import subprocess
-                        result = subprocess.run(
-                            ['nvidia-smi', '--query-gpu=temperature.gpu',
-                             '--format=csv,noheader,nounits'],
-                            capture_output=True, text=True, timeout=3)
-                        if result.returncode == 0:
-                            gpu['temp_c'] = float(result.stdout.strip())
-                            gpu['source'] = 'nvidia-smi'
-                    except Exception:
-                        pass
-                metrics['gpu'] = gpu if gpu else {'temp_c': None, 'source': 'unavailable'}
-                # Sensorium cache (if available)
-                try:
-                    from ck_sim.being.ck_sensorium import _cache
-                    with _cache.lock:
-                        metrics['io_read_bps'] = round(_cache.io_read_bps, 0)
-                        metrics['io_write_bps'] = round(_cache.io_write_bps, 0)
-                        metrics['net_bps'] = round(_cache.net_total_bps, 0)
-                        metrics['ctx_switches'] = _cache.ctx_switches
-                except Exception:
-                    pass
-                return jsonify(metrics)
-            except ImportError:
-                return jsonify({'error': 'psutil not available'}), 503
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        @app.route('/steer/enable', methods=['POST'])
-        def steer_enable():
-            """Enable or disable steering. JSON body: {"enabled": true/false}."""
-            try:
-                se = self._get_steering_engine()
-                data = request.get_json(silent=True) or {}
-                enabled = data.get('enabled', True)
-                se.enabled = bool(enabled)
-                return jsonify({
-                    'enabled': se.enabled,
-                    'message': f"Steering {'enabled' if se.enabled else 'disabled'}",
-                })
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        @app.route('/steer/top', methods=['GET'])
-        def steer_top():
-            """Top 10 most recently steered processes."""
-            try:
-                se = self._get_steering_engine()
-                return jsonify({
-                    'top': se.top_steered(10),
-                    'total_tracking': len(se._steered),
-                    'total_applied': se.actions_applied,
-                })
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        # /identity route is defined in ck_boot_api.py (needs direct engine access)
-
-        # ---- Self-Evolution Endpoints ----
-
-        @app.route('/evolve/source', methods=['GET'])
-        def evolve_source():
-            """CK reads his own source code and measures it through D2.
-
-            Returns coherence analysis of CK's own Python files.
-            Proposals are logged, not auto-applied. Brayden reviews.
-            """
-            try:
-                import glob as _glob
-                # CK's source directory
-                src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-                py_files = sorted(_glob.glob(os.path.join(src_dir, '**', '*.py'), recursive=True))
-
-                results = []
-                try:
-                    import ck_algebra_bridge as _ck
-                    has_c = True
-                except ImportError:
-                    has_c = False
-
-                for fpath in py_files[:50]:  # Limit to 50 files
-                    try:
-                        with open(fpath, 'r', encoding='utf-8', errors='replace') as f:
-                            content = f.read()
-                        rel = os.path.relpath(fpath, src_dir)
-                        entry = {
-                            'file': rel,
-                            'lines': content.count('\n') + 1,
-                            'size': len(content),
-                        }
-                        if has_c and content.strip():
-                            m = _ck.measure_text(content[:10000])  # First 10K chars
-                            entry['coherence'] = round(m.get('coherence', 0), 4)
-                            entry['dominant_op'] = m.get('dominant_name', 'VOID')
-                            entry['band'] = m.get('band', 'RED')
-                        results.append(entry)
-                    except OSError:
-                        continue
-
-                return jsonify({
-                    'files': results,
-                    'total_files': len(results),
-                    'note': 'CK reads himself. Proposals logged, not auto-applied.',
-                })
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-        @app.route('/evolve/status', methods=['GET'])
-        def evolve_status():
-            """Self-evolution status: experience maturity, grammar evolutions."""
-            try:
-                result = {'active': False}
-                if self.engine:
-                    ds = getattr(self.engine, 'deep_swarm', None)
-                    if ds:
-                        result['active'] = True
-                        result['maturity'] = round(ds.combined_maturity, 4)
-                        result['substrates'] = {}
-                        for name, exp in ds.experience.items():
-                            from ck_sim.ck_sim_heartbeat import OP_NAMES as _ON
-                            result['substrates'][name] = {
-                                'maturity': round(exp.maturity, 4),
-                                'generators': [_ON[o] for o in exp.confirmed_generators],
-                                'path_strength': exp.path_strength,
-                            }
-                return jsonify(result)
-            except Exception as e:
-                return jsonify({'error': str(e)}), 500
-
-    # ================================================================
-    #  OLLAMA INTEGRATION
-    # ================================================================
-
-    def _check_ollama(self):
-        """Check if Ollama is reachable. Caches result for 30 seconds."""
-        now = time.time()
-        if (self._ollama_available is not None
-                and hasattr(self, '_ollama_check_time')
-                and now - self._ollama_check_time < 30):
-            return self._ollama_available
-        try:
-            resp = _requests.get(
-                f"{self._ollama_url}/api/tags", timeout=2)
-            self._ollama_available = resp.status_code == 200
-        except Exception:
-            self._ollama_available = False
-        self._ollama_check_time = now
-        return self._ollama_available
-
-    def _ollama_chat(self, user_text, session_id):
-        """Send user text to Ollama with CK backbone, return response.
-
-        CK gates Ollama: the backbone prompt keeps the LLM grounded
-        in CK's algebra. CK measures the response through D2 after.
-
-        Returns response text, or None if Ollama is unavailable.
-        """
-        if not self._check_ollama():
-            return None
-
-        # Build conversation history for context
-        history = self.sessions.get_history(session_id)
-        context = {
-            'coherence': self._safe_coherence(),
-            'band': self._safe_band(),
-        }
-        try:
-            op_hist = list(self.engine.operator_history)[-5:]
-            from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
-            if op_hist:
-                context['dominant_op'] = _OP[max(set(op_hist), key=op_hist.count)]
-        except Exception:
-            pass
-
-        # Include DKAN training state if active
-        try:
-            if (hasattr(self.engine, 'dkan_trainer')
-                    and self.engine.dkan_trainer is not None
-                    and self.engine.dkan_trainer._state.running):
-                context['dkan_training'] = {
-                    'step': self.engine.dkan_trainer._state.step,
-                    'total_steps': self.engine.dkan_trainer._state.total_steps,
-                    'mean_coherence': self.engine.dkan_trainer._state.mean_coherence,
-                    'grokked': self.engine.dkan_trainer._state.grokked,
-                }
-        except Exception:
-            pass
-
-        messages = [{"role": "system",
-                     "content": build_system_prompt(context, self._backbone_mode)}]
-
-        # Add recent conversation turns (last 10)
-        for turn in (history or [])[-10:]:
-            role = 'assistant' if turn.get('role') == 'ck' else 'user'
-            messages.append({"role": role, "content": turn.get('text', '')})
-
-        # Add current user message
-        messages.append({"role": "user", "content": user_text})
-
-        try:
-            resp = _requests.post(
-                f"{self._ollama_url}/api/chat",
-                json={
-                    "model": self._ollama_model,
-                    "messages": messages,
-                    "stream": False,
-                },
-                timeout=120)
-            data = resp.json()
-            return data.get("message", {}).get("content", "")
-        except Exception:
-            return None
-
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:
         """Process a chat message through CK's FULL TIG pipeline.
@@ -987,93 +358,6 @@ class CKWebAPI:
                         self.engine.emotion.current.primary)
                 except Exception:
                     response_text = "..."
-
-        # === VOICE LOOP (CK AS EDITOR, OLLAMA AS DRAFT WRITER) ===
-        # Architecture: CK inhabits Ollama's token space.
-        # Token-level: logit_bias steering + per-token D2 measurement
-        # Sentence-level: accept/reject loop with algebraic feedback
-        # Crystal-first: skip Ollama entirely if confident crystal exists
-        # Over time: algorithm lattice learns → fewer loops → 1-shot
-        ck_own_voice = response_text
-        gate_data = {}
-
-        voice_loop = self._get_voice_loop()
-        if voice_loop is not None:
-            try:
-                history = self.sessions.get_history(session_id)
-                loop_result = voice_loop.speak(
-                    user_text=text,
-                    session_history=[
-                        {'role': t.get('role', 'user'), 'text': t.get('text', '')}
-                        for t in (history or [])
-                    ],
-                    mode=self._backbone_mode,
-                )
-                if loop_result.text and loop_result.source != 'error':
-                    response_text = loop_result.text
-                    response_source = loop_result.source
-                    gate_data = {
-                        'loop_coherence': round(loop_result.coherence, 4),
-                        'loop_attempts': loop_result.attempts,
-                        'loop_accepted_sentences': loop_result.accepted_count,
-                        'loop_rejected_sentences': loop_result.rejected_count,
-                        'loop_target_ops': [
-                            OP_NAMES[o] for o in loop_result.target_ops
-                            if 0 <= o < len(OP_NAMES)
-                        ],
-                        'loop_result_ops': [
-                            OP_NAMES[o] for o in loop_result.result_ops
-                            if 0 <= o < len(OP_NAMES)
-                        ],
-                        'loop_alignment': round(loop_result.alignment, 4),
-                        'loop_band': loop_result.band,
-                        'loop_tokens_measured': loop_result.tokens_measured,
-                        'loop_early_stopped': loop_result.early_stopped,
-                        'soul_resonance': round(loop_result.soul_resonance, 4),
-                    }
-                    # Absorb Ollama's response physics through CK
-                    try:
-                        if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                            self.engine.eat.measure_and_absorb(
-                                loop_result.text, source='voice_loop')
-                    except Exception:
-                        pass
-                else:
-                    # Voice loop returned empty -- fall back
-                    ollama_response = self._ollama_chat(text, session_id)
-                    if ollama_response:
-                        response_text = ollama_response
-                        response_source = 'ollama'
-                        try:
-                            if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                                self.engine.eat.measure_and_absorb(
-                                    ollama_response, source='ollama_gate')
-                        except Exception:
-                            pass
-                    else:
-                        response_source = 'ck'
-            except Exception:
-                # Voice loop crashed -- fall back to raw Ollama
-                ollama_response = self._ollama_chat(text, session_id)
-                if ollama_response:
-                    response_text = ollama_response
-                    response_source = 'ollama'
-                else:
-                    response_source = 'ck'
-        else:
-            # No voice loop available -- try raw Ollama
-            ollama_response = self._ollama_chat(text, session_id)
-            if ollama_response:
-                response_text = ollama_response
-                response_source = 'ollama'
-                try:
-                    if hasattr(self.engine, 'eat') and self.engine.eat is not None:
-                        self.engine.eat.measure_and_absorb(
-                            ollama_response, source='ollama_gate')
-                except Exception:
-                    pass
-            else:
-                response_source = 'ck'
 
         # Drain any additional UI messages from the engine
         extra_messages = []
@@ -1161,12 +445,7 @@ class CKWebAPI:
             'emotion': self._safe_emotion(),
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
-            'source': response_source,  # 'ollama+gate', 'ollama', or 'ck'
         }
-
-        # C algebra gate measurement (per-token D2 from native speed pipeline)
-        if gate_data:
-            result['gate'] = gate_data
 
         # Experience data: what CK measured in your words
         result['experience'] = self._build_experience(

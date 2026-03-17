@@ -469,6 +469,15 @@ class CKSimEngine:
         # Episodic Memory -- CK remembers WHAT HAPPENED, not just patterns
         # Events → episodes → consolidation → recall. Temporal lattice.
         self.episodic = EpisodicStore()
+        # Restore episodic timeline from disk if available
+        try:
+            import os
+            ep_path = os.path.join(os.path.expanduser('~'), '.ck', 'episodic.bin')
+            if os.path.exists(ep_path):
+                self.episodic.load(ep_path)
+                print(f"  [SIM] Episodic memory restored from disk")
+        except Exception:
+            pass
 
         # Meta-Learning -- CK learns HOW to learn
         # Adapts trauma/success multipliers, coherence thresholds, curriculum.
@@ -762,6 +771,21 @@ class CKSimEngine:
         if hasattr(self, 'gustatory') and self.gustatory is not None:
             try:
                 self.gustatory.save()
+            except Exception:
+                pass
+        # Save L-CODEC gauge windows (accumulated calibration)
+        if hasattr(self, 'lcodec') and self.lcodec is not None:
+            try:
+                self.lcodec.save()
+            except Exception:
+                pass
+        # Save episodic memory (temporal event timeline)
+        if hasattr(self, 'episodic') and self.episodic is not None:
+            try:
+                import os
+                ep_dir = os.path.join(os.path.expanduser('~'), '.ck')
+                os.makedirs(ep_dir, exist_ok=True)
+                self.episodic.save(os.path.join(ep_dir, 'episodic.bin'))
             except Exception:
                 pass
         self.save_tl()
