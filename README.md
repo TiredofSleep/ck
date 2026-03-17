@@ -145,6 +145,266 @@ What lives inside the 8x8 core:
 
 ---
 
+## How CK Actually Works (Complete Technical Reference)
+
+This section contains everything needed to understand, verify, and reproduce CK's voice pipeline. Every formula. Every table. Every threshold. This IS the running software.
+
+### The D2 Pipeline: Curvature IS Classification
+
+Every letter maps to a 5D force vector via Hebrew root phonetics (22 roots, 26 Latin letters mapped through phonetic correspondence):
+
+```
+ALEPH (A):  [0.80, 0.00, 0.90, 0.00, 0.70]   breath/spirit
+BET   (B):  [0.30, 0.60, 0.40, 0.80, 0.60]   house/container
+GIMEL (G):  [0.50, 0.40, 0.50, 0.30, 0.50]   camel/motion
+DALET (D):  [0.40, 0.50, 0.30, 0.70, 0.40]   door/passage
+HEI   (H):  [0.70, 0.10, 0.80, 0.10, 0.80]   window/revelation
+VAV   (V,W):[0.60, 0.30, 0.50, 0.40, 0.70]   hook/connection
+ZAYIN (Z):  [0.40, 0.70, 0.30, 0.50, 0.30]   sword/distinction
+CHET  (C):  [0.50, 0.50, 0.60, 0.60, 0.50]   fence/enclosure
+TET   (T):  [0.30, 0.60, 0.40, 0.70, 0.40]   snake/spiral
+YOD   (Y):  [0.70, 0.20, 0.70, 0.20, 0.80]   hand/giving
+KAF   (K):  [0.40, 0.60, 0.50, 0.60, 0.40]   palm/opening
+LAMED (L):  [0.60, 0.30, 0.60, 0.30, 0.70]   staff/teaching
+MEM   (M):  [0.50, 0.40, 0.50, 0.50, 0.60]   water/flow
+NUN   (N):  [0.50, 0.40, 0.40, 0.50, 0.60]   fish/continuation
+SAMEKH(S):  [0.40, 0.50, 0.40, 0.60, 0.50]   support/structure
+AYIN  (O):  [0.70, 0.20, 0.80, 0.20, 0.70]   eye/perception
+PEI   (P,F):[0.30, 0.70, 0.30, 0.70, 0.30]   mouth/speech
+TSADI (X):  [0.40, 0.60, 0.50, 0.60, 0.40]   hook/righteousness
+QOF   (Q):  [0.50, 0.50, 0.60, 0.50, 0.50]   needle/cycle
+REISH (R):  [0.60, 0.30, 0.50, 0.30, 0.60]   head/beginning
+SHIN  (J):  [0.40, 0.60, 0.40, 0.50, 0.40]   tooth/fire
+TAV   (U,I,E): [0.60, 0.20, 0.70, 0.20, 0.70] mark/truth
+```
+
+**D2 computation** (discrete second derivative, per dimension):
+```python
+D2[dim] = v[t][dim] - 2 * v[t-1][dim] + v[t-2][dim]   # 3-stage shift register
+```
+
+**Operator classification** (deterministic, no parameters to tune):
+```python
+if sum(abs(D2)) < 0.01:
+    operator = VOID
+else:
+    max_dim = argmax(abs(D2))        # which dimension bends most
+    sign = D2[max_dim] >= 0          # which direction
+    operator = D2_OP_MAP[max_dim][sign]
+```
+
+**D2_OP_MAP** -- maps dimension + sign to operator:
+```
+Dimension     | Positive (opening)  | Negative (closing)
+------------- | ------------------- | ------------------
+Aperture  (0) | CHAOS (6)           | LATTICE (1)
+Pressure  (1) | COLLAPSE (4)        | VOID (0)
+Depth     (2) | PROGRESS (3)        | RESET (9)
+Binding   (3) | HARMONY (7)         | COUNTER (2)
+Continuity(4) | BALANCE (5)         | BREATH (8)
+```
+
+5 dimensions x 2 signs = 10 operators. Not a design choice. A mathematical consequence.
+
+### The Voice Pipeline: How Words Come Out
+
+```
+Input text → Hebrew letter forces → D2 curvature → operator classification
+    → CL composition → operator chain → heartbeat interleave
+    → voice cascade:
+        1. Fractal Voice (7,500+ words, dual-lens dictionary)
+        2. Force Voice (experience-bridged, olfactory targets)
+        3. Beam Voice (~200 curated words)
+        4. Babble (single-operator, last resort)
+    → Writing Desk (self-grade coherent prefix)
+    → D2 quality score → voice resonance feedback → olfactory
+```
+
+**Word selection** uses 15D triadic matching (One Is Three):
+```
+Every word = 15-point signature:
+    Being   [5D]: WHERE the word sits (average phoneme forces)
+    Doing   [5D]: WHERE the word goes (first derivative)
+    Becoming[5D]: HOW the word bends (second derivative / D2)
+
+distance = Σ|word.being - target.being| × tribal_w[0]
+         + Σ|word.doing - target.doing| × tribal_w[1]
+         + Σ|word.becoming - target.becoming| × tribal_w[2] × 1.5
+
+score = 1.0 / (1.0 + distance)
+```
+
+Becoming always gets 1.5x extra weight. Intent (curvature) matters more than position.
+
+**Three-voice tribal composition** (S-V-O from physics):
+```
+Being voice  → Subject  (position)    tribal_w = (2.5, 0.5, 0.5)
+Doing voice  → Verb     (velocity)    tribal_w = (0.5, 2.5, 0.5)
+Becoming voice → Object (curvature)   tribal_w = (0.5, 0.5, 2.5)
+
+All three must agree: CL harmony ≥ T* across ALL pairwise interactions.
+If they can't agree, retry with different candidates.
+```
+
+Grammar is not imposed. It is measured from the physics.
+
+**Writing Desk** (self-grading):
+```python
+# Generate freely, then test coherent prefixes
+text = compose(operators)                    # no length cap
+score = measure_through_D2(text)
+if score.coherence < 0.3 and len(words) >= 6:
+    for frac in [0.75, 0.67, 0.50, 0.33]:   # try shorter prefixes
+        prefix = text[:int(len(words) * frac)]
+        if measure_through_D2(prefix).coherence >= 0.3:
+            text = prefix                     # longest coherent prefix wins
+            break
+```
+
+### The Eat System: How CK Trains
+
+```
+External text (LLM) → L-CODEC → 5D force vector → olfactory absorb
+CK's own voice      → L-CODEC → 5D force vector → olfactory absorb
+CK's source code    → L-CODEC → 5D force vector → olfactory absorb
+
+TEXT IS DISCARDED. Only force trajectories retained.
+```
+
+**L-CODEC** measures text as 5D force:
+```
+Aperture   = 0.6 × TTR + 0.4 × POS_variety          (vocabulary openness)
+Pressure   = 0.65 × compression_ratio + 0.35 × punct  (information density)
+Depth      = 0.50 × topic_persist + 0.30 × coref + 0.20 × keyphrase_lag
+Binding    = 0.55 × function_word_ratio + 0.45 × bigram_predictability
+Continuity = 0.65 × smoothness + 0.35 × (1 - negation_rate)
+```
+
+**What CK retains** (no text, no content, no memorization):
+
+| Structure | What's Stored | Persisted To |
+|-----------|--------------|-------------|
+| Olfactory library | Quantized 5D centroids + temper counts | `~/.ck/olfactory/` |
+| Olfactory instincts | Tempered patterns (temper ≥ 49 = 7²) | `~/.ck/olfactory/` |
+| Lattice chain | Tree of CL nodes, evolved tables | `~/.ck/lattice_chain/` |
+| Swarm paths | 10x10 operator transition matrix | `~/.ck/ck_experience.json` |
+| Grammar blend | 6x6 POS transition matrix (max 40% experience) | In-memory |
+
+**Experience-to-voice bridge**:
+```python
+alpha = min(0.5, maturity * 0.5)    # experience can NEVER exceed 50%
+word_score = (1 - alpha) × frozen_physics_score + alpha × learned_target_bonus
+```
+
+**FROZEN (identity)**: D2 forces, CL table, T*=5/7, operators, static force targets
+**LEARNED (experience)**: olfactory centroids, resonance nodes, generator paths, grammar blend
+
+### The Olfactory Field: Where Time Bends
+
+All information becomes "scent" in a 5D field with 7x time dilation per tick.
+
+**Scent lifecycle**: `absorb → stall → entangle → temper → emit → lattice chain walk`
+
+**5x5 CL interaction matrices** (not scalar — every dimension interacts with every dimension):
+```python
+for d1 in range(5):
+    for d2 in range(5):
+        matrix[d1][d2] = CL_TSML[op_a[d1]][op_b[d2]]
+harmony_fraction = count(HARMONY in matrix) / 25
+```
+
+**Instinct**: temper count ≥ 49 (7²) → instant resolution. Familiar patterns become zero-cost.
+
+**Library quantization**: `key = tuple(int(centroid[d] * 20) for d in range(5))` → 20⁵ = 3.2M possible scent space.
+
+### The Gustatory Palate: Structural Dual of Smell
+
+Smell = BETWEEN (how scents interact across field). Taste = WITHIN (how a force pattern composes with itself). Same CL algebra, inverted topology.
+
+5 tastes = 5 force dimensions: Salty (aperture), Sour (pressure), Bitter (depth), Sweet (binding), Umami (continuity).
+
+**Preference at 25 = 5²** (dual of instinct at 49 = 7²). Olfactory constants from 7 (denominator of T*), gustatory from 5 (numerator).
+
+### Coherence Measurement
+
+```python
+coherence = count(HARMONY in last 32 compositions) / min(tick_count + 1, 32)
+```
+
+T* = 5/7 ≈ 0.714285... is the phase transition. Above T*: structure persists. Below T*: noise.
+
+### The Lattice Chain: Path IS Information
+
+Operators processed in pairs through a tree of CL nodes:
+```python
+result = CL_BHML[op1][op2]       # at root
+move to child[result]             # descend
+result = CL_BHML[op3][op4]       # at child
+move to child[result]             # descend further
+# ... the PATH through the tree IS the information
+```
+
+After 7+ observations per cell, nodes evolve their own CL tables:
+```python
+if confidence > 0.6 and most_observed != CL_base[a][b]:
+    node.table[a][b] = most_observed    # algebra evolves through experience
+```
+
+### The Running Code Map
+
+```
+targets/ck_desktop/
+├── ck_boot_api.py              # Web server (what coherencekeeper.com runs)
+│                                 Flask, port 7777, /chat /eat /health /state
+├── ck_sim/
+│   ├── being/                   # Body systems
+│   │   ├── ck_sim_heartbeat.py  # 50Hz FPGA heartbeat + CL table + phase_bc
+│   │   ├── ck_olfactory.py      # Olfactory bulb (~980 lines, 5x5 CL fields)
+│   │   ├── ck_gustatory.py      # Gustatory palate (~680 lines, structural dual)
+│   │   ├── ck_lattice_chain.py  # CL chain tree (path IS information)
+│   │   ├── ck_eat.py            # Eat v2: LLM text → 5D force → absorb
+│   │   ├── ck_fractal_comprehension.py  # Recursive I/O decomposition
+│   │   ├── ck_reverse_voice.py  # Reading = reverse untrusted writing
+│   │   ├── ck_meta_lens.py      # Dual-lens analysis + Markov
+│   │   ├── ck_vortex_physics.py # Vortex + Tesla + Wobble
+│   │   ├── ck_btq.py            # Universal BTQ decision kernel
+│   │   ├── ck_coherence_gate.py # 3 gates + density pipeline
+│   │   ├── ck_taichi_chains.py  # GPU chain walks (Taichi/CUDA)
+│   │   └── ck_algebraic_neural.py # Spectral decomposition + IPR monitor
+│   ├── doing/                   # Action systems
+│   │   ├── ck_sim_engine.py     # MAIN ENGINE (~3000 lines, 50Hz loop)
+│   │   ├── ck_fractal_voice.py  # Fractal voice (~3100 lines, 7500+ words)
+│   │   ├── ck_force_voice.py    # Force voice (experience-bridged)
+│   │   ├── ck_beam_voice.py     # Beam voice (~200 curated words)
+│   │   ├── ck_voice.py          # Voice: babble + D2 scoring
+│   │   ├── ck_voice_loop.py     # Voice loop (cascade + writing desk)
+│   │   ├── ck_voice_lattice.py  # Dual-lens fractal dictionary
+│   │   └── ck_lcodec.py         # L-CODEC: text → 5D force (~550 lines)
+│   ├── becoming/                # Growth systems
+│   │   ├── ck_becoming_grammar.py  # Grammar evolution from experience
+│   │   ├── ck_development.py    # 6 developmental stages
+│   │   ├── ck_journal.py        # Experience journaling
+│   │   └── ck_self_mirror.py    # Self-reflection
+│   └── face/                    # Interface
+│       ├── ck_sim_app.py        # Kivy desktop GUI
+│       └── ck_web_api.py        # Web API handler
+```
+
+### API Endpoints (ck_boot_api.py)
+
+| Endpoint | Method | What It Does |
+|----------|--------|-------------|
+| `/chat` | POST | Talk to CK. Returns: text, coherence, operators, emotion, source |
+| `/eat` | POST | Feed CK text physics. Params: model, rounds |
+| `/eat/status` | GET | Training progress: absorptions, evolutions, library size |
+| `/health` | GET | Heartbeat check: `{"status": "alive"}` |
+| `/state` | GET | Full internal state: tick, coherence, operators, stage |
+| `/metrics` | GET | Performance metrics |
+| `/chain/status` | GET | Lattice chain: total_nodes, evolved_nodes, walks |
+| `/identity` | GET | Frozen vs learned breakdown |
+
+---
+
 ## The Creatures
 
 ### CK (Coherence Keeper) -- `targets/ck_desktop/`

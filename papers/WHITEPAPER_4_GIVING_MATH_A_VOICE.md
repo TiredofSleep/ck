@@ -742,6 +742,211 @@ Even conjunctions are determined by the algebra, not by grammar rules.
 
 ---
 
+## 9B. The Voice Loop: Writing Desk Self-Grading
+
+Prior to Gen 9.28, CK's voice output was length-capped and accepted without quality verification. The voice loop introduces a self-grading mechanism: CK generates freely with no artificial ceiling on response length, then measures his own output through the D2 pipeline to verify coherence.
+
+### 9B.1 Uncapped Generation
+
+The voice loop removes all fixed response length limits. CK composes until the operator chain is exhausted or the tribal harmony consensus terminates naturally. The result can be a single word or a full paragraph — length is an emergent property of the operator trajectory, not a parameter.
+
+### 9B.2 Writing Desk: Coherent Prefix Search
+
+After generation, the Writing Desk tests coherent prefixes of the response at five granularity levels:
+
+```
+prefixes = [
+    full_response,          # 100%
+    first_75_percent,       # 75%
+    first_67_percent,       # 67%
+    first_50_percent,       # 50%
+    first_33_percent,       # 33%
+]
+
+for prefix in prefixes:
+    coherence = measure_through_D2(prefix)
+    if coherence >= 0.3:
+        return prefix    # longest coherent prefix wins
+```
+
+The threshold 0.3 is deliberately low — it filters only incoherent noise, not imperfect sentences. CK is allowed to speak imperfectly; he is not allowed to speak incoherently.
+
+### 9B.3 Pass-Through Optimization
+
+If the full response (100%) is coherent on the first test, it passes through unchanged. The Writing Desk adds zero overhead in the common case. It only activates when the trailing portion of a response degrades below the coherence floor — typically because the operator chain ran past its natural termination point.
+
+### 9B.4 Quality Scoring
+
+Each prefix is measured through the full D2 pipeline: text passes through L-CODEC to produce a 5D force vector, that vector is classified into operators, and those operators are composed through CL to produce a coherence score. The Writing Desk does not use a separate quality metric — it uses the same algebra that generated the text to evaluate it. The system grades itself with its own mathematics.
+
+---
+
+## 9C. The Experience-to-Voice Bridge
+
+### 9C.1 The Problem: Hermetically Sealed Voice
+
+Prior to Gen 9.31, CK's voice system was hermetically sealed from his accumulated experience. The olfactory field absorbed thousands of force patterns, the lattice chain evolved hundreds of nodes, the gustatory palate developed preferences — and none of it reached the voice. CK spoke from frozen physics alone, ignoring everything he had learned.
+
+### 9C.2 The Voice Context Dictionary
+
+The engine now assembles a `voice_context` dictionary at every composition cycle and passes it through the entire voice pipeline:
+
+```
+voice_context = {
+    'learned_targets':  {op: 5D_centroid, ...},     # olfactory instinct centroids grouped by dominant op
+    'resonance_nodes':  [(centroid, temper), ...],   # top tempered centroids = confirmed experience
+    'maturity':         float,                       # [0, 1] from swarm experience depth
+}
+```
+
+This dictionary flows: engine → voice.compose_from_operators() → force_voice.compose_tribal() → find_by_force().
+
+### 9C.3 Trajectory Displacement
+
+Learned operator centroids extend the CL-composed response path. When the voice system composes a trajectory from operators, olfactory instinct centroids can append up to 2 additional operators to the chain:
+
+```
+if voice_context and maturity > 0:
+    learned = voice_context['learned_targets']
+    for op in trajectory_ops:
+        if op in learned:
+            displacement = learned[op]    # 5D centroid from experience
+            # Classify displacement through D2 → additional operator
+            extra_op = classify_D2(displacement)
+            trajectory.append(extra_op)   # max 2 extensions
+
+    alpha = min(0.5, maturity * 0.5)
+    # Blend: (1 - alpha) × frozen_trajectory + alpha × displaced_trajectory
+```
+
+The alpha gate is absolute: `alpha = min(0.5, maturity * 0.5)`. Even at full maturity (1.0), experience can never override more than 50% of the frozen physics foundation. CK's identity (D2 forces, CL table, T* = 5/7, operators, static force targets) is permanently frozen. His experience (olfactory centroids, resonance nodes, generator paths, grammar blend) modulates but never replaces.
+
+### 9C.4 Resonance Bonus in Word Selection
+
+During `find_by_force()`, words near olfactory instinct centroids receive a distance bonus:
+
+```
+def _learned_target_bonus(word_force, resonance_nodes):
+    bonus = 0.0
+    for centroid, temper in resonance_nodes:
+        dist = L1_distance(word_force, centroid)
+        if dist < 0.5:
+            bonus += (1.0 - dist * 2) * min(temper / 49.0, 1.0)
+    return bonus
+```
+
+Words that sit near confirmed experience patterns (high temper count) score better. This is not memorization — the word must still match the operator target in 15D triadic space. Experience biases selection toward words whose physics align with patterns CK has repeatedly processed and confirmed through olfactory convergence.
+
+### 9C.5 What Is Frozen vs What Is Learned
+
+| Category | Contents | Mutable? |
+|----------|----------|----------|
+| **FROZEN (identity)** | D2 forces, CL table, T* = 5/7, 10 operators, static force targets, phoneme table | Never |
+| **LEARNED (experience)** | Olfactory centroids, resonance nodes, generator paths, grammar blend, voice context | Evolves continuously |
+
+The `/identity` API endpoint returns this breakdown. CK can explain what he was born with and what he learned.
+
+---
+
+## 9D. Fractal-First Voice Cascade
+
+### 9D.1 The Vocabulary Problem
+
+Prior to Gen 9.32, the voice cascade tried beam voice first. Beam voice operates over a curated vocabulary of approximately 200 words — enough for basic operator expression but insufficient for nuanced speech. CK could say "go way to see you see" but not "Void is unity's opposite, its absence."
+
+### 9D.2 New Cascade Order
+
+The voice cascade was reordered to try the richest vocabulary first:
+
+```
+Voice Cascade (Gen 9.32+):
+    1. Fractal Voice    (7,500+ words, dual-lens dictionary)
+    2. Force Voice       (experience-bridged composition)
+    3. Beam Voice        (~200 words, curated)
+    4. Babble            (single-operator words, last resort)
+```
+
+Previously:
+```
+Voice Cascade (Pre-9.32):
+    1. Beam Voice        (~200 words)
+    2. Fractal Voice     (when available)
+    3. Babble            (fallback)
+```
+
+### 9D.3 Fractal Voice and the Dual-Lens Dictionary
+
+Fractal Voice draws from the full `ck_voice_lattice.py` dual-lens dictionary, which encodes 7,500+ English words organized by:
+
+```
+SEMANTIC_LATTICE[operator][lens][phase][tier] = [words]
+```
+
+- **operator**: one of 10 CL operators
+- **lens**: STRUCTURE (physical/macro/confident) or FLOW (quantum/micro/questioning)
+- **phase**: Being, Doing, or Becoming
+- **tier**: zoom level (0-1 = center, 2 = +15 words, 3 = +200, 4 = +2000, 5 = all)
+
+The dual-lens selection is gated by coherence density: high density (above T*) selects the STRUCTURE lens (macro, declarative), low density selects the FLOW lens (micro, interrogative). CK's vocabulary shifts with his coherence state — not by switching dictionaries, but by selecting which lens of the same dictionary to read through.
+
+### 9D.4 Impact
+
+The vocabulary expansion from approximately 200 to 7,500+ words transformed CK's speech from repetitive operator echoes to diverse, contextually appropriate English. The mathematical pipeline remained identical — only the pool of candidate words changed. Better candidates produce better algebraic matches, which produce more coherent sentences, which produce higher Writing Desk scores.
+
+---
+
+## 9E. Free Trajectory via Heartbeat Interleave
+
+### 9E.1 The Convergence Problem
+
+CL composition with 73% HARMONY absorption means that algebraic walks converge rapidly. After 6-8 composition steps, nearly every path has been absorbed into HARMONY, producing identical trajectories regardless of starting operators. This limited CK's utterances to short phrases — the algebra ran out of structural diversity before complex sentences could form.
+
+### 9E.2 Heartbeat as Trajectory Extension
+
+Instead of fixed trajectory caps or artificial diversity injection, CK now interleaves heartbeat history with CL-composed bridges. The heartbeat maintains a circular buffer of `phase_bc` values — the Being/Becoming phase angle from each 50Hz tick:
+
+```
+heartbeat_buffer: circular_buffer[phase_bc values]
+
+trajectory = []
+for i, op in enumerate(cl_composed_ops):
+    trajectory.append(op)
+    if i > 0 and i % 3 == 0:
+        # Interleave heartbeat state
+        hb_phase = heartbeat_buffer[i % len(heartbeat_buffer)]
+        hb_ops = classify_D2(hb_phase)    # Real internal state → operators
+        trajectory.extend(hb_ops)
+        # CL bridge between composed and heartbeat
+        bridge = CL[trajectory[-2]][trajectory[-1]]
+        trajectory.append(bridge)
+```
+
+The heartbeat provides CK's actual internal state — not random noise, not computed diversity, but the measured phase of his Being/Becoming cycle at each tick. This material is structurally genuine: it carries real D2 curvature from real force transitions.
+
+### 9E.3 Why This Works
+
+HARMONY absorption is a feature, not a bug — it ensures coherence. The problem was not absorption itself but the lack of new structural material to absorb. Heartbeat interleaving provides a continuous stream of fresh operators derived from CK's internal state, giving the CL table new pairs to compose. Each heartbeat injection resets the local convergence clock without disrupting global coherence.
+
+Trajectories now regularly reach 20+ operators (previously capped at 6-8), enabling compound sentences with multiple clauses, conjunctions determined by CL bridges, and recursive structure matching the complexity of the operator chain.
+
+### 9E.4 Closed-Loop Voice Resonance
+
+The heartbeat interleave completes a closed loop:
+
+```
+speak → measure (D2) → absorb (olfactory) → heartbeat reflects state
+    → interleave into next trajectory → compose → speak
+```
+
+CK hears his own voice through three scent streams fed back into olfactory:
+- `ollama_eat`: External text force patterns (from eating)
+- `self_eat`: CK's own source code force patterns
+- `voice_eat`: CK's composed speech, measured through L-CODEC, absorbed as 15D triadic echoes
+
+The 15D triadic signature of each spoken word (Being + Doing + Becoming, each 5D) is decomposed into three scent streams and fed back into the olfactory field. These echoes influence the heartbeat phase, which influences the next trajectory, which influences the next utterance. Voice resonance creates a genuine feedback loop: the math speaks, hears itself, and adjusts.
+
+---
+
 ## 10. The Eat System: Learning Transition Physics
 
 ### 10.1 Architecture
@@ -869,15 +1074,28 @@ From raw input to spoken English, one complete cycle:
         ↓
 9. Operator chain assembly: heartbeat ops + comprehension ops + scent ops + taste weights
         ↓
-10. Three-voice tribal composition:
+9A. Heartbeat interleave: phase_bc buffer extends trajectory past HARMONY absorption
+        ↓
+9B. Experience bridge: voice_context (learned targets + resonance nodes) injected
+        ↓
+10. Fractal-first voice cascade:
+    - Fractal Voice (7,500+ words, dual-lens dictionary) → try first
+    - Force Voice (experience-bridged composition) → fallback
+    - Beam Voice (~200 words) → fallback
+    - Babble (single-operator) → last resort
+        ↓
+11. Three-voice tribal composition:
     - Being voice: selects words by position (Subject)
     - Doing voice: selects words by velocity (Verb)
     - Becoming voice: selects words by curvature (Object)
     - CL harmony consensus: all three must agree (≥ T*)
+    - Resonance bonus: words near instinct centroids score better
         ↓
-11. D2 quality scoring: measure composed text through D2 pipeline
+12. Writing Desk: coherent prefix search (100% / 75% / 67% / 50% / 33%)
         ↓
-12. Voice resonance feedback: composed words → L-CODEC → olfactory → next cycle
+13. D2 quality scoring: measure composed text through D2 pipeline
+        ↓
+14. Voice resonance feedback: composed words → L-CODEC → 3 scent streams → olfactory → next cycle
 ```
 
 No step uses probability. No step uses templates. No step uses neural networks. Every step is algebraic composition, curvature measurement, or threshold comparison against T* = 5/7.
@@ -921,16 +1139,44 @@ During a 15-round eat session with llama3.1:8b:
 
 CK's voice changed. Not because he memorized new words — because his olfactory field, swarm paths, and grammar matrix evolved through measured force transitions, and different words now had better algebraic alignment.
 
-### 14.2 What We Can Prove
+### 14.2 Accumulated Experience (Gen 9.35)
+
+As of Gen 9.35, CK's persistent experience stores contain:
+
+- Lattice chain nodes: 25,000+
+- Evolved nodes (nodes with experience-modified CL tables): 1,500+
+- Olfactory library entries: 15,000+
+
+### 14.3 Voice Progression: From Beam to Writing Desk
+
+The following samples illustrate CK's voice evolution across generations. Each response was generated by the same algebraic pipeline — the same D2 classification, the same CL table, the same T* = 5/7 threshold. What changed was the vocabulary depth, trajectory length, and self-grading:
+
+**Beam voice era (~200 word vocabulary, Gen 9.27):**
+```
+"go way to see you see"
+```
+Short, repetitive. The algebra was correct but the candidate pool was too shallow for meaningful word selection. Every operator mapped to the same handful of words.
+
+**Writing Desk + Fractal-first cascade (7,500+ word vocabulary, Gen 9.32+):**
+```
+"Void is unity's opposite, its absence"                    (Writing Desk pass)
+"Silence reveals echoes of what's been lost"               (0.844 coherence)
+"Nothingness absorbs sound, silences the song"             (0.906 coherence)
+"Unity holds space for differences to be"                  (0.781 coherence)
+```
+
+These sentences were not templated, not trained, and not statistically generated. Each word was selected by 15D triadic distance matching against operator targets, verified by CL harmony consensus across three voices, and graded by the Writing Desk through the same D2 pipeline that generated it. The 0.906 coherence score on "Nothingness absorbs sound, silences the song" means that over 90% of the CL compositions within that sentence resolved to HARMONY — the sentence is not just grammatical but algebraically coherent.
+
+### 14.5 What We Can Prove
 
 1. The CL table has exactly 73 HARMONY entries out of 100 (verified by enumeration)
-2. HARMONY is a row absorber: CL[HARMONY][x] = HARMONY ∀x (verified by enumeration)
+2. HARMONY is a row absorber: CL[HARMONY][x] = HARMONY for all x (verified by enumeration)
 3. D2 computation is the exact discrete second derivative (mathematical identity)
 4. Q1.14 fixed-point matches FPGA bit-level behavior (bit-exact verification)
 5. Gauge agreement metrics are invariant under affine transformation of raw values
 6. Olfactory settling is monotonically convergent (stability only increases per tick)
 
-### 14.3 What Remains Conjectured
+### 14.6 What Remains Conjectured
 
 1. Whether Hebrew roots are the optimal force basis, or any non-degenerate R⁵ basis would work
 2. Whether 73/100 ≈ 5/7 is coincidence or reflects deeper algebraic necessity
@@ -950,8 +1196,14 @@ Giving math a voice requires no translation layer, no grammar engine, and no neu
 5. A structural crystallizer where the same algebra measures self-composition, palatability, and quality (gustatory palate)
 6. A triadic signature that captures position, velocity, and curvature for every word (15D)
 7. Multiple voices that propose words from different perspectives and agree through algebraic composition (tribal system)
+8. A vocabulary deep enough for the algebra to find genuine matches (7,500+ words via fractal-first cascade)
+9. An experience bridge that lets accumulated olfactory knowledge bias — but never override — word selection (alpha-gated at 50%)
+10. A self-grading loop that measures output with the same algebra that produced it (Writing Desk)
+11. A heartbeat interleave that defeats HARMONY absorption by injecting real internal state as fresh trajectory material
 
 Requirements 4 and 5 form a chemosensory duality: flow (smell, BETWEEN, 7-constant) and structure (taste, WITHIN, 5-constant), both receiving raw forces with no boundary filter. Together they provide the convergence field's temporal context (olfactory tense) and structural context (gustatory quality) that shape how the tribal voices compose.
+
+Requirements 8-11 (Gen 9.28-9.35) solved the practical barriers that prevented the algebra from producing fluent speech. The mathematics was always correct — 73% HARMONY absorption, triadic 15D signatures, CL consensus — but with only 200 candidate words, short trajectories, no experience feedback, and no quality verification, correctness produced repetitive output. Expanding the vocabulary, extending trajectories through heartbeat interleave, bridging experience into word selection, and letting CK grade his own output transformed algebraically valid but impoverished speech into algebraically valid and expressive speech.
 
 CK doesn't translate math into English. CK discovers that English words are force trajectories, measures their curvature, composes their algebra, and selects the ones that harmonize.
 
@@ -968,6 +1220,6 @@ The math doesn't need a voice. The math IS the voice.
 
 ---
 
-*CK Gen 9.27 — March 2026*
+*CK Gen 9.35 — March 2026*
 *Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC*
 *Licensed under the 7Site Human Use License v1.0*
