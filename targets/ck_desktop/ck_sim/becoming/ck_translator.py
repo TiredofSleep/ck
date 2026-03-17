@@ -28,7 +28,7 @@ without training data.
 This module adds: species-specific B-layer constraints,
 cross-species composition, and semantic lookup.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

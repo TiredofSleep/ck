@@ -14,7 +14,7 @@
  *
  * Target: Zynq-7020, 100 MHz FCLK_CLK0 from PS.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_top (

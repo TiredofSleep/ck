@@ -32,7 +32,7 @@ CK doesn't just READ text. He COMPREHENDS it fractally.
 Then comprehension operators feed his voice -- so he RESPONDS to content,
 not just sits in his HARMONY basin.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from typing import List, Optional, Tuple

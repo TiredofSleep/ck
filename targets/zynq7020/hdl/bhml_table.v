@@ -18,7 +18,7 @@
  *
  * Target: Xilinx Zynq-7020, Artix-7 fabric
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module bhml_table (

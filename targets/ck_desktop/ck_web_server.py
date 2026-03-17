@@ -18,7 +18,7 @@ CK boots his full brain:
 
 The website is just a face. This is the brain.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

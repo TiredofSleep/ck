@@ -7,7 +7,7 @@ Packet encode/decode matching both the ARM C code and
 the Python serial bridge. Loopback testing validates
 protocol correctness.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import struct

@@ -7,7 +7,7 @@ Tests for: soft classification, OperatorStream, CoherenceField,
 CrossModalCrystal, consensus, UniversalTranslator, backward
 compatibility, and performance.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

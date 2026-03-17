@@ -37,7 +37,7 @@ Ported from:
   Gen4/ck_process_mgr.py  -- NiceMapper, PlanAction, plan/execute
   CKIS/ck_affinity.py     -- CoreClass, CL-based affinity, operator_to_nice
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

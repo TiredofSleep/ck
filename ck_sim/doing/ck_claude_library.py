@@ -42,7 +42,7 @@ Dependencies:
   OR set ANTHROPIC_API_KEY environment variable
   Falls back to MockClaude if no API key available.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

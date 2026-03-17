@@ -9,7 +9,7 @@ Usage:
     python -m ck_sim.face.ck_clay_runner --problem riemann --mode frontier
     python -m ck_sim.face.ck_clay_runner --problem all --mode calibration --output clay_results
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse

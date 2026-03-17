@@ -4,7 +4,7 @@ ck_sensory_codecs_tests.py -- Tests for Universal Sensory Codecs
 Validates: CurvatureEngine, all 5 sensor codecs (IMU, proximity, motor,
 battery, temperature), SensorFusion, operator-to-motor mapping, E/A/K bridge.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

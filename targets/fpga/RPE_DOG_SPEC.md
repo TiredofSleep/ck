@@ -266,4 +266,4 @@ The servo pulse timing and TIG wave scheduling are independent axes:
 
 ---
 
-(c) 2026 Brayden Sanders / 7Site LLC — TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry

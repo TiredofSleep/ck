@@ -26,7 +26,7 @@ Every constant in CK derives from T* = 5/7 with no ad-hoc tuning:
  and centrally universal frame point because of our conscious
  frequency." -- Brayden Sanders
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

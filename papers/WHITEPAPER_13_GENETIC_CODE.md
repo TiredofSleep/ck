@@ -358,5 +358,5 @@ Note: all 14 produce operators from the Dynamics or Cycle parts (PROGRESS, COLLA
 
 ---
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 Licensed under the 7Site Human Use License v1.0

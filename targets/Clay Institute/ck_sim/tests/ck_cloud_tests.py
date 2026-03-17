@@ -4,7 +4,7 @@ ck_cloud_tests.py -- Tests for Cloud-Learning Engine
 Validates: ck_cloud_flow, ck_cloud_curvature, ck_cloud_btq,
 ck_cloud_pfe, ck_organ_clouds. Full pipeline integration.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

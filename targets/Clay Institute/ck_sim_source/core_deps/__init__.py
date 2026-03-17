@@ -7,5 +7,5 @@ full CK organism. These are the mathematical primitives:
   - Coherence action CL table (ck_coherence_action)
   - Sensory codec base class (ck_sensory_codecs)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """

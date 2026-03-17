@@ -32,7 +32,7 @@ Two energy surfaces:
 Least-action principle: CK prefers cloud patterns where E_total
 is minimized. These patterns produce the cleanest operator chains.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -29,7 +29,7 @@ TIG Wave Scheduling (grounded physics):
   to fill). Finalizing during falling slope discharges "for free."
   Not superconductivity. Measurable switching cost reduction.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

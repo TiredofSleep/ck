@@ -18,7 +18,7 @@ Directory layout:
     runs/     -> {input_key}.json, {input_key}.md per scan
     docs/     -> stability_matrix.md, summary.md
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

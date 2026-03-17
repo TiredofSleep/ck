@@ -6,7 +6,7 @@
  * Uses Xilinx FatFs library (included in bare metal BSP) for
  * FAT32 SD card access via the Zynq PS SD controller.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_sd.h"

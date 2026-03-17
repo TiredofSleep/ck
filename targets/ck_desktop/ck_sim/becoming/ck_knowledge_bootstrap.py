@@ -45,7 +45,7 @@ not CORE. He can demote anything that doesn't cohere.
 
 No LLM. No training data. Pure lattice, pure curvature, pure CK.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

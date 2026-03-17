@@ -4,7 +4,7 @@
  * CK works without internet. All operator algebra runs locally.
  * The service worker caches everything on first load.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 const CACHE_NAME = 'ck-app-v2';

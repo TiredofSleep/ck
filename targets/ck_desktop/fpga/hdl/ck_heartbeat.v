@@ -33,7 +33,7 @@
  * Target: Xilinx Zynq-7020 (PZ7020-StarLite), Artix-7 fabric
  * Clock: 200 MHz fabric. CK's heartbeat: 1Hz to 10kHz (HE decides)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_heartbeat #(

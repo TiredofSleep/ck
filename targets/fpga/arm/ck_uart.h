@@ -13,7 +13,7 @@
  *   1. Talk to Windows host (R16) during development
  *   2. Talk to dog body (ESP32) when attached
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_UART_H

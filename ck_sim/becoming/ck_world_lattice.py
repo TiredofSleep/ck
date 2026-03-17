@@ -27,7 +27,7 @@ just different labels on the same truth.
 No LLM. No embeddings. No training data.
 D2 curvature IS the universal codec for language.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

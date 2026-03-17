@@ -4,7 +4,7 @@ ck_world_lattice_tests.py -- Tests for CK's World Lattice
 Validates: transliteration, D2 cross-language, concept graph,
            relations, MDL compression, snapshot, multilingual bindings.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

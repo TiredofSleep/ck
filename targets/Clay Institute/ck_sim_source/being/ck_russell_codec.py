@@ -23,7 +23,7 @@ toroidal symmetry. Used to determine if Russell geometry is:
   - DERIVED: correlates strongly with standard delta (redundant but isomorphic)
   - REDUNDANT: adds no information
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

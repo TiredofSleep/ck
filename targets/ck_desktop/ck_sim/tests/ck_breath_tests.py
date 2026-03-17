@@ -22,7 +22,7 @@ Tests:
   9. Multi-seed breath estimates
   10. Breath atlas
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

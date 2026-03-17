@@ -9,7 +9,7 @@ Tests:
   3. Ho Tu +5 involution on HARMONY row
   4. Monte Carlo: how many random constrained tables pass all checks
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import random

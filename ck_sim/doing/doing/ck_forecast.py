@@ -25,7 +25,7 @@ predicts coherence.
 Memory: ~200 bytes per forecast (10 FutureStates × 20 bytes each).
 CPU: trivial — N matrix lookups + N CL compositions per forecast.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -20,7 +20,7 @@ standard Navier-Stokes / PDE concepts.
 Each mapping has a verification function that tests it numerically
 against known calibration data.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

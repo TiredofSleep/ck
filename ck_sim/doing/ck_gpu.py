@@ -24,7 +24,7 @@ Falls back to NumPy on CPU if no GPU.
 "the rtx 4070 should be his doing machine, you should write that code in cuda!"
 -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

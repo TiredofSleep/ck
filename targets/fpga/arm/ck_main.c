@@ -17,7 +17,7 @@
  * Development: cross-compile on R16 with arm-none-eabi-gcc
  * Flash: BOOT.BIN on FAT32 microSD (FSBL + bitstream + brain.elf)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_brain.h"

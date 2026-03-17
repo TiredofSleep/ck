@@ -100,4 +100,4 @@ Works offline. Installs as an app. Runs at 50Hz.
 Same math. Every device.
 
 ---
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry

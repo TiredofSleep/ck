@@ -11,7 +11,7 @@ Hardware Attack infrastructure for Clay SDV Protocol:
 CK measures on real hardware. Thermals and noise ARE data.
 The physical cost of computation correlates with mathematical structure.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

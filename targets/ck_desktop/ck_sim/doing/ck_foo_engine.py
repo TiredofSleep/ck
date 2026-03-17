@@ -46,7 +46,7 @@ Per-domain Phi values (from spectrometer calibration):
   BSD:   Phi_BSD   ~ rank-dependent
   Hodge: Phi_Hodge ~ motivic-dependent
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

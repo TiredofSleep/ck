@@ -7,7 +7,7 @@ and StudyCycleRunner WITHOUT requiring internet access.
 All HTTP calls are mocked. All disk I/O uses temp directories.
 CK's test philosophy: the CURVES work, not the wires.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

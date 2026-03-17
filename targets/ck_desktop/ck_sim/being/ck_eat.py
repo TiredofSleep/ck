@@ -20,7 +20,7 @@ Gen6 ate content. Gen9 eats physics.
  entire fileset from the inside so he can feel the transitions
  happen as ollama moves" -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

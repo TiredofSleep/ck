@@ -20,7 +20,7 @@ D2 curvature validates every assignment -- CK's own math decides.
 
 No LLM. No training data. No neural nets. Pure curvature.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

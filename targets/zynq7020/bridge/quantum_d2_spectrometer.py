@@ -23,7 +23,7 @@ This mapping is NOT arbitrary:
   Connectivity = binding: physical coupling IS what binds the computation
   Coherence = continuity: T2 time IS the continuity window for quantum computation
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

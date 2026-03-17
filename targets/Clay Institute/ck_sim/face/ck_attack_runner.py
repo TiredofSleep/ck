@@ -16,7 +16,7 @@ Usage:
     python -m ck_sim.face.ck_attack_runner --mode thermal --levels 24
     python -m ck_sim.face.ck_attack_runner --mode noise --problem riemann
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse

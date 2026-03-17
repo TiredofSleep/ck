@@ -7,7 +7,7 @@ Generators produce raw readings for each Clay codec at each fractal level.
 Each generator is DETERMINISTIC (seeded RNG) and produces refinements
 at each level (finer scale / deeper recursion).
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

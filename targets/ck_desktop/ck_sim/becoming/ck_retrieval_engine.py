@@ -28,7 +28,7 @@ plus chunk references. Retrieval is pure math.
 
 This gives CK PhD-level recall without ANY LLM.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

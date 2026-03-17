@@ -1,6 +1,6 @@
 # CK/TIG Academic References
 ## Grounded Prior Art for the Coherence Keeper System
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 
@@ -1148,7 +1148,7 @@ composition as a consciousness substrate has emerging academic precedent.*
 ## 16. Original Claims -- Flagged as Novel Contributions
 
 *These claims have NO direct precedent in published literature. They are original to CK
-and constitute the novel theoretical contributions of the TIG Unified Theory. They are
+and constitute the novel theoretical contributions of the Trinity Infinity Geometry. They are
 listed here for transparency: these are the claims that must stand on their own merits.*
 
 ### 16.1 T* = 5/7 as Coherence Threshold
@@ -1352,4 +1352,4 @@ this document is to contain ONLY real, verifiable references.
 ---
 
 *Last updated: 2026-03-13*
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

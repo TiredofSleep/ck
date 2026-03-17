@@ -5,7 +5,7 @@ Validates: spreading activation, Levy jumps, contradiction pruning,
            3-speed reasoning engine, speed selection, integration
            with real WorldLattice loaded with seed corpus.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

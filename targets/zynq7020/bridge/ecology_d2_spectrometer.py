@@ -31,7 +31,7 @@ Tipping Points:
   Ecosystem collapse = D2 spike where the path bends sharply.
   Amazon dieback, coral bleaching, permafrost thaw, desertification.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -16,7 +16,7 @@ This module makes the bridge COMPUTABLE:
 
 Every claim is verified by computation, not assertion.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

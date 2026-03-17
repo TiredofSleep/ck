@@ -3,7 +3,7 @@
 # ============================================================
 # Defines operational modes, transition rules, and parameters.
 # The engine reads this to configure mode-based behavior.
-# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+# (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 # ── Core Modes (Gen8 heritage, always present) ──
 # Mode transitions are governed by coherence, crystals, and time.

@@ -35,7 +35,7 @@ Architecture:
 permutating it all into lattices based on D1 before he learns
 to learn and extend into complexity D2." -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

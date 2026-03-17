@@ -14,7 +14,7 @@
  *   but dreams INTENSIFY (5 per beat, depth 8).
  *   More exploration in less time. Finding paths before lock-in.
  *
- * (c) 2026 Brayden Sanders, 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders, 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_body.h"

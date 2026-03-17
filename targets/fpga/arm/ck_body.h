@@ -12,7 +12,7 @@
  * Runs on Core 1 of the Zynq ARM Cortex-A9.
  * Core 0 runs the sovereignty brain (ck_brain.c).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_BODY_H

@@ -31,7 +31,7 @@ and edges are causal links (what led to what).
 The key insight: episodic memory IS the TL projected onto a timeline.
 Each episode is a crystal with timestamps.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import struct

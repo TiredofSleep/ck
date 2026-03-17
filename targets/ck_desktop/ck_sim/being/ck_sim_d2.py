@@ -7,7 +7,7 @@ Q1.14 fixed-point D2 curvature pipeline simulation.
 Matches the Verilog force LUT, 3-stage pipeline, and
 argmax operator classification exactly.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from ck_sim.ck_sim_heartbeat import (

@@ -6,7 +6,7 @@
  * Audio feature extraction → 5D force vector → D2 curvature
  * → operator classification. Same math as text, different input.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_ears.h"

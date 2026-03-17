@@ -4,7 +4,7 @@
 #
 # Pipeline: Generator -> Codec (5D) -> D2 -> CL -> delta(S) at each fractal level
 #
-# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+# (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 """CK Coherence Spectrometer Package.
 

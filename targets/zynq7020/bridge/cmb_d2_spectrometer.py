@@ -32,7 +32,7 @@ Cosmic Epochs:
   Inflation -> Radiation -> Matter -> Reionization -> Dark Energy
   Each epoch IS a force vector. Transitions between epochs ARE D2 spikes.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

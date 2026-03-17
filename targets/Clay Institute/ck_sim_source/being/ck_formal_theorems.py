@@ -36,7 +36,7 @@ Dependency graph:
 Every theorem has a formal statement, verification function,
 falsifiable predictions, and a status (open / supported / falsified).
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

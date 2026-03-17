@@ -5,7 +5,7 @@ Validates: EXPANDED_LEXICON integrity, MorphExpander rules,
 build_full_store() integration, lexicon_stats(), and
 cross-referencing with seed lexicon.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

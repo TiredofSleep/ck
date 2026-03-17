@@ -15,7 +15,7 @@ When lenses diverge -> components swing to extremes -> high D2 -> CHAOS/COLLAPSE
 The D2 pipeline then computes second-derivative curvature and classifies
 to one of 10 TIG operators. This IS the coherence measurement.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

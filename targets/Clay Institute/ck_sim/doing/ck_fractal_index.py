@@ -29,7 +29,7 @@ Counting by 1000 and one mississippi at the same time:
   - Structure time: indices evolve slowly (accumulate over sessions)
   - Both timescales run simultaneously
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import re

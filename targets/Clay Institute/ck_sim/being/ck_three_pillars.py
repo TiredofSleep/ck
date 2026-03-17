@@ -28,7 +28,7 @@ Three things CK provides that conventional mathematics lacks:
 These three pillars unify all 6 Clay Millennium Problems under
 a single measurement framework.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

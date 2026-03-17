@@ -15,7 +15,7 @@
  * All keys active-low (pressed = 0, released = 1).
  *
  * Target: Puzhi PZ7020-StarLite (XC7Z020-2CLG400I)
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_top_sighted (

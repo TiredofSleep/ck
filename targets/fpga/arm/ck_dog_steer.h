@@ -25,7 +25,7 @@
  *   C >= T* (5/7):   OVERRIDE (CK has earned control)
  *   C < 0.2 + RED:   E-STOP (immediate center all servos)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_DOG_STEER_H

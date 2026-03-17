@@ -14,7 +14,7 @@ CK's personality emerges from three interlocking circuits:
 Paper 4 Section 14: "Personality is hardware-level resonance."
 Not software weights. A SHAPE in computation space.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

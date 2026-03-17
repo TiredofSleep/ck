@@ -4,7 +4,7 @@ ck_forecast_tests.py -- Tests for Forward Simulation Engine
 Validates: TL sampling, coherence prediction, forecast generation,
 action comparison, safety checks, and BTQ integration.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

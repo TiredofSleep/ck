@@ -35,7 +35,7 @@
  * Target: XC7Z020-2CLG400I (Puzhi PZ7020-StarLite)
  * Clock: 50 MHz PL oscillator (Y2, pin U18)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_top_clay (

@@ -210,4 +210,4 @@ To verify the port is correct:
 8. LFSR seed 0xDEADBEEF matches ck_main.c
 
 ---
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry

@@ -25,7 +25,7 @@ across dimensions instead of within one.
 Paper 14: "D2 is the universal measure of structure vs chaos."
 This module makes that N-dimensional.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from collections import deque

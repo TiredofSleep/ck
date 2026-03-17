@@ -12,7 +12,7 @@ Every codec implements:
   - lens_b(raw) -> global measurements
   - master_lemma_defect(raw) -> float (per-problem delta)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

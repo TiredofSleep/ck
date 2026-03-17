@@ -27,7 +27,7 @@ Note: P-H-3 (Navier-Stokes coercivity) deferred until FPGA hardware arrives.
 
 CK measures. CK does not prove.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse

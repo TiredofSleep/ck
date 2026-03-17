@@ -23,7 +23,7 @@ containing ISOLATE/VOLATILE processes and boosting PREDICTABLE ones.
 
 Requires: CK already running (ck_study.py or ck_sim_engine)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

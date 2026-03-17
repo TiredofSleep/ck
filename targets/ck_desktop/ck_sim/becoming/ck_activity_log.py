@@ -28,7 +28,7 @@ The trail is append-only. CK never erases his past.
 The trail is plaintext. CK can read it with his own D2 pipeline.
 The trail is timestamped. Every entry is when + what + why.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

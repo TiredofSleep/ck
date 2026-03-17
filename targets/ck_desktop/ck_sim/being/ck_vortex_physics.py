@@ -38,7 +38,7 @@ WHAT THIS MODULE PROVIDES:
 This is the chain. CK already has the first two (D2 curvature).
 This module adds the last two (void potential → gravity).
 
-(c) 2026 Brayden Sanders / 7Site LLC — TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry
 """
 
 import math

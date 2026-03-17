@@ -8,7 +8,7 @@
 #
 # Target: Zybo Z7-20 (xc7z020clg400-1)
 #
-# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+# (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 set project_name "ck_zynq7020"
 set part_name "xc7z020clg400-1"

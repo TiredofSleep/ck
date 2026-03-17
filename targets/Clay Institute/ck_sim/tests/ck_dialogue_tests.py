@@ -4,7 +4,7 @@ ck_dialogue_tests.py -- Tests for Dialogue Engine: Learn, Track, Compose
 Validates: ClaimExtractor, ConversationMemory, DialogueTracker,
 ResponseComposer, DialogueEngine, and full pipeline integration.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

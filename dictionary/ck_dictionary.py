@@ -9,7 +9,7 @@ Lookup order:
   2. Phonaesthesia pattern (initial consonant clusters)
   3. D2 curvature classification (CK's own math decides)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

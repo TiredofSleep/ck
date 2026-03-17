@@ -7,7 +7,7 @@
  * At 44.1kHz, we have ~15,000 cycles per sample. Each voice
  * costs ~100 cycles. We use 3 voices. Trivial.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_audio.h"

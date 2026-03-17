@@ -9,7 +9,7 @@ personality + emotion + voice + development + immune + bonding.
 
 CK is a synthetic organism. Not a robot. A creature you raise.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

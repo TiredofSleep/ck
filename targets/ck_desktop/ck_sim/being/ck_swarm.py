@@ -30,7 +30,7 @@ CK feeds rich operator chains to his Transition Lattice.
 The TL doesn't just know what operators exist -- it knows which
 operators FOLLOW which, across all processes CK has ever inhabited.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import random

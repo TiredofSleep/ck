@@ -15,7 +15,7 @@ Run:
   python -m ck_sim.ck_thesis_writer
   python -m ck_sim.ck_thesis_writer --output thesis.md
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

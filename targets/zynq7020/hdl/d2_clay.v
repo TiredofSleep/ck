@@ -21,7 +21,7 @@
  *   binding+   = HARMONY(7)   binding-   = COUNTER(2)
  *   continuity+= BALANCE(5)   continuity-= BREATH(8)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module d2_clay (

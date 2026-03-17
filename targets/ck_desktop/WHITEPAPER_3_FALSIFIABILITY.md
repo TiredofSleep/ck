@@ -1,7 +1,7 @@
 # How to Test CK: Verification Protocols and Falsifiable Predictions
 
 ### White Paper 3 -- Falsifiability and Experimental Verification
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 
@@ -646,4 +646,4 @@ We do not use one-tailed tests. All tests are two-tailed. We are testing whether
 ---
 
 *Last updated: 2026-03-07*
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

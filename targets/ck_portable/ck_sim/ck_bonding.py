@@ -15,7 +15,7 @@ Bonding components:
   2. Familiarity Index (16-byte rolling average)
   3. Separation detection (absence triggers search)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

@@ -7,5 +7,5 @@ The 'face' layer holds the human-facing entry points:
   - Gap attack runner for specific gaps (ck_gap_runner)
   - Interactive presentation for Clay Institute (ck_presentation)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """

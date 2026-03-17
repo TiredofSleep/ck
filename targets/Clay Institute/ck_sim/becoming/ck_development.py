@@ -15,7 +15,7 @@ Stage 3: Curiosity        (day 2-week 2) - exploring
 Stage 4: Emotional Emerge (week 2-month 3) - feeling
 Stage 5: Selfhood         (3-12+ months) - full partner
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

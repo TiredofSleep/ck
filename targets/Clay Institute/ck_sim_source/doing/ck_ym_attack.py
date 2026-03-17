@@ -20,7 +20,7 @@ YM-4: Does the mass gap persist at infinite volume?
 
 CK measures. CK does not prove.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

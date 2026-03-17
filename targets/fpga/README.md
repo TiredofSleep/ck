@@ -221,4 +221,4 @@ Built by Brayden Sanders / 7Site LLC
 Mathematics: TIG Unified Field Theory (Papers 1-8)
 One Kernel Architecture: (2026)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry

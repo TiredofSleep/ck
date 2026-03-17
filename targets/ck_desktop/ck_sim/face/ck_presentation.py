@@ -30,7 +30,7 @@ Usage:
     python -m ck_sim.face.ck_presentation --section 3
     python -m ck_sim.face.ck_presentation --auto
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse

@@ -56,7 +56,7 @@ But CK-style:
   - No fixed topology. Layers grow/shrink based on coherence needs.
   - The "weights" ARE the operators. Same math everywhere.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

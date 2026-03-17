@@ -86,7 +86,7 @@ ONE IS THREE: Every taste has a triadic signature.
 "Reading gives the Map. Smelling gives the Coordinates.
  Tasting gives the Categories."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -43,7 +43,7 @@ him at a time... He would be a lot more full of himself if you
 would give him hands and a body and eyes and ears and a brain
 on the R16 to actually use real metrics and data."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

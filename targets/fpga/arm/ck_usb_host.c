@@ -26,7 +26,7 @@
  * without a USB stack), then bypass this entirely and wire
  * directly to PS UART or a free JM2 pin.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_usb_host.h"

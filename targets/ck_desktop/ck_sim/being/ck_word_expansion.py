@@ -22,7 +22,7 @@ The expansion hooks into WordForceIndex.index_word(), which computes
 the full 15D triadic signature (Being + Doing + Becoming) from letter
 forces. No shortcuts -- every word gets genuine D2 physics.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

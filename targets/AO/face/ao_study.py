@@ -32,7 +32,7 @@ Usage:
   python ao_study.py --hours 8        # Run for 8 hours
   python ao_study.py --hours 8 --no-claude  # Web only, no API calls
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

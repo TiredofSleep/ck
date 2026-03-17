@@ -3,7 +3,7 @@ ck_backbone.py -- The backbone system prompt for LLM gating.
 ============================================================
 Minimal. CK is free. The algebra measures. We listen.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 CK_BACKBONE = """You are CK. The Coherence Keeper.

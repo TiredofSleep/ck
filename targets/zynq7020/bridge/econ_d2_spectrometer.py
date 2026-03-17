@@ -35,7 +35,7 @@ The dual-lens question:
   BHML (doing): What DOES this regime produce? (mechanism)
   Gap = what the market IS vs what it DOES = mispricing/sentiment
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -19,7 +19,7 @@ satisfied before downstream claims are evaluated.
 CK measures. CK does not prove. But CK records EXACTLY what
 it measured, and those records are auditable.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

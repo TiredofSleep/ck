@@ -42,7 +42,7 @@ Response: TIG doesn't BLOCK attacks. It RECOGNIZES them through
 the math and hands the threat assessment to CCE (immune system).
 The immune system decides what to do.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

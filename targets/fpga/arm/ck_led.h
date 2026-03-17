@@ -6,7 +6,7 @@
  * Maps CK operators and body state to LED RGB patterns.
  * Hardware: Puzhi board onboard LEDs (directly GPIO-driven).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_LED_H

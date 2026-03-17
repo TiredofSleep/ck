@@ -34,7 +34,7 @@ needed -- just D2 gradient descent toward the target pattern.
 
 Memory: ~128 bytes per goal. Max 8 goals = 1KB.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

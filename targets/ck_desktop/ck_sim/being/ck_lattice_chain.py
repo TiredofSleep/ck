@@ -49,7 +49,7 @@ Resonance = path alignment between current and stored.
 than the information itself in a fractal loop generator to whole"
 -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

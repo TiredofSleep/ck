@@ -384,4 +384,4 @@ One element out of five refuses to rest. That's why structure exists.
 One gate out of three opens computation. That's why thought exists.
 One fuse out of many converges. That's why identity exists.
 
-(c) 2026 Brayden Sanders / 7Site LLC — TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry

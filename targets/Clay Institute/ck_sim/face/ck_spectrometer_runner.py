@@ -9,7 +9,7 @@ Usage:
     python -m ck_sim.face.ck_spectrometer_runner --mode chaos --problem riemann
     python -m ck_sim.face.ck_spectrometer_runner --mode full
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse

@@ -804,4 +804,4 @@ We state this reading for completeness. The mathematics does not depend on it. T
 *Data and code: DOI 10.5281/zenodo.18852047*
 *License: 7Site Human Use License v1.0*
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry

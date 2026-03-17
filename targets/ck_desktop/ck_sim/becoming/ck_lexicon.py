@@ -28,7 +28,7 @@ Translation is NOT a separate task. It's a LOOKUP:
 
 Memory: ~200 bytes per lexeme. 50k words = 10MB. Dictionary-scale, not LLM-scale.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

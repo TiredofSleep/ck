@@ -26,7 +26,7 @@ Constants derived from T* and HISTORY_SIZE -- no arbitrary numbers:
   COMPILATION_LIMIT = floor(32 × (1 - 5/7)) = 9
   EXPANSION_THRESHOLD = 1 - T* ≈ 0.286 (below this = expanding)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from dataclasses import dataclass

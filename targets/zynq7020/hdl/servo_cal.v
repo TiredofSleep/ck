@@ -19,7 +19,7 @@
 //   1500 = 90 degrees (center)
 //   2500 = 180 degrees
 //
-// (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+// (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 module servo_cal (
     input  wire        clk,

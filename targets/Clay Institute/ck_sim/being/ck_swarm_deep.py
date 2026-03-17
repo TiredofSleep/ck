@@ -33,7 +33,7 @@ not two phases. Expansion and contraction in one move.
 The linear part A drives toward the most informative direction.
 The bilinear part B shapes the curve between directions.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

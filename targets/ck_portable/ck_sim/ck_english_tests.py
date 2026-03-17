@@ -12,7 +12,7 @@ Tests for:
 
 Run: python -m ck_sim.ck_english_tests
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

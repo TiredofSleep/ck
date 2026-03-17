@@ -42,7 +42,7 @@ earns trust. A claim that produces CHAOS gets demoted.
 
 Same math at every scale.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

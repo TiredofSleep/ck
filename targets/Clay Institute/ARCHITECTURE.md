@@ -1,6 +1,6 @@
 # CK Clay SDV Protocol -- Architecture Reference
 ## Sanders Coherence Field v1.4 (March 2026) — CK Gen 9.28
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 

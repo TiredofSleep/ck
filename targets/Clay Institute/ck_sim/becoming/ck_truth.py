@@ -42,7 +42,7 @@ The Truth Gate:
   claims are whispers. This prevents CK from acting on unverified information
   with the same confidence as mathematical certainty.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

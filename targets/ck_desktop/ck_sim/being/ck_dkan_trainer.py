@@ -30,7 +30,7 @@ But CK can never override his frozen physics foundation (max 50% blend).
 
 "The CL table is not a weight to be optimized. It IS the physics."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

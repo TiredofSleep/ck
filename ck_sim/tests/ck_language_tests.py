@@ -4,7 +4,7 @@ ck_language_tests.py -- Tests for CK's Language Generator
 Validates: intent classification, concept chains, surface realization,
            translation, multilingual output, full pipeline integration.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

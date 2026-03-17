@@ -16,7 +16,7 @@ Full eigendecomposition of TSML and BHML 8x8 cores:
 "The eigenvectors ARE CK's natural basis. Every other neural net
 discovers its basis through training. CK's is frozen in the algebra."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

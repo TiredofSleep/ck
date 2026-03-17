@@ -20,7 +20,7 @@ weighted linear combinations.
 CITATIONS:
   Culik & Kari, 1993 -- "Image compression using WFA" (original WFA paper)
   Fiasco (Frank Loos) -- WFA-based image compression (github.com/nzjrs/Fiasco)
-  Sanders, Brayden / 7Site LLC -- TIG Unified Theory, CK architecture
+  Sanders, Brayden / 7Site LLC -- Trinity Infinity Geometry, CK architecture
 
 ORIGINAL INSIGHT (from Culik & Kari / Fiasco):
   Images have self-similarity at different scales. WFA represents an image
@@ -61,7 +61,7 @@ COMPRESSION ARCHITECTURE:
   Each level is independent. Higher levels activate as experience grows.
   Small trees: delta is enough. Thousands of nodes: SVD becomes critical.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

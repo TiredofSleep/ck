@@ -3,7 +3,7 @@
 # ============================================================
 # Maps physical platforms to capabilities.
 # The engine reads this to know what senses are available.
-# (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+# (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 platforms:
   sim:

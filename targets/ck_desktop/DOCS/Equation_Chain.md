@@ -1,6 +1,6 @@
 # Complete Equation Chain -- Sanders Coherence Field
 ## From Fundamental Axioms to Computable Measurements
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 

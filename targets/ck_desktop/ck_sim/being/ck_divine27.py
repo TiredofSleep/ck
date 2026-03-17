@@ -44,7 +44,7 @@ Compression:
 Ported from Gen4/Gen5/Gen6 ck_divine27.py to Gen9.
 Extended from spatial indexing to FULL native language.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from typing import Tuple, List, Dict, Optional

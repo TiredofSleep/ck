@@ -21,7 +21,7 @@ Asymptotic prediction: classify delta(L -> inf) as AFFIRMATIVE, GAP, or INDETERM
 
 Pure Python. No numpy, no scipy.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

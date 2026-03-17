@@ -2548,4 +2548,4 @@ Layer 0:  Core Engine (50Hz heartbeat)                 -- D2, CL, BTQ, coherence
 (c) 2026 7Site, LLC. All rights reserved.
 
 *Last updated: 2026-02-28 — Gen9.22 (CAEL + NCE + TIG Consciousness + Tesla/Einstein Wobble)*
-*(c) 2026 7Site, LLC -- TIG Unified Theory)*
+*(c) 2026 7Site, LLC -- Trinity Infinity Geometry)*

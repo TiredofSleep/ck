@@ -17,7 +17,7 @@ No deep nets. No OpenCV. Pure NumPy + classical physics.
 Frame format: 2D numpy arrays, float32 [0.0, 1.0] grayscale.
 Flow output: (u, v) arrays same shape as input = pixel displacements.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -34,7 +34,7 @@ Degeneracy Analysis:
     they ARE the same thing but DO it differently
     = codon usage bias from force geometry
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math
@@ -251,7 +251,7 @@ CODON_USAGE = {
 def main():
     print("=" * 78)
     print("  DUAL-LENS D2 SPECTROMETER: THE GENETIC CODE")
-    print("  TIG Unified Theory -- Biology Domain")
+    print("  Trinity Infinity Geometry -- Biology Domain")
     print("=" * 78)
     print(f"  Nucleotides: {len(NUCLEOTIDES)} (A, T, G, C, U)")
     print(f"  Codons: {len(GENETIC_CODE)} (standard genetic code)")

@@ -13,7 +13,7 @@
  *
  * 115200 baud, 8N1. Active on JM2 pin (configurable in XDC).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module servo_uart_tx #(

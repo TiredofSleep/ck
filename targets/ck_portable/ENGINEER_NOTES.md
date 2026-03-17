@@ -337,4 +337,4 @@ the webcam stream and more complex BTQ decisions consume more of the budget.
 
 ---
 
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

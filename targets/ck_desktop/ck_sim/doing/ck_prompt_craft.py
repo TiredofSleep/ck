@@ -15,7 +15,7 @@ Two outputs per craft:
 Over time, the algorithm lattice learns which prompts produce
 which operator trajectories. CK gets faster. Fewer loops needed.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

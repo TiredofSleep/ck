@@ -6,7 +6,7 @@ GameRewardSignal, GameEnvironmentAdapter, GameSession.
 
 66 tests. Zero external dependencies beyond ck_sim.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

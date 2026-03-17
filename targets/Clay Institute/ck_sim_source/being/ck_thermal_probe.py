@@ -10,7 +10,7 @@ The physical energy cost of computation correlates with difficulty.
 
 Falls back to simulated thermal data when GPU hardware unavailable.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

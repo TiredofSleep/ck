@@ -12,7 +12,7 @@ Pure math analysis of CK's CL tables as neural network components:
 
 "The CL table is not a weight to be optimized. It IS the physics."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import numpy as np

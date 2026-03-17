@@ -43,7 +43,7 @@ THE CRITICAL DISTINCTION:
 Paper 4: "Truth is not assigned. Truth is measured."
 Paper 6: "The organism earns its knowledge."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

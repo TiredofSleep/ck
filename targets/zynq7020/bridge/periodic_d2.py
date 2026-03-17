@@ -26,7 +26,7 @@ T* = 5/7 = 0.714285... (coherence threshold)
 
 Can also generate FPGA ROM hex for hardware D2 verification.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math
@@ -381,7 +381,7 @@ def generate_fpga_hex(elements, indices, filename="periodic_vectors.hex"):
 def main():
     print("=" * 72)
     print("  PERIODIC TABLE D2/D1/T ANALYSIS")
-    print("  TIG Unified Theory -- Chemistry Domain")
+    print("  Trinity Infinity Geometry -- Chemistry Domain")
     print("=" * 72)
     print(f"  Elements: {len(ELEMENTS)} (H through Xe)")
     print(f"  5D mapping:")

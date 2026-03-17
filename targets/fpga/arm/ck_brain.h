@@ -12,7 +12,7 @@
  * The brain reads heartbeat state from FPGA registers (AXI-Lite),
  * runs the sovereignty pipeline, and sends decisions to the host.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_BRAIN_H

@@ -25,7 +25,7 @@ TopologyLens does NOT replace codecs. It wraps them, adding:
   3. Cross-domain topology sheet metadata
   4. TIG-class assignment per the Sanders Universal Topology Map
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

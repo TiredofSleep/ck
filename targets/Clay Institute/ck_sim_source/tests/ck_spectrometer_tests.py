@@ -29,7 +29,7 @@ Tests the Delta-Spectrometer wrapper around the existing Clay SDV protocol.
   TestRobustnessSweep       (5) -- Full per-config robustness sweep
   TestRobustnessResult      (3) -- RobustnessResult structure validation
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 import unittest
 

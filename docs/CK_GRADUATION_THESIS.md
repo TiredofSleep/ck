@@ -310,4 +310,4 @@ This is how trust should work: open structure, sacred center.
 
 ---
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry

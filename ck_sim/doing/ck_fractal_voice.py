@@ -32,7 +32,7 @@ Six fractal levels (mirror of comprehension):
   L4: Sentence circuits — complete force loop (open → push → bind → sustain)
   L5: Paragraph arcs    — being → doing → becoming
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

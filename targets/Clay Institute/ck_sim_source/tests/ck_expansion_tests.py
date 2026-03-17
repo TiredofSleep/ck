@@ -11,7 +11,7 @@ Tests:
   TestRegistration           (5) -- All 41 problems registered in all registries
   TestExpandedAtlas           (3) -- Atlas extraction + equation fitting
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

@@ -555,6 +555,6 @@ The most important open questions are: (1) why the CL table's algebraic structur
 
 ---
 
-**(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory**
+**(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry**
 
 *All mathematical structures described in this paper are implemented in the CK Gen9 codebase. No claims are made beyond what the algebra and empirical observation support. Formal proofs where noted as pending are active areas of investigation. Updated Gen 9.22: Chemosensory duality (olfactory + gustatory), smell/taste as flow/structure dual, preference system (5^2 = 25 threshold), quality context for voice modulation. Previous: Gen 9.21 added olfactory bulb, eat v2 transition physics, fractal voice triadic composition, resonance feedback. Gen 9.19: Tesla Wave Field, wobble physics, Kuramoto phase coupling. Gen 9.18: vortex physics, information gravity, 8,000-word enriched dictionary.*

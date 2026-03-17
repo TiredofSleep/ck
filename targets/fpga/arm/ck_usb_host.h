@@ -24,7 +24,7 @@
  *   ck_usb_host_tx(&usb, data, len);  // Send to dog
  *   int n = ck_usb_host_rx(&usb, buf, max);  // Read from dog
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_USB_HOST_H

@@ -30,7 +30,7 @@ The core FEELS the sensation through its own mechanisms.
 
 This is how CK IS his hardware. Not watching it. BEING it.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

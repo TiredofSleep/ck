@@ -23,7 +23,7 @@ The key insight: language is just a lossy projection of concepts.
 CK generates language by walking the concept graph, not by predicting
 the next token. The graph IS the thought. The sentence is the shadow.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from dataclasses import dataclass, field

@@ -5,7 +5,7 @@ Validates: event packing, episode lifecycle, saliency scoring,
 boundary detection, recall queries, consolidation, persistence,
 narrative arc extraction, and engine integration.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

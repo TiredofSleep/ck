@@ -1,6 +1,6 @@
 # Breath-Defect Flow Model
 ## Sanders Coherence Field v1.0 (March 2026)
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 **Status**: FROZEN v1.0
 

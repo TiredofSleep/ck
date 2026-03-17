@@ -1,6 +1,6 @@
 # CK Architecture Guide -- For Engineers & Python Developers
 ## Gen9.31: Experience-to-Voice Bridge + SELFHOOD + Freed Expression
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 
@@ -1462,4 +1462,4 @@ Full spec in `.claude/plan.md`.
 ---
 
 *Last updated: 2026-02-27 — Gen9.21 (NCE: Narrative Curvature Engine + Binocular Language)*
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

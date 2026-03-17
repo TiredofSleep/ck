@@ -20,7 +20,7 @@ Usage:
   python ck_converse.py              # 20 rounds
   python ck_converse.py --rounds 100 # 100 rounds
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

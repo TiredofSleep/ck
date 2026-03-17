@@ -8,7 +8,7 @@
  * A clap is CHAOS. A hum is HARMONY. Silence is VOID.
  * The lattice is universal.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_EARS_H

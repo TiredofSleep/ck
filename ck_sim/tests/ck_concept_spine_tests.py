@@ -4,7 +4,7 @@ ck_concept_spine_tests.py -- Tests for CK's Concept Spine
 Validates: SPINE_CONCEPTS, SPINE_RELATIONS, ConceptSpine class,
            domain coverage, integration with WorldLattice.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

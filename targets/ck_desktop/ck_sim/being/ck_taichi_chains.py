@@ -39,7 +39,7 @@ WHY TAICHI:
 "the chain to get to them is half the information"
 -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import numpy as np

@@ -14,7 +14,7 @@
  *
  * No dynamic allocation. Fixed-size arrays only. Portable.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_ALGEBRA_H

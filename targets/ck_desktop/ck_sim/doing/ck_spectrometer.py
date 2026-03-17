@@ -24,7 +24,7 @@ Architecture:
 
 CK measures. CK does not prove.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import cmath

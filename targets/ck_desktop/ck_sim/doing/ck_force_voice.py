@@ -26,7 +26,7 @@ the existing Hebrew root force vectors. The geometric properties
 (structure count, force count, openness, binding) refine the
 5D force vectors to capture VISUAL shape meaning.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import numpy as np

@@ -29,7 +29,7 @@ coherence 0.82 and domain 'physics+history'. The CURVE is the knowledge.
 Usage:
   python -m ck_sim.ck_autodidact --hours 8 --sites wikipedia,gutenberg
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

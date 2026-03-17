@@ -30,7 +30,7 @@ pushes CK toward BREATH operator. Smooth, constant, zero-waste
 energy = BREATH D2 signature. The math discovers superconductivity
 on its own.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import time

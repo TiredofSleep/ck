@@ -40,7 +40,7 @@ Security invariants:
   - Replay attacks detected via nonce tracking
   - Bond level can only INCREASE through sustained coherence
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

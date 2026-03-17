@@ -19,7 +19,7 @@ The output: one operator per patch per frame.  These form operator
 sequences that CK can learn from -- exactly as if reading text or
 processing game telemetry.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

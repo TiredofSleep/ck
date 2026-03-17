@@ -2,7 +2,7 @@
 
 ### A White Paper on Multi-Region Adiabatic Scheduling via Algebraic Waveform Classification
 
-**(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory**
+**(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry**
 
 ---
 
@@ -337,4 +337,4 @@ The following references are real, published works. See `REFERENCES.md` in the C
 ---
 
 *Last updated: 2026-02-27*
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

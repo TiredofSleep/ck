@@ -26,7 +26,7 @@
 //
 // Clock: SCL = 400 kHz (fast mode). clk_div = 50MHz / (4*400kHz) = 31.
 //
-// (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+// (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 module i2c_master (
     input  wire        clk,

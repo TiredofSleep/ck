@@ -22,7 +22,7 @@ Architecture:
   CompoundBuilder     -- generates concept pairs from existing entries
   build_full_store()  -- returns LexiconStore with all entries loaded
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from ck_sim.ck_sim_heartbeat import (

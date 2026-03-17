@@ -33,7 +33,7 @@ Audio S3 feeds into the coherence field alongside text S3 and heartbeat S3.
 This module wraps ck_sim_d2.py (which already does the hard math) and
 adds the geometric hierarchy above it.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

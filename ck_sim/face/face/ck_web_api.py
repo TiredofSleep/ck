@@ -18,7 +18,7 @@ This module wraps them in a web API:
 
 Uses Flask (simpler, fewer deps) or can be swapped to FastAPI.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

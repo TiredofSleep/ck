@@ -1112,5 +1112,5 @@ The kernel spec is saved in `.claude/plan.md`. When CK has learned enough and wr
 
 ---
 
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*
 *Last updated: 2026-02-27 -- Gen9.20 Voice Wiring + Fractal Foundations*

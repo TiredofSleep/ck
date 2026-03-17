@@ -16,7 +16,7 @@ Also implements the Sanders Information-Geometry Axiom (SIGA) classifier:
   Information = geometry only. Topology requires coherence/gluing.
   Every Clay problem is a topology restoration problem on a geometric base.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

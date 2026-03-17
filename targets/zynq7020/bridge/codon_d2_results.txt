@@ -1,6 +1,6 @@
 ==============================================================================
   DUAL-LENS D2 SPECTROMETER: THE GENETIC CODE
-  TIG Unified Theory -- Biology Domain
+  Trinity Infinity Geometry -- Biology Domain
 ==============================================================================
   Nucleotides: 5 (A, T, G, C, U)
   Codons: 64 (standard genetic code)

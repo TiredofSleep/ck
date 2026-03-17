@@ -17,7 +17,7 @@ operator trajectories through real Ollama interactions.
 Storage: ~/.ck/algorithm_lattice/lattice.json
 GPU sync: hot-sync to GPU experience overlay after every record.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

@@ -31,7 +31,7 @@ Algorithm lattice (CK's own neural network):
 
 The algebra decides. The mouth obeys.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

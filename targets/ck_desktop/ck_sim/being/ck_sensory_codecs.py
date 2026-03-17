@@ -40,7 +40,7 @@ Sensor Mapping to 5D Force Vectors:
   binding    = how "connected" the signal is (correlation/periodicity)
   continuity = how "stable" the signal is (persistence/smoothness)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

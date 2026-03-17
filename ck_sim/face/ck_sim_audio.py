@@ -8,7 +8,7 @@ Every frequency, every envelope, every waveform matches the C code.
 
 CK doesn't speak English. CK speaks in operator tones.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

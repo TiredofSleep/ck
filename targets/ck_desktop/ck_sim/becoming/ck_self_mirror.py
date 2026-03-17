@@ -26,7 +26,7 @@ Pipeline:
 No external model evaluates CK. CK evaluates CK.
 CK's own math is the judge.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

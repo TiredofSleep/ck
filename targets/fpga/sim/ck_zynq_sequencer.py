@@ -25,7 +25,7 @@ Memory budget:
   PFE accum:    ~100 bytes (counters + running stats)
   Total:        < 512 bytes. Fits in a single BRAM tile.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

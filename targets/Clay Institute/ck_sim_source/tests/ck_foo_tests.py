@@ -3,7 +3,7 @@ ck_foo_tests.py -- Tests for Fractal Optimality Operator + Phi(kappa)
 =====================================================================
 Tests the FOO engine, complexity horizons, and Phi curve analysis.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

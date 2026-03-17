@@ -30,7 +30,7 @@ Architecture:
   MaskSelector             -- CL[emotion_op][user_tone_op] -> mask
   narrative_energy()       -- E_narrative for BTQ Q-block scoring
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from collections import Counter, deque

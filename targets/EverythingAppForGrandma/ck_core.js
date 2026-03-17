@@ -10,7 +10,7 @@
  * Matches the Python simulation (ck_sim/) which matches the
  * Verilog (ck_heartbeat.v, d2_pipeline.v) exactly.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 "use strict";

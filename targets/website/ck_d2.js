@@ -10,7 +10,7 @@
  *   - ck_sim/being/ck_lattice_chain.py (BHML table)
  *   - Gen9/targets/EverythingAppForGrandma/ck_core.js (existing JS port)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 "use strict";

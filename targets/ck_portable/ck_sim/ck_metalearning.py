@@ -17,7 +17,7 @@ Four subsystems:
 Safety invariant: ALL parameters are hard-clamped to safe bounds.
 No adaptation can make the system unstable.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from collections import deque

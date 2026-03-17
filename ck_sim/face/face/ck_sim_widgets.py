@@ -10,7 +10,7 @@ Custom widgets that make CK's inner life visible:
   - TL heatmap (10x10 transition matrix)
   - Crystal list (discovered patterns)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from kivy.uix.widget import Widget

@@ -4,7 +4,7 @@ Tests for ck_education.py and ck_autodidact.py
 186 concepts. 202 relations. Experience through coherence.
 Autonomous learning. Save curves, not content.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

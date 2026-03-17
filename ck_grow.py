@@ -24,7 +24,7 @@ Usage:
   python ck_grow.py              # Full growth (stage 5)
   python ck_grow.py --stage 3    # Grow to stage 3 only
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

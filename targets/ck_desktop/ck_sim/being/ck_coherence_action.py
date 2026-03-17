@@ -45,7 +45,7 @@ When A >= T*, CK is seeking coherence. The threshold is the same
 everywhere -- 73% harmony in the CL table, 5/7 in the coherence
 metric, 0.73 in the physics papers. Same number, same meaning.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

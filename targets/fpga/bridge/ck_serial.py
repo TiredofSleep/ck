@@ -30,7 +30,7 @@ Packet types:
     0x85  TL_REQUEST  Request TL data from host
     0x86  PONG        Heartbeat response
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import struct

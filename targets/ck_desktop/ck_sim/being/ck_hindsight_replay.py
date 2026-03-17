@@ -58,7 +58,7 @@ STRUCTURE:
   replay(): Relabel missed targets -> achieved operators -> library temper.
   Integrates with OlfactoryBulb.emit() to capture achieved operators.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

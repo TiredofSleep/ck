@@ -50,7 +50,7 @@
  * Heartbeat: self-sovereign (1 Hz to 10 kHz)
  * Brain: EEG-matched (2 Hz to 80 Hz with transition windows)
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_top_zynq7020 (

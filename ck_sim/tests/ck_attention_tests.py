@@ -5,7 +5,7 @@ Validates: novelty detection, salience mapping, attention control,
 gain clamping, goal alignment, danger boosting, and integration
 with goals and operator constants.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

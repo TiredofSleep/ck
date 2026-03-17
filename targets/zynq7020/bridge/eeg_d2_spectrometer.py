@@ -46,7 +46,7 @@ Predictions:
   3. Sleep stages form a MONOTONE D2 gradient (N1 < N2 < N3 < REM)
   4. T* = 5/7 marks the boundary between conscious and unconscious
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

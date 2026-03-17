@@ -34,7 +34,7 @@ Per-problem breath potentials:
     BSD: V = rank mismatch,        E = analytic continuation, C = height-pairing correction
     Hodge: V = non-algebraicity,   E = motivic exploration,   C = cycle restriction
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

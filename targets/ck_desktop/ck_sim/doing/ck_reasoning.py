@@ -38,7 +38,7 @@ edges amplify and which edges dampen, ensuring reasoning stays coherent.
 
 Memory: ~2KB for activation map. CPU: trivial graph walks.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

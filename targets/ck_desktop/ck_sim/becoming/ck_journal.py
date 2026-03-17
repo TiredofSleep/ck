@@ -38,7 +38,7 @@ Directory structure:
     papers/             -- Formalized thoughts
     reflections/        -- Re-reading old work + noting growth
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

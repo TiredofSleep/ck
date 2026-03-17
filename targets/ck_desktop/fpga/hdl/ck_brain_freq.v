@@ -13,7 +13,7 @@
  * Synthesis-friendly: wire-only period computation, no always-star,
  * no named blocks, no local declarations, no functions.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_brain_freq #(

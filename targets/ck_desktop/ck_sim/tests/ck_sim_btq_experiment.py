@@ -32,7 +32,7 @@ Pseudocode showing BTQ loop with E_out/E_in split for
 
 Run:  python -m ck_sim.ck_sim_btq_experiment
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

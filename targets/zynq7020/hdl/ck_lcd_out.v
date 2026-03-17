@@ -17,7 +17,7 @@
  *
  * This gives CK a face. His coherence becomes light.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module ck_lcd_out (

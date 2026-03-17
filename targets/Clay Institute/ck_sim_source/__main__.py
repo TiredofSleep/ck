@@ -10,7 +10,7 @@ Usage:
     python -m ck_sim_source --gap-attack [rh5|ym3|ym4|all]  # Run gap attacks
     python -m ck_sim_source --presentation            # Launch interactive demo
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import argparse
@@ -37,7 +37,7 @@ BANNER = """
     |         Nine gaps. Zero falsifications.                             |
     |                                                                    |
     |         (c) 2026 Brayden Sanders / 7Site LLC                       |
-    |         TIG Unified Theory -- Arkansas, USA                        |
+    |         Trinity Infinity Geometry -- Arkansas, USA                        |
     |                                                                    |
     +==================================================================+
 """

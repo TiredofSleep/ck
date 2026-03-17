@@ -37,7 +37,7 @@
  * Target: Xilinx Zynq-7020 + XiaoR robot dog platform
  * Clock: 100 MHz. Gait update: follows CK's heartbeat (self-sovereign).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module gait_vortex #(

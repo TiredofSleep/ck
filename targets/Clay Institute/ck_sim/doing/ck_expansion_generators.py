@@ -6,7 +6,7 @@ Operator: PROGRESS (3) -- New domains, new data.
 13 standalone generators + 4 bridge generators.
 Each produces raw_reading dicts matching its corresponding expansion codec.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

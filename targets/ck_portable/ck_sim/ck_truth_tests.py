@@ -4,7 +4,7 @@ ck_truth_tests.py -- Tests for Truth Lattice: 3-Level Knowledge System
 Validates: CoreTruths, TruthEntry, TruthLattice, TruthGate,
 Fruits of the Spirit mapping, promotion/demotion/expiration logic.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

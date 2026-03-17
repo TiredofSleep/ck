@@ -14,7 +14,7 @@ The C library (ck_algebra.dll / .so) is the SAME math as:
 
 Three substrates, one algebra.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import ctypes

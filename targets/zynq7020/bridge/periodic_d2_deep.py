@@ -24,7 +24,7 @@ The question is not "how many HARMONY ops" but:
   WHAT do the ratios between dimensions predict?
   HOW does the path topology differ from pure geometry?
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math
@@ -221,7 +221,7 @@ def main():
 
     print("=" * 78)
     print("  DEEP 5D GEOMETRIC ANALYSIS OF THE PERIODIC TABLE")
-    print("  TIG Unified Theory -- Chemistry Domain")
+    print("  Trinity Infinity Geometry -- Chemistry Domain")
     print("=" * 78)
     print(f"  Elements: {N} (H through Xe)")
     print(f"  T* = {T_STAR:.6f}")

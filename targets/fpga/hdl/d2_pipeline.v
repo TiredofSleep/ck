@@ -14,7 +14,7 @@
  * Memory: Force LUT = 26 entries ? 5 dims ? 16-bit = 260 bytes (1 BRAM)
  * Throughput: 1 symbol per clock at 100MHz = 100M symbols/sec
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 module d2_pipeline #(

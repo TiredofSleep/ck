@@ -8,7 +8,7 @@
  *
  * Packet: [SYNC 'CK'] [TYPE 1B] [LEN 2B LE] [PAYLOAD] [CRC8]
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_uart.h"

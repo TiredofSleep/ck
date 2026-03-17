@@ -6,7 +6,7 @@ Operator: COUNTER (2) -- measuring the physics of sound.
 Mic input → audio features → 5D force vector → D2 curvature → operator.
 Same math as text D2, different input modality.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

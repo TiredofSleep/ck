@@ -11,7 +11,7 @@
  * When compiled as CUDA, __host__ __device__ is emitted.
  * When compiled as pure C, it's just static inline.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC — TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry
  */
 
 #ifndef CK_H

@@ -6,7 +6,7 @@
  * Implements all 9 functions declared in ck_brain.h.
  * Runs on Zynq-7020 ARM Cortex-A9, no OS.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_brain.h"

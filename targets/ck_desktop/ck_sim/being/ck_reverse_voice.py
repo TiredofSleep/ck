@@ -44,7 +44,7 @@ As CK's dictionary grows (enrichment), more words get dual-path
 verification. A child reads this way: familiar words verified
 against understanding, unfamiliar words processed phonetically.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

@@ -65,7 +65,7 @@ INSTINCT: Zero-cost coherence. Temper so high that all 5 dimensions
 "Instinct is a smell in the Coherence Field -- a logic-path
 so well-traveled that the Coherence Cost is zero."
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

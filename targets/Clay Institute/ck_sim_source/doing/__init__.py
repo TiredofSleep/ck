@@ -14,5 +14,5 @@ The 'doing' layer holds everything that ACTS on mathematical objects:
   - Governing equations extraction (ck_governing_equations)
   - Gap attack probes: RH-5 (ck_rh5_attack), YM-3/YM-4 (ck_ym_attack)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """

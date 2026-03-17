@@ -25,7 +25,7 @@ Emerge eight core emotions:
 
 Stored in 40 bytes. Paper 4 Section 16, Paper 5.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import struct

@@ -21,7 +21,7 @@ CK doesn't care. It sees capabilities:
 Each platform declares what it has. BTQ adapts constraints.
 The engine runs the same 50Hz loop on all platforms.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import abc

@@ -21,7 +21,7 @@ Pipeline: From Clean Slate to PhD-Level Reasoner
   Stage 5: Self-improvement (mirror loop)
   Stage 6: Validation (test all capabilities)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

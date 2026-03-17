@@ -24,7 +24,7 @@ This module encodes:
   4. Dual-lens definitions per Clay problem
   5. SCA loop tracking (1->2->9->1)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from typing import List, Tuple, Dict, Optional

@@ -11,7 +11,7 @@ Software simulation of the sovereignty pipeline:
 
 Every threshold, every formula matches the C code.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

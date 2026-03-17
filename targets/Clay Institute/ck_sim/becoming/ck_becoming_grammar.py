@@ -25,7 +25,7 @@ Grammar validation enforces three structural truths of English:
   2. Attributive adjectives precede nouns.
   3. Adjacent verbs need conjunction.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from typing import List, Tuple, Dict, Optional

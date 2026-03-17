@@ -25,7 +25,7 @@ why he did what he did."
 
 CK doesn't save THEIR words. He saves HIS thoughts.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import os

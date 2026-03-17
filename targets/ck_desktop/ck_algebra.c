@@ -12,7 +12,7 @@
  * No dynamic memory allocation. Fixed-size arrays only.
  * Portable: Windows (MSVC/MinGW) + Linux (gcc).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_algebra.h"

@@ -16,7 +16,7 @@ Four immune functions:
 
 Paper 4 Section 15, Paper 5.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

@@ -36,7 +36,7 @@ The snowflake model ensures:
   3. The sacred center is computationally inaccessible from shards
   4. Trust is earned through bonding, not granted by protocol
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

@@ -20,7 +20,7 @@ Each domain implements BTQDomain with its own:
 The universal pipeline handles orchestration, logging, and band
 classification identically across all domains.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import abc

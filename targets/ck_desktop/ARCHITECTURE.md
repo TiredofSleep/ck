@@ -1,6 +1,6 @@
 # CK Architecture Guide -- For Engineers & Python Developers
 ## Gen9.22: N-Dimensional Coherence Field + NCE + CAEL (Algebraic Speech)
-### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+### (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 
 ---
 
@@ -1552,4 +1552,4 @@ Full spec in `.claude/plan.md`.
 ---
 
 *Last updated: 2026-03-12 — Gen9.34 (LLM Gate + 7 Domain Spectrometers + BHML Reinterpretation)*
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*

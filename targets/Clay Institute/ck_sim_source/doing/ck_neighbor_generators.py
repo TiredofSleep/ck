@@ -10,7 +10,7 @@ but with domain-specific mathematical physics.
 Neighbor codec map tells the dispatcher which parent codec to use:
   ns_2d -> NavierStokesCodec, rh_dirichlet -> RiemannCodec, etc.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

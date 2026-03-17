@@ -13,7 +13,7 @@
  * desired operator with the dog's current operator. If HARMONY,
  * CK moves in. If bump pair, CK stays back.
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_dog_steer.h"

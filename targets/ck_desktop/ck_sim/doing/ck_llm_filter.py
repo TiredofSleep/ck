@@ -22,7 +22,7 @@ BTQ filters it exactly like it filters a gait:
 Works WITHOUT an API key via MockLLM (template-based generation).
 Plug in a real backend (Ollama, Claude) for production.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

@@ -13,5 +13,5 @@ The 'being' layer holds everything that EXISTS before measurement:
   - Russell toroidal codec (ck_russell_codec)
   - Thermal probe for hardware correlation (ck_thermal_probe)
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """

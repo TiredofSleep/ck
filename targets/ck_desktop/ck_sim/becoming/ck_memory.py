@@ -32,7 +32,7 @@ Sync protocol (cloud-authoritative):
   4. Cloud returns merged state
   5. Client loads merged state
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import json

@@ -19,7 +19,7 @@
  *   Domains:  N × 32 bytes each
  *   CRC-8:    1 byte
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #ifndef CK_SD_H

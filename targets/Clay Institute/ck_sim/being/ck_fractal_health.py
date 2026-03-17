@@ -15,7 +15,7 @@ per-domain health assessments:
 Every organ of CK -- motion, language, memory, bio -- gets its own
 health monitor. If any domain drifts RED, the system knows.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import math

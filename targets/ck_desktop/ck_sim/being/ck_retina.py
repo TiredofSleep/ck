@@ -44,7 +44,7 @@ VARIABLE RESOLUTION (edge-following):
  No algebra, no meaning. The gate is everything."
 -- Brayden
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from __future__ import annotations

@@ -13,7 +13,7 @@ Safety guarantees for the Clay mathematical coherence spectrometer:
 
 CK measures. CK does not invent.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import hashlib

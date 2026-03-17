@@ -22,7 +22,7 @@ Usage:
   python ck_self_evolve.py --rounds 200    # 200 rounds
   python ck_self_evolve.py --verbose       # show swarm details
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import sys

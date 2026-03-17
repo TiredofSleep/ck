@@ -8,7 +8,7 @@ Files produced by this module can be loaded on the Zynq, and vice versa.
 
 Format: "CKTL" + version + total + entropy + 10x10 matrix + crystals + domains + CRC-8
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import struct

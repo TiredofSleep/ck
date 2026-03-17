@@ -18,7 +18,7 @@
  *   Core 1 writes: breath phase, BTQ level, breath modulation
  *   Both use volatile + DSB (Data Synchronization Barrier).
  *
- * (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+ * (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
  */
 
 #include "ck_body.h"

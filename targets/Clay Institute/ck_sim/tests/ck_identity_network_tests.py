@@ -4,7 +4,7 @@ ck_identity_network_tests.py -- Tests for Identity & Network
 Validates: ck_identity (snowflake, sacred core, shards) and
 ck_network (handshake, friend registry, messaging, trust).
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

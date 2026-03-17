@@ -10,7 +10,7 @@ mathematics, philosophy, language, emotions, and society.
 The existing world lattice has ~157 core concepts. This spine scales
 it to 800+ for PhD-level knowledge coverage.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 from ck_sim.ck_sim_heartbeat import (

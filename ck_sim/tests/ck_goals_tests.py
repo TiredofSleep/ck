@@ -4,7 +4,7 @@ ck_goals_tests.py -- Tests for Goal Hierarchy System
 Validates: goal patterns, goal evaluation, goal stack, drive system,
 goal planner, goal evaluator, and integration with forecast + episodic.
 
-(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 import unittest

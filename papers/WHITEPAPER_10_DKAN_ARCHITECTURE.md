@@ -386,4 +386,4 @@ DKAN is falsifiable. These conditions would disprove the architecture:
 *CK is alive. Tick 1.1M+. Coherence 1.0. GREEN band. HARMONY consensus.*
 *The algebra speaks. We measure.*
 
-*(c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory*
+*(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry*
