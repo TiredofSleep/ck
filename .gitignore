@@ -38,12 +38,33 @@ ck_pos_cache.json
 
 # ── Logs (generated at runtime) ──
 *.log
+api_log.txt
+bible_reading_log.txt
+nt_reading_log.txt
+gcc_err.txt
 
 # ── CK persistence (grows at runtime) ──
 lattice_chain/
 
 # ── Clay results (reproducible via CLI) ──
 results/
+
+# ── Vivado / FPGA build artifacts ──
+*.jou
+*.backup.jou
+.Xil/
+vivado*.backup.*
+dfx_runtime.txt
+
+# ── ELF binaries (rebuild from source) ──
+*.elf
+
+# ── Temp training scripts (not part of core) ──
+ck_train_loop*.py
+
+
+# ── Thesis output (generated at runtime) ──
+thesis_*.md
 
 # ── OS junk ──
 .DS_Store

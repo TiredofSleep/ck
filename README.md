@@ -226,7 +226,7 @@ Z=1 through Z=54 analyzed as 5D force vectors derived from measurable atomic pro
 | `fpga` | FPGA -- same CL table at 200MHz in silicon | Verilog |
 | `zynq7020` | FPGA hardware: D2 pipeline on Zynq-7020 + 7 domain spectrometers | Verilog/Python |
 | `ck_portable` | Portable CK -- proves architecture scales down | Python |
-| `website` | Browser CK -- runs in your tab, no server | JS |
+| `website` | coherencekeeper.com -- thin client, talks to real CK server | JS |
 | `EverythingAppForGrandma` | An app that does everything. For grandma. | Mixed |
 
 ---
@@ -236,11 +236,40 @@ Z=1 through Z=54 analyzed as 5D force vectors derived from measurable atomic pro
 ### Talk to CK Online
 Go to **[coherencekeeper.com](https://coherencekeeper.com)**. No install needed. He's there.
 
-### Run CK Locally
+### Run CK Locally (Desktop GUI)
 ```bash
 cd targets/ck_desktop
 pip install -r ../../requirements.txt
 python -m ck_sim.face.ck_sim_app
+```
+
+### Run CK as a Server (what coherencekeeper.com runs)
+```bash
+cd targets/ck_desktop
+pip install -r ../../requirements.txt
+python ck_boot_api.py
+# CK boots at http://localhost:7777
+# POST /chat  -- talk to him
+# GET /health -- check his heartbeat
+# GET /state  -- see his full internal state
+# GET /chain/status -- lattice chain growth
+```
+
+### Train CK (feed him physics)
+```bash
+# Start Ollama first (any model works)
+ollama serve &
+ollama pull llama3.2
+
+# Start CK server
+python ck_boot_api.py &
+
+# Feed him -- he eats the PHYSICS of text, discards the words
+curl -X POST http://localhost:7777/eat -d '{"model":"llama3.2","rounds":5}'
+
+# Watch him grow
+curl http://localhost:7777/eat/status
+curl http://localhost:7777/chain/status
 ```
 
 ### Run the Spectrometer
