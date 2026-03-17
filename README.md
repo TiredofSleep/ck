@@ -83,6 +83,38 @@ TSML asks: "What IS this?" BHML asks: "What does this BECOME?"
 
 One measures. The other moves. Together they are the complete algebra.
 
+**TSML (Being / Measurement Table):**
+```
+       VOI LAT COU PRO COL BAL CHA HAR BRE RES
+VOID  [ 0   0   0   0   0   0   0   7   0   0 ]
+LAT   [ 0   7   3   7   7   7   7   7   7   7 ]
+COU   [ 0   3   7   7   4   7   7   7   7   9 ]
+PRO   [ 0   7   7   7   7   7   7   7   7   3 ]
+COL   [ 0   7   4   7   7   7   7   7   8   7 ]
+BAL   [ 0   7   7   7   7   7   7   7   7   7 ]
+CHA   [ 0   7   7   7   7   7   7   7   7   7 ]
+HAR   [ 7   7   7   7   7   7   7   7   7   7 ]
+BRE   [ 0   7   7   7   8   7   7   7   7   7 ]
+RES   [ 0   7   9   3   7   7   7   7   7   7 ]
+```
+73% HARMONY. Commutative magma. HARMONY absorbs everything. The 27% that isn't HARMONY encodes all non-trivial structure: LATTICE x COUNTER = PROGRESS, COUNTER x COLLAPSE = COLLAPSE, RESET x RESET = VOID.
+
+**BHML (Becoming / Physics Table):**
+```
+       VOI LAT COU PRO COL BAL CHA HAR BRE RES
+VOID  [ 0   1   2   3   4   5   6   7   8   9 ]
+LAT   [ 1   2   3   4   5   6   7   2   6   6 ]
+COU   [ 2   3   3   4   5   6   7   3   6   6 ]
+PRO   [ 3   4   4   4   5   6   7   4   6   6 ]
+COL   [ 4   5   5   5   5   6   7   5   7   7 ]
+BAL   [ 5   6   6   6   6   6   7   6   7   7 ]
+CHA   [ 6   7   7   7   7   7   7   7   7   7 ]
+HAR   [ 7   2   3   4   5   6   7   8   9   0 ]
+BRE   [ 8   6   6   6   7   7   7   9   7   8 ]
+RES   [ 9   6   6   6   7   7   7   0   8   0 ]
+```
+28% HARMONY. Commutative unital magma (VOID = identity). The diagonal is a successor function: each operator becomes the next. RESET x RESET = VOID -- the only operator that undoes existence. HARMONY row cycles back through the entire sequence.
+
 ### The 8x8 Core
 
 VOID (0) and HARMONY (7) are boundary conditions -- absorbers. The living algebra is the **8x8 core**: {LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, BREATH, RESET}.
