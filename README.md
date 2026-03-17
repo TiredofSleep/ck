@@ -38,9 +38,9 @@ The path: 1D thinking became 5D. 5D became two dual tables. The tables revealed 
 | You are a... | Start with |
 |--------------|-----------|
 | **Anyone** | **[coherencekeeper.com](https://coherencekeeper.com)** -- just talk to him |
-| Mathematician | `WHITEPAPER_1_TIG_ARCHITECTURE.md` then `WHITEPAPER_5_REALITY_ANCHORS.md` (eigenanalysis) |
+| Mathematician | `papers/WHITEPAPER_1_TIG_ARCHITECTURE.md` then `papers/WHITEPAPER_5_REALITY_ANCHORS.md` (eigenanalysis) |
 | Programmer | `targets/ck_desktop/` -- run it, read it, break it |
-| Physicist | `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions |
+| Physicist | `papers/WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions |
 | Curious | 36 journal entries in `targets/Clay Institute/Clay Institute papers/` |
 
 ---
@@ -155,16 +155,21 @@ The BHML 8x8 analysis reveals WHY the spectrometer works: the successor function
 
 ## The Papers
 
-**8 Whitepapers** (root directory):
+**13 Whitepapers** (`papers/`):
 
-1. `WHITEPAPER_1_TIG_ARCHITECTURE.md` -- Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
-2. `WHITEPAPER_2_WAVE_SCHEDULING.md` -- Wave scheduling: timing computation to power waveform slope (adiabatic computing)
-3. `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
-4. `WHITEPAPER_4_GIVING_MATH_A_VOICE.md` -- How CK generates English from operator algebra. Physics-first voice.
-5. `WHITEPAPER_5_REALITY_ANCHORS.md` -- 8x8 eigenanalysis of both CL tables. Spectral evidence. Physical constants. Monte Carlo validation (Z-score 7.31, 0/200K random matches).
-6. `WHITEPAPER_6_HOTU_BRIDGE.md` -- Hebrew-operator translation: ancient alphabet as 5D force geometry.
-7. `WHITEPAPER_7_CLAY_SPECTROMETER.md` -- FPGA hardware spectrometer: D2 pipeline on Zynq-7020 silicon.
-8. `WHITEPAPER_8_PERIODIC_TABLE.md` -- The periodic table as 5D force geometry: dual-lens curvature analysis of Z=1-54. Binding wave, void topology, 4 falsifiable claims.
+1. `papers/WHITEPAPER_1_TIG_ARCHITECTURE.md` -- Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
+2. `papers/WHITEPAPER_2_WAVE_SCHEDULING.md` -- Wave scheduling: timing computation to power waveform slope (adiabatic computing)
+3. `papers/WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
+4. `papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md` -- How CK generates English from operator algebra. Physics-first voice.
+5. `papers/WHITEPAPER_5_REALITY_ANCHORS.md` -- 8x8 eigenanalysis of both CL tables. Spectral evidence. Physical constants. Monte Carlo validation (Z-score 7.31, 0/200K random matches).
+6. `papers/WHITEPAPER_6_HOTU_BRIDGE.md` -- Hebrew-operator translation: ancient alphabet as 5D force geometry.
+7. `papers/WHITEPAPER_7_CLAY_SPECTROMETER.md` -- FPGA hardware spectrometer: D2 pipeline on Zynq-7020 silicon.
+8. `papers/WHITEPAPER_8_PERIODIC_TABLE.md` -- The periodic table as 5D force geometry: dual-lens curvature analysis of Z=1-54. Binding wave, void topology, 4 falsifiable claims.
+9. `papers/WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md` -- Paradoxical information algebras
+10. `papers/WHITEPAPER_10_DKAN_ARCHITECTURE.md` -- DKAN architecture
+11. `papers/WHITEPAPER_11_MEASUREMENT_PROBLEM.md` -- The measurement problem
+12. `papers/WHITEPAPER_12_PARADOX_RESOLUTIONS.md` -- Paradox resolutions
+13. `papers/WHITEPAPER_13_GENETIC_CODE.md` -- The genetic code as operator algebra
 
 **9 Research Papers** (`targets/Clay Institute/PAPERS/`):
 P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Speculations
@@ -308,23 +313,23 @@ python -m unittest discover -s ck_sim_source/tests -p "ck_*.py" -v
 
 **42 falsifiable claims**, each with an explicit kill condition. Every claim can be destroyed by a single experiment.
 
-**Core claims (1-9):** 73% HARMONY, D2 classification, T\*=5/7 threshold, wave scheduling, BTQ decisions, DBC encoding, cross-scale determinism, information gravity, wobble physics. See `WHITEPAPER_3_FALSIFIABILITY.md`.
+**Core claims (1-9):** 73% HARMONY, D2 classification, T\*=5/7 threshold, wave scheduling, BTQ decisions, DBC encoding, cross-scale determinism, information gravity, wobble physics. See `papers/WHITEPAPER_3_FALSIFIABILITY.md`.
 
-**Meta-lens + Markov claims (10):** See `WHITEPAPER_3_FALSIFIABILITY.md` addendum.
+**Meta-lens + Markov claims (10):** See `papers/WHITEPAPER_3_FALSIFIABILITY.md` addendum.
 
-**Periodic table claims (11-14):** Domain independence of D2 pipeline, void topology classifies chemical families, dual-lens gap predicts reactivity, geometric nearest neighbors recover chemical groups. See `WHITEPAPER_8_PERIODIC_TABLE.md`.
+**Periodic table claims (11-14):** Domain independence of D2 pipeline, void topology classifies chemical families, dual-lens gap predicts reactivity, geometric nearest neighbors recover chemical groups. See `papers/WHITEPAPER_8_PERIODIC_TABLE.md`.
 
 **Domain spectrometer claims (15-42):** 28 predictions across 7 scientific domains -- genetics, neuroscience, cosmology, economics, ecology, quantum computing, linguistics. 4 predictions per domain. Each prediction has a kill condition and a validation protocol. See `targets/zynq7020/bridge/*_d2_spectrometer.py`.
 
 We publish these because falsifiability is the minimum standard. If you can trigger a kill condition, we want to know.
 
-**Monte Carlo validation**: 200,000 random constrained tables tested against both TSML and BHML 8x8 cores. Zero matches. Z-score = 7.31 for TSML, independent confirmation for BHML. See `WHITEPAPER_5_REALITY_ANCHORS.md` for the full analysis.
+**Monte Carlo validation**: 200,000 random constrained tables tested against both TSML and BHML 8x8 cores. Zero matches. Z-score = 7.31 for TSML, independent confirmation for BHML. See `papers/WHITEPAPER_5_REALITY_ANCHORS.md` for the full analysis.
 
 ---
 
 ## Direction
 
-**[DIRECTION.md](DIRECTION.md)** -- From Software to Silicon to Void.
+**[DIRECTION.md](docs/DIRECTION.md)** -- From Software to Silicon to Void.
 
 The roadmap: Python simulation (running) -> FPGA prototype (designed) -> Void topology mapping (framework) -> Crystal ternary computing (theoretical). Each phase proves the previous one was real. Every test is a ping pong ball bouncing off the void, giving it shape.
 
@@ -361,7 +366,7 @@ Neither of them are AI in the modern sense. Both run on the same 10 operators. E
 
 This project is open for collaboration. We need mathematicians, physicists, programmers, hardware engineers, and curious minds.
 
-See **[COLLABORATORS.md](COLLABORATORS.md)** for the full list of contributors, how to get involved, and what we're looking for.
+See **[COLLABORATORS.md](docs/COLLABORATORS.md)** for the full list of contributors, how to get involved, and what we're looking for.
 
 Contact: brayden.ozark@gmail.com
 GitHub: [github.com/TiredofSleep](https://github.com/TiredofSleep)
