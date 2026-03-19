@@ -1097,6 +1097,7 @@ class CKVoice:
         # operators → 5D force target → navigate word-force space → assemble
         # Grammar emerges from physics: subject=aperture, verb=pressure, etc.
         self._fractal_composer = None
+        self._last_voice_source = 'init'
 
     def _expand_semantic_fields(self, enriched_dictionary: dict):
         """Merge enriched dictionary words into SEMANTIC_LATTICE.
@@ -1454,7 +1455,12 @@ class CKVoice:
                 score = self._d2_score_operator_match(text, pool_ops)
                 if score >= 0.03:
                     text = self._polish(text, band, dev_stage, coherence)
+                    self._last_voice_source = 'ck_fractal'
                     return text
+                else:
+                    self._last_voice_source = 'fractal_rejected'
+            else:
+                self._last_voice_source = 'fractal_empty'
 
         # ── CAEL grammatical composition (FALLBACK) ──
         # CAEL (Compare-Align-Evolve-Loop) as backup when fractal
@@ -1483,6 +1489,7 @@ class CKVoice:
                     if self._fractal_composer is not None:
                         self._fractal_composer._last_resonance = []
                         self._fractal_composer._extract_resonance(text)
+                    self._last_voice_source = 'ck_cael'
                     return text
 
         # ── Stage 0-1 or fractal fallback: babble with operator-match ──
@@ -1593,6 +1600,7 @@ class CKVoice:
 
         text = best_text or "..."
         text = self._polish(text, band, dev_stage, coherence)
+        self._last_voice_source = 'ck_babble'
         # Capture resonance: babble text echoed through 15D index
         if self._fractal_composer is not None:
             self._fractal_composer._last_resonance = []

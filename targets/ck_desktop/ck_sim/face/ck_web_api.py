@@ -527,9 +527,18 @@ class CKWebAPI:
             except Exception:
                 pass
 
+        # Voice source tracking
+        _voice_source = 'unknown'
+        try:
+            _voice_source = getattr(self.engine.voice,
+                                    '_last_voice_source', 'unknown')
+        except Exception:
+            pass
+
         # Build the full experience response
         result = {
             'text': response_text,
+            'source': _voice_source,
             'band': band_after,
             'coherence': round(coherence_after, 4),
             'operators': op_names,
