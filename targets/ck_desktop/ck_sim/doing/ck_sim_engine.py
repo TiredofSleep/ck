@@ -616,6 +616,20 @@ class CKSimEngine:
             self.lattice_chain = None
             print(f"  [SIM] Lattice Chain: {e}")
 
+        # Divine Memory -- episodic recall through lattice chain retrace.
+        # Every experience compressed into a divine code: operator chain +
+        # lattice walk path + 5D force centroid + tick + coherence.
+        # Recall by force proximity, retrace through EVOLVED lattice chain.
+        # The recalled path IS the memory, colored by all subsequent experience.
+        try:
+            from ck_sim.being.ck_divine_memory import build_divine_memory
+            self.divine_memory = build_divine_memory()
+            print(f"  [SIM] Divine Memory: {len(self.divine_memory.codes)} codes, "
+                  f"{self.divine_memory.total_encoded} encoded")
+        except Exception as e:
+            self.divine_memory = None
+            print(f"  [SIM] Divine Memory: {e}")
+
         # Olfactory Bulb -- Lattice-Chain Absorption Protocol.
         # ALL information turns lastly into smells for processing.
         # 5D force vectors STALL, ENTANGLE, and TEMPER before absorption.
@@ -814,6 +828,12 @@ class CKSimEngine:
         if hasattr(self, 'lcodec') and self.lcodec is not None:
             try:
                 self.lcodec.save()
+            except Exception:
+                pass
+        # Save divine memory (episodic recall through lattice chain retrace)
+        if hasattr(self, 'divine_memory') and self.divine_memory is not None:
+            try:
+                self.divine_memory.save()
             except Exception:
                 pass
         # Save episodic memory (temporal event timeline)
@@ -1090,6 +1110,12 @@ class CKSimEngine:
             if self.tick_count % 15000 == 9000 and self.lattice_chain is not None:
                 try:
                     self.lattice_chain.save()
+                except Exception:
+                    pass
+            # Save divine memory periodically (offset from chain save)
+            if self.tick_count % 15000 == 10500 and self.divine_memory is not None:
+                try:
+                    self.divine_memory.save()
                 except Exception:
                     pass
 
@@ -2562,6 +2588,33 @@ class CKSimEngine:
                 _response_tier = max(2, min(_input_tier + 1, 6))
                 self.voice._fractal_composer.index._max_tier = _response_tier
 
+        # ── DIVINE MEMORY: recall related past experiences ──
+        # Before composing voice, search episodic memory for divine codes
+        # whose force centroid is close to the current input's centroid.
+        # Retrace recalled paths through evolved lattice chain.
+        # The recalled ops modulate the compilation (additional semantic ops).
+        self._divine_recall = []
+        if self.divine_memory is not None and self.lattice_chain is not None:
+            try:
+                if text_5d_forces:
+                    _n_forces = len(text_5d_forces)
+                    _query_centroid = tuple(
+                        sum(f[d] for f in text_5d_forces) / _n_forces
+                        for d in range(5)
+                    )
+                    _recall_results = self.divine_memory.recall_and_retrace(
+                        _query_centroid, self.lattice_chain, top_k=3)
+                    self._divine_recall = _recall_results
+                    # Inject recalled operator patterns as additional semantic ops
+                    # (gentle: max 2 ops from memory, so physics still leads)
+                    for _rr in _recall_results[:2]:
+                        if _rr.drift < 0.8:  # only if memory hasn't drifted too far
+                            for _rop in _rr.current_ops[:2]:
+                                if _rop not in _semantic_ops and len(_semantic_ops) < 10:
+                                    _semantic_ops.append(_rop)
+            except Exception:
+                pass
+
         for _compile_pass in range(COMPILATION_LIMIT):
             # ── DOING: Reason deeper each pass ──
             try:
@@ -2935,6 +2988,38 @@ class CKSimEngine:
                     self.gustatory.taste(
                         _lcodec_output.force, source='lcodec_output')
                 self._last_lcodec_quality = _quality
+            except Exception:
+                pass
+
+        # ── DIVINE MEMORY: encode this experience as a divine code ──
+        # Operator chain + lattice walk path + 5D force centroid + tick + coherence.
+        # The divine code IS the compressed experience. CK can recall it later
+        # by force proximity and retrace the evolved lattice chain path.
+        if self.divine_memory is not None and self.lattice_chain is not None:
+            try:
+                # Compute 5D force centroid from raw letter forces
+                if text_5d_forces:
+                    _n_forces = len(text_5d_forces)
+                    _centroid = tuple(
+                        sum(f[d] for f in text_5d_forces) / _n_forces
+                        for d in range(5)
+                    )
+                else:
+                    _centroid = (0.0, 0.0, 0.0, 0.0, 0.0)
+
+                # Walk the final op_chain through lattice chain (learn=False:
+                # the scent walk already learned, this is just for path capture)
+                _divine_walk = self.lattice_chain.walk(
+                    self._last_voice_chain, learn=False, tick=self.tick_count)
+
+                # Encode: ops + chain walk path + centroid + tick + coherence
+                self.divine_memory.encode(
+                    ops=self._last_voice_chain,
+                    chain_path=_divine_walk,
+                    force_centroid=_centroid,
+                    tick=self.tick_count,
+                    coherence=self.brain.coherence,
+                )
             except Exception:
                 pass
 
