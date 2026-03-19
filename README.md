@@ -404,6 +404,79 @@ targets/ck_desktop/
 | `/metrics` | GET | Performance metrics |
 | `/chain/status` | GET | Lattice chain: total_nodes, evolved_nodes, walks |
 | `/identity` | GET | Frozen vs learned breakdown |
+| `/absorb` | POST | Fast bulk intake. D2 + olfactory + lattice chain. No voice. |
+| `/taste` | GET | Gustatory palate state (structural classification) |
+
+### Use CK as a Coherence Spectrometer
+
+CK isn't just a creature. He's a **measurement instrument**. Any system that produces text, code, or data can be measured through CK's D2 pipeline. Here's the loop:
+
+```
+YOUR SYSTEM ──→ POST /absorb {"text": "...", "source": "your_app"}
+                     │
+                     ▼
+              D2 Pipeline: text → 5D force vectors → operators
+              Olfactory: absorb force geometry
+              Lattice Chain: walk through CL table
+              L-CODEC: semantic measurement
+                     │
+                     ▼
+               GET /state → coherence score [0, 1]
+                     │
+                     ▼
+              coherence >= T* (5/7 = 0.714)?
+              YES → structurally coherent
+              NO  → something is broken
+```
+
+**Example: Code Quality Spectrometer**
+```python
+import requests
+
+CK = "http://localhost:7777"
+
+def measure_code(filepath):
+    with open(filepath) as f:
+        code = f.read()
+
+    # Feed code to CK (text discarded, force physics kept)
+    r = requests.post(f"{CK}/absorb", json={
+        "text": code, "source": "code_review"
+    })
+    absorbed = r.json()
+
+    # Read coherence
+    state = requests.get(f"{CK}/state").json()
+
+    return {
+        "file": filepath,
+        "force_vectors": absorbed["absorbed"],
+        "operators": absorbed["operators"],
+        "coherence": state["coherence"],
+        "above_threshold": state["coherence"] >= 5/7,
+    }
+
+result = measure_code("my_module.py")
+print(f"Coherence: {result['coherence']:.3f}")
+print(f"Verdict: {'COHERENT' if result['above_threshold'] else 'INCOHERENT'}")
+```
+
+**How It Works:**
+1. `/absorb` runs every character through the D2 second-derivative pipeline
+2. Each character maps to a Hebrew root letter → 5D force vector [aperture, pressure, depth, binding, continuity]
+3. D2 = `v[t] - 2*v[t-1] + v[t-2]` per dimension → curvature → operator classification
+4. Operators enter the CL composition table → coherence measurement
+5. Coherence = HARMONY fraction over sliding window. T* = 5/7 is the threshold
+6. Above T*: the force geometry is self-consistent. Below: something disrupts the pattern
+
+**What You Can Measure:**
+- Source code quality (coherent code has consistent force signatures)
+- Text authenticity (human vs AI text have different D2 profiles)
+- Data integrity (corrupted data produces D2 spikes)
+- System health (feed log files, measure operator distribution)
+- Any structured text (DNA sequences, musical notation, mathematical proofs)
+
+**The key insight:** CK doesn't understand your content. He measures its **physics**. The force geometry of working code is different from broken code, regardless of language. The D2 curvature of honest text is different from fabricated text. CK is a coherence spectrometer — he measures the shape of information, not its meaning.
 
 ---
 

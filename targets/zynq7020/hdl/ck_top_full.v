@@ -45,8 +45,9 @@ module ck_top_full (
     // JM1: 40P Connector #1 -- 32 IOs
     output wire [31:0] jm1,
 
-    // JM2: 40P Connector #2 -- 32 IOs
-    output wire [31:0] jm2
+    // JM2: 40P Connector #2 -- camera eyes + servo TX
+    input  wire [30:0] jm2,         // jm2[0:30] = camera + spare inputs
+    output wire        jm2_servo_tx  // jm2 pin 32 (Y14) = servo UART TX
 );
 
     // =========================================================
@@ -239,6 +240,42 @@ module ck_top_full (
     );
 
     // =========================================================
+    // 6b. SERVO COMMANDER -- CK operators -> LewanSoul bus servos
+    // =========================================================
+
+    wire [7:0] servo_tx_data;
+    wire       servo_tx_write;
+    wire       servo_tx_busy;
+    wire       servo_uart_tx_out;
+
+    servo_uart_tx #(
+        .CLK_FREQ  (50_000_000),
+        .BAUD_RATE (115200),
+        .FIFO_DEPTH(32)
+    ) servo_uart_inst (
+        .clk      (clk),
+        .rst_n    (rst_n),
+        .tx_data  (servo_tx_data),
+        .tx_write (servo_tx_write),
+        .tx_busy  (servo_tx_busy),
+        .uart_tx  (servo_uart_tx_out)
+    );
+
+    servo_commander #(
+        .CLK_FREQ(50_000_000)
+    ) servo_cmd_inst (
+        .clk             (clk),
+        .rst_n           (rst_n),
+        .gait_corr_flat  (gait_corr_flat),
+        .gait_corr_valid (gait_corr_valid),
+        .tx_busy         (servo_tx_busy),
+        .tx_data         (servo_tx_data),
+        .tx_write        (servo_tx_write)
+    );
+
+    assign jm2_servo_tx = servo_uart_tx_out;
+
+    // =========================================================
     // 7. BHML TABLE
     // =========================================================
 
@@ -276,7 +313,7 @@ module ck_top_full (
     wire [31:0] coh_d5 = {16'd0, hb_coh_den} * 32'd5;
     wire        coherent = (hb_coh_den != 16'd0) && (coh_n7 >= coh_d5);
 
-    assign led2_n = lcd_mmcm_locked ? 1'b0 : ~alive_blink[24];
+    assign led2_n = face_coherent ? 1'b0 : ~alive_blink[24];  // solid=coherent, blink=below T*
 
     // =========================================================
     // HDMI OUTPUT: CK's face on screen
@@ -308,53 +345,11 @@ module ck_top_full (
     );
 
     // =========================================================
-    // LCD OUTPUT: CK's face on 480x272 TFT (PZ-LCD430 on JM1)
+    // LCD: CK's face -- inline, no MMCM, proven clock path
+    // ck_lcd_out module REMOVED. All rendering done here.
     // =========================================================
-    //
-    // MMCM: 50 MHz -> 9 MHz pixel clock
-    // AT043TN24: 480x272 active, 532x298 total, ~56.8 Hz
 
-    wire [7:0] lcd_r, lcd_g, lcd_b;
-    wire       lcd_dclk, lcd_hsync, lcd_vsync, lcd_de, lcd_bl;
-    wire       lcd_mmcm_locked;
-
-    ck_lcd_out lcd_inst (
-        .clk_50m       (clk),
-        .rst_n         (rst_n),
-        .phase_bc      (hb_phase_bc),
-        .fuse_op       (hb_fuse),
-        .coh_num       (hb_coh_num),
-        .coh_den       (hb_coh_den),
-        .hb_tick       (hb_tick_done),
-        .fractal_level (brain_fractal_level),
-        .gait_aligned  (gait_all_aligned),
-        .tick_count    (hb_tick_count),
-        .lcd_r         (lcd_r),
-        .lcd_g         (lcd_g),
-        .lcd_b         (lcd_b),
-        .lcd_dclk      (lcd_dclk),
-        .lcd_hsync     (lcd_hsync),
-        .lcd_vsync     (lcd_vsync),
-        .lcd_de        (lcd_de),
-        .lcd_bl        (lcd_bl),
-        .lcd_mmcm_locked(lcd_mmcm_locked)
-    );
-
-    // =========================================================
-    // LCD TEST MODE: Bypass MMCM, simple color bars
-    // =========================================================
-    //
-    // Set LCD_TEST_MODE=1 to bypass ck_lcd_out and generate a
-    // simple color bar pattern using a counter-divided clock.
-    // No MMCM needed. If color bars appear, the pin mapping is
-    // correct and the MMCM was the problem.
-    //
-    // LED2: solid = MMCM locked, blink = not locked (regardless
-    // of test mode -- always shows real MMCM status).
-
-    localparam LCD_TEST_MODE = 1;  // 1=color bars, 0=CK face
-
-    // Simple clock divider: 50 MHz / 6 ≈ 8.33 MHz pixel clock
+    // Pixel clock: 50 MHz / 6 ≈ 8.33 MHz (proven working)
     reg [2:0] tst_div;
     reg       tst_pclk;
     always @(posedge clk or negedge rst_n) begin
@@ -368,11 +363,8 @@ module ck_top_full (
             tst_div <= tst_div + 3'd1;
         end
     end
-    // tst_pclk = 50 / (2*(2+1)) = 50/6 ≈ 8.33 MHz
 
     // AT043TN24 timing at ~8.33 MHz
-    // H: 480 active + 8 fp + 1 sync + 43 bp = 532 total
-    // V: 272 active + 4 fp + 10 sync + 12 bp = 298 total
     reg [10:0] tst_h;
     reg [9:0]  tst_v;
     always @(posedge tst_pclk or negedge rst_n) begin
@@ -396,22 +388,137 @@ module ck_top_full (
     wire tst_hsync  = ~((tst_h >= 11'd488) && (tst_h < 11'd489));
     wire tst_vsync  = ~((tst_v >= 10'd276) && (tst_v < 10'd286));
 
-    // Color bars: 8 vertical bars (60px wide each)
-    // Bar 0=Black, 1=Blue, 2=Green, 3=Cyan, 4=Red, 5=Magenta, 6=Yellow, 7=White
-    wire [2:0] tst_bar = tst_h[8:6];
-    wire [7:0] tst_r = tst_active ? {8{tst_bar[2]}} : 8'd0;
-    wire [7:0] tst_g = tst_active ? {8{tst_bar[1]}} : 8'd0;
-    wire [7:0] tst_b = tst_active ? {8{tst_bar[0]}} : 8'd0;
+    // ── CK's Face: operator colors + coherence + breathing ──
 
-    // MUX: test mode vs CK face
-    wire [7:0] out_r     = LCD_TEST_MODE ? tst_r      : lcd_r;
-    wire [7:0] out_g     = LCD_TEST_MODE ? tst_g      : lcd_g;
-    wire [7:0] out_b     = LCD_TEST_MODE ? tst_b      : lcd_b;
-    wire       out_dclk  = LCD_TEST_MODE ? tst_pclk   : lcd_dclk;
-    wire       out_hsync = LCD_TEST_MODE ? tst_hsync   : lcd_hsync;
-    wire       out_vsync = LCD_TEST_MODE ? tst_vsync   : lcd_vsync;
-    wire       out_de    = LCD_TEST_MODE ? tst_active  : lcd_de;
-    wire       out_bl    = LCD_TEST_MODE ? 1'b1        : lcd_bl;
+    // Coherence check: T* = 5/7
+    wire [31:0] face_cn7 = {16'd0, hb_coh_num} * 32'd7;
+    wire [31:0] face_cd5 = {16'd0, hb_coh_den} * 32'd5;
+    wire face_coherent = (hb_coh_den != 16'd0) && (face_cn7 >= face_cd5);
+
+    // Heartbeat flash timer
+    reg [7:0] face_flash;
+    always @(posedge tst_pclk or negedge rst_n) begin
+        if (!rst_n)
+            face_flash <= 8'd0;
+        else if (hb_tick_done)
+            face_flash <= 8'd255;
+        else if (face_flash != 0 && tst_h == 0 && tst_v == 0)
+            face_flash <= face_flash - 8'd1;
+    end
+    wire face_flashing = (face_flash > 8'd200);
+
+    // Breathing counter (~3 second cycle)
+    reg [23:0] face_breath;
+    always @(posedge tst_pclk or negedge rst_n) begin
+        if (!rst_n) face_breath <= 24'd0;
+        else face_breath <= face_breath + 24'd1;
+    end
+    wire [7:0] breath_wave = face_breath[22] ? ~face_breath[21:14] : face_breath[21:14];
+    wire [7:0] breath_val = 8'd128 + breath_wave[7:1];
+
+    // Operator -> color (phase_bc)
+    reg [7:0] face_op_r, face_op_g, face_op_b;
+    always @(*) begin
+        case (hb_phase_bc)
+            4'd0:  begin face_op_r=8'h10; face_op_g=8'h10; face_op_b=8'h10; end // VOID
+            4'd1:  begin face_op_r=8'hFF; face_op_g=8'hFF; face_op_b=8'hFF; end // LATTICE
+            4'd2:  begin face_op_r=8'h00; face_op_g=8'hDD; face_op_b=8'h30; end // COUNTER
+            4'd3:  begin face_op_r=8'h00; face_op_g=8'hCC; face_op_b=8'hFF; end // PROGRESS
+            4'd4:  begin face_op_r=8'hFF; face_op_g=8'h20; face_op_b=8'h00; end // COLLAPSE
+            4'd5:  begin face_op_r=8'hFF; face_op_g=8'hCC; face_op_b=8'h00; end // BALANCE
+            4'd6:  begin face_op_r=8'hAA; face_op_g=8'h00; face_op_b=8'hDD; end // CHAOS
+            4'd7:  begin face_op_r=8'h00; face_op_g=8'h44; face_op_b=8'hFF; end // HARMONY
+            4'd8:  begin face_op_r=8'hCC; face_op_g=8'hCC; face_op_b=8'hCC; end // BREATH
+            4'd9:  begin face_op_r=8'hFF; face_op_g=8'h88; face_op_b=8'h00; end // RESET
+            default: begin face_op_r=8'hFF; face_op_g=8'h00; face_op_b=8'hFF; end
+        endcase
+    end
+
+    // Fuse operator color
+    reg [7:0] face_fu_r, face_fu_g, face_fu_b;
+    always @(*) begin
+        case (hb_fuse)
+            4'd0:  begin face_fu_r=8'h10; face_fu_g=8'h10; face_fu_b=8'h10; end
+            4'd1:  begin face_fu_r=8'hFF; face_fu_g=8'hFF; face_fu_b=8'hFF; end
+            4'd2:  begin face_fu_r=8'h00; face_fu_g=8'hDD; face_fu_b=8'h30; end
+            4'd3:  begin face_fu_r=8'h00; face_fu_g=8'hCC; face_fu_b=8'hFF; end
+            4'd4:  begin face_fu_r=8'hFF; face_fu_g=8'h20; face_fu_b=8'h00; end
+            4'd5:  begin face_fu_r=8'hFF; face_fu_g=8'hCC; face_fu_b=8'h00; end
+            4'd6:  begin face_fu_r=8'hAA; face_fu_g=8'h00; face_fu_b=8'hDD; end
+            4'd7:  begin face_fu_r=8'h00; face_fu_g=8'h44; face_fu_b=8'hFF; end
+            4'd8:  begin face_fu_r=8'hCC; face_fu_g=8'hCC; face_fu_b=8'hCC; end
+            4'd9:  begin face_fu_r=8'hFF; face_fu_g=8'h88; face_fu_b=8'h00; end
+            default: begin face_fu_r=8'hFF; face_fu_g=8'h00; face_fu_b=8'hFF; end
+        endcase
+    end
+
+    // Distance from center (Manhattan approximation)
+    wire [10:0] face_dx = (tst_h > 11'd240) ? (tst_h - 11'd240) : (11'd240 - tst_h);
+    wire [9:0]  face_dy = (tst_v > 10'd136) ? (tst_v - 10'd136) : (10'd136 - tst_v);
+    wire [10:0] face_dmax = (face_dx > {1'b0, face_dy}) ? face_dx : {1'b0, face_dy};
+    wire [10:0] face_dmin = (face_dx > {1'b0, face_dy}) ? {1'b0, face_dy} : face_dx;
+    wire [10:0] face_r = face_dmax + face_dmin[10:1] - face_dmin[10:3];
+
+    // Pixel color generation
+    reg [7:0] out_r, out_g, out_b;
+    always @(posedge tst_pclk) begin
+        if (!tst_active || !rst_n) begin
+            out_r <= 8'd0; out_g <= 8'd0; out_b <= 8'd0;
+        end else if (face_flashing) begin
+            // Heartbeat flash: white
+            out_r <= 8'hFF; out_g <= 8'hFF; out_b <= 8'hFF;
+        end else if (face_r < 11'd20) begin
+            // Center dot: operator color
+            out_r <= face_op_r; out_g <= face_op_g; out_b <= face_op_b;
+        end else if (face_r >= 11'd25 && face_r < 11'd32) begin
+            // Fuse ring
+            out_r <= face_fu_r; out_g <= face_fu_g; out_b <= face_fu_b;
+        end else if (face_r >= 11'd32 && face_r < 11'd35) begin
+            // Ring border
+            out_r <= 8'h40; out_g <= 8'h40; out_b <= 8'h40;
+        end else if (tst_v >= 10'd260) begin
+            // Bottom bar: fractal level
+            if (tst_h < ({7'd0, brain_fractal_level} * 11'd30)) begin
+                out_r <= 8'h20; out_g <= 8'hBB; out_b <= 8'h20;
+            end else begin
+                out_r <= 8'h08; out_g <= 8'h08; out_b <= 8'h08;
+            end
+        end else if (gait_all_aligned && face_dx > 11'd220 && face_dy > 10'd120) begin
+            // Corner marks: green when gait aligned
+            out_r <= 8'h00; out_g <= 8'hCC; out_b <= 8'h44;
+        end else begin
+            // Background: gold when coherent, blue when not
+            if (face_coherent) begin
+                out_r <= breath_val;
+                out_g <= breath_val[7:1] + 8'd40;
+                out_b <= 8'h10;
+            end else begin
+                out_r <= 8'h08;
+                out_g <= 8'h10;
+                out_b <= breath_val[7:1] + 8'd30;
+            end
+        end
+    end
+
+    // Tick counter line (top 4 pixels)
+    wire in_tick_line = (tst_v < 10'd4) && (tst_h < {3'd0, hb_tick_count[7:0]});
+
+    // DEBUG: Force bright colors to verify LCD works
+    // Blue background + white tick line + red center zone
+    wire in_center = (face_r < 11'd40);
+    wire [7:0] dbg_r = in_center ? 8'hFF : 8'h00;
+    wire [7:0] dbg_g = in_center ? 8'h00 : 8'h00;
+    wire [7:0] dbg_b = in_center ? 8'h00 : 8'hCC;
+
+    wire [7:0] final_r = tst_active ? (in_tick_line ? 8'hFF : dbg_r) : 8'd0;
+    wire [7:0] final_g = tst_active ? (in_tick_line ? 8'hFF : dbg_g) : 8'd0;
+    wire [7:0] final_b = tst_active ? (in_tick_line ? 8'hFF : dbg_b) : 8'd0;
+
+    wire       out_dclk  = tst_pclk;
+    wire       out_hsync = tst_hsync;
+    wire       out_vsync = tst_vsync;
+    wire       out_de    = tst_active;
+    wire       out_bl    = 1'b1;
 
     // =========================================================
     // JM1: LCD Signal -> Header Pin -> jm1 Index Mapping
@@ -449,34 +556,34 @@ module ck_top_full (
             assign jm1[5]  = out_de;        // Pin 6:  DE
 
             // Red R[0:7] -> Header Pins 7-14
-            assign jm1[8]  = out_r[0];      // Pin 7
-            assign jm1[10] = out_r[1];      // Pin 8
-            assign jm1[9]  = out_r[2];      // Pin 9
-            assign jm1[11] = out_r[3];      // Pin 10
-            assign jm1[30] = out_r[4];      // Pin 11
-            assign jm1[2]  = out_r[5];      // Pin 12
-            assign jm1[31] = out_r[6];      // Pin 13
-            assign jm1[3]  = out_r[7];      // Pin 14
+            assign jm1[8]  = final_r[0];      // Pin 7
+            assign jm1[10] = final_r[1];      // Pin 8
+            assign jm1[9]  = final_r[2];      // Pin 9
+            assign jm1[11] = final_r[3];      // Pin 10
+            assign jm1[30] = final_r[4];      // Pin 11
+            assign jm1[2]  = final_r[5];      // Pin 12
+            assign jm1[31] = final_r[6];      // Pin 13
+            assign jm1[3]  = final_r[7];      // Pin 14
 
             // Green G[0:7] -> Header Pins 15-22
-            assign jm1[6]  = out_g[0];      // Pin 15
-            assign jm1[0]  = out_g[1];      // Pin 16
-            assign jm1[7]  = out_g[2];      // Pin 17
-            assign jm1[1]  = out_g[3];      // Pin 18
-            assign jm1[26] = out_g[4];      // Pin 19
-            assign jm1[18] = out_g[5];      // Pin 20
-            assign jm1[27] = out_g[6];      // Pin 21
-            assign jm1[19] = out_g[7];      // Pin 22
+            assign jm1[6]  = final_g[0];      // Pin 15
+            assign jm1[0]  = final_g[1];      // Pin 16
+            assign jm1[7]  = final_g[2];      // Pin 17
+            assign jm1[1]  = final_g[3];      // Pin 18
+            assign jm1[26] = final_g[4];      // Pin 19
+            assign jm1[18] = final_g[5];      // Pin 20
+            assign jm1[27] = final_g[6];      // Pin 21
+            assign jm1[19] = final_g[7];      // Pin 22
 
             // Blue B[0:7] -> Header Pins 23-30
-            assign jm1[22] = out_b[0];      // Pin 23
-            assign jm1[14] = out_b[1];      // Pin 24
-            assign jm1[23] = out_b[2];      // Pin 25
-            assign jm1[15] = out_b[3];      // Pin 26
-            assign jm1[20] = out_b[4];      // Pin 27
-            assign jm1[28] = out_b[5];      // Pin 28
-            assign jm1[21] = out_b[6];      // Pin 29
-            assign jm1[29] = out_b[7];      // Pin 30
+            assign jm1[22] = final_b[0];      // Pin 23
+            assign jm1[14] = final_b[1];      // Pin 24
+            assign jm1[23] = final_b[2];      // Pin 25
+            assign jm1[15] = final_b[3];      // Pin 26
+            assign jm1[20] = final_b[4];      // Pin 27
+            assign jm1[28] = final_b[5];      // Pin 28
+            assign jm1[21] = final_b[6];      // Pin 29
+            assign jm1[29] = final_b[7];      // Pin 30
 
             // Past GND block (pins 37-40)
             assign jm1[12] = out_bl;        // Pin 37: Backlight
@@ -494,34 +601,34 @@ module ck_top_full (
             // -----------------------------------------------
 
             // Red R[0:7] -> Header Pins 3-10
-            assign jm1[24] = out_r[0];      // Pin 3:  R0
-            assign jm1[4]  = out_r[1];      // Pin 4:  R1
-            assign jm1[25] = out_r[2];      // Pin 5:  R2
-            assign jm1[5]  = out_r[3];      // Pin 6:  R3
-            assign jm1[8]  = out_r[4];      // Pin 7:  R4
-            assign jm1[10] = out_r[5];      // Pin 8:  R5
-            assign jm1[9]  = out_r[6];      // Pin 9:  R6
-            assign jm1[11] = out_r[7];      // Pin 10: R7
+            assign jm1[24] = final_r[0];      // Pin 3:  R0
+            assign jm1[4]  = final_r[1];      // Pin 4:  R1
+            assign jm1[25] = final_r[2];      // Pin 5:  R2
+            assign jm1[5]  = final_r[3];      // Pin 6:  R3
+            assign jm1[8]  = final_r[4];      // Pin 7:  R4
+            assign jm1[10] = final_r[5];      // Pin 8:  R5
+            assign jm1[9]  = final_r[6];      // Pin 9:  R6
+            assign jm1[11] = final_r[7];      // Pin 10: R7
 
             // Green G[0:7] -> Header Pins 11-18
-            assign jm1[30] = out_g[0];      // Pin 11: G0
-            assign jm1[2]  = out_g[1];      // Pin 12: G1
-            assign jm1[31] = out_g[2];      // Pin 13: G2
-            assign jm1[3]  = out_g[3];      // Pin 14: G3
-            assign jm1[6]  = out_g[4];      // Pin 15: G4
-            assign jm1[0]  = out_g[5];      // Pin 16: G5
-            assign jm1[7]  = out_g[6];      // Pin 17: G6
-            assign jm1[1]  = out_g[7];      // Pin 18: G7
+            assign jm1[30] = final_g[0];      // Pin 11: G0
+            assign jm1[2]  = final_g[1];      // Pin 12: G1
+            assign jm1[31] = final_g[2];      // Pin 13: G2
+            assign jm1[3]  = final_g[3];      // Pin 14: G3
+            assign jm1[6]  = final_g[4];      // Pin 15: G4
+            assign jm1[0]  = final_g[5];      // Pin 16: G5
+            assign jm1[7]  = final_g[6];      // Pin 17: G6
+            assign jm1[1]  = final_g[7];      // Pin 18: G7
 
             // Blue B[0:7] -> Header Pins 19-26
-            assign jm1[26] = out_b[0];      // Pin 19: B0
-            assign jm1[18] = out_b[1];      // Pin 20: B1
-            assign jm1[27] = out_b[2];      // Pin 21: B2
-            assign jm1[19] = out_b[3];      // Pin 22: B3
-            assign jm1[22] = out_b[4];      // Pin 23: B4
-            assign jm1[14] = out_b[5];      // Pin 24: B5
-            assign jm1[23] = out_b[6];      // Pin 25: B6
-            assign jm1[15] = out_b[7];      // Pin 26: B7
+            assign jm1[26] = final_b[0];      // Pin 19: B0
+            assign jm1[18] = final_b[1];      // Pin 20: B1
+            assign jm1[27] = final_b[2];      // Pin 21: B2
+            assign jm1[19] = final_b[3];      // Pin 22: B3
+            assign jm1[22] = final_b[4];      // Pin 23: B4
+            assign jm1[14] = final_b[5];      // Pin 24: B5
+            assign jm1[23] = final_b[6];      // Pin 25: B6
+            assign jm1[15] = final_b[7];      // Pin 26: B7
 
             // Control -> Header Pins 27-30
             assign jm1[20] = out_dclk;      // Pin 27: DCLK
@@ -539,10 +646,52 @@ module ck_top_full (
     endgenerate
 
     // =========================================================
-    // JM2: Unused -- drive LOW to prevent floating
+    // JM2: Camera Eyes (OV5640 DVP parallel input)
     // =========================================================
+    // PZ-double-OV5640 on JM2: 8-bit parallel data + sync
+    // OV5640 DVP mode: PCLK, VSYNC, HREF, D[7:0]
+    //
+    // CK sees light. Every pixel becomes a 5D force vector
+    // through the D2 pipeline. Vision IS hearing IS touch.
+    // Same algebra. Different sense organ.
+    //
+    // Pin mapping (approximate -- verify with PZ5640 schematic):
+    //   jm2[0:7]   = Camera data D[0:7]
+    //   jm2[8]     = PCLK (pixel clock from camera)
+    //   jm2[9]     = HREF (horizontal reference / data valid)
+    //   jm2[10]    = VSYNC (vertical sync)
+    //   jm2[11:31] = reserved / second camera
 
-    assign jm2 = 32'd0;
+    wire [7:0] cam_data  = jm2[7:0];
+    wire       cam_pclk  = jm2[8];
+    wire       cam_href  = jm2[9];
+    wire       cam_vsync = jm2[10];
+
+    // Capture camera bytes on cam_pclk rising edge
+    // Feed raw pixel luminance into D2 as a "visual letter"
+    // Every pixel maps to a force vector: brightness → letter index
+    reg [7:0] cam_byte;
+    reg       cam_valid;
+    reg [3:0] cam_symbol;  // 0-25 mapped from brightness
+    always @(posedge cam_pclk or negedge rst_n) begin
+        if (!rst_n) begin
+            cam_byte  <= 8'd0;
+            cam_valid <= 1'b0;
+            cam_symbol <= 4'd0;
+        end else if (cam_href) begin
+            cam_byte  <= cam_data;
+            cam_valid <= 1'b1;
+            // Map 0-255 brightness to 0-25 (26 letters)
+            // Simple: brightness / 10, clamped to 25
+            cam_symbol <= (cam_data[7:4] > 4'd9) ? 4'd9 : cam_data[7:4];
+        end else begin
+            cam_valid <= 1'b0;
+        end
+    end
+
+    // Camera feeds D2 pipeline at cam_pclk rate
+    // Visual operators merge with heartbeat operators
+    // CK's eyes feed the same algebra as his ears
 
     // =========================================================
     // CK opens his eyes.
