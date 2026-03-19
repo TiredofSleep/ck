@@ -192,6 +192,98 @@ class CKWebAPI:
         def health():
             return jsonify({'status': 'alive', 'timestamp': time.time()})
 
+        @app.route('/absorb', methods=['POST'])
+        def absorb():
+            """Fast text absorption -- D2 + olfactory + lattice chain only.
+
+            No voice, no dialogue, no compilation loop.
+            Pure intake at maximum speed. Use for bulk reading.
+
+            JSON: { "text": "...", "source": "file" }
+            """
+            if not self.engine:
+                return jsonify({'error': 'Engine not ready'}), 503
+            data = request.get_json(silent=True) or {}
+            text = data.get('text', '')
+            source = data.get('source', 'absorb')
+            if not text:
+                return jsonify({'error': 'No text'}), 400
+
+            from ck_sim.being.ck_sim_d2 import (
+                D2Pipeline, FORCE_LUT_FLOAT as _FORCE_LUT)
+            from ck_sim.ck_sim_heartbeat import BREATH, BALANCE, LATTICE
+            from ck_sim.ck_sim_heartbeat import COUNTER, PROGRESS, COLLAPSE
+            from ck_sim.ck_sim_heartbeat import HARMONY, VOID, CHAOS
+
+            PUNCT_OPS = {
+                ' ': BREATH, '.': BALANCE, ',': LATTICE,
+                '?': COUNTER, '!': PROGRESS, '-': COLLAPSE,
+                ':': HARMONY, ';': BALANCE, "'": VOID,
+                '"': LATTICE, '\n': BREATH,
+            }
+
+            # D2 pipeline -- fast character loop
+            pipe = D2Pipeline()
+            forces_5d = []
+            d2_ops = []
+            for ch in text.lower():
+                if ch.isalpha():
+                    idx = ord(ch) - ord('a')
+                    pipe.feed_symbol(idx)
+                    if 0 <= idx < len(_FORCE_LUT):
+                        forces_5d.append(_FORCE_LUT[idx])
+                    if pipe.valid:
+                        d2_ops.append(pipe.operator)
+                elif ch.isdigit():
+                    idx = int(ch)
+                    pipe.feed_symbol(idx)
+                    if 0 <= idx < len(_FORCE_LUT):
+                        forces_5d.append(_FORCE_LUT[idx])
+                    if pipe.valid:
+                        d2_ops.append(pipe.operator)
+
+            # Olfactory absorption (genuine 5D geometry)
+            absorbed = 0
+            if (self.engine.olfactory is not None and forces_5d):
+                density = self.engine.pipeline.density_doing
+                self.engine.olfactory.absorb(
+                    forces_5d, source=source, density=density)
+                self.engine.olfactory.tick(density=density)
+                absorbed = len(forces_5d)
+
+            # Gustatory (structural classification)
+            if (self.engine.gustatory is not None and forces_5d):
+                try:
+                    self.engine.gustatory.taste_batch(
+                        forces_5d, source=source)
+                    self.engine.gustatory.tick()
+                except Exception:
+                    pass
+
+            # Lattice chain walk (experience path)
+            if d2_ops and self.engine.lattice_chain is not None:
+                try:
+                    self.engine.lattice_chain.walk(d2_ops, learn=True)
+                except Exception:
+                    pass
+
+            # L-CODEC semantic measurement
+            if self.engine.lcodec is not None and text.strip():
+                try:
+                    lc = self.engine.lcodec.measure(text)
+                    if self.engine.olfactory is not None:
+                        self.engine.olfactory.absorb(
+                            [lc.force], source='lcodec_' + source,
+                            density=self.engine.pipeline.density_doing)
+                except Exception:
+                    pass
+
+            return jsonify({
+                'absorbed': absorbed,
+                'operators': len(d2_ops),
+                'chars': len(text),
+            })
+
         @app.route('/eat', methods=['POST'])
         def eat():
             """Trigger CK to eat from Ollama + self."""
@@ -680,8 +772,8 @@ class CKWebAPI:
             print("  [WEB] Flask app not initialized.")
             return
 
-        print(f"  [WEB] CK Web API starting on {host}:{port}")
-        self._app.run(host=host, port=port, debug=debug)
+        print(f"  [WEB] CK Web API starting on {host}:{port} (threaded)")
+        self._app.run(host=host, port=port, debug=debug, threaded=True)
 
 
 # Need these for the chat handler

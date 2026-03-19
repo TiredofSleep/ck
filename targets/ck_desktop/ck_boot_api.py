@@ -280,7 +280,16 @@ print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 
 try:
-    api.run(host='0.0.0.0', port=7777)
+    # Use waitress (production WSGI) instead of Flask dev server.
+    # Flask dev server is single-threaded and blocks on GIL contention.
+    # Waitress uses a thread pool that properly interleaves with the engine.
+    try:
+        from waitress import serve as _waitress_serve
+        print(f"[CK] Using waitress (production WSGI, 4 threads)")
+        _waitress_serve(api._app, host='0.0.0.0', port=7777, threads=4)
+    except ImportError:
+        print(f"[CK] Waitress not installed, using Flask dev server")
+        api.run(host='0.0.0.0', port=7777)
 except KeyboardInterrupt:
     running = False
     if engine.existence and engine.existence.active:
