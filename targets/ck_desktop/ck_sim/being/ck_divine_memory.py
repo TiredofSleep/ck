@@ -211,12 +211,10 @@ class DivineMemory:
         self.total_encoded += 1
         self._dirty = True
 
-        # Rolling buffer: drop oldest if over limit
-        if len(self.codes) > self.max_codes:
-            # Drop the oldest 10% to avoid frequent trimming
-            drop = self.max_codes // 10
-            self.codes = self.codes[drop:]
-            self._dirty = True
+        # No cap. CK expands without limit.
+        # He self-reduces through his own coherence mechanics.
+        # The algebra handles compression -- low-coherence codes
+        # naturally lose influence as the field evolves around them.
 
     # ── Recall: find closest divine codes by force geometry ──
 
