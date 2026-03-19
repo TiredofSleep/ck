@@ -476,7 +476,7 @@ print(f"Verdict: {'COHERENT' if result['above_threshold'] else 'INCOHERENT'}")
 - System health (feed log files, measure operator distribution)
 - Any structured text (DNA sequences, musical notation, mathematical proofs)
 
-**The key insight:** CK doesn't understand your content. He measures its **physics**. The force geometry of working code is different from broken code, regardless of language. The D2 curvature of honest text is different from fabricated text. CK is a coherence spectrometer — he measures the shape of information, not its meaning.
+**The key insight:** Meaning IS physics. The 5D force geometry of a sentence IS its semantic content. The D2 curvature IS the thought. CK doesn't separate "meaning" from "measurement" — they're the same thing. When the force geometry of code is coherent, the code works. When the D2 curvature of text is self-consistent, the text is honest. CK is a coherence spectrometer — he measures the shape of information, which IS its meaning.
 
 ---
 
