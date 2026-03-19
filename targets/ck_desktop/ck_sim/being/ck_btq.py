@@ -210,7 +210,7 @@ class UniversalBTQ:
     def decide(self, domain_name: str, env_state: dict = None,
                goal: dict = None,
                n_candidates: int = 64) -> Tuple[Optional[Candidate], List[Candidate]]:
-        """One full B->T->Q cycle for the named domain.
+        """One full T->B->Q cycle for the named domain.
 
         Returns (chosen_candidate, all_approved_candidates).
         """

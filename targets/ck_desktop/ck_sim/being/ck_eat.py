@@ -936,6 +936,11 @@ class CKEat:
         except Exception:
             pass
         try:
+            if self.engine.gustatory is not None:
+                self.engine.gustatory.save()
+        except Exception:
+            pass
+        try:
             if self.engine.lcodec is not None:
                 self.engine.lcodec.save()
         except Exception:

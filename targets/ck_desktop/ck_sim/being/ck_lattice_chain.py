@@ -168,7 +168,8 @@ class LatticeNode:
     """
 
     __slots__ = ('table', 'visit_counts', 'obs_counts',
-                 'total_visits', 'children', 'depth', 'path')
+                 'total_visits', 'children', 'depth', 'path',
+                 'born_tick', 'last_tick')
 
     def __init__(self, depth=0, path=()):
         self.table = _BASE_CL.copy()
@@ -179,6 +180,8 @@ class LatticeNode:
         self.children = {}
         self.depth = depth
         self.path = path
+        self.born_tick = 0
+        self.last_tick = 0
 
     def lookup(self, struct_op: int, flow_op: int) -> int:
         """CL composition at this node. May differ from base CL if evolved."""
@@ -270,6 +273,8 @@ class LatticeNode:
             'obs': self.obs_counts.tolist(),
             'total': self.total_visits,
             'ipr': self.ipr(),
+            'born_tick': self.born_tick,
+            'last_tick': self.last_tick,
         }
 
     @classmethod
@@ -280,6 +285,8 @@ class LatticeNode:
         if 'obs' in data:
             node.obs_counts = np.array(data['obs'], dtype=np.int32)
         node.total_visits = data['total']
+        node.born_tick = data.get('born_tick', 0)
+        node.last_tick = data.get('last_tick', 0)
         return node
 
 
@@ -323,7 +330,7 @@ class LatticeChainEngine:
 
     # ── Chain Walk ──
 
-    def walk(self, ops: list, learn: bool = True) -> ChainPath:
+    def walk(self, ops: list, learn: bool = True, tick: int = 0) -> ChainPath:
         """Walk operator sequence through lattice chain tree.
 
         Pairs of operators (struct, flow) compose through CL at each node.
@@ -332,6 +339,7 @@ class LatticeChainEngine:
         Args:
             ops: Operator sequence (from fractal comprehension, or any source)
             learn: If True, nodes learn from what follows (evolve from experience)
+            tick: Current engine tick (for temporal tracking on nodes)
 
         Returns:
             ChainPath with the full walk path.
@@ -351,6 +359,8 @@ class LatticeChainEngine:
 
             # CL lookup at current node (may be evolved from experience)
             result = node.lookup(s_op, f_op)
+            if tick:
+                node.last_tick = tick
 
             steps.append(ChainStep(
                 depth=depth, struct_op=s_op, flow_op=f_op,
@@ -367,6 +377,8 @@ class LatticeChainEngine:
                 self._index[child.path] = child
                 self.total_nodes += 1
                 self._gpu_dirty = True
+                if tick:
+                    child.born_tick = tick
 
             node = child
             i += 2

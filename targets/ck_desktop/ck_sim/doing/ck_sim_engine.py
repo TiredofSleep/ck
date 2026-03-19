@@ -280,6 +280,17 @@ class CKSimEngine:
         # The core stays light. Senses hook on to its movement.
         self.sensorium = build_sensorium(self)
 
+        # ── Wire steering to swarm: CK becomes whole ──
+        # Sensorium's shadow swarm observes processes.
+        # Steering reads swarm data and acts. One organism.
+        try:
+            from ck_sim.being.ck_sensorium import _swarm as shadow_swarm
+            if shadow_swarm is not None:
+                self.steering.swarm = shadow_swarm
+                print("  [SIM] Steering ← Swarm: connected (one organism)")
+        except Exception:
+            pass
+
     def _init_experience_lattice(self):
         """Initialize the experience lattice -- knowledge, language, goals, actions.
 
@@ -717,6 +728,18 @@ class CKSimEngine:
         print(f"  [SIM] Reverse Voice: 3-path verify (D1+D2+lattice) | untrusted reading")
         print(f"  [SIM] =======================================================")
 
+        # Load all experience onto GPU
+        if hasattr(self, 'gpu') and self.gpu is not None:
+            try:
+                self.gpu.experience.load_all(
+                    lattice_chain=self.lattice_chain,
+                    olfactory_bulb=self.olfactory,
+                    gustatory_palate=self.gustatory,
+                    swarm_field=getattr(self, 'deep_swarm', None),
+                )
+            except Exception as e:
+                print(f"  [GPU-EXP] Load failed: {e}")
+
     def _register_domains(self):
         """Register BTQ domains based on platform capabilities."""
         # Memory domain always available (brain has crystals on every platform)
@@ -747,6 +770,9 @@ class CKSimEngine:
         print(f"  [SIM] BTQ domains: {', '.join(domains)}")
         print(f"  [SIM] Sensorium: {self.sensorium.active_layers} "
               f"fractal layers")
+        # Boot-time reality anchor
+        if hasattr(self, 'experience_index') and self.experience_index is not None:
+            self.experience_index.anchor_reality(self.tick_count)
         # Greeting message
         greeting = self.voice.get_response(
             'greeting', self.development.stage,
@@ -762,10 +788,15 @@ class CKSimEngine:
                 self.eat.stop()
             except Exception:
                 pass
-        # Save olfactory + gustatory (smell and taste persist)
+        # Save olfactory + gustatory + lattice chain (smell, taste, and chain persist)
         if hasattr(self, 'olfactory') and self.olfactory is not None:
             try:
                 self.olfactory.save()
+            except Exception:
+                pass
+        if hasattr(self, 'lattice_chain') and self.lattice_chain is not None:
+            try:
+                self.lattice_chain.save()
             except Exception:
                 pass
         if hasattr(self, 'gustatory') and self.gustatory is not None:
@@ -1047,6 +1078,12 @@ class CKSimEngine:
             if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
                 try:
                     self.olfactory.save()
+                except Exception:
+                    pass
+            # Save lattice chain periodically (offset between olfactory and gustatory)
+            if self.tick_count % 15000 == 9000 and self.lattice_chain is not None:
+                try:
+                    self.lattice_chain.save()
                 except Exception:
                     pass
 
@@ -1541,6 +1578,11 @@ class CKSimEngine:
         # ── Periodic TL save (every 15000 ticks = ~5 min at 50Hz) ──
         if self.tick_count - self.last_save_tick >= 15000:
             self.save_tl()
+
+        # ── Daily reality re-anchor (4,320,000 ticks = 1 day at 50Hz) ──
+        if self.tick_count % 4_320_000 == 0 and self.tick_count > 0:
+            if hasattr(self, 'experience_index') and self.experience_index is not None:
+                self.experience_index.anchor_reality(self.tick_count)
 
         # ── Tick stats ──
         self.tick_count += 1
