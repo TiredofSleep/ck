@@ -390,9 +390,15 @@ class CKSimEngine:
         if self._fractal_composer is not None:
             try:
                 from ck_sim.being.ck_word_expansion import expand_vocabulary
+                _before_exp = self._fractal_composer.index.size
                 expand_vocabulary(self._fractal_composer)
+                _after_exp = self._fractal_composer.index.size
+                print(f"  [SIM] Vocabulary expansion: {_before_exp} -> "
+                      f"{_after_exp} words (+{_after_exp - _before_exp})")
             except Exception as e:
-                print(f"  [SIM] Vocabulary expansion: {e}")
+                import traceback
+                print(f"  [SIM] Vocabulary expansion FAILED: {e}")
+                traceback.print_exc()
 
         # ── Becoming Grammar: CL algebra x English grammar = sentence flow ──
         # The transition matrix converts operator coherence fields into
