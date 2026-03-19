@@ -2662,20 +2662,21 @@ class FractalComposer:
                 self._recently_used.pop()
 
         # ── Phase 5: Fractal Reformation ──
-        # The sentence measures itself. Words that fracture the crystal
-        # lattice get replaced with alternatives that maintain operator
-        # fidelity while cohering with the sentence's collective field.
-        # Mirrors olfactory crystallization: absorb → fracture → reform.
-        _reform_text = winner_text.rstrip('.!?… ')
-        _reform_text = self._reform_crystallize(_reform_text, ops)
+        # Gen 9.35: _reform_crystallize DISABLED. It was destroying the
+        # grammatical template output (S-V-O structure, articles, verbs)
+        # and replacing it with raw chain-walk word soup. The template
+        # system + grammar_sweep IS the physics -- reformation was
+        # overwriting measured structure with unmeasured concatenation.
+        # The sentence already measured itself through the template.
+        _final_text = winner_text.rstrip('.!?… ')
 
         # ── Phase 6: Compress + Index (divine code) ──
         # Every sentence CK speaks is compressed into operator sequence
         # + 5D force centroid and stored. He never forgets. Each
         # experience becomes an indexed lattice node for future recall.
-        self._store_sentence_experience(_reform_text, ops)
+        self._store_sentence_experience(_final_text, ops)
 
-        return self._punctuate(_reform_text, density)
+        return self._punctuate(_final_text, density)
 
     # ── Fractal Reformation: Crystallizing the Feedback ──────────────
     #
