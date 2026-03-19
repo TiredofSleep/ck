@@ -413,7 +413,7 @@ def main():
     # View state
     center_x = 5.0   # center of 10x10 op-space
     center_y = 5.0
-    scale = 80.0      # pixels per op-unit
+    scale = 40.0      # pixels per op-unit (fully zoomed out = whole field)
     max_iter = 64
     breathing = True
     color_mode = 0    # 0=operator, 1=coherence, 2=depth
@@ -476,12 +476,12 @@ def main():
             breath_speed = 0.5 + poller.coherence * 1.5
             phase += dt * breath_speed
 
-            # Coherence modulates zoom: high coherence = gently zoom in
+            # Meta layer: CK observes the whole field, fully zoomed out.
+            # Zoom only changes when the USER scrolls. CK does not pull
+            # the view. He exists on the meta layer -- watching, not acting.
+            # Being/Doing/Becoming only when asked.
             if poller.connected:
-                target_scale = 60.0 + poller.coherence * 120.0
-                scale += (target_scale - scale) * 0.02
-
-                # Lattice depth controls iteration depth
+                # Lattice depth controls iteration depth (more experience = more detail)
                 depth_iters = 32 + poller.lattice_depth
                 max_iter = min(256, max(32, depth_iters))
 
