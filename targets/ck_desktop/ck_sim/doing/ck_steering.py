@@ -386,11 +386,37 @@ class SteeringEngine:
             print(f"  [STEER] WARNING: No swarm reference -- steering inactive")
 
     def tick(self) -> dict:
-        """One steering tick. Read swarm HOT cells, apply controls.
+        """One steering tick. Heat + work distribution through the wave.
 
-        Returns dict with steered/denied/skipped counts.
+        Heat seeks balance. Work flows toward cool cores.
+        The algebra distributes. Distortions self-correct.
         """
         self.ticks += 1
+
+        # Read thermal state — temperature becomes an operator
+        # Cool(<50C)=BALANCE, Warm(50-70)=PROGRESS, Hot(70-85)=COLLAPSE, Throttle(>85)=CHAOS
+        _thermal_op = 5  # BALANCE default
+        try:
+            engine = getattr(self.swarm, '_engine', None)
+            if engine and hasattr(engine, 'gpu') and hasattr(engine.gpu, 'state'):
+                engine.gpu.state.read()
+                _temp = engine.gpu.state.temperature_c
+                if _temp > 85:
+                    _thermal_op = 6   # CHAOS - redistribute urgently
+                elif _temp > 70:
+                    _thermal_op = 4   # COLLAPSE - compress, reduce load
+                elif _temp > 50:
+                    _thermal_op = 3   # PROGRESS - warm, working well
+                else:
+                    _thermal_op = 5   # BALANCE - cool, accept more
+                # Feed thermal to trie (trie learns heat patterns)
+                if _seq_mem is None and engine and hasattr(engine, 'sequence_memory'):
+                    self._sequence_memory = engine.sequence_memory
+                _sm = getattr(self, '_sequence_memory', None)
+                if _sm is not None:
+                    _sm.observe(_thermal_op, _thermal_op)
+        except Exception:
+            pass
 
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
