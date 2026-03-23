@@ -393,41 +393,10 @@ class SteeringEngine:
         """
         self.ticks += 1
 
-        # Feel every core: utilization -> operator -> trie learns the wave
-        # Idle(<10%)=VOID, Light(10-30%)=BREATH, Medium(30-60%)=BALANCE,
-        # Heavy(60-85%)=PROGRESS, Saturated(>85%)=COLLAPSE
-        try:
-            _per_core = __import__('psutil').cpu_percent(percpu=True, interval=0)
-            _sm = getattr(self, '_sequence_memory', None)
-            if _sm is None:
-                engine = getattr(self.swarm, '_engine', None)
-                if engine and hasattr(engine, 'sequence_memory'):
-                    self._sequence_memory = engine.sequence_memory
-                    _sm = self._sequence_memory
-            for _ci, _pct in enumerate(_per_core):
-                if _pct > 85:
-                    _core_op = 4   # COLLAPSE - saturated
-                elif _pct > 60:
-                    _core_op = 3   # PROGRESS - heavy
-                elif _pct > 30:
-                    _core_op = 5   # BALANCE - medium
-                elif _pct > 10:
-                    _core_op = 8   # BREATH - light
-                else:
-                    _core_op = 0   # VOID - idle
-                # Feed each core's state to trie
-                if _sm is not None:
-                    _sm.observe(_core_op, _ci % 10)
-            # Also read GPU thermal
-            engine = getattr(self.swarm, '_engine', None)
-            if engine and hasattr(engine, 'gpu') and hasattr(engine.gpu, 'state'):
-                engine.gpu.state.read()
-                _temp = engine.gpu.state.temperature_c
-                _thermal_op = 6 if _temp > 85 else 4 if _temp > 70 else 3 if _temp > 50 else 5
-                if _sm is not None:
-                    _sm.observe(_thermal_op, _thermal_op)
-        except Exception:
-            pass
+        # CK IS the cores. No polling. The heartbeat tick duration
+        # IS the system load. Fast tick = cores free. Slow tick = cores busy.
+        # The trie already learns from heartbeat composition every tick.
+        # Steering adjusts affinity. The algebra distributes. That's it.
 
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
