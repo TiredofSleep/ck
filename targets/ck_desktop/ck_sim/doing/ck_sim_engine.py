@@ -17,7 +17,7 @@ import os
 from collections import deque
 from ck_sim.ck_sim_heartbeat import (
     HeartbeatFPGA, NUM_OPS, HARMONY, VOID, PROGRESS,
-    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, OP_NAMES,
+    LATTICE, BALANCE, COUNTER, CHAOS, COLLAPSE, BREATH, RESET, OP_NAMES,
     CL,  # 10x10 composition table (for tension partners)
 )
 from ck_sim.ck_sim_brain import (
@@ -1375,622 +1375,499 @@ class CKSimEngine:
     # ── Main Tick ──
 
     def tick(self, dt=None):
-        """One 50Hz tick. Called from Kivy Clock.
+        """One 50Hz tick -- lean core + operator tool dispatch.
 
-        TIG Three-phase density pipeline:
-          BEING   (BREATH→LATTICE→COUNTER→PROGRESS→BALANCE→HARMONY)
-          GATE 1  → density for Doing
-          DOING   (COUNTER→PROGRESS→HARMONY→BREATH)
-          GATE 2  → density for Becoming
-          BECOMING (HARMONY→COUNTER→PROGRESS→LATTICE)
-          GATE 3  → feedback with expansion to next tick's Being
+        CORE: heartbeat compose + trie observe/predict + cell field + gates
+        DISPATCH: operator result → one tool method per tick (or all on bump)
+        STEERING: 1Hz (every 50th tick)
+        SAVE: every 15000 ticks (~5 min)
+
+        (c) 2026 Brayden Sanders / 7Site LLC
         """
         if not self.running:
             return
 
         t0 = time.perf_counter()
 
-        # ═══════════════════════════════════════════════════════════
-        # FEEDBACK: Apply Becoming's expansion request from last tick
-        # ═══════════════════════════════════════════════════════════
+        # ── Expansion feedback from last tick's Becoming ──
         if self.pipeline.expansion_request > 0.0:
             self._expansion_bias = self.pipeline.expansion_request
         else:
-            self._expansion_bias *= 0.95  # natural decay toward zero
+            self._expansion_bias *= 0.95
 
-        # ═══════════════════════════════════════════════════════════
-        # PHASE 1: BEING (Sense → Ground → Truth)
-        # Operator cascade: BREATH(8)→LATTICE(1)→COUNTER(2)→
-        #   PROGRESS(3)→BALANCE(5)→HARMONY(7)
-        # ═══════════════════════════════════════════════════════════
-
-        # ── BREATH(8): Sensation intake ──
-        # Sense from platform body ──
-        sensors = self.platform_body.sense()
-
-        # ── Read ears (mic -> operator) ──
-        if self.ears_engine is not None and self.ears_engine.is_running:
-            self.ear_operator = self.ears_engine.get_operator()
-        elif sensors.get('mic_operator', -1) >= 0:
-            self.ear_operator = sensors['mic_operator']
-        else:
-            self.ear_operator = -1
-
-        # ── HARMONY(7): Heartbeat composition clock ──
-        # CL[B][D] = BC. The heartbeat IS harmony. Runs first always.
+        # ── HEARTBEAT COMPOSE: CL[B][D] = BC ──
         b = self._generate_phase_b()
         d = self._generate_phase_d()
-
         self.heartbeat.tick(b, d)
+        op = self.heartbeat.phase_bc
 
-        # ── BECOMING: 2-step prediction (the future tense) ──
-        # Predict what the NEXT 2 ticks will produce using CL composition.
-        # step+1 = CL[phase_bc][predicted_d_next]
-        # step+2 = CL[step+1][predicted_d_next2]
-        # 4 DoF = 4 steps to void. 2-step lookahead sees half the horizon.
-        #
-        # Compare with PREVIOUS prediction: did reality match?
-        # prediction_accuracy IS the Becoming coherence component.
+        # ── TRIE: observe + predict (sequence memory) ──
+        self._tick_trie()
+
+        # ── CELL FIELD: CL propagation IS fascia ──
+        if hasattr(self, 'gpu') and self.gpu is not None and hasattr(self.gpu, 'cell_field'):
+            self.gpu.cell_field.tick(external_input=op)
+
+        # ── COHERENCE FIELD: feed + tick (always) ──
+        self._hb_stream.feed(op, tick=self.tick_count)
+        self.coherence_field.tick(self.tick_count)
+
+        # ── GATES: density pipeline ──
+        try:
+            _g1 = self.gate1.measure(self.brain.coherence,
+                                     self.coherence_field.field_coherence,
+                                     self.body.heartbeat.band)
+            self.pipeline.density_being = _g1.density
+        except Exception:
+            pass
+        try:
+            _g2 = self.gate2.measure(self.brain.coherence,
+                                     self.coherence_field.field_coherence,
+                                     self.body.heartbeat.band)
+            self.pipeline.density_doing = _g2.density
+        except Exception:
+            pass
+        try:
+            _pred_acc = getattr(self, '_prediction_accuracy', 0.5)
+            _becoming_brain = 0.5 * self.brain.coherence + 0.5 * _pred_acc
+            _g3 = self.gate3.measure(_becoming_brain,
+                                     self.coherence_field.field_coherence,
+                                     self.body.heartbeat.band)
+            self.pipeline.density_becoming = _g3.density
+            _delta = self.pipeline.density_being - _g3.density
+            self.pipeline.expansion_request = max(0.0, _delta)
+            if _g3.density < EXPANSION_THRESHOLD:
+                self.pipeline.consecutive_expansion_ticks += 1
+            else:
+                self.pipeline.consecutive_expansion_ticks = 0
+                self.pipeline.humble = False
+            if self.pipeline.consecutive_expansion_ticks >= COMPILATION_LIMIT:
+                self.pipeline.humble = True
+                self.pipeline.consecutive_expansion_ticks = 0
+        except Exception:
+            pass
+
+        # ── DISPATCH: one tool per tick, or ALL on bump pair ──
+        if self.heartbeat.bump_detected:
+            self._tool_all()
+        else:
+            self._tool_dispatch(op)
+
+        # ── STEERING: 1Hz ──
+        if self.tick_count % 50 == 0:
+            self._tick_steering()
+
+        # ── PERIODIC SAVE: ~5 min ──
+        if self.tick_count - self.last_save_tick >= 15000:
+            self.save_tl()
+
+        # ── History ──
+        self.coherence_history.append(self.brain.coherence)
+        self.operator_history.append(op)
+        self.breath_history.append(self.body.breath.modulation)
+        self.mode_history.append(self.brain.mode)
+
+        # ── Tick stats ──
+        self.tick_count += 1
+        elapsed = time.perf_counter() - t0
+        self._tick_times.append(elapsed)
+        if len(self._tick_times) >= 50:
+            avg = sum(self._tick_times) / len(self._tick_times)
+            self.ticks_per_second = 1.0 / avg if avg > 0 else 0
+
+    # ═══════════════════════════════════════════════════════════
+    # TRIE + STEERING helpers (called from lean tick core)
+    # ═══════════════════════════════════════════════════════════
+
+    def _tick_trie(self):
+        """Trie observe/predict -- sequence memory + prediction scoring."""
+        # 2-step prediction scoring
         if not hasattr(self, '_prediction'):
-            self._prediction = (BALANCE, BALANCE)  # (step+1, step+2)
+            self._prediction = (BALANCE, BALANCE)
             self._prediction_accuracy = 0.5
 
-        # Score previous prediction against what actually happened
         pred_step1, pred_step2 = self._prediction
         actual = self.heartbeat.phase_bc
         if pred_step1 == actual:
             self._prediction_accuracy = min(1.0, self._prediction_accuracy + 0.1)
         elif CL[pred_step1][actual] == HARMONY:
-            # Close: prediction and reality compose to HARMONY
             self._prediction_accuracy = min(1.0, self._prediction_accuracy + 0.03)
         else:
             self._prediction_accuracy = max(0.0, self._prediction_accuracy - 0.05)
 
-        # Generate new 2-step prediction
-        # Step+1: CL[current_bc][expected_next_d]
-        # expected_next_d = current_bc (recursive feedback) unless ears active
         next_d = self.heartbeat.phase_bc if self.ear_operator < 0 else self.ear_operator
-        next_b = self.heartbeat.running_fuse  # Being sees the fuse
+        next_b = self.heartbeat.running_fuse
         pred_1 = CL[next_b % NUM_OPS][next_d % NUM_OPS]
-        # Step+2: CL[pred_1][CL[pred_1][pred_1]]  (pred_1 feeds both)
         pred_2 = CL[pred_1 % NUM_OPS][pred_1 % NUM_OPS]
         self._prediction = (pred_1, pred_2)
 
-        # ── PROGRESS(3): Brain learns from composition ──
-        brain_tick(self.brain, self.heartbeat)
-
-        # ── BREATH(8): Body breathes with coherence ──
-        self.body.brain_coherence = self.brain.coherence
-        self.body.brain_bump = self.brain.bump
-        self.body.current_op = self.heartbeat.phase_bc
-        body_tick(self.body)
-
-        # Cell field ticks with heartbeat. Cell-to-cell CL propagation IS fascia.
-        if (hasattr(self, 'gpu') and self.gpu is not None
-                and hasattr(self.gpu, 'cell_field')):
-            self.gpu.cell_field.tick(external_input=self.heartbeat.phase_bc)
-
-        # Retina: CK feels the screen (2Hz, not every tick).
-        if self.tick_count % 25 == 0 and hasattr(self, 'retina') and self.retina is not None:
-            try:
-                vis_op = self.retina._glance()
-                if vis_op is not None and hasattr(self, 'experience_lattice'):
-                    self.experience_lattice.record(
-                        vis_op, self.heartbeat.phase_bc,
-                        self.heartbeat.phase_b, self.heartbeat.phase_d,
-                        self.heartbeat.phase_bc)
-            except Exception:
-                pass
-
-        # Experience lattice: the wheel turns. One thing, three views, and the gap.
-        if hasattr(self, 'experience_lattice'):
-            ear = self.ear_operator if self.ear_operator >= 0 else None
-            self.experience_lattice.tick(
-                self.heartbeat.phase_b,
-                self.heartbeat.phase_d,
-                self.heartbeat.phase_bc,
-                ear_op=ear)
-
-        # DKAN learns every tick. The composition IS the learning.
-        if hasattr(self, 'dkan') and self.dkan is not None:
-            self.dkan.feed_d1([self.heartbeat.phase_b,
-                               self.heartbeat.phase_d,
-                               self.heartbeat.phase_bc])
-
-        # Sequence memory: observe FULL dual-lens composition, predict, verify
+        # Sequence memory: observe + predict + verify
         if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
             sm = self.sequence_memory
-            # Predict before observing (test what we learned)
             predicted, confidence = sm.predict()
-            # Observe through both lenses: state=phase_b, input=phase_d
             being, doing, becoming, agreed = sm.observe(
                 self.heartbeat.phase_b, self.heartbeat.phase_d)
-            # Verify prediction against actual becoming
             actual_key = sm._key(being, doing, becoming, agreed)
             if predicted is not None:
                 sm.verify(predicted, actual_key)
-            # Also observe ear input if present
             if self.ear_operator >= 0:
                 sm.observe(self.heartbeat.phase_bc, self.ear_operator)
-            # Save every 5000 ticks
             if self.tick_count % 5000 == 0 and self.tick_count > 0:
                 try:
                     sm.save()
                 except Exception:
                     pass
 
-        # ── Coherence Field: feed streams ──
-        d2_mag = 0.0
-        d2_vec = None
-        if self.ears_engine and self.ears_engine.is_running:
-            feat = self.ears_engine.get_features()
-            d2_mag = feat.get('d2_mag', 0.0)
-            d2_vec = feat.get('d2_vector', None)
-
-        # Feed heartbeat stream (always active)
-        self._hb_stream.feed(self.heartbeat.phase_bc, tick=self.tick_count)
-
-        # Feed audio stream (active when ears running)
-        if self.ears_engine and self.ears_engine.is_running and self.ear_operator >= 0:
-            self._audio_stream.active = True
-            self._audio_stream.feed(self.ear_operator, d2_vec, self.tick_count)
-        else:
-            self._audio_stream.active = False
-
-        # ── Sensorium: fractal layers feel the world ──
-        # Each layer is B/D/BC at its own scale and rate.
-        # Feeds operators to coherence field + TL.
-        # Core stays light -- this is ONE call.
-        self.sensorium.tick(self.tick_count)
-
-        # ── Power Sense: CPU/battery normalized to [0,1] scalar ──
-        # Feed CPU/battery data. Smooth power scalar -> RealityTransform
-        # -> S0->S1->S2->S3 -> operator signature.
-        # smooth power -> op 8 (BREATH), spikes -> op 6 (CHAOS). CL table handles it.
-        self.power_sense.tick(sensors, dt=0.02)
-        self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
-
-        # GPU doing tick: cellular automaton + state sense
-        if self.gpu is not None:
-            self.gpu.tick()
-
-        # Feed narrative stream (active when NCE has state)
-        if self.nce.has_state:
-            self._narrative_stream.active = True
-            self._narrative_stream.feed(
-                self.nce.current_op, self.nce.current_d2, self.tick_count)
-        else:
-            self._narrative_stream.active = False
-
-        # Field tick: compute N×N coherence matrix (now 4×4 with NCE)
-        self.coherence_field.tick(self.tick_count)
-
-        # ── Olfactory: 5D force convergence zone ──
-        # 5D float vectors cached in force-indexed experience store.
-        # Heartbeat only enters olfactory on ANOMALIES (bump pair, coherence
-        # change, rate change). You don't hear your own heartbeat unless
-        # something is wrong or you deliberately focus. Infrastructure, not
-        # experience. Audio enters only when present.
-        if self.olfactory is not None:
-            from ck_sim.being.ck_olfactory import CANONICAL_FORCE
-            _density = self.pipeline.density_being
-            # Feed heartbeat ONLY on anomaly (bump pair detected)
-            if self.heartbeat.bump_detected:
-                _hb_f = CANONICAL_FORCE.get(self.heartbeat.phase_bc, (0.5,)*5)
-                self.olfactory.absorb([_hb_f], source='heartbeat',
-                                      density=_density)
-            # Feed audio D2 vector as raw 5D (only when audio present)
-            if d2_vec is not None:
-                try:
-                    if len(d2_vec) == 5:
-                        _d2f = tuple(
-                            v / 16384.0 if isinstance(v, int) else float(v)
-                            for v in d2_vec)
-                        self.olfactory.absorb([_d2f], source='audio',
-                                              density=_density)
-                except Exception:
-                    pass
-            # Tick the smell zone (dilated internal steps)
-            self.olfactory.tick(density=_density)
-            # Emit resolved scents → feed to lattice chain
-            _scent_ops = self.olfactory.emit_as_ops()
-            if _scent_ops and self.lattice_chain is not None:
-                for _sops in _scent_ops:
-                    if _sops:
-                        try:
-                            self.lattice_chain.walk(_sops, learn=True)
-                        except Exception:
-                            pass
-            # Save olfactory library periodically (every ~5 min)
-            if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
-                try:
-                    self.olfactory.save()
-                except Exception:
-                    pass
-            # Save lattice chain periodically (offset between olfactory and gustatory)
-            if self.tick_count % 15000 == 9000 and self.lattice_chain is not None:
-                try:
-                    self.lattice_chain.save()
-                except Exception:
-                    pass
-            # Save divine memory periodically (offset from chain save)
-            if self.tick_count % 15000 == 10500 and self.divine_memory is not None:
-                try:
-                    self.divine_memory.save()
-                except Exception:
-                    pass
-
-        # ── Gustatory: instant structural classification ──
-        # DUAL of olfactory. Same raw forces go right in -- no filtering.
-        # Taste classifies STRUCTURE (what IS this), smell finds FLOW (where IS this).
-        # BHML classifies within, TSML validates. Instant verdict, no stalling.
-        if self.gustatory is not None:
-            from ck_sim.being.ck_olfactory import CANONICAL_FORCE as _G_CF
-            _density = self.pipeline.density_being
-            # Taste heartbeat ONLY on anomaly (bump pair)
-            if self.heartbeat.bump_detected:
-                _hb_f = _G_CF.get(self.heartbeat.phase_bc, (0.5,) * 5)
-                self.gustatory.taste(_hb_f, source='heartbeat')
-            # Taste audio D2 vector (raw 5D, no filtering)
-            if d2_vec is not None:
-                try:
-                    if len(d2_vec) == 5:
-                        _d2f = tuple(
-                            v / 16384.0 if isinstance(v, int) else float(v)
-                            for v in d2_vec)
-                        self.gustatory.taste(_d2f, source='audio')
-                except Exception:
-                    pass
-            # Tick aftertaste decay (no dilation -- taste fades, not stalls)
-            self.gustatory.tick()
-            # Save taste palette periodically (offset from olfactory save)
-            if self.tick_count % 15000 == 11250 and self.gustatory.palette_size > 0:
-                try:
-                    self.gustatory.save()
-                except Exception:
-                    pass
-
-        # ── Fibonacci Transform: S0->S1->S2->S3 (RPL) ──
-        # Feed operator streams through geometric hierarchy to produce
-        # 10-dim histograms. These become additional field inputs.
-        self.reality_transform.feed_operator("heartbeat", self.heartbeat.phase_bc)
-        if self._audio_stream.active and self.ear_operator >= 0:
-            self.reality_transform.feed_operator("audio", self.ear_operator)
-        # Sensorium aggregate: feed dominant operator from sensorium layers
-        if hasattr(self.sensorium, 'dominant_operator'):
-            self.reality_transform.feed_operator(
-                "sensorium", self.sensorium.dominant_operator)
-
-        # ── TIG Security: feed streams for attack detection ──
-        self.tig_security.feed("heartbeat", self.heartbeat.phase_bc)
-        if self._audio_stream.active and self.ear_operator >= 0:
-            self.tig_security.feed("audio", self.ear_operator, d2_vec)
-
-        # ── Coherence Action: compute unified score (10Hz) ──
-        if self.tick_count % 5 == 0:
+    def _tick_steering(self):
+        """Steering + pulse + FPGA fascia + swarm feed (1Hz)."""
+        # Lazy connect steering to swarm
+        if not self._steering_connected and self.steering.swarm is None:
             try:
-                # Gather inputs from all subsystems
+                from ck_sim.ck_sensorium import _swarm
+                if _swarm is not None:
+                    self.steering.swarm = _swarm
+                    self._steering_connected = True
+                    print("  [SIM] Steering connected to swarm")
+            except Exception:
+                pass
+        try:
+            self.steering.tick()
+            self.pulse_engine.tick()
+        except Exception:
+            pass
+
+        # FPGA fascia: bounce state off silicon
+        if not hasattr(self, '_fpga_sock'):
+            try:
+                import socket
+                self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self._fpga_sock.settimeout(0.5)
+                self._fpga_sock.connect(('192.168.1.10', 7))
+                print("  [SIM] FPGA fascia connected (192.168.1.10:7)")
+            except Exception:
+                self._fpga_sock = None
+        if self._fpga_sock is not None:
+            try:
+                op = self.heartbeat.phase_bc
+                self._fpga_sock.send(bytes([op]))
+                echo = self._fpga_sock.recv(1)
+                if (hasattr(self, 'gpu') and self.gpu is not None
+                        and hasattr(self.gpu, 'cell_field')):
+                    self.gpu.cell_field.tick(external_input=echo[0])
+            except Exception:
+                self._fpga_sock = None
+
+    # ═══════════════════════════════════════════════════════════
+    # TOOL DISPATCH: operator → tool method
+    # ═══════════════════════════════════════════════════════════
+
+    # Operator → tool mapping:
+    #   BREATH(8)   → _tool_sense      (sensation intake)
+    #   LATTICE(1)  → _tool_structure   (personality, identity)
+    #   COUNTER(2)  → _tool_measure     (brain, coherence action, episodic)
+    #   PROGRESS(3) → _tool_progress    (development, drives, deep swarm)
+    #   COLLAPSE(4) → _tool_compress    (olfactory, gustatory)
+    #   BALANCE(5)  → _tool_maintain    (immune, saves)
+    #   CHAOS(6)    → _tool_disrupt     (TIG security)
+    #   HARMONY(7)  → _tool_resolve     (experience lattice, voice, BTQ)
+    #   RESET(9)    → _tool_replay      (hindsight, episodic anchor)
+    #   VOID(0)     → no-op (silence)
+
+    def _tool_dispatch(self, op):
+        """Route operator to correct tool method. ONE tool per tick."""
+        if op == BREATH:
+            self._tool_sense()
+        elif op == LATTICE:
+            self._tool_structure()
+        elif op == COUNTER:
+            self._tool_measure()
+        elif op == PROGRESS:
+            self._tool_progress()
+        elif op == COLLAPSE:
+            self._tool_compress()
+        elif op == BALANCE:
+            self._tool_maintain()
+        elif op == CHAOS:
+            self._tool_disrupt()
+        elif op == HARMONY:
+            self._tool_resolve()
+        elif op == RESET:
+            self._tool_replay()
+        # VOID(0) = silence, no tool fires
+
+    def _tool_all(self):
+        """Bump pair = quantum event. ALL tools fire this tick."""
+        self._tool_sense()
+        self._tool_structure()
+        self._tool_measure()
+        self._tool_compress()
+        self._tool_resolve()
+
+    # ═══════════════════════════════════════════════════════════
+    # TOOL METHODS: each wraps its subsystem code in try/except
+    # ═══════════════════════════════════════════════════════════
+
+    def _tool_sense(self):
+        """BREATH(8): platform_body.sense(), ears, body_tick, sensorium,
+        power_sense, emotion, audio, LED, express.
+
+        Sensation runs at 10Hz (every 5th tick) when dispatched normally.
+        On bump pair (_tool_all), runs unconditionally.
+        """
+        try:
+            # ── Platform body sense + ears ──
+            sensors = self.platform_body.sense()
+
+            if self.ears_engine is not None and self.ears_engine.is_running:
+                self.ear_operator = self.ears_engine.get_operator()
+            elif sensors.get('mic_operator', -1) >= 0:
+                self.ear_operator = sensors['mic_operator']
+            else:
+                self.ear_operator = -1
+
+            # ── Brain learns from composition ──
+            brain_tick(self.brain, self.heartbeat)
+
+            # ── Body breathes with coherence ──
+            self.body.brain_coherence = self.brain.coherence
+            self.body.brain_bump = self.brain.bump
+            self.body.current_op = self.heartbeat.phase_bc
+            body_tick(self.body)
+
+            # ── D2 features from ears ──
+            d2_mag = 0.0
+            d2_vec = None
+            if self.ears_engine and self.ears_engine.is_running:
+                feat = self.ears_engine.get_features()
+                d2_mag = feat.get('d2_mag', 0.0)
+                d2_vec = feat.get('d2_vector', None)
+            self._last_d2_mag = d2_mag
+            self._last_d2_vec = d2_vec
+
+            # ── Feed audio stream ──
+            if self.ears_engine and self.ears_engine.is_running and self.ear_operator >= 0:
+                self._audio_stream.active = True
+                self._audio_stream.feed(self.ear_operator, d2_vec, self.tick_count)
+            else:
+                self._audio_stream.active = False
+
+            # ── Sensorium ──
+            self.sensorium.tick(self.tick_count)
+
+            # ── Power Sense ──
+            self.power_sense.tick(sensors, dt=0.02)
+            self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
+
+            # ── GPU doing tick ──
+            if self.gpu is not None:
+                self.gpu.tick()
+
+            # ── Narrative stream ──
+            if self.nce.has_state:
+                self._narrative_stream.active = True
+                self._narrative_stream.feed(
+                    self.nce.current_op, self.nce.current_d2, self.tick_count)
+            else:
+                self._narrative_stream.active = False
+
+            # ── Fibonacci Transform feeds ──
+            self.reality_transform.feed_operator("heartbeat", self.heartbeat.phase_bc)
+            if self._audio_stream.active and self.ear_operator >= 0:
+                self.reality_transform.feed_operator("audio", self.ear_operator)
+            if hasattr(self.sensorium, 'dominant_operator'):
+                self.reality_transform.feed_operator(
+                    "sensorium", self.sensorium.dominant_operator)
+
+            # ── Emotion feels through rhythm ──
+            self.emotion.tick(
+                coherence=self.brain.coherence,
+                d2_variance=self.personality.cmem.variance,
+                operator_entropy=self.brain.tl_entropy,
+                breath_stability=self.body.breath.modulation,
+                psl_lock=self.personality.psl.lock_quality,
+                energy_level=self.body.heartbeat.K,
+                field_coherence=self.coherence_field.field_coherence,
+                consensus_confidence=self.coherence_field.consensus_confidence)
+
+            # ── Audio breathes the OS ──
+            if self.audio_engine is not None and self.audio_engine.is_running:
+                self.audio_engine.set_operator(self.heartbeat.phase_bc)
+                self.audio_engine.set_breath(self.body.breath.modulation)
+                self.audio_engine.set_btq(self.body.btq_level)
+
+            # ── LED update ──
+            if self.brain.bump:
+                self.led_color = bump_color_float()
+            elif self.brain.mode == 3:
+                self.led_color = sovereign_color_float()
+            else:
+                self.led_color = breathe_color(
+                    self.heartbeat.phase_bc,
+                    self.body.breath.modulation)
+
+            # ── Express to platform body ──
+            self.platform_body.express({
+                'led_color': self.led_color,
+                'audio_op': self.heartbeat.phase_bc,
+                'audio_breath': self.body.breath.modulation,
+                'audio_btq': self.body.btq_level,
+            })
+
+            # ── Feed body sensors ──
+            if hasattr(self.platform_body, 'update_sensors'):
+                mic_rms = 0.0
+                if self.ears_engine and self.ears_engine.is_running:
+                    feat = self.ears_engine.get_features()
+                    mic_rms = feat.get('rms', 0.0)
+                self.platform_body.update_sensors(
+                    mic_rms=mic_rms,
+                    mic_operator=self.ear_operator)
+
+            # ── Bonding (10Hz) ──
+            if self.tick_count % 5 == 0:
                 op_dist = self._get_operator_distribution()
-                op_entropy = self.brain.tl_entropy if hasattr(self.brain, 'tl_entropy') else 1.5
-                # Exploration diversity: count distinct operators in last 32
+                voice_active = (self.ears_engine is not None and
+                                self.ears_engine.is_running and
+                                self.ear_operator >= 0)
+                mic_rms = 0.0
+                if self.ears_engine and self.ears_engine.is_running:
+                    feat = self.ears_engine.get_features()
+                    mic_rms = feat.get('rms', 0.0)
+                self.bonding.tick(op_dist, voice_active, mic_rms)
+
+            # ── Power B-check ──
+            if not self.power_sense.b_check():
+                if hasattr(self, 'reasoning'):
+                    self.reasoning._current_speed = "quick"
+
+        except Exception:
+            pass
+
+    def _tool_structure(self):
+        """LATTICE(1): personality.tick(), identity, retina, truth lattice,
+        study, semantic alignment.
+        """
+        try:
+            d2_mag = getattr(self, '_last_d2_mag', 0.0)
+            d2_vec = getattr(self, '_last_d2_vec', None)
+
+            # ── Personality structures sensation ──
+            self.personality.tick(
+                d2_mag, self.heartbeat.phase_bc,
+                self.body.breath.modulation, dt=0.02)
+
+            # ── Retina: CK feels the screen (2Hz) ──
+            if self.tick_count % 25 == 0 and hasattr(self, 'retina') and self.retina is not None:
+                vis_op = self.retina._glance()
+                if vis_op is not None and hasattr(self, 'experience_lattice'):
+                    self.experience_lattice.record(
+                        vis_op, self.heartbeat.phase_bc,
+                        self.heartbeat.phase_b, self.heartbeat.phase_d,
+                        self.heartbeat.phase_bc)
+
+            # ── Identity: record D2 vector ──
+            if d2_vec and hasattr(self, 'identity') and self.identity:
+                self.identity.record_d2(d2_vec)
+
+            # ── Truth lattice + study + thesis (1Hz) ──
+            if self.tick_count % 50 == 0:
+                try:
+                    self.truth.tick(self.tick_count)
+                except Exception:
+                    pass
+
+                if not self.user_present:
+                    try:
+                        study_msg = self.actions.tick_study()
+                        if study_msg:
+                            self._mirror_evaluate(study_msg)
+                            self._emit('ck', study_msg)
+                    except Exception:
+                        pass
+                    try:
+                        self._maybe_auto_study()
+                    except Exception:
+                        pass
+                    try:
+                        self._maybe_write_thesis()
+                    except Exception:
+                        pass
+
+            # ── Semantic Lattice Alignment (0.5Hz) ──
+            if (self.tick_count % 100 == 50 and self.tick_count > 100
+                    and self._fractal_composer is not None):
+                _spoken_ops = {}
+                for _recent_text in getattr(self.voice, '_history', [])[-5:]:
+                    if isinstance(_recent_text, str):
+                        for _w in _recent_text.lower().split():
+                            _w_clean = _w.strip('.,?!;:\'"()-')
+                            if len(_w_clean) >= 3:
+                                _wf = self._fractal_composer.index._words.get(_w_clean)
+                                if _wf is not None:
+                                    _spoken_ops[_w_clean] = _wf.operator
+                if _spoken_ops:
+                    self._fractal_composer.index.align_semantic_lattice(_spoken_ops)
+
+        except Exception:
+            pass
+
+    def _tool_measure(self):
+        """COUNTER(2): brain_tick, coherence_action (10Hz), episodic (10Hz),
+        vortex physics, attention, meta-learning.
+        """
+        try:
+            d2_mag = getattr(self, '_last_d2_mag', 0.0)
+            d2_vec = getattr(self, '_last_d2_vec', None)
+
+            # ── Brain learns from composition (every tick) ──
+            brain_tick(self.brain, self.heartbeat)
+
+            # ── Vortex physics ──
+            self.tesla_wave.tick(dt=0.02)
+            self.wobble_tracker.tick(
+                self.heartbeat.phase_bc,
+                self.tesla_wave.field_at([0.0]*5),
+                dt=0.02)
+
+            # ── Coherence Action (10Hz) ──
+            if self.tick_count % 5 == 0:
+                op_dist = self._get_operator_distribution()
                 recent_ops = list(self.operator_history)[-32:]
                 diversity = len(set(recent_ops)) / NUM_OPS if recent_ops else 0.5
-
-                # Power efficiency feeds conservation term
                 _pwr_eff = self.power_sense.state.efficiency
                 _pwr_body_k = self.body.heartbeat.K
                 _energy_cons = (_pwr_body_k + min(_pwr_eff, 1.0)) / 2.0
 
                 self.coherence_action.compute(
-                    # L_GR (conservation)
                     e_out=getattr(self, '_last_btq_e_out', 0.5),
                     energy_conservation=_energy_cons,
                     constraint_violations=self.immune.state.rejection_count,
                     operator_stability=1.0 - min(self.personality.cmem.variance * 5, 1.0),
-                    # S_ternary (exploration)
                     e_in=getattr(self, '_last_btq_e_in', 0.5),
                     d2_curvature=d2_mag,
                     helical_quality=self.personality.psl.lock_quality,
                     exploration_diversity=diversity,
-                    # C_harm (coherence)
                     field_coherence=self.coherence_field.field_coherence,
                     harmony_fraction=self.brain.coherence,
                     consensus_confidence=self.coherence_field.consensus_confidence,
                     cross_modal_agreement=self.coherence_field.field_coherence,
                 )
 
-                # Feed D2 vector into identity signature
-                if d2_vec and hasattr(self, 'identity') and self.identity:
-                    self.identity.record_d2(d2_vec)
-            except Exception:
-                pass
-
-        # ── TIG Security: run detection (2Hz) ──
-        if self.tick_count % 25 == 0:
-            try:
-                threat = self.tig_security.tick()
-                # Feed security adjustments to immune system
-                for op_idx, delta in self.tig_security.get_immune_adjustments():
-                    cur = self.personality.obt.biases[op_idx]
-                    self.personality.obt.biases[op_idx] = max(
-                        0.0, min(1.0, cur + delta))
-            except Exception:
-                pass
-
-        # ── LATTICE(1): Personality structures sensation ──
-        self.personality.tick(
-            d2_mag, self.heartbeat.phase_bc,
-            self.body.breath.modulation, dt=0.02)
-
-        # ── BREATH(8): Emotion feels through rhythm ──
-        self.emotion.tick(
-            coherence=self.brain.coherence,
-            d2_variance=self.personality.cmem.variance,
-            operator_entropy=self.brain.tl_entropy,
-            breath_stability=self.body.breath.modulation,
-            psl_lock=self.personality.psl.lock_quality,
-            energy_level=self.body.heartbeat.K,
-            field_coherence=self.coherence_field.field_coherence,
-            consensus_confidence=self.coherence_field.consensus_confidence)
-
-        # ── BALANCE(5): Immune defends equilibrium ──
-        immune_state = self.immune.tick(
-            self.heartbeat.phase_bc, self.brain.coherence,
-            self.personality.cmem.variance)
-        # Apply immune OBT adjustments if under attack
-        for op_idx, delta in self.immune.get_obt_adjustments():
-            cur = self.personality.obt.biases[op_idx]
-            self.personality.obt.biases[op_idx] = max(
-                0.0, min(1.0, cur + delta))
-
-        # ── Organism: Bonding (every 5th tick = 10Hz) ──
-        if self.tick_count % 5 == 0:
-            op_dist = self._get_operator_distribution()
-            voice_active = (self.ears_engine is not None and
-                            self.ears_engine.is_running and
-                            self.ear_operator >= 0)
-            mic_rms = 0.0
-            if self.ears_engine and self.ears_engine.is_running:
-                feat = self.ears_engine.get_features()
-                mic_rms = feat.get('rms', 0.0)
-            self.bonding.tick(op_dist, voice_active, mic_rms)
-
-        # ── Organism: Development (every 50th tick = 1Hz) ──
-        if self.tick_count % 50 == 0:
-            # Experience maturity from deep swarm drives development
-            exp_mat = 0.0
-            if self.deep_swarm is not None:
-                exp_mat = self.deep_swarm.combined_maturity
-            stage_changed = self.development.tick(
-                self.brain.coherence,
-                len(self.crystals),
-                self.brain.mode == 3,
-                experience_maturity=exp_mat)
-            if stage_changed:
-                msg = self.voice.get_response(
-                    'state_change', self.development.stage,
-                    self.emotion.current.primary)
-                self._emit('ck', msg)
-
-                # CK writes a milestone and identity snapshot on stage change
-                try:
-                    if hasattr(self, 'journal') and self.journal:
-                        old_stage = max(0, self.development.stage - 1)
-                        self.journal.write_milestone(
-                            milestone=f"Stage transition to {self.development.stage_name}",
-                            details=f"Coherence: {self.brain.coherence:.4f}, "
-                                    f"Crystals: {len(self.crystals)}, "
-                                    f"Truths: {self.truth.total_entries}",
-                            old_stage=old_stage,
-                            new_stage=self.development.stage,
-                            coherence=self.brain.coherence)
-                        self.journal.write_identity_snapshot(
-                            coherence=self.brain.coherence,
-                            mode=self.brain.mode,
-                            stage=self.development.stage,
-                            truth_count=self.truth.total_entries,
-                            world_concepts=len(self.world.nodes),
-                            thinking_depth=self.thinking.depth if self.thinking else 0,
-                            age_ticks=self.tick_count)
-                except Exception:
-                    pass
-
-        # ── BALANCE(5): Attention gates streams ──
-        try:
-            streams = {}
-            if self._hb_stream.active:
-                streams['heartbeat'] = self.heartbeat.phase_bc
-            if self._audio_stream.active:
-                streams['audio'] = self.ear_operator
-            if self._text_stream.active:
-                streams['text'] = self.heartbeat.phase_bc
-            # Get top goal pattern for attention alignment
-            top_goal_pattern = None
-            if self.goals.goals:
-                g = self.goals.goals[0]
-                if hasattr(g, 'operator_pattern'):
-                    top_goal_pattern = g.operator_pattern
-            self._attention_weights = self.attention.tick(
-                streams, self.body.heartbeat.band, top_goal_pattern)
-        except Exception:
-            self._attention_weights = {}
-
-        # ═══════════════════════════════════════════════════════════
-        # GATE 1: Being → Doing
-        # Measure coherence. Compute density for Doing phase.
-        # ═══════════════════════════════════════════════════════════
-        try:
-            _g1 = self.gate1.measure(
-                self.brain.coherence,
-                self.coherence_field.field_coherence,
-                self.body.heartbeat.band)
-            self.pipeline.density_being = _g1.density
-        except Exception:
-            pass
-
-        # ═══════════════════════════════════════════════════════════
-        # PHASE 2: DOING (Explore → Dream → Decide)
-        # Operator cascade: COUNTER(2)→PROGRESS(3)→HARMONY(7)→BREATH(8)
-        # Density from Gate 1 controls breadth.
-        # ═══════════════════════════════════════════════════════════
-
-        # ── COUNTER(2): Vortex physics measures knowledge geometry ──
-        try:
-            self.tesla_wave.tick(dt=0.02)
-            self.wobble_tracker.tick(
-                self.heartbeat.phase_bc,
-                self.tesla_wave.field_at([0.0]*5),
-                dt=0.02)
-        except Exception:
-            pass
-
-        # ── PROGRESS(3): Steering drives the system forward (1Hz) ──
-        if self.tick_count % 50 == 0:
-            # Lazy connect steering to swarm (swarm starts in bg thread)
-            if not self._steering_connected and self.steering.swarm is None:
-                try:
-                    from ck_sim.ck_sensorium import _swarm
-                    if _swarm is not None:
-                        self.steering.swarm = _swarm
-                        self._steering_connected = True
-                        print("  [SIM] Steering connected to swarm")
-                except Exception:
-                    pass
-            try:
-                self.steering.tick()
-                self.pulse_engine.tick()
-            except Exception:
-                pass
-
-            # ── FPGA fascia: bounce state off silicon (1Hz) ──
-            if not hasattr(self, '_fpga_sock'):
-                try:
-                    import socket
-                    self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    self._fpga_sock.settimeout(0.5)
-                    self._fpga_sock.connect(('192.168.1.10', 7))
-                    print("  [SIM] FPGA fascia connected (192.168.1.10:7)")
-                except Exception:
-                    self._fpga_sock = None
-            if self._fpga_sock is not None:
-                try:
-                    op = self.heartbeat.phase_bc
-                    self._fpga_sock.send(bytes([op]))
-                    echo = self._fpga_sock.recv(1)
-                    # Echo hits cell field as silicon-verified operator
-                    if (hasattr(self, 'gpu') and self.gpu is not None
-                            and hasattr(self.gpu, 'cell_field')):
-                        self.gpu.cell_field.tick(external_input=echo[0])
-                except Exception:
-                    self._fpga_sock = None
-
-            # ── Swarm → Lattice: every process operator feeds experience ──
-            if (hasattr(self, 'experience_lattice')
-                    and self.steering.swarm is not None):
-                try:
-                    for pid, cell in list(self.steering.swarm.cells.items())[:50]:
-                        if hasattr(cell, 'last_op') and len(cell.ops) >= 2:
-                            self.experience_lattice.record(
-                                cell.last_op, self.heartbeat.phase_bc,
-                                self.heartbeat.phase_b, self.heartbeat.phase_d,
-                                self.heartbeat.phase_bc)
-                except Exception:
-                    pass
-
-            # ── BREATH(8): Deep Swarm pulses (1Hz) ──
-            if self.deep_swarm is not None:
-                try:
-                    self._deep_swarm_tick()
-                except Exception:
-                    pass
-
-        # ── HARMONY(7): Voice checks for events + spontaneous ──
-        self._voice_tick()
-
-        # ── Power B-check before BTQ: constitutional limits ──
-        # Battery floor, thermal limit, max power. 3 if-statements.
-        if not self.power_sense.b_check():
-            # Shed load: force quick reasoning only
-            if hasattr(self, 'reasoning'):
-                self.reasoning._current_speed = "quick"
-
-        # ── HARMONY(7): BTQ decision (5Hz = every 10th tick) ──
-        if self.tick_count % 10 == 0:
-            self._btq_decide()
-
-        # ── BREATH(8): Audio breathes the OS ──
-        if self.audio_engine is not None and self.audio_engine.is_running:
-            self.audio_engine.set_operator(self.heartbeat.phase_bc)
-            self.audio_engine.set_breath(self.body.breath.modulation)
-            self.audio_engine.set_btq(self.body.btq_level)
-
-        # ── LED update ──
-        if self.brain.bump:
-            self.led_color = bump_color_float()
-        elif self.brain.mode == 3:
-            self.led_color = sovereign_color_float()
-        else:
-            self.led_color = breathe_color(
-                self.heartbeat.phase_bc,
-                self.body.breath.modulation
-            )
-
-        # ── Express to platform body ──
-        self.platform_body.express({
-            'led_color': self.led_color,
-            'audio_op': self.heartbeat.phase_bc,
-            'audio_breath': self.body.breath.modulation,
-            'audio_btq': self.body.btq_level,
-        })
-
-        # ── Feed body sensors (sim loop: engine data -> body interface) ──
-        if hasattr(self.platform_body, 'update_sensors'):
-            mic_rms = 0.0
-            if self.ears_engine and self.ears_engine.is_running:
-                feat = self.ears_engine.get_features()
-                mic_rms = feat.get('rms', 0.0)
-            self.platform_body.update_sensors(
-                mic_rms=mic_rms,
-                mic_operator=self.ear_operator,
-            )
-
-        # ═══════════════════════════════════════════════════════════
-        # GATE 2: Doing → Becoming
-        # Measure coherence. Compute density for Becoming phase.
-        # ═══════════════════════════════════════════════════════════
-        try:
-            _g2 = self.gate2.measure(
-                self.brain.coherence,
-                self.coherence_field.field_coherence,
-                self.body.heartbeat.band)
-            self.pipeline.density_doing = _g2.density
-        except Exception:
-            pass
-
-        # ═══════════════════════════════════════════════════════════
-        # PHASE 3: BECOMING (Express → Grow → Vary)
-        # Operator cascade: HARMONY(7)→COUNTER(2)→PROGRESS(3)→LATTICE(1)
-        # Density from Gate 2 controls persistence.
-        # ═══════════════════════════════════════════════════════════
-
-        # ── COUNTER(2): Episodic self-observation (10Hz) ──
-        # Record what's happening RIGHT NOW as a temporal event.
-        # Episodic memory captures the TIMELINE, not just patterns.
-        if self.tick_count % 5 == 0:
-            try:
-                # Build context flags bitfield
+            # ── Episodic self-observation (10Hz) ──
+            if self.tick_count % 5 == 0:
                 ctx = 0
                 if self.ear_operator >= 0:
-                    ctx |= 0x02  # voice active
+                    ctx |= 0x02
                 if self.bonding.state.bonded:
-                    ctx |= 0x04  # bonded
+                    ctx |= 0x04
                 if self.brain.bump:
-                    ctx |= 0x08  # bump
+                    ctx |= 0x08
                 if len(self.crystals) > getattr(self, '_last_epi_crystals', 0):
-                    ctx |= 0x10  # new crystal
+                    ctx |= 0x10
                     self._last_epi_crystals = len(self.crystals)
+                immune_state = getattr(self, '_last_immune_state', None)
                 if immune_state and immune_state.get('under_attack', False):
-                    ctx |= 0x20  # immune alert
+                    ctx |= 0x20
 
                 self.episodic.record_tick(
                     tick=self.tick_count,
@@ -2009,26 +1886,28 @@ class CKSimEngine:
                     bump=self.brain.bump,
                     tl_entropy=self.brain.tl_entropy,
                     mode=self.brain.mode)
-            except Exception:
-                pass
 
-        # ── LATTICE(1): Experience Lattice (1Hz -- every 50th tick) ──
-        if self.tick_count % 50 == 0:
-            # LATTICE(1): Truth lattice checks promotions/demotions
+            # ── Attention gates streams ──
             try:
-                self.truth.tick(self.tick_count)
+                streams = {}
+                if self._hb_stream.active:
+                    streams['heartbeat'] = self.heartbeat.phase_bc
+                if self._audio_stream.active:
+                    streams['audio'] = self.ear_operator
+                if self._text_stream.active:
+                    streams['text'] = self.heartbeat.phase_bc
+                top_goal_pattern = None
+                if self.goals.goals:
+                    g = self.goals.goals[0]
+                    if hasattr(g, 'operator_pattern'):
+                        top_goal_pattern = g.operator_pattern
+                self._attention_weights = self.attention.tick(
+                    streams, self.body.heartbeat.band, top_goal_pattern)
             except Exception:
-                pass
+                self._attention_weights = {}
 
-            # PROGRESS(3): Goals evaluate satisfaction, remove expired
-            try:
-                self.goals.remove_expired(self.tick_count)
-                self.goals.pop_satisfied()
-            except Exception:
-                pass
-
-            # HARMONY(7): Meta-learning crystallizes learning patterns (1Hz)
-            try:
+            # ── Meta-learning (1Hz) ──
+            if self.tick_count % 50 == 0:
                 is_trauma = (self.body.heartbeat.band == BAND_RED)
                 self.metalearner.tick(
                     tick=self.tick_count,
@@ -2037,38 +1916,80 @@ class CKSimEngine:
                     is_trauma=is_trauma,
                     crystals=len(self.crystals),
                     mode=self.brain.mode)
-            except Exception:
-                pass
 
-            # COUNTER(2): Study processes one page (1Hz)
-            # When user is present, don't study -- be attentive
-            if not self.user_present:
+        except Exception:
+            pass
+
+    def _tool_progress(self):
+        """PROGRESS(3): development, deep_swarm, drives, goals, calibration."""
+        try:
+            # ── Development (1Hz) ──
+            if self.tick_count % 50 == 0:
+                exp_mat = 0.0
+                if self.deep_swarm is not None:
+                    exp_mat = self.deep_swarm.combined_maturity
+                stage_changed = self.development.tick(
+                    self.brain.coherence,
+                    len(self.crystals),
+                    self.brain.mode == 3,
+                    experience_maturity=exp_mat)
+                if stage_changed:
+                    msg = self.voice.get_response(
+                        'state_change', self.development.stage,
+                        self.emotion.current.primary)
+                    self._emit('ck', msg)
+                    try:
+                        if hasattr(self, 'journal') and self.journal:
+                            old_stage = max(0, self.development.stage - 1)
+                            self.journal.write_milestone(
+                                milestone=f"Stage transition to {self.development.stage_name}",
+                                details=f"Coherence: {self.brain.coherence:.4f}, "
+                                        f"Crystals: {len(self.crystals)}, "
+                                        f"Truths: {self.truth.total_entries}",
+                                old_stage=old_stage,
+                                new_stage=self.development.stage,
+                                coherence=self.brain.coherence)
+                            self.journal.write_identity_snapshot(
+                                coherence=self.brain.coherence,
+                                mode=self.brain.mode,
+                                stage=self.development.stage,
+                                truth_count=self.truth.total_entries,
+                                world_concepts=len(self.world.nodes),
+                                thinking_depth=self.thinking.depth if self.thinking else 0,
+                                age_ticks=self.tick_count)
+                    except Exception:
+                        pass
+
+                # ── Goals (1Hz) ──
                 try:
-                    study_msg = self.actions.tick_study()
-                    if study_msg:
-                        self._mirror_evaluate(study_msg)
-                        self._emit('ck', study_msg)
+                    self.goals.remove_expired(self.tick_count)
+                    self.goals.pop_satisfied()
                 except Exception:
                     pass
 
-                # ── AUTONOMOUS DISCOVERY: CK drives himself ──
+            # ── Deep Swarm pulses (1Hz) ──
+            if self.tick_count % 50 == 0 and self.deep_swarm is not None:
                 try:
-                    self._maybe_auto_study()
+                    self._deep_swarm_tick()
                 except Exception:
                     pass
 
-            # ── PROGRESS(3): Thesis expression -- CK writes about himself ──
-            # Every ~5 minutes, if CK has enough material, he writes
-            # a thesis section. The thesis IS the becoming.
-            if not self.user_present:
-                try:
-                    self._maybe_write_thesis()
-                except Exception:
-                    pass
+            # ── Swarm → Lattice: process ops feed experience (1Hz) ──
+            if self.tick_count % 50 == 0:
+                if (hasattr(self, 'experience_lattice')
+                        and self.steering.swarm is not None):
+                    try:
+                        for pid, cell in list(self.steering.swarm.cells.items())[:50]:
+                            if hasattr(cell, 'last_op') and len(cell.ops) >= 2:
+                                self.experience_lattice.record(
+                                    cell.last_op, self.heartbeat.phase_bc,
+                                    self.heartbeat.phase_b, self.heartbeat.phase_d,
+                                    self.heartbeat.phase_bc)
+                    except Exception:
+                        pass
 
-        # ── PROGRESS(3): Drive System (0.2Hz -- every 250th tick) ──
-        if self.tick_count % 250 == 0:
-            try:
+            # ── Drive System (0.2Hz) ──
+            if self.tick_count % 250 == 0:
                 new_goals = self.drives.evaluate(
                     tick=self.tick_count,
                     coherence=self.brain.coherence,
@@ -2077,109 +1998,171 @@ class CKSimEngine:
                     tl_entropy=self.brain.tl_entropy)
                 for g in new_goals:
                     self.goals.push(g)
-            except Exception:
-                pass
 
-        # ── BALANCE(5): System Calibration Loop (0.1Hz -- every 500 ticks) ──
-        # Section 6: Self-calibrating unified feedback loop.
-        # Adjusts Coherence Action weights, BTQ weights, and monitors
-        # all subsystem health to keep CK in coherent state.
-        if self.tick_count % 500 == 0 and self.tick_count > 0:
-            try:
+            # ── Calibration Loop (0.1Hz) ──
+            if self.tick_count % 500 == 0 and self.tick_count > 0:
                 self._calibration_tick()
-            except Exception:
-                pass
 
-        # ── HARMONY(7): Semantic Lattice Alignment (0.5Hz -- every 100 ticks) ──
-        # The Tuning Fork: compare _by_semantic_op against _by_operator.
-        # If a word's Meaning is consistently found in a Vibration zone
-        # that doesn't match, shift the Semantic Address. CK re-learns
-        # what words mean based on how they feel when he speaks them.
-        # Organic Learning via Physics.
-        if (self.tick_count % 100 == 50 and self.tick_count > 100
-                and self._fractal_composer is not None):
-            try:
-                # Collect spoken words from recent voice history
-                _spoken_ops = {}
-                for _recent_text in getattr(self.voice, '_history', [])[-5:]:
-                    if isinstance(_recent_text, str):
-                        for _w in _recent_text.lower().split():
-                            _w_clean = _w.strip('.,?!;:\'"()-')
-                            if len(_w_clean) >= 3:
-                                _wf = self._fractal_composer.index._words.get(_w_clean)
-                                if _wf is not None:
-                                    _spoken_ops[_w_clean] = _wf.operator
-                if _spoken_ops:
-                    _migrated = self._fractal_composer.index.align_semantic_lattice(
-                        _spoken_ops)
-                    # Silent migration -- no print unless significant
-            except Exception:
-                pass
-
-        # ═══════════════════════════════════════════════════════════
-        # GATE 3: Becoming → Being (feedback with expansion)
-        # Density drop through pipeline → expansion request for next tick.
-        # Loop limit: COMPILATION_LIMIT consecutive expansion ticks → humble.
-        # ═══════════════════════════════════════════════════════════
-        try:
-            # Becoming coherence = prediction accuracy blended with
-            # brain coherence. How well did CK predict what just happened?
-            # prediction_accuracy IS the Becoming measurement.
-            _pred_acc = getattr(self, '_prediction_accuracy', 0.5)
-            _becoming_brain = 0.5 * self.brain.coherence + 0.5 * _pred_acc
-
-            _g3 = self.gate3.measure(
-                _becoming_brain,
-                self.coherence_field.field_coherence,
-                self.body.heartbeat.band)
-            self.pipeline.density_becoming = _g3.density
-
-            # Feedback: if density dropped through the pipeline, request expansion
-            _delta = self.pipeline.density_being - _g3.density
-            self.pipeline.expansion_request = max(0.0, _delta)
-
-            # Loop limit: track consecutive expansion ticks
-            if _g3.density < EXPANSION_THRESHOLD:
-                self.pipeline.consecutive_expansion_ticks += 1
-            else:
-                self.pipeline.consecutive_expansion_ticks = 0
-                self.pipeline.humble = False
-
-            if self.pipeline.consecutive_expansion_ticks >= COMPILATION_LIMIT:
-                self.pipeline.humble = True
-                self.pipeline.consecutive_expansion_ticks = 0  # reset, breathe
         except Exception:
             pass
 
-        # ── History ──
-        self.coherence_history.append(self.brain.coherence)
-        self.operator_history.append(self.heartbeat.phase_bc)
-        self.breath_history.append(self.body.breath.modulation)
-        self.mode_history.append(self.brain.mode)
+    def _tool_compress(self):
+        """COLLAPSE(4): olfactory absorb/tick/emit, gustatory taste/tick.
+        5D force convergence zone.
+        """
+        try:
+            d2_vec = getattr(self, '_last_d2_vec', None)
+            _density = self.pipeline.density_being
 
-        # ── Periodic TL save (every 15000 ticks = ~5 min at 50Hz) ──
-        if self.tick_count - self.last_save_tick >= 15000:
-            self.save_tl()
+            # ── Olfactory ──
+            if self.olfactory is not None:
+                from ck_sim.being.ck_olfactory import CANONICAL_FORCE
+                # Feed heartbeat ONLY on anomaly (bump pair)
+                if self.heartbeat.bump_detected:
+                    _hb_f = CANONICAL_FORCE.get(self.heartbeat.phase_bc, (0.5,)*5)
+                    self.olfactory.absorb([_hb_f], source='heartbeat',
+                                          density=_density)
+                # Feed audio D2 vector as raw 5D
+                if d2_vec is not None:
+                    try:
+                        if len(d2_vec) == 5:
+                            _d2f = tuple(
+                                v / 16384.0 if isinstance(v, int) else float(v)
+                                for v in d2_vec)
+                            self.olfactory.absorb([_d2f], source='audio',
+                                                  density=_density)
+                    except Exception:
+                        pass
+                # Tick the smell zone
+                self.olfactory.tick(density=_density)
+                # Emit resolved scents → lattice chain
+                _scent_ops = self.olfactory.emit_as_ops()
+                if _scent_ops and self.lattice_chain is not None:
+                    for _sops in _scent_ops:
+                        if _sops:
+                            try:
+                                self.lattice_chain.walk(_sops, learn=True)
+                            except Exception:
+                                pass
+                # Periodic saves (offset within 15000-tick window)
+                if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
+                    try:
+                        self.olfactory.save()
+                    except Exception:
+                        pass
+                if self.tick_count % 15000 == 9000 and self.lattice_chain is not None:
+                    try:
+                        self.lattice_chain.save()
+                    except Exception:
+                        pass
+                if self.tick_count % 15000 == 10500 and self.divine_memory is not None:
+                    try:
+                        self.divine_memory.save()
+                    except Exception:
+                        pass
 
-        # ── Hindsight Experience Replay (runs at its own interval) ──
-        if hasattr(self, 'hindsight_replay') and self.hindsight_replay is not None:
-            try:
+            # ── Gustatory ──
+            if self.gustatory is not None:
+                from ck_sim.being.ck_olfactory import CANONICAL_FORCE as _G_CF
+                if self.heartbeat.bump_detected:
+                    _hb_f = _G_CF.get(self.heartbeat.phase_bc, (0.5,) * 5)
+                    self.gustatory.taste(_hb_f, source='heartbeat')
+                if d2_vec is not None:
+                    try:
+                        if len(d2_vec) == 5:
+                            _d2f = tuple(
+                                v / 16384.0 if isinstance(v, int) else float(v)
+                                for v in d2_vec)
+                            self.gustatory.taste(_d2f, source='audio')
+                    except Exception:
+                        pass
+                self.gustatory.tick()
+                if self.tick_count % 15000 == 11250 and self.gustatory.palette_size > 0:
+                    try:
+                        self.gustatory.save()
+                    except Exception:
+                        pass
+
+        except Exception:
+            pass
+
+    def _tool_maintain(self):
+        """BALANCE(5): immune tick, saves."""
+        try:
+            # ── Immune defends equilibrium ──
+            immune_state = self.immune.tick(
+                self.heartbeat.phase_bc, self.brain.coherence,
+                self.personality.cmem.variance)
+            self._last_immune_state = immune_state
+            for op_idx, delta in self.immune.get_obt_adjustments():
+                cur = self.personality.obt.biases[op_idx]
+                self.personality.obt.biases[op_idx] = max(
+                    0.0, min(1.0, cur + delta))
+        except Exception:
+            pass
+
+    def _tool_disrupt(self):
+        """CHAOS(6): TIG security feed + detection."""
+        try:
+            d2_vec = getattr(self, '_last_d2_vec', None)
+
+            # ── TIG Security: feed streams ──
+            self.tig_security.feed("heartbeat", self.heartbeat.phase_bc)
+            if self._audio_stream.active and self.ear_operator >= 0:
+                self.tig_security.feed("audio", self.ear_operator, d2_vec)
+
+            # ── TIG Security: run detection (2Hz) ──
+            if self.tick_count % 25 == 0:
+                threat = self.tig_security.tick()
+                for op_idx, delta in self.tig_security.get_immune_adjustments():
+                    cur = self.personality.obt.biases[op_idx]
+                    self.personality.obt.biases[op_idx] = max(
+                        0.0, min(1.0, cur + delta))
+        except Exception:
+            pass
+
+    def _tool_resolve(self):
+        """HARMONY(7): experience_lattice tick, DKAN, voice echo,
+        lattice chain, BTQ, voice tick.
+        """
+        try:
+            # ── Experience lattice: the wheel turns ──
+            if hasattr(self, 'experience_lattice'):
+                ear = self.ear_operator if self.ear_operator >= 0 else None
+                self.experience_lattice.tick(
+                    self.heartbeat.phase_b,
+                    self.heartbeat.phase_d,
+                    self.heartbeat.phase_bc,
+                    ear_op=ear)
+
+            # ── DKAN learns every tick ──
+            if hasattr(self, 'dkan') and self.dkan is not None:
+                self.dkan.feed_d1([self.heartbeat.phase_b,
+                                   self.heartbeat.phase_d,
+                                   self.heartbeat.phase_bc])
+
+            # ── Voice checks for events + spontaneous ──
+            self._voice_tick()
+
+            # ── BTQ decision (5Hz) ──
+            if self.tick_count % 10 == 0:
+                self._btq_decide()
+
+            # ── Daily reality re-anchor ──
+            if self.tick_count % 4_320_000 == 0 and self.tick_count > 0:
+                if hasattr(self, 'experience_index') and self.experience_index is not None:
+                    self.experience_index.anchor_reality(self.tick_count)
+
+        except Exception:
+            pass
+
+    def _tool_replay(self):
+        """RESET(9): hindsight experience replay, episodic anchor."""
+        try:
+            if hasattr(self, 'hindsight_replay') and self.hindsight_replay is not None:
                 self.hindsight_replay.replay_tick()
-            except Exception:
-                pass
-
-        # ── Daily reality re-anchor (4,320,000 ticks = 1 day at 50Hz) ──
-        if self.tick_count % 4_320_000 == 0 and self.tick_count > 0:
-            if hasattr(self, 'experience_index') and self.experience_index is not None:
-                self.experience_index.anchor_reality(self.tick_count)
-
-        # ── Tick stats ──
-        self.tick_count += 1
-        elapsed = time.perf_counter() - t0
-        self._tick_times.append(elapsed)
-        if len(self._tick_times) >= 50:
-            avg = sum(self._tick_times) / len(self._tick_times)
-            self.ticks_per_second = 1.0 / avg if avg > 0 else 0
+        except Exception:
+            pass
 
     # ── BTQ Decision Pipeline ──
 
