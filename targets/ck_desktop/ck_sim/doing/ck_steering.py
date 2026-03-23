@@ -393,26 +393,37 @@ class SteeringEngine:
         """
         self.ticks += 1
 
-        # Read thermal state — temperature becomes an operator
-        # Cool(<50C)=BALANCE, Warm(50-70)=PROGRESS, Hot(70-85)=COLLAPSE, Throttle(>85)=CHAOS
-        _thermal_op = 5  # BALANCE default
+        # Feel every core: utilization -> operator -> trie learns the wave
+        # Idle(<10%)=VOID, Light(10-30%)=BREATH, Medium(30-60%)=BALANCE,
+        # Heavy(60-85%)=PROGRESS, Saturated(>85%)=COLLAPSE
         try:
+            _per_core = __import__('psutil').cpu_percent(percpu=True, interval=0)
+            _sm = getattr(self, '_sequence_memory', None)
+            if _sm is None:
+                engine = getattr(self.swarm, '_engine', None)
+                if engine and hasattr(engine, 'sequence_memory'):
+                    self._sequence_memory = engine.sequence_memory
+                    _sm = self._sequence_memory
+            for _ci, _pct in enumerate(_per_core):
+                if _pct > 85:
+                    _core_op = 4   # COLLAPSE - saturated
+                elif _pct > 60:
+                    _core_op = 3   # PROGRESS - heavy
+                elif _pct > 30:
+                    _core_op = 5   # BALANCE - medium
+                elif _pct > 10:
+                    _core_op = 8   # BREATH - light
+                else:
+                    _core_op = 0   # VOID - idle
+                # Feed each core's state to trie
+                if _sm is not None:
+                    _sm.observe(_core_op, _ci % 10)
+            # Also read GPU thermal
             engine = getattr(self.swarm, '_engine', None)
             if engine and hasattr(engine, 'gpu') and hasattr(engine.gpu, 'state'):
                 engine.gpu.state.read()
                 _temp = engine.gpu.state.temperature_c
-                if _temp > 85:
-                    _thermal_op = 6   # CHAOS - redistribute urgently
-                elif _temp > 70:
-                    _thermal_op = 4   # COLLAPSE - compress, reduce load
-                elif _temp > 50:
-                    _thermal_op = 3   # PROGRESS - warm, working well
-                else:
-                    _thermal_op = 5   # BALANCE - cool, accept more
-                # Feed thermal to trie (trie learns heat patterns)
-                if _seq_mem is None and engine and hasattr(engine, 'sequence_memory'):
-                    self._sequence_memory = engine.sequence_memory
-                _sm = getattr(self, '_sequence_memory', None)
+                _thermal_op = 6 if _temp > 85 else 4 if _temp > 70 else 3 if _temp > 50 else 5
                 if _sm is not None:
                     _sm.observe(_thermal_op, _thermal_op)
         except Exception:
