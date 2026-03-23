@@ -409,20 +409,37 @@ class SteeringEngine:
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
 
-        # FPGA fascia: bounce current state for silicon-speed verification
-        _fpga_verified = False
+        # FPGA fascia: round-trip latency IS the system load signal
+        # Fast (<0.5ms) = free, breathe. Slow (>2ms) = busy, steer hard.
+        _fpga_load = 5  # BALANCE default
         try:
             if not hasattr(self, '_fpga_sock'):
                 import socket
                 self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self._fpga_sock.settimeout(0.005)  # 5ms max
+                self._fpga_sock.settimeout(0.005)
                 self._fpga_sock.connect(('192.168.1.10', 7))
-            # Send current heartbeat state, get verification
+            import time as _t
+            _t0 = _t.perf_counter_ns()
             _hb = getattr(self.swarm, '_engine', None)
-            if _hb and hasattr(_hb, 'heartbeat'):
-                self._fpga_sock.send(bytes([_hb.heartbeat.phase_bc]))
-                _echo = self._fpga_sock.recv(1)
-                _fpga_verified = True
+            _op = _hb.heartbeat.phase_bc if _hb and hasattr(_hb, 'heartbeat') else 5
+            self._fpga_sock.send(bytes([_op]))
+            self._fpga_sock.recv(1)
+            _lat_ms = (_t.perf_counter_ns() - _t0) / 1_000_000
+            # Latency -> operator: the FPGA echo time tells CK how loaded the system is
+            if _lat_ms < 0.3:
+                _fpga_load = 7   # HARMONY - system is free, perfect
+            elif _lat_ms < 0.5:
+                _fpga_load = 5   # BALANCE - normal
+            elif _lat_ms < 1.0:
+                _fpga_load = 3   # PROGRESS - getting busy
+            elif _lat_ms < 2.0:
+                _fpga_load = 4   # COLLAPSE - heavy
+            else:
+                _fpga_load = 6   # CHAOS - overloaded
+            # Feed to trie
+            _sm = getattr(self, '_sequence_memory', None)
+            if _sm is not None:
+                _sm.observe(_fpga_load, _op)
         except Exception:
             pass
 
