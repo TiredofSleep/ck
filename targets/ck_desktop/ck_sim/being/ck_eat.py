@@ -492,6 +492,7 @@ class CKEat:
             return None
 
         result = self.measure_and_absorb(text, source='ollama_eat')
+        self._last_ollama_text = text  # Store for DKAN training
 
         # Track transition from previous ollama measurement
         if self._prev_ollama_result is not None:
@@ -693,6 +694,25 @@ class CKEat:
         print(f"    [EAT] grammar evolved "
               f"(mat={maturity:.3f}, "
               f"evo={self._status.grammar_evolutions})")
+
+        # DKAN neural training step: learn from freshly absorbed experience.
+        # Every eat round = one DKAN step. The neural net crystallizes
+        # operator patterns from accumulated olfactory + lattice chain data.
+        # Feed it the last Ollama text so it has content to train on.
+        if hasattr(self.engine, 'dkan') and self.engine.dkan is not None:
+            try:
+                _last_text = getattr(self, '_last_ollama_text', '')
+                if _last_text:
+                    _dk_result = self.engine.dkan._train_step(
+                        _last_text, source='eat_dkan')
+                    _dk = self.engine.dkan.status()
+                    _ipr = _dk.get('ipr', 0)
+                    _grok = _dk.get('grokked', False)
+                    print(f"    [EAT] DKAN step {_dk.get('step', 0)} "
+                          f"(IPR={_ipr:.3f}"
+                          f"{' GROKKED!' if _grok else ''})")
+            except Exception as _e:
+                print(f"    [EAT] DKAN step failed: {_e}")
 
     # ── Main Eat Loop ──
 
@@ -1232,6 +1252,7 @@ class CKEat:
 
                 text = _ollama_generate(prompt, model=model, max_tokens=512)
                 if text:
+                    self._last_ollama_text = text  # Store for DKAN
                     r_ollama = self.measure_and_absorb(
                         text, source='ollama_eat')
                     if self._prev_ollama_result is not None:

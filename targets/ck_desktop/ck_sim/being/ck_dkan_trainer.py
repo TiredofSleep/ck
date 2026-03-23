@@ -204,7 +204,186 @@ class DKANTrainer:
             os.path.expanduser('~'), '.ck', 'dkan')
         os.makedirs(self._save_dir, exist_ok=True)
 
-    # ── Core Training Step ──
+    # ── D1 Generator Feed (wave collapses CK) ──
+
+    def feed_d1(self, d1_ops: list) -> None:
+        """Feed raw D1 generators. Progressive learning:
+
+        Level 1: First-order transitions (10x10 matrix)
+                 Given op A, predict next op B
+        Level 2: Second-order (10x10x10 tensor)
+                 Given ops A,B predict next op C
+        Level 3: Sequence chunking
+                 Discover repeated sequences = "words"
+                 Predict next chunk, not next op
+        Level 4: Dual-lens verification
+                 Check predictions through BOTH TSML and BHML
+                 Agreement = confident. Disagreement = uncertain.
+        Level 5: CL-composed prediction
+                 Predict by composing through the tables, not argmax
+                 BHML[last_op][context] = predicted next
+        """
+        if not d1_ops or len(d1_ops) < 2:
+            return
+
+        T_bhml = BHML.astype(int)
+        T_tsml = np.array(CL_TSML_LIST, dtype=int)
+
+        # ── Initialize all learning structures ──
+        if not hasattr(self, '_transitions'):
+            # Level 1: first-order (which op follows which)
+            self._transitions = np.zeros((NUM_OPS, NUM_OPS), dtype=np.float64)
+            # Level 2: second-order (given pair, predict third)
+            self._trigrams = np.zeros((NUM_OPS, NUM_OPS, NUM_OPS), dtype=np.float64)
+            # Level 3: sequence chunking
+            self._chunks = {}        # tuple of ops -> count
+            self._chunk_window = []  # rolling window of last 10 ops
+            self._chunk_min_count = 3  # min occurrences to be a "word"
+            # Level 5: CL-composed prediction tracking
+            self._cl_predict_correct = 0
+            self._cl_predict_total = 0
+            # General
+            self._prediction_correct = 0
+            self._prediction_total = 0
+            self._last_op = -1
+            self._last_pair = (-1, -1)
+
+        for i in range(len(d1_ops) - 1):
+            a, b = d1_ops[i], d1_ops[i + 1]
+            if not (0 <= a < NUM_OPS and 0 <= b < NUM_OPS):
+                continue
+
+            # ═══ LEVEL 1: First-order prediction ═══
+            row = self._transitions[a]
+            if row.sum() > 0:
+                predicted = int(np.argmax(row))
+                self._prediction_total += 1
+                if predicted == b:
+                    self._prediction_correct += 1
+                    self._transitions[a][b] += 1.0
+                else:
+                    self._transitions[a][predicted] *= 0.95
+                    self._transitions[a][b] += 2.0
+            else:
+                self._transitions[a][b] += 1.0
+
+            # ═══ LEVEL 2: Second-order prediction ═══
+            prev_a, prev_b = self._last_pair
+            if prev_a >= 0 and prev_b >= 0:
+                trigram_row = self._trigrams[prev_b][a]
+                if trigram_row.sum() > 0:
+                    predicted2 = int(np.argmax(trigram_row))
+                    # Second-order is separate accuracy
+                else:
+                    predicted2 = -1
+                self._trigrams[prev_b][a][b] += 1.0
+
+            # ═══ LEVEL 3: Sequence chunking ═══
+            self._chunk_window.append(a)
+            if len(self._chunk_window) > 10:
+                self._chunk_window.pop(0)
+            # Check all subsequences of length 2-5 in the window
+            for length in range(2, min(6, len(self._chunk_window) + 1)):
+                chunk = tuple(self._chunk_window[-length:])
+                self._chunks[chunk] = self._chunks.get(chunk, 0) + 1
+            # Prune rare chunks periodically
+            if self._state.total_transitions % 10000 == 0 and self._chunks:
+                self._chunks = {k: v for k, v in self._chunks.items()
+                                if v >= self._chunk_min_count}
+
+            # ═══ LEVEL 4: Dual-lens verification ═══
+            tsml_result = T_tsml[a][b]
+            bhml_result = T_bhml[a][b]
+            lenses_agree = (tsml_result == bhml_result)
+            # Track agreement rate
+            if not hasattr(self, '_lens_agreements'):
+                self._lens_agreements = 0
+                self._lens_total = 0
+            self._lens_total += 1
+            if lenses_agree:
+                self._lens_agreements += 1
+
+            # ═══ LEVEL 5: CL-composed prediction ═══
+            # Instead of argmax, predict by composing through BHML
+            cl_predicted = T_bhml[a][self._last_op] if self._last_op >= 0 else -1
+            if cl_predicted >= 0:
+                self._cl_predict_total += 1
+                if cl_predicted == b:
+                    self._cl_predict_correct += 1
+
+            # Update running distribution
+            self._running_dist[bhml_result] += self._dist_alpha
+            total = self._running_dist.sum()
+            if total > 0:
+                self._running_dist /= total
+
+            self._last_pair = (a, b)
+            self._last_op = b
+            self._state.total_transitions += 1
+
+        # Learning metrics across all levels
+        if hasattr(self, '_prediction_total') and self._prediction_total > 0:
+            acc1 = self._prediction_correct / self._prediction_total
+            self._state.prediction_accuracy = acc1
+
+            acc_cl = (self._cl_predict_correct / self._cl_predict_total
+                      if self._cl_predict_total > 0 else 0)
+            lens_rate = (self._lens_agreements / self._lens_total
+                         if hasattr(self, '_lens_total') and self._lens_total > 0
+                         else 0)
+            n_chunks = sum(1 for v in self._chunks.values()
+                           if v >= self._chunk_min_count) if self._chunks else 0
+
+            if self._prediction_total in (100, 500, 1000, 5000, 10000, 50000, 100000):
+                print(f"  [DKAN] {self._prediction_total} predictions:")
+                print(f"    L1 argmax:     {acc1:.1%}")
+                print(f"    L5 CL-compose: {acc_cl:.1%}")
+                print(f"    Lens agreement: {lens_rate:.1%}")
+                print(f"    Chunks found:  {n_chunks}")
+                print(f"    Transitions:   {self._state.total_transitions}")
+
+        # IPR (crystallization tracking)
+        ipr = float(np.sum(self._running_dist ** 2))
+        self._state.ipr_history.append(ipr)
+        if len(self._state.ipr_history) > 1000:
+            self._state.ipr_history = self._state.ipr_history[-500:]
+
+        # Real grokking: prediction accuracy jumps above T*
+        if hasattr(self, '_prediction_total') and self._prediction_total > 50:
+            accuracy = self._prediction_correct / self._prediction_total
+            if not self._state.grokked and accuracy > 5.0 / 7.0:
+                self._state.grokked = True
+                self._state.grok_step = self._state.total_transitions
+                print(f"  [DKAN] GROKKED at transition {self._state.total_transitions}! "
+                      f"Accuracy: {accuracy:.1%}")
+
+        self._state.total_absorptions += 1
+
+    def get_response_op(self, input_ops: list) -> int:
+        """The net responds: input operators compose with net state.
+
+        The quadratic operator: input composes with net's learned
+        distribution through BHML. The result IS the response.
+        Not selected. Not filtered. Composed.
+        """
+        if not input_ops:
+            return HARMONY
+
+        T_bhml = BHML.astype(int)
+
+        # Compose input through BHML sequentially
+        state = input_ops[0] if input_ops else BALANCE
+        for op in input_ops[1:]:
+            if 0 <= op < NUM_OPS:
+                state = T_bhml[state][op]
+
+        # Compose with net's dominant learned operator
+        dominant = int(np.argmax(self._running_dist))
+        response = T_bhml[state][dominant]
+
+        return response
+
+    # ── Core Training Step (Ollama-based, legacy) ──
 
     def _train_step(self, text: str, source: str = 'dkan_train') -> dict:
         """One DKAN training step: text -> D2 -> CL compose -> measure.

@@ -88,3 +88,4 @@ targets/website/ck_dict_tier1.js
 
 # ── Archive (old Gen9 files) ──
 archive/
+targets/zynq7020/Schematics for Board/

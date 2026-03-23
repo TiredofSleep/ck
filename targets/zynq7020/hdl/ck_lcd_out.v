@@ -72,28 +72,25 @@ module ck_lcd_out (
     // VCO = 50 * 18 = 900 MHz (within 600-1200 range)
     // CLKOUT0 = 900 / 100 = 9 MHz
 
-    wire pclk;          // 9 MHz pixel clock
-    wire pclk_locked;
-    wire clk_fb;
+    // Simple counter divider: 50 MHz / 6 ≈ 8.33 MHz pixel clock
+    // No MMCM needed. AT043TN24 accepts 6-12 MHz. Proven working
+    // in test mode. Same approach for CK face.
+    reg [2:0] pclk_div;
+    reg       pclk;
+    always @(posedge clk_50m or negedge rst_n) begin
+        if (!rst_n) begin
+            pclk_div <= 3'd0;
+            pclk     <= 1'b0;
+        end else if (pclk_div == 3'd2) begin
+            pclk_div <= 3'd0;
+            pclk     <= ~pclk;
+        end else begin
+            pclk_div <= pclk_div + 3'd1;
+        end
+    end
+    wire pclk_locked = 1'b1;  // Always "locked" (no MMCM)
 
-    MMCME2_BASE #(
-        .CLKIN1_PERIOD   (20.000),    // 50 MHz input
-        .CLKFBOUT_MULT_F (18.0),      // VCO = 900 MHz
-        .CLKOUT0_DIVIDE_F(18.0),      // 900/18 = 50 MHz (safe default, not used)
-        .CLKOUT1_DIVIDE  (100)        // 900/100 = 9 MHz pixel clock (integer)
-    ) mmcm_lcd (
-        .CLKIN1   (clk_50m),
-        .CLKFBIN  (clk_fb),
-        .CLKFBOUT (clk_fb),
-        .CLKOUT0  (),
-        .CLKOUT1  (pclk),             // 9 MHz pixel clock on CLKOUT1
-        .LOCKED   (pclk_locked),
-        .PWRDWN   (1'b0),
-        .RST      (~rst_n)
-    );
-
-    // Internal reset: wait for MMCM lock
-    wire int_rst_n = rst_n & pclk_locked;
+    wire int_rst_n = rst_n;
 
     // =========================================================
     // LCD DCLK output (fabric, not ODDR)

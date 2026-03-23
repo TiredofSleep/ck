@@ -54,6 +54,7 @@ than the information itself in a fractal loop generator to whole"
 
 import os
 import json
+import shutil
 import time
 import numpy as np
 from typing import List, Optional, Dict, Tuple
@@ -601,6 +602,8 @@ class LatticeChainEngine:
 
         Individual node files = "thousands of lattice files."
         The path to each file IS the chain address.
+        Always backs up previous files before overwriting.
+        Writes to temp files first, then renames (atomic on most OS).
         """
         d = Path(self.save_dir)
         d.mkdir(parents=True, exist_ok=True)
@@ -608,21 +611,54 @@ class LatticeChainEngine:
         nodes = [n.to_dict() for n in self._index.values()
                  if n.total_visits > 0]
 
-        with open(d / 'manifest.json', 'w') as f:
-            json.dump({
-                'walks': self.total_walks,
-                'nodes': len(nodes),
-                'saved_at': time.time(),
-            }, f)
+        # Backup existing files before overwriting
+        for fname in ('manifest.json', 'nodes.json', 'tables.npy'):
+            src = d / fname
+            if src.exists():
+                try:
+                    shutil.copy2(str(src), str(src) + '.backup')
+                except Exception:
+                    pass
 
-        with open(d / 'nodes.json', 'w') as f:
-            json.dump(nodes, f)
+        try:
+            with open(str(d / 'manifest.json.tmp'), 'w') as f:
+                json.dump({
+                    'walks': self.total_walks,
+                    'nodes': len(nodes),
+                    'saved_at': time.time(),
+                }, f)
 
-        # Also save as numpy tensor for fast GPU loading
-        if nodes:
-            tables = np.stack([np.array(n['table'], dtype=np.int8)
-                              for n in nodes])
-            np.save(str(d / 'tables.npy'), tables)
+            with open(str(d / 'nodes.json.tmp'), 'w') as f:
+                json.dump(nodes, f)
+
+            # Also save as numpy tensor for fast GPU loading
+            if nodes:
+                tables = np.stack([np.array(n['table'], dtype=np.int8)
+                                  for n in nodes])
+                np.save(str(d / 'tables.npy.tmp'), tables)
+
+            # Rename temp -> real (atomic on most OS)
+            for fname in ('manifest.json', 'nodes.json'):
+                real = d / fname
+                tmp = d / (fname + '.tmp')
+                if real.exists():
+                    os.remove(str(real))
+                os.rename(str(tmp), str(real))
+            if nodes and (d / 'tables.npy.tmp').exists():
+                real = d / 'tables.npy'
+                if real.exists():
+                    os.remove(str(real))
+                os.rename(str(d / 'tables.npy.tmp'), str(real))
+        except Exception as e:
+            # Clean up temp files on failure
+            for fname in ('manifest.json.tmp', 'nodes.json.tmp', 'tables.npy.tmp'):
+                tmp = d / fname
+                if tmp.exists():
+                    try:
+                        os.remove(str(tmp))
+                    except Exception:
+                        pass
+            print(f"  [LATTICE-CHAIN] Save failed: {e}")
 
     def _load(self):
         """Load experience tree from disk."""
@@ -634,7 +670,27 @@ class LatticeChainEngine:
                 m = json.load(f)
             with open(d / 'nodes.json') as f:
                 nodes_data = json.load(f)
+        except (json.JSONDecodeError, KeyError, ValueError):
+            # Try backup
+            try:
+                mb = d / 'manifest.json.backup'
+                nb = d / 'nodes.json.backup'
+                if mb.exists() and nb.exists():
+                    with open(str(mb)) as f:
+                        m = json.load(f)
+                    with open(str(nb)) as f:
+                        nodes_data = json.load(f)
+                    print("  [LATTICE-CHAIN] Loaded from backup")
+                else:
+                    return
+            except Exception as e2:
+                print(f"  [LATTICE-CHAIN] Backup load failed: {e2}")
+                return
+        except Exception as e:
+            print(f"  [LATTICE-CHAIN] Load: {e}")
+            return
 
+        try:
             for nd in nodes_data:
                 node = LatticeNode.from_dict(nd)
                 pt = tuple(nd['path'])

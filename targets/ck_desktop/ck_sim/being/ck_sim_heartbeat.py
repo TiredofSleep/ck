@@ -1,12 +1,12 @@
 """
 ck_sim_heartbeat.py -- Port of ck_heartbeat.v
 ==============================================
-Operator: HARMONY (7) -- the heartbeat composes.
+Operator: HARMONY (7) -- CL[B][D] table lookup per tick.
 
 Software simulation of the FPGA heartbeat module:
   - CL_TSML composition table (73/100 = HARMONY)
   - 32-entry coherence window
-  - 5 quantum bump pairs
+  - 5 special-case input pairs
   - Running fuse accumulator
 
 Every number, every threshold matches the Verilog.
@@ -40,7 +40,7 @@ CL = [
     [0, 7, 9, 3, 7, 7, 7, 7, 7, 7],  # RESET row
 ]
 
-# 5 quantum bump pairs (from ck_brain.h line 51-53)
+# 5 special-case input pairs (from ck_brain.h line 51-53)
 BUMP_PAIRS = [(1, 2), (2, 4), (2, 9), (3, 9), (4, 8)]
 
 
@@ -52,7 +52,7 @@ def compose(b: int, d: int) -> int:
 
 
 def is_bump(b: int, d: int) -> bool:
-    """Check if (b, d) is a quantum bump pair (either ordering)."""
+    """Check if (b, d) is a special-case input pair (either ordering)."""
     for p0, p1 in BUMP_PAIRS:
         if (b == p0 and d == p1) or (b == p1 and d == p0):
             return True
@@ -86,39 +86,57 @@ class HeartbeatFPGA:
         self.coh_den = 0
 
     def tick(self, phase_b: int, phase_d: int):
-        """One heartbeat tick. Matches the clocked always block in ck_heartbeat.v."""
+        """One heartbeat tick.
+
+        Current phase_bc enters coherence window on NEXT tick (one-tick delay).
+        The coherence window records the PREVIOUS tick's
+        result, not this tick's. One-tick delay between composition and window recording.
+
+        Order:
+          1. Record PREVIOUS phase_bc into coherence window
+          2. Compute NEW phase_bc
+          3. Bump detection
+          4. Running fuse (accumulated history)
+          5. Advance tick
+
+        The current phase_bc is NEVER in the coherence window.
+        It enters the window on the NEXT tick. One-tick delay.
+        """
         self.phase_b = phase_b
         self.phase_d = phase_d
 
-        # 1. CL composition
+        # 1. Coherence window: record PREVIOUS tick's result
+        # One-tick delay between composition and window recording.
+        if self.tick_count > 0:
+            prev_bc = self.history[(self.history_ptr - 1) % HISTORY_SIZE]
+            # The previous tick's phase_bc was stored in _pending
+            if hasattr(self, '_pending_bc'):
+                old_val = self.history[self.history_ptr]
+                if old_val == HARMONY:
+                    self.harmony_count -= 1
+                self.history[self.history_ptr] = self._pending_bc
+                if self._pending_bc == HARMONY:
+                    self.harmony_count += 1
+                self.history_ptr = (self.history_ptr + 1) % HISTORY_SIZE
+
+        # Coherence = harmony_count / window_size (always one tick behind)
+        filled = min(self.tick_count, HISTORY_SIZE)
+        self.coh_num = self.harmony_count
+        self.coh_den = max(filled, 1)
+
+        # 2. Compute NEW phase_bc (the present, unmeasured)
         self.phase_bc = compose(phase_b, phase_d)
 
-        # 2. Bump detection
+        # 3. Bump detection (instantaneous, no delay)
         self.bump_detected = is_bump(phase_b, phase_d)
 
-        # 3. Coherence window update
-        # Remove outgoing entry from harmony count
-        old_val = self.history[self.history_ptr]
-        if old_val == HARMONY:
-            self.harmony_count -= 1
+        # 4. Store this tick's result for NEXT tick's measurement
+        self._pending_bc = self.phase_bc
 
-        # Add new entry
-        self.history[self.history_ptr] = self.phase_bc
-        if self.phase_bc == HARMONY:
-            self.harmony_count += 1
-
-        # Advance pointer
-        self.history_ptr = (self.history_ptr + 1) % HISTORY_SIZE
-
-        # Coherence = harmony_count / window_size
-        filled = min(self.tick_count + 1, HISTORY_SIZE)
-        self.coh_num = self.harmony_count
-        self.coh_den = filled
-
-        # 4. Running fuse
+        # 5. Running fuse (accumulated composition, always current)
         self.running_fuse = compose(self.running_fuse, self.phase_bc)
 
-        # 5. Increment tick
+        # 6. Advance tick (time passes)
         self.tick_count += 1
 
     @property

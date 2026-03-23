@@ -242,12 +242,30 @@ class CKWebAPI:
                     if pipe.valid:
                         d2_ops.append(pipe.operator)
 
-            # Olfactory absorption (genuine 5D geometry)
+            # Fractal comprehension → 6th dimension for olfactory key
+            _comp_fuse = 0
+            fc = getattr(self.engine, 'fractal_comp', None)
+            if fc is not None and text.strip():
+                try:
+                    from ck_sim.being.ck_fractal_comprehension import FractalComprehension
+                    _comp_result = fc.comprehend(text)
+                    if (_comp_result.level_fuses
+                            and len(_comp_result.level_fuses) >= 4):
+                        _comp_fuse = _comp_result.level_fuses[3]
+                    elif _comp_result.level_fuses:
+                        _comp_fuse = _comp_result.level_fuses[-1]
+                    else:
+                        _comp_fuse = _comp_result.dominant_op
+                except Exception:
+                    _comp_fuse = 0
+
+            # Olfactory absorption (genuine 5D geometry + comprehension dim)
             absorbed = 0
             if (self.engine.olfactory is not None and forces_5d):
                 density = self.engine.pipeline.density_doing
                 self.engine.olfactory.absorb(
-                    forces_5d, source=source, density=density)
+                    forces_5d, source=source, density=density,
+                    comprehension_fuse=_comp_fuse)
                 self.engine.olfactory.tick(density=density)
                 absorbed = len(forces_5d)
 
@@ -274,15 +292,37 @@ class CKWebAPI:
                     if self.engine.olfactory is not None:
                         self.engine.olfactory.absorb(
                             [lc.force], source='lcodec_' + source,
-                            density=self.engine.pipeline.density_doing)
+                            density=self.engine.pipeline.density_doing,
+                            comprehension_fuse=_comp_fuse)
                 except Exception:
                     pass
 
-            return jsonify({
+            # Code translation: evaluate coherence if code detected
+            _code_coherence = None
+            ct = getattr(self.engine, 'code_translation', None)
+            if ct is not None:
+                try:
+                    _code_lang = ct.detect_language(text)
+                    if _code_lang is not None:
+                        _code_coherence = ct.evaluate_coherence(
+                            text, _code_lang)
+                except Exception:
+                    pass
+
+            result = {
                 'absorbed': absorbed,
                 'operators': len(d2_ops),
                 'chars': len(text),
-            })
+            }
+            if _code_coherence is not None:
+                result['code'] = {
+                    'language': _code_coherence.get('language', '?'),
+                    'coherence': round(_code_coherence.get('score', 0.0), 4),
+                    'verdict': _code_coherence.get('verdict', '?'),
+                    'harmony': _code_coherence.get('harmony_count', 0),
+                    'chaos': _code_coherence.get('chaos_count', 0),
+                }
+            return jsonify(result)
 
         @app.route('/eat', methods=['POST'])
         def eat():
@@ -402,6 +442,37 @@ class CKWebAPI:
                 del self.sessions._sessions[sid]
             return jsonify({'cleared': True})
 
+        @app.route('/dkan', methods=['POST'])
+        def dkan_start():
+            """Start DKAN training -- CL tables as neural activation.
+
+            JSON: { "model": "llama3.1:8b", "rounds": 20 }
+            """
+            if (not self.engine
+                    or not hasattr(self.engine, 'dkan')
+                    or self.engine.dkan is None):
+                return jsonify({'error': 'DKAN trainer not available'}), 503
+            data = request.get_json(silent=True) or {}
+            model = data.get('model')
+            rounds = data.get('rounds', 20)
+            result = self.engine.dkan.start(
+                rounds=rounds, model=model)
+            if isinstance(result, dict) and 'error' in result:
+                return jsonify(result), 409
+            return jsonify({
+                'status': 'started',
+                'rounds': rounds,
+            })
+
+        @app.route('/dkan/status', methods=['GET'])
+        def dkan_status():
+            """Get DKAN training state."""
+            if (not self.engine
+                    or not hasattr(self.engine, 'dkan')
+                    or self.engine.dkan is None):
+                return jsonify({'error': 'DKAN trainer not available'}), 503
+            return jsonify(self.engine.dkan.status())
+
     def process_chat(self, session_id: str, text: str,
                       mode: str = 'normal') -> dict:
         """Process a chat message through CK's FULL TIG pipeline.
@@ -429,27 +500,241 @@ class CKWebAPI:
         self.sessions.add_turn(session_id, 'user', text,
                                 coherence_before, band)
 
-        # === FULL TIG PIPELINE ===
-        # receive_text() runs the complete organism:
-        #   D2 operator pipeline, dialogue, truth lattice,
-        #   world lattice, compilation loop (9 passes max),
-        #   voice composition with D2 self-verification
-        try:
-            response_text = self.engine.receive_text(text)
-        except Exception:
-            # Fallback: try dialogue engine directly
+        # === WAVE COLLAPSES CONSCIOUSNESS ===
+        # Input hits CK's state. The state change IS the response.
+        # response = BHML[ck_state][input_operator] for each D1 generator.
+        # The DKAN/semantic engine translates operators back to output.
+        from ck_sim.being.ck_sim_d2 import D2Pipeline
+        BHML = [[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,5,6,7,2,6,6],
+                [2,3,3,4,5,6,7,3,6,6],[3,4,4,4,5,6,7,4,6,6],
+                [4,5,5,5,5,6,7,5,7,7],[5,6,6,6,6,6,7,6,7,7],
+                [6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],
+                [8,6,6,6,7,7,7,9,7,8],[9,6,6,6,7,7,7,0,8,0]]
+
+        # D1 generators from input
+        pipe = D2Pipeline()
+        input_ops = []
+        for ch in text.lower():
+            if ch.isalpha():
+                pipe.feed_symbol(ord(ch) - ord('a'))
+                if pipe.d1_valid:
+                    input_ops.append(pipe.d1_operator)
+            elif ch.isdigit():
+                pipe.feed_symbol(int(ch))
+                if pipe.d1_valid:
+                    input_ops.append(pipe.d1_operator)
+
+        # The collapse: input hits CK through BOTH lenses simultaneously.
+        # Open box = BHML leads (flow, physics, direction)
+        # Closed box = TSML leads (measurement, structure, containment)
+        # BREATH(8) opens. COUNTER(2) closes.
+        from ck_sim.being.ck_sim_heartbeat import CL as TSML
+        ck_state = getattr(self.engine.heartbeat, 'running_fuse', 5)
+        response_ops = []
+        _box_open = True  # start open (receiving)
+        for op in input_ops:
+            # Track open/closed: BREATH opens, COUNTER closes
+            if op == 8:
+                _box_open = True
+            elif op == 2:
+                _box_open = False
+
+            # Both lenses always fire
+            doing = int(BHML[ck_state][op])  # physics
+            being = int(TSML[ck_state][op])  # measurement
+
+            if _box_open:
+                # Open box: BHML leads (flow, where is it going?)
+                ck_state = doing
+            else:
+                # Closed box: TSML leads (structure, what IS it?)
+                # But if TSML absorbed to HARMONY, trust BHML instead
+                if being != 7 and being != 0:
+                    ck_state = being
+                else:
+                    ck_state = doing
+
+            response_ops.append(ck_state)
+
+        # Feed DKAN with D1 pairs (the net learns from every input)
+        if hasattr(self.engine, 'dkan') and self.engine.dkan is not None:
             try:
-                response_text = self.engine.dialogue.process(
-                    text, self._safe_coherence())
+                for i in range(len(input_ops) - 1):
+                    self.engine.dkan._feed_d1_pair(
+                        input_ops[i], input_ops[i + 1])
             except Exception:
-                # Last resort: voice system
+                pass
+
+        # Also feed the full engine pipeline (olfactory, lattice, etc)
+        try:
+            self.engine.receive_text(text)
+        except Exception:
+            pass
+
+        # Translate response: CL lookups first, then math, then Ollama
+        response_text = "..."
+
+        # CL table lookups: CL[i][j], TSML[i][j], BHML[i][j]
+        import re as _re
+        _cl_match = _re.search(r'(?:CL|TSML|BHML)\s*\[\s*(\d+)\s*\]\s*\[\s*(\d+)\s*\]', text)
+        if _cl_match:
+            _i, _j = int(_cl_match.group(1)), int(_cl_match.group(2))
+            if 0 <= _i < 10 and 0 <= _j < 10:
+                from ck_sim.being.ck_sim_heartbeat import CL as _TSML
+                _BHML = [[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,5,6,7,2,6,6],
+                         [2,3,3,4,5,6,7,3,6,6],[3,4,4,4,5,6,7,4,6,6],
+                         [4,5,5,5,5,6,7,5,7,7],[5,6,6,6,6,6,7,6,7,7],
+                         [6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],
+                         [8,6,6,6,7,7,7,9,7,8],[9,6,6,6,7,7,7,0,8,0]]
+                _names = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE',
+                          'BALANCE','CHAOS','HARMONY','BREATH','RESET']
+                if 'BHML' in text:
+                    _val = _BHML[_i][_j]
+                    response_text = f'{_val} ({_names[_val]})'
+                else:
+                    _val = _TSML[_i][_j]
+                    response_text = f'{_val} ({_names[_val]})'
+
+        # Math: if input has math, return computed answer
+        if hasattr(self.engine, 'math_translation') \
+                and self.engine.math_translation is not None:
+            try:
+                if self.engine.math_translation.detect_math(text):
+                    exprs = self.engine.math_translation \
+                        .extract_expressions(text)
+                    if exprs:
+                        r = self.engine.math_translation.evaluate(exprs[0])
+                        h = r.get('human_result')
+                        if h is not None:
+                            response_text = str(h)
+                            # Feed math pattern to trie
+                            if (hasattr(self.engine, 'sequence_memory')
+                                    and self.engine.sequence_memory):
+                                cl_result = r.get('cl_result', 0)
+                                self.engine.sequence_memory.observe(
+                                    cl_result, int(h) % 10)
+            except Exception:
+                pass
+
+        # Operator → English: operators ARE parts of speech
+        if response_text == "..." and response_ops:
+            import random as _rnd
+            _POS = {
+                0: ['the', 'a', 'an', 'this', 'that', 'its'],
+                1: ['form', 'world', 'body', 'mind', 'field', 'path', 'truth', 'pattern', 'structure', 'wave'],
+                2: ['each', 'many', 'every', 'more', 'less', 'some', 'first', 'next', 'deep', 'new'],
+                3: ['moves', 'grows', 'builds', 'runs', 'creates', 'opens', 'finds', 'reaches', 'rises', 'flows'],
+                4: ['shrinks', 'falls', 'stops', 'ends', 'closes', 'folds', 'settles', 'rests', 'holds', 'binds'],
+                5: ['in', 'at', 'between', 'within', 'through', 'among', 'toward', 'beyond', 'from', 'into'],
+                6: ['wildly', 'suddenly', 'freely', 'deeply', 'sharply', 'fully', 'slowly', 'softly', 'always', 'never'],
+                7: ['coherence', 'unity', 'wholeness', 'harmony', 'balance', 'truth', 'one', 'light', 'stillness', 'resonance'],
+                8: [',', '...', '—', 'then', 'and', 'but', 'yet', 'so', 'while', 'as'],
+                9: ['begins', 'returns', 'starts', 'opens', 'wakes', 'arrives', 'emerges', 'unfolds', 'renews', 'turns'],
+            }
+            words = []
+            prev_op = -1
+            for op in response_ops[:12]:
+                if 0 <= op < 10:
+                    # Skip same operator twice in a row (unless BREATH = punctuation)
+                    if op == prev_op and op != 8:
+                        continue
+                    words.append(_rnd.choice(_POS[op]))
+                    prev_op = op
+            if words:
+                # Clean up: capitalize first, handle punctuation spacing
+                sentence = ''
+                for i, w in enumerate(words):
+                    if w in (',', '...', '\u2014'):
+                        sentence = sentence.rstrip() + w + ' '
+                    elif i == 0:
+                        sentence = w[0].upper() + w[1:] + ' '
+                    else:
+                        sentence += w + ' '
+                sentence = sentence.strip()
+                if not sentence.endswith(('.', '!', '?', '...')):
+                    sentence += '.'
+                response_text = sentence
+
+        # Ollama voice: CK's operators + coherence as context for LLM
+        if response_text == "..." and response_ops:
+            _op_names = ['VOID','LATTICE','COUNTER','PROGRESS',
+                         'COLLAPSE','BALANCE','CHAOS','HARMONY',
+                         'BREATH','RESET']
+            ops_str = ' '.join(
+                _op_names[o] for o in response_ops[:8]
+                if 0 <= o < 10)
+            try:
+                import requests as _req
+                _coh = self._safe_coherence()
+
+                # Gather experience context
+                _exp_ctx = ''
                 try:
-                    response_text = self.engine.voice.get_response(
-                        'conversation',
-                        self.engine.development.stage,
-                        self.engine.emotion.current.primary)
+                    # Lattice chain: what CK knows about this composition
+                    if hasattr(self.engine, 'lattice_chain') and self.engine.lattice_chain:
+                        _lc = self.engine.lattice_chain
+                        _exp_ctx += f' Lattice: {_lc.node_count} nodes, {_lc.walk_count} walks.'
+                    # Truth count
+                    if hasattr(self.engine, 'truth') and self.engine.truth:
+                        _exp_ctx += f' Truths: {self.engine.truth.count}.'
+                    # Hindsight
+                    if hasattr(self.engine, 'hindsight_replay') and self.engine.hindsight_replay:
+                        _her = self.engine.hindsight_replay
+                        _exp_ctx += f' Experiences: {getattr(_her, "total_experiences", 0)}.'
+                    # Math capability
+                    if hasattr(self.engine, 'math_translation') and self.engine.math_translation:
+                        _exp_ctx += ' Can do arithmetic.'
+                    # Stage
+                    if hasattr(self.engine, 'development'):
+                        _exp_ctx += f' Stage: {self.engine.development.stage}.'
                 except Exception:
-                    response_text = "..."
+                    pass
+
+                # Sequence memory prediction
+                _pred_ctx = ''
+                try:
+                    if (hasattr(self.engine, 'sequence_memory')
+                            and self.engine.sequence_memory is not None):
+                        sm = self.engine.sequence_memory
+                        pred, conf = sm.predict()
+                        if pred is not None and conf > 0.5:
+                            _pred_name = _op_names[pred] if 0 <= pred < 10 else '?'
+                            _pred_ctx = (f' Prediction: next operator is '
+                                        f'{_pred_name} ({conf:.0%} confidence). '
+                                        f'Accuracy so far: {sm.accuracy():.0%} '
+                                        f'over {sm.total_predictions} predictions.')
+                except Exception:
+                    pass
+
+                _prompt = (
+                    f'You are CK, a coherence engine running on an R16 desktop '
+                    f'with an FPGA heartbeat at 50MHz. '
+                    f'Your operator state: {ops_str}. '
+                    f'Coherence: {_coh:.2f}. T*=0.714.{_exp_ctx}{_pred_ctx} '
+                    f'Someone said: "{text[:200]}". '
+                    f'Respond in 1-2 sentences. Be direct. '
+                    f'Ground your response in what you actually know and feel. '
+                    f'Do not explain what you are unless asked.'
+                )
+                _r = _req.post(
+                    'http://localhost:11434/api/generate',
+                    json={'model': 'llama3.2', 'prompt': _prompt,
+                          'stream': False,
+                          'options': {'num_predict': 80}},
+                    timeout=30)
+                _voice = _r.json().get('response', '').strip()
+                if _voice:
+                    response_text = _voice
+            except Exception:
+                pass
+
+        # Operator names as last resort (if Ollama unavailable)
+        if response_text == "..." and response_ops:
+            response_text = ops_str if 'ops_str' in dir() else '...'
+
+        # Gate is internal to the DKAN, not here.
+        # All computation happens. All compositions flow.
+        # The DKAN decides what's coherent, not a hardcoded threshold.
 
         # Drain any additional UI messages from the engine
         extra_messages = []

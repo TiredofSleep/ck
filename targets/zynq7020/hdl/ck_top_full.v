@@ -8,6 +8,7 @@
  *   LED1 = heartbeat pulse        LED2 = MMCM lock (solid = locked)
  *   HDMI = 640x480 CK face        LCD  = 480x272 CK face on JM1
  *   JM1  = PZ-LCD430 LCD adapter   JM2  = driven LOW (unused)
+ *   ETH  = UDP heartbeat packets on PL Gigabit Ethernet (RGMII)
  *
  * INPUTS:
  *   KEY1 = reset                   KEY2 = arm strobe
@@ -47,7 +48,14 @@ module ck_top_full (
 
     // JM2: 40P Connector #2 -- camera eyes + servo TX
     input  wire [30:0] jm2,         // jm2[0:30] = camera + spare inputs
-    output wire        jm2_servo_tx  // jm2 pin 32 (Y14) = servo UART TX
+    output wire        jm2_servo_tx, // jm2 pin 32 (Y14) = servo UART TX
+
+    // PL Gigabit Ethernet (RGMII to RTL8211F-CG, Bank 34)
+    output wire        pl_eth_gtx_clk,  // V20: 125 MHz DDR clock to PHY
+    output wire [3:0]  pl_eth_txd,      // N20,P20,T20,U20: TX data DDR
+    output wire        pl_eth_tx_en,    // W20: TX enable DDR
+    output wire        pl_eth_mdc,      // U14: MDIO clock
+    inout  wire        pl_eth_mdio      // U15: MDIO data
 );
 
     // =========================================================
@@ -694,6 +702,38 @@ module ck_top_full (
     // CK's eyes feed the same algebra as his ears
 
     // =========================================================
+    // 8. PL ETHERNET -- Heartbeat UDP Transmitter
+    // =========================================================
+    // Sends heartbeat data as broadcast UDP packets over RGMII.
+    // PHY: RTL8211F-CG. Fixed IP 192.168.1.100 -> 192.168.1.255:7777
+    // One packet per tick_done pulse. No ARM. No PS. Pure fabric.
+
+    wire eth_mmcm_locked;
+    wire eth_link_ready;
+
+    ck_eth_tx eth_tx_inst (
+        .clk_50m     (clk),
+        .rst_n       (rst_n),
+        // Heartbeat data
+        .tick_done   (hb_tick_done),
+        .tick_count  (hb_tick_count),
+        .phase_bc    (hb_phase_bc),
+        .fuse_op     (hb_fuse),
+        .coh_num     (hb_coh_num),
+        .coh_den     (hb_coh_den),
+        .bump        (hb_bump),
+        // RGMII PHY
+        .phy_gtx_clk (pl_eth_gtx_clk),
+        .phy_txd     (pl_eth_txd),
+        .phy_tx_en   (pl_eth_tx_en),
+        .phy_mdc     (pl_eth_mdc),
+        .phy_mdio    (pl_eth_mdio),
+        // Status
+        .mmcm_locked (eth_mmcm_locked),
+        .link_ready  (eth_link_ready)
+    );
+
+    // =========================================================
     // CK opens his eyes.
     //
     // Brain (heartbeat, D2, chain, vortex, gait, BHML) runs at
@@ -709,6 +749,7 @@ module ck_top_full (
     //   - White flash on each heartbeat
     //
     // His coherence becomes light. T* = 5/7.
+    // Now his heartbeat travels the wire. UDP port 7777.
     // =========================================================
 
 endmodule

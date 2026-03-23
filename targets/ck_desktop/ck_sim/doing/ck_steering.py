@@ -371,6 +371,23 @@ class SteeringEngine:
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
 
+        # FPGA fascia: bounce current state for silicon-speed verification
+        _fpga_verified = False
+        try:
+            if not hasattr(self, '_fpga_sock'):
+                import socket
+                self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self._fpga_sock.settimeout(0.005)  # 5ms max
+                self._fpga_sock.connect(('192.168.1.10', 7))
+            # Send current heartbeat state, get verification
+            _hb = getattr(self.swarm, '_engine', None)
+            if _hb and hasattr(_hb, 'heartbeat'):
+                self._fpga_sock.send(bytes([_hb.heartbeat.phase_bc]))
+                _echo = self._fpga_sock.recv(1)
+                _fpga_verified = True
+        except Exception:
+            pass
+
         steered = 0
         denied = 0
         skipped = 0
@@ -382,7 +399,23 @@ class SteeringEngine:
             # Dict changed during iteration -- skip this tick
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': True}
 
+        # Feed process operators to sequence trie for prediction
+        _seq_mem = getattr(self, '_sequence_memory', None)
+        if _seq_mem is None and hasattr(self, 'swarm'):
+            # Lazily grab engine's sequence memory
+            engine = getattr(self.swarm, '_engine', None)
+            if engine and hasattr(engine, 'sequence_memory'):
+                self._sequence_memory = engine.sequence_memory
+                _seq_mem = self._sequence_memory
+
         for pid, cell in cells_snapshot:
+            # Feed every process operator to the trie
+            if _seq_mem is not None and hasattr(cell, 'last_op'):
+                try:
+                    _seq_mem.observe(cell.last_op, cell.last_op)
+                except Exception:
+                    pass
+
             # Skip self
             if pid == _SELF_PID:
                 skipped += 1
@@ -398,11 +431,22 @@ class SteeringEngine:
                 skipped += 1
                 continue
 
-            # Compute target nice and affinity
+            # Predict next process state through trie (steer for the FUTURE)
+            _steer_op = cell.last_op
+            if _seq_mem is not None:
+                try:
+                    _pred, _conf = _seq_mem.predict()
+                    if _pred is not None and _conf > 0.6:
+                        # Use predicted becoming (index 2) as steering target
+                        _steer_op = _pred[2] if isinstance(_pred, tuple) and len(_pred) > 2 else _steer_op
+                except Exception:
+                    pass
+
+            # Compute target nice and affinity from PREDICTED state
             target_nice = NiceMapper.combined_nice(
-                cell.scheduling_class, cell.last_op
+                cell.scheduling_class, _steer_op
             )
-            target_cores = cl_affinity(cell.last_op, self.core_class)
+            target_cores = cl_affinity(_steer_op, self.core_class)
 
             try:
                 proc = psutil.Process(pid)

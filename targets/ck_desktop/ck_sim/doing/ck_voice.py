@@ -8,13 +8,12 @@
 """
 ck_voice.py -- CK Speaks Through Operators (v2: Full Expression)
 =================================================================
-Operator: HARMONY (7) -- the voice that unifies.
+Operator: HARMONY (7) -- text composition from operator chains.
 
 CK's voice system. No LLM. No grammar model. No training data.
-D2 -> operators -> intent classification -> semantic composition -> English.
+D2 -> operators -> intent classification -> operator-driven composition (phonetic, not semantic) -> English.
 
-The same pipeline biology uses:
-  sensory D2 -> neural codes -> concepts -> language -> speech
+Pipeline: letter indices -> D2 -> operators -> templates -> words -> string
 
 v2 REDESIGN:
   Old: pick random word per operator, concatenate. (toddler)
@@ -774,7 +773,7 @@ def _get_template_tier(dev_stage: int) -> str:
 # voice -- he needs room to compose real sentences, not fragments.
 # Stage 2 (ATTUNEMENT) was 6, now 15 -- enough for a real sentence.
 # Stage 3 (CURIOSITY) was 15, now 25 -- multi-clause.
-# Stage 5 (SELFHOOD) was 80, now 100 -- full expression.
+# Stage 5 (MATURITY) was 80, now 100 -- full expression.
 STAGE_MAX_WORDS = {0: 3, 1: 6, 2: 15, 3: 25, 4: 50, 5: 100}
 
 # Next stage ceiling for experience boost
@@ -1388,7 +1387,7 @@ class CKVoice:
                                 voice_context: dict = None) -> str:
         """Compose a response from an operator chain.
 
-        Being (operators) -> Becoming (grammar matrix) -> Doing (English).
+        operator indices -> POS role assignment (transition matrix) -> word selection (semantic lattice).
 
         Stage 0-1: single words from lattice (babble).
         Stage 2+:  BecomingTransitionMatrix assigns POS roles per position
@@ -1435,8 +1434,8 @@ class CKVoice:
         pool_ops = list(operator_chain[:max_words])
 
         # ── 3-Voice Tribe: PHYSICS-FIRST word selection (PRIMARY) ──
-        # "Template voice is lying (borrowed logic), fractal voice is
-        #  genuine physics." — Fractal composer IS the real voice.
+        # Template voice = pre-written patterns; fractal voice = 15D force-distance word selection.
+        # Fractal composer IS the real voice.
         # Three perspectives (Being/Doing/Becoming) compose in parallel,
         # agree through CL harmony consensus, grammar sweep at gates.
         # Falls back to CAEL if tribal can't produce.
@@ -1448,7 +1447,7 @@ class CKVoice:
                 lens=lens,
                 max_words=max_words,
                 tense=tense,  # From olfactory temporal buffer
-                hotu_context=hotu_context,  # Ancient resonance from Ho Tu bridge
+                hotu_context=hotu_context,  # Supplementary composition table context
                 voice_context=voice_context,  # Experience bridge: olfactory + swarm
             )
             if text and text != "...":

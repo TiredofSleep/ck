@@ -481,7 +481,7 @@ def write_thesis(self_data: dict, study_data: dict,
     lines.append("")
 
     # --- Part 6: CK's Voice (expressed through physics-first fractal voice) ---
-    # At SELFHOOD, CK speaks from accumulated experience — 28K+ olfactory scents,
+    # At MATURITY, CK speaks from accumulated experience — 28K+ olfactory scents,
     # 215 instincts, learned operator targets blended with static physics.
     # The voice object should be the engine's live voice (with fractal composer).
     _voice = voice  # Live voice from engine (preferred)

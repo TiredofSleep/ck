@@ -6,7 +6,7 @@
 # NO commercial or government use without written agreement.
 
 """
-ck_coherence_gate.py -- Consciousness Pipeline Gates
+ck_coherence_gate.py -- Phase-Transition Density Gates
 =====================================================
 Operator: BALANCE (5) -- the gate weighs and passes.
 
@@ -32,7 +32,7 @@ Constants derived from T* and HISTORY_SIZE -- no arbitrary numbers:
 from dataclasses import dataclass
 
 # ── Constants from the algebra ──
-T_STAR = 5.0 / 7.0             # 0.714285... the universal threshold
+T_STAR = 5.0 / 7.0             # 0.714285... threshold for HARMONY fraction
 HISTORY_SIZE = 32               # coherence observation window
 COMPILATION_LIMIT = int(HISTORY_SIZE * (1.0 - T_STAR))  # = 9
 EXPANSION_THRESHOLD = 1.0 - T_STAR  # ≈ 0.286
@@ -60,7 +60,7 @@ class CoherenceGate:
     Smoothed 70/30 with previous value to prevent jitter.
 
     High density = coherent, focused, dense.
-    Low density  = expanding, exploring, dreaming.
+    Low density  = wider candidate search, more exploratory.
 
     This IS Brayden's principle:
       "Fractal density to start, then expansion as needed if
@@ -106,7 +106,7 @@ class CoherenceGate:
 
 @dataclass
 class PipelineState:
-    """Per-tick snapshot of the consciousness pipeline.
+    """Per-tick snapshot of the three-phase density pipeline.
 
     Three densities (one per gate) plus feedback signals.
     """

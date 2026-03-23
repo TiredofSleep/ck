@@ -1,5 +1,23 @@
-kivy>=2.3.0
+# CK Core (required)
 numpy>=1.24.0
-sounddevice>=0.4.6
 requests>=2.31.0
+flask>=3.0.0
+waitress>=3.0.0
+
+# GUI (optional -- only for desktop window)
+kivy>=2.3.0
+
+# Audio (optional)
+sounddevice>=0.4.6
+
+# Training + research (optional)
 beautifulsoup4>=4.12.0
+scipy>=1.10.0
+sympy>=1.12
+
+# Mandelbrot + visualization (optional)
+pygame>=2.5.0
+
+# GPU (optional -- install separately for CUDA)
+# pip install cupy-cuda12x
+# pip install torch --index-url https://download.pytorch.org/whl/cu124

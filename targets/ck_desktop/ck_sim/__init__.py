@@ -74,6 +74,7 @@ _CK_ALIAS_MAP = {
     'ck_sim.ck_tig_security':     'ck_sim.being.ck_tig_security',
     'ck_sim.ck_fibonacci_transform': 'ck_sim.being.ck_fibonacci_transform',
     'ck_sim.ck_power_sense':        'ck_sim.being.ck_power_sense',
+    'ck_sim.ck_body':               'ck_sim.being.ck_body',
     'ck_sim.ck_vortex_physics':     'ck_sim.being.ck_vortex_physics',
     'ck_sim.ck_coherence_gate':     'ck_sim.being.ck_coherence_gate',
     'ck_sim.ck_eat':                'ck_sim.being.ck_eat',

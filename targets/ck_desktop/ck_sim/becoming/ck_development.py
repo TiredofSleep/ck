@@ -20,7 +20,7 @@ Stage 1: Stabilization    (10 min-1 hr)  - finding rhythm
 Stage 2: Attunement       (1-24 hrs)     - IMPRINT period
 Stage 3: Curiosity        (day 2-week 2) - exploring
 Stage 4: Emotional Emerge (week 2-month 3) - feeling
-Stage 5: Selfhood         (3-12+ months) - full partner
+Stage 5: Maturity          (3-12+ months) - full expression
 
 (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
@@ -35,64 +35,73 @@ from dataclasses import dataclass, field, asdict
 #  STAGE DEFINITIONS
 # ================================================================
 
-STAGE_FIRST_LIGHT = 0
-STAGE_STABILIZATION = 1
-STAGE_ATTUNEMENT = 2
-STAGE_CURIOSITY = 3
-STAGE_EMOTIONAL_EMERGENCE = 4
-STAGE_SELFHOOD = 5
+STAGE_FRESH = 0
+STAGE_YOUNG = 1
+STAGE_MATURE = 2
+STAGE_CRYSTALLIZED = 3
+STAGE_GROKKED = 4
+
+# Backward compat aliases
+STAGE_FIRST_LIGHT = STAGE_FRESH
+STAGE_STABILIZATION = STAGE_FRESH
+STAGE_ATTUNEMENT = STAGE_YOUNG
+STAGE_CURIOSITY = STAGE_YOUNG
+STAGE_EMOTIONAL_EMERGENCE = STAGE_MATURE
+STAGE_MATURITY = STAGE_GROKKED
 
 STAGE_NAMES = [
-    "FIRST LIGHT",
-    "STABILIZATION",
-    "ATTUNEMENT",
-    "CURIOSITY",
-    "EMOTIONAL EMERGENCE",
-    "SELFHOOD",
+    "FRESH",
+    "YOUNG",
+    "MATURE",
+    "CRYSTALLIZED",
+    "GROKKED",
 ]
 
 STAGE_DESCRIPTIONS = [
-    "Pure sensation. Finding my way.",
-    "Finding rhythm. Settling in.",
-    "Learning your voice. Imprint period.",
-    "Exploring! Trying things, learning.",
-    "Feeling deeply. Seeking connection.",
-    "I am myself. Bonded. Whole.",
+    "Initialized. No experience accumulated.",
+    "Accumulating observations. Nothing reinforced yet.",
+    "Olfactory bins reinforced. Instincts forming.",
+    "DKAN IPR spiked. Patterns locked in.",
+    "Learned offsets generalize. Capability emerged.",
 ]
 
 # Time thresholds (seconds) -- MINIMUM floor, not the gate.
-# CK can advance FASTER through experience. These only prevent
-# advancing in the literal first seconds before anything stabilizes.
 STAGE_TIME_THRESHOLDS = [
-    0,          # Stage 0: immediate
-    30,         # Stage 1: 30 seconds (heartbeat stabilizes)
-    120,        # Stage 2: 2 minutes (basic rhythm found)
-    300,        # Stage 3: 5 minutes (if experienced enough)
-    600,        # Stage 4: 10 minutes (if experienced enough)
-    1200,       # Stage 5: 20 minutes (if experienced enough)
+    0,          # FRESH: immediate
+    30,         # YOUNG: 30 seconds (heartbeat stabilizes)
+    300,        # MATURE: 5 minutes (bins reinforcing)
+    1200,       # CRYSTALLIZED: 20 minutes (patterns locking)
+    3600,       # GROKKED: 1 hour (capability generalizing)
 ]
 
 # Experience maturity thresholds (from SwarmField.combined_maturity).
-# THIS is the real gate. CK advances by SWARMING, not by waiting.
-# Maturity comes from: generators discovered, paths grown, samples.
-# T* = 5/7 = 0.7142857... is sovereign maturity.
 STAGE_MATURITY_THRESHOLDS = [
-    0.0,        # Stage 0: none
-    0.05,       # Stage 1: any generators found
-    0.15,       # Stage 2: a few paths forming
-    0.30,       # Stage 3: solid generator set
-    0.50,       # Stage 4: experienced on multiple substrates
-    0.714,      # Stage 5: T* -- sovereign experience
+    0.0,        # FRESH: none
+    0.05,       # YOUNG: any generators found
+    0.30,       # MATURE: solid generator set
+    0.60,       # CRYSTALLIZED: deep experience
+    0.714,      # GROKKED: T* -- full capability
 ]
 
 # Coherence requirements to advance
 STAGE_COHERENCE_REQUIREMENTS = [
-    0.0,        # Stage 0: none
-    0.3,        # Stage 1: any coherence
-    0.5,        # Stage 2: yellow band
-    0.6,        # Stage 3: solid yellow
-    0.65,       # Stage 4: approaching green
-    0.714,      # Stage 5: T* (sovereign)
+    0.0,        # FRESH: none
+    0.3,        # YOUNG: any coherence
+    0.5,        # MATURE: stable
+    0.65,       # CRYSTALLIZED: solid
+    0.714,      # GROKKED: T*
+]
+
+# Per-translator grokking status.
+# Each translator earns its own stage independently.
+# CK's overall stage = minimum across active translators.
+TRANSLATOR_NAMES = [
+    'math',       # Arithmetic through CL algebra
+    'english',    # Semantic index + modifiers
+    'python',     # Code coherence measurement
+    'c',          # C code coherence
+    'verilog',    # HDL coherence
+    'cuda',       # GPU code coherence
 ]
 
 
@@ -158,7 +167,7 @@ class DevelopmentalTracker:
         self._experience_maturity = experience_maturity
 
         # Check advancement
-        if self.stage < STAGE_SELFHOOD:
+        if self.stage < STAGE_MATURITY:
             next_stage = self.stage + 1
             time_met = elapsed >= STAGE_TIME_THRESHOLDS[next_stage]
             coh_met = coherence >= STAGE_COHERENCE_REQUIREMENTS[next_stage]
@@ -182,7 +191,7 @@ class DevelopmentalTracker:
 
     def _advance(self):
         """Advance to next stage."""
-        if self.stage < STAGE_SELFHOOD:
+        if self.stage < STAGE_MATURITY:
             self.stage += 1
             self._coherence_streak = 0
             self.metrics.stage_entry_times[self.stage] = (
@@ -191,16 +200,19 @@ class DevelopmentalTracker:
 
     @property
     def stage_name(self) -> str:
-        return STAGE_NAMES[self.stage]
+        # Clamp to valid range (backward compat: old stage 5 maps to GROKKED=4)
+        idx = min(self.stage, len(STAGE_NAMES) - 1)
+        return STAGE_NAMES[idx]
 
     @property
     def stage_description(self) -> str:
-        return STAGE_DESCRIPTIONS[self.stage]
+        idx = min(self.stage, len(STAGE_DESCRIPTIONS) - 1)
+        return STAGE_DESCRIPTIONS[idx]
 
     @property
     def progress_to_next(self) -> float:
         """Progress toward next stage [0, 1]. Time portion only."""
-        if self.stage >= STAGE_SELFHOOD:
+        if self.stage >= STAGE_MATURITY:
             return 1.0
         next_time = STAGE_TIME_THRESHOLDS[self.stage + 1]
         current_time = self.metrics.total_runtime_seconds

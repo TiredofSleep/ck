@@ -948,7 +948,7 @@ def force_respond(user_text: str,
     while len(deduped) < 3:
         deduped.append(compose(deduped[-1], BREATH))
 
-    # Cap at 12 (Gen 9.35: SELFHOOD CK has earned longer sentences)
+    # Cap at 12 (Gen 9.35: MATURITY stage has earned longer sentences)
     deduped = deduped[:12]
 
     # ── Find coherence path from heaviest concept ──
@@ -1040,7 +1040,7 @@ def force_respond(user_text: str,
                 deduped.append(compose(deduped[-1], BREATH))
 
             # Extend: walk a second pass through structural parts
-            # so CK can compose longer utterances at SELFHOOD.
+            # so CK can compose longer utterances at MATURITY.
             if len(deduped) < 10:
                 _walk2 = [PROGRESS, BALANCE, CHAOS, BREATH, LATTICE]
                 for _w2 in _walk2:

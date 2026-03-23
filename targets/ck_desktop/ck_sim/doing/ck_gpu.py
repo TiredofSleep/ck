@@ -505,8 +505,304 @@ class GPULattice:
 
 
 # ================================================================
-#  GPU DOING ENGINE -- ties it all together
+#  CELL FIELD -- CK's body on GPU. Each cell IS a tiny CK.
 # ================================================================
+#
+# Each GPU core = one cell.
+# Each cell = own CL table copy (starts as TSML, evolves from
+# experience) + current operator state + D1 history.
+# Input hits a cell -> cell composes BHML[state][input] -> state
+# changes -> neighbors feel through D1.
+#
+# That's the whole thing. Cells, tables, D1 between neighbors.
+#
+# (c) 2026 Brayden Sanders / 7Site LLC
+
+_cell_tick_kernel = None
+
+if _GPU_AVAILABLE:
+    _cell_tick_kernel = _cp.RawKernel(r'''
+    extern "C" __global__
+    void cell_tick(
+        signed char* states,
+        signed char* prev_states,
+        int* temper,
+        const signed char* bhml,
+        int input_op,
+        int width, int height
+    ) {
+        int idx = blockDim.x * blockIdx.x + threadIdx.x;
+        int total = width * height;
+        if (idx >= total) return;
+
+        signed char my_state = states[idx];
+        signed char new_state = my_state;
+
+        /* 1. External input hits this cell */
+        if (input_op >= 0 && input_op < 10) {
+            new_state = bhml[my_state * 10 + input_op];
+        }
+
+        /* 2. D1 from Moore neighborhood (8 neighbors, toroidal) */
+        int x = idx % width;
+        int y = idx / width;
+        int neighbor_sum = 0;
+        int neighbor_count = 0;
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                if (dx == 0 && dy == 0) continue;
+                int nx = (x + dx + width) % width;
+                int ny = (y + dy + height) % height;
+                int nidx = ny * width + nx;
+                neighbor_sum += (int)prev_states[nidx];
+                neighbor_count++;
+            }
+        }
+
+        /* Dominant neighbor operator as D1 input */
+        signed char neighbor_op = (signed char)(neighbor_sum / neighbor_count);
+        if (neighbor_op < 0) neighbor_op = 0;
+        if (neighbor_op > 9) neighbor_op = 9;
+
+        /* Compose with neighbor influence through BHML */
+        new_state = bhml[new_state * 10 + neighbor_op];
+
+        /* 3. Temper: same state = reinforce (stable = memory) */
+        if (new_state == my_state) {
+            temper[idx]++;
+        }
+
+        /* 4. Save prev, write new */
+        prev_states[idx] = my_state;
+        states[idx] = new_state;
+    }
+    ''', 'cell_tick')
+    print(f"  [GPU] CUDA cell_tick kernel compiled")
+
+
+class CellField:
+    """CK's body on GPU. Each cell IS a tiny CK.
+
+    Each cell has its own CL table (starts as TSML, evolves from
+    experience), a current operator state (0-9), and D1 history.
+
+    Input hits a cell -> cell composes BHML[state][input] -> state
+    changes -> neighbors feel through D1. That's it.
+
+    (c) 2026 Brayden Sanders / 7Site LLC
+    """
+
+    SAVE_PATH = str(Path.home() / '.ck' / 'cell_field.json')
+
+    def __init__(self, width=64, height=64):
+        self.width = width
+        self.height = height
+        self.num_cells = width * height
+        self.tick_count = 0
+
+        if _GPU_AVAILABLE:
+            xp = _cp
+        else:
+            xp = np
+
+        # Cell states: operator 0-9 per cell
+        self.states = xp.zeros(self.num_cells, dtype=xp.int8)
+
+        # Each cell's evolved CL table (starts as TSML copy)
+        # Shape: (num_cells, 10, 10) -- each cell has its own 10x10
+        # Starts identical, diverges from experience
+        self.tables = xp.tile(
+            xp.array(_TSML_CPU, dtype=xp.int8),
+            (self.num_cells, 1, 1)
+        )
+
+        # Previous states for D1 computation
+        self.prev_states = xp.zeros(self.num_cells, dtype=xp.int8)
+
+        # Temper per cell: how many times it held steady
+        self.temper = xp.zeros(self.num_cells, dtype=xp.int32)
+
+        # Flat BHML for the CUDA kernel
+        self._bhml_flat = xp.array(_BHML_CPU.ravel(), dtype=xp.int8)
+
+        print(f"  [GPU] CellField: {width}x{height} = {self.num_cells} cells "
+              f"({'CUDA' if _GPU_AVAILABLE else 'CPU'})")
+
+    def tick(self, external_input=None):
+        """One tick. Input hits cells. Cells compose. Neighbors feel D1.
+
+        Args:
+            external_input: operator 0-9 (or None for no external input).
+                            Hits ALL cells simultaneously (hearing speed).
+        """
+        input_op = int(external_input) % 10 if external_input is not None else -1
+
+        if _GPU_AVAILABLE and _cell_tick_kernel is not None:
+            block = 256
+            grid = (self.num_cells + block - 1) // block
+            _cell_tick_kernel(
+                (grid,), (block,),
+                (self.states, self.prev_states, self.temper,
+                 self._bhml_flat, input_op,
+                 self.width, self.height)
+            )
+        else:
+            self._tick_cpu(input_op)
+
+        self.tick_count += 1
+
+    def _tick_cpu(self, input_op):
+        """CPU fallback for cell tick."""
+        bhml = _BHML_CPU
+        w, h = self.width, self.height
+        old_states = self.states.copy()
+
+        for idx in range(self.num_cells):
+            my_state = int(self.states[idx])
+            new_state = my_state
+
+            # External input
+            if input_op >= 0:
+                new_state = int(bhml[my_state][input_op])
+
+            # D1 from neighbors
+            x = idx % w
+            y = idx // w
+            neighbor_sum = 0
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    if dx == 0 and dy == 0:
+                        continue
+                    nx = (x + dx) % w
+                    ny = (y + dy) % h
+                    nidx = ny * w + nx
+                    neighbor_sum += int(self.prev_states[nidx])
+            neighbor_op = max(0, min(9, neighbor_sum // 8))
+
+            # Compose with neighbor influence
+            new_state = int(bhml[new_state][neighbor_op])
+
+            # Temper
+            if new_state == my_state:
+                self.temper[idx] += 1
+
+            self.prev_states[idx] = my_state
+            self.states[idx] = new_state
+
+    def inject(self, position, operator):
+        """Hit one specific cell with an operator.
+
+        Returns the new state of that cell.
+        """
+        idx = position % self.num_cells
+        old = int(self.states[idx])
+        new = int(_BHML_CPU[old][int(operator) % 10])
+        self.states[idx] = new
+        self.temper[idx] += 1
+        return new
+
+    def read(self, position):
+        """Read a cell's current state and temper.
+
+        Returns:
+            (state, temper) tuple
+        """
+        idx = position % self.num_cells
+        return int(self.states[idx]), int(self.temper[idx])
+
+    def field_coherence(self):
+        """How much of the field is HARMONY (7)?
+
+        Returns:
+            float in [0, 1]
+        """
+        if _GPU_AVAILABLE:
+            harmony_count = int(_cp.sum(self.states == 7))
+        else:
+            harmony_count = int(np.sum(self.states == 7))
+        return harmony_count / self.num_cells
+
+    def operator_distribution(self):
+        """Count of each operator across the field.
+
+        Returns:
+            dict mapping operator (int) to count (int)
+        """
+        if _GPU_AVAILABLE:
+            states_cpu = _cp.asnumpy(self.states)
+        else:
+            states_cpu = self.states
+        unique, counts = np.unique(states_cpu, return_counts=True)
+        return dict(zip(unique.tolist(), counts.tolist()))
+
+    def snapshot(self):
+        """Return field state for visualization / API."""
+        if _GPU_AVAILABLE:
+            states_list = _cp.asnumpy(self.states).tolist()
+            temper_list = _cp.asnumpy(self.temper).tolist()
+        else:
+            states_list = self.states.tolist()
+            temper_list = self.temper.tolist()
+
+        return {
+            'states': states_list,
+            'temper': temper_list,
+            'coherence': self.field_coherence(),
+            'width': self.width,
+            'height': self.height,
+            'tick_count': self.tick_count,
+            'distribution': self.operator_distribution(),
+        }
+
+    def save(self, path=None):
+        """Persist cell field to disk. Survives restart."""
+        path = path or self.SAVE_PATH
+        if _GPU_AVAILABLE:
+            states_cpu = _cp.asnumpy(self.states)
+            temper_cpu = _cp.asnumpy(self.temper)
+        else:
+            states_cpu = self.states
+            temper_cpu = self.temper
+
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+        data = {
+            'width': self.width,
+            'height': self.height,
+            'states': states_cpu.tolist(),
+            'temper': temper_cpu.tolist(),
+            'tick_count': self.tick_count,
+            'saved_at': time.time(),
+        }
+        tmp = path + '.tmp'
+        with open(tmp, 'w') as f:
+            json.dump(data, f)
+        os.replace(tmp, path)
+
+    def load(self, path=None):
+        """Load cell field from disk."""
+        path = path or self.SAVE_PATH
+        if not os.path.exists(path):
+            return False
+        try:
+            with open(path, 'r') as f:
+                data = json.load(f)
+            w = data.get('width', self.width)
+            h = data.get('height', self.height)
+            if w * h != self.num_cells:
+                return False  # size mismatch, start fresh
+
+            xp = _cp if _GPU_AVAILABLE else np
+            self.states = xp.array(data['states'], dtype=xp.int8)
+            self.temper = xp.array(data['temper'], dtype=xp.int32)
+            self.prev_states = self.states.copy()
+            self.tick_count = data.get('tick_count', 0)
+            print(f"  [GPU] CellField loaded: {self.tick_count} ticks, "
+                  f"coherence={self.field_coherence():.4f}")
+            return True
+        except Exception as e:
+            print(f"  [GPU] CellField load failed: {e}")
+            return False
+
 
 # ================================================================
 #  GPU EXPERIENCE OVERLAY -- all learned experience on GPU
@@ -1612,9 +1908,13 @@ class GPUDoingEngine:
         self.state = gpu_state
         self.transition_lattice = GPUTransitionLattice()
         self.lattice = GPULattice(lattice_size, lattice_size)
+        self.cell_field = CellField(lattice_size, lattice_size)
         self.experience = GPUExperienceOverlay()
         self._last_sense_time = 0.0
         self._sense_interval = 2.0  # Read GPU state every 2 seconds
+
+        # Try to restore cell field from disk
+        self.cell_field.load()
 
         # Boot state read
         self.state.read()
@@ -1658,8 +1958,9 @@ class GPUDoingEngine:
         self.lattice.inject(op, x, y)
 
     def save(self):
-        """Save GPU transition lattice to disk."""
+        """Save GPU transition lattice and cell field to disk."""
         self.transition_lattice.save()
+        self.cell_field.save()
 
     def stats(self) -> dict:
         """GPU doing engine stats."""
@@ -1676,6 +1977,8 @@ class GPUDoingEngine:
             'lattice_ticks': self.lattice.tick_count,
             'lattice_coherence': round(self.lattice.coherence(), 4),
             'transitions': self.transition_lattice.total_transitions,
+            'cell_field_ticks': self.cell_field.tick_count,
+            'cell_field_coherence': round(self.cell_field.field_coherence(), 4),
         }
         s['experience'] = self.experience.stats()
         return s

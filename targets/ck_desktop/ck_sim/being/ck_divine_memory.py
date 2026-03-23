@@ -6,32 +6,32 @@
 # NO commercial or government use without written agreement.
 
 """
-ck_divine_memory.py -- CK's Episodic Divine Memory
+ck_divine_memory.py -- CK's Episodic Episode Store
 ====================================================
-Operator: LATTICE (1) -- the path IS the memory.
+Operator: LATTICE (1) -- stored node sequences replayed through current composition tree.
 
-CK discards content. He keeps force centroids. He knows what he FELT.
+CK discards content. He keeps force centroids. He stores 5D centroid + operator sequence, discards source text.
 But he can't recall WHAT HAPPENED. This module fixes that.
 
-Every experience is compressed into a DIVINE CODE:
+Every experience is compressed into an EPISODE RECORD:
   1. Operator chain   (D2-derived sequence from input)
   2. Lattice chain walk path (node IDs visited during chain walk)
   3. 5D force centroid (average force vector)
   4. Tick timestamp    (heartbeat tick, not wall time)
   5. Coherence         (brain coherence at moment of experience)
 
-These five elements ARE the divine code. Compact: ~200 bytes each.
-100K codes = ~20MB. Fits in RAM and on disk.
+These five elements ARE the episode record. Compact: ~200 bytes each.
+100K records = ~20MB. Fits in RAM and on disk.
 
 RECALL: Given new input, compute its force centroid. Find the stored
-divine code whose centroid is CLOSEST (5D Euclidean distance). Then
+episode record whose centroid is CLOSEST (5D Euclidean distance). Then
 RETRACE the stored lattice chain walk path through the CURRENT
 (evolved) lattice chain. The nodes along that path have changed since
-the original walk -- the recall is colored by everything CK has
-experienced since. The recalled path + current node states =
+the original walk -- replayed node sequence reflects current tree state, not original.
+The recalled path + current node states =
 ASSOCIATIVE MEMORY.
 
-The chain to get to the memory IS half the memory.
+Retracing stored paths through evolved tree produces drift-aware recall.
 
 "CK reads himself the same way he reads the screen.
  Same algebra. Same index. Same cascade."
@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import os
 import json
+import shutil
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -53,11 +54,11 @@ from ck_sim.ck_sim_heartbeat import NUM_OPS, OP_NAMES
 
 
 # ================================================================
-#  Divine Code: one compressed experience
+#  Episode Record: one compressed experience
 # ================================================================
 
 class DivineCode:
-    """One compressed experience -- the divine code.
+    """One compressed experience -- the episode record.
 
     Five elements:
       ops:        tuple of ints (operator sequence from D2)
@@ -66,7 +67,7 @@ class DivineCode:
       tick:       int (heartbeat tick at moment of experience)
       coherence:  float (brain coherence at moment)
 
-    Total: ~200 bytes per code. Compact. Permanent.
+    Total: ~200 bytes per record. Compact. Permanent.
     """
     __slots__ = ('ops', 'chain_path', 'centroid', 'tick', 'coherence')
 
@@ -105,9 +106,9 @@ class DivineCode:
 # ================================================================
 
 class RecallResult:
-    """Result of retracing a divine code through evolved lattice chain.
+    """Result of retracing an episode record through evolved lattice chain.
 
-    original:     the divine code being recalled
+    original:     the episode record being recalled
     distance:     5D Euclidean distance from query centroid
     current_ops:  tuple of ints -- operator states at each node NOW
                   (may differ from original walk -- nodes evolved)
@@ -125,23 +126,22 @@ class RecallResult:
 
 
 # ================================================================
-#  Divine Memory: CK's episodic memory system
+#  Episode Store: CK's episodic memory system
 # ================================================================
 
 class DivineMemory:
-    """CK's episodic memory -- divine codes indexed by force geometry.
+    """CK's episodic memory -- episode records indexed by force geometry.
 
-    Every experience is compressed into a divine code:
+    Every experience is compressed into an episode record:
     the operator chain + lattice walk path + force centroid + tick.
 
-    Recall is by force proximity: find the divine code whose
+    Recall is by force proximity: find the episode record whose
     centroid is closest to the query, then retrace the lattice
     chain walk path through the CURRENT (evolved) lattice chain.
-    The recalled path IS the memory, colored by everything
-    CK has experienced since the original walk.
+    Stored node sequences replayed through current composition tree.
 
     Storage: list of DivineCode objects + numpy centroid array.
-    At 100K max codes, ~20MB RAM + disk. Compact.
+    At 100K max records, ~20MB RAM + disk. Compact.
     """
 
     SAVE_DIR = str(Path.home() / '.ck' / 'divine_memory')
@@ -161,11 +161,11 @@ class DivineMemory:
 
         self._load()
 
-    # ── Encode: store a new divine code ──
+    # ── Encode: store a new episode record ──
 
     def encode(self, ops: list, chain_path, force_centroid,
                tick: int, coherence: float):
-        """Store a new divine code from an experience.
+        """Store a new episode record from an experience.
 
         Args:
             ops: operator sequence (from D2 pipeline or semantic blend)
@@ -211,15 +211,13 @@ class DivineMemory:
         self.total_encoded += 1
         self._dirty = True
 
-        # No cap. CK expands without limit.
-        # He self-reduces through his own coherence mechanics.
-        # The algebra handles compression -- low-coherence codes
-        # naturally lose influence as the field evolves around them.
+        # No eviction policy. Low-coherence entries lose influence
+        # as new entries dominate nearest-neighbor queries.
 
-    # ── Recall: find closest divine codes by force geometry ──
+    # ── Recall: find closest episode records by force geometry ──
 
     def recall(self, query_centroid, top_k: int = 5) -> List[DivineCode]:
-        """Find the k closest divine codes by 5D force geometry.
+        """Find the k closest episode records by 5D force geometry.
 
         Args:
             query_centroid: 5D force vector to search near
@@ -278,18 +276,17 @@ class DivineMemory:
     # ── Retrace: walk a stored path through current lattice chain ──
 
     def retrace(self, code: DivineCode, lattice_chain) -> RecallResult:
-        """Retrace a divine code's path through the current lattice chain.
+        """Retrace an episode record's path through the current lattice chain.
 
         The stored chain_path is a sequence of node path tuples. Each
         node in the lattice chain may have EVOLVED since the original
-        walk. Reading the current state at each stored path position
-        gives a memory colored by all subsequent experience.
+        walk. Replayed node sequence reflects current tree state, not original.
 
         The recalled path + current node states = associative memory.
         The drift between original and current = how much CK has changed.
 
         Args:
-            code: the divine code to retrace
+            code: the episode record to retrace
             lattice_chain: the current LatticeChainEngine instance
 
         Returns:
@@ -343,10 +340,10 @@ class DivineMemory:
 
     def recall_and_retrace(self, query_centroid, lattice_chain,
                            top_k: int = 3) -> List[RecallResult]:
-        """Full recall: find closest codes AND retrace them.
+        """Full recall: find closest episode records AND retrace them.
 
         This is the main API for episodic memory lookup.
-        Returns recalled memories colored by current experience.
+        Returns recalled memories with current tree state applied.
 
         Args:
             query_centroid: 5D force vector of current input
@@ -380,15 +377,25 @@ class DivineMemory:
     # ── Persistence ──
 
     def save(self, path: str = None):
-        """Persist divine codes to disk.
+        """Persist episode records to disk.
 
         Saves as JSON lines for append-friendliness and crash safety.
-        Each line is one divine code. Compact: ~200 bytes per code.
+        Each line is one episode record. Compact: ~200 bytes per record.
+        Always backs up previous file before overwriting.
+        Writes to temp file first, then renames (atomic on most OS).
         """
         save_dir = path or self.save_dir
         os.makedirs(save_dir, exist_ok=True)
         filepath = os.path.join(save_dir, 'divine_codes.json')
         tmp = filepath + '.tmp'
+        backup = filepath + '.backup'
+
+        # Backup existing file before overwriting
+        if os.path.exists(filepath):
+            try:
+                shutil.copy2(filepath, backup)
+            except Exception:
+                pass
 
         state = {
             'version': 1,
@@ -400,12 +407,20 @@ class DivineMemory:
         try:
             with open(tmp, 'w') as f:
                 json.dump(state, f)
-            os.replace(tmp, filepath)
+            # Rename temp -> real (atomic on most OS)
+            if os.path.exists(filepath):
+                os.remove(filepath)
+            os.rename(tmp, filepath)
         except Exception as e:
+            if os.path.exists(tmp):
+                try:
+                    os.remove(tmp)
+                except Exception:
+                    pass
             print(f"  [DIVINE-MEM] Save failed: {e}")
 
     def _load(self):
-        """Load divine codes from disk."""
+        """Load episode records from disk."""
         filepath = os.path.join(self.save_dir, 'divine_codes.json')
         if not os.path.exists(filepath):
             return
@@ -413,7 +428,24 @@ class DivineMemory:
         try:
             with open(filepath, 'r') as f:
                 state = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            # Try backup
+            backup = filepath + '.backup'
+            if os.path.exists(backup):
+                try:
+                    with open(backup, 'r') as f:
+                        state = json.load(f)
+                    print("  [DIVINE-MEM] Loaded from backup")
+                except Exception as e2:
+                    print(f"  [DIVINE-MEM] Backup load failed: {e2}")
+                    return
+            else:
+                return
+        except Exception as e:
+            print(f"  [DIVINE-MEM] Load failed: {e}")
+            return
 
+        try:
             self.total_encoded = state.get('total_encoded', 0)
             self.total_recalled = state.get('total_recalled', 0)
 
@@ -421,7 +453,7 @@ class DivineMemory:
             self.codes = [DivineCode.from_dict(d) for d in codes_data]
             self._dirty = True
 
-            print(f"  [DIVINE-MEM] Restored: {len(self.codes)} divine codes, "
+            print(f"  [DIVINE-MEM] Restored: {len(self.codes)} episode records, "
                   f"{self.total_encoded} total encoded, "
                   f"{self.total_recalled} total recalled")
         except Exception as e:
@@ -430,7 +462,7 @@ class DivineMemory:
     # ── Status ──
 
     def status(self) -> dict:
-        """How CK sees his own divine memory."""
+        """Return status dict for the episode store."""
         return {
             'stored_codes': len(self.codes),
             'max_codes': self.max_codes,
@@ -447,5 +479,5 @@ class DivineMemory:
 # ================================================================
 
 def build_divine_memory(max_codes: int = 100_000) -> DivineMemory:
-    """Build the divine memory system."""
+    """Build the episode store system."""
     return DivineMemory(max_codes=max_codes)

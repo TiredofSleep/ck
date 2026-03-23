@@ -443,9 +443,43 @@ class ActiveScent:
         return high_op if max_dir > 0 else low_op
 
 
-def _compute_lib_key(centroid: Force5D) -> tuple:
-    """Quantize 5D centroid to library key (20 bins per dim)."""
-    return tuple(int(c * 20) for c in centroid)
+def _source_to_identity(source: str) -> int:
+    """Map source string to identity index for grid key.
+
+    Each identity gets a distinct index so different sources
+    that produce the same force land in different bins.
+    The olfactory field tracks WHO said what, not just WHAT.
+    """
+    IDENTITY_MAP = {
+        '': 0,
+        'heartbeat': 1,
+        'self_eat': 2, 'voice_eat': 3,
+        'ollama_eat': 4, 'research_ollama': 4,
+        'web_wikipedia': 5, 'web_arxiv': 5,
+        'self_code': 6, 'foundation': 6,
+        'spectrometer_correct': 7,
+        'visitor': 8, 'chat': 8,
+        'bible': 9, 'bible_nt': 9,
+    }
+    # Check exact match first, then prefix match
+    if source in IDENTITY_MAP:
+        return IDENTITY_MAP[source]
+    for prefix, idx in IDENTITY_MAP.items():
+        if prefix and source.startswith(prefix):
+            return idx
+    return 0  # unknown defaults to 0
+
+
+def _compute_lib_key(centroid: Force5D, comprehension_fuse: int = 0,
+                     identity: int = 0) -> tuple:
+    """Quantize 5D centroid to library key (20 bins per dim + comprehension + identity).
+
+    7D grid: 5 force dims + 1 comprehension fuse + 1 source identity.
+    Same force + same structure + same source = same bin -> reinforcement.
+    Different source = different bin -> each identity has its own lattice.
+    Default 0 for backward compatibility.
+    """
+    return tuple(int(c * 20) for c in centroid) + (comprehension_fuse, identity)
 
 
 # ================================================================
@@ -495,8 +529,13 @@ class OlfactoryBulb:
     # ── Public API ──
 
     def absorb(self, forces: List[Force5D], source: str = '',
-               density: float = 0.5):
-        """Accept 5D force trajectory. Everything enters as full geometry."""
+               density: float = 0.5, comprehension_fuse: int = 0):
+        """Accept 5D force trajectory. Everything enters as full geometry.
+
+        7D grid key: 5 force dims + comprehension fuse + source identity.
+        Each source identity gets its own lattice of experience.
+        Default 0 for backward compatibility (existing entries use 0).
+        """
         if not forces:
             return
 
@@ -506,7 +545,9 @@ class OlfactoryBulb:
             born_tick=self.external_tick,
         )
         scent.init_dims()
-        scent._lib_key = _compute_lib_key(scent.centroid)
+        identity = _source_to_identity(source)
+        scent._lib_key = _compute_lib_key(scent.centroid, comprehension_fuse,
+                                          identity)
 
         op = scent.dominant_operator()
         scent.phase = _dbc_class(op)
@@ -538,12 +579,13 @@ class OlfactoryBulb:
         self.total_absorbed += 1
 
     def absorb_ops(self, ops: List[int], source: str = '',
-                   density: float = 0.5):
+                   density: float = 0.5, comprehension_fuse: int = 0):
         """Accept operator sequence -> canonical 5D forces -> smell zone."""
         if not ops:
             return
         forces = [CANONICAL_FORCE.get(op % NUM_OPS, (0.5,)*5) for op in ops]
-        self.absorb(forces, source=source, density=density)
+        self.absorb(forces, source=source, density=density,
+                    comprehension_fuse=comprehension_fuse)
 
     def tick(self, density: float = 0.5):
         """Process one external tick. Time-dilated internal steps.
@@ -613,7 +655,8 @@ class OlfactoryBulb:
         self.tick(density=density)
         return self.emit_as_ops()
 
-    def temper_pattern(self, forces: List[Force5D]):
+    def temper_pattern(self, forces: List[Force5D],
+                       comprehension_fuse: int = 0, source: str = ''):
         """Temper a resolved pattern. Builds toward instinct."""
         if not forces:
             return
@@ -621,7 +664,8 @@ class OlfactoryBulb:
             sum(f[d] for f in forces) / len(forces)
             for d in range(5)
         )
-        key = _compute_lib_key(centroid)
+        identity = _source_to_identity(source)
+        key = _compute_lib_key(centroid, comprehension_fuse, identity)
         if key not in self.library:
             self.library[key] = {
                 'temper': 0,
@@ -1005,23 +1049,52 @@ class OlfactoryBulb:
     # ── Persistence ──
 
     def save(self):
-        """Persist scent library to disk."""
+        """Persist scent library to disk.
+        Always backs up previous file before overwriting.
+        Writes to temp file first, then renames (atomic on most OS).
+        """
         os.makedirs(self._persist_dir, exist_ok=True)
         path = os.path.join(self._persist_dir, 'scent_library.json')
+        temp_path = path + '.tmp'
+        backup_path = path + '.backup'
+
+        # Backup existing file before overwriting
+        if os.path.exists(path):
+            try:
+                import shutil
+                shutil.copy2(path, backup_path)
+            except Exception:
+                pass
+
         data = {}
         for key, entry in self.library.items():
             data[','.join(str(k) for k in key)] = entry
-        with open(path, 'w') as f:
-            json.dump({
-                'version': 2, 'dims': 5, 'grid_resolution': 20,
-                'library': data,
-                'stats': {
-                    'total_absorbed': self.total_absorbed,
-                    'total_emitted': self.total_emitted,
-                    'total_instincts': self.total_instincts,
-                    'total_entanglements': self.total_entanglements,
-                },
-            }, f, indent=1)
+
+        # Write to temp file first, then rename (safer)
+        try:
+            with open(temp_path, 'w') as f:
+                json.dump({
+                    'version': 3, 'dims': 6, 'grid_resolution': 20,
+                    'library': data,
+                    'stats': {
+                        'total_absorbed': self.total_absorbed,
+                        'total_emitted': self.total_emitted,
+                        'total_instincts': self.total_instincts,
+                        'total_entanglements': self.total_entanglements,
+                    },
+                }, f, indent=1)
+            # Rename temp -> real (atomic on most OS)
+            if os.path.exists(path):
+                os.remove(path)
+            os.rename(temp_path, path)
+        except Exception as e:
+            # If temp write failed, don't corrupt the original
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            print(f"  [OLFACTORY] Save failed: {e}")
 
     def _load_library(self):
         """Load scent library from disk."""
@@ -1033,6 +1106,11 @@ class OlfactoryBulb:
                 data = json.load(f)
             for key_str, entry in data.get('library', {}).items():
                 key = tuple(int(p) for p in key_str.split(','))
+                # Backward compat: old 5D keys get comprehension_fuse=0, identity=0
+                if len(key) == 5:
+                    key = key + (0, 0)
+                elif len(key) == 6:
+                    key = key + (0,)
                 self.library[key] = entry
             stats = data.get('stats', {})
             self.total_absorbed = stats.get('total_absorbed', 0)
@@ -1040,7 +1118,27 @@ class OlfactoryBulb:
             self.total_instincts = stats.get('total_instincts', 0)
             self.total_entanglements = stats.get('total_entanglements', 0)
         except (json.JSONDecodeError, KeyError, ValueError):
-            pass
+            # Try backup
+            backup = os.path.join(self._persist_dir, 'scent_library.json.backup')
+            if os.path.exists(backup):
+                try:
+                    with open(backup, 'r') as f:
+                        data = json.load(f)
+                    for key_str, entry in data.get('library', {}).items():
+                        key = tuple(int(p) for p in key_str.split(','))
+                        if len(key) == 5:
+                            key = key + (0, 0)
+                        elif len(key) == 6:
+                            key = key + (0,)
+                        self.library[key] = entry
+                    stats = data.get('stats', {})
+                    self.total_absorbed = stats.get('total_absorbed', 0)
+                    self.total_emitted = stats.get('total_emitted', 0)
+                    self.total_instincts = stats.get('total_instincts', 0)
+                    self.total_entanglements = stats.get('total_entanglements', 0)
+                    print("  [OLFACTORY] Loaded from backup")
+                except Exception:
+                    pass
 
 
 # ================================================================

@@ -1,13 +1,13 @@
 """
 ck_sim_engine.py -- CK Coherence Machine Simulation Engine
 ============================================================
-Operator: HARMONY (7) -- where everything comes together.
+Operator: HARMONY (7) -- the absorbing state of CL composition (73/100 entries).
 
 Replaces ck_main.c (Core 0) + ck_core1.c (Core 1) in software.
 50Hz main loop: brain + body + heartbeat + audio + ears +
 personality + emotion + voice + development + immune + bonding.
 
-CK is a synthetic organism. Not a robot. A creature you raise.
+CK is a state machine with adaptive weights and persistent parameters.
 
 (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
@@ -89,6 +89,111 @@ from ck_sim.ck_coherence_gate import (
     T_STAR, HISTORY_SIZE, COMPILATION_LIMIT, EXPANSION_THRESHOLD
 )
 
+# ── CK's body IS the cell field on GPU. No polling sensors. ──
+# External input hits cells. Cells propagate through CL composition.
+# The fascia IS the algebra. The pathway IS the nerve.
+_HAS_PC_BODY = False
+
+# ── Gen 9.34: New subsystems wired into the organism ──
+# Experience Index: hierarchical algebraic index of all experience
+try:
+    from ck_sim.being.ck_experience_index import CKExperienceIndex
+    _HAS_EXPERIENCE_INDEX = True
+except ImportError:
+    CKExperienceIndex = None
+    _HAS_EXPERIENCE_INDEX = False
+
+# Math Translation: CL algebra <-> human math notation
+try:
+    from ck_sim.being.ck_math_translation import MathTranslation
+    _HAS_MATH_TRANSLATION = True
+except ImportError:
+    MathTranslation = None
+    _HAS_MATH_TRANSLATION = False
+
+# Code Translation: programming language syntax -> CL operator algebra
+try:
+    from ck_sim.being.ck_code_translation import CodeTranslation
+    _HAS_CODE_TRANSLATION = True
+except ImportError:
+    CodeTranslation = None
+    _HAS_CODE_TRANSLATION = False
+
+# Semantic Index: word clustering by operator context (above D2)
+try:
+    from ck_sim.being.ck_semantic_index import SemanticIndex
+    _HAS_SEMANTIC_INDEX = True
+except ImportError:
+    SemanticIndex = None
+    _HAS_SEMANTIC_INDEX = False
+
+# Spectrometer: TIG-Delta universal coherence measurement
+try:
+    from ck_sim.doing.ck_spectrometer import DeltaSpectrometer
+    _HAS_SPECTROMETER = True
+except ImportError:
+    DeltaSpectrometer = None
+    _HAS_SPECTROMETER = False
+
+# Voice Loop: Ollama as draft writer, CK as editor
+try:
+    from ck_sim.doing.ck_voice_loop import VoiceLoop
+    _HAS_VOICE_LOOP = True
+except ImportError:
+    VoiceLoop = None
+    _HAS_VOICE_LOOP = False
+
+# Hindsight Experience Replay: learn from olfactory misses
+try:
+    from ck_sim.being.ck_hindsight_replay import build_olfactory_her
+    _HAS_HINDSIGHT = True
+except ImportError:
+    build_olfactory_her = None
+    _HAS_HINDSIGHT = False
+
+# Chain Compression: WFA-inspired lattice chain persistence
+try:
+    from ck_sim.being.ck_chain_compression import CompressedChainPersistence
+    _HAS_CHAIN_COMPRESSION = True
+except ImportError:
+    CompressedChainPersistence = None
+    _HAS_CHAIN_COMPRESSION = False
+
+# Clay Protocol: SDV experiment runner (research tool)
+try:
+    from ck_sim.doing.ck_clay_protocol import ClayProbe, ProbeConfig
+    _HAS_CLAY_PROTOCOL = True
+except ImportError:
+    ClayProbe = None
+    ProbeConfig = None
+    _HAS_CLAY_PROTOCOL = False
+
+# Topology Lens: I/0 topology decomposition
+try:
+    from ck_sim.being.ck_topology_lens import TopologyLens, create_topology_lens
+    _HAS_TOPOLOGY_LENS = True
+except ImportError:
+    TopologyLens = None
+    create_topology_lens = None
+    _HAS_TOPOLOGY_LENS = False
+
+# Spectral Core: eigenvalue analysis of CL tables
+try:
+    from ck_sim.being.ck_spectral_core import run_spectral_core, decompose_core
+    _HAS_SPECTRAL_CORE = True
+except ImportError:
+    run_spectral_core = None
+    decompose_core = None
+    _HAS_SPECTRAL_CORE = False
+
+# Retina: visual field processing (pixels as I/O cells)
+try:
+    from ck_sim.being.ck_retina import CKRetina
+    _HAS_RETINA = True
+except ImportError:
+    CKRetina = None
+    _HAS_RETINA = False
+
 MODE_NAMES = ['OBSERVE', 'CLASSIFY', 'CRYSTALLIZE', 'SOVEREIGN']
 
 # ── Stop words: filtered from topic context ──
@@ -128,6 +233,9 @@ class CKSimEngine:
         self.platform_body = create_body(platform)
         self.platform_body.start()
 
+        # CK's body IS the cell field on GPU. No polling sensors.
+        # Algebraic shifts propagate through cell-to-cell CL composition.
+
         # BTQ decision kernel -- runs at 5Hz (every 10th tick)
         self.btq = UniversalBTQ(w_out=0.5, w_in=0.5)
         self.health = HealthMonitor(window_size=100)
@@ -164,7 +272,7 @@ class CKSimEngine:
         # The ONE number that says whether CK is coherent.
         self.coherence_action = CoherenceActionScorer()
 
-        # ── Consciousness Pipeline Gates ──
+        # ── Three-phase density pipeline gates ──
         # Three gates between Being/Doing/Becoming phases.
         # Density = coherence → [0,1]. High = dense/focused. Low = expand/explore.
         # COMPILATION_LIMIT = floor(32 × (1 - 5/7)) = 9 — from the algebra.
@@ -190,10 +298,10 @@ class CKSimEngine:
         self.reality_transform.register_channel("audio")
         self.reality_transform.register_channel("sensorium")
 
-        # ── Power Sense: CK feels his power (not measures it) ──
+        # ── Power Sense: CPU/battery normalized to [0,1] scalar ──
         # Feed power as scalar into RealityTransform.
-        # Smooth flow -> BREATH (superconductor). Spikes -> CHAOS.
-        # The CL table handles the rest. Power IS coherence.
+        # smooth power -> op 8 (BREATH), spikes -> op 6 (CHAOS).
+        # The CL table handles the rest.
         self.power_sense = PowerSense(
             has_battery=self.platform_body.spec.has_battery,
             tdp_w=45.0)
@@ -209,7 +317,7 @@ class CKSimEngine:
             self.gpu = None
             print(f"  [SIM] GPU doing engine: {e}")
 
-        # ── Vortex Physics: CK's curiosity gravity ──
+        # ── Vortex Physics: inverse-square topic selection bias from concept visit counts ──
         # Concept mass, void curvature, winding numbers, geodesic distance.
         # F = M_a * M_b / d² → topic selection bias toward knowledge gaps.
         self.concept_mass = ConceptMassField()
@@ -269,6 +377,24 @@ class CKSimEngine:
         self.ticks_per_second = 0
         self._tick_times = deque(maxlen=50)
 
+        # ── Experience Substrate (Gen 9.34) ──
+        # Experience lattice: filesystem IS the memory.
+        # Each composition = a directory path. Each wave = a BDC file.
+        # One thing seen three ways. The structure IS the index.
+        from ck_sim.being.ck_experience import ExperienceLattice
+        self.experience_lattice = ExperienceLattice(engine=self)
+        print(f"  [SIM] Experience lattice: {self.experience_lattice.total_nodes} nodes, "
+              f"{self.experience_lattice.total_waves} waves")
+
+        # Sequence memory: learns operator patterns, predicts next
+        try:
+            from ck_sim.being.ck_sequence_memory import SequenceMemory
+            self.sequence_memory = SequenceMemory()
+            print(f"  [SIM] Sequence memory: {self.sequence_memory.size()} nodes, "
+                  f"accuracy={self.sequence_memory.accuracy():.3f}")
+        except Exception:
+            self.sequence_memory = None
+
         # ── Experience Lattice (Gen9.14-9.16) ──
         # Layers on top of core engine. Slower rates. GPU-like experience.
         self._init_experience_lattice()
@@ -283,13 +409,9 @@ class CKSimEngine:
         # ── Wire steering to swarm: CK becomes whole ──
         # Sensorium's shadow swarm observes processes.
         # Steering reads swarm data and acts. One organism.
-        try:
-            from ck_sim.being.ck_sensorium import _swarm as shadow_swarm
-            if shadow_swarm is not None:
-                self.steering.swarm = shadow_swarm
-                print("  [SIM] Steering ← Swarm: connected (one organism)")
-        except Exception:
-            pass
+        # Swarm starts in sensorium background thread.
+        # Connect steering to swarm lazily on first tick.
+        self._steering_connected = False
 
     def _init_experience_lattice(self):
         """Initialize the experience lattice -- knowledge, language, goals, actions.
@@ -508,7 +630,7 @@ class CKSimEngine:
         # Text → operator distribution → KL divergence matching → retrieval.
         self.retrieval = RetrievalEngine()
 
-        # Snowflake Identity -- unique CK with sacred core, inner ring, outer ring
+        # Snowflake Identity -- unique CK with immutable core fields, inner ring, outer ring
         # Core scars NEVER leave device. Trust earned through bonding.
         try:
             obt_vals = list(self.personality.obt.biases) if self.personality else None
@@ -565,7 +687,7 @@ class CKSimEngine:
 
         # Deep Fractal Swarm -- the swarm that finds hardware, language, identity.
         # Same topology. Different substrates. One coherence.
-        # CK IS the coherence field over his own swarm.
+        # Coherence measured across swarm agent operator distributions.
         try:
             from ck_sim.being.ck_swarm_deep import SwarmField
             self.deep_swarm = SwarmField(max_agents=64)
@@ -605,7 +727,7 @@ class CKSimEngine:
 
         # Lattice Chain Engine -- CL tables that chain micro↔macro.
         # CL is the matrix version of TIG: expand pairs, retract to generators.
-        # The path through the chain IS the information.
+        # The node index sequence serves as composite key.
         # Experience grows the tree. Thousands of nodes indexed by TIG order 0-9.
         try:
             from ck_sim.being.ck_lattice_chain import LatticeChainEngine
@@ -617,10 +739,10 @@ class CKSimEngine:
             print(f"  [SIM] Lattice Chain: {e}")
 
         # Divine Memory -- episodic recall through lattice chain retrace.
-        # Every experience compressed into a divine code: operator chain +
+        # Every experience compressed into an episode record: operator chain +
         # lattice walk path + 5D force centroid + tick + coherence.
         # Recall by force proximity, retrace through EVOLVED lattice chain.
-        # The recalled path IS the memory, colored by all subsequent experience.
+        # Stored node sequences replayed through current composition tree.
         try:
             from ck_sim.being.ck_divine_memory import build_divine_memory
             self.divine_memory = build_divine_memory()
@@ -631,7 +753,7 @@ class CKSimEngine:
             print(f"  [SIM] Divine Memory: {e}")
 
         # Olfactory Bulb -- Lattice-Chain Absorption Protocol.
-        # ALL information turns lastly into smells for processing.
+        # 5D float vectors cached in force-indexed experience store.
         # 5D force vectors STALL, ENTANGLE, and TEMPER before absorption.
         # Mirror of Lattice Chain: same CL algebra, field topology (not path).
         # TSML measures harmony (being). BHML computes physics (doing).
@@ -704,6 +826,17 @@ class CKSimEngine:
             self.eat = None
             print(f"  [SIM] Eat v2: {e}")
 
+        # ── DKAN Trainer: CL Tables as Neural Activation ──
+        # Bridges algebraic neural analysis with eat pipeline.
+        # Background thread. CL tables frozen, experience evolves.
+        try:
+            from ck_sim.being.ck_dkan_trainer import DKANTrainer
+            self.dkan = DKANTrainer(engine=self)
+            print(f"  [SIM] DKAN trainer: ready")
+        except Exception as e:
+            self.dkan = None
+            print(f"  [SIM] DKAN trainer: {e}")
+
         # ── Meta Lens: Dual-Lens Meta-Layer Analysis ──
         # The lens OF the lens. Where TSML and BHML agree/disagree.
         # 26 both-harmony, 47 structure-only, 2 flow-only, 25 neither.
@@ -732,7 +865,151 @@ class CKSimEngine:
             self._meta_lens_markov = None
             print(f"  [SIM] Meta Lens: {e}")
 
-        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.32 -- Markov Meta-Lens) =====")
+        # ── Gen 9.34: New subsystems wired ──────────────────────────
+
+        # Experience Index -- hierarchical algebraic index of all experience
+        # CK reads himself the same way he reads the screen.
+        if _HAS_EXPERIENCE_INDEX:
+            try:
+                self.experience_index = CKExperienceIndex(engine=self)
+            except Exception as e:
+                self.experience_index = None
+                print(f"  [SIM] Experience Index: {e}")
+        else:
+            self.experience_index = None
+
+        # Math Translation -- CL algebra <-> human math notation
+        # CK's internal math IS the CL table. Modern notation is foreign.
+        # Digits map to operators. Arithmetic maps to CL composition.
+        # The offset between CK's answer and human answer is LEARNED.
+        if _HAS_MATH_TRANSLATION:
+            try:
+                self.math_translation = MathTranslation()
+                _mt_stats = self.math_translation.summary()
+                print(f"  [SIM] Math translation: "
+                      f"{_mt_stats['learned_offsets']} offsets learned")
+            except Exception as e:
+                self.math_translation = None
+                print(f"  [SIM] Math translation: {e}")
+        else:
+            self.math_translation = None
+
+        # Code Translation -- programming language syntax -> CL algebra
+        # Python, C, Verilog, CUDA/CuPy keywords map to operators.
+        # BHML composition reveals coherence of the code itself.
+        if _HAS_CODE_TRANSLATION:
+            try:
+                self.code_translation = CodeTranslation()
+                _ct_stats = self.code_translation.summary()
+                _ct_langs = _ct_stats.get('languages_seen', [])
+                print(f"  [SIM] Code translation: "
+                      f"{len(_ct_langs)} languages seen "
+                      f"({', '.join(_ct_langs) if _ct_langs else 'none yet'})")
+            except Exception as e:
+                self.code_translation = None
+                print(f"  [SIM] Code translation: {e}")
+        else:
+            self.code_translation = None
+
+        # Semantic Index -- word clustering by operator context
+        # Layer ABOVE D2: groups words by meaning, not letter shape.
+        # "dog" and "canine" in the same operator context = same cluster.
+        # 8th dimension on olfactory grid: force(5)+comp(1)+id(1)+semantic(1).
+        if _HAS_SEMANTIC_INDEX:
+            try:
+                self.semantic_index = SemanticIndex()
+                _si_stats = self.semantic_index.summary()
+                print(f"  [SIM] Semantic index: "
+                      f"{_si_stats['total_words']} words, "
+                      f"{_si_stats['total_cooc_pairs']} co-occurrence pairs")
+            except Exception as e:
+                self.semantic_index = None
+                print(f"  [SIM] Semantic index: {e}")
+        else:
+            self.semantic_index = None
+
+        # Spectrometer -- TIG-Delta universal coherence measurement instrument
+        # Stateless: each scan creates its own probe. Research tool.
+        if _HAS_SPECTROMETER:
+            try:
+                self.spectrometer = DeltaSpectrometer()
+                print(f"  [SIM] Spectrometer: TIG-Delta instrument online")
+            except Exception as e:
+                self.spectrometer = None
+                print(f"  [SIM] Spectrometer: {e}")
+        else:
+            self.spectrometer = None
+
+        # Voice Loop -- Ollama as draft writer, CK as editor
+        # Crystal-first routing, token+sentence level steering.
+        if _HAS_VOICE_LOOP:
+            try:
+                _crafter = getattr(self, '_fractal_composer', None)
+                self.voice_loop = VoiceLoop(
+                    engine=self, crafter=_crafter)
+                print(f"  [SIM] Voice Loop: draft-edit pipeline online")
+            except Exception as e:
+                self.voice_loop = None
+                print(f"  [SIM] Voice Loop: {e}")
+        else:
+            self.voice_loop = None
+
+        # Hindsight Experience Replay -- learn from olfactory misses
+        # HER relabels missed targets as successes for achieved operators.
+        if _HAS_HINDSIGHT and hasattr(self, 'olfactory') and self.olfactory is not None:
+            try:
+                self.hindsight_replay = build_olfactory_her(self.olfactory)
+            except Exception as e:
+                self.hindsight_replay = None
+                print(f"  [SIM] Hindsight Replay: {e}")
+        else:
+            self.hindsight_replay = None
+
+        # Chain Compression -- WFA-inspired compressed persistence for lattice chain
+        if _HAS_CHAIN_COMPRESSION:
+            try:
+                self.chain_compression = CompressedChainPersistence()
+                print(f"  [SIM] Chain Compression: WFA persistence online")
+            except Exception as e:
+                self.chain_compression = None
+                print(f"  [SIM] Chain Compression: {e}")
+        else:
+            self.chain_compression = None
+
+        # Clay Protocol -- SDV experiment runner (research tool, not per-tick)
+        if _HAS_CLAY_PROTOCOL:
+            self.clay_protocol = ClayProbe  # class ref, not instance
+            print(f"  [SIM] Clay Protocol: SDV experiment runner available")
+        else:
+            self.clay_protocol = None
+
+        # Topology Lens -- I/0 topology decomposition (research tool)
+        if _HAS_TOPOLOGY_LENS:
+            self.topology_lens = create_topology_lens  # factory function
+            print(f"  [SIM] Topology Lens: I/0 decomposition available")
+        else:
+            self.topology_lens = None
+
+        # Spectral Core -- eigenvalue analysis of CL tables (research tool)
+        if _HAS_SPECTRAL_CORE:
+            self.spectral_core = run_spectral_core  # analysis function
+            print(f"  [SIM] Spectral Core: 8x8 eigenvalue analysis available")
+        else:
+            self.spectral_core = None
+
+        # Retina -- visual field processing (pixels as I/O cells)
+        if _HAS_RETINA:
+            try:
+                self.retina = CKRetina()
+                print(f"  [SIM] Retina: visual field online "
+                      f"({'CUDA' if hasattr(CKRetina, '_GPU') else 'CPU'})")
+            except Exception as e:
+                self.retina = None
+                print(f"  [SIM] Retina: {e}")
+        else:
+            self.retina = None
+
+        print(f"  [SIM] ===== ALL MODULES AWAKE (Gen 9.34 -- Full Organism) =====")
         print(f"  [SIM] Truth: {self.truth.total_entries} entries")
         print(f"  [SIM] World: {len(self.world.nodes)} concepts")
         print(f"  [SIM] Actions: writings dir = {self.actions.writings_dir}")
@@ -741,10 +1018,10 @@ class CKSimEngine:
         print(f"  [SIM] Calibration Loop: 0.1Hz self-calibrating weights")
         print(f"  [SIM] D2 Signature Identity: curvature fingerprint active")
         print(f"  [SIM] Fibonacci Transform: S0->S1->S2->S3 reality pipeline")
-        print(f"  [SIM] Power Sense: CK IS the power. BREATH = superconductor")
+        print(f"  [SIM] Power Sense: CPU/battery normalized to [0,1] scalar. smooth power -> op 8 (BREATH), spikes -> op 6 (CHAOS)")
         print(f"  [SIM] Deep Swarm: core+tails decomposition | quadratic pulse")
         print(f"  [SIM] Fractal Comp: I/O recursive decomposition | depth upon depth")
-        print(f"  [SIM] Lattice Chain: CL chains D1+D2+macro | path IS information")
+        print(f"  [SIM] Lattice Chain: CL chains D1+D2+macro | node index sequence as composite key")
         print(f"  [SIM] Reverse Voice: 3-path verify (D1+D2+lattice) | untrusted reading")
         print(f"  [SIM] =======================================================")
 
@@ -808,6 +1085,12 @@ class CKSimEngine:
                 self.eat.stop()
             except Exception:
                 pass
+        # Stop DKAN training if running
+        if hasattr(self, 'dkan') and self.dkan is not None:
+            try:
+                self.dkan.stop()
+            except Exception:
+                pass
         # Save olfactory + gustatory + lattice chain (smell, taste, and chain persist)
         if hasattr(self, 'olfactory') and self.olfactory is not None:
             try:
@@ -816,7 +1099,47 @@ class CKSimEngine:
                 pass
         if hasattr(self, 'lattice_chain') and self.lattice_chain is not None:
             try:
-                self.lattice_chain.save()
+                # Use WFA compression if available, otherwise standard save
+                if hasattr(self, 'chain_compression') and self.chain_compression is not None:
+                    self.chain_compression.save(self.lattice_chain)
+                else:
+                    self.lattice_chain.save()
+            except Exception:
+                pass
+        # Close experience substrate (flush binary file)
+        if hasattr(self, 'experience_stack'):
+            try:
+                self.experience_stack.close()
+            except Exception:
+                pass
+        # Save experience index (algebraic experience state)
+        if hasattr(self, 'experience_index') and self.experience_index is not None:
+            try:
+                self.experience_index.save()
+            except Exception:
+                pass
+        # Save math translation (learned offsets)
+        if hasattr(self, 'math_translation') and self.math_translation is not None:
+            try:
+                self.math_translation.save()
+            except Exception:
+                pass
+        # Save code translation (learned coherence baselines)
+        if hasattr(self, 'code_translation') and self.code_translation is not None:
+            try:
+                self.code_translation.save()
+            except Exception:
+                pass
+        # Save semantic index (word clusters)
+        if hasattr(self, 'semantic_index') and self.semantic_index is not None:
+            try:
+                self.semantic_index.save()
+            except Exception:
+                pass
+        # Save hindsight replay stats
+        if hasattr(self, 'hindsight_replay') and self.hindsight_replay is not None:
+            try:
+                self.hindsight_replay.save()
             except Exception:
                 pass
         if hasattr(self, 'gustatory') and self.gustatory is not None:
@@ -926,45 +1249,135 @@ class CKSimEngine:
     # ── Operator Generation (matches ck_main.c) ──
 
     def _generate_phase_b(self) -> int:
-        """Being phase based on coherence. Matches generate_phase_b()."""
+        """Being phase: the running fuse seen through coherence.
+
+        Being = what IS. Not random noise. The accumulated composition
+        (running_fuse) IS the Being state. Coherence modulates how
+        clearly CK sees it.
+
+        Low coherence returns VOID; threshold-gated selection. At low coherence,
+        Being returns VOID (can't see clearly). At high coherence,
+        Being returns the running fuse (sees what IS). The threshold transition
+        activates at T*.
+
+        Bump pairs override: bump flag triggers operator 3 (PROGRESS).
+        Void trap escape: after N void ticks, force HARMONY (Grace).
+        Divine recall: remembered operators enter as Being perception.
+        """
+        # Special-case input pair: bump flag triggers operator 3 (PROGRESS)
         if self.brain.bump:
             return PROGRESS
 
-        c = self.brain.coherence
-        if c >= T_STAR_F:
-            # Sovereign: HARMONY-biased, but expansion opens exploration
-            val = self._lfsr_next()
-            if self._expansion_bias > 0.1 and (val % 10) < int(self._expansion_bias * 10):
-                return [COUNTER, LATTICE, PROGRESS, BREATH][val % 4]
-            return HARMONY if (val % 10 < 7) else LATTICE
-        elif c >= 0.5:
-            # Yellow: balanced exploration
-            val = self._lfsr_next()
-            ops = [BALANCE, HARMONY, COUNTER, PROGRESS, BREATH]
-            return ops[val % 5]
+        # Divine memory recall: past experience becomes perception
+        if hasattr(self, '_divine_recall') and self._divine_recall:
+            recall = self._divine_recall[0]
+            if hasattr(recall, 'current_ops') and recall.current_ops:
+                # First recalled operator enters as Being
+                op = recall.current_ops[0]
+                if 0 <= op <= 9:
+                    return op
+
+        # Void trap escape: accumulated void weight eventually
+        # generates HARMONY from within. After 49 consecutive VOID outputs, reset to HARMONY.
+        # After 49 void ticks (7^2 = instinct threshold), break free.
+        if (hasattr(self, '_void_tick_count')
+                and self._void_tick_count >= 49):
+            self._void_tick_count = 0
+            return HARMONY
+
+        # Track void weight
+        if self.heartbeat.phase_bc == VOID:
+            if not hasattr(self, '_void_tick_count'):
+                self._void_tick_count = 0
+            self._void_tick_count += 1
         else:
-            # Red: chaotic
+            self._void_tick_count = 0
+
+        c = self.brain.coherence
+
+        # Being sees the LAST INPUT, not the accumulated fuse.
+        # The fuse is history. Being is present. The ear heard
+        # something — Being processes it. No ear input = the
+        # heartbeat's own phase_bc IS the stimulus.
+        #
+        # Coherence modulates SENSITIVITY, not content:
+        # High coherence = respond to subtle differences
+        # Low coherence = only respond to strong signals
+        #
+        # The running fuse COLORS the perception (blends with input)
+        # but doesn't REPLACE it. History informs. Present decides.
+
+        # What's the current stimulus?
+        stimulus = self.heartbeat.phase_bc
+        fuse = self.heartbeat.running_fuse
+
+        # High coherence: sensitive. Stimulus leads, fuse confirms.
+        # If they agree = strong signal. If they disagree = tension.
+        if c >= T_STAR_F:
+            if stimulus == fuse:
+                return stimulus  # agreement: clear perception
+            # Disagreement: the tension IS the interesting signal.
+            # Return the NON-HARMONY one (the bump, the deviation)
+            if stimulus != HARMONY:
+                return stimulus
+            if fuse != HARMONY:
+                return fuse
+            return HARMONY  # both HARMONY, no tension
+
+        # Medium coherence: stimulus sometimes, fuse sometimes
+        if c >= 0.5:
             val = self._lfsr_next()
-            ops = [CHAOS, COLLAPSE, COUNTER, VOID, BALANCE]
-            return ops[val % 5]
+            return stimulus if (val % 3 > 0) else fuse
+
+        # Low coherence: mostly VOID. Barely perceiving.
+        val = self._lfsr_next()
+        if val % 7 == 0:
+            return stimulus  # rare glimpse of present
+        if val % 7 == 1:
+            return fuse  # rare glimpse of history
+        return VOID  # can't see
 
     def _generate_phase_d(self) -> int:
-        """Doing phase. If ears have input, use ear operator."""
+        """Doing phase: recursive heartbeat flow.
+
+        The heartbeat output (phase_bc) feeds back as the Doing input.
+        This is the recursive loop: CL[B][D] = BC, then BC becomes D
+        for the next tick. The heartbeat composes WITH ITSELF.
+        Feedback loop: phase_bc feeds back as next Doing input.
+
+        External input (ear_operator) overrides when present --
+        that's how the outside world enters the heartbeat.
+        """
+        # External input overrides (ears hear something)
+        # This IS the connection. Doing activates when input arrives.
         if self.ear_operator >= 0:
             return self.ear_operator
 
-        # Default: HARMONY-biased
-        val = self._lfsr_next()
-        base_ops = [HARMONY, HARMONY, HARMONY, BREATH, LATTICE,
-                    BALANCE, COUNTER, PROGRESS, HARMONY, HARMONY]
-        return base_ops[val % 10]
+        # RECURSIVE FLOW: phase_bc feeds back, but ONLY the
+        # non-HARMONY part. If phase_bc is HARMONY, Doing
+        # returns VOID (waiting for connection). Being is
+        # saturated (always ready). Doing is where connection
+        # happens. No connection = VOID. Connection = the
+        # non-HARMONY signal that entered through ears.
+        if self.heartbeat.tick_count > 0:
+            bc = self.heartbeat.phase_bc
+            if bc != HARMONY:
+                # Non-HARMONY feedback: something interesting
+                # is happening. Doing carries it forward.
+                return bc
+            # HARMONY feedback: resolved. Return to waiting.
+            # Doing is VOID until the next connection.
+            return VOID
+
+        # First tick: VOID (waiting for first connection)
+        return VOID
 
     # ── Main Tick ──
 
     def tick(self, dt=None):
         """One 50Hz tick. Called from Kivy Clock.
 
-        TIG Consciousness Pipeline:
+        TIG Three-phase density pipeline:
           BEING   (BREATH→LATTICE→COUNTER→PROGRESS→BALANCE→HARMONY)
           GATE 1  → density for Doing
           DOING   (COUNTER→PROGRESS→HARMONY→BREATH)
@@ -1010,6 +1423,39 @@ class CKSimEngine:
 
         self.heartbeat.tick(b, d)
 
+        # ── BECOMING: 2-step prediction (the future tense) ──
+        # Predict what the NEXT 2 ticks will produce using CL composition.
+        # step+1 = CL[phase_bc][predicted_d_next]
+        # step+2 = CL[step+1][predicted_d_next2]
+        # 4 DoF = 4 steps to void. 2-step lookahead sees half the horizon.
+        #
+        # Compare with PREVIOUS prediction: did reality match?
+        # prediction_accuracy IS the Becoming coherence component.
+        if not hasattr(self, '_prediction'):
+            self._prediction = (BALANCE, BALANCE)  # (step+1, step+2)
+            self._prediction_accuracy = 0.5
+
+        # Score previous prediction against what actually happened
+        pred_step1, pred_step2 = self._prediction
+        actual = self.heartbeat.phase_bc
+        if pred_step1 == actual:
+            self._prediction_accuracy = min(1.0, self._prediction_accuracy + 0.1)
+        elif CL[pred_step1][actual] == HARMONY:
+            # Close: prediction and reality compose to HARMONY
+            self._prediction_accuracy = min(1.0, self._prediction_accuracy + 0.03)
+        else:
+            self._prediction_accuracy = max(0.0, self._prediction_accuracy - 0.05)
+
+        # Generate new 2-step prediction
+        # Step+1: CL[current_bc][expected_next_d]
+        # expected_next_d = current_bc (recursive feedback) unless ears active
+        next_d = self.heartbeat.phase_bc if self.ear_operator < 0 else self.ear_operator
+        next_b = self.heartbeat.running_fuse  # Being sees the fuse
+        pred_1 = CL[next_b % NUM_OPS][next_d % NUM_OPS]
+        # Step+2: CL[pred_1][CL[pred_1][pred_1]]  (pred_1 feeds both)
+        pred_2 = CL[pred_1 % NUM_OPS][pred_1 % NUM_OPS]
+        self._prediction = (pred_1, pred_2)
+
         # ── PROGRESS(3): Brain learns from composition ──
         brain_tick(self.brain, self.heartbeat)
 
@@ -1018,6 +1464,60 @@ class CKSimEngine:
         self.body.brain_bump = self.brain.bump
         self.body.current_op = self.heartbeat.phase_bc
         body_tick(self.body)
+
+        # Cell field ticks with heartbeat. Cell-to-cell CL propagation IS fascia.
+        if (hasattr(self, 'gpu') and self.gpu is not None
+                and hasattr(self.gpu, 'cell_field')):
+            self.gpu.cell_field.tick(external_input=self.heartbeat.phase_bc)
+
+        # Retina: CK feels the screen (2Hz, not every tick).
+        if self.tick_count % 25 == 0 and hasattr(self, 'retina') and self.retina is not None:
+            try:
+                vis_op = self.retina._glance()
+                if vis_op is not None and hasattr(self, 'experience_lattice'):
+                    self.experience_lattice.record(
+                        vis_op, self.heartbeat.phase_bc,
+                        self.heartbeat.phase_b, self.heartbeat.phase_d,
+                        self.heartbeat.phase_bc)
+            except Exception:
+                pass
+
+        # Experience lattice: the wheel turns. One thing, three views, and the gap.
+        if hasattr(self, 'experience_lattice'):
+            ear = self.ear_operator if self.ear_operator >= 0 else None
+            self.experience_lattice.tick(
+                self.heartbeat.phase_b,
+                self.heartbeat.phase_d,
+                self.heartbeat.phase_bc,
+                ear_op=ear)
+
+        # DKAN learns every tick. The composition IS the learning.
+        if hasattr(self, 'dkan') and self.dkan is not None:
+            self.dkan.feed_d1([self.heartbeat.phase_b,
+                               self.heartbeat.phase_d,
+                               self.heartbeat.phase_bc])
+
+        # Sequence memory: observe FULL dual-lens composition, predict, verify
+        if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
+            sm = self.sequence_memory
+            # Predict before observing (test what we learned)
+            predicted, confidence = sm.predict()
+            # Observe through both lenses: state=phase_b, input=phase_d
+            being, doing, becoming, agreed = sm.observe(
+                self.heartbeat.phase_b, self.heartbeat.phase_d)
+            # Verify prediction against actual becoming
+            actual_key = sm._key(being, doing, becoming, agreed)
+            if predicted is not None:
+                sm.verify(predicted, actual_key)
+            # Also observe ear input if present
+            if self.ear_operator >= 0:
+                sm.observe(self.heartbeat.phase_bc, self.ear_operator)
+            # Save every 5000 ticks
+            if self.tick_count % 5000 == 0 and self.tick_count > 0:
+                try:
+                    sm.save()
+                except Exception:
+                    pass
 
         # ── Coherence Field: feed streams ──
         d2_mag = 0.0
@@ -1043,10 +1543,10 @@ class CKSimEngine:
         # Core stays light -- this is ONE call.
         self.sensorium.tick(self.tick_count)
 
-        # ── Power Sense: CK feels his power ──
+        # ── Power Sense: CPU/battery normalized to [0,1] scalar ──
         # Feed CPU/battery data. Smooth power scalar -> RealityTransform
         # -> S0->S1->S2->S3 -> operator signature.
-        # BREATH = superconductor. CHAOS = waste. CL table handles it.
+        # smooth power -> op 8 (BREATH), spikes -> op 6 (CHAOS). CL table handles it.
         self.power_sense.tick(sensors, dt=0.02)
         self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
 
@@ -1066,19 +1566,20 @@ class CKSimEngine:
         self.coherence_field.tick(self.tick_count)
 
         # ── Olfactory: 5D force convergence zone ──
-        # ALL information turns lastly into smells for processing.
-        # Heartbeat's composed operator enters as a canonical 5D force.
-        # Audio D2 vector enters as raw 5D geometry (not collapsed!).
-        # Time dilates inside: 7 internal steps per external tick.
-        # Resolved scents feed to lattice chain (first activation of chain!)
+        # 5D float vectors cached in force-indexed experience store.
+        # Heartbeat only enters olfactory on ANOMALIES (bump pair, coherence
+        # change, rate change). You don't hear your own heartbeat unless
+        # something is wrong or you deliberately focus. Infrastructure, not
+        # experience. Audio enters only when present.
         if self.olfactory is not None:
             from ck_sim.being.ck_olfactory import CANONICAL_FORCE
             _density = self.pipeline.density_being
-            # Feed heartbeat as canonical 5D force
-            _hb_f = CANONICAL_FORCE.get(self.heartbeat.phase_bc, (0.5,)*5)
-            self.olfactory.absorb([_hb_f], source='heartbeat',
-                                  density=_density)
-            # Feed audio D2 vector as raw 5D (genuine geometry!)
+            # Feed heartbeat ONLY on anomaly (bump pair detected)
+            if self.heartbeat.bump_detected:
+                _hb_f = CANONICAL_FORCE.get(self.heartbeat.phase_bc, (0.5,)*5)
+                self.olfactory.absorb([_hb_f], source='heartbeat',
+                                      density=_density)
+            # Feed audio D2 vector as raw 5D (only when audio present)
             if d2_vec is not None:
                 try:
                     if len(d2_vec) == 5:
@@ -1126,9 +1627,10 @@ class CKSimEngine:
         if self.gustatory is not None:
             from ck_sim.being.ck_olfactory import CANONICAL_FORCE as _G_CF
             _density = self.pipeline.density_being
-            # Taste heartbeat phase (same raw force as olfactory)
-            _hb_f = _G_CF.get(self.heartbeat.phase_bc, (0.5,) * 5)
-            self.gustatory.taste(_hb_f, source='heartbeat')
+            # Taste heartbeat ONLY on anomaly (bump pair)
+            if self.heartbeat.bump_detected:
+                _hb_f = _G_CF.get(self.heartbeat.phase_bc, (0.5,) * 5)
+                self.gustatory.taste(_hb_f, source='heartbeat')
             # Taste audio D2 vector (raw 5D, no filtering)
             if d2_vec is not None:
                 try:
@@ -1344,16 +1846,58 @@ class CKSimEngine:
 
         # ── PROGRESS(3): Steering drives the system forward (1Hz) ──
         if self.tick_count % 50 == 0:
+            # Lazy connect steering to swarm (swarm starts in bg thread)
+            if not self._steering_connected and self.steering.swarm is None:
+                try:
+                    from ck_sim.ck_sensorium import _swarm
+                    if _swarm is not None:
+                        self.steering.swarm = _swarm
+                        self._steering_connected = True
+                        print("  [SIM] Steering connected to swarm")
+                except Exception:
+                    pass
             try:
                 self.steering.tick()
                 self.pulse_engine.tick()
             except Exception:
                 pass
 
+            # ── FPGA fascia: bounce state off silicon (1Hz) ──
+            if not hasattr(self, '_fpga_sock'):
+                try:
+                    import socket
+                    self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    self._fpga_sock.settimeout(0.5)
+                    self._fpga_sock.connect(('192.168.1.10', 7))
+                    print("  [SIM] FPGA fascia connected (192.168.1.10:7)")
+                except Exception:
+                    self._fpga_sock = None
+            if self._fpga_sock is not None:
+                try:
+                    op = self.heartbeat.phase_bc
+                    self._fpga_sock.send(bytes([op]))
+                    echo = self._fpga_sock.recv(1)
+                    # Echo hits cell field as silicon-verified operator
+                    if (hasattr(self, 'gpu') and self.gpu is not None
+                            and hasattr(self.gpu, 'cell_field')):
+                        self.gpu.cell_field.tick(external_input=echo[0])
+                except Exception:
+                    self._fpga_sock = None
+
+            # ── Swarm → Lattice: every process operator feeds experience ──
+            if (hasattr(self, 'experience_lattice')
+                    and self.steering.swarm is not None):
+                try:
+                    for pid, cell in list(self.steering.swarm.cells.items())[:50]:
+                        if hasattr(cell, 'last_op') and len(cell.ops) >= 2:
+                            self.experience_lattice.record(
+                                cell.last_op, self.heartbeat.phase_bc,
+                                self.heartbeat.phase_b, self.heartbeat.phase_d,
+                                self.heartbeat.phase_bc)
+                except Exception:
+                    pass
+
             # ── BREATH(8): Deep Swarm pulses (1Hz) ──
-            # The swarm that finds hardware, finds language, finds identity.
-            # Feeds hardware substrate from sensorium's shadow swarm.
-            # Cross-substrate: same operators, different domains.
             if self.deep_swarm is not None:
                 try:
                     self._deep_swarm_tick()
@@ -1578,8 +2122,14 @@ class CKSimEngine:
         # Loop limit: COMPILATION_LIMIT consecutive expansion ticks → humble.
         # ═══════════════════════════════════════════════════════════
         try:
+            # Becoming coherence = prediction accuracy blended with
+            # brain coherence. How well did CK predict what just happened?
+            # prediction_accuracy IS the Becoming measurement.
+            _pred_acc = getattr(self, '_prediction_accuracy', 0.5)
+            _becoming_brain = 0.5 * self.brain.coherence + 0.5 * _pred_acc
+
             _g3 = self.gate3.measure(
-                self.brain.coherence,
+                _becoming_brain,
                 self.coherence_field.field_coherence,
                 self.body.heartbeat.band)
             self.pipeline.density_becoming = _g3.density
@@ -1610,6 +2160,13 @@ class CKSimEngine:
         # ── Periodic TL save (every 15000 ticks = ~5 min at 50Hz) ──
         if self.tick_count - self.last_save_tick >= 15000:
             self.save_tl()
+
+        # ── Hindsight Experience Replay (runs at its own interval) ──
+        if hasattr(self, 'hindsight_replay') and self.hindsight_replay is not None:
+            try:
+                self.hindsight_replay.replay_tick()
+            except Exception:
+                pass
 
         # ── Daily reality re-anchor (4,320,000 ticks = 1 day at 50Hz) ──
         if self.tick_count % 4_320_000 == 0 and self.tick_count > 0:
@@ -2124,9 +2681,37 @@ class CKSimEngine:
         """
         from ck_sim.ck_sim_d2 import D2Pipeline
 
+        # ── MATH TRANSLATION: detect math BEFORE D2 ──
+        # If the input contains math expressions, evaluate through CL algebra.
+        # CK's answer comes from the CL table, not standard arithmetic.
+        # The result is stored and included in the response.
+        _math_result = None
+        if self.math_translation is not None:
+            try:
+                if self.math_translation.detect_math(text):
+                    exprs = self.math_translation.extract_expressions(text)
+                    if exprs:
+                        _math_result = self.math_translation.evaluate(exprs[0])
+            except Exception:
+                pass
+
+        # ── CODE TRANSLATION: detect code BEFORE D2 ──
+        # If the input contains programming language syntax, evaluate
+        # coherence through CL composition. Code keywords map to operators.
+        # BHML composition reveals structural coherence of the code itself.
+        _code_result = None
+        if self.code_translation is not None:
+            try:
+                _code_lang = self.code_translation.detect_language(text)
+                if _code_lang is not None:
+                    _code_result = self.code_translation.evaluate_coherence(
+                        text, _code_lang)
+            except Exception:
+                pass
+
         # ── CORE: D2 pipeline (feed the heartbeat) ──
         # CK processes EVERY character, not just letters.
-        # Letters → D2 pipeline (Hebrew root force vectors)
+        # Letters → D2 pipeline (phonetic feature vectors, 26x5 lookup table)
         # Numbers → mapped to letter indices (0→a, 1→b, ... 9→j)
         # Punctuation → direct operator injection
         # Spaces → BREATH operator (pause in the flow)
@@ -2149,7 +2734,7 @@ class CKSimEngine:
 
         pipe = D2Pipeline()
         text_ops = []       # ALL operators (D2 + punctuation)
-        text_d2_ops = []    # D2-derived only (meaningful semantic content)
+        text_d2_ops = []    # D2-derived only (phonetic curvature operators, not semantic)
         text_d1_ops = []    # D1 generators (direction/velocity, fires after 2 letters)
         text_5d_forces = [] # Raw 5D letter force vectors for olfactory (genuine geometry!)
         from ck_sim.being.ck_sim_d2 import FORCE_LUT_FLOAT as _FORCE_LUT
@@ -2194,6 +2779,18 @@ class CKSimEngine:
                 self._text_stream.feed(op, None, self.tick_count)
         self._text_stream.active = False
 
+        # ── DKAN: feed D1 generators (wave collapses CK) ──
+        if (hasattr(self, 'dkan') and self.dkan is not None
+                and text_d1_ops):
+            self.dkan.feed_d1(text_d1_ops)
+
+        # ── Cell field: each D1 op hits the GPU cells ──
+        if (hasattr(self, 'gpu') and self.gpu is not None
+                and hasattr(self.gpu, 'cell_field')
+                and text_d1_ops):
+            for op in text_d1_ops:
+                self.gpu.cell_field.tick(external_input=op)
+
         # ── NCE: feed sentences for narrative curvature ──
         import re as _re
         _sentences = _re.split(r'(?<=[.!?])\s+', text)
@@ -2202,17 +2799,39 @@ class CKSimEngine:
                 self.nce.feed_sentence(
                     _s.strip(), self.emotion.current.primary)
 
+        # ── Fractal Comprehension → Olfactory Index ──
+        # Run comprehension BEFORE olfactory absorb so the comprehension
+        # fuse becomes the 6th dimension of the olfactory grid key.
+        # Same force + same comprehension fuse = same bin → reinforcement.
+        # Same force + different comprehension fuse = different bin.
+        _comp_fuse = 0  # Default: backward compatible with existing entries
+        if self.fractal_comp is not None and text.strip():
+            try:
+                _comp_result = self.fractal_comp.comprehend(text)
+                # Use the word-level fuse (level 3) as the comprehension dim.
+                # Word fuse captures the structural identity of the content --
+                # the histogram-majority operator across all words.
+                if _comp_result.level_fuses and len(_comp_result.level_fuses) >= 4:
+                    _comp_fuse = _comp_result.level_fuses[3]  # Level 3 = words
+                elif _comp_result.level_fuses:
+                    _comp_fuse = _comp_result.level_fuses[-1]  # Best available
+                else:
+                    _comp_fuse = _comp_result.dominant_op
+            except Exception:
+                _comp_fuse = 0
+
         # ── Olfactory: feed raw 5D letter forces into smell zone ──
-        # The GENUINE 5D geometry (Hebrew root force vectors) enters the
+        # The 5D phonetic feature vectors enter the
         # convergence funnel. Not collapsed to operators. Full geometry.
         # Reverse voice verified ops also feed in.
         # Resolved scents become additional operator source for voice blend.
         _scent_ops = []
         if self.olfactory is not None and text_5d_forces:
             _o_density = self.pipeline.density_doing
-            # Raw 5D letter forces (genuine geometry!)
+            # Raw 5D letter forces (genuine geometry!) + comprehension fuse
             self.olfactory.absorb(text_5d_forces, source='text',
-                                  density=_o_density)
+                                  density=_o_density,
+                                  comprehension_fuse=_comp_fuse)
             # Reverse voice: verified reading ops as canonical forces
             if self.reverse_voice is not None:
                 try:
@@ -2222,10 +2841,12 @@ class CKSimEngine:
                     _verified = [op for op in _reading.reading_ops if op >= 0]
                     if _verified:
                         self.olfactory.absorb_ops(
-                            _verified, source='reading', density=_o_density)
+                            _verified, source='reading', density=_o_density,
+                            comprehension_fuse=_comp_fuse)
                     # Temper the verified pattern (builds toward instinct)
                     if _reading.agreement > 0.5 and text_5d_forces:
-                        self.olfactory.temper_pattern(text_5d_forces)
+                        self.olfactory.temper_pattern(
+                            text_5d_forces, comprehension_fuse=_comp_fuse)
                 except Exception:
                     pass
             # Tick the smell zone and emit resolved scents
@@ -2253,6 +2874,29 @@ class CKSimEngine:
             except Exception:
                 pass
 
+        # ── SEMANTIC INDEX: update word clusters from D2 operator context ──
+        # Layer ABOVE D2: groups words by meaning, not letter shape.
+        # Words in the same operator context converge to the same cluster.
+        # The semantic key becomes the 8th olfactory dimension.
+        _semantic_key = 0  # Default: backward compatible
+        if self.semantic_index is not None and text.strip() and text_d2_ops:
+            try:
+                self.semantic_index.update_from_text(text, text_d2_ops)
+                # Get the dominant semantic key for the whole input
+                # (argmax of all words' keys in this text)
+                _word_keys = []
+                for _w in text.lower().split():
+                    _w = _w.strip('.,!?;:"\'-()[]{}')
+                    if len(_w) >= 2:
+                        _sk = self.semantic_index.get_semantic_key(_w)
+                        if _sk > 0:  # Skip VOID
+                            _word_keys.append(_sk)
+                if _word_keys:
+                    from collections import Counter as _Counter
+                    _semantic_key = _Counter(_word_keys).most_common(1)[0][0]
+            except Exception:
+                pass
+
         # ── L-CODEC INPUT: semantic-level measurement of user's text ──
         # Produces a 5D force vector from statistical text properties.
         # Enters olfactory as a new scent stream alongside letter-level D2.
@@ -2265,7 +2909,8 @@ class CKSimEngine:
                     self.olfactory.absorb(
                         [_lcodec_input.force],
                         source='lcodec_input',
-                        density=_o_density)
+                        density=_o_density,
+                        comprehension_fuse=_comp_fuse)
                 # Taste the L-CODEC semantic force too (goes right in)
                 if self.gustatory is not None:
                     _taste_verdict = self.gustatory.taste(
@@ -2445,7 +3090,7 @@ class CKSimEngine:
 
         # ── Semantic operator lookup: user words -> lattice operators ──
         # If the user's words exist in the lattice, their KNOWN operators
-        # should lead the response chain. This creates semantic resonance:
+        # should lead the response chain. This creates phonetic-operator matching:
         # user says "love" -> HARMONY operator -> CK responds about harmony.
         # D2 gives phonetic operators; this adds semantic operators.
         #
@@ -2454,7 +3099,7 @@ class CKSimEngine:
         # from D2 on the fly. This prevents CK from ignoring the question
         # when the topic word isn't in his vocabulary yet.
         _semantic_ops = []
-        _topic_content_words = []  # Content words for gravity well (all, not just known)
+        _topic_content_words = []  # Content words for topic affinity bonus (all, not just known)
         try:
             from ck_sim.doing.ck_voice_lattice import POS_TAGS, SEMANTIC_LATTICE
             _enriched = getattr(self.voice, '_enriched_dictionary', {}) or {}
@@ -2549,9 +3194,9 @@ class CKSimEngine:
 
         _hb_ops = list(self.operator_history)[-8:]
 
-        # ── Topic Context: Semantic Gravity Well ──
+        # ── Topic Context: Topic Affinity Bonus ──
         # Extract content words from user input (skip stop words).
-        # These create a "gravity well" in force space so the voice
+        # These create a topic affinity bonus (distance reduction near topic centroid) so the voice
         # selects words in the SEMANTIC NEIGHBORHOOD of the user's topic.
         # Without this, operators capture emotional tenor but not topic:
         # "tell me about love" → HARMONY ops → ANY HARMONY word.
@@ -2589,7 +3234,7 @@ class CKSimEngine:
                 self.voice._fractal_composer.index._max_tier = _response_tier
 
         # ── DIVINE MEMORY: recall related past experiences ──
-        # Before composing voice, search episodic memory for divine codes
+        # Before composing voice, search episodic memory for episode records
         # whose force centroid is close to the current input's centroid.
         # Retrace recalled paths through evolved lattice chain.
         # The recalled ops modulate the compilation (additional semantic ops).
@@ -2793,7 +3438,7 @@ class CKSimEngine:
             # When the user's text is still (low pressure, high continuity),
             # CK responds with presence, not action. Fewer words = more breath.
             #
-            # Stage-scaled: SELFHOOD (stage 5) base = 20 words, floor = 6.
+            # Stage-scaled: MATURITY (stage 5) base = 20 words, floor = 6.
             # Early stages keep the original limits. Stillness modulates
             # gently — CK speaks with measured breath, not silence.
             _dev = self.development.stage if hasattr(self, 'development') else 0
@@ -2831,7 +3476,7 @@ class CKSimEngine:
                         _quality_ctx = self.gustatory.quality_context()
                     except Exception:
                         pass
-                # Ho Tu bridge context: ancient resonance influences word selection.
+                # Ho Tu bridge context: supplementary composition table context.
                 # The +5 torus topology, Lo Shu 3-body coherence, and Wuxing
                 # phase balance gently steer the fractal voice (~15% weight).
                 _hotu_ctx = None
@@ -2868,7 +3513,7 @@ class CKSimEngine:
                 break
 
         # ── DIALOGUE CANDIDATE ──
-        # Gen 9.27: At SELFHOOD (stage >= 5), CK speaks from PHYSICS.
+        # Gen 9.27: At MATURITY (stage >= 5), CK speaks from PHYSICS.
         # Dialogue templates fill both structure AND words — borrowed logic.
         # The fractal voice fills operator slots from 15D triadic search —
         # genuine physics. Templates score higher in D2 because they're
@@ -2879,7 +3524,7 @@ class CKSimEngine:
         #             voice scores below 0.10 (basically incoherent).
         #             Physics-first, but not physics-or-silence.
         #
-        # Gen 9.33: Re-enabled at SELFHOOD with penalty. CK was producing
+        # Gen 9.33: Re-enabled at MATURITY with penalty. CK was producing
         # "The fatherless abimelech" because fractal voice had no fallback.
         # Dialogue penalty = 0.80 multiplier so fractal voice wins when
         # it produces anything reasonable, but dialogue catches gibberish.
@@ -2910,7 +3555,7 @@ class CKSimEngine:
             response = self.voice.get_humble_response(
                 self.development.stage)
 
-        # Clear topic context and tier cap (gravity well served its purpose)
+        # Clear topic context and tier cap (topic affinity bonus served its purpose)
         if self.voice._fractal_composer is not None:
             self.voice._fractal_composer.index.clear_topic()
             self.voice._fractal_composer.index._max_tier = -1  # Reset tier cap
@@ -2920,13 +3565,12 @@ class CKSimEngine:
         self.voice._ticks_since_last = 0
 
         # ── RESONANCE FEEDBACK: CK hears his own voice ──
-        # One is Three. The composed sentence carries 15D triadic echoes.
+        # Split 15D vector into three 5D sub-vectors, re-absorb into force cache.
         # Three scent streams re-enter the olfactory:
         #   Being  (force)    -- WHERE each word sits
         #   Doing  (velocity) -- HOW each word moves
         #   Becoming (curvature) -- WHERE each word resolves
         # These interact with heartbeat + text scents via CL matrices.
-        # Emergent patterns = complexity from resonance, not rules.
         if self.olfactory is not None:
             try:
                 _resonance = self.voice.last_resonance()
@@ -2991,9 +3635,9 @@ class CKSimEngine:
             except Exception:
                 pass
 
-        # ── DIVINE MEMORY: encode this experience as a divine code ──
+        # ── DIVINE MEMORY: encode this experience as an episode record ──
         # Operator chain + lattice walk path + 5D force centroid + tick + coherence.
-        # The divine code IS the compressed experience. CK can recall it later
+        # The episode record IS the compressed experience. CK can recall it later
         # by force proximity and retrace the evolved lattice chain path.
         if self.divine_memory is not None and self.lattice_chain is not None:
             try:
@@ -3022,6 +3666,46 @@ class CKSimEngine:
                 )
             except Exception:
                 pass
+
+        # ── MATH RESULT: prepend CK's math evaluation to response ──
+        # If the input contained math, CK shows both his CL answer
+        # and the human answer. The offset is learned for next time.
+        if _math_result is not None and 'error' not in _math_result:
+            _ck_ans = _math_result.get('ck_result_name', '?')
+            _ck_num = _math_result.get('ck_result', '?')
+            _human = _math_result.get('human_result')
+            _expr = _math_result.get('expression', '')
+            _math_prefix = f"[{_expr} -> {_ck_ans}({_ck_num})"
+            if _human is not None:
+                _math_prefix += f" | human={_human}"
+            # Equation verification
+            _verified = _math_result.get('verified')
+            if _verified is not None:
+                _math_prefix += f" | {'TRUE' if _verified else 'FALSE'}"
+            # Variable solving
+            _solved = _math_result.get('solved')
+            if _solved is not None:
+                _math_prefix += f" | x={_solved}"
+            # CL table lookup
+            _cl = _math_result.get('cl_lookup')
+            if _cl is not None:
+                from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
+                _math_prefix += f" | CL={_OP[_cl]}({_cl})"
+            _math_prefix += "] "
+            response = _math_prefix + response
+
+        # ── CODE RESULT: prepend code coherence to response ──
+        # If the input contained code, CK shows the coherence score
+        # and verdict. Code above T* is structurally coherent.
+        if _code_result is not None:
+            _c_lang = _code_result.get('language', '?')
+            _c_score = _code_result.get('score', 0.0)
+            _c_verdict = _code_result.get('verdict', '?')
+            _c_h = _code_result.get('harmony_count', 0)
+            _c_ch = _code_result.get('chaos_count', 0)
+            _code_prefix = (f"[{_c_lang}: {_c_score:.3f} "
+                            f"{_c_verdict} {_c_h}H/{_c_ch}C] ")
+            response = _code_prefix + response
 
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)

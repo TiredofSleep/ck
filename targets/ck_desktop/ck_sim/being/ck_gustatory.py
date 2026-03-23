@@ -92,6 +92,7 @@ ONE IS THREE: Every taste has a triadic signature.
 import math
 import os
 import json
+import shutil
 import time
 from dataclasses import dataclass, field
 from typing import List, Tuple, Optional, Dict
@@ -914,25 +915,50 @@ class GustatoryPalate:
 
         DUAL of olfactory's scent_library.json -> taste_palette.json.
         Same format, same resolution, different memory content.
+        Always backs up previous file before overwriting.
+        Writes to temp file first, then renames (atomic on most OS).
         """
         os.makedirs(self._persist_dir, exist_ok=True)
         path = os.path.join(self._persist_dir, 'taste_palette.json')
+        temp_path = path + '.tmp'
+        backup_path = path + '.backup'
+
+        # Backup existing file before overwriting
+        if os.path.exists(path):
+            try:
+                shutil.copy2(path, backup_path)
+            except Exception:
+                pass
+
         data = {}
         for key, entry in self.palette.items():
             data[','.join(str(k) for k in key)] = entry
-        with open(path, 'w') as f:
-            json.dump({
-                'version': 1,
-                'dims': 5,
-                'grid_resolution': 20,
-                'palette': data,
-                'stats': {
-                    'total_tasted': self.total_tasted,
-                    'total_preferences': self.total_preferences,
-                    'total_aversions': self.total_aversions,
-                    'total_compounds': self.total_compounds,
-                },
-            }, f, indent=1)
+
+        try:
+            with open(temp_path, 'w') as f:
+                json.dump({
+                    'version': 1,
+                    'dims': 5,
+                    'grid_resolution': 20,
+                    'palette': data,
+                    'stats': {
+                        'total_tasted': self.total_tasted,
+                        'total_preferences': self.total_preferences,
+                        'total_aversions': self.total_aversions,
+                        'total_compounds': self.total_compounds,
+                    },
+                }, f, indent=1)
+            # Rename temp -> real (atomic on most OS)
+            if os.path.exists(path):
+                os.remove(path)
+            os.rename(temp_path, path)
+        except Exception as e:
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            print(f"  [GUSTATORY] Save failed: {e}")
 
     def _load_palette(self):
         """Load taste palette from disk."""
@@ -951,7 +977,23 @@ class GustatoryPalate:
             self.total_aversions = stats.get('total_aversions', 0)
             self.total_compounds = stats.get('total_compounds', 0)
         except (json.JSONDecodeError, KeyError, ValueError):
-            pass
+            # Try backup
+            backup = os.path.join(self._persist_dir, 'taste_palette.json.backup')
+            if os.path.exists(backup):
+                try:
+                    with open(backup, 'r') as f:
+                        data = json.load(f)
+                    for key_str, entry in data.get('palette', {}).items():
+                        key = tuple(int(p) for p in key_str.split(','))
+                        self.palette[key] = entry
+                    stats = data.get('stats', {})
+                    self.total_tasted = stats.get('total_tasted', 0)
+                    self.total_preferences = stats.get('total_preferences', 0)
+                    self.total_aversions = stats.get('total_aversions', 0)
+                    self.total_compounds = stats.get('total_compounds', 0)
+                    print("  [GUSTATORY] Loaded from backup")
+                except Exception:
+                    pass
 
 
 # ================================================================

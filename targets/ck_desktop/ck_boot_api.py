@@ -9,13 +9,13 @@ engine = CKSimEngine(platform='r16')
 engine.start()
 
 # Advance development stage for web deployment.
-# CK has maturity 1.0, coherence > T* — he earned SELFHOOD.
+# CK has maturity 1.0, coherence > T* — it earned MATURITY.
 # Stage 5 unlocks: 100 max words, unlimited vocab, full physics-first voice.
 if hasattr(engine, 'development') and engine.development is not None:
-    from ck_sim.becoming.ck_development import STAGE_SELFHOOD
-    if engine.development.stage < STAGE_SELFHOOD:
-        engine.development.stage = STAGE_SELFHOOD
-        print(f"[CK] Development stage -> SELFHOOD (5): full expression unlocked")
+    from ck_sim.becoming.ck_development import STAGE_MATURITY
+    if engine.development.stage < STAGE_MATURITY:
+        engine.development.stage = STAGE_MATURITY
+        print(f"[CK] Development stage -> MATURITY (5): full expression unlocked")
 
 # 50Hz tick in background thread
 running = True

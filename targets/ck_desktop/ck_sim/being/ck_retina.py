@@ -746,6 +746,21 @@ class CKExistence:
                     except Exception:
                         pass
 
+                # Feed DKAN with letter-level D1 from screen text
+                dkan = getattr(self.engine, 'dkan', None)
+                if dkan is not None:
+                    from ck_sim.being.ck_sim_d2 import D2Pipeline
+                    pipe = D2Pipeline()
+                    d1_ops = []
+                    for ch in line.lower():
+                        idx = ord(ch) - ord('a')
+                        if 0 <= idx < 26:
+                            pipe.feed_symbol(idx)
+                            if pipe.d1_valid:
+                                d1_ops.append(pipe.d1_operator)
+                    if len(d1_ops) >= 2:
+                        dkan.feed_d1(d1_ops)
+
                 self.lines_absorbed += 1
 
             self.texts_digested += 1
