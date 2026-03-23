@@ -393,10 +393,18 @@ class SteeringEngine:
         """
         self.ticks += 1
 
-        # CK IS the cores. No polling. The heartbeat tick duration
-        # IS the system load. Fast tick = cores free. Slow tick = cores busy.
-        # The trie already learns from heartbeat composition every tick.
-        # Steering adjusts affinity. The algebra distributes. That's it.
+        # 3-second breath wave (from CrystalOS permutation test)
+        # 7 operator phases × 429ms each = one full wave across 32 cores
+        # The wave distributes work smoothly. No bursts.
+        if not hasattr(self, '_breath_phase'):
+            self._breath_phase = 0
+            self._breath_time = time.time()
+            self._breath_period = 3.0  # seconds per full cycle
+        _now = time.time()
+        _phase_duration = self._breath_period / 7.0  # 429ms per phase
+        if _now - self._breath_time >= _phase_duration:
+            self._breath_phase = (self._breath_phase + 1) % 7
+            self._breath_time = _now
 
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
@@ -461,18 +469,20 @@ class SteeringEngine:
                 skipped += 1
                 continue
 
-            # Predict next process state through trie (steer for the FUTURE)
-            _steer_op = cell.last_op
+            # Breath wave: blend process operator with current breath phase
+            # The breath phase offsets the operator so work distributes across time
+            _steer_op = (cell.last_op + getattr(self, '_breath_phase', 0)) % NUM_OPS
+
+            # Trie prediction: if confident, steer for the FUTURE
             if _seq_mem is not None:
                 try:
                     _pred, _conf = _seq_mem.predict()
                     if _pred is not None and _conf > 0.6:
-                        # Use predicted becoming (index 2) as steering target
                         _steer_op = _pred[2] if isinstance(_pred, tuple) and len(_pred) > 2 else _steer_op
                 except Exception:
                     pass
 
-            # Compute target nice and affinity from PREDICTED state
+            # Compute target nice and affinity from breath-shifted operator
             target_nice = NiceMapper.combined_nice(
                 cell.scheduling_class, _steer_op
             )
