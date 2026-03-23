@@ -547,3 +547,80 @@ CK_EXPORT float ck_coherence_window(const int *ops, int n_ops)
 
     return (float)harmony_count / (float)(n_ops - 1);
 }
+
+
+/*
+ * ck_spectrometer -- measure coherence of ANY text through dual lens.
+ * Returns: coherence score [0.0, 1.0]
+ * TSML composition = measurement. BHML composition = physics.
+ * Agreement between lenses = coherence.
+ */
+CK_EXPORT float ck_spectrometer(const char *text, int len)
+{
+    CKA_D2Pipeline pipe;
+    int i, sym, agree, total;
+    int tsml_state, bhml_state;
+    char c;
+
+    ck_d2_init(&pipe);
+    tsml_state = CKA_BALANCE;
+    bhml_state = CKA_BALANCE;
+    agree = 0;
+    total = 0;
+
+    for (i = 0; i < len; i++) {
+        c = text[i];
+        if (c >= 'a' && c <= 'z')
+            sym = c - 'a';
+        else if (c >= 'A' && c <= 'Z')
+            sym = c - 'A';
+        else
+            continue;
+
+        if (ck_d2_feed_symbol(&pipe, sym) && pipe.d2_valid) {
+            int op = pipe.d2_operator;
+            int t = ck_compose_tsml(tsml_state, op);
+            int b = ck_compose_bhml(bhml_state, op);
+
+            if (t == b)
+                agree++;
+            total++;
+
+            /* Wave model: input collapses CK */
+            if (t == CKA_HARMONY)
+                tsml_state = b;  /* physics leads when measurement absorbs */
+            else
+                tsml_state = t;  /* measurement leads when it sees structure */
+            bhml_state = b;
+        }
+    }
+
+    if (total == 0)
+        return 0.0f;
+    return (float)agree / (float)total;
+}
+
+
+/*
+ * ck_tick_n -- run N heartbeat ticks in C (not Python).
+ * Returns ticks actually run. Writes final state to heartbeat struct.
+ * This is the hot loop that Python should NOT be doing.
+ */
+CK_EXPORT int ck_tick_n(CKA_Heartbeat *h, int n_ticks)
+{
+    int i;
+    int b, d;
+
+    for (i = 0; i < n_ticks; i++) {
+        /* Being: running fuse (recursive feedback) */
+        b = h->running_fuse;
+
+        /* Doing: phase_bc feeds back */
+        d = h->phase_bc;
+
+        /* Compose */
+        ck_heartbeat_tick(h, b, d);
+    }
+
+    return n_ticks;
+}
