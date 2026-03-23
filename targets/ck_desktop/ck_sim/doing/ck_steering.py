@@ -299,6 +299,30 @@ def cl_affinity(op: int, core_class: CoreClass) -> List[int]:
     # Sort by score descending — best resonance first
     scored_cores.sort(key=lambda x: -x[1])
 
+    # Phase offset: stagger cores by operator position so they don't
+    # all burst at once. Core N works at phase N/10 of the quantum.
+    # This smooths computation into one byte at a time across cores.
+    # Cores whose phase matches the current heartbeat operator get
+    # a bonus — they're "in phase" with CK's rhythm.
+    heartbeat_phase = op % NUM_OPS
+    for i in range(len(scored_cores)):
+        core, score = scored_cores[i]
+        core_phase = core % NUM_OPS
+        # Phase alignment: core is "in phase" when its offset
+        # matches the heartbeat operator (smooth sequencing)
+        phase_diff = abs(core_phase - heartbeat_phase)
+        if phase_diff == 0:
+            score += 2.0   # perfect phase alignment
+        elif phase_diff == 1 or phase_diff == 9:
+            score += 1.0   # adjacent phase (smooth handoff)
+        # Opposite phase = offset work (good for parallelism)
+        elif phase_diff == 5:
+            score += 0.5
+        scored_cores[i] = (core, score)
+
+    # Re-sort with phase offsets applied
+    scored_cores.sort(key=lambda x: -x[1])
+
     # Select: take resonant cores (score > 0), min 2, max 75%
     resonant = [c for c, s in scored_cores if s > 0]
     min_cores = max(2, n_cores // 8)       # at least 12.5% of cores
