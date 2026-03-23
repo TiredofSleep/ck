@@ -1401,6 +1401,16 @@ class CKSimEngine:
         self.heartbeat.tick(b, d)
         op = self.heartbeat.phase_bc
 
+        # ── BRAIN: coherence at 10Hz (not every tick) ──
+        if self.tick_count % max(1, int(getattr(self, '_tps', 50) / 10)) == 0:
+            try:
+                brain_tick(self.brain, self.heartbeat)
+                self.body.brain_coherence = self.brain.coherence
+                self.body.brain_bump = self.brain.bump
+                self.body.current_op = op
+            except Exception:
+                pass
+
         # ── TRIE: observe + predict (sequence memory) ──
         self._tick_trie()
 
