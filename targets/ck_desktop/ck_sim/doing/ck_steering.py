@@ -417,6 +417,7 @@ class SteeringEngine:
             if not hasattr(self, '_fpga_sock'):
                 import socket
                 self._fpga_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self._fpga_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
                 self._fpga_sock.settimeout(0.005)
                 self._fpga_sock.connect(('192.168.1.10', 7))
             import time as _t
