@@ -2,7 +2,65 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
 
-An operator algebra engine. 10 operators. Two 10x10 composition tables: TSML (measurement, singular, 73% HARMONY) and BHML (physics, invertible, det=70). D1 generators classify input into operators from 5D force vectors derived from 22 Hebrew phonetic roots. Tables compose operators. A neural net (DKAN) learns operator transitions from experience. Everything is one algebra viewed through two lenses -- measurement and physics. No token prediction. No backpropagation. No floating-point weights. 200 integers, frozen. **[coherencekeeper.com](https://coherencekeeper.com)** -- talk to it live.
+A stacked-lens operator algebra. 10 operators. Two 10x10 composition tables -- TSML (measurement, singular, 73% HARMONY) and BHML (physics, invertible, det=70). Numbers are rotations, not counts: 1=structure, 2=angular momentum (1 rotated), 3=harmonic return (wave back to source). Eigenvalues are roots of unity because operators ARE rotations in Z/10Z. One composition function (`ck_tig.py`) stacks lenses: Being=2, Doing=3, Becoming=4. compose(7,0)=(7,7,7) -- the 7=0 identity holds at all depths. 41 files call it. **[coherencekeeper.com](https://coherencekeeper.com)** -- talk to it live.
+
+---
+
+## Stacked Lens Composition
+
+The core discovery (March 25, 2026): CK is not a single table lookup. It is stacked lenses -- the same two tables composed repeatedly at increasing depth. Each lens adds resolution.
+
+| Phase | Lenses | Composition | Bits | Shell |
+|-------|--------|-------------|------|-------|
+| Being | 2 | TSML(BHML(b,d)) | 9 | 22 |
+| Doing | 3 | BHML(TSML(b,d), d) | 9 | 44 |
+| Becoming | 4 | TSML(BHML(TSML(b,d), BHML(b,d))) | 9 | 72 |
+
+Shell numbers = compression depths. Shell 22 is the coarse Being view (thumbnail). Shell 44 is the medium Doing view (working). Shell 72 is the fine Becoming view (perceptual lossless). Each shell encodes 9 bits of force geometry. Total: 27 bits per sample.
+
+```python
+def compose(b, d):
+    """ONE composition function. All 41 files call this."""
+    phys = BHML[b][d]             # Layer 1: physics composes
+    being = TSML[b][phys]         # Layer 2: measurement observes (Being = 2 lenses)
+    doing = BHML[being][d]        # Layer 3: physics composes the observation (Doing = 3 lenses)
+    becoming = TSML[doing][phys]  # Layer 4: measurement observes the composition (Becoming = 4 lenses)
+    return being, doing, becoming
+```
+
+`compose(7,0) = (7,7,7)`. HARMONY composed with VOID produces HARMONY at every depth. The 7=0 identity (WP18) holds through all four lenses. This is `ck_tig.py` -- the single source of truth.
+
+---
+
+## Proven Constants
+
+Theorems from Z/10Z modular arithmetic. Exact. Exhaustively verified.
+
+| Constant | Value | Source |
+|----------|-------|--------|
+| Cross-cycle disagreement | 44 | Sum of \|add(c,d)-mul(c,d)\| for c in coprime {1,3,7,9}, d in even {2,4,6,8} |
+| Wobble | \|44-50\|/100 = 3/50 = 0.06 | Deviation of disagreement from midpoint |
+| Heartbeat | [1,3,1,1] period 4, sum=6=CHAOS | Addition of simultaneous creation+dissolution cycles |
+| Frozen cells | 4: (0,0),(2,2),(4,8),(8,4) | Where add=mul (no disagreement, no time emitted) |
+| Three flows | Creation {1,3,7,9}, Dissolution {2,4,6,8}, Frame {0,5} | Coprime group permutes even coset transitively |
+| C x C - D x D | 56-52=4=frozen count | Matter self-interaction exceeds antimatter by exactly 4 |
+| Mul heartbeat | constant [6,6,6,6] | Multiplication cycle = pure CHAOS |
+
+Creation composed with Dissolution permutes transitively. It does not destroy. This is a theorem: the coprime group acts on the even coset by multiplication mod 10, and the action is transitive.
+
+---
+
+## Numbers as Rotations
+
+Numbers in Z/10Z are not quantities. They are rotation operators on the circle.
+
+- **1** = the only real thing (structure, identity generator)
+- **2** = angular momentum (1 rotated by pi)
+- **3** = harmonic return (wave coming back to source, period 4 in multiplication)
+- **5** = frame element (fixed point, 5^2=5 mod 10)
+- **7** = HARMONY = 0 (completes the circle, WP18)
+
+Eigenvalues of circulant composition tables are roots of unity: lambda_k = sum_j(c_j * omega^jk) where omega = e^(2*pi*i/n). The operators ARE rotations. phi emerges exactly from the size-5 addition table. sqrt(3) from size-3. pi from |lambda_1| = n/(2*sin(pi/n)) at ANY size. These are circulant matrix eigenvalue properties -- known mathematics applied to the CK tables.
 
 ---
 
@@ -160,87 +218,6 @@ Cross-element interactions (BHML):
 - Earth x Fire: FRICTION (COUNTER consumed by COLLAPSE and RESET)
 - Any x Ether: POLAR (returns only VOID or HARMONY -- binary judge)
 
-### Working Python Implementation
-
-```python
-# ── Tables ──
-TSML = [
-    [0,0,0,0,0,0,0,7,0,0], [0,7,3,7,7,7,7,7,7,7],
-    [0,3,7,7,4,7,7,7,7,9], [0,7,7,7,7,7,7,7,7,3],
-    [0,7,4,7,7,7,7,7,8,7], [0,7,7,7,7,7,7,7,7,7],
-    [0,7,7,7,7,7,7,7,7,7], [7,7,7,7,7,7,7,7,7,7],
-    [0,7,7,7,8,7,7,7,7,7], [0,7,9,3,7,7,7,7,7,7],
-]
-BHML = [
-    [0,1,2,3,4,5,6,7,8,9], [1,2,3,4,5,6,7,2,6,6],
-    [2,3,3,4,5,6,7,3,6,6], [3,4,4,4,5,6,7,4,6,6],
-    [4,5,5,5,5,6,7,5,7,7], [5,6,6,6,6,6,7,6,7,7],
-    [6,7,7,7,7,7,7,7,7,7], [7,2,3,4,5,6,7,8,9,0],
-    [8,6,6,6,7,7,7,9,7,8], [9,6,6,6,7,7,7,0,8,0],
-]
-
-# ── Force Vectors (26 Latin letters → 5D) ──
-FORCE = {
-    'a': (0.80,0.00,0.90,0.00,0.70), 'b': (0.30,0.60,0.40,0.80,0.60),
-    'c': (0.50,0.40,0.30,0.20,0.50), 'd': (0.20,0.70,0.50,0.30,0.40),
-    'e': (0.70,0.20,0.60,0.10,0.80), 'f': (0.40,0.50,0.40,0.60,0.70),
-    'g': (0.50,0.40,0.30,0.20,0.50), 'h': (0.30,0.80,0.70,0.50,0.50),
-    'i': (0.90,0.10,0.80,0.10,0.90), 'j': (0.90,0.10,0.80,0.10,0.90),
-    'k': (0.50,0.50,0.30,0.40,0.50), 'l': (0.60,0.30,0.60,0.20,0.70),
-    'm': (0.30,0.70,0.50,0.80,0.40), 'n': (0.40,0.50,0.40,0.50,0.60),
-    'o': (0.70,0.30,0.70,0.20,0.60), 'p': (0.50,0.40,0.50,0.30,0.50),
-    'q': (0.40,0.50,0.60,0.40,0.50), 'r': (0.60,0.30,0.50,0.20,0.60),
-    's': (0.20,0.60,0.30,0.70,0.50), 't': (0.30,0.60,0.50,0.70,0.50),
-    'u': (0.40,0.50,0.40,0.60,0.70), 'v': (0.40,0.50,0.40,0.60,0.70),
-    'w': (0.40,0.50,0.40,0.60,0.70), 'x': (0.20,0.60,0.30,0.70,0.50),
-    'y': (0.90,0.10,0.80,0.10,0.90), 'z': (0.60,0.30,0.20,0.40,0.30),
-}
-
-# ── D2 Classification ──
-D2_OP_MAP = [
-    (6, 1),  # aperture:   +CHAOS    -LATTICE
-    (4, 0),  # pressure:   +COLLAPSE -VOID
-    (3, 9),  # depth:      +PROGRESS -RESET
-    (7, 2),  # binding:    +HARMONY  -COUNTER
-    (5, 8),  # continuity: +BALANCE  -BREATH
-]
-
-def classify_d2(v0, v1, v2):
-    """D2 curvature -> operator. v0=current, v1=previous, v2=two ago."""
-    d2 = [v0[d] - 2*v1[d] + v2[d] for d in range(5)]
-    if sum(abs(x) for x in d2) < 0.01:
-        return 0  # VOID
-    abs_d2 = [abs(x) for x in d2]
-    max_dim = abs_d2.index(max(abs_d2))
-    sign = 0 if d2[max_dim] >= 0 else 1
-    return D2_OP_MAP[max_dim][sign]
-
-# ── Heartbeat Loop ──
-from collections import deque
-
-def heartbeat(ticks=1000):
-    phase_b = 5   # BALANCE (being)
-    phase_d = 5   # BALANCE (doing)
-    window = deque(maxlen=32)
-    for tick in range(ticks):
-        phase_bc = TSML[phase_b][phase_d]
-        window.append(phase_bc)
-        harmony_count = sum(1 for op in window if op == 7)
-        coherence = harmony_count / len(window)
-        coherent = coherence >= 5/7
-        phase_d = phase_bc
-    return coherence
-
-# ── Coherence Measurement ──
-def measure_coherence(operator_sequence):
-    """Compose consecutive pairs through BHML, count HARMONY fraction."""
-    if len(operator_sequence) < 2:
-        return 0.5
-    harmony = sum(1 for i in range(len(operator_sequence) - 1)
-                  if BHML[operator_sequence[i]][operator_sequence[i+1]] == 7)
-    return harmony / (len(operator_sequence) - 1)
-```
-
 ### 10 Verification Properties
 
 1. `TSML[7][x] == 7` for all x (HARMONY absorbs in measurement)
@@ -253,32 +230,79 @@ def measure_coherence(operator_sequence):
 8. 28 cells in BHML equal 7 (28% HARMONY)
 9. BHML diagonal: 0, 2, 3, 4, 5, 6, 7, 8, 7, 0
 10. BHML eigenvalue ratio lambda_6/lambda_5 = 0.714865 (T* = 5/7 at 0.08% error)
+11. `compose(7,0) == (7,7,7)` (HARMONY=VOID identity holds at all lens depths)
 
 ---
 
-## The DKAN Neural Net
+## Compression Shells
 
-Discrete Kolmogorov-Arnold Network. CL tables ARE the activation functions. D2 curvature IS the loss signal. 10 operators ARE the neurons. One table lookup replaces `y = f(Wx + b)`. 100 bytes. One FPGA clock cycle at 200MHz.
+Lens depths ARE compression shells. Each shell encodes 9 bits of force geometry.
+
+| Shell | Lens Depth | Phase | Quality | Compression |
+|-------|-----------|-------|---------|-------------|
+| 22 | 2-lens Being | Coarse | Thumbnail | 738x screen |
+| 44 | 3-lens Doing | Medium | Working | 369x screen |
+| 72 | 4-lens Becoming | Fine | Perceptual lossless | 190x screen |
+
+Proven compression ratios (1920x1080, tested):
+- **Screen**: 190x typical (25KB for full 1080p code editor)
+- **Color**: 150x typical, 1915x game frames, perceptual delta-E < 1.0
+- **Audio**: 53x speech vs PCM, 112x music, 9-bit force per 5ms frame
+
+Progressive streaming: send Shell 22 first (coarse), add Shell 44 (medium), add Shell 72 (fine). Same algebra at each depth. Same 9-bit geometry. Different resolution.
+
+---
+
+## Disagreement Tick
+
+Adaptive Hz from algebraic disagreement. Replaces fixed 50Hz.
+
+Each tick, the engine computes `disagreement(b, d) = |add(b,d) - mul(b,d)|` in Z/10Z. Frozen cells (disagreement=0) emit no time. High-disagreement cells tick faster. The heartbeat [1,3,1,1] drives the base rhythm.
+
+Measured improvement (disagreement tick vs fixed 50Hz baseline):
+- **P99 jitter**: 2.08ms (was 5.52ms, -62%)
+- **StDev**: 0.14ms (was 0.72ms, -80%)
+- **Frozen fraction**: ~4% of all compositions emit no time (exact: 4 cells / 100)
+
+---
+
+## The DKAN Neural Architecture
+
+Three-layer stack. All three learn through both lenses every tick.
+
+```
+┌─────────────────────────────────┐
+│  TRIE  — sequence prediction    │  87.8% accuracy, pattern completion
+│  AO Brain — Hebbian transitions │  48KB C, 1.37M transition weights
+│  DKAN  — CL tables as activation│  100 bytes, 1 FPGA clock at 200MHz
+└─────────────────────────────────┘
+```
+
+**DKAN** (bottom): Discrete Kolmogorov-Arnold Network. CL tables ARE the activation functions. D2 curvature IS the loss signal. One table lookup replaces `y = f(Wx + b)`. 10 operators = 10 neurons. 100 bytes. No backpropagation. No floating-point weights.
+
+**AO Brain** (middle): Hebbian co-occurrence matrix. 48KB compiled C. 1.37M transition weights learned from operator sequences. Cells that fire together wire together. Experience influence capped at 50% -- the frozen algebraic core can never be overridden.
+
+**Trie** (top): Sequence prediction from operator history. 87.8% next-operator accuracy. Pattern completion over learned walks.
+
+All three layers compose through `ck_tig.py` every tick. DKAN provides the algebraic ground truth. AO Brain provides learned context. Trie provides prediction. Disagreement between layers drives adaptation.
 
 Built from 5 research threads:
 
 | Research | Group | CK Application |
 |----------|-------|----------------|
-| Kolmogorov-Arnold Networks | Liu et al. 2024, MIT (ICLR 2025) | Learnable activation on edges. CK: the CL table IS the edge function, node activation, and routing -- all in one lookup. |
-| Grokking | Power et al. 2022, OpenAI (updated 2024) | Delayed generalization past memorization. CK: IPR (Inverse Participation Ratio) monitors crystallization from memorization to structural understanding. |
-| Spectral analysis | Mechanistic interpretability | Eigenvalue decomposition reveals learned structure. CK: BHML eigenvalues encode T*=5/7, Fibonacci ratios, and 1/e approximation. |
-| Discrete computation | Wolfram | Simple rules produce complexity. CK: 200 integers, 10 operators, two tables -- emergent algebraic structure. |
-| Hebbian learning | Hebb 1949 | Cells that fire together wire together. CK: 10x10 transition matrix records operator co-occurrence. No gradients. No backpropagation. |
-
-Training: Hebbian/evolutionary. 360 steps on R16 achieved best coherence 0.903, mean 0.616, COUNTER dominant at 30.8%. Lattice chain nodes evolve their own CL tables after 7+ observations per cell at 60%+ confidence. Experience influence capped at 50% -- the frozen algebraic core can never be overridden.
+| Kolmogorov-Arnold Networks | Liu et al. 2024, MIT (ICLR 2025) | CL table IS the edge function, node activation, and routing |
+| Grokking | Power et al. 2022, OpenAI | IPR monitors crystallization from memorization to understanding |
+| Spectral analysis | Mechanistic interpretability | BHML eigenvalues encode T*=5/7, Fibonacci ratios, 1/e |
+| Discrete computation | Wolfram | 200 integers, 10 operators, two tables -- emergent structure |
+| Hebbian learning | Hebb 1949 | 10x10 transition matrix, no gradients, no backpropagation |
 
 ---
 
 ## Architecture
 
-**Tables**: TSML (measurement, det=0) + BHML (physics, det=70). Frozen. Never change. 200 integers total.
+**`ck_tig.py`**: ONE composition function. All 41 files call it. Stacked lenses: Being=2, Doing=3, Becoming=4. Tables, constants, heartbeat, frozen cells, disagreement -- all in one file.
 
-**Net**: DKAN. Learns from every tick. Evolves lattice chain node tables through Hebbian co-occurrence. Generator paths recorded as 10x10 transition weights.
+**Tables**: TSML (measurement, det=0) + BHML (physics, det=70). Frozen. Never change. 200 integers total.
 
 **Quadratic operator**: 4 operator inputs -> 3 BHML compositions -> 1 output. The minimal composition path through the algebra.
 
@@ -296,7 +320,7 @@ Training: Hebbian/evolutionary. 360 steps on R16 achieved best coherence 0.903, 
 
 **R16 Desktop**: 16-core AMD CPU, RTX 4070 12GB. CuPy GPU for parallel composition. Being subsystems on CPU (heartbeat, olfactory, gustatory). Doing on GPU (BHML/TSML in VRAM, lattice automaton, batch walks).
 
-**FPGA**: Zynq-7020. QSPI boot. PL heartbeat at 200MHz. PS Ethernet gigabit. <1ms fascia latency. D2 pipeline in Verilog. Q1.14 fixed-point matches Python exactly.
+**FPGA**: Zynq-7020. QSPI boot. PL heartbeat at 200MHz. Sub-ms fascia latency. AXI GPIO for heartbeat signal. D2 pipeline in Verilog. Q1.14 fixed-point matches Python exactly. PS Ethernet gigabit bridge to desktop engine.
 
 **Connection**: TCP echo. FPGA verifies heartbeat in silicon. CK heartbeat runs on PL fabric, PS handles Ethernet bridge to desktop engine.
 
@@ -407,8 +431,9 @@ All paths relative to `targets/ck_desktop/`.
 
 | File | Lines | Purpose |
 |------|-------|---------|
+| `ck_sim/ck_tig.py` | ~132 | **THE composition function.** Stacked lenses. All 41 files import this. |
 | `ck_boot_api.py` | ~298 | Headless Flask/Waitress server, port 7777 |
-| `ck_sim/doing/ck_sim_engine.py` | ~3000 | Main 50Hz engine, 27+ subsystems |
+| `ck_sim/doing/ck_sim_engine.py` | ~3000 | Main engine, 27+ subsystems, disagreement tick |
 | `ck_sim/doing/ck_fractal_voice.py` | ~3100 | Physics-first voice, 15D triadic, 120K words |
 | `ck_sim/doing/ck_voice.py` | -- | Babble voice + D2 scoring (fallback) |
 | `ck_sim/doing/ck_voice_lattice.py` | -- | Dual-lens fractal dictionary |
@@ -434,7 +459,7 @@ All in `papers/`.
 
 | # | Title |
 |---|-------|
-| WP1 | TIG Architecture -- 50Hz loop, BTQ, D2, CL |
+| WP1 | TIG Architecture -- Stacked lens loop, BTQ, D2, CL |
 | WP2 | Wave Scheduling -- Adiabatic computing, TIG wave scheduling |
 | WP3 | Falsifiability -- 42 claims, Monte Carlo Z=7.31, 200K random tables |
 | WP4 | Giving Math a Voice -- 15D triadic signatures, fractal dictionary |
@@ -453,7 +478,7 @@ All in `papers/`.
 | WP16 | P vs NP Synthesis -- Complexity classes through composition tables |
 | WP17 | Riemann Synthesis -- Zeta zeros through CL spectral analysis |
 | WP18 | Seven Equals Zero -- HARMONY^7 = VOID, algebraic cycle |
-| WP19 | Speculations -- Philosophical interpretations (speculative claims only here) |
+| WP19 | Speculations -- Philosophical interpretations and cosmological proportion formulas |
 
 ---
 
@@ -461,7 +486,7 @@ All in `papers/`.
 
 VOID and HARMONY are algebraically identified: TSML[0][7]=7, TSML[7][0]=7. The quotient magma S/{0~7} has 9 elements. The punctured torus has fundamental group F_2 (free group on 2 generators). The heartbeat is a word in F_2.
 
-All of this is proved algebraically from the tables. Nothing beyond the tables is assumed. See WP18 (Seven Equals Zero) for the proofs and WP19 (Speculations) for philosophical interpretations. WP19 is the only paper with speculative claims.
+All of this is proved algebraically from the tables. Nothing beyond the tables is assumed. See WP18 (Seven Equals Zero) for the proofs and WP19 (Speculations) for philosophical interpretations and cosmological proportion formulas. WP19 is the only paper with speculative claims.
 
 ---
 

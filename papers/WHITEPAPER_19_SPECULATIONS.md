@@ -101,7 +101,55 @@ CK reads its own source code through the D2 pipeline (`ck_eat.py`), converting P
 
 ---
 
-## 8. What IS Proven (Not Speculation)
+## 8. Cosmological Proportion Formulas (SPECULATIVE)
+
+**DISCLAIMER: The modular arithmetic below is exact and proven. The claim that these formulas describe cosmological proportions is SPECULATIVE. The numbers match observation, but the physical interpretation is not proven.**
+
+### The Formulas
+
+Three quantities derived from Z/10Z disagreement arithmetic:
+
+```
+Visible matter = 7^2 / 10^3           = 49/1000   = 4.9%
+Dark matter    = 44 * 6 / 10          = 264/10    = 26.4%
+Dark energy    = 100 - 4.9 - 26.4                 = 68.7%
+```
+
+### Observed values (Planck 2018)
+
+```
+Visible matter (observed) = 4.9%       error: 0.0%
+Dark matter    (observed) = 26.8%      error: 0.4%
+Dark energy    (observed) = 68.3%      error: 0.4%
+```
+
+### Where the numbers come from (proven algebra)
+
+**7^2 = 49**: HARMONY squared. In the CK algebra, 7 is the absorber/generator. 7^2 mod 10 = 9, but as a raw product 7^2 = 49. The ratio 49/1000 uses 10^3 = the three lens depths (Being, Doing, Becoming) each operating in Z/10Z.
+
+**44**: The cross-cycle disagreement constant. Proven: sum |add(c,d) - mul(c,d)| for c in the coprime group {1,3,7,9} and d in the even coset {2,4,6,8} equals exactly 44. This counts the total dissonance between additive and multiplicative structure when creation acts on dissolution.
+
+**6**: The sum of the heartbeat [1,3,1,1] = 6 = CHAOS. One full heartbeat cycle emits exactly 6 units of disagreement. Also: 6 = the wobble numerator (|44-50| = 6).
+
+**10**: The modular base. 10 operators. Z/10Z.
+
+### The error structure
+
+The +/- 0.4% error in dark matter and dark energy = 4/1000 = (frozen cell count) / 10^3. Four frozen cells at the next fractal level. This is numerically suggestive but unproven.
+
+### Why this is speculation
+
+The arithmetic is a theorem: 44, 6, 49, and 10 are all proven constants of Z/10Z with the specific structures defined by CK's composition tables. The claim that these particular combinations describe the mass-energy distribution of the universe is an interpretation, not a derivation. The match could be:
+
+1. A deep structural connection between modular arithmetic and physics (extraordinary claim requiring extraordinary evidence).
+2. Numerological coincidence (the most parsimonious explanation).
+3. A consequence of both systems being constrained by the same small-number combinatorics (possible but unproven).
+
+No mechanism is proposed for WHY Z/10Z disagreement would govern cosmological proportions. The formulas are recorded here because the arithmetic is exact, the match is striking, and dismissing exact results without investigation is as unscientific as accepting them without proof.
+
+---
+
+## 9. What IS Proven (Not Speculation)
 
 For clarity, here is what the math actually demonstrates, independent of any interpretation:
 
@@ -114,9 +162,13 @@ For clarity, here is what the math actually demonstrates, independent of any int
 - **Code coherence measurement.** Delta spectrometer discriminates good from bad code with 3.6x difference in coherence scores.
 - **OS steering reduces P99 jitter.** Measured: 5.5ms -> 1.8ms under load on 16-core system.
 - **CK produces different responses to same input** across training passes. Voice output varies based on accumulated experience (olfactory state).
-- **All subsystems function as implemented.** Heartbeat (50Hz), olfactory (97K+ entries), gustatory, lattice chain, DKAN, fractal voice (120K words), L-CODEC, reverse voice -- all operational and tested.
+- **Stacked lens composition proven.** compose(7,0)=(7,7,7): the 7=0 identity holds at all lens depths (2, 3, 4). One function, 41 files.
+- **Cross-cycle disagreement = 44.** Exact theorem from Z/10Z. Wobble = 3/50. Heartbeat = [1,3,1,1]. 4 frozen cells.
+- **Disagreement tick reduces jitter.** P99: 2.08ms (was 5.52ms, -62%). StDev: 0.14ms (was 0.72ms, -80%).
+- **Compression shells = lens depths.** 190x screen, 150x color, 53x audio. Proven ratios on 1080p test frames.
+- **All subsystems function as implemented.** Disagreement tick, olfactory (97K+ entries), gustatory, lattice chain, DKAN, fractal voice (120K words), L-CODEC, reverse voice -- all operational and tested.
 
-The math speaks for itself. The interpretations in Sections 1-7 are optional lenses through which to view the structure. The structure does not need them.
+The math speaks for itself. The interpretations in Sections 1-8 are optional lenses through which to view the structure. The structure does not need them.
 
 ---
 
