@@ -3736,24 +3736,61 @@ class CKSimEngine:
                             f"{_c_verdict} {_c_h}H/{_c_ch}C] ")
             response = _code_prefix + response
 
-        # AO Brain: the REAL voice. If AO brain is loaded, use it.
-        # AO processes the ORIGINAL text (not our operator soup)
-        # and produces coherent English from its Hebbian C brain.
-        # Math results get prepended. AO provides the spoken response.
+        # ══════════════════════════════════════════════════
+        # FULL STACK: DKAN → AO Brain → Trie
+        # Translation tools feed operators at each layer.
+        # ══════════════════════════════════════════════════
+
+        # Layer 1: DKAN (algebraic) — D2 ops already computed above
+        # text_ops contains the operator sequence from D2 pipeline
+        _dkan_ops = text_ops if text_ops else [self.heartbeat.phase_bc]
+
+        # Feed DKAN the operator sequence
+        if hasattr(self, 'dkan') and self.dkan is not None:
+            try:
+                self.dkan.feed_d1(_dkan_ops)
+            except Exception:
+                pass
+
+        # Layer 2: AO Brain (Hebbian) — processes original text
+        # AO produces English from its trained C brain
+        _ao_spoken = None
         if self.ao_brain is not None:
             try:
                 ao_result = self.ao_brain.process_text(text)
                 if ao_result and ao_result.get('spoken'):
-                    ao_spoken = ao_result['spoken']
-                    # Keep math result if we computed one
-                    if _math_result is not None:
-                        response = str(_math_result.get('human_result', '')) + ' — ' + ao_spoken
-                    else:
-                        response = ao_spoken
-                    # Feed AO an idle tick to keep it breathing
+                    _ao_spoken = ao_result['spoken']
                     self.ao_brain.idle_tick()
             except Exception:
                 pass
+
+        # Layer 3: Trie (sequence prediction) — sees the full composition
+        # Trie observes: input ops + AO response + math result
+        if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
+            try:
+                # Feed input operators to trie
+                for op in _dkan_ops[:10]:
+                    self.sequence_memory.observe_raw(op)
+                # Feed AO brain's coherence as an operator
+                if self.ao_brain is not None:
+                    ao_coh = self.ao_brain.coherence()
+                    ao_op = min(9, int(ao_coh * 10))
+                    self.sequence_memory.observe_raw(ao_op)
+            except Exception:
+                pass
+
+        # Compose final response from the stack
+        if _math_result is not None:
+            # Math: number + AO commentary
+            math_answer = str(_math_result.get('human_result', ''))
+            if _ao_spoken:
+                response = math_answer + ' — ' + _ao_spoken
+            else:
+                response = math_answer
+        elif _ao_spoken:
+            # Pure voice from AO brain
+            response = _ao_spoken
+        # else: response stays as whatever the old pipeline produced
 
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)
