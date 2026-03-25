@@ -192,6 +192,35 @@ class CKWebAPI:
         def health():
             return jsonify({'status': 'alive', 'timestamp': time.time()})
 
+        @app.route('/save', methods=['POST'])
+        def save_all():
+            """Force save ALL subsystems to disk."""
+            if not self.engine:
+                return jsonify({'error': 'Engine not ready'}), 503
+            saved = []
+            for name, attr in [
+                ('olfactory', 'olfactory'), ('gustatory', 'gustatory'),
+                ('lattice_chain', 'lattice_chain'), ('divine_memory', 'divine_memory'),
+                ('lcodec', 'lcodec'), ('sequence_memory', 'sequence_memory'),
+                ('ao_brain', 'ao_brain'), ('experience_lattice', 'experience_lattice'),
+                ('math_translation', 'math_translation'), ('code_translation', 'code_translation'),
+                ('semantic_index', 'semantic_index'),
+            ]:
+                try:
+                    obj = getattr(self.engine, attr, None)
+                    if obj and hasattr(obj, 'save'):
+                        if name == 'ao_brain':
+                            import os
+                            d = os.path.expanduser('~/.ck/ao_brain')
+                            os.makedirs(d, exist_ok=True)
+                            obj.save(os.path.join(d, 'ao_brain.dat'))
+                        else:
+                            obj.save()
+                        saved.append(name)
+                except Exception as e:
+                    saved.append(f'{name}:ERR:{e}')
+            return jsonify({'saved': saved, 'count': len(saved)})
+
         @app.route('/absorb', methods=['POST'])
         def absorb():
             """Fast text absorption -- D2 + olfactory + lattice chain only.

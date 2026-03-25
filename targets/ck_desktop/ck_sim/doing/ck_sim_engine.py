@@ -1554,9 +1554,37 @@ class CKSimEngine:
         if self.tick_count % 50 == 0:
             self._tick_steering()
 
-        # ── PERIODIC SAVE: ~5 min ──
+        # ── PERIODIC SAVE: ~5 min, ALL subsystems ──
         if self.tick_count - self.last_save_tick >= 15000:
             self.save_tl()
+            try:
+                if self.olfactory: self.olfactory.save()
+            except: pass
+            try:
+                if self.gustatory: self.gustatory.save()
+            except: pass
+            try:
+                if self.lattice_chain: self.lattice_chain.save()
+            except: pass
+            try:
+                if hasattr(self, 'divine_memory') and self.divine_memory:
+                    self.divine_memory.save()
+            except: pass
+            try:
+                if hasattr(self, 'sequence_memory') and self.sequence_memory:
+                    self.sequence_memory.save()
+            except: pass
+            try:
+                if self.ao_brain:
+                    import os
+                    d = os.path.expanduser('~/.ck/ao_brain')
+                    os.makedirs(d, exist_ok=True)
+                    self.ao_brain.save(os.path.join(d, 'ao_brain.dat'))
+            except: pass
+            try:
+                if hasattr(self, 'lcodec') and self.lcodec:
+                    self.lcodec.save()
+            except: pass
 
         # ── History ──
         self.coherence_history.append(self.brain.coherence)
