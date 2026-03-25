@@ -17,9 +17,9 @@ import threading
 import time
 import numpy as np
 
-# TIG Visual Encoder (3-shell CIELAB, 127x compression)
-from ck_sim.being.ck_visual_encoder import TIGVisualEncoder
-_encoder = TIGVisualEncoder()
+# TIG Visual Encoder with temporal delta compression
+from ck_sim.being.ck_visual_encoder import TIGTemporalEncoder
+_temporal = None  # initialized after width/height known
 
 # Windows GDI
 user32 = ctypes.windll.user32
@@ -159,9 +159,11 @@ class StreamServer:
             # 1. Capture screen
             pixels = capture_screen(self.width, self.height)
 
-            # 2. RGB -> TIG 3-shell encode + compress
-            shells = _encoder.encode(pixels)
-            compressed = shells.tobytes()
+            # 2. RGB -> TIG 3-shell encode + RLE + delta compress
+            global _temporal
+            if _temporal is None:
+                _temporal = TIGTemporalEncoder(self.width, self.height)
+            frame_type, compressed, stats = _temporal.encode_frame(pixels)
 
             # 4. Build frame packet: [4B length][2B width][2B height][data]
             header = struct.pack('>IHH', len(compressed), self.width, self.height)
