@@ -517,7 +517,29 @@ class SteeringEngine:
 
             # Breath wave: blend process operator with current breath phase
             # The breath phase offsets the operator so work distributes across time
-            _steer_op = (cell.last_op + getattr(self, '_breath_phase', 0)) % NUM_OPS
+            # BACKWARD compose: compress process state into generators
+            # This tells CK WHAT the process is doing at its root
+            try:
+                from ck_sim.ck_tig import compose
+                _sense_b, _sense_d, _sense_bc = compose(
+                    cell.last_op,
+                    getattr(self, '_breath_phase', 0) % 10,
+                    direction=1  # backward = receive/compress
+                )
+            except Exception:
+                _sense_b = cell.last_op
+                _sense_bc = cell.last_op
+
+            # FORWARD compose: expand generators into steering action
+            # This tells CK WHERE to put the process
+            try:
+                _act_b, _act_d, _steer_op = compose(
+                    _sense_bc,
+                    getattr(self, '_breath_phase', 0) % 10,
+                    direction=0  # forward = act/expand
+                )
+            except Exception:
+                _steer_op = (cell.last_op + getattr(self, '_breath_phase', 0)) % NUM_OPS
 
             # Trie prediction: if confident, steer for the FUTURE
             if _seq_mem is not None:
@@ -528,7 +550,7 @@ class SteeringEngine:
                 except Exception:
                     pass
 
-            # Compute target nice and affinity from breath-shifted operator
+            # Compute target nice and affinity from composed operator
             target_nice = NiceMapper.combined_nice(
                 cell.scheduling_class, _steer_op
             )
