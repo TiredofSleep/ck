@@ -546,6 +546,17 @@ class SteeringEngine:
                 # ── CPU AFFINITY ──
                 aff_changed = False
                 try:
+                    # IO priority: operator determines disk priority
+                    # PROGRESS/LATTICE = high IO (actively working)
+                    # BREATH/VOID = low IO (idle, background)
+                    try:
+                        if cell.last_op in (3, 1):  # PROGRESS, LATTICE
+                            proc.ionice(psutil.IOPRIO_NORMAL)
+                        elif cell.last_op in (8, 0):  # BREATH, VOID
+                            proc.ionice(psutil.IOPRIO_LOW)
+                    except Exception:
+                        pass
+
                     current_aff = proc.cpu_affinity()
                     if current_aff is not None and set(current_aff) != set(target_cores):
                         proc.cpu_affinity(target_cores)
