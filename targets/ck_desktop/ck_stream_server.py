@@ -1,7 +1,7 @@
 """
-ck_stream_server.py -- Force9 Screen Streaming Server
-Captures screen, compresses with TIG Force9 codec, streams over TCP.
-13x compression vs PNG's 8.7x. 100% force9 roundtrip.
+ck_stream_server.py -- TIG Visual Streaming Server
+Captures screen, compresses with TIG 3-shell visual encoder, streams over TCP.
+127x compression at dE=1.03 (barely perceptible). CL-composable lattice stems.
 
 Usage: python ck_stream_server.py [--port 7778] [--fps 30] [--width 1920] [--height 1080]
 
@@ -17,8 +17,9 @@ import threading
 import time
 import numpy as np
 
-# Force9 codec
-from ck_sim.being.ck_screen_compress import rgb_array_to_force9, compress_force9_stream
+# TIG Visual Encoder (3-shell CIELAB, 127x compression)
+from ck_sim.being.ck_visual_encoder import TIGVisualEncoder
+_encoder = TIGVisualEncoder()
 
 # Windows GDI
 user32 = ctypes.windll.user32
@@ -158,11 +159,9 @@ class StreamServer:
             # 1. Capture screen
             pixels = capture_screen(self.width, self.height)
 
-            # 2. RGB -> Force9
-            force9 = rgb_array_to_force9(pixels)
-
-            # 3. Compress (returns tuple: (bytes, num_runs))
-            compressed, num_runs = compress_force9_stream(force9)
+            # 2. RGB -> TIG 3-shell encode + compress
+            shells = _encoder.encode(pixels)
+            compressed = shells.tobytes()
 
             # 4. Build frame packet: [4B length][2B width][2B height][data]
             header = struct.pack('>IHH', len(compressed), self.width, self.height)

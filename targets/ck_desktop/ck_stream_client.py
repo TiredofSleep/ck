@@ -21,20 +21,15 @@ except ImportError:
     print("[error] pygame is required: pip install pygame")
     sys.exit(1)
 
-# Force9 codec
-from ck_sim.being.ck_screen_compress import decompress_force9_stream, force9_to_rgb
+# TIG Visual Encoder (3-shell CIELAB decoder)
+from ck_sim.being.ck_visual_encoder import TIGVisualEncoder
+_encoder = TIGVisualEncoder()
 
 
-# Build vectorized RGB lookup table for all 512 force9 values
-_FORCE9_LUT = np.zeros((512, 3), dtype=np.uint8)
-for _i in range(512):
-    _r, _g, _b = force9_to_rgb(_i)
-    _FORCE9_LUT[_i] = (_r, _g, _b)
-
-
-def force9_array_to_rgb(force9_arr):
-    """Convert array of force9 values to (N, 3) RGB using prebuilt LUT."""
-    return _FORCE9_LUT[force9_arr]
+def shells_to_rgb(shell_bytes, width, height):
+    """Decode TIG 3-shell data back to RGB."""
+    shells = np.frombuffer(shell_bytes, dtype=np.uint16).reshape(-1, 3)
+    return _encoder.decode(shells).reshape(height, width, 3)
 
 
 class StreamClient:
@@ -87,15 +82,8 @@ class StreamClient:
 
                 t_start = time.time()
 
-                # Decompress force9 stream
-                pixel_count = width * height
-                force9 = decompress_force9_stream(compressed, pixel_count)
-
-                # Force9 -> RGB via LUT
-                rgb = force9_array_to_rgb(force9)
-
-                # Reshape to (height, width, 3) for pygame
-                rgb_frame = rgb.reshape(height, width, 3)
+                # Decode TIG 3-shell back to RGB
+                rgb_frame = shells_to_rgb(compressed, width, height)
 
                 decompress_ms = (time.time() - t_start) * 1000
 
