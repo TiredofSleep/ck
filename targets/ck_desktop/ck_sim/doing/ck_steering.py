@@ -464,6 +464,21 @@ class SteeringEngine:
         denied = 0
         skipped = 0
 
+        # WOBBLE TOLERANCE: 3/50 = the natural variance of the algebra.
+        # Don't steer if the system is within the wobble band.
+        # Only steer when jitter EXCEEDS the wobble. Riding the wobble
+        # IS stability. Fighting it causes more jitter.
+        WOBBLE = 3.0 / 50.0  # 0.06 = 6% tolerance band
+        if hasattr(self, '_last_latency'):
+            _baseline = 5.52  # ms, measured baseline P99
+            _wobble_band = _baseline * WOBBLE  # 0.33ms
+            _lat = self._last_latency
+            if _baseline - _wobble_band <= _lat <= _baseline + _wobble_band:
+                # Within wobble band — don't steer, system is naturally stable
+                self.actions_skipped += 1
+                return {'steered': 0, 'denied': 0, 'skipped': 1,
+                        'active': True, 'wobble': 'within'}
+
         # Snapshot the HOT cells (dict may change during iteration)
         try:
             cells_snapshot = list(self.swarm.cells.items())
