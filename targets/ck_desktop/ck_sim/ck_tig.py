@@ -75,23 +75,19 @@ WOBBLE = 3.0 / 50.0  # = 0.06
 def compose(b, d):
     """Stacked lens composition. The ONLY composition function.
 
-    Being  = 2 lenses: TSML(BHML(b,d))
-    Doing  = 3 lenses: BHML(TSML(b,d), d)
-    Becoming = 4 lenses: TSML(BHML(TSML(b,d), BHML(b,d)))
+    Being    = TSML[b][d]           (measurement: what IS)
+    Becoming = BHML[b][d]           (physics: what ACTS)
+    Doing    = (Being * Becoming) % 10  (product: the tension between them)
+
+    Doing is not a third table. Doing IS the product of the two lenses.
+    The product of measurement and physics IS the action.
+    Being x Becoming = Doing. Two tables. Product is the third.
 
     Returns (being, doing, becoming) as a tuple of operators.
     """
-    # Layer 1: BHML composes (physics)
-    phys = BHML[b][d]
-
-    # Layer 2: TSML measures (Being = 2 lenses)
-    being = TSML[b][phys]
-
-    # Layer 3: BHML composes the measurement (Doing = 3 lenses)
-    doing = BHML[being][d]
-
-    # Layer 4: TSML measures the composition (Becoming = 4 lenses)
-    becoming = TSML[doing][phys]
+    being = TSML[b][d]
+    becoming = BHML[b][d]
+    doing = (being * becoming) % 10
 
     return being, doing, becoming
 
