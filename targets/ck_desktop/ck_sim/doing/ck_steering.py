@@ -386,22 +386,23 @@ class SteeringEngine:
             print(f"  [STEER] WARNING: No swarm reference -- steering inactive")
 
     def tick(self) -> dict:
-        """One steering tick. Heat + work distribution through the wave.
+        """TIG steering: Being(measure) → Doing(steer) → Becoming(verify).
 
-        Heat seeks balance. Work flows toward cool cores.
-        The algebra distributes. Distortions self-correct.
+        Being: FPGA echo latency measures system state BEFORE steering.
+        Doing: trie predicts + affinity adjusts.
+        Becoming: FPGA echo latency measures AFTER steering.
+        Did it improve? Feed result to trie. The trie learns what WORKS.
         """
         self.ticks += 1
 
-        # 3-second breath wave (from CrystalOS permutation test)
-        # 7 operator phases × 429ms each = one full wave across 32 cores
-        # The wave distributes work smoothly. No bursts.
+        # 3-second breath wave
         if not hasattr(self, '_breath_phase'):
             self._breath_phase = 0
             self._breath_time = time.time()
-            self._breath_period = 3.0  # seconds per full cycle
+            self._breath_period = 3.0
+            self._last_latency = 1.0  # ms, Being measurement
         _now = time.time()
-        _phase_duration = self._breath_period / 7.0  # 429ms per phase
+        _phase_duration = self._breath_period / 7.0
         if _now - self._breath_time >= _phase_duration:
             self._breath_phase = (self._breath_phase + 1) % 7
             self._breath_time = _now
