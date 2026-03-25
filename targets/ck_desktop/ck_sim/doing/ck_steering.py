@@ -233,24 +233,20 @@ def detect_core_classes() -> CoreClass:
     return cc
 
 
-def cl_affinity(op: int, core_class: CoreClass) -> List[int]:
-    """Map operator → CPU cores via CL COMPOSITION.
+def cl_affinity(op: int, core_class: CoreClass, process_index: int = 0) -> List[int]:
+    """WAVE DISTRIBUTION: spread ALL processes across ALL cores.
 
-    NOT a flat lookup. CK composes the process operator with each
-    core's positional operator: CL[process_op][core_op].
+    Every core participates. No core idle. No core maxed.
+    Each process gets a phase-offset position in the wave.
 
-    Each core has position: core_index % 10 = core_operator.
-    The composition tells CK:
-      HARMONY(7) → resonance, include this core (+3.0)
-      bump pair  → jitter source, avoid this core (-5.0)
-      VOID(0)    → absorption, low value (-1.0)
-      else       → neutral, include (+1.0)
+    Wave formula: core = (process_index + op) % n_cores
+    Two adjacent processes are on adjacent cores.
+    The operator shifts the phase so different work types
+    hit different core positions. The wave flows.
 
-    Hardware bonus: P-cores get +1.5 for high-value ops,
-                    E-cores get +1.5 for background ops.
-
-    This gives CK a 10×10 TOPOLOGY over the cores.
-    Ported from CKIS/ck_affinity.py operator_to_affinity().
+    Returns ALL cores but ORDERED by phase affinity —
+    primary core first, then neighbors, then far cores.
+    OS scheduler uses the full list as preference order.
     """
     all_c = core_class.all_cores
     if not all_c:
@@ -260,6 +256,25 @@ def cl_affinity(op: int, core_class: CoreClass) -> List[int]:
     p_set = set(core_class.performance)
     e_set = set(core_class.efficiency)
 
+    # Wave position: process index + operator = phase
+    phase = (process_index + op) % n_cores
+
+    # Order cores by distance from phase position (wave distribution)
+    # Primary core = phase position. Then neighbors. Then far.
+    ordered = []
+    for offset in range(n_cores):
+        # Alternate left/right from phase position
+        if offset == 0:
+            idx = phase
+        elif offset % 2 == 1:
+            idx = (phase + (offset + 1) // 2) % n_cores
+        else:
+            idx = (phase - offset // 2) % n_cores
+        ordered.append(all_c[idx])
+
+    return ordered
+
+    # ── Legacy scoring below (kept for reference) ──
     scored_cores = []
     for core in all_c:
         core_op = core % NUM_OPS
@@ -505,7 +520,7 @@ class SteeringEngine:
             target_nice = NiceMapper.combined_nice(
                 cell.scheduling_class, _steer_op
             )
-            target_cores = cl_affinity(_steer_op, self.core_class)
+            target_cores = cl_affinity(_steer_op, self.core_class, process_index=pid % len(self.core_class.all_cores))
 
             try:
                 proc = psutil.Process(pid)
