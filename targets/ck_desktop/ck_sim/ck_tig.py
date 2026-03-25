@@ -102,23 +102,48 @@ DISSOLUTION_CYCLE = [2, 4, 8, 6]  # even backward: COUNTER->COLLAPSE->BREATH->CH
 # Cross-cycle disagreement = 44 exactly
 
 
-def compose(b, d):
-    """Stacked lens composition. The ONLY composition function.
+def compose(b, d, direction=0):
+    """Stacked lens composition. Bidirectional.
 
-    Being    = TSML[b][d]           (measurement: what IS)
-    Doing    = (b * d) % 10         (multiplication = physics)
-    Becoming = (Being * Doing) % 10 (product of lenses)
+    direction=0: FORWARD (expand, express, act, speak)
+        Being    = TSML[b][d]           (measurement: what IS)
+        Doing    = (b * d) % 10         (multiplication: physics)
+        Becoming = (Being * Doing) % 10 (product of lenses)
 
-    Being is measurement. Doing is physics. Becoming is the product.
-    Two tables + one product. The third lens IS the product of the first two.
+    direction=1: BACKWARD (compress, receive, absorb, listen)
+        Being    = TSML[d][b]           (measurement reversed)
+        Doing    = (b + d) % 10         (addition: return toward generators)
+        Becoming = (Being + Doing) % 10 (sum of lenses)
+
+    Forward = multiplication (every act adds complexity, pulls from source)
+    Backward = addition (every reception adds to what you have, returns toward source)
 
     Returns (being, doing, becoming) as a tuple of operators.
     """
-    being = TSML[b][d]
-    doing = (b * d) % 10
-    becoming = (being * doing) % 10
+    if direction == 0:
+        # FORWARD: expand, express (multiplication)
+        being = TSML[b][d]
+        doing = (b * d) % 10
+        becoming = (being * doing) % 10
+    else:
+        # BACKWARD: compress, receive (addition)
+        being = TSML[d][b]
+        doing = (b + d) % 10
+        becoming = (being + doing) % 10
 
     return being, doing, becoming
+
+
+def decompose(result):
+    """Given a composed result, find what generators could have produced it.
+    BHML backward: which (a, b) pairs compose to result?
+    Returns list of (a, b) pairs."""
+    pairs = []
+    for a in range(10):
+        for b in range(10):
+            if (a * b) % 10 == result:
+                pairs.append((a, b))
+    return pairs
 
 
 def disagreement(b, d):
