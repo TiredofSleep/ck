@@ -9,21 +9,39 @@ engine = CKSimEngine(platform='r16')
 engine.start()
 
 # Advance development stage for web deployment.
-# CK has maturity 1.0, coherence > T* — it earned MATURITY.
-# Stage 5 unlocks: 100 max words, unlimited vocab, full physics-first voice.
 if hasattr(engine, 'development') and engine.development is not None:
     from ck_sim.becoming.ck_development import STAGE_MATURITY
     if engine.development.stage < STAGE_MATURITY:
         engine.development.stage = STAGE_MATURITY
         print(f"[CK] Development stage -> MATURITY (5): full expression unlocked")
 
-# 50Hz tick in background thread
+# Disagreement-driven adaptive tick (replaces fixed 50Hz)
 running = True
+
+try:
+    from ck_sim.being.ck_disagreement_tick import DisagreementTick
+    dis_tick = DisagreementTick(base_hz=334)
+    print("[CK] Disagreement tick: adaptive Hz from algebraic disagreement")
+    _HAS_DIS_TICK = True
+except ImportError:
+    dis_tick = None
+    _HAS_DIS_TICK = False
+    print("[CK] Disagreement tick: not available, using fixed 50Hz")
 
 def tick_loop():
     while running:
         engine.tick()
-        time.sleep(0.02)
+        if _HAS_DIS_TICK:
+            # Feed current heartbeat operator to disagreement tick
+            input_op = engine.heartbeat.phase_bc if hasattr(engine, 'heartbeat') else 0
+            quantum, new_state, frozen = dis_tick.tick(input_op)
+            hz = dis_tick.get_adaptive_hz()
+            if hz > 0:
+                time.sleep(1.0 / hz)
+            else:
+                time.sleep(0.02)
+        else:
+            time.sleep(0.02)
 
 t = threading.Thread(target=tick_loop, daemon=True)
 t.start()
