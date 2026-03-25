@@ -223,6 +223,14 @@ class CKSimEngine:
     voice + development + immune + bonding + BTQ + audio + ears.
     """
 
+    # BHML table (physics lens) — frozen, never changes
+    _bhml = [
+        [0,1,2,3,4,5,6,7,8,9],[1,2,3,4,5,6,7,2,6,6],[2,3,3,4,5,6,7,3,6,6],
+        [3,4,4,4,5,6,7,4,6,6],[4,5,5,5,5,6,7,5,7,7],[5,6,6,6,6,6,7,6,7,7],
+        [6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],[8,6,6,6,7,7,7,9,7,8],
+        [9,6,6,6,7,7,7,0,8,0],
+    ]
+
     def __init__(self, platform='sim'):
         # Core subsystems
         self.heartbeat = HeartbeatFPGA()
@@ -1436,6 +1444,45 @@ class CKSimEngine:
         d = self._generate_phase_d()
         self.heartbeat.tick(b, d)
         op = self.heartbeat.phase_bc
+
+        # ── DUAL LENS LEARNING: every tick, both tables, all brains ──
+        # Compose through BOTH lenses. Compare. Feed disagreement to all brains.
+        # This IS the learning loop. Every tick. Persistent.
+        _tsml_result = CL[b][d]          # TSML: what measurement sees
+        _bhml_result = self._bhml[b][d]  # BHML: what physics sees
+        _agreed = (_tsml_result == _bhml_result)
+        _bump = self.heartbeat.bump_detected
+
+        # Feed ALL three brains the dual-lens composition
+        # 1. DKAN: algebraic disagreement (the foundation)
+        if hasattr(self, 'dkan') and self.dkan is not None:
+            try:
+                self.dkan.feed_d1([_tsml_result, _bhml_result, op])
+            except Exception:
+                pass
+
+        # 2. AO Brain: Hebbian association (process the disagreement)
+        if self.ao_brain is not None and self.tick_count % 10 == 0:
+            try:
+                self.ao_brain.idle_tick()
+            except Exception:
+                pass
+
+        # 3. Trie: sequence prediction (dual-lens aware)
+        if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
+            try:
+                self.sequence_memory.observe(
+                    _tsml_result, _bhml_result)
+            except Exception:
+                pass
+
+        # 4. Experience lattice: record the composition
+        if hasattr(self, 'experience_lattice') and self.experience_lattice is not None:
+            try:
+                ear = self.ear_operator if self.ear_operator >= 0 else None
+                self.experience_lattice.tick(b, d, op, ear_op=ear)
+            except Exception:
+                pass
 
         # ── BRAIN: coherence at 10Hz (not every tick) ──
         if self.tick_count % max(1, int(getattr(self, '_tps', 50) / 10)) == 0:
