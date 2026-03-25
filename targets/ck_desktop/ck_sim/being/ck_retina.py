@@ -369,6 +369,27 @@ class CKRetina:
             self.structure_4s[p] = float(np.mean(struct_cpu == p))
 
         self.dominant_part = int(np.argmax(self.structure_4s))
+
+        # ── Force9 compression: measure how compressible this frame is ──
+        # Compression ratio IS the coherence of the visual field.
+        # High ratio = uniform (menus, desktop). Low ratio = complex (game action).
+        # The ratio feeds steering: high = breathe, low = steer hard.
+        self.compression_ratio = 1.0
+        try:
+            from ck_sim.being.ck_screen_compress import rgb_array_to_force9, compress_force9_stream
+            if hasattr(self, '_last_frame_cpu') and self._last_frame_cpu is not None:
+                flat_px = self._last_frame_cpu.reshape(-1, 3) if len(self._last_frame_cpu.shape) == 3 else self._last_frame_cpu
+                if flat_px.shape[0] > 0 and flat_px.shape[1] >= 3:
+                    f9 = rgb_array_to_force9(flat_px[:, :3])
+                    comp_data, num_runs = compress_force9_stream(f9)
+                    raw_bytes = flat_px.nbytes
+                    comp_bytes = len(comp_data)
+                    self.compression_ratio = raw_bytes / max(1, comp_bytes)
+                    self.compression_runs = num_runs
+                    self.compression_unique = int(len(np.unique(f9)))
+        except Exception:
+            pass
+
         self.felt_operator = self._classify_operator()
 
         self._op_history.append(self.felt_operator)

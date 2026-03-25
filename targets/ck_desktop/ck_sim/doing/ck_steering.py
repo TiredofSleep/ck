@@ -460,6 +460,18 @@ class SteeringEngine:
         except Exception:
             pass
 
+        # Visual compression feedback: retina tells us screen complexity
+        try:
+            engine = getattr(self.swarm, '_engine', None)
+            if engine and hasattr(engine, 'retina') and engine.retina:
+                _comp = getattr(engine.retina, 'compression_ratio', 1.0)
+                if _comp < 10.0:
+                    self._breath_period = max(1.0, self._breath_period * 0.95)
+                elif _comp > 50.0:
+                    self._breath_period = min(5.0, self._breath_period * 1.05)
+        except Exception:
+            pass
+
         steered = 0
         denied = 0
         skipped = 0
