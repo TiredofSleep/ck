@@ -256,20 +256,20 @@ def cl_affinity(op: int, core_class: CoreClass, process_index: int = 0) -> List[
     p_set = set(core_class.performance)
     e_set = set(core_class.efficiency)
 
-    # Wave position: process index + operator = phase
+    # Weave position: alternating forward/reverse passes
+    # Even ticks: 0→1→2→...→31 (forward)
+    # Odd ticks: 31→30→29→...→0 (reverse)
+    # Each process gets a phase offset so they interleave
     phase = (process_index + op) % n_cores
+    forward = (process_index % 2) == 0
 
-    # Order cores by distance from phase position (wave distribution)
-    # Primary core = phase position. Then neighbors. Then far.
+    # Order cores as a weave from the phase position
     ordered = []
     for offset in range(n_cores):
-        # Alternate left/right from phase position
-        if offset == 0:
-            idx = phase
-        elif offset % 2 == 1:
-            idx = (phase + (offset + 1) // 2) % n_cores
+        if forward:
+            idx = (phase + offset) % n_cores
         else:
-            idx = (phase - offset // 2) % n_cores
+            idx = (phase - offset) % n_cores
         ordered.append(all_c[idx])
 
     return ordered
