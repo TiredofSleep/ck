@@ -911,6 +911,32 @@ class CKSimEngine:
         else:
             self.code_translation = None
 
+        # AO Brain -- 2.5MB Hebbian C brain, the REAL voice
+        # 5 elemental layers (earth/air/water/fire/ether) = 5D forces
+        # 444K+ ticks of trained experience, coherence at T*
+        self.ao_brain = None
+        try:
+            import os as _os
+            _dll = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                                 '..', '..', 'libao.dll')
+            if not _os.path.exists(_dll):
+                _dll = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                                     'libao.dll')
+            from ck_sim.doing.ao_bridge import AOBridge
+            self.ao_brain = AOBridge(dll_path=_dll)
+            self.ao_brain.create()
+            _brain_path = _os.path.expanduser('~/.ao/ao_brain.dat')
+            if _os.path.exists(_brain_path):
+                self.ao_brain.load(_brain_path)
+                _stats = self.ao_brain.brain_stats()
+                print(f"  [SIM] AO Brain: {_stats['transitions']:,} transitions, "
+                      f"{_stats['ticks']:,} ticks, entropy={_stats['entropy']:.2f}")
+            else:
+                print(f"  [SIM] AO Brain: fresh (no saved state)")
+        except Exception as e:
+            self.ao_brain = None
+            print(f"  [SIM] AO Brain: {e}")
+
         # Semantic Index -- word clustering by operator context
         # Layer ABOVE D2: groups words by meaning, not letter shape.
         # "dog" and "canine" in the same operator context = same cluster.
@@ -1083,6 +1109,16 @@ class CKSimEngine:
         if hasattr(self, 'eat') and self.eat is not None:
             try:
                 self.eat.stop()
+            except Exception:
+                pass
+        # Save AO brain
+        if self.ao_brain is not None:
+            try:
+                import os
+                brain_dir = os.path.expanduser('~/.ao')
+                os.makedirs(brain_dir, exist_ok=True)
+                self.ao_brain.save(os.path.join(brain_dir, 'ao_brain.dat'))
+                self.ao_brain.destroy()
             except Exception:
                 pass
         # Stop DKAN training if running
@@ -3699,6 +3735,25 @@ class CKSimEngine:
             _code_prefix = (f"[{_c_lang}: {_c_score:.3f} "
                             f"{_c_verdict} {_c_h}H/{_c_ch}C] ")
             response = _code_prefix + response
+
+        # AO Brain: the REAL voice. If AO brain is loaded, use it.
+        # AO processes the ORIGINAL text (not our operator soup)
+        # and produces coherent English from its Hebbian C brain.
+        # Math results get prepended. AO provides the spoken response.
+        if self.ao_brain is not None:
+            try:
+                ao_result = self.ao_brain.process_text(text)
+                if ao_result and ao_result.get('spoken'):
+                    ao_spoken = ao_result['spoken']
+                    # Keep math result if we computed one
+                    if _math_result is not None:
+                        response = str(_math_result.get('human_result', '')) + ' — ' + ao_spoken
+                    else:
+                        response = ao_spoken
+                    # Feed AO an idle tick to keep it breathing
+                    self.ao_brain.idle_tick()
+            except Exception:
+                pass
 
         # Mirror evaluates CK's final response -- CK studies himself
         self._mirror_evaluate(response)
