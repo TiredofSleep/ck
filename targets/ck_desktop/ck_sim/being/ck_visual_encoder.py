@@ -407,22 +407,53 @@ class TIGTemporalEncoder:
         return bytes(data), stats
     
     def _rle_compress_shell(self, data):
-        """RLE compress a single shell's data."""
+        """RLE compress a single shell's data with variable-length encoding.
+
+        Short runs (1-15): 1 byte [4-bit value-delta + 4-bit count]
+        Medium runs: 2 bytes [0xF marker + value-delta byte + count byte]
+
+        Values encoded as delta from previous (mostly 0 or small).
+        """
+        if len(data) == 0:
+            return b''
+
+        # Build runs
         runs = []
         current = int(data[0]); count = 1
         for i in range(1, len(data)):
             val = int(data[i])
-            if val == current and count < 65535:
+            if val == current and count < 255:
                 count += 1
             else:
                 runs.append((current, count))
                 current = val; count = 1
         runs.append((current, count))
-        
+
+        # Try variable-length encoding
         packed = bytearray()
+        prev_val = 0
         for v, c in runs:
-            packed.extend(struct.pack('>HH', v, c))
-        return bytes(packed)
+            delta = (v - prev_val) & 0x1FF  # 9-bit wrap
+            prev_val = v
+            if delta < 16 and c <= 15:
+                # Pack in 1 byte: high nibble = delta, low nibble = count
+                packed.append((delta << 4) | c)
+            else:
+                # 3-byte escape: marker + value + count
+                packed.append(0xFF)
+                packed.extend(struct.pack('>H', v))
+                packed.append(min(255, c))
+
+        # Compare with simple fixed-width
+        simple = bytearray()
+        for v, c in runs:
+            simple.extend(struct.pack('>HB', v, min(255, c)))
+
+        # Use whichever is smaller
+        if len(packed) <= len(simple):
+            return b'\x01' + bytes(packed)  # marker: variable-length
+        else:
+            return b'\x00' + bytes(simple)  # marker: fixed-width 3-byte
     
     def decode_frame(self, frame_data):
         """Decode a frame (keyframe or delta)."""
@@ -434,28 +465,57 @@ class TIGTemporalEncoder:
             return self._decode_delta(frame_data)
     
     def _decode_keyframe(self, data):
-        """Decode keyframe."""
+        """Decode keyframe. Handles both variable-length and fixed-width RLE."""
         w = struct.unpack('>H', data[1:3])[0]
         h = struct.unpack('>H', data[3:5])[0]
         N = w * h
-        
+
         offset = 5
         shells = np.zeros((N, 3), dtype=np.uint16)
-        
+
         for s in range(3):
             run_bytes = struct.unpack('>I', data[offset:offset+4])[0]
             offset += 4
-            
+
             shell_data = []
             end = offset + run_bytes
-            while offset < end and len(shell_data) < N:
-                val = struct.unpack('>H', data[offset:offset+2])[0]
-                cnt = struct.unpack('>H', data[offset+2:offset+4])[0]
-                shell_data.extend([val] * cnt)
-                offset += 4
-            
+
+            if end > offset and data[offset] in (0x00, 0x01):
+                fmt = data[offset]
+                offset += 1
+
+                if fmt == 0x00:
+                    # Fixed-width: 3 bytes per run (2 val + 1 count)
+                    while offset < end and len(shell_data) < N:
+                        val = struct.unpack('>H', data[offset:offset+2])[0]
+                        cnt = data[offset+2]
+                        shell_data.extend([val] * cnt)
+                        offset += 3
+                else:
+                    # Variable-length: nibble-packed deltas
+                    prev_val = 0
+                    while offset < end and len(shell_data) < N:
+                        byte = data[offset]; offset += 1
+                        if byte == 0xFF:
+                            val = struct.unpack('>H', data[offset:offset+2])[0]
+                            cnt = data[offset+2]
+                            offset += 3
+                        else:
+                            delta = (byte >> 4) & 0xF
+                            cnt = byte & 0xF
+                            val = (prev_val + delta) & 0x1FF
+                        prev_val = val
+                        shell_data.extend([val] * cnt)
+            else:
+                # Legacy: 4 bytes per run (2 val + 2 count)
+                while offset < end and len(shell_data) < N:
+                    val = struct.unpack('>H', data[offset:offset+2])[0]
+                    cnt = struct.unpack('>H', data[offset+2:offset+4])[0]
+                    shell_data.extend([val] * cnt)
+                    offset += 4
+
             shells[:, s] = shell_data[:N]
-        
+
         self.prev_shells = shells.copy()
         return self.encoder.decode(shells)
     
