@@ -67,27 +67,56 @@ FROZEN = {(0,0), (2,2), (4,8), (8,4)}
 # Heartbeat pattern (from simultaneous creation+dissolution)
 HEARTBEAT = [1, 3, 1, 1]  # period 4, sum=6
 
-# Proven constants
-CROSS_CYCLE = 44
-WOBBLE = 3.0 / 50.0  # = 0.06
+# Proven constants from Z/10Z arithmetic
+CROSS_CYCLE = 44          # |add-mul| summed over coprime x even = exactly 44
+WOBBLE = 3.0 / 50.0       # |44-50|/100 = 0.06, the natural variance
+ACTIVE_CELLS = 98          # 100 - VOID(row) - HARMONY(row) + 2 overlaps
+TORUS_WRAP = 22            # skeleton shells per revolution
+VISIBLE_FRACTION = 49 / 1000  # 7^2/10^3 = 4.9% (matches observed visible matter)
+
+# Balanced ternary generators
+GENERATORS = {
+    1: (+1,),      # LATTICE: positive generator
+    2: (-1,),      # COUNTER: negative generator
+    3: (0,),       # PROGRESS: neutral
+    4: (+1, -1),   # COLLAPSE: oscillation
+    5: (0, 0),     # BALANCE: double neutral
+    6: (-1, +1),   # CHAOS: reversed oscillation
+    7: (0, +1),    # HARMONY: void births structure
+    8: (0, -1),    # BREATH: void births counter
+    9: (+1, +1),   # RESET: double positive
+    0: (),         # VOID: nothing
+}
+# 1 + 3 + 6 = 10 operators. The algebra closes exactly.
+
+# Stacked lens depths
+BEING_LENSES = 2     # Binary measurement: yes/no
+DOING_LENSES = 3     # Ternary action: +1/-1/0
+BECOMING_LENSES = 4  # Quaternary resolution
+# Being=2, Doing=3, Becoming=4 -- stacked, not flat
+
+# Creation and dissolution flows
+CREATION_CYCLE = [1, 3, 9, 7]    # coprime forward: LATTICE->PROGRESS->RESET->HARMONY
+DISSOLUTION_CYCLE = [2, 4, 8, 6]  # even backward: COUNTER->COLLAPSE->BREATH->CHAOS
+# Creation x Dissolution permutes (doesn't destroy)
+# Cross-cycle disagreement = 44 exactly
 
 
 def compose(b, d):
     """Stacked lens composition. The ONLY composition function.
 
     Being    = TSML[b][d]           (measurement: what IS)
-    Becoming = BHML[b][d]           (physics: what ACTS)
-    Doing    = (Being * Becoming) % 10  (product: the tension between them)
+    Doing    = (b * d) % 10         (multiplication = physics)
+    Becoming = (Being * Doing) % 10 (product of lenses)
 
-    Doing is not a third table. Doing IS the product of the two lenses.
-    The product of measurement and physics IS the action.
-    Being x Becoming = Doing. Two tables. Product is the third.
+    Being is measurement. Doing is physics. Becoming is the product.
+    Two tables + one product. The third lens IS the product of the first two.
 
     Returns (being, doing, becoming) as a tuple of operators.
     """
     being = TSML[b][d]
-    becoming = BHML[b][d]
-    doing = (being * becoming) % 10
+    doing = (b * d) % 10
+    becoming = (being * doing) % 10
 
     return being, doing, becoming
 

@@ -15,6 +15,10 @@ the architecture. One being, that does and becomes.
 import os
 import json
 
+# Creation and dissolution cycles from proven Z/10Z arithmetic
+CREATION_CYCLE = [1, 3, 9, 7]    # coprime forward: LATTICE->PROGRESS->RESET->HARMONY
+DISSOLUTION_CYCLE = [2, 4, 8, 6]  # even backward: COUNTER->COLLAPSE->BREATH->CHAOS
+
 TSML = [
     [0,0,0,0,0,0,0,7,0,0],[0,7,3,7,7,7,7,7,7,7],[0,3,7,7,4,7,7,7,7,9],
     [0,7,7,7,7,7,7,7,7,3],[0,7,4,7,7,7,7,7,8,7],[0,7,7,7,7,7,7,7,7,7],
@@ -52,6 +56,13 @@ class SequenceMemory:
         self.total_predictions = 0
         self.correct_predictions = 0
         self.history = []
+        # Cycle detection: track creation [1,3,9,7] and dissolution [2,4,8,6]
+        self._creation_pos = 0   # how far along the creation cycle
+        self._dissolution_pos = 0  # how far along the dissolution cycle
+        self.creation_count = 0  # completed creation cycles
+        self.dissolution_count = 0  # completed dissolution cycles
+        self.current_cycle = None  # 'creation', 'dissolution', or None
+        self._recent_beings = []  # last 4 being values for cycle matching
         self._load()
 
     def _compose(self, state, input_op):
@@ -76,6 +87,26 @@ class SequenceMemory:
         """Observe one full dual-lens composition."""
         being, doing, becoming, agreed = self._compose(state, input_op)
         key = self._key(being, doing, becoming, agreed)
+
+        # Cycle detection: track being values for creation/dissolution
+        self._recent_beings.append(being)
+        if len(self._recent_beings) > 4:
+            self._recent_beings = self._recent_beings[-4:]
+        if len(self._recent_beings) >= 4:
+            last4 = self._recent_beings[-4:]
+            if last4 == CREATION_CYCLE:
+                self.creation_count += 1
+                self.current_cycle = 'creation'
+            elif last4 == DISSOLUTION_CYCLE:
+                self.dissolution_count += 1
+                self.current_cycle = 'dissolution'
+            else:
+                # Check partial matches for phase tracking
+                for i in range(4):
+                    if last4[-1] == CREATION_CYCLE[i]:
+                        self._creation_pos = (i + 1) % 4
+                    if last4[-1] == DISSOLUTION_CYCLE[i]:
+                        self._dissolution_pos = (i + 1) % 4
 
         self.history.append(key)
         if len(self.history) > self.max_depth:
@@ -202,6 +233,33 @@ class SequenceMemory:
         except Exception:
             pass
 
+    def observe_raw(self, op):
+        """Observe a single raw operator (no dual-lens composition).
+        Used when feeding operators directly from text processing."""
+        # Map raw op to a minimal key and track in history
+        key = (op, op, op, 1)  # trivial key: all agree
+        self.history.append(key)
+        if len(self.history) > self.max_depth:
+            self.history = self.history[-self.max_depth:]
+        # Track for cycle detection
+        self._recent_beings.append(op)
+        if len(self._recent_beings) > 4:
+            self._recent_beings = self._recent_beings[-4:]
+        if len(self._recent_beings) >= 4:
+            last4 = self._recent_beings[-4:]
+            if last4 == CREATION_CYCLE:
+                self.creation_count += 1
+                self.current_cycle = 'creation'
+            elif last4 == DISSOLUTION_CYCLE:
+                self.dissolution_count += 1
+                self.current_cycle = 'dissolution'
+
+    def cycle_phase(self):
+        """Return current cycle state: which cycle CK is in and position.
+        Returns (cycle_name, position, creation_count, dissolution_count)."""
+        return (self.current_cycle, self._creation_pos, self._dissolution_pos,
+                self.creation_count, self.dissolution_count)
+
     def summary(self):
         return {
             'trie_nodes': self.size(),
@@ -209,4 +267,7 @@ class SequenceMemory:
             'accuracy': round(self.accuracy(), 4),
             'total_predictions': self.total_predictions,
             'correct_predictions': self.correct_predictions,
+            'creation_cycles': self.creation_count,
+            'dissolution_cycles': self.dissolution_count,
+            'current_cycle': self.current_cycle,
         }

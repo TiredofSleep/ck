@@ -1447,46 +1447,54 @@ class CKSimEngine:
 
         # ── STACKED LENS: Being=2, Doing=3, Becoming=4 lenses ──
         # The ONE composition. Every tick. Through all brains.
-        from ck_sim.ck_tig import compose, disagreement, is_frozen, heartbeat_phase
+        from ck_sim.ck_tig import (compose, disagreement, is_frozen,
+            heartbeat_phase, GENERATORS, CREATION_CYCLE, DISSOLUTION_CYCLE)
         _being, _doing, _becoming = compose(b, d)
         _dis = disagreement(b, d)
         _frozen = is_frozen(b, d)
         _hb_phase = heartbeat_phase(self.tick_count)
         _bump = self.heartbeat.bump_detected
 
-        # Feed ALL three brains the stacked composition
-        # 1. DKAN: sees all three phases
-        if hasattr(self, 'dkan') and self.dkan is not None:
-            try:
-                self.dkan.feed_d1([_being, _doing, _becoming])
-            except Exception:
-                pass
+        # Frozen cells: (0,0), (2,2), (4,8), (8,4) -- no time, no learning, eternal
+        # These are the vacuum. Skip all experience recording.
+        if not _frozen:
+            # Feed ALL three brains the stacked composition
+            # 1. DKAN: sees all three phases
+            if hasattr(self, 'dkan') and self.dkan is not None:
+                try:
+                    self.dkan.feed_d1([_being, _doing, _becoming])
+                except Exception:
+                    pass
 
-        # 2. AO Brain: Hebbian (idle tick keeps it breathing)
-        if self.ao_brain is not None and self.tick_count % 10 == 0:
-            try:
-                self.ao_brain.idle_tick()
-            except Exception:
-                pass
+            # 2. AO Brain: Hebbian (idle tick + ternary encoding)
+            if self.ao_brain is not None and self.tick_count % 10 == 0:
+                try:
+                    self.ao_brain.idle_tick()
+                    # Feed balanced ternary generators for this composition
+                    _ternary = GENERATORS.get(_being, ()) + GENERATORS.get(_doing, ())
+                    if hasattr(self.ao_brain, '_ternary_buffer'):
+                        self.ao_brain._ternary_buffer.append(_ternary)
+                        if len(self.ao_brain._ternary_buffer) > 64:
+                            self.ao_brain._ternary_buffer = self.ao_brain._ternary_buffer[-64:]
+                    else:
+                        self.ao_brain._ternary_buffer = [_ternary]
+                except Exception:
+                    pass
 
-        # 3. Trie: sees being + doing (the dual lens)
-        if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
-            try:
-                self.sequence_memory.observe(_being, _doing)
-            except Exception:
-                pass
+            # 3. Trie: sees being + doing (the dual lens)
+            if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
+                try:
+                    self.sequence_memory.observe(_being, _doing)
+                except Exception:
+                    pass
 
-        # 4. Experience lattice: record the full composition
-        if hasattr(self, 'experience_lattice') and self.experience_lattice is not None:
-            try:
-                ear = self.ear_operator if self.ear_operator >= 0 else None
-                self.experience_lattice.tick(b, d, op, ear_op=ear)
-            except Exception:
-                pass
-
-        # 5. Frozen check: no time at (0,0), (2,2), (4,8), (8,4)
-        if _frozen:
-            pass  # No learning, no time, eternal
+            # 4. Experience lattice: record the full composition
+            if hasattr(self, 'experience_lattice') and self.experience_lattice is not None:
+                try:
+                    ear = self.ear_operator if self.ear_operator >= 0 else None
+                    self.experience_lattice.tick(b, d, op, ear_op=ear)
+                except Exception:
+                    pass
 
         # ── BRAIN: coherence at 10Hz (not every tick) ──
         if self.tick_count % max(1, int(getattr(self, '_tps', 50) / 10)) == 0:
@@ -3833,13 +3841,24 @@ class CKSimEngine:
 
         # Layer 2: AO Brain (Hebbian) — processes original text
         # AO produces English from its trained C brain
+        # Each letter maps to its operator, each operator to its ternary generator
         _ao_spoken = None
         if self.ao_brain is not None:
             try:
+                from ck_sim.ck_tig import GENERATORS
                 ao_result = self.ao_brain.process_text(text)
                 if ao_result and ao_result.get('spoken'):
                     _ao_spoken = ao_result['spoken']
                     self.ao_brain.idle_tick()
+                # Encode ternary pattern from input operators
+                _ternary_seq = []
+                for _op in (_dkan_ops or [])[:20]:
+                    _ternary_seq.extend(GENERATORS.get(_op % 10, ()))
+                if not hasattr(self.ao_brain, '_ternary_buffer'):
+                    self.ao_brain._ternary_buffer = []
+                self.ao_brain._ternary_buffer.append(tuple(_ternary_seq))
+                if len(self.ao_brain._ternary_buffer) > 64:
+                    self.ao_brain._ternary_buffer = self.ao_brain._ternary_buffer[-64:]
             except Exception:
                 pass
 
