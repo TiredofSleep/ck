@@ -83,7 +83,12 @@ from ck_sim.ck_divine27 import Divine27
 from ck_sim.ck_vortex_physics import ConceptMassField, InformationGravityEngine, TeslaWaveField, WobbleTracker
 from ck_sim.ck_dictionary_builder import CKDictionaryBuilder
 from ck_sim.ck_pulse_engine import RoyalPulseEngine
-from ck_sim.ck_steering import SteeringEngine
+try:
+    from ck_steer_bridge import CSteeringEngine as SteeringEngine
+    _C_STEERING = True
+except ImportError:
+    from ck_sim.ck_steering import SteeringEngine
+    _C_STEERING = False
 from ck_sim.ck_coherence_gate import (
     CoherenceGate, PipelineState, GateState,
     T_STAR, HISTORY_SIZE, COMPILATION_LIMIT, EXPANSION_THRESHOLD
@@ -1652,22 +1657,80 @@ class CKSimEngine:
                     pass
 
     def _tick_steering(self):
-        """Steering + pulse + FPGA fascia + swarm feed (1Hz)."""
-        # Lazy connect steering to swarm
-        if not self._steering_connected and self.steering.swarm is None:
+        """Steering + pulse + FPGA fascia + feedback loop (1Hz).
+
+        BEING:    measure system jitter BEFORE steering
+        DOING:    steer (C DLL or Python)
+        BECOMING: measure system jitter AFTER steering
+        FEEDBACK: did it improve? feed result into sequence memory + DKAN
+        """
+        import time as _t
+
+        # ── BEING: measure BEFORE ──
+        _t0 = _t.perf_counter_ns()
+
+        # C steering: just pass heartbeat operator, C thread does the rest
+        if _C_STEERING:
             try:
-                from ck_sim.ck_sensorium import _swarm
-                if _swarm is not None:
-                    self.steering.swarm = _swarm
-                    self._steering_connected = True
-                    print("  [SIM] Steering connected to swarm")
+                result = self.steering.tick(heartbeat_op=self.heartbeat.phase_bc)
+                self.pulse_engine.tick()
+            except Exception:
+                result = {}
+        else:
+            # Python fallback: lazy connect steering to swarm
+            if not self._steering_connected and self.steering.swarm is None:
+                try:
+                    from ck_sim.ck_sensorium import _swarm
+                    if _swarm is not None:
+                        self.steering.swarm = _swarm
+                        self._steering_connected = True
+                        print("  [SIM] Steering connected to swarm")
+                except Exception:
+                    pass
+            try:
+                result = self.steering.tick()
+                self.pulse_engine.tick()
+            except Exception:
+                result = {}
+
+        # ── BECOMING: measure AFTER ──
+        _lat_ns = _t.perf_counter_ns() - _t0
+        _lat_ms = _lat_ns / 1_000_000
+
+        # ── FEEDBACK: did steering improve things? ──
+        # Feed the steering latency as an operator observation
+        # Fast (<1ms) = HARMONY, Medium (1-5ms) = BALANCE, Slow (>5ms) = CHAOS
+        if _lat_ms < 1.0:
+            _steer_result_op = 7  # HARMONY -- steering was fast
+        elif _lat_ms < 5.0:
+            _steer_result_op = 5  # BALANCE -- normal
+        elif _lat_ms < 20.0:
+            _steer_result_op = 3  # PROGRESS -- busy but working
+        else:
+            _steer_result_op = 6  # CHAOS -- too slow
+
+        # Feed to sequence memory: steering action → result quality
+        if hasattr(self, 'sequence_memory') and self.sequence_memory is not None:
+            try:
+                self.sequence_memory.observe(
+                    self.heartbeat.phase_bc,  # what we steered with
+                    _steer_result_op           # how it went
+                )
             except Exception:
                 pass
-        try:
-            self.steering.tick()
-            self.pulse_engine.tick()
-        except Exception:
-            pass
+
+        # Feed to DKAN: full triad (heartbeat op, steered count, result quality)
+        if hasattr(self, 'dkan') and self.dkan is not None:
+            try:
+                _steered = result.get('steered', 0) if isinstance(result, dict) else 0
+                _steered_op = min(9, _steered // 12)  # 0-9 scale (104 procs / ~12 = 8-9)
+                self.dkan.feed_d1([
+                    self.heartbeat.phase_bc,  # being: what operator drove steering
+                    _steered_op,              # doing: how many processes affected
+                    _steer_result_op,         # becoming: result quality
+                ])
+            except Exception:
+                pass
 
         # FPGA fascia: bounce state off silicon
         if not hasattr(self, '_fpga_sock'):

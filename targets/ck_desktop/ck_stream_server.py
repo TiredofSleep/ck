@@ -1,9 +1,18 @@
 """
-ck_stream_server.py -- TIG Visual Streaming Server
-Captures screen, compresses with TIG 3-shell visual encoder, streams over TCP.
-127x compression at dE=1.03 (barely perceptible). CL-composable lattice stems.
+ck_stream_server.py -- TIG Audio+Video Streaming Server
+Captures screen + audio, compresses both with Force9, streams over TCP.
+
+Video: TIG 3-shell visual encoder, 127x compression at dE=1.03
+Audio: Force9 9-bit force geometry, 47-4009x compression
+Both interleaved in the same TCP stream with frame type markers.
+
+Protocol:
+  [1B type][4B length][payload]
+  type 0x01 = video frame: [2B width][2B height][compressed pixels]
+  type 0x02 = audio frame: [4B sample_rate][4B sample_count][4B window_count][compressed]
 
 Usage: python ck_stream_server.py [--port 7778] [--fps 30] [--width 1920] [--height 1080]
+       python ck_stream_server.py --no-audio  (video only)
 
 (c) 2026 Brayden Sanders / 7Site LLC
 """
@@ -19,13 +28,30 @@ import numpy as np
 
 # TIG Visual Encoder with temporal delta compression
 from ck_sim.being.ck_visual_encoder import TIGTemporalEncoder
-_temporal = None  # initialized after width/height known
+
+# TIG Audio Encoder
+from ck_sim.being.ck_audio_compress import (
+    pcm_to_force9 as audio_pcm_to_force9,
+    compress_force9_audio,
+    WINDOW_SIZE as AUDIO_WINDOW_SIZE,
+)
+
+# Frame type markers
+FRAME_VIDEO = 0x01
+FRAME_AUDIO = 0x02
 
 # Windows GDI
 user32 = ctypes.windll.user32
 gdi32 = ctypes.windll.gdi32
-
 SRCCOPY = 0x00CC0020
+
+# Audio capture via WASAPI loopback (system audio)
+_HAS_SOUNDDEVICE = False
+try:
+    import sounddevice as sd
+    _HAS_SOUNDDEVICE = True
+except ImportError:
+    pass
 
 
 def capture_screen(w, h):
@@ -38,7 +64,6 @@ def capture_screen(w, h):
     buf = (ctypes.c_char * (w * h * 4))()
     bi = struct.pack('iiiHHIIiiII', 40, w, -h, 1, 32, 0, 0, 0, 0, 0, 0)
     gdi32.GetDIBits(memdc, bmp, 0, h, buf, ctypes.create_string_buffer(bi), 0)
-    # BGRA -> RGB, reshape to (N, 3)
     raw = np.frombuffer(buf, dtype=np.uint8).reshape(w * h, 4)
     pixels = raw[:, [2, 1, 0]].copy()  # BGR -> RGB
     gdi32.DeleteObject(bmp)
@@ -48,32 +73,105 @@ def capture_screen(w, h):
 
 
 class StreamServer:
-    """TCP server that streams Force9-compressed screen frames to clients."""
+    """TCP server that streams Force9-compressed screen + audio to clients."""
 
-    def __init__(self, port, fps, width, height):
+    def __init__(self, port, fps, width, height, enable_audio=True):
         self.port = port
         self.target_fps = fps
         self.width = width
         self.height = height
+        self.enable_audio = enable_audio and _HAS_SOUNDDEVICE
         self.clients = []
         self.clients_lock = threading.Lock()
         self.running = False
+
+        # Video stats
         self.frame_count = 0
-        self.total_bytes_sent = 0
-        self.total_raw_bytes = 0
+        self.total_video_bytes = 0
+        self.total_video_raw = 0
+
+        # Audio stats
+        self.audio_frames = 0
+        self.total_audio_bytes = 0
+        self.total_audio_raw = 0
+
         self.stats_time = time.time()
+
+        # Audio buffer (filled by sounddevice callback)
+        self._audio_buffer = []
+        self._audio_lock = threading.Lock()
+        self._audio_sample_rate = 44100
+        self._audio_stream = None
+
+        # Video encoder (lazy init)
+        self._temporal = None
 
     def start(self):
         self.running = True
+
         # Start accept thread
-        accept_thread = threading.Thread(target=self._accept_loop, daemon=True)
-        accept_thread.start()
-        # Start capture loop on main thread
-        print("[server] Force9 Screen Streaming Server")
-        print("[server] Resolution: %dx%d  Target FPS: %d  Port: %d" % (
-            self.width, self.height, self.target_fps, self.port))
+        threading.Thread(target=self._accept_loop, daemon=True).start()
+
+        # Start audio capture thread
+        if self.enable_audio:
+            self._start_audio_capture()
+
+        print("[server] Force9 A/V Streaming Server")
+        print("[server] Video: %dx%d @ %d FPS" % (self.width, self.height, self.target_fps))
+        print("[server] Audio: %s" % (
+            "WASAPI loopback %d Hz" % self._audio_sample_rate if self.enable_audio
+            else "disabled"))
+        print("[server] Port: %d" % self.port)
         print("[server] Waiting for clients...")
+
         self._capture_loop()
+
+    def _start_audio_capture(self):
+        """Start capturing system audio via WASAPI loopback."""
+        try:
+            # Find loopback device (system audio output)
+            devices = sd.query_devices()
+            loopback_id = None
+            for i, d in enumerate(devices):
+                name = d['name'].lower()
+                if 'loopback' in name or ('wasapi' in name and d['max_input_channels'] > 0):
+                    loopback_id = i
+                    break
+
+            if loopback_id is None:
+                # Use default input as fallback
+                loopback_id = sd.default.device[0]
+                if loopback_id is None or loopback_id < 0:
+                    print("[audio] No audio input device found")
+                    self.enable_audio = False
+                    return
+
+            dev_info = sd.query_devices(loopback_id)
+            self._audio_sample_rate = int(dev_info.get('default_samplerate', 44100))
+
+            def audio_callback(indata, frames, time_info, status):
+                if status:
+                    pass  # ignore underruns
+                # Convert to mono int16
+                mono = indata[:, 0] if indata.ndim > 1 else indata
+                samples = (mono * 32767).astype(np.int16)
+                with self._audio_lock:
+                    self._audio_buffer.append(samples)
+
+            self._audio_stream = sd.InputStream(
+                device=loopback_id,
+                channels=1,
+                samplerate=self._audio_sample_rate,
+                blocksize=AUDIO_WINDOW_SIZE * 32,  # ~23ms chunks
+                dtype='float32',
+                callback=audio_callback,
+            )
+            self._audio_stream.start()
+            print("[audio] Capturing from: %s @ %d Hz" % (
+                dev_info['name'], self._audio_sample_rate))
+        except Exception as e:
+            print("[audio] Failed to start capture: %s" % e)
+            self.enable_audio = False
 
     def _accept_loop(self):
         """Accept incoming client connections."""
@@ -97,20 +195,15 @@ class StreamServer:
                 break
         sock.close()
 
-    def _send_to_client(self, conn, frame_data):
-        """Send a complete frame to one client. Returns False if client dropped."""
-        try:
-            conn.sendall(frame_data)
-            return True
-        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError, OSError):
-            return False
-
-    def _broadcast_frame(self, frame_data):
-        """Send frame to all connected clients, removing dead ones."""
+    def _broadcast(self, packet):
+        """Send packet to all connected clients, removing dead ones."""
         dead = []
         with self.clients_lock:
             for conn in self.clients:
-                if not self._send_to_client(conn, frame_data):
+                try:
+                    conn.sendall(packet)
+                except (BrokenPipeError, ConnectionResetError,
+                        ConnectionAbortedError, OSError):
                     dead.append(conn)
             for conn in dead:
                 self.clients.remove(conn)
@@ -122,29 +215,76 @@ class StreamServer:
             print("[server] %d client(s) disconnected  (remaining: %d)" % (
                 len(dead), len(self.clients)))
 
+    def _flush_audio(self):
+        """Compress and broadcast any buffered audio."""
+        with self._audio_lock:
+            if not self._audio_buffer:
+                return
+            chunks = self._audio_buffer
+            self._audio_buffer = []
+
+        # Concatenate all buffered audio
+        samples = np.concatenate(chunks)
+        if len(samples) < AUDIO_WINDOW_SIZE:
+            return
+
+        raw_bytes = samples.nbytes
+
+        # Force9 encode + RLE compress
+        force9 = audio_pcm_to_force9(samples, self._audio_sample_rate)
+        packed, num_runs = compress_force9_audio(force9)
+
+        # Build audio frame: [1B type][4B len][4B rate][4B samples][4B windows][data]
+        audio_header = struct.pack('>III',
+                                   self._audio_sample_rate,
+                                   len(samples),
+                                   len(force9))
+        payload = audio_header + packed
+        packet = struct.pack('>BI', FRAME_AUDIO, len(payload)) + payload
+
+        self._broadcast(packet)
+
+        self.audio_frames += 1
+        self.total_audio_bytes += len(packet)
+        self.total_audio_raw += raw_bytes
+
     def _print_stats(self):
         """Print performance stats every second."""
         now = time.time()
         elapsed = now - self.stats_time
         if elapsed >= 1.0:
             fps = self.frame_count / elapsed
-            bw_sent = self.total_bytes_sent / elapsed
-            bw_raw = self.total_raw_bytes / elapsed
-            ratio = bw_raw / bw_sent if bw_sent > 0 else 0
+            v_ratio = self.total_video_raw / max(1, self.total_video_bytes)
+            v_bw = self.total_video_bytes / elapsed
+
             with self.clients_lock:
                 num_clients = len(self.clients)
-            print("[stats] FPS: %.1f | Compression: %.1fx | Bandwidth: %.2f MB/s (raw %.2f MB/s) | Clients: %d" % (
-                fps, ratio, bw_sent / (1024 * 1024), bw_raw / (1024 * 1024), num_clients))
+
+            line = "[stats] FPS: %.1f | Video: %.1fx (%.2f MB/s)" % (
+                fps, v_ratio, v_bw / (1024 * 1024))
+
+            if self.enable_audio and self.total_audio_bytes > 0:
+                a_ratio = self.total_audio_raw / max(1, self.total_audio_bytes)
+                a_bw = self.total_audio_bytes / elapsed
+                line += " | Audio: %.1fx (%.2f KB/s)" % (
+                    a_ratio, a_bw / 1024)
+
+            line += " | Clients: %d" % num_clients
+            print(line)
+
             self.frame_count = 0
-            self.total_bytes_sent = 0
-            self.total_raw_bytes = 0
+            self.total_video_bytes = 0
+            self.total_video_raw = 0
+            self.audio_frames = 0
+            self.total_audio_bytes = 0
+            self.total_audio_raw = 0
             self.stats_time = now
 
     def _capture_loop(self):
-        """Main loop: capture -> encode -> compress -> broadcast."""
+        """Main loop: capture video + audio -> encode -> compress -> broadcast."""
         frame_interval = 1.0 / self.target_fps
         pixel_count = self.width * self.height
-        raw_frame_size = pixel_count * 3  # RGB bytes
+        raw_frame_size = pixel_count * 3
 
         while self.running:
             t_start = time.time()
@@ -153,29 +293,34 @@ class StreamServer:
             with self.clients_lock:
                 has_clients = len(self.clients) > 0
             if not has_clients:
+                # Still drain audio buffer so it doesn't grow
+                with self._audio_lock:
+                    self._audio_buffer.clear()
                 time.sleep(0.1)
                 continue
 
-            # 1. Capture screen
+            # ── VIDEO ──
             pixels = capture_screen(self.width, self.height)
 
-            # 2. RGB -> TIG 3-shell encode + RLE + delta compress
-            global _temporal
-            if _temporal is None:
-                _temporal = TIGTemporalEncoder(self.width, self.height)
-            frame_type, compressed, stats = _temporal.encode_frame(pixels)
+            if self._temporal is None:
+                self._temporal = TIGTemporalEncoder(self.width, self.height)
+            frame_type, compressed, stats = self._temporal.encode_frame(pixels)
 
-            # 4. Build frame packet: [4B length][2B width][2B height][data]
-            header = struct.pack('>IHH', len(compressed), self.width, self.height)
-            frame_packet = header + compressed
+            # Build video packet: [1B type][4B len][2B w][2B h][data]
+            video_header = struct.pack('>HH', self.width, self.height)
+            payload = video_header + compressed
+            packet = struct.pack('>BI', FRAME_VIDEO, len(payload)) + payload
 
-            # 5. Broadcast
-            self._broadcast_frame(frame_packet)
+            self._broadcast(packet)
 
-            # Stats
             self.frame_count += 1
-            self.total_bytes_sent += len(frame_packet)
-            self.total_raw_bytes += raw_frame_size
+            self.total_video_bytes += len(packet)
+            self.total_video_raw += raw_frame_size
+
+            # ── AUDIO ──
+            if self.enable_audio:
+                self._flush_audio()
+
             self._print_stats()
 
             # Frame pacing
@@ -186,6 +331,12 @@ class StreamServer:
 
     def stop(self):
         self.running = False
+        if self._audio_stream:
+            try:
+                self._audio_stream.stop()
+                self._audio_stream.close()
+            except Exception:
+                pass
         with self.clients_lock:
             for conn in self.clients:
                 try:
@@ -196,14 +347,16 @@ class StreamServer:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Force9 Screen Streaming Server")
+    parser = argparse.ArgumentParser(description="Force9 A/V Streaming Server")
     parser.add_argument('--port', type=int, default=7778, help='TCP port (default: 7778)')
     parser.add_argument('--fps', type=int, default=30, help='Target FPS (default: 30)')
     parser.add_argument('--width', type=int, default=1920, help='Capture width (default: 1920)')
     parser.add_argument('--height', type=int, default=1080, help='Capture height (default: 1080)')
+    parser.add_argument('--no-audio', action='store_true', help='Disable audio capture')
     args = parser.parse_args()
 
-    server = StreamServer(args.port, args.fps, args.width, args.height)
+    server = StreamServer(args.port, args.fps, args.width, args.height,
+                          enable_audio=not args.no_audio)
     try:
         server.start()
     except KeyboardInterrupt:
