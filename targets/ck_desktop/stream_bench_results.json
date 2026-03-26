@@ -1,0 +1,16 @@
+{
+  "timestamp": 1774500154.0563798,
+  "duration_s": 60.4,
+  "total_frames": 188,
+  "actual_fps": 3.1,
+  "overall_ratio": 5.1,
+  "static_frames": 38,
+  "active_frames": 150,
+  "static_ratio_avg": 11.8,
+  "active_ratio_avg": 5.0,
+  "f9_bitrate_mbps": 30.3,
+  "raw_bitrate_mbps": 155.5,
+  "audio_ratio": 70.5,
+  "pipeline_p50_ms": 342.9,
+  "pipeline_p99_ms": 459.3
+}

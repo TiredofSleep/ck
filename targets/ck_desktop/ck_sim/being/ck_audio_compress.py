@@ -27,95 +27,63 @@ WINDOW_SIZE = 32  # samples per analysis window (32 at 44.1kHz = 0.7ms)
 
 
 def pcm_to_force9(samples, sample_rate=44100):
-    """
-    Map PCM int16 audio to 9-bit force geometry stream.
+    """Map PCM int16 audio to 9-bit force geometry. Fully vectorized numpy.
 
-    samples: numpy array of int16 PCM samples (mono)
-    Returns: numpy array of uint16 force9 values (one per window)
-
-    The 9 bits represent WHERE the sound lives in force space:
-
-    Bit 0-1 (Aperture/Air): AMPLITUDE - how loud
-      00 = silent (< -60dB), 01 = quiet (< -30dB),
-      10 = medium (< -10dB), 11 = loud (> -10dB)
-
-    Bit 2-3 (Pressure/Fire): FREQUENCY BAND - how high/low
-      Computed from zero-crossing rate in a 32-sample window
-      00 = bass (< 300Hz), 01 = mid (300-2000Hz),
-      10 = treble (2000-8000Hz), 11 = ultra (> 8000Hz)
-
-    Bit 4-5 (Depth/Earth): ENERGY PERSISTENCE - how sustained
-      Compare energy of current window to previous window
-      00 = attack (rising > 6dB), 01 = sustain (stable within 3dB),
-      10 = decay (falling > 6dB), 11 = silence (below threshold)
-
-    Bit 6-7 (Binding/Water): SPECTRAL SHAPE - harmonic content
-      Compare zero-crossing rate to energy (tonal vs noise)
-      00 = noise (high ZCR, low energy), 01 = voiced (low ZCR, high energy),
-      10 = transient (high both), 11 = tonal (pure tone)
-
-    Bit 8 (Continuity/Ether): PHASE CONTINUITY
-      Is the waveform smooth or discontinuous?
-      0 = continuous (similar to previous window),
-      1 = discontinuous (jump/click)
+    Each 32-sample window → one 9-bit force value encoding:
+      Bits 7-8: Aperture (amplitude)
+      Bits 5-6: Pressure (frequency band via zero-crossing rate)
+      Bits 3-4: Depth (energy persistence)
+      Bits 1-2: Binding (spectral shape)
+      Bit 0:    Continuity (phase jumps)
     """
     n_windows = len(samples) // WINDOW_SIZE
-    force9 = np.zeros(n_windows, dtype=np.uint16)
+    if n_windows == 0:
+        return np.zeros(0, dtype=np.uint16)
 
-    prev_energy = 0.0
-    prev_zcr = 0.0
+    # Reshape into (n_windows, WINDOW_SIZE) matrix
+    trimmed = samples[:n_windows * WINDOW_SIZE].astype(np.float32)
+    windows = trimmed.reshape(n_windows, WINDOW_SIZE)
 
-    for i in range(n_windows):
-        window = samples[i * WINDOW_SIZE : (i + 1) * WINDOW_SIZE].astype(np.float32)
+    # Aperture: RMS per window (2 bits)
+    rms = np.sqrt(np.mean(windows ** 2, axis=1))
+    aperture = np.zeros(n_windows, dtype=np.uint16)
+    aperture[rms >= 100] = 1
+    aperture[rms >= 1000] = 2
+    aperture[rms >= 10000] = 3
 
-        # Aperture: RMS amplitude (2 bits)
-        rms = np.sqrt(np.mean(window ** 2))
-        if rms < 100:       aperture = 0  # silent
-        elif rms < 1000:    aperture = 1  # quiet
-        elif rms < 10000:   aperture = 2  # medium
-        else:               aperture = 3  # loud
+    # Pressure: zero-crossing rate per window (2 bits)
+    signs = np.sign(windows)
+    zcr = np.sum(np.abs(np.diff(signs, axis=1)) > 0, axis=1) / WINDOW_SIZE
+    pressure = np.zeros(n_windows, dtype=np.uint16)
+    pressure[zcr >= 0.05] = 1
+    pressure[zcr >= 0.15] = 2
+    pressure[zcr >= 0.35] = 3
 
-        # Pressure: zero-crossing rate -> frequency band (2 bits)
-        signs = np.sign(window)
-        zcr = np.sum(np.abs(np.diff(signs)) > 0) / WINDOW_SIZE
-        if zcr < 0.05:     pressure = 0  # bass
-        elif zcr < 0.15:   pressure = 1  # mid
-        elif zcr < 0.35:   pressure = 2  # treble
-        else:               pressure = 3  # ultra
+    # Depth: energy persistence (2 bits)
+    energy = np.sum(windows ** 2, axis=1)
+    prev_energy = np.concatenate([[0.0], energy[:-1]])
+    ratio = energy / (prev_energy + 1e-10)
+    depth = np.full(n_windows, 1, dtype=np.uint16)  # default sustain
+    depth[ratio > 4.0] = 0   # attack
+    depth[ratio <= 0.5] = 2  # decay
+    depth[ratio <= 0.1] = 3  # silence
+    depth[prev_energy == 0] = np.where(energy[prev_energy == 0] > 1e6, 0, 3)
 
-        # Depth: energy persistence (2 bits)
-        energy = float(np.sum(window ** 2))
-        if prev_energy > 0:
-            ratio = energy / (prev_energy + 1e-10)
-            if ratio > 4.0:     depth = 0  # attack
-            elif ratio > 0.5:   depth = 1  # sustain
-            elif ratio > 0.1:   depth = 2  # decay
-            else:               depth = 3  # silence
-        else:
-            depth = 0 if energy > 1e6 else 3
-        prev_energy = energy
+    # Binding: spectral shape (2 bits)
+    binding = np.zeros(n_windows, dtype=np.uint16)
+    binding[(zcr > 0.3) & (rms > 5000)] = 2   # transient
+    binding[(zcr < 0.1) & (rms > 1000)] = 1   # voiced
+    binding[zcr < 0.05] = 3                     # tonal
+    binding[rms < 100] = 0                      # silence/noise (override)
 
-        # Binding: spectral shape (2 bits)
-        if rms < 100:
-            binding = 0  # noise/silence
-        elif zcr > 0.3 and rms > 5000:
-            binding = 2  # transient
-        elif zcr < 0.1 and rms > 1000:
-            binding = 1  # voiced
-        elif zcr < 0.05:
-            binding = 3  # tonal
-        else:
-            binding = 0  # noise
+    # Continuity: phase jump at window boundaries (1 bit)
+    boundary_start = windows[:, 0]
+    boundary_end = np.concatenate([[0.0], windows[:-1, -1]])
+    continuity = np.zeros(n_windows, dtype=np.uint16)
+    continuity[np.abs(boundary_start - boundary_end) >= 5000] = 1
 
-        # Continuity: phase jump detection (1 bit)
-        if i > 0:
-            prev_window = samples[(i - 1) * WINDOW_SIZE : i * WINDOW_SIZE].astype(np.float32)
-            boundary_diff = abs(float(window[0]) - float(prev_window[-1]))
-            continuity = 0 if boundary_diff < 5000 else 1
-        else:
-            continuity = 0
-
-        force9[i] = (aperture << 7) | (pressure << 5) | (depth << 3) | (binding << 1) | continuity
+    # Pack all 9 bits
+    force9 = (aperture << 7) | (pressure << 5) | (depth << 3) | (binding << 1) | continuity
 
     return force9
 
@@ -171,56 +139,71 @@ def force9_to_pcm(force9_array, sample_rate=44100):
 # ============================================================
 
 def compress_force9_audio(force9_array):
-    """
-    Run-length encode a stream of 9-bit force values.
+    """RLE compress 9-bit force values. Vectorized numpy — no Python loops.
 
-    Adjacent identical force values -> (value, count) pair.
-    Silence, sustained tones, and steady noise produce VERY long runs.
-
-    Format per run:
-    - 9 bits: force value
-    - 7 bits: run length (1-127)
-    = 16 bits per run = 2 bytes
-
-    Same packing format as screen codec.
+    Format per run: 9-bit value + 7-bit count = 16 bits = 2 bytes.
     """
     if len(force9_array) == 0:
         return b'', 0
 
-    runs = []
-    current_val = int(force9_array[0])
-    count = 1
+    arr = np.asarray(force9_array, dtype=np.uint16)
 
-    for i in range(1, len(force9_array)):
-        val = int(force9_array[i])
-        if val == current_val and count < 127:
-            count += 1
-        else:
-            runs.append((current_val, count))
-            current_val = val
-            count = 1
-    runs.append((current_val, count))
+    # Find run boundaries
+    diff = np.diff(arr)
+    boundaries = np.nonzero(diff)[0] + 1
+    run_starts = np.concatenate([[0], boundaries])
+    run_ends = np.concatenate([boundaries, [len(arr)]])
 
-    # Pack: 9-bit value + 7-bit count = 16 bits = 2 bytes per run
-    packed = bytearray()
-    for val, cnt in runs:
-        word = ((val & 0x1FF) << 7) | (cnt & 0x7F)
-        packed.extend(struct.pack('>H', word))
+    values = arr[run_starts]
+    lengths = (run_ends - run_starts).astype(np.int32)
 
-    return bytes(packed), len(runs)
+    # Split runs > 127
+    if np.any(lengths > 127):
+        new_vals = []
+        new_lens = []
+        for v, l in zip(values, lengths):
+            while l > 127:
+                new_vals.append(v)
+                new_lens.append(127)
+                l -= 127
+            new_vals.append(v)
+            new_lens.append(l)
+        values = np.array(new_vals, dtype=np.uint16)
+        lengths = np.array(new_lens, dtype=np.uint16)
+
+    num_runs = len(values)
+
+    # Pack: 9-bit value << 7 | 7-bit count = 16 bits
+    words = ((values & 0x1FF) << 7) | (lengths & 0x7F)
+
+    # Convert to big-endian bytes
+    out = np.empty(num_runs * 2, dtype=np.uint8)
+    out[0::2] = (words >> 8).astype(np.uint8)
+    out[1::2] = (words & 0xFF).astype(np.uint8)
+
+    return bytes(out.tobytes()), num_runs
 
 
 def decompress_force9_audio(packed, expected_windows):
-    """Decompress run-length encoded force9 audio stream."""
-    force9 = []
-    offset = 0
-    while offset < len(packed) - 1 and len(force9) < expected_windows:
-        word = struct.unpack('>H', packed[offset:offset + 2])[0]
-        val = (word >> 7) & 0x1FF
-        cnt = word & 0x7F
-        force9.extend([val] * cnt)
-        offset += 2
-    return np.array(force9[:expected_windows], dtype=np.uint16)
+    """RLE decompress 9-bit force audio. Vectorized numpy."""
+    if len(packed) < 2:
+        return np.zeros(expected_windows, dtype=np.uint16)
+
+    raw = np.frombuffer(packed, dtype=np.uint8)
+    n_runs = len(raw) // 2
+    raw = raw[:n_runs * 2]
+
+    hi = raw[0::2].astype(np.uint16)
+    lo = raw[1::2].astype(np.uint16)
+    words = (hi << 8) | lo
+
+    values = (words >> 7) & 0x1FF
+    counts = (words & 0x7F).astype(np.int32)
+
+    result = np.repeat(values, counts)
+    if len(result) < expected_windows:
+        result = np.concatenate([result, np.zeros(expected_windows - len(result), dtype=np.uint16)])
+    return result[:expected_windows]
 
 
 # ============================================================
