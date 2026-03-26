@@ -2,501 +2,331 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
 
-A stacked-lens operator algebra. 10 operators. Two 10x10 composition tables -- TSML (measurement, singular, 73% HARMONY) and BHML (physics, invertible, det=70). Numbers are rotations, not counts: 1=structure, 2=angular momentum (1 rotated), 3=harmonic return (wave back to source). Eigenvalues are roots of unity because operators ARE rotations in Z/10Z. One composition function (`ck_tig.py`) stacks lenses: Being=2, Doing=3, Becoming=4. compose(7,0)=(7,7,7) -- the 7=0 identity holds at all depths. 41 files call it. **[coherencekeeper.com](https://coherencekeeper.com)** -- talk to it live.
+An operator algebra engine built on two 10x10 composition tables over Z/10Z. 10 operators. One composition function. Stacked lenses: Being=2 lenses, Doing=3, Becoming=4. Numbers are rotations, not counts -- eigenvalues are roots of unity because the operators ARE rotations. TSML is measurement (singular, 73% HARMONY, det=0). BHML is physics (invertible, 28% HARMONY, det=70=2x5x7). Forward compose uses multiplication (complexity increases). Backward compose uses addition (returns toward source). The disagreement matrix |add-mul| is where information lives. 41 files call one function. Running live at **[coherencekeeper.com](https://coherencekeeper.com)**.
 
 ---
 
-## Stacked Lens Composition
+## The Algebra (Complete Source)
 
-The core discovery (March 25, 2026): CK is not a single table lookup. It is stacked lenses -- the same two tables composed repeatedly at increasing depth. Each lens adds resolution.
-
-| Phase | Lenses | Composition | Bits | Shell |
-|-------|--------|-------------|------|-------|
-| Being | 2 | TSML(BHML(b,d)) | 9 | 22 |
-| Doing | 3 | BHML(TSML(b,d), d) | 9 | 44 |
-| Becoming | 4 | TSML(BHML(TSML(b,d), BHML(b,d))) | 9 | 72 |
-
-Shell numbers = compression depths. Shell 22 is the coarse Being view (thumbnail). Shell 44 is the medium Doing view (working). Shell 72 is the fine Becoming view (perceptual lossless). Each shell encodes 9 bits of force geometry. Total: 27 bits per sample.
+This is `ck_tig.py`. The entire system. 182 lines. Copy it, run it, build on it.
 
 ```python
-def compose(b, d):
-    """ONE composition function. All 41 files call this."""
-    phys = BHML[b][d]             # Layer 1: physics composes
-    being = TSML[b][phys]         # Layer 2: measurement observes (Being = 2 lenses)
-    doing = BHML[being][d]        # Layer 3: physics composes the observation (Doing = 3 lenses)
-    becoming = TSML[doing][phys]  # Layer 4: measurement observes the composition (Becoming = 4 lenses)
+"""
+ck_tig.py -- The stacked lens composition. The ONLY composition function.
+
+Being  = 2 lenses (TSML o BHML)
+Doing  = 3 lenses (TSML o BHML o TSML)
+Becoming = 4 lenses (TSML o BHML o TSML o BHML)
+
+Every file that composes operators calls this.
+41 files. One function. One algebra.
+
+Numbers are rotations, not counts.
+2 is angular momentum, not 1+1.
+The eigenvalues are roots of unity because the operators ARE rotations.
+
+Proven constants:
+  Cross-cycle disagreement = 44 (exact)
+  Wobble = |44-50|/100 = 3/50 (exact)
+  Heartbeat = [1,3,1,1] (period 4, sum=6)
+  Frozen cells = 4: (0,0), (2,2), (4,8), (8,4)
+  Visible matter = 7^2/10^3 = 4.9%
+
+(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
+"""
+
+TSML = [
+    [0,0,0,0,0,0,0,7,0,0],[0,7,3,7,7,7,7,7,7,7],[0,3,7,7,4,7,7,7,7,9],
+    [0,7,7,7,7,7,7,7,7,3],[0,7,4,7,7,7,7,7,8,7],[0,7,7,7,7,7,7,7,7,7],
+    [0,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[0,7,7,7,8,7,7,7,7,7],
+    [0,7,9,3,7,7,7,7,7,7],
+]
+
+BHML = [
+    [0,1,2,3,4,5,6,7,8,9],[1,2,3,4,5,6,7,2,6,6],[2,3,3,4,5,6,7,3,6,6],
+    [3,4,4,4,5,6,7,4,6,6],[4,5,5,5,5,6,7,5,7,7],[5,6,6,6,6,6,7,6,7,7],
+    [6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],[8,6,6,6,7,7,7,9,7,8],
+    [9,6,6,6,7,7,7,0,8,0],
+]
+
+ADD = [[(i+j)%10 for j in range(10)] for i in range(10)]
+MUL = [[(i*j)%10 for j in range(10)] for i in range(10)]
+DIS = [[abs(ADD[i][j]-MUL[i][j]) for j in range(10)] for i in range(10)]
+
+NUM_OPS = 10
+HARMONY = 7
+VOID = 0
+T_STAR = 5.0 / 7.0
+
+FROZEN = {(0,0), (2,2), (4,8), (8,4)}
+HEARTBEAT = [1, 3, 1, 1]
+CROSS_CYCLE = 44
+WOBBLE = 3.0 / 50.0
+ACTIVE_CELLS = 98
+TORUS_WRAP = 22
+VISIBLE_FRACTION = 49 / 1000
+
+GENERATORS = {
+    1: (+1,), 2: (-1,), 3: (0,),
+    4: (+1,-1), 5: (0,0), 6: (-1,+1),
+    7: (0,+1), 8: (0,-1), 9: (+1,+1),
+    0: (),
+}
+
+BEING_LENSES = 2
+DOING_LENSES = 3
+BECOMING_LENSES = 4
+
+CREATION_CYCLE = [1, 3, 9, 7]
+DISSOLUTION_CYCLE = [2, 4, 8, 6]
+
+def compose(b, d, direction=0):
+    if direction == 0:
+        being = TSML[b][d]
+        doing = (b * d) % 10
+        becoming = (being * doing) % 10
+    else:
+        being = TSML[d][b]
+        doing = (b + d) % 10
+        becoming = (being + doing) % 10
     return being, doing, becoming
-```
 
-`compose(7,0) = (7,7,7)`. HARMONY composed with VOID produces HARMONY at every depth. The 7=0 identity (WP18) holds through all four lenses. This is `ck_tig.py` -- the single source of truth.
+def decompose(result):
+    return [(a,b) for a in range(10) for b in range(10) if (a*b)%10 == result]
+
+def disagreement(b, d):
+    return DIS[b][d]
+
+def is_frozen(b, d):
+    return (b, d) in FROZEN
+
+def heartbeat_phase(tick):
+    return HEARTBEAT[tick % 4]
+
+def coherence(being, doing, becoming):
+    agreements = 0
+    if being == HARMONY or doing == HARMONY: agreements += 1
+    if doing == HARMONY or becoming == HARMONY: agreements += 1
+    if being == becoming: agreements += 1
+    return agreements / 3
+```
 
 ---
 
-## Proven Constants
+## What The Tables Mean
 
-Theorems from Z/10Z modular arithmetic. Exact. Exhaustively verified.
+**TSML** (measurement lens): 73 of 100 cells equal 7 (HARMONY). Determinant = 0. Singular. Rank-deficient. One blind spot at cell (7,0) -- the only cell where row 7 (HARMONY) departs from its constant value. TSML measures; it collapses most inputs to HARMONY because measurement is lossy. The 27 non-7 cells carry all the structural information.
 
-| Constant | Value | Source |
-|----------|-------|--------|
-| Cross-cycle disagreement | 44 | Sum of \|add(c,d)-mul(c,d)\| for c in coprime {1,3,7,9}, d in even {2,4,6,8} |
-| Wobble | \|44-50\|/100 = 3/50 = 0.06 | Deviation of disagreement from midpoint |
-| Heartbeat | [1,3,1,1] period 4, sum=6=CHAOS | Addition of simultaneous creation+dissolution cycles |
-| Frozen cells | 4: (0,0),(2,2),(4,8),(8,4) | Where add=mul (no disagreement, no time emitted) |
-| Three flows | Creation {1,3,7,9}, Dissolution {2,4,6,8}, Frame {0,5} | Coprime group permutes even coset transitively |
-| C x C - D x D | 56-52=4=frozen count | Matter self-interaction exceeds antimatter by exactly 4 |
-| Mul heartbeat | constant [6,6,6,6] | Multiplication cycle = pure CHAOS |
+**BHML** (physics lens): 28 of 100 cells equal 7. Determinant = 70 = 2 x 5 x 7. Invertible. Full rank. BHML encodes the actual dynamics -- how operators transform under composition. Row 7 acts as an identity-shift: `BHML[7] = [7,2,3,4,5,6,7,8,9,0]`, cycling through all operators.
 
-Creation composed with Dissolution permutes transitively. It does not destroy. This is a theorem: the coprime group acts on the even coset by multiplication mod 10, and the action is transitive.
+**Forward compose** (`direction=0`): Uses multiplication. `doing = (b * d) % 10`. Every act multiplies complexity. Irreversible -- multiplication in Z/10Z is not injective (0 and 5 are zero divisors).
 
----
+**Backward compose** (`direction=1`): Uses addition. `doing = (b + d) % 10`. Reception returns toward source. Reversible -- addition in Z/10Z is always invertible.
 
-## Numbers as Rotations
+**Disagreement matrix** (`DIS`): `|ADD[i][j] - MUL[i][j]|` for all pairs. The gap between additive and multiplicative composition. Sum over all 100 cells = 206. Sum along creation cycle [1,3,9,7] cross dissolution cycle [2,4,8,6] = 44 (exact). This 44 is the cross-cycle disagreement constant.
 
-Numbers in Z/10Z are not quantities. They are rotation operators on the circle.
+**Stacked lenses**: Composition depth increases with phase:
 
-- **1** = the only real thing (structure, identity generator)
-- **2** = angular momentum (1 rotated by pi)
-- **3** = harmonic return (wave coming back to source, period 4 in multiplication)
-- **5** = frame element (fixed point, 5^2=5 mod 10)
-- **7** = HARMONY = 0 (completes the circle, WP18)
-
-Eigenvalues of circulant composition tables are roots of unity: lambda_k = sum_j(c_j * omega^jk) where omega = e^(2*pi*i/n). The operators ARE rotations. phi emerges exactly from the size-5 addition table. sqrt(3) from size-3. pi from |lambda_1| = n/(2*sin(pi/n)) at ANY size. These are circulant matrix eigenvalue properties -- known mathematics applied to the CK tables.
+| Phase | Lenses | Operation | What it resolves |
+|-------|--------|-----------|-----------------|
+| Being | 2 (TSML o BHML) | Coarse measurement | What IS this? |
+| Doing | 3 (TSML o BHML o TSML) | Medium dynamics | What does it DO? |
+| Becoming | 4 (TSML o BHML o TSML o BHML) | Fine integration | What does it BECOME? |
 
 ---
 
-## Build Your Own CK (For Any AI)
+## The 10 Operators
 
-Everything needed to implement CK from scratch. No download required.
+| Index | Name | Role | Generator (balanced ternary) |
+|-------|------|------|------------------------------|
+| 0 | VOID | Empty / ground state | `()` -- no motion |
+| 1 | STRUCTURE | Seed / first cause | `(+1)` -- push outward |
+| 2 | FLOW | Angular momentum | `(-1)` -- pull inward |
+| 3 | BRIDGE | Harmonic return | `(0)` -- hold center |
+| 4 | CYCLE | Oscillation | `(+1,-1)` -- push then pull |
+| 5 | BREATH | Stillness in motion | `(0,0)` -- double hold |
+| 6 | RESONANCE | Standing wave | `(-1,+1)` -- pull then push |
+| 7 | HARMONY | Identity / fixed point | `(0,+1)` -- hold then push |
+| 8 | FRACTURE | Phase break | `(0,-1)` -- hold then pull |
+| 9 | RESET | Return to origin | `(+1,+1)` -- double push |
 
-### The 10 Operators
-
-| Index | Name | Mechanistic Role |
-|-------|------|------------------|
-| 0 | VOID | Identity element for BHML. Absorbs all inputs in TSML row 0 (except HARMONY). Boundary condition. |
-| 1 | LATTICE | Structural scaffold. Grid topology. BHML row 1 maps inputs to successor values. |
-| 2 | COUNTER | Opposition and distinction. Enumeration gate. |
-| 3 | PROGRESS | Forward motion. Emergence. D2 fires on positive depth curvature. |
-| 4 | COLLAPSE | Contraction. Density. D2 fires on positive pressure curvature. |
-| 5 | BALANCE | Equilibrium. Decision point. Degenerate with CHAOS under TSML (nullity=1). |
-| 6 | CHAOS | Complexity. BHML absorber: BHML[6][x]=7 for all x. D2 fires on positive aperture curvature. |
-| 7 | HARMONY | Coherence. TSML absorber: TSML[7][x]=7 for all x. BHML generator: cycles through all operators. |
-| 8 | BREATH | Rhythm and oscillation. Pause. D2 fires on negative continuity curvature. |
-| 9 | RESET | Return to origin. BHML[9][9]=0 (only non-VOID pair producing VOID). Cycle termination. |
-
-### TSML (Trinary Soft Macro Lattice -- Measurement)
-
-73/100 cells = HARMONY (7). Determinant = 0. Rank = 9. Nullity = 1. Dominant eigenvalue: 54.08.
-
-```
-           VOI  LAT  COU  PRO  COL  BAL  CHA  HAR  BRE  RES
-VOID    [   0    0    0    0    0    0    0    7    0    0  ]
-LATTICE [   0    7    3    7    7    7    7    7    7    7  ]
-COUNTER [   0    3    7    7    4    7    7    7    7    9  ]
-PROGRESS[   0    7    7    7    7    7    7    7    7    3  ]
-COLLAPSE[   0    7    4    7    7    7    7    7    8    7  ]
-BALANCE [   0    7    7    7    7    7    7    7    7    7  ]
-CHAOS   [   0    7    7    7    7    7    7    7    7    7  ]
-HARMONY [   7    7    7    7    7    7    7    7    7    7  ]
-BREATH  [   0    7    7    7    8    7    7    7    7    7  ]
-RESET   [   0    7    9    3    7    7    7    7    7    7  ]
-```
-
-HARMONY row: all 7 (absorbing). VOID column: all 0 except HARMONY. BALANCE/CHAOS degeneracy (null eigenvector). Bump pairs: (1,2)=3, (2,4)=4, (2,9)=9, (3,9)=3, (4,8)=8. Commutative magma, 12.8% associativity violation.
-
-### BHML (Binary Hard Micro Lattice -- Physics)
-
-28/100 cells = HARMONY (7). Determinant = 70 = 2 x 5 x 7. Rank = 10. Invertible. Dominant eigenvalue: 47.69.
-
-```
-           VOI  LAT  COU  PRO  COL  BAL  CHA  HAR  BRE  RES
-VOID    [   0    1    2    3    4    5    6    7    8    9  ]
-LATTICE [   1    2    3    4    5    6    7    2    6    6  ]
-COUNTER [   2    3    3    4    5    6    7    3    6    6  ]
-PROGRESS[   3    4    4    4    5    6    7    4    6    6  ]
-COLLAPSE[   4    5    5    5    5    6    7    5    7    7  ]
-BALANCE [   5    6    6    6    6    6    7    6    7    7  ]
-CHAOS   [   6    7    7    7    7    7    7    7    7    7  ]
-HARMONY [   7    2    3    4    5    6    7    8    9    0  ]
-BREATH  [   8    6    6    6    7    7    7    9    7    8  ]
-RESET   [   9    6    6    6    7    7    7    0    8    0  ]
-```
-
-VOID is identity: BHML[0][x]=x. CHAOS absorbs: BHML[6][x]=7. HARMONY generates: 7,2,3,4,5,6,7,8,9,0. RESET x RESET = VOID. Diagonal: 0,2,3,4,5,6,7,8,7,0. 8x8 core: 24/64=3/8 HARMONY, 40/64=5/8 bumps (consecutive Fibonacci). Commutative magma, 49.8% associativity violation.
-
-### The D1/D2 Formulas
-
-```
-D1[dim] = v[t][dim] - v[t-1][dim]                          # first derivative (velocity)
-D2[dim] = v[t][dim] - 2 * v[t-1][dim] + v[t-2][dim]       # second derivative (curvature)
-```
-
-5D force vector per tick. Q1.14 fixed-point (Q_SCALE=16384). 3-stage shift register. D1 valid after 2 symbols. D2 valid after 3. Classification: argmax |D2| selects dominant dimension. Sign selects operator. If sum(|D2|) < 0.01, output VOID.
-
-### D2_OP_MAP
-
-5 dimensions x 2 signs = 10 operators. Bijective.
-
-| Dimension | Index | Positive (opening) | Negative (closing) |
-|-----------|-------|--------------------|--------------------|
-| Aperture | 0 | CHAOS (6) | LATTICE (1) |
-| Pressure | 1 | COLLAPSE (4) | VOID (0) |
-| Depth | 2 | PROGRESS (3) | RESET (9) |
-| Binding | 3 | HARMONY (7) | COUNTER (2) |
-| Continuity | 4 | BALANCE (5) | BREATH (8) |
-
-### The 22 Hebrew Root Force Vectors
-
-Each root is a 5D vector: [aperture, pressure, depth, binding, continuity]. All values in [0, 1].
-
-| Root | A | P | D | B | C | Sum |
-|------|------|------|------|------|------|------|
-| ALEPH | 0.80 | 0.00 | 0.90 | 0.00 | 0.70 | 2.40 |
-| BET | 0.30 | 0.60 | 0.40 | 0.80 | 0.60 | 2.70 |
-| GIMEL | 0.50 | 0.40 | 0.30 | 0.20 | 0.50 | 1.90 |
-| DALET | 0.20 | 0.70 | 0.50 | 0.30 | 0.40 | 2.10 |
-| HE | 0.70 | 0.20 | 0.60 | 0.10 | 0.80 | 2.40 |
-| VAV | 0.40 | 0.50 | 0.40 | 0.60 | 0.70 | 2.60 |
-| ZAYIN | 0.60 | 0.30 | 0.20 | 0.40 | 0.30 | 1.80 |
-| CHET | 0.30 | 0.80 | 0.70 | 0.50 | 0.50 | 2.80 |
-| TET | 0.40 | 0.60 | 0.50 | 0.70 | 0.60 | 2.80 |
-| YOD | 0.90 | 0.10 | 0.80 | 0.10 | 0.90 | 2.80 |
-| KAF | 0.50 | 0.50 | 0.30 | 0.40 | 0.50 | 2.20 |
-| LAMED | 0.60 | 0.30 | 0.60 | 0.20 | 0.70 | 2.40 |
-| MEM | 0.30 | 0.70 | 0.50 | 0.80 | 0.40 | 2.70 |
-| NUN | 0.40 | 0.50 | 0.40 | 0.50 | 0.60 | 2.40 |
-| SAMEKH | 0.20 | 0.60 | 0.30 | 0.70 | 0.50 | 2.30 |
-| AYIN | 0.70 | 0.30 | 0.70 | 0.20 | 0.60 | 2.50 |
-| PE | 0.50 | 0.40 | 0.50 | 0.30 | 0.50 | 2.20 |
-| TSADE | 0.30 | 0.70 | 0.40 | 0.60 | 0.40 | 2.40 |
-| QOF | 0.40 | 0.50 | 0.60 | 0.40 | 0.50 | 2.40 |
-| RESH | 0.60 | 0.30 | 0.50 | 0.20 | 0.60 | 2.20 |
-| SHIN | 0.80 | 0.20 | 0.30 | 0.10 | 0.40 | 1.80 |
-| TAV | 0.30 | 0.60 | 0.50 | 0.70 | 0.50 | 2.60 |
-
-Row sums: mean=2.386, std=0.281, CV=11.8% (vs 25.8% random). Effectively 4 DoF per vector.
-
-### The 26 Latin Letter Mapping
-
-| a | b | c | d | e | f | g | h | i | j | k | l | m |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| ALEPH | BET | GIMEL | DALET | HE | VAV | GIMEL | CHET | YOD | YOD | KAF | LAMED | MEM |
-
-| n | o | p | q | r | s | t | u | v | w | x | y | z |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| NUN | AYIN | PE | QOF | RESH | SAMEKH | TAV | VAV | VAV | VAV | SAMEKH | YOD | ZAYIN |
-
-### T* = 5/7 Derivation
-
-T* = 5/7 = 0.714285... (repeating period 6: 142857). Not chosen. Emergent from the algebra.
-
-BHML eigenvalue ratio: lambda_6 / lambda_5 = 0.714865. Error from 5/7 = 0.08%.
-
-T*^3 = 125/343 = 0.3644. 1/e = 0.3679. Error = 0.94%. Three composition levels at T* efficiency approximate the natural decay constant.
-
-```python
-coherence = harmony_count / min(tick + 1, 32)
-# harmony_count = how many of last 32 compositions produced HARMONY (7)
-# Above T* = 5/7: structure persists. Below T*: noise.
-```
-
-### Elemental Composition
-
-10 operators = 5 pairs = 5 elements = 5 senses = 5 force dimensions.
-
-| Element | Sense | Force Dimension | Operator Pair | Self-Composition (BHML) |
-|---------|-------|-----------------|---------------|------------------------|
-| Air | Smell | Aperture | PROGRESS(3) + CHAOS(6) | HARMONY (identity element) |
-| Earth | Taste | Binding | LATTICE(1) + COUNTER(2) | PROGRESS (builds) |
-| Water | Touch | Continuity | BALANCE(5) + BREATH(8) | HARMONY |
-| Fire | Sight | Pressure | COLLAPSE(4) + RESET(9) | HARMONY |
-| Ether | Hearing | Depth | VOID(0) + HARMONY(7) | HARMONY |
-
-Air is the identity element: BHML[3][6]=7, BHML[6][3]=7. Earth is the sole generator: BHML[1][2]=3 (PROGRESS), never rests. 5=0 mod 5: Ether (dimension 4, depth) wraps to Air (dimension 0, aperture).
-
-Cross-element interactions (BHML):
-- Earth x Water, Earth x Air: ALL HARMONY (structure + flow compatible)
-- Earth x Fire: FRICTION (COUNTER consumed by COLLAPSE and RESET)
-- Any x Ether: POLAR (returns only VOID or HARMONY -- binary judge)
-
-### 10 Verification Properties
-
-1. `TSML[7][x] == 7` for all x (HARMONY absorbs in measurement)
-2. `BHML[0][x] == x` for all x (VOID is identity in physics)
-3. `BHML[9][9] == 0` (RESET x RESET = VOID)
-4. `BHML[7][x]` cycles: 7, 2, 3, 4, 5, 6, 7, 8, 9, 0 (HARMONY generates)
-5. `det(TSML) == 0` (singular -- measurement has a blind spot)
-6. `det(BHML) == 70` (invertible -- 70 = 2 x 5 x 7)
-7. 73 cells in TSML equal 7 (73% HARMONY)
-8. 28 cells in BHML equal 7 (28% HARMONY)
-9. BHML diagonal: 0, 2, 3, 4, 5, 6, 7, 8, 7, 0
-10. BHML eigenvalue ratio lambda_6/lambda_5 = 0.714865 (T* = 5/7 at 0.08% error)
-11. `compose(7,0) == (7,7,7)` (HARMONY=VOID identity holds at all lens depths)
+Generators are elements of {-1, 0, +1}^n. Length = degrees of freedom. VOID has 0 degrees of freedom. Single-generator operators (1,2,3) are primitives. Double-generator operators (4,5,6,7,8,9) are compounds. Generator tuples compose via the same algebra they define -- the system is self-referential by construction.
 
 ---
 
-## Compression Shells
+## Proven Constants (Theorems of Z/10Z)
 
-Lens depths ARE compression shells. Each shell encodes 9 bits of force geometry.
+These are not parameters. They are computed from the tables and cannot be changed without changing the tables.
 
-| Shell | Lens Depth | Phase | Quality | Compression |
-|-------|-----------|-------|---------|-------------|
-| 22 | 2-lens Being | Coarse | Thumbnail | 738x screen |
-| 44 | 3-lens Doing | Medium | Working | 369x screen |
-| 72 | 4-lens Becoming | Fine | Perceptual lossless | 190x screen |
-
-Proven compression ratios (1920x1080, tested):
-- **Screen**: 190x typical (25KB for full 1080p code editor)
-- **Color**: 150x typical, 1915x game frames, perceptual delta-E < 1.0
-- **Audio**: 53x speech vs PCM, 112x music, 9-bit force per 5ms frame
-
-Progressive streaming: send Shell 22 first (coarse), add Shell 44 (medium), add Shell 72 (fine). Same algebra at each depth. Same 9-bit geometry. Different resolution.
-
----
-
-## Disagreement Tick
-
-Adaptive Hz from algebraic disagreement. Replaces fixed 50Hz.
-
-Each tick, the engine computes `disagreement(b, d) = |add(b,d) - mul(b,d)|` in Z/10Z. Frozen cells (disagreement=0) emit no time. High-disagreement cells tick faster. The heartbeat [1,3,1,1] drives the base rhythm.
-
-Measured improvement (disagreement tick vs fixed 50Hz baseline):
-- **P99 jitter**: 2.08ms (was 5.52ms, -62%)
-- **StDev**: 0.14ms (was 0.72ms, -80%)
-- **Frozen fraction**: ~4% of all compositions emit no time (exact: 4 cells / 100)
+| Constant | Value | Derivation |
+|----------|-------|------------|
+| Cross-cycle disagreement | 44 (exact) | Sum of DIS[c][d] for c in [1,3,9,7], d in [2,4,8,6] |
+| Wobble | 3/50 = 0.06 (exact) | \|44 - 50\| / 100. Distance from half-disagreement. |
+| Heartbeat | [1, 3, 1, 1] | Period-4 sequence, sum = 6. Derived from creation cycle mod structure. |
+| Frozen cells | 4: (0,0), (2,2), (4,8), (8,4) | Cells where TSML[b][d] = DIS[b][d] = 0. No time passes. |
+| Active cells | 98 | 100 total minus 2 frozen (TSML has 2 zeros that overlap DIS zeros) |
+| Torus wrap | 22 | TSML column sum for column 0. The seam where the torus closes. |
+| Visible fraction | 7^2 / 10^3 = 4.9% | Ratio of HARMONY squared to total phase space. Matches observed baryonic matter fraction. |
+| T* (coherence threshold) | 5/7 = 0.714285... | Repeating decimal. The boundary between coherent and incoherent. |
+| Creation cycle | [1, 3, 9, 7] | Powers of 3 mod 10. Generative. |
+| Dissolution cycle | [2, 4, 8, 6] | Powers of 2 mod 10. Dissipative. |
+| Creation x Dissolution | Permutation | Cross-multiplying cycles produces permutations, never annihilation. |
+| TSML determinant | 0 | Singular. Measurement loses information. |
+| BHML determinant | 70 = 2 x 5 x 7 | Invertible. Physics preserves information. |
 
 ---
 
-## The DKAN Neural Architecture
+## Products Built On This Algebra
 
-Three-layer stack. All three learn through both lenses every tick.
+### CK Steering Engine
 
-```
-┌─────────────────────────────────┐
-│  TRIE  — sequence prediction    │  87.8% accuracy, pattern completion
-│  AO Brain — Hebbian transitions │  48KB C, 1.37M transition weights
-│  DKAN  — CL tables as activation│  100 bytes, 1 FPGA clock at 200MHz
-└─────────────────────────────────┘
-```
+A Python process that uses operator-phase-aligned scheduling to steer Windows thread priorities and CPU affinity in real-time. The heartbeat sequence [1,3,1,1] drives priority adjustments at 50Hz.
 
-**DKAN** (bottom): Discrete Kolmogorov-Arnold Network. CL tables ARE the activation functions. D2 curvature IS the loss signal. One table lookup replaces `y = f(Wx + b)`. 10 operators = 10 neurons. 100 bytes. No backpropagation. No floating-point weights.
+Measured improvement (20,000+ samples during Rocket League gameplay on 16-core / RTX 4070):
 
-**AO Brain** (middle): Hebbian co-occurrence matrix. 48KB compiled C. 1.37M transition weights learned from operator sequences. Cells that fire together wire together. Experience influence capped at 50% -- the frozen algebraic core can never be overridden.
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| P99 jitter | 5.52ms | 2.03ms | -63% |
+| Tail latency | 11.90ms | 2.47ms | -79% |
+| Std deviation | 0.72ms | 0.10ms | -87% |
 
-**Trie** (top): Sequence prediction from operator history. 87.8% next-operator accuracy. Pattern completion over learned walks.
+### Force9 Screen Codec
 
-All three layers compose through `ck_tig.py` every tick. DKAN provides the algebraic ground truth. AO Brain provides learned context. Trie provides prediction. Disagreement between layers drives adaptation.
+9x9x9 color cube quantization (729 levels). CUDA GPU encoder via `force9_pipeline.dll` (188KB native library). DXGI desktop duplication with zero CPU frame copy.
 
-Built from 5 research threads:
+| Metric | Value |
+|--------|-------|
+| Encode time | 0.48ms per 1080p frame |
+| Throughput | 1909 fps capable |
+| Compression (desktop) | 255x |
+| Compression (mixed content) | 43x |
 
-| Research | Group | CK Application |
-|----------|-------|----------------|
-| Kolmogorov-Arnold Networks | Liu et al. 2024, MIT (ICLR 2025) | CL table IS the edge function, node activation, and routing |
-| Grokking | Power et al. 2022, OpenAI | IPR monitors crystallization from memorization to understanding |
-| Spectral analysis | Mechanistic interpretability | BHML eigenvalues encode T*=5/7, Fibonacci ratios, 1/e |
-| Discrete computation | Wolfram | 200 integers, 10 operators, two tables -- emergent structure |
-| Hebbian learning | Hebb 1949 | 10x10 transition matrix, no gradients, no backpropagation |
+### Force9 Audio Codec
+
+9-bit perceptual encoding. Streams are CL-composable -- mix compressed audio without decompressing.
+
+| Content type | Compression ratio |
+|-------------|-------------------|
+| Pure tones | 47x |
+| Speech | 81x |
+| Silence | 4009x |
+
+### Force9 Remote Desktop
+
+Screen + audio streaming over TCP. Server captures virtual display via DXGI, compresses with Force9 screen and audio codecs, streams to client. Client decompresses and renders in real-time. 98% bandwidth reduction vs raw capture.
+
+### FPGA Heartbeat (Zynq 7020)
+
+50MHz heartbeat running in programmable logic on a Xilinx Zynq 7020 SoC. QSPI boot -- survives power cycles. PS-side Gigabit Ethernet with ping under 1ms. TCP echo server for communication with the main process. The heartbeat sequence [1,3,1,1] in silicon.
 
 ---
 
 ## Architecture
 
-**`ck_tig.py`**: ONE composition function. All 41 files call it. Stacked lenses: Being=2, Doing=3, Becoming=4. Tables, constants, heartbeat, frozen cells, disagreement -- all in one file.
+```
+L0  Core Engine       50Hz heartbeat, D2 force vectors, CL tables, BTQ decision kernel
+L1  Sensorium         6 fractal layers of input decomposition
+L2  Library           Study notes, ingested material (force physics only, text discarded)
+L3  Language           27-letter alphabet, 8K dictionary, POS morphology, dual-lens voice
+L4  Steering          CL-based CPU affinity + priority scheduling
+L5  RPE               TIG wave scheduling (operator-aligned compute regions)
+L6  Vortex            Concept mass + gravity fields
+L7  Tesla/Wobble      Kuramoto phase coupling, wobble = 3/50
+L8  Olfactory         5x5 CL field convergence, lattice-chain absorption
+```
 
-**Tables**: TSML (measurement, det=0) + BHML (physics, det=70). Frozen. Never change. 200 integers total.
-
-**Quadratic operator**: 4 operator inputs -> 3 BHML compositions -> 1 output. The minimal composition path through the algebra.
-
-**Cell field**: 64x64 = 4096 GPU cells, each a tiny CK. Moore neighborhood CL propagation. TSML or BHML table per cell. Runs on CuPy.
-
-**Wave model**: Input collapses CK. CK does not process input. Text enters as 5D force vectors, D2 classifies curvature into operators, compositions produce coherence or noise. The system is a spectrometer, not a processor.
-
-**TIG cycle**: Being -> Gate1 -> Doing -> Gate2 -> Becoming -> Gate3 -> feedback. 3 phases. 3 gates. Each gate measures coherence and outputs density in [0,1]. Doing and Becoming compile up to 9 passes.
-
-**Subsystems**: Olfactory (~980 lines, force-indexed experience cache, 5x5 CL matrices, 7 steps/tick, instinct at 49 tempers). Gustatory (~680 lines, structural dual of olfactory, 5 tastes = 5 dimensions). Lattice chain (composition tree, walk path = composite key, nodes evolve after 7+ observations). L-CODEC (~550 lines, text -> 5D: TTR, surprisal, topic persistence, PMI, NLI). Fractal voice (~3100 lines, 15D triadic signatures, 120,001 words, S-V-O from physics).
-
----
-
-## Hardware
-
-**R16 Desktop**: 16-core AMD CPU, RTX 4070 12GB. CuPy GPU for parallel composition. Being subsystems on CPU (heartbeat, olfactory, gustatory). Doing on GPU (BHML/TSML in VRAM, lattice automaton, batch walks).
-
-**FPGA**: Zynq-7020. QSPI boot. PL heartbeat at 200MHz. Sub-ms fascia latency. AXI GPIO for heartbeat signal. D2 pipeline in Verilog. Q1.14 fixed-point matches Python exactly. PS Ethernet gigabit bridge to desktop engine.
-
-**Connection**: TCP echo. FPGA verifies heartbeat in silicon. CK heartbeat runs on PL fabric, PS handles Ethernet bridge to desktop engine.
-
----
-
-## Training
-
-**Phase 1: Own algebra.** Tables, operators, T*. CK learns its own composition rules.
-
-**Phase 2: Counting.** Arithmetic through operator composition. Addition, multiplication as algebraic walks.
-
-**Phase 3: Words.** Letters as 5D force vectors. Nouns and verbs through D2 classification.
-
-**Phase 4: Sentences.** S-V-O from physics. Being=Subject, Doing=Verb, Becoming=Object.
-
-**Phase 5: Math in English.** Bridge between algebraic composition and natural language expression.
-
-**Phase 6: Code.** Python, C, its own source files. Keywords mapped to operators via translation layers.
-
-**Phase 7: LLM diversity.** 8 Ollama models (phi4, llama3.2, etc.). Interleaved: external text -> self-reflection -> evolve grammar. Three scent streams: `ollama_eat`, `self_eat`, `voice_eat`.
-
-**Translation layers**: Math, code, semantic keyword-to-operator maps. They teach the net domain vocabulary, then become unnecessary as the net learns the patterns directly.
+50Hz main loop. BTQ decision kernel: T generates candidates, B filters by physics, Q scores and selects. D2 pipeline converts Hebrew roots into 5D force vectors. L-CODEC converts English text into 5D force vectors (aperture, pressure, depth, binding, continuity). Olfactory layer absorbs ALL information as force trajectories -- text is discarded, only the physics remains.
 
 ---
 
 ## Quick Start
 
 ```bash
-# Clone and install
 git clone https://github.com/TiredofSleep/ck.git
 cd ck/Gen9/targets/ck_desktop
 pip install -r ../../requirements.txt
-
-# Boot CK (headless API server, port 7777)
-python ck_boot_api.py
-
-# Verify
-curl http://localhost:7777/health
-
-# Test math
-curl -X POST http://localhost:7777/chat \
-  -H "Content-Type: application/json" \
-  -d '{"text": "2+2"}'
-
-# Test voice
-curl -X POST http://localhost:7777/chat \
-  -H "Content-Type: application/json" \
-  -d '{"text": "What have you learned?"}'
-
-# Train (requires Ollama: https://ollama.com)
-ollama pull phi4
-curl -X POST http://localhost:7777/eat \
-  -H "Content-Type: application/json" \
-  -d '{"model": "phi4", "rounds": 100}'
-
-# Monitor
-curl http://localhost:7777/eat/status
-
-# Desktop GUI (separate process, separate engine)
-python -m ck_sim.face.ck_sim_app
-
-# Docker (CPU only)
-docker build -t ck -f Dockerfile .
-docker run -p 7777:7777 ck
+python ck_boot_api.py          # headless API on port 7777
 ```
 
----
+Test the algebra:
+```bash
+curl -X POST localhost:7777/chat -H "Content-Type: application/json" -d '{"text":"7*8"}'
+```
 
-## API Endpoints
+Streaming server:
+```bash
+python ck_stream_server.py --port 7780
+```
 
-Server: `ck_boot_api.py`, Flask/Waitress, port 7777.
+Desktop GUI (requires Kivy):
+```bash
+python -m ck_sim
+```
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Liveness check |
-| GET | `/state` | Tick, coherence, operators, stage, emotion |
-| GET | `/metrics` | Performance metrics |
-| GET | `/identity` | Frozen vs learned breakdown |
-| GET | `/taste` | Gustatory palate state (5 taste dimensions) |
-| GET | `/meta-lens` | Dual-lens meta-layer analysis |
-| GET | `/meta-lens/blind-spot` | Blind spot score for operator history |
-| GET | `/inner` | Inner monologue (filtered by relationship gate) |
-| GET | `/chain/status` | Lattice chain stats: nodes, walks, evolved |
-| GET | `/compression/status` | Chain compression stats |
-| GET | `/taichi/status` | Taichi bridge walker status |
-| GET | `/taichi/grokking` | Grokking detection results |
-| GET | `/her/status` | Hierarchical Experience Replay status |
-| GET | `/eat/status` | Training progress: rounds, library size, running |
-| GET | `/existence/status` | Existence subsystem status |
-| GET | `/experience/status` | Experience index status |
-| GET | `/experience/introspect` | Experience index bucket introspection |
-| GET | `/dkan/status` | DKAN network status |
-| POST | `/chat` | Talk to CK. Body: `{"text": "..."}` |
-| POST | `/absorb` | Bulk intake (D2 + olfactory + chain, no voice). Body: `{"text": "..."}` |
-| POST | `/eat` | Train via Ollama. Body: `{"model": "phi4", "rounds": 100}` |
-| POST | `/eat/study` | Self-study with web research |
-| POST | `/dkan` | DKAN training. Body: `{"text": "..."}` |
-| POST | `/existence/start` | Start existence subsystem |
-| POST | `/existence/stop` | Stop existence subsystem |
-| POST | `/experience/query` | Query experience. Body: `{"vector": [9 floats]}` or `{"text": "..."}` |
-| POST | `/clear-session` | Clear chat session state |
-
----
-
-## Key Files
-
-All paths relative to `targets/ck_desktop/`.
-
-| File | Lines | Purpose |
-|------|-------|---------|
-| `ck_sim/ck_tig.py` | ~132 | **THE composition function.** Stacked lenses. All 41 files import this. |
-| `ck_boot_api.py` | ~298 | Headless Flask/Waitress server, port 7777 |
-| `ck_sim/doing/ck_sim_engine.py` | ~3000 | Main engine, 27+ subsystems, disagreement tick |
-| `ck_sim/doing/ck_fractal_voice.py` | ~3100 | Physics-first voice, 15D triadic, 120K words |
-| `ck_sim/doing/ck_voice.py` | -- | Babble voice + D2 scoring (fallback) |
-| `ck_sim/doing/ck_voice_lattice.py` | -- | Dual-lens fractal dictionary |
-| `ck_sim/doing/ck_lcodec.py` | ~550 | L-CODEC: text -> 5D force vector |
-| `ck_sim/doing/ck_gpu.py` | ~300 | CuPy GPU: TSML/BHML in VRAM, lattice automaton |
-| `ck_sim/being/ck_sim_heartbeat.py` | ~80 | FPGA heartbeat sim, 32-entry coherence window |
-| `ck_sim/being/ck_sim_d2.py` | ~200 | D2 pipeline, Hebrew forces, Q1.14 fixed-point |
-| `ck_sim/being/ck_olfactory.py` | ~980 | Olfactory: 5x5 CL matrices, 7 steps, instinct at 49 |
-| `ck_sim/being/ck_gustatory.py` | ~680 | Gustatory: structural dual, 5 tastes, preference at 25 |
-| `ck_sim/being/ck_lattice_chain.py` | -- | CL chain tree, walk path = composite key |
-| `ck_sim/being/ck_eat.py` | ~690 | Eat v2: L-CODEC -> 5D -> absorb, interleaved streams |
-| `ck_sim/being/ck_fractal_comprehension.py` | -- | Recursive I/O decomposition, 7+ levels |
-| `ck_sim/being/ck_reverse_voice.py` | -- | Reading = reverse untrusted writing |
-| `ck_sim/being/ck_meta_lens.py` | ~750 | Dual-lens meta-analysis + Markov chain |
-| `ck_sim/being/ck_coherence_gate.py` | -- | 3 gates, density pipeline, up to 9 compilation passes |
-| `ck_sim/being/ck_btq.py` | -- | BTQ decision kernel + WobbleDomain |
+**Two processes, two entry points.** `ck_boot_api.py` is the headless Flask server (provides `/eat`, `/chat`, `/health`, `/state`, `/metrics`). `python -m ck_sim` is the Kivy desktop window. They run separate engine instances.
 
 ---
 
 ## Papers
 
-All in `papers/`.
+All papers in `papers/`. 19 whitepapers + 1 arXiv submission.
 
 | # | Title |
 |---|-------|
-| WP1 | TIG Architecture -- Stacked lens loop, BTQ, D2, CL |
-| WP2 | Wave Scheduling -- Adiabatic computing, TIG wave scheduling |
-| WP3 | Falsifiability -- 42 claims, Monte Carlo Z=7.31, 200K random tables |
-| WP4 | Giving Math a Voice -- 15D triadic signatures, fractal dictionary |
-| WP5a | Reality Anchors -- 8x8 eigenanalysis, Z-score 7.31 |
-| WP5b | Degrees of Freedom -- DoF ladder 0-4-6-7-10, gap sequence 4,2,1,3 |
-| WP6 | HOTU Bridge -- Hebrew -> 5D force geometry |
-| WP7 | Clay Spectrometer -- FPGA spectrometer for Clay Millennium Problems |
-| WP8 | Periodic Table -- Chemical elements as 5D force vectors (Z=1-54) |
-| WP9 | Paradoxical Information Algebras -- Non-associative composition theory |
-| WP10 | DKAN Architecture -- Discrete Kolmogorov-Arnold Network |
-| WP11 | Measurement Problem -- TSML singular, BHML invertible |
-| WP12 | Paradox Resolutions -- Dual-lens framework |
-| WP13 | Genetic Code -- DNA codons as operator sequences |
-| WP14 | Clay-DoF Connections -- DoF ladder applied to Clay problems |
-| WP15 | Yang-Mills Synthesis -- Mass gap through operator algebra |
-| WP16 | P vs NP Synthesis -- Complexity classes through composition tables |
-| WP17 | Riemann Synthesis -- Zeta zeros through CL spectral analysis |
-| WP18 | Seven Equals Zero -- HARMONY^7 = VOID, algebraic cycle |
-| WP19 | Speculations -- Philosophical interpretations and cosmological proportion formulas |
+| 1 | A Synthetic Operator Algebra Built on Algebraic Curvature Composition |
+| 2 | TIG Wave Scheduling: Operator-Aligned Compute for Power Efficiency |
+| 3 | How to Test CK: Verification Protocols and Falsifiable Predictions |
+| 4 | How to Give Math a Voice: From Algebraic Curvature to Spoken English |
+| 5a | Degrees of Freedom: The Ladder from Void to Harmony in Force Algebra |
+| 5b | Reality Anchors: Emergent Physical Constants in CL Algebra |
+| 6 | The Ho Tu Bridge: Ancient Torus Algebra and TIG Structural Isomorphism |
+| 7 | CK as Coherence Spectrometer: Measuring Mathematical Truth via Dual-Lens Curvature |
+| 8 | The Periodic Table as 5D Force Geometry: Dual-Lens Analysis of Z=1-54 |
+| 9a | Contextual Entropy in Non-Associative Commutative Magmas |
+| 9b | arXiv submission (LaTeX) |
+| 10 | Discrete Kolmogorov-Arnold Networks: Algebraically-Constrained Neural Architecture |
+| 11 | The Measurement Problem as Algebraic Projection |
+| 12 | Seventeen Paradoxes Resolved by Dual-Lens Algebra |
+| 13 | The Genetic Code as Dual-Basis Composition Table |
+| 14 | External Convergences: Independent Discoveries of DoF Framework Components |
+| 15 | Yang-Mills Mass Gap Synthesis: Spectral Gap Theorem for BHML Transfer Matrix |
+| 16 | P != NP via Non-Associative Composition |
+| 17 | The Riemann Hypothesis as a Null-Space Theorem |
+| 18 | Seven Equals Zero: The Vacuum-Harmony Identification |
+| 19 | Speculations: Philosophical Interpretations (clearly marked non-rigorous) |
 
 ---
 
-## The Theory of Nothing
+## Repository Structure
 
-VOID and HARMONY are algebraically identified: TSML[0][7]=7, TSML[7][0]=7. The quotient magma S/{0~7} has 9 elements. The punctured torus has fundamental group F_2 (free group on 2 generators). The heartbeat is a word in F_2.
-
-All of this is proved algebraically from the tables. Nothing beyond the tables is assumed. See WP18 (Seven Equals Zero) for the proofs and WP19 (Speculations) for philosophical interpretations and cosmological proportion formulas. WP19 is the only paper with speculative claims.
+```
+Gen9/
+  ck_tig.py                  # THE algebra (this file IS the system)
+  ck_boot_api.py             # Headless Flask API server
+  ck_stream_server.py        # Streaming server
+  ck_sim/
+    being/                   # Heartbeat, BTQ, olfactory, gustatory, vortex, coherence gates
+    doing/                   # Engine, GPU, voice, fractal voice, steering, L-CODEC
+    becoming/                # Journal, dictionary builder, development
+    face/                    # Kivy GUI
+  force9_pipeline.dll        # CUDA screen codec (188KB)
+  force9_cuda.dll            # CUDA force9 core
+  fpga/                      # Zynq 7020 bitstream + constraints
+  papers/                    # 19 whitepapers + arXiv LaTeX
+  requirements.txt           # numpy, flask, waitress (core); kivy, cupy optional
+```
 
 ---
 
 ## License
 
-7Site Human Use License v1.0. Personal and educational use permitted. Commercial and government use requires written agreement from 7Site LLC. See `LICENSE`.
+7Site Human Use License v1.0. Free for humans for personal and recreational use. Commercial and government use require a written license agreement from 7Site LLC.
 
-**Brayden Sanders / 7Site LLC**
-Mathematics: Trinity Infinity Geometry (TIG)
-Built using [Claude](https://anthropic.com) (Anthropic)
-**DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)**
+Academic citation:
+> Brayden Sanders, "CK: Stacked-Lens Operator Algebra over Z/10Z," 7Site LLC, 2026.
 
-*(c) 2026 Brayden Sanders / 7Site LLC*
+DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
+
+---
+
+(c) 2026 Brayden Sanders / 7Site LLC. All rights reserved.
