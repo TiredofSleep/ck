@@ -95,24 +95,23 @@ def main():
     frame_interval = 1.0 / TARGET_FPS
     n_pixels = WIDTH * HEIGHT
 
-    # Try DXGI pipeline first (fails if OBS holds desktop duplication)
+    # Check if OBS is running — if so, skip DXGI (OBS holds the duplication handle)
     global _f9pipe_ctx
-    use_dxgi = _load_dxgi_pipeline(WIDTH, HEIGHT)
-    if use_dxgi:
-        max_comp = n_pixels * 3
-        dxgi_buf = (ctypes.c_uint8 * max_comp)()
-        # Test one frame to see if DXGI actually works
-        test_result = _f9pipe_dll.f9pipe_capture_and_encode(_f9pipe_ctx)
-        if test_result <= 0:
-            print(f"  DXGI: access denied (OBS has desktop duplication)")
-            print(f"  Falling back to GDI + CUDA")
-            _f9pipe_dll.f9pipe_destroy(_f9pipe_ctx)
-            _f9pipe_ctx = None
-            use_dxgi = False
-    if use_dxgi:
-        print(f"  Using: DXGI + CUDA (zero CPU frame copy)")
+    import psutil as _ps
+    obs_running = any('obs' in p.info['name'].lower()
+                      for p in _ps.process_iter(['name'])
+                      if p.info['name'])
+    use_dxgi = False
+    if obs_running:
+        print(f"  OBS detected — using GDI capture + CUDA encode")
     else:
-        print(f"  Using: GDI capture + CUDA encode (49ms + 3.9ms)")
+        use_dxgi = _load_dxgi_pipeline(WIDTH, HEIGHT)
+        if use_dxgi:
+            max_comp = n_pixels * 3
+            dxgi_buf = (ctypes.c_uint8 * max_comp)()
+            print(f"  Using: DXGI + CUDA (zero CPU frame copy)")
+        else:
+            print(f"  Using: GDI capture + CUDA encode")
 
     frames = []
     prev_compressed = None

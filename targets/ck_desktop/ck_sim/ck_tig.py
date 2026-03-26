@@ -15,7 +15,7 @@ The eigenvalues are roots of unity because the operators ARE rotations.
 Proven constants:
   Cross-cycle disagreement = 44 (exact)
   Wobble = |44-50|/100 = 3/50 (exact)
-  Heartbeat = [1,3,1,1] (period 4, sum=6)
+  Heartbeat = [1,5,5,1] (period 4, sum=12, palindromic)
   Frozen cells = 4: (0,0), (2,2), (4,8), (8,4)
   Visible matter = 7^2/10^3 = 4.9%
 
@@ -64,8 +64,9 @@ T_STAR = 5.0 / 7.0
 # Frozen cells: where add == mul, no time emitted
 FROZEN = {(0,0), (2,2), (4,8), (8,4)}
 
-# Heartbeat pattern (from simultaneous creation+dissolution)
-HEARTBEAT = [1, 3, 1, 1]  # period 4, sum=6
+# Heartbeat pattern (from simultaneous creation+dissolution DIS values)
+# DIS[1][2]=1, DIS[3][4]=5, DIS[9][8]=5, DIS[7][6]=1
+HEARTBEAT = [1, 5, 5, 1]  # period 4, sum=12, palindromic
 
 # Proven constants from Z/10Z arithmetic
 CROSS_CYCLE = 44          # |add-mul| summed over coprime x even = exactly 44
