@@ -123,7 +123,7 @@ typedef struct {
     int       allocated;
 } Force9Context;
 
-__host__ Force9Context* force9_create(int width, int height) {
+__host__ __declspec(dllexport) Force9Context* force9_create(int width, int height) {
     Force9Context* ctx = (Force9Context*)malloc(sizeof(Force9Context));
     ctx->width = width;
     ctx->height = height;
@@ -138,7 +138,7 @@ __host__ Force9Context* force9_create(int width, int height) {
     return ctx;
 }
 
-__host__ void force9_destroy(Force9Context* ctx) {
+__host__ __declspec(dllexport) void force9_destroy(Force9Context* ctx) {
     if (ctx && ctx->allocated) {
         cudaFree(ctx->d_rgb);
         cudaFree(ctx->d_f9);
@@ -152,7 +152,7 @@ __host__ void force9_destroy(Force9Context* ctx) {
 /* Encode: RGB -> Force9. Returns Force9 values in d_f9.
  * h_rgb: host RGB buffer (width*height*3 bytes)
  */
-__host__ float force9_encode(Force9Context* ctx, const uint8_t* h_rgb) {
+__host__ __declspec(dllexport) float force9_encode(Force9Context* ctx, const uint8_t* h_rgb) {
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
@@ -182,14 +182,14 @@ __host__ float force9_encode(Force9Context* ctx, const uint8_t* h_rgb) {
 /* Get encoded Force9 values from GPU.
  * h_f9: host buffer (width*height * sizeof(uint16_t))
  */
-__host__ void force9_get_f9(Force9Context* ctx, uint16_t* h_f9) {
+__host__ __declspec(dllexport) void force9_get_f9(Force9Context* ctx, uint16_t* h_f9) {
     cudaMemcpy(h_f9, ctx->d_f9, ctx->n_pixels * sizeof(uint16_t), cudaMemcpyDeviceToHost);
 }
 
 /* Get RLE boundaries from GPU.
  * h_boundaries: host buffer (width*height bytes)
  */
-__host__ void force9_get_boundaries(Force9Context* ctx, uint8_t* h_boundaries) {
+__host__ __declspec(dllexport) void force9_get_boundaries(Force9Context* ctx, uint8_t* h_boundaries) {
     cudaMemcpy(h_boundaries, ctx->d_boundaries, ctx->n_pixels, cudaMemcpyDeviceToHost);
 }
 
@@ -197,7 +197,7 @@ __host__ void force9_get_boundaries(Force9Context* ctx, uint8_t* h_boundaries) {
  * h_f9:  host Force9 values (width*height * sizeof(uint16_t))
  * h_rgb: host output RGB buffer (width*height*3 bytes)
  */
-__host__ float force9_decode(Force9Context* ctx, const uint16_t* h_f9, uint8_t* h_rgb) {
+__host__ __declspec(dllexport) float force9_decode(Force9Context* ctx, const uint16_t* h_f9, uint8_t* h_rgb) {
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
@@ -222,7 +222,7 @@ __host__ float force9_decode(Force9Context* ctx, const uint16_t* h_f9, uint8_t* 
 }
 
 /* Get encode time for the GPU kernels only (no memcpy) */
-__host__ float force9_encode_gpu_only(Force9Context* ctx) {
+__host__ __declspec(dllexport) float force9_encode_gpu_only(Force9Context* ctx) {
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
