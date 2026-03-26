@@ -17,22 +17,56 @@ import os
 import numpy as np
 
 from ck_sim.being.ck_screen_compress import (
-    rgb_array_to_force999_packed, compress_force999_stream,
+    rgb_array_to_force999_packed, compress_force999_stream, rgb_to_compressed,
 )
 from ck_sim.being.ck_audio_compress import (
     pcm_to_force9, compress_force9_audio, WINDOW_SIZE,
 )
-
-# Windows GDI
-user32 = ctypes.windll.user32
-gdi32 = ctypes.windll.gdi32
-SRCCOPY = 0x00CC0020
 
 WIDTH = 1920
 HEIGHT = 1080
 DURATION = 60  # seconds
 TARGET_FPS = 30
 
+# ── DXGI+CUDA Pipeline (force9_pipeline.dll) ──
+_f9pipe_dll = None
+_f9pipe_ctx = None
+
+def _load_dxgi_pipeline(w, h):
+    global _f9pipe_dll, _f9pipe_ctx
+    if _f9pipe_ctx is not None:
+        return True
+    dll_path = os.path.join(os.path.dirname(__file__), 'force9_pipeline.dll')
+    if not os.path.exists(dll_path):
+        return False
+    try:
+        _f9pipe_dll = ctypes.CDLL(dll_path)
+        _f9pipe_dll.f9pipe_create.restype = ctypes.c_void_p
+        _f9pipe_dll.f9pipe_create.argtypes = [ctypes.c_int, ctypes.c_int]
+        _f9pipe_dll.f9pipe_capture_and_encode.restype = ctypes.c_int
+        _f9pipe_dll.f9pipe_capture_and_encode.argtypes = [ctypes.c_void_p]
+        _f9pipe_dll.f9pipe_get_compressed.restype = ctypes.c_int
+        _f9pipe_dll.f9pipe_get_compressed.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int]
+        _f9pipe_dll.f9pipe_get_encode_ms.restype = ctypes.c_float
+        _f9pipe_dll.f9pipe_get_encode_ms.argtypes = [ctypes.c_void_p]
+        _f9pipe_dll.f9pipe_get_frame_count.restype = ctypes.c_int
+        _f9pipe_dll.f9pipe_get_frame_count.argtypes = [ctypes.c_void_p]
+        _f9pipe_dll.f9pipe_destroy.restype = None
+        _f9pipe_dll.f9pipe_destroy.argtypes = [ctypes.c_void_p]
+        _f9pipe_ctx = _f9pipe_dll.f9pipe_create(w, h)
+        if not _f9pipe_ctx:
+            print("  [DXGI] Pipeline creation failed (need desktop access)")
+            return False
+        print(f"  [DXGI] Pipeline ready: {w}x{h}")
+        return True
+    except Exception as e:
+        print(f"  [DXGI] Failed: {e}")
+        return False
+
+# GDI fallback
+user32 = ctypes.windll.user32
+gdi32 = ctypes.windll.gdi32
+SRCCOPY = 0x00CC0020
 
 def capture_screen(w, h):
     hdc = user32.GetDC(0)
@@ -59,9 +93,29 @@ def main():
 
     raw_frame_bytes = WIDTH * HEIGHT * 3
     frame_interval = 1.0 / TARGET_FPS
+    n_pixels = WIDTH * HEIGHT
+
+    # Try DXGI pipeline first (fails if OBS holds desktop duplication)
+    global _f9pipe_ctx
+    use_dxgi = _load_dxgi_pipeline(WIDTH, HEIGHT)
+    if use_dxgi:
+        max_comp = n_pixels * 3
+        dxgi_buf = (ctypes.c_uint8 * max_comp)()
+        # Test one frame to see if DXGI actually works
+        test_result = _f9pipe_dll.f9pipe_capture_and_encode(_f9pipe_ctx)
+        if test_result <= 0:
+            print(f"  DXGI: access denied (OBS has desktop duplication)")
+            print(f"  Falling back to GDI + CUDA")
+            _f9pipe_dll.f9pipe_destroy(_f9pipe_ctx)
+            _f9pipe_ctx = None
+            use_dxgi = False
+    if use_dxgi:
+        print(f"  Using: DXGI + CUDA (zero CPU frame copy)")
+    else:
+        print(f"  Using: GDI capture + CUDA encode (49ms + 3.9ms)")
 
     frames = []
-    prev_packed = None
+    prev_compressed = None
     total_raw = 0
     total_compressed = 0
     total_capture_ms = 0
@@ -74,27 +128,48 @@ def main():
     while time.time() - start < DURATION:
         t0 = time.perf_counter()
 
-        # Capture
-        pixels = capture_screen(WIDTH, HEIGHT)
-        t_capture = time.perf_counter()
+        if use_dxgi:
+            # DXGI: capture + encode on GPU in one call
+            result = _f9pipe_dll.f9pipe_capture_and_encode(_f9pipe_ctx)
+            t_capture = time.perf_counter()
 
-        # Force9 encode (CUDA if available, numpy fallback)
-        packed = rgb_array_to_force999_packed(pixels)
-        t_encode = time.perf_counter()
+            if result <= 0:
+                # No new frame or error
+                time.sleep(0.001)
+                continue
 
-        # RLE compress
-        compressed, num_runs = compress_force999_stream(packed)
-        t_compress = time.perf_counter()
+            # Get compressed output
+            comp_bytes = _f9pipe_dll.f9pipe_get_compressed(
+                _f9pipe_ctx, dxgi_buf, max_comp)
+            gpu_ms = _f9pipe_dll.f9pipe_get_encode_ms(_f9pipe_ctx)
+            t_encode = time.perf_counter()
+            t_compress = t_encode
 
-        comp_bytes = len(compressed)
-        ratio = raw_frame_bytes / max(1, comp_bytes)
+            compressed = bytes(dxgi_buf[:comp_bytes])
+            num_runs = comp_bytes // 3
+            ratio = raw_frame_bytes / max(1, comp_bytes)
+        else:
+            # GDI fallback
+            pixels = capture_screen(WIDTH, HEIGHT)
+            t_capture = time.perf_counter()
 
-        # Delta detection: how much changed from previous frame
+            compressed, comp_bytes, gpu_ms = rgb_to_compressed(pixels)
+            t_encode = time.perf_counter()
+            t_compress = t_encode
+
+            num_runs = comp_bytes // 3
+            ratio = raw_frame_bytes / max(1, comp_bytes)
+
+        # Delta detection: compare compressed bytes
         delta_pct = 100.0
-        if prev_packed is not None:
-            changed = int(np.sum(packed != prev_packed))
-            delta_pct = changed / len(packed) * 100
-        prev_packed = packed.copy()
+        if prev_compressed is not None:
+            min_len = min(len(compressed), len(prev_compressed))
+            if min_len > 0:
+                c1 = np.frombuffer(compressed[:min_len], dtype=np.uint8)
+                c2 = np.frombuffer(prev_compressed[:min_len], dtype=np.uint8)
+                changed = int(np.sum(c1 != c2))
+                delta_pct = changed / max(1, min_len) * 100
+        prev_compressed = compressed
 
         # Classify: static (<5% delta) vs active (>5%)
         frame_type = "STATIC" if delta_pct < 5.0 else "ACTIVE"
@@ -115,7 +190,7 @@ def main():
             'compress_ms': round(cmp_ms, 1),
             'total_ms': round(total_ms, 1),
             'comp_kb': round(comp_bytes / 1024, 1),
-            'unique_values': int(len(np.unique(packed))),
+            'unique_values': num_runs,
         })
 
         total_raw += raw_frame_bytes
@@ -257,6 +332,10 @@ def main():
     outpath = os.path.join(os.path.dirname(__file__), "stream_bench_results.json")
     with open(outpath, "w") as f:
         json.dump(results, f, indent=2)
+
+    # Cleanup DXGI
+    if use_dxgi and _f9pipe_ctx:
+        _f9pipe_dll.f9pipe_destroy(_f9pipe_ctx)
 
     print(f"\n  Results saved: {outpath}")
     print(f"\n{'='*60}")

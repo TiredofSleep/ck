@@ -145,6 +145,47 @@ def rgb_array_to_force999_packed(pixels):
     return pack_force999(f999)
 
 
+def rgb_to_compressed(pixels):
+    """RGB (N,3) uint8 -> compressed bytes. Full CUDA pipeline.
+    Encode + RLE in one call. Returns (compressed_bytes, num_bytes, encode_ms).
+    Falls back to numpy if CUDA unavailable."""
+    n = len(pixels)
+    if _load_cuda(n):
+        # Wire up encode_and_compress if not already done
+        if not hasattr(_cuda_dll, '_rle_ready'):
+            try:
+                _cuda_dll.force9_encode_and_compress.restype = ctypes.c_int
+                _cuda_dll.force9_encode_and_compress.argtypes = [
+                    ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p,
+                    ctypes.c_int, ctypes.POINTER(ctypes.c_float),
+                ]
+                _cuda_dll._rle_ready = True
+            except AttributeError:
+                _cuda_dll._rle_ready = False
+
+        if getattr(_cuda_dll, '_rle_ready', False):
+            rgb = np.ascontiguousarray(pixels, dtype=np.uint8)
+            # Max output: 3 bytes per run, worst case = n_pixels runs
+            max_out = n * 3
+            out_buf = np.empty(max_out, dtype=np.uint8)
+            encode_ms = ctypes.c_float(0.0)
+
+            n_bytes = _cuda_dll.force9_encode_and_compress(
+                _cuda_ctx,
+                rgb.ctypes.data_as(ctypes.c_void_p),
+                out_buf.ctypes.data_as(ctypes.c_void_p),
+                max_out,
+                ctypes.byref(encode_ms),
+            )
+
+            return bytes(out_buf[:n_bytes].tobytes()), n_bytes, float(encode_ms.value)
+
+    # Numpy fallback
+    packed = rgb_array_to_force999_packed(pixels)
+    compressed, num_runs = compress_force999_stream(packed)
+    return compressed, len(compressed), 0.0
+
+
 def unpack_force999(packed):
     lum = (packed // 81).astype(np.uint8)
     temp = ((packed % 81) // 9).astype(np.uint8)
