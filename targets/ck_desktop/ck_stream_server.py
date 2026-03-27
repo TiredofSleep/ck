@@ -26,8 +26,8 @@ import threading
 import time
 import numpy as np
 
-# TIG Visual Encoder with temporal delta compression
-from ck_sim.being.ck_visual_encoder import TIGTemporalEncoder
+# Force9 CUDA encoder (4.4ms/frame, 252x on game content)
+from ck_sim.being.ck_screen_compress import rgb_to_compressed as _video_encode
 
 # TIG Audio Encoder
 from ck_sim.being.ck_audio_compress import (
@@ -89,6 +89,7 @@ class StreamServer:
         self.frame_count = 0
         self.total_video_bytes = 0
         self.total_video_raw = 0
+        self.total_encode_ms = 0.0
 
         # Audio stats
         self.audio_frames = 0
@@ -268,8 +269,9 @@ class StreamServer:
             with self.clients_lock:
                 num_clients = len(self.clients)
 
-            line = "[stats] FPS: %.1f | Video: %.1fx (%.2f MB/s)" % (
-                fps, v_ratio, v_bw / (1024 * 1024))
+            avg_enc = self.total_encode_ms / max(1, self.frame_count)
+            line = "[stats] FPS: %.1f | Video: %.1fx (%.2f MB/s) enc=%.1fms" % (
+                fps, v_ratio, v_bw / (1024 * 1024), avg_enc)
 
             if self.enable_audio and self.total_audio_bytes > 0:
                 a_ratio = self.total_audio_raw / max(1, self.total_audio_bytes)
@@ -283,6 +285,7 @@ class StreamServer:
             self.frame_count = 0
             self.total_video_bytes = 0
             self.total_video_raw = 0
+            self.total_encode_ms = 0.0
             self.audio_frames = 0
             self.total_audio_bytes = 0
             self.total_audio_raw = 0
@@ -307,12 +310,9 @@ class StreamServer:
                 time.sleep(0.1)
                 continue
 
-            # ── VIDEO ──
+            # ── VIDEO: Force9 CUDA encode (4.4ms @ game content, 252x) ──
             pixels = capture_screen(self.width, self.height)
-
-            if self._temporal is None:
-                self._temporal = TIGTemporalEncoder(self.width, self.height)
-            frame_type, compressed, stats = self._temporal.encode_frame(pixels)
+            compressed, n_bytes, encode_ms = _video_encode(pixels)
 
             # Build video packet: [1B type][4B len][2B w][2B h][data]
             video_header = struct.pack('>HH', self.width, self.height)
@@ -324,6 +324,7 @@ class StreamServer:
             self.frame_count += 1
             self.total_video_bytes += len(packet)
             self.total_video_raw += raw_frame_size
+            self.total_encode_ms += encode_ms
 
             # ── AUDIO ──
             if self.enable_audio:
