@@ -71,7 +71,7 @@ grid in the same direction. The three form a vertical line in
 
 ---
 
-## The W-Displacement: The Analog Is Exact
+## The COL Displacement: Near the Inner Shell Boundary
 
 In rescaled [0,1] operator space:
 ```
@@ -79,14 +79,27 @@ HAR(7) position: 7/9 ≈ 0.778
 COL(4) position: 4/9 ≈ 0.444
 Midplane:              0.500
 
-Distance of COL from midplane: |4/9 - 1/2| = 1/18 ≈ 0.056 ≈ W = 0.060
+d_COL = |4/9 - 1/2| = 1/18 ≈ 0.056  (local geometry of operator 4)
+W_BHML = 3/50 = 0.060                (global BHML wobble statistic)
+inner_shell = 2/9 ≈ 0.222            (Row 1 ↔ Row 2 boundary width)
 ```
 
-**COL(4) sits at the ±W boundary of the innermost shell.** It is the
-operator closest to the critical midplane from the "collapse side"
-(col-0, HAR direction). This is not a coincidence — W = 3/50 was
-derived from the wobble structure of the 44-cell BECOMING table, and
-COL sits exactly at that boundary.
+**COL(4) sits near the inner-shell boundary, but d_COL ≠ W_BHML.**
+
+These two constants are close (ratio 27/25 ≈ 1.08) but measure different things:
+- **d_COL = 1/18** is the geometric distance of operator 4 from the midplane
+  in the 9-point operator space. It is a local, positional fact.
+- **W_BHML = 3/50** is the global wobble of the BHML table: (50−44)/100,
+  the fractional distance from half-harmony. It is a statistical, table-wide quantity.
+
+The near-coincidence 1/18 ≈ 3/50 is numerically suggestive but is NOT a derivation
+of one from the other. COL sits near the W_BHML boundary; it does not sit exactly
+on it. See `tig_constants.py` for the full constant taxonomy.
+
+**What is exact:** COL sits at 4/9, which is the operator closest to the midplane
+(1/2) from the "collapse side" (col-0 direction). This positional fact is
+geometry — it follows from 4 being the smallest non-corner operator above the
+midplane when operators are placed at k/9.
 
 ---
 
