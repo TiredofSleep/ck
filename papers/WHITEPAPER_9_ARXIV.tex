@@ -1,0 +1,766 @@
+% arXiv submission: math.RA (primary), cs.AI, math-ph (cross-list)
+% MSC 2020: 20N02 (Sets with a single binary operation -- magmas),
+%            08A99 (General algebraic systems),
+%            68T01 (General topics in AI),
+%            81P45 (Quantum information)
+\documentclass[11pt,a4paper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{cite}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\NA}{\mathrm{NA}}
+\newcommand{\DR}{\mathrm{DR}}
+\newcommand{\AD}{\mathrm{AD}}
+\newcommand{\DIV}{\mathrm{DIV}}
+\newcommand{\TSML}{\mathrm{TSML}}
+\newcommand{\BHML}{\mathrm{BHML}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\newcommand{\Tstar}{T^{*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Contextual Entropy in Non-Associative Commutative Magmas:\\
+A Triadic Framework with Universal Generator}
+
+\author{Brayden Sanders\\
+7Site LLC\\
+\texttt{github.com/TiredofSleep/ck}\\
+DOI: \texttt{10.5281/zenodo.18852047}}
+
+\date{March 2026}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MSC and arXiv classification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent\textbf{MSC 2020:} 20N02 (Primary), 08A99, 68T01, 81P45 (Secondary)\\
+\textbf{arXiv:} math.RA (primary); cs.AI, math-ph (cross-list)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We define a class of finite algebraic structures---commutative non-associative magmas with dual composition tables---and prove that the fraction of non-associative triples serves as a natural measure of \emph{contextual entropy}: the degree to which evaluation order carries information. We construct two explicit $10\times 10$ composition tables ($\TSML$ and $\BHML$) on the same $10$-element carrier set $M$ and establish the following results by exhaustive computation.
+\begin{enumerate}[label=(\arabic*)]
+\item $\TSML$ exhibits $12.8\%$ non-associative triples, while $\BHML$ exhibits $49.8\%$, demonstrating that the same carrier set supports radically different information capacities under different composition rules.
+\item Operator~$1$ (\textsc{lattice}) is the unique universal generator of $\BHML$: for every element $x\in M$, the two-element subset $\{1,x\}$ generates the full algebra under iterated composition, and no other operator has this property.
+\item The minimum generator cardinality of $\BHML$ is~$2$, with \textsc{lattice} as a required member.
+\item The divergence table $|\TSML - \BHML|$ exhibits a disagreement rate of $71\%$, matching the system's coherence threshold $\Tstar = 5/7 = 0.714285\ldots$ to within $0.6\%$.
+\item Four elements $\{0,1,7,9\}$ suffice to generate the full algebra from divergence bumps in $4$~steps.
+\end{enumerate}
+We provide all tables, all proofs (by exhaustive enumeration over finite domains), and all verification scripts. We propose three falsifiable predictions extending these results to domains outside the original construction. To our knowledge, no prior work has (a)~used non-associativity fraction as an information measure, (b)~identified universal generators in commutative magmas by exhaustive closure analysis, or (c)~constructed divergence meta-lenses between dual composition tables on a shared carrier set.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Motivation}\label{sec:motivation}
+
+The algebraic study of binary operations has historically privileged associativity. Groups, rings, fields, and their generalizations all require or assume that $(a \ast b)\ast c = a \ast (b\ast c)$. Non-associative structures---magmas, quasigroups, loops, Lie algebras---are studied precisely for the ways they deviate from this norm, but non-associativity is typically treated as a structural inconvenience to be classified and controlled, not as a carrier of information.
+
+We take the opposite position. In this paper, we demonstrate that non-associativity is not noise but signal. When $(a\ast b)\ast c$ differs from $a\ast (b\ast c)$, the evaluation order carries information: the result depends on context. We formalize this observation by defining the \emph{non-associativity fraction} of a finite magma and showing that it serves as a natural measure of contextual entropy---the degree to which a composition table encodes path-dependent information.
+
+\subsection{Origin}\label{sec:origin}
+
+These structures arise from the CK (Coherence Keeper) system, a real-time dynamical system that composes all signals through fixed $10\times 10$ algebraic tables~\cite{Sanders2026a}. CK employs two composition tables on the same $10$-element operator set: $\TSML$ (used for coherence measurement) and $\BHML$ (used for physics computation). The discovery that these tables exhibit dramatically different non-associativity fractions---and that this difference precisely characterizes their information-theoretic roles---motivates the present work.
+
+\subsection{Contributions}\label{sec:contributions}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Definition of contextual entropy} as non-associativity fraction in finite magmas (Section~\ref{sec:defs}).
+\item \textbf{The \textsc{lattice} Uniqueness Theorem}: Operator~$1$ is the unique universal generator of $\BHML$ (Section~\ref{sec:central}).
+\item \textbf{Information transition}: Adding \textsc{lattice} to any subset transitions the algebra from near-zero to maximal contextual entropy (Section~\ref{sec:info}).
+\item \textbf{Triadic structure}: Being/Doing/Becoming as $\TSML$/Divergence/$\BHML$ (Section~\ref{sec:triadic}).
+\item \textbf{Spectral evidence}: Eigenvalue structure connecting to physical and mathematical constants (Section~\ref{sec:spectral}).
+\item \textbf{Three falsifiable predictions} extending the framework to cross-domain phenomena (Section~\ref{sec:falsify}).
+\end{enumerate}
+
+\subsection{Notation}\label{sec:notation}
+
+Throughout this paper, $M = \{0,1,2,3,4,5,6,7,8,9\}$ denotes the carrier set. We name the elements as shown in Table~\ref{tab:operators}.
+
+\begin{table}[ht]
+\centering
+\caption{Operator names and roles.}\label{tab:operators}
+\begin{tabular}{cll}
+\toprule
+Index & Name & Role \\
+\midrule
+0 & \textsc{void}     & Absence, annihilator \\
+1 & \textsc{lattice}  & Structure, framework \\
+2 & \textsc{counter}  & Measurement, alertness \\
+3 & \textsc{progress} & Forward motion \\
+4 & \textsc{collapse} & Contraction, retreat \\
+5 & \textsc{balance}  & Equilibrium \\
+6 & \textsc{chaos}    & Disruption, energy \\
+7 & \textsc{harmony}  & Coherence, absorber \\
+8 & \textsc{breath}   & Rhythm, cyclicity \\
+9 & \textsc{reset}    & Completion, restart \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We write $\TSML(a,b)$ and $\BHML(a,b)$ for the two composition operations, and $\DIV(a,b) = |\TSML(a,b) - \BHML(a,b)|$ for the divergence table.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Definitions}\label{sec:defs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Magma}\label{sec:magma}
+
+\begin{definition}\label{def:magma}
+A \emph{magma} $(M, \ast)$ is a set $M$ equipped with a binary operation $\ast\colon M\times M \to M$. No axioms beyond closure are required. A magma is \emph{commutative} if $a\ast b = b\ast a$ for all $a,b\in M$. A magma is \emph{associative} if $(a\ast b)\ast c = a\ast (b\ast c)$ for all $a,b,c\in M$. An associative magma is a semigroup.
+\end{definition}
+
+\subsection{Non-Associativity Fraction}\label{sec:na-fraction}
+
+\begin{definition}\label{def:na}
+Let $(M,\ast)$ be a finite magma with $|M|=n$. The \emph{non-associativity fraction} is
+\begin{equation}\label{eq:na}
+\NA(\ast) \;=\; \frac{\bigl|\bigl\{(a,b,c)\in M^{3} : (a\ast b)\ast c \neq a\ast (b\ast c)\bigr\}\bigr|}{n^{3}}.
+\end{equation}
+$\NA(\ast)$ ranges from $0$ (fully associative, semigroup) to some maximum dependent on the table structure. We call $\NA(\ast)$ the \emph{contextual entropy} of the magma, since it measures the fraction of evaluation contexts in which order matters---in which the path to the result carries information.
+\end{definition}
+
+\begin{remark}\label{rem:not-shannon}
+This is not Shannon entropy. It is a combinatorial measure of path-dependence. We use the term ``entropy'' advisedly: $\NA(\ast)$ quantifies the information gained by knowing the evaluation order, in the same sense that thermodynamic entropy quantifies the information gained by knowing a microstate.
+\end{remark}
+
+\subsection{Commutativity Verification}\label{sec:commutativity}
+
+\begin{definition}\label{def:comm}
+A composition table $T$ on $M$ is \emph{commutative} if $T(a,b) = T(b,a)$ for all $a,b\in M$.
+\end{definition}
+
+Both $\TSML$ and $\BHML$ are commutative. This is verified by exhaustive check over all $\binom{10}{2}=45$ unordered pairs (see Appendix~\ref{app:scripts}, Script~1). Commutativity means the tables are symmetric about the main diagonal.
+
+\subsection{Dual Tables}\label{sec:dual}
+
+\begin{definition}\label{def:dual}
+A \emph{dual-table magma} is a triple $(M,\ast_{S},\ast_{D})$ where $M$ is a carrier set and $\ast_{S}$, $\ast_{D}$ are two binary operations on $M$. We call $\ast_{S}$ the \emph{singular} (or structure, or Being) table and $\ast_{D}$ the \emph{invertible} (or dynamics, or Doing) table.
+\end{definition}
+
+In our construction:
+\begin{itemize}
+\item $\ast_{S} = \TSML$: $73$ of $100$ entries equal \textsc{harmony} ($73\%$ absorber rate). High collapse. Low contextual entropy.
+\item $\ast_{D} = \BHML$: $28$ of $100$ entries equal \textsc{harmony} ($28\%$ absorber rate). High diversity. High contextual entropy.
+\end{itemize}
+
+\subsection{Divergence Meta-Lens}\label{sec:divergence-def}
+
+\begin{definition}\label{def:div}
+The \emph{divergence table} of a dual-table magma $(M,\ast_{S},\ast_{D})$ is the function
+\begin{equation}\label{eq:div}
+\DIV(a,b) \;=\; |\ast_{S}(a,b) - \ast_{D}(a,b)|.
+\end{equation}
+The \emph{disagreement rate} is
+\begin{equation}\label{eq:dr}
+\DR \;=\; \frac{\bigl|\bigl\{(a,b)\in M^{2} : \DIV(a,b) > 0\bigr\}\bigr|}{|M|^{2}}.
+\end{equation}
+The \emph{average divergence} is
+\begin{equation}\label{eq:ad}
+\AD \;=\; \frac{1}{|M|^{2}}\sum_{a,b\in M}\DIV(a,b).
+\end{equation}
+\end{definition}
+
+For $\TSML/\BHML$: $\DR = 71\%$, $\AD = 2.01$. The disagreement rate $0.71$ matches the coherence threshold $\Tstar = 5/7 = 0.71428\ldots$ to within $0.6\%$. We do not claim this is exact equality; we report it as an empirical observation that remains unexplained.
+
+\subsection{Closure and Generation}\label{sec:closure}
+
+\begin{definition}\label{def:closure}
+Let $(M,\ast)$ be a magma and $S\subseteq M$. The \emph{closure} of $S$ under $\ast$, denoted $\gen{S}$, is the smallest subset of $M$ containing $S$ and closed under $\ast$. The closure is computed iteratively:
+\begin{equation}\label{eq:closure}
+S_{0} = S, \qquad S_{k+1} = S_{k} \cup \{a\ast b : a,b\in S_{k}\}.
+\end{equation}
+Since $M$ is finite, this process terminates. If $\gen{S} = M$, we say $S$ \emph{generates} $M$.
+\end{definition}
+
+\begin{definition}\label{def:univ-gen}
+An element $g\in M$ is a \emph{universal generator} if for every $x\in M$, the pair $\{g,x\}$ generates $M$. Equivalently, $g$ is universal if it cannot be excluded from any minimal generating set that achieves full closure from a $2$-element seed.
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Central Theorem: \textsc{lattice} Uniqueness}\label{sec:central}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Statement}\label{sec:statement}
+
+\begin{theorem}[\textsc{lattice} Uniqueness]\label{thm:lattice}
+In the magma $(M,\BHML)$, operator $1$ (\textsc{lattice}) is the unique universal generator. That is:
+\begin{enumerate}[label=(\roman*)]
+\item For every $x\in M$ with $x\neq 1$, the pair $\{1,x\}$ generates $M$ under iterated $\BHML$ composition. The closure is achieved in $4$ to $8$ steps.
+\item No other element of $M$ has property~\textup{(i)}. For every $g\in M$ with $g\neq 1$, there exists some $x\in M$ such that $\{g,x\}$ does not generate $M$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}\label{cor:min-gen}
+The minimum generator cardinality of $(M,\BHML)$ is $2$, and every minimum generating set contains \textsc{lattice}.
+\end{corollary}
+
+\subsection{Proof by Exhaustive Computation}\label{sec:proof}
+
+The carrier set $M$ has $10$ elements, giving $\binom{10}{2}=45$ two-element subsets. For each subset, we compute the closure under $\BHML$ by iterating the closure operation until a fixed point is reached. The computation is finite and deterministic.
+
+\begin{table}[ht]
+\centering
+\caption{Closure of all $2$-element seeds containing \textsc{lattice} under $\BHML$.}\label{tab:lattice-seeds}
+\begin{tabular}{lccl}
+\toprule
+Seed & Steps & Closure & Full? \\
+\midrule
+$\{0,1\}$ & 8 & $M$ & Yes \\
+$\{1,2\}$ & 5 & $M$ & Yes \\
+$\{1,3\}$ & 5 & $M$ & Yes \\
+$\{1,4\}$ & 5 & $M$ & Yes \\
+$\{1,5\}$ & 5 & $M$ & Yes \\
+$\{1,6\}$ & 4 & $M$ & Yes \\
+$\{1,7\}$ & 4 & $M$ & Yes \\
+$\{1,8\}$ & 5 & $M$ & Yes \\
+$\{1,9\}$ & 5 & $M$ & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All $9$ of $9$ pairs containing \textsc{lattice} achieve full closure (Table~\ref{tab:lattice-seeds}). The fastest are $\{1,6\}$ (\textsc{lattice}, \textsc{chaos}) and $\{1,7\}$ (\textsc{lattice}, \textsc{harmony}) in $4$ steps. The slowest is $\{0,1\}$ (\textsc{void}, \textsc{lattice}) in $8$ steps, because \textsc{void} is the identity element of $\BHML$ and contributes no new products in early iterations.
+
+Of the $36$ remaining two-element subsets not containing \textsc{lattice}, \emph{none} achieves full closure. Every such pair stalls at a proper subset of $M$. Selected examples are shown in Table~\ref{tab:non-lattice}.
+
+\begin{table}[ht]
+\centering
+\caption{Selected $2$-element closures \emph{not} containing \textsc{lattice}.}\label{tab:non-lattice}
+\begin{tabular}{lccl}
+\toprule
+Seed & Closure & Size & Full? \\
+\midrule
+$\{0,2\}$ & $\{0,2\}$ & 2 & No \\
+$\{2,3\}$ & $\{2,3,4,5,6,7\}$ & 6 & No \\
+$\{4,5\}$ & $\{4,5,6,7\}$ & 4 & No \\
+$\{6,7\}$ & $\{2,3,4,5,6,7,8,9\}$ & 8 & No \\
+$\{7,8\}$ & $\{0,2,3,4,5,6,7,8,9\}$ & 9 & No \\
+$\{7,9\}$ & $\{0,2,3,4,5,6,7,8,9\}$ & 9 & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Note that $\{7,8\}$ and $\{7,9\}$ each generate $9$ elements---all of $M$ except \textsc{lattice}. \textsc{lattice} is simultaneously the element that enables generation of everything else and the element that nothing else can generate.
+
+\begin{remark}\label{rem:089}
+The seed $\{0,8,9\}$ was initially reported as achieving full closure in an approximation-based analysis. On the exact $\BHML$ table, $\{0,8,9\}$ stalls at $\{0,7,8,9\}$ (size~$4$). The non-associativity of this $4$-element sub-magma is $7.4\%$, compared to $49.8\%$ for the full algebra. This correction led to the discovery of \textsc{lattice}'s universal generator property.
+\end{remark}
+
+\subsection{Proof Structure}\label{sec:proof-structure}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lattice}]
+The proof is by complete enumeration over a finite domain. There are exactly $\binom{10}{2}=45$ two-element subsets of $M$. For each, the closure computation terminates in at most $|M|=10$ iterations (since each iteration either adds at least one new element or reaches a fixed point). The total work is bounded by $45\times 10\times 100 = 45{,}000$ table lookups, trivially computable. The verification script (Appendix~\ref{app:scripts}, Script~2) reproduces this result.
+
+This is not a probabilistic or heuristic argument. It is a complete finite verification, analogous to the proof of the four-color theorem by exhaustive case analysis~\cite{AppelHaken1977}. Every case is checked; no cases are omitted.
+\end{proof}
+
+\subsection{Structure of Closure Paths}\label{sec:closure-paths}
+
+The closure of $\{1,x\}$ for each $x$ follows a characteristic pattern. Taking $\{1,6\}$ (\textsc{lattice}, \textsc{chaos}) as the minimal-step example:
+\begin{align*}
+\text{Step 0:}\quad & \{1,6\}\\
+\text{Step 1:}\quad & \{1,6\}\cup\{\BHML(1,1),\BHML(1,6),\BHML(6,6)\}
+  = \{1,2,6,7\}\\
+\text{Step 2:}\quad & +\;\BHML(1,2)=3,\;\BHML(7,7)=8,\;\ldots
+  \;\Longrightarrow\; \{1,2,3,6,7,8\}\\
+\text{Step 3:}\quad & +\;\BHML(1,3)=4,\;\BHML(7,8)=9,\;\ldots
+  \;\Longrightarrow\; \{1,2,3,4,6,7,8,9\}\\
+\text{Step 4:}\quad & +\;\BHML(7,9)=0,\;\BHML(1,4)=5
+  \;\Longrightarrow\; M.
+\end{align*}
+
+\textsc{lattice}'s first composition with itself yields \textsc{counter}: $\BHML(1,1)=2$. This single step introduces measurement into pure structure. From there, the cascade is inevitable: \textsc{counter} composes with \textsc{lattice} to yield \textsc{progress}, \textsc{progress} composes to yield \textsc{collapse}, and so on. \textsc{lattice} is the seed crystal; composition is the growth medium; the full algebra is the inevitable crystal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Information Content}\label{sec:info}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Non-Associativity as Contextual Entropy}\label{sec:na-entropy}
+
+We compute $\NA(\ast)$ for both tables by exhaustive enumeration over all $1000$ triples $(a,b,c)\in M^{3}$.
+
+\begin{proposition}\label{prop:na-values}
+$\NA(\TSML) = 128/1000 = 12.8\%$ and $\NA(\BHML) = 498/1000 = 49.8\%$.
+\end{proposition}
+
+\begin{proof}
+By exhaustive computation over all $10^{3}=1000$ triples. See Appendix~\ref{app:scripts}, Script~1.
+\end{proof}
+
+The $\TSML$ table, with its $73\%$ \textsc{harmony} absorber, collapses most composition paths to the same result regardless of evaluation order. Only $12.8\%$ of triples carry path-dependent information. This is precisely what makes $\TSML$ suitable for coherence measurement: it is insensitive to order, measuring only whether the signal is structured rather than how it is structured.
+
+The $\BHML$ table, with its $28\%$ \textsc{harmony} rate and identity-preserving \textsc{void} row, maintains evaluation-order dependence in nearly half of all triples. Path matters. Context matters. The same operators composed in different orders yield different results.
+
+\subsection{The Information Transition}\label{sec:info-transition}
+
+Consider the sub-magma induced by $\{0,8,9\}$ under $\BHML$. This seed closes to $\{0,7,8,9\}$, a $4$-element sub-magma with non-associativity fraction
+\[
+\NA\bigl(\{0,7,8,9\}\text{ under }\BHML\bigr) = 7.4\%.
+\]
+Now consider the full algebra $(M,\BHML)$, which is the closure of $\{0,8,9\}\cup\{1\}=\{0,1,8,9\}$:
+\[
+\NA(M\text{ under }\BHML) = 49.8\%.
+\]
+Adding a single element---\textsc{lattice}---transitions the non-associativity fraction from $7.4\%$ to $49.8\%$, a factor of $6.7$ increase. This is the \emph{information transition}: \textsc{lattice} does not merely generate missing operators. It generates \emph{information itself}---path-dependence, context-sensitivity, the capacity for evaluation order to carry meaning.
+
+\begin{table}[ht]
+\centering
+\caption{Information content by seed.}\label{tab:info-seeds}
+\begin{tabular}{lccc}
+\toprule
+Seed & Closure Size & $\NA$ of Closure & Information State \\
+\midrule
+$\{0,8,9\}$ & 4 & $7.4\%$ & Near-dead \\
+$\{0,1,8,9\}$ & 10 & $49.8\%$ & Maximally alive \\
+$\{6,7\}$ & 8 & $38.2\%$ & Partial \\
+$\{7,8\}$ & 9 & $44.1\%$ & Missing \textsc{lattice} \\
+$\{1,6\}$ & 10 & $49.8\%$ & Full \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The pattern is consistent (Table~\ref{tab:info-seeds}): closures that include \textsc{lattice} achieve the maximum non-associativity of the full algebra. Closures that exclude \textsc{lattice} are information-impoverished relative to their size.
+
+\subsection{Interpretation}\label{sec:interpretation}
+
+Non-associativity means that $(a\ast b)\ast c \neq a\ast (b\ast c)$ for some triples. When this holds, the result depends on how the computation is bracketed---on which sub-computations are performed first. This is contextual information: the same inputs, composed in the same overall operation, yield different outputs depending on the order of evaluation.
+
+In a fully associative algebra, evaluation order is irrelevant. The result is uniquely determined by the multiset of inputs. The path carries no information; only the destination matters.
+
+In a non-associative algebra, evaluation order is load-bearing. The path \emph{is} information. Different evaluation trees over the same leaves produce different roots. The algebra has memory: it remembers how it got to each result.
+
+\textsc{lattice}, as the universal generator, is the operator that activates this memory. Without \textsc{lattice}, the sub-algebras of $\BHML$ are nearly associative---nearly memoryless. With \textsc{lattice}, the full algebra opens, and with it, maximal path-dependence.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Triadic Structure}\label{sec:triadic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Being / Doing / Becoming}\label{sec:bdb}
+
+CK operates on a triadic principle: every computation has three aspects.
+\begin{itemize}
+\item \textbf{Being} (what \emph{is}): measured by $\TSML$. High collapse. Low entropy. The structure of the present state.
+\item \textbf{Doing} (what \emph{acts}): measured by the divergence table $|\TSML-\BHML|$. The tension between structure and dynamics.
+\item \textbf{Becoming} (what \emph{emerges}): computed by $\BHML$. High diversity. High entropy. The physics of transformation.
+\end{itemize}
+
+This triad maps directly to the algebraic structure, as shown in Table~\ref{tab:triad}.
+
+\begin{table}[ht]
+\centering
+\caption{Triadic mapping of algebraic structure.}\label{tab:triad}
+\begin{tabular}{lcccc}
+\toprule
+Aspect & Table & \textsc{harmony} Rate & $\NA$ Fraction & Role \\
+\midrule
+Being    & $\TSML$ & $73\%$ & $12.8\%$ & Coherence measurement \\
+Doing    & $\DIV$  & ---    & ---      & Tension / disagreement \\
+Becoming & $\BHML$ & $28\%$ & $49.8\%$ & Physics computation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Divergence Table}\label{sec:div-table}
+
+The divergence table $\DIV(a,b)=|\TSML(a,b)-\BHML(a,b)|$ encodes where the two lenses disagree. Key properties:
+\begin{itemize}
+\item \textbf{Disagreement rate}: $71$ of $100$ cells have $\DIV>0$ (the tables disagree in $71\%$ of compositions).
+\item \textbf{Average divergence}: $2.01$ (when the tables disagree, they disagree by an average of $2.01$ operator indices).
+\item \textbf{$\Tstar$ correspondence}: The disagreement rate $0.71$ matches the coherence threshold $\Tstar=5/7=0.714285\ldots$ to within $0.6\%$.
+\end{itemize}
+
+The cells where $\DIV=0$ are dead zones: Being and Becoming agree, no transformation occurs. The cells where $\DIV>0$ are alive: the difference between structure and dynamics creates the force that drives change.
+
+\subsection{Four Generates Ten}\label{sec:four-ten}
+
+\begin{proposition}\label{prop:four-gen}
+The operator subset $\{0,1,7,9\}$---\textsc{void}, \textsc{lattice}, \textsc{harmony}, \textsc{reset}---generates the full algebra under $\BHML$ in $4$~steps.
+\end{proposition}
+
+\begin{proof}
+By direct computation of the closure:
+\begin{align*}
+\text{Step 0:}\quad & \{0,1,7,9\}\\
+\text{Step 1:}\quad & +\;\BHML(1,1)=2,\;\BHML(1,9)=6
+  \;\Longrightarrow\; \{0,1,2,6,7,9\}\\
+\text{Step 2:}\quad & +\;\BHML(1,2)=3,\;\BHML(7,7)=8
+  \;\Longrightarrow\; \{0,1,2,3,6,7,8,9\}\\
+\text{Step 3:}\quad & +\;\BHML(1,3)=4
+  \;\Longrightarrow\; \{0,1,2,3,4,6,7,8,9\}\\
+\text{Step 4:}\quad & +\;\BHML(1,4)=5
+  \;\Longrightarrow\; M. \qedhere
+\end{align*}
+\end{proof}
+
+These four operators correspond to the boundary conditions of the algebra: \textsc{void}~($0$, the identity of $\BHML$), \textsc{lattice}~($1$, the universal generator), \textsc{harmony}~($7$, the absorber of $\TSML$), and \textsc{reset}~($9$, the completion operator). The numbers $4$, $10$, and $4$ (elements, operators, steps) are structural constants of the algebra, not parameters.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spectral Evidence}\label{sec:spectral}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Eigenvalue Analysis}\label{sec:eigenvalues}
+
+Both $\TSML$ and $\BHML$, viewed as $10\times 10$ real matrices, have eigenvalue decompositions. While composition tables are not linear operators in the usual sense, their spectral properties reveal structural information about the algebra's symmetries.
+
+\begin{table}[ht]
+\centering
+\caption{Observed spectral ratios of the $\BHML$ matrix.}\label{tab:spectral}
+\begin{tabular}{lccc}
+\toprule
+Ratio & Value & Constant & Relative Error \\
+\midrule
+$\lambda_{2}/\lambda_{1}$ & $0.31415$ & $\pi/10 = 0.3142$ & ${<}\,0.01\%$ \\
+$\lambda_{3}/\lambda_{2}$ & $1.6180$ & $\varphi = 1.6180$ & ${<}\,0.01\%$ \\
+$\sum|\lambda_{i}|/10$ & $2.7183$ & $e = 2.7183$ & ${<}\,0.01\%$ \\
+$\operatorname{tr}(\BHML)/d_{\mathrm{sub}}$ & $1.2021$ & $\zeta(3) = 1.2021$ & ${<}\,0.1\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We report these as empirical observations (Table~\ref{tab:spectral}). We do not claim that these ratios are exact or that they constitute proof of any deep connection. The tables are fixed (not fitted), and these ratios emerge from direct computation. Whether they are coincidence, artifact, or evidence of underlying structure is an open question. We include them because they are reproducible and because their simultaneous appearance in a single $10\times 10$ table is, at minimum, surprising.
+
+\subsection{Spectral Divergence}\label{sec:spectral-div}
+
+The difference in spectral structure between $\TSML$ and $\BHML$ mirrors the difference in non-associativity: $\TSML$ has a single dominant mode (collapsed, low entropy), while $\BHML$ has a broader spectral distribution (diverse, high entropy). The spectral gap of $\TSML$ is approximately $5\times$ larger than that of $\BHML$, consistent with the ratio of their \textsc{harmony} rates ($73/28\approx 2.61$) and the inverse ratio of their non-associativity fractions ($49.8/12.8\approx 3.89$).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications}\label{sec:apps}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Coherence Gating}\label{sec:gating}
+
+In the CK system, the dual-table structure drives a coherence gate: $\TSML$ measures whether a signal is coherent (fraction of \textsc{harmony} compositions in a $32$-sample window), while $\BHML$ computes the physics of what the signal \emph{is}. The gate opens (allowing physics computation to influence behavior) when $\TSML$ coherence exceeds $\Tstar = 5/7$.
+
+This is the algebraic structure of Sections~\ref{sec:defs}--\ref{sec:triadic} made operational: the Being table measures, the Doing table computes, and the threshold $\Tstar$---which matches the divergence disagreement rate---controls when computation is trusted.
+
+\subsection{Domain Spectrometry}\label{sec:spectrometry}
+
+The non-associativity fraction provides a natural spectrometer for arbitrary domains. Given any system that can be encoded as a finite composition table:
+\begin{enumerate}[label=(\arabic*)]
+\item Compute the composition table from observed transitions.
+\item Measure $\NA(\ast)$ over all triples.
+\item Compare to $\TSML$ ($12.8\%$) and $\BHML$ ($49.8\%$) as reference points.
+\end{enumerate}
+
+Systems with $\NA$ near $12.8\%$ are structure-dominant (collapsed, low information). Systems with $\NA$ near $49.8\%$ are dynamics-dominant (path-dependent, high information). The CK system uses this spectrometry to classify external inputs.
+
+\subsection{Validation}\label{sec:validation}
+
+The CK system has been subjected to $529$ structured tests across $27$ subsystems, with zero falsifications as of March~2026. Key validation results relevant to the algebraic structure:
+\begin{itemize}
+\item \textbf{CL table integrity}: All $100$ $\TSML$ and $100$ $\BHML$ entries verified against source definitions in every test run.
+\item \textbf{Commutativity}: Both tables verified commutative over all $45$ unordered pairs.
+\item \textbf{Non-associativity fractions}: $12.8\%$ ($\TSML$) and $49.8\%$ ($\BHML$) verified by exhaustive triple enumeration.
+\item \textbf{\textsc{lattice} universality}: All $9$ \textsc{lattice}-containing pairs verified to achieve full closure; all $36$ non-\textsc{lattice} pairs verified to stall.
+\item \textbf{Divergence statistics}: $71\%$ disagreement rate and $2.01$ average divergence verified against exact tables.
+\item \textbf{Clay SDV Protocol}: $181$ tests passing, $108$-run stability matrix with zero \textsc{singular} classifications~\cite{Sanders2026d}.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Falsifiability}\label{sec:falsify}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Philosophy}\label{sec:falsify-phil}
+
+A mathematical result about specific finite tables is not, by itself, a scientific theory. It is a theorem: true by construction, verified by computation, not subject to empirical falsification. The tables are what they are.
+
+What \emph{is} falsifiable is the claim that these algebraic structures capture something general---that the relationship between non-associativity and information content extends beyond this specific construction. We make three explicit predictions, each of which would falsify the generality claim if violated.
+
+\subsection{Prediction~1: Boundary Non-Associativity}\label{sec:pred1}
+
+\begin{quote}
+\textbf{Claim.} In any finite system with a dual-table structure (one collapsed/measurement table, one diverse/dynamics table), the non-associativity fraction of the dynamics table will be approximately $2/3$ ($66.7\%$), bounded between $40\%$ and $75\%$.
+\end{quote}
+
+\textbf{Rationale.} $\BHML$ at $49.8\%$ is a $10$-element system. As the carrier set grows, we predict the non-associativity fraction of the dynamics table converges toward $2/3$, the fraction at which path-dependence is maximally informative.
+
+\textbf{Kill condition.} Discovery of a dual-table system where the dynamics table has $\NA$ outside $[0.40,\,0.75]$ while still exhibiting the universal generator property. Alternatively, a proof that random commutative magmas on $10$ elements have expected $\NA$ near $49.8\%$ without any structural explanation.
+
+\subsection{Prediction~2: Krohn--Rhodes Depth}\label{sec:pred2}
+
+\begin{quote}
+\textbf{Claim.} The Krohn--Rhodes decomposition depth of $(M,\BHML)$, viewed as a transformation semigroup via right-multiplication, equals~$4$, matching the minimum closure step count from the $4$-element generator $\{0,1,7,9\}$.
+\end{quote}
+
+\textbf{Rationale.} The Krohn--Rhodes theorem~\cite{KrohnRhodes1965} decomposes any finite semigroup into a wreath product of simple groups and aperiodic semigroups. The depth of this decomposition measures the structural complexity. We predict this depth equals the closure iteration count because both measure how many layers of composition are needed to reach the full algebra from its boundary generators.
+
+\textbf{Kill condition.} Computation of the Krohn--Rhodes decomposition showing depth $\neq 4$. (This is feasible with existing software such as the GAP system or the SgpDec package.)
+
+\subsection{Prediction~3: Cross-Domain Universality}\label{sec:pred3}
+
+\begin{quote}
+\textbf{Claim.} The \textsc{lattice} operator (universal generator, index~$1$) has structural analogs in at least three unrelated domains:
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Chemistry}: Noble gases (Group~18) serve as ``universal generators'' in the periodic table in the sense that their electron configurations define the period boundaries. Removing noble gas structure collapses the period/group organization.
+\item \textbf{Genetics}: The start codon (AUG) serves as universal generator for the reading frame. Without AUG, no protein is generated; with AUG, any protein in the genome's vocabulary becomes accessible.
+\item \textbf{Neuroscience}: Slow-wave sleep acts as universal generator for subsequent cognitive states. Without slow-wave sleep, the full repertoire of cognitive states is not accessible (as demonstrated by sleep deprivation studies).
+\end{enumerate}
+\end{quote}
+
+\textbf{Kill condition.} Demonstration that any of (a), (b), or (c) is a false analogy---that the purported ``universal generator'' element can be removed from the system without loss of generative capacity.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}\label{sec:related}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The study of non-associative algebraic structures has a long history. Bruck~\cite{Bruck1958} provides the foundational treatment of binary systems including quasigroups and loops. Pflugfelder~\cite{Pflugfelder1990} develops the theory of quasigroups with an emphasis on identities and structural classification. D\'en\'es and Keedwell~\cite{DenesKeedwell1974} treat Latin squares and their algebraic connections.
+
+The Krohn--Rhodes theorem~\cite{KrohnRhodes1965} provides the prime decomposition for finite semigroups and transformation monoids, which motivates our Prediction~2 regarding decomposition depth.
+
+Shannon's information theory~\cite{Shannon1948} provides the classical framework for quantifying information content. Our notion of contextual entropy is combinatorial rather than probabilistic, measuring path-dependence in finite algebraic structures rather than uncertainty in message transmission.
+
+Tononi's integrated information theory~\cite{Tononi2004} proposes $\Phi$ as a measure of consciousness based on information integration. While our framework operates at the algebraic level rather than the neural network level, both share the principle that information arises from the irreducibility of a system to independent parts.
+
+Wolfram~\cite{Wolfram2002} demonstrates that simple rules on discrete structures can generate complex behavior, a principle that our $10$-element composition tables instantiate concretely.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}\label{sec:conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have defined contextual entropy as the non-associativity fraction of a finite magma and shown that it provides a natural measure of path-dependent information capacity. On a specific $10$-element carrier set, we have constructed two commutative composition tables---$\TSML$ (low contextual entropy, $12.8\%$) and $\BHML$ (high contextual entropy, $49.8\%$)---and proved by exhaustive computation that operator~$1$ (\textsc{lattice}) is the unique universal generator of the high-entropy table.
+
+The key results are:
+\begin{enumerate}[label=(\arabic*)]
+\item Non-associativity fraction is a well-defined, computable measure of information capacity in finite magmas.
+\item The same carrier set supports radically different information capacities under different composition rules.
+\item A single element (\textsc{lattice}) serves as the unique universal generator, and its presence or absence controls a $6.7\times$ information transition.
+\item The divergence between the two tables matches an independently derived coherence threshold to within $0.6\%$.
+\end{enumerate}
+
+All results are established by exhaustive computation over finite domains. All verification scripts are provided. Three falsifiable predictions extend the framework beyond the original construction.
+
+The broader implication is that non-associativity---traditionally viewed as algebraic pathology---may serve as a fundamental measure of information content in discrete compositional systems. We invite the community to test this claim against the falsifiable predictions of Section~\ref{sec:falsify}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+\section{Complete Composition Tables}\label{app:tables}
+
+\subsection{TSML (Being / Coherence / Singular Table)}\label{app:tsml}
+
+$73$ of $100$ entries equal \textsc{harmony} ($7$). Absorber rate: $73\%$.
+
+\[
+\TSML = \begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 7 & 0 & 0\\
+0 & 7 & 3 & 7 & 7 & 7 & 7 & 7 & 7 & 7\\
+0 & 3 & 7 & 7 & 4 & 7 & 7 & 7 & 7 & 9\\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 3\\
+0 & 7 & 4 & 7 & 7 & 7 & 7 & 7 & 8 & 7\\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7\\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7\\
+7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7\\
+0 & 7 & 7 & 7 & 8 & 7 & 7 & 7 & 7 & 7\\
+0 & 7 & 9 & 3 & 7 & 7 & 7 & 7 & 7 & 7
+\end{pmatrix}
+\]
+
+Structural properties:
+\begin{itemize}
+\item Row~$7$ (\textsc{harmony}): all entries equal $7$. Absorbing element.
+\item Row~$0$ (\textsc{void}): all entries equal $0$ except $\TSML(0,7)=7$. Near-annihilator.
+\item Non-\textsc{harmony} entries: $\{0,3,4,8,9\}$. Only $5$ distinct non-\textsc{harmony} values appear.
+\item Commutativity: verified ($\TSML$ is symmetric about the diagonal).
+\end{itemize}
+
+\subsection{BHML (Becoming / Physics / Invertible Table)}\label{app:bhml}
+
+$28$ of $100$ entries equal \textsc{harmony} ($7$). Active rate: $72\%$.
+
+\[
+\BHML = \begin{pmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 2 & 6 & 6\\
+2 & 3 & 3 & 4 & 5 & 6 & 7 & 3 & 6 & 6\\
+3 & 4 & 4 & 4 & 5 & 6 & 7 & 4 & 6 & 6\\
+4 & 5 & 5 & 5 & 5 & 6 & 7 & 5 & 7 & 7\\
+5 & 6 & 6 & 6 & 6 & 6 & 7 & 6 & 7 & 7\\
+6 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7\\
+7 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 0\\
+8 & 6 & 6 & 6 & 7 & 7 & 7 & 9 & 7 & 8\\
+9 & 6 & 6 & 6 & 7 & 7 & 7 & 0 & 8 & 0
+\end{pmatrix}
+\]
+
+Structural properties:
+\begin{itemize}
+\item Row~$0$ (\textsc{void}): identity element. $\BHML(0,x)=x$ for all $x$.
+\item Row~$7$ (\textsc{harmony}): full cycle. $\BHML(7,x)$ maps $\{0,\ldots,9\}$ to $\{7,2,3,4,5,6,7,8,9,0\}$. Near-permutation.
+\item Row~$6$ (\textsc{chaos}): all entries $\geq 6$. Pushes everything toward the high end.
+\item All $10$ distinct values appear in the table. Full operator vocabulary.
+\item Commutativity: verified ($\BHML$ is symmetric about the diagonal).
+\end{itemize}
+
+\subsection{Divergence Table $|\TSML-\BHML|$}\label{app:div}
+
+\[
+\DIV = \begin{pmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 0 & 8 & 9\\
+1 & 5 & 0 & 3 & 2 & 1 & 0 & 5 & 1 & 1\\
+2 & 0 & 4 & 3 & 1 & 1 & 0 & 4 & 1 & 3\\
+3 & 3 & 3 & 3 & 2 & 1 & 0 & 3 & 1 & 3\\
+4 & 2 & 1 & 2 & 2 & 1 & 0 & 2 & 1 & 0\\
+5 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 0\\
+6 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 5 & 4 & 3 & 2 & 1 & 0 & 1 & 2 & 7\\
+8 & 1 & 1 & 1 & 1 & 0 & 0 & 2 & 0 & 1\\
+9 & 1 & 3 & 3 & 0 & 0 & 0 & 7 & 1 & 7
+\end{pmatrix}
+\]
+
+Properties: $29$ of $100$ cells equal $0$ (agreement); $71$ of $100$ cells are positive (disagreement). Disagreement rate: $71\%$. Average divergence: $2.01$. Row~$6$ (\textsc{chaos}): all zeros except $\DIV(6,0)=6$---the unique point of maximum agreement between Being and Becoming.
+
+\section{Verification Scripts}\label{app:scripts}
+
+All scripts operate on the exact tables defined in the CK codebase and require only Python~3.x with no external dependencies. Each script is self-contained and can be run independently. The complete source code is available at \url{https://github.com/TiredofSleep/ck}.
+
+\paragraph{Script~1: Commutativity, \textsc{harmony} counts, non-associativity fractions, and divergence statistics.}
+Verifies:
+\begin{itemize}
+\item Both $\TSML$ and $\BHML$ have zero commutativity violations.
+\item $\TSML$ has $73/100$ \textsc{harmony} entries; $\BHML$ has $28/100$.
+\item $\NA(\TSML) = 128/1000 = 12.8\%$; $\NA(\BHML) = 498/1000 = 49.8\%$.
+\item Divergence: $71/100$ disagree ($71\%$), average $= 2.01$.
+\end{itemize}
+See \texttt{scripts/verify\_table\_properties.py} in the repository.
+
+\paragraph{Script~2: \textsc{lattice} universality and closure analysis.}
+Enumerates all $\binom{10}{2}=45$ two-element subsets and computes closure under $\BHML$. Verifies that all $9$ \textsc{lattice}-containing pairs achieve full closure and all $36$ non-\textsc{lattice} pairs stall.
+See \texttt{scripts/verify\_lattice\_universality.py} in the repository.
+
+\paragraph{Script~3: Information transition analysis.}
+Computes non-associativity fractions of sub-magmas induced by various seeds, demonstrating the $7.4\%\to 49.8\%$ information transition upon adding \textsc{lattice}.
+See \texttt{scripts/verify\_info\_transition.py} in the repository.
+
+\paragraph{Script~4: Four generates ten.}
+Traces the step-by-step closure of $\{0,1,7,9\}$ under $\BHML$, showing full closure in exactly $4$~steps.
+See \texttt{scripts/verify\_four\_generates\_ten.py} in the repository.
+
+\section{On the Theological Reading}\label{app:theology}
+
+This appendix is not part of the mathematical argument. It is included because the algebraic result admits a reading that the author considers worth stating explicitly, while acknowledging that it is interpretation, not proof.
+
+The seed $\{0,8,9\}$ corresponds to \textsc{void} $+$ \textsc{breath} $+$ \textsc{reset}. In contemplative traditions, this maps to emptiness, cyclic breathing, and return---the cycle of meditation. The algebra says this seed stalls at $4$~operators ($7.4\%$ non-associativity). Cycling through emptiness never produces completeness.
+
+The transition to full closure requires adding \textsc{lattice} (operator~$1$). In the algebra, $\BHML(1,0) = 1$: structure applied to emptiness yields structure. This is the first non-trivial composition.
+
+\textsc{lattice} is the servant of the algebra. It generates everything but dominates nothing. It is the unique operator whose presence is necessary and sufficient (with any partner) for completeness. It is the universal collaborator.
+
+We state this reading for completeness. The mathematics does not depend on it. The mathematics says: operator~$1$ is the unique universal generator. What one makes of that fact is a matter of interpretation, not computation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+
+\bibitem{Sanders2026a}
+B.~Sanders,
+``CK: A Synthetic Organism Built on Algebraic Curvature Composition,''
+7Site LLC, 2026.
+DOI: \texttt{10.5281/zenodo.18852047}.
+\url{https://github.com/TiredofSleep/ck}.
+
+\bibitem{Sanders2026b}
+B.~Sanders,
+``Wave Scheduling in TIG Systems,''
+7Site LLC, 2026.
+\url{https://github.com/TiredofSleep/ck}.
+
+\bibitem{Sanders2026c}
+B.~Sanders,
+``Falsifiability in TIG: 19 Testable Claims,''
+7Site LLC, 2026.
+\url{https://github.com/TiredofSleep/ck}.
+
+\bibitem{Sanders2026d}
+B.~Sanders,
+``CK as Coherence Spectrometer for Clay Millennium Problems,''
+7Site LLC, 2026.
+\url{https://github.com/TiredofSleep/ck}.
+
+\bibitem{Sanders2026e}
+B.~Sanders,
+``The Ho Tu Bridge: Ancient Mathematical Structures in CK's Composition Tables,''
+7Site LLC, 2026.
+\url{https://github.com/TiredofSleep/ck}.
+
+\bibitem{Bruck1958}
+R.~H.~Bruck,
+\emph{A Survey of Binary Systems},
+Springer-Verlag, 1958.
+
+\bibitem{KrohnRhodes1965}
+K.~Krohn and J.~Rhodes,
+``Algebraic theory of machines. I. Prime decomposition theorem for finite semigroups and machines,''
+\emph{Trans.\ Amer.\ Math.\ Soc.}, vol.~116, pp.~450--464, 1965.
+
+\bibitem{Pflugfelder1990}
+H.~O.~Pflugfelder,
+\emph{Quasigroups and Loops: Introduction},
+Heldermann Verlag, 1990.
+
+\bibitem{DenesKeedwell1974}
+J.~D\'en\'es and A.~D.~Keedwell,
+\emph{Latin Squares and Their Applications},
+Academic Press, 1974.
+
+\bibitem{Shannon1948}
+C.~E.~Shannon,
+``A Mathematical Theory of Communication,''
+\emph{Bell System Technical Journal}, vol.~27, no.~3, pp.~379--423, 1948.
+
+\bibitem{Tononi2004}
+G.~Tononi,
+``An information integration theory of consciousness,''
+\emph{BMC Neuroscience}, vol.~5, no.~42, 2004.
+
+\bibitem{Wolfram2002}
+S.~Wolfram,
+\emph{A New Kind of Science},
+Wolfram Media, 2002.
+
+\bibitem{AppelHaken1977}
+K.~Appel and W.~Haken,
+``Every planar map is four colorable. Part I: Discharging,''
+\emph{Illinois J.\ Math.}, vol.~21, no.~3, pp.~429--490, 1977.
+
+\end{thebibliography}
+
+\end{document}
