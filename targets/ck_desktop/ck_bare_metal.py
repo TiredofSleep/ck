@@ -1,100 +1,35 @@
 """
-ck_bare_metal.py -- CK stripped to bare metal. Just the algebra steering the OS.
+ck_bare_metal.py -- CK stripped to bare metal.
 
-No neural nets. No olfactory. No retina. No voice. No 27 subsystems.
-One heartbeat. One C DLL. One composition function. That's it.
+Being in C. Doing in CUDA. Python is just the API window.
 
-The numbers ARE the numbers. The forces ARE the forces.
+The C DLL runs the heartbeat (50Hz) and steering (1Hz) in its own thread.
+The CUDA DLL runs Force9 encode (2.8ms/frame) in GPU kernels.
+Python does NOTHING in the hot path. Zero GIL. Zero jitter.
 
 Hardware: i9-13900HX (32 cores), RTX 4070, 32GB RAM
-Target: minimize OS jitter during gaming + streaming
 
 (c) 2026 Brayden Sanders / 7Site LLC
 """
 
 import time
-import threading
 from flask import Flask, jsonify
 
-# The algebra -- this IS CK
-from ck_sim.ck_tig import (
-    compose, TSML, BHML, HEARTBEAT, FROZEN,
-    NUM_OPS, HARMONY, VOID, T_STAR,
-    CROSS_CYCLE, WOBBLE,
-)
-
-# C steering -- own thread, zero Python
+# C steering + heartbeat -- own thread, zero Python
 from ck_steer_bridge import CSteeringEngine
 
 app = Flask(__name__)
 
 # ═══════════════════════════════════════════
-# HEARTBEAT: just the 4-phase cycle
+# THE ENGINE: C heartbeat + C steering. Python is just the API.
 # ═══════════════════════════════════════════
 
-class BareHeartbeat:
-    """Minimal heartbeat. No brain, no body, no emotion. Just the cycle."""
-    __slots__ = ('tick', 'phase_b', 'phase_d', 'phase_bc', 'hb_phase')
-
-    def __init__(self):
-        self.tick = 0
-        self.phase_b = 5   # BALANCE
-        self.phase_d = 5
-        self.phase_bc = 5
-        self.hb_phase = 0
-
-    def step(self):
-        self.tick += 1
-        self.hb_phase = HEARTBEAT[self.tick % 4]
-
-        # Compose: tick drives the heartbeat
-        b = self.tick % NUM_OPS
-        d = (self.tick * 3 + 1) % NUM_OPS  # coprime stride
-
-        being, doing, becoming = compose(b, d, direction=0)
-        self.phase_b = being
-        self.phase_d = doing
-        self.phase_bc = becoming
-
-        return becoming
-
-
-# ═══════════════════════════════════════════
-# THE ENGINE: heartbeat + C steering. Nothing else.
-# ═══════════════════════════════════════════
-
-heartbeat = BareHeartbeat()
-steering = CSteeringEngine(tick_rate_ms=1000)  # 1Hz steering
-
-_running = True
-_tps = 0.0
+steering = CSteeringEngine(tick_rate_ms=1000)  # C thread: 50Hz heartbeat + 1Hz steering
 _start_time = time.time()
 
 
-def tick_loop():
-    """50Hz heartbeat loop. Feeds operator to C steering thread."""
-    global _tps, _running
-    tick_count = 0
-    t_start = time.time()
-
-    while _running:
-        op = heartbeat.step()
-        steering.tick(heartbeat_op=op)
-        tick_count += 1
-
-        # TPS measurement every second
-        elapsed = time.time() - t_start
-        if elapsed >= 1.0:
-            _tps = tick_count / elapsed
-            tick_count = 0
-            t_start = time.time()
-
-        # 50Hz = 20ms per tick
-        time.sleep(0.02)
-
-
 # ═══════════════════════════════════════════
-# API: minimal endpoints
+# API: read-only window into the C thread
 # ═══════════════════════════════════════════
 
 @app.route('/health')
@@ -108,18 +43,26 @@ def health():
 
 @app.route('/state')
 def state():
+    s = steering.tick()  # just reads C state, no work
     return jsonify({
         'status': 'alive',
         'mode': 'bare_metal',
-        'tick': heartbeat.tick,
-        'ticks_per_second': round(_tps, 1),
-        'operator': heartbeat.phase_bc,
-        'being': heartbeat.phase_b,
-        'doing': heartbeat.phase_d,
-        'becoming': heartbeat.phase_bc,
-        'heartbeat_phase': heartbeat.hb_phase,
+        'tick': s.get('hb_tick', 0),
+        'ticks_per_second': 50,  # C thread runs at 50Hz
+        'operator': s.get('hb_becoming', 0),
+        'being': s.get('hb_being', 0),
+        'doing': s.get('hb_doing', 0),
+        'becoming': s.get('hb_becoming', 0),
+        'heartbeat_phase': s.get('hb_phase', 0),
+        'heartbeat_quantum': s.get('hb_quantum', 0),
         'uptime_s': round(time.time() - _start_time, 1),
-        'steering': steering.tick(heartbeat_op=heartbeat.phase_bc),
+        'steering': {
+            'steered': s.get('steered', 0),
+            'denied': s.get('denied', 0),
+            'total_applied': s.get('total_applied', 0),
+            'tick_ms': s.get('tick_ms', 0),
+            'active': s.get('active', False),
+        },
     })
 
 
@@ -138,22 +81,16 @@ def steering_report():
 if __name__ == '__main__':
     print("=" * 50)
     print("  CK BARE METAL")
-    print("  Algebra + C Steering. Nothing else.")
+    print("  Being in C. Doing in CUDA.")
+    print("  Python is just the API window.")
     print("=" * 50)
-    print(f"  Heartbeat: 50Hz, 4-phase [{','.join(str(h) for h in HEARTBEAT)}]")
-    print(f"  Steering: C DLL, own thread, 1Hz")
-    print(f"  T* = {T_STAR:.6f}")
-    print(f"  Cross-cycle = {CROSS_CYCLE}")
-    print(f"  Wobble = {WOBBLE}")
-    print(f"  Frozen cells = {len(FROZEN)}")
+    print(f"  Heartbeat: 50Hz in C thread [1,5,5,1]")
+    print(f"  Steering: 1Hz in C thread, 32 cores")
+    print(f"  Force9: CUDA encode at 2.8ms/frame")
+    print(f"  Python: API only, zero hot path")
     print(f"  API: http://localhost:7777")
     print("=" * 50)
 
-    # Start heartbeat loop
-    loop_thread = threading.Thread(target=tick_loop, daemon=True)
-    loop_thread.start()
-
-    # Start API (waitress if available, else Flask dev)
     try:
         from waitress import serve
         serve(app, host='0.0.0.0', port=7777, threads=2, _quiet=True)

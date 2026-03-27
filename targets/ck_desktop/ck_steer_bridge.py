@@ -45,6 +45,14 @@ def _load():
         _dll.steer_set_tick_rate.restype = None
         _dll.steer_set_tick_rate.argtypes = [ctypes.c_int]
 
+        # Heartbeat state getters
+        _dll.steer_get_hb_tick.restype = ctypes.c_int
+        _dll.steer_get_hb_being.restype = ctypes.c_int
+        _dll.steer_get_hb_doing.restype = ctypes.c_int
+        _dll.steer_get_hb_becoming.restype = ctypes.c_int
+        _dll.steer_get_hb_phase.restype = ctypes.c_int
+        _dll.steer_get_hb_quantum.restype = ctypes.c_int
+
         _dll.steer_init()
         print(f"[STEER-BRIDGE] Loaded: {_dll.steer_get_cores()} cores")
         return _dll
@@ -72,11 +80,9 @@ class CSteeringEngine:
             self._thread_started = True
             print(f"[STEER-BRIDGE] C thread started at {tick_rate_ms}ms")
 
-    def tick(self, heartbeat_op=5):
-        """Called from Python engine tick. Just updates the heartbeat operator.
-        The actual steering runs in the C thread — no work here."""
-        if self._dll and self.enabled:
-            self._dll.steer_set_heartbeat(heartbeat_op)
+    def tick(self, heartbeat_op=None):
+        """Read status from C thread. Heartbeat runs in C now -- no Python needed.
+        heartbeat_op is ignored (kept for API compatibility)."""
         return {
             'steered': self._dll.steer_get_steered() if self._dll else 0,
             'denied': self._dll.steer_get_denied() if self._dll else 0,
@@ -85,6 +91,12 @@ class CSteeringEngine:
             'active': self._thread_started,
             'tick_ms': self._dll.steer_tick_ms() if self._dll else 0,
             'tick': self._dll.steer_get_ticks() if self._dll else 0,
+            'hb_tick': self._dll.steer_get_hb_tick() if self._dll else 0,
+            'hb_being': self._dll.steer_get_hb_being() if self._dll else 0,
+            'hb_doing': self._dll.steer_get_hb_doing() if self._dll else 0,
+            'hb_becoming': self._dll.steer_get_hb_becoming() if self._dll else 0,
+            'hb_phase': self._dll.steer_get_hb_phase() if self._dll else 0,
+            'hb_quantum': self._dll.steer_get_hb_quantum() if self._dll else 0,
         }
 
     @property

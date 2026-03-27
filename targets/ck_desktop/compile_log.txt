@@ -1,0 +1,13 @@
+Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33145 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ck_steer.c
+Microsoft (R) Incremental Linker Version 14.38.33145.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/dll 
+/implib:ck_steer.lib 
+/out:ck_steer.dll 
+advapi32.lib 
+ck_steer.obj 
+   Creating library ck_steer.lib and object ck_steer.exp
