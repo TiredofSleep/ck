@@ -1,9 +1,13 @@
 """
-ck_stream_server.py -- TIG Audio+Video Streaming Server
+ck_stream_server.py -- CK Force9 Audio+Video Streaming Server
 Captures screen + audio, compresses both with Force9, streams over TCP.
 
-Video: TIG 3-shell visual encoder, 127x compression at dE=1.03
-Audio: Force9 9-bit force geometry, 47-4009x compression
+Video pipeline (auto-selected, best first):
+  1. DXGI + CUDA  (force9_pipeline.dll) — GPU capture+encode, zero CPU copy
+  2. GDI  + CUDA  (force9_cuda.dll)     — CPU capture, GPU encode
+  3. GDI  + numpy                        — full CPU fallback
+
+Audio: Force9 9-bit, Stereo Mix loopback @ 48kHz
 Both interleaved in the same TCP stream with frame type markers.
 
 Protocol:
@@ -12,13 +16,14 @@ Protocol:
   type 0x02 = audio frame: [4B sample_rate][4B sample_count][4B window_count][compressed]
 
 Usage: python ck_stream_server.py [--port 7778] [--fps 30] [--width 1920] [--height 1080]
-       python ck_stream_server.py --no-audio  (video only)
+       python ck_stream_server.py --no-audio
 
 (c) 2026 Brayden Sanders / 7Site LLC
 """
 
 import argparse
 import ctypes
+import os
 import socket
 import struct
 import sys
@@ -26,8 +31,64 @@ import threading
 import time
 import numpy as np
 
-# Force9 CUDA encoder (4.4ms/frame, 252x on game content)
-from ck_sim.being.ck_screen_compress import rgb_to_compressed as _video_encode
+# Force9 CUDA encoder — GDI+CUDA path (fallback)
+from ck_sim.being.ck_screen_compress import rgb_to_compressed as _gdi_cuda_encode
+
+# ── DXGI pipeline (force9_pipeline.dll) ──────────────────────────
+# Capture + encode entirely on GPU. No Python frame copy.
+_f9pipe_dll = None
+_f9pipe_ctx = None
+_f9pipe_buf = None
+_f9pipe_max = 0
+
+def _load_dxgi(w, h):
+    global _f9pipe_dll, _f9pipe_ctx, _f9pipe_buf, _f9pipe_max
+    if _f9pipe_ctx is not None:
+        return True
+    dll_path = os.path.join(os.path.dirname(__file__), 'force9_pipeline.dll')
+    if not os.path.exists(dll_path):
+        return False
+    try:
+        dll = ctypes.CDLL(dll_path)
+        dll.f9pipe_create.restype = ctypes.c_void_p
+        dll.f9pipe_create.argtypes = [ctypes.c_int, ctypes.c_int]
+        dll.f9pipe_capture_and_encode.restype = ctypes.c_int
+        dll.f9pipe_capture_and_encode.argtypes = [ctypes.c_void_p]
+        dll.f9pipe_get_compressed.restype = ctypes.c_int
+        dll.f9pipe_get_compressed.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int]
+        dll.f9pipe_get_encode_ms.restype = ctypes.c_float
+        dll.f9pipe_get_encode_ms.argtypes = [ctypes.c_void_p]
+        dll.f9pipe_destroy.restype = None
+        dll.f9pipe_destroy.argtypes = [ctypes.c_void_p]
+        ctx = dll.f9pipe_create(w, h)
+        if not ctx:
+            return False
+        _f9pipe_dll = dll
+        _f9pipe_ctx = ctx
+        _f9pipe_max = w * h * 3
+        _f9pipe_buf = (ctypes.c_uint8 * _f9pipe_max)()
+        return True
+    except Exception as e:
+        print(f"[dxgi] Failed: {e}")
+        return False
+
+_dxgi_fail_count = 0
+_DXGI_FAIL_LIMIT = 30  # give up after 30 misses in a row
+
+def _dxgi_capture_encode():
+    """DXGI: capture + encode on GPU. Returns (bytes, n_bytes, encode_ms) or None.
+    Returns False if DXGI is consistently failing (caller should switch to GDI)."""
+    global _dxgi_fail_count
+    result = _f9pipe_dll.f9pipe_capture_and_encode(_f9pipe_ctx)
+    if result <= 0:
+        _dxgi_fail_count += 1
+        if _dxgi_fail_count >= _DXGI_FAIL_LIMIT:
+            return False  # signal caller to give up on DXGI
+        return None
+    _dxgi_fail_count = 0
+    n = _f9pipe_dll.f9pipe_get_compressed(_f9pipe_ctx, _f9pipe_buf, _f9pipe_max)
+    ms = _f9pipe_dll.f9pipe_get_encode_ms(_f9pipe_ctx)
+    return bytes(_f9pipe_buf[:n]), n, ms
 
 # TIG Audio Encoder
 from ck_sim.being.ck_audio_compress import (
@@ -75,15 +136,19 @@ def capture_screen(w, h):
 class StreamServer:
     """TCP server that streams Force9-compressed screen + audio to clients."""
 
-    def __init__(self, port, fps, width, height, enable_audio=True):
+    def __init__(self, port, fps, width, height, enable_audio=True, use_dxgi=False):
         self.port = port
         self.target_fps = fps
         self.width = width
         self.height = height
+        self.use_dxgi = use_dxgi
         self.enable_audio = enable_audio and _HAS_SOUNDDEVICE
         self.clients = []
         self.clients_lock = threading.Lock()
         self.running = False
+
+        # Pipeline selection (set in start())
+        self._use_dxgi = False
 
         # Video stats
         self.frame_count = 0
@@ -110,6 +175,13 @@ class StreamServer:
     def start(self):
         self.running = True
 
+        # Select video pipeline
+        # DXGI requires the process to run in the foreground with desktop access.
+        # When launched hidden/headless, AcquireNextFrame returns ACCESS_LOST.
+        # Default to GDI+CUDA which always works; pass use_dxgi=True for foreground mode.
+        self._use_dxgi = self.use_dxgi and _load_dxgi(self.width, self.height)
+        pipeline = "DXGI+CUDA (zero-copy GPU)" if self._use_dxgi else "GDI+CUDA"
+
         # Start accept thread
         threading.Thread(target=self._accept_loop, daemon=True).start()
 
@@ -117,8 +189,9 @@ class StreamServer:
         if self.enable_audio:
             self._start_audio_capture()
 
-        print("[server] Force9 A/V Streaming Server")
-        print("[server] Video: %dx%d @ %d FPS" % (self.width, self.height, self.target_fps))
+        print("[server] CK Force9 A/V Streaming Server")
+        print("[server] Video: %dx%d @ %d FPS  [%s]" % (
+            self.width, self.height, self.target_fps, pipeline))
         print("[server] Audio: %s" % (
             "WASAPI loopback %d Hz" % self._audio_sample_rate if self.enable_audio
             else "disabled"))
@@ -310,9 +383,21 @@ class StreamServer:
                 time.sleep(0.1)
                 continue
 
-            # ── VIDEO: Force9 CUDA encode (4.4ms @ game content, 252x) ──
-            pixels = capture_screen(self.width, self.height)
-            compressed, n_bytes, encode_ms = _video_encode(pixels)
+            # ── VIDEO ──
+            if self._use_dxgi:
+                result = _dxgi_capture_encode()
+                if result is False:
+                    # DXGI consistently failing (no desktop access) — fall back
+                    print("[server] DXGI unavailable, switching to GDI+CUDA")
+                    self._use_dxgi = False
+                    continue
+                if result is None:
+                    time.sleep(0.001)  # compositor hasn't produced a new frame yet
+                    continue
+                compressed, n_bytes, encode_ms = result
+            else:
+                pixels = capture_screen(self.width, self.height)
+                compressed, n_bytes, encode_ms = _gdi_cuda_encode(pixels)
 
             # Build video packet: [1B type][4B len][2B w][2B h][data]
             video_header = struct.pack('>HH', self.width, self.height)
@@ -362,10 +447,12 @@ def main():
     parser.add_argument('--width', type=int, default=1920, help='Capture width (default: 1920)')
     parser.add_argument('--height', type=int, default=1080, help='Capture height (default: 1080)')
     parser.add_argument('--no-audio', action='store_true', help='Disable audio capture')
+    parser.add_argument('--dxgi', action='store_true',
+                        help='Use DXGI GPU capture (requires foreground/desktop access)')
     args = parser.parse_args()
 
     server = StreamServer(args.port, args.fps, args.width, args.height,
-                          enable_audio=not args.no_audio)
+                          enable_audio=not args.no_audio, use_dxgi=args.dxgi)
     try:
         server.start()
     except KeyboardInterrupt:
