@@ -3,6 +3,17 @@
 
 *Brayden Sanders — 7Site LLC | DOI: 10.5281/zenodo.18852047*
 
+> **SUPERSEDED (March 2026 sprint).** The energy-law regression and the "triplet
+> activation" conjecture are replaced by the **Mix_λ model** (WP21_BSD_MIX_LAMBDA.md),
+> which explains the same data with zero free parameters and additionally explains
+> the *non-monotone* BSD staircase — something the regression could not address.
+>
+> This file is kept as a historical record of the discovery step. The Mix_λ model
+> also answers the "Why triplets?" open question in §3: the empirical triplet factor
+> arises because the three cheapest gap operators (BRT, CHA, BAL at λ = 0.30, 0.60,
+> 0.80) account for the three most common rank transitions. The non-monotonicity
+> (0→1 cheaper than 1→2) is why the single regression slope was misleading.
+
 ---
 
 ## Abstract
@@ -58,7 +69,12 @@ log₁₀(N) = 0.873 · rank + 1.364
 
 6/7 lies within the 95% CI [0.781, 0.966]. The data are consistent with exactly three TIG gap activations per rank unit.
 
-**Why triplets?** Open structural question. Three is the number of non-trivial generators of the TIG algebra {0,1,2} (the prime generators). It is also the minimum number of composition steps needed to reach any gap operator from the corner algebra. Whether this is coincidence or mechanism is the new open problem.
+**Why triplets?** *Answered by Mix_λ model (March 2026).* The three cheapest
+BSD rank transitions (0→1, 2→3, 1→2) correspond exactly to the three lowest
+Mix_λ thresholds (BRT=0.30, CHA=0.60, BAL=0.80). The "triplet" factor in the
+regression slope is an artifact of averaging over the three cheapest transitions,
+which happen to cluster in cost while the two expensive ones (COL, CTR) pull the
+average up. The Mix_λ model resolves the individual steps without averaging.
 
 ---
 

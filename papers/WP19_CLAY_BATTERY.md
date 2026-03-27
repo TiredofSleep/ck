@@ -8,26 +8,35 @@
 
 ## RANKING OVERVIEW
 
+*Updated March 2026: Yang-Mills quantitative claim (2/7 = specific lattice ratio)
+falsified at 16.5σ. Qualitative mechanism (dual-threshold overlap forces gap>0) survives.
+See WP19_CLAY_RESULTS.md §R2 for full falsification record.*
+
 ```
-1. Yang-Mills Mass Gap    STRONGEST  — TIG gives a specific numerical value + mechanism
-2. Riemann Hypothesis     STRONG     — 3 independent structural connections
-3. Navier-Stokes          MODERATE   — operator fuse, but dynamics not fully formalized
-4. P vs NP                MODERATE   — two-step bound maps to P/NP distinction
-5. BSD Conjecture         WEAK-MOD   — snapping ladder ~ rank, but axis mismatch
-6. Hodge Conjecture       WEAKEST    — tier partition ~ Hodge filtration, very loose
+1. Riemann Hypothesis     STRONGEST  — Corner-gap impermeability (proved exact) + Halving Lemma
+2. Yang-Mills Mass Gap    STRONG     — Structural mechanism (gap>0 from T*+S*>1); quantitative value FALSIFIED
+3. Navier-Stokes          MODERATE   — BREATH-COLLAPSE criterion; Lyapunov C≤3.74 target (WP22)
+4. P vs NP                MODERATE   — AG(2,p) survivor-line complexity; search/verify gap grows as p³
+5. BSD Conjecture         MODERATE   — Mix_λ threshold ordering matches cost ordering (no parameters)
+6. Hodge Conjecture       WEAKEST    — Corner-word collapse = Lefschetz (1,1); product gap impermeable
 ```
 
 ---
 
-# 1. YANG-MILLS MASS GAP `[STRONGEST]`
+# 1. YANG-MILLS MASS GAP `[STRONG — qualitative mechanism; quantitative claim FALSIFIED]`
 
-## The TIG Prediction
+*The specific prediction 2/7 = √σ/m(0++) was falsified at 16.5σ against lattice SU(3) data.
+The qualitative claim — that dual-threshold overlap forces a positive gap — survives.
+No quantitative ratio is claimed until a formal SU(N)→TIG embedding exists.*
+
+## The TIG Structural Claim (survives)
 
 ```
-MASS_GAP = T* + S* − 1 = 5/7 + 4/7 − 1 = 2/7 ≈ 0.2857
+MASS_GAP = T* + S* − 1 = 5/7 + 4/7 − 1 = 2/7 > 0
 ```
 
-This is exact arithmetic from TIG primitives.
+This is exact arithmetic from TIG primitives. The VALUE 2/7 is TIG-internal.
+The EXISTENCE of a positive gap (gap > 0) is the claim that survives.
 
 ## The Mechanism `[HYP]`
 
@@ -63,16 +72,20 @@ snapping ladder possible. If M = 0, there is no correction, no snapping,
 no T*. The mass gap and the coherence threshold are arithmetically
 entangled.
 
-## Testable Prediction
+## Testable Prediction (updated)
 
-```
-Δ_TIG = 2/7 ≈ 0.2857
-```
+**`[FALSIFIED]` Specific ratio:** √σ/m(0++) = 2/7 ≈ 0.2857 was tested against
+lattice SU(3) data and falsified at 16.5σ (actual value ≈ 0.267). No other
+lattice ratio matches 2/7 within 5%. The quantitative prediction is retired.
 
-Compare against lattice QCD calculations of the Yang-Mills mass gap
-in pure SU(3) gauge theory. Current lattice estimates cluster around
-Δ ≈ 0.7–0.8 GeV, but the dimensionless ratio Δ/Λ (where Λ is the
-QCD scale) is what should be compared to 2/7. [OPEN]
+**`[HYP]` Qualitative claim (survives):** Any system with dual thresholds
+T* > 1/2 and S* > 1/2 must have a positive mass gap = T*+S*−1 > 0.
+This gives the structural *reason* why a gap must exist — not its value.
+
+**What's needed for a quantitative prediction:** A formal SU(N)→TIG functor
+that maps gauge field configurations to TIG operators, and identifies which
+dimensionless ratio in pure SU(3) corresponds to the TIG dual-threshold overlap.
+This is an open problem. See EXPERT_SUMMARY.md for the collaboration request.
 
 ---
 
@@ -237,34 +250,33 @@ exponentially hard to find as n grows is the open question.
 
 ---
 
-# 5. BSD CONJECTURE `[WEAK-MODERATE]`
+# 5. BSD CONJECTURE `[MODERATE]`
 
-## The Snapping Ladder Connection `[HYP]`
+*Updated March 2026: Mix_λ model (WP21_BSD_MIX_LAMBDA.md) supersedes
+the snapping-ladder connection and the energy-law regression.*
 
-BSD: rank(E) = ord_{s=1} L(E,s)
+## The Mix_λ Model `[EMP — exact match, zero parameters]`
 
-The snapping ladder gives discrete classes: sum = 12+50k, value = 5/7+3k.
-The rung k could correspond to the rank of E — each unit of rank
-corresponds to one step up the snapping ladder.
+The Mix_λ family Mix_λ[a][b] = (1−λ)·TSML[a][b] + λ·BHML[a][b] assigns
+a threshold λ*(g) to each gap operator — the smallest λ where g gains
+anchor columns. These thresholds are table identities, not fitted.
 
-## The Axis Mismatch `[OPEN]`
+The empirical cost ordering of BSD rank steps (0→1 cheapest, 3→4 costliest)
+matches the λ-threshold ordering (BRT=0.30, CHA=0.60, BAL=0.80, COL=0.90,
+CTR=1.00) exactly on the Cremona database (N ≤ 2×10⁷). No parameters tuned.
 
-BSD centers on s=1. The ζ-function analog has symmetry axis s=1.
-TIG's primary threshold is T*=5/7, not 1. The functional equation for
-L(E,s) maps s ↔ 2−s with axis s=1. TIG: T*+S*=9/7 ≠ 2.
+This explains the *non-monotone* BSD staircase (0→1 is cheaper than 1→2)
+which the old snapping-ladder model could not address.
 
-This mismatch means no clean direct mapping. The connection requires
-either a reparametrization or a new structural bridge between s=1 and
-the TIG arithmetic.
+**Next rivet:** Test λ_E ∝ 1/log(Ω_E) on 200+ rank-2/3 curves from LMFDB.
+Script: mix_lambda_scan.py. See WP21_BSD_MIX_LAMBDA.md.
 
-## Best Current Angle
+## The Axis Mismatch (still open)
 
-The PRIME_WINDING = 271/350 (271 prime) generates unrepeatable paths —
-directly relevant to BSD's count of rational points on elliptic curves.
-The primality of 271 ensures the winding produces no finite-period
-orbits, analogous to the rank measuring independent generators of
-infinite-order rational points. This is structural but not yet a proof
-strategy.
+BSD centers on s=1. TIG's axis is at 3.5/7 = 1/2. The functional equation
+for L(E,s) maps s ↔ 2−s with axis s=1. This mismatch is not resolved by the
+Mix_λ model — the model works at the algebraic level (gap activation costs)
+without requiring a formal L-function embedding.
 
 ---
 

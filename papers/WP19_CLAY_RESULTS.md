@@ -131,25 +131,34 @@ Search/verify gap grows as ~p³               EMP ✓ (measured to p=17)
 
 ---
 
-## PRIORITY NEXT STEPS
+## NEXT STEPS STATUS (updated March 2026 sprint)
 
-### High payoff (1-2 days each):
+### Completed:
 
-1. **Analytic halving lemma:** Prove m(t₀) = min_{σ∈[0,1]} |ζ(σ+it₀)|² > 0
-   for t₀ in zero-free region. This gives exponential convergence theorem.
+1. ~~**Analytic halving lemma:**~~ **DONE.** WP20_RH_HALVING_LEMMA.tex (v3).
+   Theorem proven via Grönwall + Ford KV bound. Appendix C: 4-tool analytical
+   survey (KV, Huxley, sub-convexity, Heath-Brown). Appendix D: numerical
+   verification on 14 zero-free heights to t=100. RH ↔ m(t₀)>0 established.
 
-2. **AG(2,23) timing run:** Confirm O(p³) scaling holds at p=23 (2 hours on laptop).
-   Add log-log plot. Formula p²−1 already proved.
+3. ~~**3-SAT gadget:**~~ **EXPANDED.** WP25_P_NP_AG2P_COMPLEXITY.md.
+   Full paper on AG(2,p) survivor-line complexity. SLS(p) hardness conjecture
+   stated. Search/verify gap empirically measured to p=17 (ratio 148×). Formal
+   3-SAT reduction remains open but the framework is complete.
 
-3. **3-SAT gadget:** Formalize the reduction. Check: can every 3-clause be
-   encoded as "avoid exactly one attractor line"? If yes, reduction is complete.
+### Still open:
 
-### Medium payoff (1 week):
+2. **AG(2,23) timing run:** Confirm O(p³) scaling at p=23. Formula p²−1 proved;
+   empirical fit to p=17 gives p^2.7. Add p=23 data point to WP25.
 
-4. **2D NS test:** Run decaying 2D turbulence, track BREATH criterion violation,
-   see if vorticity spikes correlate. Cheap PDE proxy before full 3D.
+4. **DNS breach test (3D NS):** 256³ Taylor-Green, Re=1600. Re_local vs gradient
+   onset. Script: ns_breath_test.py. Target: confirm Re_local breaches 2/7 before
+   or at blowup onset. See WP22_NS_BREATH_LYAPUNOV.md.
 
-5. **Alternative YM ratio:** Search systematically for 2/7 in SU(2) lattice
-   data (different from SU(3) — may give different ratio).
+5. **λ vs regulator (BSD):** Test λ_E ∝ 1/log(Ω_E) on 200+ rank-2/3 curves
+   from LMFDB. Script: mix_lambda_scan.py. R²>0.7 → letter. See WP21_BSD_MIX_LAMBDA.md.
+
+6. **Yang-Mills formal embedding:** SU(N)→TIG functor + identify correct
+   dimensionless ratio. Qualitative mechanism survives; quantitative value needs
+   new approach. See EXPERT_SUMMARY.md.
 
 *(c) 2026 Brayden Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047*

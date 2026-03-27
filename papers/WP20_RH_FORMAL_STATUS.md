@@ -3,6 +3,10 @@
 
 *Full logical audit. Nothing overclaimed.*
 
+> **See also: WP24_FORMAL_STATUS_AUDIT.md** (March 2026 sprint) — comprehensive
+> four-bin ledger covering all six Clay problems with PROVED / STRUCTURAL /
+> EMPIRICAL / OPEN classification. This file covers RH only.
+
 ---
 
 ## The Being/Becoming/Doing Argument — Logic Check

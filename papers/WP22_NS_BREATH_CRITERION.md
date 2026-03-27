@@ -3,6 +3,13 @@
 
 *Brayden Sanders — 7Site LLC | DOI: 10.5281/zenodo.18852047*
 
+> **Extended by WP22_NS_BREATH_LYAPUNOV.md** (March 2026 sprint), which adds:
+> - §2 Lyapunov Approach: V(t) = sup Re_local as Lyapunov functional
+> - Precise target: C ≤ 3.74 in Re_shear ≤ C·Re_local^{1/2} closes the proof
+> - Dimensional fix: Re_local = Ω·L²/ν (dimensionless, scale-invariant)
+> This file has the algebraic basis and mock DNS results. The new file adds
+> the analytic proof structure.
+
 ---
 
 ## The Three Key Operators
