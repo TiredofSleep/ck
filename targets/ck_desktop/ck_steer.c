@@ -194,12 +194,15 @@ static void heartbeat_step(void)
 
 typedef struct {
     DWORD pid;
-    int steer_count;       /* how many times we've steered this */
-    int ck_better;         /* times CK priority helped (lower CPU after) */
-    int win_better;        /* times Windows default was better */
-    int released;          /* 1 = gave up, let Windows handle */
-    DWORD last_priority;   /* what we set it to */
+    int steer_count;         /* how many times we've steered this */
+    int ck_better;           /* times CK priority helped */
+    int win_better;          /* times Windows default was better */
+    int released;            /* 1 = gave up, let Windows handle */
+    DWORD last_priority;     /* what we set it to */
     DWORD original_priority; /* what Windows had it at */
+    /* CPU time measurement for block classifier */
+    ULONGLONG last_kernel_time;  /* GetProcessTimes kernel (100ns units) */
+    ULONGLONG last_user_time;    /* GetProcessTimes user (100ns units) */
 } ProcessTracker;
 
 typedef struct {
@@ -343,22 +346,22 @@ __declspec(dllexport) int steer_tick(int heartbeat_op)
          * Quantum 1 = rest phase (2 out of 4 beats).
          * Quantum 5 = active phase (2 out of 4 beats).
          *
-         * At rest: EVERYTHING goes to IDLE. Quick. Heavy.
-         * The system should feel like exhaling.
-         * At active: normal TIG compose steering. */
+         * At rest: CK backs off. Don't touch priorities. Let Windows hold.
+         * Forcing IDLE on everything during rest crushed game performance.
+         * The algebra exhales by releasing control, not by throttling. */
         if (g_hb.hb_quantum <= 1) {
-            /* REST: force IDLE priority. No exceptions.
-             * This is 50% of all beats — the system breathes. */
-            steer_op = VOID_OP;  /* VOID -> nice +15 -> IDLE_PRIORITY_CLASS */
+            g_ctx.skipped++;
+            CloseHandle(proc);
+            continue;
         }
 
         /* Compute CK's target priority */
         nice = OP_NICE[steer_op];
         target_priority = nice_to_windows(nice);
 
-        /* Open process */
+        /* Open process — need QUERY_INFORMATION (not LIMITED) for GetProcessTimes */
         proc = OpenProcess(
-            PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION,
+            PROCESS_SET_INFORMATION | PROCESS_QUERY_INFORMATION,
             FALSE, pid);
         if (!proc) {
             g_ctx.denied++;
@@ -371,29 +374,67 @@ __declspec(dllexport) int steer_tick(int heartbeat_op)
         if (tracker) {
             tracker->steer_count++;
 
-            /* Compare: does CK agree with Windows? */
-            if (target_priority == current_priority) {
-                /* Agreement — both systems want the same thing.
-                 * CK is not adding value here. Count as neutral. */
-                tracker->ck_better++;  /* agreement = not worse */
-            } else if (steer_op == HARMONY || steer_op == 5 /*BALANCE*/) {
-                /* CK wants NORMAL or HARMONY — conservative choice.
-                 * This is usually good. */
-                tracker->ck_better++;
-            } else {
-                /* CK disagrees with Windows. Apply and see.
-                 * If we keep disagreeing, we'll release. */
-                if (tracker->original_priority == 0)
-                    tracker->original_priority = current_priority;
+            if (tracker->original_priority == 0)
+                tracker->original_priority = current_priority;
 
-                /* Did our LAST steer help? Compare current to what we set. */
-                if (tracker->last_priority != 0 &&
-                    current_priority != tracker->last_priority) {
-                    /* Windows overrode us — it didn't like our choice */
-                    tracker->win_better++;
+            /* Block classifier: measure CPU usage delta to decide if
+             * CK's priority assignment made sense.
+             *
+             * GetProcessTimes returns accumulated CPU in 100ns units.
+             * Between 1Hz steer ticks (~1s), the delta = CPU used this second.
+             * 100,000 units = 1% CPU on one core per second.
+             *
+             * Decision logic:
+             *   HIGH/ABOVE_NORMAL + high CPU  -> ck_better (enabled a hungry proc)
+             *   HIGH/ABOVE_NORMAL + idle CPU  -> win_better (wasted a priority slot)
+             *   LOW/IDLE           + idle CPU  -> ck_better (correctly parked it)
+             *   LOW/IDLE           + high CPU  -> win_better (we blocked a busy proc)
+             *   NORMAL             + anything  -> ck_better (conservative = safe)
+             */
+            if (tracker->last_priority != 0) {
+                FILETIME ft_create, ft_exit, ft_kernel, ft_user;
+                if (GetProcessTimes(proc, &ft_create, &ft_exit, &ft_kernel, &ft_user)) {
+                    ULONGLONG kernel = ((ULONGLONG)ft_kernel.dwHighDateTime << 32)
+                                     | ft_kernel.dwLowDateTime;
+                    ULONGLONG user   = ((ULONGLONG)ft_user.dwHighDateTime << 32)
+                                     | ft_user.dwLowDateTime;
+                    ULONGLONG cpu_total = kernel + user;
+                    ULONGLONG cpu_delta = 0;
+                    if (tracker->last_kernel_time != 0 || tracker->last_user_time != 0) {
+                        ULONGLONG prev = tracker->last_kernel_time + tracker->last_user_time;
+                        if (cpu_total >= prev)
+                            cpu_delta = cpu_total - prev;
+                    }
+                    tracker->last_kernel_time = kernel;
+                    tracker->last_user_time   = user;
+
+                    /* 500,000 = ~5% CPU on one core per second (100ns units) */
+                    int is_busy = (cpu_delta > 500000);
+                    int is_idle = (cpu_delta < 100000);   /* < 1% CPU */
+                    int gave_high = (tracker->last_priority == HIGH_PRIORITY_CLASS ||
+                                     tracker->last_priority == ABOVE_NORMAL_PRIORITY_CLASS);
+                    int gave_low  = (tracker->last_priority == BELOW_NORMAL_PRIORITY_CLASS ||
+                                     tracker->last_priority == IDLE_PRIORITY_CLASS);
+
+                    if (gave_high && is_busy)  tracker->ck_better++;
+                    else if (gave_high && is_idle)  tracker->win_better++;
+                    else if (gave_low  && is_idle)  tracker->ck_better++;
+                    else if (gave_low  && is_busy)  tracker->win_better++;
+                    else tracker->ck_better++;  /* NORMAL or ambiguous = safe */
                 } else {
+                    /* Can't read times — count as neutral */
                     tracker->ck_better++;
                 }
+            } else {
+                /* First time seeing this process — just observe */
+                FILETIME ft_create, ft_exit, ft_kernel, ft_user;
+                if (GetProcessTimes(proc, &ft_create, &ft_exit, &ft_kernel, &ft_user)) {
+                    tracker->last_kernel_time = ((ULONGLONG)ft_kernel.dwHighDateTime << 32)
+                                               | ft_kernel.dwLowDateTime;
+                    tracker->last_user_time   = ((ULONGLONG)ft_user.dwHighDateTime << 32)
+                                               | ft_user.dwLowDateTime;
+                }
+                tracker->ck_better++;
             }
 
             /* Block classifier decision */

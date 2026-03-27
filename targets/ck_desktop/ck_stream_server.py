@@ -132,11 +132,19 @@ class StreamServer:
             # Find loopback device (system audio output)
             devices = sd.query_devices()
             loopback_id = None
+            # Priority: true WASAPI loopback > Stereo Mix > Windows mixer
+            LOOPBACK_KEYWORDS = ('loopback', 'stereo mix', 'what u hear',
+                                 'wave out mix', 'what you hear', 'mix')
+            best_priority = 99
             for i, d in enumerate(devices):
+                if d['max_input_channels'] < 1:
+                    continue
                 name = d['name'].lower()
-                if 'loopback' in name or ('wasapi' in name and d['max_input_channels'] > 0):
-                    loopback_id = i
-                    break
+                for pri, kw in enumerate(LOOPBACK_KEYWORDS):
+                    if kw in name and pri < best_priority:
+                        loopback_id = i
+                        best_priority = pri
+                        break
 
             if loopback_id is None:
                 # Use default input as fallback
