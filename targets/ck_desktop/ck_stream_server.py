@@ -115,22 +115,46 @@ except ImportError:
     pass
 
 
+class _GDICapturer:
+    """Persistent GDI screen capturer. Allocates DC/bitmap/buffer once, reuses every frame.
+    Create/destroy per-frame costs ~35ms at 1080p. Persistent = ~8ms (just BitBlt+GetDIBits)."""
+
+    def __init__(self, w, h):
+        self.w = w
+        self.h = h
+        self.hdc    = user32.GetDC(0)
+        self.memdc  = gdi32.CreateCompatibleDC(self.hdc)
+        self.bmp    = gdi32.CreateCompatibleBitmap(self.hdc, w, h)
+        gdi32.SelectObject(self.memdc, self.bmp)
+        self.buf    = (ctypes.c_char * (w * h * 4))()
+        self.bi     = ctypes.create_string_buffer(
+            struct.pack('iiiHHIIiiII', 40, w, -h, 1, 32, 0, 0, 0, 0, 0, 0))
+        # Pre-allocate output array (avoid alloc in hot loop)
+        self.out    = np.empty((w * h, 3), dtype=np.uint8)
+
+    def capture(self):
+        gdi32.BitBlt(self.memdc, 0, 0, self.w, self.h, self.hdc, 0, 0, SRCCOPY)
+        gdi32.GetDIBits(self.memdc, self.bmp, 0, self.h,
+                        self.buf, self.bi, 0)
+        raw = np.frombuffer(self.buf, dtype=np.uint8).reshape(self.w * self.h, 4)
+        np.copyto(self.out, raw[:, [2, 1, 0]])  # BGR->RGB in-place
+        return self.out
+
+    def close(self):
+        gdi32.DeleteObject(self.bmp)
+        gdi32.DeleteDC(self.memdc)
+        user32.ReleaseDC(0, self.hdc)
+
+_capturer = None
+
 def capture_screen(w, h):
-    """Capture screen via GDI BitBlt. Returns (w*h, 3) uint8 array."""
-    hdc = user32.GetDC(0)
-    memdc = gdi32.CreateCompatibleDC(hdc)
-    bmp = gdi32.CreateCompatibleBitmap(hdc, w, h)
-    gdi32.SelectObject(memdc, bmp)
-    gdi32.BitBlt(memdc, 0, 0, w, h, hdc, 0, 0, SRCCOPY)
-    buf = (ctypes.c_char * (w * h * 4))()
-    bi = struct.pack('iiiHHIIiiII', 40, w, -h, 1, 32, 0, 0, 0, 0, 0, 0)
-    gdi32.GetDIBits(memdc, bmp, 0, h, buf, ctypes.create_string_buffer(bi), 0)
-    raw = np.frombuffer(buf, dtype=np.uint8).reshape(w * h, 4)
-    pixels = raw[:, [2, 1, 0]].copy()  # BGR -> RGB
-    gdi32.DeleteObject(bmp)
-    gdi32.DeleteDC(memdc)
-    user32.ReleaseDC(0, hdc)
-    return pixels
+    """Capture screen. Uses persistent GDI resources (alloc once, reuse every frame)."""
+    global _capturer
+    if _capturer is None or _capturer.w != w or _capturer.h != h:
+        if _capturer:
+            _capturer.close()
+        _capturer = _GDICapturer(w, h)
+    return _capturer.capture()
 
 
 class StreamServer:
@@ -365,45 +389,72 @@ class StreamServer:
             self.stats_time = now
 
     def _capture_loop(self):
-        """Main loop: capture video + audio -> encode -> compress -> broadcast."""
+        """Two-thread pipeline: capture overlaps with encode+send.
+
+        Thread A (this method): encode → compress → broadcast
+        Thread B (_capture_thread): continuously capture screen
+
+        While A is encoding frame N, B is already capturing frame N+1.
+        Throughput = max(capture_time, encode+send) instead of sum.
+        """
+        raw_frame_size = self.width * self.height * 3
         frame_interval = 1.0 / self.target_fps
-        pixel_count = self.width * self.height
-        raw_frame_size = pixel_count * 3
+
+        # Shared capture buffer
+        self._cap_frame   = None
+        self._cap_lock    = threading.Lock()
+        self._cap_event   = threading.Event()
+
+        def _capture_thread():
+            while self.running:
+                with self.clients_lock:
+                    has = len(self.clients) > 0
+                if not has:
+                    time.sleep(0.05)
+                    continue
+                frame = capture_screen(self.width, self.height).copy()
+                with self._cap_lock:
+                    self._cap_frame = frame
+                self._cap_event.set()
+
+        threading.Thread(target=_capture_thread, daemon=True).start()
 
         while self.running:
             t_start = time.time()
 
-            # Skip if no clients
             with self.clients_lock:
                 has_clients = len(self.clients) > 0
             if not has_clients:
-                # Still drain audio buffer so it doesn't grow
                 with self._audio_lock:
                     self._audio_buffer.clear()
-                time.sleep(0.1)
+                time.sleep(0.05)
                 continue
 
-            # ── VIDEO ──
+            # Wait for capture thread to deliver a frame
+            self._cap_event.wait(timeout=0.1)
+            self._cap_event.clear()
+            with self._cap_lock:
+                pixels = self._cap_frame
+            if pixels is None:
+                continue
+
+            # ── ENCODE ──
             if self._use_dxgi:
                 result = _dxgi_capture_encode()
                 if result is False:
-                    # DXGI consistently failing (no desktop access) — fall back
                     print("[server] DXGI unavailable, switching to GDI+CUDA")
                     self._use_dxgi = False
                     continue
                 if result is None:
-                    time.sleep(0.001)  # compositor hasn't produced a new frame yet
                     continue
                 compressed, n_bytes, encode_ms = result
             else:
-                pixels = capture_screen(self.width, self.height)
                 compressed, n_bytes, encode_ms = _gdi_cuda_encode(pixels)
 
-            # Build video packet: [1B type][4B len][2B w][2B h][data]
+            # ── BROADCAST ──
             video_header = struct.pack('>HH', self.width, self.height)
             payload = video_header + compressed
             packet = struct.pack('>BI', FRAME_VIDEO, len(payload)) + payload
-
             self._broadcast(packet)
 
             self.frame_count += 1
@@ -417,7 +468,7 @@ class StreamServer:
 
             self._print_stats()
 
-            # Frame pacing
+            # Pace to target FPS (don't busyspin above target)
             elapsed = time.time() - t_start
             sleep_time = frame_interval - elapsed
             if sleep_time > 0:

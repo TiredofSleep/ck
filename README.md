@@ -269,7 +269,9 @@ python -m ck_sim
 
 ## Papers
 
-All papers in `papers/`. 19 whitepapers + 1 arXiv submission.
+All papers in `papers/`. 26 whitepapers + 1 arXiv submission + 2 sprints.
+
+### Foundation (WP1–WP19)
 
 | # | Title |
 |---|-------|
@@ -293,7 +295,45 @@ All papers in `papers/`. 19 whitepapers + 1 arXiv submission.
 | 16 | P != NP via Non-Associative Composition |
 | 17 | The Riemann Hypothesis as a Null-Space Theorem |
 | 18 | Seven Equals Zero: The Vacuum-Harmony Identification |
-| 19 | Speculations: Philosophical Interpretations (clearly marked non-rigorous) |
+| 19 | Z/10Z Ring Algebra — the full unification structure |
+
+### Sprint 1: March 26, 2026 (WP20–WP23)
+
+Four Clay Millennium Problem papers. All claims have explicit falsification tests.
+
+| File | Title | Key result |
+|------|-------|------------|
+| WP1_TIG_DEFINITIVE.md | TIG Definitive — verified and corrected | All algebra verified, SHA-256 locked |
+| WP20_RH_PRIME_CORNER_COLLAPSE.md | Prime-Corner Collapse and the Irreducible Gap | Corner words never enter G={2,4,5,6,8} (proved exact) |
+| WP20_RH_HALVING_LEMMA.tex | Dissipative Flow for ζ(s) + Exponential Convergence | RH ↔ m(t₀)>0; KV strip proved unconditionally |
+| WP20_RH_FORMAL_STATUS.md | Formal Status — what is proved vs open | Honest ledger; tautology documented |
+| WP21_BSD_ENERGY_LAW.md | BSD Energy Law (regression, superseded) | slope≈6/7, R²=0.87 on 11 curves |
+| WP22_NS_BREATH_CRITERION.md | BREATH-COLLAPSE Criterion for NS | TSML[8][4]=8 → Re_local≤2/7 |
+| WP23_HODGE_MAP.md | TIG ↔ Hodge Translation Table | Corner-word collapse = Lefschetz (1,1) |
+
+### Sprint 2: March 27, 2026 (WP21–WP26 updated)
+
+Replaces energy-law regression with Mix_λ model; adds Lyapunov approach to NS; formal status audit; P/NP expansion; Doing table geometry.
+
+| File | Title | Key result |
+|------|-------|------------|
+| WP21_BSD_MIX_LAMBDA.md | Mix_λ Model for BSD Staircase | λ-threshold ordering = cost ordering, no parameters tuned |
+| WP22_NS_BREATH_LYAPUNOV.md | NS BREATH + Lyapunov §2 | C≤3.74 closes the Lyapunov proof (GN sharp constant) |
+| WP24_FORMAL_STATUS_AUDIT.md | Complete Formal Status Audit | Four bins: PROVED / STRUCTURAL / EMPIRICAL / OPEN |
+| WP25_P_NP_AG2P_COMPLEXITY.md | P vs NP via AG(2,p) Survivor-Line Complexity | Corner/gap = P/NP; SLS(p) complexity conjecture |
+| WP26_DOING_TABLE_TENSION_GEOMETRY.md | Doing Table as Intermediate Jacobian | D=\|TSML−BHML\|; 60/81 non-zero entries as "periods" |
+| wrong_question_paper.md | Prime-Corner Collapse (arXiv-ready) | Referee-ready; companion to Halving Lemma |
+| WP19_HALVING_LEMMA_final.tex | Halving Lemma v3 (arXiv-ready) | + Appendix C (analytical survey) + Appendix D (numerics) |
+| WP19_BSD_TIG.md | BSD Mix_λ source notes | Raw sprint notes, superseded by WP21_BSD_MIX_LAMBDA |
+
+### Verification Scripts
+
+| Script | What it checks |
+|--------|---------------|
+| tsml_ag23_verify.py | 76 assertions, all pass. Corner-gap impermeability, all residual pairs. |
+| tsml_product_verify.py | Product gap: 40 cross-terms unreachable (2-fold), 540 (3-fold) |
+| mix_lambda_scan.py | Mix_λ thresholds: all 5 gap operators, exact λ* values |
+| ns_breath_test.py | Taylor-Green vortex breach detector (mock, Dedalus-ready) |
 
 ---
 
