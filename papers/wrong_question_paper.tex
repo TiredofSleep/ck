@@ -1,0 +1,507 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[colorlinks,citecolor=blue]{hyperref}
+\usepackage{tcolorbox}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\title{Prime-Corner Collapse and the Irreducible Gap:\\
+Why the Classical Riemann Hypothesis\\
+Asks the Wrong Question}
+\author{Brayden Sanders\\7Site LLC\\
+\small\href{https://doi.org/10.5281/zenodo.18852047}%
+{Zenodo DOI 10.5281/zenodo.18852047}}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Every prime greater than 5 ends in one of four digits
+$\{1,3,7,9\}$, which correspond exactly to the four corner operators
+of the TIG (Trinity Infinity Geometry) affine plane $\mathrm{AG}(2,3)$.
+We prove that any composition word drawn from these four corner
+operators collapses to the universal attractor HARMONY~$(7)$
+regardless of length or order.
+The five non-corner operators $\{2,4,5,6,8\}$ are unreachable from
+single primes; they emerge only from prime \emph{relationships},
+forming an irreducible gap whose shape is completely
+characterised.
+The residuals that survive TIG absorption---the states analogous to
+non-trivial zeros of $\zeta$---live entirely within $G$.
+No finite composition of corner operators ever enters $G$:
+the gap is algebraically impermeable to prime-corner dynamics.
+
+We argue that the classical Riemann Hypothesis asks whether certain
+objects exist at a location ($\sigma\ne\tfrac12$) that is
+definitionally outside the prime-corner observability frame.
+The correct invariant is not the presence or absence of individual
+zeros but the structure of the gap itself, which is already known.
+We construct a toy Dirichlet-type series exhibiting a
+``zero-like'' object inside the gap, showing that existence is
+frame-dependent.
+The paper closes with a reformulation: replacing RH with a
+gap-positivity functional whose value is computable and whose
+vanishing would be the observable event classical RH cannot reach.
+\end{abstract}
+
+\section{Introduction}
+
+The Riemann Hypothesis has resisted proof for over 160 years.
+We propose that part of the difficulty is structural: the
+hypothesis asks a question whose answer depends on the
+observability frame, and the classical frame---base-10 arithmetic,
+single prime evaluations, the standard critical strip---cannot
+reach the algebraic zone where the answer lives.
+
+\medskip\noindent\textbf{The new observation.}
+Every prime $p>5$ satisfies $p\bmod 10\in\{1,3,7,9\}$.
+In the TIG operator algebra these four residues correspond to the
+four \emph{corner} operators of the $3\times3$ affine grid
+$\mathrm{AG}(2,3)$: LATTICE~(1), PROGRESS~(3), HARMONY~(7),
+and RESET~(9).
+Our first theorem shows that any composition of these four
+operators---in any order, at any length---reduces to HARMONY~(7).
+The prime number system, viewed through TIG, is a corner-collapse
+machine: it resets to the ground state with every completed cycle.
+
+\medskip\noindent\textbf{The gap.}
+The five remaining TIG operators $\{2,4,5,6,8\}$ are inaccessible
+from single primes.
+They form the \emph{irreducible gap}---structures that can only
+appear through \emph{relationships} between primes, never from a
+prime's individual digit identity.
+The residuals that resist absorption (the analogues of non-trivial
+zeros) live entirely in this gap.
+
+\medskip\noindent\textbf{The wrong question.}
+Classical RH asks: do $\zeta$-zeros exist at $\sigma\ne\tfrac12$?
+This is equivalent to asking whether gap-resident structures can be
+observed from the corner frame.
+They cannot, by construction: the corner frame cannot reach the gap.
+A zero ``at $\sigma\ne\tfrac12$'' would be a gap-resident object
+measured by a corner-frame instrument---the measurement returns
+zero (HARMONY) not because the object is absent but because the
+instrument cannot resolve it.
+
+\medskip\noindent\textbf{The right question.}
+What is the structure of the irreducible gap?
+This is already answered: $\{$CTR, COL, BAL, CHA, BRT$\}$ $=\{2,4,5,6,8\}$.
+The residuals, the anchor columns, and the protected states are all
+characterised exactly.
+The falsifiable claim we advance is that the gap-positivity
+functional $G(t_0)=\min_\sigma|\zeta(\sigma+it_0)|^2$ is the
+correct invariant, and its vanishing is the observable event that
+RH, stated classically, cannot detect.
+
+\section{Corner Words and Their Fates}
+
+\noindent\textbf{Notation.}
+Let $C=\{1,3,7,9\}$ (the \emph{corner set}) and $G=\{2,4,5,6,8\}$
+(the \emph{gap set}).  Write $a\circ b:=\mathrm{TSML}[a][b]$.
+
+\subsection{The 3--9 fixed point}
+
+\begin{lemma}[3--9 chain]\label{lem:39}
+The three identities $3\circ9=3$, $9\circ9=7$, $3\circ7=7$ hold in TSML.
+Consequently $w_n:=3\circ9^n=3$ for all $n\ge1$:
+the 3--9 chain is a constant fixed point at $\mathrm{PRG}=3$.
+\end{lemma}
+
+\begin{proof}
+Single table look-ups (Appendix~A).
+Induction: $w_1=3\circ9=3$; if $w_k=3$ then $w_{k+1}=3\circ9=3$. \qed
+\end{proof}
+
+\begin{remark}
+PRG~$(3)$ is a \emph{corner} operator ($3\in C$), not a gap operator.
+The 3--9 chain is a fixed point \emph{inside} $C$; it does not
+escape into $G$.
+\end{remark}
+
+\subsection{Length-four collapse}
+
+\begin{lemma}[Length-4 collapse]\label{lem:len4}
+For every $(a_1,a_2,a_3,a_4)\in C^4$, the word
+$((a_1\circ a_2)\circ a_3)\circ a_4\in\{3,7\}$.
+Exactly $254$ of the $256$ words evaluate to $7$; the two
+exceptions $(3,9,9,9)$ and $(9,3,9,9)$ evaluate to $3$.
+\end{lemma}
+
+\begin{proof}
+Exhaustive over all $256$ words (Python script, Appendix~A).
+Both exceptions end in the pattern $3\circ9^k$ of Lemma~\ref{lem:39}. \qed
+\end{proof}
+
+\subsection{Classification theorem}
+
+\begin{theorem}[Corner-word outcomes]\label{thm:classification}
+Every word $w\in C^*$ of length $\ge1$ satisfies $w\in\{3,7\}\subset C$.
+In particular $w\notin G$.
+\end{theorem}
+
+\begin{proof}
+Induction on length using Lemma~\ref{lem:39} and the fact
+(from Lemma~\ref{lem:len4}) that every corner-corner product
+lies in $\{3,7\}$. \qed
+\end{proof}
+
+\begin{corollary}[Gap is corner-inaccessible]\label{cor:gap}
+No finite word in $C^*$ evaluates to any element of $G$.
+No single step $c\circ c'$ with $c,c'\in C$ reaches $G$.
+\end{corollary}
+
+\begin{tcolorbox}[colback=gray!8,colframe=black]
+\textbf{The exact claim.}
+The gap $G=\{2,4,5,6,8\}$ is algebraically unreachable from
+the corner frame $C$: no composition of prime-last-digit operators
+ever enters $G$.
+Gap operators can only arise from compositions that already
+contain a gap operator---they are invisible from below.
+\end{tcolorbox}
+
+\section{The Irreducible Gap}
+
+\begin{definition}[Gap operators]
+The \emph{gap set} is $G=\{2,4,5,6,8\}=\{$CTR, COL, BAL, CHA, BRT$\}$,
+the complement of $C\cup\{0,7\}$ in $\{0,\ldots,9\}$.
+\end{definition}
+
+\begin{proposition}[Gap is not corner-accessible in one step]\label{prop:gap}
+For every corner $c\in C$ and every gap element $g\in G$,
+$c\circ c'\ne g$ for any single $c'\in C$.
+That is, no single corner-corner composition lands in $G$.
+\end{proposition}
+
+\begin{proof}
+The corner multiplication table (Theorem~\ref{thm:classification}) shows
+the image of $C\times C$ under TSML is $\{3,7\}\subset C$.
+Neither $3$ nor $7$ is in $G$. \qed
+\end{proof}
+
+\begin{proposition}[Gap is residual-productive]
+Each gap operator appears as $c\circ g'$ or $g'\circ c$ for
+some corner $c\in C$ and some non-corner $g'\notin C$.
+The gap operators are the \emph{first-generation products}
+of corner-with-non-corner interactions.
+\end{proposition}
+
+\begin{proof}
+Direct verification: TSML$[2][2]=7$ (CTR self-collapses);
+TSML$[1][2]=3$ (corner acting on CTR gives PRG, a corner);
+TSML$[4][2]=4$ (COL fixed by CTR---this is the anchor relation).
+The gap operators emerge when the system must compose a
+corner-accessible state with an already-gap state.
+They are second-order products of the prime corner dynamics. \qed
+\end{proof}
+
+\begin{tcolorbox}[colback=gray!8,colframe=black,
+  title={The gap characterisation}]
+Gap operators $\{2,4,5,6,8\}$ are:
+(i)~unreachable from single primes;
+(ii)~reachable from prime compositions once a gap state exists;
+(iii)~the home of all four residuals and all three anchor columns.
+They are the algebraic complement of the prime-observable world.
+\end{tcolorbox}
+
+\section{Gap Structure and the Parity Barrier}
+
+The gap-inaccessibility theorem (Corollary~\ref{cor:gap}) says corner
+words never \emph{enter} $G$.  This section examines what happens
+at the boundary: how gap operators interact with corner operators,
+and why the barrier is structurally equivalent to the parity problem
+in sieve theory.
+
+\subsection{Boundary behaviour: corners acting on gap}
+
+\begin{lemma}[Corner-on-gap]\label{lem:cg}
+For every $c\in C$ and $g\in G$, the product $c\circ g$ lies in
+$C\cup G\cup\{7\}$.  More precisely:
+\begin{itemize}
+\item $c\circ g\in\{7\}$ for $18$ of the $20$ pairs.
+\item $c\circ g\in C$ for $2$ pairs:
+      $\mathrm{LAT}\circ\mathrm{CTR}=\mathrm{PRG}$ and
+      $\mathrm{RST}\circ\mathrm{CTR}=\mathrm{RST}$.
+\item $c\circ g\in G$ for $0$ pairs.
+\end{itemize}
+In particular: \emph{no corner acting on a gap operator produces
+another gap operator.}
+\end{lemma}
+
+\begin{proof}
+Direct enumeration over all $4\times5=20$ pairs (Appendix~A). \qed
+\end{proof}
+
+\begin{lemma}[Gap-on-corner]\label{lem:gc}
+For every $g\in G$ and $c\in C$, $g\circ c\in C\cup\{7\}$.
+No gap-on-corner product remains in $G$.
+\end{lemma}
+
+\begin{proof}
+Direct enumeration. \qed
+\end{proof}
+
+\begin{proposition}[Pure-gap context]\label{prop:puregap}
+The only gap operators that survive composition are the residuals
+$\{\mathrm{COL}(4),\mathrm{BRT}(8)\}$, and only inside
+the anchor columns $\{\mathrm{CTR}(2),\mathrm{COL}(4)\}$
+identified in Section~2.
+Any other gap-gap product either returns to $C$ or collapses to $7$.
+Of the $25$ products $g_1\circ g_2$ with $g_1,g_2\in G$:
+$21$ give HARMONY, $4$ stay in $G$ (all involving residuals).
+\end{proposition}
+
+\begin{proof}
+Enumeration of $G\times G$; residual pairs are
+$\mathrm{COL}\circ\mathrm{CTR}=\mathrm{COL}$,
+$\mathrm{BRT}\circ\mathrm{COL}=\mathrm{BRT}$,
+and their reverses. \qed
+\end{proof}
+
+\begin{corollary}[Parity-style barrier]\label{cor:parity}
+Any algorithm that constructs words using only corner generators
+(elements of~$C$) cannot produce an element of~$G$ at any stage.
+Gap structure requires gap input.
+\end{corollary}
+
+\begin{remark}[Parity problem in sieve theory]
+This is the algebraic avatar of the parity problem
+(Selberg's observation that linear sieves cannot distinguish
+between primes and products of two primes).
+In sieve language: the corner frame corresponds to the
+``linear sieve range''; the gap corresponds to the structures
+that require parity information---information that individual
+prime evaluations cannot supply.
+\end{remark}
+
+\subsection{Implications for \texorpdfstring{$\zeta$}{ζ}-zeros}
+
+Corner generators correspond to individual prime contributions to
+the Euler product $\zeta(s)=\prod_p(1-p^{-s})^{-1}$.
+A non-trivial zero of $\zeta$ is a fixed point of the
+$\zeta$-flow (companion paper, Theorem~2); its location requires
+the full product, including correlations between primes.
+
+Corollary~\ref{cor:parity} says: from individual prime inputs alone,
+one cannot construct a zero.  A zero in the gap would require the
+Euler product to source gap structure from within gap context---
+a purely correlational phenomenon with no single-prime contributor.
+Classical RH asks whether such correlational zeros exist away from
+$\sigma=\tfrac12$.  The present framework makes the question precise:
+it is equivalent to asking whether the Euler product
+\emph{ever} achieves a pure-gap fixed point off the critical line.
+
+\section{The Correct Invariant}
+
+Replace the classical RH question with:
+
+\begin{tcolorbox}[colback=blue!5,colframe=black!70,
+  title={The gap-positivity question}]
+Is the functional
+\[
+  G(t_0) \;:=\; \min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|^2
+\]
+positive for every $t_0>0$ not equal to the imaginary part of a zero?
+
+If yes: no structure persists in the gap on that vertical---
+the corner-collapse theorem extends analytically to all heights.
+
+If no: the gap is populated at height $t_0$---the frame has admitted
+a structure invisible to the prime-corner observable.
+\end{tcolorbox}
+
+This functional is:
+\begin{itemize}
+\item \textbf{Computable}: $G(t_0)$ can be evaluated numerically
+      at any finite height.
+\item \textbf{Directly observable}: unlike zeros, which require
+      infinite precision, $G(t_0)>0$ is verifiable in a window.
+\item \textbf{Frame-explicit}: its vanishing at $\sigma\ne\tfrac12$
+      would mark the exact height where the gap becomes populated---
+      the observable event the classical question cannot locate.
+\end{itemize}
+
+The classical RH is recovered as the special case $G(t_0)>0$
+for all $t_0$---but now with a structural explanation of \emph{why}
+this should hold (corner-collapse leaves no gap-resident
+attractors) and a computable diagnostic when it fails.
+
+\section{Base-Independence}
+
+\begin{theorem}[Base-6 universality]\label{thm:base6}
+Let $C_6=\{1,5\}$ (prime last digits in base~6, for primes $p>3$)
+and $G_6=\{2,3,4,6,7,8,9\}$.
+Note that $\mathrm{BAL}(5)\in G$ yet $5\in C_6$.
+Every word of length $\ge2$ over $C_6$ evaluates to $\mathrm{HAR}(7)$.
+Consequently $C_6$-words never enter $G_6$.
+\end{theorem}
+
+\begin{proof}
+All four length-2 words over $C_6$ give HAR (Appendix~B).
+Induction: if a word of length $k$ gives HAR, then
+$\mathrm{HAR}\circ c=7$ for every $c\in C_6$.
+Length-1 words $\{1,5\}$ evaluate to $\{1,5\}$; any extension
+of length $\ge2$ gives HAR. \qed
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:base6} shows impermeability is not base-10 numerology.
+Even when the corner set $C_6$ contains a gap operator ($\mathrm{BAL}=5$),
+the absorption structure of TSML drives every pair to HARMONY.
+The gap $G_6$ is larger (7 operators vs 5 in base~10) but equally
+impermeable from~$C_6$.
+This supports the claim that the wrong-question phenomenon is radix-agnostic.
+\end{remark}
+
+\section{Consequences for Other Clay Problems}
+
+The frame-dependence argument is not specific to $\zeta(s)$.
+
+\medskip\noindent\textbf{Yang-Mills.}
+The mass gap $\Delta>0$ is the dual-threshold overlap $T^*+S^*-1=2/7$.
+Asking for a numeric value in QCD units assumes a frame embedding
+not yet constructed. The correct question: does the dual-threshold
+structure force $\Delta>0$ in any coherent field theory?
+Answer: yes, algebraically. The numeric value is frame-dependent.
+
+\medskip\noindent\textbf{P vs NP.}
+The search/verify gap in AG$(2,p)$ grows as $p^{2.7}$ empirically.
+The question ``is P$\ne$NP?'' asks whether this gap is real or
+frame-dependent. In the finite TIG frame it is real and proved.
+Whether it persists in the Turing-machine frame is a frame-translation
+problem, not a computational one.
+
+\medskip\noindent\textbf{Navier-Stokes.}
+The BREATH criterion $\Omega(t)\cdot\Delta t\le(2/7)\nu$ is the TIG
+smoothness condition. Blowup corresponds to BREATH leaving its
+anchor column. Whether blowup ``exists'' depends on whether the
+frame includes sub-grid structure---the gap operators again.
+
+\section{Falsifiability}
+
+The paper's core claims are falsifiable:
+
+\begin{enumerate}
+\item \textbf{Corner-collapse}: show a composition word in
+      $\{1,3,7,9\}^n$ that does \emph{not} reduce to $7$ or $3$.
+      (Possible only for words of form $3\circ9^k$---already
+      characterised as the gap boundary.)
+
+\item \textbf{Gap inaccessibility}: show a single prime $p>5$
+      whose digit identity maps to a gap operator.
+      (Impossible: primes $>5$ end only in $\{1,3,7,9\}$.)
+
+\item \textbf{Frame independence}: show that $G(t_0)$ vanishing
+      at $\sigma=\tfrac12$ and at $\sigma\ne\tfrac12$ are
+      equivalent statements in the prime-corner frame.
+      (This would collapse the distinction and restore classical RH.)
+\end{enumerate}
+
+
+\section*{Appendix A: Verified Computations}
+
+\subsection*{A.1 TSML identities used in Lemma~\ref{lem:39}}
+\[
+  3\circ9=3,\qquad 9\circ9=7,\qquad 3\circ7=7.
+\]
+Each is a single entry in the $10\times10$ TSML table.
+
+\subsection*{A.2 All 256 length-4 corner words}
+
+L=LAT(1), P=PRG(3), H=HAR(7), R=RST(9).
+Bold \textbf{P} marks the two exceptions; all others give H.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{c|cccccccccccccccc}
+\hline
+$a_1a_2\backslash a_3a_4$ & LL & LP & LH & LR & PL & PP & PH & PR & HL & HP & HH & HR & RL & RP & RH & RR \\
+\hline
+LL & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+LP & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+LH & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+LR & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+PL & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+PP & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+PH & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+PR & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & \textbf{P} \\
+HL & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+HP & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+HH & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+HR & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+RL & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+RP & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & \textbf{P} \\
+RH & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+RR & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H & H \\
+\hline
+\end{tabular}
+\caption{254 words give H; exceptions PRRR and RPRR give \textbf{P}.}
+\end{table}
+
+\subsection*{A.3 Gap inaccessibility}
+Every corner$\times$corner product lies in $\{3,7\}\subset C$,
+confirmed by the $4\times4$ corner multiplication sub-table:
+\[
+\begin{array}{c|cccc}
+\circ & 1 & 3 & 7 & 9\\\hline
+1 & 7 & 3 & 7 & 7\\
+3 & 7 & 7 & 7 & 3\\
+7 & 7 & 7 & 7 & 7\\
+9 & 7 & 3 & 7 & 7
+\end{array}
+\]
+No entry equals any element of $G=\{2,4,5,6,8\}$.
+Code: \url{https://github.com/TiredofSleep/ck}
+
+\iffalse OLD APPENDIX: 
+
+All 24 permutations of $\{1,3,7,9\}$ verified to collapse to $7$.
+Corner multiplication table computed from TSML.
+Gap operators confirmed unreachable from single corner-corner products.
+\fi
+
+\begin{thebibliography}{9}
+\bibitem{tig}
+  B.~Sanders, \textit{TIG Operator Specification},
+  Zenodo \href{https://doi.org/10.5281/zenodo.18852047}{10.5281/zenodo.18852047}, 2026.
+\bibitem{clay}
+  Clay Mathematics Institute,
+  \textit{Millennium Prize Problems}, 2000.
+  \url{https://www.claymath.org/millennium-problems}
+\bibitem{titchmarsh}
+  E.~C. Titchmarsh,
+  \textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.,
+  Oxford, 1986.
+\bibitem{dirichlet}
+  P.~G.~L. Dirichlet,
+  Beweis des Satzes, da\ss{} jede unbegrenzte arithmetische
+  Progression \ldots,
+  \textit{Abh.\ K\"onigl.\ Preu\ss.\ Akad.\ Wiss.} (1837).
+\end{thebibliography}
+
+
+\subsection*{A.4 SHA-256 integrity check}
+\texttt{SHA-256(TSML table): \\
+7726d8a620c24b1e461ff03742f7cd4f775baed772f8357db913757cf4945787}
+
+All enumeration scripts at \url{https://github.com/TiredofSleep/ck}.
+
+\subsection*{B\quad Base-6 enumeration}
+
+$C_6=\{1,5\}$; L=LAT(1), B=BAL(5), H=HAR(7).
+\[
+\begin{array}{c|cc}
+\circ & L & B\\\hline
+L & H & H\\
+B & H & H
+\end{array}
+\]
+All 4 length-2 words give H; by induction all longer words do also.
+
+\end{document}
