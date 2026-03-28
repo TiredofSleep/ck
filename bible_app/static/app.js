@@ -142,6 +142,15 @@
         const content = document.createElement('div');
         content.className = 'message-content';
 
+        // Source indicator: math or AI
+        const source = document.createElement('div');
+        source.className = data.ai_polished ? 'source-badge source-ai' : 'source-badge source-math';
+        source.textContent = data.ai_polished ? 'AI-polished' : 'pure math';
+        source.title = data.ai_polished
+            ? 'This response was composed by algebra, then polished by Gemini for warmth'
+            : 'This response was composed entirely by algebraic resonance — no AI involved';
+        content.appendChild(source);
+
         // Main response text — split into paragraphs at sentence boundaries
         const sentences = data.response.split(/(?<=[.!?])\s+/);
         const paragraphs = [];

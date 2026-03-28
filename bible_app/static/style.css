@@ -478,6 +478,30 @@ html, body {
     overflow-x: auto;
 }
 
+/* ── Source Badge (math vs AI) ──────────────────────────── */
+
+.source-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: help;
+}
+
+.source-math {
+    background: #e8f0e8;
+    color: #2e7d52;
+}
+
+.source-ai {
+    background: #f0e8f0;
+    color: #7d52a0;
+}
+
 .hidden {
     display: none !important;
 }
