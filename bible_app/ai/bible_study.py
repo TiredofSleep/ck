@@ -122,6 +122,55 @@ class BibleStudyNet:
             for w in words & important_words:
                 self.topic_index[w].append(v.ref)
 
+        # ── Phase 4b: Detect repetition in verses ────────────────
+        # Verses that contain repeated words/phrases ARE the answer
+        # to "why is the Bible repetitive"
+        print("[Study] Phase 4b: Detecting repetition patterns...")
+        for v in verses:
+            words_list = [w.lower().strip('.,;:!?()[]') for w in v.text.split()
+                          if len(w) >= 3]
+            # Find words repeated 2+ times in the same verse
+            word_counts = defaultdict(int)
+            for w in words_list:
+                word_counts[w] += 1
+            repeated = [w for w, c in word_counts.items() if c >= 2 and len(w) >= 4]
+            if repeated:
+                self.topic_index['repetitive'].append(v.ref)
+                self.topic_index['repetition'].append(v.ref)
+                self.topic_index['repeat'].append(v.ref)
+                self.topic_index['pattern'].append(v.ref)
+
+        # ── Phase 4c: Meta-question verse index ──────────────────
+        # Special verses that answer questions ABOUT the Bible
+        meta_verses = {
+            # Why repetition? Because emphasis = holiness
+            'repetitive': [
+                'Isaiah 6:3',       # "Holy, holy, holy"
+                'Revelation 4:8',   # "Holy, holy, holy, Lord God"
+                'Psalm 136:1',      # "for his mercy is for ever" (26x repeated)
+                'Isaiah 40:1',      # "Give comfort, give comfort"
+                'Psalm 118:1',      # "his mercy is for ever"
+                'Psalm 107:1',      # "his mercy is for ever"
+                'Psalm 150:1',      # "Praise God" (13x in 6 verses)
+            ],
+            # Why contradictions?
+            'contradiction': [
+                'Proverbs 26:4',    # "Do not answer a fool" vs next verse
+                'Proverbs 26:5',    # "Answer a fool" — the paradox IS the point
+                'Ecclesiastes 3:1', # "a time for every purpose"
+            ],
+            # How was it written/inspired?
+            'inspired': [
+                '2 Timothy 3:16',   # "All scripture is inspired by God"
+                '2 Peter 1:21',     # "men moved by the Holy Spirit"
+                'Hebrews 4:12',     # "the word of God is living and active"
+            ],
+        }
+        for topic, refs in meta_verses.items():
+            for ref in refs:
+                if ref not in self.topic_index.get(topic, []):
+                    self.topic_index[topic].insert(0, ref)  # Priority position
+
         # ── Phase 5: Find corridor exemplars (highest coherence) ──
         print("[Study] Phase 5: Finding corridor exemplars...")
         from bible_app.algebra.corridor import classify_corridor
