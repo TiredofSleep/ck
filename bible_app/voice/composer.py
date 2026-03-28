@@ -373,24 +373,12 @@ class BibleVoice:
         return self._pick(options)
 
     def _weave_verse(self, verse_result, intent):
-        """Weave a Bible verse into the response naturally."""
+        """Weave a Bible verse into the response naturally. Never truncate."""
         verse = verse_result.verse
         intro_list = VERSE_INTROS.get(intent, VERSE_INTROS[INTENT_CONNECT])
         intro = self._pick(intro_list)
 
-        # Trim verse text if very long
-        text = verse.text
-        if len(text) > 200:
-            # Find a natural break point
-            for sep in ['.', ';', ':']:
-                idx = text.find(sep, 60)
-                if idx > 0:
-                    text = text[:idx + 1]
-                    break
-            else:
-                text = text[:200] + '...'
-
-        return f'{intro} "{text}" — {verse.ref}'
+        return f'{intro} "{verse.text}" — {verse.ref}'
 
     def _harmony_vote(self, voices, user_ops):
         """Vote on voice ordering by CL composition harmony.

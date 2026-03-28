@@ -182,9 +182,7 @@
 
         const text = document.createElement('div');
         text.className = 'verse-text';
-        // Truncate long verses
-        const verseText = v.text.length > 200 ? v.text.slice(0, 200) + '...' : v.text;
-        text.textContent = verseText;
+        text.textContent = v.text;
 
         const ref = document.createElement('div');
         ref.className = 'verse-ref';

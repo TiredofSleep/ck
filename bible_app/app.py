@@ -522,32 +522,17 @@ def _build_deep_prose(journey, intent, corridor_info, verses):
         intro_list = verse_intros.get(intent, verse_intros.get('comfort'))
         intro = rng.choice(intro_list)
 
-        vtext = v1.text
-        if len(vtext) > 180:
-            for sep in ['.', ';', ':']:
-                idx = vtext.find(sep, 60)
-                if idx > 0:
-                    vtext = vtext[:idx + 1]
-                    break
-
-        parts.append(f'{intro} "{vtext}"')
+        parts.append(f'{intro} "{v1.text}"')
 
         # Second verse if available
         if len(verses) >= 2:
             v2 = verses[1].verse
-            v2text = v2.text
-            if len(v2text) > 150:
-                for sep in ['.', ';']:
-                    idx = v2text.find(sep, 50)
-                    if idx > 0:
-                        v2text = v2text[:idx + 1]
-                        break
             connectors = [
                 f"And {v2.ref} adds:",
                 f"{v2.ref} echoes this:",
                 f"There is more — {v2.ref} says:",
             ]
-            parts.append(f'{rng.choice(connectors)} "{v2text}"')
+            parts.append(f'{rng.choice(connectors)} "{v2.text}"')
 
     # ── 5. The journey summary (hope forward) ─────────────────
     summary = journey.get('journey_summary', '')
