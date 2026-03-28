@@ -327,7 +327,19 @@ class LatticeChainEngine:
         self._index = {(): self.root}   # path_tuple -> node
         self._gpu_tensor = None
         self._gpu_dirty = True
+        self._recent_depths = []        # rolling window for mean_depth
         self._load()
+
+    @property
+    def mean_depth(self) -> float:
+        """Mean depth of recent chain walks (WP30: characteristic length L).
+
+        Used by olfactory_re_local = stall_count × mean_depth² / coherence.
+        Returns 1.0 when no walks have been recorded (safe default).
+        """
+        if not self._recent_depths:
+            return 1.0
+        return sum(self._recent_depths) / len(self._recent_depths)
 
     # ── Chain Walk ──
 
@@ -396,6 +408,12 @@ class LatticeChainEngine:
 
         self.total_walks += 1
         final = results[-1] if results else VOID
+
+        # Track recent depths for mean_depth (WP30: characteristic length L)
+        d = len(results)
+        self._recent_depths.append(d)
+        if len(self._recent_depths) > 100:
+            self._recent_depths = self._recent_depths[-100:]
 
         return ChainPath(
             steps=steps, path_ops=tuple(results),
