@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.json.gz
+bbe_raw.json
+thiago_kjv.json
+bible_response.json
