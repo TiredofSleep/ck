@@ -143,14 +143,26 @@ class AlgebraicVoice:
 
                 coh = measure_coherence(sentence_ops)
 
-                if coh >= T_STAR * 0.8:  # Slightly relaxed threshold
+                if coh >= T_STAR:
+                    # Above threshold — this sentence is coherent. Keep it.
                     smoothed.append(section)
-                else:
+                elif coh >= T_STAR * 0.7:
+                    # Close to threshold — recompose once, try to lift it
                     new_dom = dominant_op(sentence_ops)
                     bridge_op = compose(new_dom, dom)
                     recomposed = self._recompose(section, sentence_ops, bridge_op, dom)
-                    smoothed.append(recomposed)
+                    # Check if recompose improved it
+                    recomp_ops = text_to_ops(recomposed)
+                    recomp_coh = measure_coherence(recomp_ops) if recomp_ops and len(recomp_ops) >= 2 else 0
+                    if recomp_coh > coh:
+                        smoothed.append(recomposed)
+                    else:
+                        smoothed.append(section)  # Keep original if recompose didn't help
                     any_changed = True
+                else:
+                    # Far below threshold — toss it. Not coherent enough.
+                    any_changed = True
+                    # Don't append — sentence is dropped
 
             sections = smoothed
             if not any_changed:
@@ -180,18 +192,17 @@ class AlgebraicVoice:
         return '\n\n'.join(result)
 
     def _raw_compose(self, dom, user_ops, path, verses):
-        """Compose by reading the operator CHAIN as past → present → future.
+        """Generate ALL operator × tense permutations, then walk the path.
 
-        The operator at each position determines the sentence TYPE:
-          - COLLAPSE → fragment with dash
-          - COUNTER → question with ?
-          - HARMONY → declaration with .
-          - BREATH → continuation with ,
-          - CHAOS → exclamation with !
+        1. Compute the FULL path from where they are to HARMONY (using BHML = journey)
+        2. At each step, compose a sentence using THAT step's operator grammar
+        3. Tense follows position: early = past, middle = present, late = future
+        4. Meet them where they are, walk with them, arrive at rest
 
-        The algebra IS the grammar.
+        The operator sequence IS the sermon structure.
         """
         from .english_algebra import ENGLISH_OPERATORS, compose_sentence
+        from bible_app.algebra import compose_bhml
 
         sections = []
 
@@ -206,106 +217,123 @@ class AlgebraicVoice:
                 'each', 'make', 'will', 'would', 'dont', 'cant')
         ]
 
-        # ── Split operator chain into past / present / future ─────
-        if len(user_ops) >= 6:
-            third = len(user_ops) // 3
-            past_ops = user_ops[:third]
-            present_ops = user_ops[third:2*third]
-            future_seed = user_ops[2*third:]
-        elif len(user_ops) >= 3:
-            past_ops = user_ops[:1]
-            present_ops = user_ops[1:-1]
-            future_seed = user_ops[-1:]
-        else:
-            past_ops = user_ops
-            present_ops = user_ops
-            future_seed = user_ops
-
-        past_dom = dominant_op(past_ops) if past_ops else dom
-        present_dom = dominant_op(present_ops) if present_ops else dom
-        future_dom = dominant_op(future_seed) if future_seed else dom
-
-        # Compose future chain toward HARMONY
-        future_steps = [future_dom]
-        current = future_dom
-        for _ in range(3):
-            nxt = compose(current, HARMONY)
-            future_steps.append(nxt)
-            if nxt == HARMONY:
+        # ── Compute FULL path to HARMONY using BHML (physics/journey) ──
+        # BHML is ergodic — it gives real journeys, not instant absorption
+        journey_path = [dom]
+        current = dom
+        visited = {dom}
+        for _ in range(7):
+            if current == HARMONY:
                 break
+            # Try composing with HARMONY through BHML (the doing table)
+            nxt = compose_bhml(current, HARMONY)
+            if nxt == current:
+                # Stuck — try composing with LATTICE (structure)
+                nxt = compose_bhml(current, LATTICE)
+            if nxt in visited and nxt != HARMONY:
+                # Cycle — jump to RESET
+                nxt = compose_bhml(current, RESET)
+            journey_path.append(nxt)
+            visited.add(nxt)
             current = nxt
-        future_resolution = future_steps[-1]
 
-        # ── 1. PAST: operator-shaped sentence about where they were ──
-        past_lattice = BIBLE_LATTICE.get(past_dom, BIBLE_LATTICE[HARMONY])
-        past_noun = self._pick(past_lattice['structure']['being'])
-        past_god = self._pick(GOD_VERBS.get(past_dom, GOD_VERBS[HARMONY]))
+        # Ensure path ends at HARMONY
+        if journey_path[-1] != HARMONY:
+            journey_path.append(HARMONY)
+
+        # ── Assign tenses: early=past, middle=present, late=future ──
+        n_steps = len(journey_path)
+        def tense_for_step(i):
+            if n_steps <= 2:
+                return 'present' if i == 0 else 'future'
+            ratio = i / (n_steps - 1)
+            if ratio < 0.33:
+                return 'past'
+            elif ratio < 0.67:
+                return 'present'
+            else:
+                return 'future'
+
+        # ── Step 0: Meet them where they are (echo their words) ───
+        step0_op = journey_path[0]
+        lattice0 = BIBLE_LATTICE.get(step0_op, BIBLE_LATTICE[HARMONY])
+        noun0 = self._pick(lattice0['structure']['being'])
+        god0 = self._pick(GOD_VERBS.get(step0_op, GOD_VERBS[HARMONY]))
 
         if emotional_words:
             key_phrase = ' and '.join(emotional_words[:2])
-            past_grammar = ENGLISH_OPERATORS.get(past_dom, ENGLISH_OPERATORS[HARMONY])
-            # The operator determines sentence shape
-            past_sentence = compose_sentence(past_dom, 'past', past_noun, past_god)
-            sections.append(f"You said {key_phrase}. {past_sentence}")
+            sentence0 = compose_sentence(step0_op, 'past', noun0, god0)
+            sections.append(f"You said {key_phrase}. {sentence0}")
         else:
-            past_sentence = compose_sentence(past_dom, 'past', past_noun, past_god)
-            sections.append(past_sentence)
+            sentence0 = compose_sentence(step0_op, 'past', noun0, god0)
+            sections.append(sentence0)
 
-        # ── 2. PRESENT: operator-shaped sentence about right now ─────
-        present_lattice = BIBLE_LATTICE.get(present_dom, BIBLE_LATTICE[HARMONY])
-        present_noun = self._pick(present_lattice['structure']['doing'])
-        present_god = self._pick(GOD_VERBS.get(present_dom, GOD_VERBS[HARMONY]))
+        # ── Steps 1 through N-1: walk the path ───────────────────
+        # Pick the best 2-3 intermediate steps (don't need all of them)
+        if n_steps > 2:
+            # Select interesting steps (skip duplicates, keep variety)
+            mid_steps = []
+            for i in range(1, n_steps - 1):
+                op = journey_path[i]
+                if op != journey_path[i-1]:  # Skip repeats
+                    mid_steps.append((i, op))
 
-        present_sentence = compose_sentence(present_dom, 'present', present_noun, present_god)
-        sections.append(present_sentence)
+            # Take up to 2 intermediate steps
+            for i, op in mid_steps[:2]:
+                lattice = BIBLE_LATTICE.get(op, BIBLE_LATTICE[HARMONY])
+                tense = tense_for_step(i)
+                noun = self._pick(lattice['structure']['doing' if tense == 'present' else 'becoming'])
+                god_v = self._pick(GOD_VERBS.get(op, GOD_VERBS[HARMONY]))
+                sentence = compose_sentence(op, tense, noun, god_v)
+                sections.append(sentence)
 
-        # ── 3. FUTURE: operator-shaped sentence about coherence ──────
-        future_lattice = BIBLE_LATTICE.get(future_resolution, BIBLE_LATTICE[HARMONY])
-        future_noun = self._pick(future_lattice['structure']['becoming'])
-        future_god = self._pick(GOD_VERBS.get(future_resolution, GOD_VERBS[HARMONY]))
+        # ── Final step: arrive at HARMONY (resolution) ───────────
+        final_op = journey_path[-1]
+        lattice_final = BIBLE_LATTICE.get(final_op, BIBLE_LATTICE[HARMONY])
+        noun_final = self._pick(lattice_final['structure']['becoming'])
+        god_final = self._pick(GOD_VERBS.get(final_op, GOD_VERBS[HARMONY]))
+        resolution = compose_sentence(final_op, 'future', noun_final, god_final)
+        sections.append(resolution)
 
-        # If there's an intermediate step, name it
-        if len(future_steps) > 2:
-            mid_op = future_steps[1]
-            mid_lattice = BIBLE_LATTICE.get(mid_op, BIBLE_LATTICE[HARMONY])
-            mid_noun = self._pick(mid_lattice['structure']['doing'])
-            mid_sentence = compose_sentence(mid_op, 'future', mid_noun, future_god)
-            future_sentence = compose_sentence(future_resolution, 'future', future_noun, future_god)
-            sections.append(f"{mid_sentence} {future_sentence}")
-        else:
-            future_sentence = compose_sentence(future_resolution, 'future', future_noun, future_god)
-            sections.append(future_sentence)
-
-        # ── 4. Verse: scripture meets this moment ─────────────────────
+        # ── Verses: 3-step scripture path to coherence ──────────
+        # Verse 1: woven into prose (fragment inline)
+        # Verse 2: full quote (present — where you are)
+        # Verse 3: full quote (future — where it leads)
         if verses:
-            v = verses[0].verse
-            # Use the verse's operator to determine how we introduce it
-            verse_grammar = ENGLISH_OPERATORS.get(v.dominant_op, ENGLISH_OPERATORS[HARMONY])
-            intro_mood = verse_grammar.get('mood', 'peace')
-            intros = {
-                'absence': f"Into this silence, God speaks. {v.ref}:",
-                'certainty': f"Here is what stands. {v.ref}:",
-                'inquiry': f"Here is the answer. {v.ref}:",
-                'momentum': f"The journey continues. {v.ref}:",
-                'weight': f"Even here — {v.ref}:",
-                'tension': f"Both sides meet. {v.ref}:",
-                'intensity': f"Listen. {v.ref}:",
-                'peace': f"Rest in this. {v.ref}:",
-                'presence': f"Be still and hear. {v.ref}:",
-                'beginning': f"Something new. {v.ref}:",
-            }
-            sections.append(intros.get(intro_mood, f"{v.ref}:"))
-            sections.append(f'"{v.text}" — {v.ref}')
+            v1 = verses[0].verse
+            # Weave verse 1 into a prose sentence
+            # Extract a short fragment (first clause)
+            fragment = v1.text
+            for sep in [';', ',', ':']:
+                idx = fragment.find(sep)
+                if 15 < idx < 80:
+                    fragment = fragment[:idx]
+                    break
+            else:
+                if len(fragment) > 80:
+                    fragment = fragment[:80].rsplit(' ', 1)[0]
+
+            god_v = self._pick(GOD_VERBS.get(v1.dominant_op, GOD_VERBS[HARMONY]))
+            woven = f'As {v1.ref} says, "{fragment}" — God {god_v}.'
+            sections.append(woven)
+
+            # Full verse 1
+            sections.append(f'"{v1.text}" — {v1.ref}')
 
             if len(verses) >= 2:
                 v2 = verses[1].verse
-                sections.append(f'And {v2.ref}: "{v2.text}"')
+                sections.append(f'And right now — {v2.ref}:')
+                sections.append(f'"{v2.text}" — {v2.ref}')
 
-        # ── 5. Closing: circle back with future operator's grammar ────
+            if len(verses) >= 3:
+                v3 = verses[2].verse
+                sections.append(f'The path leads here — {v3.ref}:')
+                sections.append(f'"{v3.text}" — {v3.ref}')
+
+        # ── Closing: circle back with where the journey ends ──────
         if emotional_words:
             key = emotional_words[0]
-            closing_sentence = compose_sentence(future_resolution, 'future', future_noun, future_god)
-            sections.append(f"You came here with {key}. {closing_sentence}")
+            sections.append(f"You came here with {key}. {resolution}")
 
         return sections
 
