@@ -393,9 +393,9 @@ class SteeringEngine:
         # Instead, admit at most _RAMP_PER_TICK new PIDs per tick,
         # growing by _RAMP_STEP each tick until _RAMP_MAX is reached.
         self._seen_pids: Set[int] = set()   # PIDs already steered at least once
-        self._ramp_budget = 3               # new PIDs allowed this tick
-        self._RAMP_STEP   = 2               # budget grows by this each tick
-        self._RAMP_MAX    = 20              # steady-state max new PIDs per tick
+        self._ramp_budget = 2               # new PIDs allowed this tick
+        self._RAMP_STEP   = 1               # budget grows by this each tick
+        self._RAMP_MAX    = 5               # steady-state max new PIDs per tick
 
         # Log
         self._log: deque = deque(maxlen=500)
