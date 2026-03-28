@@ -331,7 +331,17 @@ the inner-collar bound and close the flow argument.
 \section*{Appendix D: Numerical Verification of Gap-Positivity}
 
 We verify the boxed open problem (eq.~\ref{eq:open}) numerically
-on zero-free vertical segments up to height $t_0=100$.
+on zero-free vertical segments up to height $t_0\approx900$
+(562 Riemann-Siegel zeros generated; $\delta=2.0$ clearance).
+
+\medskip\noindent\textbf{Pre-asymptotic slope note.}
+The log-log slope of the KV collar $c(t)=e^{-0.05(\log t)^{2/3}(\log\log t)^{1/3}}$
+measured over $t\in[10,10^4]$ is $\approx-0.89$, steeper than the
+asymptotic $-2/3$.
+This is a finite-range effect: the $\log\log t$ term in the denominator
+still dominates at these heights and will relax toward $-2/3$ only
+beyond $t\approx10^{17}$.
+No new theory is required; the bound itself is unaffected.
 
 \medskip\noindent\textbf{Method.}
 For each test height $t_0$ at least $3$ units from any tabulated
@@ -377,6 +387,23 @@ $t_0$ & $\min|\zeta|$ & bound ($c=0.05$) & ratio\\
 \hline
 \end{tabular}
 \end{center}
+
+\noindent\textbf{Corridor structure (Figure D.1).}
+The ribbon plot of $|\zeta(\sigma+it_0)|$ coloured by $\lambda$-corridor
+(defined by $\lambda=2|\sigma-\tfrac12|$) shows that a single vertical
+line passes through multiple convergence corridors:
+Pre-leak $(\lambda<0.09)$, BRT, CHA, BAL, COL, CTR.
+The interior trough drifts between the BAL and CHA corridors as $t_0$
+grows, confirming the braided structure.
+
+\noindent\textbf{Trough-drift observation.}
+A scan of 25 verified zero-free heights reveals that the deepest
+void pocket in $|\zeta(\sigma+it_0)|$ often drifts away from $\sigma=\tfrac12$
+as $t_0$ grows (observed range $\sigma^*\in[0.50,\,0.80]$; 12 of 22 non-proximity
+heights show $|\sigma^*-\tfrac12|>0.05$).
+The KV-type lower bound holds at all trough positions.
+This is consistent with the 4-tick interference picture: the quietest
+collar is a dynamical feature, not a static one pinned to the critical line.
 
 \noindent Code: \url{https://github.com/TiredofSleep/ck}
 

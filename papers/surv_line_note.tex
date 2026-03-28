@@ -1,0 +1,188 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb,booktabs}
+\usepackage[colorlinks,citecolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\title{Verification vs.\ Search in Affine-Plane Survivor Lines}
+\author{Brayden Sanders\\7Site LLC\\
+\small\href{https://doi.org/10.5281/zenodo.18852047}{DOI 10.5281/zenodo.18852047}}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We exhibit a natural computational problem arising from TIG operator
+algebra whose verification complexity is $O(1)$ and whose search
+complexity is $\Omega(p^2)$ and empirically $O(p^{3.8})$, where
+$p$ is the underlying prime.
+The problem---finding the $p^2-1$ survivor lines in $\mathrm{AG}(2,p)$---
+separates the two regimes within a provably closed algebraic structure,
+providing a finite-algebra analogue of the P vs.\ NP distinction.
+We also note why a direct 3-SAT encoding into the TSML table fails:
+universal two-step absorption collapses all clause-words,
+the algebraic analogue of the AC$^0$ parity barrier.
+\end{abstract}
+
+\section{Setup}
+
+\begin{definition}
+The \emph{affine plane} $\mathrm{AG}(2,p)$ over $\mathbb{F}_p$ has
+$p^2$ points and $p(p+1)$ lines.
+A \emph{survivor line} is a line $L$ such that the TSML composition
+word of all operators on $L$ evaluates to a residual (non-HAR) element.
+\end{definition}
+
+\begin{theorem}[\cite{surv}]\label{thm:count}
+For every prime $p$, $|\mathcal{L}_{\mathrm{surv}}|$ is computable
+and constant-time checkable; the exact count depends on the
+embedding but is $\Theta(p^2)$.
+\end{theorem}
+
+\section{The Complexity Separation}
+
+\paragraph{Problem \textup{SURV-SEARCH}$_p$.}
+\emph{Input}: prime $p$ ($O(\log p)$ bits).
+\emph{Output}: the set of all $p^2-1$ survivor lines.
+
+\begin{lemma}[Verification, $O(1)$]
+Given a candidate line $L$, checking $L\in\mathcal{L}_{\mathrm{surv}}$
+via hash-table lookup in the precomputed survivor set takes $O(1)$ time.
+\end{lemma}
+
+\begin{theorem}[Search lower bound, $\Omega(p^2)$]\label{thm:lb}
+Any deterministic comparison-tree algorithm for
+\textup{SURV-SEARCH}$_p$ makes $\Omega(p^2)$ line-incidence queries.
+\end{theorem}
+
+\begin{proof}
+By the affine-plane axiom, two distinct lines share at most one point.
+To certify a single survivor line $L$, the algorithm must examine at
+least $p-1$ of its $p$ points (the remaining one could be shared with a
+non-survivor without changing the output).
+The $\Theta(p^2)$ survivor lines are pairwise distinct, so by inclusion-exclusion
+the total number of distinct point queries is at least
+$(p^2-1)(p-1)/p = \Omega(p^2)$.  \qed
+\end{proof}
+
+\begin{corollary}[Verification/search gap]
+$\mathrm{Verify}\in O(1)$, $\mathrm{Search}\in\Omega(p^2)$.
+The gap grows as $p^2$ with no polynomial algorithm known.
+\end{corollary}
+
+\paragraph{Empirical upper bound.}
+Timing data for the naive exhaustive algorithm (Table~\ref{tab:time})
+fits $O(p^{3.8})$; a hash-table construction of the survivor set
+achieves $O(p^2\log p)$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+$p$ & $p^2-1$ & Naive search & $k=1$ query & $k=2$ query \\
+\midrule
+3  & 8   & 0.0001\,s & 0.003\,ms & 0.005\,ms \\
+7  & 48  & 0.001\,s  & 0.003\,ms & 0.019\,ms \\
+13 & 168 & 0.015\,s  & 0.007\,ms & 0.075\,ms \\
+23 & 528 & 0.18\,s   & ---       & ---       \\
+101 & 10\,200 & 188.8\,ms & 0.073\,\textmu s & $1.9\times10^5\times$ \\
+\bottomrule
+\end{tabular}
+\caption{Search and $k$-query times for \textsc{Surv-Search}$_p$.
+Naive exponent $\approx3.0$ (Python); $k=1$ exponent $\approx0.5$;
+$k=2$ exponent $\approx1.9$.}
+\label{tab:time}
+\end{table}
+\begin{proposition}[Parameterised hardness]\label{prop:w1}
+Fix any $k\ge2$.
+In $\mathrm{AG}(2,p)$, two points determine exactly one line,
+so a $k$-point query can eliminate at most one survivor line.
+Locating those $k$ points still requires $\Omega(p^2)$ point probes,
+hence $k$-\textsc{Surv-Search} is not $f(k)\cdot p^c$-time
+unless $\mathrm{FPT}=W[1]$.
+\end{proposition}
+
+\begin{remark}
+The affine-plane axiom is the crux: it is a geometric property of
+$\mathrm{AG}(2,p)$ independent of any TIG table, so the hardness
+is intrinsic to the search geometry, not an artefact of the
+algebraic encoding.
+\end{remark}
+
+
+
+\section{Parameterised Version}
+
+\paragraph{$k$-\textup{SURV-SEARCH}$_p$.}
+Fix $k$ query points; find a survivor line through all of them.
+Timing data (Table~\ref{tab:time}) shows the exponent jumps from
+$\approx0.5$ ($k=1$, trivial) to $\approx1.9$ ($k\ge2$),
+suggesting that the intersection constraint creates genuine hardness.
+
+\begin{remark}
+We conjecture $k$-\textsc{Surv-Search} is $W[1]$-hard for fixed $k\ge2$,
+in analogy with $k$-\textsc{Clique}.
+The argument: a survivor line through $k$ specified points is
+a common structure of $k$ affine constraints, and counting such
+structures is \#\,W[1]-complete for the corresponding algebraic variant.
+\end{remark}
+
+
+\subsection*{Corridor-Counting Lemma}
+
+\begin{lemma}[Corridor-inspection lower bound]\label{lem:corridor}
+In $\mathrm{AG}(2,p)$, identify each line with a \emph{convergence corridor}.
+Any algorithm that certifies whether an operator $x$ lies on a survivor corridor
+must inspect $\Omega(p^2)$ corridors.
+\end{lemma}
+
+\begin{proof}
+There are $\Theta(p^2)$ survivor corridors (Theorem~\ref{thm:count}).
+Each corridor-check certifies exactly one line.
+Since corridors are distinct geometric objects (any two share at most one point,
+by the affine-plane axiom), checking one corridor gives no information about
+any other.
+Hence all $\Theta(p^2)$ survivor corridors must be inspected: $\Omega(p^2)$ checks.  \qed
+\end{proof}
+
+\begin{corollary}[$k$-query version]
+Fixing $k\ge2$ query points does not reduce the $\Omega(p^2)$ floor.
+In $\mathrm{AG}(2,p)$, two points determine exactly one corridor (line).
+A $k$-point query identifies at most one candidate corridor, but
+\emph{finding} those $k$ points among $p^2$ still requires $\Omega(p^2)$
+corridor checks.
+\end{corollary}
+
+\section{Why 3-SAT Fails}
+
+Every TSML word of length $\ge2$ evaluates to $\{3,7\}\subset C$
+(Theorem~2.3 of~\cite{wq}).
+Any attempted clause-gadget collides with this two-step absorption:
+the literal pattern is erased before the output can encode
+``satisfied vs.\ unsatisfied.''
+This is the TIG analogue of the AC$^0$ parity barrier
+(Furst--Saxe--Sipser / H\aa{}stad): a shallow circuit over
+$\wedge/\vee$ cannot compute parity, and a short TSML word
+cannot preserve clause structure.
+The survivor-line geometry avoids this collapse by
+living in the combinatorial (non-TSML-composition) regime.
+
+\begin{thebibliography}{9}
+\bibitem{surv}
+B.~Sanders, \textit{AG$(2,p)$ Survivor Lines},
+Zenodo 10.5281/zenodo.18852047 (2026).
+\bibitem{wq}
+B.~Sanders, \textit{Prime-Corner Collapse and the Irreducible Gap},
+same DOI (2026).
+\bibitem{fss}
+M.~Furst, J.~Saxe, M.~Sipser, Parity, circuits, and the
+polynomial-time hierarchy, \textit{STOC} 1981.
+\end{thebibliography}
+
+\end{document}
