@@ -454,13 +454,15 @@ class TaichiChainWalker:
         n = min(tensor.shape[0], MAX_NODES)
         arr = tensor[:n].astype(np.int32)
 
-        # Load into Taichi field
-        for i in range(n):
-            for r in range(NUM_OPS):
-                for c in range(NUM_OPS):
-                    experience_tables[i, r, c] = int(arr[i, r, c])
+        # Bulk GPU transfer via from_numpy() -- O(1) DMA copy, not O(N*10*10) Python loop.
+        # Pad to full field shape (MAX_NODES, NUM_OPS, NUM_OPS) since from_numpy requires
+        # an array that exactly matches the declared field shape.
+        padded = np.zeros((MAX_NODES, NUM_OPS, NUM_OPS), dtype=np.int32)
+        padded[:n] = arr
+        experience_tables.from_numpy(padded)
 
         node_count[None] = n
+        self._node_count_cached = n   # plain int — safe to read from any thread
         self._node_paths = node_paths or [() for _ in range(n)]
         self._loaded = True
         print(f"  [TAICHI] Loaded {n} experience tables to GPU")
@@ -595,12 +597,7 @@ class TaichiChainWalker:
 
     def status(self) -> dict:
         """Diagnostic status."""
-        nc = 0
-        if self._loaded:
-            try:
-                nc = int(node_count[None])
-            except Exception:
-                nc = -1  # CUDA context error
+        nc = getattr(self, '_node_count_cached', 0) if self._loaded else 0
         return {
             'taichi_available': _HAS_TAICHI,
             'initialized': _TI_INITIALIZED,
@@ -664,7 +661,7 @@ class TaichiChainBridge:
 
     def detect_grokking(self) -> List[dict]:
         """Find grokked nodes."""
-        self.sync()
+        self.maybe_sync()   # only sync if new nodes, not forced every call
         return self.walker.detect_grokking()
 
     def olfactory_interaction(self, scent_op_profiles: List[List[int]]) -> dict:

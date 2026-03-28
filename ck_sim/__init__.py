@@ -71,6 +71,7 @@ _CK_ALIAS_MAP = {
     'ck_sim.ck_fractal_health':   'ck_sim.being.ck_fractal_health',
     'ck_sim.ck_divine27':         'ck_sim.being.ck_divine27',
     'ck_sim.ck_coherence_action': 'ck_sim.being.ck_coherence_action',
+    'ck_sim.ck_tig':              'ck_sim.being.ck_tig',
     'ck_sim.ck_tig_security':     'ck_sim.being.ck_tig_security',
     'ck_sim.ck_fibonacci_transform': 'ck_sim.being.ck_fibonacci_transform',
     'ck_sim.ck_power_sense':        'ck_sim.being.ck_power_sense',

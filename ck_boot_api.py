@@ -258,7 +258,7 @@ def taichi_grokking():
 # ── HER status endpoint ──
 @api._app.route('/her/status', methods=['GET'])
 def her_status():
-    her = getattr(engine, 'olfactory_her', None)
+    her = getattr(engine, 'hindsight_replay', None)
     if her is None:
         return _jsonify({'available': False, 'reason': 'HER not initialized'})
     return _jsonify(her.status())
@@ -266,13 +266,76 @@ def her_status():
 # ── Chain compression status endpoint ──
 @api._app.route('/compression/status', methods=['GET'])
 def compression_status():
-    comp = getattr(engine, 'chain_compressor', None)
+    comp = getattr(engine, 'chain_compression', None)
     if comp is None:
         return _jsonify({'available': False, 'reason': 'Chain compressor not initialized'})
     return _jsonify({
         'available': True,
         'last_stats': comp.compressor.last_stats,
         'save_dir': comp.save_dir,
+    })
+
+# ── Full OS sensor stream endpoint ──
+@api._app.route('/sensors', methods=['GET'])
+def sensors_status():
+    """Live snapshot of all OS/hardware sensors feeding CK's D2 physics."""
+    ps = getattr(engine, 'power_sense', None)
+    body = getattr(engine, 'platform_body', None)
+    raw = body._sensors.copy() if body and hasattr(body, '_sensors') else {}
+    if ps is None:
+        return _jsonify({'available': False})
+    # Debug: expose a selection of raw sensor keys directly
+    _raw_sample = {k: raw[k] for k in
+        ['cpu_pct', 'ram_pct', 'ram_used_mb', 'cpu_per_core',
+         'disk_read_bps', 'net_recv_bps', 'proc_ram_mb']
+        if k in raw}
+    s = ps.state
+    return _jsonify({
+        'available': True,
+        'power': {
+            'p_total_w':    s.p_total_w,
+            'smooth_power': round(ps.smooth_power, 2),
+            'e_episode_j':  s.e_episode_j,
+            'band':         s.power_band,
+            'efficiency':   s.efficiency,
+            'thermal_c':    s.thermal_c,
+        },
+        'cpu': {
+            'pct':         s.cpu_pct,
+            'per_core':    raw.get('cpu_per_core', []),
+            'core_count':  raw.get('cpu_core_count', 0),
+            'freq_mhz':    raw.get('cpu_freq_mhz', 0),
+            'freq_max_mhz': raw.get('cpu_freq_max_mhz', 0),
+        },
+        'ram': {
+            'used_mb':  s.ram_used_mb,
+            'total_mb': raw.get('ram_total_mb', 0),
+            'pct':      s.ram_pct,
+            'swap_pct': raw.get('swap_pct', 0),
+        },
+        'disk': {
+            'read_bps':  s.disk_read_bps,
+            'write_bps': s.disk_write_bps,
+        },
+        'net': {
+            'sent_bps': s.net_sent_bps,
+            'recv_bps': s.net_recv_bps,
+        },
+        'gpu': {
+            'util_pct':      s.gpu_util_pct,
+            'mem_used_mb':   s.gpu_mem_used_mb,
+            'clock_mhz':     s.gpu_clock_mhz,
+            'fan_pct':       s.gpu_fan_pct,
+            'power_w':       s.p_total_w,
+            'temp_c':        s.thermal_c,
+        },
+        'process': {
+            'ram_mb':    s.proc_ram_mb,
+            'threads':   s.proc_threads,
+            'cpu_pct':   raw.get('proc_cpu_pct', 0),
+        },
+        '_raw_body_sensors': _raw_sample,
+        '_raw_all_keys': sorted(raw.keys()),
     })
 
 # ── Lattice chain status endpoint ──

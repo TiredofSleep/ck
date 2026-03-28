@@ -32,9 +32,19 @@ The engine runs the same 50Hz loop on all platforms.
 """
 
 import abc
+import threading
+import time
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any
 from enum import IntEnum
+
+# psutil for full OS stats -- graceful fallback if not installed
+try:
+    import psutil as _psutil
+    _HAS_PSUTIL = True
+except ImportError:
+    _psutil = None
+    _HAS_PSUTIL = False
 
 
 # ================================================================
@@ -170,6 +180,9 @@ class CKBody(abc.ABC):
 class SimBody(CKBody):
     """R16 PC simulation body. Has everything via Kivy + sounddevice."""
 
+    # psutil poll interval — 2Hz is plenty; sub-second jitter doesn't matter
+    _OS_POLL_HZ = 2.0
+
     def __init__(self):
         self._spec = PlatformSpec(
             name="R16-PC",
@@ -189,6 +202,12 @@ class SimBody(CKBody):
             tick_budget_ms=20.0,
         )
         self._sensors = {}
+        self._os_thread: Optional[threading.Thread] = None
+        self._os_stop = threading.Event()
+        # Baseline for delta-rate calculations
+        self._disk_baseline = None
+        self._net_baseline = None
+        self._baseline_t = None
 
     @property
     def spec(self) -> PlatformSpec:
@@ -201,10 +220,102 @@ class SimBody(CKBody):
         # In sim mode, commands are forwarded to Kivy/audio by the engine
         pass
 
+    def _os_poll_loop(self):
+        """Background thread: reads all OS stats at ~2Hz into _sensors."""
+        interval = 1.0 / self._OS_POLL_HZ
+        # Prime psutil cpu_percent (first call always returns 0.0)
+        if _HAS_PSUTIL:
+            _psutil.cpu_percent(percpu=True)
+            self._disk_baseline = _psutil.disk_io_counters()
+            self._net_baseline  = _psutil.net_io_counters()
+            self._baseline_t    = time.monotonic()
+
+        while not self._os_stop.is_set():
+            t0 = time.monotonic()
+            try:
+                self._poll_os_once()
+            except Exception:
+                pass
+            elapsed = time.monotonic() - t0
+            self._os_stop.wait(max(0.0, interval - elapsed))
+
+    def _poll_os_once(self):
+        """One OS stats snapshot — all readings into self._sensors."""
+        if not _HAS_PSUTIL:
+            return
+
+        now = time.monotonic()
+
+        # ── CPU ──
+        per_core = _psutil.cpu_percent(percpu=True)   # list[float]
+        self._sensors['cpu_pct']        = sum(per_core) / len(per_core)
+        self._sensors['cpu_per_core']   = per_core
+        self._sensors['cpu_core_count'] = len(per_core)
+        freq = _psutil.cpu_freq()
+        if freq:
+            self._sensors['cpu_freq_mhz'] = round(freq.current, 1)
+            self._sensors['cpu_freq_max_mhz'] = round(freq.max, 1)
+
+        # ── RAM ──
+        vm = _psutil.virtual_memory()
+        self._sensors['ram_used_mb']  = vm.used  // (1024 * 1024)
+        self._sensors['ram_total_mb'] = vm.total // (1024 * 1024)
+        self._sensors['ram_pct']      = vm.percent
+        sw = _psutil.swap_memory()
+        self._sensors['swap_used_mb'] = sw.used  // (1024 * 1024)
+        self._sensors['swap_pct']     = sw.percent
+
+        # ── Disk I/O rates (bytes/s since last poll) ──
+        disk_now = _psutil.disk_io_counters()
+        if disk_now and self._disk_baseline and self._baseline_t:
+            dt = now - self._baseline_t
+            if dt > 0:
+                self._sensors['disk_read_bps']  = round(
+                    (disk_now.read_bytes  - self._disk_baseline.read_bytes)  / dt)
+                self._sensors['disk_write_bps'] = round(
+                    (disk_now.write_bytes - self._disk_baseline.write_bytes) / dt)
+        if disk_now:
+            self._disk_baseline = disk_now
+
+        # ── Network I/O rates (bytes/s) ──
+        net_now = _psutil.net_io_counters()
+        if net_now and self._net_baseline and self._baseline_t:
+            dt = now - self._baseline_t
+            if dt > 0:
+                self._sensors['net_sent_bps'] = round(
+                    (net_now.bytes_sent - self._net_baseline.bytes_sent) / dt)
+                self._sensors['net_recv_bps'] = round(
+                    (net_now.bytes_recv - self._net_baseline.bytes_recv) / dt)
+        if net_now:
+            self._net_baseline = net_now
+
+        # ── CK process self-stats ──
+        try:
+            proc = _psutil.Process()
+            pm = proc.memory_info()
+            self._sensors['proc_ram_mb']  = pm.rss // (1024 * 1024)
+            self._sensors['proc_cpu_pct'] = proc.cpu_percent()
+            self._sensors['proc_threads'] = proc.num_threads()
+        except Exception:
+            pass
+
+        self._baseline_t = now
+
     def start(self):
         print(f"[CK] {self._spec.name} body started")
+        self._os_stop.clear()
+        if _HAS_PSUTIL:
+            self._os_thread = threading.Thread(
+                target=self._os_poll_loop, daemon=True, name='ck-os-sense')
+            self._os_thread.start()
+            print(f"[CK] OS stats poller: cpu/ram/disk/net at {self._OS_POLL_HZ}Hz")
+        else:
+            print(f"[CK] OS stats: psutil not available -- install nvidia-ml-py + psutil")
 
     def stop(self):
+        self._os_stop.set()
+        if self._os_thread and self._os_thread.is_alive():
+            self._os_thread.join(timeout=2.0)
         print(f"[CK] {self._spec.name} body stopped")
 
     def update_sensors(self, mic_rms=0.0, mic_operator=-1, **kwargs):

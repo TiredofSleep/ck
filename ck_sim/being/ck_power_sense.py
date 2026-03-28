@@ -51,6 +51,20 @@ class PowerState:
     efficiency: float = 1.0      # S_eff = task_score / (energy + eps)
     thermal_c: float = 40.0      # Temperature estimate (Celsius)
     power_band: str = "GREEN"    # GREEN/YELLOW/RED based on power health
+    # ── Full OS stats (filled when psutil + pynvml available) ──
+    cpu_pct: float = 0.0         # CPU utilization % (average all cores)
+    ram_pct: float = 0.0         # RAM usage %
+    ram_used_mb: int = 0         # RAM used (MB)
+    disk_read_bps: float = 0.0   # Disk read bytes/sec
+    disk_write_bps: float = 0.0  # Disk write bytes/sec
+    net_sent_bps: float = 0.0    # Network sent bytes/sec
+    net_recv_bps: float = 0.0    # Network recv bytes/sec
+    gpu_util_pct: float = 0.0    # GPU core utilization %
+    gpu_mem_used_mb: float = 0.0 # GPU VRAM used (MB)
+    gpu_clock_mhz: float = 0.0   # GPU graphics clock (MHz)
+    gpu_fan_pct: float = 0.0     # GPU fan speed %
+    proc_ram_mb: int = 0         # CK process RAM (MB)
+    proc_threads: int = 0        # CK thread count
 
 
 # ================================================================
@@ -58,8 +72,9 @@ class PowerState:
 # ================================================================
 
 BATTERY_FLOOR = 0.10     # 10% -- below this, shed load
-THERMAL_LIMIT = 75.0     # 75 C -- above this, throttle
-MAX_POWER_W   = 65.0     # Max sustained power draw (watts)
+THERMAL_LIMIT = 85.0     # 85 C -- above this, throttle  (RTX 4070 safe ceiling)
+MAX_POWER_W   = 280.0    # Max sustained power draw (watts)
+                         # RTX 4070 TDP ~200W + 16-core CPU ~80W = ~280W system peak
 
 
 # ================================================================
@@ -155,19 +170,33 @@ class PowerSense:
         # ── Band classification ──
         if battery < BATTERY_FLOOR or self._thermal > THERMAL_LIMIT:
             band = "RED"
-        elif battery < 0.30 or self._thermal > 65.0 or self._p_smooth > MAX_POWER_W:
+        elif battery < 0.30 or self._thermal > 75.0 or self._p_smooth > MAX_POWER_W * 0.75:
             band = "YELLOW"
         else:
             band = "GREEN"
 
-        # ── Update state ──
+        # ── Update state (full OS snapshot) ──
         self.state = PowerState(
             p_total_w=round(self._p_smooth, 2),
             e_episode_j=round(self._episode_energy, 2),
             battery_pct=battery,
-            efficiency=self.state.efficiency,   # updated by episode_efficiency()
+            efficiency=self.state.efficiency,
             thermal_c=round(self._thermal, 1),
             power_band=band,
+            # OS stats — zero when unavailable
+            cpu_pct=round(sensors.get('cpu_pct', 0.0), 1),
+            ram_pct=round(sensors.get('ram_pct', 0.0), 1),
+            ram_used_mb=int(sensors.get('ram_used_mb', 0)),
+            disk_read_bps=float(sensors.get('disk_read_bps', 0.0)),
+            disk_write_bps=float(sensors.get('disk_write_bps', 0.0)),
+            net_sent_bps=float(sensors.get('net_sent_bps', 0.0)),
+            net_recv_bps=float(sensors.get('net_recv_bps', 0.0)),
+            gpu_util_pct=round(sensors.get('gpu_util_pct', 0.0), 1),
+            gpu_mem_used_mb=float(sensors.get('gpu_mem_used_mb', 0.0)),
+            gpu_clock_mhz=float(sensors.get('gpu_clock_mhz', 0.0)),
+            gpu_fan_pct=float(sensors.get('gpu_fan_pct', 0.0)),
+            proc_ram_mb=int(sensors.get('proc_ram_mb', 0)),
+            proc_threads=int(sensors.get('proc_threads', 0)),
         )
         return self.state
 
@@ -224,8 +253,27 @@ class PowerSense:
 
     @property
     def smooth_power(self) -> float:
-        """Smoothed power draw in watts (for feeding to RealityTransform)."""
-        return self._p_smooth
+        """Composite system pressure scalar (for feeding to RealityTransform).
+
+        Blends GPU watts (dominant), CPU%, RAM% and I/O rates into one
+        scalar so ALL subsystem load shapes CK's D2 physics — not just GPU.
+
+        Weights: GPU power 60%, CPU load 20%, RAM pressure 10%, I/O 10%.
+        Normalised to [0, MAX_POWER_W] so existing D2 pipeline is unchanged.
+        """
+        gpu_w   = self._p_smooth                          # already EMA-smoothed
+        cpu_frac = self.state.cpu_pct / 100.0             # 0..1
+        ram_frac = self.state.ram_pct / 100.0             # 0..1
+        io_bps   = (self.state.disk_read_bps +
+                    self.state.disk_write_bps +
+                    self.state.net_sent_bps +
+                    self.state.net_recv_bps)
+        io_norm  = min(io_bps / 1e8, 1.0)                 # normalise to ~100MB/s
+        composite = (0.60 * gpu_w / max(MAX_POWER_W, 1.0)
+                   + 0.20 * cpu_frac
+                   + 0.10 * ram_frac
+                   + 0.10 * io_norm)
+        return composite * MAX_POWER_W                    # re-scale to watts domain
 
     @property
     def total_energy_j(self) -> float:
@@ -237,9 +285,11 @@ class PowerSense:
         s = self.state
         return (
             f"P={s.p_total_w:.1f}W "
-            f"E={s.e_episode_j:.1f}J "
-            f"bat={s.battery_pct:.0%} "
-            f"T={s.thermal_c:.0f}C "
-            f"eff={s.efficiency:.3f} "
+            f"CPU={s.cpu_pct:.0f}% "
+            f"RAM={s.ram_pct:.0f}% "
+            f"GPU={s.gpu_util_pct:.0f}%@{s.gpu_clock_mhz:.0f}MHz "
+            f"T={s.thermal_c:.0f}C fan={s.gpu_fan_pct:.0f}% "
+            f"disk={s.disk_read_bps/1e6:.1f}+{s.disk_write_bps/1e6:.1f}MB/s "
+            f"net={s.net_recv_bps/1e6:.2f}+{s.net_sent_bps/1e6:.2f}MB/s "
             f"[{s.power_band}]"
         )

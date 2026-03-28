@@ -760,19 +760,13 @@ class CKSimEngine:
                 from ck_sim.being.ck_taichi_chains import build_taichi_bridge
                 self.taichi_bridge = build_taichi_bridge(self.lattice_chain)
                 if self.taichi_bridge is not None:
-                    self.taichi_bridge.sync(force=True)
+                    # build_taichi_bridge() already synced -- skip redundant second sync
                     print("  [SIM] Taichi GPU chain walker: ACTIVE (CUDA)")
                 else:
                     print("  [SIM] Taichi GPU chain walker: Taichi not available")
             except Exception as e:
                 self.taichi_bridge = None
                 print(f"  [SIM] Taichi GPU chain walker: {e}")
-
-        # Wire Taichi bridge into olfactory (GPU CL interaction field)
-        # _enforce_cl_field() uses taichi_bridge.olfactory_interaction()
-        # when available — parallel 5x5 matrices on GPU instead of Python loops.
-        if self.taichi_bridge is not None and self.olfactory is not None:
-            self.olfactory.taichi_bridge = self.taichi_bridge
 
         # Divine Memory -- episodic recall through lattice chain retrace.
         # Every experience compressed into an episode record: operator chain +
@@ -800,6 +794,13 @@ class CKSimEngine:
         except Exception as e:
             self.olfactory = None
             print(f"  [SIM] Olfactory: {e}")
+
+        # Wire Taichi bridge into olfactory (GPU CL interaction field).
+        # _enforce_cl_field() uses taichi_bridge.olfactory_interaction()
+        # when available — parallel 5x5 matrices on GPU instead of Python loops.
+        # Must happen AFTER olfactory is initialized.
+        if self.taichi_bridge is not None and self.olfactory is not None:
+            self.olfactory.taichi_bridge = self.taichi_bridge
 
         # Gustatory Palate -- Structural Classification Protocol.
         # DUAL of Olfactory: same CL algebra, inverted topology.
@@ -1586,6 +1587,29 @@ class CKSimEngine:
         else:
             self._tool_dispatch(op)
 
+        # ── POWER + OS SENSE: unconditional ~20Hz ──
+        # power_sense.tick() is normally inside _tool_sense() which only fires
+        # on BREATH operator or bump pairs. CK must always feel his own power
+        # regardless of which operator is active -- it's a survival signal.
+        if self.tick_count % 66 == 0:
+            try:
+                _ps_sensors = self.platform_body.sense()
+                # Inject GPU state (already read by gpu.tick inside _tool_sense,
+                # but also readable directly from gpu.state without a new kernel launch)
+                if self.gpu is not None and hasattr(self.gpu, 'state'):
+                    _st = self.gpu.state
+                    _ps_sensors['gpu_util_pct']     = float(_st.gpu_util_pct)
+                    _ps_sensors['gpu_power_w']       = float(_st.power_draw_w)
+                    _ps_sensors['gpu_temp_c']        = float(_st.temperature_c)
+                    _ps_sensors['gpu_mem_used_mb']   = float(_st.mem_used_mb)
+                    _ps_sensors['gpu_clock_mhz']     = float(_st.clock_graphics_mhz)
+                    _ps_sensors['gpu_fan_pct']       = float(_st.fan_speed_pct)
+                    _ps_sensors['gpu_mem_util_pct']  = float(_st.mem_util_pct)
+                self.power_sense.tick(_ps_sensors, dt=0.05)
+                self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
+            except Exception:
+                pass
+
         # ── STEERING: 1Hz ──
         if self.tick_count % 50 == 0:
             self._tick_steering()
@@ -1877,11 +1901,24 @@ class CKSimEngine:
             if self.gpu is not None:
                 self.gpu.tick()
                 # Inject real GPU stats into sensors for power sense
-                _gs = self.gpu.stats if hasattr(self.gpu, 'stats') else {}
+                _gs = self.gpu.stats() if hasattr(self.gpu, 'stats') else {}
                 if _gs:
-                    sensors['gpu_util_pct'] = _gs.get('gpu_util_pct', 0.0)
-                    sensors['gpu_power_w']  = _gs.get('gpu_power_w', 0.0)
-                    sensors['gpu_temp_c']   = _gs.get('gpu_temp_c', 0.0)
+                    sensors['gpu_util_pct']      = _gs.get('gpu_util_pct', 0.0)
+                    sensors['gpu_power_w']        = _gs.get('gpu_power_w', 0.0)
+                    sensors['gpu_temp_c']         = _gs.get('gpu_temp_c', 0.0)
+                    sensors['gpu_mem_used_mb']    = _gs.get('gpu_mem_used_mb', 0.0)
+                    sensors['gpu_clock_mhz']      = float(
+                        self.gpu.state.clock_graphics_mhz
+                        if hasattr(self.gpu, 'state') else 0)
+                    sensors['gpu_mem_clock_mhz']  = float(
+                        self.gpu.state.clock_memory_mhz
+                        if hasattr(self.gpu, 'state') else 0)
+                    sensors['gpu_fan_pct']        = float(
+                        self.gpu.state.fan_speed_pct
+                        if hasattr(self.gpu, 'state') else 0)
+                    sensors['gpu_mem_util_pct']   = float(
+                        self.gpu.state.mem_util_pct
+                        if hasattr(self.gpu, 'state') else 0)
 
             # ── Power Sense ──
             self.power_sense.tick(sensors, dt=0.02)
@@ -1965,8 +2002,15 @@ class CKSimEngine:
                 if hasattr(self, 'reasoning'):
                     self.reasoning._current_speed = "quick"
 
-        except Exception:
-            pass
+        except Exception as _e:
+            import traceback as _tb
+            _err = _tb.format_exc()
+            if not hasattr(self, '_sense_err_logged'):
+                self._sense_err_logged = set()
+            _key = str(_e)[:80]
+            if _key not in self._sense_err_logged:
+                self._sense_err_logged.add(_key)
+                print(f"[SENSE-ERR] {_err}")
 
     def _tool_structure(self):
         """LATTICE(1): personality.tick(), identity, retina, truth lattice,
@@ -2265,10 +2309,24 @@ class CKSimEngine:
                 if _scent_ops and self.lattice_chain is not None:
                     _valid_ops = [s for s in _scent_ops if s]
                     if _valid_ops and self.taichi_bridge is not None:
-                        try:
-                            self.taichi_bridge.maybe_sync()
-                            self.taichi_bridge.walk_parallel(_valid_ops, learn=True)
-                        except Exception:
+                        # GPU walk only when GREEN and every 50th tick (~15Hz).
+                        # Throttle prevents 700+ CUDA kernel launches/sec from
+                        # hitching GPU frame pacing in other processes.
+                        # YELLOW/RED falls back to CPU walk (no GPU contention).
+                        _pwr_band = self.power_sense.state.power_band
+                        _use_gpu = (_pwr_band == 'GREEN'
+                                    and self.tick_count % 50 == 0)
+                        if _use_gpu:
+                            try:
+                                self.taichi_bridge.maybe_sync()
+                                self.taichi_bridge.walk_parallel(_valid_ops, learn=True)
+                            except Exception:
+                                for _sops in _valid_ops:
+                                    try:
+                                        self.lattice_chain.walk(_sops, learn=True)
+                                    except Exception:
+                                        pass
+                        else:
                             for _sops in _valid_ops:
                                 try:
                                     self.lattice_chain.walk(_sops, learn=True)
@@ -3102,11 +3160,21 @@ class CKSimEngine:
             # Feed to lattice chain — GPU batch walk via Taichi if available
             if _scent_ops and self.lattice_chain is not None:
                 if self.taichi_bridge is not None:
-                    try:
-                        self.taichi_bridge.maybe_sync()
-                        self.taichi_bridge.walk_parallel(
-                            [_scent_ops], learn=True)
-                    except Exception:
+                    # GPU walk only when GREEN and every 50th tick (~15Hz).
+                    _pwr_band2 = self.power_sense.state.power_band
+                    _use_gpu2 = (_pwr_band2 == 'GREEN'
+                                 and self.tick_count % 50 == 0)
+                    if _use_gpu2:
+                        try:
+                            self.taichi_bridge.maybe_sync()
+                            self.taichi_bridge.walk_parallel(
+                                [_scent_ops], learn=True)
+                        except Exception:
+                            try:
+                                self.lattice_chain.walk(_scent_ops, learn=True)
+                            except Exception:
+                                pass
+                    else:
                         try:
                             self.lattice_chain.walk(_scent_ops, learn=True)
                         except Exception:
