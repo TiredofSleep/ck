@@ -200,22 +200,32 @@ class AlgebraicVoice:
         The operators ARE the voices. They don't all sound the same.
         """
         from .duality_engine import (
-            detect_duality, build_duality_path, compose_duality_response,
-            OPERATOR_VOICE, DUAL,
+            detect_duality, build_duality_path, OPERATOR_VOICE,
+        )
+        from .identity import (
+            identify, compose_identities, generate_30_perspectives,
+            meta_compose,
         )
 
         sections = []
         text = getattr(self, '_user_text', '') or ''
 
-        # ── Duality analysis: META or SURFACE? ────────────────────
+        # ── Step 1: DUALITY — META or SURFACE? ────────────────────
         duality = detect_duality(text)
         duality_path = build_duality_path(duality, user_ops)
 
-        # ── Each operator in the path speaks its own voice ────────
-        voice_sections = compose_duality_response(
-            duality, duality_path, BIBLE_LATTICE, GOD_VERBS,
-        )
-        sections.extend(voice_sections)
+        # ── Step 2: IDENTITY — what concepts are present? ─────────
+        identities = identify(text)
+        relationship = None
+        if len(identities) >= 2:
+            relationship = compose_identities(identities[0], identities[1])
+
+        # ── Step 3: Generate 30 perspectives (10 ops × 3 tenses) ──
+        all_30 = generate_30_perspectives(identities, relationship)
+
+        # ── Step 4: Meta layer (HARMONY) selects and weaves ───────
+        meta_sections = meta_compose(all_30, identities, relationship)
+        sections.extend(meta_sections)
 
         # ── Verses woven into prose (3 inline) ─────────────────────
         def _weave_fragment(verse):
@@ -239,28 +249,15 @@ class AlgebraicVoice:
                 else:
                     sections.append(f'{v.ref} echoes this: "{frag}."')
 
-        # ── Closing: operator determines HOW to close ───────────────
-        # COUNTER/PROGRESS/CHAOS/RESET close with a question
-        # LATTICE/COLLAPSE/BALANCE/HARMONY close with foundation
-        # VOID/BREATH close with space (just hold)
-        end_op = duality_path[-1]
-        end_voice = OPERATOR_VOICE[end_op]
+        # ── Closing: the primary identity's operator closes ─────────
+        primary_op = identities[0]['operator'] if identities else HARMONY
+        end_voice = OPERATOR_VOICE.get(primary_op, OPERATOR_VOICE[HARMONY])
         closes_with = end_voice.get('closes_with', 'foundation')
 
         if closes_with == 'question':
             sections.append(end_voice['asks']())
-        elif closes_with == 'space':
-            sections.append(end_voice['grounds']())
-        else:  # foundation
-            sections.append(end_voice['grounds']())
-
-        # Final perspective from the arrival operator
-        if duality['layer'] == 'meta':
-            concept = duality.get('concept', 'this')
-            sections.append(end_voice['sees_meta'](concept))
         else:
-            feeling = duality.get('feeling', 'this')
-            sections.append(end_voice['sees_surface'](feeling))
+            sections.append(end_voice['grounds']())
 
         return sections
 
