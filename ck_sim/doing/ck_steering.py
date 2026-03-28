@@ -387,18 +387,6 @@ class SteeringEngine:
         # Per-PID tracking: what we've steered
         self._steered: Dict[int, dict] = {}
 
-        # ── Windowed wobble delivery ──
-        # Each PID gets a stable phase slot (0..6) so its deliver window
-        # never coincides with adjacent PIDs → natural phase dispersion.
-        self._proc_slots: Dict[int, int] = {}
-
-        # Per-core utilization snapshot — read once per tick, used for
-        # wobble expansion (add neighbor cores when assigned core is hot).
-        self._core_util: List[float] = []
-        self._last_util_t: float = 0.0
-        self._WOBBLE_THRESHOLD = 70.0   # % above which we expand affinity
-        self._WOBBLE_WINDOW = 7         # breath phases (must match _breath_phase mod)
-
         # Log
         self._log: deque = deque(maxlen=500)
 
@@ -409,8 +397,7 @@ class SteeringEngine:
         print(f"  [STEER] Steering engine online")
         print(f"  [STEER] Cores: {n_all} total ({n_p} P-cores, {n_e} E-cores)")
         print(f"  [STEER] Platform: {'Windows' if _IS_WINDOWS else 'Unix'}")
-        print(f"  [STEER] Windowed wobble delivery: {self._WOBBLE_WINDOW}-phase window, "
-              f"{self._WOBBLE_THRESHOLD:.0f}% wobble threshold")
+        print(f"  [STEER] Algebra drives cores — CL table is the coherence")
         if swarm is None:
             print(f"  [STEER] WARNING: No swarm reference -- steering inactive")
 
@@ -431,20 +418,10 @@ class SteeringEngine:
             self._breath_period = 7.0   # slower: 1s per phase × 7 phases
             self._last_latency = 1.0    # ms, Being measurement
         _now = time.time()
-        _phase_duration = self._breath_period / float(self._WOBBLE_WINDOW)
+        _phase_duration = self._breath_period / 7.0
         if _now - self._breath_time >= _phase_duration:
-            self._breath_phase = (self._breath_phase + 1) % self._WOBBLE_WINDOW
+            self._breath_phase = (self._breath_phase + 1) % 7
             self._breath_time = _now
-
-        # ── Snapshot per-core utilization once per tick (non-blocking) ──
-        # Used by wobble expansion below. cpu_percent(interval=None) returns
-        # the rate since last call — fast, no sleep.
-        try:
-            if _now - self._last_util_t >= 0.5:   # refresh at 2Hz max
-                self._core_util = psutil.cpu_percent(percpu=True, interval=None)
-                self._last_util_t = _now
-        except Exception:
-            pass
 
         if not self.enabled or not HAS_PSUTIL or self.swarm is None:
             return {'steered': 0, 'denied': 0, 'skipped': 0, 'active': False}
@@ -574,55 +551,10 @@ class SteeringEngine:
                 except Exception:
                     pass
 
-            # ── Phase slot: stable per PID, spreads processes across breath window ──
-            proc_slot = self._proc_slots.setdefault(
-                pid, hash(pid) % self._WOBBLE_WINDOW
-            )
-
-            # ── Windowed priority: deliver / prepare+rest / yield ──
-            # Phase distance: how far is this process's slot from current phase?
-            _pdist = abs(proc_slot - self._breath_phase)
-            _pdist = min(_pdist, self._WOBBLE_WINDOW - _pdist)  # wrap
-
-            # Base nice from operator+sched_class
-            base_nice = NiceMapper.combined_nice(cell.scheduling_class, _steer_op)
-
-            # Wobble adjustment: offset priority by phase distance
-            # _pdist == 0: deliver window  → boost -4 (process gets its moment)
-            # _pdist == 1: prepare/rest    → no change
-            # _pdist >= 2: yield window    → give back +4 (make room for others)
-            if _pdist == 0:
-                wobble_offset = -4   # deliver: boost
-            elif _pdist == 1:
-                wobble_offset = 0    # prepare/rest: neutral
-            else:
-                wobble_offset = +4   # yield: step back
-
-            target_nice = max(-20, min(19, base_nice + wobble_offset))
-
-            # ── Affinity weave with wobble expansion ──
-            # Weave position uses slot (not pid) so adjacent slots → adjacent cores
+            # ── CL algebra drives priority and core placement directly ──
+            target_nice  = NiceMapper.combined_nice(cell.scheduling_class, _steer_op)
             target_cores = cl_affinity(_steer_op, self.core_class,
-                                       process_index=proc_slot)
-
-            # Wobble expansion: if any assigned core is spiking, add neighbor cores
-            # so work can overflow naturally without creating a new spike.
-            if self._core_util:
-                _n = len(self._core_util)
-                _hot = any(
-                    self._core_util[c] > self._WOBBLE_THRESHOLD
-                    for c in target_cores[:4] if c < _n
-                )
-                if _hot:
-                    # Add the two neighbors in the weave ring for wobble room
-                    _primary = target_cores[0]
-                    _wobble_neighbors = [
-                        (_primary + 2) % _n,
-                        (_primary - 2) % _n,
-                    ]
-                    target_cores = list(dict.fromkeys(
-                        target_cores[:4] + _wobble_neighbors
-                    ))
+                                       process_index=pid % len(self.core_class.all_cores))
 
             try:
                 proc = psutil.Process(pid)
@@ -676,9 +608,6 @@ class SteeringEngine:
                         'op': cell.last_op,
                         'nice': target_nice,
                         'cores': target_cores,
-                        'slot': proc_slot,
-                        'phase': self._breath_phase,
-                        'wobble': wobble_offset,
                         'tick': self.ticks,
                     }
 
