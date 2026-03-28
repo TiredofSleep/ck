@@ -528,6 +528,45 @@ html, body {
     border-left: 2px solid var(--accent-light);
 }
 
+/* ── Keep Reading (linear navigation) ──────────────────── */
+
+.keep-reading-section {
+    margin-bottom: 12px;
+}
+
+.keep-reading-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin: 8px 0;
+}
+
+.keep-reading-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.linear-verse {
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border-left: 2px solid var(--accent-warm);
+    animation: verse-expand 0.2s ease-out;
+}
+
+.linear-verse .verse-text {
+    margin-bottom: 4px;
+}
+
 .hidden {
     display: none !important;
 }

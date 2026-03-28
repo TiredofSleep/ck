@@ -469,6 +469,29 @@ def engage_verse(ref):
     return jsonify({'status': 'noted', 'ref': ref})
 
 
+@app.route('/api/verse/<path:ref>/next', methods=['GET'])
+def next_verses(ref):
+    """Get the next 3 verses in Bible order (linear reading)."""
+    if not bible.ready:
+        bible.load()
+    # Find this verse's position
+    found = False
+    result = []
+    for v in bible._verses:
+        if found:
+            result.append({
+                'ref': v.ref,
+                'text': v.text,
+                'dominant_op': OP_NAMES[v.dominant_op],
+                'coherence': round(v.coherence, 3),
+            })
+            if len(result) >= 3:
+                break
+        elif v.ref == ref:
+            found = True
+    return jsonify({'next': result, 'from': ref})
+
+
 @app.route('/api/study', methods=['GET'])
 def study_stats():
     """Get Bible study net statistics."""

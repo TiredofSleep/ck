@@ -256,14 +256,13 @@
         return card;
     }
 
-    // ── Expand Verse (signals interest → companion responds) ───
+    // ── Expand Verse: "Keep Reading" (linear) + Cross-refs (algebraic) ──
     async function expandVerse(card, v) {
         const isExpanded = card.dataset.expanded === 'true';
         const preview = card.querySelector('.verse-preview');
         const full = card.querySelector('.verse-full');
 
         if (isExpanded) {
-            // Collapse
             preview.classList.remove('hidden');
             full.classList.add('hidden');
             card.dataset.expanded = 'false';
@@ -271,13 +270,11 @@
             return;
         }
 
-        // Expand
         preview.classList.add('hidden');
         full.classList.remove('hidden');
         card.dataset.expanded = 'true';
         card.classList.add('verse-card-expanded');
 
-        // Load cross-references if not already loaded
         const deeper = card.querySelector('.verse-deeper');
         if (!deeper.dataset.loaded) {
             deeper.dataset.loaded = 'true';
@@ -285,88 +282,169 @@
 
             try {
                 const resp = await fetch(`/api/verse/${encodeURIComponent(v.ref)}`);
-                if (resp.ok) {
-                    const data = await resp.json();
-                    let html = '';
+                const data = resp.ok ? await resp.json() : null;
 
-                    // Full verse text first (keep reading)
-                    html += `<div class="verse-full-text">${data.text}</div>`;
+                let html = '';
 
-                    // Cross-references (clickable — each one expands further)
-                    if (data.cross_references && data.cross_references.length > 0) {
-                        html += '<div class="verse-crossrefs-label">Connected verses (by algebraic resonance):</div>';
-                        for (const cr of data.cross_references.slice(0, 5)) {
-                            const harmony = (cr.harmony_score * 100).toFixed(0);
-                            const crId = `cr-${cr.ref.replace(/[\s:]/g, '-')}`;
-                            html += `<div class="verse-crossref verse-clickable" data-ref="${cr.ref}" id="${crId}">`;
-                            html += `<span class="verse-crossref-text">${cr.text}</span>`;
-                            html += `<span class="verse-crossref-ref">${cr.ref}</span>`;
-                            html += `<span class="verse-tag">harmony: ${harmony}%</span>`;
-                            html += `<div class="verse-deeper-nested" id="deeper-${crId}"></div>`;
-                            html += `</div>`;
-                        }
+                // ── KEEP READING (linear — next verses in Bible order) ──
+                html += `<div class="keep-reading-section">`;
+                html += `<button class="keep-reading-btn" data-ref="${v.ref}">Keep reading &darr;</button>`;
+                html += `<div class="keep-reading-content" id="linear-${v.ref.replace(/[\s:]/g, '-')}"></div>`;
+                html += `</div>`;
+
+                // ── ALGEBRAIC (cross-references by resonance) ──
+                if (data && data.cross_references && data.cross_references.length > 0) {
+                    html += '<div class="verse-crossrefs-label">Algebraic connections:</div>';
+                    for (const cr of data.cross_references.slice(0, 5)) {
+                        const harmony = (cr.harmony_score * 100).toFixed(0);
+                        html += `<div class="verse-crossref verse-clickable" data-ref="${cr.ref}">`;
+                        html += `<span class="verse-crossref-text">${cr.text}</span>`;
+                        html += `<span class="verse-crossref-ref">${cr.ref}</span>`;
+                        html += `<span class="verse-tag">harmony: ${harmony}%</span>`;
+                        html += `<div class="verse-deeper-nested"></div>`;
+                        html += `</div>`;
                     }
-
-                    // Operator sequence
-                    if (data.operators && data.operators.length > 0) {
-                        const opPath = data.operators.slice(0, 12).join(' → ');
-                        html += `<div class="verse-operator-path">Operator path: ${opPath}</div>`;
-                    }
-
-                    deeper.innerHTML = html || '<div class="verse-crossrefs-label">Exploring connections...</div>';
-
-                    // Make cross-refs clickable (recursive exploration)
-                    deeper.querySelectorAll('.verse-clickable').forEach(el => {
-                        el.addEventListener('click', async (e) => {
-                            e.stopPropagation(); // Don't collapse parent
-                            const crRef = el.dataset.ref;
-                            const nested = el.querySelector('.verse-deeper-nested');
-                            if (nested.dataset.loaded) {
-                                nested.classList.toggle('hidden');
-                                return;
-                            }
-                            nested.dataset.loaded = 'true';
-                            nested.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
-                            try {
-                                const crResp = await fetch(`/api/verse/${encodeURIComponent(crRef)}`);
-                                if (crResp.ok) {
-                                    const crData = await crResp.json();
-                                    let crHtml = `<div class="verse-full-text">${crData.text}</div>`;
-                                    if (crData.cross_references && crData.cross_references.length > 0) {
-                                        crHtml += '<div class="verse-crossrefs-label">Goes deeper:</div>';
-                                        for (const cr2 of crData.cross_references.slice(0, 3)) {
-                                            const h2 = (cr2.harmony_score * 100).toFixed(0);
-                                            crHtml += `<div class="verse-crossref">`;
-                                            crHtml += `<span class="verse-crossref-text">${cr2.text}</span>`;
-                                            crHtml += `<span class="verse-crossref-ref">${cr2.ref} <span class="verse-tag">harmony: ${h2}%</span></span>`;
-                                            crHtml += `</div>`;
-                                        }
-                                    }
-                                    nested.innerHTML = crHtml;
-                                }
-                            } catch (err) { nested.innerHTML = ''; }
-                            // Signal engagement
-                            fetch(`/api/engage/${encodeURIComponent(crRef)}`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ session_id: sessionId }),
-                            }).catch(() => {});
-                            scrollToBottom();
-                        });
-                    });
                 }
+
+                if (data && data.operators) {
+                    const opPath = data.operators.slice(0, 12).join(' → ');
+                    html += `<div class="verse-operator-path">${opPath}</div>`;
+                }
+
+                deeper.innerHTML = html;
+
+                // ── Wire "Keep Reading" button ──
+                deeper.querySelector('.keep-reading-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    loadNextVerses(v.ref, deeper.querySelector('.keep-reading-content'));
+                });
+
+                // ── Wire algebraic cross-ref clicks ──
+                deeper.querySelectorAll('.verse-clickable').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        expandCrossRef(el);
+                    });
+                });
+
             } catch (e) {
                 deeper.innerHTML = '';
             }
 
-            // Signal engagement to the learner
-            try {
-                await fetch(`/api/engage/${encodeURIComponent(v.ref)}`, { method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ session_id: sessionId }),
-                });
-            } catch (e) { /* silent */ }
+            // Signal engagement
+            fetch(`/api/engage/${encodeURIComponent(v.ref)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ session_id: sessionId }),
+            }).catch(() => {});
         }
+
+        scrollToBottom();
+    }
+
+    // ── Load next verses (linear reading) ──────────────────────
+    async function loadNextVerses(ref, container) {
+        if (container.dataset.loading) return;
+        container.dataset.loading = 'true';
+
+        try {
+            const resp = await fetch(`/api/verse/${encodeURIComponent(ref)}/next`);
+            if (!resp.ok) return;
+            const data = await resp.json();
+
+            for (const v of data.next) {
+                const div = document.createElement('div');
+                div.className = 'linear-verse';
+                div.innerHTML = `
+                    <div class="verse-text">${v.text}</div>
+                    <div class="verse-ref">${v.ref}</div>
+                `;
+                container.appendChild(div);
+            }
+
+            // Add another "Keep reading" for the last verse
+            if (data.next.length > 0) {
+                const lastRef = data.next[data.next.length - 1].ref;
+                const btn = document.createElement('button');
+                btn.className = 'keep-reading-btn';
+                btn.innerHTML = 'Keep reading &darr;';
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    btn.remove();
+                    loadNextVerses(lastRef, container);
+                });
+                container.appendChild(btn);
+            }
+        } catch (e) { /* silent */ }
+
+        container.dataset.loading = '';
+        scrollToBottom();
+    }
+
+    // ── Expand a cross-reference (algebraic, recursive) ────────
+    async function expandCrossRef(el) {
+        const ref = el.dataset.ref;
+        const nested = el.querySelector('.verse-deeper-nested');
+
+        if (nested.dataset.loaded) {
+            nested.classList.toggle('hidden');
+            return;
+        }
+
+        nested.dataset.loaded = 'true';
+        nested.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+
+        try {
+            const resp = await fetch(`/api/verse/${encodeURIComponent(ref)}`);
+            if (!resp.ok) return;
+            const data = await resp.json();
+
+            let html = `<div class="verse-full-text">${data.text}</div>`;
+
+            // Keep reading button for this cross-ref too
+            html += `<button class="keep-reading-btn" data-ref="${ref}">Keep reading &darr;</button>`;
+            html += `<div class="keep-reading-content" id="linear-cr-${ref.replace(/[\s:]/g, '-')}"></div>`;
+
+            if (data.cross_references && data.cross_references.length > 0) {
+                html += '<div class="verse-crossrefs-label">Goes deeper:</div>';
+                for (const cr of data.cross_references.slice(0, 3)) {
+                    const h = (cr.harmony_score * 100).toFixed(0);
+                    html += `<div class="verse-crossref verse-clickable" data-ref="${cr.ref}">`;
+                    html += `<span class="verse-crossref-text">${cr.text}</span>`;
+                    html += `<span class="verse-crossref-ref">${cr.ref} <span class="verse-tag">harmony: ${h}%</span></span>`;
+                    html += `<div class="verse-deeper-nested"></div>`;
+                    html += `</div>`;
+                }
+            }
+
+            nested.innerHTML = html;
+
+            // Wire nested keep-reading
+            const btn = nested.querySelector('.keep-reading-btn');
+            if (btn) {
+                const content = nested.querySelector('.keep-reading-content');
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    loadNextVerses(ref, content);
+                });
+            }
+
+            // Wire nested cross-refs (recursive)
+            nested.querySelectorAll('.verse-clickable').forEach(el2 => {
+                el2.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    expandCrossRef(el2);
+                });
+            });
+
+        } catch (e) { nested.innerHTML = ''; }
+
+        // Signal engagement
+        fetch(`/api/engage/${encodeURIComponent(ref)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sessionId }),
+        }).catch(() => {});
 
         scrollToBottom();
     }
