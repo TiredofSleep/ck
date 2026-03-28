@@ -94,19 +94,34 @@ def train(testament='nt', passes=1, show_every=100, show_voice_every=500):
         voice_samples = []
 
         for i, v in enumerate(verses):
-            # ── 1. READ: absorb through all systems ───────────────
+            # -- 1. READ: absorb through ALL 9 systems ------------
             brain_state = brain.process(v.text, user_ops=v.ops, user_force=v.force)
 
-            # ── 2. RESPOND: compose using current voice ───────────
+            # -- 2. CLASSIFY: corridor + intent + duality ----------
+            corridor_info = classify_with_detail(v.ops, text=v.text)
+            intent = classify_intent(v.ops, text=v.text)
+
+            from bible_app.voice.duality_engine import detect_duality, build_duality_path
+            duality = detect_duality(v.text)
+            duality_path = build_duality_path(duality, v.ops)
+
+            # -- 3. IDENTIFY: what concepts are in this verse? -----
+            identities = identify(v.text)
+            relationship = None
+            if len(identities) >= 2:
+                from bible_app.voice.identity import compose_identities
+                relationship = compose_identities(identities[0], identities[1])
+
+            # -- 4. RESPOND: full voice with all context -----------
             voice.seed(hash(v.ref) & 0xFFFFFFFF)
             voice._user_text = v.text
+            voice._brain_state = brain_state
 
-            identities = identify(v.text)
-            all_30 = generate_30_perspectives(identities)
-            response_sections = meta_compose(all_30, identities)
+            all_30 = generate_30_perspectives(identities, relationship)
+            response_sections = meta_compose(all_30, identities, relationship)
             response_text = ' '.join(response_sections)
 
-            # ── 3. LISTEN: read own response through D2 ──────────
+            # -- 5. LISTEN: read own response through D2 -----------
             response_ops = text_to_ops(response_text)
             response_force = text_to_force(response_text)
 
@@ -115,11 +130,26 @@ def train(testament='nt', passes=1, show_every=100, show_voice_every=500):
                 coherence_sum += response_coh
                 coherence_count += 1
 
-                # ── 4. LEARN: absorb own response ─────────────────
+                # -- 6. LEARN: absorb own response through brain ---
                 brain.process(response_text, user_ops=response_ops,
                              user_force=response_force)
 
-                # ── 5. Track evolution ────────────────────────────
+                # -- 7. HER: compare verse ops vs response ops -----
+                verse_dom = dominant_op(v.ops) if v.ops else HARMONY
+                response_dom = dominant_op(response_ops)
+                brain.her.record(verse_dom, response_dom, v.ref, v.force)
+
+                # -- 8. JOURNEY: compute path from verse to HARMONY -
+                journey = build_journey_prose(v.ops, corridor_info['corridor'], intent)
+                # Absorb the journey's resolution operator
+                if journey.get('path'):
+                    last_op_name = journey['path'][-1][0]
+                    if last_op_name in OP_NAMES:
+                        resolution_op = OP_NAMES.index(last_op_name)
+                        # Brain learns: this verse leads HERE
+                        brain.olfactory.absorb(v.force, [resolution_op])
+
+                # -- 5. Track evolution ----------------------------
                 if (i + 1) % show_every == 0:
                     mean_coh = coherence_sum / max(1, coherence_count)
                     elapsed = time.time() - t0
@@ -134,9 +164,15 @@ def train(testament='nt', passes=1, show_every=100, show_voice_every=500):
                 if (i + 1) % show_voice_every == 0:
                     # Show how the voice responds to a test prompt NOW
                     sample = _voice_sample(brain, voice, bible)
-                    print(f"\n  ── Voice sample at verse {i+1} ──")
+                    print(f"\n  -- Voice sample at verse {i+1} --")
                     print(f"  {sample[:200]}")
                     print()
+
+        # End of pass: HER replay + compaction
+        replayed = brain.her.replay_misses(brain.olfactory)
+        pre = brain.olfactory.library_size
+        merged = brain.olfactory.compact()
+        post = brain.olfactory.library_size
 
         elapsed = time.time() - t0
         mean_coh = coherence_sum / max(1, coherence_count)
@@ -146,8 +182,11 @@ def train(testament='nt', passes=1, show_every=100, show_voice_every=500):
         print(f"  Olfactory: {bs['olfactory']['library_size']} patterns, "
               f"{bs['olfactory']['instinct_count']} instinct")
         print(f"  Chain: {bs['chain']['total_nodes']} nodes")
+        print(f"  HER: {replayed} misses replayed")
+        print(f"  Compaction: {pre} -> {post} ({merged} merged)")
         print(f"  Coherence trend: {bs['coherence']['trend']}")
         print()
+        brain._save()
 
     # Final voice samples
     print("=== FINAL VOICE SAMPLES ===")
