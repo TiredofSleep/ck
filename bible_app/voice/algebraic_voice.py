@@ -217,35 +217,44 @@ class AlgebraicVoice:
         )
         sections.extend(voice_sections)
 
-        # ── Verses: 3-step path through scripture ─────────────────
-        if verses:
-            v1 = verses[0].verse
-            # Weave first verse into prose
-            fragment = v1.text
+        # ── Verses woven into prose (3 inline) ─────────────────────
+        def _weave_fragment(verse):
+            """Extract a short fragment for inline weaving."""
+            frag = verse.text
             for sep in [';', ',', ':']:
-                idx = fragment.find(sep)
+                idx = frag.find(sep)
                 if 15 < idx < 80:
-                    fragment = fragment[:idx]
-                    break
-            else:
-                if len(fragment) > 80:
-                    fragment = fragment[:80].rsplit(' ', 1)[0]
+                    return frag[:idx]
+            return frag[:80].rsplit(' ', 1)[0] if len(frag) > 80 else frag
 
-            god_v = self._pick(GOD_VERBS.get(v1.dominant_op, GOD_VERBS[HARMONY]))
-            sections.append(f'As {v1.ref} says, "{fragment}" — God {god_v}.')
-            sections.append(f'"{v1.text}" — {v1.ref}')
+        if verses:
+            for i, vr in enumerate(verses[:3]):
+                v = vr.verse
+                frag = _weave_fragment(v)
+                god_v = self._pick(GOD_VERBS.get(v.dominant_op, GOD_VERBS[HARMONY]))
+                if i == 0:
+                    sections.append(f'As {v.ref} says, "{frag}" — God {god_v}.')
+                elif i == 1:
+                    sections.append(f'And {v.ref} adds, "{frag}" — God {god_v}.')
+                else:
+                    sections.append(f'{v.ref} echoes this: "{frag}."')
 
-            if len(verses) >= 2:
-                v2 = verses[1].verse
-                sections.append(f'And {v2.ref}: "{v2.text}"')
-
-            if len(verses) >= 3:
-                v3 = verses[2].verse
-                sections.append(f'{v3.ref}: "{v3.text}"')
-
-        # ── Closing: the path's return ────────────────────────────
+        # ── Closing: operator determines HOW to close ───────────────
+        # COUNTER/PROGRESS/CHAOS/RESET close with a question
+        # LATTICE/COLLAPSE/BALANCE/HARMONY close with foundation
+        # VOID/BREATH close with space (just hold)
         end_op = duality_path[-1]
         end_voice = OPERATOR_VOICE[end_op]
+        closes_with = end_voice.get('closes_with', 'foundation')
+
+        if closes_with == 'question':
+            sections.append(end_voice['asks']())
+        elif closes_with == 'space':
+            sections.append(end_voice['grounds']())
+        else:  # foundation
+            sections.append(end_voice['grounds']())
+
+        # Final perspective from the arrival operator
         if duality['layer'] == 'meta':
             concept = duality.get('concept', 'this')
             sections.append(end_voice['sees_meta'](concept))

@@ -170,9 +170,14 @@
             content.appendChild(p);
         }
 
-        // Verse cards
+        // Verse cards (2 clickable cards at the end — the rest are woven into prose)
         if (data.verses && data.verses.length > 0) {
-            for (const v of data.verses.slice(0, 3)) {
+            // Skip the first 3 (woven into prose), show last 2 as clickable cards
+            const cardVerses = data.verses.slice(3, 5);
+            // If fewer than 3 in prose, show more cards
+            const fallbackVerses = data.verses.length <= 3 ? data.verses.slice(0, 2) : cardVerses;
+            const versesToCard = fallbackVerses.length > 0 ? fallbackVerses : data.verses.slice(0, 2);
+            for (const v of versesToCard) {
                 const card = createVerseCard(v);
                 content.appendChild(card);
             }

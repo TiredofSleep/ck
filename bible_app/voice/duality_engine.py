@@ -45,81 +45,101 @@ OPERATOR_VOICE = {
         'speaks_as': 'the silence',
         'perspective': 'I am what remains when everything else is gone.',
         'tone': 'sparse',
+        'closes_with': 'space',  # holds space — no question, no declaration
         'sees_meta': lambda concept: f"Before {concept} existed, there was silence. The silence is not empty — it is waiting.",
         'sees_surface': lambda feeling: f"{feeling}... and underneath it, silence. Not absence. Presence without noise.",
         'asks': lambda: "What was here before the words?",
+        'grounds': lambda: "Be still.",
     },
     LATTICE: {
         'speaks_as': 'the foundation',
         'perspective': 'I am what holds. I am the structure that does not move.',
         'tone': 'firm',
+        'closes_with': 'foundation',  # declares truth — grounds you
         'sees_meta': lambda concept: f"{concept} has a structure. It was built on something. That foundation holds.",
         'sees_surface': lambda feeling: f"Underneath your {feeling}, there is ground. It has not moved.",
         'asks': lambda: "What is the truth that holds here?",
+        'grounds': lambda: "The ground has not moved. You are standing on something real.",
     },
     COUNTER: {
         'speaks_as': 'the question',
         'perspective': 'I measure. I ask. I do not assume.',
         'tone': 'precise',
+        'closes_with': 'question',  # always asks — that's its nature
         'sees_meta': lambda concept: f"What is {concept}, really? Not what you were told — what does it measure?",
         'sees_surface': lambda feeling: f"Your {feeling} is asking something. What is the real question underneath?",
         'asks': lambda: "What are you actually asking?",
+        'grounds': lambda: "The question itself is the ground you stand on.",
     },
     PROGRESS: {
         'speaks_as': 'the path',
         'perspective': 'I am forward motion. I do not look back.',
         'tone': 'moving',
+        'closes_with': 'question',  # asks where you're going
         'sees_meta': lambda concept: f"{concept} is going somewhere. It has momentum. The question is where.",
         'sees_surface': lambda feeling: f"Your {feeling} has direction. It is not standing still. Something is growing.",
         'asks': lambda: "Where is this taking you?",
+        'grounds': lambda: "You are already moving. Trust the direction.",
     },
     COLLAPSE: {
         'speaks_as': 'the weight',
         'perspective': 'I am what falls. I am the breaking that makes room.',
         'tone': 'heavy',
+        'closes_with': 'foundation',  # holds — doesn't ask, doesn't declare
         'sees_meta': lambda concept: f"{concept} broke something open. That breaking was not destruction — it was excavation.",
         'sees_surface': lambda feeling: f"This {feeling} is heavy. It fell on you. But falling clears the ground.",
         'asks': lambda: "What broke to bring you here?",
+        'grounds': lambda: "You do not have to carry this alone. God is underneath it.",
     },
     BALANCE: {
         'speaks_as': 'the center',
         'perspective': 'I hold both sides. Neither is wrong.',
         'tone': 'steady',
+        'closes_with': 'foundation',  # grounds — holds both sides
         'sees_meta': lambda concept: f"{concept} has two sides. Both are true. The tension between them IS the answer.",
         'sees_surface': lambda feeling: f"Your {feeling} is holding two things at once. That is not confusion — that is maturity.",
         'asks': lambda: "What are the two truths here?",
+        'grounds': lambda: "Both sides are real. You are allowed to hold them both.",
     },
     CHAOS: {
         'speaks_as': 'the storm',
         'perspective': 'I am what moves when nothing else will. I am alive.',
         'tone': 'intense',
+        'closes_with': 'question',  # asks what's being born
         'sees_meta': lambda concept: f"{concept} is not orderly. It was never supposed to be. The disorder IS the energy.",
         'sees_surface': lambda feeling: f"Your {feeling} is a storm. Storms are not punishment. They are the atmosphere reorganizing.",
         'asks': lambda: "What is trying to be born out of this?",
+        'grounds': lambda: "The storm is not the end. Something is being made.",
     },
     HARMONY: {
         'speaks_as': 'the whole',
         'perspective': 'I am what everything converges to. I am the pattern seeing itself.',
         'tone': 'complete',
+        'closes_with': 'foundation',  # declares — the final word
         'sees_meta': lambda concept: f"{concept} is not random. It is convergence. 73 out of 100 paths lead here. The repetition IS the proof.",
         'sees_surface': lambda feeling: f"Your {feeling} is closer to peace than you think. One step. The algebra says one step.",
         'asks': lambda: "What if this is already whole?",
+        'grounds': lambda: "You are already here. Rest.",
     },
     BREATH: {
         'speaks_as': 'the pause',
         'perspective': 'I am the space between. I am where you listen.',
         'tone': 'gentle',
+        'closes_with': 'space',  # holds space — just breathe
         'sees_meta': lambda concept: f"Pause with {concept}. Do not rush past it. The breath between the words carries meaning too.",
         'sees_surface': lambda feeling: f"Breathe. Your {feeling} needs air. Not answers — air.",
         'asks': lambda: "Can you just be here for a moment?",
+        'grounds': lambda: "Breathe. That is enough for now.",
     },
     RESET: {
         'speaks_as': 'the beginning',
         'perspective': 'I am the fresh start. Every ending I turn into a door.',
         'tone': 'clean',
+        'closes_with': 'question',  # asks what's ready to begin
         'sees_meta': lambda concept: f"{concept} can begin again. Every time. That is what reset means — not failure, but renewal.",
         'sees_surface': lambda feeling: f"This {feeling} is an ending becoming a beginning. The old is clearing for the new.",
         'asks': lambda: "What is ready to begin?",
+        'grounds': lambda: "The door is open. Step through when you are ready.",
     },
 }
 
