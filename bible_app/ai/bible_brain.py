@@ -551,6 +551,67 @@ class BibleBrain:
             },
         }
 
+    def study_bible(self, bible_index, passes=3):
+        """Read the entire Bible through all systems, multiple passes.
+
+        Pass 1: Absorb every verse (olfactory learns force patterns)
+        Pass 2: Walk every verse (lattice chain builds experience tree)
+        Pass 3: Sequence patterns (trie learns what follows what)
+
+        Each pass deepens familiarity. After 3 passes, common patterns
+        start approaching temper thresholds. After 7 passes, the most
+        frequent patterns hit instinct.
+        """
+        if not bible_index.ready:
+            bible_index.load()
+
+        verses = bible_index._verses
+        total = len(verses)
+
+        for p in range(1, passes + 1):
+            print(f"[Brain] Reading Bible pass {p}/{passes} ({total} verses)...")
+            t0 = time.time()
+
+            for i, v in enumerate(verses):
+                # Olfactory: absorb the force pattern
+                self.olfactory.absorb(v.force, v.ops)
+
+                # Lattice Chain: walk the operator pairs
+                if len(v.ops) >= 2:
+                    self.chain.walk(v.ops[:12])  # Cap walk length
+
+                # Sequence Memory: observe operator sequences
+                if len(v.ops) >= 3:
+                    self.sequences.observe(v.ops[:10])
+
+                # Experience Index: classify the verse
+                self.experience.classify(v.force, v.ops)
+
+                # Coherence Tracker: track verse coherence
+                if len(v.ops) >= 2:
+                    self.coherence.track(v.ops)
+
+                if (i + 1) % 10000 == 0:
+                    elapsed = time.time() - t0
+                    print(f"  [{i+1}/{total}] {elapsed:.1f}s")
+
+            elapsed = time.time() - t0
+            print(f"  Pass {p} complete in {elapsed:.1f}s")
+            print(f"    Olfactory: {self.olfactory.library_size} patterns, "
+                  f"{self.olfactory.instinct_count} instinct")
+            print(f"    Chain: {self.chain.total_nodes} nodes, "
+                  f"{self.chain.total_walks} walks")
+            print(f"    Sequences: {self.sequences.total_observations} observed")
+            print(f"    Coherence: {self.coherence.mean_coherence:.3f} mean")
+
+        # HER: replay any misses accumulated during study
+        replayed = self.her.replay_misses(self.olfactory)
+        print(f"  HER replayed {replayed} misses")
+
+        self._total_interactions += total * passes
+        self._save()
+        print(f"[Brain] Bible study complete. Brain saved.")
+
     def _save(self):
         os.makedirs(BRAIN_DIR, exist_ok=True)
         data = {

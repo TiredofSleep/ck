@@ -620,6 +620,16 @@ def main():
         dt = digest.stats()
         print(f"  Digest: {dt['good_verses']} quality verses, {dt['beloved_found']} beloved")
         print(f"  Intent coverage: {', '.join(f'{k}({v})' for k,v in dt['intents'].items())}")
+
+        # Brain studies the Bible (olfactory + chain + sequences + experience)
+        if brain.olfactory.library_size < 1000:
+            # First time or wiped — need to study
+            brain.study_bible(bible, passes=3)
+        else:
+            bs = brain.stats()
+            print(f"  Brain: {bs['olfactory']['library_size']} patterns, "
+                  f"{bs['olfactory']['instinct_count']} instinct, "
+                  f"{bs['chain']['total_nodes']} chain nodes")
     except FileNotFoundError as e:
         print(f"  WARNING: {e}")
         print("  The app will still start — provide kjv.txt to enable verse search.")
