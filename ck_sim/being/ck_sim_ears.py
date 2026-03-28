@@ -73,9 +73,13 @@ import numpy as np
 
 try:
     import cupy as _cp
-    # Quick probe: allocate a tiny array to confirm the device is live.
-    _probe = _cp.array([1.0], dtype=_cp.float32)
+    # Probe: array ops (always works if RTX is present)
+    _probe = _cp.array([1.0, 2.0, 3.0], dtype=_cp.float32)
     del _probe
+    # Probe: cufft (requires separate CUDA toolkit DLL)
+    _fft_probe = _cp.array([1.0, 0.0, -1.0, 0.0], dtype=_cp.float32)
+    _ = _cp.fft.rfft(_fft_probe)
+    del _fft_probe, _
     _GPU = True
 except Exception:
     _cp = None

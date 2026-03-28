@@ -31,11 +31,39 @@ except ImportError:
     _HAS_NUMPY = False
 
 try:
-    from scipy.fft import fft2, ifft2
+    from scipy.fft import fft2 as _scipy_fft2, ifft2 as _scipy_ifft2
     from scipy.linalg import eigvalsh
     _HAS_SCIPY = True
 except ImportError:
     _HAS_SCIPY = False
+
+try:
+    import cupy as _cp
+    from cupy.fft import fft2 as _cp_fft2, ifft2 as _cp_ifft2
+    # Verify cufft is actually loadable (RTX 4070 needs CUDA toolkit DLLs)
+    _test_arr = _cp.zeros((4, 4), dtype=_cp.complex64)
+    _ = _cp_fft2(_test_arr)
+    del _test_arr, _
+    _HAS_CUPY = True
+except Exception:
+    _cp = None
+    _cp_fft2 = None
+    _cp_ifft2 = None
+    _HAS_CUPY = False
+
+# Use CuPy FFT if available (GPU spectral solver)
+if _HAS_CUPY:
+    def fft2(x): return _cp_fft2(_cp.asarray(x))
+    def ifft2(x): return _cp.asnumpy(_cp_ifft2(x))
+    _xp = _cp
+elif _HAS_SCIPY:
+    fft2 = _scipy_fft2
+    ifft2 = _scipy_ifft2
+    _xp = np if _HAS_NUMPY else None
+else:
+    fft2 = None
+    ifft2 = None
+    _xp = np if _HAS_NUMPY else None
 
 try:
     from pysat.solvers import Solver as SATSolver
@@ -109,59 +137,76 @@ class NavierStokesGenerator(ClayGenerator):
         omega_init: initial vorticity field (NxN array)
         Returns measured quantities from real PDE evolution.
         """
-        if not _HAS_NUMPY or not _HAS_SCIPY:
+        if not _HAS_NUMPY or (not _HAS_SCIPY and not _HAS_CUPY):
             return self._spectral_fallback(N, nu)
 
-        omega = omega_init.copy()
+        xp = _cp if _HAS_CUPY else np
+        omega = xp.asarray(omega_init.copy())
         L = 2.0 * math.pi
 
-        # Wavenumber grids
-        kx = np.fft.fftfreq(N, d=L/N) * 2.0 * math.pi
-        ky = np.fft.fftfreq(N, d=L/N) * 2.0 * math.pi
-        KX, KY = np.meshgrid(kx, ky)
-        K2 = KX**2 + KY**2
-        K2[0, 0] = 1.0  # Avoid division by zero
+        # Wavenumber grids (always build on numpy, then move to GPU)
+        kx_np = np.fft.fftfreq(N, d=L/N) * 2.0 * math.pi
+        ky_np = np.fft.fftfreq(N, d=L/N) * 2.0 * math.pi
+        KX_np, KY_np = np.meshgrid(kx_np, ky_np)
+        K2_np = KX_np**2 + KY_np**2
+        K2_np[0, 0] = 1.0  # Avoid division by zero
+        k_cutoff_x = float(np.max(np.abs(kx_np))) * 2.0 / 3.0
+        k_cutoff_y = float(np.max(np.abs(ky_np))) * 2.0 / 3.0
+        dealias_np = ((np.abs(KX_np) <= k_cutoff_x)
+                      & (np.abs(KY_np) <= k_cutoff_y)).astype(float)
 
-        # 2/3-rule dealiasing mask (prevents aliasing at high levels)
-        k_cutoff_x = np.max(np.abs(kx)) * 2.0 / 3.0
-        k_cutoff_y = np.max(np.abs(ky)) * 2.0 / 3.0
-        dealias = ((np.abs(KX) <= k_cutoff_x) & (np.abs(KY) <= k_cutoff_y)).astype(float)
+        KX = xp.asarray(KX_np)
+        KY = xp.asarray(KY_np)
+        K2 = xp.asarray(K2_np)
+        dealias = xp.asarray(dealias_np)
 
-        # Time-step the vorticity equation (semi-implicit Euler)
+        _real = (lambda a: xp.real(a)) if _HAS_CUPY else (lambda a: np.real(a))
+
+        # Time-step the vorticity equation (semi-implicit Euler) on GPU
         for _ in range(n_steps):
-            omega_hat = fft2(omega)
+            omega_hat = fft2(omega) if not _HAS_CUPY else _cp_fft2(omega)
             omega_hat *= dealias  # suppress aliased modes
 
             # Velocity from vorticity: u = curl(psi), psi = -omega/k^2
             psi_hat = -omega_hat / K2
-            ux = np.real(ifft2(1j * KY * psi_hat))
-            uy = np.real(ifft2(-1j * KX * psi_hat))
+            ux = _real((_cp_ifft2 if _HAS_CUPY else ifft2)(1j * KY * psi_hat))
+            uy = _real((_cp_ifft2 if _HAS_CUPY else ifft2)(-1j * KX * psi_hat))
 
             # Advection: -(u.grad)omega
-            domega_dx = np.real(ifft2(1j * KX * omega_hat))
-            domega_dy = np.real(ifft2(1j * KY * omega_hat))
+            domega_dx = _real((_cp_ifft2 if _HAS_CUPY else ifft2)(1j * KX * omega_hat))
+            domega_dy = _real((_cp_ifft2 if _HAS_CUPY else ifft2)(1j * KY * omega_hat))
             advection = -(ux * domega_dx + uy * domega_dy)
 
             # Diffusion: nu * laplacian(omega) = -nu * k^2 * omega_hat
             diffusion_hat = -nu * K2 * omega_hat
 
             # Update
-            omega_hat_new = omega_hat + dt * (fft2(advection) + diffusion_hat)
-            omega = np.real(ifft2(omega_hat_new))
+            adv_hat = (_cp_fft2 if _HAS_CUPY else fft2)(advection)
+            omega_hat_new = omega_hat + dt * (adv_hat + diffusion_hat)
+            omega = _real((_cp_ifft2 if _HAS_CUPY else ifft2)(omega_hat_new))
 
-        # ── Measure real quantities ──
+        # Transfer back to numpy for measurement phase
+        if _HAS_CUPY:
+            omega = _cp.asnumpy(omega)
+            KX_c, KY_c, K2_c = KX_np, KY_np, K2_np
+        else:
+            KX_c, KY_c, K2_c = KX_np, KY_np, K2_np
+
+        # ── Measure real quantities (always on numpy after GPU loop) ──
         omega_mag = float(np.sqrt(np.mean(omega**2)))  # RMS vorticity
         omega_max_val = float(np.max(np.abs(omega)))
 
         # Strain tensor S_ij = 0.5*(du_i/dx_j + du_j/dx_i)
-        omega_hat_final = fft2(omega)
-        psi_hat_f = -omega_hat_final / K2
-        ux_f = np.real(ifft2(1j * KY * psi_hat_f))
-        uy_f = np.real(ifft2(-1j * KX * psi_hat_f))
-        dux_dx = np.real(ifft2(1j * KX * fft2(ux_f)))
-        dux_dy = np.real(ifft2(1j * KY * fft2(ux_f)))
-        duy_dx = np.real(ifft2(1j * KX * fft2(uy_f)))
-        duy_dy = np.real(ifft2(1j * KY * fft2(uy_f)))
+        _fft2 = _scipy_fft2 if _HAS_SCIPY else (lambda x: np.fft.fft2(x))
+        _ifft2 = _scipy_ifft2 if _HAS_SCIPY else (lambda x: np.fft.ifft2(x))
+        omega_hat_final = _fft2(omega)
+        psi_hat_f = -omega_hat_final / K2_c
+        ux_f = np.real(_ifft2(1j * KY_c * psi_hat_f))
+        uy_f = np.real(_ifft2(-1j * KX_c * psi_hat_f))
+        dux_dx = np.real(_ifft2(1j * KX_c * _fft2(ux_f)))
+        dux_dy = np.real(_ifft2(1j * KY_c * _fft2(ux_f)))
+        duy_dx = np.real(_ifft2(1j * KX_c * _fft2(uy_f)))
+        duy_dy = np.real(_ifft2(1j * KY_c * _fft2(uy_f)))
 
         # Strain magnitude
         S11 = dux_dx
@@ -180,8 +225,8 @@ class NavierStokesGenerator(ClayGenerator):
         energy = 0.5 * float(np.mean(ux_f**2 + uy_f**2))
 
         # Enstrophy dissipation = nu * mean(|grad(omega)|^2)
-        grad_omega_x = np.real(ifft2(1j * KX * omega_hat_final))
-        grad_omega_y = np.real(ifft2(1j * KY * omega_hat_final))
+        grad_omega_x = np.real(_ifft2(1j * KX_c * omega_hat_final))
+        grad_omega_y = np.real(_ifft2(1j * KY_c * omega_hat_final))
         grad_omega_mag = np.sqrt(grad_omega_x**2 + grad_omega_y**2)
         dissipation = nu * float(np.mean(grad_omega_mag**2))
 
@@ -191,10 +236,10 @@ class NavierStokesGenerator(ClayGenerator):
         scale = 1.0 / N  # Grid scale
 
         # ── Energy spectrum E(k) -- Kolmogorov predicts k^(-5/3) ──
-        ux_hat_s = 1j * KY * psi_hat_f
-        uy_hat_s = -1j * KX * psi_hat_f
+        ux_hat_s = 1j * KY_c * psi_hat_f
+        uy_hat_s = -1j * KX_c * psi_hat_f
         E_k_field = 0.5 * (np.abs(ux_hat_s) ** 2 + np.abs(uy_hat_s) ** 2)
-        K_mag = np.sqrt(KX ** 2 + KY ** 2)
+        K_mag = np.sqrt(KX_c ** 2 + KY_c ** 2)
         k_max = N // 2
         k_bins = np.zeros(k_max)
         K_int = np.clip(np.round(K_mag).astype(int), 0, k_max - 1)
