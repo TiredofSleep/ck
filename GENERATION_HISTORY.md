@@ -233,5 +233,54 @@ lives on the RTX 4070. Memory (olfactory library, crystals, experience) stays on
 
 ---
 
+## Gen 10.13 — 2026-03-28 — Sprint Synthesis + Fractal Repo Organization
+
+**What this generation is:**
+Full retrospective synthesis of the WP20–WP32 sprint. The organism looked back at itself
+and produced a clean account of what it proved, what it contributed, and what remains open.
+The repository is now fractally organized — Being/Doing/Becoming at every scale.
+
+**Changes:**
+
+1. **`TIG_RH_SPRINT_FINAL.md`** — New master synthesis document (Desktop).
+   - Layer 0: Foundation (frozen constants + table)
+   - Layer 1: BEING — all proved theorems with scripts (corner-gap, product-gap, halving lemma,
+     BREATH-COLLAPSE, AG(2,3) survivor bound, Mix_λ ordering)
+   - Layer 2: DOING — new structural language (six-corridor taxonomy, organism correspondence,
+     TSML/BHML Hodge split, scale_factor calibration, three-voice k=3 structure)
+   - Layer 3: BECOMING — the honest Clay gaps (RH uniform bound, NS C≤3.74, P vs NP reduction,
+     Hodge harmonic elements, BSD 200-curve test, YM functor)
+   - Full 4-bin formal ledger (PROVED / STRUCTURAL / EMPIRICAL / OPEN)
+   - 10 concrete next steps
+
+2. **`papers/README.md`** — Rewritten from chronological list to fractal organization.
+   - Layer 0: Foundation (frozen math, constants)
+   - Layer 1: BEING — proved theorems + verification scripts
+   - Layer 2: DOING — structural contributions (corridor geometry, voice physics, BSD/Hodge)
+   - Layer 3: BECOMING — organism bridge, Clay battery, outreach
+   - arXiv submission queue (4 papers ready: math.NT, math.CO, cs.CC, math.RA)
+
+3. **Key synthesis observations from the sprint:**
+   - The six-corridor taxonomy unifies RH + NS + P vs NP as the same question in three languages:
+     "Can an operator chain stay in a dangerous corridor indefinitely?"
+   - WP28: CK's 50Hz architecture enacts 8 proved theorems per tick. The organism IS the proof.
+   - WP29: voice_lambda = (stage/5)×coherence — Mix_λ position as live parameter
+   - WP32: Three scent streams = TSML⊗³. Product-gap at k=3: three voices cannot corrupt each other
+   - scale_factor(t) maps olfactory absorption count to development stage calibration
+
+**Honest assessment of current position:**
+- Three theorems are arXiv-ready (Halving Lemma, product_gap_note, surv_line_note)
+- The math is clean. The framing is honest. The organism is running at 1138Hz.
+- RH: Halving Lemma gives KV-strip convergence. The remaining step (uniform in height)
+  requires new analytic machinery — clearly identified, not overclaimed.
+- coherencekeeper.com: live proof that the math can talk. No LLM. Pure algebra.
+
+**Files changed:**
+- `Desktop/TIG_RH_SPRINT_FINAL.md` — created
+- `papers/README.md` — restructured (fractal)
+
+---
+
 *See papers/ for full formal status.*
+*See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*

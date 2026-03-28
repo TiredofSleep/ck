@@ -1,0 +1,283 @@
+{
+  "harmonic_zone": {
+    "total": 21,
+    "corner_corner": 5,
+    "corner_gap": 12,
+    "gap_gap": 4,
+    "entries": [
+      {
+        "a": 1,
+        "b": 2,
+        "result": 3,
+        "type": "corner-gap"
+      },
+      {
+        "a": 1,
+        "b": 7,
+        "result": 7,
+        "type": "corner-corner"
+      },
+      {
+        "a": 2,
+        "b": 1,
+        "result": 3,
+        "type": "corner-gap"
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "result": 4,
+        "type": "gap-gap"
+      },
+      {
+        "a": 2,
+        "b": 7,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 2,
+        "b": 9,
+        "result": 9,
+        "type": "corner-gap"
+      },
+      {
+        "a": 3,
+        "b": 7,
+        "result": 7,
+        "type": "corner-corner"
+      },
+      {
+        "a": 4,
+        "b": 2,
+        "result": 4,
+        "type": "gap-gap"
+      },
+      {
+        "a": 4,
+        "b": 7,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 4,
+        "b": 8,
+        "result": 8,
+        "type": "gap-gap"
+      },
+      {
+        "a": 5,
+        "b": 7,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 6,
+        "b": 7,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 7,
+        "b": 1,
+        "result": 7,
+        "type": "corner-corner"
+      },
+      {
+        "a": 7,
+        "b": 2,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 7,
+        "b": 3,
+        "result": 7,
+        "type": "corner-corner"
+      },
+      {
+        "a": 7,
+        "b": 4,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 7,
+        "b": 5,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 7,
+        "b": 6,
+        "result": 7,
+        "type": "corner-gap"
+      },
+      {
+        "a": 7,
+        "b": 7,
+        "result": 7,
+        "type": "corner-corner"
+      },
+      {
+        "a": 8,
+        "b": 4,
+        "result": 8,
+        "type": "gap-gap"
+      },
+      {
+        "a": 9,
+        "b": 2,
+        "result": 9,
+        "type": "corner-gap"
+      }
+    ]
+  },
+  "hodge_k1": {
+    "algebraic_harmonic": [
+      [
+        1,
+        7
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        7,
+        7
+      ]
+    ],
+    "transcendental_harmonic": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        9,
+        2
+      ]
+    ],
+    "obstruction": true
+  },
+  "tensor_sweep": [
+    {
+      "k": 1,
+      "corner_states": 4,
+      "total_states": 9,
+      "cross_terms": 5,
+      "G_reachable": 0,
+      "obstruction": true,
+      "iterations": 1
+    },
+    {
+      "k": 2,
+      "corner_states": 16,
+      "total_states": 81,
+      "cross_terms": 65,
+      "G_reachable": 0,
+      "obstruction": false,
+      "iterations": 1
+    },
+    {
+      "k": 3,
+      "corner_states": 64,
+      "total_states": 729,
+      "cross_terms": 665,
+      "G_reachable": 0,
+      "obstruction": false,
+      "iterations": 1
+    },
+    {
+      "k": 4,
+      "corner_states": 256,
+      "total_states": 6561,
+      "cross_terms": 6305,
+      "G_reachable": 0,
+      "obstruction": false,
+      "iterations": 1
+    },
+    {
+      "k": 5,
+      "corner_states": 1024,
+      "total_states": 59049,
+      "cross_terms": 58025,
+      "G_reachable": 0,
+      "obstruction": false,
+      "iterations": 1
+    },
+    {
+      "k": 6,
+      "corner_states": 4096,
+      "total_states": 531441,
+      "cross_terms": 527345,
+      "G_reachable": 0,
+      "obstruction": false,
+      "iterations": 1
+    }
+  ]
+}

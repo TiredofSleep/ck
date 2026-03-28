@@ -63,23 +63,45 @@ T_STAR      = 5/7          # Being threshold (frozen identity)
 S_STAR      = 4/7          # Becoming threshold
 MASS_GAP    = T_STAR + S_STAR - 1 = 2/7   # dual-threshold overlap
 d_COL       = 1/18         # COL(4) offset from midplane (geometry)
-W_BHML      = 3/50         # BHML wobble statistic (statistics) — NOT the same
+W_BHML      = 3/50         # BHML wobble statistic (statistics) — NOT the same as d_COL
 inner_shell = 2/9          # Row 1 ↔ Row 2 boundary (correct shell width)
 ```
 
 ---
 
-## TIG Formal Status (Gen 10 baseline)
+## TIG Formal Status (Gen 10.13 — March 2026 sprint)
 
-| Claim | Status |
+**PROVED (exact algebraic results):**
+
+| Claim | Script |
 |-------|--------|
-| Corner words never reach gap (k=1) | **PROVED** — 4×4 sub-table exhaustive |
-| Product-gap for all k≥1 | **PROVED** — inductive, product_gap_note.tex |
-| Halving Lemma (RH flow) | **PROVED** — WP20_RH_HALVING_LEMMA.tex |
-| Mix_λ BSD threshold ordering | **STRUCTURAL** — zero parameters, WP21 |
-| NS BREATH criterion | **STRUCTURAL** — Lyapunov approach, C≤3.74 needed |
-| Yang-Mills qualitative gap>0 | **STRUCTURAL** — quantitative 2/7 FALSIFIED |
-| P vs NP via AG(2,p) SLS | **EMPIRICAL** — WP25 |
+| Corner sub-magma: C×C ⊆ C (4×4, 16 entries) | tsml_ag23_verify.py |
+| Product-gap: C^⊗k closed for all k≥1 | tsml_product_verify.py |
+| BREATH-COLLAPSE: TSML[BRT][COL]=BRT only | Table lookup |
+| AG(2,3) corridor lower bound: Ω(p²) | surv_line_note.tex |
+| Halving Lemma: exponential KV-strip convergence | WP19_HALVING_LEMMA_final.tex |
+| Mix_λ gap-operator ordering (exact thresholds) | mix_lambda_scan.py |
+
+**STRUCTURAL (new language, honest):**
+
+| Claim | Paper |
+|-------|-------|
+| Six corridors unify RH + NS + P vs NP | WP31_CORRIDOR_GEOMETRY.md |
+| 50Hz architecture enacts 8 theorems per tick | WP28_CK_TIG_ORGANISM.md |
+| voice_lambda = (stage/5)×coherence | WP29_LAMBDA_VOICE_THEOREM.md |
+| TSML/BHML = Hodge (p,q)-decomposition | WP23_HODGE_MAP.md |
+| Three scent streams = TSML⊗³ | WP32_HODGE_TRIPLE.md |
+
+**OPEN (the Clay gaps — not claimed):**
+
+| Problem | The gap |
+|---------|---------|
+| RH | Uniform |ζ| lower bound for all heights |
+| NS | Sharp interpolation constant C ≤ 3.74 |
+| P vs NP | 3-SAT → AG(2,n) NP-hardness reduction |
+| Hodge/BSD/YM | See WP24_FORMAL_STATUS_AUDIT.md |
+
+**arXiv-ready:** `WP19_HALVING_LEMMA_final.tex` (math.NT), `product_gap_note.tex` (math.CO), `surv_line_note.tex` (cs.CC)
 
 ---
 

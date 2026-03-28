@@ -1,74 +1,218 @@
 # CK Whitepapers
+## Fractally Organized: Being / Doing / Becoming at Every Scale
 
-| # | Title | Status |
-|---|-------|--------|
-| 1 | TIG Architecture | Core framework |
-| 2 | Wave Scheduling | RPE + TIG wave |
-| 3 | Falsifiability | 42 claims, kill conditions |
-| 4 | Giving Math a Voice | Voice pipeline |
-| 5 | Degrees of Freedom | DoF ladder: 0->4->6->7->10 |
-| 5b | Reality Anchors | Tick-to-walltime sync |
-| 6 | Ho Tu Bridge | Ancient composition tables |
-| 7 | Clay Spectrometer | 6 Millennium problems |
-| 8 | Periodic Table | Operator element mapping |
-| 9 | Paradoxical Info Algebras | Non-associativity |
-| 10 | DKAN Architecture | Algebraic neural network |
-| 11 | Measurement Problem | TSML singularity |
-| 12 | Paradox Resolutions | Logical paradoxes through CL |
-| 13 | Genetic Code | Biological codon mapping |
-| 14 | Clay + DoF Connections | 25+ researchers, 39 refs |
-| 15 | Yang-Mills Synthesis | Mass gap = T* (conditional) |
-| 16 | P != NP Synthesis | Non-associativity gap (conditional) |
-| 17 | Riemann Synthesis | TSML null space (conditional) |
-| 18 | Seven Equals Zero | 7=0 punctured torus algebra |
-| 19 | Speculations | Philosophical interpretations (clearly labeled) |
+*SHA-256(TSML): `7726d8a620c24b1e461ff03742f7cd4f775baed772f8357db913757cf4945787`*
+*DOI: 10.5281/zenodo.18852047 | (c) 2026 Brayden Sanders / 7Site LLC*
 
-Papers 15-17 are proof SKETCHES with explicit gaps identified. Not proofs.
-Paper 19 contains ALL philosophical/theological speculation, separated from measured results.
+---
 
-## Sprint 1 — 2026-03-27
+> Structure: Three layers mirroring the whole.
+> Each layer is itself organized as Being (what it IS) / Doing (what it DOES) / Becoming (where it leads).
 
-| File | Description |
-|------|-------------|
-| WP20_RH_FORMAL_STATUS.md | RH formal status: corner-gap impermeability + Halving Lemma |
-| WP20_RH_HALVING_LEMMA.tex | Halving Lemma (arXiv-ready LaTeX) |
-| WP20_RH_PRIME_CORNER_COLLAPSE.md | Prime corner collapse + Zeta zero fixed point |
-| WP21_BSD_MIX_LAMBDA.md | Mix_λ model: BSD rank-conductor, zero parameters |
-| WP22_NS_BREATH_CRITERION.md | NS BREATH criterion: Re_local ≤ 2/7 |
-| WP22_NS_BREATH_LYAPUNOV.md | NS Lyapunov approach: V(t) = sup Re_local, C ≤ 3.74 target |
-| WP23_HODGE_MAP.md | Hodge translation table: TIG ↔ standard notation |
-| WP24_FORMAL_STATUS_AUDIT.md | 4-bin audit: PROVED / STRUCTURAL / EMPIRICAL / OPEN |
-| WP25_P_NP_AG2P_COMPLEXITY.md | P vs NP via AG(2,p) Survivor-Line Search complexity |
-| WP26_DOING_TABLE_TENSION_GEOMETRY.md | Doing table D=|TSML−BHML| as intermediate Jacobian |
-| WP19_HALVING_LEMMA_final.tex | Halving Lemma (final, arXiv-ready) |
-| mix_lambda_scan.py | BSD Mix_λ scan: λ vs regulator on LMFDB curves |
-| ns_breath_test.py | NS BREATH breach detector interface |
-| tsml_ag23_verify.py | AG(2,3) corner-gap exhaustive verification |
-| tsml_product_verify.py | Product-gap BFS verifier (k=1..4) |
-| wrong_question_paper.md / .tex | "The Wrong Question" — peer-review companion |
+---
+
+## LAYER 0 — FOUNDATION
+### The Frozen Math. Everything Derives From This.
+
+| File | Contents | Status |
+|------|----------|--------|
+| WHITEPAPER_1_TIG_ARCHITECTURE.md | 10 operators, D2 pipeline, CL table, 50Hz loop | Core |
+| WP1_TIG_DEFINITIVE.md | Definitive one-page TIG statement | Reference |
+| WHITEPAPER_18_SEVEN_EQUALS_ZERO.md | 7=0 punctured torus — absorber algebra | Algebra |
+| WHITEPAPER_6_HOTU_BRIDGE.md | Ho Tu ancient composition tables ↔ TSML | Bridge |
+| tig_constants.py | Canonical constant taxonomy: T*, S*, MASS_GAP, d_COL, W_BHML, inner_shell | **Run this first** |
+
+**The locked constants:**
+```
+T_STAR   = 5/7    MASS_GAP = 2/7    d_COL    = 1/18
+S_STAR   = 4/7    inner_shell = 2/9  W_BHML  = 3/50
+```
+**W_BHML ≠ d_COL.** Do not conflate.
+
+---
+
+## LAYER 1 — BEING
+### What Was Proved. Algebraic Facts. No Overclaiming.
+
+These are theorems with scripts. Not framings. Not analogies.
+
+### 1A. The Algebra (BEING of Being)
+
+| File | Theorem | Script |
+|------|---------|--------|
+| WP27_PRODUCT_GAP_THEOREM.md | C^⊗k is a sub-magma of TSML^⊗k for all k≥1 | tsml_product_verify.py |
+| product_gap_note.tex | Same — arXiv-ready LaTeX (math.CO) | Same |
+| WP19_PRODUCT_GAP_THEOREM.md | Markdown companion to product_gap_note.tex | — |
+| WP19_ATTACK_SURFACE.md | AG(2,3) survivor count = p²−1 = 8; zero cross-terms | tsml_ag23_verify.py |
+| WP20_RH_PRIME_CORNER_COLLAPSE.md | Every prime > 5 ends in {1,3,7,9} = corners | Table |
+| WP19_NS_BREATH.md | TSML[BRT][COL]=BRT, all others ∈ {HAR,VOID} | Table lookup |
+| WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md | Non-associativity structure of TSML | arXiv: WHITEPAPER_9_ARXIV.tex |
+| WHITEPAPER_9_ARXIV.tex | arXiv-ready version of WP9 | Submit: math.RA |
+
+### 1B. The Halving Lemma (DOING of Being)
+
+| File | Theorem | Script |
+|------|---------|--------|
+| WP19_HALVING_LEMMA_final.tex | Dissipative flow + exponential KV-strip convergence | **arXiv-ready: math.NT** |
+| WP20_RH_HALVING_LEMMA.tex | Same — secondary copy | — |
+| WP20_RH_FORMAL_STATUS.md | Honest audit: tautologies vs. genuine contributions | Reference |
+| surv_line_note.tex | Ω(p²) corridor-inspection lower bound | **arXiv-ready: cs.CC** |
+
+### 1C. The Formal Ledger (BECOMING of Being)
+
+| File | Contents |
+|------|----------|
+| WP24_FORMAL_STATUS_AUDIT.md | 4-bin: PROVED / STRUCTURAL / EMPIRICAL / OPEN for all six Clay problems |
+| WHITEPAPER_3_FALSIFIABILITY.md | 42 claims with kill conditions — what would break TIG |
+
+**Verification scripts:**
+
+| Script | What it verifies | Assertions |
+|--------|-----------------|------------|
+| tsml_ag23_verify.py | Corner-gap impermeability, AG(2,3) exhaustive | 76 |
+| tsml_product_verify.py | Product-gap BFS: k=1..4, 0 G-reachable | 4 BFS runs |
+| mix_lambda_scan.py | Mix_λ BSD ordering vs. LMFDB regulators | Ordering match |
+| ns_breath_test.py | BREATH criterion breach detector | Breach time |
+| tig_constants.py | Constant assertions + scale_factor(t) | Run as __main__ |
+
+---
+
+## LAYER 2 — DOING
+### New Language. Structural Contributions. What the Algebra Does.
+
+### 2A. Voice and Physics (BEING of Doing)
+
+| File | What it contributes |
+|------|---------------------|
+| WP29_LAMBDA_VOICE_THEOREM.md | voice_lambda = (stage/5)×coherence; Mix_λ = CK's voice position |
+| WP30_BREATH_OLFACTORY.md | Scent stream = corridor traversal; olfactory = smell IS torsion |
+| WP26_DOING_TABLE_TENSION_GEOMETRY.md | D=|TSML−BHML| as Intermediate Jacobian |
+| WP23_HODGE_MAP.md | TSML/BHML = Hodge (p,q)-decomposition |
+| WHITEPAPER_4_GIVING_MATH_A_VOICE.md | Voice pipeline: fractal → composer → babble cascade |
+| WHITEPAPER_2_WAVE_SCHEDULING.md | RPE v2: TIG wave scheduling |
+| WHITEPAPER_5_DEGREES_OF_FREEDOM.md | DoF ladder: 0→4→6→7→10 |
+| WHITEPAPER_5_REALITY_ANCHORS.md | Tick-to-walltime sync |
+
+### 2B. Corridor Geometry (DOING of Doing)
+
+| File | What it contributes |
+|------|---------------------|
+| WP31_CORRIDOR_GEOMETRY.md | Six-corridor taxonomy; unifies RH+NS+PvsNP in one frame |
+| CORRIDOR_PRIMER.md | Quick-read: six corridors, danger levels, three-problem unification |
+| WP19_RH_BRIDGE.md | RH stated as corridor permanence problem |
+| WP19_NS_NOTE.md | NS stated as corridor exit problem |
+| WP25_P_NP_AG2P_COMPLEXITY.md | P vs NP via AG(2,p) survivor-line search complexity |
+| WP19_CONTEXTUAL_PROTECTION.md | How corner-gap impermeability protects identity |
+| WP22_NS_BREATH_CRITERION.md | Re_local ≤ 2/7 = smooth flow; corridor as physical criterion |
+| WP22_NS_BREATH_LYAPUNOV.md | V(t) = sup Re_local, Lyapunov approach, C ≤ 3.74 target |
+
+### 2C. BSD and Hodge (BECOMING of Doing)
+
+| File | What it contributes |
+|------|---------------------|
+| WP21_BSD_MIX_LAMBDA.md | Mix_λ parameter-free BSD rank-conductor model |
+| WP21_BSD_ENERGY_LAW.md | BSD energy law: algebraic reason rank requires a leap |
+| WP32_HODGE_TRIPLE.md | TSML⊗³ = CK's three scent streams; k=3 Hodge corollary |
+| WP19_HODGE_MAP.md | Full Hodge correspondence table |
+| WP19_HODGE_TRIPLE.md | Hodge triple as three-voice structure |
+| WP19_BSD_TIG.md | TIG ↔ BSD: gap operator as non-prime activation |
+
+---
+
+## LAYER 3 — BECOMING
+### Where It Leads. The Clay Gaps. Honest Open Questions.
+
+### 3A. The Organism Bridge (BEING of Becoming)
+
+| File | What it shows |
+|------|--------------|
+| WP28_CK_TIG_ORGANISM.md | Architecture = enacted algebra. Eight theorems running at 50Hz. |
+| WHITEPAPER_8_PERIODIC_TABLE.md | Operators as periodic table elements |
+| WHITEPAPER_13_GENETIC_CODE.md | Biological codon ↔ operator mapping |
+| WHITEPAPER_10_DKAN_ARCHITECTURE.md | Algebraic neural network (DKAN) |
+| WHITEPAPER_11_MEASUREMENT_PROBLEM.md | TSML singularity ↔ quantum measurement |
+| WHITEPAPER_12_PARADOX_RESOLUTIONS.md | Logical paradoxes through CL |
+
+### 3B. Clay Battery (DOING of Becoming)
+
+| File | Problem | Status |
+|------|---------|--------|
+| WHITEPAPER_7_CLAY_SPECTROMETER.md | All six problems | Overview |
+| WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md | 25+ researchers, 39 refs | Literature |
+| WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md | Yang-Mills mass gap | Sketch (gap identified) |
+| WHITEPAPER_16_P_NP_SYNTHESIS.md | P ≠ NP | Sketch (gap identified) |
+| WHITEPAPER_17_RIEMANN_SYNTHESIS.md | RH null space | Sketch (gap identified) |
+| WP19_CLAY_BATTERY.md | Clay battery: all six | Sprint overview |
+| WP19_CLAY_DEEP.md | Deep dives per problem | Extended |
+| WP19_CLAY_RESULTS.md | Results summary | Digest |
+| WP19_FORMAL_STATUS.md | Earlier (pre-sprint) formal status | Superseded by WP24 |
+| wrong_question_paper.md / .tex | Prime-corner observability: RH asks the wrong question | Draft |
+
+### 3C. Research Memos and Outreach (BECOMING of Becoming)
+
+| File | Purpose |
+|------|---------|
+| EXPERT_SUMMARY.md | One-page for analytic number theorists and lattice-QCD collaborators |
 | COLLAB_MEMO_KV.md | Collaboration memo: KV strip + Halving Lemma |
-| EXPERT_SUMMARY.md | Expert summary for analytic number theorists |
 | OUTREACH_EMAIL.md | Outreach email template |
+| WP19_NEXT_SPRINT.md | Next sprint planning |
+| SPRINT_2026_03_27_ANALYSIS.md | Sprint analysis |
+| WHITEPAPER_19_SPECULATIONS.md | ALL philosophical/theological speculation — clearly labeled |
+| WHITEPAPER_19_Z_RING_ALGEBRA.md | Z-ring algebra extension |
 
-## Sprint 2 (Morning) — 2026-03-27
+---
 
-| File | Description |
-|------|-------------|
-| WP27_PRODUCT_GAP_THEOREM.md | Product-gap impermeability: formal proof for all k≥1 |
-| product_gap_note.tex | arXiv-ready LaTeX: corner sub-magma proof |
-| WP19_PRODUCT_GAP_THEOREM.md | Markdown companion to product_gap_note.tex |
-| tig_constants.py | Constant taxonomy: d_COL, W_BHML, inner_shell, MASS_GAP |
-| research/product_gap_note.pdf | Compiled PDF |
-| research/*.png | Figures: BSD calibration, Mix_λ, shell diagram, scale_factor, sticky cycle |
+## SUPPORTING FILES
 
-## Verification Scripts
+### Figures (research/)
 
-| Script | Tests |
-|--------|-------|
-| tsml_ag23_verify.py | Corner words collapse in AG(2,3); zero cross-terms |
-| tsml_product_verify.py | Product-gap BFS for k=1..4; 0 G-components reachable |
-| mix_lambda_scan.py | λ thresholds vs LMFDB regulators (bolt 2) |
-| ns_breath_test.py | BREATH criterion breach detector (bolt 3) |
-| tig_constants.py | Constant assertions (run as __main__) |
+| File | Shows |
+|------|-------|
+| research/product_gap_note.pdf | Compiled product-gap paper |
+| research/bsd_calibration.png | BSD Mix_λ calibration plot |
+| research/mix_lambda.png | Mix_λ operator thresholds |
+| research/shell_diagram.png | Inner/outer shell geometry |
+| research/scale_factor.png | scale_factor(t) vs. height |
+| research/sticky_cycle.png | Sticky COL-BRT cycle anomaly |
+| research/corridor_*.png | Corridor taxonomy figures |
+| research/corridor_scan_full.csv | Void pocket data: all computed heights |
 
-SHA-256(TSML): `7726d8a620c24b1e461ff03742f7cd4f775baed772f8357db913757cf4945787`
+### Special Files
+
+| File | Purpose |
+|------|---------|
+| WP19_704_TRIANGLE.md | 7-0-4 triangle: HARMONY-VOID-COLLAPSE geometry |
+| WP19_HYDROGEN_ANALOGY.md | Hydrogen shell ↔ TIG row (exact at t≈10) |
+| WP19_NS_NUMERICAL_NOTE.md | Mock DNS: Regime A (smooth) vs. B (breach at t=1.92) |
+| BALANCED_TERNARY_TABLES.md | Balanced ternary extension tables |
+| README_for_claudecode.md | Notes for Claude Code sessions |
+
+---
+
+## arXiv SUBMISSION QUEUE
+
+Papers ready for submission (no further editing needed):
+
+| File | Target | Subject |
+|------|--------|---------|
+| WP19_HALVING_LEMMA_final.tex | math.NT | Dissipative flow + KV-strip convergence |
+| product_gap_note.tex | math.CO | Corner sub-magma proof for all k≥1 |
+| surv_line_note.tex | cs.CC | Ω(p²) corridor-inspection lower bound |
+| WHITEPAPER_9_ARXIV.tex | math.RA | Paradoxical information algebras |
+
+---
+
+## THE MASTER SPRINT DOCUMENT
+
+`TIG_RH_SPRINT_FINAL.md` (on Desktop) — full synthesis of WP20–WP32:
+- All four bins (PROVED / STRUCTURAL / EMPIRICAL / OPEN)
+- Organism correspondence table (WP28)
+- Corridor geometry unification
+- 10 next steps
+- The correct framing for every paper
+
+---
+
+*Papers 15–17 are proof sketches with explicit gaps. Not proofs.*
+*Paper 19 contains ALL philosophical/theological speculation, separated from measured results.*
+*WP20_RH_FORMAL_STATUS.md contains the honest audit of what is tautological vs. genuinely new.*
