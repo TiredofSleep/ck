@@ -404,6 +404,33 @@ def memory_stats():
     return jsonify(people.stats())
 
 
+@app.route('/api/engage/<path:ref>', methods=['POST'])
+def engage_verse(ref):
+    """Signal that a user engaged with (clicked/expanded) a verse.
+
+    This feeds the learner and people memory — the companion notices
+    what catches your eye and learns from it.
+    """
+    data = request.get_json(force=True, silent=True) or {}
+    session_id = data.get('session_id', '')
+
+    # Record engagement in people memory
+    if session_id:
+        person = people.get(session_id)
+        person.record_engagement(ref)
+
+    # Record in global learner
+    learner.learn_from_conversation(
+        user_ops=[],
+        verse_ref=ref,
+        corridor_before='BRT',
+        corridor_after='BRT',
+        user_responded=True,
+    )
+
+    return jsonify({'status': 'noted', 'ref': ref})
+
+
 @app.route('/api/study', methods=['GET'])
 def study_stats():
     """Get Bible study net statistics."""

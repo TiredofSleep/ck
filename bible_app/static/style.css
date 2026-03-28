@@ -345,32 +345,68 @@ html, body {
 
 /* ── Verse Cards ────────────────────────────────────────── */
 
+/* ── Verse Cards (collapsed → expandable) ───────────────── */
+
 .verse-card {
     background: var(--bg-verse);
     border-left: 3px solid var(--accent-warm);
     border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 14px 18px;
+    padding: 12px 16px;
     margin-top: 10px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, padding 0.2s, border-color 0.2s;
 }
 
 .verse-card:hover {
     background: #fdf5e4;
 }
 
-.verse-text {
+.verse-card-expanded {
+    border-left-width: 4px;
+    border-color: var(--accent);
+    padding: 16px 20px;
+    background: #fdf5e4;
+}
+
+/* Preview (collapsed state) */
+.verse-preview {
     font-family: var(--font-scripture);
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.6;
+    color: var(--text-soft);
+    font-style: italic;
+}
+
+.verse-preview-ref {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* Full (expanded state) */
+.verse-full {
+    animation: verse-expand 0.25s ease-out;
+}
+
+@keyframes verse-expand {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.verse-text {
+    font-family: var(--font-scripture);
+    font-size: 15px;
+    line-height: 1.8;
     color: var(--text);
     font-style: italic;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .verse-ref {
     font-family: var(--font-body);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--accent);
 }
@@ -378,7 +414,7 @@ html, body {
 .verse-meta {
     display: flex;
     gap: 8px;
-    margin-top: 6px;
+    margin-top: 8px;
     flex-wrap: wrap;
 }
 
@@ -389,6 +425,61 @@ html, body {
     background: var(--accent-light);
     color: var(--accent);
     font-weight: 500;
+}
+
+/* Cross-references (loaded on expand) */
+.verse-deeper {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.verse-crossrefs-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+}
+
+.verse-crossref {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    border-left: 2px solid var(--border);
+}
+
+.verse-crossref-text {
+    font-family: var(--font-scripture);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-soft);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.verse-crossref-ref {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-right: 8px;
+}
+
+.verse-operator-path {
+    font-size: 11px;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    color: var(--text-faint);
+    margin-top: 10px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* ── Corridor Badge ─────────────────────────────────────── */

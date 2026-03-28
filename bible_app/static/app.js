@@ -174,56 +174,147 @@
         scrollToBottom();
     }
 
-    // ── Create Verse Card ──────────────────────────────────────
+    // ── Create Verse Card (collapsed preview → expandable) ───────
     function createVerseCard(v) {
         const card = document.createElement('div');
         card.className = 'verse-card';
-        card.addEventListener('click', () => toggleVerseDetail(card, v));
+        card.dataset.expanded = 'false';
+        card.dataset.ref = v.ref;
 
-        const text = document.createElement('div');
-        text.className = 'verse-text';
-        text.textContent = v.text;
+        // Preview: first ~80 chars + ref
+        const preview = document.createElement('div');
+        preview.className = 'verse-preview';
 
-        const ref = document.createElement('div');
-        ref.className = 'verse-ref';
-        ref.textContent = v.ref;
+        const previewText = document.createElement('span');
+        previewText.className = 'verse-preview-text';
+        const shortText = v.text.length > 80
+            ? v.text.slice(0, 80).replace(/\s+\S*$/, '') + '...'
+            : v.text;
+        previewText.textContent = shortText;
 
-        card.appendChild(text);
-        card.appendChild(ref);
+        const previewRef = document.createElement('span');
+        previewRef.className = 'verse-preview-ref';
+        previewRef.textContent = ` — ${v.ref}`;
 
-        return card;
-    }
+        preview.appendChild(previewText);
+        preview.appendChild(previewRef);
+        card.appendChild(preview);
 
-    // ── Toggle Verse Detail (click to expand) ──────────────────
-    function toggleVerseDetail(card, v) {
-        const existing = card.querySelector('.verse-meta');
-        if (existing) {
-            existing.remove();
-            return;
-        }
+        // Full content (hidden until click)
+        const full = document.createElement('div');
+        full.className = 'verse-full hidden';
+
+        const fullText = document.createElement('div');
+        fullText.className = 'verse-text';
+        fullText.textContent = v.text;
+
+        const fullRef = document.createElement('div');
+        fullRef.className = 'verse-ref';
+        fullRef.textContent = v.ref;
 
         const meta = document.createElement('div');
         meta.className = 'verse-meta';
 
-        // Operator tag
         const opTag = document.createElement('span');
         opTag.className = 'verse-tag';
         opTag.textContent = v.dominant_op;
         meta.appendChild(opTag);
 
-        // Coherence tag
         const cohTag = document.createElement('span');
         cohTag.className = 'verse-tag';
         cohTag.textContent = `coherence: ${(v.coherence * 100).toFixed(0)}%`;
         meta.appendChild(cohTag);
 
-        // Resonance tag
         const resTag = document.createElement('span');
         resTag.className = 'verse-tag';
         resTag.textContent = `resonance: ${(v.force_similarity * 100).toFixed(0)}%`;
         meta.appendChild(resTag);
 
-        card.appendChild(meta);
+        // "Explore deeper" area (loaded on click)
+        const deeper = document.createElement('div');
+        deeper.className = 'verse-deeper';
+        deeper.id = `deeper-${v.ref.replace(/[\s:]/g, '-')}`;
+
+        full.appendChild(fullText);
+        full.appendChild(fullRef);
+        full.appendChild(meta);
+        full.appendChild(deeper);
+        card.appendChild(full);
+
+        // Click handler
+        card.addEventListener('click', () => expandVerse(card, v));
+
+        return card;
+    }
+
+    // ── Expand Verse (signals interest → companion responds) ───
+    async function expandVerse(card, v) {
+        const isExpanded = card.dataset.expanded === 'true';
+        const preview = card.querySelector('.verse-preview');
+        const full = card.querySelector('.verse-full');
+
+        if (isExpanded) {
+            // Collapse
+            preview.classList.remove('hidden');
+            full.classList.add('hidden');
+            card.dataset.expanded = 'false';
+            card.classList.remove('verse-card-expanded');
+            return;
+        }
+
+        // Expand
+        preview.classList.add('hidden');
+        full.classList.remove('hidden');
+        card.dataset.expanded = 'true';
+        card.classList.add('verse-card-expanded');
+
+        // Load cross-references if not already loaded
+        const deeper = card.querySelector('.verse-deeper');
+        if (!deeper.dataset.loaded) {
+            deeper.dataset.loaded = 'true';
+            deeper.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+
+            try {
+                const resp = await fetch(`/api/verse/${encodeURIComponent(v.ref)}`);
+                if (resp.ok) {
+                    const data = await resp.json();
+                    let html = '';
+
+                    // Cross-references
+                    if (data.cross_references && data.cross_references.length > 0) {
+                        html += '<div class="verse-crossrefs-label">Connected verses (by algebraic resonance):</div>';
+                        for (const cr of data.cross_references.slice(0, 3)) {
+                            const harmony = (cr.harmony_score * 100).toFixed(0);
+                            html += `<div class="verse-crossref">`;
+                            html += `<span class="verse-crossref-text">${cr.text}</span>`;
+                            html += `<span class="verse-crossref-ref">${cr.ref}</span>`;
+                            html += `<span class="verse-tag">harmony: ${harmony}%</span>`;
+                            html += `</div>`;
+                        }
+                    }
+
+                    // Operator sequence
+                    if (data.operators && data.operators.length > 0) {
+                        const opPath = data.operators.slice(0, 12).join(' → ');
+                        html += `<div class="verse-operator-path">Operator path: ${opPath}</div>`;
+                    }
+
+                    deeper.innerHTML = html || '<div class="verse-crossrefs-label">Exploring connections...</div>';
+                }
+            } catch (e) {
+                deeper.innerHTML = '';
+            }
+
+            // Signal engagement to the learner
+            try {
+                await fetch(`/api/engage/${encodeURIComponent(v.ref)}`, { method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ session_id: sessionId }),
+                });
+            } catch (e) { /* silent */ }
+        }
+
+        scrollToBottom();
     }
 
     // ── Loading Indicator ──────────────────────────────────────
