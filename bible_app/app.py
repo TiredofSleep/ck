@@ -32,6 +32,7 @@ from bible_app.voice.pathfinder import build_journey_prose
 from bible_app.voice.algebraic_voice import AlgebraicVoice
 from bible_app.bible import BibleIndex
 from bible_app.ai.learner import VerseLearner
+from bible_app.ai.bible_brain import BibleBrain
 from bible_app.ai.polish import polish_response, is_available as ai_available, set_api_key
 from bible_app.ai.memory import PeopleMemory
 from bible_app.ai.bible_study import BibleStudyNet
@@ -51,6 +52,7 @@ learner = VerseLearner()
 people = PeopleMemory()
 study = BibleStudyNet()
 digest = BibleDigestion()
+brain = BibleBrain()
 
 # Session storage (in-memory, simple)
 sessions = {}
@@ -117,6 +119,9 @@ def chat():
     user_ops = text_to_ops(text)
     user_force = text_to_force(text)
 
+    # ── Brain: process through all 9 systems ──────────────────────
+    brain_state = brain.process(text, user_ops=user_ops, user_force=user_force)
+
     # ── Corridor Classification (algebra + keywords) ────────────
     corridor_info = classify_with_detail(user_ops, text=text)
 
@@ -170,10 +175,11 @@ def chat():
             0.1 * v.coherence             # Coherence bonus
         )
 
-        # Neural + personal boost
+        # Neural + brain + personal boost
         boost = learner.get_verse_boost(ref)
         personal = person.get_verse_preference(ref)
-        distance -= (boost * 0.05 + personal * 0.05)
+        brain_boost = brain.boost_verse_score(ref, v.force, user_force)
+        distance -= (boost * 0.03 + personal * 0.03 + brain_boost)
 
         verses.append(ResonanceResult(
             verse=v, distance=distance,
@@ -217,6 +223,7 @@ def chat():
     # Algebraic voice: the math composes the prose
     algebra_voice.seed(hash(text) & 0xFFFFFFFF)
     algebra_voice._user_text = text  # Pass actual words for reflection
+    algebra_voice._brain_state = brain_state  # Pass full brain context
     response_text = algebra_voice.speak(
         user_ops=user_ops,
         corridor=corridor_info['corridor'],
@@ -313,6 +320,14 @@ def chat():
             'steps_to_harmony': journey['steps_to_harmony'],
             'path': journey['path'],
             'summary': journey['journey_summary'],
+        },
+        'brain': {
+            'familiarity': round(brain_state['familiarity'], 2),
+            'resonance': round(brain_state['resonance'], 2),
+            'bucket': brain_state['bucket'],
+            'predicted_next': brain_state['predicted_next'],
+            'coherence_trend': brain_state['coherence_trend'],
+            'is_instinct': brain_state['is_instinct'],
         },
     })
 

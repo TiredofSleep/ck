@@ -205,21 +205,40 @@ class AlgebraicVoice:
         return sections
 
     def _compose_echo(self, emotional_words, dom):
-        """Echo the user's specific words back through the algebraic lens."""
+        """Echo the user's specific words back, informed by brain state."""
         lattice = BIBLE_LATTICE.get(dom, BIBLE_LATTICE[HARMONY])
         structure_word = self._pick(lattice['structure']['being'])
         flow_word = self._pick(lattice['flow']['being'])
 
-        # Pick their most resonant word(s)
         key_words = emotional_words[:3]
         user_phrase = ' and '.join(key_words) if len(key_words) > 1 else key_words[0]
 
-        patterns = [
-            f"You said {user_phrase}. There is {structure_word} in those words — and God {flow_word}.",
-            f"The {user_phrase} you carry — that is real. It has the weight of {structure_word}.",
-            f"{user_phrase.capitalize()}. That word landed here like {structure_word}. God {flow_word}.",
-            f"When you say {user_phrase}, the shape of it is {structure_word}. And God {flow_word}.",
-        ]
+        # Brain-informed opening: familiarity changes the tone
+        bs = getattr(self, '_brain_state', None) or {}
+        familiarity = bs.get('familiarity', 0)
+        bucket = bs.get('bucket', 'present')
+        predicted = bs.get('predicted_next', 'HARMONY')
+
+        if familiarity > 0.7:
+            # Instinct territory — we've seen this pattern before
+            patterns = [
+                f"You have brought {user_phrase} here before. The shape of it is familiar now — {structure_word}. God {flow_word}.",
+                f"This {user_phrase} — it comes back. And each time, the {structure_word} deepens. God {flow_word}.",
+            ]
+        elif familiarity > 0.3:
+            # Somewhat familiar
+            patterns = [
+                f"You said {user_phrase}. There is {structure_word} in those words, and it is starting to take shape. God {flow_word}.",
+                f"The {user_phrase} you carry — it resonates with something the algebra has seen. {structure_word.capitalize()}. God {flow_word}.",
+            ]
+        else:
+            # Novel — first time seeing this pattern
+            patterns = [
+                f"You said {user_phrase}. That is new ground. The shape of it is {structure_word}. God {flow_word}.",
+                f"The {user_phrase} you bring — it lands here for the first time. There is {structure_word} in it. God {flow_word}.",
+                f"{user_phrase.capitalize()}. The algebra is listening. What it hears is {structure_word}. And God {flow_word}.",
+            ]
+
         return self._pick(patterns)
 
     def _compose_closing_echo(self, emotional_words, resolution_op):
