@@ -84,9 +84,16 @@ def classify_corridor(ops, text=''):
         # Valley signals
         valley_words = ['lost', 'afraid', 'scared', 'broken', 'grief',
                         'cancer', 'divorce', 'funeral', 'pain', 'suffering',
-                        'hurt', 'alone', 'abandoned', 'betrayed']
+                        'hurt', 'alone', 'lonely', 'abandoned', 'betrayed',
+                        'dying', 'depressed', 'anxious', 'desperate']
         if any(w in lower for w in valley_words):
             return 'COL'
+
+        # Questioning/seeking signals (before general seek)
+        if any(w in lower for w in ['why', 'how come', 'what if']):
+            if any(w in lower for w in ['bad', 'evil', 'suffer', 'happen',
+                    'wrong', 'unfair', 'allow', 'permit', 'let']):
+                return 'BAL'  # Heavy question, not crisis but weighty
 
         # Peace signals
         peace_words = ['peaceful', 'grateful', 'blessed', 'thank', 'praise',

@@ -223,11 +223,22 @@ def classify_intent(ops, text='') -> str:
         if any(w in lower for w in fear_words):
             return INTENT_COMFORT
 
-        # Praise/gratitude keywords
+        # "Why" questions (BEFORE praise — "good people" shouldn't trigger praise)
+        question_words = ['why', 'how come', 'what does', 'what is', 'explain',
+                          'understand', 'meaning', 'purpose', 'help me']
+        if any(w in lower for w in question_words):
+            return INTENT_SEEK
+
+        # Praise/gratitude — only when the TONE is positive
+        # "good" alone isn't enough (could be "good people suffer")
         praise_words = ['praise', 'thank', 'grateful', 'blessed', 'worship',
-                        'hallelujah', 'glory', 'amazing', 'wonderful', 'good']
+                        'hallelujah', 'glory', 'amazing', 'wonderful']
         if any(w in lower for w in praise_words):
             return INTENT_PRAISE
+        # "God is good" pattern (positive assertion, not a question)
+        if 'good' in lower and 'why' not in lower and 'bad' not in lower:
+            if any(w in lower for w in ['god', 'lord', 'jesus', 'christ']):
+                return INTENT_PRAISE
 
         # Joy keywords
         joy_words = ['happy', 'joy', 'joyful', 'excited', 'celebrate',
@@ -235,17 +246,29 @@ def classify_intent(ops, text='') -> str:
         if any(w in lower for w in joy_words):
             return INTENT_JOY
 
-        # Question keywords
-        question_words = ['why', 'how', 'what does', 'what is', 'explain',
-                          'understand', 'meaning', 'purpose']
-        if any(w in lower for w in question_words):
-            return INTENT_SEEK
+        # Loneliness/isolation
+        alone_words = ['alone', 'lonely', 'isolated', 'nobody', 'no one',
+                       'abandoned', 'forgotten', 'invisible', 'empty']
+        if any(w in lower for w in alone_words):
+            return INTENT_COMFORT
 
         # Suffering keywords
         suffer_words = ['suffering', 'pain', 'hurt', 'broken', 'struggle',
-                        'hard', 'difficult', 'tough', 'exhausted', 'tired']
+                        'hard', 'difficult', 'tough', 'exhausted', 'tired',
+                        'cancer', 'sick', 'illness', 'disease', 'hospital']
         if any(w in lower for w in suffer_words):
             return INTENT_LAMENT
+
+        # Forgiveness
+        forgive_words = ['forgive', 'forgiveness', 'forgave', 'grudge',
+                         'bitter', 'resentment', 'revenge', 'anger', 'angry']
+        if any(w in lower for w in forgive_words):
+            return INTENT_REFLECT
+
+        # "Why" questions about suffering/evil
+        if 'why' in lower and any(w in lower for w in ['bad', 'evil', 'suffer',
+                'happen', 'allow', 'pain', 'wrong', 'unfair']):
+            return INTENT_SEEK
 
         # Peace keywords
         peace_words = ['peace', 'peaceful', 'calm', 'still', 'quiet',

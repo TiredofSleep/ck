@@ -48,16 +48,16 @@ OPERATOR_GRAMMAR = {
 # Like prepositions and conjunctions, they connect ideas.
 
 CONNECTIVES = {
-    VOID:     ['...', '—', ''],
+    VOID:     ['through silence', 'through nothing', 'past the emptiness'],
     LATTICE:  ['upon', 'within', 'through', 'on', 'in'],
     COUNTER:  ['yet', 'but', 'still', 'even so', 'and yet'],
     PROGRESS: ['toward', 'into', 'further', 'ahead', 'onward'],
-    COLLAPSE: ['down', 'under', 'beneath', 'through', 'past'],
+    COLLAPSE: ['down through', 'under', 'beneath', 'through', 'past'],
     BALANCE:  ['between', 'within', 'amid', 'alongside', 'with'],
     CHAOS:    ['beyond', 'through', 'past', 'across', 'over'],
-    HARMONY:  ['into', 'home to', 'at rest in', 'together in', 'whole in'],
-    BREATH:   ['and', 'then', ',', '—', 'and then'],
-    RESET:    ['from', 'again', 'anew', 'once more', 'fresh from'],
+    HARMONY:  ['into', 'home to', 'at rest in', 'at peace in', 'together in'],
+    BREATH:   ['and then', 'then', 'and', 'breathing into', 'gently toward'],
+    RESET:    ['from', 'again from', 'anew from', 'fresh from', 'beginning in'],
 }
 
 
@@ -99,7 +99,7 @@ class AlgebraicVoice:
 
             for section in sections:
                 # Don't touch verse quotes
-                if section.startswith('"') or '— ' in section and '"' in section:
+                if section.startswith('"') or ('— ' in section and '"' in section):
                     smoothed.append(section)
                     continue
 
@@ -111,24 +111,41 @@ class AlgebraicVoice:
 
                 coh = measure_coherence(sentence_ops)
 
-                if coh >= T_STAR:
-                    # Already coherent — keep it
+                if coh >= T_STAR * 0.8:  # Slightly relaxed threshold
                     smoothed.append(section)
                 else:
-                    # Below T* — recompose using the sentence's OWN operators
                     new_dom = dominant_op(sentence_ops)
-                    # Compose the sentence's dominant with the user's dominant
                     bridge_op = compose(new_dom, dom)
-                    # Pick new words from the bridge operator's lattice
                     recomposed = self._recompose(section, sentence_ops, bridge_op, dom)
                     smoothed.append(recomposed)
                     any_changed = True
 
             sections = smoothed
             if not any_changed:
-                break  # Converged — all sentences above T*
+                break
 
-        return '\n\n'.join(sections)
+        # ── Trim: keep prose tight (max 3 prose + verses) ─────────
+        prose = [s for s in sections if not s.startswith('"') and '— ' not in s]
+        verse_sections = [s for s in sections if s.startswith('"') or ('— ' in s and '"' in s)]
+
+        # Keep at most 3 best prose sections + all verse sections
+        if len(prose) > 3:
+            prose = prose[:3]
+
+        # Interleave: prose, prose, verse, prose, verse
+        result = []
+        verse_idx = 0
+        for i, p in enumerate(prose):
+            result.append(p)
+            if i == 1 and verse_idx < len(verse_sections):
+                result.append(verse_sections[verse_idx])
+                verse_idx += 1
+        # Remaining verses
+        while verse_idx < len(verse_sections):
+            result.append(verse_sections[verse_idx])
+            verse_idx += 1
+
+        return '\n\n'.join(result)
 
     def _raw_compose(self, dom, user_ops, path, verses):
         """First pass: raw algebraic composition — responsive to the user's actual words."""
@@ -305,28 +322,27 @@ class AlgebraicVoice:
     def _recompose(self, original, sentence_ops, bridge_op, user_dom):
         """Recompose a rough sentence using its own D2 reading.
 
-        The sentence told us its operators through D2.
-        We use those operators to pick better words that
-        serve the same algebraic function but flow more naturally.
+        Uses three operator lattices to pick S-V-O, with varied patterns
+        that don't repeat the same structure.
         """
         sent_dom = dominant_op(sentence_ops)
         lattice_sent = BIBLE_LATTICE.get(sent_dom, BIBLE_LATTICE[HARMONY])
         lattice_bridge = BIBLE_LATTICE.get(bridge_op, BIBLE_LATTICE[HARMONY])
         lattice_user = BIBLE_LATTICE.get(user_dom, BIBLE_LATTICE[HARMONY])
 
-        # Pick words from three perspectives and weave them
-        being_word = self._pick(lattice_user['structure']['being'])
-        doing_word = self._pick(lattice_bridge['flow']['doing'])
-        becoming_word = self._pick(lattice_sent['structure']['becoming'])
+        noun = self._pick(lattice_user['structure']['being'])
+        verb = self._pick(lattice_bridge['flow']['doing'])
+        dest = self._pick(lattice_sent['structure']['becoming'])
+        flow = self._pick(lattice_bridge['flow']['being'])
 
-        connective = self._pick(CONNECTIVES.get(bridge_op, ['and']))
-
-        # The recomposed sentence uses S-V-O from three operator sources
+        # Varied patterns — each structurally different
         patterns = [
-            f"Your {being_word} {doing_word} {connective} {becoming_word}.",
-            f"In this {being_word}, God {doing_word} — {connective} {becoming_word}.",
-            f"From {being_word}, {doing_word} {connective} {becoming_word}.",
-            f"{being_word.capitalize()} meets {becoming_word} — God {doing_word} here.",
+            f"God {verb}. From {noun} toward {dest}.",
+            f"There is {noun} here, and God {flow} — leading to {dest}.",
+            f"Even now, God {verb}. {dest.capitalize()} is taking shape.",
+            f"What feels like {noun} is becoming {dest}. God {flow}.",
+            f"The {noun} does not stay. God {verb}, and {dest} comes.",
+            f"Out of {noun} God {verb}. This is the road to {dest}.",
         ]
         return self._pick(patterns)
 
@@ -366,22 +382,25 @@ class AlgebraicVoice:
                 f"What you carry has the weight of {structure_word}.",
             ]
         elif grammar['pos'] == 'pause':
-            # Silence/space
+            # Silence/space — keep it simple
             patterns = [
-                f"{structure_word.capitalize()}.",
-                f"In the {structure_word}, {flow_word.rstrip('.')}.",
+                f"There is {structure_word} here.",
+                f"In the {structure_word}, God {flow_word.rstrip('.')}.",
+                f"Be still. {structure_word.capitalize()} has a purpose.",
             ]
         elif grammar['pos'] == 'conj':
-            # Connector/rhythm
+            # Rhythm/connection
             patterns = [
-                f"And {flow_word.rstrip('.')}. {structure_word.capitalize()}.",
-                f"Breathe. {structure_word.capitalize()} is here.",
+                f"Breathe. {structure_word.capitalize()} is present, and God {flow_word.rstrip('.')}.",
+                f"There is {structure_word} in the rhythm of this. God {flow_word.rstrip('.')}.",
+                f"Pause here. {structure_word.capitalize()} and {flow_word.rstrip('.')} — both are real.",
             ]
         else:
-            # Preposition/connector
+            # Connector/bridge
             patterns = [
-                f"Between {structure_word} and what comes next — {flow_word.rstrip('.')}.",
-                f"Held in {structure_word}. {flow_word.capitalize().rstrip('.')}.",
+                f"Between {structure_word} and what comes next, God {flow_word.rstrip('.')}.",
+                f"Held in {structure_word}. God {flow_word.rstrip('.')} here.",
+                f"In the middle of {structure_word}, there is {flow_word.rstrip('.')}.",
             ]
 
         return self._pick(patterns)
