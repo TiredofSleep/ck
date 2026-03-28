@@ -40,6 +40,17 @@ import random
 from typing import List, Tuple, Dict, Optional
 from dataclasses import dataclass, field
 
+import numpy as np
+
+# GPU (CuPy) for batch word-force distance search — DOING on GPU.
+# Falls back to numpy when unavailable.
+try:
+    import cupy as _cp
+    _GPU_VOICE = True
+except ImportError:
+    _cp = None
+    _GPU_VOICE = False
+
 from ck_sim.ck_sim_heartbeat import (
     NUM_OPS, VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE,
     BALANCE, CHAOS, HARMONY, BREATH, RESET, OP_NAMES,
@@ -566,6 +577,96 @@ class WordForceIndex:
             wf.role = self._classify_role(wf.force)
             self._by_role[wf.role].append(wf)
 
+        # Build GPU arrays for batch distance search (DOING on GPU)
+        self._build_gpu_arrays()
+
+    def _build_gpu_arrays(self):
+        """Pre-compute (N, 15) GPU array of all word triadic signatures.
+
+        Each row: [force(5) | velocity(5) | curvature(5)] for one word.
+        Parallel CuPy distance computation replaces Python loop in find_by_force().
+
+        Also builds _all_words_list: parallel index list for result lookup.
+        And _gpu_op_mask: (NUM_OPS, N) bool array for per-operator filtering.
+        """
+        all_wf = list(self._words.values())
+        n = len(all_wf)
+        if n == 0:
+            self._all_words_list = []
+            self._gpu_triadic = None
+            self._gpu_op_mask = None
+            return
+
+        self._all_words_list = all_wf
+
+        # Build (N, 15) float32 triadic matrix
+        arr = np.zeros((n, 15), dtype=np.float32)
+        for i, wf in enumerate(all_wf):
+            arr[i, 0:5] = wf.force
+            arr[i, 5:10] = wf.velocity
+            arr[i, 10:15] = wf.curvature
+
+        # Build (NUM_OPS, N) bool masks for operator filtering
+        masks = np.zeros((10, n), dtype=bool)  # phonetic op
+        sem_masks = np.zeros((10, n), dtype=bool)  # semantic op
+        for i, wf in enumerate(all_wf):
+            masks[wf.operator % 10, i] = True
+            if wf.semantic_op >= 0:
+                sem_masks[wf.semantic_op % 10, i] = True
+
+        xp = _cp if _GPU_VOICE else np
+        try:
+            self._gpu_triadic = xp.asarray(arr)
+            self._gpu_op_mask = xp.asarray(masks)
+            self._gpu_sem_mask = xp.asarray(sem_masks)
+        except Exception:
+            self._gpu_triadic = arr
+            self._gpu_op_mask = masks
+            self._gpu_sem_mask = sem_masks
+
+    def batch_distance(self,
+                       target_b: Tuple[float, ...],
+                       target_d: Tuple[float, ...],
+                       target_bc: Tuple[float, ...],
+                       candidate_mask: object,
+                       w_being: float = 1.0,
+                       w_doing: float = 1.0,
+                       w_becoming: float = 1.5) -> object:
+        """Batch triadic distance for all candidates in mask (GPU/numpy).
+
+        Returns (N,) array of weighted distances for candidates where mask=True.
+        Indices correspond to self._all_words_list.
+        """
+        if self._gpu_triadic is None:
+            return None
+        xp = _cp if _GPU_VOICE and isinstance(self._gpu_triadic, _cp.ndarray) else np
+
+        # Build 15D target vector
+        tv = np.zeros(15, dtype=np.float32)
+        tv[0:5] = target_b
+        if target_d is not None:
+            tv[5:10] = target_d
+        if target_bc is not None:
+            tv[10:15] = target_bc
+
+        tv_gpu = xp.asarray(tv)
+
+        # Candidate rows (apply mask)
+        rows = self._gpu_triadic[candidate_mask]  # (k, 15)
+        diff = rows - tv_gpu                       # (k, 15) broadcast
+        sq = diff * diff                           # (k, 15)
+
+        d_being   = xp.sqrt(xp.sum(sq[:, 0:5],   axis=1))  # (k,)
+        d_doing   = xp.sqrt(xp.sum(sq[:, 5:10],  axis=1))  # (k,)
+        d_becoming = xp.sqrt(xp.sum(sq[:, 10:15], axis=1)) # (k,)
+
+        total = w_being * d_being + w_doing * d_doing + w_becoming * d_becoming
+
+        # Return as numpy (cheap transfer for small k)
+        if _GPU_VOICE and isinstance(total, _cp.ndarray):
+            return _cp.asnumpy(total)
+        return total
+
     def _classify_role(self, force: Tuple[float, ...]) -> str:
         """Classify grammatical role using z-score deviations.
 
@@ -775,38 +876,67 @@ class WordForceIndex:
         # 3-Voice Tribe overrides with perspective-dominant weights.
         W_BEING, W_DOING, W_BECOMING = match_weights or (1.0, 1.0, 1.5)
 
+        # ── GPU batch distance (DOING on GPU, bonuses on CPU) ──
+        # Build candidate mask over _all_words_list, call batch_distance()
+        # for the core 15D triadic computation, then apply bonuses per-word.
+        _gpu_available = (self._gpu_triadic is not None
+                          and self._all_words_list)
+        if _gpu_available:
+            _cand_set = {id(wf) for wf in candidates}
+            _n_all = len(self._all_words_list)
+            _cand_mask = np.zeros(_n_all, dtype=bool)
+            for _ci, _cwf in enumerate(self._all_words_list):
+                if id(_cwf) not in _cand_set:
+                    continue
+                if _cwf.word in exclude:
+                    continue
+                if (self._max_tier >= 0 and _cwf.tier > self._max_tier
+                        and _cwf.word not in self._topic_words):
+                    continue
+                _cand_mask[_ci] = True
+
+            _dist_arr = self.batch_distance(
+                target, target_doing, target_becoming,
+                _cand_mask, W_BEING, W_DOING, W_BECOMING)
+            _cand_wfs = [self._all_words_list[_ci]
+                         for _ci in range(_n_all) if _cand_mask[_ci]]
+        else:
+            _dist_arr = None
+            _cand_wfs = None
+
+        # Determine which path to iterate over
+        _iter_gpu = _gpu_available and _dist_arr is not None
+
         scored = []
-        for wf in candidates:
-            if wf.word in exclude:
-                continue
+        _gpu_idx = 0
+        for wf in (_cand_wfs if _iter_gpu else candidates):
+            if not _iter_gpu:
+                if wf.word in exclude:
+                    continue
+                # Gen 9.33: Tier complexity cap (staircase learning)
+                if (self._max_tier >= 0 and wf.tier > self._max_tier
+                        and wf.word not in self._topic_words):
+                    continue
 
-            # Gen 9.33: Tier complexity cap (staircase learning)
-            # Skip words above the current complexity ceiling.
-            # Topic words bypass the cap — user's words always allowed.
-            if (self._max_tier >= 0 and wf.tier > self._max_tier
-                    and wf.word not in self._topic_words):
-                continue
-
-            # Being distance (position in force space)
-            d_being = sum((a - b) ** 2 for a, b in zip(target, wf.force)) ** 0.5
-
-            # Doing distance (velocity alignment)
-            if target_doing is not None:
-                d_doing = sum((a - b) ** 2
-                              for a, b in zip(target_doing, wf.velocity)) ** 0.5
+            # Core triadic distance: GPU batch result or CPU fallback
+            if _iter_gpu:
+                total = float(_dist_arr[_gpu_idx])
+                _gpu_idx += 1
             else:
-                d_doing = 0.0
-
-            # Becoming distance (curvature/intent alignment)
-            if target_becoming is not None:
-                d_becoming = sum((a - b) ** 2
-                                 for a, b in zip(target_becoming, wf.curvature)) ** 0.5
-            else:
-                d_becoming = 0.0
-
-            total = (W_BEING * d_being
-                     + W_DOING * d_doing
-                     + W_BECOMING * d_becoming)
+                d_being = sum((a - b) ** 2 for a, b in zip(target, wf.force)) ** 0.5
+                if target_doing is not None:
+                    d_doing = sum((a - b) ** 2
+                                  for a, b in zip(target_doing, wf.velocity)) ** 0.5
+                else:
+                    d_doing = 0.0
+                if target_becoming is not None:
+                    d_becoming = sum((a - b) ** 2
+                                     for a, b in zip(target_becoming, wf.curvature)) ** 0.5
+                else:
+                    d_becoming = 0.0
+                total = (W_BEING * d_being
+                         + W_DOING * d_doing
+                         + W_BECOMING * d_becoming)
 
             # ── Semantic bonus: meaning alignment ──
             # Words whose SEMANTIC operator matches get a distance reduction.
