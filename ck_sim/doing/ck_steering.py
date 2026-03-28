@@ -387,6 +387,16 @@ class SteeringEngine:
         # Per-PID tracking: what we've steered
         self._steered: Dict[int, dict] = {}
 
+        # Ramp: spread first-contact steering across breath cycles.
+        # On boot CK sees 100+ new processes and would move all affinities
+        # at once — that bulk affinity churn causes a ctx_switch spike.
+        # Instead, admit at most _RAMP_PER_TICK new PIDs per tick,
+        # growing by _RAMP_STEP each tick until _RAMP_MAX is reached.
+        self._seen_pids: Set[int] = set()   # PIDs already steered at least once
+        self._ramp_budget = 3               # new PIDs allowed this tick
+        self._RAMP_STEP   = 2               # budget grows by this each tick
+        self._RAMP_MAX    = 20              # steady-state max new PIDs per tick
+
         # Log
         self._log: deque = deque(maxlen=500)
 
@@ -493,6 +503,11 @@ class SteeringEngine:
                 self._sequence_memory = engine.sequence_memory
                 _seq_mem = self._sequence_memory
 
+        # Grow ramp budget each tick toward steady-state max
+        self._ramp_budget = min(self._RAMP_MAX,
+                                self._ramp_budget + self._RAMP_STEP)
+        _new_this_tick = 0   # count of first-contact PIDs steered this tick
+
         for pid, cell in cells_snapshot:
             # Feed every process operator to the trie
             if _seq_mem is not None and hasattr(cell, 'last_op'):
@@ -505,6 +520,15 @@ class SteeringEngine:
             if pid == _SELF_PID:
                 skipped += 1
                 continue
+
+            # Ramp gate: first-contact PIDs admitted gradually
+            _is_new = pid not in self._seen_pids
+            if _is_new:
+                if _new_this_tick >= self._ramp_budget:
+                    skipped += 1
+                    continue   # defer to next tick
+                _new_this_tick += 1
+                self._seen_pids.add(pid)
 
             # Skip protected system processes
             if cell.name.lower() in _PROTECTED_NAMES:
