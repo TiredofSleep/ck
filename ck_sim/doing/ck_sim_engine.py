@@ -1116,6 +1116,13 @@ class CKSimEngine:
     def start(self):
         """Start the engine (call tick() at 50Hz from Kivy Clock)."""
         self.running = True
+        # Start sensorium background thread (shadow swarm for steering)
+        try:
+            from ck_sim.being.ck_sensorium import _ensure_sensor_thread
+            _ensure_sensor_thread(tl_eat_fn=None)
+            print("  [SIM] Sensorium sensor thread started (shadow swarm active)")
+        except Exception as _e:
+            print(f"  [SIM] Sensorium thread skipped: {_e}")
         # Try to load existing TL
         if os.path.exists(self.tl_filename):
             if load_tl(self.brain, self.tl_filename):
@@ -1727,7 +1734,8 @@ class CKSimEngine:
             # Python fallback: lazy connect steering to swarm
             if not self._steering_connected and self.steering.swarm is None:
                 try:
-                    from ck_sim.ck_sensorium import _swarm
+                    import ck_sim.being.ck_sensorium as _sen_mod
+                    _swarm = _sen_mod._swarm  # read live (not bound at import time)
                     if _swarm is not None:
                         self.steering.swarm = _swarm
                         self._steering_connected = True
