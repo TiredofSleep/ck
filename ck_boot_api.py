@@ -284,11 +284,6 @@ def sensors_status():
     raw = body._sensors.copy() if body and hasattr(body, '_sensors') else {}
     if ps is None:
         return _jsonify({'available': False})
-    # Debug: expose a selection of raw sensor keys directly
-    _raw_sample = {k: raw[k] for k in
-        ['cpu_pct', 'ram_pct', 'ram_used_mb', 'cpu_per_core',
-         'disk_read_bps', 'net_recv_bps', 'proc_ram_mb']
-        if k in raw}
     s = ps.state
     return _jsonify({
         'available': True,
@@ -334,8 +329,6 @@ def sensors_status():
             'threads':   s.proc_threads,
             'cpu_pct':   raw.get('proc_cpu_pct', 0),
         },
-        '_raw_body_sensors': _raw_sample,
-        '_raw_all_keys': sorted(raw.keys()),
     })
 
 # ── Lattice chain status endpoint ──

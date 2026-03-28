@@ -2002,15 +2002,8 @@ class CKSimEngine:
                 if hasattr(self, 'reasoning'):
                     self.reasoning._current_speed = "quick"
 
-        except Exception as _e:
-            import traceback as _tb
-            _err = _tb.format_exc()
-            if not hasattr(self, '_sense_err_logged'):
-                self._sense_err_logged = set()
-            _key = str(_e)[:80]
-            if _key not in self._sense_err_logged:
-                self._sense_err_logged.add(_key)
-                print(f"[SENSE-ERR] {_err}")
+        except Exception:
+            pass
 
     def _tool_structure(self):
         """LATTICE(1): personality.tick(), identity, retina, truth lattice,
