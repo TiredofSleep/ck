@@ -166,7 +166,30 @@
 
         for (const para of paragraphs) {
             const p = document.createElement('p');
-            p.textContent = para;
+            // Make verse references in prose clickable
+            const verseRefPattern = /(\d?\s?[A-Z][a-z]+ \d+:\d+)/g;
+            const parts = para.split(verseRefPattern);
+            if (parts.length > 1) {
+                parts.forEach(part => {
+                    if (verseRefPattern.test(part)) {
+                        verseRefPattern.lastIndex = 0; // Reset regex
+                        const link = document.createElement('a');
+                        link.className = 'verse-inline-link';
+                        link.textContent = part;
+                        link.href = '#';
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            expandInlineVerse(link, part.trim());
+                        });
+                        p.appendChild(link);
+                    } else {
+                        p.appendChild(document.createTextNode(part));
+                    }
+                });
+            } else {
+                p.textContent = para;
+            }
             content.appendChild(p);
         }
 
@@ -344,7 +367,7 @@
             }).catch(() => {});
         }
 
-        scrollToBottom();
+        // Don't scroll — stay where the user is reading
     }
 
     // ── Load next verses (linear reading) ──────────────────────
@@ -599,6 +622,61 @@
                 }
             }
         } catch (e) { /* ignore */ }
+    }
+
+    // ── Inline Verse Expand (right where you click) ─────────────
+    async function expandInlineVerse(linkEl, ref) {
+        // Check if already expanded
+        const existing = linkEl.parentElement.querySelector('.inline-verse-expand');
+        if (existing) {
+            existing.remove();
+            return;
+        }
+
+        const expand = document.createElement('div');
+        expand.className = 'inline-verse-expand';
+        expand.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+        linkEl.parentElement.insertBefore(expand, linkEl.nextSibling);
+
+        try {
+            const resp = await fetch(`/api/verse/${encodeURIComponent(ref)}`);
+            if (resp.ok) {
+                const data = await resp.json();
+                let html = `<div class="verse-full-text">${data.text}</div>`;
+                html += `<div class="verse-ref">${data.ref}</div>`;
+                html += `<button class="keep-reading-btn" data-ref="${ref}">Keep reading ↓</button>`;
+                html += `<div class="keep-reading-content"></div>`;
+
+                if (data.cross_references && data.cross_references.length > 0) {
+                    html += '<div class="verse-crossrefs-label">Algebraic connections:</div>';
+                    for (const cr of data.cross_references.slice(0, 3)) {
+                        const h = (cr.harmony_score * 100).toFixed(0);
+                        html += `<div class="verse-crossref"><span class="verse-crossref-text">${cr.text}</span>`;
+                        html += `<span class="verse-crossref-ref">${cr.ref} <span class="verse-tag">harmony: ${h}%</span></span></div>`;
+                    }
+                }
+
+                expand.innerHTML = html;
+
+                // Wire keep reading
+                const btn = expand.querySelector('.keep-reading-btn');
+                const content = expand.querySelector('.keep-reading-content');
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    loadNextVerses(ref, content);
+                });
+            }
+        } catch (e) {
+            expand.innerHTML = '<span class="verse-crossrefs-label">Could not load verse</span>';
+        }
+
+        // Signal engagement
+        fetch(`/api/engage/${encodeURIComponent(ref)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sessionId }),
+        }).catch(() => {});
     }
 
     // ── Health Check ───────────────────────────────────────────

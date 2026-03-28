@@ -567,6 +567,30 @@ html, body {
     margin-bottom: 4px;
 }
 
+/* ── Inline Verse Links (in prose) ─────────────────────── */
+
+.verse-inline-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.verse-inline-link:hover {
+    border-bottom-style: solid;
+}
+
+.inline-verse-expand {
+    background: var(--bg-verse);
+    border-left: 3px solid var(--accent-warm);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin: 10px 0;
+    animation: verse-expand 0.25s ease-out;
+}
+
 .hidden {
     display: none !important;
 }
