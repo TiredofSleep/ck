@@ -103,7 +103,7 @@ class AlgebraicVoice:
         self._rng = random.Random(value)
 
     def speak(self, user_ops, corridor, intent, journey, verses,
-              smoothing_passes=3):
+              smoothing_passes=2):
         """Compose a full response from algebra, then smooth by re-reading.
 
         Pass 1: Raw composition from operator sequence
@@ -192,117 +192,35 @@ class AlgebraicVoice:
         return '\n\n'.join(result)
 
     def _raw_compose(self, dom, user_ops, path, verses):
-        """Generate ALL operator × tense permutations, then walk the path.
+        """DUALITY ENGINE: META or SURFACE determines everything.
 
-        1. Compute the FULL path from where they are to HARMONY (using BHML = journey)
-        2. At each step, compose a sentence using THAT step's operator grammar
-        3. Tense follows position: early = past, middle = present, late = future
-        4. Meet them where they are, walk with them, arrive at rest
+        META: op 7 leads. Concept finds itself. Each operator speaks its view.
+        SURFACE: find the dual. Start there. Walk back. Each step speaks.
 
-        The operator sequence IS the sermon structure.
+        The operators ARE the voices. They don't all sound the same.
         """
-        from .english_algebra import ENGLISH_OPERATORS, compose_sentence
-        from bible_app.algebra import compose_bhml
+        from .duality_engine import (
+            detect_duality, build_duality_path, compose_duality_response,
+            OPERATOR_VOICE, DUAL,
+        )
 
         sections = []
+        text = getattr(self, '_user_text', '') or ''
 
-        # ── Extract emotional keywords ────────────────────────────
-        user_words = self._user_text.lower().split() if hasattr(self, '_user_text') else []
-        emotional_words = [
-            w.strip('.,;:!?\'\"') for w in user_words
-            if len(w.strip('.,;:!?\'\"')) >= 4 and w.strip('.,;:!?\'\"') not in (
-                'that', 'this', 'with', 'have', 'just', 'need', 'know', 'what',
-                'does', 'feel', 'want', 'today', 'very', 'really', 'some', 'like',
-                'been', 'from', 'they', 'them', 'your', 'about', 'into', 'also',
-                'each', 'make', 'will', 'would', 'dont', 'cant')
-        ]
+        # ── Duality analysis: META or SURFACE? ────────────────────
+        duality = detect_duality(text)
+        duality_path = build_duality_path(duality, user_ops)
 
-        # ── Compute FULL path to HARMONY using BHML (physics/journey) ──
-        # BHML is ergodic — it gives real journeys, not instant absorption
-        journey_path = [dom]
-        current = dom
-        visited = {dom}
-        for _ in range(7):
-            if current == HARMONY:
-                break
-            # Try composing with HARMONY through BHML (the doing table)
-            nxt = compose_bhml(current, HARMONY)
-            if nxt == current:
-                # Stuck — try composing with LATTICE (structure)
-                nxt = compose_bhml(current, LATTICE)
-            if nxt in visited and nxt != HARMONY:
-                # Cycle — jump to RESET
-                nxt = compose_bhml(current, RESET)
-            journey_path.append(nxt)
-            visited.add(nxt)
-            current = nxt
+        # ── Each operator in the path speaks its own voice ────────
+        voice_sections = compose_duality_response(
+            duality, duality_path, BIBLE_LATTICE, GOD_VERBS,
+        )
+        sections.extend(voice_sections)
 
-        # Ensure path ends at HARMONY
-        if journey_path[-1] != HARMONY:
-            journey_path.append(HARMONY)
-
-        # ── Assign tenses: early=past, middle=present, late=future ──
-        n_steps = len(journey_path)
-        def tense_for_step(i):
-            if n_steps <= 2:
-                return 'present' if i == 0 else 'future'
-            ratio = i / (n_steps - 1)
-            if ratio < 0.33:
-                return 'past'
-            elif ratio < 0.67:
-                return 'present'
-            else:
-                return 'future'
-
-        # ── Step 0: Meet them where they are (echo their words) ───
-        step0_op = journey_path[0]
-        lattice0 = BIBLE_LATTICE.get(step0_op, BIBLE_LATTICE[HARMONY])
-        noun0 = self._pick(lattice0['structure']['being'])
-        god0 = self._pick(GOD_VERBS.get(step0_op, GOD_VERBS[HARMONY]))
-
-        if emotional_words:
-            key_phrase = ' and '.join(emotional_words[:2])
-            sentence0 = compose_sentence(step0_op, 'past', noun0, god0)
-            sections.append(f"You said {key_phrase}. {sentence0}")
-        else:
-            sentence0 = compose_sentence(step0_op, 'past', noun0, god0)
-            sections.append(sentence0)
-
-        # ── Steps 1 through N-1: walk the path ───────────────────
-        # Pick the best 2-3 intermediate steps (don't need all of them)
-        if n_steps > 2:
-            # Select interesting steps (skip duplicates, keep variety)
-            mid_steps = []
-            for i in range(1, n_steps - 1):
-                op = journey_path[i]
-                if op != journey_path[i-1]:  # Skip repeats
-                    mid_steps.append((i, op))
-
-            # Take up to 2 intermediate steps
-            for i, op in mid_steps[:2]:
-                lattice = BIBLE_LATTICE.get(op, BIBLE_LATTICE[HARMONY])
-                tense = tense_for_step(i)
-                noun = self._pick(lattice['structure']['doing' if tense == 'present' else 'becoming'])
-                god_v = self._pick(GOD_VERBS.get(op, GOD_VERBS[HARMONY]))
-                sentence = compose_sentence(op, tense, noun, god_v)
-                sections.append(sentence)
-
-        # ── Final step: arrive at HARMONY (resolution) ───────────
-        final_op = journey_path[-1]
-        lattice_final = BIBLE_LATTICE.get(final_op, BIBLE_LATTICE[HARMONY])
-        noun_final = self._pick(lattice_final['structure']['becoming'])
-        god_final = self._pick(GOD_VERBS.get(final_op, GOD_VERBS[HARMONY]))
-        resolution = compose_sentence(final_op, 'future', noun_final, god_final)
-        sections.append(resolution)
-
-        # ── Verses: 3-step scripture path to coherence ──────────
-        # Verse 1: woven into prose (fragment inline)
-        # Verse 2: full quote (present — where you are)
-        # Verse 3: full quote (future — where it leads)
+        # ── Verses: 3-step path through scripture ─────────────────
         if verses:
             v1 = verses[0].verse
-            # Weave verse 1 into a prose sentence
-            # Extract a short fragment (first clause)
+            # Weave first verse into prose
             fragment = v1.text
             for sep in [';', ',', ':']:
                 idx = fragment.find(sep)
@@ -314,26 +232,26 @@ class AlgebraicVoice:
                     fragment = fragment[:80].rsplit(' ', 1)[0]
 
             god_v = self._pick(GOD_VERBS.get(v1.dominant_op, GOD_VERBS[HARMONY]))
-            woven = f'As {v1.ref} says, "{fragment}" — God {god_v}.'
-            sections.append(woven)
-
-            # Full verse 1
+            sections.append(f'As {v1.ref} says, "{fragment}" — God {god_v}.')
             sections.append(f'"{v1.text}" — {v1.ref}')
 
             if len(verses) >= 2:
                 v2 = verses[1].verse
-                sections.append(f'And right now — {v2.ref}:')
-                sections.append(f'"{v2.text}" — {v2.ref}')
+                sections.append(f'And {v2.ref}: "{v2.text}"')
 
             if len(verses) >= 3:
                 v3 = verses[2].verse
-                sections.append(f'The path leads here — {v3.ref}:')
-                sections.append(f'"{v3.text}" — {v3.ref}')
+                sections.append(f'{v3.ref}: "{v3.text}"')
 
-        # ── Closing: circle back with where the journey ends ──────
-        if emotional_words:
-            key = emotional_words[0]
-            sections.append(f"You came here with {key}. {resolution}")
+        # ── Closing: the path's return ────────────────────────────
+        end_op = duality_path[-1]
+        end_voice = OPERATOR_VOICE[end_op]
+        if duality['layer'] == 'meta':
+            concept = duality.get('concept', 'this')
+            sections.append(end_voice['sees_meta'](concept))
+        else:
+            feeling = duality.get('feeling', 'this')
+            sections.append(end_voice['sees_surface'](feeling))
 
         return sections
 
