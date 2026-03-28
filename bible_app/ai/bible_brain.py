@@ -106,6 +106,62 @@ class OlfactoryLayer:
         """Quantize 5D force to grid key for library lookup."""
         return tuple(int(f * resolution) for f in force_5d)
 
+    def compact(self):
+        """Resonance compaction: merge patterns that compose to HARMONY.
+
+        If two patterns' dominant operators compose to HARMONY in TSML
+        AND their centroids are within MASS_GAP (2/7) distance,
+        they are the SAME pattern seen from different angles.
+        Merge the weaker into the stronger.
+
+        The library converges toward its irreducible algebraic core.
+        """
+        from bible_app.algebra import compose, HARMONY, MASS_GAP, force_distance
+
+        keys = list(self.library.keys())
+        merged = 0
+
+        # Sort by temper (strongest first — they absorb the weak)
+        keys.sort(key=lambda k: self.library[k]['temper'], reverse=True)
+
+        absorbed = set()
+        for i, k1 in enumerate(keys):
+            if k1 in absorbed:
+                continue
+            e1 = self.library[k1]
+            for k2 in keys[i+1:]:
+                if k2 in absorbed:
+                    continue
+                e2 = self.library[k2]
+
+                # Do their dominant operators compose to HARMONY?
+                if compose(e1['dominant_op'], e2['dominant_op']) != HARMONY:
+                    continue
+
+                # Are their centroids within MASS_GAP?
+                dist = force_distance(e1['centroid'], e2['centroid'])
+                if dist > MASS_GAP:
+                    continue
+
+                # COMPACT: merge e2 into e1
+                e1['temper'] += e2['temper']
+                # EMA merge centroids
+                total = e1['temper']
+                w1 = (total - e2['temper']) / total
+                w2 = e2['temper'] / total
+                e1['centroid'] = tuple(
+                    w1 * c1 + w2 * c2
+                    for c1, c2 in zip(e1['centroid'], e2['centroid'])
+                )
+                absorbed.add(k2)
+                merged += 1
+
+        # Remove absorbed entries
+        for k in absorbed:
+            del self.library[k]
+
+        return merged
+
     @property
     def library_size(self):
         return len(self.library)
@@ -440,9 +496,14 @@ class BibleBrain:
 
         self._total_interactions += 1
 
-        # Auto-save periodically
+        # Auto-save and compact periodically
         if self._total_interactions % 10 == 0:
             self._save()
+        if self._total_interactions % 100 == 0:
+            # Resonance compaction: merge patterns that compose to HARMONY
+            merged = self.olfactory.compact()
+            if merged > 0:
+                pass  # Library got denser, not bigger
 
         return {
             # Olfactory
@@ -607,6 +668,12 @@ class BibleBrain:
         # HER: replay any misses accumulated during study
         replayed = self.her.replay_misses(self.olfactory)
         print(f"  HER replayed {replayed} misses")
+
+        # Resonance compaction: merge patterns that compose to HARMONY
+        pre_compact = self.olfactory.library_size
+        merged = self.olfactory.compact()
+        post_compact = self.olfactory.library_size
+        print(f"  Compaction: {pre_compact} -> {post_compact} patterns ({merged} merged)")
 
         self._total_interactions += total * passes
         self._save()
