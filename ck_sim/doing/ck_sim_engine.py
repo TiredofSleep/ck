@@ -1873,13 +1873,19 @@ class CKSimEngine:
             # ── Sensorium ──
             self.sensorium.tick(self.tick_count)
 
+            # ── GPU doing tick (before power sense — feeds GPU stats) ──
+            if self.gpu is not None:
+                self.gpu.tick()
+                # Inject real GPU stats into sensors for power sense
+                _gs = self.gpu.stats if hasattr(self.gpu, 'stats') else {}
+                if _gs:
+                    sensors['gpu_util_pct'] = _gs.get('gpu_util_pct', 0.0)
+                    sensors['gpu_power_w']  = _gs.get('gpu_power_w', 0.0)
+                    sensors['gpu_temp_c']   = _gs.get('gpu_temp_c', 0.0)
+
             # ── Power Sense ──
             self.power_sense.tick(sensors, dt=0.02)
             self.reality_transform.feed_scalar("power", self.power_sense.smooth_power)
-
-            # ── GPU doing tick ──
-            if self.gpu is not None:
-                self.gpu.tick()
 
             # ── Narrative stream ──
             if self.nce.has_state:

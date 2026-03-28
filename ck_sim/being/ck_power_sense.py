@@ -109,20 +109,25 @@ class PowerSense:
             'battery_i':     float (amps, positive = draw)
             'cpu_pct':       float (0-100)
             'thermal_c':     float (Celsius)
+            'gpu_power_w':   float (GPU real draw from NVML, watts)
+            'gpu_util_pct':  float (0-100, GPU utilization)
+            'gpu_temp_c':    float (GPU temperature, Celsius)
         """
         # ── Compute instantaneous power ──
         if self._has_battery and 'battery_v' in sensors and 'battery_i' in sensors:
             # Real hardware: P = V * I
             p_raw = sensors['battery_v'] * sensors['battery_i']
         elif 'cpu_pct' in sensors:
-            # Sim with CPU info: P ~ cpu% * TDP
+            # Sim with CPU info: CPU P ~ cpu% * TDP
             p_raw = (sensors['cpu_pct'] / 100.0) * self._tdp_w
         else:
             # Sim fallback: estimate from tick timing
             # A 50Hz tick that takes 5ms ~ 25% CPU
             p_raw = 0.25 * self._tdp_w
 
-        p_raw = max(0.0, p_raw)
+        # Add GPU power draw (real NVML reading when available)
+        gpu_p = sensors.get('gpu_power_w', 0.0)
+        p_raw = max(0.0, p_raw + gpu_p)
 
         # ── Smooth (EMA) ──
         self._p_smooth += self._alpha * (p_raw - self._p_smooth)
@@ -135,12 +140,15 @@ class PowerSense:
         # ── Battery ──
         battery = sensors.get('battery_pct', 1.0)
 
-        # ── Thermal ──
+        # ── Thermal (GPU hottest) ──
+        gpu_temp = sensors.get('gpu_temp_c', 0.0)
         if 'thermal_c' in sensors:
-            self._thermal = sensors['thermal_c']
+            self._thermal = max(sensors['thermal_c'], gpu_temp)
+        elif gpu_temp > 0:
+            self._thermal = gpu_temp
         else:
             # Simple first-order model: T rises with power, decays to ambient
-            heat_in = self._p_smooth / self._tdp_w * 50.0  # scale
+            heat_in = self._p_smooth / max(self._tdp_w, 1.0) * 50.0  # scale
             self._thermal += self._thermal_tau * (
                 self._thermal_ambient + heat_in - self._thermal)
 
