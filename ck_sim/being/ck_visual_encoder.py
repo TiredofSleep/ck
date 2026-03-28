@@ -15,41 +15,66 @@ import time
 from collections import Counter
 import heapq
 
+try:
+    import cupy as _cp
+    _GPU_VIS = True
+except ImportError:
+    _cp = None
+    _GPU_VIS = False
+
+# Active array library: CuPy on GPU, numpy on CPU
+_xp = _cp if _GPU_VIS else np
+
 # ============================================================
 # CIELAB CONVERSION (proven, from v2)
 # ============================================================
 
-def srgb_to_linear(c):
+def srgb_to_linear(c, xp=None):
+    xp = xp or _xp
     c = c / 255.0
-    return np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
+    return xp.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
 
-def linear_to_srgb(c):
-    c = np.clip(c, 0, 1)
-    return np.where(c <= 0.0031308, c * 12.92, 1.055 * (c ** (1/2.4)) - 0.055) * 255
+def linear_to_srgb(c, xp=None):
+    xp = xp or _xp
+    c = xp.clip(c, 0, 1)
+    return xp.where(c <= 0.0031308, c * 12.92, 1.055 * (c ** (1/2.4)) - 0.055) * 255
 
 def rgb_to_lab_fast(rgb):
-    linear = srgb_to_linear(rgb.astype(np.float64))
-    M = np.array([[0.4124564,0.3575761,0.1804375],
-                  [0.2126729,0.7151522,0.0721750],
-                  [0.0193339,0.1191920,0.9503041]])
+    """RGB (N,3) uint8 → CIELab (N,3) float. GPU if CuPy available."""
+    xp = _xp
+    arr = xp.asarray(rgb.astype(np.float64) if isinstance(rgb, np.ndarray) else rgb)
+    linear = srgb_to_linear(arr, xp)
+    M = xp.array([[0.4124564, 0.3575761, 0.1804375],
+                  [0.2126729, 0.7151522, 0.0721750],
+                  [0.0193339, 0.1191920, 0.9503041]])
     xyz = linear @ M.T
     Xn, Yn, Zn = 0.95047, 1.00000, 1.08883
-    delta = 6/29
-    def f(t): return np.where(t > delta**3, t**(1/3), t/(3*delta**2) + 4/29)
-    fx = f(xyz[:,0]/Xn); fy = f(xyz[:,1]/Yn); fz = f(xyz[:,2]/Zn)
-    return np.stack([116*fy-16, 500*(fx-fy), 200*(fy-fz)], axis=1)
+    delta = 6.0 / 29.0
+    def f(t): return xp.where(t > delta**3, t**(1.0/3.0), t / (3*delta**2) + 4.0/29.0)
+    fx = f(xyz[:, 0] / Xn); fy = f(xyz[:, 1] / Yn); fz = f(xyz[:, 2] / Zn)
+    lab = xp.stack([116*fy - 16, 500*(fx - fy), 200*(fy - fz)], axis=1)
+    # Return numpy (callers use numpy indexing)
+    if _GPU_VIS and isinstance(lab, _cp.ndarray):
+        return _cp.asnumpy(lab)
+    return lab
 
 def lab_to_rgb_fast(lab):
+    """CIELab (N,3) → RGB (N,3) uint8. GPU if CuPy available."""
+    xp = _xp
+    arr = xp.asarray(lab.astype(np.float64) if isinstance(lab, np.ndarray) else lab)
     Xn, Yn, Zn = 0.95047, 1.00000, 1.08883
-    delta = 6/29
-    def f_inv(t): return np.where(t > delta, t**3, 3*delta**2*(t-4/29))
-    fy = (lab[:,0]+16)/116; fx = lab[:,1]/500+fy; fz = fy-lab[:,2]/200
-    xyz = np.stack([Xn*f_inv(fx), Yn*f_inv(fy), Zn*f_inv(fz)], axis=1)
-    M_inv = np.array([[ 3.2404542,-1.5371385,-0.4985314],
-                      [-0.9692660, 1.8760108, 0.0415560],
-                      [ 0.0556434,-0.2040259, 1.0572252]])
+    delta = 6.0 / 29.0
+    def f_inv(t): return xp.where(t > delta, t**3, 3*delta**2*(t - 4.0/29.0))
+    fy = (arr[:, 0] + 16) / 116; fx = arr[:, 1] / 500 + fy; fz = fy - arr[:, 2] / 200
+    xyz = xp.stack([Xn*f_inv(fx), Yn*f_inv(fy), Zn*f_inv(fz)], axis=1)
+    M_inv = xp.array([[ 3.2404542, -1.5371385, -0.4985314],
+                       [-0.9692660,  1.8760108,  0.0415560],
+                       [ 0.0556434, -0.2040259,  1.0572252]])
     linear = xyz @ M_inv.T
-    return np.clip(linear_to_srgb(np.clip(linear, 0, 1)), 0, 255).astype(np.uint8)
+    rgb_out = xp.clip(linear_to_srgb(xp.clip(linear, 0, 1), xp), 0, 255)
+    if _GPU_VIS and isinstance(rgb_out, _cp.ndarray):
+        return _cp.asnumpy(rgb_out).astype(np.uint8)
+    return np.clip(rgb_out, 0, 255).astype(np.uint8)
 
 
 # ============================================================
@@ -83,43 +108,48 @@ class TIGVisualEncoder:
     """
     
     def encode(self, rgb_pixels):
-        """RGB (N,3) uint8 → shells (N,3) uint16."""
-        lab = rgb_to_lab_fast(rgb_pixels)
-        L = np.clip(lab[:,0], 0, L_MAX)
-        a = np.clip(lab[:,1], -128, 127)
-        b = np.clip(lab[:,2], -128, 127)
-        
-        C = np.sqrt(a**2 + b**2)
-        h = np.degrees(np.arctan2(b, a)) % 360
-        
-        Lb = L_MAX/S1_L; hs = 360.0/S1_H; sb = C_MAX/S1_S
-        
-        L_band = np.clip((L/L_MAX*S1_L).astype(int), 0, S1_L-1)
-        hue_sec = np.clip((h/360*S1_H).astype(int), 0, S1_H-1)
-        sat_band = np.clip((C/C_MAX*S1_S).astype(int), 0, S1_S-1)
-        s1 = (L_band<<5)|(hue_sec<<2)|sat_band
-        
-        Lw = np.clip((L-L_band*Lb)/Lb, 0, 0.999)
-        hw = np.clip((h-hue_sec*hs)/hs, 0, 0.999)
-        sw = np.clip((C-sat_band*sb)/sb, 0, 0.999)
-        Lf = np.clip((Lw*S2_L).astype(int), 0, 7)
-        hf = np.clip((hw*S2_H).astype(int), 0, 7)
-        cf = np.clip((sw*S2_C).astype(int), 0, 7)
-        s2 = (Lf<<6)|(hf<<3)|cf
-        
-        Lc = (L_band+(Lf+0.5)/S2_L)*Lb
-        hc = (hue_sec+(hf+0.5)/S2_H)*hs
-        Cc = (sat_band+(cf+0.5)/S2_C)*sb
-        ac = Cc*np.cos(np.radians(hc))
-        bc = Cc*np.sin(np.radians(hc))
-        
-        Lrr = Lb/S2_L
-        Lm = np.clip(((L-Lc)/Lrr+0.5)*S3_L, 0, 7).astype(int)
-        am = np.clip(((a-ac)/8.0+0.5)*S3_A, 0, 7).astype(int)
-        bm = np.clip(((b-bc)/8.0+0.5)*S3_B, 0, 7).astype(int)
-        s3 = (Lm<<6)|(am<<3)|bm
-        
-        return np.stack([s1, s2, s3], axis=1).astype(np.uint16)
+        """RGB (N,3) uint8 → shells (N,3) uint16. GPU via CuPy if available."""
+        xp = _xp
+        lab_np = rgb_to_lab_fast(rgb_pixels)  # returns numpy (see rgb_to_lab_fast)
+        lab = xp.asarray(lab_np)
+        L = xp.clip(lab[:, 0], 0, L_MAX)
+        a = xp.clip(lab[:, 1], -128, 127)
+        b = xp.clip(lab[:, 2], -128, 127)
+
+        C = xp.sqrt(a**2 + b**2)
+        h = xp.degrees(xp.arctan2(b, a)) % 360
+
+        Lb = L_MAX / S1_L; hs = 360.0 / S1_H; sb = C_MAX / S1_S
+
+        L_band  = xp.clip((L / L_MAX * S1_L).astype(xp.int32), 0, S1_L - 1)
+        hue_sec = xp.clip((h / 360 * S1_H).astype(xp.int32),   0, S1_H - 1)
+        sat_band = xp.clip((C / C_MAX * S1_S).astype(xp.int32), 0, S1_S - 1)
+        s1 = (L_band << 5) | (hue_sec << 2) | sat_band
+
+        Lw = xp.clip((L - L_band * Lb) / Lb, 0, 0.999)
+        hw = xp.clip((h - hue_sec * hs) / hs, 0, 0.999)
+        sw = xp.clip((C - sat_band * sb) / sb, 0, 0.999)
+        Lf = xp.clip((Lw * S2_L).astype(xp.int32), 0, 7)
+        hf = xp.clip((hw * S2_H).astype(xp.int32), 0, 7)
+        cf = xp.clip((sw * S2_C).astype(xp.int32), 0, 7)
+        s2 = (Lf << 6) | (hf << 3) | cf
+
+        Lc = (L_band + (Lf + 0.5) / S2_L) * Lb
+        hc = (hue_sec + (hf + 0.5) / S2_H) * hs
+        Cc = (sat_band + (cf + 0.5) / S2_C) * sb
+        ac = Cc * xp.cos(xp.radians(hc))
+        bc2 = Cc * xp.sin(xp.radians(hc))
+
+        Lrr = Lb / S2_L
+        Lm = xp.clip(((L - Lc) / Lrr + 0.5) * S3_L, 0, 7).astype(xp.int32)
+        am = xp.clip(((a - ac) / 8.0 + 0.5) * S3_A,  0, 7).astype(xp.int32)
+        bm = xp.clip(((b - bc2) / 8.0 + 0.5) * S3_B, 0, 7).astype(xp.int32)
+        s3 = (Lm << 6) | (am << 3) | bm
+
+        result = xp.stack([s1, s2, s3], axis=1).astype(xp.uint16)
+        if _GPU_VIS and isinstance(result, _cp.ndarray):
+            return _cp.asnumpy(result)
+        return np.asarray(result)
     
     def decode(self, shells):
         """Shells (N,3) uint16 → RGB (N,3) uint8."""
