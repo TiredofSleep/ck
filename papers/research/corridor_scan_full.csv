@@ -1,0 +1,11 @@
+t0,sigma,lambda,corridor,ratio,pass,dist,genuine
+8.0,0.84,0.68,BAL,1.339,True,6.135,True
+10.0,0.84,0.68,BAL,1.562,True,4.135,True
+12.0,0.84,0.68,BAL,1.252,True,2.135,True
+16.0,0.84,0.68,BAL,1.479,True,1.865,False
+18.0,0.84,0.68,BAL,2.197,True,3.022,True
+28.0,0.84,0.68,BAL,2.511,True,2.425,True
+36.0,0.84,0.68,BAL,2.33,True,1.586,False
+46.0,0.84,0.68,BAL,2.98,True,2.005,True
+74.0,0.84,0.68,BAL,2.859,True,1.705,False
+126.0,0.84,0.68,BAL,3.486,True,1.517,False
