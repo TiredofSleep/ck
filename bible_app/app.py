@@ -29,6 +29,7 @@ from bible_app.algebra import (
 )
 from bible_app.voice import classify_intent, BibleVoice
 from bible_app.voice.pathfinder import build_journey_prose
+from bible_app.voice.algebraic_voice import AlgebraicVoice
 from bible_app.bible import BibleIndex
 from bible_app.ai.learner import VerseLearner
 from bible_app.ai.polish import polish_response, is_available as ai_available, set_api_key
@@ -45,6 +46,7 @@ STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 # ── Initialize Bible + Voice + Learner ────────────────────────────
 bible = BibleIndex()
 voice = BibleVoice()
+algebra_voice = AlgebraicVoice()
 learner = VerseLearner()
 people = PeopleMemory()
 study = BibleStudyNet()
@@ -212,9 +214,16 @@ def chat():
         scripture_phrases=scripture_phrases,
     )
 
-    # Enrich with journey prose when no AI available
-    if not ai_available():
-        response_text = _build_deep_prose(journey, intent, corridor_info, verses)
+    # Algebraic voice: the math composes the prose
+    algebra_voice.seed(hash(text) & 0xFFFFFFFF)
+    algebra_voice._user_text = text  # Pass actual words for reflection
+    response_text = algebra_voice.speak(
+        user_ops=user_ops,
+        corridor=corridor_info['corridor'],
+        intent=intent,
+        journey=journey,
+        verses=verses,
+    )
 
     # ── AI Polish (optional, when available) ──────────────────────
     ai_polished = False
