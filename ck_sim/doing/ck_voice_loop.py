@@ -145,6 +145,24 @@ class VoiceLoopResult:
     tokens_measured: int = 0
     early_stopped: bool = False
     soul_resonance: float = 0.0
+    # WP31: Corridor label — which λ-corridor this response came from.
+    # Pre-leak (crystal) → BRT (Ollama loop) → CHA (fractal/force) →
+    # BAL (composer) → COL (CAEL grammar) → CTR (babble).
+    # Determined by composition level, not post-hoc assessment.
+    corridor: str = 'BRT'
+
+
+# Corridor lookup by voice source (WP31 §5)
+_SOURCE_TO_CORRIDOR = {
+    'crystal':      'Pre-leak',   # λ≈0.00: verified, always safe
+    'ck_loop':      'BRT',        # λ≈0.30: Ollama loop, BREATH speech
+    'ck_force':     'CHA',        # λ≈0.60: force geometry responds
+    'ck_fractal':   'CHA',        # λ≈0.60: 15D triadic composition
+    'ck_composer':  'BAL',        # λ≈0.80: SVO sentence composer
+    'ck_cael':      'COL',        # λ≈0.90: CAEL grammar
+    'ck_babble':    'CTR',        # λ≈1.00: raw operator→word
+    'ck':           'CTR',        # absolute fallback
+}
 
 
 # ── Crystal Store (simplified from tig_engine_v4) ──
@@ -286,6 +304,7 @@ class VoiceLoop:
                     result_ops=score.ops,
                     alignment=1.0,
                     band=self._band_name(score.coherence),
+                    corridor='Pre-leak',
                 )
             else:
                 crystal.miss(tick)
@@ -408,6 +427,8 @@ class VoiceLoop:
 
         # ── STEP 4: RETURN BEST or CK'S OWN VOICE ──
         if best_result and best_result.coherence >= 0.4:
+            best_result.corridor = _SOURCE_TO_CORRIDOR.get(
+                best_result.source, 'BRT')
             return best_result
 
         fallback = self._fallback_ck_voice(target, user_text=user_text)
@@ -424,6 +445,7 @@ class VoiceLoop:
                 fallback.result_ops or target.ops,
                 fallback.coherence, 0)
 
+        fallback.corridor = _SOURCE_TO_CORRIDOR.get(fallback.source, 'CTR')
         return fallback
 
     # ══════════════════════════════════════════════════════════

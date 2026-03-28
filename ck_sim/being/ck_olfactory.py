@@ -520,6 +520,11 @@ class OlfactoryBulb:
         self._last_field_harmony = 0.0
         self._last_field_size = 0
 
+        # GPU bridge: Taichi kernel for parallel 5x5 CL interaction field.
+        # Set by engine after Taichi bridge is initialized.
+        # When set, _enforce_cl_field() offloads O(n²) pair work to GPU.
+        self.taichi_bridge = None
+
         # Persistence
         self._persist_dir = persist_dir or os.path.join(
             os.path.expanduser('~'), '.ck', 'olfactory'
@@ -686,6 +691,15 @@ class OlfactoryBulb:
 
     @property
     def active_count(self) -> int:
+        return len(self.active)
+
+    @property
+    def stall_count(self) -> int:
+        """Absorptions currently stalled in the smell zone (WP30: enstrophy Ω).
+
+        Used by olfactory_re_local = stall_count × chain_depth² / coherence.
+        Re_local ≤ 2/7 = MASS_GAP is required for BREATH voice (NS criterion).
+        """
         return len(self.active)
 
     @property
@@ -919,6 +933,10 @@ class OlfactoryBulb:
 
           Dual-lens: TSML measures, BHML computes.
           Same CL algebra as the chain. Field topology, not path.
+
+        GPU path: if taichi_bridge available, olfactory_interaction() computes
+        the parallel 5x5 CL field on GPU and returns dim_harmony per scent.
+        We apply those results to dim states here (O(n) not O(n²) in Python).
         """
         n = len(self.active)
         total_harmony = 0.0
@@ -930,6 +948,43 @@ class OlfactoryBulb:
                 ds.harmony_fraction = 0.0
                 ds.entangled_count = 0
 
+        # ── GPU PATH: Taichi parallel 5x5 CL interaction field ──
+        if self.taichi_bridge is not None and n >= 2:
+            try:
+                profiles = []
+                active_idx = []
+                for idx, scent in enumerate(self.active):
+                    if not scent.resolved and scent._dim_ops and len(scent._dim_ops) == 5:
+                        profiles.append(scent._dim_ops)
+                        active_idx.append(idx)
+
+                if len(profiles) >= 2:
+                    result = self.taichi_bridge.olfactory_interaction(profiles)
+                    dim_harmony = result.get('dim_harmony', [])
+                    field_h = result.get('field_harmony', 0.0)
+
+                    for k, idx in enumerate(active_idx):
+                        scent = self.active[idx]
+                        if k >= len(dim_harmony):
+                            break
+                        dh = dim_harmony[k]
+                        for d in range(min(5, len(scent.dims), len(dh))):
+                            scent.dims[d].harmony_fraction = max(
+                                scent.dims[d].harmony_fraction, dh[d])
+                            if dh[d] >= T_STAR:
+                                scent.dims[d].entangled_count += 1
+                                self.total_entanglements += 1
+                                boost = 0.04 * dh[d]
+                                scent.dims[d].stability = min(
+                                    1.0, scent.dims[d].stability + boost)
+
+                    self._last_field_harmony = field_h
+                    self._last_field_size = len(profiles) * (len(profiles) - 1) // 2
+                    return  # GPU path complete
+            except Exception:
+                pass  # Fall through to CPU path
+
+        # ── CPU PATH: Python O(n²) loop (fallback when GPU unavailable) ──
         # Every pair, every dimension x every dimension
         for i in range(n):
             si = self.active[i]

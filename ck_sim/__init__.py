@@ -137,7 +137,7 @@ _CK_ALIAS_MAP = {
     'ck_sim.ck_sim_widgets':      'ck_sim.face.ck_sim_widgets',
     'ck_sim.ck_headless':         'ck_sim.face.ck_headless',
     'ck_sim.ck_sim_audio':        'ck_sim.face.ck_sim_audio',
-    'ck_sim.ck_sim_ears':         'ck_sim.face.ck_sim_ears',
+    'ck_sim.ck_sim_ears':         'ck_sim.being.ck_sim_ears',
     'ck_sim.ck_sim_led':          'ck_sim.face.ck_sim_led',
     'ck_sim.ck_sim_sd':           'ck_sim.face.ck_sim_sd',
     'ck_sim.ck_sim_uart':         'ck_sim.face.ck_sim_uart',

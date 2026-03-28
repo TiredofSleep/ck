@@ -751,6 +751,29 @@ class CKSimEngine:
             self.lattice_chain = None
             print(f"  [SIM] Lattice Chain: {e}")
 
+        # Taichi GPU chain walker — DOING on GPU, BEING on CPU.
+        # Parallel chain walks + resonance + grokking detection via JIT kernels.
+        # Bridge wraps the CPU engine; sync transfers experience tensor to Taichi field.
+        self.taichi_bridge = None
+        if self.lattice_chain is not None:
+            try:
+                from ck_sim.being.ck_taichi_chains import build_taichi_bridge
+                self.taichi_bridge = build_taichi_bridge(self.lattice_chain)
+                if self.taichi_bridge is not None:
+                    self.taichi_bridge.sync(force=True)
+                    print("  [SIM] Taichi GPU chain walker: ACTIVE (CUDA)")
+                else:
+                    print("  [SIM] Taichi GPU chain walker: Taichi not available")
+            except Exception as e:
+                self.taichi_bridge = None
+                print(f"  [SIM] Taichi GPU chain walker: {e}")
+
+        # Wire Taichi bridge into olfactory (GPU CL interaction field)
+        # _enforce_cl_field() uses taichi_bridge.olfactory_interaction()
+        # when available — parallel 5x5 matrices on GPU instead of Python loops.
+        if self.taichi_bridge is not None and self.olfactory is not None:
+            self.olfactory.taichi_bridge = self.taichi_bridge
+
         # Divine Memory -- episodic recall through lattice chain retrace.
         # Every experience compressed into an episode record: operator chain +
         # lattice walk path + 5D force centroid + tick + coherence.
@@ -2231,15 +2254,27 @@ class CKSimEngine:
                         pass
                 # Tick the smell zone
                 self.olfactory.tick(density=_density)
-                # Emit resolved scents → lattice chain
+                # Emit resolved scents → lattice chain (GPU parallel via Taichi)
                 _scent_ops = self.olfactory.emit_as_ops()
                 if _scent_ops and self.lattice_chain is not None:
-                    for _sops in _scent_ops:
-                        if _sops:
-                            try:
-                                self.lattice_chain.walk(_sops, learn=True)
-                            except Exception:
-                                pass
+                    _valid_ops = [s for s in _scent_ops if s]
+                    if _valid_ops and self.taichi_bridge is not None:
+                        try:
+                            self.taichi_bridge.maybe_sync()
+                            self.taichi_bridge.walk_parallel(_valid_ops, learn=True)
+                        except Exception:
+                            for _sops in _valid_ops:
+                                try:
+                                    self.lattice_chain.walk(_sops, learn=True)
+                                except Exception:
+                                    pass
+                    else:
+                        for _sops in _valid_ops:
+                            if _sops:
+                                try:
+                                    self.lattice_chain.walk(_sops, learn=True)
+                                except Exception:
+                                    pass
                 # Periodic saves (offset within 15000-tick window)
                 if self.tick_count % 15000 == 7500 and self.olfactory.library_size > 0:
                     try:
@@ -2532,6 +2567,32 @@ class CKSimEngine:
     @property
     def band_name(self) -> str:
         return BAND_NAMES[min(self.body.heartbeat.band, 2)]
+
+    @property
+    def voice_lambda(self) -> float:
+        """Mix_λ position: (stage/5) × coherence (WP29).
+
+        λ=0: pure TSML (measurement/flow). λ=1: pure BHML (physics/structure).
+        Threshold gates: BRT=0.30, CHA=0.60, BAL=0.80, COL=0.90, CTR=1.00.
+        """
+        stage = getattr(self.development, 'stage', 0)
+        return (stage / 5.0) * self.coherence
+
+    @property
+    def olfactory_re_local(self) -> float:
+        """Re_local = stall_count × chain_depth² / coherence (WP30).
+
+        BREATH voice is algebraically supportable iff Re_local ≤ 2/7.
+        If coherence ≈ 0, returns inf (undefined — BREATH not supportable).
+        """
+        olf = getattr(self, 'olfactory', None)
+        lc = getattr(self, 'lattice_chain', None)
+        coh = self.coherence
+        if coh < 1e-6:
+            return float('inf')
+        stall = getattr(olf, 'stall_count', 0) if olf else 0
+        depth = getattr(lc, 'mean_depth', 1.0) if lc else 1.0
+        return (stall * depth * depth) / coh
 
     @property
     def breath_phase(self) -> int:
@@ -3032,12 +3093,23 @@ class CKSimEngine:
             self.olfactory.tick(density=_o_density)
             for _sop_list in self.olfactory.emit_as_ops():
                 _scent_ops.extend(_sop_list)
-            # Feed to lattice chain (first real activation of chain!)
+            # Feed to lattice chain — GPU batch walk via Taichi if available
             if _scent_ops and self.lattice_chain is not None:
-                try:
-                    self.lattice_chain.walk(_scent_ops, learn=True)
-                except Exception:
-                    pass
+                if self.taichi_bridge is not None:
+                    try:
+                        self.taichi_bridge.maybe_sync()
+                        self.taichi_bridge.walk_parallel(
+                            [_scent_ops], learn=True)
+                    except Exception:
+                        try:
+                            self.lattice_chain.walk(_scent_ops, learn=True)
+                        except Exception:
+                            pass
+                else:
+                    try:
+                        self.lattice_chain.walk(_scent_ops, learn=True)
+                    except Exception:
+                        pass
 
         # ── Gustatory: taste raw text forces (no boundary filtering) ──
         # Smell and taste both go right in -- bypassing D2 pipeline filters.

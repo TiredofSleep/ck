@@ -617,6 +617,50 @@ class VisionCodec(SensorCodec):
         return [aperture, pressure, depth, binding, continuity]
 
 
+class AudioCodec(SensorCodec):
+    """Microphone frame statistics → D2 → Operator.
+
+    Maps pre-computed acoustic frame statistics to 5D force vector.
+    The raw reading contains normalized [0, 1] metrics extracted
+    from each audio frame (RMS, spectral centroid, ZCR, etc.).
+    This codec does NOT process raw audio — it consumes summary
+    statistics that an audio pipeline (EarsEngine) has computed.
+
+    Mapping to 5D force vector:
+      aperture   = spectral_spread (how wide/open the frequency band is)
+      pressure   = rms (amplitude = acoustic force)
+      depth      = spectral_centroid (dominant frequency / Nyquist)
+      binding    = 1 - zcr_normalized (tonal = bound; noise = unbound)
+      continuity = smoothness (frame-to-frame RMS stability)
+
+    Expected raw_reading keys:
+      rms:               float [0, 1] -- root-mean-square amplitude
+      spectral_centroid: float [0, 1] -- dominant frequency / Nyquist
+      spectral_spread:   float [0, 1] -- spectral bandwidth
+      zcr_normalized:    float [0, 1] -- zero-crossing rate (normalized)
+      smoothness:        float [0, 1] -- volume stability (1=stable, 0=abrupt)
+    """
+
+    def __init__(self):
+        super().__init__('audio', sample_rate_hz=50.0)  # 20ms frames at 50Hz
+        self._prev_rms = 0.0
+
+    def map_to_force_vector(self, raw: dict) -> List[float]:
+        rms               = raw.get('rms', 0.0)
+        spectral_centroid = raw.get('spectral_centroid', 0.5)
+        spectral_spread   = raw.get('spectral_spread', 0.3)
+        zcr_normalized    = raw.get('zcr_normalized', 0.5)
+        smoothness        = raw.get('smoothness', 0.5)
+
+        aperture   = max(0.0, min(spectral_spread, 1.0))
+        pressure   = max(0.0, min(rms, 1.0))
+        depth      = max(0.0, min(spectral_centroid, 1.0))
+        binding    = max(0.0, min(1.0 - zcr_normalized, 1.0))
+        continuity = max(0.0, min(smoothness, 1.0))
+
+        return [aperture, pressure, depth, binding, continuity]
+
+
 # ================================================================
 #  CODEC REGISTRY: Discover what sensors are available
 # ================================================================
@@ -629,6 +673,7 @@ CODEC_REGISTRY = {
     'battery': BatteryCodec,
     'temperature': TemperatureCodec,
     'vision': VisionCodec,
+    'audio': AudioCodec,
 }
 
 # Game codecs are registered lazily to avoid circular imports.
