@@ -307,7 +307,7 @@ def chat():
 
     # ── Build verse data for frontend ─────────────────────────────
     verse_data = []
-    for r in verses[:3]:
+    for r in verses[:5]:  # 5 verses = 5D force space
         v = r.verse
         verse_data.append({
             'ref': v.ref,

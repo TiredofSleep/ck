@@ -289,15 +289,20 @@
                     const data = await resp.json();
                     let html = '';
 
-                    // Cross-references
+                    // Full verse text first (keep reading)
+                    html += `<div class="verse-full-text">${data.text}</div>`;
+
+                    // Cross-references (clickable — each one expands further)
                     if (data.cross_references && data.cross_references.length > 0) {
                         html += '<div class="verse-crossrefs-label">Connected verses (by algebraic resonance):</div>';
-                        for (const cr of data.cross_references.slice(0, 3)) {
+                        for (const cr of data.cross_references.slice(0, 5)) {
                             const harmony = (cr.harmony_score * 100).toFixed(0);
-                            html += `<div class="verse-crossref">`;
+                            const crId = `cr-${cr.ref.replace(/[\s:]/g, '-')}`;
+                            html += `<div class="verse-crossref verse-clickable" data-ref="${cr.ref}" id="${crId}">`;
                             html += `<span class="verse-crossref-text">${cr.text}</span>`;
                             html += `<span class="verse-crossref-ref">${cr.ref}</span>`;
                             html += `<span class="verse-tag">harmony: ${harmony}%</span>`;
+                            html += `<div class="verse-deeper-nested" id="deeper-${crId}"></div>`;
                             html += `</div>`;
                         }
                     }
@@ -309,6 +314,46 @@
                     }
 
                     deeper.innerHTML = html || '<div class="verse-crossrefs-label">Exploring connections...</div>';
+
+                    // Make cross-refs clickable (recursive exploration)
+                    deeper.querySelectorAll('.verse-clickable').forEach(el => {
+                        el.addEventListener('click', async (e) => {
+                            e.stopPropagation(); // Don't collapse parent
+                            const crRef = el.dataset.ref;
+                            const nested = el.querySelector('.verse-deeper-nested');
+                            if (nested.dataset.loaded) {
+                                nested.classList.toggle('hidden');
+                                return;
+                            }
+                            nested.dataset.loaded = 'true';
+                            nested.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+                            try {
+                                const crResp = await fetch(`/api/verse/${encodeURIComponent(crRef)}`);
+                                if (crResp.ok) {
+                                    const crData = await crResp.json();
+                                    let crHtml = `<div class="verse-full-text">${crData.text}</div>`;
+                                    if (crData.cross_references && crData.cross_references.length > 0) {
+                                        crHtml += '<div class="verse-crossrefs-label">Goes deeper:</div>';
+                                        for (const cr2 of crData.cross_references.slice(0, 3)) {
+                                            const h2 = (cr2.harmony_score * 100).toFixed(0);
+                                            crHtml += `<div class="verse-crossref">`;
+                                            crHtml += `<span class="verse-crossref-text">${cr2.text}</span>`;
+                                            crHtml += `<span class="verse-crossref-ref">${cr2.ref} <span class="verse-tag">harmony: ${h2}%</span></span>`;
+                                            crHtml += `</div>`;
+                                        }
+                                    }
+                                    nested.innerHTML = crHtml;
+                                }
+                            } catch (err) { nested.innerHTML = ''; }
+                            // Signal engagement
+                            fetch(`/api/engage/${encodeURIComponent(crRef)}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ session_id: sessionId }),
+                            }).catch(() => {});
+                            scrollToBottom();
+                        });
+                    });
                 }
             } catch (e) {
                 deeper.innerHTML = '';

@@ -502,6 +502,32 @@ html, body {
     color: #7d52a0;
 }
 
+.verse-full-text {
+    font-family: var(--font-scripture);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.verse-clickable {
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.verse-clickable:hover {
+    border-color: var(--accent);
+}
+
+.verse-deeper-nested {
+    margin-top: 8px;
+    margin-left: 12px;
+    padding-left: 10px;
+    border-left: 2px solid var(--accent-light);
+}
+
 .hidden {
     display: none !important;
 }
