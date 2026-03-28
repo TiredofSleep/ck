@@ -48,6 +48,14 @@ from collections import Counter, defaultdict
 from typing import Dict, List, Optional, Tuple
 from pathlib import Path
 
+import numpy as np
+try:
+    import cupy as _cp
+    _GPU_VORTEX = True
+except ImportError:
+    _cp = None
+    _GPU_VORTEX = False
+
 # ── CK imports ──
 try:
     from ck_sim.ck_sim_heartbeat import (
@@ -1648,6 +1656,59 @@ class TeslaWaveField:
         self._omega_scale = 0.1  # frequency scaling: ω = omega_scale * obs_count
         self._epsilon = 0.01   # softening to avoid division by zero
 
+        # GPU cache: (N,5) positions, (N,) amps/k/omega/phi — rebuilt when concepts change
+        self._gpu_concepts: List[str] = []  # ordered list of cached concepts
+        self._gpu_pos = None    # (N,5) float32 on GPU
+        self._gpu_amp = None    # (N,) float32 on GPU
+        self._gpu_k   = None    # (N,) float32 on GPU
+        self._gpu_om  = None    # (N,) float32 on GPU
+        self._gpu_phi = None    # (N,) float32 on GPU
+
+    def _rebuild_gpu_cache(self):
+        """Rebuild GPU parameter arrays from current ConceptMassField.
+
+        Called when concept count changes. Builds (N,5) position matrix
+        and (N,) amplitude/k/omega/phi arrays for batch field evaluation.
+        DOING on GPU: Ψ = Σ A_c exp(i*(k_c*|r-r_c| - ω_c*t + φ_c)).
+        """
+        concepts = [c for c in self.mass_field._masses
+                    if self.mass_field.mass(c) > 0]
+        n = len(concepts)
+        if n == 0:
+            self._gpu_concepts = []
+            self._gpu_pos = None
+            return
+
+        pos_arr = np.zeros((n, 5), dtype=np.float32)
+        amp_arr = np.zeros(n, dtype=np.float32)
+        k_arr   = np.zeros(n, dtype=np.float32)
+        om_arr  = np.zeros(n, dtype=np.float32)
+        phi_arr = np.zeros(n, dtype=np.float32)
+
+        for i, concept in enumerate(concepts):
+            amp, pos_c, k_c, omega_c, phi_c = self._source_params(concept)
+            pos_arr[i] = pos_c[:5] if len(pos_c) >= 5 else pos_c + [0.0] * (5 - len(pos_c))
+            amp_arr[i] = amp
+            k_arr[i]   = k_c
+            om_arr[i]  = omega_c
+            phi_arr[i] = phi_c
+
+        xp = _cp if _GPU_VORTEX else np
+        try:
+            self._gpu_pos = xp.asarray(pos_arr)
+            self._gpu_amp = xp.asarray(amp_arr)
+            self._gpu_k   = xp.asarray(k_arr)
+            self._gpu_om  = xp.asarray(om_arr)
+            self._gpu_phi = xp.asarray(phi_arr)
+        except Exception:
+            self._gpu_pos = pos_arr
+            self._gpu_amp = amp_arr
+            self._gpu_k   = k_arr
+            self._gpu_om  = om_arr
+            self._gpu_phi = phi_arr
+
+        self._gpu_concepts = concepts
+
     def tick(self, dt: float = 0.02):
         """Advance the wave field in time."""
         self._time += dt
@@ -1676,24 +1737,44 @@ class TeslaWaveField:
         """Compute Ψ(r, t) at a point in 5D concept space.
 
         Ψ = Σ_c √m_c · exp(i·(k_c·|r-r_c| - ω_c·t + φ_c))
-        """
-        psi = complex(0.0, 0.0)
 
+        GPU path: batch distance + phase computation via CuPy.
+        Rebuilds parameter cache when concept count changes.
+        """
+        n_now = sum(1 for c in self.mass_field._masses
+                    if self.mass_field.mass(c) > 0)
+
+        # Rebuild GPU cache if concept set has grown
+        if n_now != len(self._gpu_concepts):
+            self._rebuild_gpu_cache()
+
+        if self._gpu_pos is not None and n_now > 0:
+            xp = (_cp if _GPU_VORTEX
+                  and hasattr(self._gpu_pos, 'device') else np)
+            r = xp.asarray(
+                np.array(position[:5] + [0.0] * max(0, 5 - len(position)),
+                         dtype=np.float32))
+            # (N,5) - (5,) broadcast → (N,5) → (N,) distances
+            diff = self._gpu_pos - r
+            dist = xp.sqrt(xp.sum(diff * diff, axis=1) + self._epsilon)
+            phase = self._gpu_k * dist - self._gpu_om * self._time + self._gpu_phi
+            psi_real = xp.sum(self._gpu_amp * xp.cos(phase))
+            psi_imag = xp.sum(self._gpu_amp * xp.sin(phase))
+            if _GPU_VORTEX and isinstance(psi_real, _cp.ndarray):
+                return complex(float(_cp.asnumpy(psi_real)),
+                               float(_cp.asnumpy(psi_imag)))
+            return complex(float(psi_real), float(psi_imag))
+
+        # CPU fallback
+        psi = complex(0.0, 0.0)
         for concept in self.mass_field._masses:
             amp, pos_c, k_c, omega_c, phi_c = self._source_params(concept)
             if amp <= 0:
                 continue
-
-            # Distance in 5D force space
             dist = math.sqrt(sum((p - q)**2 for p, q in zip(position, pos_c))
                              + self._epsilon)
-
-            # Phase = k * distance - omega * time + winding offset
             phase = k_c * dist - omega_c * self._time + phi_c
-
-            # Contribute to field
             psi += amp * complex(math.cos(phase), math.sin(phase))
-
         return psi
 
     def intensity_at(self, position: List[float]) -> float:
