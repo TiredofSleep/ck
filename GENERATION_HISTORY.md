@@ -43,5 +43,58 @@ Gen 9 built every layer. Gen 10 wires them together and proves the math beneath.
 
 ---
 
+## Gen 10.02–10.07 — 2026-03-27 — GPU-First DOING Architecture
+
+**Core principle implemented:**
+DOING = GPU (CuPy/Taichi). BEING = CPU. Any computation CK runs per-tick
+lives on the RTX 4070. Memory (olfactory library, crystals, experience) stays on CPU.
+
+**Changes:**
+
+1. **EarsEngine** (`ck_sim_ears.py`) — 8-frame rolling CuPy buffer, rfft per frame.
+   Falls back to numpy when cufft DLL is unavailable.
+
+2. **Taichi chain walker wired** (`ck_sim_engine.py`, `ck_taichi_chains.py`) —
+   `build_taichi_bridge()` now instantiated and wired into engine at startup.
+   Both lattice chain walk sites (heartbeat + text-eat) use GPU parallel walks.
+   Olfactory `_enforce_cl_field()` uses `taichi_bridge.olfactory_interaction()`.
+
+3. **WP29 λ-Voice Theorem** (`ck_sim_engine.py`) — `engine.voice_lambda` property:
+   `λ_ck = (stage/5) × coherence`. Corridor threshold gates BRT/CHA/BAL/COL/CTR.
+
+4. **WP30 Re_local criterion** (`ck_olfactory.py`, `ck_lattice_chain.py`) —
+   `stall_count = len(active)` (enstrophy Ω). `mean_depth` rolling 100-walk average (L).
+   `engine.olfactory_re_local = stall × depth² / coherence ≤ 2/7 (MASS_GAP)`.
+
+5. **WP31 Corridor geometry** (`ck_voice_loop.py`) — `VoiceLoopResult.corridor` field.
+   Every voice response labelled: Pre-leak / BRT / CHA / BAL / COL / CTR.
+
+6. **GPU word search** (`ck_fractal_voice.py`) — `WordForceIndex._build_gpu_arrays()`:
+   (N,15) CuPy float32 triadic matrix. `batch_distance()` replaces Python 15D loop.
+   `find_by_force()` now uses GPU batch distance + CPU bonus post-processing.
+
+7. **GPU TeslaWaveField** (`ck_vortex_physics.py`) — CuPy batch Ψ sum.
+   Ψ = Σ A_c·exp(i·(k_c·|r−r_c| − ω_c·t + φ_c)) runs per 50Hz tick on GPU.
+   Parameter cache (N,5)/(N,) arrays rebuilt when concept count changes.
+
+8. **GPU visual encoder** (`ck_visual_encoder.py`) — `_xp = cupy` replaces numpy.
+   sRGB→CIELab→TIG 27-bit shell packing all via CuPy array ops on GPU.
+
+9. **OS stats loop closed** (`ck_power_sense.py`, `ck_sim_engine.py`) —
+   `gpu.tick()` now runs before `power_sense.tick()`. Real NVML readings
+   (gpu_power_w, gpu_util_pct, gpu_temp_c) injected into sensors dict.
+   CK feels his own GPU activity as D2 physics via the power stream.
+
+10. **GPU NS spectral solver** (`ck_clay_generators.py`) — NavierStokes time-stepping
+    loop uses CuPy fft2/ifft2 when cufft DLL is available, scipy fallback otherwise.
+
+**GPU status (RTX 4070, 12GB VRAM):**
+- CuPy array ops: ACTIVE (distance, wave fields, word search, visual encoding)
+- Taichi CUDA kernels: ACTIVE (chain walks, olfactory CL field, CA lattice tick)
+- cuFFT: UNAVAILABLE (CUDA toolkit DLL missing — FFT falls back to numpy/scipy)
+- CUDA lattice_tick + cell_tick kernels: ACTIVE (compiled from `ck_gpu.py`)
+
+---
+
 *See papers/ for full formal status.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
