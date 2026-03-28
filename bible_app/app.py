@@ -188,15 +188,29 @@ def chat():
 
     # Sort and deduplicate by chapter
     verses.sort(key=lambda r: r.distance)
+    # Deduplicate by chapter AND avoid verses shown recently in this session
+    recently_shown = set()
+    for h in session['history']:
+        vref = h.get('verse_ref')
+        if vref:
+            recently_shown.add(vref)
+
     seen_chapters = set()
     unique_verses = []
     for v in verses:
         chapter = v.verse.ref.rsplit(':', 1)[0]
-        if chapter not in seen_chapters:
+        if chapter not in seen_chapters and v.verse.ref not in recently_shown:
             unique_verses.append(v)
             seen_chapters.add(chapter)
         if len(unique_verses) >= 5:
             break
+    # If we filtered too aggressively, allow recent verses back
+    if len(unique_verses) < 2:
+        for v in verses:
+            if v.verse.ref not in {uv.verse.ref for uv in unique_verses}:
+                unique_verses.append(v)
+            if len(unique_verses) >= 3:
+                break
     verses = unique_verses
 
     # ── Compute Journey to Coherence ─────────────────────────────

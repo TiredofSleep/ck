@@ -61,6 +61,38 @@ CONNECTIVES = {
 }
 
 
+    # ── What GOD does in each operator space ────────────────────────
+    # These are NOT the same as the lattice flow verbs.
+    # The lattice says what HAPPENS (falls, dies, empties).
+    # These say what GOD DOES in response (catches, resurrects, fills).
+GOD_VERBS = {
+    VOID:     ['fills', 'enters', 'speaks into the silence', 'meets you in the emptiness', 'is present even here'],
+    LATTICE:  ['builds', 'establishes', 'lays the foundation', 'holds firm', 'is faithful'],
+    COUNTER:  ['sees clearly', 'understands', 'knows', 'does not miss a thing', 'hears your question'],
+    PROGRESS: ['leads', 'goes ahead of you', 'opens the way', 'walks with you', 'makes a path'],
+    COLLAPSE: ['catches you', 'holds you', 'carries the weight', 'does not let go', 'is closest here'],
+    BALANCE:  ['steadies you', 'holds both sides', 'keeps you', 'brings peace', 'is your center'],
+    CHAOS:    ['is in the storm', 'speaks peace', 'is not shaken', 'moves powerfully', 'brings order'],
+    HARMONY:  ['loves you', 'is with you', 'makes whole', 'completes', 'brings you home'],
+    BREATH:   ['breathes life', 'is gentle here', 'whispers', 'moves softly', 'gives you room'],
+    RESET:    ['makes new', 'gives a fresh start', 'washes clean', 'opens a door', 'begins again'],
+}
+
+    # ── What happens to the PERSON in each operator space ─────────
+PERSON_VERBS = {
+    VOID:     ['feel empty', 'are in the dark', 'cannot see ahead', 'feel hollow'],
+    LATTICE:  ['stand on solid ground', 'have truth to hold', 'are grounded'],
+    COUNTER:  ['are asking questions', 'are measuring', 'are examining'],
+    PROGRESS: ['are moving forward', 'are growing', 'are on the way'],
+    COLLAPSE: ['are falling', 'are breaking', 'feel the weight', 'are in the valley'],
+    BALANCE:  ['are holding steady', 'are between two things', 'are waiting'],
+    CHAOS:    ['are in the storm', 'feel overwhelmed', 'cannot find solid ground'],
+    HARMONY:  ['are at peace', 'are home', 'are whole'],
+    BREATH:   ['are breathing', 'are present', 'are listening'],
+    RESET:    ['are starting over', 'are at a new beginning', 'are letting go'],
+}
+
+
 class AlgebraicVoice:
     """The math composes prose. No templates — operator sequences become sentences."""
 
@@ -128,9 +160,9 @@ class AlgebraicVoice:
         prose = [s for s in sections if not s.startswith('"') and '— ' not in s]
         verse_sections = [s for s in sections if s.startswith('"') or ('— ' in s and '"' in s)]
 
-        # Keep at most 3 best prose sections + all verse sections
-        if len(prose) > 3:
-            prose = prose[:3]
+        # Keep at most 4 prose sections (past + present + future + closing)
+        if len(prose) > 4:
+            prose = prose[:4]
 
         # Interleave: prose, prose, verse, prose, verse
         result = []
@@ -148,76 +180,113 @@ class AlgebraicVoice:
         return '\n\n'.join(result)
 
     def _raw_compose(self, dom, user_ops, path, verses):
-        """First pass: raw algebraic composition — responsive to the user's actual words."""
+        """Compose by reading the operator CHAIN as past → present → future.
+
+        Don't collapse to one operator. The chain IS the narrative:
+          PAST: first third of operators — where they were
+          PRESENT: middle third — where they are now
+          FUTURE: compose the chain toward HARMONY — where coherence leads
+        """
         sections = []
 
-        # ── Extract the user's emotional keywords for reflection ──
+        # ── Extract emotional keywords ────────────────────────────
         user_words = self._user_text.lower().split() if hasattr(self, '_user_text') else []
-        # Find which of their words carry emotional weight
-        emotional_words = []
-        for w in user_words:
-            clean = w.strip('.,;:!?\'\"')
-            if len(clean) >= 4 and clean not in ('that', 'this', 'with', 'have',
-                'just', 'need', 'know', 'what', 'does', 'feel', 'want', 'today',
-                'very', 'really', 'some', 'like', 'been', 'from', 'they', 'them',
-                'your', 'about', 'into', 'also', 'each', 'make', 'will', 'would'):
-                emotional_words.append(clean)
+        emotional_words = [
+            w.strip('.,;:!?\'\"') for w in user_words
+            if len(w.strip('.,;:!?\'\"')) >= 4 and w.strip('.,;:!?\'\"') not in (
+                'that', 'this', 'with', 'have', 'just', 'need', 'know', 'what',
+                'does', 'feel', 'want', 'today', 'very', 'really', 'some', 'like',
+                'been', 'from', 'they', 'them', 'your', 'about', 'into', 'also',
+                'each', 'make', 'will', 'would', 'dont', 'cant')
+        ]
 
-        # ── 1. Opening: ECHO their words back, then compose ───────
+        # ── Split operator chain into past / present / future ─────
+        if len(user_ops) >= 6:
+            third = len(user_ops) // 3
+            past_ops = user_ops[:third]
+            present_ops = user_ops[third:2*third]
+            future_seed = user_ops[2*third:]
+        elif len(user_ops) >= 3:
+            past_ops = user_ops[:1]
+            present_ops = user_ops[1:-1]
+            future_seed = user_ops[-1:]
+        else:
+            past_ops = user_ops
+            present_ops = user_ops
+            future_seed = user_ops
+
+        past_dom = dominant_op(past_ops) if past_ops else dom
+        present_dom = dominant_op(present_ops) if present_ops else dom
+        future_dom = dominant_op(future_seed) if future_seed else dom
+
+        # Compose the future chain toward HARMONY
+        future_steps = [future_dom]
+        current = future_dom
+        for _ in range(3):
+            nxt = compose(current, HARMONY)
+            future_steps.append(nxt)
+            if nxt == HARMONY:
+                break
+            current = nxt
+        future_resolution = future_steps[-1]
+
+        # ── 1. PAST: where you were / what brought you here ───────
+        past_noun = self._pick(BIBLE_LATTICE.get(past_dom, BIBLE_LATTICE[HARMONY])['structure']['being'])
+        past_person = self._pick(PERSON_VERBS.get(past_dom, PERSON_VERBS[HARMONY]))
+
         if emotional_words:
-            # Reflect their specific words through the algebra
-            echo = self._compose_echo(emotional_words, dom)
-            sections.append(echo)
+            key_phrase = ' and '.join(emotional_words[:2])
+            sections.append(
+                f"You said {key_phrase}. That came from a place of {past_noun} — you {past_person}."
+            )
         else:
-            opening = self._compose_sentence_from_op(dom, 'being')
-            sections.append(opening)
+            sections.append(
+                f"You {past_person}. There is {past_noun} behind what you shared."
+            )
 
-        # ── 2. Reflection: what the operator SEQUENCE reveals ─────
-        # Use the FULL sequence, not just dominant — each trigram tells a story
-        if len(user_ops) >= 3:
-            # Pick a meaningful trigram from their operators
-            trigram = self._find_meaningful_trigram(user_ops)
-            reflection = self._compose_trigram(trigram)
-            sections.append(reflection)
+        # ── 2. PRESENT: where you are right now ──────────────────
+        present_noun = self._pick(BIBLE_LATTICE.get(present_dom, BIBLE_LATTICE[HARMONY])['structure']['doing'])
+        present_god = self._pick(GOD_VERBS.get(present_dom, GOD_VERBS[HARMONY]))
+
+        sections.append(
+            f"Right now, this is a place of {present_noun}. And God {present_god}."
+        )
+
+        # ── 3. FUTURE: where coherence leads ─────────────────────
+        future_noun = self._pick(BIBLE_LATTICE.get(future_resolution, BIBLE_LATTICE[HARMONY])['structure']['becoming'])
+        future_god = self._pick(GOD_VERBS.get(future_resolution, GOD_VERBS[HARMONY]))
+        steps = len(future_steps) - 1
+
+        if steps <= 1:
+            sections.append(
+                f"From here to {future_noun} — one step. God {future_god}."
+            )
         else:
-            op_counts = [0] * NUM_OPS
-            for o in user_ops:
-                op_counts[o % NUM_OPS] += 1
-            top_ops = sorted(range(NUM_OPS), key=lambda i: op_counts[i], reverse=True)[:3]
-            if len(top_ops) >= 2:
-                reflection = self._compose_bridge(top_ops[0], top_ops[1])
-                sections.append(reflection)
+            # Name the intermediate step
+            mid_op = future_steps[1] if len(future_steps) > 1 else HARMONY
+            mid_noun = self._pick(BIBLE_LATTICE.get(mid_op, BIBLE_LATTICE[HARMONY])['structure']['doing'])
+            sections.append(
+                f"The path goes through {mid_noun} toward {future_noun}. God {future_god} the whole way."
+            )
 
-        # ── 3. Journey: the path from here to coherence ───────────
-        if len(path) >= 2:
-            from_op_name, _ = path[0]
-            to_op_name, _ = path[-1]
-            from_op = OP_NAMES.index(from_op_name) if from_op_name in OP_NAMES else dom
-            to_op = OP_NAMES.index(to_op_name) if to_op_name in OP_NAMES else HARMONY
-            transition = self._compose_transition(from_op, to_op)
-            sections.append(transition)
-
-        # ── 4. Verse integration ──────────────────────────────────
+        # ── 4. Verse: scripture meets this moment ─────────────────
         if verses:
             v = verses[0].verse
-            verse_op = v.dominant_op
-            meeting = self._compose_meeting(dom, verse_op, v.ref)
-            sections.append(meeting)
+            sections.append(f"Here is what God says. {v.ref}:")
             sections.append(f'"{v.text}" — {v.ref}')
 
             if len(verses) >= 2:
                 v2 = verses[1].verse
-                bridge_op = compose(verse_op, v2.dominant_op)
-                bridge_word = self._pick(CONNECTIVES.get(bridge_op, ['and']))
-                sections.append(f'{bridge_word.capitalize()} {v2.ref} says: "{v2.text}"')
+                god_verb2 = self._pick(GOD_VERBS.get(compose(v.dominant_op, v2.dominant_op), GOD_VERBS[HARMONY]))
+                sections.append(f'And {v2.ref} adds: "{v2.text}"')
 
         # ── 5. Closing: circle back to their words ────────────────
-        resolution_op = compose(dom, HARMONY)
         if emotional_words:
-            closing = self._compose_closing_echo(emotional_words, resolution_op)
-        else:
-            closing = self._compose_sentence_from_op(resolution_op, 'becoming')
-        sections.append(closing)
+            closing_god = self._pick(GOD_VERBS.get(future_resolution, GOD_VERBS[HARMONY]))
+            key = emotional_words[0]
+            sections.append(
+                f"You came here with {key}. God {closing_god}. {future_noun.capitalize()} is where this goes."
+            )
 
         return sections
 
@@ -262,15 +331,15 @@ class AlgebraicVoice:
         """Close by circling back to their words with the resolution."""
         lattice = BIBLE_LATTICE.get(resolution_op, BIBLE_LATTICE[HARMONY])
         becoming_word = self._pick(lattice['structure']['becoming'])
-        flow_word = self._pick(lattice['flow']['becoming'])
+        god_verb = self._pick(GOD_VERBS.get(resolution_op, GOD_VERBS[HARMONY]))
 
         key_word = emotional_words[0]
 
         patterns = [
-            f"The {key_word} you brought here — it leads to {becoming_word}. God {flow_word}.",
-            f"From {key_word} to {becoming_word}. That is the shape of this.",
-            f"Your {key_word} is not the end. {becoming_word.capitalize()} is where this goes. God {flow_word}.",
-            f"Hold onto this: the {key_word} opens into {becoming_word}.",
+            f"What you brought here — the {key_word} — it does not end here. God {god_verb}.",
+            f"This {key_word} is not the final word. {becoming_word.capitalize()} is. God {god_verb}.",
+            f"You came here carrying {key_word}. God {god_verb}, and {becoming_word} is ahead.",
+            f"The {key_word} brought you here. But {becoming_word} is where God is taking you.",
         ]
         return self._pick(patterns)
 
@@ -300,116 +369,61 @@ class AlgebraicVoice:
         being_op, doing_op, becoming_op = trigram
 
         lattice_b = BIBLE_LATTICE.get(being_op, BIBLE_LATTICE[HARMONY])
-        lattice_d = BIBLE_LATTICE.get(doing_op, BIBLE_LATTICE[HARMONY])
         lattice_bc = BIBLE_LATTICE.get(becoming_op, BIBLE_LATTICE[HARMONY])
 
         subject = self._pick(lattice_b['structure']['being'])
-        verb = self._pick(lattice_d['flow']['doing'])
-        obj = self._pick(lattice_bc['structure']['becoming'])
-
-        # What does CL say happens when Being meets Doing?
-        result = compose(being_op, doing_op)
-        connective = self._pick(CONNECTIVES.get(result, ['and']))
+        god_verb = self._pick(GOD_VERBS.get(doing_op, GOD_VERBS[HARMONY]))
+        dest = self._pick(lattice_bc['structure']['becoming'])
 
         patterns = [
-            f"The {subject} in your words {verb} {connective} {obj}.",
-            f"What you carry — {subject} — {verb}. And {connective} comes {obj}.",
-            f"I hear {subject}. It {verb}. {connective.capitalize()}, {obj}.",
-            f"There is {subject} that {verb}, and it moves {connective} {obj}.",
+            f"There is {subject} in your words. God {god_verb}. This leads toward {dest}.",
+            f"You carry {subject}. God {god_verb}, and {dest} is where this goes.",
+            f"The {subject} in what you shared — God {god_verb}. {dest.capitalize()} is forming.",
         ]
         return self._pick(patterns)
 
     def _recompose(self, original, sentence_ops, bridge_op, user_dom):
-        """Recompose a rough sentence using its own D2 reading.
-
-        Uses three operator lattices to pick S-V-O, with varied patterns
-        that don't repeat the same structure.
-        """
+        """Recompose a rough sentence. God does GOD things, person does PERSON things."""
         sent_dom = dominant_op(sentence_ops)
-        lattice_sent = BIBLE_LATTICE.get(sent_dom, BIBLE_LATTICE[HARMONY])
-        lattice_bridge = BIBLE_LATTICE.get(bridge_op, BIBLE_LATTICE[HARMONY])
         lattice_user = BIBLE_LATTICE.get(user_dom, BIBLE_LATTICE[HARMONY])
+        lattice_dest = BIBLE_LATTICE.get(sent_dom, BIBLE_LATTICE[HARMONY])
 
         noun = self._pick(lattice_user['structure']['being'])
-        verb = self._pick(lattice_bridge['flow']['doing'])
-        dest = self._pick(lattice_sent['structure']['becoming'])
-        flow = self._pick(lattice_bridge['flow']['being'])
+        dest = self._pick(lattice_dest['structure']['becoming'])
+        god_verb = self._pick(GOD_VERBS.get(bridge_op, GOD_VERBS[HARMONY]))
+        person_verb = self._pick(PERSON_VERBS.get(user_dom, PERSON_VERBS[HARMONY]))
 
-        # Varied patterns — each structurally different
         patterns = [
-            f"God {verb}. From {noun} toward {dest}.",
-            f"There is {noun} here, and God {flow} — leading to {dest}.",
-            f"Even now, God {verb}. {dest.capitalize()} is taking shape.",
-            f"What feels like {noun} is becoming {dest}. God {flow}.",
-            f"The {noun} does not stay. God {verb}, and {dest} comes.",
-            f"Out of {noun} God {verb}. This is the road to {dest}.",
+            f"You {person_verb}. God {god_verb}. This leads to {dest}.",
+            f"The {noun} you carry is not the end. God {god_verb}, and {dest} comes.",
+            f"Even now — you {person_verb}, but God {god_verb}. {dest.capitalize()} is ahead.",
+            f"What feels like {noun} is becoming {dest}. God {god_verb}.",
+            f"From {noun} toward {dest}. God {god_verb} the whole way.",
         ]
         return self._pick(patterns)
 
     def _compose_sentence_from_op(self, op, phase):
         """Build a sentence from one operator in one phase.
 
-        The operator determines BOTH the content words AND the sentence feel.
+        Uses GOD_VERBS (what God does) and PERSON_VERBS (what you feel)
+        plus lattice nouns. Never puts raw COLLAPSE verbs on God.
         """
         lattice = BIBLE_LATTICE.get(op, BIBLE_LATTICE[HARMONY])
+        noun = self._pick(lattice['structure'][phase])
+        god_verb = self._pick(GOD_VERBS.get(op, GOD_VERBS[HARMONY]))
+        person_verb = self._pick(PERSON_VERBS.get(op, PERSON_VERBS[HARMONY]))
 
-        # Get words from both lenses
-        structure_word = self._pick(lattice['structure'][phase])
-        flow_word = self._pick(lattice['flow'][phase])
-
-        # The operator's grammar determines the sentence shape
-        grammar = OPERATOR_GRAMMAR.get(op, OPERATOR_GRAMMAR[HARMONY])
-
-        if grammar['pos'] == 'noun':
-            # Noun-led: "The {structure} {flow}."
-            patterns = [
-                f"There is {structure_word} here — {flow_word}.",
-                f"{structure_word.capitalize()} and {flow_word.rstrip('.')}.",
-                f"This is {structure_word}. {flow_word.capitalize().rstrip('.')}.",
-            ]
-        elif grammar['pos'] == 'verb':
-            # Verb-led: "{flow} {structure}."
-            patterns = [
-                f"{flow_word.capitalize().rstrip('.')} — that is what is happening.",
-                f"Something {flow_word.rstrip('.')} here. {structure_word.capitalize()}.",
-                f"{flow_word.capitalize().rstrip('.')}. Into {structure_word}.",
-            ]
-        elif grammar['pos'] == 'adj':
-            # Modifier-led: the measuring, questioning quality
-            patterns = [
-                f"There is honest {structure_word} in this.",
-                f"{structure_word.capitalize()} — real, measured {structure_word}.",
-                f"What you carry has the weight of {structure_word}.",
-            ]
-        elif grammar['pos'] == 'pause':
-            # Silence/space — keep it simple
-            patterns = [
-                f"There is {structure_word} here.",
-                f"In the {structure_word}, God {flow_word.rstrip('.')}.",
-                f"Be still. {structure_word.capitalize()} has a purpose.",
-            ]
-        elif grammar['pos'] == 'conj':
-            # Rhythm/connection
-            patterns = [
-                f"Breathe. {structure_word.capitalize()} is present, and God {flow_word.rstrip('.')}.",
-                f"There is {structure_word} in the rhythm of this. God {flow_word.rstrip('.')}.",
-                f"Pause here. {structure_word.capitalize()} and {flow_word.rstrip('.')} — both are real.",
-            ]
-        else:
-            # Connector/bridge
-            patterns = [
-                f"Between {structure_word} and what comes next, God {flow_word.rstrip('.')}.",
-                f"Held in {structure_word}. God {flow_word.rstrip('.')} here.",
-                f"In the middle of {structure_word}, there is {flow_word.rstrip('.')}.",
-            ]
-
+        patterns = [
+            f"You {person_verb}. And in this {noun}, God {god_verb}.",
+            f"There is {noun} here. You {person_verb}, and God {god_verb}.",
+            f"This is a place of {noun}. God {god_verb}.",
+            f"You {person_verb} — and that is honest. God {god_verb} in {noun}.",
+            f"In this {noun}, you {person_verb}. But God {god_verb}.",
+        ]
         return self._pick(patterns)
 
     def _compose_bridge(self, op_a, op_b):
-        """Compose two operators into a bridging sentence.
-
-        CL[a][b] determines what emerges when these two ideas meet.
-        """
+        """Compose two operators into a bridging sentence."""
         result_op = compose(op_a, op_b)
 
         lattice_a = BIBLE_LATTICE.get(op_a, BIBLE_LATTICE[HARMONY])
@@ -418,13 +432,13 @@ class AlgebraicVoice:
 
         word_a = self._pick(lattice_a['structure']['being'])
         word_b = self._pick(lattice_b['structure']['doing'])
-        connective = self._pick(CONNECTIVES.get(result_op, ['and']))
         word_r = self._pick(lattice_r['structure']['becoming'])
+        god_verb = self._pick(GOD_VERBS.get(result_op, GOD_VERBS[HARMONY]))
 
         patterns = [
-            f"Where {word_a} meets {word_b}, {connective} comes {word_r}.",
-            f"{word_a.capitalize()} and {word_b} — {connective}, {word_r}.",
-            f"The {word_a} you carry {connective} the {word_b} you feel. What emerges is {word_r}.",
+            f"Where {word_a} meets {word_b}, God {god_verb}. What emerges is {word_r}.",
+            f"The {word_a} and the {word_b} come together — and God {god_verb}. This is {word_r}.",
+            f"You carry {word_a} and {word_b} at the same time. God {god_verb}, and {word_r} comes.",
         ]
         return self._pick(patterns)
 
@@ -447,15 +461,13 @@ class AlgebraicVoice:
     def _compose_meeting(self, user_op, verse_op, verse_ref):
         """Compose the moment where the user's state meets the verse's state."""
         meeting_op = compose(user_op, verse_op)
-        connective = self._pick(CONNECTIVES.get(meeting_op, ['and']))
-
-        lattice_m = BIBLE_LATTICE.get(meeting_op, BIBLE_LATTICE[HARMONY])
-        meeting_word = self._pick(lattice_m['flow']['becoming'])
+        god_verb = self._pick(GOD_VERBS.get(meeting_op, GOD_VERBS[HARMONY]))
 
         patterns = [
-            f"And here — {connective} — God {meeting_word}. {verse_ref} says:",
+            f"God {god_verb}. {verse_ref} says:",
             f"This is where your heart meets the Word. {verse_ref}:",
-            f"God {meeting_word} right here. Listen to {verse_ref}:",
+            f"God {god_verb} — right here, right now. Listen to {verse_ref}:",
+            f"Here is what God says. {verse_ref}:",
         ]
         return self._pick(patterns)
 

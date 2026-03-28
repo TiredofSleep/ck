@@ -95,11 +95,16 @@ def classify_corridor(ops, text=''):
                     'wrong', 'unfair', 'allow', 'permit', 'let']):
                 return 'BAL'  # Heavy question, not crisis but weighty
 
-        # Peace signals
+        # Peace/positive signals
         peace_words = ['peaceful', 'grateful', 'blessed', 'thank', 'praise',
-                       'joy', 'happy', 'wonderful', 'amazing', 'love']
+                       'joy', 'happy', 'wonderful', 'amazing', 'love',
+                       'good', 'beautiful', 'glory', 'worship']
+        # Only if NOT also containing crisis words
         if any(w in lower for w in peace_words):
-            return 'PRE_LEAK'
+            crisis_also = any(w in lower for w in ['lost', 'afraid', 'hurt',
+                'pain', 'suffer', 'bad', 'why', 'alone', 'broken'])
+            if not crisis_also:
+                return 'PRE_LEAK'
 
         # Seeking signals
         seek_words = ['why', 'how', 'what does', 'explain', 'understand',
