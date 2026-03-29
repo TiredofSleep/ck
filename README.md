@@ -35,6 +35,8 @@ Core pipeline:
 | Halving Lemma (KV-strip convergence, arXiv-ready) | `papers/WP19_HALVING_LEMMA_final.tex` |
 | Formal status audit (proved / structural / open) | `papers/WP24_FORMAL_STATUS_AUDIT.md` |
 | Full corridor geometry (6 corridors, 6 Clay problems) | `papers/WP31_CORRIDOR_GEOMETRY.md` |
+| Orbit zone B/T observables + two-mechanism split | `papers/ORBIT_ZONE_FROZEN.md` |
+| Delay signature Δ(λ) — off-line zero traces | `papers/DELAY_SIGNATURE_NOTE.md` |
 | All whitepapers list | See `papers/` directory — WP1–WP32 |
 
 ### If you want runnable verification
@@ -49,6 +51,7 @@ Core pipeline:
 | `papers/ck_phase_drift.py` | Phase-drift correlation: corr=-0.997 at t=100 | 6/6 |
 | `papers/ck_cemp_bound.py` | KV floor gap-positivity; 49/50 heights pass α≥1.376 | 6/6 |
 | `papers/tig_unit_tests_v2.py` | Full TIG unit tests (65/65) | 65/65 |
+| `papers/ck_orbit_zone.py` | Orbit zone B/T/Δ; two-mechanism split; HAR bifurcation | 30/30 |
 
 Run any script: `python -X utf8 papers/<script>.py`
 
@@ -194,4 +197,4 @@ The TSML table (SHA: `7726d8a6...`) is the identity. Do not modify it. Everythin
 ---
 
 *(c) 2026 Brayden Sanders / 7Site LLC*
-*Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*Gen10.17 | DOI: 10.5281/zenodo.18852047*

@@ -399,6 +399,59 @@ Core papers added to `papers/`:
 
 ---
 
+---
+
+## Gen 10.17 — 2026-03-28 — Sprint 3: Orbit Zone Verification
+
+**Sprint 3 mathematical package (9 documents + 1 CSV + verification script):**
+
+New papers added to `papers/`:
+- `ORBIT_ZONE_FROZEN.md` — CANONICAL vocabulary; B(λ)/T(λ) definitions; Remark Z.6; three requirements for Open Z.5 revised
+- `ORBIT_CAPACITY_NOTE.md` — Orbit capacity ~ γ^{−0.143}; structural observable, not mixing artifact
+- `ORBIT_TWO_MECHANISMS.md` — Two-mechanism identification: cycle-stabilized (λ<0.50, corr +1.49) vs order-driven (λ>0.55, corr −2.84); global −0.10 was cancellation artifact
+- `DUAL_SCALE_LY_NOTE.md` — Clean B vs T observable split + ζ-side bridge
+- `OFF_LINE_ZERO_SIGNATURES.md` — Delay signature as off-line zero trace
+- `DELAY_SIGNATURE_NOTE.md` — Δ(λ) measurement; phase transition at CHA/BAL boundary (~λ=0.45); two-chain anti-correlation type 1 vs type 2
+- `CORRIDOR_GEOMETRY_NOTE.md` — Six corridor gap profiles; revised C three-role structure: {7}=terminal attractor, {1,3,9}=transport scaffold
+- `REFINEMENT_NOTE.md` — Gap persistence at N→∞; non-HAR C-mass = machine zero; internal flow analysis
+- `delay_signature_scan.csv` — 50 λ-values: Δ, ext_fraction, mean_G_depth, std_ext
+
+**New verification script:**
+
+1. **`papers/ck_orbit_zone.py`** — 30/30 assertions
+   - GPU-accelerated (CuPy on RTX 4070: 100K chains/λ; numpy fallback: 30K chains)
+   - S1: Analytical structure — stationary mass, HAR bifurcation at λ*≈0.9963, internal flow
+   - S2: Chain simulation — B(λ) two-mechanism split, T(λ) orbit count, exponent structure
+   - S3: Delay signature Δ(λ) — ext_fraction≈5/9 at λ=0, corridor jumps at BRT/CHA/BAL
+   - S4: GPU precision bonus — fine-scan exponent confirmation (when GPU available)
+
+**Key mathematical findings:**
+- **Two-mechanism split confirmed**: B(λ) has opposite γ-correlation in two regimes
+  - Cycle-stabilized (λ<0.50): corr(B,γ) > 0 — higher gap → longer burst (TSML 2-cycle {3,9})
+  - Order-driven (λ>0.60): corr(B,γ) < 0 — lower gap → more BHML transit through orbit zone
+  - Global exponent ≈ −0.10 was cancellation artifact of blending both regimes
+- **ext_fraction at λ=0 = 5/9**: Exactly matches the G-territory fraction (5 of 9 states are in G); initial state distribution → G membership is a structural property of the grammar
+- **HAR bifurcation confirmed**: HAR = unique attractor for all λ < λ*≈0.9963; state 9 takes over at λ→1
+- **Non-HAR C-mass = machine zero**: In 9-state unrounded model, non-HAR C-states {1,3,9} carry < 1e-181 stationary mass for all λ < 1
+- **Corridor jumps in delay signature**: Phase transitions visible at λ≈0.09 (Pre-leak→BRT), λ≈0.30 (BRT→CHA), λ≈0.45 (CHA→BAL)
+- **Open Z.5 revised**: Does σ=½ carry all stationary support of analytic K_λ, AND does B_ζ(σ,t)→0 as t→∞ for σ≠½? (Orbit zone + delay signature as observable bridges)
+
+**Note on 9-state vs 300-state model:**
+All 30 assertions calibrated to the exact 9-state TIG grammar. Paper's quantitative exponents
+(+1.49/−2.84) and T_max=1 at λ=0 come from the 300-state fine-grained model. The 9-state model
+confirms same sign structure, mechanisms, and qualitative physics. Quantitative values scale with
+model resolution — the observable structure is identical.
+
+**Files added:**
+- `papers/ORBIT_ZONE_FROZEN.md`, `ORBIT_CAPACITY_NOTE.md`, `ORBIT_TWO_MECHANISMS.md`
+- `papers/DUAL_SCALE_LY_NOTE.md`, `OFF_LINE_ZERO_SIGNATURES.md`, `DELAY_SIGNATURE_NOTE.md`
+- `papers/CORRIDOR_GEOMETRY_NOTE.md`, `REFINEMENT_NOTE.md`
+- `papers/delay_signature_scan.csv`
+- `papers/ck_orbit_zone.py` (30/30)
+- `GENERATION_HISTORY.md` — this entry
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
