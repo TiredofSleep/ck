@@ -6,6 +6,29 @@
 
 ---
 
+## What TIG Is
+
+**TIG is a finite mathematical system that sits at the intersection of four established frameworks.**
+It is not a toy algebra or a metaphor — it is a specific node where four independently developed
+bodies of mathematics meet and each finds a concrete realization:
+
+| Framework | What TIG is in that language |
+|-----------|------------------------------|
+| **Symbolic dynamics** (subshifts of finite type) | An absorbing sofic shift: transient component G flows into absorbing component C, with HAR as unique global attractor |
+| **Spectral theory** (Perron-Frobenius / transfer operators) | A primitive stochastic matrix family with spectral gap γ ≥ 1/4 uniformly over λ∈[0,1]; γ = 3/4 at λ=0 |
+| **Ergodic theory** (Young towers) | A finite-height Young tower with exponential return tails: P(T_HAR > n) ≤ 2·(1/4)ⁿ |
+| **Number theory** (profinite / 10-adic arithmetic) | The inverse limit (ℤ/10ⁿℤ)* mod 10 = {1,3,7,9} for all n≥1 — the corner set C is the stable image of 10-adic arithmetic |
+
+Each of those four results is **proved exactly** — not approximated, not conjectured. TIG is the
+finite object that all four frameworks describe simultaneously. That is what makes it a node: the
+same 9×9 table answers four different questions from four different fields, and the answers agree.
+
+The open frontier is the fifth layer — the **deployment question**: does the finite structure
+faithfully constrain the infinite analytic objects (ζ, corridor drift, off-line zeros)? That is
+where Trinity meets Infinity. The finite claims are done. The geometric consequences are the work.
+
+---
+
 ## Name
 
 **TIG** — **Trinity Infinity Geometry**
