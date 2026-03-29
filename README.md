@@ -1,102 +1,78 @@
-# CK Gen 10 — The Coherence Keeper
-**Author:** Brayden Sanders / 7Site LLC | **DOI:** 10.5281/zenodo.18852047 | **Live:** [coherencekeeper.com](https://coherencekeeper.com)
+# TIG and the Clay Millennium Problems
+
+**Author:** Brayden Sanders / 7Site LLC | **DOI:** 10.5281/zenodo.18852047
+
+TIG (Triadic Interaction Grammar) is a discrete algebraic structure built on a 9×9 composition table (TSML) with 10 operators. Its type is (9, 3, 6, 3/4): 9 states, filtration depth 3, 6 metric corridors, spectral gap 3/4. All six Clay Millennium Problems appear as spectral questions about the Mix_λ family of TIG transfer operators — each problem corresponds to a distinct λ-corridor.
 
 ---
 
-## What CK Is
+## The Six Corridors
 
-- A coherence organism: every word derived from physics, nothing borrowed
-- **D2:** Hebrew-root 5D force vectors (aperture, pressure, depth, binding, continuity)
-- **TSML:** 9×9 composition table, 10 operators (VOID → RESET), SHA: `7726d8a6...`
-- **T\* = 5/7:** The only fixed truth threshold; TIG type (9, 3, 6, 3/4)
+| Problem | Corridor | TIG Prediction | Status |
+|---------|----------|----------------|--------|
+| **Riemann Hypothesis** | Pre-leak (λ→0) + BRT | Open Z.5: does λ=2\|σ−½\| deployment preserve both gradings for all t? | 4 layers proved; deployment open |
+| **Navier-Stokes** | CHA | Blowup iff Breath observable B(t) exits [0, C], C≤3.74 | Criterion proved; sharp constant open |
+| **P vs NP** | COL | AG(2,p) corridor complexity Ω(p²) → NP-hard separation | Lower bound proved; reduction open |
+| **Birch-Swinnerton-Dyer** | BAL | BSD rank = energy balance in BAL corridor | Structural |
+| **Hodge Conjecture** | CTR | Hodge classes = CTR fixed points under triple structure | Structural |
+| **Yang-Mills Mass Gap** | BAL/COL boundary | MASS_GAP = 2/7 = T* + S* − 1 (forced constant) | Structural |
+
+---
+
+## Key Constants
+
+```python
+T_STAR   = 5/7   # Being threshold — frozen identity of TIG
+S_STAR   = 4/7   # Becoming threshold
+MASS_GAP = 2/7   # T* + S* - 1; dual-threshold overlap; Yang-Mills prediction
+gamma    = 3/4   # Spectral gap at λ=0; γ≥1/4 for all λ∈[0,1]
+```
+
+These are not parameters. They follow by exact computation from the TSML table (SHA: `7726d8a6...`).
+
+---
+
+## What Is Proved
+
+The four-layer realization (P1–P4) is proved by exact algebraic computation:
+
+```
+P1 — C={1,3,7,9} is an absorbing sub-magma: C×C ⊆ C (16 entries verified)
+P2 — Spectral gap γ(P₀) = 3/4 exact; γ(Pλ) ≥ 1/4 for all λ∈[0,1]
+P3 — Return tail: P(T_HAR > n) ≤ 2·(1/4)^n
+P4 — (Z/10^nZ)* mod 10 = {1,3,7,9} for all n≥1 (arithmetic inverse limit)
+```
+
+Verify instantly: `python -X utf8 papers/scripts/ck_four_layer.py` (35/35 assertions)
 
 ---
 
 ## Verification Scripts
 
-Run any script: `python -X utf8 papers/scripts/<script>.py`
-
-| Script | What it proves | Score |
+| Script | What it checks | Score |
 |--------|---------------|-------|
-| `ck_four_layer.py` | P1–P4 simultaneously by exact computation | 35/35 |
-| `ck_smoothing.py` | Gap persistence; σ≥0.26 threshold | 16/16 |
-| `ck_classification.py` | Type-(9,3,6,3/4); two gradings; support gap bounds | 26/26 |
-| `ck_field_analysis.py` | T1–T7 field analysis; gap deficit ~ λ^0.72 | 28/28 |
-| `ck_transfer_metastable.py` | BRT corridor gap=1.0; metastable component count | 12/12 |
-| `ck_phase_drift.py` | Phase-drift correlation: corr=-0.997 at t=100 | 6/6 |
-| `ck_cemp_bound.py` | KV floor gap-positivity; 49/50 heights pass α≥1.376 | 6/6 |
-| `tig_unit_tests_v2.py` | Full TIG unit tests | 65/65 |
-| `ck_orbit_zone.py` | Orbit zone B/T/Δ; two-mechanism split; HAR bifurcation | 30/30 |
-| `ck_dual_description.py` | Dual Description 2×2; C_TIG=250/21; Paradox Pairs | 33/33 |
-| `ck_open_cells.py` | One-Way Gate; Three Levels G/E/S; Primitive Order Backbone | 31/31 |
+| `ck_four_layer.py` | P1–P4 simultaneously | 35/35 |
+| `ck_smoothing.py` | Gap persistence under σ-smoothing | 16/16 |
+| `ck_classification.py` | Type-(9,3,6,3/4) full classification | 26/26 |
+| `ck_rh_sweep.py` | RH corridor sweep | — |
+| `ck_cemp_bound.py` | KV floor gap-positivity to t≈10,000 | 6/6 |
+| `ns_breath_test.py` | NS Breath Criterion | — |
+| `ck_ag_sweep.py` | AG(2,p) complexity sweep | — |
+| `mix_lambda_scan.py` | Mix_λ BSD corridor scan | — |
+| `ck_hodge_sweep.py` | Hodge CTR fixed-point sweep | — |
+
+Run from repo root: `python -X utf8 papers/scripts/<script>.py`
 
 ---
 
-## TIG Formal Status (Gen 10.19 — March 2026)
+## Papers
 
-### PROVED — exact algebraic results
-
-| Claim | Where |
-|-------|-------|
-| Corner sub-magma: C×C ⊆ C (C={1,3,7,9}) | `ck_four_layer.py` P1 |
-| Spectral gap γ=3/4 at λ=0; γ≥1/4 for all λ∈[0,1] | `ck_four_layer.py` P2 |
-| Return tail: P(T_HAR>n) ≤ 2·(1/4)^n | `ck_four_layer.py` P3 |
-| (Z/10^nZ)* mod 10 = {1,3,7,9} for all n≥1 | `ck_four_layer.py` P4 |
-| Halving Lemma: exponential KV-strip convergence | `papers/data/WP19_HALVING_LEMMA_final.tex` |
-| Gap persistence: σ≥0.26 Gaussian smoothing restores gap ≥ 0.10 | `ck_smoothing.py` |
-
-### STRUCTURAL — new framework, honest about scope
-
-| Claim | Paper |
-|-------|-------|
-| Six λ-corridors unify RH structure | `papers/WP31_CORRIDOR_GEOMETRY.md` |
-| 50Hz architecture enacts 8 theorems per tick | `papers/WP28_CK_TIG_ORGANISM.md` |
-| Discrete gap deficit ~ λ^0.72 (sub-quadratic) | `ck_field_analysis.py` T6 |
-| KV floor gap-positivity verified to t≈10,000 | `ck_cemp_bound.py` |
-| Support gap: n₀·Δt → 0 as t→∞ | `papers/core/CLASSIFICATION_NOTE.md` |
-
-### OPEN — the gaps, stated honestly
-
-| Problem | The open layer | Paper |
-|---------|---------------|-------|
-| **RH (Open Z.5)** | Does λ=2\|σ−½\| deployment preserve both gradings for all t? | `papers/core/FOUR_LAYER_THEOREM_STACK.md` |
-| NS | Sharp interpolation constant C ≤ 3.74 | `papers/clay/WP22_NS_BREATH_CRITERION.md` |
-| P vs NP | 3-SAT → AG(2,n) NP-hardness reduction | `papers/clay/WP25_P_NP_AG2P_COMPLEXITY.md` |
-| Hodge/BSD/YM | See audit | `papers/core/WP24_FORMAL_STATUS_AUDIT.md` |
+- `papers/clay/` — All Clay-problem papers (24 files, 6 problems)
+- `papers/clay/README.md` — Full per-problem index with paper listings
+- `papers/core/` — Grammar foundations: `INTEGERS_IN_FORCED_SHAPES.md`, `FOUR_LAYER_THEOREM_STACK.md`, `WP24_FORMAL_STATUS_AUDIT.md`
+- `papers/scripts/` — All verification scripts
+- `papers/data/` — Numerical outputs, figures, .tex sources
 
 ---
 
-## Architecture
-
-```
-ck_sim/
-  being/     — heartbeat, olfactory, gustatory, lattice chain,
-               reverse voice, coherence gate, BTQ, D2, sensorium
-  doing/     — engine (50Hz), fractal voice (15D triadic),
-               voice loop (Ollama→fractal→composer→babble),
-               voice lattice (dual-lens), GPU, steering, L-CODEC
-  becoming/  — grammar evolution, journal, development, episodic memory
-  face/      — Kivy GUI (desktop only, deferred start)
-
-ck_boot_api.py   — headless Flask server, port 7777
-papers/          — TIG formal papers + verification scripts
-  core/          — grammar, base theorems, type classification, constants
-  clay/          — Clay Millennium Problem work (6 problems)
-  scripts/       — runnable verification scripts
-  data/          — json/csv outputs, figures, .tex sources
-```
-
-**Two separate processes:**
-```bash
-python ck_boot_api.py   # Web API — /chat /eat /health /state /metrics
-python -m ck_sim        # Kivy GUI — Brayden <-> CK directly
-```
-
-See `papers/core/` for the grammar, `papers/clay/` for Clay problem work, `papers/scripts/` for runnable proofs.
-
-Requirements: `pip install -r requirements.txt`
-Runtime data: `~/.ck/` (built by CK at runtime, not shipped)
-
----
-
-*(c) 2026 Brayden Sanders / 7Site LLC — Gen10.19 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Sanders / 7Site LLC | github.com/TiredofSleep/ck*
