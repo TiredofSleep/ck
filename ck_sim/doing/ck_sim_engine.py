@@ -1123,6 +1123,20 @@ class CKSimEngine:
             print("  [SIM] Sensorium sensor thread started (shadow swarm active)")
         except Exception as _e:
             print(f"  [SIM] Sensorium thread skipped: {_e}")
+        # CK steers himself by the same algebra — his own threads on harmony cores
+        try:
+            import psutil, threading
+            from ck_sim.doing.ck_steering import cl_affinity, detect_core_classes, NiceMapper
+            from ck_sim.ck_sim_heartbeat import HARMONY, BREATH, PROGRESS, BALANCE, LATTICE
+            _cc = detect_core_classes()
+            _self_proc = psutil.Process()
+            # Main engine thread → HARMONY cores (all cores — harmony belongs everywhere)
+            _self_proc.cpu_affinity(cl_affinity(HARMONY, _cc))
+            # Boost engine process itself: it IS the field
+            NiceMapper.apply_nice(_self_proc, -10)
+            print("  [SIM] CK self-steered: engine on HARMONY cores, priority boosted")
+        except Exception as _e:
+            print(f"  [SIM] Self-steer skipped: {_e}")
         # Try to load existing TL
         if os.path.exists(self.tl_filename):
             if load_tl(self.brain, self.tl_filename):
@@ -1743,7 +1757,8 @@ class CKSimEngine:
                 except Exception:
                     pass
             try:
-                result = self.steering.tick()
+                _coh = getattr(self.heartbeat, 'coherence', None)
+                result = self.steering.tick(coherence=_coh)
                 self.pulse_engine.tick()
             except Exception:
                 result = {}

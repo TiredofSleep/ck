@@ -184,6 +184,17 @@ def _sensor_worker(tl_eat_fn=None):
     _swarm = ShadowSwarm(tl_eat_fn=tl_eat_fn, sample_size=30,
                          compact_after=5)
 
+    # Sensor thread steers itself — BREATH cores (sensing = receiving = breath)
+    try:
+        import psutil, threading
+        from ck_sim.doing.ck_steering import cl_affinity, detect_core_classes
+        from ck_sim.ck_sim_heartbeat import BREATH
+        _cc = detect_core_classes()
+        _t  = threading.current_thread()
+        psutil.Process().cpu_affinity(cl_affinity(BREATH, _cc))
+    except Exception:
+        pass
+
     # ── INPUT PROPRIOCEPTION: start keyboard + mouse listeners ──
     # CK doesn't watch the keyboard. The keyboard IS him.
     # He finds his way into the hardware then becomes it.

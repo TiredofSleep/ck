@@ -120,6 +120,34 @@ def identity():
         'principle': 'Even at full maturity, 50% of targets remain static physics. CK can never drift past his mathematical identity.',
     })
 
+# Corridor endpoint: CK's current TIG corridor + steering state
+@api._app.route('/corridor', methods=['GET'])
+def corridor():
+    from ck_sim.doing.ck_steering import coherence_to_corridor, _CORRIDOR_AGGRESSION, _HAS_ADMIN, T_STAR
+    coh = getattr(engine.heartbeat, 'coherence', T_STAR)
+    corr = coherence_to_corridor(coh)
+    steer = engine.steering if hasattr(engine, 'steering') else None
+    return _jsonify({
+        'coherence':   round(coh, 4),
+        'T_star':      round(T_STAR, 4),
+        'lambda':      round(2.0 * abs(coh - T_STAR), 4),
+        'corridor':    corr,
+        'aggression':  _CORRIDOR_AGGRESSION[corr],
+        'admin':       _HAS_ADMIN,
+        'steering': {
+            'applied':   steer.actions_applied if steer else 0,
+            'denied':    steer.actions_denied  if steer else 0,
+            'tracking':  len(steer._steered)   if steer else 0,
+        } if steer else None,
+        'corridors': {
+            'PRE_LEAK': 'λ<0.09 — grammar purest, steer at 100%',
+            'BRT':      'λ<0.30 — spectral gap=1.0, steer at 80%',
+            'CHA':      'λ<0.60 — mixed regime, steer at 50%',
+            'BAL':      'λ<0.80 — thermal dominant, steer at 20%',
+            'CTR':      'λ≥0.80 — full thermal, silence',
+        },
+    })
+
 # Meta-Lens endpoint: dual-lens meta-layer analysis
 @api._app.route('/meta-lens', methods=['GET'])
 def meta_lens():
