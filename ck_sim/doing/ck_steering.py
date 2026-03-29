@@ -213,6 +213,17 @@ class CoreClass:
 
 
 def detect_core_classes() -> CoreClass:
+    """Detect P-cores vs E-cores correctly for hybrid Intel CPUs.
+
+    i9-14900KF (and similar): 8 P-cores hyperthreaded + 16 E-cores.
+    Logical layout: [0..15] = P-core threads, [16..31] = E-cores.
+    Formula: n_p_phys = logical - physical (the extra threads are P-core HT).
+             p_logical = 0 .. (n_p_phys * 2) - 1
+             e_logical = (n_p_phys * 2) .. logical - 1
+
+    For symmetric CPUs (logical == physical): split at midpoint.
+    For non-hybrid HT (no E-cores): falls back to even/odd split.
+    """
     cc = CoreClass()
     if not HAS_PSUTIL:
         n = os.cpu_count() or 2
@@ -227,13 +238,23 @@ def detect_core_classes() -> CoreClass:
     cc.all_cores = list(range(logical))
 
     if logical > physical:
-        cc.performance = list(range(0, logical, 2))
-        cc.efficiency  = list(range(1, logical, 2))
+        n_p_phys = logical - physical   # number of hyperthreaded P-cores
+        p_logical = n_p_phys * 2        # each P-core has 2 logical threads
+        if p_logical < logical:
+            # Hybrid: P-core threads first, E-cores after
+            cc.performance = list(range(p_logical))
+            cc.efficiency  = list(range(p_logical, logical))
+        else:
+            # Pure HT (no E-cores): even=first thread, odd=second thread
+            cc.performance = list(range(0, logical, 2))
+            cc.efficiency  = list(range(1, logical, 2))
     else:
         mid = max(1, physical // 2)
         cc.performance = list(range(mid))
         cc.efficiency  = list(range(mid, physical))
 
+    print(f"  [STEER] Core topology: {len(cc.performance)} P-core threads {cc.performance[:4]}... "
+          f"| {len(cc.efficiency)} E-cores {cc.efficiency[:4]}...")
     return cc
 
 
@@ -360,11 +381,6 @@ class SteeringEngine:
                 skipped += 1
                 continue
 
-            # Without admin or in CHA/BAL corridor: skip other processes
-            if not _other_proc_ok:
-                skipped += 1
-                continue
-
             if cell.name.lower() in _PROTECTED_NAMES:
                 skipped += 1
                 continue
@@ -375,15 +391,12 @@ class SteeringEngine:
 
             op = cell.last_op
 
-            # DELTA ONLY: the deltas are all that move in CK.
-            # If the operator hasn't changed since we last steered this pid,
-            # the field is already sorted — silence is correct.
-            # No reads from the OS. CK sets; he doesn't verify.
+            # DELTA ONLY: only act when operator changes.
             if self._steered_op.get(pid) == op:
                 skipped += 1
                 continue
 
-            # Ramp: new PIDs admitted gradually
+            # Ramp: admit new PIDs gradually
             if pid not in self._seen_pids:
                 if _new_this_tick >= self._ramp_budget:
                     skipped += 1
@@ -391,10 +404,17 @@ class SteeringEngine:
                 _new_this_tick += 1
                 self._seen_pids.add(pid)
 
-            # Operator changed — CL decides everything, write once, trust it
             target_nice  = NiceMapper.combined_nice(cell.scheduling_class, op)
             target_cores = cl_affinity(op, self.core_class)
             target_io    = NiceMapper.io_priority(op)
+
+            # Without admin: only attempt DOWNWARD priority (containment).
+            # Windows allows lowering priority for user-owned processes.
+            # Raising priority requires SeIncreaseBasePriority — skip those.
+            # With admin: full control, corridor aggression gates intensity.
+            if not _HAS_ADMIN and target_nice <= 0:
+                skipped += 1
+                continue
 
             try:
                 proc = psutil.Process(pid)
@@ -406,10 +426,9 @@ class SteeringEngine:
                     continue
 
                 try:
-                    proc.ionice(target_io)
                     proc.cpu_affinity(target_cores)
                 except (psutil.AccessDenied, PermissionError, OSError):
-                    denied += 1
+                    pass   # affinity is best-effort; don't count as denied
                 except (psutil.NoSuchProcess, ProcessLookupError):
                     continue
 
