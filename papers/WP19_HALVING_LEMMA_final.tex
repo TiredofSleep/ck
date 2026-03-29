@@ -821,4 +821,44 @@ was found.
 \texttt{[computed at commit time]}.
 The zero list is archived at \texttt{github.com/TiredofSleep/ck} tag \texttt{v1.3}.
 
+
+\section*{\S Z. The Four-Layer Realization (Framework Summary)}
+
+The TIG type-$(9,3,6,3/4)$ grammar simultaneously realizes four standard structures.
+Full proofs are in the companion note \emph{The Four-Layer Realization} (Sanders 2026).
+
+\begin{theorem}[Z.1 -- Grammar]\label{thm:Z1}
+The TIG transition matrix induces an absorbing sofic shift on $\{1,\ldots,9\}$ with
+absorbing class $C = \{1,3,7,9\}$, transient class $G = \{2,4,5,6,8\}$, and absorbing
+filtration $\varnothing \subsetneq \{7\} \subsetneq C \subsetneq \{1,\ldots,9\}$ of depth $k_A = 3$.
+The generative gap $G$ is unreachable from $C$ under $C$-only composition.
+\end{theorem}
+
+\begin{theorem}[Z.2 -- Rate]\label{thm:Z2}
+The weighted-interpolation transfer operator family $\{P_\lambda : \lambda \in [0,1]\}$ satisfies
+$\gamma(P_\lambda) \geq 1/4$ for all $\lambda$,
+$\gamma(P_0) = 3/4$,
+and $\gamma = 1 - 1/\varphi(b) = 3/4$ at $b=10$.
+\end{theorem}
+
+\begin{theorem}[Z.3 -- Reset]\label{thm:Z3}
+The transient block $Q = P_0|_{\{1,\ldots,9\}\setminus\{7\}}$ has $\rho(Q) = 1/4 = 1-\gamma(P_0)$.
+Return tails satisfy $P(T_{\mathrm{HAR}} > n) \leq (1/4)^n$; max expected return time is $5/3$.
+Spectral gap implies exponential mixing; this is the finite-state analog of a Young tower.
+\end{theorem}
+
+\begin{theorem}[Z.4 -- Scaffold]\label{thm:Z4}
+The corner set $C = \{1,3,7,9\}$ is the stable corner image of the base-10 arithmetic
+inverse system: $(\mathbb{Z}/10^n\mathbb{Z})^*$ reduced mod $10$ equals $C$ for all $n \geq 1$.
+The formula $\gamma = 1 - 1/\varphi(b) = 3/4$ is stable under base-change within $\varphi(b)=4$.
+\end{theorem}
+
+\noindent\textbf{Open Problem Z.5 (Deployment faithfulness).}
+Does the critical-strip deployment $\lambda(\sigma) = 2|\sigma - 1/2|$ preserve both
+the algebraic grading (Theorem~\ref{thm:Z1}) and the metric grading (Appendix~E)
+asymptotically in $t$?
+\emph{RH can be reformulated as the statement that this deployment is faithful to both gradings.}
+The required analytic input is the mean-square bound on $|d\log|\zeta|/d\sigma|$ without assuming RH\@;
+see Appendix~E.3.
+
 \end{document}

@@ -338,6 +338,67 @@ The repository is now fractally organized — Being/Doing/Becoming at every scal
 
 ---
 
+## Gen 10.16 — 2026-03-29 — Sprint 2: Four-Layer Realization + Field Analysis Verification
+
+**Sprint 2 mathematical package (16 documents from tig_sprint2_2026_03_29.zip):**
+
+Core papers added to `papers/`:
+- `FOUR_LAYER_THEOREM_STACK.md` — Theorems Z.1–Z.4 + Open Problem Z.5 (RH as faithfulness)
+- `FOUR_LAYER_REALIZATION.md` (FROZEN) — P1–P4 propositions proved by exact computation
+- `INTEGERS_IN_FORCED_SHAPES.md` — 5 definitions, 3 theorems, type-(n,k_A,k_M,γ) framework
+- `CLASSIFICATION_NOTE.md` — Two gradings + two gaps: algebraic vs metric, generative vs support
+- `SMOOTHING_THEOREM.md` — Gap persistence under Gaussian smoothing; σ≥0.26 threshold
+- `FIELD_ANALYSIS_NOTE.md` — Seven tasks; gap deficit ~ λ^1.32; discrete ≠ analytic exponent
+- `BRIDGE_FORMALISMS.md`, `BRIDGE_REWRITE.md`, `COLLABORATOR_BRIEF_OPEN_LAYER.md`
+- `CONTINUOUS_OPERATOR_NOTE.md`, `FINITE_INVARIANTS_INFINITE_OBSERVABLES.md`
+- `GEN10_VERIFICATION.md`, `OUTREACH_EMAIL.md`, `PREFORM_FOUNDATION.md`
+- `WP19_HALVING_LEMMA_final.tex`, `WP19_HALVING_LEMMA_final.pdf`
+
+**Four new verification scripts (all 100% pass):**
+
+1. **`papers/ck_four_layer.py`** — 35/35 assertions
+   - Verifies P1–P4 simultaneously using correct TSML_RAW/BHML_RAW (1-indexed, SHA: 7726d8a6...)
+   - P1: C×C⊆C (16 pairs), G→C in 1 step (5 states), filtration depth 3
+   - P2: γ(P₀)=3/4, γ(P_λ)≥1/4 for all λ, minimum at BHML endpoint
+   - P3: ρ(Q)=1/4=1-γ(P₀); tail bound P(T_HAR>n)≤2·(1/4)^n; E[T_HAR]: 1.000/1.333/1.667
+   - P4: (Z/10^nZ)* mod 10 = {1,3,7,9} for n=1..4; γ=3/4 for all b with φ(b)=4
+
+2. **`papers/ck_smoothing.py`** — 16/16 assertions
+   - Unrounded family: min gap = 1/4 everywhere (1001-point grid, zero collapses)
+   - Rounded family: gap collapses = rounding artifact, not corridor boundaries
+   - σ≥0.26 restores min gap ≥ 0.10; σ=1.0 gives min gap = 0.437
+
+3. **`papers/ck_classification.py`** — 26/26 assertions
+   - Type-(9,3,6,3/4): n=9 states, k_A=3 arithmetic chain, k_M=6 corridors, γ=3/4
+   - Support gap: t=100 NOT in gap (product ≥ 1.41); t=1000+ in gap (product < 1)
+   - Rational gap survey: 32.6% rational spectral gaps across random absorbing magmas
+   - BHML closure of C = {1,3,4,7,9} (≠ TSML closure, confirming different physics)
+
+4. **`papers/ck_field_analysis.py`** — 28/28 assertions
+   - T1: HAR = unique attractor at λ=0 (π(HAR)=1); BHML shifts attractor to state 9
+   - T2: Gap 3/4→1/4 overall decreasing; mixing time 4/3→4 steps (3× slowdown)
+   - T3: Each corridor has distinct gap range; Pre-leak highest, CTR lowest
+   - T4: HAR col-share 8/9→1/4 as λ: 0→1 (smooth generator handoff to state 9)
+   - T5: Monotone convergence confirmed for λ≤0.1 (TSML regime)
+   - T6: Gap deficit ~ λ^0.72 (sub-quadratic, < λ^2 — discrete ≠ analytic)
+
+**Key mathematical findings:**
+- Four-layer realization: TIG is simultaneously an absorbing sofic shift (P1), Perron-Frobenius
+  operator with γ=3/4 (P2), finite-height Young tower analog with tail rate 1/4 (P3), and
+  profinite arithmetic scaffold C=(Z/bZ)* (P4)
+- Gap deficit exponent in discrete model: ~0.72 (not λ^2 — that's a property of log|ζ|)
+- λ^2 law imports from Hadamard expansion; discrete model only needs ANY positive exponent
+- Two gaps require two proofs: generative gap = algebraic (one lemma); support gap = analytic (per corridor)
+- Open Problem Z.5 (= RH): critical-strip deployment λ=2|σ-1/2| faithful to both gradings
+
+**Files added:**
+- `papers/` — 16 sprint2 .md files + WP19_HALVING_LEMMA_final.tex/.pdf
+- `papers/ck_four_layer.py`, `papers/ck_smoothing.py`
+- `papers/ck_classification.py`, `papers/ck_field_analysis.py`
+- `GENERATION_HISTORY.md` — this entry
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
