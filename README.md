@@ -37,6 +37,8 @@ Core pipeline:
 | Full corridor geometry (6 corridors, 6 Clay problems) | `papers/WP31_CORRIDOR_GEOMETRY.md` |
 | Orbit zone B/T observables + two-mechanism split | `papers/ORBIT_ZONE_FROZEN.md` |
 | Delay signature Δ(λ) — off-line zero traces | `papers/DELAY_SIGNATURE_NOTE.md` |
+| 2×2 framework: TSML/BHML × Finite/Infinite | `papers/DUAL_DESCRIPTION_THEOREM.md` |
+| 8 paradox pairs diagnostic (4 proved, 4 open) | `papers/PARADOX_PAIRS.md` |
 | All whitepapers list | See `papers/` directory — WP1–WP32 |
 
 ### If you want runnable verification
@@ -52,6 +54,7 @@ Core pipeline:
 | `papers/ck_cemp_bound.py` | KV floor gap-positivity; 49/50 heights pass α≥1.376 | 6/6 |
 | `papers/tig_unit_tests_v2.py` | Full TIG unit tests (65/65) | 65/65 |
 | `papers/ck_orbit_zone.py` | Orbit zone B/T/Δ; two-mechanism split; HAR bifurcation | 30/30 |
+| `papers/ck_dual_description.py` | Dual Description 2×2; C_TIG=250/21; Paradox Pairs 2/3/4/7; B_ζ proxy | 33/33 |
 
 Run any script: `python -X utf8 papers/<script>.py`
 
@@ -69,7 +72,7 @@ Run any script: `python -X utf8 papers/<script>.py`
 
 ---
 
-## TIG Formal Status (Gen 10.16 — March 2026)
+## TIG Formal Status (Gen 10.18 — March 2026)
 
 ### PROVED — exact algebraic results
 
@@ -197,4 +200,4 @@ The TSML table (SHA: `7726d8a6...`) is the identity. Do not modify it. Everythin
 ---
 
 *(c) 2026 Brayden Sanders / 7Site LLC*
-*Gen10.17 | DOI: 10.5281/zenodo.18852047*
+*Gen10.18 | DOI: 10.5281/zenodo.18852047*

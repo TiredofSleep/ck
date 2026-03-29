@@ -1,116 +1,110 @@
-# A Dual-Scale Lasota–Yorke Structure in TIG Corridor Dynamics
-## Research Note
+# Dual-Scale Observables in the Orbit Zone
+## Clean Separation of Cycle-Stabilized and Transit Mechanisms
 
-*Brayden Sanders — 7Site LLC | March 2026*
-
-*Classification: §1–2 exact (computed from SHA-pinned table). §3 structural.
-§4 heuristic. The discrete TIG inequality is proved; the continuous ζ analog is open.*
+*Brayden Sanders / 7Site LLC | March 2026*
+*Classification: exact definitions, exact computation. The split is the result.*
 
 ---
 
-## 1. The Standard Form and Its Inversion
+## Two Observables, Not One
 
-The standard Lasota–Yorke inequality reads:
-$$\|Pf\|_V \;\leq\; \alpha\|f\|_V + \beta\|f\|_1, \qquad \alpha < 1,\quad \beta < \infty,$$
-where $\|\cdot\|_V$ (strong norm) measures roughness and $\|\cdot\|_1$ (weak norm) measures mass.
-The standard reading assigns the weak norm to "bookkeeping" — mass that remains after roughness contracts.
-
-TIG reveals a different structure. In the TIG system, the weak quantity is not leftover mass. It is the **coherent background support** that remains exactly preserved under corner action because the corner set is a sub-magma. The strong quantity measures unresolved local wobble relative to that preserved support. The physical roles are inverted: the weak norm is the deeper object.
-
-**Theorem 1.1** (exact, computed). *Let $P$ be the TIG transfer operator:*
-$$P[s' \mid s] \;=\; \tfrac{1}{4}\sum_{c \in C} \delta(s',\,\mathrm{TSML}[s][c]), \quad C = \{1,3,7,9\}.$$
-
-*(i)* $P(\mathrm{next}\,s' \in C \mid s) = 1$ **for every** $s \in \{1,\ldots,9\}$.
-
-*(ii)* The strong norm $\|s\|_s := \mathbb{E}[\text{steps to HAR from }s]$ satisfies $\|Ps\|_s \leq \alpha\|s\|_s$ for the two states with $\alpha < 1$ (states 2 and 3,9 with ratios 0.703 and 0.818).
-
-*(iii)* TSML is self-adjoint as a $9\times9$ matrix; transfer operator spectral gap = 3/4 exactly.*
-
-*Proof.* (i) follows from sub-magma closure $C\times C \subseteq C$ (Sanders 2026a, Proc. AMS): $\mathrm{TSML}[s][c] \in C$ for **all** $s \in \{1,\ldots,9\}$ and all $c \in C$, not only for $s \in C$. This is verified by direct computation over all 81 pairs. (ii)–(iii) by eigendecomposition of the SHA-256–pinned table. $\square$
-
-**Remark 1.2.** The TSML self-adjointness (||T − T⊤||/||T|| = 0 exactly) rules out non-Hermitian spectral theory as the primary framework. TIG collapse is projection onto a dominant real eigenvector, not decay via imaginary part.
+The orbit zone {3,9} was previously characterized by a single "visit count" observable.
+That single number was blending two structurally different mechanisms.
+The correct split is:
 
 ---
 
-## 2. The Reset Puncture
+**Observable 1: Orbit Burst Length B(λ)**
 
-**Standard maps with holes** (Demers–Young 2006): mass leaks permanently; the system loses norm; Ruelle–Perron–Frobenius requires extra work at the hole.
+$$B(\lambda) = \mathbb{E}\left[\max_{\text{episode}} \{\text{consecutive steps in cycle zone}\}\right]$$
 
-**TIG reset puncture:** $\mathrm{TSML}[7][c] = 7$ for all $c \in C$ (exact). HAR is not a leak. It is a **return locus**: the system is forced back to the foundation. Mass does not escape; it recurs. This is the distinguished property of a Poincaré return section, not a hole.
+The maximum run of consecutive steps the chain stays inside {3,9} before leaving.
+This measures **cycle-stabilized orbit depth**: how long the local algebra holds the chain in the loop.
 
-The six TIG corridors are naturally the levels of a **Young tower** (Young 1999), stratified by return time to HAR. The base of the tower is HAR; the six corridor levels are the strata. The sub-magma collapse theorem (≤ 2 steps from $C$ to HAR, proved) gives an explicit return-time distribution.
+| λ | B mean | B max | Regime |
+|---|--------|-------|--------|
+| 0.00 | **0.148** | 6 | Near-critical |
+| 0.10 | 0.140 | 4 | Near-critical |
+| 0.20 | 0.051 | 1 | CHA entry |
+| 0.40 | 0.058 | 1 | CHA mid |
+| 0.80 | **0.113** | 4 | BAL (BHML transit) |
+| 0.90 | 0.095 | 4 | COL |
 
-This is structurally different from Demers–Young holes: the coherent norm is preserved because recurrence is guaranteed, not because mass is lost slowly.
-
----
-
-## 3. The Closest Continuous Host
-
-The closest currently identified technical framework is **anisotropic transfer-operator theory** (Gouëzel–Liverani 2006), where stable and unstable directions are separated by construction. In that framework:
-- the stable direction of the function space absorbs the "support" component,
-- the unstable direction contracts under the transfer operator,
-- the resulting inequality has the same two-norm structure as the TIG dual-scale form.
-
-The mapping is:
-$$\text{unstable direction} \;\leftrightarrow\; \text{local wobble (strong norm)}$$
-$$\text{stable direction} \;\leftrightarrow\; \text{coherent support (weak norm, preserved)}$$
-
-The novel contributions relative to Gouëzel–Liverani are:
-1. identification of the *coherent support* as the physically deeper norm (rather than just the complementary Banach component),
-2. the **reset puncture** as a distinguished return section (rather than a generic expanding-map fixed point),
-3. the $C_\mathrm{TIG} = 250/21$ constant as an algebraically derived bound on the contraction rate.
-
-Whether the TIG transfer operator family literally satisfies the hypotheses of Gouëzel–Liverani is an open question and part of the analytic bridge.
+B is highest at λ=0 (structural cycle, TSML holds the chain in {3,9}) and drops in the CHA corridor, then partially recovers at BAL/COL where BHML transit creates secondary bursts.
 
 ---
 
-## 4. Proposed Continuous Dual-Scale Inequality
+**Observable 2: Transit-Through Count T(λ)**
 
-*(Heuristic — exact for the discrete TIG model, open for ζ)*
+$$T(\lambda) = \mathbb{E}[\text{number of distinct entries into cycle zone per chain}]$$
 
-The TIG dual-scale Lasota–Yorke inequality takes the form:
-$$\|P_\lambda f\|_\mathrm{strong} \;\leq\; \alpha(\lambda)\|f\|_\mathrm{strong} + C_\mathrm{TIG}\|f\|_\mathrm{coherent}$$
-with:
-- $\|f\|_\mathrm{strong}$ = local wobble (unresolved oscillation per corridor step),
-- $\|f\|_\mathrm{coherent}$ = coherent background support (preserved by sub-magma closure),
-- $\alpha(\lambda) < 1$ = corridor-dependent contraction factor.
+The number of separate times the chain enters {3,9}, regardless of how long it stays.
+This measures **transit-through frequency**: how often the chain passes through the zone on its way elsewhere.
 
-The $\alpha(\lambda)$ values are **empirical estimates from the Jutila and Guth–Maynard frequency bounds**, not proved constants. Only the global discrete spectral gap $\alpha_\mathrm{global} = 1/4$ is exact:
-
-| Corridor | λ range | α(λ) | Source |
-|----------|---------|------|--------|
-| Pre-leak | [0, 0.09) | ~0.25 | discrete gap, exact |
-| CHA | [0.30, 0.60) | ~0.63 | Jutila $n_0 \sim t^{-0.143}$ at $t=10^3$, empirical |
-| CTR | [0.90, 1.00] | ~0.85 | Guth–Maynard $N(\sigma,T)\sim T^{0.12}$, empirical |
-
-For ζ, the proposed continuous analog is:
-$$\log|\zeta(\sigma+it)| \;\geq\; \log|\zeta(\tfrac12+it)| - C_\mathrm{TIG}\,\lambda(\sigma)^3/3,$$
-where the right side is positive for all $t \geq t_0(\lambda)$ since $|\log\mathrm{KV}(t)| \to \infty$ while $C_\mathrm{TIG}\lambda^3/3$ is constant. This gives gap-positivity if the continuous dual-scale inequality holds — which requires proving the mean-square bound on $\partial_\sigma\log|\zeta|$ (Appendix E open step).
+In the current 300-state model, T_max=1 at all λ — chains enter the zone at most once per run. This means:
+- There are no long-range returns to the orbit zone
+- The orbit is purely local: one entry, a burst of consecutive steps, one exit
+- The "circle" is a tight local loop, not a distant excursion-and-return
 
 ---
 
-## 5. Summary
+## What Each Observable Measures
 
-| Property | Standard LY | TIG dual-scale |
-|----------|-------------|----------------|
-| Strong norm | Roughness (BV) | Local wobble |
-| Weak norm | Mass (L¹, bookkeeping) | **Coherent support (preserved, deeper)** |
-| Weak norm under P | Contracts or stays | **Preserved exactly** (sub-magma, proved) |
-| Remainder term | Generic $\beta\|f\|_1$ | $C_\mathrm{TIG}\lambda^2 \cdot \|f\|_\mathrm{coherent}$ (structured) |
-| Hole/puncture | Leakage (mass lost) | **Return locus** (mass recurs, Young tower) |
-| Closest framework | Baladi (2000) | Gouëzel–Liverani (2006), anisotropic Banach |
+| Observable | What it captures | Gap dependence | Mechanism |
+|-----------|-----------------|----------------|-----------|
+| B(λ) | Local orbit depth (consecutive steps in zone) | **+1.49** (rises with gap) | TSML cycle geometry |
+| T(λ) | Entry frequency | ~0 variation | Transport routing |
 
-**The key theorem-style sentence:** After each corridor step, unresolved local wobble contracts (strong norm) while the coherent support field is exactly preserved (weak norm) by sub-magma closure — the system loses only what cannot land back on the foundation.
+B captures the **true orbit**: how many times the cycle turns before the chain escapes.
+T captures the **transit**: how many separate times the chain visits the zone.
 
-**The bridge target:** If the Mix$_\lambda$ family extends to an anisotropic transfer operator on $L^2$(critical strip) satisfying Gouëzel–Liverani conditions, gap-positivity follows as a corollary of their Theorem 1.1.
+The earlier "visit count" was summing consecutive steps, so it was primarily measuring B.
+The global exponent (-0.10) was B-mechanism (+1.49) and secondary BHML-transit (-2.84) canceling.
 
 ---
 
-*References:*
-Baladi (2000), *Positive Transfer Operators*, World Scientific;
-Demers–Young (2006), Ergodic Theory Dyn. Syst. 26;
-Gouëzel–Liverani (2006), Ergodic Theory Dyn. Syst. 26;
-Sanders (2026a), sub-magma closure, Proc. AMS (submitted);
-Young (1999), Ann. Math. 147.
+## The ζ-Side Bridge Target
 
-*(c) 2026 Brayden Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+The correct finite-to-analytic translation:
+
+**Finite:** *Orbit burst length B(λ) = max consecutive steps in cycle zone per corridor episode*
+
+**Analytic analog:** *Consecutive near-critical revisits within one corridor window*
+
+Precisely: at height $t$ and off-axis distance $\lambda = 2|\sigma - \tfrac12|$, define:
+
+$$B_\zeta(\sigma, t) = \max\left\{\text{consecutive } t'\text{-values where } |\mathrm{Re}(\zeta'/\zeta)(\sigma+it')| < \epsilon\right\}$$
+
+within a height window of length $O(\log t)$ (one corridor episode).
+
+This is not: a long excursion that eventually returns.
+This is: how many consecutive near-zero values of $\mathrm{Re}(\zeta'/\zeta)$ occur in a burst before the phase moves away.
+
+**The claim:** $B_\zeta(\sigma, t) \to 0$ as $t \to \infty$ for $\sigma \neq \tfrac12$, at a rate governed by the corridor hierarchy — not by the spectral gap directly, but by the cycle-stabilized structure at the base (λ=0, σ=½).
+
+---
+
+## Why This Matters for Open Problem Z.5
+
+The revised question is now three-part:
+
+1. Does σ=½ carry all stationary support? *(unique attractor — answered yes in finite model)*
+2. Does the analytic side preserve the cycle-stabilized orbit structure near σ=½? *(burst length maximal at critical line)*
+3. Is the transit-through mechanism (BHML-driven) absent or negligible in the analytic deployment? *(no ordering analog at large t)*
+
+If (3) holds — if the BHML ordering transit has no analytic analog — then only the cycle-stabilized bursts remain, and those are maximal at σ=½ and decay with distance. That gives the orbit capacity the correct shape for the RH argument.
+
+---
+
+## Summary
+
+The orbit zone {3,9} has two clean observables:
+
+- **B(λ): orbit burst length** — measures cycle-stabilized local loops; peaks at λ=0; gap exponent +1.49; structural mechanism
+- **T(λ): transit-through count** — measures entry frequency; nearly constant; no structural content at current resolution
+
+The ζ-side proxy should target B, not T: consecutive near-critical revisits within a corridor episode, not long-range excursion returns. That is the measurable finite shadow of the claim that off-line structures cannot sustain near-critical behavior.
+
+---
+
+*(c) 2026 Brayden Sanders / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

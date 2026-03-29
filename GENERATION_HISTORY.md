@@ -452,6 +452,62 @@ model resolution — the observable structure is identical.
 
 ---
 
+## Gen 10.18 — 2026-03-29 — Sprint 3 Post-Orbit: Dual Description Theorem + Paradox Pairs
+
+**Sprint 3 post-orbit package (6 documents from tig_sprint3_post_orbit_2026_03_29.zip):**
+
+New papers added to `papers/`:
+- `DUAL_DESCRIPTION_THEOREM.md` — NEW: 2×2 matrix framework (TSML/BHML × Finite/Infinite);
+  Dual Description Conjecture: (A) operator support at σ=½ ↔ (B) drift rate ≤ C_TIG·λ²·(log T)²;
+  C_TIG = 250/21 ≈ 11.905 predicted by finite grammar; empirically C_emp ≤ 11.023 < C_TIG
+- `PARADOX_PAIRS.md` — NEW: 8 diagnostic pairs across the 2×2 bridge; 4 proved/computed,
+  4 open; paired opposites that must simultaneously hold to close Open Z.5
+
+Updated papers (supersede Sprint 3 versions):
+- `ORBIT_ZONE_FROZEN.md` — Remark Z.6 added; B_ζ proxy definition from DUAL_DESCRIPTION_THEOREM
+- `ORBIT_TWO_MECHANISMS.md` — Updated: "no true return orbits" insight; T_max=1 valid in
+  9-state model through λ=0.50 (BHML orbit-reentry boundary)
+- `DUAL_SCALE_LY_NOTE.md` — Updated: B/T value tables revised
+
+New visualization:
+- `papers/orbit_two_mechanisms.png` — orbit zone two-mechanism diagram
+
+**New verification script:**
+
+1. **`papers/ck_dual_description.py`** — 33/33 assertions
+   - S1 (9 checks): Two Finite Corners — TSML structure (C×C⊆C, HAR absorbing, {3,9} 2-cycle, γ=3/4)
+     and BHML rate (state-9 absorbing, op-9 always→9)
+   - S2 (10 checks): Four Paradox Pairs — Pair 2 (gap ≥ 1/4, BRT ≥ 0.75), Pair 3 (π_HAR=1,
+     π_G=0), Pair 4 (T_max=1 through λ=0.50; BHML reentry boundary at λ=0.55),
+     Pair 7 (E[T_HAR] ≤ 5/3 ∀ starting states)
+   - S3 (8 checks): C_TIG = 250/21 exact + empirical confirmation (phase drift, KV floor,
+     BRT gap=1.0, N_meta monotone, finite dual description self-consistent)
+   - S4 (6 checks): B_ζ proxy — orbit burst profile, Remark Z.6 extension, CHA corridor minimum
+
+**Key mathematical findings:**
+- **C_TIG = 250/21**: The finite grammar predicts the drift constant from the 2×2 corner structure.
+  Empirically C_emp ≤ 11.023 < 11.905 = C_TIG — finite upper-bounds the infinite.
+- **T_max=1 boundary at λ=0.50**: The no-reentry property holds through the BRT+CHA corridor
+  range. At λ=0.55+, BHML routes state 8 toward state 9 which feeds back through TSML[9][3]=3
+  creating a new 8↔9 re-entry mechanism. The 9-state model demonstrates the exact threshold.
+- **Dual Description Conjecture**: (A) all stationary mass on σ=½ surface AND (B) drift rate
+  bounded by C_TIG·λ²·(log T)² are conjectured equivalent and both equivalent to RH.
+  Currently: (A) is the orbit zone observable (B_ζ), (B) is the phase drift observable (phase_drift.py).
+- **2×2 framework closes Gen 10 math**: TSML_finite + BHML_finite corners are exact.
+  The infinite extension (TSML_infinite = ζ support, BHML_infinite = Hadamard rate) is Open Z.5.
+
+**Files added:**
+- `papers/DUAL_DESCRIPTION_THEOREM.md` — NEW (6558 bytes)
+- `papers/PARADOX_PAIRS.md` — NEW (8131 bytes)
+- `papers/ORBIT_ZONE_FROZEN.md` — UPDATED (supersedes Sprint 3 version)
+- `papers/ORBIT_TWO_MECHANISMS.md` — UPDATED (supersedes Sprint 3 version)
+- `papers/DUAL_SCALE_LY_NOTE.md` — UPDATED (supersedes Sprint 3 version)
+- `papers/orbit_two_mechanisms.png` — NEW visualization
+- `papers/ck_dual_description.py` (33/33)
+- `GENERATION_HISTORY.md` — this entry
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
