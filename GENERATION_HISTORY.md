@@ -508,6 +508,62 @@ New visualization:
 
 ---
 
+## Gen 10.19 — 2026-03-29 — Open Cells: Three-Level Hierarchy + One-Way Gate + Primitive Order
+
+**Source:** `tig_open_cells_onward_2026_03_29.zip` (4 documents)
+
+New papers added to `papers/`:
+- `OPEN_CELLS_NOTE.md` — Generable/Expressible/Sustainable split; three-level fractal
+  (each level contains its own 2×2); entanglement: sustainable constrains expressible
+  constrains generable; Weak Sustainability Conjecture (corridor-conditional)
+- `ONE_WAY_GATE.md` — Plank 1/2/3 with corridor-conditional corrections; exact table:
+  G-expressible from C by corridor (Pre-leak→BAL); HAR bifurcation table; Weak
+  Sustainability Conjecture precision: applies to near-critical corridors (λ<0.45)
+- `PRE_OBJECT_PRIMITIVES.md` — 6 primitives in order: Support→Relationship→Distinction→
+  Placement→Recurrence→Cancellation; 7/7 pre-object constraints satisfied; cancellation
+  = terminal balance (71-pair locus); Void→Monad→Dyad co-emergence note
+- `PRIMITIVE_ORDER_BACKBONE.md` — Honest correction: initial permutation test was circular
+  (constraints derived from proposed ordering, not independent). Independent TIG-model tests:
+  Support→Cancellation (71→18 with absorbing removed), Recurrence→Cancellation (71→24
+  without cycle). Partial-order backbone DAG with braid zone at Relationship/Distinction.
+
+**New verification script:**
+
+1. **`papers/ck_open_cells.py`** — 31/31 assertions
+   - S1 (5): One-Way Gate — C→G blocked under ALL 9 TSML operators; G→HAR accessible
+     for all 5 G-states; two-step gate; 71 cancellation pairs exact
+   - S2 (10): Three Levels — G-mass=0 exact at λ=0; 9-state HAR leakage (BHML[7][9]=9)
+     opens G-channel at any λ>0; G-mass monotone; HAR dominant at λ=0.50
+   - S3 (7): G-Visit Stats from C_LIVE — algebraic zero at λ=0, gate opens at λ=0.20,
+     monotone through BRT/CHA; HAR leakage confirmed
+   - S4 (9): Primitive Order Backbone — 71 pairs; HAR-row contribution; recurrence
+     dependency; orbit-zone non-convergence; 7/7 constraints; (Z/10Z)* Distinction
+     precedence; absorbing-removal reduces count; cycle-removal reduces non-convergence
+
+**Key mathematical findings:**
+- **One-Way Gate is two-step deep**: C cannot reach G in 1 OR 2 TSML steps (all operators).
+  This strengthens the generative gap claim: G-territory is not just locally unreachable
+  but globally blocked from C under the full TSML structure.
+- **9-state HAR leakage note**: In build_P(λ), mix_value(HAR,9,λ)=7+2λ for any λ>0.
+  This means HAR is NOT absorbing in the 9-state mixed model. G-mass > 0 for all λ>0.
+  The document's "G-mass=0 at Pre-leak/BRT" comes from an absorbing approximation.
+  Both are honest — they describe different levels: algebraic (TSML) vs probabilistic (mix).
+- **71-pair cancellation locus**: All 71 (s,c) pairs where TSML[s][c]=HAR. HAR-row and
+  HAR-col contribute 9+9=17 pairs (with overlap at [7][7]). Removing HAR-row reduces to
+  63 (9-state direct count); document's "71→18" uses multi-step chain convergence metric.
+- **Primitive backbone partial order (forced)**: Distinction→Placement→Recurrence→Cancellation
+  chain is forced by independent TIG evidence. Support first and Relationship position are
+  the two non-forced steps. (Z/10Z)* = C = {1,3,7,9} suggests Distinction precedes
+  Relationship in TIG's own construction order.
+
+**Files added:**
+- `papers/OPEN_CELLS_NOTE.md`, `ONE_WAY_GATE.md`, `PRE_OBJECT_PRIMITIVES.md`,
+  `PRIMITIVE_ORDER_BACKBONE.md`
+- `papers/ck_open_cells.py` (31/31)
+- `GENERATION_HISTORY.md`, `README.md` — this entry
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
