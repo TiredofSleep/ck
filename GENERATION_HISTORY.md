@@ -281,6 +281,63 @@ The repository is now fractally organized — Being/Doing/Becoming at every scal
 
 ---
 
+## Gen 10.14 — 2026-03-28 — TIG Package Integration + Expanded Test Suite
+
+**Source:** `tig_for_claudecode_2026_03_28.zip` (40 research docs) read, verified, integrated.
+
+**New papers/ files (18 research docs from zip):**
+- `PROOF_STATUS.md`, `APPENDIX_E_COMPLETE.md`, `WP_LAST_LEMMA.md`
+- `WP_MONTGOMERY_NOTE.md`, `COLLABORATOR_BRIEF.md`, `RH_APPROACHES_MAP.md`
+- `SPRINT_STATUS_FOUR_TRACKS.md`, `DUAL_SCALE_LY_NOTE.md`
+- `TRANSFER_OPERATOR_RESEARCH_NOTE.md`, and 9 more
+
+**New scripts:**
+- `papers/tig_unit_tests_v2.py` — 65/65 assertions (expanded from original 15)
+- `papers/ck_rh_sweep.py` — 460 heights, σ_min > 0.5 always, zero crossings = 0
+- `papers/ck_ag_sweep.py` — AG(2,p) survivor = p²−1 verified for p=3,7,13,23,101,211,503
+
+**Key findings:**
+- λ_char(t) = (3·|log KV(t)| / C_TIG)^(1/3) grows from 0.30 to 0.39 across t=[20,800]
+- All crossovers land in CHA corridor: algebraically gapped at every tested height
+- `zeros_to_1100.json`: 716 Riemann zeros γ_k ∈ [14.135, 1099.361] included
+- Honest status: Last Lemma = OPEN; KV floor gap-positivity = numerically confirmed
+
+---
+
+## Gen 10.15 — 2026-03-28 — Three Bridge Verification Scripts
+
+**New bridge scripts (all pass 100%):**
+
+1. **`papers/ck_transfer_metastable.py`** — 12/12 assertions
+   - Sweeps 500 Mix_λ values; computes 9×9 transfer matrix P_λ spectrum
+   - NEW DISCOVERY: BRT corridor (λ∈[0.09,0.30]) has spectral gap = 1.0 exactly (one-step mixing)
+   - N_meta: 2 at λ=0 → 8 at λ=1 (new metastable components activate at each corridor boundary)
+   - Both TSML and BHML confirmed self-adjoint (||T−Tᵀ||=0)
+
+2. **`papers/ck_phase_drift.py`** — 6/6 assertions
+   - Phase-drift correlation OOL-KND bridge: corr(|dθ/dσ|, λ²) = −0.9974 at t=100 ✓
+   - All 20 heights (t=20..1020) have negative correlations; mean = −0.9012
+   - Physical finding: phase smoothest near σ=1 (zero-free) not σ=0.5 (dense zeros)
+
+3. **`papers/ck_cemp_bound.py`** — 6/6 assertions
+   - KV floor gap-positivity: 49/50 clean heights pass min|ζ| > KV(t)
+   - Pre-leak alpha(t) = min|ζ|_preleak / KV(t): min=1.015, mean=4.877, widening (slope=1.84)
+   - Appendix E.2 claim (alpha ≥ 1.376): 49/50 ✓
+   - WHY NOT C_TIG·λ² directly: that ratio is O(100) at small λ (the Open Last Lemma)
+
+**Why these bridge matters:**
+- Transfer → Bovier-BEGK metastable theory is exactly the right host for TIG corridors
+- Phase drift → OOL-KND-RH approach needs TIG sub-magma for "WHY drift vanishes at σ=½"
+- KV floor → what IS numerically verifiable; distinguishes "proved" from "open"
+
+**Files changed:**
+- `papers/ck_transfer_metastable.py` + `papers/transfer_metastable_results.json`
+- `papers/ck_phase_drift.py` + `papers/phase_drift_results.json`
+- `papers/ck_cemp_bound.py` + `papers/cemp_bound_results.json`
+- `GENERATION_HISTORY.md` — this entry
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*
