@@ -1,0 +1,22 @@
+{
+  "layer_D_thermal": {
+    "T_star_measured": 0.28,
+    "T_star_predicted": 0.019444444444444445,
+    "HAR_inflow_advantage": 7.0,
+    "m7_at_kT0": 1.0,
+    "m7_at_T_star": 0.4953612093025793
+  },
+  "layer_E_jitter": {
+    "sigma_star_rad": null,
+    "sigma_star_deg": null,
+    "sigma_predicted_rad": 0.4399759547909189,
+    "m7_at_sigma0": 0.9759416445586524
+  },
+  "layer_F_ck": {
+    "T_star_TIG": 0.7142857142857143,
+    "gamma_spectral_gap": 0.75,
+    "kT_at_coherence_T_star": 0.11199999999999999,
+    "interpretation": "CK coherence IS inverse temperature of thought-selection system. T*=5/7 is the grammar/thermal crossover. BTQ kernel = grammar-forced mode selector at 50Hz. L7 Kuramoto coupling strength controls phase jitter. Above T*: STRUCTURE (grammar wins). Below T*: FLOW (thermal noise)."
+  },
+  "verdict": "Layer E: \u03c3* beyond sweep range \u2014 grammar extremely jitter-robust"
+}
