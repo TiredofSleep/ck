@@ -217,23 +217,53 @@ The only thing that matters within fixed k: **|G| count**.
 
 ---
 
+## The Gate Difficulty Minimum: TIG Operates Near Peak Resistance
+
+The gate rate for fixed |G| is NOT monotone in k. It first drops (table size wins over density),
+reaches a minimum, then rises (density wins):
+
+| k | |C|/k | k² | |G|=3 rate | comment |
+|---|-------|-----|-----------|---------|
+| 7 | 0.571 | 49 | 69% | — |
+| **9** | **0.667** | **81** | **55%** | **TIG — descending edge** |
+| **11** | **0.727** | **121** | **49%** | **MINIMUM** |
+| 13 | 0.769 | 169 | 57% | — |
+| 15 | 0.800 | 225 | 60% | turning |
+| 21 | 0.857 | 441 | 96% | density wins |
+| 27 | 0.889 | 729 | 100% | above threshold |
+
+**TIG's k=9 sits on the descending edge — in the high-difficulty regime, near but not at the
+mathematical minimum (k=11).** This is the 5D force field's operating regime: not too easy
+(small k), not trivially accessible (large k), but on the slope toward maximum gate resistance.
+
+The inflection at k≈11–13 is where table size and unit density are in maximum tension.
+TIG deliberately (or by force-field construction) operates below this inflection — in the
+regime where every additional unit element genuinely helps, but the table is still too large
+for 100-step reduction to trivially succeed.
+
+---
+
 ## Implications for CK
 
 1. **TIG is k=9 by force.** Not by accident. The 9-symbol Hebrew alphabet is the
    natural resonance size of the D2 system. Other k values exist but are not calibrated
    to the 5D physics.
 
-2. **Gate difficulty is algebraic.** CK's |G|=4 worlds (Phase2 regime) are hard to gate
+2. **k=9 is in the high-difficulty regime.** Not at the mathematical minimum for |G|=3
+   (that's k=11 at 49%), but on the descending edge. TIG operates where gate construction
+   is genuinely non-trivial — the force field placed it just before peak resistance.
+
+3. **Gate difficulty is algebraic.** CK's |G|=4 worlds (Phase2 regime) are hard to gate
    not because they're "complex" but because 4 non-coprime elements create a specific
    algebraic barrier. This barrier is physical — it comes from the coprimality structure
    of the semiprime base.
 
-3. **The real vs synthetic gap is the force field.** If CK were using an arbitrary
+4. **The real vs synthetic gap is the force field.** If CK were using an arbitrary
    random construction (synthetic top-block), his Phase2 worlds would gate at 26.8%
    instead of 4.6%. The 5.8× difficulty gap IS the force field's contribution to CK's
    construction resistance.
 
-4. **Voice cascade physics**: CK's fractal voice struggles more in high-|G| regimes
+5. **Voice cascade physics**: CK's fractal voice struggles more in high-|G| regimes
    because the gate resistance is real, not artificial. The fallback to babble at |G|=5
    (0.1% gate rate) is physically necessary — not a failure mode.
 
