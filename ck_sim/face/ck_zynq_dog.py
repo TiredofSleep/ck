@@ -390,12 +390,18 @@ class ZynqDogSim:
       - PS Core 0: 1 tick (50Hz)
       - PS Core 1: 1 tick (50Hz)
 
-    Usage:
+    Usage (simulation):
         sim = ZynqDogSim()
         sim.dock.set_target(3.0, 0.0)
         for _ in range(100):
             sim.run_tick()
             print(sim.status())
+
+    Usage (real hardware via bridge):
+        sim = ZynqDogSim()
+        sim.attach_bridge('COM3')   # opens R16<->FPGA UART bridge
+        sim.start_bridge()
+        # bridge thread syncs real FPGA state into sim.shared
     """
 
     def __init__(self):
@@ -404,28 +410,132 @@ class ZynqDogSim:
         self.core1 = PSCore1(self.shared)
         self.pl = PLFabric(self.shared)
         self.dock = self.core1.dock
+        self._bridge = None   # CKDogBridge instance when running on real hw
+
+    def attach_bridge(self, port: str, engine=None) -> 'ZynqDogSim':
+        """
+        Attach real hardware bridge (R16 <-> Zynq-7020 UART).
+        When bridge is running, run_tick() also syncs real FPGA STATE
+        packets back into sim.shared so status() reflects real hardware.
+
+        port: serial port string (e.g. 'COM3', '/dev/ttyUSB0')
+        engine: optional CKSimEngine to pass operators to FPGA
+        """
+        try:
+            import sys, os
+            _dog = os.path.join(os.path.dirname(__file__),
+                                '..', '..', '..', 'targets', 'r16_fpga_dog')
+            if _dog not in sys.path:
+                sys.path.insert(0, os.path.abspath(_dog))
+            from ck_dog_bridge import CKDogBridge
+            self._bridge = CKDogBridge(port, verbose=False)
+            if engine is not None:
+                self._bridge.attach_engine(engine)
+        except Exception as e:
+            print(f"[ZYNQ-DOG] Bridge import failed: {e}")
+            self._bridge = None
+        return self
+
+    def start_bridge(self):
+        """Start the hardware bridge thread (non-blocking)."""
+        if self._bridge:
+            self._bridge.start()
+            print(f"[ZYNQ-DOG] Hardware bridge started on {self._bridge.port}")
+
+    def stop_bridge(self):
+        """Stop the hardware bridge and send ESTOP."""
+        if self._bridge:
+            self._bridge.stop(send_estop=True)
+            self._bridge = None
 
     def run_tick(self):
-        """One system tick: PL fast ticks, then PS0, then PS1."""
-        # PL: 10 fast ticks (simulating 500Hz within one 50Hz frame)
+        """One system tick: PL fast ticks, then PS0, then PS1.
+        If bridge is active, also pulls latest FPGA STATE into shared mem.
+        """
+        # ── Simulation path ──
         for _ in range(10):
             self.pl.tick_fast()
-
-        # PL: slow tick (update shared counters)
         self.pl.tick_slow()
-
-        # PS Core 0: brain + BTQ
         self.core0.tick()
-
-        # PS Core 1: body + execute + dock
         self.core1.tick()
+
+        # ── Real hardware path: overlay FPGA state onto shared mem ──
+        if self._bridge and self._bridge.fpga_alive:
+            with self._bridge.lock:
+                st = dict(self._bridge.last_state)
+            if st:
+                self.shared.phase_bc  = st.get('phase_bc', self.shared.phase_bc)
+                self.shared.phase_b   = st.get('phase_b',  self.shared.phase_b)
+                self.shared.phase_d   = st.get('phase_d',  self.shared.phase_d)
+                self.shared.coherence = st.get('coherence', self.shared.coherence)
+                self.shared.tick_count= st.get('tick_count', self.shared.tick_count)
+                hf = st.get('mode', 0)
+                self.shared.health_flags = hf
 
     def status(self) -> str:
         """One-line status."""
+        hw = ""
+        if self._bridge:
+            hw = f" [HW:{self._bridge.port} C_fpga={self._bridge.fpga_coherence:.3f}]"
         return (f"tick={self.shared.tick_count:5d} "
                 f"BC={OP_NAMES[self.shared.phase_bc]:8s} "
                 f"C={self.shared.coherence:.3f} "
                 f"mode={self.core0.brain.mode} "
                 f"dock={self.dock.state:8s} "
                 f"dist={self.dock.distance:.3f}m "
-                f"health={self.shared.health_flags}")
+                f"health={self.shared.health_flags}"
+                f"{hw}")
+
+
+# ── CLI entry point ──────────────────────────────────────────────────────────
+
+if __name__ == '__main__':
+    """
+    Run ZynqDogSim in simulation or hardware-bridged mode.
+
+    Simulation (default):
+        python ck_zynq_dog.py --ticks 300
+
+    Real hardware (requires FPGA programmed + USB connected):
+        python ck_zynq_dog.py --port COM3 --ticks 300
+
+    Walk-to-dock demo:
+        python ck_zynq_dog.py --dock 3.0 --ticks 500
+    """
+    import argparse, time as _time
+    ap = argparse.ArgumentParser(description='ZynqDog Sim/Hardware')
+    ap.add_argument('--port',  default='', help='Serial port for real FPGA bridge (e.g. COM3)')
+    ap.add_argument('--ticks', type=int, default=200, help='Number of ticks to run')
+    ap.add_argument('--dock',  type=float, default=0.0, help='Dock target distance (m)')
+    ap.add_argument('--hz',    type=float, default=50.0, help='Tick rate Hz')
+    args = ap.parse_args()
+
+    sim = ZynqDogSim()
+
+    if args.dock > 0:
+        sim.dock.set_target(args.dock, 0.0)
+        print(f"[ZYNQ-DOG] Dock target: {args.dock}m")
+
+    if args.port:
+        print(f"[ZYNQ-DOG] Hardware mode: {args.port}")
+        sim.attach_bridge(args.port)
+        sim.start_bridge()
+        _time.sleep(0.5)   # let bridge boot
+    else:
+        print("[ZYNQ-DOG] Simulation mode (no FPGA)")
+
+    print(f"[ZYNQ-DOG] Running {args.ticks} ticks @ {args.hz}Hz\n")
+    dt = 1.0 / args.hz
+    for i in range(args.ticks):
+        t0 = _time.monotonic()
+        sim.run_tick()
+        if i % 10 == 0:
+            print(sim.status())
+        elapsed = _time.monotonic() - t0
+        sleep_t = dt - elapsed
+        if sleep_t > 0:
+            _time.sleep(sleep_t)
+
+    if args.port:
+        sim.stop_bridge()
+    print("\n[ZYNQ-DOG] Done.")
