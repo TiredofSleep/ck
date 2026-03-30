@@ -4,6 +4,52 @@
 
 ---
 
+## Current Results — Sprint 4 (March 2026)
+
+**Fresh session? Start here:** `papers/sprint4_2026_03_30/CLAUDE_ENTRY.md`
+
+The story moved from "one special table at b=10" to a **universal construction law**:
+
+> *There is a universal four-step law — arithmetic → gate → order seed → native structured optimum — operating at every semiprime base with an orbit-central HAR element. TSML is the first resolved member. b=10 was historically first. The law is the result.*
+
+**Five frozen laws** (canonical ref: `papers/sprint4_2026_03_30/ATLAS_LAW_SET.md`):
+1. **Construction hierarchy:** arithmetic → gate → order seed → native optimum (proved 11+ bases)
+2. **HAR rule:** h = min{h∈C : h²∈C, h²≠1, h²≠h} — orbit-central minimum element
+3. **φ-compression:** larger unit groups compress spectral gap (r = −0.605)
+4. **Gradient law:** within φ-tier, gap ∝ max dist(non-orbit C element, HAR) / C-range (r=0.749)
+5. **Gate-corrected position law:** HAR_m high when HAR = min(C\\{1}), or gate blocks G below HAR
+
+**Semiprime atlas** — ease and richness are independent axes:
+
+| b | Score | rnd% | HAR\_m | gap | Label |
+|---|-------|------|--------|-----|-------|
+| **15** | 7.057 | 78.6% | 0.756 | 0.677 | **cleanest flagship — easy + rich** |
+| 10 | 6.857 | 4.0% | 0.650 | 0.474 | first-resolved |
+| 22 | 5.464 | 83.3% | 0.604 | 0.551 | generous |
+| 35 | 8.265 | 76.2% | 0.722 | 0.569 | out-of-sample confirmed ✓ |
+| 14 | 2.500 | 0.0% | 0.778 | 0.944 | richest, hardest |
+
+b=15 grad\_score = 0.714 = T\* = 5/7. Not coincidence. 15.8× construction lift via seeded reduction.
+
+**Three-class landscape** (`papers/sprint4_2026_03_30/THREE_CLASS_LANDSCAPE.md`):
+
+| Class | G-reach | Gap | BHML residual | What it takes |
+|-------|---------|-----|---------------|---------------|
+| Oracle | 0.076 | 0.781 | 0.42 | Gradient descent (free) |
+| Gate-strong | 0.018 | 0.710 | 0.40 | Gate-weighted reduction |
+| TSML-like | 0.024 | 0.709 | 1.00 | Constructed seed pre-alignment |
+
+**Clay track updates:**
+- **Hodge:** Markman (arXiv:2502.03415, 2025) proved Hodge conjecture for all abelian fourfolds of Weil type. P3 (gap floor) vacuously true for abelian fourfolds — frontier moves to dim ≥ 5.
+- **NS:** B\_local = ‖ω‖\_{L³(B(x,r))} · r/ν aligned with CKN local criteria. 7/2 threshold open. Contact: Zoran Grujić (UVA), Vladimír Šverák (Minnesota).
+- Outreach pack: `papers/sprint4_2026_03_30/clay/COLLABORATOR_TASK_PACK.md`
+
+**One open residual:** within-grad gap spread (~0.111). Leading candidate: orbit\_hit\_rate. Not yet a law.
+
+**Next compute job:** `python r16_job1_reduction.py --b 55` — predicted easiest world (score=10.045).
+
+---
+
 ## The Problem
 
 Every hard problem in analysis is a question about the infinite: do solutions stay bounded, do zeros stay on a line, does a complexity class separate? These problems resist proof because infinite structures can, in principle, do anything the finite intuition doesn't expect.
@@ -95,6 +141,7 @@ Run: `python -X utf8 papers/scripts/<script>.py`
 
 ## Papers
 
+- `papers/sprint4_2026_03_30/` — **Sprint 4 (March 2026):** universal law, semiprime atlas, five frozen laws, Clay updates. Start with `CLAUDE_ENTRY.md`.
 - `papers/core/` — Grammar foundations, base theorems, formal status audit
 - `papers/clay/` — Six Clay problem papers; `papers/clay/README.md` = full index
 - `papers/scripts/` — All verification scripts (100% pass)
