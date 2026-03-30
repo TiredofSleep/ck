@@ -1,0 +1,160 @@
+{
+  "b": 55,
+  "n_trials": 10000,
+  "seeded": true,
+  "world": {
+    "b": 55,
+    "p": 5,
+    "q": 11,
+    "C": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9
+    ],
+    "G": [
+      5
+    ],
+    "HAR": 2,
+    "phi": 8,
+    "orbit_depth": 20,
+    "gate_ease": 1.0,
+    "grad_score": 0.875,
+    "score": 15.8025
+  },
+  "atlas_law_checks": {
+    "score_above_b15": true,
+    "score_above_b10": true,
+    "rate_prediction": "should_beat_b15_78pct",
+    "rate_beats_b15": false,
+    "phi_compression_note": "\u03c6=16 \u2014 expected gap direction vs b=15 (gap=0.677): lower"
+  },
+  "orbit_analysis": {
+    "gate_strong_gap": {
+      "n": 9999,
+      "mean": 0.6719,
+      "std": 0.0702,
+      "min": 0.3067,
+      "max": 0.875,
+      "p25": 0.6332,
+      "p75": 0.7209
+    },
+    "tsml_like_gap": {
+      "n": 0,
+      "mean": null,
+      "std": null,
+      "min": null,
+      "max": null,
+      "p25": null,
+      "p75": null
+    },
+    "r_gap_obj_within_gs": 0.2434,
+    "r_har_gap": -0.1005,
+    "within_gs_spread": 0.0702,
+    "note": "orbit_hit_rate requires table re-run; gap spread here is proxy signal"
+  },
+  "tsml_like_rate": 0.0,
+  "all_stats": {
+    "gate_score": {
+      "n": 10000,
+      "mean": 0.9665,
+      "std": 0.0208,
+      "min": 0.8472,
+      "max": 1.0,
+      "p25": 0.9583,
+      "p75": 0.9861
+    },
+    "G_reach": {
+      "n": 10000,
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "p25": 1.0,
+      "p75": 1.0
+    },
+    "G_stay": {
+      "n": 10000,
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "p25": 0.0,
+      "p75": 0.0
+    },
+    "HAR_mass": {
+      "n": 10000,
+      "mean": 0.4545,
+      "std": 0.1175,
+      "min": 0.1111,
+      "max": 1.0,
+      "p25": 0.3778,
+      "p75": 0.5333
+    },
+    "gap": {
+      "n": 10000,
+      "mean": 0.6719,
+      "std": 0.0702,
+      "min": 0.3067,
+      "max": 0.875,
+      "p25": 0.6332,
+      "p75": 0.7209
+    },
+    "order_align": {
+      "n": 10000,
+      "mean": 0.1028,
+      "std": 0.0286,
+      "min": 0.0247,
+      "max": 0.2346,
+      "p25": 0.0864,
+      "p75": 0.1235
+    },
+    "objective": {
+      "n": 10000,
+      "mean": 0.7976,
+      "std": 0.0321,
+      "min": 0.6803,
+      "max": 0.939,
+      "p25": 0.7755,
+      "p75": 0.8192
+    }
+  },
+  "best_trial": {
+    "gate_score": 1.0,
+    "G_reach": 1.0,
+    "G_stay": 0.0,
+    "HAR_mass": 1.0,
+    "gap": 0.5931,
+    "order_align": 0.0617,
+    "objective": 0.939,
+    "trial": 6213
+  },
+  "thresholds_used": {
+    "gate": 0.85,
+    "G_stay": 0.12,
+    "HAR_mass": 0.55,
+    "order_align": 0.3
+  },
+  "class_counts": {
+    "TSML-like": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "Gate-strong": {
+      "count": 9999,
+      "pct": 99.99
+    },
+    "Oracle": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "Other": {
+      "count": 1,
+      "pct": 0.01
+    }
+  }
+}
