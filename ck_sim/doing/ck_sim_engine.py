@@ -236,7 +236,8 @@ class CKSimEngine:
         [9,6,6,6,7,7,7,0,8,0],
     ]
 
-    def __init__(self, platform='sim'):
+    def __init__(self, platform='sim', cell_mode=False):
+        self._cell_mode = cell_mode  # True = stripped cell (no language/voice/memory)
         # Core subsystems
         self.heartbeat = HeartbeatFPGA()
         self.brain = brain_init()
@@ -259,7 +260,7 @@ class CKSimEngine:
         # ── Organism systems (Papers 4-8) ──
         self.personality = CKPersonality(archetype="gentle")
         self.emotion = PFE()
-        self.voice = CKVoice()
+        self.voice = CKVoice() if not cell_mode else None  # Skip dict load in cell_mode
         self.development = DevelopmentalTracker()
         self.immune = CCE()
         self.bonding = BondingSystem()
@@ -390,27 +391,54 @@ class CKSimEngine:
         self.ticks_per_second = 0
         self._tick_times = deque(maxlen=50)
 
-        # ── Experience Substrate (Gen 9.34) ──
-        # Experience lattice: filesystem IS the memory.
-        # Each composition = a directory path. Each wave = a BDC file.
-        # One thing seen three ways. The structure IS the index.
-        from ck_sim.being.ck_experience import ExperienceLattice
-        self.experience_lattice = ExperienceLattice(engine=self)
-        print(f"  [SIM] Experience lattice: {self.experience_lattice.total_nodes} nodes, "
-              f"{self.experience_lattice.total_waves} waves")
-
-        # Sequence memory: learns operator patterns, predicts next
-        try:
-            from ck_sim.being.ck_sequence_memory import SequenceMemory
-            self.sequence_memory = SequenceMemory()
-            print(f"  [SIM] Sequence memory: {self.sequence_memory.size()} nodes, "
-                  f"accuracy={self.sequence_memory.accuracy():.3f}")
-        except Exception:
-            self.sequence_memory = None
-
-        # ── Experience Lattice (Gen9.14-9.16) ──
-        # Layers on top of core engine. Slower rates. GPU-like experience.
-        self._init_experience_lattice()
+        # ── Experience + Language (skipped in cell_mode) ──
+        # Cells are pure coherence units: heartbeat + steering + fascia.
+        # Language, voice, memory, knowledge live at the organism level.
+        if not self._cell_mode:
+            from ck_sim.being.ck_experience import ExperienceLattice
+            self.experience_lattice = ExperienceLattice(engine=self)
+            print(f"  [SIM] Experience lattice: {self.experience_lattice.total_nodes} nodes, "
+                  f"{self.experience_lattice.total_waves} waves")
+            try:
+                from ck_sim.being.ck_sequence_memory import SequenceMemory
+                self.sequence_memory = SequenceMemory()
+                print(f"  [SIM] Sequence memory: {self.sequence_memory.size()} nodes, "
+                      f"accuracy={self.sequence_memory.accuracy():.3f}")
+            except Exception:
+                self.sequence_memory = None
+            self._init_experience_lattice()
+        else:
+            # Cell stubs — enough that tick() doesn't crash
+            self.experience_lattice = None
+            self.sequence_memory    = None
+            self.truth              = None
+            self.world              = None
+            self.voice              = None
+            self.library            = None
+            self.journal            = None
+            self.composer           = None
+            self.deep_swarm         = None
+            self.fractal_comp       = None
+            self.lattice_chain      = None
+            self.divine_memory      = None
+            self.olfactory          = None
+            self.gustatory          = None
+            self.reverse_voice      = None
+            self.lcodec             = None
+            self.thinking           = None
+            self.identity           = None
+            self.divine27           = None
+            self.existence          = None
+            self.experience_index   = None
+            self.hindsight_replay   = None
+            self.chain_compression  = None
+            self.taichi_bridge      = None
+            self.ao_brain           = None
+            self.code_translation   = None
+            self.actions            = None
+            # NOTE: self.steering is already set at line 349 -- DO NOT stub to None
+            # NOTE: self.pulse_engine is already set at line 353 -- DO NOT stub
+            print(f"  [CELL] Cell mode: language/memory/voice skipped")
 
         # ── Sensorium: Fractal Sensation Layers ──
         # Same B/D/BC structure at every scale.
@@ -1154,11 +1182,12 @@ class CKSimEngine:
         # Boot-time reality anchor
         if hasattr(self, 'experience_index') and self.experience_index is not None:
             self.experience_index.anchor_reality(self.tick_count)
-        # Greeting message
-        greeting = self.voice.get_response(
-            'greeting', self.development.stage,
-            self.emotion.current.primary)
-        self._emit('ck', greeting)
+        # Greeting message (skipped in cell_mode — no voice)
+        if not self._cell_mode:
+            greeting = self.voice.get_response(
+                'greeting', self.development.stage,
+                self.emotion.current.primary)
+            self._emit('ck', greeting)
 
     def stop(self):
         """Stop and save TL + developmental state + new modules."""
@@ -1317,14 +1346,15 @@ class CKSimEngine:
     def save_tl(self):
         """Save TL + truth lattice to disk. CK never forgets."""
         save_tl(self.brain, self.tl_filename)
-        # Save truth lattice (all learned knowledge)
-        try:
-            n = self.truth.save()
-            if self.tick_count % 75000 == 0 or not self.running:
-                print(f"  [TRUTH] Saved {n} entries to disk "
-                      f"(total: {self.truth.total_entries})")
-        except Exception as e:
-            print(f"  [TRUTH] Save failed: {e}")
+        # Save truth lattice (all learned knowledge) — skipped in cell_mode
+        if self.truth is not None:
+            try:
+                n = self.truth.save()
+                if self.tick_count % 75000 == 0 or not self.running:
+                    print(f"  [TRUTH] Saved {n} entries to disk "
+                          f"(total: {self.truth.total_entries})")
+            except Exception as e:
+                print(f"  [TRUTH] Save failed: {e}")
         self.last_save_tick = self.tick_count
 
     def load_tl_file(self, filename: str) -> bool:

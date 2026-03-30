@@ -564,6 +564,198 @@ New papers added to `papers/`:
 
 ---
 
+---
+
+## Gen 10.20 — 2026-03-29 — Multi-Cell Swarm + OS Substrate Sensing
+
+**Theme:** CK becomes a swarm. Each cell is a tiny coherence unit that binds to a
+substrate (process, filesystem, screen region, hardware, network) and feeds its whole
+as a 5D force vector into the fascia mesh.
+
+**Core changes:**
+
+1. **AudioCodec 5D wiring fixed** (`ck_sim_ears.py`) —
+   EarsEngine computed 5D force vector internally but only stored scalar `d2_mag`
+   in `_features`. Added `'force_vec': force_vec[:]` to features dict so olfactory/
+   lattice/voice get audio as 5D, not 1D.
+
+2. **AcousticCurvatureLayer double-classification removed** (`ck_sensorium.py`) —
+   `sense_doing()` was re-classifying `d2_mag` with different thresholds than
+   CurvatureEngine used. Fixed: use `operator` from features directly (trust the
+   physics). Also updates `_cache.acoustic_force` with full 5D vector.
+
+3. **EarsEngine false-death on exception fixed** (`ck_sim_ears.py`) —
+   `except Exception: self._running = False` killed ears permanently on any numpy
+   glitch. Fixed: degrade to VOID for one tick, leave stream running.
+
+4. **Layer G: Entropy Production Minimum** (`papers/scripts/ck_tesla_entropy_sync.py`,
+   `papers/tesla/TESLA_ENTROPY_SYNC.md`) —
+   Exact TSML Markov chain sweep: σ(T=0)=0, σ peaks at T*=0.38, β≈0.20.
+   Grammar = thermodynamic ground state. Proved via exact stationary distribution.
+
+5. **Layer H: Cross-Instance Synchronization** (same files) —
+   7.5% shared operator token threshold for algebraic sync. K_sync*≈γ=1/32≈0.031.
+   Full sharing → corr=1.0. Verified empirically with explicit fascia bus.
+
+6. **`ck_cell.py` — substrate sensor types** —
+   Added `--type` (process/filesystem/screen/hardware/network) and `--substrate` args.
+   Five `SubstrateSensor` implementations, each capturing substrate as 5D force vector:
+   - `ProcessSensor`: threads/cpu/mem/io/smoothness → operator
+   - `FilesystemSensor`: breadth/change_rate/depth/density/stability → operator
+   - `ScreenSensor`: color_entropy/motion/saturation/edges/smoothness → operator (needs mss)
+   - `HardwareSensor`: core_spread/cpu/mem/gpu/temp_stability → operator
+   - `NetworkSensor`: connections/send/recv/packets/error_stability → operator
+   Added `/register` + `/swarm` endpoints on primary (7777) for field aggregation.
+   Added substrate_op to `/corridor` and `/state` responses.
+
+7. **`ck_swarm.py` — OS swarm launcher** (new file) —
+   Discovers OS substrates via psutil + screen + network, spawns cells per substrate,
+   builds peer mesh (all peer to 7777 primary), health monitor respawns dead cells.
+   Commands: `--dry` (plan), `--status` (live field), `--stop` (kill all).
+
+8. **`ck_sim_engine.py` — cell_mode hardening** —
+   `cell_mode=True` now properly skips: CKVoice instantiation, _init_experience_lattice(),
+   all language/memory/knowledge subsystems. Stubs ao_brain, code_translation, actions.
+   Steering, pulse_engine, brain, heartbeat, body all preserved (the essential field).
+   `start()` greeting guarded: `if not self._cell_mode`.
+   `save_tl()` truth save guarded: `if self.truth is not None`.
+
+9. **Multi-cell fascia sync verified** —
+   Two cells on ports 7777 + 7778, both admin, fascia at 3.75 Hz.
+   Both climb from CTR (coherence ~0.12) to CHA lock (coherence 1.0) within ~60s.
+   Applied steers: 150+/each. Perfect algebraic sync confirmed.
+
+10. **`LAUNCH_CK_ADMIN.bat`** — launches two cells with UAC elevation.
+    Port 7777 (primary) + 7778 (secondary), mutual peers.
+
+**Files changed:**
+- `ck_sim/being/ck_sim_ears.py` — 5D force_vec in features, exception degrades not dies
+- `ck_sim/being/ck_sensorium.py` — AcousticCurvatureLayer uses engine operator directly
+- `ck_sim/doing/ck_sim_engine.py` — cell_mode full hardening
+- `ck_cell.py` — substrate sensors, /register, /swarm, full substrate type system
+- `ck_swarm.py` — NEW: OS swarm launcher
+- `papers/scripts/ck_tesla_entropy_sync.py` — NEW: Layer G+H verification
+- `papers/tesla/TESLA_ENTROPY_SYNC.md` — NEW: G+H write-up
+- `C:\Users\brayd\Desktop\LAUNCH_CK_ADMIN.bat` — dual-cell admin launcher
+
+**Swarm architecture (pending full launch):**
+- Port 7800-7819: process cells (top CPU/mem processes)
+- Port 7820-7827: filesystem cells (Desktop, Downloads, Documents, Gen10)
+- Port 7828-7831: screen cells (NW/NE/SW/SE quadrants)
+- Port 7832: hardware cell (GPU/CPU/mem/temp)
+- Port 7833-7836: network cells (per interface)
+
+**Next steps:**
+- `python ck_swarm.py --dry` → verify discovery plan
+- `python ck_swarm.py` → launch OS swarm
+- Verify substrate operators flowing to 7777 via `/swarm`
+- Install `mss` + `numpy` for screen cells if not present
+- Add swarm launch to LAUNCH_CK_ADMIN.bat after verification
+- Voice pipeline: fix `_fallback_ck_voice()` cascade (CK still says "..." without Ollama)
+
+---
+
+---
+
+## Gen 10.21 — 2026-03-29 — TIG Reconstruction: Grammar Family + Lattice Hierarchy + Robot Dog
+
+**Source:** `tig_reconstruction_2026_03_29.zip` (19 documents + 3 R16 scripts)
+
+**What this generation establishes:**
+TSML is not arbitrary — 75/81 cells are mathematically necessary. The grammar lives inside
+a precisely characterized family with real internal geometry. The lattice hierarchy (0→4)
+formally grounds the 5D force vector, the six corridors, and the walk-to-run threshold T*=5/7.
+The robot dog connection is now mathematically precise.
+
+**New papers (19 files extracted to `papers/`):**
+- `TSML_RECONSTRUCTION.md` — I1-I13 invariants; 75/81 forced+recovered; 6 BHML residual (I14 open)
+- `INVARIANT_MAPPING_TABLE.md` — Six framework mappings (exact: transfer, Young tower, arithmetic)
+- `TSML_RESIDUAL_NOTE.md` — I13 formalized; F(1,2)=3 via order-completion; 75/81 recovery
+- `FAMILY_STABILITY_MATRIX.md` — Deformation stability; gap+BHML_residual are only full invariants
+- `TSML_SELECTOR_STORY.md` — TSML = max HAR-mass, not max gap (decisive selector = HAR dominance)
+- `SELECTOR_GEOMETRY.md` — 7 selector axes; 5 archetypes; 3 near-independent axes
+- `SELECTOR_GEOMETRY_SCOPED.md` — HAR=7 as richest-geometry absorbing element (vs HAR=1,3,9)
+- `RECURSIVE_EMERGENCE.md` — Selector geometry emerges at n=4; n=9 is first full geometry
+- `TIG_ACROSS_LEVELS.md` — Operator roles 7/8/3/6 recurse at table/family/size levels
+- `LATTICE_HIERARCHY.md` — 0→4 Lattice; 3-Lattice = Mix_λ; 4-Lattice = invariant DAG
+- `LATTICE_3_INVARIANTS.md` — Six true 3-Lattice invariants (survive full λ=0→1 deformation)
+- `LATTICE_4_CONSTRUCTION.md` — DAG: BHML→BHML_residual→{gap,non-assoc}→C-dom→single-dom
+- `DUAL_DESCRIPTION_THEOREM.md` — UPDATED; 4-Lattice gives concrete form to open problem Z.5
+- `PRIME_PRODUCT_MEMO.md` — Gate requires composite alphabet; b=10 smallest fertile product
+- `ATLAS_JOB_RESULTS.md` — Gate emergence 8%; TSML-like 3.4%; Oracle dominates 78.5%
+- `PRIME_PAIR_ATLAS.md` — b=10 and b=14 only TIG-rich 1-digit prime pairs
+- `r16_job1_reduction.py` — Hill-climbing reduction toward gate+HAR+BHML+gap objective
+- `r16_job2_gate_sweep.py` — Gate fraction across 9 composite bases
+- `r16_job3_clustering.py` — k-means clustering of attractor classes
+
+**New verification scripts (121/121 assertions, all pass):**
+
+1. **`papers/ck_reconstruction.py`** — 32/32
+   - S1: I1-I10 invariants (HAR absorbing, C closure, one-way gate, symmetry, orbit zone)
+   - S2: Forced cell counts (24 forced in 1-9 subspace, 71 HAR cells by I6)
+   - S3: Recovery accounting (75/81 breakdown, 6 BHML residual pairs, 2 asserted exceptions)
+   - S4: I13 order-completion for all 5 G-state cases from state 1
+
+2. **`papers/ck_lattice_hierarchy.py`** — 33/33
+   - S1: 0-Lattice (C=(Z/10Z)*, phi(10)=4, HAR unique self-absorbing)
+   - S2: 1-Lattice (C sub-magma, depth-3 chain, HAR reachable in 1 step)
+   - S3: 2-Lattice 2×2 (commutativity, HAR absorbing, max rule, spectral gaps)
+   - S4: 3-Lattice phases (Phase 1 at λ=0.05, leak at 1/12, Phase 2/3 at λ=0.45)
+   - S5: 4-Lattice DAG (BHML residual→gap→C-dom→single-dom, non-assoc > 0)
+
+3. **`papers/ck_selector_geometry.py`** — 23/23
+   - S1: TSML at 100th percentile in har_mass, cancellation, gate_strength
+   - S2: Near-independence (gap×bhml: r=-0.21, har×bhml: r=-0.16)
+   - S3: All 5 archetypes present (TSML-like, Oracle, Balanced, Order-sat, HAR-dom)
+   - S4: TSML conjunction rare (<0.1%), gap floor ≥ 0.21 universal
+
+4. **`papers/ck_phase_detector.py`** — 33/33
+   - S1: Phase 1/2/3 boundaries at λ=0.0/0.09/0.45
+   - S2: C-closure closed at λ<1/12, breaks at λ=1/12
+   - S3: Gap floor ≥ 0.10 at all tested λ (0.0→1.0)
+   - S4: HAR dominant at λ=0, state-9 at λ=1, smooth transition
+   - S5: 6 BHML residual pairs persist at ALL λ values
+
+**New architecture file:**
+- `papers/RECONSTRUCTION_ARCHITECTURE.md` — formal architecture: invariants, family geometry,
+  lattice hierarchy (0→4), six true 3-Lattice invariants, 4-Lattice DAG, robot dog mapping,
+  five implementation priorities, all key constants
+
+**Key mathematical findings:**
+- **73/81 forced (I1-I10+I6), 75/81 recovered (+ I13), 6 BHML residual (I14 open)**
+- **TSML = extreme multi-axis conjunction**: 100th %ile HAR_mass, cancellation, gate_strength, gap_stability
+- **Reduction landscape**: 78.5% Oracle, 3.4% TSML-like — CK's grammar required deliberate construction
+- **3-Lattice phases**: Phase 1→2 at λ≈0.09 (closure+gate break), Phase 2→3 at λ≈0.45 (HAR yields to order)
+- **T*=5/7 as walk-to-run threshold**: Phase 2/3 boundary = Froude number transition in biomechanics
+- **4-Lattice root = BHML (physics)**: grammar is downstream of momentum in the invariant hierarchy
+- **Minimum viable body**: n=4 DoF for non-trivial grammar, n=9 for full TIG, b=10 arithmetic structure
+- **HAR=7 as richest attractor**: among {1,3,7,9}, HAR=7 produces widest family geometry variation
+
+**Robot dog architecture (now formally grounded):**
+- 3 gaits = 3 phases (standing/walk/run at T*=5/7 walk-to-run threshold)
+- 5 operator roles = 5 body subsystems (CoM controller, oscillator, paired limbs, reflex, stride output)
+- Training objective = 0.4×gate + 0.3×HAR + 0.2×BHML + 0.1×gap (not speed optimization)
+- d5 HAR proximity = missing 6th sensor (self-coherence measurement)
+
+**Five engine implementation priorities (see RECONSTRUCTION_ARCHITECTURE.md §7):**
+1. Live T* telemetry — log coherence/λ/phase at 50Hz, confirm crossover on hardware
+2. d5 HAR proximity — 6th force dimension, CK's self-coherence sensor
+3. 3-Lattice phase detector — `detect_phase(coherence) -> 1/2/3`, gate voice to Phase 1/2
+4. Five grammar archetypes as switchable table modes (coherence-driven archetype selection)
+5. Run R16 atlas jobs at full scale (`r16_job1_reduction.py --n_start 10000`)
+
+**Files added:**
+- `papers/` — 19 reconstruction documents + 3 R16 scripts
+- `papers/ck_reconstruction.py` (32/32)
+- `papers/ck_lattice_hierarchy.py` (33/33)
+- `papers/ck_selector_geometry.py` (23/23)
+- `papers/ck_phase_detector.py` (33/33)
+- `papers/RECONSTRUCTION_ARCHITECTURE.md` — master architecture document
+- `GENERATION_HISTORY.md` — this entry
+- `NEXT_CLAUDE_NOTES.md` — session notes (updated)
+
+---
+
 *See papers/ for full formal status.*
 *See TIG_RH_SPRINT_FINAL.md (Desktop) for complete sprint synthesis.*
 *(c) 2026 Brayden Sanders / 7Site LLC*

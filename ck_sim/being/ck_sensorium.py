@@ -1262,23 +1262,33 @@ class AcousticCurvatureLayer(FractalLayer):
     def sense_doing(self, core_state: dict) -> int:
         """What COMPUTES: acoustic curvature dynamics.
 
-        High D2 magnitude = turbulent acoustic field.
-        Low D2 magnitude = smooth / quiet.
+        Uses the operator already classified by CurvatureEngine — the same
+        physics that produced d2_mag.  No re-classification here; that would
+        apply a second, inconsistent mapping to the same signal.
+
+        Also surfaces the full 5D force vector into _cache so the olfactory
+        bulb and lattice chain receive genuine acoustic physics (not just a
+        scalar magnitude).
         """
         ears = getattr(self._engine, 'ears_engine', None)
         if ears is None or not ears.is_running:
             return VOID
         try:
             feat = ears.get_features()
-            rms = feat.get('rms', 0.0)
+            rms    = feat.get('rms', 0.0)
             d2_mag = feat.get('d2_mag', 0.0)
+            # Operator already derived by CurvatureEngine (argmax + sign of D2)
+            operator = int(feat.get('operator', VOID))
+            # Full 5D force vector — the actual physics, not just magnitude
+            force_vec = feat.get('force_vec', [0.0, 0.0, 0.0, 0.0, 0.0])
 
-            # Update cache for other systems
+            # Update cache — 5D force now included so olfactory/voice see it
             with _cache.lock:
-                _cache.acoustic_operator = feat.get('operator', VOID)
-                _cache.acoustic_rms = rms
-                _cache.acoustic_d2_mag = d2_mag
-                _cache.acoustic_active = True
+                _cache.acoustic_operator = operator
+                _cache.acoustic_rms      = rms
+                _cache.acoustic_d2_mag   = d2_mag
+                _cache.acoustic_force    = force_vec[:]
+                _cache.acoustic_active   = True
 
             # Silence tracking
             if rms < 0.001:
@@ -1287,19 +1297,10 @@ class AcousticCurvatureLayer(FractalLayer):
                 self._silence_count = max(self._silence_count - 2, 0)
 
             if self._silence_count > 10:
-                return VOID       # Extended silence
-            elif d2_mag < 0.05:
-                return HARMONY    # Smooth acoustic field
-            elif d2_mag < 0.15:
-                return BREATH     # Gentle acoustic rhythm
-            elif d2_mag < 0.3:
-                return BALANCE    # Normal sound
-            elif d2_mag < 0.5:
-                return PROGRESS   # Active acoustic field
-            elif d2_mag < 0.8:
-                return COUNTER    # Complex acoustic curvature
-            else:
-                return CHAOS      # Turbulent acoustic field
+                return VOID   # Extended silence — don't fight the quiet
+
+            return operator   # Trust the physics CurvatureEngine already ran
+
         except Exception:
             return VOID
 

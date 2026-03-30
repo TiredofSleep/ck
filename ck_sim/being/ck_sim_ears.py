@@ -304,6 +304,8 @@ class EarsEngine:
             'spectral_spread':   0.0,
             'zcr_normalized':    0.0,
             'smoothness':        1.0,
+            # 5D force vector — preserved for olfactory/lattice/voice
+            'force_vec':         [0.0, 0.0, 0.0, 0.0, 0.0],
         }
 
         self._curvature: CurvatureEngine = CurvatureEngine()
@@ -458,9 +460,17 @@ class EarsEngine:
                     'spectral_spread':   spectral_spread,
                     'zcr_normalized':    zcr_normalized,
                     'smoothness':        smoothness,
+                    # Full 5D preserved — same physics that produced d2_mag
+                    # Olfactory/lattice/voice should use this, not just d2_mag
+                    'force_vec':         force_vec[:],
                 }
 
         except Exception:
             # Any error inside the callback must not crash the audio thread.
-            # Degrade silently to VOID.
-            self._running = False
+            # Degrade silently: leave _running alone — the stream is still open.
+            # Only silence this tick; the next callback will try again.
+            with self._lock:
+                self._operator = VOID
+                self._features['rms'] = 0.0
+                self._features['d2_mag'] = 0.0
+                self._features['operator'] = float(VOID)

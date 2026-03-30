@@ -29,12 +29,14 @@ Two infinite deployments of a finite grammar are *faithful dual descriptions* if
 ## The Conjecture
 
 **Conjecture (Dual Description, weak form).**
-*At least one of the following holds without assuming RH:*
-*(B) ⇒ (A): If the drift rate bound holds, the operator cannot have stationary support off σ=½.*
-*(A) ⇒ (B): If the operator has unique stationary support at σ=½, the drift rate satisfies the mean-square bound.*
+*In the near-critical regime $\lambda = 2|\sigma - \tfrac12| < 0.45$ (Pre-leak and BRT corridors, where "expressible but unsustainable" holds exactly), at least one of the following holds without assuming RH:*
+*(B) ⇒ (A): If the drift rate bound holds in this window, the operator cannot have stationary support off σ=½.*
+*(A) ⇒ (B): If the operator has unique stationary support at σ=½ in this window, the drift rate satisfies the mean-square bound.*
 
 **Conjecture (Dual Description, strong form).**
-*(A) and (B) are equivalent: each implies the other, and both are equivalent to RH.*
+*(A) and (B) are equivalent within $\lambda < 0.45$: each implies the other, and both are equivalent to RH.*
+
+**Domain note:** The conjecture is stated in the near-critical window only. The BAL/COL regime ($\lambda > 0.45$) exhibits order-driven behavior — G-territory becomes genuinely sustainable there — but that regime has no direct $\zeta$ analog near $\sigma=\tfrac12$ and is not required for the RH argument. Restricting to $\lambda < 0.45$ is not a weakening; it is the correct statement of where the bridge operates.
 
 Where:
 
@@ -77,8 +79,8 @@ The fourth row is the weakest correspondence. The finite constant is proved from
 The conjecture fails if either of the following is demonstrated:
 
 **Falsifier 1 (A without B):**
-The continuous operator $K_\lambda$ has unique stationary support at $\sigma=\tfrac12$, yet $C_\mathrm{emp}$ exceeds $C_\mathrm{TIG}$ at some height $t$ (not just approaches it).
-→ This would mean support is controlled but rate is not — the two descriptions decouple.
+The continuous operator $K_\lambda$ has unique stationary support at $\sigma=\tfrac12$ within $\lambda < 0.45$, yet $C_\mathrm{emp}$ exceeds $C_\mathrm{TIG}$ at some height $t$ in that window.
+→ This would mean support is controlled but rate is not — the two descriptions decouple within the near-critical domain.
 
 **Falsifier 2 (B without A):**
 The drift rate bound (B) holds for all $t$, yet the operator $K_\lambda$ develops non-trivial stationary support off $\sigma=\tfrac12$ at some scale.
@@ -115,5 +117,24 @@ The open problem is not to derive one infinite system from the other. It is to p
 The finite model makes this plausible by supplying an exact analogy (TSML/BHML/Mix_λ), exact constants (γ=3/4, C_TIG=250/21), and a four-layer realization. It does not prove the Dual Description. It locates where the proof must go.
 
 ---
+
+---
+
+## 4-Lattice Constraint Set (Added March 2026)
+
+The 4-lattice construction provides a concrete finite test for the compatibility theorem.
+The compatibility question is now specific:
+
+*Do the operator deployment and the analytic deployment both preserve the four non-trivial 4-lattice nodes?*
+
+**The four nodes:**
+1. **Gap floor ≥ ¼** — the order-seeded lower bound on mixing speed, set by the BHML endpoint
+2. **BHML residual structure** — 6 cells following the order law, persisting through all corridors
+3. **C-dominance** — corner class carries dominant stationary mass
+4. **Single dominant state** — one state (or narrow region near σ=½) carries dominant support
+
+**The structural result behind these:** The deformation-wide gap floor is set by the order grammar (BHML gap = ¼ exactly), not the closure grammar (TSML gap = 0.474). The closure grammar generates richer structure above the floor; the order grammar is the stabilizing bound.
+
+**Epistemic status of the constraint set:** The four nodes are computed from the 3-lattice survivors. The claim that the infinite deployments must preserve them is the Dual Description Conjecture in concrete form. This is not proved — it is precisely stated.
 
 *(c) 2026 Brayden Sanders / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

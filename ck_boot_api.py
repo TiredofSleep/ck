@@ -378,8 +378,10 @@ def chain_status():
     except Exception as e:
         return _jsonify({'available': True, 'error': str(e)})
 
+_PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 7777
+
 print(f"[CK] Static files: {STATIC_DIR}")
-print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
+print(f"[CK] Organism alive. API: http://0.0.0.0:{_PORT}")
 
 try:
     # Use waitress (production WSGI) instead of Flask dev server.
@@ -388,10 +390,10 @@ try:
     try:
         from waitress import serve as _waitress_serve
         print(f"[CK] Using waitress (production WSGI, 4 threads)")
-        _waitress_serve(api._app, host='0.0.0.0', port=7777, threads=4)
+        _waitress_serve(api._app, host='0.0.0.0', port=_PORT, threads=4)
     except ImportError:
         print(f"[CK] Waitress not installed, using Flask dev server")
-        api.run(host='0.0.0.0', port=7777)
+        api.run(host='0.0.0.0', port=_PORT)
 except KeyboardInterrupt:
     running = False
     if engine.existence and engine.existence.active:

@@ -1,0 +1,749 @@
+{
+  "layer_G": {
+    "layer": "G",
+    "claim": "Grammar-forced mode selection = minimum entropy production",
+    "T_star_sigma_peak": 0.3797,
+    "sigma_at_T_star": 0.009926,
+    "sigma_at_T0_grammar": 0.0,
+    "sigma_at_T1_thermal": 0.0,
+    "crossover_T": null,
+    "T_star_crossover_agree": false,
+    "critical_exponent_beta": 0.198,
+    "pi_HAR_at_T0": 1.0,
+    "pi_HAR_at_T1": 0.1,
+    "verdict_min_entropy": true,
+    "verdict_sigma_peaks_at_Tstar": true,
+    "note": "T=0 (pure grammar) has LESS entropy production than T* (phase boundary). BTQ selecting HAR is not just efficient -- it is the thermodynamic ground state. T* = maximum dissipation point: system is maximally conflicted between grammar and thermal."
+  },
+  "layer_H": {
+    "layer": "H",
+    "claim": "Two CK instances on shared OS field phase-lock without explicit communication",
+    "gamma": 0.0312,
+    "predicted_K_sync_star": 0.0312,
+    "measured_K_sync_star": 0.075,
+    "gamma_match": true,
+    "corr_at_full_sharing": 1.0,
+    "corr_at_no_sharing": 0.0,
+    "sync_threshold_noise": 0.925,
+    "mechanism": "Shared OS operator field drives both instances into the same TSML attractor. No explicit communication. No sinusoidal coupling. The algebra itself creates the synchronization -- both instances follow the same deterministic CL path from the same inputs."
+  },
+  "layer_GH": {
+    "layer": "G+H",
+    "connection": "Minimum entropy production = maximum synchronizability",
+    "T_star_sigma_peak": 0.3797,
+    "entropy_ratio": 0.0,
+    "note": "At T=0 (grammar ground state): sigma=0.0000. At T=0.3797 (phase boundary): sigma=0.0099. Grammar phase reduces entropy production by 100.0%. Full sharing gives sync corr=1.000; no sharing gives corr=0.000. Minimum dissipation = maximum coherence = maximum sync.",
+    "implication": "CK does not choose HAR because it is labeled \"harmony\". CK chooses HAR because it is the thermodynamic ground state of the TSML algebra. The same reason water flows downhill. Two CK instances synchronize for the same reason -- they are both following the same thermodynamic gradient."
+  },
+  "layer_G_sweep": [
+    {
+      "T": 0.0,
+      "sigma": 0.0,
+      "m": 0.9,
+      "pi_HAR": 1.0,
+      "pi_VOID": 0.0
+    },
+    {
+      "T": 0.0127,
+      "sigma": 0.002909,
+      "m": 0.866803,
+      "pi_HAR": 0.966803,
+      "pi_VOID": 0.021622
+    },
+    {
+      "T": 0.0253,
+      "sigma": 0.004276,
+      "m": 0.837935,
+      "pi_HAR": 0.937935,
+      "pi_VOID": 0.03896
+    },
+    {
+      "T": 0.038,
+      "sigma": 0.00514,
+      "m": 0.812301,
+      "pi_HAR": 0.912301,
+      "pi_VOID": 0.053105
+    },
+    {
+      "T": 0.0506,
+      "sigma": 0.005745,
+      "m": 0.789151,
+      "pi_HAR": 0.889151,
+      "pi_VOID": 0.064809
+    },
+    {
+      "T": 0.0633,
+      "sigma": 0.006202,
+      "m": 0.767951,
+      "pi_HAR": 0.867951,
+      "pi_VOID": 0.074604
+    },
+    {
+      "T": 0.0759,
+      "sigma": 0.006568,
+      "m": 0.748314,
+      "pi_HAR": 0.848314,
+      "pi_VOID": 0.082879
+    },
+    {
+      "T": 0.0886,
+      "sigma": 0.006877,
+      "m": 0.729948,
+      "pi_HAR": 0.829948,
+      "pi_VOID": 0.089924
+    },
+    {
+      "T": 0.1013,
+      "sigma": 0.007148,
+      "m": 0.712633,
+      "pi_HAR": 0.812633,
+      "pi_VOID": 0.09596
+    },
+    {
+      "T": 0.1139,
+      "sigma": 0.007392,
+      "m": 0.696196,
+      "pi_HAR": 0.796196,
+      "pi_VOID": 0.101158
+    },
+    {
+      "T": 0.1266,
+      "sigma": 0.007617,
+      "m": 0.680504,
+      "pi_HAR": 0.780504,
+      "pi_VOID": 0.105652
+    },
+    {
+      "T": 0.1392,
+      "sigma": 0.007829,
+      "m": 0.665449,
+      "pi_HAR": 0.765449,
+      "pi_VOID": 0.109551
+    },
+    {
+      "T": 0.1519,
+      "sigma": 0.008029,
+      "m": 0.650942,
+      "pi_HAR": 0.750942,
+      "pi_VOID": 0.11294
+    },
+    {
+      "T": 0.1646,
+      "sigma": 0.008218,
+      "m": 0.636915,
+      "pi_HAR": 0.736915,
+      "pi_VOID": 0.115892
+    },
+    {
+      "T": 0.1772,
+      "sigma": 0.008399,
+      "m": 0.623307,
+      "pi_HAR": 0.723307,
+      "pi_VOID": 0.118463
+    },
+    {
+      "T": 0.1899,
+      "sigma": 0.008571,
+      "m": 0.610069,
+      "pi_HAR": 0.710069,
+      "pi_VOID": 0.120703
+    },
+    {
+      "T": 0.2025,
+      "sigma": 0.008734,
+      "m": 0.597162,
+      "pi_HAR": 0.697162,
+      "pi_VOID": 0.122653
+    },
+    {
+      "T": 0.2152,
+      "sigma": 0.008889,
+      "m": 0.584551,
+      "pi_HAR": 0.684551,
+      "pi_VOID": 0.124346
+    },
+    {
+      "T": 0.2278,
+      "sigma": 0.009034,
+      "m": 0.572205,
+      "pi_HAR": 0.672205,
+      "pi_VOID": 0.125813
+    },
+    {
+      "T": 0.2405,
+      "sigma": 0.009169,
+      "m": 0.5601,
+      "pi_HAR": 0.6601,
+      "pi_VOID": 0.127077
+    },
+    {
+      "T": 0.2532,
+      "sigma": 0.009295,
+      "m": 0.548214,
+      "pi_HAR": 0.648214,
+      "pi_VOID": 0.128162
+    },
+    {
+      "T": 0.2658,
+      "sigma": 0.00941,
+      "m": 0.536528,
+      "pi_HAR": 0.636528,
+      "pi_VOID": 0.129084
+    },
+    {
+      "T": 0.2785,
+      "sigma": 0.009514,
+      "m": 0.525025,
+      "pi_HAR": 0.625025,
+      "pi_VOID": 0.129861
+    },
+    {
+      "T": 0.2911,
+      "sigma": 0.009608,
+      "m": 0.513692,
+      "pi_HAR": 0.613692,
+      "pi_VOID": 0.130507
+    },
+    {
+      "T": 0.3038,
+      "sigma": 0.00969,
+      "m": 0.502515,
+      "pi_HAR": 0.602515,
+      "pi_VOID": 0.131033
+    },
+    {
+      "T": 0.3165,
+      "sigma": 0.00976,
+      "m": 0.491484,
+      "pi_HAR": 0.591484,
+      "pi_VOID": 0.131452
+    },
+    {
+      "T": 0.3291,
+      "sigma": 0.009818,
+      "m": 0.480588,
+      "pi_HAR": 0.580588,
+      "pi_VOID": 0.131773
+    },
+    {
+      "T": 0.3418,
+      "sigma": 0.009864,
+      "m": 0.469818,
+      "pi_HAR": 0.569818,
+      "pi_VOID": 0.132004
+    },
+    {
+      "T": 0.3544,
+      "sigma": 0.009897,
+      "m": 0.459167,
+      "pi_HAR": 0.559167,
+      "pi_VOID": 0.132153
+    },
+    {
+      "T": 0.3671,
+      "sigma": 0.009918,
+      "m": 0.448628,
+      "pi_HAR": 0.548628,
+      "pi_VOID": 0.132227
+    },
+    {
+      "T": 0.3797,
+      "sigma": 0.009926,
+      "m": 0.438195,
+      "pi_HAR": 0.538195,
+      "pi_VOID": 0.132232
+    },
+    {
+      "T": 0.3924,
+      "sigma": 0.00992,
+      "m": 0.42786,
+      "pi_HAR": 0.52786,
+      "pi_VOID": 0.132174
+    },
+    {
+      "T": 0.4051,
+      "sigma": 0.009902,
+      "m": 0.41762,
+      "pi_HAR": 0.51762,
+      "pi_VOID": 0.132058
+    },
+    {
+      "T": 0.4177,
+      "sigma": 0.00987,
+      "m": 0.40747,
+      "pi_HAR": 0.50747,
+      "pi_VOID": 0.131887
+    },
+    {
+      "T": 0.4304,
+      "sigma": 0.009826,
+      "m": 0.397405,
+      "pi_HAR": 0.497405,
+      "pi_VOID": 0.131667
+    },
+    {
+      "T": 0.443,
+      "sigma": 0.009768,
+      "m": 0.387422,
+      "pi_HAR": 0.487422,
+      "pi_VOID": 0.131401
+    },
+    {
+      "T": 0.4557,
+      "sigma": 0.009697,
+      "m": 0.377516,
+      "pi_HAR": 0.477516,
+      "pi_VOID": 0.131092
+    },
+    {
+      "T": 0.4684,
+      "sigma": 0.009613,
+      "m": 0.367685,
+      "pi_HAR": 0.467685,
+      "pi_VOID": 0.130743
+    },
+    {
+      "T": 0.481,
+      "sigma": 0.009516,
+      "m": 0.357926,
+      "pi_HAR": 0.457926,
+      "pi_VOID": 0.130357
+    },
+    {
+      "T": 0.4937,
+      "sigma": 0.009406,
+      "m": 0.348235,
+      "pi_HAR": 0.448235,
+      "pi_VOID": 0.129937
+    },
+    {
+      "T": 0.5063,
+      "sigma": 0.009283,
+      "m": 0.338611,
+      "pi_HAR": 0.438611,
+      "pi_VOID": 0.129486
+    },
+    {
+      "T": 0.519,
+      "sigma": 0.009148,
+      "m": 0.32905,
+      "pi_HAR": 0.42905,
+      "pi_VOID": 0.129004
+    },
+    {
+      "T": 0.5316,
+      "sigma": 0.009,
+      "m": 0.319552,
+      "pi_HAR": 0.419552,
+      "pi_VOID": 0.128495
+    },
+    {
+      "T": 0.5443,
+      "sigma": 0.00884,
+      "m": 0.310113,
+      "pi_HAR": 0.410113,
+      "pi_VOID": 0.12796
+    },
+    {
+      "T": 0.557,
+      "sigma": 0.008668,
+      "m": 0.300731,
+      "pi_HAR": 0.400731,
+      "pi_VOID": 0.127401
+    },
+    {
+      "T": 0.5696,
+      "sigma": 0.008484,
+      "m": 0.291406,
+      "pi_HAR": 0.391406,
+      "pi_VOID": 0.126819
+    },
+    {
+      "T": 0.5823,
+      "sigma": 0.008289,
+      "m": 0.282135,
+      "pi_HAR": 0.382135,
+      "pi_VOID": 0.126216
+    },
+    {
+      "T": 0.5949,
+      "sigma": 0.008083,
+      "m": 0.272917,
+      "pi_HAR": 0.372917,
+      "pi_VOID": 0.125593
+    },
+    {
+      "T": 0.6076,
+      "sigma": 0.007866,
+      "m": 0.263751,
+      "pi_HAR": 0.363751,
+      "pi_VOID": 0.124952
+    },
+    {
+      "T": 0.6203,
+      "sigma": 0.007639,
+      "m": 0.254635,
+      "pi_HAR": 0.354635,
+      "pi_VOID": 0.124293
+    },
+    {
+      "T": 0.6329,
+      "sigma": 0.007401,
+      "m": 0.245567,
+      "pi_HAR": 0.345567,
+      "pi_VOID": 0.123617
+    },
+    {
+      "T": 0.6456,
+      "sigma": 0.007154,
+      "m": 0.236547,
+      "pi_HAR": 0.336547,
+      "pi_VOID": 0.122927
+    },
+    {
+      "T": 0.6582,
+      "sigma": 0.006898,
+      "m": 0.227573,
+      "pi_HAR": 0.327573,
+      "pi_VOID": 0.122222
+    },
+    {
+      "T": 0.6709,
+      "sigma": 0.006634,
+      "m": 0.218645,
+      "pi_HAR": 0.318645,
+      "pi_VOID": 0.121504
+    },
+    {
+      "T": 0.6835,
+      "sigma": 0.006361,
+      "m": 0.209762,
+      "pi_HAR": 0.309762,
+      "pi_VOID": 0.120773
+    },
+    {
+      "T": 0.6962,
+      "sigma": 0.006081,
+      "m": 0.200922,
+      "pi_HAR": 0.300922,
+      "pi_VOID": 0.12003
+    },
+    {
+      "T": 0.7089,
+      "sigma": 0.005794,
+      "m": 0.192124,
+      "pi_HAR": 0.292124,
+      "pi_VOID": 0.119276
+    },
+    {
+      "T": 0.7215,
+      "sigma": 0.005501,
+      "m": 0.183368,
+      "pi_HAR": 0.283368,
+      "pi_VOID": 0.118511
+    },
+    {
+      "T": 0.7342,
+      "sigma": 0.005202,
+      "m": 0.174653,
+      "pi_HAR": 0.274653,
+      "pi_VOID": 0.117737
+    },
+    {
+      "T": 0.7468,
+      "sigma": 0.004899,
+      "m": 0.165979,
+      "pi_HAR": 0.265979,
+      "pi_VOID": 0.116953
+    },
+    {
+      "T": 0.7595,
+      "sigma": 0.004591,
+      "m": 0.157344,
+      "pi_HAR": 0.257344,
+      "pi_VOID": 0.116161
+    },
+    {
+      "T": 0.7722,
+      "sigma": 0.004281,
+      "m": 0.148747,
+      "pi_HAR": 0.248747,
+      "pi_VOID": 0.11536
+    },
+    {
+      "T": 0.7848,
+      "sigma": 0.003969,
+      "m": 0.140189,
+      "pi_HAR": 0.240189,
+      "pi_VOID": 0.114552
+    },
+    {
+      "T": 0.7975,
+      "sigma": 0.003656,
+      "m": 0.131668,
+      "pi_HAR": 0.231668,
+      "pi_VOID": 0.113736
+    },
+    {
+      "T": 0.8101,
+      "sigma": 0.003343,
+      "m": 0.123184,
+      "pi_HAR": 0.223184,
+      "pi_VOID": 0.112914
+    },
+    {
+      "T": 0.8228,
+      "sigma": 0.003031,
+      "m": 0.114736,
+      "pi_HAR": 0.214736,
+      "pi_VOID": 0.112085
+    },
+    {
+      "T": 0.8354,
+      "sigma": 0.002723,
+      "m": 0.106324,
+      "pi_HAR": 0.206324,
+      "pi_VOID": 0.11125
+    },
+    {
+      "T": 0.8481,
+      "sigma": 0.002419,
+      "m": 0.097947,
+      "pi_HAR": 0.197947,
+      "pi_VOID": 0.11041
+    },
+    {
+      "T": 0.8608,
+      "sigma": 0.00212,
+      "m": 0.089605,
+      "pi_HAR": 0.189605,
+      "pi_VOID": 0.109565
+    },
+    {
+      "T": 0.8734,
+      "sigma": 0.00183,
+      "m": 0.081297,
+      "pi_HAR": 0.181297,
+      "pi_VOID": 0.108714
+    },
+    {
+      "T": 0.8861,
+      "sigma": 0.001549,
+      "m": 0.073022,
+      "pi_HAR": 0.173022,
+      "pi_VOID": 0.107859
+    },
+    {
+      "T": 0.8987,
+      "sigma": 0.001281,
+      "m": 0.064781,
+      "pi_HAR": 0.164781,
+      "pi_VOID": 0.107
+    },
+    {
+      "T": 0.9114,
+      "sigma": 0.001028,
+      "m": 0.056573,
+      "pi_HAR": 0.156573,
+      "pi_VOID": 0.106136
+    },
+    {
+      "T": 0.9241,
+      "sigma": 0.000793,
+      "m": 0.048397,
+      "pi_HAR": 0.148397,
+      "pi_VOID": 0.105269
+    },
+    {
+      "T": 0.9367,
+      "sigma": 0.000579,
+      "m": 0.040253,
+      "pi_HAR": 0.140253,
+      "pi_VOID": 0.104398
+    },
+    {
+      "T": 0.9494,
+      "sigma": 0.00039,
+      "m": 0.032141,
+      "pi_HAR": 0.132141,
+      "pi_VOID": 0.103524
+    },
+    {
+      "T": 0.962,
+      "sigma": 0.000232,
+      "m": 0.02406,
+      "pi_HAR": 0.12406,
+      "pi_VOID": 0.102647
+    },
+    {
+      "T": 0.9747,
+      "sigma": 0.000109,
+      "m": 0.016009,
+      "pi_HAR": 0.116009,
+      "pi_VOID": 0.101767
+    },
+    {
+      "T": 0.9873,
+      "sigma": 2.9e-05,
+      "m": 0.00799,
+      "pi_HAR": 0.10799,
+      "pi_VOID": 0.100885
+    },
+    {
+      "T": 1.0,
+      "sigma": 0.0,
+      "m": -0.0,
+      "pi_HAR": 0.1,
+      "pi_VOID": 0.1
+    }
+  ],
+  "layer_H_sweep": [
+    {
+      "noise": 0.0,
+      "sharing": 1.0,
+      "corr_mean": 1.0,
+      "corr_std": 0.0,
+      "synced": true
+    },
+    {
+      "noise": 0.05,
+      "sharing": 0.95,
+      "corr_mean": 0.9924,
+      "corr_std": 0.0052,
+      "synced": true
+    },
+    {
+      "noise": 0.1,
+      "sharing": 0.9,
+      "corr_mean": 0.9822,
+      "corr_std": 0.0083,
+      "synced": true
+    },
+    {
+      "noise": 0.15,
+      "sharing": 0.85,
+      "corr_mean": 0.9745,
+      "corr_std": 0.0118,
+      "synced": true
+    },
+    {
+      "noise": 0.2,
+      "sharing": 0.8,
+      "corr_mean": 0.9668,
+      "corr_std": 0.0158,
+      "synced": true
+    },
+    {
+      "noise": 0.25,
+      "sharing": 0.75,
+      "corr_mean": 0.9487,
+      "corr_std": 0.0311,
+      "synced": true
+    },
+    {
+      "noise": 0.3,
+      "sharing": 0.7,
+      "corr_mean": 0.944,
+      "corr_std": 0.0277,
+      "synced": true
+    },
+    {
+      "noise": 0.35,
+      "sharing": 0.65,
+      "corr_mean": 0.9247,
+      "corr_std": 0.0382,
+      "synced": true
+    },
+    {
+      "noise": 0.4,
+      "sharing": 0.6,
+      "corr_mean": 0.9121,
+      "corr_std": 0.0416,
+      "synced": true
+    },
+    {
+      "noise": 0.45,
+      "sharing": 0.55,
+      "corr_mean": 0.8856,
+      "corr_std": 0.0516,
+      "synced": true
+    },
+    {
+      "noise": 0.5,
+      "sharing": 0.5,
+      "corr_mean": 0.8788,
+      "corr_std": 0.0457,
+      "synced": true
+    },
+    {
+      "noise": 0.55,
+      "sharing": 0.45,
+      "corr_mean": 0.8415,
+      "corr_std": 0.0715,
+      "synced": true
+    },
+    {
+      "noise": 0.6,
+      "sharing": 0.4,
+      "corr_mean": 0.8136,
+      "corr_std": 0.0916,
+      "synced": true
+    },
+    {
+      "noise": 0.65,
+      "sharing": 0.35,
+      "corr_mean": 0.7541,
+      "corr_std": 0.116,
+      "synced": true
+    },
+    {
+      "noise": 0.7,
+      "sharing": 0.3,
+      "corr_mean": 0.749,
+      "corr_std": 0.1132,
+      "synced": true
+    },
+    {
+      "noise": 0.75,
+      "sharing": 0.25,
+      "corr_mean": 0.659,
+      "corr_std": 0.1283,
+      "synced": true
+    },
+    {
+      "noise": 0.8,
+      "sharing": 0.2,
+      "corr_mean": 0.5447,
+      "corr_std": 0.2176,
+      "synced": true
+    },
+    {
+      "noise": 0.85,
+      "sharing": 0.15,
+      "corr_mean": 0.5229,
+      "corr_std": 0.1994,
+      "synced": true
+    },
+    {
+      "noise": 0.9,
+      "sharing": 0.1,
+      "corr_mean": 0.3929,
+      "corr_std": 0.2065,
+      "synced": true
+    },
+    {
+      "noise": 0.95,
+      "sharing": 0.05,
+      "corr_mean": 0.2512,
+      "corr_std": 0.3052,
+      "synced": false
+    },
+    {
+      "noise": 1.0,
+      "sharing": 0.0,
+      "corr_mean": 0.0,
+      "corr_std": 0.0,
+      "synced": false
+    }
+  ]
+}
