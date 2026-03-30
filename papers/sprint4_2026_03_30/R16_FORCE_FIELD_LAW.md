@@ -269,5 +269,29 @@ for 100-step reduction to trivially succeed.
 
 ---
 
+---
+
+## References
+
+### Number Theory and Combinatorics
+
+1. Hardy, G. H. and Wright, E. M. *An Introduction to the Theory of Numbers*, 6th edition. Oxford University Press, 2008.
+
+2. Apostol, T. M. *Introduction to Analytic Number Theory*. Springer, 1976.
+
+### Information Theory
+
+3. Shannon, C. E. "A Mathematical Theory of Communication." *Bell System Technical Journal* 27(3-4), 379-423, 623-656, 1948.
+
+4. Cover, T. M. and Thomas, J. A. *Elements of Information Theory*, 2nd edition. Wiley-Interscience, 2006.
+
+### CK Framework
+
+5. Sanders, B. "The Coherence Keeper: Trinity Infinity Geometry." Zenodo, 2026. DOI: 10.5281/zenodo.18852047. GitHub: github.com/TiredofSleep/ck.
+
+6. Sanders, B. "The b=4 Force Field and the 64-Codon Gateway." Whitepaper 33, 7Site LLC, March 2026. (WP33_DNA_FORCE_FIELD_64.md)
+
+---
+
 *(c) 2026 Brayden Sanders / 7Site LLC | R16 force field sweep, March 2026*
 *DOI: 10.5281/zenodo.18852047*

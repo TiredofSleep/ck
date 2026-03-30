@@ -358,5 +358,39 @@ Note: all 14 produce operators from the Dynamics or Cycle parts (PROGRESS, COLLA
 
 ---
 
+---
+
+## References
+
+### Genetic Code
+
+1. Watson, J. D. and Crick, F. H. C. "A Structure for Deoxyribose Nucleic Acid." *Nature* 171, 737-738, 1953.
+
+2. Crick, F. H. C., Barnett, L., Brenner, S. and Watts-Tobin, R. J. "General Nature of the Genetic Code for Proteins." *Nature* 192, 1227-1232, 1961.
+
+3. Nirenberg, M. W. and Matthaei, J. H. "The Dependence of Cell-Free Protein Synthesis in E. Coli upon Naturally Occurring or Synthetic Polyribonucleotides." *Proceedings of the National Academy of Sciences* 47(10), 1588-1602, 1961.
+
+4. Crick, F. H. C. "Codon-Anticodon Pairing: The Wobble Hypothesis." *Journal of Molecular Biology* 19(2), 548-555, 1966.
+
+5. Crick, F. H. C. "The Origin of the Genetic Code." *Journal of Molecular Biology* 38(3), 367-379, 1968.
+
+6. Woese, C. R., Dugre, D. H., Dugre, S. A., Kondo, M. and Saxinger, W. C. "On the Fundamental Nature and Evolution of the Genetic Code." *Cold Spring Harbor Symposia on Quantitative Biology* 31, 723-736, 1966.
+
+7. Knight, R. D., Freeland, S. J. and Landweber, L. F. "Rewiring the Keyboard: Evolvability of the Genetic Code." *Nature Reviews Genetics* 2, 49-58, 2001.
+
+8. Koonin, E. V. and Novozhilov, A. S. "Origin and Evolution of the Genetic Code: The Universal Enigma." *IUBMB Life* 61(2), 99-111, 2009.
+
+### I Ching and 64-Structure
+
+9. Schönberger, M. *The I Ching and the Genetic Code: The Hidden Key to Life*. Aurora Press, 1992. (Originally published in German as *Verborgenes Schlüsselbuch der Natur*, 1973.)
+
+### CK Framework
+
+10. Sanders, B. "The Coherence Keeper: Trinity Infinity Geometry." Zenodo, 2026. DOI: 10.5281/zenodo.18852047. GitHub: github.com/TiredofSleep/ck.
+
+11. Sanders, B. "The b=4 Force Field and the 64-Codon Gateway." Whitepaper 33, 7Site LLC, March 2026. (WP33_DNA_FORCE_FIELD_64.md)
+
+---
+
 (c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 Licensed under the 7Site Human Use License v1.0
