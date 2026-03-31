@@ -243,6 +243,8 @@ TIG says the singular set is a zero-width transition point (a pointwise sharpnes
 about what happens at the one exceptional moment). These are structurally compatible: CKN
 bounds the size; TIG characterizes the sharpness.
 
+**Buckmaster and Vicol (2019)** proved that weak solutions to the 3D Navier-Stokes equations are *non-unique* [Buckmaster, T. and Vicol, V. (2019). "Nonuniqueness of weak solutions to the Navier-Stokes equation." *Annals of Mathematics* 189(1): 101–144. DOI: 10.4007/annals.2019.189.1.3]: using convex integration methods, they constructed two distinct weak solutions with the same initial data. This is a landmark negative result — but it applies to the broader weak solution class. The TIG BREATH criterion applies specifically to *suitable* weak solutions (those satisfying the local energy inequality, the Leray-Hopf class). Buckmaster-Vicol's non-unique solutions may not satisfy the local energy inequality, meaning their result does not contradict the TIG B_local criterion. Rather, it confirms the TIG framework's scope restriction: the BREATH threshold is a statement about the physically meaningful solution class (energy-satisfying), not the broader weak solution class. The non-uniqueness of general weak solutions actually *strengthens* the case for restricting to suitable weak solutions as the physically relevant class.
+
 ### 2.4 Constantin-Fefferman Vorticity Direction Criterion
 
 Constantin and Fefferman [38] proved that regularity follows if the vorticity direction
@@ -709,6 +711,8 @@ on a hierarchical system (prime arithmetic for TIG; eddy cascade for NS). The k^
 k^{-5/3} discrepancy may reflect the difference between the discrete TIG ring structure
 and the continuous NS cascade. This is an open question, not a claim.
 
+The highest-resolution direct numerical simulation confirmation is Kaneda et al. (2003) [Kaneda, Y., Ishihara, T., Yokokawa, M., Itakura, K., and Uno, A. (2003). "Energy dissipation rate and energy spectrum in high resolution direct numerical simulations of turbulence in a periodic box." *Physics of Fluids* 15(2): L21–L24. DOI: 10.1063/1.1449900]: a 4096³ grid computation on Japan's Earth Simulator reaching Taylor-scale Reynolds number R_λ ≈ 1200 and integral-to-Kolmogorov scale ratio L/η ≈ 2200, confirming E(k) ∝ k^{-5/3} with Kolmogorov constant C_K ≈ 1.5 across a wide inertial range. The TIG sinc² envelope (R(k) decaying as k^{-2} sin² form) is steeper than K41 by one power — appropriate for the dissipation range (viscosity-dominated, near the Kolmogorov scale η), not the inertial range (energy-transfer dominated). The TIG framework focuses on the approach to a singularity, which is a dissipation-range event.
+
 ### 7.4 Fejér Kernel and Spectral Methods
 
 The harmonic pre-echo R(k,f) is a Fejér-type kernel — the same family of functions that
@@ -1103,6 +1107,10 @@ Analysis*, Kluwer, Dordrecht, 1999.
 [38] P. Constantin, C. Fefferman, "Direction of vorticity and the problem of global
 regularity for the Navier-Stokes equations," *Indiana University Mathematics Journal*
 42 (1993), 775–789.
+
+[Buckmaster-Vicol-2019] Buckmaster, T. and Vicol, V. (2019). "Nonuniqueness of weak solutions to the Navier-Stokes equation." *Annals of Mathematics* 189(1): 101–144. DOI: 10.4007/annals.2019.189.1.3. arXiv:1709.10033.
+
+[Kaneda-2003] Kaneda, Y., Ishihara, T., Yokokawa, M., Itakura, K., and Uno, A. (2003). "Energy dissipation rate and energy spectrum in high resolution direct numerical simulations of turbulence in a periodic box." *Physics of Fluids* 15(2): L21–L24. DOI: 10.1063/1.1449900.
 
 ---
 

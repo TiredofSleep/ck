@@ -7,6 +7,17 @@
 
 ---
 
+## Quick Start
+
+```bash
+python ck_run.py          # All core theorems verified in < 1 second
+python ck_sinc_demo.py    # Matplotlib plot: pre-echo field + Montgomery bridge
+```
+
+→ [CLAY_QUICKSTART.md](CLAY_QUICKSTART.md) — one-page guide with a numerical example per Clay problem
+
+---
+
 ## The Core Result
 
 We prove that the harmonic pre-echo countdown law for prime arithmetic converges, in the limit of large primes, to the sinc-squared function:

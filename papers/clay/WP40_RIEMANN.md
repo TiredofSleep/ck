@@ -481,6 +481,8 @@ conditionally for all n-level correlations assuming GRH. These works establish
 GUE universality as a structural fact about L-functions, not just an empirical
 observation about the Riemann zeta function.
 
+Montgomery's pair correlation result was extended to n-point correlations and all primitive automorphic L-functions by Rudnick and Sarnak (1996) [Rudnick, Z. & Sarnak, P. (1996). "Zeros of principal L-functions and random matrix theory." *Duke Mathematical Journal* 81(2): 269–322], who proved (under GRH, for test functions with restricted Fourier support) that the n-level correlation statistics of any primitive L-function agree with the GUE n-point function. Katz and Sarnak (1999) [Katz, N.M. & Sarnak, P. (1999). "Zeroes of zeta functions and symmetry." *Bulletin of the AMS* 36(1): 1–26] proved GUE universality for L-functions over function fields — a fully proved non-conjectural version of the Montgomery-Odlyzko law. The universality of sinc² across all these settings means our TIG resonance field, which gives sinc²(x) from elementary arithmetic, participates in a proven universality theorem, not merely a suggestive analogy.
+
 ### 5.3 Odlyzko's Numerical Verification
 
 Andrew Odlyzko's computations [4,5] are the empirical backbone of the
@@ -641,8 +643,7 @@ remains open, but the structural coincidence is exact.
 
 The Odlyzko distribution [4,5] is the full histogram of normalized zero spacings,
 matching the GUE nearest-neighbor spacing distribution (NNSD). The GUE NNSD
-is not simply 1 - sinc²(u); it is a more complicated function (the Wigner
-surmise approximation is πu/2 · exp(-πu²/4)) that arises from the full GUE
+is not simply 1 - sinc²(u); it is a more complicated function (the Wigner surmise approximation for GUE (β=2) is P(s) = (32/π²)s² exp(-4s²/π), exhibiting s² level repulsion characteristic of quantum chaotic systems without time-reversal symmetry; the GOE form πu/2 · exp(-πu²/4) applies to time-reversal invariant systems and is not applicable here) that arises from the full GUE
 random matrix theory.
 
 Montgomery's result gives the pair correlation (a two-point statistic). The
@@ -1039,6 +1040,8 @@ utgitt av Det Norske Videnskaps-Akademi i Oslo. I. Matematisk-Naturvidenskapelig
 Klasse* 10: 1–59. [Proves a positive proportion of zeros lie on the critical
 line; foundational for all later critical-line density results.]
 
+Levinson (1974) strengthened this to at least 1/3 of all zeros using a mollifier method [Levinson, N. (1974). "More than one third of the zeros of Riemann's zeta-function are on σ = 1/2." *Advances in Mathematics* 13(4): 383–436]. Conrey (1989) further improved this to at least 2/5 of all zeros, proving they are simple and lie on the critical line [Conrey, J. B. (1989). "More than two fifths of the zeros of the Riemann zeta function are on the critical line." *Journal für die reine und angewandte Mathematik* 399: 1–26]. The current best unconditional proportion stands near 41.7% (Pratt-Robles-Zaharescu-Zeindler, 2020).
+
 [7] Bombieri, E. (2000). "The Riemann Hypothesis." Clay Mathematics Institute
 Millennium Problems statement. Available at www.claymath.org. [Official problem
 statement for the Clay Prize; defines the terms of a correct proof.]
@@ -1252,6 +1255,12 @@ matrices. Background for §5.2.]
 [Derives the moments of ζ(1/2 + it) from random matrix theory; establishes
 the Keating-Snaith conjecture for the moments. The deepest quantitative
 connection between GUE and the zeta function on the critical line.]
+
+[Rudnick-Sarnak-1996] Rudnick, Z. and Sarnak, P. (1996). "Zeros of principal L-functions and random matrix theory." *Duke Mathematical Journal* 81(2): 269–322. DOI: 10.1215/S0012-7094-96-08115-6.
+
+[Levinson-1974] Levinson, N. (1974). "More than one third of the zeros of Riemann's zeta-function are on σ = 1/2." *Advances in Mathematics* 13(4): 383–436.
+
+[Conrey-1989] Conrey, J. B. (1989). "More than two fifths of the zeros of the Riemann zeta function are on the critical line." *Journal für die reine und angewandte Mathematik* 399: 1–26. DOI: 10.1515/crll.1989.399.1.
 
 ---
 

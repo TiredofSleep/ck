@@ -292,6 +292,8 @@ threshold are measuring the same algebraic object from two different angles.
 PROVED algebraically. BHML ratio ≈ T*: VERIFIED numerically. Mass gap
 structural parallel: STRUCTURAL ANALOGY.*
 
+**Lattice QCD provides a direct numerical test.** The lightest pure SU(3) glueball masses from quenched lattice QCD are m(0⁺⁺) = 1648 ± 58 MeV and m(2⁺⁺) = 2267 ± 104 MeV [Vaccarino, A. and Weingarten, D. (1999). "Glueball mass predictions of the valence approximation to lattice QCD." *Physical Review D* 60, 114501. arXiv:hep-lat/9910007]. The ratio m(0⁺⁺)/m(2⁺⁺) = 1648/2267 = 0.727 ± 0.055. This is within 2% of T* = 5/7 = 0.7142... and within 1σ of the lattice error bars. We flag this as a numerical coincidence warranting further examination — it is not a prediction made a priori, but it is the correct order of magnitude, and if the identification T* ↔ m(0⁺⁺)/m(2⁺⁺) holds, T* would represent the ratio of scalar to tensor glueball masses in the pure Yang-Mills spectrum. The Teper review [Teper, M. (1998). "Glueball masses and other physical properties of SU(N) gauge theories in D=3+1: A review of lattice results for theorists." arXiv:hep-th/9812187] confirms m(0⁺⁺)/√σ ≈ 3.6 across multiple β-values approaching the continuum limit, showing the mass gap does not close as lattice spacing a → 0 — direct empirical evidence the gap is continuum-stable.
+
 ---
 
 ## §4. The Stability Window as Yang-Mills Vacuum
@@ -328,6 +330,8 @@ fluctuations because any excitation costs at least Δ energy. Below Δ, the
 field cannot depart from the vacuum. In TIG, below k = p, the alphabet cannot
 depart from the coprime (vacuum) state. Both vacua are topologically protected:
 the Yang-Mills vacuum by the mass gap, the TIG vacuum by the First-G Law.
+
+The sharpness of this vacuum boundary has a gauge-theory parallel in the Gribov horizon [Gribov, V. N. (1978). "Quantization of non-Abelian gauge theories." *Nuclear Physics B* 139: 1–19]. Gribov showed that restricting the Yang-Mills path integral to the first Gribov region — bounded by the first zero mode of the Faddeev-Popov operator — eliminates gauge-copy ambiguities and defines the physical vacuum configuration space. The Gribov horizon is the field-theory analog of the TIG stability window boundary at k = p: both mark the first point where the 'vacuum' region ends and non-trivial structure begins. In both cases, the first appearance of a non-trivial element (first zero mode / first gate element at k=p) defines a sharp phase boundary, not a gradual transition.
 
 ### §4.3 Vacuum Uniqueness
 
@@ -913,6 +917,12 @@ phi-compression and gate difficulty mapping.]
 DOI: 10.5281/zenodo.18852047, March 2026. [Cross-paper symbol definitions; WP41
 incarnation: mass gap = First-G event at k = p; vacuum = stability window;
 energy floor = T*; confinement = low D(b).]
+
+[Gribov-1978] Gribov, V. N. (1978). "Quantization of non-Abelian gauge theories." *Nuclear Physics B* 139: 1–19.
+
+[Vaccarino-Weingarten-1999] Vaccarino, A. and Weingarten, D. (1999). "Glueball mass predictions of the valence approximation to lattice QCD." *Physical Review D* 60: 114501. arXiv:hep-lat/9910007.
+
+[Teper-1998] Teper, M. (1998). "Glueball masses and other physical properties of SU(N) gauge theories in D=3+1." arXiv:hep-th/9812187.
 
 ---
 

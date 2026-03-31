@@ -163,9 +163,11 @@ otherwise known.
 
 Bhargava and Shankar [BSD-15, BSD-16] proved in 2015 that the average rank of
 elliptic curves over Q (ordered by height) is at most 5/6, and that at least
-66.48% of elliptic curves have rank 0. Earlier work [BSD-16] had established
+66.48% of elliptic curves have rank 0 (Bhargava-Skinner-Zhang 2014 [arXiv:1407.1826]). Earlier work [BSD-16] had established
 average rank ≤ 7/6. The methods use geometry of numbers to count orbits of
 certain group actions on spaces of binary and ternary forms.
+
+[Bhargava, M., Skinner, C., and Zhang, W. (2014). "A majority of elliptic curves over Q satisfy the Birch and Swinnerton-Dyer conjecture." arXiv:1407.1826 — proves ≥ 66.48% of elliptic curves ordered by height satisfy BSD (rank part) and have finite Ш(E/Q), combining Bhargava-Shankar average rank bounds with Skinner-Urban and Zhang's Euler system results.]
 
 The Goldfeld conjecture [BSD-18] predicts average rank = 1/2, with roughly
 half of all elliptic curves having rank 0 and roughly half rank 1. The random
@@ -695,6 +697,8 @@ G_k (a non-unit) whose non-unit character comes from combining multiple local
 factors. The CRT structure of Z/bZ means global non-units can arise from local
 behavior that is "coprime at each factor" but obstructed in the product.
 
+A key structural property of Ш, proved by Cassels via his pairing theorem [Cassels, J. W. S. (1966). "Diophantine equations with special reference to elliptic curves." *Journal of the London Mathematical Society* 41: 193–291], is that |Ш(E/Q)| is always a perfect square (when finite), forced by an alternating bilinear pairing of Ш with itself. In the TIG ring Z/bZ, the number of non-trivial idempotents is 2^ω(b) − 2, always even — a discrete version of the same pairing-forced squareness of the obstruction count.
+
 ### 6.4 Rank ≥ 2: The Open Frontier
 
 For rank ≥ 2, BSD remains completely open. No method analogous to Kolyvagin's
@@ -1169,6 +1173,12 @@ defines R(k,f) as the primary measurement; spectrometer instrument.]
 Paper Series (WP36–WP42)." Gen10/papers/clay/research/UNIFIED_SYMBOL_TABLE.md.
 DOI: 10.5281/zenodo.18852047. [Cross-paper notation standard; the sink in this paper
 (rank jump) corresponds to the WP42 row in the problem-specific translation table.]
+
+[Cassels-1966] Cassels, J. W. S. (1966). "Diophantine equations with special reference to elliptic curves." *Journal of the London Mathematical Society* 41: 193–291.
+
+[BSZ-2014] Bhargava, M., Skinner, C., and Zhang, W. (2014). "A majority of elliptic curves over Q satisfy the Birch and Swinnerton-Dyer conjecture." arXiv:1407.1826.
+
+[Dokchitser-2010] Dokchitser, T. and Dokchitser, V. (2010). "On the parity of ranks of Selmer groups." *Asian Journal of Mathematics* 14(1): 21–50.
 
 ---
 

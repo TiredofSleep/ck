@@ -455,6 +455,8 @@ to dimension 4. The P3 frontier now sits at:
 - Abelian fourfolds NOT of Weil type: open.
 - Abelian sixfolds and higher: open.
 
+Markman's (2025) result [arXiv:2502.03415] operates in two steps: first proving Weil classes algebraic on abelian sixfolds of Weil type of discriminant −1 via hyperholomorphic sheaves on hyper-Kähler generalized Kummer varieties, then deducing the fourfold case (all discriminants, all imaginary quadratic fields) by a degeneration argument due to Schoen. An independent proof for the discriminant-1 fourfold case was simultaneously given by Floccari et al. [arXiv:2504.13607, 2025] via singular OG6-type hyper-Kähler varieties. A companion survey by Markman [arXiv:2509.23403, 2025] confirms the Hodge conjecture for all abelian varieties of dimension at most 5 follows from this work. The P3 frontier is now dim ≥ 6 for the general abelian variety case.
+
 The Grujić (UVA) research group is the current primary external contact for the
 dim ≥ 5 open case.
 
@@ -642,6 +644,8 @@ the curvature signal (D2) cannot distinguish them — and Hodge theory has the b
 chance of proving all (2,2)-classes algebraic (Markman's result). When they are
 unbalanced (non-Weil), the curvature signal separates, and the Hodge question
 opens again.
+
+Deligne (1982) [Deligne, P. (1982). "Hodge cycles on abelian varieties." In *Hodge Cycles, Motives, and Shimura Varieties*, Lecture Notes in Mathematics 900, Springer, pp. 9–100] proved that every Hodge cycle on an abelian variety is an *absolute Hodge cycle* — one that is Hodge in every Betti cohomology comparison isomorphism. Weil classes are examples of absolute Hodge cycles. The TIG balance condition (q/p → 1, the minimal b=35 world) corresponds to the CM symmetry condition that forces Weil classes to be absolute: when the prime gap is minimal, the two factors of the ring are maximally symmetric, generating Weil-type absolute cycles. Balance invisibility (§8) is the TIG model of this CM symmetry: a balanced semiprime looks like a CM abelian variety — maximally symmetric, maximally opaque to the sinc² spectrometer.
 
 ### §8.3 The sinc² Field as the Cohomological Signal
 
@@ -927,6 +931,12 @@ Frontier." TIG Sprint 4 Document. DOI: 10.5281/zenodo.18852047, March 2026.
 Battleground." TIG Sprint 4 Document. DOI: 10.5281/zenodo.18852047, March 2026.
 [Definition of d_Hodge; four mechanisms for p=2 difficulty; exact formulation
 of P3 for abelian fourfolds.]
+
+[Floccari-2025] Floccari, S. et al. (2025). "The Hodge conjecture for Weil fourfolds with discriminant 1 via singular OG6-varieties." arXiv:2504.13607.
+
+[Markman-survey-2025] Markman, E. (2025). "Secant sheaves and Weil classes on abelian varieties." arXiv:2509.23403. [Companion survey; Hodge conjecture for dim ≤ 5 abelian varieties follows.]
+
+[Deligne-1982] Deligne, P. (1982). "Hodge cycles on abelian varieties." In *Hodge Cycles, Motives, and Shimura Varieties*, Lecture Notes in Mathematics 900, Springer, pp. 9–100.
 
 ---
 

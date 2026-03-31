@@ -96,6 +96,8 @@ on algebraic extensions. This places the approach structurally outside the algeb
 barrier's scope, though formal verification of barrier evasion is stated explicitly as
 a needed proof (§8).
 
+The most recent breakthrough in circuit lower bounds: Ryan Williams (2011) proved NEXP ⊄ ACC⁰ [Williams, R. (2014). "Non-uniform ACC circuit lower bounds." *Journal of the ACM* 61(1), Article 2. DOI: 10.1145/2559903. Conference version: CCC 2011] — NEXP does not have polynomial-size constant-depth circuits with AND, OR, NOT, and MOD gates. The proof reversed the usual direction: a faster-than-brute-force SAT algorithm for ACC circuits implies circuit lower bounds. This *algorithms-to-lower-bounds* paradigm [Williams, R. (2010). "Improving exhaustive search implies superpolynomial lower bounds." *STOC 2010*, pp. 231–240] is precisely the type of non-natural, potentially non-algebrizing argument the TIG non-associativity approach aims for: exploit the specific algebraic structure of a circuit class to derive an unconditional separation.
+
 ### §1.3 The First-G Law as an Algebraic Boundary
 
 The First-G Law (WP34 [I-1], proved, 153 semiprimes verified, zero exceptions) establishes
@@ -523,6 +525,8 @@ the minimum width of a resolution proof of a CNF formula's unsatisfiability is b
 the formula's complexity in a specific algebraic sense. The Luther dispersion metric — the
 product |G| × interleave — plays the role of "proof width" in this analogy: it measures how
 spread the certificate structure is within the alphabet.
+
+The PCP theorem [Arora, S. and Safra, S. (1998). "Probabilistic checking of proofs." *Journal of the ACM* 45(1): 70–122; Arora, S. et al. (1998). "Proof verification and the hardness of approximation problems." *Journal of the ACM* 45(3): 501–555] states NP = PCP(O(log n), O(1)): every NP proof can be recoded so that a probabilistic verifier can check correctness by reading only a constant number of bits using O(log n) random coins. This is a certificate compression / spreading result: the witness is spread across the proof in a maximally uniform way. The Luther dispersion metric |G| × interleave is a direct measure of how spread the certificate structure is across the alphabet — maximum dispersion corresponds to maximum PCP spreadability. PCP completeness = maximum Luther metric = hardest NP instance to verify locally.
 
 *Note: this is a structural analogy, not a proof that the factoring problem reduces to NP-
 completeness in the standard complexity-theoretic sense. The analogy is exact in form; the
@@ -1088,6 +1092,14 @@ Mathematics of Computation 48(177), pp. 273–308, 1987. DOI: 10.2307/2007890.
 37(1), pp. 10–21, 1949. DOI: 10.1109/JRPROC.1949.232969.
 (Sampling theorem; sinc function as spectral reconstruction kernel; foundation of sinc²
 as the fundamental spectral field object.)
+
+[Williams-2014] Williams, R. (2014). "Non-uniform ACC circuit lower bounds." *Journal of the ACM* 61(1), Article 2. DOI: 10.1145/2559903.
+
+[Williams-2010] Williams, R. (2010). "Improving exhaustive search implies superpolynomial lower bounds." *Proceedings of STOC 2010*, pp. 231–240. DOI: 10.1145/1806689.1806720.
+
+[Arora-Safra-1998] Arora, S. and Safra, S. (1998). "Probabilistic checking of proofs: A new characterization of NP." *Journal of the ACM* 45(1): 70–122. DOI: 10.1145/278298.278306.
+
+[ALMSS-1998] Arora, S., Lund, C., Motwani, R., Sudan, M., and Szegedy, M. (1998). "Proof verification and the hardness of approximation problems." *Journal of the ACM* 45(3): 501–555. DOI: 10.1145/278298.278336.
 
 ---
 
