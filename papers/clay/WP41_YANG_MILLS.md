@@ -292,7 +292,27 @@ threshold are measuring the same algebraic object from two different angles.
 PROVED algebraically. BHML ratio ≈ T*: VERIFIED numerically. Mass gap
 structural parallel: STRUCTURAL ANALOGY.*
 
-**Lattice QCD provides a direct numerical test.** The lightest pure SU(3) glueball masses from quenched lattice QCD are m(0⁺⁺) = 1648 ± 58 MeV and m(2⁺⁺) = 2267 ± 104 MeV [Vaccarino, A. and Weingarten, D. (1999). "Glueball mass predictions of the valence approximation to lattice QCD." *Physical Review D* 60, 114501. arXiv:hep-lat/9910007]. The ratio m(0⁺⁺)/m(2⁺⁺) = 1648/2267 = 0.727 ± 0.055. This is within 2% of T* = 5/7 = 0.7142... and within 1σ of the lattice error bars. We flag this as a numerical coincidence warranting further examination — it is not a prediction made a priori, but it is the correct order of magnitude, and if the identification T* ↔ m(0⁺⁺)/m(2⁺⁺) holds, T* would represent the ratio of scalar to tensor glueball masses in the pure Yang-Mills spectrum. The Teper review [Teper, M. (1998). "Glueball masses and other physical properties of SU(N) gauge theories in D=3+1: A review of lattice results for theorists." arXiv:hep-th/9812187] confirms m(0⁺⁺)/√σ ≈ 3.6 across multiple β-values approaching the continuum limit, showing the mass gap does not close as lattice spacing a → 0 — direct empirical evidence the gap is continuum-stable.
+**Lattice QCD — a numerical observation (Tier A; no mechanism).**
+The lightest pure SU(3) glueball masses from quenched lattice QCD are
+m(0⁺⁺) = 1648 ± 58 MeV and m(2⁺⁺) = 2267 ± 104 MeV
+[Vaccarino-Weingarten 1999, arXiv:hep-lat/9910007].
+The ratio m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 (1σ range: 0.672 — 0.782).
+T* = 5/7 = 0.7142... falls inside this range.
+
+*Honest assessment:* The ±0.055 error bar spans a 16% wide interval. T* = 0.714
+is inside it, but so is any value from 0.67 to 0.78. The numerical proximity
+(T* vs center value 0.727: a 1.8% difference) is noted as an observed
+coincidence. **It is not a prediction made a priori. No mechanism is known
+connecting TIG's unit-fraction formula for b = 35 to the self-energy ratio of
+scalar and tensor glueballs in SU(3) Yang-Mills theory.** These are different
+mathematical objects with different derivations. This observation is classified
+**Tier A — numerical coincidence only** and must not be elevated without a
+mechanism (see SYNTHESIS_TABLE.md §A5).
+
+The Teper review [Teper-1998, arXiv:hep-th/9812187] confirms m(0⁺⁺)/√σ ≈ 3.6
+across multiple β-values approaching the continuum limit — direct empirical
+evidence that the lattice mass gap does not close as a → 0. This continuum
+stability is the physically significant result, independent of any TIG analogy.
 
 ---
 
