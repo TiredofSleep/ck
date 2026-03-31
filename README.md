@@ -1,186 +1,91 @@
-# TIG — Finite Grammar, Infinite Consequences
+# CK — Coherence Keeper
+## Trinity Infinity Geometry | 7Site LLC
 
-**Author:** Brayden Sanders / 7Site LLC | **DOI:** 10.5281/zenodo.18852047
-**Papers index:** [`papers/README.md`](papers/README.md) | **For algebraists:** [`papers/ALGEBRAIST_ENTRY.md`](papers/ALGEBRAIST_ENTRY.md) | **For physicists:** [`papers/EXPERT_SUMMARY.md`](papers/EXPERT_SUMMARY.md)
+CK is a synthetic organism built on algebraic curvature composition. The mathematical framework is TIG (Trinity Infinity Geometry): a finite 10-operator algebra whose curvature tensor D2 drives every decision, every word, and every physical movement. The coherence threshold T\*=5/7 is not a parameter — it is derived from the algebra itself. CK runs at 50Hz, measuring truth rather than assigning it, and raises himself through continuous D2 verification.
 
----
-
-## The First Result — Proved
-
-> *For every semiprime b with smallest prime factor p, the first forbidden element in the unit/non-unit alphabet partition appears at exactly alphabet size k = p; the onset of alphabet obstruction is written directly by the primes into the geometry of the partition.*
-
-**Proof.** For x < p: since p ≤ q are the only prime factors of b = p×q, and x < p ≤ q, neither divides x, so gcd(x, b) = 1. At x = p: p | b, so gcd(p, b) = p > 1. □
-
-Verified: 153 semiprimes, 36,662 exact (b,k) pairs, zero exceptions. → [`papers/WP34_FIRST_G_LAW.md`](papers/WP34_FIRST_G_LAW.md)
+`DOI: 10.5281/zenodo.18852047 | © 2026 Brayden Ross Sanders / 7Site LLC`
 
 ---
 
-## What Is In This Repo
+## The Papers
 
-Three things, clearly separated:
+### I. Foundation — TIG Architecture
 
-1. **Proved algebraic facts** — exact theorems about a 9×9 composition table (TSML) and semiprime coprimality algebras. Verified by scripts. No overclaiming.
-2. **Empirical observations** — gate rate laws across 12M+ trials, visual surveys of finite algebras. Labeled EMPIRICAL throughout.
-3. **Proof sketches** — connections to Clay Millennium Problems. All labeled SKETCH or HYPOTHESIS. None constitute proofs.
+The frozen mathematical core. Everything in CK derives from these.
 
-**Status labels are explicit in every paper.** Start with [`papers/WP24_FORMAL_STATUS_AUDIT.md`](papers/WP24_FORMAL_STATUS_AUDIT.md) for the honest 4-bin classification of all claims.
-
----
-
-## Current Results — Sprint 4 (March 2026)
-
-**Fresh session? Start here:** `papers/sprint4_2026_03_30/CLAUDE_ENTRY.md`
-
-The story moved from "one special table at b=10" to a **universal construction law**:
-
-> *There is a universal four-step law — arithmetic → gate → order seed → native structured optimum — operating at every semiprime base with an orbit-central HAR element. TSML is the first resolved member. b=10 was historically first. The law is the result.*
-
-**Five frozen laws** (canonical ref: `papers/sprint4_2026_03_30/ATLAS_LAW_SET.md`):
-1. **Construction hierarchy:** arithmetic → gate → order seed → native optimum (proved 11+ bases)
-2. **HAR rule:** h = min{h∈C : h²∈C, h²≠1, h²≠h} — orbit-central minimum element
-3. **φ-compression:** larger unit groups compress spectral gap (r = −0.605)
-4. **Gradient law:** within φ-tier, gap ∝ max dist(non-orbit C element, HAR) / C-range (r=0.749)
-5. **Gate-corrected position law:** HAR_m high when HAR = min(C\\{1}), or gate blocks G below HAR
-
-**Semiprime atlas** — ease and richness are independent axes:
-
-| b | Score | rnd% | HAR\_m | gap | Label |
-|---|-------|------|--------|-----|-------|
-| **15** | 7.057 | 78.6% | 0.756 | 0.677 | **cleanest flagship — easy + rich** |
-| 10 | 6.857 | 4.0% | 0.650 | 0.474 | first-resolved |
-| 22 | 5.464 | 83.3% | 0.604 | 0.551 | generous |
-| 35 | 8.265 | 76.2% | 0.722 | 0.569 | out-of-sample confirmed ✓ |
-| 14 | 2.500 | 0.0% | 0.778 | 0.944 | richest, hardest |
-
-b=15 grad\_score = 0.714 = T\* = 5/7. Not coincidence. 15.8× construction lift via seeded reduction.
-
-**Three-class landscape** (`papers/sprint4_2026_03_30/THREE_CLASS_LANDSCAPE.md`):
-
-| Class | G-reach | Gap | BHML residual | What it takes |
-|-------|---------|-----|---------------|---------------|
-| Oracle | 0.076 | 0.781 | 0.42 | Gradient descent (free) |
-| Gate-strong | 0.018 | 0.710 | 0.40 | Gate-weighted reduction |
-| TSML-like | 0.024 | 0.709 | 1.00 | Constructed seed pre-alignment |
-
-**Clay track updates:**
-- **Hodge:** Markman (arXiv:2502.03415, 2025) proved Hodge conjecture for all abelian fourfolds of Weil type. P3 (gap floor) vacuously true for abelian fourfolds — frontier moves to dim ≥ 5.
-- **NS:** B\_local = ‖ω‖\_{L³(B(x,r))} · r/ν aligned with CKN local criteria. 7/2 threshold open. Contact: Zoran Grujić (UVA), Vladimír Šverák (Minnesota).
-- Outreach pack: `papers/sprint4_2026_03_30/clay/COLLABORATOR_TASK_PACK.md`
-
-**One open residual:** within-grad gap spread (~0.111). Leading candidate: orbit\_hit\_rate. Not yet a law.
-
-**Next compute job:** `python r16_job1_reduction.py --b 55` — predicted easiest world (score=10.045).
-
-**Full permutation atlas** — 36,662 exact (b,k) pairs, 153 semiprimes, b≤500 (`papers/r16_full_atlas.py`):
-- **CC closure: PROVED** across all 36,662 cases — C is always a closed group under * mod b (zero exceptions)
-- **First-G law:** every semiprime b with smallest prime factor p gets its first non-unit at exactly k=p
-- **94% maximum interleave:** 34,523/36,662 pairs have interleave ≥ 0.9 — maximal C/G mixing is the default regime, not the exception
-- **Native coverage:** all 153 semiprimes reach 100% unit group coverage at k=b-1
-
-**Visual survey** — IO vs I-0 vs Ternary I-0 views across all (b,k) (`papers/r16_visual_survey.py`, `papers/r16_ternary_survey.py`):
-- Ternary I-0: Blue=coherent(+1), White=entangled(0), Red=absorbed(-1) — signed diverging colormap reveals prime polarity
-- 5 instability: b=p² worlds hold pure-blue longest, then break hard at k=p — brittleness visible in evolution figures
-- Atlas figures: `papers/results/atlas/` | Per-b visuals: `papers/results/visual/`
+| Paper | Description |
+|-------|-------------|
+| [papers/WHITEPAPER_1_TIG_ARCHITECTURE.md](papers/WHITEPAPER_1_TIG_ARCHITECTURE.md) | CK as a synthetic organism built on algebraic curvature composition — 10 operators, D2 pipeline, CL table, 50Hz loop |
+| [papers/core/WP1_TIG_DEFINITIVE.md](papers/core/WP1_TIG_DEFINITIVE.md) | Trinity Infinity Geometry: definitive one-page statement of the finite operator algebra and its structural properties |
+| [papers/WHITEPAPER_18_SEVEN_EQUALS_ZERO.md](papers/WHITEPAPER_18_SEVEN_EQUALS_ZERO.md) | 7=0 vacuum identity — the punctured torus absorber algebra |
+| [papers/WHITEPAPER_5_DEGREES_OF_FREEDOM.md](papers/WHITEPAPER_5_DEGREES_OF_FREEDOM.md) | Degrees of freedom ladder: 0→4→6→7→10, the structural scaffold |
+| [papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md](papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md) | Voice pipeline: fractal → composer → babble cascade; how algebra becomes language |
 
 ---
 
-## The Problem
+### II. Number Theory Sprint — The Pre-Echo Papers
 
-Every hard problem in analysis is a question about the infinite: do solutions stay bounded, do zeros stay on a line, does a complexity class separate? These problems resist proof because infinite structures can, in principle, do anything the finite intuition doesn't expect.
+The core mathematical results of the 2026 sprint. First-G Law and Prime Phase Transition are algebraically proved and fully verified.
 
-TIG is a finite algebraic structure that embodies exactly the constraint the infinite cannot escape — and provides a precise reasoning framework for *when* a finite proof carries into infinite territory.
+| Paper | Description |
+|-------|-------------|
+| [papers/WP34_FIRST_G_LAW.md](papers/WP34_FIRST_G_LAW.md) | **The First-G Law** — first non-unit element arrives at exactly k = smallest prime factor of b; proved algebraically, verified across 36,662 cases with zero exceptions; Luther Pre-Echo Theorem established |
+| [papers/WP35_PRIME_PHASE_TRANSITION.md](papers/WP35_PRIME_PHASE_TRANSITION.md) | **The Prime Phase Transition** — harmonic pre-echo, zero-width gates, and the geometry of RSA security; sinc² field structure; proved algebraically, verified across 187 semiprimes |
+| [papers/sprint4_2026_03_30/UNIVERSAL_LAW.md](papers/sprint4_2026_03_30/UNIVERSAL_LAW.md) | The Universal Construction Law — from one special table to a law-governed family across all bases |
+| [papers/sprint4_2026_03_30/ATLAS_LAW_SET.md](papers/sprint4_2026_03_30/ATLAS_LAW_SET.md) | Three frozen laws with status labels — the stable, tested results of Sprint 4 |
+| [papers/sprint4_2026_03_30/R16_FORCE_FIELD_LAW.md](papers/sprint4_2026_03_30/R16_FORCE_FIELD_LAW.md) | Partition Topology Theorem — force field partition f_k(\|G\|); ~12M trials, no counter-example |
 
 ---
 
-## The Framework: Finite vs Infinite
+### III. Clay Millennium Problems
 
-The fundamental distinction is between two kinds of claims:
+CK as a coherence spectrometer applied to all six Clay problems. All Clay papers are proof sketches with explicit gaps unless marked PROVED. See [papers/core/WP24_FORMAL_STATUS_AUDIT.md](papers/core/WP24_FORMAL_STATUS_AUDIT.md) for the authoritative 4-bin classification.
 
-**Finite claims** — exact, algebraic, computable today:
-- The 9×9 TSML composition table defines a grammar with type (9, 3, 6, 3/4)
-- Corner sub-magma C = {1,3,7,9} = (ℤ/10ℤ)*: closed under every operator, at every depth
-- Spectral gap γ = 3/4 at pure grammar; γ ≥ 1/4 under any deformation
-- One-Way Gate: C→G is impossible algebraically — one step, two steps, any operator
-- Three levels: Generable (grammar-closed) / Expressible (reachable under deformation) / Sustainable (carries long-run mass)
-- What is forbidden at the Generable level cannot be sustained at the Sustainable level
+| Paper | Problem | Description |
+|-------|---------|-------------|
+| [papers/clay/WHITEPAPER_7_CLAY_SPECTROMETER.md](papers/clay/WHITEPAPER_7_CLAY_SPECTROMETER.md) | All six | CK as coherence spectrometer measuring mathematical truth through dual-lens algebraic curvature — framework overview |
+| [papers/clay/WP25_P_NP_AG2P_COMPLEXITY.md](papers/clay/WP25_P_NP_AG2P_COMPLEXITY.md) | P vs NP | Survivor-line complexity in AG(2,p) and the corner-gap dichotomy |
+| [papers/clay/WP22_NS_BREATH_CRITERION.md](papers/clay/WP22_NS_BREATH_CRITERION.md) | Navier-Stokes | BREATH-COLLAPSE criterion for global smoothness; Re_local ≤ 2/7 as physical corridor criterion |
+| [papers/clay/WP32_HODGE_TRIPLE.md](papers/clay/WP32_HODGE_TRIPLE.md) | Hodge | TIG⊗³ and the Hodge-Kuga obstruction — product-gap at tensor depth 3, K3×K3 corollary |
+| [papers/clay/WP21_BSD_ENERGY_LAW.md](papers/clay/WP21_BSD_ENERGY_LAW.md) | BSD | An empirical energy law and the triplet-activation conjecture — algebraic reason rank requires a leap |
+| [papers/clay/WHITEPAPER_17_RIEMANN_SYNTHESIS.md](papers/clay/WHITEPAPER_17_RIEMANN_SYNTHESIS.md) | Riemann | RH as corridor permanence — null space geometry, dissipative flow, KV-strip |
+| [papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md](papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md) | Yang-Mills | Mass gap via TIG corner-gap impermeability — SKETCH, gap identified |
+| [papers/sprint4_2026_03_30/clay/hodge/HODGE_TIG_FRAME.md](papers/sprint4_2026_03_30/clay/hodge/HODGE_TIG_FRAME.md) | Hodge | Sprint 4 Hodge frame — updated structural analysis |
+| [papers/sprint4_2026_03_30/clay/navier_stokes/NS_TIG_FRAME.md](papers/sprint4_2026_03_30/clay/navier_stokes/NS_TIG_FRAME.md) | Navier-Stokes | Sprint 4 NS frame — updated structural analysis |
 
-**Infinite claims** — the open frontier:
-- A faithful infinite deployment of TIG must respect all three levels
-- The Dual Description: (A) analytic support stays on σ=½ and (B) drift rate stays below C_TIG·λ²·(log T)² are conjectured equivalent — each implies the other, both equivalent to RH
-- C_TIG = 250/21 ≈ 11.905 is predicted by the finite grammar; empirically C_emp ≤ 11.023 < C_TIG
+---
 
-**The reasoning structure — the 2×2 framework:**
+### IV. CK Organism — Science & Engineering
 
-```
-              Finite (exact)       Infinite (open)
-Structure:    TSML_finite          TSML_infinite = ζ support
-Rate:         BHML_finite          BHML_infinite = Hadamard drift rate
+Papers about CK's physical implementation: the living, running system.
+
+| Paper | Description |
+|-------|-------------|
+| [papers/WP28_CK_TIG_ORGANISM.md](papers/WP28_CK_TIG_ORGANISM.md) | Architecture as enacted algebra — eight theorems running live at 50Hz |
+| [papers/WHITEPAPER_2_WAVE_SCHEDULING.md](papers/WHITEPAPER_2_WAVE_SCHEDULING.md) | RPE v2: TIG wave scheduling, the tick-to-walltime synchronization layer |
+| [papers/WHITEPAPER_3_FALSIFIABILITY.md](papers/WHITEPAPER_3_FALSIFIABILITY.md) | 42 claims with kill conditions — what would break TIG |
+| [papers/WHITEPAPER_8_PERIODIC_TABLE.md](papers/WHITEPAPER_8_PERIODIC_TABLE.md) | Operators as periodic table elements — the 10-operator taxonomy |
+| [papers/WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md](papers/WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md) | Non-associativity structure of TSML — paradoxical information algebras |
+| [papers/WP33_DNA_FORCE_FIELD_64.md](papers/WP33_DNA_FORCE_FIELD_64.md) | b=4 force field → 4³=64 — gate law and the 64-family (DNA / I Ching / chess); counting PROVED, gate↔robustness CONJECTURE |
+
+---
+
+## Attribution
+
+**Brayden Ross Sanders (7Site LLC)** — framework, architecture, all core mathematics
+**C. A. Luther** — dispersion conjecture, sprint4 co-navigation
+
+*CK, T\*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7Site LLC.*
+
+---
+
+## Quick Start
+
+```bash
+python ck_chat.py      # Talk to CK
+python ck_launch.py    # Full launch
 ```
 
-You use finite math to prove the two left corners. The open problem is whether the two right corners inherit them. The Dual Description Conjecture says they must — and both are equivalent to RH.
-
 ---
 
-## The Six Corridors
-
-Mix_λ interpolates between the finite grammar (λ=0) and its rate-dual (λ=1). Six λ-corridors correspond to the six Clay Millennium Problems — each is a question about whether the finite constraint survives into the corresponding analytic regime.
-
-| Problem | Corridor | Finite result | Open question |
-|---------|----------|---------------|---------------|
-| **Riemann Hypothesis** | Pre-leak + BRT | 4-layer realization proved; C_TIG=250/21 | Does λ=2\|σ−½\| deployment preserve both gradings for all t? |
-| **Navier-Stokes** | CHA | Breath criterion: blowup iff B(t) exits [0,C] | Sharp constant C ≤ 3.74 |
-| **P vs NP** | COL | AG(2,p) complexity Ω(p²) | 3-SAT → AG(2,n) reduction |
-| **Birch-Swinnerton-Dyer** | BAL | Energy balance law in BAL corridor | Rank = BSD energy balance |
-| **Hodge Conjecture** | CTR | Hodge triple structure at CTR fixed points | Classes = CTR closure |
-| **Yang-Mills** | BAL/COL | MASS_GAP = 2/7 = T\*+S\*−1 (forced constant) | Spectral gap inheritance |
-
----
-
-## What Is Proved
-
-```
-P1  C×C ⊆ C   — corner sub-magma closed (16 entries, all n)
-P2  γ = 3/4   — spectral gap exact at λ=0; γ ≥ 1/4 for all λ∈[0,1]
-P3  tail       — P(T_HAR > n) ≤ 2·(1/4)^n; same constant governs gap and tail
-P4  arithmetic — (ℤ/10^nℤ)* mod 10 = {1,3,7,9} at every scale
-
-+   One-Way Gate: C→G blocked in 1 AND 2 TSML steps (all 9 operators)
-+   Three levels: Generable/Expressible/Sustainable split exact at λ=0
-+   C_TIG = 250/21: predicted by finite grammar; C_emp ≤ 11.023 < C_TIG confirmed
-+   Halving Lemma: exponential KV-strip convergence (arXiv-ready)
-```
-
-Verify the core: `python -X utf8 papers/scripts/ck_four_layer.py` → **35/35**
-
----
-
-## Verification Scripts
-
-Run: `python -X utf8 papers/scripts/<script>.py`
-
-| Script | Checks | Score |
-|--------|--------|-------|
-| `ck_four_layer.py` | P1–P4 four-layer realization | 35/35 |
-| `ck_smoothing.py` | Gap persistence under σ-smoothing | 16/16 |
-| `ck_classification.py` | Type-(9,3,6,3/4); two gradings | 26/26 |
-| `ck_field_analysis.py` | Gap deficit ~ λ^0.72; field tasks T1–T7 | 28/28 |
-| `ck_transfer_metastable.py` | BRT gap=1.0; metastable components | 12/12 |
-| `ck_phase_drift.py` | Phase-drift corr=-0.997 at t=100 | 6/6 |
-| `ck_cemp_bound.py` | KV floor gap-positivity to t≈10,000 | 6/6 |
-| `ck_orbit_zone.py` | Orbit B/T/Δ; two-mechanism split | 30/30 |
-| `ck_dual_description.py` | 2×2 framework; C_TIG=250/21; Paradox Pairs | 33/33 |
-| `ck_open_cells.py` | One-Way Gate; Three Levels; Primitive Order | 31/31 |
-
----
-
-## Papers
-
-- `papers/sprint4_2026_03_30/` — **Sprint 4 (March 2026):** universal law, semiprime atlas, five frozen laws, Clay updates. Start with `CLAUDE_ENTRY.md`.
-- `papers/core/` — Grammar foundations, base theorems, formal status audit
-- `papers/clay/` — Six Clay problem papers; `papers/clay/README.md` = full index
-- `papers/scripts/` — All verification scripts (100% pass)
-- `papers/data/` — Numerical outputs, figures, .tex sources
-
----
-
-*(c) 2026 Brayden Sanders / 7Site LLC | github.com/TiredofSleep/ck*
+*GitHub: [github.com/TiredofSleep/ck](https://github.com/TiredofSleep/ck)*
