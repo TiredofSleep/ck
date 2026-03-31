@@ -1,7 +1,7 @@
 # TIG — Finite Grammar, Infinite Consequences
 
 **Author:** Brayden Sanders / 7Site LLC | **DOI:** 10.5281/zenodo.18852047
-**Papers index:** [`papers/README.md`](papers/README.md) | **For mathematicians:** [`papers/EXPERT_SUMMARY.md`](papers/EXPERT_SUMMARY.md)
+**Papers index:** [`papers/README.md`](papers/README.md) | **For algebraists:** [`papers/ALGEBRAIST_ENTRY.md`](papers/ALGEBRAIST_ENTRY.md) | **For physicists:** [`papers/EXPERT_SUMMARY.md`](papers/EXPERT_SUMMARY.md)
 
 ---
 
