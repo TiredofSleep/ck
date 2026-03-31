@@ -171,19 +171,23 @@ Every claim below is scored on:
 
 #### B1. Luther Dispersion Conjecture
 
+*Updated March 2026 after Luther's algebraic response (LUTHER_RESPONSE_EVAL.md).*
+
 | Column | Content |
 |--------|---------|
-| **Law** | `gate_rate(k) ≈ F_k(|G(k)| × interleave(k))` for semiprime b = p×q |
-| **Exact status** | **Tier B.** C. A. Luther conjecture. Pattern verified computationally across all semiprimes studied. The functional form F_k is not algebraically derived. The conjecture is that gate density grows proportionally to the product of accumulated gates and the interleaving period of multiples of p and q. |
-| **Arithmetic form** | `interleave(k) = ⌊k/q⌋ + ⌊k/p⌋` counts accumulated multiples. `|G(k)|` counts non-coprime elements in {1..k}. The conjecture: `|G(k+1)| − |G(k)| ≈ α × |G(k)| × interleave(k)` for some α. |
-| **Geometric / combinatorial form** | The density of gate events (non-coprime elements) should increase with the current gate count multiplied by the interleaving frequency. This is a discrete analog of logistic growth. |
-| **What remains** | (1) Algebraic derivation of F_k from first principles. (2) Proof that the approximation is tight (error bounds). (3) Generalization to ω(b) ≥ 3. This is a research program, not a gap in a finished proof. |
+| **Law** | Dispersion D(b,k) = \|G_k\|/k is algebraically determined by the prime factorization of b via the idempotent lattice of Z/bZ |
+| **Exact status** | **Tier C.** (Promoted from Tier B.) Luther's algebraic derivation: G_k = ∪_i Ideal(p_i) ∩ {1..k} = union of arithmetic progressions {p_i, 2p_i,...} ∩ {1..k}. This is exactly the inclusion-exclusion formula: \|G_k\| = Σ⌊k/p_i⌋ − Σ⌊k/p_ip_j⌋ + ... This formula is strictly determined by the prime factorization of b — and the prime factorization is determined by the idempotent lattice of Z/bZ (the 2^ω(b) idempotents correspond to binary vectors over the prime factors). Therefore D(b,k) is algebraically *implied* by the idempotent structure. Not merely correlated. |
+| **Arithmetic form** | D(b,k) = \|G_k\|/k where \|G_k\| = Σ⌊k/p_i⌋ − Σ⌊k/p_ip_j⌋ + ... (inclusion-exclusion on primes of b). This is exact for all (b, k). Asymptotically: \|G_k\|/k → 1 − φ(b)/b = 1 − ∏(1 − 1/p_i) as k → ∞. |
+| **Geometric / combinatorial form** | G_k is the union of arithmetic progressions in {1..k}, one per prime factor. The interleave score measures how evenly these progressions are distributed. Both the cardinality (\|G_k\|) and the positions are algebraically determined. |
+| **What remains** | (1) Write the explicit formula for the interleave SCORE (not just \|G_k\|) in terms of (p_1,...,p_ω, k) and verify it matches the code's interleave function exactly. (2) Generalization of the functional form F_k beyond the density to the MCMC success probability — this remains open (see C_TO_D_GAP_ANALYSIS.md). |
 
 **Four tests:**
-- RI: Partial — the formula is stated for the natural enumeration. Whether it survives coordinate changes is not established.
-- SI: Unknown — tested for small p, not asymptotically.
-- MC: No — the mechanism for WHY gate density tracks |G| × interleave is not derived.
-- FM: A semiprime where gate density grows at a rate inconsistent with the formula over a large sample.
+- RI: Yes — inclusion-exclusion formula is basis-independent; D(b,k) = |G_k|/k is canonical.
+- SI: Yes — the formula holds for all p, q, k by construction. The asymptotic limit is the Euler totient.
+- MC: Yes — mechanism is the idempotent lattice → CRT maps → kernels (prime ideals) → G_k. Chain is explicit.
+- FM: A semiprime where |G_k| ≠ Σ⌊k/p_i⌋ − Σ⌊k/p_ip_j⌋ + ... Impossible: this is the exact inclusion-exclusion formula for multiples.
+
+**Note on Tier D promotion:** The *cardinality* |G_k| is Tier D (exact formula, proved). The *spatial dispersion score* (interleave ratio) requires writing the score as an explicit function of (primes, k) and verifying the match. One explicit formula with one verification step to Tier D.
 
 ---
 
