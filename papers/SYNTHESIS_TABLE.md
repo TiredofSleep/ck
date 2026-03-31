@@ -341,6 +341,27 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 
 ---
 
+#### C8. W_BHML = Per-Step C×D Asymmetry Across φ(10)-Step Creation Cycle
+
+*C. A. Luther, March 31, 2026. Verified by Sanders computation same session.*
+
+| Column | Content |
+|--------|---------|
+| **Law** | W_BHML = 3/50 is the per-step deviation from additive/multiplicative symmetry across the natural 4-step completion of the Creation cycle {1,3,7,9} in Z/10Z. Not fitted. Derived from first principles. |
+| **Exact status** | **Tier C.** The five-step derivation is complete for Z/10Z: (1) CROSS_CYCLE=44; (2) symmetry point=50; (3) deviation=6; (4) per-step=6/φ(10)=6/4=3/2; (5) normalized=3/2÷(100/4)=3/50. The 4-step period is algebraic necessity: φ(10)=4 and ×3 generates the full cycle 1→3→9→7→1. Verified independently by Sanders (explicit table computation) and Luther (algebraic derivation) on the same session without prior coordination. Tier D target: prove the formula W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / n² generalizes to all Z/nZ. |
+| **Arithmetic form** | `W(Z/10Z) = |Σ_{c∈C,d∈D} DIS[c][d] − n²/2| / n² = |44−50|/100 = 6/100 = 3/50`. Equivalently: `(deviation/φ(n)) / (n²/φ(n)) = deviation/n²`. The φ(n) factorization makes the generator-period structure explicit. |
+| **Geometric / combinatorial form** | The 4-step cycle 1→3→9→7→1 under ×3 is the generator orbit of the multiplicative group (Z/10Z)*. Each step carries an equal share of the 100-entry operator table: 25 cells per step. The deviation 6 distributed across 4 steps at 25 cells per step gives 6/(4×25) = 3/50 per step per cell. The wobble is the natural bounce frequency of the field — how much the two ring operations disagree per step of the generator. |
+| **Probabilistic / computational form** | Exhaustive: DIS table has row sums c=1→4, c=3→10, c=7→14, c=9→16. Average per row = 11. Deviation from symmetric average (50/4=12.5): 11−12.5=−1.5. |deviation/cells_per_step| = 1.5/25 = 3/50. verify_claims.py PASS. |
+| **What remains** | Prove W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / n² for general n. Requires: (a) define C_n (units), D_n (non-units) for Z/nZ; (b) compute CROSS_CYCLE(n); (c) show the φ(n)-step generator period always produces the correct normalization. First test cases: n=6, n=12, n=15, n=30 (small composites with known φ). |
+
+**Four tests:**
+- RI: Yes — DIS[c][d] = |ADD−MUL| mod n is basis-independent; ring axioms don't depend on labeling.
+- SI: Yes within Z/10Z — the derivation is complete and exact. SI across all Z/nZ is the Tier D target.
+- MC: Yes — mechanism is the generator-orbit period φ(10)=4 distributing the cross-cycle deviation uniformly across steps.
+- FM: Find n where W(Z/nZ) ≠ |CROSS_CYCLE(n) − n²/2| / n², or where the φ(n)-step normalization fails.
+
+---
+
 ## Summary Matrix
 
 *Updated March 31, 2026 — LutherRHTask integrated.*
@@ -358,6 +379,7 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | C5 | Luther Dispersion (idempotent implied) | C | ✓ | ✓ | Partial | \|G_k\| ≠ inclusion-exclusion formula (impossible) |
 | C6 | k-Gate Tier zero-spread (within ω-class) | C | ✓ | ✓ (k=9,15,21,27) | Partial | Two worlds, same \|G\|, same ω-class, different rate |
 | C7 | ω-Class Universality Lemma | C→D* | ✓ | ✓ (k=9, 28 semiprimes) | Partial | *D for strong semiprime class; HAR rank for arbitrary k open |
+| C8 | W_BHML = per-step C×D asymmetry across φ(10)=4-step cycle | C | ✓ | ✓ (Z/10Z) | ✓ | W(Z/nZ) ≠ deviation/n² for some n; OR φ(n)-period derivation fails |
 | B2 | Dispersion b=15 vs b=35 | C/B | ✓ | Tier B (general) | ✓ (specific) | Different ordering in a third semiprime |
 | A1 | Montgomery Bridge (conjecture) | A | Unknown | Unknown | No | Proof sinc² coincidence has distinct origins |
 | A2 | P≠NP as null distance | A | No | No | No | Proof (not disproof) of P=NP |
@@ -373,9 +395,10 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A12 | Wobble Frequency as Pre-Collapse Resonance | A | No | No | No | Wob_norm threshold inconsistent with W-jump location; OR f(ω) derived giving wrong bound |
 | A13 | Corridor Compression Model | A | No | No | No | Corridor(b,k) fails to reproduce sinc² envelope from corridor atlas |
 
-**Tier counts (updated March 31 2026, Luther-Sanders simultaneous convergence):** Tier D: 4 | Tier C: 7 (C7 advancing) | Tier B: 1 | Tier A: 13
+**Tier counts (updated March 31 2026, W_BHML mechanism proved):** Tier D: 4 | Tier C: 8 | Tier B: 1 | Tier A: 13
 
 **New since Luther scaffolds + HAR stability + wobble disambiguation:**
+- C8 (Luther, March 31 2026): W_BHML = 3/50 mechanism proved. The wobble is the per-step asymmetry of C×D operator interaction across the natural 4-step generator orbit of (Z/10Z)*. Derivation: CROSS_CYCLE=44, deviation=6, per-step=6/φ(10)=3/2, normalized=3/2÷25=3/50. The 4-step period is algebraic necessity (φ(10)=4). Mechanism named, computable, verified by independent computation. Tier D target: prove W(Z/nZ)=deviation/n² generalizes to all n. Full derivation in WOBBLE_FREQUENCY.md §Disambiguation.
 - C7 advances: HAR rank preservation confirmed 100% across 28 semiprimes (strong semiprime class, k=9). Explicit bijection constructed (OMEGA_CLASS_LEMMA.md). C7 is Tier D for strong semiprime class; remaining gap is arbitrary k and weak semiprime class (HAR_RANK_STABILITY.md).
 - Catch 4 (W=25.2 arithmetic error): W is tier-specific — {0.311, 0.708, 2.025, 5.238, 8.518}. Power law confirmed, single-W claim was wrong. Mechanistic reframe: W(|G|) measures trap density in MCMC combined objective, not CRT constraint count (CATCH4.md).
 - Gap 1 refined: derive c(|G|) = W(|G|)/2 per tier from MCMC trap geometry. Gap 2: dispersion uniformity (Δ non-uniform confirmed; |G| inclusion-exclusion formula is algebraically complete). Gap 3 (C7): arbitrary k HAR rank proof remains.

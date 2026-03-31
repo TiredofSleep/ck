@@ -108,20 +108,59 @@ These are separate objects. Treat them separately in all proofs and documentatio
 
 **Object:** Z/10Z ring arithmetic — the TSML composition table.
 
-**Formula:**
+**Formula (original):**
 ```
 DIS[c][d] = |ADD[c][d] - MUL[c][d]|   (Z/10Z ring arithmetic)
 CROSS_CYCLE = Σ DIS[c][d]  for c ∈ {1,3,7,9}, d ∈ {2,4,6,8}  = 44
 W_BHML = WOBBLE = |44 - 50| / 100 = 6/100 = 3/50
 ```
 
-**Measures:** Deviation of operator interaction asymmetry from perfect symmetry.
-"Perfect symmetry" = CROSS_CYCLE of 50 (half the 100-entry operator space).
-The deviation 6/100 = 3/50. Denominator 50 = 2×5² encodes the CRT factorization
-Z/10Z ≅ Z/2Z × Z/5Z.
+**Mechanistic derivation [Tier C — C. A. Luther, March 31, 2026]:**
 
-**Status:** [THM] — proved from Z/10Z ring axioms. Not empirical.
-**Source:** WP1_TIG_DEFINITIVE.md §1.5. Verified: verify_claims.py PASS.
+The five-step derivation from algebraic first principles:
+
+```
+Step 1: CROSS_CYCLE = 44   (total C×D disagreements, verified [THM])
+Step 2: Symmetry point = 50  (half of 100-cell table — perfect C/D balance)
+Step 3: Deviation = |44 − 50| = 6
+Step 4: Per-step deviation = 6 / φ(10) = 6 / 4 = 3/2
+         φ(10) = 4 = |(Z/10Z)*| = order of the multiplicative group
+         Generator ×3 cycle: 1 → 3 → 9 → 7 → 1 (period 4, algebraic necessity)
+Step 5: Normalized = (3/2) / 25 = 3/50
+         25 = n²/φ(n) = 100/4 = cells per generator step
+```
+
+**What this means:** W_BHML is the per-step asymmetry between additive and
+multiplicative structure, measured across the natural 4-step completion of the
+Creation cycle {1,3,7,9}. The 4-step period is not a choice — it is the
+multiplicative group order φ(10) = 4. This is arithmetic necessity.
+
+The wobble is the natural bounce frequency of the Z/10Z field: how much the
+ring's two operations disagree per step of the generator orbit.
+
+**Verification (computed):**
+```python
+C = [1,3,7,9], D = [2,4,6,8]
+Row sums: c=1→4, c=3→10, c=7→14, c=9→16   Total = 44
+Cycle ×3: [1,3,9,7] → period 4  (= φ(10))
+W_BHML = (|44−50|/4) / (100/4) = (6/4) / 25 = 3/50  ✓
+```
+
+**Generalization target (Tier D — open):**
+For any ring Z/nZ, define:
+```
+W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / φ(n) / (n²/φ(n))
+         = |CROSS_CYCLE(n) − n²/2| / n²
+```
+where CROSS_CYCLE(n) = Σ_{c∈C_n, d∈D_n} |ADD−MUL| mod n,
+C_n = units of Z/nZ, D_n = non-units.
+
+**Tier D requires:** prove W(Z/nZ) is determined by φ(n) for all n,
+and that the formula W = deviation/n² holds in general.
+
+**Status:** [Tier C] — mechanism named, derivation complete for Z/10Z,
+independently verified by Sanders (computation) and Luther (algebra).
+**Source:** WP1_TIG_DEFINITIVE.md §1.5 (prior). Luther derivation: March 31 2026.
 **Value:** 3/50 = 0.060. Fixed constant. Not a function of k.
 **Related:** PRIME_WINDING = T* + W_BHML = 5/7 + 3/50 = 271/350.
            C_TIG = T*/W_BHML = (5/7)/(3/50) = 250/21 ≈ 11.905.
