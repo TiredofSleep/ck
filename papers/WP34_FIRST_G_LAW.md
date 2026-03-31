@@ -285,6 +285,27 @@ Note: b=70 and b=22 have the SAME Luther metric (4.00) but difficulty 0.833 vs 0
 The 6 vs 2 CRT idempotents account for the gap. Within each ω-class, Luther ordering
 is perfectly monotone.
 
+**Controlled isolation test: interleave effect with |G| held fixed.**
+Six semiprimes with exactly |G|=4 at k=9, varying only in prime structure:
+
+| b      | G_elements      | interleave | |G|×IL | best_score | difficulty |
+|--------|----------------|------------|--------|------------|------------|
+| 15 (3×5)  | {3, 5, 6, 9}  | 0.625      | 2.50   | 0.3364     | 0.6636     |
+| 21 (3×7)  | {3, 6, 7, 9}  | 0.625      | 2.50   | 0.3302     | 0.6698     |
+| 22 (2×11) | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.3210     | 0.6790     |
+| 26 (2×13) | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.3210     | 0.6790     |
+| 34 (2×17) | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.3210     | 0.6790     |
+| 38 (2×19) | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.3210     | 0.6790     |
+
+Findings: (1) **Interleave isolates difficulty within fixed |G|.** The G={2,4,6,8}
+worlds (regularly spaced, fully interleaved) are harder than the G={3,5,6,9} / {3,6,7,9}
+worlds (irregular spacing) — direction exactly as predicted by Luther. (2) **Partition
+geometry is the invariant, not b.** Worlds b=22, 26, 34, 38 have four different q-partners
+(11, 13, 17, 19) but identical G_k = {2,4,6,8} at k=9, because p=2 dominates the partition
+at this cap. All four give the same difficulty score 0.3210 to four decimal places. The
+factorization of b determines the geometry; the geometry determines the difficulty; b
+contributes only through which geometry it produces.
+
 **Dispersion collapse test** (63 matched (b,k) pairs, gate_rate from optimization trials):
 
 ```
