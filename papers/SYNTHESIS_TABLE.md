@@ -299,9 +299,11 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 
 ## Summary Matrix
 
+*Final state after March 31, 2026 verification session.*
+
 | ID | Law | Tier | RI | SI | MC | FM |
 |----|-----|------|----|----|----|----|
-| D1 | First-G Law | D | ✓ | ✓ | ✓ | Impossible by proof |
+| D1 | First-G Law (all ω(b)≥2) | D | ✓ | ✓ | ✓ | Impossible by proof |
 | D2 | Sinc² Continuum Limit | D | ✓ | ✓ | ✓ | Impossible by proof |
 | D3 | Universal 4/π² | D | ✓ | ✓ | ✓ | Impossible by proof |
 | D4 | T* = 5/7 (formula) | D | ✓ | b-dependent | Partial | Different b gives different T* |
@@ -309,7 +311,8 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | C2 | D1 Sign Flip at k=p | C | ✓ | ✓ (in domain) | ✓ | A prime where R(p,p) ≠ 0 |
 | C3 | Montgomery Bridge (identity) | C | ✓ | ✓ | ✓ | Tautology (C3); A1 for the conjecture |
 | C4 | Balance Invisibility / ω-Blindness | C | ✓ | ✓ (in domain) | ✓ | Formula containing q that affects R(k,p) |
-| B1 | Luther Dispersion Conjecture | B | Partial | Unknown | No | Counter-semiprime for gate_rate formula |
+| C5 | Luther Dispersion (idempotent implied) | C | ✓ | ✓ | Partial | \|G_k\| ≠ inclusion-exclusion formula (impossible) |
+| C6 | k-Gate Tier zero-spread (within ω-class) | C | ✓ | ✓ (k=9,15,21,27) | Partial | Two worlds, same \|G\|, same ω-class, different rate |
 | B2 | Dispersion b=15 vs b=35 | C/B | ✓ | Tier B (general) | ✓ (specific) | Different ordering in a third semiprime |
 | A1 | Montgomery Bridge (conjecture) | A | Unknown | Unknown | No | Proof sinc² coincidence has distinct origins |
 | A2 | P≠NP as null distance | A | No | No | No | Proof (not disproof) of P=NP |
@@ -317,6 +320,11 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A4 | Hodge ω-Blindness | A | Unknown | Unknown | No | Hodge class unreachable from G/E/S partition |
 | A5 | YM Mass Gap = T* (incl. glueball) | A | No | No | No | Different mass gap value from lattice; no mechanism |
 | A6 | BSD Rank Staircase | A | No | No | No | Family of curves violating TIG operator map |
+| A7 | Luther D2 algebraic curvature | A | No | No | No | Match against tig_algebra D2 values (check_d2.py: no match) |
+| A8 | b=35 Goldilocks uniqueness (D2_luther) | A | No | No | No | Second semiprime with same D2_luther curvature profile |
+| A9 | b=385 spectral predictions (D2_luther) | A | No | No | No | D2_luther connected to TIG framework before extending |
+
+**Tier counts (final, March 31 2026):** Tier D: 4 | Tier C: 6 | Tier B: 1 | Tier A: 9
 
 ---
 
