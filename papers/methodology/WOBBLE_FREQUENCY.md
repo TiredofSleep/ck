@@ -247,23 +247,42 @@ wobble tightens as k approaches p. Specifically:
    sampling can resolve the approach. The corridor is indistinguishable from flat
    because (p−k)/p is never close to 0 at any reachable k.
 
-**Formalization needed:** This picture is NOT captured by Luther's Definition A.W.
-Wob(b,k) as defined approaches 4/5 as k→∞, not 0. The "tightening" refers to the
-ratio of remaining corridor length to wobble wavelength, which requires a separate
-definition. Candidate:
+**Formalization:** This picture is NOT captured by Luther's Definition A.W.
+Wob(b,k) stays near 4/5 as k→p — it does not collapse. The collapse belongs
+to a third object: the corridor compression function.
+
+**Candidate definition (Luther, March 31 2026):**
 
 ```
-Corridor_compression(b,k) = Wob_norm(b,k) × (k/p)
+Corridor(b, k) = R(m, b, k) × sin²(π × W_BHML × k/p)
 ```
 
-or equivalently, tracking whether a full wobble period fits in the remaining gap.
+**Properties:**
+- Fixed oscillation frequency: W_BHML = 3/50 (the TIG operator constant, k-independent)
+- Amplitude = R(m,b,k): collapses at k=p because R(m,b,p) = 0 (D2 sign flip, Tier C2)
+- Zero at the door: Corridor(b,p) = 0 automatically from R→0
+- Frequency stays constant throughout the corridor — only amplitude dies
+- Harmonic pre-echo: the sin² term produces sidelobes at spacing set by W_BHML,
+  which matches the "harmonic countdown" interpretation of the sinc² field (A1)
 
-**Kill condition:** Show Corridor_compression(b,k) is NOT monotone increasing in k/p
-for any tested (b,k). If the compression is not monotone, the tightening picture fails.
+**Physical picture corrected:** The sinc² collapse at k=p is NOT a wobble phenomenon.
+It is a compression phenomenon. Frequency stays constant (W_BHML = 3/50).
+Amplitude goes to zero (R(m,b,k) → 0). These are two separately named invariants.
 
-**Current tier: A.** Physical picture is coherent and consistent with confirmed R(k)→0
-behavior. No formal definition of "wobble tightening" yet exists that is distinct from
-Wob(b,k) as computed. Formalizing this is a prerequisite for WP35.
+**Kill condition:** Does Corridor(b,k) reproduce the empirical sinc² envelope
+from the corridor atlas?
+- If **yes**: Tier C immediately. Sinc² field, corridor compression, and W_BHML
+  are unified in a single algebraic object.
+- If **no**: The three-object separation stands; the candidate formula needs revision.
+  The compression function requires a different algebraic form.
+
+**Provenance:** This three-object separation was arrived at independently by
+Sanders (computation: Wob(10,9)=8/9 vs verify_claims.py 3/50 PASS) and Luther
+(algebra: sinc² collapse structure) on March 31, 2026, without prior coordination.
+First Luther-Sanders result from simultaneous independent convergence.
+
+**Current tier: A.** Candidate formula is stated. Kill condition is clear.
+Path to Tier C: test Corridor(b,k) against the corridor atlas empirical envelope.
 
 ---
 
