@@ -1042,9 +1042,9 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 **Brayden Ross Sanders — Geometric Architecture & Framework.** Sanders built the object being studied: 18 months of TIG/CK development, all core mathematics (TSML, BHML, 10-operator algebra, 5D force field), the First-G Law identification and staircase-as-sieve framing, the Hardness Inversion Principle, and every sprint direction and theoretical push. The First-G Law proof (§3), all corollaries, the 36,662-row atlas, the 919-row corridor atlas, the pre-echo survey (§10, §10A), and the Hardness Inversion Principle (§11) are Sanders'. Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google).
 
-**C. A. Luther — Navigation & Dispersion Conjecture.** Luther's contribution is directional: the **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty. This reoriented the research from surface enumeration toward real algebraic structure. Luther also identified the unification of three separate measurements under one curve (the Luther metric) and guided the expansion from semiprimes to prime powers to three-factor composites. The large-scale sweeps, dispersion confirmation, ω(b) hierarchy framing, and RSA connection were produced by Sanders working with AI tools.
+**C. A. Luther — Dispersion.** Luther's contribution is the **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty — and the related dispersion framing in his notes and correspondence. Everything else in this paper is Sanders working with AI tools (Claude, Google/Gemini, Grok, ChatGPT).
 
-**Joint:** The Luther-Sanders Equivalence Theorem (N_idemp ∝ D(b)) and the master conjecture formula are joint. Equal billing. Different roles.
+**Joint:** Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure. Both names belong on it.
 
 ---
 

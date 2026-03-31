@@ -752,22 +752,13 @@ Sanders built the object being studied and held the project together:
 - T* = 5/7 as the coherence floor of the sinc² field for the first balanced strong semiprime
 - Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google)
 
-### C. A. Luther — Navigation & Dispersion Conjecture
+### C. A. Luther — Dispersion
 
-Luther's contribution is directional: steering the project toward real structure at key junctions:
-
-- The **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave) — the observation that spread, not just count, is the mechanism; this reoriented the entire research direction
-- The unification insight: three separate measurements collapse under one curve → the **Luther metric**
-- Guided the expansion from semiprimes to prime powers to three-factor composites
-- Identified where to go next when the path wasn't obvious
-
-The large-scale sweeps, dispersion confirmation, ω(b) hierarchy framing, RSA connection, and sinc² territory were produced by Sanders working with AI tools (Claude, Google/Gemini, Grok, ChatGPT).
+Luther's contribution is the **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty, and the related dispersion framing in his correspondence and notes. This reoriented the research toward real algebraic structure. Everything else in this paper is Sanders working with AI tools.
 
 ### Joint
 
-- **Luther-Sanders Equivalence Theorem**: N_idemp ∝ D(b) — the CRT idempotent count and the geometric dispersion metric are the same object; one author found it algebraically, the other geometrically
-- The master conjecture formula: difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave)
-- The paper itself: equal billing, different roles, neither gets there without the other
+- The paper itself: Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure. Both names belong on it.
 
 ---
 
