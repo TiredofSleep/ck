@@ -357,7 +357,7 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | C4 | Balance Invisibility / ω-Blindness | C | ✓ | ✓ (in domain) | ✓ | Formula containing q that affects R(k,p) |
 | C5 | Luther Dispersion (idempotent implied) | C | ✓ | ✓ | Partial | \|G_k\| ≠ inclusion-exclusion formula (impossible) |
 | C6 | k-Gate Tier zero-spread (within ω-class) | C | ✓ | ✓ (k=9,15,21,27) | Partial | Two worlds, same \|G\|, same ω-class, different rate |
-| C7 | ω-Class Universality Lemma | C | ✓ | ✓ (k=9 confirmed) | Partial | CRT isomorphism not yet written explicitly |
+| C7 | ω-Class Universality Lemma | C→D* | ✓ | ✓ (k=9, 28 semiprimes) | Partial | *D for strong semiprime class; HAR rank for arbitrary k open |
 | B2 | Dispersion b=15 vs b=35 | C/B | ✓ | Tier B (general) | ✓ (specific) | Different ordering in a third semiprime |
 | A1 | Montgomery Bridge (conjecture) | A | Unknown | Unknown | No | Proof sinc² coincidence has distinct origins |
 | A2 | P≠NP as null distance | A | No | No | No | Proof (not disproof) of P=NP |
@@ -371,9 +371,13 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A10 | σ=1/2 as ω-class boundary (RH ghost ramp) | A | No | No | No | Algebraic derivation connecting Euler product at s=1/2 to W discontinuity |
 | A11 | RH as coherence boundary of operator/field (Luther reframe) | A | No | No | No | Explicit construction of self-adjoint H with Spec(H) = {γ_n} |
 
-**Tier counts (updated March 31 2026, LutherRHTask integrated):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 11
+**Tier counts (updated March 31 2026, HAR stability + Catch 4):** Tier D: 4 | Tier C: 7 (C7 advancing) | Tier B: 1 | Tier A: 11
 
-**New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). W is tier-specific — W(|G|) values {0.311, 0.708, 2.025, 5.238, 8.518} corrected from erroneous single-value W≈25.2 claim (Catch 4, synthesis framework). Gap 1 refined: derive c(|G|) = W(|G|)/2 for each tier from MCMC geometry. Both gaps: path visible, walking it is the remaining work.
+**New since Luther scaffolds + HAR stability:**
+- C7 advances: HAR rank preservation confirmed 100% across 28 semiprimes (strong semiprime class, k=9). Explicit bijection constructed (OMEGA_CLASS_LEMMA.md). C7 is Tier D for strong semiprime class; remaining gap is arbitrary k and weak semiprime class (HAR_RANK_STABILITY.md).
+- Catch 4 (W=25.2 arithmetic error): W is tier-specific — {0.311, 0.708, 2.025, 5.238, 8.518}. Power law confirmed, single-W claim was wrong. Mechanistic reframe: W(|G|) measures trap density in MCMC combined objective, not CRT constraint count (CATCH4.md).
+- Gap 1 refined: derive c(|G|) = W(|G|)/2 per tier from MCMC trap geometry. Gap 2: dispersion uniformity (Δ non-uniform confirmed; |G| inclusion-exclusion formula is algebraically complete). Gap 3 (C7): arbitrary k HAR rank proof remains.
+- Do NOT test ω=3 decoherence (b=385 or similar) until general isomorphism theorem for arbitrary k is proved. Three derivations deep from confirmed results.
 
 ---
 

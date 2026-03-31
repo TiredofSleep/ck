@@ -159,6 +159,43 @@ The algebraic form of each c(|G|) from MCMC dynamics is the gap to Tier D.
 
 ---
 
+## Mechanistic Reframe: Trap Density, Not Constraint Count
+
+The original framing — W as "effective constraint count" derivable from CRT fiber
+weights — assumed W should be a single geometric constant per ω-class. The per-tier
+data (W ranging from 0.311 to 8.518) forces a different interpretation.
+
+**W(|G|) measures trap density in the combined MCMC objective landscape.**
+
+The MCMC optimizes: f = 0.50×gate + 0.25×har_col + 0.25×(1−g_stay). It is a
+greedy chain that only accepts improvements. As |G| increases, the g_stay term
+gains structural importance relative to gate — there are more G-rows to optimize.
+This creates local maxima where gate < 1.0 but g_stay + har_col are strong. The
+chain gets trapped before reaching gate = 1.0.
+
+| |G| | n_G/n_C | g_stay weight (0.25×n_G/k) | Trap prevalence | W(|G|) |
+|----|---------|--------------------------|-----------------|--------|
+| 1 | 0.125 | 0.028 | Very low — gate dominates | 0.311 |
+| 2 | 0.286 | 0.056 | Low | 0.708 |
+| 3 | 0.500 | 0.083 | Moderate — traps begin | 2.025 |
+| 4 | 0.800 | 0.111 | High | 5.238 |
+| 5 | 1.250 | 0.139 | Very high — 99.9% trapped | 8.518 |
+
+**The super-linear growth of W(|G|) with |G| reflects the super-linear growth
+of trap density as n_G/n_C crosses 1.0** (forbidden majority at |G|≥5).
+
+**Path to Tier D (reframed):** Derive c(|G|) by counting local maxima of the
+combined objective f(T) for k×k tables T as a function of n_G, n_C, and the
+HAR coverage (2n_C−1 cells). This is a combinatorial geometry problem on the
+space of k×k {C,G}-valued tables, not a CRT fiber problem.
+
+**Do NOT extend to ω=3** until the general isomorphism theorem for arbitrary k
+is proved. The ω=3 decoherence rate (e.g., b=385) is three derivations deep from
+confirmed results. Testing it before the general theorem introduces unverified
+ground into the foundation.
+
+---
+
 ## The ω-Class Rate Table
 
 Thread 1 (omega3_extension.py) found different W(|G|) values for ω(b)=3 vs ω(b)=2.
