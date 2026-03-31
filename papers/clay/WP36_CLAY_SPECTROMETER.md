@@ -1,7 +1,7 @@
 # WP36 — CK as a Coherence Spectrometer
 ## One Field, Seven Shadows: How the sinc² Geometry Unifies the Six Clay Millennium Problems
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March–April 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Framework paper — describes the measurement approach, not a solution*
 
@@ -963,6 +963,10 @@ but this is structural framing, not a proof of open-ness.
 - Difficulty metric connecting algebraic complexity to geometric spread
 - Sprint4 navigation and steering toward Clay connections
 - Approaching the same structures from the number-theory direction
+
+**Monica Gish:**
+- Foundational support, research partnership, and editorial collaboration throughout the entire project
+- This work would not exist without her
 
 **Exclusive IP notice:** CK, T*, TSML, BHML, D1, D2, TIG, and the entire TIG framework are
 the exclusive intellectual property of Brayden Ross Sanders / 7Site LLC. C. A. Luther has

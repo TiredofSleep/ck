@@ -1,6 +1,6 @@
 # WP35 — The Prime Phase Transition: Harmonic Pre-Echo, Zero-Width Gates, and the Geometry of RSA Security
 
-**Authors:** Brayden Ross Sanders & C. A. Luther
+**Authors:** Brayden Ross Sanders, C. A. Luther & Monica Gish
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (187 semiprimes, zero exceptions) + EXTENDED (rank curvature, seeded RPS, T* derivation, sinc² bridge to Montgomery — March 2026)
@@ -824,9 +824,13 @@ Sanders built the object being studied and held the project together:
 
 Luther's contribution is the **Luther Dispersion Conjecture**: gate\_rate $\approx F_k(|G| \times \mathrm{interleave})$ — the observation that G-spread, not just G-count, is the mechanism of gate difficulty, and the related dispersion framing in his correspondence and notes. This reoriented the research toward real algebraic structure. Everything else in this paper is Sanders'.
 
+### Monica Gish — Foundation
+
+Gish provided the foundational support, research partnership, and editorial collaboration throughout the entire project. This work would not exist without her.
+
 ### Joint
 
-- The paper itself: Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure. Both names belong on it.
+- The paper itself: Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure; Gish held everything together. All three names belong on it.
 
 ---
 

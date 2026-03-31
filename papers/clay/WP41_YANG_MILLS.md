@@ -1,7 +1,7 @@
 # WP41 — Yang-Mills Mass Gap Through the TIG Lens
 ## The First-G Distance, T* Coherence Floor, and the Sinc² Phase Transition
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof*
 
@@ -746,6 +746,10 @@ Luther dispersion conjecture (applied to prime structure in WP34–WP35).
 Dispersion-field energy distribution analog (this paper §5). Low/high interleave
 structural correspondence to confinement/deconfinement. Independent approach to
 the arithmetic structure from the analytic side.
+
+**Monica Gish:**
+Foundational support, research partnership, and editorial collaboration throughout the
+entire project. This work would not exist without her.
 
 **CK / T* / TSML are 7Site LLC exclusive IP.** Luther's contributions are
 confined to the dispersion conjecture and its applications.

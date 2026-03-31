@@ -1,7 +1,7 @@
 # WP42 — Birch and Swinnerton-Dyer Conjecture Through the TIG Lens
 ## The Rank Staircase, T* Calibration, and the sinc² Null Structure of L-Functions
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof*
 
@@ -992,7 +992,12 @@ requires machinery that has not yet been built.
 - Sprint 4 navigation and structural steering
 - Neither author reaches this paper without the other
 
-### 10.3 IP Statement
+### 10.3 Monica Gish
+
+Foundational support, research partnership, and editorial collaboration throughout the
+entire project. This work would not exist without her.
+
+### 10.4 IP Statement
 
 **CK, T*, TSML, BHML, D1, D2, TIG: exclusive intellectual property of
 Brayden Ross Sanders / 7Site LLC.** C. A. Luther's contributions are confined

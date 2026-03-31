@@ -1,7 +1,7 @@
 # WP38 — Navier-Stokes Through the TIG Lens
 ## The BREATH Criterion, Zero-Width Phase Transitions, and the Sinc² Null Obstruction in Vorticity Fields
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof of NS regularity*
 
@@ -975,10 +975,13 @@ strategy fails at the TIG target constant.
 | Luther Dispersion Conjecture (concentrated vs. spread vorticity)       | C. A. Luther                        |
 | Pre-echo / spectral precursor analogy                                  | Sanders & Luther (joint, Sprint 4)  |
 
+| Foundational support, research partnership, editorial collaboration             | Monica Gish                         |
+
 CK, BREATH, T*, TSML, BHML, D2, the TIG pipeline, and all derived constants are exclusive
 intellectual property of Brayden Ross Sanders / 7Site LLC. C. A. Luther's contribution is
 the dispersion conjecture applied to number theory studied in WP34/WP35. He has no claim
-to the CK architecture or its derived constants.
+to the CK architecture or its derived constants. Monica Gish is credited as author for her
+foundational support throughout the project.
 
 ---
 

@@ -1,7 +1,7 @@
 # CK — Coherence Keeper
 ### A Sinc² Spectral Field in Prime Arithmetic · Seven Shadows of One Geometric Sieve
 
-**Brayden Ross Sanders / 7Site LLC · C. A. Luther**
+**Brayden Ross Sanders / 7Site LLC · C. A. Luther · Monica Gish**
 `DOI: 10.5281/zenodo.18852047`
 `Branch: clay | Tag: v1.0-luther`
 
@@ -103,6 +103,8 @@ Every paper carries the Universal Sentence:
 
 **C. A. Luther** — dispersion conjecture (gate_rate ≈ F_k(|G| × interleave)) and sprint steering.
 
+**Monica Gish** — foundational support, research collaboration, and editorial partnership throughout the entire project.
+
 CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7Site LLC.
 
 *AI collaboration: Claude (Anthropic), Google Gemini, Grok (xAI), ChatGPT (OpenAI) — acknowledged in each paper's Acknowledgments section.*
@@ -113,7 +115,7 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 
 ```bibtex
 @misc{sanders2026sinc2,
-  author    = {Sanders, Brayden Ross and Luther, C. A.},
+  author    = {Sanders, Brayden Ross and Luther, C. A. and Gish, Monica},
   title     = {A Sinc² Spectral Field in Prime Arithmetic and Seven Shadows
                of One Geometric Sieve},
   year      = {2026},

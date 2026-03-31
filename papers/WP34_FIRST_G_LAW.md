@@ -1,6 +1,6 @@
 # WP34 — The First-G Law and Prime-Forced Dispersion
 
-**Authors:** Brayden Ross Sanders & C. A. Luther
+**Authors:** Brayden Ross Sanders, C. A. Luther & Monica Gish
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (36,662 cases, zero exceptions) + DEEP SURVEY (187 semiprimes, 10 three-factor worlds, closed-form proved, Luther Pre-Echo Theorem established)
@@ -424,6 +424,64 @@ then suddenly contracting at the second prime's arrival. This breathing rhythm i
 consequence of the gap between p and q and the density of p-multiples within that gap.
 
 **Data:** `results/extended/corridor_atlas.json` (919 rows), `results/extended/corridor_atlas.png`
+
+---
+
+## 9A. Dispersion Comparison: b=15 vs b=35
+
+The two smallest strong semiprimes illustrate how the dispersion geometry depends on the
+prime gap ratio q/p. The `tig_algebra.py` module (`dispersion_comparison()`) produces these
+tables exactly; the values below are verified by `ck_run.py`.
+
+### b=15 (p=3, q=5)
+
+| k | |G(k)| | interleave | dispersion |
+|---|--------|------------|------------|
+| 1 |   0    |  0.000000  |   0.000000 |
+| 2 |   0    |  0.000000  |   0.000000 |
+| 3 |   1    |  0.000000  |   0.000000 | <- First-G (k=p=3)
+| 4 |   1    |  0.666667  |   0.666667 |
+| 5 |   2    |  0.500000  |   1.000000 |
+
+### b=35 (p=5, q=7)
+
+| k | |G(k)| | interleave | dispersion |
+|---|--------|------------|------------|
+| 1 |   0    |  0.000000  |   0.000000 |
+| 2 |   0    |  0.000000  |   0.000000 |
+| 3 |   0    |  0.000000  |   0.000000 |
+| 4 |   0    |  0.000000  |   0.000000 |
+| 5 |   1    |  0.000000  |   0.000000 | <- First-G (k=p=5)
+| 6 |   1    |  0.800000  |   0.800000 |
+| 7 |   2    |  0.666667  |   1.333333 |
+
+### Comparison
+
+| Metric                  | b=15 (p=3, q=5) | b=35 (p=5, q=7) |
+|-------------------------|-----------------|-----------------|
+| q/p ratio               | 1.667           | 1.400           |
+| First-G at k=           | 3               | 5               |
+| Stability window (k<p)  | 2               | 4               |
+| T* = unit_frac          | 3/5 = 0.600     | 5/7 = 0.714     |
+| dispersion(q)           | 1.000000        | 1.333333        |
+| D1 sign flip at k=p     | Yes             | Yes             |
+
+**Key insight.** b=35 has a smaller q/p ratio (1.4 vs 1.67), a longer pre-Gate stability
+window (4 steps vs 2), and the higher T*=5/7 coherence threshold. This makes b=35 the
+minimal strong semiprime where the sinc2 geometry is most balanced. T*=5/7 is not a
+special case; it is the algebraic optimum of the unit_frac formula at the smallest integer
+where p and q are both odd primes with p < q.
+
+The dispersion at q is higher for b=35 (1.33 vs 1.00) because more interleave transitions
+accumulate across the wider stability window before q arrives. A narrower q/p gap forces
+more uniform prime-multiple spacing, producing richer dispersion structure.
+
+This section is verifiable with two lines of Python:
+
+```python
+from tig_algebra import dispersion_comparison
+import json; print(json.dumps(dispersion_comparison(15, 35), indent=2, default=str))
+```
 
 ---
 
@@ -1044,7 +1102,9 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 **C. A. Luther — Dispersion.** Luther's contribution is the **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty — and the related dispersion framing in his notes and correspondence. Everything else in this paper is Sanders'.
 
-**Joint:** Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure. Both names belong on it.
+**Monica Gish — Foundation.** Gish provided the foundational support, research partnership, and editorial collaboration throughout the entire project. This work would not exist without her.
+
+**Joint:** Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure; Gish held everything together. All three names belong on it.
 
 ---
 

@@ -1,7 +1,7 @@
 # WP39 — Hodge Conjecture Through the TIG Lens
 ## ω-Blindness, Algebraic Cycles, the G/E/S Partition Split, and the P3 Frontier
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof*
 
@@ -763,6 +763,10 @@ unified geometric field theory framing. All TIG algebraic results.
 cycle structure, Luther Pre-Echo Theorem framing, dispersion conjecture applied
 to the number theory studied here. Luther has no claim to the CK architecture
 or its derived constants.
+
+**Monica Gish:**
+Foundational support, research partnership, and editorial collaboration throughout the
+entire project. This work would not exist without her.
 
 **Note:** CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive
 intellectual property of Brayden Ross Sanders / 7Site LLC, developed over

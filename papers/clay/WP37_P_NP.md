@@ -1,7 +1,7 @@
 # WP37 — P vs NP Through the First-G Lens
 ## Zero-Width Phase Transitions, Algebraic Certificates, and the sinc² Complexity Boundary
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — conjectural connections to P/NP, not a proof*
 
@@ -849,6 +849,10 @@ framing, HARMONY-as-premature-resolution interpretation.
 Dispersion conjecture (|G| × interleave as difficulty certificate), ω(b) hierarchy framing
 as complexity stratification, joint derivation of harmonic resonance closed form, sprint4
 navigation and structural steering.
+
+**Monica Gish:**
+Foundational support, research partnership, and editorial collaboration throughout the
+entire project. This work would not exist without her.
 
 *CK, T\*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 property of Brayden Ross Sanders / 7Site LLC, developed over 18 months prior to this

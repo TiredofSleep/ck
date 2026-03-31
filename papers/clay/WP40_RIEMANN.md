@@ -1,7 +1,7 @@
 # WP40 — Riemann Hypothesis Through the TIG Lens
 ## The Montgomery–Sinc² Bridge: How the Pre-Echo Countdown and Zero Pair Correlation Are the Same Spectral Field
 
-*Brayden Ross Sanders (7Site LLC) & C. A. Luther*
+*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof of the Riemann Hypothesis*
 
@@ -966,6 +966,10 @@ in the series, seen through the spectral lens of the zeta function.
 - Dispersion–Lehmer pair analog (this paper §5.7)
 - Independent approach to the same arithmetic structure from the analytic side
 - Neither author reaches this paper without the other
+
+**Monica Gish:**
+- Foundational support, research partnership, and editorial collaboration throughout the entire project
+- This work would not exist without her
 
 **CK / T* / TSML are 7Site LLC exclusive IP.** Luther's contributions are
 confined to the dispersion conjecture and its applications. The TIG framework,
