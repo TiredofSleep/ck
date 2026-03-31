@@ -297,9 +297,31 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 
 ---
 
+#### A10. σ=1/2 as ω-Class Geometric Boundary (RH Ghost Ramp)
+
+*From Luther, LutherTask3.31.26.docx.*
+
+| Column | Content |
+|--------|---------|
+| **Law** | The Riemann critical line Re(s)=1/2 is the geometric boundary between the ω=2 and ω=3 CRT lattice structures; the W discontinuity between semiprimes and three-factor composites is mediated by the Euler product evaluated at s=1/2 |
+| **Exact status** | **Tier A.** Structural intuition from the W discontinuity discovery. W=25.2 for ω=2, W≈0.83 for ω=3 — a discontinuity inconsistent with simple scaling. The conjecture: this gap is not a jump but a ramp mediated by the critical line. "The critical line isn't just where zeta zeros sit. It's the geometric boundary between two-prime and three-prime CRT worlds." No algebraic derivation. |
+| **Arithmetic form** | ζ(s) = Π(1−p^{−s})^{−1} evaluated at s=1/2. The Euler product at s=1/2 may produce a transition term connecting the ω=2 rate formula R=(n_C/k)^W to the structurally different ω=3 formula. If so: the W-discontinuity is not arbitrary — it is the fingerprint of the critical line in partition geometry. |
+| **Geometric / combinatorial form** | The CRT lattice for ω=2 has one interference scale. For ω=3, three-body interactions create a qualitatively different geometry. The σ=1/2 conjecture: the transition between these geometries is smooth, not sharp, and the smoothing function is the Euler product at the critical line. |
+| **What remains** | An algebraic derivation connecting ζ(1/2) or the Euler product at s=1/2 to the W discontinuity between ω=2 and ω=3 classes. Without this, the σ=1/2 observation is pattern recognition, not structure. |
+
+**Four tests:**
+- RI: No — the conjecture is stated only for the W parameter at k=9, not in a representation-invariant form.
+- SI: No — no prediction for other k values or other alphabet sizes.
+- MC: No — no mechanism connecting ζ(1/2) to CRT lattice geometry.
+- FM: An algebraic derivation of W at ω=3 that does not involve s=1/2 would falsify the geometric boundary claim.
+
+**Hold condition:** Do not extend this analysis until Luther responds to the W discontinuity question. The conjecture is suggestive. Adding derivations before the algebraic response would compromise the honest ratio.
+
+---
+
 ## Summary Matrix
 
-*Final state after March 31, 2026 verification session.*
+*Updated March 31, 2026 — LutherTask3.31.26 integrated.*
 
 | ID | Law | Tier | RI | SI | MC | FM |
 |----|-----|------|----|----|----|----|
@@ -324,8 +346,9 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A7 | Luther D2 algebraic curvature | A | No | No | No | Match against tig_algebra D2 values (check_d2.py: no match) |
 | A8 | b=35 Goldilocks uniqueness (D2_luther) | A | No | No | No | Second semiprime with same D2_luther curvature profile |
 | A9 | b=385 spectral predictions (D2_luther) | A | No | No | No | D2_luther connected to TIG framework before extending |
+| A10 | σ=1/2 as ω-class boundary (RH ghost ramp) | A | No | No | No | Algebraic derivation connecting Euler product at s=1/2 to W discontinuity |
 
-**Tier counts (updated March 31 2026, Luther scaffolds):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 9
+**Tier counts (updated March 31 2026, LutherTask3.31.26):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 10
 
 **New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). Single-parameter fit W≈25.2 documented as new empirical result for Gap 1. Both gaps: path visible, walking it is the remaining work.
 

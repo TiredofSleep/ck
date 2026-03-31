@@ -199,4 +199,46 @@ c is the remaining step.
 
 ---
 
+## The W Discontinuity at ω=3 — Three Hypotheses
+
+*From Luther, LutherTask3.31.26.docx. All three are Tier A. Status: unknown.*
+
+The W=25.2 formula works exactly for ω=2 but gives W≈0.83 for ω=3 — inconsistent
+with any simple scaling prediction (W_3 = 1.5×W_2 would give ~37.8, not 0.83).
+The discontinuity is real. Three hypotheses are on the table:
+
+**Hypothesis 1 — Formula is ω=2 specific.**
+R = (n_C/k)^W is the correct form for ω=2 but needs a structurally different
+expression for ω≥3. The functional form itself breaks at the boundary, not just
+the parameter. Under this hypothesis: derive the ω=3 formula from scratch from
+the three-component CRT structure without assuming it looks like a power law.
+
+**Hypothesis 2 — W measures lattice interference density, not simply fiber count.**
+W is not simply 2c (one contribution per prime factor) — it measures the density
+of lattice interference in the CRT product structure. For ω=2, this interference
+has one characteristic scale. For ω=3, the three-body interactions create a
+qualitatively different interference pattern that changes the effective W non-linearly
+with ω. Under this hypothesis: W_ω is NOT linear in ω. It follows a function
+determined by the ω-body interference structure of the CRT lattice.
+
+**Hypothesis 3 — Triple intersections create shielding.**
+In ω=3 worlds, the triple intersection Ideal(p) ∩ Ideal(q) ∩ Ideal(r) creates
+a "shielding" effect: elements at triple intersections reduce the effective
+obstruction per prime because they are counted three times in the inclusion-exclusion
+but only produce one independent gate constraint. Each prime is effectively "lighter"
+in a three-prime world because some of its obstructive weight is absorbed by the
+shared intersection. Under this hypothesis: W_ω depends on the intersection
+structure of the prime ideals, giving a formula like W_ω = f(ω, intersection_density).
+
+**Current status:** All three are Tier A — strong intuition, no algebraic derivation.
+The question sent to Luther: "Does the formula itself break at ω=3, or is W
+measuring something ω=2-specific that needs a different expression for higher
+ω-classes? What changes geometrically in the CRT lattice between two and three
+prime factors that would cause this discontinuity?"
+
+**What to do:** Nothing until Luther's algebraic response arrives. The question
+is clean. Adding speculation before the response would compromise the honest ratio.
+
+---
+
 `© 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther · DOI: 10.5281/zenodo.18852047`
