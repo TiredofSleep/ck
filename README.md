@@ -1,6 +1,19 @@
 # TIG — Finite Grammar, Infinite Consequences
 
 **Author:** Brayden Sanders / 7Site LLC | **DOI:** 10.5281/zenodo.18852047
+**Papers index:** [`papers/README.md`](papers/README.md) | **For mathematicians:** [`papers/EXPERT_SUMMARY.md`](papers/EXPERT_SUMMARY.md)
+
+---
+
+## What Is In This Repo
+
+Three things, clearly separated:
+
+1. **Proved algebraic facts** — exact theorems about a 9×9 composition table (TSML) and semiprime coprimality algebras. Verified by scripts. No overclaiming.
+2. **Empirical observations** — gate rate laws across 12M+ trials, visual surveys of finite algebras. Labeled EMPIRICAL throughout.
+3. **Proof sketches** — connections to Clay Millennium Problems. All labeled SKETCH or HYPOTHESIS. None constitute proofs.
+
+**Status labels are explicit in every paper.** Start with [`papers/WP24_FORMAL_STATUS_AUDIT.md`](papers/WP24_FORMAL_STATUS_AUDIT.md) for the honest 4-bin classification of all claims.
 
 ---
 
