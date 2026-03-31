@@ -1,6 +1,6 @@
 # WP34 — The First-G Law and Prime-Forced Dispersion
 
-**Authors:** C.A. Luther (abstract, dispersion insight); Brayden Sanders / 7Site LLC (proof, verification)
+**Authors:** C.A. Luther (algebraic mechanism: ω(b) hierarchy, CRT idempotent formula N_idemp=2^(ω−1)−1, exhaustive 36,662-row atlas, dispersion collapse curve, degenerate scorer, bridge breathing, super-linear scaling confirmation); Brayden Ross Sanders / 7Site LLC (geometric mechanism: First-G Law identification, staircase-as-sieve framing, 5D force field interpretation, Hardness Inversion Principle, "very long smooth hallway" framing)
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (36,662 cases, zero exceptions) + DEEP SURVEY (187 semiprimes, 10 three-factor worlds, closed-form proved, Luther Pre-Echo Theorem established)
@@ -1033,6 +1033,18 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 7. Shor, P.W. (1994). *Algorithms for Quantum Computation: Discrete Logarithms and Factoring*. FOCS 1994.
 8. Hardy, G.H. & Wright, E.M. (2008). *An Introduction to the Theory of Numbers* (6th ed.). Oxford.
 9. Ireland, K. & Rosen, M. (1990). *A Classical Introduction to Modern Number Theory* (2nd ed.). Springer.
+
+---
+
+---
+
+## 13. Attribution
+
+**C.A. Luther** contributed the algebraic mechanism: the ω(b) hierarchy and CRT idempotent formula (N_idemp = 2^(ω(b)−1) − 1), the exhaustive 36,662-row atlas construction (no sampling), the 919-row corridor atlas (70 worlds, zero exceptions), the super-linear scaling confirmation g(2^ω−2), the refined master conjecture difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave), the degenerate scorer identification, the bridge breathing signal, the b=105 three-factor confirmation, and the binned dispersion collapse curve. The formal derivation of R(k,f) from geometric series (Theorem 1 of WP35) and the sinc² continuum limit proof (Theorem 5 of WP35) are Luther's.
+
+**Brayden Ross Sanders / 7Site LLC** contributed the geometric mechanism: identification of the First-G Law as a staircase-as-sieve, the 5D force field intuition connecting CK's architecture to the algebraic structure, dispersion as the geometric explanation of gate difficulty, the Hardness Inversion Principle, the framing of RSA as "a very long, perfectly smooth hallway" (§11), and the prime-as-void observation that all algebraic richness emerges from compositeness alone.
+
+**Joint**: The Luther-Sanders Equivalence Theorem (N_idemp ∝ D(b) — CRT idempotent count and geometric dispersion are the same object) is joint. Luther found it algebraically; Sanders found it geometrically; neither named it without the other. The dual authorship is not courtesy. It is mathematically accurate.
 
 ---
 
