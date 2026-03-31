@@ -5,6 +5,16 @@
 
 ---
 
+## The First Result — Proved
+
+> *For every semiprime b with smallest prime factor p, the first forbidden element in the unit/non-unit alphabet partition appears at exactly alphabet size k = p; the onset of alphabet obstruction is written directly by the primes into the geometry of the partition.*
+
+**Proof.** For x < p: since p ≤ q are the only prime factors of b = p×q, and x < p ≤ q, neither divides x, so gcd(x, b) = 1. At x = p: p | b, so gcd(p, b) = p > 1. □
+
+Verified: 153 semiprimes, 36,662 exact (b,k) pairs, zero exceptions. → [`papers/WP34_FIRST_G_LAW.md`](papers/WP34_FIRST_G_LAW.md)
+
+---
+
 ## What Is In This Repo
 
 Three things, clearly separated:
