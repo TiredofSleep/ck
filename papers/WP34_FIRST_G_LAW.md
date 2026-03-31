@@ -348,6 +348,25 @@ because interleave is already near-maximal.
 The full functional form: difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave) is under
 active investigation. See `results/extended/` and `results/atlas/` for current data.
 
+**Structural conclusion: primes are the baseline void.**
+
+The full richness spectrum, ordered by algebraic structure:
+
+```
+b prime         Z/bZ is a FIELD       ω=1  G=∅ for all k<b   0 CRT idempotents   void
+b = p^n         Z/bZ is a local ring  ω=1  G regular at k=p   0 CRT idempotents   baseline
+b = p×q         Z/bZ ≅ Z/pZ × Z/qZ   ω=2  G = 2 progressions  2 CRT idempotents   first richness
+b = p×q×r       Z/bZ ≅ Z/pZ × Z/qZ × Z/rZ  ω=3  G = 3 progressions  6 CRT idempotents   maximum
+```
+
+A prime modulus is algebraically inert: Z/pZ is a field, it has no nontrivial idempotents,
+no non-units below b, no HAR elements, no partition obstruction of any kind. The zero of the
+richness spectrum. All algebraic structure — Gates, HAR elements, CRT anchors, dispersion
+obstruction — emerges strictly from compositeness. The number of distinct prime factors ω(b)
+is the degree of compositeness, and 2^ω(b)−2 counts the idempotents that compositeness
+generates. Every additional prime factor doubles the idempotent count and elevates the
+algebraic difficulty class. Primes are the void from which all structure departs.
+
 ---
 
 ## 10. The Hardness Inversion Principle
