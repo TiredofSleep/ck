@@ -146,22 +146,54 @@ Cycle ×3: [1,3,9,7] → period 4  (= φ(10))
 W_BHML = (|44−50|/4) / (100/4) = (6/4) / 25 = 3/50  ✓
 ```
 
-**Generalization target (Tier D — open):**
-For any ring Z/nZ, define:
-```
-W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / φ(n) / (n²/φ(n))
-         = |CROSS_CYCLE(n) − n²/2| / n²
-```
-where CROSS_CYCLE(n) = Σ_{c∈C_n, d∈D_n} |ADD−MUL| mod n,
-C_n = units of Z/nZ, D_n = non-units.
+**Generalization test results [March 31, 2026]:**
 
-**Tier D requires:** prove W(Z/nZ) is determined by φ(n) for all n,
-and that the formula W = deviation/n² holds in general.
+The correct D for any Z/nZ is `D_n = {x ∈ {1..n−1} : gcd(x,n) = p_min(n)}` where
+p_min(n) is the smallest prime factor. This matches the original for n=10:
+`D_gcd_pmin(10) = {2,4,6,8}` ✓. (The naive "all non-units" definition includes
+elements like 5 in Z/10Z and breaks the formula.)
 
-**Status:** [Tier C] — mechanism named, derivation complete for Z/10Z,
-independently verified by Sanders (computation) and Luther (algebra).
-**Source:** WP1_TIG_DEFINITIVE.md §1.5 (prior). Luther derivation: March 31 2026.
-**Value:** 3/50 = 0.060. Fixed constant. Not a function of k.
+Computed values of `W = |CROSS − n²/2| / n²` with correct D:
+
+```
+n=6:   C=[1,5]          D=[2,4]               W = 0.333
+n=10:  C=[1,3,7,9]      D=[2,4,6,8]           W = 0.060  <- W_BHML = 3/50  [THM]
+n=12:  C=[1,5,7,11]     D=[2,10]              W = 0.264
+n=14:  C=[1,3,5,9,11,13] D=[2,4,6,8,10,12]   W = 0.245
+n=15:  C=8 units        D=[3,6,9,12]          W = 0.113
+n=22:  C=10 units       D=10 elts             W = 0.884
+n=30:  C=8 units        D=[2,4,8,14,16,22,26,28] W = 0.169
+```
+
+With correct D, all values lie in (0,1). No normalization failure.
+
+**However: `W = deviation/n²` is NOT universal.** It gives 0.060 for n=10
+and different values for every other n. The 3/50 formula is algebraically
+specific to Z/10Z.
+
+**Why Z/10Z is special:** For n=10, `|C| = |D| = φ(10) = 4`. The sizes
+are equal because multiplying by p_min=2 bijects C onto D in Z/10Z
+(2 is invertible in Z/5Z, which is the other CRT factor). For n=12,
+|C|=4 but |D|=2 — unequal sizes break the n² symmetry assumption.
+
+**Revised Tier D target:**
+
+Step 1 (Tier B — to establish): Find the normalization `N(n)` such that
+`W_universal(Z/nZ) = |CROSS_n − N(n)/2| / N(n)` is consistent across all n.
+Candidate: `N(n) = φ(n) × |D_n| × (n−1)` (total pairs × max DIS per pair).
+This gives values ranging 0.11–0.20, nearly consistent but not exact.
+
+Step 2 (Tier C): Prove W_universal is determined by the ring structure (φ(n),
+|D_n|, and the CRT factorization of n).
+
+Step 3 (Tier D): Prove the mechanism generalizes — that the generator-orbit
+period always produces the same per-step deviation formula for rings of the
+form Z/nZ where n = p × q (squarefree with two prime factors).
+
+**Status:** [Tier C — confirmed for Z/10Z]. The formula `W = dev/n²` is Z/10Z-specific.
+The WP35 sentence stands for Z/10Z. Generalization is Tier D work, not Tier C.
+**Source:** WP1_TIG_DEFINITIVE.md §1.5 (prior). Luther derivation + Sanders test: March 31 2026.
+**Value:** 3/50 = 0.060. Fixed constant of Z/10Z. Not a function of k, not universal.
 **Related:** PRIME_WINDING = T* + W_BHML = 5/7 + 3/50 = 271/350.
            C_TIG = T*/W_BHML = (5/7)/(3/50) = 250/21 ≈ 11.905.
 
