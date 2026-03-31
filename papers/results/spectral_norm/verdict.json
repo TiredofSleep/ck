@@ -1,0 +1,130 @@
+{
+  "verdict": "MIXED",
+  "explanation": "Both effects coexist. The raw dominance of large primes is a geometric artifact. However, p does show at least some normalized signatures that neutral primes lack: the countdown law R(p-1,p)=1/(p-1)\u00b2 is algebraically exact and p DOES reach rank minimum at k=p in many worlds. The spectral horizon is an artifact in raw terms, but the algebraic structure at k=p is real information layered on top of it.",
+  "scores": {
+    "artifact": 3,
+    "structure": 2
+  },
+  "tallies": {
+    "N": 10,
+    "t1_distinctive": 2,
+    "t2_suppressed": 0,
+    "t2_elevated": 10,
+    "t3_minimum": 4,
+    "t3_low_z": 2,
+    "t4_p_min_at_kp": 10,
+    "t4_strong_artifact": 7
+  },
+  "per_world": [
+    {
+      "b": 15,
+      "p": 3,
+      "q": 5,
+      "t1_z_p": -1.6613053139514895,
+      "t2_mean_resid_p": 0.12500000000000003,
+      "t3_rank_p_at_pm1": 1,
+      "t3_z_p": -1.6613053139514895,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 1.0
+    },
+    {
+      "b": 35,
+      "p": 5,
+      "q": 7,
+      "t1_z_p": -1.5893532757165454,
+      "t2_mean_resid_p": 0.2519752905155029,
+      "t3_rank_p_at_pm1": 2,
+      "t3_z_p": -1.5893532757165454,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 1.0
+    },
+    {
+      "b": 77,
+      "p": 7,
+      "q": 11,
+      "t1_z_p": -1.2899304622128207,
+      "t2_mean_resid_p": 0.3076578871595947,
+      "t3_rank_p_at_pm1": 3,
+      "t3_z_p": -1.2899304622128207,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 1.0
+    },
+    {
+      "b": 143,
+      "p": 11,
+      "q": 13,
+      "t1_z_p": -1.093063556202429,
+      "t2_mean_resid_p": 0.35881792348073327,
+      "t3_rank_p_at_pm1": 2,
+      "t3_z_p": -1.093063556202429,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 1.0
+    },
+    {
+      "b": 323,
+      "p": 17,
+      "q": 19,
+      "t1_z_p": -1.108965230393491,
+      "t2_mean_resid_p": 0.19674718723745543,
+      "t3_rank_p_at_pm1": 1,
+      "t3_z_p": -1.108965230393491,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.9722222222222222
+    },
+    {
+      "b": 667,
+      "p": 23,
+      "q": 29,
+      "t1_z_p": -1.123948628141898,
+      "t2_mean_resid_p": 0.1148412600644885,
+      "t3_rank_p_at_pm1": 1,
+      "t3_z_p": -1.123948628141898,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.8269230769230769
+    },
+    {
+      "b": 899,
+      "p": 29,
+      "q": 31,
+      "t1_z_p": -1.0969392803978661,
+      "t2_mean_resid_p": 0.1061854287874062,
+      "t3_rank_p_at_pm1": 0,
+      "t3_z_p": -1.0969392803978661,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.8
+    },
+    {
+      "b": 1763,
+      "p": 41,
+      "q": 43,
+      "t1_z_p": -1.1003446919224171,
+      "t2_mean_resid_p": 0.06534801615020971,
+      "t3_rank_p_at_pm1": 0,
+      "t3_z_p": -1.1003446919224171,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.6785714285714286
+    },
+    {
+      "b": 2021,
+      "p": 43,
+      "q": 47,
+      "t1_z_p": -1.199743367531517,
+      "t2_mean_resid_p": 0.049853081575212496,
+      "t3_rank_p_at_pm1": 0,
+      "t3_z_p": -1.199743367531517,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.6555555555555556
+    },
+    {
+      "b": 3127,
+      "p": 53,
+      "q": 59,
+      "t1_z_p": -1.2412958392148477,
+      "t2_mean_resid_p": 0.03935928642036752,
+      "t3_rank_p_at_pm1": 0,
+      "t3_z_p": -1.2412958392148477,
+      "t4_rank_p_at_kp": 0,
+      "t4_artifact_fraction": 0.5982142857142857
+    }
+  ]
+}

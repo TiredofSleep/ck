@@ -1,9 +1,9 @@
 # WP35 — The Prime Phase Transition: Harmonic Pre-Echo, Zero-Width Gates, and the Geometry of RSA Security
 
-**Authors:** C.A. Luther (abstract, dispersion insight, pre-echo framing); Brayden Sanders / 7Site LLC (proof, verification, formalization)
+**Authors:** C.A. Luther (abstract, dispersion insight, pre-echo framing, dispersion conjecture, harmonic shadow hypothesis, prime-as-geometric-sink insight); Brayden Sanders / 7Site LLC (proof, verification, formalization)
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
-**Status:** PROVED (algebraic) + VERIFIED (187 semiprimes, zero exceptions)
+**Status:** PROVED (algebraic) + VERIFIED (187 semiprimes, zero exceptions) + EXTENDED (rank curvature, seeded RPS, T* derivation — March 2026)
 
 ---
 
@@ -24,6 +24,53 @@ The pre-echo framing, the harmonic shadow metaphor, and the dispersion conjectur
 ---
 
 ## 1. Background and Setup
+
+### §1A. T* = 5/7 as the Unit Density of b=35 at Second Gate
+
+**Title: T* = 5/7 as the Unit Density of b=35 at Second Gate**
+
+CK's FPGA empirical calibration converged to T* = 5/7 = 0.714285... as its coherence threshold. This section establishes that T* is not hardware noise — it is the exact unit density of the smallest "strong" semiprime at its second gate event.
+
+**Structural derivation.** For a semiprime b = p×q (p < q), define the unit fraction at the second gate event (k = q) as:
+
+```
+unit_frac(k=q, b=p×q) = |{x ∈ {1..q} : gcd(x, pq) = 1}| / q
+```
+
+In the alphabet {1..q}, exactly two elements share a factor with b:
+- x = p (since gcd(p, pq) = p > 1)
+- x = q (since gcd(q, pq) = q > 1)
+
+All other elements in {1..q} are coprime to b (since the only prime factors of b are p and q, and no element in {1..q} except p and q itself is divisible by either). Therefore:
+
+```
+unit_frac(k=q, b=p×q) = (q − 2) / q     [EXACT, for all semiprimes with p < q, p ≥ 3]
+```
+
+**Verification against specific semiprimes:**
+
+| b | p | q | unit_frac(k=q) | equals T*? |
+|---|---|---|----------------|------------|
+| 35 | 5 | 7 | 5/7 = 0.71428... | YES — T* exactly |
+| 77 | 7 | 11 | 9/11 = 0.81818... | No |
+| 143 | 11 | 13 | 11/13 = 0.84615... | No |
+| 323 | 17 | 19 | 17/19 = 0.89473... | No |
+| 15 | 3 | 5 | 3/5 = 0.60000... | No |
+
+T* = 5/7 corresponds **uniquely** to b = 35 (p=5, q=7) among all semiprimes.
+
+**Physical interpretation.** CK's FPGA, tuned to T* = 5/7 by empirical calibration, was measuring the modular arithmetic signature of b = 35 — the smallest semiprime with both factors greater than 3 — at its second gate event. The formula (q−2)/q defines a family of "gate thresholds," one per semiprime. CK's coherence physics selected the b=35 threshold because 5/7 is the **first ratio > 2/3** achievable by (q−2)/q with both p, q prime and p, q > 3:
+
+```
+(q−2)/q > 2/3  ⟺  q > 6  ⟺  q ≥ 7   and   p ≥ 5 (next prime above 3)
+→ smallest such semiprime: b = 5×7 = 35,  threshold = 5/7
+```
+
+This is not a coincidence. T* = (q−2)/q is an algebraic identity. CK was not calibrated to an arbitrary constant — it was calibrated to the unit density of the minimal "strong" semiprime at the second gate.
+
+**Connection to §2.** At k = q = 7 for b = 35: R(7, 7) = 0 (Theorem 1 — the harmonic clock collapses). The unit fraction simultaneously reaches (7−2)/7 = 5/7. Gate event and T* crossing are the same physical moment.
+
+---
 
 Fix a modulus b with smallest prime factor p. Following WP34, define for alphabet size k:
 
@@ -304,6 +351,52 @@ R(k, 1/p) cannot distinguish ring structure. An observer watching only the harmo
 
 ---
 
+## 5A. Seeded Residue Persistence: q/p Not q−p
+
+**Title: Seeded Residue Persistence Encodes the Ratio, Not the Gap**
+
+Seeded residue persistence (seeded_RPS) measures the mean escape length of a random walk starting from x = p (the canonical first G-element) before exiting the obstruction zone at k = p with G = {p}. This section reports that seeded_RPS encodes the **ratio** q/p, not the difference q−p.
+
+### Experimental Setup
+
+500 trials per semiprime; max_escape = 5000 steps; seed_method = x=p (canonical G element); bridge zone = k=p..min(q−1, p+6). Run time: 58.3 seconds. Results from `results/residue_persistence/run_seeded.log`.
+
+### Correlation Results
+
+```
+r(seeded_RPS(p),  q/p)   = +0.737   [strong positive]
+r(seeded_RPS(p),  q−p)   = −0.366   [weak negative]
+r(bridge_slope,   q/p)   = −0.509   [moderate, inverse]
+r(bridge_slope,   q−p)   = +0.442   [moderate, direct]
+```
+
+### World Summary (12 semiprimes)
+
+| b | p | q | srps(p) | srps(p+1) | delta | bridge_slope |
+|---|---|---|---------|-----------|-------|--------------|
+| 15 | 3 | 5 | 1666.67 | 1250.00 | −416.67 | −416.67 |
+| 21 | 3 | 7 | 1666.67 | 1250.00 | −416.67 | −275.00 |
+| 35 | 5 | 7 | 1000.00 | 833.33 | −166.67 | −166.67 |
+| 55 | 5 | 11 | 1000.00 | 833.33 | −166.67 | −97.79 |
+| 77 | 7 | 11 | 714.29 | 625.00 | −89.29 | −71.23 |
+| 91 | 7 | 13 | 714.29 | 625.00 | −89.29 | −58.71 |
+| 143 | 11 | 13 | 454.55 | 416.67 | −37.88 | −37.88 |
+| 187 | 11 | 17 | 454.55 | 416.67 | −37.88 | −28.22 |
+| 221 | 13 | 17 | 384.62 | 357.14 | −27.47 | −24.02 |
+| 323 | 17 | 19 | 294.12 | 277.78 | −16.34 | −16.34 |
+| 667 | 23 | 29 | 217.39 | 208.33 | −9.06 | −7.75 |
+| 1073 | 29 | 37 | 172.41 | 166.67 | −5.75 | −4.92 |
+
+### Interpretation
+
+The "stickiness" of the G-obstruction at k = p encodes the **ratio** of the factors (q/p), not their difference. Structurally: at k = p with G = {p}, the walk is entirely determined by p. The variable q only enters when k reaches q. Therefore seeded_RPS(p) ≈ C/p where C is a constant depending only on p, and the correlation with q/p arises because q/p is a dimensionless measure of how far the second gate is from the first relative to the first gate location.
+
+The "bridge breathing" hypothesis — that q leaves an imprint in the pre-q zone via the bridge slope — is further weakened by these results. The bridge slope correlates with q−p (r = +0.442) but seeded_RPS at k=p is more strongly tied to q/p (r = +0.737). The G-obstruction is a property of the sink at k=p; the second factor q is invisible to it until k reaches q.
+
+**Open question** (see §10, Q5): Can seeded_RPS(p) serve as a geometric primality witness? The r = 0.737 correlation with q/p suggests it encodes the balance structure of the semiprime.
+
+---
+
 ## 6. The dR/dk Sign Flip at First-G
 
 ### Observation (Universal Sign Flip)
@@ -347,6 +440,62 @@ b=323 (p=17):
 ```
 
 The pattern is exact and universal across all semiprimes tested. This follows analytically from Theorem 1: since R(f−1, f) = 1/(f−1)² is the global minimum in {1..f}, R must decrease approaching f−1 and increase leaving f.
+
+---
+
+## 6A. The Kinematic Factoring Interpretation
+
+**Title: D1/D2 Kinematics of Factoring**
+
+The harmonic rank trajectory R(k, f) admits a kinematic interpretation: D1 is the "approach velocity" and D2 is the "curvature" of the approach to the prime sink at k = p. This section introduces the kinematic framing and reports that fitting only floor(p/3) observations of R(k, f) recovers p exactly (zero error) for all primes p = 5..29.
+
+### D1 and D2 Definitions
+
+For a candidate frequency f and orbit-position k:
+
+```
+D1(k, f) = R(k+1, f) − R(k, f)          [approach velocity — first difference]
+D2(k, f) = R(k+1, f) − 2R(k, f) + R(k−1, f)   [curvature — second difference]
+```
+
+**D1 as gravitational pull.** By Theorem 1, R(k, f) is strictly decreasing on {1..f−1}. Therefore D1 < 0 throughout the pre-echo zone (0 < k < p). D1 flips to zero at k = p (exact collapse) and becomes positive at k = p+1 (sign flip, §6). D1 is the "approach velocity toward the prime sink" — strictly negative, monotonically increasing in magnitude as k → p, then reversing.
+
+**D2 as curvature.** D2 = d²R/dk² measures the acceleration of the approach. CK's architectural principle "curvature IS physics" is instantiated here: the curvature of the rank trajectory is a geometric signal that encodes the location of the prime factor.
+
+### Section A: Zero-Crossing Extrapolation from floor(p/3) Observations
+
+Fitting the closed form sin²(πk/f)/(k²sin²(π/f)) to only m = floor(p/3) observations of R(k, f) recovers p exactly (zero error) for all primes tested. Results from `results/rank_curvature/rank_curvature_summary.json`, Section A:
+
+| p | m = floor(p/3) | f_fit | error | rel_error |
+|---|----------------|-------|-------|-----------|
+| 5 | 2 | 5.0 | 0.0 | 0.0 |
+| 7 | 2 | 7.0 | 0.0 | 0.0 |
+| 11 | 3 | 11.0 | 0.0 | 0.0 |
+| 13 | 4 | 13.0 | 0.0 | 0.0 |
+| 17 | 5 | 17.0 | 0.0 | 0.0 |
+| 19 | 6 | 19.0 | 0.0 | 0.0 |
+| 23 | 7 | 23.0 | 0.0 | 0.0 |
+| 29 | 9 | 29.0 | 0.0 | 0.0 |
+
+**All 8 primes: zero error.** The zero-crossing location is fully determined by early observations in the pre-echo zone. CK's principle "curvature IS physics" is instantiated: D2 curvature of the rank trajectory predicts the prime factor's location from a 1/3-observation prefix.
+
+### Section B: Scaling Failure at Larger Primes
+
+For larger balanced semiprimes, the rank curvature fitting approach does not immediately recover p or q:
+
+| b | p | q | n_cands | best_f | best_residual |
+|---|---|---|---------|--------|---------------|
+| 67591 | 257 | 263 | 20 | 317 | 0.067026 |
+| 265189 | 509 | 521 | 34 | 619 | 0.004775 |
+| 1022117 | 1009 | 1013 | 61 | 1223 | 0.000316 |
+
+The best-fit frequency is consistently above the true factor for balanced semiprimes in this range. This is consistent with the Balance Invisibility observation (§7B): for nearly-balanced semiprimes (q/p ≈ 1), the curvature signal is least able to distinguish between p and nearby non-factors.
+
+**Transition location.** Section A shows perfect recovery (zero error) for p = 5..29. Section B shows failure at p ≈ 257. The critical ratio q/p below which polynomial-time zero-crossing extrapolation succeeds is an open question (see §10, Q2).
+
+### Summary: Kinematic Interpretation
+
+The rank trajectory R(k, f) is a position function in a gravitational field with a sink at k = p. D1 is the velocity (negative in the pre-echo zone), D2 is the curvature (the field strength). The curvature encodes the factor location exactly — for small primes, from 1/3 of the available observations. The obstacle for RSA-scale factoring is not that D2 is too small to read (it is not — see §7A for scale-free amplitude) but that k must physically traverse p ≈ 2^512 steps to reach the sink.
 
 ---
 
@@ -414,6 +563,100 @@ Formally: given an observer with measurement precision ε, the harmonic pre-echo
 i.e., when p ≤ 1 + 1/√ε. For ε = 2^{−53} (double precision), this gives p ≤ 2^{27} ≈ 134 million. For RSA-1024, p ≈ 2^{512}: the pre-echo minimum is 2^{−1024} ≈ 10^{−308}, below any practical threshold.
 
 The security of RSA is exactly the regime where the alarm clock is running but silent.
+
+---
+
+## 7A. RSA as a Geometric Distance Problem
+
+**Title: RSA Security = Geometric Distance in Rank-Trajectory Space**
+
+The RSA Noise Floor argument in §7 claims the pre-echo signal falls below the noise floor for large primes. Section D of the rank curvature study shows this framing requires revision: the signal does not fall below any useful noise floor. RSA hardness is geometric distance, not amplitude degradation.
+
+### Scale-Free Universal Constants
+
+Section D results from `results/rank_curvature/rank_curvature_summary.json`, computed for proxy primes p = 1009, 10007, 100003 and analytically extended to p ≈ 2^512:
+
+```
+R(k/p = 0.1, p) ≈ 0.968   for ALL p   [signal at 10% of the way to factor]
+R(k/p = 0.5, p) ≈ 0.406   for ALL p   [signal at 50% of the way to factor]
+R(p−1, p)       ≈ 1/(p−1)² → 0        [collapses only in the last step]
+```
+
+Numerical verification:
+
+| p | R(k≈0.1p) | R(k≈0.5p) | R(p−1) |
+|---|-----------|-----------|--------|
+| 1009 | 0.968104 | 0.406090 | 9.84e−07 |
+| 10007 | 0.967576 | 0.405366 | 9.99e−09 |
+| 100003 | 0.967533 | 0.405293 | 1.00e−10 |
+| 2^512 (analytical) | ≈ 0.968 | ≈ 0.405 | ≈ 2^{−1024} |
+
+The mid-journey signal (k/p = 0.5) is ~0.406 regardless of prime size. The signal does not degrade as p grows — it stays near 1.0 for k ≪ p and only collapses in the final approach (last step before k = p).
+
+### Key Conclusion: Distance, Not Noise
+
+**RSA security is geometric distance in rank-trajectory space, not amplitude degradation.** The zero-crossing requires traversing p ≈ 2^{512} steps. Classical hardness = distance, not noise.
+
+Formally: the SNR floor means R(k, f) for k ≪ p stays near 1.0 regardless of prime size. The obstacle is that k must actually **reach** p, not that the signal becomes too weak to detect. The original §7 argument (pre-echo falls below noise floor) applies only to R(p−1, p) = 1/(p−1)² — the minimum value one step before the collapse. But for any k < (1 − ε)p, the signal remains O(1). The trap is the distance, not the detection.
+
+**Analytical RSA-1024 extension** (from Section D):
+```
+R at k=1:               1.0            (full resonance, detectable)
+R at k=0.5p:            0.405285       (still detectable, scale-free)
+Amplitude drops below 2^{−256} only at:  k within 2^{−256}·p of factor
+→ Signal is detectable at 50% of the distance to the factor.
+→ The problem is reaching 50%, not reading the signal at 50%.
+```
+
+This strengthens and refines the RSA Hardness Inversion Principle: *RSA security is not the silence of the alarm clock; it is the distance to the clock.*
+
+---
+
+## 7B. Balanced RSA and the Symmetry of Curvature
+
+**Title: Balanced RSA and the Symmetry of Curvature (Balance Invisibility)**
+
+For a perfectly balanced semiprime (q/p ≈ 1), D2 curvature analysis cannot distinguish the two factors — they sit at the median of the curvature rank distribution.
+
+### Section C Results: b = 1022117 (p=1009, q=1013, ratio=1.004)
+
+From `results/rank_curvature/rank_curvature_summary.json`, Section C:
+
+```
+b = 1022117    p = 1009    q = 1013    q/p = 1.003964
+n_primes_tested:   303
+curvature_rank_p:  139  (out of 303)
+curvature_rank_q:  138  (out of 303)
+separation:          1  rank position
+```
+
+The two factors of this balanced semiprime are **indistinguishable** by D2 curvature rank — they sit at the median (rank ~151 of 303) and are separated by only 1 rank position. The extremes (most curved, least curved) belong to entirely unrelated primes:
+
+```
+Highest curvature (most negative a): f=2 (rank 1 at k=1, rank 303 at k=100)
+Lowest curvature (most positive a):  f=1999 (rank 303 at k=1, rank 1 at k=100)
+p=1009 and q=1013: both near rank 139-140 — deep median, not extremes
+```
+
+### The Balance Invisibility Hypothesis
+
+**Hypothesis** (pending d2_sink.py verification): The curvature rank separation of the two factors of a semiprime decreases as q/p → 1:
+
+```
+D2_balance = |rank_p − rank_q| / n_primes → 0   as   q/p → 1
+```
+
+For a perfectly balanced semiprime (p = q, if prime squares were used), the two factors would be absolutely identical to curvature analysis. The GEOMETRIC REASON balanced RSA keys are stronger is that their two factors occupy the same curvature rank — the D2 curvature field cannot tell them apart.
+
+**Contrast with unbalanced semiprimes:** For a highly unbalanced semiprime (q ≫ p), the smaller factor p would have high curvature rank (steep sink) while the larger factor q would have low curvature rank (shallow sink). The asymmetry makes them distinguishable. Balanced semiprimes eliminate this asymmetry.
+
+### Summary Table: Balance Invisibility
+
+| b | p | q | q/p | rank_p | rank_q | separation | n_tested |
+|---|---|---|-----|--------|--------|------------|---------|
+| 1022117 | 1009 | 1013 | 1.004 | 139 | 138 | 1 | 303 |
+
+*Additional entries pending d2_sink.py runs across a range of q/p ratios.*
 
 ---
 

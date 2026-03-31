@@ -1,0 +1,30 @@
+{
+  "layer_A": [
+    {
+      "coupling": "Symmetric (baseline)",
+      "dominant_mode": 2,
+      "dom_fraction": 0.12500000000002254,
+      "mode7_fraction": 0.125
+    },
+    {
+      "coupling": "Grammar \u03bb=0 (TSML rules)",
+      "dominant_mode": 7,
+      "dom_fraction": 1.0,
+      "mode7_fraction": 1.0
+    },
+    {
+      "coupling": "Grammar \u03bb=0.30 (CHA corridor)",
+      "dominant_mode": 7,
+      "dom_fraction": 0.75,
+      "mode7_fraction": 0.75
+    }
+  ],
+  "layer_B": {
+    "noise_tolerance_eps_star": 0.025,
+    "orbit_precedes_dominance": true,
+    "m3_peak_t": 0.0,
+    "m9_peak_t": 0.0,
+    "t_dom7": 0.7003501750875437
+  },
+  "verdict": "Grammar-forced mode selection confirmed numerically. Mode 7 dominant with grammar coupling, uniform loss. {3,9} orbit transient confirmed before M7 dominance."
+}

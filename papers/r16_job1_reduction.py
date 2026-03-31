@@ -16,10 +16,12 @@ Author: Brayden Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047
 Sprint 4 (March 2026) — Universal construction law atlas
 """
 
-import sys, io
+import sys
 if sys.platform == "win32":
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8",
-                                  errors="replace")
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except AttributeError:
+        pass
 
 import argparse
 import copy
