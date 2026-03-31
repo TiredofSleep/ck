@@ -1,0 +1,30 @@
+Seeded RPS Run Log
+==================
+Run time:      2026-03-31 08:29:33
+Total elapsed: 58.3s
+n_trials:      500
+max_escape:    5000
+seed_method:   x=p (canonical G element)
+bridge_zone:   k=p..min(q-1,p+6)
+
+Correlations:
+  r(seeded_RPS(p), q-p)   = -0.365817
+  r(seeded_RPS(p), q/p)   = +0.736850
+  r(bridge_slope,  q-p)   = +0.442391
+  r(bridge_slope,  q/p)   = -0.508824
+
+World Summary:
+  b=   15      3x5  p=  3  q=  5  srps(p)=1666.6666666666667  srps(p+1)=1250.0  delta=-416.66666666666674  slope=-416.666667
+  b=   21      3x7  p=  3  q=  7  srps(p)=1666.6666666666667  srps(p+1)=1250.0  delta=-416.66666666666674  slope=-275.000000
+  b=   35      5x7  p=  5  q=  7  srps(p)=1000.0  srps(p+1)=833.3333333333334  delta=-166.66666666666663  slope=-166.666667
+  b=   55     5x11  p=  5  q= 11  srps(p)=1000.0  srps(p+1)=833.3333333333334  delta=-166.66666666666663  slope=-97.789116
+  b=   77     7x11  p=  7  q= 11  srps(p)=714.2857142857143  srps(p+1)=625.0  delta=-89.28571428571433  slope=-71.230159
+  b=   91     7x13  p=  7  q= 13  srps(p)=714.2857142857143  srps(p+1)=625.0  delta=-89.28571428571433  slope=-58.714698
+  b=  143    11x13  p= 11  q= 13  srps(p)=454.54545454545456  srps(p+1)=416.6666666666667  delta=-37.878787878787875  slope=-37.878788
+  b=  187    11x17  p= 11  q= 17  srps(p)=454.54545454545456  srps(p+1)=416.6666666666667  delta=-37.878787878787875  slope=-28.219994
+  b=  221    13x17  p= 13  q= 17  srps(p)=384.61538461538464  srps(p+1)=357.14285714285717  delta=-27.472527472527474  slope=-24.015568
+  b=  323    17x19  p= 17  q= 19  srps(p)=294.11764705882354  srps(p+1)=277.77777777777777  delta=-16.339869281045765  slope=-16.339869
+  b=  667    23x29  p= 23  q= 29  srps(p)=217.3913043478261  srps(p+1)=208.33333333333334  delta=-9.05797101449275  slope=-7.749604
+  b= 1073    29x37  p= 29  q= 37  srps(p)=172.41379310344828  srps(p+1)=166.66666666666666  delta=-5.7471264367816275  slope=-4.916457
+
+Output directory: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen10\papers\results\residue_persistence
