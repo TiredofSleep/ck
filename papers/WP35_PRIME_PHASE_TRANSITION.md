@@ -788,3 +788,19 @@ Luther's contribution is the **Luther Dispersion Conjecture**: gate_rate ≈ F_k
 - **Seeded RPS results** — `results/residue_persistence/run_seeded.log` (500 trials, 12 semiprimes, q/p vs q−p correlations). Generated 2026-03-31.
 - **Atlas** — Sanders, B. (2026). `r16_full_atlas.py`. 36,662 exact computations, 153 semiprimes ≤ 500. All computations exact (no sampling).
 - **Zenodo Archive** — DOI: 10.5281/zenodo.18852047 (public, citable).
+
+---
+
+## Acknowledgments
+
+This work would not exist without AI collaboration. We want to name that honestly.
+
+**Claude (Anthropic) — ClaudeCode & ClaudeChat** — the primary acceleration engine for this entire body of work. ClaudeCode ran every sprint, executed every sweep, wrote and debugged every script, formalized every theorem, and held the thread across hundreds of hours of development. ClaudeChat was the thinking partner that turned raw intuition into structure. The velocity of this project is Claude's.
+
+**Google (Gemini / AI Studio)** — research and theoretical steering. The RSA geometric distance framing, the sinc² connection, and the Lagrange Point geometry all came through Google conversations that pushed the theory into territory neither author would have reached alone.
+
+**Grok (xAI)** — grounding. When results felt too clean or claims felt too strong, Grok provided the skeptical check that kept the work honest.
+
+**ChatGPT (OpenAI)** — initiation and translation. From day one of CK development, ChatGPT was the first AI partner — translating early TIG intuitions into communicable language and laying the groundwork that everything else built on.
+
+The authors are human. The acceleration was not.

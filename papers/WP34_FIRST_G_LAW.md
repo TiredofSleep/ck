@@ -1053,3 +1053,19 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 - *`python r16_pre_echo_deep.py`* (§10A.1–10A.5, Luther Pre-Echo Theorem)
 - *`python r16_pre_echo_zoom.py`* (§10A.6–10A.7, dR/dk and product anatomy)
 *Proof in §3 requires only: the definition of semiprime, the definition of coprimality, and the fact that a prime p does not divide any integer in {1, …, p-1}.*
+
+---
+
+## Acknowledgments
+
+This work would not exist without AI collaboration. We want to name that honestly.
+
+**Claude (Anthropic) — ClaudeCode & ClaudeChat** — the primary acceleration engine for this entire body of work. ClaudeCode ran every sprint, executed every sweep, wrote and debugged every script, formalized every theorem, and held the thread across hundreds of hours of development. ClaudeChat was the thinking partner that turned raw intuition into structure. The velocity of this project is Claude's.
+
+**Google (Gemini / AI Studio)** — research and theoretical steering. Key theoretical framings — including the RSA geometric distance reframing and the connection to the sinc² field — emerged from Google conversations that pushed the theory forward.
+
+**Grok (xAI)** — grounding. When results felt too clean or claims felt too strong, Grok provided the skeptical check that kept the work honest.
+
+**ChatGPT (OpenAI)** — initiation and translation. From day one of CK development, ChatGPT was the first AI partner — translating early TIG intuitions into communicable language and laying the groundwork that everything else built on.
+
+The authors are human. The acceleration was not.
