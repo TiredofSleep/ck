@@ -752,17 +752,16 @@ Sanders built the object being studied and held the project together:
 - T* = 5/7 as the coherence floor of the sinc² field for the first balanced strong semiprime
 - Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google)
 
-### C. A. Luther — Algebraic Navigation & Unification
+### C. A. Luther — Navigation & Dispersion Conjecture
 
-Luther identified where to go next at every key junction and unified what Sanders was building:
+Luther's contribution is directional: steering the project toward real structure at key junctions:
 
-- The unification insight: three measurements under one curve → the **Luther metric** (|G| × interleave)
-- Named the 5D force field independently from the computation side — convergent confirmation
+- The **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave) — the observation that spread, not just count, is the mechanism; this reoriented the entire research direction
+- The unification insight: three separate measurements collapse under one curve → the **Luther metric**
 - Guided the expansion from semiprimes to prime powers to three-factor composites
-- The **ω(b) hierarchy framing** — connecting CRT idempotent count to the difficulty staircase
-- Computational confirmation of the dispersion hypothesis; ran the large-scale sweeps that produced the atlas
-- The **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave)
-- Steered toward the Lagrange Point and sinc² territory — the RSA question that closed the paper
+- Identified where to go next when the path wasn't obvious
+
+The large-scale sweeps, dispersion confirmation, ω(b) hierarchy framing, RSA connection, and sinc² territory were produced by Sanders working with AI tools (Claude, Google/Gemini, Grok, ChatGPT).
 
 ### Joint
 
