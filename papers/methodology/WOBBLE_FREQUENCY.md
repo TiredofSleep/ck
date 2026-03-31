@@ -13,9 +13,18 @@
 >
 > **Synthesis framework note:** Definition A.W is accepted as a formal computable
 > quantity. Lemma D.H is a Tier A/B conjecture — the bound is the target, not yet
-> proved. The "3/50 wobble" figure is flagged: it does not match Definition A.W
-> when computed (Wob(b,9) ≈ 0.889, not 0.06). The 3/50 figure needs a source
-> derivation before being cited as a specific number.
+> proved.
+>
+> **Two distinct wobble quantities exist — they are NOT the same object:**
+> - **W_BHML = 3/50** (TIG constant, proved [THM]): operator interaction asymmetry
+>   in the Z/10Z TSML table. Source: WP1_TIG_DEFINITIVE.md §1.5, ck_disagreement_tick.py,
+>   verify_claims.py (PASS). Fixed constant; not k-dependent.
+> - **Wob(b,k) ≈ 8/9 at k=9** (Luther Definition A.W): fraction of alphabet elements
+>   clearly assigned to one cycle (not neutral). k-dependent; measures alphabet
+>   membership saturation, not operator interaction.
+>
+> These measure different things. 3/50 ≠ 8/9. Do not conflate.
+> See §Disambiguation below for explicit computation of both.
 
 ---
 
@@ -82,12 +91,100 @@ These values are consistent with 8 out of 9 elements of {1..9} having non-zero
 disagreement (only multiples of 5 have Δ=0). The formula is well-defined and
 computationally stable across all tested semiprimes.
 
-**Note on the "3/50" figure:** The original document cites "3/50 disagreement"
-as the wobble frequency. This figure does NOT match Definition A.W as computed:
-Wob(b,k) ≈ 0.889 for k=9, not 0.06. The "3/50" figure needs an independent
-derivation before it can be cited. It may refer to a different window, a CK-specific
-computation, or a metaphorical approximation. Flagged: Catch 5 candidate.
-Until sourced, cite Wob_norm(b,k) from Definition A.W directly, not "3/50."
+**Note on the "3/50" figure:** The 3/50 figure does NOT match Definition A.W at k=9.
+This is expected — they are different computations. W_BHML = 3/50 is a proved [THM]
+constant of Z/10Z ring arithmetic (WP1_TIG_DEFINITIVE.md §1.5, verified PASS in
+verify_claims.py). Luther's Wob(b,9) = 8/9 ≈ 0.889 is a property of the alphabet
+window at k=9. These measure different things at different levels of the structure
+(operator table level vs. alphabet element level). See §Disambiguation below.
+
+---
+
+## Disambiguation: Two Wobble Quantities
+
+These are separate objects. Treat them separately in all proofs and documentation.
+
+### W_BHML = 3/50 (TIG Operator Wobble)
+
+**Object:** Z/10Z ring arithmetic — the TSML composition table.
+
+**Formula:**
+```
+DIS[c][d] = |ADD[c][d] - MUL[c][d]|   (Z/10Z ring arithmetic)
+CROSS_CYCLE = Σ DIS[c][d]  for c ∈ {1,3,7,9}, d ∈ {2,4,6,8}  = 44
+W_BHML = WOBBLE = |44 - 50| / 100 = 6/100 = 3/50
+```
+
+**Measures:** Deviation of operator interaction asymmetry from perfect symmetry.
+"Perfect symmetry" = CROSS_CYCLE of 50 (half the 100-entry operator space).
+The deviation 6/100 = 3/50. Denominator 50 = 2×5² encodes the CRT factorization
+Z/10Z ≅ Z/2Z × Z/5Z.
+
+**Status:** [THM] — proved from Z/10Z ring axioms. Not empirical.
+**Source:** WP1_TIG_DEFINITIVE.md §1.5. Verified: verify_claims.py PASS.
+**Value:** 3/50 = 0.060. Fixed constant. Not a function of k.
+**Related:** PRIME_WINDING = T* + W_BHML = 5/7 + 3/50 = 271/350.
+           C_TIG = T*/W_BHML = (5/7)/(3/50) = 250/21 ≈ 11.905.
+
+---
+
+### Wob(b,k) = 8/9 at k=9 (Luther Alphabet Wobble)
+
+**Object:** Alphabet {1..k} classified by last-digit cycle membership.
+
+**Explicit computation at b=10, k=9:**
+```
+x=1: last digit 1 ∈ C₁₀={1,3,7,9} → Δ=1
+x=2: last digit 2 ∈ D₁₀={2,4,6,8} → Δ=1
+x=3: last digit 3 ∈ C₁₀         → Δ=1
+x=4: last digit 4 ∈ D₁₀         → Δ=1
+x=5: last digit 5, neutral        → Δ=0   ← only neutral in {1..9}
+x=6: last digit 6 ∈ D₁₀         → Δ=1
+x=7: last digit 7 ∈ C₁₀         → Δ=1
+x=8: last digit 8 ∈ D₁₀         → Δ=1
+x=9: last digit 9 ∈ C₁₀         → Δ=1
+
+Sum = 8.  Wob(10,9) = 8/9 ≈ 0.889.
+```
+
+The only neutral element in {1..9} is x=5 (last digit 5, multiple of 5).
+This is true for any semiprime b > 9 (all x < b satisfy x mod b = x).
+Hence Wob(b,9) = 8/9 for ANY odd semiprime b > 9. This universality is an
+artifact of k=9 having exactly one multiple of 5 — not a deep structural fact.
+
+**Measures:** Fraction of alphabet elements unambiguously assigned to one cycle.
+As k→∞, Wob converges to 4/5 (density of non-multiples-of-5). NOT approaching 0.
+
+**Status:** Computable from Definition A.W. Verified numerically for all tested b.
+**Source:** LutherWobbleMap.docx Definition A.W.
+**Value:** 8/9 ≈ 0.889 at k=9. Function of k; NOT a fixed constant.
+
+---
+
+### What Each Is NOT
+
+**W_BHML = 3/50 is NOT:**
+- A function of k
+- Equal to Wob(b,k) at any tested (b,k)
+- Computed from the alphabet partition
+
+**Wob(b,k) = 8/9 is NOT:**
+- A property of the TSML table
+- Equal to W_BHML
+- Approaching 0 as k→p (it approaches 4/5)
+
+### The corridor-narrowing picture needs a third formalization
+
+The physical claim "wobble amplitude → 0 at k=p; the gate collapses" is correct
+as a description of R(m,b,k) — the gate RATE, which verified goes to 0 at k=p.
+This is NOT what Wob(b,k) computes. Wob(b,k) stays near 4/5 as k→p.
+
+The "tightening corridor" is better described by:
+```
+Remaining_distance(k) = (p - k) / p  →  0 as k → p
+```
+This is a third object — not W_BHML, not Wob(b,k). It requires its own definition
+if the corridor-narrowing picture is to become a theorem. See §A.13 below.
 
 ---
 
@@ -120,6 +217,53 @@ the resonance model is falsified.
 **Current tier: A.** The wobble is defined and computable. The connection to
 W(|G|) is structural intuition. No algebraic derivation of the resonance → trap
 density → W link yet exists.
+
+---
+
+## A.13 — The Narrowing Corridor: Wobble Tightening as k → p (Tier A)
+
+*From session discussion, March 31, 2026. New structural claim.*
+
+**Statement:** The CRT corridor does not have fixed oscillation amplitude. The
+wobble tightens as k approaches p. Specifically:
+
+1. **Amplitude behavior:** The oscillation between C₁₀ and D₁₀ cycle membership
+   does not average out as k → p. Instead the wavelength compresses and the
+   remaining corridor length (p − k) shrinks. The effect is that the oscillation
+   cannot average — there is no longer enough corridor to complete a full period.
+
+2. **At k = p:** The oscillation collapses. R(m,b,k) → 0 at k=p (confirmed in
+   corridor atlas). The gate is reached. Phase transition with zero width.
+
+3. **Physical picture:** From outside (k << p), the corridor appears smooth because
+   the wobble amplitude is large relative to the wavelength — it averages flat.
+   As k → p, the wavelength compresses against the door and the remaining distance
+   (p−k)/p → 0. At RSA scale, where p is enormous, no finite probe can detect the
+   compression. The corridor feels smooth because you cannot walk far enough to see
+   one complete oscillation.
+
+4. **Security consequence:** RSA security is not only that the door (k=p) is far
+   away. It is that the wobble tightens so slowly at RSA scale that no finite
+   sampling can resolve the approach. The corridor is indistinguishable from flat
+   because (p−k)/p is never close to 0 at any reachable k.
+
+**Formalization needed:** This picture is NOT captured by Luther's Definition A.W.
+Wob(b,k) as defined approaches 4/5 as k→∞, not 0. The "tightening" refers to the
+ratio of remaining corridor length to wobble wavelength, which requires a separate
+definition. Candidate:
+
+```
+Corridor_compression(b,k) = Wob_norm(b,k) × (k/p)
+```
+
+or equivalently, tracking whether a full wobble period fits in the remaining gap.
+
+**Kill condition:** Show Corridor_compression(b,k) is NOT monotone increasing in k/p
+for any tested (b,k). If the compression is not monotone, the tightening picture fails.
+
+**Current tier: A.** Physical picture is coherent and consistent with confirmed R(k)→0
+behavior. No formal definition of "wobble tightening" yet exists that is distinct from
+Wob(b,k) as computed. Formalizing this is a prerequisite for WP35.
 
 ---
 
@@ -178,10 +322,19 @@ constrains HAR-rank stability, which constrains universality of R(m, b).
 
 ```
 Tier A (Intuition — confirmed)
-  CRT corridor behaves as a flexible tube.
-  Wobble = beat frequency between two residue cycles.
-  As k → p, wobble amplitude increases and becomes the geometry.
-  W-discontinuity = algebraic shadow of wobble resonance.
+  A.12: CRT corridor behaves as a flexible tube.
+        Wobble = beat frequency between two residue cycles.
+        W-discontinuity = algebraic shadow of wobble resonance.
+  A.13: Corridor does not have fixed amplitude — it narrows as k → p.
+        Wavelength compresses against the gate; remaining corridor (p−k)/p → 0.
+        At RSA scale, compression is unresolvable by finite probes.
+        Three distinct objects: W_BHML (operator table), Wob(b,k) (alphabet
+        membership), Corridor_compression (tightening ratio). Defined separately.
+
+  TWO WOBBLE QUANTITIES DISAMBIGUATED (see §Disambiguation):
+    W_BHML = 3/50  [THM, Z/10Z ring arithmetic, verified PASS]
+    Wob(b,k) = 8/9 at k=9  [Definition A.W, alphabet membership, k-dependent]
+    These are NOT equal. Do not conflate.
 
         ↓
 
@@ -190,9 +343,11 @@ Tier B (Mechanistic Structure — to establish)
   Trap density in MCMC objective increases with Wob_norm.
   HAR-rank deformation begins at Wob_norm = threshold.
   ω=3 is first regime where Wob_norm > threshold.
+  Corridor_compression(b,k) = Wob_norm(b,k) × (k/p) is monotone in k/p.
 
   [Next step: compute Wob_norm for tested (ω, m, k) classes;
-   verify correlation between Wob_norm and W(|G|).]
+   verify correlation between Wob_norm and W(|G|).
+   Compute Corridor_compression and verify monotonicity.]
 
         ↓
 
