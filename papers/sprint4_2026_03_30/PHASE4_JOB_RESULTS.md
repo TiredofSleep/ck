@@ -1,7 +1,7 @@
 # Phase IV Job Results: Jobs 10, 11
 ## Base-Specific Seed Anatomy and Oracle Anatomy
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -73,4 +73,4 @@ The gate requires an additional hard constraint: block all C→G transitions com
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

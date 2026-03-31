@@ -1,7 +1,7 @@
 # The Gradient Law and Three-Score Atlas
 ## φ sets the range. Non-orbit C-placement sets the gradient.
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 > *The law is invariant. The tables are local.*
 > *φ sets the range; the placement of the non-orbit C-element sets the gradient.*
@@ -112,4 +112,4 @@ The range is the ceiling on richness. The gradient is where, within that ceiling
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

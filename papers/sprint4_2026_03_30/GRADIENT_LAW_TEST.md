@@ -1,7 +1,7 @@
 # Gradient Law Test and HAR Rule Refinement
 ## b=38 as Unexpected Probe
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -86,4 +86,4 @@ This is within the spread of the grad=0.500 group — b=22 gives 0.551, b=26 giv
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

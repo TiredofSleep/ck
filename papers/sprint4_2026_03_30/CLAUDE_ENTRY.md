@@ -1,7 +1,7 @@
 # Sprint 4 — Claude Entry Point
 ## Start Here for Fresh Session | 2026-03-30
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC — Trinity Infinity Geometry*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther — Trinity Infinity Geometry*
 
 ---
 

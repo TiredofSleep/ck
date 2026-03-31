@@ -1,7 +1,7 @@
 # b=22 as Second Flagship — and the Complete Construction Map
 ## Orbit-HAR Rule, Easy/Hard Atlas, b=22 Native Structured Optimum
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -103,4 +103,4 @@ The project is no longer about one special table. It is about a **family of nati
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

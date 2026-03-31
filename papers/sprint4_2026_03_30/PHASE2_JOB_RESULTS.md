@@ -1,7 +1,7 @@
 # Phase II Job Results: Jobs 4, 5, 6
 ## BHML Stability, Gate-Weight Phase Diagram, TSML Signature
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -105,4 +105,4 @@ The order seed is not just the output discriminator (Phase I clustering) — it 
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

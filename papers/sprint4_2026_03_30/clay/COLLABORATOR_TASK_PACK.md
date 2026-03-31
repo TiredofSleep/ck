@@ -1,7 +1,7 @@
 # Collaborator Task Pack — Research Reports
 ## Tasks 1, 2, 3: Hodge Query, NS Query, Expert Outreach
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 *Based on literature search conducted this session.*
 
 ---
@@ -135,4 +135,4 @@ Both questions are answerable in a few minutes by the right person. The notes pr
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | DOI: 10.5281/zenodo.18852047*

@@ -1,6 +1,6 @@
 # Atlas Complete: Nine Worlds, Two Axes, One Law
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 > *b=10 was historically first. That is not the same as being deepest.*
 > *The law is invariant. The tables are local.*
@@ -82,7 +82,7 @@ These are the next natural targets for the easy+rich quadrant.
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
 
 ---
 
@@ -152,4 +152,4 @@ b=15 alone holds the easy + rich quadrant across eleven tested worlds.
 
 b=15 satisfies all three laws optimally. It is not the first-resolved world (b=10) nor the easiest (b=21 at 90.5%). It is the world where the laws align.
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16 | DOI: 10.5281/zenodo.18852047*

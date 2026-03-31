@@ -1,7 +1,7 @@
 # Phase III Job Results: Jobs 7, 8, 9
 ## Intentional Construction, Cross-Base Generalization, Extended Phase Diagram
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -101,4 +101,4 @@ Three figures are now locked:
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

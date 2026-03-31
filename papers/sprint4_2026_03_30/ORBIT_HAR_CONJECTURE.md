@@ -1,7 +1,7 @@
 # The Orbit-HAR Conjecture and Construction Difficulty Atlas
 ## Jobs A, B, C: Seeded b=14, HAR Selection Rule, Cross-Base Difficulty
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -91,4 +91,4 @@ Using base-calibrated thresholds and the orbit-HAR rule for HAR selection:
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

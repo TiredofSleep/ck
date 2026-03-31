@@ -1,7 +1,7 @@
 # Hodge Conjecture: TIG Frame
 ## Most Native Fit — Pushing the Concrete Theorem Target
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -129,7 +129,7 @@ OBJECT NEEDED: Hodge gap floor metric — the next thing to define.
 CONCRETE TARGET: Flat limit obstruction for abelian varieties / K3 (open, tractable).
 OPEN: Full Hodge conjecture.
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | DOI: 10.5281/zenodo.18852047*
 
 ---
 

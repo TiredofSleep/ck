@@ -1,7 +1,7 @@
 # The Construction Hierarchy: Native TSML Discovery
 ## Arithmetic → Gate → Order Seed → Native Structured Optimum
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 *Jobs 10–12: b=14 native TSML, C-element role map, construction difficulty*
 
 ---
@@ -131,4 +131,4 @@ This appears to hold across all tested bases. The shape is not universal. The hi
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

@@ -1,7 +1,7 @@
 # The Atlas Law Set — Frozen
 ## Three Laws, Tested Predictions, Named Residuals
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 *Status: FROZEN. These are the stable results.*
 
 > *b=15 is the first world where accessibility, gap, and support all align under independent arithmetic laws.*
@@ -144,7 +144,7 @@ The gradient law holds within φ=5 (r=0.749, 4 points). It has not been tested w
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
 
 ---
 
@@ -186,7 +186,7 @@ Status unchanged: confirmed within φ=5 (r=0.749), not yet testable within other
 
 **The atlas is substantially pre-computational.** The one open residual (gradient law cross-φ) requires worlds with the same φ but different grad_score, which means testing within φ=7 or finding new φ=4/5 worlds with varying structure.
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
 
 ---
 
@@ -227,4 +227,4 @@ Status unchanged: confirmed within φ=5 (r=0.749), not yet testable within other
 
 **b=15 is explained by the settled laws. The open residual lives only in within-grad variation among non-flagship worlds.**
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16 | DOI: 10.5281/zenodo.18852047*

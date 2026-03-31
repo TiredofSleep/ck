@@ -1,7 +1,7 @@
 # The Universal Construction Law
 ## From One Special Table to a Law-Governed Family
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 *The miracle moved from the table to the law.*
 
 ---
@@ -127,4 +127,4 @@ These are not copies of TSML. They are the native structured optima of their res
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*

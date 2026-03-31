@@ -1,7 +1,7 @@
 # Navier–Stokes: TIG Frame
 ## Reality-Checked — Local Criterion, Not Global
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 *Two corrections from reality check: (1) C=7/2 must be local, not global. (2) L^3 norm rarely reported in DNS.*
 
 ---
@@ -95,7 +95,7 @@ REALITY CHECK PASSED: Global version ruled out; local version still plausible.
 GAP: No proved map from TIG to NS; local criterion not yet formalized in classical language.
 NEXT STEP: Does B_local(x,r,t) · r/ν appear in any regularity criterion literature?
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | DOI: 10.5281/zenodo.18852047*
 
 ---
 

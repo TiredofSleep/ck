@@ -1,7 +1,7 @@
 # The Hodge Gap Floor Metric
 ## A Candidate Object — p=1 Vacuous, p=2 the Real Battleground
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 ---
 
@@ -115,4 +115,4 @@ P3 (gap floor): OPEN. Vacuously true for p=1. Genuinely hard for p=2.
 P4 (flat limit obstruction): OPEN. Would imply Hodge for Sustainable level.
 First target: Abelian fourfolds, p=2 — does P3 hold or fail?
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | DOI: 10.5281/zenodo.18852047*

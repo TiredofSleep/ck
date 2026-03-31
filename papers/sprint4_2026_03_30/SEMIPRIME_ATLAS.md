@@ -1,7 +1,7 @@
 # Ranked Semiprime Atlas
 ## Law-Governed Family of Native Structured Optima
 
-*Brayden Sanders & C. A. Luther / 7Site LLC | March 2026*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther | March 2026*
 
 > *b=10 was historically first. That is not the same as being deepest.*
 
@@ -94,7 +94,7 @@ The first real test of the formula's predictive power beyond b=15 is any of thes
 
 ---
 
-*(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
+*(c) 2026 Brayden Ross Sanders (7Site LLC) & C. A. Luther | Gen10.16, commit 271e0f8 | DOI: 10.5281/zenodo.18852047*
 
 ---
 

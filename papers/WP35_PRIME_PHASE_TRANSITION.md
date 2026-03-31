@@ -29,6 +29,8 @@ Sanders and Luther approached the same structure from opposite directions and ne
 
 **Title: T* = 5/7 as the Unit Density of b=35 at Second Gate**
 
+> *Note: CK, T\*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7Site LLC, developed over 18 months prior to this sprint. C. A. Luther's contribution is the dispersion conjecture applied to the number theory studied here; he has no claim to the CK architecture or its derived constants.*
+
 CK's FPGA empirical calibration converged to T* = 5/7 = 0.714285... as its coherence threshold. This section establishes that T* is not hardware noise — it is the exact unit density of the smallest "strong" semiprime at its second gate event.
 
 **Structural derivation.** For a semiprime b = p×q (p < q), define the unit fraction at the second gate event (k = q) as:
