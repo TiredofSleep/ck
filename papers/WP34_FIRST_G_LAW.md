@@ -306,6 +306,22 @@ at this cap. All four give the same difficulty score 0.3210 to four decimal plac
 factorization of b determines the geometry; the geometry determines the difficulty; b
 contributes only through which geometry it produces.
 
+**Cross-class test: same partition geometry, different ring structure.**
+A three-way comparison including prime powers (ω=1) at the same k=9, |G|=4:
+
+| World type      | b   | G_elements     | interleave | |G|×IL | difficulty | CRT idem |
+|----------------|-----|----------------|------------|--------|------------|----------|
+| prime_power 2^5 | 32  | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.6481     | 0        |
+| prime_power 2^6 | 64  | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.6512     | 0        |
+| semiprime 2×11  | 22  | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.6790     | 2        |
+| semiprime 2×13  | 26  | {2, 4, 6, 8}  | 1.000      | 4.00   | 0.6790     | 2        |
+
+The partition is literally identical (G={2,4,6,8} in all four cases). The Luther metric
+is identical (4.00). Yet semiprimes are harder than prime powers by 0.030 difficulty
+points. This gap — with G held completely fixed — is the direct signature of the 2 extra
+CRT idempotents in Z/pqZ vs Z/p^nZ. The ring sees them even when the alphabet partition
+does not. **The omega hierarchy is not a property of G; it is a property of the ring.**
+
 **Dispersion collapse test** (63 matched (b,k) pairs, gate_rate from optimization trials):
 
 ```
