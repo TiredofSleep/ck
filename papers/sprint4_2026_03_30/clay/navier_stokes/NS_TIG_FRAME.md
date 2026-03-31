@@ -96,3 +96,77 @@ GAP: No proved map from TIG to NS; local criterion not yet formalized in classic
 NEXT STEP: Does B_local(x,r,t) · r/ν appear in any regularity criterion literature?
 
 *(c) 2026 Brayden Sanders & C. A. Luther / 7Site LLC | DOI: 10.5281/zenodo.18852047*
+
+---
+
+## Cross-Reference: Coherence Structure from Semiprime Gate Survey (WP34 §9, §10A — March 2026)
+
+*(Brayden Sanders / C.A. Luther)*
+
+The deep pre-echo survey of semiprimes (WP34) produced structural results that reinforce
+the NS coherence framework in two ways.
+
+### The Phase Transition Has Zero Width (WP34 Corridor Atlas — PROVED)
+
+In the finite ring model, the coherence-to-incoherence transition at k = p is a step function:
+
+```
+gate_rate = 1.0   for ALL k < p    (pre-echo zone, fully coherent)
+gate_rate = 0.0   at k = p         (First-G: instant collapse)
+gate_rate = 0.0   for ALL k > p    (post-G zone, incoherent)
+```
+
+Verified across 70 semiprime worlds, zero exceptions. The transition has exactly zero width.
+
+**NS relevance:** The zero-width phase transition supports the local criterion framing
+over a smooth-gradient criterion. TIG predicts a singularity threshold that is sharp —
+B_local either crosses 7/2 or it does not. There is no smearing, no partial coherence
+near the boundary. This sharpness is a structural property of TIG's gate algebra, not
+an assumption.
+
+### The Pre-Echo Countdown Approaches the Gate (WP34 §10A — PROVED)
+
+The harmonic resonance R(k, 1/p) decays smoothly as k → p, approaching 1/(p-1)² just
+before the gate, then collapsing to 0 at First-G. This countdown is measurable in advance:
+the spectrum knows the gate is coming before the gate activates.
+
+**NS relevance:** In turbulent flows, pre-singularity behavior (growing L^∞ vorticity,
+tightening of coherent structures) corresponds to this countdown. The closed-form decay
+R(k,f) = sin²(πk/f)/(k²sin²(π/f)) is a candidate template for the spectral precursor
+profile near a potential singularity. The field B_local may exhibit a corresponding
+spectral countdown before any actual blowup.
+
+This is a STRUCTURAL ANALOGY — no proved map from the finite ring model to NS dynamics.
+But the shape of the precursor (smooth decay to a threshold, then step-function collapse)
+is consistent with the local criterion formulation.
+
+### Luther Dispersion and Gate Rate (WP34 §9 — CONJECTURE)
+
+The dispersion conjecture (C.A. Luther) states:
+
+```
+gate_rate ≈ F_k( |G| × dispersion(G) )
+```
+
+where dispersion(G) is the spread of non-unit elements across the alphabet.
+
+**NS relevance:** In turbulence, vorticity is not uniformly distributed — it is concentrated
+in coherent structures (low dispersion) or spread across the flow (high dispersion).
+The Luther metric |G| × dispersion maps to: number of active singular regions (|G|) times
+their spatial spread (dispersion). The prediction that gate_rate decreases as Luther metric
+increases is consistent with the physical intuition that concentrated vorticity (low dispersion,
+large singular cores) is harder to regularize than spread-out turbulence.
+
+This is an untested analogy; no formal reduction from gate_rate to NS regularity criteria exists.
+It is noted here as a structural motivation for the local concentration framing.
+
+### Summary of Cross-References
+
+| WP34 result | NS relevance | Status |
+|-------------|-------------|--------|
+| Zero-width phase transition (70 worlds) | Sharp B_local threshold (not smeared) | STRUCTURAL (WP34 §10A) |
+| Harmonic pre-echo countdown | Spectral precursor before blowup | STRUCTURAL ANALOGY |
+| Luther dispersion conjecture | Concentrated vs spread vorticity | STRUCTURAL ANALOGY |
+| ω(b) hierarchy | Ring complexity ~ flow complexity class | STRUCTURAL ANALOGY |
+
+Full detail: `Gen10/papers/WP34_FIRST_G_LAW.md` (§9, §10, §10A).

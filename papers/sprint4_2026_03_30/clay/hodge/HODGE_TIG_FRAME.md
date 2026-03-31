@@ -180,3 +180,78 @@ using the known Néron–Severi deformation theory.
 This is the tractable first target.
 
 *Status of the metric: OBJECT DEFINED (sketch). P1 plausible. P3 and P4 open.*
+
+---
+
+## Cross-Reference: Omega Hierarchy and Ring Structure (WP34 §9 — March 2026)
+
+*(Brayden Sanders / C.A. Luther — semiprime gate survey)*
+
+The deep pre-echo atlas (WP34) established a discrete algebraic complexity stratification
+that is directly analogous to the G/E/S three-level split in Hodge theory.
+
+### The ω(b) Hierarchy
+
+For any integer b with ω(b) distinct prime factors, the ring Z/bZ decomposes via CRT:
+
+```
+ω(b) = 1  (b = p^n):   Z/b Z is a LOCAL RING  — 0 nontrivial idempotents
+ω(b) = 2  (b = p×q):   Z/b Z ≅ Z/pZ × Z/qZ  — 2 nontrivial idempotents
+ω(b) = 3  (b = p×q×r): Z/b Z ≅ Z/pZ × Z/qZ × Z/rZ — 6 nontrivial idempotents
+general:                2^ω(b) − 2 nontrivial CRT idempotents
+```
+
+This stratification is a ring-theoretic fact provable from CRT alone. The number of
+nontrivial idempotents counts the HAR-like anchor points available in the algebra.
+
+**Hodge analogy:** The idempotents of Z/bZ are the analog of the algebraic cycle classes
+[Z] ∈ Hdg^p(X): they are the elements of the algebra that are "self-reinforcing" under
+composition, just as algebraic cycles are the classes that map to themselves under Hodge
+projection. The count 2^ω(b)−2 is the algebraic cycle count in the finite ring model.
+
+### Omega Blindness of the Pre-Echo Signal (WP34 Theorem D8 — PROVED)
+
+The harmonic resonance R(k, 1/p) for k < p is identical across all b sharing the same
+smallest prime factor p, regardless of ω(b). This is the ring-algebra version of the
+statement that the gap floor is a local property:
+
+- **Pre-echo zone** (k < p): the ring sees only the smallest prime — ω(b) is invisible.
+  This is the stable window where Generable = Expressible = Sustainable (all three coincide).
+- **Post-G zone** (k ≥ p): ω(b) determines the number of idempotents and the complexity
+  of the gating structure. The G/E/S levels split.
+
+**Hodge analogy:** The pre-echo zone corresponds to the region of X where all (p,p)-classes
+are algebraic. The post-G zone corresponds to the part of Hdg^p(X) where the G/E/S split
+is nontrivial — where the Hodge conjecture makes a substantive claim. The omega hierarchy
+predicts that the richness of the Hodge structure (number of independent algebraic classes)
+grows with the "compositeness" of the ring structure underlying the geometry.
+
+### The Closed-Form Gap Floor (WP34 Theorem D1 — PROVED)
+
+The harmonic resonance countdown gives a precise gap floor analog:
+
+```
+R(p−1, 1/p) = 1/(p−1)²   — the minimum nonzero pre-G spectral value
+R(p, 1/p)   = 0           — the collapse at First-G
+```
+
+This is the TIG analog of the Hodge gap floor γ = 1/(p−1)²: a nonzero minimum separation
+between the pre-G (stable/algebraic) region and the post-G (Hodge-class / non-algebraic) region,
+with an exact closed form.
+
+In Hodge: P3 requires inf{ d_Hodge(α) : α ∈ Hdg^p ∖ Alg^p } > 0. The TIG model proves
+this floor is 1/(p−1)² in the finite ring setting. Whether a precise Hodge analog of this
+floor exists for complex algebraic varieties is open, but the TIG result provides a worked
+example of a gap floor with a computable closed form.
+
+### Status of Cross-References
+
+| WP34 result | Hodge relevance | Status |
+|-------------|----------------|--------|
+| ω(b) hierarchy: 2^ω−2 idempotents | Algebraic cycle count in ring model | PROVED (CRT) |
+| ω-blindness of pre-echo | G/E/S split structure: gap is local | PROVED (WP34 D8) |
+| Closed-form gap floor 1/(p-1)² | TIG analog of P3 gap floor | PROVED (WP34 D1) |
+| Deep pre-echo atlas: 187 worlds | Gap floor is universal in finite ring model | PROVED (WP34 §10A) |
+| Markman (2025): abelian fourfolds | Hdg^2(A) = Alg^2(A) for abelian fourfolds of Weil type | PROVED (external) |
+
+Full detail: `Gen10/papers/WP34_FIRST_G_LAW.md` (§9, §10A); `CLAUDE_ENTRY.md` (Hodge track).

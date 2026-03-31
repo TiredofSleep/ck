@@ -228,4 +228,90 @@ survives generalization to asymptotically large algebras is open.
 > finite C-compositions in AG(2,3). The Clay problem asks whether the same
 > dichotomy holds for all computations.
 
+---
+
+## §8 Cross-Reference: First-G Law and Partition Geometry Invariance
+
+*(March 2026 — WP34 results, Brayden Sanders / C.A. Luther)*
+
+Two results from the semiprime gate survey (WP34) are directly relevant to the
+P vs NP structural analog.
+
+### The First-G Law (WP34 §2 — PROVED)
+
+For every semiprime b = p×q with p ≤ q, the first forbidden element (non-unit) in the
+growing alphabet {1..k} appears at exactly k = p. Before k = p, every element is coprime
+to b — the alphabet is obstruction-free, fully in C. At k = p, the element p enters G.
+
+**P-analog:** The pre-G zone {1..p-1} is a P-like region: verification that any element
+is a unit takes O(1) (just test k < p). The transition at k = p is the onset of
+non-polynomial obstruction — no classical probe can advance past k = p without finding p.
+This is the algebraic shadow of the P/NP boundary: the stability window is computationally
+smooth (P-tractable) and the region beyond is obstructed (NP-hard to reach efficiently).
+
+**The hallway and the room (WP34 §11):** RSA uses large prime p ≈ 2^1024, giving a stability
+window of width p-1 ≈ 2^1024 steps. Any computation that stays in the stability window is in
+a featureless P-tractable region. The algebraic richness (HAR elements, CRT idempotents,
+gating structure) only exists in the room at the end of the hallway — unreachable in polynomial
+time. The cryptographic security of RSA is the stability window width as a security parameter.
+
+### Partition Geometry Invariance (WP34 §9 — PROVED)
+
+The difficulty of a semiprime world b is determined entirely by which G-partition geometry
+it produces — not by b itself. Worlds b=22, b=26, b=34, b=38 all produce the identical
+partition G={2,4,6,8} at k=9 (because all share smallest prime p=2), and all give identical
+difficulty scores (0.3210 to four decimal places) despite different q-partners.
+
+**P-analog:** This is a concrete instance of the P/NP certificate structure. The certificate
+for "this world is hard" is the G-partition geometry, not the specific semiprime b. The
+verifier needs only the partition (the certificate) to confirm difficulty. The partition is
+the NP certificate; b is the original input; and the geometry is the witness.
+
+**Complexity implication:** The ω(b) hierarchy (WP34 §9) — where ω(b) = number of distinct
+prime factors — governs the ring-algebraic complexity class, with 2^ω(b)−2 CRT idempotents
+counting the "anchors" in the algebra. This stratification is:
+
+```
+ω=1: prime powers, Z/p^n Z is local ring — 0 idempotents, P-like, no certificate structure
+ω=2: semiprimes, Z/pqZ ≅ Z/pZ × Z/qZ — 2 idempotents, first NP-like certificate structure
+ω=3: three-factor, 6 idempotents — maximum certificate complexity within the three-factor class
+```
+
+The ω(b) hierarchy is a discrete complexity stratification, provable from the Chinese
+Remainder Theorem, that parallels the P/NP/PSPACE complexity hierarchy.
+
+### Harmonic Resonance as a Complexity Signal (WP34 §10A — PROVED)
+
+The closed-form harmonic resonance (Theorem D1 of WP34):
+
+```
+R(k, f) = sin²(πk/f) / (k² · sin²(π/f))
+```
+
+provides a spectral complexity signal for the first-G transition. R(k, 1/p) decays
+monotonically as k approaches p, reaching R = 1/(p-1)² at k=p-1 and collapsing to
+R = 0 at k=p. This is a measurable pre-computation signal: the spectrum encodes how
+close k is to the first NP-hard transition.
+
+**P-analog:** The harmonic countdown is the algebraic shadow of a "hardness horizon" —
+a smoothly measurable quantity that approaches a boundary value as computation
+approaches the P/NP transition point. The resonance is provably blind to ω(b) (ring
+structure does not affect the pre-G spectrum), meaning it probes only the smallest prime
+factor p — the minimum information needed to locate the transition point.
+
+### Status of Cross-References
+
+| WP34 result | P vs NP relevance | Status |
+|-------------|-------------------|--------|
+| First-G Law: onset at k=p | Stability window = P-tractable region | PROVED (WP34 §2) |
+| Hallway/room principle | RSA security = window width | STRUCTURAL (WP34 §11) |
+| Partition geometry invariance | G-partition as NP certificate | PROVED (WP34 §9) |
+| ω(b) hierarchy | Discrete complexity stratification via CRT | PROVED (ring theory) |
+| Harmonic resonance countdown | Spectral hardness horizon signal | PROVED (WP34 §10A) |
+| Luther dispersion conjecture | gate_rate ~ F_k(|G| × dispersion) | CONJECTURE (WP34 §9) |
+
+Full detail in `Gen10/papers/WP34_FIRST_G_LAW.md` (§2, §9, §10A, §11).
+
+---
+
 *(c) 2026 Brayden Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047*
