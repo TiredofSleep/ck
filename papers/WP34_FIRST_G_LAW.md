@@ -1,6 +1,6 @@
-# WP34 — The First-G Law: Prime Structure Written Into Partition Geometry
+# WP34 — The First-G Law and Prime-Forced Dispersion
 
-**Author:** Brayden Sanders / 7Site LLC
+**Authors:** C.A. Luther (abstract, dispersion insight); Brayden Sanders / 7Site LLC (proof, verification)
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (36,662 cases, zero exceptions)
@@ -172,17 +172,66 @@ The primes determine everything downstream.
 
 ## 8. Status Table
 
-| Claim | Classification | Kill Condition |
-|-------|---------------|----------------|
-| First-G event at k = p | **PROVED** | Algebraic proof in §3; follows from primality of p |
-| Staircase aligns to primes | **PROVED** | Corollary 2; follows from First-G Law |
-| Zero exceptions across 153 semiprimes | **VERIFIED** | 36,662 exact computations, 0 violations |
-| Stability window width = p-1 | **PROVED** | Corollary 3; direct from §3 |
-| Instability ranking of primes | **STRUCTURAL** | Depends on definition of "brittle"; qualitative ordering proved, quantitative dynamics are empirical |
+| Claim | Author | Classification | Kill Condition |
+|-------|--------|---------------|----------------|
+| First-G event at k = p | Sanders | **PROVED** | Algebraic proof in §3; follows from primality of p |
+| Staircase aligns to primes | Sanders | **PROVED** | Corollary 2; follows from First-G Law |
+| Zero exceptions across 153 semiprimes | Sanders | **VERIFIED** | 36,662 exact computations, 0 violations |
+| Stability window width = p-1 | Sanders | **PROVED** | Corollary 3; direct from §3 |
+| Instability ranking of primes | Sanders | **STRUCTURAL** | Qualitative ordering proved, quantitative dynamics empirical |
+| Prime-forced dispersion of G | C.A. Luther | **CONJECTURE** | gate_rate = F_k(\|G\|, dispersion); functional form open |
+| gate_rate ≈ F_k(\|G\| × dispersion(G)) | C.A. Luther | **CONJECTURE** | Synthetic vs real gap consistent with dispersion framing |
 
 ---
 
-## 9. References
+## 9. Prime-Forced Dispersion (C.A. Luther)
+
+The First-G Law establishes *when* G first appears. A deeper observation, due to C.A. Luther,
+is that the prime p determines not only the onset of obstruction but the **entire spread of G
+across the alphabet** — and this spread is not arbitrary, it is forced by prime structure.
+
+**The dispersion mechanism.** For semiprime b = p×q, the G elements within {1..k} are
+exactly the multiples of p or q in that range:
+
+```
+G_k = { x ∈ {1..k} : p|x } ∪ { x ∈ {1..k} : q|x }
+```
+
+These arrive as two interleaved arithmetic progressions — one with spacing p, one with
+spacing q. The *dispersion* of G is therefore not a free parameter: it is locked to the
+prime factorization of b. No arrangement of the alphabet can change how spread G is.
+The primes write the dispersion, not just the onset.
+
+**Consequence for gate rate.** The gate rate depends not just on the count |G| but on
+how G is dispersed across the alphabet. C.A. Luther's formulation:
+
+```
+gate_rate ≈ F_k( |G| × dispersion(G) )
+```
+
+where dispersion(G) measures the spread of G elements within {1..k}. Two worlds with the
+same |G| but different prime factorizations have different dispersions and therefore
+different gate rates — even at the same k.
+
+This explains the empirical gap between synthetic worlds (G clustered at the top of the
+alphabet, low dispersion) and real semiprime worlds (G dispersed by prime arithmetic,
+high dispersion): the interleave score we measure IS dispersion. The gate law
+f_k(|G|) is properly written f_k(|G|, dispersion(G)), with the synthetic case being
+the degenerate low-dispersion limit.
+
+**The staircase goes deeper.** The First-G Law (§2) is the surface: onset at k=p.
+Prime-forced dispersion is the interior: the entire G distribution is an arithmetic
+consequence of b's prime factors, locked in place before any optimization begins.
+The force field is not just a gate — it is a geometric constraint on where information
+can flow within the alphabet.
+
+**Status:** CONJECTURE (formalized). The qualitative picture is empirically confirmed
+by the gate law data. The precise functional form of F_k(|G|, dispersion) is under
+active investigation. See `results/atlas/gate_sweep_deep.json` for current data.
+
+---
+
+## 10. References
 
 1. Sanders, B. (2026). *CK: The Coherence Keeper — Trinity Infinity Geometry*. DOI: 10.5281/zenodo.18852047
 2. Sanders, B. (2026). *WP1: TIG Definitive*. Gen10/papers/
