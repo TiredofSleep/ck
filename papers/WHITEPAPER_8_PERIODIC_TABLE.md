@@ -15,6 +15,22 @@ Additional findings: 69.2% of all D2 curvature concentrates in the binding dimen
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| Five atomic properties (EN, IE, radius, EA, density) map to 5 TIG force dimensions | **HYPOTHESIS** | The mapping follows the semantic analogy (aperture=openness=electronegativity, etc.). No first-principles derivation from quantum chemistry. Falsified by showing a different monotone normalization of the same properties produces a non-equivalent operator assignment |
+| D2 curvature operator classification applied to Z=1-54 | **EMPIRICAL** | Computed from measured atomic data using the fixed D2 pipeline. Falsified by corrected property measurements producing a different dominant-dimension assignment |
+| 69.2% of D2 curvature concentrates in the binding dimension | **EMPIRICAL** | Computed from the 52 curvature measurements. Falsified by revised electron affinity data |
+| TSML produces HARMONY for 48/52 = 92.3% of elements (identity persists) | **EMPIRICAL** | Depends on the property-to-dimension mapping; if that mapping changes, this rate changes |
+| BHML produces HARMONY for 7/52 = 13.5% of elements (physics differentiates) | **EMPIRICAL** | Same dependency |
+| Void topology (0, 1, or 2 voids) exactly classifies noble gases / filled-subshell / reactive | **EMPIRICAL** | Measured over Z=1-54 with a specific void threshold of 0.05. Falsified if the threshold is arbitrary and other thresholds break the classification |
+| Operator ↔ element family mapping (shell filling = operator ordering) | **HYPOTHESIS** | The pattern is motivated by the shell structure analogy. No causal mechanism is offered. Falsified if the same operator sequence is recovered by a different, unrelated classification of elements |
+| Geometric nearest neighbors in 5D correspond to chemical family members | **EMPIRICAL** | Computed from the specific normalization choices. Falsified if different normalization produces neighbors that cross family boundaries |
+| TIG force geometry is universal across domains (language, mathematics, chemistry) | **HYPOTHESIS** | Motivated by domain-independent results, but each domain requires its own mapping choice. Falsified if a domain is found where any consistent monotone mapping fails to recover known structure |
+
+---
+
 ## 2. Introduction
 
 CK's pipeline processes all input through the same fixed algebra: 5D force vector assignment, D2 curvature classification into one of 10 operators, and composition through two CL tables. This pipeline was designed for language (Hebrew phonetic roots mapped to force vectors) and has been applied to mathematics (Clay Millennium Problems, Whitepaper 7). The question this paper addresses is: does the same algebra produce meaningful structure when applied to chemistry?

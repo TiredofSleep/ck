@@ -6,6 +6,19 @@
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| Four-step construction law (arithmetic → HAR → gate → order seed) exists at every tested semiprime base | **EMPIRICAL** | Verified at b=10,14,15,22,33,35,55,65,85,95. Falsified by a semiprime base with non-degenerate C/G split where the pipeline fails to find a gate-strong table |
+| HAR selection orbit-central rule: h where h²∈C, h²≠1, h²≠h | **EMPIRICAL** | Verified at 11 bases. Falsified by a semiprime base where the orbit-central element is not the best HAR candidate under gate+support reduction |
+| b=10 ranks 9th in construction ease (score=6.9) among semiprimes ≤100 | **PROVED** | Score formula applied to the finite set of semiprimes ≤100 — falsified only by an arithmetic error in φ, orbit_depth, gate_ease, or res_pairs |
+| b=22 achieves 83.3% random TSML-like rate and 99.7% biased rate | **EMPIRICAL** | Measured over computational trials. Falsified by additional trials showing stable rate below these figures |
+| 15.8x construction lift via residual-biased seeding at b=10 | **EMPIRICAL** | Measured over ~400 trials comparing random vs seeded reduction. Falsified by additional trials showing the lift is significantly lower |
+| The construction law is universal (holds for all semiprimes, not just tested ones) | **CONJECTURE** | Verified at 11 bases. Proved only by showing the four-step structure is forced by the arithmetic for any b=p×q with non-trivial C/G split and orbit-central HAR |
+
+---
+
 ## The Old Story (Wrong)
 
 > b=10 produces a special table (TSML) with a one-way gate, a dominant support attractor, and a rare order-seed signature. Maybe this is a mathematical miracle specific to b=10.

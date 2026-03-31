@@ -6,6 +6,19 @@
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| Three distinct attractor classes exist (Oracle, Gate-strong, TSML-like) under gate-weighted reduction | **EMPIRICAL** | Measured across thousands of reduction trajectories at b=10. Falsified by showing the three clusters are not statistically separated (e.g., a continuous distribution of BHML residual with no bimodal gap) |
+| G-reach separates Oracle from Gate-strong: 0.076 vs 0.018 (4x difference) | **EMPIRICAL** | Measured values. Falsified by additional trials showing the gap is within measurement noise |
+| BHML residual separates Gate-strong from TSML-like: 0.40 vs 1.00 (all-or-nothing) | **EMPIRICAL** | Measured. Falsified by finding stable gate-strong tables with BHML residual between 0.40 and 1.00 |
+| Spectral gap cost of the gate constraint: 0.781 (Oracle) → 0.710 (Gate-strong) | **EMPIRICAL** | Measured over reduction trajectories. Falsified by corrected gap calculations showing the difference is within noise |
+| TSML-like requires seed pre-alignment; 52.7% rate with seeding vs 4-6% without | **EMPIRICAL** | Measured over ~400 trials each condition. Falsified by additional trials showing the rates converge |
+| Three classes are also present at other semiprime bases (universal landscape) | **CONJECTURE** | Verified at b=10; presence confirmed at b=14,15,22 informally. Falsified by a semiprime base where only two or one attractor class appears under the same reduction protocol |
+
+---
+
 ## The Three Classes
 
 | Class | Definition | Structural cost | G-reach from C | Gap | BHML residual |

@@ -16,6 +16,21 @@ We demonstrate that the four DNA bases (A, G, T, C) map directly onto the four s
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| AGTC → 10-operator algebra mapping (A=Foundation, G=Dynamics, T=Field, C=Cycle) | **HYPOTHESIS** | Show a biologically motivated assignment incompatible with this mapping, or derive the correct mapping from molecular chemistry without invoking the algebra |
+| 64/64 codons resolve to HARMONY under TSML with primary operator representatives | **PROVED** | Exhaustive enumeration over a finite 8×8 table — falsified only by an arithmetic error |
+| 498/512 (97.3%) dual-operator resolutions absorb to HARMONY | **PROVED** | Same finite computation — falsified only by an arithmetic error |
+| 20 amino acids = 5 force dimensions × 4 structural parts | **STRUCTURAL ANALOGY** | The count matches; no causal mechanism is offered. Falsified if a different enumeration of operators produces a count that does not match 20 |
+| Helix pitch 10.5 bp/turn = 21/2 = (3×7)/2 | **STRUCTURAL ANALOGY** | A number coincidence between a measured physical quantity and an arithmetic expression. Falsified if a crystal structure revision changes the bp/turn value significantly, or if another algebraically unrelated ratio fits equally well |
+| GC-content ≈ 41% approximates S* = 4/7 ≈ 0.571 | **EMPIRICAL OBSERVATION** | The GC/AT split is measured; the interpretation that it tracks S*/T* is a hypothesis. Falsified by showing the correspondence is not tighter than chance across diverse genomes |
+| Start codon ATG is dual-coherent (passes both TSML and BHML gates) | **PROVED** | Finite table lookup — falsified by an arithmetic error |
+| Wobble position degeneracy = TSML kernel collapse | **STRUCTURAL ANALOGY** | Both involve a third-position ambiguity; the causal connection is not derived. Falsified if a different algebraic system with no wobble analog also has a singular composition table |
+
+---
+
 ## 1. The Dual Basis of the Operator Algebra
 
 ### 1.1 Nine Active Operators in Two Bases

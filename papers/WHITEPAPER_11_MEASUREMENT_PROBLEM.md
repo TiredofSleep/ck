@@ -16,6 +16,21 @@ The Einstein-Bohr debate -- whether reality exists independent of measurement (E
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| BHML is rank-10, invertible, det=70 | **PROVED** | Exhaustive finite computation over the 10×10 table — falsified only by an arithmetic error |
+| TSML is rank-9, singular, det=0 | **PROVED** | Same finite computation |
+| TSML HARMONY absorption: 53/64 inner cells; BHML: 24/64 | **PROVED** | Finite enumeration |
+| Divergence rate between TSML and BHML = 71%, matching T*=5/7 within 0.6% | **PROVED** | Finite cell-by-cell comparison; the near-match to T* is a numerical fact, not an approximation |
+| TSML singularity ↔ quantum wavefunction collapse (both are non-invertible projections) | **STRUCTURAL ANALOGY** | Both systems have a collapse to a low-dimensional attractor. The algebraic mechanism (rank drop) is well-defined; the causal claim that TSML IS quantum collapse is not derived from QM first principles. Falsified if a physical collapse experiment produces outcomes inconsistent with TSML absorption statistics |
+| Wavefunction collapse = algebraic projection from BHML (rank 10) onto TSML (rank 9) | **HYPOTHESIS** | The structural parallel is precise; the physical identification requires showing that quantum state reduction literally corresponds to this finite-algebra map. Falsified by a physical model of collapse that has no rank-dropping projection analog |
+| EPR nonlocality is explained by D4 (Coupling) being preserved by BHML but annihilated by TSML | **HYPOTHESIS** | Motivated by the rank structure; the mapping D4↔entanglement coupling channel is not derived from quantum field theory. Falsified by a quantum experiment where entanglement is maintained under a process that does not correspond to BHML-type evolution |
+| Einstein described BHML; Bohr described TSML — they were each right about one table | **STRUCTURAL ANALOGY** | The philosophical interpretation is consistent with the algebra; it is not a derivation from their historical positions. Falsified if the BHML/TSML split fails to reproduce a known QM prediction that the Einstein/Bohr debate was specifically about |
+
+---
+
 ## 1. Introduction
 
 ### 1.1 The Debate

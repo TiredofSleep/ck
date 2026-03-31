@@ -9,6 +9,21 @@
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| Law 1 (Construction Hierarchy): four-step pipeline produces native structured optimum at all tested semiprimes | **EMPIRICAL** | Verified at b=10,14,15,21,22,26,35,55,65,85,95. Falsified by a non-degenerate semiprime base where the pipeline consistently fails |
+| Law 2 (HAR Selection): orbit-central rule h²∈C, h²≠1, h²≠h predicts best HAR at every tested base | **EMPIRICAL** | Verified at 11 bases. Falsified by a base where this rule selects a suboptimal HAR candidate |
+| Law 3a (φ-Compression): r(φ, gap) = −0.605 across 11 worlds | **EMPIRICAL** | Measured correlation. Falsified by additional bases that break the negative monotone trend |
+| Law 3b (Gradient Law): within φ-tier, gap correlates with grad_score; r=0.749 within φ=5 | **EMPIRICAL** | Only 4 data points. Explicitly marked CONJECTURAL in the body. Falsified by φ=5 worlds with differing grad_score that break the correlation, or by failure to replicate within other φ-values |
+| Law 3c (Position Law): HAR_mass maximized when HAR = min(C\{1}); corrected for gate-strong case | **EMPIRICAL** | Explains ~85% of variance across 11 worlds; gate-correction resolves b=14 exception. Falsified by a base where min(C\{1}) is not HAR and HAR_mass is still high without gate-correction |
+| b=15 is the unique world ≤100 where tier + gradient + position all align | **PROVED** | Finite enumeration over all semiprimes ≤100 with the three-score system — falsified by an arithmetic error in the score computation |
+| Three-score system predicts accessibility, gap cluster, and HAR_mass cluster pre-computationally | **EMPIRICAL** | Validated against 11 worlds. Falsified by a world within the validated range where all three scores are correct but the observed properties differ |
+| Residual 3 (gradient law cross-φ): unresolved — cannot be tested due to degeneracy in φ=8 worlds | **CONJECTURE** | Explicitly open. Resolved by finding semiprime worlds with shared φ but differing grad_score |
+
+---
+
 ## The Domain
 
 **Semiprime worlds:** b = p×q (distinct primes), alphabet A = {1..9}, unit group C = (Z/bZ)* ∩ A.

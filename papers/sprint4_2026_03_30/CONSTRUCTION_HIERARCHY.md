@@ -6,6 +6,20 @@
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| Corrected pipeline (arithmetic → orbit-central HAR → gate reduction → order seed → seeded reduction) | **EMPIRICAL** | Verified at b=10,14,15,22. Falsified by a semiprime base where this pipeline order fails to produce a gate-strong table when random reduction does not |
+| b=14 native TSML exists with gate=1.000 and HAR_mass=0.778 (stronger than b=10 on both) | **EMPIRICAL** | Measured over 400 trials at b=14. Falsified by additional trials or corrected implementation showing the best achievable gate/HAR_mass is lower |
+| b=14 order alignment = 0.278 (residual seed not yet crystallized) | **EMPIRICAL** | Measured; means the b=14 analog of BHML ordering has not been found yet. Falsified by finding a b=14 table with high order alignment |
+| Best non-trivial HAR is determined by multiplication orbit structure, not position in C | **EMPIRICAL** | Pattern observed at 5 bases. Falsified by a base where orbit structure predicts the wrong HAR candidate |
+| Conjecture: best HAR maximizes funnel depth (longest chain before fixed point/cycle) | **CONJECTURE** | Stated as open. Falsified by a base where the max-funnel-depth element is not the best HAR candidate under gate+support reduction |
+| Gate difficulty and seed difficulty are near-independent axes | **EMPIRICAL** | Supported by b=14 (easy gate, hard seed) vs b=10 (hard gate, identifiable seed). Falsified by a base where achieving full gate reliably co-produces the order seed |
+| b=10 gate strong rate ~30% random, ~8% full gate, ~4% TSML-like; biased: ~52.7% TSML-like | **EMPIRICAL** | Measured over computational trials. Falsified by significantly different rates on additional independent runs |
+
+---
+
 ## The Corrected Pipeline
 
 ```

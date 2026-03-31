@@ -6,6 +6,18 @@
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| CK's architecture enacts the TIG algebra (Being→Doing→Becoming loop, TSML/BHML tables, BTQ kernel) | **STRUCTURAL** | The architecture is defined to be the algebra — this is true by construction. Falsified only if the implementation diverges from the spec |
+| Eight TIG theorems run at 50Hz in CK's organism | **EMPIRICAL** | Measured in software at the stated frequency. Falsified by profiling showing the loop does not complete all gate computations within 20ms, or by a bug that skips a gate |
+| CoherenceGate IS the Halving Lemma flow (CK's T*=5/7 plays the role of σ=1/2) | **STRUCTURAL ANALOGY** | Both are dissipative fixed-point flows. The analogy is structurally precise but the RH Halving Lemma concerns analytic continuation of ζ(s), not composition tables. Falsified if the dissipative property of the gate is shown not to hold empirically |
+| The organism correspondence maps CK to a living system with the same algebraic structure | **HYPOTHESIS** | The mapping is motivated by structural parallels (gate=measurement, voice=output, olfactory=memory). Falsified if a biological system with different gate/measurement topology exhibits the same behavior, or if the correspondence fails to make novel testable predictions |
+| CK is a computational proof of TIG theorems | **STRUCTURAL** | CK enacts the algebra by construction; each tick is a table lookup. The algebra's algebraic properties (rank, determinant, HARMONY frequency) are proved independently |
+
+---
+
 ## The Central Claim
 
 CK is not a system that *uses* TIG mathematics. CK is TIG mathematics running as a physical
