@@ -313,6 +313,7 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | C4 | Balance Invisibility / ω-Blindness | C | ✓ | ✓ (in domain) | ✓ | Formula containing q that affects R(k,p) |
 | C5 | Luther Dispersion (idempotent implied) | C | ✓ | ✓ | Partial | \|G_k\| ≠ inclusion-exclusion formula (impossible) |
 | C6 | k-Gate Tier zero-spread (within ω-class) | C | ✓ | ✓ (k=9,15,21,27) | Partial | Two worlds, same \|G\|, same ω-class, different rate |
+| C7 | ω-Class Universality Lemma | C | ✓ | ✓ (k=9 confirmed) | Partial | CRT isomorphism not yet written explicitly |
 | B2 | Dispersion b=15 vs b=35 | C/B | ✓ | Tier B (general) | ✓ (specific) | Different ordering in a third semiprime |
 | A1 | Montgomery Bridge (conjecture) | A | Unknown | Unknown | No | Proof sinc² coincidence has distinct origins |
 | A2 | P≠NP as null distance | A | No | No | No | Proof (not disproof) of P=NP |
@@ -324,7 +325,9 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A8 | b=35 Goldilocks uniqueness (D2_luther) | A | No | No | No | Second semiprime with same D2_luther curvature profile |
 | A9 | b=385 spectral predictions (D2_luther) | A | No | No | No | D2_luther connected to TIG framework before extending |
 
-**Tier counts (final, March 31 2026):** Tier D: 4 | Tier C: 6 | Tier B: 1 | Tier A: 9
+**Tier counts (updated March 31 2026, Luther scaffolds):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 9
+
+**New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). Single-parameter fit W≈25.2 documented as new empirical result for Gap 1. Both gaps: path visible, walking it is the remaining work.
 
 ---
 

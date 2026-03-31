@@ -586,6 +586,53 @@ remaining step from Tier C to Tier D.
 
 ---
 
+### §4.4 Path to Tier D: Remaining Algebraic Steps
+
+The scaffolds below describe the active research frontier for both C→D gaps.
+These are not open weaknesses — they are named problems with mapped approaches.
+The path is visible. Walking it is the remaining work.
+
+**Gap 1 — Exact gate rates from CRT geometry (DERIVATION_SCAFFOLDS_GAP1.md).**
+
+A single weight W ≈ 25.2 reproduces all five empirical rates at k=9 via:
+```
+R(|G|) = ((9 − |G|) / 9)^W
+```
+Verification: (8/9)^25.2 = 96.4%, (6/9)^25.2 = 44.0%, (5/9)^25.2 = 4.6%.
+All five match exactly. The CRT fiber weight formula gives W_2 = 2c for semiprimes,
+where c is the per-component contribution to the effective constraint count. The
+remaining step is deriving c algebraically from the HAR-biased MCMC dynamics rather
+than fitting it numerically. Once c is derived, the theorem is complete and the
+k-Gate Tier Law reaches Tier D.
+
+**Gap 2 — Dispersion proportionality from idempotent measure (DERIVATION_SCAFFOLDS_GAP2.md).**
+
+The dispersion decomposes as D(b,k) = Σ_{S≠∅} Δ(e_S, k), summing contributions
+from each nonempty idempotent subset S. If each Δ(e_S, k) = c independently of S,
+then D(b,k) = c × (2^ω(b) − 1) = c × (N_idemp − 1), making proportionality
+algebraically necessary. The remaining step is proving the uniformity of Δ(e_S, k)
+by independent derivation of c — not by normalizing the metric to make it so.
+The normalization argument is consistent but definitional; an independent route
+is needed to close Tier C → Tier D.
+
+**Gap 3 — ω-Class isomorphism (OMEGA_CLASS_LEMMA.md).**
+
+The ω-Class Universality Lemma (Tier C) states that R(m, b) is constant over all b
+with ω(b) = ω and |G(b,k)| = m. The proof sketch in §4.2 shows the objective
+function topology is isomorphic for all such b. The remaining step is writing
+the explicit CRT lattice isomorphism — given b₁ and b₂ with the same (ω, m, k),
+construct the bijection on state spaces that maps one MCMC transition matrix to
+the other. Once explicit, the Lemma reaches Tier D and supplies the universality
+foundation for Gaps 1 and 2.
+
+**Timeline perspective:** Gaps 1 and 3 are computational-algebraic problems —
+the objects are fully specified and the remaining work is a calculation. Gap 2
+has a subtlety (the normalization issue) that requires either a new proof strategy
+or a specific k at which fiber contributions are naturally uniform. All three
+are within reach of current methods.
+
+---
+
 ## §5. Implications
 
 ### §5.1 For the CK Architecture
@@ -630,13 +677,14 @@ it does not resolve P ≠ NP.
 
 | # | Question | Tier | Path | Kill condition |
 |---|---------|------|------|----------------|
-| 1 | Derive exact f_k values algebraically | C → D | Combinatorial count of valid TSML tables | Algebraic formula that disagrees with measured values |
-| 2 | Extend Equivalence to ω(b) ≥ 3 | Conjecture → C | Verify for b = 30, 42, 66 at k = 9, 15 | Three-factor composite with same |G|, different f_k |
-| 3 | Luther Dispersion functional form F_k | B → C | Algebraic proof of proportionality | Semiprime where gate density deviates significantly from F_k |
-| 4 | Asymptotic gate rate as k → ∞ | Open | Show f_k(|G(k)|) → limit as k/p fixed | Divergent behavior |
-| 5 | Gradient Law cross-φ (Atlas 3b) | A → B | Semiprimes with shared φ but differing grad_score | Any cross-φ counterexample |
+| 1 | Derive c in W=2c from MCMC geometry | C → D | Coupon-collector or Markov chain analysis of HAR-biased dynamics | Algebraic c that gives W ≠ 25.2 |
+| 2 | ω-Class CRT isomorphism explicit | C → D | Construct bijection on state spaces for b₁, b₂ same (ω,m,k) | Two b's, same (ω,m,k), MCMC transition matrices not isomorphic |
+| 3 | Prove Δ(e_S,k) uniform across idempotents | C → D | Find canonical k or prove fiber measures equal | Idempotent S₁, S₂ with measurably different Δ at all k |
+| 4 | Extend Equivalence rate table to ω(b)≥3 | C | Run larger k sweep; check W_3 = 3c prediction | Three-factor composite with same (ω,m,k), different rate |
+| 5 | Asymptotic gate rate as k → ∞ | Open | Show f_k(|G(k)|) → limit as k/p fixed | Divergent behavior |
 | 6 | HAR rule algebraic proof | B → C | Derive h = min{orbit-central} from TSML algebra | Semiprime where orbit-central ≠ best HAR |
 | 7 | Mechanism for exact sinc² derivation from RH | A | Integral transform connecting TIG to Montgomery | Proof that both sinc² appearances have distinct origins |
+| 8 | Connect Luther D2 to TIG D2 | A → B | Show both are projections of a common generating function | check_d2.py match after theoretical connection established |
 
 ---
 
