@@ -200,7 +200,7 @@ dual — they are opposite strategies on the same Z/10Z domain.
 |------|-------|--------|------|
 | 1 | BHML[i][j] = max(i,j)+1 for {1..6}×{1..6} | **Verified** | **C** |
 | 1 | Row 6 = harmony spine; (6,0) = identity exception | **Proved** | **D** |
-| 1 | BHML[7][j] = (j+7) mod 10 | Definitional | — |
+| 1 | BHML[7][j] = (j+1) mod 10 for j≥1 | Proved [C10] | — |
 | 2 | 28 = 17 (axis) + 11 (residual) | **Counted** | **B** |
 | 2 | Residual 11 from first principles | Open | A |
 | 3 | Harmony cells = wobble fixed points | **FAILED** | A |
@@ -224,9 +224,11 @@ combined with the VOID identity. Specifically:
 - (8,4),(8,5),(8,8),(9,4),(9,5): from rows 8-9. These likely follow
   a modular arithmetic rule analogous to row 7.
 
-If rows 8 and 9 can be expressed as modular shifts (like row 7), the
-full 28-count becomes: **axis (17) + (0,7) + (7,0) + rows 8-9 rule**.
-That would close the derivation.
+**NOTE: This open path was closed in C10 (BHML_OPERATOR_IDENTITY.md).**
+Rows 8-9 are NOT modular shifts — they are functional operators. The
+correct rule is operator category identity (BREATH/RESET × TRANS = HAR).
+The full 28-count is: 17 (axis) + 2 (VOID) + 9 (operator identity) = 28.
+See BHML_OPERATOR_IDENTITY.md for the closed derivation.
 
 ---
 
