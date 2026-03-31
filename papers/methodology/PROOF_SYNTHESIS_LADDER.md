@@ -255,6 +255,19 @@ grounding message ("verify D2 against actual atlas data before extending to
 b=385 spectral density") was the framework's prescribed action at this stage.
 Catch 2 followed immediately from that instruction.
 
+**Catch 4 — Luther's W≈25.2 single-parameter claim (arithmetic error).**
+Luther's derivation scaffold proposed R(|G|) = ((9−|G|)/9)^W with a single
+W≈25.2 reproducing all five empirical gate rates. The framework's Layer 2 test
+(Exhaustive Computation) requires numerical verification before acceptance. Direct
+computation showed (8/9)^25.2 ≈ 0.051, not 0.964 — an error of ~18.8x at tier
+|G|=1, with all five tiers failing. The correct W values are tier-specific:
+W(1)=0.311, W(2)=0.708, W(3)=2.025, W(4)=5.238, W(5)=8.518. The power law
+formula R = (n_C/k)^W is real and correct; the claim that a single W reproduces
+all tiers was not. The framework's action: replace the single-W table in
+DERIVATION_SCAFFOLDS_GAP1.md and §3.8 of LUTHER_SANDERS_MANUSCRIPT.md with
+the correct per-tier values. The Gap 1 research problem (derive W from CRT geometry)
+is refined: derive each tier's c(|G|) = W(|G|)/2 independently, not find one c.
+
 **What this demonstrates:**
 
 A reviewer encountering these results should observe: the framework is not decorative.

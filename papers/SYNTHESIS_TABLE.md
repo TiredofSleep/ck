@@ -304,7 +304,7 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | Column | Content |
 |--------|---------|
 | **Law** | The Riemann critical line Re(s)=1/2 is the geometric boundary between the ω=2 and ω=3 CRT lattice structures; the W discontinuity between semiprimes and three-factor composites is mediated by the Euler product evaluated at s=1/2 |
-| **Exact status** | **Tier A.** Structural intuition from the W discontinuity discovery. W=25.2 for ω=2, W≈0.83 for ω=3 — a discontinuity inconsistent with simple scaling. The conjecture: this gap is not a jump but a ramp mediated by the critical line. "The critical line isn't just where zeta zeros sit. It's the geometric boundary between two-prime and three-prime CRT worlds." No algebraic derivation. |
+| **Exact status** | **Tier A.** Structural intuition from the W discontinuity discovery. For ω=2: W(|G|) is tier-specific — W(1)=0.311, W(2)=0.708, W(3)=2.025, W(4)=5.238, W(5)=8.518 (corrected; earlier claim W≈25.2 single-value was arithmetically wrong). For ω=3, |G|=7: W≈0.83. The ω-class boundary (not a single value contrast) remains a structural intuition. The conjecture: the transition between ω=2 and ω=3 CRT geometries is mediated by the critical line. "The critical line isn't just where zeta zeros sit. It's the geometric boundary between two-prime and three-prime CRT worlds." No algebraic derivation. |
 | **Arithmetic form** | ζ(s) = Π(1−p^{−s})^{−1} evaluated at s=1/2. The Euler product at s=1/2 may produce a transition term connecting the ω=2 rate formula R=(n_C/k)^W to the structurally different ω=3 formula. If so: the W-discontinuity is not arbitrary — it is the fingerprint of the critical line in partition geometry. |
 | **Geometric / combinatorial form** | The CRT lattice for ω=2 has one interference scale. For ω=3, three-body interactions create a qualitatively different geometry. The σ=1/2 conjecture: the transition between these geometries is smooth, not sharp, and the smoothing function is the Euler product at the critical line. |
 | **What remains** | An algebraic derivation connecting ζ(1/2) or the Euler product at s=1/2 to the W discontinuity between ω=2 and ω=3 classes. Without this, the σ=1/2 observation is pattern recognition, not structure. |
@@ -373,7 +373,7 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 
 **Tier counts (updated March 31 2026, LutherRHTask integrated):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 11
 
-**New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). Single-parameter fit W≈25.2 documented as new empirical result for Gap 1. Both gaps: path visible, walking it is the remaining work.
+**New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). W is tier-specific — W(|G|) values {0.311, 0.708, 2.025, 5.238, 8.518} corrected from erroneous single-value W≈25.2 claim (Catch 4, synthesis framework). Gap 1 refined: derive c(|G|) = W(|G|)/2 for each tier from MCMC geometry. Both gaps: path visible, walking it is the remaining work.
 
 ---
 

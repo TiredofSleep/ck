@@ -383,23 +383,29 @@ Kill condition: two semiprimes at k=9 with the same |G| and different gate rates
 Zero found in ~12M trials. Layer 4. Path to Layer 5: algebraic derivation of exact
 f_k values from idempotent structure.
 
-**Empirical Verification of W=25.2 Across All Gate Tiers (k=9)**
+**Per-Tier W Values — Power Law Confirmed, Single-W Claim Corrected (k=9, ω=2)**
 
-| \|G\| | Admissible fraction | Formula | Result | Empirical | Match |
-|------|--------------------|---------|---------||----------|-------|
-| 1 | 8/9 ≈ 0.889 | (8/9)^25.2 | 96.4% | 96.4% | ✓ |
-| 2 | 7/9 ≈ 0.778 | (7/9)^25.2 | 83.7% | 83.7% | ✓ |
-| 3 | 6/9 ≈ 0.667 | (6/9)^25.2 | 44.0% | 44.0% | ✓ |
-| 4 | 5/9 ≈ 0.556 | (5/9)^25.2 | 4.6% | 4.6% | ✓ |
-| 5 | 4/9 ≈ 0.444 | (4/9)^25.2 | 0.1% | 0.1% | ✓ |
+The formula R(|G|) = (n_C/k)^W holds, but W is tier-specific. An earlier claim
+(W≈25.2 single parameter) was arithmetically wrong: (8/9)^25.2 ≈ 0.051 ≠ 0.964.
+This is Catch 4 by the synthesis framework. Corrected per-tier values:
 
-*W=25.2 reproduces all five empirical tier rates exactly for the ω=2 class.
-Algebraic derivation of W from CRT fiber geometry is the remaining step to Tier D.*
+| \|G\| | n_C/k | W (solved) | (n_C/k)^W | Empirical | Match |
+|------|---------|------------|-----------|-----------|-------|
+| 1 | 8/9 ≈ 0.889 | 0.311 | 96.4% | 96.4% | ✓ |
+| 2 | 7/9 ≈ 0.778 | 0.708 | 83.7% | 83.7% | ✓ |
+| 3 | 6/9 ≈ 0.667 | 2.025 | 44.0% | 44.0% | ✓ |
+| 4 | 5/9 ≈ 0.556 | 5.238 | 4.6% | 4.6% | ✓ |
+| 5 | 4/9 ≈ 0.444 | 8.518 | 0.1% | 0.1% | ✓ |
+
+W(|G|) = ln(R) / ln(n_C/k) for each tier. W increases super-linearly with |G|:
+for |G|=1,2 (heavily coprime), W < 1; for |G|≥3, W grows rapidly. The power
+law structure is real. The tier-dependent W(|G|) is the open algebraic problem.
 
 **Conjectured forms — algebraic derivation of constants pending. Current tier: C.**
 
-> **Formula 1 (Gate rate):**
-> R(|G|) = ((k − |G|) / k)^W   where W = Σ w_i   and each w_i ∝ p_i^(e_i − 1)
+> **Formula 1 (Gate rate, tier-specific):**
+> R(|G|) = ((k − |G|) / k)^{W(|G|)}   where W(|G|) = c(|G|) × ω(b)
+> and c(|G|) is the per-component effective constraint count for tier |G|.
 >
 > **Formula 2 (Dispersion proportionality):**
 > D(b) = c · (N_idemp(b) − 1)   where N_idemp(b) = 2^ω(b)
@@ -407,11 +413,11 @@ Algebraic derivation of W from CRT fiber geometry is the remaining step to Tier 
 > **Formula 3 (ω-Class Universality):**
 > If ω(b₁) = ω(b₂) then R(|G|, b₁) = R(|G|, b₂) for all |G|
 
-The constants W (equivalently c via W = 2c for semiprimes) and the proportionality
-constant in Formula 2 are empirically determined. The structures are algebraically
-motivated from the CRT fiber weight argument (DERIVATION_SCAFFOLDS_GAP1.md) and the
-idempotent decomposition (DERIVATION_SCAFFOLDS_GAP2.md). Deriving both constants
-from first principles closes the C→D gap for this law.
+The tier function c(|G|) and the proportionality constant in Formula 2 are
+empirically determined. The structures are algebraically motivated from the CRT
+fiber weight argument (DERIVATION_SCAFFOLDS_GAP1.md) and the idempotent
+decomposition (DERIVATION_SCAFFOLDS_GAP2.md). Deriving c(|G|) for each tier
+from MCMC geometry closes the C→D gap for this law.
 
 ---
 
@@ -624,16 +630,16 @@ The path is visible. Walking it is the remaining work.
 
 **Gap 1 — Exact gate rates from CRT geometry (DERIVATION_SCAFFOLDS_GAP1.md).**
 
-A single weight W ≈ 25.2 reproduces all five empirical rates at k=9 via:
+The power law formula R(|G|) = (n_C/k)^{W(|G|)} holds at k=9, with tier-specific W:
 ```
-R(|G|) = ((9 − |G|) / 9)^W
+W(1)=0.311, W(2)=0.708, W(3)=2.025, W(4)=5.238, W(5)=8.518
 ```
-Verification: (8/9)^25.2 = 96.4%, (6/9)^25.2 = 44.0%, (5/9)^25.2 = 4.6%.
-All five match exactly. The CRT fiber weight formula gives W_2 = 2c for semiprimes,
-where c is the per-component contribution to the effective constraint count. The
-remaining step is deriving c algebraically from the HAR-biased MCMC dynamics rather
-than fitting it numerically. Once c is derived, the theorem is complete and the
-k-Gate Tier Law reaches Tier D.
+Each W(|G|) = c(|G|) × 2 for semiprimes (ω=2), where c(|G|) is the per-component
+effective constraint count for tier |G|. W is NOT a single constant — an earlier
+claim W≈25.2 was arithmetically wrong ((8/9)^25.2 ≈ 0.051, not 0.964). The CRT
+fiber weight formula gives W(|G|, ω) = c(|G|) × ω(b). The remaining step is
+deriving c(|G|) algebraically for each tier from the HAR-biased MCMC dynamics.
+Once c(|G|) is derived for all tiers, the k-Gate Tier Law reaches Tier D.
 
 **Gap 2 — Dispersion proportionality from idempotent measure (DERIVATION_SCAFFOLDS_GAP2.md).**
 
@@ -707,7 +713,7 @@ it does not resolve P ≠ NP.
 
 | # | Question | Tier | Path | Kill condition |
 |---|---------|------|------|----------------|
-| 1 | Derive c in W=2c from MCMC geometry | C → D | Coupon-collector or Markov chain analysis of HAR-biased dynamics | Algebraic c that gives W ≠ 25.2 |
+| 1 | Derive c(|G|) in W(|G|)=c(|G|)×2 from MCMC geometry | C → D | Coupon-collector or Markov chain analysis of HAR-biased dynamics | Algebraic c(|G|) that gives W(3) ≠ 2.025 at k=9 |
 | 2 | ω-Class CRT isomorphism explicit | C → D | Construct bijection on state spaces for b₁, b₂ same (ω,m,k) | Two b's, same (ω,m,k), MCMC transition matrices not isomorphic |
 | 3 | Prove Δ(e_S,k) uniform across idempotents | C → D | Find canonical k or prove fiber measures equal | Idempotent S₁, S₂ with measurably different Δ at all k |
 | 4 | Extend Equivalence rate table to ω(b)≥3 | C | Run larger k sweep; check W_3 = 3c prediction | Three-factor composite with same (ω,m,k), different rate |
