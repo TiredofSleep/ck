@@ -48,6 +48,17 @@ b=15 grad\_score = 0.714 = T\* = 5/7. Not coincidence. 15.8× construction lift 
 
 **Next compute job:** `python r16_job1_reduction.py --b 55` — predicted easiest world (score=10.045).
 
+**Full permutation atlas** — 36,662 exact (b,k) pairs, 153 semiprimes, b≤500 (`papers/r16_full_atlas.py`):
+- **CC closure: PROVED** across all 36,662 cases — C is always a closed group under * mod b (zero exceptions)
+- **First-G law:** every semiprime b with smallest prime factor p gets its first non-unit at exactly k=p
+- **94% maximum interleave:** 34,523/36,662 pairs have interleave ≥ 0.9 — maximal C/G mixing is the default regime, not the exception
+- **Native coverage:** all 153 semiprimes reach 100% unit group coverage at k=b-1
+
+**Visual survey** — IO vs I-0 vs Ternary I-0 views across all (b,k) (`papers/r16_visual_survey.py`, `papers/r16_ternary_survey.py`):
+- Ternary I-0: Blue=coherent(+1), White=entangled(0), Red=absorbed(-1) — signed diverging colormap reveals prime polarity
+- 5 instability: b=p² worlds hold pure-blue longest, then break hard at k=p — brittleness visible in evolution figures
+- Atlas figures: `papers/results/atlas/` | Per-b visuals: `papers/results/visual/`
+
 ---
 
 ## The Problem

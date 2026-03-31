@@ -184,8 +184,19 @@ Force field gate law survey: 12M+ trials across k=3..27, 89+ semiprime worlds.
 | r16_sweep_all.py | Full sweep: all semiprimes b≤100 | Code |
 | r16_gate_law_universal.py | Synthetic cross-k sweep (k=3..27) | Code |
 | r16_gate_law_real_b.py | Real semiprime partitions across k | Code |
+| r16_visual_survey.py | IO vs I-0 visual survey: all (b,k), plasma + binary mask | Code |
+| r16_ternary_survey.py | Ternary I-0: signed {-1,0,+1} diverging colormap | Code |
+| r16_full_atlas.py | Full permutation: 153 semiprimes × all k, exact invariants | Code |
 | results/atlas_sweep_all.json | 32 worlds × 100k trials | Data |
 | results/real_b_gate_law.json | 89 worlds × 5k trials | Data |
+| results/visual/ | 46 PNG figures: per-b evolution, cross-b, density overview | Figures |
+| results/atlas/ | 36,662-row exact atlas + 5 atlas figures | Data + Figures |
+
+**Theorems proved by full permutation (r16_full_atlas.py):**
+- `CC closure` — C always closed under * mod b: 36,662/36,662 (zero exceptions)
+- `First-G law` — first non-unit element arrives at exactly k = smallest prime factor of b
+- `Native coverage` — k=b-1 always achieves 100% unit group coverage (all 153 semiprimes)
+- `High-interleave dominance` — 94% of all (b,k) pairs have interleave ≥ 0.9
 
 ---
 
