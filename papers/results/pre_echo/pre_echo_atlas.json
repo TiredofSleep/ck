@@ -1,0 +1,1516 @@
+[
+  {
+    "b": 15,
+    "label": "3x5",
+    "p": 3,
+    "q": 5,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.2500000000000001
+      }
+    ],
+    "corridor": [
+      {
+        "k": 1,
+        "G_size": 0,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 2,
+        "G_size": 0,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.2500000000000001,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 3,
+        "G_size": 1,
+        "defect": 0.4444444444444444,
+        "shadow": 0,
+        "resonance": 5.5363909537055004e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 4,
+        "G_size": 1,
+        "defect": 0.4375,
+        "shadow": 0,
+        "resonance": 0.06250000000000003,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 5,
+        "G_size": 2,
+        "defect": 0.48,
+        "shadow": 0,
+        "resonance": 0.039999999999999945,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 6,
+        "G_size": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 0,
+        "resonance": 1.238414186708234e-32,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 7,
+        "G_size": 3,
+        "defect": 0.4489795918367347,
+        "shadow": 0,
+        "resonance": 0.02040816326530611,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 3,
+        "defect": 0.40625,
+        "shadow": 0,
+        "resonance": 0.015624999999999997,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.25
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 21,
+    "label": "3x7",
+    "p": 3,
+    "q": 7,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.2500000000000001
+      }
+    ],
+    "corridor": [
+      {
+        "k": 1,
+        "G_size": 0,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 2,
+        "G_size": 0,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.2500000000000001,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 3,
+        "G_size": 1,
+        "defect": 0.4444444444444444,
+        "shadow": 0,
+        "resonance": 5.5363909537055004e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 4,
+        "G_size": 1,
+        "defect": 0.5,
+        "shadow": 0,
+        "resonance": 0.06250000000000003,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 5,
+        "G_size": 1,
+        "defect": 0.56,
+        "shadow": 0,
+        "resonance": 0.039999999999999945,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 6,
+        "G_size": 2,
+        "defect": 0.5277777777777778,
+        "shadow": 0,
+        "resonance": 1.238414186708234e-32,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 7,
+        "G_size": 3,
+        "defect": 0.5510204081632653,
+        "shadow": 0,
+        "resonance": 0.02040816326530611,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 3,
+        "defect": 0.515625,
+        "shadow": 0,
+        "resonance": 0.015624999999999997,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 9,
+        "G_size": 4,
+        "defect": 0.48148148148148145,
+        "shadow": 0,
+        "resonance": 8.443775212974306e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 10,
+        "G_size": 4,
+        "defect": 0.46,
+        "shadow": 0,
+        "resonance": 0.010000000000000014,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.25
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 35,
+    "label": "5x7",
+    "p": 5,
+    "q": 7,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.6545084971874737
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.290892665416655
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.06250000000000003
+      }
+    ],
+    "corridor": [
+      {
+        "k": 3,
+        "G_size": 0,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.290892665416655,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 4,
+        "G_size": 0,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.06250000000000003,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 5,
+        "G_size": 1,
+        "defect": 0.6,
+        "shadow": 0,
+        "resonance": 2.6893962635596083e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 6,
+        "G_size": 1,
+        "defect": 0.5833333333333334,
+        "shadow": 0,
+        "resonance": 0.027777777777777773,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 7,
+        "G_size": 2,
+        "defect": 0.6122448979591837,
+        "shadow": 0,
+        "resonance": 0.05342926507652846,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 2,
+        "defect": 0.609375,
+        "shadow": 0,
+        "resonance": 0.04090678107421712,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 9,
+        "G_size": 2,
+        "defect": 0.6049382716049383,
+        "shadow": 0,
+        "resonance": 0.01234567901234569,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 10,
+        "G_size": 3,
+        "defect": 0.58,
+        "shadow": 0,
+        "resonance": 2.6893962635596083e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.16666666666666666
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 55,
+    "label": "5x11",
+    "p": 5,
+    "q": 11,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 0.9999999999999998
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.6545084971874737
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.290892665416655
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.06250000000000003
+      }
+    ],
+    "corridor": [
+      {
+        "k": 3,
+        "G_size": 0,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.290892665416655,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 4,
+        "G_size": 0,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.06250000000000003,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 5,
+        "G_size": 1,
+        "defect": 0.6,
+        "shadow": 0,
+        "resonance": 2.6893962635596083e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 6,
+        "G_size": 1,
+        "defect": 0.6111111111111112,
+        "shadow": 0,
+        "resonance": 0.027777777777777773,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 7,
+        "G_size": 1,
+        "defect": 0.673469387755102,
+        "shadow": 0,
+        "resonance": 0.05342926507652846,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 1,
+        "defect": 0.65625,
+        "shadow": 0,
+        "resonance": 0.04090678107421712,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 9,
+        "G_size": 1,
+        "defect": 0.654320987654321,
+        "shadow": 0,
+        "resonance": 0.01234567901234569,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 10,
+        "G_size": 2,
+        "defect": 0.66,
+        "shadow": 0,
+        "resonance": 2.6893962635596083e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 11,
+        "G_size": 3,
+        "defect": 0.6776859504132231,
+        "shadow": 0,
+        "resonance": 0.00826446280991735,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 12,
+        "G_size": 3,
+        "defect": 0.6597222222222222,
+        "shadow": 0,
+        "resonance": 0.01818079158854091,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 13,
+        "G_size": 3,
+        "defect": 0.6686390532544378,
+        "shadow": 0,
+        "resonance": 0.015491325377218285,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 3,
+        "defect": 0.6632653061224489,
+        "shadow": 0,
+        "resonance": 0.005102040816326519,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.16666666666666666
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 77,
+    "label": "7x11",
+    "p": 7,
+    "q": 11,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.8117449009293668
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.5609908155024782
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.315557333720144
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.1298791841486987
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.02777777777777779
+      }
+    ],
+    "corridor": [
+      {
+        "k": 5,
+        "G_size": 0,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.1298791841486987,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 6,
+        "G_size": 0,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.02777777777777779,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 7,
+        "G_size": 1,
+        "defect": 0.673469387755102,
+        "shadow": 0,
+        "resonance": 3.591946784994725e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 1,
+        "defect": 0.6875,
+        "shadow": 0,
+        "resonance": 0.015624999999999983,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 9,
+        "G_size": 1,
+        "defect": 0.7037037037037037,
+        "shadow": 0,
+        "resonance": 0.0400861679471292,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 10,
+        "G_size": 1,
+        "defect": 0.7,
+        "shadow": 0,
+        "resonance": 0.05048917339522304,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 11,
+        "G_size": 2,
+        "defect": 0.71900826446281,
+        "shadow": 0,
+        "resonance": 0.04172658958282902,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 12,
+        "G_size": 2,
+        "defect": 0.7083333333333334,
+        "shadow": 0,
+        "resonance": 0.022548469470260228,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 13,
+        "G_size": 2,
+        "defect": 0.7041420118343196,
+        "shadow": 0,
+        "resonance": 0.005917159763313606,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 3,
+        "defect": 0.6938775510204082,
+        "shadow": 0,
+        "resonance": 2.469465110200856e-32,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.12222222222222223
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 91,
+    "label": "7x13",
+    "p": 7,
+    "q": 13,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.8117449009293668
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.5609908155024782
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.315557333720144
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.1298791841486987
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.02777777777777779
+      }
+    ],
+    "corridor": [
+      {
+        "k": 5,
+        "G_size": 0,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.1298791841486987,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 6,
+        "G_size": 0,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.02777777777777779,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 7,
+        "G_size": 1,
+        "defect": 0.673469387755102,
+        "shadow": 0,
+        "resonance": 3.591946784994725e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 8,
+        "G_size": 1,
+        "defect": 0.6875,
+        "shadow": 0,
+        "resonance": 0.015624999999999983,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 9,
+        "G_size": 1,
+        "defect": 0.7160493827160493,
+        "shadow": 0,
+        "resonance": 0.0400861679471292,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 10,
+        "G_size": 1,
+        "defect": 0.72,
+        "shadow": 0,
+        "resonance": 0.05048917339522304,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 11,
+        "G_size": 1,
+        "defect": 0.7355371900826446,
+        "shadow": 0,
+        "resonance": 0.04172658958282902,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 12,
+        "G_size": 1,
+        "defect": 0.7222222222222222,
+        "shadow": 0,
+        "resonance": 0.022548469470260228,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 13,
+        "G_size": 2,
+        "defect": 0.7396449704142012,
+        "shadow": 0,
+        "resonance": 0.005917159763313606,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 3,
+        "defect": 0.7397959183673469,
+        "shadow": 0,
+        "resonance": 2.469465110200856e-32,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 15,
+        "G_size": 3,
+        "defect": 0.7377777777777778,
+        "shadow": 0,
+        "resonance": 0.004444444444444462,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 16,
+        "G_size": 3,
+        "defect": 0.734375,
+        "shadow": 0,
+        "resonance": 0.012683514077021379,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.12222222222222223
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 143,
+    "label": "11x13",
+    "p": 11,
+    "q": 13,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.9206267664155905
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.7995382397031664
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.651534473278004
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.4937415007870824
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.3428760422132517
+      },
+      {
+        "k": 7,
+        "defect": 0.673469387755102,
+        "shadow": 1,
+        "resonance": 0.21274595045812378
+      },
+      {
+        "k": 8,
+        "defect": 0.6875,
+        "shadow": 1,
+        "resonance": 0.11243506495825782
+      },
+      {
+        "k": 9,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.04546305019336254
+      },
+      {
+        "k": 10,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.010000000000000014
+      }
+    ],
+    "corridor": [
+      {
+        "k": 9,
+        "G_size": 0,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.04546305019336254,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 10,
+        "G_size": 0,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.010000000000000014,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 11,
+        "G_size": 1,
+        "defect": 0.7603305785123967,
+        "shadow": 0,
+        "resonance": 6.428214414079547e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 12,
+        "G_size": 1,
+        "defect": 0.75,
+        "shadow": 0,
+        "resonance": 0.006944444444444434,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 13,
+        "G_size": 2,
+        "defect": 0.7633136094674556,
+        "shadow": 0,
+        "resonance": 0.021789982637055377,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 2,
+        "defect": 0.7653061224489796,
+        "shadow": 0,
+        "resonance": 0.03671349059861475,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 15,
+        "G_size": 2,
+        "defect": 0.7688888888888888,
+        "shadow": 0,
+        "resonance": 0.04633134032199139,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 16,
+        "G_size": 2,
+        "defect": 0.76953125,
+        "shadow": 0,
+        "resonance": 0.0482169434362385,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.0811111111111111
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 187,
+    "label": "11x17",
+    "p": 11,
+    "q": 17,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.9206267664155905
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.7995382397031664
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.651534473278004
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.4937415007870824
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.3428760422132517
+      },
+      {
+        "k": 7,
+        "defect": 0.673469387755102,
+        "shadow": 1,
+        "resonance": 0.21274595045812378
+      },
+      {
+        "k": 8,
+        "defect": 0.6875,
+        "shadow": 1,
+        "resonance": 0.11243506495825782
+      },
+      {
+        "k": 9,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.04546305019336254
+      },
+      {
+        "k": 10,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.010000000000000014
+      }
+    ],
+    "corridor": [
+      {
+        "k": 9,
+        "G_size": 0,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.04546305019336254,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 10,
+        "G_size": 0,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.010000000000000014,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 11,
+        "G_size": 1,
+        "defect": 0.7603305785123967,
+        "shadow": 0,
+        "resonance": 6.428214414079547e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 12,
+        "G_size": 1,
+        "defect": 0.7569444444444444,
+        "shadow": 0,
+        "resonance": 0.006944444444444434,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 13,
+        "G_size": 1,
+        "defect": 0.7810650887573964,
+        "shadow": 0,
+        "resonance": 0.021789982637055377,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 1,
+        "defect": 0.7857142857142857,
+        "shadow": 0,
+        "resonance": 0.03671349059861475,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 15,
+        "G_size": 1,
+        "defect": 0.7866666666666666,
+        "shadow": 0,
+        "resonance": 0.04633134032199139,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 16,
+        "G_size": 1,
+        "defect": 0.78515625,
+        "shadow": 0,
+        "resonance": 0.0482169434362385,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 17,
+        "G_size": 2,
+        "defect": 0.7958477508650519,
+        "shadow": 0,
+        "resonance": 0.04271120249023203,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 18,
+        "G_size": 2,
+        "defect": 0.7932098765432098,
+        "shadow": 0,
+        "resonance": 0.03217454189027181,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 19,
+        "G_size": 2,
+        "defect": 0.8033240997229917,
+        "shadow": 0,
+        "resonance": 0.01993308630838921,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 20,
+        "G_size": 2,
+        "defect": 0.7975,
+        "shadow": 0,
+        "resonance": 0.009206267664155917,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.0811111111111111
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 221,
+    "label": "13x17",
+    "p": 13,
+    "q": 17,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.9427280128266051
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.8531059551194611
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.739129281334658
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.6105989453019535
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.47796825742780386
+      },
+      {
+        "k": 7,
+        "defect": 0.673469387755102,
+        "shadow": 1,
+        "resonance": 0.3511603523959375
+      },
+      {
+        "k": 8,
+        "defect": 0.6875,
+        "shadow": 1,
+        "resonance": 0.23851521300857556
+      },
+      {
+        "k": 9,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.14600084569573493
+      },
+      {
+        "k": 10,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.07677953596075153
+      },
+      {
+        "k": 11,
+        "defect": 0.7603305785123967,
+        "shadow": 1,
+        "resonance": 0.031164562407491107
+      },
+      {
+        "k": 12,
+        "defect": 0.7569444444444444,
+        "shadow": 1,
+        "resonance": 0.00694444444444446
+      }
+    ],
+    "corridor": [
+      {
+        "k": 11,
+        "G_size": 0,
+        "defect": 0.7603305785123967,
+        "shadow": 1,
+        "resonance": 0.031164562407491107,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 12,
+        "G_size": 0,
+        "defect": 0.7569444444444444,
+        "shadow": 1,
+        "resonance": 0.00694444444444446,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 13,
+        "G_size": 1,
+        "defect": 0.7810650887573964,
+        "shadow": 0,
+        "resonance": 7.415562799240827e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 14,
+        "G_size": 1,
+        "defect": 0.7908163265306123,
+        "shadow": 0,
+        "resonance": 0.0051020408163265215,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 15,
+        "G_size": 1,
+        "defect": 0.7955555555555556,
+        "shadow": 0,
+        "resonance": 0.01675960911691741,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 16,
+        "G_size": 1,
+        "defect": 0.79296875,
+        "shadow": 0,
+        "resonance": 0.029992006234668547,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 17,
+        "G_size": 2,
+        "defect": 0.8027681660899654,
+        "shadow": 0,
+        "resonance": 0.04092065225382189,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 18,
+        "G_size": 2,
+        "defect": 0.7993827160493827,
+        "shadow": 0,
+        "resonance": 0.047114116149842074,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 19,
+        "G_size": 2,
+        "defect": 0.8033240997229917,
+        "shadow": 0,
+        "resonance": 0.04766442456343752,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 20,
+        "G_size": 2,
+        "defect": 0.8025,
+        "shadow": 0,
+        "resonance": 0.043017143168502345,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.06881313131313131
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  },
+  {
+    "b": 323,
+    "label": "17x19",
+    "p": 17,
+    "q": 19,
+    "pre_echo": [
+      {
+        "k": 1,
+        "defect": 0.0,
+        "shadow": 1,
+        "resonance": 1.0
+      },
+      {
+        "k": 2,
+        "defect": 0.25,
+        "shadow": 1,
+        "resonance": 0.9662361147021777
+      },
+      {
+        "k": 3,
+        "defect": 0.4444444444444444,
+        "shadow": 1,
+        "resonance": 0.9119896391176378
+      },
+      {
+        "k": 4,
+        "defect": 0.5,
+        "shadow": 1,
+        "resonance": 0.8401466098038657
+      },
+      {
+        "k": 5,
+        "defect": 0.6,
+        "shadow": 1,
+        "resonance": 0.7544528592236622
+      },
+      {
+        "k": 6,
+        "defect": 0.6111111111111112,
+        "shadow": 1,
+        "resonance": 0.6592492006715863
+      },
+      {
+        "k": 7,
+        "defect": 0.673469387755102,
+        "shadow": 1,
+        "resonance": 0.5591704427551867
+      },
+      {
+        "k": 8,
+        "defect": 0.6875,
+        "shadow": 1,
+        "resonance": 0.4588327795995617
+      },
+      {
+        "k": 9,
+        "defect": 0.7160493827160493,
+        "shadow": 1,
+        "resonance": 0.3625345419058265
+      },
+      {
+        "k": 10,
+        "defect": 0.73,
+        "shadow": 1,
+        "resonance": 0.2739935169500415
+      },
+      {
+        "k": 11,
+        "defect": 0.7603305785123967,
+        "shadow": 1,
+        "resonance": 0.1961402580510506
+      },
+      {
+        "k": 12,
+        "defect": 0.7569444444444444,
+        "shadow": 1,
+        "resonance": 0.13098139917077478
+      },
+      {
+        "k": 13,
+        "defect": 0.7810650887573964,
+        "shadow": 1,
+        "resonance": 0.0795405074370524
+      },
+      {
+        "k": 14,
+        "defect": 0.7908163265306123,
+        "shadow": 1,
+        "resonance": 0.041877075265605856
+      },
+      {
+        "k": 15,
+        "defect": 0.8,
+        "shadow": 1,
+        "resonance": 0.01717753092803874
+      },
+      {
+        "k": 16,
+        "defect": 0.8046875,
+        "shadow": 1,
+        "resonance": 0.00390625000000001
+      }
+    ],
+    "corridor": [
+      {
+        "k": 15,
+        "G_size": 0,
+        "defect": 0.8,
+        "shadow": 1,
+        "resonance": 0.01717753092803874,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 16,
+        "G_size": 0,
+        "defect": 0.8046875,
+        "shadow": 1,
+        "resonance": 0.00390625000000001,
+        "score": null,
+        "difficulty": null
+      },
+      {
+        "k": 17,
+        "G_size": 1,
+        "defect": 0.8200692041522492,
+        "shadow": 0,
+        "resonance": 8.110250258765443e-33,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 18,
+        "G_size": 1,
+        "defect": 0.8179012345679012,
+        "shadow": 0,
+        "resonance": 0.0030864197530864135,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 19,
+        "G_size": 2,
+        "defect": 0.8254847645429363,
+        "shadow": 0,
+        "resonance": 0.010706217337420247,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 20,
+        "G_size": 2,
+        "defect": 0.8225,
+        "shadow": 0,
+        "resonance": 0.020519766880146846,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 21,
+        "G_size": 2,
+        "defect": 0.8253968253968254,
+        "shadow": 0,
+        "resonance": 0.030481509652747953,
+        "score": 0.5,
+        "difficulty": 0.5
+      },
+      {
+        "k": 22,
+        "G_size": 2,
+        "defect": 0.8285123966942148,
+        "shadow": 0,
+        "resonance": 0.03896967248056108,
+        "score": 0.5,
+        "difficulty": 0.5
+      }
+    ],
+    "skew": {
+      "diff_at_p": 0.5,
+      "rise_1": 0.0,
+      "rise_2": 0.0,
+      "approach_slope": 0.05364583333333333
+    },
+    "saturation": {
+      "bridge_slope": 0.0,
+      "jump_at_q": 0.0
+    }
+  }
+]

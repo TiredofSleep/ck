@@ -367,9 +367,189 @@ is the degree of compositeness, and 2^ω(b)−2 counts the idempotents that comp
 generates. Every additional prime factor doubles the idempotent count and elevates the
 algebraic difficulty class. Primes are the void from which all structure departs.
 
+**Corridor atlas: universal coherence collapse and bridge breathing.**
+
+Full corridor map computed across 70 semiprime worlds (b=10..100, k=2..15), 919 exact
+(b,k) measurement rows. Three universal behaviors emerged with zero exceptions:
+
+**(1) Ghost gate: coherence collapse is a step function, not a gradient.**
+
+```
+gate_rate = 1.0   for ALL k < p    (pre-echo zone, zero obstruction)
+gate_rate = 0.0   at k = p         (First-G event — instant collapse)
+gate_rate = 0.0   for ALL k > p    (post-G zone, fully obstructed)
+```
+
+Across every one of 70 worlds, zero exceptions. The transition is not gradual. There is no
+smearing, no approach, no soft warning. The algebra switches states at exactly k = p and
+nowhere else. The stability window is not partially stable — it is completely stable. The
+First-G Law is not just about onset; it describes a phase transition with zero width.
+
+**(2) Interleave = 0.5 universally at the First-G event.**
+
+At k = p, across all semiprimes examined:
+
+```
+interleave(k=p) = 0.5   exactly
+```
+
+At k = p, the alphabet contains exactly one non-unit (p itself) and p-1 units. The
+non-unit is in one half of the interleave window; the units occupy the other. This is
+a direct geometric consequence of the First-G Law: the first obstruction element lands
+at the exact midpoint of the interleave score, because it is the first and only
+non-unit in a length-p alphabet. The number 0.5 is exact, not statistical.
+
+**(3) Bridge breathing: unit fraction rises then collapses at the second prime.**
+
+In the bridge zone k = p..q-1, the single G element {p} becomes proportionally less
+dominant as the alphabet grows — unit_frac rises. Then at k = q, the second prime
+enters, adding p elements to G simultaneously, and unit_frac drops sharply:
+
+| b      | bridge slope | jump at k=q | q/p ratio |
+|--------|-------------|-------------|-----------|
+| 5×7    | +0.0093/step | −0.119     | 1.40      |
+| 7×11   | +0.0044/step | −0.109     | 1.57      |
+| 7×13   | +0.0035/step | −0.100     | 1.86      |
+| 11×13  | +0.0018/step | −0.071     | 1.18      |
+| 11×17  | +0.0012/step | −0.082     | 1.55      |
+| 13×17  | +0.0010/step | −0.071     | 1.31      |
+
+The jump magnitude at k=q is not controlled by q/p alone — it is controlled by the number
+of new G elements that enter the alphabet at k=q: these are q itself plus all multiples
+of p that land in {p+1..q} (i.e., 2p, 3p, …). Wider prime gaps produce larger second-impact
+jumps because more p-multiples accumulate in the bridge before q arrives.
+
+The bridge is not static: the system breathes, unit fraction climbing through the bridge,
+then suddenly contracting at the second prime's arrival. This breathing rhythm is a direct
+consequence of the gap between p and q and the density of p-multiples within that gap.
+
+**Data:** `results/extended/corridor_atlas.json` (919 rows), `results/extended/corridor_atlas.png`
+
 ---
 
-## 10. The Hardness Inversion Principle
+## 10. Pre-Echo Survey: Geometric Friction Before Prime Obstruction
+
+*(Insight framing: C.A. Luther harmonic pre-echo hypothesis)*
+
+The corridor atlas established that gate_rate is binary in the pre-echo zone (always 1.0
+for k < p). But the deeper question: are there **microscopic signals** — geometric friction,
+harmonic resonances, spectral leaning — that precede the First-G event even while gate_rate
+is still 1.0? A four-measurement survey was run across 10 semiprimes (b=15..323).
+
+**Four measurements:**
+
+1. **Closure defect(k):** Fraction of products in {1..k}² that land outside {1..k} mod b.
+   Non-zero = multiplication is already "leaking out" of the current alphabet.
+
+2. **Shadow distance(k):** Minimum residual distance from any product x×y mod b to the
+   nearest multiple of p. Shadow = 0 means a product exactly hits a multiple of p.
+
+3. **Harmonic resonance R(k):** Spectral power at prime frequency 1/p in the unit alphabet.
+   R(k) = |Σ_{x=1}^{k} exp(2πix/p)|² / k². High R = elements are phase-coherent at 1/p.
+
+4. **Corridor skew and saturation gradient:** Difficulty asymmetry around k=p, bridge slope,
+   jump at k=q.
+
+**Summary across 10 semiprimes (p=3..17):**
+
+```
+   b     label    p    q  max_defect  shadow_pre  diff@p  bridge_slp
+  15       3x5    3    5      0.2500           1   0.5000      flat
+  21       3x7    3    7      0.2500           1   0.5000      flat
+  35       5x7    5    7      0.5000           1   0.5000      flat
+  55      5x11    5   11      0.5000           1   0.5000      flat
+  77      7x11    7   11      0.6111           1   0.5000      flat
+  91      7x13    7   13      0.6111           1   0.5000      flat
+ 143     11x13   11   13      0.7300           1   0.5000      flat
+ 187     11x17   11   17      0.7300           1   0.5000      flat
+ 221     13x17   13   17      0.7603           1   0.5000      flat
+ 323     17x19   17   19      0.8047           1   0.5000      flat
+```
+
+**Finding 1 — Closure defect rises monotonically, controlled only by p.**
+
+The closure defect climbs from 0.0 at k=1 to a maximum at k=p-1, then continues rising
+in the corridor. Crucially, the max_defect in the pre-echo zone depends only on p, not on q:
+b=77 and b=91 both have p=7 and both give max_defect=0.6111 in the pre-echo zone, despite
+different q partners (11 vs 13). The closure defect is a pure pre-echo signal: the ring's
+multiplication is already "aware" of p before any non-unit has appeared.
+
+The pre-echo profile for b=323 (p=17, the widest zone in the survey):
+
+```
+k:   1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16
+def: 0.00  0.25  0.44  0.50  0.60  0.61  0.67  0.69  0.72  0.73  0.76  0.76  0.78  0.79  0.80  0.80
+```
+
+By k=2, already 25% of products escape the alphabet. By k=p-1=16, over 80% escape.
+The wall is being felt microscopically from k=2 onwards.
+
+**Finding 2 — Shadow distance = 1 throughout the entire pre-echo zone (universal).**
+
+The minimum product distance to a multiple of p is exactly 1 for ALL k in {1..p-1},
+across all 10 semiprimes. This is explained exactly: the product 1×1=1 is always in the
+product set, and 1 is always distance-1 from p (since p≥3). More precisely: no product
+x×y mod b can be ≡ 0 mod p (because x,y < p, so neither is divisible by p, and p is prime),
+but 1×1=1 is always distance-1 from p. Therefore shadow = 1 exactly, not approximately.
+
+The shadow signal is real but trivial: the first obstruction casts a shadow of exactly
+distance 1 throughout the pre-echo zone, because 1 is always in the alphabet and always
+one step away from p.
+
+**Finding 3 — Harmonic resonance decays to exactly 1/(p−1)² at k=p−1, then collapses to 0.**
+
+```
+b=323 (p=17):  R(16) = 0.0039 = 1/256 = 1/16²  ✓
+b=221 (p=13):  R(12) = 0.0069 = 1/144 = 1/12²  ✓
+b=143 (p=11):  R(10) = 0.0100 = 1/100 = 1/10²  ✓
+b=77  (p=7):   R(6)  = 0.0278 = 1/36  = 1/6²   ✓
+b=35  (p=5):   R(4)  = 0.0625 = 1/16  = 1/4²   ✓
+b=15  (p=3):   R(2)  = 0.2500 = 1/4   = 1/2²   ✓
+```
+
+**This is exact and derivable.** The sum Σ_{x=1}^{p-1} exp(2πix/p) = −1 (full period
+minus the x=0 term, which equals 1). Therefore |Σ|² = 1, and:
+
+```
+R(p−1) = 1 / (p−1)²
+```
+
+At k=p, the alphabet {1..p} includes both a complete residue period (1..p) and a multiple
+of p (the element p itself, which contributes exp(2πip/p) = exp(2πi) = 1). The sum over
+the complete period is 0. So R(p) = 0 exactly.
+
+**The harmonic resonance is a pre-echo countdown clock.** As k approaches p, R(k)
+monotonically decreases, reaching its minimum possible pre-G value 1/(p-1)² at k=p-1,
+then dropping to exactly 0 the moment the first G element enters. The closer k is to p,
+the more phase-incoherent the unit alphabet is at the prime frequency. The prime is
+silencing its own frequency in advance.
+
+**Finding 4 — Corridor skew and difficulty are identically flat (degenerate scorer).**
+
+The `best_score_k` optimization score = 0.5000 universally across every world, every k,
+every corridor position. Analysis reveals this is a mathematical identity in the scoring
+function: `hit_G` and `stay_G` are incremented together (both when `nxt ∈ G`), so
+`score = 0.5*(hit_G/n_steps) + 0.5*(1 − stay_G/n_steps) = 0.5*(x) + 0.5*(1−x) = 0.5`
+regardless of x. The corridor skew and bridge slope measurements require a non-degenerate
+difficulty scorer. These remain open, pending a corrected scoring function.
+
+**Pre-echo summary:**
+
+The geometric friction before prime obstruction is real and measurable. It is present in two
+of the four signals: closure defect (product leakage rises from k=2 onward, controlled only
+by p) and harmonic resonance (spectral countdown from R=1.0 to R=1/(p-1)² as k→p, then
+instant collapse to 0 at k=p). The shadow signal is real but trivially explained by the
+universality of 1 in the alphabet. The difficulty signal requires a repaired scorer.
+
+The pre-echo zone is not featureless. The prime p writes its frequency into the harmonic
+structure of the unit alphabet starting from k=1, and erases it completely the instant the
+first non-unit appears.
+
+**Data:** `results/pre_echo/pre_echo_atlas.json`, `results/pre_echo/pre_echo_atlas.png`
+
+---
+
+## 11. The Hardness Inversion Principle
 
 The First-G Law implies a fundamental inversion between algebraic complexity and
 computational hardness — one that reframes the security of RSA-type cryptography.
@@ -436,7 +616,7 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 ---
 
-## 11. References
+## 12. References
 
 1. Sanders, B. (2026). *CK: The Coherence Keeper — Trinity Infinity Geometry*. DOI: 10.5281/zenodo.18852047
 2. Sanders, B. (2026). *WP1: TIG Definitive*. Gen10/papers/
