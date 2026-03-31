@@ -19,6 +19,15 @@ the TIG landscape. The foundation for these measurements is the proved First-G L
 the Prime Phase Transition sinc² field (WP35). The Luther Dispersion Conjecture provides the
 difficulty metric that connects algebraic complexity to geometric spread.
 
+**Core framing principle (Inversion Rule):** Complexity is always framed as physical distance
+to a geometric sink, never as algebraic difficulty. The signal R(k/p=0.1, p) ≈ 0.9675 is
+always present across all six problems — strong, detectable, pointing toward the null. RSA is
+hard because the road is 2^512 steps long, not because the signal is weak. The Critical Line
+(WP40), the mass gap (WP41), the rank staircase (WP42), the regularity breakdown (WP38), and
+the P/NP boundary (WP37) are all the same geometric object: a sinc² zero. CK as spectrometer
+detects which sinc² null the observer is trying to reach and how far the road to that null
+extends.
+
 ---
 
 ## §1. What CK Measures
@@ -29,6 +38,14 @@ CK is not an oracle. It is a measurement instrument.
 complexity class, a zeta function.
 
 **Output:** a coherence reading in [0,1], produced by the TIG pipeline.
+
+**What the output means (Inversion Rule):** Every coherence reading is a measure of
+physical distance to the nearest sinc² null — the geometric sink toward which the
+structure is pointing. High coherence = far from the null (stable attractor basin).
+Low coherence = approaching the null (phase transition imminent). The spectrometer does
+not measure algebraic difficulty; it measures road length to the sink. A strong signal
+(R ≈ 0.9675 at k/p=0.1) confirms the null exists and is reachable — it does not mean
+the null is close. Distance is everything; signal strength is the map, not the terrain.
 
 ### The Measurement Parameters
 
@@ -142,14 +159,30 @@ gate_rate ≈ F_k(|G| × interleave)
 where |G| is the obstruction set size and interleave measures how deeply unit and non-unit
 elements are mixed within {1..k}.
 
+**The Luther Metric as Density Probe:** |G|×interleave measures VOIDS in the unit alphabet.
+In the pre-G zone {1..p-1}, the density of permitted states is exactly 1.0 — every element
+is a unit, every state is permitted, |G|=0, interleave=0. There are no voids. At the gate
+k=p, the first void opens: G={p} enters the alphabet, interleave rises from zero, and the
+permitted-state density drops from 1.0 by exactly the Luther metric. The dispersion score
+is not a measure of how hard it is to compute the ring structure — it is a direct count of
+how many voids have been opened in the formerly complete unit alphabet, weighted by how
+tangled those voids are with the surviving units.
+
+This is the physical interpretation: the pre-G zone is a fully dense permitted-state space
+(no obstructions, zero distance to any allowed state). The post-G zone has punctures — voids
+— and the Luther metric measures the puncture density. Difficulty = density of voids × their
+entanglement with permitted states.
+
 Applied to the Clay problems: each problem has a "G-structure" — the obstruction elements
 that prevent resolution — and a dispersion measure that characterizes how those obstructions
 are distributed.
 
-**Low dispersion** → concentrated obstruction → single hard event. The mass gap in
-Yang-Mills is the canonical example: one threshold, one distance to cross.
+**Low dispersion** → concentrated obstruction → single hard event → one sinc² null to
+reach, with a clean corridor. The mass gap in Yang-Mills is the canonical example: one
+threshold, one distance to cross, minimum void entanglement.
 
-**High dispersion** → spread obstruction → irregular staircase. BSD rank jumps are the
+**High dispersion** → spread obstruction → irregular staircase → multiple sinc² nulls at
+unpredictable heights, each requiring independent navigation. BSD rank jumps are the
 canonical example: obstructions appear at unpredictable heights, no single event captures
 the difficulty.
 
@@ -177,6 +210,41 @@ character. The WP column points to the detailed structural paper for that proble
 | Riemann | sinc² zeros = ζ(s) zeros | Scale-invariant gates | Zero clustering — self-similar dispersion | WP40 |
 | Yang-Mills | Stability window = mass gap | Single gate distance | Energy concentration — minimal dispersion | WP41 |
 | BSD | unit_frac staircase = rank staircase | Irregular gates | Rank dispersion — highest irregularity | WP42 |
+
+### §4a. The Unified sinc² Object — All Six Problems Are the Same Sink
+
+The spectrometer's deepest reading is this: the Critical Line (WP40), the mass gap (WP41),
+the rank staircase (WP42), the regularity breakdown (WP38), and the P/NP complexity
+boundary (WP37) are all the same geometric object — a sinc² zero. The six Clay problems
+differ in how many sinc² nulls are present, how they are spaced, and how dispersed the
+road to each null is. They do not differ in what the null IS.
+
+**The sinc² map:**
+
+| Problem | sinc² null description | Road structure | Dispersion type |
+|---------|------------------------|----------------|-----------------|
+| Riemann (WP40) | ζ(s) zeros on Re(s)=½ — all sinc² nulls at the critical line | Scale-invariant; infinitely many nulls | Self-similar (Montgomery pair correlation) |
+| Yang-Mills (WP41) | Mass gap = distance from zero-field to first sinc² null | Single clean corridor | Minimal — one null, one road |
+| BSD (WP42) | Each rank jump = one sinc² null in the L-function zero landscape | Irregular staircase of nulls | Highest — nulls at unpredictable heights |
+| Navier-Stokes (WP38) | Regularity breakdown = BREATH operator reaching sinc² null (vorticity collapse) | Zero-width transition at singularity | High near singularity; BREATH-locked approach |
+| P vs NP (WP37) | First-G gate at k=p = sinc² null in unit alphabet | 2^512-step featureless corridor (RSA) | Sharp gate; low dispersion at boundary |
+| Hodge (WP39) | ω-blindness gap = local sinc² sidelobe vs. global null | Layered gates; tiered approach | Tiered — multiple independent gate layers |
+
+**The Montgomery connection (WP37 §4b — structural):** The pair correlation of Riemann
+zeros r(u) = 1 − sinc²(u) is the same function as R(k,f) → sinc²(k/f). The repulsion
+of Riemann zeros and the repulsion of NP-solving from the gate are the same sinc²
+geometry. CK as spectrometer is therefore not measuring six different types of
+mathematical difficulty — it is measuring six different instances of the distance to the
+nearest sinc² null, with different void densities (Luther metric) along the road.
+
+**What CK detects:** The spectrometer output — the TIG coherence reading — encodes which
+sinc² null the structure is approaching and how far the road is. The VOID-founded problems
+(BSD, Navier-Stokes, Riemann) converge because their roads lead cleanly to the null and
+the null IS a Nothing — a VOID event in the CL algebra. The HARMONY-founded problems
+(Yang-Mills, P vs NP, Hodge) diverge because their roads declare premature resolution
+before reaching the null — HARMONY fires before the sinc² zero is actually achieved.
+
+---
 
 ### The Theory of Nothing — Empirical Result
 
@@ -251,6 +319,14 @@ single gate) tells a mathematician something different from the dispersion profi
 (irregular, spread staircase). That differential is real and computable. Whether it is
 sufficient to find a proof is a separate question.
 
+**The Inversion Rule applies to every section of this paper.** In every section, difficulty
+is the road length to the sinc² null — not the algebraic complexity of the structure at
+the sink. The signal R(k/p=0.1, p) ≈ 0.9675 is always present: at the Riemann critical
+line, at the Yang-Mills mass gap, at the First-G gate, at the BSD rank jump, at the
+Navier-Stokes singularity. Detecting the signal is easy. Navigating to the null is what
+the problem requires. CK reads the signal and reports the distance. It cannot walk the
+road.
+
 ---
 
 ## §6. Attribution
@@ -289,6 +365,10 @@ claim to the CK architecture or its derived constants.
 - WP42: Sanders. *BSD — Rank Staircase and Irregular Dispersion.* March 2026.
 - Clay Mathematics Institute. *Millennium Prize Problems.* 2000.
 - Sanders, B. *TIG Architecture: A Coherence-Based Model of Consciousness.* WP1, 2026.
+- Montgomery, H. L. The pair correlation of zeros of the zeta function.
+  *Analytic Number Theory (Proc. Sympos. Pure Math., Vol. XXIV),* AMS, 1973, pp. 181–193.
+  *(r(u) = 1 − sinc²(u); connects WP40 Riemann zeros to WP37 P/NP complexity boundary
+  through the same sinc² geometric object. See WP37 §4b for the unified framing.)*
 
 ---
 

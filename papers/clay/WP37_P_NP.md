@@ -9,14 +9,23 @@
 
 ## Abstract
 
+**NP-verification is the local detection of a sinc² sidelobe; P-solving is the global
+navigation to the sinc² null.** — Sanders & Luther (Google/Sanders framing)
+
 The First-G Law (WP34) establishes a sharp algebraic boundary at k=p in the partition
 structure of any semiprime b=p×q: below this boundary, the stability window {1..p-1} is
 computationally tractable (P-regime); above it, the G-obstruction creates exponential
-difficulty (NP-regime). The Luther Dispersion Conjecture — that gate difficulty tracks
+difficulty (NP-regime). In the sinc² picture: a verifier sees a sidelobe of R(k,f) at
+k < p and confirms "this is near a null" in O(1) local time; a solver must navigate to the
+null itself at k=p, which requires traversing 2^512 featureless corridor steps in the RSA
+regime. The signal R(k/p=0.1, p) ≈ 0.9675 is always present — but presence of the signal
+is not proximity to the gate. RSA is hard because the road is 2^512 steps long, not because
+the signal is weak. The Luther Dispersion Conjecture — that gate difficulty tracks
 |G|×interleave — provides the geometric certificate structure for this complexity class
 boundary. The zero-width phase transition at k=p (WP35, Theorem 2) means the boundary is
 not a gradient but a hard algebraic step. This paper frames how TIG partition geometry maps
-onto the P vs NP landscape.
+onto the P vs NP landscape, with explicit connection to the Montgomery pair correlation
+for Riemann zeros — both are sinc² nulls, and the same function governs both.
 
 ---
 
@@ -52,9 +61,18 @@ Every element is coprime to b. Gate_rate = 0. No obstruction. Testing membership
 requires only x < p (O(1) comparison). This is the stability window: a featureless,
 obstruction-free corridor of width p-1.
 
+**Density of permitted states in the pre-G zone:** exactly 1.0 — every element is a unit,
+every state is permitted. The Luther metric |G|×interleave = 0 here. There are no voids
+in the unit alphabet.
+
 **Post-G zone {p..} — NP-regime:**
 G elements are present. The partition distorts. Interleave rises immediately to nonzero.
 Computing the full G-partition structure requires knowing p — the hard factoring problem.
+
+**Density drop at the gate:** The density of permitted states falls from 1.0 to
+φ(b)/b = (p-1)(q-1)/(pq) — a drop of exactly 1/p + 1/q - 1/(pq), which is precisely
+the Luther metric divided by the current alphabet size. The Luther metric |G|×interleave
+is the measure of VOIDS opened in the unit alphabet at the gate event.
 
 ### The Zero-Width Transition (WP35 §3 — PROVED)
 
@@ -212,12 +230,78 @@ gives a closed-form spectral signal that counts down to the first gate. R(k, 1/p
 monotonically as k → p, reaching R = 1/(p-1)² at k = p-1, and collapsing to R = 0
 at k = p exactly. This signal is present and computable for all k < p.
 
+**The Inversion Rule (physical distance framing):** Complexity is not algebraic difficulty
+of the ring structure — it is physical distance to a geometric sink. The sink is the sinc²
+null at k=p. At k/p = 0.1 (ten percent of the way to the gate), R ≈ 0.9675: the signal
+is strong, nearly at maximum. But being close to signal maximum is not being close to the
+gate. Navigating from k/p=0.1 to the null at k=p requires crossing 0.9p more steps of
+featureless corridor. For RSA with p ≈ 2^512, that crossing contains 2^512 steps regardless
+of signal strength. The signal strength tells you the null exists and where it is. The road
+length is the complexity. The signal is not the bottleneck; the geometry is.
+
 The signal is ω-blind (proved in WP35): R(k, 1/p) is identical for b=p², b=p×q, and
 b=p×q×r. It sees only the smallest prime factor, regardless of ring structure. This means
 even in the hallway, there is a monotonically shrinking resonance signal pointing toward
 the gate — but at P, Q ≈ 2^512, the signal at any k reachable in polynomial time is
 indistinguishable from zero. The RSA Hardness Inversion Principle (WP35): security is
 precisely the regime where the countdown clock falls below any finite observer's noise floor.
+
+---
+
+## §4b. The Montgomery Connection — NP-Hardness and Riemann Zeros as the Same sinc² Object
+
+### The Pair Correlation Function
+
+Hugh Montgomery (1973) conjectured, and subsequent numerical work has strongly confirmed,
+that the pair correlation of normalized Riemann zero spacings u satisfies:
+
+```
+r(u) = 1 - sinc²(u)     where sinc(u) = sin(πu)/(πu)
+```
+
+This is the same functional form as the Harmonic Pre-Echo Countdown:
+
+```
+R(k, f) = sin²(πk/f) / (k² · sin²(π/f))   →   sinc²(k/f)  as f → ∞
+```
+
+**These are the same function.** The pair correlation r(u) and the pre-echo signal R(k,f)
+both reduce to sinc². The zeros of r(u) — the Montgomery repulsion nulls where the
+probability of finding a zero-spacing of size u goes to zero — are sinc² nulls. The
+gate events in the TIG partition — the k=p collapses where R(k,f) → 0 — are sinc² nulls.
+
+### The Unified Picture
+
+| Structure | sinc² null | What the null means |
+|-----------|-----------|---------------------|
+| Riemann zeros (WP40) | r(u)=1-sinc²(u)=0 at u=1,2,3... | Zero repulsion: no two zeros this close |
+| TIG gate events (WP34/35) | R(k,f)=sinc²(k/f)=0 at k=f | Phase transition: gate opens here |
+| NP-hardness (WP37) | sinc² null is the P/NP boundary | Solver must reach k=p; verifier sees sidelobe |
+| Mass gap (WP41) | Yang-Mills energy barrier as sinc² null | Single gate distance to cross |
+| Regularity breakdown (WP38) | Navier-Stokes BREATH collapse as sinc² zero | Vorticity spreads to null |
+| Rank staircase (WP42) | BSD jump events as irregular sinc² nulls | Dispersed staircase of nulls |
+
+CK as spectrometer is measuring which sinc² null an observer is trying to reach. The
+problems differ in how many nulls there are, how they are spaced, and how dispersed the
+approach path is — not in what kind of object the null is.
+
+### The Complexity Interpretation
+
+**NP-hardness IS Montgomery repulsion** — both are sinc² nulls at which no shorter path
+can exist. Just as no two Riemann zeros can occupy the same spacing (repulsion), no
+polynomial algorithm can collapse the 2^512-step corridor to reach the gate. The repulsion
+is not a number-theoretic accident in one case and an algebraic accident in the other:
+it is the same sinc² geometry expressing the same principle.
+
+**Verifier vs. solver in Montgomery terms:** The verifier detects a sidelobe — it sees
+that the function is nonzero (a zero exists nearby), i.e., it reads R(k,f) > 0 at a
+local k and confirms proximity to the null. The solver must navigate to u=0 of the pair
+correlation, i.e., to the null itself. Local detection of nonzero (sidelobe) is easy;
+global navigation to the zero (null) is the hard problem.
+
+*This connection is structural framing. Establishing it as a formal reduction between the
+Riemann hypothesis and P vs NP requires additional work. The mathematical objects are
+provably the same function; the implication arrow between the two problems remains open.*
 
 ---
 
@@ -278,6 +362,10 @@ applied to the partition geometry studied here.*
 | Luther dispersion conjecture | CONJECTURE | WP34 §9 |
 | ω(b) maps to polynomial hierarchy | OPEN | — |
 | Formal 3-SAT reduction to G-detection | OPEN | — |
+| R(k,f) and Montgomery r(u) are same sinc² function | STRUCTURAL | WP37 §4b |
+| Montgomery repulsion = NP-hardness (formal reduction) | OPEN | WP37 §4b |
+| Pre-G density = 1.0 (no voids) | PROVED | WP34 §2 |
+| Post-G density drop = Luther metric / k | STRUCTURAL | WP37 §1 |
 
 ---
 
@@ -290,6 +378,13 @@ applied to the partition geometry studied here.*
   Corner-Gap Dichotomy (Sanders, March 2026) — prior version, AG(2,p) framing preserved
 - **Sprint4 Atlas Law Set** — Universal law, three-class landscape, HAR rule
   (Sanders & Luther, March 2026): `Gen10/papers/sprint4_2026_03_30/`
+- **WP40** — Riemann Hypothesis — sinc² Zeros and Scale-Invariant Gates (Sanders, March 2026)
+- **WP41** — Yang-Mills — Mass Gap as Single Gate Distance (Sanders, March 2026)
+- **WP42** — BSD — Rank Staircase and Irregular Dispersion (Sanders, March 2026)
+- **WP38** — Navier-Stokes — BREATH Collapse Criterion (Sanders, March 2026)
+- **Montgomery, H. L.** — The pair correlation of zeros of the zeta function.
+  *Analytic Number Theory (Proc. Sympos. Pure Math., Vol. XXIV),* AMS, 1973, pp. 181–193.
+  *(pair correlation r(u) = 1 − sinc²(u); same functional form as R(k,f))*
 
 ---
 
