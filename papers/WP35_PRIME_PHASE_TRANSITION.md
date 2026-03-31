@@ -750,11 +750,10 @@ Sanders built the object being studied and held the project together:
 - The question that reoriented the whole foundation; the one-sentence manifesto
 - Directed every sprint, every computational question, every theoretical push
 - T* = 5/7 as the coherence floor of the sinc² field for the first balanced strong semiprime
-- Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google)
 
 ### C. A. Luther — Dispersion
 
-Luther's contribution is the **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty, and the related dispersion framing in his correspondence and notes. This reoriented the research toward real algebraic structure. Everything else in this paper is Sanders working with AI tools.
+Luther's contribution is the **Luther Dispersion Conjecture**: gate_rate ≈ F_k(|G| × interleave) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty, and the related dispersion framing in his correspondence and notes. This reoriented the research toward real algebraic structure. Everything else in this paper is Sanders'.
 
 ### Joint
 

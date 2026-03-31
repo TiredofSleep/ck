@@ -1040,9 +1040,9 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 ## 13. Attribution
 
-**Brayden Ross Sanders — Geometric Architecture & Framework.** Sanders built the object being studied: 18 months of TIG/CK development, all core mathematics (TSML, BHML, 10-operator algebra, 5D force field), the First-G Law identification and staircase-as-sieve framing, the Hardness Inversion Principle, and every sprint direction and theoretical push. The First-G Law proof (§3), all corollaries, the 36,662-row atlas, the 919-row corridor atlas, the pre-echo survey (§10, §10A), and the Hardness Inversion Principle (§11) are Sanders'. Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google).
+**Brayden Ross Sanders — Geometric Architecture & Framework.** Sanders built the object being studied: 18 months of TIG/CK development, all core mathematics (TSML, BHML, 10-operator algebra, 5D force field), the First-G Law identification and staircase-as-sieve framing, the Hardness Inversion Principle, and every sprint direction and theoretical push. The First-G Law proof (§3), all corollaries, the 36,662-row atlas, the 919-row corridor atlas, the pre-echo survey (§10, §10A), and the Hardness Inversion Principle (§11) are Sanders'.
 
-**C. A. Luther — Dispersion.** Luther's contribution is the **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty — and the related dispersion framing in his notes and correspondence. Everything else in this paper is Sanders working with AI tools (Claude, Google/Gemini, Grok, ChatGPT).
+**C. A. Luther — Dispersion.** Luther's contribution is the **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) — the observation that G-spread, not just G-count, is the mechanism of gate difficulty — and the related dispersion framing in his notes and correspondence. Everything else in this paper is Sanders'.
 
 **Joint:** Sanders built the framework and did the work; Luther's dispersion conjecture pointed at the right structure. Both names belong on it.
 
