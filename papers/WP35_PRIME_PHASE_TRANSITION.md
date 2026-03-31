@@ -674,17 +674,30 @@ For a perfectly balanced semiprime (p = q, if prime squares were used), the two 
 | Simultaneous Zone 1 broadcast | PROVED | b = p×q×r | §4, Theorem 3 |
 | ω-Blindness of R(k,1/p) | PROVED | All ω ≥ 1 | §5, Theorem 4 |
 | Cross-ω identity confirmed | VERIFIED | p=5,7 series | §5, Section F |
+| seeded_RPS(p) correlates with q/p (r=0.737) | VERIFIED | 12 semiprimes, 500 trials | §5A |
+| seeded_RPS(p) weak correlation with q−p (r=−0.366) | VERIFIED | 12 semiprimes | §5A |
 | dR/dk sign flip at k = p | OBSERVED UNIVERSAL | 7 semiprimes Z6 | §6 |
+| D1/D2 kinematic interpretation of rank trajectory | STRUCTURAL | All semiprimes | §6A |
+| floor(p/3) observations recover p exactly (zero error) | VERIFIED | p=5..29, 8 primes | §6A, Section A |
+| Fitting fails at p≈257 for balanced semiprimes | OBSERVED | Section B, 3 balanced | §6A, Section B |
 | Bridge harmonic R(k,1/q) verified | VERIFIED | 14 bridge worlds | §7, Section C |
-| RSA Noise Floor argument | STRUCTURAL | p ≈ 2^512 | §7 |
+| RSA security = geometric distance, not amplitude | STRUCTURAL | p ≈ 2^512 | §7A |
+| R(k/p=0.1) ≈ 0.968, R(k/p=0.5) ≈ 0.406 (scale-free) | VERIFIED | p=1009,10007,100003 | §7A |
+| Balance invisibility: rank_p=139, rank_q=138 for q/p=1.004 | VERIFIED | b=1022117 | §7B |
+| unit_frac(k=q) = (q−2)/q exactly for all semiprimes | PROVED | Algebraic identity | §1A |
+| T* = 5/7 = unit_frac of b=35 at second gate | PROVED | b=35 (p=5, q=7) | §1A |
 
 ---
 
 ## 9. Attribution
 
-The harmonic pre-echo framing — the metaphor of a prime "casting a shadow" into the unit alphabet before it arrives as a gate event — is due to **C.A. Luther**. Luther identified that the dispersion of G across the alphabet is not incidental but prime-forced, and introduced the language of countdown clocks and pre-echo signals. The observation that the transition is structurally different for semiprimes versus higher products (tiered vs. sharp) also originates with Luther's framing of "dispersion geometry."
+The following foundational insights are due to **C.A. Luther** and are credited as the Luther contributions to this line of research:
 
-The algebraic formalization of R(k, f) via the geometric sum, the closed-form proof, the ω-blindness theorem, the cascade theorem for multi-prime composites, and all computational verification are due to **Brayden Sanders / 7Site LLC**. The 187-semiprime macro sweep, the 14-bridge survey, the 10-cascade survey, and the Z6 transition snapshots were generated and verified by Sanders.
+1. **Luther Dispersion Conjecture** (gate_rate ≈ F_k): The conjecture that the gate-rate function tracks a Fibonacci-like growth, first framed as a dispersion law connecting prime-forced G-growth to combinatorial structure.
+2. **Pre-echo framing / harmonic shadow hypothesis**: The metaphor of a prime "casting a harmonic shadow" into the unit alphabet before it arrives as a gate event — the countdown clock language, the pre-echo zone framing, and the observation that the transition is structurally different for semiprimes versus higher products (tiered vs. sharp).
+3. **Prime factors as geometric sinks in a dynamical system**: The insight that prime factors are not algebraic accidents but geometric attractors — sinks toward which the rank trajectory D1 flows with strictly negative velocity, zero exactly at the sink, positive thereafter. The kinematic interpretation (§6A) formalizes this insight.
+
+The algebraic formalization of R(k, f) via the geometric sum, the closed-form proof (Theorem 1), the ω-blindness theorem (Theorem 4), the cascade theorem for multi-prime composites (Theorem 3), and all computational verification are due to **Brayden Sanders / 7Site LLC**. The 187-semiprime macro sweep, the 14-bridge survey, the 10-cascade survey, the Z6 transition snapshots, the rank curvature Section A–D runs, the seeded RPS correlation study, the T* algebraic derivation, and the balance invisibility observation were generated and verified by Sanders.
 
 ---
 
@@ -692,9 +705,15 @@ The algebraic formalization of R(k, f) via the geometric sum, the closed-form pr
 
 **Q1.** Is there a signal that *does* detect ω(b) from the pre-echo zone alone, using R jointly across multiple frequencies? The defect signal varies with ω; can a linear combination of R values at coprime frequencies recover ω without crossing into the bridge?
 
-**Q2.** The dR/dk sign flip at k = p is universal in the data. Can a sharp analytic statement be made about the second derivative of R(k, 1/p) in the pre-echo zone, establishing concavity and the necessity of the sign flip?
+**Q2.** Is there a critical ratio q/p below which factoring via zero-crossing extrapolation (fitting the closed form to floor(p/3) observations) becomes polynomial? Section A shows zero error for p = 5..29 (all small primes); Section B shows failure at p ≈ 257 for balanced semiprimes. The transition threshold — the largest prime p for which floor(p/3) observations suffice — has not been determined. The condition may also depend on q/p.
 
 **Q3.** What is the precise recovery slope of R(k, 1/q) in the bridge zone as a function of q − p? The Z5 data (Section `run_zoom.log`) suggests this slope encodes information about the prime gap. The relationship between bridge breathing rate and |q − p| appears monotone but has not been proved.
+
+**Q4.** Does the algebraic identity unit_frac(k=q, b=p×q) = (q−2)/q hold for all semiprimes with p < q, p ≥ 3? This is an elementary counting argument (exactly p and q are non-units in {1..q}) and can be stated as a formal lemma. A complete proof statement with edge-case handling (p=2 case, p=q edge) would consolidate §1A.
+
+**Q5.** Does D2_balance → 0 as q/p → 1? The **Balance Invisibility Theorem** (§7B, pending d2_sink.py): if |rank_p − rank_q| / n_primes → 0 as q/p → 1, this provides a geometric explanation for why balanced RSA keys are harder to factor via curvature analysis. A sweep across semiprimes with varying q/p ratios (from nearly 1 to e.g. 10) would test this.
+
+**Q6.** Can seeded_RPS(p) serve as a geometric primality witness? The correlation r(seeded_RPS(p), q/p) = 0.737 (§5A) suggests that the stickiness of the G-obstruction at k=p encodes the balance of the semiprime. If seeded_RPS(p) can be computed without knowing q, it might provide a test for whether b = p×q has a near-balanced factorization — which is precisely the regime where other geometric methods (curvature, bridge slope) are weakest.
 
 ---
 
@@ -703,5 +722,7 @@ The algebraic formalization of R(k, f) via the geometric sum, the closed-form pr
 - **WP34** — Sanders, B. (2026). *The First-G Law and Prime-Forced Dispersion.* 7Site LLC. DOI: 10.5281/zenodo.18852047
 - **Sprint 4 Papers** — Sanders, B. (2026). `Gen10/papers/sprint4_2026_03_30/`. Universal law, 5-world atlas, Clay updates.
 - **Run logs** — `results/deep_pre_echo/run_deep.log` (Sections A, C, D, F, G), `results/zoom_pre_echo/run_zoom.log` (Sections Z1, Z3, Z5, Z6). Generated March 2026.
+- **Rank curvature results** — `results/rank_curvature/rank_curvature_summary.json` (Sections A–D: zero-crossing extrapolation, scaling behavior, balance invisibility, scale-free amplitude). Generated March 2026.
+- **Seeded RPS results** — `results/residue_persistence/run_seeded.log` (500 trials, 12 semiprimes, q/p vs q−p correlations). Generated 2026-03-31.
 - **Atlas** — Sanders, B. (2026). `r16_full_atlas.py`. 36,662 exact computations, 153 semiprimes ≤ 500. All computations exact (no sampling).
 - **Zenodo Archive** — DOI: 10.5281/zenodo.18852047 (public, citable).
