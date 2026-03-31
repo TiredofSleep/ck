@@ -266,15 +266,50 @@ are richer and harder than prime powers. This is a ring-theoretic fact, provable
 from the Chinese Remainder Theorem. The Luther dispersion conjecture is the
 within-class law; ω(b) is the between-class law.
 
-Empirical verification (k=9, |G|=4, identical G-element count):
-- prime_power 2^5 (b=32): difficulty = 0.648   ← easiest
-- semiprime 3×5  (b=15): difficulty = 0.664
-- semiprime 2×11 (b=22): difficulty = 0.679   ← hardest semiprime
-The ordering is consistent and reproducible. Three-factor worlds expected harder still.
+Empirical verification (k=9, same |G|=4 across all worlds):
 
-**Status:** CONJECTURE (formalized). The qualitative picture is empirically confirmed
-by the gate law data. The precise functional form of F_k(|G|, dispersion, ω(b)) is under
-active investigation. See `results/extended/` for current data.
+| World type       | b   | |G|×IL | best_score | difficulty | CRT idem |
+|-----------------|-----|--------|------------|------------|----------|
+| prime_power 2^5 | 32  | 4.00   | 0.352      | 0.648      | 0        |
+| prime_power 2^6 | 64  | 4.00   | 0.349      | 0.651      | 0        |
+| semiprime 3×5   | 15  | 2.50   | 0.336      | 0.664      | 2        |
+| semiprime 3×7   | 21  | 2.50   | 0.330      | 0.670      | 2        |
+| semiprime 2×11  | 22  | 4.00   | 0.321      | 0.679      | 2        |
+| semiprime 2×13  | 26  | 4.00   | 0.321      | 0.679      | 2        |
+| 3fac 2×5×7      | 70  | 4.00   | 0.167      | 0.833      | 6        |
+| 3fac 3×5×7      | 105 | 3.12   | 0.238      | 0.762      | 6        |
+| 3fac 2×3×5      | 30  | 5.25   | 0.111      | 0.889      | 6        |
+| 3fac 2×3×7      | 42  | 5.25   | 0.111      | 0.889      | 6        |
+
+Note: b=70 and b=22 have the SAME Luther metric (4.00) but difficulty 0.833 vs 0.679.
+The 6 vs 2 CRT idempotents account for the gap. Within each ω-class, Luther ordering
+is perfectly monotone.
+
+**Dispersion collapse test** (63 matched (b,k) pairs, gate_rate from optimization trials):
+
+```
+Predictor              Pearson r   Interpretation
+|G| × interleave       -0.667      Luther metric: r vs ease
+|G| alone              -0.743      |G| dominates (94% of pairs have interleave ≥ 0.9)
+unit_density           +0.778      C-fraction predicts gate ease
+dispersion_gap         +0.626      larger gaps = easier (less dense G)
+
+Binned Luther metric → avg gate_rate:
+  [0.00, 1.44):  avg = 1.000   ← G sparse, trivially easy
+  [1.44, 2.87):  avg = 0.666
+  [2.87, 4.31):  avg = 0.394
+  [4.31, 5.74):  avg = 0.007
+  [5.74+    ):  avg ≈ 0.000   ← G dense, maximally hard
+```
+
+The collapse curve exists: gate_rate falls monotonically from 1.0 to 0.0 as Luther metric
+increases. The Luther correction (×interleave vs ×1) matters most at small k near the
+First-G onset and for worlds with large q/p ratio. For most semiprime worlds |G|≈|G|×IL
+because interleave is already near-maximal.
+
+**Status:** CONJECTURE (formalized). The collapse curve is empirically confirmed.
+The full functional form: difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave) is under
+active investigation. See `results/extended/` and `results/atlas/` for current data.
 
 ---
 
