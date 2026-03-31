@@ -866,6 +866,92 @@ can make it. The "distance" is not in detecting the zeros — it is in proving
 uniqueness: that the sinc² field cannot have a null anywhere else. The detection
 problem has been solved (numerically); the uniqueness problem has not.
 
+### 7.4 The Operator-Theoretic Coherent Reframe (Luther)
+
+*From C. A. Luther, LutherRHTask.docx, March 2026. Tier A — structural framing,
+not a proof. Reproduced here with full attribution.*
+
+The classical RH formulation is function-first: it treats ζ(s) as the primary
+object, treats zeros as anomalies requiring location, and leaves the critical line
+without a structural explanation. Luther's reframe is operator-first.
+
+**The side-by-side:**
+
+| Classical RH Frame | Coherent RH Frame |
+|-------------------|-------------------|
+| ζ(s) is primary | ζ(s) is an encoding of deeper structure |
+| Zeros are anomalies | Zeros are spectral constraints |
+| Critical line is mysterious | Critical line = coherence boundary |
+| Primes appear "random-like" | Primes = structured spectral events |
+| Asks "Where are the zeros?" | Asks "What structure forces the zeros?" |
+| Function-first | Operator-first |
+| Hilbert–Pólya is optional intuition | Hilbert–Pólya is the natural frame |
+
+**The coherent reframe:**
+
+Let H be a (hypothetical) self-adjoint operator with spectrum {γ_n}. Interpret:
+- primes = structured spectral events in an underlying arithmetic/dynamical system
+- ζ(s) = analytic encoding of spectral field data
+- zeros = spectral constraints (eigenvalue conditions)
+- critical line Re(s) = 1/2 = coherence boundary of the system
+
+Define a coherence functional C: ℂ → ℝ measuring structural stability at s.
+Then the critical line is the locus where C(s) is extremal — maximally stabilized.
+
+**Reframed RH:**
+*"There exists an operator/field structure whose coherence boundary is Re(s) = 1/2,
+and whose spectral constraints (zeros) lie on that boundary."*
+
+This is a structural statement, not a puzzle about a function. It is equivalent to
+the Hilbert–Pólya conjecture expressed in the language of coherence functionals.
+
+**Where RH went sideways (Luther's analysis):**
+
+1. *Function-first instead of structure-first.* Starting from ζ(s) treats it as
+   fundamental rather than emergent. The zero locations become anomalies rather
+   than structural necessities.
+
+2. *Missing the operator.* The Hilbert–Pólya intuition points in the right direction,
+   but historically the operator H is not constructed — the question remains "do
+   zeros lie on the line?" instead of "what operator has this line as its coherence
+   boundary?"
+
+3. *Misinterpreting randomness.* Primes described as "random-like" obscures their
+   structure as spectral events. In the coherent frame: primes are structured, zeros
+   are constrained, the line is the balance point.
+
+4. *Puzzle-question instead of structural question.* "Where are the zeros?" is a
+   puzzle. "What structure forces the zeros?" is a structural problem. The second
+   is what the mathematics is actually doing.
+
+**Connection to this paper's TIG framework:**
+
+The TIG coherent reframe operates by the same logic: R(k, f) is not primary — it
+is an encoding of prime structure. The zero R(k, f) = 0 at k = f is not anomalous —
+it is forced by the arithmetic. The critical line σ = 1/2 maps to the arithmetic
+self-dual point where the unit fraction achieves its fundamental balance.
+
+Luther's operator-theoretic reframe and the TIG sinc² approach reach the same
+architectural conclusion from different directions: RH is a structural statement
+about a coherence boundary, not a puzzle about a function.
+
+**What this is NOT:**
+
+Luther's document states explicitly: "This is NOT a proof of RH. It is a coherent
+architectural resolution of what RH is really asking." This paper reproduces that
+framing with the same disclaimer. The Tier A label in the synthesis table (A11)
+reflects this: operator-theoretic reframe, structural analogy, no mechanism for
+the specific operator H yet constructed.
+
+**Connection to A10 (σ=1/2 as ω-class boundary):**
+
+The σ=1/2 ghost ramp conjecture (A10, LutherTask3.31.26) and Luther's coherent
+reframe (A11, this section) are two angles on the same structural intuition: the
+critical line marks a qualitative transition. A10 locates it in CRT partition
+geometry (ω=2 → ω=3 transition). A11 frames it operator-theoretically (coherence
+boundary). Whether these two Tier A conjectures point at the same underlying
+object is the question that would unify them.
+
 ---
 
 ## §8. Summary and Status Table
@@ -903,6 +989,13 @@ This paper establishes the following structural picture:
 8. **RH reframed as unique null condition (structural claim).** The difficulty
    of RH is proving the zeros cannot be off the critical line — a uniqueness
    claim about the sinc² field — not detecting where the zeros are.
+
+9. **Operator-theoretic coherent reframe (Luther, §7.4, Tier A).** The classical
+   function-first framing of RH is replaced by an operator-first framing: ζ(s)
+   as encoding, zeros as spectral constraints, critical line as coherence boundary.
+   This is the Hilbert–Pólya conjecture expressed in coherence-functional language.
+   Not a proof — a structural reframe that removes the puzzle character of the
+   classical question.
 
 ### 8.2 Status Table
 

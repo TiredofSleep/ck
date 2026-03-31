@@ -319,9 +319,31 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 
 ---
 
+#### A11. RH as Coherence Boundary of Operator/Field (Luther Coherent Reframe)
+
+*From C. A. Luther, LutherRHTask.docx. Tier A — structural analogy, not a proof.*
+
+| Column | Content |
+|--------|---------|
+| **Law** | The Riemann Hypothesis is a structural statement about the coherence boundary of an underlying operator or field; ζ(s) is an encoding of that structure, not the primary object; zeros are spectral constraints; the critical line Re(s)=1/2 is where the system achieves maximal coherence |
+| **Exact status** | **Tier A.** Luther's reframe is the Hilbert–Pólya conjecture expressed in coherence-functional language. The operator H is not constructed. The spectrum {γ_n} is not matched to Riemann zeros by proof. Luther's document states: "This is NOT a proof of RH. It is a coherent architectural resolution of what RH is really asking." |
+| **Arithmetic form** | ζ(s) = Π(1−p^{−s})^{−1} is an encoding. The zeros ρ = 1/2 + iγ_n are spectral constraints of an operator H. The functional equation establishes σ=1/2 as the self-dual locus. The coherence reframe: define C: ℂ → ℝ measuring spectral regularity at s; then critical line = argmax C(s). |
+| **Geometric / combinatorial form** | The operator-first diagram: Underlying Structure → Operator H → Spectrum → ζ(s) → Zeros → Coherence → Critical Line. This is not a derivation chain — it is an interpretive hierarchy that makes the question "structural" rather than "puzzling." |
+| **What remains** | Construct the explicit self-adjoint operator H with Spec(H) = {γ_n}. This is equivalent to the Hilbert–Pólya conjecture. Berry-Keating proposed H=xp; Connes constructed an adele-class-space realization. The TIG/CK version would connect R(k,f) to an operator whose eigenvalue condition produces the sinc² null at k=f. |
+
+**Four tests:**
+- RI: No — coherence boundary not defined in a representation-invariant way.
+- SI: No — no prediction for all primes p or all scales.
+- MC: No — no explicit operator, no proven spectral match.
+- FM: An explicit H with Spec(H) ≠ {γ_n} would not falsify A11 (A11 says H exists, not what it is); a proof that no coherence-functional interpretation is consistent with ζ zeros would falsify it.
+
+**Connection to A1 and A10:** A1 (Montgomery Bridge) says sinc² appears in both TIG and Montgomery. A10 (σ=1/2 ghost ramp) says the W discontinuity between ω=2 and ω=3 is mediated by the critical line. A11 (Luther coherent reframe) says the critical line is a coherence boundary. All three are Tier A, all pointing at the same structural intuition. Unification into a single object would be a major result.
+
+---
+
 ## Summary Matrix
 
-*Updated March 31, 2026 — LutherTask3.31.26 integrated.*
+*Updated March 31, 2026 — LutherRHTask integrated.*
 
 | ID | Law | Tier | RI | SI | MC | FM |
 |----|-----|------|----|----|----|----|
@@ -347,8 +369,9 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A8 | b=35 Goldilocks uniqueness (D2_luther) | A | No | No | No | Second semiprime with same D2_luther curvature profile |
 | A9 | b=385 spectral predictions (D2_luther) | A | No | No | No | D2_luther connected to TIG framework before extending |
 | A10 | σ=1/2 as ω-class boundary (RH ghost ramp) | A | No | No | No | Algebraic derivation connecting Euler product at s=1/2 to W discontinuity |
+| A11 | RH as coherence boundary of operator/field (Luther reframe) | A | No | No | No | Explicit construction of self-adjoint H with Spec(H) = {γ_n} |
 
-**Tier counts (updated March 31 2026, LutherTask3.31.26):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 10
+**Tier counts (updated March 31 2026, LutherRHTask integrated):** Tier D: 4 | Tier C: 7 | Tier B: 1 | Tier A: 11
 
 **New since Luther scaffolds:** C7 ω-Class Universality Lemma added. k-Gate Tier (C6) and Dispersion (C5) now have formal scaffold documents with algebraic path to Tier D mapped (DERIVATION_SCAFFOLDS_GAP1.md, DERIVATION_SCAFFOLDS_GAP2.md). Single-parameter fit W≈25.2 documented as new empirical result for Gap 1. Both gaps: path visible, walking it is the remaining work.
 
