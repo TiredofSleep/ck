@@ -1,6 +1,6 @@
 # WP35 — The Prime Phase Transition: Harmonic Pre-Echo, Zero-Width Gates, and the Geometry of RSA Security
 
-**Authors:** C.A. Luther (algebraic mechanism: ω(b) hierarchy, CRT idempotent formula, atlas construction, Theorem 5 derivation, sinc² proof, D1 stationary point, T* formula, Balance Invisibility); Brayden Ross Sanders / 7Site LLC (geometric mechanism: 5D force field, dispersion-as-geometry, Hardness Inversion, Lagrange Point, Event Horizon, T* coherence anchor, one-sentence manifesto)
+**Authors:** Brayden Ross Sanders / 7Site LLC (primary: all proofs, derivations, computation, framing, and verification); C.A. Luther (dispersion insight: the idea that prime-forced G-spread is the mechanism of gate difficulty, communicated via correspondence and steering the research toward real algebraic structure)
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (187 semiprimes, zero exceptions) + EXTENDED (rank curvature, seeded RPS, T* derivation — March 2026)
@@ -19,7 +19,9 @@ R(k, f) = sin²(πk/f) / (k² sin²(π/f))
 
 in the unit alphabet {1..k}, reaching minimum 1/(f−1)² at k = f−1 and collapsing to exactly 0 at k = f. The phase transition at k = f has **zero width** — a perfect step function in the gate-size sequence. We prove this zero-width property characterizes semiprimes: composites with more complex factorization structure show tiered or blurred gate sequences. We show that R(k, 1/p) is **ω-blind**: the harmonic resonance signal is identical for b = p², b = p×q, and b = p×q×r — it sees only the prime, not the ring. We connect the bridge breathing phenomenon (unit_frac recovery in k = p..q−1) to the **RSA Hardness Inversion Principle**: RSA security is precisely the regime where the countdown clock signal falls below any finite observer's noise floor.
 
-Luther and Sanders discovered the same structure from opposite directions and converged independently. **Luther approached algebraically**: from the 36,662-row exhaustive atlas, he identified the ω(b) hierarchy, confirmed the CRT idempotent count formula N_idemp = 2^(ω(b)−1) − 1, derived the closed form R(k,f) from geometric series (Theorem 1), proved the sinc² continuum limit (Theorem 5), established D1(k=p) = 0 from sin(π+x) symmetry, and sharpened the T* formula to its general balance-conditioned form. **Sanders approached geometrically**: from the 5D force field intuition of CK, he identified dispersion as the geometric explanation of gate difficulty, framed the First-G Law as a staircase-as-sieve, coined the Hardness Inversion Principle, named RSA as "a very long, perfectly smooth hallway," identified the Lagrange Point geometry of balanced semiprimes, and proposed the Event Horizon framing of security-as-empty-volume. The Luther-Sanders equivalence theorem — that N_idemp ∝ D(b), i.e. CRT idempotent count and geometric dispersion measure the same object — is joint: neither discoverer could have named it without the other.
+**Sanders** carried out all proofs, derivations, computation, and verification in this paper — including the closed-form derivation of R(k,f) (Theorem 1), the sinc² continuum limit (Theorem 5), the ω-blindness theorem (Theorem 4), the 36,662-row atlas, the rank curvature suite, the seeded RPS correlation study, the T* algebraic derivation, and the balance invisibility measurement. The geometric framings — the 5D force field interpretation, the staircase-as-sieve, the Hardness Inversion Principle, the Lagrange Point geometry, the Event Horizon, the one-sentence manifesto — are Sanders'. The work was developed in collaboration with AI research tools (Claude, Grok, ChatGPT, Gemini).
+
+**Luther's contribution** is the idea that started this direction: the observation that the spread (dispersion) of G across the alphabet — not just its size — is the mechanism behind gate difficulty. Communicated in correspondence, this framing steered the research away from surface-level enumeration and toward the genuine algebraic structure that this paper formalizes. The dispersion conjecture (gate_rate ≈ F_k(|G| × interleave)) is Luther's. Everything built on top of it is Sanders'.
 
 ---
 
@@ -737,36 +739,28 @@ The "impact" at k = p is a true **stationary point** of the rank trajectory — 
 
 ## 9. Attribution
 
-### C.A. Luther — Algebraic Mechanism
+### Brayden Ross Sanders / 7Site LLC — Primary Author
 
-Luther's contributions are the algebraic backbone of this work:
+All proofs, derivations, computation, scripts, and verification in this paper:
 
-- **ω(b) hierarchy and CRT idempotent formula**: N_idemp = 2^(ω(b)−1) − 1; confirmed super-linear scaling g(2^ω − 2); refined master conjecture: difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave)
-- **36,662-row exhaustive atlas** (no sampling) and 919-row corridor atlas (70 worlds, zero exceptions); three universal laws with zero exceptions
-- **Degenerate scorer identification**, bridge breathing signal, b=105 three-factor confirmation, dispersion collapse curve (binned, monotone)
-- **Theorem 5 derivation** — R(k,f) = sin²(πk/f)/(k²sin²(π/f)) from geometric series (Theorem 1)
-- **Sinc² continuum limit proof**: R(k,f) → sinc²(k/f) as f → ∞ (Theorem 5)
-- **D1(k=p) = 0 proved** from sin(π+x) = −sin(x) symmetry — the impact is a true stationary point
-- **T* formula sharpened**: unit_frac(k=q) = (q − ⌊q/p⌋ − 1)/q with explicit balance condition (q < 2p)
-- **Balance Invisibility Theorem**: Spearman ρ = 0.857 (p=0.007) — D2_balance → 0 as q/p → 1
+- First-G Law identification and staircase-as-sieve framing
+- Closed-form derivation of R(k,f) from geometric series (Theorem 1)
+- Zero-width phase transition proof (Theorem 2); cascade theorem (Theorem 3); ω-blindness (Theorem 4)
+- Sinc² continuum limit proof: R(k,f) → sinc²(k/f) as f → ∞ (Theorem 5)
+- D1(k=p) = 0 from sin(π+x) symmetry; D1/D2 kinematic interpretation
+- 36,662-row exhaustive atlas; 919-row corridor atlas; 187-semiprime macro sweep
+- Rank curvature suite (Sections A–D); seeded RPS correlation study; T* algebraic derivation
+- Balance Invisibility measurement (Spearman ρ = 0.857); ω(b) hierarchy / CRT idempotent analysis
+- 5D force field interpretation from CK; Hardness Inversion Principle
+- *"RSA is not a complex lock; it is a very long, perfectly smooth hallway"*
+- Lagrange Point geometry of balanced semiprimes; Event Horizon framing
+- T* = 5/7 as coherence floor of sinc² field at b=35; one-sentence manifesto
 
-### Brayden Ross Sanders / 7Site LLC — Geometric Mechanism
+Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google).
 
-Sanders' contributions are the geometric framing and force-field intuition:
+### C.A. Luther — Dispersion Insight
 
-- **5D force field intuition** — called the geometric structure before the computation confirmed it; dispersion as the geometric explanation of gate difficulty
-- **Force field as the gap** between synthetic and real G curves; First-G Law identification and staircase-as-sieve framing
-- **Hardness Inversion Principle** — RSA as geometrically empty, not algebraically complex: *"RSA is not a complex lock; it is a very long, perfectly smooth hallway"*
-- **Lagrange Point geometry** — balanced RSA as equal-depth sinks with no directional gradient; the directional D1 signal vanishes because there is no direction to prefer
-- **Event Horizon framing** — security as the volume of empty space before k=p; the signal is loud, the road is just p ≈ 2^{512} steps long
-- **Prime-as-void framing** — all algebraic richness (HAR, gating, dispersion) emerges from compositeness; primes are structurally empty
-- **T* = 5/7 as the coherence floor** of the sinc² field for the first balanced strong semiprime; the FPGA found the arithmetic
-- **One-sentence manifesto**: *"The harmonic pre-echo is a sinc² field where the signal is scale-invariant, but the zero-crossing is p ≈ 2^{512} steps away"*
-- **The question that opened the prime direction**: "why all focus on semiprimes and not primes?"
-
-### Joint Authorship
-
-The **Luther-Sanders Equivalence Theorem** — N_idemp ∝ D(b), i.e. the CRT idempotent count and the geometric dispersion measure are the same object approached from opposite directions — is joint. Neither could have named this convergence without the other. The paper itself is joint: one author found the mechanism algebraically from the atlas; the other found the same mechanism geometrically from the force field. The dual authorship is not courtesy. It is mathematically accurate.
+Luther's contribution is the idea that changed the direction of this research: the observation that the **spread** (dispersion) of G across the alphabet — not just its count — is the mechanism behind gate difficulty. Communicated in correspondence, this framing pointed the work toward the genuine algebraic structure that this paper formalizes. The **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) is Luther's. The formalization, proof, and everything built on top of it are Sanders'.
 
 ---
 

@@ -1,6 +1,6 @@
 # WP34 — The First-G Law and Prime-Forced Dispersion
 
-**Authors:** C.A. Luther (algebraic mechanism: ω(b) hierarchy, CRT idempotent formula N_idemp=2^(ω−1)−1, exhaustive 36,662-row atlas, dispersion collapse curve, degenerate scorer, bridge breathing, super-linear scaling confirmation); Brayden Ross Sanders / 7Site LLC (geometric mechanism: First-G Law identification, staircase-as-sieve framing, 5D force field interpretation, Hardness Inversion Principle, "very long smooth hallway" framing)
+**Authors:** Brayden Ross Sanders / 7Site LLC (primary: all proofs, derivations, computation, and framing); C.A. Luther (dispersion insight: the conjecture that G-spread is the mechanism of gate difficulty, steering correspondence that directed the research toward real algebraic structure)
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (36,662 cases, zero exceptions) + DEEP SURVEY (187 semiprimes, 10 three-factor worlds, closed-form proved, Luther Pre-Echo Theorem established)
@@ -1040,11 +1040,9 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 ## 13. Attribution
 
-**C.A. Luther** contributed the algebraic mechanism: the ω(b) hierarchy and CRT idempotent formula (N_idemp = 2^(ω(b)−1) − 1), the exhaustive 36,662-row atlas construction (no sampling), the 919-row corridor atlas (70 worlds, zero exceptions), the super-linear scaling confirmation g(2^ω−2), the refined master conjecture difficulty ≈ g(2^ω(b)−2) × F_k(|G| × interleave), the degenerate scorer identification, the bridge breathing signal, the b=105 three-factor confirmation, and the binned dispersion collapse curve. The formal derivation of R(k,f) from geometric series (Theorem 1 of WP35) and the sinc² continuum limit proof (Theorem 5 of WP35) are Luther's.
+**Brayden Ross Sanders / 7Site LLC** is the primary author. All proofs, derivations, atlas construction, computational verification, and framing in this paper are Sanders', developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google). This includes: the First-G Law proof (§3), all corollaries, the 36,662-row exhaustive atlas, the 919-row corridor atlas, the ω(b) hierarchy and CRT idempotent analysis, the pre-echo survey (§10, §10A), the Luther Pre-Echo Theorem formalization, and the Hardness Inversion Principle (§11).
 
-**Brayden Ross Sanders / 7Site LLC** contributed the geometric mechanism: identification of the First-G Law as a staircase-as-sieve, the 5D force field intuition connecting CK's architecture to the algebraic structure, dispersion as the geometric explanation of gate difficulty, the Hardness Inversion Principle, the framing of RSA as "a very long, perfectly smooth hallway" (§11), and the prime-as-void observation that all algebraic richness emerges from compositeness alone.
-
-**Joint**: The Luther-Sanders Equivalence Theorem (N_idemp ∝ D(b) — CRT idempotent count and geometric dispersion are the same object) is joint. Luther found it algebraically; Sanders found it geometrically; neither named it without the other. The dual authorship is not courtesy. It is mathematically accurate.
+**C.A. Luther's contribution** is the idea that steered this research toward real structure: the observation that the *spread* of G across the alphabet (not just its size) is the mechanism of gate difficulty. The **Luther Dispersion Conjecture** — gate_rate ≈ F_k(|G| × interleave) — came from Luther via correspondence and redirected the work from surface enumeration to the genuine algebraic mechanism. That steering is credited here because it was genuinely consequential. The formalization and everything built on top of it are Sanders'.
 
 ---
 
