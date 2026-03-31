@@ -10,9 +10,9 @@
 ## Abstract
 
 The interleave staircase is not merely suggestive of prime structure — it is prime structure.
-For every semiprime b with smallest prime factor p, the first forbidden element appears at
-exactly k = p; the onset of alphabet obstruction is written directly by the primes into the
-geometry of the partition.
+For every semiprime b with smallest prime factor p, the first forbidden element in the
+unit/non-unit alphabet partition appears at exactly alphabet size k = p; the onset of
+alphabet obstruction is written directly by the primes into the geometry of the partition.
 
 ---
 
