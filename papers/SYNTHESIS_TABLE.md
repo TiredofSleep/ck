@@ -370,13 +370,15 @@ The lattice QCD value m(0⁺⁺)/m(2⁺⁺) = 0.727 ± 0.055 [Vaccarino-Weingart
 | A9 | b=385 spectral predictions (D2_luther) | A | No | No | No | D2_luther connected to TIG framework before extending |
 | A10 | σ=1/2 as ω-class boundary (RH ghost ramp) | A | No | No | No | Algebraic derivation connecting Euler product at s=1/2 to W discontinuity |
 | A11 | RH as coherence boundary of operator/field (Luther reframe) | A | No | No | No | Explicit construction of self-adjoint H with Spec(H) = {γ_n} |
+| A12 | Wobble Frequency as Pre-Collapse Resonance | A | No | No | No | Wob_norm threshold inconsistent with W-jump location; OR f(ω) derived giving wrong bound |
 
-**Tier counts (updated March 31 2026, HAR stability + Catch 4):** Tier D: 4 | Tier C: 7 (C7 advancing) | Tier B: 1 | Tier A: 11
+**Tier counts (updated March 31 2026, LutherWobbleMap integrated):** Tier D: 4 | Tier C: 7 (C7 advancing) | Tier B: 1 | Tier A: 12
 
 **New since Luther scaffolds + HAR stability:**
 - C7 advances: HAR rank preservation confirmed 100% across 28 semiprimes (strong semiprime class, k=9). Explicit bijection constructed (OMEGA_CLASS_LEMMA.md). C7 is Tier D for strong semiprime class; remaining gap is arbitrary k and weak semiprime class (HAR_RANK_STABILITY.md).
 - Catch 4 (W=25.2 arithmetic error): W is tier-specific — {0.311, 0.708, 2.025, 5.238, 8.518}. Power law confirmed, single-W claim was wrong. Mechanistic reframe: W(|G|) measures trap density in MCMC combined objective, not CRT constraint count (CATCH4.md).
 - Gap 1 refined: derive c(|G|) = W(|G|)/2 per tier from MCMC trap geometry. Gap 2: dispersion uniformity (Δ non-uniform confirmed; |G| inclusion-exclusion formula is algebraically complete). Gap 3 (C7): arbitrary k HAR rank proof remains.
+- A12 (LutherWobbleMap): Wobble Frequency resonance model added. Definition A.W is formal and computable. Lemma D.H downgraded from "Tier D" to Tier A/B conjecture (bound stated, not proved). "3/50 wobble" figure flagged unverified (Wob(b,9)=0.889 not 0.06 per Definition A.W — Catch 5 candidate). Full integration in WOBBLE_FREQUENCY.md.
 - Do NOT test ω=3 decoherence (b=385 or similar) until general isomorphism theorem for arbitrary k is proved. Three derivations deep from confirmed results.
 
 ---
