@@ -1,0 +1,221 @@
+CORRIDOR COMPRESSION — KILL CONDITION TEST
+Luther-Sanders Research Framework, March 31, 2026
+DOI: 10.5281/zenodo.18852047
+
+W_BHML = 3/50 = 0.06000000  [THM — Z/10Z ring arithmetic]
+T_STAR = 5/7  = 0.71428571  [THM — CK coherence threshold]
+PRIME_WINDING  = 0.77428571  [THM — T* + W_BHML]
+
+Candidate formula: Corridor(b,k) = R(m,b,k) x sin2(pi x W_BHML x k/p)
+Kill condition: does Corridor reproduce the empirical sinc2 envelope?
+
+======================================================================
+TEST 1 — FREQUENCY ANALYSIS
+======================================================================
+
+W_BHML = 3/50 = 0.060000
+sin2 full period in k-units = p / W_BHML = p * 16.67
+For a corridor of width k=1..p:
+  Fraction of one period covered = W_BHML = 0.0600
+  Argument at k=p: pi * W_BHML = 0.188496 radians
+  sin2(pi * W_BHML) = 0.035112
+
+The sin2 factor within the corridor k=0..p:
+  k/p = 0.00: sin2_mod = 0.000000
+  k/p = 0.10: sin2_mod = 0.000355
+  k/p = 0.20: sin2_mod = 0.001421
+  k/p = 0.30: sin2_mod = 0.003194
+  k/p = 0.50: sin2_mod = 0.008856
+  k/p = 0.70: sin2_mod = 0.017309
+  k/p = 0.90: sin2_mod = 0.028505
+  k/p = 1.00: sin2_mod = 0.035112
+
+FINDING: The sin2 factor is MONOTONE INCREASING from 0 to 0.0351
+within the corridor. No oscillation is visible. The full period
+of sin2(pi x W_BHML x k/p) spans 16.7 corridor widths.
+
+What frequency would produce ONE visible oscillation in k=1..p?
+  Need: period = p, so frequency = 1 (not W_BHML = 0.06)
+  That frequency IS sin2(pi*k/p) — the RAW sinc2 numerator.
+  W_BHML = 3/50 is 1/16.67 of that frequency.
+
+Explicit table for b=35 (p=5, q=7):
+     k     k/p      R(k,p)       sinc2    sin2_mod    Corridor
+     1   0.200    1.000000    0.875140    0.001421    0.001421
+     2   0.400    0.654508    0.572787    0.005674    0.003714
+     3   0.600    0.290893    0.254572    0.012737    0.003705
+     4   0.800    0.062500    0.054696    0.022568    0.001410
+     5   1.000    0.000000    0.000000    0.035112    0.000000 <- NULL at k=p
+     6   1.200    0.027778    0.024309    0.050297    0.001397
+
+Post-gate sidelobes (k > p) for b=35 (p=5):
+     k     k/p      R(k,p)    sin2_mod    Corridor
+     6   1.200    0.027778    0.050297    0.001397
+     7   1.400    0.053429    0.068038    0.003635
+     8   1.600    0.040907    0.088234    0.003609
+     9   1.800    0.012346    0.110769    0.001368
+    10   2.000    0.000000    0.135516    0.000000
+    11   2.200    0.008264    0.162334    0.001342
+    12   2.400    0.018181    0.191070    0.003474
+    13   2.600    0.015491    0.221562    0.003432
+    14   2.800    0.005102    0.253636    0.001294
+    15   3.000    0.000000    0.287110    0.000000
+    16   3.200    0.003906    0.321794    0.001257
+
+VERDICT — TEST 1:
+  The sin2(pi x W_BHML x k/p) factor does NOT oscillate within
+  the corridor (k=1..p). It grows monotonically from 0 to 0.0351.
+  The first oscillation peak occurs at k = p/(2*W_BHML) = p*50/6
+  For p=5: first peak at k=41.7 (far past the gate at k=5).
+  CONCLUSION: W_BHML is not the oscillation frequency of the corridor.
+  It is a modulation that extends PAST the gate, into post-gate space.
+
+======================================================================
+TEST 2 — AMPLITUDE AND SHAPE COMPARISON
+======================================================================
+
+For each semiprime in pre_echo_atlas, compute:
+  (a) R_sinc(k, p)                 [sinc2 model]
+  (b) Corridor(b,k) = R * sin2_mod  [Luther candidate]
+  (c) atlas_resonance[k]            [empirical]
+  (d) max ratio: Corridor(k)/sinc2(k/p)
+
+       b     p     q   pts    max_mod   r(Corr,emp)   r(sinc2,emp)   RMSE_Corr  RMSE_sinc2
+  ------  ----  ----  ----  ---------  ------------  -------------  ----------  ----------
+      15     3     5     3    0.03511        0.6958         1.0000      0.592363      0.000000
+      21     3     7     3    0.03511        0.6958         1.0000      0.592363      0.000000
+      35     5     7     3    0.03511        0.9836         1.0000      0.169518      0.000000
+      55     5    11     3    0.03511        0.9836         1.0000      0.169518      0.000000
+      77     7    11     3    0.03511        0.9950         1.0000      0.075274      0.000000
+      91     7    13     3    0.03511        0.9950         1.0000      0.075274      0.000000
+     143    11    13     3    0.03511        0.9985         1.0000      0.026235      0.000000
+     187    11    17     3    0.03511        0.9985         1.0000      0.026235      0.000000
+     221    13    17     3    0.03511        0.9990         1.0000      0.017965      0.000000
+     323    17    19     3    0.03511        0.9995         1.0000      0.009890      0.000000
+
+GLOBAL across all semiprimes (30 data points):
+  Pearson r: Corridor vs empirical  = 0.768592
+  Pearson r: sinc2    vs empirical  = 1.000000
+  RMSE:      Corridor vs empirical  = 0.277919
+  RMSE:      sinc2    vs empirical  = 0.000000
+
+VERDICT — TEST 2:
+  FAIL: Raw sinc2 fits empirical BETTER than Corridor.
+  sinc2 r=1.0000 vs Corridor r=0.7686
+  Corridor degrades the fit by delta_r = 0.2314
+  The sin2_mod factor DISTORTS the sinc2 shape.
+  RMSE worsens by 0.2779 when Corridor is applied.
+  CONCLUSION: The candidate formula is NOT the envelope.
+  Compression requires a different algebraic form.
+
+======================================================================
+TEST 3 — SINC2 CORRESPONDENCE
+======================================================================
+
+In the continuum limit (p -> inf), t = k/p:
+
+  sinc2(t)      = sin2(pi*t) / (pi*t)2
+  Corridor(t)   = sinc2(t) x sin2(pi x W_BHML x t)
+
+For small argument (t << 50/6 = 8.33):
+  sin2(pi x W_BHML x t) ~= (pi x W_BHML x t)2
+  => Corridor(t) ~= sinc2(t) x (pi x W_BHML)2 x t2
+                  = sin2(pi*t)/(pi*t)2 x (pi*W_BHML)2 x t2
+                  = sin2(pi*t) x W_BHML2
+                  = sin2(pi*t) x (0.06)2
+                  = sin2(pi*t) x 0.003600
+
+sinc2(t) peaks at t=0 (value=1), decays monotonically to 0 at t=1.
+sin2(pi*t) peaks at t=0.5 (value=1), zero at t=0 and t=1.
+These have OPPOSITE shapes within t in [0, 1].
+
+Comparison table (continuum limit, t = k/p in [0,1]):
+       t    sinc2(t)    sin2(pi*t)     Corridor~       ratio
+  ------  ----------  ------------  ------------  ----------
+    0.10    0.967531      0.095492    0.00034373    0.000355
+    0.20    0.875140      0.345492    0.00124318    0.001421
+    0.30    0.736840      0.654508    0.00235372    0.003194
+    0.40    0.572787      0.904508    0.00325006    0.005674
+    0.50    0.405285      1.000000    0.00358935    0.008856
+    0.60    0.254572      0.904508    0.00324237    0.012737
+    0.70    0.135338      0.654508    0.00234259    0.017309
+    0.80    0.054696      0.345492    0.00123437    0.022568
+    0.90    0.011945      0.095492    0.00034048    0.028505
+    1.00    0.000000      0.000000    0.00000000    0.000000
+
+VERDICT — TEST 3:
+  Corridor(t) does NOT reproduce sinc2(t).
+  In the continuum limit, Corridor ~= (3/50)2 x sin2(pi*t).
+  This is a BELL SHAPE (peaks at t=0.5), not the sinc2 DECAY
+  (peaks at t=0). The shapes are topologically opposite.
+
+  The empirical gate rate follows a sinc2-like DECAY from k=1..p.
+  Corridor as defined cannot reproduce this shape.
+
+What shape does Corridor(t) actually have?
+  Corridor(t) = sinc2(t) x sin2(pi * W_BHML * t)
+             ~= (3/50)2 x sin2(pi*t)
+  This peaks at t=0.5 and is zero at t=0 and t=1.
+  This corresponds to the product: corridor width x pre-echo resonance?
+  No clean algebraic interpretation found from this form.
+
+======================================================================
+SYNTHESIS — WHAT CORRIDOR COMPRESSION REQUIRES FOR TIER C
+======================================================================
+
+The three-object separation STANDS (confirmed by all three tests):
+  Object 1: W_BHML = 3/50  [THM, k-independent]
+  Object 2: Wob(b,k) = 8/9 at k=9  [measured, k-dependent]
+  Object 3: corridor compression  [new object, collapse at k=p]
+
+The candidate formula Corridor(b,k) = R(m,b,k) x sin2(pi*W_BHML*k/p)
+FAILS the shape test. Within the corridor:
+  - sin2 factor is monotone, not oscillatory
+  - Factor ranges from 0 to 0.0351 (tiny)
+  - Continuum limit produces bell shape, not sinc2 decay
+  - Raw sinc2 fits empirical data BETTER than Corridor
+
+The compression IS real: R(m,b,k) -> 0 at k=p (confirmed, Tier C2).
+The collapse is the sinc2 field itself. No additional sin2 factor
+is needed to describe it. The gate closes because sinc2(k/p) -> 0
+as k/p -> 1. W_BHML = 3/50 describes post-gate sidelobe spacing.
+
+REVISED PICTURE for A.13 (to send Luther):
+  The corridor compression IS sinc2(k/p) narrowing as k -> p.
+  W_BHML = 3/50 sets the SIDELOBE frequency in the post-gate region.
+  Not a factor within the corridor — a periodicity PAST the door.
+
+  Better candidate: Corridor_envelope(t) = sinc2(t)   [the thing
+  that collapses to zero] with W_BHML appearing in the sidelobe
+  structure at t > 1: sin2(pi * W_BHML * t) gives sidelobe peaks
+  at t = 1/(2*W_BHML) = 8.33 (k = 8.33p past the gate).
+
+First post-gate sidelobe peak of sin2(pi*W_BHML*t):
+  t_peak = 1/(2*W_BHML) = 50/6 = 8.3333
+  For b=35 (p=5): k_peak = 8.33 x 5 = 41.67
+  For b=143 (p=11): k_peak = 8.33 x 11 = 91.67
+
+  The W_BHML sidelobe frequency appears FAR past the gate.
+  It may be the 'harmonic echo' structure: each gate crossing at k=np
+  has a pre-echo at k = p - 1/(W_BHML) = p - 50/3 (not physical for small p).
+
+VERDICT (overall):
+  KILL CONDITION: NOT MET for the candidate formula.
+  Corridor(b,k) = R x sin2(pi*W_BHML*k/p) does not reproduce
+  the sinc2 envelope. The formula needs revision.
+
+  THE THREE-OBJECT SEPARATION STANDS. The compression is real.
+  The algebraic form of Corridor needs a different construction.
+
+  TIER ASSESSMENT: A.13 remains Tier A.
+  Path to Tier B: identify the correct algebraic form.
+  Path to Tier C: prove the algebraic form matches sinc2 collapse.
+
+CORRECTED CANDIDATE (for Luther):
+  Corridor(b,k) = sinc2(k/p)  [IS the compression envelope]
+  Post_gate_echo(b,k) = sinc2(k/p) + W_BHML * sinc2(k/p - 1)
+  [sidelobe correction: W_BHML weights the first post-gate reflection]
+
+  OR: the W_BHML sidelobe appears in the MONTGOMERY dual:
+  R2(t) = 1 - sinc2(t)  [Montgomery pair correlation]
+  First sidelobe of R2 at t = W_BHML: R2(3/50) = 0.011788

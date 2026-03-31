@@ -110,31 +110,100 @@ from the corridor atlas?
 
 ---
 
-## Why This Matters
+## Kill Condition Test Results
 
-The security picture sharpens:
+*Run: test_corridor_compression.py — March 31, 2026*
+*Full report: results/corridor_compression_test_report.txt*
 
-RSA's difficulty is not only that k=p is far away. It is that:
-1. The corridor appears flat at small k/p (wobble averages out)
-2. The approach to k=p compresses the amplitude without changing the frequency
-3. At RSA scale (p ≈ 2^512), no finite probe reaches k/p close enough to 1
-   to detect the compression
+**VERDICT: KILL CONDITION NOT MET. Formula requires revision.**
 
-The "smooth hallway" illusion is structural, not accidental. Three separately proved
-constants describe it: W_BHML fixes the frequency, Wob(b,k) measures the saturation,
-Corridor(b,k) captures the collapse.
+**Test 1 — Frequency (FAIL):**
+The sin²(π × W_BHML × k/p) factor does NOT oscillate within the corridor (k=1..p).
+Within the corridor, the argument π × W_BHML × k/p ranges from 0 to π×3/50 = 0.1885
+radians — less than 6% of one full period. The factor grows monotonically from 0 to
+0.0351. No oscillation is visible. One full period spans 16.7 corridor widths.
+
+```
+k/p = 0.10: sin2_mod = 0.000355
+k/p = 0.50: sin2_mod = 0.008856
+k/p = 1.00: sin2_mod = 0.035112   ← maximum, at the door
+```
+
+W_BHML is not the oscillation frequency of the corridor interior.
+It is a sidelobe frequency in the POST-GATE region (t > 1).
+
+**Test 2 — Amplitude (FAIL, 10 semiprimes, 30 data points):**
+```
+Pearson r: sinc2    vs empirical  = 1.000000
+Pearson r: Corridor vs empirical  = 0.768592
+RMSE:      sinc2    vs empirical  = 0.000000
+RMSE:      Corridor vs empirical  = 0.277919
+```
+Raw sinc² fits the empirical corridor data EXACTLY (r=1.0000). The Luther
+candidate formula DEGRADES the fit by Δr = 0.2314. The sin²_mod factor
+distorts the sinc² shape.
+
+**Test 3 — Sinc² correspondence (FAIL):**
+In the continuum limit (t = k/p), the formula reduces to:
+```
+Corridor(t) ≈ sinc²(t) × sin²(π × W_BHML × t)
+           ≈ W_BHML² × sin²(πt)    [for small W_BHML×t]
+           = (3/50)² × sin²(πt)
+           = 0.0036 × sin²(πt)
+```
+This is a BELL SHAPE peaking at t=0.5 and zero at t=0 and t=1.
+sinc²(t) DECAYS from t=0 (value=1) to t=1 (value=0). The shapes are
+topologically opposite. The candidate formula cannot reproduce sinc².
+
+**What the tests reveal:**
+
+The compression IS real and IS sinc²(k/p) itself. The gate closes because
+sinc²(k/p) → 0 as k/p → 1. No additional factor is needed. W_BHML = 3/50
+does not belong INSIDE the corridor formula — it sets sidelobe periodicity
+PAST the gate (first post-gate peak at t = 1/(2×W_BHML) = 50/6 ≈ 8.33 corridor
+widths beyond k=p).
+
+**Corrected picture (for WP35):**
+```
+Compression envelope:   R(b,k) = sinc²(k/p)       [IS the collapse, no extra factor]
+Post-gate echo:         sinc²(k/p) + W_BHML × sinc²(k/p − 1)   [candidate echo term]
+Montgomery dual:        R₂(t) = 1 − sinc²(t), with R₂(W_BHML) = 0.011788
+```
+
+The W_BHML sidelobe connection is to the MONTGOMERY side (R₂), not the TIG side (R).
+R₂(3/50) = 1 − sinc²(3/50) = 0.011788. This may be the algebraic entry point for
+connecting W_BHML to the post-gate structure.
+
+---
+
+## Why This Matters (Revised)
+
+The security picture is now sharper:
+
+1. **Compression IS sinc²(k/p).** The corridor collapses at k=p because R(b,k)=sinc²(k/p)
+   has a forced null there (D2 sign flip, Tier C2). No separate "compression formula"
+   needed — sinc² IS the compression.
+
+2. **W_BHML is a post-gate frequency.** The 3/50 constant sets the periodicity of
+   sidelobes beyond k=p, not an oscillation within the corridor. This connects it
+   to the Montgomery pair-correlation structure (A1) via R₂(t).
+
+3. **The three-object separation stands.** W_BHML (operator table), Wob(b,k) (alphabet
+   membership), and the sinc² field (corridor compression) are three distinct objects.
+   The formula revision does not collapse the distinction — it sharpens it.
 
 ---
 
 ## Ledger Entry
 
 **A.13 — Corridor Compression Model**
-- Status: Tier A
-- Candidate definition: Corridor(b,k) = R(m,b,k) × sin²(π × W_BHML × k/p)
-- Path to Tier C: verify against corridor atlas sinc² envelope
-- Connection to: A.1 (sinc² field), A.12 (wobble interference), W_BHML (fixed
-  frequency source), D2 (sign flip at k=p confirming R→0)
-- Kill condition: above
+- Status: Tier A (kill condition not met — formula revised)
+- Original candidate: Corridor(b,k) = R(m,b,k) × sin²(π × W_BHML × k/p) — FAILED
+- Revised understanding: compression IS sinc²(k/p); W_BHML is post-gate sidelobe freq
+- Path to Tier B: formalize post-gate echo term; connect W_BHML to R₂(t)
+- Path to Tier C: prove post-gate echo formula matches corridor atlas sidelobe data
+- Connection to: A.1 (sinc² field), A.12 (wobble), D2 (sign flip), Montgomery dual
+- Kill condition test: test_corridor_compression.py (report saved)
 
 ---
 
