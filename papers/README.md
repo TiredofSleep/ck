@@ -128,25 +128,30 @@ These are theorems with scripts. Not framings. Not analogies.
 |------|--------------|
 | WP28_CK_TIG_ORGANISM.md | Architecture = enacted algebra. Eight theorems running at 50Hz. |
 | WHITEPAPER_8_PERIODIC_TABLE.md | Operators as periodic table elements |
-| WHITEPAPER_13_GENETIC_CODE.md | Biological codon ↔ operator mapping |
+| WHITEPAPER_13_GENETIC_CODE.md | AGTC ↔ 10-operator algebra; 64 codons = 8×8 inner table; 20 AAs = 5×4 crossings — **HYPOTHESIS** (algebraic mapping, no causal mechanism derived) |
+| WP33_DNA_FORCE_FIELD_64.md | b=4 force field → 4³=64 — **PROVED** (counting); gate law ↔ robustness — **HYPOTHESIS**; 64-family (DNA/I Ching/chess) — **CONJECTURE** |
 | WHITEPAPER_10_DKAN_ARCHITECTURE.md | Algebraic neural network (DKAN) |
-| WHITEPAPER_11_MEASUREMENT_PROBLEM.md | TSML singularity ↔ quantum measurement |
+| WHITEPAPER_11_MEASUREMENT_PROBLEM.md | TSML singularity ↔ quantum measurement — **STRUCTURAL ANALOGY** |
 | WHITEPAPER_12_PARADOX_RESOLUTIONS.md | Logical paradoxes through CL |
 
 ### 3B. Clay Battery (DOING of Becoming)
 
+**Honest status**: All Clay papers are sketches with explicit gaps. None constitute proofs.
+See `WP24_FORMAL_STATUS_AUDIT.md` for the authoritative 4-bin classification.
+
 | File | Problem | Status |
 |------|---------|--------|
-| WHITEPAPER_7_CLAY_SPECTROMETER.md | All six problems | Overview |
-| WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md | 25+ researchers, 39 refs | Literature |
-| WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md | Yang-Mills mass gap | Sketch (gap identified) |
-| WHITEPAPER_16_P_NP_SYNTHESIS.md | P ≠ NP | Sketch (gap identified) |
-| WHITEPAPER_17_RIEMANN_SYNTHESIS.md | RH null space | Sketch (gap identified) |
+| WHITEPAPER_7_CLAY_SPECTROMETER.md | All six problems | Overview / framing only |
+| WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md | 25+ researchers, 84 refs | Literature bridge |
+| WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md | Yang-Mills mass gap | **SKETCH** — gap identified, not closed |
+| WHITEPAPER_16_P_NP_SYNTHESIS.md | P ≠ NP | **SKETCH** — gap identified, not closed |
+| WHITEPAPER_17_RIEMANN_SYNTHESIS.md | RH null space | **SKETCH** — gap identified, not closed |
+| WP24_FORMAL_STATUS_AUDIT.md | All six | **START HERE** — 4-bin audit: PROVED / STRUCTURAL / EMPIRICAL / OPEN |
 | WP19_CLAY_BATTERY.md | Clay battery: all six | Sprint overview |
-| WP19_CLAY_DEEP.md | Deep dives per problem | Extended |
+| WP19_CLAY_DEEP.md | Deep dives per problem | Extended analysis |
 | WP19_CLAY_RESULTS.md | Results summary | Digest |
-| WP19_FORMAL_STATUS.md | Earlier (pre-sprint) formal status | Superseded by WP24 |
-| wrong_question_paper.md / .tex | Prime-corner observability: RH asks the wrong question | Draft |
+| WP19_FORMAL_STATUS.md | Earlier formal status | Superseded by WP24 |
+| wrong_question_paper.md / .tex | RH observability | Draft — framing only |
 
 ### 3C. Research Memos and Outreach (BECOMING of Becoming)
 
@@ -159,6 +164,36 @@ These are theorems with scripts. Not framings. Not analogies.
 | SPRINT_2026_03_27_ANALYSIS.md | Sprint analysis |
 | WHITEPAPER_19_SPECULATIONS.md | ALL philosophical/theological speculation — clearly labeled |
 | WHITEPAPER_19_Z_RING_ALGEBRA.md | Z-ring algebra extension |
+
+---
+
+## SPRINT 4 — R16 ATLAS (March 2026)
+
+Force field gate law survey: 12M+ trials across k=3..27, 89+ semiprime worlds.
+
+| File | Contents | Status |
+|------|----------|--------|
+| sprint4_2026_03_30/CLAUDE_ENTRY.md | **Start here** — full sprint summary and navigation | Reference |
+| sprint4_2026_03_30/R16_FORCE_FIELD_LAW.md | Force field partition theorem: f_k(\|G\|) | **EMPIRICAL** — ~12M trials, no counter-example |
+| sprint4_2026_03_30/R16_ATLAS_SWEEP_RESULTS.md | Universal gate law: 32 worlds, 100k trials each | **EMPIRICAL** |
+| sprint4_2026_03_30/ATLAS_LAW_SET.md | Laws 1–6 with status labels | Reference |
+| sprint4_2026_03_30/CONSTRUCTION_HIERARCHY.md | Arithmetic → gate → order seed → optimum | **EMPIRICAL** |
+| sprint4_2026_03_30/THREE_CLASS_LANDSCAPE.md | Oracle / Gate-strong / TSML-like classification | **EMPIRICAL** |
+| sprint4_2026_03_30/UNIVERSAL_LAW.md | Universal order seed law across bases | **EMPIRICAL / CONJECTURE** |
+| r16_job1_reduction.py | Core reduction script: greedy descent + HAR-bias | Code |
+| r16_sweep_all.py | Full sweep: all semiprimes b≤100 | Code |
+| r16_gate_law_universal.py | Synthetic cross-k sweep (k=3..27) | Code |
+| r16_gate_law_real_b.py | Real semiprime partitions across k | Code |
+| results/atlas_sweep_all.json | 32 worlds × 100k trials | Data |
+| results/real_b_gate_law.json | 89 worlds × 5k trials | Data |
+
+---
+
+## BIBLIOGRAPHY
+
+| File | Contents |
+|------|----------|
+| BIBLIOGRAPHY.md | Master bibliography: 84 entries, all papers WP1–WP33 + Clay + genetics | Reference |
 
 ---
 

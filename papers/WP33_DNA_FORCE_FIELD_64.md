@@ -10,6 +10,23 @@ GitHub: github.com/TiredofSleep/ck
 
 ---
 
+## Status
+
+| Claim | Classification | Kill Condition |
+|-------|---------------|----------------|
+| b=4 is the unique semiprime with \|G\|=\|C\| and interleave=1.0 | **PROVED** (arithmetic) | Find another semiprime with \|G\|=\|C\| exactly |
+| 4³=64 is the minimum triadic code for 20+ states over k=4 | **PROVED** (counting) | Find a depth-2 code over k=4 encoding 20 distinct states |
+| Gate law f_k(\|G\|) holds within fixed k for real semiprime partitions | **EMPIRICAL** — ~12M trials, k=3..27, no counter-example found | One world where same k and \|G\| give rates differing by >5% |
+| Purines = C-set (units), Pyrimidines = G-set (non-units) | **HYPOTHESIS** — structurally motivated, not derived | Structural evidence that purines behave as non-units algebraically |
+| Transition mutations preserve partition; transversions cross it | **HYPOTHESIS** — follows from the purine/pyrimidine assignment above | Refutes if the assignment is wrong |
+| Gate law ↔ codon robustness (Section 4) | **HYPOTHESIS** — dimensional analogy, not a derivation from molecular dynamics | Molecular dynamics simulation showing random walk hits gate-strong configurations at predicted rate |
+| I Ching and chess are b=4 force field systems | **CONJECTURE / SPECULATIVE** — observation of the factorization 64=4³=2⁶=8², no causal mechanism claimed | This is pattern recognition. The chess board did not evolve under coprimality pressure. |
+| The 64-Family Conjecture (Section 6) | **CONJECTURE** — no proof, no tested cases beyond DNA | Any non-64-state system meeting all three conditions |
+
+The factorization results (Section 2) and the counting argument (Section 3) are mathematical facts independent of any TIG interpretation. The biological interpretations (Sections 4, 5) are hypotheses that could be tested with molecular dynamics or mutation studies. Section 6 is explicitly labeled a conjecture.
+
+---
+
 ## Abstract
 
 The R16 force field sweep (three experiments, ~12 million trials) established that gate difficulty in k-alphabet reduction is a function exclusively of |G| — the count of non-unit (non-coprime) elements in the semiprime partition — within any fixed alphabet size k. This paper applies that result to the simplest possible semiprime world: b = 2×2 = 4, alphabet k = 4. The b=4 partition is maximally symmetric: |G| = 2 (the even numbers {2, 4}), |C| = 2 (the odd units {1, 3}), interleave score = 1.0, and |C|/k = 0.5 — the most balanced possible split. We show that this single semiprime force field, operated at three different depths, generates the same gateway number: 4³ = 2⁶ = 8² = 64. DNA codons (depth 3 over alphabet 4), I Ching hexagrams (depth 6 over alphabet 2), and the chess board (depth 2 over alphabet 8) are the same b=4 information structure at three different depth-alphabet trade-offs. We prove that depth 3 is the minimum depth at which the b=4 force field supports a complete triadic code for 20 distinct encodings (4² = 16 < 20, 4³ = 64 ≥ 20). The gate law predicts that b=4 at k=4 is hard to gate (|G|/k = 0.5 far from the 0.85 threshold), making the codon alphabet intrinsically resistant to accidental gate-strong mutations. This matches the known robustness of the genetic code. The paper complements WP13 (which maps AGTC to the 10-operator algebra through the TSML/BHML dual lens) by approaching from the partition topology angle: not *what* the code means algebraically, but *why* this particular code size and structure was physically inevitable.
