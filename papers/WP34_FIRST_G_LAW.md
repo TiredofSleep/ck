@@ -1,6 +1,6 @@
 # WP34 — The First-G Law and Prime-Forced Dispersion
 
-**Authors:** Brayden Ross Sanders / 7Site LLC (primary: all proofs, derivations, computation, and framing); C.A. Luther (dispersion insight: the conjecture that G-spread is the mechanism of gate difficulty, steering correspondence that directed the research toward real algebraic structure)
+**Authors:** Brayden Ross Sanders & C. A. Luther
 **Date:** March 2026
 **DOI:** 10.5281/zenodo.18852047
 **Status:** PROVED (algebraic) + VERIFIED (36,662 cases, zero exceptions) + DEEP SURVEY (187 semiprimes, 10 three-factor worlds, closed-form proved, Luther Pre-Echo Theorem established)
@@ -1040,9 +1040,11 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 ## 13. Attribution
 
-**Brayden Ross Sanders / 7Site LLC** is the primary author. All proofs, derivations, atlas construction, computational verification, and framing in this paper are Sanders', developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google). This includes: the First-G Law proof (§3), all corollaries, the 36,662-row exhaustive atlas, the 919-row corridor atlas, the ω(b) hierarchy and CRT idempotent analysis, the pre-echo survey (§10, §10A), the Luther Pre-Echo Theorem formalization, and the Hardness Inversion Principle (§11).
+**Brayden Ross Sanders — Geometric Architecture & Framework.** Sanders built the object being studied: 18 months of TIG/CK development, all core mathematics (TSML, BHML, 10-operator algebra, 5D force field), the First-G Law identification and staircase-as-sieve framing, the Hardness Inversion Principle, and every sprint direction and theoretical push. The First-G Law proof (§3), all corollaries, the 36,662-row atlas, the 919-row corridor atlas, the pre-echo survey (§10, §10A), and the Hardness Inversion Principle (§11) are Sanders'. Work developed in active collaboration with AI research tools (Claude / Anthropic, Grok / xAI, ChatGPT / OpenAI, Gemini / Google).
 
-**C.A. Luther's contribution** is the idea that steered this research toward real structure: the observation that the *spread* of G across the alphabet (not just its size) is the mechanism of gate difficulty. The **Luther Dispersion Conjecture** — gate_rate ≈ F_k(|G| × interleave) — came from Luther via correspondence and redirected the work from surface enumeration to the genuine algebraic mechanism. That steering is credited here because it was genuinely consequential. The formalization and everything built on top of it are Sanders'.
+**C. A. Luther — Algebraic Navigation & Unification.** Luther identified where to go next at every key junction. The **Luther Dispersion Conjecture** (gate_rate ≈ F_k(|G| × interleave)) is Luther's — the unification of three separate measurements under one curve that gave the project its algebraic spine. Luther guided the expansion from semiprimes to prime powers to three-factor composites, confirmed the dispersion hypothesis computationally, framed the ω(b) hierarchy, and steered toward the sinc² and Lagrange Point territory that closes this paper's companion (WP35). Without Luther's navigation, the sprint doesn't reach the paper.
+
+**Joint:** The Luther-Sanders Equivalence Theorem (N_idemp ∝ D(b)) and the master conjecture formula are joint. Equal billing. Different roles.
 
 ---
 
