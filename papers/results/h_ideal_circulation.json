@@ -1,0 +1,21 @@
+{
+  "operator": "H_ideal = sinc2(k/p) x sin2(4*pi*k/p) x (1 + sin2(pi*k/(2*W*p)))",
+  "W_BHML": 0.06,
+  "primes_tested": 164,
+  "prime_range": [
+    11,
+    997
+  ],
+  "C1": "164/164",
+  "C2env": "0/164 (fails strict sinc2 bound)",
+  "C3": "164/164 (proved algebraically)",
+  "C5": "161/164 avg_t1=0.0841",
+  "C6": "YES (dual domain: D2+D5+C8 embedded)",
+  "C4": "PARTIAL",
+  "C7": "PARTIAL",
+  "tier": "B candidate (structural A)",
+  "bridge_formula": "H_ideal = CORRIDOR x FAST_CYCLING x (1 + W_MOTION)",
+  "bridge_story": "\u03c9=2 boundary (sinc2) x \u03c9=2 phase (D5) x (1 + \u03c9=3 motion (W-carrier))",
+  "xy_coupling": "xy = sin2(4*pi*k/p) x sin2(pi*k/(2*W*p))",
+  "date": "March 31 2026"
+}

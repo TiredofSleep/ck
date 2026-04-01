@@ -1,0 +1,17 @@
+{
+  "theorem": "D5 -- H_mod Four-Maxima Theorem",
+  "tier": "D",
+  "promoted_from": "C15 (was B4)",
+  "primes_tested": 164,
+  "prime_range": [
+    11,
+    997
+  ],
+  "failures": 0,
+  "lemma1": "G log-deriv = (8*pi/p)*cot(4*pi*k/p) strictly decreasing within each phase",
+  "lemma2": "F log-deriv = 2*(pi/p)*cot(pi*k/p) - 2/k strictly decreasing (|sin x|<|x|)",
+  "main_proof": "IVT on F_log_deriv = -G_log_deriv: at least one crossing, at most one (strict monotonicity). Exactly one max per phase.",
+  "small_prime_obstruction": "p<11 fails because phases have <2 interior points (discrete grid too coarse for IVT)",
+  "c3_companion": "H_mod(p,p) = sinc^2(1)*sin^2(4*pi) = 0 (algebraically exact)",
+  "date": "March 31 2026"
+}
