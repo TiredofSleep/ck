@@ -1,0 +1,70 @@
+{
+  "W_BHML": 0.06,
+  "beat_period_F3F4": 0.07894736842105263,
+  "templates_tested": [
+    "H_mod (C15)",
+    "T1: F3\u00d7F4",
+    "T2: F3+F4+F3F4",
+    "T3: poly_env",
+    "T4: quad_penalty",
+    "T5: H_mod+cross"
+  ],
+  "scores": {
+    "H_mod (C15)": {
+      "c1": "13",
+      "n_p11": "13",
+      "c2e": "14",
+      "n_total": "15",
+      "c3": "15",
+      "avg_first_t": "0.14271981955572688",
+      "c5": "1"
+    },
+    "T1: F3\u00d7F4": {
+      "c1": "13",
+      "n_p11": "13",
+      "c2e": "2",
+      "n_total": "15",
+      "c3": "15",
+      "avg_first_t": "0.09383157744314559",
+      "c5": "1"
+    },
+    "T2: F3+F4+F3F4": {
+      "c1": "11",
+      "n_p11": "13",
+      "c2e": "2",
+      "n_total": "15",
+      "c3": "0",
+      "avg_first_t": "0.08038079724450914",
+      "c5": "1"
+    },
+    "T3: poly_env": {
+      "c1": "13",
+      "n_p11": "13",
+      "c2e": "14",
+      "n_total": "15",
+      "c3": "15",
+      "avg_first_t": "0.14091801775392507",
+      "c5": "1"
+    },
+    "T4: quad_penalty": {
+      "c1": "13",
+      "n_p11": "13",
+      "c2e": "0",
+      "n_total": "15",
+      "c3": "15",
+      "avg_first_t": "0.16512613381399158",
+      "c5": "1"
+    },
+    "T5: H_mod+cross": {
+      "c1": "13",
+      "n_p11": "13",
+      "c2e": "14",
+      "n_total": "15",
+      "c3": "15",
+      "avg_first_t": "0.14828402855083367",
+      "c5": "1"
+    }
+  },
+  "best_alpha_T2": 0,
+  "hypothesis": "Quadratic F3xF4 cross-term creates beats at beat_period ~ 2.6*W"
+}
