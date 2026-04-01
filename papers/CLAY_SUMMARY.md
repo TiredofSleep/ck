@@ -107,17 +107,18 @@ log-derivative and the classical |sin x| < |x| inequality.
 **D22 (Corridor Portrait):** Four spine-forced positions strictly ordered:
 W < CREATE/10 < HARMONY/10 < T* < 1, i.e., 3/50 < 1/2 < 7/10 < 5/7 < 1.
 Proved by exact Fraction arithmetic. Amplitude ordering strictly reversed
-(sinc² monotone decreasing, B11). Fine-structure identity: T* = HARMONY/10
+(sinc² monotone decreasing, D24). Fine-structure identity: T* = HARMONY/10
 + 1/70 = 7/10 + 1/(7×10), exact. Inheritance split: t < 1/2 is
 ring-forced territory; t > 1/2 is generator-forced territory; t = 1/2 is
 the inheritance boundary.
 
-**B11 (Corridor Midpoint):** t = 1/2 is the unique point in (0,1) where
-sin(πt) = 1. Ring normalization: CREATE=5 → t=5/10=1/2. sinc²(1/2) = 4/π²
-exactly. Attenuation mechanism: denominator πt=π/2 means the sine maximum
-does not produce an amplitude maximum — the ring center is marked in the
-corridor, not dominant. Tier B (upgrade to D pending: sinc² monotonicity
-is standard calculus).
+**D24 (Corridor Midpoint):** sinc²(t) is strictly monotone decreasing on
+(0,1) — proved by calculus (h'(t) < 0, with the key lemma sin(x) > x·cos(x)
+for x ∈ (0,π), three cases). t = 1/2 is the unique sine-maximum in (0,1):
+sin(πt)=1 iff t=1/2+2k; only k=0 lands in (0,1). Ring normalization:
+CREATE=5 → t=5/10=1/2. sinc²(1/2) = 4/π² exactly. Attenuation: denominator
+πt=π/2 means the sine maximum does not produce an amplitude maximum — the
+ring center is marked, not dominant. Promotes B11 to D-tier.
 
 ---
 
@@ -160,7 +161,7 @@ After D1–D23, exactly one live external analogy claim remains: **A10**.
 **A10 — σ = 1/2 as ω-class boundary.**
 
 *The internal shadow is real and proved:*
-- t = 1/2 is the unique sine-maximum in (0,1) (B11)
+- t = 1/2 is the unique sine-maximum in (0,1) (D24)
 - t = 1/2 is the corridor image of CREATE=5 under ring normalization (D21, D22)
 - t = 1/2 is the inheritance boundary between ring-forced and generator-forced
   corridor positions (D22)
@@ -197,7 +198,7 @@ ring-forced and generator-forced corridor positions. It does not arrive
 there by analogy with RH — it arrives there because CREATE=5 maps to
 5/10=1/2 under ring normalization (D21), because the corridor is then
 ordered by ring arithmetic (D22), and because sinc²(1/2)=4/π² is the
-unique sine-maximum amplitude (D3, B11). These results stand independently
+unique sine-maximum amplitude (D3, D24). These results stand independently
 of whether RH is true.
 
 **2. A disciplined stopping point.**
@@ -237,7 +238,7 @@ externally to the critical line is the question that remains open.
 | `tig_algebra.py` | Canonical library: TIGSemiprime, R(k,f), First-G, T* |
 | `tests/` | 71-test pytest suite, all passing |
 
-**Current tier counts: D:27 | C:6 | B:8 | A:5 (2 live, 3 parked)**
+**Current tier counts: D:28 | C:6 | B:7 | A:5 (2 live, 3 parked)**
 
 ---
 

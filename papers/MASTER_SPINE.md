@@ -380,10 +380,10 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - HARMONY/10 = 7/10: GENERATOR-forced, sinc² ≈ 0.135
 - T* = 5/7 ≈ 0.7143: GENERATOR-forced, sinc² ≈ 0.121
 **Ordering proof:** All four inequalities proved by exact Fraction arithmetic (Python fractions.Fraction).
-**Amplitude proof:** sinc² strictly monotone decreasing on (0,1) (B11) + positional ordering → amplitude ordering.
+**Amplitude proof:** sinc² strictly monotone decreasing on (0,1) (D24) + positional ordering → amplitude ordering.
 **Fine-structure:** T* − HARMONY/10 = 5/7 − 7/10 = 50/70 − 49/70 = 1/70 = 1/(HARMONY × n). Exact.
-**Attenuation mechanism:** t=1/2 is the unique sine-maximum in (0,1) (B11). But denominator πt=π/2 attenuates sinc(1/2)=2/π — ring center is structurally marked, not amplitude-dominant. Near t=0, sin(πt)≈πt so sinc≈1 (high amplitude).
-**Dependencies:** D17 (W), D18d (HARMONY=7), D19 (T*, g=3 selection), D21 (CREATE=5), B11 (sinc² monotone).
+**Attenuation mechanism:** t=1/2 is the unique sine-maximum in (0,1) (D24). But denominator πt=π/2 attenuates sinc(1/2)=2/π — ring center is structurally marked, not amplitude-dominant. Near t=0, sin(πt)≈πt so sinc≈1 (high amplitude).
+**Dependencies:** D17 (W), D18d (HARMONY=7), D19 (T*, g=3 selection), D21 (CREATE=5), D24 (sinc² monotone).
 **Consequence:** The corridor is fully mapped. All four spine landmarks are positionally ordered, amplitude-profiled, and inheritance-classified. The center t=1/2 is not an amplitude peak — it is the ring/generator boundary.
 **Does NOT claim:** That the amplitude portrait has any direct connection to ζ zeros or to external spectral problems (see B6/A11 for those open claims).
 **File:** `proof_d22_corridor_portrait.py`
@@ -424,10 +424,38 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ---
 
-**THE SPINE IS COMPLETE (D1–D23)**
+---
+
+## D24 — Corridor Midpoint Theorem
+
+**Statement:** Let sinc²(t) = (sin(πt)/(πt))² for t ∈ (0,1).
+- (I)   sinc²(t) is strictly monotone decreasing on (0,1)
+- (II)  t = 1/2 is the unique point in (0,1) where sin(πt) = 1
+- (III) sinc²(1/2) = 4/π² exactly
+- (IV)  Under ring normalization t = v/10, CREATE=5 maps to t = 5/10 = 1/2
+- (V)   D22's amplitude ordering (sinc²(W) > sinc²(1/2) > sinc²(7/10) > sinc²(T*)) is fully proved: D24-I + D22 positional ordering
+**Proof of (I) — exact calculus:**
+h'(t) = 2sin(πt)·[πt·cos(πt) − sin(πt)] / (π²t³).
+sin(πt) > 0 for t ∈ (0,1). Need: sin(x) > x·cos(x) for x = πt ∈ (0,π).
+- x ∈ (0,π/2): equivalent to tan(x)>x. f(x)=tan(x)-x, f(0)=0, f'(x)=tan²x>0 → f strictly increasing → f(x)>0. □
+- x = π/2: cos(π/2)=0, x·cos(x)=0 < 1=sin(π/2). □
+- x ∈ (π/2,π): cos(x)<0 → x·cos(x)<0<sin(x). □
+Therefore h'(t) < 0 for all t ∈ (0,1). □
+**Proof of (II):** sin(πt)=1 iff t=1/2+2k; in (0,1) only k=0 survives. One line. □
+**Proof of (III):** sinc(1/2)=sin(π/2)/(π/2)=1/(π/2)=2/π; sinc²=4/π². One step. □
+**Proof of (IV):** 5/10 = 1/2. One arithmetic step. □
+**Dependencies:** D3 (sinc²(1/2)=4/π², restated), D17 (W), D18d (HARMONY=7), D19 (T*), D21 (CREATE=5).
+**Consequence:** D22's amplitude ordering is no longer conditional on a B-tier result. The corridor portrait (D22) and the midpoint theorem (D24) are now both fully D-tier. B11 is superseded.
+**Does NOT claim:** Any connection to σ=1/2 in the Riemann ζ function (that is A10, open). That sinc²(1/2)=4/π² is an extremum of sinc² on (0,1) (it is not — there are no interior extrema by D24-I).
+**Supersedes:** B11 (Corridor Midpoint, Tier B). All B11 content is now fully proved.
+**File:** `proof_d24_corridor_midpoint.py`
+
+---
+
+**THE SPINE IS COMPLETE (D1–D24)**
 
 **Volume A (arithmetic):** D1, D11a/b/c, D14, D15
 **Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19, D20, D21
 **Volume C (emergence/threshold):** D2, D3, D4, D5, D6
-**Volume D (corridor geometry):** D22, D23
-**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22) → wobble law (D23)
+**Volume D (corridor geometry):** D22, D23, D24
+**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22) + midpoint (D24) → wobble law (D23)

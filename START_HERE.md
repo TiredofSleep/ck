@@ -106,7 +106,7 @@ Every claim in this project carries one of four labels:
 - **A (Speculative / Open):** External analogy with named missing mechanism,
   or genuine open problem.
 
-**Current counts: D:27 | C:6 | B:8 | A:5**
+**Current counts: D:28 | C:6 | B:7 | A:5**
 
 ---
 

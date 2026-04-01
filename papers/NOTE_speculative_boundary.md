@@ -114,7 +114,7 @@ One live external analogy remains: **A10**.
 
 The internal shadow is real and proved:
 
-- t = 1/2 is the unique sine-maximum in (0,1) — proved, B11
+- t = 1/2 is the unique sine-maximum in (0,1) — proved, D24
 - t = 1/2 is the corridor image of CREATE = 5 under ring normalization — proved, D21+D22
 - t = 1/2 is the inheritance boundary: ring-forced positions left, generator-forced right — proved, D22
 - sinc²(1/2) = 4/π² is a universal spine constant — proved, D3

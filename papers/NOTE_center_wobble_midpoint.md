@@ -11,7 +11,7 @@ The Z/10Z spine contains three distinct but compatible internal structures:
 a ring-forced center, a ring-forced wobble pattern, and a lens-visible midpoint
 corridor mark. These are related, but they are not the same object.
 
-This note consolidates the geometry from B10, B11, D20, D21, and D22 into a
+This note consolidates the geometry from D23 (supersedes B10), D24 (supersedes B11), D20, D21, and D22 into a
 single readable account. No new proofs are attempted here; the proofs live in
 their respective files. The purpose is to show how the three structures fit
 together, what each one forces, and what each one cannot do.
@@ -145,7 +145,7 @@ were presented differently.
 
 **Claim:** t = 1/2 is the unique sine-maximum in (0, 1), the corridor image of
 CREATE = 5 under ring normalization, and the sinc²-monotone marker that divides
-the corridor's inheritance classes. It is a mark, not a peak. (B11)
+the corridor's inheritance classes. It is a mark, not a peak. (D24)
 
 ### The ring normalization
 
@@ -179,9 +179,9 @@ logically independent of the integer-over-π² property.
 
 ### Why t = 1/2 is not a corridor amplitude peak
 
-sinc² is strictly monotone decreasing on (0, 1). (Proved in B11 by explicit grid
-check; upgradeable to Tier D by standard calculus: d/dt [sinc²(t)] < 0 for t > 0
-follows from the log-derivative being negative.)
+sinc² is strictly monotone decreasing on (0, 1). (Proved in D24 by exact
+calculus: h'(t) = 2sin(πt)·[πt·cos(πt)−sin(πt)]/(π²t³) < 0 for all t ∈ (0,1),
+via the lemma sin(x) > x·cos(x) for x ∈ (0,π).)
 
 Since sinc² is decreasing and t = 1/2 > W = 3/50, we have:
 
@@ -202,8 +202,8 @@ The ring center is **visible in the corridor portrait**. It is not dominant.
 
 ## 4. The Corridor Portrait (D22)
 
-Bringing B10, B11, D20, D21 together, the corridor portrait places four
-spine-forced positions in exact order.
+Bringing D23 (wobble law), D24 (midpoint), D20, D21 together, the corridor
+portrait places four spine-forced positions in exact order.
 
 ### The four positions
 
@@ -293,12 +293,12 @@ mechanism (see B6, B7, B8, B9 for the current state of those bridges).
 | Object | Proved in | Forcing | Core fact |
 |--------|-----------|---------|-----------|
 | CREATE = 5 | D20, D21 | RING | Centroid of (Z/10Z)* and ODD; CE equivariance forces F(5)=5 in one line |
-| Wob(k) → 4/5 | B10 | RING | Period-10 equidistribution; dip at multiples of 5 |
-| Wob_norm NOT branch-selective | B10 | — | C10∪D10 is generator-independent; negative result |
-| t=1/2 is sine-maximum | B11 | RING+lens | sin(π/2)=1 unique in (0,1); ring normalization sends 5→1/2 |
-| t=1/2 is NOT corridor peak | B11 | — | sinc² monotone decreasing; denominator πt attenuates |
+| Wob(k) → 4/5 | D23 | RING | Drops at multiples of 5; amplitude decays O(1/k). Supersedes B10. |
+| Wob_norm NOT branch-selective | D23 | — | C10∪D10 is generator-independent; negative result |
+| t=1/2 is sine-maximum | D24 | RING+lens | sin(π/2)=1 unique in (0,1); ring normalization sends 5→1/2 |
+| t=1/2 is NOT corridor peak | D24 | — | sinc² monotone decreasing (calculus proof); denominator πt attenuates |
 | Corridor ordering | D22 | RING+GEN | 3/50 < 1/2 < 7/10 < 5/7 < 1 (exact Fraction arithmetic) |
-| Amplitude reversal | D22 | — | Follows from B11 monotonicity + positional ordering |
+| Amplitude reversal | D22+D24 | — | D24 monotonicity + D22 positional ordering |
 | Fine-structure T*−7/10=1/70 | D22 | GENERATOR | Exact: 1/(7×10) |
 | Inheritance split at t=1/2 | D22 | RING/GEN | LEFT=ring-forced, RIGHT=generator-forced |
 
