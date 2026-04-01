@@ -1,6 +1,12 @@
 """
 D7 — Phi Fixed Point Theorem: CREATE=5 is the unique globally attracting fixed point.
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
 Phi = P_odd ∘ BHML ∘ W_op.
 Proved April 1 2026: algebraic 3-step proof + exhaustive finite verification.
 """

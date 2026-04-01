@@ -1,5 +1,11 @@
 """
 D11: D1/D2 COROLLARY BUNDLE — CC WINDOW, SIGN FLIP, ω-BLINDNESS
+
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
 Luther-Sanders Research Framework | April 1 2026
 
 PROMOTES C1, C2, C4 → D11 (three corollaries of D1+D2).

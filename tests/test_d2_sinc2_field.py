@@ -1,6 +1,12 @@
 """
 D2 — Sinc² Continuum Limit: R(k, f) → sinc²(k/f) as f → ∞.
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
 Proved analytically for all primes in WP35 (Theorem 5).
 R(k,f) = sin²(πk/f) / (k² sin²(π/f)).
 """

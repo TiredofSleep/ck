@@ -1,5 +1,11 @@
 """
 D5 — H_mod Four-Maxima: sinc²(k/p) × sin²(4πk/p) has exactly 4 maxima for p≥11.
+
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
 D6 — General Frequency: sinc²(k/p) × sin²(πfk/p) has exactly N(f) maxima for p > 2f.
 
 Both proved in WP35 session via IVT + |sin x| < |x| inequality.

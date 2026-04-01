@@ -1,6 +1,12 @@
 """
 CK Operator Tables — TSML, BHML, W=3/50, T*=5/7.
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
 These tables are the algebraic core of the CK dual-lens framework.
 Proved: TSML has 73 harmony cells, BHML has 28. Both are symmetric.
 W=3/50 derived from CROSS_CYCLE=44, deviation=6.

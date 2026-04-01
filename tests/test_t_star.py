@@ -1,6 +1,12 @@
 """
 T* = 5/7 — Coherence threshold derived from b=35 (minimal strong semiprime).
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
 T* = (q - floor(q/p) - 1) / q. For b=35: (7 - 1 - 1)/7 = 5/7.
 """
 import pytest
