@@ -1,8 +1,11 @@
 """
 ck_run.py -- Minimal TIG Demo
 ==============================
-Brayden Ross Sanders / 7Site LLC
-DOI: 10.5281/zenodo.18852047
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
 
 Demonstrates core results of WP34 and WP35 using tig_algebra.py.
 No dependencies beyond Python stdlib + math.

@@ -244,4 +244,32 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 
 ---
 
-`© 2026 Brayden Ross Sanders / 7Site LLC · DOI: 10.5281/zenodo.18852047`
+---
+
+## License
+
+**7SiTe Public Sovereignty License v1.0 — Human Use Only**
+
+This work is made available for human study, research, education, and noncommercial public benefit. It is not for sale. No money may come out of this work — only in.
+
+**Permitted:** Individual humans studying, running, verifying, and citing this work.
+
+**Prohibited without written permission:**
+- Any commercial use — this work cannot be sold, sublicensed, or used to generate revenue
+- Government or government-affiliated entity use of any kind
+- Military, intelligence, law enforcement, policing, or surveillance use
+- AI training pipelines, data scrapers, or automated harvesting systems
+- Proprietary enclosure, closed-source redistribution, or sublicensing
+
+Derivative works must be distributed under this same License with no additional restrictions.
+See the full [LICENSE](LICENSE) file for complete terms.
+
+```
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+DOI: 10.5281/zenodo.18852047
+```
+
+`© 2025–2026 Brayden Ross Sanders / 7SiTe LLC · DOI: 10.5281/zenodo.18852047`
