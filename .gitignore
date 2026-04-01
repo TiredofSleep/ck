@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated outputs (keep scripts, not giant result dumps)
+results/*.png
+results/*.pdf
+sinc2_demo.png
+*.log
+*.bin
+*.dat
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Large data files not needed in repo
+*.npy
+*.npz
+*.hdf5
+*.h5
+
+# API keys / secrets
+.api_key
+*.secret
+.env.local

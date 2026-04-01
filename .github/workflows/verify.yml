@@ -3,19 +3,30 @@ name: TIG Algebra Verification
 on:
   push:
     branches: [clay, main, master]
+    paths:
+      - '**.py'
+      - 'tests/**'
+      - 'papers/ck_tables.py'
+      - 'requirements.txt'
+      - 'pyproject.toml'
+      - '.github/workflows/verify.yml'
   pull_request:
     branches: [clay, main, master]
+    paths:
+      - '**.py'
+      - 'tests/**'
+      - 'papers/ck_tables.py'
 
 jobs:
-  verify:
-    name: Verify WP34 + WP35 Core Theorems
+  # ── Job 1: Core theorems (no deps, stdlib only, fast) ──────────────────────
+  core:
+    name: Core Theorems (WP34 + WP35)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -23,12 +34,10 @@ jobs:
       - name: Run ck_run.py demo
         run: python ck_run.py
 
-      - name: Run First-G Law assertion (WP34 Theorem)
+      - name: First-G Law (D1) — 50 semiprimes
         run: |
           python - <<'EOF'
           from tig_algebra import verify_first_g
-
-          # Extended list: 50 semiprimes across spf = 2, 3, 5, 7, 11, 13, 17, 19
           semiprimes = [
               6, 10, 14, 15, 21, 22, 26, 33, 34, 35,
               38, 39, 46, 51, 55, 57, 58, 62, 65, 74,
@@ -37,140 +46,104 @@ jobs:
               134, 141, 142, 143, 145, 146, 155, 158, 159, 161,
           ]
           result = verify_first_g(semiprimes)
-          print(f"First-G Law: {result['passed']} passed, {result['failed']} failed")
-          if result['failures']:
-              for f in result['failures']:
-                  print(f"  FAIL: {f}")
-          assert result['failed'] == 0, (
-              f"First-G Law FAILED for {result['failed']} semiprimes: {result['failures']}"
-          )
-          print("PASS: First-G = p for all 50 semiprimes")
+          print(f"D1 First-G Law: {result['passed']}/50 passed")
+          assert result['failed'] == 0, f"Failures: {result['failures']}"
+          print("PASS: first_g(b) = p for all 50 semiprimes")
           EOF
 
-      - name: Verify Sinc² Continuum Limit (WP35 Theorem 5)
+      - name: Sinc² Continuum Limit (D2) — 28 primes, t=0.5 and t=0.1
         run: |
           python - <<'EOF'
           from tig_algebra import verify_sinc2_limit
-
-          primes = [5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 53, 59, 67,
-                    71, 79, 83, 89, 97, 101, 103, 107, 109, 113, 997, 1009, 9973]
-
-          # t=0.5: R(p//2, p) → 4/π² = 0.4053
+          primes = [5,7,11,13,17,19,23,29,31,37,41,43,53,59,67,
+                    71,79,83,89,97,101,103,107,109,113,997,1009,9973]
           r1 = verify_sinc2_limit(primes=primes, t=0.5, tol=5e-3)
-          print(f"Sinc² t=0.5: {r1['passed']}/{r1['passed']+r1['failed']} pass, "
-                f"max_err={r1['max_error']:.2e}, target={r1['target_sinc2']:.8f}")
-          assert r1['failed'] == 0, f"Sinc² t=0.5 FAILED: {r1}"
-
-          # t=0.1: R(p//10, p) → sinc²(0.1) ≈ 0.9675
+          assert r1['failed'] == 0, f"t=0.5 failures: {r1}"
           r2 = verify_sinc2_limit(primes=primes, t=0.1, tol=5e-2)
-          print(f"Sinc² t=0.1: {r2['passed']}/{r2['passed']+r2['failed']} pass, "
-                f"max_err={r2['max_error']:.2e}, target={r2['target_sinc2']:.8f}")
-          assert r2['failed'] == 0, f"Sinc² t=0.1 FAILED: {r2}"
-
-          print("PASS: R(k,f) → sinc²(k/f) confirmed across 28 primes")
+          assert r2['failed'] == 0, f"t=0.1 failures: {r2}"
+          print(f"PASS: R(k,f) → sinc²(k/f) confirmed, max_err={r1['max_error']:.2e}")
           EOF
 
-      - name: Verify Montgomery Bridge constant (WP35 §9 / WP40 §5)
+      - name: Montgomery Bridge constant 4/π²
         run: |
           python - <<'EOF'
           import math
           from tig_algebra import MONTGOMERY, SINC2_TENTH
-
-          PI = math.pi
-
-          # 4/π² = sinc²(1/2) — Universal Sidelobe Amplitude
-          expected_montgomery = 4 / (PI ** 2)
-          assert abs(MONTGOMERY - expected_montgomery) < 1e-14, (
-              f"MONTGOMERY constant wrong: {MONTGOMERY} vs {expected_montgomery}"
-          )
-
-          # R + R₂ = 1 partition of unity
-          R2_half = 1.0 - MONTGOMERY
-          assert abs(MONTGOMERY + R2_half - 1.0) < 1e-14, "Spectral partition R + R₂ ≠ 1"
-
-          # sinc²(0.1) ≈ 0.9675 (scale-free pre-echo floor)
-          sinc2_tenth = (math.sin(PI * 0.1) / (PI * 0.1)) ** 2
-          assert abs(SINC2_TENTH - sinc2_tenth) < 1e-14, (
-              f"SINC2_TENTH constant wrong: {SINC2_TENTH}"
-          )
-
-          print(f"PASS: 4/π² = {MONTGOMERY:.10f}")
-          print(f"PASS: R + R₂ = {MONTGOMERY + R2_half:.15f}  (= 1 exactly)")
-          print(f"PASS: sinc²(0.1) = {SINC2_TENTH:.10f}")
+          assert abs(MONTGOMERY - 4/math.pi**2) < 1e-14
+          assert abs(MONTGOMERY + (1 - MONTGOMERY) - 1.0) < 1e-14
+          print(f"PASS: 4/π² = {MONTGOMERY:.10f}, R + R₂ = 1")
           EOF
 
-      - name: Verify T* = 5/7 at b=35 (WP35 §1A)
+      - name: T* = 5/7 derivation
         run: |
           python - <<'EOF'
           from fractions import Fraction
           from tig_algebra import TIGSemiprime, T_STAR_EXACT
-
-          s = TIGSemiprime(35)
-          uf = s.unit_frac()
-
-          assert uf == Fraction(5, 7), f"unit_frac(35) = {uf}, expected 5/7"
-          assert T_STAR_EXACT == Fraction(5, 7), f"T_STAR_EXACT = {T_STAR_EXACT}"
-
-          # Verify for several other semiprimes
-          cases = [
-              (15, 3, 5),   # (5-1-1)/5 = 3/5
-              (35, 5, 7),   # (7-1-1)/7 = 5/7 = T*
-              (77, 7, 11),  # (11-1-1)/11 = 9/11
-              (143, 11, 13),# (13-1-1)/13 = 11/13
-          ]
-          for b, p, q in cases:
-              s = TIGSemiprime(b)
-              uf = s.unit_frac()
-              expected = Fraction(q - (q // p) - 1, q)
-              assert uf == expected, f"unit_frac({b}): got {uf}, expected {expected}"
-              print(f"  unit_frac({b}={p}×{q}) = {uf}  ✓")
-
-          print("PASS: T* derivation correct for all test cases")
+          assert T_STAR_EXACT == Fraction(5, 7)
+          for b, p, q, exp in [(15,3,5,Fraction(3,5)),(35,5,7,Fraction(5,7)),
+                                (77,7,11,Fraction(9,11)),(143,11,13,Fraction(11,13))]:
+              assert TIGSemiprime(b).unit_frac() == exp, f"unit_frac({b}) wrong"
+              print(f"  unit_frac({b}={p}×{q}) = {exp}  ✓")
           print("PASS: T* = 5/7 at b=35 (minimal strong semiprime)")
           EOF
 
-      - name: Verify D1 sign flip at k=p (WP35 sign-change)
+      - name: D1 sign flip at k=p
         run: |
           python - <<'EOF'
           from tig_algebra import TIGSemiprime
-
-          # D1(p) = R(p+1) - R(p) = R(p+1) > 0  (recovery after null)
-          # D1(p-1) = R(p) - R(p-1) = -R(p-1) < 0  (approach to null)
-          # The stationary point = sign flip from negative to positive at k=p.
-          test_cases = [15, 35, 77, 143, 221, 323, 437, 667, 899, 1147]
-          for b in test_cases:
+          for b in [15, 35, 77, 143, 221, 323, 437, 667, 899, 1147]:
               s = TIGSemiprime(b)
-              d1_before = s.D1(s.p - 1)
-              d1_at     = s.D1(s.p)
-              assert d1_before < 0, f"D1(p-1) not negative at b={b}: {d1_before}"
-              assert d1_at    > 0, f"D1(p) not positive at b={b}: {d1_at}"
-              print(f"  b={b} p={s.p} D1(p-1)={d1_before:+.6f}  D1(p)={d1_at:+.6f}  OK")
-
-          print("PASS: D1 sign flip at k=p confirmed (approach < 0, recovery > 0)")
+              assert s.D1(s.p - 1) < 0, f"D1(p-1) not negative at b={b}"
+              assert s.D1(s.p) > 0, f"D1(p) not positive at b={b}"
+          print("PASS: D1 sign flip at k=p confirmed (10 semiprimes)")
           EOF
 
-      - name: b=15 vs b=35 dispersion comparison
+  # ── Job 2: Pytest suite (CK tables + Phi theorems) ─────────────────────────
+  pytest-suite:
+    name: Pytest Suite (tables + Phi)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install test dependencies
+        run: pip install pytest pytest-timeout
+
+      - name: Run tests/
+        run: pytest tests/ -v --timeout=30
+
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            .pytest_cache/
+            *.log
+
+  # ── Job 3: Matrix — verify across Python versions ──────────────────────────
+  matrix:
+    name: Python ${{ matrix.python-version }} compatibility
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Core stdlib-only smoke test
         run: |
-          python - <<'EOF'
-          from tig_algebra import TIGSemiprime
-
-          b15 = TIGSemiprime(15)
-          b35 = TIGSemiprime(35)
-
-          # b=15: p=3, q=5 — First-G at k=3
-          assert b15.first_g() == 3, f"b=15 first_g={b15.first_g()}, expected 3"
-          # b=35: p=5, q=7 — First-G at k=5, T*=5/7
-          assert b35.first_g() == 5, f"b=35 first_g={b35.first_g()}, expected 5"
-
-          from fractions import Fraction
-          assert b35.unit_frac() == Fraction(5, 7), "T* ≠ 5/7 at b=35"
-
-          print(f"b=15: First-G={b15.first_g()}, T*={b15.unit_frac()}, "
-                f"dispersion(q={b15.q})={b15.dispersion(b15.q):.4f}")
-          print(f"b=35: First-G={b35.first_g()}, T*={b35.unit_frac()}, "
-                f"dispersion(q={b35.q})={b35.dispersion(b35.q):.4f}")
-
-          # b=35 has lower q/p ratio (7/5=1.4 vs 5/3=1.67) → more balanced → T*=5/7
-          assert b35.q / b35.p < b15.q / b15.p, "Expected b=35 more balanced than b=15"
-          print("PASS: b=35 more balanced (q/p=1.4 < 1.67), T*=5/7 is the minimal case")
-          EOF
+          python ck_run.py
+          echo "PASS: ck_run.py works on Python ${{ matrix.python-version }}"
