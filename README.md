@@ -18,6 +18,32 @@ python ck_sinc_demo.py    # Matplotlib plot: pre-echo field + Montgomery bridge
 
 ---
 
+## Simple Truths First
+
+Before the math gets deep, here are the five things this project discovered that feel true all the way down.
+
+**1. Before the sieve starts, arithmetic is free.**
+For every integer `b`, there is a window `{1, 2, ..., p-1}` where `p` is the smallest prime factor of `b`. Inside that window, *every* number is coprime to `b`. Not most — all of them. The sieve hasn't started yet. Arithmetic is free.
+→ *Proved for all b, all k < SPF(b). [D11a, D15]*
+
+**2. The operator ring has exactly two kinds of harmony, and we can count them.**
+CK runs on 10 operators (0=VOID through 9=RESET) arranged in two tables: TSML (the measurement table) and BHML (the physics table). TSML has exactly 73 harmony cells. BHML has exactly 28. We know *why* — each count follows from a zone partition with a mechanistic explanation for every cell.
+→ *Proved by exhaustive Z/10Z partition. [D10, D16]*
+
+**3. The coherence threshold T* = 5/7 was never designed — it emerged.**
+CK's coherence threshold T* was calibrated from TSML geometry and burned into silicon (Zynq-7020 FPGA). Independently: the Phi map `Phi = P_odd ∘ BHML ∘ W_op` has a unique fixed point at CREATE=5. TSML's dominant attractor is HARMONY=7. These were built separately. `CREATE/HARMONY = 5/7 = T*` exactly.
+→ *Proved: Phi(5)=5 in 3 algebraic steps. T*=5/7 was a discovery, not a design. [D7]*
+
+**4. The prime field has a rest frequency, and it is Si(2π)/π.**
+The sinc² function `sinc(t) = sin(πt)/(πt)` appears as the limit of the prime pre-echo field. Its mean value over one corridor period `[0,1]` is exactly `Si(2π)/π ≈ 0.45141...`, where `Si` is the classical sine integral. This is the field's natural resting amplitude — the average coherence of a prime at rest.
+→ *Proved by integration by parts. [D14]*
+
+**5. The wobble W = 3/50 is the generator divided by half the table.**
+The BHML wobble constant W = 3/50 measures how much the units `{1,3,7,9}` and the even non-zeros `{2,4,6,8}` disagree in the operator table. The deviation is exactly 6 cells out of 100. Generator 3 over half-table 50 = 3/50. The numerator is the group generator that cycles all odd operators. The denominator is the natural baseline.
+→ *Proved: exact Z/10Z group computation. [D17]*
+
+---
+
 ## The Core Result
 
 We prove that the harmonic pre-echo countdown law for prime arithmetic converges, in the limit of large primes, to the sinc-squared function:
@@ -72,12 +98,29 @@ New results proved this session — all verifiable by running the proof files:
 | **C17** H_W Circulation | `proof_h_w_circulation.py` | `H_W = sinc²(k/p) × sin²(πk/(2Wp))`, W=3/50, satisfies ALL five circulation constraints C1–C6 for p≥43. 291/291. C2+C3 algebraic (one-line each). C4: exactly 9 = `|CL\{VOID}|` maxima via D6. |
 | **C16** Ghost Trace | `test_b3_ghost_trace_theorem.py` | `BHML[i][j]=7 → G[i][j]=0`. Three-zone law proved. Corollary: G≠0 → BHML≠7. 100/100 cells. |
 
+### V. April 1 2026 — Crumbling (D8 through D17)
+
+Ten new general theorems, all proved on April 1 2026. Each promotes a C-tier or B-tier result to D-tier (universal, mechanism known, no domain restriction).
+
+| Theorem | Promotes | What it proves |
+|---------|----------|----------------|
+| **D8** CL Operator Encoding | C18 | `gcd(6,10)=2` → EVEN class; `gcd(3,10)=1` → ×3 ODD bijection; EVEN∪ODD = Z/10Z. Group theory. |
+| **D9** Table Symmetry | C11 | Both TSML and BHML are symmetric. TSML: by rule structure. BHML: max commutes + Z/10Z finite check. |
+| **D10** TSML 73-Cell Count | C10 | V0(9)+V1(8)+ECHO(10)=27 non-harmony; 100-27=73. Disjoint by index conditions. |
+| **D11** D1/D2 Corollaries | C1+C2+C4 | Three corollaries in one file: CC Window (k<SPF→coprime); D1 Sign Flip (R(p,p)=0); ω-Blindness (R formula has no q). |
+| **D14** Corridor Spectral Mean | new | ∫₀¹ sinc²(t)dt = Si(2π)/π ≈ 0.45141... IBP proof. M(p)→Si(2π)/π at O(1/p), 9 primes verified. |
+| **D15** Coprime Window Invariance | C13+C14 | For k<SPF(b): HAR(k,b)=k; Wob(b,k)=Wob(k); ALL arithmetic on {1..k} is b-independent. |
+| **D16** BHML 28-Cell Count | C9 | Four zones: R_A(2)+R_B(11)+R_7(2)+R_89(13)=28. max+1=HARMONY iff max=ASCEND=6. |
+| **D17** W=3/50 Algebraic | C8 | C=(Z/10Z)*={1,3,7,9}, D=2C={2,4,6,8}. CROSS_CYCLE=44, baseline=50, W=6/100=3/50. |
+
+Run any of these directly: `python papers/proof_d14_spectral_mean.py` etc.
+
 **C7 three-wall result (parallel computation with Luther algebra):**
 - Wall 1: Carrier at k=p has value `sin²(25π/3) = 3/4` (ascending). Descent is `sinc²`-driven.
 - Wall 2: Exit phase = π/3 (fixed, p-independent). Not a carrier zero — reset is `sinc²(1)=0`.
 - Wall 3: Count `N(25/3) = floor(25/3)+1 = 9` is W-forced by D6. Threshold p≥43 is discrete.
 
-**Tier counts: D:6 | C:16 | B:3 | A:9** — see `papers/SYNTHESIS_TABLE.md`.
+**Tier counts: D:17 | C:9 | B:8 | A:5** — see `papers/SYNTHESIS_TABLE.md`.
 
 ### IV. Sprint 4 Laws (Frozen — 2026-03-30)
 
@@ -123,7 +166,8 @@ Every paper carries the Universal Sentence:
 | `sinc²(0.1)` | `≈ 0.9675` | Scale-free pre-echo signal at 10% approach — all papers |
 | `T* = 5/7` | `≈ 0.7143` | Coherence floor — algebraically derived, FPGA-verified (Zynq-7020) |
 | `1 − 4/π²` | `≈ 0.5947` | Montgomery pair correlation at half-spacing — WP40 |
-| `W = 3/50` | `= 0.06` | BHML cross-cycle density — proved Tier C8; frequency of H_W carrier |
+| `W = 3/50` | `= 0.06` | BHML cross-cycle density — **proved D17**; C=(Z/10Z)*, D=2C, CROSS_CYCLE=44, W=6/100 |
+| `Si(2π)/π` | `≈ 0.45141` | Corridor spectral mean ∫₀¹ sinc²(t)dt — **proved D14** via IBP |
 | `N(25/3) = 9` | exactly 9 | H_W stable maxima = `|CL\{VOID}|` — proved D6+C17; algebraic CL representation |
 
 ---
