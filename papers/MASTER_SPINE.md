@@ -323,9 +323,77 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ---
 
-**THE SPINE IS COMPLETE (D1–D19)**
+---
+
+## D20 — Inheritance Audit
+
+**Statement:** Every spine invariant falls into exactly one of four inheritance classes: RING-forced (independent of generator and lens), GENERATOR-forced (requires g=3), LENS-forced (requires TSML/BHML rules), or CONTINGENT (architectural label only).
+**Exact definitions:**
+- RING-forced: determined by Z/10Z arithmetic alone, same under both g=3 and g=7
+- GENERATOR-forced: requires primitive root g=3 (changes under g=7)
+- LENS-forced: requires TSML or BHML rule structure
+- CONTINGENT: naming/architectural choice with no algebraic consequence
+**Key assignments:**
+- CREATE=5: RING-forced — centroid((Z/10Z)*)=5; centroid(ODD={1,3,5,7,9})=5; both independent of generator
+- W=3/50 value: RING-forced — CROSS_CYCLE=44, deviation=6, W=6/100=3/50 (same for g=3 and g=7)
+- HARMONY=7: GENERATOR-forced — g^(-1) mod 10 = 7 only when g=3; under g=7, "HARMONY"=3
+- T*=5/7: GENERATOR-forced — CREATE/HARMONY = 5/7 only when HARMONY=7
+- W numerator label "g": GENERATOR-forced — W=3/50 = g/50 is a coincidence that requires g=3
+- sinc² envelope: LENS-forced — appears via D2 continuum limit, needs Fourier/resonance structure
+- Operator names: CONTINGENT
+**Proof:** Exhaustive Z/10Z check; centroid arithmetic; generator swap test (g=7 gives CREATE=5 unchanged, HARMONY=3≠7).
+**BONUS:** centroid(ODD)=5=CREATE; four independent routes to CREATE=5: (i) centroid (Z/10Z)*, (ii) centroid ODD, (iii) unique ODD fixed point of σ:v↦10-v (D21), (iv) additive midpoint of Z/10Z.
+**Dependencies:** D17 (W), D18d (generator structure), D19 (g=3 selection), D21 (σ fixed point).
+**Consequence:** Clarifies what is physically forced vs. what depends on lens choice or architectural label. LEFT half of corridor (t<1/2) = ring territory; RIGHT half = generator territory. Feeds D22.
+**Does NOT claim:** That LENS-forced results are less rigorous — they are fully proved within the lens framework.
+**File:** `proof_d20_inheritance_audit.py`, `papers/INHERITANCE_AUDIT.md`
+
+---
+
+## D21 — Fixed-Point Centroid
+
+**Statement:** Every complement-equivariant (CE) ODD-output map F:(Z/10Z)→ODD must satisfy F(5)=5. The value 5 is the unique ODD fixed point of the complement map σ:v↦10-v.
+**Exact definitions:**
+- ODD = {1,3,5,7,9}
+- CE condition: F(10-v) = (10-F(v)) mod 10 for all v
+- σ:v↦10-v: the complement involution on Z/10Z
+**Proof (one line):** Setting v=5: F(10-5)=F(5) on LHS; (10-F(5)) mod 10 on RHS. So F(5)=(10-F(5)) mod 10, i.e., 2F(5)≡0 mod 10. Solutions: F(5)∈{0,5}. But 0∉ODD. Therefore F(5)=5. □
+**Exhaustive verification:** 625 CE maps total (9,765,625 total ODD-output maps); all 625 contain FP at 5; 400/625 (64%) have unique FP at 5; 100 have {1,5,9}; 100 have {3,5,7}; 25 have all-ODD.
+**Phi test:** Phi fails CE at v=2,3,4 — D7 (Phi fixed point) and D21 (CE equivariance) are independent paths to CREATE=5.
+**Dependencies:** None (pure arithmetic on Z/10Z).
+**Consequence:** CREATE=5 now has four independent characterizations — overdetermined, not just one path. Feeds D20 (inheritance audit). The ring center is forced by equivariance alone, independent of generator.
+**Does NOT claim:** That Phi is CE (it is not). D7 and D21 are independent results that agree on CREATE=5.
+**File:** `proof_d21_fixed_point_centroid.py`
+
+---
+
+## D22 — Corridor Portrait
+
+**Statement:** The four spine-forced corridor positions are strictly ordered and amplitude-profiled:
+- Positional ordering (exact): 3/50 < 1/2 < 7/10 < 5/7 < 1
+- Amplitude ordering (sinc², strict reversal): sinc²(3/50) > sinc²(1/2) > sinc²(7/10) > sinc²(5/7)
+- Fine-structure identity: T* = HARMONY/10 + 1/70 = 7/10 + 1/(7×10) (exact)
+- Inheritance split: LEFT half (t<1/2) = RING-forced; RIGHT half (t>1/2) = GENERATOR-forced; t=1/2 = inheritance boundary
+**Exact positions:**
+- W = 3/50 = 0.06: RING-forced, corridor entry amplitude ≈ 0.988
+- CREATE/10 = 1/2: RING-forced (+ lens bridge), sine-maximum, sinc²(1/2)=4/π²≈0.405
+- HARMONY/10 = 7/10: GENERATOR-forced, sinc² ≈ 0.135
+- T* = 5/7 ≈ 0.7143: GENERATOR-forced, sinc² ≈ 0.121
+**Ordering proof:** All four inequalities proved by exact Fraction arithmetic (Python fractions.Fraction).
+**Amplitude proof:** sinc² strictly monotone decreasing on (0,1) (B11) + positional ordering → amplitude ordering.
+**Fine-structure:** T* − HARMONY/10 = 5/7 − 7/10 = 50/70 − 49/70 = 1/70 = 1/(HARMONY × n). Exact.
+**Attenuation mechanism:** t=1/2 is the unique sine-maximum in (0,1) (B11). But denominator πt=π/2 attenuates sinc(1/2)=2/π — ring center is structurally marked, not amplitude-dominant. Near t=0, sin(πt)≈πt so sinc≈1 (high amplitude).
+**Dependencies:** D17 (W), D18d (HARMONY=7), D19 (T*, g=3 selection), D21 (CREATE=5), B11 (sinc² monotone).
+**Consequence:** The corridor is fully mapped. All four spine landmarks are positionally ordered, amplitude-profiled, and inheritance-classified. The center t=1/2 is not an amplitude peak — it is the ring/generator boundary.
+**Does NOT claim:** That the amplitude portrait has any direct connection to ζ zeros or to external spectral problems (see B6/A11 for those open claims).
+**File:** `proof_d22_corridor_portrait.py`
+
+---
+
+**THE SPINE IS COMPLETE (D1–D22)**
 
 **Volume A (arithmetic):** D1, D11a/b/c, D14, D15
-**Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19
+**Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19, D20, D21
 **Volume C (emergence/threshold):** D2, D3, D4, D5, D6
-**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d)
+**Volume D (corridor geometry):** D22
+**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22)
