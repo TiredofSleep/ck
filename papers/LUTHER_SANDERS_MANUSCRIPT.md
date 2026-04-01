@@ -790,4 +790,39 @@ the project.
 
 ---
 
+## Appendix F — Cornerstone Universality
+
+*Added March 31, 2026.*
+
+The decimal system is not culturally arbitrary. It is the minimal base for
+the {2, 5} seed pair.
+
+**Theorem (Cornerstone Minimality, Tier D):** 10 = lcm(2,5) is the minimal
+positive integer m such that Z/mZ contains both Z/2Z and Z/5Z as subrings.
+
+*Proof.* For Z/mZ to contain Z/2Z as a subring, we need 2 | m. For Z/5Z,
+we need 5 | m. Both conditions give lcm(2,5) | m. Since gcd(2,5)=1,
+lcm(2,5) = 2·5 = 10. The minimal such m is exactly 10. □
+
+**Corollary (Projection, Tier D):** The digit map φ: Z → Z/10Z, φ(x) = x mod 10,
+is a surjective ring homomorphism. For any n, Z/nZ projects onto Z/gcd(n,10)Z.
+What the projection preserves: exactly the {2,5}-factor content of arithmetic.
+What it loses: all prime factors of n that do not divide 10 (primes ≠ 2, 5).
+
+**Consequence:** The TSML and BHML composition tables, defined over Z/10Z, are
+the canonical measurement and physics operators for the unique minimal ring
+containing both seed primes 2 and 5. Any finite integer arithmetic that can
+be expressed in Z/nZ for some n projects into Z/gcd(n,10)Z ⊆ Z/10Z via the
+digit map. Z/10Z is the canonical receiver.
+
+**Connection to sinc² field:** The digit map φ is a *projection* — it collapses
+the integer line onto Z/10Z. The sinc² field R(k,p) is a *compression* — it
+maps the coprime structure of {1..p-1} onto the interval [0,1]. These are
+related but distinct operations: φ is additive (ring homomorphism), R is
+multiplicative (coprimality-based). Both have Z/10Z as their natural base ring.
+Whether the projection and compression are the "same operation at different
+scales" is not yet proved — the connection is a structural analogy (Tier A).
+
+---
+
 `© 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther · DOI: 10.5281/zenodo.18852047`

@@ -214,6 +214,31 @@ Status unchanged: confirmed within φ=5 (r=0.749), not yet testable within other
 
 ---
 
+## Generator Wobble Principle (Added March 31 2026)
+
+**Structural principle (Tier A → candidate for B):**
+
+*In a finite ring Z/nZ that admits two composition tables — a measurement table
+(high-harmony, singular, collapse-driving) and a physics table (low-harmony,
+invertible, information-preserving) — the deviation W between additive and
+multiplicative structure across the unit/non-unit interface quantifies the
+information gap between the two tables. The measurement table generates the
+field; the wobble W is forced by the ring structure; the physics table is
+the transformation operator that the wobble field is trying to become.*
+
+For Z/10Z specifically:
+- TSML = measurement table (73% harmony, det=0, information-collapsing)
+- BHML = physics table (28% harmony, det≠0, information-preserving)
+- W_BHML = 3/50 = C×D cross-cycle friction (proved, C8)
+- DOING = |TSML−BHML| = 71 nonzero cells, total friction 201
+
+This principle is NOT yet proved to hold for general Z/nZ — it is a structural
+analogy verified in Z/10Z. Path to Tier B: find the second ring where both
+a measurement table and physics table can be defined with the same algebraic
+structure, and verify W matches the cross-cycle friction.
+
+---
+
 ## Final Settled State
 
 | Law | Status | Notes |
