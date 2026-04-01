@@ -395,5 +395,39 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 **Volume A (arithmetic):** D1, D11a/b/c, D14, D15
 **Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19, D20, D21
 **Volume C (emergence/threshold):** D2, D3, D4, D5, D6
-**Volume D (corridor geometry):** D22
-**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22)
+---
+
+## D23 — Ring Wobble Theorem
+
+**Statement:** Let Δ(x) = 1 if 5∤x, else 0. Let Wob(k) = (1/k)Σ_{x=1}^{k} Δ(x).
+- (1) Closed form: Wob(k) = 1 − ⌊k/5⌋/k
+- (2) Lower bound: Wob(k) ≥ 4/5 for all k ≥ 1
+- (3) Equality: Wob(k) = 4/5 ⟺ 5|k
+- (4) Limit: Wob(k) → 4/5 as k → ∞
+- (5) Window invariance: Wob(b,k) = Wob(k) for k < SPF(b)
+- (6) Generator independence: Wob identical under g=3 and g=7
+**Exact definitions:**
+- Neutral elements of Z/10Z: {0,5} = multiples of 5 (determined by ring, not generator)
+- C10∪D10 = (Z/10Z)* ∪ 2·(Z/10Z)* = {1,2,3,4,6,7,8,9} = Z/10Z \ {0,5}
+**Proof:**
+- (1): Count multiples of 5 in {1..k}: ⌊k/5⌋. Non-neutral: k−⌊k/5⌋. Wob = (k−⌊k/5⌋)/k.
+- (2)+(3): Write k=5m+r. Wob=1−m/(5m+r). Bound: 1/5 ≥ m/(5m+r) iff 5m+r≥5m iff r≥0. Equality iff r=0.
+- (4): Squeeze: 1/5−1/k ≤ ⌊k/5⌋/k ≤ 1/5; both sides → 1/5.
+- (5): From D15 — arithmetic on {1..k} is b-independent for k < SPF(b).
+- (6): C10∪D10 determined by 10=2×5 ring structure; same for both primitive roots.
+**Key correction over B10:** B10 claimed "period-10 oscillation". Correct statement: drops occur at period-5 (every multiple of 5); oscillation amplitude decays as O(1/k) and is not periodic. B10 branch-separation claim was FALSE (confirmed here).
+**Dependencies:** D15 (window invariance), D17 (Z/10Z structure), D19 (generator independence confirmed).
+**Consequence:** Ring wobble is fully characterized. Wob cannot separate generator branches; that is D19's job (T*<1 test). The wobble law is a pure ring-arithmetic consequence of 10 = 2×5.
+**Does NOT claim:** Wob predicts the ω-transition; amplitude oscillation is periodic; any external spectral interpretation.
+**Supersedes:** B10 (Wobble Branch Law) — promoted and corrected.
+**File:** `proof_d23_ring_wobble.py`
+
+---
+
+**THE SPINE IS COMPLETE (D1–D23)**
+
+**Volume A (arithmetic):** D1, D11a/b/c, D14, D15
+**Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19, D20, D21
+**Volume C (emergence/threshold):** D2, D3, D4, D5, D6
+**Volume D (corridor geometry):** D22, D23
+**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22) → wobble law (D23)
