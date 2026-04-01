@@ -2,6 +2,17 @@
 CK_TABLES.PY — Canonical CK Algebra Tables
 Luther-Sanders Research Framework
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
+TSML (Trinity Synthesis Meaning Language) is a proprietary composition table
+developed by Brayden Ross Sanders and 7SiTe LLC. All rights reserved.
+T* = 5/7 and the TSML 73-cell harmonic structure are owned intellectual
+property of 7SiTe LLC, 2025–2026.
+
 The one place to import TSML, BHML, DIS, DOING, and derived structures.
 All tables verified: test_tsml_bhml_joint.py, test_b3_ghost_trace_theorem.py,
 test_bhml_operator_identity.py (100/100 cells each).
