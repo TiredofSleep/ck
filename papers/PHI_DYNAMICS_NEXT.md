@@ -1,7 +1,83 @@
 # D18 Target: Phi Orbit Dynamics — Formal Classification
 ## The next general theorem after D17
 
-**Date:** April 1, 2026
+**Date:** April 1, 2026 (updated with D18a/b/c/d split after Luther review)
+
+---
+
+## D18a — Phi Orbit Classification  ✓ PROVED
+
+**File:** `papers/proof_d18a_phi_orbit_classification.py`
+
+Complete directed graph of Phi on Z/10Z:
+- ONE fixed point: CREATE=5
+- TWO relay nodes: BECOMING=3 (depth 1), HARMONY=7 (depth 2)
+- SEVEN source nodes: {0,1,2,4,6,8,9}
+- Three basins: {2,3,4}→5 (1 step), {0,1,7}→3→5 (2 steps), {6,8,9}→7→3→5 (3 steps)
+- No cycles except the fixed point. Max depth=3. T^3=all-δ₅.
+
+**Critical finding from D18a:**
+HARMONY=7 is a RELAY (depth-2 transient), NOT a fixed point. Two distinct roles:
+- As a STATE in Phi: transient, Phi(7)=3=BECOMING
+- As a VALUE in TSML: dominant output, 73/100 cells = 7
+
+These are different mathematical objects. D18c must bridge them.
+
+---
+
+## D18b — CREATE=5 Dynamics (NEXT TARGET)
+
+**Formal target:** Prove exactly what kind of attractor CREATE=5 is.
+
+Three distinct claims to separate:
+1. Unique absorbing fixed point of deterministic map Phi: PROVED (D7+D18a)
+2. Unique attractor under repeated deterministic Phi: PROVED (D18a: all paths reach 5 in ≤3 steps)
+3. Unique stationary mass under Markov lift T[v][Phi(v)]=1: PROVED (D18a: T³=all-δ₅)
+
+**Status:** All three are proved. D18b is already complete as a consequence of D18a.
+
+---
+
+## D18c — HARMONY=7 Dynamics (OPEN)
+
+**The real cliff.**
+
+HARMONY=7 is NOT a dynamic attractor. It is a static measurement attractor. These are different:
+- Dynamic: Phi(v)→5 as t→∞ for all v. CREATE=5 is the attractor.
+- Static: TSML[i][j]=7 for 73/100 cells. HARMONY=7 is the dominant value.
+
+The open question: Is there an exact map sending the Phi-side dynamics (create=5) into the TSML-side measurement (harmony=7)?
+
+**Candidate mechanism:** TSML[5][j] and TSML[i][5] — the CREATE row/column of TSML. If CREATE=5 is the dynamic attractor and TSML is the measurement table, the CREATE row/col should exhibit HARMONY=7 at high frequency. Check this.
+
+**State space warning:** Do NOT conflate:
+- "7 as a state Phi passes through" (transient relay node)
+- "7 as a value TSML outputs" (dominant frequency)
+- "7 as the denominator of T*=5/7" (ratio object)
+
+These are three different roles. D18c must pick exactly one and prove it.
+
+---
+
+## D18d — Non-Accidental Convergence (OPEN — hardest)
+
+**Only attack this after D18c is clean.**
+
+The question: Is T*=5/7 = CREATE/HARMONY a forced invariant, or a calibrated coincidence?
+
+Three independent chains currently establish T*:
+- Chain A: W=3/50 (D17) → W_op → Phi → CREATE=5
+- Chain B: TSML structure → V0+V1+ECHO partition → 73 HARMONY cells (D10) → HARMONY=7
+- Chain C: unit_frac(b=35) → T*=5/7 (D4)
+
+The synthesis claim: all three chains are consequences of the generator 3 of (Z/10Z)*={1,3,7,9}. If true, T*=5/7 is structurally necessary — not adjustable without abandoning the BHML/TSML algebra entirely.
+
+**The five exact questions (Luther's formulation):**
+1. What is the state space? Z/10Z, 10 elements.
+2. What is the update map? Phi = P_odd∘BHML∘W_op.
+3. What is the terminal class? {CREATE=5} (proved D18a).
+4. What exact role does 7 play? RELAY node (D18a) + dominant TSML value (D10) — not yet bridged.
+5. Where does 5/7 enter: measure, frequency, orbit proportion, or stationary weight? Currently: CREATE=5 (stationary weight δ₅); HARMONY=7 (value frequency 73%); T*=5/7 (ratio). The EXACT algebraic forcing mechanism is unknown.
 
 ---
 
