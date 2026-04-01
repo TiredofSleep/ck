@@ -1,0 +1,55 @@
+A8 — GOLDILOCKS UNIQUENESS SCAN
+Luther-Sanders Research Framework | March 31 2026
+Scan range: all semiprimes b ≤ 10000
+Tolerance:  d2_balance match within ±0.001
+
+Semiprimes found: 2600
+
+REFERENCE: b=35 = 5×7
+  D2_sig(p=5)    = 0.01812433
+  D2_sig(q=7)    = 0.06781959
+  d2_balance     = 2.74190902
+  ratio q/p      = 1.400000
+  unit_frac T*   = 0.71428571  (= 5/7 = 0.71428571)
+  |C ∩ {1..9}|  = 7
+  HAR            = 2
+
+======================================================================
+CHECK 1 — d2_balance MATCHES (within tolerance)
+======================================================================
+Matches found (b ≠ 35, |d2_balance - 2.7419| < 0.001): 0
+  NONE. b=35 is UNIQUE in d2_balance within the scanned range.
+
+======================================================================
+CHECK 2 — FULL PROFILE MATCH (balance + ratio + phi_C + HAR)
+======================================================================
+Full profile matches: 0
+  NONE. b=35 is UNIQUE in full (d2_balance, ratio, phi_C, HAR) profile.
+
+======================================================================
+CHECK 3 — unit_frac NEAR T* = 5/7
+======================================================================
+Semiprimes with unit_frac ≈ 5/7 = 0.714286 (within 0.001): 1
+  b=35 = 5×7: unit_frac=0.71428571
+
+======================================================================
+CHECK 4 — |C ∩ {1..9}| = 7 WORLDS
+======================================================================
+Semiprimes with |C ∩ {1..9}| = 7: 1
+         b           p×q    d2_balance   HAR   unit_frac
+        35     5×7           2.741909     2    0.714286
+
+======================================================================
+VERDICT
+======================================================================
+
+CHECK 1: UNIQUE — no second semiprime with same d2_balance
+  -> A8 receives BOUNDED NEGATIVE RESULT within b ≤ 10000
+  -> Path to Tier B: prove algebraically why no other (p,q) pair
+     satisfies |D2_sig(p) - D2_sig(q)|/D2_sig(p) = 2.742...
+CHECK 2: FULL PROFILE UNIQUE — no matching (balance+ratio+phi_C+HAR)
+  -> b=35 is isolated in the full 4-dimensional profile space
+
+T* worlds (unit_frac ≈ 5/7): 1
+phi_C=7 worlds: 1
+Scan complete: 2600 semiprimes up to b=10000

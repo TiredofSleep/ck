@@ -1,0 +1,133 @@
+{
+  "W_BHML": 0.06,
+  "candidates": [
+    "F1 sin\u00b2(4\u03c0k/p)",
+    "F2 sin\u00b2(4\u03c0(1+W)k/p)",
+    "F3 F1 \u00d7 W^phase",
+    "F4 sin\u00b2(\u03c0/W \u00d7 k/p)",
+    "F5 Creation product",
+    "F6 harmonic sum W^n\u00d7sin\u00b2(n\u03c0)",
+    "F7 discrete Creation weight"
+  ],
+  "scores": {
+    "F1 sin\u00b2(4\u03c0k/p)": {
+      "scores": [
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        2
+      ],
+      "total": 6
+    },
+    "F2 sin\u00b2(4\u03c0(1+W)k/p)": {
+      "scores": [
+        1,
+        1,
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "total": 5
+    },
+    "F3 F1 \u00d7 W^phase": {
+      "scores": [
+        1,
+        1,
+        2,
+        0,
+        2,
+        1,
+        2
+      ],
+      "total": 9
+    },
+    "F4 sin\u00b2(\u03c0/W \u00d7 k/p)": {
+      "scores": [
+        2,
+        2,
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "total": 7
+    },
+    "F5 Creation product": {
+      "scores": [
+        0,
+        0,
+        1,
+        2,
+        0,
+        1,
+        0
+      ],
+      "total": 4
+    },
+    "F6 harmonic sum W^n\u00d7sin\u00b2(n\u03c0)": {
+      "scores": [
+        0,
+        0,
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "total": 8
+    },
+    "F7 discrete Creation weight": {
+      "scores": [
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        2
+      ],
+      "total": 6
+    }
+  },
+  "ranked": [
+    [
+      "F3 F1 \u00d7 W^phase",
+      9
+    ],
+    [
+      "F6 harmonic sum W^n\u00d7sin\u00b2(n\u03c0)",
+      8
+    ],
+    [
+      "F4 sin\u00b2(\u03c0/W \u00d7 k/p)",
+      7
+    ],
+    [
+      "F1 sin\u00b2(4\u03c0k/p)",
+      6
+    ],
+    [
+      "F7 discrete Creation weight",
+      6
+    ],
+    [
+      "F2 sin\u00b2(4\u03c0(1+W)k/p)",
+      5
+    ],
+    [
+      "F5 Creation product",
+      4
+    ]
+  ],
+  "c1_winners": [
+    "F4 sin\u00b2(\u03c0/W \u00d7 k/p)"
+  ],
+  "best_candidate": "F3 F1 \u00d7 W^phase",
+  "best_score": 9
+}
