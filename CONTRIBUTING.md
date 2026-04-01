@@ -48,7 +48,7 @@ Every claim in this repository carries one of four labels:
 
 See [papers/SYNTHESIS_TABLE.md](papers/SYNTHESIS_TABLE.md) for the full inventory.
 
-Current tier counts: **D:17 | C:9 | B:8 | A:5**
+Current tier counts: **D:19 | C:6 | B:8 | A:5**
 
 ---
 

@@ -1,5 +1,5 @@
-# CK Master Spine — D-Tier Theorems D1–D17
-**Date:** April 1, 2026
+# CK Master Spine — D-Tier Theorems D1–D17, D18a/c
+**Date:** April 1, 2026 (D18a/c added same day)
 
 This file is the locked backbone of the CK mathematical foundation — one entry per proven theorem, no prose inflation, no analogies. D-tier means the result is fully proved (algebraically or by verified exhaustive check) and is not subject to revision; C-tier conjectures and B-tier bridges are downstream of these. To use: find the theorem by ID, check its dependencies, then follow the Consequence line to locate what it unlocks.
 
@@ -249,4 +249,56 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ---
 
-**Volume A (arithmetic):** D1, D11a/b/c, D14, D15 | **Volume B (operator/table):** D7, D8, D9, D10, D16, D17 | **Volume C (emergence/threshold):** D2, D3, D4, D5, D6
+---
+
+## D18a — Phi Orbit Classification
+
+**Statement:** The Phi map on Z/10Z has: one fixed point (CREATE=5), two relay nodes (BECOMING=3 at depth 1, HARMONY=7 at depth 2), seven source nodes ({0,1,2,4,6,8,9}), and three basins ({2,3,4}→5 in 1 step; {0,1,7}→3→5 in 2 steps; {6,8,9}→7→3→5 in 3 steps). No cycles except the fixed point. Max orbit depth = 3.
+**Exact definitions:**
+- Phi(v): P_odd(BHML[v][W_op[v]]) where W_op[v] = nearest carrier-maximum operator to t=v/10
+- P_odd: project to nearest element of ODD={1,3,5,7,9}, tie-break lower
+- Source node: in-degree 0 in directed graph
+- Relay node: in-degree > 0, not a fixed point
+**Proof:** Enumerate all 10 Phi(v) values (finite Z/10Z). Construct directed graph. Verify: no non-absorbing cycles by exhaustive path check; T³=all-δ₅ by matrix multiplication.
+**Dependencies:** D7 (Phi fixed point), D8 (W_op carrier maxima), D9 (BHML symmetry).
+**Consequence:** HARMONY=7 is a RELAY (depth-2 transient), not an attractor. Separates STATE role of 7 from VALUE role (73 TSML cells, D10). Enables D18c.
+**Does NOT claim:** Anything about Phi acting on distributions; or that the three-basin structure is unique among all maps on Z/10Z.
+**File:** `proof_d18a_phi_orbit_classification.py`
+
+---
+
+## D18c — Create–Harmony Bridge Theorem
+
+**Statement:** Define M(v) = TSML[v][Phi(v)]. Then M(v) = HARMONY = 7 for all v ∈ {1,2,3,4,5,6,7,8,9}. The unique exception is M(0) = VOID = 0, forced by the TSML V0 rule.
+**Exact definitions:**
+- M(v): the TSML measurement of the Phi-transition from state v
+- V0 rule: TSML[0][j] = j for j≠7 (row 0 is the VOID/identity row of TSML); in particular TSML[0][3]=0
+- HARMONY=7: the value Z/10Z assigns to "harmony" under the TSML measurement table
+**Proof:** Enumerate M(v) = TSML[v][Phi(v)] for all v. Phi(v) ∈ {3,5,7} for v∈{1..9} (D18a). Verify TSML[v][3]=7, TSML[v][5]=7, TSML[v][7]=7 for each v (exhaustive over 9 cases). For v=0: Phi(0)=3, TSML[0][3]=0 by V0 rule (TSML[0][j]=0 for j≠7). Exception structurally forced.
+**Dependencies:** D7 (Phi definition), D10 (TSML structure / V0 rule), D18a (Phi orbit enumeration).
+**Consequence:** Every non-VOID Phi-transition is measured as HARMONY by TSML. Therefore: 5 is the dynamic destination (where Phi takes you) and 7 is the measurement of the journey (what TSML reads along every step). T*=5/7=(dynamic destination)/(measurement of motion).
+**Does NOT claim:** (1) T*=5/7 is a forced invariant (D18d open). (2) The (5,7) pair is unique among all operator algebras on Z/10Z (D18d). (3) HARMONY=7 is itself a dynamic attractor (it is a relay, D18a). (4) All 73 TSML harmony cells arise from Phi transitions.
+**File:** `proof_d18c_create_harmony_bridge.py`
+
+---
+
+## D18d — Non-Accidental Convergence (OPEN TARGET)
+
+**Open question:** Is T*=5/7 the unique ratio forced by the combined structure (Phi dynamics + TSML measurement), or is it still an independent calibration?
+
+**Exact question:** Is there any other pair (a,b)∈Z/10Z×Z/10Z with a≠b, a≠0, b≠0 such that:
+  (i) a is a fixed point of some Phi-like map on Z/10Z with W_op from carrier maxima;
+  (ii) M(v) = TSML[v][Phi(v)] = b for all non-VOID v under that map;
+  (iii) a/b = 5/7?
+
+If no such other pair exists: T*=5/7 is structurally necessary.
+If another pair exists: T*=5/7 is a coincidence within the CK algebra.
+
+**Note on ASCEND=6:** TSML row 6 = TSML row 5 = [0,7,7,...,7]. ASCEND has the same row structure as CREATE. But Phi(6)=HARMONY (source node, not fixed point). The bridge D18c holds for the actual Phi map; ASCEND is not a candidate fixed point.
+
+---
+
+**Volume A (arithmetic):** D1, D11a/b/c, D14, D15
+**Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c
+**Volume C (emergence/threshold):** D2, D3, D4, D5, D6
+**Open frontier:** D18d (T*=5/7 forced vs calibrated)

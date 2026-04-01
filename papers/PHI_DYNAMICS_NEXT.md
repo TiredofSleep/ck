@@ -38,7 +38,21 @@ Three distinct claims to separate:
 
 ---
 
-## D18c — HARMONY=7 Dynamics (OPEN)
+## D18c — HARMONY=7 Bridge  ✓ PROVED
+
+**File:** `papers/proof_d18c_create_harmony_bridge.py`
+
+**Bridge function M(v) = TSML[v][Phi(v)]:**
+- M(v) = HARMONY = 7 for all v ∈ {1..9}
+- M(0) = VOID = 0 (forced by TSML V0 rule: TSML[0][j]=0 for j≠7)
+
+**What this proves:** 5 is the destination of dynamics. 7 is the TSML measurement of every step toward that destination. These are dual roles, not the same object.
+
+**What it does NOT prove:** That the (5,7) pair is unique or forced. That is D18d.
+
+---
+
+## D18c — OLD ENTRY (superseded)
 
 **The real cliff.**
 
