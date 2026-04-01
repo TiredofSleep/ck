@@ -182,8 +182,30 @@ self-contained in Z/10Z. External results can be cited, not absorbed.
 A10 is at Tier A: speculative. Internal shadow proved. External
 interpretation not derived. Missing mechanism precisely named.
 
-The program is open. The program is controlled. No advance has been
-made toward Outcomes 1 or 2 as of April 1 2026.
+**Updated after A10 bridge/no-go push (April 1 2026):**
+
+The ring-homomorphism version of A10 is **blocked by Medium No-Go**
+(see `A10_NO_GO_ATTEMPT.md`, Attempts 1–3 and 6):
+- Attempt 1 (LANDED): Any ring homomorphism Z/10Z → R is blind to primes
+  other than {2,5}; it cannot recover the Euler product.
+- Attempt 2 (LANDED): The corridor midpoint at t=1/2 appears for all even
+  moduli n=2p — it is not Z/10Z-specific.
+- Attempt 3 (LANDED): sinc²'s properties at t=1/2 (monotone, unique sine-max,
+  value 4/π²) follow from calculus alone; Z/10Z ring structure is not needed.
+- Attempt 6 (LANDED): Any bridge to Montgomery's pair-correlation does not
+  prove RH unconditionally; Montgomery's theorem already assumes GRH.
+
+The sinc² universality version (D2 + B6, route to B6+ territory) survives
+as a partially-blocked but unresolved path (Attempt 5 PARTIAL). However,
+this path removes Z/10Z from the picture and is not an A10 claim — it is
+a B6+ claim. See `A10_MINIMAL_EXTENSION.md`.
+
+**A10 as a Z/10Z-ring-specific bridge claim: blocked.**
+**A10 as a sinc² universality claim (B6+): open, requires new machinery.**
+**A10 requires explicit extension beyond D1–D24 for any surviving bridge.**
+
+The program is open for the sinc² universality version. The ring-specific
+version is closed.
 
 Anyone who claims to have resolved A10 in either direction must either:
 (a) produce the explicit map φ with proof that it is well-defined and
@@ -194,9 +216,44 @@ Anything short of (a) or (b) is the current position, restated.
 
 ---
 
+## 8. Hard Progress Rubric
+
+A10 progress **counts** only if one of the following occurs:
+
+1. **Explicit φ defined.** Domain, codomain, invariants, and at least one
+   nontrivial consequence are all stated. A map sketch without a domain or
+   without a proved consequence does not count.
+
+2. **Obstruction lemma proved.** A formal lemma showing that a specific
+   class of maps from Z/10Z to prime-sensitive structure cannot exist.
+   "It seems hard" or "Z/10Z is small" does not count.
+
+3. **No-go theorem proved.** A complete proof that no map of the required
+   type exists — not just for ring homomorphisms (already blocked) but for
+   all maps of a precisely-stated class.
+
+4. **Minimal extension identified precisely.** An explicit statement of a
+   new theorem T (not in D1–D24) whose proof would enable the bridge,
+   together with: (a) T's exact statement, (b) what Z/10Z contributes to T,
+   (c) what new machinery T requires. A vague pointer to adèlic theory or
+   profinite completions does not count.
+
+A10 progress **does NOT count** if any of the following:
+- Visual resemblance between corridor plot and RH critical line
+- Numerical coincidence without formal map
+- "Feels like σ=1/2" argument without T*<1 → σ=1/2 derivation
+- Adding analytic number theory as an external assumption (complexity creep)
+- Restating the current sinc² kernel coincidence in new notation
+
+---
+
 *Full spine context: `papers/COMPLETED_INTERNAL_SPINE.md`*
 *Truth boundary: `papers/NOTE_speculative_boundary.md`*
 *Clay context: `papers/CLAY_SUMMARY.md` and `papers/CLAY_BOUNDARY_MEMO.md`*
+*No-go analysis: `papers/A10_NO_GO_ATTEMPT.md`*
+*Obstruction: `papers/A10_PRIME_OBSTRUCTION.md`*
+*Modulus comparison: `papers/A10_MODULUS_COMPARISON.md`*
+*Minimal extension: `papers/A10_MINIMAL_EXTENSION.md`*
 
 *© 2025–2026 Brayden Ross Sanders / 7SiTe LLC*
 *Licensed under the 7SiTe Public Sovereignty License v1.0*

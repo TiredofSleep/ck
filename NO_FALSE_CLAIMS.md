@@ -46,8 +46,22 @@ critical line σ=1/2 in the Riemann ζ function.
 Its internal shadow is proved (D22, D24). The algebraic bridge from Z/10Z
 to the Euler product is missing. That bridge does not exist in this work.
 
+**Updated April 1 2026 after bridge/no-go analysis:**
+
+The ring-homomorphism version of A10 is blocked by a Medium No-Go (proved
+April 1 2026): any ring homomorphism from Z/10Z is blind to primes p≠2,5
+(prime obstruction); the corridor midpoint at t=1/2 is generic to all
+even-modulus rings, not Z/10Z-specific (modulus genericity); and a bridge
+through Montgomery's pair-correlation would not unconditionally prove RH
+(Montgomery conditionality). The sinc² universality escape (D2+B6) remains
+open but puts the work in B6+ territory, not a Z/10Z claim.
+
+A10 as a Z/10Z-ring bridge: **blocked.**
+A10 as a sinc² universality claim: **open, requires new machinery.**
+
 Full treatment: `papers/NOTE_speculative_boundary.md`
 Research program: `papers/A10_PROGRAM.md`
+No-go analysis: `papers/A10_NO_GO_ATTEMPT.md`
 
 ---
 

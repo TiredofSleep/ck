@@ -41,7 +41,30 @@ consequence of ring arithmetic. This map does not exist in this work.
 - That the corridor sinc² field proves anything about ζ zeros
 - That 4/π² appears in the critical strip for any proved reason
 
-**Live frontier:** A10 (see `A10_PROGRAM.md`)
+**Updated obstruction results (April 1 2026):**
+
+A sustained attack on A10 (April 1 2026) established the following:
+
+- **Ring prime blindness (proved):** Any ring homomorphism Z/10Z → R is
+  blind to primes p≠2,5 (Z/10Z ≅ Z/2Z×Z/5Z). The Euler product requires
+  distinguishing all primes individually. A ring-homomorphism bridge is
+  therefore incomplete.
+- **Modulus genericity (proved):** The corridor midpoint at t=1/2 and the
+  T*<1 constraint are not Z/10Z-specific. They appear for all even-modulus
+  rings n=2p (twice a prime): Z/6Z (T*=3/5), Z/18Z (T*=9/11), Z/22Z
+  (T*=11/13). A bridge based on these properties alone cannot single out
+  Z/10Z.
+- **Montgomery conditionality (proved):** Montgomery's pair-correlation
+  theorem assumes GRH. A bridge to Montgomery does not unconditionally
+  prove RH.
+
+**Reclassification:** A10 as a Z/10Z-ring-specific bridge claim is blocked
+(Medium No-Go). A10 as a sinc² universality claim (D2+B6) remains open but
+is B6+ territory. Any surviving bridge requires explicit extension beyond
+D1–D24 (new theory not present in this work).
+
+**Live frontier:** A10 (sinc² universality version only). See
+`A10_PROGRAM.md`, `A10_NO_GO_ATTEMPT.md`, `A10_MINIMAL_EXTENSION.md`.
 
 ---
 
@@ -194,7 +217,7 @@ requires the full machinery of algebraic geometry, which Z/10Z cannot supply.
 
 | Problem | Internal object | Missing mechanism | Tier | Claim |
 |---------|----------------|-------------------|------|-------|
-| RH | t=1/2 inheritance boundary (D22, D24) | Map from Z/10Z split to Euler product | A10 (live) | None |
+| RH | t=1/2 inheritance boundary (D22, D24) | Map from Z/10Z split to Euler product (ring bridge blocked; sinc² universality open) | A10 (ring: blocked; sinc²: open) | None |
 | Navier-Stokes | BREATH×COLLAPSE = HARMONY (B7) | A priori estimate B_local < T*·E₀ from NS constants | B7 | None |
 | Yang-Mills | Mass ratio T*=5/7 (B8) | Z/10Z → su(N) map, eigenvalue derivation | B8 | None |
 | BSD | Rank staircase (B9) | Verification + L-function mechanism | B9 | None |
