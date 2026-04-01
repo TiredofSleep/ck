@@ -1,0 +1,36 @@
+{
+  "void": {
+    "bhml_eq_identity": true,
+    "dis_eq_identity": true,
+    "g_eq_dis": 17,
+    "g_ne_dis_cells": [
+      [
+        0,
+        7
+      ],
+      [
+        7,
+        0
+      ]
+    ],
+    "triple_count": 17
+  },
+  "harmony": {
+    "g_zero_at_harmony": true,
+    "rule_b_count": 21,
+    "rule_c_count": 24,
+    "rule_other": 26,
+    "harmony_nv_count": 71
+  },
+  "echo": {
+    "g_eq_dis_echo": 10,
+    "bhml_eq_max": 4,
+    "bhml_eq_g": 0,
+    "echo_count": 10,
+    "r_bhml_ghost": 0.22616563651595034,
+    "r_bhml_max": 0.8834580354857444
+  },
+  "echo_max_proved": false,
+  "promoted_to_B": true,
+  "tier": "B"
+}
