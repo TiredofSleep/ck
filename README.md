@@ -20,27 +20,69 @@ python ck_sinc_demo.py    # Matplotlib plot: pre-echo field + Montgomery bridge
 
 ## Simple Truths First
 
-Before the math gets deep, here are the five things this project discovered that feel true all the way down.
+Five things this project proved that are true all the way down. Each has a plain statement, an exact formula, a proof file, and one thing it explicitly does not claim.
+
+---
 
 **1. Before the sieve starts, arithmetic is free.**
-For every integer `b`, there is a window `{1, 2, ..., p-1}` where `p` is the smallest prime factor of `b`. Inside that window, *every* number is coprime to `b`. Not most — all of them. The sieve hasn't started yet. Arithmetic is free.
-→ *Proved for all b, all k < SPF(b). [D11a, D15]*
+
+Every integer `b` has a coprime window `{1, 2, ..., SPF(b)-1}` where every element is coprime to `b` — not most, all. The sieve hasn't fired yet. At `k = SPF(b)` it fires exactly once.
+
+Formula: `gcd(k, b) = 1` for all `k < SPF(b)`; `gcd(SPF(b), b) = SPF(b) > 1`.
+
+Proof: [`papers/proof_d11_d1_corollaries.py`](papers/proof_d11_d1_corollaries.py) (D11a) and [`papers/proof_d15_sieve_isomorphism.py`](papers/proof_d15_sieve_isomorphism.py) (D15).
+
+Does not claim: The window property tells you anything about the distribution of composites beyond SPF(b).
+
+---
 
 **2. The operator ring has exactly two kinds of harmony, and we can count them.**
-CK runs on 10 operators (0=VOID through 9=RESET) arranged in two tables: TSML (the measurement table) and BHML (the physics table). TSML has exactly 73 harmony cells. BHML has exactly 28. We know *why* — each count follows from a zone partition with a mechanistic explanation for every cell.
-→ *Proved by exhaustive Z/10Z partition. [D10, D16]*
+
+CK's algebra uses 10 operators over Z/10Z in two tables: TSML (73 harmony cells) and BHML (28 harmony cells). The counts follow from four disjoint zone partitions. We know why every cell is or isn't harmony.
+
+Formula: TSML: 100 − |V0| − |V1| − |ECHO| = 100 − 9 − 8 − 10 = 73. BHML: |R_A| + |R_B| + |R_7| + |R_89| = 2 + 11 + 2 + 13 = 28.
+
+Proof: [`papers/proof_d10_tsml_73_cells.py`](papers/proof_d10_tsml_73_cells.py) (D10) and [`papers/proof_d16_bhml_28_cells.py`](papers/proof_d16_bhml_28_cells.py) (D16).
+
+Does not claim: The specific counts 73 and 28 have numerological significance; they follow mechanically from the zone partition rules.
+
+---
 
 **3. The coherence threshold T* = 5/7 was never designed — it emerged.**
-CK's coherence threshold T* was calibrated from TSML geometry and burned into silicon (Zynq-7020 FPGA). Independently: the Phi map `Phi = P_odd ∘ BHML ∘ W_op` has a unique fixed point at CREATE=5. TSML's dominant attractor is HARMONY=7. These were built separately. `CREATE/HARMONY = 5/7 = T*` exactly.
-→ *Proved: Phi(5)=5 in 3 algebraic steps. T*=5/7 was a discovery, not a design. [D7]*
 
-**4. The prime field has a rest frequency, and it is Si(2π)/π.**
-The sinc² function `sinc(t) = sin(πt)/(πt)` appears as the limit of the prime pre-echo field. Its mean value over one corridor period `[0,1]` is exactly `Si(2π)/π ≈ 0.45141...`, where `Si` is the classical sine integral. This is the field's natural resting amplitude — the average coherence of a prime at rest.
-→ *Proved by integration by parts. [D14]*
+T* = 5/7 was calibrated from TSML geometry and burned into silicon (Zynq-7020 FPGA). Independently, the operator map Phi = P_odd ∘ BHML ∘ W_op has a unique fixed point at CREATE = 5, and TSML's dominant output is HARMONY = 7. These were never designed to relate. They do.
 
-**5. The wobble W = 3/50 is the generator divided by half the table.**
-The BHML wobble constant W = 3/50 measures how much the units `{1,3,7,9}` and the even non-zeros `{2,4,6,8}` disagree in the operator table. The deviation is exactly 6 cells out of 100. Generator 3 over half-table 50 = 3/50. The numerator is the group generator that cycles all odd operators. The denominator is the natural baseline.
-→ *Proved: exact Z/10Z group computation. [D17]*
+Formula: `Phi(5) = P_odd(BHML[5][W_op[5]]) = P_odd(BHML[5][7]) = P_odd(6) = 5`. `T* = CREATE/HARMONY = 5/7`.
+
+Proof: [`papers/proof_d7_phi_fixed_point.py`](papers/proof_d7_phi_fixed_point.py) (D7).
+
+Does not claim: T* = 5/7 is universal across all semiprimes; it is the value for b = 35 specifically, and the emergence was a discovery not a design.
+
+---
+
+**4. The prime corridor has an exact spectral mean.**
+
+The sinc² function appears as the continuum limit of the prime pre-echo field (D2). Its mean over one corridor period is exactly Si(2π)/π, where Si is the classical sine integral.
+
+Formula: `∫₀¹ sinc²(t) dt = Si(2π)/π ≈ 0.45141166679014...`
+
+Proof: [`papers/proof_d14_spectral_mean.py`](papers/proof_d14_spectral_mean.py) (D14). Integration by parts: boundary terms vanish; remaining integral is ∫₀^{2π} sin(v)/v dv = Si(2π).
+
+Does not claim: Si(2π)/π ≈ 0.45141 being close to 4/π² ≈ 0.4053 has algebraic significance. The Montgomery bridge (B6) is NOT proved by this result; the mechanism connecting prime arithmetic to Riemann zeros remains open.
+
+---
+
+**5. The wobble W = 3/50 comes from the group structure of the operator ring.**
+
+W = 3/50 is not a parameter — it is derived. The multiplicative units C = {1,3,7,9} and their double D = {2,4,6,8} disagree with the symmetric baseline by exactly 6 cells out of 100. Generator 3 over half-table 50 = 3/50.
+
+Formula: `W = |CROSS_CYCLE − n²/2| / n² = |44 − 50| / 100 = 6/100 = 3/50`, where `CROSS_CYCLE = Σ_{c∈C, d∈D} DIS[c][d] = 44`.
+
+Proof: [`papers/proof_d17_w_algebraic.py`](papers/proof_d17_w_algebraic.py) (D17).
+
+Does not claim: The formula W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / n² holds for arbitrary n; the universal normalization is open.
+
+---
 
 ---
 
