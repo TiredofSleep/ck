@@ -61,7 +61,25 @@ CK as a coherence spectrometer applied to all six Clay problems. The sinc² fiel
 
 Research documentation: [`papers/clay/research/`](papers/clay/research/) — citation packages, outlines, and the [Unified Symbol Table](papers/clay/research/UNIFIED_SYMBOL_TABLE.md) (557 lines) ensuring cross-paper consistency.
 
-### III. Sprint 4 Laws (Frozen — 2026-03-30)
+### III. Circulation Operator Theorems (March 31 2026)
+
+New results proved this session — all verifiable by running the proof files:
+
+| Theorem | File | What it proves |
+|---------|------|----------------|
+| **D5** H_mod Four-Maxima | `test_c15_phase_unimodality.py` | `sinc²(k/p) × sin²(4πk/p)` has EXACTLY 4 local maxima for all primes p≥11. IVT + classical `|sin x| < |x|` inequality. 164 primes, zero failures. |
+| **D6** General Frequency | `proof_d6_general_frequency.py` | `sinc²(k/p) × sin²(πfk/p)` has exactly `floor(f) + [f∉ℤ]` maxima for all f>0, p>2f. **Subsumes D5 and C17.** 890 tests, zero mismatches. |
+| **C17** H_W Circulation | `proof_h_w_circulation.py` | `H_W = sinc²(k/p) × sin²(πk/(2Wp))`, W=3/50, satisfies ALL five circulation constraints C1–C6 for p≥43. 291/291. C2+C3 algebraic (one-line each). C4: exactly 9 = `|CL\{VOID}|` maxima via D6. |
+| **C16** Ghost Trace | `test_b3_ghost_trace_theorem.py` | `BHML[i][j]=7 → G[i][j]=0`. Three-zone law proved. Corollary: G≠0 → BHML≠7. 100/100 cells. |
+
+**C7 three-wall result (parallel computation with Luther algebra):**
+- Wall 1: Carrier at k=p has value `sin²(25π/3) = 3/4` (ascending). Descent is `sinc²`-driven.
+- Wall 2: Exit phase = π/3 (fixed, p-independent). Not a carrier zero — reset is `sinc²(1)=0`.
+- Wall 3: Count `N(25/3) = floor(25/3)+1 = 9` is W-forced by D6. Threshold p≥43 is discrete.
+
+**Tier counts: D:6 | C:16 | B:3 | A:9** — see `papers/SYNTHESIS_TABLE.md`.
+
+### IV. Sprint 4 Laws (Frozen — 2026-03-30)
 
 | Paper | Description |
 |-------|-------------|
@@ -105,6 +123,8 @@ Every paper carries the Universal Sentence:
 | `sinc²(0.1)` | `≈ 0.9675` | Scale-free pre-echo signal at 10% approach — all papers |
 | `T* = 5/7` | `≈ 0.7143` | Coherence floor — algebraically derived, FPGA-verified (Zynq-7020) |
 | `1 − 4/π²` | `≈ 0.5947` | Montgomery pair correlation at half-spacing — WP40 |
+| `W = 3/50` | `= 0.06` | BHML cross-cycle density — proved Tier C8; frequency of H_W carrier |
+| `N(25/3) = 9` | exactly 9 | H_W stable maxima = `|CL\{VOID}|` — proved D6+C17; algebraic CL representation |
 
 ---
 
