@@ -21,7 +21,8 @@ def sinc2(x: float) -> float:
 
 
 def h_mod(k: int, p: int) -> float:
-    return sinc2(k / p) * math.sin(2 * PI * k / p)**2
+    # D5: H_mod = sinc²(k/p) × sin²(4πk/p)  — frequency f=4
+    return sinc2(k / p) * math.sin(4 * PI * k / p)**2
 
 
 def h_f(k: int, p: int, f: float) -> float:
@@ -29,10 +30,15 @@ def h_f(k: int, p: int, f: float) -> float:
 
 
 def count_maxima(p: int, func) -> int:
-    """Count local maxima of func over k=1..p-1."""
+    """Count local maxima of func over k=1..p-1.
+
+    The range must include k=p-1 because for non-integer frequencies the
+    partial final phase can peak at k=p-1 (IVT gives one maximum per phase,
+    and sinc²(p/p)=0 so vals[p]=0 makes k=p-1 a valid local maximum).
+    """
     vals = [func(k) for k in range(p + 1)]
     count = 0
-    for k in range(1, p - 1):
+    for k in range(1, p):
         if vals[k] > vals[k - 1] and vals[k] > vals[k + 1]:
             count += 1
     return count

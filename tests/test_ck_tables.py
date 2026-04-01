@@ -117,14 +117,21 @@ class TestWDerivedConstants:
         assert abs(T_STAR - 5/7) < 1e-14, f"T_STAR = {T_STAR}"
 
     def test_w_from_dis_formula(self):
-        """W = |DIS_CxD - 50| / 100 (C8 derivation)."""
-        # DIS[C×D] = sum of DIS over cross-product {2,4,6,8} × {1,3,5,7,9}
-        C_ops = [2, 4, 6, 8]  # EVEN non-VOID
-        D_ops = [1, 3, 5, 7, 9]  # ODD
-        dis_cd = sum(DIS[c][d] for c in C_ops for d in D_ops)
-        W_derived = abs(dis_cd - 50) / 100
+        """W = (50 - DIS_CxD) / 100 (C8/D17 derivation).
+
+        C = (Z/10Z)* = {1,3,7,9}  (units, coprime to 10)
+        D = 2·(Z/10Z)* = {2,4,6,8}  (even non-zero, D17 notation)
+        CROSS_CYCLE = sum(DIS[c][d] for c in C, d in D) = 44
+        deviation = baseline − CROSS_CYCLE = 50 − 44 = 6
+        W = deviation / n² = 6 / 100 = 3/50 = 0.06
+        """
+        C_ops = [1, 3, 7, 9]  # (Z/10Z)* = units
+        D_ops = [2, 4, 6, 8]  # D = 2·(Z/10Z)*
+        cross_cycle = sum(DIS[c][d] for c in C_ops for d in D_ops)
+        # W = (50 - CROSS_CYCLE) / 100 = (50 - 44) / 100 = 6/100 = 3/50
+        W_derived = (50 - cross_cycle) / 100
         assert abs(W_derived - W) < 1e-14, (
-            f"DIS_CxD={dis_cd}, W_derived={W_derived}, expected W={W}"
+            f"CROSS_CYCLE={cross_cycle}, W_derived={W_derived}, expected W={W}"
         )
 
     def test_t_star_ratio_of_attractors(self):

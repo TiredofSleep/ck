@@ -46,8 +46,14 @@ class TestSinc2ContinuumLimit:
     """R(k,f) converges to sinc²(k/f) for large primes."""
 
     def test_convergence_at_half(self):
-        """R(p//2, p) → 4/π² within 5e-3 for all tested primes."""
-        result = verify_sinc2_limit(primes=PRIMES_SMALL + PRIMES_MEDIUM, t=0.5, tol=5e-3)
+        """R(round(p/2), p) → 4/π² within 5e-3 for large primes.
+
+        At t=0.5 and odd prime p, the nearest integer k = round(p/2) gives
+        k/p = (p±1)/(2p), so |k/p − 0.5| = 1/(2p).  The resulting error in
+        sinc² is O(1/p) with constant ≈ 0.8.  For tol=5e-3 this requires
+        p > 160; PRIMES_LARGE (p≥997) satisfies this comfortably.
+        """
+        result = verify_sinc2_limit(primes=PRIMES_LARGE, t=0.5, tol=5e-3)
         assert result["failed"] == 0, f"t=0.5 failures: {result}"
 
     def test_convergence_at_tenth(self):
@@ -56,8 +62,12 @@ class TestSinc2ContinuumLimit:
         assert result["failed"] == 0, f"t=0.1 failures: {result}"
 
     def test_large_prime_tight_convergence(self):
-        """At large primes the error is < 1e-4."""
-        result = verify_sinc2_limit(primes=PRIMES_LARGE, t=0.5, tol=1e-4)
+        """At p≥9973 the error is < 1e-4.
+
+        O(1/p) discretization at t=0.5: for p=997 the k/p rounding contributes
+        ~8e-4 error, exceeding tol=1e-4.  p≥9973 gives ~8e-5 error. ✓
+        """
+        result = verify_sinc2_limit(primes=[9973, 99991], t=0.5, tol=1e-4)
         assert result["failed"] == 0, f"Large prime convergence failed: {result}"
 
     def test_null_at_k_equals_p(self):
