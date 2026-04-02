@@ -1,7 +1,5 @@
 # K10_NO_GO_ATTEMPT.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K10 No-Go Attempts: Systematic Closure of Eisenstein Routes
 
 **Format**: Each attempt labeled A–F. Result: D (definitive), C (gap remains), B (open).

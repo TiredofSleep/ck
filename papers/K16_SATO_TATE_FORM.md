@@ -1,7 +1,5 @@
 # K16_SATO_TATE_FORM.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K16: The Sato-Tate Automorphic Form π_ST
 
 **Status**: C-tier identification. π_ST = Eisenstein series on GL(2).

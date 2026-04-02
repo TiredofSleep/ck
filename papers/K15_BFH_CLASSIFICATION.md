@@ -1,7 +1,5 @@
 # K15_BFH_CLASSIFICATION.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K15: Identifying Z̃ in the BFH Classification
 
 **Status**: C-tier → D-tier candidate. BFH absorbs composite moduli.

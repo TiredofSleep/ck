@@ -1,7 +1,5 @@
 # K8_WEAK_THEOREMS.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K8 Layer Proved Theorems
 
 **Program position:** This document collects D-tier proved results for the K8 layer. Convention:

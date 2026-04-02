@@ -1,7 +1,5 @@
 # K17_KLOOSTERMAN_EXPLICIT_FORMULA.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K17: The Kloosterman Explicit Formula — Full Development
 
 **Status**: C-tier. The theorem is stated precisely. Two gaps identified.

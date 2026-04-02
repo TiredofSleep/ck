@@ -1,7 +1,5 @@
 # K11_DOUBLE_DIRICHLET_SERIES.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K11: The Double Dirichlet Series Z(s,w) — Last Theoretical Path
 
 **Status**: B-tier conjecture. Functional equation existence is open.

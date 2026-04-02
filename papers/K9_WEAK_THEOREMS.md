@@ -1,7 +1,5 @@
 # K9_WEAK_THEOREMS.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K9 Layer Proved Theorems
 
 **Program position:** Proved results (D-tier) from the K9 g-dependent Kloosterman program.

@@ -1,7 +1,5 @@
 # K12_WEAK_THEOREMS.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K12 Weak Theorems: H₃ Signal Characterization
 
 **D-tier: 3 results (2 numerical, 1 analytical). C-tier: 2. B-tier: 2.**

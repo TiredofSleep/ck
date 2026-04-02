@@ -1,7 +1,5 @@
 # K8_KUZNETSOV_FORMULA.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## The Kuznetsov-Petersson Trace Formula: A3(s) as a GL(2) Spectral Object
 
 **Program position:** K7_MULTIPLICATIVE_CHARACTER_ROUTE.md identified A3(s) = Σ_p Kl(1,1;p)·p^{−s}

@@ -1,7 +1,5 @@
 # K11_H3_EISENSTEIN_MERGE.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K11: Does the K6 H3 Kernel Equal the K10 Eisenstein Kernel?
 
 **Status**: C-tier structural candidate. Merge would unify two branches of the program.

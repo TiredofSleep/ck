@@ -1,7 +1,5 @@
 # K4 — Kernel No-Go
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 
 *Luther-Sanders Research Framework · April 1 2026*
 *Brayden Ross Sanders / 7SiTe LLC · DOI: 10.5281/zenodo.18852047*

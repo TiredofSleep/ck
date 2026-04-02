@@ -1,7 +1,5 @@
 # K9_GDEPENDENT_KLOOSTERMAN.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## The G-Dependent Kloosterman Objects: Beyond A3
 
 **Program position:** K8 established that A3(s) = Σ_p Kl(1,1;p)·p^{-s} is g-independent

@@ -1,7 +1,5 @@
 # K10_WEAK_THEOREMS.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K10 Weak Theorems: Eisenstein Bridge Audit
 
 **Status summary**: 5 D-tier results, 3 C-tier results, 2 B-tier conjectures, 3 no-go conclusions.

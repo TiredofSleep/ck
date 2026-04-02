@@ -1,7 +1,5 @@
 # K8_KLOOSTERMAN_DIRICHLET_SERIES.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## The A3 Dirichlet Series: Kloosterman Sums over Primes
 
 **Program position:** K8 is the first stage of the Kloosterman route identified in K7.

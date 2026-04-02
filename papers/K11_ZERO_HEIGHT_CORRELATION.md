@@ -1,7 +1,5 @@
 # K11_ZERO_HEIGHT_CORRELATION.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K11 Attempt F: Numerical Cross-Correlation at ζ-Zero Heights
 
 **Status**: D-tier no-go (numerically confirmed).

@@ -1,7 +1,5 @@
 # K9_GAUSS_SUM_PHASES.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## Gauss Sum Phases: The Residual Prime-Specific Structure
 
 **Program position:** K9_LAG_GENERATING_SERIES.md proved that the Kloosterman lag sequence

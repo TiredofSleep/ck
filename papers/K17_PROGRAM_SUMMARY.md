@@ -1,7 +1,5 @@
 # K17_PROGRAM_SUMMARY.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K1–K17 Complete Program Summary
 
 **The Kloosterman-Riemann Program: Final State**

@@ -1,7 +1,5 @@
 # K14_WEAK_THEOREMS.md
 
-**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
-
 ## K14 Weak Theorems
 
 **D-tier: 3 (2 no-go, 1 positive). C-tier: 2. B-tier: 1 falsified.**
