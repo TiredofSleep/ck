@@ -1,4 +1,7 @@
 # K15_WEAK_THEOREMS.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K15 Weak Theorems: BFH Classification and L-Function Poles
 
 **D-tier: 1. C-tier: 5. B-tier: 1.**

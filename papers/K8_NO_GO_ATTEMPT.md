@@ -1,4 +1,7 @@
 # K8_NO_GO_ATTEMPT.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K8 No-Go Attempt: What Doesn't Work and Why
 
 **Program position:** Following the K7 methodology, this document records all attempted routes

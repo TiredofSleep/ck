@@ -1,4 +1,7 @@
 # K12_H3_SIGNAL_ANALYSIS.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K12: H₃ Signal Analysis — Why the Peaks Are at ζ-Zero Locations
 
 **Status**: C-tier confirmed (70% detection with 168 primes). Theoretical explanation below.

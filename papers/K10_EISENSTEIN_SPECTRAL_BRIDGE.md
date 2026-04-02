@@ -1,4 +1,7 @@
 # K10_EISENSTEIN_SPECTRAL_BRIDGE.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## The Eisenstein Spectral Bridge: Making the B-Tier Path Concrete
 
 **Status**: Three gap steps documented. Two D-tier results. One C-tier structural claim.

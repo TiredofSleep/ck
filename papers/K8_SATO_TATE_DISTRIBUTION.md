@@ -1,4 +1,7 @@
 # K8_SATO_TATE_DISTRIBUTION.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## Equidistribution of Kloosterman Angles: The Sato-Tate Law
 
 **Program position:** This document establishes the statistical behavior of the normalized

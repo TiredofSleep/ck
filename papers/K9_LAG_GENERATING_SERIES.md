@@ -1,4 +1,7 @@
 # K9_LAG_GENERATING_SERIES.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## The Lag-Kloosterman Generating Series: Spectral Structure
 
 **Program position:** K9_GDEPENDENT_KLOOSTERMAN.md defined the generating series

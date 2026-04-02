@@ -1,4 +1,7 @@
 # K10_FREDHOLM_INVERSION.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K10 Approach C: The Fredholm Inversion Route
 
 **Status**: B-tier candidate. Feasibility depends on compactness of Kuznetsov kernel.

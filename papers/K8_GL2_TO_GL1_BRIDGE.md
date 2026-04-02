@@ -1,4 +1,7 @@
 # K8_GL2_TO_GL1_BRIDGE.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## The Open Bridge: From GL(2) Kloosterman Structure to GL(1) Zeta Zeros
 
 **Program position:** K8_KUZNETSOV_FORMULA.md established that A3(s) lives on GL(2). This

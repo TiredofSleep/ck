@@ -1,4 +1,7 @@
 # K14_BFH_CORRECTION.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K14: BFH Identification Correction — K13.C1 is Wrong
 
 **Status**: K13.C1 is a D-tier no-go. New B-tier path identified.

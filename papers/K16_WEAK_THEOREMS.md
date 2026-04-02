@@ -1,4 +1,7 @@
 # K16_WEAK_THEOREMS.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K16 Weak Theorems: Sato-Tate Form No-Go; Oscillation Chain Survives
 
 **D-tier: 1 no-go. C-tier: 2 surviving. B-tier: 1 falsified.**

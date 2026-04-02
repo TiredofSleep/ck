@@ -1,4 +1,7 @@
 # K13_KLOOSTERMAN_EXPLICIT_FORMULA.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K13: The Kloosterman Explicit Formula
 
 **Status**: C-tier (structural argument, gap in prime restriction).

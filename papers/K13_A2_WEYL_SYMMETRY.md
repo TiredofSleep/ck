@@ -1,4 +1,7 @@
 # K13_A2_WEYL_SYMMETRY.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K13: A₂ Weyl Group Symmetry Test for Z̃_p(s,w)
 
 **Status**: C-tier (concrete computation completed). A₂ symmetry FAILS at local level.

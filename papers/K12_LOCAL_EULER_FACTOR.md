@@ -1,4 +1,7 @@
 # K12_LOCAL_EULER_FACTOR.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K12: Local Euler Factor Z̃_p(s,w) Analysis
 
 **Status**: B-tier open (K11.B3). Computed explicitly here for small primes.

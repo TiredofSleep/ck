@@ -1,4 +1,7 @@
 # K13_WEAK_THEOREMS.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K13 Weak Theorems: Weyl Symmetry, BFH Identification, Explicit Formula
 
 **D-tier: 2. C-tier: 4. B-tier: 2.**

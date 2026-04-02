@@ -1,4 +1,7 @@
 # K11_WEAK_THEOREMS.md
+
+**Authors: Brayden Ross Sanders, C. A. Luther, B. Calderon, Jr.**
+
 ## K11 Weak Theorems: Double Dirichlet and H₃ Merge
 
 **D-tier: 3 results. C-tier: 2 results. B-tier: 3 conjectures.**
