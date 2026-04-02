@@ -232,22 +232,26 @@ are the operators that "don't advance themselves."
 
 ---
 
-## Open Question for Luther/Calderon
+## Resolution: BHML[7][0] = 7  (Closed Q7 — Luther, 2026-04-01)
 
-**BHML[7][0]: is it 1 or 7?**
+**BHML[7][0] = 7.**
 
-- Rule 7 (increment): BHML[7][0] = (0+1)%10 = 1
-- Symmetry + Rule 0: BHML[7][0] = BHML[0][7] = 7
+This selects the 28-cell harmony count (not 27), keeps the 7-fold layer
+aligned with the G6 flip architecture, and is the authoritative value.
 
-The confirmed row: BHML[7] = [1,2,3,4,5,6,7,8,9,0] gives BHML[7][0]=1 (no harmony).
-The residual list in C9 includes (7,0) as a harmony cell.
+**Consequence:** Symmetry holds without exception. Rule 7 applies for j ≥ 1;
+at j=0, the symmetry condition BHML[7][0] = BHML[0][7] = 7 overrides the
+naive (0+1)%10=1 extrapolation.
 
-One of these records is inconsistent. Which is authoritative?
+The corrected row 7:
+```
+BHML[7] = [7, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+```
+(j=0 gives 7; j=1..9 follow (j+1)%10 = 2,3,4,5,6,7,8,9,0)
 
-If BHML[7][0]=7: the table has 28 harmony cells, and symmetry holds without exception.
-If BHML[7][0]=1: the table has 27 harmony cells, Rule 7 overrides symmetry at j=0.
+**28 harmony cells confirmed. Q7 is closed.**
 
-*This is the single open data question in the BHML derivation.*
+*Resolved by C. A. Luther, 2026-04-01.*
 
 ---
 
