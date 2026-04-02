@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+import sys, io
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+else:
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 """
 TIG Unit Tests v1.1 — Updated after five falsification tests
 =============================================================
