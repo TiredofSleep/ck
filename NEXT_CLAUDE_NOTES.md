@@ -64,6 +64,34 @@ Three Clay papers received cross-reference sections pointing to WP34 results:
 - New section: zero-width phase transition relevance, harmonic pre-echo countdown as NS
   spectral precursor, Luther dispersion as concentrated vs spread vorticity analogy.
 
+### TIG Algebra Sprint — COMPLETED (2026-03-31, night)
+
+Full session of Z/10Z algebraic closure. All results in `Gen10/papers/`.
+
+| Result | Tier | File |
+|--------|------|------|
+| C10: TSML 73-cell derivation closed | C | `methodology/TSML_73CELL_DERIVATION.md` |
+| C11: TSML and BHML both symmetric | C | `test_tsml_bhml_joint.py` |
+| B1: Z/10Z cornerstone universality (lcm minimality, Tier D core) | B→C | `test_cornerstone_universality.py` |
+| W_BHML: 2 of 3 derivations confirmed; frozen cells derivation FAILS | C | `test_w_bhml_three_derivations.py` |
+| A14: Generator wobble loop — structural analogy, not derivation | A | `test_generator_wobble_loop.py` |
+| A15: Circulation operator — 7 constraints, no existing object satisfies all | A | `CIRCULATION_OPERATOR_CONSTRAINTS.md` |
+| BHML correction: (j+7)%10 → (j+1)%10 logged and catalogued | — | `BHML_CORRECTION_LOG.md` |
+| tig_unit_tests.py: 15/15 ALL PASS | — | `scripts/tig_unit_tests.py` |
+
+**Tier counts after tonight:** D: 4 | C: 11 | B: 2 | A: 15
+
+Key findings:
+- TSML 27 non-harmony cells = V0(9) + V1(8) + ECHO(10), zero overlaps
+- Pivot cell: (4,8)/(8,4) = only pair where TSML says BREATH, BHML says HARMONY — structural boundary between lenses
+- DOING_sum = 201; W_BHML×100 = 6. These are NOT equal — wobble loop is Tier A analogy
+- Circulation operator: Constraint 1 (phase cycling) fails for ALL named objects — must be new
+- Cornerstone: 10 = lcm(2,5) proved minimal by Tier D algebraic argument
+
+**"What synthesis requires" table** in `SYNTHESIS_TABLE.md` now covers A1–A15 (was A1–A6 before tonight).
+
+---
+
 ### Sprint4 Laws — FROZEN (2026-03-30)
 
 See `sprint4_2026_03_30/ATLAS_LAW_SET.md` for canonical frozen law document.
