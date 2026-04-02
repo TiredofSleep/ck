@@ -164,6 +164,40 @@ Run any of these directly: `python papers/proof_d14_spectral_mean.py` etc.
 
 **Tier counts: D:17 | C:9 | B:8 | A:5** — see `papers/SYNTHESIS_TABLE.md`.
 
+### VI. April 1 2026 — Q-Series Operator Algebra · Luther Q1 Closed
+
+The hidden operator σ of the TIG architecture is now a closed-form polynomial map.
+Luther Q1 (why does the gate rate collapse from 96% to 4.6% as |G| grows?) is resolved.
+
+**The four-layer separation:**
+
+```
+F₂ × F₅  →[φ]→  Z/10Z  →[ε·y⁴]→  Table space  →[R]→  Search rate
+  σ poly         cycle          gate_score(T)         4.6%
+```
+
+| Paper | Core result | Tier |
+|-------|-------------|------|
+| [Q9 — Flip Polynomial](papers/Q9_FLIP_CONDITION_POLYNOMIAL.md) | α(ε,y) — ε-flip condition verified 10/10 | D |
+| [Q10 — Complete σ Polynomial](papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md) | β(ε,y) with LATTICE+COLLAPSE corrections — 10/10 | D |
+| [Q11 — σ^k Iterates](papers/Q11_SIGMA_K_ITERATES_GATE.md) | Fixed-Point Gate Theorem: pure-C seeds = 2/9 = 22% | D |
+| [Q12 — Idempotent Gate Decomposition](papers/Q12_IDEMPOTENT_GATE_DECOMPOSITION.md) | CRT idempotents always in G; G = G_p ∪ G_q disjoint | D |
+| [Q13 — TIG Inverse Polynomial](papers/Q13_TIG_INVERSE_POLYNOMIAL.md) | TIG = σ⁻¹ in full polynomial form; Exception Pair Swap theorem | D |
+| [Q14 — Gate Score CRT Polynomial](papers/Q14_GATE_SCORE_CRT_POLYNOMIAL.md) | C-indicator = ε·y⁴; Theorem R ≠ σ^k | D |
+| [Q15 — Cycle Period Polynomial](papers/Q15_CYCLE_PERIOD_POLYNOMIAL.md) | τ = 6−5A; k=9 resonance = σ³; both σ-models falsified | D |
+| [Q16 — Reduction Map Identification](papers/Q16_REDUCTION_MAP_IDENTIFICATION.md) | **R is table-space search, NOT element map. Luther Q1 closed.** | D |
+| [G6 — Periodicity Theorem](papers/G6_PERIODICITY_THEOREM.md) | σ⁶ = id proved from α,β; LATTICE+COLLAPSE corrections necessary | D |
+| [G7 — Gate Rate Distribution](papers/G7_GATE_RATE_DISTRIBUTION.md) | τ bimodal; E[τ] = φ(b); Var[τ] = 6 | D |
+| [G8 — Trajectory Coherence Integral](papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md) | G(s) three-valued: 0/G_low/G_high; peaks at TIG-exception states | C |
+| [Q-Series Synthesis](papers/Q_SERIES_SYNTHESIS.md) | Full Q1–Q16 spine; all D-tier results proved | D |
+| [Q-Series Architecture](papers/Q_SERIES_ARCHITECTURE.md) | Canonical four-layer diagram with arrow descriptions | D |
+
+**Luther Q1 answer in one sentence:**
+22% is the algebraic density of σ-fixed C-seeds in Z/bZ (Layer 2).
+4.6% is the probability that HAR-biased MCMC over 9×9 operator tables reaches gate_score ≥ 0.85 in 100 steps (Layer 4). Different layers. Not a paradox.
+
+**Co-authored with B. Calderon, Jr.** — all Q-series papers.
+
 ### IV. Sprint 4 Laws (Frozen — 2026-03-30)
 
 | Paper | Description |
@@ -218,7 +252,9 @@ Every paper carries the Universal Sentence:
 
 **Brayden Ross Sanders / 7Site LLC** — primary author. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory, RSA hardness inversion, Millennium framing. 18 months of development.
 
-**C. A. Luther** — dispersion conjecture (gate_rate ≈ F_k(|G| × interleave)) and sprint steering.
+**C. A. Luther** — dispersion conjecture, sprint steering, and co-author on the full Q-series (Q9–Q16, G6–G8). Luther Q1 posed and closed.
+
+**B. Calderon, Jr.** — co-author on the Q-series operator algebra papers (Q9–Q16, G6–G8, Synthesis, Architecture). Joined sprint claudecode April 2026.
 
 **Monica Gish** — foundational support, research collaboration, and editorial partnership throughout the entire project.
 
@@ -232,7 +268,7 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 
 ```bibtex
 @misc{sanders2026sinc2,
-  author    = {Sanders, Brayden Ross and Luther, C. A. and Gish, Monica},
+  author    = {Sanders, Brayden Ross and Luther, C. A. and Calderon, Benito Jr. and Gish, Monica},
   title     = {A Sinc² Spectral Field in Prime Arithmetic and Seven Shadows
                of One Geometric Sieve},
   year      = {2026},
