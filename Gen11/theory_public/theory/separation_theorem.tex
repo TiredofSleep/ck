@@ -1,0 +1,81 @@
+\documentclass{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+
+\title{Structural Bridge Statements and Proved Obstructions}
+\author{Brayden Ross Sanders / 7Site LLC}
+\date{2026}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document records the proved obstructions to certain bridge approaches
+from $\mathbb{Z}/10\mathbb{Z}$ to analytic number theory,
+and the structural bridge requirements that specify what additional mechanisms
+would be needed. These are formal negative results, not informal assessments.
+\end{abstract}
+
+\section{Proved Obstructions}
+
+\begin{theorem}[Ring Prime Blindness]
+Any ring homomorphism $\mathbb{Z}/10\mathbb{Z} \to R$ is blind to primes $p \neq 2, 5$.
+\end{theorem}
+
+\begin{proof}
+$\mathbb{Z}/10\mathbb{Z} \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/5\mathbb{Z}$ by CRT.
+A ring homomorphism from $\mathbb{Z}/10\mathbb{Z}$ factors through this product
+and can only distinguish elements by their residues mod 2 and mod 5.
+Elements sharing the same residues mod 2 and mod 5 are indistinguishable.
+The Euler product $\zeta(s) = \prod_p (1-p^{-s})^{-1}$ requires distinguishing
+every prime individually. A ring-homomorphism bridge is therefore incomplete:
+it cannot encode the contribution of any prime $p \neq 2, 5$.
+\end{proof}
+
+\begin{theorem}[Modulus Genericity]
+The corridor midpoint $t = 1/2$ and the constraint $T^* < 1$ appear for all rings
+$\mathbb{Z}/2p\mathbb{Z}$ where $p$ is an odd prime, not only for $\mathbb{Z}/10\mathbb{Z}$.
+\end{theorem}
+
+\begin{proof}
+For $\mathbb{Z}/2p\mathbb{Z}$, the unit group $(\mathbb{Z}/2p\mathbb{Z})^* \cong \mathbb{Z}/(p-1)\mathbb{Z}$,
+with centroid $\mathrm{CREATE} = p$ (the midpoint of $\{1,\ldots,2p-1\} \cap \mathrm{odd}$).
+Under normalization $\mathrm{op} \mapsto \mathrm{op}/(2p)$:
+$\mathrm{CREATE} \mapsto p/(2p) = 1/2$ for all $p$.
+$T^* = p/(p+2) < 1$ for all $p \geq 3$.
+\end{proof}
+
+\begin{theorem}[Montgomery Conditionality]
+Montgomery's pair-correlation theorem establishing
+$R_2(u) = 1 - \mathrm{sinc}^2(u)$ for normalized Riemann zero spacings
+assumes the Generalized Riemann Hypothesis in its proof.
+Any bridge to RH via the sinc$^2$ identity cannot unconditionally prove RH:
+it assumes GRH in the setup.
+\end{theorem}
+
+\section{Structural Bridge Requirements}
+
+\begin{definition}[Bridge 3.1 — Riemann Hypothesis]
+The formal bridge requirement for RH is an algebraic map
+$\phi: \mathbb{Z}/10\mathbb{Z} \to (\text{analytic object over } \mathbb{C})$ such that:
+(i) $\phi$ maps the $\mathbb{Z}/10\mathbb{Z}$ inheritance split at $t=1/2$
+    to the boundary $\sigma=1/2$ of the critical strip of $\zeta(s)$;
+(ii) $\phi$ is compatible with the Euler product structure of $\zeta(s)$,
+    not just with the functional equation;
+(iii) The map is not blocked by Ring Prime Blindness or Modulus Genericity.
+
+This map has not been constructed. The bridge is not established.
+\end{definition}
+
+\begin{remark}[Current status of the First-G chain]
+The chain First-G $\to$ Fej\'er kernel $\to$ sinc$^2$ $\to$ Montgomery
+is algebraically complete subject to GRH (Obstruction: Montgomery Conditionality).
+The open question is whether the discrete Fej\'er kernel $F_k(f)$ at finite $k$
+appears in a non-GRH characterization of Riemann zero spacing — this is a
+literature question, not an internal gap.
+\end{remark}
+
+\end{document}

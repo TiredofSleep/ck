@@ -1,0 +1,75 @@
+\documentclass{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+
+\title{Algebraic Derivation of $T^* = 5/7$}
+\author{Brayden Ross Sanders / 7Site LLC}
+\date{2026}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the coherence threshold $T^* = 5/7$ is algebraically forced by
+the ring $\mathbb{Z}/10\mathbb{Z}$ via four independent derivations:
+CRT unit fraction, TSML measurement, generator convergence,
+and complement-equivariant fixed point.
+\end{abstract}
+
+\section{Four Independent Derivations of $T^* = 5/7$}
+
+\begin{theorem}[$T^*$ Algebraic Identity]
+$T^* = 5/7$ is the unique ratio $\mathrm{CREATE}/\mathrm{HARMONY} = 5/7$
+in $\mathbb{Z}/10\mathbb{Z}$, established by four independent chains:
+
+\begin{enumerate}
+\item[\emph{(a)}] \emph{CRT unit fraction.} At $b=35=5\times7$ and $k=7$:
+$|C(7,35)| = |\{1,2,3,4,6\}| = 5$ out of $\{1,\ldots,7\}$, so unit fraction $= 5/7$.
+
+\item[\emph{(b)}] \emph{TSML measurement.} $\mathrm{TSML}[v][j] = \mathrm{HARMONY}=7$
+for all non-VOID $v$ and $j \neq \mathrm{VOID}$.
+The measurement $M(v) = \mathrm{TSML}[v][v_{\text{journey}}] = 7$ for all non-VOID $v$.
+$T^* = \mathrm{destination}/\mathrm{measurement} = 5/7$.
+
+\item[\emph{(c)}] \emph{Generator convergence.}
+$\mathrm{CREATE}=5$ is the centroid of $(\mathbb{Z}/10\mathbb{Z})^* = \{1,3,7,9\}$:
+$(1+3+7+9)/4 = 5$.
+$\mathrm{HARMONY}=7 = g^3 = g^{-1} \pmod{10}$ for $g=3$
+(the unique primitive root compatible with $T^* \in (0,1)$).
+
+\item[\emph{(d)}] \emph{Complement-equivariant fixed point.}
+$\mathrm{CREATE}=5$ is the unique complement-equivariant ODD-output fixed point:
+$2F(5) \equiv 0 \pmod{10}$ forces $F(5) \in \{0,5\}$; since $F(5) \in \mathrm{ODD}$, $F(5)=5$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Generator Uniqueness]
+$g=3$ is the unique primitive root of $(\mathbb{Z}/10\mathbb{Z})^*$ such that $T^* \in (0,1)$.
+Under $g=7$: $T^* = 5/3 > 1$ (inadmissible).
+\end{theorem}
+
+\begin{proof}
+Primitive roots of $(\mathbb{Z}/10\mathbb{Z})^*$ are $g \in \{3,7\}$ (order 4 elements).
+Under $g=3$: $\mathrm{HARMONY} = g^3 = 27 \bmod 10 = 7$, $T^* = 5/7 < 1$. \checkmark
+Under $g=7$: $\mathrm{HARMONY} = g^3 = 343 \bmod 10 = 3$, $T^* = 5/3 > 1$. \texttimes
+\end{proof}
+
+\begin{corollary}[Corridor Portrait]
+The four spine-forced corridor positions satisfy the strict ordering:
+\[
+  W < \tfrac{1}{2} < \tfrac{7}{10} < T^* < 1,
+  \quad \text{i.e.,} \quad
+  \tfrac{3}{50} < \tfrac{1}{2} < \tfrac{7}{10} < \tfrac{5}{7} < 1,
+\]
+with strict amplitude reversal ($\mathrm{sinc}^2$ is strictly decreasing on $(0,1)$):
+\[
+  \mathrm{sinc}^2(W) > \mathrm{sinc}^2(\tfrac{1}{2}) >
+  \mathrm{sinc}^2(\tfrac{7}{10}) > \mathrm{sinc}^2(T^*).
+\]
+The inheritance boundary at $t=1/2$ separates ring-forced territory ($t < 1/2$)
+from generator-forced territory ($t > 1/2$).
+\end{corollary}
+
+\end{document}
