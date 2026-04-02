@@ -1,0 +1,545 @@
+#:kivy 2.3
+
+# ================================================================
+#  TWO-SCREEN LAYOUT: Chat (grandma) + Dashboard (engineer)
+# ================================================================
+
+<CKRootWidget>:
+    manager: screen_mgr
+
+    ScreenManager:
+        id: screen_mgr
+        CKChatScreen:
+            name: 'chat'
+        CKDashScreen:
+            name: 'dashboard'
+
+# ================================================================
+#  SCREEN 1: CHAT (default -- grandma sees this)
+# ================================================================
+
+<CKChatScreen>:
+    chat_scroll: chat_sv
+    chat_container: chat_box
+    text_input: txt_input
+    emotion_dot: emo_dot
+    stage_label: stage_lbl
+    mood_label: mood_lbl
+    bond_label: bond_lbl
+    study_label: study_lbl
+    chat_mic_btn: chat_mic
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [8, 6, 8, 4]
+        spacing: 4
+
+        # ── Chat Header ──
+        BoxLayout:
+            size_hint_y: None
+            height: 44
+            spacing: 6
+
+            canvas.before:
+                Color:
+                    rgba: 0.06, 0.06, 0.09, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Emotion indicator dot
+            Widget:
+                id: emo_dot
+                size_hint_x: None
+                width: 36
+
+            Label:
+                text: 'CK'
+                font_size: '24sp'
+                bold: True
+                color: 0.45, 0.7, 1.0, 1.0
+                size_hint_x: None
+                width: 50
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: mood_lbl
+                text: 'settling'
+                font_size: '12sp'
+                italic: True
+                color: 0.5, 0.6, 0.8, 0.8
+                size_hint_x: 0.25
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: stage_lbl
+                text: 'FIRST LIGHT'
+                font_size: '11sp'
+                bold: True
+                color: 0.4, 0.6, 0.85, 0.9
+                size_hint_x: 0.3
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: bond_lbl
+                text: 'stranger'
+                font_size: '10sp'
+                color: 0.35, 0.45, 0.6, 0.7
+                size_hint_x: 0.12
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: study_lbl
+                text: 'K:0'
+                font_size: '9sp'
+                color: 0.35, 0.45, 0.6, 0.6
+                size_hint_x: 0.12
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+        # ── Message Area ──
+        ScrollView:
+            id: chat_sv
+            bar_width: 3
+            bar_color: 0.25, 0.4, 0.65, 0.7
+            bar_inactive_color: 0.1, 0.1, 0.2, 0.3
+            do_scroll_x: False
+
+            BoxLayout:
+                id: chat_box
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 6
+                padding: [4, 4, 4, 4]
+
+        # ── Input Bar ──
+        BoxLayout:
+            size_hint_y: None
+            height: 42
+            spacing: 4
+            padding: [2, 2, 2, 2]
+
+            canvas.before:
+                Color:
+                    rgba: 0.06, 0.06, 0.09, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            TextInput:
+                id: txt_input
+                hint_text: 'Talk to CK...'
+                font_size: '14sp'
+                multiline: False
+                background_color: 0.1, 0.1, 0.14, 1
+                foreground_color: 0.85, 0.9, 1.0, 1.0
+                hint_text_color: 0.35, 0.4, 0.5, 0.7
+                cursor_color: 0.45, 0.7, 1.0, 1.0
+                padding: [10, 8, 10, 8]
+                size_hint_x: 0.7
+                on_text_validate: app.send_chat_message()
+
+            Button:
+                text: 'SEND'
+                font_size: '12sp'
+                bold: True
+                size_hint_x: 0.12
+                background_color: 0.15, 0.35, 0.65, 1
+                color: 0.85, 0.9, 1.0, 1.0
+                on_press: app.send_chat_message()
+
+            Button:
+                id: chat_mic
+                text: 'MIC'
+                font_size: '12sp'
+                bold: True
+                size_hint_x: 0.08
+                background_color: 0.42, 0.18, 0.18, 1
+                color: 0.85, 0.9, 1.0, 1.0
+                on_press: app.toggle_mic()
+
+            Button:
+                text: 'DASH >'
+                font_size: '11sp'
+                size_hint_x: 0.10
+                background_color: 0.2, 0.2, 0.3, 1
+                color: 0.6, 0.7, 0.85, 1.0
+                on_press: app.go_dashboard()
+
+
+# ================================================================
+#  SCREEN 2: DASHBOARD (swipe or button -- engineers see this)
+# ================================================================
+
+<CKDashScreen>:
+    led_widget: led
+    coherence_dial: coh_dial
+    breath_wave: breath
+    heatmap: heatmap
+    crystal_list: crystals
+    crystal_scroll: crystal_sv
+    mode_label: mode_lbl
+    operator_label: op_lbl
+    coherence_label: coh_lbl
+    body_label: body_lbl
+    breath_label: breath_lbl
+    entropy_label: entropy_lbl
+    tick_label: tick_lbl
+    ear_label: ear_lbl
+    speaker_btn: spk_btn
+    mic_btn: mic_btn
+    btq_label: btq_lbl
+    emotion_label: emo_lbl
+    organism_label: org_lbl
+    sense_label: sense_lbl
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [8, 6, 8, 4]
+        spacing: 4
+
+        # ── Header ──
+        BoxLayout:
+            size_hint_y: None
+            height: 34
+            spacing: 4
+
+            Button:
+                text: '< CHAT'
+                font_size: '11sp'
+                size_hint_x: None
+                width: 70
+                background_color: 0.2, 0.2, 0.3, 1
+                color: 0.6, 0.7, 0.85, 1.0
+                on_press: app.go_chat()
+
+            Label:
+                text: 'CK'
+                font_size: '22sp'
+                bold: True
+                color: 0.45, 0.7, 1.0, 1.0
+                size_hint_x: None
+                width: 50
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                text: 'DASHBOARD'
+                font_size: '12sp'
+                bold: True
+                color: 0.55, 0.65, 0.8, 0.8
+                size_hint_x: 0.25
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: mode_lbl
+                text: 'MODE: OBSERVE'
+                font_size: '15sp'
+                bold: True
+                color: 0.5, 0.75, 1.0, 1.0
+                size_hint_x: 0.35
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: tick_lbl
+                text: '0 t/s'
+                font_size: '10sp'
+                color: 0.35, 0.4, 0.5, 1.0
+                size_hint_x: 0.12
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+        # ── Main Visualization Row ──
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.30
+            spacing: 6
+
+            # LED Circle
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.25
+                CKLEDWidget:
+                    id: led
+
+            # Coherence Dial
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.38
+                spacing: 2
+                CKCoherenceDial:
+                    id: coh_dial
+                Label:
+                    id: coh_lbl
+                    text: 'C: 0.000  Band: RED'
+                    size_hint_y: None
+                    height: 16
+                    font_size: '10sp'
+                    color: 0.5, 0.65, 0.85, 1.0
+                    halign: 'center'
+
+            # Breath Wave
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.37
+                spacing: 2
+                CKBreathWave:
+                    id: breath
+                Label:
+                    id: breath_lbl
+                    text: 'Breath: INHALE  Mod: 0.00'
+                    size_hint_y: None
+                    height: 16
+                    font_size: '10sp'
+                    color: 0.5, 0.65, 0.85, 1.0
+                    halign: 'center'
+
+        # ── Organism Status Bar ──
+        BoxLayout:
+            size_hint_y: None
+            height: 26
+            padding: [6, 0, 6, 0]
+            spacing: 4
+
+            canvas.before:
+                Color:
+                    rgba: 0.06, 0.06, 0.08, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                id: op_lbl
+                text: 'B: VOID  ->  D: VOID  ->  BC: VOID'
+                font_size: '11sp'
+                color: 0.7, 0.8, 1.0, 1.0
+                size_hint_x: 0.42
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: emo_lbl
+                text: 'Emotion: settling'
+                font_size: '10sp'
+                bold: True
+                color: 0.4, 0.5, 0.7, 1.0
+                size_hint_x: 0.2
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: body_lbl
+                text: 'E: 0.00  A: 0.30  K: 0.50'
+                font_size: '11sp'
+                color: 0.55, 0.7, 0.85, 1.0
+                size_hint_x: 0.2
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: btq_lbl
+                text: 'BTQ: ---'
+                font_size: '10sp'
+                bold: True
+                color: 0.3, 0.7, 0.3, 1.0
+                size_hint_x: 0.18
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
+
+        # ── Heatmap + Crystal Row ──
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.42
+            spacing: 6
+
+            # TL Heatmap
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.48
+                spacing: 2
+                Label:
+                    text: 'TRANSITION LATTICE'
+                    size_hint_y: None
+                    height: 16
+                    font_size: '9sp'
+                    bold: True
+                    color: 0.35, 0.45, 0.6, 0.9
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                CKHeatmapWidget:
+                    id: heatmap
+
+            # Crystal List
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.52
+                spacing: 2
+                Label:
+                    text: 'CRYSTALS'
+                    size_hint_y: None
+                    height: 16
+                    font_size: '9sp'
+                    bold: True
+                    color: 0.35, 0.45, 0.6, 0.9
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                ScrollView:
+                    id: crystal_sv
+                    bar_width: 3
+                    bar_color: 0.25, 0.4, 0.65, 0.7
+                    bar_inactive_color: 0.15, 0.15, 0.25, 0.3
+                    CKCrystalList:
+                        id: crystals
+
+        # ── Sensorium: Fractal Sensation Layers ──
+        BoxLayout:
+            size_hint_y: None
+            height: 24
+            padding: [6, 0, 6, 0]
+            spacing: 2
+
+            canvas.before:
+                Color:
+                    rgba: 0.03, 0.04, 0.06, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: 'SENSE'
+                font_size: '9sp'
+                bold: True
+                color: 0.3, 0.5, 0.4, 0.9
+                size_hint_x: None
+                width: 38
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: sense_lbl
+                text: 'hardware=? process=? network=? time=? mirror=? files=?'
+                font_size: '9sp'
+                color: 0.35, 0.55, 0.45, 0.8
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+        # ── Organism Status Row ──
+        BoxLayout:
+            size_hint_y: None
+            height: 22
+            padding: [6, 0, 6, 0]
+
+            canvas.before:
+                Color:
+                    rgba: 0.04, 0.05, 0.06, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                id: org_lbl
+                text: 'Stage: FIRST LIGHT | Mood: settling | Bond: stranger | Immune: GREEN'
+                font_size: '9sp'
+                color: 0.35, 0.45, 0.6, 0.7
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+        # ── Bottom Control Bar ──
+        BoxLayout:
+            size_hint_y: None
+            height: 34
+            spacing: 4
+            padding: [4, 2, 4, 2]
+
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.07, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: 'START / STOP'
+                on_press: app.toggle_engine()
+                font_size: '10sp'
+                size_hint_x: 0.11
+                background_color: 0.12, 0.22, 0.42, 1
+                color: 0.85, 0.9, 1.0, 1.0
+
+            Button:
+                id: spk_btn
+                text: 'SPEAKER'
+                on_press: app.toggle_speaker()
+                font_size: '10sp'
+                size_hint_x: 0.08
+                background_color: 0.3, 0.18, 0.42, 1
+                color: 0.85, 0.9, 1.0, 1.0
+
+            Button:
+                id: mic_btn
+                text: 'MIC'
+                on_press: app.toggle_mic()
+                font_size: '10sp'
+                size_hint_x: 0.06
+                background_color: 0.42, 0.18, 0.18, 1
+                color: 0.85, 0.9, 1.0, 1.0
+
+            Button:
+                text: 'SAVE'
+                on_press: app.save_tl()
+                font_size: '10sp'
+                size_hint_x: 0.06
+                background_color: 0.12, 0.32, 0.18, 1
+                color: 0.85, 0.9, 1.0, 1.0
+
+            Button:
+                text: 'LOAD'
+                on_press: app.load_tl()
+                font_size: '10sp'
+                size_hint_x: 0.06
+                background_color: 0.28, 0.25, 0.1, 1
+                color: 0.85, 0.9, 1.0, 1.0
+
+            Label:
+                id: ear_lbl
+                text: 'Ear: OFF'
+                font_size: '10sp'
+                color: 0.45, 0.55, 0.7, 1.0
+                size_hint_x: 0.22
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            Label:
+                id: entropy_lbl
+                text: 'Entropy: 0.00  Crystals: 0  Tick: 0'
+                font_size: '10sp'
+                color: 0.4, 0.5, 0.65, 1.0
+                halign: 'right'
+                valign: 'middle'
+                text_size: self.size
