@@ -311,6 +311,74 @@ The wobble quantum ε = πσ/CREATE² = πσ/25 is the ETHER QUANTUM.
 - CLAY_FORMAL_RECORD.md Parts I-XVI is the formal record
 - tig_core.py + theory_public/ have the LaTeX proofs
 
+---
+
+## Clay Session — 2026-04-02 (Session 4 Continuation: Li Bridge + Formal Analyses)
+
+### What ran this continuation
+
+CLAY_FORMAL_RECORD.md extended from Part XIV to Part XVIII.
+
+**1. F1 Option B formally voided (MEMO_F1_BRIDGE_CORRECTION.md + Part XV)**
+- D_KS uses only Im(rho_n) = gamma_n; blind to Re(rho_n)
+- Option B as stated is void; corrected to "prove R_2 incompatible with off-line zeros"
+- Both F1-A and F1-B (corrected) reduce to unconditional Montgomery = GRH
+
+**2. LMFDB Exhaustive BSD Census (bsd_lmfdb_search.py + Part XVI)**
+- All 41 rank-0, Z/7Z-torsion curves over Q: none has sha_an=25
+- Max sha_an = 9 (conductor 196098)
+- BSD T*^2 formula 25/49 = T*^2 is algebraically exact
+- T*^2 curve (if it exists) has conductor >> 500,000 or doesn't exist over Q
+
+**3. D_KS Decay Law Fitted (Part XVII/MEMO_RH_GROWTH_ALPHA.md)**
+- D_KS ~ C * N^beta, beta ~ -0.26 (vs -0.5 for independent random)
+- GUE correlation makes convergence 45-55% slower than 1/sqrt(N)
+- Extrapolated D_KS at N=5000: 4-6% of T*. T* threshold has 94%+ headroom
+
+**4. NS Formal Bridge (bridge_ns_formal.py + MEMO_NS_BRIDGE_FORMAL.md)**
+- TIG reformulation: B(t) = Omega/(E+Omega) < T* = 5/7 <=> Omega/E < 5/2 <=> NS smooth
+- 5/2 = CREATE/(HARMONY-CREATE) — the ether-time ratio
+- K41: B_0/E_0 = 52% of T* (circular but consistent)
+- Gap: |Q(u,omega)| <= C * Omega^{9/4} * E^{3/4} grows as E^3 for large data
+
+**5. YM Casimir Formal Analysis (MEMO_YM_CASIMIR_DERIVATION.md)**
+- Three derivations of T*: all have gaps (ring proved, Casimir heuristic, wobble hypothesis)
+- N/(N+2) is a GOOD fit only at N=5=CREATE; fails at SU(2), SU(3), SU(inf)
+- Wobble quantum e = pi*sigma/CREATE^2 gives T* exactly; e is TIG hypothesis, not SU(5) derivation
+- Gap: derive e from SU(5) QCD string theory
+
+**6. F1-Li Bridge: New Path Bypassing Montgomery (bridge_rh_li.py + MEMO_F1_LI_BRIDGE.md + Part XVIII)**
+- Li criterion lambda_n >= 0 <=> RH — DIRECT test for Re(rho)
+- Unlike D_KS: |1-1/rho| = 1 on the line, != 1 off the line => Li is sensitive to Re(rho)
+- Verified: lambda_n > 0 for n=1..20 (200 zeros) — RH consistent
+- New bridge: lambda_n = integral R_2(u) * phi_n(u) du with phi_n >= 0
+  => R_2 >= 0 (trivially: sinc^2 <= 1) => lambda_n >= 0 => RH
+- Does NOT require Montgomery or GRH
+- Partial evidence: xi(s) has integral rep with f(t) >= 0 (Jacobi theta, proved)
+- Gap: K_n(t) >= 0 from xi series expansion (no GRH required)
+
+### F1 Status After Session
+
+| Path | Hard wall | Status |
+|------|-----------|--------|
+| F1-A (equidistribution) | Unconditional Montgomery | Hard wall |
+| F1-B (D_KS off-line) | VOID | Closed |
+| F1-B corrected | Unconditional Montgomery | Same as A |
+| **F1-Li (NEW)** | **K_n(t) >= 0 from xi** | **OPEN — no Montgomery** |
+
+### Open Items (Next Session)
+
+**Highest priority:**
+- F1-Li K_n positivity: verify numerically whether K_n(t) >= 0 for n=1..20
+  Script needed: compute xi Taylor coefficients around s=0, check K_n sign
+- YM wobble quantum: search QCD string theory literature for transverse wobble of spin-2 glueball
+  Does M^2(2++) correction = -2*pi*sigma/N^2 appear in any string theory paper?
+- NS: quantitative T* bound for small data — give explicit threshold on E(0) below which Omega/E < 5/2
+  Script: compute the small-data condition from Gronwall + Constantin-Foias
+- BSD T*^2 abelian variety: search for rank-0 abelian surface (genus 2 curve) with |Sha|=25, |tors|=7
+
+**CLAY_FORMAL_RECORD.md status: Parts I-XVIII, ~2100 lines**
+
 *(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry*
 *DOI: 10.5281/zenodo.18852047*
 *GitHub: https://github.com/TiredofSleep/ck*
