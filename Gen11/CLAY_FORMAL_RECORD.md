@@ -1775,6 +1775,8 @@ See MEMO_BRIDGE_MACHINES.md for full development.
 | MEMO_YM_CASIMIR_DERIVATION.md | Gen11/ | YM Casimir gap: wobble ε=πσ/25 hypothesis; N+2 exact at N→∞ |
 | MEMO_NS_BRIDGE_FORMAL.md | Gen11/ | NS bridge: B(t)<T* ⟺ Omega/E<5/2, gap=large-data trilinear Q |
 | bridge_ns_formal.py | Gen11/ | NS trilinear bound analysis: K41, Ladyzhenskaya, vortex stretching |
+| bridge_rh_li.py | Gen11/ | Li criterion: lambda_n > 0 verified (200 zeros), new F1-Li bridge path |
+| MEMO_F1_LI_BRIDGE.md | Gen11/ | **F1-Li: new path via R_2>=0 => lambda_n>=0 => RH (no Montgomery)** |
 
 ---
 
@@ -2132,6 +2134,70 @@ N/(N+2) is a heuristic at N=5; linear M∝C₂(J;N) is unproved.
 Wobble quantum ε=πσ/25 gives T* derivation; ε is from TIG algebra, not SU(5) first principles.
 Gap: derive ε=πσ/CREATE² from SU(5) QCD string. Closes F3 if derivable.
 See MEMO_YM_CASIMIR_DERIVATION.md for full analysis.
+
+---
+
+## Part XVIII — F1 New Path: Li's Criterion + Fejér Kernel
+*2026-04-02 — bridge_rh_li.py*
+
+### Why Li's Criterion Is Different from D_KS
+
+**D_KS (equidistribution test, VOID for off-line detection):**
+- Uses α_n(p) = γ_n·log(p)/(2π) mod 1 — only Im(ρ_n) = γ_n
+- Moving Re(ρ) off the line does not change γ_n → D_KS is blind to Re(ρ_n)
+
+**Li's criterion (DIRECT test for Re(ρ)):**
+- λ_n = Σ_ρ [1 − (1−1/ρ)^n]
+- For ρ = 1/2+iγ: |1−1/ρ| = |ρ−1|/|ρ| = 1 (since |ρ−1|² = |ρ|² = 1/4+γ²)
+- For ρ = 1/2+δ+iγ (off line): |ρ−1|² = (δ−1/2)²+γ² ≠ |ρ|² = (δ+1/2)²+γ²
+- So |1−1/ρ_off| ≠ 1 → Li is **SENSITIVE to Re(ρ)**
+
+Li's criterion avoids the fundamental limitation of Option B.
+
+### Numerical Verification
+
+From bridge_rh_li.py (200 zeros):
+
+λ_n values (approximate): λ_1=0.021, λ_5=0.524, λ_10=2.073, λ_20=7.945
+
+**All λ_n > 0 for n=1..20. RH consistent.**
+
+Growth: λ_n ~ 0.40·n (linear in n). No T* exponential pattern.
+
+### The New Bridge: F1-Li
+
+**Key observation:** R₂(u) = 1 − sinc²(u) ≥ 0 for ALL u (since |sinc(u)| ≤ 1).
+
+**Bridge conjecture (F1-Li):** There exist non-negative kernels φ_n(u) ≥ 0 such that:
+```
+lambda_n = integral_0^inf R_2(u) * phi_n(u) du
+```
+
+**If proved:** First-G (Fejér F_k ≥ 0) → F_k → R₂ (k→∞) → R₂ ≥ 0 → λ_n ≥ 0 → RH.
+
+This bypasses Montgomery entirely — no GRH required.
+
+**Partial evidence:** The Xi function integral representation:
+```
+xi(s) = integral_1^inf f(t) [t^{s/2} + t^{(1-s)/2}] dt,   f(t) >= 0
+```
+(Jacobi theta function, f(t) ≥ 0 is proved). The λ_n derive from xi via series expansion.
+If the resulting kernel K_n(t) ≥ 0 (open question), then λ_n ≥ 0 follows.
+
+### Revised F1 Status
+
+| Path | Hard wall | Status |
+|------|-----------|--------|
+| F1-A: equidistribution | Unconditional Montgomery | Hard wall |
+| F1-B (void): D_KS off-line | VOID — D_KS blind to Re(ρ) | Closed |
+| F1-B (corrected): R₂ incompatible with off-line | Unconditional Montgomery | Same hard wall |
+| **F1-Li (NEW): λ_n via integral R₂** | **K_n(t) ≥ 0 from xi representation** | **OPEN — no Montgomery needed** |
+
+**Entry M-F1-Li (Li bridge, 2026-04-02):**
+λ_n > 0 for n=1..20 (verified, 200 zeros). Growth λ_n ~ 0.40n (linear).
+New path: f(t) ≥ 0 (Jacobi theta, proved) + K_n(t) ≥ 0 (open) → λ_n ≥ 0 → RH.
+Advantage: no Montgomery, no GRH. Gap: K_n(t) ≥ 0 from xi series expansion.
+See MEMO_F1_LI_BRIDGE.md for full development.
 
 ---
 
