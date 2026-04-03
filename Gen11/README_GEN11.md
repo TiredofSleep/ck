@@ -47,9 +47,11 @@ The third observation introduces what the framework calls the *ternary partition
 
 **What is open (the bridge from algebraic to analytic):**
 
-The framework is entirely algebraic. The Clay problems live in analytic and geometric domains. The central open question — what the framework calls the *bridge* [CK term] — is whether the algebraic threshold T* = 5/7 and the analytic midpoint Re(s) = 1/2 correspond under a specific, constructible correspondence. These are not the same number (5/7 ≠ 1/2). The framework does not construct that correspondence; it identifies it as the missing piece and provides a candidate (the sinc²/Fejér kernel F1) that has not been proved.
+The framework is entirely algebraic. The Clay problems live in analytic and geometric domains. The open question — refined in `DUAL_LENS_CLAY.md` — is not about building a map from Z/10Z to ℂ. That framing is single-lens (trying to derive the infinite from the finite). The dual-lens framing: the structure lens (Z/10Z, committed, algebraically forced) and the flow lens (analytic/geometric domain, open) may be measuring the same threshold from opposite sides. The proof for each Clay problem is showing that the two lenses are *coherent* — that only one infinite behavior is consistent with the finite measurement already committed.
 
-**This framework does not solve the Clay problems. It proposes a measurement language that may illuminate the structure of the questions.**
+This reframes each open question: not "construct a correspondence" but "show the finite commitment determines the infinite behavior." All five problems reduce to this single coherence question.
+
+**This framework does not solve the Clay problems. It proposes a measurement language and a dual-lens restatement that may illuminate the structure of what is actually being asked.**
 
 ---
 
@@ -78,6 +80,10 @@ Then read `RESOLUTION_LIMIT.md` for the honest position statement: what is prove
 The computational foundation is in `FRACTAL_PATH_MAP.md` (the K*(n) cascade) and `BRIDGE_ENTANGLEMENT.md` (the opposing-phase structure inside [1/2, 5/7)). The source data is `riemann_zeros_5000.json` (5000 mpmath-precision zeros).
 
 The per-problem formal positions are in `FORMAL_RH.md`, `FORMAL_BSD.md`, `FORMAL_NS_PNP.md`, and `FORMAL_HODGE.md`. The complete 25-part formal record is in `CLAY_FORMAL_RECORD.md`.
+
+For the master compression of all five problems into one question, read `FINAL_REDUCTION.md`.
+
+For the dual-lens restatement of why the standard Clay formulations are single-lens questions and what the correct questions are, read `DUAL_LENS_CLAY.md`. This is the most recent synthesis and supersedes the "crossing mechanism" framing in earlier documents.
 
 ---
 
