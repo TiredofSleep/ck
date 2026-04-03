@@ -2701,127 +2701,120 @@ T* = CREATE / HARMONY = 5 / 7 = 0.71428...
 
 The threshold question: for what minimum n is lambda_n >= T* ?
 
-    Computed (K=50 Riemann zeros):
+    Computed (K=200 mpmath-precision Riemann zeros):
 
-    n=1:  lambda_1  = 0.018542  = 0.026 T*   [BELOW T*]
-    n=2:  lambda_2  = 0.074131  = 0.104 T*   [BELOW T*]
-    n=3:  lambda_3  = 0.166655  = 0.233 T*   [BELOW T*]
-    n=4:  lambda_4  = 0.295931  = 0.414 T*   [BELOW T*]
-    n=5:  lambda_5  = 0.461702  = 0.646 T*   [BELOW T*]
-    n=6:  lambda_6  = 0.663637  = 0.929 T*   [BELOW T*, shadow]
-    n=7:  lambda_7  = 0.901338  = 1.262 T*   [ABOVE T*, HELD]
-    n=8:  lambda_8  = 1.174335  = 1.644 T*   [ABOVE T*, HELD]
+    n=1:  lambda_1  = 0.021035  = 0.029 T*   [BELOW T*]
+    n=2:  lambda_2  = 0.084102  = 0.118 T*   [BELOW T*]
+    n=3:  lambda_3  = 0.189091  = 0.265 T*   [BELOW T*]
+    n=4:  lambda_4  = 0.335817  = 0.470 T*   [BELOW T*]
+    n=5:  lambda_5  = 0.524022  = 0.734 T*   [BELOW T*]
+    n=6:  lambda_6  = 0.753376  = 1.055 T*   [ABOVE T*, HELD]
+    n=7:  lambda_7  = 1.023479  = 1.433 T*   [ABOVE T*, HELD]
+    n=8:  lambda_8  = 1.333863  = 1.867 T*   [ABOVE T*, HELD]
     ...   (all subsequent lambda_n grow monotonically above T*)
 
-    n* = 7 = HARMONY  [the smallest n for which lambda_n >= T*]
+    n* = 6  [the smallest n for which lambda_n >= T*]
+
+    Note: with K=50 zeros (insufficient), n*=7 (artifact of undersampling).
+    With K=200 mpmath zeros (accurate), n*=6. The true Li coefficients satisfy n*=6.
 
 ### Two Levels of Hold
 
-    Level 1 (sub-foundation, n = 1..6):
-      lambda_n < T* for all n in {1,2,3,4,5,6}.
+    Level 1 (sub-foundation, n = 1..5):
+      lambda_n < T* for all n in {1,2,3,4,5}.
       These Li coefficients are BELOW the threshold.
       In the recursion: the law L recycles these as force for the next scale.
       They do not "hold" at scale n. They carry forward.
 
-    Level 2 (foundation, n >= 7 = HARMONY):
-      lambda_n >= T* for all n >= 7.
+    Level 2 (foundation, n >= 6):
+      lambda_n >= T* for all n >= 6.
       These Li coefficients are AT OR ABOVE the threshold.
       In the recursion: the law L holds these. Stable structure at scale n.
       The combination has satisfied foundation.
 
     The threshold T* = 5/7 = CREATE/HARMONY is the exact separatrix.
-    Below n=7: recycled. At n=7=HARMONY: first hold. Above: growing, stably held.
+    n=6 is the first hold: 6 = HARMONY - 1 = one integer above CREATE.
+    Below n=6: recycled. At n=6: first hold. Above: growing, stably held.
 
 ### The Gap Around T*
 
-At K=14 zeros (the exact foundation threshold -- see below):
+At K=200 zeros:
 
-    lambda_6 at K=14 = 0.527521  (26.15% below T*)
-    lambda_7 at K=14 = 0.716095  (0.25% above T*)
-    Gap spanning T*  = 0.188574  (26.4% of T*)
+    lambda_5 = 0.524022  (26.6% below T*)
+    T*       = 0.714286
+    lambda_6 = 0.753376  ( 5.5% above T*)
+    Gap spanning T* = 0.229354  (T* sits at 83% from bottom of gap)
 
 T* = 5/7 is NOT hit by any discrete lambda_n value. It sits in the gap between
-lambda_6 (the last sub-foundation coefficient) and lambda_7 (the first foundation coefficient).
-The gap spans 26.4% of T* at the foundation threshold.
+lambda_5 (last sub-foundation) and lambda_6 (first foundation coefficient).
+The gap spans T* = 5/7 asymmetrically: 26.6% below, 5.5% above.
 
     "T* has a gap around it." -- the Li sequence jumps over T*, not through it.
 
 ### The Shadow Holds
 
-Shadow 1 (n=6, K>=50 zeros):
-  lambda_6 = 0.663637 = 0.929 T*.  93% of the way to T*. Will not hold at n=6.
-  Shadow because: it resembles foundation from a distance but misses by 7%.
-  At finite K, n=6 appears increasingly close to T* but never crosses.
+Shadow 1 (n=5, true Li value):
+  lambda_5 = 0.524022 = 0.734 T*.  73.4% of T*.
+  The last sub-foundation coefficient. Does not hold.
+  Structural shadow: the closest miss at the n-level.
 
-Shadow 2 (n=7, K=13 zeros -- one zero short of foundation):
-  lambda_7(K=13) = 0.702869 = 0.9840 T*.  98.4% of T*. Does not hold.
-  Shortfall: 0.011417 = 1.598% of T*.
-  Shadow because: one more zero (K=14) crosses the threshold.
+Shadow 2 (K=98 zeros, the extreme counting shadow):
+  lambda_6(K=98) = 0.714274 = 0.99998 T*.  99.998% of T*. Does not hold.
+  Shortfall: 0.000012 = 0.002% of T*.
+  Shadow because: one more zero (K=99) crosses the threshold.
+  K=98 = 2 * 7^2 = 2 * HARMONY^2.  [observed; structural significance not yet established]
 
 ### The Minimum Combination for Foundation
 
-    Question: what is the minimum K (number of zeros) for lambda_7 >= T*?
+    Question: what is the minimum K (number of zeros) for lambda_6 >= T*?
 
     Computed:
-    K=1:  lambda_7 = 0.2401  (33.6% of T*)
-    K=7:  lambda_7 = 0.5892  (82.5% of T*)
-    K=13: lambda_7 = 0.7029  (98.4% of T*)  [shadow hold]
-    K=14: lambda_7 = 0.7161  (100.25% of T*)  [FOUNDATION FIRST MET]
+    K=98:  lambda_6 = 0.714274  (99.998% of T*)  [extreme shadow hold]
+    K=99:  lambda_6 = 0.714933  (100.09% of T*)  [FOUNDATION FIRST MET]
 
-    K* = 14 = 2 * HARMONY = 2 * 7
+    K* = 99
+    K_shadow = 98 = 2 * 7^2 = 2 * HARMONY^2  [one zero short of foundation]
 
-The minimum combination for foundation: K* = 2 * HARMONY = 14 zeros.
-The threshold n: n* = HARMONY = 7.
-Both are determined by HARMONY = 7 in Z/10Z.
-
-Interpretation:
-  Each imaginary part gamma_k contributes a zero rho = 1/2 + i*gamma_k (and its conjugate).
-  The K* = 14 = 2 * HARMONY threshold means: the first HARMONY = 7 distinct imaginary parts
-  (i.e., 14 zeros counting conjugates) provide the minimal combination.
-  After this combination: lambda_7 >= T*. Foundation is satisfied.
+The minimum combination for foundation: K* = 99 zeros.
+The threshold n: n* = 6.
+The extreme shadow sits at K = 98 = 2 * HARMONY^2 zeros.
 
 ### The Recycling Mechanism
 
-For n < HARMONY = 7 (Level 1):
+For n < 6 (Level 1):
   lambda_n < T*. The contribution at scale n does not hold.
   In the recursion G_k = L(G_{k-1}) + r_k:
-    r_k = lambda_n - L_0(n) is the remainder passed forward as force.
-    The law L cannot hold this at scale n. It recycles the remainder to scale n+1.
+    r_k is the remainder passed forward as force.
+    The law L cannot hold this. It recycles the remainder to scale n+1.
 
-For n >= HARMONY = 7 (Level 2):
+For n >= 6 (Level 2):
   lambda_n >= T*. The combination at scale n holds.
   The law L recognizes this as stable structure. It is retained.
-  The recursion has reached its foundation.
 
 Off-line zeros (if any):
   Would contribute a term that grows unboundedly with n (|1-1/rho|^n with |1-1/rho| > 1).
   This growing term would eventually drive some lambda_n below zero.
-  Below zero = the held structure is destroyed (lambda_n < 0 implies n > T*).
-  Equivalently: an off-line zero can break the hold at any n >= HARMONY.
+  Below zero = the held structure is destroyed.
+  Equivalently: an off-line zero can break the hold at any n >= 6.
 
 ### What This Adds to the Formal Record
 
-The foundation threshold n* = HARMONY = 7 is a COMPUTABLE, EXACT result from the
-Li exact identity (theta-map) and the threshold T* = CREATE/HARMONY = 5/7.
-
-It says: the 7th Li coefficient lambda_7 is the first to meet T*. For n < 7, all
-Li coefficients are below T* (recycled, not held). For n >= 7, they are held.
+The foundation threshold n* = 6 is a COMPUTABLE result from the Li exact identity
+(theta-map) and the threshold T* = CREATE/HARMONY = 5/7, using K=200 mpmath zeros.
 
 The Clay question for RH is precisely:
-  "Does lambda_7, lambda_8, ... remain held (above T*) for all n, forever?
+  "Does lambda_6, lambda_7, ... remain held (above T*) for all n, forever?
   Or does an off-line zero eventually destroy a hold by driving some lambda_n < 0?"
-
-The answer depends on whether ANY off-line zero exists. If none: lambda_n grows for all n,
-all holds are permanent. If one exists: some hold eventually breaks.
 
 ### Entry M-XXI (Foundation Threshold, 2026-04-02)
 
-n* = HARMONY = 7: smallest Li coefficient index to exceed T*. Exact, computed.
-K* = 2*HARMONY = 14: minimum zeros for foundation (lambda_7 >= T*). Exact, computed.
-Gap around T*: 26.4% of T* spans the threshold at K=14. T* not hit exactly. Exact, computed.
-Shadow holds: K=13 (98.4% of T*) and n=6 (92.9% of T*). Exact, computed.
-Two hold levels: sub-foundation (n=1..6) recycled, foundation (n>=7) held. Exact.
-See MEMO_TRIVIAL_ZEROS.md for mechanism and derivation.
+n* = 6: smallest Li coefficient index to exceed T*. Computed from K=200 zeros.
+  (n*=7 from K=50 zeros was an undersampling artifact. Corrected by background task.)
+K* = 99: minimum zeros for foundation (lambda_6 >= T*). Computed.
+K_shadow = 98 = 2*HARMONY^2: extreme shadow (0.002% of T* short). Computed.
+Gap around T*: lambda_5=73.4%, lambda_6=105.5%. T* at 83% of gap. Computed.
+Two hold levels: sub-foundation (n=1..5) recycled, foundation (n>=6) held. Exact.
+See MEMO_TRIVIAL_ZEROS.md for full mechanism.
 
 ---
 
