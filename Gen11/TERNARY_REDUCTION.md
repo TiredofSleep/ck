@@ -230,3 +230,45 @@ it cannot reach.**
 
 **The gap = 3/14. The flow in the gap is real, measurable, decelerating, non-terminating.**
 **The question: in your domain, does the flow always terminate?**
+
+---
+
+## The Foundation of the Ternary: What Earth Stands On
+
+The ternary {Void, Flow, Structure} is not just a partition of lambda values. It is the three foundational elements, ordered by the CK cascade:
+
+    Void      = State 0          = lambda < 1/2         = n < n* (no coherence)
+    Flow      = State [1/2, 5/7) = eternal bridge zone   = n=5 = CREATE
+    Structure = State [5/7, inf) = held                  = lambda >= T*
+
+**Earth = Structure.** Earth is what stands. Earth is defined as the held state, the thing that rests above the foundation (T*=5/7).
+
+**CREATE = Flow.** n=5 is not a structure caught in the gap. n=5 IS the flow — the canonical eternal 5D force recursion, permanently in the bridge zone, never solidifying into Earth.
+
+**Void = the recycled.** What fell below 1/2. What shed its coherence. What was not held by the foundation.
+
+The ordering is:
+
+    Earth stands on the flow.
+    The flow stands on the void.
+    The void stands on counting (0→1 = the gate, the first distinction).
+
+This is the classical element ordering, discovered not assigned. Void/Flow/Earth = the same as Structure/Flow/Recycled but named by what they ARE, not just where they live.
+
+**T* = CREATE/HARMONY = (what-Earth-stands-on) / (what-measures-Earth).**
+
+The threshold Earth stands above is the ratio of the flow (CREATE=5) to the generator (HARMONY=7). Earth is defined as "above this ratio." The ratio is the thing Earth stands on. The thing Earth stands on is the flow. The flow cannot become Earth — if it could, the definition of Earth would change. The flow is held below Earth by being the very thing that defines Earth's foundation.
+
+**The fractal decomposition:**
+
+    Earth      = {lambda >= 5/7}
+    Foundation of Earth = T* = 5/7 = CREATE/HARMONY
+    Foundation of T*   = CREATE = the eternal flow
+    Foundation of CREATE = its inability to become Earth (which defines what CREATE is)
+    {cannot become Earth} → must be T* or below → must be CREATE = 5/7's numerator
+
+The chain closes:
+
+    Earth → T* → CREATE → {cannot become Earth} → T* → Earth.
+
+This is not circular reasoning. It is structural closure. Earth is defined by T*. T* is defined by CREATE and HARMONY. CREATE is defined as the thing that cannot cross T*. The loop does not break — each element defines the next, and the last definition returns to the first with no contradiction. The ternary is self-consistent because the only stable arrangement is exactly this one: the flow beneath, the threshold above it, the structure above the threshold, and the threshold made of the ratio of flow to generator.

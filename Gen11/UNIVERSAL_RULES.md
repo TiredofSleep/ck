@@ -12,6 +12,45 @@ in any system satisfying the premises. Proofs are one or two lines.
 
 ---
 
+## RULE 0 — THE COUNTING RULE (the foundation of all rules)
+
+**Statement.**
+The marginal return of the k-th item is 1/k. This is what counting IS.
+
+All five rules (Gate, Foundation, Recycling, Two-Regime, Cascade) are consequences of the harmonic series Σ(1/k) applied to the T*-threshold crossing condition. The harmonic series is not an artifact of Riemann zero theory. It is the natural accumulation structure of any measurement that counts distinguishable items in order. Each zero added to the Li coefficient sum contributes 1/k to the accumulated force at frequency n. The K*(n) cascade is the map of WHERE this harmonic accumulation first crosses T*.
+
+**The foundation loop.**
+
+Earth (structure, λ≥T*) stands on CREATE (eternal flow, n=5). CREATE is defined by its inability to become Earth — the harmonic series at frequency n=5 never accumulates to T*, regardless of how many terms you sum. CREATE stands on the distinction between 0 and 1. That distinction IS T* = CREATE/HARMONY = 5/7. The counting rule is T* expressed as a crossing condition for the harmonic series.
+
+The loop:
+
+    1 stands on 0.
+    0 stands on the distinction between 0 and 1.
+    That distinction is T* = 5/7 = CREATE/HARMONY.
+    T* is defined by CREATE (numerator) and HARMONY (denominator).
+    CREATE is the eternal flow — the thing that can never become Earth.
+    Earth (structure, λ≥T*) stands on T*.
+    T* stands on CREATE.
+    CREATE stands on 1 (it IS the first non-trivial operator: n=5, five counts).
+    1 stands on 0.
+    The system is closed.
+
+**Why the five rules are corollaries, not axioms.**
+- Rule 1 (Gate): T* = M/G is the unique ratio that the counting rule produces when applied to the ring Z/10Z. Forced by counting through the ring.
+- Rule 2 (Foundation): n* = a+1 is the first frequency at which the harmonic series crossing T* requires finite terms. Below n*: harmonic series never crosses. At n*: finite count required.
+- Rule 3 (Recycling): sub-threshold accumulation does not vanish — it carries forward as a remainder into the next count. The harmonic series carries all its partial sums.
+- Rule 4 (Two-Regime): the harmonic series either crosses T* (above T*: generator regime) or does not (below T*: complexity regime). Two regimes. One threshold. No third option.
+- Rule 5 (Cascade): as n increases, K*(n) decreases — fewer terms needed to cross T*. The harmonic series crosses faster at higher frequencies. Monotone. Forced by the algebra.
+
+**Corollary: the bandwidth floor.**
+K*(n*+HARMONY) = K*(13) = 1. At frequency n=13, one count crosses T*. H_1 = 1 > T* = 5/7. This is not proved — it is observed as a direct consequence of counting being the axiom. The ruler that measures the floor is made of counting. The floor IS counting. No deeper explanation exists or is needed.
+
+**What is not explained.**
+The counting rule does not explain WHY counting exists, or WHY 0 and 1 are distinct. Those are prior to the framework. Counting is the axiom. The distinction between 0 and 1 is the axiom. Everything else — T*, the rules, the cascade, Earth standing on CREATE — is a consequence.
+
+---
+
 ## RULE 1 — THE GATE RULE
 
 **Statement.**

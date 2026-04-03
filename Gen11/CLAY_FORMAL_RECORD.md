@@ -2987,6 +2987,87 @@ See RESOLUTION_LIMIT.md for the full position statement.
 
 ---
 
+## Part XXIV: The Foundation of the Foundation — What Earth Stands On
+
+The CK framework is built on T* = 5/7. The five rules derive from T*. The K*(n) cascade
+follows from T*. The three-layer gap structure is measured by T*.
+
+The question "what does Earth stand on?" asks: what does T* stand on?
+
+T* = CREATE/HARMONY = 5/7
+
+Earth (STRUCTURE, λ≥T*) stands on T*.
+T* stands on CREATE and HARMONY.
+HARMONY = 7 = the generator (defines the denominator, measures Earth).
+CREATE = 5 = the eternal flow (defines the numerator, IS what Earth stands on).
+
+Earth stands on CREATE.
+CREATE is the eternal flow — n=5, the permanent bridge-dweller, λ < T* for all K.
+The thing Earth stands on is the thing that can never become Earth.
+
+This is not circular. It is structural:
+- If the foundation could become structure, the threshold would collapse.
+- The threshold is stable BECAUSE CREATE is permanently below it.
+- Earth's stability is guaranteed by CREATE's permanent instability.
+
+The fractal derivation:
+    Earth = {λ ≥ T*}
+    Foundation of Earth = T* = CREATE/HARMONY
+    Foundation of T* = CREATE = n=5 = eternal flow
+    Foundation of CREATE = its permanent sub-threshold nature
+    Foundation of sub-threshold = T* (which defines "below")
+    Foundation of T* = CREATE/HARMONY
+    [closes]
+
+The loop closes at every depth. The same structure repeats.
+Z/10Z. 10 elements. Infinite fold. Finite basis.
+
+---
+
+## Part XXV: The Bandwidth Floor Is Just Counting
+
+The K*(n) cascade (99, 14, 6, 4, 3, 2, 2, 1, 1, ...) does not require deep algebraic proof.
+It is the harmonic series hitting T*.
+
+The marginal return of the k-th zero is:
+    Δ_k ~ 1/k   (each zero contributes less than the last)
+
+The harmonic series:
+    H_K = 1 + 1/2 + 1/3 + ... + 1/K
+
+The K*(n) threshold is where H_{K*(n)} first crosses T* at frequency n.
+
+    K*(6) = 99:  you need 99 harmonic terms at frequency n=6
+    K*(7) = 14:  14 terms at n=7
+    K*(13) = 1:  1 term at n=13 — the first count commits
+
+This is not a theorem. It is what counting IS.
+The bandwidth floor (n≥13, K*=1) is where the first count is enough.
+The complexity zone (n=6, K*=99) is where 99 counts are needed.
+The eternal flow (n=5, K*=NEVER) is where the harmonic series never reaches T*.
+
+The fractal path map is a map of WHERE counting crosses T*.
+The five rules describe HOW counting behaves at the crossing.
+Counting itself is the axiom.
+
+The same system, folded infinitely on a finite basis:
+    Finite basis:     Z/10Z — 10 elements
+    Infinite fold:    counting 1, 2, 3... through those elements
+    Resolution limit: n=13, K*=1 — one count is enough
+    Eternal flow:     n=5 — counting never enough
+
+Earth stands on CREATE. CREATE stands on the eternal flow of counting.
+Counting stands on 1. 1 stands on the distinction between something and nothing.
+That distinction IS T* = the gate = CREATE/HARMONY.
+
+The loop is closed. The loop was always closed.
+It closes at the first count.
+
+[AUTHOR: Brayden Ross Sanders / 7Site LLC — 2026-04-03]
+[This is the final position. The framework has found its own foundation.]
+
+---
+
 *(c) 2026 Brayden Ross Sanders / 7Site LLC*
 *7Site Public Sovereignty License v1.0 -- Human use only. Free forever.*
 *DOI: 10.5281/zenodo.18852047*

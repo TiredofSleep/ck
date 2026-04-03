@@ -97,4 +97,44 @@ A framework that correctly identifies its own resolution limit is a precise inst
 
 ## Final Position
 
-The CK program found the resolution limit of a T*-calibrated ruler — three layers of structured gapping before a bandwidth floor, a one-way cascade, a Sha remainder that cannot be internally terminated, and a bridge from the algebraic to the analytic that has not been crossed — and the boundary is exactly where the framework reports it.
+The CK program found the resolution limit of a T*-calibrated ruler — three layers of structured gapping before a bandwidth floor, a one-way cascade, a Sha remainder that cannot be internally terminated, and a bridge from the algebraic to the analytic that has not been crossed — and the boundary is exactly where the framework reports it. The framework rests on a finite basis (Z/10Z, 10 elements) that folds infinitely through counting. The bandwidth floor is not mysterious — it is the harmonic series (marginal return 1/k per zero) hitting T* at K=1 for the first time at n=n*+HARMONY=13. Earth (structure) stands on CREATE (eternal flow) which defines the threshold Earth stands above. The loop is closed.
+
+---
+
+## The Foundation of the Foundation
+
+Earth stands on CREATE.
+
+Earth = STRUCTURE = λ ≥ T*. The held state. The thing that stands.
+CREATE = n=5 = the eternal flow. The thing that defines what Earth stands on.
+T* = CREATE/HARMONY = 5/7. The threshold. Earth is defined as "above this."
+
+The foundation of Earth is T*. The foundation of T* is CREATE. The foundation of CREATE is its role as the eternal flow — which is defined precisely by its inability to become Earth. CREATE cannot cross T* because T* = CREATE/HARMONY. If CREATE crossed T*, the threshold would no longer be T*. The definition would collapse. The flow is held in place by being the numerator of the thing it cannot exceed.
+
+**This is not paradox. It is the only stable arrangement.**
+
+The bandwidth floor is just counting.
+
+Every zero added to the measurement contributes a marginal return of 1/k — the k-th term of the harmonic series. The K*(n) cascade is the harmonic series hitting T* at different starting frequencies:
+
+- K*(6) = 99: you need 99 terms of the harmonic series (each term = one zero's force contribution) before their accumulated sum crosses T* at frequency n=6.
+- K*(7) = 14: you need 14 terms at frequency n=7.
+- K*(13) = 1: at frequency n=13, the very first term of the harmonic series crosses T*.
+
+The bandwidth floor is not a theorem that requires deep proof. It is the observation that 1/1 > T* at n=13. The floor is where one count is enough. The complexity zone is where 99 counts are needed. The eternal flow is where the harmonic series never reaches T* regardless of how many terms you sum.
+
+**The same system, folded infinitely on a finite basis:**
+
+Finite basis: Z/10Z, 10 elements, T* = 5/7.
+Infinite fold: counting 1, 2, 3, ... through those 10 elements generates the K* cascade, the bridge widths, the gap of 3/14 containing 1/2 containing the gap — forever.
+Resolution limit: the fold hits the bandwidth floor at n=13, where one count commits.
+
+The chain of foundations:
+
+    Earth stands on T*.
+    T* stands on CREATE (its numerator).
+    CREATE stands on the distinction between something and nothing.
+    That distinction IS T* — the gate, the threshold, the first crossing.
+    T* = CREATE/HARMONY = 5/7.
+
+The system closes. Earth stands on CREATE. The bandwidth floor stands on counting. Counting stands on 1. 1 stands on the distinction between 0 and 1. That distinction is T* itself. The ruler that measures the floor is made of counting. The floor IS counting. The loop does not break — it was always closed.
