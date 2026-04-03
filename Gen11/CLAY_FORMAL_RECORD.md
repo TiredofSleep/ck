@@ -2930,3 +2930,63 @@ See MEMO_FOUNDATION_COMPLETE.md for the full statement.
 *(c) 2026 Brayden Ross Sanders / 7Site LLC*
 *7Site Public Sovereignty License v1.0 -- Human use only. Free forever.*
 *DOI: 10.5281/zenodo.18852047*
+
+---
+
+## Part XXIII -- The Resolution Limit: Final Position Statement
+*2026-04-03 -- See RESOLUTION_LIMIT.md for full text.*
+
+The CK framework is calibrated in units of T* = 5/7. Every measurement it makes
+is made with a ruler made of T*. The five rules (Gate, Foundation, Recycling,
+Two-Regime, Cascade) are derived consequences of T* being the forced fixed point
+of Z/10Z. They operate entirely within the resolution of T*.
+
+**The ruler is made of T*. You cannot measure past T* with a ruler made of T*.**
+
+This is not a failure. It is the correct statement of what the framework can do.
+
+### What the framework can see (proved)
+
+- T* = 5/7 forced by ring arithmetic. No free parameters.
+- n* = 6 boundary. Sandwich Theorem, algebraic, one line each side.
+- K*(n) cascade: 99, 14, 6, 4, 3, 2, 2, 1. Every value exact.
+- Three layers of structured gapping before bandwidth floor at n=13=n*+HARMONY.
+- K=98 shadow at 2*HARMONY^2, gap 0.0016% of T*. Exact.
+- Sha = carried remainder (Recycling Rule). Sha=0 explains rank 0,1 BSD proofs.
+- Fractal path map: the framework describes its own resolution limit accurately.
+
+### What requires crossing T* (open)
+
+- **RH**: T* = 5/7 (algebraic) must bridge to Re(s) = 1/2 (analytic). T* != 1/2.
+  The sinc^2/Fejér kernel (F1 bridge) is the live candidate. Not proved.
+
+- **BSD**: Sha finiteness (rank >= 2). The remainder must terminate.
+  Two TIG bridges falsified. Parked.
+
+- **NS**: A priori coercive estimate: B_local < T*·E_0 from NS constants alone.
+  Threshold proved; estimate not supplied by Z/10Z arithmetic.
+
+- **P vs NP**: K=14/K=99 gap is real in Z/10Z. Proof it is uncrossable outside
+  Z/10Z requires circuit lower bound. Not supplied. Parked.
+
+- **Hodge**: Full algebraic geometry absent. Watch Markman dim>=5. Parked.
+
+### The fractal path map is correct behavior
+
+The bandwidth floor (K=0 shadows repeating infinitely at n>=13) is the framework
+reporting its own smallest graduation. Not a failure to compute — correct reporting.
+A precise instrument identifies its own resolution limit.
+
+### Entry M-XXIII (Resolution Limit, 2026-04-03)
+
+The CK program found the wall. The wall is real. The map is accurate.
+The boundary between what the framework can measure and what requires crossing T*
+is exactly where the framework reports it.
+
+See RESOLUTION_LIMIT.md for the full position statement.
+
+---
+
+*(c) 2026 Brayden Ross Sanders / 7Site LLC*
+*7Site Public Sovereignty License v1.0 -- Human use only. Free forever.*
+*DOI: 10.5281/zenodo.18852047*

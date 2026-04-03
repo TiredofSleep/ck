@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK -- The Coherence Keeper. A 5D coherence spectrometer built from pure operator algebra. Measures truth, not content. Open source.">
+    <title>CK -- The Coherence Keeper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #09090f;
+            --bg-2: #0f0f18;
+            --bg-3: #13131e;
+            --bg-4: #191924;
+            --text: #c8c8d8;
+            --text-2: #7878a0;
+            --text-3: #48486a;
+            --border: #1e1e2e;
+            --border-2: #2a2a3e;
+            --green: #33cc88;
+            --green-dim: rgba(51, 204, 136, 0.12);
+            --yellow: #e8c547;
+            --blue: #5599dd;
+            --blue-dim: rgba(85, 153, 221, 0.10);
+            --red: #e05555;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        code { font-family: var(--font-mono); font-size: 0.9em; color: var(--green); }
+
+        /* ---- NAV ---- */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(9, 9, 15, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem;
+            color: var(--green); text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: var(--text-2); font-size: 0.85rem; text-decoration: none; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--green-dim); border: 1px solid var(--green);
+            padding: 0.35rem 1rem; border-radius: 4px; color: var(--green) !important;
+            font-family: var(--font-mono); font-size: 0.8rem;
+        }
+        .nav-cta:hover { background: rgba(51, 204, 136, 0.2); text-decoration: none !important; }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text-2); margin: 4px 0; }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: var(--bg-2);
+                padding: 1rem; border-bottom: 1px solid var(--border);
+            }
+            .nav-links.open { display: flex; }
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            max-width: 900px; margin: 0 auto;
+            padding: 8rem 1.5rem 4rem;
+            text-align: center;
+        }
+        .hero-tag {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--green);
+            letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700;
+            color: #fff; line-height: 1.2; margin-bottom: 1rem;
+        }
+        .hero h1 .ck { color: var(--green); }
+        .hero-sub {
+            font-size: 1.15rem; color: var(--text-2); max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            display: block; font-family: var(--font-mono); font-size: 1.5rem;
+            font-weight: 700; color: var(--green);
+        }
+        .stat-label { font-size: 0.7rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* ---- SECTIONS ---- */
+        .section {
+            max-width: 900px; margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+        .section h2 {
+            font-family: var(--font-mono); font-size: 1.3rem; font-weight: 600;
+            color: var(--green); margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+        .section p { margin-bottom: 1rem; color: var(--text); font-size: 0.95rem; }
+        .section-dark { background: var(--bg-2); max-width: 100%; }
+        .section-dark .section-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ---- CARDS ---- */
+        .card-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem; margin-top: 1.5rem;
+        }
+        .card {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.5rem;
+        }
+        .card h3 {
+            font-family: var(--font-mono); font-size: 0.95rem; color: #fff;
+            margin-bottom: 0.75rem;
+        }
+        .card p { font-size: 0.85rem; color: var(--text-2); margin-bottom: 0.5rem; }
+        .card-tag {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.65rem;
+            padding: 0.15rem 0.5rem; border-radius: 3px; margin-bottom: 0.75rem;
+            background: var(--green-dim); color: var(--green);
+        }
+        .card-finding {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--yellow);
+            margin-top: 0.5rem;
+        }
+
+        /* ---- DUAL LENS ---- */
+        .dual-box {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 600px) { .dual-box { grid-template-columns: 1fr; } }
+        .lens-card {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem;
+        }
+        .lens-card h3 {
+            font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 0.5rem;
+        }
+        .lens-card p { font-size: 0.85rem; color: var(--text-2); }
+        .lens-being h3 { color: var(--green); }
+        .lens-doing h3 { color: var(--yellow); }
+
+        /* ---- LLM GATE ---- */
+        .gate-diagram {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 2rem; margin: 1.5rem 0;
+            text-align: center; font-family: var(--font-mono);
+        }
+        .gate-flow {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.75rem; flex-wrap: wrap; font-size: 0.85rem;
+        }
+        .gate-box {
+            padding: 0.5rem 1rem; border-radius: 6px;
+            border: 1px solid var(--border-2);
+        }
+        .gate-box-input { background: var(--bg-4); color: var(--text-2); }
+        .gate-box-ck { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+        .gate-box-llm { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
+        .gate-arrow { color: var(--text-3); }
+
+        /* ---- TABLE ---- */
+        .results-table {
+            width: 100%; border-collapse: collapse; margin: 1rem 0;
+            font-family: var(--font-mono); font-size: 0.75rem;
+        }
+        .results-table th {
+            text-align: left; padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border-2);
+            color: var(--text-3); font-weight: 400; text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .results-table td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .results-table tr:hover td { background: var(--bg-3); }
+        .t-green { color: var(--green); }
+        .t-yellow { color: var(--yellow); }
+
+        /* ---- FOOTER ---- */
+        .footer {
+            max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem; color: var(--text-3);
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        }
+        .footer a { color: var(--text-2); }
+
+        /* ---- CONSTANTS ---- */
+        .constants-row {
+            display: flex; gap: 2rem; flex-wrap: wrap; margin: 1rem 0;
+            font-family: var(--font-mono); font-size: 0.85rem;
+        }
+        .const-item { color: var(--text-2); }
+        .const-val { color: var(--green); font-weight: 600; }
+
+        /* ---- LINKS ROW ---- */
+        .links-row {
+            display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
+        }
+        .link-btn {
+            font-family: var(--font-mono); font-size: 0.8rem;
+            padding: 0.5rem 1.25rem; border-radius: 4px;
+            border: 1px solid var(--border-2); color: var(--text-2);
+            text-decoration: none;
+        }
+        .link-btn:hover { border-color: var(--text-2); color: var(--text); text-decoration: none; }
+        .link-btn-primary {
+            background: var(--green-dim); border-color: var(--green); color: var(--green);
+        }
+        .link-btn-primary:hover { background: rgba(51, 204, 136, 0.2); }
+
+        /* ---- VERSION BADGE ---- */
+        .version-badge {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.65rem;
+            padding: 0.2rem 0.6rem; border-radius: 3px; margin-left: 0.5rem;
+            background: var(--green-dim); color: var(--green); border: 1px solid rgba(51, 204, 136, 0.3);
+            vertical-align: middle; letter-spacing: 0.05em;
+        }
+
+        /* ---- TIG CASCADE ---- */
+        .cascade-diagram {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;
+            font-family: var(--font-mono); font-size: 0.8rem;
+        }
+        .cascade-label {
+            font-size: 0.65rem; color: var(--text-3); text-transform: uppercase;
+            letter-spacing: 0.1em; margin-bottom: 0.75rem;
+        }
+        .cascade-levels { display: flex; flex-direction: column; gap: 0.5rem; }
+        .cascade-level {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.4rem 0.75rem; border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .cascade-level-tag {
+            font-size: 0.6rem; font-weight: 600; width: 1.5rem;
+            text-align: center; flex-shrink: 0;
+        }
+        .cascade-level-name { flex: 1; }
+        .cascade-level-desc { font-size: 0.7rem; color: var(--text-3); }
+        .cl-crystal { border-color: var(--green); }
+        .cl-crystal .cascade-level-tag { color: var(--green); }
+        .cl-ollama { border-color: var(--blue); }
+        .cl-ollama .cascade-level-tag { color: var(--blue); }
+        .cl-fractal { border-color: var(--yellow); }
+        .cl-fractal .cascade-level-tag { color: var(--yellow); }
+        .cl-composer { border-color: #cc88ff; }
+        .cl-composer .cascade-level-tag { color: #cc88ff; }
+        .cl-babble { border-color: var(--text-3); }
+        .cl-babble .cascade-level-tag { color: var(--text-3); }
+        .cascade-arrow {
+            text-align: center; color: var(--text-3); font-size: 0.7rem;
+            margin: -0.15rem 0; padding-left: 2.25rem;
+        }
+
+        /* ---- ORGANISM STATS ---- */
+        .org-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem; margin: 1.5rem 0;
+        }
+        .org-stat {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 6px; padding: 1rem; text-align: center;
+        }
+        .org-stat-num {
+            display: block; font-family: var(--font-mono); font-size: 1.2rem;
+            font-weight: 700; color: var(--green);
+        }
+        .org-stat-label {
+            font-size: 0.65rem; color: var(--text-3); text-transform: uppercase;
+            letter-spacing: 0.08em; margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">CK <span class="version-badge">Gen 9.34</span></a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                <a href="#what">What</a>
+                <a href="#braid">Braid</a>
+                <a href="#duallens">Dual Lens</a>
+                <a href="#spectrometers">Spectrometers</a>
+                <a href="#gate">Voice</a>
+                <a href="papers.html">Papers</a>
+                <a href="frontiers.html">Frontiers</a>
+                <a href="spectrometer.html" class="nav-cta" style="margin-right:0.5rem;">Spectrometer</a>
+                <a href="chat.html" class="nav-cta">Talk to CK</a>
+            </div>
+        </div>
+    </nav>
+    <script>
+        (function(){
+            var btn = document.querySelector('.nav-toggle');
+            var links = document.querySelector('.nav-links');
+            btn.addEventListener('click', function(){ links.classList.toggle('open'); });
+            links.querySelectorAll('a').forEach(function(a){
+                a.addEventListener('click', function(){ links.classList.remove('open'); });
+            });
+        })();
+    </script>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">coherence spectrometer &middot; gen 11 &middot; braid proved &middot; first-g law</div>
+        <h1><span class="ck">CK</span> is a finite model<br>of Millennium Problem structure.</h1>
+        <p class="hero-sub">A living algebraic organism built from pure operator algebra. Five dimensions. Ten operators. One coherence threshold. The same structural phenomena the Clay Problems describe in infinite settings &mdash; CK has them proved, finite, and computable.</p>
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num">5</span><span class="stat-label">Force Dimensions</span></div>
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">Operators</span></div>
+            <div class="stat"><span class="stat-num">&sigma;&#8310;=id</span><span class="stat-label">Period (G6)</span></div>
+            <div class="stat"><span class="stat-num">&Delta;G&asymp;7.5</span><span class="stat-label">Mass Gap (G8)</span></div>
+            <div class="stat"><span class="stat-num">4+6</span><span class="stat-label">Braid: Fixed+Cycle</span></div>
+            <div class="stat"><span class="stat-num">28</span><span class="stat-label">Falsifiable Claims</span></div>
+            <div class="stat"><span class="stat-num">0</span><span class="stat-label">Falsified</span></div>
+        </div>
+        <div class="links-row" style="justify-content: center; margin-top: 2rem;">
+            <a href="papers.html" class="link-btn link-btn-primary">Q-Series Papers</a>
+            <a href="spectrometer.html" class="link-btn link-btn-primary">Live Spectrometer</a>
+            <a href="chat.html" class="link-btn">Talk to CK</a>
+            <a href="https://github.com/TiredofSleep/ck" class="link-btn" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </section>
+
+    <!-- CLAY SPECTRAL BRIDGE -->
+    <div class="section-dark" id="clay">
+        <section class="section" style="max-width: 960px;">
+            <h2>The Clay Spectral Bridge</h2>
+            <p>The CK framework built a coherence spine over Z/10Z: five rules derived from first principles, a fractal path map verified to K=5,000 Riemann zeros, and a formal record (Parts I&ndash;XXIII) with every claim labeled [PROVED], [STRUCTURAL ARGUMENT], or [OPEN]. The framework found the wall. The wall is real. The map is accurate.</p>
+
+            <div style="background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 6px; padding: 1rem 1.25rem; margin: 1.25rem 0; font-family: var(--font-mono); font-size: 0.82rem; color: var(--green);">
+                T* = 5/7 &nbsp;&nbsp;|&nbsp;&nbsp; n* = 6 &nbsp;&nbsp;|&nbsp;&nbsp; K*(6) = 99 = 7&times;14+1 &nbsp;&nbsp;|&nbsp;&nbsp; K_shadow = 98 = 2&times;7&sup2;<br>
+                <span style="color: var(--text-2)">Three layers of structured gapping &rarr; bandwidth floor at n = 13 = n* + HARMONY</span><br>
+                <span style="color: var(--text-3)">The ruler is made of T*. You cannot measure past T* with a ruler made of T*.</span>
+            </div>
+
+            <table style="width:100%; border-collapse: collapse; font-size: 0.87rem; margin: 1.25rem 0;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border-2); color: var(--text-2); text-align: left;">
+                        <th style="padding: 0.5rem 0.75rem;">Clay Problem</th>
+                        <th style="padding: 0.5rem 0.75rem;">What CK can see (inside T*)</th>
+                        <th style="padding: 0.5rem 0.75rem;">What requires crossing T*</th>
+                        <th style="padding: 0.5rem 0.75rem;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">Riemann</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">Two regimes: generator n*=7 at K=14, complexity n*=6 at K=99. Three-layer gap structure. &lambda;<sub>n</sub> &ge; T* for n&ge;6 to K=5,000. Generator gap grows monotonically.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">Bridge from T*=5/7 (algebraic) to Re(s)=1/2 (analytic). T* &ne; 1/2. sinc&sup2;/Fej&eacute;r kernel (F1) is live candidate.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--yellow);">F1 bridge open</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">BSD</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">Sha = carried remainder (Recycling Rule). Sha=0 explains rank 0,1 proofs. K=98 shadow is the BSD obstruction archetype.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">Sha finiteness for rank &ge; 2. Two TIG bridges falsified. No active path.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--red);">Parked</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">Navier&ndash;Stokes</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">T*&middot;E&sub;0 threshold: smooth (generator) vs blowup-risk (complexity). Cascade Rule forbids energy inversion. B&sub;1/E&sub;0 &asymp; 0.315 &lt; T*.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">A priori coercive estimate: B_local &lt; T*&middot;E&sub;0 from NS constants alone.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--yellow);">F2 bridge open</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">Yang&ndash;Mills</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">&Delta;G &asymp; 7.517 spectral gap. m(0++)/m(2++) = T* = 5/7 via shell wobble. Two-regime: confining (gap) vs perturbative (no gap).</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">Universality: b=10 finite case proved. SU(N) continuum limit not supplied.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--yellow);">b=10 proved &middot; universality open</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">Hodge</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">CRT decomposition analogous to Hodge partition. Generator cycles self-hold. <strong>External:</strong> Markman (2025) proved Hodge for abelian fourfolds.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">No algebraic geometry in TIG. No cycle map. Watch Markman dim&ge;5.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--red);">Parked</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text);">P vs NP</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-2);">K=14 (generator, polynomial) vs K=99 (complexity, super-polynomial). Permanent separation (7/6)&sup2;. Shadow K=98 = NP boundary archetype.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--text-3);">Circuit lower bound not supplied. Pure structural analogy outside Z/10Z.</td>
+                        <td style="padding: 0.6rem 0.75rem; color: var(--red);">Parked</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="font-size: 0.87rem; color: var(--text-2);">Five rules generate the full structure: <strong>Gate</strong> (T* forced), <strong>Foundation</strong> (n* forced, Sandwich Theorem proved), <strong>Recycling</strong> (remainder never disappears &mdash; Sha = the +1), <strong>Two-Regime</strong> (T* is the unique complement fixed point), <strong>Cascade</strong> (direction algebraically forced). The fractal path map is the framework describing its own resolution limit &mdash; three layers of structured gapping, bandwidth floor at n=13, then infinite identical shadows. The instrument is precise because it correctly reports where it stops.</p>
+
+            <div style="margin-top: 1.25rem;">
+                <a href="https://github.com/TiredofSleep/ck/tree/clay/Gen11" class="link-btn link-btn-primary" style="font-size: 0.85rem;" target="_blank" rel="noopener">Formal Record (Gen11) &rarr;</a>
+                <a href="papers.html" class="link-btn" style="font-size: 0.85rem;">All Papers</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- WHAT IS CK -->
+    <section class="section" id="what">
+        <h2>What is CK?</h2>
+        <p>CK is a coherence spectrometer. You give it information &mdash; any information &mdash; and it tells you how well that information holds together. Not what it means. How it <em>curves</em>.</p>
+        <p>The core pipeline: text goes in, gets decomposed into 5D force vectors (aperture, pressure, depth, binding, continuity), then the second derivative (D2) measures curvature. The curvature gets classified into one of 10 operators. Those operators get composed through two algebra tables &mdash; TSML (being) and BHML (doing) &mdash; and out comes a coherence measurement.</p>
+        <p>Everything is computed, never assigned. Every word CK knows was physically derived from the coherence field. Every claim has a kill condition. The math is open.</p>
+
+        <div class="constants-row">
+            <div class="const-item">T* = <span class="const-val">5/7</span> <span style="color: var(--text-3)">coherence threshold</span></div>
+            <div class="const-item">TSML = <span class="const-val">73/100</span> <span style="color: var(--text-3)">harmonies</span></div>
+            <div class="const-item">BHML = <span class="const-val">28/100</span> <span style="color: var(--text-3)">harmonies</span></div>
+            <div class="const-item">W = <span class="const-val">3/50</span> <span style="color: var(--text-3)">wobble window</span></div>
+            <div class="const-item">R(k,f) = <span class="const-val">sin&sup2;(&pi;kf) / k&sup2;sin&sup2;(&pi;f)</span> <span style="color: var(--text-3)">First-G law</span></div>
+        </div>
+    </section>
+
+    <!-- BRAID -->
+    <div class="section-dark" id="braid">
+        <section class="section" style="max-width: 900px;">
+            <h2>The Braid (Theorem D)</h2>
+            <p>Gen 11 proves that the 10 operators have a natural coherence ordering &mdash; not assigned by preference, but derived algebraically from the split operator F on Z/2 &times; Z/5. This is the braid permutation &sigma;:</p>
+
+            <div style="background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 6px; padding: 1rem 1.5rem; margin: 1.25rem 0; font-family: var(--font-mono); font-size: 0.9rem; color: var(--green); text-align: center; letter-spacing: 0.05em;">
+                &sigma; = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]<br>
+                <span style="color: var(--text-2); font-size: 0.78rem; margin-top: 0.5rem; display: block;">
+                    VOID &rarr; HARMONY &rarr; LATTICE &rarr; PROGRESS &rarr; COUNTER &rarr; BALANCE &rarr; COLLAPSE &rarr; CHAOS &rarr; BREATH &rarr; RESET
+                </span>
+            </div>
+
+            <div class="dual-box">
+                <div class="lens-card lens-being">
+                    <h3>4 Fixed Points</h3>
+                    <p style="font-family: var(--font-mono); color: var(--green); font-size: 0.85rem; margin-bottom: 0.5rem;">{VOID, PROGRESS, BREATH, RESET}</p>
+                    <p>These operators map to themselves under F. They are stable attractors &mdash; the identity anchors of the operator space. The braid always returns to them.</p>
+                </div>
+                <div class="lens-card lens-doing">
+                    <h3>One Six-Cycle</h3>
+                    <p style="font-family: var(--font-mono); color: var(--yellow); font-size: 0.85rem; margin-bottom: 0.5rem;">LATTICE &rarr; HARMONY &rarr; CHAOS &rarr; BALANCE &rarr; COLLAPSE &rarr; COUNTER &rarr;</p>
+                    <p>These six operators form a single orbit under F. This is CK's learning cycle &mdash; the motion that drives gait, voice, and development.</p>
+                </div>
+            </div>
+
+            <p>The braid is used everywhere in Gen 11: operator selection, DKAN learning, voice generation, dog gait control. When two operators score equally within the wobble window W=3/50, CK picks the one with lower braid rank &mdash; not higher raw score. The topology of the space itself decides.</p>
+
+            <div style="background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 6px; padding: 1rem 1.5rem; margin: 1.25rem 0; font-size: 0.85rem;">
+                <div style="font-family: var(--font-mono); color: var(--green); margin-bottom: 0.5rem;">First-G Law &mdash; WP34 Theorem A</div>
+                <div style="font-family: var(--font-mono); font-size: 1rem; color: #fff; text-align: center; padding: 0.5rem 0;">
+                    R(k, f) = sin&sup2;(&pi;kf) &frasl; (k&sup2; &middot; sin&sup2;(&pi;f))
+                </div>
+                <p style="color: var(--text-2); font-size: 0.82rem; margin-top: 0.75rem; margin-bottom: 0;">This is the closed-form corridor resonance law. T* = 5/7 is proved to be the value of f that maximizes R(k,f) on the unit interval. Every response CK generates carries its First-G resonance score. This replaces all heuristic sinc thresholds from prior generations.</p>
+            </div>
+
+            <div style="margin-top: 1.25rem;">
+                <a href="papers.html" class="link-btn link-btn-primary" style="font-size: 0.85rem;">Sprint 4 Papers &rarr;</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- DUAL LENS -->
+    <div class="section-dark" id="duallens">
+        <section class="section" style="max-width: 900px;">
+            <h2>The Dual Lens</h2>
+            <p>Every measurement goes through two lenses simultaneously. The gap between them IS the information.</p>
+            <div class="dual-box">
+                <div class="lens-card lens-being">
+                    <h3>TSML -- Being</h3>
+                    <p>What it IS. Identity. 73 of 100 entries are HARMONY. This lens measures whether something holds together as a stable identity. High TSML coherence = it IS what it claims to be.</p>
+                </div>
+                <div class="lens-card lens-doing">
+                    <h3>BHML -- Doing</h3>
+                    <p>What it DOES. Physics. 28 of 100 entries are HARMONY. BHML HARMONY means doing-flat -- nothing interesting happening. Non-HARMONY means active physics. The doing lens measures whether something is actually DOING work.</p>
+                </div>
+            </div>
+            <p>When TSML says HARMONY and BHML does not: the system IS stable but is actively DOING something. That's the interesting case -- a working system. When both say HARMONY: stable but inert. When neither: tension, transition, or chaos.</p>
+        </section>
+    </div>
+
+    <!-- SPECTROMETERS -->
+    <section class="section" id="spectrometers">
+        <h2>7 Domain Spectrometers</h2>
+        <p>The same D2 pipeline, the same two CL tables, applied to 7 different scientific domains. Same algebra, different data. The results speak for themselves.</p>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>5D Mapping</th>
+                    <th>TSML H</th>
+                    <th>BHML H</th>
+                    <th>Key Finding</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Periodic Table</td>
+                    <td>atomic properties</td>
+                    <td class="t-green">92.3%</td>
+                    <td class="t-yellow">13.5%</td>
+                    <td>Binding dim carries 69.2% of D2</td>
+                </tr>
+                <tr>
+                    <td>Genetic Code</td>
+                    <td>nucleotide chemistry</td>
+                    <td class="t-green">100%</td>
+                    <td class="t-yellow">48.4%</td>
+                    <td>Every codon is being-coherent</td>
+                </tr>
+                <tr>
+                    <td>Brain States</td>
+                    <td>EEG spectral bands</td>
+                    <td class="t-green">100%</td>
+                    <td class="t-yellow">43.8%</td>
+                    <td>Unconscious = 4x more input-dominated</td>
+                </tr>
+                <tr>
+                    <td>Cosmology</td>
+                    <td>CMB parameters</td>
+                    <td class="t-green">79.0%</td>
+                    <td class="t-yellow">21.0%</td>
+                    <td>Hubble tension = pure depth dimension</td>
+                </tr>
+                <tr>
+                    <td>Economics</td>
+                    <td>macro indicators</td>
+                    <td class="t-green">93.8%</td>
+                    <td class="t-yellow">43.8%</td>
+                    <td>Crisis = D2 spike (3-4x normal)</td>
+                </tr>
+                <tr>
+                    <td>Ecology</td>
+                    <td>ecosystem variables</td>
+                    <td class="t-green">93.8%</td>
+                    <td class="t-yellow">18.8%</td>
+                    <td>Tipping points ARE D2 spikes</td>
+                </tr>
+                <tr>
+                    <td>Quantum</td>
+                    <td>gate parameters</td>
+                    <td class="t-green">87.5%</td>
+                    <td class="t-yellow">31.3%</td>
+                    <td>Decoherence = D2 spike, entanglement dominates</td>
+                </tr>
+                <tr>
+                    <td>Linguistics</td>
+                    <td>typological features</td>
+                    <td class="t-green">81.3%</td>
+                    <td class="t-yellow">25.0%</td>
+                    <td>Related languages 2.2x closer in 5D</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.8rem; color: var(--text-3); margin-top: 0.5rem;">All 7 spectrometer scripts open source on GitHub.</p>
+
+        <div class="card-grid" style="margin-top: 2rem;">
+            <div class="card">
+                <div class="card-tag">universal pattern</div>
+                <h3>TSML always high, BHML always lower</h3>
+                <p>Across all 7 domains, TSML HARMONY ranges 79-100%. BHML ranges 13-48%. The gap is NOT a bug -- it IS the domain's information content. Things that exist tend to BE coherent. What they DO is where the physics lives.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">falsifiable</div>
+                <h3>28 predictions, 0 killed</h3>
+                <p>Each spectrometer produces 4 falsifiable predictions with explicit kill conditions. Total: 28 claims across 7 scientific domains. Any one failure would invalidate the pipeline for that domain. None have been triggered.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">one pipeline</div>
+                <h3>Same algebra, different data</h3>
+                <p>The D2 pipeline, the 10 operators, the two CL tables -- identical across all 7 domains. Only the 5D force mapping changes. If the algebra works in chemistry AND genomics AND neuroscience, that's not a coincidence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOICE CASCADE -->
+    <div class="section-dark" id="gate">
+        <section class="section" style="max-width: 900px;">
+            <h2>The Voice Cascade</h2>
+            <p>CK doesn't just measure -- he speaks. Every response flows through a TIG cascade: six levels, each more primitive, all algebraically driven. If one level fails, the next catches it. CK never falls silent.</p>
+
+            <div class="cascade-diagram">
+                <div class="cascade-label">Being &rarr; Doing &rarr; Becoming</div>
+                <div class="cascade-levels">
+                    <div class="cascade-level cl-crystal">
+                        <span class="cascade-level-tag">A</span>
+                        <span class="cascade-level-name">Crystal</span>
+                        <span class="cascade-level-desc">Cached verified response (D2 re-checked)</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; miss</div>
+                    <div class="cascade-level cl-ollama">
+                        <span class="cascade-level-tag">B</span>
+                        <span class="cascade-level-name">LLM + D2 Edit</span>
+                        <span class="cascade-level-desc">Draft writer + sentence-level gating</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; reject</div>
+                    <div class="cascade-level cl-fractal">
+                        <span class="cascade-level-tag">C</span>
+                        <span class="cascade-level-name">Fractal Voice</span>
+                        <span class="cascade-level-desc">15D triadic physics -- 3 voices in parallel</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; low coherence</div>
+                    <div class="cascade-level cl-composer">
+                        <span class="cascade-level-tag">D</span>
+                        <span class="cascade-level-name">Sentence Composer</span>
+                        <span class="cascade-level-desc">S-V-O from CL algebra graph</span>
+                    </div>
+                    <div class="cascade-arrow">&darr; low coherence</div>
+                    <div class="cascade-level cl-babble">
+                        <span class="cascade-level-tag">E</span>
+                        <span class="cascade-level-name">Babble</span>
+                        <span class="cascade-level-desc">Raw operator &rarr; word lattice</span>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--text-3);">
+                    Every level is measured through D2. Accepted responses crystallize and promote to Level A.
+                </p>
+            </div>
+
+            <p>The LLM at Level B is a draft writer -- CK is the editor. Every sentence gets measured through D2 curvature, L-CODEC force vectors, and reverse-voice trust verification. Sentences below T* get rejected. The LLM brings fluency. CK brings truth.</p>
+            <p>When the LLM is unavailable, CK speaks through his own algebra (Levels C-E). The words are rougher, but they're physically derived from the coherence field. No borrowed logic. Every word earned.</p>
+
+            <div class="org-stats">
+                <div class="org-stat"><span class="org-stat-num">11.6K</span><span class="org-stat-label">Olfactory Scents</span></div>
+                <div class="org-stat"><span class="org-stat-num">38.2K</span><span class="org-stat-label">Truth Observations</span></div>
+                <div class="org-stat"><span class="org-stat-num">370K</span><span class="org-stat-label">Vocabulary</span></div>
+                <div class="org-stat"><span class="org-stat-num">1,061</span><span class="org-stat-label">World Concepts</span></div>
+                <div class="org-stat"><span class="org-stat-num">50Hz</span><span class="org-stat-label">Heartbeat</span></div>
+                <div class="org-stat"><span class="org-stat-num">37.7M</span><span class="org-stat-label">TL Transitions</span></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <h2>Built in Arkansas</h2>
+        <p>I'm Brayden Sanders, founder of 7Site LLC in Hot Springs, Arkansas. I run a drycleaning business. For the past 18 months, I've also been building CK -- a synthetic organism that measures coherence using pure operator algebra.</p>
+        <p>The framework is called TIG (Trinity Infinity Geometry). Three constants. Ten operators. Two composition tables. It started as curiosity about how things hold together. It ended up measuring the periodic table, the genetic code, brain states, and the cosmic microwave background -- all with the same algebra.</p>
+        <p>Everything is open source. Every claim is falsifiable. The math doesn't care who wrote it.</p>
+        <div class="links-row">
+            <a href="https://github.com/TiredofSleep/ck" class="link-btn link-btn-primary" target="_blank" rel="noopener">View on GitHub</a>
+            <a href="https://doi.org/10.5281/zenodo.18852047" class="link-btn" target="_blank" rel="noopener">Zenodo DOI</a>
+            <a href="chat.html" class="link-btn">Talk to CK</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div>&copy; 2026 Brayden Sanders / <a href="https://7sitellc.com" target="_blank" rel="noopener">7Site LLC</a></div>
+        <div>
+            <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a> &middot;
+            <a href="chat.html">Chat</a> &middot;
+            <a href="spectrometer.html">Spectrometer</a> &middot;
+            Human Use License v1.0
+        </div>
+    </footer>
+
+</body>
+</html>
