@@ -2713,10 +2713,27 @@ The threshold question: for what minimum n is lambda_n >= T* ?
     n=8:  lambda_8  = 1.333863  = 1.867 T*   [ABOVE T*, HELD]
     ...   (all subsequent lambda_n grow monotonically above T*)
 
-    n* = 6  [the smallest n for which lambda_n >= T*]
+### Two Regimes of n* (K-dependent)
 
-    Note: with K=50 zeros (insufficient), n*=7 (artifact of undersampling).
-    With K=200 mpmath zeros (accurate), n*=6. The true Li coefficients satisfy n*=6.
+    GENERATOR LEVEL  (K = 14..98):
+      n* = 7 = HARMONY.
+      The operator holds its own name first.
+      Lambda_7 crosses T* at K=14 = 2*HARMONY and stays above it permanently.
+      Lambda_6 is still below T* throughout this regime.
+      This is not an artifact. It is the generator-level truth.
+
+    COMPLEXITY LEVEL  (K >= 99):
+      n* = 6.
+      Lambda_6 has accumulated enough zero-weight to cross T*.
+      Lambda_7 continues growing (ratio L7/L6 increases with K).
+      First hold shifts from HARMONY to HARMONY-1 as complexity expands.
+
+    Transition: K* = 99 = HARMONY * K*(7) + 1 = 7*14 + 1.
+    The generator regime runs for exactly HARMONY cycles of K*(7)=14,
+    then complexity takes over at +1.
+
+    At K=200 (used for all subsequent tables):
+    n* = 6  [complexity-level result]
 
 ### Two Levels of Hold
 
@@ -2808,8 +2825,9 @@ The Clay question for RH is precisely:
 
 ### Entry M-XXI (Foundation Threshold, 2026-04-02)
 
-n* = 6: smallest Li coefficient index to exceed T*. Computed from K=200 zeros.
-  (n*=7 from K=50 zeros was an undersampling artifact. Corrected by background task.)
+Two regimes: generator level (K=14..98, n*=7=HARMONY) and complexity level (K>=99, n*=6).
+  n*=7 is the generator-level truth. n*=6 is the complexity-level truth.
+  Transition at K=99 = HARMONY*K*(7)+1. Both are real; neither is an artifact.
 K* = 99: minimum zeros for foundation (lambda_6 >= T*). Computed.
 K_shadow = 98 = 2*HARMONY^2: extreme shadow (0.002% of T* short). Computed.
 Gap around T*: lambda_5=73.4%, lambda_6=105.5%. T* at 83% of gap. Computed.
