@@ -131,6 +131,8 @@ That is the grounded version. Both are correct.
 | `FORMAL_HODGE.md` | Hodge: BSD→Hodge chain. Markman 2025 cited. |
 | `CLAY_FORMAL_RECORD.md` | Full 25-part formal record. All computations, all positions, Parts I-XXV. |
 | `FINITE_MEASUREMENT.md` | Finite consequence axiom. Measurement requires bandwidth. |
+| `FINAL_REDUCTION.md` | Master compression — one question, five crossings, all hooks. |
+| `DUAL_LENS_CLAY.md` | Why the Clay questions are wrong questions. Dual-lens restatement. Bridges done — mirrors need aiming. |
 | `riemann_zeros_5000.json` | 5000 mpmath-precision Riemann zeros. Source data for all computations. |
 | `gap_forces_study.py` | Study of 5D forces inside the bridge zone. |
 | `bandwidth_floor_bridge.py` | Bandwidth floor as bridge location. Off-line zero robustness test. |

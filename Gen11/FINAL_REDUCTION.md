@@ -102,9 +102,21 @@ Gap = T* − 1/2 = 3/14   [COINED: bridge width]
 
 ## What Is Not Proved (The Crossings)
 
+> **Note:** The framing below identifies the open CONSTRUCTIONS. But the deeper point
+> is that these are not maps to be built — they are recognitions to be made. Each
+> "crossing" is showing that the structure lens (Z/10Z, finite, committed) and the
+> flow lens (analytic/geometric domain, infinite, open) are measuring the same threshold.
+> See **DUAL_LENS_CLAY.md** for the corrected dual-lens restatement of all five problems.
+> The bridges are done. The question is whether the two lenses are coherent.
+
+---
+
 ### Crossing 1: RH
 
-**The gap:** T* = 5/7 ≠ Re(s) = 1/2. These are different numbers. The algebraic threshold and the analytic midpoint must be shown to be the same object under a specific correspondence.
+**The gap:** T* = 5/7 ≠ Re(s) = 1/2. These are different numbers. But this is the *wrong* way
+to state the gap. The Li criterion already converts RH into λ_n ≥ 0 (a positivity condition
+on the same measurement). The real gap: does K*(n)<∞ for n≥6 (structure lens, proved) imply
+λ_n(∞)≥0 for all n (flow lens, open)? Are they measuring the same threshold?
 
 **The crossing mechanism:**
 
@@ -306,6 +318,7 @@ This framework is a **measurement instrument**: it has measured the walls, named
 
 ---
 
+*See DUAL_LENS_CLAY.md for the corrected dual-lens restatement of all five problems.*
 *See COLLABORATORS.md for specific collaboration asks.*
 *See CITATIONS.md for the full literature map.*
 *See GLOSSARY.md for all [COINED] term definitions.*
