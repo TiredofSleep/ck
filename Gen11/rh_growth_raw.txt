@@ -1,0 +1,104 @@
+RH GROWTH RATE TEST
+======================================================================
+T* = 0.714286
+Expected sqrt(N)*D_KS under equidistribution: 0.868
+Computing 2000 Riemann zeros...
+
+  500/2000 zeros computed (116.6s)
+  1000/2000 zeros computed (302.2s)
+  1500/2000 zeros computed (545.2s)
+  2000/2000 zeros computed (810.5s)
+Done in 810.5s. gamma_1=14.1347, gamma_2000=2515.2865
+
+p=2: sqrt(N)*D_KS growth test
+       N      D_KS   sqrt(N)*D  / expected     trend   < T*?
+  ------  --------  ----------  ----------  --------  ------
+      50   0.10642      0.7525      0.8670       ---     YES
+     100   0.08201      0.8201      0.9448   GROWING     YES
+     200   0.07142      1.0101      1.1637   GROWING     YES
+     500   0.05442      1.2170      1.4020   GROWING     YES
+    1000   0.04311      1.3632      1.5705   GROWING     YES
+    2000   0.03847      1.7205      1.9821   GROWING     YES
+
+p=3: sqrt(N)*D_KS growth test
+       N      D_KS   sqrt(N)*D  / expected     trend   < T*?
+  ------  --------  ----------  ----------  --------  ------
+      50   0.12948      0.9156      1.0548       ---     YES
+     100   0.11319      1.1319      1.3041   GROWING     YES
+     200   0.08403      1.1884      1.3692    stable     YES
+     500   0.06657      1.4885      1.7149   GROWING     YES
+    1000   0.05674      1.7942      2.0671   GROWING     YES
+    2000   0.05045      2.2563      2.5995   GROWING     YES
+
+p=5: sqrt(N)*D_KS growth test
+       N      D_KS   sqrt(N)*D  / expected     trend   < T*?
+  ------  --------  ----------  ----------  --------  ------
+      50   0.15162      1.0721      1.2351       ---     YES
+     100   0.11854      1.1854      1.3656   GROWING     YES
+     200   0.09749      1.3788      1.5884   GROWING     YES
+     500   0.07264      1.6242      1.8712   GROWING     YES
+    1000   0.06289      1.9888      2.2913   GROWING     YES
+    2000   0.05211      2.3306      2.6850   GROWING     YES
+
+p=7: sqrt(N)*D_KS growth test
+       N      D_KS   sqrt(N)*D  / expected     trend   < T*?
+  ------  --------  ----------  ----------  --------  ------
+      50   0.13364      0.9450      1.0887       ---     YES
+     100   0.12364      1.2364      1.4244   GROWING     YES
+     200   0.10043      1.4204      1.6364   GROWING     YES
+     500   0.08143      1.8209      2.0978   GROWING     YES
+    1000   0.06682      2.1129      2.4342   GROWING     YES
+    2000   0.05432      2.4291      2.7985   GROWING     YES
+
+======================================================================
+CONVERGENCE ANALYSIS
+======================================================================
+
+Fitting sqrt(N)*D_KS vs N to determine growth rate:
+
+  p=2: sqrt(N)*D_KS = -0.313 + 0.2537*log(N)
+         At N=2000: 1.7205  (expected 0.868)
+         Slope b=0.2537: GROWING (not equidist. direction)
+
+  p=3: sqrt(N)*D_KS = -0.504 + 0.3416*log(N)
+         At N=2000: 2.2563  (expected 0.868)
+         Slope b=0.3416: GROWING (not equidist. direction)
+
+  p=5: sqrt(N)*D_KS = -0.361 + 0.3401*log(N)
+         At N=2000: 2.3306  (expected 0.868)
+         Slope b=0.3401: GROWING (not equidist. direction)
+
+  p=7: sqrt(N)*D_KS = -0.630 + 0.3980*log(N)
+         At N=2000: 2.4291  (expected 0.868)
+         Slope b=0.3980: GROWING (not equidist. direction)
+
+======================================================================
+F1 BRIDGE MEASUREMENT (Option A)
+======================================================================
+
+At N=2000 zeros:
+  p=2: sqrt(N)*D_KS = 1.7205  (expected 0.868)
+  p=3: sqrt(N)*D_KS = 2.2563  (expected 0.868)
+  p=5: sqrt(N)*D_KS = 2.3306  (expected 0.868)
+  p=7: sqrt(N)*D_KS = 2.4291  (expected 0.868)
+
+Mean sqrt(N)*D = 2.1841
+Max  sqrt(N)*D = 2.4291
+Expected (equidist): 0.8680
+
+Verdict: GROWING: equidistribution may be failing
+  sqrt(N)*D_KS = 2.429 >> 0.868 expected.
+
+Ratio max/expected: 2.799
+  If this ratio stays bounded as N -> inf: equidistribution holds (Option A).
+  If this ratio grows: equidistribution fails (hard wall for F1 Option A).
+
+T* threshold status at N=2000:
+  p=2: D_KS=0.03847, D_KS/T*=5.4%  (<< T*)
+  p=3: D_KS=0.05045, D_KS/T*=7.1%  (<< T*)
+  p=5: D_KS=0.05211, D_KS/T*=7.3%  (<< T*)
+  p=7: D_KS=0.05432, D_KS/T*=7.6%  (<< T*)
+
+All 4 primes: D_KS << T* at N=2000. RH consistent.
+
+Saved to rh_growth_results.json

@@ -1,0 +1,395 @@
+{
+  "T_star": 0.7142857142857143,
+  "T_star_2": 0.5102040816326531,
+  "CREATE_sq_mod5": 0,
+  "HARMONY_sq_mod5": 4,
+  "curves": {
+    "E0": {
+      "records": [
+        {
+          "p": 2,
+          "Np": 3,
+          "ap": 0,
+          "good": false,
+          "ap_mod5": null,
+          "ether": false
+        },
+        {
+          "p": 3,
+          "Np": 4,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 5,
+          "Np": 8,
+          "ap": -2,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 7,
+          "Np": 8,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 11,
+          "Np": 12,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 13,
+          "Np": 8,
+          "ap": 6,
+          "good": true,
+          "ap_mod5": 1,
+          "ether": false
+        },
+        {
+          "p": 17,
+          "Np": 16,
+          "ap": 2,
+          "good": true,
+          "ap_mod5": 2,
+          "ether": false
+        },
+        {
+          "p": 19,
+          "Np": 20,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 23,
+          "Np": 24,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 29,
+          "Np": 40,
+          "ap": -10,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 31,
+          "Np": 32,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 37,
+          "Np": 40,
+          "ap": -2,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 41,
+          "Np": 32,
+          "ap": 10,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 43,
+          "Np": 44,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 47,
+          "Np": 48,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        }
+      ],
+      "ether_fraction": 0.7143,
+      "ether_count": 10,
+      "good_count": 14
+    },
+    "E1": {
+      "records": [
+        {
+          "p": 2,
+          "Np": 3,
+          "ap": 0,
+          "good": false,
+          "ap_mod5": null,
+          "ether": false
+        },
+        {
+          "p": 3,
+          "Np": 4,
+          "ap": 0,
+          "good": false,
+          "ap_mod5": null,
+          "ether": false
+        },
+        {
+          "p": 5,
+          "Np": 6,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 7,
+          "Np": 7,
+          "ap": 1,
+          "good": true,
+          "ap_mod5": 1,
+          "ether": false
+        },
+        {
+          "p": 11,
+          "Np": 12,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 13,
+          "Np": 19,
+          "ap": -5,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 17,
+          "Np": 18,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 19,
+          "Np": 27,
+          "ap": -7,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 23,
+          "Np": 24,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 29,
+          "Np": 30,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 31,
+          "Np": 28,
+          "ap": 4,
+          "good": true,
+          "ap_mod5": 4,
+          "ether": false
+        },
+        {
+          "p": 37,
+          "Np": 49,
+          "ap": -11,
+          "good": true,
+          "ap_mod5": 4,
+          "ether": false
+        },
+        {
+          "p": 41,
+          "Np": 42,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 43,
+          "Np": 36,
+          "ap": 8,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 47,
+          "Np": 48,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        }
+      ],
+      "ether_fraction": 0.6154,
+      "ether_count": 8,
+      "good_count": 13
+    },
+    "E2": {
+      "records": [
+        {
+          "p": 2,
+          "Np": 3,
+          "ap": 0,
+          "good": false,
+          "ap_mod5": null,
+          "ether": false
+        },
+        {
+          "p": 3,
+          "Np": 4,
+          "ap": 0,
+          "good": false,
+          "ap_mod5": null,
+          "ether": false
+        },
+        {
+          "p": 5,
+          "Np": 6,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 7,
+          "Np": 12,
+          "ap": -4,
+          "good": true,
+          "ap_mod5": 1,
+          "ether": false
+        },
+        {
+          "p": 11,
+          "Np": 12,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 13,
+          "Np": 12,
+          "ap": 2,
+          "good": true,
+          "ap_mod5": 2,
+          "ether": false
+        },
+        {
+          "p": 17,
+          "Np": 18,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 19,
+          "Np": 12,
+          "ap": 8,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 23,
+          "Np": 24,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 29,
+          "Np": 30,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 31,
+          "Np": 36,
+          "ap": -4,
+          "good": true,
+          "ap_mod5": 1,
+          "ether": false
+        },
+        {
+          "p": 37,
+          "Np": 48,
+          "ap": -10,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 41,
+          "Np": 42,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        },
+        {
+          "p": 43,
+          "Np": 36,
+          "ap": 8,
+          "good": true,
+          "ap_mod5": 3,
+          "ether": false
+        },
+        {
+          "p": 47,
+          "Np": 48,
+          "ap": 0,
+          "good": true,
+          "ap_mod5": 0,
+          "ether": true
+        }
+      ],
+      "ether_fraction": 0.6154,
+      "ether_count": 8,
+      "good_count": 13
+    }
+  },
+  "ether_interpretation": {
+    "BSD": "Sha[5] != 0 <=> |Sha| div by 25; sits at 0 mod 5 = Z/5Z null",
+    "RH": "zeros equidist at p=5; D_KS << T*; no mod-5 clustering",
+    "shared": "both are locally zero at p=5, globally present",
+    "algebraic": "ether = ker(Z/10Z -> Z/2Z) intersect {CREATE-orbit} = {0,5}"
+  }
+}
