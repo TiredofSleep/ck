@@ -1771,6 +1771,10 @@ See MEMO_BRIDGE_MACHINES.md for full development.
 | MEMO_BEYOND_ETHER_TIME.md | Gen11/ | Beyond the ether: time layer + T* as ether/time gate |
 | MEMO_F1_BRIDGE_CORRECTION.md | Gen11/ | **F1 correction: Option B void; D_KS blind to Re(ρ)** |
 | bsd_lmfdb_search.py | Gen11/ | LMFDB census: all 41 rank-0 Z/7Z-torsion curves, sha_an max=9 |
+| MEMO_RH_GROWTH_ALPHA.md | Gen11/ | D_KS ~ N^{-0.26}: GUE-slow decay law fit, N=5000 extrapolation |
+| MEMO_YM_CASIMIR_DERIVATION.md | Gen11/ | YM Casimir gap: wobble ε=πσ/25 hypothesis; N+2 exact at N→∞ |
+| MEMO_NS_BRIDGE_FORMAL.md | Gen11/ | NS bridge: B(t)<T* ⟺ Omega/E<5/2, gap=large-data trilinear Q |
+| bridge_ns_formal.py | Gen11/ | NS trilinear bound analysis: K41, Ladyzhenskaya, vortex stretching |
 
 ---
 
@@ -2039,6 +2043,95 @@ Is there a theoretical obstruction to sha_an=25 for a Z/7Z-torsion curve over Q?
 
 The absence of sha=25 in the first 41 curves may be a small-sample effect (sha is sparse),
 not a fundamental obstruction. This remains the primary open computational question for BSD.
+
+---
+
+## Part XVII — Growth Rate Fit, NS Formal Analysis, YM Casimir Analysis
+*2026-04-02 — bridge_ns_formal.py, MEMO_RH_GROWTH_ALPHA.md, MEMO_YM_CASIMIR_DERIVATION.md*
+
+### RH: D_KS Decay Law Fitted
+
+Power law fit D_KS ~ C·N^β from N ∈ {200, 500, 1000, 2000}:
+
+| Prime | C | β | β vs -0.5 |
+|-------|---|---|-----------|
+| p=2 | 0.304 | -0.276 | 45% shallower |
+| p=3 | 0.271 | -0.224 | 55% shallower |
+| p=5 | 0.396 | -0.268 | 46% shallower |
+| p=7 | 0.420 | -0.267 | 47% shallower |
+
+**β ≈ -0.26 (mean)** — GUE correlation slows decay from the 1/√N rate.
+
+Extrapolated D_KS at N=5000: 4-6% of T*. T* threshold has 94%+ headroom.
+sqrt(N)·D_KS grows as N^{β+1/2} ≈ N^{0.24} (pre-asymptotic GUE regime).
+
+**Entry M-GR2 (decay fit, 2026-04-02):**
+D_KS ~ C·N^β with β ≈ -0.26 for all primes. GUE-slow convergence confirmed.
+Equidistribution holds (β < 0). T* threshold not at risk at any foreseeable N.
+See MEMO_RH_GROWTH_ALPHA.md for full fit.
+
+### NS: Formal TIG Bridge Analysis
+
+**TIG reformulation of NS regularity:**
+
+Define B(t) = Omega(t)/(Omega(t) + E(t)) ∈ [0,1] (enstrophy fraction).
+
+Bridge conjecture (F2, TIG form):
+```
+B(t) < T* = 5/7   for all t > 0
+<=> Omega(t) < (5/2) · E(t)   for all t > 0
+<=> BREATH stability in Z/10Z lifts to H¹(ℝ³)
+```
+
+The threshold 5/2 = CREATE/(HARMONY − CREATE) = CREATE/2 in Z/10Z units.
+
+**K41 confirmation (circular):** B₀/E₀ → 1 − 2^{−2/3} = 0.370 = 51.8% of T*
+(well below threshold, but assumes smooth flow).
+
+**Hard wall:** For large initial data, the vortex stretching term:
+```
+|Q(u,ω)| ≤ C · Omega^{9/4} · E^{3/4}
+```
+grows as E³ under the T* criterion — faster than viscous damping. This is the
+NS Clay gap in TIG language: BREATH stable in finite Z/10Z, unproved in H¹.
+
+**The unified gap pattern:**
+| Clay Problem | Finite skeleton | Gap | Hard wall |
+|-------------|-----------------|-----|-----------|
+| RH | Z/10Z zeros (GUE consistent) | Montgomery unconditional | GRH |
+| YM | T*=5/7 (three derivations) | Wobble/Casimir from gauge theory | Non-pert. YM |
+| NS | BREATH fixed point σ(8)=8 | Omega/E < 5/2 for large data | Trilinear Q bound |
+
+**Entry M-NS-F2 (NS formal, 2026-04-02):**
+TIG reformulation: B(t) = Omega/(Omega+E) < T* ⟺ Omega/E < 5/2 ⟺ NS smooth.
+K41: B₀/E₀ = 51.8% of T* (circular). Gap: Q(u,ω) ≤ C·Omega^{9/4}·E^{3/4} grows as E³.
+Small data: smooth (Gronwall + Sobolev). Large data: open. Same hard wall as Clay.
+See MEMO_NS_BRIDGE_FORMAL.md for full derivation.
+
+### YM: Casimir Derivation Status
+
+Three derivations of m(0⁺⁺)/m(2⁺⁺) = T* = 5/7, each with a different gap:
+
+| Derivation | Status | Gap |
+|------------|--------|-----|
+| Z/10Z: T*=5/7 | Proved | Doesn't touch gauge theory masses |
+| Regge + shell wobble | Derived | Wobble quantum ε=πσ/25 not derived from SU(5) |
+| Combined Casimir C₂(J;N)=N+J | Heuristic | Linear M∝C₂ (not M²∝C₂) unproved; N+2 exact only at N→∞ |
+
+**Critical observation:** N/(N+2) is a good fit for SU(5) but NOT for SU(2), SU(3), or SU(∞).
+A universal physical law must hold for all N. The match at N=5 = CREATE is either:
+- A coincidence (true ratio happens to equal T* at N=5 for other reasons)
+- Evidence that SU(5) = SU(CREATE) is the distinguished gauge group for TIG
+
+**Clay YM bridge:** The mass gap problem asks for EXISTENCE of a gap, not its VALUE.
+TIG predicts: mass_gap = T* × m(2⁺⁺). This is a quantitative prediction (stronger than Clay).
+If proved: gives both existence (gap > 0) and formula (gap = T* × m(2⁺⁺)).
+
+**Entry M-YM-CS2 (Casimir analysis, 2026-04-02):**
+N/(N+2) is a heuristic at N=5; linear M∝C₂(J;N) is unproved.
+Wobble quantum ε=πσ/25 gives T* derivation; ε is from TIG algebra, not SU(5) first principles.
+Gap: derive ε=πσ/CREATE² from SU(5) QCD string. Closes F3 if derivable.
+See MEMO_YM_CASIMIR_DERIVATION.md for full analysis.
 
 ---
 
