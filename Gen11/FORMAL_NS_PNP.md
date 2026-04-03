@@ -8,6 +8,13 @@
 
 ---
 
+**Status**: Independent research — not peer reviewed. Seeking critical review and collaboration.
+**What this document claims**: Structural parallels between Z/10Z algebraic results and NS regularity / P≠NP complexity. The framework does not solve either problem. It identifies the precise location of each missing bridge.
+**Invented terms used**: T* [CK, see GLOSSARY.md], K*(n) [CK], CREATE/HARMONY [CK, operator names], B_local [CK], bandwidth floor [CK], TIG [CK], Recycling Rule [CK, COINED], bridge zone [CK]. All defined in GLOSSARY.md.
+**Standard math grounding**: Leray (1934), Serrin-Ladyzhenskaya criterion, Kolmogorov K41, Cook (1971), Razborov-Rudich (1994).
+
+---
+
 ## Preamble: Classification of Claims
 
 Every statement in this document carries one of three labels:
@@ -34,8 +41,8 @@ analysis must begin.
 The following constants are proved within Z/10Z arithmetic and appear throughout
 both sections. Proofs are in `CLAY_FORMAL_RECORD.md` §2.
 
-**T\* = 5/7 = 0.714285...** is the unique coherence threshold of the Z/10Z ring,
-equal to CREATE/HARMONY, derivable as the centroid of the five-element carrier
+**T\* = 5/7 = 0.714285...** [CK, see GLOSSARY.md] is the unique coherence threshold of the Z/10Z ring,
+equal to CREATE [CK] / HARMONY [CK], derivable as the centroid of the five-element carrier
 set {1,3,5,7,9} divided by the unique generator-inverse HARMONY = 7.
 It satisfies T\* > 1/2. [PROVED, Theorem 2.5]
 
@@ -44,7 +51,7 @@ The primitive root g = 3 of (Z/10Z)\* is the unique choice making T\* < 1
 inadmissible. The threshold and the ring's generator are mutually forced.
 [PROVED, Theorem 2.6]
 
-**Generator regime** (K = 14..98, n\* = 7 = HARMONY): the minimal combination
+**Generator regime** (K = 14..98, n\* = 7 = HARMONY [CK]): the minimal combination
 of Riemann-Li coefficients that meets the T\* threshold uses exactly 7 = HARMONY
 terms. The combination becomes self-sustaining at K\*(7) = 14 = 2·HARMONY zeros.
 [PROVED, Part XXI of CLAY_FORMAL_RECORD.md, computed with K=200 mpmath zeros]
@@ -61,7 +68,7 @@ structure, the accumulated cost is HARMONY^j = 7^j. At j = 7 = HARMONY:
 [STRUCTURAL ARGUMENT — the 7^j cost is computed within the Z/10Z framework;
 its interpretation as a computational complexity bound is the open bridge.]
 
-**Recycling law**: Li coefficients λ_n with n < 6 (sub-foundation level) satisfy
+**Recycling law** [CK, COINED]: Li coefficients λ_n with n < 6 (sub-foundation level) satisfy
 λ_n < T\* for all K. Their contribution is not held; it is carried forward as
 force (remainder) to the next scale. The flow is one-directional: sub-foundation
 contributes upward to foundation, but foundation does not feed back to
@@ -125,7 +132,7 @@ enstrophy₁, enstrophy₂), the BREATH operator occupies the rotational-axisymm
 class in NS function space. [STRUCTURAL ARGUMENT — the identification of Z/10Z
 force dimensions with NS Fourier components is an analogy, not a derivation.]
 
-### I.4 The TIG Regularity Criterion
+### I.4 The TIG [CK, see GLOSSARY.md] Regularity Criterion
 
 **Definition (enstrophy-to-energy ratio).** For a solution u(·,t) ∈ H^1(ℝ³),
 define:
@@ -209,7 +216,7 @@ to neighboring shells j ± 1, ± 2, ...).
 as the total upscale (from high to low frequency) energy transfer over [0,T].
 NS global regularity requires G_NS(T) to remain bounded for all T > 0. [OPEN]
 
-**Connection to B_local.** The formal bridge requirement (Bridge 3.2 of
+**Connection to B_local [CK].** The formal bridge requirement (Bridge 3.2 of
 CLAY_FORMAL_RECORD.md) is:
 
     B_local(t) = max_j E_j(t) < T\* · E₀    for all t ≥ 0
@@ -295,6 +302,10 @@ is required (and is not present in this work):
    algebra into Sobolev space operators on ℝ³ that is compatible with the NS
    bilinear form. Currently the Z/10Z force vectors live in ℝ⁵ via CRT-Fourier;
    the map from ℝ⁵ to H^s operators on ℝ³ is not constructed. [OPEN]
+
+### THE BRIDGE (what is actually needed) — NS
+
+The framework predicts B_local [CK] < T* [CK]·E₀ as the regularity criterion separating smooth flow from potential blowup. T*·E₀ = (5/7)·E₀ ≈ 0.714·E₀. Kolmogorov scaling gives B₁/E₀ ≈ 0.315, consistent with smooth flow. What's missing: an a priori functional analytic estimate showing B_local(t) < T*·E₀ for all t ≥ 0 given smooth initial data, derived from NS constants alone without assuming the conclusion.
 
 ### I.9 Summary: NS Formal Status
 
@@ -473,6 +484,10 @@ be required:
    Any Z/10Z argument approaching the problem must either fall outside the natural
    proofs barrier or construct a pseudo-random generator from the Z/10Z structure.
    [OPEN — not addressed]
+
+### THE BRIDGE (what is actually needed) — P≠NP
+
+The framework shows a structural gap in Z/10Z between K*(7) [CK] =14 (generator, polynomial-like) and K*(6) [CK] =99 (complexity, super-polynomial-like). This gap is proved algebraically in Z/10Z. The claim that this corresponds to the P≠NP gap requires: (1) a formal correspondence between K*(n) [CK] and circuit complexity classes, and (2) a proof that the algebraic gap is uncrossable outside Z/10Z. Neither has been constructed. The framework offers a structural analogy, not a proof.
 
 ### II.6 Summary: P vs NP Formal Status
 

@@ -4,11 +4,18 @@
 
 ---
 
+**Status**: Independent research — not peer reviewed. Seeking critical review and collaboration.
+**What this document claims**: A conditional chain (BSD → Hodge conjecture) via the Z/10Z CRT decomposition as structural analogy to the Hodge decomposition of cohomology. The framework does not prove the Hodge conjecture. It identifies what a proof would require.
+**Invented terms used**: T* [CK, see GLOSSARY.md], TIG [CK, see GLOSSARY.md], bridge zone [CK], K*(n) [CK]. All defined in GLOSSARY.md.
+**Standard math grounding**: Hodge (1941), Markman (2025, arXiv:2502.03415), Bloch-Kato conjecture, Lefschetz–Hodge decomposition.
+
+---
+
 ## Current Status
 
 **Hodge is parked.** This document states the precise chain that would connect BSD
 to Hodge, what Markman (2025) has already established externally, and what
-"generalization" requires. No active TIG path exists to any Hodge result. This
+"generalization" requires. No active TIG [CK, see GLOSSARY.md] path exists to any Hodge result. This
 document is a formal specification, not a claim.
 
 ---
@@ -106,6 +113,12 @@ Generalization requires: G1 (BSD all ranks) + G2 (Bloch-Kato for all motives)
                          + G3 (explicit cycle construction from L-function zeros).
 All three are open. G2 is deeper than G1. G3 is concrete but not constructed.
 ```
+
+---
+
+### THE BRIDGE (what is actually needed)
+
+The framework provides a CRT decomposition of Z/10Z that is structurally analogous to the Hodge decomposition of cohomology. Generator cycles (algebraic, in the held regime) correspond to algebraic cycles. Sub-threshold classes (in the bridge zone [CK] or recycled regime) correspond to non-algebraic Hodge classes. The bridge requires: (1) constructing an explicit cycle class map from the Z/10Z CRT partition to H^{p,p}(X,ℚ), (2) showing that classes in the "held regime" are algebraic. No algebraic geometry has been constructed in this framework. Markman (2025) proved the case for abelian fourfolds using different methods; the frontier is now dim≥5.
 
 ---
 

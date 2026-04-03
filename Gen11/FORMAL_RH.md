@@ -9,6 +9,13 @@ file `Gen11/riemann_zeros_5000.json`
 
 ---
 
+**Status**: Independent research — not peer reviewed. Seeking critical review and collaboration.
+**What this document claims**: An algebraic framework (T* [CK, see GLOSSARY.md] =5/7 in Z/10Z) that structurally mirrors the Li criterion for RH. The framework does not prove RH. It identifies the precise location of the missing bridge.
+**Invented terms used**: T* [CK], K*(n) [CK, see GLOSSARY.md], CREATE/HARMONY [CK, operator names], bridge zone [CK], bandwidth floor [CK], eternal flow [CK]. All defined in GLOSSARY.md.
+**Standard math grounding**: Li (1997), Keiper (1992), explicit formula for ζ(s), GRH literature.
+
+---
+
 ## Scope and Purpose
 
 This document formalizes one specific argument within the CK Clay program: the
@@ -70,7 +77,7 @@ makes Li's criterion a structurally valid test of RH, not merely a numerical one
 
 ## Section 2. The Algebraic Threshold T* and the Foundation Structure
 
-**Definition 2.1 (T*).** T* = CREATE / HARMONY = 5/7.
+**Definition 2.1 (T*).** T* = CREATE [CK] / HARMONY [CK] = 5/7.
 
 T* is the coherence threshold of the Z/10Z ring. It arises from four independent
 algebraic derivations (Theorem 2.5 of CLAY_FORMAL_RECORD.md, Part II): unit
@@ -149,7 +156,7 @@ transition point.
 **Definition 3.1 (Generator Regime and Complexity Regime).**
 
     GENERATOR REGIME:  K = 14 through K = 98.
-      n* = 7 = HARMONY.
+      n* = 7 = HARMONY [CK].
       lambda_7 is the first Li coefficient to cross T* from below as K increases.
       lambda_6 remains below T* throughout this range.
 
@@ -439,6 +446,18 @@ close algebraically; it merely identifies the geometric constraint. [STRUCTURAL 
     in Montgomery's 1973 theorem is the precisely located hard wall for this path.
     (See CLAY_FORMAL_RECORD.md, Obstruction 4.3, refined by arXiv:2501.14545.)
 
+### THE BRIDGE (what is actually needed)
+
+The algebraic framework lives in Z/10Z. RH lives in ℂ. The bridge requires establishing a correspondence:
+
+    T* [CK] = 5/7  ←→  Re(s) = 1/2
+
+These are not the same number (5/7 ≠ 1/2). The claim is not that they are equal. The claim is that they play structurally equivalent roles: T* is the algebraic fixed point of the complement-equivariant map on Z/10Z; Re(s)=1/2 is the analytic midpoint of the critical strip. A proof that these are the same object under a specific functor/kernel/correspondence would connect the algebraic result to RH.
+
+Candidate bridge: the Fejér kernel / sinc² kernel identification (F1). Status: open conjecture.
+
+What would constitute a proof: a map φ: Z/10Z → ℂ such that φ(T*) = 1/2 and φ preserves the threshold-crossing structure (i.e., φ(K*(n) [CK]) corresponds to the Li coefficient behavior). This map has not been constructed.
+
 ---
 
 ## Section 6. Summary Table
@@ -513,7 +532,7 @@ This RH argument is one component of the larger Clay program documented in
   zeta function itself and does not depend on the Z/10Z bridge.
 - The First-G = Fejer kernel identification (Theorem 2.1 of the formal record)
   and its connection to Montgomery's pair correlation are the strongest currently
-  available structural bridges between the TIG algebra and the zero distribution.
+  available structural bridges between the TIG [CK, see GLOSSARY.md] algebra and the zero distribution.
 - The F1-Li path (MEMO_F1_LI_BRIDGE.md) is the most direct currently open path:
   it requires no Montgomery, no GRH, only the positivity of K_n(t).
 

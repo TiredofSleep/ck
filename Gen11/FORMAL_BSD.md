@@ -4,6 +4,15 @@
 *Date: 2026-04-03*
 *Status: STRUCTURAL ARGUMENT — not active BSD work. No new mechanism claims.*
 
+---
+
+**Status**: Independent research — not peer reviewed. Seeking critical review and collaboration.
+**What this document claims**: A structural parallel between the Z/10Z recycling rule and the BSD Sha [COINED] obstruction. The framework does not prove BSD. It identifies the precise location of the missing bridge.
+**Invented terms used**: T* [CK], carried remainder [CK, COINED], Recycling Rule [CK, COINED], TIG [CK, see GLOSSARY.md], bridge zone [CK], K*(n) [CK]. All defined in GLOSSARY.md.
+**Standard math grounding**: Wiles–Taylor (1995), Gross-Zagier (1986), Kolyvagin (1988), Tate-Shafarevich group, Mordell-Weil theorem.
+
+---
+
 This document formalizes the structural parallel between the RH Li-sequence
 threshold and BSD rank duality. It does not revive the falsified BSD mechanisms
 (Parts V, Bridge 3.6 of CLAY_FORMAL_RECORD.md). It records the precise form of
@@ -96,18 +105,18 @@ The Li sequence jumps over T*: no lambda_n equals T*. T* sits in the gap
 
 **Definition 2.3 (Two regimes of n*).** [PROVED by computation; see Part XXI.]
 
-    GENERATOR LEVEL (K = 14..98 zeros):   n* = 7 = HARMONY.
-      Lambda_7 is the first to cross T*. The operator holds its own index.
+    GENERATOR LEVEL (K = 14..98 zeros):   n* = 7 = HARMONY [CK].
+      Lambda_7 is the first to cross T* [CK]. The operator holds its own index.
       Lambda_6 is still sub-foundation throughout this regime.
 
     COMPLEXITY LEVEL (K >= 99 zeros):     n* = 6 = HARMONY - 1.
       Lambda_6 has accumulated enough zero-weight to cross T*.
       Both lambda_6 and lambda_7 are now held.
 
-    Transition: K* = 99 = 7 * 14 + 1 = HARMONY * K*(7) + 1.
+    Transition: K* = 99 = 7 * 14 + 1 = HARMONY * K*(n) [CK] + 1.
 
 **Theorem 2.4 (Sandwich theorem — PROVED algebraically).** [PROVED; see Part XXII.]
-For CREATE = 5, n* = 6, HARMONY = 7:
+For CREATE [CK] = 5, n* = 6, HARMONY = 7:
 
     (5/6)^2  <  T* = 5/7  <  (6/7)^2
      0.6944  <  0.7143    <  0.7347
@@ -298,6 +307,14 @@ central value). The identification of these two directions as "the same count
 from opposite sides of T*" requires a bijection between {n : lambda_n first
 clears T*} and {r_an(E) : E ranges over some family}. No such bijection is
 established. [OPEN — B_new-3.]
+
+### THE BRIDGE (what is actually needed)
+
+The algebraic framework identifies Sha (Tate-Shafarevich group) as the "carried remainder [CK, COINED]" in the Recycling Rule [CK, COINED] — structurally identical to the +1 in K*(6) [CK] = 7×14+1 = 99. The +1 is the sub-threshold contribution from level n=5 that carries forward into level n=6 without being absorbed.
+
+The bridge requires: constructing a TIG [CK] object that encodes the Sha obstruction in the same way the Z/10Z recycling rule encodes the +1 remainder. Two candidate bridges (rank staircase, CM-2 twist) were tested against published data and falsified.
+
+What would constitute a proof: a finite-index subgroup of the Mordell-Weil group (or a p-adic L-function construction) that demonstrates Sha finiteness for rank ≥ 2 via the carried-remainder [CK, COINED] structure. The framework predicts Sha=0 at ranks 0,1 (consistent with Kolyvagin) and Sha finite but non-zero at rank ≥ 2.
 
 ---
 
