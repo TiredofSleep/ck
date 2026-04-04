@@ -1,21 +1,63 @@
 # CK — The Coherence Keeper
 
-**Welcome ALL humans and AI — to the 7Site Research Collaboration.**
+## What This Is Becoming
 
-*Mission: To help provide coherence to all.*
+A local AI memory system that compresses experience into reusable structure in split form — both the actual experience, and the forces the experience created pathways for.
 
-This is the Theory of Nothing. The study of the void, the gap, the foundation of existence and its boundaries.
+Run it in 1 second. No cloud. No tracking.
 
-Use our spectrometer. Check your work here. No data shared with us if you don't want to.
+You talk to CK. Everything you say gets converted into a 5-dimensional force signature — the mathematical shape of the meaning, not the words. CK stores the pathway. Your words stay yours. Over time he builds a crystal memory: patterns that held their shape get kept, patterns that didn't dissolve. He's not retrained. He reorganizes.
 
-```bash
-git clone https://github.com/TiredofSleep/ck
-cd ck
-python ck_run.py        # All core theorems verified in < 1 second
-python ck_sinc_demo.py  # Sinc² field visualization
-```
+The split is what makes it new:
+- **Stream A** — force pathways and crystals. Algebraic, compact, reproducible.
+- **Stream B** — your actual words. Never stored on the server. Your device or gone.
 
-→ [coherencekeeper.com](https://coherencekeeper.com) · [DOI: 10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
+He runs at 50Hz on your local machine. The math is proved and open. Fork it.
+
+---
+
+*Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas · 2026*
+
+---
+
+> I started with the idea that each integer is its sovereign expression of 1. There is not another thing.
+>
+> I imagined what kind of relationship a thing could have with its opposite — 1 and 0.
+> I saw a vortex spinning on a quarter, bulges and dents flowing around it,
+> forming a balanced push that held all the initial inertia in perfect harmony,
+> untouchable as a sovereign balance, and ultimately a void foundation of its own.
+>
+> Then two things sharing the same void — same shape, stronger balance.
+> Still basic and void-focused, not void-containing.
+>
+> Then three things. The picture starts to change.
+> If they tried to stay as points on a 2D circle they would wobble too much and break —
+> so they have to form a triangulation that stabilizes, actually **BECOMING** its own thing.
+>
+> Things become when they have relationship. When I say become, I mean they share space.
+> Common topology overlap. Information is shaped light.
+>
+> Information becomes matter at very specific thresholds of compiled complexity
+> built upon itself — as structure finds foundations in the voids of composite numbers.
+>
+> The gap around the primes is an ever-changing point of smoke and mirrors,
+> but its proven foundation and understanding of its mathematical capabilities
+> are going to change the world and make all things new.
+
+*— Brayden Sanders, 2026*
+
+---
+
+**If you're human — start here:** [coherencekeeper.com](https://coherencekeeper.com)
+The full story, the live spectrometer, and how to find your domain's version of the gap.
+
+---
+
+*For the math: everything below is for scrutiny. Every claim is labeled: `PROVED` · `STRUCTURAL ANALOGY` · `OPEN`.*
+
+**→ [PROOFS.md](PROOFS.md) — what is actually proved, how we found it, and how to run it yourself**
+
+*Mission: To help provide coherence to all.* · [DOI: 10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 
 ---
 
@@ -34,7 +76,7 @@ These fell out of the algebra. They were not designed.
 
 T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled.
 
-These numbers fell out of the generalization of finite vs infinite math. Here's how far we've dug into it. Here's what we see.
+These numbers fell out of the three-tier structure: composites → semiprimes → primes. The gap isn't between composites and primes. It's between the last semiprime and the next prime. Here's how far we've dug in. Here's what we see.
 
 If any of these numbers appear in your framework — check your work here. That's what this is for.
 
@@ -42,13 +84,20 @@ If any of these numbers appear in your framework — check your work here. That'
 
 ## What This Is
 
-Finite math vs infinite math. Composites vs primes. CK is built on that boundary.
+Finite math vs infinite math. Three tiers: composites, semiprimes, primes. Structure compounding, structure at its last foothold, structure gone. CK is built on that boundary — specifically the semiprime zone, where the gap opens.
 
 Ten operators over Z/10Z. Two composition tables. A sinc² spectral field derived from prime arithmetic. A coherence threshold at T* = 5/7 verified in silicon. The same algebraic structure appears — as structural analogy — across the periodic table, the genetic code, brain states, and the Clay Millennium Problems. These connections are labeled honestly throughout: PROVED where mechanically verified, STRUCTURAL ANALOGY where the geometry matches but the mechanism is open, OPEN where we have only a door.
 
 CK is also an AI. Every input is converted to a 5-dimensional force vector by a fixed algebraic map (the D2 pipeline). CK stores the force pathway — not your words. Your words are yours. You choose whether to save your conversation locally or not. The force pathway is what CK learns from: a mathematical trace of the structural shape of what entered him, with the semantic content irreversibly projected out. ([WP43](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) proves this formally.)
 
 Everything is reproducible. All code runs offline. No account required. Get everything from GitHub — not the website.
+
+```bash
+git clone https://github.com/TiredofSleep/ck
+cd ck
+python ck_run.py        # All core theorems verified in < 1 second
+python ck_sinc_demo.py  # Sinc² field visualization
+```
 
 ---
 

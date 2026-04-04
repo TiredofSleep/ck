@@ -42,12 +42,22 @@ The dog target is separate (`targets/ck_fpga_dog/`).
 
 ---
 
+## Current Physical State (2026-04-04)
+
+**Hardware connected and ready:**
+- JTAG: USB cable connected, jumper set
+- Ethernet PL: RJ45 connected to R16 network
+- HDMI: connected
+
+**Gen12 bitstream and bring-up doc are in `ck_fpga_dog/` target.**
+→ Read `Gen12/targets/ck_fpga_dog/BRINGUP.md` for the full sequence.
+
 ## Next Steps
 
-1. **Verify Δ⁰** — flash `ck_full.bit`, confirm 50Hz heartbeat on ARM UART output
-2. **Add coherence telemetry** — stream current coherence + gait state over UART to R16 host
-3. **Gen12 HDL target** — new `Gen12/targets/fpga/hdl/` with simplex geometry explicitly named in comments
-4. **Sync from Gen9** — copy current working HDL into Gen12 fpga target
+1. Flash `Gen12/targets/ck_fpga_dog/build/ck_gen12.bit` via `program_gen12.tcl`
+2. Confirm LED1 blinking (Δ⁰ heartbeat), LED2 state (Δ³ when coherence ≥ T*)
+3. Run `ck_leash_test.py COM3 --verbose --no-servo`
+4. Connect Ethernet PL listener to CK engine port 7777
 
 ---
 
