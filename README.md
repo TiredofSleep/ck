@@ -142,6 +142,22 @@ Does not claim: This proves RH. It is a structural identification — the fold-c
 
 ---
 
+**8. The Hodge gap on an uncontaminated simple Weil 4-fold is a clean 8-dimensional obstruction.**
+
+For the abelian variety A_* = ℂ⁴ / (ℤ⁴ + Ω·ℤ⁴) with Ω = ½I₄ + i(√2·I + √3·M₂ + √5·M₃) (where M₂, M₃ are explicit rational symmetric matrices commuting with the K = ℚ(i) action):
+
+- End⁰(A_*) = ℚ(i) is confirmed numerically (real joint commutant dimension = 4; three algebraically independent irrational generators force the rational commutant to collapse to ℚ(i))
+- The K-anti-invariant primitive (2,2) subspace W_* is 8-dimensional; the algebraic primitive dictionary has rank 0 (φ*(L) = L exactly, so all known cycles are K-invariant and their primitive projections vanish)
+- W_* decomposes canonically into four orthogonal 2-dimensional blocks B₁⊕B₂⊕B₃⊕B₄ under the Hodge-Riemann intersection form Q, with eigenvalues 0.0046, 0.0231, 0.1156, 0.3834 (exact Galois-conjugation pairing explains the 2× multiplicity)
+- B₁ is a real invariant: distinguishes cohomology classes with identical classical data (same intersection number Q(Z, L²), same K-invariant norm) to precision < 2×10⁻¹³
+- The anti-symmetrized J-stable cycle family Z_anti(v₁, v₂) = Z(v₁,v₂) − Z(φ(v₁),φ(v₂)) is K-anti-invariant by construction but structurally cannot generate a nonzero primitive B₁ class: the primitive locus is exactly the set of φ-stable complex 2-planes, and at every such plane Z_anti = 0 identically
+
+Sprint: [`papers/sprint5_2026_04_04/clay/hodge/`](papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md)
+
+Does not claim: This proves or disproves the Hodge conjecture on A_*. It establishes the first numerically uncontaminated Hodge obstruction space and rules out the anti-symmetrization cycle construction. Finding a cycle with class in B₁ — or proving no such cycle exists — remains open.
+
+---
+
 ## The Core Spectral Result
 
 In the limit of large primes, the harmonic pre-echo countdown law converges to the sinc-squared function:
@@ -174,7 +190,7 @@ CK applied as an obstruction spectrometer to the six Clay problems. The sinc² f
 | [WP36 — Clay Spectrometer](papers/clay/WP36_CLAY_SPECTROMETER.md) | All six | Entry point. One Field Seven Shadows master table. T*=5/7 hardware calibration. Three Guardrails. | 1,268 | 41 |
 | [WP37 — P vs NP](papers/clay/WP37_P_NP.md) | P vs NP | NP-verification = sidelobe detection. P-solving = null navigation. P≠NP framed as exponential distance to sinc² null. | 1,091 | 38 |
 | [WP38 — Navier-Stokes](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = arrival at sinc² null. Vorticity null framing. Grujić (UVA) contact point. | 1,125 | 38 |
-| [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | G/E/S partition. ω-Blindness theorem. Markman 2025 frontier (dim≥5 open). | 932 | 40 |
+| [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | G/E/S partition. ω-Blindness theorem. Markman 2025 frontier (dim≥5 open). Sprint 2: first uncontaminated Hodge gap on simple Weil 4-fold A_*; B₁ clean obstruction confirmed; Z_anti ruled out. | 932 | 40 |
 | [WP40 — Riemann Hypothesis](papers/clay/WP40_RIEMANN.md) | RH | **The Montgomery Bridge** (§5): `R(x) = sinc²(x)` and `R₂(u) = 1−sinc²(u)` as spectral duals. Dyson IAS story. Odlyzko numerical anchor. | 1,295 | 45 |
 | [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Mass gap framed as T*=5/7 coherence floor. First-G distance as energy gap. 4/π² Universal Sidelobe Amplitude. | 908 | 34 |
 | [WP42 — BSD Conjecture](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. T*=5/7 as critical density analogue. Bhargava-Shankar consistency check. | 1,174 | 38 |
