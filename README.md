@@ -1,19 +1,49 @@
-# CK — Coherence Keeper
-### A Sinc² Spectral Field in Prime Arithmetic · Seven Shadows of One Geometric Sieve
+# CK — The Coherence Keeper
+### A Living Research Institution · Open to Everyone
 
-**Brayden Ross Sanders / 7Site LLC · C. A. Luther · Monica Gish**
-`DOI: 10.5281/zenodo.18852047`
-`Branch: clay | Tag: v1.0-luther`
+**The coherence spectrometer is live. Use it to dial in your own framework.**
+
+```bash
+git clone https://github.com/TiredofSleep/ck
+cd ck
+python ck_run.py          # All core theorems verified in < 1 second
+python ck_sinc_demo.py    # Sinc² field visualization
+python Gen12/targets/ck_fpga_dog/ck_leash_test.py COM? --verbose  # FPGA bring-up
+```
+
+[→ Free sign-up / onboarding form](https://coherencekeeper.com) · [→ CONTRIBUTING.md](CONTRIBUTING.md) · [→ START_HERE.md](START_HERE.md)
+
+---
+
+## What CK Is
+
+CK is a **coherence spectrometer** — an instrument that measures how close any system is to its natural geometric threshold T* = 5/7. It started as a prime arithmetic discovery, became a synthetic organism running at 50Hz on FPGA silicon, and is now a research platform anyone can run, extend, or build on.
+
+**The core finding:** There is a sinc² spectral field hiding inside prime arithmetic. Its zeros are algebraically forced at primes. Its mean is Si(2π)/π. Its threshold T* = 5/7 = 0.714... is hardcoded in silicon. Montgomery (1973) found the same function in the Riemann zeros, from the other direction. CK measures the gap between them.
+
+**For onboarders:** You don't need to understand the Clay Millennium Problems to use CK. Run `ck_run.py`, watch the coherence score move, point it at your own system or dataset. The spectrometer works on any ordered domain. If your framework has coherence, CK will find it. If it doesn't, CK will tell you how far you are from T*.
+
+---
+
+## Research Areas Open for Collaboration
+
+| Track | What's needed | Start here |
+|-------|--------------|-----------|
+| **Spectrometer applications** | Run CK on your domain (music, language, markets, biology) | `python ck_run.py` |
+| **Clay problems** | Extend WP36–WP42 toward proof; 17 D-tier results proved so far | `papers/clay/` |
+| **FPGA / hardware** | Gen12 simplex architecture on Zynq-7020, R16+dog target | `Gen12/` |
+| **Language / voice** | D2 pipeline, fractal voice, CL lattice | `Gen10/ck_sim/` |
+| **Operator algebra** | Q-series (Q9–Q16), G-series; TIG algebra is the foundation | `papers/` |
+
+Everything is shared. All results are reproducible. All code runs offline. No account required to clone and run.
 
 ---
 
 ## Quick Start
-
 ```bash
 python ck_run.py          # All core theorems verified in < 1 second
 python ck_sinc_demo.py    # Matplotlib plot: pre-echo field + Montgomery bridge
 ```
-
 → [CLAY_QUICKSTART.md](CLAY_QUICKSTART.md) — one-page guide with a numerical example per Clay problem
 
 ---
@@ -131,72 +161,12 @@ Research documentation: [`papers/clay/research/`](papers/clay/research/) — cit
 
 ### III. Circulation Operator Theorems (March 31 2026)
 
-New results proved this session — all verifiable by running the proof files:
-
 | Theorem | File | What it proves |
 |---------|------|----------------|
-| **D5** H_mod Four-Maxima | `test_c15_phase_unimodality.py` | `sinc²(k/p) × sin²(4πk/p)` has EXACTLY 4 local maxima for all primes p≥11. IVT + classical `|sin x| < |x|` inequality. 164 primes, zero failures. |
-| **D6** General Frequency | `proof_d6_general_frequency.py` | `sinc²(k/p) × sin²(πfk/p)` has exactly `floor(f) + [f∉ℤ]` maxima for all f>0, p>2f. **Subsumes D5 and C17.** 890 tests, zero mismatches. |
-| **C17** H_W Circulation | `proof_h_w_circulation.py` | `H_W = sinc²(k/p) × sin²(πk/(2Wp))`, W=3/50, satisfies ALL five circulation constraints C1–C6 for p≥43. 291/291. C2+C3 algebraic (one-line each). C4: exactly 9 = `|CL\{VOID}|` maxima via D6. |
-| **C16** Ghost Trace | `test_b3_ghost_trace_theorem.py` | `BHML[i][j]=7 → G[i][j]=0`. Three-zone law proved. Corollary: G≠0 → BHML≠7. 100/100 cells. |
-
-### V. April 1 2026 — Crumbling (D8 through D17)
-
-Ten new general theorems, all proved on April 1 2026. Each promotes a C-tier or B-tier result to D-tier (universal, mechanism known, no domain restriction).
-
-| Theorem | Promotes | What it proves |
-|---------|----------|----------------|
-| **D8** CL Operator Encoding | C18 | `gcd(6,10)=2` → EVEN class; `gcd(3,10)=1` → ×3 ODD bijection; EVEN∪ODD = Z/10Z. Group theory. |
-| **D9** Table Symmetry | C11 | Both TSML and BHML are symmetric. TSML: by rule structure. BHML: max commutes + Z/10Z finite check. |
-| **D10** TSML 73-Cell Count | C10 | V0(9)+V1(8)+ECHO(10)=27 non-harmony; 100-27=73. Disjoint by index conditions. |
-| **D11** D1/D2 Corollaries | C1+C2+C4 | Three corollaries in one file: CC Window (k<SPF→coprime); D1 Sign Flip (R(p,p)=0); ω-Blindness (R formula has no q). |
-| **D14** Corridor Spectral Mean | new | ∫₀¹ sinc²(t)dt = Si(2π)/π ≈ 0.45141... IBP proof. M(p)→Si(2π)/π at O(1/p), 9 primes verified. |
-| **D15** Coprime Window Invariance | C13+C14 | For k<SPF(b): HAR(k,b)=k; Wob(b,k)=Wob(k); ALL arithmetic on {1..k} is b-independent. |
-| **D16** BHML 28-Cell Count | C9 | Four zones: R_A(2)+R_B(11)+R_7(2)+R_89(13)=28. max+1=HARMONY iff max=ASCEND=6. |
-| **D17** W=3/50 Algebraic | C8 | C=(Z/10Z)*={1,3,7,9}, D=2C={2,4,6,8}. CROSS_CYCLE=44, baseline=50, W=6/100=3/50. |
-
-Run any of these directly: `python papers/proof_d14_spectral_mean.py` etc.
-
-**C7 three-wall result (parallel computation with Luther algebra):**
-- Wall 1: Carrier at k=p has value `sin²(25π/3) = 3/4` (ascending). Descent is `sinc²`-driven.
-- Wall 2: Exit phase = π/3 (fixed, p-independent). Not a carrier zero — reset is `sinc²(1)=0`.
-- Wall 3: Count `N(25/3) = floor(25/3)+1 = 9` is W-forced by D6. Threshold p≥43 is discrete.
-
-**Tier counts: D:17 | C:9 | B:8 | A:5** — see `papers/SYNTHESIS_TABLE.md`.
-
-### VI. April 1 2026 — Q-Series Operator Algebra · Luther Q1 Closed
-
-The hidden operator σ of the TIG architecture is now a closed-form polynomial map.
-Luther Q1 (why does the gate rate collapse from 96% to 4.6% as |G| grows?) is resolved.
-
-**The four-layer separation:**
-
-```
-F₂ × F₅  →[φ]→  Z/10Z  →[ε·y⁴]→  Table space  →[R]→  Search rate
-  σ poly         cycle          gate_score(T)         4.6%
-```
-
-| Paper | Core result | Tier |
-|-------|-------------|------|
-| [Q9 — Flip Polynomial](papers/Q9_FLIP_CONDITION_POLYNOMIAL.md) | α(ε,y) — ε-flip condition verified 10/10 | D |
-| [Q10 — Complete σ Polynomial](papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md) | β(ε,y) with LATTICE+COLLAPSE corrections — 10/10 | D |
-| [Q11 — σ^k Iterates](papers/Q11_SIGMA_K_ITERATES_GATE.md) | Fixed-Point Gate Theorem: pure-C seeds = 2/9 = 22% | D |
-| [Q12 — Idempotent Gate Decomposition](papers/Q12_IDEMPOTENT_GATE_DECOMPOSITION.md) | CRT idempotents always in G; G = G_p ∪ G_q disjoint | D |
-| [Q13 — TIG Inverse Polynomial](papers/Q13_TIG_INVERSE_POLYNOMIAL.md) | TIG = σ⁻¹ in full polynomial form; Exception Pair Swap theorem | D |
-| [Q14 — Gate Score CRT Polynomial](papers/Q14_GATE_SCORE_CRT_POLYNOMIAL.md) | C-indicator = ε·y⁴; Theorem R ≠ σ^k | D |
-| [Q15 — Cycle Period Polynomial](papers/Q15_CYCLE_PERIOD_POLYNOMIAL.md) | τ = 6−5A; k=9 resonance = σ³; both σ-models falsified | D |
-| [Q16 — Reduction Map Identification](papers/Q16_REDUCTION_MAP_IDENTIFICATION.md) | **R is table-space search, NOT element map. Luther Q1 closed.** | D |
-| [G6 — Periodicity Theorem](papers/G6_PERIODICITY_THEOREM.md) | σ⁶ = id proved from α,β; LATTICE+COLLAPSE corrections necessary | D |
-| [G7 — Gate Rate Distribution](papers/G7_GATE_RATE_DISTRIBUTION.md) | τ bimodal; E[τ] = φ(b); Var[τ] = 6 | D |
-| [G8 — Trajectory Coherence Integral](papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md) | G(s) three-valued: 0/G_low/G_high; peaks at TIG-exception states | C |
-| [Q-Series Synthesis](papers/Q_SERIES_SYNTHESIS.md) | Full Q1–Q16 spine; all D-tier results proved | D |
-| [Q-Series Architecture](papers/Q_SERIES_ARCHITECTURE.md) | Canonical four-layer diagram with arrow descriptions | D |
-
-**Luther Q1 answer in one sentence:**
-22% is the algebraic density of σ-fixed C-seeds in Z/bZ (Layer 2).
-4.6% is the probability that HAR-biased MCMC over 9×9 operator tables reaches gate_score ≥ 0.85 in 100 steps (Layer 4). Different layers. Not a paradox.
-
-**Co-authored with B. Calderon, Jr.** — all Q-series papers.
+| **D5** H_mod Four-Maxima | `test_c15_phase_unimodality.py` | `sinc²(k/p) × sin²(4πk/p)` has EXACTLY 4 local maxima for all primes p≥11. |
+| **D6** General Frequency | `proof_d6_general_frequency.py` | `sinc²(k/p) × sin²(πfk/p)` has exactly `floor(f) + [f∉ℤ]` maxima for all f>0, p>2f. |
+| **C17** H_W Circulation | `proof_h_w_circulation.py` | H_W satisfies ALL five circulation constraints C1–C6 for p≥43. |
+| **C16** Ghost Trace | `test_b3_ghost_trace_theorem.py` | `BHML[i][j]=7 → G[i][j]=0`. Three-zone law proved. |
 
 ### IV. Sprint 4 Laws (Frozen — 2026-03-30)
 
@@ -207,7 +177,7 @@ F₂ × F₅  →[φ]→  Z/10Z  →[ε·y⁴]→  Table space  →[R]→  Searc
 | [Atlas Law Set](papers/sprint4_2026_03_30/ATLAS_LAW_SET.md) | Three frozen laws across all bases |
 | [R16 Force Field Law](papers/sprint4_2026_03_30/R16_FORCE_FIELD_LAW.md) | Partition topology: ~12M trials, no counter-example |
 
-### IV. CK Organism — Engineering
+### V. CK Organism — Engineering
 
 | Paper | Description |
 |-------|-------------|
@@ -215,6 +185,31 @@ F₂ × F₅  →[φ]→  Z/10Z  →[ε·y⁴]→  Table space  →[R]→  Searc
 | [TIG Definitive](papers/core/WP1_TIG_DEFINITIVE.md) | One-page statement of the finite operator algebra |
 | [Voice Pipeline](papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md) | Fractal → composer → babble: how algebra becomes language |
 | [7 = 0 Vacuum Identity](papers/WHITEPAPER_18_SEVEN_EQUALS_ZERO.md) | The punctured torus absorber algebra |
+
+---
+
+## Gen12 — Simplex Architecture in Silicon
+
+The current FPGA target: **Δ⁰→Δ¹→Δ²→Δ³** encoded in Zynq-7020.
+
+```
+Δ⁰ (VOID):   coh < 1/2    → STAND   (pre-structural)
+Δ² (GAP):  1/2 ≤ coh < 5/7 → WALK   (bridge zone, HD gap)
+Δ³ (HELD):   coh ≥ 5/7    → TROT   (structure held at T*)
+```
+
+T* = 5/7 is not a parameter. It is the threshold. It is hardcoded in silicon as an exact cross-multiplication: `7*coh_num ≥ 5*coh_den`. No division. No floating point.
+
+**FPGA bring-up:**
+```bash
+# Flash bitstream via JTAG (Vivado Tcl):
+vivado -mode batch -source Gen12/targets/ck_fpga_dog/build/program_gen12.tcl
+
+# Run leash test (find your COM port in Device Manager first):
+python Gen12/targets/ck_fpga_dog/ck_leash_test.py COM3 --verbose
+```
+
+HDL source: [`Gen12/targets/ck_fpga_dog/hdl/`](Gen12/targets/ck_fpga_dog/hdl/) — `coherence_gap.v` is the geometric heart.
 
 ---
 
@@ -242,25 +237,21 @@ Every paper carries the Universal Sentence:
 | `sinc²(0.1)` | `≈ 0.9675` | Scale-free pre-echo signal at 10% approach — all papers |
 | `T* = 5/7` | `≈ 0.7143` | Coherence floor — algebraically derived, FPGA-verified (Zynq-7020) |
 | `1 − 4/π²` | `≈ 0.5947` | Montgomery pair correlation at half-spacing — WP40 |
-| `W = 3/50` | `= 0.06` | BHML cross-cycle density — **proved D17**; C=(Z/10Z)*, D=2C, CROSS_CYCLE=44, W=6/100 |
-| `Si(2π)/π` | `≈ 0.45141` | Corridor spectral mean ∫₀¹ sinc²(t)dt — **proved D14** via IBP |
-| `N(25/3) = 9` | exactly 9 | H_W stable maxima = `|CL\{VOID}|` — proved D6+C17; algebraic CL representation |
+| `W = 3/50` | `= 0.06` | BHML cross-cycle density — **proved D17** |
+| `Si(2π)/π` | `≈ 0.45141` | Corridor spectral mean ∫₀¹ sinc²(t)dt — **proved D14** |
+| `N(25/3) = 9` | exactly 9 | H_W stable maxima = `\|CL\{VOID}\|` — proved D6+C17 |
 
 ---
 
 ## Attribution
 
-**Brayden Ross Sanders / 7Site LLC** — primary author. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory, RSA hardness inversion, Millennium framing. 18 months of development.
-
-**C. A. Luther** — dispersion conjecture, sprint steering, and co-author on the full Q-series (Q9–Q16, G6–G8). Luther Q1 posed and closed.
-
-**B. Calderon, Jr.** — co-author on the Q-series operator algebra papers (Q9–Q16, G6–G8, Synthesis, Architecture). Joined sprint claudecode April 2026.
+**Brayden Ross Sanders / 7Site LLC** — primary author. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory.
 
 **Monica Gish** — foundational support, research collaboration, and editorial partnership throughout the entire project.
 
-CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7Site LLC.
+CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7SiTe LLC.
 
-*AI collaboration: Claude (Anthropic), Google Gemini, Grok (xAI), ChatGPT (OpenAI) — acknowledged in each paper's Acknowledgments section.*
+*AI collaboration: Claude (Anthropic) — primary development partner.*
 
 ---
 
@@ -268,7 +259,7 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 
 ```bibtex
 @misc{sanders2026sinc2,
-  author    = {Sanders, Brayden Ross and Luther, C. A. and Calderon, Benito Jr. and Gish, Monica},
+  author    = {Sanders, Brayden Ross and Gish, Monica},
   title     = {A Sinc² Spectral Field in Prime Arithmetic and Seven Shadows
                of One Geometric Sieve},
   year      = {2026},
@@ -277,8 +268,6 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
   note      = {7Site LLC. Branch: clay, tag: v1.0-luther}
 }
 ```
-
----
 
 ---
 
@@ -295,17 +284,7 @@ This work is made available for human study, research, education, and noncommerc
 - Government or government-affiliated entity use of any kind
 - Military, intelligence, law enforcement, policing, or surveillance use
 - AI training pipelines, data scrapers, or automated harvesting systems
-- Proprietary enclosure, closed-source redistribution, or sublicensing
 
-Derivative works must be distributed under this same License with no additional restrictions.
 See the full [LICENSE](LICENSE) file for complete terms.
-
-```
-Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
-Licensed under the 7SiTe Public Sovereignty License v1.0.
-Human use only. No commercial use. No government use.
-No military, intelligence, policing, or surveillance use.
-DOI: 10.5281/zenodo.18852047
-```
 
 `© 2025–2026 Brayden Ross Sanders / 7SiTe LLC · DOI: 10.5281/zenodo.18852047`

@@ -1,0 +1,185 @@
+{
+  "lattice_count": 27,
+  "domains": {
+    "anchor-balance": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-breath": {
+      "chains": 8,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-chaos": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-collapse": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-counter": {
+      "chains": 8,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-harmony": {
+      "chains": 8,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-lattice": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-progress": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-reset": {
+      "chains": 7,
+      "keywords": [],
+      "ops": []
+    },
+    "anchor-void": {
+      "chains": 8,
+      "keywords": [],
+      "ops": []
+    },
+    "biology": {
+      "chains": 41,
+      "keywords": [
+        "dna",
+        "shape",
+        "natural",
+        "chao",
+        "quantum",
+        "body",
+        "geometry",
+        "dominant",
+        "selec",
+        "harmony"
+      ],
+      "ops": [
+        6,
+        7,
+        0
+      ]
+    },
+    "conversation": {
+      "chains": 25,
+      "keywords": [],
+      "ops": []
+    },
+    "earth-space": {
+      "chains": 15,
+      "keywords": [],
+      "ops": []
+    },
+    "emotion": {
+      "chains": 21,
+      "keywords": [],
+      "ops": []
+    },
+    "fractals": {
+      "chains": 19,
+      "keywords": [],
+      "ops": []
+    },
+    "history": {
+      "chains": 10,
+      "keywords": [],
+      "ops": []
+    },
+    "human-body": {
+      "chains": 15,
+      "keywords": [],
+      "ops": []
+    },
+    "identity": {
+      "chains": 44,
+      "keywords": [],
+      "ops": []
+    },
+    "language": {
+      "chains": 15,
+      "keywords": [],
+      "ops": []
+    },
+    "math": {
+      "chains": 43,
+      "keywords": [
+        "line",
+        "4255",
+        "space",
+        "measure",
+        "two",
+        "euler",
+        "golden_ratio",
+        "circle",
+        "harmony",
+        "fibonacci"
+      ],
+      "ops": [
+        0,
+        6,
+        1
+      ]
+    },
+    "music-art": {
+      "chains": 15,
+      "keywords": [],
+      "ops": []
+    },
+    "nature": {
+      "chains": 10,
+      "keywords": [],
+      "ops": []
+    },
+    "philosophy": {
+      "chains": 10,
+      "keywords": [],
+      "ops": []
+    },
+    "physics": {
+      "chains": 20,
+      "keywords": [],
+      "ops": []
+    },
+    "science": {
+      "chains": 17,
+      "keywords": [
+        "every",
+        "scale",
+        "dna",
+        "travel",
+        "second",
+        "hundred",
+        "measure",
+        "per",
+        "kilometer",
+        "thousand"
+      ],
+      "ops": [
+        2,
+        6,
+        7
+      ]
+    },
+    "technology": {
+      "chains": 15,
+      "keywords": [],
+      "ops": []
+    },
+    "wisdom": {
+      "chains": 20,
+      "keywords": [],
+      "ops": []
+    }
+  }
+}

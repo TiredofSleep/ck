@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-02-21 16:24:21",
+  "sense": {
+    "platform": {
+      "os": "Windows",
+      "arch": "AMD64",
+      "bits": 64,
+      "python": "3.13.7",
+      "node": "TiredofSleep",
+      "os_op": 6,
+      "arch_op": 3,
+      "platform_op": 7
+    },
+    "compilers": [
+      "msvc"
+    ],
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "gpu_cuda": true,
+    "packages": {
+      "psutil": true,
+      "numpy": true,
+      "cupy": true
+    },
+    "native_lib": true
+  },
+  "classification": {
+    "mode": "NATIVE_FULL",
+    "mode_op": "HARMONY",
+    "capability_fuse": "HARMONY",
+    "capability_coherence": 1.0,
+    "capability_shape": "JAGGED"
+  },
+  "boot_config": {
+    "auto_start_daemon": true,
+    "port": 7777,
+    "tick_ms": 100,
+    "verbose": false,
+    "open_browser": true,
+    "observe_only": false,
+    "report_every": 100
+  }
+}

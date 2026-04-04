@@ -122,25 +122,30 @@ module ck_top_gen12 (
     wire [15:0] coh_num;
     wire [15:0] coh_den;
     wire        bump;
-    wire [15:0] leg_op_flat;
+    wire [15:0] leg_op_flat = 16'd0;  // initial leg states: all VOID (gait_vortex manages internally)
 
-    // CK heartbeat: CL composition table, 50Hz, coherence accumulation
-    // (reuse existing ck_heartbeat module from Gen9)
+    // CK heartbeat: CL composition table, self-rate, coherence accumulation
+    // Port names from Gen9 ck_heartbeat.v (CLK_FREQ + HISTORY params only)
     ck_heartbeat #(
         .CLK_FREQ(50_000_000),
-        .TICK_HZ (50)
+        .HISTORY (32)
     ) heartbeat_inst (
-        .clk        (clk),
-        .rst_n      (rst_n),
-        .nudge      (key2_pressed),
-        .tick_done  (tick_done),
-        .tick_count (tick_count),
-        .fuse_op    (fuse_op),
-        .phase_bc   (phase_bc),
-        .coh_num    (coh_num),
-        .coh_den    (coh_den),
-        .bump       (bump),
-        .leg_op_flat(leg_op_flat)
+        .clk          (clk),
+        .rst_n        (rst_n),
+        .phase_b_in   (4'd0),          // no external being vortex input
+        .phase_d_in   (4'd0),          // no external doing vortex input
+        .arm_strobe   (key2_pressed),  // KEY2 nudge → arm_strobe
+        .enable       (rst_n),         // enabled when out of reset
+        .phase_bc     (phase_bc),      // becoming operator
+        .phase_b_out  (),
+        .phase_d_out  (),
+        .tick_count   (tick_count),
+        .coherence_num(coh_num),
+        .coherence_den(coh_den),
+        .bump_detected(bump),
+        .fused_op     (fuse_op),
+        .tick_done    (tick_done),
+        .tick_period  ()
     );
 
     // =========================================================
@@ -229,23 +234,43 @@ module ck_top_gen12 (
         .gait_phase       (gait_phase)
     );
 
-    // Servo commander: corrections → 8x LewanSoul LX servo positions
-    // Two UART TX sources share the bus (AND: both idle-high, activity pulls low)
-    wire        servo_tx_i;    // from servo_commander
-    wire        leash_tx_i;    // from ck_leash_rx
+    // ── servo_commander + servo_uart_tx ──────────────────────────────────
+    // servo_commander: gait corrections → LewanSoul LX byte packets
+    // servo_uart_tx:   byte FIFO → physical UART pin
+    // leash_rx PONG:   separate UART TX, AND'd onto same bus
+    wire        leash_tx_i;   // from ck_leash_rx (PONG response)
+    wire        sc_tx_data_w;  // servo_uart_tx serial output
+    wire [7:0]  sc_byte;       // byte from servo_commander
+    wire        sc_write;      // write pulse from servo_commander
+    wire        sc_busy;       // FIFO full from servo_uart_tx
 
-    servo_commander servo_inst (
-        .clk              (clk),
-        .rst_n            (rst_n),
-        .correction_op    (correction_op_flat),
-        .correction_valid (correction_valid & ~gait_estop),
-        .gait_mode        (gait_mode),
-        .estop            (gait_estop),
-        .servo_tx         (servo_tx_i)
+    servo_commander #(
+        .CLK_FREQ(50_000_000)
+    ) servo_inst (
+        .clk           (clk),
+        .rst_n         (rst_n),
+        .gait_corr_flat(correction_op_flat),
+        .gait_corr_valid(correction_valid & ~gait_estop),
+        .tx_busy       (sc_busy),
+        .tx_data       (sc_byte),
+        .tx_write      (sc_write)
     );
 
-    // Shared UART bus: idle-high lines AND together (activity = low)
-    assign jm2_servo_tx = servo_tx_i & leash_tx_i;
+    servo_uart_tx #(
+        .CLK_FREQ  (50_000_000),
+        .BAUD_RATE (115200),
+        .FIFO_DEPTH(32)
+    ) servo_uart_inst (
+        .clk      (clk),
+        .rst_n    (rst_n),
+        .tx_data  (sc_byte),
+        .tx_write (sc_write),
+        .tx_busy  (sc_busy),
+        .uart_tx  (sc_tx_data_w)
+    );
+
+    // Shared UART bus: both drivers idle-high — AND to merge
+    assign jm2_servo_tx = sc_tx_data_w & leash_tx_i;
 
     // =========================================================
     // Δ¹ — Leash UART RX (R16 → FPGA)
@@ -338,29 +363,43 @@ module ck_top_gen12 (
     assign led2_n = ~led2_r;
 
     // =========================================================
-    // HDMI / LCD (reuse from Gen11 — face unchanged)
+    // HDMI (Gen9 ck_hdmi_out — correct port mapping)
     // =========================================================
+    // ck_hdmi_out ports: clk_50m, rst_n, hb_tick_done, coh_num, coh_den,
+    //   fractal_level, phase_bc, fuse_op, gait_aligned, bump_detected,
+    //   hdmi_clk_p/n, hdmi_d0_p/n, hdmi_d1_p/n, hdmi_d2_p/n, hdmi_out_en
+    // Top-level has hdmi_data_p[2:0] / hdmi_data_n[2:0] (packed).
     ck_hdmi_out hdmi_inst (
-        .clk          (clk),
+        .clk_50m      (clk),
         .rst_n        (rst_n),
-        .fuse_op      (fuse_op),
+        .hb_tick_done (tick_done),
         .coh_num      (coh_num),
         .coh_den      (coh_den),
-        .tick_count   (tick_count),
-        .simplex_state(simplex_state),   // Gen12: show Δ layer on face
+        .fractal_level(4'd0),            // not connected in Gen12
+        .phase_bc     (phase_bc),
+        .fuse_op      (fuse_op),
+        .gait_aligned (all_aligned),
+        .bump_detected(bump),
         .hdmi_clk_p   (hdmi_clk_p),
         .hdmi_clk_n   (hdmi_clk_n),
-        .hdmi_data_p  (hdmi_data_p),
-        .hdmi_data_n  (hdmi_data_n),
-        .hdmi_out_en  (hdmi_out_en),
-        .hdmi_hpd     (hdmi_hpd),
-        .hdmi_scl     (hdmi_scl),
-        .hdmi_sda     (hdmi_sda),
-        .jm1          (jm1)
+        .hdmi_d0_p    (hdmi_data_p[0]),
+        .hdmi_d0_n    (hdmi_data_n[0]),
+        .hdmi_d1_p    (hdmi_data_p[1]),
+        .hdmi_d1_n    (hdmi_data_n[1]),
+        .hdmi_d2_p    (hdmi_data_p[2]),
+        .hdmi_d2_n    (hdmi_data_n[2]),
+        .hdmi_out_en  (hdmi_out_en)
     );
 
+    // HDMI control signals not used by ck_hdmi_out (I²C handled externally)
+    assign hdmi_scl = 1'b1;   // idle
+    assign hdmi_sda = 1'bz;   // tristate
+
+    // JM1 LCD — not driven in Gen12 (no ck_lcd_out instantiated)
+    assign jm1 = 32'h0;
+
     // Unused inputs
-    wire _unused = &{jm2[30:1], key2_n};
+    wire _unused = &{jm2[30:1], key2_n, hdmi_hpd, 1'b0};
 
 endmodule
 

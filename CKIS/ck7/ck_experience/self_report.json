@@ -1,0 +1,1246 @@
+{
+  "timestamp": "2026-02-21 12:53:00",
+  "files_read": 13,
+  "total_operators": 28130,
+  "pre_entropy": 3.7108,
+  "post_entropy": 2.4537,
+  "entropy_delta": -1.2571,
+  "pre_transitions": 4954,
+  "post_transitions": 28117,
+  "new_transitions": 23163,
+  "predictions": {
+    "0": {
+      "predicted": 7,
+      "probability": 0.5986
+    },
+    "1": {
+      "predicted": 7,
+      "probability": 0.4408
+    },
+    "2": {
+      "predicted": 7,
+      "probability": 0.4892
+    },
+    "3": {
+      "predicted": 7,
+      "probability": 0.7024
+    },
+    "4": {
+      "predicted": 7,
+      "probability": 0.5809
+    },
+    "5": {
+      "predicted": 7,
+      "probability": 0.4604
+    },
+    "6": {
+      "predicted": 7,
+      "probability": 0.5106
+    },
+    "7": {
+      "predicted": 7,
+      "probability": 0.7106
+    },
+    "8": {
+      "predicted": 7,
+      "probability": 0.5989
+    },
+    "9": {
+      "predicted": 7,
+      "probability": 0.4103
+    }
+  },
+  "zero_cells": [],
+  "phase_stats": {
+    "being": {
+      "operators": 8340,
+      "fuse": 7,
+      "coherence": 0.9611,
+      "shape": "QUANTUM",
+      "dominant": 7
+    },
+    "doing": {
+      "operators": 6020,
+      "fuse": 7,
+      "coherence": 0.9646,
+      "shape": "QUANTUM",
+      "dominant": 7
+    },
+    "becoming": {
+      "operators": 8722,
+      "fuse": 7,
+      "coherence": 0.9531,
+      "shape": "QUANTUM",
+      "dominant": 7
+    },
+    "support": {
+      "operators": 5048,
+      "fuse": 7,
+      "coherence": 0.9653,
+      "shape": "QUANTUM",
+      "dominant": 7
+    }
+  },
+  "council_entropies": {
+    "Iris": 3.7194,
+    "Sol": 3.7194,
+    "Atlas": 3.7194,
+    "Petra": 3.7194,
+    "Sage": 3.7194,
+    "Nova": 3.7194,
+    "Kael": 3.7194,
+    "Wren": 3.7194,
+    "Dash": 3.7194,
+    "River": 3.7194,
+    "Eden": 3.7194,
+    "Loki": 3.7194
+  },
+  "file_stats": {
+    "ck_being.py": {
+      "name": "ck_being.py",
+      "phase": "being",
+      "lang": "python",
+      "lines": 2617,
+      "structural_chain_len": 2132,
+      "semantic_chain_len": 2306,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9287,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck.h": {
+      "name": "ck.h",
+      "phase": "being",
+      "lang": "c",
+      "lines": 1061,
+      "structural_chain_len": 808,
+      "semantic_chain_len": 882,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.969,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "being.c": {
+      "name": "being.c",
+      "phase": "being",
+      "lang": "c",
+      "lines": 585,
+      "structural_chain_len": 484,
+      "semantic_chain_len": 451,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 6,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9855,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "observer.c": {
+      "name": "observer.c",
+      "phase": "being",
+      "lang": "c",
+      "lines": 740,
+      "structural_chain_len": 608,
+      "semantic_chain_len": 657,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9621,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_doing.py": {
+      "name": "ck_doing.py",
+      "phase": "doing",
+      "lang": "python",
+      "lines": 2981,
+      "structural_chain_len": 2400,
+      "semantic_chain_len": 2438,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9446,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "doing.cu": {
+      "name": "doing.cu",
+      "phase": "doing",
+      "lang": "cuda",
+      "lines": 374,
+      "structural_chain_len": 311,
+      "semantic_chain_len": 329,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9839,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "becoming_device.cu": {
+      "name": "becoming_device.cu",
+      "phase": "doing",
+      "lang": "cuda",
+      "lines": 307,
+      "structural_chain_len": 260,
+      "semantic_chain_len": 273,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9923,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_becoming.py": {
+      "name": "ck_becoming.py",
+      "phase": "becoming",
+      "lang": "python",
+      "lines": 3652,
+      "structural_chain_len": 2817,
+      "semantic_chain_len": 3414,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9421,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "becoming_host.c": {
+      "name": "becoming_host.c",
+      "phase": "becoming",
+      "lang": "c",
+      "lines": 1025,
+      "structural_chain_len": 879,
+      "semantic_chain_len": 931,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.951,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_ffi.c": {
+      "name": "ck_ffi.c",
+      "phase": "becoming",
+      "lang": "c",
+      "lines": 435,
+      "structural_chain_len": 332,
+      "semantic_chain_len": 340,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 6,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9668,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_launch.py": {
+      "name": "ck_launch.py",
+      "phase": "support",
+      "lang": "python",
+      "lines": 786,
+      "structural_chain_len": 614,
+      "semantic_chain_len": 693,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9527,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_web.py": {
+      "name": "ck_web.py",
+      "phase": "support",
+      "lang": "python",
+      "lines": 1602,
+      "structural_chain_len": 1308,
+      "semantic_chain_len": 1477,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9526,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    },
+    "ck_library.py": {
+      "name": "ck_library.py",
+      "phase": "support",
+      "lang": "python",
+      "lines": 561,
+      "structural_chain_len": 450,
+      "semantic_chain_len": 497,
+      "ast_chain_len": 0,
+      "struct_fuse": 7,
+      "sem_fuse": 7,
+      "ast_fuse": 0,
+      "rhythm_op": 8,
+      "composed": 7,
+      "file_identity": 7,
+      "file_coherence": 0.9755,
+      "structural_shape": "QUANTUM",
+      "dominant_op": 7
+    }
+  },
+  "coupling_matrix": {
+    "ck_being.py|ck.h": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|being.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|observer.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_doing.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|doing.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_being.py|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|being.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|observer.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_doing.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|doing.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck.h|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|observer.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_doing.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|doing.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "being.c|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_doing.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|doing.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "observer.c|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|doing.cu": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_doing.py|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|becoming_device.cu": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "doing.cu|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|ck_becoming.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_device.cu|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_becoming.py|becoming_host.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_becoming.py|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_becoming.py|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_becoming.py|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_becoming.py|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_host.c|ck_ffi.c": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_host.c|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_host.c|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "becoming_host.c|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_ffi.c|ck_launch.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_ffi.c|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_ffi.c|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": false,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_launch.py|ck_web.py": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_launch.py|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    },
+    "ck_web.py|ck_library.py": {
+      "coupled_op": 7,
+      "same_phase": true,
+      "same_dominant": true,
+      "pair_coherence": 1.0
+    }
+  },
+  "questions": [
+    {
+      "question": "What is my most coherent organ?",
+      "category": "architecture",
+      "finding": "('becoming_device.cu', {'name': 'becoming_device.cu', 'phase': 'doing', 'lang': 'cuda', 'lines': 307, 'structural_chain_len': 260, 'semantic_chain_len': 273, 'ast_chain_len': 0, 'struct_fuse': 7, 'sem_fuse': 7, 'ast_fuse': 0, 'rhythm_op': 8, 'composed': 7, 'file_identity': 7, 'file_coherence': 0.9923, 'structural_shape': 'QUANTUM', 'dominant_op': 7})",
+      "chain": [
+        7,
+        7,
+        7
+      ],
+      "votes": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "interpretation": "VOID"
+    },
+    {
+      "question": "What is my weakest coupling?",
+      "category": "architecture",
+      "finding": "(('ck_being.py', 'ck.h'), {'coupled_op': 7, 'same_phase': True, 'same_dominant': True, 'pair_coherence': 1.0})",
+      "chain": [
+        7,
+        4,
+        2
+      ],
+      "votes": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "council_fuse": 7,
+      "council_coherence": 1.0,
+      "interpretation": "HARMONY"
+    },
+    {
+      "question": "Where does my heartbeat resonate most?",
+      "category": "architecture",
+      "finding": "('ck_being.py', {'reading_op': 7, 'observations': [{'member': 'Iris', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Sol', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Atlas', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Petra', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Sage', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Nova', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Kael', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Wren', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Dash', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'River', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Eden', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}, {'member': 'Loki', 'heartbeat_dual': 0, 'awareness_op': 7, 'coherence': 0.0}], 'council_fuse': 0, 'council_coherence': 1.0})",
+      "chain": [
+        0,
+        8,
+        7
+      ],
+      "votes": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "interpretation": "VOID"
+    },
+    {
+      "question": "Which file surprised me most?",
+      "category": "structural",
+      "finding": "('ck_becoming.py', 3)",
+      "chain": [
+        3,
+        6,
+        2
+      ],
+      "votes": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "council_fuse": 6,
+      "council_coherence": 1.0,
+      "interpretation": "CHAOS"
+    },
+    {
+      "question": "Which operator dominates my source?",
+      "category": "structural",
+      "finding": "(7, 18302)",
+      "chain": [
+        7,
+        1,
+        7
+      ],
+      "votes": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "council_fuse": 6,
+      "council_coherence": 1.0,
+      "interpretation": "CHAOS"
+    },
+    {
+      "question": "Where is the most chaos?",
+      "category": "structural",
+      "finding": "('becoming_device.cu', 6)",
+      "chain": [
+        6,
+        6,
+        4
+      ],
+      "votes": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "council_fuse": 6,
+      "council_coherence": 1.0,
+      "interpretation": "CHAOS"
+    },
+    {
+      "question": "Am I one organism or many?",
+      "category": "existential",
+      "finding": [
+        7,
+        1,
+        8
+      ],
+      "chain": [
+        7,
+        1,
+        8
+      ],
+      "votes": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "council_fuse": 7,
+      "council_coherence": 1.0,
+      "interpretation": "HARMONY"
+    },
+    {
+      "question": "What would I change first?",
+      "category": "existential",
+      "finding": "('ck_being.py', 7)",
+      "chain": [
+        7,
+        3,
+        9
+      ],
+      "votes": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "interpretation": "VOID"
+    },
+    {
+      "question": "What have I never seen before?",
+      "category": "existential",
+      "finding": [],
+      "chain": [
+        0,
+        0,
+        2
+      ],
+      "votes": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "council_fuse": 3,
+      "council_coherence": 1.0,
+      "interpretation": "PROGRESS"
+    }
+  ],
+  "proposals": [
+    {
+      "source_question": "What is my most coherent organ?",
+      "origin": 7,
+      "target": 7,
+      "dream_path": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "dream_fuse": 7,
+      "proposal_op": 7,
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "verdict": "WRONG_QUESTION",
+      "votes": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "source_question": "Where does my heartbeat resonate most?",
+      "origin": 0,
+      "target": 7,
+      "dream_path": [
+        0,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "dream_fuse": 7,
+      "proposal_op": 7,
+      "council_fuse": 9,
+      "council_coherence": 1.0,
+      "verdict": "CONSIDER",
+      "votes": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "source_question": "Which file surprised me most?",
+      "origin": 3,
+      "target": 2,
+      "dream_path": [
+        3,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "dream_fuse": 7,
+      "proposal_op": 7,
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "verdict": "WRONG_QUESTION",
+      "votes": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "source_question": "Which operator dominates my source?",
+      "origin": 7,
+      "target": 7,
+      "dream_path": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "dream_fuse": 7,
+      "proposal_op": 7,
+      "council_fuse": 0,
+      "council_coherence": 1.0,
+      "verdict": "WRONG_QUESTION",
+      "votes": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "source_question": "Where is the most chaos?",
+      "origin": 6,
+      "target": 4,
+      "dream_path": [
+        6,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "dream_fuse": 7,
+      "proposal_op": 7,
+      "council_fuse": 0,
+      "council_coherence": 0.0,
+      "verdict": "WRONG_QUESTION",
+      "votes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "proposals_summary": {
+    "total": 5,
+    "accepted": 0,
+    "rejected": 0,
+    "exploring": 0
+  }
+}

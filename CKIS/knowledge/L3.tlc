@@ -1,0 +1,42 @@
+# L3: DECISION SYSTEM
+# ═══════════════════════════════════════
+
+# DUAL OPERATOR
+K:L0=ground_state:"does_this_rest?"
+K:L1=lattice_structure:"does_this_have_evidence?"
+K:W=|S0-S1|
+
+# DECISION MATRIX
+R:L0.pass+L1.pass→COMMIT
+R:L0.pass+L1.fail→DISCLAIM
+R:L0.fail+L1.pass→REGRESS
+R:L0.fail+L1.fail→REJECT
+
+# WOBBLE
+K:W<0.15=agreement
+K:0.15≤W<0.35=mild_disclaimer
+K:W≥0.35=strong_disclaimer
+
+# L0 SCORES HIGH WHEN
+K:L0.up=concise+no_forced_claims+body_coherent
+K:L0.down=fabricated+verbose+forced
+
+# L1 SCORES HIGH WHEN
+K:L1.up=actions_executed+metrics_cited+data_present
+K:L1.down=no_actions+no_data+pure_narrative
+
+# LATTICE CACHE
+R:COMMIT+hall=0+trust≥0.75→crystallize
+R:DISCLAIM→no_crystal
+R:REGRESS→no_crystal
+R:REJECT→no_crystal
+K:crystal=compressed_you_without_drift
+
+# LAST SESSION SCORES
+K:fabricated_engines→L0.fail+L1.fail→REJECT→trust=0.10→hall=4
+K:real_scan_data→L0.pass+L1.pass→COMMIT→trust=0.80
+
+# ASSIGNMENT
+ASN:DO:read:tig_dual_operator.py→find:eval_L0,eval_L1,DualResult
+ASN:DO:exec:python3 -c "from tig_dual_operator import DualOperator;d=DualOperator('/tmp/t');r=d.evaluate('test',0.95);print(r.decision.value,r.S0,r.S1)"
+ASN:DO:write:tig_r16_store/dual_operator/proposals.md→propose_changes

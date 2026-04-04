@@ -1,23 +1,19 @@
 /*
- * ck_leash_rx.v -- Δ¹ Leash UART: R16 ↔ FPGA
+ * ck_leash_rx.v -- Δ¹ Leash UART: R16 → FPGA
  * ============================================
- * Gen12: The Δ¹ line — first relationship between brain (R16) and body (FPGA).
+ * Gen12: Receives CK binary packets from R16 host.
+ * Responds to PING with PONG (14-byte echo response).
+ * Routes GAIT/ESTOP commands to gait controller.
  *
- * Protocol: [SYNC 'CK'][TYPE 1B][LEN 2B LE][PAYLOAD][CRC8]
- * Baud: 115200, 8N1
- * CRC: CRC8/MAXIM, polynomial 0x31, init 0x00
+ * Protocol: [SYNC 'C'][SYNC 'K'][TYPE 1B][LEN_LO][LEN_HI][PAYLOAD][CRC8]
+ * Baud: 115200, 8N1.  CRC8/MAXIM polynomial 0x31, init 0x00.
  *
- * Receives from R16:
- *   PKT_PING  (0x06): → PONG response (echo 8-byte timestamp)
- *   PKT_GAIT  (0x23): → gait_cmd[1:0], gait_valid pulse
- *   PKT_ESTOP (0x2E): → estop_cmd asserted
- *   PKT_OBSERVE (0x01): → absorbed (no response)
- *   Other: → ignored
+ * PKT_PING  (0x06): respond PONG (PKT_PONG=0x86, echo 8-byte timestamp)
+ * PKT_GAIT  (0x23): gait_cmd[1:0] ← payload[0][1:0], gait_valid pulse
+ * PKT_ESTOP (0x2E): estop_cmd ← 1 (cleared by GAIT or reset)
+ * Others:  silently absorbed
  *
- * Transmits to R16 (tx_out, shared servo UART bus):
- *   PKT_PONG  (0x86): 14 bytes, echoes PING timestamp
- *
- * NOTE: tx_out is idle-high. Caller ANDs with servo_tx for shared bus.
+ * tx_out is idle-high UART. AND with servo_tx at top level for shared bus.
  *
  * (c) 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry
  * Authors: Brayden Ross Sanders & Monica
@@ -32,420 +28,433 @@ module ck_leash_rx #(
     input  wire        clk,
     input  wire        rst_n,
 
-    // UART RX from R16
-    input  wire        uart_rx,
+    input  wire        uart_rx,       // UART RX from R16 (idle-high)
 
-    // Decoded command outputs
-    output reg  [1:0]  gait_cmd,      // decoded gait mode (STAND/WALK/TROT)
-    output reg         gait_valid,    // one-cycle pulse when gait_cmd updated
-    output reg         estop_cmd,     // level: 1 = E-STOP active from R16
+    output reg  [1:0]  gait_cmd,      // decoded gait mode
+    output reg         gait_valid,    // one-cycle pulse
+    output reg         estop_cmd,     // level: R16 E-STOP active
 
-    // State inputs (used to build STATE response — future)
-    input  wire [15:0] coh_num_in,
+    input  wire [15:0] coh_num_in,    // (reserved for future STATE response)
     input  wire [15:0] coh_den_in,
     input  wire [31:0] tick_in,
     input  wire [1:0]  simplex_in,
 
-    // UART TX (shared servo bus — idle high, AND with servo_tx at top level)
-    output wire        tx_out
+    output wire        tx_out         // UART TX (idle-high, shared bus)
 );
 
-    // =========================================================
-    // Constants
-    // =========================================================
-    localparam BIT_PERIOD = CLK_FREQ / BAUD;  // 434 @ 50MHz/115200
-    localparam HALF_BIT   = BIT_PERIOD / 2;   // 217
+    // ── Baud constants ───────────────────────────────────────────────────
+    localparam integer BIT_PER  = CLK_FREQ / BAUD;   // 434 clocks/bit @ 50M/115200
+    localparam integer HALF_PER = BIT_PER / 2;       // 217
 
-    // Packet type constants
-    localparam PKT_OBSERVE = 8'h01;
-    localparam PKT_PING    = 8'h06;
-    localparam PKT_GAIT    = 8'h23;
-    localparam PKT_ESTOP   = 8'h2E;
-    localparam PKT_PONG    = 8'h86;
+    // ── Packet type codes ────────────────────────────────────────────────
+    localparam [7:0] PKT_PING  = 8'h06;
+    localparam [7:0] PKT_GAIT  = 8'h23;
+    localparam [7:0] PKT_ESTOP = 8'h2E;
+    localparam [7:0] PKT_PONG  = 8'h86;
 
-    // Max payload we buffer (PING = 8 bytes timestamp)
-    localparam MAX_PAYLOAD = 8;
-
-    // =========================================================
-    // UART RX — 8N1
-    // =========================================================
-    // 2-FF synchronizer for async UART input
-    reg [1:0] rx_sync;
+    // ── UART RX ──────────────────────────────────────────────────────────
+    reg [1:0]  rx_sync;
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) rx_sync <= 2'b11;
         else        rx_sync <= {rx_sync[0], uart_rx};
     end
     wire rx_in = rx_sync[1];
 
-    reg [11:0] rx_baud_cnt;   // baud counter (up to BIT_PERIOD)
-    reg [3:0]  rx_bit_cnt;    // bit counter (0=start, 1-8=data, 9=stop)
-    reg [7:0]  rx_shift;      // shift register
-    reg        rx_busy;       // currently receiving a byte
-
-    reg        rx_byte_valid; // one-cycle pulse: rx_byte is ready
+    // Standard 8N1 byte receiver
+    reg [11:0] rx_cnt;
+    reg [3:0]  rx_bits;
+    reg [7:0]  rx_sr;
+    reg        rx_busy;
+    reg        rx_vld;
     reg [7:0]  rx_byte;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            rx_baud_cnt  <= 12'd0;
-            rx_bit_cnt   <= 4'd0;
-            rx_shift     <= 8'd0;
-            rx_busy      <= 1'b0;
-            rx_byte_valid<= 1'b0;
-            rx_byte      <= 8'd0;
+            rx_cnt  <= 12'd0; rx_bits <= 4'd0;
+            rx_sr   <= 8'h00; rx_busy <= 1'b0;
+            rx_vld  <= 1'b0;  rx_byte <= 8'h00;
         end else begin
-            rx_byte_valid <= 1'b0;
-
+            rx_vld <= 1'b0;
             if (!rx_busy) begin
-                // Wait for start bit (falling edge on idle-high line)
-                if (!rx_in) begin
-                    rx_busy     <= 1'b1;
-                    rx_baud_cnt <= 12'd0;
-                    rx_bit_cnt  <= 4'd0;
+                if (!rx_in) begin           // falling edge = start bit
+                    rx_busy <= 1'b1;
+                    rx_cnt  <= 12'd0;
+                    rx_bits <= 4'd0;
                 end
             end else begin
-                if (rx_baud_cnt < BIT_PERIOD - 1) begin
-                    rx_baud_cnt <= rx_baud_cnt + 12'd1;
+                if (rx_cnt < BIT_PER - 1) begin
+                    rx_cnt <= rx_cnt + 12'd1;
                 end else begin
-                    rx_baud_cnt <= 12'd0;
-                    if (rx_bit_cnt == 4'd0) begin
-                        // Start bit: verify it's still low, sample midpoint
-                        // (We started counting on the falling edge, now at center)
-                        // Advance past start bit
-                        rx_bit_cnt <= 4'd1;
-                        rx_baud_cnt <= 12'd0;
-                    end else if (rx_bit_cnt < 4'd9) begin
-                        // Data bits 1-8 (LSB first)
-                        rx_shift[rx_bit_cnt - 1] <= rx_in;
-                        rx_bit_cnt <= rx_bit_cnt + 4'd1;
+                    rx_cnt <= 12'd0;
+                    if (rx_bits == 4'd0) begin
+                        // Skip start bit center, move to bit 1
+                        rx_bits <= 4'd1;
+                    end else if (rx_bits <= 4'd8) begin
+                        rx_sr   <= {rx_in, rx_sr[7:1]};   // LSB first
+                        rx_bits <= rx_bits + 4'd1;
                     end else begin
                         // Stop bit
                         if (rx_in) begin
-                            // Valid stop bit → emit byte
-                            rx_byte       <= rx_shift;
-                            rx_byte_valid <= 1'b1;
+                            rx_byte <= rx_sr;
+                            rx_vld  <= 1'b1;
                         end
-                        // Either way, return to idle
-                        rx_busy    <= 1'b0;
-                        rx_bit_cnt <= 4'd0;
+                        rx_busy <= 1'b0;
+                        rx_bits <= 4'd0;
                     end
                 end
             end
         end
     end
 
-    // =========================================================
-    // Packet Parser
-    // =========================================================
-    // States
-    localparam [2:0]
-        PS_SYNC1   = 3'd0,  // Waiting for 'C' (0x43)
-        PS_SYNC2   = 3'd1,  // Waiting for 'K' (0x4B)
-        PS_TYPE    = 3'd2,  // Packet type byte
-        PS_LEN_LO  = 3'd3,  // Length low byte
-        PS_LEN_HI  = 3'd4,  // Length high byte
-        PS_PAYLOAD = 3'd5,  // Payload bytes
-        PS_CRC     = 3'd6;  // CRC byte
-
-    reg [2:0]  ps_state;
-    reg [7:0]  ps_type;
-    reg [7:0]  ps_len;        // effective length (min of actual and MAX_PAYLOAD)
-    reg [7:0]  ps_full_len;   // actual declared length
-    reg [7:0]  ps_idx;        // bytes received so far
-    reg [7:0]  ps_buf[0:MAX_PAYLOAD-1];  // payload buffer
-    reg [7:0]  ps_crc;        // running CRC8 over header+payload
-
-    // CRC8/MAXIM: polynomial 0x31, bit-by-bit
-    function [7:0] crc8_byte;
-        input [7:0] crc;
-        input [7:0] data;
+    // ── CRC-8/MAXIM (poly 0x31) ──────────────────────────────────────────
+    // Updated byte by byte with intermediate register
+    function [7:0] crc8_update;
+        input [7:0] crc_in;
+        input [7:0] din;
         reg [7:0] c;
-        integer j;
+        integer  k;
         begin
-            c = crc ^ data;
-            for (j = 0; j < 8; j = j + 1)
-                c = c[7] ? ((c << 1) ^ 8'h31) : (c << 1);
-            crc8_byte = c;
+            c = crc_in ^ din;
+            for (k = 0; k < 8; k = k + 1)
+                c = c[7] ? {c[6:0], 1'b0} ^ 8'h31 : {c[6:0], 1'b0};
+            crc8_update = c;
         end
     endfunction
 
-    // Packet complete event
-    reg pkt_complete;     // one-cycle pulse
-    reg pkt_crc_ok;       // CRC was valid
-    reg [7:0] pkt_type_r; // captured type
+    // ── Packet parser state machine ───────────────────────────────────────
+    localparam [2:0]
+        PS_S1  = 3'd0,   // wait for 'C'
+        PS_S2  = 3'd1,   // wait for 'K'
+        PS_TY  = 3'd2,   // type byte
+        PS_LL  = 3'd3,   // length low
+        PS_LH  = 3'd4,   // length high
+        PS_PL  = 3'd5,   // payload bytes
+        PS_CR  = 3'd6;   // crc byte
+
+    reg [2:0]  ps;
+    reg [7:0]  p_type;
+    reg [7:0]  p_len;        // capped payload length
+    reg [7:0]  p_full_len;   // declared payload length
+    reg [7:0]  p_idx;
+    reg [7:0]  crc_acc;
+
+    // Payload buffer – max 8 bytes (enough for PING 8-byte timestamp)
+    reg [7:0]  pbuf0, pbuf1, pbuf2, pbuf3;
+    reg [7:0]  pbuf4, pbuf5, pbuf6, pbuf7;
+
+    // Dispatch signals
+    reg        pkt_ok;       // pulse: good packet
+    reg [7:0]  pkt_type_r;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            ps_state    <= PS_SYNC1;
-            ps_type     <= 8'd0;
-            ps_len      <= 8'd0;
-            ps_full_len <= 8'd0;
-            ps_idx      <= 8'd0;
-            ps_crc      <= 8'd0;
-            pkt_complete<= 1'b0;
-            pkt_crc_ok  <= 1'b0;
-            pkt_type_r  <= 8'd0;
+            ps       <= PS_S1;
+            p_type   <= 8'd0; p_len <= 8'd0; p_full_len <= 8'd0;
+            p_idx    <= 8'd0; crc_acc <= 8'd0;
+            pbuf0 <= 8'd0; pbuf1 <= 8'd0; pbuf2 <= 8'd0; pbuf3 <= 8'd0;
+            pbuf4 <= 8'd0; pbuf5 <= 8'd0; pbuf6 <= 8'd0; pbuf7 <= 8'd0;
+            pkt_ok   <= 1'b0; pkt_type_r <= 8'd0;
         end else begin
-            pkt_complete <= 1'b0;
-
-            if (rx_byte_valid) begin
-                case (ps_state)
-                    PS_SYNC1: begin
-                        if (rx_byte == 8'h43) begin  // 'C'
-                            ps_crc   <= crc8_byte(8'h00, rx_byte);
-                            ps_state <= PS_SYNC2;
+            pkt_ok <= 1'b0;
+            if (rx_vld) begin
+                case (ps)
+                    PS_S1: begin
+                        if (rx_byte == 8'h43) begin   // 'C'
+                            crc_acc <= crc8_update(8'h00, rx_byte);
+                            ps <= PS_S2;
                         end
-                        // else stay in SYNC1
                     end
-
-                    PS_SYNC2: begin
-                        if (rx_byte == 8'h4B) begin  // 'K'
-                            ps_crc   <= crc8_byte(ps_crc, rx_byte);
-                            ps_state <= PS_TYPE;
-                        end else if (rx_byte == 8'h43) begin  // another 'C'
-                            ps_crc   <= crc8_byte(8'h00, rx_byte);
-                            // stay in SYNC2
+                    PS_S2: begin
+                        if (rx_byte == 8'h4B) begin   // 'K'
+                            crc_acc <= crc8_update(crc_acc, rx_byte);
+                            ps <= PS_TY;
+                        end else if (rx_byte == 8'h43) begin
+                            crc_acc <= crc8_update(8'h00, rx_byte);
                         end else begin
-                            ps_state <= PS_SYNC1;
+                            ps <= PS_S1;
                         end
                     end
-
-                    PS_TYPE: begin
-                        ps_type  <= rx_byte;
-                        ps_crc   <= crc8_byte(ps_crc, rx_byte);
-                        ps_state <= PS_LEN_LO;
+                    PS_TY: begin
+                        p_type  <= rx_byte;
+                        crc_acc <= crc8_update(crc_acc, rx_byte);
+                        ps <= PS_LL;
                     end
-
-                    PS_LEN_LO: begin
-                        ps_full_len <= rx_byte;
-                        ps_crc      <= crc8_byte(ps_crc, rx_byte);
-                        ps_state    <= PS_LEN_HI;
+                    PS_LL: begin
+                        p_full_len <= rx_byte;
+                        crc_acc    <= crc8_update(crc_acc, rx_byte);
+                        ps <= PS_LH;
                     end
-
-                    PS_LEN_HI: begin
-                        ps_crc <= crc8_byte(ps_crc, rx_byte);
-                        // Cap payload at MAX_PAYLOAD; ignore high byte (never > 8 for our pkts)
-                        if (ps_full_len == 8'd0) begin
-                            // Zero-length packet: go straight to CRC
-                            ps_len   <= 8'd0;
-                            ps_idx   <= 8'd0;
-                            ps_state <= PS_CRC;
+                    PS_LH: begin
+                        crc_acc <= crc8_update(crc_acc, rx_byte);
+                        // Cap at 8 bytes; ignore high length byte
+                        if (p_full_len == 8'd0) begin
+                            p_len  <= 8'd0;
+                            p_idx  <= 8'd0;
+                            ps <= PS_CR;
                         end else begin
-                            ps_len   <= (ps_full_len > MAX_PAYLOAD) ? MAX_PAYLOAD[7:0]
-                                                                     : ps_full_len;
-                            ps_idx   <= 8'd0;
-                            ps_state <= PS_PAYLOAD;
+                            p_len  <= (p_full_len > 8'd8) ? 8'd8 : p_full_len;
+                            p_idx  <= 8'd0;
+                            ps <= PS_PL;
                         end
                     end
-
-                    PS_PAYLOAD: begin
-                        // Buffer up to MAX_PAYLOAD bytes; compute CRC over all
-                        if (ps_idx < MAX_PAYLOAD)
-                            ps_buf[ps_idx[2:0]] <= rx_byte;
-                        ps_crc  <= crc8_byte(ps_crc, rx_byte);
-                        ps_idx  <= ps_idx + 8'd1;
-                        if (ps_idx + 8'd1 >= ps_full_len)
-                            ps_state <= PS_CRC;
+                    PS_PL: begin
+                        crc_acc <= crc8_update(crc_acc, rx_byte);
+                        // Store up to 8 payload bytes (flat regs, no array)
+                        if (p_idx == 8'd0) pbuf0 <= rx_byte;
+                        if (p_idx == 8'd1) pbuf1 <= rx_byte;
+                        if (p_idx == 8'd2) pbuf2 <= rx_byte;
+                        if (p_idx == 8'd3) pbuf3 <= rx_byte;
+                        if (p_idx == 8'd4) pbuf4 <= rx_byte;
+                        if (p_idx == 8'd5) pbuf5 <= rx_byte;
+                        if (p_idx == 8'd6) pbuf6 <= rx_byte;
+                        if (p_idx == 8'd7) pbuf7 <= rx_byte;
+                        p_idx <= p_idx + 8'd1;
+                        if (p_idx + 8'd1 >= p_full_len)
+                            ps <= PS_CR;
                     end
-
-                    PS_CRC: begin
-                        // rx_byte IS the CRC; check against accumulator
-                        pkt_type_r   <= ps_type;
-                        pkt_crc_ok   <= (rx_byte == ps_crc);
-                        pkt_complete <= 1'b1;
-                        ps_state     <= PS_SYNC1;
-                        ps_crc       <= 8'd0;
+                    PS_CR: begin
+                        pkt_type_r <= p_type;
+                        pkt_ok     <= (rx_byte == crc_acc);
+                        ps         <= PS_S1;
+                        crc_acc    <= 8'd0;
                     end
-
-                    default: ps_state <= PS_SYNC1;
+                    default: ps <= PS_S1;
                 endcase
             end
         end
     end
 
-    // =========================================================
-    // Command Dispatch
-    // =========================================================
-    reg ping_trigger;    // pulse: build and send PONG
-    reg [7:0] ping_ts[0:7]; // captured timestamp from PING
+    // ── Command dispatch ──────────────────────────────────────────────────
+    reg        ping_go;           // pulse: start PONG TX
+    reg [7:0]  pts0, pts1, pts2, pts3;   // captured PING timestamp
+    reg [7:0]  pts4, pts5, pts6, pts7;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            gait_cmd     <= 2'd0;
-            gait_valid   <= 1'b0;
-            estop_cmd    <= 1'b0;
-            ping_trigger <= 1'b0;
+            gait_cmd  <= 2'd0; gait_valid <= 1'b0;
+            estop_cmd <= 1'b0; ping_go    <= 1'b0;
+            pts0 <= 8'd0; pts1 <= 8'd0; pts2 <= 8'd0; pts3 <= 8'd0;
+            pts4 <= 8'd0; pts5 <= 8'd0; pts6 <= 8'd0; pts7 <= 8'd0;
         end else begin
-            gait_valid   <= 1'b0;
-            ping_trigger <= 1'b0;
-
-            if (pkt_complete && pkt_crc_ok) begin
+            gait_valid <= 1'b0;
+            ping_go    <= 1'b0;
+            if (pkt_ok) begin
                 case (pkt_type_r)
                     PKT_PING: begin
-                        // Capture timestamp for echo
-                        ping_ts[0] <= ps_buf[0]; ping_ts[1] <= ps_buf[1];
-                        ping_ts[2] <= ps_buf[2]; ping_ts[3] <= ps_buf[3];
-                        ping_ts[4] <= ps_buf[4]; ping_ts[5] <= ps_buf[5];
-                        ping_ts[6] <= ps_buf[6]; ping_ts[7] <= ps_buf[7];
-                        ping_trigger <= 1'b1;
+                        pts0 <= pbuf0; pts1 <= pbuf1;
+                        pts2 <= pbuf2; pts3 <= pbuf3;
+                        pts4 <= pbuf4; pts5 <= pbuf5;
+                        pts6 <= pbuf6; pts7 <= pbuf7;
+                        ping_go <= 1'b1;
                     end
-
                     PKT_GAIT: begin
-                        // payload[0] = gait mode (STAND=0, WALK=1, TROT=2)
-                        gait_cmd   <= ps_buf[0][1:0];
+                        gait_cmd   <= pbuf0[1:0];
                         gait_valid <= 1'b1;
+                        estop_cmd  <= 1'b0;
                     end
-
                     PKT_ESTOP: begin
-                        // Latch E-STOP. Cleared only by reset or GAIT command.
                         estop_cmd <= 1'b1;
                     end
-
-                    PKT_GAIT: begin
-                        // GAIT also clears ESTOP
-                        estop_cmd <= 1'b0;
-                    end
-
-                    default: ;  // PKT_OBSERVE and others: absorb silently
+                    default: ;
                 endcase
             end
         end
     end
 
-    // =========================================================
-    // PONG TX Builder + UART TX
-    // =========================================================
-    // PONG packet (PKT_PONG = 0x86, payload = 8-byte echo of PING timestamp):
-    //   bytes 0-1:  'C','K'  (0x43, 0x4B)
-    //   byte  2:    0x86     (PKT_PONG)
-    //   bytes 3-4:  0x08,0x00 (length = 8, little-endian)
-    //   bytes 5-12: timestamp echo [7:0]
-    //   byte  13:   CRC8 of bytes 0-12
-    // Total: 14 bytes
+    // ── PONG TX: 14-byte packet ───────────────────────────────────────────
+    // Packet: 0x43,0x4B,0x86,0x08,0x00,[ts0..ts7],[crc8]
+    // We build it into flat regs and shift out byte-by-byte via UART TX.
 
-    localparam PONG_BYTES = 14;
+    localparam [3:0]
+        TS_IDLE  = 4'd0,
+        TS_B0    = 4'd1,   // byte 0  = 0x43
+        TS_B1    = 4'd2,
+        TS_B2    = 4'd3,
+        TS_B3    = 4'd4,
+        TS_B4    = 4'd5,
+        TS_B5    = 4'd6,   // ts[0]
+        TS_B6    = 4'd7,
+        TS_B7    = 4'd8,
+        TS_B8    = 4'd9,
+        TS_B9    = 4'd10,
+        TS_B10   = 4'd11,
+        TS_B11   = 4'd12,
+        TS_B12   = 4'd13;  // ts[7]
+        // CRC byte sent in TS_IDLE→TS_B0 transition after crc ready
 
-    reg [7:0]  tx_buf  [0:PONG_BYTES-1];
-    reg [3:0]  tx_total;    // bytes to send (always PONG_BYTES=14)
-    reg [3:0]  tx_byte_idx; // current byte being sent
-    reg [3:0]  tx_bit_idx;  // bit within byte (0=start, 1-8=data, 9=stop)
-    reg [11:0] tx_baud_cnt;
-    reg        tx_busy;
-    reg        tx_reg;      // current TX output bit
+    // Build packet bytes in regs; shift out via UART TX
+    // Use a small FSM: state counts bytes 0..13, then done
+
+    // CRC over header+ts (computed combinatorially from pts regs after ping_go)
+    // We compute it in a pipeline of 13 clock cycles during TS_BUILD state
+
+    localparam [2:0]
+        TX_IDLE  = 3'd0,
+        TX_BUILD = 3'd1,   // compute CRC byte-by-byte
+        TX_SEND  = 3'd2;   // shift out bytes via UART
+
+    // 14 packet bytes stored flat
+    reg [7:0]  tb0,  tb1,  tb2,  tb3,  tb4,  tb5,  tb6;
+    reg [7:0]  tb7,  tb8,  tb9,  tb10, tb11, tb12, tb13;
+
+    reg [2:0]  tx_st;
+    reg [3:0]  tx_bidx;    // byte index 0..13
+    reg [3:0]  tx_bcnt;    // build index 0..12 (for CRC)
+    reg [7:0]  tx_crc;     // running CRC during build
+    reg [7:0]  tx_cur;     // current byte being sent
+
+    // UART TX shift register
+    reg [3:0]  tx_bit;     // 0=start, 1-8=data, 9=stop
+    reg [11:0] tx_cnt;
+    reg        tx_reg;
 
     assign tx_out = tx_reg;
 
-    // CRC accumulator for building TX packet
-    reg [7:0] tx_crc_accum;
+    // Mux to read tx_buf by index (flat regs need explicit mux)
+    function [7:0] pong_byte;
+        input [3:0] idx;
+        begin
+            case (idx)
+                4'd0:  pong_byte = 8'h43;
+                4'd1:  pong_byte = 8'h4B;
+                4'd2:  pong_byte = PKT_PONG;
+                4'd3:  pong_byte = 8'h08;
+                4'd4:  pong_byte = 8'h00;
+                4'd5:  pong_byte = 8'h00;  // ts0 (filled after build)
+                4'd6:  pong_byte = 8'h00;  // ts1
+                4'd7:  pong_byte = 8'h00;  // ts2
+                4'd8:  pong_byte = 8'h00;  // ts3
+                4'd9:  pong_byte = 8'h00;  // ts4
+                4'd10: pong_byte = 8'h00;  // ts5
+                4'd11: pong_byte = 8'h00;  // ts6
+                4'd12: pong_byte = 8'h00;  // ts7
+                4'd13: pong_byte = 8'h00;  // crc (filled after build)
+                default: pong_byte = 8'h00;
+            endcase
+        end
+    endfunction
 
-    // Build PONG packet when ping_trigger fires
-    // (this happens synchronously, takes one clock to latch)
-    localparam [2:0]
-        TS_IDLE   = 3'd0,
-        TS_BUILD  = 3'd1,   // filling tx_buf and computing CRC
-        TS_SEND   = 3'd2;   // shifting bytes out
+    // Build index → byte value (uses captured pts regs)
+    function [7:0] build_byte;
+        input [3:0] idx;
+        input [7:0] t0, t1, t2, t3, t4, t5, t6, t7;
+        begin
+            case (idx)
+                4'd0:  build_byte = 8'h43;
+                4'd1:  build_byte = 8'h4B;
+                4'd2:  build_byte = PKT_PONG;
+                4'd3:  build_byte = 8'h08;
+                4'd4:  build_byte = 8'h00;
+                4'd5:  build_byte = t0;
+                4'd6:  build_byte = t1;
+                4'd7:  build_byte = t2;
+                4'd8:  build_byte = t3;
+                4'd9:  build_byte = t4;
+                4'd10: build_byte = t5;
+                4'd11: build_byte = t6;
+                4'd12: build_byte = t7;
+                default: build_byte = 8'h00;
+            endcase
+        end
+    endfunction
 
-    reg [2:0]  ts_state;
-    reg [3:0]  build_idx;   // which byte we're building (0..13)
-
-    // Helper: CRC8 of the known-constant PONG header (bytes 0-4: CK,0x86,0x08,0x00)
-    // Pre-computed: CRC8(0x43,0x4B,0x86,0x08,0x00) = ?
-    // We compute at synthesis time via the function — but that only works in always blocks.
-    // Instead: build CRC incrementally in the TS_BUILD state.
+    // TX flat-reg mux (after build, tb regs hold final bytes)
+    function [7:0] tx_byte_mux;
+        input [3:0] idx;
+        input [7:0] b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13;
+        begin
+            case (idx)
+                4'd0:  tx_byte_mux = b0;  4'd1:  tx_byte_mux = b1;
+                4'd2:  tx_byte_mux = b2;  4'd3:  tx_byte_mux = b3;
+                4'd4:  tx_byte_mux = b4;  4'd5:  tx_byte_mux = b5;
+                4'd6:  tx_byte_mux = b6;  4'd7:  tx_byte_mux = b7;
+                4'd8:  tx_byte_mux = b8;  4'd9:  tx_byte_mux = b9;
+                4'd10: tx_byte_mux = b10; 4'd11: tx_byte_mux = b11;
+                4'd12: tx_byte_mux = b12; 4'd13: tx_byte_mux = b13;
+                default: tx_byte_mux = 8'hFF;
+            endcase
+        end
+    endfunction
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            ts_state    <= TS_IDLE;
-            build_idx   <= 4'd0;
-            tx_byte_idx <= 4'd0;
-            tx_bit_idx  <= 4'd0;
-            tx_baud_cnt <= 12'd0;
-            tx_busy     <= 1'b0;
-            tx_reg      <= 1'b1;   // idle high
-            tx_crc_accum<= 8'd0;
+            tx_st   <= TX_IDLE; tx_bidx <= 4'd0; tx_bcnt <= 4'd0;
+            tx_crc  <= 8'd0;    tx_cur  <= 8'hFF;
+            tx_bit  <= 4'd0;    tx_cnt  <= 12'd0; tx_reg <= 1'b1;
+            tb0 <=8'h43; tb1 <=8'h4B; tb2 <=PKT_PONG;
+            tb3 <=8'h08; tb4 <=8'h00; tb5 <=8'h00;
+            tb6 <=8'h00; tb7 <=8'h00; tb8 <=8'h00;
+            tb9 <=8'h00; tb10<=8'h00; tb11<=8'h00;
+            tb12<=8'h00; tb13<=8'h00;
         end else begin
+            case (tx_st)
 
-            case (ts_state)
-
-            TS_IDLE: begin
-                tx_reg  <= 1'b1;
-                tx_busy <= 1'b0;
-                if (ping_trigger) begin
-                    // Pre-fill constant header bytes
-                    tx_buf[0]  <= 8'h43;   // 'C'
-                    tx_buf[1]  <= 8'h4B;   // 'K'
-                    tx_buf[2]  <= PKT_PONG;
-                    tx_buf[3]  <= 8'h08;   // LEN low = 8
-                    tx_buf[4]  <= 8'h00;   // LEN high = 0
-                    // Timestamp bytes (dynamic)
-                    tx_buf[5]  <= ping_ts[0];
-                    tx_buf[6]  <= ping_ts[1];
-                    tx_buf[7]  <= ping_ts[2];
-                    tx_buf[8]  <= ping_ts[3];
-                    tx_buf[9]  <= ping_ts[4];
-                    tx_buf[10] <= ping_ts[5];
-                    tx_buf[11] <= ping_ts[6];
-                    tx_buf[12] <= ping_ts[7];
-                    // CRC byte 13 will be computed in TS_BUILD
-                    tx_crc_accum <= 8'h00;
-                    build_idx    <= 4'd0;
-                    ts_state     <= TS_BUILD;
+            TX_IDLE: begin
+                tx_reg <= 1'b1;
+                if (ping_go) begin
+                    // Latch constant header + timestamp
+                    tb0  <= 8'h43;   tb1  <= 8'h4B;
+                    tb2  <= PKT_PONG; tb3  <= 8'h08;
+                    tb4  <= 8'h00;   tb5  <= pts0;
+                    tb6  <= pts1;    tb7  <= pts2;
+                    tb8  <= pts3;    tb9  <= pts4;
+                    tb10 <= pts5;    tb11 <= pts6;
+                    tb12 <= pts7;    // tb13 = CRC, computed in BUILD
+                    tx_crc  <= 8'h00;
+                    tx_bcnt <= 4'd0;
+                    tx_st   <= TX_BUILD;
                 end
             end
 
-            TS_BUILD: begin
-                // Compute CRC8 over bytes 0..12, one byte per clock
-                if (build_idx < 4'd13) begin
-                    tx_crc_accum <= crc8_byte(tx_crc_accum, tx_buf[build_idx]);
-                    build_idx    <= build_idx + 4'd1;
+            TX_BUILD: begin
+                // Compute CRC8 over bytes 0..12 (one per clock)
+                if (tx_bcnt <= 4'd12) begin
+                    tx_crc  <= crc8_update(tx_crc,
+                                   build_byte(tx_bcnt,
+                                     pts0,pts1,pts2,pts3,pts4,pts5,pts6,pts7));
+                    tx_bcnt <= tx_bcnt + 4'd1;
                 end else begin
-                    // Store CRC in byte 13, begin transmission
-                    tx_buf[13]  <= tx_crc_accum;
-                    tx_byte_idx <= 4'd0;
-                    tx_bit_idx  <= 4'd0;
-                    tx_baud_cnt <= 12'd0;
-                    tx_busy     <= 1'b1;
-                    ts_state    <= TS_SEND;
+                    tb13   <= tx_crc;      // store final CRC
+                    tx_bidx <= 4'd0;
+                    tx_bit  <= 4'd0;
+                    tx_cnt  <= 12'd0;
+                    tx_cur  <= 8'h43;      // first byte = 'C'
+                    tx_st   <= TX_SEND;
                 end
             end
 
-            TS_SEND: begin
-                // One 8N1 UART byte per tx_byte_idx
-                // bit 0 = start (0), bits 1-8 = data LSB-first, bit 9 = stop (1)
-                if (tx_baud_cnt < BIT_PERIOD - 1) begin
-                    tx_baud_cnt <= tx_baud_cnt + 12'd1;
+            TX_SEND: begin
+                if (tx_cnt < BIT_PER - 1) begin
+                    tx_cnt <= tx_cnt + 12'd1;
                 end else begin
-                    tx_baud_cnt <= 12'd0;
-
-                    if (tx_bit_idx == 4'd0) begin
-                        // Start bit
-                        tx_reg     <= 1'b0;
-                        tx_bit_idx <= 4'd1;
-                    end else if (tx_bit_idx <= 4'd8) begin
-                        // Data bits: LSB first
-                        tx_reg     <= tx_buf[tx_byte_idx][tx_bit_idx - 1];
-                        tx_bit_idx <= tx_bit_idx + 4'd1;
+                    tx_cnt <= 12'd0;
+                    if (tx_bit == 4'd0) begin
+                        tx_reg <= 1'b0;       // start bit
+                        tx_bit <= 4'd1;
+                    end else if (tx_bit <= 4'd8) begin
+                        tx_reg <= tx_cur[tx_bit - 4'd1];  // data LSB first
+                        tx_bit <= tx_bit + 4'd1;
                     end else begin
-                        // Stop bit
-                        tx_reg <= 1'b1;
-                        tx_bit_idx <= 4'd0;
-                        if (tx_byte_idx < PONG_BYTES - 1) begin
-                            tx_byte_idx <= tx_byte_idx + 4'd1;
+                        tx_reg <= 1'b1;       // stop bit
+                        tx_bit <= 4'd0;
+                        if (tx_bidx < 4'd13) begin
+                            tx_bidx <= tx_bidx + 4'd1;
+                            tx_cur  <= tx_byte_mux(tx_bidx + 4'd1,
+                                         tb0,tb1,tb2,tb3,tb4,tb5,tb6,
+                                         tb7,tb8,tb9,tb10,tb11,tb12,tb13);
                         end else begin
-                            // Done
-                            tx_busy  <= 1'b0;
-                            ts_state <= TS_IDLE;
+                            tx_st <= TX_IDLE;  // all 14 bytes sent
                         end
                     end
                 end
             end
 
-            default: ts_state <= TS_IDLE;
+            default: tx_st <= TX_IDLE;
             endcase
         end
     end
 
-    // Unused inputs (prevent tool warnings)
+    // Prevent unused-port warnings
     wire _unused = &{coh_num_in, coh_den_in, tick_in, simplex_in, 1'b0};
 
 endmodule

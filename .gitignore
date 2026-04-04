@@ -1,4 +1,9 @@
-# Python
+# ============================================================
+# CK — The Coherence Keeper
+# .gitignore — what stays off GitHub
+# ============================================================
+
+# Python artifacts
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,17 +11,18 @@ __pycache__/
 *.egg
 *.egg-info/
 dist/
-build/
 .eggs/
 *.pyo
+*.pyc
 
 # Virtual environments
 .venv/
 venv/
 env/
 .env
+.env.local
 
-# Testing
+# Testing artifacts
 .pytest_cache/
 .coverage
 htmlcov/
@@ -24,25 +30,6 @@ htmlcov/
 
 # Jupyter
 .ipynb_checkpoints/
-
-# Generated outputs (keep scripts, not giant result dumps)
-results/*.png
-results/*.pdf
-papers/results/*.json
-sinc2_demo.png
-*.log
-*.bin
-*.dat
-
-# Runtime logs and boot outputs
-ck_boot_err.txt
-ck_boot_log.txt
-ck_7778.log
-ck_7778_err.log
-
-# Bible app (lives on bible-companion branch, not clay)
-bible_app/
-bible_response.json
 
 # IDE
 .vscode/
@@ -52,13 +39,101 @@ bible_response.json
 *.DS_Store
 Thumbs.db
 
-# Large data files not needed in repo
+# ============================================================
+# Large binary / compiled files
+# ============================================================
+
+# FPGA build artifacts (Vivado project output — multi-GB)
+*.bit
+*.ltx
+*.xsa
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.srcs/
+.Xil/
+vivado*.jou
+vivado*.log
+
+# Large data / model checkpoints
 *.npy
 *.npz
 *.hdf5
 *.h5
+CKIS/ck_store/phd_checkpoints/
+CKIS/ck_store/security/
+Gen10/papers/results/
 
-# API keys / secrets
+# Large runtime state JSON (regenerated on boot)
+CKIS/ck_store/stack.json
+CKIS/ck_store/transition_lattice.json
+ck_store/
+ck_daemon_log.jsonl
+
+# ============================================================
+# Old generation archives (Gen1-Gen8 are history, not source)
+# Gen9 lives at https://github.com/TiredofSleep/ck (Gen9 branch)
+# ============================================================
+Gen1/
+Gen2/
+Gen3/
+Gen4/
+Gen5/
+Gen6/
+Gen6b/
+Gen8/
+Gen9/
+
+# ============================================================
+# Runtime logs
+# ============================================================
+*.log
+*.log.*
+ck_boot_err.txt
+ck_boot_log.txt
+ck_7778.log
+ck_7778_err.log
+ck_*_err.log
+
+# ============================================================
+# Private / auto-generated text dumps
+# ============================================================
+_*_extracted.txt
+*.docx
+*.zip
+*.pdf
+CK_FILE_LIST.txt
+CK_ORGANISM_COMPLETE.txt
+CK_REUNIFICATION_MASTER.tlc
+*.dat
+*.bin
+
+# ============================================================
+# Claude Code internal settings (private session state)
+# ============================================================
+.claude/
+
+# ============================================================
+# Secrets / API keys
+# ============================================================
 .api_key
 *.secret
-.env.local
+*.pem
+*.key
+CKIS/ck_store/security/
+
+# ============================================================
+# Bible app (lives on bible-companion branch, not clay)
+# ============================================================
+bible_app/
+bible_response.json
+
+# ============================================================
+# Large generated result files
+# ============================================================
+sinc2_demo.png
+results/*.png
+results/*.pdf
+papers/results/*.json
+Gen10/papers/results/

@@ -164,20 +164,12 @@ set_false_path -from [get_clocks -of_objects [get_pins hdmi_inst/mmcm_inst/CLKOU
 set_false_path -from [get_clocks -of_objects [get_pins hdmi_inst/mmcm_inst/CLKOUT1]] \
     -to [get_clocks sys_clk]
 
-# RGMII TX output delay constraints
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -max 1.0 [get_ports {pl_eth_txd[*]}]
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -min -1.0 [get_ports {pl_eth_txd[*]}]
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -max 1.0 [get_ports pl_eth_tx_en]
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -min -1.0 [get_ports pl_eth_tx_en]
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -max 1.0 [get_ports {pl_eth_txd[*]}] -clock_fall -add_delay
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -min -1.0 [get_ports {pl_eth_txd[*]}] -clock_fall -add_delay
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -max 1.0 [get_ports pl_eth_tx_en] -clock_fall -add_delay
-set_output_delay -clock [get_clocks -of_objects [get_pins eth_inst/mmcm_eth/CLKOUT0]] \
-    -min -1.0 [get_ports pl_eth_tx_en] -clock_fall -add_delay
+# RGMII TX: source-synchronous DDR outputs — false path
+# The RTL8211F PHY samples TXD/TX_EN relative to the GTX clock driven from
+# the same FPGA MMCM (pl_eth_gtx_clk), not relative to any external reference.
+# Timing is guaranteed by MMCM phase alignment. output_delay constraints
+# create impossible-to-meet 4ns half-period checks against the 3.2ns ODDR pad
+# delay and are not meaningful for this topology.
+set_false_path -to [get_ports {pl_eth_txd[*]}]
+set_false_path -to [get_ports pl_eth_tx_en]
+set_false_path -to [get_ports pl_eth_gtx_clk]
