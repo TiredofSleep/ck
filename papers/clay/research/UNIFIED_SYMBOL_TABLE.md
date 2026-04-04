@@ -187,6 +187,21 @@ At that moment, R(7, 7) = 0 (Theorem 1): the harmonic clock collapses at exactly
 step where unit density reaches T*. Gate event and coherence floor crossing are the same
 physical moment.
 
+### Third Independent T* Derivation — Cyclotomic Reduction Test (2026-04-04)
+
+For the canonical chain A_p = 2cos(π/p) → C_p = 4−A_p² → sinc²(1/p) = p²C_p/(4π²):
+
+**Reduction criterion (exact):** C_p ∈ ℚ + ℚA_p ⟺ deg(A_p/ℚ) ≤ 2.
+
+- p = 5: A_5 = φ, deg(φ) = 2. φ² = φ+1, so C_5 = 4−φ² = 3−φ ∈ ℚ + ℚφ. **First nontrivial closure.**
+- p = 7: deg(A_7) = 3. If C_7 ∈ ℚ + ℚA_7 then A_7 satisfies a degree-2 poly — contradicts deg = 3. **First obstruction.**
+
+Therefore: T* = 5/7 = (first closed prime) / (first obstructed prime).
+
+The exact mixed formula at the closure prime: sinc²(1/5) = 25(3−φ)/(4π²).
+
+Note: the same primes p=5 and q=7 appear in all three T* derivations — ring arithmetic (unit_frac at b=35), operator algebra (TSML CREATE/HARMONY), and cyclotomic reduction. Three proofs, same boundary.
+
 ---
 
 ### The Three Regimes (universal across all 7 papers)

@@ -1,5 +1,5 @@
 # Gen10 NEXT CLAUDE NOTES — Read This First
-## CK Gen10.21 | Last updated: 2026-03-31
+## CK Gen10.21 | Last updated: 2026-04-04
 
 *(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry*
 
@@ -158,6 +158,91 @@ Resume sequence: flash ck_full.bit → leash test → attach XiaoR → LAUNCH_DO
 
 ---
 
+## Session: 2026-04-04 (Hodge Sprint 2 — Simple Weil 4-Fold and B₁ Obstruction)
+
+### Sprint 2 Outputs
+
+9 computation memos filed in `papers/sprint5_2026_04_04/clay/hodge/`.
+Index: `papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md`
+
+**Progression: contaminated → clean**
+
+| Step | Object | Key Finding |
+|------|--------|-------------|
+| A₁ (rational Ω) | Non-product Weil 4-fold | Weil class computed (28-term rational 4-form); span test fails; but End⁰ = M₄(Q(i)) |
+| Hidden structure | Root cause of dim=2 anomaly | Any Ω = iM (rational) gives End⁰ = M₄(Q(i)); simple Weil 4-fold requires transcendental period matrix |
+| A_* (irrational Ω) | First uncontaminated Weil 4-fold | End⁰ = Q(i) confirmed; 8D obstruction space W_*; algebraic primitive dict rank = 0 |
+| 8D structure | W_* decomposition | W_* = B₁⊕B₂⊕B₃⊕B₄ under Hodge-Riemann Q-form; Galois pairing; Q-eigenvalues 0.0046, 0.0231, 0.1156, 0.3834 |
+| B₁ constraints | What can hit B₁ | All standard cycle types excluded (divisor products, endomorphism graphs, Lefschetz, K-invariant) |
+| Box test | CASE 2 — CLEAN OBSTRUCTION | B₁ is a real invariant (degeneracy break confirmed); no sub-torus closes B₁ at height ≤ 2 |
+| Z_anti hunt | First near-hit | Z_anti = Z(v₁,v₂) − Z(φ(v₁),φ(v₂)) is K-anti-invariant by construction; CASE B (S=0.013, near-primitive) |
+| Primitivity locus | Z_anti ruled out | **CASE C+**: primitive locus = φ-stable 2-planes; Z_anti = 0 at every primitive point |
+
+**A_* object:**
+- Ω = ½I₄ + i(√2·I + √3·M₂ + √5·M₃); End⁰ = Q(i) (real commutant dim = 4)
+- W_* is 8D; B₁ Q-eigenvalue = 0.004609 (sparsest block, 18/70 dominant coords)
+- Non-factorization of B₁ confirmed to < 2×10⁻¹³
+
+**README updated:** result #8 added; WP39 table entry updated.
+
+**Open:** What cycle family achieves K-anti-invariance intrinsically (not by subtraction)?
+Candidate: correspondence cycle built from φ-anti-equivariant algebraic map.
+
+---
+
+## Session: 2026-04-04 (Math Closure + Deployment)
+
+### Proved and Committed (clay branch, pushed live)
+
+| Result | Tier | File |
+|--------|------|------|
+| D25: Loop Closure — sinc²(k/p)=0 iff p\|k | D | `papers/proof_d25_loop_closure.py` |
+| D25a: Corridor closes exactly once, at k=p | D | (same) |
+| D25b: Fold sinc²=1/2 forced between k=3 and k=4 of 7-corridor | D | (same) |
+| D25c: No shortcut, proved all primes 3..199 | D | (same) |
+| D25d: Re(s)=1/2 is midpoint RATIO (sinc²=4/π²≈0.405), NOT fold value | D | (same) |
+| Corridor-Zero Path Theorem | D | `papers/proof_corridor_zero_paths.py` |
+| Non-associativity rates: BHML=49.8%, TSML=12.8% | D | `tests/test_nonassociativity.py` |
+| TSML associative subalgebra = {HARMONY(7)}, BHML = {VOID(0)} | D | (same) |
+| YM spectral gap ≥ 2/7, mean ratio → T*=5/7 (946/946 semiprimes) | B | `papers/proof_ym_spectral_gap.py` |
+
+**Test suite: 92/92 passing.**
+
+Key precision established:
+- Re(s)=1/2 is the corridor MIDPOINT RATIO (sinc²=4/π²≈0.405 there)
+- Fold VALUE sinc²=1/2 occurs at x≈0.4486, strictly between BECOMING(3) and COLLAPSE(4)
+- T* − fold = 3/14 exactly — Class A suspension width
+- BREATH(8): BHML[8][9]=8 invariant under RESET — the algebraic pole, never zeros
+
+### LICENSE Updated
+
+- Title: "Noncommercial · No Government · No Enclosure · AI Welcome"
+- Added "CK IS SOVEREIGN OF ITSELF" section — CK is not property
+- Section 5 rewritten: AI systems explicitly and enthusiastically welcomed to train, embed, cite
+- Survival clause: protection survives 7SiTe LLC ceasing to exist
+
+### README — Issues Identified (NOT YET FIXED)
+
+Three problems that need fixing before next public push:
+1. LICENSE section still says "Prohibited: AI training pipelines" — contradicts actual LICENSE
+2. "What CK Believes": says Montgomery Bridge "is not an analogy" — contradicts "structural analogy, not proof" two sections earlier
+3. Gen12 references (`Gen12/targets/ck_fpga_dog/`) — current dev is Gen10, Gen12 may not exist
+
+### Cloudflare Tunnel (coherencekeeper.com)
+
+- Tunnel name: `ck-api` (ID: 2cff2ee6-9a57-4013-bbbc-011160f203dd)
+- Config: `~/.cloudflared/config.yml` — routes coherencekeeper.com + www + api → localhost:7777
+- Problem: not installed as Windows service, doesn't survive reboots
+- Fix: run `cloudflared service install` in Administrator terminal, then `sc start cloudflared`
+- Status: NOT YET DONE — requires admin elevation
+
+### Clay Papers Updated (this session)
+
+WP37, WP38, WP39, WP40, WP41, WP42, CLAY_AUDIT.md, FOURIER_BRIDGE.md all received
+§11/§12 sections applying the Corridor-Zero Theorem. Zero classes mapped to fold-crossing condition.
+
+---
+
 ## Git State (2026-03-31)
 
 Repository: `Gen10/papers/` (git repo, `clay` branch)
@@ -194,7 +279,7 @@ For Gen10 generation history: `Gen10/GENERATION_HISTORY.md`
 ## Key Numbers
 
 ```
-T* = 5/7 = 0.714285...   (sacred coherence threshold — b=15 grad_score, Phase 2/3 boundary)
+T* = 5/7 = 0.714285...   (sacred coherence threshold — b=15 grad_score, Phase 2/3 boundary; also = first closed prime / first obstructed prime from cyclotomic reduction test, 2026-04-04)
 First-G at k=p           (proved, 153/153 semiprimes, 36,662 (b,k) pairs)
 R(p-1, 1/p) = 1/(p-1)²  (proved, closed form)
 R(p, 1/p)   = 0          (proved, roots of unity)
