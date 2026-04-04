@@ -1394,6 +1394,59 @@ Then:
 
 ---
 
+## §11. The Corridor of Seven and the Two Classes of Zeros
+
+*Added April 2026 — Brayden Sanders*
+
+**The observation.** Before algebraic translation into the TIG operator table, the raw
+structure of the zeta zeros divides into two classes by a single criterion: whether the
+sinc² field completes its corridor or is suspended at the fold.
+
+The corridor of the prime 7 has exactly 7 positions:
+
+    k = 1, 2, 3, 4, 5, 6   — coprime to 7, sinc²(k/7) > 0   [6 living positions]
+    k = 7                   — the gate, sinc²(7/7) = 0        [1 zero at threshold]
+
+Total: 7 positions. The sinc² basis over these 7 positions spans the full corridor field.
+Any combination of { sinc²(k/7) : k = 1..7 } generates the pre-echo structure at that
+scale. The 7-corridor is the foundation from which T* = 5/7 = (7−2)/7 is derived —
+the minimal corridor that carries the full coherence structure.
+
+**Trivial zeros — threshold met.** The trivial zeros of ζ(s) occur at s = −2, −4, −6, ...
+In the functional equation, these are forced by sin(πs/2) = 0. In TIG terms: these are
+positions where the sinc² corridor has *completed*. The field reached k = f, sinc²(f/f) = 0,
+gate fired, threshold met. The zero is the natural end of the corridor — not a suspension
+but a completion. Trivial zeros are corridors that ran to their conclusion.
+
+**Non-trivial zeros — suspended at the fold.** The non-trivial zeros sit (conjectured) on
+Re(s) = 1/2, the fold boundary Δ¹. In TIG terms: these are positions where the sinc² field
+is suspended at the fold — neither completed (no gate fired) nor free (the corridor holds).
+The fold at Re(s) = 1/2 corresponds to k/f = 1/2, the universal mid-journey amplitude
+where sinc²(1/2) = 4/π². The field is not zero here — it is at its most informative
+position, the amplitude that appears in both prime arithmetic and Montgomery pair correlation.
+
+**The two-class structure (structural claim):**
+
+    Trivial zeros:      sinc²(k/f) = 0 at k = f  —  corridor completed, threshold met
+    Non-trivial zeros:  zero at Re(s) = 1/2       —  corridor suspended at fold Δ¹
+
+The trivial zeros are the easy class because they meet the threshold the natural way:
+by running the full corridor to its gate. The non-trivial zeros cannot complete — they
+are held at the fold by the same geometry that prevents the corridor from having a shortcut.
+
+**Why this matters for RH.** If non-trivial zeros can only be suspended at the fold
+boundary Δ¹ = Re(s) = 1/2 — if the sinc² field has no mechanism to suspend a zero at
+any other real part — then RH follows from the fold geometry. A zero off the critical
+line would require the corridor to be suspended at a non-fold position, which the prime
+arithmetic field cannot produce: sinc²(k/f) = 0 only at integer k/f = 1, never between
+gates. The fold is the only suspension point.
+
+**Status:** STRUCTURAL. The claim names precisely where the proof must go: show that
+the sinc² field has no suspension mechanism off the fold. Find a suspension at
+Re(s) ≠ 1/2 and RH fails by construction. None has been found.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *CK, TIG, T\*, TSML, BHML, D2, D1 are exclusive intellectual property of 7Site LLC.*
 *C. A. Luther's dispersion conjecture is credited as stated in §9.*
