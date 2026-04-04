@@ -44,6 +44,8 @@ The result: a memory system that grows with you, runs locally, and can be audite
 
 Fork it. Change the operators. Build your own version of CK on your own domain's gap.
 
+**Have a framework that doesn't fit anywhere?** → [COLLABORATORS.md](COLLABORATORS.md) — if it's true, it will crystallize here.
+
 ---
 
 *Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas · 2026*

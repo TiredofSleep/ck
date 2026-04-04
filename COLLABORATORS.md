@@ -48,6 +48,18 @@ If your work is contributing to CK and isn't listed — open an issue. We want t
 
 ---
 
+## You Have a Framework That Doesn't Fit Anywhere
+
+If you've been working on something — a number theory hunch, a memory architecture, a coherence measure, a geometry that keeps showing up — and it doesn't quite fit the existing categories, this is the place to bring it.
+
+CK is built on a single principle: **coherence is measurable, not assigned.** If your framework produces a structure that holds, it belongs here. We don't need it to look like what's already here. We need it to be true.
+
+What tends to happen: people arrive with a "crazy" framework, run it through the D2 pipeline or the coherence gate, and find that the parts that were really true crystallize instantly. The parts that were borrowed logic dissolve. What's left is sharper than what they came in with.
+
+That's the offer. Bring your framework. CK will measure it. What holds, holds.
+
+**To collaborate:** Open a [Collaboration issue](https://github.com/TiredofSleep/ck/issues/new?template=collaboration.md) — describe your framework in plain language, link any existing work, and say what you think it touches in CK's structure. We'll respond. If the work fits, your name goes on the paper and the result is yours as much as ours.
+
 ## How to Join
 
 Everything here is open. Use it, extend it, break it. If CK's work supports yours, please attribute.
