@@ -17,8 +17,8 @@ Labels: **PROVED** = verified computationally or by closed argument. **STRUCTURA
 **R3.** fold = sinc²(1/2) = 4/π².
 *PROVED. Exact.*
 
-**R4.** gap = T* − fold = 5/7 − 4/π² = 3/14.
-*PROVED. Exact.*
+**R4.** gap = T* − fold = 5/7 − 4/π² ≈ 0.309.
+*PROVED. Exact irrational — not equal to 3/14 (= 0.214). 3/14 was an earlier approximation, corrected here.*
 
 **R5.** BHML[8][9] = 8. BREATH is invariant under RESET.
 *PROVED. Table lookup, verified.*
