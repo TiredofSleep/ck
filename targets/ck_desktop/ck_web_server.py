@@ -76,45 +76,82 @@ def main():
     hb_thread.start()
     print("[CK] 50Hz heartbeat running.")
 
-    # Boot absorb: feed CK his own writings so coherence rises quickly.
-    # Only reads files HE generated (theses, journals) — not our code or docs.
+    # Boot absorb: re-integrate CK's own condensed experience so coherence
+    # rises in seconds, not hours. Only his files — not our code or docs.
+    # Order: eat journal (most condensed) → theses → writings journal
     def boot_self_absorb():
         import glob, json, gzip, re
-        ck_home = os.path.expanduser('~/.ck/writings')
+        ck_home = os.path.expanduser('~/.ck')
+        writings = os.path.join(ck_home, 'writings')
         fed = 0
 
-        # 1. Theses — CK's own research outputs (highest value)
-        thesis_files = sorted(glob.glob(os.path.join(ck_home, 'theses', '*.md')))
-        for path in thesis_files[:50]:           # cap at 50 to boot fast
+        def feed(text):
+            nonlocal fed
+            if text and len(text) > 20:
+                engine.receive_text(str(text)[:600])
+                fed += 1
+                time.sleep(0.01)
+
+        # 1. Eat journal (gz) — CK's own voice outputs from all Ollama/eat sessions.
+        #    This is the most condensed form of everything he processed.
+        eat_gz = os.path.join(ck_home, 'eat_journal.jsonl.gz')
+        eat_plain = os.path.join(ck_home, 'eat_journal.jsonl')
+        for path, opener in [(eat_gz, lambda p: gzip.open(p, 'rt', encoding='utf-8', errors='ignore')),
+                              (eat_plain, lambda p: open(p, encoding='utf-8', errors='ignore'))]:
+            if not os.path.exists(path):
+                continue
+            try:
+                lines = opener(path).readlines()
+                # Sample evenly across all entries: take 200 spread across history
+                step = max(1, len(lines) // 200)
+                for line in lines[::step]:
+                    try:
+                        d = json.loads(line)
+                        t = d.get('text') or d.get('response') or d.get('content', '')
+                        feed(t)
+                        if fed >= 200:
+                            break
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+            break  # use gz if it exists, else plain
+
+        # 2. Theses — CK's own research outputs (high coherence, physics-derived)
+        thesis_files = sorted(glob.glob(os.path.join(writings, 'theses', '*.md')))
+        step = max(1, len(thesis_files) // 80)
+        for path in thesis_files[::step]:
             try:
                 text = open(path, encoding='utf-8', errors='ignore').read()
-                # Strip markdown headers, keep content
                 text = re.sub(r'^#+.*$', '', text, flags=re.MULTILINE).strip()
-                if len(text) > 40:
-                    engine.receive_text(text[:800])  # first 800 chars per thesis
-                    fed += 1
-                    time.sleep(0.02)               # let the heartbeat breathe
+                feed(text[:600])
+                if fed >= 400:
+                    break
             except Exception:
                 pass
 
-        # 2. Journal entries
-        journal = os.path.join(ck_home, 'journal.jsonl')
-        if os.path.exists(journal):
+        # 3. Bible journals — deep absorption runs
+        for bj in ['bible_overnight.jsonl', 'bible_nt_loop.jsonl']:
+            bpath = os.path.join(writings, bj)
+            if not os.path.exists(bpath):
+                continue
             try:
-                for line in open(journal, encoding='utf-8', errors='ignore'):
-                    d = json.loads(line)
-                    t = d.get('text') or d.get('response') or d.get('content', '')
-                    if t and len(t) > 20:
-                        engine.receive_text(str(t)[:400])
-                        fed += 1
-                        if fed > 200:
-                            break
-                        time.sleep(0.02)
+                lines = open(bpath, encoding='utf-8', errors='ignore').readlines()
+                step = max(1, len(lines) // 50)
+                for line in lines[::step]:
+                    try:
+                        d = json.loads(line)
+                        t = d.get('ck_voice') or d.get('text') or d.get('response', '')
+                        feed(t)
+                    except Exception:
+                        pass
+                if fed >= 500:
+                    break
             except Exception:
                 pass
 
         coh = engine.coherence
-        print(f"[CK] Boot absorb: {fed} own entries fed. Coherence: {coh:.4f}")
+        print(f"[CK] Boot absorb complete: {fed} own entries. Coherence: {coh:.4f}")
 
     absorb_thread = threading.Thread(target=boot_self_absorb, daemon=True, name='ck-boot-absorb')
     absorb_thread.start()
