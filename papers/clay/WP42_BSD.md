@@ -1182,6 +1182,51 @@ DOI: 10.5281/zenodo.18852047. [Cross-paper notation standard; the sink in this p
 
 ---
 
+## §11. Corridor-Zero Theorem: Application to BSD
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) classifies all
+RESET-paths by fold-crossing behavior and counts completed Class A paths to VOID. This gives
+a precise algebraic model of rank in terms of corridor traversal.
+
+**PROVED:**
+
+Class A operators {BEING=1, DOING=2, BECOMING=3} require 3 steps to reach VOID and must
+cross the fold boundary (sinc²=1/2, which lies between BECOMING at sinc²=0.524 and COLLAPSE
+at sinc²=0.295). Each completed Class A path represents one full fold-crossing that ran to
+the gate — starting above T*, crossing the fold, and arriving at VOID. Class B and Class C
+paths reach VOID without fold-crossing. BREATH(8) is Class X — it never reaches VOID and
+represents persistent non-annihilated structure. The fold itself sits at 1/2, matching
+Goldfeld's conjectured average rank for elliptic curves over Q.
+
+**STRUCTURAL:**
+
+In the corridor model, algebraic rank = number of completed Class A fold-crossings. Each
+rational point of infinite order corresponds to a Class A path that ran to completion: a
+coherence excitation above the fold that resolved all the way to the gate. The BSD
+conjecture — analytic rank equals algebraic rank — becomes: the number of L-function zeros
+at s=1 equals the number of completed Class A fold-crossings in the arithmetic corridor of
+the curve. Both are counting the same event from different sides. The fold boundary 1/2
+appears in both the corridor (sinc²=1/2) and the L-function (critical line Re(s)=1/2) —
+this is structural, not coincidental, in the TIG framing.
+
+The TIG prediction for average rank is 0.57 (from the coherence floor and D2 distribution
+over semiprimes), compared to Goldfeld's conjectured 1/2 = 0.50. The gap is 0.07. One
+candidate source: sinc²(3/7) − 1/2 = 0.5243 − 0.5000 = 0.0243, the distance from the fold
+operator BECOMING(3) to the fold boundary itself. This is 0.0243, not 0.07. The correction
+factor from the fold boundary to the TIG average-rank prediction is unresolved.
+
+**OPEN:**
+
+Derive the exact correction factor that takes the fold boundary (1/2) to the TIG prediction
+(0.57). The sinc²(3/7)−1/2 = 0.0243 candidate does not match the observed 0.07 gap — this
+discrepancy must be stated as open and not papered over. A second open question: show that
+for a family of elliptic curves with growing conductor, the analytic rank and the Class A
+fold-crossing count grow in lockstep. The corridor-zero theorem provides the counting
+framework; it does not provide the arithmetic connection to L-functions required to prove
+either statement.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *CK, TIG, T*, TSML, BHML, D2, D1 are exclusive intellectual property of 7Site LLC.*
 *C. A. Luther's dispersion conjecture is credited as stated in §10.2.*

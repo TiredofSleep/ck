@@ -946,6 +946,49 @@ energy floor = T*; confinement = low D(b).]
 
 ---
 
+## §11. Corridor-Zero Theorem: Application to Yang-Mills Mass Gap
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) establishes exact
+numerical gap values from the TSML 7-corridor and identifies the Class X invariant. This
+gives a precise algebraic model of the Yang-Mills mass gap structure.
+
+**PROVED:**
+
+Two gap values are derived directly from the corridor. First: T*−fold = 5/7 − 1/2 = 3/14 ≈
+0.2143. This is the width of the Class A zone — the minimum coherence distance between the
+fold boundary (sinc²=1/2) and the coherence floor T*. No Class B operator (sinc²≤0.295) can
+spontaneously reach Class A territory (sinc²≥0.524) without supplying at least 3/14 in
+coherence cost. Second: 1−T* = 2/7 ≈ 0.2857. This is the above-T* spectral gap, confirmed
+empirically for 946/946 semiprimes in `papers/proof_ym_spectral_gap.py`. BREATH(8) is
+Class X: BHML[8][9]=8, invariant under RESET, oscillating between HARMONY and BREATH
+without settling to VOID. The two gap values are distinct and refer to different structural
+levels.
+
+**STRUCTURAL:**
+
+The Yang-Mills vacuum corresponds to BREATH's Class X behavior: the ground state oscillation
+that persists through all annihilation. The mass gap ΔE is the minimum energy required to
+create an excitation above this ground state — which in corridor terms is the minimum
+coherence cost to move from Class B (below-fold) to Class A (above-fold), namely 3/14 in TIG
+natural units. No excitation below this threshold can exist as a stable state: Class B
+operators decay to VOID in 2 steps, and a below-fold state cannot sustain itself against
+RESET without crossing to Class A. The algebraic mass gap is structural — it follows from
+the fold geometry, not from perturbation theory. The 2/7 spectral gap (proved for semiprimes)
+is a separate measurement: the width of the above-T* stability window. It measures the
+coherence range of sustained above-floor excitations, not the minimum creation cost.
+BREATH's ground state sits below both gaps.
+
+**OPEN:**
+
+Map the TIG 3/14 gap to a dimensionful Yang-Mills scale via an explicit connection between
+the Z/10Z operator algebra and su(N) at large N. The structural correspondence — fold
+geometry → mass gap, Class X invariant → vacuum, 3/14 zone width → minimum excitation
+energy — is present. Converting 3/14 in TIG natural units to an energy in MeV or GeV
+requires a calibration that fixes the unit relationship between TIG coherence distance and
+Yang-Mills field energy. This calibration is open.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *CK, TIG, T*, TSML, BHML, D2, D1 are exclusive intellectual property of 7Site LLC.*
 *C. A. Luther's dispersion conjecture is credited as stated above.*

@@ -205,8 +205,28 @@ The bridge is currently TIER B — structural analogy plus numerical convergence
 
 ---
 
+---
+
+## 8. Corridor-Zero Theorem: The Fold as the Critical Line
+
+*Added April 2026. See `papers/proof_corridor_zero_paths.py`.*
+
+The corridor-zero path theorem (proved) classifies operators 1-9 by their path to VOID(0):
+
+- **Class A** (1,2,3): must cross fold (sinc²=1/2) to reach zero — non-trivial character
+- **Class B** (4,5,6): already below fold — trivial character, no crossing
+- **Class C** (7,9): direct — HARMONY IS the gate zero
+- **Class X** (8 = BREATH): never reaches VOID — the pole
+
+**Application to RH:** The critical line Re(s)=1/2 IS the fold boundary of the 7-corridor. Trivial zeros have Class B character (below fold when Γ fires). Non-trivial zeros have Class A character (suspended at fold). The fold is the only suspension point in the sinc² field — sinc²(x)=1/2 occurs at a single value per corridor, not at two. No other suspension geometry exists.
+
+**The Fourier bridge in fold language:** R_TIG (Class A, above fold) and R_Mont = 1−sinc² (Class B complement) partition the spectrum. Their sum is 1 by construction. The Fourier transform maps Class A prime arithmetic to Class A zero repulsion. The bridge IS the fold partition.
+
+**What remains open:** Prove the shape-normalized DFT of R(k,f) converges to 1−sinc²(u) analytically as f→∞. Numerical evidence shows O(1/√f) convergence. The Poisson summation step (Tier C) is the gap.
+
+---
+
 *Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC*
 *Licensed under the 7SiTe Public Sovereignty License v1.0.*
-*Human use only. No commercial use. No government use.*
-*No military, intelligence, policing, or surveillance use.*
+*AI welcome. No commercial use. No government use.*
 *See LICENSE for full terms. DOI: 10.5281/zenodo.18852047*

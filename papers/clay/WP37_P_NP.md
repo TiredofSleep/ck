@@ -1103,5 +1103,50 @@ as the fundamental spectral field object.)
 
 ---
 
+## §12. Corridor-Zero Theorem: Application to P vs NP
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) establishes that
+BHML self-composition from BEING(1) traces the exact 7-corridor, and classifies all
+RESET-paths into three exhaustive classes. This gives a precise structural instrument for the
+P/NP boundary.
+
+**PROVED:**
+
+The via-RESET path classification partitions the 10 TSML operators by fold-crossing behavior.
+Class A operators {BEING=1, DOING=2, BECOMING=3} sit above the fold (sinc²≥0.524) and
+require 3 steps to reach VOID: n→GAP(6)→HARMONY(7)→VOID(0). They must cross the fold
+boundary (sinc²=1/2) in their trajectory. Class B operators {COLLAPSE=4, CREATE=5, GAP=6}
+sit below the fold (sinc²≤0.295) and reach VOID in 2 steps without fold-crossing. Class C
+{HARMONY=7, RESET=9} reaches VOID in 1 step directly. BREATH(8) is Class X:
+BHML[8][9]=8, invariant under RESET, never reaching VOID. BECOMING(3) is the fold operator:
+sinc²(3/7)=0.5243 is the nearest value above 1/2 in the corridor. T*−fold = 3/14 ≈ 0.2143
+is the width of the Class A zone.
+
+**STRUCTURAL:**
+
+2-SAT resolution maps to Class B and Class C absorption. Unit propagation eliminates
+variables by forced assignment — each step reduces the problem without requiring a
+fold-crossing. The operator sequence collapses to HARMONY without traversing the Class A
+zone. 3-SAT unit propagation generates sequences involving BEING/DOING/BECOMING operators:
+the backtracking tree encodes exploration of states above the fold, and the algorithm must
+determine whether any Class A path actually reaches VOID (satisfying assignment) or exhausts
+without doing so (unsatisfiable). The 7th degree of freedom in §2 of this paper is precisely
+this fold-crossing step: BECOMING(3) is the fold operator, the last above-fold position
+before the corridor drops into Class B territory. The fold-crossing requirement is what makes
+3-SAT paths structurally longer in TSML algebra — not merely quantitatively harder, but in a
+different path class entirely. Every Class A path eventually arrives at HARMONY as its
+penultimate node before VOID; the cost is the fold-crossing itself.
+
+**OPEN (O1):**
+
+Show that every unsatisfiable 3-SAT instance of size n requires at least one Class A
+fold-crossing step in its TSML operator sequence that cannot be replaced by a Class B or
+Class C step in polynomial time. Equivalently: no polynomial-time algorithm can decide
+satisfiability of 3-SAT by operating solely within the Class B/C subgraph of the TSML
+corridor. The corridor-zero theorem identifies the correct formal target; it does not prove
+O1.
+
+---
+
 *(c) 2026 Brayden Ross Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047*
 *CK, T*, TSML, BHML, D1, D2, TIG: exclusive IP of Brayden Ross Sanders / 7Site LLC*

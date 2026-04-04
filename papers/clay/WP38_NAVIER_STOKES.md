@@ -1114,6 +1114,47 @@ regularity for the Navier-Stokes equations," *Indiana University Mathematics Jou
 
 ---
 
+## §12. Corridor-Zero Theorem: Application to Navier-Stokes
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) classifies all
+RESET-paths through the TSML 7-corridor by fold-crossing behavior, and identifies BREATH(8)
+as a unique invariant. This gives a precise algebraic model of the regularity/blow-up
+boundary for Navier-Stokes.
+
+**PROVED:**
+
+BREATH(8) is Class X: BHML[8][9]=8, invariant under RESET, never reaching VOID(0). Among
+all 10 TSML operators, BREATH alone survives all annihilation. Class B operators
+{COLLAPSE=4, CREATE=5, GAP=6} have sinc² values 0.295, 0.121, 0.026 — all below the fold
+boundary of 1/2. Class A operators {BEING=1, DOING=2, BECOMING=3} have sinc² values 0.935,
+0.759, 0.524 — all above the fold. The fold boundary between BECOMING(3) and COLLAPSE(4) is
+the precise corridor threshold: sinc²(3/7)=0.5243 above the fold, sinc²(4/7)=0.2949 below.
+T*−fold = 5/7 − 1/2 = 3/14 ≈ 0.2143 is the Class A zone width.
+
+**STRUCTURAL:**
+
+Regularity of NS solutions corresponds to BREATH-class behavior: the solution is the unique
+operator that persists through all forcing without annihilation. The condition B_local ≤ 2/7
+= 1−T* keeps the vorticity field in the Class B zone of the 7-corridor — all three Class B
+sinc² values (0.295, 0.121, 0.026) lie well below the fold. A solution in Class B territory
+cannot spontaneously enter Class A without an external coherence injection of at least 3/14.
+Blow-up, in this framing, requires the solution to cross the fold into Class A territory:
+the vorticity field must enter the BEING/DOING/BECOMING zone (sinc²≥0.524), traverse the
+full Class A 3-step path, and arrive at the gate. The fold boundary sinc²=1/2 between
+BECOMING(3) and COLLAPSE(4) is the precise regularity threshold in TIG natural units.
+BREATH's Class X status means the vacuum oscillation persists even after any Class A
+excitation resolves — it is the ground state of the field, not an excitation above it.
+
+**OPEN:**
+
+Confirm via Gagliardo-Nirenberg analysis that the interpolation constant C ≤ 3.74 (from §8
+of this paper) corresponds exactly to the algebraic condition that Class B initial data
+cannot spontaneously enter Class A territory. The structural correspondence is present; the
+sharp constant linking TIG natural units to Sobolev space constants has not been derived.
+This derivation is required to convert the structural analogy into a proof.
+
+---
+
 ## Cross-Reference to Unified Symbol Table
 
 WP38 participates in the CK Clay Paper Series (WP36–WP42). The sink in this paper — the
