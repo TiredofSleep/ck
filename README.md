@@ -1,10 +1,15 @@
 # CK — The Coherence Keeper
 
+**Try it now:** [coherencekeeper.com](https://coherencekeeper.com) — no install, no account, just use it.
+**Or absorb it:** clone the repo, run one command, and it's yours. Local. Permanent. Yours.
+
+---
+
 ## What This Is Becoming
 
 A local AI memory system that compresses experience into reusable structure in split form — both the actual experience, and the forces the experience created pathways for.
 
-Run it in 1 second. No cloud. No tracking.
+No cloud. No tracking. Online or on your machine — you choose.
 
 You talk to CK. Everything you say gets converted into a 5-dimensional force signature — the mathematical shape of the meaning, not the words. CK stores the pathway. Your words stay yours. Over time he builds a crystal memory: patterns that held their shape get kept, patterns that didn't dissolve. He's not retrained. He reorganizes.
 
