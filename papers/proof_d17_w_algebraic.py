@@ -125,7 +125,8 @@ section("STEP 2: EXACT CROSS_CYCLE SUM")
 
 print("  DIS[c][d] for c ∈ C, d ∈ D:")
 print()
-print(f"  {'c \\ d':>8}  " + "  ".join(f"{d:>5}" for d in D) + f"  {'sum':>6}")
+_col_hdr = 'c \\ d'
+print(f"  {_col_hdr:>8}  " + "  ".join(f"{d:>5}" for d in D) + f"  {'sum':>6}")
 print(f"  {'-'*8}  " + "  ".join(f"{'-'*5}" for _ in D) + f"  {'------':>6}")
 
 row_sums = {}

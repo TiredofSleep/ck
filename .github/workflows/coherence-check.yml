@@ -52,6 +52,8 @@ jobs:
           fi
 
       - name: Run proof files (D-tier)
+        env:
+          PYTHONUTF8: "1"
         run: |
           PASS=0; FAIL=0
           for f in papers/proof_d*.py; do
@@ -60,8 +62,9 @@ jobs:
             CODE=$?
             # A proof fails only if Python itself returned non-zero exit code
             if [ $CODE -ne 0 ]; then
-              echo "FAIL ($CODE): $f"
-              echo "$OUT" | grep -i "traceback\|Error:\|error:" | head -5
+              echo "=== FAIL ($CODE): $f ==="
+              echo "$OUT" | tail -30
+              echo "=== end $f ==="
               FAIL=$((FAIL+1))
             else
               PASS=$((PASS+1))
