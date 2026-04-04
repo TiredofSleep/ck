@@ -80,6 +80,10 @@ R₂(u) = 1 - sinc²(u). The two sum to unity — a complete spectral partition.
 derive T* = 5/7 as the exact unit density of the minimal strong semiprime b = 35
 at its second gate event, and connect this to RSA hardness via the RSA Hardness
 Inversion Principle. All results verified against 187 semiprimes, zero exceptions.
+A third independent derivation of T* = 5/7 emerges from the cyclotomic reduction
+test: p = 5 is the first prime where the chain sinc²(1/p) = p²(4−A_p²)/(4π²)
+closes nontrivially (A_p = 2cos(π/p)), and p = 7 is the first obstruction. Three
+independent chains, same threshold.
 
 *Character count: ~1180*
 

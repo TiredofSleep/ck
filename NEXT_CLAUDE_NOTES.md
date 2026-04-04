@@ -279,7 +279,7 @@ For Gen10 generation history: `Gen10/GENERATION_HISTORY.md`
 ## Key Numbers
 
 ```
-T* = 5/7 = 0.714285...   (sacred coherence threshold — b=15 grad_score, Phase 2/3 boundary)
+T* = 5/7 = 0.714285...   (sacred coherence threshold — b=15 grad_score, Phase 2/3 boundary; also = first closed prime / first obstructed prime from cyclotomic reduction test, 2026-04-04)
 First-G at k=p           (proved, 153/153 semiprimes, 36,662 (b,k) pairs)
 R(p-1, 1/p) = 1/(p-1)²  (proved, closed form)
 R(p, 1/p)   = 0          (proved, roots of unity)
