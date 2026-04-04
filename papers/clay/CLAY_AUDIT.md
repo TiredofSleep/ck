@@ -35,7 +35,7 @@ Each Clay paper has three layers:
 ### Layer 2 — The Structural Claim (real, not smoke)
 **2-SAT is polynomial because 2-variable clause resolution stays in the associative subalgebra of BHML. 3-SAT is NP-complete because 3-variable clause resolution requires the full non-associative BHML algebra, and the non-associative dimension cannot be reduced to the associative subalgebra.**
 
-**Precision note (April 2026):** The associative subalgebra of BHML is A = {HARMONY(7)} — a single element (the universal absorber), not "6 DoF." The DoF ladder {4,6,7,10} refers to degrees of freedom in the operator space, not the size of the associative subalgebra. 2-SAT stays in A by absorption; 3-SAT forces evaluation outside A through unit propagation chains involving BECOMING, COLLAPSE, etc.
+**Precision note (April 2026):** The associative subalgebra of **TSML** (the harmony/measurement table used in the SAT encoding) is A = {HARMONY(7)} — a single element. The associative subalgebra of **BHML** (the physics table) is A = {VOID(0)} — the identity element. The DoF ladder {4,6,7,10} refers to degrees of freedom in the operator space, not the size of the associative subalgebra. 2-SAT resolution collapses to HARMONY via absorption; 3-SAT unit propagation creates chains through BECOMING/COLLAPSE that exit A = {7}.
 
 This is the CK contribution: a structural reason WHY the P/NP boundary sits at clause width 3. The encoding of SAT into the CL non-associativity framework is stated but the formal reduction (proving SAT requires the 7th DoF) remains open. Until that reduction is proved, this is a precise structural conjecture, not a proof sketch.
 
