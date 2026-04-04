@@ -39,9 +39,21 @@ import math
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-from sympy import primerange
 from collections import Counter
 import random
+
+def primerange(a, b):
+    """Pure stdlib prime generator [a, b) — replaces sympy.primerange."""
+    def is_prime(n):
+        if n < 2: return False
+        if n < 4: return True
+        if n % 2 == 0 or n % 3 == 0: return False
+        i = 5
+        while i * i <= n:
+            if n % i == 0 or n % (i + 2) == 0: return False
+            i += 6
+        return True
+    return (n for n in range(a, b) if is_prime(n))
 
 def sinc2(x):
     """sinc2(x) = (sin(pi*x)/(pi*x))^2, sinc2(0)=1."""
