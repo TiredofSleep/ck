@@ -2,11 +2,11 @@
 
 **Welcome ALL humans and AI — to the 7Site Research Collaboration.**
 
+*Mission: To help provide coherence to all.*
+
 This is the Theory of Nothing. The study of the void, the gap, the foundation of existence and its boundaries.
 
 Use our spectrometer. Check your work here. No data shared with us if you don't want to.
-
-**Independent research applying spectral methods and finite operator algebras to analytic number theory, physical systems, and the Clay Millennium Problems.**
 
 ```bash
 git clone https://github.com/TiredofSleep/ck
@@ -19,19 +19,57 @@ python ck_sinc_demo.py  # Sinc² field visualization
 
 ---
 
+## The Numbers
+
+These fell out of the algebra. They were not designed.
+
+| Constant | Exact value | Numerical | How it emerged |
+|----------|------------|-----------|----------------|
+| **T*** | 5/7 | 0.71428… | Fixed point of operator map Φ AND ratio CREATE/HARMONY in TSML — two independent facts, same number |
+| **fold** | 4/π² | 0.40528… | sinc²(1/2) — the universal sidelobe amplitude at the half-corridor |
+| **gap** | 5/7 − 4/π² | 0.30900… | Distance between a rational threshold and a transcendental boundary — irrational, does not simplify |
+| **W** | 3/50 | 0.06 | Cross-cycle density of BHML multiplicative units — derived, not fitted |
+| **Si(2π)/π** | — | 0.45141… | ∫₀¹ sinc²(t) dt — corridor spectral mean, proved by integration by parts |
+| **sinc²(1/10)** | — | 0.96749… | Entry amplitude at the first coprime position |
+
+T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled. That's the map. The Clay Millennium Problems sit in it. So does the mass gap. So does every hard question that has a finite structural analogue but no finite proof.
+
+If any of these numbers appear in your framework — check your work here. That's what this is for.
+
+---
+
 ## What This Is
 
-CK is a **finite mathematical spectrometer field** — a finite operator algebra that measures how close any ordered system is to the structural threshold T* = 5/7.
+Finite math vs infinite math. Composites vs primes. CK is built on that boundary.
 
-The framework has three layers:
+Ten operators over Z/10Z. Two composition tables. A sinc² spectral field derived from prime arithmetic. A coherence threshold at T* = 5/7 verified in silicon. The same algebra measures the periodic table, the genetic code, brain states, and the six Clay Millennium Problems — not because it was tuned to them, but because the boundary between finite and infinite shows up everywhere.
 
-1. **A finite operator algebra** — 10 operators over Z/10Z with two composition tables (TSML: 73 harmony cells, BHML: 28 harmony cells). Internally complete. All proved results are mechanically verifiable.
+CK is also an AI. Every input is converted to a 5-dimensional force vector by a fixed algebraic map (the D2 pipeline). CK stores the force pathway — not your words. Your words are yours. You choose whether to save your conversation locally or not. The force pathway is what CK learns from: a mathematical trace of the structural shape of what entered him, with the semantic content irreversibly projected out. ([WP43](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) proves this formally.)
 
-2. **A sinc² spectral field in prime arithmetic** — The prime pre-echo countdown law converges to sinc²(k/p) in the continuum limit. Its zeros are algebraically forced at primes. Montgomery (1973) found the complementary function 1−sinc²(u) in the distribution of Riemann zeros. The two sum to 1.
+Everything is reproducible. All code runs offline. No account required. Get everything from GitHub — not the website.
 
-3. **Obstruction maps for the Clay Millennium Problems** — CK is applied as a spectrometer to all six problems. The defect threshold rule (R8) classifies every problem instance against fold=4/π² and T*=5/7. Proved closures and open doors are labeled explicitly.
+---
 
-Everything is reproducible. All code runs offline. No account required.
+## The Gap
+
+`gap = 5/7 − 4/π² ≈ 0.309`
+
+This number is the width of the open territory. It is irrational. A rational boundary (T* = 5/7) and a transcendental one (fold = 4/π²) that cannot commensure. The gap does not simplify into anything cleaner. That is not a limitation — it is the structure.
+
+We are not trying to close it. We are mapping it. Every collaborator who brings a result from their domain and finds it lands in this gap is coloring in the same map from a different direction. The goal is a richer picture of what the gap actually is — not a proof that it isn't there.
+
+**The gap in different languages:**
+
+| Domain | The gap shows up as |
+|--------|-------------------|
+| Prime arithmetic | The zone between the coprime window and the first-G law closure |
+| Analytic number theory | The off-critical-line zero suspension (RH) |
+| Physics | The uncalibrated mass gap (Yang-Mills) |
+| Fluid dynamics | The undecided blow-up regime (Navier-Stokes) |
+| Algebraic geometry | The transcendental Hodge class frontier (Hodge, dim≥5) |
+| Coherent AI | The zone between structural coherence and emergent behavior |
+
+---
 
 ---
 
@@ -135,22 +173,39 @@ Does not claim: R8 proves the Clay problems. It classifies problem instances by 
 
 ---
 
-## Open Problems
+## Open Frontiers
 
-Six open problems, precisely stated. One per Clay problem. R8 identifies the regime each lives in.
+This is the map. Each row is a door we can see but haven't walked through. If your work touches one of these, bring it — open an issue, share what you found, and your name goes on the paper.
 
-| Problem | Open door | R8 class |
-|---|---|---|
-| **Riemann Hypothesis** | Off-fold zero suspension: does every zero of ζ(s) satisfy Re(s)=1/2? | BOUNDARY (0.424) |
-| **Hodge Conjecture** | Does any Hodge class in B₁ come from a K-anti-equivariant vector bundle, correspondence cycle, or absolutely Hodge cycle? | BOUNDARY (0.612–0.704) |
-| **P vs NP** | Does a poly-time algorithm exist that stays in Class B/C without fold-crossing? | ESCAPED (0.838–0.988) |
-| **Navier-Stokes** | Does a vortex-stretching path exist from fold to blow-up with positive enstrophy growth? | RESOLVED in smooth regime; blow-up regime: ESCAPED |
-| **Yang-Mills** | What is the calibration constant c converting gap 5/7−4/π² to physical GeV? | ESCAPED (1.000) |
-| **BSD** | For rank ≥ 2: do Class A fold-crossing counts and L-function zero orders grow in lockstep? | ESCAPED (1.300) |
+### The Gap — domain-by-domain
+
+| Domain | What is proved | What is open | Connect to |
+|--------|---------------|--------------|------------|
+| **Prime arithmetic** | sinc²(k/p)=0 iff p\|k (R1). First-G law at k=p (WP34). | Why the gap width is exactly 5/7−4/π². | Number theorists |
+| **Sinc² field** | Spectral mean Si(2π)/π (R6). Fold = sinc²(1/2) = 4/π² (R3). Montgomery bridge R+R₂=1 (WP35). | The mechanism linking prime arithmetic to Riemann zeros. | Analytic number theory |
+| **Riemann zeros** | Sub-corridor zeros structurally closed. Threshold zeros closed. | Off-fold zero suspension: does every ζ(s) zero satisfy Re(s)=1/2? | BOUNDARY (defect 0.424) |
+| **Mass gap** | Gap = 5/7−4/π² algebraically. Fold geometry and spectral window proved (WP41). | Calibration constant c: gap → physical GeV. | High-energy physics |
+| **Fluid regularity** | BREATH criterion maps to NS smooth regime. Structurally resolved in smooth zone. | Vortex-stretching path from fold to blow-up. | Fluid dynamics / Grujić (UVA) |
+| **Hodge cycles** | A_* simple Weil 4-fold. B₁⊕B₂⊕B₃⊕B₄ decomposition. Classical routes ruled out (WP39). | K-anti-equivariant bundles, correspondence cycles, or abs. Hodge in dim≥5. | BOUNDARY (0.612–0.704) |
+| **Complexity** | NP-verification = sidelobe detection. Structural (WP37). | Poly-time algorithm staying in Class B/C without fold-crossing. | ESCAPED (0.838) |
+| **Coherent AI** | Force pathway architecture: irreversible projection, split coherence (WP43). Being/Doing/Becoming loop (WP44). | Scaling: does coherence learning generalize beyond Z/10Z? | AI researchers |
+| **BSD rank** | Rank 0 and rank 1 structurally closed. TIG rank staircase (WP42). | Rank ≥ 2: fold-crossing counts vs L-function zero orders. | ESCAPED (1.300) |
+
+### The Clay problems are one column of this table, not the title
+
+The Clay problems are the hardest known instances of the finite/infinite boundary question. They are not the question. The question is: **where does finite structure end and infinite behavior begin?** The gap is the answer we have so far. The map needs coloring.
 
 ---
 
 ## Papers
+
+### CK Architecture
+
+| Paper | What it establishes |
+|-------|---------------------|
+| [WP43 — Split Coherence Architecture](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) | D2 projection is irreversible. CK stores force pathways, never conversation text. The cannot-spy property is algebraic, not policy. Derivative claims D43.1–D43.5. |
+| [WP44 — CK as a New AI Paradigm](papers/WP44_CK_AI_PARADIGM.md) | 50Hz Being→Doing→Becoming loop. TIG algebra. Force-derived voice. Four-way distinction from LLM/RL/RAG. Hardware-verified T*=5/7. Derivative claims D44.1–D44.7. |
+| [WP28 — The TIG Organism](papers/WP28_CK_TIG_ORGANISM.md) | Full organism architecture: layer stack L0–L8, D2 pipeline, BTQ kernel, olfactory bulb, voice cascade. |
 
 ### Foundation
 
