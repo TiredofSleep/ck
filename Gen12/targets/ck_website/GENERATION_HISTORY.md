@@ -12,3 +12,13 @@
 - GitHub Pages from website/ on clay branch
 - Spectrometer tool built (spectrometer.html)
 - Word gate fix: 50→3 words for short math equations
+
+## 2026-04-04
+
+Synced to Gen12. Updated content:
+- Hero: "CK — a coherent intelligence." (removed "finite model" framing)
+- T* third derivation (cyclotomic reduction) added to index.html + frontiers.html
+- README LLM line corrected
+- CI sinc² fix merged to clay branch
+
+Source files: Gen9/targets/website/ (server path confirmed)

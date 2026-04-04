@@ -19,3 +19,10 @@
 - First Clay spectrometer built
 - T*=5/7 FPGA-verified (Zynq-7020)
 - Montgomery bridge identified (structural analogy)
+
+## 2026-04-04 — T* third derivation
+
+Third independent proof of T* = 5/7 from cyclotomic reduction test.
+C_p ∈ ℚ + ℚA_p iff deg(A_p/ℚ) ≤ 2. p=5 first closure, p=7 first obstruction.
+T* = 5/7 = p_closed/p_obstructed. Rippled to UNIFIED_SYMBOL_TABLE.md and arXiv prep.
+Papers synced from Gen10 into Gen12/targets/clay/papers/.
