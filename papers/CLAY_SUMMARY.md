@@ -1,7 +1,7 @@
 # Clay-Facing Summary
 ## The Z/10Z Coherence Spine: What Is Proved, What Is Corrected, What Remains Open
 
-*Luther-Sanders Research Framework · April 1 2026*
+*Luther-Sanders Research Framework · April 2 2026*
 *Brayden Ross Sanders / 7SiTe LLC · DOI: 10.5281/zenodo.18852047*
 *Repository: https://github.com/TiredofSleep/ck · Branch: clay*
 
@@ -154,11 +154,9 @@ C7, C12, C16, C19) with explicitly stated remaining gaps.
 
 ---
 
-## Part III: What Remains Speculative
+## Part III: What Remains Speculative / What Was Updated Externally
 
-After D1–D23, exactly one live external analogy claim remains: **A10**.
-
-**A10 — σ = 1/2 as ω-class boundary.**
+### A10 — σ = 1/2 as ω-class boundary (live, open)
 
 *The internal shadow is real and proved:*
 - t = 1/2 is the unique sine-maximum in (0,1) (D24)
@@ -178,8 +176,62 @@ An algebraic map from the Z/10Z ring inheritance split (ring-forced left of
 t=1/2, generator-forced right) to the Euler product's behavior at the
 boundary of the critical strip. No such map is constructed here.
 
-*The remaining parked problems (A2/P≠NP, A4/Hodge) have no internal path
-from D1–D23 and are not discussed further in this summary.*
+Full treatment of what would count as progress: `NOTE_speculative_boundary.md`.
+
+---
+
+### Q17 — Navier-Stokes: 5D Embedding Now Proved (April 2, 2026)
+
+The Hebrew root float assignments in ROOTS_FLOAT were the last non-derived element
+of the 5D force vector. This has been resolved.
+
+**Q17_5D_RIGOROUS.md (filed 2026-04-02, Tier A):**
+
+The 5D force vector is the unique algebraic embedding of Z/10Z into R⁵ that factors
+through the CRT isomorphism Z/10Z ≅ F₂ × F₅ and the standard Fourier basis of F₅:
+
+```
+v(op) = (ε, cos(2πy/5), sin(2πy/5), cos(4πy/5), sin(4πy/5))
+```
+
+where op = φ(ε,y) under CRT. Applied to NS: ε(u,p) = 𝟏{‖u‖_{L³} > T*}.
+
+The Hebrew root assignments can now be *validated* (not defined) against the CRT structure.
+The letter→operator mapping is derivable from visual geometry (I=structure/ε=1, O=flow/ε=0,
+stroke arrangement encodes the y-phase left-to-right inside the letter box).
+
+**C2 hierarchy status (unchanged):**
+- Weak (proved from G6): symbolic return
+- Medium (target, open): G_high confinement → L³ bound via coercive energy estimate
+- Strong (known false): σ⁶=id alone does not bound norms
+
+---
+
+### Hodge: External Resolution — Markman (2025)
+
+**Markman, E. (2025). arXiv:2502.03415.**
+
+Proved the Hodge conjecture for ALL abelian fourfolds of Weil type, for all
+discriminants and imaginary quadratic fields. Combined with Moonen–Zarhin (1995/1999),
+this settles the Hodge conjecture for all abelian fourfolds.
+
+Consequence for the P3 gap floor conjecture:
+- For abelian fourfolds: Hdg²(A) = Alg²(A) exactly. The gap floor is vacuously true
+  (no transcendental Hodge classes exist to accumulate to).
+- This is not because the gap floor prevents accumulation. It is because there is no gap.
+
+**The framework's internal b=10 result stands:**
+CRT = Hodge decomposition; C-classes algebraic via σ-orbit. This is finite and proved.
+The external Markman result settles the abelian fourfold case by a different (deeper) argument.
+
+**Real frontier after Markman:**
+- Abelian varieties of dimension ≥ 5
+- General projective varieties where transcendental Hodge classes genuinely exist
+- Whether P3 can *fail*: can algebraic classes accumulate to a transcendental class
+  in a variety where both exist?
+
+*The remaining parked problems (A2/P≠NP, A6/BSD) have no internal path from D1–D23
+and are not discussed further in this summary.*
 
 Full treatment of what would count as progress: `NOTE_speculative_boundary.md`.
 
@@ -238,11 +290,19 @@ externally to the critical line is the question that remains open.
 | `tig_algebra.py` | Canonical library: TIGSemiprime, R(k,f), First-G, T* |
 | `tests/` | 71-test pytest suite, all passing |
 
-**Current tier counts: D:28 | C:6 | B:7 | A:5 (2 live, 3 parked)**
+**Current tier counts: D:28 | C:6 | B:7 | A:6 (Q17_5D_RIGOROUS added Tier A 2026-04-02)**
+
+**Clay status as of 2026-04-02:**
+| Problem | Internal | External | Open |
+|---------|----------|----------|------|
+| Riemann | t=1/2 inheritance boundary proved (D22) | A10 bridge not constructed | ✓ |
+| Navier-Stokes | σ⁶=id weak; 5D proved (CRT Fourier) | C2 medium (coercive energy) | ✓ |
+| Yang-Mills | ΔG≈7.517 proved b=10; G_high isolated in R⁵ | universality open | ✓ |
+| Hodge | b=10 CRT decomposition proved | Markman (2025) proved abelian fourfolds; dim≥5 open | ✓ |
 
 ---
 
-*Prepared: April 1 2026*
+*Prepared: April 2 2026*
 *© 2025–2026 Brayden Ross Sanders / 7SiTe LLC*
 *Licensed under the 7SiTe Public Sovereignty License v1.0*
 *DOI: 10.5281/zenodo.18852047*

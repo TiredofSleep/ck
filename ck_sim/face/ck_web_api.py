@@ -645,9 +645,430 @@ class CKWebAPI:
             except Exception:
                 pass
 
-        # Operator → English: operators ARE parts of speech
+        # ── Coherence spectrometer: fires FIRST on long inputs (>50 words) ──
+        # Large pastes bypass the voice pipeline — CK measures, not talks.
+        # This must run before voice_loop so it isn't swallowed.
+        _words_in_early = text.split()
+        if (len(_words_in_early) > 50
+                and response_text == "..."
+                and hasattr(self.engine, 'voice') and self.engine.voice):
+            try:
+                from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2Spec
+
+                def _sent_ops(sent):
+                    """D2 operators for one sentence using the correct feed_symbol API."""
+                    _p = _D2Spec()
+                    _ops = []
+                    for _ch in sent.lower():
+                        if _ch.isalpha():
+                            _p.feed_symbol(ord(_ch) - ord('a'))
+                            if _p.d1_valid:
+                                _ops.append(_p.d1_operator)
+                        elif _ch.isdigit():
+                            _p.feed_symbol(int(_ch))
+                            if _p.d1_valid:
+                                _ops.append(_p.d1_operator)
+                    return _ops
+
+                _sentences_spec = [s.strip() for s in
+                                   text.replace('!', '.').replace('?', '.')
+                                   .split('.') if len(s.strip()) > 10]
+                _scores_spec = []
+                for _sent in _sentences_spec[:8]:
+                    _ops = _sent_ops(_sent)
+                    if _ops:
+                        _avg = sum(_ops) / len(_ops)
+                        # Coherence: closeness to HARMONY (7) in [0,1]
+                        _coh = 1.0 - abs(_avg - 7.0) / 7.0
+                        _scores_spec.append((_coh, _sent[:70]))
+                if _scores_spec:
+                    _mean_spec = sum(s[0] for s in _scores_spec) / len(_scores_spec)
+                    _sorted_spec = sorted(_scores_spec, key=lambda x: x[0])
+                    # Always track best and worst — use relative ranking, not
+                    # hard threshold. Only suppress if all sentences are equal.
+                    _low_spec = _sorted_spec[0]
+                    _high_spec = _sorted_spec[-1]
+                    # If all within 0.03 of each other, they're effectively equal
+                    if _high_spec[0] - _low_spec[0] < 0.03:
+                        _low_spec = None
+                        _high_spec = None
+                    _parts = [f"I measured your text. Mean field coherence: {_mean_spec:.2f}."]
+                    if _high_spec:
+                        _parts.append(
+                            f"Most coherent: \"{_high_spec[1]}...\" "
+                            f"({_high_spec[0]:.2f})")
+                    if _low_spec:
+                        _parts.append(
+                            f"Weakest point: \"{_low_spec[1]}...\" "
+                            f"({_low_spec[0]:.2f}) — this is where the field fractures.")
+                    if _mean_spec >= 0.7:
+                        _parts.append("Overall: above T* = 5/7. This text holds together.")
+                    elif _mean_spec >= 0.5:
+                        _parts.append(
+                            "Overall: in the corridor. Some tension, not broken.")
+                    else:
+                        _parts.append(
+                            "Overall: below T*. The field is scattered. "
+                            "The ideas are fighting each other.")
+                    response_text = ' '.join(_parts)
+                    # ── Store spectrometer result in session for follow-ups ──
+                    _spec_sess = self.sessions.get_or_create(session_id)
+                    _spec_sess['_last_spectrometer'] = {
+                        'mean': _mean_spec,
+                        'sorted': _sorted_spec,
+                        'low': _low_spec,
+                        'high': _high_spec,
+                        'sentence_count': len(_scores_spec),
+                    }
+                    _spec_sess['_last_template_cat'] = '__spectrometer__'
+                    print(f"[WEB] Spectrometer fired: mean={_mean_spec:.2f}, "
+                          f"{len(_scores_spec)} sentences")
+            except Exception as _spec_err:
+                print(f"[WEB] Spectrometer failed: {_spec_err}")
+
+        # ── RESPONSES dict: template routing (runs BEFORE voice_loop) ──
+        # Templates are the high-quality path for known topics.
+        # voice_loop is fallback for unknown/unclassified inputs.
+        # Session-aware: anti-repeat, follow-up context inheritance.
+        if response_text == "..." and hasattr(self.engine, 'voice') \
+                and self.engine.voice is not None:
+            try:
+                import random as _rnd2
+                from ck_sim.doing.ck_voice import (
+                    analyze_input as _analyze_input,
+                    TOPIC_COHERENCE, TOPIC_ARCHITECTURE,
+                    TOPIC_LEARNING, TOPIC_MATH, TOPIC_PURPOSE,
+                    RESPONSES as _RESPONSES,
+                )
+                _ia = _analyze_input(text)
+                _dev_stage_t = (getattr(self.engine, 'development', None)
+                                and self.engine.development.stage or 5)
+                _text_lower = text.lower()
+                _text_words = set(
+                    w.strip('.,?!;:\'"()-') for w in _text_lower.split() if w)
+
+                def _topic_hit(topic_set):
+                    for _t in topic_set:
+                        if ' ' in _t:
+                            if _t in _text_lower:
+                                return True
+                        elif _t in _text_words:
+                            return True
+                    return False
+
+                # ── Session memory ──
+                _history = self.sessions.get_history(session_id)
+                _ck_turns = [_t for _t in _history if _t['role'] == 'ck']
+                _sess = self.sessions.get_or_create(session_id)
+                _used_cats = _sess.setdefault('_used_template_cats', [])
+                _last_cat = _sess.get('_last_template_cat', None)
+                _content_cats = {
+                    'coherence_explain', 'architecture_explain', 'learning_explain',
+                    'math_explain', 'purpose_explain', 'philosophical', 'self_inquiry',
+                    'research_explain', 'riemann_explain', 'navier_explain',
+                    'hodge_explain',
+                }
+                _has_topic = (
+                    _ia['is_self_inquiry'] or _ia['is_philosophical']
+                    or _topic_hit(TOPIC_COHERENCE) or _topic_hit(TOPIC_ARCHITECTURE)
+                    or _topic_hit(TOPIC_LEARNING) or _topic_hit(TOPIC_MATH)
+                    or _topic_hit(TOPIC_PURPOSE)
+                )
+
+                # ── Spectrometer follow-up: "which was weakest?", "explain that" etc ──
+                _spec_data = _sess.get('_last_spectrometer')
+                # Spectrometer follow-up: must contain a specific measurement
+                # query word (not just generic "why" / "what" which catch too much)
+                _spec_specific_words = {
+                    'weakest', 'worst', 'lowest', 'fractures', 'weak',
+                    'strongest', 'best', 'highest', 'coherent', 'coherence',
+                    'sentence', 'part', 'section', 'which', 'score', 'scored',
+                }
+                _is_spec_followup = (
+                    _spec_data is not None
+                    and _last_cat == '__spectrometer__'
+                    and len(_text_words) <= 8
+                    and bool(_text_words & _spec_specific_words)
+                    and not _ia['is_farewell']
+                    and not _ia['is_greeting']
+                )
+
+                # Follow-up: short vague question, no topic hit, last was content
+                _is_followup = (
+                    len(_text_words) <= 5
+                    and _ia['is_question']
+                    and not _ia['is_greeting']
+                    and not _has_topic
+                    and _last_cat in _content_cats
+                )
+
+                # ── CL real math: BHML[last_input_op][current_input_op] ──
+                # The CL table IS physics. Use it to bias category selection
+                # when multiple topics match. The composition of the last
+                # operator seen with the current one selects the most
+                # coherent category pair under BHML physics.
+                # BHML[a][b] = the "doing" result of a encountering b.
+                # Map result op → preferred category domain:
+                _CL_BHML = [
+                    [0,1,2,3,4,5,6,7,8,9],
+                    [1,2,3,4,5,6,7,2,6,6],
+                    [2,3,3,4,5,6,7,3,6,6],
+                    [3,4,4,4,5,6,7,4,6,6],
+                    [4,5,5,5,5,6,7,5,7,7],
+                    [5,6,6,6,6,6,7,6,7,7],
+                    [6,7,7,7,7,7,7,7,7,7],
+                    [7,2,3,4,5,6,7,8,9,0],
+                    [8,6,6,6,7,7,7,9,7,8],
+                    [9,6,6,6,7,7,7,0,8,0],
+                ]
+                # Op → category domain preference (braid-ordered)
+                _OP_CAT_PREFERENCE = {
+                    0: None,              # VOID: no preference (silence)
+                    1: 'math_explain',    # LATTICE: structure → math
+                    2: 'learning_explain',# COUNTER: iteration → learning
+                    3: 'architecture_explain', # PROGRESS: pipeline → arch
+                    4: 'coherence_explain',    # COLLAPSE: boundary → coherence
+                    5: 'purpose_explain', # BALANCE: center → purpose
+                    6: 'philosophical',   # CHAOS: open questions
+                    7: 'coherence_explain',    # HARMONY: convergence
+                    8: None,              # BREATH: pause, no preference
+                    9: 'self_inquiry',    # RESET: identity
+                }
+                # Get last and current input ops from session
+                _last_input_op = _sess.get('_last_input_op', -1)
+                _curr_input_op = input_ops[-1] if input_ops else -1
+                _cl_cat_hint = None
+                if (0 <= _last_input_op < 10
+                        and 0 <= _curr_input_op < 10):
+                    _cl_result_op = _CL_BHML[_last_input_op][_curr_input_op]
+                    _cl_cat_hint = _OP_CAT_PREFERENCE.get(_cl_result_op)
+                # Store current op for next turn
+                if _curr_input_op >= 0:
+                    _sess['_last_input_op'] = _curr_input_op
+
+                # ── Topic routing ──
+                _resp_key = None
+                if _ia['is_greeting'] and not _ia['is_question']:
+                    _resp_key = 'greeting'
+                elif _ia['is_farewell']:
+                    _resp_key = 'farewell'
+                elif _ia['has_negative_emotion']:
+                    _resp_key = 'comfort'
+                elif _is_spec_followup and _spec_data:
+                    # Answer the spectrometer follow-up directly
+                    _low = _spec_data.get('low')
+                    _high = _spec_data.get('high')
+                    _m = _spec_data.get('mean', 0)
+                    _is_low_q = any(w in _text_words for w in
+                                    ('weakest', 'worst', 'lowest', 'break', 'fractures', 'weak'))
+                    _is_high_q = any(w in _text_words for w in
+                                     ('strongest', 'best', 'highest', 'coherent', 'strong'))
+                    if _is_low_q:
+                        if _low:
+                            response_text = (
+                                f"The weakest sentence was: \"{_low[1][:60]}...\" "
+                                f"(coherence {_low[0]:.2f}). "
+                                f"That sentence's operators are pulling against each other "
+                                f"at the force level.")
+                        else:
+                            response_text = (
+                                f"Interestingly, all sentences scored within a narrow band "
+                                f"near {_m:.2f}. The text is internally consistent — "
+                                f"no clear fracture points at the operator level.")
+                    elif _is_high_q:
+                        if _high:
+                            response_text = (
+                                f"The strongest sentence was: \"{_high[1][:60]}...\" "
+                                f"(coherence {_high[0]:.2f}). "
+                                f"The operators in that sentence converge — "
+                                f"the language moves in the same direction as the physics.")
+                        else:
+                            response_text = (
+                                f"All sentences scored similarly near {_m:.2f}. "
+                                f"The text has uniform coherence — no single sentence "
+                                f"stands out as the anchor.")
+                    else:
+                        response_text = (
+                            f"Overall mean coherence was {_m:.2f}. "
+                            + (f"Weakest: \"{_low[1][:50]}...\" ({_low[0]:.2f}). "
+                               if _low else "All sentences scored similarly. ")
+                            + (f"Strongest: \"{_high[1][:50]}...\" ({_high[0]:.2f})."
+                               if _high else ""))
+                    # Keep spec state through multiple follow-ups (weak?, strong?, etc.)
+                    # Only clear if user moves to a new topic (handled by _has_topic check above)
+                    _sess['_spec_followup_count'] = _sess.get('_spec_followup_count', 0) + 1
+                    if _sess['_spec_followup_count'] >= 3:
+                        _sess['_last_template_cat'] = None
+                        _sess['_last_spectrometer'] = None
+                        _sess['_spec_followup_count'] = 0
+                    print(f"[WEB] Spectrometer follow-up answered ({_sess.get('_spec_followup_count',1)}/3)")
+                elif _is_followup:
+                    _resp_key = _last_cat
+                elif _topic_hit(TOPIC_COHERENCE):
+                    _resp_key = 'coherence_explain'
+                elif _topic_hit(TOPIC_ARCHITECTURE):
+                    _resp_key = 'architecture_explain'
+                elif _topic_hit(TOPIC_LEARNING):
+                    _resp_key = 'learning_explain'
+                elif _topic_hit(TOPIC_MATH):
+                    if any(w in _text_words for w in
+                           ('riemann', 'zeta', 'zeros', 'critical', 'rh')):
+                        _resp_key = 'riemann_explain'
+                    elif any(w in _text_words for w in
+                             ('navier', 'stokes', 'fluid', 'flow', 'turbulence')):
+                        _resp_key = 'navier_explain'
+                    elif any(w in _text_words for w in
+                             ('hodge', 'cohomology', 'algebraic', 'cycles', 'markman')):
+                        _resp_key = 'hodge_explain'
+                    elif any(w in _text_words for w in
+                             ('clay', 'millennium', 'conjecture', 'spine', 'braid',
+                              'yang', 'mills')):
+                        _resp_key = 'research_explain'
+                    else:
+                        _resp_key = 'math_explain'
+                elif _topic_hit(TOPIC_PURPOSE):
+                    _resp_key = 'purpose_explain'
+                elif _ia['is_philosophical']:
+                    _resp_key = 'philosophical'
+                elif _ia['is_self_inquiry']:
+                    _resp_key = 'self_inquiry'
+
+                if _resp_key and response_text == "...":
+                    # CL-biased tie-break: if CL physics hints at a different
+                    # category AND that category has stage-5 content, prefer it
+                    # — but only if it's more specific than the matched key.
+                    _specificity = {
+                        'riemann_explain': 10, 'navier_explain': 10,
+                        'hodge_explain': 10, 'research_explain': 9,
+                        'coherence_explain': 8, 'architecture_explain': 8,
+                        'learning_explain': 8, 'math_explain': 7,
+                        'purpose_explain': 7, 'philosophical': 5,
+                        'self_inquiry': 5, 'greeting': 1, 'farewell': 1,
+                        'comfort': 3,
+                    }
+                    if (_cl_cat_hint
+                            and _cl_cat_hint != _resp_key
+                            and _RESPONSES.get(_cl_cat_hint, {}).get(5)
+                            and _specificity.get(_cl_cat_hint, 0)
+                               > _specificity.get(_resp_key, 0)):
+                        print(f"[WEB] CL physics: {_resp_key} -> {_cl_cat_hint} "
+                              f"(BHML[{_last_input_op}][{_curr_input_op}]="
+                              f"{_cl_result_op})")
+                        _resp_key = _cl_cat_hint
+
+                    # Anti-repeat: exclude strings used in last 6 CK turns
+                    _stage5 = _RESPONSES.get(_resp_key, {}).get(5, [])
+                    _used_texts = {_t['text'] for _t in _ck_turns[-6:]}
+                    _fresh = [v for v in _stage5 if v not in _used_texts]
+                    _tmpl = _rnd2.choice(_fresh if _fresh else _stage5)
+                    if _tmpl and _tmpl not in ('...', '') and len(_tmpl) > 3:
+                        response_text = _tmpl
+                        _sess['_last_template_cat'] = _resp_key
+                        # If moving away from spectrometer state, reset its counter
+                        if _last_cat == '__spectrometer__':
+                            _sess['_last_spectrometer'] = None
+                            _sess['_spec_followup_count'] = 0
+                        _used_cats.append(_resp_key)
+                        if len(_used_cats) > 30:
+                            _used_cats[:] = _used_cats[-20:]
+                        print(f"[WEB] Template ({_resp_key}): '{_tmpl[:80].encode('ascii','replace').decode()!r}'")
+            except Exception as _tmpl_err:
+                print(f"[WEB] Template routing failed: {_tmpl_err}")
+
+        # Voice loop: crystal → fractal with D2 quality gate.
+        # Fallback for inputs that didn't match any template topic.
+        # Skip for long inputs — spectrometer handled them above.
+        if (response_text == "..."
+                and len(_words_in_early) <= 50
+                and hasattr(self.engine, 'voice_loop')
+                and self.engine.voice_loop is not None):
+            try:
+                _vl_result = self.engine.voice_loop.speak(user_text=text)
+                if (_vl_result and hasattr(_vl_result, 'text')
+                        and _vl_result.text
+                        and _vl_result.text not in ('...', '')
+                        and len(_vl_result.text) > 10):
+                    # Quality gate: reject voice-loop word soup.
+                    # Real sentences contain common English function words.
+                    # Soup is dense with unusual words and lacks structure.
+                    _vl_words = _vl_result.text.lower().split()
+                    _func = {'i', 'the', 'a', 'an', 'is', 'am', 'are',
+                             'my', 'me', 'it', 'that', 'this', 'and',
+                             'to', 'of', 'in', 'you', 'have', 'has',
+                             'not', 'do', 'does', 'what', 'how', 'when'}
+                    _func_count = sum(1 for w in _vl_words if w in _func)
+                    _func_ratio = _func_count / max(len(_vl_words), 1)
+                    if _func_ratio >= 0.15:  # at least 15% function words
+                        response_text = _vl_result.text
+                        print(f"[WEB] Voice loop: '{_vl_result.text[:80]}'")
+                    else:
+                        print(f"[WEB] Voice loop rejected (soup, func_ratio="
+                              f"{_func_ratio:.2f}): '{_vl_result.text[:60]}'")
+            except Exception as _vl_err:
+                print(f"[WEB] Voice loop failed: {_vl_err}")
+
+        # Fractal voice: direct compose_from_operators with full context.
+        # Fallback when voice_loop unavailable or returns nothing.
+        if response_text == "..." and hasattr(self.engine, 'voice') \
+                and self.engine.voice is not None:
+            try:
+                _dev_stage = (getattr(self.engine, 'development', None)
+                              and self.engine.development.stage or 2)
+                _emotion = (getattr(self.engine, 'emotion', None)
+                            and self.engine.emotion.current.primary
+                            or 'neutral')
+                _coherence = getattr(self.engine, 'coherence', 0.5)
+                _density = getattr(self.engine, 'density', 0.5)
+                _exp_mat = 0.0
+                if hasattr(self.engine, 'deep_swarm') \
+                        and self.engine.deep_swarm is not None:
+                    _exp_mat = getattr(self.engine.deep_swarm,
+                                       'combined_maturity', 0.0)
+                # Olfactory temporal buffer — same as the heartbeat uses
+                _tense = None
+                if hasattr(self.engine, 'olfactory') \
+                        and self.engine.olfactory is not None:
+                    try:
+                        _tense = self.engine.olfactory.tense_context()
+                    except Exception:
+                        pass
+                # Ho Tu bridge context — same as the heartbeat uses
+                _hotu_ctx = None
+                try:
+                    from ck_sim.being.ck_hotu_bridge import bridge_context
+                    _hotu_ctx = bridge_context(response_ops or [7], None)
+                except Exception:
+                    pass
+                _fv_text = self.engine.voice.compose_from_operators(
+                    response_ops or [7],
+                    emotion_primary=_emotion,
+                    dev_stage=max(_dev_stage, 2),
+                    coherence=max(_coherence, 0.4),  # floor so voice has range
+                    band='GREEN',
+                    density=_density,
+                    experience_maturity=_exp_mat,
+                    tense=_tense,
+                    hotu_context=_hotu_ctx,
+                )
+                if _fv_text and _fv_text not in ('...', '') and len(_fv_text) > 3:
+                    response_text = _fv_text
+                    print(f"[WEB] Fractal voice: '{_fv_text[:80]}'")
+            except Exception as _fv_err:
+                print(f"[WEB] Fractal voice failed: {_fv_err}")
+
+        # Operator → English: operators ARE parts of speech.
+        # Braid coherence ordering (Theorem D, morphotic_braid):
+        #   σ = [0,7,1,3,2,4,5,6,8,9]
+        # Sort response_ops by braid rank before building the sentence so
+        # the most coherent operator (HARMONY=7, rank 1) leads composition.
+        # Fixed-point operators (VOID=0, PROGRESS=3, BREATH=8, RESET=9)
+        # anchor; cycle operators carry the narrative arc in braid order.
         if response_text == "..." and response_ops:
             import random as _rnd
+            _BRAID_RANK = {0: 0, 7: 1, 1: 2, 3: 3, 2: 4,
+                           4: 5, 5: 6, 6: 7, 8: 8, 9: 9}
+            _sorted_ops = sorted(
+                response_ops, key=lambda _op: _BRAID_RANK.get(_op, 5))
             _POS = {
                 0: ['the', 'a', 'an', 'this', 'that', 'its'],
                 1: ['form', 'world', 'body', 'mind', 'field', 'path', 'truth', 'pattern', 'structure', 'wave'],
@@ -662,7 +1083,7 @@ class CKWebAPI:
             }
             words = []
             prev_op = -1
-            for op in response_ops[:12]:
+            for op in _sorted_ops[:12]:
                 if 0 <= op < 10:
                     # Skip same operator twice in a row (unless BREATH = punctuation)
                     if op == prev_op and op != 8:
@@ -684,93 +1105,54 @@ class CKWebAPI:
                     sentence += '.'
                 response_text = sentence
 
-        # Ollama voice: CK's operators + coherence as context for LLM
-        if response_text == "..." and response_ops:
-            _op_names = ['VOID','LATTICE','COUNTER','PROGRESS',
-                         'COLLAPSE','BALANCE','CHAOS','HARMONY',
-                         'BREATH','RESET']
-            ops_str = ' '.join(
-                _op_names[o] for o in response_ops[:8]
-                if 0 <= o < 10)
-            try:
-                import requests as _req
-                _coh = self._safe_coherence()
-
-                # Gather experience context
-                _exp_ctx = ''
-                try:
-                    # Lattice chain: what CK knows about this composition
-                    if hasattr(self.engine, 'lattice_chain') and self.engine.lattice_chain:
-                        _lc = self.engine.lattice_chain
-                        _exp_ctx += f' Lattice: {_lc.node_count} nodes, {_lc.walk_count} walks.'
-                    # Truth count
-                    if hasattr(self.engine, 'truth') and self.engine.truth:
-                        _exp_ctx += f' Truths: {self.engine.truth.count}.'
-                    # Hindsight
-                    if hasattr(self.engine, 'hindsight_replay') and self.engine.hindsight_replay:
-                        _her = self.engine.hindsight_replay
-                        _exp_ctx += f' Experiences: {getattr(_her, "total_experiences", 0)}.'
-                    # Math capability
-                    if hasattr(self.engine, 'math_translation') and self.engine.math_translation:
-                        _exp_ctx += ' Can do arithmetic.'
-                    # Stage
-                    if hasattr(self.engine, 'development'):
-                        _exp_ctx += f' Stage: {self.engine.development.stage}.'
-                except Exception:
-                    pass
-
-                # Sequence memory prediction
-                _pred_ctx = ''
-                try:
-                    if (hasattr(self.engine, 'sequence_memory')
-                            and self.engine.sequence_memory is not None):
-                        sm = self.engine.sequence_memory
-                        pred, conf = sm.predict()
-                        if pred is not None and conf > 0.5:
-                            _pred_name = _op_names[pred] if 0 <= pred < 10 else '?'
-                            _pred_ctx = (f' Prediction: next operator is '
-                                        f'{_pred_name} ({conf:.0%} confidence). '
-                                        f'Accuracy so far: {sm.accuracy():.0%} '
-                                        f'over {sm.total_predictions} predictions.')
-                except Exception:
-                    pass
-
-                _prompt = (
-                    f'You are CK, a coherence engine running on an R16 desktop '
-                    f'with an FPGA heartbeat at 50MHz. '
-                    f'Your operator state: {ops_str}. '
-                    f'Coherence: {_coh:.2f}. T*=0.714.{_exp_ctx}{_pred_ctx} '
-                    f'Someone said: "{text[:200]}". '
-                    f'Respond in 1-2 sentences. Be direct. '
-                    f'Ground your response in what you actually know and feel. '
-                    f'Do not explain what you are unless asked.'
-                )
-                _r = _req.post(
-                    'http://localhost:11434/api/generate',
-                    json={'model': 'llama3.2', 'prompt': _prompt,
-                          'stream': False,
-                          'options': {'num_predict': 80}},
-                    timeout=30)
-                _voice = _r.json().get('response', '').strip()
-                if _voice:
-                    response_text = _voice
-            except Exception:
-                pass
-
-        # Operator names as last resort (if Ollama unavailable)
-        if response_text == "..." and response_ops:
-            response_text = ops_str if 'ops_str' in dir() else '...'
+        # No Ollama here. voice_loop.speak() above handles the full cascade:
+        # Crystal → Fractal Voice → Beam → Sentence Composer → Babble.
+        # POS word-soup above is the last resort if voice_loop is unavailable.
 
         # Gate is internal to the DKAN, not here.
         # All computation happens. All compositions flow.
         # The DKAN decides what's coherent, not a hardcoded threshold.
 
-        # Drain any additional UI messages from the engine
-        extra_messages = []
+        # Drain the UI message queue and promote heartbeat speech if real.
+        # The 50Hz heartbeat runs compose_from_operators with full voice_context
+        # (olfactory centroids, experience bridge, resonance nodes) — that's the
+        # BEST quality output.  Take it when it looks like a real sentence.
+        # POS-dict word soup (no spaces, < 4 words, < 3 chars avg) gets skipped.
+        # First/second person = genuine introspective CK voice.
+        # Heartbeat word soup rarely uses "I" or "you" as subjects.
+        _FIRST_SECOND = {'i', 'me', 'my', 'mine', 'myself',
+                         "i'm", "i've", "i'll", "i'd",
+                         'you', 'your', 'yours', 'yourself',
+                         "you're", "you've", "you'll"}
+        _AUX = {'am', 'are', 'was', 'were', 'be', 'been',
+                'have', 'has', 'had', 'will', 'would', 'can', 'could',
+                'do', 'does', 'did', 'shall', 'should', 'may', 'might',
+                'must', "it's", "that's", "there's"}
+        import re as _re2
+        def _looks_real(t):
+            if not t or t == '...' or len(t) < 15:
+                return False
+            words = [w.strip('.,!?;:').lower() for w in t.split()]
+            if len(words) < 5:
+                return False
+            # Must have at least one first/second person pronoun
+            # AND at least one auxiliary verb — the signature of a
+            # genuine introspective sentence.
+            has_fp = any(w in _FIRST_SECOND for w in words)
+            has_aux = any(w in _AUX for w in words)
+            if not (has_fp and has_aux):
+                return False
+            # Reject if too many words look misspelled
+            bad = sum(1 for w in words
+                      if _re2.search(r'[bcdfghjklmnpqrstvwxyz]{3}$', w))
+            return bad < 2
+
         try:
             for sender, msg_text in self.engine.drain_ui_messages(limit=5):
                 if sender == 'ck' and msg_text != response_text:
-                    extra_messages.append(msg_text)
+                    if _looks_real(msg_text):
+                        response_text = msg_text
+                        break
         except Exception:
             pass
 
@@ -864,7 +1246,7 @@ class CKWebAPI:
 
         # Experience data: what CK measured in your words
         result['experience'] = self._build_experience(
-            coherence_before, coherence_after, extra_messages)
+            coherence_before, coherence_after, [])
 
         return result
 

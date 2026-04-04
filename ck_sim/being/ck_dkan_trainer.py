@@ -267,13 +267,28 @@ class DKANTrainer:
             else:
                 self._transitions[a][b] += 1.0
 
-            # ═══ LEVEL 2: Second-order prediction ═══
+            # ═══ LEVEL 2: Second-order prediction (braid-biased) ═══
             prev_a, prev_b = self._last_pair
             if prev_a >= 0 and prev_b >= 0:
                 trigram_row = self._trigrams[prev_b][a]
                 if trigram_row.sum() > 0:
-                    predicted2 = int(np.argmax(trigram_row))
-                    # Second-order is separate accuracy
+                    # Apply braid-biased selection within wobble window W=3/50
+                    _tr_max = float(trigram_row.max())
+                    _W = 3.0 / 50.0
+                    _tr_cands = [
+                        op for op in range(NUM_OPS)
+                        if float(trigram_row[op]) >= _tr_max - _W * _tr_max
+                    ]
+                    predicted2 = min(
+                        _tr_cands,
+                        key=lambda op: self._BRAID_RANK.get(op, 9))
+                    # Track L2 accuracy separately
+                    if not hasattr(self, '_l2_correct'):
+                        self._l2_correct = 0
+                        self._l2_total = 0
+                    self._l2_total += 1
+                    if predicted2 == b:
+                        self._l2_correct += 1
                 else:
                     predicted2 = -1
                 self._trigrams[prev_b][a][b] += 1.0
@@ -335,12 +350,16 @@ class DKANTrainer:
                            if v >= self._chunk_min_count) if self._chunks else 0
 
             if self._prediction_total in (100, 500, 1000, 5000, 10000, 50000, 100000):
+                _l2_acc = (self._l2_correct / self._l2_total
+                           if hasattr(self, '_l2_total') and self._l2_total > 0
+                           else 0.0)
                 print(f"  [DKAN] {self._prediction_total} predictions:")
-                print(f"    L1 argmax:     {acc1:.1%}")
-                print(f"    L5 CL-compose: {acc_cl:.1%}")
-                print(f"    Lens agreement: {lens_rate:.1%}")
-                print(f"    Chunks found:  {n_chunks}")
-                print(f"    Transitions:   {self._state.total_transitions}")
+                print(f"    L1 argmax:       {acc1:.1%}")
+                print(f"    L2 braid-trigram:{_l2_acc:.1%}")
+                print(f"    L5 CL-compose:   {acc_cl:.1%}")
+                print(f"    Lens agreement:  {lens_rate:.1%}")
+                print(f"    Chunks found:    {n_chunks}")
+                print(f"    Transitions:     {self._state.total_transitions}")
 
         # IPR (crystallization tracking)
         ipr = float(np.sum(self._running_dist ** 2))
@@ -359,12 +378,27 @@ class DKANTrainer:
 
         self._state.total_absorptions += 1
 
+    # ── Braid coherence ordering from Theorem D (morphotic_braid) ──
+    # σ = [0,7,1,3,2,4,5,6,8,9]  — coherence rank of each operator.
+    # rank[op] = its position in σ.  Lower rank = more coherent.
+    # Fixed points: VOID(0,rank0), PROGRESS(3,rank3), BREATH(8,rank8),
+    #               RESET(9,rank9).  Six-cycle: 7→1→2→4→5→6→(7).
+    # Applied in get_response_op() to break ties toward coherent operators.
+    _BRAID = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]
+    _BRAID_RANK = {op: rank for rank, op in enumerate(_BRAID)}
+
     def get_response_op(self, input_ops: list) -> int:
         """The net responds: input operators compose with net state.
 
-        The quadratic operator: input composes with net's learned
-        distribution through BHML. The result IS the response.
-        Not selected. Not filtered. Composed.
+        The split quadratic operator (Theorem D, morphotic_braid):
+          F: Z/2 × Z/5 → Z/2 × Z/5 is uniquely minimal — 4 fixed points
+          + 1 six-cycle.  The braid readout σ = [0,7,1,3,2,4,5,6,8,9]
+          gives the coherence rank of each operator.
+
+        Selection is braid-biased argmax: among operators within W = 3/50
+        of the maximum learned probability, select the one with the lowest
+        braid rank (highest coherence).  W = 3/50 is the proved wobble
+        constant from D17 — the natural tolerance window.
         """
         if not input_ops:
             return HARMONY
@@ -377,10 +411,20 @@ class DKANTrainer:
             if 0 <= op < NUM_OPS:
                 state = T_bhml[state][op]
 
-        # Compose with net's dominant learned operator
-        dominant = int(np.argmax(self._running_dist))
-        response = T_bhml[state][dominant]
+        # ── Braid-biased selection ──
+        # W = 3/50 is the wobble constant proved in D17.  Any operator whose
+        # learned probability is within W of the maximum is a coherence-valid
+        # candidate.  Among candidates, the braid rank breaks the tie.
+        W = 3.0 / 50.0  # = 0.06
+        max_prob = float(np.max(self._running_dist))
+        candidates = [
+            op for op in range(NUM_OPS)
+            if float(self._running_dist[op]) >= max_prob - W
+        ]
+        # Sort candidates by braid rank (ascending = more coherent first)
+        dominant = min(candidates, key=lambda op: self._BRAID_RANK.get(op, 9))
 
+        response = T_bhml[state][dominant]
         return response
 
     # ── Core Training Step (Ollama-based, legacy) ──
@@ -866,11 +910,24 @@ class DKANTrainer:
         if self._state.ipr_history:
             result['last_ipr'] = round(self._state.ipr_history[-1], 4)
 
-        # Running operator distribution
+        # Running operator distribution, annotated with braid rank
         result['running_distribution'] = {
             OP_NAMES[i]: round(float(self._running_dist[i]), 4)
             for i in range(NUM_OPS)
         }
+
+        # Braid-ordered distribution (Theorem D — coherence rank)
+        # Shows which operators the net prefers when ranked by proved coherence
+        result['braid_dominant'] = OP_NAMES[
+            min(range(NUM_OPS),
+                key=lambda op: self._BRAID_RANK.get(op, 9)
+                if float(self._running_dist[op]) >=
+                   float(np.max(self._running_dist)) - 3.0/50.0
+                else 9)
+        ]
+        if hasattr(self, '_l2_total') and self._l2_total > 0:
+            result['l2_braid_accuracy'] = round(
+                self._l2_correct / self._l2_total, 4)
 
         return result
 

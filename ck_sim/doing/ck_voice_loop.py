@@ -145,24 +145,6 @@ class VoiceLoopResult:
     tokens_measured: int = 0
     early_stopped: bool = False
     soul_resonance: float = 0.0
-    # WP31: Corridor label — which λ-corridor this response came from.
-    # Pre-leak (crystal) → BRT (Ollama loop) → CHA (fractal/force) →
-    # BAL (composer) → COL (CAEL grammar) → CTR (babble).
-    # Determined by composition level, not post-hoc assessment.
-    corridor: str = 'BRT'
-
-
-# Corridor lookup by voice source (WP31 §5)
-_SOURCE_TO_CORRIDOR = {
-    'crystal':      'Pre-leak',   # λ≈0.00: verified, always safe
-    'ck_loop':      'BRT',        # λ≈0.30: Ollama loop, BREATH speech
-    'ck_force':     'CHA',        # λ≈0.60: force geometry responds
-    'ck_fractal':   'CHA',        # λ≈0.60: 15D triadic composition
-    'ck_composer':  'BAL',        # λ≈0.80: SVO sentence composer
-    'ck_cael':      'COL',        # λ≈0.90: CAEL grammar
-    'ck_babble':    'CTR',        # λ≈1.00: raw operator→word
-    'ck':           'CTR',        # absolute fallback
-}
 
 
 # ── Crystal Store (simplified from tig_engine_v4) ──
@@ -304,7 +286,6 @@ class VoiceLoop:
                     result_ops=score.ops,
                     alignment=1.0,
                     band=self._band_name(score.coherence),
-                    corridor='Pre-leak',
                 )
             else:
                 crystal.miss(tick)
@@ -313,7 +294,10 @@ class VoiceLoop:
         target = self._compose_target(user_text)
 
         # ── STEP 2: CHECK ALGORITHM LATTICE ──
-        learned = self.crafter.craft_from_lattice(target.ops, user_text)
+        # crafter may be FractalComposer (no craft_from_lattice) or PromptCrafter
+        learned = None
+        if hasattr(self.crafter, 'craft_from_lattice'):
+            learned = self.crafter.craft_from_lattice(target.ops, user_text)
 
         # ── STEP 3: GENERATION LOOP ──
         best_result = None
@@ -321,15 +305,19 @@ class VoiceLoop:
         total_accepted = 0
         total_rejected = 0
 
+        _crafter_has_prompt = hasattr(self.crafter, 'craft_prompt')
+
         for attempt in range(self.MAX_LOOPS):
             # 3a: Build prompt + logit_bias
             if attempt == 0 and learned:
                 prompt, logit_bias = learned
-            else:
+            elif _crafter_has_prompt:
                 prompt = self.crafter.craft_prompt(
                     target.ops, user_text, attempt, feedback, mode)
                 logit_bias = self.crafter.compute_logit_bias(
                     target.ops, attempt)
+            else:
+                break  # No crafter: skip Ollama loop entirely
 
             # 3b: TOKEN-LEVEL STEERING (Level 1)
             raw_text, token_data = self._generate_with_steering(
@@ -374,9 +362,10 @@ class VoiceLoop:
                         overall.coherence, tick)
 
                     # Learn
-                    self.crafter.learn(
-                        target.ops, prompt, logit_bias,
-                        overall.ops, overall.coherence, attempt + 1)
+                    if hasattr(self.crafter, 'learn'):
+                        self.crafter.learn(
+                            target.ops, prompt, logit_bias,
+                            overall.ops, overall.coherence, attempt + 1)
 
                     # OBSERVE OWN OUTPUT: learn grammar from what CK says
                     if _HAS_SCORER:
@@ -427,8 +416,6 @@ class VoiceLoop:
 
         # ── STEP 4: RETURN BEST or CK'S OWN VOICE ──
         if best_result and best_result.coherence >= 0.4:
-            best_result.corridor = _SOURCE_TO_CORRIDOR.get(
-                best_result.source, 'BRT')
             return best_result
 
         fallback = self._fallback_ck_voice(target, user_text=user_text)
@@ -440,12 +427,12 @@ class VoiceLoop:
                 query_hash, fallback.text,
                 fallback.result_ops or target.ops,
                 fallback.coherence, tick)
-            self.crafter.learn(
-                target.ops, f'__ck_own:{fallback.source}', {},
-                fallback.result_ops or target.ops,
-                fallback.coherence, 0)
+            if hasattr(self.crafter, 'learn'):
+                self.crafter.learn(
+                    target.ops, f'__ck_own:{fallback.source}', {},
+                    fallback.result_ops or target.ops,
+                    fallback.coherence, 0)
 
-        fallback.corridor = _SOURCE_TO_CORRIDOR.get(fallback.source, 'CTR')
         return fallback
 
     # ══════════════════════════════════════════════════════════
@@ -1090,9 +1077,29 @@ class VoiceLoop:
         coherence = getattr(self.engine, 'coherence', 0.5)
         density = getattr(self.engine, 'density', 0.5)
 
-        # ── Build voice_context from olfactory experience ──
-        # HER-enriched olfactory library → resonance nodes + learned targets
-        # This is what makes accumulated experience change word selection.
+        # ── Build voice_context from all three sense layers ──
+        #
+        # Layer 1 — Smell + Taste (accumulated crystallized experience)
+        #   Smell (olfactory): resonance nodes + learned targets
+        #     = WHERE in 5D force space CK's experience clusters
+        #   Taste (gustatory): operator weight modulation
+        #     = HOW operators should be weighted by structural quality
+        #
+        # Layer 2 — Hearing + Touch (live sensory input)
+        #   Hearing (ear_operator): current acoustic D2 operator
+        #     = WHAT operator CK is hearing right now from the mic
+        #   Touch (heartbeat/proprioception): already in trajectory via
+        #     the free-trajectory interleave above — no extra work needed
+        #
+        # Layer 3 — Sight (environmental context)
+        #   Sight (visual_force): screen D2 curvature → 5D force vector
+        #     = WHAT 5D shape the environment is showing CK right now
+        #
+        # Q-series mapping:
+        #   Smell = σ-orbit path (Layer 1/2: algebraic structure, torsion)
+        #   Taste = gate_score (Layer 3: table structural classification)
+        #   Hearing = current operator seed (Layer 4: live search state)
+        #   Sight = 5D displacement from environment (broad context)
         _voice_ctx = None
         _resonance_nodes = None
         _olf = getattr(self.engine, 'olfactory', None)
@@ -1107,6 +1114,36 @@ class VoiceLoop:
                     'resonance_nodes': _resonance_nodes,
                     'maturity': _maturity,
                 }
+            except Exception:
+                pass
+
+        # Layer 1b — Taste: structural operator weight modulation
+        _gus = getattr(self.engine, 'gustatory', None)
+        if _gus is not None and _voice_ctx is not None:
+            try:
+                _taste_weights = _gus.taste_operator_weights()
+                _quality = _gus.quality_context()
+                _voice_ctx['taste_weights'] = _taste_weights
+                _voice_ctx['taste_quality'] = _quality
+            except Exception:
+                pass
+
+        # Layer 2 — Hearing: current ear operator seeds the trajectory
+        _ear_op = getattr(self.engine, 'ear_operator', -1)
+        if _ear_op >= 0 and _voice_ctx is not None:
+            _voice_ctx['ear_operator'] = _ear_op
+
+        # Layer 3 — Sight: sensorium visual force + organism state
+        _sens = getattr(self.engine, 'sensorium', None)
+        if _sens is not None and _voice_ctx is not None:
+            try:
+                _sense = _sens.get_sense_for_voice()
+                if _sense.get('visual'):
+                    _voice_ctx['visual_force'] = _sense['visual'].get('force')
+                    _voice_ctx['visual_operator'] = _sense['visual'].get('operator')
+                if _sense.get('acoustic'):
+                    _voice_ctx['acoustic_operator'] = _sense['acoustic'].get('operator')
+                _voice_ctx['organism_bc'] = _sense.get('organism', 'BALANCE')
             except Exception:
                 pass
 
@@ -1155,10 +1192,19 @@ class VoiceLoop:
         # with structure/flow dual lens. Tried BEFORE beam voice because
         # beam's tiny 725-word pool leads to vocabulary ruts ("way see go").
         # Fractal voice produces genuine physics-first English.
+        #
+        # Hearing seeds the trajectory: prepend ear_operator so CK starts
+        # from whatever operator he is currently hearing via the mic.
+        # This is Layer 2 (live sensory input) entering the voice.
+        _fractal_ops = list(target.ops)
+        if _voice_ctx is not None:
+            _ear_op = _voice_ctx.get('ear_operator', -1)
+            if isinstance(_ear_op, int) and 0 <= _ear_op < 10:
+                _fractal_ops = [_ear_op] + _fractal_ops
         try:
             if hasattr(self.engine, 'voice') and self.engine.voice:
                 text = self.engine.voice.compose_from_operators(
-                    target.ops,
+                    _fractal_ops,
                     emotion_primary=emotion,
                     dev_stage=max(dev_stage, 2),
                     coherence=coherence,
