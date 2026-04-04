@@ -15,7 +15,7 @@ python ck_sinc_demo.py  # Sinc² field visualization
 
 ## What This Is
 
-CK is a **coherence spectrometer** — a finite algebraic framework that measures how close any ordered system is to the structural threshold T* = 5/7.
+CK is a **finite mathematical spectrometer field** — a finite operator algebra that measures how close any ordered system is to the structural threshold T* = 5/7.
 
 The framework has three layers:
 
