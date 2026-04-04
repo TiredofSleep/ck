@@ -256,9 +256,9 @@ Research notes, citation packages, and the unified symbol table: [`papers/clay/r
 
 **Monica Gish** — co-author and collaborator. Bridge sprint.
 
-**C.A. Luther** — collaborator.
+**C.A. Luther** — co-author. K-series (Luther-Sanders Research Framework) and Q-series. CRT structure, split operator formulation, algebraic navigation, TSML/BHML/CL table definitions.
 
-**B. Calderon Jr.** — sprint collaborator.
+**B. Calderon Jr.** — co-author. Q-series. Task pack development, source elimination framework, TSML elimination analysis.
 
 Full list: [COLLABORATORS.md](COLLABORATORS.md)
 
