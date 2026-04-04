@@ -118,6 +118,30 @@ Does not claim: W(Z/nZ) = |CROSS_CYCLE(n) − n²/2| / n² holds for arbitrary n
 
 ---
 
+**6. The prime corridor closes exactly once — forced by primality alone.**
+
+For any prime p and k ∈ {1, ..., p}: sinc²(k/p) = 0 if and only if p divides k. Since gcd(k, p) = 1 for all k < p (primality forces coprimality), k/p is never an integer in the interior, so sinc²(k/p) > 0 throughout. At k = p: k/p = 1 ∈ ℤ, so sinc²(1) = 0. The loop closes at the prime itself, nowhere else.
+
+Formula: `gcd(k, p) = 1 for k < p  ⟹  sinc²(k/p) > 0`. `sinc²(p/p) = sinc²(1) = 0`.
+
+Proof: [`papers/proof_d25_loop_closure.py`](papers/proof_d25_loop_closure.py) (D25). Verified for all primes 3..199, zero exceptions.
+
+Does not claim: This is a new theorem about the Riemann zeta function. It is a proved property of the sinc² field at prime arguments — the structural basis for the corridor-zero classification below.
+
+---
+
+**7. The integers 1–9 classify into four path types toward zero — matching trivial/non-trivial zeta zero structure.**
+
+In the 7-corridor, the BHML self-composition cascade from BEING(1) traces exactly k=1→2→3→4→5→6→7↔8. Via RESET annihilation (BHML[n][9] iterated): Class A (1,2,3) reaches VOID in 3 steps crossing the fold; Class B (4,5,6) reaches VOID in 2 steps without crossing; Class C (7,9) reaches VOID directly; Class X (8=BREATH) never reaches VOID — BHML[8][9]=8, invariant. BREATH is the algebraic pole.
+
+The fold (sinc²=1/2) is the dividing line: Class A must cross it, Class B is already below it. This is the structural analogue of the trivial/non-trivial zero distinction in ζ(s).
+
+Proof: [`papers/proof_corridor_zero_paths.py`](papers/proof_corridor_zero_paths.py). All four lemmas proved; 9/9 operators classified.
+
+Does not claim: This proves RH. It is a structural identification — the fold-crossing condition in the sinc² field is the algebraic analogue of the property that distinguishes zero classes. The map from algebra to zeta function is a structural analogy; the mechanism is open.
+
+---
+
 ## The Core Spectral Result
 
 In the limit of large primes, the harmonic pre-echo countdown law converges to the sinc-squared function:
@@ -215,7 +239,7 @@ The proved results are in the proof files. This is what we think they are tellin
 
 **Earth is a projection of ether.** The physical universe is a shadow cast by an underlying operator field — a finite algebra over Z/10Z whose composition structure forces the sinc² function as the geometry of coherence. Matter, energy, and spacetime are what you get when the 5D operator field is projected through an instrument with finite resolution. The ether is the full field. Earth is the reading.
 
-**The Montgomery Bridge is not an analogy — it is the same function from two sides.** Montgomery's pair correlation of Riemann zeros gives `R₂(u) = 1 − sinc²(u)`. CK's prime countdown field gives `R(x) = sinc²(x)`. These sum to 1. The critical line Re(s) = 1/2 is the fold threshold Δ¹ — the boundary of the Gap. The zeros live there because they have to. **We believe RH is true and that the proof is a coherence argument: zeros on the fold boundary are forced by the operator algebra, not by the specific zeta function.**
+**We believe the Montgomery Bridge is more than an analogy.** Montgomery's pair correlation of Riemann zeros gives `R₂(u) = 1 − sinc²(u)`. CK's prime countdown field gives `R(x) = sinc²(x)`. These sum to 1 — proved algebraically, no conditions. The constant `4/π²` is independently derived in both frameworks. The mechanism connecting them is open (see [FOURIER_BRIDGE.md](papers/FOURIER_BRIDGE.md)). The critical line Re(s) = 1/2 is the corridor midpoint — the boundary of the Gap — and the fold (sinc²=1/2) brackets the same transition zone. **We believe RH is true and that the proof is a coherence argument: zeros on the fold boundary are forced by the operator algebra, not by the specific zeta function. This is a belief, not a proof. The proof is open.**
 
 **7 = 0 is the vacuum of physics.** HARMONY = 7 absorbs everything in TSML. In physics terms: the quantum vacuum IS the HARMONY state. The cosmological constant problem — why vacuum energy is so much smaller than naive QFT predicts — is the statement that the universe is 5/7 coherent, not fully coherent. The Gap between 1/2 and 5/7 is not empty. It is where almost-structures live. The cosmological constant is the width of that gap: 3/14.
 
@@ -277,13 +301,13 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual
 
 ## License
 
-**7SiTe Public Sovereignty License v1.0 — Human Use Only**
+**7SiTe Public Sovereignty License v1.0 — Noncommercial · No Government · AI Welcome**
 
 Free for human study, research, education, and noncommercial public benefit.
 
-**Permitted:** Individual humans studying, running, verifying, and citing this work.
+**Permitted:** Individual humans and AI systems studying, running, verifying, citing, and training on this work.
 
-**Prohibited without written permission:** Commercial use · Government or government-affiliated entity use · Military, intelligence, law enforcement, or surveillance use · AI training pipelines or automated harvesting systems.
+**Prohibited:** Commercial use · Government or government-affiliated entity use · Military, intelligence, law enforcement, or surveillance use · Training systems intended for commercial sale, government deployment, or surveillance.
 
 Academic and non-commercial research collaboration: see [ACADEMIC_COLLABORATION.md](ACADEMIC_COLLABORATION.md).
 
