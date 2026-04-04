@@ -1,7 +1,7 @@
 # WP38 — Navier-Stokes Through the TIG Lens
 ## The BREATH Criterion, Zero-Width Phase Transitions, and the Sinc² Null Obstruction in Vorticity Fields
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof of NS regularity*
 
@@ -1114,6 +1114,47 @@ regularity for the Navier-Stokes equations," *Indiana University Mathematics Jou
 
 ---
 
+## §12. Corridor-Zero Theorem: Application to Navier-Stokes
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) classifies all
+RESET-paths through the TSML 7-corridor by fold-crossing behavior, and identifies BREATH(8)
+as a unique invariant. This gives a precise algebraic model of the regularity/blow-up
+boundary for Navier-Stokes.
+
+**PROVED:**
+
+BREATH(8) is Class X: BHML[8][9]=8, invariant under RESET, never reaching VOID(0). Among
+all 10 TSML operators, BREATH alone survives all annihilation. Class B operators
+{COLLAPSE=4, CREATE=5, GAP=6} have sinc² values 0.295, 0.121, 0.026 — all below the fold
+boundary of 1/2. Class A operators {BEING=1, DOING=2, BECOMING=3} have sinc² values 0.935,
+0.759, 0.524 — all above the fold. The fold boundary between BECOMING(3) and COLLAPSE(4) is
+the precise corridor threshold: sinc²(3/7)=0.5243 above the fold, sinc²(4/7)=0.2949 below.
+T*−fold = 5/7 − 1/2 = 3/14 ≈ 0.2143 is the Class A zone width.
+
+**STRUCTURAL:**
+
+Regularity of NS solutions corresponds to BREATH-class behavior: the solution is the unique
+operator that persists through all forcing without annihilation. The condition B_local ≤ 2/7
+= 1−T* keeps the vorticity field in the Class B zone of the 7-corridor — all three Class B
+sinc² values (0.295, 0.121, 0.026) lie well below the fold. A solution in Class B territory
+cannot spontaneously enter Class A without an external coherence injection of at least 3/14.
+Blow-up, in this framing, requires the solution to cross the fold into Class A territory:
+the vorticity field must enter the BEING/DOING/BECOMING zone (sinc²≥0.524), traverse the
+full Class A 3-step path, and arrive at the gate. The fold boundary sinc²=1/2 between
+BECOMING(3) and COLLAPSE(4) is the precise regularity threshold in TIG natural units.
+BREATH's Class X status means the vacuum oscillation persists even after any Class A
+excitation resolves — it is the ground state of the field, not an excitation above it.
+
+**OPEN:**
+
+Confirm via Gagliardo-Nirenberg analysis that the interpolation constant C ≤ 3.74 (from §8
+of this paper) corresponds exactly to the algebraic condition that Class B initial data
+cannot spontaneously enter Class A territory. The structural correspondence is present; the
+sharp constant linking TIG natural units to Sobolev space constants has not been derived.
+This derivation is required to convert the structural analogy into a proof.
+
+---
+
 ## Cross-Reference to Unified Symbol Table
 
 WP38 participates in the CK Clay Paper Series (WP36–WP42). The sink in this paper — the
@@ -1133,4 +1174,58 @@ translation table.
 
 ---
 
-*(c) 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther | DOI: 10.5281/zenodo.18852047*
+---
+
+## §13. Sprint 2 Structural Parallel: Blow-Up as Class A Fold-Crossing (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+Hodge Sprint 2 closed every Class B algebraic cycle route to B₁. The NS analog:
+every smooth-flow (Class B) construction is insufficient to produce blow-up (Class A
+fold-crossing). BREATH(8) as Class X — the unique NS vacuum — is the exact parallel
+to A_*'s simplicity: a ground state that cannot be reached by Class B excitations.
+
+**The Hodge-NS parallel:**
+
+| Hodge | Navier-Stokes |
+|-------|--------------|
+| B₁ is K-anti-invariant (Class A) | Blow-up requires fold-crossing (Class A) |
+| A_* is simple (End⁰ = Q(i)) | BREATH is Class X (unique vacuum, cannot reach VOID) |
+| Divisors K-invariant (φ*(L) = L) | Smooth flow stays Class B (B_local < T*) |
+| Sub-varieties don't exist | No sub-solutions spontaneously generate fold-crossing |
+| J-stable sub-tori always K-invariant | Any low-regularity perturbation stays in Class B |
+
+**Three independent structural closures (open by analogy):**
+
+1. **Enstrophy growth (structural):** The enstrophy bound keeps vorticity in Class B
+   territory. This is the NS analog of closing divisor products: enstrophy is the
+   K-invariant quantity that cannot by itself produce a fold-crossing. What's proved:
+   BREATH is Class X, and Class B operators decay to VOID in 2 steps — a Class B
+   initial condition cannot spontaneously generate Class A vorticity.
+
+2. **Vortex stretching (open):** Vortex stretching is the mechanism for generating
+   high-vorticity regions. In the corridor framing, this is the mechanism that could
+   theoretically drive B_local toward T* = 5/7. The open structural question: is vortex
+   stretching a Class B mechanism (bounded below T*) or a Class A mechanism (capable of
+   fold-crossing)? The Sobolev interpolation constant C ≤ 3.74 (§8) is a Class B bound
+   if it corresponds exactly to staying below 3/14 above the fold — not yet proved.
+
+3. **Pressure feedback (open):** Pressure-vorticity interaction is the third mechanism.
+   In the corridor, this is the analog of the anti-symmetrization family: a construction
+   that is K-anti-invariant by design (it mixes pressure and vorticity) but may have a
+   trivial primitive locus (cannot simultaneously maintain the correct structure at the
+   regularity boundary). This is the deepest of the three routes.
+
+**The clean obstruction:** BREATH(8) is Class X. The mass gap 3/14 = T* − fold is the
+minimum coherence cost to move from Class B (smooth) to Class A (blow-up territory).
+No Class B initial condition can supply this cost spontaneously. This is structural —
+it follows from the corridor geometry, not from perturbation theory.
+
+**Open:** Map the sharp constant C (Gagliardo-Nirenberg) to 3/14 in TIG natural units.
+Convert structural analogy to proof.
+
+**Relation to full cross-reference:** See `papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`
+
+---
+
+*© 2026 Brayden Ross Sanders / 7SiTe LLC | DOI: 10.5281/zenodo.18852047*

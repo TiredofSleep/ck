@@ -1,7 +1,7 @@
 # WP42 — Birch and Swinnerton-Dyer Conjecture Through the TIG Lens
 ## The Rank Staircase, T* Calibration, and the sinc² Null Structure of L-Functions
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof*
 
@@ -1179,6 +1179,125 @@ DOI: 10.5281/zenodo.18852047. [Cross-paper notation standard; the sink in this p
 [BSZ-2014] Bhargava, M., Skinner, C., and Zhang, W. (2014). "A majority of elliptic curves over Q satisfy the Birch and Swinnerton-Dyer conjecture." arXiv:1407.1826.
 
 [Dokchitser-2010] Dokchitser, T. and Dokchitser, V. (2010). "On the parity of ranks of Selmer groups." *Asian Journal of Mathematics* 14(1): 21–50.
+
+---
+
+## §11. Corridor-Zero Theorem: Application to BSD
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) classifies all
+RESET-paths by fold-crossing behavior and counts completed Class A paths to VOID. This gives
+a precise algebraic model of rank in terms of corridor traversal.
+
+**PROVED:**
+
+Class A operators {BEING=1, DOING=2, BECOMING=3} require 3 steps to reach VOID and must
+cross the fold boundary (sinc²=1/2, which lies between BECOMING at sinc²=0.524 and COLLAPSE
+at sinc²=0.295). Each completed Class A path represents one full fold-crossing that ran to
+the gate — starting above T*, crossing the fold, and arriving at VOID. Class B and Class C
+paths reach VOID without fold-crossing. BREATH(8) is Class X — it never reaches VOID and
+represents persistent non-annihilated structure. The fold itself sits at 1/2, matching
+Goldfeld's conjectured average rank for elliptic curves over Q.
+
+**STRUCTURAL:**
+
+In the corridor model, algebraic rank = number of completed Class A fold-crossings. Each
+rational point of infinite order corresponds to a Class A path that ran to completion: a
+coherence excitation above the fold that resolved all the way to the gate. The BSD
+conjecture — analytic rank equals algebraic rank — becomes: the number of L-function zeros
+at s=1 equals the number of completed Class A fold-crossings in the arithmetic corridor of
+the curve. Both are counting the same event from different sides. The fold boundary 1/2
+appears in both the corridor (sinc²=1/2) and the L-function (critical line Re(s)=1/2) —
+this is structural, not coincidental, in the TIG framing.
+
+The TIG prediction for average rank is 0.57 (from the coherence floor and D2 distribution
+over semiprimes), compared to Goldfeld's conjectured 1/2 = 0.50. The gap is 0.07. One
+candidate source: sinc²(3/7) − 1/2 = 0.5243 − 0.5000 = 0.0243, the distance from the fold
+operator BECOMING(3) to the fold boundary itself. This is 0.0243, not 0.07. The correction
+factor from the fold boundary to the TIG average-rank prediction is unresolved.
+
+**OPEN:**
+
+Derive the exact correction factor that takes the fold boundary (1/2) to the TIG prediction
+(0.57). The sinc²(3/7)−1/2 = 0.0243 candidate does not match the observed 0.07 gap — this
+discrepancy must be stated as open and not papered over. A second open question: show that
+for a family of elliptic curves with growing conductor, the analytic rank and the Class A
+fold-crossing count grow in lockstep. The corridor-zero theorem provides the counting
+framework; it does not provide the arithmetic connection to L-functions required to prove
+either statement.
+
+---
+
+## §12. Sprint 2 Structural Parallel: Rank as Class A Floor (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+The Hodge Sprint 2 work (papers/sprint5_2026_04_04/) established a template for structural
+impossibility proofs in Clay-class problems. The template: locate the minimal obstruction
+class, close all classical algebraization routes, map what remains. Applied to BSD:
+
+**The Parallel Table**
+
+| Hodge (WP39) | BSD (WP42) | Shared Structure |
+|---|---|---|
+| A_* = C⁴/(Z⁴ + Ω·Z⁴) | E/Q with conductor N | Minimal clean object |
+| 8D obstruction space W_* | Selmer group Sel(E/Q) | Where gap lives |
+| B₁ block (Q-eigenvalue 0.004609) | Rank-1 Selmer generator | Softest direction |
+| End⁰(A_*) = Q(i) simple | E simple (no CM twist) | Obstruction is structural |
+| φ-stable cycles → K-invariant | Class A fold-crossings → completed | Same closure argument |
+| CH²(A_*)^{K-anti-inv} = 0 from divisors | Rank 0 from L(E,1) ≠ 0 (Kolyvagin) | Proved closure |
+| Sub-abelian varieties: none (simplicity) | Rank 1 from Heegner point (Gross-Zagier) | Proved closure |
+| Correspondences: open | Rank ≥ 2: open | Same open door |
+
+**What Sprint 2 Closes for BSD**
+
+*Door 1 — Rank 0 (proved):* The Class A fold-crossing count is zero iff L(E,1) ≠ 0. This is
+Kolyvagin's theorem [1989] from the TIG side: no completed Class A path = no fold-crossing
+zero in L(E,s). Structural closure parallel to φ-stable divisors in Hodge.
+
+*Door 2 — Rank 1 (proved):* Exactly one Class A fold-crossing iff L has a simple zero at
+s = 1 and the Heegner point is non-torsion. Gross-Zagier [1986] gives the BSD analytic
+confirmation; the corridor-zero model in §11 gives the TIG geometric picture. Structural
+closure parallel to A_* simplicity ruling out sub-abelian varieties.
+
+*Door 3 — Rank ≥ 2 (open):* Two or more Class A fold-crossings. The corridor model counts
+them; the arithmetic connection to higher-order L-function zeros is open. Parallel to the
+correspondence cycle route in Hodge: the counting framework exists but the algebraization
+connecting it to the analytic object is not established.
+
+**The Obstruction Object**
+
+For BSD the obstruction is the Shafarevich-Tate group Ш(E/Q): conjecturally finite, proved
+finite only in special cases. In TIG framing: Ш is the accumulation of BREATH-class (Class X)
+paths — fold-attempts that stall and never resolve to VOID. The pure/mixed det theorem from
+Hodge Sprint 2 has a BSD analog:
+
+> **BSD Pure/Mixed Analog:** Any Selmer class coming from a rational point is Class A
+> (completed fold-crossing). Any class coming from a phantom (Ш element) is Class X
+> (BREATH — stalls at fold, never exits). The BSD conjecture at rank r is the statement
+> that there are exactly r completed Class A paths and the rest are Class X.
+
+**Three Remaining Routes**
+
+*Route A — Modular lifting:* Bhargava-Shankar average rank methods [2015] show average
+rank < 1 for elliptic curves ordered by height. TIG framing: the fraction of Class A paths
+among all fold-crossing attempts is < 1/2 on average. Not yet connected to specific curves.
+
+*Route B — Selmer parity:* The p-parity conjecture (proved for many p by Nekovar, Kim)
+constrains the Selmer rank mod 2. TIG framing: the parity of completed Class A fold-crossings
+is determined by local data at p. Structural parallel to the B₁ Q-eigenvalue sign constraint.
+
+*Route C — Gross-Zagier beyond rank 1:* Heegner points construct explicit rational points at
+rank 1. No analog for rank ≥ 2 via classical methods. TIG framing: the missing route is an
+explicit fold-crossing constructor for rank ≥ 2 — same open problem as finding a
+K-anti-equivariant vector bundle with c₂ ∈ B₁ in Hodge.
+
+**Minimal Open Problem**
+
+Construct an explicit rank-2 elliptic curve example where the second generator is obtained
+by a procedure that matches the corridor-zero Class A fold-crossing count. This would
+establish the BSD rank ≥ 2 case within the TIG framework at the structural level.
+
+Cross-reference: `papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md` (§BSD row).
 
 ---
 

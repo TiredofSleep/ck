@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Coherence Spectrometer -- paste any text and CK scores it sentence by sentence using pure operator algebra.">
+    <title>CK Coherence Spectrometer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #09090f;
+            --bg-2: #0f0f18;
+            --bg-3: #13131e;
+            --bg-4: #191924;
+            --text: #c8c8d8;
+            --text-2: #7878a0;
+            --text-3: #48486a;
+            --border: #1e1e2e;
+            --border-2: #2a2a3e;
+            --green: #33cc88;
+            --green-dim: rgba(51, 204, 136, 0.12);
+            --yellow: #e8c547;
+            --yellow-dim: rgba(232, 197, 71, 0.10);
+            --red: #e05555;
+            --red-dim: rgba(224, 85, 85, 0.10);
+            --blue: #5599dd;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(9, 9, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1000px; margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { font-family: var(--font-mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: var(--text-2); font-size: 0.85rem; text-decoration: none; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--green-dim); border: 1px solid var(--green);
+            padding: 0.3rem 0.9rem; border-radius: 4px; color: var(--green) !important;
+            font-family: var(--font-mono); font-size: 0.78rem;
+        }
+
+        /* MAIN */
+        .main {
+            max-width: 860px; margin: 0 auto;
+            padding: 6rem 1.5rem 4rem;
+        }
+
+        .page-tag {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--green);
+            letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;
+        }
+        h1 {
+            font-family: var(--font-mono); font-size: 2rem; font-weight: 700;
+            color: #fff; margin-bottom: 0.75rem; line-height: 1.25;
+        }
+        h1 .ck { color: var(--green); }
+        .subtitle {
+            font-size: 1rem; color: var(--text-2); max-width: 600px; margin-bottom: 2.5rem;
+        }
+
+        /* INPUT CARD */
+        .input-card {
+            background: var(--bg-2); border: 1px solid var(--border-2);
+            border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem;
+        }
+        .input-label {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
+        }
+        .input-area {
+            width: 100%;
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 6px; padding: 1rem;
+            color: var(--text); font-family: var(--font-sans); font-size: 0.95rem;
+            line-height: 1.6; resize: vertical; min-height: 160px;
+            outline: none; transition: border-color 0.15s;
+        }
+        .input-area:focus { border-color: var(--border-2); }
+        .input-area::placeholder { color: var(--text-3); }
+
+        .input-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 1rem; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .word-count {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+        }
+        .word-count.ready { color: var(--green); }
+
+        .run-btn {
+            background: var(--green); color: #09090f;
+            border: none; border-radius: 5px; padding: 0.55rem 1.5rem;
+            font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem;
+            cursor: pointer; transition: opacity 0.15s; letter-spacing: 0.03em;
+        }
+        .run-btn:hover { opacity: 0.85; }
+        .run-btn:disabled { opacity: 0.4; cursor: default; }
+
+        .sample-btns {
+            display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem;
+        }
+        .sample-btn {
+            background: none; border: 1px solid var(--border-2); border-radius: 4px;
+            padding: 0.3rem 0.75rem; color: var(--text-3); font-size: 0.75rem;
+            cursor: pointer; transition: border-color 0.15s, color 0.15s;
+            font-family: var(--font-sans);
+        }
+        .sample-btn:hover { border-color: var(--green); color: var(--text); }
+
+        /* STATUS */
+        .status-bar {
+            display: none; align-items: center; gap: 0.75rem;
+            font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-2);
+            margin-bottom: 1.5rem;
+        }
+        .status-bar.active { display: flex; }
+        .spinner {
+            width: 14px; height: 14px; border: 2px solid var(--border-2);
+            border-top-color: var(--green); border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* RESULTS */
+        .results { display: none; }
+        .results.active { display: block; }
+
+        .result-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .result-title {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.12em;
+        }
+        .band-pill {
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+            padding: 0.25rem 0.75rem; border-radius: 20px;
+        }
+        .band-GREEN { background: var(--green-dim); color: var(--green); border: 1px solid rgba(51,204,136,0.3); }
+        .band-YELLOW { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(232,197,71,0.3); }
+        .band-RED { background: var(--red-dim); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
+
+        /* OVERVIEW CARD */
+        .overview-card {
+            background: var(--bg-2); border: 1px solid var(--border-2);
+            border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+        }
+        .overview-text {
+            font-size: 0.95rem; color: var(--text); line-height: 1.7;
+        }
+        .coherence-bar-wrap {
+            margin-top: 1rem;
+        }
+        .coherence-bar-label {
+            display: flex; justify-content: space-between;
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+            margin-bottom: 0.35rem;
+        }
+        .coherence-bar-track {
+            height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+        }
+        .coherence-bar-fill {
+            height: 100%; border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+        .fill-GREEN { background: var(--green); }
+        .fill-YELLOW { background: var(--yellow); }
+        .fill-RED { background: var(--red); }
+
+        /* SENTENCE CARDS */
+        .sentence-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        @media (max-width: 640px) { .sentence-grid { grid-template-columns: 1fr; } }
+
+        .sentence-card {
+            background: var(--bg-2); border: 1px solid var(--border-2);
+            border-radius: 8px; padding: 1.25rem;
+        }
+        .sentence-card-tag {
+            font-family: var(--font-mono); font-size: 0.65rem;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;
+        }
+        .tag-weakest { color: var(--red); }
+        .tag-strongest { color: var(--green); }
+        .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .dot-red { background: var(--red); }
+        .dot-green { background: var(--green); }
+
+        .sentence-text {
+            font-size: 0.88rem; color: var(--text); line-height: 1.6;
+            margin-bottom: 0.75rem; font-style: italic;
+        }
+        .sentence-analysis {
+            font-size: 0.82rem; color: var(--text-2); line-height: 1.6;
+        }
+
+        /* FOLLOW-UP STRIP */
+        .followup-strip {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+            font-size: 0.85rem; color: var(--text-2);
+        }
+        .followup-label {
+            font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+        }
+
+        /* HOW IT WORKS */
+        .how-card {
+            background: var(--bg-2); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 2.5rem;
+        }
+        .how-card h3 {
+            font-family: var(--font-mono); font-size: 0.85rem; color: var(--green);
+            margin-bottom: 0.75rem;
+        }
+        .how-card p { font-size: 0.85rem; color: var(--text-2); margin-bottom: 0.5rem; }
+        .how-card p:last-child { margin-bottom: 0; }
+        .how-card code {
+            font-family: var(--font-mono); font-size: 0.8em;
+            color: var(--green); background: var(--bg-3);
+            padding: 0.1em 0.3em; border-radius: 3px;
+        }
+
+        /* ERROR */
+        .error-card {
+            background: var(--red-dim); border: 1px solid rgba(224,85,85,0.3);
+            border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+            font-size: 0.87rem; color: var(--red); display: none;
+        }
+        .error-card.active { display: block; }
+
+        /* FOOTER */
+        .page-footer {
+            text-align: center; padding: 3rem 1.5rem 2rem;
+            font-size: 0.78rem; color: var(--text-3);
+        }
+        .page-footer a { color: var(--text-2); text-decoration: none; }
+        .page-footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">CK</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#braid">Braid</a>
+                <a href="papers.html">Papers</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+
+        <div class="page-tag">live demo &middot; gen 11 &middot; D2 curvature pipeline</div>
+        <h1><span class="ck">CK</span> Coherence Spectrometer</h1>
+        <p class="subtitle">Paste any text or equation. CK scores it using the D2 curvature pipeline and operator algebra. No ML. No embeddings. Pure math.</p>
+
+        <!-- INPUT -->
+        <div class="input-card">
+            <div class="input-label">Your text</div>
+            <textarea id="spec-input" class="input-area"
+                placeholder="sinc²(k/p) = 0 iff p|k&#10;Or paste a paragraph, an equation, a proof claim, a scripture — anything. CK measures how it curves."></textarea>
+            <div class="sample-btns">
+                <span style="font-size: 0.72rem; color: var(--text-3); align-self: center; margin-right: 0.25rem;">Try:</span>
+                <button class="sample-btn" data-sample="science">Physics paragraph</button>
+                <button class="sample-btn" data-sample="scripture">Scripture</button>
+                <button class="sample-btn" data-sample="argument">Argument</button>
+                <button class="sample-btn" data-sample="marketing">Marketing copy</button>
+            </div>
+            <div class="input-footer">
+                <span class="word-count" id="word-count">0 words</span>
+                <button class="run-btn" id="run-btn" disabled>Run Spectrometer</button>
+            </div>
+        </div>
+
+        <!-- STATUS -->
+        <div class="status-bar" id="status-bar">
+            <div class="spinner"></div>
+            <span id="status-text">Sending to CK engine...</span>
+        </div>
+
+        <!-- ERROR -->
+        <div class="error-card" id="error-card"></div>
+
+        <!-- RESULTS -->
+        <div class="results" id="results">
+
+            <div class="result-header">
+                <div class="result-title">Spectrometer Results</div>
+                <div class="band-pill" id="band-pill">--</div>
+            </div>
+
+            <!-- Coherence bar -->
+            <div class="overview-card">
+                <div class="coherence-bar-wrap">
+                    <div class="coherence-bar-label">
+                        <span>Mean field coherence (D2 curvature score)</span>
+                        <span id="coherence-val">--</span>
+                    </div>
+                    <div class="coherence-bar-track">
+                        <div class="coherence-bar-fill" id="coherence-bar" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="overview-text" id="overview-text" style="margin-top: 1rem;"></div>
+            </div>
+
+            <!-- Weakest / Strongest -->
+            <div class="sentence-grid" id="sentence-grid" style="display: none;">
+                <div class="sentence-card">
+                    <div class="sentence-card-tag tag-weakest">
+                        <span class="dot dot-red"></span> Weakest sentence
+                    </div>
+                    <div class="sentence-text" id="weakest-text"></div>
+                    <div class="sentence-analysis" id="weakest-analysis"></div>
+                </div>
+                <div class="sentence-card">
+                    <div class="sentence-card-tag tag-strongest">
+                        <span class="dot dot-green"></span> Strongest sentence
+                    </div>
+                    <div class="sentence-text" id="strongest-text"></div>
+                    <div class="sentence-analysis" id="strongest-analysis"></div>
+                </div>
+            </div>
+
+            <!-- Additional follow-up -->
+            <div class="followup-strip" id="followup-strip" style="display: none;">
+                <div class="followup-label">CK on overall structure</div>
+                <div id="followup-text"></div>
+            </div>
+
+            <!-- Try again -->
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button class="run-btn" id="reset-btn" style="background: none; border: 1px solid var(--border-2); color: var(--text-2);">Run another text</button>
+            </div>
+
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="how-card">
+            <h3>How the spectrometer works</h3>
+            <p>Your text is sent to the live CK engine running on this server. The engine runs the <strong>D2 curvature pipeline</strong> on any input — a single equation, a sentence, or a full paragraph.</p>
+            <p>Each sentence runs through the <strong>D2 pipeline</strong>: characters map to 5D Hebrew root force vectors (aperture, pressure, depth, binding, continuity). The second discrete derivative measures curvature. Curvature classifies into one of 10 operators. Operators compose through the TSML and BHML tables. Result: a field coherence score per sentence.</p>
+            <p><strong>What the score measures &mdash; and what it does not.</strong> The D2 pipeline measures <em>force-vector curvature</em> at the character level. It finds sentences where the operators pull against each other (low coherence = internal tension) vs. converge (high coherence = alignment). This is the same pipeline that measures the genetic code and the periodic table. For prose, the scores cluster in the 0.50&ndash;0.65 range regardless of quality &mdash; the tool is not a literary quality judge. What it does catch is <em>internal structural tension</em>: a sentence that changes direction partway through registers differently than one that holds a single force arc.</p>
+            <p>The threshold <code>T* = 5/7 = 0.714</code> is algebraically forced from the ring Z/10Z. English prose rarely reaches it through character-level analysis alone. The domain spectrometers (periodic table, genetic code, brain states) use purpose-built 5D mappings that make T* meaningful for their domain. For raw text, the spectrometer is most useful for <em>within-text comparison</em>: finding which sentence is pulling hardest against the others.</p>
+            <p>Nothing is trained on your text. CK has no memory of what you submit here.</p>
+        </div>
+
+    </main>
+
+    <footer class="page-footer">
+        <a href="index.html">coherencekeeper.com</a> &middot;
+        
+        <a href="papers.html">Papers</a> &middot;
+        <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a>
+        &middot; &copy; 2026 Brayden Sanders / 7Site LLC &middot; Human Use License v1.0
+    </footer>
+
+    <script>
+    "use strict";
+
+    // ── Constants ─────────────────────────────────────────────────
+    const T_STAR = 5 / 7;
+    const API_BASE = '';   // same-origin
+
+    // ── Sample texts ──────────────────────────────────────────────
+    const SAMPLES = {
+        science: `The second law of thermodynamics states that the total entropy of an isolated system can never decrease over time, and is constant if and only if all processes are reversible. Isolated systems spontaneously evolve toward thermodynamic equilibrium, the state with maximum entropy. The total entropy of a system and its surroundings can remain constant in ideal cases where the system is in thermodynamic equilibrium, or is undergoing a reversible process. In all spontaneous processes, the total entropy increases and the process is irreversible. The increase in entropy accounts for the irreversibility of natural processes, and the asymmetry between future and past.`,
+        scripture: `In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God. All things were made through him, and without him was not any thing made that was made. In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it. There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him.`,
+        argument: `Consciousness cannot be reduced to physical brain processes because subjective experience has properties that no physical description can capture. The hard problem of consciousness is not merely a gap in our current knowledge but a fundamental explanatory barrier. Even a complete physical description of neural correlates would leave unexplained why there is something it is like to be in those states. This explanatory gap cannot be bridged by adding more physical detail. The most we can say is that certain physical configurations are reliably correlated with certain conscious experiences, but correlation is not explanation. Therefore, physicalism fails as a theory of mind.`,
+        marketing: `Transform your workflow with our revolutionary AI-powered platform. Unlock unprecedented productivity gains and competitive advantages that will catapult your business to new heights. Our cutting-edge technology seamlessly integrates with your existing systems to deliver game-changing results. Trusted by over ten thousand forward-thinking enterprises worldwide, our solution is the only choice for organizations serious about digital transformation. Don't get left behind. Join the future today. Schedule your free demo and discover why industry leaders choose us to power their most critical operations.`
+    };
+
+    // ── Session state ─────────────────────────────────────────────
+    let sessionId = (() => {
+        let id = null;
+        try { id = localStorage.getItem('ck_spec_session'); } catch(e) {}
+        if (!id) {
+            id = 'spec_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+            try { localStorage.setItem('ck_spec_session', id); } catch(e) {}
+        }
+        return id;
+    })();
+
+    // ── DOM refs ──────────────────────────────────────────────────
+    const specInput   = document.getElementById('spec-input');
+    const wordCount   = document.getElementById('word-count');
+    const runBtn      = document.getElementById('run-btn');
+    const resetBtn    = document.getElementById('reset-btn');
+    const statusBar   = document.getElementById('status-bar');
+    const statusText  = document.getElementById('status-text');
+    const errorCard   = document.getElementById('error-card');
+    const results     = document.getElementById('results');
+    const bandPill    = document.getElementById('band-pill');
+    const coherenceVal = document.getElementById('coherence-val');
+    const coherenceBar = document.getElementById('coherence-bar');
+    const overviewText = document.getElementById('overview-text');
+    const sentenceGrid = document.getElementById('sentence-grid');
+    const weakestText  = document.getElementById('weakest-text');
+    const weakestAn   = document.getElementById('weakest-analysis');
+    const strongestText = document.getElementById('strongest-text');
+    const strongestAn = document.getElementById('strongest-analysis');
+    const followupStrip = document.getElementById('followup-strip');
+    const followupText  = document.getElementById('followup-text');
+
+    // ── Word count ────────────────────────────────────────────────
+    specInput.addEventListener('input', updateWordCount);
+    function updateWordCount() {
+        const words = specInput.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+        const ready = words >= 3;
+        wordCount.textContent = words + ' word' + (words !== 1 ? 's' : '') +
+            (ready ? ' \u2014 ready' : ' \u2014 need 3+ to run');
+        wordCount.classList.toggle('ready', ready);
+        runBtn.disabled = !ready;
+    }
+
+    // ── Sample buttons ────────────────────────────────────────────
+    document.querySelectorAll('.sample-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            specInput.value = SAMPLES[btn.dataset.sample] || '';
+            updateWordCount();
+            specInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    });
+
+    // ── Reset ─────────────────────────────────────────────────────
+    resetBtn.addEventListener('click', () => {
+        results.classList.remove('active');
+        errorCard.classList.remove('active');
+        specInput.value = '';
+        updateWordCount();
+        specInput.focus();
+        // fresh session so spectrometer fires again
+        sessionId = 'spec_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+        try { localStorage.setItem('ck_spec_session', sessionId); } catch(e) {}
+    });
+
+    // ── API call ──────────────────────────────────────────────────
+    async function ckChat(text) {
+        const res = await fetch(API_BASE + '/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, session_id: sessionId, mode: 'normal' }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+    }
+
+    // ── Band helper ───────────────────────────────────────────────
+    function bandFromCoherence(c) {
+        if (c >= T_STAR) return 'GREEN';
+        if (c >= 0.4)   return 'YELLOW';
+        return 'RED';
+    }
+
+    function bandLabel(band) {
+        if (band === 'GREEN')  return 'GREEN \u2014 field-coherent (above T*)';
+        if (band === 'YELLOW') return 'YELLOW \u2014 working (\u2265 0.4)';
+        return 'RED \u2014 seeking (< 0.4)';
+    }
+
+    // ── Extract coherence from response ──────────────────────────
+    // NOTE: data.coherence is CK's own heartbeat field, NOT the text score.
+    // The spectrometer score is embedded in the text: "Mean field coherence: 0.59"
+    // Always parse from text first; fall back to data.coherence only if non-zero.
+    function extractCoherence(data) {
+        const text = data.text || '';
+        // Pattern: "Mean field coherence: 0.59" or "Mean coherence: 0.59"
+        const m = text.match(/[Mm]ean(?:\s+field)?\s+coherence[:\s]+([0-9]\.[0-9]+)/);
+        if (m) return parseFloat(m[1]);
+        // Fallback: CK's own coherence if non-zero
+        if (typeof data.coherence === 'number' && data.coherence > 0) return data.coherence;
+        return null;
+    }
+
+    // ── Run ───────────────────────────────────────────────────────
+    runBtn.addEventListener('click', runSpectrometer);
+
+    async function runSpectrometer() {
+        const text = specInput.value.trim();
+        if (!text) return;
+
+        // reset UI
+        errorCard.classList.remove('active');
+        results.classList.remove('active');
+        sentenceGrid.style.display = 'none';
+        followupStrip.style.display = 'none';
+        runBtn.disabled = true;
+        statusBar.classList.add('active');
+
+        try {
+            // Step 1: Send the text — spectrometer fires automatically on 50+ words
+            statusText.textContent = 'Analyzing text through D2 pipeline...';
+            const r1 = await ckChat(text);
+            if (!r1) throw new Error('No response from CK engine. Is the server running?');
+
+            const coherence = extractCoherence(r1);
+            // Use text-derived score for band, not r1.band (which is CK's own heartbeat band)
+            const band = coherence !== null ? bandFromCoherence(coherence) : (r1.band || 'YELLOW');
+
+            // Show overview
+            bandPill.textContent = bandLabel(band);
+            bandPill.className = 'band-pill band-' + band;
+
+            if (coherence !== null) {
+                coherenceVal.textContent = coherence.toFixed(3) + ' / 1.000';
+                const pct = Math.min(100, Math.round(coherence * 100));
+                coherenceBar.style.width = pct + '%';
+                coherenceBar.className = 'coherence-bar-fill fill-' + band;
+            } else {
+                coherenceVal.textContent = '--';
+                coherenceBar.style.width = '0%';
+            }
+
+            overviewText.textContent = r1.text || '(no overview returned)';
+            results.classList.add('active');
+
+            // Step 2: Ask for weakest sentence
+            statusText.textContent = 'Finding weakest sentence...';
+            const r2 = await ckChat('which was weakest?');
+
+            // Step 3: Ask for strongest sentence
+            statusText.textContent = 'Finding strongest sentence...';
+            const r3 = await ckChat('which was strongest?');
+
+            // Populate sentence cards
+            if (r2 && r2.text) {
+                weakestText.textContent = extractQuotedSentence(r2.text) || '';
+                weakestAn.textContent = r2.text;
+                sentenceGrid.style.display = 'grid';
+            }
+            if (r3 && r3.text) {
+                strongestText.textContent = extractQuotedSentence(r3.text) || '';
+                strongestAn.textContent = r3.text;
+                sentenceGrid.style.display = 'grid';
+            }
+
+            // NOTE: The spectrometer allows 3 follow-ups total before session clears.
+            // We used 2 (weakest + strongest). Do NOT fire a 3rd here --
+            // the sentence cards already carry the key information.
+            // followupStrip is intentionally left hidden for this reason.
+
+        } catch (err) {
+            errorCard.textContent = 'Error: ' + err.message +
+                ' \u2014 Make sure the CK engine is running and the tunnel is active.';
+            errorCard.classList.add('active');
+        } finally {
+            statusBar.classList.remove('active');
+            runBtn.disabled = false;
+            updateWordCount();
+            results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // ── Pull quoted sentence from response text ───────────────────
+    function extractQuotedSentence(text) {
+        const m = text.match(/["\u201c\u201d]([^"\u201c\u201d]{10,})["\u201c\u201d]/);
+        return m ? m[1] : null;
+    }
+
+    // ── Init ──────────────────────────────────────────────────────
+    updateWordCount();
+    </script>
+
+</body>
+</html>

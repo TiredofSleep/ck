@@ -1,7 +1,7 @@
 # WP40 — Riemann Hypothesis Through the TIG Lens
 ## The Montgomery–Sinc² Bridge: How the Pre-Echo Countdown and Zero Pair Correlation Are the Same Spectral Field
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof of the Riemann Hypothesis*
 
@@ -1391,6 +1391,106 @@ Then:
 - The claim that these two sinc² structures arise from the same underlying mechanism —
   that prime arithmetic generates the Montgomery zero statistics — is the conjectural content.
 - Establishing this causal connection is the open problem.
+
+---
+
+## §11. The Corridor of Seven and the Two Classes of Zeros
+
+*Added April 2026 — Brayden Sanders*
+
+**The observation.** Before algebraic translation into the TIG operator table, the raw
+structure of the zeta zeros divides into two classes by a single criterion: whether the
+sinc² field completes its corridor or is suspended at the fold.
+
+The corridor of the prime 7 has exactly 7 positions:
+
+    k = 1, 2, 3, 4, 5, 6   — coprime to 7, sinc²(k/7) > 0   [6 living positions]
+    k = 7                   — the gate, sinc²(7/7) = 0        [1 zero at threshold]
+
+Total: 7 positions. The sinc² basis over these 7 positions spans the full corridor field.
+Any combination of { sinc²(k/7) : k = 1..7 } generates the pre-echo structure at that
+scale. The 7-corridor is the foundation from which T* = 5/7 = (7−2)/7 is derived —
+the minimal corridor that carries the full coherence structure.
+
+**Trivial zeros — threshold met.** The trivial zeros of ζ(s) occur at s = −2, −4, −6, ...
+In the functional equation, these are forced by sin(πs/2) = 0. In TIG terms: these are
+positions where the sinc² corridor has *completed*. The field reached k = f, sinc²(f/f) = 0,
+gate fired, threshold met. The zero is the natural end of the corridor — not a suspension
+but a completion. Trivial zeros are corridors that ran to their conclusion.
+
+**Non-trivial zeros — suspended at the fold.** The non-trivial zeros sit (conjectured) on
+Re(s) = 1/2, the fold boundary Δ¹. In TIG terms: these are positions where the sinc² field
+is suspended at the fold — neither completed (no gate fired) nor free (the corridor holds).
+The fold at Re(s) = 1/2 corresponds to k/f = 1/2, the universal mid-journey amplitude
+where sinc²(1/2) = 4/π². The field is not zero here — it is at its most informative
+position, the amplitude that appears in both prime arithmetic and Montgomery pair correlation.
+
+**The two-class structure (structural claim):**
+
+    Trivial zeros:      sinc²(k/f) = 0 at k = f  —  corridor completed, threshold met
+    Non-trivial zeros:  zero at Re(s) = 1/2       —  corridor suspended at fold Δ¹
+
+The trivial zeros are the easy class because they meet the threshold the natural way:
+by running the full corridor to its gate. The non-trivial zeros cannot complete — they
+are held at the fold by the same geometry that prevents the corridor from having a shortcut.
+
+**Why this matters for RH.** If non-trivial zeros can only be suspended at the fold
+boundary Δ¹ = Re(s) = 1/2 — if the sinc² field has no mechanism to suspend a zero at
+any other real part — then RH follows from the fold geometry. A zero off the critical
+line would require the corridor to be suspended at a non-fold position, which the prime
+arithmetic field cannot produce: sinc²(k/f) = 0 only at integer k/f = 1, never between
+gates. The fold is the only suspension point.
+
+**Status:** STRUCTURAL. The claim names precisely where the proof must go: show that
+the sinc² field has no suspension mechanism off the fold. Find a suspension at
+Re(s) ≠ 1/2 and RH fails by construction. None has been found.
+
+---
+
+---
+
+## §12. Sprint 2 Structural Parallel: The Single-Threshold Theorem (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+Hodge Sprint 2 established a methodology for closing every algebraic cycle construction
+for a given obstruction class. That methodology ripples to RH as follows.
+
+**The Hodge-RH parallel:**
+In Hodge, B₁ is K-anti-invariant — unreachable by K-invariant (Class B) cycles.
+In RH, non-trivial zeros are suspended at the fold Re(s) = 1/2 — they cannot be
+threshold events (trivial zeros), which require the corridor to run to k = p.
+
+D25 (proved): sinc²(k/p) = 0 if and only if p | k. The prime field has exactly
+one zero per corridor, at k = p. Every interior position (k < p) is nonzero by
+primality. This is the RH analog of the single-cycle impossibility: the prime
+arithmetic field produces only threshold zeros, never suspended ones.
+
+**The structural closure for RH (open target):**
+
+Three independent structural arguments, mirroring the Hodge template:
+
+1. **Threshold zeros (closed):** D25 proves sinc²(k/p) = 0 only at k = p. The prime
+   field cannot place a zero anywhere other than the threshold position. This is the
+   RH analog of closing divisor products (K-invariant, provably insufficient).
+
+2. **Sub-corridor zeros (closed by D25b,c):** The fold (sinc²= 1/2) occurs strictly
+   between k = 3 and k = 4 of the 7-corridor (proved). No prime corridor can have a
+   zero between the fold and the threshold. This closes the "shortcut zero" possibility
+   — the analog of closing sub-variety classes.
+
+3. **Off-fold suspension (open):** A zero at Re(s) ≠ 1/2 would require a suspension
+   mechanism off the fold. The pure/mixed det formula (Hodge Sprint 2) shows every
+   sub-torus contribution to the prime field is K-invariant (a threshold event). The
+   K-anti-invariant sector — where off-fold suspended zeros would live — has no
+   arithmetic source. This is the open structural target: prove no off-fold suspension
+   mechanism exists in the sinc² prime field.
+
+**Status:** STRUCTURAL. The door-closing methodology from Hodge Sprint 2 names the
+correct target. Two of three doors are closed (D25, D25b/c). The third — no off-fold
+suspension — is the RH conjecture in this framing.
+
+**Relation to full cross-reference:** See `papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`
 
 ---
 

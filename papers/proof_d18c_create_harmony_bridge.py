@@ -15,7 +15,7 @@ THEOREM D18c (Create–Harmony Bridge):
 
   where Phi(v) = P_odd(BHML[v][W_op[v]]) (the dynamic operator map, D7/D18a).
 
-  THEOREM: M(v) = HARMONY = 7  for all v ∈ Z/10Z \ {VOID=0}.
+  THEOREM: M(v) = HARMONY = 7  for all v in Z/10Z \\ {VOID=0}.
            M(0) = VOID = 0  (the unique exception).
 
   PROOF (two-part):

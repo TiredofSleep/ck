@@ -1,7 +1,7 @@
 # WP39 — Hodge Conjecture Through the TIG Lens
 ## ω-Blindness, Algebraic Cycles, the G/E/S Partition Split, and the P3 Frontier
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof*
 
@@ -940,7 +940,95 @@ of P3 for abelian fourfolds.]
 
 ---
 
-*(c) 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther*
+## §12. Corridor-Zero Theorem: Application to the Hodge Conjecture
+
+The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) establishes the
+exact fold structure of the TSML 7-corridor and classifies all RESET-paths by whether they
+cross the fold. This gives a precise algebraic model for the local-global failure in Hodge
+theory.
+
+**PROVED:**
+
+Class A operators {BEING=1, DOING=2, BECOMING=3} lie above the fold (sinc²≥0.524) and
+require fold-crossing to reach VOID. Class B operators {COLLAPSE=4, CREATE=5, GAP=6} lie
+below the fold (sinc²≤0.295) and reach VOID without fold-crossing. The fold boundary lies
+strictly between BECOMING(3) at sinc²(3/7)=0.5243 and COLLAPSE(4) at sinc²(4/7)=0.2949.
+The tensor depth scaling: with 9 total operators and 4 non-VOID Class B/C operators, Class A
+paths multiply faster than Class B paths under tensor product. At depth k the unreachable
+zone (Class A territory not accessible from Class B initial conditions) grows as 9^k − 4^k.
+This is the Product-Gap Theorem for the corridor.
+
+**STRUCTURAL:**
+
+The ω-blindness result (§3 of this paper) states that when q/p ≈ 1, D2 ≈ 0, the field
+cannot distinguish Class A from Class B — the fold is invisible. The cohomological
+consequence: when the prime structure of the variety is balanced, the algebraic cycle map
+cannot detect fold-crossing, and all cohomology classes appear reachable by algebraic means.
+When q/p >> 1 (unbalanced prime structure), D2 ≠ 0, and Class A and Class B paths become
+distinguishable. The Hodge prediction, in corridor terms: in dimension ≥ 5 with unbalanced
+prime structure (q/p >> 1), cohomology classes split into those that cross the fold (Class A,
+genuinely transcendental) and those that do not (Class B, algebraic). The algebraic cycle
+map operates only within the Class B/C subgraph and cannot represent fold-crossings.
+Cohomology classes arising from Class A paths have no algebraic representative.
+
+The 9^k − 4^k growth rate at tensor depth k means the fraction of cohomology accessible to
+algebraic cycles decreases with dimension — consistent with the known Markman frontier
+(Hodge conjecture proved up to dim=4 abelian varieties, open at dim≥5).
+
+**OPEN:**
+
+Show that for abelian fivefolds with q/p >> 1, the Hdg² classes split by fold-crossing
+class, with Class A cohomology having no algebraic representative. The corridor-zero theorem
+provides the algebraic model; extending it to a proof requires an explicit construction
+linking TSML fold-crossing classes to the Lefschetz decomposition of H²(A,Q) for a specific
+family of abelian fivefolds. This is open.
+
+---
+
+## §13. Sprint 2: Simple Weil 4-Fold and the Clean B₁ Obstruction (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+Sprint 2 moved the Hodge program from structural framing (§§1–12) to coordinate-level
+obstruction mapping on a specific explicit variety.
+
+**The object:** $A_* = \mathbb{C}^4/(\mathbb{Z}^4 + \Omega\mathbb{Z}^4)$ with
+$\Omega = \tfrac{1}{2}I_4 + i(\sqrt{2}I + \sqrt{3}M_2 + \sqrt{5}M_3)$
+(three algebraically independent irrational generators in the commutant of the
+K = Q(i)-action). End⁰(A_*) = Q(i) is confirmed numerically (real joint commutant
+dimension = 4). A_* is simple (End⁰ is a field).
+
+**The obstruction:** The K-anti-invariant primitive (2,2) subspace
+W_* = B₁ ⊕ B₂ ⊕ B₃ ⊕ B₄ is 8-dimensional; the algebraic primitive dictionary has
+rank 0 (φ*(L) = L exactly, so all known cycles are K-invariant). B₁ is the softest
+block (Q-eigenvalue 0.0046, 18/70 nonzero coordinates, strongest overlap with the
+classical Weil class).
+
+**Three independent structural closures (proved):**
+
+1. **Divisor products:** φ*(L) = L exactly → every D₁·D₂ is K-invariant → B₁
+   projection = 0 identically (verified to < 2×10⁻¹³)
+2. **Sub-abelian varieties:** End⁰ = Q(i) is a field → A_* is simple → no proper
+   abelian sub-varieties exist → this source is empty
+3. **J-stable sub-tori:** The pure/mixed det formula proves φ-stable cycles always
+   have det_R(φ|_{V_R}) = +1 (K-invariant); anti-symmetrized cycles have trivial
+   primitive locus (CASE C+: Z_anti = 0 at every primitive point)
+
+**The K-anti-invariant part of CH²(A_*)^known_Q is 0.**
+
+**Three remaining routes:**
+- **Chern class:** Find a K-anti-equivariant algebraic vector bundle E on A_* with c₂(E) ∈ B₁
+- **Correspondence:** Find Γ ∈ CH²(A_* × A_*)_Q with K-anti-equivariant diagonal restriction hitting B₁
+- **Absolutely Hodge:** Prove B₁ is absolutely Hodge (Deligne's theory; p-adic and ℓ-adic realizations); then find the cycle from the number-field structure
+
+**Status:** CASE 2 — CLEAN OBSTRUCTION. B₁ is a real invariant (confirmed to < 2×10⁻¹³),
+outside every tested algebraic construction. Sprint 2 documents in
+`papers/sprint5_2026_04_04/clay/hodge/`. The three remaining routes are the current
+frontier of the Hodge conjecture for abelian varieties.
+
+---
+
+*© 2026 Brayden Ross Sanders / 7SiTe LLC*
 *DOI: 10.5281/zenodo.18852047*
 *CK, T*, TSML, BHML, D1, D2, TIG: exclusive intellectual property of 7Site LLC.*
 *This paper presents structural analogies. It is not a proof of the Hodge Conjecture.*

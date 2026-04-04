@@ -1,0 +1,72 @@
+YANG-MILLS SPECTRAL GAP RESULTS
+Luther-Sanders Research Framework | April 2026
+========================================================================
+T* = 5/7 = 0.71428571
+Gap threshold: 2/7 = 0.28571429
+Numpy: True
+
+Semiprimes tested: 946
+Passed: 946
+Failed: 0
+Degenerate: 0
+Pass rate: 100.00%
+Min ratio: 0.45560869 at b=209 (p=11, q=19)
+Max ratio: 0.99188405 at b=85 (p=5, q=17)
+Mean ratio: 0.70673152
+Median ratio: 0.70020088
+
+CLAIM STATUS: PASS
+
+No failures detected.
+
+SAMPLE RESULTS (all semiprimes):
+  b=    35 p=  5 q=  7 ratio=  0.728529 PASS
+  b=    55 p=  5 q= 11 ratio=  0.882253 PASS
+  b=    65 p=  5 q= 13 ratio=  0.726510 PASS
+  b=    77 p=  7 q= 11 ratio=  0.802442 PASS
+  b=    85 p=  5 q= 17 ratio=  0.991884 PASS
+  b=    91 p=  7 q= 13 ratio=  0.864985 PASS
+  b=    95 p=  5 q= 19 ratio=  0.800186 PASS
+  b=   115 p=  5 q= 23 ratio=  0.801539 PASS
+  b=   119 p=  7 q= 17 ratio=  0.774048 PASS
+  b=   133 p=  7 q= 19 ratio=  0.707534 PASS
+  b=   143 p= 11 q= 13 ratio=  0.829521 PASS
+  b=   145 p=  5 q= 29 ratio=  0.554901 PASS
+  b=   155 p=  5 q= 31 ratio=  0.591082 PASS
+  b=   161 p=  7 q= 23 ratio=  0.781540 PASS
+  b=   185 p=  5 q= 37 ratio=  0.655654 PASS
+  b=   187 p= 11 q= 17 ratio=  0.529615 PASS
+  b=   203 p=  7 q= 29 ratio=  0.721682 PASS
+  b=   205 p=  5 q= 41 ratio=  0.591082 PASS
+  b=   209 p= 11 q= 19 ratio=  0.455609 PASS
+  b=   215 p=  5 q= 43 ratio=  0.926648 PASS
+  b=   217 p=  7 q= 31 ratio=  0.536121 PASS
+  b=   221 p= 13 q= 17 ratio=  0.706030 PASS
+  b=   235 p=  5 q= 47 ratio=  0.655654 PASS
+  b=   247 p= 13 q= 19 ratio=  0.686613 PASS
+  b=   253 p= 11 q= 23 ratio=  0.889021 PASS
+  b=   259 p=  7 q= 37 ratio=  0.719237 PASS
+  b=   265 p=  5 q= 53 ratio=  0.926648 PASS
+  b=   287 p=  7 q= 41 ratio=  0.536121 PASS
+  b=   295 p=  5 q= 59 ratio=  0.700462 PASS
+  b=   299 p= 13 q= 23 ratio=  0.619771 PASS
+  b=   301 p=  7 q= 43 ratio=  0.654745 PASS
+  b=   305 p=  5 q= 61 ratio=  0.591082 PASS
+  b=   319 p= 11 q= 29 ratio=  0.455609 PASS
+  b=   323 p= 17 q= 19 ratio=  0.791261 PASS
+  b=   329 p=  7 q= 47 ratio=  0.700201 PASS
+  b=   335 p=  5 q= 67 ratio=  0.655654 PASS
+  b=   341 p= 11 q= 31 ratio=  0.908006 PASS
+  b=   355 p=  5 q= 71 ratio=  0.591082 PASS
+  b=   365 p=  5 q= 73 ratio=  0.926648 PASS
+  b=   371 p=  7 q= 53 ratio=  0.654745 PASS
+  b=   377 p= 13 q= 29 ratio=  0.686613 PASS
+  b=   391 p= 17 q= 23 ratio=  0.654745 PASS
+  b=   395 p=  5 q= 79 ratio=  0.700462 PASS
+  b=   403 p= 13 q= 31 ratio=  0.693721 PASS
+  b=   407 p= 11 q= 37 ratio=  0.529615 PASS
+  b=   413 p=  7 q= 59 ratio=  0.791261 PASS
+  b=   415 p=  5 q= 83 ratio=  0.926648 PASS
+  b=   427 p=  7 q= 61 ratio=  0.741872 PASS
+  b=   437 p= 19 q= 23 ratio=  0.875651 PASS
+  b=   445 p=  5 q= 89 ratio=  0.700462 PASS
