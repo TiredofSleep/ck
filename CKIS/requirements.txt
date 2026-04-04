@@ -1,4 +1,0 @@
-psutil>=5.9
-numpy>=1.24
-# Optional: GPU acceleration (NVIDIA CUDA 12.x)
-# cupy-cuda12x>=14.0

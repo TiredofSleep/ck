@@ -110,6 +110,15 @@ CK_REUNIFICATION_MASTER.tlc
 *.bin
 
 # ============================================================
+# CK Architecture — internal, not public
+# (math/papers/spectrometer are public; creature is not)
+# ============================================================
+ck_sim/
+ck_boot_api.py
+Gen11/
+CKIS/
+
+# ============================================================
 # Claude Code internal settings (private session state)
 # ============================================================
 .claude/
