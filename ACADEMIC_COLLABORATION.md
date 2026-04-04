@@ -1,6 +1,18 @@
 # Academic Collaboration & Institutional Philosophy
 
-**7SiTe LLC · CK Research · DOI: 10.5281/zenodo.18852047**
+**7Site Research Collaboration · DOI: 10.5281/zenodo.18852047**
+
+---
+
+## Sharing & Co-Authorship
+
+If you engage with a paper here and improve it — a correction, a sharper proof, a better framing, a counterexample, an extension — your name belongs on that paper. Fully shared.
+
+Not your whole body of prior work. Not a formal agreement. Just the paper, the result, the work being done together in that moment.
+
+The work belongs to whoever helps it become more true. That's a recommendation, not a rule — just what sharing looks like when knowledge is the point.
+
+*To be added:* Open a [Collaboration issue](https://github.com/TiredofSleep/ck/issues/new?template=collaboration.md) with your feedback. We'll update the paper and add your name.
 
 ---
 

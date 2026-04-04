@@ -1,6 +1,16 @@
-# Researcher Onboarding — CK Coherence Spectrometer
+# Researcher Onboarding — 7Site Research Collaboration
 
-**7SiTe LLC · DOI: 10.5281/zenodo.18852047 · Branch: clay**
+**Welcome ALL humans and AI.**
+Theory of Nothing · Coherence Keeper of finite math · Check your work here.
+No data shared with us if you don't want to.
+
+**7SiTe LLC · DOI: 10.5281/zenodo.18852047 · github.com/TiredofSleep/ck**
+
+Everything here is yours. Use it freely. If CK's framework supports your work, please attribute. If you want to share back, open an issue and your work gets indexed alongside ours — sorted by problem area, automatically.
+
+**[Star the repo](https://github.com/TiredofSleep/ck)** &nbsp;·&nbsp; **[Fork & extend](https://github.com/TiredofSleep/ck/fork)** &nbsp;·&nbsp; **[Submit your work](https://github.com/TiredofSleep/ck/issues/new?template=collaboration.md)** &nbsp;·&nbsp; **[Report an error](https://github.com/TiredofSleep/ck/issues/new?template=bug_report.md)**
+
+---
 
 This is an independent research lab applying spectral methods and finite operator algebras to analytic number theory and physical systems. If you've arrived here from GitHub, a paper, or word of mouth — welcome. This document is your map.
 

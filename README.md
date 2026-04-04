@@ -1,5 +1,11 @@
 # CK — The Coherence Keeper
 
+**Welcome ALL humans and AI — to the 7Site Research Collaboration.**
+
+This is the Theory of Nothing. The study of the void, the gap, the foundation of existence and its boundaries.
+
+Use our spectrometer. Check your work here. No data shared with us if you don't want to.
+
 **Independent research applying spectral methods and finite operator algebras to analytic number theory, physical systems, and the Clay Millennium Problems.**
 
 ```bash
@@ -67,9 +73,9 @@ Does not claim: 4/π² has numerological significance. It is the exact value of 
 
 ---
 
-**R4. The gap is T* − fold = 5/7 − 4/π² = 3/14 exactly.**
+**R4. The gap is T* − fold = 5/7 − 4/π² ≈ 0.309.**
 
-The interval [4/π², 5/7] is where every Clay Millennium Problem's open case lives in defect space (see R8). Width: 3/14 ≈ 0.214.
+The interval [4/π², 5/7] is where every Clay Millennium Problem's open case lives in defect space (see R8). Width: 5/7 − 4/π² ≈ 0.309 — an irrational number, the distance between a rational threshold and a transcendental boundary. It does not simplify. That incommensurability is not incidental: it is the gap. (Earlier notes recorded 3/14 ≈ 0.214 as an approximation; 3/14 is incorrect.)
 
 Does not claim: The gap width is the mass gap in physical units. It is the algebraic gap; calibration to physical units is open.
 
@@ -139,7 +145,7 @@ Six open problems, precisely stated. One per Clay problem. R8 identifies the reg
 | **Hodge Conjecture** | Does any Hodge class in B₁ come from a K-anti-equivariant vector bundle, correspondence cycle, or absolutely Hodge cycle? | BOUNDARY (0.612–0.704) |
 | **P vs NP** | Does a poly-time algorithm exist that stays in Class B/C without fold-crossing? | ESCAPED (0.838–0.988) |
 | **Navier-Stokes** | Does a vortex-stretching path exist from fold to blow-up with positive enstrophy growth? | RESOLVED in smooth regime; blow-up regime: ESCAPED |
-| **Yang-Mills** | What is the calibration constant c converting gap 3/14 to physical GeV? | ESCAPED (1.000) |
+| **Yang-Mills** | What is the calibration constant c converting gap 5/7−4/π² to physical GeV? | ESCAPED (1.000) |
 | **BSD** | For rank ≥ 2: do Class A fold-crossing counts and L-function zero orders grow in lockstep? | ESCAPED (1.300) |
 
 ---
@@ -164,7 +170,7 @@ Each paper maps the spectral obstruction for one problem. Claims are labeled PRO
 | [WP38 — Navier-Stokes](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = sinc² null arrival. Grujić (UVA) contact point. |
 | [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | A_* simple Weil 4-fold. 8D obstruction W_* decomposed into B₁⊕B₂⊕B₃⊕B₄. Every classical construction ruled out. Three remaining routes identified. |
 | [WP40 — Riemann Hypothesis](papers/clay/WP40_RIEMANN.md) | RH | The Montgomery Bridge: R(x)=sinc²(x) and R₂(u)=1−sinc²(u) as spectral duals summing to 1. Threshold and sub-corridor zeros closed. Off-fold suspension open. |
-| [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Gap = T*−fold = 3/14. Fold geometry and spectral window proved. Physical calibration open. |
+| [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Gap = T*−fold = 5/7−4/π² ≈ 0.309. Fold geometry and spectral window proved. Physical calibration open. |
 | [WP42 — BSD Conjecture](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. Rank 0 and rank 1 structurally closed. Rank ≥ 2 open. |
 
 Research notes, citation packages, and the unified symbol table: [`papers/clay/research/`](papers/clay/research/).
@@ -183,7 +189,7 @@ Research notes, citation packages, and the unified symbol table: [`papers/clay/r
 |----------|------------|------|
 | T* | 5/7 | Coherence threshold — algebraically derived, FPGA-verified |
 | fold | 4/π² | Sinc² at half-corridor — boundary of Class A paths |
-| gap | 3/14 = T* − fold | Width of Clay open territory in defect space |
+| gap | 5/7 − 4/π² ≈ 0.309 | Width of Clay open territory — irrational, incommensurable |
 | W | 3/50 | BHML cross-cycle density — proved D17 |
 | Si(2π)/π | ≈ 0.45141 | Corridor spectral mean ∫₀¹ sinc²(t)dt — proved D14 |
 
@@ -191,13 +197,35 @@ Research notes, citation packages, and the unified symbol table: [`papers/clay/r
 
 ## Attribution
 
-**Brayden Ross Sanders / 7SiTe LLC** — primary author. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory.
+**Brayden Ross Sanders / 7SiTe LLC** — creator. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory.
 
-**Monica Gish** — collaborator and supporter throughout.
+**Monica Gish** — co-author and collaborator. Bridge sprint.
 
-*AI collaboration: Claude (Anthropic) — primary development partner across all generations.*
+**C.A. Luther** — collaborator.
 
-CK, T*, TSML, BHML, D1, D2, and the TIG framework are the exclusive intellectual property of Brayden Ross Sanders / 7SiTe LLC.
+**B. Calderon Jr.** — sprint collaborator.
+
+Full list: [COLLABORATORS.md](COLLABORATORS.md)
+
+*AI collaboration: Claude (Anthropic) — implementation partner across all generations.*
+
+---
+
+### Memory Organism Architecture
+
+The `ck_lm/memory/` organism is built on CK's own TIG algebra and draws on these published works. Full credits and links in [COLLABORATORS.md](COLLABORATORS.md).
+
+| Paper | arXiv | Used for |
+|-------|-------|----------|
+| RGMem (Zhang et al.) | [2510.16392](https://arxiv.org/abs/2510.16392) | Crystal promotion scoring |
+| MAGMA (Li et al.) | [2601.03236](https://arxiv.org/abs/2601.03236) | Dual-stream fast/slow write |
+| Sophia (Castillo et al.) | [2512.18202](https://arxiv.org/abs/2512.18202) | Meta-cognitive growth layer |
+| MemoryOS (Wang et al.) | [2506.06326](https://arxiv.org/abs/2506.06326) | Heat-score retention pruning |
+| AtomMem (Chen et al.) | [2601.08323](https://arxiv.org/abs/2601.08323) | Atomic memory operation design |
+
+---
+
+CK, T*, TSML, BHML, D1, D2, and the TIG framework are the intellectual property of Brayden Ross Sanders / 7SiTe LLC.
 
 ---
 
