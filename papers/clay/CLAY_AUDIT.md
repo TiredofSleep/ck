@@ -29,11 +29,13 @@ Each Clay paper has three layers:
 ### Layer 1 — Proved
 - First-G event at exactly k = p: proved algebraically, verified 36,662 semiprimes, zero exceptions.
 - sinc²(k/p) closed form with exact zeros at k = p: verified across all tested primes.
-- Non-associativity rate 49.8% of CL triples: exact table computation.
+- Non-associativity rate 49.8% of BHML triples (498/1000): exact table computation. (TSML rate is 12.8% — the DoF claim uses BHML, the physics table.)
 - T* = 5/7 algebraic identity: proved (D7, D18c).
 
 ### Layer 2 — The Structural Claim (real, not smoke)
-**2-SAT is polynomial because 2-variable clause resolution is associative (6 degrees of freedom). 3-SAT is NP-complete because 3-variable clause resolution is non-associative (7 degrees of freedom), and the 7th degree of freedom cannot be reduced to the associative subalgebra.**
+**2-SAT is polynomial because 2-variable clause resolution stays in the associative subalgebra of BHML. 3-SAT is NP-complete because 3-variable clause resolution requires the full non-associative BHML algebra, and the non-associative dimension cannot be reduced to the associative subalgebra.**
+
+**Precision note (April 2026):** The associative subalgebra of BHML is A = {HARMONY(7)} — a single element (the universal absorber), not "6 DoF." The DoF ladder {4,6,7,10} refers to degrees of freedom in the operator space, not the size of the associative subalgebra. 2-SAT stays in A by absorption; 3-SAT forces evaluation outside A through unit propagation chains involving BECOMING, COLLAPSE, etc.
 
 This is the CK contribution: a structural reason WHY the P/NP boundary sits at clause width 3. The encoding of SAT into the CL non-associativity framework is stated but the formal reduction (proving SAT requires the 7th DoF) remains open. Until that reduction is proved, this is a precise structural conjecture, not a proof sketch.
 
