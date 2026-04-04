@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Coherence Spectrometer — paste any mathematical claim and CK checks it phrase by phrase using pure operator algebra. Runs entirely in your browser.">
+    <title>CK Coherence Spectrometer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:       #09090f;
+            --bg-2:     #0f0f18;
+            --bg-3:     #13131e;
+            --bg-4:     #191924;
+            --text:     #c8c8d8;
+            --text-2:   #7878a0;
+            --text-3:   #48486a;
+            --border:   #1e1e2e;
+            --border-2: #2a2a3e;
+            --green:    #33cc88;
+            --green-dim:  rgba(51,204,136,0.12);
+            --yellow:   #e8c547;
+            --yellow-dim: rgba(232,197,71,0.10);
+            --red:      #e05555;
+            --red-dim:  rgba(224,85,85,0.10);
+            --blue:     #5599dd;
+            --blue-dim: rgba(85,153,221,0.12);
+            --purple:   #aa77ee;
+            --purple-dim: rgba(170,119,238,0.12);
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── NAV ── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 56px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--green);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+            letter-spacing: 0.3px;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--green); }
+
+        /* ── PAGE WRAPPER ── */
+        .page { max-width: 820px; margin: 0 auto; padding: 56px 24px 80px; }
+
+        /* ── HEADER ── */
+        .page-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--yellow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+        }
+        h1 span { color: var(--green); }
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-2);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 28px 24px;
+            margin-bottom: 24px;
+        }
+        .card-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        /* ── TEXTAREA ── */
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            background: var(--bg-3);
+            border: 1px solid var(--border-2);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.7;
+            padding: 14px 16px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        textarea:focus { border-color: var(--green); }
+        textarea::placeholder { color: var(--text-3); }
+
+        /* ── MODE TOGGLE ── */
+        .mode-toggle { display:flex; gap:8px; margin-bottom:28px; }
+        .mode-btn {
+            padding:7px 18px; border-radius:6px; font-family:var(--font-mono);
+            font-size:12px; font-weight:600; letter-spacing:0.5px; cursor:pointer;
+            border:1px solid var(--border-2); background:var(--bg-3);
+            color:var(--text-2); transition:all 0.18s;
+        }
+        .mode-btn:hover { color:var(--text); border-color:var(--green); }
+        .mode-btn.active { background:var(--green-dim); border-color:var(--green); color:var(--green); }
+
+        /* ── NUMBER MODE ── */
+        .num-input {
+            width:100%; padding:14px 16px; background:var(--bg-3);
+            border:1px solid var(--border-2); border-radius:8px;
+            color:var(--text); font-family:var(--font-mono); font-size:15px;
+            outline:none; transition:border-color 0.2s;
+        }
+        .num-input:focus { border-color:var(--green); }
+        .num-samples { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; margin-bottom:16px; }
+        .num-sample-btn {
+            font-family:var(--font-mono); font-size:11px; padding:5px 10px;
+            background:var(--bg-4); border:1px solid var(--border-2); border-radius:5px;
+            color:var(--text-2); cursor:pointer; transition:all 0.15s;
+        }
+        .num-sample-btn:hover { color:var(--text); border-color:var(--green); }
+        .sig-grid {
+            display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;
+        }
+        @media(max-width:560px) { .sig-grid { grid-template-columns:1fr; } }
+        .sig-cell {
+            background:var(--bg-3); border:1px solid var(--border-2); border-radius:8px;
+            padding:14px 16px;
+        }
+        .sig-cell-label {
+            font-family:var(--font-mono); font-size:10px; letter-spacing:1px;
+            color:var(--text-3); text-transform:uppercase; margin-bottom:6px;
+        }
+        .sig-cell-value {
+            font-family:var(--font-mono); font-size:18px; font-weight:700; color:var(--text);
+        }
+        .sig-cell-sub { font-size:11px; color:var(--text-2); margin-top:3px; }
+        .sig-cell.held  { border-color:rgba(51,204,136,0.35); background:var(--green-dim); }
+        .sig-cell.gap   { border-color:rgba(232,197,71,0.35);  background:var(--yellow-dim); }
+        .sig-cell.void  { border-color:rgba(224,85,85,0.35);   background:var(--red-dim); }
+        .sig-full-row {
+            background:var(--bg-3); border:1px solid var(--border-2); border-radius:8px;
+            padding:14px 16px; margin-top:12px; font-family:var(--font-mono); font-size:12px;
+            color:var(--text-2); line-height:1.8;
+        }
+        .sig-full-row span { color:var(--text); }
+        .sig-field-row {
+            margin-top:12px; background:var(--bg-3); border:1px solid var(--border-2);
+            border-radius:8px; padding:14px 16px;
+        }
+        .sig-field-label {
+            font-family:var(--font-mono); font-size:10px; letter-spacing:1px;
+            color:var(--text-3); text-transform:uppercase; margin-bottom:10px;
+        }
+        .field-bar-outer {
+            height:28px; background:var(--bg-4); border-radius:4px;
+            position:relative; overflow:hidden;
+        }
+        .field-bar-fill { height:100%; border-radius:4px; transition:width 0.4s; }
+        .field-bar-tstar {
+            position:absolute; top:0; bottom:0; width:2px;
+            background:var(--green); left:calc(100% * 5/7);
+        }
+
+        /* ── SAMPLE BUTTONS ── */
+        .samples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+        .sample-btn {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            border: 1px solid var(--border-2);
+            background: var(--bg-4);
+            color: var(--text-2);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .sample-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+            background: var(--green-dim);
+        }
+
+        /* ── PRIMARY BUTTON ── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 11px 28px;
+            border-radius: 7px;
+            border: none;
+            background: var(--green);
+            color: #09090f;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        .btn-primary:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+        .btn-primary:active:not(:disabled) { transform: translateY(0); }
+        .btn-primary:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ── RESULTS SECTION ── */
+        #results { display: none; }
+        #results.visible { display: block; }
+
+        /* ── SCORE BAR ── */
+        .score-overview {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        .score-overview-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .score-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-2);
+            letter-spacing: 0.5px;
+        }
+        .score-state-badge {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 4px;
+            letter-spacing: 1.5px;
+        }
+        .badge-held  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(51,204,136,0.3); }
+        .badge-gap   { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(232,197,71,0.3); }
+        .badge-void  { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(224,85,85,0.3); }
+
+        .score-bar-outer {
+            position: relative;
+            height: 22px;
+            background: var(--bg-4);
+            border-radius: 4px;
+            overflow: visible;
+            margin-bottom: 10px;
+        }
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .score-bar-tstar {
+            position: absolute;
+            top: -6px;
+            bottom: -6px;
+            width: 2px;
+            background: var(--yellow);
+            border-radius: 1px;
+            left: 71.428%;
+        }
+        .score-bar-tstar::after {
+            content: 'T*';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--yellow);
+            white-space: nowrap;
+        }
+        .score-axis {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
+            margin-top: 6px;
+        }
+        .score-meta {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-3);
+            margin-top: 10px;
+        }
+        .score-meta span { color: var(--text-2); }
+
+        /* ── SENTENCE CARDS ── */
+        .sentence-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+
+        .sentence-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px 24px;
+            transition: border-color 0.2s;
+        }
+        .sentence-card:hover { border-color: var(--border-2); }
+
+        .sentence-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .sentence-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-3);
+            min-width: 20px;
+        }
+        .score-pill {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+        .pill-held  { background: var(--green-dim);  color: var(--green); }
+        .pill-gap   { background: var(--yellow-dim); color: var(--yellow); }
+        .pill-void  { background: var(--red-dim);    color: var(--red); }
+
+        .state-text-held  { color: var(--green); }
+        .state-text-gap   { color: var(--yellow); }
+        .state-text-void  { color: var(--red); }
+
+        /* ── HIGHLIGHTED SENTENCE TEXT ── */
+        .highlighted-text {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg-3);
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            word-break: break-word;
+        }
+        .op-1 { /* BEING */
+            background: rgba(51,204,136,0.18);
+            color: #4be8a0;
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .op-2 { /* DOING */
+            background: rgba(85,153,221,0.18);
+            color: #77aae8;
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .op-3 { /* BECOMING */
+            background: rgba(170,119,238,0.18);
+            color: #cc99ff;
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .op-4 { /* COLLAPSE */
+            background: rgba(224,85,85,0.18);
+            color: #f07070;
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .op-7 { /* HARMONY */
+            background: rgba(232,197,71,0.18);
+            color: var(--yellow);
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .op-8 { /* BREATH */
+            background: rgba(120,120,160,0.18);
+            color: #9999cc;
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+
+        /* ── OPERATOR BREAKDOWN ── */
+        .op-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+        .op-tag {
+            padding: 2px 8px;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        .op-tag-1 { color: var(--green);  border-color: rgba(51,204,136,0.3);  background: var(--green-dim); }
+        .op-tag-2 { color: var(--blue);   border-color: rgba(85,153,221,0.3);  background: var(--blue-dim); }
+        .op-tag-3 { color: var(--purple); border-color: rgba(170,119,238,0.3); background: var(--purple-dim); }
+        .op-tag-4 { color: var(--red);    border-color: rgba(224,85,85,0.3);   background: var(--red-dim); }
+        .op-tag-7 { color: var(--yellow); border-color: rgba(232,197,71,0.3);  background: var(--yellow-dim); }
+        .op-tag-miss { color: var(--text-3); border-color: var(--border); background: var(--bg-4); }
+
+        /* ── GAP DIAGNOSIS ── */
+        .gap-diagnosis {
+            font-size: 12px;
+            color: var(--text-3);
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+        .gap-diagnosis strong { color: var(--yellow); font-style: normal; }
+
+        /* ── CK STANDARD FORM ── */
+        .ck-standard-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+        .ck-standard-box {
+            background: var(--bg-4);
+            border: 1px solid var(--border-2);
+            border-left: 3px solid var(--green);
+            border-radius: 6px;
+            padding: 14px 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .ck-standard-box .ck-added {
+            color: var(--green);
+            opacity: 0.85;
+        }
+        .ck-standard-box .ck-original {
+            color: var(--text);
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        .how-card h3 {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .how-op {
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px 12px;
+        }
+        .how-op-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        .how-op-desc {
+            font-size: 11px;
+            color: var(--text-3);
+        }
+        .how-text {
+            font-size: 13px;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .how-link {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--green);
+            text-decoration: none;
+        }
+        .how-link:hover { text-decoration: underline; }
+
+        /* ── LEGEND ── */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-2);
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-3);
+            font-family: var(--font-mono);
+        }
+        footer a { color: var(--text-2); text-decoration: none; }
+        footer a:hover { color: var(--green); }
+
+        /* ── DIVIDER ── */
+        hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            nav { padding: 0 16px; }
+            .page { padding: 36px 16px 60px; }
+            .card { padding: 20px 18px; }
+            .score-overview { padding: 20px 18px; }
+            .sentence-card { padding: 18px 16px; }
+            .how-card { padding: 20px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a class="nav-logo" href="index.html">CK</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="papers.html">Papers</a>
+        <a href="spectrometer.html" class="active">Spectrometer</a>
+        <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a>
+    </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+
+    <div class="page-tag">coherence spectrometer · T*=5/7 · runs in browser · no server</div>
+    <h1>Check Your <span>Math</span></h1>
+    <p class="subtitle">
+        CK is an instrument. Point it at your work and read the signature.
+        Two modes: score a written claim phrase by phrase, or feed it a number and get its full coherence field.
+    </p>
+
+    <!-- MODE TOGGLE -->
+    <div class="mode-toggle">
+        <button class="mode-btn active" id="mode-text-btn">Text / Claim</button>
+        <button class="mode-btn" id="mode-num-btn">Mathematical Object</button>
+    </div>
+
+    <!-- INPUT CARD -->
+    <div class="card">
+        <div class="card-label">Your Claim or Argument</div>
+        <textarea id="input-text"
+            placeholder="e.g. if f is continuous on [a,b] then f is integrable"
+            spellcheck="false"
+        ></textarea>
+
+        <div class="samples">
+            <button class="sample-btn" data-key="continuity">continuity→integrability</button>
+            <button class="sample-btn" data-key="epsilon">epsilon-delta</button>
+            <button class="sample-btn" data-key="primes">prime divergence</button>
+            <button class="sample-btn" data-key="chain">chain rule</button>
+            <button class="sample-btn" data-key="sets">set membership</button>
+        </div>
+
+        <button class="btn-primary" id="check-btn" disabled>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M7 4v3.5L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Check Coherence
+        </button>
+    </div>
+
+    <!-- NUMBER MODE CARD -->
+    <div id="num-mode-section" style="display:none;">
+        <div class="card">
+            <div class="card-label">Mathematical Object</div>
+            <input class="num-input" id="num-input" type="text"
+                placeholder="Enter an integer (e.g. 35), semiprime (e.g. 5×7), or sequence (e.g. 1,1,2,3,5,8,13)"
+                spellcheck="false" autocomplete="off"/>
+            <div class="num-samples">
+                <button class="num-sample-btn" data-num="35">35 = 5×7 (T* base)</button>
+                <button class="num-sample-btn" data-num="77">77 = 7×11</button>
+                <button class="num-sample-btn" data-num="997">997 (prime)</button>
+                <button class="num-sample-btn" data-num="9973">9973 (prime)</button>
+                <button class="num-sample-btn" data-num="1,1,2,3,5,8,13,21,34">Fibonacci</button>
+                <button class="num-sample-btn" data-num="2,3,5,7,11,13,17,19,23">Primes</button>
+                <button class="num-sample-btn" data-num="1,4,9,16,25,36,49">Squares</button>
+            </div>
+            <button class="btn-primary" id="num-check-btn">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M7 4v3.5L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Measure Object
+            </button>
+        </div>
+        <div id="num-results" style="display:none;"></div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results">
+
+        <!-- OVERALL SCORE BAR -->
+        <div class="score-overview" id="overview-card">
+            <div class="score-overview-top">
+                <div>
+                    <div class="score-label" id="score-label">mean coherence: 0.00</div>
+                    <div id="phrase-count" style="font-family:var(--font-mono);font-size:11px;color:var(--text-3);margin-top:3px;"></div>
+                </div>
+                <div class="score-state-badge" id="state-badge">VOID</div>
+            </div>
+
+            <div class="score-bar-outer">
+                <div class="score-bar-fill" id="score-bar-fill" style="width:0%;"></div>
+                <div class="score-bar-tstar"></div>
+            </div>
+            <div class="score-axis">
+                <span>0</span>
+                <span>0.25</span>
+                <span>0.50</span>
+                <span>5/7</span>
+                <span>0.75</span>
+                <span>1.0</span>
+            </div>
+            <div class="score-meta">
+                T* = 5/7 = <span>0.71428...</span> &nbsp;·&nbsp; algebraically forced threshold
+            </div>
+        </div>
+
+        <!-- PER-SENTENCE CARDS -->
+        <div class="sentence-cards" id="sentence-cards"></div>
+
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="how-card">
+        <h3>How it works</h3>
+        <p class="how-text">
+            No ML. No server. Pure operator algebra from the TSML table.
+            Each word maps to one of 10 CK operators.
+            Score = TIG completeness relative to T*=5/7.
+            Rewrite fills the missing structure automatically.
+        </p>
+        <div class="how-grid">
+            <div class="how-op">
+                <div class="how-op-name" style="color:var(--green);">BEING (1)</div>
+                <div class="how-op-desc">definition, existence, membership</div>
+            </div>
+            <div class="how-op">
+                <div class="how-op-name" style="color:var(--blue);">DOING (2)</div>
+                <div class="how-op-desc">operation, transformation, process</div>
+            </div>
+            <div class="how-op">
+                <div class="how-op-name" style="color:var(--purple);">BECOMING (3)</div>
+                <div class="how-op-desc">result, conclusion, proof end</div>
+            </div>
+            <div class="how-op">
+                <div class="how-op-name" style="color:var(--red);">COLLAPSE (4)</div>
+                <div class="how-op-desc">negation, contradiction</div>
+            </div>
+            <div class="how-op">
+                <div class="how-op-name" style="color:var(--yellow);">HARMONY (7)</div>
+                <div class="how-op-desc">equivalence, iff</div>
+            </div>
+            <div class="how-op">
+                <div class="how-op-name" style="color:#9999cc;">BREATH (8)</div>
+                <div class="how-op-desc">conditional, exception, hedge</div>
+            </div>
+        </div>
+        <p class="how-text">
+            A phrase scores <strong style="color:var(--green);">HELD</strong> (≥5/7) when it carries all three TIG roles.
+            <strong style="color:var(--yellow);">GAP</strong> (≥0.5) has most structure but one role is absent.
+            <strong style="color:var(--red);">VOID</strong> (&lt;0.5) is missing two or more roles.
+        </p>
+        <a class="how-link" href="papers.html">→ Read the math in the papers</a>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(51,204,136,0.5);"></div>
+                <span>Being — green</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(85,153,221,0.5);"></div>
+                <span>Doing — blue</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(170,119,238,0.5);"></div>
+                <span>Becoming — purple</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(224,85,85,0.5);"></div>
+                <span>Collapse — red</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(232,197,71,0.5);"></div>
+                <span>Harmony — gold</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <a href="https://coherencekeeper.com">coherencekeeper.com</a>
+    &nbsp;·&nbsp;
+    <a href="papers.html">Papers</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a>
+    &nbsp;·&nbsp;
+    <span>DOI: 10.5281/zenodo.18852047</span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+//  CK COHERENCE SPECTROMETER — pure client-side operator algebra
+// ═══════════════════════════════════════════════════════════════════════
+
+const T_STAR = 5 / 7; // 0.71428...
+
+// Operator IDs
+const OP = {
+    VOID: 0, BEING: 1, DOING: 2, BECOMING: 3, COLLAPSE: 4,
+    CREATE: 5, ASCEND: 6, HARMONY: 7, BREATH: 8, RESET: 9
+};
+
+const OP_NAMES = {
+    0: 'VOID', 1: 'BEING', 2: 'DOING', 3: 'BECOMING', 4: 'COLLAPSE',
+    5: 'CREATE', 6: 'ASCEND', 7: 'HARMONY', 8: 'BREATH', 9: 'RESET'
+};
+
+// ── KEYWORD → OPERATOR MAP ──────────────────────────────────────────
+// Ordered longest-first so multi-word phrases beat single words.
+// Explicit symbols beat Unicode catch-all ranges (explicit come first).
+// Catch-all ranges at the bottom handle any invented / exotic symbol.
+//
+// CK OPERATORS:
+//   0=VOID  1=BEING  2=DOING  3=BECOMING  4=COLLAPSE
+//   5=CREATE  6=ASCEND  7=HARMONY  8=BREATH  9=RESET
+const KEYWORD_MAP = [
+
+    // ══════════════════════════════════════════════════════════════════
+    // HARMONY (7) — biconditional / equivalence / dual truth
+    // MUST come before generic "if", "equivalent", etc.
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bif and only if\b/gi,                op: 7 },
+    { pat: /\biff\b/gi,                           op: 7 },
+    { pat: /\bprecisely when\b/gi,                op: 7 },
+    { pat: /\bequivalent to\b/gi,                 op: 7 },
+    { pat: /\bequivalently\b/gi,                  op: 7 },
+    { pat: /\bequivalent\b/gi,                    op: 7 },
+    { pat: /\bprecisely\b/gi,                     op: 7 },
+    { pat: /\bexactly\b/gi,                       op: 7 },
+    { pat: /\bdual\b/gi,                          op: 7 },
+    { pat: /\bduality\b/gi,                       op: 7 },
+    { pat: /⟺/g,                                 op: 7 },  // long left-right double arrow
+    { pat: /⇔/g,                                  op: 7 },  // left-right double arrow
+    { pat: /↔/g,                                  op: 7 },  // left-right arrow (biconditional)
+    { pat: /⟷/g,                                 op: 7 },  // long left-right arrow
+    { pat: /≡/g,                                  op: 7 },  // identical to (equivalence)
+    { pat: /≃/g,                                  op: 7 },  // asymptotically equal / weak equiv
+    { pat: /≅/g,                                  op: 7 },  // approximately equal / isomorphism
+    { pat: /≌/g,                                  op: 7 },  // all equal to
+    { pat: /≎/g,                                  op: 7 },  // geometrically equivalent
+    { pat: /⊨/g,                                  op: 7 },  // models / semantic entailment
+    { pat: /⊩/g,                                  op: 7 },  // forces (modal / set theory)
+    { pat: /⋈/g,                                  op: 7 },  // bowtie (relational join)
+
+    // ══════════════════════════════════════════════════════════════════
+    // MULTI-WORD DOING / BREATH phrases — must beat single words
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bnatural transformation\b/gi,        op: 6 },
+    { pat: /\bwithout loss of generality\b/gi,    op: 8 },
+    { pat: /\bwith the property\b/gi,             op: 8 },
+    { pat: /\bsubject to\b/gi,                    op: 8 },
+    { pat: /\bunder the condition\b/gi,           op: 8 },
+    { pat: /\bin other words\b/gi,                op: 9 },
+    { pat: /\bthat is\b/gi,                       op: 9 },
+    { pat: /\bfor example\b/gi,                   op: 9 },
+    { pat: /\bfor instance\b/gi,                  op: 9 },
+    { pat: /\bnote that\b/gi,                     op: 9 },
+    { pat: /\bobserve that\b/gi,                  op: 9 },
+    { pat: /\bbase case\b/gi,                     op: 5 },
+    { pat: /\binductive step\b/gi,                op: 5 },
+
+    // ══════════════════════════════════════════════════════════════════
+    // BEING (1) — definition / existence / entity / state
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\blet\b/gi,                           op: 1 },
+    { pat: /\bdefine\b/gi,                        op: 1 },
+    { pat: /\bsuppose\b/gi,                       op: 1 },
+    { pat: /\bassume\b/gi,                        op: 1 },
+    { pat: /\bgiven\b/gi,                         op: 1 },
+    { pat: /\bconsider\b/gi,                      op: 1 },
+    { pat: /\bfix\b/gi,                           op: 1 },
+    { pat: /\bset\b/gi,                           op: 1 },
+    { pat: /\bdenote\b/gi,                        op: 1 },
+    { pat: /\bfor\b/gi,                           op: 1 },
+    { pat: /\bevery\b/gi,                         op: 1 },
+    { pat: /\beach\b/gi,                          op: 1 },
+    { pat: /\bexists\b/gi,                        op: 1 },
+    { pat: /\bexist\b/gi,                         op: 1 },
+    { pat: /\bis\b/gi,                            op: 1 },
+    { pat: /\bare\b/gi,                           op: 1 },
+    { pat: /\bbe\b/gi,                            op: 1 },
+    { pat: /\bcontains\b/gi,                      op: 1 },
+    { pat: /\bbelongs\b/gi,                       op: 1 },
+    { pat: /\bbelonging\b/gi,                     op: 1 },
+    { pat: /\bunique\b/gi,                        op: 1 },
+    { pat: /\buniquely\b/gi,                      op: 1 },
+    { pat: /\bwell-defined\b/gi,                  op: 1 },
+    // ── Quantifiers
+    { pat: /∀/g,                                  op: 1 },  // for all
+    { pat: /∃/g,                                  op: 1 },  // there exists
+    // ── Equality / identity
+    { pat: /=/g,                                  op: 1 },
+    { pat: /≜/g,                                  op: 1 },  // defined as equal
+    { pat: /≝/g,                                  op: 1 },  // definition
+    { pat: /≐/g,                                  op: 1 },  // approaching the limit
+    { pat: /≑/g,                                  op: 1 },  // geometrically equal
+    { pat: /≒/g,                                  op: 1 },  // approximately equal (Japanese)
+    { pat: /≓/g,                                  op: 1 },  // image of
+    // ── Set membership / containment
+    { pat: /∈/g,                                  op: 1 },  // element of
+    { pat: /∋/g,                                  op: 1 },  // contains as member
+    { pat: /⊆/g,                                  op: 1 },  // subset of or equal
+    { pat: /⊂/g,                                  op: 1 },  // subset of
+    { pat: /⊇/g,                                  op: 1 },  // superset of or equal
+    { pat: /⊃/g,                                  op: 1 },  // superset of
+    { pat: /⊊/g,                                  op: 1 },  // proper subset
+    { pat: /⊋/g,                                  op: 1 },  // proper superset
+    { pat: /⊏/g,                                  op: 1 },  // square image of
+    { pat: /⊐/g,                                  op: 1 },  // square original of
+    { pat: /⊑/g,                                  op: 1 },  // square subset or equal
+    { pat: /⊒/g,                                  op: 1 },  // square superset or equal
+    // ── Ordering / comparison — Being (structural relationships)
+    { pat: /≤/g,                                  op: 1 },
+    { pat: /≥/g,                                  op: 1 },
+    { pat: /≦/g,                                  op: 1 },
+    { pat: /≧/g,                                  op: 1 },
+    { pat: /≪/g,                                  op: 1 },  // much less than
+    { pat: /≫/g,                                  op: 1 },  // much greater than
+    { pat: /≈/g,                                  op: 1 },  // approximately equal
+    { pat: /∝/g,                                  op: 1 },  // proportional to
+    { pat: /⊥/g,                                  op: 1 },  // perpendicular / bottom
+    { pat: /∥/g,                                  op: 1 },  // parallel
+    { pat: /≺/g,                                  op: 1 },  // precedes
+    { pat: /≻/g,                                  op: 1 },  // succeeds
+    { pat: /⪯/g,                                  op: 1 },  // precedes or equal
+    { pat: /⪰/g,                                  op: 1 },  // succeeds or equal
+    { pat: /⋖/g,                                  op: 1 },  // less-than with dot
+    { pat: /⋗/g,                                  op: 1 },  // greater-than with dot
+    { pat: /⊴/g,                                  op: 1 },  // normal subgroup or equal
+    { pat: /⊵/g,                                  op: 1 },  // contains as normal subgroup or equal
+    // ── Number set symbols — entities / spaces
+    { pat: /ℝ/g,                                  op: 1 },  // real numbers
+    { pat: /ℤ/g,                                  op: 1 },  // integers
+    { pat: /ℕ/g,                                  op: 1 },  // natural numbers
+    { pat: /ℚ/g,                                  op: 1 },  // rationals
+    { pat: /ℂ/g,                                  op: 1 },  // complex numbers
+    { pat: /ℍ/g,                                  op: 1 },  // quaternions
+    { pat: /𝔽/g,                                  op: 1 },  // generic field
+    { pat: /ℙ/g,                                  op: 1 },  // projective space / primes
+    { pat: /𝔸/g,                                  op: 1 },  // affine space
+    { pat: /𝔹/g,                                  op: 1 },  // boolean domain
+    { pat: /𝕆/g,                                  op: 1 },  // octonions
+    { pat: /𝕊/g,                                  op: 1 },  // sphere
+    { pat: /𝕋/g,                                  op: 1 },  // torus
+    { pat: /ℓ/g,                                  op: 1 },  // script ell (ℓ^p spaces)
+    { pat: /∞/g,                                  op: 1 },  // infinity
+    // ── Infinite cardinals
+    { pat: /ℵ/g,                                  op: 1 },  // aleph
+    { pat: /ℶ/g,                                  op: 1 },  // beth
+    { pat: /ℷ/g,                                  op: 1 },  // gimel
+    { pat: /ℸ/g,                                  op: 1 },  // dalet
+    // ── Special function symbols
+    { pat: /℘/g,                                  op: 1 },  // Weierstrass p / power set
+    // ── Greek lowercase — all math variables → BEING
+    { pat: /[αβγδεζηθικλμνξπρστυφχψω]/g,          op: 1 },
+    // ── Greek uppercase — structures / operators → BEING
+    { pat: /[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΠΡΣΤΥΦΧΨΩ]/g,          op: 1 },
+    // ── Superscript digits — exponents / indices → BEING
+    { pat: /[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,                     op: 1 },
+    { pat: /[₀₁₂₃₄₅₆₇₈₉]/g,                     op: 1 },  // subscript digits
+    { pat: /[⁺⁻⁼⁽⁾ⁿⁱ]/g,                         op: 1 },  // superscript operators / letters
+    { pat: /[ₐₑₒₓₔₕₖₗₘₙₚₛₜ]/g,                  op: 1 },  // subscript letters
+    // ── Brackets / norms / delimiters — BEING (structural containers)
+    { pat: /[⌊⌋⌈⌉]/g,                            op: 1 },  // floor, ceiling
+    { pat: /‖/g,                                  op: 1 },  // double vertical bar (norm)
+    { pat: /⟨/g,                                  op: 1 },  // left angle bracket (inner product)
+    { pat: /⟩/g,                                  op: 1 },  // right angle bracket
+    { pat: /⌜/g,                                  op: 1 },  // Quine corner left
+    { pat: /⌝/g,                                  op: 1 },  // Quine corner right
+    { pat: /⌞/g,                                  op: 1 },  // Quine corner bottom-left
+    { pat: /⌟/g,                                  op: 1 },  // Quine corner bottom-right
+    { pat: /⟦/g,                                  op: 1 },  // double left bracket (semantic)
+    { pat: /⟧/g,                                  op: 1 },  // double right bracket
+    // ── Geometric objects — BEING
+    { pat: /△/g,                                  op: 1 },  // triangle / symmetric difference
+    { pat: /○/g,                                  op: 1 },  // circle (geometric object)
+    { pat: /◇/g,                                  op: 1 },  // diamond (modal possibility)
+    { pat: /□/g,                                  op: 3 },  // QED box → BECOMING (overrides above via priority)
+
+    // ══════════════════════════════════════════════════════════════════
+    // DOING (2) — operation / process / transformation
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bthen\b/gi,                          op: 2 },
+    { pat: /\bapply\b/gi,                         op: 2 },
+    { pat: /\bcompute\b/gi,                       op: 2 },
+    { pat: /\bevaluate\b/gi,                      op: 2 },
+    { pat: /\bsince\b/gi,                         op: 2 },
+    { pat: /\bbecause\b/gi,                       op: 2 },
+    { pat: /\busing\b/gi,                         op: 2 },
+    { pat: /\bvia\b/gi,                           op: 2 },
+    { pat: /\bif\b/gi,                            op: 2 },
+    { pat: /\bwhen\b/gi,                          op: 2 },
+    { pat: /\bmaps\b/gi,                          op: 2 },
+    { pat: /\bmap\b/gi,                           op: 2 },
+    { pat: /\btransforms\b/gi,                    op: 2 },
+    { pat: /\btransform\b/gi,                     op: 2 },
+    { pat: /\bimplies\b/gi,                       op: 2 },
+    { pat: /\bfollows\b/gi,                       op: 2 },
+    { pat: /\bsuch\b/gi,                          op: 2 },
+    { pat: /\bsatisfies\b/gi,                     op: 2 },
+    { pat: /\bsatisfying\b/gi,                    op: 2 },
+    { pat: /\bby\b/gi,                            op: 2 },
+    { pat: /\bacts\b/gi,                          op: 2 },
+    { pat: /\bacting\b/gi,                        op: 2 },
+    { pat: /\binduces\b/gi,                       op: 2 },
+    { pat: /\binduced\b/gi,                       op: 2 },
+    { pat: /\brestricted\b/gi,                    op: 2 },
+    { pat: /\brestriction\b/gi,                   op: 2 },
+    { pat: /\bcomposed\b/gi,                      op: 2 },
+    { pat: /\bcomposing\b/gi,                     op: 2 },
+    { pat: /\bcomposition\b/gi,                   op: 2 },
+    // ── Implication arrows
+    { pat: /→/g,                                  op: 2 },  // right arrow
+    { pat: /⟹/g,                                 op: 2 },  // long right double arrow
+    { pat: /⇒/g,                                  op: 2 },  // right double arrow (implies)
+    { pat: /⟶/g,                                 op: 2 },  // long right arrow
+    { pat: /↦/g,                                  op: 2 },  // maps to
+    { pat: /⟼/g,                                 op: 2 },  // long maps to
+    { pat: /⊢/g,                                  op: 2 },  // turnstile (syntactic entailment)
+    { pat: /⊣/g,                                  op: 2 },  // reverse turnstile
+    { pat: /⊤/g,                                  op: 2 },  // top / tautology
+    // ── Directional arrows — Doing (flow)
+    { pat: /↪/g,                                  op: 2 },  // injection
+    { pat: /↠/g,                                  op: 2 },  // surjection
+    { pat: /⇀/g,                                  op: 2 },  // right harpoon up
+    { pat: /⇁/g,                                  op: 2 },  // right harpoon down
+    { pat: /⇌/g,                                  op: 2 },  // reversible
+    { pat: /⇋/g,                                  op: 2 },  // equilibrium arrows
+    { pat: /↑/g,                                  op: 2 },  // up arrow
+    { pat: /↓/g,                                  op: 2 },  // down arrow
+    { pat: /↗/g,                                  op: 2 },  // NE arrow
+    { pat: /↘/g,                                  op: 2 },  // SE arrow
+    { pat: /↙/g,                                  op: 2 },  // SW arrow
+    { pat: /↖/g,                                  op: 2 },  // NW arrow
+    { pat: /↻/g,                                  op: 2 },  // clockwise arrow
+    { pat: /↺/g,                                  op: 2 },  // anticlockwise arrow
+    { pat: /⇠/g,                                  op: 2 },  // leftwards dashed arrow
+    { pat: /⇢/g,                                  op: 2 },  // rightwards dashed arrow
+    { pat: /⇝/g,                                  op: 2 },  // rightwards squiggly arrow
+    { pat: /⤳/g,                                  op: 2 },  // right arrow with tail
+    // ── Set / lattice operations
+    { pat: /∩/g,                                  op: 2 },  // intersection
+    { pat: /∪/g,                                  op: 2 },  // union
+    { pat: /∖/g,                                  op: 2 },  // set minus
+    { pat: /⊔/g,                                  op: 2 },  // disjoint union
+    { pat: /⊓/g,                                  op: 2 },  // meet (lattice)
+    { pat: /⊕/g,                                  op: 2 },  // direct sum / XOR
+    { pat: /⊗/g,                                  op: 2 },  // tensor product
+    { pat: /⊖/g,                                  op: 2 },  // circled minus
+    { pat: /⊙/g,                                  op: 2 },  // Hadamard product / circle dot
+    { pat: /⊠/g,                                  op: 2 },  // boxtimes
+    { pat: /⊞/g,                                  op: 2 },  // boxplus
+    { pat: /⊟/g,                                  op: 2 },  // boxminus
+    { pat: /⊛/g,                                  op: 2 },  // circled asterisk
+    { pat: /⊜/g,                                  op: 2 },  // circled equals
+    // ── Logic connectives
+    { pat: /∧/g,                                  op: 2 },  // logical and
+    { pat: /∨/g,                                  op: 2 },  // logical or
+    { pat: /⊼/g,                                  op: 2 },  // NAND
+    { pat: /⊽/g,                                  op: 2 },  // NOR
+    { pat: /⋀/g,                                  op: 2 },  // n-ary logical and
+    { pat: /⋁/g,                                  op: 2 },  // n-ary logical or
+    { pat: /⋂/g,                                  op: 2 },  // n-ary intersection
+    { pat: /⋃/g,                                  op: 2 },  // n-ary union
+    // ── Arithmetic / calculus
+    { pat: /\+/g,                                 op: 2 },
+    { pat: /-/g,                                  op: 2 },
+    { pat: /×/g,                                  op: 2 },
+    { pat: /÷/g,                                  op: 2 },
+    { pat: /·/g,                                  op: 2 },  // middle dot / cdot
+    { pat: /⋅/g,                                  op: 2 },  // dot operator
+    { pat: /∘/g,                                  op: 2 },  // function composition
+    { pat: /∂/g,                                  op: 2 },  // partial derivative
+    { pat: /∇/g,                                  op: 2 },  // nabla / gradient / del
+    { pat: /√/g,                                  op: 2 },  // square root
+    { pat: /∛/g,                                  op: 2 },  // cube root
+    { pat: /∜/g,                                  op: 2 },  // fourth root
+    { pat: /∫/g,                                  op: 2 },  // integral
+    { pat: /∬/g,                                  op: 2 },  // double integral
+    { pat: /∭/g,                                  op: 2 },  // triple integral
+    { pat: /∮/g,                                  op: 2 },  // contour integral
+    { pat: /∯/g,                                  op: 2 },  // surface integral
+    { pat: /∰/g,                                  op: 2 },  // volume integral
+    { pat: /∱/g,                                  op: 2 },  // clockwise integral
+    { pat: /∲/g,                                  op: 2 },  // clockwise contour integral
+    { pat: /∳/g,                                  op: 2 },  // anticlockwise contour integral
+    { pat: /∑/g,                                  op: 2 },  // n-ary summation
+    { pat: /∏/g,                                  op: 2 },  // n-ary product
+    { pat: /∐/g,                                  op: 2 },  // n-ary coproduct
+    // ── Ellipses — continuation = Doing
+    { pat: /⋯/g,                                  op: 2 },  // midline horizontal ellipsis
+    { pat: /⋮/g,                                  op: 2 },  // vertical ellipsis
+    { pat: /⋱/g,                                  op: 2 },  // down-right diagonal ellipsis
+    { pat: /⋰/g,                                  op: 2 },  // up-right diagonal ellipsis
+    // ── Group / module operations
+    { pat: /⋉/g,                                  op: 2 },  // left normal factor semidirect product
+    { pat: /⋊/g,                                  op: 2 },  // right normal factor semidirect product
+    { pat: /⋋/g,                                  op: 2 },  // left semidirect product
+    { pat: /⋌/g,                                  op: 2 },  // right semidirect product
+    { pat: /⊲/g,                                  op: 2 },  // normal subgroup of
+    { pat: /⊳/g,                                  op: 2 },  // contains as normal subgroup
+    { pat: /≀/g,                                  op: 2 },  // wreath product
+    { pat: /⋔/g,                                  op: 2 },  // pitchfork (transversal)
+    { pat: /⋏/g,                                  op: 2 },  // curly logical and
+    { pat: /⋎/g,                                  op: 2 },  // curly logical or
+    // ── Adjoint / dagger / star
+    { pat: /†/g,                                  op: 2 },  // dagger (adjoint / conjugate transpose)
+    { pat: /‡/g,                                  op: 2 },  // double dagger
+    { pat: /∗/g,                                  op: 2 },  // asterisk operator (convolution / dual)
+    { pat: /⋆/g,                                  op: 2 },  // star operator
+
+    // ══════════════════════════════════════════════════════════════════
+    // BECOMING (3) — result / conclusion / proof end
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\btherefore\b/gi,                     op: 3 },
+    { pat: /\bthus\b/gi,                          op: 3 },
+    { pat: /\bhence\b/gi,                         op: 3 },
+    { pat: /\bconclude\b/gi,                      op: 3 },
+    { pat: /\bconcludes\b/gi,                     op: 3 },
+    { pat: /\bobtain\b/gi,                        op: 3 },
+    { pat: /\bobtains\b/gi,                       op: 3 },
+    { pat: /\bresult\b/gi,                        op: 3 },
+    { pat: /\bresults\b/gi,                       op: 3 },
+    { pat: /\bqed\b/gi,                           op: 3 },
+    { pat: /\bproved\b/gi,                        op: 3 },
+    { pat: /\bproven\b/gi,                        op: 3 },
+    { pat: /\bshown\b/gi,                         op: 3 },
+    { pat: /\bget\b/gi,                           op: 3 },
+    { pat: /\bhave\b/gi,                          op: 3 },
+    { pat: /\byields\b/gi,                        op: 3 },
+    { pat: /\bgives\b/gi,                         op: 3 },
+    { pat: /\bso\b/gi,                            op: 3 },
+    { pat: /\bproof\b/gi,                         op: 3 },
+    { pat: /\bclaim\b/gi,                         op: 3 },
+    { pat: /\blemma\b/gi,                         op: 3 },
+    { pat: /\btheorem\b/gi,                       op: 3 },
+    { pat: /\bcorollary\b/gi,                     op: 3 },
+    { pat: /\bproposition\b/gi,                   op: 3 },
+    { pat: /\bfollows that\b/gi,                  op: 3 },
+    { pat: /\bnecessarily\b/gi,                   op: 3 },
+    { pat: /∴/g,                                  op: 3 },  // therefore
+    { pat: /∵/g,                                  op: 3 },  // because (Greek logical symbol)
+    { pat: /□/g,                                  op: 3 },  // open QED box
+    { pat: /■/g,                                  op: 3 },  // filled QED box
+    { pat: /▪/g,                                  op: 3 },  // black small square (QED variant)
+    { pat: /◼/g,                                  op: 3 },  // black medium square (QED variant)
+
+    // ══════════════════════════════════════════════════════════════════
+    // COLLAPSE (4) — negation / contradiction / null
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bnot\b/gi,                           op: 4 },
+    { pat: /\bnever\b/gi,                         op: 4 },
+    { pat: /\bcannot\b/gi,                        op: 4 },
+    { pat: /\bimpossible\b/gi,                    op: 4 },
+    { pat: /\bcontradiction\b/gi,                 op: 4 },
+    { pat: /\bfalse\b/gi,                         op: 4 },
+    { pat: /\bcounterexample\b/gi,                op: 4 },
+    { pat: /\bno\b/gi,                            op: 4 },
+    { pat: /\babsurd\b/gi,                        op: 4 },
+    { pat: /\babsurdity\b/gi,                     op: 4 },
+    { pat: /\bdoes not\b/gi,                      op: 4 },
+    { pat: /\bfail\b/gi,                          op: 4 },
+    { pat: /\bfails\b/gi,                         op: 4 },
+    { pat: /¬/g,                                  op: 4 },  // logical not
+    { pat: /≠/g,                                  op: 4 },  // not equal
+    { pat: /∉/g,                                  op: 4 },  // not element of
+    { pat: /∄/g,                                  op: 4 },  // does not exist
+    { pat: /⊄/g,                                  op: 4 },  // not subset of
+    { pat: /⊅/g,                                  op: 4 },  // not superset of
+    { pat: /∤/g,                                  op: 4 },  // does not divide
+    { pat: /∦/g,                                  op: 4 },  // not parallel
+    { pat: /⊭/g,                                  op: 4 },  // does not model
+    { pat: /⊬/g,                                  op: 4 },  // does not prove
+    { pat: /≁/g,                                  op: 4 },  // not tilde
+    { pat: /≇/g,                                  op: 4 },  // not isomorphic
+    { pat: /≆/g,                                  op: 4 },  // approx but not equal
+    { pat: /⋪/g,                                  op: 4 },  // not normal subgroup
+    { pat: /⋫/g,                                  op: 4 },  // does not contain as normal subgroup
+    { pat: /⋬/g,                                  op: 4 },  // not normal subgroup or equal
+    { pat: /⋭/g,                                  op: 4 },  // does not contain normal subgroup or equal
+    { pat: /≮/g,                                  op: 4 },  // not less than
+    { pat: /≯/g,                                  op: 4 },  // not greater than
+    { pat: /≰/g,                                  op: 4 },  // not less than or equal
+    { pat: /≱/g,                                  op: 4 },  // not greater than or equal
+    { pat: /∅/g,                                  op: 4 },  // empty set (null / void)
+    { pat: /∌/g,                                  op: 4 },  // does not contain as member
+    { pat: /⊘/g,                                  op: 4 },  // circled division slash (void)
+    { pat: /∓/g,                                  op: 4 },  // minus-or-plus (opposition)
+
+    // ══════════════════════════════════════════════════════════════════
+    // CREATE (5) — construction / generation / induction
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bconstruct\b/gi,                     op: 5 },
+    { pat: /\bconstruction\b/gi,                  op: 5 },
+    { pat: /\bgenerate\b/gi,                      op: 5 },
+    { pat: /\bgenerated\b/gi,                     op: 5 },
+    { pat: /\bspan\b/gi,                          op: 5 },
+    { pat: /\bspanned\b/gi,                       op: 5 },
+    { pat: /\bbuild\b/gi,                         op: 5 },
+    { pat: /\bcreate\b/gi,                        op: 5 },
+    { pat: /\binductively\b/gi,                   op: 5 },
+    { pat: /\binduction\b/gi,                     op: 5 },
+    { pat: /\brecursively\b/gi,                   op: 5 },
+    { pat: /\brecursive\b/gi,                     op: 5 },
+    { pat: /\bproduce\b/gi,                       op: 5 },
+    { pat: /\bproduces\b/gi,                      op: 5 },
+    { pat: /\bform\b/gi,                          op: 5 },
+    { pat: /\bforms\b/gi,                         op: 5 },
+    { pat: /\bimage\b/gi,                         op: 5 },
+    { pat: /\bkernel\b/gi,                        op: 5 },
+    { pat: /\brange\b/gi,                         op: 5 },
+
+    // ══════════════════════════════════════════════════════════════════
+    // ASCEND (6) — abstraction / generalization / lifting
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bgeneralize\b/gi,                    op: 6 },
+    { pat: /\bgeneralization\b/gi,                op: 6 },
+    { pat: /\bextend\b/gi,                        op: 6 },
+    { pat: /\bextension\b/gi,                     op: 6 },
+    { pat: /\blift\b/gi,                          op: 6 },
+    { pat: /\blifting\b/gi,                       op: 6 },
+    { pat: /\babstract\b/gi,                      op: 6 },
+    { pat: /\babstraction\b/gi,                   op: 6 },
+    { pat: /\bcanonical\b/gi,                     op: 6 },
+    { pat: /\buniversal\b/gi,                     op: 6 },
+    { pat: /\bisomorphism\b/gi,                   op: 6 },
+    { pat: /\bisomorphic\b/gi,                    op: 6 },
+    { pat: /\bhomomorphism\b/gi,                  op: 6 },
+    { pat: /\bhomomorphic\b/gi,                   op: 6 },
+    { pat: /\bfunctor\b/gi,                       op: 6 },
+    { pat: /\bcategory\b/gi,                      op: 6 },
+    { pat: /\bcategorical\b/gi,                   op: 6 },
+    { pat: /\badjoint\b/gi,                       op: 6 },
+    { pat: /\bembeds\b/gi,                        op: 6 },
+    { pat: /\bembedding\b/gi,                     op: 6 },
+    { pat: /\bquotient\b/gi,                      op: 6 },
+    { pat: /\bfactor\b/gi,                        op: 6 },
+    { pat: /\bclassify\b/gi,                      op: 6 },
+    { pat: /\bclassification\b/gi,                op: 6 },
+
+    // ══════════════════════════════════════════════════════════════════
+    // BREATH (8) — conditional / exception / boundary
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\bbut\b/gi,                           op: 8 },
+    { pat: /\bhowever\b/gi,                       op: 8 },
+    { pat: /\bprovided\b/gi,                      op: 8 },
+    { pat: /\bwhere\b/gi,                         op: 8 },
+    { pat: /\bunless\b/gi,                        op: 8 },
+    { pat: /\bexcept\b/gi,                        op: 8 },
+    { pat: /\balthough\b/gi,                      op: 8 },
+    { pat: /\bwlog\b/gi,                          op: 8 },
+    { pat: /\bwithout\b/gi,                       op: 8 },
+    { pat: /\bonly if\b/gi,                       op: 8 },
+    { pat: /\bproviso\b/gi,                       op: 8 },
+    { pat: /\bconstraint\b/gi,                    op: 8 },
+    { pat: /\bboundary\b/gi,                      op: 8 },
+    { pat: /\bbounded\b/gi,                       op: 8 },
+    { pat: /\blimit\b/gi,                         op: 8 },
+    { pat: /\blimited\b/gi,                       op: 8 },
+
+    // ══════════════════════════════════════════════════════════════════
+    // RESET (9) — restart / reformulation / annotation
+    // ══════════════════════════════════════════════════════════════════
+    { pat: /\brecall\b/gi,                        op: 9 },
+    { pat: /\bnotice\b/gi,                        op: 9 },
+    { pat: /\bi\.e\./gi,                          op: 9 },
+    { pat: /\be\.g\./gi,                          op: 9 },
+    { pat: /\bsimilarly\b/gi,                     op: 9 },
+    { pat: /\banother way\b/gi,                   op: 9 },
+    { pat: /\balternately\b/gi,                   op: 9 },
+    { pat: /\balternatively\b/gi,                 op: 9 },
+    { pat: /\brephrase\b/gi,                      op: 9 },
+    { pat: /\brestate\b/gi,                       op: 9 },
+
+    // ══════════════════════════════════════════════════════════════════
+    // UNICODE CATCH-ALL RANGES
+    // Any math symbol not explicitly mapped above → treated as DOING
+    // (unknown operators are transformations until proved otherwise).
+    // Explicit named symbols above WIN because they appear first in the
+    // array and the tokenizer keeps the first non-overlapping match.
+    // ══════════════════════════════════════════════════════════════════
+
+    // Mathematical Operators       U+2200–U+22FF → DOING
+    { pat: /[\u2200-\u22FF]/g,                    op: 2 },
+    // Supplemental Math Operators  U+2A00–U+2AFF → DOING
+    { pat: /[\u2A00-\u2AFF]/g,                    op: 2 },
+    // Misc Math Symbols-A          U+27C0–U+27EF → DOING
+    { pat: /[\u27C0-\u27EF]/g,                    op: 2 },
+    // Misc Math Symbols-B          U+2980–U+29FF → DOING
+    { pat: /[\u2980-\u29FF]/g,                    op: 2 },
+    // Arrows block                 U+2190–U+21FF → DOING
+    { pat: /[\u2190-\u21FF]/g,                    op: 2 },
+    // Supplemental Arrows-A        U+27F0–U+27FF → DOING
+    { pat: /[\u27F0-\u27FF]/g,                    op: 2 },
+    // Supplemental Arrows-B        U+2900–U+297F → DOING
+    { pat: /[\u2900-\u297F]/g,                    op: 2 },
+    // Miscellaneous Technical      U+2300–U+23FF → DOING
+    { pat: /[\u2300-\u23FF]/g,                    op: 2 },
+    // Letterlike Symbols           U+2100–U+214F → BEING (entities)
+    { pat: /[\u2100-\u214F]/g,                    op: 1 },
+    // Number Forms                 U+2150–U+218F → BEING
+    { pat: /[\u2150-\u218F]/g,                    op: 1 },
+    // Geometric Shapes             U+25A0–U+25FF → BEING (structural)
+    { pat: /[\u25A0-\u25FF]/g,                    op: 1 },
+    // Mathematical Alphanumeric    U+1D400–U+1D7FF → BEING (𝔄𝔅ℭ𝔇… bold/italic/fraktur)
+    { pat: /[\u{1D400}-\u{1D7FF}]/gu,             op: 1 },
+    // Enclosed Alphanumerics       U+2460–U+24FF → BEING (circled numbers / letters)
+    { pat: /[\u2460-\u24FF]/g,                    op: 1 },
+    // Dingbats                     U+2700–U+27BF → BREATH (annotation marks)
+    { pat: /[\u2700-\u27BF]/g,                    op: 8 },
+];
+
+// ── SAMPLE INPUTS ───────────────────────────────────────────────────
+const SAMPLES = {
+    continuity: "if f is continuous on [a,b] then f is integrable",
+    epsilon:    "for all epsilon greater than 0 there exists delta greater than 0 such that |x-a| less than delta implies |f(x)-f(a)| less than epsilon",
+    primes:     "the sum of reciprocals of primes diverges",
+    chain:      "let h equal f composed with g, then h prime equals f prime of g times g prime",
+    sets:       "if A is a subset of B and B is a subset of C then A is a subset of C"
+};
+
+// ── TOKENIZER ────────────────────────────────────────────────────────
+// Returns array of {text, op} tokens for a phrase
+function tokenizePhrase(phrase) {
+    // We build a list of {start, end, op, text} matches, then reconstruct
+    const matches = [];
+
+    for (const {pat, op} of KEYWORD_MAP) {
+        const re = new RegExp(pat.source, pat.flags.includes('g') ? pat.flags : pat.flags + 'g');
+        let m;
+        while ((m = re.exec(phrase)) !== null) {
+            matches.push({ start: m.index, end: m.index + m[0].length, op, text: m[0] });
+        }
+    }
+
+    // Sort by start position; resolve overlaps by keeping first (longest match wins via order)
+    matches.sort((a, b) => a.start - b.start || b.end - a.end);
+
+    const used = [];
+    const filtered = [];
+    for (const m of matches) {
+        // Check overlap
+        let overlaps = false;
+        for (const u of used) {
+            if (m.start < u.end && m.end > u.start) { overlaps = true; break; }
+        }
+        if (!overlaps) {
+            filtered.push(m);
+            used.push(m);
+        }
+    }
+    filtered.sort((a, b) => a.start - b.start);
+
+    // Build token list
+    const tokens = [];
+    let cursor = 0;
+    for (const m of filtered) {
+        if (m.start > cursor) {
+            tokens.push({ text: phrase.slice(cursor, m.start), op: 0 });
+        }
+        tokens.push({ text: m.text, op: m.op });
+        cursor = m.end;
+    }
+    if (cursor < phrase.length) {
+        tokens.push({ text: phrase.slice(cursor), op: 0 });
+    }
+    return tokens;
+}
+
+// ── OPERATOR COUNTS ──────────────────────────────────────────────────
+function opCounts(tokens) {
+    const c = {};
+    for (let i = 0; i <= 9; i++) c[i] = 0;
+    for (const t of tokens) {
+        if (t.op > 0) c[t.op]++;
+    }
+    return c;
+}
+
+// ── SCORING ──────────────────────────────────────────────────────────
+function scorePhrase(counts, total) {
+    if (total === 0) return 0;
+    const tig = counts[1] + counts[2] + counts[3];
+    const base = tig / total;
+    const has_B  = counts[1] > 0 ? 1 : 0;
+    const has_D  = counts[2] > 0 ? 1 : 0;
+    const has_BC = counts[3] > 0 ? 1 : 0;
+    const completeness = (has_B + has_D + has_BC) / 3;
+    const harmony_bonus = counts[7] > 0 ? 0.05 : 0;
+    return Math.min(1, 0.4 * base + 0.6 * completeness + harmony_bonus);
+}
+
+function getState(score) {
+    if (score >= T_STAR) return 'held';
+    if (score >= 0.5)    return 'gap';
+    return 'void';
+}
+
+// ── MATH OBJECT EXTRACTOR ────────────────────────────────────────────
+// Tries to pull a useful symbol or name from the phrase for rewrite
+function extractSubject(phrase) {
+    // Greek letters
+    const greek = phrase.match(/\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|lambda|mu|nu|xi|pi|rho|sigma|tau|phi|chi|psi|omega)\b/i);
+    if (greek) return greek[1];
+    // Single uppercase letters (common math objects)
+    const upper = phrase.match(/\b([A-Z])\b/);
+    if (upper) return upper[1];
+    // Function name pattern: f, g, h, T, S
+    const fn = phrase.match(/\b([fghTSXYZ])\b/);
+    if (fn) return fn[1];
+    // Generic
+    return 'X';
+}
+
+function extractOperation(phrase) {
+    // Look for "continuous", "integrable", "diverges", "maps", "prime", etc.
+    const keywords = phrase.match(/\b(continuous|integrable|differentiable|bounded|convergent|divergent|converges|diverges|prime|composed|subset|measurable|analytic|holomorphic|compact|connected)\b/i);
+    if (keywords) return keywords[1];
+    return 'satisfies the given condition';
+}
+
+function extractConclusion(phrase) {
+    const keywords = phrase.match(/\b(integrable|differentiable|bounded|convergent|divergent|prime|continuous|measurable|true|valid|zero|finite|infinite)\b/i);
+    if (keywords) return keywords[1];
+    return 'the stated property holds';
+}
+
+// ── CK STANDARD FORM REWRITE ─────────────────────────────────────────
+function ckStandardForm(phrase, counts) {
+    const has_B  = counts[1] > 0;
+    const has_D  = counts[2] > 0;
+    const has_BC = counts[3] > 0;
+    const subj = extractSubject(phrase);
+    const op   = extractOperation(phrase);
+    const conc = extractConclusion(phrase);
+
+    const clean = phrase.trim().replace(/\s+/g, ' ');
+
+    if (has_B && has_D && has_BC) {
+        // Complete — mark as verified
+        return { text: clean, added: false, note: "Complete TIG structure." };
+    }
+
+    if (has_B && has_D && !has_BC) {
+        // Missing Becoming
+        return {
+            text: `${clean}. Therefore, ${conc}.`,
+            added: `. Therefore, ${conc}.`,
+            note: "Conclusion (Becoming) added."
+        };
+    }
+
+    if (has_B && !has_D && has_BC) {
+        // Missing Doing
+        return {
+            text: `Let ${subj} be given. Since ${subj} is ${op}, apply the relevant operation. ${clean}`,
+            added: `Let ${subj} be given. Since ${subj} is ${op}, apply the relevant operation. `,
+            note: "Operation (Doing) added."
+        };
+    }
+
+    if (!has_B && has_D && has_BC) {
+        // Missing Being
+        return {
+            text: `Let ${subj} be defined in the appropriate space. ${clean}`,
+            added: `Let ${subj} be defined in the appropriate space. `,
+            note: "Definition (Being) added."
+        };
+    }
+
+    if (!has_B && !has_D && has_BC) {
+        // Missing B + D
+        return {
+            text: `${clean} [Needs context: define ${subj} and the operation it undergoes.]`,
+            added: ` [Needs context: define ${subj} and the operation it undergoes.]`,
+            note: "Definition (Being) and operation (Doing) absent."
+        };
+    }
+
+    if (has_B && !has_D && !has_BC) {
+        // Missing D + BC
+        return {
+            text: `Let ${subj} be as given. Apply the operation: [operation on ${subj}]. Therefore, [result from ${subj}].`,
+            added: ` Apply the operation: [operation on ${subj}]. Therefore, [result from ${subj}].`,
+            note: "Operation (Doing) and conclusion (Becoming) added."
+        };
+    }
+
+    if (!has_B && has_D && !has_BC) {
+        // Missing B + BC
+        return {
+            text: `Given ${subj} defined in context. ${clean}. Therefore, ${conc}.`,
+            added: `Given ${subj} defined in context. `,
+            note: "Definition (Being) and conclusion (Becoming) added."
+        };
+    }
+
+    // Missing all three
+    return {
+        text: `Let ${subj} be defined in the appropriate space. Apply the relevant operation to ${subj}. Therefore, ${conc}.`,
+        added: true,
+        note: "Full TIG structure constructed."
+    };
+}
+
+// ── PHRASE SPLITTER ──────────────────────────────────────────────────
+function splitPhrases(text) {
+    // Split on . ? ; line breaks, and also commas for math sub-clauses
+    const raw = text.split(/[.?;\n]+|,\s+(?=[A-Za-z∀∃])/);
+    return raw
+        .map(s => s.trim())
+        .filter(s => s.length >= 3);
+}
+
+// ── HIGHLIGHTED HTML ─────────────────────────────────────────────────
+function renderHighlighted(tokens) {
+    return tokens.map(t => {
+        const esc = t.text
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;');
+        if (t.op > 0 && [1,2,3,4,7,8].includes(t.op)) {
+            return `<span class="op-${t.op}" title="${OP_NAMES[t.op]}">${esc}</span>`;
+        }
+        return esc;
+    }).join('');
+}
+
+// ── OPERATOR BREAKDOWN TAGS ──────────────────────────────────────────
+function renderOpBreakdown(counts) {
+    const parts = [];
+    if (counts[1] > 0) parts.push(`<span class="op-tag op-tag-1">Being ×${counts[1]}</span>`);
+    if (counts[2] > 0) parts.push(`<span class="op-tag op-tag-2">Doing ×${counts[2]}</span>`);
+    if (counts[3] > 0) parts.push(`<span class="op-tag op-tag-3">Becoming ×${counts[3]}</span>`);
+    if (counts[4] > 0) parts.push(`<span class="op-tag op-tag-4">Collapse ×${counts[4]}</span>`);
+    if (counts[7] > 0) parts.push(`<span class="op-tag op-tag-7">Harmony ×${counts[7]}</span>`);
+
+    const missing = [];
+    if (counts[1] === 0) missing.push('Being');
+    if (counts[2] === 0) missing.push('Doing');
+    if (counts[3] === 0) missing.push('Becoming');
+    if (missing.length > 0) {
+        parts.push(`<span class="op-tag op-tag-miss">missing: ${missing.join(', ')}</span>`);
+    }
+
+    return parts.join(' ');
+}
+
+// ── GAP DIAGNOSIS ────────────────────────────────────────────────────
+function gapDiagnosis(counts, state) {
+    const has_B  = counts[1] > 0;
+    const has_D  = counts[2] > 0;
+    const has_BC = counts[3] > 0;
+
+    if (state === 'held' && has_B && has_D && has_BC) {
+        return 'All three TIG roles present. Coherence is above T*.';
+    }
+    if (!has_B && !has_D && !has_BC) {
+        return 'No TIG structure detected — no definition, operation, or conclusion found.';
+    }
+    const missing = [];
+    if (!has_B)  missing.push('<strong>Being</strong> (no definition or subject establishment)');
+    if (!has_D)  missing.push('<strong>Doing</strong> (no operation or transformation step)');
+    if (!has_BC) missing.push('<strong>Becoming</strong> (no conclusion or result stated)');
+    return `Missing: ${missing.join('; ')}.`;
+}
+
+// ── MAIN ANALYSIS ────────────────────────────────────────────────────
+function analyze(text) {
+    const phrases = splitPhrases(text);
+    if (phrases.length === 0) return null;
+
+    const results = phrases.map((phrase, i) => {
+        const tokens = tokenizePhrase(phrase);
+        const counts = opCounts(tokens);
+        const total  = tokens.filter(t => t.op > 0).length;
+        const score  = scorePhrase(counts, total);
+        const state  = getState(score);
+        const ckForm = ckStandardForm(phrase, counts);
+        const highlighted = renderHighlighted(tokens);
+        return { phrase, tokens, counts, total, score, state, ckForm, highlighted, index: i + 1 };
+    });
+
+    // Weighted overall score (by token count per phrase)
+    const totalWeight = results.reduce((s, r) => s + Math.max(1, r.total), 0);
+    const overallScore = results.reduce((s, r) => s + r.score * Math.max(1, r.total), 0) / totalWeight;
+    const overallState = getState(overallScore);
+
+    return { results, overallScore, overallState, phraseCount: phrases.length };
+}
+
+// ── RENDER RESULTS ───────────────────────────────────────────────────
+function renderResults(analysis) {
+    const { results, overallScore, overallState, phraseCount } = analysis;
+
+    // Score bar
+    const pct = (overallScore * 100).toFixed(1);
+    const fill = document.getElementById('score-bar-fill');
+    fill.style.width = pct + '%';
+    const colorMap = { held: 'var(--green)', gap: 'var(--yellow)', void: 'var(--red)' };
+    fill.style.background = colorMap[overallState];
+
+    document.getElementById('score-label').textContent =
+        `mean coherence: ${overallScore.toFixed(4)}`;
+    document.getElementById('phrase-count').textContent =
+        `${phraseCount} phrase${phraseCount !== 1 ? 's' : ''} analyzed`;
+
+    const badge = document.getElementById('state-badge');
+    badge.textContent = overallState.toUpperCase();
+    badge.className = 'score-state-badge badge-' + overallState;
+
+    // Sentence cards
+    const container = document.getElementById('sentence-cards');
+    container.innerHTML = '';
+
+    for (const r of results) {
+        const opBreak = renderOpBreakdown(r.counts);
+        const diag    = gapDiagnosis(r.counts, r.state);
+        const ckf     = r.ckForm;
+
+        // Build CK standard form HTML — highlight added parts
+        let ckHtml;
+        if (ckf.added === false) {
+            // Perfect — just show original, slightly muted check
+            ckHtml = `<span class="ck-original">✓ ${escHtml(ckf.text)}</span>`;
+        } else if (typeof ckf.added === 'string') {
+            // Prefix added
+            if (ckf.text.startsWith(ckf.added)) {
+                ckHtml = `<span class="ck-added">${escHtml(ckf.added)}</span><span class="ck-original">${escHtml(ckf.text.slice(ckf.added.length))}</span>`;
+            } else if (ckf.text.endsWith(ckf.added)) {
+                ckHtml = `<span class="ck-original">${escHtml(ckf.text.slice(0, ckf.text.length - ckf.added.length))}</span><span class="ck-added">${escHtml(ckf.added)}</span>`;
+            } else {
+                ckHtml = `<span class="ck-original">${escHtml(ckf.text)}</span>`;
+            }
+        } else {
+            ckHtml = `<span class="ck-added">${escHtml(ckf.text)}</span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'sentence-card';
+        card.innerHTML = `
+            <div class="sentence-header">
+                <span class="sentence-num">#${r.index}</span>
+                <span class="score-pill pill-${r.state}">${r.score.toFixed(3)}</span>
+                <span class="state-text-${r.state}" style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1px;">${r.state.toUpperCase()}</span>
+            </div>
+
+            <div class="highlighted-text">${r.highlighted}</div>
+
+            <div class="op-breakdown">${opBreak}</div>
+
+            <div class="gap-diagnosis">${diag}</div>
+
+            <div class="ck-standard-label">CK Standard Form</div>
+            <div class="ck-standard-box">${ckHtml}</div>
+            ${ckf.note ? `<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-3);margin-top:6px;">${escHtml(ckf.note)}</div>` : ''}
+        `;
+        container.appendChild(card);
+    }
+
+    // Show results
+    const resultsEl = document.getElementById('results');
+    resultsEl.classList.add('visible');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escHtml(s) {
+    return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+}
+
+// ── UI WIRING ────────────────────────────────────────────────────────
+// ── MODE TOGGLE ─────────────────────────────────────────────────
+const modeTextBtn = document.getElementById('mode-text-btn');
+const modeNumBtn  = document.getElementById('mode-num-btn');
+const textSection = document.querySelector('.card');         // first card = text input
+const numSection  = document.getElementById('num-mode-section');
+const textResults = document.getElementById('results');
+
+function setMode(mode) {
+    if (mode === 'text') {
+        modeTextBtn.classList.add('active');
+        modeNumBtn.classList.remove('active');
+        textSection.style.display = '';
+        textResults.style.display = '';
+        numSection.style.display = 'none';
+    } else {
+        modeNumBtn.classList.add('active');
+        modeTextBtn.classList.remove('active');
+        textSection.style.display = 'none';
+        textResults.style.display = 'none';
+        numSection.style.display = '';
+    }
+}
+modeTextBtn.addEventListener('click', () => setMode('text'));
+modeNumBtn.addEventListener('click',  () => setMode('num'));
+
+// ── NUMBER MODE ENGINE ───────────────────────────────────────────
+const FOLD   = 0.5;
+const PI     = Math.PI;
+
+function isPrime(n) {
+    if (n < 2) return false;
+    if (n < 4) return true;
+    if (n % 2 === 0 || n % 3 === 0) return false;
+    for (let i = 5; i * i <= n; i += 6)
+        if (n % i === 0 || n % (i + 2) === 0) return false;
+    return true;
+}
+
+function factorize(n) {
+    const factors = [];
+    let d = 2;
+    while (d * d <= n) {
+        while (n % d === 0) { factors.push(d); n = Math.floor(n / d); }
+        d++;
+    }
+    if (n > 1) factors.push(n);
+    return factors;
+}
+
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+function sinc2(x) {
+    if (Math.abs(x) < 1e-12) return 1;
+    const v = PI * x;
+    return Math.pow(Math.sin(v) / v, 2);
+}
+
+function unitFrac(k, b) {
+    // fraction of {1..k} that is coprime to b
+    let count = 0;
+    for (let i = 1; i <= k; i++) if (gcd(i, b) === 1) count++;
+    return count / k;
+}
+
+function coherenceState(coh) {
+    if (coh >= T_STAR) return { label: 'HELD',  cls: 'held',  color: 'var(--green)' };
+    if (coh >= FOLD)   return { label: 'GAP',   cls: 'gap',   color: 'var(--yellow)' };
+    return               { label: 'VOID',  cls: 'void',  color: 'var(--red)' };
+}
+
+function analyzeInteger(n) {
+    const factors = factorize(n);
+    const unique  = [...new Set(factors)].sort((a,b)=>a-b);
+    const spf     = unique[0];
+    const isSemi  = factors.length === 2 && unique.length === 2;
+    const isPri   = isPrime(n);
+
+    // coprime window
+    const windowSize = spf - 1;
+    const windowFrac = windowSize / n;
+
+    // unit fraction at first gate k = spf
+    const uf_spf = unitFrac(spf - 1, n);   // just before gate
+    const uf_gate = unitFrac(spf, n);        // at gate (should drop)
+
+    // sinc² at 10% of first factor
+    const sinc10 = sinc2(0.1);   // universal: always ≈ 0.9675
+
+    // coherence state: use uf just before gate as the "current" coherence
+    const coh = uf_spf;
+    const state = coherenceState(coh);
+
+    // T* proximity
+    const tstar_dist = coh - T_STAR;
+
+    // for semiprime: T* = (q-2)/q
+    let tstar_local = null;
+    if (isSemi) {
+        const p = unique[0], q = unique[1];
+        tstar_local = (q - 2) / q;
+    }
+
+    // pre-echo field: R(k/p) for k = 1..spf*2 where p = spf
+    const field = [];
+    for (let k = 1; k <= spf * 2; k++) {
+        const x = k / spf;
+        field.push({ k, x, r: sinc2(x) });
+    }
+
+    return { n, factors, unique, spf, isSemi, isPri, windowSize,
+             uf_spf, uf_gate, sinc10, coh, state, tstar_dist,
+             tstar_local, field };
+}
+
+function fitSinc2(seq) {
+    // Try fitting sinc²(k/f) to seq by sweeping f
+    const N = seq.length;
+    if (N < 3) return null;
+    let bestF = null, bestR2 = -Infinity;
+    // sweep f from 2 to 10×max(seq)
+    const maxV = Math.max(...seq);
+    for (let f = 2; f <= Math.max(100, maxV * 10); f += 0.5) {
+        // predicted: sinc²(k/f) for k=1..N scaled to match seq range
+        const pred = seq.map((_, i) => sinc2((i + 1) / f));
+        const meanP = pred.reduce((a,b)=>a+b,0)/N;
+        const meanS = seq.reduce((a,b)=>a+b,0)/N;
+        const num = seq.reduce((s,v,i)=>(s+(v-meanS)*(pred[i]-meanP)),0);
+        const d1  = Math.sqrt(seq.reduce((s,v)=>s+(v-meanS)**2,0));
+        const d2  = Math.sqrt(pred.reduce((s,v)=>s+(v-meanP)**2,0));
+        if (d1 < 1e-12 || d2 < 1e-12) continue;
+        const r = num / (d1 * d2);
+        if (r > bestR2) { bestR2 = r; bestF = f; }
+    }
+    return { f: bestF, r2: bestR2 };
+}
+
+function renderNumResults(raw) {
+    const el = document.getElementById('num-results');
+
+    // Detect mode: sequence or integer
+    const isSeq = /[,\s]+/.test(raw.trim()) && raw.split(/[,\s]+/).filter(Boolean).length > 2;
+
+    if (isSeq) {
+        const nums = raw.split(/[,\s]+/).filter(Boolean).map(Number).filter(n=>!isNaN(n));
+        const fit  = fitSinc2(nums);
+        const corr = fit ? fit.r2 : 0;
+        const coh  = Math.max(0, Math.min(1, (corr + 1) / 2));
+        const state = coherenceState(coh);
+        const pct  = (coh * 100).toFixed(1);
+        const barW = (coh * 100).toFixed(2);
+
+        el.style.display = '';
+        el.innerHTML = `
+        <div class="score-overview">
+            <div class="score-overview-top">
+                <div>
+                    <div class="score-label">sinc² correlation: ${corr.toFixed(4)}</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-3);margin-top:3px;">
+                        ${nums.length} values · best-fit f = ${fit ? fit.f.toFixed(1) : 'n/a'}
+                    </div>
+                </div>
+                <div class="score-state-badge" style="background:${state.color}20;color:${state.color};border-color:${state.color}40;">
+                    ${state.label}
+                </div>
+            </div>
+            <div class="score-bar-outer">
+                <div class="score-bar-fill" style="width:${barW}%;background:${state.color};"></div>
+                <div class="score-bar-tstar"></div>
+            </div>
+            <div class="score-axis"><span>0</span><span>0.25</span><span>0.50</span><span>5/7</span><span>0.75</span><span>1.0</span></div>
+            <div class="score-meta">Pearson r = ${corr.toFixed(4)} · coherence proxy = ${coh.toFixed(4)} · T* = 5/7 = 0.71428...</div>
+        </div>
+        <div class="sig-full-row">
+            Sequence: <span>[${nums.slice(0,10).join(', ')}${nums.length>10?'…':''}]</span><br>
+            Best-fit sinc²(k/f): <span>f = ${fit ? fit.f.toFixed(2) : 'n/a'}</span><br>
+            sinc² correlation r: <span>${corr.toFixed(6)}</span><br>
+            Coherence proxy: <span>${coh.toFixed(6)}</span><br>
+            Distance to T*: <span>${(coh - T_STAR >= 0 ? '+' : '') + (coh - T_STAR).toFixed(6)}</span><br>
+            sinc²(0.1) universal: <span>0.96741...</span> (always present)
+        </div>`;
+        return;
+    }
+
+    // Parse as integer
+    const n = parseInt(raw.replace(/[×x\*\s]/g, '').replace(/^(\d+)[^\d]+(\d+)$/, (m,a,b)=>a*b), 10);
+    if (isNaN(n) || n < 2) {
+        el.style.display = '';
+        el.innerHTML = `<div class="sig-full-row" style="color:var(--red);">Could not parse input as integer or sequence. Try: 35, 997, or 1,1,2,3,5,8.</div>`;
+        return;
+    }
+
+    const r = analyzeInteger(n);
+    const state = r.state;
+    const pct   = (r.coh * 100).toFixed(1);
+    const tstar_str = r.tstar_local !== null
+        ? `(q−2)/q = (${r.unique[1]}−2)/${r.unique[1]} = ${r.tstar_local.toFixed(6)}`
+        : 'n/a (not semiprime)';
+    const tstar_match = r.tstar_local !== null
+        ? (Math.abs(r.tstar_local - T_STAR) < 0.0001 ? '✓ MATCHES T*=5/7 exactly' : `Δ = ${(r.tstar_local - T_STAR).toFixed(6)} from T*`)
+        : '';
+    const typeLabel = r.isPri ? 'prime' : r.isSemi ? 'semiprime' : `${r.factors.length} prime factors`;
+    const factorStr = r.unique.length === 1
+        ? `${r.unique[0]}^${r.factors.length}`
+        : r.unique.join(' × ');
+
+    const fieldBars = r.field.slice(0, Math.min(14, r.field.length)).map(pt => {
+        const w = (pt.r * 100).toFixed(1);
+        const col = pt.k === r.spf
+            ? 'var(--red)'
+            : pt.r >= T_STAR ? 'var(--green)' : pt.r >= FOLD ? 'var(--yellow)' : 'var(--red)';
+        return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-3);width:38px;text-align:right;">k=${pt.k}</span>
+            <div style="flex:1;height:14px;background:var(--bg-4);border-radius:2px;position:relative;">
+                <div style="width:${w}%;height:100%;background:${col};border-radius:2px;opacity:0.7;"></div>
+            </div>
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-2);width:52px;">${pt.r.toFixed(4)}</span>
+            ${pt.k === r.spf ? '<span style="font-size:10px;color:var(--red);">← gate</span>' : ''}
+        </div>`;
+    }).join('');
+
+    el.style.display = '';
+    el.innerHTML = `
+    <div class="sig-grid">
+        <div class="sig-cell ${state.cls}">
+            <div class="sig-cell-label">Coherence State</div>
+            <div class="sig-cell-value" style="color:${state.color};">${state.label}</div>
+            <div class="sig-cell-sub">coh = ${r.coh.toFixed(6)}</div>
+        </div>
+        <div class="sig-cell">
+            <div class="sig-cell-label">Distance to T*</div>
+            <div class="sig-cell-value">${(r.tstar_dist >= 0 ? '+' : '') + r.tstar_dist.toFixed(5)}</div>
+            <div class="sig-cell-sub">T* = 5/7 = 0.71428...</div>
+        </div>
+        <div class="sig-cell">
+            <div class="sig-cell-label">Type</div>
+            <div class="sig-cell-value" style="font-size:15px;">${factorStr}</div>
+            <div class="sig-cell-sub">${typeLabel}</div>
+        </div>
+        <div class="sig-cell">
+            <div class="sig-cell-label">Gate Event</div>
+            <div class="sig-cell-value">k = ${r.spf}</div>
+            <div class="sig-cell-sub">SPF(${r.n}) = ${r.spf} · coprime window: {1…${r.windowSize}}</div>
+        </div>
+        <div class="sig-cell">
+            <div class="sig-cell-label">Unit Density at k=SPF−1</div>
+            <div class="sig-cell-value">${r.uf_spf.toFixed(6)}</div>
+            <div class="sig-cell-sub">${r.windowSize}/${r.spf - 1 || 1} coprime just before gate</div>
+        </div>
+        <div class="sig-cell">
+            <div class="sig-cell-label">sinc²(0.1) · Universal</div>
+            <div class="sig-cell-value">0.96741</div>
+            <div class="sig-cell-sub">scale-free · same at every prime</div>
+        </div>
+    </div>
+    ${r.isSemi ? `
+    <div class="sig-full-row">
+        <b>Semiprime Analysis</b><br>
+        T* (local) = ${tstar_str}<br>
+        ${tstar_match ? `<span style="color:var(--green);">${tstar_match}</span>` : ''}<br>
+        Unit density at k=q=${r.unique[1]}: <span>${unitFrac(r.unique[1]-1, r.n).toFixed(6)}</span><br>
+        sinc²(k/q=0.1): <span>0.96741...</span> · sinc²(k/q=0.5): <span>${sinc2(0.5).toFixed(6)} = 4/π²</span>
+    </div>` : ''}
+    <div class="sig-field-row">
+        <div class="sig-field-label">Pre-Echo Field · R(k/p) = sinc²(k/${r.spf}) for k = 1…${Math.min(14, r.spf*2)}</div>
+        ${fieldBars}
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-3);margin-top:8px;">
+            Gate fires at k=${r.spf} (red). T* threshold at 0.71428 (green zone). sinc² zero at k=${r.spf}.
+        </div>
+    </div>`;
+}
+
+document.getElementById('num-check-btn').addEventListener('click', () => {
+    const raw = document.getElementById('num-input').value.trim();
+    if (!raw) return;
+    renderNumResults(raw);
+});
+
+document.getElementById('num-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        const raw = document.getElementById('num-input').value.trim();
+        if (raw) renderNumResults(raw);
+    }
+});
+
+document.querySelectorAll('.num-sample-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.getElementById('num-input').value = btn.dataset.num;
+        renderNumResults(btn.dataset.num);
+    });
+});
+
+// ── TEXT MODE ENGINE ─────────────────────────────────────────────
+const inputEl  = document.getElementById('input-text');
+const checkBtn = document.getElementById('check-btn');
+
+inputEl.addEventListener('input', () => {
+    checkBtn.disabled = inputEl.value.trim().length < 3;
+});
+
+checkBtn.addEventListener('click', () => {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    const analysis = analyze(text);
+    if (analysis) renderResults(analysis);
+});
+
+// Sample buttons
+document.querySelectorAll('.sample-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        if (SAMPLES[key]) {
+            inputEl.value = SAMPLES[key];
+            checkBtn.disabled = false;
+            // Auto-run
+            const analysis = analyze(SAMPLES[key]);
+            if (analysis) renderResults(analysis);
+            inputEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
+});
+
+// Allow Enter in textarea only submits via Ctrl+Enter
+inputEl.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        if (!checkBtn.disabled) checkBtn.click();
+    }
+});
+</script>
+
+</body>
+</html>
