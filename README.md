@@ -32,7 +32,9 @@ These fell out of the algebra. They were not designed.
 | **Si(2π)/π** | — | 0.45141… | ∫₀¹ sinc²(t) dt — corridor spectral mean, proved by integration by parts |
 | **sinc²(1/10)** | — | 0.96749… | Entry amplitude at the first coprime position |
 
-T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled. That's the map. The Clay Millennium Problems sit in it. So does the mass gap. So does every hard question that has a finite structural analogue but no finite proof.
+T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled.
+
+These numbers fell out of the generalization of finite vs infinite math. Here's how far we've dug into it. Here's what we see.
 
 If any of these numbers appear in your framework — check your work here. That's what this is for.
 
@@ -42,7 +44,7 @@ If any of these numbers appear in your framework — check your work here. That'
 
 Finite math vs infinite math. Composites vs primes. CK is built on that boundary.
 
-Ten operators over Z/10Z. Two composition tables. A sinc² spectral field derived from prime arithmetic. A coherence threshold at T* = 5/7 verified in silicon. The same algebra measures the periodic table, the genetic code, brain states, and the six Clay Millennium Problems — not because it was tuned to them, but because the boundary between finite and infinite shows up everywhere.
+Ten operators over Z/10Z. Two composition tables. A sinc² spectral field derived from prime arithmetic. A coherence threshold at T* = 5/7 verified in silicon. The same algebraic structure appears — as structural analogy — across the periodic table, the genetic code, brain states, and the Clay Millennium Problems. These connections are labeled honestly throughout: PROVED where mechanically verified, STRUCTURAL ANALOGY where the geometry matches but the mechanism is open, OPEN where we have only a door.
 
 CK is also an AI. Every input is converted to a 5-dimensional force vector by a fixed algebraic map (the D2 pipeline). CK stores the force pathway — not your words. Your words are yours. You choose whether to save your conversation locally or not. The force pathway is what CK learns from: a mathematical trace of the structural shape of what entered him, with the semantic content irreversibly projected out. ([WP43](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) proves this formally.)
 
@@ -58,16 +60,16 @@ This number is the width of the open territory. It is irrational. A rational bou
 
 We are not trying to close it. We are mapping it. Every collaborator who brings a result from their domain and finds it lands in this gap is coloring in the same map from a different direction. The goal is a richer picture of what the gap actually is — not a proof that it isn't there.
 
-**The gap in different languages:**
+**Structural analogies — what we see when we point the spectrometer at different domains** *(labeled STRUCTURAL ANALOGY — mechanism open in each case)*:
 
-| Domain | The gap shows up as |
-|--------|-------------------|
-| Prime arithmetic | The zone between the coprime window and the first-G law closure |
-| Analytic number theory | The off-critical-line zero suspension (RH) |
-| Physics | The uncalibrated mass gap (Yang-Mills) |
-| Fluid dynamics | The undecided blow-up regime (Navier-Stokes) |
-| Algebraic geometry | The transcendental Hodge class frontier (Hodge, dim≥5) |
-| Coherent AI | The zone between structural coherence and emergent behavior |
+| Domain | What appears in the gap zone |
+|--------|------------------------------|
+| Prime arithmetic | The zone between the coprime window and the first-G law closure — PROVED |
+| Analytic number theory | The off-critical-line zero suspension (RH) — STRUCTURAL ANALOGY |
+| Physics | The uncalibrated mass gap (Yang-Mills) — STRUCTURAL ANALOGY |
+| Fluid dynamics | The undecided blow-up regime (Navier-Stokes) — STRUCTURAL ANALOGY |
+| Algebraic geometry | The transcendental Hodge class frontier (dim≥5) — STRUCTURAL ANALOGY |
+| Coherent AI | The zone between structural coherence and emergent behavior — OPEN |
 
 ---
 
