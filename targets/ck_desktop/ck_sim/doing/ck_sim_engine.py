@@ -2348,6 +2348,28 @@ class CKSimEngine:
             if self.tick_count % 10 == 0:
                 self._btq_decide()
 
+            # ── GPU experience injection: top olfactory resonance drives cell field ──
+            # Every ~2s (100 ticks), inject the strongest experienced operator
+            # into the GPU lattice so accumulated CL experience IS the field state.
+            if (self.tick_count % 100 == 0
+                    and hasattr(self, 'gpu') and self.gpu is not None
+                    and hasattr(self.gpu, 'cell_field')):
+                try:
+                    if hasattr(self, 'olfactory') and self.olfactory is not None:
+                        nodes = self.olfactory.get_resonance_nodes(top_k=3)
+                        for node in nodes:
+                            op = int(node.get('dominant_op', -1))
+                            if 0 <= op < 10:
+                                self.gpu.cell_field.tick(external_input=op)
+                    elif hasattr(self, 'experience_lattice') and self.experience_lattice is not None:
+                        # Fallback: inject from experience lattice dominant op
+                        if hasattr(self.experience_lattice, 'dominant_op'):
+                            op = self.experience_lattice.dominant_op
+                            if 0 <= op < 10:
+                                self.gpu.cell_field.tick(external_input=op)
+                except Exception:
+                    pass
+
             # ── Daily reality re-anchor ──
             if self.tick_count % 4_320_000 == 0 and self.tick_count > 0:
                 if hasattr(self, 'experience_index') and self.experience_index is not None:
