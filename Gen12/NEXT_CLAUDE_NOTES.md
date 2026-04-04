@@ -6,6 +6,21 @@
 
 ---
 
+## Six Active Targets — Read the target NEXT_CLAUDE_NOTES for the area you're working on
+
+| Target | Folder | One-line state |
+|---|---|---|
+| **Clay** | `targets/clay/` | R8 proved. 6 open doors. Gap = 5/7−4/π² = 0.309. |
+| **FPGA** | `targets/fpga/` | ck_full.bit working. Δ⁰ in silicon. HDL sync from Gen9 pending. |
+| **FPGA + XiaoR Dog** | `targets/ck_fpga_dog/` | Δ¹ leash bring-up next. UART 115200 baud. |
+| **CK Website** | `targets/ck_website/` | coherencekeeper.com live. papers.html + frontiers.html need R8 update. |
+| **7Site Research** | `targets/7site_research/` | CLAY_RULES.md = core IP. R8 publishable. arXiv candidate: WP40. |
+| **CK R16** | `targets/ck_r16/` | ck_lm built. SETUP.bat ready. Run to get CUDA torch + start distillation. |
+
+Each target has its own `NEXT_CLAUDE_NOTES.md` and `GENERATION_HISTORY.md`.
+
+---
+
 ## What Gen12 Is
 
 Gen12 is the first generation built on the explicit geometric foundation.
