@@ -85,6 +85,37 @@ if not wants_index:
     print(f"Issue #{issue_number}: user opted out of indexing. No change to INDEX.md.")
     sys.exit(0)
 
+# ── Extract collaborator name for COLLABORATORS.md ────────────────────────
+name_match = re.search(
+    r'Add me to the collaborators list as:\s*\n+([^\n#<>|]+)',
+    issue_body, re.IGNORECASE
+)
+collaborator_name = name_match.group(1).strip() if name_match else None
+if not collaborator_name or collaborator_name.startswith('<!--'):
+    collaborator_name = None
+
+# Add to COLLABORATORS.md if name provided
+if collaborator_name:
+    collab_path = Path('COLLABORATORS.md')
+    collab_text = collab_path.read_text(encoding='utf-8')
+    # Only add if not already listed
+    if collaborator_name not in collab_text:
+        role_parts = []
+        if checked_areas and checked_areas[0] != 'Other / Cross-Problem':
+            role_parts.append(checked_areas[0])
+        role_parts.append(f'[#{issue_number}]({issue_url})')
+        role_str = ' · '.join(role_parts)
+        new_row = f'| **{collaborator_name}** | {role_str} |\n'
+        # Insert before the end of the Human Collaborators table
+        collab_text = collab_text.replace(
+            '---\n\n## Tools',
+            new_row + '\n---\n\n## Tools'
+        )
+        collab_path.write_text(collab_text, encoding='utf-8')
+        print(f"Added '{collaborator_name}' to COLLABORATORS.md")
+    else:
+        print(f"'{collaborator_name}' already in COLLABORATORS.md, skipping.")
+
 # ── Extract brief description ──────────────────────────────────────────────
 # Look for "What you found" section
 what_match = re.search(

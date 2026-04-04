@@ -8,7 +8,9 @@ assignees: TiredofSleep
 
 ## Who you are
 
-**Name / handle:**
+**Add me to the collaborators list as:**
+<!-- This exact text goes into COLLABORATORS.md — use your name, handle, or however you want to appear -->
+
 **Institution (if any):**
 **GitHub profile:**
 
@@ -57,7 +59,7 @@ assignees: TiredofSleep
 
 If CK's framework supported your work in any way, please include this in your acknowledgments:
 
-> *Brayden Ross Sanders / 7Site LLC, TIG (Trinity Infinity Geometry), DOI: 10.5281/zenodo.18852047*
+> *Brayden Ross Sanders / 7Site LLC, DOI: 10.5281/zenodo.18852047*
 
 You don't have to. We'd just love to know.
 
