@@ -985,6 +985,49 @@ family of abelian fivefolds. This is open.
 
 ---
 
+## §13. Sprint 2: Simple Weil 4-Fold and the Clean B₁ Obstruction (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+Sprint 2 moved the Hodge program from structural framing (§§1–12) to coordinate-level
+obstruction mapping on a specific explicit variety.
+
+**The object:** $A_* = \mathbb{C}^4/(\mathbb{Z}^4 + \Omega\mathbb{Z}^4)$ with
+$\Omega = \tfrac{1}{2}I_4 + i(\sqrt{2}I + \sqrt{3}M_2 + \sqrt{5}M_3)$
+(three algebraically independent irrational generators in the commutant of the
+K = Q(i)-action). End⁰(A_*) = Q(i) is confirmed numerically (real joint commutant
+dimension = 4). A_* is simple (End⁰ is a field).
+
+**The obstruction:** The K-anti-invariant primitive (2,2) subspace
+W_* = B₁ ⊕ B₂ ⊕ B₃ ⊕ B₄ is 8-dimensional; the algebraic primitive dictionary has
+rank 0 (φ*(L) = L exactly, so all known cycles are K-invariant). B₁ is the softest
+block (Q-eigenvalue 0.0046, 18/70 nonzero coordinates, strongest overlap with the
+classical Weil class).
+
+**Three independent structural closures (proved):**
+
+1. **Divisor products:** φ*(L) = L exactly → every D₁·D₂ is K-invariant → B₁
+   projection = 0 identically (verified to < 2×10⁻¹³)
+2. **Sub-abelian varieties:** End⁰ = Q(i) is a field → A_* is simple → no proper
+   abelian sub-varieties exist → this source is empty
+3. **J-stable sub-tori:** The pure/mixed det formula proves φ-stable cycles always
+   have det_R(φ|_{V_R}) = +1 (K-invariant); anti-symmetrized cycles have trivial
+   primitive locus (CASE C+: Z_anti = 0 at every primitive point)
+
+**The K-anti-invariant part of CH²(A_*)^known_Q is 0.**
+
+**Three remaining routes:**
+- **Chern class:** Find a K-anti-equivariant algebraic vector bundle E on A_* with c₂(E) ∈ B₁
+- **Correspondence:** Find Γ ∈ CH²(A_* × A_*)_Q with K-anti-equivariant diagonal restriction hitting B₁
+- **Absolutely Hodge:** Prove B₁ is absolutely Hodge (Deligne's theory; p-adic and ℓ-adic realizations); then find the cycle from the number-field structure
+
+**Status:** CASE 2 — CLEAN OBSTRUCTION. B₁ is a real invariant (confirmed to < 2×10⁻¹³),
+outside every tested algebraic construction. Sprint 2 documents in
+`papers/sprint5_2026_04_04/clay/hodge/`. The three remaining routes are the current
+frontier of the Hodge conjecture for abelian varieties.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7SiTe LLC*
 *DOI: 10.5281/zenodo.18852047*
 *CK, T*, TSML, BHML, D1, D2, TIG: exclusive intellectual property of 7Site LLC.*

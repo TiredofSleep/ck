@@ -163,6 +163,8 @@ Sprint: [`papers/sprint5_2026_04_04/clay/hodge/`](papers/sprint5_2026_04_04/clay
 
 Does not claim: This proves or disproves the Hodge conjecture on A_*. It is the first explicit coordinate-level representation of the conjecture's difficulty on a simple abelian variety. The construction remains open.
 
+**Structural template applied to all six Clay problems (April 2026):** The Sprint 2 template — locate minimal obstruction, close classical routes, map remaining doors — has been applied to RH (§12: threshold zeros closed), P vs NP (§13: single-cycle impossible by B₁ analogy), Navier-Stokes (§13: BREATH Class X as clean obstruction), Yang-Mills (§12: fold geometry + spectral window proved; TIG calibration open), and BSD (§12: rank 0 + rank 1 closed by Kolyvagin/Gross-Zagier analogs; rank ≥ 2 open). Cross-reference: [`papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`](papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md).
+
 ---
 
 ## The Core Spectral Result
@@ -195,14 +197,16 @@ CK applied as an obstruction spectrometer to the six Clay problems. The sinc² f
 | Paper | Problem | What it maps | Lines | Citations |
 |-------|---------|-------------|-------|-----------|
 | [WP36 — Clay Spectrometer](papers/clay/WP36_CLAY_SPECTROMETER.md) | All six | Entry point. One Field Seven Shadows master table. T*=5/7 hardware calibration. Three Guardrails. | 1,268 | 41 |
-| [WP37 — P vs NP](papers/clay/WP37_P_NP.md) | P vs NP | NP-verification = sidelobe detection. P-solving = null navigation. P≠NP framed as exponential distance to sinc² null. | 1,091 | 38 |
-| [WP38 — Navier-Stokes](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = arrival at sinc² null. Vorticity null framing. Grujić (UVA) contact point. | 1,125 | 38 |
-| [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | G/E/S partition. ω-Blindness theorem. Markman 2025 frontier (dim≥5 open). Sprint 2: first uncontaminated Hodge gap on simple Weil 4-fold A_*; B₁ clean obstruction confirmed; Z_anti ruled out. | 932 | 40 |
-| [WP40 — Riemann Hypothesis](papers/clay/WP40_RIEMANN.md) | RH | **The Montgomery Bridge** (§5): `R(x) = sinc²(x)` and `R₂(u) = 1−sinc²(u)` as spectral duals. Dyson IAS story. Odlyzko numerical anchor. | 1,295 | 45 |
-| [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Mass gap framed as T*=5/7 coherence floor. First-G distance as energy gap. 4/π² Universal Sidelobe Amplitude. | 908 | 34 |
-| [WP42 — BSD Conjecture](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. T*=5/7 as critical density analogue. Bhargava-Shankar consistency check. | 1,174 | 38 |
+| [WP37 — P vs NP](papers/clay/WP37_P_NP.md) | P vs NP | NP-verification = sidelobe detection. P-solving = null navigation. P≠NP framed as exponential distance to sinc² null. **Sprint 2 (§13):** B₁ ↔ 3-SAT fold-crossing; two structural closures from single-cycle impossibility; poly-time Class B path existence open. | 1,091 | 38 |
+| [WP38 — Navier-Stokes](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = arrival at sinc² null. Vorticity null framing. Grujić (UVA) contact point. **Sprint 2 (§13):** B₁ ↔ blow-up; BREATH Class X = clean obstruction; enstrophy growth structurally closed; vortex stretching + pressure feedback open. | 1,125 | 38 |
+| [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | G/E/S partition. ω-Blindness theorem. Markman 2025 frontier (dim≥5 open). **Sprint 2 (§13):** A_* simple Weil 4-fold; 8D obstruction W_* decomposed; B₁ real invariant confirmed; Z_anti ruled out; three remaining routes: K-anti-equivariant bundle, correspondence, absolutely Hodge. | 932 | 40 |
+| [WP40 — Riemann Hypothesis](papers/clay/WP40_RIEMANN.md) | RH | **The Montgomery Bridge** (§5): `R(x) = sinc²(x)` and `R₂(u) = 1−sinc²(u)` as spectral duals. Dyson IAS story. Odlyzko numerical anchor. **Sprint 2 (§12):** threshold zeros + sub-corridor zeros closed by D25; off-fold suspension = RH itself (open). | 1,295 | 45 |
+| [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Mass gap framed as T*=5/7 coherence floor. First-G distance as energy gap. 4/π² Universal Sidelobe Amplitude. **Sprint 2 (§12):** B₁ Q-eigenvalue 0.004609 ↔ mass gap 3/14; fold geometry + spectral window proofs closed; TIG-to-energy calibration open. | 908 | 34 |
+| [WP42 — BSD Conjecture](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. T*=5/7 as critical density analogue. Bhargava-Shankar consistency check. **Sprint 2 (§12):** rank 0 + rank 1 structurally closed (Kolyvagin/Gross-Zagier analogs); rank ≥ 2 = open third door; Ш ↔ BREATH Class X stalled paths. | 1,174 | 38 |
 
 **Total: 8,744 lines · 324 citations · 110 unique external references**
+
+**Sprint 2 structural template** (April 2026): Each Clay paper now carries a structural parallel section mapping its core obstruction to the Hodge Sprint 2 template — locate obstruction, close classical routes, map remaining doors. Cross-reference: [`papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`](papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md).
 
 Research documentation: [`papers/clay/research/`](papers/clay/research/) — citation packages, outlines, and the [Unified Symbol Table](papers/clay/research/UNIFIED_SYMBOL_TABLE.md).
 

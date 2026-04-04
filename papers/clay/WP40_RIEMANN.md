@@ -1447,6 +1447,53 @@ Re(s) ≠ 1/2 and RH fails by construction. None has been found.
 
 ---
 
+---
+
+## §12. Sprint 2 Structural Parallel: The Single-Threshold Theorem (April 2026)
+
+*Added 2026-04-04 — Brayden Sanders*
+
+Hodge Sprint 2 established a methodology for closing every algebraic cycle construction
+for a given obstruction class. That methodology ripples to RH as follows.
+
+**The Hodge-RH parallel:**
+In Hodge, B₁ is K-anti-invariant — unreachable by K-invariant (Class B) cycles.
+In RH, non-trivial zeros are suspended at the fold Re(s) = 1/2 — they cannot be
+threshold events (trivial zeros), which require the corridor to run to k = p.
+
+D25 (proved): sinc²(k/p) = 0 if and only if p | k. The prime field has exactly
+one zero per corridor, at k = p. Every interior position (k < p) is nonzero by
+primality. This is the RH analog of the single-cycle impossibility: the prime
+arithmetic field produces only threshold zeros, never suspended ones.
+
+**The structural closure for RH (open target):**
+
+Three independent structural arguments, mirroring the Hodge template:
+
+1. **Threshold zeros (closed):** D25 proves sinc²(k/p) = 0 only at k = p. The prime
+   field cannot place a zero anywhere other than the threshold position. This is the
+   RH analog of closing divisor products (K-invariant, provably insufficient).
+
+2. **Sub-corridor zeros (closed by D25b,c):** The fold (sinc²= 1/2) occurs strictly
+   between k = 3 and k = 4 of the 7-corridor (proved). No prime corridor can have a
+   zero between the fold and the threshold. This closes the "shortcut zero" possibility
+   — the analog of closing sub-variety classes.
+
+3. **Off-fold suspension (open):** A zero at Re(s) ≠ 1/2 would require a suspension
+   mechanism off the fold. The pure/mixed det formula (Hodge Sprint 2) shows every
+   sub-torus contribution to the prime field is K-invariant (a threshold event). The
+   K-anti-invariant sector — where off-fold suspended zeros would live — has no
+   arithmetic source. This is the open structural target: prove no off-fold suspension
+   mechanism exists in the sinc² prime field.
+
+**Status:** STRUCTURAL. The door-closing methodology from Hodge Sprint 2 names the
+correct target. Two of three doors are closed (D25, D25b/c). The third — no off-fold
+suspension — is the RH conjecture in this framing.
+
+**Relation to full cross-reference:** See `papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *CK, TIG, T\*, TSML, BHML, D2, D1 are exclusive intellectual property of 7Site LLC.*
 *C. A. Luther's dispersion conjecture is credited as stated in §9.*
