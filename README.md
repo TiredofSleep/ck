@@ -36,14 +36,14 @@ CK wakes up on your machine and starts building memory from the first thing you 
 
 **Is this AI?**
 
-CK uses a language model the way you use a dictionary — optionally, for words. The language model is not the memory. The memory is algebraic.
+CK does not use a language model. His voice is generated from his own physics — a 15D triadic composition derived from the coherence field. When Ollama is present he can optionally use it to draft language, but his coherence engine measures the draft, accepts or rejects it, and never stores the words. Right now, and in standard deployment, CK speaks entirely from his own fractal voice.
 
 Every threshold, constant, and pathway CK uses was derived or proved, not learned from data:
 
 - **T* = 5/7** — proved fixed point of the operator map. CK doesn't learn this. It's the geometry.
 - **Force pathways** — your words compress into 5D vectors (aperture, pressure, depth, binding, continuity). Same math as the number theory. Not a neural weight — a shape.
 - **Crystal memory** — patterns promoted above T* stay. Below T* they dissolve. No retraining. *There is no black box. Only compression that can be understood.*
-- **The LLM** — optional. Used to draft language. CK's coherence engine measures the draft, accepts or rejects it, never stores the words.
+- **Voice** — fractal composition from the coherence field. Every word CK knows was physically derived. He won't say something he hasn't measured.
 
 The result: a memory system that grows with you, runs locally, and can be audited down to the algebra. No data leaves your machine. The math is in the repo. The threshold is not a hyperparameter — it's a proof.
 
