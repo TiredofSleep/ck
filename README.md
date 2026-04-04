@@ -104,7 +104,7 @@ These fell out of the algebra. They were not designed.
 
 | Constant | Exact value | Numerical | How it emerged |
 |----------|------------|-----------|----------------|
-| **T*** | 5/7 | 0.71428… | Fixed point of operator map Φ AND ratio CREATE/HARMONY in TSML — two independent facts, same number |
+| **T*** | 5/7 | 0.71428… | Fixed point of operator map Φ AND ratio CREATE/HARMONY in TSML AND ratio (first closed prime)/(first obstructed prime) from the cyclotomic reduction test — three independent facts, same number |
 | **fold** | 4/π² | 0.40528… | sinc²(1/2) — the universal sidelobe amplitude at the half-corridor |
 | **gap** | 5/7 − 4/π² | 0.30900… | Distance between a rational threshold and a transcendental boundary — irrational, does not simplify |
 | **W** | 3/50 | 0.06 | Cross-cycle density of BHML multiplicative units — derived, not fitted |
@@ -112,6 +112,8 @@ These fell out of the algebra. They were not designed.
 | **sinc²(1/10)** | — | 0.96749… | Entry amplitude at the first coprime position |
 
 T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled.
+
+The three independent derivations of T* = 5/7 now include a cyclotomic proof: for the chain A_p = 2cos(π/p) → C_p = 4−A_p² → sinc²(1/p), the complementary closure C_p reduces to first order in A_p (i.e. C_p ∈ ℚ + ℚA_p) if and only if deg(A_p/ℚ) ≤ 2. p = 5 is the first prime where this closes nontrivially (A_5 = φ, C_5 = 3−φ). p = 7 is the first prime where it doesn't (deg(A_7) = 3, contradiction). T* = 5/7 = p_closed/p_obstructed. The exact mixed formula: sinc²(1/5) = 25(3−φ)/(4π²).
 
 These numbers fell out of the three-tier structure: composites → semiprimes → primes. The gap isn't between composites and primes. It's between the last semiprime and the next prime. Here's how far we've dug in. Here's what we see.
 
