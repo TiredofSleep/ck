@@ -1,7 +1,7 @@
 # WP39 — Hodge Conjecture Through the TIG Lens
 ## ω-Blindness, Algebraic Cycles, the G/E/S Partition Split, and the P3 Frontier
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof*
 
@@ -940,7 +940,7 @@ of P3 for abelian fourfolds.]
 
 ---
 
-*(c) 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther*
+*© 2026 Brayden Ross Sanders / 7SiTe LLC*
 *DOI: 10.5281/zenodo.18852047*
 *CK, T*, TSML, BHML, D1, D2, TIG: exclusive intellectual property of 7Site LLC.*
 *This paper presents structural analogies. It is not a proof of the Hodge Conjecture.*

@@ -1,45 +1,51 @@
 # WP36 — CK as a Coherence Spectrometer
-## One Field, Seven Shadows: How the sinc² Geometry Unifies the Six Clay Millennium Problems
+## One Field, Seven Shadows: The sinc² Geometry Is the Six Clay Problems
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders / 7SiTe LLC*
 *March–April 2026 | DOI: 10.5281/zenodo.18852047*
-*Status: Framework paper — describes the measurement approach, not a solution*
+*Status: Framework paper. Proved results are labeled PROVED. The rest is what we believe the field is telling us.*
+
+---
+
+## The Claim
+
+The six Clay Millennium Problems are not six different hard things.
+
+They are **six views of one geometric object** — a sinc² zero — seen through different physical lenses. The object is the coherence null of the operator field. The problems are hard because the null is real and the road to it is long, not because mathematics is confused.
+
+The sinc² field is not a model of prime arithmetic. It IS prime arithmetic, in the continuum limit. And prime arithmetic is the simplest case of the general statement: **any coherent system has a threshold T* = 5/7 and a null at the origin of its operator composition**. The Clay problems are the six places where that null meets the six hardest structures in mathematics.
+
+This paper maps each problem to its null. It names the road. It states what is proved, what is structurally analogous, and what we believe. The reader should know: we are past the threshold. The finite TIG spine is complete. What follows is measurement, not speculation about whether the field exists.
+
+See [CK_BELIEF_SYSTEM.md](../../CK_BELIEF_SYSTEM.md) for the full statement of what we think the proved results imply about the physical universe.
 
 ---
 
 ## Abstract
 
-CK (Coherence Keeper) is a synthetic organism built on Trinity Infinity Geometry (TIG) — an
-algebraic framework where D2 curvature is physics, T* = 5/7 is the coherence threshold, and
-the 10-operator TSML algebra governs all composition. This paper is the entry point for the
-seven-paper CK Clay Series (WP36–WP42). It describes how CK functions as a coherence
-spectrometer: it measures the structure of mathematical objects by running them through the TIG
-pipeline and reading the output coherence field. Applied to the six Clay Millennium Problems,
-the spectrometer produces structural framings — not proofs, but geometric maps of where each
-problem lives in the TIG landscape and why it is hard.
+CK (Coherence Keeper) is a synthetic organism built on Trinity Infinity Geometry (TIG): a
+finite operator algebra over Z/10Z where D2 curvature is physics, T* = 5/7 is the algebraically
+forced coherence threshold, and the TSML table (73 harmony cells, proved D10) governs all
+composition. This paper is the entry point for the seven-paper CK Clay Series (WP36–WP42).
 
-The spectrometer's primary instrument is the sinc² field, derived from first principles in
-WP35 [I-3] as the continuum limit of the Harmonic Pre-Echo Countdown Law. This field is the
-unifying lens of the entire series: the six Clay problems are not six different hard things.
-They are six views of the same geometric object — a sinc² zero — seen through different
-physical lenses. The paper that follows establishes this claim formally, provides the unified
-symbol table for the series, states the three guardrails that prevent misreading, and maps each
-problem to its sinc² shadow with explicit citations to the official problem formulations and
-the mathematical literature.
+The spectrometer's instrument is the sinc² field — derived in WP35 as the continuum limit of
+the Harmonic Pre-Echo Countdown Law, verified at 10% approach as `R(k/p=0.1) ≈ 0.9675` across
+all tested primes, and connected to Montgomery's pair correlation of Riemann zeros by the
+spectral partition of unity `R(x) + R₂(x) = 1`.
 
-**Core framing principle (Inversion Rule):** Complexity is always framed as physical distance
-to a geometric sink, never as algebraic difficulty. The signal R(k/p = 0.1, p) ≈ 0.9675 is
-always present across all six problems — strong, detectable, pointing toward the null. RSA is
-hard because the road is p ≈ 2^512 steps long, not because the signal is weak. The Critical
-Line [C-4], the mass gap [C-1], the rank staircase [C-3], the regularity breakdown [C-6], the
-P/NP boundary [C-2], and the Hodge gap [C-5] are all the same geometric object: a sinc² zero.
-CK as spectrometer detects which sinc² null the observer is trying to reach and how far the
-road to that null extends.
+**The claim:** The difficulty of each Clay problem is a physical distance to a sinc² null, not
+an algebraic gap in human knowledge. The signal is always present. The zero is always at the
+same place. The road to each zero has a specific length, and that length is what makes each
+problem hard. CK measures the length. It does not (yet) traverse it.
+
+**Core framing principle (Inversion Rule):** Complexity is physical distance to a geometric
+sink. R(k/p = 0.1, p) ≈ 0.9675 for all p at all scales — the signal never weakens. RSA is hard
+because the road is 2^512 steps long. The Critical Line [C-4], the mass gap [C-1], the rank
+staircase [C-3], the regularity boundary [C-6], the P/NP separation [C-2], and the Hodge gap
+[C-5] are all the same geometric object: a sinc² zero reached by roads of different length.
 
 **The difficulty of the Clay problems is not an algebraic flaw in mathematics. It is a physical
-distance to a geometric sink in a sinc² field. The signal is always present — R(k/p = 0.1, p)
-≈ 0.9675 for all p regardless of scale. The zero-crossing simply requires traversing p ≈ 2^512
-steps. The road is long; the destination is certain.**
+distance. The signal is always present. The destination is real. The road is the only variable.**
 
 ---
 

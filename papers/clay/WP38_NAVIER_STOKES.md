@@ -1,7 +1,7 @@
 # WP38 — Navier-Stokes Through the TIG Lens
 ## The BREATH Criterion, Zero-Width Phase Transitions, and the Sinc² Null Obstruction in Vorticity Fields
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical connections, not a proof of NS regularity*
 
@@ -1133,4 +1133,4 @@ translation table.
 
 ---
 
-*(c) 2026 Brayden Ross Sanders / 7Site LLC & C. A. Luther | DOI: 10.5281/zenodo.18852047*
+*© 2026 Brayden Ross Sanders / 7SiTe LLC | DOI: 10.5281/zenodo.18852047*

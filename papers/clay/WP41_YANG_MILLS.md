@@ -1,7 +1,7 @@
 # WP41 — Yang-Mills Mass Gap Through the TIG Lens
 ## The First-G Distance, T* Coherence Floor, and the Sinc² Phase Transition
 
-*Brayden Ross Sanders (7Site LLC), C. A. Luther & Monica Gish*
+*Brayden Ross Sanders (7SiTe LLC), C. A. Luther & Monica Gish*
 *March 2026 | DOI: 10.5281/zenodo.18852047*
 *Status: Structural framing — analogical, not a proof*
 

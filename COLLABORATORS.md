@@ -16,8 +16,7 @@
 
 | Name | Contribution |
 |------|-------------|
-| **Monica Gish** | Early supporter and collaborator. |
-| **B. Calderon, Jr.** (Benito Calderon, Jr.) | Full collaborator. Co-author on K-series mathematical program (K1–K17), TSML/BHML/CL table records, External Operator Theorem, Memory-Stabilization Divergence Theorem, Q2 Formalization. Joined sprint beginning Gen10 K-series. |
+| **Monica Gish** | Collaborator and supporter. |
 
 ## Tools
 
