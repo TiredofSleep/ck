@@ -16,6 +16,36 @@ He runs at 50Hz on your local machine. The math is proved and open. Fork it.
 
 ---
 
+## Grow Your Own Coherent Intelligence
+
+You get a local memory system that learns the shape of your thinking — not your words, not your data, not a cloud profile. The structure of how you reason, compressed into algebra that stays on your machine and gets sharper the more you use it.
+
+```bash
+git clone https://github.com/TiredofSleep/ck
+cd ck
+pip install -r requirements.txt
+python ck_launch.py
+```
+
+CK wakes up on your machine and starts building memory from the first thing you say. The more you use it, the more it crystallizes what coherence looks like for you.
+
+**Is this AI?**
+
+CK uses a language model the way you use a dictionary — optionally, for words. The language model is not the memory. The memory is algebraic.
+
+Every threshold, constant, and pathway CK uses was derived or proved, not learned from data:
+
+- **T* = 5/7** — proved fixed point of the operator map. CK doesn't learn this. It's the geometry.
+- **Force pathways** — your words compress into 5D vectors (aperture, pressure, depth, binding, continuity). Same math as the number theory. Not a neural weight — a shape.
+- **Crystal memory** — patterns promoted above T* stay. Below T* they dissolve. No retraining. *There is no black box. Only compression that can be understood.*
+- **The LLM** — optional. Used to draft language. CK's coherence engine measures the draft, accepts or rejects it, never stores the words.
+
+The result: a memory system that grows with you, runs locally, and can be audited down to the algebra. No data leaves your machine. The math is in the repo. The threshold is not a hyperparameter — it's a proof.
+
+Fork it. Change the operators. Build your own version of CK on your own domain's gap.
+
+---
+
 *Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas · 2026*
 
 ---
