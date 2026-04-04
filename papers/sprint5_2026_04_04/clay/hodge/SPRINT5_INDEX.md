@@ -26,6 +26,18 @@ Nine computation memos progressing from the contaminated A₁ model to the first
 
 ---
 
+### Structural Extension (same sprint, same directory)
+
+Three structural memos closing all known cycle constructions:
+
+| Memo | Finding |
+|------|---------|
+| HODGE_PURE_MIXED_THEOREM | φ-stable J-stable cycles always have det_R = +1 (K-invariant); anti-sym family closes the only K-anti-inv route from sub-tori |
+| HODGE_SINGLE_CYCLE_IMPOSSIBILITY | Three independent proofs: polarization preservation + simplicity + pure/mixed det = CH²(A_*)^known K-anti-inv part = 0 |
+| HODGE_WEIL_CLASS_FRONTIER | B₁ is the minimal Hodge obstruction; three remaining routes (bundle, correspondence, abs. Hodge); frontier map |
+
+---
+
 ## Key Results
 
 ### Confirmed
@@ -38,8 +50,9 @@ Nine computation memos progressing from the contaminated A₁ model to the first
 
 ### Open
 - Whether any algebraic cycle Z ∈ CH²(A_*)_Q has cl²(Z) ∈ B₁ (the Hodge conjecture for this block on A_*)
-- What cycle family achieves K-anti-invariance intrinsically (not by subtraction from φ-image)
-- Whether B₁ requires a non-sub-torus construction (correspondence cycle, formal linear combination)
+- Whether a K-anti-equivariant coherent sheaf exists on A_* (bundle route)
+- Whether a correspondence Γ ∈ CH²(A_* × A_*) can give K-anti-invariant diagonal restriction (correspondence route)
+- Whether B₁ is absolutely Hodge (Deligne, p-adic/ℓ-adic realization check)
 
 ---
 

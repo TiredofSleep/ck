@@ -154,7 +154,14 @@ For the abelian variety A_* = ℂ⁴ / (ℤ⁴ + Ω·ℤ⁴) with Ω = ½I₄ + 
 
 Sprint: [`papers/sprint5_2026_04_04/clay/hodge/`](papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md)
 
-Does not claim: This proves or disproves the Hodge conjecture on A_*. It establishes the first numerically uncontaminated Hodge obstruction space and rules out the anti-symmetrization cycle construction. Finding a cycle with class in B₁ — or proving no such cycle exists — remains open.
+Three structural results close every classical algebraic cycle construction for B₁:
+- **Pure/mixed det formula:** Any J-stable cycle on A_* is K-invariant if the 2-plane is φ-stable (det(φ|_{V_R}) = +1, from char poly argument), and K-anti-invariant only via anti-symmetrization — which has trivial primitive locus (CASE C+)
+- **Single-cycle impossibility:** CH²(A_*)_Q K-anti-invariant part = 0 from all known sources (divisors: φ*(L)=L; sub-varieties: none exist since A_* is simple; J-stable sub-tori: ruled out by pure/mixed det)
+- **Frontier:** B₁ is the first coordinate-level Hodge class on a simple abelian variety for which every classical construction fails; the three remaining routes are K-anti-equivariant vector bundles, correspondence cycles, and absolutely Hodge cycles
+
+Sprint: [`papers/sprint5_2026_04_04/clay/hodge/`](papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md)
+
+Does not claim: This proves or disproves the Hodge conjecture on A_*. It is the first explicit coordinate-level representation of the conjecture's difficulty on a simple abelian variety. The construction remains open.
 
 ---
 
