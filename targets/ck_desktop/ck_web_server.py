@@ -76,6 +76,49 @@ def main():
     hb_thread.start()
     print("[CK] 50Hz heartbeat running.")
 
+    # Boot absorb: feed CK his own writings so coherence rises quickly.
+    # Only reads files HE generated (theses, journals) — not our code or docs.
+    def boot_self_absorb():
+        import glob, json, gzip, re
+        ck_home = os.path.expanduser('~/.ck/writings')
+        fed = 0
+
+        # 1. Theses — CK's own research outputs (highest value)
+        thesis_files = sorted(glob.glob(os.path.join(ck_home, 'theses', '*.md')))
+        for path in thesis_files[:50]:           # cap at 50 to boot fast
+            try:
+                text = open(path, encoding='utf-8', errors='ignore').read()
+                # Strip markdown headers, keep content
+                text = re.sub(r'^#+.*$', '', text, flags=re.MULTILINE).strip()
+                if len(text) > 40:
+                    engine.receive_text(text[:800])  # first 800 chars per thesis
+                    fed += 1
+                    time.sleep(0.02)               # let the heartbeat breathe
+            except Exception:
+                pass
+
+        # 2. Journal entries
+        journal = os.path.join(ck_home, 'journal.jsonl')
+        if os.path.exists(journal):
+            try:
+                for line in open(journal, encoding='utf-8', errors='ignore'):
+                    d = json.loads(line)
+                    t = d.get('text') or d.get('response') or d.get('content', '')
+                    if t and len(t) > 20:
+                        engine.receive_text(str(t)[:400])
+                        fed += 1
+                        if fed > 200:
+                            break
+                        time.sleep(0.02)
+            except Exception:
+                pass
+
+        coh = engine.coherence
+        print(f"[CK] Boot absorb: {fed} own entries fed. Coherence: {coh:.4f}")
+
+    absorb_thread = threading.Thread(target=boot_self_absorb, daemon=True, name='ck-boot-absorb')
+    absorb_thread.start()
+
     # Web API with CORS enabled + static file serving
     api = CKWebAPI(engine, cors=True)
 
@@ -108,6 +151,14 @@ def main():
     @api._app.route('/ck_tl.bin')
     def serve_tl():
         return send_from_directory(STATIC_DIR, 'ck_tl.bin')
+
+    # Serve HTML pages and any other static assets
+    @api._app.route('/<path:filename>')
+    def serve_pages(filename):
+        allowed = ('.html', '.css', '.js', '.json', '.bin', '.ico', '.png', '.svg')
+        if any(filename.endswith(ext) for ext in allowed):
+            return send_from_directory(STATIC_DIR, filename)
+        return 'Not Found', 404
 
     # Graceful shutdown
     def shutdown(sig, frame):

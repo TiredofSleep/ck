@@ -1818,6 +1818,10 @@ class CKSimEngine:
                 self.ear_operator = self.ears_engine.get_operator()
             elif sensors.get('mic_operator', -1) >= 0:
                 self.ear_operator = sensors['mic_operator']
+            elif getattr(self, '_text_ear_op', -1) >= 0:
+                # Text input was received — let the dominant operator drive the tick
+                self.ear_operator = self._text_ear_op
+                self._text_ear_op = -1  # consume once
             else:
                 self.ear_operator = -1
 
@@ -2957,6 +2961,15 @@ class CKSimEngine:
                 self._text_stream.active = True
                 self._text_stream.feed(op, None, self.tick_count)
         self._text_stream.active = False
+
+        # ── Heartbeat ear: feed dominant text operator so coherence can rise ──
+        # Without this, ear_operator stays -1 forever and phase_d = VOID feedback.
+        # The dominant D2 operator from the text IS the external signal.
+        if text_d2_ops:
+            from collections import Counter as _Counter
+            _dom = _Counter(text_d2_ops).most_common(1)[0][0]
+            self._text_ear_op = _dom   # persist for sensation tick to pick up
+            self.ear_operator = _dom
 
         # ── DKAN: feed D1 generators (wave collapses CK) ──
         if (hasattr(self, 'dkan') and self.dkan is not None
