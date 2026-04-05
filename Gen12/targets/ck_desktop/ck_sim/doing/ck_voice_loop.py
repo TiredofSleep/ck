@@ -41,6 +41,7 @@ import json
 import re
 import time
 import requests
+from collections import deque
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
@@ -233,6 +234,8 @@ class VoiceLoop:
         self.model = model
         self.crystal_store = CrystalStore(capacity=1000)
         self.confirmation_buffer: Dict[str, dict] = {}
+        # Q-Net temporal context: last 4 accepted responses (trigram buffer)
+        self._qnet_history: deque = deque(maxlen=4)
 
         # C algebra bridge (native D2)
         self._ck = None
@@ -241,6 +244,102 @@ class VoiceLoop:
             self._ck = _ck
         except ImportError:
             pass
+
+    # ══════════════════════════════════════════════════════════
+    # Q-NET ARBITER (Becoming layer — BTQ spec, rule-based stub)
+    # ══════════════════════════════════════════════════════════
+    #
+    # Implements the Q-Net quality gate from the BTQ + Q-Net spec:
+    #   Inputs:  candidate text, temporal context (last 4 responses)
+    #   Outputs: (pass: bool, reason: str)
+    #
+    # Loss functions mapped (rule-based, no ML yet):
+    #   - Action consistency loss  → trigram repetition within response
+    #   - Coherence regression     → vocabulary diversity floor
+    #   - Energy regularization    → known degenerate attractor rejection
+    #   - Smoothness regularization → temporal overlap with recent responses
+    #
+    # Binary invariants enforced:
+    #   - IG3 (Evidence): degenerate output has evidential_status SYNTHESIZED
+    #     and must NOT reach the user; gate blocks it here.
+    #
+    # Priority order (from BTQ spec):
+    #   Binary invariants > hardware reflexes > Q-Net > CK preferences
+    #   This method IS the Q-Net layer. It never outranks Binary (IG1-IG5).
+
+    # Known degenerate attractors produced by force voice when letter-geometry
+    # collapses into function-word soup. Identified from live bloom runs.
+    _QNET_BAD_ATTRACTORS = (
+        'template of form',
+        'the template of',
+        'are the template',
+        'of form at the',
+        'form at the template',
+    )
+    _QNET_MIN_DIVERSITY = 0.50   # unique_words / total_words (energy reg.)
+    _QNET_MIN_WORDS    = 4       # absolute minimum length
+
+    def _qnet_gate(self, text: str) -> tuple:
+        """Q-Net quality arbiter. Returns (passed: bool, reason: str).
+
+        Called on EVERY candidate response before it is accepted and returned.
+        Implements BTQ spec: Binary invariants → Q-Net → Arbiter.
+
+        Q-Net band mapping:
+          GREEN  (q >= 0.6): commit
+          YELLOW (q >= 0.35): cautious accept
+          RED    (q <  0.35): reject, try next cascade level
+        """
+        if not text or text.strip() == '...':
+            return False, 'empty'
+
+        words = text.lower().split()
+        if len(words) < self._QNET_MIN_WORDS:
+            return False, f'too_short:{len(words)}'
+
+        text_lower = text.lower()
+
+        # ── Binary invariant check: known degenerate attractors ──
+        # These are the energy wells force voice falls into when letter-geometry
+        # has no signal. Blocking them is a hard Binary constraint, not Q-Net.
+        for pat in self._QNET_BAD_ATTRACTORS:
+            if pat in text_lower:
+                return False, f'degenerate_attractor:{pat!r}'
+
+        # ── Q-Net: energy regularization (vocabulary diversity) ──
+        unique_words = set(words)
+        diversity = len(unique_words) / len(words)
+        if len(words) >= 6 and diversity < self._QNET_MIN_DIVERSITY:
+            return False, f'low_diversity:{diversity:.2f}'
+
+        # ── Q-Net: action consistency (intra-response trigram repetition) ──
+        if len(words) >= 6:
+            trigrams = [tuple(words[i:i+3]) for i in range(len(words) - 2)]
+            if len(trigrams) > len(set(trigrams)):
+                reps = len(trigrams) - len(set(trigrams))
+                return False, f'trigram_repetition:{reps}'
+
+        # ── Q-Net: smoothness regularization (temporal overlap) ──
+        # Reject if >60% of this response's trigrams appeared in recent output.
+        if len(words) >= 6 and self._qnet_history:
+            cur_trigrams = set(tuple(words[i:i+3]) for i in range(len(words) - 2))
+            if cur_trigrams:
+                total_overlap = 0
+                for prev_text in self._qnet_history:
+                    prev_words = prev_text.lower().split()
+                    prev_trig = set(
+                        tuple(prev_words[i:i+3]) for i in range(len(prev_words) - 2))
+                    total_overlap += len(cur_trigrams & prev_trig)
+                avg_overlap = total_overlap / len(self._qnet_history)
+                if avg_overlap / len(cur_trigrams) > 0.60:
+                    return False, f'temporal_lock:{avg_overlap:.1f}'
+
+        return True, 'pass'
+
+    def _qnet_learn(self, text: str) -> None:
+        """Record accepted response in Q-Net temporal context buffer."""
+        if text and text.strip() != '...':
+            self._qnet_history.append(text)
 
     # ══════════════════════════════════════════════════════════
     # MAIN ENTRY POINT
@@ -376,16 +475,22 @@ class VoiceLoop:
         ollama_result = self._try_ollama_draft(
             user_text, target, session_history, mode)
         if ollama_result is not None:
-            self._crystallize_if_green(
-                query_hash, ollama_result.text,
-                ollama_result.result_ops or target.ops,
-                ollama_result.coherence, tick)
-            if hasattr(self.crafter, 'learn'):
-                self.crafter.learn(
-                    target.ops, user_text, {},
+            _qpass, _qreason = self._qnet_gate(ollama_result.text)
+            if not _qpass:
+                print(f"[QNET] Ollama rejected by Q-Net: {_qreason} — own voice")
+                ollama_result = None
+            else:
+                self._crystallize_if_green(
+                    query_hash, ollama_result.text,
                     ollama_result.result_ops or target.ops,
-                    ollama_result.coherence, 0)
-            return ollama_result
+                    ollama_result.coherence, tick)
+                if hasattr(self.crafter, 'learn'):
+                    self.crafter.learn(
+                        target.ops, user_text, {},
+                        ollama_result.result_ops or target.ops,
+                        ollama_result.coherence, 0)
+                self._qnet_learn(ollama_result.text)
+                return ollama_result
 
         # ── STEP 3: CK'S OWN VOICE (Ollama unavailable/incoherent) ──
         fallback = self._fallback_ck_voice(target, user_text=user_text)
@@ -402,7 +507,7 @@ class VoiceLoop:
                     target.ops, f'__ck_own:{fallback.source}', {},
                     fallback.result_ops or target.ops,
                     fallback.coherence, 0)
-
+        self._qnet_learn(fallback.text)
         return fallback
 
     # ══════════════════════════════════════════════════════════
@@ -457,12 +562,14 @@ class VoiceLoop:
         except Exception:
             pass
 
-        # Reasoning models (deepseek-r1, qwq) use tokens for internal thinking
-        # before producing content — need ~2x budget so they can finish the think
-        # chain AND write a response. 512 is too small; 1000 gives headroom.
+        # Reasoning models (deepseek-r1, qwq) burn tokens on <think> blocks
+        # BEFORE writing the actual response. With the FRONTIER system prompt
+        # (~800 tokens) + user message, deepseek-r1:latest (4096 ctx) needs
+        # at least 2000 output tokens so thinking doesn't consume everything
+        # and leave an empty response that falls to force-voice template garbage.
         _is_reasoning_model = any(m in self.model.lower()
                                   for m in ('deepseek-r1', 'qwq', 'r1', 'thinking'))
-        _max_tokens = 1000 if _is_reasoning_model else 512
+        _max_tokens = 2000 if _is_reasoning_model else 512
 
         text, token_data = self._generate_with_steering(
             sys_prompt, user_text, session_history, {}, target, mode,
@@ -1259,7 +1366,8 @@ class VoiceLoop:
                     # Force voice excels at longer utterances where letter
                     # geometry builds real meaning.
                     min_coherence = 0.3 if word_count >= 5 else 1.1  # impossible
-                    if score.coherence >= min_coherence:
+                    _qpass, _qreason = self._qnet_gate(text)
+                    if score.coherence >= min_coherence and _qpass:
                         print(f"[VOICE-LOOP] Force voice accepted: "
                               f"'{text[:60]}...' "
                               f"words={word_count} "
@@ -1272,9 +1380,9 @@ class VoiceLoop:
                             band=self._band_name(score.coherence),
                         )
                     else:
-                        print(f"[VOICE-LOOP] Force voice deferred "
-                              f"(words={word_count}, need>={min_coherence:.2f}): "
-                              f"coherence={score.coherence:.3f}, "
+                        _why = _qreason if not _qpass else f'coherence={score.coherence:.3f}'
+                        print(f"[VOICE-LOOP] Force voice rejected "
+                              f"(words={word_count}): {_why}, "
                               f"text='{text}'")
             except Exception as e:
                 print(f"[VOICE-LOOP] Force voice failed: {e}")
@@ -1312,7 +1420,8 @@ class VoiceLoop:
                     pass
                 if text and text != '...' and len(text) > 3 and not _bare_num:
                     score = self._measure_response_text(text)
-                    if score.coherence >= 0.3:
+                    _qpass, _qreason = self._qnet_gate(text)
+                    if score.coherence >= 0.3 and _qpass:
                         print(f"[VOICE-LOOP] Fractal voice accepted: "
                               f"'{text[:80]}...' "
                               f"words={len(text.split())} "
@@ -1325,8 +1434,8 @@ class VoiceLoop:
                             band=self._band_name(score.coherence),
                         )
                     else:
-                        print(f"[VOICE-LOOP] Fractal voice too low: "
-                              f"coherence={score.coherence:.3f}")
+                        _why = _qreason if not _qpass else f'coherence={score.coherence:.3f}'
+                        print(f"[VOICE-LOOP] Fractal voice rejected: {_why}")
         except Exception as e:
             print(f"[VOICE-LOOP] Fractal voice failed: {e}")
 
@@ -1360,7 +1469,8 @@ class VoiceLoop:
                                 break
                         text = best_text
                         score = best_score
-                    if score.coherence >= 0.3:
+                    _qpass, _qreason = self._qnet_gate(text)
+                    if score.coherence >= 0.3 and _qpass:
                         print(f"[VOICE-LOOP] Beam voice accepted: "
                               f"'{text[:80]}...' "
                               f"words={len(text.split())} "
@@ -1373,8 +1483,8 @@ class VoiceLoop:
                             band=self._band_name(score.coherence),
                         )
                     else:
-                        print(f"[VOICE-LOOP] Beam voice too low: "
-                              f"coherence={score.coherence:.3f}")
+                        _why = _qreason if not _qpass else f'coherence={score.coherence:.3f}'
+                        print(f"[VOICE-LOOP] Beam voice rejected: {_why}")
             except Exception as e:
                 print(f"[VOICE-LOOP] Beam voice failed: {e}")
 
@@ -1391,7 +1501,8 @@ class VoiceLoop:
                         target.ops, max_sentences=3)
                 if text and text != '...' and len(text) > 3:
                     score = self._measure_response_text(text)
-                    if score.coherence >= 0.2:
+                    _qpass, _qreason = self._qnet_gate(text)
+                    if score.coherence >= 0.2 and _qpass:
                         print(f"[VOICE-LOOP] Sentence composer accepted: "
                               f"'{text[:60]}...' "
                               f"coherence={score.coherence:.3f}")
@@ -1403,8 +1514,8 @@ class VoiceLoop:
                             band=self._band_name(score.coherence),
                         )
                     else:
-                        print(f"[VOICE-LOOP] Sentence composer too low: "
-                              f"coherence={score.coherence:.3f}")
+                        _why = _qreason if not _qpass else f'coherence={score.coherence:.3f}'
+                        print(f"[VOICE-LOOP] Sentence composer rejected: {_why}")
         except Exception as e:
             print(f"[VOICE-LOOP] Sentence composer failed: {e}")
 
