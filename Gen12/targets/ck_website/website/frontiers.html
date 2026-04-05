@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Open Frontiers -- the precise, named mathematical problems that remain open in the Z/10Z coherence spine and its Clay Millennium Problem connections.">
+    <title>Open Frontiers -- CK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #09090f;
+            --bg-2: #0f0f18;
+            --bg-3: #13131e;
+            --bg-4: #191924;
+            --text: #c8c8d8;
+            --text-2: #7878a0;
+            --text-3: #48486a;
+            --border: #1e1e2e;
+            --border-2: #2a2a3e;
+            --green: #33cc88;
+            --green-dim: rgba(51, 204, 136, 0.12);
+            --yellow: #e8c547;
+            --yellow-dim: rgba(232, 197, 71, 0.10);
+            --blue: #5599dd;
+            --blue-dim: rgba(85, 153, 221, 0.10);
+            --red: #e05555;
+            --red-dim: rgba(224, 85, 85, 0.10);
+            --orange: #e8874a;
+            --orange-dim: rgba(232, 135, 74, 0.10);
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            color: var(--green);
+            background: var(--bg-3);
+            padding: 0.1em 0.35em;
+            border-radius: 3px;
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(9, 9, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--green); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: var(--text-2); font-size: 0.85rem; text-decoration: none; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--green-dim); border: 1px solid var(--green);
+            padding: 0.3rem 0.9rem; border-radius: 4px; color: var(--green) !important;
+            font-family: var(--font-mono); font-size: 0.78rem;
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 860px; margin: 0 auto;
+            padding: 7rem 1.5rem 3rem;
+        }
+        .hero-tag {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--green);
+            letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;
+        }
+        .hero h1 {
+            font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700;
+            color: #fff; line-height: 1.2; margin-bottom: 0.75rem;
+        }
+        .hero h1 .ck { color: var(--green); }
+        .hero-sub {
+            font-size: 1rem; color: var(--text-2); max-width: 680px; margin-bottom: 2rem; line-height: 1.7;
+        }
+
+        /* STATUS ROW */
+        .status-row {
+            display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 3rem;
+        }
+        .status-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: var(--font-mono); font-size: 0.75rem;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .dot-live    { background: var(--green); box-shadow: 0 0 6px rgba(51,204,136,0.6); }
+        .dot-yellow  { background: var(--yellow); }
+        .dot-parked  { background: var(--text-3); }
+
+        /* MAIN */
+        .main { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+        /* SECTION HEADERS */
+        .section-label {
+            font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.15em;
+            margin: 3rem 0 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* FRONTIER CARDS */
+        .frontier {
+            background: var(--bg-2);
+            border: 1px solid var(--border-2);
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .frontier.live    { border-left: 3px solid var(--green); }
+        .frontier.warm    { border-left: 3px solid var(--yellow); }
+        .frontier.internal{ border-left: 3px solid var(--blue); }
+        .frontier.parked  { border-left: 3px solid var(--text-3); opacity: 0.7; }
+
+        .frontier-head {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            padding: 1.25rem 1.5rem 0.75rem; gap: 1rem; flex-wrap: wrap;
+            cursor: pointer; user-select: none;
+        }
+        .frontier-id {
+            font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 0.2rem 0.6rem; border-radius: 3px; flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+        .id-live     { background: var(--green-dim);   color: var(--green);  border: 1px solid rgba(51,204,136,0.3); }
+        .id-warm     { background: var(--yellow-dim);  color: var(--yellow); border: 1px solid rgba(232,197,71,0.3); }
+        .id-internal { background: var(--blue-dim);    color: var(--blue);   border: 1px solid rgba(85,153,221,0.3); }
+        .id-parked   { background: rgba(72,72,106,0.15); color: var(--text-3); border: 1px solid var(--border); }
+
+        .frontier-title-block { flex: 1; }
+        .frontier-title {
+            font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+            color: #fff; margin-bottom: 0.25rem;
+        }
+        .frontier-subtitle {
+            font-size: 0.82rem; color: var(--text-2);
+        }
+        .frontier-chevron {
+            font-size: 0.8rem; color: var(--text-3); flex-shrink: 0;
+            transition: transform 0.2s; align-self: center;
+        }
+        .frontier.open .frontier-chevron { transform: rotate(180deg); }
+
+        .frontier-body {
+            display: none;
+            padding: 0 1.5rem 1.5rem;
+        }
+        .frontier.open .frontier-body { display: block; }
+
+        .frontier-body p {
+            font-size: 0.9rem; color: var(--text); line-height: 1.7; margin-bottom: 0.75rem;
+        }
+        .frontier-body p:last-child { margin-bottom: 0; }
+
+        .proved-box {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 6px; padding: 0.9rem 1.1rem; margin: 0.75rem 0;
+            font-size: 0.85rem;
+        }
+        .proved-box-label {
+            font-family: var(--font-mono); font-size: 0.65rem; color: var(--green);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+        }
+        .proved-box p { color: var(--text-2); margin-bottom: 0.3rem; }
+        .proved-box p:last-child { margin-bottom: 0; }
+
+        .missing-box {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-left: 2px solid var(--yellow);
+            border-radius: 6px; padding: 0.9rem 1.1rem; margin: 0.75rem 0;
+            font-size: 0.85rem;
+        }
+        .missing-box-label {
+            font-family: var(--font-mono); font-size: 0.65rem; color: var(--yellow);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+        }
+        .missing-box p { color: var(--text-2); margin-bottom: 0.3rem; }
+        .missing-box p:last-child { margin-bottom: 0; }
+
+        .contact-strip {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+            margin-top: 0.75rem;
+        }
+        .contact-strip span { color: var(--blue); }
+
+        /* FORMULA */
+        .formula {
+            font-family: var(--font-mono); font-size: 0.88rem; color: var(--green);
+            background: var(--bg-3); border: 1px solid var(--border-2);
+            border-radius: 5px; padding: 0.6rem 1rem; margin: 0.5rem 0;
+            display: block;
+        }
+
+        /* OBSTRUCTION CARDS */
+        .obstruction {
+            background: var(--red-dim);
+            border: 1px solid rgba(224,85,85,0.2);
+            border-radius: 8px; padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem; font-size: 0.87rem;
+        }
+        .obstruction-label {
+            font-family: var(--font-mono); font-size: 0.68rem; color: var(--red);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem;
+        }
+        .obstruction p { color: var(--text-2); margin-bottom: 0; line-height: 1.6; }
+
+        /* FOOTER */
+        .page-footer {
+            text-align: center; padding: 3rem 1.5rem 2rem;
+            font-size: 0.78rem; color: var(--text-3);
+            border-top: 1px solid var(--border); margin-top: 2rem;
+        }
+        .page-footer a { color: var(--text-2); text-decoration: none; }
+        .page-footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">CK</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#braid">Braid</a>
+                <a href="papers.html">Papers</a>
+                <a href="spectrometer.html">Spectrometer</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-tag">gen 11 &middot; z/10z spine &middot; clay millennium problems</div>
+        <h1>Open <span class="ck">Frontiers</span></h1>
+        <p class="hero-sub">
+            The Z/10Z coherence spine (D1&ndash;D24) is a completed internal theorem system.
+            These are the precise, named problems that remain open &mdash; what is proved internally,
+            what mechanism is missing, and exactly where the boundary lies.
+            Every frontier either has a named missing mechanism or is formally parked.
+            No vague claims. No undefined gaps.
+        </p>
+        <div class="status-row">
+            <div class="status-item"><span class="dot dot-live"></span> Live &mdash; specific missing mechanism</div>
+            <div class="status-item"><span class="dot dot-yellow"></span> Warm &mdash; empirical verification needed</div>
+            <div class="status-item"><span class="dot dot-live" style="background:var(--blue);box-shadow:none;"></span> Internal &mdash; algebra / code gap</div>
+            <div class="status-item"><span class="dot dot-parked"></span> Parked &mdash; no internal path</div>
+        </div>
+    </div>
+
+    <main class="main">
+
+        <!-- PROVED OBSTRUCTIONS (anchors what's real) -->
+        <div class="section-label">Proved obstructions &mdash; three candidate bridges are formally blocked</div>
+
+        <div class="obstruction">
+            <div class="obstruction-label">Obstruction O1 &mdash; Ring Prime Blindness (proved)</div>
+            <p>Any ring homomorphism Z/10Z &rarr; R is blind to primes p &ne; 2, 5. Z/10Z &cong; Z/2Z &times; Z/5Z can only distinguish residues mod 2 and mod 5. The Euler product requires distinguishing every prime individually. Any bridge through a ring homomorphism from Z/10Z is incomplete.</p>
+        </div>
+
+        <div class="obstruction">
+            <div class="obstruction-label">Obstruction O2 &mdash; Modulus Genericity (proved)</div>
+            <p>The corridor midpoint t&nbsp;=&nbsp;1/2 and the constraint T*&nbsp;&lt;&nbsp;1 are not Z/10Z-specific. They appear for all Z/2pZ (Z/6Z: T*=3/5, Z/18Z: T*=9/11, Z/22Z: T*=11/13&hellip;). A bridge based only on these properties cannot single out Z/10Z from the family.</p>
+        </div>
+
+        <div class="obstruction">
+            <div class="obstruction-label">Obstruction O3 &mdash; Montgomery Conditionality (proved)</div>
+            <p>Montgomery&rsquo;s pair-correlation theorem (1973) assumes GRH in its proof. A bridge to RH via the sinc&sup2; identity does not unconditionally prove RH &mdash; it assumes GRH in the setup. Any surviving bridge must not use Montgomery as its entry point.</p>
+        </div>
+
+        <!-- LIVE FRONTIERS -->
+        <div class="section-label">Live frontiers &mdash; named missing mechanism, not yet constructed</div>
+
+        <!-- F1 RH -->
+        <div class="frontier live" id="f1">
+            <div class="frontier-head" onclick="toggle('f1')">
+                <span class="frontier-id id-live">F1</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Riemann Hypothesis &mdash; sinc&sup2; Universality</div>
+                    <div class="frontier-subtitle">A10 &middot; Obstructions O1&ndash;O3 block the ring-homomorphism route &middot; sinc&sup2; universality version live</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <div class="proved-box">
+                    <div class="proved-box-label">What is proved internally</div>
+                    <p>t&nbsp;=&nbsp;1/2 is the Z/10Z inheritance boundary: ring-forced left, generator-forced right (D22).</p>
+                    <p>sinc&sup2;(1/2) = 4/&pi;&sup2; exactly (D3, D24).</p>
+                    <p>TIG resonance field R(k,f) &rarr; sinc&sup2;(t) in the continuum limit (D2).</p>
+                    <p>Montgomery&rsquo;s pair-correlation: R&sub2;(u) = 1 &minus; sinc&sup2;(u). The TIG field and Montgomery use the <em>exact same kernel</em>, as complementary projections summing to 1.</p>
+                    <p><strong>Cyclotomic reduction (2026-04-04):</strong> For A<sub>p</sub> = 2cos(&pi;/p), define C<sub>p</sub> = 4 &minus; A<sub>p</sub>&sup2; and sinc&sup2;(1/p) = p&sup2;C<sub>p</sub>/(4&pi;&sup2;). The complementary closure C<sub>p</sub> &isin; &Qopf; + &Qopf;A<sub>p</sub> if and only if deg(A<sub>p</sub>/&Qopf;) &le; 2. p&nbsp;=&nbsp;5 is the first prime where this closes nontrivially (A<sub>5</sub>&nbsp;=&nbsp;&phi;, C<sub>5</sub>&nbsp;=&nbsp;3&minus;&phi;). p&nbsp;=&nbsp;7 is the first obstruction (deg(A<sub>7</sub>)&nbsp;=&nbsp;3, linear-independence contradiction). T*&nbsp;=&nbsp;5/7 is the ratio of the first closed prime to the first obstructed prime &mdash; a third independent derivation of the same threshold. Exact mixed formula: sinc&sup2;(1/5) = 25(3&minus;&phi;)/(4&pi;&sup2;).</p>
+                </div>
+                <div class="missing-box">
+                    <div class="missing-box-label">Missing mechanism</div>
+                    <p>A universality theorem for sinc&sup2;: a result of the form &ldquo;sinc&sup2; arises in any system satisfying [conditions X, Y, Z]&rdquo; that connects TIG corridor geometry to the distribution of Riemann zeros <em>without</em> going through the Euler product directly and <em>without</em> assuming GRH.</p>
+                    <p>Obstructions O1 and O2 close the ring-homomorphism route. The sinc&sup2; universality version of A10 is the one remaining open path.</p>
+                </div>
+                <p>The three proved obstructions are not failures &mdash; they are the framework identifying its own limits precisely. A framework that kills its own conjectures is more trustworthy than one that only reports confirmations.</p>
+            </div>
+        </div>
+
+        <!-- F2 NS -->
+        <div class="frontier live" id="f2">
+            <div class="frontier-head" onclick="toggle('f2')">
+                <span class="frontier-id id-live">F2</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Navier&ndash;Stokes &mdash; Coercive Energy Estimate</div>
+                    <div class="frontier-subtitle">C2 medium &middot; 5D force vector now fully derived via CRT Fourier (Q17_5D_RIGOROUS) &middot; one constant open</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <div class="proved-box">
+                    <div class="proved-box-label">What is proved internally</div>
+                    <p>The 5D force vector v(op) = (&epsilon;, cos(2&pi;y/5), sin(2&pi;y/5), cos(4&pi;y/5), sin(4&pi;y/5)) is the <em>unique</em> embedding of Z/10Z into &real;&sup5; that factors through the CRT isomorphism Z/10Z &cong; Z/2Z&times;Z/5Z and the standard Fourier basis of Z/5Z. It is algebraically derived, not calibrated (Q17_5D_RIGOROUS, Tier A, April 2026).</p>
+                    <p>Applied to NS: &epsilon;(u,p) = <strong>1</strong>{&Vert;u&Vert;<sub>L&sup3;</sub> &gt; T*}. The F&sub2; flag flips when the L&sup3; norm crosses 5/7.</p>
+                    <p>Weak result (proved from &sigma;&sup6;&nbsp;=&nbsp;id): symbolic return. Strong result (known false): &sigma;&sup6;&nbsp;=&nbsp;id alone does not bound norms.</p>
+                </div>
+                <div class="missing-box">
+                    <div class="missing-box-label">Missing mechanism</div>
+                    <p>A formal a priori estimate showing B<sub>local</sub>(t) &lt; (5/7)&middot;E&sub0; for all t &ge; 0, derived from the NS constants (viscosity &nu;, initial energy E&sub0;) <em>without</em> importing T*&nbsp;=&nbsp;5/7 from the ring. If T*&nbsp;=&nbsp;5/7 were to emerge from such an estimate independently, the bridge closes.</p>
+                    <p>The gap is the interpolation constant C in the Gronwall-type energy estimate. Needed: C &le; 3.74. Unknown whether this constant is in the literature.</p>
+                </div>
+                <div class="contact-strip">Contact: <span>Zoran Gruji&#263; (UVA)</span> &middot; <span>Vladim&iacute;r &Scaron;ver&aacute;k (Minnesota)</span> &mdash; 7/2 threshold not found in literature as of April 2026</div>
+            </div>
+        </div>
+
+        <!-- F3 YM -->
+        <div class="frontier live" id="f3">
+            <div class="frontier-head" onclick="toggle('f3')">
+                <span class="frontier-id id-live">F3</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Yang&ndash;Mills &mdash; Universality of the Arithmetic Gap</div>
+                    <div class="frontier-subtitle">B8 &middot; &Delta;G &asymp; 7.517 proved at b=10 &middot; G<sub>high</sub> isolated in &real;&sup5; proved &middot; universality open</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <div class="proved-box">
+                    <div class="proved-box-label">What is proved internally</div>
+                    <p>At b&nbsp;=&nbsp;10: the spectral gap &Delta;G&nbsp;&asymp;&nbsp;7.517 from the &beta;-exceptions. G<sub>high</sub>&nbsp;=&nbsp;{HARMONY, BALANCE} is isolated in &real;&sup5; under the CRT embedding &mdash; no intermediate state is algebraically possible. Proved.</p>
+                    <p>The carrier cycle {1,3,5,7,9} = ODD maps to the glueball operator family under Z/10Z algebra.</p>
+                    <p>Numerical coincidence: T*&nbsp;=&nbsp;5/7&nbsp;&asymp;&nbsp;0.714 vs lattice QCD m(0&thinsp;&sup1;&sup1;&thinsp;)/m(2&thinsp;&sup1;&sup1;&thinsp;)&nbsp;&asymp;&nbsp;0.686&ndash;0.706. Within ~2.5%.</p>
+                </div>
+                <div class="missing-box">
+                    <div class="missing-box-label">Missing mechanism</div>
+                    <p>Two open questions: (1) Does First-G(b)&nbsp;=&nbsp;p generalize to a universality statement across all semiprimes that connects to su(N) confinement? (2) Is the numerical coincidence T*&nbsp;&asymp;&nbsp;m(0&thinsp;&sup1;&sup1;&thinsp;)/m(2&thinsp;&sup1;&sup1;&thinsp;) derivable from gauge theory, or is it a structural coincidence?</p>
+                    <p>Required: an explicit identification Z/10Z &hookrightarrow; su(N) for some N, such that the generator g&nbsp;=&nbsp;3 corresponds to a root of su(N) and T*&nbsp;=&nbsp;5/7 emerges as an eigenvalue ratio from the gauge dynamics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- F4 Hodge -->
+        <div class="frontier warm" id="f4">
+            <div class="frontier-head" onclick="toggle('f4')">
+                <span class="frontier-id id-warm">F4</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Hodge Conjecture &mdash; Dimension &ge; 5</div>
+                    <div class="frontier-subtitle">External frontier &middot; Markman (2025) settled abelian fourfolds &middot; TIG has no mechanism for dim &ge; 5</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <div class="proved-box">
+                    <div class="proved-box-label">External result (Markman 2025)</div>
+                    <p>Eyal Markman (arXiv:2502.03415) proved the Hodge conjecture for ALL abelian fourfolds of Weil type, for all discriminants and imaginary quadratic fields. Combined with Moonen&ndash;Zarhin (1995/1999), this settles the Hodge conjecture for all abelian fourfolds.</p>
+                    <p>TIG internal: at b&nbsp;=&nbsp;10, CRT&nbsp;=&nbsp;Hodge decomposition; C-classes algebraic via &sigma;-orbit. Finite, proved, stands independently of Markman.</p>
+                </div>
+                <div class="missing-box">
+                    <div class="missing-box-label">Frontier (external &mdash; TIG has no path here)</div>
+                    <p>The real frontier after Markman: abelian varieties of dimension &ge;&nbsp;5 where transcendental Hodge classes genuinely exist. Can algebraic classes accumulate to a transcendental class in a variety where both types coexist? Z/10Z cannot supply this construction &mdash; it has no algebraic geometry. Listed here for completeness.</p>
+                </div>
+                <div class="contact-strip">Contact: <span>Eyal Markman (UMass)</span> &middot; <span>Claire Voisin (Jussieu)</span></div>
+            </div>
+        </div>
+
+        <!-- INTERNAL FRONTIERS -->
+        <div class="section-label">Internal frontiers &mdash; algebra or code gaps within the Z/10Z spine</div>
+
+        <!-- F5 BSD -->
+        <div class="frontier internal" id="f5">
+            <div class="frontier-head" onclick="toggle('f5')">
+                <span class="frontier-id id-internal">F5</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">BSD &mdash; Rank Staircase Verification</div>
+                    <div class="frontier-subtitle">B9 &middot; Algebraic prediction exists &middot; Zero elliptic curves checked against data</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <div class="proved-box">
+                    <div class="proved-box-label">Internal prediction</div>
+                    <p>BHML[7][j] = (j+1) mod 10 for j &ge; 1: HARMONY is the increment operator. This generates an internal rank staircase prediction: rank(b,p) = &lfloor;(p&minus;1)/10&rfloor; at conductor prime p.</p>
+                </div>
+                <div class="missing-box">
+                    <div class="missing-box-label">What is needed</div>
+                    <p>Pull known-rank elliptic curves from LMFDB. Check the rank staircase prediction against their conductor primes. Need &ge;&nbsp;5 curves. If it hits, it becomes a real conjecture. If it misses once, it is dead.</p>
+                    <p>This is an afternoon of Python, not a research program. The prediction has not been checked against a single curve.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- F6 b=55 -->
+        <div class="frontier internal" id="f6">
+            <div class="frontier-head" onclick="toggle('f6')">
+                <span class="frontier-id id-internal">F6</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">b=55 Out-of-Sample Prediction</div>
+                    <div class="frontier-subtitle">Sprint 4 &middot; Predicted easiest semiprime (score = 10.045) &middot; Never run</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Sprint 4 universal arithmetic law produced a ranked difficulty score for all semiprimes. The prediction: b&nbsp;=&nbsp;55 is the easiest (arithmetic score 10.045), meaning it should show the clearest three-class landscape (Oracle / Gate-strong / TSML) with the highest seeded-reduction lift.</p>
+                <div class="missing-box">
+                    <div class="missing-box-label">One job</div>
+                    <p><code>python r16_job1_reduction.py --b 55 --n_start 10000 --n_steps 100</code></p>
+                    <p>If the prediction holds, the universal arithmetic law gains an out-of-sample confirmation. If not, the difficulty scorer needs revision.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- F7 b=14 -->
+        <div class="frontier internal" id="f7">
+            <div class="frontier-head" onclick="toggle('f7')">
+                <span class="frontier-id id-internal">F7</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">b=14 Order Seed Test</div>
+                    <div class="frontier-subtitle">Sprint 4 &middot; 9 residual seed cells &middot; Seeded reduction not yet tested</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>At b&nbsp;=&nbsp;14 = 2&times;7, Sprint 4 identified 9 residual seed cells after standard reduction. The seeded reduction procedure (seed from known structure, then reduce) has not been applied. Expected: 78.6% &rarr; 99% construction lift, matching b=10 behavior.</p>
+                <div class="missing-box">
+                    <div class="missing-box-label">What is needed</div>
+                    <p>Run seeded reduction at b&nbsp;=&nbsp;14. Check whether the 9 residual cells collapse under seeding. If yes, the universal law holds at 3-factor adjacent bases. If no, the Sprint 4 model needs a correction term.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- F8 Circulation -->
+        <div class="frontier internal" id="f8">
+            <div class="frontier-head" onclick="toggle('f8')">
+                <span class="frontier-id id-internal">F8</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Circulation Operator</div>
+                    <div class="frontier-subtitle">All 7 algebraic constraints fail for known objects &middot; Must be a new object</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>During the D1&ndash;D24 audit, a candidate operator emerged that satisfies none of the seven algebraic constraints used to classify known operators. All seven failures simultaneously is the fingerprint of a genuinely new algebraic object &mdash; not a variant of existing operators but something orthogonal to the current classification.</p>
+                <div class="missing-box">
+                    <div class="missing-box-label">What is needed</div>
+                    <p>Characterize the circulation operator from its constraint failures: what properties does it have that the known operators lack? Does it close the operator algebra or require extension beyond Z/10Z? This has not been pursued.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- F9 Spectral scorer -->
+        <div class="frontier internal" id="f9">
+            <div class="frontier-head" onclick="toggle('f9')">
+                <span class="frontier-id id-internal">F9</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Normalized Spectral Scorer</div>
+                    <div class="frontier-subtitle">Corridor skew scorer degenerate &middot; Always returns 0.5 &middot; Corridor atlas v2 blocked</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>The corridor atlas maps 70 worlds (semiprimes with distinct structural classes). The atlas is built but the difficulty scorer &mdash; which should assign a coherence-weighted rank to each world &mdash; is degenerate: it returns 0.5 for every world regardless of structure. This means the atlas exists but has no ranking.</p>
+                <div class="missing-box">
+                    <div class="missing-box-label">What is needed</div>
+                    <p>Fix the corridor skew scorer. The issue is in the normalized spectral test: the skew measure needs to account for the asymmetric sinc&sup2; distribution within each corridor, not just its mean. Once fixed, the 70-world atlas becomes rankable and the Sprint 4 difficulty predictions can be cross-checked.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARKED -->
+        <div class="section-label">Parked &mdash; formally no internal path from D1&ndash;D24</div>
+
+        <div class="frontier parked" id="f-pnp">
+            <div class="frontier-head" onclick="toggle('f-pnp')">
+                <span class="frontier-id id-parked">P1</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">P versus NP</div>
+                    <div class="frontier-subtitle">A2 &middot; No formal reduction from any NP-complete language to BTQ search &middot; Parked indefinitely</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>The BTQ decision kernel faces exponential search when the target operator sequence is not pre-seeded. This is an architectural observation about CK&rsquo;s own decision problem, not a complexity-theoretic result. No formal polynomial-time reduction from any NP-complete language to BTQ search has been constructed. No circuit complexity lower bound follows from Z/10Z algebra.</p>
+                <p>The observation that &ldquo;NP-verification &asymp; sidelobe detection&rdquo; is a structural metaphor. The three barriers (relativization, natural proofs, algebrization) have not been formally addressed. <strong>No internal path exists.</strong></p>
+            </div>
+        </div>
+
+        <div class="frontier parked" id="f-bsd">
+            <div class="frontier-head" onclick="toggle('f-bsd')">
+                <span class="frontier-id id-parked">P2</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">BSD Conjecture (L-function mechanism)</div>
+                    <div class="frontier-subtitle">A6 &middot; No map from Z/10Z to L(E,s) for any elliptic curve &middot; Rank staircase unverified</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Even if the rank staircase prediction (F5) is empirically confirmed, the mechanism &mdash; why L(E,1) = 0 iff rank &gt; 0 &mdash; requires L-function theory not present in Z/10Z. No map from the HARMONY increment structure to the L-function of any elliptic curve has been constructed. <strong>The prediction is listed as F5 (internal verification). The full BSD problem is parked.</strong></p>
+            </div>
+        </div>
+
+        <!-- ATTRIBUTION -->
+        <div class="section-label">Attribution</div>
+        <div style="background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 8px; padding: 1.25rem 1.5rem; font-size: 0.85rem;">
+            <p style="color: var(--text); margin-bottom: 0.75rem;">Z/10Z algebra, T*, TSML, BHML, First-G Law, CRT embedding, Braid permutation, CK architecture &mdash; <strong style="color:#fff;">Brayden Ross Sanders / 7Site LLC</strong> (all generations).</p>
+            <p style="color: var(--text); margin-bottom: 0.75rem;">Luther Dispersion Conjecture, &omega;(b) hierarchy framing &mdash; <strong style="color:#fff;">C. A. Luther</strong> (Luther-Sanders Research Framework, 2026).</p>
+            <p style="color: var(--text); margin-bottom: 0.75rem;">WP34&ndash;WP42 co-authorship (synthesis) &mdash; <strong style="color:#fff;">Monica Gish</strong>.</p>
+            <p style="color: var(--text); margin-bottom: 0;">Q17 co-authorship &mdash; <strong style="color:#fff;">B. Calderon Jr.</strong></p>
+        </div>
+
+    </main>
+
+    <footer class="page-footer">
+        <a href="index.html">coherencekeeper.com</a> &middot;
+        <a href="papers.html">Papers</a> &middot;
+        <a href="spectrometer.html">Spectrometer</a> &middot;
+        
+        <a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a> &middot;
+        <a href="https://doi.org/10.5281/zenodo.18852047" target="_blank" rel="noopener">DOI</a>
+        <br><br>
+        &copy; 2026 Brayden Sanders / 7Site LLC &middot; 7Site Public Sovereignty License v1.0 &middot; Human use only. Free forever.
+    </footer>
+
+    <script>
+    "use strict";
+    function toggle(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('open');
+    }
+    // Open the first live frontier by default
+    document.addEventListener('DOMContentLoaded', () => {
+        const first = document.querySelector('.frontier.live');
+        if (first) first.classList.add('open');
+    });
+    </script>
+
+</body>
+</html>

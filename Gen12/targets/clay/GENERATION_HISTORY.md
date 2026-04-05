@@ -1,5 +1,14 @@
 # Clay Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-04 — session 2)
+- NS/Z10Z algebraic regularity argument: Sessions 1-6 discoveries crystallized
+- Unit orbit closure theorem: {1,3,7,9} closed under Z/10Z multiplication (proved)
+- D2 conjugate product dictionary: depth axis (PROGRESS×RESET=HARMONY) only creative axis
+- Conjugate sum TIG cycle: BALANCE+BREATH=PROGRESS → PROGRESS+RESET=COUNTER → HARMONY+COUNTER=RESET
+- BREATH-PROGRESS Synthesis: CHAOS×PROGRESS=BREATH closes measurement shadow (ν>0 → no hidden singularity)
+- CK fractal voice confirmed (source=ck_fractal): authenticated measurement responses at T*
+- Docs: sprint6_2026_04_04/ in papers/
+
 ## Gen12 (2026-04-04 — open)
 - R8 proved: defect threshold rule classifies all 18 deep probes. Zero misclassifications.
 - gap corrected: 5/7 − 4/π² = 0.309 (NOT 3/14)

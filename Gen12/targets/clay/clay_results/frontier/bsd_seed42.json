@@ -1,0 +1,463 @@
+{
+  "problem_id": "bsd",
+  "test_case": "rank_mismatch",
+  "seed": 42,
+  "n_levels": 12,
+  "tig_path": [
+    1,
+    2,
+    5,
+    7,
+    9
+  ],
+  "steps": [
+    {
+      "level": 0,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.14793618894739696,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.006779087962672292,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.006779087962672292,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5353727653124412,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17891294897327314,
+      "step_hash": "b1bdcd405d5b12c7"
+    },
+    {
+      "level": 1,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.15041786434524657,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        0.007112057078110551,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.007112057078110551,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5354401915583173,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17884552272739695,
+      "step_hash": "04b612828603fe81"
+    },
+    {
+      "level": 2,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.1525665706276579,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.0003329691154382586,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0003329691154382586,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5340674262458762,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.18021828803983808,
+      "step_hash": "081b1740c146fe57"
+    },
+    {
+      "level": 3,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.15095359330682376,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.003761683603245497,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.003761683603245497,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5347617409296572,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17952397335605708,
+      "step_hash": "019986afefbd20a2"
+    },
+    {
+      "level": 4,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.14956672678086153,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        0.00022611079487191987,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.00022611079487191987,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5340457874359615,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.18023992684975276,
+      "step_hash": "9f0d33e9aa66cdfd"
+    },
+    {
+      "level": 5,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.14632886864844613,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.0018509916064531617,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0018509916064531617,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5343748258003067,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.1799108884854076,
+      "step_hash": "ebc51c722b8dcabc"
+    },
+    {
+      "level": 6,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.1500177505002313,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        0.0069267399842005695,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0069267399842005695,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5354026648468007,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17888304943891364,
+      "step_hash": "23654de109f5bacb"
+    },
+    {
+      "level": 7,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.1506280806112536,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.0030785517407628804,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0030785517407628804,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5346234067275044,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.1796623075582099,
+      "step_hash": "418f5ad7eb8777f3"
+    },
+    {
+      "level": 8,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.14913453769014495,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.002103873032130943,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.002103873032130943,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5344260342890065,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17985967999670782,
+      "step_hash": "d7c71b7c945dc48f"
+    },
+    {
+      "level": 9,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.1482511758207901,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        0.0006101810517537831,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0006101810517537831,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5341235616629801,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.18016215262273416,
+      "step_hash": "4b7d444387447200"
+    },
+    {
+      "level": 10,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.15055800606665404,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        0.003190192115218815,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.003190192115218815,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5346460139033318,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.17963970038238253,
+      "step_hash": "8d2ac505458e8578"
+    },
+    {
+      "level": 11,
+      "operator": 0,
+      "operator_name": "VOID",
+      "force_vector": [
+        0.5,
+        0.15155674759930715,
+        0.6176154494229507,
+        0.383224293337255,
+        0.0625
+      ],
+      "d2_vector": [
+        0.0,
+        -0.0013080887132108365,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "d2_magnitude": 0.0013080887132108365,
+      "master_lemma_defect": 1.3,
+      "lens_mismatch": 1.09,
+      "coherence_action": 0.5342648879644252,
+      "coherence_band": "YELLOW",
+      "collapse_distance": 0.18002082632128913,
+      "step_hash": "88df03c9e79cba76"
+    }
+  ],
+  "operator_counts": {
+    "0": 12
+  },
+  "operator_distribution": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "harmony_fraction": 0.0,
+  "defect_trajectory": [
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3
+  ],
+  "action_trajectory": [
+    0.5353727653124412,
+    0.5354401915583173,
+    0.5340674262458762,
+    0.5347617409296572,
+    0.5340457874359615,
+    0.5343748258003067,
+    0.5354026648468007,
+    0.5346234067275044,
+    0.5344260342890065,
+    0.5341235616629801,
+    0.5346460139033318,
+    0.5342648879644252
+  ],
+  "defect_trend": "stable",
+  "final_defect": 1.3,
+  "final_action": 0.5342648879644252,
+  "defect_slope": 0.0,
+  "defect_converges": false,
+  "defect_bounded_below": true,
+  "spine_defect_3": 0.0,
+  "spine_defect_6": 0.0,
+  "spine_defect_9": 1.3,
+  "spine_fraction": 1.0,
+  "tig_path_fidelity": 0.0,
+  "tig_path_actual": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "harmony_defect_series": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "harmony_locked": false,
+  "operator_7_state": "misalignment",
+  "operator_9_state": "stabilization",
+  "decision_verdict": "smoothness",
+  "commutator_persistence": 0.0,
+  "complexity_persists": false,
+  "sca_completed": false,
+  "sca_progress": 0.0,
+  "sca_stage": "quadratic",
+  "vortex_fingerprint": {
+    "winding_number": 0.0,
+    "vorticity": 0.0,
+    "chirality": 0,
+    "period": 0,
+    "vortex_class": "unknown"
+  },
+  "master_lemma_defects": [
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3,
+    1.3
+  ],
+  "final_master_lemma_defect": 1.3,
+  "lens_mismatches": [
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09,
+    1.09
+  ],
+  "dual_fixed_point_proximity": 0.47846889952153115,
+  "problem_class": "affirmative",
+  "measurement_verdict": "inconclusive",
+  "anomaly_count": 0,
+  "halted": false,
+  "final_hash": "c29852733fed26ab",
+  "_timestamp": "2026-02-28T19:14:06.868947",
+  "_version": "clay_sdv_1.0"
+}
