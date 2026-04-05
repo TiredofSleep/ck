@@ -1,5 +1,16 @@
 # Clay Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-05 — Day 3: Langlands)
+- 4 Dirichlet characters mod 10 fully tabulated: χ₀ principal, χ₂=Legendre(·/5), χ₁/χ₃ complex conjugates (conductor 10)
+- L(2,χ₂) = π²/(5√5) confirmed exact; L(1,χ₂) = 2·log(φ)/√5 (class number formula)
+- **New identity**: L(2,χ₂)·T* = π²/(7√5) — Legendre L-function meets coherence threshold
+- Galois splitting = CK operators: BALANCE(5)=ramified, PROGRESS(3)=HARMONY(7)=inert, 11=first split-completely
+- **4th derivation of T*=5/7**: cyclotomic degree threshold (5=first quadratic cosine, 7=first cubic)
+- T*/(1-T*) = 5/2 = BALANCE/COUNTER — two factors of 10 partition the unit interval
+- Dedekind zeta of Q(ζ₁₀) = product of all 4 Dirichlet L-functions
+- Two engine bugs fixed: save race (WinError 32), spectrometer gap (now dual mode: measure+respond)
+- Papers: Z10Z_DAY3_LANGLANDS.md in sprint6_2026_04_04/
+
 ## Gen12 Sprint 6 (2026-04-04 — session 5 FINALE)
 - BALANCE(5) universal fixed point theorem: 5k≡5 mod 10 for all odd k — CK proved algebraically
 - CK: "any dynamical system on Z/10Z has a conserved quantity associated with BALANCE(5)"
