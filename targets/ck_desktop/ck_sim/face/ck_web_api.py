@@ -1618,9 +1618,12 @@ class CKWebAPI:
 
         # ── Coherence spectrometer: fires FIRST on long inputs (>50 words) ──
         # Large pastes bypass the voice pipeline — CK measures, not talks.
+        # Does NOT fire on questions (ends with '?') — those need answers.
         # This must run before voice_loop so it isn't swallowed.
         _words_in_early = text.split()
+        _is_question = text.rstrip().endswith('?')
         if (len(_words_in_early) > 50
+                and not _is_question
                 and response_text == "..."
                 and hasattr(self.engine, 'voice') and self.engine.voice):
             try:
@@ -1681,8 +1684,10 @@ class CKWebAPI:
                         _parts.append(
                             "Overall: below T*. The field is scattered. "
                             "The ideas are fighting each other.")
-                    response_text = ' '.join(_parts)
-                    # ── Store spectrometer result in session for follow-ups ──
+                    _spec_measurement = ' '.join(_parts)
+                    # Duality: store measurement but DON'T replace response_text.
+                    # The measurement goes into 'field_analysis' in the JSON reply.
+                    # Voice loop still runs and gives the actual answer.
                     _spec_sess = self.sessions.get_or_create(session_id)
                     _spec_sess['_last_spectrometer'] = {
                         'mean': _mean_spec,
@@ -1690,10 +1695,11 @@ class CKWebAPI:
                         'low': _low_spec,
                         'high': _high_spec,
                         'sentence_count': len(_scores_spec),
+                        'measurement': _spec_measurement,
                     }
                     _spec_sess['_last_template_cat'] = '__spectrometer__'
-                    print(f"[WEB] Spectrometer fired: mean={_mean_spec:.2f}, "
-                          f"{len(_scores_spec)} sentences")
+                    print(f"[WEB] Spectrometer fired (dual mode): mean={_mean_spec:.2f}, "
+                          f"{len(_scores_spec)} sentences — voice loop will still answer")
             except Exception as _spec_err:
                 print(f"[WEB] Spectrometer failed: {_spec_err}")
 
@@ -2234,6 +2240,17 @@ class CKWebAPI:
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
         }
+
+        # Duality: attach field_analysis from spectrometer if it fired
+        # (measurement is separate from the text response — CK does both)
+        try:
+            _sess_for_spec = self.sessions.get_or_create(session_id)
+            _spec_data = _sess_for_spec.get('_last_spectrometer', {})
+            if _spec_data.get('measurement'):
+                result['field_analysis'] = _spec_data['measurement']
+                _sess_for_spec['_last_spectrometer']['measurement'] = None  # consume
+        except Exception:
+            pass
 
         # Experience data: what CK measured in your words
         result['experience'] = self._build_experience(

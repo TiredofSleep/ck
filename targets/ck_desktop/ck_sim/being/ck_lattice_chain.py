@@ -56,6 +56,7 @@ import os
 import json
 import shutil
 import time
+import threading
 import numpy as np
 from typing import List, Optional, Dict, Tuple
 from dataclasses import dataclass
@@ -327,6 +328,7 @@ class LatticeChainEngine:
         self._index = {(): self.root}   # path_tuple -> node
         self._gpu_tensor = None
         self._gpu_dirty = True
+        self._save_lock = threading.Lock()
         self._load()
 
     # ── Chain Walk ──
@@ -603,8 +605,13 @@ class LatticeChainEngine:
         Individual node files = "thousands of lattice files."
         The path to each file IS the chain address.
         Always backs up previous files before overwriting.
-        Writes to temp files first, then renames (atomic on most OS).
+        Writes to temp files first, then replaces (atomic; Windows-safe).
         """
+        with self._save_lock:
+            self._save_locked()
+
+    def _save_locked(self):
+        """Inner save — must be called with _save_lock held."""
         d = Path(self.save_dir)
         d.mkdir(parents=True, exist_ok=True)
 
@@ -637,18 +644,27 @@ class LatticeChainEngine:
                                   for n in nodes])
                 np.save(str(d / 'tables.npy.tmp'), tables)
 
-            # Rename temp -> real (atomic on most OS)
+            # os.replace() is atomic on Windows and replaces destination
+            # even if it exists, without needing a separate os.remove().
+            # Retries handle transient WinError 32 (file-in-use) locks.
             for fname in ('manifest.json', 'nodes.json'):
-                real = d / fname
                 tmp = d / (fname + '.tmp')
-                if real.exists():
-                    os.remove(str(real))
-                os.rename(str(tmp), str(real))
+                real = d / fname
+                for _attempt in range(3):
+                    try:
+                        os.replace(str(tmp), str(real))
+                        break
+                    except OSError:
+                        if _attempt < 2:
+                            time.sleep(0.05)
             if nodes and (d / 'tables.npy.tmp').exists():
-                real = d / 'tables.npy'
-                if real.exists():
-                    os.remove(str(real))
-                os.rename(str(d / 'tables.npy.tmp'), str(real))
+                for _attempt in range(3):
+                    try:
+                        os.replace(str(d / 'tables.npy.tmp'), str(d / 'tables.npy'))
+                        break
+                    except OSError:
+                        if _attempt < 2:
+                            time.sleep(0.05)
         except Exception as e:
             # Clean up temp files on failure
             for fname in ('manifest.json.tmp', 'nodes.json.tmp', 'tables.npy.tmp'):
