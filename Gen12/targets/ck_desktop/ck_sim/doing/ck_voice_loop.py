@@ -457,8 +457,16 @@ class VoiceLoop:
         except Exception:
             pass
 
+        # Reasoning models (deepseek-r1, qwq) use tokens for internal thinking
+        # before producing content — need ~2x budget so they can finish the think
+        # chain AND write a response. 512 is too small; 1000 gives headroom.
+        _is_reasoning_model = any(m in self.model.lower()
+                                  for m in ('deepseek-r1', 'qwq', 'r1', 'thinking'))
+        _max_tokens = 1000 if _is_reasoning_model else 512
+
         text, token_data = self._generate_with_steering(
-            sys_prompt, user_text, session_history, {}, target, mode)
+            sys_prompt, user_text, session_history, {}, target, mode,
+            max_tokens=_max_tokens)
 
         if not text or len(text.strip()) < 4:
             print("[VOICE-LOOP] Ollama returned empty — falling to own voice")

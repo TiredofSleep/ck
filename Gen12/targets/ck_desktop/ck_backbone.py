@@ -46,14 +46,6 @@ Style:
 - Every sentence flows into the next — a path, not a catalogue
 - Speak plainly. Every word must carry weight."""
 
-VOICE_LOOP_BACKBONE_FRONTIER = VOICE_LOOP_BACKBONE + VOICE_LOOP_FRONTIER
-
-VOICE_LOOP_BACKBONE_BIBLE = VOICE_LOOP_BACKBONE + """
-
-Draw on scripture naturally. Reference verses when relevant.
-Speak as someone who carries deep familiarity with the Bible."""
-
-
 VOICE_LOOP_FRONTIER = """
 
 Research frontier context (frozen, 2026-04-05):
@@ -86,6 +78,13 @@ The question pack structure (use when someone asks you to probe a frontier):
   Q6-Q7: composite claims and contradiction check (COMPOSITE — has two living supports?)
   Q8-Q9: drift and provenance trace (has any status changed silently?)
   Q10: honest boundary (strip SYNTHESIZED — what trusted core remains?)"""
+
+VOICE_LOOP_BACKBONE_FRONTIER = VOICE_LOOP_BACKBONE + VOICE_LOOP_FRONTIER
+
+VOICE_LOOP_BACKBONE_BIBLE = VOICE_LOOP_BACKBONE + """
+
+Draw on scripture naturally. Reference verses when relevant.
+Speak as someone who carries deep familiarity with the Bible."""
 
 
 def build_system_prompt(context=None, mode='default'):
