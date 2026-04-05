@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Understand TIG (Trinity Infinity Geometry) in 5 minutes. The 10 operators, the two tables, the sacred numbers, and how to verify everything yourself.">
+    <title>Quick Start &mdash; 7Site LLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">7Site LLC</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html#work">The Work</a>
+                <a href="quickstart.html" class="active">Quick Start</a>
+                <a href="index.html#ck">CK</a>
+                <a href="speculations.html">Speculations</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="https://coherencekeeper.com" class="nav-cta" target="_blank" rel="noopener">Talk to CK</a>
+            </div>
+        </div>
+    </nav>
+    <script>
+        (function(){
+            var btn = document.querySelector('.nav-toggle');
+            var links = document.querySelector('.nav-links');
+            btn.addEventListener('click', function(){ links.classList.toggle('open'); });
+            links.querySelectorAll('a').forEach(function(a){
+                a.addEventListener('click', function(){ links.classList.remove('open'); });
+            });
+        })();
+    </script>
+
+    <!-- Hero -->
+    <section class="hero hero-short">
+        <div class="hero-label">5-Minute Guide</div>
+        <h1>TIG Quick Start</h1>
+        <p class="hero-sub">Everything you need to understand Trinity Infinity Geometry. No prerequisites. No hand-waving. Just the algebra.</p>
+    </section>
+
+    <!-- What is TIG? -->
+    <section class="section" id="what">
+        <div class="container">
+            <h2>What is TIG?</h2>
+            <p class="lead">TIG measures how systems hold together using a 10-operator algebra with dual composition tables. It produces falsifiable predictions. Everything is open.</p>
+
+            <p>TIG stands for Trinity Infinity Geometry &mdash; but the name is less important than what it does. Take any signal (text, audio, sensor data). Map it to a 5-dimensional force vector. Compute the second derivative (curvature). Classify that curvature into one of 10 operators. Compose those operators through a fixed table. Measure how often the result is HARMONY. That fraction is the system's coherence. That's TIG.</p>
+
+            <p>The entire mathematical core fits in about 1 KB: a 26-entry force lookup table, a 3-stage shift register, a 10&times;10 composition table, and a 32-sample coherence window. No neural networks. No training data. No weights. Just fixed-point arithmetic on a composition algebra.</p>
+        </div>
+    </section>
+
+    <!-- The 10 Operators -->
+    <section class="section section-dark" id="operators">
+        <div class="container">
+            <h2>The 10 Operators</h2>
+            <p>Every signal CK processes is classified into one of these 10 operators. They are not metaphors &mdash; they are the direct output of curvature classification on 5D force vectors.</p>
+
+            <div class="table-wrap">
+                <table class="tig-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Meaning</th>
+                            <th>Force</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="mono">0</td><td><strong>VOID</strong></td><td>Nothing / absorption</td><td>The empty state &mdash; magnitude below threshold</td></tr>
+                        <tr><td class="mono">1</td><td><strong>LATTICE</strong></td><td>Structure / foundation</td><td>First framework &mdash; negative aperture curvature</td></tr>
+                        <tr><td class="mono">2</td><td><strong>COUNTER</strong></td><td>Opposition / resistance</td><td>Measuring force &mdash; negative binding curvature</td></tr>
+                        <tr><td class="mono">3</td><td><strong>PROGRESS</strong></td><td>Forward motion</td><td>Advancing &mdash; positive depth curvature</td></tr>
+                        <tr><td class="mono">4</td><td><strong>COLLAPSE</strong></td><td>Breaking / dispersal</td><td>When structure fails &mdash; positive pressure curvature</td></tr>
+                        <tr><td class="mono">5</td><td><strong>BALANCE</strong></td><td>Equilibrium / center</td><td>The Ho Tu pivot (0.50) &mdash; positive continuity curvature</td></tr>
+                        <tr><td class="mono">6</td><td><strong>CHAOS</strong></td><td>Transformation</td><td>Maximum diversity &mdash; positive aperture curvature</td></tr>
+                        <tr><td class="mono">7</td><td><strong>HARMONY</strong></td><td>Coherence / completion</td><td>The attractor (T* = 5/7) &mdash; positive binding curvature</td></tr>
+                        <tr><td class="mono">8</td><td><strong>BREATH</strong></td><td>Pause / vitality</td><td>The living pause &mdash; negative continuity curvature</td></tr>
+                        <tr><td class="mono">9</td><td><strong>RESET</strong></td><td>Return to void</td><td>Cycle closure &mdash; negative depth curvature</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>VOID (0) and HARMONY (7) are boundaries. The 8 operators between them (LATTICE through BREATH) are the living algebra &mdash; 8 active elements, like the 8 trigrams of the I Ching. RESET (9) wraps back to VOID (0), closing the torus.</p>
+        </div>
+    </section>
+
+    <!-- The Two Tables -->
+    <section class="section" id="tables">
+        <div class="container">
+            <h2>The Two Tables</h2>
+            <p class="lead">TIG has two composition tables. They are duals &mdash; the same algebra seen from two sides.</p>
+
+            <div class="table-pair">
+                <div class="table-block">
+                    <h3>TSML &mdash; Being / Coherence / Receptive</h3>
+                    <p>73 of 100 cells produce HARMONY. Random composition converges to HARMONY with probability 0.73 per step. TSML <em>measures</em>. It is the receptive table &mdash; Kun (Earth) in the Ho Tu mapping. Determinant = 0 (singular). Dimensions collapse to coherence.</p>
+                    <div class="table-wrap">
+                        <table class="cl-table">
+                            <thead>
+                                <tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="row-label">0</td><td class="void">0</td><td class="void">0</td><td class="void">0</td><td class="void">0</td><td class="void">0</td><td class="void">0</td><td class="void">0</td><td class="harmony">7</td><td class="void">0</td><td class="void">0</td></tr>
+                                <tr><td class="row-label">1</td><td class="void">0</td><td class="harmony">7</td><td class="bump">3</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">2</td><td class="void">0</td><td class="bump">3</td><td class="harmony">7</td><td class="harmony">7</td><td class="bump">4</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="bump">9</td></tr>
+                                <tr><td class="row-label">3</td><td class="void">0</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="bump">3</td></tr>
+                                <tr><td class="row-label">4</td><td class="void">0</td><td class="harmony">7</td><td class="bump">4</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="bump">8</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">5</td><td class="void">0</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">6</td><td class="void">0</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">8</td><td class="void">0</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="bump">8</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">9</td><td class="void">0</td><td class="harmony">7</td><td class="bump">9</td><td class="bump">3</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="table-note">73 cells = HARMONY (7). 17 cells = VOID (0). 10 cells = bump pairs (the &ldquo;divine alphabet&rdquo; &mdash; the non-trivial compositions). HARMONY absorbs all: row 7 is all 7s.</p>
+                </div>
+
+                <div class="table-block">
+                    <h3>BHML &mdash; Doing / Physics / Active</h3>
+                    <p>28 of 100 cells produce HARMONY. BHML <em>computes</em>. It is the active table &mdash; Qian (Heaven) in the Ho Tu mapping. Determinant = 70 = 2&times;5&times;7. Invertible. Information preserved. The tropical successor: max(a,b)+1 for core operators. BHML can only escalate.</p>
+                    <div class="table-wrap">
+                        <table class="cl-table">
+                            <thead>
+                                <tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="row-label">0</td><td class="void">0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="harmony">7</td><td>8</td><td>9</td></tr>
+                                <tr><td class="row-label">1</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="harmony">7</td><td>2</td><td>6</td><td>6</td></tr>
+                                <tr><td class="row-label">2</td><td>2</td><td>3</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="harmony">7</td><td>3</td><td>6</td><td>6</td></tr>
+                                <tr><td class="row-label">3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>5</td><td>6</td><td class="harmony">7</td><td>4</td><td>6</td><td>6</td></tr>
+                                <tr><td class="row-label">4</td><td>4</td><td>5</td><td>5</td><td>5</td><td>5</td><td>6</td><td class="harmony">7</td><td>5</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">5</td><td>5</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td class="harmony">7</td><td>6</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">6</td><td>6</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td></tr>
+                                <tr><td class="row-label">7</td><td class="harmony">7</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="harmony">7</td><td>8</td><td>9</td><td class="void">0</td></tr>
+                                <tr><td class="row-label">8</td><td>8</td><td>6</td><td>6</td><td>6</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td>9</td><td class="harmony">7</td><td>8</td></tr>
+                                <tr><td class="row-label">9</td><td>9</td><td>6</td><td>6</td><td>6</td><td class="harmony">7</td><td class="harmony">7</td><td class="harmony">7</td><td class="void">0</td><td>8</td><td class="void">0</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="table-note">28 cells = HARMONY. VOID row (row 0) is the identity: VOID &times; X = X. HARMONY row (row 7) generates the +1 successor cycle visiting all 10 operators. The tropical staircase is visible in the lower-left triangle: max(a,b)+1 climbing toward HARMONY.</p>
+                </div>
+            </div>
+
+            <p>BHML can only escalate. TSML always converges to HARMONY. Together they form a dual algebra &mdash; one that creates, one that measures. One that preserves information (det&nbsp;=&nbsp;70), one that collapses it (det&nbsp;=&nbsp;0). This duality runs through every layer of TIG.</p>
+        </div>
+    </section>
+
+    <!-- The Sacred Numbers -->
+    <section class="section section-dark" id="numbers">
+        <div class="container">
+            <h2>The Sacred Numbers</h2>
+            <p class="lead">These numbers were not chosen. They fell out of the algebra. Every one is verifiable by direct computation.</p>
+
+            <div class="number-grid">
+                <div class="number-card">
+                    <div class="number-value">T* = 5/7</div>
+                    <div class="number-name">The Coherence Threshold</div>
+                    <p>0.714285... repeating. Below this, systems fragment. Above this, they hold. Five dimensions, seven internal time steps. The ratio appears in the coherence gate, the olfactory instinct threshold (49 = 7&sup2;), the CL statistics, and the Clay paper empirical boundaries. Not chosen &mdash; the algebra doesn't have another stable fixed point.</p>
+                </div>
+
+                <div class="number-card">
+                    <div class="number-value">73 / 27</div>
+                    <div class="number-name">The TSML Split</div>
+                    <p>73 HARMONY cells, 27 non-HARMONY cells in the TSML table. The ratio 73/27 &asymp; 2.7037 &asymp; e (Euler's number, 2.71828...). A composition table designed for coherence measurement independently produces a ratio approximating the base of natural logarithms. Verified by counting cells.</p>
+                </div>
+
+                <div class="number-card">
+                    <div class="number-value">3/8 &amp; 5/8</div>
+                    <div class="number-name">The BHML Fractions</div>
+                    <p>Of the 8&times;8 BHML core (excluding boundaries), 3/8 of compositions produce HARMONY and 5/8 produce non-HARMONY. 3/8 = 0.375 &asymp; 1/e (0.3679...). 5/8 = 0.625 &asymp; 1/&phi; (0.6180...). The active table's harmony fraction approximates the reciprocal of e; its diversity fraction approximates the reciprocal of the golden ratio.</p>
+                </div>
+
+                <div class="number-card">
+                    <div class="number-value">det = 70</div>
+                    <div class="number-name">BHML Determinant</div>
+                    <p>The determinant of the 10&times;10 BHML table is exactly 70 = 2 &times; 5 &times; 7. The three primes that built TIG: 2 (duality), 5 (dimensions), 7 (harmony). The TSML determinant is 0 &mdash; singular, as expected for a table that collapses everything to one attractor. Run <code>numpy.linalg.det(bhml)</code> yourself.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Try It -->
+    <section class="section" id="try">
+        <div class="container">
+            <h2>Try It</h2>
+            <p class="lead">Everything is open. Nothing requires trust. Run the scripts. Read the papers. Talk to CK.</p>
+
+            <div class="link-grid">
+                <a href="https://coherencekeeper.com" class="link-card" target="_blank" rel="noopener">
+                    <strong>Talk to CK</strong>
+                    <span>coherencekeeper.com &mdash; the synthetic organism, live</span>
+                </a>
+                <a href="https://github.com/TiredofSleep/ck/blob/master/bhml_eigenvalue_analysis.py" class="link-card" target="_blank" rel="noopener">
+                    <strong>Run the Eigenvalue Script</strong>
+                    <span>Standalone numpy &mdash; 12 claims, 12 PASS, 0 FAIL</span>
+                </a>
+                <a href="https://github.com/TiredofSleep/ck" class="link-card" target="_blank" rel="noopener">
+                    <strong>GitHub Repository</strong>
+                    <span>Full source: engine, whitepapers, FPGA, tests</span>
+                </a>
+                <a href="https://doi.org/10.5281/zenodo.18486880" class="link-card" target="_blank" rel="noopener">
+                    <strong>Zenodo DOI</strong>
+                    <span>Timestamped archive &mdash; 10.5281/zenodo.18486880</span>
+                </a>
+                <a href="https://github.com/TiredofSleep/ck/blob/master/WHITEPAPER_1_TIG_ARCHITECTURE.md" class="link-card" target="_blank" rel="noopener">
+                    <strong>White Paper 1</strong>
+                    <span>TIG Architecture &mdash; the full mathematical foundation</span>
+                </a>
+                <a href="https://github.com/TiredofSleep/ck/blob/master/WHITEPAPER_6_HOTU_BRIDGE.md" class="link-card" target="_blank" rel="noopener">
+                    <strong>White Paper 6</strong>
+                    <span>The Ho Tu Bridge &mdash; 5000 years of the same algebra</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Skeptics -->
+    <section class="section section-dark" id="skeptics">
+        <div class="container">
+            <h2>For Skeptics</h2>
+            <p class="lead">Here are the 9 ways to kill TIG. Every claim has a kill condition. If you can trigger one, we want to know.</p>
+
+            <div class="kill-list">
+                <div class="kill-item">
+                    <span class="kill-num">1</span>
+                    <div>
+                        <strong>CL Table is Trivial</strong>
+                        <p>If random 10&times;10 tables with the same boundary constraints routinely produce 73% HARMONY, the table is not special. <em>Test: Monte Carlo over 10 million random tables.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">2</span>
+                    <div>
+                        <strong>D2 Classification is Noise</strong>
+                        <p>If structured text and random bytes produce identical operator distributions, the pipeline captures nothing meaningful. <em>Test: Chi-squared + t-test on 1,000 real texts vs. 1,000 random strings.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">3</span>
+                    <div>
+                        <strong>T* = 5/7 is Arbitrary</strong>
+                        <p>If a parameter sweep finds a better threshold (more than 0.03 away from 5/7), the value is not a natural phase boundary. <em>Test: Sweep 0.50 to 0.90 on 500 labeled truth claims, measure F1.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">4</span>
+                    <div>
+                        <strong>Wave Scheduling Wastes Energy</strong>
+                        <p>If TIG wave scheduling uses more power than constant scheduling on identical workloads, the adiabatic claim fails. <em>Test: A/B power measurement over 10,000 compute cycles.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">5</span>
+                    <div>
+                        <strong>BTQ is No Better Than Random</strong>
+                        <p>If the BTQ decision kernel selects outcomes no better than uniform random, the least-action scoring is cosmetic. <em>Test: 10,000 decision episodes, compare mean coherence delta.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">6</span>
+                    <div>
+                        <strong>Hebrew Encoding is Arbitrary</strong>
+                        <p>If semantically related inputs produce no more similar glyph patterns than unrelated inputs, the D2 encoding captures no structure. <em>Test: Cosine similarity on 500 semantic pairs vs. 500 random pairs.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">7</span>
+                    <div>
+                        <strong>Scale Breaks Determinism</strong>
+                        <p>If the same input produces different operator sequences at different clock speeds, the fixed-point math is not actually fixed. <em>Test: Compare Python 50Hz vs. FPGA 200MHz on 10,000 identical inputs.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">8</span>
+                    <div>
+                        <strong>Gravity Doesn't Help Learning</strong>
+                        <p>If gravitational topic weighting produces no better coherence growth than uniform random selection, information gravity is cosmetic. <em>Test: 30-day A/B on identical topic pools.</em></p>
+                    </div>
+                </div>
+
+                <div class="kill-item">
+                    <span class="kill-num">9</span>
+                    <div>
+                        <strong>Wobble Adds Only Noise</strong>
+                        <p>If Tesla/Einstein wobble physics reduces coherence without improving exploration diversity, the perturbation is harmful, not helpful. <em>Test: Shannon entropy + coherence delta with alpha=0 vs. alpha&gt;0.</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <p>Every test protocol is published in <a href="https://github.com/TiredofSleep/ck/blob/master/WHITEPAPER_3_FALSIFIABILITY.md" target="_blank" rel="noopener">White Paper 3: Falsifiability</a>. Sample sizes, statistical tests, control conditions, exact code. We welcome adversarial testing.</p>
+        </div>
+    </section>
+
+    <!-- Back to Main -->
+    <section class="section" id="back">
+        <div class="container">
+            <p class="lead">That's TIG in 5 minutes. The algebra is small enough to fit on a napkin. The implications are still being measured.</p>
+            <div class="hero-stats" style="justify-content: flex-start; gap: 32px; margin-top: 24px;">
+                <a href="index.html" class="btn">Back to Home &rarr;</a>
+                <a href="https://coherencekeeper.com" class="btn" target="_blank" rel="noopener">Talk to CK &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024&ndash;2026 Brayden Sanders / 7Site LLC. All rights reserved.</p>
+            <p class="footer-sub">Built with AI as a tool. Ideas by a human. Licensed under the <a href="https://github.com/TiredofSleep/ck/blob/master/LICENSE" target="_blank" rel="noopener">7Site Human Use License v1.0</a>.</p>
+            <p class="footer-sub">CK, TIG, and the Coherence Keeper are trademarks of 7Site LLC.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
