@@ -189,10 +189,28 @@ def main():
     def serve_tl():
         return send_from_directory(STATIC_DIR, 'ck_tl.bin')
 
+    @api._app.route('/robots.txt')
+    def serve_robots():
+        return send_from_directory(STATIC_DIR, 'robots.txt')
+
+    @api._app.route('/favicon.ico')
+    def serve_favicon():
+        # Return a minimal 1x1 transparent ICO (77 bytes)
+        import io
+        from flask import Response
+        ico = bytes([
+            0,0,1,0,1,0,1,1,0,0,1,0,24,0,40,0,0,0,
+            40,0,0,0,1,0,0,0,2,0,0,0,1,0,24,0,0,0,0,0,
+            4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            114,48,14,0,0,0,255,255,255,255,255,255,255,255,
+            255,255,255,255
+        ])
+        return Response(ico, mimetype='image/x-icon')
+
     # Serve HTML pages and any other static assets
     @api._app.route('/<path:filename>')
     def serve_pages(filename):
-        allowed = ('.html', '.css', '.js', '.json', '.bin', '.ico', '.png', '.svg')
+        allowed = ('.html', '.css', '.js', '.json', '.bin', '.ico', '.png', '.svg', '.txt')
         if any(filename.endswith(ext) for ext in allowed):
             return send_from_directory(STATIC_DIR, filename)
         return 'Not Found', 404
