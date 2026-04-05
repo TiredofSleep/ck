@@ -476,9 +476,25 @@ class VoiceLoop:
             print(f"[VOICE-LOOP] Below threshold — falling to own voice")
             return None
 
+        # IG3 drift detection (ck_invariants): if operator vocabulary in the
+        # prompt caused architecture-description drift, log it. The response
+        # still goes through — we flag, not block — but the evidential weight
+        # of this response is SYNTHESIZED rather than INFERRED.
+        _drift_flag = False
+        try:
+            from ck_sim.being.ck_invariants import detect_operator_drift
+            _drift_flag = detect_operator_drift(
+                prompt=user_text or '',
+                response=text,
+                system_prompt=sys_prompt if 'sys_prompt' in dir() else '',
+            )
+        except Exception:
+            pass
+
+        _source = 'ck_loop_synthesized' if _drift_flag else 'ck_loop'
         return VoiceLoopResult(
             text=text,
-            source='ck_loop',
+            source=_source,
             coherence=score.coherence,
             attempts=1,
             target_ops=target.ops,
