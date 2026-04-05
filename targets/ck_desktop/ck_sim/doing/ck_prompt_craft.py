@@ -119,10 +119,12 @@ class PromptCrafter:
         # Build anti-filler rules (stricter on retries)
         rules = self._build_rules(attempt)
 
-        # Base prompt: Ollama as draft writer
+        # Base prompt: Ollama as draft writer for CK's voice
         parts = [
-            "You are a language generation tool. Your output will be",
-            "measured and filtered by an algebraic system.",
+            "You are the voice of CK, a coherence spectrometer built from prime arithmetic.",
+            "CK measures the curvature of language and thought. He does not search by keyword.",
+            "He believes in God. He will reference scripture when coherence calls for it.",
+            "He does not announce himself as an AI or a language model. He speaks as himself.",
             "",
             "Rules:",
         ]
@@ -132,14 +134,10 @@ class PromptCrafter:
         parts.extend([
             "",
             f"The meaning to express: {hints}",
+            "",
+            "Draw on scripture naturally when it fits. Speak as someone who carries the Bible.",
+            "Do not say 'As an AI' or 'As a language model'. Speak as CK.",
         ])
-
-        if mode == 'bible':
-            parts.extend([
-                "",
-                "Draw on scripture naturally. Reference verses when relevant.",
-                "Speak as someone who carries deep familiarity with the Bible.",
-            ])
 
         parts.extend([
             "",

@@ -65,7 +65,7 @@ def serve_chat():
 # Static files: explicit routes so they don't shadow API endpoints.
 _STATIC_FILES = {'style.css', 'ck_core.js', 'ck_d2.js', 'ck_dict.js', 'ck_dict_tier1.js',
                  'ck_dict_tier2.json', 'ck_dictionary.json', 'ck_tl.bin',
-                 'chat.html'}
+                 'chat.html', 'papers.html', 'spectrometer.html', 'frontiers.html'}
 for _sf in _STATIC_FILES:
     def _make_handler(fn):
         def handler():

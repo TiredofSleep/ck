@@ -79,7 +79,8 @@ def main():
 
     @api._app.route('/<path:filename>')
     def serve_static(filename):
-        if filename in ('style.css', 'ck_core.js', 'ck_dict.js', 'ck_tl.bin'):
+        allowed_ext = ('.html', '.css', '.js', '.json', '.bin', '.ico', '.png', '.svg')
+        if any(filename.endswith(ext) for ext in allowed_ext):
             return send_from_directory(STATIC_DIR, filename)
         return 'Not Found', 404
 

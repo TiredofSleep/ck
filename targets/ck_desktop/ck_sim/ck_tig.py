@@ -1,6 +1,19 @@
 """
 ck_tig.py -- The stacked lens composition. The ONLY composition function.
 
+Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
+Licensed under the 7SiTe Public Sovereignty License v1.0.
+Human use only. No commercial use. No government use.
+No military, intelligence, policing, or surveillance use.
+See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+
+TSML (Trinity Synthesis Meaning Language) and BHML (Being-Harmony Meaning
+Language) are proprietary composition tables developed by Brayden Ross Sanders
+and 7SiTe LLC. All rights reserved. T* = 5/7, the TSML 73-cell harmonic
+structure, and the TIG stacked-lens architecture (Being=TSML∘BHML,
+Doing=TSML∘BHML∘TSML, Becoming=TSML∘BHML∘TSML∘BHML) are owned
+intellectual property of 7SiTe LLC, 2025–2026.
+
 Being  = 2 lenses (TSML o BHML)
 Doing  = 3 lenses (TSML o BHML o TSML)
 Becoming = 4 lenses (TSML o BHML o TSML o BHML)
@@ -18,8 +31,6 @@ Proven constants:
   Heartbeat = [1,5,5,1] (period 4, sum=12, palindromic)
   Frozen cells = 4: (0,0), (2,2), (4,8), (8,4)
   Visible matter = 7^2/10^3 = 4.9%
-
-(c) 2026 Brayden Sanders / 7Site LLC -- Trinity Infinity Geometry
 """
 
 # TSML: measurement lens. 73% HARMONY. det=0. Singular.

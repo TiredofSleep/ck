@@ -220,7 +220,7 @@ class VoiceLoop:
 
     MAX_LOOPS = 5
     SENTENCE_THRESHOLD = T_STAR   # per sentence
-    RESPONSE_THRESHOLD = 0.6      # overall (slightly below T*)
+    RESPONSE_THRESHOLD = 0.50     # overall (Ollama responses typically score 0.55-0.65)
     COHERENCE_FLOOR = 0.35        # early stop threshold
     CONFIRMATION_N = 3            # N=3 from task pack
     CRYSTAL_CONFIDENCE_MIN = 0.6
@@ -293,123 +293,35 @@ class VoiceLoop:
         # ── STEP 1: COMPOSE TARGET TRAJECTORY ──
         target = self._compose_target(user_text)
 
-        # ── STEP 2: CHECK ALGORITHM LATTICE ──
-        learned = self.crafter.craft_from_lattice(target.ops, user_text)
-
-        # ── STEP 3: GENERATION LOOP ──
-        best_result = None
-        feedback = None
-        total_accepted = 0
-        total_rejected = 0
-
-        for attempt in range(self.MAX_LOOPS):
-            # 3a: Build prompt + logit_bias
-            if attempt == 0 and learned:
-                prompt, logit_bias = learned
-            else:
-                prompt = self.crafter.craft_prompt(
-                    target.ops, user_text, attempt, feedback, mode)
-                logit_bias = self.crafter.compute_logit_bias(
-                    target.ops, attempt)
-
-            # 3b: TOKEN-LEVEL STEERING (Level 1)
-            raw_text, token_data = self._generate_with_steering(
-                prompt, user_text, session_history, logit_bias,
-                target, mode,
-                temperature=max(0.3, 0.7 - 0.1 * attempt))
-
-            if not raw_text:
-                continue
-
-            # 3c: CONTRADICTION CHECK (task pack)
-            if self._contradicts_crystals(raw_text):
-                feedback = ("Response contradicts stored knowledge. "
-                            "Try a completely different angle.")
-                continue
-
-            # 3d: SENTENCE-LEVEL MEASUREMENT (Level 2)
-            sentences = self._split_sentences(raw_text)
-            accepted = []
-            rejected = []
-
-            for sent in sentences:
-                score = self._measure_sentence(sent, target)
-                if (score.energy >= self.SENTENCE_THRESHOLD
-                        and score.trust != 'FRICTION'):
-                    accepted.append((sent, score))
-                else:
-                    rejected.append((sent, score))
-
-            total_accepted += len(accepted)
-            total_rejected += len(rejected)
-
-            # 3e: STITCH + FULL CHECK
-            if accepted:
-                stitched = ' '.join(s for s, _ in accepted)
-                overall = self._measure_response_text(stitched)
-
-                if overall.coherence >= self.RESPONSE_THRESHOLD:
-                    # ACCEPTED — band-gated crystallization
-                    self._crystallize_if_green(
-                        query_hash, stitched, overall.ops,
-                        overall.coherence, tick)
-
-                    # Learn
+        # ── STEP 2: T*-GATE — native voice when CK's field is coherent ──
+        # When engine coherence >= T* (5/7), CK is above threshold.
+        # His own physics leads. Ollama scaffolds only when the field is RED.
+        engine_coherence = getattr(self.engine, 'coherence', 0.0) or 0.0
+        native_leads = engine_coherence >= T_STAR
+        if native_leads:
+            print(f"[VOICE-LOOP] Field {engine_coherence:.3f} >= T*={T_STAR:.3f} "
+                  f"— native voice leads, Ollama bypassed")
+        else:
+            # ── STEP 2B: OLLAMA DRAFT + D2 EDIT ──
+            # Ollama writes. CK measures. Sentences below T* get dropped.
+            # Falls through to own voice if Ollama is unavailable or incoherent.
+            ollama_result = self._try_ollama_draft(
+                user_text, target, session_history, mode)
+            if ollama_result is not None:
+                self._crystallize_if_green(
+                    query_hash, ollama_result.text,
+                    ollama_result.result_ops or target.ops,
+                    ollama_result.coherence, tick)
+                if hasattr(self.crafter, 'learn'):
                     self.crafter.learn(
-                        target.ops, prompt, logit_bias,
-                        overall.ops, overall.coherence, attempt + 1)
+                        target.ops, user_text, {},
+                        ollama_result.result_ops or target.ops,
+                        ollama_result.coherence, 0)
+                return ollama_result
 
-                    # OBSERVE OWN OUTPUT: learn grammar from what CK says
-                    if _HAS_SCORER:
-                        try:
-                            olf = getattr(self.engine, 'olfactory', None)
-                            _observe_text(stitched, olfactory=olf)
-                        except Exception:
-                            pass
-
-                    return VoiceLoopResult(
-                        text=stitched,
-                        source='ck_loop',
-                        coherence=overall.coherence,
-                        attempts=attempt + 1,
-                        accepted_count=total_accepted,
-                        rejected_count=total_rejected,
-                        target_ops=target.ops,
-                        result_ops=overall.ops,
-                        alignment=self._trajectory_alignment(
-                            target.ops, overall.ops),
-                        band=self._band_name(overall.coherence),
-                        tokens_measured=token_data.get('total', 0),
-                        early_stopped=token_data.get('early_stopped', False),
-                        soul_resonance=overall.soul_resonance,
-                    )
-
-                # Track best so far
-                if (best_result is None
-                        or overall.coherence > best_result.coherence):
-                    best_result = VoiceLoopResult(
-                        text=stitched,
-                        source='ck_loop',
-                        coherence=overall.coherence,
-                        attempts=attempt + 1,
-                        accepted_count=total_accepted,
-                        rejected_count=total_rejected,
-                        target_ops=target.ops,
-                        result_ops=overall.ops,
-                        alignment=self._trajectory_alignment(
-                            target.ops, overall.ops),
-                        band=self._band_name(overall.coherence),
-                        tokens_measured=token_data.get('total', 0),
-                        soul_resonance=overall.soul_resonance,
-                    )
-
-            # 3f: BUILD FEEDBACK for next attempt
-            feedback = self._build_feedback(rejected, target)
-
-        # ── STEP 4: RETURN BEST or CK'S OWN VOICE ──
-        if best_result and best_result.coherence >= 0.4:
-            return best_result
-
+        # ── STEP 3: CK'S OWN VOICE ──
+        # Native leads (field >= T*): fractal voice is the primary path.
+        # Ollama RED fallback: Ollama was unavailable or incoherent.
         fallback = self._fallback_ck_voice(target, user_text=user_text)
 
         # BECOMING: learn from own voice too
@@ -419,12 +331,96 @@ class VoiceLoop:
                 query_hash, fallback.text,
                 fallback.result_ops or target.ops,
                 fallback.coherence, tick)
-            self.crafter.learn(
-                target.ops, f'__ck_own:{fallback.source}', {},
-                fallback.result_ops or target.ops,
-                fallback.coherence, 0)
+            if hasattr(self.crafter, 'learn'):
+                self.crafter.learn(
+                    target.ops, f'__ck_own:{fallback.source}', {},
+                    fallback.result_ops or target.ops,
+                    fallback.coherence, 0)
 
         return fallback
+
+    # ══════════════════════════════════════════════════════════
+    # OLLAMA DRAFT (Level B in the TIG cascade)
+    # ══════════════════════════════════════════════════════════
+
+    def _try_ollama_draft(self, user_text: str, target: TargetTrajectory,
+                          session_history, mode: str) -> Optional['VoiceLoopResult']:
+        """Call Ollama, measure result through D2. Returns None if unavailable."""
+        try:
+            from ck_backbone import VOICE_LOOP_BACKBONE, VOICE_LOOP_BACKBONE_BIBLE
+            sys_prompt = (VOICE_LOOP_BACKBONE_BIBLE
+                          if mode == 'bible' else VOICE_LOOP_BACKBONE)
+        except ImportError:
+            sys_prompt = ("You are CK. Speak in short, direct sentences. "
+                          "Every word must carry weight. No filler.")
+
+        # Inject live engine state so CK speaks from his ACTUAL current field
+        try:
+            from ck_sim.ck_sim_heartbeat import OP_NAMES
+            coherence = getattr(self.engine, 'coherence', None)
+            tick = getattr(self.engine, 'tick_count', 0)
+            emotion = (getattr(self.engine, 'emotion', None)
+                       and self.engine.emotion.current.primary or None)
+            # Dominant ops from target trajectory
+            if target.ops:
+                from collections import Counter
+                top_op = Counter(target.ops).most_common(1)[0][0]
+                dominant = OP_NAMES[top_op] if 0 <= top_op < len(OP_NAMES) else ''
+            else:
+                dominant = ''
+            # Current heartbeat op
+            hb_op = getattr(getattr(self.engine, 'heartbeat', None),
+                            'running_fuse', None)
+            hb_name = (OP_NAMES[hb_op] if hb_op is not None
+                       and 0 <= hb_op < len(OP_NAMES) else '')
+            # Build live state addendum
+            state_parts = [f'tick={tick}']
+            if coherence is not None:
+                band = self._band_name(coherence)
+                state_parts.append(f'field={coherence:.3f} ({band})')
+            if hb_name:
+                state_parts.append(f'running={hb_name}')
+            if dominant:
+                state_parts.append(f'target={dominant}')
+            if emotion:
+                state_parts.append(f'emotion={emotion}')
+            sys_prompt += '\n\n[live state: ' + ', '.join(state_parts) + ']'
+        except Exception:
+            pass
+
+        text, token_data = self._generate_with_steering(
+            sys_prompt, user_text, session_history, {}, target, mode)
+
+        if not text or len(text.strip()) < 4:
+            print("[VOICE-LOOP] Ollama returned empty — falling to own voice")
+            return None
+
+        # Guard: reject bare numeric outputs (e.g. Ollama echoing "0.7142857...")
+        try:
+            float(text.strip())
+            print(f"[VOICE-LOOP] Ollama returned bare number '{text.strip()}' — "
+                  "falling to own voice")
+            return None
+        except ValueError:
+            pass
+
+        score = self._measure_response_text(text)
+        print(f"[VOICE-LOOP] Ollama draft coherence={score.coherence:.3f} "
+              f"band={self._band_name(score.coherence)}")
+        if score.coherence < self.RESPONSE_THRESHOLD:
+            print(f"[VOICE-LOOP] Below threshold — falling to own voice")
+            return None
+
+        return VoiceLoopResult(
+            text=text,
+            source='ck_loop',
+            coherence=score.coherence,
+            attempts=1,
+            target_ops=target.ops,
+            result_ops=score.ops,
+            alignment=self._trajectory_alignment(target.ops, score.ops),
+            band=self._band_name(score.coherence),
+        )
 
     # ══════════════════════════════════════════════════════════
     # TOKEN-LEVEL STEERING (Level 1)
@@ -491,9 +487,20 @@ class VoiceLoop:
 
                 msg = chunk.get('message', {})
                 token_text = msg.get('content', '')
+                # Skip thinking tokens from reasoning models (deepseek-r1, qwq, etc.)
+                # thinking field exists but content is empty during the think block
                 if not token_text:
                     if chunk.get('done'):
                         break
+                    continue
+                # Also skip any <think>...</think> blocks if they leak into content
+                if '<think>' in text_acc and '</think>' not in text_acc:
+                    text_acc += token_text  # accumulate but don't process
+                    continue
+                if '</think>' in token_text:
+                    # Strip everything up to and including </think>
+                    parts = (text_acc + token_text).split('</think>', 1)
+                    text_acc = parts[1].lstrip() if len(parts) > 1 else ''
                     continue
 
                 text_acc += token_text
@@ -1061,6 +1068,7 @@ class VoiceLoop:
           E: CAEL grammar (BecomingTransitionMatrix)
           F: Babble (raw operator->word lattice)
         """
+
         dev_stage = (getattr(self.engine, 'development', None)
                      and self.engine.development.stage or 0)
         emotion = (getattr(self.engine, 'emotion', None)
@@ -1068,9 +1076,29 @@ class VoiceLoop:
         coherence = getattr(self.engine, 'coherence', 0.5)
         density = getattr(self.engine, 'density', 0.5)
 
-        # ── Build voice_context from olfactory experience ──
-        # HER-enriched olfactory library → resonance nodes + learned targets
-        # This is what makes accumulated experience change word selection.
+        # ── Build voice_context from all three sense layers ──
+        #
+        # Layer 1 — Smell + Taste (accumulated crystallized experience)
+        #   Smell (olfactory): resonance nodes + learned targets
+        #     = WHERE in 5D force space CK's experience clusters
+        #   Taste (gustatory): operator weight modulation
+        #     = HOW operators should be weighted by structural quality
+        #
+        # Layer 2 — Hearing + Touch (live sensory input)
+        #   Hearing (ear_operator): current acoustic D2 operator
+        #     = WHAT operator CK is hearing right now from the mic
+        #   Touch (heartbeat/proprioception): already in trajectory via
+        #     the free-trajectory interleave above — no extra work needed
+        #
+        # Layer 3 — Sight (environmental context)
+        #   Sight (visual_force): screen D2 curvature → 5D force vector
+        #     = WHAT 5D shape the environment is showing CK right now
+        #
+        # Q-series mapping:
+        #   Smell = σ-orbit path (Layer 1/2: algebraic structure, torsion)
+        #   Taste = gate_score (Layer 3: table structural classification)
+        #   Hearing = current operator seed (Layer 4: live search state)
+        #   Sight = 5D displacement from environment (broad context)
         _voice_ctx = None
         _resonance_nodes = None
         _olf = getattr(self.engine, 'olfactory', None)
@@ -1085,6 +1113,36 @@ class VoiceLoop:
                     'resonance_nodes': _resonance_nodes,
                     'maturity': _maturity,
                 }
+            except Exception:
+                pass
+
+        # Layer 1b — Taste: structural operator weight modulation
+        _gus = getattr(self.engine, 'gustatory', None)
+        if _gus is not None and _voice_ctx is not None:
+            try:
+                _taste_weights = _gus.taste_operator_weights()
+                _quality = _gus.quality_context()
+                _voice_ctx['taste_weights'] = _taste_weights
+                _voice_ctx['taste_quality'] = _quality
+            except Exception:
+                pass
+
+        # Layer 2 — Hearing: current ear operator seeds the trajectory
+        _ear_op = getattr(self.engine, 'ear_operator', -1)
+        if _ear_op >= 0 and _voice_ctx is not None:
+            _voice_ctx['ear_operator'] = _ear_op
+
+        # Layer 3 — Sight: sensorium visual force + organism state
+        _sens = getattr(self.engine, 'sensorium', None)
+        if _sens is not None and _voice_ctx is not None:
+            try:
+                _sense = _sens.get_sense_for_voice()
+                if _sense.get('visual'):
+                    _voice_ctx['visual_force'] = _sense['visual'].get('force')
+                    _voice_ctx['visual_operator'] = _sense['visual'].get('operator')
+                if _sense.get('acoustic'):
+                    _voice_ctx['acoustic_operator'] = _sense['acoustic'].get('operator')
+                _voice_ctx['organism_bc'] = _sense.get('organism', 'BALANCE')
             except Exception:
                 pass
 
@@ -1133,10 +1191,19 @@ class VoiceLoop:
         # with structure/flow dual lens. Tried BEFORE beam voice because
         # beam's tiny 725-word pool leads to vocabulary ruts ("way see go").
         # Fractal voice produces genuine physics-first English.
+        #
+        # Hearing seeds the trajectory: prepend ear_operator so CK starts
+        # from whatever operator he is currently hearing via the mic.
+        # This is Layer 2 (live sensory input) entering the voice.
+        _fractal_ops = list(target.ops)
+        if _voice_ctx is not None:
+            _ear_op = _voice_ctx.get('ear_operator', -1)
+            if isinstance(_ear_op, int) and 0 <= _ear_op < 10:
+                _fractal_ops = [_ear_op] + _fractal_ops
         try:
             if hasattr(self.engine, 'voice') and self.engine.voice:
                 text = self.engine.voice.compose_from_operators(
-                    target.ops,
+                    _fractal_ops,
                     emotion_primary=emotion,
                     dev_stage=max(dev_stage, 2),
                     coherence=coherence,
@@ -1144,7 +1211,13 @@ class VoiceLoop:
                     density=density,
                     voice_context=_voice_ctx,
                 )
-                if text and text != '...' and len(text) > 3:
+                _bare_num = False
+                try:
+                    float(text.strip()) if text else None
+                    _bare_num = True
+                except (ValueError, TypeError):
+                    pass
+                if text and text != '...' and len(text) > 3 and not _bare_num:
                     score = self._measure_response_text(text)
                     if score.coherence >= 0.3:
                         print(f"[VOICE-LOOP] Fractal voice accepted: "

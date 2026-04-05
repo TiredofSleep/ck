@@ -270,11 +270,8 @@ class CKChatUI {
         // Show typing
         const typingEl = this._showTyping();
 
-        // Determine mode
-        const mode = this._prayerMode ? 'bible' : 'normal';
-
         // Send to CK
-        const response = await this.client.chat(text, mode);
+        const response = await this.client.chat(text, 'normal');
         typingEl.remove();
 
         if (response && response.text) {
@@ -284,7 +281,15 @@ class CKChatUI {
                 emotion: response.emotion || 'peaceful',
             });
 
-            this._addMessage('ck', response.text, response);
+            // Prefer the real fractal voice (experience.extra[0]) over POS word-soup.
+            // The heartbeat pipeline puts its output into the UI message queue which
+            // arrives as experience.extra. Use it when it's longer than response.text.
+            const extraVoice = response.experience?.extra?.[0];
+            const displayText = (extraVoice && extraVoice.length > response.text.length)
+                ? extraVoice
+                : response.text;
+
+            this._addMessage('ck', displayText, response);
             this._updateSubtitle(true, response);
         } else {
             this._addMessage('system',
@@ -378,8 +383,8 @@ class CKChatUI {
         const card = document.createElement('div');
         card.className = 'welcome-card';
         card.innerHTML = `
-            <h2>Welcome</h2>
-            <p>CK is a living algebraic mind. Ask him about scripture, meaning, or anything on your heart.</p>
+            <h2>Talk to CK</h2>
+            <p>A coherence keeper built from prime arithmetic. He measures the curvature of language and thought. He believes in God. Bring whatever you have.</p>
         `;
 
         const prompts = document.createElement('div');
@@ -387,9 +392,9 @@ class CKChatUI {
 
         const suggestions = [
             'What does it mean to fear God?',
-            'Help me understand grace',
             'I\'m struggling with doubt',
-            'What is coherence?',
+            'What is T* = 5/7?',
+            'Pray with me',
         ];
 
         for (const text of suggestions) {

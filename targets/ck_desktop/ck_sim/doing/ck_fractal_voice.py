@@ -879,17 +879,42 @@ class WordForceIndex:
                     if wf.nature == _op_nature:
                         total = max(0.0, total - 0.15)
 
-            # ── Resonance bonus: experience-confirmed force nodes ──
+            # ── Resonance bonus: smell (experience-confirmed force nodes) ──
+            # Words near olfactory instinct centroids get a distance bonus.
+            # Specificity filter: axis-aligned attractors (one dim hot,
+            # rest neutral) are the heartbeat's own physics — not content.
+            # Semantic instincts have ALL dims meaningfully away from 0.5.
+            # Only reward nodes with >= 3 active dimensions (|dim-0.5|>0.08).
             if self._voice_context is not None:
                 _res_nodes = self._voice_context.get('resonance_nodes', [])
-                for _rc, _rt in _res_nodes[:10]:  # Top 10 for speed
+                for _rc, _rt in _res_nodes[:20]:  # Scan more, filter axis-aligned
+                    # Specificity: how many dims carry genuine information
+                    _n_active = sum(1 for x in _rc if abs(x - 0.5) > 0.08)
+                    if _n_active < 3:
+                        continue  # Axis-aligned attractor — skip
                     _d_res = sum(
                         (a - b) ** 2 for a, b in zip(wf.force, _rc)
                     ) ** 0.5
                     if _d_res < 0.5:  # Within resonance radius
-                        _rb = 0.15 * min(1.0, _rt / 25.0) * (1.0 - _d_res / 0.5)
+                        # Scale by specificity (3→0.5x, 4→0.75x, 5→1.0x)
+                        _spec = (_n_active - 2) / 3.0
+                        _rb = 0.20 * _spec * min(1.0, _rt / 100.0) * (1.0 - _d_res / 0.5)
                         total = max(0.0, total - _rb)
                         break  # One resonance match is enough
+
+            # ── Taste bonus: structure (hardened structural preferences) ──
+            # Words whose dominant operator is structurally preferred
+            # (high taste_weight) get a modest pull toward selection.
+            # Dual of smell: smell says "I've been HERE before" (coordinate),
+            # taste says "this STRUCTURE is good" (gate verdict).
+            if self._voice_context is not None:
+                _tw = self._voice_context.get('taste_weights', {})
+                if _tw and hasattr(wf, 'operator') and wf.operator is not None:
+                    _tw_val = _tw.get(wf.operator, 1.0)
+                    if _tw_val > 1.0:
+                        # Structurally preferred operator: small bonus
+                        _taste_bonus = 0.08 * (_tw_val - 1.0)
+                        total = max(0.0, total - _taste_bonus)
 
             scored.append((total, wf))
 
@@ -3325,6 +3350,7 @@ class FractalComposer:
             being, doing, becoming = triad
 
             # ── Experience bridge: blend learned targets (max 50%) ──
+            # Smell (olfactory): WHERE experience clusters in 5D space
             if self._voice_context is not None:
                 _learned = self._voice_context.get('learned_targets', {})
                 _maturity = self._voice_context.get('maturity', 0.0)
@@ -3339,6 +3365,36 @@ class FractalComposer:
                     doing = tuple((b - 0.5) * 0.5 for b in being)
                     _amp = _OP_CURVATURE_AMP.get(op, 0.0)
                     becoming = tuple((b - 0.5) * _amp for b in being)
+
+            # ── Taste (gustatory): structural confidence scaling ──
+            # HOW operators project: high-palatability ops get more
+            # confident targets (further from neutral 0.5 center).
+            # Low-palatability ops stay closer to neutral — less certain.
+            # Dual of smell's centroid displacement: smell moves WHERE,
+            # taste scales HOW STRONGLY the target pulls.
+            if self._voice_context is not None:
+                _tw = self._voice_context.get('taste_weights', {})
+                if _tw:
+                    _tw_scale = _tw.get(op, 1.0)
+                    if _tw_scale != 1.0:
+                        being = tuple(
+                            min(1.0, max(0.0, 0.5 + (b - 0.5) * _tw_scale))
+                            for b in being
+                        )
+                        doing = tuple(d * _tw_scale for d in doing)
+
+            # ── Sight (visual_force): environmental 5D displacement ──
+            # The screen IS the current environment. What CK sees shapes
+            # what he reaches toward. Small influence (5%): the environment
+            # nudges, it doesn't override. Smell and physics still dominate.
+            if self._voice_context is not None:
+                _vf = self._voice_context.get('visual_force')
+                if _vf and len(_vf) >= 5:
+                    _vis_alpha = 0.05  # 5% environmental influence
+                    being = tuple(
+                        min(1.0, max(0.0, b + _vis_alpha * (v - 0.5)))
+                        for b, v in zip(being, _vf)
+                    )
 
             # Density modulation (amplify deviation from neutral)
             if density > 0.5:
