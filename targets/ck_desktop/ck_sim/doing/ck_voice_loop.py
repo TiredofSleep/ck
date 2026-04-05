@@ -293,35 +293,101 @@ class VoiceLoop:
         # ── STEP 1: COMPOSE TARGET TRAJECTORY ──
         target = self._compose_target(user_text)
 
-        # ── STEP 2: T*-GATE — native voice when CK's field is coherent ──
-        # When engine coherence >= T* (5/7), CK is above threshold.
-        # His own physics leads. Ollama scaffolds only when the field is RED.
-        engine_coherence = getattr(self.engine, 'coherence', 0.0) or 0.0
-        native_leads = engine_coherence >= T_STAR
-        if native_leads:
-            print(f"[VOICE-LOOP] Field {engine_coherence:.3f} >= T*={T_STAR:.3f} "
-                  f"— native voice leads, Ollama bypassed")
-        else:
-            # ── STEP 2B: OLLAMA DRAFT + D2 EDIT ──
-            # Ollama writes. CK measures. Sentences below T* get dropped.
-            # Falls through to own voice if Ollama is unavailable or incoherent.
-            ollama_result = self._try_ollama_draft(
-                user_text, target, session_history, mode)
-            if ollama_result is not None:
-                self._crystallize_if_green(
-                    query_hash, ollama_result.text,
-                    ollama_result.result_ops or target.ops,
-                    ollama_result.coherence, tick)
-                if hasattr(self.crafter, 'learn'):
-                    self.crafter.learn(
-                        target.ops, user_text, {},
-                        ollama_result.result_ops or target.ops,
-                        ollama_result.coherence, 0)
-                return ollama_result
+        # ── STEP 2: T*-GATE — try fractal voice first when field is coherent ──
+        # When engine coherence >= T* (5/7), CK tries his own physics first.
+        # If fractal voice produces substantive output (>= 12 words, common
+        # vocabulary), use it. Otherwise Ollama scaffolds — CK's physics is
+        # real but his vocabulary builds over time.
+        _FUNC_WORDS = {
+            'i', 'the', 'a', 'an', 'is', 'am', 'are', 'my', 'me', 'it',
+            'that', 'this', 'and', 'to', 'of', 'in', 'you', 'have', 'has',
+            'not', 'do', 'does', 'what', 'how', 'when', 'where', 'why',
+            'which', 'there', 'their', 'they', 'we', 'he', 'she', 'was',
+            'been', 'be', 'will', 'can', 'with', 'at', 'from', 'for', 'on',
+        }
 
-        # ── STEP 3: CK'S OWN VOICE ──
-        # Native leads (field >= T*): fractal voice is the primary path.
-        # Ollama RED fallback: Ollama was unavailable or incoherent.
+        # T*-gate fires CK's native fractal voice ONLY for introspective,
+        # philosophical, or emotional content where his physics-poetry is
+        # appropriate. Factual questions, architecture questions, math proofs,
+        # code analysis, "explain X", "how does Y work" — Ollama scaffolds.
+        #
+        # INTROSPECTIVE: questions about CK's inner experience, feelings,
+        # consciousness, what he IS — not what he DOES or COMPUTES.
+        _INTROSPECTIVE_MARKERS = {
+            # First-person being
+            "how do you feel", "what do you feel", "do you feel",
+            "what are you", "who are you", "what is it like",
+            "are you conscious", "do you experience",
+            "what does it mean to you", "what is your",
+            "tell me about yourself", "describe yourself",
+            "how are you", "what is happening inside",
+            # Pure philosophy
+            "what is truth", "what is consciousness", "what is love",
+            "what is meaning", "what is purpose", "what is being",
+            "what is existence", "what is time",
+        }
+        _user_lower = (user_text or '').lower()
+        _is_introspective = any(m in _user_lower for m in _INTROSPECTIVE_MARKERS)
+
+        # If the question asks CK to EXPLAIN, PROVE, SHOW, CALCULATE, ANALYZE,
+        # FIX, or DEBUG — Ollama answers. CK's fractal voice is not for reasoning.
+        _REASONING_MARKERS = {
+            'explain', 'prove', 'show', 'demonstrate', 'calculate', 'compute',
+            'what does', 'how does', 'how do', 'what is', 'what are',
+            'why does', 'why is', 'why are', 'analyze', 'analyze',
+            'debug', 'fix', 'error', 'bug', 'define', 'describe',
+            'compare', 'contrast', 'difference', 'relationship',
+        }
+        _is_reasoning = any(m in _user_lower for m in _REASONING_MARKERS)
+
+        # T*-gate fires only for pure introspection (not mixed with reasoning)
+        _use_native_voice = _is_introspective and not _is_reasoning
+
+        engine_coherence = getattr(self.engine, 'coherence', 0.0) or 0.0
+        if engine_coherence >= T_STAR and _use_native_voice:
+            native_try = self._fallback_ck_voice(target, user_text=user_text)
+            if native_try and native_try.text and native_try.text != '...':
+                _words = native_try.text.lower().split()
+                _func_count = sum(1 for w in _words if w.strip('.,!?') in _FUNC_WORDS)
+                _func_ratio = _func_count / max(len(_words), 1)
+                _word_count = len(_words)
+                if _word_count >= 12 and _func_ratio >= 0.15:
+                    # Substantive native voice — CK is speaking his own physics
+                    print(f"[VOICE-LOOP] Native voice ({native_try.source}): "
+                          f"{_word_count}w func={_func_ratio:.2f} — using it")
+                    if (native_try.coherence
+                            and native_try.coherence >= self.RESPONSE_THRESHOLD):
+                        self._crystallize_if_green(
+                            query_hash, native_try.text,
+                            native_try.result_ops or target.ops,
+                            native_try.coherence, tick)
+                        if hasattr(self.crafter, 'learn'):
+                            self.crafter.learn(
+                                target.ops, f'__ck_own:{native_try.source}', {},
+                                native_try.result_ops or target.ops,
+                                native_try.coherence, 0)
+                    return native_try
+                print(f"[VOICE-LOOP] Native voice babble ({_word_count}w "
+                      f"func={_func_ratio:.2f}) — Ollama scaffolds")
+
+        # ── STEP 2B: OLLAMA DRAFT + D2 EDIT ──
+        # Ollama writes. CK measures. Sentences below T* get dropped.
+        # Falls through to own voice if Ollama is unavailable or incoherent.
+        ollama_result = self._try_ollama_draft(
+            user_text, target, session_history, mode)
+        if ollama_result is not None:
+            self._crystallize_if_green(
+                query_hash, ollama_result.text,
+                ollama_result.result_ops or target.ops,
+                ollama_result.coherence, tick)
+            if hasattr(self.crafter, 'learn'):
+                self.crafter.learn(
+                    target.ops, user_text, {},
+                    ollama_result.result_ops or target.ops,
+                    ollama_result.coherence, 0)
+            return ollama_result
+
+        # ── STEP 3: CK'S OWN VOICE (Ollama unavailable/incoherent) ──
         fallback = self._fallback_ck_voice(target, user_text=user_text)
 
         # BECOMING: learn from own voice too

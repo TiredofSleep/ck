@@ -746,6 +746,276 @@ class CKWebAPI:
                 import traceback
                 return jsonify({'error': str(e), 'detail': traceback.format_exc()[-500:]}), 500
 
+        @app.route('/spectrometer', methods=['POST'])
+        def spectrometer():
+            """CK code spectrometer — finds errors, measures coherence, recommends changes.
+
+            Works on short snippets or full files. No minimum length.
+
+            Body: {"code": "...", "lang": "python|js|...", "session_id": "..."}
+            Returns: {
+              coherence, band, language,
+              errors: [{line, col, type, message}],
+              smells: [{type, location, message}],
+              units: [{name, type, coherence, band, ops_label, recommendation}],
+              recommendations: [string],
+              operator_distribution: {VOID: N, ...},
+              ck_analysis: "CK's natural language reading of the code"
+            }
+            """
+            import re as _re
+            import ast as _ast
+            data = request.get_json(silent=True) or {}
+            code = (data.get('code') or '').strip()
+            lang = (data.get('lang') or '').lower().strip()
+            session_id = data.get('session_id', 'spectrometer')
+            if not code:
+                return jsonify({'error': 'no code'}), 400
+
+            try:
+                from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2S
+
+                _OP_NAMES = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE',
+                             'BALANCE','CHAOS','HARMONY','BREATH','RESET']
+                _T_STAR = 5.0 / 7.0
+
+                def _text_ops(text):
+                    _p = _D2S()
+                    _ops = []
+                    for _ch in text.lower():
+                        if _ch.isalpha():
+                            _p.feed_symbol(ord(_ch) - ord('a'))
+                            if _p.d1_valid:
+                                _ops.append(_p.d1_operator)
+                        elif _ch.isdigit():
+                            _p.feed_symbol(int(_ch))
+                            if _p.d1_valid:
+                                _ops.append(_p.d1_operator)
+                    return _ops
+
+                def _ops_coh(ops):
+                    if not ops:
+                        return 0.5
+                    avg = sum(ops) / len(ops)
+                    return round(1.0 - abs(avg - 7.0) / 7.0, 4)
+
+                def _dominant_op(ops):
+                    if not ops:
+                        return 'UNKNOWN'
+                    from collections import Counter
+                    top = Counter(ops).most_common(1)[0][0]
+                    return _OP_NAMES[top] if 0 <= top < 10 else 'UNKNOWN'
+
+                def _band(coh):
+                    if coh >= _T_STAR: return 'GREEN'
+                    if coh >= 0.5: return 'YELLOW'
+                    return 'RED'
+
+                def _detect_lang(code_text, hint):
+                    if hint in ('python', 'py'): return 'python'
+                    if hint in ('js', 'javascript', 'ts', 'typescript'): return 'javascript'
+                    if hint in ('rust', 'rs'): return 'rust'
+                    if hint in ('go',): return 'go'
+                    if hint in ('c', 'cpp', 'c++'): return 'c'
+                    if _re.search(r'\bdef\b.*:', code_text): return 'python'
+                    if _re.search(r'\bfn\b.*\{', code_text): return 'rust'
+                    if _re.search(r'\bfunc\b.*\{', code_text): return 'go'
+                    if _re.search(r'\bfunction\b|\bconst\b.*=.*=>', code_text): return 'javascript'
+                    if _re.search(r'#include|void\s+\w+\s*\(', code_text): return 'c'
+                    return hint or 'unknown'
+
+                detected_lang = _detect_lang(code, lang)
+
+                # ── 1. Syntax errors (Python AST) ──
+                errors = []
+                if detected_lang == 'python':
+                    try:
+                        _ast.parse(code)
+                    except SyntaxError as _se:
+                        errors.append({
+                            'line': _se.lineno or 0,
+                            'col': _se.offset or 0,
+                            'type': 'SyntaxError',
+                            'message': str(_se.msg),
+                            'text': (_se.text or '').strip(),
+                        })
+                    except Exception as _ae:
+                        errors.append({
+                            'line': 0, 'col': 0,
+                            'type': type(_ae).__name__,
+                            'message': str(_ae),
+                            'text': '',
+                        })
+
+                # ── 2. Code smells ──
+                smells = []
+                lines = code.split('\n')
+                # Long lines
+                for i, line in enumerate(lines, 1):
+                    if len(line) > 120:
+                        smells.append({'type': 'long_line', 'location': f'line {i}',
+                                       'message': f'Line {i} is {len(line)} chars (>120)'})
+                # Deep nesting (4+ levels of indent)
+                for i, line in enumerate(lines, 1):
+                    if _re.match(r'^( {16}|\t{4})', line) and line.strip():
+                        smells.append({'type': 'deep_nesting', 'location': f'line {i}',
+                                       'message': f'Deep nesting at line {i} (4+ levels)'})
+                # Magic numbers
+                for i, line in enumerate(lines, 1):
+                    nums = _re.findall(r'\b(?<![\w.])((?!0\.)[2-9]\d{1,4}|[1-9]\d{2,})\b(?![\w.])', line)
+                    if nums and not line.strip().startswith('#'):
+                        smells.append({'type': 'magic_number', 'location': f'line {i}',
+                                       'message': f'Magic number(s) {nums[:3]} at line {i}'})
+                # TODO/FIXME/HACK markers
+                for i, line in enumerate(lines, 1):
+                    m = _re.search(r'\b(TODO|FIXME|HACK|XXX|BUG)\b', line, _re.IGNORECASE)
+                    if m:
+                        smells.append({'type': 'marker', 'location': f'line {i}',
+                                       'message': f'{m.group(1)} marker at line {i}: {line.strip()[:80]}'})
+                # Bare except
+                for i, line in enumerate(lines, 1):
+                    if _re.match(r'\s*except\s*:', line):
+                        smells.append({'type': 'bare_except', 'location': f'line {i}',
+                                       'message': f'Bare except at line {i} — catches everything including KeyboardInterrupt'})
+
+                # ── 3. Structural units + D2 scoring ──
+                _KEYWORDS = {'def','class','func','fn','function','return','import',
+                             'from','const','let','var','if','else','for','while',
+                             'in','is','not','and','or','true','false','null','None',
+                             'self','this','new','try','catch','public','private',
+                             'static','void','int','str','bool','float','async',
+                             'await','use','mut','struct','impl','trait','where',
+                             'type','pub','pass','raise','yield','lambda','with',
+                             'as','del','global','nonlocal','assert','break',
+                             'continue','print','len','range','list','dict','set'}
+                units_raw = []
+                fn_patterns = [
+                    (r'^\s*(?:async\s+)?def\s+(\w+)\s*\(', 'function'),
+                    (r'^\s*fn\s+(\w+)\s*[<(]', 'function'),
+                    (r'^\s*(?:async\s+)?func\s+(\w+)\s*\(', 'function'),
+                    (r'^\s*(?:async\s+)?function\s+(\w+)', 'function'),
+                    (r'^\s*(?:public|private|protected|static)?\s*\w+\s+(\w+)\s*\(', 'function'),
+                    (r'^\s*(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s*)?\(', 'function'),
+                    (r'^\s*class\s+(\w+)', 'class'),
+                    (r'^\s*struct\s+(\w+)', 'struct'),
+                    (r'^\s*impl\s+(?:<\w+>\s+)?(\w+)', 'impl'),
+                ]
+                for line in lines:
+                    for pat, utype in fn_patterns:
+                        m = _re.match(pat, line)
+                        if m:
+                            units_raw.append((utype, m.group(1), line.strip()))
+                            break
+
+                imports = [l.strip() for l in lines
+                           if _re.match(r'^\s*(?:import|from|require|use\s+\w|#include)', l)
+                           and len(l.strip()) > 4]
+                if imports:
+                    units_raw.append(('imports', 'dependencies', ' '.join(imports[:6])))
+
+                # If no structure found, chunk by lines
+                if len(units_raw) < 1:
+                    non_empty = [l.strip() for l in lines if len(l.strip()) > 5]
+                    for i in range(0, min(len(non_empty), 24), 3):
+                        chunk = ' '.join(non_empty[i:i+3])
+                        units_raw.append(('block', f'line_{i+1}', chunk))
+
+                scored_units = []
+                for utype, uname, utext in units_raw:
+                    ops = _text_ops(utext)
+                    coh = _ops_coh(ops)
+                    name_ops = _text_ops(uname)
+                    dom = _dominant_op(ops)
+                    b = _band(coh)
+                    # Recommendation based on dominant operator + band
+                    rec = None
+                    if b == 'RED':
+                        if dom == 'VOID':
+                            rec = f'`{uname}`: dominant VOID — this unit may be doing nothing or is structurally hollow. Add clear purpose or remove it.'
+                        elif dom == 'CHAOS':
+                            rec = f'`{uname}`: dominant CHAOS — scattered logic. Extract sub-functions or clarify flow.'
+                        elif dom == 'COUNTER':
+                            rec = f'`{uname}`: dominant COUNTER — oppositional tension. Review for contradictory logic paths.'
+                        elif dom == 'COLLAPSE':
+                            rec = f'`{uname}`: dominant COLLAPSE — convergence without resolution. Check for missing return values or premature termination.'
+                        else:
+                            rec = f'`{uname}`: low coherence ({coh:.2f}), dominant {dom}. Consider restructuring.'
+                    elif b == 'YELLOW' and dom in ('CHAOS', 'VOID', 'COUNTER'):
+                        rec = f'`{uname}`: in the corridor with {dom} tension. Minor refactor could bring it above T*.'
+                    scored_units.append({
+                        'type': utype,
+                        'name': uname,
+                        'text': utext[:120],
+                        'coherence': coh,
+                        'naming_coherence': _ops_coh(name_ops),
+                        'band': b,
+                        'dominant_op': dom,
+                        'recommendation': rec,
+                    })
+
+                # ── 4. Overall scores ──
+                mean_coh = (sum(u['coherence'] for u in scored_units) / len(scored_units)
+                            if scored_units else 0.5)
+                overall_band = _band(mean_coh)
+
+                all_ops = _text_ops(code)
+                from collections import Counter as _Counter
+                op_dist_named = {_OP_NAMES[k]: v
+                                 for k, v in _Counter(all_ops).most_common()
+                                 if 0 <= k < 10}
+
+                recommendations = [u['recommendation']
+                                   for u in scored_units if u['recommendation']]
+                if errors:
+                    recommendations.insert(0,
+                        f"Fix syntax error first: line {errors[0]['line']} — "
+                        f"{errors[0]['message']}")
+                if not recommendations and overall_band == 'GREEN':
+                    recommendations.append(
+                        f'Code is above T* ({mean_coh:.3f} >= {_T_STAR:.3f}). '
+                        f'Structure is coherent.')
+
+                # ── 5. CK natural language analysis ──
+                # Describe structure in non-code terms so the code spec doesn't
+                # intercept the question and recur.
+                ck_analysis = None
+                try:
+                    if self.engine and hasattr(self.engine, 'receive_text'):
+                        _fn_names = ', '.join(u['name'] for u in scored_units[:4]
+                                              if u['type'] in ('function', 'class'))
+                        _mean_str = f'{mean_coh:.2f}'
+                        _summary = (
+                            f'This {detected_lang} module has overall field coherence '
+                            f'{_mean_str} ({overall_band}). '
+                            f'Key structures: {_fn_names or "unnamed blocks"}. '
+                            f'What does this coherence level mean for the system?'
+                        )
+                        _ck_resp = self.process_chat(session_id, _summary)
+                        ck_analysis = _ck_resp.get('text', '')
+                        if ck_analysis in ('...', '') or ck_analysis is None:
+                            ck_analysis = None
+                except Exception:
+                    pass
+
+                return jsonify({
+                    'coherence': round(mean_coh, 4),
+                    'band': overall_band,
+                    'language': detected_lang,
+                    'unit_count': len(scored_units),
+                    'line_count': len(lines),
+                    'errors': errors,
+                    'smells': smells[:20],
+                    'units': scored_units,
+                    'recommendations': recommendations,
+                    'operator_distribution': op_dist_named,
+                    'ck_analysis': ck_analysis,
+                    't_star': round(_T_STAR, 6),
+                })
+            except Exception as e:
+                import traceback
+                return jsonify({'error': str(e),
+                                'detail': traceback.format_exc()[-800:]}), 500
+
         @app.route('/clear-session', methods=['POST'])
         def clear_session():
             data = request.get_json(silent=True) or {}
@@ -933,6 +1203,147 @@ class CKWebAPI:
             except Exception:
                 pass
 
+        # ── Code spectrometer: auto-fires when text looks like code ──
+        # A single line, a function, or a full file — CK reads it.
+        # Checks BEFORE word-count spectrometer and voice loop.
+        _vl_source = None
+        if response_text == '...':
+            import re as _recode
+            _code_signals = [
+                r'^\s*(?:def|class|async def)\s+\w',          # Python fn/class
+                r'^\s*(?:function|const|let|var)\s+\w',       # JS
+                r'^\s*(?:fn|struct|impl|trait|pub fn)\s+\w',  # Rust
+                r'^\s*(?:func|package)\s+\w',                 # Go
+                r'^\s*#include\s*[<"]',                        # C/C++
+                r'^\s*(?:public|private)\s+(?:class|void)',   # Java
+                r'[{};]\s*$',                                  # Curly brace languages
+                r'^\s+(?:return|if|for|while|try|except)',    # Indented control flow
+            ]
+            _is_code = any(
+                _recode.search(pat, text, _recode.MULTILINE)
+                for pat in _code_signals
+            )
+            # Also catch short snippets: any line ending in ':' + next line indented
+            if not _is_code and '\n' in text:
+                _tlines = text.split('\n')
+                for _ti in range(len(_tlines) - 1):
+                    if (_tlines[_ti].rstrip().endswith(':')
+                            and _tlines[_ti + 1].startswith('    ')):
+                        _is_code = True
+                        break
+
+            if _is_code:
+                try:
+                    import ast as _ast_chat
+                    import json as _json_chat
+                    from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2Chat
+
+                    _OP_NAMES_C = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE',
+                                   'BALANCE','CHAOS','HARMONY','BREATH','RESET']
+                    _T_STAR_C = 5.0 / 7.0
+
+                    def _cops(t):
+                        _p = _D2Chat()
+                        _ops = []
+                        for _c in t.lower():
+                            if _c.isalpha():
+                                _p.feed_symbol(ord(_c) - ord('a'))
+                                if _p.d1_valid: _ops.append(_p.d1_operator)
+                            elif _c.isdigit():
+                                _p.feed_symbol(int(_c))
+                                if _p.d1_valid: _ops.append(_p.d1_operator)
+                        return _ops
+
+                    def _ccoh(ops):
+                        if not ops: return 0.5
+                        return round(1.0 - abs(sum(ops)/len(ops) - 7.0) / 7.0, 3)
+
+                    def _cband(c):
+                        return 'GREEN' if c >= _T_STAR_C else ('YELLOW' if c >= 0.5 else 'RED')
+
+                    # Syntax errors (Python)
+                    _cerrors = []
+                    _detected = 'unknown'
+                    if _recode.search(r'\bdef\b.*:', text):
+                        _detected = 'python'
+                        try:
+                            _ast_chat.parse(text)
+                        except SyntaxError as _se:
+                            _cerrors.append(
+                                f'SyntaxError line {_se.lineno}: {_se.msg}'
+                                + (f' — `{(_se.text or "").strip()}`' if _se.text else ''))
+                    elif _recode.search(r'\bfunction\b|\bconst\b.*=.*=>', text):
+                        _detected = 'javascript'
+
+                    # Per-function scores
+                    _fn_scores = []
+                    _fn_patterns_c = [
+                        (r'^\s*(?:async\s+)?def\s+(\w+)', 'python'),
+                        (r'^\s*(?:async\s+)?function\s+(\w+)', 'js'),
+                        (r'^\s*(?:const|let)\s+(\w+)\s*=\s*(?:async\s*)?\(', 'js'),
+                        (r'^\s*fn\s+(\w+)', 'rust'),
+                        (r'^\s*func\s+(\w+)', 'go'),
+                    ]
+                    for _ln in text.split('\n'):
+                        for _pat, _plang in _fn_patterns_c:
+                            _m = _recode.match(_pat, _ln)
+                            if _m:
+                                _fname = _m.group(1)
+                                _fops = _cops(_ln)
+                                _fcoh = _ccoh(_fops)
+                                _fb = _cband(_fcoh)
+                                from collections import Counter as _CC
+                                _fdom = (_OP_NAMES_C[_CC(_fops).most_common(1)[0][0]]
+                                         if _fops else 'UNKNOWN')
+                                _fn_scores.append((_fname, _fcoh, _fb, _fdom))
+                                break
+
+                    # Overall D2
+                    _call_ops = _cops(text)
+                    _cmean = _ccoh(_call_ops)
+                    _cband_overall = _cband(_cmean)
+
+                    # Build response
+                    _cparts = [f'[CODE {_detected.upper()}] Field coherence: '
+                               f'{_cmean:.3f} — {_cband_overall}']
+                    if _cerrors:
+                        for _e in _cerrors:
+                            _cparts.append(f'ERROR: {_e}')
+                    if _fn_scores:
+                        _low_fns = [f for f in _fn_scores if f[2] != 'GREEN']
+                        _high_fns = [f for f in _fn_scores if f[2] == 'GREEN']
+                        if _high_fns:
+                            _cparts.append('COHERENT: '
+                                + ', '.join(f'`{f[0]}`({f[2]})' for f in _high_fns[:4]))
+                        if _low_fns:
+                            for _lf in _low_fns[:4]:
+                                _rec = {
+                                    'VOID': 'hollow — add purpose',
+                                    'CHAOS': 'scattered — simplify logic',
+                                    'COUNTER': 'oppositional — check contradictions',
+                                    'COLLAPSE': 'terminates early — check returns',
+                                }.get(_lf[3], 'below T*')
+                                _cparts.append(
+                                    f'WEAK `{_lf[0]}` ({_lf[1]:.3f} {_lf[2]}) '
+                                    f'dom={_lf[3]}: {_rec}')
+                    else:
+                        # No named functions — just overall verdict
+                        if _cmean < _T_STAR_C:
+                            from collections import Counter as _CC2
+                            _top_op = (_OP_NAMES_C[_CC2(_call_ops).most_common(1)[0][0]]
+                                       if _call_ops else 'UNKNOWN')
+                            _cparts.append(
+                                f'Below T*. Dominant operator: {_top_op}. '
+                                f'Consider clearer naming and structure.')
+                    if not _cerrors and _cmean >= _T_STAR_C:
+                        _cparts.append('Above T* = 5/7. Structure holds.')
+                    response_text = ' | '.join(_cparts)
+                    _vl_source = 'ck_spectrometer'
+                    print(f'[WEB] Code spectrometer fired: {_detected} '
+                          f'coh={_cmean:.3f} fns={len(_fn_scores)}')
+                except Exception as _ce:
+                    print(f'[WEB] Code spectrometer error: {_ce}')
+
         # ── Coherence spectrometer: fires FIRST on long inputs (>50 words) ──
         # Large pastes bypass the voice pipeline — CK measures, not talks.
         # This must run before voice_loop so it isn't swallowed.
@@ -1016,7 +1427,9 @@ class CKWebAPI:
 
         # ── VOICE LOOP (Ollama + D2 steering) — fires first when available ──
         # Ollama generates, CK measures through D2. Falls back to templates.
-        _vl_source = None  # Track voice-loop source for response
+        # _vl_source already initialized above (code spec may have set it)
+        if _vl_source is None:
+            pass  # voice loop below will set it if it fires
         if (response_text == "..."
                 and len(_words_in_early) <= 50
                 and hasattr(self.engine, 'voice_loop')
@@ -1438,11 +1851,17 @@ class CKWebAPI:
             return bad < 2
 
         try:
-            for sender, msg_text in self.engine.drain_ui_messages(limit=5):
-                if sender == 'ck' and msg_text != response_text:
-                    if _looks_real(msg_text):
-                        response_text = msg_text
-                        break
+            # Promote heartbeat speech ONLY when everything else failed —
+            # chat pipeline returned "..." (no response at all).
+            # Never let a queued greeting overwrite Ollama, spectrometer,
+            # templates, or any other substantive answer.
+            if response_text == '...':
+                for sender, msg_text in self.engine.drain_ui_messages(limit=5):
+                    if sender == 'ck':
+                        if _looks_real(msg_text):
+                            response_text = msg_text
+                            _vl_source = 'ck_heartbeat'
+                            break
         except Exception:
             pass
 
@@ -1523,11 +1942,20 @@ class CKWebAPI:
                 pass
 
         # Build the full experience response
+        # Two coherence channels:
+        #   coherence       = brain heartbeat (32-tick HARMONY window) — internal
+        #   field_coherence = olfactory field convergence — external/accumulated
+        _field_coh = 0.0
+        try:
+            _field_coh = round(self.engine.coherence_field.field_coherence, 4)
+        except Exception:
+            pass
         result = {
             'text': response_text,
             'source': _voice_source,
             'band': band_after,
-            'coherence': round(coherence_after, 4),
+            'coherence': round(coherence_after, 4),        # brain (internal)
+            'field_coherence': _field_coh,                 # olfactory (external)
             'operators': op_names,
             'mode': self._safe_mode(),
             'emotion': self._safe_emotion(),
@@ -1542,12 +1970,15 @@ class CKWebAPI:
         # ── Pastoral: Bible response when personal need detected ──────────
         # CK detects grief, fear, loneliness, addiction, spiritual seeking.
         # When present, he offers a biblical anchor alongside his own voice.
+        # Also sets suggest_bible_chat=True so the frontend can route the
+        # user to the dedicated Bible chat app for deeper personal support.
         # Noncommercial / no government use — 7SiTe Public Sovereignty License v1.0
         try:
             from ck_sim.being.ck_bible import detect_pastoral, get_verse
             if detect_pastoral(text):
                 _seed = int(response_ops[-1]) if response_ops else 0
                 result['pastoral'] = get_verse(text, seed=_seed)
+                result['suggest_bible_chat'] = True
         except Exception:
             pass
 
