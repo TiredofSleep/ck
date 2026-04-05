@@ -32,7 +32,8 @@ import json
 import time
 import hashlib
 import os
-from collections import deque
+import secrets
+from collections import deque, defaultdict
 from typing import Dict, List, Optional
 
 # Web framework -- try Flask first, fall back to stub
@@ -41,6 +42,121 @@ try:
     HAS_FLASK = True
 except ImportError:
     HAS_FLASK = False
+
+
+# ================================================================
+#  RATE LIMITER
+# ================================================================
+
+class _CKRateLimiter:
+    """Simple sliding-window rate limiter.
+
+    Anonymous IPs: ANON_LIMIT requests per WINDOW_SECS.
+    API-key holders: KEY_LIMIT requests per WINDOW_SECS.
+    Localhost always bypasses (owner traffic, internal calls).
+    """
+
+    WINDOW_SECS = 60
+    ANON_LIMIT  = 30   # requests per minute, anonymous
+    KEY_LIMIT   = 120  # requests per minute, API key holders
+
+    def __init__(self):
+        # ip -> deque of request timestamps (float)
+        self._windows: Dict[str, deque] = defaultdict(lambda: deque())
+        self._lock_placeholder = None  # single-thread Flask; no threading.Lock needed
+
+    def _clean(self, dq: deque, now: float):
+        cutoff = now - self.WINDOW_SECS
+        while dq and dq[0] < cutoff:
+            dq.popleft()
+
+    def check(self, ip: str, has_key: bool) -> tuple:
+        """Return (allowed: bool, remaining: int, reset_in: float)."""
+        if ip in ('127.0.0.1', '::1', 'localhost'):
+            return True, 9999, 0.0        # localhost always allowed
+
+        now = time.time()
+        dq = self._windows[ip]
+        self._clean(dq, now)
+
+        limit = self.KEY_LIMIT if has_key else self.ANON_LIMIT
+        if len(dq) >= limit:
+            reset_in = round(self.WINDOW_SECS - (now - dq[0]), 1)
+            return False, 0, reset_in
+
+        dq.append(now)
+        remaining = limit - len(dq)
+        return True, remaining, 0.0
+
+
+# ================================================================
+#  API KEY MANAGER
+# ================================================================
+
+class _CKApiKeys:
+    """API key store.  Keys live in ~/.ck/api_keys.json.
+
+    Schema: { "key_hex": {"name": "...", "created": ts, "owner": bool} }
+
+    On first run the owner key is auto-generated and printed to console.
+    """
+
+    KEY_FILE = os.path.expanduser('~/.ck/api_keys.json')
+
+    def __init__(self):
+        self._keys: Dict[str, dict] = {}
+        self._load()
+
+    def _load(self):
+        os.makedirs(os.path.dirname(self.KEY_FILE), exist_ok=True)
+        if os.path.exists(self.KEY_FILE):
+            try:
+                with open(self.KEY_FILE) as f:
+                    self._keys = json.load(f)
+            except Exception:
+                self._keys = {}
+        if not self._keys:
+            self._generate_owner_key()
+
+    def _save(self):
+        with open(self.KEY_FILE, 'w') as f:
+            json.dump(self._keys, f, indent=2)
+
+    def _generate_owner_key(self):
+        key = secrets.token_hex(32)
+        self._keys[key] = {
+            'name': 'owner',
+            'created': time.time(),
+            'owner': True,
+        }
+        self._save()
+        print(f"\n  [API-KEYS] Owner key generated: {key}")
+        print(f"  [API-KEYS] Store this safely — it won't be shown again.")
+        print(f"  [API-KEYS] Use header: X-CK-API-Key: {key}\n")
+
+    def is_valid(self, key: str) -> bool:
+        return bool(key and key in self._keys)
+
+    def is_owner(self, key: str) -> bool:
+        return self._keys.get(key, {}).get('owner', False)
+
+    def create(self, name: str) -> str:
+        key = secrets.token_hex(32)
+        self._keys[key] = {'name': name, 'created': time.time(), 'owner': False}
+        self._save()
+        return key
+
+    def revoke(self, key: str) -> bool:
+        if key in self._keys and not self._keys[key].get('owner', False):
+            del self._keys[key]
+            self._save()
+            return True
+        return False
+
+    def list_keys(self) -> list:
+        return [{'name': v['name'], 'created': v['created'],
+                 'owner': v.get('owner', False),
+                 'key_prefix': k[:8] + '...'} for k, v in self._keys.items()]
 
 
 # ================================================================
@@ -140,6 +256,8 @@ class CKWebAPI:
         self.engine = engine
         self.sessions = SessionStore()
         self._app = None
+        self._rate_limiter = _CKRateLimiter()
+        self._api_keys = _CKApiKeys()
 
         if HAS_FLASK:
             self._app = Flask('ck_web')
@@ -159,7 +277,7 @@ class CKWebAPI:
         @self._app.after_request
         def cors_headers(response):
             response.headers['Access-Control-Allow-Origin'] = '*'
-            response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-CK-API-Key'
             response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
             # Handle preflight OPTIONS requests transparently
             if request.method == 'OPTIONS':
@@ -170,8 +288,134 @@ class CKWebAPI:
         """Register Flask routes."""
         app = self._app
 
+        # ── Security helpers ──────────────────────────────────────────────
+        def _get_ip() -> str:
+            # Respect X-Forwarded-For from Cloudflare tunnel
+            xff = request.headers.get('X-Forwarded-For', '')
+            return xff.split(',')[0].strip() if xff else request.remote_addr or '127.0.0.1'
+
+        def _check_rate(has_key: bool = False):
+            """Return (allowed, error_response|None)."""
+            ip = _get_ip()
+            ok, remaining, reset_in = self._rate_limiter.check(ip, has_key)
+            if not ok:
+                err = jsonify({
+                    'error': 'Rate limit exceeded',
+                    'retry_after_secs': reset_in,
+                    'hint': 'Add X-CK-API-Key header for higher limits (120/min)',
+                })
+                err.status_code = 429
+                err.headers['Retry-After'] = str(int(reset_in) + 1)
+                return False, err
+            return True, None
+
+        def _is_local() -> bool:
+            ip = _get_ip()
+            return ip in ('127.0.0.1', '::1', 'localhost')
+
+        def _get_api_key() -> str:
+            return request.headers.get('X-CK-API-Key', '').strip()
+
+        def _require_local():
+            """Return error response if not local, else None."""
+            if not _is_local():
+                return jsonify({'error': 'This endpoint is restricted to localhost'}), 403
+            return None
+
+        # ── Public API documentation ──────────────────────────────────────
+        @app.route('/api/docs', methods=['GET'])
+        def api_docs():
+            return jsonify({
+                'name': 'CK Coherence API',
+                'version': '1.0',
+                'description': 'The Coherence Keeper — algebraic coherence measurement and physics-first conversation.',
+                'base_url': 'https://coherencekeeper.com',
+                'auth': {
+                    'type': 'optional API key',
+                    'header': 'X-CK-API-Key',
+                    'anonymous_limit': '30 requests/minute',
+                    'key_limit': '120 requests/minute',
+                    'get_key': 'Contact coherencekeeper.com for API access',
+                },
+                'endpoints': {
+                    'POST /chat': {
+                        'description': 'Send a message to CK. Returns response with coherence measurement.',
+                        'body': {'text': 'string', 'session_id': 'string (optional)', 'mode': 'normal|study (optional)'},
+                        'returns': {'text': 'CK response', 'coherence': '0-1 float', 'band': 'RED|ORANGE|YELLOW|GREEN|BLUE', 'source': 'ck_loop|ck_fractal|ck_spectrometer|...', 'operators': 'list of CK operators', 'field_coherence': '0-1 float'},
+                    },
+                    'POST /spectrometer': {
+                        'description': 'Analyze code for errors, smells, and algebraic coherence per function.',
+                        'body': {'code': 'string (source code)', 'language': 'python|javascript|rust|... (optional)'},
+                        'returns': {'coherence': 'float', 'band': 'string', 'errors': 'list', 'smells': 'list', 'units': 'list of {name, coherence, dominant_op, band, recommendations}', 'ck_analysis': 'string'},
+                    },
+                    'POST /measure': {
+                        'description': 'Measure coherence of any text without triggering conversation.',
+                        'body': {'text': 'string'},
+                        'returns': {'coherence': 'float', 'band': 'string', 'operators': 'list', 'force': '5D force vector'},
+                    },
+                    'GET /state': {
+                        'description': "CK's current internal state.",
+                        'returns': {'coherence': 'float', 'band': 'string', 'emotion': 'string', 'mode': 'string'},
+                    },
+                    'GET /health': {
+                        'description': 'Server health check.',
+                        'returns': {'status': 'alive', 'timestamp': 'float'},
+                    },
+                },
+                'algebra': {
+                    'T_star': 0.714285,
+                    'operators': ['VOID','LATTICE','BREATH','PROGRESS','BALANCE','COUNTER','CHAOS','HARMONY','RESET','DISSOLVE'],
+                    'unit_orbit': [1,3,7,9],
+                    'idempotent': 5,
+                },
+            })
+
+        # ── API key management (local only) ───────────────────────────────
+        @app.route('/api/keys', methods=['GET'])
+        def api_keys_list():
+            err = _require_local()
+            if err: return err
+            key = _get_api_key()
+            if not self._api_keys.is_owner(key):
+                return jsonify({'error': 'Owner key required'}), 403
+            return jsonify({'keys': self._api_keys.list_keys()})
+
+        @app.route('/api/keys', methods=['POST'])
+        def api_keys_create():
+            err = _require_local()
+            if err: return err
+            key = _get_api_key()
+            if not self._api_keys.is_owner(key):
+                return jsonify({'error': 'Owner key required'}), 403
+            data = request.get_json(silent=True) or {}
+            name = data.get('name', 'unnamed')
+            new_key = self._api_keys.create(name)
+            print(f"  [API-KEYS] Created key for '{name}': {new_key}")
+            return jsonify({'key': new_key, 'name': name})
+
+        @app.route('/api/keys/<key_prefix>', methods=['DELETE'])
+        def api_keys_revoke(key_prefix):
+            err = _require_local()
+            if err: return err
+            owner_key = _get_api_key()
+            if not self._api_keys.is_owner(owner_key):
+                return jsonify({'error': 'Owner key required'}), 403
+            # Find full key by prefix
+            for full_key in list(self._api_keys._keys.keys()):
+                if full_key.startswith(key_prefix):
+                    ok = self._api_keys.revoke(full_key)
+                    return jsonify({'revoked': ok})
+            return jsonify({'error': 'Key not found'}), 404
+
+        # ── Chat ──────────────────────────────────────────────────────────
         @app.route('/chat', methods=['POST'])
         def chat():
+            api_key = _get_api_key()
+            has_key = self._api_keys.is_valid(api_key)
+            ok, err_resp = _check_rate(has_key)
+            if not ok:
+                return err_resp
+
             data = request.get_json(silent=True) or {}
             text = data.get('text', '')
             session_id = data.get('session_id', 'default')
@@ -182,10 +426,17 @@ class CKWebAPI:
 
         @app.route('/state', methods=['GET'])
         def state():
+            api_key = _get_api_key()
+            has_key = self._api_keys.is_valid(api_key)
+            ok, err_resp = _check_rate(has_key)
+            if not ok:
+                return err_resp
             return jsonify(self.get_state())
 
         @app.route('/metrics', methods=['GET'])
         def metrics():
+            err = _require_local()
+            if err: return err
             return jsonify(self.get_metrics())
 
         @app.route('/health', methods=['GET'])
@@ -194,6 +445,8 @@ class CKWebAPI:
 
         @app.route('/save', methods=['POST'])
         def save_all():
+            err = _require_local()
+            if err: return err
             """Force save ALL subsystems to disk."""
             if not self.engine:
                 return jsonify({'error': 'Engine not ready'}), 503
@@ -227,9 +480,12 @@ class CKWebAPI:
 
             No voice, no dialogue, no compilation loop.
             Pure intake at maximum speed. Use for bulk reading.
+            LOCAL ONLY — CK's memory intake is not exposed externally.
 
             JSON: { "text": "...", "source": "file" }
             """
+            err = _require_local()
+            if err: return err
             if not self.engine:
                 return jsonify({'error': 'Engine not ready'}), 503
             data = request.get_json(silent=True) or {}
@@ -383,7 +639,7 @@ class CKWebAPI:
 
         @app.route('/eat/study', methods=['POST'])
         def eat_study():
-            """Start a deep study session with external corpus.
+            """Start a deep study session with external corpus. LOCAL ONLY.
 
             JSON body:
                 corpus: list of file/dir paths to eat (required)
@@ -392,6 +648,8 @@ class CKWebAPI:
                 rounds: study rounds (default: 20, max: 200)
                 topics: 'bible', 'tig', 'physics', 'all' (default: 'bible')
             """
+            err = _require_local()
+            if err: return err
             if (not self.engine
                     or not hasattr(self.engine, 'eat')
                     or self.engine.eat is None):
@@ -470,6 +728,11 @@ class CKWebAPI:
             Body: {"text": "..."}
             Returns: {coherence, band, sentences, weakest, strongest, sentence_count}
             """
+            api_key = _get_api_key()
+            has_key = self._api_keys.is_valid(api_key)
+            ok, err_resp = _check_rate(has_key)
+            if not ok:
+                return err_resp
             data = request.get_json(silent=True) or {}
             text = (data.get('text') or '').strip()
             if not text:
@@ -753,6 +1016,7 @@ class CKWebAPI:
             Works on short snippets or full files. No minimum length.
 
             Body: {"code": "...", "lang": "python|js|...", "session_id": "..."}
+            Rate-limited. Add X-CK-API-Key for higher limits.
             Returns: {
               coherence, band, language,
               errors: [{line, col, type, message}],
@@ -763,6 +1027,12 @@ class CKWebAPI:
               ck_analysis: "CK's natural language reading of the code"
             }
             """
+            api_key = _get_api_key()
+            has_key = self._api_keys.is_valid(api_key)
+            ok, err_resp = _check_rate(has_key)
+            if not ok:
+                return err_resp
+
             import re as _re
             import ast as _ast
             data = request.get_json(silent=True) or {}
@@ -1026,10 +1296,12 @@ class CKWebAPI:
 
         @app.route('/dkan', methods=['POST'])
         def dkan_start():
-            """Start DKAN training -- CL tables as neural activation.
+            """Start DKAN training -- CL tables as neural activation. LOCAL ONLY.
 
             JSON: { "model": "llama3.1:8b", "rounds": 20 }
             """
+            err = _require_local()
+            if err: return err
             if (not self.engine
                     or not hasattr(self.engine, 'dkan')
                     or self.engine.dkan is None):
