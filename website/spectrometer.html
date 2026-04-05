@@ -692,16 +692,25 @@ impl CoherenceField {
         return res.json();
     }
 
-    // ── API call — /measure_code endpoint ────────────────────────
+    // ── API call — /spectrometer endpoint (enhanced code analysis) ──
     async function ckMeasureCode(code, lang) {
-        const res = await fetch(API_BASE + '/measure_code', {
+        const res = await fetch(API_BASE + '/spectrometer', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code, lang }),
         });
         if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.error || 'HTTP ' + res.status);
+            // Fall back to /measure_code if /spectrometer not available
+            const res2 = await fetch(API_BASE + '/measure_code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code, lang }),
+            });
+            if (!res2.ok) {
+                const err = await res2.json().catch(() => ({}));
+                throw new Error(err.error || 'HTTP ' + res2.status);
+            }
+            return res2.json();
         }
         return res.json();
     }
@@ -800,7 +809,23 @@ impl CoherenceField {
         const band = d.band || 'YELLOW';
         showBandAndBar(coherence, band);
 
-        overviewText.textContent = d.verdict || '';
+        // Verdict: prefer recommendations over generic verdict
+        const verdictParts = [];
+        if (d.errors && d.errors.length > 0) {
+            verdictParts.push(d.errors.map(e =>
+                `\u274C Line ${e.line}: ${e.type} \u2014 ${e.message}${e.text ? (' (\u201c' + e.text + '\u201d)') : ''}`
+            ).join('\n'));
+        }
+        if (d.recommendations && d.recommendations.length > 0) {
+            verdictParts.push(d.recommendations.join('\n'));
+        }
+        if (d.smells && d.smells.length > 0) {
+            verdictParts.push('\u26A0\uFE0F Smells: ' + d.smells.map(s => s.message).join(' | '));
+        }
+        if (d.ck_analysis) {
+            verdictParts.push('\n\u{1F9E0} CK: ' + d.ck_analysis);
+        }
+        overviewText.textContent = verdictParts.join('\n\n') || d.verdict || '';
         results.classList.add('active');
 
         // Code scores row
@@ -824,15 +849,19 @@ impl CoherenceField {
                     : unit.coherence >= 0.5 ? 'fill-YELLOW' : 'fill-RED';
                 const row = document.createElement('div');
                 row.className = 'unit-row';
+                const domOp = unit.dominant_op ? ` <em>${escHtml(unit.dominant_op)}</em>` : '';
+                const recHtml = unit.recommendation
+                    ? `<div class="unit-rec">\u21B3 ${escHtml(unit.recommendation)}</div>` : '';
                 row.innerHTML = `
                     <span class="unit-type">${escHtml(unit.type)}</span>
-                    <span class="unit-name" title="${escHtml(unit.text)}">${escHtml(unit.name || unit.text.slice(0,30))}</span>
+                    <span class="unit-name" title="${escHtml(unit.text)}">${escHtml(unit.name || unit.text.slice(0,30))}${domOp}</span>
                     <div class="unit-bar-wrap">
                         <div class="unit-bar-track">
                             <div class="unit-bar-fill ${fillClass}" style="width:${pct}%"></div>
                         </div>
                         <span class="unit-score">${unit.coherence.toFixed(3)}</span>
-                    </div>`;
+                    </div>
+                    ${recHtml}`;
                 unitGrid.appendChild(row);
             });
             unitGrid.style.display = 'flex';

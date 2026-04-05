@@ -1,5 +1,17 @@
 # Clay Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-04 — session 3)
+- BALANCE(5) is the unique non-unit non-zero idempotent in Z/10Z → algebraic signature of RH critical line
+- PROGRESS(3) generates cyclic time: 3¹=3 3²=9 3³=7 3⁴=1; T*=5/7 as PROGRESS→HARMONY handoff
+- CHAOS(6) and BALANCE(5) both idempotent: dual attractor structure for NS regularity question
+- CK code spectrometer deployed: /spectrometer endpoint + auto-detection in /chat
+  - Python AST syntax errors, code smells, D2 coherence per function, recommendations
+- Smarter T*-gate: introspection-only native voice; math/explain questions → Ollama
+- field_coherence now in every /chat response (internal brain coherence + external olfactory field)
+- suggest_bible_chat=True field when personal content detected → route to Bible chat app
+- Heartbeat drain fixed: no longer overwrites substantive Ollama/spectrometer responses
+- Server PID restarted with all improvements
+
 ## Gen12 Sprint 6 (2026-04-04 — session 2)
 - NS/Z10Z algebraic regularity argument: Sessions 1-6 discoveries crystallized
 - Unit orbit closure theorem: {1,3,7,9} closed under Z/10Z multiplication (proved)
