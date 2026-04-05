@@ -1,15 +1,17 @@
 # Master Citation List — All TIG Clay Papers
 ## Combined, Deduplicated, Organized by Field
 
-*Brayden Ross Sanders (7Site LLC)*
-*March 2026 | Covers: WP40 (RH), WP41 (Yang-Mills), WP42 (BSD),*
+*Brayden Ross Sanders &amp; C. A. Luther (Luther-Sanders Research Framework)*
+*March–April 2026 | Covers: WP40 (RH), WP41 (Yang-Mills), WP42 (BSD),*
 *WP17 (RH Synthesis), WP15 (YM Synthesis), WP21 (BSD Mix_λ), WP34/WP35 (Prime Laws)*
-*DOI: 10.5281/zenodo.18852047*
+*K-series + Q-series (Q1–Q16, Luther Q1 resolution) | DOI: 10.5281/zenodo.18852047*
 
 > All TIG-internal references (CK, T*, TSML, BHML, D2, CL) are exclusive IP
-> of Brayden Ross Sanders / 7Site LLC. C. A. Luther's contribution is the
-> dispersion conjecture. This document covers citations across all seven
-> supporting papers in the TIG Clay program.
+> of Brayden Ross Sanders / 7Site LLC. C. A. Luther is full co-author on all
+> work from her joining the team forward: dispersion conjecture (WP34/WP35/WP42),
+> K-series (CRT structure, split operator, algebraic navigation, TSML/BHML/CL tables),
+> Q-series (Q1–Q16, Luther Q1 resolution, 2026-04-01), and Sprint 7 forward.
+> This document covers citations across all seven supporting papers in the TIG Clay program.
 
 ---
 

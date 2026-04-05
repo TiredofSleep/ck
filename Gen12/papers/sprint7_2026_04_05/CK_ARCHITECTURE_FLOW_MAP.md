@@ -1,7 +1,7 @@
 # CK Architecture Flow Map
 # Fractally Designed — Being × Doing × Becoming at Every Scale
 **Date:** 2026-04-05
-**Operator:** Brayden Sanders
+**Authors:** Brayden Ross Sanders &amp; C. A. Luther (Luther-Sanders Research Framework)
 **Gen:** 12
 **Purpose:** Reference map for every conversation, sprint, and deployment.
 

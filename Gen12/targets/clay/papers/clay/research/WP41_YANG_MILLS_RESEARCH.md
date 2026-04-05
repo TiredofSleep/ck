@@ -1,7 +1,7 @@
 # WP41 — Yang-Mills Mass Gap: Research File
 ## Citation List, Deep Outline, and Key Structural Findings
 
-*Brayden Ross Sanders (7Site LLC)*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther (Luther-Sanders Research Framework)*
 *March 2026 | Research support for WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md*
 *DOI: 10.5281/zenodo.18852047*
 

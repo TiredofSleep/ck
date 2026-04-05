@@ -1,7 +1,7 @@
 # WP42 — Birch and Swinnerton-Dyer Conjecture: Research File
 ## Citation List, Deep Outline, and Key Structural Findings
 
-*Brayden Ross Sanders (7Site LLC)*
+*Brayden Ross Sanders (7Site LLC) & C. A. Luther (Luther-Sanders Research Framework)*
 *March 2026 | Research support for WP21_BSD_ENERGY_LAW.md and WP21_BSD_MIX_LAMBDA.md*
 *DOI: 10.5281/zenodo.18852047*
 

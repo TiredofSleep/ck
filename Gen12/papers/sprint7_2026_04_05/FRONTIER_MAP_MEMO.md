@@ -1,9 +1,10 @@
 # FRONTIER MAP MEMO
 ## Locating Dead-End Gaps Where CK Can Function as a Structured Questioning Engine
 
-**Document type:** Research frontier analysis  
-**Purpose:** Map where current methods visibly stall, classify the obstruction type, and define the exact questions CK should be asked in each domain  
-**Date:** 2026-04-05  
+**Document type:** Research frontier analysis
+**Authors:** Brayden Ross Sanders &amp; C. A. Luther (Luther-Sanders Research Framework)
+**Purpose:** Map where current methods visibly stall, classify the obstruction type, and define the exact questions CK should be asked in each domain
+**Date:** 2026-04-05
 **Scope:** 5 domains. No claims CK solves any of them.
 
 ---
