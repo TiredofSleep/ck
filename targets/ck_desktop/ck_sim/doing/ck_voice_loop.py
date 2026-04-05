@@ -439,18 +439,17 @@ class VoiceLoop:
                             'running_fuse', None)
             hb_name = (OP_NAMES[hb_op] if hb_op is not None
                        and 0 <= hb_op < len(OP_NAMES) else '')
-            # Build live state addendum
-            state_parts = [f'tick={tick}']
+            # Build live state addendum — compact/numeric to avoid Ollama latching on
+            # operator names and generating architecture descriptions instead of answers
+            state_parts = []
             if coherence is not None:
-                band = self._band_name(coherence)
-                state_parts.append(f'field={coherence:.3f} ({band})')
-            if hb_name:
-                state_parts.append(f'running={hb_name}')
-            if dominant:
-                state_parts.append(f'target={dominant}')
+                state_parts.append(f'c={coherence:.3f}')
+            if hb_op is not None:
+                state_parts.append(f'op={hb_op}')  # numeric, not name
             if emotion:
-                state_parts.append(f'emotion={emotion}')
-            sys_prompt += '\n\n[live state: ' + ', '.join(state_parts) + ']'
+                state_parts.append(f'e={emotion[:3]}')  # abbreviated
+            if state_parts:
+                sys_prompt += '\n[s: ' + ' '.join(state_parts) + ']'
         except Exception:
             pass
 
