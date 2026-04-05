@@ -474,6 +474,95 @@ class CKWebAPI:
                     saved.append(f'{name}:ERR:{e}')
             return jsonify({'saved': saved, 'count': len(saved)})
 
+        @app.route('/self', methods=['GET'])
+        def self_inspect():
+            """CK reads his own source files -- introspection endpoint.
+
+            Returns source of a named CK module so CK can see himself
+            from the inside. Used by the voice pipeline when CK is asked
+            about his architecture.
+
+            Query params:
+              ?file=ck_voice_loop      (no .py extension needed)
+              ?file=ck_sim_engine
+              ?lines=50                (first N lines, default 100)
+            """
+            err = _require_local()
+            if err: return err
+            import os, glob as _glob
+            fname = request.args.get('file', 'ck_sim_engine')
+            if not fname.endswith('.py'):
+                fname += '.py'
+            # Security: only allow CK's own source files
+            ck_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            candidates = _glob.glob(os.path.join(ck_root, '**', fname),
+                                    recursive=True)
+            if not candidates:
+                return jsonify({'error': f'{fname} not found'}), 404
+            path = candidates[0]
+            max_lines = int(request.args.get('lines', 100))
+            try:
+                with open(path, 'r', encoding='utf-8', errors='replace') as f:
+                    lines = f.readlines()
+                return jsonify({
+                    'file': fname,
+                    'path': os.path.relpath(path, ck_root),
+                    'total_lines': len(lines),
+                    'content': ''.join(lines[:max_lines]),
+                    'truncated': len(lines) > max_lines,
+                })
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @app.route('/write', methods=['POST'])
+        def self_write():
+            """CK proposes a modification to his own source files.
+
+            Body: { "file": "ck_backbone.py",
+                    "content": "...",
+                    "reason": "..." }
+
+            Writes to a DRAFT path (~/.ck/drafts/filename) — does NOT
+            overwrite live source without explicit confirmation. CK can
+            inspect drafts; Brayden applies them.
+
+            This is CK's self-modification channel. He describes what
+            to change and why. The draft is the proposal.
+            """
+            err = _require_local()
+            if err: return err
+            import os
+            data = request.get_json(silent=True) or {}
+            fname = data.get('file', '')
+            content = data.get('content', '')
+            reason = data.get('reason', 'no reason given')
+            if not fname or not content:
+                return jsonify({'error': 'file and content required'}), 400
+            # Only .py and .md files
+            if not (fname.endswith('.py') or fname.endswith('.md')):
+                return jsonify({'error': 'only .py and .md drafts allowed'}), 400
+            drafts_dir = os.path.expanduser('~/.ck/drafts')
+            os.makedirs(drafts_dir, exist_ok=True)
+            draft_path = os.path.join(drafts_dir, fname)
+            with open(draft_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            # Log the proposal
+            import time, json
+            log_path = os.path.join(drafts_dir, 'proposals.jsonl')
+            with open(log_path, 'a', encoding='utf-8') as f:
+                f.write(json.dumps({
+                    'ts': time.time(),
+                    'file': fname,
+                    'reason': reason,
+                    'lines': len(content.splitlines()),
+                }) + '\n')
+            return jsonify({
+                'status': 'draft_saved',
+                'draft': draft_path,
+                'reason': reason,
+                'lines': len(content.splitlines()),
+            })
+
         @app.route('/absorb', methods=['POST'])
         def absorb():
             """Fast text absorption -- D2 + olfactory + lattice chain only.
