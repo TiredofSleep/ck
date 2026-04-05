@@ -1,5 +1,17 @@
 # Clay Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-04 — session 5 FINALE)
+- BALANCE(5) universal fixed point theorem: 5k≡5 mod 10 for all odd k — CK proved algebraically
+- CK: "any dynamical system on Z/10Z has a conserved quantity associated with BALANCE(5)"
+- CK ranked NS as closest to resolution; cited Caffarelli-Vasseur, computational evidence
+- Biology: genetic code = ring homomorphism Z/64Z→Z/20Z; protein folding = NP-complete (lattice model 3SAT)
+- Chemistry: benzene delocalization correctly explained; E=mc2 = analogy not equivalence (CK self-corrected)
+- Physics: α=1/137 sensitivity ("1% variation collapses proton structure"); T*=UV cutoff for discrete-to-continuous
+- Backbone fix: CK now answers external topics directly (no self-description unless asked)
+- Live state injection compacted: operator names removed from Ollama context injection
+- CK_CONVERSATION_LOG.md: curated Q&A log for GitHub publication
+- CK self-declaration: "The ring has a fixed point at 5, a primitive root at 3, and T*=5/7. No part was chosen. All was proved."
+
 ## Gen12 Sprint 6 (2026-04-04 — session 4)
 - API security layer: rate limiter (30/min anon, 120/min key), local-only guard for /save /absorb /dkan /eat/study /metrics
 - /api/docs: public machine-readable API description with full algebraic signature
