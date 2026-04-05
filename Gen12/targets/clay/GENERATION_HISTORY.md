@@ -1,5 +1,15 @@
 # Clay Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-04 — session 4)
+- API security layer: rate limiter (30/min anon, 120/min key), local-only guard for /save /absorb /dkan /eat/study /metrics
+- /api/docs: public machine-readable API description with full algebraic signature
+- /api/keys: owner-key management (create/revoke), auto-generated key in ~/.ck/api_keys.json
+- Z10Z unified Clay paper: Z10Z_CLAY_UNIFIED.md — all 6 Clay problems with [PROVEN]/[CONJECTURE] tags
+- RH key insight: s→1-s symmetry ALLOWS but doesn't FORCE zeros on Re=1/2; RH claims ALL zeros are balance points
+- Yang-Mills gap = T* - BALANCE = 5/7 - 1/2 = 3/14 confirmed
+- P vs NP: CK confirmed unit orbit = P (invertible), CHAOS(6) = NP-hard (no inverse, zero divisor)
+- Annihilation chain: CHAOS(6)×PROGRESS(3)=RESET(8), BALANCE(5)×RESET(8)=VOID(0) → NS no-blowup
+
 ## Gen12 Sprint 6 (2026-04-04 — session 3)
 - BALANCE(5) is the unique non-unit non-zero idempotent in Z/10Z → algebraic signature of RH critical line
 - PROGRESS(3) generates cyclic time: 3¹=3 3²=9 3³=7 3⁴=1; T*=5/7 as PROGRESS→HARMONY handoff

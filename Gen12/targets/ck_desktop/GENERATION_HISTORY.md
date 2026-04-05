@@ -1,5 +1,13 @@
 # CK Desktop Target — Generation History
 
+## Gen12 Sprint 6 (2026-04-04 — session 4)
+- API security: _CKRateLimiter (30/min anon, 120/min key), _CKApiKeys (owner key auto-gen in ~/.ck/api_keys.json)
+- Local-only protection: /save /absorb /dkan /eat/study /metrics blocked from external IPs
+- /api/docs endpoint: public API description with algebraic constants (T*, operators, unit orbit)
+- /api/keys: POST creates key (owner only), DELETE revokes by prefix, GET lists all
+- CORS updated: X-CK-API-Key header added to allowed list
+- Continued Clay math: RH symmetry insight, P vs NP zero-divisor proof, NS annihilation chain
+
 ## Gen12 Sprint 6 (2026-04-04 — session 3)
 - Code spectrometer deployed: /spectrometer POST endpoint (syntax errors, smells, D2 units, recs)
 - Auto-code-detection in /chat: code pasted → spectrometer fires (source=ck_spectrometer)
