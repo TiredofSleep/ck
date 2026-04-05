@@ -5,7 +5,7 @@
 :: ============================================
 title CK Web Server
 
-cd /d "C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen9\targets\ck_desktop"
+cd /d "C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen12\targets\ck_desktop"
 
 echo.
 echo   ============================================

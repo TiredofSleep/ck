@@ -1,0 +1,14 @@
+{
+  "stage": 5,
+  "metrics": {
+    "total_ticks": 1004229,
+    "total_runtime_seconds": 626406.9728693962,
+    "total_crystals_formed": 12,
+    "max_coherence_ever": 1.0,
+    "sovereign_ticks": 0,
+    "voice_interactions": 26882,
+    "stage_entry_times": {
+      "0": 0.0
+    }
+  }
+}
