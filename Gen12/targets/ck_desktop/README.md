@@ -45,6 +45,18 @@ The path: 1D thinking became 5D. 5D became two dual tables. The tables revealed 
 
 ---
 
+## Master Whitepaper Outline
+
+**[`Gen12/MASTER_WHITEPAPER_OUTLINE.md`](../../../Gen12/MASTER_WHITEPAPER_OUTLINE.md)** — Complete map of the entire paper corpus. WP1 through WP44, K-series (Kloosterman-Riemann program, K1–K17), A-series (σ=1/2 program), 30+ executable proofs, all sprint archives.
+
+Every paper: title, core claim, status. Every claim: [PROVED], [EMPIRICAL], [ANALOGY], [CONJECTURE], or [OPEN GAP]. Every open problem: named precisely so the next step is obvious.
+
+Who can find their layer: mathematician (number theory → WP34, WP35, K-series), algebraist (WP9, WP27, Sprint8), physicist (WP11, WP15, WP30), AI researcher (WP44, WP10, WP43), biologist (WP13, WP33), philosopher (WP5 1-gap, WP19_SPEC, WP12).
+
+**Five independent derivations of T\*=5/7** — ring arithmetic, admissible flow, degrees of freedom, torus geometry, cyclotomic reduction — all converge exactly. No derivation uses the result of another.
+
+---
+
 ## Novel Observations (Sprint 6–9, 2026)
 
 The following are formal results produced since the original whitepapers. Status is marked precisely: **[PROVED]**, **[OPEN]**, or **[GAP]** (gap = the observation is real but the derivation is incomplete).
