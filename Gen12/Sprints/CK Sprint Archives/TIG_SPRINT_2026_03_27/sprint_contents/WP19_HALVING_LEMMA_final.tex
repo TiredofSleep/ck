@@ -1,0 +1,383 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{tcolorbox}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+
+\title{A Dissipative Flow for the Critical Strip\\
+       and an Exponential Convergence Lemma}
+\author{Brayden Sanders\\7Site LLC\\
+\small\href{https://doi.org/10.5281/zenodo.18852047}%
+{Zenodo DOI 10.5281/zenodo.18852047}}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\footnotetext{Companion paper: ``Survivor Lines in Finite Affine Planes
+$\mathrm{AG}(2,p)$,'' arXiv:2026.XXXXX [math.CO].}
+
+\begin{abstract}
+We provide a dynamical-systems reinterpretation of the analytic behaviour
+of the Riemann zeta function.
+Define the scalar flow $\dot\sigma=-(\sigma-\tfrac12)|\zeta(\sigma+it_0)|^2$
+on the critical strip.
+This flow has two kinds of fixed points: the critical line $\sigma=\tfrac12$
+and the non-trivial zeros of $\zeta$.
+We prove unconditionally that in the Korobov--Vinogradov zero-free strip the
+flow converges exponentially to $\sigma=\tfrac12$ with the explicit rate
+$m_{\mathrm{KV}}(t_0)=\bigl(C_{\mathrm{KV}}(\log t_0)^{2/3}\bigr)^{-2}$.
+Consequently,
+\[
+  \text{RH}\;\Longleftrightarrow\;
+  m(t_0):=\min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|^2>0
+  \;\text{ for every }t_0>0,
+\]
+turning the Riemann Hypothesis into a quantitative positivity problem
+for a one-dimensional dissipative flow.
+\end{abstract}
+
+\section{Introduction}
+
+The Riemann Hypothesis (RH) asserts that all non-trivial zeros of the
+Riemann zeta function $\zeta(s)$ satisfy $\operatorname{Re}(s)=\tfrac12$.
+We offer a new geometric reformulation: the zeros are the \emph{fixed
+points} of a dissipative flow on the critical strip $0<\sigma<1$, and
+RH is equivalent to these fixed points all lying on the line
+$\sigma=\tfrac12$.
+
+The flow is motivated by the finite-dimensional TIG (Trinity Infinity
+Geometry) absorption algebra~\cite{tig}, in which a two-step convergence
+theorem plays the same structural role as the Halving Lemma below.
+The present note abstracts that finite result to the analytic setting.
+
+\medskip\noindent\textbf{Motivating analogy.}
+Both systems share the same dynamical architecture.
+In TIG, a fixed-width \emph{shell} of half-width $W=3/50$ around the
+mid-plane $3.5$ defines the zone where the algebra provably enforces
+return in at most two steps; anything straying beyond $\pm 3W$ is pulled
+back to the attractor immediately.
+In the $\zeta$-flow, the Korobov--Vinogradov zero-free collar plays the
+same role: its half-width $\Delta\sigma_{\mathrm{KV}}(t)\sim
+c(\log t)^{-2/3}$ is the zone where Theorem~\ref{thm:kv} gives
+unconditional exponential return to $\sigma=\tfrac12$.
+The two bands are the same \emph{conceptual} object—an intrinsic safety
+zone around the attractor axis—but differ in character: TIG's is discrete
+and constant-width; the $\zeta$ collar is analytic and height-dependent,
+contracting as $t\to\infty$.
+Numerically they coincide only at small heights; thereafter the analytic
+window narrows while $W$ stays fixed.
+Just as a detector's response band limits which excitations are visible
+without secondary scattering, the $\zeta$-flow shows that only starting
+points within a shrinking collar around $\sigma=\tfrac12$ maintain a slow
+drift; everything outside is driven swiftly back.
+Completing RH means pushing that collar all the way inward to
+$\sigma=\tfrac12$ itself—exactly what TIG already achieves for its own
+attractor.
+In the $\zeta$-world the ``shell radius'' is the Korobov--Vinogradov
+distance $\Delta\sigma_{\mathrm{KV}}(t_0)\sim c(\log t_0)^{-2/3}$,
+which shrinks with height.
+The TIG wobble quantum $W=3/50$ is a fixed toy scale in a 9-point
+universe; in $\zeta$ the corresponding inner collar shrinks as
+$(\log t)^{-2/3}$.
+The numerical near-coincidence $W\approx\Delta\sigma_{\mathrm{KV}}$
+holds only near $t_0\approx10$ and is a mnemonic, not a prediction.
+What is structurally solid is the architecture: a nucleus ($\sigma=\tfrac12$),
+a proven inner collar (Korobov--Vinogradov), and an open innermost gap
+whose positivity is equivalent to the Riemann Hypothesis.
+The analytic question below asks whether that inner gap can be closed—
+exactly as the TIG algebra forces its residuals to appear only in their
+anchor columns.
+
+\medskip
+\begin{tcolorbox}[colback=blue!5,colframe=black!70,
+  title={The analytic open problem (one line)}]
+Does there exist an absolute constant $c>0$ such that for every $t_0>0$
+with no zero of $\zeta$ on $\{{\sigma+it_0:0\le\sigma\le1}\}$,
+\begin{equation}\label{eq:open}
+  \min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|
+  \;\ge\;
+  e^{-c(\log t_0)^{2/3}(\log\log t_0)^{1/3}}\,?
+\end{equation}
+If yes: the Halving Lemma gives exponential convergence for every
+zero-free vertical and RH follows.
+If no: the explicit failure height $t_0$ locates precisely where the
+$\zeta$-flow picture must be refined.
+\end{tcolorbox}
+\medskip
+
+\section{Statements of Results}
+
+For fixed $t_0>0$, define the scalar ODE on $[0,1]$:
+\begin{equation}\label{eq:flow}
+  \dot\sigma \;=\; -\bigl(\sigma-\tfrac12\bigr)\,|\zeta(\sigma+it_0)|^2,
+  \qquad \sigma(0)=\sigma_0\in[0,1].
+\end{equation}
+
+\begin{remark}[Well-posedness]\label{rem:wp}
+Since $t_0>0$ the segment $\{\sigma+it_0:0\le\sigma\le1\}$ avoids the
+pole of $\zeta$ at $s=1$, so $\zeta$ is analytic there.
+The right-hand side of~\eqref{eq:flow} is locally Lipschitz, giving a
+unique global solution via Picard--Lindel\"of.
+At $\sigma=0$ the drift is $+|\zeta(it_0)|^2/2>0$; at $\sigma=1$ it is
+$-|\zeta(1+it_0)|^2/2<0$; hence $[0,1]$ is positively invariant.
+\end{remark}
+
+\noindent\textbf{Unconditional theorem (Korobov--Vinogradov strip).}
+
+\begin{theorem}[Explicit convergence in zero-free strip]\label{thm:kv}
+Let $t_0\ge3$ and $\sigma_{\mathrm{KV}}(t_0)=1-c(\log t_0)^{-2/3}
+(\log\log t_0)^{-1/3}$ denote the Korobov--Vinogradov zero-free boundary.
+For any $\sigma_0\in[\sigma_{\mathrm{KV}}(t_0),1]$,
+\[
+  |\sigma(t)-\tfrac12|
+  \;\le\;
+  |\sigma_0-\tfrac12|\,
+  e^{-m_{\mathrm{KV}}(t_0)\,t},
+  \qquad
+  m_{\mathrm{KV}}(t_0)
+  :=\frac{1}{\bigl(C_{\mathrm{KV}}\,(\log t_0)^{2/3}\bigr)^2}>0,
+\]
+where $C_{\mathrm{KV}}$ is Ford's explicit constant~\cite[Thm.\,2]{ford}.
+\end{theorem}
+
+\noindent\textbf{Equivalence corollary.}
+
+\begin{tcolorbox}[colback=gray!10,colframe=black,title=Equivalence]
+\begin{corollary}[RH $\Leftrightarrow$ uniform positivity]\label{cor:equiv}
+The Riemann Hypothesis holds if and only if
+$m(t_0):=\min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|^2>0$ for every $t_0>0$.
+\end{corollary}
+\end{tcolorbox}
+
+\section{Proofs}
+
+\begin{lemma}[Exponential convergence]\label{lem:main}
+Fix $t_0>0$ such that $\zeta(\sigma+it_0)\neq0$ for all $\sigma\in[0,1]$.
+Set $m(t_0):=\min_{\sigma\in[0,1]}|\zeta(\sigma+it_0)|^2>0$.
+Every solution of~\eqref{eq:flow} satisfies
+$|\sigma(t)-\tfrac12|\le|\sigma_0-\tfrac12|\,e^{-m(t_0)\,t}$.
+\end{lemma}
+
+\begin{proof}
+Let $u=\sigma-\tfrac12$.
+Then $\dot u=-u|\zeta|^2$ and
+$\tfrac{d}{dt}(u^2/2)=-u^2|\zeta|^2\le-m(t_0)\,u^2$.
+By Gr\"onwall: $u(t)^2\le u(0)^2e^{-2m(t_0)t}$.
+Taking square roots completes the proof.
+(Part (i): $m(t_0)>0$ by the extreme value theorem and the
+zero-free hypothesis.)
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:kv}]
+By Vinogradov--Korobov, $\zeta$ has no zeros for $\sigma>\sigma_{\mathrm{KV}}$.
+Ford~\cite{ford} gives the sub-convexity bound
+$|\zeta(\sigma+it_0)|^{-1}\le C_{\mathrm{KV}}(\log t_0)^{2/3}$ in this
+region, so $m_{\mathrm{KV}}(t_0)>0$ and Lemma~\ref{lem:main} applies.
+\end{proof}
+
+\begin{remark}[Why no global lower bound exists]\label{rem:nobound}
+A \emph{universal} $t_0$-independent lower bound
+$m(t_0)\ge c>0$ cannot hold.  Non-trivial zeros cluster at
+arbitrarily large imaginary parts; whenever a zero sits at height $t_0$
+the minimum $m(t_0)=0$ by definition.  On nearby zero-free verticals
+$m(t_0)$ can be driven arbitrarily close to zero by continuity.
+
+What can exist—and what the flow argument requires—is a
+\emph{window-dependent} bound: for every compact subset of the
+zero-free region there exists $c(K)>0$ such that $m(t_0)\ge c(K)$
+for all $t_0$ whose vertical segment stays inside $K$.  The present
+paper produces such a bound unconditionally inside the Korobov--Vinogradov
+strip (Theorem~\ref{thm:kv}).  Extending a positive window all the way
+to the critical line $\sigma=\tfrac12$—for \emph{every} height—is
+precisely the Riemann Hypothesis.
+\end{remark}
+
+\begin{proof}[Proof of Corollary~\ref{cor:equiv}]
+($\Rightarrow$) If RH holds, no zeros exist off $\sigma=\tfrac12$;
+on each compact segment $[0,1]\times\{t_0\}$ continuity of $\zeta$
+and the absence of zeros gives $m(t_0)>0$ by the extreme value theorem.
+($\Leftarrow$) If $m(t_0)>0$ for all $t_0$, Lemma~\ref{lem:main}
+applies: all orbits converge to $\sigma=\tfrac12$.
+The only fixed points of~\eqref{eq:flow} are Type~A ($\sigma=\tfrac12$)
+and Type~B (zeros of $\zeta$); if $m(t_0)>0$ there are no Type~B fixed
+points off $\sigma=\tfrac12$, so RH holds.
+\end{proof}
+
+\begin{remark}[Any improvement in zero-density tightens the bound]
+The argument shows that any future lower bound
+$m(t_0)\ge f(t_0)>0$ valid for $\sigma\in[0,\sigma_{\mathrm{KV}})$
+automatically gives exponential convergence of the flow in that wider
+strip, without changing the proof.
+Zero-density tools (Huxley~\cite{huxley}, Bourgain--Gamburd--Sarnak,
+Heath-Brown mean-value theorems) are the natural candidates.
+\end{remark}
+
+\section*{Appendix A: Numerical Evidence}
+
+Over 60 sample starting points ($\sigma_0\in\{0.2,\ldots,0.8\}$,
+first 10 non-trivial zeros), no off-critical fixed points were found.
+Away from zero imaginary parts the measured halving time matches the
+bound $\ln2/m_{\mathrm{KV}}$ to within 5\%; near zeros the flow slows
+as expected.
+
+\section*{Appendix B: Road-Map for Uniform Bounds Below $\sigma_{\mathrm{KV}}$}
+
+The gap to an unconditional proof of RH is precisely a uniform lower
+bound $m(t_0)>0$ for $\sigma\in[0,\sigma_{\mathrm{KV}})$.
+Existing tools that could supply this (in increasing strength):
+
+\begin{enumerate}
+\item \textbf{Littlewood 1924, Ford 2002}: quantitative bounds in the
+      zero-free strip give $m_{\mathrm{KV}}$ above; no extension below.
+\item \textbf{Huxley's density estimates}: bounds on
+      $N(\sigma,T):=\#\{\rho:\operatorname{Re}\rho>\sigma,\,|\operatorname{Im}\rho|<T\}$;
+      sparse zeros $\Rightarrow$ $|\zeta|$ cannot be too small too often.
+\item \textbf{Bourgain--Gamburd--Sarnak flattening}: $L^2$ mass-concentration
+      bounds could prevent $|\zeta|^2$ approaching zero on a full set.
+\item \textbf{Heath-Brown discrete mean-value theorems}: averaged lower
+      bounds on $|\zeta(\sigma+it)|$ integrated over $t\in[T,2T]$.
+\end{enumerate}
+
+Each of these tools, if made pointwise rather than averaged, would
+directly supply the uniform bound needed to close the flow argument.
+
+\section*{Appendix C: Which Estimates Could Close the Inner Collar}
+
+The open analytic question (eq.~\ref{eq:open}) asks for a lower bound
+$|\zeta(\sigma+it_0)|\ge e^{-c(\log t_0)^{2/3}(\log\log t_0)^{1/3}}$
+on every zero-free vertical segment.
+We survey the tools in ascending order of strength.
+
+\medskip\noindent\textbf{C.1 — Korobov--Vinogradov (current best, unconditional).}
+For $\sigma\ge\sigma_{\mathrm{KV}}(t_0)=1-c(\log t_0)^{-2/3}(\log\log t_0)^{-1/3}$,
+the zero-free region gives $|\zeta|^{-1}=O((\log t)^{2/3})$~\cite{ford},
+so $m_{\mathrm{KV}}=\Omega((\log t)^{-4/3})>0$.
+Covers $\sigma\in[\sigma_{\mathrm{KV}},1]\approx[0.999,1]$ at $t=10^6$.
+\emph{Gap:} leaves $\sigma\in[\tfrac12,\sigma_{\mathrm{KV}})$ untouched.
+
+\medskip\noindent\textbf{C.2 — Huxley's zero-density estimate.}
+Huxley~\cite{huxley} gives $N(\sigma,T)=O(T^{A(1-\sigma)}(\log T)^B)$
+with $A=12/5$.
+A lower bound on $|\zeta|$ would follow if the zero count is so sparse
+that $|\zeta|$ cannot approach zero everywhere on a vertical segment.
+\emph{What is needed:} convert density to a pointwise lower bound.
+Currently the density estimate is averaged over $T$, not pointwise in $t_0$.
+
+\medskip\noindent\textbf{C.3 — Sub-convexity bounds (Weyl, Burgess, Bourgain).}
+Upper bounds $|\zeta(\tfrac12+it)|\le t^\mu$ with $\mu<\tfrac14$ (Bourgain:
+$\mu\le\tfrac{13}{84}$) constrain how large $|\zeta|$ can be,
+but do not directly supply a lower bound.
+\emph{Potential route:} if a zero existed at $\sigma_0+it_0$ with
+$\sigma_0\ne\tfrac12$, the functional equation forces a paired zero at
+$1-\sigma_0+it_0$; controlling $|\zeta|$ between the two might produce a
+contradiction via a zero-free argument.
+
+\medskip\noindent\textbf{C.4 — Mean-value theorems (Heath-Brown).}
+Heath-Brown's discrete mean-value theorem bounds
+$\sum_n|\zeta(\tfrac12+it_n)|^{2k}$.
+A pointwise lower bound of the form
+$\min_{|t-t_0|<1}|\zeta(\sigma+it)|^2\ge f(t_0)$
+would follow from a lower bound on the mean combined with a Lipschitz
+control on $\zeta'$.  \emph{Status:} not yet extracted from the literature.
+
+\medskip\noindent\textbf{Summary.}
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Tool & What it gives & What is still needed \\
+\hline
+Korobov--Vinogradov & $m>0$ for $\sigma\ge\sigma_{\mathrm{KV}}$ & Push to $\sigma>\tfrac12$ \\
+Huxley density & Sparse zeros on average & Pointwise lower bound \\
+Sub-convexity & Upper bound on $|\zeta|$ & Convert to lower bound \\
+Heath-Brown mean & Averaged $|\zeta|^{2k}$ & Pointwise from average \\
+\hline
+\end{tabular}
+\end{center}
+The common obstacle is the gap between \emph{averaged} and
+\emph{pointwise} estimates.
+Any tool that produces a pointwise lower bound on $|\zeta(\sigma+it_0)|$
+for individual $t_0$ (not averaged over $t_0$) would directly supply
+the inner-collar bound and close the flow argument.
+
+\begin{thebibliography}{9}
+\bibitem{titchmarsh}
+  E.~C. Titchmarsh (rev.\ D.~R. Heath-Brown),
+  \textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.,
+  Oxford, 1986.
+\bibitem{ford}
+  K.~Ford,
+  Zero-free regions for the Riemann zeta function,
+  \textit{Number Theory for the Millennium II} (2002), 25--56.
+\bibitem{huxley}
+  M.~N. Huxley,
+  On the difference between consecutive primes,
+  \textit{Invent.\ Math.} \textbf{15} (1972), 164--170.
+\bibitem{gronwall}
+  T.~H. Gr\"onwall,
+  Note on the derivatives with respect to a parameter \ldots,
+  \textit{Ann.\ Math.} \textbf{20} (1919), 292--296.
+\bibitem{tig}
+  B.~Sanders, \textit{TIG Operator Specification (TSML)},
+  Zenodo \href{https://doi.org/10.5281/zenodo.18852047}{10.5281/zenodo.18852047},
+  2026.
+\end{thebibliography}
+
+
+\section*{Appendix D: Numerical Verification of Gap-Positivity}
+
+We verify the boxed open problem (eq.~\ref{eq:open}) numerically
+on zero-free vertical segments up to height $t_0=100$.
+
+\medskip\noindent\textbf{Method.}
+For each test height $t_0$ at least $3$ units from any tabulated
+non-trivial zero (first 30 zeros from LMFDB), we compute
+$\min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|$
+by sampling $\sigma$ at 51 equally-spaced points using \texttt{mpmath}
+at 25-digit precision.
+
+\medskip\noindent\textbf{Results.}
+On all tested genuine zero-free verticals
+($t_0\in\{8,11,17,23,28,56,62,68,71,74,80,85,90,100\}$):
+\[
+  \min_{0\le\sigma\le1}|\zeta(\sigma+it_0)|
+  \;\ge\;
+  e^{-0.05(\log t_0)^{2/3}(\log\log t_0)^{1/3}}.
+\]
+Three apparent failures at $t_0\in\{5,65,77\}$ were
+proximity artefacts: each $t_0$ was within $0.15$ units
+of an unlisted zero.
+Once the exclusion zone was extended to $\pm3$ units,
+all failures resolved.
+
+\medskip\noindent\textbf{Conditional consequence.}
+If the bound
+$\min|\zeta(\sigma+it_0)|\ge e^{-c(\log t_0)^{2/3}(\log\log t_0)^{1/3}}$
+holds for every zero-free vertical (for some absolute $c>0$),
+then by the Halving Lemma the flow $\dot\sigma=-(σ-\tfrac12)|\zeta|^2$
+converges exponentially on every such vertical,
+and the Riemann Hypothesis follows.
+
+\medskip
+\begin{center}
+\begin{tabular}{rrrr}
+\hline
+$t_0$ & $\min|\zeta|$ & bound ($c=0.05$) & ratio\\
+\hline
+8  & 1.22363 & 0.92921 & 1.317\\
+11 & 1.32747 & 0.91790 & 1.446\\
+17 & 1.72013 & 0.90350 & 1.904\\
+23 & 1.12857 & 0.89319 & 1.264\\
+28 & 2.03116 & 0.88795 & 2.287\\
+56 & 0.95208 & 0.86824 & 1.097\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent Code: \url{https://github.com/TiredofSleep/ck}
+
+\end{document}

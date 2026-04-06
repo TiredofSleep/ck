@@ -1,0 +1,124 @@
+{
+  "description": "Conjugacy from Z/2xZ/5 operator to rotation+identity",
+  "projection": "x = 5*epsilon + 6*y (mod 10)",
+  "bijection": {
+    "0": {
+      "epsilon": 0,
+      "y": 0
+    },
+    "6": {
+      "epsilon": 0,
+      "y": 1
+    },
+    "2": {
+      "epsilon": 0,
+      "y": 2
+    },
+    "8": {
+      "epsilon": 0,
+      "y": 3
+    },
+    "4": {
+      "epsilon": 0,
+      "y": 4
+    },
+    "5": {
+      "epsilon": 1,
+      "y": 0
+    },
+    "1": {
+      "epsilon": 1,
+      "y": 1
+    },
+    "7": {
+      "epsilon": 1,
+      "y": 2
+    },
+    "3": {
+      "epsilon": 1,
+      "y": 3
+    },
+    "9": {
+      "epsilon": 1,
+      "y": 4
+    }
+  },
+  "cycle_coordinate": {
+    "description": "k: cycle index in Z/6",
+    "map": [
+      {
+        "k": 0,
+        "epsilon": 1,
+        "y": 1,
+        "x": 1
+      },
+      {
+        "k": 1,
+        "epsilon": 1,
+        "y": 2,
+        "x": 7
+      },
+      {
+        "k": 2,
+        "epsilon": 0,
+        "y": 1,
+        "x": 6
+      },
+      {
+        "k": 3,
+        "epsilon": 1,
+        "y": 0,
+        "x": 5
+      },
+      {
+        "k": 4,
+        "epsilon": 0,
+        "y": 4,
+        "x": 4
+      },
+      {
+        "k": 5,
+        "epsilon": 0,
+        "y": 2,
+        "x": 2
+      }
+    ]
+  },
+  "anchor_coordinate": {
+    "description": "4 fixed-point states",
+    "states": [
+      {
+        "epsilon": 0,
+        "y": 0,
+        "x": 0
+      },
+      {
+        "epsilon": 1,
+        "y": 3,
+        "x": 3
+      },
+      {
+        "epsilon": 0,
+        "y": 3,
+        "x": 8
+      },
+      {
+        "epsilon": 1,
+        "y": 4,
+        "x": 9
+      }
+    ]
+  },
+  "simple_operator": {
+    "on_cycle": "k -> k+1 (mod 6)",
+    "on_anchors": "identity"
+  },
+  "propagation_rate": {
+    "v_coh": 1,
+    "description": "Unit-rate coherence traversal"
+  },
+  "wobble": {
+    "W_BHML": "3/50",
+    "derivation": "cycle_occupancy(6/10) / ring_size(10) = 3/50"
+  }
+}

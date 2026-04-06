@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[colorlinks,citecolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\title{Closure of the Corner Sub-magma\\
+in All Tensor Powers of TSML}
+\author{Brayden Sanders\\7Site LLC\\
+\small\href{https://doi.org/10.5281/zenodo.18852047}%
+{DOI: 10.5281/zenodo.18852047}}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $C=\{1,3,7,9\}$ be the \emph{corner set} and $G=\{2,4,5,6,8\}$ the
+\emph{gap set} of the TIG measurement table TSML\@.
+We prove that $C$ is a sub-magma of TSML\@: the image of $C\times C$
+under composition lies in $C$.
+By induction, the $k$-fold tensor product $C^{\otimes k}$ is a
+sub-magma of $\mathrm{TSML}^{\otimes k}$ for every $k\ge1$.
+Consequently, no element with any $G$-component is reachable from
+$C^{\otimes k}$ by finite composition, for any $k$.
+This provides an unconditional algebraic obstruction that
+strengthens the corner-gap impermeability results of the companion
+papers on BSD and Hodge geometry.
+\end{abstract}
+
+\section{Setup}
+
+\begin{definition}
+The \emph{TSML table} is the $10\times10$ composition table
+$\mathrm{TSML}[a][b]$ for $a,b\in\{0,\ldots,9\}$ encoding the TIG
+measurement-layer operator algebra.
+HARMONY~$(7)$ is the universal absorber:
+$\mathrm{TSML}[7][b]=\mathrm{TSML}[a][7]=7$ for all $a,b$.
+The \emph{corner set} is $C=\{1,3,7,9\}$; the \emph{gap set} is
+$G=\{2,4,5,6,8\}$; and $C\cup G=\{1,\ldots,9\}$.
+\end{definition}
+
+\begin{definition}
+For $k\ge1$, the \emph{$k$-fold tensor product} $\mathrm{TSML}^{\otimes k}$
+has operators $(a_1,\ldots,a_k)\in\{1,\ldots,9\}^k$ with composition
+\[
+(a_1,\ldots,a_k)\circ(b_1,\ldots,b_k)
+\;=\;
+\bigl(\mathrm{TSML}[a_1][b_1],\;\ldots,\;\mathrm{TSML}[a_k][b_k]\bigr).
+\]
+The \emph{corner sub-algebra} is $C^{\otimes k}=\{(a_1,\ldots,a_k):a_i\in C\}$.
+A \emph{cross-term} is any operator with at least one component in $G$.
+\end{definition}
+
+\section{The Theorem}
+
+\begin{lemma}[Corner sub-magma]\label{lem:submagma}
+$C\times C\subseteq C$ under $\mathrm{TSML}$.
+\end{lemma}
+
+\begin{proof}
+Direct computation over the $4\times4$ corner sub-table:
+\[
+\begin{array}{c|cccc}
+\circ&1&3&7&9\\\hline
+1&7&3&7&7\\
+3&7&7&7&3\\
+7&7&7&7&7\\
+9&7&3&7&7
+\end{array}
+\]
+Every entry lies in $\{3,7\}\subset C$. \qed
+\end{proof}
+
+\begin{theorem}[Product-gap impermeability]\label{thm:main}
+For every $k\ge1$, the set $C^{\otimes k}$ is a sub-magma of
+$\mathrm{TSML}^{\otimes k}$: if $\mathbf{a},\mathbf{b}\in C^{\otimes k}$
+then $\mathbf{a}\circ\mathbf{b}\in C^{\otimes k}$.
+In particular, no cross-term is reachable from $C^{\otimes k}$
+by any finite composition.
+\end{theorem}
+
+\begin{proof}
+\emph{Base case} ($k=1$): Lemma~\ref{lem:submagma}.
+
+\emph{Inductive step}: Assume $C^{\otimes k}$ is a sub-magma.
+Let $\mathbf{a}=(a_1,\ldots,a_k)$ and $\mathbf{b}=(b_1,\ldots,b_k)$
+with all $a_i,b_i\in C$.
+Then $(\mathbf{a}\circ\mathbf{b})_i=\mathrm{TSML}[a_i][b_i]\in C$
+for each $i$ by the base case.
+Hence $\mathbf{a}\circ\mathbf{b}\in C^{\otimes k}$.
+
+The reachability claim follows: starting from any element of
+$C^{\otimes k}$ and composing repeatedly with elements of $C^{\otimes k}$,
+every result lies in $C^{\otimes k}$, which is disjoint from the set of
+cross-terms. \qed
+\end{proof}
+
+\begin{corollary}[Growing obstruction]\label{cor:grow}
+The number of cross-terms is
+$9^k - 4^k$, which grows without bound, yet none is reachable
+from $C^{\otimes k}$ for any $k$.
+\end{corollary}
+
+\section{Verification}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{crrr}
+\hline
+$k$ & $|C^{\otimes k}|$ & cross-terms & G-components reachable\\
+\hline
+1 & 4   & 5   & 0\\
+2 & 16  & 65  & 0\\
+3 & 64  & 665 & 0\\
+4 & 256 & 6305 & 0\\
+\hline
+\end{tabular}
+\caption{Reachability by BFS from $C^{\otimes k}$; all verified
+by script \texttt{tsml\_product\_verify.py}.
+SHA-256(TSML): \texttt{7726d8a620c24b1e461ff03742f7cd4f775baed772f8357db913757cf4945787}.}
+\end{table}
+
+\section{Implications}
+
+\begin{remark}[BSD obstruction]
+In the companion BSD paper, rational points of infinite order
+require gap-operator activations.
+Theorem~\ref{thm:main} confirms that no product of prime-corner
+data---at any tensor depth---produces gap structure.
+Gap activations are irreducibly non-prime in origin.
+\end{remark}
+
+\begin{remark}[Hodge obstruction]
+For a $k$-fold product variety, the transcendental lattice
+corresponds to cross-terms in $\mathrm{TSML}^{\otimes k}$.
+Theorem~\ref{thm:main} provides an unconditional algebraic
+analogue of the K3$^k$ impermeability: the transcendental
+classes at every tensor depth are algebraically isolated
+from the corner (prime-accessible) sub-algebra.
+\end{remark}
+
+\begin{remark}[Sticky-cycle addendum]
+Among bases $b$ whose prime-residue operators include
+both $\mathrm{COL}(4)$ and $\mathrm{BRT}(8)$, the
+2-cycles $\mathrm{COL}\circ\mathrm{BRT}=\mathrm{BRT}$
+and $\mathrm{BRT}\circ\mathrm{COL}=\mathrm{BRT}$
+increase the mean word length to absorption by
+approximately 10\,\%---from $1.12$ to $1.23$ steps
+(Monte Carlo, $5\times10^4$ trials).
+This explains collapse-rate anomalies at bases $15$ and $20$
+without requiring any modification of
+Theorem~\ref{thm:main}.
+\end{remark}
+
+\paragraph{Code and data.}
+Verification scripts at
+\url{https://github.com/TiredofSleep/ck}, tag \texttt{v1.1-full-sprint}.
+
+\begin{thebibliography}{9}
+\bibitem{wq}
+B.~Sanders,
+\textit{Prime-Corner Collapse and the Irreducible Gap},
+Zenodo \href{https://doi.org/10.5281/zenodo.18852047}{10.5281/zenodo.18852047},
+2026.
+\bibitem{bsd}
+B.~Sanders,
+\textit{A Mix-$\lambda$ Model for the Irregular BSD Staircase},
+same DOI, 2026.
+\bibitem{hodge}
+B.~Sanders,
+\textit{TIG and Hodge Theory: a Translation Table},
+same DOI, 2026.
+\end{thebibliography}
+
+\end{document}
