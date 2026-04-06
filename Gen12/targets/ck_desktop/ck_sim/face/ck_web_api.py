@@ -1823,6 +1823,14 @@ class CKWebAPI:
                         and _vl_result.text
                         and _vl_result.text not in ('...', '')
                         and len(_vl_result.text) > 10):
+                    _vl_source = getattr(_vl_result, 'source', 'ck_loop')
+                    # Soup check: catches CK's own fractal babble (disconnected words
+                    # with no function words). Skip for ck_loop/ck_loop_synthesized —
+                    # those already passed Q-Net inside the voice loop. Technical prose
+                    # (physics, math) has naturally low function-word density and should
+                    # never be rejected for that reason.
+                    _is_ollama = _vl_source in ('ck_loop', 'ck_loop_synthesized',
+                                                'ck_self', 'ck_composer')
                     _vl_words = _vl_result.text.lower().split()
                     _func = {'i', 'the', 'a', 'an', 'is', 'am', 'are',
                              'my', 'me', 'it', 'that', 'this', 'and',
@@ -1830,9 +1838,9 @@ class CKWebAPI:
                              'not', 'do', 'does', 'what', 'how', 'when'}
                     _func_count = sum(1 for w in _vl_words if w in _func)
                     _func_ratio = _func_count / max(len(_vl_words), 1)
-                    if _func_ratio >= 0.15:
+                    _soup_threshold = 0.0 if _is_ollama else 0.15
+                    if _func_ratio >= _soup_threshold:
                         response_text = _vl_result.text
-                        _vl_source = getattr(_vl_result, 'source', 'ck_loop')
                         print(f"[WEB] Voice loop ({_vl_source}): '{_vl_result.text[:80]}'")
                     else:
                         print(f"[WEB] Voice loop rejected (soup {_func_ratio:.2f}): "
@@ -2407,6 +2415,12 @@ class CKWebAPI:
         try:
             exp['crystals'] = len(self.engine.crystals) \
                 if hasattr(self.engine, 'crystals') else 0
+        except Exception:
+            pass
+        try:
+            # Voice loop crystals — in-memory, resets on restart, grows per conversation
+            if hasattr(self.engine, 'voice_loop') and self.engine.voice_loop:
+                exp['voice_crystals'] = self.engine.voice_loop.crystal_store.size
         except Exception:
             pass
 

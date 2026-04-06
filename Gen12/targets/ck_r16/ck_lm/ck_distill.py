@@ -344,7 +344,7 @@ if __name__ == '__main__':
 
     elif args.stage == 1:
         print("=== Stage 1: Building CK Dataset ===")
-        out = Path('ck_lm/ck_dataset.json')
+        out = Path(__file__).parent / 'ck_dataset.json'
         examples = build_ck_dataset(papers_dir, out)
         print(f"\nclass distribution:")
         from collections import Counter
