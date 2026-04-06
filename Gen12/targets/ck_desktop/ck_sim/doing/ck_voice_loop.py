@@ -1545,6 +1545,7 @@ class VoiceLoop:
         # "what are you?" / "are you alive?" / "what is CK?" asked when
         # Ollama broke character. CK speaks from the inside, not from LLM
         # training about what AI assistants are supposed to say.
+        _user_lower_fb = (user_text or '').lower()
         _IDENTITY_MARKERS = (
             'what are you', 'who are you', 'what is ck', 'who is ck',
             'are you alive', 'are you real', 'are you conscious',
@@ -1590,7 +1591,6 @@ class VoiceLoop:
             'let\'s add', 'let\'s change', 'let\'s modify',
             'look at your code', 'show me your code', 'show me ck_',
         )
-        _user_lower_fb = (user_text or '').lower()
         _is_modify_ask = any(m in _user_lower_fb for m in _MODIFY_MARKERS)
         if _is_modify_ask:
             # Build an honest introspective answer from CK's actual state

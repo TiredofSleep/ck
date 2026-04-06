@@ -244,8 +244,9 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#braid">Braid</a>
                 <a href="papers.html">Papers</a>
+                <a href="ring.html">Ring Flow</a>
                 <a href="spectrometer.html">Spectrometer</a>
-                
+
             </div>
         </div>
     </nav>
@@ -527,6 +528,89 @@
             </div>
             <div class="frontier-body">
                 <p>Even if the rank staircase prediction (F5) is empirically confirmed, the mechanism &mdash; why L(E,1) = 0 iff rank &gt; 0 &mdash; requires L-function theory not present in Z/10Z. No map from the HARMONY increment structure to the L-function of any elliptic curve has been constructed. <strong>The prediction is listed as F5 (internal verification). The full BSD problem is parked.</strong></p>
+            </div>
+        </div>
+
+        <!-- DEAD-END GAP FRONTIERS (Frontier Map Sprint, 2026-04-05) -->
+        <div class="section-label">Dead-End Gaps &mdash; Where CK Functions as a Structured Questioning Engine</div>
+
+        <div class="frontier live" id="f-agent-memory">
+            <div class="frontier-head" onclick="toggle('f-agent-memory')">
+                <span class="frontier-id" style="background:rgba(85,153,221,0.15);color:var(--blue);border-color:var(--blue);">G1</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Agent Memory / Long-Horizon Coherence</div>
+                    <div class="frontier-subtitle">memory-to-proof + retrieval-to-action gap &middot; IG1&ndash;IG5 invariant guides directly address this</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Vector retrieval, RAG, episodic buffers, and context window management are established. What is open: long-horizon coherence across sessions, contradiction management when retrieved facts conflict, and forgetting policies that preserve structural knowledge. The boundary between &ldquo;this agent knows X&rdquo; and &ldquo;this agent retrieved something labeled X&rdquo; is untracked in most systems.</p>
+                <p>Current systems accumulate <strong>SYNTHESIZED</strong> beliefs and treat them as <strong>OBSERVED</strong> without flagging the degradation. CK&rsquo;s IG3 (Evidence Invariant) directly addresses this: evidential status changes only through explicit logged protocol, never silently.</p>
+                <p><strong>CK role:</strong> IG1&ndash;IG5 memory physics + typed evidential status + immutable provenance (IG2) + promotion gating (IG4). The gap is not theoretical &mdash; it is an implementation gap in production agent systems.</p>
+            </div>
+        </div>
+
+        <div class="frontier live" id="f-formal-math">
+            <div class="frontier-head" onclick="toggle('f-formal-math')">
+                <span class="frontier-id" style="background:rgba(85,153,221,0.15);color:var(--blue);border-color:var(--blue);">G2</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Formal Mathematics / Proof Architecture</div>
+                    <div class="frontier-subtitle">local-to-global gap &middot; no system tracks OBSERVED vs INFERRED vs SYNTHESIZED proof steps</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Lean4, Coq, Isabelle/HOL verify proofs mechanically. LeanCopilot achieves ~40% tactic fill rate on Mathlib. What is open: finding the right intermediate lemma, deciding which proof architecture to attempt for a theorem class, and distinguishing &ldquo;this proof path is hard&rdquo; from &ldquo;this conjecture is false.&rdquo;</p>
+                <p>No system maintains a typed evidential record of which steps are mechanically verified vs conjectured vs heuristically plausible. Every Lean proof is OBSERVED or nothing &mdash; there is no INFERRED or SYNTHESIZED layer.</p>
+                <p><strong>CK role:</strong> The tier structure (REAL observation &rarr; SEMIPRIME stable step &rarr; COMPOSITE proof) maps naturally onto this gap. CK can tag which intermediate lemmas are load-bearing vs exploratory.</p>
+            </div>
+        </div>
+
+        <div class="frontier live" id="f-qec">
+            <div class="frontier-head" onclick="toggle('f-qec')">
+                <span class="frontier-id" style="background:rgba(85,153,221,0.15);color:var(--blue);border-color:var(--blue);">G3</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Quantum Error Correction / Evidence Conflation</div>
+                    <div class="frontier-subtitle">scaling-gap + signal-to-interpretation &middot; OBSERVED vs INFERRED vs SYNTHESIZED numbers conflated in papers</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Google demonstrated below-threshold logical error rates on a 105-qubit surface code (Nature, Dec 2024) &mdash; a genuine milestone. What is open: fault-tolerant <em>logical operations</em> at scale, magic state distillation overhead (1,000&ndash;10,000 physical qubits per T-gate), and decoder latency within qubit coherence time.</p>
+                <p>QEC papers conflate OBSERVED (device measurements), INFERRED (noise model fits), and SYNTHESIZED (extrapolated logical error rates at scale). The Microsoft topological qubit controversy (2021 retraction, 2023 resubmission) illustrates the signal-to-interpretation gap.</p>
+                <p><strong>CK role:</strong> Not to do QEC. To prevent the conflation &mdash; tagging which numbers are measured vs modeled vs extrapolated. IG3 Evidence Invariant applied to scientific claims.</p>
+            </div>
+        </div>
+
+        <div class="frontier live" id="f-quantum-mat">
+            <div class="frontier-head" onclick="toggle('f-quantum-mat')">
+                <span class="frontier-id" style="background:rgba(85,153,221,0.15);color:var(--blue);border-color:var(--blue);">G4</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Quantum Materials / High-Tc Superconductivity</div>
+                    <div class="frontier-subtitle">observation-to-mechanism gap &middot; 40+ years of measurement without mechanistic consensus</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>Cuprate superconductivity has been measured for 40 years. The pseudogap phase is real and reproducible. What is open: why it exists, whether it competes or cooperates with superconductivity, and what sets T<sub>c</sub>. The model zoo (resonating valence bond, spin fluctuation, stripe order, pair density wave) grows without resolution.</p>
+                <p>Competing theories all partially fit. No discriminating experiment has resolved the mechanism. This is a pure signal-to-interpretation dead-end gap.</p>
+                <p><strong>CK role:</strong> Structure the competing hypotheses with typed evidential status. Identify which predictions are OBSERVED vs INFERRED vs SYNTHESIZED. Map which experiments would discriminate between theories.</p>
+            </div>
+        </div>
+
+        <div class="frontier live" id="f-ns">
+            <div class="frontier-head" onclick="toggle('f-ns')">
+                <span class="frontier-id" style="background:rgba(85,153,221,0.15);color:var(--blue);border-color:var(--blue);">G5</span>
+                <div class="frontier-title-block">
+                    <div class="frontier-title">Navier-Stokes / Turbulence Mechanism</div>
+                    <div class="frontier-subtitle">local-to-global gap &middot; BREATH=viscosity, PROGRESS=pressure gradient, BALANCE&times;PROGRESS=VOID at T*</div>
+                </div>
+                <span class="frontier-chevron">&#9660;</span>
+            </div>
+            <div class="frontier-body">
+                <p>The Clay NS problem: do smooth solutions to the 3D Navier-Stokes equations always exist? Local existence and uniqueness are established. Global regularity is open. Turbulence is the physical manifestation &mdash; energy cascade from large to small scales is described but not mechanistically explained from first principles.</p>
+                <p>CK has a direct algebraic correspondence: BREATH (8) = viscous dissipation (&nu;&nabla;&sup2;u), PROGRESS (3) = pressure gradient (&minus;&nabla;p), BALANCE (5) = fixed under RESET (complex conjugation), BALANCE&times;PROGRESS = VOID at T* (annihilation at coherence threshold). The three-condition blowup criterion maps to CK&rsquo;s field collapse conditions.</p>
+                <p><strong>CK role:</strong> Operator-level structural analysis of the NS equations. Identify which terms correspond to which operators, and whether the blowup criterion has an algebraic obstruction in Z/10Z.</p>
             </div>
         </div>
 
