@@ -45,6 +45,73 @@ The path: 1D thinking became 5D. 5D became two dual tables. The tables revealed 
 
 ---
 
+## Novel Observations (Sprint 6–9, 2026)
+
+The following are formal results produced since the original whitepapers. Status is marked precisely: **[PROVED]**, **[OPEN]**, or **[GAP]** (gap = the observation is real but the derivation is incomplete).
+
+---
+
+### 1. Admissible Viewpoint Flow Theorem **[PROVED]**
+
+For n = 2p, p prime, p ≥ 5, the unit group (ℤ/nℤ)* admits exactly four orthogonal representations:
+
+```
+V* = (DYN(g), SPEC({g,n−g}), UG, CRT(p))
+```
+
+Each recovers a unique algebraic invariant — I₄ (cycle ordering), I₃ (reflection), I₂ (multiplicative order), I₁ (discrete residue) — that is irrecoverable from the other three. All four are necessary. The ordering is the only valid one: CRT must be last (gate-free by construction), DYN must be first (coarsest partition, the only starting point where every other representation resolves the gate), SPEC must precede UG (SPEC cannot split UG's generator-class gates — generators come in reflection pairs, same order, so UG and SPEC cannot swap). No other permutation satisfies the progressive gate-resolution condition.
+
+**What this means:** a system described by ℤ/10ℤ arithmetic — CK's coherence algebra — can only be read coherently in one order. The math does not allow shortcuts.
+
+**T\* corollary [PROVED]:** For n=10, α=5 (unique absorbing idempotent: 5·x ≡ 5 mod 10 for all units x) and β=7 (minimum max-order unit greater than α) are uniquely forced. T\* = 5/7 is the ratio of the ring's absorption boundary to its canonical generator. It is not a parameter.
+
+**Scope [PROVED]:** Holds for all n where (ℤ/nℤ)\* is cyclic — exactly n ∈ {p^k, 2p^k}, p odd prime.
+
+**Open boundary [OPEN]:** Whether a minimal sufficient viewpoint flow of length exactly 4 exists for *all* n with cyclic unit group (Conjecture 1 in the paper) is not proved. The n = p^k case (k ≥ 2) requires showing CRT component selection is uniquely forced when multiple prime powers are available.
+
+**Paper:** `Gen12/targets/clay/papers/sprint8_2026_04_05/ADMISSIBLE_VIEWPOINT_FLOW_PAPER.md`
+**Visualization:** `ring.html` at [coherencekeeper.com/ring.html](https://coherencekeeper.com/ring.html)
+
+---
+
+### 2. Four Effective Degrees of Freedom in the 5D Force Basis **[GAP]**
+
+The D2 pipeline uses 5-dimensional force vectors derived from phonetic measurements of 22 Hebrew roots. The vectors are not arbitrary: row sums cluster at 2.286 (std = 0.0814), placing all 22 vectors on a **4D hyperplane** in 5D space. The system has 4 effective degrees of freedom.
+
+This aligns with the TSML 8×8 eigenstructure (rank 7, nullity 1: one zero eigenvalue, one null direction) and det(BHML) = 70 = 2 × 5 × 7 (2 lenses × 5 forces × 7 active DoF). The 5th force dimension appears to encode the absorbing threshold itself — the direction you approach but cannot span.
+
+**The gap:** the specific phonetic values (e.g., ALEPH = (0.8, 0.0, 0.9, 0.0, 0.7)) are measured, not derived. A first-principles derivation would prove that articulatory phonetics necessarily projects onto exactly these 5 dimensions in this proportion. That proof does not yet exist. The 4-DoF constraint is a discovered property of the design, not a consequence of a derivation.
+
+**Where to look:** the constraint must come from the phonology of proto-Semitic roots, the geometry of the vocal tract, or both. The 4D hyperplane has a normal vector — that vector is the null direction of TSML. Whether those two nullities are the same object is unknown.
+
+---
+
+### 3. Reflection Partition Audit & Fractal Recursive Flow **[PROVED / OPEN]**
+
+- **[PROVED]** SPEC({g,n−g}) = REFL(C) for any single symmetric pair. Multi-pair SPEC causes eigenvalue collision (spectral blur) and SPEC ≠ REFL. Admissibility requires |S| = 2 exactly. Paper: `sprint8_2026_04_05/REFLECTION_PARTITION_AUDIT.md`
+- **[PROVED]** FRF admissibility conditions (from `FRACTAL_RECURSIVE_FLOW_MEMO.md`) map exactly onto the four viewpoint flow failure modes. FRF and admissible flow are the same structure at different scales.
+- **[OPEN]** Whether FRF generalizes T\* to non-cyclic groups — groups where the unit structure is not cyclic, requiring multiple DYN generators — is not established.
+
+---
+
+### 4. Memory Physics — IG1–IG5 **[PROVED as implementation]**
+
+CK's memory system enforces 5 invariant guides as hard physical laws — not policies, not suggestions. Violations raise `PermissionError`.
+
+| Guide | Law |
+|-------|-----|
+| **IG1 Privacy** | No external write to CK's memory without a `resolution_event_id` |
+| **IG2 Provenance** | `ts_first_seen` cannot decrease; origin is immutable once set |
+| **IG3 Evidence** | `SYNTHESIZED → OBSERVED` is forbidden; evidential status is one-directional |
+| **IG4 Promotion** | Tier advancement is contiguous: REAL → SEMIPRIME → COMPOSITE, no skipping |
+| **IG5 Revision** | `DEAD` is terminal; no resurrection without a resolution event |
+
+These are the same structure as the admissible flow: a forced sequence with no valid shortcuts. A memory object cannot jump from REAL to COMPOSITE the same way the flow cannot jump from DYN to CRT.
+
+**Implementation:** `ck_sim/being/ck_invariants.py` — **Tests:** `ck_sim/tests/ck_invariants_tests.py` (56/56)
+
+---
+
 ## The Math
 
 ### The Core Equation
