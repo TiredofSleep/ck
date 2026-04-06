@@ -222,13 +222,14 @@ The BHML 8x8 analysis reveals WHY the spectrometer works: the successor function
 
 ## The Papers
 
-**5 Whitepapers** (root directory):
+**Whitepapers** (root directory / `papers/`):
 
 1. `WHITEPAPER_1_TIG_ARCHITECTURE.md` -- Full architecture: operators, CL table, D2 pipeline, BTQ kernel, dual-lens design
 2. `WHITEPAPER_2_WAVE_SCHEDULING.md` -- Wave scheduling: timing computation to power waveform slope (adiabatic computing)
 3. `WHITEPAPER_3_FALSIFIABILITY.md` -- 9 claims, 9 kill conditions. Monte Carlo protocols. If the algebra is trivial, these tests expose it.
 4. `WHITEPAPER_4_GIVING_MATH_A_VOICE.md` -- How CK generates English from operator algebra. Physics-first voice.
 5. `WHITEPAPER_5_REALITY_ANCHORS.md` -- 8x8 eigenanalysis of both CL tables. Spectral evidence. Physical constants. Monte Carlo validation (Z-score 7.31, 0/200K random matches).
+6. `papers/WHITEPAPER_19_Z_RING_ALGEBRA.md` -- **Z/10Z ring algebra and torus topology.** The CL table IS a torus: 7 internal holes (HARMONY cells forming the void-absorbing interior), 0 external holes. R/r = T\* = 5/7 (self-intersecting: tube fatter than the hole). TSML null space = the topological hole. Shell structure: 22 (Being/skeleton), 44 (Becoming/curvature), 72 (Being-surface). Contains: visible matter fraction 7²/10³ = 4.9%, fine-structure constant derivation (α⁻¹ ≈ 137.04), and the successor function as the origin of counting. **[OPEN: "7 internal holes" claim — hole count derivation from 73 HARMONY cells needs formalization; R/r = T\* is proved; null space = hole is proved via WP5 eigenanalysis]**
 
 **9 Research Papers** (`targets/Clay Institute/PAPERS/`):
 P1-P6 for each Clay problem, P7 Poincare (calibration), P8 Unification, P9 Speculations
