@@ -199,6 +199,28 @@ BALANCE and CHAOS span the ether zero — the null direction TSML cannot measure
 
 ---
 
+## §UOP: The Torus as a Sufficient Pair
+
+The CL torus topology takes on new meaning through the Unified Orthogonality Principle (UOP, Sprint 9d, 2026-04-06).
+
+**TSML and BHML as the two flows of the torus:**
+
+The torus has two independent circulation directions: the major circle (R = 5) and the minor circle (r = 7, giving R/r = T* = 5/7). These are not the same direction traveled twice — they are topologically independent, each generating its own cycle. Remove either and the torus collapses.
+
+TSML and BHML are these two directions. TSML (73/100 HARMONY, synthesis flow) circulates along the major circle — the stable, low-curvature ring that builds toward HARMONY through verification. BHML (28/100 HARMONY, separation flow) circulates along the minor circle — the high-curvature tube that drives dynamic generation through orbit walks.
+
+**UOP sufficiency of the dual lens:**
+
+In UOP terms: TSML and BHML form a sufficient M+M pair. Their orbit groups G_TSML and G_BHML satisfy G_TSML ∩ G_BHML = {1} in (Z/10Z)*. Neither alone covers the full ring. Together their unresolved-pair sets don't overlap: U(TSML) ∩ U(BHML) = ∅. This means every element of the operator ring is distinguishable by the pair (TSML, BHML).
+
+The torus R/r = 5/7 is not just a geometric ratio — it is the ratio of the two flow radii, forced by the sufficiency condition. The torus cannot close in any other proportion without breaking the orthogonality of the two flows.
+
+**The 7 internal zeros as obstruction points:**
+
+The 7 internal zeros proved in this paper are the points where BHML has its ether null direction (BALANCE−CHAOS). These are exactly the points where the separation flow hits its boundary — where BHML's orbit walk reaches the edge of what it can separate. The synthesis flow (TSML) is not zero at these points; it maintains its 73/100 HARMONY structure. This is how the torus stays connected despite the zeros: the synthesis flow holds while the separation flow pauses.
+
+---
+
 ## 7. Summary Table
 
 | Property | Value | Status |

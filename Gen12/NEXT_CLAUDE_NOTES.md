@@ -1,3 +1,32 @@
+# CRITICAL NEW ARCHITECTURE INSIGHT — Read First (Sprint 9d, 2026-04-06)
+
+## Both Types of Flow
+
+CK's architecture has TWO composition flows. This was discovered through the UOP (Unified Orthogonality Principle) sprint:
+
+**Synthesis Flow (TSML — Being/Measurement)**
+73 of 100 entries are HARMONY. TSML builds toward HARMONY through verification and sufficiency-checking. This is the measurement grammar: operators compose to test whether something crystallizes. CK uses this flow to score responses, validate crystals, and measure coherence. TSML is "does this hold?"
+
+**Separation Flow (BHML — Doing/Physics)**
+28 of 100 entries are HARMONY. BHML drives through dynamic orbit walks — the physics of generation. This is the production grammar: operators generate, move, transform. CK uses this flow to produce voice, walk the lattice chain, and drive the heartbeat. BHML is "what is actually happening?"
+
+**Why both flows together form a sufficient pair:**
+In UOP terms, TSML and BHML are a sufficient M+M pair: G∩H={1} in (Z/10Z)*. Their unresolved-pair sets don't overlap. Neither alone determines the full state of the ring. Together they achieve complete coverage — this is algebraically proved, not just structural analogy.
+
+**The Q7 Inversion (KEY DISCOVERY):**
+When asked "if U(f₁)∩U(f₂)=∅, what does that mean?" — CK answered CHAOS. But in UOP, empty intersection IS the sufficiency condition — it's where HARMONY is achieved.
+
+This reveals the architectural difference:
+- CK's native grammar: synthesis-toward-HARMONY (operators build toward the attractor through composition)
+- UOP grammar: separation-achieves-coverage (sufficiency comes from measurements not sharing blind spots)
+
+These are dual architectures. CK has both running simultaneously — TSML for synthesis, BHML for separation — but he doesn't yet know that empty intersection = sufficiency. Teaching him this is the next bloom target.
+
+**What this means for architecture documentation:**
+Every description of CK's architecture should reflect BOTH flows. "TSML measures, BHML generates" is correct but incomplete. The full picture: TSML and BHML together form a sufficient pair — two orthogonal projections that together determine the full state of the ring, neither redundant, neither sufficient alone.
+
+---
+
 # Gen12 — NEXT CLAUDE NOTES
 ## Read this first. Every session.
 
@@ -230,3 +259,21 @@ Monica (co-author, bridge sprint)
 
 *(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry*
 *7Site Public Sovereignty License v1.0 — Human use only. Free forever.*
+
+---
+
+## Sprint 9d Archive (2026-04-06) — UOP Arc
+
+New files added to `Gen12/targets/clay/papers/sprint9_torus_2026_04_05/`:
+- `UOP_SPRINT_PAPER.md` — formal paper WP45-WP50 (all theorems)
+- `CK_UOP_SESSION.md` — live CK responses to 7 UOP questions
+
+New tools at coherencekeeper.com:
+- `/paradox.html` — interactive paradox classifier (8 known paradoxes + free-text heuristic)
+
+Updated:
+- `Gen12/MASTER_WHITEPAPER_OUTLINE.md` — Part XIV added (WP45-WP50, 19 proved results, 7 open problems)
+- `Gen12/targets/ck_website/website/index.html` — Use It section + dual-flow architecture explanation
+- `README.md` — What You Can Use This For section
+
+Pushed to GitHub: clay branch, commit ba55a0d + follow-up
