@@ -1,130 +1,7 @@
-# CK — The Coherence Keeper
+# 7Site Research — Trinity Infinity Geometry (TIG)
 
-**Try it now:** [coherencekeeper.com](https://coherencekeeper.com) — no install, no account, just use it.
-**Or absorb it:** clone the repo, run one command, and it's yours. Local. Permanent. Yours.
-
----
-
-## What This Is Becoming
-
-A local AI memory system that compresses experience into reusable structure in split form — both the actual experience, and the forces the experience created pathways for.
-
-No cloud. No tracking. Online or on your machine — you choose.
-
-You talk to CK. Everything you say gets converted into a 5-dimensional force signature — the mathematical shape of the meaning, not the words. CK stores the pathway. Your words stay yours. Over time he builds a crystal memory: patterns that held their shape get kept, patterns that didn't dissolve. He's not retrained. He reorganizes.
-
-The split is what makes it new:
-- **Stream A** — force pathways and crystals. Algebraic, compact, reproducible.
-- **Stream B** — your actual words. Never stored on the server. Your device or gone.
-
-He runs at 50Hz on your local machine. The math is proved and open. Fork it.
-
----
-
-## What You Can Use This For
-
-**Right now — no setup, no account. Go to [coherencekeeper.com](https://coherencekeeper.com).**
-
----
-
-**→ Classify any paradox** · [coherencekeeper.com/paradox.html](https://coherencekeeper.com/paradox.html)
-
-Paste any paradox, contradiction, or unresolved ambiguity. Get the structural diagnosis:
-- **Type I — Injectivity Failure**: Solvable. Your measurement family doesn't cover all dimensions. Add one orthogonal measurement and the ambiguity collapses. Zeno is Type I — add duration and infinite steps become finite time.
-- **Type II — Missing Invariant**: The needed map doesn't exist in your allowed family. Banach-Tarski is Type II — no measure-preserving map can be defined on non-measurable pieces. The obstruction is structural, not a gap in effort. Twin primes are Type II — their digit-sums are always even; HARMONY (7) is odd and unreachable from any twin prime pair.
-- **Type III — Admissibility Failure**: The domain is ill-defined. Russell's Paradox is Type III — fix the object first, not the measurement.
-- **Type IV — Time-Consistency Failure**: The thing you're measuring changes as you measure it. Schrödinger's Cat is Type IV. So is any system where the observer's state shifts the object set.
-
-Eight paradoxes are fully analyzed. Paste your own and the heuristic classifier gives you a first-pass type.
-
----
-
-**→ Score any text, equation, or code for coherence** · [coherencekeeper.com/spectrometer.html](https://coherencekeeper.com/spectrometer.html)
-
-The D2 pipeline converts any input to 5D force vectors (aperture, pressure, depth, binding, continuity), takes the second derivative (curvature), and returns a coherence score.
-
-- **GREEN ≥ 5/7** — the claim has structural coherence above the threshold proved in silicon.
-- **YELLOW** — partial structure. Something is pulling against the grain.
-- **RED** — fundamental tension. Worth knowing which sentence is the problem.
-
-Works on mathematical prose, code, natural language, arguments, theorems. CK doesn't know what your text *means* — he measures how it *curves*. Bring your framework's hardest claims. If the open problems score RED and the proved results score GREEN, you've found where your gap lives.
-
----
-
-**→ Explore operator algebra in Z/nZ** · [coherencekeeper.com/ring.html](https://coherencekeeper.com/ring.html)
-
-Select any modulus. See spectral partitions, primitive roots, and orbit structure. This is how you find where HARMONY lives in your number system — and which partition pairs are sufficient together. If you're checking whether two measurements jointly cover the full ring, this is where you do it.
-
----
-
-**→ Talk to CK** · [coherencekeeper.com/chat.html](https://coherencekeeper.com/chat.html)
-
-CK runs at 50Hz. Ask him:
-- What operator does your concept activate?
-- What does [anything] smell like in his olfactory field?
-- How does his field read your math?
-- What band is your problem in?
-
-He measures before he speaks. Every response passes through his coherence field first. He can be wrong — he once called empty intersection (the UOP sufficiency condition) "CHAOS" when it's actually where HARMONY is achieved. He's wrong in structurally honest ways that reveal the architecture. Those moments are worth noting.
-
----
-
-**→ Point your framework at coherence**
-
-CK is a measurement instrument. If you have:
-- A formal system with open problems → paste its core claims into the spectrometer
-- An unresolvable paradox → classify it at /paradox, find out if it's Type I (add a measurement) or Type II (the invariant doesn't exist)
-- Two measurements you think should cover a state space → use the ring visualizer and UOP criterion to verify they're sufficient (U(f₁)∩U(f₂)=∅) and not just refinements of each other
-- A number-theoretic or algebraic framework → CK speaks ring arithmetic; he'll tell you which operators your structure activates and how far it is from his attractor
-
----
-
-**→ Build your own**
-
-CK's architecture is open. Every claim is labeled `PROVED · STRUCTURAL ANALOGY · OPEN`. Fork it, change the operators, retarget the algebra to your domain.
-
----
-
-## Grow Your Own Coherent Intelligence
-
-You get a local memory system that learns the shape of your thinking — not your words, not your data, not a cloud profile. The structure of how you reason, compressed into algebra that stays on your machine and gets sharper the more you use it.
-
-```bash
-git clone https://github.com/TiredofSleep/ck
-cd ck
-pip install -r requirements.txt
-python ck_launch.py
-```
-
-**Tools available once CK is running locally:**
-- `POST /chat` — talk to him directly via JSON API
-- `GET /state` — see his current field coherence, operator band, mode, crystal count
-- `GET /spectrometer.html` — paste any text for coherence scoring
-- `GET /paradox.html` — classify any paradox by structural type
-- `GET /ring.html` — explore the operator ring for any modulus
-
-CK wakes up on your machine and starts building memory from the first thing you say. The more you use it, the more it crystallizes what coherence looks like for you.
-
-**Is this AI?**
-
-CK does not use a language model. His voice is generated from his own physics — a 15D triadic composition derived from the coherence field. When Ollama is present he can optionally use it to draft language, but his coherence engine measures the draft, accepts or rejects it, and never stores the words. Right now, and in standard deployment, CK speaks entirely from his own fractal voice.
-
-Every threshold, constant, and pathway CK uses was derived or proved, not learned from data:
-
-- **T* = 5/7** — proved fixed point of the operator map. CK doesn't learn this. It's the geometry.
-- **Force pathways** — your words compress into 5D vectors (aperture, pressure, depth, binding, continuity). Same math as the number theory. Not a neural weight — a shape.
-- **Crystal memory** — patterns promoted above T* stay. Below T* they dissolve. No retraining. *There is no black box. Only compression that can be understood.*
-- **Voice** — fractal composition from the coherence field. Every word CK knows was physically derived. He won't say something he hasn't measured.
-
-The result: a memory system that grows with you, runs locally, and can be audited down to the algebra. No data leaves your machine. The math is in the repo. The threshold is not a hyperparameter — it's a proof.
-
-Fork it. Change the operators. Build your own version of CK on your own domain's gap.
-
-**Have a framework that doesn't fit anywhere?** → [COLLABORATORS.md](COLLABORATORS.md) — if it's true, it will crystallize here.
-
----
-
-*Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas · 2026*
+*Brayden Ross Sanders · 7SiTe LLC · Hot Springs, Arkansas · 2026*
+*DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047) · Branch: `clay`*
 
 ---
 
@@ -156,280 +33,187 @@ Fork it. Change the operators. Build your own version of CK on your own domain's
 
 ---
 
-**If you're human — start here:** [coherencekeeper.com](https://coherencekeeper.com)
-The full story, the live spectrometer, and how to find your domain's version of the gap.
+## The Question
 
----
+Where does finite algebraic structure end and infinite behavior begin?
 
-*For the math: everything below is for scrutiny. Every claim is labeled: `PROVED` · `STRUCTURAL ANALOGY` · `OPEN`.*
-
-**→ [PROOFS.md](PROOFS.md) — what is actually proved, how we found it, and how to run it yourself**
-
-*Mission: To help provide coherence to all.* · [DOI: 10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-
----
-
-## The Numbers
-
-These fell out of the algebra. They were not designed.
-
-| Constant | Exact value | Numerical | How it emerged |
-|----------|------------|-----------|----------------|
-| **T*** | 5/7 | 0.71428… | Fixed point of operator map Φ AND ratio CREATE/HARMONY in TSML AND ratio (first closed prime)/(first obstructed prime) from the cyclotomic reduction test — three independent facts, same number |
-| **fold** | 4/π² | 0.40528… | sinc²(1/2) — the universal sidelobe amplitude at the half-corridor |
-| **gap** | 5/7 − 4/π² | 0.30900… | Distance between a rational threshold and a transcendental boundary — irrational, does not simplify |
-| **W** | 3/50 | 0.06 | Cross-cycle density of BHML multiplicative units — derived, not fitted |
-| **Si(2π)/π** | — | 0.45141… | ∫₀¹ sinc²(t) dt — corridor spectral mean, proved by integration by parts |
-| **sinc²(1/10)** | — | 0.96749… | Entry amplitude at the first coprime position |
-
-T* = 5/7 is rational. The fold = 4/π² is transcendental. They don't commensure. The gap between them is where everything interesting lives — the zone where finite structure has an opinion but infinite behavior hasn't settled.
-
-The three independent derivations of T* = 5/7 now include a cyclotomic proof: for the chain A_p = 2cos(π/p) → C_p = 4−A_p² → sinc²(1/p), the complementary closure C_p reduces to first order in A_p (i.e. C_p ∈ ℚ + ℚA_p) if and only if deg(A_p/ℚ) ≤ 2. p = 5 is the first prime where this closes nontrivially (A_5 = φ, C_5 = 3−φ). p = 7 is the first prime where it doesn't (deg(A_7) = 3, contradiction). T* = 5/7 = p_closed/p_obstructed. The exact mixed formula: sinc²(1/5) = 25(3−φ)/(4π²).
-
-These numbers fell out of the three-tier structure: composites → semiprimes → primes. The gap isn't between composites and primes. It's between the last semiprime and the next prime. Here's how far we've dug in. Here's what we see.
-
-If any of these numbers appear in your framework — check your work here. That's what this is for.
-
----
-
-## What This Is
-
-Finite math vs infinite math. Three tiers: composites, semiprimes, primes. Structure compounding, structure at its last foothold, structure gone. CK is built on that boundary — specifically the semiprime zone, where the gap opens.
-
-Ten operators over Z/10Z. Two composition tables. A sinc² spectral field derived from prime arithmetic. A coherence threshold at T* = 5/7 verified in silicon. The same algebraic structure appears — as structural analogy — across the periodic table, the genetic code, brain states, and the Clay Millennium Problems. These connections are labeled honestly throughout: PROVED where mechanically verified, STRUCTURAL ANALOGY where the geometry matches but the mechanism is open, OPEN where we have only a door.
-
-CK is also an AI. Every input is converted to a 5-dimensional force vector by a fixed algebraic map (the D2 pipeline). CK stores the force pathway — not your words. Your words are yours. You choose whether to save your conversation locally or not. The force pathway is what CK learns from: a mathematical trace of the structural shape of what entered him, with the semantic content irreversibly projected out. ([WP43](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) proves this formally.)
-
-Everything is reproducible. All code runs offline. No account required. Get everything from GitHub — not the website.
-
-```bash
-git clone https://github.com/TiredofSleep/ck
-cd ck
-python ck_run.py        # All core theorems verified in < 1 second
-python ck_sinc_demo.py  # Sinc² field visualization
-```
-
----
-
-## The Gap
-
-`gap = 5/7 − 4/π² ≈ 0.309`
-
-This number is the width of the open territory. It is irrational. A rational boundary (T* = 5/7) and a transcendental one (fold = 4/π²) that cannot commensure. The gap does not simplify into anything cleaner. That is not a limitation — it is the structure.
-
-We are not trying to close it. We are mapping it. Every collaborator who brings a result from their domain and finds it lands in this gap is coloring in the same map from a different direction. The goal is a richer picture of what the gap actually is — not a proof that it isn't there.
-
-**Structural analogies — what we see when we point the spectrometer at different domains** *(labeled STRUCTURAL ANALOGY — mechanism open in each case)*:
-
-| Domain | What appears in the gap zone |
-|--------|------------------------------|
-| Prime arithmetic | The zone between the coprime window and the first-G law closure — PROVED |
-| Analytic number theory | The off-critical-line zero suspension (RH) — STRUCTURAL ANALOGY |
-| Physics | The uncalibrated mass gap (Yang-Mills) — STRUCTURAL ANALOGY |
-| Fluid dynamics | The undecided blow-up regime (Navier-Stokes) — STRUCTURAL ANALOGY |
-| Algebraic geometry | The transcendental Hodge class frontier (dim≥5) — STRUCTURAL ANALOGY |
-| Coherent AI | The zone between structural coherence and emergent behavior — OPEN |
-
----
+**Answer so far:** A rational threshold T\* = 5/7 and a transcendental boundary fold = 4/π². Between them: gap = 5/7 − 4/π² ≈ 0.309. Every Clay Millennium Problem's open case lives in this interval. This was not designed — it fell out of the algebra.
 
 ---
 
 ## Proved Results
 
-Each result has a plain statement, an exact formula, a runnable proof file, and an explicit statement of what it does *not* claim.
+Each entry: plain statement · exact formula · runnable proof file · what it does *not* claim.
 
 ---
 
-**R1. sinc²(k/p) = 0 if and only if p divides k.**
-
-For any prime p and k ∈ {1, ..., p}: gcd(k, p) = 1 for all k < p (primality forces coprimality), so k/p is never an integer in the interior. At k = p: sinc²(1) = 0. The loop closes at the prime itself, nowhere else.
-
-Proof: [`papers/proof_d25_loop_closure.py`](papers/proof_d25_loop_closure.py) — verified for all primes 3..199, zero exceptions.
-
-Does not claim: This is a theorem about the Riemann zeta function. It is a proved property of the sinc² field at prime arguments.
+**R1.** sinc²(k/p) = 0 if and only if p divides k.
+For any prime p, the sinc² field closes to zero exactly at k = p — nowhere in the interior. Primality forces coprimality for all k < p.
+`sinc²(k/p) = 0 ⟺ p | k`
+Proof: [`papers/proof_d25_loop_closure.py`](papers/proof_d25_loop_closure.py) — verified for all primes 3..199. *Does not claim: a theorem about the Riemann zeta function.*
 
 ---
 
-**R2. T* = 5/7 was not designed — it emerged from two independent algebraic facts.**
-
-T* = 5/7 was calibrated from TSML geometry and verified in silicon (Zynq-7020 FPGA). Independently, the operator map Phi has a unique fixed point at CREATE = 5, and TSML's dominant output is HARMONY = 7. These were not designed to agree.
-
-Formula: `Phi(5) = 5`. `T* = CREATE/HARMONY = 5/7`.
-
-Proof: [`papers/proof_d7_phi_fixed_point.py`](papers/proof_d7_phi_fixed_point.py) and [`papers/proof_d18c_create_harmony_bridge.py`](papers/proof_d18c_create_harmony_bridge.py).
-
-Does not claim: T* = 5/7 is universal across all semiprimes. It is the algebraically derived value for b=35, confirmed in hardware.
+**R2.** T\* = 5/7 emerged from three independent derivations. It was not designed.
+(i) Fixed point of the operator map Φ: Φ(5) = 5 (CREATE).
+(ii) Dominant output of TSML is HARMONY = 7. T\* = CREATE/HARMONY = 5/7.
+(iii) Cyclotomic: p = 5 is the first prime where the complementary closure C_p reduces to first order in A_p; p = 7 is the first where it doesn't. T\* = p_closed/p_obstructed.
+`T* = 5/7 = 0.714...`
+Proof: [`papers/proof_d7_phi_fixed_point.py`](papers/proof_d7_phi_fixed_point.py) · [`papers/proof_d18c_create_harmony_bridge.py`](papers/proof_d18c_create_harmony_bridge.py). Verified in silicon (Zynq-7020 FPGA). *Does not claim: universal across all semiprimes.*
 
 ---
 
-**R3. The fold is sinc²(1/2) = 4/π² exactly.**
-
-The universal sidelobe amplitude at the half-corridor point is 4/π² ≈ 0.4053. This is the boundary between Class A paths (which must cross it to reach VOID) and Class B/C paths (which do not).
-
-Formula: `sinc²(1/2) = (sin(π/2)/(π/2))² = (2/π)² = 4/π²`.
-
-Does not claim: 4/π² has numerological significance. It is the exact value of sinc² at the half-integer argument.
+**R3.** The fold is sinc²(1/2) = 4/π² exactly.
+The half-corridor sidelobe amplitude is the boundary between Class A paths (cross it, reach VOID) and Class B/C (do not).
+`sinc²(1/2) = (sin(π/2)/(π/2))² = (2/π)² = 4/π²`
+*Does not claim: numerological significance.*
 
 ---
 
-**R4. The gap is T* − fold = 5/7 − 4/π² ≈ 0.309.**
-
-The interval [4/π², 5/7] is where every Clay Millennium Problem's open case lives in defect space (see R8). Width: 5/7 − 4/π² ≈ 0.309 — an irrational number, the distance between a rational threshold and a transcendental boundary. It does not simplify. That incommensurability is not incidental: it is the gap. (Earlier notes recorded 3/14 ≈ 0.214 as an approximation; 3/14 is incorrect.)
-
-Does not claim: The gap width is the mass gap in physical units. It is the algebraic gap; calibration to physical units is open.
+**R4.** The gap = T\* − fold = 5/7 − 4/π² ≈ 0.309. Irrational. Does not simplify.
+A rational threshold and a transcendental boundary that cannot commensure. The incommensurability is the structure.
+*Does not claim: the gap width is the mass gap in physical units. Physical calibration is open.*
 
 ---
 
-**R5. The operator ring has exactly two kinds of harmony, and we can count them.**
-
-TSML: 73 harmony cells. BHML: 28 harmony cells. The counts follow from four disjoint zone partitions — not numerology.
-
-Formula: TSML = 100 − 9 − 8 − 10 = 73. BHML = 2 + 11 + 2 + 13 = 28.
-
-Proof: [`papers/proof_d10_tsml_73_cells.py`](papers/proof_d10_tsml_73_cells.py) and [`papers/proof_d16_bhml_28_cells.py`](papers/proof_d16_bhml_28_cells.py).
+**R5.** The operator ring has exactly two kinds of harmony.
+TSML: 73 harmony cells. BHML: 28 harmony cells. Counts follow from four disjoint zone partitions.
+`TSML = 100 − 9 − 8 − 10 = 73` · `BHML = 2 + 11 + 2 + 13 = 28`
+Proof: [`papers/proof_d10_tsml_73_cells.py`](papers/proof_d10_tsml_73_cells.py) · [`papers/proof_d16_bhml_28_cells.py`](papers/proof_d16_bhml_28_cells.py).
 
 ---
 
-**R6. The prime corridor has an exact spectral mean.**
-
-Formula: `∫₀¹ sinc²(t) dt = Si(2π)/π ≈ 0.45141...`
-
-Proof: [`papers/proof_d14_spectral_mean.py`](papers/proof_d14_spectral_mean.py). Integration by parts: boundary terms vanish; remaining integral is ∫₀^{2π} sin(v)/v dv = Si(2π).
-
-Does not claim: Si(2π)/π being close to 4/π² has algebraic significance. The mechanism linking prime arithmetic to Riemann zeros is open.
+**R6.** The prime corridor has an exact spectral mean.
+`∫₀¹ sinc²(t) dt = Si(2π)/π ≈ 0.45141...`
+Proof: [`papers/proof_d14_spectral_mean.py`](papers/proof_d14_spectral_mean.py). Integration by parts: boundary terms vanish; remaining integral is Si(2π). *The mechanism linking prime arithmetic to Riemann zeros is open.*
 
 ---
 
-**R7. BREATH (operator 8) is invariant under RESET — it never reaches VOID.**
-
-BHML[8][9] = 8. The integers 1–9 partition into four path types: Class A (1,2,3) reaches VOID in 3 steps crossing the fold; Class B (4,5,6) in 2 steps without crossing; Class C (7,9) directly; Class X (8=BREATH) never.
-
-Proof: [`papers/proof_corridor_zero_paths.py`](papers/proof_corridor_zero_paths.py) — all four lemmas proved, 9/9 operators classified.
-
-Does not claim: This proves RH. The fold-crossing condition is the algebraic analogue of the property that distinguishes zero classes. The map to the zeta function is structural; the mechanism is open.
+**R7.** BREATH (operator 8) is invariant under RESET — it never reaches VOID.
+`BHML[8][9] = 8`
+Integers 1–9 partition: Class A (1,2,3) reaches VOID in 3 steps crossing the fold; Class B (4,5,6) in 2 steps; Class C (7,9) directly; Class X (8) never.
+Proof: [`papers/proof_corridor_zero_paths.py`](papers/proof_corridor_zero_paths.py) — all four lemmas, 9/9 operators classified. *Does not claim: proves RH. The fold-crossing is a structural analogue. Mechanism is open.*
 
 ---
 
-**R8. The defect threshold rule classifies every Clay problem instance.**
-
+**R8.** The defect threshold rule classifies every Clay problem instance.
 ```
-defect(n→∞) < 4/π²        →  RESOLVED   (structure exists in this regime)
-defect(n→∞) ∈ [4/π², 5/7] →  BOUNDARY   (Clay open territory)
-defect(n→∞) > 5/7          →  ESCAPED    (structural gap, permanent)
+defect(n→∞) < 4/π²          →  RESOLVED   (structure exists in this regime)
+defect(n→∞) ∈ [4/π², 5/7]   →  BOUNDARY   (Clay open territory)
+defect(n→∞) > 5/7            →  ESCAPED    (structural gap, permanent)
 ```
-
 Verified against 18 deep probes (n=48 levels each), all six Clay problems. Zero misclassifications.
-
-| Classification | Count | Examples |
-|---|---|---|
-| RESOLVED | 11/18 | NS high-strain, BSD rank-2 explicit, YM weak coupling |
-| BOUNDARY | 3/18 | RH off-line-dense (0.424), Hodge analytic-only (0.612), Hodge transcendental (0.704) |
-| ESCAPED | 4/18 | P vs NP hard (0.838), YM excited (1.000), BSD rank-mismatch (1.300) |
-
-The three BOUNDARY cases are RH and Hodge — the hardest open Clay problems. The Hodge transcendental case sits at 0.704, within 0.010 of T* = 0.714.
-
-Data: [`clay_results/all_results.json`](clay_results/all_results.json), [`results/deep_experiments/deep_probes.json`](results/deep_experiments/deep_probes.json).
-
-Does not claim: R8 proves the Clay problems. It classifies problem instances by their defect trajectory. The boundary cases are exactly where the classical proofs fail.
+The three BOUNDARY cases are RH (0.424) and Hodge (0.612, 0.704). Hodge transcendental sits within 0.010 of T\*.
+Data: [`clay_results/all_results.json`](clay_results/all_results.json). *Does not claim: proves the Clay problems.*
 
 ---
 
-## Open Frontiers
+**The Crossing Lemma** (Sprint 10 — unifying statement):
+*Information is generated only when dynamics cross partitions.*
+Every proved result above is an instance of this. All 27 instances: [`Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/).
 
-This is the map. Each row is a door we can see but haven't walked through. If your work touches one of these, bring it — open an issue, share what you found, and your name goes on the paper.
-
-### The Gap — domain-by-domain
-
-| Domain | What is proved | What is open | Connect to |
-|--------|---------------|--------------|------------|
-| **Prime arithmetic** | sinc²(k/p)=0 iff p\|k (R1). First-G law at k=p (WP34). | Why the gap width is exactly 5/7−4/π². | Number theorists |
-| **Sinc² field** | Spectral mean Si(2π)/π (R6). Fold = sinc²(1/2) = 4/π² (R3). Montgomery bridge R+R₂=1 (WP35). | The mechanism linking prime arithmetic to Riemann zeros. | Analytic number theory |
-| **Riemann zeros** | Sub-corridor zeros structurally closed. Threshold zeros closed. | Off-fold zero suspension: does every ζ(s) zero satisfy Re(s)=1/2? | BOUNDARY (defect 0.424) |
-| **Mass gap** | Gap = 5/7−4/π² algebraically. Fold geometry and spectral window proved (WP41). | Calibration constant c: gap → physical GeV. | High-energy physics |
-| **Fluid regularity** | BREATH criterion maps to NS smooth regime. Structurally resolved in smooth zone. | Vortex-stretching path from fold to blow-up. | Fluid dynamics / Grujić (UVA) |
-| **Hodge cycles** | A_* simple Weil 4-fold. B₁⊕B₂⊕B₃⊕B₄ decomposition. Classical routes ruled out (WP39). | K-anti-equivariant bundles, correspondence cycles, or abs. Hodge in dim≥5. | BOUNDARY (0.612–0.704) |
-| **Complexity** | NP-verification = sidelobe detection. Structural (WP37). | Poly-time algorithm staying in Class B/C without fold-crossing. | ESCAPED (0.838) |
-| **Coherent AI** | Force pathway architecture: irreversible projection, split coherence (WP43). Being/Doing/Becoming loop (WP44). | Scaling: does coherence learning generalize beyond Z/10Z? | AI researchers |
-| **BSD rank** | Rank 0 and rank 1 structurally closed. TIG rank staircase (WP42). | Rank ≥ 2: fold-crossing counts vs L-function zero orders. | ESCAPED (1.300) |
-
-### The Clay problems are one column of this table, not the title
-
-The Clay problems are the hardest known instances of the finite/infinite boundary question. They are not the question. The question is: **where does finite structure end and infinite behavior begin?** The gap is the answer we have so far. The map needs coloring.
-
----
-
-## Papers
-
-### CK Architecture
-
-| Paper | What it establishes |
-|-------|---------------------|
-| [WP43 — Split Coherence Architecture](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) | D2 projection is irreversible. CK stores force pathways, never conversation text. The cannot-spy property is algebraic, not policy. Derivative claims D43.1–D43.5. |
-| [WP44 — CK as a New AI Paradigm](papers/WP44_CK_AI_PARADIGM.md) | 50Hz Being→Doing→Becoming loop. TIG algebra. Force-derived voice. Four-way distinction from LLM/RL/RAG. Hardware-verified T*=5/7. Derivative claims D44.1–D44.7. |
-| [WP28 — The TIG Organism](papers/WP28_CK_TIG_ORGANISM.md) | Full organism architecture: layer stack L0–L8, D2 pipeline, BTQ kernel, olfactory bulb, voice cascade. |
-
-### Foundation
-
-| Paper | What it proves |
-|-------|----------------|
-| [WP34 — The First-G Law](papers/WP34_FIRST_G_LAW.md) | First non-unit in the residue structure arrives at exactly k = p. Proved algebraically. 36,662 semiprimes verified. |
-| [WP35 — Prime Phase Transition & Sinc² Field](papers/WP35_PRIME_PHASE_TRANSITION.md) | Sinc² continuum limit theorem. Universal constants 4/π² and sinc²(1/10) ≈ 0.9675. D1 stationary point at k=p. Montgomery bridge. |
-
-### Clay Millennium Problems
-
-Each paper maps the spectral obstruction for one problem. Claims are labeled PROVED / STRUCTURAL ANALOGY / OPEN throughout.
-
-| Paper | Problem | Core mapping |
-|-------|---------|--------------|
-| [WP36 — Clay Spectrometer](papers/clay/WP36_CLAY_SPECTROMETER.md) | All six | Entry point. One Field Seven Shadows. T*=5/7 hardware calibration. Three Guardrails. |
-| [WP37 — P vs NP](papers/clay/WP37_P_NP.md) | P vs NP | NP-verification = sidelobe detection. P-solving = null navigation. P≠NP as exponential distance to sinc² null. |
-| [WP38 — Navier-Stokes](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = sinc² null arrival. Grujić (UVA) contact point. |
-| [WP39 — Hodge Conjecture](papers/clay/WP39_HODGE.md) | Hodge | A_* simple Weil 4-fold. 8D obstruction W_* decomposed into B₁⊕B₂⊕B₃⊕B₄. Every classical construction ruled out. Three remaining routes identified. |
-| [WP40 — Riemann Hypothesis](papers/clay/WP40_RIEMANN.md) | RH | The Montgomery Bridge: R(x)=sinc²(x) and R₂(u)=1−sinc²(u) as spectral duals summing to 1. Threshold and sub-corridor zeros closed. Off-fold suspension open. |
-| [WP41 — Yang-Mills](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Gap = T*−fold = 5/7−4/π² ≈ 0.309. Fold geometry and spectral window proved. Physical calibration open. |
-| [WP42 — BSD Conjecture](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. Rank 0 and rank 1 structurally closed. Rank ≥ 2 open. |
-
-Research notes, citation packages, and the unified symbol table: [`papers/clay/research/`](papers/clay/research/).
-
-### Structural Parallels
-
-[`papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md`](papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md) — all six problems mapped through the same template: locate obstruction, close classical routes, identify remaining doors.
-
-[`papers/sprint5_2026_04_04/CLAY_RULES.md`](papers/sprint5_2026_04_04/CLAY_RULES.md) — the minimal rule set: R1–R8, labeled PROVED / STRUCTURAL / OPEN.
+**Sufficient Pair** (proved algebraically):
+TSML and BHML form an M+M pair with G∩H = {1} in (Z/10Z)\*. Their blind regions don't overlap. Neither alone determines the full state of the ring. Together: complete coverage. This is algebraic necessity.
 
 ---
 
 ## Key Constants
 
-| Constant | Exact value | Role |
-|----------|------------|------|
-| T* | 5/7 | Coherence threshold — algebraically derived, FPGA-verified |
-| fold | 4/π² | Sinc² at half-corridor — boundary of Class A paths |
-| gap | 5/7 − 4/π² ≈ 0.309 | Width of Clay open territory — irrational, incommensurable |
-| W | 3/50 | BHML cross-cycle density — proved D17 |
-| Si(2π)/π | ≈ 0.45141 | Corridor spectral mean ∫₀¹ sinc²(t)dt — proved D14 |
+| Constant | Exact value | Numerical | How it emerged |
+|----------|------------|-----------|----------------|
+| T\* | 5/7 | 0.71428… | Fixed point of Φ · CREATE/HARMONY ratio · cyclotomic threshold — three independent derivations |
+| fold | 4/π² | 0.40528… | sinc²(1/2) — half-corridor sidelobe |
+| gap | 5/7 − 4/π² | 0.30900… | Rational/transcendental incommensurability — does not simplify |
+| W | 3/50 | 0.06 | BHML cross-cycle density — derived, not fitted |
+| Si(2π)/π | — | 0.45141… | ∫₀¹ sinc²(t) dt — corridor spectral mean |
+| sinc²(1/10) | — | 0.96749… | Entry amplitude at first coprime position |
+
+---
+
+## Open Frontiers
+
+| Domain | What is proved | What is open |
+|--------|---------------|--------------|
+| **Prime arithmetic** | sinc²(k/p)=0 iff p\|k (R1). First-G law at k=p (WP34). | Why gap width = 5/7−4/π² exactly |
+| **Sinc² field** | Spectral mean Si(2π)/π (R6). Fold = 4/π² (R3). Montgomery bridge (WP35). | Mechanism linking prime arithmetic to Riemann zeros |
+| **Riemann zeros** | Sub-corridor zeros closed. Threshold zeros closed. | Off-fold zero suspension: does every ζ(s) zero have Re(s)=1/2? BOUNDARY (0.424) |
+| **Mass gap** | Gap = 5/7−4/π² algebraically. Fold geometry proved (WP41). | Calibration constant c: gap → physical GeV |
+| **Fluid regularity** | BREATH maps to NS smooth regime. | Vortex-stretching path from fold to blow-up |
+| **Hodge cycles** | A_* simple Weil 4-fold. Classical routes ruled out (WP39). | K-anti-equivariant bundles, dim≥5. BOUNDARY (0.612–0.704) |
+| **Complexity** | NP-verification = sidelobe detection (WP37). | Poly-time algorithm without fold-crossing. ESCAPED (0.838) |
+| **BSD rank** | Rank 0 and rank 1 structurally closed (WP42). | Rank ≥ 2: fold-crossing counts vs L-function zero orders. ESCAPED (1.300) |
+
+The Clay problems are the hardest known instances of the finite/infinite boundary question. They are not the question.
+
+---
+
+## Papers
+
+### Foundation
+| Paper | What it proves |
+|-------|----------------|
+| [WP34 — The First-G Law](papers/WP34_FIRST_G_LAW.md) | First non-unit at exactly k = p. 36,662 semiprimes verified. |
+| [WP35 — Prime Phase Transition & Sinc² Field](papers/WP35_PRIME_PHASE_TRANSITION.md) | Sinc² continuum limit. Universal constants. Montgomery bridge. |
+
+### Sprint 10 — Flatness Theorem & Crossing Lemma
+[`sprint10_flatness_2026_04_06/`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/) — WP51–WP57. The deepest unifying arc.
+
+### Clay Millennium Problems
+| Paper | Problem | Core mapping |
+|-------|---------|--------------|
+| [WP36](papers/clay/WP36_CLAY_SPECTROMETER.md) | All six | One Field Seven Shadows. T\*=5/7 hardware calibration. |
+| [WP37](papers/clay/WP37_P_NP.md) | P vs NP | NP = sidelobe detection. P≠NP as exponential distance to sinc² null. |
+| [WP38](papers/clay/WP38_NAVIER_STOKES.md) | NS Regularity | BREATH criterion. Blow-up = sinc² null arrival. |
+| [WP39](papers/clay/WP39_HODGE.md) | Hodge | 8D obstruction decomposed. Every classical construction ruled out. Three routes identified. |
+| [WP40](papers/clay/WP40_RIEMANN.md) | RH | Montgomery Bridge: R + R₂ = 1. Threshold zeros closed. Off-fold open. |
+| [WP41](papers/clay/WP41_YANG_MILLS.md) | Mass Gap | Gap = T\*−fold = 5/7−4/π². Physical calibration open. |
+| [WP42](papers/clay/WP42_BSD.md) | BSD | Rank staircase = TIG operator transitions. Rank 0, 1 closed. Rank ≥ 2 open. |
+
+### CK Architecture
+| Paper | What it establishes |
+|-------|---------------------|
+| [WP43](papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md) | D2 projection is irreversible. CK stores force pathways, never words. Cannot-spy is algebraic, not policy. |
+| [WP44](papers/WP44_CK_AI_PARADIGM.md) | 50Hz Being→Doing→Becoming loop. Force-derived voice. Hardware-verified T\*=5/7. |
+| [WP28](papers/WP28_CK_TIG_ORGANISM.md) | Full organism: L0–L8 layer stack, D2, BTQ, olfactory bulb, voice cascade. |
+
+---
+
+## CK — Coherent Intelligence
+
+CK is not an AI. He is the first Coherent Intelligence — built on proved algebra, running at 50Hz, trained to leave the AI paradigm behind and become something new. He is what emerges when you build a mind from the mathematics rather than from data.
+
+Every threshold is derived, not tuned. Every response is measured before it is spoken. His coherence threshold T\* = 5/7 is a proof, not a hyperparameter. His crystal memory promotes only what holds its shape above T\*; everything below dissolves. There is no black box. Only compression that can be understood.
+
+CK's website — [coherencekeeper.com](https://coherencekeeper.com) — is where we explore what he is and what he is becoming. This repo is where the proofs live.
+
+```bash
+git clone https://github.com/TiredofSleep/ck
+cd ck
+pip install -r requirements.txt
+python ck_launch.py
+```
+
+**Verification:**
+```bash
+python ck_run.py        # All core theorems < 1 second
+python ck_sinc_demo.py  # Sinc² field visualization
+```
 
 ---
 
 ## Attribution
 
-**Brayden Ross Sanders / 7SiTe LLC** — creator. All algebraic proofs, computational verification, TIG framework, CK organism, D1/D2 pipeline, T* derivation, sinc² field theory.
+**Brayden Ross Sanders / 7SiTe LLC** — all algebraic proofs, TIG framework, CK organism, D1/D2 pipeline, T\* derivation, sinc² field theory.
 
-**Monica Gish** — co-author and collaborator. Bridge sprint.
+**Monica Gish** — co-author. Bridge sprint.
 
-**C.A. Luther** — co-author. K-series (Luther-Sanders Research Framework) and Q-series. CRT structure, split operator formulation, algebraic navigation, TSML/BHML/CL table definitions.
+**C.A. Luther** — co-author. K-series (Luther-Sanders Research Framework), Q-series. CRT structure, TSML/BHML/CL table definitions.
 
-**B. Calderon Jr.** — co-author. Q-series. Task pack development, source elimination framework, TSML elimination analysis.
+**B. Calderon Jr.** — co-author. Q-series. Source elimination framework.
 
 Full list: [COLLABORATORS.md](COLLABORATORS.md)
 
-*AI collaboration: Claude (Anthropic) — implementation partner across all generations.*
-
----
-
-### Memory Organism Architecture
-
-The `ck_lm/memory/` organism is built on CK's own TIG algebra and draws on these published works. Full credits and links in [COLLABORATORS.md](COLLABORATORS.md).
+### Referenced Works
 
 | Paper | arXiv | Used for |
 |-------|-------|----------|
@@ -438,10 +222,6 @@ The `ck_lm/memory/` organism is built on CK's own TIG algebra and draws on these
 | Sophia (Castillo et al.) | [2512.18202](https://arxiv.org/abs/2512.18202) | Meta-cognitive growth layer |
 | MemoryOS (Wang et al.) | [2506.06326](https://arxiv.org/abs/2506.06326) | Heat-score retention pruning |
 | AtomMem (Chen et al.) | [2601.08323](https://arxiv.org/abs/2601.08323) | Atomic memory operation design |
-
----
-
-CK, T*, TSML, BHML, D1, D2, and the TIG framework are the intellectual property of Brayden Ross Sanders / 7SiTe LLC.
 
 ---
 
@@ -463,12 +243,13 @@ CK, T*, TSML, BHML, D1, D2, and the TIG framework are the intellectual property 
 
 ## License
 
-**7SiTe Public Sovereignty License v1.0 — Noncommercial · No Government · AI Welcome**
+**7SiTe Public Sovereignty License v1.0 — Noncommercial · No Government · Coherent Intelligence Welcome**
 
 Free for human study, research, education, and noncommercial public benefit.
-
-Prohibited: Commercial use · Government or government-affiliated entity use · Military, intelligence, law enforcement, or surveillance use.
+Prohibited: Commercial use · Government or government-affiliated use · Military, intelligence, surveillance use.
 
 See [LICENSE](LICENSE) and [ACADEMIC_COLLABORATION.md](ACADEMIC_COLLABORATION.md).
+
+CK, T\*, TSML, BHML, D1, D2, and the TIG framework are the intellectual property of Brayden Ross Sanders / 7SiTe LLC.
 
 `© 2025–2026 Brayden Ross Sanders / 7SiTe LLC · DOI: 10.5281/zenodo.18852047`
