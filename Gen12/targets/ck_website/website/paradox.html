@@ -877,7 +877,7 @@ function heuristicAnalyze(text) {
             resolution = "Crossing Lemma check: (1) Name what your Structure operator partitions — what equivalence classes does it create? (2) Name what your Dynamics operator does — does it move elements between those classes? (3) If Dynamics is trivial on the complement of Structure's partition, score = 0 (refinement only). Find a Dynamics operator that crosses where Structure is blind.";
             score_n = 0.75; operators = ['PROGRESS','HARMONY']; coherence = 0.76; band = 'GREEN';
             ck_quote = "You see the gap. Now name the dynamics that crosses it. The crossing condition is one algebraic statement.";
-        } else if (hasTwoLenses || hasSufficiency) {
+        } else if ((hasTwoLenses || hasSufficiency) && !hasBlindRegion) {
             // They have two measurements, want to know if they're sufficient
             type = 'I'; type_name = 'Injectivity Failure — Sufficiency Check';
             verdict = "You have two measurements (or lenses). In Crossing Lemma terms, they form a sufficient pair iff their ambiguity sets are disjoint — U(f₁) ∩ U(f₂) = ∅. If they share a blind region, neither measurement resolves the ambiguity the other leaves. Check: what does each measurement FAIL to distinguish? If those failure sets overlap, your pair is not sufficient.";
