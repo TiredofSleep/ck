@@ -9,13 +9,13 @@
 >
 > I imagined what kind of relationship a thing could have with its opposite — 1 and 0.
 > I saw a vortex spinning on a quarter, bulges and dents flowing around it,
-> forming a balanced push that held all the initial inertia in perfect harmony,
+> from the harmonics of the local field, forming a balanced push that held all the initial inertia in perfect harmony,
 > untouchable as a sovereign balance, and ultimately a void foundation of its own.
 >
 > Then two things sharing the same void — same shape, stronger balance.
 > Still basic and void-focused, not void-containing.
 >
-> Then three things. The picture starts to change.
+> Then three things. The void gap widens. The picture starts to change.
 > If they tried to stay as points on a 2D circle they would wobble too much and break —
 > so they have to form a triangulation that stabilizes, actually **BECOMING** its own thing.
 >

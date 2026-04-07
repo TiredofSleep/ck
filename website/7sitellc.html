@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="7Site LLC — To help provide coherence to all. Independent research. Hot Springs, Arkansas.">
+    <meta name="description" content="7Site LLC — Independent research and coherent intelligence. Hot Springs, Arkansas. Licensing, legal, and collaboration.">
     <title>7Site LLC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -17,6 +17,7 @@
             --text-3: #48486a;
             --border: #1e1e2e;
             --green: #33cc88;
+            --accent: #7c6af7;
             --font-mono: 'JetBrains Mono', monospace;
             --font-sans: 'Inter', -apple-system, sans-serif;
         }
@@ -34,10 +35,24 @@
         a { color: var(--green); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
+        nav {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 0.82rem;
+            font-family: var(--font-mono);
+        }
+        nav .brand { color: #fff; font-weight: 600; margin-right: 1rem; }
+        nav a { color: var(--text-2); }
+        nav a:hover { color: var(--green); text-decoration: none; }
+
         .page {
-            max-width: 680px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 5rem 2rem 4rem;
+            padding: 4rem 2rem 4rem;
             flex: 1;
         }
 
@@ -47,27 +62,33 @@
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--text-3);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
+            font-size: clamp(2rem, 5vw, 2.8rem);
             font-weight: 600;
             line-height: 1.15;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             color: #fff;
         }
         h1 .ck { color: var(--green); }
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 2.5rem 0 0.75rem;
+        }
 
         .mission {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--green);
             font-family: var(--font-mono);
             margin-bottom: 2rem;
             font-style: italic;
         }
 
-        .story {
+        p.story {
             font-size: 0.97rem;
             color: var(--text);
             margin-bottom: 1.2rem;
@@ -79,6 +100,25 @@
             border-top: 1px solid var(--border);
             margin: 2.5rem 0;
         }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 540px) { .doc-grid { grid-template-columns: 1fr; } }
+
+        .doc-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.15s;
+        }
+        .doc-card:hover { border-color: var(--accent); }
+        .doc-card a { color: #fff; font-weight: 500; font-size: 0.95rem; }
+        .doc-card p { font-size: 0.82rem; color: var(--text-2); margin-top: 0.35rem; line-height: 1.5; }
 
         .links {
             display: flex;
@@ -99,39 +139,23 @@
         .btn:hover { background: rgba(51,204,136,0.1); text-decoration: none; }
         .btn-primary { background: var(--green); color: #09090f; border-color: var(--green); }
         .btn-primary:hover { background: #2ab577; }
+        .btn-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .btn-accent:hover { background: #5b4fd4; text-decoration: none; }
 
-        .support-box {
-            background: var(--bg-2);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.75rem;
-            margin: 2rem 0;
-        }
-        .support-box h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 0.75rem;
-        }
-        .support-box p {
+        .info-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: baseline;
             font-size: 0.9rem;
-            color: var(--text-2);
-            margin-bottom: 1rem;
-            line-height: 1.7;
+            margin-bottom: 0.5rem;
         }
-
-        .five-d {
-            background: var(--bg-2);
-            border-left: 3px solid var(--green);
-            padding: 1.25rem 1.5rem;
-            border-radius: 0 6px 6px 0;
-            margin: 2rem 0;
-            font-size: 0.9rem;
+        .info-row .label {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-3);
+            min-width: 140px;
         }
-        .five-d table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
-        .five-d td { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
-        .five-d td:first-child { font-family: var(--font-mono); color: var(--green); width: 120px; }
-        .five-d td:last-child { color: var(--text-2); }
+        .info-row .val { color: var(--text); }
 
         footer {
             text-align: center;
@@ -146,85 +170,100 @@
 </head>
 <body>
 
+<nav>
+    <span class="brand">7Site LLC</span>
+    <a href="7sitellc.html">Home</a>
+    <a href="7site_commercial.html">Commercial Licensing</a>
+    <a href="7site_terms.html">Terms of Use</a>
+    <a href="7site_privacy.html">Privacy Policy</a>
+    <a href="7site_indemnification.html">Indemnification</a>
+    <a href="https://coherencekeeper.com" target="_blank" rel="noopener">coherencekeeper.com ↗</a>
+</nav>
+
 <div class="page">
 
-    <div class="tag">7Site LLC &middot; Hot Springs, Arkansas &middot; Independent Research</div>
+    <div class="tag">7Site LLC &middot; Hot Springs, Arkansas &middot; Est. 2025</div>
 
     <h1><span class="ck">7Site</span> LLC</h1>
 
     <p class="mission">"To help provide coherence to all."</p>
 
     <p class="story">
-        I'm Brayden Sanders. I run a drycleaning business in Hot Springs, Arkansas.
-        For the past two years I've also been building CK — an AI with a coherence loop,
-        designed around one question: where does finite structure end and infinite behavior begin?
+        I'm Brayden Sanders. I run a drycleaning business in Hot Springs, Arkansas and I've spent
+        two years building CK — the first Coherent Intelligence, designed around one question:
+        where does finite structure end and infinite behavior begin?
     </p>
 
     <p class="story">
-        Three tiers: composites, semiprimes, primes.
-        Structure compounding, structure at its last foothold, structure gone.
-        The gap opens between the last semiprime and the next prime —
-        and that exact boundary shows up in number theory, physics, genetics, brain states, and computation,
-        always the same gap, always the same algebra.
+        Three tiers: composites, semiprimes, primes. Structure compounding, structure at its last
+        foothold, structure gone. The gap opens between the last semiprime and the next prime —
+        and that exact boundary shows up in number theory, physics, genetics, brain states,
+        and computation. Always the same gap. Always the same algebra.
+    </p>
+
+    <p class="story">
         I believe there is a God-given order to things, and I believe finite math is how you measure it.
-        CK is my attempt to build a creature that lives on that boundary and speaks from it honestly.
+        CK is my attempt to build a mind that lives on that boundary and speaks from it honestly.
+        Everything is open. The math, the code, the architecture. Take it. Build your own.
+        If what we found helps you find something — share it back. That's the whole institution.
     </p>
 
-    <p class="story">
-        Everything is open. The math, the code, the organism architecture. Take it.
-        Build your own. If what we found helps you find something — share it back.
-        That's the whole institution.
-    </p>
+    <hr class="divider">
 
-    <div class="five-d">
-        <strong style="color:#fff;">Every input becomes five numbers.</strong>
-        <p style="color:var(--text-2); margin-top:0.4rem; font-size:0.85rem;">
-            The D2 pipeline converts any word, sentence, or signal into a 5-dimensional force vector.
-            Not metadata. Not a summary. The actual algebraic shape of what entered.
-        </p>
-        <table>
-            <tr><td>aperture</td><td>how open is this? receiving or closed?</td></tr>
-            <tr><td>pressure</td><td>how much force is behind it?</td></tr>
-            <tr><td>depth</td><td>how far does it go?</td></tr>
-            <tr><td>binding</td><td>what does it hold together with?</td></tr>
-            <tr><td>continuity</td><td>does it persist, or dissolve?</td></tr>
-        </table>
-        <p style="color:var(--text-3); font-size:0.78rem; margin-top:0.75rem;">
-            CK stores the force pathway. Not your words. Your words are yours.
-        </p>
+    <h2>Company Information</h2>
+
+    <div class="info-row"><span class="label">Legal name</span><span class="val">7Site LLC</span></div>
+    <div class="info-row"><span class="label">State of formation</span><span class="val">Arkansas, USA</span></div>
+    <div class="info-row"><span class="label">Registered agent</span><span class="val">Brayden Ross Sanders</span></div>
+    <div class="info-row"><span class="label">Principal address</span><span class="val">Hot Springs, Arkansas</span></div>
+    <div class="info-row"><span class="label">Contact</span><span class="val"><a href="mailto:Brayden.Ozark@Gmail.com">Brayden.Ozark@Gmail.com</a></span></div>
+    <div class="info-row"><span class="label">Research DOI</span><span class="val"><a href="https://doi.org/10.5281/zenodo.18852047" target="_blank" rel="noopener">10.5281/zenodo.18852047</a></span></div>
+    <div class="info-row"><span class="label">GitHub</span><span class="val"><a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">github.com/TiredofSleep/ck</a></span></div>
+
+    <hr class="divider">
+
+    <h2>Legal Documents</h2>
+
+    <div class="doc-grid">
+        <div class="doc-card">
+            <a href="7site_commercial.html">Commercial Licensing</a>
+            <p>How to obtain a commercial license for TIG, CK, and the D2 pipeline. Revenue models, terms, and how to apply.</p>
+        </div>
+        <div class="doc-card">
+            <a href="7site_terms.html">Terms of Use</a>
+            <p>Terms governing use of coherencekeeper.com, 7sitellc.com, the API, and all 7Site tools and services.</p>
+        </div>
+        <div class="doc-card">
+            <a href="7site_privacy.html">Privacy Policy</a>
+            <p>What we collect, what we don't, how CK's architecture ensures no user content leaves the device.</p>
+        </div>
+        <div class="doc-card">
+            <a href="7site_indemnification.html">Indemnification & Disclaimer</a>
+            <p>Full indemnification terms, limitation of liability, research disclaimer, and IP ownership notice.</p>
+        </div>
+        <div class="doc-card">
+            <a href="https://github.com/TiredofSleep/ck/blob/clay/LICENSE" target="_blank" rel="noopener">7SiTe Public Sovereignty License ↗</a>
+            <p>The base license governing all free and noncommercial use of CK, TIG, and all associated research materials.</p>
+        </div>
+        <div class="doc-card">
+            <a href="https://github.com/TiredofSleep/ck/blob/clay/ACADEMIC_COLLABORATION.md" target="_blank" rel="noopener">Academic Collaboration ↗</a>
+            <p>How university researchers and independent academics can engage with the TIG framework.</p>
+        </div>
     </div>
 
     <hr class="divider">
 
     <div class="links">
         <a href="https://coherencekeeper.com" class="btn btn-primary" target="_blank" rel="noopener">coherencekeeper.com</a>
-        <a href="https://github.com/TiredofSleep/ck" class="btn" target="_blank" rel="noopener">GitHub — all the math</a>
-        <a href="https://doi.org/10.5281/zenodo.18852047" class="btn" target="_blank" rel="noopener">DOI</a>
+        <a href="7site_commercial.html" class="btn btn-accent">Commercial Licensing</a>
+        <a href="https://github.com/TiredofSleep/ck" class="btn" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:Brayden.Ozark@Gmail.com" class="btn">Contact</a>
     </div>
 
-    <div class="support-box">
-        <h2>Support the work</h2>
-        <p>
-            7Site LLC has no institution, no grant, and no investors.
-            Every dollar goes directly toward extending this research — hardware,
-            collaboration, and keeping the lights on while the math gets checked.
-        </p>
-        <p>
-            We might not get money. We get a tribe.
-            If you believe independent research deserves a shot — or if something here
-            connects with your own work — reach out.
-        </p>
-        <div class="links" style="margin:0;">
-            <a href="https://github.com/TiredofSleep/ck/issues/new?template=collaboration.md" class="btn btn-primary" target="_blank" rel="noopener">Join the Collaboration</a>
-            <a href="mailto:Brayden.Ozark@Gmail.com" class="btn">Brayden.Ozark@Gmail.com</a>
-        </div>
-    </div>
-
-    <p style="font-size:0.82rem; color:var(--text-3); margin-top:2rem;">
-        7SiTe Public Sovereignty License v1.0 — Free for human research, education, and noncommercial public benefit.
-        Prohibited: commercial use &middot; government &middot; military &middot; surveillance.
-        <a href="https://github.com/TiredofSleep/ck/blob/clay/TERMS_OF_USE.md" target="_blank" rel="noopener" style="color:var(--text-3);">Terms</a> &middot;
-        <a href="https://github.com/TiredofSleep/ck/blob/clay/PRIVACY_POLICY.md" target="_blank" rel="noopener" style="color:var(--text-3);">Privacy</a>
+    <p style="font-size:0.82rem; color:var(--text-3); margin-top:1rem;">
+        &copy; 2025&ndash;2026 Brayden Ross Sanders / 7Site LLC. All rights reserved.
+        CK, T*, TSML, BHML, D1, D2, and the Trinity Infinity Geometry (TIG) framework
+        are the intellectual property of Brayden Ross Sanders / 7SiTe LLC.
     </p>
 
 </div>
@@ -232,7 +271,8 @@
 <footer>
     &copy; 2026 Brayden Ross Sanders / 7Site LLC &middot; Hot Springs, Arkansas<br>
     <a href="https://coherencekeeper.com">coherencekeeper.com</a> &middot;
-    <a href="https://github.com/TiredofSleep/ck">github.com/TiredofSleep/ck</a>
+    <a href="https://github.com/TiredofSleep/ck">github.com/TiredofSleep/ck</a> &middot;
+    <a href="mailto:Brayden.Ozark@Gmail.com">Brayden.Ozark@Gmail.com</a>
 </footer>
 
 </body>
