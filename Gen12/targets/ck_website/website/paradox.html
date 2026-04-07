@@ -861,12 +861,12 @@ function heuristicAnalyze(text) {
     let ck_quote = "Every paradox hides a measurement failure. I am reading the field.";
 
     // ── Framework / Theory detection (Crossing Lemma diagnostic) ──────────────
-    const isFramework = /\b(framework|theory|model|my approach|my method|my system|my hypothesis|my assumption|my axiom|my lens|my measurement|my view|our model|our framework|the theory|the model)\b/i.test(text);
+    const isFramework = /\b(framework|frameworks|theory|theories|model|models|my approach|my method|my methods|my system|my hypothesis|my assumptions|my assumption|my axiom|my lens|my measurement|my measurements|measurements|my results|my data|my evidence|my view|our model|our framework|the theory|the model|keep refining|keep measuring)\b/i.test(text);
     const hasTwoLenses    = /\b(two|dual|both|additive.+multiplicative|structure.+flow|tsml|bhml|orthogonal|disjoint|sufficient pair|pair of)\b/i.test(text);
     const hasBlindRegion  = /\b(blind|gap|missing|unresolved|can.?t see|cannot see|doesn.?t cover|incomplete|leaves out|doesn.?t capture)\b/i.test(text);
     const hasCrossing     = /\b(cross|crossing|crosses|nontrivial|nontrivially|breaks symmetry|breaks the fiber|not fixed|moves between)\b/i.test(text);
     const hasSufficiency  = /\b(sufficient|suffice|enough|complete|full reconstruction|covers all|covers every)\b/i.test(text);
-    const hasRefinement   = /\b(refine|refinement|more precise|sharpen|more accurate|already know|already resolved)\b/i.test(text);
+    const hasRefinement   = /\b(refine|refining|refinement|more precise|sharpen|more accurate|already know|already resolved|never shrinks|ambiguity never|doesn.?t shrink)\b/i.test(text);
 
     if (isFramework) {
         // Crossing Lemma framework diagnostic
