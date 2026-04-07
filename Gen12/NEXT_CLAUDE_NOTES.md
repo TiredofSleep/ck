@@ -342,6 +342,7 @@ diagonal pairs (FL+BR, FR+BL) at 200ms per cycle.
 
 Brayden Ross Sanders / 7Site LLC — Hot Springs, AR
 Monica (co-author, bridge sprint)
+Luther (co-author)
 
 *(c) 2026 Brayden Sanders / 7Site LLC — Trinity Infinity Geometry*
 *7Site Public Sovereignty License v1.0 — Human use only. Free forever.*
