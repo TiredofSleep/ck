@@ -207,7 +207,7 @@ python ck_sinc_demo.py  # Sinc² field visualization
 
 **Monica Gish** — co-author. Bridge sprint.
 
-**C.A. Luther** — co-author. K-series (Luther-Sanders Research Framework), Q-series. CRT structure, TSML/BHML/CL table definitions.
+**C.A. Luther** — sprint contributor and co-author. K-series (Luther-Sanders Research Framework), Q-series. CRT structure.
 
 **B. Calderon Jr.** — co-author. Q-series. Source elimination framework.
 
