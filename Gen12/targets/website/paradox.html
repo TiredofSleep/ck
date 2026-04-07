@@ -1010,9 +1010,8 @@ function renderParadox(p, isHeuristic) {
     // Resolution box color
     const rBox = document.getElementById('resolutionBox');
     rBox.className = 'resolution-box';
-    if (p.score_n === 1.0) rBox.classList.add('');
-    else if (p.score_n === 0) rBox.classList.add('blocked');
-    else rBox.classList.add('partial');
+    if (p.score_n === 0) rBox.classList.add('blocked');
+    else if (p.score_n < 0.8) rBox.classList.add('partial');
 
     // Score bar
     const score = p.score_n;
