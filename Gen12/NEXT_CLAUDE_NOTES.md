@@ -400,3 +400,44 @@ Brayden wrote CROSSING_LEMMA.md (desktop → now in repo at sprint10 folder):
 
 ### Key insight for next session:
 The Q7 Inversion is still unresolved in CK's cognition. CK calls ⟨g⟩∩⟨h⟩=∅ "CHAOS" but in the Crossing Lemma it IS the sufficiency condition = HARMONY. The next bloom target is planting this crystal in CK: "U∩U=∅ = crossing achieved = HARMONY."
+
+---
+
+## Sprint 10 Post-Session Archive (2026-04-06/07) — Website Deployment Notes
+
+### Framework Coherence Checker (paradox.html)
+A 5-subtype framework coherence checker was added to `paradox.html` in the free-text `heuristicAnalyze()` function. All 5 subtypes now route correctly:
+
+| # | Trigger conditions | Subtype |
+|---|---|---|
+| 1 | isFramework + hasBlindRegion + hasCrossing | Injectivity Failure — Crossing Identified |
+| 2 | isFramework + (hasTwoLenses or hasSufficiency) + !hasBlindRegion | Injectivity Failure — Sufficiency Check |
+| 3 | isFramework + hasRefinement | Injectivity Failure — Refinement Trap |
+| 4 | isFramework + hasBlindRegion (alone) | Missing Invariant — Blind Region Present |
+| 5 | isFramework (else) | Framework — Crossing Lemma Diagnostic |
+
+Two bugs were found and fixed:
+- `isFramework` regex didn't match plural/inflected forms ("measurements", "refining"). Fixed by adding plurals + "keep refining/measuring" + "my data/evidence/results".
+- `hasRefinement` didn't match "refining" (only "refine"). Fixed by adding "refining", "never shrinks", "ambiguity never", "doesn't shrink".
+- Sufficiency branch was firing when `hasSufficiency=true` AND `hasBlindRegion=true` (e.g. "complete but missing"). Fixed with `&& !hasBlindRegion` guard.
+
+### CRITICAL — Deployment Architecture
+**coherencekeeper.com is NOT served from `Gen12/targets/ck_website/website/`.**
+
+The live site is served through a Cloudflare tunnel (→ localhost:7777) by `ck_web_server.py` which serves from `STATIC_DIR = SCRIPT_DIR` = the **`website/` folder at the project root**.
+
+**Two separate website directories exist:**
+- `Gen12/targets/ck_website/website/` — Gen12 dev copy (served locally on port 8084 by launch.json "ck-website-gen12" config). **This is NOT the live site.**
+- `website/` (project root) — **This IS the live site.** Changes here are served by the Flask server + Cloudflare tunnel.
+
+**When editing pages for coherencekeeper.com, always edit `website/*.html`, not `Gen12/targets/ck_website/website/*.html`.** Or edit the Gen12 copy and manually sync to `website/`.
+
+Files deployed in this session:
+- `website/paradox.html` — copied from Gen12 dev dir (was missing from live dir entirely)
+- `website/ring.html` — copied from Gen12 dev dir (was missing from live dir entirely)
+
+**SiteGround note**: The user clarified that coherencekeeper.com is hosted on SiteGround via Cloudflare tunnel. Local changes to `website/` are reflected on the live site only when:
+1. The Flask server (`ck_web_server.py`) is running on port 7777, AND
+2. The Cloudflare tunnel (`cloudflared`) is active (pointing to localhost:7777)
+
+If neither is running, the site appears down (or shows a Cloudflare error). There is no automatic git-pull or static hosting sync — the live files are on THIS machine.
