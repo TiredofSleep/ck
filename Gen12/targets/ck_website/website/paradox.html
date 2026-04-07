@@ -791,7 +791,7 @@ function setMode(mode) {
     if (mode === 'free') {
         textarea.readOnly = false;
         textarea.value = '';
-        textarea.placeholder = 'Paste any paradox, ambiguity problem, or mathematical claim…';
+        textarea.placeholder = 'Paste your framework, theory, measurement system, or mathematical claim — CK will identify the paradox type, the blind region, and the crossing needed to resolve it…';
         document.getElementById('analyzeBtn').disabled = false;
         clearQuickSelect();
         currentKey = null;
@@ -860,7 +860,68 @@ function heuristicAnalyze(text) {
     let band = 'YELLOW';
     let ck_quote = "Every paradox hides a measurement failure. I am reading the field.";
 
-    // Heuristic keyword scoring
+    // ── Framework / Theory detection (Crossing Lemma diagnostic) ──────────────
+    const isFramework = /\b(framework|theory|model|my approach|my method|my system|my hypothesis|my assumption|my axiom|my lens|my measurement|my view|our model|our framework|the theory|the model)\b/i.test(text);
+    const hasTwoLenses    = /\b(two|dual|both|additive.+multiplicative|structure.+flow|tsml|bhml|orthogonal|disjoint|sufficient pair|pair of)\b/i.test(text);
+    const hasBlindRegion  = /\b(blind|gap|missing|unresolved|can.?t see|cannot see|doesn.?t cover|incomplete|leaves out|doesn.?t capture)\b/i.test(text);
+    const hasCrossing     = /\b(cross|crossing|crosses|nontrivial|nontrivially|breaks symmetry|breaks the fiber|not fixed|moves between)\b/i.test(text);
+    const hasSufficiency  = /\b(sufficient|suffice|enough|complete|full reconstruction|covers all|covers every)\b/i.test(text);
+    const hasRefinement   = /\b(refine|refinement|more precise|sharpen|more accurate|already know|already resolved)\b/i.test(text);
+
+    if (isFramework) {
+        // Crossing Lemma framework diagnostic
+        if (hasBlindRegion && hasCrossing) {
+            // They already see the crossing need
+            type = 'I'; type_name = 'Injectivity Failure — Crossing Identified';
+            verdict = "Your framework has identified its blind region and suspects a crossing is needed. In Crossing Lemma terms: your Structure operator (the partition you already have) cannot see a region that your Dynamics operator must cross. The crossing condition: your dynamics must act nontrivially on the complement of your current partition.";
+            resolution = "Crossing Lemma check: (1) Name what your Structure operator partitions — what equivalence classes does it create? (2) Name what your Dynamics operator does — does it move elements between those classes? (3) If Dynamics is trivial on the complement of Structure's partition, score = 0 (refinement only). Find a Dynamics operator that crosses where Structure is blind.";
+            score_n = 0.75; operators = ['PROGRESS','HARMONY']; coherence = 0.76; band = 'GREEN';
+            ck_quote = "You see the gap. Now name the dynamics that crosses it. The crossing condition is one algebraic statement.";
+        } else if (hasTwoLenses || hasSufficiency) {
+            // They have two measurements, want to know if they're sufficient
+            type = 'I'; type_name = 'Injectivity Failure — Sufficiency Check';
+            verdict = "You have two measurements (or lenses). In Crossing Lemma terms, they form a sufficient pair iff their ambiguity sets are disjoint — U(f₁) ∩ U(f₂) = ∅. If they share a blind region, neither measurement resolves the ambiguity the other leaves. Check: what does each measurement FAIL to distinguish? If those failure sets overlap, your pair is not sufficient.";
+            resolution = "M+M sufficiency test: label your two measurements f₁ and f₂. For each, list 3 examples of elements your measurement CANNOT distinguish (same output, different input). If any pair of those examples appears in both lists, your measurements share a blind spot. Fix: replace one measurement with an orthogonal one whose blind region doesn't overlap.";
+            score_n = 0.6; operators = ['BALANCE','HARMONY']; coherence = 0.65; band = 'YELLOW';
+            ck_quote = "Two lenses are sufficient only when their blind spots don't overlap. Empty intersection IS the sufficiency condition — it is HARMONY, not chaos.";
+        } else if (hasRefinement) {
+            // They're refining and stuck
+            type = 'I'; type_name = 'Injectivity Failure — Refinement Trap';
+            verdict = "Refinement trap detected. Adding more measurements of the same TYPE — more precision within directions already resolved — cannot reduce the ambiguity set R(F). In Crossing Lemma terms: your new measurement's dynamics are trivial on the blind region (it stays inside existing fibers). Score = 0. The blind region is uncrossed.";
+            resolution = "Refinement vs. crossing: if more data of the same kind isn't helping, you're in the refinement trap. Ask: what dimension are you NOT measuring? Find the orthogonal direction — the invariant that LIVES IN the unresolved region — and add a measurement that crosses there. The fix is always a new dimension, not more precision in an existing one.";
+            score_n = 0.1; operators = ['VOID','LATTICE']; coherence = 0.12; band = 'RED';
+            ck_quote = "You are refining what you already know. The blind region does not shrink. You need a crossing.";
+        } else if (hasBlindRegion) {
+            // They see they're missing something, don't know what
+            type = 'II'; type_name = 'Missing Invariant — Blind Region Present';
+            verdict = "Your framework has a blind region — you sense something is missing but cannot see it by construction. In Crossing Lemma terms: your current measurement family has a non-empty residual R(F). The question is whether an invariant exists in the allowed measurement class that resolves it, or whether the blind region is structurally uncrossable.";
+            resolution = "Two-step diagnosis: (1) Can you DESCRIBE elements your current framework conflates — two things it treats as identical that shouldn't be? If yes, you have a Type I gap (add a crossing measurement). (2) If your framework structurally CANNOT distinguish them (by symmetry, by axiom, by construction) — you have a Type II gap (the invariant doesn't exist in your allowed class; need a class extension or gauge-fix).";
+            score_n = 0.3; operators = ['CHAOS','PROGRESS']; coherence = 0.35; band = 'YELLOW';
+            ck_quote = "The blind region is not empty — something lives there. Can you name an example of two things your framework cannot tell apart?";
+        } else {
+            // Generic framework — give full Crossing Lemma diagnostic
+            type = 'I'; type_name = 'Framework — Crossing Lemma Diagnostic';
+            verdict = "Framework detected. Running Crossing Lemma diagnostic. Every framework has two faces: Structure (what it partitions — the known fibers) and Dynamics (what it moves — the generating operator). The framework is sufficient iff its Dynamics are nontrivial on the complement of its Structure. Insufficient frameworks either refine (dynamics trivial on the blind region) or miss invariants (dynamics cannot reach the blind region by construction).";
+            resolution = "Name three things: (1) What does your framework PARTITION — what equivalence classes does it create? This is your Structure operator. (2) What does your framework GENERATE or MOVE — what dynamics does it describe? This is your Dynamics operator. (3) Do the dynamics move elements BETWEEN the partition classes, or only within them? If within: refinement only. If between: you have a crossing. The crossing is where the new information lives.";
+            score_n = 0.5; operators = ['BALANCE','PROGRESS']; coherence = 0.52; band = 'YELLOW';
+            ck_quote = "Tell me what your framework partitions and what it moves. I can tell you whether it crosses.";
+        }
+        // Set UOP fields for framework mode
+        return {
+            name: "Framework Coherence Check",
+            statement: text.length > 200 ? text.slice(0, 200) + '…' : text,
+            type, type_name,
+            hidden_space: "𝒳 — the space of all states your framework models",
+            measurement_f1: "f₁ — your primary partition (Structure): what equivalence classes does your framework create?",
+            ambiguity_f1: "U(f₁) — elements your framework cannot distinguish (its blind region)",
+            measurement_f2: "f₂ — the crossing (Dynamics): what must act nontrivially on the blind region of f₁",
+            ambiguity_f2: "U(f₂) — must be disjoint from U(f₁) for sufficiency",
+            residual: "R(F) — what remains unresolved. If R(F) = ∅ after adding f₂, your pair is sufficient.",
+            verdict, resolution, score_n, operators, coherence, band, ck_quote
+        };
+    }
+
+    // ── Classical paradox keyword scoring ─────────────────────────────────────
     const selfRef   = /self.?referential|this sentence|refers to itself|defines itself|its own/i.test(text);
     const observer  = /observer|observation|measurement collapses|belief|knowledge state|epistemic/i.test(text);
     const infinite  = /infinite|infinity|infinitely|limit|converge|series/i.test(text);

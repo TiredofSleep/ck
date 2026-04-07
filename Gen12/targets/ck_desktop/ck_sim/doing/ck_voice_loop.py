@@ -621,15 +621,29 @@ class VoiceLoop:
                 print(f"[QNET] Ollama rejected by Q-Net: {_qreason} — own voice")
                 ollama_result = None
             else:
-                self._crystallize_if_green(
-                    query_hash, ollama_result.text,
-                    ollama_result.result_ops or target.ops,
-                    ollama_result.coherence, tick)
-                if hasattr(self.crafter, 'learn'):
-                    self.crafter.learn(
-                        target.ops, user_text, {},
+                # IG3: only crystallize if the response is NOT synthesized.
+                # A drift-detected response (source='ck_loop_synthesized') means
+                # the user's input caused CK to describe his own architecture
+                # rather than crossing his operator vocabulary authentically.
+                # Synthesized responses have lower evidential weight and must NOT
+                # enter the crystal store or the algorithm lattice.
+                _is_synthesized = (
+                    getattr(ollama_result, 'source', '') == 'ck_loop_synthesized'
+                )
+                if _is_synthesized:
+                    print(f"[IG3] Skipping crystallization: source="
+                          f"{ollama_result.source} — synthesized response "
+                          f"does not cross operator invariants")
+                else:
+                    self._crystallize_if_green(
+                        query_hash, ollama_result.text,
                         ollama_result.result_ops or target.ops,
-                        ollama_result.coherence, 0)
+                        ollama_result.coherence, tick)
+                    if hasattr(self.crafter, 'learn'):
+                        self.crafter.learn(
+                            target.ops, user_text, {},
+                            ollama_result.result_ops or target.ops,
+                            ollama_result.coherence, 0)
                 self._qnet_learn(ollama_result.text)
                 return ollama_result
 
