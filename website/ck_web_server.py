@@ -104,16 +104,18 @@ def main():
     @api._app.route('/collaborate', methods=['POST'])
     def add_collaborator():
         body = _req.get_json(silent=True) or {}
-        name = (body.get('name') or '').strip()
-        note = (body.get('note') or '').strip()
+        name   = (body.get('name')   or '').strip()
+        note   = (body.get('note')   or '').strip()
+        github = (body.get('github') or '').strip().lstrip('@')
         if not name or len(name) > 120:
             return _jsonify({'error': 'name required, max 120 chars'}), 400
-        note = note[:280]
+        note   = note[:280]
+        github = github[:60]
         collabs = _load_collabs()
-        entry = {'name': name, 'note': note, 'date': _dt.utcnow().strftime('%Y-%m-%d')}
+        entry = {'name': name, 'note': note, 'github': github, 'date': _dt.utcnow().strftime('%Y-%m-%d')}
         collabs.append(entry)
         _save_collabs(collabs)
-        print(f"[CK] New collaborator: {name}")
+        print(f"[CK] New collaborator: {name}" + (f" (@{github})" if github else ""))
         return _jsonify({'ok': True, 'total': len(collabs), 'entry': entry}), 200
 
     @api._app.route('/collaborate', methods=['GET'])
