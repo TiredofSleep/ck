@@ -415,6 +415,16 @@ class FractalMemoryStore:
     # ── Status ──────────────────────────────────────────────────
 
     @property
+    def experiences(self) -> Dict[str, FractalExperience]:
+        """Read-only view of the experience dict keyed by uid.
+
+        Exposed so GPU layer (ck_fractal_memory_gpu) can build its
+        VRAM force matrix without duplicating storage or bypassing
+        the canonical in-process _exps dict.
+        """
+        return self._exps
+
+    @property
     def size(self) -> int:
         return len(self._exps)
 
