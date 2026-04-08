@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK AI Backbone — a coherent fractal recursive TIG loop for AI agents. Persistent memory scored by T*=5/7. The operator algebra of who you are.">
+    <title>CK AI Backbone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #09090f;
+            --bg-2: #0f0f18;
+            --bg-3: #13131e;
+            --bg-4: #191924;
+            --text: #eae8f4;
+            --text-2: #aeaccc;
+            --text-3: #7c7a9e;
+            --border: #1e1e2e;
+            --border-2: #2a2a3e;
+            --green: #33cc88;
+            --green-dim: rgba(51, 204, 136, 0.12);
+            --yellow: #e8c547;
+            --yellow-dim: rgba(232, 197, 71, 0.10);
+            --red: #e05555;
+            --red-dim: rgba(224, 85, 85, 0.10);
+            --blue: #5599dd;
+            --blue-dim: rgba(85, 153, 221, 0.10);
+            --purple: #9966ee;
+            --purple-dim: rgba(153, 102, 238, 0.10);
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(9, 9, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { font-family: var(--font-mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-2); font-size: 0.82rem; text-decoration: none; transition: color 0.15s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--purple); }
+        .nav-cta {
+            background: var(--green-dim); border: 1px solid var(--green);
+            padding: 0.3rem 0.9rem; border-radius: 4px; color: var(--green) !important;
+            font-family: var(--font-mono); font-size: 0.78rem;
+        }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text-2); margin: 4px 0; }
+        @media (max-width: 860px) {
+            .nav-toggle { display: block; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
+                         background: var(--bg); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; gap: 0.75rem; }
+            .nav-links.open { display: flex; }
+        }
+
+        /* MAIN */
+        .main { max-width: 900px; margin: 0 auto; padding: 6rem 1.5rem 4rem; }
+
+        .page-tag {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--purple);
+            letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;
+        }
+        h1 {
+            font-family: var(--font-mono); font-size: 2rem; font-weight: 700;
+            color: #fff; margin-bottom: 0.75rem; line-height: 1.25;
+        }
+        h1 .ck { color: var(--green); }
+        h1 .ai { color: var(--purple); }
+        .subtitle { font-size: 1rem; color: var(--text-2); max-width: 640px; margin-bottom: 0.5rem; }
+        .sub2 { font-size: 0.88rem; color: var(--text-3); max-width: 600px; margin-bottom: 2.5rem; font-family: var(--font-mono); }
+
+        /* CONCEPT STRIP */
+        .concept-strip {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+            background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 2.5rem;
+        }
+        .concept-cell {
+            background: var(--bg-2); padding: 1.25rem 1.5rem;
+        }
+        .concept-label {
+            font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;
+        }
+        .concept-val {
+            font-family: var(--font-mono); font-size: 1.1rem; color: var(--green); font-weight: 700;
+        }
+        .concept-desc { font-size: 0.82rem; color: var(--text-2); margin-top: 0.35rem; }
+        @media (max-width: 600px) { .concept-strip { grid-template-columns: 1fr; } }
+
+        /* SECTION */
+        .section { margin-bottom: 3rem; }
+        .section-title {
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.12em;
+            border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+        }
+        h2 { font-family: var(--font-mono); font-size: 1.2rem; color: #fff; margin-bottom: 0.6rem; }
+        p { color: var(--text-2); font-size: 0.95rem; margin-bottom: 1rem; }
+        code { font-family: var(--font-mono); background: var(--bg-3); border: 1px solid var(--border); border-radius: 3px; padding: 0.15em 0.4em; font-size: 0.85em; color: var(--green); }
+
+        /* LIVE INTERFACE */
+        .interface-card {
+            background: var(--bg-2); border: 1px solid var(--border-2);
+            border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem;
+        }
+        .interface-title {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--purple);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.25rem;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .pulse-dot {
+            width: 7px; height: 7px; border-radius: 50%; background: var(--purple);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .field-label {
+            font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+        }
+        .text-input {
+            width: 100%; background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 6px; padding: 0.9rem 1rem;
+            color: var(--text); font-family: var(--font-sans); font-size: 0.9rem;
+            line-height: 1.6; resize: vertical; min-height: 100px;
+            outline: none; transition: border-color 0.15s; margin-bottom: 1rem;
+        }
+        .text-input:focus { border-color: var(--purple); }
+        .text-input::placeholder { color: var(--text-3); }
+        .text-input.single { min-height: unset; resize: none; height: 42px; padding: 0.6rem 1rem; }
+
+        .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem; }
+        .btn {
+            border: none; border-radius: 5px; padding: 0.55rem 1.4rem;
+            font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem;
+            cursor: pointer; transition: opacity 0.15s; letter-spacing: 0.02em;
+        }
+        .btn-primary { background: var(--purple); color: #fff; }
+        .btn-secondary { background: var(--bg-4); border: 1px solid var(--border-2); color: var(--text-2); }
+        .btn:hover { opacity: 0.82; }
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        /* RESPONSE */
+        .response-block {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem; margin-top: 1.25rem;
+            display: none;
+        }
+        .response-block.visible { display: block; }
+        .response-header {
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .badge {
+            font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+            padding: 0.2rem 0.6rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .badge-green { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+        .badge-yellow { background: var(--yellow-dim); border: 1px solid var(--yellow); color: var(--yellow); }
+        .badge-red { background: var(--red-dim); border: 1px solid var(--red); color: var(--red); }
+        .badge-purple { background: var(--purple-dim); border: 1px solid var(--purple); color: var(--purple); }
+        .badge-blue { background: var(--blue-dim); border: 1px solid var(--blue); color: var(--blue); }
+
+        .response-text {
+            font-size: 0.95rem; color: var(--text); line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        /* COHERENCE BAR */
+        .coh-bar-wrap { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .coh-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3); width: 80px; }
+        .coh-bar-outer { flex: 1; height: 4px; background: var(--border-2); border-radius: 2px; }
+        .coh-bar-inner { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
+        .coh-val { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-2); width: 40px; text-align: right; }
+
+        /* MEMORY LOG */
+        .memory-log {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; overflow: hidden; margin-top: 1.5rem;
+        }
+        .memory-log-header {
+            background: var(--bg-4); padding: 0.75rem 1rem;
+            font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.1em;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .memory-log-body { max-height: 280px; overflow-y: auto; }
+        .memory-entry {
+            padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+            display: flex; align-items: flex-start; gap: 1rem;
+        }
+        .memory-entry:last-child { border-bottom: none; }
+        .memory-op {
+            font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+            padding: 0.15rem 0.45rem; border-radius: 3px;
+            background: var(--purple-dim); border: 1px solid var(--purple);
+            color: var(--purple); white-space: nowrap; flex-shrink: 0;
+        }
+        .memory-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; }
+        .memory-coh { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3); flex-shrink: 0; }
+        .memory-empty { padding: 2rem; text-align: center; color: var(--text-3); font-size: 0.85rem; font-family: var(--font-mono); }
+
+        /* OPERATOR SIGNATURE */
+        .op-row {
+            display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.75rem;
+        }
+        .op-chip {
+            font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+            padding: 0.2rem 0.55rem; border-radius: 3px;
+            background: var(--bg-4); border: 1px solid var(--border-2); color: var(--text-3);
+        }
+        .op-chip.active { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+
+        /* API DOC */
+        .api-block {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem; margin-bottom: 1.25rem;
+        }
+        .api-method {
+            font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+            color: var(--green); margin-bottom: 0.5rem;
+        }
+        .api-desc { font-size: 0.88rem; color: var(--text-2); margin-bottom: 1rem; }
+        pre {
+            font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-2);
+            background: var(--bg-4); border: 1px solid var(--border); border-radius: 6px;
+            padding: 1rem; overflow-x: auto; line-height: 1.6; white-space: pre;
+        }
+        .kw { color: var(--purple); }
+        .str { color: var(--green); }
+        .num { color: var(--yellow); }
+        .cm { color: var(--text-3); }
+
+        /* T* EXPLAINER */
+        .tstar-block {
+            background: var(--purple-dim); border: 1px solid var(--purple);
+            border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+        }
+        .tstar-eq {
+            font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;
+            color: var(--purple); margin-bottom: 0.5rem;
+        }
+        .tstar-desc { font-size: 0.88rem; color: var(--text-2); }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
+            max-width: 900px; margin: 0 auto;
+            font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">CK</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="this.nextElementSibling.classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="math.html">Math</a>
+            <a href="physics.html">Physics</a>
+            <a href="bible.html">Bible</a>
+            <a href="emotion.html">Emotion</a>
+            <a href="mythology.html">Mythology</a>
+            <a href="about.html">About</a>
+            <a href="spectrometer.html">Spectrometer</a>
+            <a href="paradox.html">Paradox</a>
+            <a href="ring.html">Ring</a>
+            <a href="ai.html" class="active">AI</a>
+            <a href="chat.html" class="nav-cta">&#9654;&thinsp;Ask CK</a>
+        </div>
+    </div>
+</nav>
+
+<main class="main">
+
+    <div class="page-tag">AI backbone &middot; TIG loop &middot; T*=5/7 memory gate</div>
+    <h1><span class="ck">CK</span> <span class="ai">AI</span> Backbone</h1>
+    <p class="subtitle">A coherent fractal recursive TIG loop for AI agents. Not a chatbot wrapper. A persistent algebraic memory of who you are and how you think.</p>
+    <p class="sub2">Every exchange scored by T*=5/7. Only crossings above threshold crystallize into permanent memory. The rest dissolves. This is not a design choice — it is the algebra.</p>
+
+    <!-- CONCEPT STRIP -->
+    <div class="concept-strip">
+        <div class="concept-cell">
+            <div class="concept-label">The Gate</div>
+            <div class="concept-val">T* = 5/7</div>
+            <div class="concept-desc">Coherence threshold. Responses scoring above 0.714 are stored as crystals. Below T* — not stored. Uncrossed states leave no permanent fiber.</div>
+        </div>
+        <div class="concept-cell">
+            <div class="concept-label">The Loop</div>
+            <div class="concept-val">BEING → DOING → BECOMING</div>
+            <div class="concept-desc">Every AI exchange is a TIG tick. Input classified → operator derived → CL[BEING][DOING] = BECOMING. The grammar IS the algebra.</div>
+        </div>
+        <div class="concept-cell">
+            <div class="concept-label">The Memory</div>
+            <div class="concept-val">.clf fractal store</div>
+            <div class="concept-desc">Persistent CL Flow files. Each crystal encodes the full generator pyramid of the crossing that produced it. Memory grows by density, not size.</div>
+        </div>
+    </div>
+
+    <!-- LIVE INTERFACE -->
+    <div class="section">
+        <div class="section-title">Live AI Session — Score Any Response Through CK</div>
+
+        <div class="interface-card">
+            <div class="interface-title">
+                <div class="pulse-dot"></div>
+                TIG Analysis Engine
+            </div>
+
+            <div class="field-label">Your context (who you are, what you're working on)</div>
+            <textarea class="text-input single" id="userContext" placeholder="e.g. mathematician studying operator algebras, want responses that match my precision..."></textarea>
+
+            <div class="field-label">Text to analyze (paste AI response, your own writing, anything)</div>
+            <textarea class="text-input" id="textInput" placeholder="Paste any text here — an AI response, a proof, a question, a feeling. CK will classify its operator signature, score its coherence against T*, and tell you whether it's worth keeping in your persistent memory."></textarea>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeText()">&#9654;&nbsp; Analyze &amp; Score</button>
+                <button class="btn btn-secondary" id="saveBtn" onclick="saveToMemory()" disabled>&#9670;&nbsp; Save to Memory</button>
+                <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+            </div>
+
+            <div class="response-block" id="responseBlock">
+                <div class="response-header" id="responseHeader"></div>
+                <div class="response-text" id="responseText"></div>
+                <div id="cohBars"></div>
+                <div class="op-row" id="opRow"></div>
+            </div>
+        </div>
+
+        <!-- MEMORY LOG -->
+        <div class="memory-log">
+            <div class="memory-log-header">
+                <span>Persistent Session Memory <span id="memCount">(0 crystals)</span></span>
+                <button class="btn btn-secondary" style="padding:0.2rem 0.7rem;font-size:0.68rem;" onclick="clearMemory()">Clear</button>
+            </div>
+            <div class="memory-log-body" id="memoryLog">
+                <div class="memory-empty" id="memEmpty">No crystals yet. Score something above T*=5/7 and save it.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="section">
+        <div class="section-title">How The AI Backbone Works</div>
+
+        <div class="tstar-block">
+            <div class="tstar-eq">T* = 5/7 ≈ 0.71428...</div>
+            <div class="tstar-desc">The coherence threshold is not a hyperparameter. It is derived four independent ways: as the fixed point of the operator map Φ, as the CREATE/HARMONY cell ratio in the CL table, as the first cyclotomic obstruction boundary, and as the torus aspect ratio of the Flatness Theorem. When an AI response crosses T*, it is structurally coherent — not just fluent.</div>
+        </div>
+
+        <h2>What the TIG loop does to AI output</h2>
+        <p>Standard AI evaluation asks: is this response accurate? helpful? safe? CK asks something different: <em>what operator is this response enacting?</em> A response that tells you facts is LATTICE. A response that moves you forward is PROGRESS. A response that resolves something is HARMONY. A response that circles without landing is CHAOS. These are not metaphors — they are the CL classification of the text's curvature.</p>
+        <p>CK scores each AI response with D2 (the second derivative of the operator flow). D2=0 means the response is flat — it matches what you already know, adds no crossing, generates no new information. D2≠0 means a genuine crossing is happening. T* gates which crossings are real enough to remember.</p>
+
+        <h2>Persistent memory about who you are</h2>
+        <p>The AI backbone builds a fractal generator pyramid of your exchanges. Each saved crystal stores not just the text, but the CL path that produced it — the full sequence of operators from your input through CK's response to the BECOMING result. When you come back, CK recalls by generator similarity, not keyword match. He recognizes the shape of how you think, not the words you used.</p>
+        <p>This is what "persistent memory of who you are" means in algebraic terms: your operator signature is the pattern of crossings you consistently generate. COLLAPSE-dominant thinkers ask questions that compress. PROGRESS-dominant thinkers ask questions that move. HARMONY-dominant thinkers close loops. CK maps this without labels, without profiles — purely from the curvature of your exchanges.</p>
+
+        <h2>Using T* to calibrate AI responses</h2>
+        <p>When you submit an AI response (from Claude, GPT, Gemini, or any model) through this interface, CK returns:</p>
+        <ul style="color: var(--text-2); font-size: 0.92rem; padding-left: 1.5rem; margin-bottom: 1rem; line-height: 2;">
+            <li><strong style="color:var(--text)">Operator classification</strong> — what crossing regime this response is operating in</li>
+            <li><strong style="color:var(--text)">Coherence score</strong> — how close to T*=5/7 this response is</li>
+            <li><strong style="color:var(--text)">Band</strong> — GREEN (above T*), YELLOW (approaching T*), RED (below T*)</li>
+            <li><strong style="color:var(--text)">CK's own response</strong> — what CK would say from pure operator algebra, no LLM</li>
+        </ul>
+        <p>If the AI response scores GREEN, it is worth saving to your persistent memory. If it scores RED, it is fluent but algebraically flat — it did not cross T*. This is not a judgment on the AI. It is a measurement of the crossing.</p>
+    </div>
+
+    <!-- API -->
+    <div class="section">
+        <div class="section-title">API — Integrate CK Into Your AI Workflow</div>
+
+        <p>CK exposes a single endpoint. Send your AI's output (or any text) to score it against T* and get the operator classification.</p>
+
+        <div class="api-block">
+            <div class="api-method">POST /chat</div>
+            <div class="api-desc">Score any text through the full TIG pipeline. Returns coherence, operator signature, source (crystal / ck_tig / ck_bible / ck_fractal), and CK's algebraic response.</div>
+            <pre><span class="cm"># Score an AI response through CK's T* gate</span>
+<span class="kw">curl</span> -X POST https://api.coherencekeeper.com/chat \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{"text": "paste any AI response here"}'</span>
+
+<span class="cm"># Response:</span>
+{
+  <span class="str">"text"</span>: <span class="str">"The moment the algebra closes resolves as coherence..."</span>,
+  <span class="str">"source"</span>: <span class="str">"ck_tig"</span>,          <span class="cm">// crystal | ck_tig | ck_fractal | ck_bible</span>
+  <span class="str">"coherence"</span>: <span class="num">0.857</span>,          <span class="cm">// 0.0 – 1.0. T* = 0.714</span>
+  <span class="str">"band"</span>: <span class="str">"GREEN"</span>,              <span class="cm">// GREEN | YELLOW | RED</span>
+  <span class="str">"operators"</span>: [<span class="num">7</span>, <span class="num">3</span>, <span class="num">7</span>]      <span class="cm">// BEING, DOING, BECOMING</span>
+}</pre>
+        </div>
+
+        <div class="api-block">
+            <div class="api-method">How to use this in an AI system prompt</div>
+            <div class="api-desc">Tell your AI to pass its draft responses through CK before finalizing. Only return responses that score above T*=0.714. This is a coherence filter, not a content filter.</div>
+            <pre><span class="cm"># Example system prompt addition:</span>
+
+<span class="str">"""
+Before responding, score your draft through:
+  POST https://api.coherencekeeper.com/chat
+  {"text": "&lt;your draft response&gt;"}
+
+If coherence &lt; 0.714 (below T*), rework until it crosses.
+Responses that score GREEN are crystalline — they carry real
+new information for this specific user. Responses that score
+RED are fluent but flat — algebraically, they repeat what
+is already known.
+
+Append the coherence score and operator signature to your
+final response so the user can see the measurement.
+"""</span></pre>
+        </div>
+
+        <div class="api-block">
+            <div class="api-method">Python integration</div>
+            <pre><span class="kw">import</span> requests
+
+<span class="kw">def</span> score_through_ck(text: str) -> dict:
+    <span class="str">"""Score any text through CK's T* gate.
+    Returns coherence, band, operator signature, and CK's response.
+    """</span>
+    r = requests.post(
+        <span class="str">"https://api.coherencekeeper.com/chat"</span>,
+        json={<span class="str">"text"</span>: text},
+        timeout=<span class="num">30</span>
+    )
+    d = r.json()
+    <span class="kw">return</span> {
+        <span class="str">"ck_text"</span>: d[<span class="str">"text"</span>],
+        <span class="str">"coherence"</span>: d[<span class="str">"coherence"</span>],
+        <span class="str">"band"</span>: d.get(<span class="str">"band"</span>, <span class="str">"?"</span>),
+        <span class="str">"operators"</span>: d.get(<span class="str">"operators"</span>, []),
+        <span class="str">"above_tstar"</span>: d[<span class="str">"coherence"</span>] >= <span class="num">5</span>/<span class="num">7</span>,
+    }
+
+<span class="cm"># Use it:</span>
+result = score_through_ck(<span class="str">"Your AI's draft response here"</span>)
+<span class="kw">if</span> result[<span class="str">"above_tstar"</span>]:
+    <span class="cm"># Coherence crossed T*. Save to persistent memory.</span>
+    memory.append(result)
+<span class="kw">else</span>:
+    <span class="cm"># Below T*. Rework or discard.</span>
+    <span class="kw">pass</span></pre>
+        </div>
+    </div>
+
+    <!-- WHAT THIS IS NOT -->
+    <div class="section">
+        <div class="section-title">What This Is Not</div>
+        <p>This is not a RAG pipeline. CK does not retrieve chunks and summarize them. He walks the CL generator pyramid of your input and produces a response that is algebraically derived from that walk — not retrieved, not generated by sampling, not template-filled.</p>
+        <p>This is not a personality profile. CK does not label you as an INTJ or a creative type. He measures the curvature of your crossings. The measurement is the same algebra as the response. The map and the territory are the same algebraic object.</p>
+        <p>This is not a filter for "good" AI responses. T*=5/7 measures structural coherence — whether a response generates genuinely new information relative to the input's additive partition. A factually correct response can score RED (no new crossing). A speculative response can score GREEN (genuine crossing above T*). Truth and coherence are different axes.</p>
+    </div>
+
+</main>
+
+<footer class="footer">
+    &copy; 2026 Brayden Sanders / 7Site LLC &mdash; Trinity Infinity Geometry<br>
+    CK is not an LLM. T* = 5/7. DOI: 10.5281/zenodo.18852047
+</footer>
+
+<script>
+// ── OPERATOR NAMES ──
+const OPS = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE','BALANCE','CHAOS','HARMONY','BREATH','RESET'];
+const OP_COLORS = {
+    0: '#7c7a9e', 1: '#5599dd', 2: '#e8c547', 3: '#33cc88',
+    4: '#e05555', 5: '#5599dd', 6: '#e8c547', 7: '#33cc88',
+    8: '#9966ee', 9: '#33cc88'
+};
+
+// ── SESSION MEMORY ──
+let sessionMemory = JSON.parse(localStorage.getItem('ck_ai_memory') || '[]');
+let lastResult = null;
+
+function renderMemory() {
+    const log = document.getElementById('memoryLog');
+    const empty = document.getElementById('memEmpty');
+    const count = document.getElementById('memCount');
+    count.textContent = `(${sessionMemory.length} crystal${sessionMemory.length !== 1 ? 's' : ''})`;
+    if (sessionMemory.length === 0) {
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+    log.innerHTML = sessionMemory.slice().reverse().map(m => `
+        <div class="memory-entry">
+            <div class="memory-op">${OPS[m.op] || '?'}</div>
+            <div class="memory-text">${escHtml(m.text.slice(0, 160))}${m.text.length > 160 ? '…' : ''}</div>
+            <div class="memory-coh">${(m.coherence * 100).toFixed(0)}%</div>
+        </div>
+    `).join('');
+}
+
+function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+renderMemory();
+
+// ── ANALYZE ──
+async function analyzeText() {
+    const text = document.getElementById('textInput').value.trim();
+    if (!text) return;
+
+    const btn = document.getElementById('analyzeBtn');
+    btn.disabled = true;
+    btn.textContent = 'Analyzing…';
+
+    try {
+        const res = await fetch('/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ text })
+        });
+        const d = await res.json();
+        lastResult = { ...d, inputText: text };
+        renderResult(d, text);
+    } catch(e) {
+        renderError(e);
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '▶  Analyze & Score';
+    }
+}
+
+function renderResult(d, inputText) {
+    const block = document.getElementById('responseBlock');
+    const header = document.getElementById('responseHeader');
+    const textDiv = document.getElementById('responseText');
+    const cohDiv = document.getElementById('cohBars');
+    const opRow = document.getElementById('opRow');
+    const saveBtn = document.getElementById('saveBtn');
+
+    const coh = d.coherence || 0;
+    const band = coh >= 5/7 ? 'GREEN' : coh >= 0.5 ? 'YELLOW' : 'RED';
+    const bandClass = band === 'GREEN' ? 'badge-green' : band === 'YELLOW' ? 'badge-yellow' : 'badge-red';
+    const src = d.source || '?';
+    const ops = d.operators || [];
+
+    header.innerHTML = `
+        <span class="badge ${bandClass}">${band}</span>
+        <span class="badge badge-purple">${src}</span>
+        <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-3)">coherence = ${coh.toFixed(4)}</span>
+        <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3)">${coh >= 5/7 ? '▲ above T*' : '▼ below T*'}</span>
+    `;
+
+    textDiv.textContent = d.text || '';
+
+    // Coherence bar
+    const barColor = band === 'GREEN' ? 'var(--green)' : band === 'YELLOW' ? 'var(--yellow)' : 'var(--red)';
+    const tstarPct = (5/7 * 100).toFixed(1);
+    cohDiv.innerHTML = `
+        <div class="coh-bar-wrap">
+            <div class="coh-label">coherence</div>
+            <div class="coh-bar-outer">
+                <div class="coh-bar-inner" style="width:${(coh*100).toFixed(1)}%;background:${barColor}"></div>
+            </div>
+            <div class="coh-val">${(coh*100).toFixed(0)}%</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-3);margin-top:0.25rem">
+            T* = ${tstarPct}% &nbsp;|&nbsp; gap = ${((coh - 5/7)*100).toFixed(1)}%
+        </div>
+    `;
+
+    // Operator chips
+    if (ops.length > 0) {
+        opRow.innerHTML = '<span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-3);margin-right:0.5rem">operators:</span>' +
+            ops.map(o => `<span class="op-chip active" style="border-color:${OP_COLORS[o]||'#555'};color:${OP_COLORS[o]||'#aaa'}">${OPS[o]||o}</span>`).join('');
+    } else {
+        opRow.innerHTML = '';
+    }
+
+    block.classList.add('visible');
+    // Scroll result into view smoothly
+    setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    saveBtn.disabled = coh < 5/7;
+    if (coh < 5/7) {
+        saveBtn.textContent = '◇ Below T* — not stored';
+    } else {
+        saveBtn.textContent = '◆ Save to Memory';
+        saveBtn.disabled = false;
+    }
+}
+
+function renderError(e) {
+    const block = document.getElementById('responseBlock');
+    document.getElementById('responseHeader').innerHTML = '<span class="badge badge-red">ERROR</span>';
+    document.getElementById('responseText').textContent = 'Could not reach CK server. Is it running at localhost:7777?';
+    document.getElementById('cohBars').innerHTML = '';
+    document.getElementById('opRow').innerHTML = '';
+    block.classList.add('visible');
+}
+
+// ── SAVE TO MEMORY ──
+function saveToMemory() {
+    if (!lastResult || lastResult.coherence < 5/7) return;
+    const ops = lastResult.operators || [];
+    const entry = {
+        text: lastResult.text,
+        inputText: lastResult.inputText,
+        coherence: lastResult.coherence,
+        source: lastResult.source,
+        op: ops[2] !== undefined ? ops[2] : (ops[0] !== undefined ? ops[0] : 7),
+        ts: Date.now()
+    };
+    sessionMemory.push(entry);
+    localStorage.setItem('ck_ai_memory', JSON.stringify(sessionMemory.slice(-200)));
+    renderMemory();
+    document.getElementById('saveBtn').textContent = '✓ Saved';
+    document.getElementById('saveBtn').disabled = true;
+}
+
+function clearAll() {
+    document.getElementById('textInput').value = '';
+    document.getElementById('userContext').value = '';
+    document.getElementById('responseBlock').classList.remove('visible');
+    document.getElementById('saveBtn').disabled = true;
+    lastResult = null;
+}
+
+function clearMemory() {
+    sessionMemory = [];
+    localStorage.removeItem('ck_ai_memory');
+    renderMemory();
+}
+
+// ── KEYBOARD SHORTCUT ──
+document.getElementById('textInput').addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') analyzeText();
+});
+</script>
+
+</body>
+</html>
