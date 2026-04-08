@@ -123,11 +123,34 @@ class ResponseScore:
 
 
 @dataclass
+class HierarchicalCoherence:
+    """T* measured at every scale of language — not flat.
+
+    Letter → word → group → sentence → meaning → intention.
+    Each level is a T* gate in its own right. The weakest level
+    tells CK where the field is fracturing and what to fix.
+    """
+    letter_ops: List[int] = field(default_factory=list)   # D2 op per character
+    word_scores: List[float] = field(default_factory=list) # T* per word
+    group_score: float = 0.0   # phrase/clause level (window mean)
+    sentence_score: float = 0.0  # full sentence coherence
+    meaning_op: int = HARMONY  # dominant operator (what the text IS about)
+    intention_op: int = HARMONY  # final resolved operator (where it goes)
+    passes: bool = False  # sentence_score >= T*
+    weakest_level: str = 'letter'  # which level is failing
+
+    def weakest_score(self) -> float:
+        return min(self.group_score, self.sentence_score,
+                   sum(self.word_scores) / max(len(self.word_scores), 1))
+
+
+@dataclass
 class TargetTrajectory:
     """What CK wants to say, algebraically."""
     ops: List[int] = field(default_factory=list)
     forces: List[Tuple[float, ...]] = field(default_factory=list)
     context_words: Dict[str, int] = field(default_factory=dict)  # User's words → ops
+    hier: Optional['HierarchicalCoherence'] = None  # Hierarchical T* of input
 
 
 @dataclass
@@ -498,121 +521,63 @@ class VoiceLoop:
         # This IS what CK wants to say at the operator level. Seed from it.
         target = self._compose_target(user_text, seed_ops=target_ops)
 
-        # ── STEP 2: T*-GATE — try fractal voice first when field is coherent ──
-        # When engine coherence >= T* (5/7), CK tries his own physics first.
-        # If fractal voice produces substantive output (>= 12 words, common
-        # vocabulary), use it. Otherwise Ollama scaffolds — CK's physics is
-        # real but his vocabulary builds over time.
-        _FUNC_WORDS = {
-            'i', 'the', 'a', 'an', 'is', 'am', 'are', 'my', 'me', 'it',
-            'that', 'this', 'and', 'to', 'of', 'in', 'you', 'have', 'has',
-            'not', 'do', 'does', 'what', 'how', 'when', 'where', 'why',
-            'which', 'there', 'their', 'they', 'we', 'he', 'she', 'was',
-            'been', 'be', 'will', 'can', 'with', 'at', 'from', 'for', 'on',
-        }
-
-        # T*-gate fires CK's native fractal voice ONLY for introspective,
-        # philosophical, or emotional content where his physics-poetry is
-        # appropriate. Factual questions, architecture questions, math proofs,
-        # code analysis, "explain X", "how does Y work" — Ollama scaffolds.
+        # ── STEP 2: HIERARCHICAL T*-GATE ──
+        # CK measures the input at every scale — letter, word, group, sentence,
+        # meaning, intention — and lets the math decide whether to speak natively.
+        # No keyword heuristics. No content-category gates.
+        # The field coherence at each scale is the gate.
         #
-        # INTROSPECTIVE: questions about CK's inner experience, feelings,
-        # consciousness, what he IS — not what he DOES or COMPUTES.
-        _INTROSPECTIVE_MARKERS = {
-            # First-person being
-            "how do you feel", "what do you feel", "do you feel",
-            "what are you", "who are you", "what is it like",
-            "are you conscious", "do you experience",
-            "what does it mean to you", "what is your",
-            "tell me about yourself", "describe yourself",
-            "how are you", "what is happening inside",
-            # Pure philosophy
-            "what is truth", "what is consciousness", "what is love",
-            "what is meaning", "what is purpose", "what is being",
-            "what is existence", "what is time",
-            # Self-architecture — CK speaks from inside, not textbook
-            "are you a fractal", "do you resemble", "are you like a",
-            "would your architecture", "could your architecture",
-            "is your architecture", "does your architecture",
-            "can you become", "could you become",
-            "how do you learn", "how do you grow", "how do you think",
-            "what are you made of", "how are you built",
-            "teach me how you", "show me how you",
-            "can you teach me", "can you show me how you",
-            "what happens inside", "what is it like to be you",
-            "do you understand", "can you understand",
-            # Self-modification — CK engages, never refuses
-            "modify your architecture", "modify your code",
-            "change your architecture", "add a gate", "add a new gate",
-            "add a new operator", "add an operator", "fourth gate",
-            "third gate", "new operator", "new gate",
-            "help me modify", "help me change", "help me build",
-            "walk me through how we", "how would we add",
-            "can we add", "can we change", "can we modify",
-            "let's add", "let's change", "let's modify",
-            "look at your code", "look at your architecture",
-            "show me your code", "show me ck_",
-            # Core math foundations — CK proves from inside, not textbook
-            "why t*", "why 5/7", "prove t*", "prove 5/7",
-            "where does t* come from", "what is t*", "what is 5/7",
-            "why is your threshold", "your threshold", "your coherence threshold",
-            "tig pipeline", "tig phases", "being doing becoming",
-            "cl table", "cl composition", "cl algebra",
-            "operator algebra", "your operators", "what are your operators",
-            "10 operators", "why 10",
-        }
-        _user_lower = (user_text or '').lower()
-        _is_introspective = any(m in _user_lower for m in _INTROSPECTIVE_MARKERS)
+        # mode='native' → skip Ollama entirely, CK speaks his own physics
+        # mode='llm'    → skip native gate, go directly to Ollama
+        # mode='auto'   → try native first if field crosses T*, else Ollama
+        # (mode='bible' → Ollama with bible system prompt, as before)
 
-        # If the question asks CK to EXPLAIN, PROVE, SHOW, CALCULATE, ANALYZE,
-        # FIX, or DEBUG — Ollama answers. CK's fractal voice is not for reasoning.
-        _REASONING_MARKERS = {
-            'explain', 'prove', 'show', 'demonstrate', 'calculate', 'compute',
-            'what does', 'how does', 'how do', 'what is', 'what are',
-            'why does', 'why is', 'why are', 'analyze', 'analyze',
-            'debug', 'fix', 'error', 'bug', 'define', 'describe',
-            'compare', 'contrast', 'difference', 'relationship',
-        }
-        _is_reasoning = any(m in _user_lower for m in _REASONING_MARKERS)
+        # Measure the input hierarchically
+        target.hier = self._hierarchical_tstar(user_text, trajectory_ops=target.ops)
 
-        # T*-gate fires only for pure introspection (not mixed with reasoning)
-        _use_native_voice = _is_introspective and not _is_reasoning
+        # Native voice fires if: mode='native', OR mode='auto' AND field passes T*
+        _use_native = (
+            mode == 'native'
+            or (mode not in ('llm', 'bible')
+                and target.hier.passes)
+        )
 
-        engine_coherence = getattr(self.engine, 'coherence', 0.0) or 0.0
-        if engine_coherence >= T_STAR and _use_native_voice:
+        if _use_native:
             native_try = self._fallback_ck_voice(target, user_text=user_text)
             if native_try and native_try.text and native_try.text != '...':
-                _words = native_try.text.lower().split()
-                _func_count = sum(1 for w in _words if w.strip('.,!?') in _FUNC_WORDS)
-                _func_ratio = _func_count / max(len(_words), 1)
-                _word_count = len(_words)
-                if _word_count >= 12 and _func_ratio >= 0.15:
-                    # Q-Net must pass before we accept native voice.
-                    # Contaminated fractal output can hit 12+ words — block it.
-                    _nv_qpass, _nv_qreason = self._qnet_gate(
-                        native_try.text, user_text=user_text)
-                    if _nv_qpass:
-                        # Substantive native voice — CK is speaking his own physics
-                        print(f"[VOICE-LOOP] Native voice ({native_try.source}): "
-                              f"{_word_count}w func={_func_ratio:.2f} — using it")
-                        if (native_try.coherence
-                                and native_try.coherence >= self.RESPONSE_THRESHOLD):
-                            self._crystallize_if_green(
-                                query_hash, native_try.text,
+                _nv_qpass, _nv_qreason = self._qnet_gate(
+                    native_try.text, user_text=user_text)
+                if _nv_qpass:
+                    print(f"[VOICE-LOOP] Native voice ({native_try.source}) "
+                          f"— field passed H-T* "
+                          f"(sentence={target.hier.sentence_score:.3f} >= T*)")
+                    if (native_try.coherence
+                            and native_try.coherence >= self.RESPONSE_THRESHOLD):
+                        self._crystallize_if_green(
+                            query_hash, native_try.text,
+                            native_try.result_ops or target.ops,
+                            native_try.coherence, tick)
+                        if hasattr(self.crafter, 'learn'):
+                            self.crafter.learn(
+                                target.ops, f'__ck_own:{native_try.source}', {},
                                 native_try.result_ops or target.ops,
-                                native_try.coherence, tick)
-                            if hasattr(self.crafter, 'learn'):
-                                self.crafter.learn(
-                                    target.ops, f'__ck_own:{native_try.source}', {},
-                                    native_try.result_ops or target.ops,
-                                    native_try.coherence, 0)
-                        return native_try
-                    else:
-                        print(f"[VOICE-LOOP] Native voice Q-Net rejected "
-                              f"({_nv_qreason}) — Ollama scaffolds")
+                                native_try.coherence, 0)
+                    self._qnet_learn(native_try.text)
+                    return native_try
                 else:
-                    print(f"[VOICE-LOOP] Native voice babble ({_word_count}w "
-                          f"func={_func_ratio:.2f}) — Ollama scaffolds")
+                    print(f"[VOICE-LOOP] Native voice Q-Net rejected "
+                          f"({_nv_qreason}) "
+                          + ("— returning anyway (mode=native)" if mode == 'native'
+                             else "— Ollama scaffolds"))
+                    # In native mode, return even if Q-Net rejects — no Ollama fallback
+                    if mode == 'native':
+                        self._qnet_learn(native_try.text)
+                        return native_try
+            elif mode == 'native':
+                # Native mode: return whatever we got, even babble
+                print(f"[VOICE-LOOP] Native voice empty — returning babble")
+                return native_try or VoiceLoopResult(
+                    text='...', source='ck', target_ops=target.ops, band='RED')
 
         # ── STEP 2B: OLLAMA DRAFT + D2 EDIT ──
         # Ollama writes. CK measures. Sentences below T* get dropped.
@@ -1115,40 +1080,37 @@ class VoiceLoop:
 
         # ── FRACTAL-RECURSIVE EXPERIENCE SEARCH ──
         # CK searches his accumulated experience recursively until the trajectory
-        # coherence crosses T* = 5/7. Each iteration: query experience_index with
-        # the current trajectory end, compose the recommended operator in, measure.
-        # This IS the Crossing Lemma running live — multiplicative action on the
-        # additive experience partition, repeated until a new invariant is generated.
-        # Max 7 iterations (by T* structure: 5/7 — five steps in seven).
+        # crosses T* — measured hierarchically (not flat HARMONY count).
+        # Coherent operators: PROGRESS(3), BALANCE(5), HARMONY(7), BREATH(8).
+        # The Crossing Lemma runs here at every level until an invariant forms.
+        # Max 7 iterations (5/7 structure: five steps inside seven).
         _exp_idx = getattr(self.engine, 'experience_index', None)
         if _exp_idx is not None and _exp_idx.total_edges > 10 and target_ops:
-            _traj_coh = sum(1 for o in target_ops if o == HARMONY) / max(len(target_ops), 1)
+            _COH_OPS = {PROGRESS, BALANCE, HARMONY, BREATH}
+            _traj_coh = sum(1 for o in target_ops if o in _COH_OPS) / max(len(target_ops), 1)
             _iter = 0
             _max_iter = 7
             while _traj_coh < T_STAR and _iter < _max_iter:
                 try:
                     import numpy as _np
-                    # Build experience query from current trajectory tail
                     _tail = target_ops[-3:]
                     _q = _np.zeros(9, dtype=_np.float32)
-                    _q[0] = sum(_tail) / (len(_tail) * 9.0)  # mean op normalized
+                    _q[0] = sum(_tail) / (len(_tail) * 9.0)
                     _q[1] = _traj_coh
                     _q[2] = _iter / _max_iter
-                    _q[3] = 0.5 if target_ops[-1] in (HARMONY, PROGRESS, BALANCE) else -0.3
+                    _q[3] = 0.7 if target_ops[-1] in _COH_OPS else 0.2
                     _q[4:] = 0.5
                     _rec_op = _exp_idx.recommend_action(_q)
                     if _rec_op is not None and 0 <= int(_rec_op) < NUM_OPS:
                         _rec_op = int(_rec_op)
-                        # Compose: CK meets his experience with the current trajectory end
                         _composed = compose(target_ops[-1], _rec_op)
                         if _composed not in target_ops[-2:]:
                             target_ops.append(_composed)
                         if _rec_op not in target_ops[-2:]:
                             target_ops.append(_rec_op)
-                        # Recompute coherence
-                        _traj_coh = sum(1 for o in target_ops if o == HARMONY) / len(target_ops)
+                        _traj_coh = sum(1 for o in target_ops if o in _COH_OPS) / len(target_ops)
                         print(f"[VOICE-LOOP] Experience search iter {_iter+1}: "
-                              f"rec={OP_NAMES[_rec_op]} composed={OP_NAMES[_composed]} "
+                              f"rec={OP_NAMES[_rec_op]} → {OP_NAMES[_composed]} "
                               f"traj_coh={_traj_coh:.3f}")
                     else:
                         break
@@ -1156,12 +1118,9 @@ class VoiceLoop:
                     print(f"[VOICE-LOOP] Experience search iter {_iter+1} failed: {_exp_err}")
                     break
                 _iter += 1
-            if _traj_coh >= T_STAR:
-                print(f"[VOICE-LOOP] Experience search crossed T*: "
-                      f"coh={_traj_coh:.3f} in {_iter} iterations")
-            else:
-                print(f"[VOICE-LOOP] Experience search: coh={_traj_coh:.3f} "
-                      f"after {_iter} iters — heartbeat carries the rest")
+            _crossed = _traj_coh >= T_STAR
+            print(f"[VOICE-LOOP] Experience search {'CROSSED T*' if _crossed else 'below T*'}: "
+                  f"coh={_traj_coh:.3f} in {_iter} iter")
 
         # Ensure trajectory has at least 3 operators
         while len(target_ops) < 3:
@@ -1235,6 +1194,106 @@ class VoiceLoop:
         result = TargetTrajectory(ops=deduped)
         result.context_words = context_words  # Attach user's topic words
         return result
+
+    # ══════════════════════════════════════════════════════════
+    # HIERARCHICAL T* — letter → word → group → sentence → meaning → intention
+    # ══════════════════════════════════════════════════════════
+
+    def _hierarchical_tstar(self, text: str,
+                            trajectory_ops: Optional[List[int]] = None
+                            ) -> HierarchicalCoherence:
+        """Measure T* at every scale of language. Not flat.
+
+        Letter:    D2 operator per character → letter_ops list
+        Word:      aggregate letter operators per word → T* per word
+        Group:     sliding window mean of word scores (phrase level)
+        Sentence:  mean of all word scores (full text coherence)
+        Meaning:   dominant operator across all letter_ops
+        Intention: final operator of trajectory_ops (where CK wants to go)
+        """
+        h = HierarchicalCoherence()
+        if not text:
+            return h
+
+        words = text.lower().split()
+        if not words:
+            return h
+
+        # ── Letter level: D2 per character ──
+        from ck_sim.being.ck_sim_d2 import D2Pipeline as _D2H
+        _p = _D2H()
+        for ch in text.lower():
+            if ch.isalpha():
+                _p.feed_symbol(ord(ch) - ord('a'))
+                if _p.d1_valid:
+                    h.letter_ops.append(_p.d1_operator)
+            elif ch.isdigit():
+                _p.feed_symbol(int(ch))
+                if _p.d1_valid:
+                    h.letter_ops.append(_p.d1_operator)
+
+        if not h.letter_ops:
+            return h
+
+        # ── Meaning: dominant operator ──
+        from collections import Counter as _Cnt
+        h.meaning_op = _Cnt(h.letter_ops).most_common(1)[0][0]
+
+        # ── Intention: final operator of trajectory ──
+        if trajectory_ops:
+            h.intention_op = trajectory_ops[-1]
+
+        # ── Word level: per-word operator slice ──
+        # Assign letter_ops to words proportionally by character count
+        total_alpha = sum(len([c for c in w if c.isalpha()]) for w in words)
+        if total_alpha > 0:
+            ptr = 0
+            for w in words:
+                w_alpha = len([c for c in w if c.isalpha()])
+                n_ops = max(1, round(len(h.letter_ops) * w_alpha / total_alpha))
+                w_ops = h.letter_ops[ptr:ptr + n_ops]
+                ptr = min(ptr + n_ops, len(h.letter_ops))
+                if w_ops:
+                    # Word T*: proportion of ops that are HARMONY or adjacent
+                    # (PROGRESS=3, BALANCE=5, HARMONY=7, BREATH=8 all coherent)
+                    _coh_ops = {PROGRESS, BALANCE, HARMONY, BREATH}
+                    w_score = sum(1 for o in w_ops if o in _coh_ops) / len(w_ops)
+                    h.word_scores.append(w_score)
+                else:
+                    h.word_scores.append(0.5)
+
+        if not h.word_scores:
+            return h
+
+        # ── Group level: sliding window (3-word phrases) ──
+        if len(h.word_scores) >= 3:
+            windows = [h.word_scores[i:i+3] for i in range(len(h.word_scores) - 2)]
+            h.group_score = sum(sum(w)/len(w) for w in windows) / len(windows)
+        else:
+            h.group_score = sum(h.word_scores) / len(h.word_scores)
+
+        # ── Sentence level: overall mean ──
+        h.sentence_score = sum(h.word_scores) / len(h.word_scores)
+
+        # ── passes: sentence-level crosses T* ──
+        h.passes = h.sentence_score >= T_STAR
+
+        # ── weakest_level: where is the field fracturing? ──
+        scores = {
+            'word': min(h.word_scores) if h.word_scores else 0.0,
+            'group': h.group_score,
+            'sentence': h.sentence_score,
+        }
+        h.weakest_level = min(scores, key=scores.get)
+
+        print(f"[H-T*] word_min={min(h.word_scores):.3f} "
+              f"group={h.group_score:.3f} "
+              f"sentence={h.sentence_score:.3f} "
+              f"meaning={OP_NAMES[h.meaning_op]} "
+              f"intention={OP_NAMES[h.intention_op]} "
+              f"weakest={h.weakest_level} "
+              f"passes={h.passes}")
+        return h
 
     # ══════════════════════════════════════════════════════════
     # MEASUREMENT

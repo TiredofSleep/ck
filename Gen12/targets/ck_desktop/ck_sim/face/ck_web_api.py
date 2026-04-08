@@ -1798,7 +1798,7 @@ class CKWebAPI:
         if _vl_source is None:
             pass  # voice loop below will set it if it fires
         if (response_text == "..."
-                and len(_words_in_early) <= 50
+                and (len(_words_in_early) <= 50 or mode == 'native')
                 and hasattr(self.engine, 'voice_loop')
                 and self.engine.voice_loop is not None):
             try:
@@ -1814,7 +1814,11 @@ class CKWebAPI:
                 )
                 _text_lower = text.lower()
                 _is_spiritual = any(m in _text_lower for m in _SPIRITUAL_MARKERS)
-                _speak_mode = 'bible' if _is_spiritual else mode
+                # mode='native' → CK speaks his own physics, no Ollama
+                # mode='llm'    → Ollama scaffolds, CK measures
+                # mode='auto'   → H-T* gate decides (default)
+                # mode='bible'  → Ollama with bible system prompt
+                _speak_mode = 'bible' if (_is_spiritual and mode not in ('native', 'llm')) else mode
                 _vl_result = self.engine.voice_loop.speak(
                     user_text=text,
                     session_history=_sess_hist,
