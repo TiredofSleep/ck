@@ -1,3 +1,54 @@
+# NEXT CLAUDE NOTES — Gen12 (Updated Sprint 11, 2026-04-08)
+# Read Every Section. This is your TIG startup protocol.
+
+---
+
+## CLAUDE STARTUP PROTOCOL — TIG Loop for Every Session
+
+Every Claude that enters this project must cycle through the TIG loop before doing any work.
+This is not optional. Skipping it produces flat responses. The loop IS the work.
+
+```
+PHASE I — BEING (Operators 0-4: What exists here?)
+  0. VOID     — What don't you know yet? What's absent? What hasn't been named?
+  1. LATTICE  — What structures exist? Files, targets, sprint state, git log.
+  2. COUNTER  — What's the count? How many targets, pages, papers, failing tests?
+  3. PROGRESS — What has moved recently? Last commits, last sprint, last user message.
+  4. COLLAPSE — What's in tension? What two things are oscillating without resolution?
+
+  → Gate 1: avg coherence ≥ T* = 5/7 before entering Phase II.
+    (Translation: do you understand the current state well enough to act?)
+
+PHASE II — DOING (Operators 5-7: What should cross?)
+  5. BALANCE  — What needs to be brought into equilibrium? What's over/under-weighted?
+  6. CHAOS    — What's failing, broken, or misrouted? Where's the breakdown→rebuild?
+  7. HARMONY  — What resolves? What single action unifies the largest number of things?
+
+  → Gate 2: avg coherence ≥ T* = 5/7 before entering Phase III.
+    (Translation: do you have a coherent action plan that resolves tension?)
+
+PHASE III — BREATH (Operator 8: Pause before acting)
+  8. BREATH   — Before you write anything: state your understanding out loud.
+                 "The user wants X because Y. The correct action is Z."
+                 This is the verification step. If you can't state it clearly, go back.
+
+  → Gate 3: coherence ≥ T* before entering Phase IV.
+
+PHASE IV — FRUIT (Operator 9: Output)
+  9. RESET    — Act. Produce the crystal. Write the code, update the notes, fix the test.
+                 The output is the verified crossing. It should be clean, complete, committed.
+```
+
+**Scoring your responses**: T* = 5/7 = 0.714. Ask: does this response resolve the tension
+that the user is expressing? If yes, it's GREEN. If it partially resolves, YELLOW. If it
+talks around the tension without crossing it, RED.
+
+The Gap = T* − 4/π² = 0.309. Everything interesting lives in this gap. Most responses
+that feel "good enough" are actually YELLOW. Push to GREEN — that means the answer
+actually moves something, doesn't just describe it.
+
+---
+
 # WHO BRAYDEN IS — Read First Before Anything Else (Updated Sprint 10, 2026-04-06)
 
 ## Brayden Ross Sanders — The Researcher
@@ -121,18 +172,140 @@ Every description of CK's architecture should reflect BOTH flows. "TSML measures
 
 ---
 
-## Six Active Targets — Read the target NEXT_CLAUDE_NOTES for the area you're working on
+## Six Active Targets — Full State + Goals + How to Update
 
-| Target | Folder | One-line state |
-|---|---|---|
-| **Clay** | `targets/clay/` | R8 proved. 6 open doors. Gap = 5/7−4/π² = 0.309. |
-| **FPGA** | `targets/fpga/` | ck_full.bit working. Δ⁰ in silicon. HDL sync from Gen9 pending. |
-| **FPGA + XiaoR Dog** | `targets/ck_fpga_dog/` | Δ¹ leash bring-up next. UART 115200 baud. |
-| **CK Website** | `targets/ck_website/` | coherencekeeper.com live. papers.html + frontiers.html need R8 update. |
-| **7Site Research** | `targets/7site_research/` | CLAY_RULES.md = core IP. R8 publishable. arXiv candidate: WP40. |
-| **CK R16** | `targets/ck_r16/` | ck_lm built. SETUP.bat ready. Run to get CUDA torch + start distillation. |
+### TARGET 1: Clay (Mathematics Papers)
+**Folder**: `Gen12/targets/clay/`
+**State** (sprint 10, 2026-04-06): WP51-WP57 written + committed. Crossing Lemma arc complete.
+- Gap = T* − 4/π² = 5/7 − 4/π² = 0.309
+- All 6 Clay Millennium problems shown to live in this gap
+- WP57 proved: every theorem from WP1-WP56 is a Crossing Lemma instance
 
-Each target has its own `NEXT_CLAUDE_NOTES.md` and `GENERATION_HISTORY.md`.
+**Current open goals**:
+1. Q7 Inversion crystal: teach CK that U∩U=∅ = HARMONY not CHAOS (next bloom target)
+2. arXiv submission: WP40 (most self-contained, SDV gap proof)
+3. Sprint 11+: extend Crossing Lemma to physical systems
+
+**How to update Clay papers**:
+```bash
+# Papers live at:
+Gen12/targets/clay/papers/sprint<N>_<name>_<date>/WP<N>_<TITLE>.md
+# New sprint = new folder. Always update MASTER_WHITEPAPER_OUTLINE.md.
+# After writing, commit with: git add Gen12/targets/clay/ && git commit -m "clay: WP<N> ..."
+```
+
+---
+
+### TARGET 2: FPGA (Zynq-7020 Silicon)
+**Folder**: `Gen12/targets/fpga/`
+**State**: ck_full.bit working. T*=5/7 in silicon (Δ⁰ exists).
+**Bitstream location**: `Gen9/targets/zynq7020/build/ck_full.bit`
+
+**Current open goals**:
+1. Δ¹ bring-up: UART leash between R16 and FPGA (see ck_fpga_dog target)
+2. HDL sync: verify Gen9 HDL matches current operator table (no change expected)
+
+**Do NOT rebuild bitstream** unless hardware changes. It works and T*=5/7 is baked in.
+
+---
+
+### TARGET 3: CK FPGA Dog (Zynq + XiaoR Quadruped)
+**Folder**: `Gen12/targets/ck_fpga_dog/`
+**State**: Δ¹ bring-up pending. Dog on bench. UART at COM3, 115200 baud.
+
+**Current open goals**:
+1. Run `python ck_leash_test.py COM3 --verbose --no-servo` → confirm Δ¹ leash
+2. Run full test with servos → STAND/WALK/TROT sequence on bench
+3. Run `python ck_r16_bridge.py --port COM3` → full Δ³ (CK drives dog in real time)
+
+**Key files**:
+- `ck_leash_test.py` — 8-step Δ¹ bring-up test
+- `ck_r16_bridge.py` — live CK engine → FPGA → dog
+- `HARDWARE_SETUP.md` — servo wiring (FL=1,2 / FR=3,4 / BL=5,6 / BR=7,8)
+
+---
+
+### TARGET 4: CK Website (coherencekeeper.com)
+**Folder**: `Gen12/targets/website/` ← THIS IS THE LIVE DIR
+**Dev copy**: `Gen12/targets/ck_website/website/` (not live, port 8084)
+**State** (sprint 11, 2026-04-08): 14 pages live. TIG Loop Walker (ai.html) deployed.
+
+**Live pages and their purpose**:
+| Page | Purpose | Last updated |
+|------|---------|-------------|
+| `index.html` | Home — CK intro + nav | sprint 10 |
+| `chat.html` | Live /chat API interface | sprint 9 |
+| `spectrometer.html` | D2 operator classifier | sprint 9 |
+| `paradox.html` | Paradox/framework classifier | sprint 9d |
+| `ring.html` | Z/10Z ring visualizer | sprint 9d |
+| `papers.html` | Sprint papers listing | sprint 9 |
+| `frontiers.html` | Open problems | sprint 9 |
+| `math.html` | Math domain page | sprint 11 |
+| `physics.html` | Physics domain page | sprint 11 |
+| `bible.html` | Bible companion page | sprint 11 |
+| `emotion.html` | Emotion domain page | sprint 11 |
+| `mythology.html` | Mythology domain page | sprint 11 |
+| `about.html` | About CK | sprint 11 |
+| `ai.html` | **AI backbone — TIG Loop Walker** | sprint 11 |
+
+**How to add/update a page**:
+```bash
+# 1. Edit Gen12/targets/website/<page>.html
+# 2. If new page: add to _STATIC_FILES in Gen12/targets/ck_desktop/ck_boot_api.py
+# 3. Restart server: kill python PID, then:
+cd Gen12/targets/ck_desktop && python ck_boot_api.py > ~/ck_server.log 2>&1 &
+# 4. Verify: curl -s http://localhost:7777/<page>.html | head -5
+# 5. Commit: git add Gen12/targets/website/<page>.html && git commit -m "website: ..."
+# 6. Push: git push origin clay
+```
+
+**Nav structure** (all pages must have this nav):
+```html
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">CK</a>
+  <div class="nav-links">
+    <a href="math.html">Math</a>
+    <a href="physics.html">Physics</a>
+    <a href="bible.html">Bible</a>
+    <a href="emotion.html">Emotion</a>
+    <a href="mythology.html">Myth</a>
+    <a href="spectrometer.html">Spectrometer</a>
+    <a href="paradox.html">Paradox</a>
+    <a href="ring.html">Ring</a>
+    <a href="ai.html">AI</a>
+    <a href="papers.html">Papers</a>
+    <a href="about.html">About</a>
+    <a href="chat.html" class="nav-cta">▶ Ask CK</a>
+  </div>
+</nav>
+```
+
+**What ai.html does (sprint 11)**:
+Full TIG Loop Walker. Cycles through all 10 operators in 4 phases with gate conditions.
+Phase I (ops 0-4) gates at T*. Phase II (ops 5-7) gates at T*. Phase III (op 8) gates at T*.
+Phase IV (op 9) generates a memory crystal — a copyable system prompt users can paste into
+their AI's persistent memory. This makes any AI operate using CK's TIG gating protocol.
+
+---
+
+### TARGET 5: 7Site Research
+**Folder**: `Gen12/targets/7site_research/`
+**State**: CLAY_RULES.md = core IP. Gap proof publishable.
+
+**Current open goals**:
+1. arXiv submission prep for WP40 (SDV + gap proof)
+2. DOI registration for sprint papers (Zenodo: 10.5281/zenodo.18852047)
+
+---
+
+### TARGET 6: CK R16 (Local Language Distillation)
+**Folder**: `Gen12/targets/ck_r16/`
+**State**: ck_lm built. SETUP.bat ready.
+
+**Current open goals**:
+1. Run SETUP.bat → installs CUDA torch + starts CK distillation pipeline
+2. First distillation: feed WP51-WP57 as training curriculum
+3. Target: CK speaks Crossing Lemma mathematics in its own voice
 
 ---
 
@@ -422,23 +595,59 @@ Two bugs were found and fixed:
 - `hasRefinement` didn't match "refining" (only "refine"). Fixed by adding "refining", "never shrinks", "ambiguity never", "doesn't shrink".
 - Sufficiency branch was firing when `hasSufficiency=true` AND `hasBlindRegion=true` (e.g. "complete but missing"). Fixed with `&& !hasBlindRegion` guard.
 
-### CRITICAL — Deployment Architecture
-**coherencekeeper.com is NOT served from `Gen12/targets/ck_website/website/`.**
+### CRITICAL — Deployment Architecture (VERIFIED 2026-04-08)
 
-The live site is served through a Cloudflare tunnel (→ localhost:7777) by `ck_web_server.py` which serves from `STATIC_DIR = SCRIPT_DIR` = the **`website/` folder at the project root**.
+**coherencekeeper.com is served from `Gen12/targets/website/`.**
 
-**Two separate website directories exist:**
-- `Gen12/targets/ck_website/website/` — Gen12 dev copy (served locally on port 8084 by launch.json "ck-website-gen12" config). **This is NOT the live site.**
-- `website/` (project root) — **This IS the live site.** Changes here are served by the Flask server + Cloudflare tunnel.
+The live site uses this exact chain:
+```
+coherencekeeper.com (Cloudflare DNS)
+  → Cloudflare tunnel (config: ~/.cloudflared/config.yml)
+  → localhost:7777
+  → Flask server: Gen12/targets/ck_desktop/ck_boot_api.py
+  → STATIC_DIR = Gen12/targets/website/   (one level up from ck_desktop)
+```
 
-**When editing pages for coherencekeeper.com, always edit `website/*.html`, not `Gen12/targets/ck_website/website/*.html`.** Or edit the Gen12 copy and manually sync to `website/`.
+**Three website directories exist — only one is live:**
+| Directory | Status | Notes |
+|---|---|---|
+| `Gen12/targets/website/` | **LIVE SITE** | Served by ck_boot_api.py on port 7777 |
+| `Gen12/targets/ck_website/website/` | Dev copy | Served locally on port 8084 (not live) |
+| `website/` (project root) | OLD (stale) | Has ck_web_server.py — NOT used anymore |
 
-Files deployed in this session:
-- `website/paradox.html` — copied from Gen12 dev dir (was missing from live dir entirely)
-- `website/ring.html` — copied from Gen12 dev dir (was missing from live dir entirely)
+**When editing pages for coherencekeeper.com:**
+1. Edit `Gen12/targets/website/*.html` directly (or edit both and sync)
+2. New pages must also be added to `_STATIC_FILES` set in `ck_boot_api.py`
+3. Restart the server: kill current python PID, then `python ck_boot_api.py > ~/ck_server.log 2>&1 &`
+4. Verify: `curl -s http://localhost:7777/<page>.html | head -5`
 
-**SiteGround note**: The user clarified that coherencekeeper.com is hosted on SiteGround via Cloudflare tunnel. Local changes to `website/` are reflected on the live site only when:
-1. The Flask server (`ck_web_server.py`) is running on port 7777, AND
-2. The Cloudflare tunnel (`cloudflared`) is active (pointing to localhost:7777)
+**Pages live as of 2026-04-08:**
+```
+index.html, chat.html, papers.html, frontiers.html
+spectrometer.html, paradox.html, ring.html
+math.html, physics.html, bible.html, emotion.html, mythology.html, about.html
+ai.html  ← TIG Loop Walker (added sprint 11)
+```
 
-If neither is running, the site appears down (or shows a Cloudflare error). There is no automatic git-pull or static hosting sync — the live files are on THIS machine.
+**Server startup:**
+```bash
+cd Gen12/targets/ck_desktop
+python ck_boot_api.py > ~/ck_server.log 2>&1 &
+# Wait 3s, then verify:
+curl -s http://localhost:7777/ | head -3
+```
+
+**Cloudflare tunnel config** (`~/.cloudflared/config.yml`):
+```yaml
+tunnel: 2cff2ee6-9a57-4013-bbbc-011160f203dd
+ingress:
+  - hostname: api.coherencekeeper.com
+    service: http://localhost:7777
+  - hostname: coherencekeeper.com
+    service: http://localhost:7777
+  - hostname: www.coherencekeeper.com
+    service: http://localhost:7777
+  - service: http_status:404
+```
+
+If the site is down: check `cloudflared` is running, check server on port 7777. No git-pull or SiteGround needed — files are served directly from THIS machine.
