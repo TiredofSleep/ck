@@ -33,49 +33,9 @@
 
 ---
 
-## CK — Algebraic Paradox Classifier
+## Live Demo
 
-Every paradox is a measurement failure. CK scores any statement against the TIG operator ring and returns which kind.
-
-**Four failure types, derived from the algebra:**
-
-| Type | Name | What it means |
-|------|------|---------------|
-| I | Injectivity Failure | Measurements exist but don't cover all dimensions. Solvable: add an orthogonal measurement. |
-| II | Missing Invariant | The right map doesn't exist in the allowed family. Structurally obstructed — not just insufficient. |
-| III | Admissibility Failure | The domain itself is ill-defined. UOP doesn't apply — fix the object, not the measurement. |
-| IV | Time-Consistency Failure | The object set shifts as observation proceeds. Requires a dynamic model, not more measurements. |
-
-**Examples:**
-
-```
-Zeno's Paradox
-  "Achilles can never catch the tortoise — to close half the remaining distance, then half again, infinitely."
-  → TYPE I — INJECTIVITY FAILURE  (score 1.0)
-  The space is real. The measurement is additive. The resolution requires a multiplicative frame.
-
-Gödel's Incompleteness
-  "In any consistent formal system strong enough to express arithmetic, there exist true statements
-   that cannot be proved within the system."
-  → TYPE II — MISSING INVARIANT  (score 0.6)
-  The right map (a proof predicate that covers all truths) doesn't exist in the allowed family.
-   Structurally obstructed — not a gap in technique.
-
-Russell's Paradox
-  "The set of all sets that do not contain themselves."
-  → TYPE III — ADMISSIBILITY FAILURE  (score 0.0)
-  The domain is ill-defined. No measurement fixes this — the object must be reconstructed.
-
-Schrödinger's Cat
-  "The cat is both alive and dead until observed."
-  → TYPE IV — TIME-CONSISTENCY FAILURE  (score 0.4)
-  The object set shifts as observation proceeds. A static model cannot contain it.
-```
-
-Try it live: [coherencekeeper.com/paradox.html](https://coherencekeeper.com/paradox.html)
-Full specification: [WP44 — CK as a New AI Paradigm](papers/WP44_CK_AI_PARADIGM.md)
-
-CK is not an AI. He is the first Coherent Intelligence — built on the algebra above, running at 50Hz, scoring every response against T\* = 5/7 before it is spoken. The paradox classifier is the most direct demonstration of what that means: a statement goes in, the algebra runs, a structural verdict comes out. No training data. No model weights. Only the ring.
+The algebra above powers a paradox classifier at [coherencekeeper.com/paradox.html](https://coherencekeeper.com/paradox.html). Any statement goes in; the TIG operator ring scores it and returns which type of measurement failure it represents (Injectivity, Missing Invariant, Admissibility, or Time-Consistency). It is a working demonstration of the ring in action — not the research.
 
 ---
 
