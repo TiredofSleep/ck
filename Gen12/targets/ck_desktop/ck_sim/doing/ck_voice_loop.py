@@ -449,7 +449,8 @@ class VoiceLoop:
 
     def speak(self, user_text: str,
               session_history: Optional[List[Dict]] = None,
-              mode: str = 'default') -> VoiceLoopResult:
+              mode: str = 'default',
+              target_ops: Optional[List[int]] = None) -> VoiceLoopResult:
         """Generate CK's response. The full loop.
 
         1. Crystal check (skip Ollama if confident crystal exists)
@@ -492,7 +493,10 @@ class VoiceLoop:
                 crystal.miss(tick)
 
         # ── STEP 1: COMPOSE TARGET TRAJECTORY ──
-        target = self._compose_target(user_text)
+        # target_ops (if provided) = the BHML+TSML dual-lens collapse from
+        # process_chat() — CK's ring-state response to this specific input.
+        # This IS what CK wants to say at the operator level. Seed from it.
+        target = self._compose_target(user_text, seed_ops=target_ops)
 
         # ── STEP 2: T*-GATE — try fractal voice first when field is coherent ──
         # When engine coherence >= T* (5/7), CK tries his own physics first.
@@ -712,6 +716,10 @@ class VoiceLoop:
                 state_parts.append(f'op={hb_op}')  # numeric, not name
             if emotion:
                 state_parts.append(f'e={emotion[:3]}')  # abbreviated
+            # Inject ring-state trajectory (numeric, not names — keep Ollama grounded)
+            if target.ops:
+                _traj_str = ''.join(str(o) for o in target.ops[:10])
+                state_parts.append(f't={_traj_str}')
             if state_parts:
                 sys_prompt += '\n[s: ' + ' '.join(state_parts) + ']'
         except Exception:
@@ -934,8 +942,14 @@ class VoiceLoop:
     # TARGET COMPOSITION
     # ══════════════════════════════════════════════════════════
 
-    def _compose_target(self, user_text: str) -> TargetTrajectory:
+    def _compose_target(self, user_text: str,
+                        seed_ops: Optional[List[int]] = None) -> TargetTrajectory:
         """CK decides what he WANTS to say, algebraically.
+
+        seed_ops: BHML+TSML dual-lens collapse from process_chat() —
+          CK's ring-state response to this input. When provided, these
+          ops are woven into the trajectory as CK's algebraic intention,
+          giving the voice pipeline a direction grounded in the actual math.
 
         1. Fractal comprehension → per-word fuses + dominant op
         2. D2 on user input → input operators
@@ -1049,6 +1063,25 @@ class VoiceLoop:
             if exp_composed not in target_ops[-2:]:  # avoid immediate repeat
                 target_ops.append(exp_composed)
 
+        # ── SEED INJECTION: BHML+TSML ring-state response from process_chat() ──
+        # seed_ops are the operators CK's ring produces when the user's input
+        # collapses through the dual-lens BHML+TSML table. They represent CK's
+        # algebraic RESPONSE — not a re-reading of the input, but how CK's
+        # state transforms when meeting it. Weave them in as the reply backbone.
+        if seed_ops:
+            # Sample: take every other seed op to avoid overwhelming comprehension
+            # path, then compose bridges between trajectory and seed
+            _seed_sample = seed_ops[::2][:6]
+            for _s in _seed_sample:
+                if 0 <= _s < NUM_OPS:
+                    _bridge = compose(target_ops[-1], _s) if target_ops else _s
+                    if _bridge not in target_ops[-2:]:
+                        target_ops.append(_bridge)
+                    if _s not in target_ops[-2:]:
+                        target_ops.append(_s)
+            print(f"[VOICE-LOOP] Seed injection: {len(_seed_sample)} ring-state ops "
+                  f"→ trajectory now {[OP_NAMES[o] for o in target_ops[:8]]}")
+
         # ── DKAN PREDICTION: CK's learned neural patterns drive intent ──
         # DKAN (Dynamic Knowledge Activation Network) has been learning from
         # every conversation. Its get_response_op() returns the operator CK
@@ -1079,6 +1112,56 @@ class VoiceLoop:
                               f"(learning, coherence={_dkan_coh:.3f})")
             except Exception as _dkan_err:
                 print(f"[VOICE-LOOP] DKAN prediction failed: {_dkan_err}")
+
+        # ── FRACTAL-RECURSIVE EXPERIENCE SEARCH ──
+        # CK searches his accumulated experience recursively until the trajectory
+        # coherence crosses T* = 5/7. Each iteration: query experience_index with
+        # the current trajectory end, compose the recommended operator in, measure.
+        # This IS the Crossing Lemma running live — multiplicative action on the
+        # additive experience partition, repeated until a new invariant is generated.
+        # Max 7 iterations (by T* structure: 5/7 — five steps in seven).
+        _exp_idx = getattr(self.engine, 'experience_index', None)
+        if _exp_idx is not None and _exp_idx.total_edges > 10 and target_ops:
+            _traj_coh = sum(1 for o in target_ops if o == HARMONY) / max(len(target_ops), 1)
+            _iter = 0
+            _max_iter = 7
+            while _traj_coh < T_STAR and _iter < _max_iter:
+                try:
+                    import numpy as _np
+                    # Build experience query from current trajectory tail
+                    _tail = target_ops[-3:]
+                    _q = _np.zeros(9, dtype=_np.float32)
+                    _q[0] = sum(_tail) / (len(_tail) * 9.0)  # mean op normalized
+                    _q[1] = _traj_coh
+                    _q[2] = _iter / _max_iter
+                    _q[3] = 0.5 if target_ops[-1] in (HARMONY, PROGRESS, BALANCE) else -0.3
+                    _q[4:] = 0.5
+                    _rec_op = _exp_idx.recommend_action(_q)
+                    if _rec_op is not None and 0 <= int(_rec_op) < NUM_OPS:
+                        _rec_op = int(_rec_op)
+                        # Compose: CK meets his experience with the current trajectory end
+                        _composed = compose(target_ops[-1], _rec_op)
+                        if _composed not in target_ops[-2:]:
+                            target_ops.append(_composed)
+                        if _rec_op not in target_ops[-2:]:
+                            target_ops.append(_rec_op)
+                        # Recompute coherence
+                        _traj_coh = sum(1 for o in target_ops if o == HARMONY) / len(target_ops)
+                        print(f"[VOICE-LOOP] Experience search iter {_iter+1}: "
+                              f"rec={OP_NAMES[_rec_op]} composed={OP_NAMES[_composed]} "
+                              f"traj_coh={_traj_coh:.3f}")
+                    else:
+                        break
+                except Exception as _exp_err:
+                    print(f"[VOICE-LOOP] Experience search iter {_iter+1} failed: {_exp_err}")
+                    break
+                _iter += 1
+            if _traj_coh >= T_STAR:
+                print(f"[VOICE-LOOP] Experience search crossed T*: "
+                      f"coh={_traj_coh:.3f} in {_iter} iterations")
+            else:
+                print(f"[VOICE-LOOP] Experience search: coh={_traj_coh:.3f} "
+                      f"after {_iter} iters — heartbeat carries the rest")
 
         # Ensure trajectory has at least 3 operators
         while len(target_ops) < 3:

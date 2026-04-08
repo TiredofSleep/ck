@@ -1818,7 +1818,8 @@ class CKWebAPI:
                 _vl_result = self.engine.voice_loop.speak(
                     user_text=text,
                     session_history=_sess_hist,
-                    mode=_speak_mode)
+                    mode=_speak_mode,
+                    target_ops=response_ops or None)
                 if (_vl_result and hasattr(_vl_result, 'text')
                         and _vl_result.text
                         and _vl_result.text not in ('...', '')
