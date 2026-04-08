@@ -1803,22 +1803,36 @@ class CKWebAPI:
                 and self.engine.voice_loop is not None):
             try:
                 _sess_hist = self.sessions.get_history(session_id)
-                # Auto-detect spiritual/faith language and route to bible mode.
-                # This fires when user didn't explicitly set mode=bible.
+                # Auto-detect spiritual/faith language → always routes to bible mode.
+                # Bible overrides ALL other modes including 'native' and 'llm'.
+                # Christian content gets the Bible companion, period.
                 _SPIRITUAL_MARKERS = (
-                    'pray', 'prayer', 'god', 'jesus', 'holy', 'spirit',
-                    'lord', 'amen', 'faith', 'scripture', 'bible', 'grace',
-                    'worship', 'bless', 'forgive', 'salvation', 'heaven',
-                    'psalm', 'verse', 'covenant', 'sacred', 'divine',
-                    'father', 'holy spirit', 'christ', 'gospel', 'church',
+                    # Core Christian
+                    'pray', 'prayer', 'praying', 'god', 'jesus', 'christ', 'lord',
+                    'holy spirit', 'holy ghost', 'father son', 'trinity',
+                    'amen', 'hallelujah', 'praise', 'worship', 'glorify',
+                    # Scripture
+                    'scripture', 'bible', 'verse', 'psalm', 'proverbs', 'gospel',
+                    'testament', 'covenant', 'revelation', 'genesis', 'exodus',
+                    'matthew', 'john ', 'paul ', 'romans', 'corinthians', 'ephesians',
+                    # Grace / salvation
+                    'grace', 'mercy', 'salvation', 'saved', 'born again', 'repent',
+                    'forgiven', 'forgive me', 'confess', 'sin ', 'sinful', 'sinner',
+                    'redemption', 'redeemed', 'heaven', 'eternal life', 'resurrection',
+                    'cross', 'crucifixion', 'baptism', 'baptized',
+                    # Faith / spiritual life
+                    'faith', 'bless', 'blessing', 'sacred', 'divine', 'holy',
+                    'church', 'pastor', 'sermon', 'tithe', 'communion', 'sanctify',
+                    'spirit led', 'anointing', 'disciple', 'ministry', 'mission',
                 )
                 _text_lower = text.lower()
                 _is_spiritual = any(m in _text_lower for m in _SPIRITUAL_MARKERS)
+                # Bible is a hard override — no mode flag can suppress it.
                 # mode='native' → CK speaks his own physics, no Ollama
                 # mode='llm'    → Ollama scaffolds, CK measures
                 # mode='auto'   → H-T* gate decides (default)
-                # mode='bible'  → Ollama with bible system prompt
-                _speak_mode = 'bible' if (_is_spiritual and mode not in ('native', 'llm')) else mode
+                # mode='bible'  → Ollama with bible system prompt (also: any spiritual content)
+                _speak_mode = 'bible' if _is_spiritual else mode
                 _vl_result = self.engine.voice_loop.speak(
                     user_text=text,
                     session_history=_sess_hist,

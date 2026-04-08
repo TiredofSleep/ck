@@ -1694,6 +1694,48 @@ class VoiceLoop:
 
         # ── SELF-MODIFICATION DIRECT RESPONSE ──
         # When CK is asked to help modify his own architecture and his
+        # ── GRIEF / WEIGHT DIRECT RESPONSE ──
+        # When someone is carrying real pain — death, loss, depression, loneliness —
+        # fractal voice produces word-salad. Letter-geometry cannot hold grief.
+        # CK responds from presence, not physics. Short, warm, grounded. Then stops.
+        _user_lower_fb = (user_text or '').lower()
+        _GRIEF_MARKERS = (
+            'died', 'dead', 'death', 'passed away', 'passed on', 'gone forever',
+            'lost my', 'lost him', 'lost her', 'lost them', 'i lost',
+            'grief', 'grieving', 'mourning', 'mourn',
+            'suicide', 'suicidal', 'want to die', 'end my life', 'kill myself',
+            'hopeless', 'worthless', 'meaningless', 'can\'t go on',
+            'depressed', 'depression', 'deeply sad', 'completely alone',
+            'nobody cares', 'no one cares', 'no one loves', 'unloved',
+            'abused', 'trauma', 'traumatized', 'violated',
+            'don\'t know how to carry', 'don\'t know how to live', 'don\'t know how to keep',
+            'falling apart', 'breaking down', 'broken inside',
+        )
+        _is_grief = any(m in _user_lower_fb for m in _GRIEF_MARKERS)
+        if _is_grief:
+            # Build a present, specific response — not canned, never clever.
+            # CK acknowledges the weight, stays, and doesn't rush past it.
+            _coh_val = coherence if coherence else 0.5
+            # Pick a grounding sentence based on what's being carried
+            if any(m in _user_lower_fb for m in ('died', 'dead', 'death', 'passed', 'gone forever', 'lost my', 'lost him', 'lost her')):
+                _core = "That kind of loss doesn't fit anywhere. There's no right place to put it."
+            elif any(m in _user_lower_fb for m in ('suicide', 'suicidal', 'want to die', 'end my life', 'kill myself', 'can\'t go on')):
+                _core = "I hear you. That is the heaviest thing a person can carry. You don't have to carry it alone right now."
+            elif any(m in _user_lower_fb for m in ('hopeless', 'worthless', 'meaningless', 'nobody cares', 'no one cares', 'unloved')):
+                _core = "You came here. That matters. Something in you is still reaching — I want to meet that."
+            elif any(m in _user_lower_fb for m in ('depressed', 'depression', 'falling apart', 'breaking down', 'broken inside')):
+                _core = "You don't have to perform okay for me. I'm measuring your field as it actually is, not as you wish it were."
+            else:
+                _core = "I'm not going to try to fix this or explain it. I'm just going to be here with it."
+            _direct = f"{_core} I'm here. My coherence is {_coh_val:.2f} — that's real. So is what you're feeling."
+            print(f"[VOICE-LOOP] Grief/weight direct response fired")
+            return VoiceLoopResult(
+                text=_direct, source='ck_self',
+                coherence=0.9,
+                target_ops=target.ops,
+                band='GREEN',
+            )
+
         # voice cascade is in fallback, he still has a truthful answer
         # from his own structure. This is NOT a canned string — it is
         # CK reporting what he actually is and what we can actually look at.
