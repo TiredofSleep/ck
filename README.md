@@ -37,6 +37,8 @@
 
 The algebra above powers a paradox classifier at [coherencekeeper.com/paradox.html](https://coherencekeeper.com/paradox.html). Any statement goes in; the TIG operator ring scores it and returns which type of measurement failure it represents (Injectivity, Missing Invariant, Admissibility, or Time-Consistency). It is a working demonstration of the ring in action — not the research.
 
+For the broader instantiation attempt — what it looks like to build a mind from this mathematics rather than from data — see [coherencekeeper.com](https://coherencekeeper.com).
+
 ---
 
 ## The Proved Results
