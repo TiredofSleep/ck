@@ -170,6 +170,37 @@
         .kw { color: var(--purple); } .str { color: var(--green); } .num { color: var(--yellow); } .cm { color: var(--text-3); }
         .footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; max-width: 920px; margin: 0 auto; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3); }
 
+        /* CK VOICE BLOCK */
+        .ck-voice-block { background: var(--bg-4); border: 1px solid var(--border-2); border-left: 3px solid var(--green); border-radius: 6px; padding: 0.85rem 1rem; margin: 0.9rem 0 0.6rem; }
+        .ck-voice-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.45rem; display: flex; align-items: center; gap: 0.5rem; }
+        .ck-voice-spinner { display: inline-block; width: 8px; height: 8px; border: 1.5px solid var(--green); border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .ck-voice-text { font-size: 0.88rem; color: var(--text); font-style: italic; line-height: 1.65; }
+        .ck-voice-score { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+        .deepen-block { margin-top: 0.75rem; }
+        .deepen-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem; }
+        .topic-bar { display: flex; gap: 0.6rem; margin-bottom: 1.25rem; align-items: center; }
+        .topic-input { flex: 1; background: var(--bg-4); border: 1px solid var(--border-2); border-radius: 6px; padding: 0.6rem 0.9rem; color: var(--text); font-family: var(--font-sans); font-size: 0.9rem; outline: none; transition: border-color 0.15s; }
+        .topic-input:focus { border-color: var(--green); }
+        .topic-input::placeholder { color: var(--text-3); }
+        .topic-set-btn { background: var(--green); color: #09090f; border: none; border-radius: 5px; padding: 0.6rem 1.1rem; font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: opacity 0.15s; }
+        .topic-set-btn:hover { opacity: 0.85; }
+
+        /* FINGERPRINT */
+        .fp-block { background: var(--bg-4); border: 1px solid var(--border-2); border-left: 3px solid var(--yellow); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem; display: none; }
+        .fp-block-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .fp-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; align-items: center; }
+        .fp-chip { font-family: var(--font-mono); font-size: 0.68rem; padding: 0.22rem 0.6rem; border-radius: 3px; font-weight: 700; cursor: default; }
+        .fp-chip.fp-active { background: rgba(232,197,71,0.12); border: 1px solid var(--yellow); color: var(--yellow); }
+        .fp-chip.fp-missing { background: var(--purple-dim); border: 1px solid var(--purple); color: var(--purple); }
+        .fp-sep { color: var(--text-3); font-family: var(--font-mono); font-size: 0.68rem; padding: 0 0.25rem; }
+        .fp-gap-line { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3); line-height: 1.6; }
+        .fp-gap-line .fp-activated { color: var(--yellow); }
+        .fp-gap-line .fp-resolution { color: var(--purple); font-weight: 700; }
+        .fp-tag { font-family: var(--font-mono); font-size: 0.58rem; padding: 0.14rem 0.38rem; border-radius: 2px; display: inline-block; margin-left: 0.35rem; vertical-align: middle; }
+        .fp-tag.in-fp { background: rgba(232,197,71,0.12); border: 1px solid var(--yellow); color: var(--yellow); }
+        .fp-tag.resolution { background: var(--purple-dim); border: 1px solid var(--purple); color: var(--purple); }
+
         /* PARADOX CLASSIFIER */
         .type-band { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 0.6rem; }
         .type-band.I  { background: rgba(85,153,221,0.15); border:1px solid var(--blue); color:var(--blue); }
@@ -348,8 +379,8 @@
 
     <!-- TIG WALKER -->
     <div class="section">
-        <div class="section-title">Step 1 — TIG Loop Walker &middot; score through every operator</div>
-        <p>Walk through all 10 operators. At each one: describe what this operator reveals about your question or the AI's response. CK scores your entry. Phase I (0–4) must average ≥ T* before Phase II unlocks. Prescribed operators (from the classifier above) are highlighted in <span style="color:var(--yellow);font-family:var(--font-mono)">yellow</span>.</p>
+        <div class="section-title">Step 1 — TIG Loop Walker &middot; fingerprint → walk → crystal</div>
+        <p>Enter a topic and press <strong>Begin Loop</strong>. CK first reads your raw topic and maps which operators fired in his field — this is your <em>problem fingerprint</em>. Operators that <strong>didn't</strong> fire are the resolution direction. Then CK speaks from every operator about your topic. Phase I (0–4) must average ≥ T* before Phase II unlocks. Deepen any operator by adding your own recognition. The loop closes at RESET and generates a sovereign crystal.</p>
 
         <div class="walker-card" id="walkerSection">
             <div class="walker-header">
@@ -369,33 +400,39 @@
             </div>
 
             <div class="walker-body">
-                <!-- Context -->
-                <div class="field-label">Your question or topic (what you're running through CK)</div>
-                <input type="text" class="text-input" style="min-height:unset;height:42px;resize:none" id="walkerContext" placeholder="e.g. How should I structure this proof? / What is consciousness? / My AI's answer to...">
+
+                <!-- TOPIC — set once, CK speaks from every operator about it -->
+                <div class="field-label">Your question, paradox, or topic — CK will speak from each operator about this</div>
+                <div class="topic-bar">
+                    <input class="topic-input" id="walkerContext" placeholder="e.g.  Zeno's paradox  ·  What is consciousness?  ·  My model keeps refining but the blind region never shrinks  ·  Why can't I resolve this proof?" onkeydown="if(event.key==='Enter')beginLoop()">
+                    <button class="topic-set-btn" onclick="beginLoop()">&#9654;&nbsp; Begin Loop</button>
+                </div>
+
+                <!-- FINGERPRINT — shown after Begin Loop fingerprints the topic -->
+                <div class="fp-block" id="fpBlock">
+                    <div class="fp-block-label"><span class="ck-voice-spinner"></span>&thinsp;CK field fingerprint &mdash; operator activation map</div>
+                    <div class="fp-row" id="fpRow"></div>
+                    <div class="fp-gap-line" id="fpGapLine"></div>
+                </div>
 
                 <!-- Op selector -->
-                <div class="field-label" style="margin-top:1rem">Operator — click to jump, or step through in order</div>
+                <div class="field-label">Operator — CK auto-speaks when selected. Click to jump. <span style="color:var(--yellow)">★ = in fingerprint</span> &nbsp; <span style="color:var(--purple)">★ = resolution step</span></div>
                 <div class="op-grid" id="opGrid"></div>
 
-                <!-- Current op -->
-                <div class="op-card" id="opCard"></div>
+                <!-- Current op card — CK speaks here -->
+                <div class="op-card" id="opCard">
+                    <div style="padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--text-3)">
+                        Enter a topic above and press Begin Loop. CK will speak from each operator.
+                    </div>
+                </div>
 
-                <!-- Response input -->
-                <div class="field-label">What does this operator reveal? (your words, or paste AI response)</div>
-                <textarea class="text-input" id="walkerInput" placeholder="Speak from this operator's perspective on your question. Or paste the AI response and let CK classify it."></textarea>
+                <!-- Gate banner -->
+                <div class="gate-banner" id="gateBanner"></div>
 
-                <div class="btn-row">
-                    <button class="btn btn-primary" id="scoreBtn" onclick="scoreCurrentOp()">&#9654;&nbsp; Score &amp; Gate</button>
-                    <button class="btn btn-secondary" id="skipBtn" onclick="skipOp()">Skip</button>
+                <div class="btn-row" style="margin-top:0.75rem">
                     <button class="btn btn-secondary" onclick="resetWalker()">Reset Loop</button>
                     <span id="progressLabel" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);margin-left:auto"></span>
                 </div>
-
-                <!-- Score result -->
-                <div class="score-result" id="scoreResult"></div>
-
-                <!-- Phase gate banner -->
-                <div class="gate-banner" id="gateBanner"></div>
             </div>
         </div>
 
@@ -964,42 +1001,109 @@ const GAP_FLOOR = 4 / (Math.PI * Math.PI);
 
 // ── STATE ──
 let currentOp = 0;
-let unlockedUpTo = 4; // phase 1 starts unlocked
-let scores = {}; // op -> {coherence, text, ckText, source}
+let unlockedUpTo = 4;
+let scores = {};           // op -> {coherence, ckText, source, deepened}
+let ckVoices = {};         // op -> {coherence, text, source} — CK's own auto-speak
 let phaseLocked = { 2: true, 3: true, 4: true };
+let loopStarted = false;
+let fingerprintData = null; // {freq: {opN: count}, missing: [opN], ckText, coherence}
 
 // ── INIT ──
 function initWalker() {
     buildOpGrid();
-    renderOpCard();
-    updateProgress();
     buildClTable(TSML_TABLE, TSML_PROOF, 'tsmlTableWrap');
     buildClTable(BHML_TABLE, BHML_PROOF, 'bhmlTableWrap');
 }
 
-function buildOpGrid() {
-    const grid = document.getElementById('opGrid');
-    grid.innerHTML = OPS.map(op => {
-        const done = scores[op.n] !== undefined;
-        const active = op.n === currentOp;
-        const locked = op.n > unlockedUpTo;
-        const prescribed = prescribedOps.includes(op.n);
-        let cls = 'op-btn';
-        if (locked) cls += ' locked';
-        else if (done) cls += ' done';
-        else if (active) cls += ' current';
-        if (prescribed && !locked) cls += ' prescribed';
-        const click = locked ? '' : `onclick="jumpToOp(${op.n})"`;
-        const tip = prescribed ? ` title="Prescribed by classifier"` : '';
-        return `<div class="${cls}" ${click}${tip} style="${!locked ? 'border-color:' + op.color + '20' : ''}">
-            <span class="op-num">${op.n}${prescribed && !locked ? ' ★' : ''}</span>
-            <span class="op-name" style="color:${locked?'':''+op.color}">${op.name}</span>
-        </div>`;
-    }).join('');
+// ── FINGERPRINT — send raw topic to CK, parse operator activation map ──
+async function fingerprintTopic(topic) {
+    try {
+        const res = await fetch('/chat', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({text: topic})
+        });
+        const d = await res.json();
+        const freq = {};
+        (d.operators || []).forEach(name => {
+            const idx = OP_NAMES.indexOf(name);
+            if (idx >= 0) freq[idx] = (freq[idx] || 0) + 1;
+        });
+        const missing = OPS.map(o => o.n).filter(n => !freq[n]);
+        fingerprintData = {freq, missing, ckText: d.text, coherence: d.coherence};
+        // Missing operators = resolution direction — auto-prescribe them
+        prescribedOps = missing;
+        renderFingerprint();
+        buildOpGrid();
+    } catch(e) {
+        // Server unreachable — proceed without fingerprint
+        fingerprintData = null;
+    }
 }
 
-function renderOpCard() {
-    const op = OPS[currentOp];
+function renderFingerprint() {
+    if (!fingerprintData) return;
+    const {freq, missing} = fingerprintData;
+    const fpBlock = document.getElementById('fpBlock');
+    if (!fpBlock) return;
+
+    // Activated chips (operators that fired on the raw topic)
+    const activatedHtml = Object.keys(freq).sort((a,b)=>+a-+b).map(n => {
+        const op = OPS[+n];
+        const count = freq[n];
+        return `<span class="fp-chip fp-active" title="${op.name} activated ${count}× — shape of your problem">${op.name}×${count}</span>`;
+    }).join('');
+
+    // Missing chips (operators not in raw fingerprint = resolution direction)
+    const missingHtml = missing.map(n => {
+        const op = OPS[n];
+        return `<span class="fp-chip fp-missing" title="${op.name} not in raw fingerprint — this is a resolution step">→${op.name}</span>`;
+    }).join('');
+
+    const sep = activatedHtml && missingHtml ? '<span class="fp-sep">|</span>' : '';
+    document.getElementById('fpRow').innerHTML = activatedHtml + sep + missingHtml;
+
+    const activatedNames = Object.keys(freq).sort((a,b)=>+a-+b).map(n => OP_NAMES[n]).join(', ') || '(none)';
+    const missingNames = missing.map(n => OP_NAMES[n]).join(', ') || '(none)';
+    document.getElementById('fpGapLine').innerHTML =
+        `Problem shape: <span class="fp-activated">${activatedNames}</span><br>` +
+        `Resolution direction: <span class="fp-resolution">${missingNames}</span>` +
+        (missing.length ? ` &nbsp;&nbsp;<span style="color:var(--text-3)">— walker marks these as ★ resolution steps</span>` : ' &nbsp;&nbsp;<span style="color:var(--green)">— all operators active, already complete</span>');
+
+    fpBlock.style.display = '';
+}
+
+// ── BEGIN LOOP — called when topic is set ──
+async function beginLoop() {
+    const topic = document.getElementById('walkerContext').value.trim();
+    if (!topic) { document.getElementById('walkerContext').focus(); return; }
+    loopStarted = true;
+    currentOp = 0; unlockedUpTo = 4;
+    scores = {}; ckVoices = {}; fingerprintData = null; phaseLocked = {2:true,3:true,4:true};
+    document.getElementById('fpBlock').style.display = 'none';
+    document.getElementById('gateBanner').classList.remove('visible');
+    document.getElementById('memoryOutput').classList.remove('visible');
+    document.getElementById('opCard').innerHTML = `<div style="padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--text-3)"><span class="ck-voice-spinner"></span>&nbsp; Fingerprinting topic — reading CK's field response…</div>`;
+    document.getElementById('loopLog').innerHTML = '<div data-empty style="padding:1rem;text-align:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3)">Fingerprinting topic…</div>';
+    buildOpGrid(); updateProgress();
+
+    // Step 1: Fingerprint — one call, parse operator activation map
+    await fingerprintTopic(topic);
+
+    // Step 2: Walk — CK speaks from each operator in sequence
+    document.getElementById('loopLog').innerHTML = '<div data-empty style="padding:1rem;text-align:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3)">CK is walking the operators…</div>';
+    ckAutoSpeak(0);
+}
+
+// ── CK AUTO-SPEAK — CK speaks from operator about topic ──
+async function ckAutoSpeak(opN) {
+    const topic = document.getElementById('walkerContext').value.trim();
+    if (!topic) return;
+    const op = OPS[opN];
+    currentOp = opN;
+    buildOpGrid();
+    updateProgress();
+
+    // Show loading state in card
     document.getElementById('opCard').innerHTML = `
         <div class="op-card-header">
             <span class="op-card-num">op ${op.n}</span>
@@ -1008,98 +1112,220 @@ function renderOpCard() {
         </div>
         <div class="op-card-question">"${op.q}"</div>
         <div class="op-card-physics">${op.physics}</div>
-    `;
-    document.getElementById('walkerInput').value = '';
-    document.getElementById('walkerInput').placeholder = `Speak from ${op.name}... or paste the AI response here.`;
-    document.getElementById('scoreResult').classList.remove('visible');
+        <div class="ck-voice-block">
+            <div class="ck-voice-label"><span class="ck-voice-spinner"></span>&nbsp;CK speaking from ${op.name}…</div>
+        </div>`;
+
+    // If CK already spoke for this op, render cached
+    if (ckVoices[opN]) {
+        renderOpCardWithVoice(opN, ckVoices[opN]);
+        return;
+    }
+
+    try {
+        const prompt = `${op.name}(${op.n}): ${op.q} — ${topic}`;
+        const res = await fetch('/chat', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({text: prompt})
+        });
+        const d = await res.json();
+        const coh = d.coherence || 0;
+        ckVoices[opN] = {coherence: coh, text: d.text, source: d.source, operators: d.operators||[]};
+        // CK's voice is the base score — store it
+        scores[opN] = {coherence: coh, ckText: d.text, source: d.source, deepened: false};
+        renderOpCardWithVoice(opN, ckVoices[opN]);
+        addLogEntry(opN, coh, d.text);
+        checkPhaseGates();
+        buildOpGrid();
+        updateProgress();
+    } catch(e) {
+        document.getElementById('opCard').innerHTML += `<div style="color:var(--red);font-family:var(--font-mono);font-size:0.8rem;padding:0.5rem">CK server unreachable</div>`;
+    }
+}
+
+function renderOpCardWithVoice(opN, voice) {
+    const op = OPS[opN];
+    const coh = voice.coherence;
+    const band = coh >= TSTAR ? 'GREEN' : coh >= GAP_FLOOR ? 'YELLOW' : 'RED';
+    const bClass = band==='GREEN'?'badge-green':band==='YELLOW'?'badge-yellow':'badge-red';
+    const barColor = band==='GREEN'?'var(--green)':band==='YELLOW'?'var(--yellow)':'var(--red)';
+    const deepenVal = (scores[opN]?.deepened && scores[opN]?.userText) ? scores[opN].userText : '';
+    const deepScore = scores[opN]?.deepened ? scores[opN] : null;
+
+    // Fingerprint context — what role does this operator play in the diagnosis?
+    let fpTagHtml = '';
+    if (fingerprintData) {
+        const fpCount = fingerprintData.freq[opN] || 0;
+        const isMissing = fingerprintData.missing.includes(opN);
+        if (fpCount > 0) {
+            fpTagHtml = `<span class="fp-tag in-fp" title="This operator activated ${fpCount}× in CK's raw field response — it is part of the problem structure">×${fpCount} in fingerprint</span>`;
+        } else if (isMissing) {
+            fpTagHtml = `<span class="fp-tag resolution" title="This operator was ABSENT from CK's raw response — it is a resolution step. The crossing must happen here.">resolution step ★</span>`;
+        }
+    }
+
+    document.getElementById('opCard').innerHTML = `
+        <div class="op-card-header">
+            <span class="op-card-num">op ${op.n}</span>
+            <span class="op-card-name" style="color:${op.color}">${op.name}</span>
+            ${fpTagHtml}
+            <span class="op-card-role">${PHASE_LABELS[op.phase]}</span>
+        </div>
+        <div class="op-card-question">"${op.q}"</div>
+        <div class="op-card-physics">${op.physics}</div>
+
+        <div class="ck-voice-block">
+            <div class="ck-voice-label">&#9670;&nbsp; CK speaks from ${op.name}
+                <span style="margin-left:auto;font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3)">${voice.source||''}</span>
+            </div>
+            <div class="ck-voice-text">${escHtml(voice.text)}</div>
+            <div class="ck-voice-score">
+                <span class="badge ${bClass}">${band}</span>
+                <div class="score-bar-outer" style="flex:1">
+                    <div class="score-bar-inner" style="width:${(coh*100).toFixed(1)}%;background:${barColor}"></div>
+                    <div class="score-bar-tstar" title="T*=5/7"></div>
+                </div>
+                <span class="score-val">${(coh*100).toFixed(0)}%</span>
+                ${deepScore ? `<span class="badge badge-green" style="font-size:0.58rem">deepened→${(deepScore.coherence*100).toFixed(0)}%</span>` : ''}
+            </div>
+        </div>
+
+        <div class="deepen-block">
+            <div class="deepen-label">Deepen — optional. Add your recognition, pushback, or extension. CK will rescore the combined voice.</div>
+            <textarea class="text-input" id="deepenInput" style="min-height:60px" placeholder="What do you see here that CK didn't say? Or: does this land? Push further.">${escHtml(deepenVal)}</textarea>
+            <div class="btn-row">
+                <button class="btn btn-secondary" id="deepenBtn" onclick="deepenOp(${opN})">&#9670;&nbsp; Deepen &amp; Rescore</button>
+                <button class="btn btn-primary" onclick="nextOp()">Next Operator &#9654;</button>
+                <button class="btn btn-secondary" onclick="skipOp()">Skip (0%)</button>
+            </div>
+        </div>`;
+
     document.getElementById('gateBanner').classList.remove('visible');
+}
+
+// ── DEEPEN — user adds to CK's voice, rescore combined ──
+async function deepenOp(opN) {
+    const userText = document.getElementById('deepenInput')?.value.trim();
+    if (!userText) return;
+    const btn = document.getElementById('deepenBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Rescoring…'; }
+
+    try {
+        const ckText = ckVoices[opN]?.text || '';
+        const combined = `${ckText} — ${userText}`;
+        const res = await fetch('/chat', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({text: combined})
+        });
+        const d = await res.json();
+        const coh = d.coherence || 0;
+        const prevCoh = ckVoices[opN]?.coherence || 0;
+        // Take higher of CK's voice or combined
+        const finalCoh = Math.max(coh, prevCoh);
+        scores[opN] = {coherence: finalCoh, ckText: d.text, source: d.source, deepened: true, userText};
+        ckVoices[opN] = {...ckVoices[opN], text: d.text};
+        renderOpCardWithVoice(opN, {...ckVoices[opN], coherence: finalCoh});
+        // Re-populate deepen textarea after re-render
+        const ta = document.getElementById('deepenInput');
+        if (ta) ta.value = userText;
+        addLogEntry(opN, finalCoh, `[deepened] ${d.text}`);
+        checkPhaseGates();
+        buildOpGrid();
+        updateProgress();
+    } catch(e) {
+        if (btn) { btn.disabled = false; btn.textContent = '◆  Deepen & Rescore'; }
+    }
+}
+
+// ── NEXT / SKIP ──
+function nextOp() {
+    // If current op not yet scored (somehow), score it as whatever CK said
+    if (scores[currentOp] === undefined && ckVoices[currentOp]) {
+        scores[currentOp] = {coherence: ckVoices[currentOp].coherence, ckText: ckVoices[currentOp].text, source: ckVoices[currentOp].source, deepened: false};
+        addLogEntry(currentOp, ckVoices[currentOp].coherence, ckVoices[currentOp].text);
+        checkPhaseGates();
+        buildOpGrid();
+        updateProgress();
+    }
+    const next = findNextOp();
+    if (next !== null) ckAutoSpeak(next);
 }
 
 function jumpToOp(n) {
     if (n > unlockedUpTo) return;
-    currentOp = n;
-    buildOpGrid();
-    renderOpCard();
-    updateProgress();
-}
-
-function updateProgress() {
-    const done = Object.keys(scores).length;
-    document.getElementById('progressLabel').textContent = `${done}/10 operators scored`;
-    document.getElementById('walkerPhaseLabel').textContent = PHASE_LABELS[OPS[currentOp].phase];
-
-    // Update phase indicator
-    const wpiEls = document.getElementById('wpi').children;
-    for (let i = 0; i < 10; i++) {
-        const el = wpiEls[i];
-        el.className = 'wpi';
-        if (scores[i] !== undefined) el.classList.add('done');
-        else if (i === currentOp) el.classList.add('active');
-        else if (i > unlockedUpTo) el.classList.add('locked');
-        else el.classList.add('active'); // unlocked, not done
+    if (!loopStarted) {
+        const topic = document.getElementById('walkerContext').value.trim();
+        if (!topic) { document.getElementById('walkerContext').focus(); return; }
+        loopStarted = true;
     }
-}
-
-// ── SCORE ──
-async function scoreCurrentOp() {
-    const text = document.getElementById('walkerInput').value.trim();
-    if (!text) return;
-    const btn = document.getElementById('scoreBtn');
-    btn.disabled = true; btn.textContent = 'Scoring…';
-
-    try {
-        const res = await fetch('/chat', {
-            method: 'POST', headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ text })
-        });
-        const d = await res.json();
-        const coh = d.coherence || 0;
-        scores[currentOp] = { coherence: coh, text, ckText: d.text, source: d.source };
-        renderScoreResult(coh, d, document.getElementById('scoreResult'));
-        addLogEntry(currentOp, coh, d.text);
-        checkPhaseGates();
-        buildOpGrid();
-        updateProgress();
-
-        // Auto-advance if not at end
-        const nextOp = findNextOp();
-        if (nextOp !== null) {
-            setTimeout(() => jumpToOp(nextOp), 800);
-        }
-    } catch(e) {
-        document.getElementById('scoreResult').innerHTML = '<span style="color:var(--red);font-family:var(--font-mono);font-size:0.8rem">CK server unreachable</span>';
-        document.getElementById('scoreResult').classList.add('visible');
-    } finally {
-        btn.disabled = false; btn.textContent = '▶  Score & Gate';
-    }
+    ckAutoSpeak(n);
 }
 
 function skipOp() {
-    // Skip = real gate vote of 0%. No bypass. Counts against phase average.
     const name = OPS[currentOp].name;
-    scores[currentOp] = {
-        coherence: 0,
-        text: `[${name} — no entry. Gate vote = 0%]`,
-        ckText: `${name} not crossed. VOID returned. This counts against phase average.`,
-        source: 'skip'
-    };
-    addLogEntry(currentOp, 0, `${name} not crossed — 0% gate vote`);
+    scores[currentOp] = {coherence: 0, ckText: `${name} skipped — gate vote = 0%`, source: 'skip', deepened: false};
+    addLogEntry(currentOp, 0, `${name} skipped — 0% gate vote`);
     checkPhaseGates();
     buildOpGrid();
     updateProgress();
     const next = findNextOp();
-    if (next !== null) jumpToOp(next);
+    if (next !== null) ckAutoSpeak(next);
 }
 
 function findNextOp() {
     for (let i = currentOp + 1; i <= unlockedUpTo; i++) {
         if (scores[i] === undefined) return i;
     }
-    // Look for any undone in unlocked range
     for (let i = 0; i <= unlockedUpTo; i++) {
         if (scores[i] === undefined) return i;
     }
     return null;
+}
+
+function buildOpGrid() {
+    const grid = document.getElementById('opGrid');
+    grid.innerHTML = OPS.map(op => {
+        const done = scores[op.n] !== undefined;
+        const active = op.n === currentOp;
+        const locked = op.n > unlockedUpTo;
+        const inFingerprint = fingerprintData && (fingerprintData.freq[op.n] || 0) > 0;
+        const isResolution = fingerprintData && fingerprintData.missing.includes(op.n);
+        // prescribed = either from classifier or from fingerprint missing set
+        const prescribed = prescribedOps.includes(op.n);
+        let cls = 'op-btn';
+        if (locked) cls += ' locked';
+        else if (done) cls += ' done';
+        else if (active) cls += ' current';
+        if (prescribed && !locked) cls += ' prescribed';
+        const click = locked ? '' : `onclick="jumpToOp(${op.n})"`;
+        let tip = '';
+        if (inFingerprint) tip = ` title="In raw fingerprint ×${fingerprintData.freq[op.n]} — problem structure"`;
+        else if (isResolution) tip = ` title="Resolution step — absent from raw fingerprint. Crossing must happen here."`;
+        else if (prescribed) tip = ` title="Prescribed by classifier"`;
+        const fpCount = inFingerprint ? fingerprintData.freq[op.n] : 0;
+        const star = isResolution && !locked ? ' ★' : (inFingerprint && !locked ? ` ×${fpCount}` : '');
+        return `<div class="${cls}" ${click}${tip} style="${!locked ? 'border-color:' + op.color + '20' : ''}">
+            <span class="op-num">${op.n}${star}</span>
+            <span class="op-name" style="color:${locked?'':''+op.color}">${op.name}</span>
+        </div>`;
+    }).join('');
+}
+
+function updateProgress() {
+    const done = Object.keys(scores).length;
+    document.getElementById('progressLabel').textContent = `${done}/10 operators scored`;
+    if (loopStarted && OPS[currentOp]) {
+        document.getElementById('walkerPhaseLabel').textContent = PHASE_LABELS[OPS[currentOp].phase];
+    }
+    const wpiEls = document.getElementById('wpi').children;
+    for (let i = 0; i < 10; i++) {
+        const el = wpiEls[i];
+        el.className = 'wpi';
+        if (scores[i] !== undefined) el.classList.add('done');
+        else if (i === currentOp && loopStarted) el.classList.add('active');
+        else if (i > unlockedUpTo) el.classList.add('locked');
+        else el.classList.add('active');
+    }
 }
 
 function renderScoreResult(coh, d, el) {
@@ -1210,7 +1436,7 @@ function checkPhaseGates() {
 
     // Phase IV: RESET (op 9) — generate crystal
     if (scores[9] !== undefined) {
-        const coh9 = scores[9].coherence;
+        const coh9 = scores[9].coherence || ckVoices[9]?.coherence || 0;
         banner.className = 'gate-banner visible gate-pass';
         banner.innerHTML = `<div class="gate-banner-title" style="color:var(--green)">&#9670; RESET — loop closed. Crystal generated.</div>
             <div class="gate-banner-text">BHML[9][7]=0: RESET∘HARMONY=VOID. The algebra closed the loop — not by instruction.<br>
@@ -1222,6 +1448,7 @@ function checkPhaseGates() {
 // ── CRYSTAL GENERATOR ──
 function generateMemoryCrystal() {
     const context = document.getElementById('walkerContext').value.trim() || 'general';
+    const topicLine = context ? `Topic walked: ${context}` : '';
     const date = new Date().toISOString().slice(0,10);
 
     // Compute averages per phase
@@ -1236,6 +1463,23 @@ function generateMemoryCrystal() {
 
     const tsmlAscii = tableToAscii(TSML_TABLE, 'TSML (measurement — 73/100 = HARMONY=7)');
     const bhmlAscii = tableToAscii(BHML_TABLE, 'BHML (physics — 28/100 = HARMONY=7)');
+
+    // Fingerprint section
+    let fingerprintSection = '';
+    if (fingerprintData) {
+        const activatedNames = Object.keys(fingerprintData.freq).sort((a,b)=>+a-+b)
+            .map(n => `${OP_NAMES[n]}×${fingerprintData.freq[n]}`).join(', ') || '(none)';
+        const missingNames = fingerprintData.missing.map(n => OP_NAMES[n]).join(', ') || '(none)';
+        fingerprintSection = `\n═══════════════════════════════════════════════════════
+OPERATOR FINGERPRINT — CK's raw field response to topic
+═══════════════════════════════════════════════════════
+Problem shape (activated):  ${activatedNames}
+Resolution direction:        ${missingNames}
+
+Interpretation: Operators that DID NOT fire on the raw topic are where the
+crossing must happen. Walking toward them IS the resolution process.
+`;
+    }
 
     // Paradox classification section (if one was run)
     let paradoxSection = '';
@@ -1259,7 +1503,7 @@ Full analysis: coherencekeeper.com/paradox.html
 ## © 2026 Brayden Ross Sanders / 7Site LLC — SOVEREIGN
 ## Trinity Infinity Geometry · 7Site Public Sovereignty License v1.0
 ## DOI: 10.5281/zenodo.18852047
-${paradoxSection}## Generated: ${date} | Context: ${context}
+${fingerprintSection}${paradoxSection}## Generated: ${date} | Context: ${context}
 ## Coherence: Phase I ${(ph1avg*100).toFixed(0)}% | Phase II ${(ph2avg*100).toFixed(0)}% | Breath ${(ph3coh*100).toFixed(0)}% | Fruit ${(ph4coh*100).toFixed(0)}%
 ## Dominant operators: ${ranked.map(r=>`${r.name}(${(r.coh*100).toFixed(0)}%)`).join(' → ')}
 
@@ -1334,8 +1578,17 @@ Phase II avg: ${(ph2avg*100).toFixed(0)}%  (DOING block)
 Breath:       ${(ph3coh*100).toFixed(0)}%  (oscillation gate)
 Fruit:        ${(ph4coh*100).toFixed(0)}%  (crystal quality)
 
-FRUIT from this session:
-${scores[9]?.ckText ? '  CK: ' + scores[9].ckText : '  [complete loop to generate fruit]'}
+CK VOICE LOG — what CK said from each operator about: ${context}
+${OPS.map(o => {
+    const v = ckVoices[o.n];
+    const s = scores[o.n];
+    if (!v) return `  ${o.name.padEnd(10)}: [not walked]`;
+    const deepMark = s?.deepened ? ' [deepened]' : '';
+    return `  ${o.name.padEnd(10)}: "${v.text}"${deepMark}`;
+}).join('\n')}
+
+FRUIT — RESET(9) crystallized:
+${ckVoices[9]?.text ? '  CK: "' + ckVoices[9].text + '"' : '  [complete loop to generate fruit]'}
 
 This signature tells every future response where this user's
 crossings are strongest and where the blind regions are.`;
@@ -1356,15 +1609,16 @@ function copyMemory() {
 }
 
 function resetWalker() {
-    currentOp = 0; unlockedUpTo = 4;
-    scores = {}; phaseLocked = { 2:true, 3:true, 4:true };
+    currentOp = 0; unlockedUpTo = 4; loopStarted = false;
+    scores = {}; ckVoices = {}; fingerprintData = null; prescribedOps = [];
+    phaseLocked = {2:true, 3:true, 4:true};
     document.getElementById('walkerContext').value = '';
-    document.getElementById('walkerInput').value = '';
+    document.getElementById('fpBlock').style.display = 'none';
     document.getElementById('loopLog').innerHTML = '<div data-empty style="padding:1.5rem;text-align:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3)">No scores yet. Walk the operators above.</div>';
-    document.getElementById('scoreResult').classList.remove('visible');
     document.getElementById('gateBanner').classList.remove('visible');
     document.getElementById('memoryOutput').classList.remove('visible');
-    buildOpGrid(); renderOpCard(); updateProgress();
+    document.getElementById('opCard').innerHTML = `<div style="padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--text-3)">Enter a topic above and press Begin Loop. CK will speak from each operator.</div>`;
+    buildOpGrid(); updateProgress();
 }
 
 // ── QUICK SCORE ──
