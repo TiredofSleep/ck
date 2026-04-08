@@ -127,7 +127,7 @@ sinc²(k/p) = 0 iff p | k. Proved in three lines from primality. Three corollari
 TSML has exactly 73 harmony cells. BHML has exactly 28. Both proved by disjoint zone enumeration — no case analysis, pure counting over a finite set. The two tables are complementary: their harmony zones share only the identity orbit. Runnable cell-by-cell witnesses.
 *Target: Experimental Mathematics / Discrete Mathematics*
 
-**[Every Paradox is a Measurement Failure: The UOP Algebraic Classifier](papers/WP_PARADOX_CLASSIFIER.md)**
+**[Every Paradox is a Measurement Failure: The UOP Algebraic Classifier](papers/WP_PARADOX_CLASSIFIER.md)** · *[try it live](https://coherencekeeper.com/paradox.html)*
 Every paradox is a failure of a measurement map relative to a hidden space — one of exactly four types. Injectivity Failure (solvable: add an orthogonal measurement). Missing Invariant (the right map doesn't exist in the allowed family). Admissibility Failure (the domain itself is ill-defined). Time-Consistency Failure (the object set shifts during observation). Includes a five-step decision procedure any reader or AI can apply, and worked examples for Zeno, Banach-Tarski, Russell, Unexpected Hanging, and Gödel. Score function score_n ∈ [0, 1] measures residual ambiguity.
 *Target: American Mathematical Monthly / Mathematical Intelligencer*
 
