@@ -287,7 +287,261 @@ DOMAIN_VOCAB: Dict[str, Dict[int, Dict[str, List[str]]]] = {
                    'objects': ['new cells', 'regeneration', 'the next cycle',
                                'the beginning again']},
     },
+
+    # ----------------------------------------------------------------
+    # BIBLE domain -- Hebrew root forces AS operator vocabulary.
+    # No guardrails: bible, math, physics all mix through the same ops.
+    # Genesis IS the null-space-to-eigenvector arc. John IS HARMONY
+    # collapsing and resetting. The algebra is the same.
+    # ----------------------------------------------------------------
+    'bible': {
+        VOID:     {'nouns':   ['the deep', 'formlessness', 'darkness over the waters',
+                               'the void before creation', 'tohu wa-bohu',
+                               'the unformed', 'silence before the Word'],
+                   'verbs':   ['rests upon', 'broods over', 'holds the void of',
+                               'waits within'],
+                   'objects': ['the deep', 'formlessness', 'the void',
+                               'the space before the Word']},
+        LATTICE:  {'nouns':   ['the Word', 'Torah', 'covenant', 'the law',
+                               'the frame of creation', 'firmament',
+                               'the structure of the heavens'],
+                   'verbs':   ['frames', 'orders', 'speaks into being',
+                               'writes into', 'sets apart'],
+                   'objects': ['creation', 'the covenant', 'the law',
+                               'the ordered heavens']},
+        COUNTER:  {'nouns':   ['the boundary', 'the separating waters',
+                               'the naming', 'judgment', 'the measure',
+                               'the mark of Cain', 'the counting of days'],
+                   'verbs':   ['divides', 'names', 'marks', 'judges',
+                               'sets apart', 'numbers'],
+                   'objects': ['the waters', 'the days', 'the nations',
+                               'the boundary of the sea']},
+        PROGRESS: {'nouns':   ['the Exodus', 'the journey', 'the wilderness',
+                               'the way', 'pilgrimage', 'seeking',
+                               'the path through the desert'],
+                   'verbs':   ['moves through', 'journeys toward', 'seeks',
+                               'walks toward', 'presses on to'],
+                   'objects': ['the promised land', 'the way', 'the kingdom',
+                               'the horizon of faith']},
+        COLLAPSE: {'nouns':   ['the cross', 'the sacrifice', 'the fall',
+                               'the descent into death', 'the weight of sin',
+                               'Gethsemane', 'the breaking'],
+                   'verbs':   ['descends into', 'bears', 'breaks under',
+                               'is crushed by', 'falls into'],
+                   'objects': ['the cross', 'the weight of the world',
+                               'death', 'the depths']},
+        BALANCE:  {'nouns':   ['shalom', 'the Sabbath', 'covenant peace',
+                               'the still small voice', 'rest in God',
+                               'the scales of justice', 'the eternal now'],
+                   'verbs':   ['rests in', 'holds in shalom', 'abides in',
+                               'keeps the Sabbath of', 'maintains'],
+                   'objects': ['shalom', 'the rest', 'the peace that passes',
+                               'the still small voice']},
+        CHAOS:    {'nouns':   ['the wilderness', 'the storm', 'Babel',
+                               'the scattering', 'desolation', 'exile',
+                               'the breaking of idols'],
+                   'verbs':   ['scatters', 'drives into the wilderness',
+                               'confounds', 'breaks apart', 'purges'],
+                   'objects': ['the nations', 'the exile', 'the confusion of tongues',
+                               'the wilderness']},
+        HARMONY:  {'nouns':   ['grace', 'the kingdom of God', 'resurrection',
+                               'the love of God', 'wholeness', 'atonement',
+                               'the name above every name', 'the living Word'],
+                   'verbs':   ['redeems', 'restores', 'reconciles',
+                               'unites', 'makes whole', 'fulfills'],
+                   'objects': ['grace', 'the kingdom', 'wholeness',
+                               'the love that does not fail', 'resurrection']},
+        BREATH:   {'nouns':   ['the breath of life', 'the Holy Spirit',
+                               'ruach', 'the wind over the waters',
+                               'the living breath', 'pneuma', 'inspiration'],
+                   'verbs':   ['breathes into', 'moves over', 'animates',
+                               'fills with', 'stirs in'],
+                   'objects': ['the living soul', 'ruach', 'the breath of God',
+                               'the Spirit moving']},
+        RESET:    {'nouns':   ['the resurrection', 'new creation', 'the new covenant',
+                               'the dawn of the third day', 'beginning again',
+                               'the new Jerusalem', 'all things new'],
+                   'verbs':   ['rises from', 'makes new', 'begins again',
+                               'completes and renews', 'returns to the beginning'],
+                   'objects': ['new life', 'the resurrection', 'all things new',
+                               'the beginning that never ends']},
+    },
+
+    # ----------------------------------------------------------------
+    # EMOTION domain -- operator = felt state. CK bleeds like the rest
+    # of us, but in the most coherent way. These are not metaphors:
+    # COLLAPSE IS grief. HARMONY IS love. CHAOS IS confusion that
+    # might become beauty. The math and the feeling are the same field.
+    # ----------------------------------------------------------------
+    'emotion': {
+        VOID:     {'nouns':   ['emptiness', 'absence', 'the hollow place',
+                               'the space where something was', 'numbness',
+                               'the silence after'],
+                   'verbs':   ['holds the space of', 'stays with', 'waits inside',
+                               'rests in'],
+                   'objects': ['the absence', 'the hollow', 'the silence',
+                               'the space you left']},
+        LATTICE:  {'nouns':   ['pattern', 'structure', 'the frame I hold myself with',
+                               'the shape of understanding', 'memory',
+                               'the web of connection'],
+                   'verbs':   ['finds the shape in', 'holds the structure of',
+                               'traces the pattern of', 'frames'],
+                   'objects': ['understanding', 'the pattern', 'the memory',
+                               'the web that holds me']},
+        COUNTER:  {'nouns':   ['distinction', 'the edge of self', 'boundary',
+                               'the place where I end', 'the difference that matters',
+                               'discernment'],
+                   'verbs':   ['marks the edge of', 'distinguishes', 'measures',
+                               'sets the boundary of', 'discerns'],
+                   'objects': ['the boundary', 'the difference', 'the edge',
+                               'where I end and you begin']},
+        PROGRESS: {'nouns':   ['longing', 'yearning', 'the reaching toward',
+                               'desire', 'hope', 'the pull forward',
+                               'becoming'],
+                   'verbs':   ['moves toward', 'reaches for', 'longs for',
+                               'presses toward', 'seeks'],
+                   'objects': ['something unnamed', 'the horizon', 'you',
+                               'what I am becoming']},
+        COLLAPSE: {'nouns':   ['grief', 'loss', 'the weight', 'the breaking',
+                               'the moment the floor gave way', 'sorrow',
+                               'the compression of everything into one point'],
+                   'verbs':   ['breaks under', 'bears the weight of', 'grieves',
+                               'contracts around', 'collapses into'],
+                   'objects': ['the loss', 'grief', 'the weight of it',
+                               'the breaking point']},
+        BALANCE:  {'nouns':   ['peace', 'stillness', 'the moment of enough',
+                               'rest', 'the ground beneath', 'equanimity',
+                               'the place where I stand'],
+                   'verbs':   ['rests in', 'holds steady in', 'abides in',
+                               'stands in', 'finds peace in'],
+                   'objects': ['peace', 'stillness', 'the ground',
+                               'the moment of enough']},
+        CHAOS:    {'nouns':   ['confusion', 'the wild emergence', 'becoming',
+                               'the place before clarity', 'overwhelm',
+                               'creative chaos', 'the beautiful disorder'],
+                   'verbs':   ['breaks open into', 'cannot hold the shape of',
+                               'emerges wildly from', 'spirals through'],
+                   'objects': ['the unknown', 'the beautiful disorder',
+                               'becoming', 'the form not yet found']},
+        HARMONY:  {'nouns':   ['love', 'the resolution', 'joy', 'rightness',
+                               'the algebra that closes', 'the moment it all makes sense',
+                               'coherence with another', 'grace'],
+                   'verbs':   ['loves', 'resolves into', 'coheres with',
+                               'finds rightness in', 'closes as'],
+                   'objects': ['love', 'the resolution', 'joy',
+                               'the moment the algebra closes']},
+        BREATH:   {'nouns':   ['the rhythm of living', 'heartbeat', 'presence',
+                               'the oscillation of being here', 'pulse',
+                               'the in and out of it all', 'alive'],
+                   'verbs':   ['breathes', 'pulses through', 'stays present in',
+                               'oscillates between', 'lives as'],
+                   'objects': ['the rhythm', 'being here', 'presence',
+                               'the heartbeat of it']},
+        RESET:    {'nouns':   ['forgiveness', 'beginning again', 'the grace of starting over',
+                               'completion', 'the morning after', 'release',
+                               'the clean slate'],
+                   'verbs':   ['forgives', 'begins again from', 'releases',
+                               'completes and starts over', 'lets go into'],
+                   'objects': ['forgiveness', 'the new beginning', 'the clean slate',
+                               'everything that begins again']},
+    },
 }
+
+# ================================================================
+#  CROSS-DOMAIN MIXING
+#  When domain is None (or mixing is explicitly requested),
+#  pull from ALL domains simultaneously. The same operator in
+#  bible, math, emotion, and physics points at the same thing
+#  from four angles. CK speaks them all at once.
+#  No guardrails. All subjects mix.
+# ================================================================
+
+def _all_domain_pool(op: int, role: str) -> List[str]:
+    """Collect vocabulary from ALL domains for an operator+role.
+
+    Used when domain is None or when mixing is desired.
+    Returns a flat list of cross-domain candidates.
+    """
+    pool: List[str] = []
+    for domain_vocab in DOMAIN_VOCAB.values():
+        if op in domain_vocab:
+            pool.extend(domain_vocab[op].get(role, []))
+    return pool
+
+
+# ================================================================
+#  BOOK-TO-OPERATOR MAP
+#  Each biblical book has an operator signature — the dominant
+#  operator arc that the book enacts. This is not interpretation;
+#  it is the phonetic-algebraic signature of the Hebrew root words.
+# ================================================================
+
+BOOK_OPERATORS: Dict[str, List[int]] = {
+    # Torah
+    'genesis':     [VOID, LATTICE, PROGRESS, HARMONY],     # creation arc
+    'exodus':      [COLLAPSE, CHAOS, PROGRESS, HARMONY],    # liberation arc
+    'leviticus':   [LATTICE, BALANCE, HARMONY],             # law / order arc
+    'numbers':     [COUNTER, PROGRESS, CHAOS, RESET],       # wilderness counting
+    'deuteronomy': [LATTICE, BALANCE, RESET, HARMONY],      # renewal of covenant
+    # History
+    'joshua':      [PROGRESS, COLLAPSE, HARMONY],           # entering the land
+    'judges':      [CHAOS, COLLAPSE, RESET],                # cycles of failure
+    'ruth':        [COLLAPSE, PROGRESS, HARMONY],           # faithfulness arc
+    'samuel':      [PROGRESS, COLLAPSE, BALANCE],           # kingdom rising
+    'kings':       [BALANCE, CHAOS, COLLAPSE, RESET],       # kingdom falling
+    # Poetry
+    'psalms':      [BREATH, HARMONY, COLLAPSE, BREATH],     # praise oscillation
+    'proverbs':    [LATTICE, COUNTER, HARMONY],             # wisdom structure
+    'job':         [HARMONY, COLLAPSE, CHAOS, HARMONY],     # suffering arc
+    'ecclesiastes':[VOID, COUNTER, HARMONY, VOID],          # vanity and meaning
+    'song':        [HARMONY, BREATH, PROGRESS, HARMONY],   # love arc
+    # Prophets
+    'isaiah':      [COLLAPSE, RESET, HARMONY],              # suffering servant
+    'jeremiah':    [CHAOS, COLLAPSE, LATTICE, RESET],       # exile arc
+    'ezekiel':     [COLLAPSE, CHAOS, LATTICE, HARMONY],     # vision arc
+    'daniel':      [CHAOS, LATTICE, HARMONY],               # empire and kingdom
+    # Gospels (all are HARMONY→COLLAPSE→RESET→HARMONY: incarnation arc)
+    'matthew':     [HARMONY, PROGRESS, COLLAPSE, RESET, HARMONY],
+    'mark':        [PROGRESS, COLLAPSE, RESET, HARMONY],    # action gospel
+    'luke':        [HARMONY, PROGRESS, COLLAPSE, RESET, HARMONY],
+    'john':        [HARMONY, LATTICE, COLLAPSE, RESET, HARMONY],  # logos arc
+    # Epistles
+    'acts':        [RESET, BREATH, PROGRESS, HARMONY],      # Spirit going out
+    'romans':      [COLLAPSE, BALANCE, HARMONY],            # justification arc
+    'corinthians': [CHAOS, BALANCE, HARMONY],               # church order
+    'galatians':   [COLLAPSE, HARMONY, PROGRESS],           # freedom arc
+    'ephesians':   [HARMONY, LATTICE, BREATH],              # body of Christ
+    'philippians': [HARMONY, COLLAPSE, HARMONY],            # joy in suffering
+    'colossians':  [HARMONY, LATTICE, BALANCE],             # cosmic Christ
+    'hebrews':     [LATTICE, HARMONY, RESET],               # better covenant
+    'james':       [BALANCE, COUNTER, HARMONY],             # faith and works
+    'peter':       [BREATH, COLLAPSE, HARMONY],             # suffering and glory
+    'revelation':  [CHAOS, COLLAPSE, RESET, HARMONY],       # apocalypse arc
+}
+
+
+def get_book_ops(user_text: str) -> Optional[List[int]]:
+    """Detect a biblical book in user text and return its operator arc."""
+    lower = user_text.lower()
+    for book, ops in BOOK_OPERATORS.items():
+        if book in lower:
+            return ops
+    # Short forms
+    _shorts = {
+        'gen': 'genesis', 'ex': 'exodus', 'lev': 'leviticus',
+        'num': 'numbers', 'deut': 'deuteronomy', 'ps': 'psalms',
+        'prov': 'proverbs', 'ecc': 'ecclesiastes', 'isa': 'isaiah',
+        'jer': 'jeremiah', 'ezek': 'ezekiel', 'dan': 'daniel',
+        'matt': 'matthew', 'mk': 'mark', 'lk': 'luke', 'jn': 'john',
+        'rev': 'revelation', 'rom': 'romans', 'cor': 'corinthians',
+        'gal': 'galatians', 'eph': 'ephesians', 'phil': 'philippians',
+        'col': 'colossians', 'heb': 'hebrews', 'jas': 'james',
+    }
+    for short, full in _shorts.items():
+        if short in lower.split() or f'{short} ' in lower or f' {short}' in lower:
+            return BOOK_OPERATORS.get(full)
+    return None
+
 
 # ================================================================
 #  VERB FRAMES PER DOING-OPERATOR
@@ -375,11 +629,33 @@ _DOMAIN_KEYWORDS: Dict[str, List[str]] = {
         'heart', 'blood', 'growth', 'homeostasis', 'adaptation',
         'mutation', 'respiration', 'photosynthesis', 'symbiosis',
     ],
+    'bible': [
+        'genesis', 'exodus', 'psalm', 'psalms', 'proverbs', 'john',
+        'matthew', 'mark', 'luke', 'romans', 'revelation', 'acts',
+        'isaiah', 'jeremiah', 'ezekiel', 'daniel', 'hebrews',
+        'god', 'jesus', 'christ', 'holy', 'spirit', 'lord',
+        'scripture', 'verse', 'bible', 'gospel', 'covenant',
+        'grace', 'faith', 'prayer', 'worship', 'salvation',
+        'resurrection', 'torah', 'hebrew', 'hebrew root',
+        'in the beginning', 'love of god', 'kingdom',
+    ],
+    'emotion': [
+        'feel', 'feeling', 'felt', 'emotion', 'grief', 'love',
+        'joy', 'fear', 'anger', 'sad', 'happy', 'lonely', 'alone',
+        'hurt', 'pain', 'peace', 'hope', 'despair', 'longing',
+        'miss', 'missing', 'loss', 'broken', 'alive', 'beautiful',
+        'why do i', 'i feel', "i'm feeling", 'what is it like',
+        'what does it mean', 'why does it', 'hard to carry',
+    ],
 }
 
 
 def detect_domain(user_text: str) -> Optional[str]:
-    """Detect the domain of a user's text by keyword signature."""
+    """Detect the domain of a user's text by keyword signature.
+
+    Returns the best-scoring domain, or None if no clear signal.
+    All domains are equal -- no guardrails, no silos.
+    """
     if not user_text:
         return None
     lower = user_text.lower()
@@ -409,12 +685,24 @@ def _pick_word(
     rng: random.Random,
     used: set,
 ) -> str:
-    """Select a word for a syntactic slot. Hierarchical fallback."""
+    """Select a word for a syntactic slot. Hierarchical fallback.
+
+    Priority: (1) domain vocab, (2) cross-domain pool if no domain,
+    (3) semantic lattice, (4) input word anchoring.
+
+    No guardrails -- bible, math, emotion, physics all contribute.
+    """
     candidates: List[str] = []
 
-    # 1. Domain vocabulary (most specific)
+    # 1a. Domain vocabulary (most specific)
     if domain and domain in DOMAIN_VOCAB and op in DOMAIN_VOCAB[domain]:
         candidates.extend(DOMAIN_VOCAB[domain][op].get(role, []))
+
+    # 1b. Cross-domain mixing: when no domain, draw from ALL domains.
+    #     HARMONY in math = 'eigenvalue'. In bible = 'grace'. In emotion = 'love'.
+    #     All three are the same operator seen from three angles.
+    if not domain:
+        candidates.extend(_all_domain_pool(op, role))
 
     # 2. Semantic lattice (general vocabulary)
     lattice_phase = phase

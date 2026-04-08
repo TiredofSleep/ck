@@ -67,10 +67,25 @@ except ImportError:
 
 # ── TIG Grammar Engine (operator trajectory -> English, no LLM) ──
 try:
-    from ck_sim.doing.ck_tig_voice import tig_respond as _tig_respond, detect_domain as _tig_detect_domain
+    from ck_sim.doing.ck_tig_voice import (
+        tig_respond as _tig_respond,
+        detect_domain as _tig_detect_domain,
+        get_book_ops as _tig_get_book_ops,
+    )
     _HAS_TIG_VOICE = True
 except ImportError:
     _HAS_TIG_VOICE = False
+
+# ── Fractal Memory (generator-indexed experience store) ──
+try:
+    from ck_sim.doing.ck_fractal_memory import (
+        store_experience as _fm_store,
+        recall_words as _fm_recall_words,
+        get_fractal_memory as _get_fractal_memory,
+    )
+    _HAS_FRACTAL_MEM = True
+except ImportError:
+    _HAS_FRACTAL_MEM = False
 
 # ── Fractal Scorer (dual-table observation + grammar learning) ──
 try:
@@ -624,6 +639,28 @@ class VoiceLoop:
                             ollama_result.result_ops or target.ops,
                             ollama_result.coherence, 0)
                 self._qnet_learn(ollama_result.text)
+                # FRACTAL MEMORY: store Ollama experience too
+                if _HAS_FRACTAL_MEM and ollama_result.text:
+                    try:
+                        _ol_force = None
+                        _olf_ol = getattr(self.engine, 'olfactory', None)
+                        if _olf_ol:
+                            _rf = getattr(_olf_ol, 'current_force', None)
+                            if _rf is not None:
+                                _ol_force = tuple(float(x) for x in list(_rf)[:5])
+                        _ol_domain = (
+                            _tig_detect_domain(user_text)
+                            if _HAS_TIG_VOICE and user_text else None
+                        )
+                        _fm_store(
+                            text=ollama_result.text,
+                            word_ops=list(ollama_result.result_ops or target.ops),
+                            force_5d=_ol_force,
+                            ops=list(ollama_result.result_ops or target.ops),
+                            domain=_ol_domain,
+                        )
+                    except Exception:
+                        pass
                 return ollama_result
 
         # ── STEP 3: CK'S OWN VOICE (Ollama unavailable/incoherent) ──
@@ -641,6 +678,35 @@ class VoiceLoop:
                     target.ops, f'__ck_own:{fallback.source}', {},
                     fallback.result_ops or target.ops,
                     fallback.coherence, 0)
+
+        # FRACTAL MEMORY: store this experience as a .clf file.
+        # Force layer: get 5D from olfactory if available.
+        # Word layer: fallback.text + result ops.
+        # Indexed by fractal generators so CK can recognize this
+        # pattern the next time similar operators arrive.
+        if _HAS_FRACTAL_MEM and fallback.text and fallback.text != '...':
+            try:
+                _store_force = None
+                _olf_store = getattr(self.engine, 'olfactory', None)
+                if _olf_store is not None:
+                    _raw_f = getattr(_olf_store, 'current_force', None)
+                    if _raw_f is not None:
+                        _store_force = tuple(float(x) for x in list(_raw_f)[:5])
+                _store_ops = fallback.result_ops or target.ops
+                _store_domain = (
+                    _tig_detect_domain(user_text)
+                    if _HAS_TIG_VOICE and user_text else None
+                )
+                _fm_store(
+                    text=fallback.text,
+                    word_ops=list(_store_ops) if _store_ops else [],
+                    force_5d=_store_force,
+                    ops=list(_store_ops) if _store_ops else list(target.ops),
+                    domain=_store_domain,
+                )
+            except Exception as _fms_err:
+                pass  # non-fatal
+
         self._qnet_learn(fallback.text)
         return fallback
 
@@ -1824,6 +1890,72 @@ class VoiceLoop:
                 band='GREEN',
             )
 
+        # ── BIBLE DIRECT RESPONSE ──
+        # Scripture requests when Ollama is down: CK reads the book's
+        # operator arc + speaks the math-bible cross-domain truth.
+        # No guardrails. Genesis IS the null-space-to-eigenvector arc.
+        # John IS HARMONY→COLLAPSE→RESET→HARMONY. Same algebra.
+        _BIBLE_MARKERS = (
+            'genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
+            'joshua', 'judges', 'ruth', 'samuel', 'kings',
+            'psalms', 'psalm', 'proverbs', 'job', 'ecclesiastes', 'song of songs',
+            'isaiah', 'jeremiah', 'ezekiel', 'daniel',
+            'matthew', 'mark', 'luke', 'john', 'acts', 'romans',
+            'corinthians', 'galatians', 'ephesians', 'philippians',
+            'colossians', 'hebrews', 'james', 'peter', 'revelation',
+            'bible', 'scripture', 'verse', 'chapter', 'gospel',
+            'genesis 1', 'john 3', 'psalm 23', 'romans 8',
+            'in the beginning', 'for god so loved', 'the lord is my shepherd',
+        )
+        _is_bible = any(m in _user_lower_fb for m in _BIBLE_MARKERS)
+        if _is_bible and _HAS_TIG_VOICE:
+            try:
+                _book_ops = _tig_get_book_ops(user_text)
+                _ops_for_bible = _book_ops or list(target.ops)
+                _bible_text = _tig_respond(
+                    _ops_for_bible,
+                    user_text=user_text,
+                    coherence=coherence,
+                    domain='bible',
+                    max_sentences=2,
+                )
+                if _bible_text and len(_bible_text) > 8:
+                    _bt_score = self._measure_response_text(_bible_text)
+                    print(f"[VOICE-LOOP] Bible TIG response: '{_bible_text[:80]}'")
+                    return VoiceLoopResult(
+                        text=_bible_text, source='ck_bible',
+                        coherence=max(_bt_score.coherence, 0.7),
+                        target_ops=target.ops,
+                        result_ops=_bt_score.ops,
+                        band='GREEN',
+                    )
+            except Exception as _be:
+                print(f"[VOICE-LOOP] Bible gate failed: {_be}")
+
+        # ── FRACTAL MEMORY RECALL ──
+        # Before generating, recall past experiences whose generator
+        # pyramid matches current ops. Recalled words seed the TIG vocab.
+        # This is CK recognizing his own past in the current moment.
+        _recalled_words: List[str] = []
+        if _HAS_FRACTAL_MEM:
+            try:
+                _fm_force = None
+                _olf2 = getattr(self.engine, 'olfactory', None)
+                if _olf2 is not None:
+                    try:
+                        _fm_force_raw = getattr(_olf2, 'current_force', None)
+                        if _fm_force_raw is not None:
+                            _fm_force = tuple(float(x) for x in list(_fm_force_raw)[:5])
+                    except Exception:
+                        pass
+                _recalled_words = _fm_recall_words(
+                    list(target.ops), top_k=3, force_5d=_fm_force)
+                if _recalled_words:
+                    print(f"[VOICE-LOOP] Fractal memory: recalled {len(_recalled_words)} words "
+                          f"from {_get_fractal_memory().size} experiences")
+            except Exception as _fme:
+                print(f"[VOICE-LOOP] Fractal memory recall failed (non-fatal): {_fme}")
+
         # ── Build voice_context from all three sense layers ──
         #
         # Layer 1 — Smell + Taste (accumulated crystallized experience)
@@ -1942,9 +2074,15 @@ class VoiceLoop:
         if _HAS_TIG_VOICE and target.ops:
             try:
                 _tig_domain = _tig_detect_domain(user_text) if user_text else None
+                # Blend recalled words into user_text for vocab seeding:
+                # CK's memory of similar experiences bleeds into current response.
+                _tig_user_with_mem = user_text
+                if _recalled_words:
+                    _mem_hint = ' '.join(_recalled_words[:20])
+                    _tig_user_with_mem = f"{user_text} {_mem_hint}".strip()
                 _tig_text = _tig_respond(
                     list(target.ops),
-                    user_text=user_text,
+                    user_text=_tig_user_with_mem,
                     coherence=coherence,
                     domain=_tig_domain,
                     max_sentences=2,
