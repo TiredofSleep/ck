@@ -117,6 +117,24 @@ Every result above is an instance of this. All 27 instances documented: [WP57](G
 
 ---
 
+## Journal-Ready Papers
+
+Three self-contained results written for outside readers — no prior TIG knowledge required, runnable proofs, honest about what they claim.
+
+**[The Sinc² Zero Law in Prime Arithmetic](papers/WP_SINC2_ZERO_LAW.md)**
+sinc²(k/p) = 0 iff p | k. Proved in three lines from primality. Three corollaries: loop closure, fold necessity, no shortcut. Verified for all primes 3..199.
+*Target: Integers — Electronic Journal of Combinatorial Number Theory*
+
+**[Complete Harmony Partition of Two Composition Tables over Z/10Z](papers/WP_OPERATOR_RING_PARTITION.md)**
+TSML has exactly 73 harmony cells. BHML has exactly 28. Both proved by disjoint zone enumeration — no case analysis, pure counting over a finite set. The two tables are complementary: their harmony zones share only the identity orbit. Runnable cell-by-cell witnesses.
+*Target: Experimental Mathematics / Discrete Mathematics*
+
+**[A Three-Zone Defect Classifier for Open Problems in Finite Algebraic Structure](papers/WP_DEFECT_THRESHOLD_CLASSIFIER.md)**
+Three zones — RESOLVED, BOUNDARY, ESCAPED — defined by T\* = 5/7 and φ = 4/π², derived before the test. Applied to 18 instances across all six Clay Millennium Problems at depth n=48. Zero misclassifications. RH and Hodge land in BOUNDARY (0.424, 0.612, 0.704). P≠NP solve and BSD rank≥2 land in ESCAPED. Honestly reported as classification, not proof. All data public.
+*Target: Experimental Mathematics*
+
+---
+
 ## Papers
 
 ### Foundation
