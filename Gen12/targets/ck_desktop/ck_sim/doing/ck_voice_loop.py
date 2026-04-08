@@ -548,9 +548,9 @@ class VoiceLoop:
                 _nv_qpass, _nv_qreason = self._qnet_gate(
                     native_try.text, user_text=user_text)
                 if _nv_qpass:
+                    _hier_score = target.hier.sentence_score if target.hier else -1.0
                     print(f"[VOICE-LOOP] Native voice ({native_try.source}) "
-                          f"— field passed H-T* "
-                          f"(sentence={target.hier.sentence_score:.3f} >= T*)")
+                          f"sentence={_hier_score:.3f}")
                     try:
                         if (native_try.coherence
                                 and native_try.coherence >= self.RESPONSE_THRESHOLD):
@@ -570,8 +570,8 @@ class VoiceLoop:
                 else:
                     print(f"[VOICE-LOOP] Native voice Q-Net rejected "
                           f"({_nv_qreason}) "
-                          + ("— returning anyway (mode=native)" if mode == 'native'
-                             else "— Ollama scaffolds"))
+                          + ("returning anyway (mode=native)" if mode == 'native'
+                             else "Ollama scaffolds"))
                     # In native mode, return even if Q-Net rejects — no Ollama fallback
                     if mode == 'native':
                         self._qnet_learn(native_try.text)
@@ -1048,7 +1048,7 @@ class VoiceLoop:
                     if _s not in target_ops[-2:]:
                         target_ops.append(_s)
             print(f"[VOICE-LOOP] Seed injection: {len(_seed_sample)} ring-state ops "
-                  f"→ trajectory now {[OP_NAMES[o] for o in target_ops[:8]]}")
+                  f"-> {[OP_NAMES[o] for o in target_ops[:8]]}")
 
         # ── DKAN PREDICTION: CK's learned neural patterns drive intent ──
         # DKAN (Dynamic Knowledge Activation Network) has been learning from
@@ -1113,7 +1113,7 @@ class VoiceLoop:
                             target_ops.append(_rec_op)
                         _traj_coh = sum(1 for o in target_ops if o in _COH_OPS) / len(target_ops)
                         print(f"[VOICE-LOOP] Experience search iter {_iter+1}: "
-                              f"rec={OP_NAMES[_rec_op]} → {OP_NAMES[_composed]} "
+                              f"rec={OP_NAMES[_rec_op]}->{OP_NAMES[_composed]} "
                               f"traj_coh={_traj_coh:.3f}")
                     else:
                         break
