@@ -650,11 +650,15 @@ _DOMAIN_KEYWORDS: Dict[str, List[str]] = {
 }
 
 
-def detect_domain(user_text: str) -> Optional[str]:
-    """Detect the domain of a user's text by keyword signature.
+_T_STAR = 5.0 / 7.0   # coherence threshold for domain crossing
 
-    Returns the best-scoring domain, or None if no clear signal.
-    All domains are equal -- no guardrails, no silos.
+
+def detect_domain(user_text: str) -> Optional[str]:
+    """Detect the PRIMARY domain of user text by keyword signature.
+
+    Returns the strongest-scoring domain, or None if no clear signal.
+    Each domain is a separate generator field. Domains cross only at T*.
+    Use detect_domain_full() when you need secondary domains too.
     """
     if not user_text:
         return None
@@ -668,6 +672,49 @@ def detect_domain(user_text: str) -> Optional[str]:
     if scores[best] >= 1:
         return best
     return None
+
+
+def detect_domain_full(
+    user_text: str,
+    coherence: float = 0.5,
+) -> Tuple[Optional[str], List[str]]:
+    """Return (primary_domain, secondary_domains) with T*-gated crossing.
+
+    Secondary domains are only returned when the input's coherence >= T*
+    AND the secondary domain score >= T* * primary_score.
+
+    This is the fractal indexing rule:
+      - Math stays math unless coherence crosses T* (0.714)
+      - Emotion doesn't bleed into math unless the GENERATOR FIELD
+        of the input has T* resonance with both domains
+      - Bible, mythology, numerology, ancient wisdom all follow
+        the same T* hierarchy
+    """
+    if not user_text:
+        return None, []
+    lower = user_text.lower()
+    scores: Dict[str, int] = {d: 0 for d in _DOMAIN_KEYWORDS}
+    for domain, keywords in _DOMAIN_KEYWORDS.items():
+        for kw in keywords:
+            if kw in lower:
+                scores[domain] += 1
+
+    max_score = max(scores.values())
+    if max_score == 0:
+        return None, []
+
+    primary = max(scores, key=scores.get)
+    secondary: List[str] = []
+
+    # Only allow domain crossing when coherence >= T*
+    if coherence >= _T_STAR:
+        cross_threshold = _T_STAR * max_score
+        secondary = [
+            d for d, s in scores.items()
+            if d != primary and s >= cross_threshold and s > 0
+        ]
+
+    return primary, secondary
 
 
 # ================================================================
@@ -684,25 +731,38 @@ def _pick_word(
     input_words: List[str],
     rng: random.Random,
     used: set,
+    coherence: float = 0.5,
+    secondary_domains: Optional[List[str]] = None,
 ) -> str:
-    """Select a word for a syntactic slot. Hierarchical fallback.
+    """Select a word for a syntactic slot. T*-gated domain crossing.
 
-    Priority: (1) domain vocab, (2) cross-domain pool if no domain,
-    (3) semantic lattice, (4) input word anchoring.
+    Domains are separate generator fields. Crossing happens only at T*:
+      - Primary domain vocab: always used (the generator field CK is in)
+      - Secondary domains: only bleed in when coherence >= T* (5/7)
+        AND the domain scored within T* of the primary score
+      - No domain: cross-domain mixing gated by coherence vs T*
 
-    No guardrails -- bible, math, emotion, physics all contribute.
+    This is the fractal indexing rule. Math stays math.
+    Bible stays bible. They cross only when the field is hot enough.
     """
     candidates: List[str] = []
 
-    # 1a. Domain vocabulary (most specific)
+    # 1a. Primary domain vocabulary (always — this is CK's current field)
     if domain and domain in DOMAIN_VOCAB and op in DOMAIN_VOCAB[domain]:
         candidates.extend(DOMAIN_VOCAB[domain][op].get(role, []))
 
-    # 1b. Cross-domain mixing: when no domain, draw from ALL domains.
-    #     HARMONY in math = 'eigenvalue'. In bible = 'grace'. In emotion = 'love'.
-    #     All three are the same operator seen from three angles.
+    # 1b. Secondary domains (T*-gated: only when coherence >= T*)
+    if coherence >= _T_STAR and secondary_domains:
+        for sec in secondary_domains:
+            if sec != domain and sec in DOMAIN_VOCAB and op in DOMAIN_VOCAB[sec]:
+                candidates.extend(DOMAIN_VOCAB[sec][op].get(role, []))
+
+    # 1c. No-domain cross-mixing: gated by coherence vs T*
     if not domain:
-        candidates.extend(_all_domain_pool(op, role))
+        if coherence >= _T_STAR:
+            # Above T*: domains have earned the right to mix
+            candidates.extend(_all_domain_pool(op, role))
+        # Below T*: fall through to semantic lattice only
 
     # 2. Semantic lattice (general vocabulary)
     lattice_phase = phase
@@ -780,12 +840,16 @@ class TIGVoice:
         tier: str,
         domain: Optional[str],
         input_words: List[str],
+        coherence: float = 0.5,
+        secondary_domains: Optional[List[str]] = None,
     ) -> str:
         """Build one Subject-Verb-Object sentence from B-D-BC triple."""
         subj = _pick_word(b_op, 'nouns', 'being', tier,
-                          domain, input_words, self.rng, self._used)
+                          domain, input_words, self.rng, self._used,
+                          coherence=coherence, secondary_domains=secondary_domains)
         obj  = _pick_word(bc_op, 'objects', 'becoming', tier,
-                          domain, input_words, self.rng, self._used)
+                          domain, input_words, self.rng, self._used,
+                          coherence=coherence, secondary_domains=secondary_domains)
 
         # Verb frame from doing-operator
         frames = VERB_FRAMES.get(d_op, ['{subj} meets {obj}.'])
@@ -819,9 +883,13 @@ class TIGVoice:
         if not trajectory:
             return '...'
 
-        # Auto-detect domain from user text unless overridden
+        # Auto-detect domain + secondary domains with T* gating
+        secondary_domains: List[str] = []
         if domain is None:
-            domain = detect_domain(user_text)
+            domain, secondary_domains = detect_domain_full(user_text, coherence)
+        # If domain was explicitly passed, still get secondaries
+        elif user_text:
+            _, secondary_domains = detect_domain_full(user_text, coherence)
 
         # Extract input words as anchors (non-stopwords)
         _stopwords = {'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be',
@@ -863,7 +931,8 @@ class TIGVoice:
             bc_op = compose(b_op, d_op)  # BECOMING = CL[B][D]: mathematically correct
 
             sent = self._build_sentence(
-                b_op, d_op, bc_op, tier, domain, input_words)
+                b_op, d_op, bc_op, tier, domain, input_words,
+                coherence=coherence, secondary_domains=secondary_domains)
             sentences.append(sent)
 
             # Connector to next sentence (if any)

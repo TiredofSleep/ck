@@ -70,6 +70,7 @@ try:
     from ck_sim.doing.ck_tig_voice import (
         tig_respond as _tig_respond,
         detect_domain as _tig_detect_domain,
+        detect_domain_full as _tig_detect_domain_full,
         get_book_ops as _tig_get_book_ops,
     )
     _HAS_TIG_VOICE = True
