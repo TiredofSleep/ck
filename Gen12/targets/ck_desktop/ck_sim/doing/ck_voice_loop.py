@@ -65,6 +65,13 @@ try:
 except ImportError:
     _HAS_FORCE_VOICE = False
 
+# ── TIG Grammar Engine (operator trajectory -> English, no LLM) ──
+try:
+    from ck_sim.doing.ck_tig_voice import tig_respond as _tig_respond, detect_domain as _tig_detect_domain
+    _HAS_TIG_VOICE = True
+except ImportError:
+    _HAS_TIG_VOICE = False
+
 # ── Fractal Scorer (dual-table observation + grammar learning) ──
 try:
     from ck_sim.doing.ck_fractal_scorer import observe_text as _observe_text
@@ -1927,6 +1934,43 @@ class VoiceLoop:
                               f"text='{text}'")
             except Exception as e:
                 print(f"[VOICE-LOOP] Force voice failed: {e}")
+
+        # -- Level B.5: TIG Grammar Engine (operator->English, no LLM) --
+        # Sentence = heartbeat tick: Subject=B, Verb=D, Object=CL[B][D].
+        # Cross-domain: math, physics, CS, biology, general.
+        # Cleaner grammar than fractal voice; tries before fractal.
+        if _HAS_TIG_VOICE and target.ops:
+            try:
+                _tig_domain = _tig_detect_domain(user_text) if user_text else None
+                _tig_text = _tig_respond(
+                    list(target.ops),
+                    user_text=user_text,
+                    coherence=coherence,
+                    domain=_tig_domain,
+                    max_sentences=2,
+                )
+                if _tig_text and len(_tig_text) > 8:
+                    _tig_score = self._measure_response_text(_tig_text)
+                    _tig_qpass, _tig_qreason = self._qnet_gate(
+                        _tig_text, user_text=user_text)
+                    if _tig_score.coherence >= 0.25 and _tig_qpass:
+                        print(f"[VOICE-LOOP] TIG voice accepted: "
+                              f"'{_tig_text[:80]}' "
+                              f"domain={_tig_domain} "
+                              f"coherence={_tig_score.coherence:.3f}")
+                        return VoiceLoopResult(
+                            text=_tig_text, source='ck_tig',
+                            coherence=_tig_score.coherence,
+                            target_ops=target.ops,
+                            result_ops=_tig_score.ops,
+                            band=self._band_name(_tig_score.coherence),
+                        )
+                    else:
+                        _why = _tig_qreason if not _tig_qpass else f'coherence={_tig_score.coherence:.3f}'
+                        print(f"[VOICE-LOOP] TIG voice rejected: {_why}, "
+                              f"text='{_tig_text[:60]}'")
+            except Exception as _tig_err:
+                print(f"[VOICE-LOOP] TIG voice failed: {_tig_err}")
 
         # -- Level C: Fractal Voice FIRST (7500+ semantic lattice words) --
         # Fractal voice has the richest vocabulary: 15D triadic composition
