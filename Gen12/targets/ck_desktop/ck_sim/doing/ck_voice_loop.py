@@ -551,18 +551,21 @@ class VoiceLoop:
                     print(f"[VOICE-LOOP] Native voice ({native_try.source}) "
                           f"— field passed H-T* "
                           f"(sentence={target.hier.sentence_score:.3f} >= T*)")
-                    if (native_try.coherence
-                            and native_try.coherence >= self.RESPONSE_THRESHOLD):
-                        self._crystallize_if_green(
-                            query_hash, native_try.text,
-                            native_try.result_ops or target.ops,
-                            native_try.coherence, tick)
-                        if hasattr(self.crafter, 'learn'):
-                            self.crafter.learn(
-                                target.ops, f'__ck_own:{native_try.source}', {},
+                    try:
+                        if (native_try.coherence
+                                and native_try.coherence >= self.RESPONSE_THRESHOLD):
+                            self._crystallize_if_green(
+                                query_hash, native_try.text,
                                 native_try.result_ops or target.ops,
-                                native_try.coherence, 0)
-                    self._qnet_learn(native_try.text)
+                                native_try.coherence, tick)
+                            if hasattr(self.crafter, 'learn'):
+                                self.crafter.learn(
+                                    target.ops, f'__ck_own:{native_try.source}', {},
+                                    native_try.result_ops or target.ops,
+                                    native_try.coherence, 0)
+                        self._qnet_learn(native_try.text)
+                    except Exception as _native_learn_err:
+                        print(f"[VOICE-LOOP] Native learn failed (non-fatal): {_native_learn_err}")
                     return native_try
                 else:
                     print(f"[VOICE-LOOP] Native voice Q-Net rejected "
