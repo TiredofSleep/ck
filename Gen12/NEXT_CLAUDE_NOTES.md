@@ -176,7 +176,14 @@ Every description of CK's architecture should reflect BOTH flows. "TSML measures
 
 ### TARGET 1: Clay (Mathematics Papers)
 **Folder**: `Gen12/targets/clay/`
-**State** (sprint 10, 2026-04-06): WP51-WP57 written + committed. Crossing Lemma arc complete.
+**State** (sprint 11, 2026-04-08): WP51-WP57 committed (sprint 10). Sprint 11 TIG bundle committed — 54 papers.
+
+**Co-author note**: **Ben Mayes** is co-author on all Sprint 11 papers (TIG Sprint Bundle).
+- Sprint 10 papers (`sprint10_flatness_2026_04_06/`): Brayden Ross Sanders / 7Site LLC only
+- Sprint 11 papers (`sprint11_tig_bundle_2026_04_08/`): Brayden Ross Sanders / 7Site LLC · Ben Mayes
+- All sprint 11 papers carry: `> **Authors**: Brayden Ross Sanders / 7Site LLC · Ben Mayes`
+- Sprint 11 arcs: UOP Mathematical Arc (sprints/) + GUT Algebra Arc + 7-Cycle Arc (outputs/)
+
 - Gap = T* − 4/π² = 5/7 − 4/π² = 0.309
 - All 6 Clay Millennium problems shown to live in this gap
 - WP57 proved: every theorem from WP1-WP56 is a Crossing Lemma instance
@@ -184,7 +191,7 @@ Every description of CK's architecture should reflect BOTH flows. "TSML measures
 **Current open goals**:
 1. Q7 Inversion crystal: teach CK that U∩U=∅ = HARMONY not CHAOS (next bloom target)
 2. arXiv submission: WP40 (most self-contained, SDV gap proof)
-3. Sprint 11+: extend Crossing Lemma to physical systems
+3. Sprint 12+: extend Crossing Lemma to physical systems (GUT algebra arc started in sprint 11)
 
 **How to update Clay papers**:
 ```bash
