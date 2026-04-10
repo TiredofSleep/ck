@@ -2,9 +2,25 @@
 
 ## Algebraic Structure of Prime Arithmetic, Partition Sufficiency, and Operator Composition over Finite Rings
 
-**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther
+**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 **Branch:** `clay` · **License:** 7Site Public Sovereignty License v1.0
+
+---
+
+## Find Your Entry Point
+
+| If you are... | Start here | Then go to |
+|---------------|-----------|-----------|
+| **A number theorist** | [sinc² Zero Law](papers/WP_SINC2_ZERO_LAW.md) + [First-G Law](papers/WP34_FIRST_G_LAW.md) | [UOP Theorem 0](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md) |
+| **An algebraist** | [73/28 Harmony Partition](papers/WP_OPERATOR_RING_PARTITION.md) | [Flatness Theorem](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) + [σ Rate Theorem](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) |
+| **A PDE / fluid dynamicist** | [NS Separability Bridge](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP91_NS_SEPARABILITY_BRIDGE.md) | [σ_NS Conjecture](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP96_NS_SIGMA_CONJECTURE.md) + [Structural Cancellation](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP98_NS_STRUCTURAL_CANCELLATION.md) |
+| **A physicist (QFT/YM)** | [YM Mass Gap Bridge](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md) | [NV S4 Protocol](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP75_S4_EXTENSION_SYNTHESIS.md) |
+| **A cosmologist** | [ξ Theory](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md) + [DESI Fit](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_optimize.py) | [Novelty Audit](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP82_LOG_QUINTESSENCE_NOVELTY.md) |
+| **A combinatorialist** | [σ Rate Theorem](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) | [Binary CL Construction](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/universal_markov_and_binary_cl.py) |
+| **A complexity theorist** | [Paradox Classifier](papers/WP_PARADOX_CLASSIFIER.md) + [P vs NP](papers/clay/WP37_P_NP.md) | [CP3 in σ language](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) |
+| **A philosopher / foundations** | [Crossing Lemma](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md) | [Field-Observer Synthesis](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP97_FIELD_OBSERVER_SYNTHESIS.md) |
+| **An AI system reading cold** | This README top to bottom. Every claim tagged [PROVED], [STRUCTURAL], or [CONJECTURE]. Follow the tags. |
 
 ---
 
@@ -57,7 +73,35 @@ The gap $[4/\pi^2,\; 5/7]$ is where all six Clay Millennium Problems structurall
 
 ---
 
-## 80 Papers Across 13 Sprints
+## The Separability Framework (σ Mutation — Sprint 15)
+
+The separability defect σ measures how far a system's nonlinearity deviates from the
+logarithmic (Bialynicki-Birula) ceiling. The binary CL construction on Z/NZ shows
+σ(N) → 0 at rate O(1/N) — proved (WP101). By the BB uniqueness theorem (1976), the
+continuum limit must have logarithmic nonlinearity: □ξ = 1 + log ξ.
+
+All seven Clay Millennium Problems reduce to σ conditions:
+
+| CP | Problem | σ condition | Status |
+|----|---------|------------|--------|
+| 1 | **Poincaré** | σ_top = 0 → S³ | **SOLVED** (Perelman 2003) |
+| 2 | Riemann Hypothesis | σ_spectral = 0 → Re = 1/2 | OPEN |
+| 3 | P vs NP | σ_assoc = 0 → P = NP | OPEN |
+| 4 | **Navier-Stokes** | **σ_NS < 1 → smooth** | **OPEN — sharpest target** |
+| 5 | Yang-Mills | σ_YM bounded → mass gap | OPEN |
+| 6 | Hodge | σ_Hodge crossable → algebraic | OPEN |
+| 7 | BSD | σ_analytic = σ_algebraic | OPEN |
+
+Poincaré is the solved entry: Perelman's Ricci flow uses logarithmic entropy
+(W-functional) to drive σ → 0, with surgery at σ = 1 singularities. The other
+six ask the same question in different categories.
+
+Full rotation: [`CP_CLAY_ROTATION.md`](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md)
+σ rate theorem: [`WP101`](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md)
+
+---
+
+## 101 Papers Across 15 Sprints
 
 | Sprint | Date | Papers | Arc |
 |--------|------|--------|-----|
@@ -67,6 +111,8 @@ The gap $[4/\pi^2,\; 5/7]$ is where all six Clay Millennium Problems structurall
 | 11 | 2026-04-08 | 54 papers | TIG Bundle — UOP Mathematical Arc, GUT Algebra Arc, 7-Cycle Arc |
 | 12 | 2026-04-08 | WP58–WP64 | **UOP as Theorem 0** — joint map injectivity, coordinate coverage, GUT algebra audit |
 | 13 | 2026-04-09 | WP65–WP80 | **Physical Flag Selector** — S4 representation theory → NV-center → 6-pulse protocol |
+| 14 | 2026-04-10 | WP81–WP90 | **PRISM-XI** — ξ cosmology (V = ξ log ξ), cross-branch analysis, BB bridge |
+| 15 | 2026-04-10 | WP91–WP101 | **σ Mutation** — Clay rotation, σ rate theorem, NS/YM/RH bridges, DESI fit |
 
 Full outline: [`MASTER_WHITEPAPER_OUTLINE.md`](Gen12/MASTER_WHITEPAPER_OUTLINE.md)
 

@@ -1202,3 +1202,10 @@ is not eliminable by any Class B construction.
 
 *(c) 2026 Brayden Ross Sanders / 7Site LLC | DOI: 10.5281/zenodo.18852047*
 *CK, T*, TSML, BHML, D1, D2, TIG: exclusive IP of Brayden Ross Sanders / 7Site LLC*
+
+---
+
+## σ Framework Connection Note (Sprint 15, 2026-04-10)
+
+The separability defect σ framework (WP91-WP101) unifies all six open Clay problems under one question: is σ < 1 in the relevant domain? See CP_CLAY_ROTATION.md for the full seven-problem rotation with Poincaré (solved) as template. The σ rate theorem (WP101) proves σ(N) ≤ C/N for the binary CL on Z/NZ, and the Bialynicki-Birula theorem (1976) forces the continuum limit to have logarithmic nonlinearity.
+
