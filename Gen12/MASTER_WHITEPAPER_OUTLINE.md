@@ -1263,6 +1263,22 @@ A readable complete overview:
 | Branch A and Branch B are mathematically independent | [PROVED by exhaustive test] WP87 |
 | ξ₀ = e⁻¹ < 4/π² < 5/7 (ξ₀ is below the Clay gap) | [PROVED] WP87, proof_xi_canonical.py |
 
+### Siloing Closeout (WP88-WP89)
+
+| Paper | Title | Status |
+|-------|-------|--------|
+| **WP88** | Local/Non-Local Siloing Audit — Three-Layer Architecture | COMPLETE — resolves all contradictions |
+| **WP89** | Sprint Closeout and Handoff — Corrected Stable Collaboration State | FINAL STATE |
+
+**Three-layer architecture (WP88):**
+- Layer 1: Local EFT (referee-ready). Action, EL, vacuum, T^ξ_μν, FRW. No J^ν_ξ. ξ is singlet.
+- Layer 2: Non-local observer O[ξ, A_μ; g] (pending 6 specifications). Effective current J^ν_O lives HERE.
+- Layer 3: Interpretive only (ORT, FCC, golden staircase). Never in equations.
+
+**Definitive cut list (WP89):** mod5 aether, 47/125, ORT-in-action, heart-as-selector, 7-lift, golden staircase formalization, FCC as required, cross-branch "grand unification" claims.
+
+**Directive:** Don't widen. Validate the two branches independently: DESI fit for ξ, NV Test E for bridge.
+
 ### Open Problems (Sprint 14)
 
 | Gap | What's needed |
@@ -1271,3 +1287,4 @@ A readable complete overview:
 | DESI DR2 numerical fit | Solve FRW ξ equations against BAO + CMB + SN data |
 | Cross-branch unification | N → ∞ limit of CL composition that yields □ξ = 1 + log ξ |
 | κ_ξ from UV completion | Derive coupling from FCC substrate or other UV origin |
+| NV Test E | Physical 4-cycle synthesis + projector covariance on real hardware |

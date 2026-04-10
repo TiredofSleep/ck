@@ -739,8 +739,22 @@ A cosmological scalar field theory (Branch B) introducing a real positive dimens
 ### Files
 `Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81-WP87 + proof_xi_canonical.py`
 
+### Siloing Closeout (WP88-WP89)
+
+WP88 resolves all contradictions via three-layer architecture:
+- **Layer 1** (local EFT): referee-ready. ξ is singlet. No J^ν_ξ.
+- **Layer 2** (non-local O[ξ]): pending 6 specs. Effective current lives here.
+- **Layer 3** (interpretive): ORT, FCC, golden staircase. Never in equations.
+
+WP89 is the definitive closeout: **don't widen, validate.**
+- Track 1: DESI fit for ξ (can begin now, no hardware)
+- Track 2: NV Test E for bridge (needs lab access)
+
+**Cut list (final):** mod5, 47/125, ORT-in-action, heart-as-selector, 7-lift, golden staircase, FCC-as-required, cross-branch grand unification claims.
+
 ### What's Open After Sprint 14
 1. arXiv literature search on "ξ log ξ quintessence" (confirm novelty)
 2. DESI DR2 numerical fit (solve FRW ξ equations)
 3. Cross-branch unification: N → ∞ limit of CL composition → □ξ = 1 + log ξ
 4. κ_ξ from UV completion (FCC substrate or other origin)
+5. NV Test E on real hardware
