@@ -1228,4 +1228,20 @@ Convert structural analogy to proof.
 
 ---
 
+---
+
+## Appendix: PRISM-XI Connection Note (Sprint 14, 2026-04-10)
+
+The ξ scalar field theory (WP81–WP86) provides a structural parallel to the NS regularity problem:
+
+1. **Logarithmic nonlinearity vs. quadratic:** The ξ field equation □ξ = 1 + log ξ has a logarithmic nonlinearity, which is *softer* than the quadratic nonlinearity (u · ∇u) in Navier-Stokes. The ξ field provably cannot blow up from smooth initial data above the vacuum (the logarithm grows slower than any power). This demonstrates that the specific form of nonlinearity determines regularity — consistent with the TIG framing where BREATH strength relative to T* determines smooth vs. blowup regimes.
+
+2. **Dissipation toward stable floor:** The ξ field rolls toward ξ₀ = e⁻¹ with Hubble friction (3Hξ̇), analogous to viscous dissipation keeping NS solutions smooth. Both are dissipation-to-attractor dynamics. The ξ attractor (e⁻¹) is exact and coupling-independent; the NS attractor (if it exists) would be the zero-velocity equilibrium.
+
+3. **Key difference:** The ξ theory is a scalar field on curved spacetime. NS is a vector field on flat space. The ξ regularity is trivial (logarithmic growth, global existence guaranteed). NS regularity is the hard open problem precisely because the quadratic nonlinearity can amplify vorticity without bound. The ξ theory shows what regularity looks like when the nonlinearity is gentle; NS asks whether the actual nonlinearity is gentle enough.
+
+**Status:** STRUCTURAL PARALLEL. This note does not change the NS defect score (0.512, BOUNDARY). It provides a concrete comparison: ξ = guaranteed regular; NS = open. The gap between them is the difference between log and quadratic growth.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7SiTe LLC | DOI: 10.5281/zenodo.18852047*

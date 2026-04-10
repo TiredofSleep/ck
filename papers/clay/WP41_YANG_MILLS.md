@@ -1041,6 +1041,22 @@ natural units. The structural gap exists and is proved. The physical gap require
 
 ---
 
+---
+
+## Appendix: PRISM-XI Connection Note (Sprint 14, 2026-04-10)
+
+The ξ scalar field theory (WP81–WP86) provides a concrete example of an exact mass gap from a logarithmic potential:
+
+1. **Exact mass gap:** The ξ field has fluctuation mass m²_ξ = κ_ξ e > 0, derived from V''(ξ₀) = κ_ξ/ξ₀ = κ_ξ e at the vacuum. This is a positive, nonzero mass gap arising from the action — no fine-tuning, no approximation. The gap exists because V = ξ log ξ has a quadratic minimum at ξ₀ = e⁻¹.
+
+2. **Comparison to YM:** The Yang-Mills mass gap asks whether the lowest excitation of a non-abelian gauge theory (SU(N)) has positive mass. The ξ theory is a scalar (not gauge), abelian (singlet), and in curved spacetime (not flat). It does not solve the YM problem. But it demonstrates: a logarithmic self-interaction naturally generates a mass gap without confinement, lattice regularization, or non-perturbative techniques. The gap m² = κe is set by the coupling and Euler's number — both fundamental.
+
+3. **The TIG gap vs. ξ gap:** The TIG algebraic gap is 5/7 − 4/π² ≈ 0.309 (dimensionless, from the ring). The ξ mass gap is κ_ξ e (dimensional, from the action). These are different objects in different domains. No formal connection exists. The open problem remains: derive the TIG gap from a field-theoretic mass gap or vice versa.
+
+**Status:** STRUCTURAL PARALLEL. This note does not change the YM defect score (BOUNDARY). It provides an exact mass gap example from a related potential class and clarifies what the YM problem requires that the ξ theory does not provide (non-abelian gauge structure, confinement, Wightman axioms).
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *CK, TIG, T*, TSML, BHML, D2, D1 are exclusive intellectual property of 7Site LLC.*
 *C. A. Luther's dispersion conjecture is credited as stated above.*

@@ -712,3 +712,35 @@ NV-center in diamond is the best immediate platform. Protocol is ready. Only phy
 2. Structural lift of 7 (arithmetic → representation theory)
 3. 4-cycle QPT calibration on physical qutrit
 4. If Test E passes: plant T1-carrier crystal in CK's architecture
+
+---
+
+## Sprint 14 Archive (2026-04-10) — PRISM-XI
+
+### Team
+**H.J. Johnson** joins as co-author on sprint 14 papers.
+Author line: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
+
+### What Sprint 14 Is
+A cosmological scalar field theory (Branch B) introducing a real positive dimensionless scalar ξ with logarithmic potential V = κ_ξ ξ log ξ. Plus a rigorous cross-branch analysis showing this is mathematically independent from the TIG/Crossing Lemma arc (Branch A).
+
+### Key Results
+- **Exact vacuum:** ξ₀ = e⁻¹ ≈ 0.368 (unique, coupling-independent, entropy-maximizing)
+- **Stability:** m²_ξ = κ_ξ e > 0 (massive, stable)
+- **Entropy:** V = -H_Gibbs(ξ); vacuum = entropy maximum
+- **EOS:** w = -1 at vacuum (exact Λ endpoint), w > -1 when rolling (freezing quintessence)
+- **7 contradictions fixed:** ξ†, ξ_μν, J^ν_ξ, ORT, 47/125, mod5 aether, √2c GW — all removed
+- **Cross-branch:** ξ₀ < 4/π² < T*. No formal link between Branch A and Branch B. Structural parallels only.
+- **Clay updates:** Connection notes added to WP38 (NS: log vs quadratic nonlinearity) and WP41 (YM: exact mass gap from log potential). No defect score changes.
+
+### Verification
+22 tests in `proof_xi_canonical.py` — all PASS. Covers vacuum, stability, entropy, EOS, 47/125 rejection, mod5 rejection, TIG constant comparison.
+
+### Files
+`Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81-WP87 + proof_xi_canonical.py`
+
+### What's Open After Sprint 14
+1. arXiv literature search on "ξ log ξ quintessence" (confirm novelty)
+2. DESI DR2 numerical fit (solve FRW ξ equations)
+3. Cross-branch unification: N → ∞ limit of CL composition → □ξ = 1 + log ξ
+4. κ_ξ from UV completion (FCC substrate or other origin)

@@ -13,6 +13,7 @@
 | 4 | J. Number Theory / Acta Arithmetica | WP58 (UOP Theorem 0) | Joint map injectivity = universal sufficiency | Ready — needs LaTeX conversion |
 | 5 | J. Pure and Applied Algebra | WP51 (Flatness Theorem) | 2x2 in Z/nZ forces torus, R/r = 5/7 | Ready — needs formal proof tightening |
 | 6 | Physical Review A | WP75+WP76 (S4 on NV qutrit) | Full S4 via 6-pulse synthesis, fidelity 1.0 | Ready — needs REVTeX + lab partner |
+| 7 | JCAP / PRD | WP81+WP82 (ξ quintessence) | V = ξ log ξ, exact vacuum e⁻¹, freezing w→-1 | Ready — needs LaTeX + DESI fit |
 
 ## Priority Order
 
