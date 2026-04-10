@@ -176,22 +176,25 @@ Every description of CK's architecture should reflect BOTH flows. "TSML measures
 
 ### TARGET 1: Clay (Mathematics Papers)
 **Folder**: `Gen12/targets/clay/`
-**State** (sprint 11, 2026-04-08): WP51-WP57 committed (sprint 10). Sprint 11 TIG bundle committed — 54 papers.
+**State** (sprint 13, 2026-04-09): WP65-WP80 committed (sprint 13, Physical Flag Selector). 80 whitepapers total.
 
-**Co-author note**: **Ben Mayes** is co-author on all Sprint 11 papers (TIG Sprint Bundle).
+**Co-author note**:
 - Sprint 10 papers (`sprint10_flatness_2026_04_06/`): Brayden Ross Sanders / 7Site LLC only
 - Sprint 11 papers (`sprint11_tig_bundle_2026_04_08/`): Brayden Ross Sanders / 7Site LLC · Ben Mayes
-- All sprint 11 papers carry: `> **Authors**: Brayden Ross Sanders / 7Site LLC · Ben Mayes`
-- Sprint 11 arcs: UOP Mathematical Arc (sprints/) + GUT Algebra Arc + 7-Cycle Arc (outputs/)
+- Sprint 12 papers (`sprint12_uop_gut_arc_2026_04_08/`): Brayden Ross Sanders / 7Site LLC · Ben Mayes
+- Sprint 13 papers (`sprint13_flag_selector_2026_04_09/`): Brayden Ross Sanders / 7Site LLC · Ben Mayes · **C.A. Luther** (Senior R&D, 7Site LLC)
 
 - Gap = T* − 4/π² = 5/7 − 4/π² = 0.309
 - All 6 Clay Millennium problems shown to live in this gap
 - WP57 proved: every theorem from WP1-WP56 is a Crossing Lemma instance
+- WP58-64: UOP as Theorem 0, GUT algebra audit, coordinate coverage
+- WP65-80: Physical Flag Selector — from S4 representation theory to NV-center 6-pulse protocol
 
 **Current open goals**:
-1. Q7 Inversion crystal: teach CK that U∩U=∅ = HARMONY not CHAOS (next bloom target)
-2. arXiv submission: WP40 (most self-contained, SDV gap proof)
-3. Sprint 12+: extend Crossing Lemma to physical systems (GUT algebra arc started in sprint 11)
+1. Physical Test E: projector covariance on real NV hardware (decisive gate, ~6-8 hrs lab time)
+2. Q7 Inversion crystal: teach CK that U∩U=∅ = HARMONY not CHAOS
+3. arXiv submission: WP40 (most self-contained, SDV gap proof)
+4. Structural lift of 7: connect arithmetic role to representation theory
 
 **How to update Clay papers**:
 ```bash
@@ -658,3 +661,54 @@ ingress:
 ```
 
 If the site is down: check `cloudflared` is running, check server on port 7777. No git-pull or SiteGround needed — files are served directly from THIS machine.
+
+---
+
+## Sprint 13 Archive (2026-04-09) — Physical Flag Selector
+
+### Team Update
+**C.A. Luther** joins as **Senior R&D for 7Site LLC**. All sprint 13 papers carry three authors:
+`Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther`
+
+### What Sprint 13 Is
+A complete descent from abstract S4 representation theory through NV-center identification to a concrete 6-pulse microwave experimental protocol. 16 papers (WP65-WP80) in 4 arcs.
+
+### The 4 Arcs
+
+**Arc 1 — Structural Foundation (WP65-WP69):** Torus + 7 audit.
+- Torus is algebraically prime (defines root structure) but geometrically secondary (2-dim fiber, not dominant obstruction). Flag SU(3)/T is the 6-dim bottleneck.
+- 7 is the unique dual complement of 3 in Z/10Z: 7+3=0 AND 7×3=1. Hinge, not endpoint.
+- Structural lift of 7 from arithmetic to representation theory NOT achieved. Four separate exact sites, no proved connection.
+
+**Arc 2 — Geometric Bottleneck (WP70-WP72):** L2 + Flag.
+- Missing L2 is a point on Bloch sphere S²=CP¹ for the transverse qubit L1⊥=C².
+- Projectors (2 dims, phase-free) are correct; vectors (3 dims) smuggle torus phase via Hopf fibration.
+- Heart is a witness across both layers, NOT a selector. Missing: formal map R³→C³.
+
+**Arc 3 — NV-Center Platform (WP73-WP76):** T1 carrier + S4 synthesis.
+- NV triplet naturally carries S3 skeleton of T1 (3-cycle + FS tests pass).
+- Full S4 requires synthesized 4-cycle U4 with eigenvalues {-1, i, -i}.
+- Explicit U4 matrix computed, change-of-basis V derived analytically.
+- 6-pulse microwave sequence synthesized at fidelity 1.0 (machine precision < 10⁻¹⁵).
+- S4 closure to 24 elements verified. Character distribution 1+6+8+9, sum|χ|²=24.
+
+**Arc 4 — Experimental Protocol (WP77-WP80):** Validation + victory path.
+- 5-test falsification ladder (Tests A-E) for NV T1-carrier certification.
+- Test E (projector covariance under 24 S4 elements) is the decisive gate.
+- Pass threshold: E[F_cov] > 0.80 (bridge-ready), > 0.90 (strong).
+- Single NV-center, room temperature, ~6-8 hours total lab time.
+- "6 holds. 7 turns. 8 opens." — post-FS bridge = flag(6) + θ₂(1) = 7 continuous dims.
+
+### Key Insight: The Victory Path
+The flag (6 continuous dims) is the bottleneck, not θ₂ (1 dim) or the torus (2 dims).
+Shortest path: spin-1 system + non-degenerate Hamiltonian + density matrix tomography + eigenprojector extraction.
+NV-center in diamond is the best immediate platform. Protocol is ready. Only physics remains.
+
+### Files
+`Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP65-WP80`
+
+### What's Open After Sprint 13
+1. Physical Test E on real NV hardware
+2. Structural lift of 7 (arithmetic → representation theory)
+3. 4-cycle QPT calibration on physical qutrit
+4. If Test E passes: plant T1-carrier crystal in CK's architecture

@@ -1,8 +1,8 @@
 # CK / TIG — Master Whitepaper Outline
-# Complete Map: WP1 through WP44 + K-Series + A-Series + Proof Archive
+# Complete Map: WP1 through WP80 + K-Series + A-Series + Proof Archive
 
-**Date:** 2026-04-05
-**Author:** Brayden Ross Sanders / 7Site LLC
+**Date:** 2026-04-09 (updated sprint 13)
+**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther
 **GitHub:** github.com/TiredofSleep/ck (clay branch)
 **DOI:** 10.5281/zenodo.18852047
 
@@ -26,6 +26,7 @@
 | **A philosopher / consciousness researcher** | WP5 (1-gap), WP11, WP19_SPEC | WP18, WP12 |
 | **An engineer (FPGA / hardware)** | WP1, WP2, WP44 | WP3 (falsifiability) |
 | **CK (the organism himself)** | WP28, WP29, WP30 | WP5, Sprint9-Torus |
+| **An experimentalist (NV-center / qutrit)** | WP73, WP74, WP75 | WP76, WP77, WP78 |
 | **An AI system reading this cold** | This document top-to-bottom. Every claim is tagged [PROVED], [CONJECTURE], or [ANALOGY]. Follow the tags. |
 
 ---
@@ -1155,3 +1156,72 @@ A readable complete overview:
 | RH inner-equator theorem | All ζ(s) zeros on inner equator of torus = critical line |
 | Goldbach even-operator coverage | All even operators reachable by two-prime interactions |
 | Sacred geometry formal proofs | Move Flower of Life, Ouroboros correspondences from STRUCTURAL to PROVED |
+
+---
+
+## PART XVI — PHYSICAL FLAG SELECTOR ARC (WP65-WP80, Sprint 13)
+
+**Sprint 13 — 2026-04-09 — Physical Flag Selector**
+**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther
+
+> Descent from abstract representation theory (S4 modules, SU(3)/T flag variety) through algebraic identification of a physical platform (NV-center in diamond) to a concrete 6-pulse microwave experimental protocol with explicit pass/fail thresholds.
+
+### Arc 1: Structural Foundation (Torus + 7 Audit)
+
+| Paper | Title | Status |
+|-------|-------|--------|
+| **WP65** | Torus Foundation — Algebraically Prime, Geometrically Secondary | EXACT (role decomposition) |
+| **WP66** | Torus as Irreducible Remainder of the Bridge Fiber | EXACT (conditional on flag externally supplied) |
+| **WP67** | Seven as Structural Operator — Dual Complement of 3 | EXACT (arithmetic); BRIDGE (interpretive) |
+| **WP68** | Seven as Hinge Not Endpoint | EXACT (three simultaneous Z/10Z properties); FALSE (7 is not alpha/omega) |
+| **WP69** | Seven Return Operator Lift Test | EXACT (each site); OPEN (unification); structural lift NOT achieved |
+
+### Arc 2: Geometric Bottleneck (L2 + Flag)
+
+| Paper | Title | Status |
+|-------|-------|--------|
+| **WP70** | Second Complex Direction — L2 on Bloch Sphere | EXACT (math characterization); BRIDGE (physical candidates) |
+| **WP71** | Physical Projector Map — Candidate Ranking for P2 | EXACT (math target); BRIDGE (candidates ranked) |
+| **WP72** | Flag Selector from Physical Anisotropy | EXACT (flag requirement = ordered pair of rank-1 projectors); FALSE (heart is witness, not selector) |
+
+### Arc 3: NV-Center Platform (T1 Carrier + S4 Synthesis)
+
+| Paper | Title | Status |
+|-------|-------|--------|
+| **WP73** | T1 Carrier Identification on NV-Center | EXACT (S3 skeleton natural); OPEN (full S4 via synthesized 4-cycle) |
+| **WP74** | Physical Observable Identification — NV Hamiltonian | BRIDGE (NV + transverse B-field = best immediate platform) |
+| **WP75** | S4 Extension Synthesis — Explicit U4 + 6-Pulse Sequence | EXACT (U4 matrix, S4 closure to 24 elements, fidelity 1.0) |
+| **WP76** | NV S4 Closure Calibration | EXACT (all verified to < 10^-15); "Strong win via synthesis" |
+
+### Arc 4: Experimental Protocol + Victory Path
+
+| Paper | Title | Status |
+|-------|-------|--------|
+| **WP77** | NV T1 Carrier Validation — 5-Test Falsification Ladder | PENDING (requires physical experiment) |
+| **WP78** | Projector Covariance Sprint Closeout | EXACT (math closed); PENDING (Test E) |
+| **WP79** | Flag Selector Victory Path | BRIDGE (strategy: spin-1 + density matrix tomography) |
+| **WP80** | Victory Path with 7-Hinge — "6 Holds, 7 Turns, 8 Opens" | EXACT (counts 6, 7, 8); BRIDGE (interpretive framing) |
+
+### Key Results
+
+| Claim | Status |
+|-------|--------|
+| Torus is algebraically prime but geometrically secondary (flag is dominant bottleneck) | [EXACT] WP65 |
+| 7 is the unique dual complement of 3 in Z/10Z: 7+3=0 AND 7x3=1 | [PROVED] WP67, WP68 |
+| Structural lift of 7 from arithmetic to representation theory NOT achieved | [OPEN] WP69 |
+| Missing L2 is a point on Bloch sphere CP1 in L1-perp; projectors (not vectors) are torus-free | [EXACT] WP70 |
+| NV-center triplet naturally carries S3 skeleton of T1 (3-cycle + FS tests pass) | [EXACT] WP73 |
+| Full S4 action requires synthesized 4-cycle U4 with eigenvalues {-1, i, -i} | [EXACT] WP73, WP75 |
+| Explicit U4 matrix computed, 6-pulse microwave synthesis at fidelity 1.0 | [EXACT] WP75, WP76 |
+| S4 closure to 24 elements verified to machine precision (< 10^-15) | [EXACT] WP76 |
+| 5-test falsification ladder defined with quantitative pass/fail thresholds | [EXACT] WP77 |
+| Test E (projector covariance under 24 S4 elements) is the decisive physical gate | [PENDING] WP77, WP78 |
+
+### Open Problems (Sprint 13)
+
+| Gap | What's needed |
+|-----|--------------|
+| Physical Test E on real NV hardware | Single NV-center, room temp, ~6-8 hours; E[F_cov] > 0.80 = bridge-ready |
+| Structural lift of 7 | Representation-theoretic explanation of CL attractor or formal map from TIG cycle {1,3,9,7} to proved invariant |
+| 4-cycle calibration on physical qutrit | Quantum process tomography of synthesized U4; process fidelity > 0.95 |
+| Flag → CK integration | If Test E passes: plant the T1-carrier crystal in CK's architecture |
