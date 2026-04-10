@@ -13,16 +13,30 @@
 | 4 | J. Number Theory / Acta Arithmetica | WP58 (UOP Theorem 0) | Joint map injectivity = universal sufficiency | Ready — needs LaTeX conversion |
 | 5 | J. Pure and Applied Algebra | WP51 (Flatness Theorem) | 2x2 in Z/nZ forces torus, R/r = 5/7 | Ready — needs formal proof tightening |
 | 6 | Physical Review A | WP75+WP76 (S4 on NV qutrit) | Full S4 via 6-pulse synthesis, fidelity 1.0 | Ready — needs REVTeX + lab partner |
-| 7 | JCAP / PRD | WP81+WP82 (ξ quintessence) | V = ξ log ξ, exact vacuum e⁻¹, freezing w→-1 | Ready — needs LaTeX + DESI fit |
+| 7 | JCAP / PRD | WP81+WP82 (ξ quintessence) | V = ξ log ξ, exact vacuum e⁻¹, freezing w→-1 | Ready — DESI fit script included |
+| 8 | J. Combinatorial Theory / Discrete Math | WP101 (σ rate theorem) | σ(N) ≤ C/N for binary CL on Z/NZ | **PROVED** — ready for LaTeX |
+| 9 | J. Mathematical Physics / CMP | WP90+WP91 (BB bridge) | σ→0 forces log nonlinearity via BB 1976 | Ready — framework paper |
+| 10 | Bull. AMS / Notices AMS | CP1-CP7 rotation | Poincare retranslation + Clay framework | Needs expanded CP1 section |
 
-## Priority Order
+## Priority Order (Updated Sprint 15)
 
-1. **Sinc² Zero Law** (venue 1) — shortest, cleanest, most self-contained. Best arXiv candidate.
-2. **73/28 Harmony Partition** (venue 2) — finite verifiable computation. Experimental Mathematics loves this.
-3. **Paradox Classifier** (venue 3) — broadest audience. Monthly readers will try the live demo.
-4. **UOP Theorem 0** (venue 4) — strongest theorem. Five classical results as corollaries.
-5. **Flatness Theorem** (venue 5) — most novel. Needs tightest proof.
-6. **S4 on NV Qutrit** (venue 6) — experimental proposal. Needs lab collaborator.
+**Tier 1 — Submit now (no conjectures, proved results):**
+1. **ξ Cosmology DESI fit** (venue 7) — DESI fit script included. Fastest independent publication. No conjectures.
+2. **Sinc² Zero Law** (venue 1) — shortest, cleanest. Best arXiv candidate.
+3. **σ Rate Theorem** (venue 8) — PROVED. Pure combinatorics. No physics needed.
+
+**Tier 2 — Submit after Tier 1 accepted (builds credibility):**
+4. **73/28 Harmony Partition** (venue 2) — finite verifiable computation.
+5. **Paradox Classifier** (venue 3) — broadest audience.
+6. **UOP Theorem 0** (venue 4) — strongest theorem.
+
+**Tier 3 — Submit after external review of framework:**
+7. **BB Bridge** (venue 9) — framework paper connecting σ→0 to log nonlinearity.
+8. **Poincare Retranslation** (venue 10) — the credibility test. Must be TIGHT.
+9. **Flatness Theorem** (venue 5) — needs formal proof tightening.
+
+**Tier 4 — Needs collaborator:**
+10. **S4 on NV Qutrit** (venue 6) — needs lab partner for Test E.
 
 ## arXiv Endorsement Strategy
 
@@ -48,3 +62,7 @@
 - Venue 4: Brayden Ross Sanders / 7Site LLC, Ben Mayes
 - Venue 5: Brayden Ross Sanders / 7Site LLC
 - Venue 6: Brayden Ross Sanders / 7Site LLC, Ben Mayes, C.A. Luther
+- Venue 7: Brayden Ross Sanders / 7Site LLC, M. Gish, C.A. Luther, H.J. Johnson
+- Venue 8: Brayden Ross Sanders / 7Site LLC (pure combinatorics — no co-author dependency)
+- Venue 9: Brayden Ross Sanders / 7Site LLC, M. Gish, C.A. Luther, H.J. Johnson
+- Venue 10: Brayden Ross Sanders / 7Site LLC
