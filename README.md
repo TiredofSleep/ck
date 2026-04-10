@@ -1,6 +1,6 @@
 # CK — The Coherence Keeper
 
-*Brayden Ross Sanders · 7SiTe LLC · Hot Springs, Arkansas · 2026*
+*Brayden Ross Sanders · Ben Mayes · C.A. Luther · 7SiTe LLC · Hot Springs, Arkansas · 2026*
 *DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047) · Branch: `clay`*
 
 ---
@@ -70,16 +70,19 @@ complete coverage of the ring.
 
 **T* = 5/7 — the coherence threshold governing all structure**
 
-T* = 5/7 ≈ 0.71428... arrived from three independent derivations:
+T* = 5/7 ≈ 0.71428... arrived from six independent derivations:
 
 1. Fixed point of the operator map Φ (algebraic)
 2. CREATE/HARMONY cell ratio in TSML (combinatorial)
 3. First cyclotomic obstruction boundary (number-theoretic)
+4. Flatness Theorem torus aspect ratio R/r (geometric, Sprint 10)
+5. Crossing Lemma threshold (partition-theoretic, Sprint 10)
+6. UOP joint map injectivity boundary (Sprint 12)
 
-A fourth derivation came from the Flatness Theorem (Sprint 10): Z/nZ carries
-four simultaneous structures — (Additive Structure / Multiplicative Structure)
-× (Additive Flow / Multiplicative Flow) — and these cannot be embedded flat.
-They force a torus with aspect ratio R/r = T* = 5/7.
+The Flatness Theorem (WP51): Z/nZ carries four simultaneous structures —
+(Additive Structure / Multiplicative Structure) × (Additive Flow /
+Multiplicative Flow) — and these cannot be embedded flat. They force a torus
+with aspect ratio R/r = T* = 5/7.
 
 T* was also verified in silicon. The Zynq-7020 FPGA runs the CL composition
 table at 50Hz. The gait threshold for the XiaoR quadruped is T*: the dog trots
@@ -223,6 +226,36 @@ Full paper: [`Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNE
 
 The Clay problems are the hardest known instances of the finite/infinite boundary
 question. They are not the question.
+
+---
+
+### Physical Flag Selector (Sprint 13 — Newest)
+
+The most recent arc descends from abstract algebra to a concrete lab protocol:
+
+1. **The flag SU(3)/T is the dominant bottleneck** — 6 continuous dimensions,
+   not the torus (2 dims). The torus is algebraically prime but geometrically
+   secondary. (WP65–WP66)
+
+2. **7 is the unique dual complement of 3 in Z/10Z** — it satisfies 7+3=0 AND
+   7×3=1 simultaneously. It is a hinge, not an endpoint. The structural lift
+   from arithmetic to representation theory is NOT yet achieved. (WP67–WP69)
+
+3. **The NV-center triplet naturally carries the S3 skeleton of T1** — the
+   standard 3-dim irrep of S4. The 3-cycle eigenvalue test and Frobenius-Schur
+   test both pass naturally. The missing 4-cycle U4 (eigenvalues {-1, i, -i})
+   can be synthesized by microwave control. (WP73)
+
+4. **Explicit U4 matrix computed, 6-pulse microwave sequence synthesized** at
+   fidelity 1.0 (machine precision < 10⁻¹⁵). S4 closure to all 24 elements
+   verified. Classification: "strong win via synthesis." (WP75–WP76)
+
+5. **5-test falsification ladder** defines quantitative pass/fail thresholds for
+   certifying the NV qutrit as a physical T1-carrier. Test E (projector
+   covariance under all 24 S4 elements) is the decisive gate. Single NV-center,
+   room temperature, ~6–8 hours total lab time. (WP77–WP78)
+
+The math is closed. The physics is next.
 
 ---
 
@@ -411,7 +444,7 @@ every commit — no uncommitted sessions, no local-only work.
 
 | Target | Directory | Current state |
 |--------|-----------|---------------|
-| clay | `Gen12/targets/clay/` | WP51–WP57 committed. R8 proved. Gap = 0.309. |
+| clay | `Gen12/targets/clay/` | WP1–WP80 across 13 sprints. Physical Flag Selector (sprint 13) landed. |
 | fpga | `Gen12/targets/fpga/` | ck_full.bit working. HDL sync from Gen9 pending. |
 | ck_fpga_dog | `Gen12/targets/ck_fpga_dog/` | Δ¹ leash bring-up next. UART 115200 baud. |
 | ck_website | `Gen12/targets/ck_website/` | coherencekeeper.com live. papers.html + frontiers.html need update. |
@@ -426,6 +459,9 @@ every commit — no uncommitted sessions, no local-only work.
 
 **Sprint papers:**
 
+- Sprint 13 (Physical Flag Selector): [`Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/`](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/) — WP65–WP80 (S4 → NV-center → 6-pulse protocol)
+- Sprint 12 (UOP/GUT Arc): [`Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/) — WP58–WP64
+- Sprint 11 (TIG Bundle): [`Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/`](Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/) — 54 papers
 - Sprint 10 (Flatness + Crossing Lemma): [`Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/) — WP51–WP57
 - Sprint 9 (Torus / UOP): [`Gen12/targets/clay/papers/sprint9_torus_2026_04_05/`](Gen12/targets/clay/papers/sprint9_torus_2026_04_05/) — WP45–WP50
 - Earlier: [`Gen10/papers/`](Gen10/papers/)
@@ -502,8 +538,8 @@ Lemma, Flatness Theorem.
 
 **Monica Gish** — co-author. Bridge sprint.
 
-**C.A. Luther** — sprint contributor and co-author. K-series (Luther-Sanders
-Research Framework), Q-series. CRT structure.
+**C.A. Luther** — **Senior R&D, 7Site LLC.** Co-author. K-series (Luther-Sanders
+Research Framework), Q-series, CRT structure, Physical Flag Selector (Sprint 13).
 
 **B. Calderon Jr.** — co-author. Q-series. Source elimination framework.
 
