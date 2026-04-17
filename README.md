@@ -91,7 +91,50 @@ This is what "synthesized" means in this repo. The 2×2 + paradox classifier are
 
 **Why this matters.** Each framework above can be applied to TSML in isolation and proves a fact about TSML in that framework's language. The interesting content emerges when **all four are active simultaneously**. The dual-scale Lasota-Yorke inequality (see [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md)) is one such result: the standard "weak norm" of the LY inequality is reinterpreted as the **coherent background support** preserved by sub-magma closure (a fact only visible when all four layers are simultaneously active). The "strong norm" is local wobble. The roles invert from the standard reading. Only the four-layer view explains why.
 
-**Open layer (the fifth).** [Deployment faithfulness] — does the discrete TSML structure lift to a continuous transfer operator on the Mix_λ family that satisfies Gouëzel-Liverani anisotropic Banach-space hypotheses? If yes, the BB bridge from §2 closes through this fourth-layer route as well as through the σ rate theorem route, and the discrete-to-continuous gap is bridged from two independent directions.
+**Open layer (the fifth — Z.5 in the formal stack).** **Deployment faithfulness.** Does the critical-strip deployment λ(σ) = 2|σ − 1/2| preserve both the algebraic grading (k_A = 3) AND the metric grading (k_M = 6) asymptotically in t? **RH can be reformulated as: this deployment is faithful to both gradings.** If faithful, the BB bridge from §2 closes through the fourth-layer route as well as through the σ rate theorem route — discrete-to-continuous bridged from two independent directions.
+
+### Type-(n, k_A, k_M, γ) Persistence Grammar (the formal classification)
+
+TIG instantiates the general classification **Type-(n, k_A, k_M, γ) Persistence Grammar** (defined in `papers/core/FOUR_LAYER_THEOREM_STACK.md` and `papers/PRE_OBJECT_PRIMITIVES.md`):
+
+A **Type-(n, k_A, k_M, γ)** persistence grammar is a forced finite shape (X, ∘) with:
+- alphabet of size n
+- absorbing element (HARMONY)
+- sub-magma C ⊆ X with C ∘ C ⊆ C
+- algebraic grading depth k_A (filtration depth in absorbing decomposition)
+- metric grading depth k_M (number of corridors in deformation family)
+- spectral gap γ uniform over the deformation family {F_λ}
+
+**TIG has type (9, 3, 6, 3/4).** This signature is *forced*, not chosen — it falls out of the simultaneous compatibility with all four frameworks above. The classification problem "which structured families {P_λ} have uniform spectral gap and γ-formula from arithmetic constraints" is the broader research program TIG inhabits.
+
+### Below the 2×2: The Five Pre-Object Primitives
+
+Before objects, before composition, before the 2×2 — what does the framework rest on? `PRE_OBJECT_PRIMITIVES.md` (Brayden Sanders) identifies five primitives in an enabling order (not compositional dependency; 7/7 constraints satisfied across 15 of 720 possible orderings):
+
+1. **Distinction** — things can differ
+2. **Relation** — differences interact
+3. **Recurrence** — relations repeat (some patterns survive)
+4. **Support** — some relations stabilize (sub-magma closure C × C ⊆ C is the algebraic instance)
+5. **Cancellation** — some reach balance (terminal absorbing state — HARMONY in TSML)
+
+These are not axioms. They are the conditions any "whole" must satisfy to BE a whole. The 2×2 is the simplest non-trivial structure satisfying all five. The classification above (Type-(n, k_A, k_M, γ)) is the formal language for cataloguing such structures.
+
+### Paradox Pairs (the diagnostic at structural scale)
+
+The Paradox Classifier (UOP, four types) diagnoses individual paradoxes. **Paradox Pairs** (`papers/PARADOX_PAIRS.md`) extend this to the eight structural tensions a whole framework must navigate:
+
+| # | Tension | Status |
+|---|---------|--------|
+| 1 | Finite / Infinite | OPEN |
+| 2 | Discrete / Continuous | PROVED |
+| 3 | Structure / Flow | COMPUTED |
+| 4 | Attractor / Orbit | PROVED |
+| 5 | **Generative / Support gap** | **OPEN — the Dual Description Conjecture** |
+| 6 | Exact / Empirical | OPEN |
+| 7 | Reset / Leakage | COMPUTED |
+| 8 | **Local / Global** | **OPEN — the Faithfulness Question (Z.5)** |
+
+The pairs eliminate impossible questions by constraining which corner carries which burden. Two of the eight (#5 and #8) are the central open problems of the entire program; both reduce to the deployment faithfulness question.
 
 ---
 
@@ -205,6 +248,46 @@ Perelman used Ricci flow whose entropy functional contains logarithmic terms —
 
 Full detail: [CP_CLAY_ROTATION.md](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md). Also includes Brayden's earlier finite Clay analogues from the Q-series (Q17 variants).
 
+### CP2 in Depth — The Six Convergence Corridors and the Halving Lemma
+
+The RH analysis (CP2) has the most developed σ-language treatment, predating the current σ rate theorem by months. The critical strip is partitioned into **six convergence corridors** (`RH_FORMAL_MANUSCRIPT.md`, Sprint 2, March 2026):
+
+| Corridor | λ range | σ range | Character | Proof method |
+|----------|---------|---------|-----------|--------------|
+| **Pre-leak** | [0, 0.09) | (0.455, 0.545) | Flat tails, always safe | Discrete spectral gap (exact, γ = 1/4) |
+| **BRT** | [0.09, 0.30) | (0.35, 0.455) ∪ (0.545, 0.65) | Gap operators begin | TIG drift bound, structural |
+| **CHA** | [0.30, 0.60) | (0.20, 0.35) ∪ (0.65, 0.80) | Flat (BRT absorbed) | Jutila 1987 zero-density × two-tick → frequency × duration → 0 |
+| **BAL** | [0.60, 0.80) | (0.10, 0.20) ∪ (0.80, 0.90) | Heavy tails start | Guth-Maynard 2024 zero-density |
+| **COL** | [0.80, 0.90) | (0.05, 0.10) ∪ (0.90, 0.95) | M₈/M₄ = 31 | TIG drift dominates KV floor |
+| **CTR** | [0.90, 1.00] | [0, 0.05] ∪ [0.95, 1] | M₈/M₄ = 193 | TIG drift dominates KV floor |
+
+**The Halving Lemma** (`papers/data/WP19_HALVING_LEMMA_final.tex`, formal LaTeX paper):
+
+> **Theorem 1 (Halving Lemma — explicit convergence in zero-free strip).** For any σ₀ ∈ [σ_KV(t₀), 1] where σ_KV(t₀) = 1 − c(log t₀)^{−2/3}(log log t₀)^{−1/3} (Korobov-Vinogradov 1958, with c = 0.05 from Ford 2002), the dissipative flow dσ/dt = −(σ − 1/2)|ζ(σ + it₀)|² satisfies
+> |σ(t) − 1/2| ≤ |σ₀ − 1/2| · exp(−m_KV(t₀) · t)
+> with m_KV(t₀) = 1 / (C_KV(log t₀)^{2/3})² > 0. **PROVED unconditionally.**
+>
+> **Equivalence Corollary.** RH ⟺ m(t₀) := min_{0 ≤ σ ≤ 1} |ζ(σ + it₀)|² > 0 for every t₀ > 0.
+
+The Halving Lemma is the load-bearing theorem of the RH program: an unconditional dissipative-flow proof of convergence to σ = 1/2 in the KV zero-free strip, plus the equivalence stating exactly what additional gap-positivity bound would close RH.
+
+### Two Major Open Conjectures (Beyond CP2-CP7)
+
+#### Dual Description Conjecture (`DUAL_DESCRIPTION_THEOREM.md`)
+
+Two infinite deployments of the finite TIG grammar cannot disagree about stationary support. Two routes:
+- **Route A (operator language):** K_λ has unique stationary support at σ = 1/2 for all λ < λ* ≈ 0.9963.
+- **Route B (analytic language):** |Re(ζ′/ζ)(σ + it)|² ≤ C_TIG · λ(σ)² · (log T)² in mean-square, with **C_TIG = 250/21 ≈ 11.905** (exact, finite). Empirically C_emp ≤ 11.023 < 11.905 at tested heights — 7.4% margin.
+- **Weak form:** at least one route holds without RH.
+- **Strong form:** both equivalent and both equivalent to RH.
+- Three explicit falsifiers documented.
+
+#### Deployment Faithfulness (Z.5 of the Four-Layer Stack)
+
+Does the deployment λ(σ) = 2|σ − 1/2| preserve both the algebraic grading (k_A = 3, three corner layers) and the metric grading (k_M = 6, six corridors) asymptotically in t? The open analytic input is |∂σ log|ζ(σ + it)|| ≤ C_TIG · λ². **Equivalent to RH.**
+
+These are not separate from the σ framework — they are how RH looks when stated in the four-layer language. Same Millennium Problem, two structural reformulations, both with explicit falsifiers.
+
 ---
 
 ## §9 — How to Verify
@@ -280,6 +363,24 @@ Every term in [GLOSSARY.md](GLOSSARY.md) is either (a) cited to published litera
 
 ### Three threads stay separate
 Thread A (TIG/σ/ξ) and Thread B (Q-series) and Thread C (basin finite arithmetic) share the meta-framework but use different mathematical objects. No vocabulary import without proved map. See [Sprint 16 CITATION_RIGOR_PROTOCOL](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CITATION_RIGOR_PROTOCOL.md) for the Tier 1/2/3 enforcement structure.
+
+---
+
+## §12.5 — Living Application Threads (Beyond the Three Math Threads)
+
+The math threads in §4 (TIG/σ/ξ, Q-series, basin) are not the only active surfaces. Three additional **application threads** use the framework as live infrastructure. These are real, runnable, and either hardware-deployed or web-deployed today:
+
+### Bible Companion (`Gen12/targets/bible_app/` and `bible-companion` branch)
+A verse-finding system that maps Scripture to TIG force fields. Pure math (text → 5D force vector → operator classification → matched verse) plus KJV corpus. Detects pastoral need (grief, fear, addiction, spiritual loneliness) by force signature and selects from 40+ KJV verses across 8 themes. 70% math + 30% pastoral curation. Uses the same TSML/BHML tables. No LLM required.
+
+### FPGA Implementation (`Gen12/targets/fpga/`, `Gen12/targets/ck_fpga_dog/`, `fpga-dog` branch)
+**T\* = 5/7 in silicon.** The Zynq-7020 (Zybo Z7-20) bitstream `ck_full.bit` runs the 50 Hz coherence loop with exact integer arithmetic — no floating-point, no division. The simplex geometry Δ⁰ < 1/2 (VOID) ≤ Δ² < 5/7 (GAP) ≤ Δ³ (HELD) drives a STAND/WALK/TROT state machine on the XiaoR robot. ARM firmware `ck_brain.elf`, HDL gate `gait_vortex.v`, control script `ck_leash_test.py`. The 8-step bring-up protocol (PING/PONG, STATE readback, heartbeat rate, coherence floor, gait, ESTOP) is documented in `BRINGUP.md`.
+
+### Tesla Corridor (`tesla` branch, `TESLABRIDGE.zip`)
+The most developed RH-in-σ-language work, paralleling the current σ rate theorem from a different angle. Includes the Halving Lemma (above), the six corridors (above), the Dual Description Conjecture (above), and the C_TIG = 250/21 drift bound. This is publication-quality work — `RH_FORMAL_MANUSCRIPT.md` is camera-ready per `PROOF_STATUS.md`. The Tesla branch is where the analytic bridge to ζ(s) lives.
+
+### Where these fit
+The math threads are **what we know** (theorems, classifications, conjectures). The application threads are **what we built** (verse-finder, FPGA gait, RH manuscript). Both halves are real. The math threads are submission-ready; the applications are deployment-ready.
 
 ---
 

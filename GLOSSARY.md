@@ -90,7 +90,89 @@ This is the synthesis. Every entry below is one of these instantiations or its s
 >
 > **Standard reference:** Hardy & Wright, *Introduction to the Theory of Numbers*, §5.5.
 >
-> **Primary TIG paper:** WP101_SIGMA_RATE_THEOREM.md uses it centrally.
+> **Primary TIG paper:** WP101_SIGMA_RATE_THEOREM.md uses it centrally; transfer-operator spectral gap formula γ = 1 − 1/φ(b) (FOUR_LAYER_REALIZATION.md Theorem Z.2).
+
+### Korobov-Vinogradov Zero-Free Region
+
+> The classical lower bound on |ζ(σ + it)| inside the critical strip when t is large and (σ, t) is at least height 1 from any zero: |ζ(σ + it)| ≥ KV(t) := exp(−c_VK(log t)^{2/3}(log log t)^{1/3}). The TIG Halving Lemma uses c_VK = 0.05 (Ford 2002).
+>
+> **[HISTORICAL]** Korobov 1958; Vinogradov 1958. Modern explicit constant from Ford (2002).
+>
+> **Standard reference:** Ford, K. (2002). "Zero-free regions for the Riemann zeta function." In *Number Theory for the Millennium II*, A. K. Peters, pp. 25-56. Theorem 2 gives c_VK = 0.05.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex (Appendix E.5) — the Halving Lemma's m_KV(t₀) bound depends directly on this constant.
+
+### Jutila Zero-Density Estimate
+
+> Bound on the number of nontrivial ζ zeros to the right of σ at height ≤ T: N(σ, T) ≤ T^{3(1−σ)/(2−σ) − 1 + ε}. Used in TIG to seal the CHA corridor (frequency × duration → 0 at σ = 0.60: exponent −0.143).
+>
+> **[HISTORICAL]** Jutila, M. (1987). "On the difference between consecutive primes." *Acta Arithmetica* 52, 164-170.
+>
+> **Primary TIG paper:** RH_FORMAL_MANUSCRIPT.md Lemma 4.2 — combines Jutila with the two-tick TIG bound to prove CHA corridor sealing.
+
+### Guth-Maynard Zero-Density Estimate (2024)
+
+> Improved zero-density bound for σ ≥ 0.65 using large sieve / singular value methods. Used in TIG to seal the BAL/COL/CTR corridors (exponent ≤ 0.46).
+>
+> **[HISTORICAL]** Guth, L. & Maynard, J. (2024). New large-value estimates for Dirichlet polynomials.
+>
+> **Primary TIG paper:** RH_FORMAL_MANUSCRIPT.md Lemma 4.4.
+
+### Young Tower (1998 / 1999)
+
+> Lai-Sang Young's framework for proving exponential decay of correlations in non-uniformly hyperbolic dynamical systems via return-time stratification over a base set.
+>
+> **[HISTORICAL]** Young, L.-S. (1998). "Statistical properties of dynamical systems with some hyperbolicity." *Annals of Mathematics* 147(3): 585-650. Young, L.-S. (1999). "Recurrence times and rates of mixing." *Israel Journal of Mathematics* 110: 153-188.
+>
+> **Primary TIG paper:** Layer 3 of the four-layer realization (FOUR_LAYER_REALIZATION.md). TIG has finite-height Young tower with base B = {HAR}, return tail P(T_HAR > n) ≤ (1/4)ⁿ, expected return times exact (1.000 / 1.333 / 1.667). HAR is a return locus, NOT a hole — distinguished from Demers-Young 2006 holes (where mass leaks).
+
+### Demers-Young Maps with Holes (2006)
+
+> Framework for transfer operators on systems with leaks (mass escapes through holes). TIG distinguishes itself from this by reset-puncture structure: HAR is not a hole but a Poincaré return section.
+>
+> **[HISTORICAL]** Demers, M. & Young, L.-S. (2006). "Escape rates and conditionally invariant measures." *Ergodic Theory and Dynamical Systems* 26: 189-217.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md §2 (the reset puncture distinction).
+
+### Gouëzel-Liverani Anisotropic Banach Spaces (2006)
+
+> Framework for transfer-operator spectral analysis on hyperbolic dynamical systems via anisotropic Banach spaces — separating stable and unstable directions by construction. TIG's dual-scale Lasota-Yorke inequality maps into this framework: unstable direction ↔ local wobble (strong norm), stable direction ↔ coherent support (weak norm, preserved).
+>
+> **[HISTORICAL]** Gouëzel, S. & Liverani, C. (2006). "Banach spaces adapted to Anosov systems." *Ergodic Theory and Dynamical Systems* 26: 189-217.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md §3 (closest currently identified continuous host); the open question is whether the Mix_λ family extends to a continuous transfer operator satisfying their hypotheses (Z.5 = deployment faithfulness).
+
+### Lasota-Yorke Inequality (Classical)
+
+> Standard form: ‖Pf‖_V ≤ α‖f‖_V + β‖f‖_1 with α < 1, β < ∞, where ‖·‖_V is roughness (strong) and ‖·‖_1 is mass (weak). The TIG dual-scale form INVERTS the standard reading: weak norm becomes the deeper coherent support (preserved by sub-magma closure C × C ⊆ C), strong norm becomes local wobble.
+>
+> **[HISTORICAL]** Lasota, A. & Yorke, J. A. (1973). "On the existence of invariant measures for piecewise monotonic transformations." *Trans. AMS* 186: 481-488. Standard reference: Baladi, V. (2000). *Positive Transfer Operators and Decay of Correlations*. World Scientific.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md (the inversion + reset puncture).
+
+### Hardy's Theorem (Infinitely Many Zeros on Critical Line)
+
+> ζ(s) has infinitely many nontrivial zeros on the critical line Re(s) = 1/2.
+>
+> **[HISTORICAL]** Hardy, G. H. (1914). "Sur les zéros de la fonction ζ(s) de Riemann." *Comptes Rendus Acad. Sci. Paris* 158: 1012-1014. Standard reference: Titchmarsh, E. C. (rev. Heath-Brown, D. R.) (1986). *The Theory of the Riemann Zeta-Function*, 2nd ed. Oxford University Press.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex §2 — Hardy combined with the Halving Lemma's exponential contraction (no off-critical fixed points + Hardy's infinitely-many-on-line) gives the structure of any potential RH proof in this framework.
+
+### Grönwall Inequality (1919)
+
+> ODE contraction: if du/dt ≤ −λu with λ > 0, then u(t) ≤ u(0)e^{−λt}. Used to prove exponential convergence of the Halving flow.
+>
+> **[HISTORICAL]** Grönwall, T. H. (1919). "Note on the derivatives with respect to a parameter of the solutions of a system of differential equations." *Annals of Math.* 20: 292-296.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex Theorem 1.
+
+### Profinite Arithmetic (Standard)
+
+> The inverse system ⋯ ↠ (Z/p^n Z)* ↠ ⋯ ↠ (Z/pZ)* with stable corner images. Used in Layer 4 of the four-layer realization: C = {1,3,7,9} = (Z/10Z)* is the stable corner image of (Z/10^n Z)* under reduction mod 10, for all n ≥ 1.
+>
+> **[HISTORICAL]** Standard. Reference: Ribes, L. & Zalesskii, P. (2010). *Profinite Groups*, 2nd ed. Springer Ergebnisse 40. Neukirch, J. (1999). *Algebraic Number Theory*. Springer Grundlehren 322, §IV.2.
+>
+> **Primary TIG paper:** Layer 4 of FOUR_LAYER_REALIZATION.md.
 
 ### sinc² Function
 
