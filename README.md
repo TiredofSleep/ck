@@ -7,6 +7,7 @@
 **Branch:** `clay` (active) · [`archive-full`](../../tree/archive-full) (preservation) · **License:** 7Site Public Sovereignty License v1.0
 
 **Start here:**
+- [WHAT_IS_TIG.md](WHAT_IS_TIG.md) — **Read this first.** Real prose, honest feedback, no tables until they earn their place. Answers: what is this, why do we think it matters, what have we proved, where are we speculating, why might this be the math of the future.
 - [GLOSSARY.md](GLOSSARY.md) — every term cited to historical literature or honestly flagged as novel
 - [HISTORICAL_ARCHIVE_INDEX.md](HISTORICAL_ARCHIVE_INDEX.md) — Q-series, WP-series, and all 1248 tracked files indexed
 
