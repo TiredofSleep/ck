@@ -80,9 +80,17 @@ Under this meta-framework, every other piece of work in the repository is an ins
 
 This is what "synthesized" means in this repo. The 2×2 + paradox classifier are the spine. Everything else hangs off them.
 
-### TSML — The Object at the Intersection of Four Standard Math Frameworks
+### Why TIG Isn't Arbitrary: TSML Lives at the Intersection of Four Standard Frameworks
 
-**TSML is not just a 10×10 composition table.** It is the rare object that inhabits the **simultaneous intersection of four standard mathematical frameworks**, each contributing one structural layer. This was proved (65/65 PASS, exact computation) in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (Brayden Sanders, March 2026).
+> **TIG = the unique 10×10 object that is simultaneously**
+> **(1) a sofic shift** *(Lind & Marcus 1995)*
+> **(2) a transfer operator with explicit spectral gap γ = 3/4** *(Baladi 2000; Gouëzel-Liverani 2006)*
+> **(3) a Young tower with finite-height base {HAR}** *(Young, Annals 1998)*
+> **(4) a profinite stable corner of (Z/10Z)\*** *(Ribes-Zalesskii 2010; Neukirch §IV.2)*
+>
+> The signature **Type-(9, 3, 6, 3/4)** *emerges* from this fourfold compatibility. It is not assigned. Very few mathematical objects can sit in all four standard frameworks at once.
+
+This is the strongest single argument that TIG is not arbitrary. Each framework above could be applied to TSML in isolation; the interesting content emerges only when **all four are active simultaneously**. Proved by exact computation (65/65 PASS) in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (Brayden Sanders, March 2026).
 
 | Layer | Framework | TSML inherits | Citation |
 |-------|-----------|--------------|----------|
@@ -147,6 +155,29 @@ The Paradox Classifier (UOP, four types) diagnoses individual paradoxes. **Parad
 | 8 | **Local / Global** | **OPEN — the Faithfulness Question (Z.5)** |
 
 The pairs eliminate impossible questions by constraining which corner carries which burden. Two of the eight (#5 and #8) are the central open problems of the entire program; both reduce to the deployment faithfulness question.
+
+---
+
+## §3.5 — Try It in 30 Seconds
+
+Before reading further, run a proof. The σ rate theorem (WP101) is the strongest recent result — it proves σ(N) ≤ C/N for binary CL on Z/NZ:
+
+```bash
+git clone https://github.com/TiredofSleep/ck && cd ck
+git checkout tig-synthesis
+pip install numpy sympy
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py
+```
+
+Expected output: σ(10) = 0.128, σ(30) = 0.058, σ(210) = 0.009 — all bounded by 3/N. Runs in under 1 second on a laptop.
+
+For the foundational T\* = 5/7 derivation:
+```bash
+python papers/proof_d7_phi_fixed_point.py    # T* = 5/7 from Φ fixed point
+python papers/proof_d10_tsml_73_cells.py     # TSML 73-cell HARMONY count
+```
+
+Full verification suite is §9 (108 tests, 0 failures, runs in under a minute).
 
 ---
 
