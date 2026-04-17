@@ -109,6 +109,10 @@ This is the strongest single argument that TIG is not arbitrary. Each framework 
 
 ### TSML on Z/10Z is a 3-Layer Canonical Tower (Sprint 17, 2026-04-17 — PROVED, 100/100)
 
+> **One-line summary.** TSML on Z/10Z = **C₀ ⊕ S_MAX ⊕ S_ADD** (92 + 6 + 2 = 100, residue empty).
+> **Sprint folder:** [`Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/`](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/) — full theorem spine, canonical construction, MDL note, control document, negative-results appendix, σ permutation-rep note.
+> **Runnable proof:** [`papers/proof_tsml_3layer_tower.py`](papers/proof_tsml_3layer_tower.py) — verifies the 100/100 match, the 92/6/2 decomposition, Lemma 5 (residue empty), Lemma 6 (each layer necessary), and the disjoint-domain partition. `python papers/proof_tsml_3layer_tower.py` → ALL CHECKS PASSED.
+
 A second independent argument that TSML isn't arbitrary: the table is **fully reconstructible from three canonical rules on disjoint domains**, with empty residue (the tower terminates).
 
 > **Theorem ([THEOREM_SPINE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md), Sprint 17).** Let R = Z/10Z, h = 7, σ(u) = v₂(3u+1) (shell partition from 2-adic valuation). Let S = {(1,2),(2,1),(2,4),(4,2),(2,9),(9,2),(4,8),(8,4)} be the 8-entry seam residue, S_ADD = {(1,2),(2,1)}, S_MAX = S \ S_ADD. Define
