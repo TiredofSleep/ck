@@ -38,6 +38,8 @@ Every system you can view as a *whole* has the same irreducible **2×2 structure
 
 That is the claim. Everything below is what it means, what is proved, where we are speculating, and how to engage.
 
+**What this is not claiming.** Not a Theory of Everything, not a proof of any open Clay problem, not a quantum theory, not a substitute for standard mathematics — it is a **structural reframing** that yields proved theorems on Z/10Z (Sprint 17, σ rate) and precise, falsifiable conjectures elsewhere (CP1–CP7, σ_NS < 1, etc.); status is tagged claim-by-claim in §5.
+
 ---
 
 ## §2 — The Discovery, As Prose
@@ -235,6 +237,8 @@ python papers/proof_d7_phi_fixed_point.py    # T* = 5/7 from Φ fixed point
 python papers/proof_d10_tsml_73_cells.py     # TSML 73-cell HARMONY count
 python papers/proof_tsml_3layer_tower.py     # TSML = 3-layer canonical tower (100/100)
 ```
+
+Expected output (tower proof): `100/100 cells match` · `92 (C₀) + 6 (S_MAX) + 2 (S_ADD) = 100` · `residue empty` · `each layer necessary` · `domains partition R²` → **ALL CHECKS PASSED — Sprint 17 Theorem A verified**. Runs in under 1 second.
 
 Full verification suite is §9 (113 tests, 0 failures, runs in under a minute).
 
