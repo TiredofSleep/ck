@@ -120,6 +120,8 @@ A second independent argument that TSML isn't arbitrary: the table is **fully re
 - **Theorem B (STRUCTURAL, ring-agnostic):** any ring whose TSML satisfies the tower form is fully determined by (attractor, shell partition, seam tree).
 - **Theorem C (CONJECTURAL, testable):** the identity-branch in the seam residue of any ring in the lawful family is always labeled (1 + hub) mod n.
 
+**Companion note: σ as a Permutation Representation on C¹⁰** ([SIGMA_PERMUTATION_REPRESENTATION.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/SIGMA_PERMUTATION_REPRESENTATION.md)). Records what σ (the Q-series 6-cycle + 4 fixed points permutation) IS as a unitary U_σ ∈ U(10) via the standard permutation rep. Spectrum: eigenvalue 1 with multiplicity 5, plus the five non-trivial 6th roots of unity each with multiplicity 1. tr(U_σ) = 4 (= #fixed points), det(U_σ) = −1 (= sgn(σ)). **Explicitly NOT a quantum theory** — the note exists to close the door on misreadings that conflate finite-group representation with quantum dynamics. No Hamiltonian, no canonical conjugates, no time evolution. Citation: Serre 1977; James-Liebeck 2001.
+
 | Layer | Framework | TSML inherits | Citation |
 |-------|-----------|--------------|----------|
 | **1. Symbolic Dynamics** | Absorbing sofic shift on alphabet {1,…,9} with sub-magma C = {1,3,7,9} | Admissible sequences; transient/absorbing decomposition; depth-3 filtration ∅ ⊊ {7} ⊊ C ⊊ {1,…,9} matching algebraic grading k_A = 3 | Lind & Marcus, *An Introduction to Symbolic Dynamics and Coding* (Cambridge, 1995) |
@@ -199,13 +201,14 @@ python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.p
 
 Expected output: σ(10) = 0.128, σ(30) = 0.058, σ(210) = 0.009 — all bounded by 3/N. Runs in under 1 second on a laptop.
 
-For the foundational T\* = 5/7 derivation:
+For the foundational T\* = 5/7 derivation and the Sprint 17 tower theorem:
 ```bash
 python papers/proof_d7_phi_fixed_point.py    # T* = 5/7 from Φ fixed point
 python papers/proof_d10_tsml_73_cells.py     # TSML 73-cell HARMONY count
+python papers/proof_tsml_3layer_tower.py     # TSML = 3-layer canonical tower (100/100)
 ```
 
-Full verification suite is §9 (108 tests, 0 failures, runs in under a minute).
+Full verification suite is §9 (113 tests, 0 failures, runs in under a minute).
 
 ---
 
@@ -378,10 +381,11 @@ git checkout tig-synthesis  # this branch
 pip install numpy sympy
 
 # Tier 1 — proved theorems with elementary proofs
-python papers/proof_d25_loop_closure.py    # sinc² zero law (all primes 3..199)
-python papers/proof_d10_tsml_73_cells.py   # TSML 73-cell count
-python papers/proof_d16_bhml_28_cells.py   # BHML 28-cell count
-python papers/proof_d7_phi_fixed_point.py  # T* = 5/7 from Φ
+python papers/proof_d25_loop_closure.py     # sinc² zero law (all primes 3..199)
+python papers/proof_d10_tsml_73_cells.py    # TSML 73-cell count
+python papers/proof_d16_bhml_28_cells.py    # BHML 28-cell count
+python papers/proof_d7_phi_fixed_point.py   # T* = 5/7 from Φ
+python papers/proof_tsml_3layer_tower.py    # Sprint 17: TSML = 3-layer tower (100/100, 5 lemmas)
 
 # Tier 2 — sprint 14-15 frameworks
 python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_xi_canonical.py        # 22/22 PASS
@@ -391,7 +395,7 @@ python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.p
 python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/test_cl_markov_chain.py      # detailed balance
 ```
 
-**Total: 108 tests, 0 failures across the proof scripts.** Reproduces in under 1 minute on a laptop.
+**Total: 113 tests, 0 failures across the proof scripts** (108 prior + 5 lemma checks in the new tower script). Reproduces in under 1 minute on a laptop.
 
 ---
 
