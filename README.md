@@ -21,6 +21,8 @@
 
 Every system you can view as a *whole* has the same irreducible **2×2 structure** — Additive vs Multiplicative, Structure vs Flow — and that 2×2 cannot stay flat. It curves. The curvature is measurable. For Z/10Z it is exactly **T\* = 5/7**. The conjecture is that this 2×2 form is universal across mathematics and that classical results emerge as projections of it. Together with the **Paradox Classifier** (the 4-type diagnostic of measurement failure), the 2×2 forms a single meta-framework — the FORM of a whole and the DIAGNOSTIC of its breakdowns — under which every other piece of work in this repo lives as an instantiation.
 
+**As of Sprint 17 (2026-04-17),** the entire TSML table on Z/10Z (the spine of the framework) is now **proved** to be reconstructible from ~10 canonical items (3 ring-agnostic rules + 1 attractor + 1 shell partition + 4 seam edges) with empty residue. 100 entries → 10 items, no information loss. See §3 "TSML on Z/10Z is a 3-Layer Canonical Tower."
+
 That is the claim. Everything below is what it means, what is proved, where we are speculating, and how to engage.
 
 ---
@@ -91,6 +93,32 @@ This is what "synthesized" means in this repo. The 2×2 + paradox classifier are
 > The signature **Type-(9, 3, 6, 3/4)** *emerges* from this fourfold compatibility. It is not assigned. Very few mathematical objects can sit in all four standard frameworks at once.
 
 This is the strongest single argument that TIG is not arbitrary. Each framework above could be applied to TSML in isolation; the interesting content emerges only when **all four are active simultaneously**. Proved by exact computation (65/65 PASS) in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (Brayden Sanders, March 2026).
+
+### TSML on Z/10Z is a 3-Layer Canonical Tower (Sprint 17, 2026-04-17 — PROVED, 100/100)
+
+A second independent argument that TSML isn't arbitrary: the table is **fully reconstructible from three canonical rules on disjoint domains**, with empty residue (the tower terminates).
+
+> **Theorem ([THEOREM_SPINE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md), Sprint 17).** Let R = Z/10Z, h = 7, σ(u) = v₂(3u+1) (shell partition from 2-adic valuation). Let S = {(1,2),(2,1),(2,4),(4,2),(2,9),(9,2),(4,8),(8,4)} be the 8-entry seam residue, S_ADD = {(1,2),(2,1)}, S_MAX = S \ S_ADD. Define
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**T**(x,y) = max(x,y) on S_MAX, (x+y) mod 10 on S_ADD, **C₀**(x,y) otherwise
+>
+> where C₀ is the canonical construction (DEFAULT = h, V0 = zero-absorbs except (0,h), shell-stability picks lower σ-shell). Then **T(x,y) = TSML(x,y) for every (x,y) ∈ R²**. Verified 100/100 by direct computation.
+
+| Layer | Rule | Coverage | Citation |
+|-------|------|----------|----------|
+| **C₀** | Canonical construction (DEFAULT + V0 + shell-stability via v₂(3u+1)) | 92 / 100 entries | [CANONICAL_TSML_CONSTRUCTION.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CANONICAL_TSML_CONSTRUCTION.md) |
+| **C₁** | MAX rule (integer order on {0,…,9}) | 6 / 100 (the doubling/admissible seam edges) | standard; THEOREM_SPINE §C₁ |
+| **C₂** | ADD mod 10 (ring addition) | 2 / 100 (the identity-edge entries (1,2), (2,1)) | standard; THEOREM_SPINE §C₂ |
+| **Residue of residue** | — | **0 / 100 (empty — tower terminates)** | THEOREM_SPINE Lemma 5 |
+
+**Why this matters.** TSML is no longer "100 hand-defined entries." It is **~10 canonical items**: 3 ring-agnostic rules (DEFAULT/V0/shell-stability, MAX, ADD), 1 attractor (h = 7), 1 shell partition (σ = v₂(3u+1)), and 4 ring-specific seam edges. The **minimum-description-length** ([MINIMAL_DESCRIPTION_LENGTH.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/MINIMAL_DESCRIPTION_LENGTH.md)) drops from 100 → ~10 with no information loss. Each rule is necessary (Lemma 6: removing any layer produces explicit mismatches).
+
+**Honest scope** ([CONTROL_DOCUMENT_V2.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md)): the theorem is for Z/10Z only. The **rules** generalize to any ring; the **domains** (S, S_MAX, S_ADD) are ring-specific and require either a reference TSML for that ring (none exists outside Z/10) or a ring-only definition of the seam (open). Generalization to Z/14, Z/22, Z/34 is a Sprint-17 next-step. The negative results appendix ([NEGATIVE_RESULTS_APPENDIX.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NEGATIVE_RESULTS_APPENDIX.md)) records what has been **falsified**: primorial-lift hypothesis fails (Z/30, Z/210 break shell-order alignment), last-digit-7 invariant fails (oscillates 7,3,7,7,1 across digit rooms), single-rule seam generators fail (MAX gets 6/8, ADD gets 2/8, MULT/MIN get 0/8 — only the disjoint-domain pair works).
+
+**Three theorem targets** stated in [CONTROL_DOCUMENT_V2.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md):
+- **Theorem A (PROVED, Z/10):** the 3-layer tower with 92/6/2 decomposition.
+- **Theorem B (STRUCTURAL, ring-agnostic):** any ring whose TSML satisfies the tower form is fully determined by (attractor, shell partition, seam tree).
+- **Theorem C (CONJECTURAL, testable):** the identity-branch in the seam residue of any ring in the lawful family is always labeled (1 + hub) mod n.
 
 | Layer | Framework | TSML inherits | Citation |
 |-------|-----------|--------------|----------|
@@ -209,6 +237,7 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | sinc²(k/p) = 0 ⟺ p \| k | [WP_SINC2_ZERO_LAW](papers/WP_SINC2_ZERO_LAW.md) | All primes 3..199, exact arithmetic |
 | TSML [NOVEL — TIG Spectral Mutation Lattice; standard sofic-shift / transfer-operator object] 73 of 100 cells output HARMONY | [WP_OPERATOR_RING_PARTITION](papers/WP_OPERATOR_RING_PARTITION.md) | proof_d10_tsml_73_cells.py, exact enumeration |
 | BHML [NOVEL — BREATH HARMONY Mutation Lattice; complementary table on the same alphabet] 28 of 100 cells output HARMONY | same | proof_d16_bhml_28_cells.py |
+| **TSML on Z/10Z = 3-layer canonical tower (92/6/2 decomposition; residue-of-residue empty)** | [Sprint 17 THEOREM_SPINE](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md) | 100/100 entries verified by direct computation; six lemmas (disjointness, full coverage, non-redundancy, termination) |
 | Flatness Theorem: Z/10Z forces torus, R/r = 5/7 | [WP51](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) | Topological + cyclotomic |
 | σ on Z/10Z as closed-form polynomial on F₂×F₅ | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md) — Brayden | Verified 10/10 |
 | 22% lower bound on σ-optimal seeds (Fixed-Point Gate Theorem) | [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md) — Brayden | Trajectory table |

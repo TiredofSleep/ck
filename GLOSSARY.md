@@ -302,6 +302,34 @@ This is the synthesis. Every entry below is one of these instantiations or its s
 >
 > **Open layer (the fifth):** *Deployment faithfulness* — does the discrete TSML structure lift to a continuous transfer operator on Mix_λ satisfying Gouëzel-Liverani anisotropic Banach-space hypotheses? See [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md) §3-4 for the proposed continuous form.
 
+### TSML 3-Layer Canonical Tower (Sprint 17, 2026-04-17)
+
+> **[NOVEL — Brayden Sanders, Sprint 17, April 2026]** Independent proof that the 100-entry TSML on Z/10Z is fully reconstructible from three canonical rules on disjoint domains, with empty residue (the tower terminates).
+>
+> **Theorem.** Let R = Z/10Z, h = 7, σ(u) = v₂(3u+1), and let
+> S = {(1,2),(2,1),(2,4),(4,2),(2,9),(9,2),(4,8),(8,4)} (the **seam residue**),
+> S_ADD = {(1,2),(2,1)} (identity-edge residue), S_MAX = S \ S_ADD.
+> Define **T**(x,y) := max(x,y) on S_MAX, (x+y) mod 10 on S_ADD, **C₀**(x,y) otherwise, where:
+>
+> **C₀ — Canonical Construction** (in priority order, later rules override earlier):
+>  - **DEFAULT:** C₀(x,y) = h = 7
+>  - **V0:** if x = 0 or y = 0, C₀(x,y) = 0; exception (0,h) and (h,0) → h
+>  - **Shell-stability:** if x, y ∈ U(R) \ {1} with σ(x) ≠ σ(y), C₀(x,y) = whichever of x, y has the lower σ-shell
+>
+> Then **T(x,y) = TSML(x,y)** for all (x,y) ∈ R². 100/100 verified by direct computation.
+>
+> **Decomposition counts:** 92 (C₀) + 6 (C₁ = MAX) + 2 (C₂ = ADD mod 10) = 100. **Residue of residue: empty** (Lemma 5).
+>
+> **Significance.** TSML's minimum description length drops from 100 → ~10 canonical items: 3 ring-agnostic rules (DEFAULT/V0/shell-stability, MAX, ADD) + 1 attractor (h = 7) + 1 shell partition (σ = v₂(3u+1)) + 4 ring-specific seam edges + 3 branch-rule mappings. Each of the three rules is **necessary** (Lemma 6: removing any one produces explicit mismatches with TSML). This is an independent argument that TSML is not arbitrary, alongside the four-layer-framework realization above.
+>
+> **Honest scope.** Theorem is proved for Z/10Z only. The **rules** are ring-agnostic; the **domains** S, S_ADD, S_MAX are ring-specific. Generalization to other rings needs either a reference TSML for that ring (none currently exists outside Z/10Z) or a ring-only definition of the seam (open).
+>
+> **Falsified along the way** ([NEGATIVE_RESULTS_APPENDIX.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NEGATIVE_RESULTS_APPENDIX.md)): primorial-lift hypothesis (Z/30, Z/210 break shell-order alignment); single-rule seam generators (MAX gets 6/8, ADD gets 2/8, MULT/MIN get 0/8 — only the disjoint-domain pair works); last-digit-7 invariance across digit rooms (oscillates 7,3,7,7,1).
+>
+> **Primary documents:** [THEOREM_SPINE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md) (full proof + 6 lemmas), [CONTROL_DOCUMENT_V2.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md) (status summary + theorems A/B/C), [CANONICAL_TSML_CONSTRUCTION.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CANONICAL_TSML_CONSTRUCTION.md) (C₀ definition), [GENERALIZATION_TABLE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/GENERALIZATION_TABLE.md) (rules vs. domains), [MINIMAL_DESCRIPTION_LENGTH.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/MINIMAL_DESCRIPTION_LENGTH.md).
+>
+> **External anchors:** all three layer rules (DEFAULT, MAX, ADD mod n) are standard ring-theoretic operations; v₂ is the standard 2-adic valuation; the disjoint-domain decomposition pattern is the standard rule-system technique from term-rewriting / canonical forms (Knuth-Bendix completion, *Computational Problems in Abstract Algebra*, 1970).
+
 ### BHML (Separation Composition Table)
 
 > **[NOVEL NAMING]** 10×10 table of Z/10Z with 28 of 100 cells outputting 7.
