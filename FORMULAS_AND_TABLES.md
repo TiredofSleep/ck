@@ -459,6 +459,14 @@ applies with parameters (R_n, h_n, σ_n).
 **Corridor menu for the union:** {MAX, MIN, ADD}. For pure C₀ alone:
 {MAX, MIN}. See §11.
 
+**Verification (runnable, ~1 second):**
+```bash
+python papers/proof_tsml_3layer_tower.py
+# → 100/100 cells match; 92 + 6 + 2 = 100 decomposition;
+#   Lemma 5 (residue empty); Lemma 6 (each layer necessary); domains partition R².
+```
+Full theorem spine: [`Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md`](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md).
+
 ---
 
 ## §8 — Three-diagonal comparison (σ, TSML, BHML)

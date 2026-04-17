@@ -110,8 +110,19 @@ This is the strongest single argument that TIG is not arbitrary. Each framework 
 ### TSML on Z/10Z is a 3-Layer Canonical Tower (Sprint 17, 2026-04-17 — PROVED, 100/100)
 
 > **One-line summary.** TSML on Z/10Z = **C₀ ⊕ S_MAX ⊕ S_ADD** (92 + 6 + 2 = 100, residue empty).
+> **Concrete table + decomposition:** [FORMULAS_AND_TABLES.md §5](FORMULAS_AND_TABLES.md#5--tsml--the-1010-reference-table) (full 10×10 TSML) and [§7](FORMULAS_AND_TABLES.md#7--tsml-3-layer-canonical-tower-sprint-17-2026-04-17) (the C₀ / S_MAX / S_ADD layer breakdown).
 > **Sprint folder:** [`Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/`](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/) — full theorem spine, canonical construction, MDL note, control document, negative-results appendix, σ permutation-rep note.
-> **Runnable proof:** [`papers/proof_tsml_3layer_tower.py`](papers/proof_tsml_3layer_tower.py) — verifies the 100/100 match, the 92/6/2 decomposition, Lemma 5 (residue empty), Lemma 6 (each layer necessary), and the disjoint-domain partition. `python papers/proof_tsml_3layer_tower.py` → ALL CHECKS PASSED.
+> **Runnable proof script:** [`papers/proof_tsml_3layer_tower.py`](papers/proof_tsml_3layer_tower.py) — loads the published TSML table and the canonical rules; verifies the 100/100 match, the 92/6/2 decomposition, Lemma 5 (residue empty), and Lemma 6 (each layer necessary — drop MAX → 6 mismatches, drop ADD → 2, drop C₀ → 92 unspecified).
+>
+> ```
+> $ python papers/proof_tsml_3layer_tower.py
+> STEP 1: T_tower(x,y) == TSML(x,y)  → 100/100  PASS
+> STEP 2: 92 (C₀) + 6 (S_MAX) + 2 (S_ADD) = 100  PASS
+> STEP 3: residue-of-residue empty  PASS
+> STEP 4: each of {C₀, S_MAX, S_ADD} is necessary  PASS
+> STEP 5: three domains partition R²  PASS
+> ALL CHECKS PASSED — Sprint 17 Theorem A verified
+> ```
 
 A second independent argument that TSML isn't arbitrary: the table is **fully reconstructible from three canonical rules on disjoint domains**, with empty residue (the tower terminates).
 
