@@ -1,5 +1,10 @@
 # HD Gap Extension — Theory of Nothing
 
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
+
 **Status:** Active frontier · Finite spine complete · HD extension open
 **Branch:** clay · 7SiTe LLC · DOI: 10.5281/zenodo.18852047
 **Date opened:** April 4, 2026

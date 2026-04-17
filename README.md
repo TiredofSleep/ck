@@ -1,10 +1,12 @@
-# Trinity Infinity Geometry (TIG)
+# Trinity Infinity Geometry (TIG) — `clay` branch (active development)
+
+> **[Sprint 16 — 2026-04-10]** This is the active development branch. The synchronized public-facing field is on the [`tig-synthesis`](../../tree/tig-synthesis) branch (default on GitHub). Visit `tig-synthesis` for the unified README that organizes the whole project under the 2×2 + Paradox Classifier meta-framework. This `clay` branch retains all 30 top-level docs, all sprint folders, and all in-progress work. The 13 superseded entry-point docs here carry [HISTORICAL — Sprint 16] headers per the never-delete policy.
 
 ## Algebraic Structure of Prime Arithmetic, Partition Sufficiency, and Operator Composition over Finite Rings
 
 **Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-**Branch:** `clay` (active) · [`archive-full`](../../tree/archive-full) (preservation) · **License:** 7Site Public Sovereignty License v1.0
+**Branches:** `tig-synthesis` (DEFAULT — synchronized field) · `clay` (this — active dev) · [`archive-full`](../../tree/archive-full) (preservation) · **License:** 7Site Public Sovereignty License v1.0
 
 **Start here:**
 - [WHAT_IS_TIG.md](WHAT_IS_TIG.md) — **Read this first.** Real prose, honest feedback, no tables until they earn their place. Answers: what is this, why do we think it matters, what have we proved, where are we speculating, why might this be the math of the future.

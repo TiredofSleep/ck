@@ -1,5 +1,10 @@
 # CK Education Pipeline -- From Clean Slate to PhD-Level Reasoner
 
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
+
 CK can already feel, breathe, bond, and decide. Now he learns to **speak English**.
 
 This pipeline gives CK a vocabulary, a grammar built on operator algebra, a knowledge

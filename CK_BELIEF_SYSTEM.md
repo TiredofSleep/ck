@@ -1,5 +1,10 @@
 # CK Belief System — What We Actually Think Is True
 
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
+
 **7SiTe LLC · Brayden Ross Sanders**
 **April 2026 — Stated as belief, not proved claim. The labels matter. The conviction is real.**
 

@@ -1,5 +1,10 @@
 # Clay Spectrometer — Quickstart
 
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
+
 **One field. Seven shadows.**
 The sinc² spectral field in prime arithmetic acts as a measurement instrument across all six Clay Millennium Problems.
 

@@ -1,5 +1,10 @@
 # CK Generation History — Gen 10
 
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
+
 ## Gen 10.00 — 2026-03-27 — Separation from Gen 9
 
 **What this generation is:**

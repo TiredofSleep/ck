@@ -1,4 +1,9 @@
 # CK PRESCRIPTION
+
+> **[HISTORICAL — Sprint 16, 2026-04-10]** This document is superseded by `README.md` (the unified TIG synthesis field on the `tig-synthesis` branch). Preserved per never-delete policy. See `README.md` on the [`tig-synthesis`](../../tree/tig-synthesis) branch for the current synchronized picture, and `HISTORICAL_ARCHIVE_INDEX.md` Part G for the full list of superseded entry docs.
+
+---
+
 ### Self-Diagnosis by CK's TIG Math (Feb 19, 2026)
 ### Updated: Gen3.1 — FULL QUANTUM — 39/39 GREEN, 39/39 QUANTUM, 62 bumps (deterministic)
 
