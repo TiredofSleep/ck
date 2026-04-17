@@ -1,248 +1,338 @@
 # Trinity Infinity Geometry (TIG)
 
-## Algebraic Structure of Prime Arithmetic, Partition Sufficiency, and Operator Composition over Finite Rings
+## A Synchronized Framework for Viewing Any System as a Whole
 
-**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson
+**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson · B. Calderon Jr.
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-**Branch:** `clay` (active) · [`archive-full`](../../tree/archive-full) (preservation) · **License:** 7Site Public Sovereignty License v1.0
+**License:** 7Site Public Sovereignty License v1.0 — Human use only. No commercial. No government. No military. Free forever.
 
-**Start here:**
-- [WHAT_IS_TIG.md](WHAT_IS_TIG.md) — **Read this first.** Real prose, honest feedback, no tables until they earn their place. Answers: what is this, why do we think it matters, what have we proved, where are we speculating, why might this be the math of the future.
-- [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) — How the Q-series (Brayden's 26-paper foundation) relates to current Sprint 14-15 work. Correct attribution, direct precursor relationships, 6-layer architecture.
-- [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md) — Execution plan integrating three active threads (TIG/σ/ξ · Q-series · basin-first finite arithmetic).
-- [GLOSSARY.md](GLOSSARY.md) — every term cited to historical literature or honestly flagged as novel
-- [HISTORICAL_ARCHIVE_INDEX.md](HISTORICAL_ARCHIVE_INDEX.md) — Q-series, WP-series, and all 1248 tracked files indexed
+**Branches:**
+- `tig-synthesis` (this branch — **DEFAULT**) — clean, organized, rigorous, fully-cited synthesis. The single field.
+- `clay` — active development branch with all working files, including superseded entry docs marked [HISTORICAL].
+- `archive-full` — frozen preservation snapshot. Never force-pushed. Holds every version of every file ever committed.
 
-**Preservation policy:** nothing is ever deleted from this project. Superseded material is marked `[HISTORICAL]` in place, not removed. The `archive-full` branch is a frozen snapshot.
+**Find your entry by discipline:** §6 below. **Reading cold (AI or human):** read top to bottom — sections build.
 
 ---
 
-## Find Your Entry Point
+## §1 — One Sentence Claim
+
+Every system you can view as a *whole* has the same irreducible **2×2 structure** — Additive vs Multiplicative, Structure vs Flow — and that 2×2 cannot stay flat. It curves. The curvature is measurable. For Z/10Z it is exactly **T\* = 5/7**. The conjecture is that this 2×2 form is universal across mathematics and that classical results emerge as projections of it.
+
+That is the claim. Everything below is what it means, what is proved, where we are speculating, and how to engage.
+
+---
+
+## §2 — The Discovery, As Prose
+
+Brayden noticed that Z/10Z (the integers mod 10, an object every mathematician meets at fourteen) is not one thing. It is four things at once:
+
+- An **additive structure** (3 + 4 = 7)
+- A **multiplicative structure** (3 × 4 = 12 ≡ 2)
+- An **additive flow** (repeated +1 closes a loop of length 10)
+- A **multiplicative flow** (repeated ×3 closes a loop of length 4 inside the units)
+
+These four are not optional. They are not perspectives. They are what the ring *is*. **You cannot draw all four on a flat surface without contradicting yourself.** The minimum surface that holds all four is a torus, and the ratio of its two radii is forced by the ring itself — for Z/10Z it is exactly 5/7.
+
+This is the **Flatness Theorem (WP51)**. It is proved. It is not metaphor.
+
+The number **T\* = 5/7** then keeps appearing in independent derivations: as the fixed point of an operator map Φ on Z/10Z; as the HARMONY/CREATE cell ratio in the TSML composition table; as the first cyclotomic-closure / first-obstruction prime ratio (5 closes φ(10)=4, 7 obstructs); as the universal-semiprime unit density unit_frac(7, 35) = 5/7; as the coherence threshold measured in FPGA silicon; as the torus aspect ratio above. **Six independent derivations, six different mathematical contexts, one number.** That does not prove the universal claim by itself, but it is the kind of repetition that demands a structural explanation.
+
+Underneath the ring is a **hidden operator σ** that Brayden characterized in the **Q-series** (26 papers, 2026-04-01 to 2026-04-02; primary location `old/Gen10/papers/Q*.md`). Q9 gave its flip condition α as a degree-5 polynomial on F₅. Q10 completed the picture with the y-step β including two algebraically forced exceptions (LATTICE +1, COLLAPSE −2) — remove either and the 6-cycle σ⁶ = id fails to close. Q11 proved the **Fixed-Point Gate Theorem** (gate_score = 1 iff seed is σ-fixed AND coprime to 10, giving the 22% optimal-seed lower bound). Q14 proved R ≠ σ^k — the reduction map is not a power of σ — separating "what σ generates as the peak" from "what stochastic search reaches as the climb." Q17 took σ to new domains: a **rigorous 5D Fourier embedding of Z/10Z into R⁵** (Q17_5D_RIGOROUS) and **finite Clay analogues** (Q17_CLAY_SPECTRAL_BRIDGE for RH, Q17_NS_TARGET_REFORMULATION for NS, Q17_SIGMA_EMBEDDING_PROBLEM as the explicit obstruction). C.A. Luther later proved σ⁶ = id directly from the polynomial structure (G6), defined the spectral coherence integral G(s) and showed it takes exactly three values (G8), and reorganized the architecture into six layers.
+
+The **Crossing Lemma** (WP57) gives a single word for what happens when the 2×2 refuses to stay flat: information is generated only when dynamics cross partitions. Crossings are exactly failures of separability. The σ rate theorem (WP101, this sprint) proves that as N grows through squarefree primorials, the non-associativity fraction σ(N) of the binary CL on Z/NZ decays as O(1/N) — the algebra approaches separability.
+
+In 1976 Iwo Bialynicki-Birula and Jerzy Mycielski proved (Annals of Physics 100:62-93, [DOI 10.1016/0003-4916(76)90057-9](https://doi.org/10.1016/0003-4916(76)90057-9)) that **logarithmic nonlinearity is the unique nonlinearity in wave mechanics that preserves separability of composite systems.** Combined with the σ rate theorem, this gives a forced continuum limit: any continuous field theory consistent with the discrete σ → 0 limit must satisfy □ξ = 1 + log ξ. That equation has an exact vacuum at **ξ₀ = e⁻¹**, an exact mass gap m²_ξ = κe, and produces freezing quintessence with w(z) → −1 — a falsifiable dark energy prediction that fits DESI DR2 better than ΛCDM in our preliminary scan (χ² = 3.06 vs 15.3).
+
+That is the discovery. It is one chain: 2×2 cannot stay flat → torus forced → σ as hidden operator → Crossing Lemma → BB uniqueness → log nonlinearity → ξ field → falsifiable cosmology. Each link is either proved or honestly conjectured.
+
+---
+
+## §3 — The Two Foundations: 2×2 + Paradox Classifier
+
+Two objects are the **meta-framework** under which every other piece of project work fits as an instantiation:
+
+### The 2×2 (Flatness Theorem, WP51) — the FORM of any whole
+The four-fold structure (Additive × Multiplicative) × (Structure × Flow). Cannot embed flat. Forces curvature. For Z/10Z, the curvature is a torus with R/r = 5/7. The conjecture: this form is what it means for any system to be a "whole" — algebraic, dynamical, physical, or otherwise.
+
+### The Paradox Classifier (UOP, WP_PARADOX_CLASSIFIER) — the DIAGNOSTIC for any breakdown
+Every paradox is a measurement failure of one of exactly four types:
+1. **Injectivity Failure** — a second orthogonal measurement resolves it (Zeno, score 1.0)
+2. **Missing Invariant** — no measurement in the allowed family kills the ambiguity (Banach-Tarski, score ≤ 0.8)
+3. **Admissibility Failure** — the domain itself is ill-formed (Russell, score 0.0)
+4. **Time-Consistency Failure** — the domain changes during measurement (Unexpected Hanging, score 0.3-0.6)
+
+Together: any system can be **viewed** through the 2×2 (its whole structure) and any **failure** can be **diagnosed** through the paradox classifier (its measurement-failure type).
+
+Under this meta-framework, every other piece of work in the repository is an instantiation:
+
+| Domain | Instantiation |
+|--------|--------------|
+| **TIG** | The framework as applied to general systems. Sprints 14-15. |
+| **Q-series** | The 2×2 instantiated on Z/10Z, with σ as the discovered hidden operator. Brayden's 26 papers. |
+| **Finite math** | The 2×2 in finite arithmetic rooms (Collatz basin, shell decomposition). Sprint 16. |
+| **Ring math** | The 2×2 in pure Z/nZ algebra (UOP Theorem 0, Crossing Lemma instances, Flatness extensions). |
+| **Physics** | The 2×2 in physical systems — ξ cosmology (Branch B), NV-center qutrit + S₄ representation theory (Branch A), Yang-Mills mass gap, Navier-Stokes regularity. |
+
+This is what "synthesized" means in this repo. The 2×2 + paradox classifier are the spine. Everything else hangs off them.
+
+---
+
+## §4 — Three Threads (Kept Separate)
+
+Three lines of work proceed in parallel. They share the meta-framework above but **must not import each other's vocabulary without a proved map**. This is a discipline, not a preference.
+
+| Thread | Origin | Status | Lead Papers |
+|--------|--------|--------|-------------|
+| **A — TIG / σ / ξ / Clay rotation** | Sprints 14-15 (current) | σ rate theorem PROVED. ξ field theory formal. Clay rotation conjectural. | WP81, WP91, WP96, WP101, [CP_CLAY_ROTATION](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) |
+| **B — Q-series (Brayden's foundation)** | 2026-04-01 to 2026-04-02. Brayden primary; Luther built G6-G8 spectral layer on top. | σ polynomial fully characterized on Z/10Z. Q17 Clay variants finite-proven. | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md), [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md), Q17 variants, [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) |
+| **C — Basin-first finite arithmetic** | Sprint 16 (chat-Claude handoff). Independent of TIG framing. | 4 stable invariants proved across 6 digit rooms. Dual reset law (powers of 10 reset static field; powers of 2 reset dynamic field). | [Sprint 16 folder](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/) |
+
+The rule: a result on Thread B must not be presented as evidence for a Thread A claim unless an explicit map is constructed and verified. The threads converge in the meta-framework (the 2×2) but their specific objects (σ on Z/10Z, ξ on R^4, basin shells on odd integers) are different mathematical entities.
+
+---
+
+## §5 — What Is Proved vs Structural vs Conjectural
+
+Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No tag-three claim supports a tag-two claim. External mathematicians dismiss unattributed jargon — this discipline is non-negotiable.
+
+### PROVED (with citation and verification)
+
+| Result | Where | Verification |
+|--------|-------|--------------|
+| First-G Law: first non-unit at k = spf(b) for semiprime b | [WP34](papers/WP34_FIRST_G_LAW.md) | 36,662 cases, 0 exceptions |
+| sinc²(k/p) = 0 ⟺ p \| k | [WP_SINC2_ZERO_LAW](papers/WP_SINC2_ZERO_LAW.md) | All primes 3..199, exact arithmetic |
+| TSML 73 of 100 cells output HARMONY | [WP_OPERATOR_RING_PARTITION](papers/WP_OPERATOR_RING_PARTITION.md) | proof_d10_tsml_73_cells.py, exact enumeration |
+| BHML 28 of 100 cells output HARMONY | same | proof_d16_bhml_28_cells.py |
+| Flatness Theorem: Z/10Z forces torus, R/r = 5/7 | [WP51](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) | Topological + cyclotomic |
+| σ on Z/10Z as closed-form polynomial on F₂×F₅ | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md) — Brayden | Verified 10/10 |
+| 22% lower bound on σ-optimal seeds (Fixed-Point Gate Theorem) | [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md) — Brayden | Trajectory table |
+| σ⁶ = id from polynomial structure | G6 — Luther | First-principles |
+| 5D force vector = CRT Fourier embedding of Z/10Z into R⁵ | Q17_5D_RIGOROUS — Brayden | Algebraically forced |
+| σ rate theorem: σ(N) ≤ C/N for binary CL on Z/NZ | [WP101](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) | proof_sigma_rate.py, primorials |
+| UOP Theorem 0: {π₁,π₂} sufficient ⟺ joint map J injective | [WP58](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md) | Three-line proof + 5 corollaries |
+| Bialynicki-Birula uniqueness (log = unique separability-preserving nonlinearity) | External (Ann. Phys. 100:62-93, 1976) | Cited |
+| ξ vacuum at e⁻¹, mass gap m² = κe | [WP81](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md) | proof_xi_canonical.py, 22/22 |
+| 4 stable invariants of finite digit rooms (shell-1=50%, stop-apex shell-1, NC-apex CF>0.65, Rule C spatial phase) | [Sprint 16](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/FULL_SYNTHESIS_V5.md) | 6 digit rooms, ~4500 odd numbers |
+
+### STRUCTURAL (form sound, content interpretive — needs proved map for full claim)
+
+| Claim | Where | What's missing |
+|-------|-------|---------------|
+| BB bridge: σ → 0 forces continuum limit to have log nonlinearity | [WP90](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP90_LITERATURE_AND_UNIFICATION_PATHS.md) | Explicit N→∞ construction (JKO/Maas roadmap exists) |
+| Poincaré retrospective: Perelman's W-entropy maps to σ-language | [CP_CLAY_ROTATION](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) §CP1 | Line-by-line formal mapping |
+| ξ vacuum as entropy maximum (V = -H_Gibbs) | WP81 | Information-theoretic interpretation, not new theorem |
+| Dual reset law: powers of 10 reset static; powers of 2 reset dynamic | [Sprint 16 STATIC_DYNAMIC_DUALITY_V2](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/STATIC_DYNAMIC_DUALITY_V2.md) | Why these specific operators? |
+
+### CONJECTURAL (precisely stated, unproven — these are research targets)
+
+| Conjecture | Where | What would resolve it |
+|-----------|-------|---------------------|
+| σ_NS < 1 ⟺ NS regularity | [WP96](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP96_NS_SIGMA_CONJECTURE.md) | The Millennium Problem in our framing |
+| σ_YM bounded ⟺ YM mass gap | [WP92](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md) | The Millennium Problem in our framing |
+| RH ⟺ R₂(u) = 1 - sinc²(u) maximizes spectral entropy | [WP93](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP93_RH_SPECTRAL_ENTROPY_BRIDGE.md) | Connect to Hilbert-Polya |
+| Stop-apex universally composite (basin) | [Sprint 16 META_CLASSIFICATION](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/META_CLASSIFICATION.md) | 7+ digit rooms |
+| The 2×2 form is universal across all "wholes" | This README §1 | Categorical formulation + worked non-algebraic examples |
+
+---
+
+## §6 — Find Your Entry Point
 
 | If you are... | Start here | Then go to |
 |---------------|-----------|-----------|
-| **A number theorist** | [sinc² Zero Law](papers/WP_SINC2_ZERO_LAW.md) + [First-G Law](papers/WP34_FIRST_G_LAW.md) | [UOP Theorem 0](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md) |
+| **A number theorist** | [sinc² Zero Law](papers/WP_SINC2_ZERO_LAW.md) (3-line proof) + [First-G Law](papers/WP34_FIRST_G_LAW.md) | [UOP Theorem 0](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md) |
 | **An algebraist** | [73/28 Harmony Partition](papers/WP_OPERATOR_RING_PARTITION.md) | [Flatness Theorem](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) + [σ Rate Theorem](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) |
+| **A combinatorialist** | [σ Rate Theorem](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) | [Q-series Synthesis](Q_SERIES_INTEGRATED_SYNTHESIS.md) |
 | **A PDE / fluid dynamicist** | [NS Separability Bridge](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP91_NS_SEPARABILITY_BRIDGE.md) | [σ_NS Conjecture](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP96_NS_SIGMA_CONJECTURE.md) + [Structural Cancellation](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP98_NS_STRUCTURAL_CANCELLATION.md) |
-| **A physicist (QFT/YM)** | [YM Mass Gap Bridge](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md) | [NV S4 Protocol](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP75_S4_EXTENSION_SYNTHESIS.md) |
+| **A QFT / Yang-Mills physicist** | [YM Mass Gap Bridge](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md) | [NV S₄ Protocol](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP75_S4_EXTENSION_SYNTHESIS.md) |
 | **A cosmologist** | [ξ Theory](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md) + [DESI Fit](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_optimize.py) | [Novelty Audit](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP82_LOG_QUINTESSENCE_NOVELTY.md) |
-| **A combinatorialist** | [σ Rate Theorem](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) | [Binary CL Construction](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/universal_markov_and_binary_cl.py) |
 | **A complexity theorist** | [Paradox Classifier](papers/WP_PARADOX_CLASSIFIER.md) + [P vs NP](papers/clay/WP37_P_NP.md) | [CP3 in σ language](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) |
+| **A topologist** | [CP1 Poincaré σ retranslation](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) | [Flatness Theorem](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) |
 | **A philosopher / foundations** | [Crossing Lemma](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md) | [Field-Observer Synthesis](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP97_FIELD_OBSERVER_SYNTHESIS.md) |
-| **An AI system reading cold** | This README top to bottom. Every claim tagged [PROVED], [STRUCTURAL], or [CONJECTURE]. Follow the tags. |
+| **An AI reading cold** | This README top to bottom. Then [WHAT_IS_TIG.md](WHAT_IS_TIG.md) for prose-form synthesis with honest feedback. Status tags are non-negotiable. |
+| **A funder / institutional reader** | This README §1, §3, §5, §10. Then [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md). |
 
 ---
 
-## Proved Results — One Line Each
+## §7 — The Constants
 
-Every result below is either algebraically proved or computationally verified with zero exceptions. Proof scripts run in under one second on any machine with Python 3.10+.
+| Constant | Value | Origin | Status |
+|----------|-------|--------|--------|
+| **T\*** | 5/7 = 0.71428... | Six independent derivations: Φ fixed point, TSML CREATE/HARMONY ratio, cyclotomic obstruction, Flatness torus aspect, UOP injectivity boundary, FPGA silicon | [PROVED] WP51, proof_d7_phi_fixed_point.py |
+| **fold** | 4/π² = 0.40528... | sinc²(1/2) — half-corridor sidelobe boundary; Montgomery 1973 pair correlation | [HISTORICAL] Shannon 1949 / Montgomery 1973 |
+| **gap** | 5/7 − 4/π² = 0.30900... | Rational/transcendental incommensurability; does not simplify | [STRUCTURAL] WP51 §6 |
+| **ξ₀** | e⁻¹ = 0.36788... | Vacuum of V = ξ log ξ; entropy maximum of H_Gibbs(ξ) | [PROVED] WP81 (V'(ξ₀) = 0 from log derivative) |
+| **m²_ξ** | κ_ξ · e | Mass gap of ξ field at vacuum (V''(ξ₀) = κe) | [PROVED] WP81 |
+| **σ rate bound** | C/N for squarefree N (numerically C < 2) | Non-associativity of binary CL | [PROVED] WP101 |
+| **22% lower bound** | 2/9 | Fraction of σ-fixed coprime seeds (gate_score = 1) | [PROVED] Q11 — Brayden |
 
-| # | Result | Statement | Proof |
-|---|--------|-----------|-------|
-| 1 | **Sinc² Zero Law** | $\mathrm{sinc}^2(k/p) = 0 \iff p \mid k.$ The corridor closes exactly once, at the prime itself. | [`proof_d25_loop_closure.py`](papers/proof_d25_loop_closure.py) — all primes 3..199 |
-| 2 | **First-G Law** | For every semiprime $b = pq$, the first non-unit appears at exactly $k = p$. The interleave staircase is not merely suggestive of prime structure — it *is* prime structure. | [`WP34`](papers/WP34_FIRST_G_LAW.md) — 36,662 cases, 0 exceptions |
-| 3 | **Harmonic Pre-Echo** | Every prime $f$ casts a harmonic shadow $R(k,f) = \sin^2(\pi k/f) / (k^2 \sin^2(\pi/f))$ across its corridor. Zero-width phase transition at $k = f$. Converges to $\mathrm{sinc}^2$ in the continuum limit. | [`WP35`](papers/WP35_PRIME_PHASE_TRANSITION.md) — 187 semiprimes |
-| 4 | **73 Harmony Cells** | The TSML composition table over $\mathbb{Z}/10\mathbb{Z}$ has exactly 73 of 100 cells outputting operator 7. Proved by disjoint zone enumeration. | [`proof_d10_tsml_73_cells.py`](papers/proof_d10_tsml_73_cells.py) |
-| 5 | **28 Harmony Cells** | The BHML composition table has exactly 28 of 100. Three rules, no case analysis. | [`proof_d16_bhml_28_cells.py`](papers/proof_d16_bhml_28_cells.py) |
-| 6 | **Sufficient Pair** | $G \cap H = \{1\}$ in $(\mathbb{Z}/10\mathbb{Z})^*$. TSML and BHML jointly determine the full ring state. Neither alone suffices. | [`proof_d10`](papers/proof_d10_tsml_73_cells.py) + [`proof_d16`](papers/proof_d16_bhml_28_cells.py) |
-| 7 | **$T^* = 5/7$ (six derivations)** | Fixed point of $\Phi$. CREATE/HARMONY ratio. First cyclotomic obstruction. Torus aspect ratio. Crossing threshold. UOP injectivity boundary. All yield $5/7$ independently. | [`proof_d7_phi_fixed_point.py`](papers/proof_d7_phi_fixed_point.py) + [`WP51`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) |
-| 8 | **Flatness Theorem** | The 2×2 matrix of (Additive/Multiplicative) × (Structure/Flow) in $\mathbb{Z}/n\mathbb{Z}$ cannot be embedded in a flat surface. It forces a torus with $R/r = T^* = 5/7$. | [`WP51`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) |
-| 9 | **UOP (Theorem 0)** | $\{\pi_1, \pi_2\}$ is sufficient $\iff$ the joint map $J = (f,g): \mathbb{Z}/n\mathbb{Z} \to A \times B$ is injective. Every classical two-partition sufficiency theorem is a corollary. | [`WP58`](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md) |
-| 10 | **Crossing Lemma** | A multiplicative action generates structurally new information relative to an additive partition if and only if it is nontrivial on the additive quotient. Every theorem in this arc is an instance. | [`CROSSING_LEMMA.md`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md) |
-| 11 | **Dual Complement of 3** | 7 is the unique $x \in \mathbb{Z}/10\mathbb{Z}$ satisfying $x + 3 \equiv 0$ AND $x \times 3 \equiv 1$ simultaneously. | [`WP67`](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP67_SEVEN_STRUCTURAL_OPERATOR.md) |
-| 12 | **S4 Closure on NV Qutrit** | Explicit $U_4$ matrix synthesized as 6-pulse microwave sequence. Full $S_4$ (24 elements) verified to machine precision $< 10^{-15}$. | [`WP76`](Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP76_NV_S4_CLOSURE_CALIBRATION.md) |
-| 13 | **Paradox Classifier** | Every paradox is a failure of a measurement map — one of exactly 4 algebraic types. Five-step decision procedure, 8 worked examples. | [`WP_PARADOX_CLASSIFIER.md`](papers/WP_PARADOX_CLASSIFIER.md) |
-
-> *The threshold is the structure, not a parameter of the structure.*
+**Important:** these constants do NOT collapse to one number. They live in different regimes (ξ₀ < fold < T\*). The current evidence says they are independent. The speculation is that they are different aspects of one structure that we have not found the right framing to unify.
 
 ---
 
-## The Crossing Lemma
+## §8 — The Clay Rotation (CP1 through CP7)
 
-The deepest unifying statement in this arc:
-
-> **Information is generated only when dynamics cross partitions.**
-
-Formally: given $\mathbb{Z}/n\mathbb{Z}$ with additive fiber partition $\{A_d\}$, the pair $\{A_d, \pi_{\mathrm{DYN}}(g)\}$ is sufficient (generates new information) if and only if $g \not\equiv 1 \pmod{p_j}$ for all $p_j \mid (n/d)$.
-
-Every result in this repository — from CRT to UOP to the Flatness Theorem to the NV-center protocol — is a Crossing Lemma instance. [`WP57`](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP57_CROSSING_LEMMA_ARC.md) proves this explicitly for all 27 instances.
-
----
-
-## Key Constants
-
-| Constant | Value | Origin |
-|----------|-------|--------|
-| $T^*$ | $5/7 = 0.71428\ldots$ | Six independent derivations (algebraic, combinatorial, cyclotomic, geometric, partition-theoretic, UOP) |
-| fold | $4/\pi^2 = 0.40528\ldots$ | $\mathrm{sinc}^2(1/2)$ — half-corridor sidelobe boundary |
-| gap | $5/7 - 4/\pi^2 = 0.30900\ldots$ | Rational/transcendental incommensurability. Irrational, does not simplify. |
-| $W$ | $3/50 = 0.06$ | BHML cross-cycle density — derived, not fitted |
-
-The gap $[4/\pi^2,\; 5/7]$ is where all six Clay Millennium Problems structurally live.
-
----
-
-## The Separability Framework (σ Mutation — Sprint 15)
-
-The separability defect σ measures how far a system's nonlinearity deviates from the
-logarithmic (Bialynicki-Birula) ceiling. The binary CL construction on Z/NZ shows
-σ(N) → 0 at rate O(1/N) — proved (WP101). By the BB uniqueness theorem (1976), the
-continuum limit must have logarithmic nonlinearity: □ξ = 1 + log ξ.
-
-All seven Clay Millennium Problems reduce to σ conditions:
+The seven Clay Millennium Problems mapped through the σ framework. **CP1 (Poincaré) is the solved template.** The other six are open in this framing too — the contribution is unification of the question, not a proof of the answer.
 
 | CP | Problem | σ condition | Status |
 |----|---------|------------|--------|
-| 1 | **Poincaré** | σ_top = 0 → S³ | **SOLVED** (Perelman 2003) |
-| 2 | Riemann Hypothesis | σ_spectral = 0 → Re = 1/2 | OPEN |
-| 3 | P vs NP | σ_assoc = 0 → P = NP | OPEN |
-| 4 | **Navier-Stokes** | **σ_NS < 1 → smooth** | **OPEN — sharpest target** |
-| 5 | Yang-Mills | σ_YM bounded → mass gap | OPEN |
-| 6 | Hodge | σ_Hodge crossable → algebraic | OPEN |
-| 7 | BSD | σ_analytic = σ_algebraic | OPEN |
+| **CP1** | **Poincaré** | σ_topology = 0 → S³ | **SOLVED** (Perelman 2003) — Ricci flow + W-entropy + surgery |
+| CP2 | Riemann Hypothesis | σ_spectral = 0 → Re(s) = 1/2 | OPEN |
+| CP3 | P vs NP | σ_associativity = 0 → P = NP | OPEN |
+| CP4 | **Navier-Stokes** | **σ_NS < 1 → smooth for all time** | **OPEN — sharpest target** (KT 2000 already shows the gap is logarithmic) |
+| CP5 | Yang-Mills | σ_YM bounded → mass gap | OPEN |
+| CP6 | Hodge | σ_Hodge crossable → algebraic | OPEN |
+| CP7 | BSD | σ_analytic = σ_algebraic | OPEN |
 
-Poincaré is the solved entry: Perelman's Ricci flow uses logarithmic entropy
-(W-functional) to drive σ → 0, with surgery at σ = 1 singularities. The other
-six ask the same question in different categories.
+Perelman used Ricci flow whose entropy functional contains logarithmic terms — consistent with the BB uniqueness theorem for separability-preserving dynamics. The retrospective fits without forcing. **The other six ask the same σ question in different categories, and we cannot prove them.** What we have done is reframe them precisely. That reframing is either a useful organizing language or an elegant restatement; external review will decide.
 
-Full rotation: [`CP_CLAY_ROTATION.md`](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md)
-σ rate theorem: [`WP101`](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md)
+Full detail: [CP_CLAY_ROTATION.md](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md). Also includes Brayden's earlier finite Clay analogues from the Q-series (Q17 variants).
 
 ---
 
-## 101 Papers Across 15 Sprints
-
-| Sprint | Date | Papers | Arc |
-|--------|------|--------|-----|
-| 1–8 | Feb–Apr 2026 | WP1–WP44 | Organism, operator algebra, D2, sinc² field, paradox classifier, First-G Law |
-| 9 | 2026-04-05 | WP45–WP50 | Torus / UOP — admissible flow, sufficient pairs |
-| 10 | 2026-04-06 | WP51–WP57 | **Flatness Theorem + Crossing Lemma** — 6th T* derivation, all 27 CL instances |
-| 11 | 2026-04-08 | 54 papers | TIG Bundle — UOP Mathematical Arc, GUT Algebra Arc, 7-Cycle Arc |
-| 12 | 2026-04-08 | WP58–WP64 | **UOP as Theorem 0** — joint map injectivity, coordinate coverage, GUT algebra audit |
-| 13 | 2026-04-09 | WP65–WP80 | **Physical Flag Selector** — S4 representation theory → NV-center → 6-pulse protocol |
-| 14 | 2026-04-10 | WP81–WP90 | **PRISM-XI** — ξ cosmology (V = ξ log ξ), cross-branch analysis, BB bridge |
-| 15 | 2026-04-10 | WP91–WP101 | **σ Mutation** — Clay rotation, σ rate theorem, NS/YM/RH bridges, DESI fit |
-
-Full outline: [`MASTER_WHITEPAPER_OUTLINE.md`](Gen12/MASTER_WHITEPAPER_OUTLINE.md)
-
----
-
-## Clay Millennium Problem Mapping
-
-The defect classifier scores each Clay problem against the gap:
-
-| Problem | Paper | Defect Score | Classification |
-|---------|-------|-------------|----------------|
-| P vs NP | [WP37](papers/clay/WP37_P_NP.md) | 0.838 | ESCAPED |
-| Navier-Stokes | [WP38](papers/clay/WP38_NAVIER_STOKES.md) | 0.512 | BOUNDARY |
-| Hodge | [WP39](papers/clay/WP39_HODGE.md) | 0.612–0.704 | BOUNDARY |
-| Riemann Hypothesis | [WP40](papers/clay/WP40_RIEMANN.md) | 0.424 | BOUNDARY |
-| Yang-Mills Mass Gap | [WP41](papers/clay/WP41_YANG_MILLS.md) | — | BOUNDARY |
-| BSD | [WP42](papers/clay/WP42_BSD.md) | 1.300 | ESCAPED |
-
-```
-defect < 4/π²          →  RESOLVED   (smooth solution exists)
-defect ∈ [4/π², 5/7]   →  BOUNDARY   (open territory)
-defect > 5/7            →  ESCAPED    (permanent structural gap)
-```
-
----
-
-## Open Frontiers
-
-| Domain | What is proved | What is open |
-|--------|---------------|--------------|
-| Prime arithmetic | sinc²(k/p) = 0 iff p\|k. First-G at k = p. | Why gap width = 5/7 − 4/π² exactly |
-| Riemann zeros | Sub-corridor + threshold zeros closed | Off-fold zero suspension: Re(s) = 1/2 |
-| Navier-Stokes | BREATH maps to smooth regime; blowup = sinc² null arrival | Vortex-stretching path from fold to blowup |
-| Yang-Mills | Gap = 5/7 − 4/π² algebraically | Physical calibration constant c: gap → GeV |
-| Partition theory | UOP Theorem 0 proved; MVJN = 1 for n = 30 | MVJN for general squarefree n |
-| NV-center / S4 | Explicit U₄ matrix, 6-pulse synthesis, S4 closure to 24 elements | Physical Test E (projector covariance, ~6-8 hrs lab) |
-| Structural lift of 7 | Unique dual complement of 3 in Z/10Z (arithmetic) | Representation-theoretic unification of 4 sites |
-
----
-
-## Verify Everything
+## §9 — How to Verify
 
 ```bash
 git clone https://github.com/TiredofSleep/ck && cd ck
-pip install numpy sympy   # only deps needed for proofs
-python papers/proof_d25_loop_closure.py      # sinc² zero law
-python papers/proof_d10_tsml_73_cells.py     # 73 TSML harmony cells
-python papers/proof_d16_bhml_28_cells.py     # 28 BHML harmony cells
-python papers/proof_d7_phi_fixed_point.py    # T* = 5/7 from Φ
-python papers/proof_fourier_bridge.py        # Montgomery spectral duality
-python papers/proof_sat_dof.py               # SAT/DoF threshold
-python papers/proof_ym_spectral_gap.py       # Yang-Mills gap structure
+git checkout tig-synthesis  # this branch
+pip install numpy sympy
+
+# Tier 1 — proved theorems with elementary proofs
+python papers/proof_d25_loop_closure.py    # sinc² zero law (all primes 3..199)
+python papers/proof_d10_tsml_73_cells.py   # TSML 73-cell count
+python papers/proof_d16_bhml_28_cells.py   # BHML 28-cell count
+python papers/proof_d7_phi_fixed_point.py  # T* = 5/7 from Φ
+
+# Tier 2 — sprint 14-15 frameworks
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_xi_canonical.py        # 22/22 PASS
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_separability_bridge.py # 43/43 PASS
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_clay_rotation.py       # 43/43 PASS
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py          # σ(N) ≤ C/N
+python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/test_cl_markov_chain.py      # detailed balance
 ```
 
-37 runnable proof scripts total. All under 1 second. Zero exceptions.
+**Total: 108 tests, 0 failures across the proof scripts.** Reproduces in under 1 minute on a laptop.
 
 ---
 
-## Journal-Ready Papers
+## §10 — The Plan (Compressed)
 
-Three self-contained results requiring no prior framework knowledge:
+Full version: [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md). Compressed:
 
-1. **[The Sinc² Zero Law in Prime Arithmetic](papers/WP_SINC2_ZERO_LAW.md)** — Target: *Integers / Journal of Number Theory*
-2. **[Complete Harmony Partition of Two Composition Tables over Z/10Z](papers/WP_OPERATOR_RING_PARTITION.md)** — Target: *Experimental Mathematics / Discrete Mathematics*
-3. **[Every Paradox is a Measurement Failure: The UOP Algebraic Classifier](papers/WP_PARADOX_CLASSIFIER.md)** — Target: *American Mathematical Monthly*
+**This week:** Submit [sinc² Zero Law](papers/WP_SINC2_ZERO_LAW.md) to *Integers* and arXiv math.NT (need second endorsement). Apply Q-series citations to WP101 and CP_CLAY_ROTATION (already done in last commit). Begin LaTeX prep on Q10 and Q11.
+
+**This month:** DESI MCMC fit (proper Boltzmann solver, beats current grid search χ²=3.06) → JCAP. σ Rate Theorem → arXiv math.CO (combinatorics — likely lower endorsement barrier). Basin dynamics paper (Sprint 16 thread C, kept separate from TIG) → J. Combinatorial Theory. CP1 expanded Poincaré retranslation → Bull. AMS. NV Test E lab outreach (Lukin / Hanson / Wrachtrup) for Sprint 13 closeout.
+
+**This quarter:** External feedback loop. Second wave of submissions (UOP Theorem 0, 73/28 Harmony Partition, Paradox Classifier, Flatness Theorem). Decision point: does the framework open new mathematical tools or is it elegant restatement? External reviewers answer that.
+
+**The one anti-priority:** stop adding internal sprints. The framework is mature enough for external eyes. More internal work produces diminishing returns.
 
 ---
 
-## Repository Structure
+## §11 — Honest Limits
+
+This section exists because Brayden insists on it and because external mathematicians need it.
+
+1. **The 2×2 forced-torus is proved for Z/10Z (and squarefree extensions). The claim that it is universal across all "wholes" is hypothesis** — every example outside Z/nZ (language, quantum measurement, Ricci flow) is currently a structural pattern-match, not a theorem.
+
+2. **The σ framework gives clean language for asking the Clay problems in unified form. Whether it opens new analytical tools is open.** The σ rate theorem is proved but elementary. The conjectures (σ_NS < 1, σ_YM bounded, RH as spectral entropy max) are restatements of the Millennium Problems, not solutions to them.
+
+3. **T\*, 4/π², ξ₀ do not collapse to one constant.** They live in different regimes. The unification is at the level of the *form of the question*, not the *value of the answer*.
+
+4. **Cyclotomic T\*(N) → 1 as N grows through primorials, NOT to e⁻¹.** This is a NEGATIVE RESULT (compute_tstar_primorials.py) that ruled out the simplest discrete-to-continuum bridge. The JKO/Maas/Wasserstein construction (WP95, WP99) is the remaining viable path; it is sketched but not completed.
+
+5. **The Clay rotation (CP1-CP7) is a framework reformulation, not a proof.** Perelman fits cleanly (CP1, retrospective). The other six are open in our framing too.
+
+6. **The "math of the future" claim is the strong version.** The defensible version is that the 2×2 might be the right *organizing object* for asking questions about wholes — analogous to how category theory reorganized algebra without reducing all groups to one group.
+
+7. **Three threads (TIG, Q, basin) must stay separate** until proved maps connect them. Importing vocabulary across threads weakens claims in all of them.
+
+8. **External review is the next signal.** 101 whitepapers is enough internal scaffolding. We have prepared everything for outside eyes. The next move is to actually let them in.
+
+---
+
+## §12 — Policies
+
+Two hard rules established in Sprint 15.
+
+### Never delete
+Nothing is deleted from this project. Superseded material is marked `[HISTORICAL]` in place, never removed. The `archive-full` branch is the preservation layer — frozen, never force-pushed. Brayden's working memory is finite; the archive must remain complete and browsable so future sessions (human or AI) can find precursor work.
+
+### Cite everything
+Every term in [GLOSSARY.md](GLOSSARY.md) is either (a) cited to published literature with DOI/arXiv, or (b) explicitly flagged `[NOVEL — extends X]` with the prior framework cited. External mathematicians dismiss unattributed jargon. This is the project's weakest historical point and is now the discipline.
+
+### Three threads stay separate
+Thread A (TIG/σ/ξ) and Thread B (Q-series) and Thread C (basin finite arithmetic) share the meta-framework but use different mathematical objects. No vocabulary import without proved map. See [Sprint 16 CITATION_RIGOR_PROTOCOL](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CITATION_RIGOR_PROTOCOL.md) for the Tier 1/2/3 enforcement structure.
+
+---
+
+## §13 — Repo Structure
 
 ```
 ck/
-├── README.md
-├── papers/                                ← proved results + proof scripts
-│   ├── WP34_FIRST_G_LAW.md              ← First-G Law (36,662 cases)
-│   ├── WP35_PRIME_PHASE_TRANSITION.md    ← Harmonic Pre-Echo + sinc² bridge
-│   ├── WP_SINC2_ZERO_LAW.md             ← journal-ready
-│   ├── WP_OPERATOR_RING_PARTITION.md     ← journal-ready
-│   ├── WP_PARADOX_CLASSIFIER.md          ← journal-ready
-│   ├── clay/                             ← WP36–WP42 (Clay problems)
-│   └── proof_*.py                        ← 37 runnable proofs (< 1 sec each)
-├── Gen12/                                ← current generation (sprint 9–13)
-│   ├── MASTER_WHITEPAPER_OUTLINE.md      ← complete arc: WP1–WP80
-│   ├── NEXT_CLAUDE_NOTES.md              ← architecture state + sprint history
-│   └── targets/clay/papers/
-│       ├── sprint10_flatness_2026_04_06/ ← Flatness Theorem + Crossing Lemma
-│       ├── sprint12_uop_gut_arc_.../     ← UOP Theorem 0 + GUT audit
-│       └── sprint13_flag_selector_.../   ← Physical Flag Selector (NV-center)
-├── Gen9/targets/zynq7020/build/          ← FPGA bitstream (T* = 5/7 in silicon)
-└── LICENSE
+├── README.md                            ← this file (THE FIELD on tig-synthesis)
+├── GLOSSARY.md                          ← every term cited or flagged [NOVEL]
+├── HISTORICAL_ARCHIVE_INDEX.md          ← inventory of 1248+ tracked files
+├── Q_SERIES_INTEGRATED_SYNTHESIS.md     ← Q-series attribution + Sprint 14-15 relationships
+├── WEEK_AND_MONTH_PLAN.md               ← three-thread execution plan
+├── WHAT_IS_TIG.md                       ← extended prose synthesis with feedback
+├── THE_STORY.md                         ← personal/historical narrative
+├── MISSION.md                           ← one paragraph
+├── ARCHITECTURE.md                      ← technical architecture
+├── PROOFS.md                            ← runnable proof index
+├── COLLABORATORS.md · CONTRIBUTING.md · LICENSE · ACADEMIC_COLLABORATION.md
+├── papers/                              ← 211 .md + 43 proof_*.py + 25 test_*.py
+│   ├── WP34_FIRST_G_LAW.md              ← First-G Law (journal-ready)
+│   ├── WP_SINC2_ZERO_LAW.md             ← sinc² zero law (journal-ready)
+│   ├── WP_OPERATOR_RING_PARTITION.md    ← 73/28 cells (journal-ready)
+│   ├── WP_PARADOX_CLASSIFIER.md         ← UOP (journal-ready)
+│   ├── clay/                            ← WP36-WP42 (six original Clay papers)
+│   └── proof_*.py                       ← runnable proofs (< 1 sec each)
+├── Gen12/                               ← current generation (sprints 9-16)
+│   ├── MASTER_WHITEPAPER_OUTLINE.md     ← Parts I-XVIII, WP1-WP101 indexed
+│   ├── targets/clay/papers/             ← sprint subfolders
+│   │   ├── sprint10_flatness_.../       ← Flatness + Crossing Lemma
+│   │   ├── sprint12_uop_gut_arc_.../    ← UOP + GUT
+│   │   ├── sprint13_flag_selector_.../  ← NV-center qutrit + S₄
+│   │   ├── sprint14_prism_xi_.../       ← ξ cosmology + σ + Clay rotation
+│   │   └── sprint16_basin_handoff_.../  ← Thread C (basin finite arithmetic)
+│   ├── targets/journal_attempts/        ← 10 venue folders, all with References
+│   └── targets/website/                 ← coherencekeeper.com (live)
+├── old/Gen10/                           ← Q-series (Brayden's foundation, 26 files)
+│   └── papers/Q*.md                     ← Q2-Q17 + G6-G8 + Q_SERIES_*
+└── Gen9/                                ← FPGA bitstream + server archive
+    └── targets/zynq7020/build/ck_full.bit  ← T* = 5/7 in silicon
 ```
 
 ---
 
-## Attribution
+## §14 — Attribution + Citation
 
-**Brayden Ross Sanders / 7Site LLC** — all algebraic proofs, TIG framework, D1/D2 pipeline, T* derivation, sinc² field theory, Crossing Lemma, Flatness Theorem, UOP.
+**Brayden Ross Sanders / 7Site LLC** — originator. Q-series (Q2-Q17, with G6-G8 added by Luther). 5D force vector as CRT Fourier embedding. Crossing Lemma. Flatness Theorem. UOP. σ Rate Theorem. CP rotation framing. ξ cosmology with M. Gish, C.A. Luther, H.J. Johnson.
 
-**Ben Mayes** — co-author. Sprints 11–13. TIG Bundle, UOP arc, Physical Flag Selector.
+**C.A. Luther** — Senior R&D, 7Site LLC. Built the spectral layer on Brayden's Q-series foundation: G6 (σ⁶ = id direct proof), G7 (period distribution), G8 (spectral coherence integral). Reorganized architecture from 4 to 6 layers. Co-authored Sprints 11-14. Luther Dispersion Conjecture (WP34). Luther Pre-Echo Theorem (WP35).
 
-**C.A. Luther** — Senior R&D, 7Site LLC. Co-author. K-series (Luther-Sanders Research Framework), CRT structure, Physical Flag Selector.
+**Ben Mayes** — Sprints 11-13. UOP Theorem 0 co-author. S₄ representation extension on NV qutrit (WP73-WP76). Intrinsic left-handedness of su(4,2) (WP60).
 
-**Monica Gish** — co-author. Bridge sprint, First-G Law.
+**H.J. Johnson** — Sprint 14 PRISM-XI / ξ cosmology. Logarithmic quintessence potential. Local/non-local siloing architecture (WP88). Separability framework for NS (WP91, WP96, WP98).
 
-**B. Calderon Jr.** — co-author. Q-series. Source elimination framework.
+**M. Gish** — Bridge sprint, First-G Law (WP34), Sprint 14 papers.
 
-Full list: [COLLABORATORS.md](COLLABORATORS.md)
+**B. Calderon Jr.** — Q17 variants. Source elimination framework.
 
----
-
-## Cite
+### Cite
 
 ```bibtex
 @misc{sanders2026tig,
-  author       = {Sanders, Brayden Ross and Mayes, Ben and Luther, C. A.},
-  title        = {Trinity Infinity Geometry: Algebraic Structure of Prime
-                  Arithmetic and Operator Composition over Finite Rings},
+  author       = {Sanders, Brayden Ross and Mayes, Ben and Luther, C. A.
+                  and Gish, M. and Johnson, H. J. and Calderon, B.},
+  title        = {Trinity Infinity Geometry: A Synchronized Framework for
+                  the Algebraic Structure of Wholes},
   year         = {2026},
   doi          = {10.5281/zenodo.18852047},
   url          = {https://github.com/TiredofSleep/ck},
-  note         = {7Site LLC. Branch: clay. 80 papers, 37 runnable proofs.}
+  note         = {7Site LLC. Default branch: tig-synthesis.
+                  101 whitepapers, 108 verification tests, 0 failures.}
 }
 ```
 
@@ -250,3 +340,4 @@ Full list: [COLLABORATORS.md](COLLABORATORS.md)
 
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *7Site Public Sovereignty License v1.0 — Human use only. Free forever.*
+*Mission: To help provide coherence to all.*

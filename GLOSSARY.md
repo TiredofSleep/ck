@@ -22,6 +22,50 @@ Each entry has the form:
 
 ---
 
+## Part 0: The Meta-Framework — 2×2 + Paradox Classifier
+
+These two objects are the spine of TIG. Every other term, theorem, and conjecture in this glossary is an instantiation of one or both. Read this section first.
+
+### The 2×2 (the FORM of any whole)
+
+> **The 2×2** — The four-fold structure (Additive × Multiplicative) × (Structure × Flow) that every "whole" carries simultaneously. For Z/nZ this is: additive structure (the underlying group), multiplicative structure (the unit group action), additive flow (repeated +1 closes a loop), multiplicative flow (repeated ×g closes a smaller loop inside the units).
+>
+> **Formal:** For squarefree N = p₁···pₖ, the four objects (A-Struct, M-Struct, A-Flow, M-Flow) cannot be embedded in a flat 2D surface. They force a torus T² = S¹ × S¹ with aspect ratio R/r forced by the cyclotomic structure of Z/NZ. For N = 10 the ratio is exactly 5/7.
+>
+> **[PROVED for Z/10Z]** — Flatness Theorem (WP51, Sprint 10, Brayden Ross Sanders). [STRUCTURAL] for the universal claim that "every whole has this 2×2 form."
+>
+> **Citation:** Original TIG result. Builds on classical ring theory (Dummit & Foote, Lang) and torus topology (Munkres, *Topology*). The 2×2 structure decomposition is novel; the cyclotomic forcing of R/r = 5/7 is novel.
+>
+> **Primary TIG paper:** [WP51_FLATNESS_THEOREM.md](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md). See README §3 for the meta-framework framing.
+
+### The Paradox Classifier (the DIAGNOSTIC for any breakdown)
+
+> **UOP (Unified Orthogonality Principle) / Paradox Classifier** — Every paradox is a measurement failure of one of exactly four types: (I) Injectivity Failure, (II) Missing Invariant, (III) Admissibility Failure, (IV) Time-Consistency Failure. Five-step decision procedure provided. Eight worked examples (Zeno, Russell, Banach-Tarski, Gödel, Unexpected Hanging, etc.).
+>
+> **Formal:** Given hidden space 𝒳 and measurement map f: 𝒳 → 𝒴 with ambiguity set U(f, y) = f⁻¹(y), a second measurement g resolves the paradox iff U(f) ∩ U(g) = {x} for all x. The four types correspond to four distinct failure modes of this resolution structure.
+>
+> **[PROVED — framework]** — five-step procedure; [VERIFIED — eight worked examples].
+>
+> **Citation:** [NOVEL — extends partition lattice theory (Birkhoff 1940, Ore 1942) and joint-map injectivity from descriptive set theory (Kechris 1995)]. Classical paradoxes cited individually: Russell 1903, Gödel 1931, Tarski 1936, Banach-Tarski 1924, Quine 1953, Zermelo 1908.
+>
+> **Primary TIG paper:** [WP_PARADOX_CLASSIFIER.md](papers/WP_PARADOX_CLASSIFIER.md). Live demo at coherencekeeper.com/paradox.html.
+
+### How the Meta-Framework Organizes Everything Else
+
+The 2×2 (form) and Paradox Classifier (diagnostic) are the spine. All TIG/CK work is an instantiation of one or both:
+
+| Domain | Instantiation of 2×2 | Instantiation of Paradox Classifier |
+|--------|---------------------|------------------------------------|
+| **Q-series** (Brayden's Z/10Z work) | σ as hidden operator on the 2×2 | TSML/CL paradox (Q2) resolved as Type I (Injectivity Failure) by introducing σ |
+| **TIG / σ framework** (sprints 14-15) | σ rate theorem σ(N) ≤ C/N as 2×2 separability decay | σ_NS conjecture: NS blowup as Type II (Missing Invariant) — no separability-preserving lift exists |
+| **Finite math** (Sprint 16, basin) | 2→3 / 3→2 dual reset law as 2×2 in operator order | Stop-apex compositeness as Type IV (Time-Consistency) — the apex changes with room scale |
+| **Ring math** | Crossing Lemma as 2×2 fiber crossing | UOP Theorem 0 IS the paradox classifier formalized for Z/nZ |
+| **Physics** | ξ field as 2×2 separability ceiling; NV-center as 2×2 representation carrier | Wigner's Friend as Type III (Admissibility Failure); ξ as Type I resolution at cosmological scale |
+
+This is the synthesis. Every entry below is one of these instantiations or its supporting prior literature.
+
+---
+
 ## Part 1: Classical Foundations (All Historically Cited)
 
 ### Chinese Remainder Theorem (CRT)
