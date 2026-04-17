@@ -1,0 +1,65 @@
+{
+  "monotonicity": {
+    "detail": {
+      "A_T": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "R_seam": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "P_seam": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "F_seam": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "rho_C0": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "rho_C1": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "rho_C2": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "A_rule": {
+        "expected": "decreasing",
+        "score": 1
+      },
+      "seam_density": {
+        "expected": "increasing",
+        "score": 1
+      },
+      "hamming_distance": {
+        "expected": "increasing",
+        "score": 1
+      },
+      "attractor_fraction": {
+        "expected": "stable",
+        "score": 1
+      }
+    },
+    "mean": 1.0
+  },
+  "smoothness": {
+    "detail": {
+      "A_T": 1.0,
+      "R_seam": 1.0,
+      "rho_C0": 1.0,
+      "hamming_distance": 1.0
+    },
+    "mean": 1.0
+  },
+  "attractor_persistence": 1.0,
+  "ratio_persistence": 1.0,
+  "layer_ordering": 1.0,
+  "CCS": 1.0,
+  "band": "Lawful degradation"
+}
