@@ -154,3 +154,34 @@ This is a measurement task, not a theory task: **measure the exact action of the
 ---
 
 **The next hammer goes here: measure the explicit action of the NV-center's natural $C_3$ crystal symmetry on the triplet Hilbert space via process tomography, use this to fix the change-of-basis $V$, compute $U_{4,\text{NV}} = V U_4 V^{-1}$ to calibration precision, implement it as a pulse sequence, and verify the full $S_4$ multiplication table on the NV qutrit by process tomography on all 24 generated group elements.**
+
+---
+
+## References
+
+### NV-Center Physics
+- Doherty, M.W., Manson, N.B., Delaney, P., Jelezko, F., Wrachtrup, J. & Hollenberg, L.C.L. (2013). "The nitrogen-vacancy colour centre in diamond." Physics Reports 528(1):1-45. **(Foundational NV physics reference)**
+- Smeltzer, B., Childress, L. & Gali, A. (2011). New J. Phys. 13:025021.
+- Jelezko, F. & Wrachtrup, J. (2006). Phys. Stat. Sol. A 203:3207.
+
+### S4 Representation Theory
+- Serre, J.-P. (1977). *Linear Representations of Finite Groups*. Springer GTM 42.
+- Fulton, W. & Harris, J. (1991). *Representation Theory: A First Course*. Springer GTM 129.
+- Curtis, C.W. & Reiner, I. (1981). *Methods of Representation Theory*, vol. I. Wiley.
+
+### Lie Groups and Gate Decomposition
+- Hall, B.C. (2015). *Lie Groups, Lie Algebras, and Representations*, 2nd ed. Springer GTM 222.
+- Helgason, S. (1978). *Differential Geometry, Lie Groups, and Symmetric Spaces*. Academic Press.
+- Khaneja, N. & Glaser, S.J. (2001). Chem. Phys. 267:11-23. (KAK decomposition for quantum control)
+
+### Quantum Information and Process Tomography
+- Nielsen, M.A. & Chuang, I.L. (2010). *Quantum Computation and Quantum Information*, 10th anniv. ed. Cambridge University Press.
+- Chuang, I.L. & Nielsen, M.A. (1997). J. Mod. Opt. 44:2455-2467. (Process tomography)
+- Poyatos, J.F., Cirac, J.I. & Zoller, P. (1997). Phys. Rev. Lett. 78:390.
+
+### TIG Framework (Novel — internal)
+- Sanders, Mayes, Luther (2026). Sprint 13 Physical Flag Selector papers. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+
+### Citation Discipline
+Novel contribution: explicit synthesis of U4 (the 4-cycle matrix of S4 in the T1 representation) as a 6-pulse microwave sequence on the NV-center qutrit, with machine-precision closure verification. Extends Doherty et al. 2013 (NV physics) and Serre/Fulton-Harris (S4 representation theory). See [GLOSSARY.md](../../../GLOSSARY.md).
+

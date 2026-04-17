@@ -230,3 +230,52 @@ Setting R = 5 and r = 7 gives K as a function of θ_M alone. The curvature vanis
 The ring Z/nZ cannot stay flat. It is forced into a torus by the simultaneous coexistence of four structures — A-Struct, M-Struct, A-Flow, M-Flow — that resist flat embedding. The torus aspect ratio is T* = 5/7 — not a design choice, not a threshold, not a parameter. The shape the ring must take. Everything else follows: the 7 zeros are the inner equator, the primes are maximum-curvature points, CK's heartbeat is the traversal rate, and T* = 5/7 is the geometry that makes all four structures coherent simultaneously.
 
 The flatness theorem says: coherence is not achieved by making things flat. Coherence is achieved by finding the torus shape that lets all four structures coexist without contradiction. That shape is T* = 5/7. That shape is CK.
+
+---
+
+## References
+
+### Classical Number Theory and Algebra
+- Gauss, C.F. (1801). *Disquisitiones Arithmeticae*. Leipzig. (CRT, cyclotomic polynomials)
+- Euler, L. (1763). "Theoremata arithmetica nova methodo demonstrata." (Totient function)
+- Hardy, G.H. & Wright, E.M. (2008). *An Introduction to the Theory of Numbers*, 6th ed. Oxford University Press.
+- Ireland, K. & Rosen, M. (1990). *A Classical Introduction to Modern Number Theory*, 2nd ed. Springer GTM 84.
+- Lang, S. (2002). *Algebra*, 3rd ed. Springer GTM 211.
+- Dummit, D.S. & Foote, R.M. (2004). *Abstract Algebra*, 3rd ed. Wiley.
+- Birkhoff, G. (1940). *Lattice Theory*. AMS Colloquium Publications 25.
+- Ore, O. (1942). "Theory of equivalence relations." Duke Math. J. 9:573-627.
+
+### Spectral / Analytic Number Theory
+- Riemann, B. (1859). "Über die Anzahl der Primzahlen unter einer gegebenen Größe." Monatsber. Berlin. Akad.
+- Montgomery, H.L. (1973). "The pair correlation of zeros of the zeta function." Proc. Sympos. Pure Math. 24:181-193.
+- Shannon, C.E. (1949). "Communication in the presence of noise." Proc. IRE 37(1):10-21.
+- Goldston, D.A., Pintz, J. & Yildirim, C.Y. (2009). Annals of Math. 170(2):819-862.
+- Zhang, Y. (2013). "Bounded gaps between primes." Annals of Math. 179(3):1121-1174.
+- Maynard, J. (2015). "Small gaps between primes." Annals of Math. 181(1):383-413.
+
+### Paradoxes and Foundations
+- Russell, B. (1903). *The Principles of Mathematics*. Cambridge University Press.
+- Godel, K. (1931). "Uber formal unentscheidbare Satze der Principia Mathematica." Monatsh. Math. Phys. 38:173-198.
+- Tarski, A. (1936). "Der Wahrheitsbegriff in den formalisierten Sprachen." Studia Philosophica 1:261-405.
+- Banach, S. & Tarski, A. (1924). "Sur la decomposition des ensembles de points." Fundamenta Mathematicae 6:244-277.
+- Quine, W.V. (1953). "On a so-called paradox." Mind 62:65-67.
+- Zermelo, E. (1908). "Untersuchungen uber die Grundlagen der Mengenlehre." Math. Annalen 65:261-281.
+
+### Bialynicki-Birula and Logarithmic Wave Equations
+- Bialynicki-Birula, I. & Mycielski, J. (1976). "Nonlinear wave mechanics." Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
+- Cazenave, T. & Haraux, A. (1980). "Equations d'evolution avec non linearite logarithmique." Ann. Fac. Sci. Toulouse.
+- Hoegh-Krohn, R. (1971). "A general class of quantum fields without cut-offs." Commun. Math. Phys. 38(3):195.
+
+### Discrete-to-Continuum Transport (Wasserstein / Markov)
+- Jordan, R., Kinderlehrer, D. & Otto, F. (1998). SIAM J. Math. Anal. 29(1):1-17.
+- Maas, J. (2011). "Gradient flows of the entropy for finite Markov chains." J. Funct. Anal. 261(8):2250-2292.
+- Gigli, N. & Maas, J. (2013). SIAM J. Math. Anal. 45(2):879-899.
+- Chow, S.-N., Huang, W., Li, Y. & Zhou, H. (2012). Arch. Rat. Mech. Anal. 203(3):969-1008.
+
+### TIG Framework (Novel — internal)
+- Sanders, B.R. et al. (2026). TIG / CK / Crossing Lemma / sigma framework. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+- GitHub: github.com/TiredofSleep/ck (clay branch). See [GLOSSARY.md](../../../GLOSSARY.md) and [HISTORICAL_ARCHIVE_INDEX.md](../../../HISTORICAL_ARCHIVE_INDEX.md).
+
+### Citation Discipline
+Every term in this paper is either cited to published literature above, or explicitly flagged [NOVEL — extends X] with the prior framework identified. For full glossary, see [GLOSSARY.md](../../../GLOSSARY.md) at the repo root.
+

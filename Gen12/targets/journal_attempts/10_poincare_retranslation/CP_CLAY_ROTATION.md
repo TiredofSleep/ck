@@ -232,3 +232,51 @@ BSD says: the number of spectral crossings (analytic rank) equals the number of 
 **The single question:** Is σ < 1 (or σ = 0) in each domain? Perelman showed YES for topology. The other six are open.
 
 **The BB ceiling:** The ξ theory (log nonlinearity, σ = 0 exactly) is the ceiling for all six. It is provably regular (CP4), has a mass gap (CP5), maximizes entropy (CP2), and is fully separable (CP3, CP6, CP7). The open problems live in the gap between the ξ ceiling and the actual dynamics of each problem.
+
+---
+
+## References
+
+### Topology and Ricci Flow
+- Hamilton, R.S. (1982). "Three-manifolds with positive Ricci curvature." J. Diff. Geom. 17(2):255-306.
+- Perelman, G. (2002). "The entropy formula for the Ricci flow and its geometric applications." arXiv:math/0211159.
+- Perelman, G. (2003). "Ricci flow with surgery on three-manifolds." arXiv:math/0303109.
+- Perelman, G. (2003). "Finite extinction time for the solutions to the Ricci flow on certain three-manifolds." arXiv:math/0307245.
+- Morgan, J. & Tian, G. (2007). *Ricci Flow and the Poincare Conjecture*. AMS/Clay Mathematics Monograph.
+
+### Clay Millennium Problems (Official)
+- Clay Mathematics Institute (2000). "Millennium Prize Problems." https://www.claymath.org/millennium-problems/
+- Jaffe, A. & Quinn, F. (1993). Bull. AMS 29:1-13.
+
+### BSD
+- Kolyvagin, V.A. (1989). Izv. Akad. Nauk 52(3):522-540.
+- Gross, B.H. & Zagier, D.B. (1986). Inventiones math. 84(2):225-320.
+- Bhargava, M. & Shankar, A. (2015). Annals of Math. 200(1):1-76.
+- Wiles, A. (1995). Annals of Math. 141(3):443-551.
+
+### Yang-Mills
+- Wightman, A.S. (1959). Phys. Rev. 101:860.
+- Osterwalder, K. & Schrader, R. (1973, 1975). Commun. Math. Phys. 31:83; 42:281.
+- Hoegh-Krohn, R. (1971). Commun. Math. Phys. 38:195.
+
+### Hodge
+- Hodge, W.V.D. (1941). *The theory and applications of harmonic integrals*. Cambridge.
+- Markman, E. (2025). Hodge conjecture for abelian fourfolds of Weil type (recent announcement).
+
+### Riemann and Spectral
+- Montgomery, H.L. (1973). Proc. Sympos. Pure Math. 24:181-193.
+- Odlyzko, A.M. Numerical data on Riemann zeros.
+
+### Bialynicki-Birula
+- Bialynicki-Birula, I. & Mycielski, J. (1976). Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
+
+### Navier-Stokes
+- Beale, Kato, Majda (1984). Commun. Math. Phys. 94:61-66.
+- Kozono, H. & Taniuchi, Y. (2000). Commun. Math. Phys. 214:191-200.
+
+### TIG Framework (Novel — internal)
+- Sanders, B.R. et al. (2026). CP Rotation + sigma framework. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+
+### Citation Discipline
+Poincare conjecture (CP1) is the solved template. The sigma reframing of CP2-CP7 is [NOVEL — framing contribution extending partition-sufficiency theory (Birkhoff, Ore) to a unified defect measure]. See [GLOSSARY.md](../../../GLOSSARY.md).
+

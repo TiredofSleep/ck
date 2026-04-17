@@ -3,6 +3,36 @@
 **Status:** Preparing for submission. Target: May 2026.
 **arXiv status:** 1 endorsement secured (math.NT). Need 1 more.
 
+## Citation Audit Status (Sprint 15 — 2026-04-10)
+
+All 21 papers in this target now have **References sections** appended with DOI/arXiv/journal citations. The references were added per venue: classical number theory for venues 1-5 and 8; NS regularity + BB + Wasserstein for venue 9; QFT + NV physics for venue 6; dark energy cosmology for venue 7; topology + Clay for venue 10.
+
+**Remaining work before submission** (per paper):
+- LaTeX conversion (markdown → journal-specific class: amsart, REVTeX 4.2, JCAP class, etc.)
+- Inline citation insertion (replacing text like "Kozono-Taniuchi (2000)" with proper `\cite{KT2000}` references)
+- [NOVEL — extends X] flags for internal TIG/CK terms within paper bodies (currently only in References section)
+- Abstract/Introduction polish if missing
+- MSC classification codes (per venue)
+
+**Paper maturity by tier:**
+
+| Tier | Paper | Abstract | References | LaTeX | Inline cites | Novel flags |
+|------|-------|----------|-----------|-------|-------------|-------------|
+| 1 | v7 ξ/DESI | ✓ | ✓ | — | — | Partial |
+| 1 | v1 sinc² | ✓ | ✓ (pre-existing) | — | ✓ | — |
+| 1 | v8 σ rate | ✓ | ✓ | — | — | — |
+| 2 | v2 73/28 | ✓ | ✓ (pre-existing) | — | Partial | — |
+| 2 | v3 paradox | ✓ | ✓ (pre-existing) | — | ✓ | — |
+| 2 | v4 UOP | Partial | ✓ | — | — | — |
+| 3 | v9 BB bridge | ✓ | ✓ | — | — | — |
+| 3 | v10 CP rotation | — | ✓ | — | — | — |
+| 3 | v5 Flatness | ✓ | ✓ | — | — | — |
+| 4 | v6 NV qutrit | ✓ | ✓ | — | — | — |
+
+**✓** = complete; **Partial** = present but incomplete; **—** = still needed.
+
+See [GLOSSARY.md](../../../GLOSSARY.md) for citation discipline rules and the full bibliography.
+
 ## Venue Map
 
 | # | Venue | Lead Paper | Core Result | Status |

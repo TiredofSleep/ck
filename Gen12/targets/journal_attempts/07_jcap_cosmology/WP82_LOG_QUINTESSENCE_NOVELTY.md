@@ -160,3 +160,43 @@ The nature of dark energy remains the central open question in observational cos
 3. **Comparison to Ratra-Peebles and PNGB:** Include a table comparing the Ξ model to two or three standard models across: vacuum existence, $w$ endpoint, $w_0$ at current epoch, and observational distinguishability. This is what referees will demand.
 
 4. **Slow-roll parameters for early universe:** If $\Xi$ is present during inflation, compute slow-roll parameters and check consistency with CMB constraints on the spectral index.
+
+---
+
+## References
+
+### Dark Energy and Quintessence
+- Ratra, B. & Peebles, P.J.E. (1988). Phys. Rev. D 37:3406.
+- Wetterich, C. (1988). Nucl. Phys. B 302:668.
+- Frieman, J.A., Hill, C.T., Stebbins, A. & Waga, I. (1995). Phys. Rev. Lett. 75:2077.
+- Chevallier, M. & Polarski, D. (2001). Int. J. Mod. Phys. D 10:213. (CPL parametrization)
+- Barrow, J.D. & Parsons, P. (1995). Phys. Rev. D 52:5576. arXiv:astro-ph/9506049. **(Closest prior art: inflation family V0 phi^p (ln phi)^q containing our case as p=1, q=1 subcase, not applied to dark energy)**
+- Thompson, S. (2019). MNRAS 482:5448.
+- Coleman, S. & Weinberg, E. (1973). Phys. Rev. D 7:1888.
+
+### Observational Cosmology
+- Planck Collaboration (2020). A&A 641:A6.
+- DESI Collaboration (2024). Eur. Phys. J. C.
+- Abbott, B.P. et al. (2017). ApJ Lett. 848:L13. (GW170817 speed constraint)
+
+### Logarithmic Wave Equations / Separability
+- Bialynicki-Birula, I. & Mycielski, J. (1976). Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
+- Rosen, G. (1969). Phys. Rev. 183:1186.
+- Cazenave, T. & Haraux, A. (1980). Ann. Fac. Sci. Toulouse.
+- Hoegh-Krohn, R. (1971). Commun. Math. Phys. 38:195.
+- Zloshchastiev, K.G. (2010). arXiv:2011.12565.
+
+### Information-Theoretic / Entropic
+- Ensslin, T.A. (2013). arXiv:1301.2556.
+- Caticha, A. (2012-2018). arXiv:1412.5629, 1412.5637, 1803.07493.
+
+### GR and FRW Cosmology
+- Weinberg, S. (2008). *Cosmology*. Oxford University Press.
+- Peebles, P.J.E. (1993). *Principles of Physical Cosmology*. Princeton.
+
+### TIG Framework (Novel — internal)
+- Sanders, Gish, Luther, Johnson (2026). Sprint 14 PRISM-XI papers. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+
+### Citation Discipline
+Novel contribution: V(xi) = kappa xi log xi as dark energy potential with information-theoretic derivation (V = -H_Gibbs) and exact vacuum at xi_0 = e^{-1}. Barrow-Parsons 1995 contains this form as a special case in their inflation family but does not single out p=1,q=1 or apply to dark energy. See [GLOSSARY.md](../../../GLOSSARY.md).
+

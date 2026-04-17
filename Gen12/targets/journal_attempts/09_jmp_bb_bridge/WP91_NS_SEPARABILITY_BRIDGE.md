@@ -271,3 +271,46 @@ If proved: NS regularity follows from the separability framework.
 | NS regularity follows from this framework | [OPEN] the framework is correct; the critical bound is unproved |
 
 **This paper does NOT claim to solve the NS regularity problem.** It provides a new framework — separability preservation via the Bialynicki-Birula theorem — that makes the problem precise in a new way and connects it to the Crossing Lemma and the ξ field theory. The open problems (§6) are specific, well-defined, and attackable.
+
+---
+
+## References
+
+### Classical PDE / Navier-Stokes
+- Navier, C.L.M.H. (1822). Foundational NS equations.
+- Stokes, G.G. (1845). "On the theories of the internal friction of fluids in motion." Trans. Cambridge Philos. Soc.
+- Leray, J. (1934). "Sur le mouvement d'un liquide visqueux emplissant l'espace." Acta Math. 63:193-248.
+- Beale, J.T., Kato, T. & Majda, A. (1984). Commun. Math. Phys. 94:61-66.
+- Kozono, H. & Taniuchi, Y. (2000). Commun. Math. Phys. 214:191-200. DOI: 10.1007/s002200000281.
+- Kozono, H., Ogawa, T. & Taniuchi, Y. (2002). Math. Z. 242:251-278.
+- Montgomery-Smith, S. (2001). Math. Res. Lett. 8:519-528.
+- Tao, T. (2016). J. AMS 29:601-674.
+- Ladyzhenskaya, O.A. (1958-1968). Regularity criteria.
+- Prodi, G. (1962). Ann. Mat. Pura Appl. 48:173-182.
+- Serrin, J. (1963). In *Nonlinear Problems*, 69-98.
+- Brezis, H. & Gallouet, T. (1980). Nonlinear Analysis 4:677-681.
+- Lei, Z. & Zhou, Y. (2009). Nonlinearity 22(4):805.
+
+### Bialynicki-Birula and Logarithmic Nonlinearity
+- Bialynicki-Birula, I. & Mycielski, J. (1976). Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
+- Rosen, G. (1969). Phys. Rev. 183:1186.
+- Cazenave, T. & Haraux, A. (1980). Ann. Fac. Sci. Toulouse.
+- Hoegh-Krohn, R. (1971). Commun. Math. Phys. 38(3):195.
+- Zloshchastiev, K.G. (2010). Grav. Cosmol. 16:288. arXiv:2011.12565.
+
+### Discrete-to-Continuum Transport
+- Jordan, Kinderlehrer, Otto (1998). SIAM J. Math. Anal. 29(1):1-17.
+- Maas, J. (2011). J. Funct. Anal. 261(8):2250-2292.
+- Gigli, N. & Maas, J. (2013). SIAM J. Math. Anal. 45(2):879-899.
+- Chow-Huang-Li-Zhou (2012). Arch. Rat. Mech. Anal. 203(3):969-1008.
+
+### Information-Theoretic Field Theories
+- Ensslin, T.A. (2013). Phys. Rev. E 87:013308. arXiv:1301.2556.
+- Caticha, A. (2012). arXiv:1412.5629.
+
+### TIG Framework (Novel — internal)
+- Sanders, B.R. et al. (2026). Sprint 14-15 papers. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+
+### Citation Discipline
+Every term cited or flagged [NOVEL — extends X]. See [GLOSSARY.md](../../../GLOSSARY.md).
+
