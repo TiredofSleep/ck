@@ -6,14 +6,25 @@
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 **License:** 7Site Public Sovereignty License v1.0 — Human use only. No commercial. No government. No military. Free forever.
 
+> ## 📐 Single Canonical Reference → **[FORMULAS_AND_TABLES.md](FORMULAS_AND_TABLES.md)**
+>
+> **If you are an AI, mathematician, physicist, or reviewer looking for a specific formula, table, theorem, or constant — open this file first.** It is the condensed-but-complete master reference and contains every load-bearing object in the framework:
+>
+> - **Proof-spine one-liners** — D1 First-G Law, D2 sinc² limit, D3 sinc²(½)=4/π², D4 T*=5/7, D7-D10 table theorems, D14 spectral mean, D16 BHML 28-cell, D17 W=3/50, D18acd Phi bridges, D19 generator selection, D20-D24 corridor portrait, D25 loop closure
+> - **Spine theorems** — R(k,f) resonance kernel, sinc² Zero Law, **Crossing Lemma (full formal statement)**, **Flatness Theorem (4-structure → torus, R/r=5/7)**, **σ Rate Theorem σ(N)≤C/N**, **BB bridge → □ξ = 1 + log ξ, ξ₀ = e⁻¹**
+> - **Tables** — full TSML 10×10 (73 HARMONY), full BHML 10×10 (28 HARMONY, Luther-closed), three-diagonal comparison (σ, TSML, BHML)
+> - **Operator algebra** — 10-operator menu, σ permutation on Z/10Z, CRT φ(ε,y)=5ε+6y, complete σ polynomial (α+β with disjoint exception indicators), TIG = σ⁻¹ inverse polynomial, C-indicator ε·y⁴
+> - **Canonical operator** — C₀(R_n, h_n, σ_n) for any n, compatibility family of 23 carriers, corridor closure hierarchy {MAX,MIN} → {MAX,MIN,ADD}
+> - **Constants** — T*, 4/π², W=3/50, CREATE/10, HARMONY/10, 1/70, Si(2π)/π, ξ₀, m²_ξ, γ(b)=1−1/φ(b), 22%, 4.6%, det(BHML)=70, g=3
+> - **Sprint trail** — every paper from Sprint 14 (PRISM-XI) through Sprint 28 (curve-recovery prereg)
+> - **Reproducibility** — runnable proof scripts behind every load-bearing claim
+
 **Branches:**
 - `tig-synthesis` (this branch — **DEFAULT**) — clean, organized, rigorous, fully-cited synthesis. The single field.
 - `clay` — active development branch with all working files, including superseded entry docs marked [HISTORICAL].
 - `archive-full` — frozen preservation snapshot. Never force-pushed. Holds every version of every file ever committed.
 
 **Find your entry by discipline:** §6 below. **Reading cold (AI or human):** read top to bottom — sections build.
-
-**📐 Looking for a specific formula, table, or constant?** → **[FORMULAS_AND_TABLES.md](FORMULAS_AND_TABLES.md)** is the single canonical reference: the full proof-spine one-liners (D1–D24, First-G, R(k,f), sinc² Zero Law, Crossing Lemma, Flatness Theorem, σ Rate, BB ξ-field equation), full TSML 10×10 table, full BHML 10×10 table (28-cell), the σ permutation, the complete σ polynomial (α + β), the canonical C₀ operator for any n, the corridor closure hierarchy, the six structural invariants, the two-tier collapse signature, ARI scaling table, all constants (T\*, 4/π², W, ξ₀, m²_ξ, σ rate, γ(b), Si(2π)/π, …), Q-series index, and the full sprint trail — condensed but complete, with a reproducibility section listing the runnable proof scripts behind every load-bearing claim.
 
 **Terminology and citations:** every internal term is either cited to published literature or flagged `[NOVEL — extends X]` with the prior framework cited. The full glossary is [GLOSSARY.md](GLOSSARY.md). Status tags throughout this document: `[PROVED]` (theorem with verifiable proof), `[STRUCTURAL]` (form of argument is sound, content is interpretive), `[CONJECTURAL]` (precisely stated, unproven), `[EMPIRICAL]` (numerical evidence, no closed-form proof), `[NOVEL]` (originated here — the prior frameworks it extends are named inline). These tags are not decoration; they are load-bearing. No `[STRUCTURAL]` claim is permitted to support a `[PROVED]` claim.
 
