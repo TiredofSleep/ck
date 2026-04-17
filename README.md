@@ -13,6 +13,8 @@
 
 **Find your entry by discipline:** §6 below. **Reading cold (AI or human):** read top to bottom — sections build.
 
+**📐 Looking for a specific formula, table, or constant?** → **[FORMULAS_AND_TABLES.md](FORMULAS_AND_TABLES.md)** is the single canonical reference: full TSML 10×10 table, full BHML 10×10 table (28-cell), the σ permutation, the complete σ polynomial (α + β), the canonical C₀ operator for any n, the corridor closure hierarchy, the six structural invariants, the two-tier collapse signature, ARI scaling table, all constants (T*, 4/π², ξ₀, m²_ξ, σ rate), Q-series index, and the full sprint trail — condensed but complete, with a reproducibility section listing the runnable proof scripts behind every load-bearing claim.
+
 **Terminology and citations:** every internal term is either cited to published literature or flagged `[NOVEL — extends X]` with the prior framework cited. The full glossary is [GLOSSARY.md](GLOSSARY.md). Status tags throughout this document: `[PROVED]` (theorem with verifiable proof), `[STRUCTURAL]` (form of argument is sound, content is interpretive), `[CONJECTURAL]` (precisely stated, unproven), `[EMPIRICAL]` (numerical evidence, no closed-form proof), `[NOVEL]` (originated here — the prior frameworks it extends are named inline). These tags are not decoration; they are load-bearing. No `[STRUCTURAL]` claim is permitted to support a `[PROVED]` claim.
 
 ---
@@ -513,6 +515,7 @@ The **Universal Observer Principle** (UOP, sense (c) in the §3 naming note — 
 ```
 ck/
 ├── README.md                            ← this file (THE FIELD on tig-synthesis)
+├── FORMULAS_AND_TABLES.md               ← single canonical reference: TSML, BHML, σ, C₀, constants, sprint trail
 ├── GLOSSARY.md                          ← every term cited or flagged [NOVEL]
 ├── HISTORICAL_ARCHIVE_INDEX.md          ← inventory of 1248+ tracked files
 ├── Q_SERIES_INTEGRATED_SYNTHESIS.md     ← Q-series attribution + Sprint 14-15 relationships
