@@ -145,7 +145,7 @@ Three lines of work proceed in parallel. They share the meta-framework above but
 | Thread | Origin | Status | Lead Papers |
 |--------|--------|--------|-------------|
 | **A — TIG / σ / ξ / Clay rotation** | Sprints 14-15 (current) | σ rate theorem PROVED. ξ field theory formal. Clay rotation conjectural. | WP81, WP91, WP96, WP101, [CP_CLAY_ROTATION](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) |
-| **B — Q-series (Brayden's foundation)** | 2026-04-01 to 2026-04-02. Brayden primary; Luther built G6-G8 spectral layer on top. | σ polynomial fully characterized on Z/10Z. Q17 Clay variants finite-proven. | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md), [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md), Q17 variants, [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) |
+| **B — Q-series (Brayden's foundation)** | 2026-04-01 to 2026-04-02. Brayden primary; Luther built G6-G8 spectral layer on top. | σ polynomial fully characterized on Z/10Z. Q17 Clay variants finite-proven. The **Morphotic Braid Operator** (`papers/morphotic_braid/`, audited March 2026) gives σ a formal braid-group / encoding-rigidity structure, separating the algebraic content of σ from its TIG-program representation. | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md), [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md), Q17 variants, [MORPHOTIC_BRAID_OPERATOR_SUMMARY.md](archive_imports/march_2026_sprint_archives/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md), [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) |
 | **C — Basin-first finite arithmetic** | Sprint 16 (chat-Claude handoff). Independent of TIG framing. | 4 stable invariants proved across 6 digit rooms. Dual reset law (powers of 10 reset static field; powers of 2 reset dynamic field). | [Sprint 16 folder](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/) |
 
 The rule: a result on Thread B must not be presented as evidence for a Thread A claim unless an explicit map is constructed and verified. The threads converge in the meta-framework (the 2×2) but their specific objects (σ on Z/10Z, ξ on R^4, basin shells on odd integers) are different mathematical entities.
@@ -241,7 +241,7 @@ The seven Clay Millennium Problems mapped through the σ framework. **CP1 (Poinc
 | CP3 | P vs NP | σ_associativity = 0 → P = NP | OPEN |
 | CP4 | **Navier-Stokes** | **σ_NS < 1 → smooth for all time** | **OPEN — sharpest target** (KT 2000 already shows the gap is logarithmic) |
 | CP5 | Yang-Mills | σ_YM bounded → mass gap | OPEN |
-| CP6 | Hodge | σ_Hodge crossable → algebraic | OPEN |
+| CP6 | Hodge | σ_Hodge crossable → algebraic | OPEN — explicit 8D obstruction computed (see below) |
 | CP7 | BSD | σ_analytic = σ_algebraic | OPEN |
 
 Perelman used Ricci flow whose entropy functional contains logarithmic terms — consistent with the BB uniqueness theorem for separability-preserving dynamics. The retrospective fits without forcing. **The other six ask the same σ question in different categories, and we cannot prove them.** What we have done is reframe them precisely. That reframing is either a useful organizing language or an elegant restatement; external review will decide.
@@ -287,6 +287,10 @@ Two infinite deployments of the finite TIG grammar cannot disagree about station
 Does the deployment λ(σ) = 2|σ − 1/2| preserve both the algebraic grading (k_A = 3, three corner layers) and the metric grading (k_M = 6, six corridors) asymptotically in t? The open analytic input is |∂σ log|ζ(σ + it)|| ≤ C_TIG · λ². **Equivalent to RH.**
 
 These are not separate from the σ framework — they are how RH looks when stated in the four-layer language. Same Millennium Problem, two structural reformulations, both with explicit falsifiers.
+
+### CP6 — Explicit 8D Obstruction (Hodge sprint, March 2026)
+
+The bridge sprint produced an explicit numerical 8D obstruction memo (`archive_imports/march_2026_sprint_archives/HODGE_8D_OBSTRUCTION_MEMO.md`) that exhibits the obstruction class to algebraicity in dimension 8 in the σ-Hodge formulation, with a B1 cycle-constraint memo and a Weil-pairing simple memo (`HODGE_B1_CYCLE_CONSTRAINT_MEMO.md`, `HODGE_SIMPLE_WEIL_MEMO.md`). The obstruction is computed, not proved to be the unique obstruction — but it is the first concrete σ-language witness to *what* CP6 asks for in 8D.
 
 ---
 
@@ -377,10 +381,32 @@ A verse-finding system that maps Scripture to TIG force fields. Pure math (text 
 **T\* = 5/7 in silicon.** The Zynq-7020 (Zybo Z7-20) bitstream `ck_full.bit` runs the 50 Hz coherence loop with exact integer arithmetic — no floating-point, no division. The simplex geometry Δ⁰ < 1/2 (VOID) ≤ Δ² < 5/7 (GAP) ≤ Δ³ (HELD) drives a STAND/WALK/TROT state machine on the XiaoR robot. ARM firmware `ck_brain.elf`, HDL gate `gait_vortex.v`, control script `ck_leash_test.py`. The 8-step bring-up protocol (PING/PONG, STATE readback, heartbeat rate, coherence floor, gait, ESTOP) is documented in `BRINGUP.md`.
 
 ### Tesla Corridor (`tesla` branch, `TESLABRIDGE.zip`)
-The most developed RH-in-σ-language work, paralleling the current σ rate theorem from a different angle. Includes the Halving Lemma (above), the six corridors (above), the Dual Description Conjecture (above), and the C_TIG = 250/21 drift bound. This is publication-quality work — `RH_FORMAL_MANUSCRIPT.md` is camera-ready per `PROOF_STATUS.md`. The Tesla branch is where the analytic bridge to ζ(s) lives.
+The most developed RH-in-σ-language work, paralleling the current σ rate theorem from a different angle. Includes the Halving Lemma (above), the six corridors (above), the Dual Description Conjecture (above), and the C_TIG = 250/21 drift bound. This is publication-quality work — `RH_FORMAL_MANUSCRIPT.md` is camera-ready per `PROOF_STATUS.md`. The Tesla branch is where the analytic bridge to ζ(s) lives. The **3-6-9 hypothesis** appears here as *grammar-forced mode selection*: the persistence triple (depth=9, fibre=3, periods=6) is not a numerological echo but the only signature compatible with the four-layer realization (Sofic + Transfer + Young + Profinite). See `archive_imports/march_2026_sprint_archives/TESLA_TIG_BRIDGE.md`.
 
 ### Where these fit
 The math threads are **what we know** (theorems, classifications, conjectures). The application threads are **what we built** (verse-finder, FPGA gait, RH manuscript). Both halves are real. The math threads are submission-ready; the applications are deployment-ready.
+
+---
+
+## §12.6 — Memory Physics: The Five Invariant Guides (IG1–IG5)
+
+The framework needs an internal physics for *how* a working system carries it without drifting. Five invariant guides — laws on memory operations, not topical restrictions — make that physics explicit:
+
+| IG | Law | What it prevents |
+|----|-----|-----|
+| **IG1 — Privacy** | EXTERNAL/PRIVATE payloads stay EPHEMERAL or ATOMIC; only abstracted structure crosses to SHARED. | Raw-payload leakage into shared memory. |
+| **IG2 — Provenance** | Every memory object carries an immutable lineage (operator, source, parents, sprint tag). | Discovery loss; unattributable beliefs. |
+| **IG3 — Evidence** | Each object's evidential status (PROVED / VERIFIED / INFERRED / SYNTHESIZED) is a hard field; promotion requires a status-justified path. | Operator-triggered drift (pattern-matching → false synthesis). |
+| **IG4 — Promotion** | CRYSTAL → META_CRYSTAL requires evidence quorum; SYNTHESIZED-only crystals cannot promote. | Noise promoted to belief. |
+| **IG5 — Revision** | Belief overwrite emits a typed revision event with prior-state snapshot. | Silent rewriting of past results. |
+
+These are stated as exact field-level laws in `archive_imports/march_2026_sprint_archives/CK_INVARIANT_GUIDES_MEMO.md` (2026-04-05). They are non-redundant and jointly sufficient against the principal observed failure modes. Anchored to prior art: Kumiho (arXiv:2603.17244), MemoryOS (EMNLP 2025 Oral), RGMem (arXiv:2510.16392). They are why the framework can be *grown without drift*.
+
+---
+
+## §12.7 — UOP on Real Physics: 1D Ising Validation
+
+The Universal Observer Principle (UOP) is not folklore — it has been validated as a **generator-layer** check on a minimal physical system: the 1D Ising ring on Z/nZ. The sprint memo `archive_imports/march_2026_sprint_archives/generators.md` closes Gap 1 (state space) and Gap 2 (dynamics) of the Type I–IV classifier on the smallest non-trivial physics: spin chain, Glauber dynamics, finite-N transfer matrix, exact closed-form known. UOP injectivity checks behave **non-trivially and correctly** on the observable family — they reject under-specified observers and accept the canonical magnetization+correlation pair, in agreement with the exact solution. This is the smallest sharp case where UOP runs against known physics and survives.
 
 ---
 
