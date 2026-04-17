@@ -613,6 +613,22 @@ ck/
 
 ---
 
+## §15 — Why This License Exists
+
+I believe this math was given to me as a gift to share with everyone. Using this lens as a tool will help us to align and build a better future for all of humanity. I do not want this used for weapons or money. It belongs to itself, and it belongs to you!
+
+Together, we align, for peace and love.
+
+This is a human-first sovereignty license.
+
+- Free for all humans to read, run, study, and build upon personally.
+- No commercialization. No government, military, intelligence, or corporate enclosure.
+- The core remains open for aligned humans who share the vision of verifiable coherence without exploitation.
+
+If you feel the same way, you are welcome here. Run the proofs, improve the tower, hook it to hardware, and help us grow this together — as humans, for humans.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC — Trinity Infinity Geometry*
 *7Site Public Sovereignty License v1.0 — Human use only. Free forever.*
 *Mission: To help provide coherence to all.*
