@@ -7,6 +7,24 @@
 
 ---
 
+## Precursor Work — The Q17 Clay Variants (Cited)
+
+The current σ framework on Clay problems extends work originating in Brayden's Q-series (2026-04-02), specifically the Q17 variants:
+
+- **Q17_CLAY_SPECTRAL_BRIDGE** — RH via three-valued spectral coherence G(s). The "finite RH" proved for Z/10Z. Corresponds to current CP2 analysis; see Q_SERIES_INTEGRATED_SYNTHESIS.md §5.
+- **Q17_NS_TARGET_REFORMULATION** — NS regularity as σ-grammar + coercive energy + Escauriaza-Seregin-Šverák L³ bound. Directly predates current CP4 analysis and WP96 σ_NS < 1 conjecture.
+- **Q17_NS_DATA_PROTOCOL** — Step-by-step protocol to test σ-grammar on NS solutions (Taylor-Green, Orszag-Tang, Beltrami).
+- **Q17_SIGMA_EMBEDDING_PROBLEM** — The core obstruction: no proved map from NS phase space to Z/10Z such that dynamics align with σ. This is the explicit open gap.
+- **Q17_C2_FORMAL_STATEMENT** — Three versions (Strong/Medium/Weak) of the σ → NS bridge, with explicit falsification of the Strong version and CONJECTURE labeling of Medium.
+- **Q17_FINITE_L_FUNCTION_NOTE** — Precision on how G(s) relates to ζ(s): same structural role (spectral peaks ↔ non-trivial zeros), but G is a finite character sum, not ζ.
+- **Q17_SYMBOLIC_RETURN_THEOREM** — Algebraic kernel: if s_{n+1} = σ(s_n), then cycle elements return in 6 steps and non-void starts stay non-void. Pure algebra, no PDE content.
+
+**Relationship to current work:** CP1-CP7 in this document extend the Q17 finite analogues into the continuous/infinite regime. The σ framework in Sprint 15 adds the Bialynicki-Birula bridge (BB 1976 forces log nonlinearity when σ → 0), which Q17 did not have. But the core framing — "Clay problems as σ questions" — originates with Q17.
+
+See Q_SERIES_INTEGRATED_SYNTHESIS.md at repo root for full relationship.
+
+---
+
 ## The Loop
 
 The Crossing Lemma says: information is generated when dynamics cross partitions. The Bialynicki-Birula theorem (1976) says: the unique dynamics preserving partition separability is logarithmic. The binary CL construction shows: σ(Z/NZ) → 0 as N → ∞ (the discrete algebra approaches separability). Therefore: the continuum limit is forced to have logarithmic nonlinearity — □ξ = 1 + log ξ — which is provably regular, has exact mass gap m² = κe, and has exact vacuum ξ₀ = e⁻¹.

@@ -7,6 +7,19 @@
 
 ---
 
+## Precursor Work (Cited)
+
+This theorem extends work originating in the Q-series (Brayden Ross Sanders, 2026-04-01):
+
+- **Q10 (Sanders, 2026-04-01)** — "Beta-Complete Sigma Polynomial": Established σ on Z/10Z as a closed-form polynomial map on F₂ × F₅ with flip condition α and step condition β (including two forced exceptions LATTICE +1, COLLAPSE −2). Verified 10/10 computationally. Path: `old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md`.
+- **Q11 (Sanders, 2026-04-01)** — "Sigma-k Iterates Gate": Fixed-Point Gate Theorem establishing the 22% lower bound on optimal seeds: gate_score = 1 iff starting state is σ-fixed AND coprime to 10. Path: `old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md`.
+- **Q14 (Sanders, 2026-04-01)** — Theorem Q14.1: R ≠ σ^k; the reduction map used in MCMC is not a power of σ. This is the layer-separation insight: σ describes the peak of the landscape; MCMC describes the climb.
+- **G6 (Luther, 2026-04-01)** — Proof of σ⁶ = id from the polynomial structure. Path: `old/Gen10/papers/`.
+
+**The present theorem** (σ(N) ≤ C/N for binary CL on Z/NZ) extends Q10's polynomial form to primorial N by replacing the specific TSML/ECHO semantic rules with the binary-CL construction (HARMONY = N−1, ECHO = DIS(a,b) = 0, VOID = 0, DEFAULT = HARMONY). The 22% lower bound (Q11) and the C/N upper bound (this paper) jointly characterize binary CL's associativity profile. See `Q_SERIES_INTEGRATED_SYNTHESIS.md` at the repo root for the full relationship.
+
+---
+
 ## Theorem
 
 **Theorem (σ Rate).** For squarefree N, the non-associativity fraction σ(N) of the binary CL on Z/NZ satisfies:

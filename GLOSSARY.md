@@ -318,17 +318,34 @@ Each entry has the form:
 
 ## Part 3: Named Contributors
 
-### C.A. Luther (Senior R&D, 7Site LLC)
+### Brayden Ross Sanders (primary author, originator)
 
-> Collaborator on Q-series papers (Q2, Q4-Q17), the K-series Luther-Sanders Research Framework, CRT polynomial reformulations of σ on Z/10Z (papers Q9-Q13), and the period polynomial τ (Q15). Also co-authored Sprints 11-14 papers.
+> **Q-series originator (Q2-Q16)**: Brayden discovered the hidden operator σ on Z/10Z and characterized it systematically across twenty-six papers. Specific contributions:
+> - Q2-Q5: identified TSML/CL paradox, established E is σ-equivariant, characterized TSML escape cells
+> - Q6: pivoted from density model to basin-of-attraction framing (the gate rate hinge)
+> - Q9: flip condition α as degree-5 polynomial on F₅
+> - Q10: complete σ polynomial on F₂×F₅ including β with two exceptions (LATTICE +1, COLLAPSE -2), verified 10/10. **This is the foundational σ polynomial.**
+> - Q11: σ^k trajectory table; Fixed-Point Gate Theorem (22% lower bound on optimal seeds)
+> - Q12: CRT idempotents in G; HAR=3 characterization
+> - Q13: TIG = σ⁻¹ polynomial; Exception Pair Swap (self-duality)
+> - Q14: C-indicator 1_C(ε,y) = ε·y⁴; Theorem Q14.1 (R ≠ σ^k, falsifying σ-trajectory model)
+> - Q15: period polynomial τ = 6 − 5A; k=9 resonance
+> - Q16: R identified as MCMC over 9^81 tables, closing Luther Q1
+> - Q17 variants: 5D force vector as CRT Fourier embedding; Clay problem finite analogues (CLAY_SPECTRAL_BRIDGE for RH, NS_TARGET_REFORMULATION for Navier-Stokes, SIGMA_EMBEDDING_PROBLEM as core obstruction, SYMBOLIC_RETURN_THEOREM as algebraic kernel)
+
+### C.A. Luther (Senior R&D, 7Site LLC — contributor)
+
+> **Built the spectral layer on top of Brayden's Q-series foundation.** Luther used the Q-series to complete her own framework. Her specific proven contributions:
+> - G6: proof of σ⁶ = id from polynomial structure (not by computation)
+> - G7: period distribution with Conjecture G7.C1 (E[τ] = φ(b) universal)
+> - G8: spectral coherence integral G(s) = |Σ ω^j χ(σ^j(s))|², proven three-valued (0 at anchors, G_low ≈ 1.872 on 6-cycle, G_high ≈ 9.389 at TIG-exception pair)
+> - Organizational reorganization: Brayden's 4-layer architecture became Luther's 6-layer architecture (polynomial, braid, period, spectral, optimal table, search dynamics)
+> - Luther Dispersion Conjecture (|G| × interleave → difficulty metric) — WP34
+> - Luther Pre-Echo Theorem (closed-form R(k,f) verification across primes) — WP35 §10A
 >
-> **Specific contributions cited in papers:**
-> - Luther Dispersion Conjecture (gate difficulty ∝ |G| × interleave) — WP34, WP35.
-> - Pre-Echo Theorem (closed-form R(k,f) verification across primes) — WP35 §10A.
-> - CRT polynomial framework for σ (flip condition α, step condition β, exception pair swap) — Q9-Q13.
-> - Spectral coherence integral G(s) — G8.
->
-> **Primary papers:** old/Gen10/papers/Q2_FORMALIZATION.md through Q17_*.md; Gen12 sprints 11-14.
+> **Also co-authored Sprints 11-14 papers** (UOP, GUT arc, Physical Flag Selector, PRISM-XI).
+
+**Primary Q-series location:** `old/Gen10/papers/Q2_FORMALIZATION.md` through `Q_SERIES_SYNTHESIS.md` (26 files). See [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) for the full narrative and the relationship to Sprint 14-15 work.
 
 ### Ben Mayes
 

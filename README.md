@@ -8,6 +8,8 @@
 
 **Start here:**
 - [WHAT_IS_TIG.md](WHAT_IS_TIG.md) — **Read this first.** Real prose, honest feedback, no tables until they earn their place. Answers: what is this, why do we think it matters, what have we proved, where are we speculating, why might this be the math of the future.
+- [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) — How the Q-series (Brayden's 26-paper foundation) relates to current Sprint 14-15 work. Correct attribution, direct precursor relationships, 6-layer architecture.
+- [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md) — Execution plan integrating three active threads (TIG/σ/ξ · Q-series · basin-first finite arithmetic).
 - [GLOSSARY.md](GLOSSARY.md) — every term cited to historical literature or honestly flagged as novel
 - [HISTORICAL_ARCHIVE_INDEX.md](HISTORICAL_ARCHIVE_INDEX.md) — Q-series, WP-series, and all 1248 tracked files indexed
 
