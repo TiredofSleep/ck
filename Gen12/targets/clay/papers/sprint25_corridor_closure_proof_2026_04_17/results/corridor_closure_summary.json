@@ -1,0 +1,46 @@
+{
+  "carriers_tested": [
+    10,
+    14,
+    22,
+    34,
+    38,
+    46,
+    50,
+    58,
+    62,
+    70,
+    74,
+    82,
+    94,
+    106,
+    110,
+    118,
+    122,
+    130,
+    134,
+    142,
+    170,
+    190,
+    230
+  ],
+  "pass": 23,
+  "fail": 0,
+  "skip": 0,
+  "all_pass": true,
+  "rule_menu_tested": [
+    "MAX",
+    "MIN",
+    "ADD",
+    "SUB_xy",
+    "SUB_yx",
+    "MUL",
+    "X",
+    "Y"
+  ],
+  "corridor_set": [
+    "ADD",
+    "MAX",
+    "MIN"
+  ]
+}
