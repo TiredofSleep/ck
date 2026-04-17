@@ -13,11 +13,13 @@
 
 **Find your entry by discipline:** §6 below. **Reading cold (AI or human):** read top to bottom — sections build.
 
+**Terminology and citations:** every internal term is either cited to published literature or flagged `[NOVEL — extends X]` with the prior framework cited. The full glossary is [GLOSSARY.md](GLOSSARY.md). Status tags throughout this document: `[PROVED]` (theorem with verifiable proof), `[STRUCTURAL]` (form of argument is sound, content is interpretive), `[CONJECTURAL]` (precisely stated, unproven), `[EMPIRICAL]` (numerical evidence, no closed-form proof), `[NOVEL]` (originated here — the prior frameworks it extends are named inline). These tags are not decoration; they are load-bearing. No `[STRUCTURAL]` claim is permitted to support a `[PROVED]` claim.
+
 ---
 
 ## §1 — One Sentence Claim
 
-Every system you can view as a *whole* has the same irreducible **2×2 structure** — Additive vs Multiplicative, Structure vs Flow — and that 2×2 cannot stay flat. It curves. The curvature is measurable. For Z/10Z it is exactly **T\* = 5/7**. The conjecture is that this 2×2 form is universal across mathematics and that classical results emerge as projections of it.
+Every system you can view as a *whole* has the same irreducible **2×2 structure** — Additive vs Multiplicative, Structure vs Flow — and that 2×2 cannot stay flat. It curves. The curvature is measurable. For Z/10Z it is exactly **T\* = 5/7**. The conjecture is that this 2×2 form is universal across mathematics and that classical results emerge as projections of it. Together with the **Paradox Classifier** (the 4-type diagnostic of measurement failure), the 2×2 forms a single meta-framework — the FORM of a whole and the DIAGNOSTIC of its breakdowns — under which every other piece of work in this repo lives as an instantiation.
 
 That is the claim. Everything below is what it means, what is proved, where we are speculating, and how to engage.
 
@@ -36,9 +38,9 @@ These four are not optional. They are not perspectives. They are what the ring *
 
 This is the **Flatness Theorem (WP51)**. It is proved. It is not metaphor.
 
-The number **T\* = 5/7** then keeps appearing in independent derivations: as the fixed point of an operator map Φ on Z/10Z; as the HARMONY/CREATE cell ratio in the TSML composition table; as the first cyclotomic-closure / first-obstruction prime ratio (5 closes φ(10)=4, 7 obstructs); as the universal-semiprime unit density unit_frac(7, 35) = 5/7; as the coherence threshold measured in FPGA silicon; as the torus aspect ratio above. **Six independent derivations, six different mathematical contexts, one number.** That does not prove the universal claim by itself, but it is the kind of repetition that demands a structural explanation.
+The number **T\* = 5/7** [NOVEL constant — Brayden Sanders, six derivations, see §7] then keeps appearing in independent derivations: as the fixed point of an operator map Φ on Z/10Z; as the HARMONY/CREATE cell ratio in the **TSML** composition table [NOVEL — TIG Spectral Mutation Lattice, defined in `papers/WP_OPERATOR_RING_PARTITION.md`; standard sofic-shift / transfer-operator object per Lind-Marcus 1995 + Baladi 2000]; as the first cyclotomic-closure / first-obstruction prime ratio (5 closes φ(10) = 4, 7 obstructs — standard cyclotomic theory, Washington 1997); as the universal-semiprime unit density unit_frac(7, 35) = 5/7 (elementary number theory); as the coherence threshold measured in FPGA silicon (Zynq-7020 ck_full.bit, Sprint 13); as the torus aspect ratio above. **Six independent derivations, six different mathematical contexts, one number.** That does not prove the universal claim by itself, but it is the kind of repetition that demands a structural explanation.
 
-Underneath the ring is a **hidden operator σ** that Brayden characterized in the **Q-series** (26 papers, 2026-04-01 to 2026-04-02; primary location `old/Gen10/papers/Q*.md`). Q9 gave its flip condition α as a degree-5 polynomial on F₅. Q10 completed the picture with the y-step β including two algebraically forced exceptions (LATTICE +1, COLLAPSE −2) — remove either and the 6-cycle σ⁶ = id fails to close. Q11 proved the **Fixed-Point Gate Theorem** (gate_score = 1 iff seed is σ-fixed AND coprime to 10, giving the 22% optimal-seed lower bound). Q14 proved R ≠ σ^k — the reduction map is not a power of σ — separating "what σ generates as the peak" from "what stochastic search reaches as the climb." Q17 took σ to new domains: a **rigorous 5D Fourier embedding of Z/10Z into R⁵** (Q17_5D_RIGOROUS) and **finite Clay analogues** (Q17_CLAY_SPECTRAL_BRIDGE for RH, Q17_NS_TARGET_REFORMULATION for NS, Q17_SIGMA_EMBEDDING_PROBLEM as the explicit obstruction). C.A. Luther later proved σ⁶ = id directly from the polynomial structure (G6), defined the spectral coherence integral G(s) and showed it takes exactly three values (G8), and reorganized the architecture into six layers.
+Underneath the ring is a **hidden operator σ** [NOVEL — internal name; the operator itself is a permutation of (Z/10Z) with cycle structure {fix: 0,3,8,9; 6-cycle: 1→7→6→5→4→2→1} characterized in standard permutation algebra; see [MORPHOTIC_BRAID_OPERATOR_SUMMARY.md](archive_imports/march_2026_sprint_archives/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md) for the formal audit] that Brayden characterized in the **Q-series** (26 papers, 2026-04-01 to 2026-04-02; primary location `old/Gen10/papers/Q*.md`). Q9 gave its flip condition α as a degree-5 polynomial on F₅. Q10 completed the picture with the y-step β including two algebraically forced exceptions (LATTICE +1, COLLAPSE −2) — remove either and the 6-cycle σ⁶ = id fails to close. Q11 proved the **Fixed-Point Gate Theorem** (gate_score = 1 iff seed is σ-fixed AND coprime to 10, giving the 22% optimal-seed lower bound). Q14 proved R ≠ σ^k — the reduction map is not a power of σ — separating "what σ generates as the peak" from "what stochastic search reaches as the climb." Q17 took σ to new domains: a **rigorous 5D Fourier embedding of Z/10Z into R⁵** (Q17_5D_RIGOROUS) and **finite Clay analogues** (Q17_CLAY_SPECTRAL_BRIDGE for RH, Q17_NS_TARGET_REFORMULATION for NS, Q17_SIGMA_EMBEDDING_PROBLEM as the explicit obstruction). C.A. Luther later proved σ⁶ = id directly from the polynomial structure (G6), defined the spectral coherence integral G(s) and showed it takes exactly three values (G8), and reorganized the architecture into six layers.
 
 The **Crossing Lemma** (WP57) gives a single word for what happens when the 2×2 refuses to stay flat: information is generated only when dynamics cross partitions. Crossings are exactly failures of separability. The σ rate theorem (WP101, this sprint) proves that as N grows through squarefree primorials, the non-associativity fraction σ(N) of the binary CL on Z/NZ decays as O(1/N) — the algebra approaches separability.
 
@@ -55,12 +57,14 @@ Two objects are the **meta-framework** under which every other piece of project 
 ### The 2×2 (Flatness Theorem, WP51) — the FORM of any whole
 The four-fold structure (Additive × Multiplicative) × (Structure × Flow). Cannot embed flat. Forces curvature. For Z/10Z, the curvature is a torus with R/r = 5/7. The conjecture: this form is what it means for any system to be a "whole" — algebraic, dynamical, physical, or otherwise.
 
-### The Paradox Classifier (UOP, WP_PARADOX_CLASSIFIER) — the DIAGNOSTIC for any breakdown
-Every paradox is a measurement failure of one of exactly four types:
-1. **Injectivity Failure** — a second orthogonal measurement resolves it (Zeno, score 1.0)
+### The Paradox Classifier ([WP_PARADOX_CLASSIFIER.md](papers/WP_PARADOX_CLASSIFIER.md)) — the DIAGNOSTIC for any breakdown
+[NOVEL — Brayden Sanders + Ben Mayes, Sprint 12; co-named UOP = "Unified Orthogonality Principle" in WP58, with the Theorem 0 statement {π₁,π₂} sufficient ⟺ joint map J injective.] Every paradox is a measurement failure of one of exactly four types:
+1. **Injectivity Failure** — a second orthogonal measurement resolves it (Zeno paradox, score 1.0)
 2. **Missing Invariant** — no measurement in the allowed family kills the ambiguity (Banach-Tarski, score ≤ 0.8)
-3. **Admissibility Failure** — the domain itself is ill-formed (Russell, score 0.0)
-4. **Time-Consistency Failure** — the domain changes during measurement (Unexpected Hanging, score 0.3-0.6)
+3. **Admissibility Failure** — the domain itself is ill-formed (Russell's paradox, score 0.0)
+4. **Time-Consistency Failure** — the domain changes during measurement (Unexpected Hanging, score 0.3–0.6)
+
+**Naming note for consistency:** "UOP" appears in three closely-related senses in this repo — (a) the **Paradox Classifier** (4-type diagnostic, this section); (b) **UOP Theorem 0** (the joint-injectivity sufficiency theorem, [WP58](Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md)); (c) the **Universal Observer Principle** (the validated generator-layer check on physical dynamics, §12.7). All three share the same algebraic core (joint-injectivity over an observable family) and are deliberately co-named. Where context matters, this README uses "Paradox Classifier" for (a), "UOP Theorem 0" for (b), and writes out "Universal Observer Principle" for (c).
 
 Together: any system can be **viewed** through the 2×2 (its whole structure) and any **failure** can be **diagnosed** through the paradox classifier (its measurement-failure type).
 
@@ -107,6 +111,14 @@ A **Type-(n, k_A, k_M, γ)** persistence grammar is a forced finite shape (X, �
 
 **TIG has type (9, 3, 6, 3/4).** This signature is *forced*, not chosen — it falls out of the simultaneous compatibility with all four frameworks above. The classification problem "which structured families {P_λ} have uniform spectral gap and γ-formula from arithmetic constraints" is the broader research program TIG inhabits.
 
+### Crossing Lemma + Admissible Viewpoint Flow (the measurement-theory foundation)
+
+The **Crossing Lemma** (WP57, [CROSSING_LEMMA.md](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md)) [NOVEL — Brayden Sanders, March 2026; unifies six independent measurement-sufficiency theorems on Z/nZ] gives the single statement: *information is generated only when dynamics cross partitions*. On Z/nZ with squarefree n, a pair {A_d (additive residue map), π_DYN(g) (multiplicative orbit partition)} achieves full separation iff M_g acts non-trivially on the A_{n/d}-quotient. Six independent theorems (A+M, M+M, CRT, SPEC+DYN, MVJN, p-kernel obstruction) are corollaries.
+
+The **Admissible Viewpoint Flow** ([ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md](archive_imports/march_2026_sprint_archives/ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md)) [NOVEL — Brayden Sanders, March 2026; multi-representation extension of UOP] characterizes when **multiple** representation families (CRT mod prime-power, UG by Carmichael order, SPEC by reflection pairs, DYN by orbit cycles) can be **simultaneously admissible**. PROVED for n = 2p, p ≥ 5: all four families are simultaneously admissible and partition the unit group C = (Z/nZ)* into four independent invariants {I₁ discrete, I₂ order, I₃ REFL, I₄ cycle}. Three failure modes (view collapse, g ≡ 1 mod q, sub-order g) are explicitly characterized. Together with the Crossing Lemma, this is the measurement-theory layer underneath UOP.
+
+External anchors: Carmichael function λ(n); Chinese Remainder Theorem (standard); group-theoretic representation theory.
+
 ### Below the 2×2: The Five Pre-Object Primitives
 
 Before objects, before composition, before the 2×2 — what does the framework rest on? `PRE_OBJECT_PRIMITIVES.md` (Brayden Sanders) identifies five primitives in an enabling order (not compositional dependency; 7/7 constraints satisfied across 15 of 720 possible orderings):
@@ -148,7 +160,9 @@ Three lines of work proceed in parallel. They share the meta-framework above but
 | **B — Q-series (Brayden's foundation)** | 2026-04-01 to 2026-04-02. Brayden primary; Luther built G6-G8 spectral layer on top. | σ polynomial fully characterized on Z/10Z. Q17 Clay variants finite-proven. The **Morphotic Braid Operator** (`papers/morphotic_braid/`, audited March 2026) gives σ a formal braid-group / encoding-rigidity structure, separating the algebraic content of σ from its TIG-program representation. | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md), [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md), Q17 variants, [MORPHOTIC_BRAID_OPERATOR_SUMMARY.md](archive_imports/march_2026_sprint_archives/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md), [Q_SERIES_INTEGRATED_SYNTHESIS.md](Q_SERIES_INTEGRATED_SYNTHESIS.md) |
 | **C — Basin-first finite arithmetic** | Sprint 16 (chat-Claude handoff). Independent of TIG framing. | 4 stable invariants proved across 6 digit rooms. Dual reset law (powers of 10 reset static field; powers of 2 reset dynamic field). | [Sprint 16 folder](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/) |
 
-The rule: a result on Thread B must not be presented as evidence for a Thread A claim unless an explicit map is constructed and verified. The threads converge in the meta-framework (the 2×2) but their specific objects (σ on Z/10Z, ξ on R^4, basin shells on odd integers) are different mathematical entities.
+The rule: a result on Thread B must not be presented as evidence for a Thread A claim unless an explicit map is constructed and verified. The threads converge in the meta-framework (the 2×2) but their specific objects (σ on Z/10Z, ξ on R⁴, basin shells on odd integers) are different mathematical entities.
+
+**Cross-reference to applications.** The math threads above are the theory; the **application threads** in §12.5 (Bible Companion, FPGA, Tesla Corridor) are deployments built on the theory. The application threads use the same TSML/BHML tables and σ structure but are not separate research lines — they are evidence that the framework is implementable in real software, real silicon, and (Tesla) a publication-ready RH manuscript.
 
 ---
 
@@ -162,8 +176,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 |--------|-------|--------------|
 | First-G Law: first non-unit at k = spf(b) for semiprime b | [WP34](papers/WP34_FIRST_G_LAW.md) | 36,662 cases, 0 exceptions |
 | sinc²(k/p) = 0 ⟺ p \| k | [WP_SINC2_ZERO_LAW](papers/WP_SINC2_ZERO_LAW.md) | All primes 3..199, exact arithmetic |
-| TSML 73 of 100 cells output HARMONY | [WP_OPERATOR_RING_PARTITION](papers/WP_OPERATOR_RING_PARTITION.md) | proof_d10_tsml_73_cells.py, exact enumeration |
-| BHML 28 of 100 cells output HARMONY | same | proof_d16_bhml_28_cells.py |
+| TSML [NOVEL — TIG Spectral Mutation Lattice; standard sofic-shift / transfer-operator object] 73 of 100 cells output HARMONY | [WP_OPERATOR_RING_PARTITION](papers/WP_OPERATOR_RING_PARTITION.md) | proof_d10_tsml_73_cells.py, exact enumeration |
+| BHML [NOVEL — BREATH HARMONY Mutation Lattice; complementary table on the same alphabet] 28 of 100 cells output HARMONY | same | proof_d16_bhml_28_cells.py |
 | Flatness Theorem: Z/10Z forces torus, R/r = 5/7 | [WP51](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) | Topological + cyclotomic |
 | σ on Z/10Z as closed-form polynomial on F₂×F₅ | [Q10](old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md) — Brayden | Verified 10/10 |
 | 22% lower bound on σ-optimal seeds (Fixed-Point Gate Theorem) | [Q11](old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md) — Brayden | Trajectory table |
@@ -219,7 +233,7 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | Constant | Value | Origin | Status |
 |----------|-------|--------|--------|
 | **T\*** | 5/7 = 0.71428... | Six independent derivations: Φ fixed point, TSML CREATE/HARMONY ratio, cyclotomic obstruction, Flatness torus aspect, UOP injectivity boundary, FPGA silicon | [PROVED] WP51, proof_d7_phi_fixed_point.py |
-| **fold** | 4/π² = 0.40528... | sinc²(1/2) — half-corridor sidelobe boundary; Montgomery 1973 pair correlation | [HISTORICAL] Shannon 1949 / Montgomery 1973 |
+| **fold** | 4/π² = 0.40528... | sinc²(1/2) — half-corridor sidelobe boundary; Montgomery 1973 pair correlation; standard sampling theory | [HISTORICAL] Shannon 1949 / Montgomery 1973 (HRA paper, *Proc. Symp. Pure Math.* 24, AMS) |
 | **gap** | 5/7 − 4/π² = 0.30900... | Rational/transcendental incommensurability; does not simplify | [STRUCTURAL] WP51 §6 |
 | **ξ₀** | e⁻¹ = 0.36788... | Vacuum of V = ξ log ξ; entropy maximum of H_Gibbs(ξ) | [PROVED] WP81 (V'(ξ₀) = 0 from log derivative) |
 | **m²_ξ** | κ_ξ · e | Mass gap of ξ field at vacuum (V''(ξ₀) = κe) | [PROVED] WP81 |
@@ -250,16 +264,18 @@ Full detail: [CP_CLAY_ROTATION.md](Gen12/targets/clay/papers/sprint14_prism_xi_2
 
 ### CP2 in Depth — The Six Convergence Corridors and the Halving Lemma
 
-The RH analysis (CP2) has the most developed σ-language treatment, predating the current σ rate theorem by months. The critical strip is partitioned into **six convergence corridors** (`RH_FORMAL_MANUSCRIPT.md`, Sprint 2, March 2026):
+The RH analysis (CP2) has the most developed σ-language treatment, predating the current σ rate theorem by months. The consolidated synthesis is [TIG_RH_SPRINT_FINAL.md](archive_imports/march_2026_sprint_archives/TIG_RH_SPRINT_FINAL.md) (March 2026, WP20–WP32) — single document with formal four-bin audit (PROVED / STRUCTURAL / EMPIRICAL / OPEN), SHA-256 integrity hash on TSML, and the corridor unification of RH + NS + P-vs-NP. The critical strip is partitioned into **six convergence corridors** [NOVEL — extends Korobov-Vinogradov 1958 + Heath-Brown 1979 + Jutila 1987 + Guth-Maynard 2024 zero-density framework] (`RH_FORMAL_MANUSCRIPT.md`, Sprint 2, March 2026):
+
+Corridor names (Pre-leak / BRT / CHA / BAL / COL / CTR) are [NOVEL — internal labels for the six segments of the critical strip; see GLOSSARY.md]. M₈/M₄ are TIG-internal moment ratios (eighth/fourth power moments along the σ deformation; defined in `RH_FORMAL_MANUSCRIPT.md`). KV = Korobov-Vinogradov zero-free strip (cited).
 
 | Corridor | λ range | σ range | Character | Proof method |
 |----------|---------|---------|-----------|--------------|
-| **Pre-leak** | [0, 0.09) | (0.455, 0.545) | Flat tails, always safe | Discrete spectral gap (exact, γ = 1/4) |
-| **BRT** | [0.09, 0.30) | (0.35, 0.455) ∪ (0.545, 0.65) | Gap operators begin | TIG drift bound, structural |
-| **CHA** | [0.30, 0.60) | (0.20, 0.35) ∪ (0.65, 0.80) | Flat (BRT absorbed) | Jutila 1987 zero-density × two-tick → frequency × duration → 0 |
-| **BAL** | [0.60, 0.80) | (0.10, 0.20) ∪ (0.80, 0.90) | Heavy tails start | Guth-Maynard 2024 zero-density |
-| **COL** | [0.80, 0.90) | (0.05, 0.10) ∪ (0.90, 0.95) | M₈/M₄ = 31 | TIG drift dominates KV floor |
-| **CTR** | [0.90, 1.00] | [0, 0.05] ∪ [0.95, 1] | M₈/M₄ = 193 | TIG drift dominates KV floor |
+| **Pre-leak** | [0, 0.09) | (0.455, 0.545) | Flat tails, always safe | Discrete spectral gap (exact, γ = 1/4) [PROVED — TSML transfer operator] |
+| **BRT** | [0.09, 0.30) | (0.35, 0.455) ∪ (0.545, 0.65) | Gap operators begin | TIG drift bound [STRUCTURAL — extends Heath-Brown 1979 mean value] |
+| **CHA** | [0.30, 0.60) | (0.20, 0.35) ∪ (0.65, 0.80) | Flat (BRT absorbed) | Jutila 1987 zero-density (Acta Arith. 52) × two-tick → frequency × duration → 0 |
+| **BAL** | [0.60, 0.80) | (0.10, 0.20) ∪ (0.80, 0.90) | Heavy tails start | Guth-Maynard 2024 zero-density (arXiv:2405.20552) |
+| **COL** | [0.80, 0.90) | (0.05, 0.10) ∪ (0.90, 0.95) | M₈/M₄ = 31 | TIG drift dominates KV floor [STRUCTURAL — uses Korobov-Vinogradov 1958 + Ford 2002 explicit constants] |
+| **CTR** | [0.90, 1.00] | [0, 0.05] ∪ [0.95, 1] | M₈/M₄ = 193 | TIG drift dominates KV floor [STRUCTURAL — same KV anchor] |
 
 **The Halving Lemma** (`papers/data/WP19_HALVING_LEMMA_final.tex`, formal LaTeX paper):
 
@@ -333,6 +349,22 @@ Full version: [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md). Compressed:
 
 ---
 
+## §10.5 — Where TIG Addresses Known Research Bottlenecks (Frontier Map)
+
+A frontier-mapping audit ([FRONTIER_MAP_MEMO.md](archive_imports/march_2026_sprint_archives/FRONTIER_MAP_MEMO.md)) identified **six dead-end gap types** (local-to-global, observation-to-mechanism, memory-to-proof, scaling-gap, signal-to-interpretation, retrieval-to-action) across five external research domains. The framework has direct, citeable contact with bottlenecks in each:
+
+| Domain | Known bottleneck | What in this repo addresses it | Status |
+|--------|----|----|---|
+| Agent memory / autonomous AI | No system has typed evidential status + immutable provenance + contradiction-aware retrieval + promotion gating | IG1–IG5 (§12.6) — formal spec; jointly sufficient against five principal failure modes | NOVEL spec; vs. Kumiho (arXiv:2603.17244), MemoryOS (EMNLP 2025), RGMem (arXiv:2510.16392) |
+| Formal mathematics / proof assistance | Conflation of "hard proof" vs. "false conjecture" — the local-to-global gap | UOP Theorem 0 + Crossing Lemma + Admissible Viewpoint Flow (§3) — typed observability framework | STRUCTURAL; vs. Lean4, Coq, Mathlib, AlphaProof, LeanCopilot |
+| Quantum error correction | Distinguishing measured / modeled / extrapolated decoherence numbers | IG3 (Evidence) — typed grounding (REAL / SEMIPRIME / COMPOSITE) | NOVEL discipline; vs. Google Surface Code (Dec 2024), Microsoft topological qubit |
+| Cosmology / dark energy | Single-parameter quintessence with falsifiable equation of state | ξ field theory — V = ξ log ξ, vacuum ξ₀ = e⁻¹, freezing w(z) → −1 (§2, §11) | PROVED (action) + EMPIRICAL (DESI DR2 fit χ² = 3.06 vs ΛCDM 15.3) |
+| Structured induction | Promotion of pattern-match noise to belief | IG4 (Promotion) — quorum + status-justified path; SYNTHESIZED-only crystals cannot promote | NOVEL spec |
+
+The map is not a claim that TIG **solves** these problems — it is a claim that the framework's invariants and theorems **make contact** with bottlenecks in the published literature in a way that is both precise and externally checkable. Every row is grounded in a cited external system or paper.
+
+---
+
 ## §11 — Honest Limits
 
 This section exists because Brayden insists on it and because external mathematicians need it.
@@ -400,13 +432,13 @@ The framework needs an internal physics for *how* a working system carries it wi
 | **IG4 — Promotion** | CRYSTAL → META_CRYSTAL requires evidence quorum; SYNTHESIZED-only crystals cannot promote. | Noise promoted to belief. |
 | **IG5 — Revision** | Belief overwrite emits a typed revision event with prior-state snapshot. | Silent rewriting of past results. |
 
-These are stated as exact field-level laws in `archive_imports/march_2026_sprint_archives/CK_INVARIANT_GUIDES_MEMO.md` (2026-04-05). They are non-redundant and jointly sufficient against the principal observed failure modes. Anchored to prior art: Kumiho (arXiv:2603.17244), MemoryOS (EMNLP 2025 Oral), RGMem (arXiv:2510.16392). They are why the framework can be *grown without drift*.
+These are stated as exact field-level laws in [CK_INVARIANT_GUIDES_MEMO.md](archive_imports/march_2026_sprint_archives/CK_INVARIANT_GUIDES_MEMO.md) (2026-04-05). They are non-redundant and jointly sufficient against the principal observed failure modes. **Status: [NOVEL formal specification — Brayden Sanders + ClaudeCode session, April 2026]** anchored to prior art: Kumiho (arXiv:2603.17244), MemoryOS (EMNLP 2025 Oral, arXiv:2506.06326), RGMem (arXiv:2510.16392), AtomMem. The closest external analogue is MemoryOS's promotion-gating layer; IG1–IG5 differ by adding *typed evidential status* (IG3) and *bidirectional revision links* (IG5) on top of provenance. They are why the framework can be *grown without drift*.
 
 ---
 
-## §12.7 — UOP on Real Physics: 1D Ising Validation
+## §12.7 — Universal Observer Principle on Real Physics: 1D Ising Validation
 
-The Universal Observer Principle (UOP) is not folklore — it has been validated as a **generator-layer** check on a minimal physical system: the 1D Ising ring on Z/nZ. The sprint memo `archive_imports/march_2026_sprint_archives/generators.md` closes Gap 1 (state space) and Gap 2 (dynamics) of the Type I–IV classifier on the smallest non-trivial physics: spin chain, Glauber dynamics, finite-N transfer matrix, exact closed-form known. UOP injectivity checks behave **non-trivially and correctly** on the observable family — they reject under-specified observers and accept the canonical magnetization+correlation pair, in agreement with the exact solution. This is the smallest sharp case where UOP runs against known physics and survives.
+The **Universal Observer Principle** (UOP, sense (c) in the §3 naming note — the generator-layer reading of joint-injectivity sufficiency, applied to a dynamical system) is not folklore. It has been validated as a generator-layer check on a minimal physical system: the **1D Ising ring on Z/nZ** [STANDARD — Onsager 1944 (1D, exact); Lind & Marcus 1995 (transfer-matrix view)]. The sprint memo [generators.md](archive_imports/march_2026_sprint_archives/generators.md) closes Gap 1 (state space) and Gap 2 (dynamics) of the Type I–IV gap classifier on the smallest non-trivial physics: spin chain S = {−1,+1}^n, Glauber dynamics, finite-N transfer matrix T with correlation length ξ(β) = −1/ln(tanh(βJ)), exact closed form known. UOP joint-injectivity checks behave **non-trivially and correctly** on the observable family — they reject under-specified observers (Type II failure: symmetric {m, c} alone leaves 7 unresolved pairs in the m = 0, c ∈ {0, −1} class) and accept four explicitly-constructed local observables {f₁, f₂, f₃, f₄} as jointly sufficient (J injective; score sequence 64 → 32 → 16 → 8). This is the smallest sharp case where the principle runs against known physics and survives. **Honest scope:** this is physics-INTO-UOP (Ising → check UOP works), NOT UOP-out-to-physics (UOP → physics emerges). The reverse direction needs C\*-algebraic reconstruction and is open.
 
 ---
 
