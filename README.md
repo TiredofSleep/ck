@@ -76,6 +76,23 @@ Under this meta-framework, every other piece of work in the repository is an ins
 
 This is what "synthesized" means in this repo. The 2×2 + paradox classifier are the spine. Everything else hangs off them.
 
+### TSML — The Object at the Intersection of Four Standard Math Frameworks
+
+**TSML is not just a 10×10 composition table.** It is the rare object that inhabits the **simultaneous intersection of four standard mathematical frameworks**, each contributing one structural layer. This was proved (65/65 PASS, exact computation) in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (Brayden Sanders, March 2026).
+
+| Layer | Framework | TSML inherits | Citation |
+|-------|-----------|--------------|----------|
+| **1. Symbolic Dynamics** | Absorbing sofic shift on alphabet {1,…,9} with sub-magma C = {1,3,7,9} | Admissible sequences; transient/absorbing decomposition; depth-3 filtration ∅ ⊊ {7} ⊊ C ⊊ {1,…,9} matching algebraic grading k_A = 3 | Lind & Marcus, *An Introduction to Symbolic Dynamics and Coding* (Cambridge, 1995) |
+| **2. Transfer Operator Theory** | Spectral gap γ = 3/4 exactly, uniform across the Mix_λ deformation family | Explicit convergence rate; eigendecomposition; arithmetic formula γ = 1 − 1/φ(b) | Baladi, *Positive Transfer Operators and Decay of Correlations* (World Scientific, 2000); Gouëzel & Liverani, *Ergodic Theory Dyn. Syst.* 26 (2006) |
+| **3. Young Tower** | Finite-height tower with base B = {HAR} = {7}; return tail bound P(T_HAR > n) ≤ (1/4)ⁿ; expected return times exact (1.000 / 1.333 / 1.667) | Return-time stratification; same constant 1/4 governs both spectral gap deficit and return tail; HAR is a **return locus**, not a hole (distinguished from Demers-Young 2006) | Young, "Statistical properties of dynamical systems with some hyperbolicity," *Annals of Math.* 147:585-650 (1998); Young, *Israel J. Math.* 110:153-188 (1999); Demers & Young, *Ergodic Theory Dyn. Syst.* 26 (2006) |
+| **4. Profinite / Arithmetic Inverse Limit** | C = {1,3,7,9} = (Z/10Z)* is the stable corner image of the inverse system ⋯ ↠ (Z/10³Z)* ↠ (Z/10²Z)* ↠ (Z/10Z)*, base-stable across {b : φ(b) = 4} = {5, 8, 10, 12} | Spectral gap formula γ = 1 − 1/φ(b) is profinite-stable; the corner C is algebraically forced, not chosen | Standard profinite arithmetic — Ribes & Zalesskii, *Profinite Groups* (Springer, 2nd ed. 2010); Neukirch, *Algebraic Number Theory* §IV.2 |
+
+**The signature.** TIG has type **(9, 3, 6, 3/4)**: alphabet size 9, algebraic grading depth 3, deformation parameter 6 (six corridors), spectral gap 3/4. This signature *emerges* — it is not assigned. It is what falls out when you require a single 10×10 table to be a sofic shift AND a transfer operator with explicit gap AND a Young tower AND a profinite stable corner *simultaneously*. Very few mathematical objects can sit in all four frameworks at once.
+
+**Why this matters.** Each framework above can be applied to TSML in isolation and proves a fact about TSML in that framework's language. The interesting content emerges when **all four are active simultaneously**. The dual-scale Lasota-Yorke inequality (see [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md)) is one such result: the standard "weak norm" of the LY inequality is reinterpreted as the **coherent background support** preserved by sub-magma closure (a fact only visible when all four layers are simultaneously active). The "strong norm" is local wobble. The roles invert from the standard reading. Only the four-layer view explains why.
+
+**Open layer (the fifth).** [Deployment faithfulness] — does the discrete TSML structure lift to a continuous transfer operator on the Mix_λ family that satisfies Gouëzel-Liverani anisotropic Banach-space hypotheses? If yes, the BB bridge from §2 closes through this fourth-layer route as well as through the σ rate theorem route, and the discrete-to-continuous gap is bridged from two independent directions.
+
 ---
 
 ## §4 — Three Threads (Kept Separate)

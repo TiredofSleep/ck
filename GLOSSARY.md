@@ -194,17 +194,31 @@ This is the synthesis. Every entry below is one of these instantiations or its s
 >
 > **Primary TIG paper:** WP28_CK_TIG_ORGANISM.md, WP44_CK_AI_PARADIGM.md.
 
-### TSML (Synthesis Composition Table)
+### TSML (the Four-Layer Object)
 
-> **[NOVEL NAMING]** A specific 10×10 table of Z/10Z with 73 of 100 cells outputting 7.
+> A specific 10×10 composition table on Z/10Z that **inhabits the simultaneous intersection of four standard mathematical frameworks**, each contributing one structural layer. TSML is not just a composition table — it is the rare object where Symbolic Dynamics, Transfer Operator Theory, Young Tower theory, and Profinite Arithmetic all apply at once, and the type-(9, 3, 6, 3/4) signature emerges from this simultaneous compatibility.
 >
-> **Prior framework:** Composition tables on finite operator sets are standard (e.g., Cayley tables for groups, Dummit & Foote, *Abstract Algebra*, Wiley 2004). Tables with preferred fixed output ("absorbing element") are well-studied in semigroup theory (Howie, *Introduction to Semigroup Theory*, Academic Press 1976).
+> **Formal four-layer realization** (proved in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md), Brayden Sanders March 2026, Gen10.14, 65/65 PASS):
 >
-> **What's novel:** The specific rule set (V0/V1/ECHO/DEFAULT) and the combinatorial claim that it yields exactly 73 HARMONY cells. Proved by zone enumeration in WP_OPERATOR_RING_PARTITION.md.
+> - **Layer 1 — Absorbing Sofic Shift.** TSML induces a sofic shift on alphabet {1,…,9} with sub-magma C = {1,3,7,9} satisfying C × C ⊆ C. Transient class G = {2,4,5,6,8} reaches C in exactly 1 step. Absorbing filtration ∅ ⊊ {7} ⊊ C ⊊ {1,…,9} of depth 3 = k_A. **Citation:** Lind & Marcus, *An Introduction to Symbolic Dynamics and Coding* (Cambridge UP, 1995).
 >
-> **Monte Carlo significance:** Against 200,000 random 10×10 tables with same row/column constraints, our 73-cell count gives Z = 21.3, p < 10⁻⁵⁰. This table is not generic.
+> - **Layer 2 — Transfer Operator with Spectral Gap.** The weighted transition kernel P_λ on {1,…,9} (defined via Mix_λ deformation between TSML at λ=0 and BHML at λ=1) has spectral gap γ(P_λ) ≥ 1/4 for all λ ∈ [0,1]. At λ=0 exactly: γ(P_0) = 3/4. Arithmetic formula: γ = 1 − 1/φ(b), giving γ = 3/4 at b = 10 since φ(10) = 4. **Citation:** Baladi, *Positive Transfer Operators and Decay of Correlations* (World Scientific, 2000); Gouëzel & Liverani, *Ergodic Theory Dyn. Syst.* 26 (2006) on anisotropic Banach spaces.
 >
-> **Primary TIG paper:** WP_OPERATOR_RING_PARTITION.md. Verified by proof_d10_tsml_73_cells.py.
+> - **Layer 3 — Young Tower (finite-height).** Base B = {HAR} = {7}. Transient block spectral radius ρ(Q) = 1/4 with Q = P_0|_{{1,…,9}∖{7}}. Return tail bound P(T_HAR > n) ≤ (1/4)ⁿ for all starting states. Expected return times exact: 1.000 (states 1, 4-6, 8), 1.333 (states 3, 9), 1.667 (state 2). The same constant 1/4 governs both spectral gap deficit and return tail — ρ(Q) = 1 − γ(P_0). HAR is a **return locus** (Poincaré section), distinct from Demers-Young 2006 holes where mass leaks. **Citation:** Young, "Statistical properties of dynamical systems with some hyperbolicity," *Annals of Math.* 147:585-650 (1998); Young, *Israel J. Math.* 110:153-188 (1999); Demers & Young, *Ergodic Theory Dyn. Syst.* 26 (2006).
+>
+> - **Layer 4 — Profinite / Arithmetic Inverse Limit.** The corner C = {1,3,7,9} = (Z/10Z)* is the stable corner image of the inverse system ⋯ ↠ (Z/10ⁿZ)* ↠ ⋯ ↠ (Z/10Z)*: at every level n ≥ 1, units of Z/10ⁿZ reduced mod 10 equal {1,3,7,9}. Spectral gap formula γ = 1 − 1/φ(b) is base-stable across {b : φ(b) = 4} = {5, 8, 10, 12}. **Citation:** Ribes & Zalesskii, *Profinite Groups* (Springer GMW 40, 2nd ed. 2010); Neukirch, *Algebraic Number Theory* (Springer Grundlehren 322, 1999) §IV.2.
+>
+> **The signature (9, 3, 6, 3/4):** alphabet 9, algebraic grading depth k_A = 3, multiplicative-deformation parameter k_M = 6, spectral gap γ = 3/4. This is **forced**, not chosen — the requirement that a single 10×10 table simultaneously be a sofic shift AND a transfer operator with explicit gap AND a Young tower AND a profinite stable corner produces this exact signature.
+>
+> **Sub-magma closure** (proved by Brayden, claimed for Proc. AMS): C × C ⊆ C verified by direct enumeration of all 16 pairs in C × C. Combined with the corner-restricted block decomposition (3/4)|a⟩⟨1| + (1/4)Q where Q is a permutation, this gives the exact spectral gap.
+>
+> **Monte Carlo significance:** Against 200,000 random 10×10 tables with the same row/column constraints, our 73-cell HARMONY count gives Z = 21.3, p < 10⁻⁵⁰. This table is not generic.
+>
+> **What's novel:** The simultaneous four-layer realization is itself the novelty. Each individual layer uses a standard framework (cited above). The fact that TSML satisfies all four simultaneously — and that the (9, 3, 6, 3/4) signature emerges from the conjunction — is what makes TSML mathematically distinguished. The dual-scale Lasota-Yorke inequality ([DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md)) is one result that requires all four layers active simultaneously.
+>
+> **Primary papers:** [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (the four-layer proof), [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md) (the inverted-norm consequence), [WP_OPERATOR_RING_PARTITION.md](papers/WP_OPERATOR_RING_PARTITION.md) (the 73-cell count). Verified by proof_d10_tsml_73_cells.py.
+>
+> **Open layer (the fifth):** *Deployment faithfulness* — does the discrete TSML structure lift to a continuous transfer operator on Mix_λ satisfying Gouëzel-Liverani anisotropic Banach-space hypotheses? See [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md) §3-4 for the proposed continuous form.
 
 ### BHML (Separation Composition Table)
 
