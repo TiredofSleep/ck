@@ -4,7 +4,13 @@
 
 **Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-**Branch:** `clay` · **License:** 7Site Public Sovereignty License v1.0
+**Branch:** `clay` (active) · [`archive-full`](../../tree/archive-full) (preservation) · **License:** 7Site Public Sovereignty License v1.0
+
+**Start here:**
+- [GLOSSARY.md](GLOSSARY.md) — every term cited to historical literature or honestly flagged as novel
+- [HISTORICAL_ARCHIVE_INDEX.md](HISTORICAL_ARCHIVE_INDEX.md) — Q-series, WP-series, and all 1248 tracked files indexed
+
+**Preservation policy:** nothing is ever deleted from this project. Superseded material is marked `[HISTORICAL]` in place, not removed. The `archive-full` branch is a frozen snapshot.
 
 ---
 
