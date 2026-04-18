@@ -340,6 +340,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | **PPM-v1.0 local**: multiplicative-operationalization Map B produces coherent structural fit on Z/10 seam at cleanness gap ≥ 2 under pre-registered PPM rubric | [PPM-v1.0 VERDICT](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.0_multiplicative_local/PAIR_PRIMITIVE_MAPPING_VERDICT.md) | Map B = MAX/excluded-ADD, +4/−4, cleanness gap 8 |
 | **PPM-v2.0 family transport**: PPM-v1.0 checkpoint transports to all 8 P3AP Path 2 carriers under multiplicative operationalization | [PPM-v2.0 VERDICT](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_MULTIPLICATIVE_VERDICT.md) | N_B = 8/8, uniform, mean gap 8, per-carrier JSON scores |
 
+**PPM closeout (2026-04-18):** The PPM arc closed out with additive-transport FAIL Uniform on the 8 P3AP carriers (v2.1) and V0 boundary checkpoint UNCLEAR by Sensitivity (v3.0, Path B). 2×2 subtype-mapping design space complete. Addendum pack: [`pair_primitive_addendum_2026_04_18/`](Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/).
+
 ### STRUCTURAL (form sound, content interpretive — needs proved map for full claim)
 
 | Claim | Where | What's missing |
