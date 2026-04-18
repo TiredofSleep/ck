@@ -1,6 +1,13 @@
 # Theorem Spine
 ## Z/10Z TSML as a Terminating 3-Layer Canonical Tower
 
+*DOI: 10.5281/zenodo.18852047*
+*Target venue: Journal of Symbolic Computation / J. Combinatorial Theory A*
+
+> **Atlas cross-reference:** External citations (2-adic valuation per Koblitz 1984; canonical-construction algebra per Bergman 1978; Collatz structure per Lagarias 2010; shell partition theory) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 finite combinatorics, §A.10 canonical constructions). Internal anchors (3-layer canonical tower, seam residue S = S_ADD ∪ S_MAX, shell partition via v₂(3u+1), tower operator 𝖳, TSML = 73 attractor table, termination theorem) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§TSML 3-layer tower / §terminating canonical tower). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — LaTeX format pending] · **Tier 2** (format-then-submit) · 3-layer tower termination theorem PROVED · seam residue S = S_ADD ∪ S_MAX fully enumerated · JSC/JCTA format conversion pending.
+
 ---
 
 ## Theorem

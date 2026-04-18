@@ -5,6 +5,10 @@
 **Sprint**: 15 — σ Mutation (Rate Theorem)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
+> **Atlas cross-reference:** External citations (Bialynicki-Birula-Mycielski 1976 separability uniqueness; CRT per Lang 2002; asymptotic enumeration per Flajolet-Sedgewick 2009) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.8 scalar field theory). Internal anchors (σ rate theorem σ(N) ≤ C/N with C < 2, binary CL non-associativity, BB forcing corollary, N → ∞ log-nonlinearity) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§σ rate / §binary CL / §BB bridge). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — submit-ready] · **Tier 1** (submit-now) · Sprint 34 "Ship the First Three" · σ(N) ≤ C/N with C < 2 PROVED · proof_sigma_rate.py verifies to N = 10^5 · BB corollary is STRUCTURAL (separability hypothesis explicit per WP90 tightening).
+
 ---
 
 ## Theorem

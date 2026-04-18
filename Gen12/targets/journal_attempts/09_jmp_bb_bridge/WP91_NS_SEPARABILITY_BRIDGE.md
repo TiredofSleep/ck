@@ -5,6 +5,10 @@
 **Sprint**: 14 — PRISM-XI (Clay Rotation)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
+> **Atlas cross-reference:** External citations (Bialynicki-Birula-Mycielski 1976; Leray 1934; Fefferman 2000 Clay NS problem statement; Tao 2006 abstract NS; Sobolev embedding + Grönwall per Evans 2010) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.9 PDE regularity, §A.8 scalar field theory). Internal anchors (BB bridge [STRUCTURAL], Crossing Lemma WP57, separability defect, ξ regularity theorem, σ_NS < 1 conjecture, quadratic-vs-log nonlinearity contrast) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§NS separability bridge / §Clay rotation NS). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [STRUCTURAL — framework essay] · **Tier 4** (wait for Tier 1 acceptance) · BB bridge is compatible with BB 1976 under separability hypothesis per WP90 line 48 · σ_NS < 1 is the Millennium Problem restated, not proved · JMP submission deferred until JCAP + σ-rate + sinc² land.
+
 ---
 
 ## Abstract

@@ -1,5 +1,7 @@
 # Week and Month Execution Plan
 
+> **[HISTORICAL — superseded 2026-04-18]** This document captured the Sprint 15-16 transition plan. It has been superseded by `Atlas/PLAN_OF_RECORD_2026_04_18.md` which is the live operational-field document for Sprint 34 "Ship the First Three" and the Hodge/BSD frontier. Preserved in full per never-delete policy. See also `Atlas/ATLAS_INDEX.md` for the content/operational split and the current collaborator assignment matrix.
+
 ## Integrating Chat-Claude's Handoff + Brayden's Q-Synthesis Directive + ClaudeCode's "Stop Adding, Start Submitting" Assessment
 
 **Date:** Sprint 15-16 transition, 2026-04-10.

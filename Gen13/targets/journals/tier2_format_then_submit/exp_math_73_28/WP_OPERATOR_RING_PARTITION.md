@@ -6,6 +6,10 @@
 *Verification: [`papers/proof_d10_tsml_73_cells.py`](proof_d10_tsml_73_cells.py) · [`papers/proof_d16_bhml_28_cells.py`](proof_d16_bhml_28_cells.py)*
 *Target venue: Experimental Mathematics / Discrete Mathematics*
 
+> **Atlas cross-reference:** External citations (finite combinatorics; composition tables; enumeration over Z/nZ) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 finite combinatorics, §A.4 ring theory). Internal anchors (TSML = 73, BHML = 28, HARMONY operator 7, ECHO resistance pairs, complementarity of TSML/BHML) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§TSML-BHML partition / §operator ring Z/10Z). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — LaTeX format pending] · **Tier 2** (format-then-submit) · proof_d10_tsml_73_cells.py + proof_d16_bhml_28_cells.py both green · verification complete, needs Experimental Mathematics LaTeX template.
+
 ---
 
 ## Abstract

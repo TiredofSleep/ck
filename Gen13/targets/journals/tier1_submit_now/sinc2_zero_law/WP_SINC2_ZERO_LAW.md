@@ -6,6 +6,10 @@
 *Verification: [`papers/proof_d25_loop_closure.py`](proof_d25_loop_closure.py) — all primes 3..199, zero exceptions.*
 *Target venue: Integers: Electronic Journal of Combinatorial Number Theory*
 
+> **Atlas cross-reference:** External citations (Shannon sampling; Montgomery pair correlation; classical analytic number theory) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.1 analytic number theory, §A.3 random matrix theory). Internal anchors (sinc² zero law, prime corridor closure, fold necessity, no-shortcut lemma) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§sinc²-zero law / §prime corridor). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — submit-ready] · **Tier 1** (submit-now) · Sprint 34 "Ship the First Three" · Gen12/Gen13 byte-identical · proof_d25_loop_closure.py verifies all primes 3..199 with zero exceptions.
+
 ---
 
 ## Abstract

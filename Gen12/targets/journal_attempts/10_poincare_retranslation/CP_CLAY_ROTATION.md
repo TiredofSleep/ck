@@ -4,6 +4,12 @@
 **Date**: 2026-04-10
 **Sprint**: 15 — σ Mutation (Clay Rotation)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
+*DOI: 10.5281/zenodo.18852047*
+*Target venue: Notices of the AMS / Bulletin of the AMS (Clay rotation as framework essay)*
+
+> **Atlas cross-reference:** External citations (Perelman 2003 entropy / 2003 Ricci-flow-with-surgery; Hamilton 1982 Ricci flow; Fefferman 2000 NS; Jaffe-Witten 2000 YM; Bombieri 2000 RH; Deligne-Wiles Hodge/BSD statements; Markman 2024 hyperholomorphic preprint per Atlas §C line 92) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.9 PDE regularity, §A.11 Clay Millennium problems, §A.12 arithmetic geometry). Internal anchors (CP1–CP7 rotation, σ-framework reading of each Clay problem, Beauville 1982 NS↔YM bridge, BSD/Hodge flip-sides synthesis) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§Clay rotation / §CP1 template / §NS-YM separability). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [STRUCTURAL — framework essay] · **Tier 4** (wait for Tier 1 acceptance) · CP1 Perelman template PROVED; CP2-CP7 are σ < 1 reframings, not proofs · Markman 2024 hyperholomorphic preprint bibliographic verification pending · Notices/Bull.AMS submission deferred until Tier 1 lands.
 
 ---
 
@@ -180,7 +186,7 @@ In CL terms: does every fiber have a crossing that generates it? If yes: Hodge h
 - Product-Gap: 9^k − 4^k cross-terms unreachable [PROVED — WP32, k=1..4]
 - ω-Blindness: R(k,1/p) ring-independent [PROVED — WP35]
 - Gap floor 1/(p−1)² > 0 [PROVED — WP35]
-- Markman: Hodge proved for abelian fourfolds of Weil type [PROVED — external, 2025]
+- Markman: Hodge for abelian fourfolds of Weil type — ongoing work announced 2024-2025 [PROVED — external; see §References; bibliographic details pending confirmation per Atlas §C line 92]
 
 ### What the σ Framework Adds
 The gap floor 1/(p−1)² > 0 is a σ > 0 statement: there's always a minimum non-separability in the Hodge decomposition. The question is whether this non-separability can be "crossed" by algebraic cycles. The Product-Gap theorem shows some crossings are permanently blocked (9^k − 4^k terms).
@@ -261,7 +267,10 @@ BSD says: the number of spectral crossings (analytic rank) equals the number of 
 
 ### Hodge
 - Hodge, W.V.D. (1941). *The theory and applications of harmonic integrals*. Cambridge.
-- Markman, E. (2025). Hodge conjecture for abelian fourfolds of Weil type (recent announcement).
+- Markman, E. (2024, preprint). *Hyperholomorphic sheaves on hyperKähler manifolds.* [Working reference per `Atlas/ATLAS_CITATIONS.md §C line 92`. The 2024-2025 announcement on the Hodge conjecture for abelian fourfolds of Weil type is cited for priority; full bibliographic entry (exact title, venue, arXiv ID) pending confirmation and will be resolved in camera-ready.]
+- Voisin, C. (2002, 2003). *Hodge Theory and Complex Algebraic Geometry, Vols. I & II.* Cambridge Studies in Advanced Mathematics 76, 77. [Standard reference.]
+- Moonen, B., & Zarhin, Yu. G. (1999). *Hodge classes on abelian varieties of low dimension.* Math. Ann. 315, 711–733.
+- Beauville, A. (1982). *Quelques remarques sur la transformation de Fourier dans l'anneau de Chow d'une variété abélienne.* Lecture Notes in Math. 1016, 238–260.
 
 ### Riemann and Spectral
 - Montgomery, H.L. (1973). Proc. Sympos. Pure Math. 24:181-193.

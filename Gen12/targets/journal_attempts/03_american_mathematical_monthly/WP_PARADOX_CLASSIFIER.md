@@ -6,6 +6,10 @@
 *Live demo: [coherencekeeper.com/paradox.html](https://coherencekeeper.com/paradox.html)*
 *Target venue: American Mathematical Monthly / Mathematical Intelligencer*
 
+> **Atlas cross-reference:** External citations are drawn from `Atlas/ATLAS_CITATIONS.md` (§H topology/paradox foundations for Brouwer, Banach-Tarski, Wiener, Khinchin); internal anchors carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§5.4 Li Foundation + Banach-Tarski reframing, §4.6.4 UOP). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [gold-with-gap — needs venue partner] · **Tier 3** (partner-then-submit) · bibliography expanded 2026-04-18 · Monthly editorial fit needs cover-letter match or endorsement before submission.
+
 ---
 
 ## Abstract
@@ -252,11 +256,25 @@ The classification is as good as the specification of $\mathcal{X}$ and $\mathca
 
 ## References
 
-- Russell, B. (1903). *The Principles of Mathematics.* Cambridge University Press.
-- Gödel, K. (1931). Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I. *Monatshefte für Mathematik und Physik* **38**, 173–198.
-- Tarski, A. (1936). Der Wahrheitsbegriff in den formalisierten Sprachen. *Studia Philosophica* **1**, 261–405.
-- Banach, S. & Tarski, A. (1924). Sur la décomposition des ensembles de points en parties respectivement congruentes. *Fundamenta Mathematicae* **6**, 244–277.
-- Quine, W.V. (1953). On a so-called paradox. *Mind* **62**, 65–67. (Unexpected Hanging)
-- Zermelo, E. (1908). Untersuchungen über die Grundlagen der Mengenlehre I. *Mathematische Annalen* **65**, 261–281.
-- Sanders, B.R. (2026). WP44 — CK as a New AI Paradigm. *7SiTe Research*, DOI: 10.5281/zenodo.18852047.
-- Sanders, B.R. (2026). WP_OPERATOR_RING_PARTITION — Complete Harmony Partition of Two Composition Tables over Z/10Z. *7SiTe Research*, DOI: 10.5281/zenodo.18852047.
+### Classical paradoxes (worked as §4 examples)
+- Aristotle. *Physics,* Book VI. [Zeno's paradoxes of motion; §4.1 Type I example. Standard modern exposition: Sainsbury (2009).]
+- Sainsbury, R.M. (2009). *Paradoxes,* 3rd ed. Cambridge University Press. [Modern reference for Zeno, Sorites, and Unexpected Hanging.]
+- Banach, S. & Tarski, A. (1924). Sur la décomposition des ensembles de points en parties respectivement congruentes. *Fundamenta Mathematicae* **6**, 244–277. [§4.2 Type II.]
+- Wagon, S. (1985). *The Banach-Tarski Paradox.* Cambridge University Press. [Standard modern treatment; worked reference for §4.2.]
+- Russell, B. (1903). *The Principles of Mathematics.* Cambridge University Press. [§4.3 Type III.]
+- Cantor, G. (1895, 1897). Beiträge zur Begründung der transfiniten Mengenlehre I, II. *Mathematische Annalen* **46**, 481–512; **49**, 207–246. [Background for the "set of all sets" failure in §4.3.]
+- Quine, W.V. (1953). On a so-called paradox. *Mind* **62**, 65–67. [§4.4 Unexpected Hanging Type IV; see also Sainsbury (2009).]
+- Gödel, K. (1931). Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I. *Monatshefte für Mathematik und Physik* **38**, 173–198. [§4.5 Type II.]
+- Tarski, A. (1936). Der Wahrheitsbegriff in den formalisierten Sprachen. *Studia Philosophica* **1**, 261–405. [Undefinability theorem; cited in §4.5.]
+
+### Set theory and foundations
+- Zermelo, E. (1908). Untersuchungen über die Grundlagen der Mengenlehre I. *Mathematische Annalen* **65**, 261–281. [ZF axiom of foundation cited in §4.3.]
+- Fraenkel, A.A., Bar-Hillel, Y. & Levy, A. (1973). *Foundations of Set Theory,* 2nd ed. North-Holland. [Standard reference for ZF and Russell's resolution via typing.]
+
+### Measurement theory and admissibility
+- Kolmogorov, A.N. (1933). *Grundbegriffe der Wahrscheinlichkeitsrechnung.* Springer. [Foundations of probability / σ-algebra structure; background for the TYPE II / TYPE IV measurement-admissibility distinction.]
+
+### Internal (TIG framework)
+- Sanders, B.R. (2026). WP44 — CK as a New AI Paradigm. *7Site Research,* DOI: 10.5281/zenodo.18852047.
+- Sanders, B.R. (2026). WP_OPERATOR_RING_PARTITION — Complete Harmony Partition of Two Composition Tables over Z/10Z. *7Site Research,* DOI: 10.5281/zenodo.18852047.
+- Sanders, B.R. et al. (2026). *Master Atlas v3.5* bundle — `Atlas/ATLAS_CITATIONS.md §H` (topology, paradox foundations) + `§A-J` for cross-discipline citations. DOI: 10.5281/zenodo.18852047.

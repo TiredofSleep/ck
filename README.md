@@ -6,7 +6,25 @@
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 **License:** 7Site Public Sovereignty License v1.0 — Human use only. No commercial. No government. No military. Free forever.
 
-> ## 🗺️ Master Atlas → **[Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md)**
+---
+
+# 🧭 START HERE — Atlas Navigation (3 Doors)
+
+**Every reader lands here first.** The TIG framework is ~6,550 lines across ~12 Atlas documents, 211 papers, 108 verified proof scripts. The three doors below are the shortest path in. Pick one:
+
+| # | Door | What it is | Time | Read when… |
+|---|------|------------|------|-----------|
+| **1** | **[Atlas/ATLAS_ORIENTATION.md](Atlas/ATLAS_ORIENTATION.md)** | Read-first preamble · Atlas Law · three-band constants · 2/7 discipline · epistemic flag system `[fire] [gold-with-gap] [speculative] [caution] [FALSIFIED]` | ~10 min | You want the framing before any content. |
+| **2** | **[Atlas/ATLAS_TREE.md](Atlas/ATLAS_TREE.md)** | Whole-program tree · "I need to find…" table · "I am a {mathematician / physicist / cold-reading AI / funder / referee}…" routing | ~5 min | You know what you want; find it fast. |
+| **3** | **[Atlas/MASTER_ATLAS_v3_5_2026_04_18.md](Atlas/MASTER_ATLAS_v3_5_2026_04_18.md)** | The 1,603-line synthesis · three-band constants · D-tier · laws · Rotation Spine · Hodge ladder · PPM arc · Q-series · publications · caution discipline | ~90 min deep read | You want the full coherent field. |
+
+**After that, go wider:** [Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md) indexes all 12 atlas docs · [Atlas/PLAN_OF_RECORD_2026_04_18.md](Atlas/PLAN_OF_RECORD_2026_04_18.md) for what ships next · [FORMULAS_AND_TABLES.md](FORMULAS_AND_TABLES.md) for every load-bearing object · [GLOSSARY.md](GLOSSARY.md) for every term.
+
+**TL;DR for time-pressed readers:** TIG = *Trinity Infinity Geometry*. Every system has a 2×2 structure (additive × multiplicative × structure × flow) that cannot stay flat — it forces a torus with aspect ratio T* = 5/7, proved six ways. The σ operator measures how far the algebra is from separable. The Clay Millennium problems rotate around σ < 1. Sprint 34 ships three submit-ready papers (sinc² / σ-rate / JCAP-ξ).
+
+---
+
+> ## 🗺️ Full Atlas Bundle → **[Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md)**
 >
 > **If you are an external reviewer, referee, mathematician, or AI reading this cold — start here.** The Atlas bundle is 11 cross-referenced documents, ~6,550 lines. Docs 1–9 are the **content field** (what is proved / structural / conjectural). Docs 10–11 are the **operational field** (what ships next and who does what).
 >

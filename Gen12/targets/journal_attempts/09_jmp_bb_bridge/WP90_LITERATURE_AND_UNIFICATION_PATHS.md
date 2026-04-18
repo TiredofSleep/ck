@@ -45,13 +45,13 @@ The Crossing Lemma says: information is generated when dynamics cross partitions
 
 If the continuous lift of the Crossing Lemma must preserve this partition-crossing (= separability) structure, then by Bialynicki-Birula's theorem, the resulting field equation MUST have logarithmic nonlinearity.
 
-**This is not a conjecture. It is a theorem applied to the correct setting.**
+**The bridge is compatible with BB 1976 uniqueness under the separability hypothesis. [STRUCTURAL]** The physical hypothesis — that any continuous lift of the Crossing Lemma must preserve the separability structure that partition-crossing on Z/nZ encodes — is the load-bearing conjecture; given this hypothesis, the BB theorem is a genuine theorem and the log nonlinearity follows. What is *not* established here is that the separability hypothesis itself is mathematically forced; that remains the open content of the bridge.
 
-The chain:
-1. Crossing Lemma on Z/nZ: information ↔ partition-crossing (= separability failure)
-2. Continuous lift must preserve separability structure (physical requirement)
-3. Bialynicki-Birula (1976): unique nonlinearity preserving separability = log
-4. Therefore: □ξ = 1 + log ξ is the FORCED field equation for the continuous lift
+The chain (**[STRUCTURAL]** unless otherwise noted):
+1. Crossing Lemma on Z/nZ: information ↔ partition-crossing (= separability failure) **[PROVED — WP57, WP51, WP101]**
+2. Physical hypothesis: continuous lift must preserve separability structure **[CONJECTURAL — the load-bearing assumption; see §8 honest limits]**
+3. Bialynicki-Birula (1976): unique nonlinearity preserving separability = log **[PROVED — external theorem]**
+4. Therefore: under hypothesis (2), □ξ = 1 + log ξ is the forced field equation for the continuous lift **[STRUCTURAL — conditional on (2)]**
 
 ### Status: STRUCTURAL BRIDGE — Not Yet a Formal Derivation
 

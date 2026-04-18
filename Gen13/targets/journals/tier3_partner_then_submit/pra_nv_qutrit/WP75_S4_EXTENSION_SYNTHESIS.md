@@ -5,6 +5,10 @@
 **Sprint**: 13 — Physical Flag Selector
 **Authors**: Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther
 
+> **Atlas cross-reference:** External citations (representation theory per Fulton-Harris 1991; qudit gates per Gottesman 1998 / Howard-Wallman-Veitch-Emerson 2014; NV-center spin Hamiltonian per Doherty et al. 2013; microwave pulse shaping per Vandersypen-Chuang 2005) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.5 representation theory, §A.6 quantum control). Internal anchors (S₄ / T₁ realization, explicit U₄ matrix, 4-cycle eigenvalues ±i, −1, 6-pulse microwave sequence, NV-center qutrit test) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§S₄ extension synthesis / §NV-center physical flag selector). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [gold-with-gap — needs lab partner for Test E] · **Tier 3** (partner-then-submit) · U₄ matrix + 6-pulse sequence specified · PRA needs experimental collaborator to execute NV-center qutrit measurement before submission.
+
 ---
 
 

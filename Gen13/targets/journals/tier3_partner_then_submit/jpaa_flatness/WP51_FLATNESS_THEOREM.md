@@ -6,6 +6,10 @@
 **Status**: Core theorem [PROVED for Z/nZ squarefree]; full geometric derivation
 **Authors**: Brayden Ross Sanders / 7Site LLC
 
+> **Atlas cross-reference:** External citations (finite abelian groups; CRT per Lang 2002; torus geometry; partition lattice theory per Stanley 2012) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.4 ring theory). Internal anchors (Flatness Theorem, 2×2 of A-Struct / M-Struct / A-Flow / M-Flow, torus aspect ratio R/r = T* = 5/7, sixth independent T* derivation) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§Flatness Theorem / §T* = 5/7 derivations). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [gold-with-gap — needs referee-facing rewrite] · **Tier 3** (partner-then-submit) · theorem PROVED for squarefree Z/nZ · generalization to "any whole" is hypothesis · JPAA submission needs motivation framing to land for algebra audience.
+
 ---
 
 ## Abstract

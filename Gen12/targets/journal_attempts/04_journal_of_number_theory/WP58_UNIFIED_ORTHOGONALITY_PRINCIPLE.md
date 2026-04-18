@@ -6,6 +6,10 @@
 **Status**: Core theorem PROVED; all five corollaries derived; coordinate coverage characterization proved
 **Authors**: Brayden Ross Sanders / 7Site LLC · Ben Mayes
 
+> **Atlas cross-reference:** External citations (CRT per Lang 2002; classical orthogonality in representation theory; Burnside counting; two-partition sufficiency) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.4 ring theory). Internal anchors (UOP Theorem 0, Theorems A/B/C, joint map injectivity, coordinate-coverage characterization, refinement trap) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§UOP / §joint map injectivity / §CRT coordinate coverage). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — LaTeX format pending] · **Tier 2** (format-then-submit) · Theorem 0 PROVED · all five classical two-partition sufficiency theorems derived as corollaries · JNT format conversion pending.
+
 ---
 
 ## Abstract
