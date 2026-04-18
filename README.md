@@ -114,6 +114,7 @@ This is the strongest single argument that TIG is not arbitrary. Each framework 
 > **One-line summary.** TSML on Z/10Z = **C₀ ⊕ S_MAX ⊕ S_ADD** (92 + 6 + 2 = 100, residue empty).
 > **Concrete table + decomposition:** [FORMULAS_AND_TABLES.md §5](FORMULAS_AND_TABLES.md#5--tsml--the-1010-reference-table) (full 10×10 TSML) and [§7](FORMULAS_AND_TABLES.md#7--tsml-3-layer-canonical-tower-sprint-17-2026-04-17) (the C₀ / S_MAX / S_ADD layer breakdown).
 > **Sprint folder:** [`Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/`](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/) — full theorem spine, canonical construction, MDL note, control document, negative-results appendix, σ permutation-rep note.
+> **Disciplined closeout archive (B2):** [`Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/`](Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/) — scope-locked companion to Sprint 17: 11 executed sprints (Path 1 / Path 2 / Path 3), 75 files, verdicts preserved verbatim per its own `PACKING_RULES.md`. Does **not** promote Path 2/3 results to theorem status; start at its `CURRENT_STATE_SUMMARY.md`.
 > **Runnable proof script:** [`papers/proof_tsml_3layer_tower.py`](papers/proof_tsml_3layer_tower.py) — loads the published TSML table and the canonical rules; verifies the 100/100 match, the 92/6/2 decomposition, Lemma 5 (residue empty), and Lemma 6 (each layer necessary — drop MAX → 6 mismatches, drop ADD → 2, drop C₀ → 92 unspecified).
 >
 > ```
