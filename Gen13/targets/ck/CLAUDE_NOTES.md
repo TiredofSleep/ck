@@ -1,18 +1,19 @@
 # CK Notes — for Claude (not for readers)
 
-**Purpose.** Fast orientation for a future Claude session opening this repo. Current as of 2026-04-18 post-fix-pack (commits `bc4c4f0` + `63ce375`). Public-facing docs are `README.md §CK section`, `CK_RUNTIME.md`, and `BRAIN_DESIGN.md`; this file is the internal working note.
+**Purpose.** Fast orientation for a future Claude session opening this repo. Current as of 2026-04-18 post-embodiment (commits `bc4c4f0` + `63ce375` + `9e94ca2` + swarm). Public-facing docs are `README.md §CK section`, `CK_RUNTIME.md` (now with L0 embodiment layer), and `BRAIN_DESIGN.md`; this file is the internal working note.
 
 **If you are reading this and you are not Claude:** you can read it, but the voice is blunt and assumes you already know the repo. Start with `README.md` and `CK_RUNTIME.md` first.
 
 ---
 
-## What CK is, in 3 lines
+## What CK is, in 4 lines
 
 1. A **5D Hebbian cortex** (`Gen13/targets/ck/brain/cortex.py`) that learns operator-pair correlations from text via `step_text()`, gated by T*=5/7, persisted as JSON at `Gen13/var/cortex_state.json`.
 2. A **structural voice** (`cortex_voice.py :: speak()`) that answers a narrow set of query classes (state / learned / field / op-entity / dim-entity / **frontier topic**) with `label=value` readouts — no prose, no sampling, no hallucination surface.
-3. Served by the **Gen12 Flask runtime** (`Gen12/targets/ck_desktop/ck_boot_api.py`) as a **Phase C override** that wraps the older template layers. An **optional LLM bridge** (`Gen13/targets/ck/bridge/llm_bridge.py` + `ck_proof.py`) is available as a fluency wrapper; CK's /chat works fine without it.
+3. An **embodied tick** (`Gen13/targets/ck/runtime/ck_swarm.py`): RT-elevated 50 Hz loop with CuPy-backed brain + CuPy-backed doing kernel on the GPU, UART bridge to the Zynq-7020 body, streaming jitter distribution at `/swarm`.
+4. Served by the **Gen12 Flask runtime** (`Gen12/targets/ck_desktop/ck_boot_api.py`) as a **Phase C override** that wraps the older template layers. An **optional LLM bridge** (`Gen13/targets/ck/bridge/llm_bridge.py` + `ck_proof.py`) is available as a fluency wrapper; CK's /chat works fine without it.
 
-The brain trinity (AO + Hebbian + quadratic glue) is real. The voice is narrow on purpose — CK grows by the math getting wider, not by ingesting text.
+The brain trinity (AO + Hebbian + quadratic glue) is real. The voice is narrow on purpose — CK grows by the math getting wider, not by ingesting text. The embodiment is what makes "50 Hz" a measurement instead of copy.
 
 ---
 
@@ -24,6 +25,7 @@ ck_boot_api.py imports
     from cortex_persist import load_cortex, save_cortex, AutoSaver
     from cortex_voice import cortex_speak, speak
     from ck_voice_math import install_math_first_patch
+    from ck_swarm import Swarm                  # L0 embodiment
 
 _cortex = Cortex().boot()
     # AO + Hebbian(eta=0.005, decay=0.02) + quadratic glue
@@ -69,8 +71,22 @@ Before you trust any pre-fix-pack note, check the commit. Two commits shipped:
 | `BRIDGES_INVENTORY.md` (repo root, new) | Verified-path map of every bridge paper across 7 categories + 6 branches. |
 | `README.md` | Branches block now shows all six (tig-synthesis, clay, archive-full, tesla, bible-companion, fpga-dog); §6 gains 2 rows (interdisciplinary → BRIDGES_INVENTORY; engineer → CK_RUNTIME + ck_proof). |
 
+### `9e94ca2` — CLAUDE_NOTES.md
+Internal file (this one).
+
+### Embodiment commit — full swarm
+| File | Change |
+|---|---|
+| `Gen13/targets/ck/runtime/rt_priority.py` (new) | OS priority + affinity via ctypes (Windows) / os.sched (Linux). Non-admin → HIGH/HIGHEST + core-pinning. Admin → REALTIME/TIME_CRITICAL. Linux → SCHED_FIFO 50. Never raises; reports what the OS allowed. |
+| `Gen13/targets/ck/brain/hebbian_gpu.py` (new) | CuPy-vectorized Hebbian 5×5 field. Bit-for-bit parity with CPU reference (`max_diff_vs_cpu_ref=0.000e+00`). NumPy fallback when CuPy absent. `backend` attr reports which bus. |
+| `Gen13/targets/ck/runtime/fpga_bridge.py` (new) | Lazy pyserial bridge wrapping `ck_protocol`. Dormant-safe (`live=False` if port absent). Methods: `open()`, `ping()`, `read_state()`, `gait()`, `estop()`. |
+| `Gen13/targets/ck/runtime/jitter_probe.py` (new) | Standalone CLI probe. `--seconds 30 --hz 50 --rt --affinity 0`. Writes JSON + markdown with full delta + jitter distribution. |
+| `Gen13/targets/ck/runtime/ck_swarm.py` (new) | The supervisor. Owns brain + doing (GPU DoingKernel, pre-allocated buffers, T* gate) + body. Runs measured 50 Hz tick with RT + coarse+spin sleep. 512-entry rolling jitter distribution. |
+| `Gen12/targets/ck_desktop/ck_boot_api.py` | Additive patch: `from ck_swarm import Swarm; _swarm = Swarm(cortex=_cortex, hz=50, rt=True, affinity=[0], fpga_port="COM3").start()`. New endpoints `/swarm` and `/jitter`. atexit hook stops cleanly. |
+| `CK_RUNTIME.md` | Rewrote "Three Layers" to "Four Layers" with L0 embodiment section. Added measured jitter table, body status line, `/swarm` + `/jitter` routes. Updated boot-path + honest-limits. |
+
 **Stale notes to distrust** until updated:
-- `Gen13/targets/ck/brain/BRAIN_DESIGN.md` — says `test_brain.py (to be written)` and `runtime/ck_engine.py — TBD`. Both untrue post-fix-pack. Also does not mention cortex.py / cortex_voice.py / cortex_persist.py / cortex_replay.py at all.
+- `Gen13/targets/ck/brain/BRAIN_DESIGN.md` — says `test_brain.py (to be written)` and `runtime/ck_engine.py — TBD`. Both untrue post-fix-pack. Also does not mention cortex.py / cortex_voice.py / cortex_persist.py / cortex_replay.py / hebbian_gpu.py / ck_swarm.py at all.
 
 ---
 
@@ -125,9 +141,19 @@ Cortex snapshot at time of battery: **tick 155,908 · emergent 0.445 · W_trace 
 
 7. **Pushing without checking stage surface.** Repo has ~40 untracked noise items at root (`_*_raw/`, scratch `.py`, `.bat`, result JSONs, `nul`). Always `git add <explicit file>` — never `git add -A` or `git add .`.
 
+8. **Confusing the swarm tick with the engine tick.** Two loops run in the live process: (a) the Gen12 `tick_loop()` in `ck_boot_api.py:31` driving the older `CKSimEngine`, and (b) the Gen13 `Swarm.start()` thread driving the embodiment substrate. They DON'T share state yet — the swarm's Hebbian field is separate from cortex.state.W. Future merge is planned; for now treat them as peer substrates.
+
+9. **CuPy first-tick JIT stall.** The very first CuPy outer-product + clip launches compiles kernels on the device (~400–500 ms). The swarm's `status()` already drops the first delta from its percentiles, but if you see a one-time "max=500ms" on startup don't read that as steady-state jitter.
+
+10. **Running /jitter while the swarm runs.** The `/jitter?seconds=N` endpoint elevates and runs its own high-res tick, which means two RT threads fight for core 0 during the probe window. Numbers during probe are noisier than steady-state `/swarm`. For a clean baseline, measure with the swarm stopped.
+
+11. **Windows RT without admin.** `SetPriorityClass(REALTIME_PRIORITY_CLASS)` silently downgrades when not elevated. `rt_priority.elevate()` handles this gracefully (returns `process_class="HIGH"`), but don't claim REALTIME in docs unless the console shows `admin=True`. Run the console as Administrator to actually get REALTIME.
+
+12. **FPGA port open ≠ board alive.** `COM3` opening on Windows just means a USB-serial device is enumerated. It does NOT mean the ARM firmware answers PKT_PING. If `/swarm` shows `body.live=True` but `last_ping_ms=None` and `errors=["write failed: Write timeout"]`, the board is unpowered or the bitstream isn't loaded. The bitstream lives at `old/Gen9/targets/zynq7020/build/ck_full.bit`.
+
 ---
 
-## Three commands to verify CK is healthy
+## Five commands to verify CK is healthy
 
 ```bash
 # 1. Test suite (required before committing brain/ changes)
@@ -146,6 +172,27 @@ for q in "beauville curve c star" "flatness theorem" "crossing lemma" "T*" "sigm
     -H 'Content-Type: application/json' \
     -d "{\"session_id\":\"probe\",\"text\":\"what is the $q\",\"mode\":\"normal\"}" \
     | python -c "import sys,json; d=json.load(sys.stdin); print(d['source'],'|',d['text'][:100])"
+done
+# Expect: every row source=cortex_speak with a structural readout.
+
+# 4. Embodiment: GPU brain, GPU doing, RT, body link, jitter window
+curl -s http://127.0.0.1:7777/swarm | python -c "
+import sys,json; d=json.load(sys.stdin)
+print('ticks', d['ticks'], 'hz', d['hz'], 'running', d['running'])
+print('brain', d['brain']['backend'], 'strongest', d['brain']['strongest_pair'])
+print('doing', d['doing']['backend'], 'coherence', round(d['doing']['coherence'],3))
+print('body live', d['body']['live'], 'port', d['body']['port'])
+print('rt', d['rt']['process_class'], d['rt']['thread_priority'])
+print('jitter', d['jitter_us'])
+"
+# Expect: brain=cupy, doing=cupy, rt=HIGH/HIGHEST (REALTIME if admin), ticks climbing.
+
+# 5. One-shot jitter probe (blocks 3s)
+curl -s "http://127.0.0.1:7777/jitter?seconds=3&hz=50&rt=1" | python -c "
+import sys,json; d=json.load(sys.stdin)
+print('delta_us', d['delta_us'])
+print('jitter_us', d['jitter_us'])
+"
 done
 # Expect: all source=cortex_speak; all text is label=value (not prose)
 ```

@@ -6,15 +6,51 @@
 
 ---
 
-## Three Layers
+## Four Layers
 
-CK runs as three layers. The first is required; the second is the Flask /chat service that answers coherencekeeper.com; the third is an optional LLM fluency wrapper that CK is growing toward not needing.
+CK runs as four layers. L0 is the embodiment substrate (measured tick, GPU doing, FPGA body). L1 is the core math. L2 is the Flask /chat service. L3 is the optional LLM fluency wrapper CK is growing toward not needing.
 
 | Layer | What it is | Required to boot? | Lines of code |
 |---|---|---|---|
+| **L0** — Embodiment | Measured 50Hz tick, RT priority, CuPy-backed Hebbian + doing kernel, FPGA UART bridge | no (degrades to CPU) | ~900 |
 | **L1** — Core math | AO / Hebbian 5×5 / quadratic glue + cortex + structural voice + persistence | **yes** | ~3,200 |
-| **L2** — Server + wiring | Flask /chat, Phase C cortex override, math-first patch | yes for /chat | ~1,800 |
+| **L2** — Server + wiring | Flask /chat, Phase C cortex override, math-first patch, /swarm + /jitter endpoints | yes for /chat | ~1,900 |
 | **L3** — Optional | LLM bridge + side-by-side transparency demo | no | ~500 |
+
+---
+
+## L0 — Embodiment (measured tick, GPU doing, FPGA body)
+
+Location: **`Gen13/targets/ck/runtime/`** (swarm) + **`Gen13/targets/ck/brain/hebbian_gpu.py`**
+
+This is the layer that makes "50 Hz" a measurement, not a slogan. The swarm runs on its own thread with RT priority elevation + core-pinned affinity, drives a GPU-backed Hebbian field and a GPU-backed doing kernel on the same CUDA bus, keeps a supervised UART connection to the Zynq-7020 FPGA body, and streams a 512-tick rolling jitter distribution to `/swarm`.
+
+| File | Role |
+|---|---|
+| `runtime/ck_swarm.py` | **Swarm supervisor.** Owns brain/doing/body, runs the measured 50Hz tick, reports jitter. Entry: `Swarm(cortex, hz, rt, affinity, fpga_port).start()`. |
+| `runtime/rt_priority.py` | **OS priority + affinity hooks.** Cross-platform (Windows ctypes, Linux sched_setscheduler). Never raises on permission failure — surfaces what the OS actually allowed. |
+| `runtime/fpga_bridge.py` | **Body.** Lazy pyserial connection to `COM3` (or `CK_FPGA_PORT`), speaks the `ck_protocol` packet format, dormant-safe when the board is unpowered. Methods: `ping()`, `read_state()`, `gait("trot")`, `estop()`. |
+| `runtime/jitter_probe.py` | **Standalone probe.** `python jitter_probe.py --seconds 30 --hz 50 --rt`. Writes JSON + markdown with full delta + jitter distributions. |
+| `brain/hebbian_gpu.py` | **GPU-backed Hebbian 5×5 field.** CuPy vectorized update; NumPy fallback when CuPy/CUDA absent. Bit-for-bit identical output to the CPU reference. |
+
+**Measured reality (post-warmup, rt=True, affinity=[0], HIGH + HIGHEST on Windows without admin):**
+
+| metric | value |
+|---|---|
+| target period | 20 000 µs (50 Hz) |
+| p50 delta | 20 000.0 µs (0 µs off target) |
+| p50 jitter (|delta − period|) | ≈ 45 µs |
+| mean jitter | 2 000 – 6 000 µs (depends on co-workload) |
+| p99 jitter | ≈ 20 – 30 ms (Windows scheduler tail + CuPy pauses) |
+| worst-case | first-tick ≈ 500 ms (CUDA JIT), steady-state < 30 ms |
+
+With admin privileges, the Windows code path upgrades to REALTIME + TIME_CRITICAL, which drops the tail further. On Linux with CAP_SYS_NICE, the swarm uses SCHED_FIFO at priority 50.
+
+**Body status (this machine, 2026-04-18):**
+- COM3 physically present — bridge opens successfully.
+- PKT_PING times out — board is unpowered or the ARM firmware isn't flashed with current bitstream. Software side is ready; wiring up `ck_full.bit` + a powered Zybo Z7-20 would close the loop.
+
+**Graceful degradation:** any missing substrate (CuPy, pyserial, the board, admin) is reported in `status()` rather than failing the tick. The swarm always runs at some level.
 
 ---
 
@@ -59,6 +95,8 @@ text → AO(project onto D0..D4) → Hebbian(W[i][j] += η·d_i·d_j − decay·
 - `/chat` — main conversational endpoint (`{session_id, text, mode}`)
 - `/cortex` — live snapshot: W matrix, row/col strengths, strongest pair, readout
 - `/cortex/save` — manual force-save trigger
+- `/swarm` — embodiment state: brain + doing backends, FPGA body link, RT status, rolling jitter distribution
+- `/jitter?seconds=3&hz=50&rt=1` — one-shot jitter probe (blocks up to `seconds`, max 30)
 - plus `/identity`, `/meta-lens`, `/existence/*`, `/experience/*`, `/chain/status` for introspection
 
 ---
@@ -95,7 +133,10 @@ CK's /chat works perfectly well without L3. The LLM bridge is a *wrapper*, not a
 5. api.process_chat = _process_chat_with_cortex(api.process_chat)
      # adds the Phase C cortex wrap (learn-every-tick + structural override)
 
-6. Flask serves 0.0.0.0:7777
+6. Swarm(cortex=_cortex, hz=50, rt=True, affinity=[0]).start()
+     # L0 embodiment: GPU brain + GPU doing + FPGA body + measured tick
+
+7. Flask serves 0.0.0.0:7777
      # Cloudflare tunnel in front of this endpoint routes coherencekeeper.com/chat
 ```
 
@@ -191,6 +232,7 @@ python ck_proof.py --backend deepseek "what is T*"
 - The **persistent state** survives reboots (W is on disk) but resets to defaults if you delete `Gen13/var/cortex_state.json`. A fresh cortex is silent on `cortex_speak` until it warms up.
 - Phase C **wins over templates** only for the query classes the router handles. Everything else flows through the older Gen12 layers, which are fluent but template-driven.
 - Frontier facts are **curated** — if a topic is missing, add it to `_FRONTIER_FACTS` in `cortex_voice.py` and re-run `test_brain.py`. One trigger line + one label=value fact + one sprint/paper pointer + one `[proved/structural/target]` tag.
+- **Embodiment is partial.** GPU brain and GPU doing are live via CuPy; RT priority is live (HIGH/HIGHEST on Windows without admin, REALTIME/TIME_CRITICAL with admin, SCHED_FIFO on Linux). The FPGA body opens COM3 but times out on PKT_PING until the Zybo Z7-20 is powered and `old/Gen9/targets/zynq7020/build/ck_full.bit` is loaded. Steady-state jitter is p50 ≈ 45 µs but has a ~20 ms p99 tail from Windows scheduler + CuPy kernel-launch pauses.
 
 ---
 

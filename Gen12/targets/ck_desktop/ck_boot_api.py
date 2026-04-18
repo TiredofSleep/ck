@@ -511,6 +511,81 @@ def chain_status():
     except Exception as e:
         return _jsonify({'available': True, 'error': str(e)})
 
+# === Gen13 swarm (embodied tick: RT priority + GPU doing + FPGA body) ===
+# Adds a measured 50Hz tick thread alongside the existing tick_loop.  The
+# existing Gen12 engine still ticks its own heartbeat; the swarm runs the
+# embodiment substrate (GPU Hebbian + GPU doing kernel + FPGA UART bridge)
+# and surfaces real jitter numbers at /swarm + /jitter.  Additive: if any
+# piece (CuPy, pyserial, the board) is missing, the swarm degrades to
+# dormant on that substrate and the rest of the boot is unaffected.
+_GEN13_RT = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+sys.path.insert(0, _GEN13_RT)
+_swarm = None
+try:
+    from ck_swarm import Swarm as _Swarm
+    _swarm = _Swarm(
+        cortex=_cortex,
+        hz=50.0,
+        rt=True,
+        affinity=[0],
+        fpga_port=os.environ.get('CK_FPGA_PORT', 'COM3'),
+        open_fpga=(os.environ.get('CK_FPGA_OPEN', '1') != '0'),
+    )
+    _swarm.start()
+    print(f"[CK] Gen13 swarm: started (50Hz, RT elevated, "
+          f"fpga_port={os.environ.get('CK_FPGA_PORT', 'COM3')})")
+except Exception as _e:
+    _swarm = None
+    print(f"[CK] Gen13 swarm: DISABLED ({_e})")
+
+
+@api._app.route('/swarm', methods=['GET'])
+def swarm_snapshot():
+    """Live swarm status: brain backend + doing coherence + body link +
+    jitter(us) distribution over the rolling window."""
+    if _swarm is None:
+        return _jsonify({'available': False, 'reason': 'Swarm not mounted'}), 503
+    try:
+        return _jsonify(_swarm.status().to_dict())
+    except Exception as _e:
+        return _jsonify({'available': True, 'error': str(_e)}), 500
+
+
+@api._app.route('/jitter', methods=['GET'])
+def jitter_one_shot():
+    """One-shot jitter probe.  Query params: seconds (default 3), hz (50),
+    rt (1/0, default 1).  Blocks for up to `seconds` then returns the
+    distribution.  Runs in the request thread -- don't spam."""
+    try:
+        from flask import request
+        from jitter_probe import run_probe
+        seconds = float(request.args.get('seconds', 3.0))
+        hz = float(request.args.get('hz', 50.0))
+        rt = request.args.get('rt', '1') != '0'
+        if seconds > 30:
+            return _jsonify({'error': 'seconds capped at 30'}), 400
+        result = run_probe(seconds=seconds, hz=hz, rt=rt,
+                           affinity=[0] if rt else None,
+                           with_hebbian=True)
+        return _jsonify(result)
+    except Exception as _e:
+        return _jsonify({'error': str(_e)}), 500
+
+
+# Ensure the swarm stops cleanly when the process exits.
+if _swarm is not None:
+    import atexit as _atexit_sw
+    def _swarm_final_stop():
+        try:
+            _swarm.stop(timeout=1.5)
+            print("[CK] Gen13 swarm: stopped")
+        except Exception:
+            pass
+    _atexit_sw.register(_swarm_final_stop)
+
+
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")
 
