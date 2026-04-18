@@ -167,4 +167,25 @@ If ChatGPT returns a specific genus-5 family (e.g. `y² = x(x⁴ + a·x² + b)` 
 
 ---
 
+## §9. ADDITIVE UPDATE — ClaudeChat target notes ingested (2026-04-18, same day)
+
+Two ClaudeChat foundation-side notes arrived on the desktop after this prototype was written and have been folded into the frontier picture in a separate file. The prototype above is unchanged; what's downstream is revised.
+
+**New files in this folder:**
+- `HODGE_CSTAR_TARGET_NOTE.md` — geometric explanation of each target invariant (§2.1–§2.7) + cascade table + F-feature-1..5 + R-flag-1..8.
+- `WHAT_COUNTS_AS_A_GOOD_CSTAR.md` — 12-point pass/fail checklist ordered by speed of elimination.
+- `S35B_FRONTIER_UPDATE_2026_04_18.md` — this prototype's §3 candidate ranking revised, §4 ASKs rewritten sharper, and a new ASK 6 (Howe–Leprévost–Poonen style explicit-period methods) added.
+
+**Key delta from this prototype's §3.4:** the "bielliptic genus-5 refinement" is elevated to the canonical primary target, BUT with the explicit geometric constraint added that was implicit here — the curve must carry an automorphism $\psi$ of order 4 with $\psi^2 = \iota$. On $J(C_*)$, $\psi$ induces the $\mathbb{Q}(i)$-embedding directly ($i \mapsto \psi|_{A_*}$).
+
+**Key delta from this prototype's §4 ASKs:** descent-over-$\mathbb{Q}(\sqrt 2,\sqrt 3,\sqrt 5)$ is promoted from a final check to a near-first check because ClaudeChat's §2.7 names it as "probably the silent killer for most candidate families."
+
+**Read order for someone landing here cold:**
+1. `S35B_BEAUVILLE_EXPLICIT_PLAN.md` — sprint plan, three paths.
+2. THIS file — prototype invariants + three candidate families + ASK 1–5.
+3. `HODGE_CSTAR_TARGET_NOTE.md` + `WHAT_COUNTS_AS_A_GOOD_CSTAR.md` — what each invariant is doing geometrically + elimination checklist.
+4. `S35B_FRONTIER_UPDATE_2026_04_18.md` — how the candidate ranking + ASKs change after ingesting the two notes.
+
+---
+
 *© 2026 Brayden Ross Sanders / 7Site LLC. 7Site Human Use License v1.0. DOI: 10.5281/zenodo.18852047.*

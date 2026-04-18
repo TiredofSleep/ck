@@ -123,7 +123,10 @@ try:
         save_cortex as _save_cortex,
         DEFAULT_STATE_PATH as _CORTEX_STATE_PATH,
     )
-    from cortex_voice import cortex_speak as _cortex_speak
+    from cortex_voice import (
+        cortex_speak as _cortex_speak,
+        speak as _cortex_speak_route,
+    )
     _cortex = _Cortex().boot()
     # Auto-load persisted state if present. Silent no-op if first boot.
     try:
@@ -160,6 +163,26 @@ try:
     # field.  It never overwrites `text` -- the math-first patch owns that.
     _prev_process_chat = api.process_chat
 
+    # Sources the voice cascade may emit that are TEMPLATES or STALE.
+    #   - ck_fractal / ck_fractal_dual: dictionary tokens stitched onto
+    #     operator arcs by fixed grammar. Rich vocabulary, zero grounding.
+    #   - ck_self: Gen12 identity-layer template that narrates a self-state
+    #     but uses its OWN tick counter (often stale "tick 0" when cortex
+    #     is at 156,000+). Not false, just frozen.
+    #   - ck_truth_recall: literal retrieval from the truth corpus. Often
+    #     on-topic, but for STRUCTURAL queries ("what have you learned",
+    #     "right now", "your field") the corpus returns metaphor where
+    #     the cortex has live math. speak() wins on structural queries;
+    #     if speak() has no hit, this wrap does nothing and ck_truth_recall
+    #     stands.
+    # When speak() has a live structural answer AND the prior source is
+    # one of these, the structural readout takes over `text`. The prior
+    # text is preserved under `text_previous` so nothing is lost.
+    # ck_math_first (computed arithmetic) is NEVER displaced.
+    _TEMPLATE_SOURCES = (
+        'ck_fractal', 'ck_fractal_dual', 'ck_self', 'ck_truth_recall',
+    )
+
     def _process_chat_with_cortex(session_id, text, mode='normal'):
         result = _prev_process_chat(session_id, text, mode)
         try:
@@ -173,6 +196,19 @@ try:
                 'emergent': round(_cortex.state.emergent, 6),
                 'W_trace': round(_cortex.state.W_trace, 6),
             }
+            # Structural-query short-circuit: if `speak(text)` returns a
+            # live structural readout AND the prior source was a template,
+            # replace `text`. Preserve the prior output under *_previous so
+            # nothing is lost.
+            try:
+                spoken = _cortex_speak_route(_cortex, text or '')
+            except Exception:
+                spoken = None
+            if spoken and result.get('source') in _TEMPLATE_SOURCES:
+                result['text_previous'] = result.get('text')
+                result['source_previous'] = result.get('source')
+                result['text'] = spoken
+                result['source'] = 'cortex_speak'
             # Opportunistic save; cheap if under-threshold.
             _cortex_autosaver.maybe_save()
         except Exception as _ce:

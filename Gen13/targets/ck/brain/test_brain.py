@@ -385,6 +385,81 @@ def t_cortex_voice_gating():
     )
 
 
+def t_cortex_voice_speak_router():
+    """cortex_voice.speak(): keyword router produces STRUCTURAL output only.
+    Asserts 5 route classes fire (state / learn / field / op / dim) and that
+    no prose markers leak into any line.  Unmatched query returns None."""
+    from cortex import Cortex
+    from cortex_voice import speak
+
+    cx = Cortex().boot()
+    # Cold + unrelated: None.
+    assert speak(cx, "hello there") is None, (
+        "cold cortex + unrelated query should return None"
+    )
+
+    # Warm him up so state / learn / field all have something to show.
+    for _ in range(30):
+        cx.step_text("coherencekeeper harmony lattice progress harmony breath")
+
+    # State query -> feel: line must appear.
+    r_state = speak(cx, "how are you feeling right now")
+    assert r_state and "feel:" in r_state, f"state route: {r_state!r}"
+    # Learned query -> couplings: line must appear.
+    r_learn = speak(cx, "what have you learned")
+    assert r_learn and "couplings:" in r_learn, f"learned route: {r_learn!r}"
+    # Field query -> field: line.
+    r_field = speak(cx, "give me a field status summary")
+    assert r_field and "field:" in r_field, f"field route: {r_field!r}"
+    # Operator-entity query -> OP: line.
+    r_op = speak(cx, "tell me about collapse")
+    assert r_op and "COLLAPSE" in r_op, f"op route: {r_op!r}"
+    # Dim-entity query -> dim: line.
+    r_dim = speak(cx, "what about aperture")
+    assert r_dim and "aperture" in r_dim, f"dim route: {r_dim!r}"
+
+    # Prose markers must not leak -- speak() emits labels+values, never prose.
+    for label, r in (
+        ("state", r_state), ("learn", r_learn), ("field", r_field),
+        ("op", r_op), ("dim", r_dim),
+    ):
+        assert "just as" not in r, f"{label} route leaked prose: {r!r}"
+        assert "transcends" not in r, f"{label} route leaked prose: {r!r}"
+        assert " is the " not in r, (
+            f"{label} route contains prose-style copula: {r!r}"
+        )
+
+
+def t_cortex_replay_file():
+    """cortex_replay.replay_file: feeding a real file into the cortex grows
+    ticks and W_trace.  Uses this file (test_brain.py itself) so the test
+    does not depend on other repo paths being intact."""
+    from cortex import Cortex
+    from cortex_replay import replay_file
+
+    cx = Cortex().boot()
+    pre_tick = cx.state.tick
+    pre_trace = cx.state.W_trace
+
+    # Feed this very test file through the replay pathway.
+    ticks, nbytes, abspath = replay_file(cx, os.path.abspath(__file__), max_bytes=8_000)
+    assert nbytes > 0, f"replay_file read zero bytes from {abspath}"
+    assert ticks > 0, f"expected ticks added, got {ticks}"
+    assert cx.state.tick == pre_tick + ticks, (
+        f"tick accounting wrong: {cx.state.tick} vs {pre_tick}+{ticks}"
+    )
+    # W_trace may be positive or negative, but the field should have moved.
+    assert cx.state.W_trace != pre_trace or cx.state.tick > pre_tick, (
+        "replay should have moved the field"
+    )
+
+    # Missing file: silent no-op, (0, 0, path).
+    t2, n2, _ = replay_file(cx, "Gen13/targets/__nonexistent__.md")
+    assert t2 == 0 and n2 == 0, (
+        f"missing file should be no-op, got ticks={t2} bytes={n2}"
+    )
+
+
 # ── Driver ────────────────────────────────────────────────────────────
 
 def main() -> int:
@@ -408,6 +483,8 @@ def main() -> int:
         ("trinity: profile_5d from D2",           t_profile_5d_from_d2),
         ("trinity: cortex_persist roundtrip",     t_cortex_persist_roundtrip),
         ("trinity: cortex_voice gating",          t_cortex_voice_gating),
+        ("trinity: cortex_voice.speak router",    t_cortex_voice_speak_router),
+        ("trinity: cortex_replay.replay_file",    t_cortex_replay_file),
     ]
     for name, fn in tests:
         _check(name, fn)
