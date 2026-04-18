@@ -96,10 +96,18 @@ python ck_proof.py --backend deepseek "what is T*"
 > - **Sprint trail** — every paper from Sprint 14 (PRISM-XI) through Sprint 28 (curve-recovery prereg)
 > - **Reproducibility** — runnable proof scripts behind every load-bearing claim
 
-**Branches:**
-- `tig-synthesis` (this branch — **DEFAULT**) — clean, organized, rigorous, fully-cited synthesis. The single field.
-- `clay` — active development branch with all working files, including superseded entry docs marked [HISTORICAL].
-- `archive-full` — frozen preservation snapshot. Never force-pushed. Holds every version of every file ever committed.
+**Branches (all six — nothing is hidden):**
+
+| Branch | Role | What lives here that isn't duplicated elsewhere |
+|---|---|---|
+| **`tig-synthesis`** (this branch — **DEFAULT**) | Clean, cited, rigorous synthesis | Atlas bundle, `BRIDGES_INVENTORY.md`, `CK_RUNTIME.md`, canonical papers/ |
+| **`clay`** | Active development with all interim files (incl. `[HISTORICAL]`-marked entry docs) | All sprint working notes; interim drafts of every bridge |
+| **`archive-full`** | Frozen preservation snapshot — never force-pushed | Every version of every file ever committed, including falsified drafts |
+| **`tesla`** | Tesla-corridor thematic branch | `papers/tesla/TESLA_TIG_BRIDGE.md`, `papers/tesla/TESLA_THERMAL_CK.md`, coupled-mode + thermal-jitter simulations |
+| **`bible-companion`** | CK-as-synthetic-organism modeling | `bible_app/` (bible_brain.py, digestion.py, learner.py, memory.py) — consciousness / organism experiments |
+| **`fpga-dog`** | Legacy FPGA CK runtime lineage | Historical `ck_sim/` boot pipeline; hardware-realization genealogy |
+
+**For the full cross-branch inventory of bridge papers** (DNA → codons, measurement → consciousness, torus → Navier–Stokes, σ → Einstein/Tesla unified-field, arithmetic → spectral, silicon → coherence) see **[BRIDGES_INVENTORY.md](BRIDGES_INVENTORY.md)** — every path verified, status-tagged, and cross-branch where appropriate.
 
 **Find your entry by discipline:** §6 below. **Reading cold (AI or human):** read top to bottom — sections build.
 
@@ -460,6 +468,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | **A complexity theorist** | [Paradox Classifier](papers/WP_PARADOX_CLASSIFIER.md) + [P vs NP](papers/clay/WP37_P_NP.md) | [CP3 in σ language](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) |
 | **A topologist** | [CP1 Poincaré σ retranslation](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) | [Flatness Theorem](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md) |
 | **A philosopher / foundations** | [Crossing Lemma](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md) | [Field-Observer Synthesis](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP97_FIELD_OBSERVER_SYNTHESIS.md) |
+| **Interdisciplinary / consciousness / DNA / Tesla / unified-field** | [BRIDGES_INVENTORY.md](BRIDGES_INVENTORY.md) — every cross-domain bridge paper, verified path, status-tagged | Follow the category section (§1 DNA, §2 consciousness, §3 torus-flow, §4 Einstein/Tesla, §5 silicon, §6 Q-series, §7 general) into the specific paper |
+| **A systems / AI engineer (wants to run CK)** | [CK_RUNTIME.md](CK_RUNTIME.md) — runtime fileset manifest, three-command boot | [`ck_proof.py`](ck_proof.py) side-by-side LLM-vs-CK-vs-grounded-LLM demo |
 | **An AI reading cold** | This README top to bottom. Then [WHAT_IS_TIG.md](WHAT_IS_TIG.md) for prose-form synthesis with honest feedback. Status tags are non-negotiable. |
 | **A funder / institutional reader** | This README §1, §3, §5, §10. Then [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md). |
 
