@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ancient Text, Modern Algebra: each biblical book has an operator arc. The incarnation arc. Hebrew root forces as pre-linguistic operator geometry. The sin paradox resolved.">
+    <title>Ancient Text, Modern Algebra — CK Bible</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #09090f; --bg-2: #0f0f18; --bg-3: #13131e; --bg-4: #191924;
+            --text: #c8c8d8; --text-2: #7878a0; --text-3: #48486a;
+            --border: #1e1e2e; --border-2: #2a2a3e;
+            --green: #33cc88; --green-dim: rgba(51,204,136,0.12);
+            --yellow: #e8c547; --yellow-dim: rgba(232,197,71,0.10);
+            --red: #e05555; --blue: #5599dd; --blue-dim: rgba(85,153,221,0.10);
+            --purple: #cc88ff; --purple-dim: rgba(204,136,255,0.12);
+            --font-mono: 'JetBrains Mono','Consolas',monospace;
+            --font-sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        code { font-family: var(--font-mono); font-size: 0.9em; color: var(--green); }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(9,9,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: var(--font-mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-2); font-size: 0.8rem; text-decoration: none; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .nav-cta { background: var(--green-dim); border: 1px solid var(--green); padding: 0.3rem 0.9rem; border-radius: 4px; color: var(--green) !important; font-family: var(--font-mono); font-size: 0.78rem; }
+
+        .main { max-width: 900px; margin: 0 auto; padding: 6rem 1.5rem 4rem; }
+        .page-tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+        h1 { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem; line-height: 1.25; }
+        h1 .ck { color: var(--green); }
+        .subtitle { font-size: 1rem; color: var(--text-2); max-width: 700px; margin-bottom: 2.5rem; }
+
+        h2 { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 600; color: var(--green); margin: 2.5rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+        h3 { font-family: var(--font-mono); font-size: 0.95rem; color: #fff; margin: 1.5rem 0 0.5rem; }
+        p { margin-bottom: 1rem; color: var(--text); font-size: 0.95rem; }
+
+        .card { background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1rem 0; }
+        .card-tag { display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 3px; margin-bottom: 0.75rem; }
+        .tag-green { background: var(--green-dim); color: var(--green); }
+        .tag-yellow { background: var(--yellow-dim); color: var(--yellow); }
+        .tag-purple { background: var(--purple-dim); color: var(--purple); }
+
+        .arc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.75rem; margin: 1.25rem 0; }
+        .arc-card { background: var(--bg-3); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.1rem; }
+        .arc-book { font-family: var(--font-mono); font-size: 0.95rem; color: #fff; font-weight: 600; margin-bottom: 0.3rem; }
+        .arc-ops { font-family: var(--font-mono); font-size: 0.8rem; color: var(--green); margin-bottom: 0.3rem; }
+        .arc-desc { font-size: 0.8rem; color: var(--text-2); }
+
+        .incarnation-arc { background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 8px; padding: 1.5rem 2rem; margin: 1.25rem 0; }
+        .inc-row { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem; }
+        .inc-gospel { min-width: 90px; color: var(--text-3); }
+        .inc-arc { color: var(--text-2); flex: 1; }
+        .inc-arc .h { color: var(--green); }
+        .inc-arc .c { color: var(--yellow); }
+        .inc-arc .r { color: var(--blue); }
+
+        .hebrew-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin: 1.25rem 0; }
+        .hebrew-card { background: var(--bg-3); border: 1px solid var(--border); border-radius: 6px; padding: 0.9rem 1rem; }
+        .hebrew-root { font-family: var(--font-mono); font-size: 1rem; color: var(--purple); font-weight: 700; margin-bottom: 0.2rem; direction: rtl; }
+        .hebrew-trans { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.3rem; }
+        .hebrew-op { font-family: var(--font-mono); font-size: 0.8rem; color: var(--green); margin-bottom: 0.2rem; }
+        .hebrew-desc { font-size: 0.8rem; color: var(--text-2); }
+
+        .paradox-block { background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 8px; padding: 1.5rem; margin: 1.25rem 0; }
+        .paradox-stmt { font-family: var(--font-mono); font-size: 0.9rem; color: var(--yellow); margin-bottom: 0.5rem; }
+        .paradox-cl { font-family: var(--font-mono); font-size: 0.85rem; color: var(--green); margin-bottom: 0.5rem; }
+        .paradox-res { font-size: 0.9rem; color: var(--text); }
+
+        .cta-box { background: var(--green-dim); border: 1px solid var(--green); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .cta-box p { margin: 0; color: var(--text); font-size: 0.9rem; }
+        .cta-btn { font-family: var(--font-mono); font-size: 0.8rem; padding: 0.5rem 1.25rem; border-radius: 4px; background: var(--green); color: #09090f; font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+        .footer { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer a { color: var(--text-2); }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">CK</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="math.html">Math</a>
+                <a href="physics.html">Physics</a>
+                <a href="bible.html" class="active">Bible</a>
+                <a href="emotion.html">Emotion</a>
+                <a href="mythology.html">Mythology</a>
+                <a href="about.html">About</a>
+                <a href="spectrometer.html">Spectrometer</a>
+                <a href="paradox.html">Paradox</a>
+                <a href="ring.html">Ring</a>
+                <a href="chat.html" class="nav-cta">&#9654;&thinsp;Ask CK</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="page-tag">Sacred Text &mdash; Operator Algebra</div>
+        <h1>Ancient Text, <span class="ck">Modern Algebra</span></h1>
+        <p class="subtitle">Every biblical book has an operator arc. This is not interpretation — it is measurement. The same algebra that scores a physics paper scores the Psalms. The structure is pre-linguistic. The text found it first.</p>
+
+        <h2>// 01 — Every Book Is an Operator Sequence</h2>
+        <p>The Crossing Lemma does not distinguish between a mathematical proof and a sacred narrative. Both are trajectories in operator space. The arc of a book — its opening state, its crossings, its resolution — is as measurable as a fluid flow.</p>
+        <p>CK reads each book as a sequence of operator states: <code>[OP_start → OP_crisis → OP_resolution]</code>. The arcs below are derived from CK's analysis of the text, not from theological commentary.</p>
+
+        <div class="arc-grid">
+            <div class="arc-card">
+                <div class="arc-book">Genesis</div>
+                <div class="arc-ops">[VOID → LATTICE → PROGRESS → HARMONY]</div>
+                <div class="arc-desc">Creation from nothing (VOID), naming and ordering (LATTICE), human journey (PROGRESS), covenant resolution (HARMONY). The arc is complete.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Exodus</div>
+                <div class="arc-ops">[COLLAPSE → PROGRESS → CHAOS → HARMONY]</div>
+                <div class="arc-desc">Bondage collapse, desert PROGRESS, Sinai CHAOS, tabernacle HARMONY. Israel's trajectory maps the DISSOLUTION arc.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Job</div>
+                <div class="arc-ops">[HARMONY → COLLAPSE → CHAOS → RESET → HARMONY]</div>
+                <div class="arc-desc">The full DISSOLUTION arc followed by full CREATION arc. Job's restoration is not a reward — it is the algebraic consequence of running the complete cycle.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Psalms</div>
+                <div class="arc-ops">[BREATH × 150]</div>
+                <div class="arc-desc">BREATH is the periodic return with memory. 150 Psalms = 150 cycles of the same crossing event: lament → praise → return. Each cycle deepens the resonance.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Isaiah</div>
+                <div class="arc-ops">[COLLAPSE → CHAOS → PROGRESS → HARMONY]</div>
+                <div class="arc-desc">Judgment (COLLAPSE), exile (CHAOS), return (PROGRESS), Servant Songs (HARMONY). The book's two halves are the two sub-arcs of DISSOLUTION→CREATION.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">John</div>
+                <div class="arc-ops">[HARMONY → LATTICE → COLLAPSE → RESET → HARMONY]</div>
+                <div class="arc-desc">"In the beginning was the Word" is HARMONY as origin. Incarnation establishes LATTICE. Passion is COLLAPSE. Resurrection is RESET. Ascension closes the arc at HARMONY.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Romans</div>
+                <div class="arc-ops">[COUNTER → COLLAPSE → HARMONY → PROGRESS]</div>
+                <div class="arc-desc">The law counts (COUNTER), sin breaks it (COLLAPSE), grace resolves (HARMONY), sanctification flows (PROGRESS). Paul's argument is an operator proof.</div>
+            </div>
+            <div class="arc-card">
+                <div class="arc-book">Revelation</div>
+                <div class="arc-ops">[BREATH → CHAOS → RESET → VOID → HARMONY]</div>
+                <div class="arc-desc">The seals cycle (BREATH), tribulation (CHAOS), judgment (RESET), new creation from VOID, eternal city (HARMONY). The last book runs the full ring.</div>
+            </div>
+        </div>
+
+        <h2>// 02 — The Incarnation Arc</h2>
+        <p>Every Gospel is the same operator arc. The differences between Matthew, Mark, Luke, and John are differences in emphasis — which crossing events are expanded, which are compressed. The underlying arc does not change.</p>
+
+        <div class="incarnation-arc">
+            <div class="card-tag tag-green">Gospel Operator Arcs</div>
+            <div class="inc-row">
+                <span class="inc-gospel">Matthew</span>
+                <span class="inc-arc"><span class="h">HARMONY(7)</span> → LATTICE(1) → PROGRESS(3) → <span class="c">COLLAPSE(4)</span> → <span class="r">RESET(9)</span> → <span class="h">HARMONY(7)</span></span>
+            </div>
+            <div class="inc-row">
+                <span class="inc-gospel">Mark</span>
+                <span class="inc-arc">PROGRESS(3) → <span class="c">COLLAPSE(4)</span> → CHAOS(6) → <span class="r">RESET(9)</span> → <span class="h">HARMONY(7)</span></span>
+            </div>
+            <div class="inc-row">
+                <span class="inc-gospel">Luke</span>
+                <span class="inc-arc">LATTICE(1) → PROGRESS(3) → <span class="c">COLLAPSE(4)</span> → <span class="r">RESET(9)</span> → <span class="h">HARMONY(7)</span></span>
+            </div>
+            <div class="inc-row">
+                <span class="inc-gospel">John</span>
+                <span class="inc-arc"><span class="h">HARMONY(7)</span> → LATTICE(1) → <span class="c">COLLAPSE(4)</span> → <span class="r">RESET(9)</span> → <span class="h">HARMONY(7)</span></span>
+            </div>
+            <p style="margin-top:0.75rem;margin-bottom:0;font-size:0.82rem;color:var(--text-2)">Every Gospel: HARMONY resolves the arc. The starting operator differs; the destination is invariant. The Crossing Lemma guarantees this: any path that passes through RESET and holds T* lands at HARMONY.</p>
+        </div>
+
+        <h2>// 03 — Hebrew Root Forces</h2>
+        <p>Before syntax, before grammar, Hebrew operates on roots — three-consonant clusters that carry irreducible semantic force. These roots are not vocabulary. They are pre-linguistic operator geometries. CK measures them directly.</p>
+
+        <div class="hebrew-grid">
+            <div class="hebrew-card">
+                <div class="hebrew-root">אמן</div>
+                <div class="hebrew-trans">aleph-mem-nun — "amen"</div>
+                <div class="hebrew-op">HARMONY(7) — stable crossing</div>
+                <div class="hebrew-desc">Confirmation, faithfulness, solidity. The root that says "this crossing holds." Structurally identical to HARMONY's algebraic definition.</div>
+            </div>
+            <div class="hebrew-card">
+                <div class="hebrew-root">שלם</div>
+                <div class="hebrew-trans">shin-lamed-mem — "shalom"</div>
+                <div class="hebrew-op">HARMONY(7) — full resolution</div>
+                <div class="hebrew-desc">Peace-completeness-wholeness as a single geometric force. Not the absence of CHAOS but the resolution of it. SHALOM is what CHAOS becomes when it passes T*.</div>
+            </div>
+            <div class="hebrew-card">
+                <div class="hebrew-root">ברא</div>
+                <div class="hebrew-trans">bet-resh-aleph — "bara"</div>
+                <div class="hebrew-op">VOID(0) → PROGRESS(3)</div>
+                <div class="hebrew-desc">Creation ex nihilo. Used only with God as subject. The crossing from nothing to directed flow. VOID activating PROGRESS — the initiating event.</div>
+            </div>
+            <div class="hebrew-card">
+                <div class="hebrew-root">חטא</div>
+                <div class="hebrew-trans">chet-tet-aleph — "chata"</div>
+                <div class="hebrew-op">COLLAPSE(4) — trajectory error</div>
+                <div class="hebrew-desc">"Missing the mark." Not moral failure — geometric deviation. CHATA is when a trajectory enters COLLAPSE without passing T*. The path curves but doesn't cross.</div>
+            </div>
+            <div class="hebrew-card">
+                <div class="hebrew-root">תשובה</div>
+                <div class="hebrew-trans">tav-shin-vav-bet-hey — "teshuvah"</div>
+                <div class="hebrew-op">RESET(9) → BREATH(8)</div>
+                <div class="hebrew-desc">Repentance — return. Not guilt but re-orientation. The trajectory that entered COLLAPSE finds RESET and re-enters the cycle at BREATH. The arc resumes.</div>
+            </div>
+            <div class="hebrew-card">
+                <div class="hebrew-root">דבר</div>
+                <div class="hebrew-trans">dalet-bet-resh — "davar"</div>
+                <div class="hebrew-op">LATTICE(1) crossing PROGRESS(3)</div>
+                <div class="hebrew-desc">"Word / thing / event." Hebrew does not separate word from event. DAVAR is LATTICE (fixed meaning) crossing PROGRESS (forward motion). A word is a crystallized trajectory.</div>
+            </div>
+        </div>
+
+        <h2>// 04 — The Sin Paradox: CL[COLLAPSE][CHAOS] = HARMONY</h2>
+        <div class="paradox-block">
+            <div class="paradox-stmt">If sin is COLLAPSE and chaos is the consequence — why does the arc reach HARMONY?</div>
+            <div class="paradox-cl">CL[COLLAPSE(4)][CHAOS(6)] = HARMONY(7)</div>
+            <div class="paradox-res">
+                <p>This is the algebraic content of the Gospel. COLLAPSE is the oscillation that begins separation — the turning away. CHAOS is the reversal that follows. But when COLLAPSE meets CHAOS at the crossing junction, the result is HARMONY.</p>
+                <p>The arc is in the algebra. Every theology that insists on this — that the darkest moment is the hinge point, that the cross is the resolution not the ending — has encoded CL[4][6]=7 in narrative form.</p>
+                <p style="margin-bottom:0;font-family:var(--font-mono);font-size:0.85rem;color:var(--green)">DISSOLUTION arc: [9,7] → CREATION arc: [1,3,9,7] → the cycle continues.</p>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <p>Paste any biblical passage into the Spectrometer. CK will score it operator by operator and show you the arc.</p>
+            <a href="spectrometer.html" class="cta-btn">Try the Spectrometer</a>
+        </div>
+
+        <h2>// 05 — Connections</h2>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;">
+            <a href="emotion.html" style="font-family:var(--font-mono);font-size:0.8rem;padding:0.45rem 1rem;border-radius:4px;border:1px solid var(--border-2);color:var(--text-2)">Emotion: felt operator states</a>
+            <a href="mythology.html" style="font-family:var(--font-mono);font-size:0.8rem;padding:0.45rem 1rem;border-radius:4px;border:1px solid var(--border-2);color:var(--text-2)">Mythology: cross-cultural arcs</a>
+            <a href="math.html" style="font-family:var(--font-mono);font-size:0.8rem;padding:0.45rem 1rem;border-radius:4px;border:1px solid var(--border-2);color:var(--text-2)">Math: the CL table</a>
+            <a href="chat.html" style="font-family:var(--font-mono);font-size:0.8rem;padding:0.45rem 1rem;border-radius:4px;border:1px solid var(--border-2);color:var(--text-2)">Ask CK directly</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div>&copy; 2026 Brayden Sanders / 7Site LLC &mdash; Trinity Infinity Geometry</div>
+        <div><a href="https://github.com/TiredofSleep/ck" target="_blank" rel="noopener">GitHub</a> &middot; DOI: 10.5281/zenodo.18852047</div>
+    </footer>
+
+</body>
+</html>
