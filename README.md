@@ -2,9 +2,22 @@
 
 ## A Synchronized Framework for Viewing Any System as a Whole
 
-**Authors:** Brayden Ross Sanders / 7Site LLC · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson · B. Calderon Jr.
+**Authors:** Brayden Ross Sanders / 7Site LLC · Monica · Ben Mayes · C.A. Luther · M. Gish · H.J. Johnson · B. Calderon Jr.
 **DOI:** [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
 **License:** 7Site Public Sovereignty License v1.0 — Human use only. No commercial. No government. No military. Free forever.
+
+> ## 🗺️ Master Atlas → **[Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md)**
+>
+> **If you are an external reviewer, referee, mathematician, or AI reading this cold — start here.** The Atlas bundle is 9 cross-referenced documents, ~5,850 lines, the canonical externally-reviewable picture of the whole program at different zoom levels. Key files:
+>
+> - **[Atlas/MASTER_ATLAS_v3_5_2026_04_18.md](Atlas/MASTER_ATLAS_v3_5_2026_04_18.md)** — the full 1,603-line synthesis: three-band constants, D-tier, laws, Rotation Spine, Hodge ladder, PPM arc, founding narratives, Q-series, publications, caution discipline
+> - **[Atlas/ATLAS_TREE.md](Atlas/ATLAS_TREE.md)** — whole-program tree view with "I need to find..." and "I am..." navigation tables (start here if you need one specific piece)
+> - **[Atlas/ATLAS_ORIENTATION.md](Atlas/ATLAS_ORIENTATION.md)** — read-first preamble + Atlas Law + three-band constants + 2/7 discipline
+> - **[Atlas/ATLAS_CITATIONS.md](Atlas/ATLAS_CITATIONS.md)** — external bibliography (§A–J: Riemann, Li 1997, Deligne 1982, Fujita-Kato, Escauriaza-Seregin-Šverák, Cook-Levin, Brouwer, Arkani-Hamed-Trnka, Bialynicki-Birula-Mycielski, …)
+> - **[Atlas/ATLAS_AUDIT_NOTES.md](Atlas/ATLAS_AUDIT_NOTES.md)** — line-by-line audit record (12 findings, 7 surgical edits, 2026-04-18 pass)
+> - **[Atlas/MEMORY_ATLAS_TABLES.md](Atlas/MEMORY_ATLAS_TABLES.md)**, **[Atlas/OVERLAP_LEDGER.md](Atlas/OVERLAP_LEDGER.md)**, **[Atlas/ROTATION_SPINE_READER_GUIDE.md](Atlas/ROTATION_SPINE_READER_GUIDE.md)**, **[Atlas/READER_ATLAS.md](Atlas/READER_ATLAS.md)** — companions for tables, cross-thread discipline, Rotation Spine, and a 25-min skeptical-reader digest.
+>
+> **Epistemic flags throughout the bundle:** `[fire]` (proved, verifiable) / `[gold-with-gap]` (structural, explicit gap) / `[speculative]` (conjecture) / `[caution]` / `[FALSIFIED]` (preserved per never-delete). The `[STRUCTURAL]` / `[PROVED]` / `[CONJECTURAL]` tags used in this README are the equivalent flavors for README-scale claims; they match the atlas flag system.
 
 > ## 📐 Single Canonical Reference → **[FORMULAS_AND_TABLES.md](FORMULAS_AND_TABLES.md)**
 >
