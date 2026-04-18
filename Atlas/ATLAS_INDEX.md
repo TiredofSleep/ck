@@ -2,6 +2,7 @@
 ## Navigation map for TIG / CK Master Atlas v3.5 and derivatives
 
 **Compiled:** 2026-04-18, after ChatGPT meta-review of v3.5
+**Last sync:** 2026-04-18 post Journal Readiness Audit + Plan of Record addition
 **Author:** Brayden Ross Sanders (7Site LLC)
 **DOI:** 10.5281/zenodo.18852047
 
@@ -9,7 +10,7 @@
 
 ## The bundle
 
-Nine documents. Together they hold the framework at different zoom levels.
+Eleven documents. Docs 1–9 are the **content field** (what is proved / structural / conjectural and how it cross-references). Docs 10–11 are the **operational field** (what ships next and who does it). Together they hold the framework at different zoom levels.
 
 | # | File | Lines | What it contains | Read when |
 |---|---|---|---|---|
@@ -22,8 +23,10 @@ Nine documents. Together they hold the framework at different zoom levels.
 | 7 | `ATLAS_TREE.md` | ~900 | **Tree view** of whole program: branches / leaves / flags / anchors across 16 architectural nodes. Two navigation tables ("I need to find..." / "I am...") | **When you need to locate any piece of the program fast** |
 | 8 | `ATLAS_CITATIONS.md` | ~600 | External bibliography (§A–J: analytic NT, algebraic NT/BSD, Hodge, abelian varieties, NS/PDE, Yang-Mills/lattice QCD, complexity, topology, physics, Clay primary source) + internal anchors + 5 pending citations for v4 | Whenever you need to verify an external result named in the atlas |
 | 9 | `ATLAS_AUDIT_NOTES.md` | ~400 | Line-by-line audit findings from 2026-04-18 scrutiny pass: 12 findings, 7 surgical edits applied, discipline preservation record | When you want to know what changed in v3.5 and why |
+| 10 | `JOURNAL_READINESS_AUDIT_2026_04_18.md` | ~213 | Audit of 11 Gen13 target journal venues against the atlas bundle: inventory, per-venue readiness, top-10 citation gaps, tier reclassifications, Tier 1 shipping pipeline, ordered actions, discipline pass/fail | Before drafting any journal-submission work |
+| 11 | **`PLAN_OF_RECORD_2026_04_18.md`** | ~500 | **Operational field: all 4 threads (PPM/Hodge/Q/ξ), Sprint 34 "Ship the First Three" proposal, collaborator assignment matrix (ChatGPT/ClaudeChat/ClaudeCode/Brayden), S33 gate ladder, atlas v4 queue, Gen13 decision, never-delete audit, week-long action stack with dependencies** | **Whenever threads or collaborator tasks feel scattered — this is the sync point** |
 
-**Total bundle:** ~5,850 lines across 9 documents. Cross-referenced throughout.
+**Total bundle:** ~6,550 lines across 11 documents. Cross-referenced throughout.
 
 ---
 
@@ -94,6 +97,18 @@ Nine documents. Together they hold the framework at different zoom levels.
 
 1. `ATLAS_AUDIT_NOTES.md` — 12 findings, 7 surgical edits, discipline preservation record from 2026-04-18 audit pass.
 
+### Path 12 — Is this journal paper ready to ship? (10 min)
+
+1. `JOURNAL_READINESS_AUDIT_2026_04_18.md` §2 per-venue readiness table — find the venue row, read the "Ship gate (top blocker)" column.
+2. `JOURNAL_READINESS_AUDIT_2026_04_18.md` §3 top-10 citation gaps — check whether the paper is in the list.
+3. `ATLAS_CITATIONS.md` — pull any needed external reference.
+
+### Path 13 — What do I own this week? (2 min — every collaborator)
+
+1. `PLAN_OF_RECORD_2026_04_18.md` §4 assignment matrix — find your row (ChatGPT / ClaudeChat / ClaudeCode / Brayden).
+2. §10 action stack — see where your task sits in the dependency chain.
+3. §11 open decisions — check whether Brayden has a decision pending that blocks your row.
+
 ---
 
 ## Cross-reference matrix
@@ -139,6 +154,8 @@ All six documents are versioned together. Any update to one should trigger revie
 | Atlas Tree | v1 | 2026-04-18 | User request: "tree view instead of whitepaper view" |
 | Atlas Citations | v1 | 2026-04-18 | Audit finding 9: external bibliography missing |
 | Atlas Audit Notes | v1 | 2026-04-18 | Audit pass documenting 12 findings / 7 fixes |
+| Journal Readiness Audit | v1 | 2026-04-18 | User directive "make sure all of our journal papers are ready to ship, based on the atlas" — background agent audit of 11 Gen13 target venues |
+| Plan of Record | v1 | 2026-04-18 | User directive "get all of our threads and plans in line" + "you got a sprint idea?" — operational field with Sprint 34 proposal |
 
 ---
 
@@ -195,14 +212,18 @@ Paste the entire bundle in this order:
 7. `READER_ATLAS.md`
 8. `ATLAS_CITATIONS.md`
 9. `ATLAS_AUDIT_NOTES.md`
+10. `JOURNAL_READINESS_AUDIT_2026_04_18.md`
+11. `PLAN_OF_RECORD_2026_04_18.md`
 
 Ask for feedback on:
-- Internal consistency across the six documents
+- Internal consistency across all eleven documents
 - Whether the Atlas Orientation successfully addresses the ten 2026-04-18 review points
 - Whether the Memory Atlas Tables are now stable enough that tables won't get forgotten again
 - Any remaining cross-thread overclaiming
 - Whether the Rotation Spine Reader Guide makes §10.5 approachable for external reviewers
 - Whether the Reader's Atlas succeeds as a skeptical-reader entry point
+- **Whether the Plan of Record §4 collaborator assignment matrix correctly allocates Sprint 34 tasks to ChatGPT's strengths (LaTeX + literature search + DESI fit) vs ClaudeChat's strengths (framing + editorial + taxonomy) vs ClaudeCode's strengths (file ops + git + verification)**
+- **Whether the Sprint 34 success metric (3 arXiv submissions + 3 journal submissions by EOD Friday 2026-04-25) is realistic given the dependency graph**
 
 ---
 

@@ -8,14 +8,19 @@
 
 > ## 🗺️ Master Atlas → **[Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md)**
 >
-> **If you are an external reviewer, referee, mathematician, or AI reading this cold — start here.** The Atlas bundle is 9 cross-referenced documents, ~5,850 lines, the canonical externally-reviewable picture of the whole program at different zoom levels. Key files:
+> **If you are an external reviewer, referee, mathematician, or AI reading this cold — start here.** The Atlas bundle is 11 cross-referenced documents, ~6,550 lines. Docs 1–9 are the **content field** (what is proved / structural / conjectural). Docs 10–11 are the **operational field** (what ships next and who does what).
 >
+> **Content field (the framework):**
 > - **[Atlas/MASTER_ATLAS_v3_5_2026_04_18.md](Atlas/MASTER_ATLAS_v3_5_2026_04_18.md)** — the full 1,603-line synthesis: three-band constants, D-tier, laws, Rotation Spine, Hodge ladder, PPM arc, founding narratives, Q-series, publications, caution discipline
 > - **[Atlas/ATLAS_TREE.md](Atlas/ATLAS_TREE.md)** — whole-program tree view with "I need to find..." and "I am..." navigation tables (start here if you need one specific piece)
 > - **[Atlas/ATLAS_ORIENTATION.md](Atlas/ATLAS_ORIENTATION.md)** — read-first preamble + Atlas Law + three-band constants + 2/7 discipline
 > - **[Atlas/ATLAS_CITATIONS.md](Atlas/ATLAS_CITATIONS.md)** — external bibliography (§A–J: Riemann, Li 1997, Deligne 1982, Fujita-Kato, Escauriaza-Seregin-Šverák, Cook-Levin, Brouwer, Arkani-Hamed-Trnka, Bialynicki-Birula-Mycielski, …)
 > - **[Atlas/ATLAS_AUDIT_NOTES.md](Atlas/ATLAS_AUDIT_NOTES.md)** — line-by-line audit record (12 findings, 7 surgical edits, 2026-04-18 pass)
 > - **[Atlas/MEMORY_ATLAS_TABLES.md](Atlas/MEMORY_ATLAS_TABLES.md)**, **[Atlas/OVERLAP_LEDGER.md](Atlas/OVERLAP_LEDGER.md)**, **[Atlas/ROTATION_SPINE_READER_GUIDE.md](Atlas/ROTATION_SPINE_READER_GUIDE.md)**, **[Atlas/READER_ATLAS.md](Atlas/READER_ATLAS.md)** — companions for tables, cross-thread discipline, Rotation Spine, and a 25-min skeptical-reader digest.
+>
+> **Operational field (what ships next):**
+> - **[Atlas/JOURNAL_READINESS_AUDIT_2026_04_18.md](Atlas/JOURNAL_READINESS_AUDIT_2026_04_18.md)** — per-venue readiness audit of 11 Gen13 target journal papers against the atlas bundle; Tier 1 shipping pipeline; top-10 citation gaps
+> - **[Atlas/PLAN_OF_RECORD_2026_04_18.md](Atlas/PLAN_OF_RECORD_2026_04_18.md)** — **Sprint 34 "Ship the First Three"** with full collaborator assignment matrix (ChatGPT / ClaudeChat / ClaudeCode / Brayden); S33 gate ladder; atlas v4 queue; week-long action stack with dependencies
 >
 > **Epistemic flags throughout the bundle:** `[fire]` (proved, verifiable) / `[gold-with-gap]` (structural, explicit gap) / `[speculative]` (conjecture) / `[caution]` / `[FALSIFIED]` (preserved per never-delete). The `[STRUCTURAL]` / `[PROVED]` / `[CONJECTURAL]` tags used in this README are the equivalent flavors for README-scale claims; they match the atlas flag system.
 
