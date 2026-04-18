@@ -1,0 +1,69 @@
+[0] Gate 2 using REVERSED H^4 ordering vs v3.  PERM[0..4] = [69, 68, 67, 66, 65]
+    PERM[-5:] = [4, 3, 2, 1, 0]
+[1] Building Y exactly using sympy.sqrt(2), sqrt(3), sqrt(5) ...
+    Y built  (dt=0.05s)
+[1] Computing det(Y) with sympy.simplify ...
+    det(Y) = 14081036*sqrt(6)/(1286*sqrt(6) + 1014*sqrt(10) + 6549 + 1717*sqrt(15)) + 10919232*sqrt(10)/(1286*sqrt(6) + 1014*sqrt(10) + 6549 + 1717*sqrt(15)) + 36242424/(1286*sqrt(6) + 1014*sqrt(10) + 6549 + 1717*sqrt(15)) + 9368596*sqrt(15)/(1286*sqrt(6) + 1014*sqrt(10) + 6549 + 1717*sqrt(15))   (dt=0.10s)
+    det(Y) matches v3 prediction: 2086 + 462*s15 + 498*s10 + 730*s6  PASS
+[1] Inverting Y with sympy.Matrix.inv() ...
+    Y^-1 computed and verified  (dt=16.35s)
+[2] Building J_Omega (8x8) via sympy block formula ...
+    J_Omega built  (dt=0.00s)
+[2] Verifying J_Omega^2 = -I (sympy symbolic) ...
+    J_Omega^2 = -I verified EXACTLY (max_err = 0)  (dt=89.40s)
+[3] Sampling 20 random entries of Lambda^4 J_Omega and cross-checking ...
+    SAMPLE 1: MISMATCH at g2 (12,26) / v3 (57,43):  g2=(-4071528*sqrt(6) - 1215624*sqrt(10) + 7529997 + 2573409*sqrt(15))/201129124  v3=-17503512/50282281 + (-2513283*sqrt(10) + 2776866*sqrt(15) + 23680803*sqrt(6))/201129124  diff=(-27752331*sqrt(6) - 203457*sqrt(15) + 1297659*sqrt(10))/201129124 + 77544045/201129124
+    SAMPLE 2: MISMATCH at g2 (59,10) / v3 (10,59):  g2=(-4783749139 - 688514401*sqrt(15) + 668559133*sqrt(10) + 1625234687*sqrt(6))/804516496  v3=-362305399/804516496 + (-79826909*sqrt(15) + 86007403*sqrt(6) + 76902305*sqrt(10))/804516496  diff=-157908705/28732732 + (-21738839*sqrt(15) + 21130601*sqrt(10) + 54972403*sqrt(6))/28732732
+    SAMPLE 3: MISMATCH at g2 (62,46) / v3 (7,23):  g2=(-27798774601 - 4579226459*sqrt(15) + 4079251279*sqrt(10) + 8300516893*sqrt(6))/6436131968  v3=(-634483*sqrt(6) - 140065*sqrt(10) - 72891*sqrt(15))/229861856 + 447809/32837408  diff=-27886545165/6436131968 + (-4577185511*sqrt(15) + 4083173099*sqrt(10) + 8318282417*sqrt(6))/6436131968
+    SAMPLE 4: MISMATCH at g2 (69,46) / v3 (0,23):  g2=(-32819038149 - 5363144495*sqrt(15) + 4922333235*sqrt(10) + 9855859305*sqrt(6))/12872263936  v3=-806809/804516496 + (-130713*sqrt(10) + 243205*sqrt(6) + 154053*sqrt(15))/804516496  diff=-32806129205/12872263936 + (-5365609343*sqrt(15) + 4924424643*sqrt(10) + 9851968025*sqrt(6))/12872263936
+    SAMPLE 5: MISMATCH at g2 (64,6) / v3 (5,63):  g2=(-7073875303*sqrt(15) - 10199026689 + 187711785*sqrt(6) + 637862175*sqrt(10))/3218065984  v3=(-1151459*sqrt(15) - 577515*sqrt(6) + 1067091*sqrt(10))/201129124 + 2201163/201129124  diff=(-7055451959*sqrt(15) + 196952025*sqrt(6) + 620788719*sqrt(10))/3218065984 - 10234245297/3218065984
+    SAMPLE 6/20: g2 (18,6) / v3 (51,63): MATCH (elapsed 4.4s)
+    SAMPLE 7: MISMATCH at g2 (55,2) / v3 (14,67):  g2=(-1325162914*sqrt(15) - 885237372 + 191589067*sqrt(6) + 1366509537*sqrt(10))/1609032992  v3=-1070829/402258248 + (-143917*sqrt(15) - 1144*sqrt(6) + 407496*sqrt(10))/402258248  diff=-110119257/201129124 + (-1324587246*sqrt(15) + 191593643*sqrt(6) + 1364879553*sqrt(10))/1609032992
+    SAMPLE 8: MISMATCH at g2 (29,4) / v3 (40,65):  g2=(-135072135*sqrt(10) - 46595153*sqrt(6) + 172041048 + 129494810*sqrt(15))/402258248  v3=0  diff=(-135072135*sqrt(10) - 46595153*sqrt(6) + 129494810*sqrt(15))/402258248 + 21505131/50282281
+    SAMPLE 9: MISMATCH at g2 (59,7) / v3 (10,62):  g2=(-4841409049*sqrt(6) - 2034356887*sqrt(10) + 2340617861*sqrt(15) + 14667060367)/1609032992  v3=0  diff=(-4841409049*sqrt(6) - 2034356887*sqrt(10) + 2340617861*sqrt(15))/1609032992 + 14667060367/1609032992
+    SAMPLE 10: MISMATCH at g2 (1,39) / v3 (68,30):  g2=0  v3=(-135072135*sqrt(10) - 46595153*sqrt(6) + 129494810*sqrt(15))/402258248 + 21505131/50282281  diff=-21505131/50282281 + (-129494810*sqrt(15) + 46595153*sqrt(6) + 135072135*sqrt(10))/402258248
+    SAMPLE 11: MISMATCH at g2 (14,6) / v3 (55,63):  g2=(-236010032*sqrt(6) - 142377008*sqrt(10) + 703349723 + 200900839*sqrt(15))/1609032992  v3=(-7893601*sqrt(6) - 925622*sqrt(15) + 837761*sqrt(10))/402258248 + 2917252/50282281  diff=(-204435628*sqrt(6) - 145728052*sqrt(10) + 204603327*sqrt(15))/1609032992 + 609997659/1609032992
+    SAMPLE 12: MISMATCH at g2 (56,61) / v3 (13,8):  g2=(-1070829 - 143917*sqrt(15) - 1144*sqrt(6) + 407496*sqrt(10))/402258248  v3=-60365595/1609032992 + (-33098691*sqrt(15) - 3896268*sqrt(10) + 34576860*sqrt(6))/1609032992  diff=56082279/1609032992 + (-34581436*sqrt(6) + 5526252*sqrt(10) + 32523023*sqrt(15))/1609032992
+    SAMPLE 13: MISMATCH at g2 (36,39) / v3 (33,30):  g2=(-23338016 - 837761*sqrt(10) + 925622*sqrt(15) + 7893601*sqrt(6))/402258248  v3=(-425364518*sqrt(15) + 85537415*sqrt(6) + 285101769*sqrt(10))/1609032992 - 31521615/100564562  diff=25687111/100564562 + (-288452813*sqrt(10) - 53963011*sqrt(6) + 429067006*sqrt(15))/1609032992
+    SAMPLE 14: MISMATCH at g2 (5,53) / v3 (64,16):  g2=0  v3=(-314541117*sqrt(10) - 145856287*sqrt(6) + 326050763*sqrt(15))/3218065984 + 531959613/3218065984  diff=-531959613/3218065984 + (-326050763*sqrt(15) + 145856287*sqrt(6) + 314541117*sqrt(10))/3218065984
+    SAMPLE 15: MISMATCH at g2 (26,2) / v3 (43,67):  g2=(-77544045 - 1297659*sqrt(10) + 203457*sqrt(15) + 27752331*sqrt(6))/402258248  v3=0  diff=-77544045/402258248 + (-1297659*sqrt(10) + 203457*sqrt(15) + 27752331*sqrt(6))/402258248
+    SAMPLE 16: MISMATCH at g2 (25,46) / v3 (44,23):  g2=(-44848323*sqrt(10) - 15303193*sqrt(6) + 42245388 + 43899166*sqrt(15))/201129124  v3=-128375253/804516496 + (-33426539*sqrt(15) + 30607499*sqrt(6) + 40776033*sqrt(10))/804516496  diff=(-220169325*sqrt(10) - 91820271*sqrt(6) + 209023203*sqrt(15))/804516496 + 297356805/804516496
+    SAMPLE 17: MISMATCH at g2 (31,11) / v3 (38,58):  g2=(-135072135*sqrt(10) - 46595153*sqrt(6) + 172041048 + 129494810*sqrt(15))/402258248  v3=0  diff=(-135072135*sqrt(10) - 46595153*sqrt(6) + 129494810*sqrt(15))/402258248 + 21505131/50282281
+    SAMPLE 18: MISMATCH at g2 (19,38) / v3 (50,31):  g2=(-5676509627 - 804667001*sqrt(15) + 802427317*sqrt(10) + 1928062887*sqrt(6))/1609032992  v3=(-2979455*sqrt(6) - 315983*sqrt(15) + 87939*sqrt(10))/402258248 + 9313427/402258248  diff=-116607415/32837408 + (-16395981*sqrt(15) + 16368889*sqrt(10) + 39591443*sqrt(6))/32837408
+    SAMPLE 19/20: g2 (49,47) / v3 (20,22): MATCH (elapsed 13.5s)
+    SAMPLE 20/20: g2 (28,43) / v3 (41,26): MATCH (elapsed 14.2s)
+[3] Sample comparison: 3/20 entries match  (dt=14.2s)
+[4] Building full Lambda^4 J_Omega over Q235 inline ...
+[4] Computing Lambda^4 J_Omega (70x70 dets) with Gate 2 reversed basis ...
+    col 10/70  elapsed=2.9s
+    col 20/70  elapsed=6.3s
+    col 30/70  elapsed=9.8s
+    col 40/70  elapsed=13.3s
+    col 50/70  elapsed=16.8s
+    col 60/70  elapsed=20.3s
+    col 70/70  elapsed=23.8s
+    Lambda^4 J (Gate 2 basis) computed in 23.8s
+[4] Lambda^4 phi (Gate 2 basis) max|entry|=1
+[4] L polarization shape (28, 70)
+[5] Building stacked Q-matrix in Gate 2 basis ...
+    stacked rows: 378  (dt=0.0s)
+[6] Computing rank over GF(p) at 10 primes near 2^29 (pure-Python Gaussian elim, independent of v3) ...
+    p = 536870909:  rank = 70  (dt=0.2s)
+    p = 536870879:  rank = 70  (dt=0.2s)
+    p = 536870869:  rank = 70  (dt=0.2s)
+    p = 536870849:  rank = 70  (dt=0.3s)
+    p = 536870819:  rank = 70  (dt=0.2s)
+    p = 536870813:  rank = 70  (dt=0.3s)
+    p = 536870803:  ERROR (base is not invertible for the given modulus)
+    p = 536870801:  ERROR (base is not invertible for the given modulus)
+    p = 536870777:  rank = 70  (dt=0.3s)
+    p = 536870729:  rank = 70  (dt=0.2s)
+
+========================================================================
+GATE 2 VERDICT:  GATE 2 DISAGREEMENT (see failed checks)
+  Check 1 (J^2 = -I, sympy):               PASS
+  Check 2 (20 sample entries, sympy):      FAIL
+  Check 3 (rank at 10 primes near 2^29):   PASS
+========================================================================
+
+Verdict written to gate2_verdict.json

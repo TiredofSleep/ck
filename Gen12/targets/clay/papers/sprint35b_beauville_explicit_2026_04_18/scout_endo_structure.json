@@ -1,0 +1,70 @@
+{
+  "sprint": "35b",
+  "path": "A",
+  "date": "2026-04-18",
+  "target_variety": {
+    "name": "A_*",
+    "period_matrix": "Omega = (1/2) I_4 + i (sqrt(2) I_4 + sqrt(3) M2 + sqrt(5) M3)",
+    "dim_complex": 4,
+    "endomorphism_ring": "Q(i)",
+    "weil_signature": [
+      2,
+      2
+    ],
+    "hodge_field": "Q(i, sqrt(2), sqrt(3), sqrt(5))",
+    "hodge_field_degree_over_Q": 16,
+    "Im_Omega_eigenvalues_numerical": [
+      4.086667388397434,
+      4.086667388397435,
+      20.818421639191882,
+      20.818421639191882
+    ],
+    "Im_Omega_min_eigenvalue": 4.086667388397434,
+    "Im_Omega_positive_definite": true,
+    "det_Y_numerical": 7238.260092943405,
+    "det_Y_exact_match": true
+  },
+  "prym_target": {
+    "dim_P": 4,
+    "expected_g_C": 5,
+    "expected_g_quotient": 1,
+    "construction": "J(C_*) ~ P(C_*/iota) x E_* ; P carries Q(i)-Weil (2,2)"
+  },
+  "candidate_families": [
+    {
+      "code": "F1",
+      "name": "Hyperelliptic genus-5 with non-hyperelliptic involution",
+      "form": "y^2 = f(x), deg f in {11, 12}, f(x) = g(x^2)",
+      "Q_i_action": "requires g with Q(i)-symmetry",
+      "status": "POSSIBLE \u2014 needs Schoen-style check"
+    },
+    {
+      "code": "F2",
+      "name": "Cyclic-4 cover",
+      "form": "y^4 = f(x)",
+      "Q_i_action": "automatic via (x,y) -> (x, i\u00b7y)",
+      "status": "GOOD structural fit \u2014 needs Prym dimension match"
+    },
+    {
+      "code": "F3",
+      "name": "Plane quintic with extra automorphism",
+      "form": "F_5(x, y, z) = 0 with Q(i)-automorphism",
+      "genus_of_smooth_plane_quintic": 6,
+      "status": "HARDER \u2014 requires classification; may need base change"
+    }
+  ],
+  "literature_asks": [
+    "Birkenhake-Lange 2004 \u00a710 \u2014 Q(i)-Weil-type Prym tables",
+    "Schoen 1988 \u2014 explicit formulas for C_* from Omega",
+    "van Geemen 2001 \u2014 half twists + explicit curves",
+    "Moonen-Zarhin / Deligne-Mumford \u2014 GU(2,2) Shimura moduli",
+    "Any source with explicit genus-5 Q(i)-Weil (2,2) curve equation"
+  ],
+  "sprint35c_prerequisites": [
+    "C_* explicit equations over some number field F",
+    "explicit morphism pi_*: A_* -> J(C_*) or inclusion A_* into J(C_*)",
+    "numerical period-matrix match at >= 100 dps",
+    "Beauville rank matrix (3x3 or larger)"
+  ],
+  "runtime_seconds": 0.064
+}
