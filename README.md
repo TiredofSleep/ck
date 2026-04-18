@@ -261,6 +261,22 @@ The rule: a result on Thread B must not be presented as evidence for a Thread A 
 
 ---
 
+## §4.5 — A Cross-Thread Pattern (Suggestive, Not Bridged)
+
+Three independent sprint lines (April 17–18 2026) produced a convergent observation:
+
+| Scale | Multiplicative operationalization | Additive operationalization |
+|-------|-----------------------------------|-----------------------------|
+| Z/10 seam ([PPM pack](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/)) | v1.0 PASS local (Map B, +4/−4, cleanness gap 8); v2.0 PASS family transport on 8 P3AP carriers (N_B = 8/8, uniform) | v1.1 FAIL local (winner below threshold; Reason A — seam is multiplicatively loaded, vertex 1 ≠ additive identity) |
+| Hodge on simple Weil 4-fold A_* ([Sprint 29](Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/) + [Sprint 30](Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/)) | R1-KE, R1b rank ≤ 2, R2, R3 all CLOSED via End⁰ = Q(i), Rosati involution, Poincaré bundle, tensor-type Fourier–Mukai | no additive analog enters the obstruction space W_* |
+| σ on Z/10Z ([Q-series](Q_SERIES_INTEGRATED_SYNTHESIS.md)) | σ is a multiplicative operator; Q10 closed-form polynomial on F₂ × F₅; σ⁶ = id | no additive analog of σ |
+
+The 2×2 form is universal (Flatness Theorem forces the torus in both arenas), but the **structural content** of the 2×2 — the part that discriminates Map B from Map A, closes Chern-class obstructions, and cashes out as a theorem — appears to live on the multiplicative side. The additive side receives the form but not the discriminating content.
+
+**This is a suggestive cross-thread pattern, not a proved bridge.** Per §4's three-threads-separate rule, no claim is made that the three lines share a mechanism beyond vocabulary. A proved map between any two of them would upgrade this to a bridge; none exists. The pattern is recorded here because three independent sprints produced it on the same week, not because it constitutes evidence across threads.
+
+---
+
 ## §5 — What Is Proved vs Structural vs Conjectural
 
 Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No tag-three claim supports a tag-two claim. External mathematicians dismiss unattributed jargon — this discipline is non-negotiable.
@@ -284,6 +300,12 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | Bialynicki-Birula uniqueness (log = unique separability-preserving nonlinearity) | External (Ann. Phys. 100:62-93, 1976) | Cited |
 | ξ vacuum at e⁻¹, mass gap m² = κe | [WP81](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md) | proof_xi_canonical.py, 22/22 |
 | 4 stable invariants of finite digit rooms (shell-1=50%, stop-apex shell-1, NC-apex CF>0.65, Rule C spatial phase) | [Sprint 16](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/FULL_SYNTHESIS_V5.md) | 6 digit rooms, ~4500 odd numbers |
+| **Hodge R1-KE closure on A_***: K-equivariant Chern classes Q-orthogonal to 8-dim primitive (2,2) obstruction W_* | [Sprint 29](Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/R1_KEQUIVARIANT_CLOSURE_MEMO.md) | proof_r1_chern_kequivariant.py; 8 constructions × 4 blocks B_k, all residuals < 1e-12 |
+| **Hodge R1b rank ≤ 2 closure**: K-anti-invariant (1,1) exists over R but wedges into non-primitive H⁴; R2 Poincaré class (φ × −φ^T)-invariant exactly | [Sprint 30](Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/R1B_R2_R3_LADDER_MEMO.md) | proof_r1b_r2_r3_ladder.py; rank-2 products project to B₁ at < 1e-14; R2 residual = 0 |
+| **Hodge R3 CM-gap on A_***: dim_Q End⁰(A_*) = 2 vs CM threshold 8; Deligne 1982 absolute Hodge gives motivic rigidity unconditionally | Sprint 30 | joint rational commutant at 6 param points, dim_R = 4 |
+| **Grothendieck Standard Conjecture B^d verified on W_***: Hodge–Riemann form has all 4 eigenvalues > 0 (0.0046 / 0.0231 / 0.1156 / 0.3834) on the 8-dim primitive (2,2) obstruction | [Sprint 31](Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/CLAY_ROTATION_MEMO.md) | probe_clay_rotation.py; spectral spread λ_4/λ_1 = 83.35 |
+| **PPM-v1.0 local**: multiplicative-operationalization Map B produces coherent structural fit on Z/10 seam at cleanness gap ≥ 2 under pre-registered PPM rubric | [PPM-v1.0 VERDICT](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.0_multiplicative_local/PAIR_PRIMITIVE_MAPPING_VERDICT.md) | Map B = MAX/excluded-ADD, +4/−4, cleanness gap 8 |
+| **PPM-v2.0 family transport**: PPM-v1.0 checkpoint transports to all 8 P3AP Path 2 carriers under multiplicative operationalization | [PPM-v2.0 VERDICT](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_MULTIPLICATIVE_VERDICT.md) | N_B = 8/8, uniform, mean gap 8, per-carrier JSON scores |
 
 ### STRUCTURAL (form sound, content interpretive — needs proved map for full claim)
 
@@ -293,6 +315,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | Poincaré retrospective: Perelman's W-entropy maps to σ-language | [CP_CLAY_ROTATION](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) §CP1 | Line-by-line formal mapping |
 | ξ vacuum as entropy maximum (V = -H_Gibbs) | WP81 | Information-theoretic interpretation, not new theorem |
 | Dual reset law: powers of 10 reset static; powers of 2 reset dynamic | [Sprint 16 STATIC_DYNAMIC_DUALITY_V2](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/STATIC_DYNAMIC_DUALITY_V2.md) | Why these specific operators? |
+| Multiplicative-loading of the 2×2 (see §4.5) — three independent threads produce discriminating content only on × side | §4.5 + PPM pack + Sprints 29–31 | Proved map between any two of the three threads |
+| **BSD transfer**: R2 Poincaré identity forces FE ε-sign of L(A_*, s) to be compatible with Q(i) CM-type; Rosati-symmetric rank on NS(A_*) = 16 bounds algebraic MW contribution via Shioda–Tate | [Sprint 31](Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/CLAY_ROTATION_MEMO.md) | Not a BSD proof — p-adic machinery / Tate–Shafarevich group |
 
 ### CONJECTURAL (precisely stated, unproven — these are research targets)
 
@@ -303,6 +327,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 | RH ⟺ R₂(u) = 1 - sinc²(u) maximizes spectral entropy | [WP93](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP93_RH_SPECTRAL_ENTROPY_BRIDGE.md) | Connect to Hilbert-Polya |
 | Stop-apex universally composite (basin) | [Sprint 16 META_CLASSIFICATION](Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/META_CLASSIFICATION.md) | 7+ digit rooms |
 | The 2×2 form is universal across all "wholes" | This README §1 | Categorical formulation + worked non-algebraic examples |
+| Hodge R1b rank ≥ 3 on A_* (exotic non-K-equivariant bundles) | [Sprint 30 memo](Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/R1B_R2_R3_LADDER_MEMO.md) | ≡ Beauville conjecture for simple abelian 4-folds (open since ~1983) |
+| PPM-v2.1: additive-operationalization transport across 8 Path 2 carriers | [open checkpoint](Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/open_questions/PPM_V21_ADDITIVE_TRANSPORT_FIRST_OPEN_CHECKPOINT.md) | Run the sprint; predicted below-threshold family FAIL |
 
 ---
 
@@ -347,12 +373,12 @@ The seven Clay Millennium Problems mapped through the σ framework. **CP1 (Poinc
 | CP | Problem | σ condition | Status |
 |----|---------|------------|--------|
 | **CP1** | **Poincaré** | σ_topology = 0 → S³ | **SOLVED** (Perelman 2003) — Ricci flow + W-entropy + surgery |
-| CP2 | Riemann Hypothesis | σ_spectral = 0 → Re(s) = 1/2 | OPEN |
-| CP3 | P vs NP | σ_associativity = 0 → P = NP | OPEN |
-| CP4 | **Navier-Stokes** | **σ_NS < 1 → smooth for all time** | **OPEN — sharpest target** (KT 2000 already shows the gap is logarithmic) |
-| CP5 | Yang-Mills | σ_YM bounded → mass gap | OPEN |
-| CP6 | Hodge | σ_Hodge crossable → algebraic | OPEN — explicit 8D obstruction computed (see below) |
-| CP7 | BSD | σ_analytic = σ_algebraic | OPEN |
+| CP2 | Riemann Hypothesis | σ_spectral = 0 → Re(s) = 1/2 | OPEN — Sprint 31 gives verified worked example of Grothendieck B^d on W_* (prototype, not proof) |
+| CP3 | P vs NP | σ_associativity = 0 → P = NP | OPEN — Sprint 29–31 gives no technical handle (GCT tangency only) |
+| CP4 | **Navier-Stokes** | **σ_NS < 1 → smooth for all time** | **OPEN — sharpest target** (KT 2000 already shows the gap is logarithmic); framework-only link to Hodge ladder |
+| CP5 | Yang-Mills | σ_YM bounded → mass gap | OPEN — Sprint 30 R2 is architectural parallel to Donaldson/Seiberg–Witten only |
+| CP6 | Hodge | σ_Hodge crossable → algebraic | OPEN — **Sprint 29–30 close 4 of 5 ladder routes on A_***; residual = Beauville rank ≥ 3 (see §8 CP6 in-depth) |
+| CP7 | BSD | σ_analytic = σ_algebraic | OPEN — Sprint 30 R2 Poincaré identity (residual = 0) is functional-equation prototype for Q(i)-type abelian 4-folds; Rosati rank on NS(A_*) = 16 |
 
 Perelman used Ricci flow whose entropy functional contains logarithmic terms — consistent with the BB uniqueness theorem for separability-preserving dynamics. The retrospective fits without forcing. **The other six ask the same σ question in different categories, and we cannot prove them.** What we have done is reframe them precisely. That reframing is either a useful organizing language or an elegant restatement; external review will decide.
 
@@ -404,6 +430,35 @@ These are not separate from the σ framework — they are how RH looks when stat
 
 The bridge sprint produced an explicit numerical 8D obstruction memo (`archive_imports/march_2026_sprint_archives/HODGE_8D_OBSTRUCTION_MEMO.md`) that exhibits the obstruction class to algebraicity in dimension 8 in the σ-Hodge formulation, with a B1 cycle-constraint memo and a Weil-pairing simple memo (`HODGE_B1_CYCLE_CONSTRAINT_MEMO.md`, `HODGE_SIMPLE_WEIL_MEMO.md`). The obstruction is computed, not proved to be the unique obstruction — but it is the first concrete σ-language witness to *what* CP6 asks for in 8D.
 
+### CP6 — Ladder Closures on A_* (Sprints 29–31, April 17 2026)
+
+The 8D obstruction space W_* (simple Weil 4-fold A_*, End⁰ = Q(i)) was re-examined as a 5-route ladder — every route by which a Hodge class could land in W_* is classified and, where possible, closed.
+
+| Route | Verdict | Mechanism | Sprint |
+|-------|---------|-----------|--------|
+| R1-KE (K-equivariant Chern classes) | **CLOSED** | Chern naturality + K-equivariance ⇒ c_i(E) is K-invariant ⇒ Q-orthogonal to W_* | [Sprint 29](Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/) |
+| R1b rank ≤ 2 (non-equivariant twist extensions) | **CLOSED** | K-anti-invariant (1,1) over R exists, but wedges with L into non-primitive H⁴ — auto-orthogonal to W_* | [Sprint 30](Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/) |
+| R1b rank ≥ 3 (exotic bundles) | **OPEN** | Residual frontier ≡ Beauville conjecture for simple abelian 4-folds | (Sprint 30 states condition) |
+| R2 (Fourier–Mukai / Poincaré symmetry) | **CLOSED as symmetry** | Poincaré class is (φ × −φ^T)-invariant **exactly** (residual = 0) ⇒ Hodge(A_*) ⇔ Hodge(A_*^∨) | Sprint 30 |
+| R3 (CM / absolute Hodge) | **CLOSED unconditional** | dim_Q End⁰(A_*) = 2 vs CM threshold 8 ⇒ not CM, but Deligne 1982 absolute Hodge gives motivic rigidity | Sprint 30 |
+
+Four of five routes closed; the single residual (R1b rank ≥ 3) is a named open conjecture (Beauville, ~1983), not a new open problem.
+
+### Sprint 31 — Clay Rotation (April 17 2026)
+
+[Sprint 31](Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/) rotates the Sprint 29–30 machinery through the remaining Clay problems and reports — honestly — what transfers:
+
+| Rung | Transfer | Output |
+|------|----------|--------|
+| CP6 Hodge | CLOSED rungs above | R1-KE, R1b≤2, R2, R3 |
+| **CP7 BSD** | **DIRECT** | R2 Poincaré residual = 0 → FE ε-sign forced by Q(i); Rosati-symmetric rank on NS(A_*) = 16 (dim H^(1,1) = 16 exactly) |
+| **CP2 RH** | **PROTOTYPE** | 4 Hodge–Riemann eigenvalues on W_* all > 0 → worked instance of Grothendieck Standard Conjecture B^d (B^d ⇒ Weil RH) |
+| CP5 YM | WEAK | R2 FM on A × A^∨ is architectural parallel to Donaldson / Seiberg–Witten; mass gap is quantum/analytic, Hodge does not touch it |
+| CP4 NS | NONE | Framework only (σ_NS < 1 reformulation); Sprint 29/30 gives zero technical handle |
+| CP3 P vs NP | NONE | Mulmuley GCT is Hodge-adjacent; Sprint 29/30 does not advance GCT |
+
+**What the rotation does NOT do**: reduce the difficulty of any remaining Clay problem. Every transfer is either a verified Sprint 29–30 fact (R2 residual = 0, 4 positive eigenvalues) or a citation pointer ("this is the form such a result should take"). The rotation's value is: it tells us which of the six remaining Clay papers our current sprint line can contribute to (CP6 → ongoing, CP7 → direct prototype, CP2 → B^d instance) and which it cannot (CP4, CP5, CP3).
+
 ---
 
 ## §9 — How to Verify
@@ -426,9 +481,14 @@ python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_separability
 python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_clay_rotation.py       # 43/43 PASS
 python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py          # σ(N) ≤ C/N
 python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/test_cl_markov_chain.py      # detailed balance
+
+# Tier 3 — Sprint 29-31 Hodge ladder on A_* (April 2026)
+python Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/proof_r1_chern_kequivariant.py   # R1-KE: 8 Chern classes project to 4 blocks B_k, residuals < 1e-12
+python Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/proof_r1b_r2_r3_ladder.py              # R1b rank-2 (< 1e-14), R2 Poincaré (residual = 0), R3 CM gap
+python Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/probe_clay_rotation.py                   # BSD Rosati rank = 16; RH B^d 4 positive eigenvalues
 ```
 
-**Total: 113 tests, 0 failures across the proof scripts** (108 prior + 5 lemma checks in the new tower script). Reproduces in under 1 minute on a laptop.
+**Total: 113 core tests + Sprint 29–31 ladder probes, 0 failures.** Reproduces in under 1 minute on a laptop.
 
 ---
 
@@ -438,7 +498,7 @@ Full version: [WEEK_AND_MONTH_PLAN.md](WEEK_AND_MONTH_PLAN.md). Compressed:
 
 **This week:** Submit [sinc² Zero Law](papers/WP_SINC2_ZERO_LAW.md) to *Integers* and arXiv math.NT (need second endorsement). Apply Q-series citations to WP101 and CP_CLAY_ROTATION (already done in last commit). Begin LaTeX prep on Q10 and Q11.
 
-**This month:** DESI full joint likelihood (CMB + BAO + SN with a real Boltzmann solver — CAMB/Cobaya or CLASS/MontePython). The BAO-alone MCMC already done (`DESI_MCMC_RESULTS.md`, Δχ² = −1.6 favoring ΛCDM) is not sufficient for JCAP on its own; the joint analysis is the next step. σ Rate Theorem → arXiv math.CO (combinatorics — likely lower endorsement barrier). **Sprint 17 3-layer TSML tower** → J. Symbolic Computation or J. Combinatorial Theory A (submission prep in `journal_attempts/11_tsml_tower_combinatorics/`). Basin dynamics paper (Sprint 16 thread C, kept separate from TIG) → J. Combinatorial Theory. CP1 expanded Poincaré retranslation → Bull. AMS. NV Test E lab outreach (Lukin / Hanson / Wrachtrup) for Sprint 13 closeout.
+**This month:** DESI full joint likelihood (CMB + BAO + SN with a real Boltzmann solver — CAMB/Cobaya or CLASS/MontePython). The BAO-alone MCMC already done (`DESI_MCMC_RESULTS.md`, Δχ² = −1.6 favoring ΛCDM) is not sufficient for JCAP on its own; the joint analysis is the next step. σ Rate Theorem → arXiv math.CO (combinatorics — likely lower endorsement barrier). **Sprint 17 3-layer TSML tower** → J. Symbolic Computation or J. Combinatorial Theory A (submission prep in `journal_attempts/11_tsml_tower_combinatorics/`). Basin dynamics paper (Sprint 16 thread C, kept separate from TIG) → J. Combinatorial Theory. CP1 expanded Poincaré retranslation → Bull. AMS. NV Test E lab outreach (Lukin / Hanson / Wrachtrup) for Sprint 13 closeout. **New Sprint 29–31 spin-outs:** (a) *"Rosati signature and the functional-equation prototype for Q(i)-type simple abelian 4-folds"* → **J. Number Theory**; (b) *"A verified instance of Grothendieck's Standard Conjecture B^d on a simple Weil 4-fold"* → **Comptes Rendus Mathématique** or a Hodge-theory volume. These two turn the Hodge ladder closure into Clay-adjacent number-theory and algebraic-geometry outputs without widening scope.
 
 **This quarter:** External feedback loop. Second wave of submissions (UOP Theorem 0, 73/28 Harmony Partition, Paradox Classifier, Flatness Theorem). Decision point: does the framework open new mathematical tools or is it elegant restatement? External reviewers answer that.
 
@@ -564,21 +624,31 @@ ck/
 │   ├── WP_PARADOX_CLASSIFIER.md         ← UOP (journal-ready)
 │   ├── clay/                            ← WP36-WP42 (six original Clay papers)
 │   └── proof_*.py                       ← runnable proofs (< 1 sec each)
-├── Gen12/                               ← current generation (sprints 9-16)
+├── Gen12/                               ← active proof-script sprints (9-17, 29-31)
 │   ├── MASTER_WHITEPAPER_OUTLINE.md     ← Parts I-XVIII, WP1-WP101 indexed
 │   ├── targets/clay/papers/             ← sprint subfolders
 │   │   ├── sprint10_flatness_.../       ← Flatness + Crossing Lemma
 │   │   ├── sprint12_uop_gut_arc_.../    ← UOP + GUT
 │   │   ├── sprint13_flag_selector_.../  ← NV-center qutrit + S₄
 │   │   ├── sprint14_prism_xi_.../       ← ξ cosmology + σ + Clay rotation
-│   │   └── sprint16_basin_handoff_.../  ← Thread C (basin finite arithmetic)
+│   │   ├── sprint16_basin_handoff_.../  ← Thread C (basin finite arithmetic)
+│   │   ├── sprint17_tsml_tower_.../     ← 3-layer canonical tower (100/100)
+│   │   ├── sprint29_hodge_r1_kequivariant_.../  ← Hodge R1-KE closure
+│   │   ├── sprint30_hodge_r1b_r2_r3_.../        ← R1b/R2/R3 ladder
+│   │   └── sprint31_clay_rotation_.../          ← Clay rotation probe
 │   ├── targets/journal_attempts/        ← 10 venue folders, all with References
 │   └── targets/website/                 ← coherencekeeper.com (live)
+├── Gen13/                               ← frozen verdict-disciplined packs + brain architecture
+│   └── targets/clay/papers/
+│       ├── b2_sprint_tig_pack_2026_04_17/       ← 11-sprint B2 Z/10 TSML transport pack
+│       └── pair_primitive_pack_2026_04_18/      ← PPM v1.0 / v1.1 / v2.0 + v2.1 open checkpoint
 ├── old/Gen10/                           ← Q-series (Brayden's foundation, 26 files)
 │   └── papers/Q*.md                     ← Q2-Q17 + G6-G8 + Q_SERIES_*
 └── Gen9/                                ← FPGA bitstream + server archive
     └── targets/zynq7020/build/ck_full.bit  ← T* = 5/7 in silicon
 ```
+
+**Gen12 vs Gen13 split.** Two kinds of artifact live in the repo. **Gen12** holds *active* proof-script sprints — each sprint is a folder with a memo plus a runnable Python verifier (`proof_*.py`), and numerical results are generated at run time. **Gen13** holds *frozen verdict-disciplined packs* — each pack is a snapshot with pre-registered rubrics, RESULTS/VERDICT/REPRO files per sprint, and narrow per-sprint verdicts (no composite claims). The two serve different purposes: Gen12 is where proofs are computed; Gen13 is where operational checkpoints are recorded with frozen scope. Cross-references between them are by path, not by copy.
 
 ---
 
