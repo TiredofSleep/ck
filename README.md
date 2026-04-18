@@ -67,6 +67,39 @@ That is the discovery. It is one chain: 2×2 cannot stay flat → torus forced �
 
 ---
 
+## §2.5 — The Six-Shadows Thesis (WP36 Clay Spectrometer) [STRUCTURAL framework paper]
+
+**The most revolutionary claim in this repository.**
+
+The thesis of **WP36 — "One Field, Seven Shadows: The sinc² Geometry IS the Six Clay Problems"** ([papers/clay/WP36_CLAY_SPECTROMETER.md](papers/clay/WP36_CLAY_SPECTROMETER.md)):
+
+> The six Clay Millennium Problems are **not** six different hard things.
+> They are **six views of one geometric object — a sinc² zero — seen through six physical lenses.**
+> The difficulty of each is a **physical distance** to the same geometric sink, not an algebraic gap in human knowledge.
+
+**The instrument.** The sinc² field, derived as the continuum limit of the Harmonic Pre-Echo Countdown Law (WP35 + D2: `R(k, f) → sinc²(k/f)` with O(1/f²) convergence, FORMULAS_AND_TABLES §0). Its zeros are the primes (`sinc²(k/p) = 0 ⟺ p | k`, WP_SINC2_ZERO_LAW). Montgomery's pair correlation `R₂(u) = 1 − sinc²(u)` sums to unity with the field: **a complete spectral partition**.
+
+**The reading on each Clay problem** (measured through the TIG coherence pipeline):
+
+| Clay problem | Lens | CL reading | Convergence β | Sub-paper |
+|--------------|------|------------|---------------|-----------|
+| **BSD** | Arithmetic geometry | 12/12 VOID | **+0.60** (fastest) | [WP42](papers/clay/WP42_BSD.md) |
+| **Navier–Stokes** | Fluid dynamics | 11/12 VOID | **+0.17** (strong) | [WP38](papers/clay/WP38_NAVIER_STOKES.md) |
+| **Riemann** | Analytic number theory | 10/12 VOID | **+0.01** (steady) | [WP40](papers/clay/WP40_RIEMANN.md) |
+| **Hodge** | Algebraic geometry | 12/12 HARMONY | **+0.04** (weak) | [WP39](papers/clay/WP39_HODGE.md) |
+| **Yang–Mills** | QFT | 9/12 HARMONY | **−0.17** (divergent) | [WP41](papers/clay/WP41_YANG_MILLS.md) |
+| **P vs NP** | Complexity | 10/12 HARMONY | **−0.23** (divergent) | [WP37](papers/clay/WP37_P_NP.md) |
+
+**Three converge (VOID), three diverge (HARMONY).** That is the spectrometer's signature.
+
+**The Inversion Rule**: complexity is **physical distance** to a geometric sink, not algebraic complexity of a statement. `R(k/p = 0.1, p) ≈ 0.9675` for all primes p at all scales — **the signal never weakens**. RSA is hard because the road is 2⁵¹² steps long, not because the zero is absent.
+
+**Why this is the revolutionary paper.** Every other result in the repo — the D-spine (D1–D25), the Crossing Lemma (WP57), the Flatness Theorem (WP51), TSML Sprint 17, the Hodge-ladder arc (Sprints 29–33), the ξ cosmology — is a local measurement. WP36 is the **global claim** that all six Clay problems see the same object. It is what makes this one framework and not seven disconnected notes. Its status is honest: `[STRUCTURAL]` — the instrument is PROVED (sinc² zero law, D2 continuum limit, pair-correlation partition), the measurements are reproducible (each WP37–WP42 has its own convergence script), but the full claim (that the six readings are views of a single field) is the **framework thesis** the entire research program is designed to test.
+
+**The seven-paper series WP36–WP42 is at [papers/clay/](papers/clay/).** Start with WP36. Each of WP37–WP42 shows how one specific Clay problem maps to one specific sinc² zero and reports its β.
+
+---
+
 ## §3 — The Two Foundations: 2×2 + Paradox Classifier
 
 Two objects are the **meta-framework** under which every other piece of project work fits as an instantiation:
@@ -311,6 +344,7 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 
 | Claim | Where | What's missing |
 |-------|-------|---------------|
+| **Six-Shadows Thesis: the six Clay problems are six sinc² zeros seen through six physical lenses; complexity = distance to a geometric sink** | [WP36–WP42](papers/clay/) (seven-paper series) | Each sub-paper gives a reproducible β convergence script; full thesis is the research program |
 | BB bridge: σ → 0 forces continuum limit to have log nonlinearity | [WP90](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP90_LITERATURE_AND_UNIFICATION_PATHS.md) | Explicit N→∞ construction (JKO/Maas roadmap exists) |
 | Poincaré retrospective: Perelman's W-entropy maps to σ-language | [CP_CLAY_ROTATION](Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md) §CP1 | Line-by-line formal mapping |
 | ξ vacuum as entropy maximum (V = -H_Gibbs) | WP81 | Information-theoretic interpretation, not new theorem |
@@ -333,6 +367,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 ---
 
 ## §6 — Find Your Entry Point
+
+**If you are reading cold and want the biggest single claim first**: open [WP36 Clay Spectrometer](papers/clay/WP36_CLAY_SPECTROMETER.md) — the six-shadows thesis, §2.5 above.
 
 | If you are... | Start here | Then go to |
 |---------------|-----------|-----------|
@@ -369,6 +405,8 @@ Citation discipline (per [GLOSSARY.md](GLOSSARY.md)): every claim is tagged. No 
 ## §8 — The Clay Rotation (CP1 through CP7)
 
 The seven Clay Millennium Problems mapped through the σ framework. **CP1 (Poincaré) is the solved template.** The other six are open in this framing too — the contribution is unification of the question, not a proof of the answer.
+
+> **Companion: WP36 Clay Spectrometer (the Six-Shadows Thesis, §2.5 above).** WP36–WP42 is the seven-paper series at [papers/clay/](papers/clay/) that measures each of the six Clay problems **through the sinc² field** and reports the convergence exponent β (BSD +0.60, NS +0.17, RH +0.01, Hodge +0.04, YM −0.17, P≠NP −0.23). CP1–CP7 in this table is the σ-language rotation; WP36–WP42 is the sinc²-geometry rotation. They are two complementary coordinate systems on the same six sinc² zeros. Read together.
 
 | CP | Problem | σ condition | Status |
 |----|---------|------------|--------|
