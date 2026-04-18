@@ -103,6 +103,11 @@ class Cortex:
         self.state = CortexState()
         # Track the previous operator so each AO tick gives us a PAIR (b, d).
         self._prev_op: Optional[int] = None
+        # Track the previous TICK's full 5D profile so Hebbian sees a real
+        # (A, B) pair -- A is the profile from tick t-1, B is from tick t.
+        # Without this, both sides would be the same tick's profile and the
+        # coupling would be trivially diagonal.
+        self._prev_profile: Optional[List[int]] = None
 
     # ── Boot ────────────────────────────────────────────────────────
 
@@ -126,9 +131,16 @@ class Cortex:
         b_op = self._prev_op if self._prev_op is not None else r["current_op"]
         self._prev_op = d_op
 
-        # (2) Profile broadcast (5D from one operator per side)
-        ops_a = _operator_to_profile(b_op)
-        ops_b = _operator_to_profile(d_op)
+        # (2) True 5D profile -- each dim gets its OWN operator from D2's sign
+        # pattern, instead of broadcasting one AO operator to all five dims.
+        # ops_b = this tick's 5D profile (read from the D2 vector just formed).
+        # ops_a = previous tick's 5D profile (snapshotted before we overwrite),
+        # so Hebbian sees a genuine (A at t-1, B at t) pair rather than a
+        # self-pair.  On the first tick there is no prior profile, so we
+        # bootstrap ops_a = ops_b (W still zero, no learning lost).
+        ops_b = self.ao.profile_5d()
+        ops_a = self._prev_profile if self._prev_profile is not None else ops_b
+        self._prev_profile = ops_b
 
         # (3) Hebbian update -- returns (harmony_frac, interaction_matrix)
         h_frac, _ = self.hebbian.update(ops_a, ops_b, lens="tsml")

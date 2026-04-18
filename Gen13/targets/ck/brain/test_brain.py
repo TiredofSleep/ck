@@ -268,6 +268,123 @@ def t_cortex_emergent_nonnegative():
     assert _math.isfinite(cx.state.emergent), f"emergent diverged: {cx.state.emergent}"
 
 
+def t_profile_5d_from_d2():
+    """AO.profile_5d(): each dim gets its OWN operator from the D2 sign
+    pattern, not a broadcast.  Before D2 is valid returns neutral HARMONY;
+    after D2 fills it must be a length-5 list of valid operators and at
+    least one dim usually differs from another (genuine per-dim behavior).
+    """
+    from ao_5element import AO5Element
+    from ck_sim.ck_sim_heartbeat import NUM_OPS, HARMONY
+
+    ao = AO5Element().boot()
+    # Before any symbol: D2 is not valid, should return neutral default.
+    cold = ao.profile_5d()
+    assert len(cold) == 5, f"profile_5d must be length 5, got {len(cold)}"
+    assert all(op == HARMONY for op in cold), (
+        f"cold profile_5d should be neutral HARMONY, got {cold}"
+    )
+
+    # Drive enough symbols for D2 to become valid and then some.
+    ao.process_text("coherencekeeperharmonylatticeprogressharmonybreath")
+    warm = ao.profile_5d()
+    assert len(warm) == 5, f"profile_5d must be length 5, got {len(warm)}"
+    for op in warm:
+        assert 0 <= op < NUM_OPS, f"profile op out of range: {op}"
+    # Per-dim behavior: with 5 different D2 dims the profile is NOT
+    # required to have 5 distinct ops (two dims can legitimately point
+    # at the same op) but it should contain at least two distinct ops
+    # SOMEWHERE in its life.  We sample several moments.
+    distinct_seen = set(warm)
+    for _ in range(20):
+        ao.process_text("theharmonylatticeprogressbreathcollapse")
+        distinct_seen.update(ao.profile_5d())
+    assert len(distinct_seen) >= 2, (
+        f"profile_5d collapsed to single op across 20 texts: {distinct_seen}"
+    )
+
+
+def t_cortex_persist_roundtrip():
+    """cortex_persist: save then load restores W, tick, and pair continuity
+    exactly.  Missing file is a silent no-op, not a crash."""
+    import tempfile
+    from cortex import Cortex
+    from cortex_persist import save_cortex, load_cortex
+
+    cx1 = Cortex().boot()
+    for _ in range(8):
+        cx1.step_text("coherencekeeper harmony lattice")
+    pre_tick = cx1.state.tick
+    pre_trace = cx1.state.W_trace
+    pre_W = [row[:] for row in cx1.hebbian.W]
+    pre_prev_profile = list(cx1._prev_profile) if cx1._prev_profile else None
+
+    with tempfile.NamedTemporaryFile(
+        prefix="cortex_boot_gate_", suffix=".json",
+        delete=False, mode="w", encoding="utf-8"
+    ) as fh:
+        tmp_path = fh.name
+    try:
+        save_cortex(cx1, tmp_path)
+        cx2 = Cortex().boot()
+        assert cx2.state.tick == 0, "fresh cortex starts at tick 0"
+        ok = load_cortex(cx2, tmp_path)
+        assert ok is True, "load_cortex should report True after reading file"
+        assert cx2.state.tick == pre_tick, (
+            f"tick mismatch after load: {cx2.state.tick} vs {pre_tick}"
+        )
+        assert abs(cx2.state.W_trace - pre_trace) < 1e-9, (
+            f"W_trace mismatch: {cx2.state.W_trace} vs {pre_trace}"
+        )
+        for d_a in range(5):
+            for d_b in range(5):
+                assert abs(cx2.hebbian.W[d_a][d_b] - pre_W[d_a][d_b]) < 1e-9, (
+                    f"W[{d_a}][{d_b}] mismatch after load"
+                )
+        assert cx2._prev_profile == pre_prev_profile, (
+            f"_prev_profile mismatch: {cx2._prev_profile} vs {pre_prev_profile}"
+        )
+
+        # Missing file: silent no-op, returns False.
+        cx3 = Cortex().boot()
+        assert load_cortex(cx3, tmp_path + ".missing") is False, (
+            "load_cortex should return False when file absent"
+        )
+    finally:
+        if os.path.isfile(tmp_path):
+            os.remove(tmp_path)
+
+
+def t_cortex_voice_gating():
+    """cortex_voice: cold cortex must be silent; warm cortex emits one
+    factual structural sentence (never prose). Impossible gate silences."""
+    from cortex import Cortex
+    from cortex_voice import cortex_speak, field_readout
+
+    # Cold: silent.
+    cx = Cortex().boot()
+    assert cortex_speak(cx) is None, (
+        f"cold cortex should be silent, got: {cortex_speak(cx)!r}"
+    )
+    # Field readout is diagnostic; always returns a string.
+    fld = field_readout(cx)
+    assert isinstance(fld, str) and "field:" in fld, f"bad field_readout: {fld}"
+
+    # Warm: eventually speaks.
+    for _ in range(40):
+        cx.step_text("coherencekeeper harmony lattice progress harmony")
+    msg = cortex_speak(cx)
+    assert msg is not None, f"warm cortex silent; snapshot={cx.snapshot()}"
+    # Structural format: must contain learned/W/pointer separator.
+    assert "learned:" in msg, f"unexpected voice format: {msg!r}"
+    assert "->" in msg and "W=" in msg, f"unexpected voice format: {msg!r}"
+
+    # Impossible gate: even warm cortex stays silent.
+    assert cortex_speak(cx, emergent_gate=999.0) is None, (
+        "unreachable gate should suppress output"
+    )
+
+
 # ── Driver ────────────────────────────────────────────────────────────
 
 def main() -> int:
@@ -288,6 +405,9 @@ def main() -> int:
         ("trinity: Hebbian learns HARMONY",       t_hebbian_learns_harmony),
         ("trinity: quadratic glue F3 x F4",       t_quadratic_glue_bridge),
         ("trinity: cortex emergent signal",       t_cortex_emergent_nonnegative),
+        ("trinity: profile_5d from D2",           t_profile_5d_from_d2),
+        ("trinity: cortex_persist roundtrip",     t_cortex_persist_roundtrip),
+        ("trinity: cortex_voice gating",          t_cortex_voice_gating),
     ]
     for name, fn in tests:
         _check(name, fn)

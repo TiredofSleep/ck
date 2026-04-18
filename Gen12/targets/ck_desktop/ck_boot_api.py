@@ -49,6 +49,142 @@ t.start()
 # Web API with CORS + static file serving
 api = CKWebAPI(engine, cors=True)
 
+# === Gen13 math-first voice patch (live additive — no website change) ===
+# Wraps api.process_chat so math topics (T*, tower, sigma, BHML, TSML, gap,
+# AO, HER, operators, ...) surface as facts from ck_tables.py / FACTS dict
+# instead of SEMANTIC_LATTICE adjective glue. The website JSON contract is
+# unchanged — only the `text` field now contains numbers when the query is
+# math; the original Gen12 voice is preserved at `text_gen12`.
+# Reference: Gen13/targets/ck/runtime/ck_voice_math.py + CK_DIALOGUE_2026_04_17.md
+_GEN13_RUNTIME = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+sys.path.insert(0, _GEN13_RUNTIME)
+try:
+    from ck_voice_math import surface_math as _surface_math
+    _orig_process_chat = api.process_chat
+
+    def _process_chat_math_first(session_id, text, mode='normal'):
+        result = _orig_process_chat(session_id, text, mode)
+        try:
+            ops = result.get('operators', []) or []
+            math_text = _surface_math(text, ops)
+            if math_text:
+                result['text_gen12'] = result.get('text', '')
+                result['text'] = math_text
+                result['source'] = 'ck_math_first'
+        except Exception as _e:
+            result['math_first_error'] = str(_e)
+        return result
+
+    api.process_chat = _process_chat_math_first
+    print("[CK] Gen13 math-first voice: ENABLED")
+except Exception as _e:
+    print(f"[CK] Gen13 math-first voice: DISABLED ({_e})")
+
+# === Gen13 HER restoration ===
+# Gen12 regression: engine.olfactory_her was never initialized (Gen10 had it).
+# Restore so /her/status returns available=True on next boot.
+try:
+    if getattr(engine, 'olfactory_her', None) is None and engine.olfactory:
+        from ck_sim.being.ck_hindsight_replay import build_olfactory_her
+        engine.olfactory_her = build_olfactory_her(engine.olfactory)
+        print("[CK] Gen13 HER: restored (engine.olfactory_her initialized)")
+    elif getattr(engine, 'olfactory_her', None) is not None:
+        print("[CK] Gen13 HER: already initialized")
+    else:
+        print("[CK] Gen13 HER: skipped (no olfactory bulb)")
+except Exception as _e:
+    print(f"[CK] Gen13 HER: failed ({_e})")
+
+# === Gen13 cortex mount (live additive — persistence + emergent signal) ===
+# Attaches the Gen13 brain trinity (AO spine + Hebbian 5x5 + quadratic glue)
+# as a SINGLETON that sees every chat text, learns from it across reboots,
+# and exposes its state at /cortex.  The website JSON contract is extended
+# (not replaced) with a `cortex_readout` field on chat responses; nothing
+# the current frontend depends on is removed.
+#
+# Additive ordering: this wrap sits OUTSIDE the math-first patch, so the
+# call chain is:
+#     api.process_chat  ->  cortex_wrap  ->  math_first_wrap  ->  gen12_chat
+# meaning the cortex learns from every message and also gets to decorate
+# the response AFTER math-first has had its say.
+_GEN13_BRAIN = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'brain'))
+sys.path.insert(0, _GEN13_BRAIN)
+_cortex = None
+_cortex_autosaver = None
+try:
+    from cortex import Cortex as _Cortex
+    from cortex_persist import (
+        AutoSaver as _AutoSaver,
+        load_cortex as _load_cortex,
+        save_cortex as _save_cortex,
+        DEFAULT_STATE_PATH as _CORTEX_STATE_PATH,
+    )
+    from cortex_voice import cortex_speak as _cortex_speak
+    _cortex = _Cortex().boot()
+    # Auto-load persisted state if present. Silent no-op if first boot.
+    try:
+        loaded = _load_cortex(_cortex, _CORTEX_STATE_PATH)
+        if loaded:
+            print(f"[CK] Gen13 cortex: loaded persisted state "
+                  f"(tick={_cortex.state.tick}, W_trace={_cortex.state.W_trace:.3f}) "
+                  f"from {_CORTEX_STATE_PATH}")
+        else:
+            print(f"[CK] Gen13 cortex: no prior state, starting cold at "
+                  f"{_CORTEX_STATE_PATH}")
+    except Exception as _le:
+        # Corrupted file: don't crash boot, just start cold.
+        print(f"[CK] Gen13 cortex: load failed ({_le}); starting cold")
+
+    _cortex_autosaver = _AutoSaver(
+        cortex=_cortex, path=_CORTEX_STATE_PATH,
+        every_ticks=200, every_seconds=30.0,
+    )
+
+    # Register graceful-shutdown save so W survives Ctrl-C / service stop.
+    import atexit as _atexit
+    def _cortex_final_save():
+        try:
+            _cortex_autosaver.force_save()
+            print(f"[CK] Gen13 cortex: final save (tick={_cortex.state.tick}, "
+                  f"W_trace={_cortex.state.W_trace:.3f})")
+        except Exception as _fe:
+            print(f"[CK] Gen13 cortex: final save FAILED ({_fe})")
+    _atexit.register(_cortex_final_save)
+
+    # Wrap process_chat (already math-first-wrapped).  The cortex SEES
+    # every chat, learns from it, and attaches its state as a separate
+    # field.  It never overwrites `text` -- the math-first patch owns that.
+    _prev_process_chat = api.process_chat
+
+    def _process_chat_with_cortex(session_id, text, mode='normal'):
+        result = _prev_process_chat(session_id, text, mode)
+        try:
+            if text:
+                _cortex.step_text(text)
+            readout = _cortex_speak(_cortex)
+            if readout:
+                result['cortex_readout'] = readout
+            result['cortex'] = {
+                'tick': _cortex.state.tick,
+                'emergent': round(_cortex.state.emergent, 6),
+                'W_trace': round(_cortex.state.W_trace, 6),
+            }
+            # Opportunistic save; cheap if under-threshold.
+            _cortex_autosaver.maybe_save()
+        except Exception as _ce:
+            result['cortex_error'] = str(_ce)
+        return result
+
+    api.process_chat = _process_chat_with_cortex
+    print(f"[CK] Gen13 cortex: MOUNTED "
+          f"(/cortex live, autosave every 200 ticks or 30s)")
+except Exception as _e:
+    print(f"[CK] Gen13 cortex: DISABLED ({_e})")
+
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -278,6 +414,47 @@ def compression_status():
         'last_stats': comp.compressor.last_stats,
         'save_dir': comp.save_dir,
     })
+
+# ── Gen13 cortex snapshot endpoint ──
+@api._app.route('/cortex', methods=['GET'])
+def cortex_snapshot():
+    """Live snapshot of the Gen13 brain trinity (AO + Hebbian 5x5 + glue).
+
+    Returns:
+      - tick, emergent, W_trace, strongest_pair
+      - Hebbian 5x5 matrix, row/col strengths, dim names
+      - AO spine status (current op, coherence, breath, tl_total)
+      - gated voice readout (null if emergent under threshold)
+    """
+    if _cortex is None:
+        return _jsonify({'available': False, 'reason': 'Cortex not mounted'}), 503
+    try:
+        snap = _cortex.snapshot()
+        try:
+            snap['readout'] = _cortex_speak(_cortex)
+        except Exception as _re:
+            snap['readout_error'] = str(_re)
+        snap['persistence_path'] = _CORTEX_STATE_PATH
+        return _jsonify(snap)
+    except Exception as _e:
+        return _jsonify({'available': True, 'error': str(_e)}), 500
+
+
+@api._app.route('/cortex/save', methods=['POST'])
+def cortex_force_save():
+    """Manual save trigger (useful before a planned restart)."""
+    if _cortex is None or _cortex_autosaver is None:
+        return _jsonify({'available': False}), 503
+    try:
+        _cortex_autosaver.force_save()
+        return _jsonify({
+            'saved': True, 'path': _CORTEX_STATE_PATH,
+            'tick': _cortex.state.tick,
+            'W_trace': round(_cortex.state.W_trace, 6),
+        })
+    except Exception as _e:
+        return _jsonify({'saved': False, 'error': str(_e)}), 500
+
 
 # ── Lattice chain status endpoint ──
 @api._app.route('/chain/status', methods=['GET'])

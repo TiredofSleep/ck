@@ -3,6 +3,15 @@
 # .gitignore — what stays off GitHub
 # ============================================================
 
+# Gen13 runtime state (per-machine, live-writing)
+# The cortex's learned Hebbian W matrix is HIS memory on this machine --
+# it evolves every ~30s while the server runs and is not meant to be
+# committed. Never-delete still applies to authored code and committed
+# history; this is a runtime artifact, not history.
+Gen13/var/
+Gen13/var/*.json
+Gen13/var/*.tmp.json
+
 # Python artifacts
 __pycache__/
 *.py[cod]

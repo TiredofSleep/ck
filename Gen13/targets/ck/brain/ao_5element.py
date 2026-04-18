@@ -50,7 +50,7 @@ from ck_sim.ck_sim_heartbeat import (   # Fire: composition engine
     BALANCE, CHAOS, HARMONY, BREATH, RESET,
     OP_NAMES, NUM_OPS,
 )
-from ck_sim.ck_sim_d2 import D2Pipeline  # Air + Water
+from ck_sim.ck_sim_d2 import D2Pipeline, D2_OP_MAP  # Air + Water
 from ck_sim.ck_sim_brain import (         # Fire: transition memory
     BrainState, brain_init, brain_tick, brain_tl_observe,
 )
@@ -259,6 +259,36 @@ class AO5Element:
         if 0 <= op < NUM_OPS:
             return OP_NAMES[op]
         return f"?{op}"
+
+    # ── 5D profile readout (for Hebbian learning) ──────────────────
+
+    def profile_5d(self) -> List[int]:
+        """True 5D operator profile from the raw D2 vector.
+
+        Instead of broadcasting one operator to all five dimensions, this
+        reads the sign of each of the 5 D2 components and picks the matching
+        operator via D2_OP_MAP[dim][positive_or_negative].
+
+        This gives each dimension its OWN operator -- which is exactly what
+        the olfactory CL field's 5x5 coupling expects.  A HARMONY cell in
+        position (d_a, d_b) then means "dim d_a of A genuinely couples with
+        dim d_b of B" rather than "every dim-pair of A and B happens to
+        share the same broadcast operator".
+
+        Returns:
+            length-5 list of operators (0..9), one per dimension.
+            Before D2 has filled (first 3 ticks) returns [HARMONY]*5
+            as a neutral default.
+        """
+        if not self.d2.valid:
+            return [HARMONY] * 5
+        profile = []
+        for dim in range(5):
+            # sign index: 0 = positive (>= 0) -> first op in the tuple,
+            #             1 = negative (< 0)  -> second op.
+            sign_idx = 0 if self.d2.d2[dim] >= 0 else 1
+            profile.append(D2_OP_MAP[dim][sign_idx])
+        return profile
 
 
 # ── Module self-check (not a full unit harness -- see test_brain.py) ──
