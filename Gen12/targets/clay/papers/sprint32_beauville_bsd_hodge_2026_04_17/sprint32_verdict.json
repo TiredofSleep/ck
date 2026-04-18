@@ -1,0 +1,22 @@
+{
+  "sprint": 32,
+  "target": "Beauville residual (R1b rank >= 3) on A_*",
+  "synthesis_used": [
+    "Rosati-skew",
+    "Hodge-Riemann positivity",
+    "Mukai chi-bound"
+  ],
+  "HR_eigenvalues_on_Wstar": [
+    0.0046,
+    0.0231,
+    0.1156,
+    0.3834
+  ],
+  "closure_achieved": false,
+  "quantitative_bound": {
+    "|alpha|^2 in block B_1": 434.7826086956522,
+    "|alpha|^2 in block B_4": 5.216484089723526,
+    "conditions": "rank r >= 3, c_1 = 0, beta and ch_4 tuned to saturate Mukai"
+  },
+  "next_step": "Finer Rosati computation on H^4 (not just NS); use Chern class integrality lattice."
+}
