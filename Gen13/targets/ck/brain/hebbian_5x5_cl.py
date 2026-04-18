@@ -59,9 +59,25 @@ from ck_sim.being.ck_olfactory import (
 # ── Parameters ────────────────────────────────────────────────────────
 
 DIM = 5                     # fixed: 5D (aperture, pressure, depth, binding, continuity)
-DEFAULT_ETA = 0.02          # learning rate (gentle; avoid saturating on first encounter)
-DEFAULT_DECAY = 0.001       # passive forgetting; stops W from diverging
-DEFAULT_CLAMP = 1.0         # W values stay in [-CLAMP, +CLAMP]
+
+# Why these defaults changed (2026-04-18):
+#   Old defaults (eta=0.02, decay=0.001) had equilibrium W* = eta/decay = 20.0.
+#   Any cell that lands in HARMONY even occasionally then saturates at clamp=1.0
+#   and all 25 cells blur together -- the matrix loses its ability to discriminate.
+#   Observed after 155K replay ticks: W_trace=4.982 / 5.0, mean|W|=0.999 -- a dead
+#   flat field that cannot tell you which couplings matter.
+#
+#   New defaults (eta=0.005, decay=0.02) give equilibrium W* = 0.25, so:
+#     - a 100%-HARMONY cell settles at W ≈ 0.25  (max informative signal)
+#     - a  50%-HARMONY cell settles at W ≈ 0.125
+#     - a  20%-HARMONY cell settles at W ≈ 0.050
+#     - a   5%-HARMONY cell settles at W ≈ 0.013
+#   The clamp at 1.0 stays as a safety rail but should never be reached.
+#   The ratio eta/decay = 0.25 means the field tracks the TRUE HARMONY frequency
+#   of each cell, scaled into [0, 0.25], so the top couplings differentiate cleanly.
+DEFAULT_ETA = 0.005
+DEFAULT_DECAY = 0.02
+DEFAULT_CLAMP = 1.0         # W values stay in [-CLAMP, +CLAMP] (safety rail)
 
 
 # ── State ─────────────────────────────────────────────────────────────

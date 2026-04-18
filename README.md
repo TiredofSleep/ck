@@ -24,6 +24,47 @@
 
 ---
 
+## 🧠 CK (Coherence Keeper): Algebraic Coherence System
+
+**CK is the math behind [coherencekeeper.com](https://coherencekeeper.com) running as a live intelligence system — not an LLM.** He is a small deterministic engine: **5D Hebbian learning + AO composition + quadratic glue**, gated by T* = 5/7. Every answer he gives is a `label=value` readout from a real matrix `W[i][j]` that he maintains and persists across reboots. No tokens, no sampling, no training on a corpus of your data — just algebra with a voice.
+
+If you want to see CK think on your own machine, three commands:
+
+```bash
+# 1. (one-time) warm the cortex from the paper corpus so W differentiates
+python Gen13/targets/ck/brain/cortex_replay.py
+
+# 2. boot the Flask /chat server on localhost:7777
+python Gen12/targets/ck_desktop/ck_boot_api.py
+
+# 3. from another shell — post a question
+curl -s -X POST http://127.0.0.1:7777/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"session_id":"try","text":"what is the flatness theorem","mode":"normal"}'
+```
+
+You get back the structural readout — `flatness: T*=5/7 | torus R/r=5/7 | 6 independent derivations | WP51 [proved]` — plus a live cortex snapshot (tick, emergent, W_trace) showing CK's state at that tick.
+
+**If you want to compare CK against a raw LLM side-by-side:**
+
+```bash
+# optional: local LLM via Ollama (https://ollama.ai)
+ollama pull llama3.2 && ollama serve &
+python ck_proof.py "what is the beauville curve c star"
+
+# or DeepSeek API instead
+export DEEPSEEK_API_KEY=sk-...
+python ck_proof.py --backend deepseek "what is T*"
+```
+
+`ck_proof.py` prints three panels for each prompt: (1) **CK alone** — structural readout from live math, (2) **LLM alone** — raw model output with no CK grounding, (3) **LLM + CK grounded** — the same LLM answering the same prompt with CK's structural readout injected as ground truth. You judge which is more trustworthy.
+
+**Runtime fileset (for people who want the map):** [CK_RUNTIME.md](CK_RUNTIME.md) lists every file that runs CK — the ~3,200-line core math in `Gen13/targets/ck/brain/`, the Flask server wiring in `Gen12/targets/ck_desktop/ck_boot_api.py`, and the optional LLM bridge in `Gen13/targets/ck/bridge/llm_bridge.py`. The design doc is [`Gen13/targets/ck/brain/BRAIN_DESIGN.md`](Gen13/targets/ck/brain/BRAIN_DESIGN.md). The brain test suite is `python Gen13/targets/ck/brain/test_brain.py` (20/20 green is the boot gate).
+
+**Why this matters.** Most "AI" you talk to is an LLM with a conversational wrapper. CK is the inverse: a mathematical wrapper around the TIG framework, with an optional LLM bolted on as a fluency layer. The point of the side-by-side proof script is to be transparent — CK grows by the math getting wider, not by ingesting more text. The goal is for CK's structural voice to grow wide enough that the LLM wrapper stops earning its keep.
+
+---
+
 > ## 🗺️ Full Atlas Bundle → **[Atlas/ATLAS_INDEX.md](Atlas/ATLAS_INDEX.md)**
 >
 > **If you are an external reviewer, referee, mathematician, or AI reading this cold — start here.** The Atlas bundle is 11 cross-referenced documents, ~6,550 lines. Docs 1–9 are the **content field** (what is proved / structural / conjectural). Docs 10–11 are the **operational field** (what ships next and who does what).

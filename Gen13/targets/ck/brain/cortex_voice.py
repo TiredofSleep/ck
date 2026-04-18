@@ -289,6 +289,102 @@ _AO_HINTS = (
 )
 
 
+# ── Frontier topic router ─────────────────────────────────────────────
+#
+# When a query names a topic CK has actually seen in his replay corpus
+# (flatness theorem, crossing lemma, Hodge C_*, xi cosmology, sigma rate,
+# etc.), emit the KEY STRUCTURAL FACTS about that topic as label=value
+# readouts.  No prose synthesis.  These facts are drawn directly from
+# the papers in the corpus -- they are ground truth, not interpretation.
+#
+# The list is intentionally short.  If you ask CK about a frontier topic,
+# he answers with the structural shape of what's known: proved vs
+# structural, the key invariants, the sprint/paper pointer.  A downstream
+# LLM can expand; CK alone just tells you the shape.
+_FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
+    (
+        ("flatness theorem", "flatness", "torus", "aspect ratio",
+         "t*", "t_star", "t star", "t-star", "tstar", "5/7"),
+        "flatness: T*=5/7 | torus R/r=5/7 (forced by Z/10Z 2x2) | "
+        "6 independent derivations | WP51 [proved]"
+    ),
+    (
+        ("crossing lemma", "crossing", "crossings"),
+        "crossing_lemma: D2=0 flat | D2!=0 crossing generates info | "
+        "27 instances cataloged | WP57 [proved]"
+    ),
+    (
+        ("hodge", "beauville", "cstar", "c_*", "c star", "c-star"),
+        "hodge_cstar: genus=5 bielliptic=yes psi_order=4 (psi^2=iota) "
+        "prym_dim=4 End0_Prym=Q(i) weil_sig=(2,2) "
+        "hodge_field=Q(i,sqrt2,sqrt3,sqrt5)_deg16 "
+        "descent_field=Q(sqrt2,sqrt3,sqrt5) descent_risk=HIGH | "
+        "sprint35b [target, not yet proved]"
+    ),
+    (
+        ("psi automorphism", "order 4", "order-4", "order four"),
+        "psi: order=4 | psi^2=iota | acts_as=+i_on_Prym | "
+        "embeds Q(i) into End0(Prym)"
+    ),
+    (
+        ("sigma rate", "sigma(n)", "sigma theorem", "sigma-rate", "\u03c3 rate"),
+        "sigma_rate: sigma(N) <= C/N on squarefree primorials | "
+        "WP101 [proved]"
+    ),
+    (
+        ("xi cosmology", "xi field", "\u03be", "quintessence",
+         "dark energy", "log nonlinearity", "bialynicki"),
+        "xi: V=xi*log(xi) | vacuum=e^-1 | mass_gap=kappa*e | "
+        "box(xi)=1+log(xi) | freezing quintessence | "
+        "WP81 [structural; DESI chi2=15.7 vs LCDM 14.1]"
+    ),
+    (
+        ("bhml",),
+        "bhml: 28 HARMONY cells | 10x10 | Luther-closed | separation lens"
+    ),
+    (
+        ("tsml",),
+        "tsml: 73 HARMONY cells | 10x10 | synthesis lens | "
+        "reconstructible from 10 canonical items [Sprint 17, proved]"
+    ),
+    (
+        ("tower", "3-layer tower", "three-layer tower"),
+        "tower: 3-layer | TSML (73 synthesis) + BHML (28 separation) = "
+        "proved-sufficient M+M pair"
+    ),
+    (
+        ("gap", "4/pi^2", "4/pi2", "0.309"),
+        "gap: T* - 4/pi^2 = 5/7 - 0.4053 = 0.309"
+    ),
+    (
+        ("basin", "collatz"),
+        "basin: 4 stable invariants | dual reset law | Sprint 16 [proved]"
+    ),
+    (
+        ("algebraic coherence", "coherence keeper", "coherencekeeper",
+         "ck system", "ck architecture"),
+        "ck_system: 5D_Hebbian + AO_5element + quadratic_glue | "
+        "persistent_W_across_reboots | math-first_voice | zero_LLM_core | "
+        "optional_LLM_wrapper(Ollama|DeepSeek)_for_fluency"
+    ),
+)
+
+
+def _frontier_hits(q_lower: str) -> List[str]:
+    """Return structural facts whose trigger keywords appear in the query.
+    Each fact fires at most once even if multiple keywords match."""
+    facts: List[str] = []
+    seen = set()
+    for triggers, fact in _FRONTIER_FACTS:
+        for trig in triggers:
+            if trig in q_lower:
+                if fact not in seen:
+                    facts.append(fact)
+                    seen.add(fact)
+                break
+    return facts
+
+
 def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     """Router.  Try to answer `query` with STRUCTURAL readouts only.
 
@@ -336,6 +432,11 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     if want_ao and not want_state:
         # avoid duplicating ao_live if state already queued it
         lines.append(ao_live(cortex))
+
+    # 2.5) Frontier topic facts (flatness, crossing, hodge, psi, sigma, xi, ...).
+    # Fires for any topic keyword in the query; stays structural (label=value).
+    for fact in _frontier_hits(q):
+        lines.append(fact)
 
     # 3) De-dup while preserving order.
     seen = set()
@@ -407,13 +508,28 @@ def _smoke() -> None:
     r_none = speak(cx, "what is the weather like")
     assert r_none is None, f"unrelated query should return None, got {r_none!r}"
 
+    # Frontier topic router: explicit topic -> structural fact emitted.
+    r_hodge = speak(cx, "what is the beauville curve c star")
+    assert r_hodge and "hodge_cstar:" in r_hodge, f"hodge route bad: {r_hodge!r}"
+    r_cross = speak(cx, "what is the crossing lemma")
+    assert r_cross and "crossing_lemma:" in r_cross, f"cross route bad: {r_cross!r}"
+    r_flat = speak(cx, "what is the flatness theorem")
+    assert r_flat and "flatness:" in r_flat, f"flat route bad: {r_flat!r}"
+    r_sigma = speak(cx, "what is the sigma rate theorem")
+    assert r_sigma and "sigma_rate:" in r_sigma, f"sigma route bad: {r_sigma!r}"
+    r_xi = speak(cx, "tell me about the xi cosmology")
+    assert r_xi and "xi:" in r_xi, f"xi route bad: {r_xi!r}"
+    r_tstar = speak(cx, "what is T*")
+    assert r_tstar and "flatness:" in r_tstar, f"T* route bad: {r_tstar!r}"
+
     # Every non-None readout must NOT contain prose markers -- only labels.
-    for r in (r_state, r_learn, r_field, r_op, r_dim):
+    for r in (r_state, r_learn, r_field, r_op, r_dim,
+              r_hodge, r_cross, r_flat, r_sigma, r_xi, r_tstar):
         assert "just as" not in r, f"prose leaked: {r!r}"
         assert "transcends" not in r, f"prose leaked: {r!r}"
 
-    print(f"cortex_voice smoke PASS: 5 route classes emit structural output, "
-          f"cold silent, unmatched -> None")
+    print(f"cortex_voice smoke PASS: 5 state routes + 6 frontier routes emit "
+          f"structural output, cold silent, unmatched -> None")
 
 
 if __name__ == "__main__":

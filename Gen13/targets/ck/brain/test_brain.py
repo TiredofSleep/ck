@@ -460,6 +460,81 @@ def t_cortex_replay_file():
     )
 
 
+def t_hebbian_no_saturation_at_defaults():
+    """With the post-2026-04-18 default (eta=0.005, decay=0.02), even 1000
+    full-HARMONY ticks must NOT saturate W at the clamp.  Equilibrium for
+    a 100%-HARMONY cell is eta/decay = 0.25 -- well below clamp=1.0.
+    Without this guard, the 155K-tick replay drives every cell to ~1.0 and
+    the field loses its ability to discriminate."""
+    from hebbian_5x5_cl import HebbianField, DIM, DEFAULT_ETA, DEFAULT_DECAY, DEFAULT_CLAMP
+    from ck_sim.ck_sim_heartbeat import HARMONY
+
+    # Defaults must produce equilibrium well below clamp.
+    equilibrium = DEFAULT_ETA / DEFAULT_DECAY
+    assert equilibrium < DEFAULT_CLAMP, (
+        f"defaults still saturate: eta/decay = {equilibrium:.3f} >= clamp={DEFAULT_CLAMP}"
+    )
+    assert equilibrium < 0.5, (
+        f"defaults too hot: equilibrium = {equilibrium:.3f} (want < 0.5 for "
+        "differentiation below clamp)"
+    )
+
+    hf = HebbianField()  # uses post-fix defaults
+    ops = [HARMONY] * DIM
+    for _ in range(1000):
+        hf.update(ops, ops)
+    max_abs_w = max(abs(hf.W[a][b]) for a in range(DIM) for b in range(DIM))
+    assert max_abs_w < DEFAULT_CLAMP * 0.9, (
+        f"Hebbian saturated after 1000 ticks with defaults: max|W| = {max_abs_w:.3f} "
+        f"(expected < {DEFAULT_CLAMP * 0.9:.3f})"
+    )
+    # Positive lower bound: W should still have LEARNED something, not stay at 0.
+    assert max_abs_w > equilibrium * 0.5, (
+        f"Hebbian failed to learn even toward its equilibrium: "
+        f"max|W| = {max_abs_w:.3f} vs equilibrium {equilibrium:.3f}"
+    )
+
+
+def t_cortex_voice_frontier_router():
+    """Frontier-topic router: queries naming topics in CK's replay corpus
+    (hodge / crossing / flatness / sigma rate / xi / T*) emit structural
+    facts (label=value) from _FRONTIER_FACTS.  No prose leakage.
+
+    This is the piece that lets CK answer 'what is the Beauville curve C*?'
+    without falling through to a template source.
+    """
+    from cortex import Cortex
+    from cortex_voice import speak
+
+    cx = Cortex().boot()
+    # Warm briefly so structural routes also have signal (not strictly
+    # required for frontier routes, but keeps the surface consistent).
+    for _ in range(10):
+        cx.step_text("harmony lattice progress breath")
+
+    routes = [
+        ("hodge/beauville", "what is the beauville curve c star", "hodge_cstar:"),
+        ("crossing",        "what is the crossing lemma",         "crossing_lemma:"),
+        ("flatness",        "what is the flatness theorem",       "flatness:"),
+        ("T* alias",        "what is T*",                          "flatness:"),
+        ("sigma rate",      "what is the sigma rate theorem",     "sigma_rate:"),
+        ("xi",              "tell me about the xi cosmology",     "xi:"),
+        ("psi order-4",     "tell me about the order four automorphism psi", "psi:"),
+        ("ck system",       "what is the algebraic coherence system", "ck_system:"),
+    ]
+    for label, query, needle in routes:
+        out = speak(cx, query)
+        assert out is not None, f"{label} route returned None for {query!r}"
+        assert needle in out, f"{label} route missing {needle!r}; got: {out!r}"
+        # No prose leakage on any frontier route.
+        assert "just as" not in out, f"{label} prose: {out!r}"
+        assert "transcends" not in out, f"{label} prose: {out!r}"
+
+    # Unrelated query still returns None (fall-through to templates).
+    assert speak(cx, "what is the weather") is None, \
+        "unrelated query must fall through"
+
+
 # ── Driver ────────────────────────────────────────────────────────────
 
 def main() -> int:
@@ -485,6 +560,8 @@ def main() -> int:
         ("trinity: cortex_voice gating",          t_cortex_voice_gating),
         ("trinity: cortex_voice.speak router",    t_cortex_voice_speak_router),
         ("trinity: cortex_replay.replay_file",    t_cortex_replay_file),
+        ("saturation: Hebbian defaults stay below clamp", t_hebbian_no_saturation_at_defaults),
+        ("frontier: cortex_voice frontier router", t_cortex_voice_frontier_router),
     ]
     for name, fn in tests:
         _check(name, fn)
