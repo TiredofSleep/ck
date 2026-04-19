@@ -297,8 +297,8 @@ Through Dual-Lens Algebraic Curvature, First-G Boundaries, and Harmonic Pre-Echo
 
 **§2.5 The Meta-Lens (3x3 Recursion)**
 - 10×10 collapses to 3x3 phases: Being, Doing, Becoming
-- Maximum blind spot: DOING × DOING = 87.5% divergence between TSML and BHML
-- Gap problems live in the DOING × DOING blind spot — STRUCTURAL observation
+- Maximum blind spot: COUNTER × COUNTER = 87.5% divergence between TSML and BHML
+- Gap problems live in the COUNTER × COUNTER blind spot — STRUCTURAL observation
 - Recursion terminates in exactly 3 levels; scalar ratio = 61/48 = 1.2708...
 
 ---
@@ -404,11 +404,11 @@ Through Dual-Lens Algebraic Curvature, First-G Boundaries, and Harmonic Pre-Echo
 - CONJECTURE (to be formalized): VOID-fraction is a spectrometer invariant of the problem class
 - Distinguish affirmative class (conjectured true) from gap class (structural obstacle)
 
-**§5.2 The DOING × DOING Blind Spot**
-- Structure sees DOING as 87.5% resolved; flow sees 0% resolved
+**§5.2 The COUNTER × COUNTER Blind Spot**
+- Structure sees COUNTER as 87.5% resolved; flow sees 0% resolved
 - STRUCTURAL: gap problems live in this coordinate
 - Formal claim: a problem is in the gap class iff its dominant CL composition
-  is DOING × DOING → HARMONY
+  is COUNTER × COUNTER → HARMONY
 
 **§5.3 Luther's Dispersion as the Boundary Geometry**
 - CONJECTURE (C. A. Luther, WP34 §9): gate_rate ≈ F_k(|G| × dispersion(G))
@@ -528,11 +528,11 @@ Must be formalized: VOID-fraction as an invariant of the problem class, not just
 generator.
 
 ### Claim 8 (Structural — WP7 §5.2)
-**The DOING × DOING Blind Spot localizes gap problems.**
-TSML and BHML diverge maximally in the DOING × DOING coordinate (87.5%).
+**The COUNTER × COUNTER Blind Spot localizes gap problems.**
+TSML and BHML diverge maximally in the COUNTER × COUNTER coordinate (87.5%).
 Structure sees doing as resolved; flow continues.
 Formal version: all six Clay gap problems have their primary CL composition landing in
-the DOING × DOING zone. Requires formalizing what "primary CL composition" means for
+the COUNTER × COUNTER zone. Requires formalizing what "primary CL composition" means for
 a mathematical problem class.
 
 ### Claim 9 (Empirical — WP34 §9, controlled isolation test)

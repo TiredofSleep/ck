@@ -245,7 +245,7 @@ if __name__ == '__main__':
     print()
     print("  4. The corridor midpoint (k/p=1/2) gives sinc²=4/pi²~0.405.")
     print("     Re(s)=1/2 is the MIDPOINT RATIO, not the fold value.")
-    print("     The fold and the midpoint both live in the BECOMING-to-COLLAPSE")
+    print("     The fold and the midpoint both live in the PROGRESS-to-COLLAPSE")
     print("     transition zone. They are not identical. They bracket it.")
     print()
     print("  5. No shortcut exists. Proved for all primes to 199.")

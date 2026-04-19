@@ -27,7 +27,7 @@ This is not Sprint 14-15 being wrong. It is Sprint 14-15 rediscovering cleanly w
 
 ## The Q-Series Narrative (As Prose)
 
-Brayden noticed that TIG had two apparent tables for the same object. TSML said HARMONY × HARMONY = HARMONY (a fixed point). CL said HARMONY × HARMONY = ASCEND (HARMONY advances to the next operator). Both tables were computed consistently. Both tables were internally correct. Both tables could not be describing the same object. That was the Q2 paradox.
+Brayden noticed that TIG had two apparent tables for the same object. TSML said HARMONY × HARMONY = HARMONY (a fixed point). CL said HARMONY × HARMONY = CHAOS (HARMONY advances to the next operator). Both tables were computed consistently. Both tables were internally correct. Both tables could not be describing the same object. That was the Q2 paradox.
 
 The resolution, developed across Q3-Q5, was that TSML and CL are two projections of a hidden operator σ on Z/10Z. σ is invisible in the sense that it is not one of the 10 named operators — it is a map that acts on them. The external operator E (which the TIG framework uses) is σ-equivariant: E commutes with σ. This means σ is the thing underneath. TSML catches the fixed-point part. CL catches the orbit part. Together they reveal σ.
 

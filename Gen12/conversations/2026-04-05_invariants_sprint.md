@@ -21,7 +21,7 @@ and a frontier map for where CK can be used as a research instrument.
 ### 1. Wrong operator vocabulary in the memo draft
 
 The draft's `OPERATOR_VOCABULARY` contained:
-`VOID, BEGINNING, BECOMING, PROGRESS, KINDNESS, BALANCE, FAITH, HARMONY, BREATH, FRUIT, LATTICE, CK, TIG, COMMIT, DISCLAIM`
+`VOID, BEGINNING, PROGRESS, PROGRESS, KINDNESS, BALANCE, FAITH, HARMONY, BREATH, FRUIT, LATTICE, CK, TIG, COMMIT, DISCLAIM`
 
 **These are not CK's operators.** BEGINNING, KINDNESS, FAITH, FRUIT, COMMIT, DISCLAIM do not exist.
 

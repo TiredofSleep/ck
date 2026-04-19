@@ -84,7 +84,7 @@ BHML_RAW = [
 
 TSML = np.array(TSML_RAW, dtype=np.int8)
 BHML = np.array(BHML_RAW, dtype=np.int8)
-DOING = np.abs(TSML.astype(np.int16) - BHML.astype(np.int16)).astype(np.int8)
+COUNTER = np.abs(TSML.astype(np.int16) - BHML.astype(np.int16)).astype(np.int8)
 
 OPERATORS  = list(range(1, 10))
 C          = frozenset({1, 3, 7, 9})    # corner set

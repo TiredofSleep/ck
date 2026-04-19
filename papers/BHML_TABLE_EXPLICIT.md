@@ -1,4 +1,4 @@
-# BHML — BECOMING/HARMONY MEASUREMENT LAYER
+# BHML — PROGRESS/HARMONY MEASUREMENT LAYER
 # Explicit Table Record — Full Table Confirmed (Q7, 2026-04-01)
 
 **© 2026 7Site LLC. All rights reserved.**

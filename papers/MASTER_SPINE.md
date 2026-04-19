@@ -55,7 +55,7 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - T*: CK coherence threshold, equal to 5/7
 **Proof:** For b=35, p=5, q=7: ⌊7/5⌋=1; (7−1−1)/7=5/7. Exact arithmetic. FPGA-verified: T*=5/7 burned into Zynq-7020 silicon.
 **Dependencies:** None (arithmetic).
-**Consequence:** T*=5/7 is the CK coherence threshold; proven identical to CREATE/HARMONY ratio (D7).
+**Consequence:** T*=5/7 is the CK coherence threshold; proven identical to BALANCE/HARMONY ratio (D7).
 **Does NOT claim:** T*=5/7 is universal across all semiprimes; other b give different unit_frac values.
 **File:** WP35, `proof_d7_phi_fixed_point.py`
 
@@ -91,14 +91,14 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ## D7 — Phi Fixed Point Theorem
 
-**Statement:** Phi=P_odd∘BHML∘W_op has unique fixed point CREATE=5; all orbits reach 5 in ≤3 steps; unique stationary distribution π=δ₅.
+**Statement:** Phi=P_odd∘BHML∘W_op has unique fixed point BALANCE=5; all orbits reach 5 in ≤3 steps; unique stationary distribution π=δ₅.
 **Exact definitions:**
 - W_op[v]: nearest carrier-maximum operator to t=v/10
 - P_odd: project to nearest odd element of Z/10Z
 - Phi: the composed map P_odd∘BHML∘W_op on Z/10Z
 **Proof:** Phi(5)=P_odd(BHML[5][W_op[5]])=P_odd(BHML[5][7])=P_odd(6)=5 (3 algebraic steps). Uniqueness: exhaustive verification for all 9 remaining states. Global convergence: 1-step basin {2,3,4}; 2-step {0,1,7}; 3-step {6,8,9}. Markov: T³[v][5]=1 for all v.
 **Dependencies:** D8 (W_op carrier maxima all ODD), D9 (BHML symmetry), Z/10Z completeness.
-**Consequence:** CREATE=5 is the dynamic attractor. HARMONY=7 is the measurement attractor (D10/D16). T*=CREATE/HARMONY=5/7=D4.
+**Consequence:** BALANCE=5 is the dynamic attractor. HARMONY=7 is the measurement attractor (D10/D16). T*=BALANCE/HARMONY=5/7=D4.
 **Does NOT claim:** Phi governs CK's internal dynamics directly; it is a structural fact about the operator algebra, not a differential equation.
 **File:** `proof_d7_phi_fixed_point.py`
 
@@ -227,7 +227,7 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - Zone R_89: BREATH/RESET×TRANS harmony cells — 13 cells
 **Proof:** R_A disjoint from R_B (i=0 vs i≥1). R_7 disjoint from R_B (j=7∉{1..6}). R_89 disjoint from all (indices 8,9 excluded from others). Counts: R_B: row 6 (6 cells)+col 6 excl diag (5 cells)=11. R_89: {4,5,6}×{8,9}∪{8,9}×{4,5,6}∪{(8,8)}=6+6+1=13. Total=2+11+2+13=28. Verified exhaustively.
 **Dependencies:** D9 (BHML symmetry), Z/10Z completeness.
-**Consequence:** 28/100=28% of BHML cells are HARMONY; ASCEND(6) is the structural ceiling (max=6→HARMONY).
+**Consequence:** 28/100=28% of BHML cells are HARMONY; CHAOS(6) is the structural ceiling (max=6→HARMONY).
 **Does NOT claim:** The 28 cells have any additional algebraic structure beyond the four-zone partition; 28 is not a "magic number."
 **File:** `proof_d16_bhml_28_cells.py`
 
@@ -253,7 +253,7 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ## D18a — Phi Orbit Classification
 
-**Statement:** The Phi map on Z/10Z has: one fixed point (CREATE=5), two relay nodes (BECOMING=3 at depth 1, HARMONY=7 at depth 2), seven source nodes ({0,1,2,4,6,8,9}), and three basins ({2,3,4}→5 in 1 step; {0,1,7}→3→5 in 2 steps; {6,8,9}→7→3→5 in 3 steps). No cycles except the fixed point. Max orbit depth = 3.
+**Statement:** The Phi map on Z/10Z has: one fixed point (BALANCE=5), two relay nodes (PROGRESS=3 at depth 1, HARMONY=7 at depth 2), seven source nodes ({0,1,2,4,6,8,9}), and three basins ({2,3,4}→5 in 1 step; {0,1,7}→3→5 in 2 steps; {6,8,9}→7→3→5 in 3 steps). No cycles except the fixed point. Max orbit depth = 3.
 **Exact definitions:**
 - Phi(v): P_odd(BHML[v][W_op[v]]) where W_op[v] = nearest carrier-maximum operator to t=v/10
 - P_odd: project to nearest element of ODD={1,3,5,7,9}, tie-break lower
@@ -284,10 +284,10 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 
 ## D18d — Generator Convergence Theorem  ✓ PROVED
 
-**Statement:** (CREATE=5, HARMONY=7, T*=5/7) are simultaneously determined by the generator g=3 of (Z/10Z)*={1,3,7,9}:
-- CREATE = centroid((Z/10Z)*) = (1+3+7+9)/4 = 5
+**Statement:** (BALANCE=5, HARMONY=7, T*=5/7) are simultaneously determined by the generator g=3 of (Z/10Z)*={1,3,7,9}:
+- BALANCE = centroid((Z/10Z)*) = (1+3+7+9)/4 = 5
 - HARMONY = g^3 mod 10 = g^(-1) mod 10 = 7
-- T* = CREATE/HARMONY = centroid/g^(-1) = 5/7
+- T* = BALANCE/HARMONY = centroid/g^(-1) = 5/7
 - W = g/50 = 3/50 (D17: generator IS the numerator)
 
 **Exact definitions:**
@@ -296,7 +296,7 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - centroid = sum(orbit)/|orbit| = 20/4 = 5 (exact, not approximate)
 - Selection of g=3 over g=7: D17 establishes W=3/50; numerator=3=smaller generator
 
-**Proof:** All computations finite and exact over Z/10Z. (1) (Z/10Z)*={1,3,7,9} by gcd check. (2) ord(3)=4=|(Z/10Z)*| (primitive root). (3) sum({1,3,7,9})/4=20/4=5=CREATE. (4) 3^3 mod 10=27 mod 10=7=HARMONY; also 3^(-1) mod 10=7. (5) 5/7=T*. (6) Alternative g=7 gives T*=5/3 (rejected by D17). Three independent derivation chains (A: BHML cross-cycle, B: TSML dominance, C: unit_frac b=35) all reduce to same generator.
+**Proof:** All computations finite and exact over Z/10Z. (1) (Z/10Z)*={1,3,7,9} by gcd check. (2) ord(3)=4=|(Z/10Z)*| (primitive root). (3) sum({1,3,7,9})/4=20/4=5=BALANCE. (4) 3^3 mod 10=27 mod 10=7=HARMONY; also 3^(-1) mod 10=7. (5) 5/7=T*. (6) Alternative g=7 gives T*=5/3 (rejected by D17). Three independent derivation chains (A: BHML cross-cycle, B: TSML dominance, C: unit_frac b=35) all reduce to same generator.
 **Dependencies:** D4 (T* from unit_frac), D7 (Phi fixed point), D10 (TSML 73 harmony cells), D17 (W=3/50), D18a (orbit structure), D18c (bridge M(v)=7).
 **Consequence:** T*=5/7 is not a calibrated constant — it is the ratio centroid/(g^-1) of Z/10Z's multiplicative group, pinned by the physics selecting g=3 over g=7. Every CK claim using T* is a consequence of the algebra, not an assumption.
 **Does NOT claim:** (1) That Phi convergence to 5 is CAUSED by 5 being the centroid (D7 is independent). (2) That g=3 is forced from something deeper than D17. (3) That (5,7) is the unique fixed-point/bridge-constant pair over ALL maps on Z/10Z (Part 0 of proof shows 121M+ maps have bridge constant 7).
@@ -313,11 +313,11 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 **Exact definitions:**
 - (Z/10Z)* has exactly two primitive roots: 3 and 7 (mutual inverses mod 10)
 - DIS[i][j] = |(i+j)%10−(i*j)%10| — symmetric table (pure ring arithmetic)
-- Coherence threshold constraint: T*=CREATE/HARMONY must be in (0,1)
+- Coherence threshold constraint: T*=BALANCE/HARMONY must be in (0,1)
 
 **Proof:** (1) DIS is fully symmetric (no asymmetric pairs found exhaustively); anti-symmetric part identically zero over C×D block. (2) CROSS_CYCLE=44 is generator-independent (same for both g). (3) g=7 forces HARMONY=3, T*=5/3>1 — inadmissible. (4) g=3 forces HARMONY=7, T*=5/7<1 — valid. Selection by two independent constraints: (a) minimality: g=min{3,7}=3; (b) physical validity: T*<1 eliminates g=7 entirely.
 **Dependencies:** D4 (T*∈(0,1) interpretation), D17 (W=3/50 cross-cycle), D18d (generator convergence structure).
-**Consequence:** T*=5/7 is **fully forced** — no part of the chain is calibrated or conventionally chosen. The complete spine: Z/10Z arithmetic → primitive root g=3 (forced by T*<1) → centroid CREATE=5 → inverse HARMONY=7 → T*=5/7.
+**Consequence:** T*=5/7 is **fully forced** — no part of the chain is calibrated or conventionally chosen. The complete spine: Z/10Z arithmetic → primitive root g=3 (forced by T*<1) → centroid BALANCE=5 → inverse HARMONY=7 → T*=5/7.
 **Does NOT claim:** That the coherence threshold interpretation of T* (i.e., T*∈(0,1) is a requirement) is itself forced by ring theory. This requirement comes from the physics/architecture definition of T* as a threshold. The theorem is conditional on that interpretation.
 **File:** `proof_d19_generator_selection.py`
 
@@ -334,15 +334,15 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - LENS-forced: requires TSML or BHML rule structure
 - CONTINGENT: naming/architectural choice with no algebraic consequence
 **Key assignments:**
-- CREATE=5: RING-forced — centroid((Z/10Z)*)=5; centroid(ODD={1,3,5,7,9})=5; both independent of generator
+- BALANCE=5: RING-forced — centroid((Z/10Z)*)=5; centroid(ODD={1,3,5,7,9})=5; both independent of generator
 - W=3/50 value: RING-forced — CROSS_CYCLE=44, deviation=6, W=6/100=3/50 (same for g=3 and g=7)
 - HARMONY=7: GENERATOR-forced — g^(-1) mod 10 = 7 only when g=3; under g=7, "HARMONY"=3
-- T*=5/7: GENERATOR-forced — CREATE/HARMONY = 5/7 only when HARMONY=7
+- T*=5/7: GENERATOR-forced — BALANCE/HARMONY = 5/7 only when HARMONY=7
 - W numerator label "g": GENERATOR-forced — W=3/50 = g/50 is a coincidence that requires g=3
 - sinc² envelope: LENS-forced — appears via D2 continuum limit, needs Fourier/resonance structure
 - Operator names: CONTINGENT
-**Proof:** Exhaustive Z/10Z check; centroid arithmetic; generator swap test (g=7 gives CREATE=5 unchanged, HARMONY=3≠7).
-**BONUS:** centroid(ODD)=5=CREATE; four independent routes to CREATE=5: (i) centroid (Z/10Z)*, (ii) centroid ODD, (iii) unique ODD fixed point of σ:v↦10-v (D21), (iv) additive midpoint of Z/10Z.
+**Proof:** Exhaustive Z/10Z check; centroid arithmetic; generator swap test (g=7 gives BALANCE=5 unchanged, HARMONY=3≠7).
+**BONUS:** centroid(ODD)=5=BALANCE; four independent routes to BALANCE=5: (i) centroid (Z/10Z)*, (ii) centroid ODD, (iii) unique ODD fixed point of σ:v↦10-v (D21), (iv) additive midpoint of Z/10Z.
 **Dependencies:** D17 (W), D18d (generator structure), D19 (g=3 selection), D21 (σ fixed point).
 **Consequence:** Clarifies what is physically forced vs. what depends on lens choice or architectural label. LEFT half of corridor (t<1/2) = ring territory; RIGHT half = generator territory. Feeds D22.
 **Does NOT claim:** That LENS-forced results are less rigorous — they are fully proved within the lens framework.
@@ -359,10 +359,10 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - σ:v↦10-v: the complement involution on Z/10Z
 **Proof (one line):** Setting v=5: F(10-5)=F(5) on LHS; (10-F(5)) mod 10 on RHS. So F(5)=(10-F(5)) mod 10, i.e., 2F(5)≡0 mod 10. Solutions: F(5)∈{0,5}. But 0∉ODD. Therefore F(5)=5. □
 **Exhaustive verification:** 625 CE maps total (9,765,625 total ODD-output maps); all 625 contain FP at 5; 400/625 (64%) have unique FP at 5; 100 have {1,5,9}; 100 have {3,5,7}; 25 have all-ODD.
-**Phi test:** Phi fails CE at v=2,3,4 — D7 (Phi fixed point) and D21 (CE equivariance) are independent paths to CREATE=5.
+**Phi test:** Phi fails CE at v=2,3,4 — D7 (Phi fixed point) and D21 (CE equivariance) are independent paths to BALANCE=5.
 **Dependencies:** None (pure arithmetic on Z/10Z).
-**Consequence:** CREATE=5 now has four independent characterizations — overdetermined, not just one path. Feeds D20 (inheritance audit). The ring center is forced by equivariance alone, independent of generator.
-**Does NOT claim:** That Phi is CE (it is not). D7 and D21 are independent results that agree on CREATE=5.
+**Consequence:** BALANCE=5 now has four independent characterizations — overdetermined, not just one path. Feeds D20 (inheritance audit). The ring center is forced by equivariance alone, independent of generator.
+**Does NOT claim:** That Phi is CE (it is not). D7 and D21 are independent results that agree on BALANCE=5.
 **File:** `proof_d21_fixed_point_centroid.py`
 
 ---
@@ -376,14 +376,14 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - Inheritance split: LEFT half (t<1/2) = RING-forced; RIGHT half (t>1/2) = GENERATOR-forced; t=1/2 = inheritance boundary
 **Exact positions:**
 - W = 3/50 = 0.06: RING-forced, corridor entry amplitude ≈ 0.988
-- CREATE/10 = 1/2: RING-forced (+ lens bridge), sine-maximum, sinc²(1/2)=4/π²≈0.405
+- BALANCE/10 = 1/2: RING-forced (+ lens bridge), sine-maximum, sinc²(1/2)=4/π²≈0.405
 - HARMONY/10 = 7/10: GENERATOR-forced, sinc² ≈ 0.135
 - T* = 5/7 ≈ 0.7143: GENERATOR-forced, sinc² ≈ 0.121
 **Ordering proof:** All four inequalities proved by exact Fraction arithmetic (Python fractions.Fraction).
 **Amplitude proof:** sinc² strictly monotone decreasing on (0,1) (D24) + positional ordering → amplitude ordering.
 **Fine-structure:** T* − HARMONY/10 = 5/7 − 7/10 = 50/70 − 49/70 = 1/70 = 1/(HARMONY × n). Exact.
 **Attenuation mechanism:** t=1/2 is the unique sine-maximum in (0,1) (D24). But denominator πt=π/2 attenuates sinc(1/2)=2/π — ring center is structurally marked, not amplitude-dominant. Near t=0, sin(πt)≈πt so sinc≈1 (high amplitude).
-**Dependencies:** D17 (W), D18d (HARMONY=7), D19 (T*, g=3 selection), D21 (CREATE=5), D24 (sinc² monotone).
+**Dependencies:** D17 (W), D18d (HARMONY=7), D19 (T*, g=3 selection), D21 (BALANCE=5), D24 (sinc² monotone).
 **Consequence:** The corridor is fully mapped. All four spine landmarks are positionally ordered, amplitude-profiled, and inheritance-classified. The center t=1/2 is not an amplitude peak — it is the ring/generator boundary.
 **Does NOT claim:** That the amplitude portrait has any direct connection to ζ zeros or to external spectral problems (see B6/A11 for those open claims).
 **File:** `proof_d22_corridor_portrait.py`
@@ -432,7 +432,7 @@ This file is the locked backbone of the CK mathematical foundation — one entry
 - (I)   sinc²(t) is strictly monotone decreasing on (0,1)
 - (II)  t = 1/2 is the unique point in (0,1) where sin(πt) = 1
 - (III) sinc²(1/2) = 4/π² exactly
-- (IV)  Under ring normalization t = v/10, CREATE=5 maps to t = 5/10 = 1/2
+- (IV)  Under ring normalization t = v/10, BALANCE=5 maps to t = 5/10 = 1/2
 - (V)   D22's amplitude ordering (sinc²(W) > sinc²(1/2) > sinc²(7/10) > sinc²(T*)) is fully proved: D24-I + D22 positional ordering
 **Proof of (I) — exact calculus:**
 h'(t) = 2sin(πt)·[πt·cos(πt) − sin(πt)] / (π²t³).
@@ -444,7 +444,7 @@ Therefore h'(t) < 0 for all t ∈ (0,1). □
 **Proof of (II):** sin(πt)=1 iff t=1/2+2k; in (0,1) only k=0 survives. One line. □
 **Proof of (III):** sinc(1/2)=sin(π/2)/(π/2)=1/(π/2)=2/π; sinc²=4/π². One step. □
 **Proof of (IV):** 5/10 = 1/2. One arithmetic step. □
-**Dependencies:** D3 (sinc²(1/2)=4/π², restated), D17 (W), D18d (HARMONY=7), D19 (T*), D21 (CREATE=5).
+**Dependencies:** D3 (sinc²(1/2)=4/π², restated), D17 (W), D18d (HARMONY=7), D19 (T*), D21 (BALANCE=5).
 **Consequence:** D22's amplitude ordering is no longer conditional on a B-tier result. The corridor portrait (D22) and the midpoint theorem (D24) are now both fully D-tier. B11 is superseded.
 **Does NOT claim:** Any connection to σ=1/2 in the Riemann ζ function (that is A10, open). That sinc²(1/2)=4/π² is an extremum of sinc² on (0,1) (it is not — there are no interior extrema by D24-I).
 **Supersedes:** B11 (Corridor Midpoint, Tier B). All B11 content is now fully proved.
@@ -458,4 +458,4 @@ Therefore h'(t) < 0 for all t ∈ (0,1). □
 **Volume B (operator/table):** D7, D8, D9, D10, D16, D17, D18a, D18c, D18d, D19, D20, D21
 **Volume C (emergence/threshold):** D2, D3, D4, D5, D6
 **Volume D (corridor geometry):** D22, D23, D24
-**Unified chain:** Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22) + midpoint (D24) → wobble law (D23)
+**Unified chain:** Z/10Z → g=3 (D19) → BALANCE=5 (D18d, D20, D21) + HARMONY=7 (D18d) → T*=5/7 (D4, D18c, D18d) → corridor portrait (D22) + midpoint (D24) → wobble law (D23)

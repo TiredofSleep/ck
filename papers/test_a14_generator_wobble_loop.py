@@ -84,7 +84,7 @@ def main():
 
     # ── 0. Derived tables ─────────────────────────────────────────────────────
     DIS = DIS_ARITH  # |ADD - MUL|: arithmetic friction baseline
-    DOING = [[abs(TSML[i][j] - BHML[i][j]) for j in range(10)] for i in range(10)]
+    COUNTER = [[abs(TSML[i][j] - BHML[i][j]) for j in range(10)] for i in range(10)]
 
     # ── 1. Compute DIS = |ADD-MUL| (arithmetic friction) ─────────────────────
     print(SEP)

@@ -19,7 +19,7 @@ BHML = [
     [6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],[8,6,6,6,7,7,7,9,7,8],
     [9,6,6,6,7,7,7,0,8,0],
 ]
-DOING = [[abs(TSML[i][j]-BHML[i][j]) for j in range(10)] for i in range(10)]
+COUNTER = [[abs(TSML[i][j]-BHML[i][j]) for j in range(10)] for i in range(10)]
 C10 = [1,3,7,9]; D10 = [2,4,6,8]
 W_BHML = 3/50
 
@@ -192,7 +192,7 @@ Best partial matches (score >= 4/14):
 
 The circulation operator is NOT any single existing object.
 It is a NEW object that must:
-  1. Cycle four phases (CREATE this cycling behavior)
+  1. Cycle four phases (BALANCE this cycling behavior)
   2. Preserve sinc2 + Wob + R2 during cycling
   3. Collapse at k=p (like R(m,b,k))
   4. Recurse across semiprimes (like R and sinc2)

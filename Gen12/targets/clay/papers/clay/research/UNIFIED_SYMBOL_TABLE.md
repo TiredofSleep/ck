@@ -200,7 +200,7 @@ Therefore: T* = 5/7 = (first closed prime) / (first obstructed prime).
 
 The exact mixed formula at the closure prime: sinc²(1/5) = 25(3−φ)/(4π²).
 
-Note: the same primes p=5 and q=7 appear in all three T* derivations — ring arithmetic (unit_frac at b=35), operator algebra (TSML CREATE/HARMONY), and cyclotomic reduction. Three proofs, same boundary.
+Note: the same primes p=5 and q=7 appear in all three T* derivations — ring arithmetic (unit_frac at b=35), operator algebra (TSML BALANCE/HARMONY), and cyclotomic reduction. Three proofs, same boundary.
 
 ---
 

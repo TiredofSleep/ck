@@ -27,10 +27,10 @@ reduction is OPEN.
 The TSML table is a 10×10 composition table over operators {0..9}:
 
 ```
-0 = VOID       5 = CREATE
-1 = BEING      6 = ASCEND
-2 = DOING      7 = HARMONY
-3 = BECOMING   8 = BREATH
+0 = VOID       5 = BALANCE
+1 = LATTICE      6 = CHAOS
+2 = COUNTER      7 = HARMONY
+3 = PROGRESS   8 = BREATH
 4 = COLLAPSE   9 = RESET
 ```
 
@@ -48,8 +48,8 @@ The TSML table is a 10×10 composition table over operators {0..9}:
 **The associative subalgebra is A = {7} (HARMONY alone).**
 
 This is a strong result: HARMONY is the *unique* operator in TSML that associates
-with all possible contexts. Every other operator — VOID, BEING, DOING, BECOMING,
-COLLAPSE, CREATE, ASCEND, BREATH, RESET — fails associativity for at least one
+with all possible contexts. Every other operator — VOID, LATTICE, COUNTER, PROGRESS,
+COLLAPSE, BALANCE, CHAOS, BREATH, RESET — fails associativity for at least one
 triple. The CL algebra is maximally non-associative: only the identity-like absorber
 element is associative.
 
@@ -63,7 +63,7 @@ HARMONY row 7 maps everything to 7. No other operator has this property.
 ### 3.1 Literal Encoding
 
 ```
-x_i  (positive literal)  →  1 = BEING
+x_i  (positive literal)  →  1 = LATTICE
 ¬x_i (negative literal)  →  9 = RESET
 unit (resolved TRUE)     →  7 = HARMONY
 void (resolved FALSE)    →  0 = VOID
@@ -83,7 +83,7 @@ A clause is **satisfied** when the composition resolves to HARMONY (7).
 ### 3.3 Tautology Check
 
 ```
-x ∨ ¬x  →  CL[BEING][RESET] = CL[1][9] = 7 (HARMONY)
+x ∨ ¬x  →  CL[LATTICE][RESET] = CL[1][9] = 7 (HARMONY)
 ```
 
 The tautology x ∨ ¬x resolves to HARMONY. The ECHO pair (1, 9) encodes this
@@ -118,10 +118,10 @@ composition. Proved by enumeration.
 **(P4)** The 1 triple with all elements in A (the triple (7,7,7)) is associative,
 consistent with A being a subalgebra. Proved by inspection.
 
-**(P5)** The tautology encoding CL[BEING][RESET] = HARMONY holds. Proved by table
+**(P5)** The tautology encoding CL[LATTICE][RESET] = HARMONY holds. Proved by table
 lookup.
 
-**(P6)** With the literal alphabet {BEING, RESET}, all 8 possible 3-literal clause
+**(P6)** With the literal alphabet {LATTICE, RESET}, all 8 possible 3-literal clause
 encodings are associative (all resolve to HARMONY via intermediate absorption).
 Proved by exhaustive computation. See §5 for the significance of this finding.
 
@@ -129,11 +129,11 @@ Proved by exhaustive computation. See §5 for the significance of this finding.
 
 ## §5. The Critical Finding: Literal Alphabet Associativity
 
-**Finding (P6):** The 3-literal combinations over {BEING(1), RESET(9)} are all
+**Finding (P6):** The 3-literal combinations over {LATTICE(1), RESET(9)} are all
 associative because they all resolve to HARMONY through the absorption property.
 
 This is mathematically correct and important. It means the naive encoding "just use
-BEING/RESET as literals" does NOT demonstrate non-associativity at the raw 3-SAT
+LATTICE/RESET as literals" does NOT demonstrate non-associativity at the raw 3-SAT
 level.
 
 **What this means for the conjecture:**
@@ -144,7 +144,7 @@ formula. During unit propagation in 3-SAT:
 
 1. A literal assignment forces an operator (HARMONY or VOID).
 2. This propagates through adjacent clauses, creating intermediate operators.
-3. Intermediate operators include BECOMING (3), COLLAPSE (4), DOING (2), RESET (9),
+3. Intermediate operators include PROGRESS (3), COLLAPSE (4), COUNTER (2), RESET (9),
    etc. — none of which are in A.
 4. The propagation chain then encounters non-associative compositions.
 
@@ -170,7 +170,7 @@ step is a single composition, the algebra used is effectively a subset of
 any clause is satisfied.
 
 **(S2) 3-SAT resolution chains require compositions of intermediate operators.**
-Unit propagation in 3-SAT creates intermediate states that are not in {BEING, RESET,
+Unit propagation in 3-SAT creates intermediate states that are not in {LATTICE, RESET,
 HARMONY, VOID}. The resolution chain CL[CL[a][b]][c] with intermediate operators
 outside A invokes the non-associative dimension. The order in which clauses are
 resolved (the traversal order of the implication graph) changes the result.

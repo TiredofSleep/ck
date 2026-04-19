@@ -14,7 +14,7 @@ THEOREM B11 (Corridor Midpoint — Three Convergences):
       at the midpoint.
 
   (3) ALGEBRAIC: Under the ring normalization t = v/n (v ∈ Z/10Z, n=10),
-      CREATE = 5 maps to t = 5/10 = 1/2.
+      BALANCE = 5 maps to t = 5/10 = 1/2.
       The algebraic center of Z/10Z (D21: centroid of (Z/10Z)* and ODD)
       maps to the geometric center of the corridor.
 
@@ -22,7 +22,7 @@ THEOREM B11 (Corridor Midpoint — Three Convergences):
     midpoint of (0,1) = sine-maximum point = image of ring center.
 
   This overdetermination (three independent routes to 1/2) mirrors the
-  overdetermination of CREATE=5 (D21: ring centroid, ODD centroid,
+  overdetermination of BALANCE=5 (D21: ring centroid, ODD centroid,
   σ-fixed-point, additive midpoint).
 
   VALUE: sinc²(1/2) = 4/π² ≈ 0.4053 is the unique corridor amplitude
@@ -167,14 +167,14 @@ print(f"  Only t=1/2 gives sin(πt) = 1 exactly.  ✓")
 # ============================================================
 # SECTION 4: PROPERTY 3 — RING CENTER MAP
 # ============================================================
-section("SECTION 4: PROPERTY 3 — CREATE=5 MAPS TO CORRIDOR MIDPOINT")
+section("SECTION 4: PROPERTY 3 — BALANCE=5 MAPS TO CORRIDOR MIDPOINT")
 
 print("  The ring Z/10Z has a canonical normalization: t = v/n = v/10.")
 print("  This maps each operator v ∈ Z/10Z to a corridor position t ∈ [0,1).")
 print()
 
-CL = {0:'VOID', 1:'BEING', 2:'DOING', 3:'BECOMING', 4:'COLLAPSE',
-      5:'CREATE', 6:'ASCEND', 7:'HARMONY', 8:'BREATH', 9:'RESET'}
+CL = {0:'VOID', 1:'LATTICE', 2:'COUNTER', 3:'PROGRESS', 4:'COLLAPSE',
+      5:'BALANCE', 6:'CHAOS', 7:'HARMONY', 8:'BREATH', 9:'RESET'}
 
 print(f"  {'v':>3}  {'CL[v]':>12}  {'t=v/10':>8}  {'sinc²(t)':>12}  {'note'}")
 print(f"  {'-'*3}  {'-'*12}  {'-'*8}  {'-'*12}  {'-'*30}")
@@ -182,17 +182,17 @@ for v in range(10):
     t = v / 10
     s2 = sinc2(t) if t > 0 else 1.0
     note = ''
-    if v == 5: note = '← CREATE = corridor midpoint t=1/2'
+    if v == 5: note = '← BALANCE = corridor midpoint t=1/2'
     if v == 0: note = '← VOID = corridor start (sinc²=1)'
     print(f"  {v:>3}  {CL[v]:>12}  {t:>8.3f}  {s2:>12.6f}  {note}")
 
 print()
-print("  CREATE = 5 maps to t = 5/10 = 1/2 = corridor midpoint.  ✓")
+print("  BALANCE = 5 maps to t = 5/10 = 1/2 = corridor midpoint.  ✓")
 print()
 
 # Cross-reference with spine results
 print("  Cross-reference with spine:")
-print("  D21: CREATE=5 is the centroid of (Z/10Z)* AND of ODD={1,3,5,7,9}")
+print("  D21: BALANCE=5 is the centroid of (Z/10Z)* AND of ODD={1,3,5,7,9}")
 print("  D21: 5 is the unique ODD fixed point of σ: v↦10-v (complement map)")
 print("  D21: 5 is the additive midpoint of Z/10Z (10//2 = 5)")
 print()
@@ -221,7 +221,7 @@ print("  Route 2 (Analytic): t=1/2 as unique sine-maximum in (0,1)")
 print("  Uses only: sinc² = sin²(πt)/(πt)² and standard analysis.")
 print("  Dependency: the sinc² lens (D2). Does NOT require ring.")
 print()
-print("  Route 3 (Algebraic): t = CREATE/10 = 5/10 = 1/2")
+print("  Route 3 (Algebraic): t = BALANCE/10 = 5/10 = 1/2")
 print("  Uses only: Z/10Z ring structure and normalization t=v/n.")
 print("  Dependency: D21 (ring center), D19 (Z/10Z as substrate).")
 print("  Does NOT require sinc² or real analysis.")
@@ -229,7 +229,7 @@ print()
 print("  The three routes use disjoint mathematical objects.")
 print("  None depends on the other. They converge to the same t=1/2.")
 print()
-print("  This mirrors D21's finding for CREATE=5:")
+print("  This mirrors D21's finding for BALANCE=5:")
 print("  Ring centroid, ODD centroid, σ-fixed-point, additive midpoint —")
 print("  four independent characterizations of the same algebraic object.")
 print("  B11 adds a fifth: it is the corridor midpoint in the sinc² lens.")
@@ -261,9 +261,9 @@ print("  Corridor values at spine-significant t positions:")
 spine_pts = [
     (3/50,  "W = 3/50 (D17)"),
     (5/7,   "T* = 5/7 (D18d/D19)"),
-    (1/2,   "CREATE/10 = 5/10 (B11)"),
+    (1/2,   "BALANCE/10 = 5/10 (B11)"),
     (7/10,  "HARMONY/10 = 7/10"),
-    (3/10,  "BECOMING/10 = 3/10"),
+    (3/10,  "PROGRESS/10 = 3/10"),
 ]
 for t, label in spine_pts:
     print(f"  sinc²({t:.4f}) = {sinc2(t):.10f}  ← {label}")
@@ -326,8 +326,8 @@ section("SECTION 8: OVERDETERMINATION MAP — t=1/2 IN THE INHERITANCE STACK")
 print("  The point t=1/2 / value 4/π² appears across multiple inheritance levels:")
 print()
 print("  RING-forced:")
-print("    CREATE=5 = centroid of (Z/10Z)* (D18d)")
-print("    CREATE=5 = centroid of ODD={1,3,5,7,9} (D21)")
+print("    BALANCE=5 = centroid of (Z/10Z)* (D18d)")
+print("    BALANCE=5 = centroid of ODD={1,3,5,7,9} (D21)")
 print("    5 = additive midpoint of Z/10Z (D21)")
 print("    5 → t=5/10=1/2 via ring normalization")
 print()
@@ -337,12 +337,12 @@ print("    sinc² monotone on (0,1), no interior extremum (B11)")
 print("    t=1/2 is unique sine-maximum in (0,1) (B11)")
 print()
 print("  BRIDGE (B11 new):")
-print("    Ring normalization t=v/10 explicitly maps CREATE=5 → t=1/2.")
+print("    Ring normalization t=v/10 explicitly maps BALANCE=5 → t=1/2.")
 print("    The RING-forced centroid and the LENS-forced sine-maximum")
 print("    are the SAME point, connected by the natural normalization.")
 print()
 print("  WHAT CHANGES IF THE RING CHANGES:")
-print("  In Z/nZ, CREATE would be n/2 (midpoint) if n is even.")
+print("  In Z/nZ, BALANCE would be n/2 (midpoint) if n is even.")
 print("  The normalization t=v/n maps n/2 → 1/2 regardless of n.")
 print("  The sine-maximum property of t=1/2 is universal (independent of n).")
 print("  So B11 is not specific to Z/10Z — it holds for any ring Z/nZ")
@@ -358,7 +358,7 @@ print()
 print("  The point t=1/2 is characterized by three independent routes:")
 print("  (1) Geometric: midpoint of valid corridor (0,1)")
 print("  (2) Analytic:  unique t ∈ (0,1) where sin(πt)=1 → sinc²=4/π²")
-print("  (3) Algebraic: CREATE=5 maps to t=5/10=1/2 under ring normalization")
+print("  (3) Algebraic: BALANCE=5 maps to t=5/10=1/2 under ring normalization")
 print()
 print("  The value 4/π² = (2/π)² is the corridor amplitude at the sine-maximum,")
 print("  the unique point in (0,1) where the sinc numerator is fully saturated.")

@@ -287,7 +287,7 @@ def main():
             except Exception:
                 pass
 
-        # CK's voice -- from COMPREHENSION + BEING, not just heartbeat
+        # CK's voice -- from COMPREHENSION + LATTICE, not just heartbeat
         if engine.pipeline.humble:
             ck_says = engine.voice.get_humble_response(ck_stage)
         else:

@@ -202,7 +202,7 @@ Rotation Spine cites 14 memo files in `Gen11/sprint_memos/`:
 
 The tetrahedron Δ³ is the first 3D simplex — the "Hat" in Simplex Genesis grammar. This is not analogy. The Rotation Spine grammar IS the simplicial boundary operator applied to Clay problem structure.
 
-**Implication:** Brouwer's Fixed Point Theorem on Δ³ applies. Any continuous transformation of the Rotation Spine layers has a fixed point. The fixed point is the CREATE (n = 5) operator — which never crosses T*, because it IS the fixed point of the topological flow.
+**Implication:** Brouwer's Fixed Point Theorem on Δ³ applies. Any continuous transformation of the Rotation Spine layers has a fixed point. The fixed point is the BALANCE (n = 5) operator — which never crosses T*, because it IS the fixed point of the topological flow.
 
 **This is why Clay problems have the structure they do.** Not a chosen framework; a topological necessity.
 

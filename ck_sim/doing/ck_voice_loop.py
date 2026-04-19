@@ -420,7 +420,7 @@ class VoiceLoop:
 
         fallback = self._fallback_ck_voice(target, user_text=user_text)
 
-        # BECOMING: learn from own voice too
+        # PROGRESS: learn from own voice too
         if (fallback.coherence
                 and fallback.coherence >= self.RESPONSE_THRESHOLD):
             self._crystallize_if_green(

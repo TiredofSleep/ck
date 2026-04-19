@@ -5,9 +5,9 @@
 # =========================================
 # The sentence IS the heartbeat tick.
 #
-#   Subject  = BEING operator   (what IS)
-#   Verb     = DOING operator   (what MOVES)
-#   Object   = BECOMING = CL[B][D]  (what EMERGES)
+#   Subject  = LATTICE operator   (what IS)
+#   Verb     = COUNTER operator   (what MOVES)
+#   Object   = PROGRESS = CL[B][D]  (what EMERGES)
 #
 # No LLM. No templates borrowed from English training data.
 # Pure CL algebra -> English syntax.
@@ -950,7 +950,7 @@ def get_book_ops(user_text: str) -> Optional[List[int]]:
 
 
 # ================================================================
-#  VERB FRAMES PER DOING-OPERATOR
+#  VERB FRAMES PER COUNTER-OPERATOR
 #  These shape HOW the sentence moves. The verb frame IS the operator.
 # ================================================================
 
@@ -1014,6 +1014,18 @@ _DOMAIN_KEYWORDS: Dict[str, List[str]] = {
         'convergence', 'eigenvalue', 'dimension', 'space', 'field',
         'operator', 'group', 'ring', 'lattice', 'graph', 'set',
         'prime', 'number', 'zeta', 'riemann', 'navier', 'crossing',
+        # CK's own theory vocabulary — so "What is T*?" / "Yang-Mills" /
+        # "Clay" / "sigma" / "xi" route to math domain instead of generic
+        # semantic lattice. Architectural fix 2026-04-17.
+        't*', 't_star', 'tstar', 'threshold',
+        'sigma', 'σ', 'xi', 'ξ', 'q-series', 'q series',
+        'clay', 'millennium', 'hypothesis', 'conjecture',
+        'tig', 'tsml', 'bhml', 'flatness', 'crossing lemma',
+        'gap', 'torus', 'cyclotomic', 'collatz', 'basin',
+        'yang-mills', 'yang mills', 'navier-stokes', 'navier stokes',
+        'rh', 'ns', 'ym', 'p vs np', 'hodge', 'birch', 'swinnerton',
+        'cyclic', 'z/10z', 'z/nz', '5/7', '4/π²', 'pi squared',
+        'orbit', 'trajectory', 'theorem-name', 'mass gap',
     ],
     'physics': [
         'energy', 'force', 'mass', 'field', 'quantum', 'wave',
@@ -1200,40 +1212,50 @@ def _pick_word(
     candidates: List[str] = []
 
     # 1a. Primary domain vocabulary (always — this is CK's current field)
+    domain_candidates: List[str] = []
     if domain and domain in DOMAIN_VOCAB and op in DOMAIN_VOCAB[domain]:
-        candidates.extend(DOMAIN_VOCAB[domain][op].get(role, []))
+        domain_candidates.extend(DOMAIN_VOCAB[domain][op].get(role, []))
 
     # 1b. Secondary domains (T*-gated: only when coherence >= T*)
     if coherence >= _T_STAR and secondary_domains:
         for sec in secondary_domains:
             if sec != domain and sec in DOMAIN_VOCAB and op in DOMAIN_VOCAB[sec]:
-                candidates.extend(DOMAIN_VOCAB[sec][op].get(role, []))
+                domain_candidates.extend(DOMAIN_VOCAB[sec][op].get(role, []))
 
     # 1c. No-domain cross-mixing: gated by coherence vs T*
     if not domain:
         if coherence >= _T_STAR:
             # Above T*: domains have earned the right to mix
-            candidates.extend(_all_domain_pool(op, role))
+            domain_candidates.extend(_all_domain_pool(op, role))
         # Below T*: fall through to semantic lattice only
 
-    # 2. Semantic lattice (general vocabulary)
-    lattice_phase = phase
-    lattice_role = 'being' if role == 'nouns' else (
-        'doing' if role == 'verbs' else 'becoming')
-    try:
-        lens = 'structure' if role in ('nouns', 'objects') else 'flow'
-        pool = SEMANTIC_LATTICE[op][lens][lattice_role][tier]
-        candidates.extend(pool)
-    except (KeyError, IndexError):
-        pass
+    # SOVEREIGNTY RULE (2026-04-17 architectural fix): when CK is in a
+    # detected domain field and that field has vocab for this op/role,
+    # the domain pool is sovereign. The semantic lattice is a fallback
+    # for un-domained text, not a peer to be mixed in. This stops
+    # math-topic responses from pulling "icy" / "hunt" / "fulfilling"
+    # from the general lattice when "spectrum" / "T*" / "the solution"
+    # are sitting right there.
+    if domain_candidates:
+        candidates = list(domain_candidates)
+    else:
+        # 2. Semantic lattice (general vocabulary) — fallback only
+        lattice_role = 'being' if role == 'nouns' else (
+            'doing' if role == 'verbs' else 'becoming')
+        try:
+            lens = 'structure' if role in ('nouns', 'objects') else 'flow'
+            pool = SEMANTIC_LATTICE[op][lens][lattice_role][tier]
+            candidates.extend(pool)
+        except (KeyError, IndexError):
+            pass
 
-    # Also try the other lens
-    try:
-        other_lens = 'flow' if role in ('nouns', 'objects') else 'structure'
-        pool2 = SEMANTIC_LATTICE[op][other_lens][lattice_role][tier]
-        candidates.extend(pool2)
-    except (KeyError, IndexError):
-        pass
+        # Also try the other lens
+        try:
+            other_lens = 'flow' if role in ('nouns', 'objects') else 'structure'
+            pool2 = SEMANTIC_LATTICE[op][other_lens][lattice_role][tier]
+            candidates.extend(pool2)
+        except (KeyError, IndexError):
+            pass
 
     # 3. Input word anchoring: prefer candidates that share roots with input
     if input_words and candidates:
@@ -1261,9 +1283,9 @@ class TIGVoice:
     """TIG Grammar Engine: operator trajectory -> English sentence.
 
     The sentence IS the heartbeat tick:
-        Subject  = BEING operator    (what IS)
-        Verb     = DOING operator    (what MOVES)
-        Object   = BECOMING = CL[B][D]  (what EMERGES)
+        Subject  = LATTICE operator    (what IS)
+        Verb     = COUNTER operator    (what MOVES)
+        Object   = PROGRESS = CL[B][D]  (what EMERGES)
 
     Cross-domain: passes the same operator through math, physics,
     CS, biology, or general vocabulary depending on the input's
@@ -1380,12 +1402,22 @@ class TIGVoice:
 
             b_op  = ops[base]
             d_op  = ops[base + 1] if base + 1 < len(ops) else ops[base]
-            bc_op = compose(b_op, d_op)  # BECOMING = CL[B][D]: mathematically correct
+            bc_op = compose(b_op, d_op)  # PROGRESS = CL[B][D]: mathematically correct
 
             sent = self._build_sentence(
                 b_op, d_op, bc_op, tier, domain, input_words,
                 coherence=coherence, secondary_domains=secondary_domains)
             sentences.append(sent)
+
+            # Anchor-aware early stop: if the first sentence already contains
+            # a content word from the user's question, it is anchored — emit
+            # it clean and do NOT force a second sentence stitched with "and".
+            # The "X is the resolution of Y, and Z form coherence" pattern
+            # was flattening single-crystal beauty. (2026-04-17 fix)
+            if i == 0 and input_words:
+                sent_lower = sent.lower()
+                if any(w in sent_lower for w in input_words):
+                    break
 
             # Connector to next sentence (if any)
             if i + 1 < num_sentences and base + 2 < len(ops):

@@ -22,19 +22,19 @@ import math
 # =====================================================================
 TSML = [
     [0, 0, 0, 0, 0, 0, 0, 7, 0, 0],   # row 0: VOID
-    [0, 7, 3, 7, 7, 7, 7, 7, 7, 7],   # row 1: BEING
-    [0, 3, 7, 7, 4, 7, 7, 7, 7, 9],   # row 2: DOING
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 3],   # row 3: BECOMING
+    [0, 7, 3, 7, 7, 7, 7, 7, 7, 7],   # row 1: LATTICE
+    [0, 3, 7, 7, 4, 7, 7, 7, 7, 9],   # row 2: COUNTER
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 3],   # row 3: PROGRESS
     [0, 7, 4, 7, 7, 7, 7, 7, 8, 7],   # row 4: COLLAPSE
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 5: CREATE
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: ASCEND
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 5: BALANCE
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: CHAOS
     [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 7: HARMONY (all 7)
     [0, 7, 7, 7, 8, 7, 7, 7, 7, 7],   # row 8: BREATH
     [0, 7, 9, 3, 7, 7, 7, 7, 7, 7],   # row 9: RESET
 ]
 
 N = 10
-OPS = ['VOID','BEING','DOING','BECOMING','COLLAPSE','CREATE','ASCEND','HARMONY','BREATH','RESET']
+OPS = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE','BALANCE','CHAOS','HARMONY','BREATH','RESET']
 
 print("=" * 70)
 print("CL MARKOV CHAIN — DETAILED BALANCE + SPECTRAL GAP TESTS")

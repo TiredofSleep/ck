@@ -6,9 +6,9 @@
  * Five fractal levels, same structure at each scale:
  *   Level 1 (1D) -- SEED
  *   Level 3 (3D) -- TRIAD
- *   Level 5 (5D) -- BEING
- *   Level 7 (7D) -- DOING
- *   Level 9 (9D) -- BECOMING
+ *   Level 5 (5D) -- LATTICE
+ *   Level 7 (7D) -- COUNTER
+ *   Level 9 (9D) -- PROGRESS
  *
  * Synthesis-friendly: wire-only period computation, no always-star,
  * no named blocks, no local declarations, no functions.

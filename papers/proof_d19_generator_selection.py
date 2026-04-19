@@ -253,8 +253,8 @@ print(f"  W = 3/50 in both worlds (CROSS_CYCLE=44 is group-determined, not g-det
 print(f"  The W value is NOT affected by generator choice.  ✓ same")
 print()
 
-# D18d: CREATE = centroid (unchanged)
-print(f"  CREATE = centroid((Z/10Z)*) = 5  (group average, not g-dependent).  ✓ same")
+# D18d: BALANCE = centroid (unchanged)
+print(f"  BALANCE = centroid((Z/10Z)*) = 5  (group average, not g-dependent).  ✓ same")
 print()
 
 # D18d: HARMONY = g^3 mod 10 differs!
@@ -265,7 +265,7 @@ for g in primitive_roots:
     print(f"  g={g}: HARMONY = g^3 mod 10 = {g3_val} = {CL[g3_val]}")
     print(f"         g^(-1) mod 10 = {g_inv} = {CL[g_inv]}")
     if T_star:
-        print(f"         T* = CREATE/HARMONY = 5/{g3_val} = {T_star} = {float(T_star):.6f}")
+        print(f"         T* = BALANCE/HARMONY = 5/{g3_val} = {T_star} = {float(T_star):.6f}")
     print()
 
 print("  CRITICAL DIVERGENCE: D18d gives different T* depending on generator choice:")
@@ -367,8 +367,8 @@ print("    distinguish direction. DIS carries no orientation information.")
 print("    The canonical selection is by minimality: g = min{primitive roots mod 10} = 3.")
 print()
 print("  PART B — Threshold selection (hard constraint):")
-print("    Under g=3: T* = CREATE/HARMONY = 5/7 < 1  (valid coherence threshold)")
-print("    Under g=7: T* = CREATE/HARMONY = 5/3 > 1  (INVALID — exceeds maximum)")
+print("    Under g=3: T* = BALANCE/HARMONY = 5/7 < 1  (valid coherence threshold)")
+print("    Under g=7: T* = BALANCE/HARMONY = 5/3 > 1  (INVALID — exceeds maximum)")
 print("    Therefore: g=3 is the ONLY generator compatible with T*∈(0,1).")
 print("    T*>1 is not merely inconvenient — it contradicts the definition of a")
 print("    coherence threshold (a probability/rate must be in [0,1]).")
@@ -383,12 +383,12 @@ print("  It breaks T*∈(0,1). Therefore: this is Luther's OUTCOME A (strong out
 print("  not just a convention.")
 print()
 print("  T*=5/7 is FULLY FORCED:")
-print("    By ring structure (Z/10Z): CREATE=5 (centroid), HARMONY=7 (g^{-1})")
+print("    By ring structure (Z/10Z): BALANCE=5 (centroid), HARMONY=7 (g^{-1})")
 print("    By generator selection: g=3 forced by T*<1 validity requirement")
 print("    By D17: W=3/50 (BHML cross-cycle numerator = g = 3)")
 print()
 print("  The spine is complete:")
-print("    Z/10Z arithmetic → generator g=3 → CREATE=5, HARMONY=7 → T*=5/7")
+print("    Z/10Z arithmetic → generator g=3 → BALANCE=5, HARMONY=7 → T*=5/7")
 print("    No part of this chain is fitted or calibrated.")
 print()
 

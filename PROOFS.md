@@ -31,7 +31,7 @@ When we counted how many cells in each table land on HARMONY (the absorbing stat
 we got two numbers: **73** and **28**. We didn't pick them. The table structure forced them.
 
 Then we asked: what is the ratio of the attractor states?
-- CREATE (5) is the unique fixed point of the operator map Φ — every orbit converges to it in ≤3 steps
+- BALANCE (5) is the unique fixed point of the operator map Φ — every orbit converges to it in ≤3 steps
 - HARMONY (7) is the absorbing identity — once you're there, you stay
 
 Their ratio: **5/7 = T* = 0.71428...**
@@ -50,7 +50,7 @@ A few of the results, stated plainly:
 
 > The sinc² corridor midpoint IS 4/π². At t = 1/2, sin(π/2) = 1 exactly. sinc²(1/2) = [1/(π/2)]² = 4/π². One line of algebra.
 
-> CREATE = 5 IS the unique globally attracting fixed point of Φ. Every orbit on Z/10Z converges to it in ≤ 3 steps. Ten elements. Check them all.
+> BALANCE = 5 IS the unique globally attracting fixed point of Φ. Every orbit on Z/10Z converges to it in ≤ 3 steps. Ten elements. Check them all.
 
 > The TSML table IS exactly 73% HARMONY. Three disjoint exception classes add to exactly 27, leaving 73. Not approximately — the partition is exact.
 
@@ -70,8 +70,8 @@ These results are complete on the finite domain. No approximations. No analogies
 
 ### D7 · Phi Fixed Point — T* = 5/7
 
-**What it proves**: CREATE = 5 is the unique globally attracting fixed point of the operator map Φ.
-Every initial state reaches 5 in ≤ 3 steps. The ratio CREATE/HARMONY = 5/7 = T*.
+**What it proves**: BALANCE = 5 is the unique globally attracting fixed point of the operator map Φ.
+Every initial state reaches 5 in ≤ 3 steps. The ratio BALANCE/HARMONY = 5/7 = T*.
 
 **Why it matters**: T* is not an assumption or a fitting parameter. It is the ratio of two algebraic attractors that emerge independently from the table structure.
 
@@ -80,7 +80,7 @@ Every initial state reaches 5 in ≤ 3 steps. The ratio CREATE/HARMONY = 5/7 = T
 ```
 Φ(0)→5  Φ(1)→5  Φ(2)→5  Φ(3)→5  Φ(4)→5
 Φ(5)=5  Φ(6)→5  Φ(7)→5  Φ(8)→5  Φ(9)→5
-Max orbit length: 3 steps. Unique fixed point: CREATE=5. ✓
+Max orbit length: 3 steps. Unique fixed point: BALANCE=5. ✓
 ```
 
 ---
@@ -192,7 +192,7 @@ python verify_claims.py
 | 13 | T* = 5/7, MASS_GAP = 2/7, LEVEL = 3.5 | ✓ |
 | 14 | VISIBLE = 4.905% | ✓ |
 | 15 | PRIME_WINDING = 271/350 (271 prime) | ✓ |
-| 16 | DOING non-zero: 56/100 | ✓ |
+| 16 | COUNTER non-zero: 56/100 | ✓ |
 
 All pass. Every number exact.
 

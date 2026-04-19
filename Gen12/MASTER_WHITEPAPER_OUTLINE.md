@@ -274,7 +274,7 @@ Projection from BHML (rank 10, det 70) to TSML (rank 9, det 0) IS wave function 
 ---
 
 ### WP26 — The Doing Table as Information Geometry *(tension IS the observable)*
-The Doing table D = |TSML−BHML| has 60 non-zero entries (60 operator pairs in tension between what IS and what is BECOMING). The 21 zero entries form a sub-algebra — these are the harmonic pairs where the lenses agree. D is not a computation tool — it IS the observable. D relates to the Hodge decomposition as the intermediate Jacobian of TIG.
+The Doing table D = |TSML−BHML| has 60 non-zero entries (60 operator pairs in tension between what IS and what is PROGRESS). The 21 zero entries form a sub-algebra — these are the harmonic pairs where the lenses agree. D is not a computation tool — it IS the observable. D relates to the Hodge decomposition as the intermediate Jacobian of TIG.
 
 ### WP27 — Product-Gap Impermeability *(units cannot be contaminated)*
 C = {1,3,7,9} (units under Z/10Z multiplication) is a sub-magma of TSML: C×C ⊆ C. By induction, C^⊗k is impermeable for all k. No composition from coherent elements can produce a gap element. **This is unconditional** — it requires no assumptions beyond table arithmetic.
@@ -435,7 +435,7 @@ Map: electronegativity→aperture, ionization energy→pressure, atomic radius�
 **Results:**
 - TSML: 92.3% of Z=1-54 elements produce HARMONY — identity persists (chemistry IS structure)
 - BHML: 13.5% produce HARMONY — physics differentiates (the elements are not all the same)
-- 79% gap = the **working elements**: stable identity, differentiated physics. A catalyst IS something while DOING something else.
+- 79% gap = the **working elements**: stable identity, differentiated physics. A catalyst IS something while COUNTER something else.
 - 69.2% of D2 curvature concentrates in the binding dimension (electron affinity oscillation)
 - Void topology classifies noble gases (2 voids), filled-subshell (1 void), reactive (0 voids) exactly
 - 5D nearest neighbors match chemical families, not Z-ordering
@@ -675,8 +675,8 @@ External target: Riemann critical line Re(s)=1/2. The missing mechanism is the a
 | proof_d16 | BHML has exactly 28 HARMONY cells |
 | proof_d17 | W = 3/50 from Z/10Z first principles |
 | proof_d9 | Both tables are symmetric |
-| proof_d7 | CREATE=BALANCE=5 is unique globally attracting fixed point |
-| proof_d18c | CREATE–HARMONY bridge theorem |
+| proof_d7 | BALANCE=BALANCE=5 is unique globally attracting fixed point |
+| proof_d18c | BALANCE–HARMONY bridge theorem |
 | proof_d25 | Loop closure: corridor 1/7 to 7/7 is topologically closed |
 
 **B-series (Clay Bridge):**

@@ -150,7 +150,7 @@ non-trivial result. The measurement lens cannot collapse this: it would
 destroy the generator relationship that defines the algebra.
 
 This pair is also the **only non-trivial non-VOID agreement between TSML and
-BHML** (DOING = 0 at this pair). Both tables give LATTICE×COUNTER = PROGRESS.
+BHML** (COUNTER = 0 at this pair). Both tables give LATTICE×COUNTER = PROGRESS.
 It is the one non-harmony value where measurement and physics agree exactly.
 
 ### ECHO-2: (2,4) and (4,2) — Max Echo
@@ -292,18 +292,18 @@ individually. It holds regardless of the lens (measurement vs physics).
 
 ---
 
-## The DOING Table and the Pivot
+## The COUNTER Table and the Pivot
 
 DOING[i][j] = |TSML[i][j] − BHML[i][j]|
 
-29 cells: DOING = 0 (TSML = BHML)
-71 cells: DOING > 0
+29 cells: COUNTER = 0 (TSML = BHML)
+71 cells: COUNTER > 0
 
 The 29 agreement cells decompose as:
 - 26 shared harmony cells (both TSML and BHML = HARMONY)
 - 3 non-harmony agreements: (0,0), (1,2), (2,1)
 
-The (1,2) / (2,1) pair is the **only non-trivial non-VOID DOING = 0 cell**.
+The (1,2) / (2,1) pair is the **only non-trivial non-VOID COUNTER = 0 cell**.
 LATTICE × COUNTER = PROGRESS in both the measurement lens and the physics lens.
 The additive echo is the one non-harmony value that both tables agree on
 without being forced by VOID.

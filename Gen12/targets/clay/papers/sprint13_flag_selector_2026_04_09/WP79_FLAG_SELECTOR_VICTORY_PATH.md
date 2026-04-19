@@ -81,7 +81,7 @@ Physically specify the flag (6 dims) plus the torus phase $t^* \in T/\mathbb{Z}_
 
 ---
 
-## 4. WHAT TO STOP DOING
+## 4. WHAT TO STOP COUNTER
 
 **Stop forcing 7 into a theorem-level structural role.**
 Status: exact arithmetic (dual complement of carrier) and four separate stack appearances — not proved unified. No structural lift achieved at any of the five tested sites. Resume when a real lift appears; don't generate more bridge audits in the meantime.

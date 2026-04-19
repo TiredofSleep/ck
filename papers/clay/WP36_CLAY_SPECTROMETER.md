@@ -735,7 +735,7 @@ Two problems can produce similar overall CL readings but distinct D1 signatures:
 
 BSD's generator sees VOID at every level because CL(VOID, VOID) = VOID in TSML — the algebra
 is self-confirming. P vs NP oscillates between four operators with no convergence: the
-computational complexity boundary IS the inability of the system to settle. The DOING × DOING
+computational complexity boundary IS the inability of the system to settle. The COUNTER × COUNTER
 blind spot (87.5% divergence between TSML and BHML at the doing phase) is where gap problems
 live: structure sees doing as resolved; flow continues questioning.
 
@@ -941,8 +941,8 @@ difficulty differs [Research §Claim 6].
 finding from 6 problems. Formalizing VOID-fraction as a well-defined invariant of a
 mathematical problem class (independent of generator choice) is open [Research §Claim 7].
 
-**The DOING × DOING blind spot as gap classifier.** TSML and BHML diverge maximally (87.5%)
-in the DOING × DOING coordinate. Whether all Clay gap problems have their primary CL
+**The COUNTER × COUNTER blind spot as gap classifier.** TSML and BHML diverge maximally (87.5%)
+in the COUNTER × COUNTER coordinate. Whether all Clay gap problems have their primary CL
 composition in this coordinate, and what "primary CL composition" means for an infinite-domain
 problem, is open [Research §Claim 8].
 

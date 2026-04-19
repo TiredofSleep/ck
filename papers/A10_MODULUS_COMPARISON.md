@@ -99,8 +99,8 @@ Unique features of Z/10Z not shared by other moduli tested:
     operator dynamics (D18a, D18c, D18d) are defined for Z/10Z only.
     These are not instantiated for other moduli in D1–D24.
 
-**(d) The four-chain overdetermination of CREATE=5 (D21).**
-    CREATE=5 has four independent characterizations: centroid of (Z/10Z)*,
+**(d) The four-chain overdetermination of BALANCE=5 (D21).**
+    BALANCE=5 has four independent characterizations: centroid of (Z/10Z)*,
     centroid of ODD, CE fixed point, and additive midpoint. This
     overdetermination is specific to Z/10Z's exact structure.
 
@@ -136,7 +136,7 @@ The modulus comparison confirms and quantifies the modulus genericity no-go:
 2. The T*<1 constraint appears for all n=2p (twice a prime) — **not Z/10Z-specific.**
 
 3. What is Z/10Z-specific: T*=5/7 exactly, the TSML/BHML table structure,
-   the four-chain overdetermination of CREATE=5.
+   the four-chain overdetermination of BALANCE=5.
 
 4. For A10 to survive, the bridge must use T*=5/7 specifically (not just T*<1)
    or the table dynamics (not just the corridor midpoint). No such bridge is

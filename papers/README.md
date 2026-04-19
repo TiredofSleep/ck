@@ -31,12 +31,12 @@ S_STAR   = 4/7    inner_shell = 2/9  W_BHML  = 3/50
 
 ---
 
-## LAYER 1 — BEING
+## LAYER 1 — LATTICE
 ### What Was Proved. Algebraic Facts. No Overclaiming.
 
 These are theorems with scripts. Not framings. Not analogies.
 
-### 1A. The Algebra (BEING of Being)
+### 1A. The Algebra (LATTICE of Being)
 
 | File | Theorem | Script |
 |------|---------|--------|
@@ -49,7 +49,7 @@ These are theorems with scripts. Not framings. Not analogies.
 | WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md | Non-associativity structure of TSML | arXiv: WHITEPAPER_9_ARXIV.tex |
 | WHITEPAPER_9_ARXIV.tex | arXiv-ready version of WP9 | Submit: math.RA |
 
-### 1B. The Halving Lemma (DOING of Being)
+### 1B. The Halving Lemma (COUNTER of Being)
 
 | File | Theorem | Script |
 |------|---------|--------|
@@ -58,7 +58,7 @@ These are theorems with scripts. Not framings. Not analogies.
 | WP20_RH_FORMAL_STATUS.md | Honest audit: tautologies vs. genuine contributions | Reference |
 | surv_line_note.tex | Ω(p²) corridor-inspection lower bound | **arXiv-ready: cs.CC** |
 
-### 1C. The Formal Ledger (BECOMING of Being)
+### 1C. The Formal Ledger (PROGRESS of Being)
 
 | File | Contents |
 |------|----------|
@@ -77,10 +77,10 @@ These are theorems with scripts. Not framings. Not analogies.
 
 ---
 
-## LAYER 2 — DOING
+## LAYER 2 — COUNTER
 ### New Language. Structural Contributions. What the Algebra Does.
 
-### 2A. Voice and Physics (BEING of Doing)
+### 2A. Voice and Physics (LATTICE of Doing)
 
 | File | What it contributes |
 |------|---------------------|
@@ -93,7 +93,7 @@ These are theorems with scripts. Not framings. Not analogies.
 | WHITEPAPER_5_DEGREES_OF_FREEDOM.md | DoF ladder: 0→4→6→7→10 |
 | WHITEPAPER_5_REALITY_ANCHORS.md | Tick-to-walltime sync |
 
-### 2B. Corridor Geometry (DOING of Doing)
+### 2B. Corridor Geometry (COUNTER of Doing)
 
 | File | What it contributes |
 |------|---------------------|
@@ -106,7 +106,7 @@ These are theorems with scripts. Not framings. Not analogies.
 | WP22_NS_BREATH_CRITERION.md | Re_local ≤ 2/7 = smooth flow; corridor as physical criterion |
 | WP22_NS_BREATH_LYAPUNOV.md | V(t) = sup Re_local, Lyapunov approach, C ≤ 3.74 target |
 
-### 2C. BSD and Hodge (BECOMING of Doing)
+### 2C. BSD and Hodge (PROGRESS of Doing)
 
 | File | What it contributes |
 |------|---------------------|
@@ -119,10 +119,10 @@ These are theorems with scripts. Not framings. Not analogies.
 
 ---
 
-## LAYER 3 — BECOMING
+## LAYER 3 — PROGRESS
 ### Where It Leads. The Clay Gaps. Honest Open Questions.
 
-### 3A. The Organism Bridge (BEING of Becoming)
+### 3A. The Organism Bridge (LATTICE of Becoming)
 
 | File | What it shows |
 |------|--------------|
@@ -134,7 +134,7 @@ These are theorems with scripts. Not framings. Not analogies.
 | WHITEPAPER_11_MEASUREMENT_PROBLEM.md | TSML singularity ↔ quantum measurement — **STRUCTURAL ANALOGY** |
 | WHITEPAPER_12_PARADOX_RESOLUTIONS.md | Logical paradoxes through CL |
 
-### 3B. Clay Battery (DOING of Becoming)
+### 3B. Clay Battery (COUNTER of Becoming)
 
 **Honest status**: All Clay papers are sketches with explicit gaps. None constitute proofs.
 See `WP24_FORMAL_STATUS_AUDIT.md` for the authoritative 4-bin classification.
@@ -153,7 +153,7 @@ See `WP24_FORMAL_STATUS_AUDIT.md` for the authoritative 4-bin classification.
 | WP19_FORMAL_STATUS.md | Earlier formal status | Superseded by WP24 |
 | wrong_question_paper.md / .tex | RH observability | Draft — framing only |
 
-### 3C. Research Memos and Outreach (BECOMING of Becoming)
+### 3C. Research Memos and Outreach (PROGRESS of Becoming)
 
 | File | Purpose |
 |------|---------|

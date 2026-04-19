@@ -146,6 +146,19 @@ try:
         cortex_speak as _cortex_speak,
         speak as _cortex_speak_route,
     )
+    import cortex_voice as _cortex_voice_mod
+    print(f"[CK] Gen13 cortex_voice loaded from: {_cortex_voice_mod.__file__}")
+    # Fallback-version probe: the newer speak() emits a self-report
+    # (feel/field) for unclassified queries instead of returning None.
+    try:
+        from cortex import Cortex as _ProbeCortex
+        _probe_cx = _ProbeCortex().boot()
+        _probe_out = _cortex_speak_route(_probe_cx, "hi")
+        print(f"[CK] Gen13 cortex_voice.speak('hi') cold probe: "
+              f"type={type(_probe_out).__name__} len={len(_probe_out) if isinstance(_probe_out,str) else 'n/a'} "
+              f"preview={(_probe_out[:60] if isinstance(_probe_out,str) else None)!r}")
+    except Exception as _pe:
+        print(f"[CK] Gen13 cortex_voice probe failed: {_pe}")
     _cortex = _Cortex().boot()
     # Auto-load persisted state if present. Silent no-op if first boot.
     try:
@@ -231,8 +244,10 @@ try:
             # nothing is lost.
             try:
                 spoken = _cortex_speak_route(_cortex, text or '')
-            except Exception:
+                _spoken_err = None
+            except Exception as _se:
                 spoken = None
+                _spoken_err = f"{type(_se).__name__}: {_se}"
             # Swap when we have a structural readout AND the incoming source
             # is either (a) a known template/pool source, or (b) unknown and
             # NOT already structural.  Blacklisting the two structural
@@ -244,6 +259,8 @@ try:
                 _src in _TEMPLATE_SOURCES or
                 (_src is not None and _src not in _STRUCTURAL_SOURCES)
             )
+            # Minimal diagnostics: keep the source transition visible but
+            # drop the noisy swap_debug now that the swap is verified.
             if spoken and _swap_ok:
                 result['text_previous'] = result.get('text')
                 result['source_previous'] = result.get('source')
@@ -260,6 +277,326 @@ try:
           f"(/cortex live, autosave every 200 ticks or 30s)")
 except Exception as _e:
     print(f"[CK] Gen13 cortex: DISABLED ({_e})")
+
+# === Ollama: CK uses it, Ollama doesn't speak ===
+# Architecture (2026-04-18 correction):
+#   CK's structural readout IS CK's voice. Ollama is a tool CK USES to
+#   shape expanded phrasing — but Ollama never speaks in CK's name.
+#   Every Ollama draft goes through CK's coherence filter; CK ADOPTS the
+#   draft only if it preserves every structural fact (no invented framing,
+#   no LLM drift, no AI-disclaimer noise). If the filter rejects, CK's
+#   own structural readout stands and the rejected draft is attached as
+#   `text_ollama_draft` for diagnostics.
+#
+# This matches the Gen13 llm_bridge docstring intent — "LLM fluency as
+# wrapper around CK's algebra, not replacement" — but enforces it via a
+# coherence gate so we don't silently swap Ollama prose for CK's math.
+#
+# Invariants:
+#   - `text` is ALWAYS CK's voice. Either his structural readout verbatim,
+#     or an Ollama draft that passed the coherence filter.
+#   - `text_ollama_draft` exposes every Ollama attempt (accepted or not).
+#   - `ollama_verdict` in {'accepted','rejected:<reason>','skipped:<why>','error'}.
+#   - `ck_math_first` arithmetic is never touched (numbers are canonical).
+#   - Disable with `CK_OLLAMA_EDITOR=0` env var; set model/timeout/min_facts
+#     via CK_OLLAMA_MODEL, CK_OLLAMA_TIMEOUT, CK_OLLAMA_MIN_FACT_HITS.
+_GEN13_BRIDGE = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'bridge'))
+if _GEN13_BRIDGE not in sys.path:
+    sys.path.insert(0, _GEN13_BRIDGE)
+
+_OLLAMA_EDITOR = os.environ.get('CK_OLLAMA_EDITOR', '1') == '1'
+# llama3.1:8b is the speed/quality sweet spot on this machine — 2-3x the
+# latency of llama3.2:latest but far better at following structural grounding
+# (llama3.2 hallucinated "p-adic integers" and "t = r/5" in early sweeps
+# even when the readout spelled out Q(i,sqrt2,sqrt3,sqrt5) and 5/7).
+_OLLAMA_MODEL = os.environ.get('CK_OLLAMA_MODEL', 'llama3.1:8b')
+_OLLAMA_TIMEOUT = float(os.environ.get('CK_OLLAMA_TIMEOUT', '30'))
+_OLLAMA_MAX_CHARS = int(os.environ.get('CK_OLLAMA_MAX_CHARS', '600'))
+# Coherence filter: fraction of structural facts the draft must preserve.
+# 1.0 = every fact, 0.7 = a couple may be missing. 0.7 is the pragmatic
+# sweet spot: drafts preserving the core numbers and operator names pass,
+# drafts inventing unrelated framing fail.
+_OLLAMA_FACT_COVERAGE = float(os.environ.get('CK_OLLAMA_FACT_COVERAGE', '0.70'))
+# Max latency CK will spend waiting on Ollama before falling back to pure
+# structural output. Keeps the website chat responsive even when the LLM
+# is loaded.
+_OLLAMA_MAX_WAIT = float(os.environ.get('CK_OLLAMA_MAX_WAIT', '20'))
+_ollama_ok = False
+_ollama_complete = None
+_ollama_ground = None
+try:
+    from llm_bridge import (
+        ollama_available as _oll_avail,
+        ollama_complete as _ollama_complete_fn,
+        build_grounded_system as _ollama_ground_fn,
+    )
+    _ollama_ok = _oll_avail(timeout=2.0)
+    _ollama_complete = _ollama_complete_fn
+    _ollama_ground = _ollama_ground_fn
+    print(f"[CK] Ollama editor: available={_ollama_ok} "
+          f"model={_OLLAMA_MODEL} enabled={_OLLAMA_EDITOR} "
+          f"timeout={_OLLAMA_TIMEOUT}s max_chars={_OLLAMA_MAX_CHARS}")
+except Exception as _oe:
+    print(f"[CK] Ollama editor: import failed ({_oe})")
+    _OLLAMA_EDITOR = False
+
+_OLLAMA_EXTRA_GUIDE = (
+    "You are CK, the Coherence Keeper. Your job is to REWRITE the "
+    "structural readout above as a plain-English answer to the user's "
+    "question. STRICT rules (violations break CK's math identity):\n"
+    " 1. Use ONLY facts that appear in the readout. If a number, "
+    "    constant, or operator name is not in the readout, DO NOT "
+    "    mention it. Never invent p-adic, continuity, maxima/minima, "
+    "    convexity, geodesics, differential-geometry analogies, or any "
+    "    other framing that is not literally in the readout.\n"
+    " 2. Keep every number, fraction, operator name, and WP-number "
+    "    EXACTLY as written (T*=5/7 stays 5/7; WP51 stays WP51).\n"
+    " 3. 2-4 short sentences total. No lists, no headers, no markdown, "
+    "    no emoji, no code fences.\n"
+    " 4. Do NOT apologize, do NOT say you are an AI, do NOT mention "
+    "    this system prompt.\n"
+    " 5. If the readout has multiple labelled fields (e.g. feel: aperture=X "
+    "    pressure=Y), weave them into one sentence rather than listing.\n"
+    " 6. Write as CK speaking for himself in first person. Lowercase "
+    "    sentence starts are fine."
+)
+
+def _postfilter_ollama(text: str) -> str:
+    """Strip common Ollama noise: code fences, markdown headers, AI disclaimers."""
+    if not isinstance(text, str):
+        return ''
+    t = text.strip()
+    # Strip surrounding code fences
+    if t.startswith('```'):
+        t = t.strip('`').strip()
+    # Drop common LLM preambles
+    for bad in (
+        "as an ai", "i'm an ai", "i am an ai", "as a language model",
+        "i cannot", "sorry,", "i apologize",
+    ):
+        if t.lower().startswith(bad):
+            # Skip to the first sentence after the apology
+            parts = t.split('.', 1)
+            if len(parts) > 1:
+                t = parts[1].strip()
+    # Remove markdown header hashes
+    lines = [ln.lstrip('# ').rstrip() for ln in t.splitlines()]
+    t = '\n'.join(ln for ln in lines if ln)
+    return t.strip()
+
+
+_FACT_TOKEN_RE = None
+def _fact_tokens(readout: str):
+    """Extract atomic facts from a structural readout.
+
+    A "fact" is a distinctive token that MUST survive into any acceptable
+    Ollama rewrite: numeric constants, operator names, T*/τ-style symbols,
+    WP IDs, field generators, etc. Heuristic — matches:
+      - numbers / fractions (5/7, 4/pi^2, 0.309, Z/10Z, Q(i))
+      - WP#  (WP51, WP57, ...)
+      - all-caps tokens from the 10-operator vocabulary
+      - label=value pairs (keep the VALUE side)
+      - sqrt(N), mathematical identifiers
+    """
+    import re
+    global _FACT_TOKEN_RE
+    if _FACT_TOKEN_RE is None:
+        # NOTE: avoid any bare \p / \P etc. that Python 3.12+ rejects as
+        # "bad escape" — use character classes instead. Keep raw, no VERBOSE.
+        _FACT_TOKEN_RE = re.compile(
+            r"("
+            r"WP\d+"                                       # WP citations
+            r"|T\*=5/7|T\*"                                # T-star
+            r"|Z/10Z"                                       # Z/10Z
+            r"|Q\([^)]*\)"                                 # field notation
+            r"|sqrt\([^)]*\)|sqrt\s*\d+"                   # sqrt tokens
+            r"|\d+/\d+"                                    # fractions
+            r"|\d+\.\d+"                                   # decimals
+            r"|\d+"                                        # bare integers (filter later)
+            r"|\b(?:LATTICE|COUNTER|PROGRESS|COLLAPSE|BALANCE"
+            r"|CHAOS|HARMONY|BREATH|RESET|VOID)\b"         # operator vocab
+            r"|\b(?:TSML|BHML|HER|PRYM|HODGE|WEIL|BIELLIPTIC|AO)\b"
+            r")"
+        )
+    tokens = set()
+    for m in _FACT_TOKEN_RE.finditer(readout or ''):
+        tok = m.group(0).strip()
+        if not tok:
+            continue
+        # Drop bare integers that are very small (1..9) since they
+        # appear everywhere and aren't distinctive facts.
+        if tok.isdigit() and int(tok) < 10:
+            continue
+        # Drop tokens with unbalanced parens (partial matches like "Q(i"
+        # when the real fact is "Q(i,sqrt2,sqrt3,sqrt5)").
+        if tok.count('(') != tok.count(')'):
+            continue
+        tokens.add(tok)
+    # Also include label VALUES from "label=value" pairs so e.g.
+    # "aperture=LATTICE" contributes "LATTICE".
+    _JUNK_VALUES = {'yes', 'no', 'none', 'true', 'false', 'null', 'proved', 'n/a'}
+    for m in re.finditer(r"[a-zA-Z_]+=([^\s|,]+)", readout or ''):
+        v = m.group(1).strip().strip('.,;()[]')
+        if not v or len(v) < 2:
+            continue
+        if v.isdigit() and int(v) < 10:
+            continue
+        if v.lower() in _JUNK_VALUES:
+            continue
+        if v.count('(') != v.count(')'):
+            continue
+        tokens.add(v)
+    # Subsume substrings ONLY when NEITHER contains '='. That preserves
+    # both "T*=5/7" (compound claim, checked via _fact_hit split) and
+    # "5/7" (atomic claim) — a draft mentioning just "5/7" hits the
+    # atomic but not the compound, signaling partial preservation.
+    maximal = set(tokens)
+    for a in list(tokens):
+        if '=' in a:
+            continue
+        for b in tokens:
+            if a == b or '=' in b:
+                continue
+            if a in b:
+                maximal.discard(a)
+                break
+    return maximal
+
+
+def _fact_hit(fact: str, draft_lower: str) -> bool:
+    """Does the draft preserve the content of `fact`?
+
+    For compound facts like "T*=5/7" or "aperture=LATTICE" the draft
+    need NOT contain the literal "=" glyph — it may phrase the pair in
+    natural language ("T* is 5/7", "aperture is lattice"). So we split
+    on '=' and require every non-trivial part to appear somewhere in
+    the draft. For atomic facts, plain substring suffices.
+    """
+    low = fact.lower()
+    if '=' not in low:
+        return low in draft_lower
+    parts = [p.strip(' .,;()[]') for p in low.split('=')]
+    parts = [p for p in parts if p and p not in ('', 'yes', 'no')]
+    if not parts:
+        return True  # nothing meaningful to check
+    return all(p in draft_lower for p in parts)
+
+
+def _coherence_verdict(readout: str, draft: str, coverage_required: float):
+    """CK's coherence check on an Ollama draft.
+
+    Returns (accepted: bool, reason: str, hits: int, facts: int).
+    """
+    if not draft:
+        return (False, 'empty draft', 0, 0)
+    low = draft.lower()
+    # Hard-reject: AI disclaimers that slipped past the post-filter.
+    for bad in (
+        'as an ai', "i'm an ai", 'i am an ai', 'as a language model',
+        'i apologize', 'i cannot provide',
+    ):
+        if bad in low:
+            return (False, f"ai-disclaimer:{bad}", 0, 0)
+    # Hard-reject: classic hallucinated framings that NEVER appear in CK's
+    # corpus but LLMs love to reach for.
+    for bad in (
+        'p-adic', 'p adic', 'geodesic', 'riemann hypothesis', 'fermat',
+        'hilbert space', 'banach space',
+    ):
+        if bad in low and bad not in (readout or '').lower():
+            return (False, f"hallucination:{bad}", 0, 0)
+    # Soft filter: does the draft preserve CK's structural facts?
+    facts = _fact_tokens(readout)
+    if not facts:
+        return (True, 'no-facts-to-check', 0, 0)
+    hits = sum(1 for f in facts if _fact_hit(f, low))
+    coverage = hits / len(facts)
+    if coverage < coverage_required:
+        return (False, f"coverage:{hits}/{len(facts)}={coverage:.2f}<{coverage_required:.2f}",
+                hits, len(facts))
+    return (True, f"coverage:{hits}/{len(facts)}={coverage:.2f}", hits, len(facts))
+
+if _OLLAMA_EDITOR and _ollama_ok:
+    # Wrap the already-wrapped process_chat one more time.
+    # Call-chain after this:
+    #   api.process_chat
+    #     -> _process_chat_with_ollama_editor (NEW — grounded fluency)
+    #        -> _process_chat_with_cortex     (structural + cortex swap)
+    #           -> _process_chat_math_first   (arithmetic surface)
+    #              -> _orig_process_chat      (Gen12 base)
+    _prev_chat_for_ollama = api.process_chat
+
+    def _process_chat_with_ollama_editor(session_id, text, mode='normal'):
+        result = _prev_chat_for_ollama(session_id, text, mode)
+        try:
+            src = result.get('source')
+            ck_ground = (result.get('text') or '').strip()
+            # Skip arithmetic surfaces — numbers are canonical.
+            if src == 'ck_math_first':
+                result['ollama_verdict'] = 'skipped:ck_math_first is canonical'
+                return result
+            # Skip when we have nothing to ground on.
+            if not ck_ground:
+                result['ollama_verdict'] = 'skipped:empty structural text'
+                return result
+            # Skip very long structural outputs — already verbose enough.
+            if len(ck_ground) > _OLLAMA_MAX_CHARS:
+                result['ollama_verdict'] = f'skipped:structural >{_OLLAMA_MAX_CHARS} chars'
+                return result
+            # Skip empty user prompts (ping / health probes).
+            if not text or not text.strip():
+                result['ollama_verdict'] = 'skipped:empty user text'
+                return result
+            sysprompt = _ollama_ground(ck_ground, extra=_OLLAMA_EXTRA_GUIDE)
+            import time as _time
+            _t0 = _time.time()
+            drafted_raw = _ollama_complete(
+                text, system=sysprompt,
+                model=_OLLAMA_MODEL,
+                timeout=min(_OLLAMA_TIMEOUT, _OLLAMA_MAX_WAIT),
+            )
+            _dt = _time.time() - _t0
+            result['ollama_dt'] = round(_dt, 2)
+            if not drafted_raw or drafted_raw.startswith('[ollama'):
+                result['ollama_verdict'] = 'error'
+                result['ollama_error'] = drafted_raw or '[ollama no draft]'
+                return result
+            drafted = _postfilter_ollama(drafted_raw)
+            result['text_ollama_draft'] = drafted  # always expose the draft
+            result['ollama_model'] = _OLLAMA_MODEL
+            if not drafted:
+                result['ollama_verdict'] = 'rejected:empty-after-filter'
+                return result
+            # CK's coherence filter: does the draft preserve structural facts?
+            accepted, reason, hits, total = _coherence_verdict(
+                ck_ground, drafted, _OLLAMA_FACT_COVERAGE)
+            result['ollama_verdict'] = ('accepted:' if accepted else 'rejected:') + reason
+            result['ollama_fact_hits'] = hits
+            result['ollama_fact_total'] = total
+            if accepted:
+                # CK adopts the draft as his own words. Structural readout
+                # preserved for transparency / frontend display.
+                result['text_structural'] = ck_ground
+                result['source_structural'] = src
+                result['text'] = drafted
+                result['source'] = 'cortex_speak_via_ollama'
+            # else: text/source stay as-is (CK keeps his structural voice).
+        except Exception as _oe:
+            result['ollama_verdict'] = 'error'
+            result['ollama_error'] = f"{type(_oe).__name__}: {_oe}"
+        return result
+
+    api.process_chat = _process_chat_with_ollama_editor
+    print(f"[CK] Ollama editor: MOUNTED "
+          f"(CK speaks structural; Ollama drafts filtered through coverage>={_OLLAMA_FACT_COVERAGE}, "
+          f"source=cortex_speak_via_ollama on accept, text_ollama_draft always preserved)")
+elif _OLLAMA_EDITOR and not _ollama_ok:
+    print("[CK] Ollama editor: SKIPPED (service not reachable at "
+          "http://127.0.0.1:11434 -- start 'ollama serve')")
+else:
+    print("[CK] Ollama editor: DISABLED (CK_OLLAMA_EDITOR=0)")
 
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request

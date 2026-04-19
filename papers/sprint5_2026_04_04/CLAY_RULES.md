@@ -23,7 +23,7 @@ Labels: **PROVED** = verified computationally or by closed argument. **STRUCTURA
 **R5.** BHML[8][9] = 8. BREATH is invariant under RESET.
 *PROVED. Table lookup, verified.*
 
-**R6.** Class A = {BEING=1, DOING=2, BECOMING=3}. Each reaches VOID in exactly 3 steps and crosses the fold (sinc²(3/7) = 0.524 > fold = 0.405 > sinc²(4/7) = 0.295).
+**R6.** Class A = {LATTICE=1, COUNTER=2, PROGRESS=3}. Each reaches VOID in exactly 3 steps and crosses the fold (sinc²(3/7) = 0.524 > fold = 0.405 > sinc²(4/7) = 0.295).
 *PROVED.*
 
 **R7.** Class X = BREATH(8). Never reaches VOID. Persists indefinitely.

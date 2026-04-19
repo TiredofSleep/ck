@@ -655,10 +655,10 @@ def run_meta_lens():
     print("\n  Section 6b: Meta-Lens (claims 11-19)")
 
     # Phase groups (from olfactory)
-    BEING = (0, 1, 7)
-    DOING = (2, 3, 4, 5)
-    BECOMING = (6, 8, 9)
-    phases = {'being': BEING, 'doing': DOING, 'becoming': BECOMING}
+    LATTICE = (0, 1, 7)
+    COUNTER = (2, 3, 4, 5)
+    PROGRESS = (6, 8, 9)
+    phases = {'being': LATTICE, 'doing': COUNTER, 'becoming': PROGRESS}
     phase_order = ('being', 'doing', 'becoming')
 
     # --- Lens agreement ---
@@ -705,7 +705,7 @@ def run_meta_lens():
     record("Claim 11: meta-table simple fractions (denom<=12)", all_simple,
            f"all fractions have denominator <=12")
 
-    # Test 21: Claim 12 -- DOING x DOING maximum blind spot
+    # Test 21: Claim 12 -- COUNTER x COUNTER maximum blind spot
     tsml_dd = tsml_meta[('doing', 'doing')]
     bhml_dd = bhml_meta[('doing', 'doing')]
     tsml_rate = tsml_dd[0] / tsml_dd[1]
@@ -717,7 +717,7 @@ def run_meta_lens():
         d = tsml_meta[key][0] / tsml_meta[key][1] - bhml_meta[key][0] / bhml_meta[key][1]
         if abs(d) > max_div:
             max_div = abs(d)
-    record("Claim 12: DOING*DOING max blind spot (87.5%)",
+    record("Claim 12: COUNTER*COUNTER max blind spot (87.5%)",
            abs(divergence - max_div) < 0.001 and abs(divergence - 0.875) < 0.001,
            f"divergence={divergence:.3f}, max={max_div:.3f}")
 

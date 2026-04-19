@@ -80,7 +80,7 @@ Divergence from BHML (structure minus flow):
 | Doing      | 0.583 | **0.875** | 0.083 |
 | Becoming   | 0.444 | 0.083 | 0.333    |
 
-**Maximum blind spot: DOING x DOING = 87.5%.** Structure THINKS doing
+**Maximum blind spot: COUNTER x COUNTER = 87.5%.** Structure THINKS doing
 is resolved. Flow KNOWS it isn't.
 
 Recursion terminates in exactly 3 levels:
@@ -232,7 +232,7 @@ that the algebra sees as resolved but that flow knows isn't. The gap problems
 are full of HARMONY becoming because their resolution is premature: structure
 declares harmony while flow continues questioning.
 
-This maps directly to the DOING x DOING blind spot (87.5%): structure thinks
+This maps directly to the COUNTER x COUNTER blind spot (87.5%): structure thinks
 the doing is resolved (HARMONY), flow knows it isn't (0% HARMONY). The gap
 problems live in this blind spot.
 

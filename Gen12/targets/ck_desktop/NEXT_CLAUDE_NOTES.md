@@ -59,7 +59,7 @@ STEP 3: CK's own voice cascade
   Level C: Fractal voice (15D triadic)   ← PRIMARY when gate open
   Level D: Beam voice (Viterbi)
   Level E: Babble (raw operator→word)
-STEP 4: BECOMING (crystallize if GREEN, learn from result)
+STEP 4: PROGRESS (crystallize if GREEN, learn from result)
 ```
 
 ---

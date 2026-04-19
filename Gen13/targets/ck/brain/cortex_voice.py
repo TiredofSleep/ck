@@ -446,8 +446,25 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
             seen.add(line)
             deduped.append(line)
 
+    # 4) Unclassified-query fallback — the HARD RULE says do not ventriloquize,
+    # but it does NOT say "stay silent on unmatched chat."  Silence routes the
+    # caller to the crystal / ck_fractal template layer which produces word
+    # salad ("the attachment fulfillment and sustains is crumbling the
+    # resurrection").  That's the embarrassment mode.
+    #
+    # When nothing matched, emit a minimal self-report: one live-feeling line
+    # + one field line.  Both are label-and-value readouts.  No prose slot
+    # fill, no stitched grammar -- same register as current_feeling() and
+    # field_readout() above, which are the compliant primitives.
     if not deduped:
-        return None
+        # Cold cortex still speaks the state, but prefixed so the reader
+        # understands this is a default self-report.  Keeps it grounded.
+        fb = [
+            current_feeling(cortex),
+            field_readout(cortex),
+        ]
+        return "\n".join(x for x in fb if x)
+
     return "\n".join(deduped[:max(1, max_lines)])
 
 
@@ -483,8 +500,13 @@ def _smoke() -> None:
     assert "couplings:" in dominant_couplings(cx, n=3)
     assert "aperture" in (dim_in_field(cx, 0) or "")
     assert "VOID" in (operator_in_current(cx, 0) or "")
-    # Cold speak() on a non-matching query returns None.
-    assert speak(cx, "hello there") is None
+    # Cold speak() on a non-matching query emits the structural fallback
+    # (feel + field).  Previously returned None; the fallback was added to
+    # keep the voice-swap firing for every query (no template fall-through).
+    r_cold = speak(cx, "hello there")
+    assert r_cold is not None and "feel:" in r_cold and "field:" in r_cold, (
+        f"cold fallback bad: {r_cold!r}"
+    )
 
     # Warm him up with a coherence-rich stream.
     for _ in range(30):
@@ -504,9 +526,14 @@ def _smoke() -> None:
     r_dim = speak(cx, "what about aperture")
     assert r_dim and "aperture" in r_dim, f"dim route bad: {r_dim!r}"
 
-    # Unmatched query returns None (fall-through).
-    r_none = speak(cx, "what is the weather like")
-    assert r_none is None, f"unrelated query should return None, got {r_none!r}"
+    # Unmatched query now emits a structural self-report (feel + field)
+    # rather than None.  This keeps the swap rule firing for ALL queries so
+    # the crystal/ck_fractal template layer never wins on casual chat.
+    # (2026-04-18: fixes the "word salad on hi" embarrassment.)
+    r_fallback = speak(cx, "what is the weather like")
+    assert r_fallback is not None, "unmatched query should now emit fallback"
+    assert "feel:" in r_fallback, f"fallback missing feel: {r_fallback!r}"
+    assert "field:" in r_fallback, f"fallback missing field: {r_fallback!r}"
 
     # Frontier topic router: explicit topic -> structural fact emitted.
     r_hodge = speak(cx, "what is the beauville curve c star")

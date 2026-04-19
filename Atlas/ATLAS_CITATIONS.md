@@ -175,7 +175,7 @@
 
 **Master atlas references:** §3.5 Simplex Genesis, §5.4 Banach-Tarski reframing, §5 Wiener-Khinchin.
 
-- **Brouwer, L. E. J.** (1911). *Über Abbildung von Mannigfaltigkeiten.* Mathematische Annalen 71, 97–115. [Brouwer fixed-point theorem. Master atlas §3.5 uses it for CREATE=5 fixedness.]
+- **Brouwer, L. E. J.** (1911). *Über Abbildung von Mannigfaltigkeiten.* Mathematische Annalen 71, 97–115. [Brouwer fixed-point theorem. Master atlas §3.5 uses it for BALANCE=5 fixedness.]
 
 - **Banach, S., & Tarski, A.** (1924). *Sur la décomposition des ensembles de points en parties respectivement congruentes.* Fundamenta Mathematicae 6, 244–277. [Banach-Tarski paradox; §5.4 metaphor-that-stands for "Clay = constructive Banach-Tarski analog".]
 

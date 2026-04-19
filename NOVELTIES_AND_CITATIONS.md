@@ -87,7 +87,7 @@ These are claims the framework produces that are *not* obviously classical. The 
 
 The following terms appear throughout the repo. They are communicative labels, not theorem content. External readers should either see a gloss at first use (Track 1.3) or a pointer to `GLOSSARY.md`.
 
-- **The ten operators (silicon set, canonical):** VOID (0), LATTICE (1), COUNTER (2), PROGRESS (3), COLLAPSE (4), BALANCE (5), CHAOS (6), HARMONY (7), BREATH (8), RESET (9). Source of truth: `Gen12/targets/ck_desktop/ck_sim/being/ck_sim_heartbeat.py` (mirrors Verilog `ck_brain.h`). A second, conflicting paper-labels set (BEING/DOING/BECOMING/CREATE/ASCEND at the same indices) appears in `papers/ck_tables.py`; Track 4 reconciles these to the silicon set.
+- **The ten operators (silicon set, canonical):** VOID (0), LATTICE (1), COUNTER (2), PROGRESS (3), COLLAPSE (4), BALANCE (5), CHAOS (6), HARMONY (7), BREATH (8), RESET (9). Source of truth: `Gen12/targets/ck_desktop/ck_sim/being/ck_sim_heartbeat.py` (mirrors Verilog `ck_brain.h`). A second, conflicting paper-labels set (LATTICE/COUNTER/PROGRESS/BALANCE/CHAOS at the same indices) appears in `papers/ck_tables.py`; Track 4 reconciles these to the silicon set.
 - **Being → Doing → Becoming** — the three-phase TIG pipeline; a coherence gate, not a metaphysical claim. See `Gen12/targets/ck_desktop/ck_sim/being/ck_coherence_gate.py`.
 - **TSML / BHML / DOING tables** — three 10×10 operator tables; TSML = being/coherence, BHML = doing/physics, DOING = `|TSML − BHML|`. See `papers/ck_tables.py`.
 - **Atlas v3.5** — the canonical internal design doc; *not* a theorem. See `MASTER_ATLAS_2026_04_18.md`.

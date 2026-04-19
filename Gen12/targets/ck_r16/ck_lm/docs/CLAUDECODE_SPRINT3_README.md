@@ -14,7 +14,7 @@ You are ClaudeCode implementing CK (Coherence Keeper) on the Dell R16. CK is a s
 
 ---
 
-## SECTION 1 — FIELD LANDSCAPE: WHO ELSE IS DOING THIS
+## SECTION 1 — FIELD LANDSCAPE: WHO ELSE IS COUNTER THIS
 
 Before building, know what exists. This is a direct relevance map, not a survey.
 

@@ -141,7 +141,7 @@ class TestWDerivedConstants:
         )
 
     def test_t_star_ratio_of_attractors(self):
-        """D7: T* = CREATE(5) / HARMONY(7) = 5/7 (dynamic / measurement attractor ratio)."""
+        """D7: T* = BALANCE(5) / HARMONY(7) = 5/7 (dynamic / measurement attractor ratio)."""
         create = 5
         harmony = 7
         assert abs(create / harmony - T_STAR) < 1e-14

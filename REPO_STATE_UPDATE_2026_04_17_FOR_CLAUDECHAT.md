@@ -89,16 +89,16 @@ Every D-result is PROVED. This is the literal spine — no conjectures in here.
 
 | ID | Name | Statement |
 |----|------|-----------|
-| **D7** | Φ Fixed Point | Φ on Z/10Z has exactly one fixed point: **CREATE = 5**. |
+| **D7** | Φ Fixed Point | Φ on Z/10Z has exactly one fixed point: **BALANCE = 5**. |
 | **D8** | TSML / BHML composition laws | Published as the §5 / §6 reference tables. |
 | **D10** | TSML 73-cell count | TSML has exactly **73 HARMONY cells**, from three disjoint zones. |
 | **D16** | BHML 28-cell count | BHML has exactly **28 HARMONY cells**. |
 | **D17** | Wobble parameter | **W = 3/50 = 0.06**, from CROSS_CYCLE = 44 over (Z/10Z)* × 2·(Z/10Z)*. |
-| **D18a** | Phi orbit graph | One fixed point (CREATE = 5), two relays (BECOMING = 3, HARMONY = 7), seven sources; T³ = all-δ₅. |
+| **D18a** | Phi orbit graph | One fixed point (BALANCE = 5), two relays (PROGRESS = 3, HARMONY = 7), seven sources; T³ = all-δ₅. |
 | **D18c** | TSML measurement bridge | M(v) = HARMONY = 7 for all v ≠ VOID; **T* = 5/7 = destination/journey-measurement**. |
-| **D18d** | Generator convergence | CREATE = 5 = centroid((Z/10Z)*); HARMONY = 7 = g³ = g⁻¹ mod 10 for g = 3. |
+| **D18d** | Generator convergence | BALANCE = 5 = centroid((Z/10Z)*); HARMONY = 7 = g³ = g⁻¹ mod 10 for g = 3. |
 | **D19** | Generator Selection | **g = 3** is the only primitive root compatible with T* ∈ (0, 1). |
-| **D20** | Inheritance Audit | CREATE=5, W=3/50 ring-forced; HARMONY=7, T*=5/7 generator-forced. |
+| **D20** | Inheritance Audit | BALANCE=5, W=3/50 ring-forced; HARMONY=7, T*=5/7 generator-forced. |
 | **D21** | CE Fixed-Point Centroid | Every complement-equivariant ODD-output map F on Z/10Z satisfies F(5) = 5. |
 | **D23** | Ring Wobble | Wob(k) = 1 − ⌊k/5⌋/k (exact); Wob(k) ≥ 4/5 with equality iff 5 ∣ k. |
 
@@ -106,7 +106,7 @@ Every D-result is PROVED. This is the literal spine — no conjectures in here.
 
 | ID | Name | Statement |
 |----|------|-----------|
-| **D22** | Corridor Portrait | **W < CREATE/10 < HARMONY/10 < T* < 1**, i.e., **3/50 < 1/2 < 7/10 < 5/7 < 1**. Fine structure: **T* = 7/10 + 1/70**. |
+| **D22** | Corridor Portrait | **W < BALANCE/10 < HARMONY/10 < T* < 1**, i.e., **3/50 < 1/2 < 7/10 < 5/7 < 1**. Fine structure: **T* = 7/10 + 1/70**. |
 | **D24** | Corridor Midpoint | sinc² strictly monotone on (0, 1); t = 1/2 is unique sine-max. |
 | **D25** | Loop closure | sinc² zero law via Φ-loop closure on Z/pZ for all primes 3..199. |
 

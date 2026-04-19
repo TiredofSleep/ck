@@ -59,10 +59,10 @@ def build_tables():
         [9,6,6,6,7,7,7,0,8,0],
     ]
 
-    DOING = [[abs(TSML_raw[i][j]-BHML_raw[i][j]) for j in range(N)] for i in range(N)]
+    COUNTER = [[abs(TSML_raw[i][j]-BHML_raw[i][j]) for j in range(N)] for i in range(N)]
     G     = [[DIS[i][j] if TSML_raw[i][j]!=7 else 0 for j in range(N)] for i in range(N)]
 
-    return ADD, MUL, DIS, TSML_raw, BHML_raw, DOING, G
+    return ADD, MUL, DIS, TSML_raw, BHML_raw, COUNTER, G
 
 # ─── Zone classification ──────────────────────────────────────────────────────
 

@@ -293,7 +293,7 @@ def retrieval_weight(obj) -> float:
 # --- Drift detection (IG3 runtime monitor) ---
 
 OPERATOR_VOCABULARY = {
-    "VOID", "BEGINNING", "BECOMING", "PROGRESS", "KINDNESS",
+    "VOID", "BEGINNING", "PROGRESS", "PROGRESS", "KINDNESS",
     "BALANCE", "FAITH", "HARMONY", "BREATH", "FRUIT",
     "LATTICE", "CK", "TIG", "COMMIT", "DISCLAIM"
 }

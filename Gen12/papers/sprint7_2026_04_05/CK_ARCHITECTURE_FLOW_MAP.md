@@ -21,7 +21,7 @@ Read this map at any zoom level — you will find the same topology.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                       BEING                                  │
+│                       LATTICE                                  │
 │   Measure. Observe. Classify. 2 lenses.                      │
 │   Operator: VOID (0) — vacuum, ground, the unmeasured        │
 │   Time: continuous (integrated into every heartbeat tick)    │
@@ -30,7 +30,7 @@ Read this map at any zoom level — you will find the same topology.
                           │ density = 0.6×brain + 0.4×field coherence
                           ↓
 ┌──────────────────────────────────────────────────────────────┐
-│                       DOING                                  │
+│                       COUNTER                                  │
 │   Express. Generate. Execute. 3 lenses.                      │
 │   Operator: HARMONY (7) — stable expression target           │
 │   Time: 50Hz heartbeat (20ms per tick, 172,800 ticks/day)    │
@@ -39,7 +39,7 @@ Read this map at any zoom level — you will find the same topology.
                           │ density = 0.6×brain + 0.4×field coherence
                           ↓
 ┌──────────────────────────────────────────────────────────────┐
-│                      BECOMING                                │
+│                      PROGRESS                                │
 │   Learn. Integrate. Adapt. 4 lenses.                         │
 │   Operator: BREATH (8) — transition between cycles           │
 │   Time: slower rhythms (episodic, 1Hz steering, 5min save)   │
@@ -170,7 +170,7 @@ USER TEXT
 
     ↓ (accepted response)
 
-    BECOMING:
+    PROGRESS:
     ├─ Crystallize if GREEN (coherence ≥ 0.85)
     ├─ Algorithm lattice learns (prompt→response pair)
     ├─ DKAN training signal

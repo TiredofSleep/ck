@@ -73,7 +73,7 @@ sinc² universality story that sinc²(t) on its own does not already have?
 Answer: No. The inheritance boundary at t=1/2 follows from D24 (sinc²
 strictly monotone, unique sine-max at t=1/2) and D22 (ring normalization).
 D24 is a pure calculus result — it holds for sinc²(t) on any corridor
-(0,1) regardless of Z/10Z. The ring normalization puts CREATE=5 at t=1/2,
+(0,1) regardless of Z/10Z. The ring normalization puts BALANCE=5 at t=1/2,
 but t=1/2 is already the unique sine-max independent of the ring. The
 inheritance split's t=1/2 location adds no new information beyond what
 sinc²(t) already forces.

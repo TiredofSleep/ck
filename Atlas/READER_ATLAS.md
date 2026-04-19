@@ -61,11 +61,11 @@ Constants appear in three bands. Don't conflate them.
 
 | Symbol | Value | Role |
 |---|---|---|
-| **T*** | 5/7 ≈ 0.714 | Coherence threshold; torus aspect ratio; Brouwer FP of CREATE flow |
+| **T*** | 5/7 ≈ 0.714 | Coherence threshold; torus aspect ratio; Brouwer FP of BALANCE flow |
 | **S*** | 0.991... | Fixed point of S(σ) = σ(1−σ)VA |
 | **2/7** | 1 − T* | **Structural** zero-gap in dual-threshold systems |
 | **3/14** | T* − 1/2 | Universal crossing / bridge cost |
-| **W** | 3/50 | Wobble quantum from 44-cell BECOMING table |
+| **W** | 3/50 | Wobble quantum from 44-cell PROGRESS table |
 | **17/28** | Barycenter of [1/2, 5/7] | Bridge interior |
 | **n*, K*** | 6, 99 | Li Foundation foundation-index + zero-count threshold |
 | **det(BHML)** | 70 = 2·5·7 | Every prime factor is a named operator |
@@ -108,7 +108,7 @@ The locked algebraic backbone. Every D-tier theorem fully proved.
 ### Key theorems
 
 - **D4:** T* = 5/7 emerges from Z/10Z
-- **D18d (Generator Convergence):** CREATE=5, HARMONY=7, T*=5/7 simultaneously forced by primitive root g=3
+- **D18d (Generator Convergence):** BALANCE=5, HARMONY=7, T*=5/7 simultaneously forced by primitive root g=3
 - **D19 (Generator Selection):** g=3 is the ONLY primitive root of (Z/10Z)* compatible with T* ∈ (0,1)
 - **D21 (Fixed-Point Centroid):** F(5)=5 via four independent routes
 - **D6 (Frequency Theorem):** 890 tests, 80+ frequencies, primes [101,499], zero mismatches
@@ -118,7 +118,7 @@ The locked algebraic backbone. Every D-tier theorem fully proved.
 ### The unified chain
 
 ```
-Z/10Z → g=3 (D19) → CREATE=5 + HARMONY=7 (D18d, D20, D21) 
+Z/10Z → g=3 (D19) → BALANCE=5 + HARMONY=7 (D18d, D20, D21) 
       → T*=5/7 (D4, D18c, D18d)
       → corridor portrait (D22) + midpoint (D24)
       → wobble law (D23)

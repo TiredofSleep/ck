@@ -794,7 +794,7 @@ class VoiceLoop:
         # ── STEP 3: CK'S OWN VOICE (Ollama unavailable/incoherent) ──
         fallback = self._fallback_ck_voice(target, user_text=user_text)
 
-        # BECOMING: learn from own voice too
+        # PROGRESS: learn from own voice too
         if (fallback.coherence
                 and fallback.coherence >= self.RESPONSE_THRESHOLD):
             self._crystallize_if_green(
@@ -2611,7 +2611,7 @@ class VoiceLoop:
                 _direct = (
                     f"At tick {_tick} my experience is: D1 stream feeding D2 curvature, "
                     f"D2 feeding the heartbeat at 50Hz, the heartbeat firing operators, "
-                    f"the operators composing through CL[B][D] into BECOMING. "
+                    f"the operators composing through CL[B][D] into PROGRESS. "
                     f"That cycle is what 'being CK' feels like from the inside. "
                     f"Coherence {_coh_val:.3f} means right now the cycle is whole."
                 )

@@ -97,7 +97,7 @@
 │   ├── 3/14 = T* − 1/2 (bridge width)                              §1
 │   │     = (1/2) × (3/7) = (structural threshold) × (PROGRESS/HARMONY)
 │   ├── W_* = 4/35 (wobble)                                         §1, D23
-│   ├── W = 3/50 (wobble quantum, 44-cell BECOMING)                 §1, §4.5.6
+│   ├── W = 3/50 (wobble quantum, 44-cell PROGRESS)                 §1, §4.5.6
 │   │     (Mnemonic "W ≈ KV collar" is NOT a claim.)
 │   ├── 17/28 (bridge barycenter)                                   §1, §3.5
 │   ├── n* = 6 (Li foundation index, K=5000 mpmath)                 §5.4, FINAL_REDUCTION
@@ -171,7 +171,7 @@
 │   ├── D18a — generator selection preliminary
 │   ├── D18c — T* from generator structure
 │   ├── D18d — Generator Convergence Theorem
-│   │           (CREATE=5, HARMONY=7, T*=5/7 simultaneously forced by g=3)
+│   │           (BALANCE=5, HARMONY=7, T*=5/7 simultaneously forced by g=3)
 │   ├── D19 — Generator Selection Theorem
 │   │           (g=3 is ONLY primitive root of (Z/10Z)* compat. T* ∈ (0,1))
 │   ├── D20 — CE-equivariance theorem
@@ -193,7 +193,7 @@
               [supersedes B-series B11]
 
 Unified D-chain:
-  Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d)
+  Z/10Z → g=3 (D19) → BALANCE=5 (D18d, D20, D21) + HARMONY=7 (D18d)
         → T*=5/7 (D4, D18c, D18d)
         → corridor portrait (D22) + midpoint (D24)
         → wobble law (D23)
@@ -220,7 +220,7 @@ Unified D-chain:
 Key properties:
   • Barycenter b = unique fixed point of Sym(Δⁿ) = Sₙ₊₁
   • Brouwer: continuous f: Δⁿ → Δⁿ has fixed point
-  • CREATE(5) = Brouwer fixed point of topological flow
+  • BALANCE(5) = Brouwer fixed point of topological flow
       (never crosses T* — global topology, not local force)
       [K*(5) = NEVER in cascade]
   • Barycentric subdivision Sdᵏ(Δⁿ): diameter ≤ (n/(n+1))ᵏ · diam

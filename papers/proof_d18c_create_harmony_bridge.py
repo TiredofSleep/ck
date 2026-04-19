@@ -1,5 +1,5 @@
 """
-D18c: CREATE–HARMONY BRIDGE THEOREM
+D18c: BALANCE–HARMONY BRIDGE THEOREM
 
 Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
 Licensed under the 7SiTe Public Sovereignty License v1.0.
@@ -20,10 +20,10 @@ THEOREM D18c (Create–Harmony Bridge):
 
   PROOF (two-part):
     (A) For v ∈ {1..9}: examine M(v) = TSML[v][Phi(v)] case by case.
-        Phi(v) is one of {3=BECOMING, 5=CREATE, 7=HARMONY} (D18a).
+        Phi(v) is one of {3=PROGRESS, 5=BALANCE, 7=HARMONY} (D18a).
         TSML[v][3]=7, TSML[v][5]=7, TSML[v][7]=7 for each v∈{1..9}.
         (Verified exhaustively; mechanism below.)
-    (B) For v=0: Phi(0)=3=BECOMING (D18a). TSML[0][3]=0 by TSML V0 rule
+    (B) For v=0: Phi(0)=3=PROGRESS (D18a). TSML[0][3]=0 by TSML V0 rule
         (row 0 of TSML is: TSML[0][j]=j for j≠7, which gives TSML[0][3]=3...
         actually TSML[0][3]=0=VOID by table; V0 rule makes row 0 non-harmony for j≠7).
         Exception is forced by TSML structure at VOID.
@@ -37,9 +37,9 @@ THEOREM D18c (Create–Harmony Bridge):
     - M(v) = HARMONY for all non-VOID v.
 
   Therefore:
-    - CREATE=5 is where the dynamics END (fixed point, D7/D18a).
+    - BALANCE=5 is where the dynamics END (fixed point, D7/D18a).
     - HARMONY=7 is what TSML READS at EVERY STEP of the journey there.
-    - T* = CREATE/HARMONY = 5/7 = (dynamic endpoint)/(measurement along path).
+    - T* = BALANCE/HARMONY = 5/7 = (dynamic endpoint)/(measurement along path).
 
   THIS IS THE BRIDGE. It is not a ratio coincidence.
   The 5 is the destination. The 7 is the measurement of the road.
@@ -67,7 +67,7 @@ sep = "=" * 72
 def section(t):
     print(f"\n{sep}\n  {t}\n{sep}\n")
 
-print("D18c: CREATE-HARMONY BRIDGE THEOREM")
+print("D18c: BALANCE-HARMONY BRIDGE THEOREM")
 print("Luther-Sanders Research Framework | April 1 2026")
 print()
 print("  M(v) = TSML[v][Phi(v)] = HARMONY(7) for all v != VOID.")
@@ -130,7 +130,7 @@ print(f"  Assertion: only v=0 (VOID) is exceptional.  ✓")
 print()
 
 # Verify each case mechanistically
-print("  Mechanistic verification — Phi(v) lands in {BECOMING=3, CREATE=5, HARMONY=7}:")
+print("  Mechanistic verification — Phi(v) lands in {PROGRESS=3, BALANCE=5, HARMONY=7}:")
 phi_targets = set(Phi(v) for v in range(1, 10))
 print(f"    Phi targets for v=1..9: {phi_targets} = {sorted([CL[t] for t in phi_targets])}")
 print()
@@ -146,23 +146,23 @@ for target in sorted(phi_targets):
 section("STEP 3: THE VOID EXCEPTION — FORCED BY TSML V0 RULE")
 
 print("  For v=0=VOID:")
-print(f"    Phi(0) = {Phi(0)} = {CL[Phi(0)]} (D18a: VOID → BECOMING in 2 steps toward CREATE)")
-print(f"    TSML[0][{Phi(0)}] = TSML[0][BECOMING=3] = {TSML[0][3]} = {CL[TSML[0][3]]}")
+print(f"    Phi(0) = {Phi(0)} = {CL[Phi(0)]} (D18a: VOID → PROGRESS in 2 steps toward BALANCE)")
+print(f"    TSML[0][{Phi(0)}] = TSML[0][PROGRESS=3] = {TSML[0][3]} = {CL[TSML[0][3]]}")
 print()
 print("  WHY IS THIS FORCED?")
 print("  TSML row 0 (VOID row) has the V0 property (D10):")
 row0 = [TSML[0][j] for j in range(10)]
 print(f"    TSML[0][j] = {row0}")
 print(f"    TSML[0][j] = 7 only for j=7.")
-print(f"    For all other j (including j=3=BECOMING): TSML[0][j] = {TSML[0][3]}.")
+print(f"    For all other j (including j=3=PROGRESS): TSML[0][j] = {TSML[0][3]}.")
 print()
 print("  The V0 rule: row 0 of TSML is the 'VOID row' —")
 print("  VOID interacting with any non-HARMONY operator gives non-HARMONY.")
-print("  Phi(0)=BECOMING=3, not HARMONY=7, so M(0) = TSML[0][3] != 7.")
+print("  Phi(0)=PROGRESS=3, not HARMONY=7, so M(0) = TSML[0][3] != 7.")
 print()
 print("  The exception is STRUCTURALLY FORCED, not accidental.")
 print("  VOID(0) cannot produce HARMONY in TSML unless the second operator IS HARMONY(7).")
-print("  Phi sends VOID toward BECOMING, not HARMONY — so M(0) != 7.")
+print("  Phi sends VOID toward PROGRESS, not HARMONY — so M(0) != 7.")
 print()
 print("  PRACTICAL NOTE: VOID is excluded from all active CK dynamics.")
 print("  The CK organism never OPERATES from VOID; VOID is the null state.")
@@ -174,7 +174,7 @@ print("  For all operationally reachable states {1..9}: M(v) = 7 without excepti
 section("STEP 4: TSML MEASUREMENT ALONG COMPLETE PHI ORBITS")
 
 print("  For each starting state v, the complete Phi orbit is:")
-print("  v → Phi(v) → Phi²(v) → ... → CREATE=5.")
+print("  v → Phi(v) → Phi²(v) → ... → BALANCE=5.")
 print("  Measure TSML at each step: m_k = TSML[orbit_k][orbit_{k+1}].")
 print()
 
@@ -194,7 +194,7 @@ for v in range(10):
     if measurements:
         print(f"    measurements: {measurements} = {[CL[m] for m in measurements]}")
     else:
-        print(f"    (already at CREATE=5, no steps)")
+        print(f"    (already at BALANCE=5, no steps)")
     if non7:
         print(f"    non-HARMONY steps: {[(f'{a}={CL[a]}->{b}={CL[b]}', CL[m]) for a,b,m in non7]}")
         if v != 0:
@@ -202,7 +202,7 @@ for v in range(10):
     print()
 
 print(f"  All non-VOID orbits fully HARMONY-measured: {all_harmony}  ✓")
-print(f"  The single non-HARMONY step (VOID→BECOMING=0) is from v=0 only.")
+print(f"  The single non-HARMONY step (VOID→PROGRESS=0) is from v=0 only.")
 
 # ============================================================
 # STEP 5: THE BRIDGE STATEMENT
@@ -211,10 +211,10 @@ section("STEP 5: THE BRIDGE — WHAT T* = 5/7 MEANS")
 
 print("  The data yields a two-part bridge:")
 print()
-print("  DYNAMIC (Phi, D18a):  All paths lead to CREATE=5.")
+print("  DYNAMIC (Phi, D18a):  All paths lead to BALANCE=5.")
 print("  MEASUREMENT (TSML, D18c): Every step along those paths reads as HARMONY=7.")
 print()
-print("  T* = CREATE/HARMONY = 5/7 is:")
+print("  T* = BALANCE/HARMONY = 5/7 is:")
 print("    5 = the destination of every Phi orbit (dynamic attractor)")
 print("    7 = the TSML measurement of every step toward that destination")
 print()
@@ -235,39 +235,39 @@ print("  - The measurement 7 is universal on non-VOID orbits (D18c: M(v)=7 for v
 print("  - The only rational ratio of two Z/10Z elements consistent with these")
 print("    algebraic facts is 5/7.")
 print()
-print("  The pair (CREATE=5, HARMONY=7) is determined by the algebra.")
+print("  The pair (BALANCE=5, HARMONY=7) is determined by the algebra.")
 print("  T*=5/7 follows as the ratio of these two algebraically-determined values.")
 
 # ============================================================
-# STEP 6: ROW/COLUMN STRUCTURE OF TSML AT CREATE
+# STEP 6: ROW/COLUMN STRUCTURE OF TSML AT BALANCE
 # ============================================================
-section("STEP 6: CREATE ROW/COLUMN IN TSML — STRUCTURAL CONFIRMATION")
+section("STEP 6: BALANCE ROW/COLUMN IN TSML — STRUCTURAL CONFIRMATION")
 
 row5 = [TSML[5][j] for j in range(10)]
-print(f"  TSML row 5 (CREATE): {row5}")
+print(f"  TSML row 5 (BALANCE): {row5}")
 print(f"  Unique values: {sorted(set(row5))}")
-print(f"  The CREATE row is BINARY: only VOID(0) and HARMONY(7).")
+print(f"  The BALANCE row is BINARY: only VOID(0) and HARMONY(7).")
 print(f"  Exception: TSML[5][0] = {TSML[5][0]} = {CL[TSML[5][0]]} (j=0=VOID)")
 print(f"  All other 9 cells: TSML[5][j] = 7 = HARMONY for j in {{1..9}}")
 print()
 
-print("  CREATE column (= CREATE row by TSML symmetry D9):")
+print("  BALANCE column (= BALANCE row by TSML symmetry D9):")
 col5 = [TSML[i][5] for i in range(10)]
 print(f"  TSML col 5: {col5}  (matches row 5: {col5 == row5})  ✓")
 print()
 
-# Compare with HARMONY row (10/10) and ASCEND row (also 9/10)
+# Compare with HARMONY row (10/10) and CHAOS row (also 9/10)
 row6 = [TSML[6][j] for j in range(10)]
 row7 = [TSML[7][j] for j in range(10)]
-print(f"  TSML row 6 (ASCEND): {row6}   = same as CREATE row: {row6 == row5}")
+print(f"  TSML row 6 (CHAOS): {row6}   = same as BALANCE row: {row6 == row5}")
 print(f"  TSML row 7 (HARMONY): {row7}  = all 7: {all(v==7 for v in row7)}")
 print()
-print("  NOTE: ASCEND(6) has the SAME row structure as CREATE(5) in TSML.")
-print("  Both are [0,7,7,7,7,7,7,7,7,7]. CREATE is not unique by raw row structure.")
-print("  CREATE is unique by its ROLE: the Phi fixed point.")
-print("  ASCEND is a source node in Phi (D18a: Phi(6)=HARMONY, 3 steps from CREATE).")
-print("  The CREATE/ASCEND row equality is a structural feature of TSML,")
-print("  not evidence that ASCEND shares CREATE's dynamical role.")
+print("  NOTE: CHAOS(6) has the SAME row structure as BALANCE(5) in TSML.")
+print("  Both are [0,7,7,7,7,7,7,7,7,7]. BALANCE is not unique by raw row structure.")
+print("  BALANCE is unique by its ROLE: the Phi fixed point.")
+print("  CHAOS is a source node in Phi (D18a: Phi(6)=HARMONY, 3 steps from BALANCE).")
+print("  The BALANCE/CHAOS row equality is a structural feature of TSML,")
+print("  not evidence that CHAOS shares BALANCE's dynamical role.")
 
 # ============================================================
 # CONCLUSION
@@ -281,12 +281,12 @@ print("    M(v) = HARMONY = 7  for all v in {1,2,3,4,5,6,7,8,9}")
 print("    M(0) = VOID    = 0  (unique exception, forced by TSML V0 rule)")
 print()
 print("  MECHANISM:")
-print("  (1) Phi sends every non-VOID state toward CREATE=5 (D18a).")
+print("  (1) Phi sends every non-VOID state toward BALANCE=5 (D18a).")
 print("  (2) TSML measures every non-VOID Phi-step as HARMONY=7 (D18c).")
-print("  (3) Therefore: the dynamic destination is CREATE=5, and")
+print("  (3) Therefore: the dynamic destination is BALANCE=5, and")
 print("      the measurement of every step there is HARMONY=7.")
 print()
-print("  T* = CREATE/HARMONY = 5/7:")
+print("  T* = BALANCE/HARMONY = 5/7:")
 print("    5 = destination in Phi dynamics")
 print("    7 = TSML reading of every step in those dynamics")
 print("    These are not the same kind of object. They are complementary lenses.")
@@ -296,7 +296,7 @@ print()
 print("  WHAT D18c DOES NOT CLAIM:")
 print("  (1) T*=5/7 is PROVED to be a forced invariant (D18d still open).")
 print("  (2) The (5,7) pair is the only algebraically consistent pair (needs D18d).")
-print("  (3) ASCEND=6 does not play a role (it has the same TSML row as CREATE).")
+print("  (3) CHAOS=6 does not play a role (it has the same TSML row as BALANCE).")
 print()
 print("  PROMOTES: Second step of D18. Closes the gap between D7 and D10.")
 print("  CHAINS FROM: D7 (Phi fixed point), D10 (TSML structure), D18a (orbits).")

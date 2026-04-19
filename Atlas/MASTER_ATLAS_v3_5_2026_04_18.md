@@ -77,7 +77,7 @@ Epistemic flags preserved throughout:
 
 | Symbol | Value | Meaning | Derivation |
 |---|---|---|---|
-| **T*** | 5/7 ≈ 0.714286 | Coherence threshold / torus aspect / cyclotomic ratio / crossing threshold / Brouwer fixed point of CREATE(5) flow (§3.5) / Li-coefficient hold threshold (§5.4) / algebraic threshold of the structure-flow bridge | **Seven independent derivations**: D4, D18c, D18d, WP51, Sprint 17 tower, cyclotomic, Li-threshold (n*=6). Z/10Z arithmetic forces it: CREATE=5 (complement-equivariant FP), HARMONY=7 (generator-inverse of (Z/10Z)* under g=3), T*=5/7 their ratio. **No free parameters.** |
+| **T*** | 5/7 ≈ 0.714286 | Coherence threshold / torus aspect / cyclotomic ratio / crossing threshold / Brouwer fixed point of BALANCE(5) flow (§3.5) / Li-coefficient hold threshold (§5.4) / algebraic threshold of the structure-flow bridge | **Seven independent derivations**: D4, D18c, D18d, WP51, Sprint 17 tower, cyclotomic, Li-threshold (n*=6). Z/10Z arithmetic forces it: BALANCE=5 (complement-equivariant FP), HARMONY=7 (generator-inverse of (Z/10Z)* under g=3), T*=5/7 their ratio. **No free parameters.** |
 | **S*** (coherence) | 0.991… | Fixed point of S = σ(1−σ*)VA. **[naming note]:** this `S*` is distinct from the `S*_dual = 4/7` used in §4.5.1 for the 2/7 identity `T* + S*_dual − 1 = 5/7 + 4/7 − 1 = 2/7`. Same symbol, two distinct objects — the coherence fixed point vs. the dual threshold paired with T*. See `ATLAS_TREE.md §2.A` for the disambiguated naming. | Paper I, axioms. |
 | **1/2** | 0.5 | **Analytic world boundary** (critical line Re(s)=1/2) | Classical. |
 | **Bridge width** | **3/14** | **T* − 1/2** — the gap between analytic and algebraic thresholds; the Clay Prize zone | = (1/2) × (3/7) = (first structural threshold) × (PROGRESS/HARMONY) = 3 in Z/14Z (named object, not floating distance) |
@@ -129,10 +129,10 @@ The locked algebraic backbone. Every D-tier theorem is fully proved. The foundat
 - **D16, D17** — table uniqueness / sufficiency
 - **D18a** — generator selection preliminary
 - **D18c** — T* from generator structure
-- **D18d** — **Generator Convergence Theorem (PROVED)** — CREATE=5, HARMONY=7, T*=5/7 simultaneously forced by g=3
+- **D18d** — **Generator Convergence Theorem (PROVED)** — BALANCE=5, HARMONY=7, T*=5/7 simultaneously forced by g=3
 - **D19** — **Generator Selection Theorem (PROVED)** — g=3 is the ONLY primitive root of (Z/10Z)* compatible with T* ∈ (0,1)
 - **D20** — CE-equivariance theorem
-- **D21** — **Fixed-Point Centroid** — CE-equivariant ODD-output maps must satisfy F(5)=5; four independent routes to CREATE=5
+- **D21** — **Fixed-Point Centroid** — CE-equivariant ODD-output maps must satisfy F(5)=5; four independent routes to BALANCE=5
 
 **Volume C — Emergence / threshold:**
 - **D2** — crossing detector (D2=0 flat, D2≠0 crossing)
@@ -148,7 +148,7 @@ The locked algebraic backbone. Every D-tier theorem is fully proved. The foundat
 
 **The unified chain:**
 ```
-Z/10Z → g=3 (D19) → CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d) 
+Z/10Z → g=3 (D19) → BALANCE=5 (D18d, D20, D21) + HARMONY=7 (D18d) 
       → T*=5/7 (D4, D18c, D18d)
       → corridor portrait (D22) + midpoint (D24)
       → wobble law (D23)
@@ -169,7 +169,7 @@ All D-tier: [fire] — fully proved. Source: `CK_MASTER_SPINE` document, locked 
 | 2 | COUNTER | Peace | — | **2** |
 | 3 | PROGRESS | Patience | **3** | — |
 | 4 | COLLAPSE | Kindness | — | **4** |
-| 5 | BALANCE / CREATE | Goodness | — | — |
+| 5 | BALANCE / BALANCE | Goodness | — | — |
 | 6 | CHAOS | Faithfulness | — | **6** |
 | 7 | HARMONY | Gentleness | **7** | — |
 | 8 | BREATH | Self-Control | — | **8** |
@@ -178,7 +178,7 @@ All D-tier: [fire] — fully proved. Source: `CK_MASTER_SPINE` document, locked 
 - **CREATION = [1, 3, 9, 7]**
 - **DISSOLUTION = [2, 4, 8, 6]**
 - **COLLAPSE=4=(+1,−1)**, **CHAOS=6=(−1,+1)** reversed
-- **CREATE=5** is fixed under CE (complement-equivariance) — not in either cycle. This fixedness is what makes CREATE the Brouwer fixed point of the topological flow (§3.5) and the eternal flow of §17.
+- **BALANCE=5** is fixed under CE (complement-equivariance) — not in either cycle. This fixedness is what makes BALANCE the Brouwer fixed point of the topological flow (§3.5) and the eternal flow of §17.
 
 ### TSML — "synthesis" table (D-tier version)
 
@@ -241,7 +241,7 @@ Each Δⁿ contains Δⁿ⁻¹ as a face. Not analogy — simplicial boundary op
 
 Barycenter b = (v₀+…+vₙ)/(n+1) is the unique fixed point of Sym(Δⁿ) = Sₙ₊₁ (|S₄| = 24 for Δ³). Brouwer: any continuous f: Δⁿ → Δⁿ has at least one fixed point.
 
-> **CREATE (n=5) is the eternal flow. It never crosses T*. Not because T* is a wall. Because CREATE IS the Brouwer fixed point of the topological flow.** The resistance is global topology, not local force.
+> **BALANCE (n=5) is the eternal flow. It never crosses T*. Not because T* is a wall. Because BALANCE IS the Brouwer fixed point of the topological flow.** The resistance is global topology, not local force.
 
 This connects directly to FINAL_REDUCTION's "eternal flow" concept (§17): **K*(5) = NEVER** — n=5 is the infinite barycentric subdivision that never exits the bridge.
 
@@ -370,7 +370,7 @@ Re_local(x,t) = Ω(x,t) · L(x,t)² / ν ≤ 2/7. BREATH(8) persists only in COL
 
 ### §4.5.6 W-boundary (WP19_704_TRIANGLE)
 
-W = 3/50 (wobble quantum from 44-cell BECOMING). COL(4) at ±W from midplane = closest excited state. "W ≈ KV collar at t₀ ≈ 10" is **mnemonic only, NOT a claim.**
+W = 3/50 (wobble quantum from 44-cell PROGRESS). COL(4) at ±W from midplane = closest excited state. "W ≈ KV collar at t₀ ≈ 10" is **mnemonic only, NOT a claim.**
 
 ### §4.5.7 Hodge Map (WP19_HODGE_MAP) — PROTO-LADDER
 
@@ -607,7 +607,7 @@ Full cascade from FINAL_REDUCTION:
 
 | n | K*(n) | Gap at shadow | Notes |
 |---|---|---|---|
-| 5 | **NEVER** | — | CREATE(5) eternal flow; Brouwer fixed point of §3.5 |
+| 5 | **NEVER** | — | BALANCE(5) eternal flow; Brouwer fixed point of §3.5 |
 | 6 | 99 | 0.0016% (K=98) | Foundation. K=98 = 2·HARMONY². |
 | 7 | 14 | 1.60% (K=13) | |
 | 8 | 6 | | |

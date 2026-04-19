@@ -113,10 +113,10 @@ print()
 
 assert sorted(C) == [1, 3, 7, 9], f"C wrong: {C}"
 assert sorted(D) == [2, 4, 6, 8], f"D wrong: {D}"
-print(f"  C = {{1,3,7,9}} = {{BEING, BECOMING, HARMONY, RESET}}  ✓")
-print(f"  D = {{2,4,6,8}} = {{DOING, COLLAPSE, ASCEND, BREATH}}   ✓")
+print(f"  C = {{1,3,7,9}} = {{LATTICE, PROGRESS, HARMONY, RESET}}  ✓")
+print(f"  D = {{2,4,6,8}} = {{COUNTER, COLLAPSE, CHAOS, BREATH}}   ✓")
 print(f"  C ∩ D = ∅  ✓")
-print(f"  C ∪ D = Z/10Z \\ {{0,5}}  ✓  (VOID and CREATE are excluded)")
+print(f"  C ∪ D = Z/10Z \\ {{0,5}}  ✓  (VOID and BALANCE are excluded)")
 
 # ============================================================
 # STEP 2: EXACT CROSS_CYCLE COMPUTATION

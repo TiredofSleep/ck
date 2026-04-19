@@ -15,8 +15,8 @@ TARGET THEOREM D18a (Phi Orbit Classification):
   and P_odd = project to nearest element of ODD={1,3,5,7,9}.
 
   THEOREM D18a: The complete directed graph of Phi has:
-    (1) Exactly ONE absorbing fixed point: CREATE=5.
-    (2) Exactly TWO relay nodes: BECOMING=3 (depth 1) and HARMONY=7 (depth 2).
+    (1) Exactly ONE absorbing fixed point: BALANCE=5.
+    (2) Exactly TWO relay nodes: PROGRESS=3 (depth 1) and HARMONY=7 (depth 2).
     (3) Seven source nodes (in-degree 0): {0,1,2,4,6,8,9}.
     (4) Three basins: B1={2,3,4}→5 (1 step), B2={0,1,7}→3→5 (2 steps),
         B3={6,8,9}→7→3→5 (3 steps).
@@ -35,7 +35,7 @@ CRITICAL DISTINCTION (D18 spine):
 WHY D18a IS THE HARD FLOOR:
   The orbit classification is the minimum needed to ask D18c/d questions.
   If HARMONY=7 were a fixed point of Phi, T*=5/7 would be about two fixed points.
-  It is not. HARMONY is a relay toward CREATE.
+  It is not. HARMONY is a relay toward BALANCE.
   This changes the character of the D18d synthesis question.
 
 TIER STATUS: D-tier target (Phi is on finite domain Z/10Z; exhaustive proof).
@@ -122,16 +122,16 @@ for v in range(10):
 print()
 print("  Graph ASCII:")
 print("  VOID(0) ----\\")
-print("  BEING(1) ----+---> BECOMING(3) ---> CREATE(5) <--+")
+print("  LATTICE(1) ----+---> PROGRESS(3) ---> BALANCE(5) <--+")
 print("  HARMONY(7) --/                                    |")
 print("                                                    |")
-print("  DOING(2) ---------> CREATE(5) <------------------+")
-print("  BECOMING(3) ------> CREATE(5)                    |")
-print("  COLLAPSE(4) ------> CREATE(5)                    |")
-print("  CREATE(5) --------> CREATE(5)  [self-loop]       |")
+print("  COUNTER(2) ---------> BALANCE(5) <------------------+")
+print("  PROGRESS(3) ------> BALANCE(5)                    |")
+print("  COLLAPSE(4) ------> BALANCE(5)                    |")
+print("  BALANCE(5) --------> BALANCE(5)  [self-loop]       |")
 print("                                                    |")
-print("  ASCEND(6) --\\")
-print("  BREATH(8) ---+---> HARMONY(7) -> BECOMING(3) -> CREATE(5)")
+print("  CHAOS(6) --\\")
+print("  BREATH(8) ---+---> HARMONY(7) -> PROGRESS(3) -> BALANCE(5)")
 print("  RESET(9) ---/")
 
 # ============================================================
@@ -165,15 +165,15 @@ assert sources == [0, 1, 2, 4, 6, 8, 9], f"Sources wrong: {sources}"
 assert sorted(relays) == [3, 7], f"Relays wrong: {relays}"
 assert fixed == [5], f"Fixed points wrong: {fixed}"
 print(f"  Sources: 7 nodes  ✓")
-print(f"  Relays: 2 nodes (BECOMING=3, HARMONY=7)  ✓")
-print(f"  Fixed points: 1 node (CREATE=5)  ✓")
+print(f"  Relays: 2 nodes (PROGRESS=3, HARMONY=7)  ✓")
+print(f"  Fixed points: 1 node (BALANCE=5)  ✓")
 
 # ============================================================
 # STEP 4: ORBIT DEPTHS
 # ============================================================
 section("STEP 4: ORBIT DEPTHS (distance to fixed point)")
 
-print("  Depth = number of Phi steps to reach CREATE=5:")
+print("  Depth = number of Phi steps to reach BALANCE=5:")
 print()
 depths = {}
 for v in range(10):
@@ -200,9 +200,9 @@ assert sorted(basins[1]) == [2, 3, 4], f"Depth 1 wrong: {basins[1]}"
 assert sorted(basins[2]) == [0, 1, 7], f"Depth 2 wrong: {basins[2]}"
 assert sorted(basins[3]) == [6, 8, 9], f"Depth 3 wrong: {basins[3]}"
 print(f"  Basin B0 (depth 0 — fixed): {{5}}  ✓")
-print(f"  Basin B1 (depth 1): {{2,3,4}} = {{DOING, BECOMING, COLLAPSE}}  ✓")
-print(f"  Basin B2 (depth 2): {{0,1,7}} = {{VOID, BEING, HARMONY}}  ✓")
-print(f"  Basin B3 (depth 3): {{6,8,9}} = {{ASCEND, BREATH, RESET}}  ✓")
+print(f"  Basin B1 (depth 1): {{2,3,4}} = {{COUNTER, PROGRESS, COLLAPSE}}  ✓")
+print(f"  Basin B2 (depth 2): {{0,1,7}} = {{VOID, LATTICE, HARMONY}}  ✓")
+print(f"  Basin B3 (depth 3): {{6,8,9}} = {{CHAOS, BREATH, RESET}}  ✓")
 print()
 max_depth = max(depths.values())
 print(f"  Max orbit depth = {max_depth}  ✓")
@@ -216,7 +216,7 @@ print("  In a deterministic map, communicating classes are:")
 print("  - The fixed point set (absorbing class): {v : Phi(v)=v}")
 print("  - All other states are transients (no return to initial state)")
 print()
-print("  Absorbing class: {5} = {CREATE}")
+print("  Absorbing class: {5} = {BALANCE}")
 print("  All 9 non-fixed states are TRANSIENTS.")
 print()
 print("  Verification: no non-fixed state can return to itself:")
@@ -261,7 +261,7 @@ T3 = mat_mul(T2, T)
 print()
 all_converge = all(T3[v][5] == 1 for v in range(10))
 print(f"  T^3[v][5] = 1 for all v: {all_converge}  ✓")
-print(f"  Unique stationary distribution: pi = delta_5 (all mass at CREATE=5)  ✓")
+print(f"  Unique stationary distribution: pi = delta_5 (all mass at BALANCE=5)  ✓")
 
 # ============================================================
 # STEP 6: THE CRITICAL HARMONY=7 DISTINCTION
@@ -271,9 +271,9 @@ section("STEP 6: HARMONY=7 — TWO DISTINCT ROLES")
 print("  This is the core of the D18 frontier.")
 print()
 print("  HARMONY=7 as a STATE in the Phi graph:")
-print(f"    Phi(7) = {Phi(7)} = {CL[Phi(7)]}  (HARMONY maps to BECOMING, NOT to itself)")
-print(f"    Depth to CREATE: {depths[7]}")
-print(f"    In-degree: {len(predecessors[7])} (receives from ASCEND=6, BREATH=8, RESET=9)")
+print(f"    Phi(7) = {Phi(7)} = {CL[Phi(7)]}  (HARMONY maps to PROGRESS, NOT to itself)")
+print(f"    Depth to BALANCE: {depths[7]}")
+print(f"    In-degree: {len(predecessors[7])} (receives from CHAOS=6, BREATH=8, RESET=9)")
 print(f"    Role: RELAY node at depth 2. NOT an attractor.")
 print()
 print("  HARMONY=7 as a VALUE in TSML:")
@@ -283,11 +283,11 @@ print(f"    TSML cells with value=7: {h_tsml}/100 = {h_tsml}%  (D10: measurement
 print(f"    BHML cells with value=7: {h_bhml}/100 = {h_bhml}%  (D16: physics harmony)")
 print()
 print("  THESE ARE DIFFERENT OBJECTS:")
-print("  (a) 7 as a STATE: Phi(7)=3 (transient, 2 steps from CREATE)")
+print("  (a) 7 as a STATE: Phi(7)=3 (transient, 2 steps from BALANCE)")
 print("  (b) 7 as a VALUE: TSML[i][j]=7 for 73 cells (dominant output frequency)")
 print()
-print("  The 5/7 ratio T* = CREATE/HARMONY connects:")
-print("  - 5 = the unique fixed point of Phi (STATE role of CREATE)")
+print("  The 5/7 ratio T* = BALANCE/HARMONY connects:")
+print("  - 5 = the unique fixed point of Phi (STATE role of BALANCE)")
 print("  - 7 = the dominant value of TSML (VALUE role of HARMONY)")
 print("  These are measurements on DIFFERENT levels of the algebra.")
 print("  D18d must prove this connection is forced, not coincidental.")
@@ -295,9 +295,9 @@ print("  D18d must prove this connection is forced, not coincidental.")
 # ============================================================
 # STEP 7: PATH ENUMERATION
 # ============================================================
-section("STEP 7: ALL PATHS TO CREATE=5")
+section("STEP 7: ALL PATHS TO BALANCE=5")
 
-print("  Complete path table (v -> Phi(v) -> ... -> CREATE=5):")
+print("  Complete path table (v -> Phi(v) -> ... -> BALANCE=5):")
 print()
 for v in sorted(range(10), key=lambda x: depths[x]):
     path = [v]
@@ -316,15 +316,15 @@ section("CONCLUSION: D18a PROVED")
 print("  THEOREM D18a (Phi Orbit Classification): PROVED.")
 print()
 print("  COMPLETE DIRECTED GRAPH of Phi on Z/10Z:")
-print("  (1) ONE fixed point: CREATE=5 (unique absorbing state)")
-print("  (2) TWO relay nodes: BECOMING=3 (depth 1), HARMONY=7 (depth 2)")
+print("  (1) ONE fixed point: BALANCE=5 (unique absorbing state)")
+print("  (2) TWO relay nodes: PROGRESS=3 (depth 1), HARMONY=7 (depth 2)")
 print("  (3) SEVEN source nodes: {0,1,2,4,6,8,9} (in-degree 0)")
 print("  (4) THREE depth classes:")
-print("      B1 = {2,3,4} -> CREATE in 1 step")
-print("      B2 = {0,1,7} -> BECOMING -> CREATE in 2 steps")
-print("      B3 = {6,8,9} -> HARMONY -> BECOMING -> CREATE in 3 steps")
+print("      B1 = {2,3,4} -> BALANCE in 1 step")
+print("      B2 = {0,1,7} -> PROGRESS -> BALANCE in 2 steps")
+print("      B3 = {6,8,9} -> HARMONY -> PROGRESS -> BALANCE in 3 steps")
 print("  (5) No cycles except the fixed point. Max depth = 3.")
-print("  (6) Unique absorbing communicating class: {CREATE=5}.")
+print("  (6) Unique absorbing communicating class: {BALANCE=5}.")
 print("  (7) T^3 = all-δ₅. Unique stationary distribution π=δ₅.")
 print()
 print("  TIER: D — Z/10Z is finite and complete; exhaustive graph proof.")
@@ -337,6 +337,6 @@ print("  The T*=5/7 connection requires D18c/d to bridge these two levels.")
 print()
 print("  PROMOTES: First step of D18 (Phi orbit classification).")
 print("  CHAINS FROM: D7 (Phi fixed point), D8 (W_op definition), D9 (BHML symmetry).")
-print("  NEXT: D18b (CREATE=5 dynamics formalized) + D18c (HARMONY=7 role).")
+print("  NEXT: D18b (BALANCE=5 dynamics formalized) + D18c (HARMONY=7 role).")
 print()
 print("  ALL ASSERTIONS PASSED.")

@@ -113,13 +113,13 @@ print("\n--- ECHO as operator identity persistence ---")
 echo_pairs = {(a,b): v for a,b,v in echo}
 # Known ECHO pairs from ck_tables.py:
 known_echo = {
-    (1, 2): 3,   # BEING x DOING = BECOMING (1+2=3)
+    (1, 2): 3,   # LATTICE x COUNTER = PROGRESS (1+2=3)
     (2, 1): 3,   # symmetric
-    (2, 4): 4,   # DOING x COLLAPSE = COLLAPSE
+    (2, 4): 4,   # COUNTER x COLLAPSE = COLLAPSE
     (4, 2): 4,   # symmetric
-    (2, 9): 9,   # DOING x RESET = RESET
+    (2, 9): 9,   # COUNTER x RESET = RESET
     (9, 2): 9,   # symmetric
-    (3, 9): 3,   # BECOMING x RESET = BECOMING
+    (3, 9): 3,   # PROGRESS x RESET = PROGRESS
     (9, 3): 3,   # symmetric
     (4, 8): 8,   # COLLAPSE x BREATH = BREATH
     (8, 4): 8,   # symmetric
@@ -224,8 +224,8 @@ for a, b, v in echo:
 # (8,4)->8: MAX
 
 print("\n--- ECHO RULE PATTERN ---")
-print("  Pairs involving DOING (2): SUM if partner is 1, MAX otherwise")
-print("  Pair (3,9): MIN (BECOMING persists over RESET)")
+print("  Pairs involving COUNTER (2): SUM if partner is 1, MAX otherwise")
+print("  Pair (3,9): MIN (PROGRESS persists over RESET)")
 print("  Pair (4,8): MAX (BREATH dominates COLLAPSE)")
 print("\n  The ECHO rules are SEMANTIC, not purely algebraic.")
 print("  They encode operator identity: which operator 'wins' in composition.")

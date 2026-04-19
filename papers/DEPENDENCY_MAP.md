@@ -12,7 +12,7 @@
 ║   Z/10Z  =  {0,1,2,3,4,5,6,7,8,9}                              ║
 ║                                                                  ║
 ║   (Z/10Z)* = {1,3,7,9}    Primitive roots: g=3, g=7            ║
-║   ODD      = {1,3,5,7,9}  Centroid = 5 = CREATE                ║
+║   ODD      = {1,3,5,7,9}  Centroid = 5 = BALANCE                ║
 ║   NEUTRAL  = {0,5}        (multiples of 5)                      ║
 ║   2·(Z/10Z)* = {2,4,6,8}  (non-units)                          ║
 ║                                                                  ║
@@ -30,16 +30,16 @@
 ║                                                                  ║
 ║        RESET(9) ──┐                                             ║
 ║       BREATH(8) ──┤                                             ║
-║       ASCEND(6) ──┤                                             ║
-║     COLLAPSE(4) ──┼──→  HARMONY(7) ──→  BECOMING(3) ──→  CREATE=5  ║
+║       CHAOS(6) ──┤                                             ║
+║     COLLAPSE(4) ──┼──→  HARMONY(7) ──→  PROGRESS(3) ──→  BALANCE=5  ║
 ║      HARMONY(7) ──┘                                             ║
-║        BEING(1) ──────────────────────────────→  CREATE=5       ║
-║         VOID(0) ──────────────────────────────→  BECOMING → 5   ║
+║        LATTICE(1) ──────────────────────────────→  BALANCE=5       ║
+║         VOID(0) ──────────────────────────────→  PROGRESS → 5   ║
 ║                                                                  ║
-║   CREATE = 5 = unique fixed point of Phi               [D18a]  ║
-║   CREATE = 5 = centroid (Z/10Z)* and ODD               [D18d]  ║
-║   CREATE = 5 = unique CE fixed point                   [D21]   ║
-║   CREATE = 5 = additive midpoint of Z/10Z              [D21]   ║
+║   BALANCE = 5 = unique fixed point of Phi               [D18a]  ║
+║   BALANCE = 5 = centroid (Z/10Z)* and ODD               [D18d]  ║
+║   BALANCE = 5 = unique CE fixed point                   [D21]   ║
+║   BALANCE = 5 = additive midpoint of Z/10Z              [D21]   ║
 ╚══════════════════════════════════════════════════════════════════╝
                               │
                     [D18c — measurement bridge]
@@ -50,7 +50,7 @@
 ║   TSML[v][Phi(v)] = HARMONY = 7  for all v ≠ VOID     [D18c]  ║
 ║                                                                  ║
 ║   T* = destination / journey-measurement                        ║
-║      = CREATE / HARMONY                                         ║
+║      = BALANCE / HARMONY                                         ║
 ║      = 5 / 7                                                    ║
 ║      = 0.714285...    (four independent proofs: D4,D18c,D18d,D19) ║
 ║                                                                  ║
@@ -81,7 +81,7 @@
 ║   Amplitude strictly reversed: D24 monotonicity + D22 ordering  ║
 ║   Fine-structure: T* = 7/10 + 1/70  (exact)           [D22]   ║
 ║   Wobble law: Wob(k) = 1 − ⌊k/5⌋/k                   [D23]   ║
-║   Midpoint: t=1/2 unique sine-max; CREATE=5→1/2        [D24]   ║
+║   Midpoint: t=1/2 unique sine-max; BALANCE=5→1/2        [D24]   ║
 ╚══════════════════════════════════════════════════════════════════╝
                               │
                    [A10 — the one open frontier]

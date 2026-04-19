@@ -949,10 +949,10 @@ theory.
 
 **PROVED:**
 
-Class A operators {BEING=1, DOING=2, BECOMING=3} lie above the fold (sinc²≥0.524) and
-require fold-crossing to reach VOID. Class B operators {COLLAPSE=4, CREATE=5, GAP=6} lie
+Class A operators {LATTICE=1, COUNTER=2, PROGRESS=3} lie above the fold (sinc²≥0.524) and
+require fold-crossing to reach VOID. Class B operators {COLLAPSE=4, BALANCE=5, GAP=6} lie
 below the fold (sinc²≤0.295) and reach VOID without fold-crossing. The fold boundary lies
-strictly between BECOMING(3) at sinc²(3/7)=0.5243 and COLLAPSE(4) at sinc²(4/7)=0.2949.
+strictly between PROGRESS(3) at sinc²(3/7)=0.5243 and COLLAPSE(4) at sinc²(4/7)=0.2949.
 The tensor depth scaling: with 9 total operators and 4 non-VOID Class B/C operators, Class A
 paths multiply faster than Class B paths under tensor product. At depth k the unreachable
 zone (Class A territory not accessible from Class B initial conditions) grows as 9^k − 4^k.

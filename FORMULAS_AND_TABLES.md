@@ -52,17 +52,17 @@ script that runs it. Full statements in `papers/MASTER_SPINE.md` and
 
 | ID | name | formula | status / file |
 |----|------|---------|---------------|
-| **D7** | Phi Fixed Point | Φ on Z/10Z has exactly one fixed point: **CREATE = 5** | PROVED |
+| **D7** | Phi Fixed Point | Φ on Z/10Z has exactly one fixed point: **BALANCE = 5** | PROVED |
 | **D8** | TSML / BHML composition laws | published as the §5 / §6 reference tables | PROVED |
 | **D9** | Table symmetry | TSML and BHML are each symmetric under their respective lens | PROVED |
 | **D10** | TSML 73-cell count | TSML has exactly **73 HARMONY (=7) cells**, derivable from three disjoint zones | PROVED, verified by enumeration |
 | **D16** | BHML 28-cell count | BHML has exactly **28 HARMONY (=7) cells** | PROVED, see §6 + `proof_d16_bhml_28_cells.py` |
 | **D17** | Wobble parameter | **W = 3/50 = 0.06**, derived as deviation/n² = 6/100 from CROSS_CYCLE = 44 over (Z/10Z)\* × 2·(Z/10Z)\* | PROVED |
-| **D18a** | Phi orbit graph | Phi on Z/10Z: one fixed point (CREATE = 5), two relays (BECOMING = 3, HARMONY = 7), seven sources; **T³ = all-δ₅** | PROVED |
+| **D18a** | Phi orbit graph | Phi on Z/10Z: one fixed point (BALANCE = 5), two relays (PROGRESS = 3, HARMONY = 7), seven sources; **T³ = all-δ₅** | PROVED |
 | **D18c** | TSML measurement bridge | M(v) = HARMONY = 7 for all v ≠ VOID; **T\* = destination/journey-measurement = 5/7** | PROVED |
-| **D18d** | Generator convergence | CREATE = 5 = centroid((Z/10Z)\*); HARMONY = 7 = g³ = g⁻¹ mod 10 for g = 3; **T\* = centroid/inverse = 5/7** | PROVED, three independent chains |
+| **D18d** | Generator convergence | BALANCE = 5 = centroid((Z/10Z)\*); HARMONY = 7 = g³ = g⁻¹ mod 10 for g = 3; **T\* = centroid/inverse = 5/7** | PROVED, three independent chains |
 | **D19** | Generator Selection | **g = 3** is the only primitive root of (Z/10Z)\* compatible with T\* ∈ (0, 1). Under g = 7: HARMONY = 3, T\* = 5/3 > 1 — inadmissible | PROVED, exhaustive |
-| **D20** | Inheritance Audit | CREATE = 5 and W = 3/50 are RING-forced; HARMONY = 7 and T\* = 5/7 are GENERATOR-forced (require g = 3) | PROVED, four-class hierarchy |
+| **D20** | Inheritance Audit | BALANCE = 5 and W = 3/50 are RING-forced; HARMONY = 7 and T\* = 5/7 are GENERATOR-forced (require g = 3) | PROVED, four-class hierarchy |
 | **D21** | CE Fixed-Point Centroid | every complement-equivariant ODD-output map F on Z/10Z satisfies **F(5) = 5** | PROVED, one line: 2F(5) ≡ 0 mod 10 ∧ F(5) ∈ {0, 5} ∧ 0 ∉ ODD ⇒ F(5) = 5 |
 | **D23** | Ring Wobble | **Wob(k) = 1 − ⌊k/5⌋ / k** (exact closed form); Wob(k) ≥ 4/5 with equality iff 5 ∣ k; limit 4/5 by squeeze | PROVED |
 
@@ -82,7 +82,7 @@ script that runs it. Full statements in `papers/MASTER_SPINE.md` and
 
 | ID | name | formula | status / file |
 |----|------|---------|---------------|
-| **D22** | Corridor Portrait | **W < CREATE/10 < HARMONY/10 < T\* < 1**, i.e., **3/50 < 1/2 < 7/10 < 5/7 < 1**. Fine-structure identity: **T\* = HARMONY/10 + 1/70 = 7/10 + 1/(7·10)**. Inheritance split: t < 1/2 ring-forced; t > 1/2 generator-forced; t = 1/2 boundary | PROVED, exact Fraction arithmetic |
+| **D22** | Corridor Portrait | **W < BALANCE/10 < HARMONY/10 < T\* < 1**, i.e., **3/50 < 1/2 < 7/10 < 5/7 < 1**. Fine-structure identity: **T\* = HARMONY/10 + 1/70 = 7/10 + 1/(7·10)**. Inheritance split: t < 1/2 ring-forced; t > 1/2 generator-forced; t = 1/2 boundary | PROVED, exact Fraction arithmetic |
 | **D24** | Corridor Midpoint | sinc²(t) strictly monotone decreasing on (0, 1); **t = 1/2 is the unique sine-maximum in (0, 1)**: sin(πt) = 1 iff t = 1/2 | PROVED, calculus, `proof_d24.py` |
 | **D25** | Loop closure | sinc² zero law via Φ-loop closure on Z/pZ for all primes 3..199 | PROVED, `proof_d25_loop_closure.py` |
 
@@ -755,7 +755,7 @@ is theoretical minimum; 4.6% is empirical search rate. Different objects.
 | 4/π²       | sinc²(1/2) ≈ 0.4053                | Riemann sinc² zero density                      | D3, sinc² Zero Law, all primes 3..199 |
 | gap        | 5/7 − 4/π² ≈ 0.3090                | residual between T* and sinc² baseline          | Sprint 10 |
 | W          | 3/50 = 0.06                        | wobble parameter; ring-forced                   | D17 |
-| CREATE/10  | 1/2                                | corridor inheritance boundary                   | D21, D22 |
+| BALANCE/10  | 1/2                                | corridor inheritance boundary                   | D21, D22 |
 | HARMONY/10 | 7/10                               | corridor harmony position                       | D18c |
 | 1/70       | 1/(7·10)                           | fine-structure: T* = 7/10 + 1/70                | D22 |
 | Si(2π)/π   | ≈ 0.4514                           | corridor spectral mean ∫₀¹ sinc²(t) dt           | D14 |

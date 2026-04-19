@@ -56,7 +56,7 @@ ADD = [[(i + j) % 10 for j in range(N)] for i in range(N)]
 MUL = [[(i * j) % 10 for j in range(N)] for i in range(N)]
 DIS = [[abs(ADD[i][j] - MUL[i][j]) for j in range(N)] for i in range(N)]
 
-DOING = [[abs(TSML[i][j] - BHML[i][j]) for j in range(N)] for i in range(N)]
+COUNTER = [[abs(TSML[i][j] - BHML[i][j]) for j in range(N)] for i in range(N)]
 
 BASE    = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(BASE, "results")
@@ -278,8 +278,8 @@ def test_ghost_match(G, lines):
     corr_dg = num2/(sd*sg2)
     exact_match_doing_g = sum(1 for i in range(N) for j in range(N)
                                if DOING[i][j] == G[i][j])
-    lines.append(f"  Pearson r(DOING, G) = {corr_dg:.6f}")
-    lines.append(f"  Cell-exact match DOING=G: {exact_match_doing_g}/100")
+    lines.append(f"  Pearson r(COUNTER, G) = {corr_dg:.6f}")
+    lines.append(f"  Cell-exact match COUNTER=G: {exact_match_doing_g}/100")
     lines.append(f"  DOING_sum={sum(doing_flat)}, G_sum={sum(g_flat)}")
     lines.append("")
 

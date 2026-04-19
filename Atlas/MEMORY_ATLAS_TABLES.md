@@ -41,7 +41,7 @@ Every row and column is indexed by the ten TIG operators:
 | 2 | **COUNTER** | Peace | — | ✓ (2) |
 | 3 | **PROGRESS** | Patience | ✓ (3) | — |
 | 4 | **COLLAPSE** (earlier: TENSION) | Kindness | — | ✓ (4) |
-| 5 | **BALANCE / CREATE** | Goodness | — | — |
+| 5 | **BALANCE / BALANCE** | Goodness | — | — |
 | 6 | **CHAOS** | Faithfulness | — | ✓ (6) |
 | 7 | **HARMONY** | Gentleness | ✓ (7) | — |
 | 8 | **BREATH** | Self-Control | — | ✓ (8) |
@@ -111,7 +111,7 @@ LAT  ·   ·   ·   ·   ·   ·   ·   7   ·   ·     ← HARMONY-dominant
 CTR  ·   ·   ·   ·   ·   ·   ·   7   ·   ·
 PRG  ·   ·   ·   ·   ·   ·   ·   7   ·   ·
 COL  ·   ·   ·   ·   ·   ·   ·   7   ·   ·
-BAL  ·   ·   ·   ·   ·   ·   ·   7   ·   ·     ← BALANCE/CREATE row: part of null direction
+BAL  ·   ·   ·   ·   ·   ·   ·   7   ·   ·     ← BALANCE/BALANCE row: part of null direction
 CHA  ·   ·   ·   ·   ·   ·   ·   7   ·   ·     ← CHAOS row: completes null direction
 HAR  ·   ·   ·   ·   ·   ·   ·  [8]  ·   ·     ← (7,7) = 8 = BREATH, NEVER rewritten
 BRT  ·   ·   ·   ·  [8]  ·   ·   7   ·   ·     ← (8,4) = 8 = BREATH, NS_BREATH foundation
@@ -254,9 +254,9 @@ The 11 bumps + composition structure realize the torus:
 
 ### Why the Doing table matters
 
-- **Additive partitions → BEING layer** (TSML)
-- **Multiplicative orbits → BECOMING layer** (BHML)
-- **Their crossing → DOING layer** (this table) — the Crossing Lemma layer
+- **Additive partitions → LATTICE layer** (TSML)
+- **Multiplicative orbits → PROGRESS layer** (BHML)
+- **Their crossing → COUNTER layer** (this table) — the Crossing Lemma layer
 
 **Score 0 on the Doing table** means refinement-only (not useless — Productive Incompleteness addendum WP61).
 
@@ -373,12 +373,12 @@ From the σ polynomial on F₂ × F₅ (§5 of master atlas, Q10 boxed):
 | Shell | Size | Role |
 |---|---|---|
 | 22 | skeleton | frozen structure |
-| 44 | BECOMING | alive (cellwise dynamics) |
-| 72 | BEING | blur (smoothed / measurement) |
+| 44 | PROGRESS | alive (cellwise dynamics) |
+| 72 | LATTICE | blur (smoothed / measurement) |
 
 These are **derived from TSML + BHML**, not standalone tables. They describe the composition hierarchy at three zoom levels.
 
-**Note:** BECOMING = 44 = matches the "44% of file = harmony's exact lattice proportion" observation from CK architecture.
+**Note:** PROGRESS = 44 = matches the "44% of file = harmony's exact lattice proportion" observation from CK architecture.
 
 ### The 7 dynamical bands (CL classifier)
 
@@ -407,7 +407,7 @@ When the canonical tables are loaded, these constants emerge as byproducts (each
 | **4/π² = sinc²(1/2)** | Montgomery pair-correlation at u=1/2; TIG mid-journey amplitude; 890 D6 tests |
 | **2/7 = T* + S* − 1 = 1 − T*** | Structural only. **[caution: quantitative match to lattice-QCD √σ/m(0++) falsified at 16.5σ per EXPERT_SUMMARY]** |
 | **3/14 = T* − 1/2** | Universal crossing cost; bridge width between analytic (1/2) and algebraic (5/7) thresholds |
-| **W = 3/50** | Wobble quantum from 44-cell BECOMING table; COL(4) at ±W from midplane |
+| **W = 3/50** | Wobble quantum from 44-cell PROGRESS table; COL(4) at ±W from midplane |
 | **det(BHML) = 70 = 2 · 5 · 7** | Every prime factor is a named operator: DISSOLUTION (2) · BALANCE (5) · HARMONY (7) |
 
 ---

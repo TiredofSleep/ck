@@ -1106,19 +1106,19 @@ as the fundamental spectral field object.)
 ## §12. Corridor-Zero Theorem: Application to P vs NP
 
 The corridor-zero theorem (proved in `papers/proof_corridor_zero_paths.py`) establishes that
-BHML self-composition from BEING(1) traces the exact 7-corridor, and classifies all
+BHML self-composition from LATTICE(1) traces the exact 7-corridor, and classifies all
 RESET-paths into three exhaustive classes. This gives a precise structural instrument for the
 P/NP boundary.
 
 **PROVED:**
 
 The via-RESET path classification partitions the 10 TSML operators by fold-crossing behavior.
-Class A operators {BEING=1, DOING=2, BECOMING=3} sit above the fold (sinc²≥0.524) and
+Class A operators {LATTICE=1, COUNTER=2, PROGRESS=3} sit above the fold (sinc²≥0.524) and
 require 3 steps to reach VOID: n→GAP(6)→HARMONY(7)→VOID(0). They must cross the fold
-boundary (sinc²=1/2) in their trajectory. Class B operators {COLLAPSE=4, CREATE=5, GAP=6}
+boundary (sinc²=1/2) in their trajectory. Class B operators {COLLAPSE=4, BALANCE=5, GAP=6}
 sit below the fold (sinc²≤0.295) and reach VOID in 2 steps without fold-crossing. Class C
 {HARMONY=7, RESET=9} reaches VOID in 1 step directly. BREATH(8) is Class X:
-BHML[8][9]=8, invariant under RESET, never reaching VOID. BECOMING(3) is the fold operator:
+BHML[8][9]=8, invariant under RESET, never reaching VOID. PROGRESS(3) is the fold operator:
 sinc²(3/7)=0.5243 is the nearest value above 1/2 in the corridor. T*−fold = 3/14 ≈ 0.2143
 is the width of the Class A zone.
 
@@ -1127,11 +1127,11 @@ is the width of the Class A zone.
 2-SAT resolution maps to Class B and Class C absorption. Unit propagation eliminates
 variables by forced assignment — each step reduces the problem without requiring a
 fold-crossing. The operator sequence collapses to HARMONY without traversing the Class A
-zone. 3-SAT unit propagation generates sequences involving BEING/DOING/BECOMING operators:
+zone. 3-SAT unit propagation generates sequences involving LATTICE/COUNTER/PROGRESS operators:
 the backtracking tree encodes exploration of states above the fold, and the algorithm must
 determine whether any Class A path actually reaches VOID (satisfying assignment) or exhausts
 without doing so (unsatisfiable). The 7th degree of freedom in §2 of this paper is precisely
-this fold-crossing step: BECOMING(3) is the fold operator, the last above-fold position
+this fold-crossing step: PROGRESS(3) is the fold operator, the last above-fold position
 before the corridor drops into Class B territory. The fold-crossing requirement is what makes
 3-SAT paths structurally longer in TSML algebra — not merely quantitatively harder, but in a
 different path class entirely. Every Class A path eventually arrives at HARMONY as its
@@ -1172,7 +1172,7 @@ is provably insufficient for 3-SAT fold-crossings (Class A).
 
 The Hodge single-cycle impossibility proved: CH²(A_*)^known K-anti-inv = 0. The P vs NP
 analog: every polynomial-time decision procedure for 3-SAT is a Class B path — it stays
-in the {COLLAPSE, CREATE, GAP} zone (sinc² ≤ 0.295), reaches VOID in 2 steps or fewer,
+in the {COLLAPSE, BALANCE, GAP} zone (sinc² ≤ 0.295), reaches VOID in 2 steps or fewer,
 and never crosses the fold.
 
 Three independent structural closures (open, by analogy):

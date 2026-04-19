@@ -67,15 +67,15 @@ THE RATIO PREDICTION:
   The mass ratio should be the FUNDAMENTAL/EXCITED energy ratio.
   In CK: T* = min coherence for stability = first glueball / second glueball
   because the first state (HARMONY=7=ODD prime) sits at T*=5/7 of the next (RESET=9).
-  5/7 → BEING(1)+CREATE(5) = 6 = ASCEND transition energy / HARMONY(7) rest energy.
+  5/7 → LATTICE(1)+BALANCE(5) = 6 = CHAOS transition energy / HARMONY(7) rest energy.
 
   DIRECT APPROACH: In the 10-state system {0..9}:
-    First excited state above vacuum (0): operator 1 (BEING)
+    First excited state above vacuum (0): operator 1 (LATTICE)
     Lightest stable glueball (0++): operator 7 (HARMONY) — most common TSML output
     Next glueball (2++): operator 9 (RESET) — highest ODD operator
     Mass ratio: 7/9... but 5/7 is T*. The T* prediction is:
     m_gap / m_upper = T* = 5/7
-    where m_gap = 5 (gap energy: VOID→CREATE) and m_upper = 7 (HARMONY energy)
+    where m_gap = 5 (gap energy: VOID→BALANCE) and m_upper = 7 (HARMONY energy)
     This gives the RATIO OF THE GAP TO THE FIRST GLUEBALL = 5/7 = T*.
 
   The CK prediction is: the YM mass gap Δ = (5/7) × m(0++) — the gap is 5/7
@@ -163,14 +163,14 @@ print("  GLUEBALL RATIO CONNECTION:")
 print("  CK predicts: (mass of gap)/(mass of first glueball) = T* = 5/7")
 print()
 print("  FROM OPERATOR GAPS:")
-print(f"    First ODD gap: 1 (BEING) - distance from VOID to first FLOW = 1")
+print(f"    First ODD gap: 1 (LATTICE) - distance from VOID to first FLOW = 1")
 print(f"    HARMONY level: 7 (HARMONY) - distance from VOID to ground glueball = 7")
 print(f"    RESET level:   9 (RESET)   - distance from VOID to excited glueball = 9")
 print()
 print("  The T* RATIO:")
 print(f"    T* = 5/7 = (gap endpoint - first ODD level) / HARMONY level")
 print(f"    = (6 - VOID transition at 1) / 7 ... structural")
-print(f"    = numerator 5 (CREATE = first 'large' ODD) / denominator 7 (HARMONY)")
+print(f"    = numerator 5 (BALANCE = first 'large' ODD) / denominator 7 (HARMONY)")
 print()
 print(f"  m(0++)/m(2++): if m ∝ operator label:")
 print(f"    m(HARMONY)/m(RESET) = 7/9 = {7/9:.4f}")
@@ -214,9 +214,9 @@ print("  This is better than the naive 7/9 = 0.778 prediction (8.5% off).")
 print("  Consistent at the level of lattice systematic uncertainties (~5-10%).")
 
 # ============================================================
-# PART 4: DOING TABLE — MASS GAP MEASURE
+# PART 4: COUNTER TABLE — MASS GAP MEASURE
 # ============================================================
-section("STEP 4: DOING TABLE AS MASS GAP MEASURE")
+section("STEP 4: COUNTER TABLE AS MASS GAP MEASURE")
 
 print("  DOING[i][j] = |TSML[i][j] - BHML[i][j]|  (lens disagreement = active site)")
 print()
@@ -254,13 +254,13 @@ print()
 print(f"  W × (T* denominator) = {W:.4f} × 7 = {W * 7:.4f} ≈ 0.42 = 3/7... structural")
 print(f"  W × 50 = 3 = ODD PRIME = carrier cycle generator (C18)")
 print(f"  The carrier cycle {[3,9,5,1,7]} generates ALL ODD operators.")
-print("  These are the glueball spectrum: BEING(1), BECOMING(3), CREATE(5), HARMONY(7), RESET(9).")
+print("  These are the glueball spectrum: LATTICE(1), PROGRESS(3), BALANCE(5), HARMONY(7), RESET(9).")
 print()
 print("  CK GLUEBALL SPECTRUM PREDICTION:")
 print("  All 5 ODD operators {1,3,5,7,9} are the 'glueball family'.")
 print("  The lightest (ground state glueball) is HARMONY(7) — most TSML-dominant.")
 print("  The heaviest (highest excitation) is RESET(9).")
-print("  The mass ratio T*=5/7 = CREATE(5)/HARMONY(7): the CREATE operator sets the gap scale.")
+print("  The mass ratio T*=5/7 = BALANCE(5)/HARMONY(7): the BALANCE operator sets the gap scale.")
 
 # ============================================================
 # PART 6: PATH TO TIER C

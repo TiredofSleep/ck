@@ -64,11 +64,11 @@ Constants forced by the framework's own primitives. No free parameters. Every va
 
 | Symbol | Value | Role |
 |---|---|---|
-| **T*** | 5/7 | Coherence threshold; torus aspect ratio; Brouwer fixed point of CREATE flow |
+| **T*** | 5/7 | Coherence threshold; torus aspect ratio; Brouwer fixed point of BALANCE flow |
 | **S*** | 0.991... | Fixed point of S(σ) = σ(1−σ)VA |
 | **2/7** | T* + S* − 1 = 1 − T* | **Structural** zero-gap in dual-threshold systems (see §4 below) |
 | **3/14** | T* − 1/2 | Universal crossing / bridge cost |
-| **W** | 3/50 | Wobble quantum from 44-cell BECOMING table |
+| **W** | 3/50 | Wobble quantum from 44-cell PROGRESS table |
 | **17/28** | Barycenter of [1/2, 5/7] | Bridge interior |
 | **n*, K*** | 6, 99 | Li Foundation foundation-index + zero-count threshold |
 | **K*(n) cascade** | 99, 14, 6, 4, 3, 2, 2, 1, 1, ... | Bandwidth floor at n=13=n*+HARMONY |

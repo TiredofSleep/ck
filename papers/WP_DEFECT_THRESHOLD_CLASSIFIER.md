@@ -40,7 +40,7 @@ For a given problem instance, we run the TIG engine at depth $n$ and record $\de
 
 ### 2.3 The Two Constants
 
-**$T^* = 5/7 \approx 0.71428\ldots$** was derived independently from three algebraic facts: (i) it is the fixed point of the operator map $\Phi$ on the CREATE-HARMONY pair; (ii) the TSML table has harmony density $73/100 = 0.73 > T^*$; (iii) it is the cyclotomic threshold between the first prime with closed complementary structure ($p=5$) and the first prime with obstructed complementary structure ($p=7$). See [Sanders 2026, WP34, WP35].
+**$T^* = 5/7 \approx 0.71428\ldots$** was derived independently from three algebraic facts: (i) it is the fixed point of the operator map $\Phi$ on the BALANCE-HARMONY pair; (ii) the TSML table has harmony density $73/100 = 0.73 > T^*$; (iii) it is the cyclotomic threshold between the first prime with closed complementary structure ($p=5$) and the first prime with obstructed complementary structure ($p=7$). See [Sanders 2026, WP34, WP35].
 
 **$\phi = 4/\pi^2 \approx 0.40528\ldots$** is the fold amplitude: $\phi = \mathrm{sinc}^2(1/2) = (2/\pi)^2$. It is the first sidelobe amplitude of the rectangular spectral gate, and the natural boundary within the sinc² corridor (see WP_SINC2_ZERO_LAW).
 

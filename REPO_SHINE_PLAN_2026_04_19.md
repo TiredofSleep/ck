@@ -59,11 +59,11 @@ Finding from the CL-search: two conflicting 10-operator dictionaries in the repo
 
 | Index | `ck_sim_heartbeat.py` (silicon source of truth) | `papers/ck_tables.py` (paper-labels) |
 |-------|------------------------------------------------|--------------------------------------|
-| 1 | **LATTICE** | BEING |
-| 2 | **COUNTER** | DOING |
-| 3 | **PROGRESS** | BECOMING |
-| 5 | **BALANCE** | CREATE |
-| 6 | **CHAOS** | ASCEND |
+| 1 | **LATTICE** | LATTICE |
+| 2 | **COUNTER** | COUNTER |
+| 3 | **PROGRESS** | PROGRESS |
+| 5 | **BALANCE** | BALANCE |
+| 6 | **CHAOS** | CHAOS |
 
 0, 4, 7, 8, 9 match. That's 5 collisions out of 10 — an external reader opening both files first-pass will see a contradiction.
 

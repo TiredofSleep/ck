@@ -31,7 +31,7 @@ ALGEBRAIC PROOF (no computation):
     Zeros at t = 2nW = 6n/50 → operator index = (6n) mod 10.
     The set {6n mod 10 : n ∈ Z} = <6> in Z/10Z.
     Since gcd(6, 10) = 2, the subgroup <6> = 2Z/10Z = {0, 2, 4, 6, 8}.
-    This is the EVEN operator class: {VOID, DOING, COLLAPSE, ASCEND, BREATH}.
+    This is the EVEN operator class: {VOID, COUNTER, COLLAPSE, CHAOS, BREATH}.
     Coverage: exactly 5 operators, all EVEN.
 
   MAXIMA SIDE — gcd(3, 10) = 1:
@@ -109,14 +109,14 @@ for n in range(10):
     subgroup_6.add((6 * n) % 10)
 print(f"  <6> = {{6n mod 10 : n=0..9}} = {sorted(subgroup_6)}")
 assert sorted(subgroup_6) == [0, 2, 4, 6, 8], f"Subgroup wrong: {subgroup_6}"
-print(f"  = EVEN operators {{VOID,DOING,COLLAPSE,ASCEND,BREATH}} = STRUCTURE class  ✓")
+print(f"  = EVEN operators {{VOID,COUNTER,COLLAPSE,CHAOS,BREATH}} = STRUCTURE class  ✓")
 print()
 
 # Verify bijection of ×3 on ODD
 carrier_maxima = [(3 * (2*n - 1)) % 10 for n in range(1, 6)]
 print(f"  Carrier maxima: {{3*(2n-1) mod 10 : n=1..5}} = {carrier_maxima}")
 assert set(carrier_maxima) == {1, 3, 5, 7, 9}, f"Not all ODD: {carrier_maxima}"
-print(f"  = ODD operators {{BEING,BECOMING,CREATE,HARMONY,RESET}} = FLOW class  ✓")
+print(f"  = ODD operators {{LATTICE,PROGRESS,BALANCE,HARMONY,RESET}} = FLOW class  ✓")
 
 # ============================================================
 # STEP 2: ZEROS SIDE — EVEN OPERATOR CLASS
@@ -130,7 +130,7 @@ print(f"  Carrier zeros at t = 2nW = 6n/50:")
 print(f"  {'n':>4}  {'t=6n/50':>10}  {'op=6n mod 10':>14}  {'operator':>12}")
 print(f"  {'-'*4}  {'-'*10}  {'-'*14}  {'-'*12}")
 
-CL = ['VOID','BEING','DOING','BECOMING','COLLAPSE','CREATE','ASCEND','HARMONY','BREATH','RESET']
+CL = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE','BALANCE','CHAOS','HARMONY','BREATH','RESET']
 for n in range(0, 6):
     t = 6 * n / 50
     op = (6 * n) % 10
@@ -175,8 +175,8 @@ even_ops = set((6*n)%10 for n in range(10))
 odd_ops  = set((3*(2*n-1))%10 for n in range(1, 6))
 union    = even_ops | odd_ops
 
-print(f"  EVEN = {sorted(even_ops)} = {{VOID,DOING,COLLAPSE,ASCEND,BREATH}}")
-print(f"  ODD  = {sorted(odd_ops)}     = {{BEING,BECOMING,CREATE,HARMONY,RESET}}")
+print(f"  EVEN = {sorted(even_ops)} = {{VOID,COUNTER,COLLAPSE,CHAOS,BREATH}}")
+print(f"  ODD  = {sorted(odd_ops)}     = {{LATTICE,PROGRESS,BALANCE,HARMONY,RESET}}")
 print(f"  EVEN ∩ ODD = {sorted(even_ops & odd_ops)} (empty — parity partition)  ✓")
 print(f"  EVEN ∪ ODD = {sorted(union)} = Z/10Z = all 10 CL operators  ✓")
 assert union == set(range(10)), f"Union not complete: {union}"

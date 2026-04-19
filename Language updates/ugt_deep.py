@@ -131,8 +131,8 @@ for d in range(5):
 
 # ═══════════════════════════════════════════════════════════
 print(f"\n{'='*65}")
-print(f"  LAYER 3: THE BECOMING (Emergent Pattern)")
-print(f"  What does the whole 0→9 trajectory CREATE?")
+print(f"  LAYER 3: THE PROGRESS (Emergent Pattern)")
+print(f"  What does the whole 0->9 trajectory produce?")
 print(f"{'='*65}")
 
 # The trajectory through 10 points in 5D space forms a PATH.
@@ -216,10 +216,10 @@ print(f"""
 
 # ═══════════════════════════════════════════════════════════
 print(f"\n{'='*65}")
-print(f"  FUSE TEST — What Do Adjacent Operators CREATE?")
+print(f"  FUSE TEST - What Do Adjacent Operators Produce?")
 print(f"{'='*65}")
 print(f"  When two number-forces interact (average), what root emerges?")
-print(f"  This is the DOING layer — what Being + Being BECOMES.\n")
+print(f"  This is the COUNTER layer — what Being + Being BECOMES.\n")
 
 for n in range(10):
     nxt = (n + 1) % 10

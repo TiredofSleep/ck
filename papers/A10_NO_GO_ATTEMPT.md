@@ -80,7 +80,7 @@ Therefore the corridor structure at t=1/2 carries no Z/10Z-specific information.
 **Proof:**
 D24 proves: (a) sinc²(t) strictly monotone on (0,1), (b) t=1/2 unique
 sine-max in (0,1), (c) sinc²(1/2)=4/π². All three proofs use only calculus
-on sinc²(t). The ring Z/10Z enters only via the observation that CREATE=5
+on sinc²(t). The ring Z/10Z enters only via the observation that BALANCE=5
 maps to t=5/10=1/2 under ring normalization — but this observation adds
 no new information about sinc², since t=1/2 is already the unique sine-max
 regardless of ring structure.
