@@ -130,7 +130,7 @@ Which S* — 0.991 or 4/7? The identity only holds with S* = 4/7, because 5/7 + 
 1 − (y²+4)⁴ − ε[(y²+4y)⁴ − (y²+4y)⁴]
 ```
 
-The bracket `[(y²+4y)⁴ − (y²+4y)⁴]` **evaluates identically to zero** for all y. The ε-term drops out entirely — a result that does not match §5's derivation of β_TIG as a coupled polynomial, nor its numeric behavior in `papers/proof_sigma_rate.py`.
+The bracket `[(y²+4y)⁴ − (y²+4y)⁴]` **evaluates identically to zero** for all y. The ε-term drops out entirely — a result that does not match §5's derivation of β_TIG as a coupled polynomial, nor its numeric behavior in `Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py`.
 
 **How it was located:** Grep for all β_TIG occurrences across the atlas. §5 (line 553 region) had the **correct** formula:
 
