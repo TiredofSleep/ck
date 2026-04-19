@@ -38,6 +38,31 @@ Logarithmic structures that have appeared in the DE literature:
 
 **Important caveat:** The search covered broad categories, not a systematic arXiv query on `astro-ph.CO`. Before claiming priority, the team must search for "phi log phi dark energy," "Xi log Xi quintessence," and "logarithmic scalar quintessence dimensionless" on arXiv. If this form has been studied, the novelty claim must be reframed as a distinguishing analysis.
 
+**Caveat closure — 2026-04-19 arXiv search (Sprint 34 Day 1):**
+
+Four searches were executed on arXiv with queries:
+- `"xi log xi quintessence dark energy potential cosmology 2024 2025"`
+- `"dimensionless scalar field quintessence V(phi) = phi log phi dark energy"`
+- `"logarithmic quintessence V(phi) phi ln phi Bialynicki-Birula dark energy"`
+- `"logarithmic potential" quintessence dark energy entropy maximum vacuum`
+
+**Findings:**
+- No direct hit on $V(\Xi) = \kappa_\Xi \Xi \log \Xi$ with dimensionless $\Xi$ as a quintessence potential.
+- Closest prior art that *uses* the word "logarithmic" in a dark-energy context:
+  - arXiv:1201.4544 — **"Dark Energy with Logarithmic Cosmological Fluid"** — treats a fluid (not a scalar field) and addresses the coincidence problem. Different class of object, different motivation.
+  - arXiv:2212.05605 — logarithmic $f(R,T)$ cosmology — modified-gravity framework, not scalar quintessence.
+  - arXiv:1608.03272 — logarithmic $f(T)$ with holographic/agegraphic dark energy — modified-gravity framework.
+  - arXiv:2407.03465 — dark energy evolution from quantum gravity with logarithmic structure — different origin.
+- Adjacent DESI-era quintessence analyses (useful for context citations in the manuscript):
+  - arXiv:2406.00634 — "Dynamical dark energy in the light of DESI 2024 data" (Roy 2024).
+  - arXiv:2504.16337 — "Thawing quintessence and transient cosmic acceleration in light of DESI" (2025).
+  - arXiv:2505.18937 — "Examining Quintessence Models with DESI Data" (Bayat & Hertzberg 2025).
+  - arXiv:2509.13302 — "Comparing Minimal and Non-Minimal Quintessence Models to 2025 DESI Data".
+
+**Conclusion:** The specific combination (dimensionless scalar, $V = \kappa \Xi \log \Xi$, exact analytic vacuum $\Xi_0 = e^{-1}$, Gibbs-entropy identification, freezing $w \to -1$ from above without phantom crossing) does not appear in the indexed literature. The novelty claim in §1 Form D is sustained.
+
+**Residual risk:** `astro-ph.CO` preprints since 2025-10 have not been exhaustively swept; a final sweep at camera-ready stage is still required. The closest prior, arXiv:1201.4544, should be cited in the camera-ready body to acknowledge the adjacent "logarithmic dark energy" language even though it describes a different class of object.
+
 ---
 
 ## 2. Closest Prior Equations
@@ -173,6 +198,9 @@ The nature of dark energy remains the central open question in observational cos
 - Barrow, J.D. & Parsons, P. (1995). Phys. Rev. D 52:5576. arXiv:astro-ph/9506049. **(Closest prior art: inflation family V0 phi^p (ln phi)^q containing our case as p=1, q=1 subcase, not applied to dark energy)**
 - Thompson, S. (2019). MNRAS 482:5448.
 - Coleman, S. & Weinberg, E. (1973). Phys. Rev. D 7:1888.
+- Liu, F. & Prokopec, T. (2012). *Dark Energy with Logarithmic Cosmological Fluid.* arXiv:1201.4544. **(Closest adjacent dark-energy use of the word "logarithmic" — treats a cosmological *fluid* for the coincidence problem, not a scalar potential; cited in the camera-ready to acknowledge the adjacent vocabulary.)**
+- Roy, N. (2024). *Dynamical dark energy in the light of DESI 2024 data.* arXiv:2406.00634. (Context citation: DESI-era dynamical-DE baseline.)
+- Bayat, Z. & Hertzberg, M.P. (2025). *Examining Quintessence Models with DESI Data.* arXiv:2505.18937. (Context citation: DESI-compatible quintessence comparisons.)
 
 ### Observational Cosmology
 - Planck Collaboration (2020). A&A 641:A6.
