@@ -20,7 +20,7 @@ The `archive-full` branch on GitHub is a read-only snapshot preserving the compl
 
 ---
 
-## Part A: Q-Series Papers (Luther-Sanders Research Framework)
+## Part A: Q-Series Papers (Sanders Q-series, with Luther G6-G8 and organizational contributions)
 
 **The Q-series is the most important underdocumented body of work.** It contains precursor results on σ polynomials, CRT decompositions, MCMC basin models, and symbolic return theorems — some of which overlap current frontier work (σ mutation) but under different names. Mine this when starting a new frontier.
 
