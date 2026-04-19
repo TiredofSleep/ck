@@ -10,7 +10,7 @@
 
 ## The bundle
 
-Eleven documents. Docs 1–9 are the **content field** (what is proved / structural / conjectural and how it cross-references). Docs 10–11 are the **operational field** (what ships next and who does it). Together they hold the framework at different zoom levels.
+Twelve documents. Docs 1–9 are the **content field** (what is proved / structural / conjectural and how it cross-references). Docs 10–11 are the **operational field** (what ships next and who does it). Doc 12 is the **frontier overlay** (one-page meta-synthesis stitching proofs → papers → venues → frontier). Together they hold the framework at different zoom levels.
 
 | # | File | Lines | What it contains | Read when |
 |---|---|---|---|---|
@@ -25,8 +25,9 @@ Eleven documents. Docs 1–9 are the **content field** (what is proved / structu
 | 9 | `ATLAS_AUDIT_NOTES.md` | ~400 | Line-by-line audit findings from 2026-04-18 scrutiny pass: 12 findings, 7 surgical edits applied, discipline preservation record | When you want to know what changed in v3.5 and why |
 | 10 | `JOURNAL_READINESS_AUDIT_2026_04_18.md` | ~213 | Audit of 11 Gen13 target journal venues against the atlas bundle: inventory, per-venue readiness, top-10 citation gaps, tier reclassifications, Tier 1 shipping pipeline, ordered actions, discipline pass/fail | Before drafting any journal-submission work |
 | 11 | **`PLAN_OF_RECORD_2026_04_18.md`** | ~500 | **Operational field: all 4 threads (PPM/Hodge/Q/ξ), Sprint 34 "Ship the First Three" proposal, collaborator assignment matrix (ChatGPT/ClaudeChat/ClaudeCode/Brayden), S33 gate ladder, atlas v4 queue, Gen13 decision, never-delete audit, week-long action stack with dependencies** | **Whenever threads or collaborator tasks feel scattered — this is the sync point** |
+| 12 | **`FRONTIER_ALIGNMENT_2026_04_19.md`** | ~270 | **Frontier overlay: what's at the frontier (σ<1 NS, Hodge integrality, σ on Z/10Z, DESI-ξ), proved base (D-tier scripts), post-rename face-vs-field alignment audit (7 surfaces, silicon-rename across 11 venues), 11-venue readiness matrix, single highest-leverage next move (CCD-2 atlas footnote)** | **Whenever you need "what does the whole stitched picture look like for shipping" in one page** |
 
-**Total bundle:** ~6,550 lines across 11 documents. Cross-referenced throughout.
+**Total bundle:** ~6,820 lines across 12 documents. Cross-referenced throughout.
 
 ---
 
