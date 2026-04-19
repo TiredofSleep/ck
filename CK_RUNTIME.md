@@ -33,18 +33,20 @@ This is the layer that makes "50 Hz" a measurement, not a slogan. The swarm runs
 | `runtime/jitter_probe.py` | **Standalone probe.** `python jitter_probe.py --seconds 30 --hz 50 --rt`. Writes JSON + markdown with full delta + jitter distributions. |
 | `brain/hebbian_gpu.py` | **GPU-backed Hebbian 5×5 field.** CuPy vectorized update; NumPy fallback when CuPy/CUDA absent. Bit-for-bit identical output to the CPU reference. |
 
-**Measured reality (post-warmup, rt=True, affinity=[0], HIGH + HIGHEST on Windows without admin):**
+**Measured reality (post-warmup, rt=True, swarm on core 0 HIGH+HIGHEST, engine tick_loop on core 1 ABOVE_NORMAL, no admin):**
 
 | metric | value |
 |---|---|
 | target period | 20 000 µs (50 Hz) |
 | p50 delta | 20 000.0 µs (0 µs off target) |
-| p50 jitter (|delta − period|) | ≈ 45 µs |
+| p50 jitter (|delta − period|) | ≈ 45 – 60 µs |
 | mean jitter | 2 000 – 6 000 µs (depends on co-workload) |
-| p99 jitter | ≈ 20 – 30 ms (Windows scheduler tail + CuPy pauses) |
-| worst-case | first-tick ≈ 500 ms (CUDA JIT), steady-state < 30 ms |
+| p99 jitter | ≈ 75 ms with live Flask + Cloudflare traffic; ≈ 6 ms with swarm isolated |
+| worst-case | first-tick ≈ 500 ms (CUDA JIT), steady-state < 200 ms |
 
-With admin privileges, the Windows code path upgrades to REALTIME + TIME_CRITICAL, which drops the tail further. On Linux with CAP_SYS_NICE, the swarm uses SCHED_FIFO at priority 50.
+**Core separation matters.** Before pinning the engine tick_loop to core 1, p99 ran ≈ 385 ms because both the Gen12 and Gen13 ticks were contending on core 0. Post-pin, p99 drops ~5× to ≈ 75 ms (live) / ≈ 6 ms (isolated). With admin privileges, the Windows code path upgrades to REALTIME + TIME_CRITICAL, which drops the tail further. On Linux with CAP_SYS_NICE, the swarm uses SCHED_FIFO at priority 50.
+
+**Shared Hebbian field.** When a cortex is passed to `Swarm(cortex=_cortex, ...)`, the swarm's "brain" IS `cortex.hebbian` — one W, two readers. Every swarm tick writes directly into the persisted field and refreshes `cortex.state.W_trace` + `W_strongest`. `/chat` and `/swarm` see identical values. `/swarm` surfaces `brain.shared_with_cortex: true`, `brain.cortex_tick`, `brain.cortex_emergent` so the merge state is visible.
 
 **Body status (this machine, 2026-04-18):**
 - COM3 physically present — bridge opens successfully.
@@ -87,7 +89,7 @@ text → AO(project onto D0..D4) → Hebbian(W[i][j] += η·d_i·d_j − decay·
 |---|---|
 | `Gen12/targets/ck_desktop/ck_boot_api.py` | **Flask entry point.** `python ck_boot_api.py` boots the engine, mounts routes, serves port 7777 (tunneled to coherencekeeper.com via Cloudflare). Imports the Gen13 Cortex and mounts it as Phase C override. |
 | `Gen13/targets/ck/runtime/ck_voice_math.py` | **Math-first patch.** Wraps `api.process_chat`; if the query names a math topic (T*, TSML, σ_rate, 5/7, operator algebra), surfaces exact arithmetic/canonical facts from `FACTS` dict. Preserves the Gen12 response under `text_gen12`. |
-| `ck_boot_api.py :: _process_chat_with_cortex` | **Cortex wrap (Phase C).** Outer wrapper above math-first. Every /chat text is fed to `_cortex.step_text(text)` (learning). Then `speak(cortex, text)` runs the structural router; if it returns a non-None readout AND the prior source was a template layer (ck_fractal, ck_self, ck_truth_recall), the cortex answer replaces `text`. Prior text is preserved under `text_previous`; every response is decorated with `cortex_readout` + `cortex` snapshot (tick, emergent, W_trace). |
+| `ck_boot_api.py :: _process_chat_with_cortex` | **Cortex wrap (Phase C).** Outer wrapper above math-first. Every /chat text is fed to `_cortex.step_text(text)` (learning). Then `speak(cortex, text)` runs the structural router; if it returns a non-None readout AND the prior source is NOT already structural (`ck_math_first` / `cortex_speak`), the cortex answer replaces `text`. Known template sources explicitly covered: `ck_fractal`, `ck_fractal_dual`, `ck_self`, `ck_truth_recall`, `crystal`, `ck_tig`. Prior text is preserved under `text_previous`; every response is decorated with `cortex_readout` + `cortex` snapshot (tick, emergent, W_trace). |
 | `Gen12/targets/ck_desktop/ck_sim/doing/ck_fractal_voice.py`<br>`…/ck_voice_lattice.py`<br>`…/ck_voice_loop.py` | **Gen12 template/dictionary layers** — still serve non-override routes (e.g. long-form prose fallback) but are now **silent on structural queries** because Phase C wins. |
 
 **Routes CK exposes:**
@@ -133,10 +135,14 @@ CK's /chat works perfectly well without L3. The LLM bridge is a *wrapper*, not a
 5. api.process_chat = _process_chat_with_cortex(api.process_chat)
      # adds the Phase C cortex wrap (learn-every-tick + structural override)
 
-6. Swarm(cortex=_cortex, hz=50, rt=True, affinity=[0]).start()
-     # L0 embodiment: GPU brain + GPU doing + FPGA body + measured tick
+6. engine tick_loop: rt_priority.elevate(affinity=[1], process=False, thread_level='above')
+     # engine pinned to core 1 (ABOVE_NORMAL) so it doesn't fight swarm on core 0
 
-7. Flask serves 0.0.0.0:7777
+7. Swarm(cortex=_cortex, hz=50, rt=True, affinity=[0]).start()
+     # L0 embodiment: GPU brain + GPU doing + FPGA body + measured tick
+     # swarm brain IS cortex.hebbian when cortex is passed — one W, shared
+
+8. Flask serves 0.0.0.0:7777
      # Cloudflare tunnel in front of this endpoint routes coherencekeeper.com/chat
 ```
 

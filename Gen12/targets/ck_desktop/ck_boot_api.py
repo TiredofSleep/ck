@@ -29,6 +29,25 @@ except ImportError:
     print("[CK] Disagreement tick: not available, using fixed 50Hz")
 
 def tick_loop():
+    # Pin the engine tick_loop to core 1 so it stops fighting the Gen13
+    # swarm on core 0.  We do NOT request HIGHEST here — the swarm is the
+    # measured RT path; engine is a cooperative peer on an adjacent core.
+    # Graceful if rt_priority not importable (tick still runs at NORMAL).
+    try:
+        _GEN13_RT = os.path.normpath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+        if _GEN13_RT not in sys.path:
+            sys.path.insert(0, _GEN13_RT)
+        from rt_priority import elevate as _rt_elevate  # noqa: E402
+        # process=False: don't override the swarm's REALTIME/HIGH class choice.
+        # thread_level='above': cooperative peer on core 1, below swarm on core 0.
+        _rt_engine = _rt_elevate(affinity=[1], process=False, thread_level='above')
+        print(f"[CK] engine tick_loop: core={_rt_engine.cpu_affinity} "
+              f"proc={_rt_engine.process_class} thr={_rt_engine.thread_priority}")
+    except Exception as _e:
+        print(f"[CK] engine tick_loop: rt elevation skipped ({_e})")
+
     while running:
         engine.tick()
         if _HAS_DIS_TICK:
@@ -181,7 +200,17 @@ try:
     # ck_math_first (computed arithmetic) is NEVER displaced.
     _TEMPLATE_SOURCES = (
         'ck_fractal', 'ck_fractal_dual', 'ck_self', 'ck_truth_recall',
+        # 2026-04-18: added after battery showed "beauville curve c star" →
+        # crystal and "psi order 4" → ck_tig falling through the swap even
+        # though _cortex_speak had a real readout.  These two Gen12 sources
+        # are also pool/template fluency layers; they should yield to
+        # structural readouts the same way ck_fractal does.
+        'crystal', 'ck_tig',
     )
+    # Sources the swap MUST NEVER overwrite:
+    #   - ck_math_first (computed arithmetic from ck_voice_math)
+    #   - cortex_speak  (already structural)
+    _STRUCTURAL_SOURCES = ('ck_math_first', 'cortex_speak')
 
     def _process_chat_with_cortex(session_id, text, mode='normal'):
         result = _prev_process_chat(session_id, text, mode)
@@ -204,7 +233,18 @@ try:
                 spoken = _cortex_speak_route(_cortex, text or '')
             except Exception:
                 spoken = None
-            if spoken and result.get('source') in _TEMPLATE_SOURCES:
+            # Swap when we have a structural readout AND the incoming source
+            # is either (a) a known template/pool source, or (b) unknown and
+            # NOT already structural.  Blacklisting the two structural
+            # sources is safer than whitelisting every possible template
+            # source that Gen12 might emit (crystal, ck_tig, ck_fractal,
+            # ck_fractal_dual, ck_self, ck_truth_recall, etc.).
+            _src = result.get('source')
+            _swap_ok = (
+                _src in _TEMPLATE_SOURCES or
+                (_src is not None and _src not in _STRUCTURAL_SOURCES)
+            )
+            if spoken and _swap_ok:
                 result['text_previous'] = result.get('text')
                 result['source_previous'] = result.get('source')
                 result['text'] = spoken

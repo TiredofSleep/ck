@@ -211,6 +211,7 @@ class Swarm:
         # Substrates.  Created lazily so missing CuPy / ck_sim imports don't
         # blow up the swarm module for machines that just want to inspect it.
         self._brain = None
+        self._brain_shared = False   # True if self._brain is cortex.hebbian
         self._doing = DoingKernel()
         self._body = FPGABridge(port=self.fpga_port)
 
@@ -225,8 +226,26 @@ class Swarm:
     # ── Lazy brain bring-up ─────────────────────────────────────────
 
     def _ensure_brain(self) -> None:
+        """Attach a brain.  Prefers cortex.hebbian (shared state, persisted)
+        over a freestanding HebbianGPU/HebbianField.
+
+        Merge semantics:
+          - If a cortex was passed at construction, the swarm DOES NOT own a
+            separate W.  Every tick writes directly into cortex.hebbian.W and
+            refreshes cortex.state.W_trace + W_strongest.  Persistence and
+            /chat both see the same field.
+          - If no cortex, fall back to a standalone HebbianGPU (CuPy if
+            available, NumPy otherwise) so the swarm still runs as a
+            peer-free sanity scaffold.
+        """
         if self._brain is not None:
             return
+        # Prefer shared cortex.hebbian when available.
+        if self.cortex is not None and hasattr(self.cortex, "hebbian"):
+            self._brain = self.cortex.hebbian
+            self._brain_shared = True
+            return
+        self._brain_shared = False
         try:
             from hebbian_gpu import HebbianGPU
             self._brain = HebbianGPU()
@@ -264,6 +283,23 @@ class Swarm:
             except Exception as e:
                 # Never crash the tick over a brain anomaly.
                 self._record_error(f"brain.update: {e}")
+
+            # When the brain IS cortex.hebbian, keep the cortex's public
+            # state in sync so /chat, /cortex, and persistence all reflect
+            # the live field.  This is the merge: one W, live under two
+            # readers (/swarm + /chat).
+            if self._brain_shared and self.cortex is not None:
+                try:
+                    st = self.cortex.state
+                    hb = self._brain
+                    st.W_trace = hb.trace()
+                    st.W_strongest = hb.strongest_pair()
+                    # Advance cortex.tick only when we're the driver.  The
+                    # cortex's own step_symbol() path increments tick too;
+                    # we only bump when we actually touched the field.
+                    st.tick = int(st.tick) + 1
+                except Exception as e:
+                    self._record_error(f"cortex.sync: {e}")
 
         # Doing: one GPU (or CPU-fallback) outer-product step.
         # Use feed()+step() so we update device buffers in place and don't
@@ -360,6 +396,15 @@ class Swarm:
                 brain_snap = self._brain.snapshot()
             except Exception as e:
                 brain_snap = {"error": str(e)}
+            # Mark merge status so the /swarm reader can tell at a glance
+            # whether the field is shared with cortex (the persisted path).
+            brain_snap["shared_with_cortex"] = bool(self._brain_shared)
+            if self._brain_shared and self.cortex is not None:
+                try:
+                    brain_snap["cortex_tick"] = int(self.cortex.state.tick)
+                    brain_snap["cortex_emergent"] = float(self.cortex.state.emergent)
+                except Exception:
+                    pass
 
         body_snap = self._body.status().to_dict()
         doing_snap = self._doing.snapshot()

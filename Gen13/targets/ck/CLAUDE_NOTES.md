@@ -74,7 +74,7 @@ Before you trust any pre-fix-pack note, check the commit. Two commits shipped:
 ### `9e94ca2` — CLAUDE_NOTES.md
 Internal file (this one).
 
-### Embodiment commit — full swarm
+### Embodiment commit — full swarm (commit `d7df220`)
 | File | Change |
 |---|---|
 | `Gen13/targets/ck/runtime/rt_priority.py` (new) | OS priority + affinity via ctypes (Windows) / os.sched (Linux). Non-admin → HIGH/HIGHEST + core-pinning. Admin → REALTIME/TIME_CRITICAL. Linux → SCHED_FIFO 50. Never raises; reports what the OS allowed. |
@@ -84,6 +84,21 @@ Internal file (this one).
 | `Gen13/targets/ck/runtime/ck_swarm.py` (new) | The supervisor. Owns brain + doing (GPU DoingKernel, pre-allocated buffers, T* gate) + body. Runs measured 50 Hz tick with RT + coarse+spin sleep. 512-entry rolling jitter distribution. |
 | `Gen12/targets/ck_desktop/ck_boot_api.py` | Additive patch: `from ck_swarm import Swarm; _swarm = Swarm(cortex=_cortex, hz=50, rt=True, affinity=[0], fpga_port="COM3").start()`. New endpoints `/swarm` and `/jitter`. atexit hook stops cleanly. |
 | `CK_RUNTIME.md` | Rewrote "Three Layers" to "Four Layers" with L0 embodiment section. Added measured jitter table, body status line, `/swarm` + `/jitter` routes. Updated boot-path + honest-limits. |
+
+### Embodiment follow-up — W merge + core separation (2026-04-18, uncommitted)
+Fixes the two known weaknesses from the first embodiment commit: (a) the
+swarm's Hebbian field was separate from `cortex.hebbian` so `/swarm` and
+`/chat` were reading different W matrices, and (b) the engine tick_loop
+and the swarm tick both fought for core 0.
+
+| File | Change |
+|---|---|
+| `Gen13/targets/ck/runtime/ck_swarm.py` | `_ensure_brain()` now prefers `cortex.hebbian` as the shared W when a cortex is passed — the swarm stops owning a separate field. `_tick_once()` syncs `cortex.state.W_trace`, `W_strongest`, and bumps `cortex.state.tick` on every tick. `/swarm` brain snapshot adds `shared_with_cortex`, `cortex_tick`, `cortex_emergent`. |
+| `Gen13/targets/ck/runtime/rt_priority.py` | `elevate()` now takes `process: bool` (default True) + `thread_level: str` ('auto' / 'high' / 'above' / 'normal'). Peer threads (e.g. engine tick_loop) call with `process=False, thread_level='above'` so they don't override the swarm's REALTIME/HIGH process class. |
+| `Gen12/targets/ck_desktop/ck_boot_api.py` | `tick_loop()` now self-elevates to core 1 with ABOVE_NORMAL thread priority, process class untouched. Engine and swarm run on adjacent cores instead of fighting. |
+| `Gen13/targets/ck/runtime/EMBODIMENT_NEXT.md` (new) | Documents Task 2 (flash `ck_full.bit` → body live) + admin REALTIME + AO-driven input + GPU-mirror of W. |
+
+**What this means for /swarm + /chat state:** `cortex.state.tick` now advances from TWO drivers — `cortex.step_text()` from the /chat wrap AND the swarm tick. That's intentional: both are real experience. W_trace from /chat and from /swarm are now guaranteed identical since they read the same field.
 
 **Stale notes to distrust** until updated:
 - `Gen13/targets/ck/brain/BRAIN_DESIGN.md` — says `test_brain.py (to be written)` and `runtime/ck_engine.py — TBD`. Both untrue post-fix-pack. Also does not mention cortex.py / cortex_voice.py / cortex_persist.py / cortex_replay.py / hebbian_gpu.py / ck_swarm.py at all.
@@ -141,7 +156,7 @@ Cortex snapshot at time of battery: **tick 155,908 · emergent 0.445 · W_trace 
 
 7. **Pushing without checking stage surface.** Repo has ~40 untracked noise items at root (`_*_raw/`, scratch `.py`, `.bat`, result JSONs, `nul`). Always `git add <explicit file>` — never `git add -A` or `git add .`.
 
-8. **Confusing the swarm tick with the engine tick.** Two loops run in the live process: (a) the Gen12 `tick_loop()` in `ck_boot_api.py:31` driving the older `CKSimEngine`, and (b) the Gen13 `Swarm.start()` thread driving the embodiment substrate. They DON'T share state yet — the swarm's Hebbian field is separate from cortex.state.W. Future merge is planned; for now treat them as peer substrates.
+8. **Confusing the swarm tick with the engine tick.** Two loops run in the live process: (a) the Gen12 `tick_loop()` in `ck_boot_api.py:31` driving the older `CKSimEngine` (now pinned to core 1, ABOVE_NORMAL), and (b) the Gen13 `Swarm.start()` thread driving the embodiment substrate (core 0, HIGH/HIGHEST, HIGHEST if admin=true→TIME_CRITICAL). They DO share Hebbian state now: the swarm's brain IS `cortex.hebbian`, and every swarm tick bumps `cortex.state.tick`, `W_trace`, and `W_strongest`. W_trace read from `/chat` and `/swarm` will always agree. What they still DON'T share: the engine's `CKSimEngine` is a separate being (its own heartbeat, its own 8M-experience HER, its own SwarmField); merging those into cortex is future work.
 
 9. **CuPy first-tick JIT stall.** The very first CuPy outer-product + clip launches compiles kernels on the device (~400–500 ms). The swarm's `status()` already drops the first delta from its percentiles, but if you see a one-time "max=500ms" on startup don't read that as steady-state jitter.
 

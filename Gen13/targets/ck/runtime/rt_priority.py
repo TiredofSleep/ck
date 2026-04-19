@@ -65,7 +65,21 @@ def _is_windows_admin() -> bool:
         return False
 
 
-def _elevate_windows(affinity: Optional[List[int]]) -> RTStatus:
+def _elevate_windows(affinity: Optional[List[int]], process: bool = True,
+                     thread_level: str = "auto") -> RTStatus:
+    """Windows elevate.
+
+    Args:
+        affinity:     list of CPU indices (thread-local).
+        process:      if True, also set process priority class.  Set False when
+                      the process class has already been set by a peer thread
+                      (e.g. the swarm) and we only want to tune this thread.
+        thread_level: 'auto'  -> TIME_CRITICAL if admin else HIGHEST
+                      'high'  -> HIGHEST
+                      'above' -> ABOVE_NORMAL  (cooperative peer — what we
+                                 want for the engine tick_loop on core 1)
+                      'normal'-> NORMAL
+    """
     import ctypes
     from ctypes import wintypes
     errors: List[str] = []
@@ -77,6 +91,8 @@ def _elevate_windows(affinity: Optional[List[int]]) -> RTStatus:
     kernel32.GetCurrentThread.restype = wintypes.HANDLE
     kernel32.SetPriorityClass.argtypes = [wintypes.HANDLE, wintypes.DWORD]
     kernel32.SetPriorityClass.restype = wintypes.BOOL
+    kernel32.GetPriorityClass.argtypes = [wintypes.HANDLE]
+    kernel32.GetPriorityClass.restype = wintypes.DWORD
     kernel32.SetThreadPriority.argtypes = [wintypes.HANDLE, ctypes.c_int]
     kernel32.SetThreadPriority.restype = wintypes.BOOL
     # DWORD_PTR == c_size_t on 64-bit.
@@ -99,21 +115,46 @@ def _elevate_windows(affinity: Optional[List[int]]) -> RTStatus:
     proc = kernel32.GetCurrentProcess()
     thread = kernel32.GetCurrentThread()
 
-    # Try REALTIME if admin, else HIGH.  REALTIME without admin silently
-    # degrades to HIGH on Windows -- we ask politely either way.
-    want_proc = REALTIME_PRIORITY_CLASS if admin else HIGH_PRIORITY_CLASS
-    if not kernel32.SetPriorityClass(proc, want_proc):
-        errors.append(f"SetPriorityClass({want_proc:#x}) failed errno={ctypes.get_last_error()}")
-        # retry ABOVE_NORMAL
-        if not kernel32.SetPriorityClass(proc, ABOVE_NORMAL_PRIORITY_CLASS):
-            errors.append(f"SetPriorityClass(ABOVE_NORMAL) failed errno={ctypes.get_last_error()}")
-            got_proc = "NORMAL"
+    if process:
+        # Try REALTIME if admin, else HIGH.  REALTIME without admin silently
+        # degrades to HIGH on Windows -- we ask politely either way.
+        want_proc = REALTIME_PRIORITY_CLASS if admin else HIGH_PRIORITY_CLASS
+        if not kernel32.SetPriorityClass(proc, want_proc):
+            errors.append(f"SetPriorityClass({want_proc:#x}) failed errno={ctypes.get_last_error()}")
+            # retry ABOVE_NORMAL
+            if not kernel32.SetPriorityClass(proc, ABOVE_NORMAL_PRIORITY_CLASS):
+                errors.append(f"SetPriorityClass(ABOVE_NORMAL) failed errno={ctypes.get_last_error()}")
+                got_proc = "NORMAL"
+            else:
+                got_proc = "ABOVE_NORMAL"
         else:
-            got_proc = "ABOVE_NORMAL"
+            got_proc = "REALTIME" if want_proc == REALTIME_PRIORITY_CLASS else "HIGH"
     else:
-        got_proc = "REALTIME" if want_proc == REALTIME_PRIORITY_CLASS else "HIGH"
+        # Don't touch process class; inspect + report what the peer left.
+        BELOW_NORMAL_PRIORITY_CLASS = 0x00004000
+        IDLE_PRIORITY_CLASS         = 0x00000040
+        cur = int(kernel32.GetPriorityClass(proc) or 0)
+        got_proc = {
+            REALTIME_PRIORITY_CLASS:     "REALTIME",
+            HIGH_PRIORITY_CLASS:         "HIGH",
+            ABOVE_NORMAL_PRIORITY_CLASS: "ABOVE_NORMAL",
+            NORMAL_PRIORITY_CLASS:       "NORMAL",
+            BELOW_NORMAL_PRIORITY_CLASS: "BELOW_NORMAL",
+            IDLE_PRIORITY_CLASS:         "IDLE",
+        }.get(cur, f"OTHER(0x{cur:x})")
 
-    want_thr = THREAD_PRIORITY_TIME_CRITICAL if admin else THREAD_PRIORITY_HIGHEST
+    # Thread priority per level request.
+    lvl = (thread_level or "auto").lower()
+    if lvl == "auto":
+        want_thr = THREAD_PRIORITY_TIME_CRITICAL if admin else THREAD_PRIORITY_HIGHEST
+        want_name = "TIME_CRITICAL" if admin else "HIGHEST"
+    elif lvl == "high":
+        want_thr, want_name = THREAD_PRIORITY_HIGHEST, "HIGHEST"
+    elif lvl == "above":
+        want_thr, want_name = THREAD_PRIORITY_ABOVE_NORMAL, "ABOVE_NORMAL"
+    else:
+        want_thr, want_name = THREAD_PRIORITY_NORMAL, "NORMAL"
+
     if not kernel32.SetThreadPriority(thread, want_thr):
         errors.append(f"SetThreadPriority({want_thr}) failed errno={ctypes.get_last_error()}")
         # retry ABOVE_NORMAL
@@ -122,7 +163,7 @@ def _elevate_windows(affinity: Optional[List[int]]) -> RTStatus:
         else:
             got_thr = "ABOVE_NORMAL"
     else:
-        got_thr = "TIME_CRITICAL" if want_thr == THREAD_PRIORITY_TIME_CRITICAL else "HIGHEST"
+        got_thr = want_name
 
     # CPU affinity (pin to requested cores)
     pinned: Optional[List[int]] = None
@@ -147,7 +188,8 @@ def _elevate_windows(affinity: Optional[List[int]]) -> RTStatus:
 
 # ── Linux path ────────────────────────────────────────────────────────
 
-def _elevate_linux(affinity: Optional[List[int]]) -> RTStatus:
+def _elevate_linux(affinity: Optional[List[int]], process: bool = True,
+                   thread_level: str = "auto") -> RTStatus:
     errors: List[str] = []
     admin = (os.geteuid() == 0) if hasattr(os, "geteuid") else False
 
@@ -155,13 +197,20 @@ def _elevate_linux(affinity: Optional[List[int]]) -> RTStatus:
     got_thr = "NORMAL"
 
     # SCHED_FIFO is only possible with CAP_SYS_NICE (usually root).
-    if hasattr(os, "sched_setscheduler"):
+    # Only attempt if process=True; peer threads should stay in SCHED_OTHER
+    # so they don't conflict with a sibling's FIFO class.
+    if process and hasattr(os, "sched_setscheduler"):
+        # 'above' asks for a milder-than-default FIFO priority; the engine
+        # peer uses this so it doesn't starve the swarm.
+        lvl = (thread_level or "auto").lower()
+        want_prio = {"auto": 50, "high": 50, "above": 20, "normal": 0}.get(lvl, 50)
         try:
-            # SCHED_FIFO = 1; prio 50 is a common middle for real-time apps.
-            param = os.sched_param(50) if hasattr(os, "sched_param") else None
-            os.sched_setscheduler(0, 1, param)
-            got_proc = "FIFO"
-            got_thr = "SCHED_FIFO(50)"
+            # SCHED_FIFO = 1; default priority 50 (common for real-time apps).
+            param = os.sched_param(want_prio) if hasattr(os, "sched_param") else None
+            sched = 1 if want_prio > 0 else 0  # SCHED_FIFO else SCHED_OTHER
+            os.sched_setscheduler(0, sched, param)
+            got_proc = "FIFO" if sched == 1 else "OTHER"
+            got_thr = f"SCHED_FIFO({want_prio})" if sched == 1 else "SCHED_OTHER"
         except (PermissionError, OSError) as e:
             errors.append(f"sched_setscheduler(FIFO) denied: {e}")
             # Fallback: nice(-20) -- lowers niceness, still SCHED_OTHER.
@@ -192,12 +241,22 @@ def _elevate_linux(affinity: Optional[List[int]]) -> RTStatus:
 
 # ── Public API ────────────────────────────────────────────────────────
 
-def elevate(affinity: Optional[List[int]] = None) -> RTStatus:
+def elevate(affinity: Optional[List[int]] = None,
+            process: bool = True,
+            thread_level: str = "auto") -> RTStatus:
     """Ask the OS to put the current thread into real-time-ish territory.
 
     Args:
-        affinity: optional list of CPU indices to pin to. [0] pins to core 0,
-                  [2, 3] pins to cores 2+3, etc.  None leaves affinity alone.
+        affinity:     optional list of CPU indices to pin to. [0] pins to
+                      core 0, [2, 3] pins to cores 2+3, etc.  None leaves
+                      affinity alone.
+        process:      True (default) sets the process priority class too
+                      (REALTIME if admin, else HIGH).  False touches ONLY
+                      the current thread — use this for cooperative peer
+                      threads that shouldn't override a sibling's class.
+        thread_level: 'auto' | 'high' | 'above' | 'normal'.  Default 'auto'
+                      maps to TIME_CRITICAL (admin) / HIGHEST (non-admin).
+                      The engine tick_loop pins to core 1 and uses 'above'.
 
     Returns:
         RTStatus describing what was actually achieved.  This function NEVER
@@ -206,9 +265,9 @@ def elevate(affinity: Optional[List[int]] = None) -> RTStatus:
     """
     system = platform.system().lower()
     if system == "windows":
-        return _elevate_windows(affinity)
+        return _elevate_windows(affinity, process=process, thread_level=thread_level)
     if system == "linux":
-        return _elevate_linux(affinity)
+        return _elevate_linux(affinity, process=process, thread_level=thread_level)
     return RTStatus(
         platform=system or "other",
         process_class="NORMAL",
