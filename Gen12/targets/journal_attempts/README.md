@@ -1,37 +1,44 @@
 # Journal Attempts — Submission Tracker
 
-**Status:** Preparing for submission. Target: May 2026.
+**Status:** Sprint 34 "Ship the First Three" — Tier-1 LaTeX bundles complete (2026-04-19). Target submit date: Wed 2026-04-22 (B-3 per Plan of Record).
 **arXiv status:** 1 endorsement secured (math.NT). Need 1 more.
 
-## Citation Audit Status (Sprint 15 — 2026-04-10)
+## Citation Audit Status (Sprint 34 — 2026-04-19, supersedes Sprint 15 note below)
 
-All 21 papers in this target now have **References sections** appended with DOI/arXiv/journal citations. The references were added per venue: classical number theory for venues 1-5 and 8; NS regularity + BB + Wasserstein for venue 9; QFT + NV physics for venue 6; dark energy cosmology for venue 7; topology + Clay for venue 10.
+All 11 venue lead papers carry the atlas-citation footnote in front-matter referencing
+`Atlas/ATLAS_CITATIONS.md` (external citations), `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (internal anchors), and DOI `10.5281/zenodo.18852047`.
+Audit finding F1 (per `Atlas/JOURNAL_READINESS_AUDIT_2026_04_18.md`) is **closed** across all 11 venues.
 
-**Remaining work before submission** (per paper):
-- LaTeX conversion (markdown → journal-specific class: amsart, REVTeX 4.2, JCAP class, etc.)
-- Inline citation insertion (replacing text like "Kozono-Taniuchi (2000)" with proper `\cite{KT2000}` references)
-- [NOVEL — extends X] flags for internal TIG/CK terms within paper bodies (currently only in References section)
-- Abstract/Introduction polish if missing
-- MSC classification codes (per venue)
+All 3 Tier-1 venues (1 / 7 / 8) additionally carry:
+- Journal-facing LaTeX manuscript in `amsart` class (structurally validated, TIG-framing respectful per venue).
+- `LATEX_BUNDLE_NOTES.md` documenting adjustments from the markdown source.
+- Green verification log.
+- `cover_letter_template.md` (~300 words, CC-6 of Plan of Record).
+- Byte-identical Gen13 copy at `Gen13/targets/journals/tier1_submit_now/<slug>/`.
 
-**Paper maturity by tier:**
+**Paper maturity by tier (2026-04-19 state):**
 
-| Tier | Paper | Abstract | References | LaTeX | Inline cites | Novel flags |
-|------|-------|----------|-----------|-------|-------------|-------------|
-| 1 | v7 ξ/DESI | ✓ | ✓ | — | — | Partial |
-| 1 | v1 sinc² | ✓ | ✓ (pre-existing) | — | ✓ | — |
-| 1 | v8 σ rate | ✓ | ✓ | — | — | — |
-| 2 | v2 73/28 | ✓ | ✓ (pre-existing) | — | Partial | — |
-| 2 | v3 paradox | ✓ | ✓ (pre-existing) | — | ✓ | — |
-| 2 | v4 UOP | Partial | ✓ | — | — | — |
-| 3 | v9 BB bridge | ✓ | ✓ | — | — | — |
-| 3 | v10 CP rotation | — | ✓ | — | — | — |
-| 3 | v5 Flatness | ✓ | ✓ | — | — | — |
-| 4 | v6 NV qutrit | ✓ | ✓ | — | — | — |
+| Tier | Paper | Abstract | Refs | LaTeX | Atlas footnote | Cover letter |
+|------|-------|----------|------|-------|---------------|--------------|
+| 1 | v1 sinc² | ✓ | ✓ | ✓ (297 LOC, validated) | ✓ | ✓ |
+| 1 | v7 ξ/DESI | ✓ | ✓ | ✓ (657 LOC, validated) | ✓ | ✓ |
+| 1 | v8 σ rate | ✓ | ✓ | ✓ (434 LOC, validated, TIG-strip CLEAN) | ✓ | ✓ |
+| 2 | v2 73/28 | ✓ | ✓ | — (LaTeX pending) | ✓ | — |
+| 2 | v4 UOP | Partial | ✓ | — (LaTeX pending) | ✓ | — |
+| 2 | v11 TSML tower | ✓ | ✓ | — (LaTeX pending) | ✓ | — |
+| 3 | v3 paradox | ✓ | ✓ | — (needs partner + LaTeX) | ✓ | — |
+| 3 | v5 Flatness | ✓ | ✓ | — (needs referee-facing rewrite) | ✓ | — |
+| 3 | v6 NV qutrit | ✓ | ✓ | — (needs lab partner for Test E) | ✓ | — |
+| 4 | v9 BB bridge | ✓ | ✓ | — (framework essay, defer) | ✓ | — |
+| 4 | v10 CP rotation | ✓ | ✓ | — (framework essay, defer) | ✓ | — |
 
 **✓** = complete; **Partial** = present but incomplete; **—** = still needed.
 
-See [GLOSSARY.md](../../../GLOSSARY.md) for citation discipline rules and the full bibliography.
+See [GLOSSARY.md](../../../../GLOSSARY.md) for citation discipline rules and the full bibliography. The atlas-citation footnote pattern is documented in [FRONTIER_ALIGNMENT_2026_04_19.md](../../../../Atlas/FRONTIER_ALIGNMENT_2026_04_19.md) §3C.
+
+## Sprint 15 legacy note (superseded; kept for history)
+
+All 21 papers in this target received **References sections** during Sprint 15 (2026-04-10) with DOI/arXiv/journal citations per venue. The references were added: classical number theory for venues 1–5 and 8; NS regularity + BB + Wasserstein for venue 9; QFT + NV physics for venue 6; dark energy cosmology for venue 7; topology + Clay for venue 10.
 
 ## Venue Map
 
@@ -47,6 +54,7 @@ See [GLOSSARY.md](../../../GLOSSARY.md) for citation discipline rules and the fu
 | 8 | J. Combinatorial Theory / Discrete Math | WP101 (σ rate theorem) | σ(N) ≤ C/N for binary CL on Z/NZ | **PROVED** — ready for LaTeX |
 | 9 | J. Mathematical Physics / CMP | WP90+WP91 (BB bridge) | σ→0 forces log nonlinearity via BB 1976 | Ready — framework paper |
 | 10 | Bull. AMS / Notices AMS | CP1-CP7 rotation | Poincare retranslation + Clay framework | Needs expanded CP1 section |
+| 11 | J. Symbolic Computation / JCT-A | THEOREM_SPINE | Z/10Z TSML as terminating 3-layer canonical tower | Ready — needs LaTeX conversion |
 
 ## Priority Order (Updated Sprint 15)
 
@@ -95,4 +103,5 @@ See [GLOSSARY.md](../../../GLOSSARY.md) for citation discipline rules and the fu
 - Venue 7: Brayden Ross Sanders / 7Site LLC, M. Gish, C.A. Luther, H.J. Johnson
 - Venue 8: Brayden Ross Sanders / 7Site LLC (pure combinatorics — no co-author dependency)
 - Venue 9: Brayden Ross Sanders / 7Site LLC, M. Gish, C.A. Luther, H.J. Johnson
-- Venue 10: Brayden Ross Sanders / 7Site LLC
+- Venue 10: Brayden Ross Sanders / 7Site LLC, M. Gish, C.A. Luther, H.J. Johnson
+- Venue 11: Brayden Ross Sanders / 7Site LLC
