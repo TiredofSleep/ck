@@ -177,7 +177,7 @@ The nature of dark energy remains the central open question in observational cos
 ### Observational Cosmology
 - Planck Collaboration (2020). A&A 641:A6.
 - **DESI2024BAO:** DESI Collaboration (2024). *DESI 2024 III: Baryon Acoustic Oscillations from Galaxies and Quasars.* arXiv:2404.03000.
-- **DESI2024VI:** DESI Collaboration (2024). *DESI 2024 VI: Cosmological Constraints from the Measurements of Baryon Acoustic Oscillations.* arXiv:2404.03002. [Source of the 2.8–4.2σ dynamical dark energy preference cited in §Introduction. DR2 updated constraints (2025-2026) pending bibliographic confirmation in camera-ready.]
+- **DESI2024VI:** DESI Collaboration (2024). *DESI 2024 VI: Cosmological Constraints from the Measurements of Baryon Acoustic Oscillations.* arXiv:2404.03002. [Source of the 2.8–4.2σ dynamical dark energy preference cited in §Introduction; DR1-baseline $(w_0, w_a)$ values used for the numerical fit in the JCAP manuscript. DR2 updates (2025+) to be incorporated at camera-ready stage once published.]
 - Abbott, B.P. et al. (2017). ApJ Lett. 848:L13. (GW170817 speed constraint)
 
 ### Logarithmic Wave Equations / Separability
