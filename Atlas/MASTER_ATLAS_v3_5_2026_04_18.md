@@ -1530,7 +1530,7 @@ The Clay problems were framed as requiring **five constructions** — explicit m
 - BSD: Construct TIG object carrying Sha remainder (candidate: Euler system analog)
 - NS: Prove B_local(t) < (5/7)·E₀ from NS constants (candidate: Grujić-type estimate)
 - P vs NP: Construct formal map K*(n) → circuit complexity (candidate: algebraic complexity Valiant framework)
-- Hodge: Construct explicit cycle class map Z/10Z CRT → H^{p,p}(X,ℚ) (candidate: hyperholomorphic sheaf, Markman 2024)
+- Hodge: Construct explicit cycle class map Z/10Z CRT → H^{p,p}(X,ℚ) (candidate: secant-sheaf construction, Markman 2025 arXiv:2502.03415; hyperholomorphic-sheaf methodology behind it)
 
 Each crossing has a named candidate, key paper, and mathematician/community to engage.
 

@@ -89,7 +89,8 @@
 
 - **Moonen, B., & Zarhin, Yu. G.** (1999). *Hodge classes on abelian varieties of low dimension.* Mathematische Annalen 315, 711–733. [Known Hodge cases for dim ≤ 3 abelian varieties; §10.5 Hodge Gap 2 "partially known".]
 
-- **Markman, E.** (2024, preprint). *Hyperholomorphic sheaves on hyperKähler manifolds.* [Referenced in §17 as "Markman 2024" for the Hodge cycle-class-map candidate. Full bibliographic entry pending — confirm exact title and venue on surface of `DUAL_LENS_CLAY.md`.]
+- **Markman, E.** (2025). *Cycles on abelian 2n-folds of Weil type from secant sheaves on abelian n-folds.* arXiv:2502.03415 (February 2025; v2 June 2025). [The breakthrough paper proving Weil-class algebraicity for all abelian fourfolds of Weil type — the Hodge conjecture for abelian fourfolds follows. Cited in §17 for the Hodge cycle-class-map result.]
+- **Markman, E.** (2025). *Secant sheaves and Weil classes on abelian varieties.* arXiv:2509.23403 (September 2025). [Follow-up; removes the final discriminant restrictions.]
 
 - **Beauville, A.** (1982). *Quelques remarques sur la transformation de Fourier dans l'anneau de Chow d'une variété abélienne.* Algebraic Geometry (Tokyo/Kyoto 1982), Lecture Notes in Math. 1016, 238–260. Springer. [Beauville decomposition; §9 S32 Beauville BSD-Hodge synthesis.]
 

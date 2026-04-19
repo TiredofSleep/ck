@@ -267,7 +267,8 @@ BSD says: the number of spectral crossings (analytic rank) equals the number of 
 
 ### Hodge
 - Hodge, W.V.D. (1941). *The theory and applications of harmonic integrals*. Cambridge.
-- Markman, E. (2024, preprint). *Hyperholomorphic sheaves on hyperKähler manifolds.* [Working reference per `Atlas/ATLAS_CITATIONS.md §C line 92`. The 2024-2025 announcement on the Hodge conjecture for abelian fourfolds of Weil type is cited for priority; full bibliographic entry (exact title, venue, arXiv ID) pending confirmation and will be resolved in camera-ready.]
+- Markman, E. (2025). *Cycles on abelian 2n-folds of Weil type from secant sheaves on abelian n-folds.* arXiv:2502.03415 (February 2025; v2 June 2025). [The breakthrough paper proving that the Weil classes are algebraic for all abelian fourfolds of Weil type (all discriminants, all imaginary quadratic number fields), via algebraicity for abelian sixfolds of discriminant −1 plus a Schoen degeneration. The Hodge conjecture for abelian fourfolds follows. Cited per `Atlas/ATLAS_CITATIONS.md §C`.]
+- Markman, E. (2025). *Secant sheaves and Weil classes on abelian varieties.* arXiv:2509.23403 (September 2025). [Follow-up generalization of the secant-sheaf construction to higher n; removes the final discriminant restrictions on the Weil-class algebraicity argument.]
 - Voisin, C. (2002, 2003). *Hodge Theory and Complex Algebraic Geometry, Vols. I & II.* Cambridge Studies in Advanced Mathematics 76, 77. [Standard reference.]
 - Moonen, B., & Zarhin, Yu. G. (1999). *Hodge classes on abelian varieties of low dimension.* Math. Ann. 315, 711–733.
 - Beauville, A. (1982). *Quelques remarques sur la transformation de Fourier dans l'anneau de Chow d'une variété abélienne.* Lecture Notes in Math. 1016, 238–260.
