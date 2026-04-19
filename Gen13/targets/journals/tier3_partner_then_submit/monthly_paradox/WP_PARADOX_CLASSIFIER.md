@@ -8,13 +8,13 @@
 
 > **Atlas cross-reference:** External citations are drawn from `Atlas/ATLAS_CITATIONS.md` (§H topology/paradox foundations for Brouwer, Banach-Tarski, Wiener, Khinchin); internal anchors carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§5.4 Li Foundation + Banach-Tarski reframing, §4.6.4 UOP). DOI: 10.5281/zenodo.18852047.
 >
-> **Readiness flag:** [gold-with-gap — needs venue partner] · **Tier 3** (partner-then-submit) · bibliography expanded 2026-04-18 · Monthly editorial fit needs cover-letter match or endorsement before submission.
+> **Readiness flag:** [gold-with-gap — needs venue partner] · **Tier 3** (partner-then-submit) · bibliography expanded 2026-04-18, consistency pass 2026-04-19 (abstract aligned to 5 worked examples; Turing / Williamson / Priest added) · Monthly editorial fit needs cover-letter match or endorsement before submission.
 
 ---
 
 ## Abstract
 
-We present the Unified Orthogonality Principle (UOP): every paradox, apparent contradiction, or ambiguity problem is a failure of a measurement map relative to a hidden space. The failure comes in exactly four types — Injectivity Failure, Missing Invariant, Admissibility Failure, and Time-Consistency Failure — distinguished by where in the measurement chain the breakdown occurs. We give precise definitions of each type, a five-step decision procedure that any reader (or automated system) can apply to any paradox, and worked examples for eight classical problems. The framework produces a score $\mathrm{score}_n \in [0, 1]$ measuring how much residual ambiguity remains after optimal measurement. Fully resolved paradoxes score $1.0$; structurally blocked ones score $0.0$. The classification is not interpretive — it is an algebraic verdict about the structure of the measurement map.
+We present the Unified Orthogonality Principle (UOP): every paradox, apparent contradiction, or ambiguity problem is a failure of a measurement map relative to a hidden space. The failure comes in exactly four types — Injectivity Failure, Missing Invariant, Admissibility Failure, and Time-Consistency Failure — distinguished by where in the measurement chain the breakdown occurs. We give precise definitions of each type, a five-step decision procedure that any reader (or automated system) can apply to any paradox, and worked examples for five classical problems (Zeno, Banach-Tarski, Russell, the Unexpected Hanging, and Gödel's incompleteness), one per type with incompleteness as a second Type II exemplar. The framework produces a score $\mathrm{score}_n \in [0, 1]$ measuring how much residual ambiguity remains after optimal measurement. Fully resolved paradoxes score $1.0$; structurally blocked ones score $0.0$. The classification is not interpretive — it is an algebraic verdict about the structure of the measurement map.
 
 ---
 
@@ -266,6 +266,7 @@ The classification is as good as the specification of $\mathcal{X}$ and $\mathca
 - Quine, W.V. (1953). On a so-called paradox. *Mind* **62**, 65–67. [§4.4 Unexpected Hanging Type IV; see also Sainsbury (2009).]
 - Gödel, K. (1931). Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I. *Monatshefte für Mathematik und Physik* **38**, 173–198. [§4.5 Type II.]
 - Tarski, A. (1936). Der Wahrheitsbegriff in den formalisierten Sprachen. *Studia Philosophica* **1**, 261–405. [Undefinability theorem; cited in §4.5.]
+- Turing, A.M. (1936). On Computable Numbers, with an Application to the Entscheidungsproblem. *Proc. London Math. Soc.* **42**, 230–265. [Halting problem as a computational-side Type II companion to Gödel (§4.5); the absence of a decision map in the recursive family is the same structural obstruction.]
 
 ### Set theory and foundations
 - Zermelo, E. (1908). Untersuchungen über die Grundlagen der Mengenlehre I. *Mathematische Annalen* **65**, 261–281. [ZF axiom of foundation cited in §4.3.]
@@ -273,6 +274,10 @@ The classification is as good as the specification of $\mathcal{X}$ and $\mathca
 
 ### Measurement theory and admissibility
 - Kolmogorov, A.N. (1933). *Grundbegriffe der Wahrscheinlichkeitsrechnung.* Springer. [Foundations of probability / σ-algebra structure; background for the TYPE II / TYPE IV measurement-admissibility distinction.]
+
+### Adjacent resolution frameworks (cited for context, not used)
+- Williamson, T. (1994). *Vagueness.* Routledge. [Epistemic treatment of the Sorites paradox; complementary to the measurement-theoretic Type-II framing given here.]
+- Priest, G. (2006). *In Contradiction: A Study of the Transconsistent,* 2nd ed. Oxford University Press. [Paraconsistent approach to Russell / Liar; alternative to the Type III admissibility-restriction resolution of §4.3.]
 
 ### Internal (TIG framework)
 - Sanders, B.R. (2026). WP44 — CK as a New AI Paradigm. *7Site Research,* DOI: 10.5281/zenodo.18852047.
