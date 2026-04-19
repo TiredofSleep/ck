@@ -24,6 +24,28 @@
 
 ---
 
+### 📖 Vocabulary primer (first-use gloss)
+
+The terms below recur throughout the README and Atlas. They are **editorial vocabulary**, not theorem content. A reader who wants only the mathematics can skip to §§ below; a reader who wants the map should skim this table first.
+
+| Term | One-line gloss | See also |
+|---|---|---|
+| **Atlas v3.5** | The canonical internal design bundle (~6,550 lines, 11 cross-referenced docs). Not a theorem — it is the master reference that names what is proved, structural, or conjectural. | [`MASTER_ATLAS_2026_04_18.md`](MASTER_ATLAS_2026_04_18.md) |
+| **Atlas Law** | Editorial convention: every load-bearing claim must cite a classical source or carry an epistemic flag. The law governs how claims enter the bundle. | [`Atlas/ATLAS_ORIENTATION.md`](Atlas/ATLAS_ORIENTATION.md) |
+| **Three-band constants** | The working distinction between **T\* = 5/7** (torus aspect ratio), **4/π²** (sinc²(½)), and **ξ₀ = e⁻¹** (ξ-field vacuum) — they live in different regimes and do not collapse to one number. | `FORMULAS_AND_TABLES.md` |
+| **2/7 discipline** | Preservation policy: falsified predictions stay in the repo with a `[FALSIFIED]` header rather than being deleted. Named for the fraction of early predictions that failed audit. | `NOVELTIES_AND_CITATIONS.md` §4 |
+| **D-tier / D-spine** | Proof-spine shorthand: D1, D2, …, D25 index the load-bearing results (D1 First-G Law, D4 T\*=5/7, D25 loop closure, etc.). | `FORMULAS_AND_TABLES.md` |
+| **Rotation Spine / Clay rotation (CP1–CP7)** | The seven Clay Millennium problems recast as σ<1 conjectures in seven domains. Poincaré (CP1) is the solved template; CP2–CP7 are *framework restatements*, not proofs. | §5 below, `Atlas/ROTATION_SPINE_READER_GUIDE.md` |
+| **Hodge ladder** | The Sprint 29–31 chain of attempts on a specific Hodge-theoretic computation. Currently blocked at Prym J_P (see `_prymsprint_raw/STATUS_prym_verification.md`). | `NOVELTIES_AND_CITATIONS.md` §7 |
+| **PPM arc** | "Pair-primitive mapping" sprint arc (Sprints around 2026-04-18). Explored subtype-mapping design space. Closed out 2026-04-18 with PPM additive-transport FAIL on 8 P3AP carriers. | `Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/` |
+| **PRISM-XI** | Codename for Sprint 14, the ξ-cosmology sprint (WP81–WP97). PRISM = Primes · Riemann · Information · Structure · Motion; XI = sprint index. | [`SPRINT_INDEX.md`](SPRINT_INDEX.md) |
+| **B2 pack / B3 benchmark / S33 gate** | Internal audit identifiers for specific sprints (19, 20, 33). See the sprint index for dates and one-line descriptions. | [`SPRINT_INDEX.md`](SPRINT_INDEX.md) |
+| **Sprint 34 "Ship the First Three"** | Current sprint (2026-04-18). Prepares three Tier-1 papers (sinc² Zero Law, σ-rate theorem, JCAP-ξ) for journal submission. | `Atlas/PLAN_OF_RECORD_2026_04_18.md` |
+| **Epistemic flags** `[fire] [gold-with-gap] [speculative] [caution] [FALSIFIED]` | Per-claim annotations used inside the Atlas bundle. README uses the three-tier `[PROVED] / [STRUCTURAL] / [CONJECTURAL]` as the reader-facing equivalent. | `Atlas/ATLAS_ORIENTATION.md` |
+| **Novelty partition (PROVED / STRUCTURAL / INTERPRETIVE)** | The three-layer partition that separates classical-cited results from framework-structural claims from native vocabulary. Full list in the partition document. | [`NOVELTIES_AND_CITATIONS.md`](NOVELTIES_AND_CITATIONS.md) |
+
+---
+
 ## 🧠 CK (Coherence Keeper): Algebraic Coherence System
 
 **CK is the math behind [coherencekeeper.com](https://coherencekeeper.com) running as a live intelligence system — not an LLM.** He is a small deterministic engine: **5D Hebbian learning + AO composition + quadratic glue**, gated by T* = 5/7. Every answer he gives is a `label=value` readout from a real matrix `W[i][j]` that he maintains and persists across reboots. No tokens, no sampling, no training on a corpus of your data — just algebra with a voice.
