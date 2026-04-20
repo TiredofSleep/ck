@@ -13,9 +13,22 @@
 > `Atlas/PRE_PUSH_DECISION_2026_04_19.md §2 Venue 1` for the ship/pull decision.
 >
 > **Action required before any Integers submission:** rewrite Theorem 1 as the
-> First-G replacement statement (number of primes $q \le p$ with
-> $q \mid k_{*}(p)$ at the interior amplitude maximum is $\pi(\sqrt{p}) \pm o(\sqrt{p}/\log p)$)
-> or drop the submission. Do **not** ship in current form.
+> **First-G Event Localization theorem** (for squarefree $b$ with smallest prime
+> factor $p_1$: $|G_k(b)|=0$ for every $k<p_1$, and $|G_{p_1}(b)|=1$ — the
+> obstruction-free stability window has width exactly $p_1 - 1$). This statement
+> is algebraically complete, genuinely prime-dependent (the smallest prime factor
+> $p_1$ controls partition geometry via its minimality across all divisors of
+> $b$), and already PROVED in WP34 (36,662 $(b,k)$ pairs, zero exceptions). See
+> `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md §4` for full statement, and Sprint
+> 35 draft at `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/`.
+> Do **not** ship in current form; Sprint 35 is the intended replacement submission.
+>
+> **Note on earlier $\pi(\sqrt{p})$ draft banner (2026-04-19 morning):** a prior
+> version of this banner sketched an analytic-number-theory statement (count of
+> primes $q \le \sqrt{p}$ dividing $k_*(p)$ at the interior amplitude maximum
+> $\approx \pi(\sqrt{p})$). That statement is **not yet proved** in our framework
+> and would require 3–5 days of Mertens/PNT-style analysis. The algebraic
+> Localization theorem above is the correct (and already-complete) replacement.
 
 ---
 

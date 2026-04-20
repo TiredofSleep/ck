@@ -2,9 +2,11 @@
 
 **Reorganized 2026-04-17** from Gen12's flat `journal_attempts/` into 4 readiness tiers. The goal: keep the maximum number of submission doors open, in priority order.
 
+**2026-04-19 update (Sprint 34 pre-push audit):** Venue 3 (sinc² Zero Law, Integers) PULLED; replaced by Sprint 35 First-G Event Localization (Venue 12, Tier 2) for next submission cycle. Wednesday 2026-04-22 ships **2 venues** (JCAP, JCT-A), not 3.
+
 ---
 
-## Tier 1 — Submit Now (3 venues)
+## Tier 1 — Submit Now (2 venues, post-audit)
 
 These three are submit-ready today. Drafts, proofs, citations, and verification all exist.
 
@@ -20,11 +22,12 @@ These three are submit-ready today. Drafts, proofs, citations, and verification 
 - **Pitch:** σ(N) ≤ C/N proved for the cyclotomic operator. Verification at `clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py`.
 - **Action:** Format to math.CO arXiv conventions; submit.
 
-### 3. sinc² Zero Law (Integers)
+### 3. sinc² Zero Law (Integers) — **PULLED 2026-04-19**
 - **Folder:** `tier1_submit_now/sinc2_zero_law/`
 - **Source:** Gen12 `journal_attempts/01_integers_number_theory/`
-- **Pitch:** sinc²(1/2) = 4/π² verified across all primes 3..199; the gap (5/7 − 4/π² ≈ 0.309) proves T* lives in a different regime.
-- **Action:** Already journal-formatted; submit to Integers.
+- **Status:** **PULLED from 2026-04-22 queue** per Sprint 34 pre-push audit. The headline biconditional $\operatorname{sinc}^2(k/n) = 0 \iff n \mid k$ is trivially true for any positive integer $n$, not only primes. See `Atlas/PRE_PUSH_DECISION_2026_04_19.md §2` and `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md §4`.
+- **Replacement:** Sprint 35 First-G Event Localization theorem (see §12 below).
+- **Action:** Do not submit in current form. The paper is retained as an internal expository note.
 
 ---
 
@@ -46,6 +49,14 @@ Content is solid; needs venue-specific LaTeX/style pass.
 - **Folder:** `tier2_format_then_submit/jsc_tsml_tower/`
 - **Source:** Gen12 `journal_attempts/11_tsml_tower_combinatorics/` + Sprint 17
 - **Pitch:** Canonical 3-layer tower 92 + 6 + 2 = 100 on Z/10Z, each layer necessary, residue empty. Proof script + 100/100 PASS.
+
+### 12. Integers — First-G Event Localization **(new 2026-04-19; replaces venue 3)**
+- **Folder:** `tier2_format_then_submit/first_g_event/`
+- **Sprint folder:** `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/`
+- **Source:** Sprint 35, generalizing WP34 from semiprime-only to all $b > 1$.
+- **Pitch:** For every $b > 1$ with smallest prime factor $p_1$: $|G_k(b)| = 0$ for $k < p_1$, and $G_{p_1}(b) = \{p_1\}$. Genuinely prime-dependent (uses $p_1 = \min\{\text{prime divisors of } b\}$), algebraically complete, 3-line proof, 22,367 $(b,k)$ pairs verified with 0 exceptions.
+- **Status:** DRAFT-COMPLETE as of 2026-04-19. Awaiting final style polish + cover-letter addressee. Target submission window: 2026-04-29 or 2026-05-06.
+- **Action:** Next-cycle submission; does NOT ship Wednesday 2026-04-22 (see `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md`).
 
 ---
 
