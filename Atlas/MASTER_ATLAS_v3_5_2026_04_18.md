@@ -1530,7 +1530,7 @@ The Clay problems were framed as requiring **five constructions** — explicit m
 - BSD: Construct TIG object carrying Sha remainder (candidate: Euler system analog)
 - NS: Prove B_local(t) < (5/7)·E₀ from NS constants (candidate: Grujić-type estimate)
 - P vs NP: Construct formal map K*(n) → circuit complexity (candidate: algebraic complexity Valiant framework)
-- Hodge: Construct explicit cycle class map Z/10Z CRT → H^{p,p}(X,ℚ) (candidate: secant-sheaf construction, Markman 2025 arXiv:2502.03415; hyperholomorphic-sheaf methodology behind it)
+- Hodge: Construct explicit cycle class map Z/10Z CRT → H^{p,p}(X,ℚ) (originally proposed candidate: secant-sheaf construction, Markman 2025 arXiv:2502.03415; **superseded 2026-04-19** — see `MARKMAN_INTERNALIZATION_SCOPE_2026_04_19.md`. The Markman/O'Grady/Floccari-Fu program proves Weil-class algebraicity for *all* abelian fourfolds of Weil type via Orlov derived equivalences + Buchweitz-Flenner semi-regularity + Chevalley pure spinors; Z/10Z CRT is **not** a discrete model that lifts to that machinery. Thread B continues as the **explicit-coordinate companion** on the same simple Weil 4-fold A_*, plus the Beauville A_* ↔ C_* extension toward BSD, which Markman does not target.)
 
 Each crossing has a named candidate, key paper, and mathematician/community to engage.
 

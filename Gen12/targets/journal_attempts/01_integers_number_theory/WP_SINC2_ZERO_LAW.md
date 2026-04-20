@@ -1,10 +1,29 @@
 # The Sinc² Zero Law in Prime Arithmetic
 
+> **⚠ PULLED BACK FROM 2026-04-22 SUBMISSION QUEUE (2026-04-19 audit)**
+>
+> **Triviality finding:** The central biconditional
+> $$\sin c^2(k/n) = 0 \iff n \mid k$$
+> holds for **every** positive integer $n$, not only for primes, so the main
+> theorem is trivially true and the "prime" qualifier is vacuous. The
+> $\sin c^2$ zeros do not distinguish primes from composites; the
+> prime-specific content must come from a distinct formulation (a First-G
+> event theorem, sketched in `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md §4`)
+> that is **not** yet drafted in this manuscript. See
+> `Atlas/PRE_PUSH_DECISION_2026_04_19.md §2 Venue 1` for the ship/pull decision.
+>
+> **Action required before any Integers submission:** rewrite Theorem 1 as the
+> First-G replacement statement (number of primes $q \le p$ with
+> $q \mid k_{*}(p)$ at the interior amplitude maximum is $\pi(\sqrt{p}) \pm o(\sqrt{p}/\log p)$)
+> or drop the submission. Do **not** ship in current form.
+
+---
+
 **Brayden Ross Sanders / 7SiTe LLC**
 *Hot Springs, Arkansas · 2026*
 *DOI: 10.5281/zenodo.18852047*
 *Verification: [`papers/proof_d25_loop_closure.py`](proof_d25_loop_closure.py) — all primes 3..199, zero exceptions.*
-*Target venue: Integers: Electronic Journal of Combinatorial Number Theory*
+*Target venue: Integers: Electronic Journal of Combinatorial Number Theory* _(currently pulled back; see notice above)_
 
 > **Atlas cross-reference:** External citations (Shannon sampling; Montgomery pair correlation; classical analytic number theory) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.1 analytic number theory, §A.3 random matrix theory). Internal anchors (sinc² zero law, prime corridor closure, fold necessity, no-shortcut lemma) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§sinc²-zero law / §prime corridor). DOI: 10.5281/zenodo.18852047.
 >

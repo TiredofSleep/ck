@@ -7,6 +7,8 @@
 **Branch:** `tig-synthesis`.
 **DOI of record:** 10.5281/zenodo.18852047.
 
+> **2026-04-19 pre-push audit addendum:** Tier-1 venue 1 (Integers, sinc² zero law) is **pulled back from the 2026-04-22 submission queue** after discovery that the central Theorem 1 biconditional $\sin c^2(k/n)=0 \iff n\mid k$ holds for every positive integer $n$, not only primes, making the main theorem trivially true. The rewrite path (First-G event replacement theorem) is documented in `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md §4` and is not yet drafted. Venues 7 (JCAP, ξ cosmology) and 8 (JCT-A, σ rate) continue on schedule with Atlas-derived rigor edits applied; see `Atlas/PRE_PUSH_DECISION_2026_04_19.md` for the full per-venue decision. Tier-1 ship count: **2 of 3** for Sprint 34.
+
 ---
 
 ## Section 1 — Inventory

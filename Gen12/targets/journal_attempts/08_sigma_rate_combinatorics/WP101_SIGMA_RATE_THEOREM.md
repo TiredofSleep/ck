@@ -100,6 +100,13 @@ No heavy machinery. The result is sharp enough to confirm convergence and identi
 - Birkhoff, G. (1940). *Lattice Theory*. AMS Colloquium Publications 25.
 - Ore, O. (1942). "Theory of equivalence relations." Duke Math. J. 9:573-627.
 
+### Non-Associative Combinatorics / Quasigroup Associativity Rate (added 2026-04-19)
+- Kepka, T. (1980). "A note on associative triples of elements in cancellation groupoids." *Comment. Math. Univ. Carolin.* 21(3):479-487. [Universal lower bound $a(Q) \ge n$ on associative-triple counts in order-$n$ quasigroups; this paper establishes the $1/n$ scale that our $\sigma(N) \le C/N$ rate sits on.]
+- Drápal, A. & Kepka, T. (1985). "Group distances of Latin squares." *Comment. Math. Univ. Carolin.* 26(2):275-283. [Classical supporting reference for the Kepka lower bound.]
+- Drápal, A. & Lisoněk, P. (2020). "Maximally nonassociative quasigroups via quadratic orthomorphisms." *Algebraic Combinatorics* 3(3):695-717. [The **opposite** extremum: $\sigma \to 1$ via maximally nonassociative quasigroups. Establishes that the $\sigma$ landscape is populated at both ends.]
+- Drápal, A. & Wanless, I.M. (2021). "Maximally nonassociative quasigroups from finite fields." *J. Combin. Theory Ser. A* 181:105444. [JCT-A precedent for our venue; confirms that non-associativity density questions are a live topic in that journal.]
+- Kotlář, D., Stones, D.S., Stones, R.J. & Stones, E. (2023). "Cuboctahedra in Latin squares." *Discrete Math.* 346(1):113119. [Gives a $\Theta(n^{4})$ count of cuboctahedra in Latin squares of order $n$, which translates to a non-associativity density of the same order $1/n$ as our $\CL_N$ result; matches the rate but on a different object.]
+
 ### Spectral / Analytic Number Theory
 - Riemann, B. (1859). "Über die Anzahl der Primzahlen unter einer gegebenen Größe." Monatsber. Berlin. Akad.
 - Montgomery, H.L. (1973). "The pair correlation of zeros of the zeta function." Proc. Sympos. Pure Math. 24:181-193.

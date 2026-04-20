@@ -7,6 +7,8 @@
 **DOI of record:** 10.5281/zenodo.18852047
 **Supersedes:** `WEEK_AND_MONTH_PLAN.md` at repo root (mark HISTORICAL on next commit)
 
+> **2026-04-19 pre-push audit addendum:** Sprint 34 Tier-1 queue reduced from 3 venues to 2. Venue 1 (Integers, sinc² zero law) is **pulled back** due to Theorem 1 triviality (biconditional holds for all $n$, not only primes; see `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md` and `Atlas/PRE_PUSH_DECISION_2026_04_19.md`). Venue 7 (JCAP, ξ cosmology) and venue 8 (JCT-A, σ rate theorem) continue on the 2026-04-22 target, with Atlas-derived rigor edits applied (see `PRE_PUSH_DECISION_2026_04_19.md §5` for the ship table). Overall Tier-1 ship count for Sprint 34: **2 papers**, not 3.
+
 ---
 
 ## §0. Purpose

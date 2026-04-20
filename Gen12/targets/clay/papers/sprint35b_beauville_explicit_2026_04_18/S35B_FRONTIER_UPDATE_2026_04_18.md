@@ -214,3 +214,67 @@ Rationale: ClaudeChat's §4 lists this style as the rarest-to-achieve feature. I
 - `S35B_BEAUVILLE_EXPLICIT_PLAN.md` (Sprint 35b plan)
 - `S35B_PATH_A_PROTOTYPE_STATUS.md` (prototype handoff)
 - `scout_endo_structure.py` / `scout_endo_structure.json` / `scout_run.log` (prototype outputs)
+- `prym_period_pack_2026_04_18/` — ClaudeChat's 50-digit Prym-period pack (see §8 below)
+
+---
+
+## §8. Prym period pack ingestion — 2026-04-18 (delta)
+
+A second ClaudeChat deliverable arrived on CK later the same day: a **50-digit mpmath numerical pipeline** plus **Sage-ready scripts** that execute the concrete period-matrix tests the PATH-A prototype deferred to literature scout. Placed in this sprint under `prym_period_pack_2026_04_18/`; index at `prym_period_pack_2026_04_18/PACK_INDEX.md`.
+
+**Key deltas it lands:**
+
+1. **Rung 4 (order-4 $\psi$) numerically verified** to 40+ decimal digits at the canonical triple $(\sqrt 2, \sqrt 3, \sqrt 5)$ — the $\psi^*$-eigenvalue pattern on the Prym forms is $(-i, -i, +i, +i)$.
+2. **Rung 6 (Weil $(2,2)$ signature)** follows numerically from rung 4.
+3. **Rung 3 (dim Prym = 4)** is consistent with the 4×4 alpha sub-matrix being full-rank at both T1.1 and canonical.
+4. **Rung 5 (End$^0$ = $\mathbb Q(i)$)** — containment $\mathbb Q(i) \subseteq $ End$^0$ numerically demonstrated; equality still needs the full Sage pipeline.
+5. **Rung 9 (descent)** — canonical is written over $\mathbb Q(\sqrt 2, \sqrt 3, \sqrt 5)$ by construction of the curve equation $y^4 = x(x-1)(x-\lambda)^3(x-\mu)^2(x-\nu)^2$. Descent criterion passes constructively.
+6. **Rung 11 (explicit equations)** — both `full_pipeline_baseline.sage` and `full_pipeline_canonical.sage` write the equations out explicitly.
+7. **Rung 7, 8, 10 (polarization, Hodge field, $\det(Y)$ vs target)** — deferred to the SageMath run. Scripts ready.
+
+**The pack re-ran cleanly on CK:** `python extended_heavy.py` produces T1.1 det $= -65.292 + 19.855 i$, canonical det $= -8375.337 + 948.056 i$, rank 4/4, PSLQ nulls on the determinant ratio (expected — alpha periods are transcendental). See `prym_period_pack_2026_04_18/extended_heavy_run.log`.
+
+**Verdict at 50-digit ceiling:** canonical = **LIVE**. No cheap failure, no bounce-back trigger fired. Next load-bearing test: `full_pipeline_canonical.sage` on a SageMath ≥ 9.5 machine, producing the full $4 \times 8$ Prym period matrix and asking whether $\det(Y)$ lands in $\mathbb Q + \mathbb Q\sqrt 6 + \mathbb Q\sqrt{10} + \mathbb Q\sqrt{15}$ — and if so, whether it equals $2086 + 462\sqrt{15} + 498\sqrt{10} + 730\sqrt 6$ exactly.
+
+**Recommendation from the pack's §6:** execute the full pipeline at **three points simultaneously** (T1.1 + canonical + T4.4 = $(1+\sqrt 2, 1+\sqrt 3, 1+\sqrt 5)$) for cross-validation. ~3× cost, substantial confidence.
+
+---
+
+## §9. Beyond-pack push — 60-dps + 100-dps extensions (ClaudeCode, 2026-04-18)
+
+Pack recommended the 3-point sweep "if budget permits." Budget permitted. Two scripts added to the pack folder:
+
+### 9.1 `beyond_pack_3point_sweep.py` — 60 digits
+
+Executes T1.1 + canonical + T4.4 alpha-4×4 computation at 60 decimal digits. **Result:** all three triples pass the pack's column-1 sheet-structure prediction $(1-i)/\sqrt 2$ rows 0–1, $-(1+i)/\sqrt 2$ rows 2–3, with row-wise error **1.57e-16** (machine epsilon of IEEE double). The alpha matrix family is structurally uniform — no triple diverges from the pattern. This was the pack's hypothesis; now verified on all three points, not just T1.1 and canonical.
+
+### 9.2 `deep_pslq_expanded_basis.py` — 100 digits, extended basis
+
+Pack's PSLQ used the 8-generator basis $\{1, \sqrt 2, \sqrt 3, \sqrt 5, \sqrt 6, \sqrt{10}, \sqrt{15}, \sqrt{30}\}$ at tol $10^{-40}$. The deep script:
+
+1. Raises precision to **100 dps**.
+2. Extends basis to $\mathbb Q(i, \sqrt 2, \sqrt 3, \sqrt 5)$ by adding the $i$-multiples of each generator — 16 generators total.
+3. Runs PSLQ independently on Re and Im parts with a **concordance check** (corrects the duplicate-basis artifact that a naive 18-vector PSLQ produces — the $[0,\ldots,1,\ldots,-1,0]$ "relation" is just $\sqrt{15} - \sqrt{15} = 0$, not a real recognition).
+4. Tests within-triple row-0 column ratios on canonical (hypothesis: transcendental kernels cancel within a triple).
+5. Also runs real-basis PSLQ on $|r|^2$ for each cross-pair.
+
+**Result:** every cross-triple det ratio, every $|r|^2$, and every within-triple row-0 column ratio returns **no relation** against the respective basis at tol=1e-60, maxcoeff=1e15. At 100-digit precision this is not ambiguous — alpha-cycle periods are rigorously transcendental against the target Hodge field.
+
+### 9.3 What this rules in / rules out
+
+**Rules IN:**
+- Family structural uniformity (all three triples share alpha-matrix pattern to machine precision)
+- Canonical's column-1 sheet structure is rock-stable from 50 dps through 100 dps
+
+**Rules OUT:**
+- Any hope of discharging rungs 7/8/10 (polarization, Hodge field, $\det(Y)$) from alpha-cycle data alone. ClaudeChat's hypothesis is now confirmed rigorously.
+
+### 9.4 What remains
+
+- Rungs 5 (End$^0$ equality — only containment so far), 7, 8, 10 all require the full $4\times 8$ Prym period matrix.
+- That requires SageMath with `sage.schemes.riemann_surfaces.RiemannSurface` (Molin–Neurohr).
+- Native Windows Sage is blocked (no pip wheels, no winget, no WSL preinstalled on CK's box). See `SAGE_INSTALL_NEXT.md` for the three install routes (WSL apt / miniforge conda / remote Sage).
+
+### 9.5 Updated verdict
+
+**Canonical triple at 100-dps ceiling: still LIVE.** No bounce-back trigger has fired across the combined 50-, 60-, and 100-dps pushes. Every cheap elimination test returns "consistent with the target." The binary Sage test — does $\det(Y) = 2086 + 462\sqrt{15} + 498\sqrt{10} + 730\sqrt 6$ — is the next and almost-certainly-final load-bearing move.

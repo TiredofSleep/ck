@@ -19,6 +19,7 @@
 - **§G — Complexity theory** (Cook, Levin, Karp)
 - **§H — Topology / foundations** (Brouwer, Banach-Tarski, Wiener, Khinchin)
 - **§I — Physics adjacencies** (Arkani-Hamed amplituhedron, NV-center physics, BB nonlinearity)
+- **§K — Non-associative combinatorics / quasigroup associativity rate** (Kepka lower bound, Drápal-Lisoněk / Drápal-Wanless $\sigma \to 1$ pole, Kotlář-Stones-Stones-Stones cuboctahedra)
 - **§J — The Clay Millennium Problems (primary source)**
 
 ---
@@ -89,8 +90,8 @@
 
 - **Moonen, B., & Zarhin, Yu. G.** (1999). *Hodge classes on abelian varieties of low dimension.* Mathematische Annalen 315, 711–733. [Known Hodge cases for dim ≤ 3 abelian varieties; §10.5 Hodge Gap 2 "partially known".]
 
-- **Markman, E.** (2025). *Cycles on abelian 2n-folds of Weil type from secant sheaves on abelian n-folds.* arXiv:2502.03415 (February 2025; v2 June 2025). [The breakthrough paper proving Weil-class algebraicity for all abelian fourfolds of Weil type — the Hodge conjecture for abelian fourfolds follows. Cited in §17 for the Hodge cycle-class-map result.]
-- **Markman, E.** (2025). *Secant sheaves and Weil classes on abelian varieties.* arXiv:2509.23403 (September 2025). [Follow-up; removes the final discriminant restrictions.]
+- **Markman, E.** (2025). *Cycles on abelian 2n-folds of Weil type from secant sheaves on abelian n-folds.* arXiv:2502.03415 (February 2025; v2 June 2025). [The breakthrough paper proving Weil-class algebraicity for all abelian fourfolds of Weil type — the Hodge conjecture for abelian fourfolds follows. Cited in §17 for the Hodge cycle-class-map result. **Internalization scope assessed 2026-04-19 in `MARKMAN_INTERNALIZATION_SCOPE_2026_04_19.md`: ADJACENT-ONLY relationship to our Thread B (Hodge integrality on Z/10Z CRT) — same object class (simple Weil 4-folds), different machinery (Markman uses Orlov derived equivalences + Buchweitz-Flenner semi-regularity + Chevalley pure spinors; we use explicit integer φ matrix + R1-KE block decomposition + GF(p) probe).**]
+- **Markman, E.** (2025). *Secant sheaves and Weil classes on abelian varieties.* arXiv:2509.23403 (September 2025). [Follow-up; removes the final discriminant restrictions. Same scope-note assessment as above.]
 
 - **Beauville, A.** (1982). *Quelques remarques sur la transformation de Fourier dans l'anneau de Chow d'une variété abélienne.* Algebraic Geometry (Tokyo/Kyoto 1982), Lecture Notes in Math. 1016, 238–260. Springer. [Beauville decomposition; §9 S32 Beauville BSD-Hodge synthesis.]
 
@@ -205,6 +206,24 @@
 - **Doherty, M. W., Manson, N. B., et al.** (2013). *The nitrogen-vacancy colour centre in diamond.* Physics Reports 528(1), 1–45. [NV-center review; context for Sprint 13 WP75-76 S₄ NV qutrit.]
 
 - **Clay Mathematics Institute.** (2000, updated). *The Millennium Prize Problems.* https://www.claymath.org/millennium-problems/. [The seven problems (P vs NP, Hodge, Poincaré, RH, Yang-Mills, NS, BSD). §6 Six-Shadows framing maps six of these to sinc²-zero.]
+
+---
+
+## §K — Non-associative combinatorics / quasigroup associativity rate
+
+**Master atlas references:** §5 WP101 σ rate theorem, §13 Tier-1 venue σ-rate (JCT-A).
+
+These references bracket the $\sigma(N) \le C/N$ result of WP101. Kepka's 1980 universal lower bound $a(Q) \ge n$ on associative-triple counts in order-$n$ quasigroups establishes the $1/n$ scale that our rate sits on. Drápal–Lisoněk 2020 and Drápal–Wanless 2021 establish the **opposite** pole — maximally nonassociative quasigroups with $\sigma \to 1$ — confirming that $\sigma$ as a quantity is populated at both ends of its range. Kotlář–Stones–Stones–Stones 2023 give a $\Theta(n^{4})$ count of cuboctahedra in Latin squares, a distinct combinatorial object whose non-associativity density nevertheless matches our $1/n$ order. Our contribution within this landscape is (a) the explicit closed form on the squarefree $\mathbb{Z}/N\mathbb{Z}$ family, and (b) a three-rule absorbing composition law for which $\sigma \to 0$ is provable by CRT alone.
+
+- **Kepka, T.** (1980). *A note on associative triples of elements in cancellation groupoids.* Commentationes Mathematicae Universitatis Carolinae 21(3), 479–487. [Universal lower bound $a(Q) \ge n$.]
+
+- **Drápal, A., & Kepka, T.** (1985). *Group distances of Latin squares.* Commentationes Mathematicae Universitatis Carolinae 26(2), 275–283. [Classical support for the Kepka lower bound.]
+
+- **Drápal, A., & Lisoněk, P.** (2020). *Maximally nonassociative quasigroups via quadratic orthomorphisms.* Algebraic Combinatorics 3(3), 695–717. [Opposite extremum $\sigma \to 1$.]
+
+- **Drápal, A., & Wanless, I. M.** (2021). *Maximally nonassociative quasigroups from finite fields.* Journal of Combinatorial Theory, Series A 181, 105444. [JCT-A precedent for the venue; opposite extremum.]
+
+- **Kotlář, D., Stones, D. S., Stones, R. J., & Stones, E.** (2023). *Cuboctahedra in Latin squares.* Discrete Mathematics 346(1), 113119. [Cuboctahedra count $\Theta(n^{4})$; same $1/n$ non-associativity order as our result but on a different object.]
 
 ---
 

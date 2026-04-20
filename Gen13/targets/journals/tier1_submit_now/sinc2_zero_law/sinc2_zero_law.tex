@@ -7,6 +7,22 @@
 %%% Source: WP_SINC2_ZERO_LAW.md (Gen12/journal_attempts/01)
 %%% Verification: proof_d25_loop_closure.py (primes 3..199)
 %%% MSC: 11A41, 11N05, 42A16
+%%%
+%%% === STATUS: PULLED BACK FROM 2026-04-22 SUBMISSION QUEUE ===
+%%% Reason (2026-04-19 pre-push audit): the central biconditional
+%%%   sinc^2(k/n)=0 <=> n | k
+%%% holds for EVERY positive integer n, not only for primes, so the
+%%% main theorem is trivially true and the "prime" qualifier is
+%%% vacuous. The sinc^2 zeros do not distinguish primes from
+%%% composites; the prime-specific content must come from a First-G
+%%% event formulation that is not yet drafted in this manuscript.
+%%%
+%%% ACTION: this manuscript is retained as a working draft; a
+%%% rewrite to a non-trivial prime-specific statement (the First-G
+%%% event replacement theorem sketched in
+%%% Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md sec.4) is required
+%%% before any Integers submission. Do NOT submit in current form.
+%%% === END PULL-BACK NOTICE ===
 %%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
@@ -40,8 +56,8 @@
 
 \date{\today}
 
-\keywords{sinc function, prime arithmetic, corridor, loop closure,
-pair correlation, Fourier coefficients}
+\keywords{sinc function, prime arithmetic, divisibility,
+Fourier coefficients}
 
 \subjclass[2020]{11A41, 11N05, 42A16}
 
@@ -169,15 +185,15 @@ $\sinc^2(4/7)\approx 0.295<1/2$, so the fold crosses between
 $k=3$ and $k=4$.
 \end{proof}
 
-\begin{corollary}[No Shortcut]\label{cor:noshortcut}
-There is no $k\in\{1,\dots,p-1\}$ with $\sinc^2(k/p)=0$. Every
-interior position must be traversed to reach the zero at $k=p$.
+\begin{corollary}[No interior zero]\label{cor:noshortcut}
+For every prime $p$ and every integer $k$ with $1\le k\le p-1$,
+$\sinc^2(k/p)\neq 0$.
 \end{corollary}
 
 \begin{proof}
-Immediate from Theorem~\ref{thm:main}, restated as a lower bound:
-any path from the corridor entrance to the $\sinc^2$ null has
-length at least $p-1$.
+Immediate from Theorem~\ref{thm:main}: the biconditional
+$\sinc^2(k/p)=0\iff p\mid k$ rules out any interior $k$ with
+$1\le k\le p-1$, since $p\nmid k$ for $k$ in that range.
 \end{proof}
 
 %% -------- section 4: boundary value --------

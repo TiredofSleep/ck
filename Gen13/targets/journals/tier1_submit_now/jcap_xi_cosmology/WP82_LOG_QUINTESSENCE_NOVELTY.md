@@ -61,7 +61,15 @@ Four searches were executed on arXiv with queries:
 
 **Conclusion:** The specific combination (dimensionless scalar, $V = \kappa \Xi \log \Xi$, exact analytic vacuum $\Xi_0 = e^{-1}$, Gibbs-entropy identification, freezing $w \to -1$ from above without phantom crossing) does not appear in the indexed literature. The novelty claim in §1 Form D is sustained.
 
-**Residual risk:** `astro-ph.CO` preprints since 2025-10 have not been exhaustively swept; a final sweep at camera-ready stage is still required. The closest prior, arXiv:1201.4544, should be cited in the camera-ready body to acknowledge the adjacent "logarithmic dark energy" language even though it describes a different class of object.
+**Residual risk (discharged 2026-04-19):** A 17-query DR2-era sweep (DR2 window 2025-10 → 2026-04, full log at `Atlas/DESI_DR2_SWEEP_2026_04_19.md`) confirms that no DR2-era preprint proposes $V(\Xi) = \kappa_\Xi \Xi \log \Xi$ as a quintessence potential. The closest DR2-era $V(\phi)$ surveys (arXiv:2509.13302, 2603.14693, 2502.06929) enumerate exponential, shifted-tanh, hilltop, quadratic, quartic, double well, cosine, Gaussian, inverse-power families — none include a logarithmic family. The Wang/Koussour parametrization (arXiv:2304.05807, EPJC 2023) remains a $\rho(z)$ construction, not a $V(\phi)$ potential. The closest prior, arXiv:1201.4544, remains cited in the camera-ready body.
+
+**DR2-era ADJACENT citations (add to camera-ready bibliography):**
+- DESI Collaboration (2025). *DESI DR2 results. II. Measurements of baryon acoustic oscillations and cosmological constraints.* arXiv:2503.14738; Phys. Rev. D 112:083515. [DR2 anchor; supplements DESI2024VI.]
+- Wang, S., Li, T.-N., Liu, T. & Du, G.-H. (2026). *Model-Independent Reconstruction of Quintessence Potential and Kinetic Energy from DESI DR2 and Pantheon+ Supernovae.* arXiv:2603.21125. [DR2-era model-independent V(φ) reconstruction; reports thawing preference, contrasted with our freezing model.]
+- Adil, S.A., Zapata, M.A., Akarsu, Ö. & Vazquez, J.A. (2026). *Background-level reconstruction of scalar-field potentials from dark-energy histories and comparison with analytic potential families.* arXiv:2603.14693. [DR2-era V(φ) family ranking via Bayesian evidence; exponential / shifted-tanh / hilltop tested — logarithmic family absent, motivating our extension.]
+- Brisbane, A. (2025). *Comparing Minimal and Non-Minimal Quintessence Models to 2025 DESI Data.* arXiv:2509.13302. [DR2-era V(φ) survey: quadratic, quartic hilltop, double well, cosine, Gaussian, inverse power — logarithmic family absent.]
+- Turyshev, S.G. (2026). *Dark Energy After DESI DR2: Observational Status, Reconstructions, and Physical Models.* arXiv:2602.05368. [Review of DR2 implications for DE models.]
+- Bhattacharya, S. & Bayat, Z., et al. (2025). *Scalar field dark energy models: Current and forecast constraints.* arXiv:2502.06929. [DR2-era benchmark: thawing $w_\phi$CDM gives $w_0 = -0.837^{+0.044}_{-0.045}$ at BAO+SN, 3.6σ from ΛCDM.]
 
 ---
 

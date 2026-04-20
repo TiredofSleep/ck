@@ -5,18 +5,9 @@
 **Sprint**: 15 — σ Mutation (Rate Theorem)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
----
-
-## Precursor Work (Cited)
-
-This theorem extends work originating in the Q-series (Brayden Ross Sanders, 2026-04-01):
-
-- **Q10 (Sanders, 2026-04-01)** — "Beta-Complete Sigma Polynomial": Established σ on Z/10Z as a closed-form polynomial map on F₂ × F₅ with flip condition α and step condition β (including two forced exceptions LATTICE +1, COLLAPSE −2). Verified 10/10 computationally. Path: `old/Gen10/papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md`.
-- **Q11 (Sanders, 2026-04-01)** — "Sigma-k Iterates Gate": Fixed-Point Gate Theorem establishing the 22% lower bound on optimal seeds: gate_score = 1 iff starting state is σ-fixed AND coprime to 10. Path: `old/Gen10/papers/Q11_SIGMA_K_ITERATES_GATE.md`.
-- **Q14 (Sanders, 2026-04-01)** — Theorem Q14.1: R ≠ σ^k; the reduction map used in MCMC is not a power of σ. This is the layer-separation insight: σ describes the peak of the landscape; MCMC describes the climb.
-- **G6 (Luther, 2026-04-01)** — Proof of σ⁶ = id from the polynomial structure. Path: `old/Gen10/papers/`.
-
-**The present theorem** (σ(N) ≤ C/N for binary CL on Z/NZ) extends Q10's polynomial form to primorial N by replacing the specific TSML/ECHO semantic rules with the binary-CL construction (HARMONY = N−1, ECHO = DIS(a,b) = 0, VOID = 0, DEFAULT = HARMONY). The 22% lower bound (Q11) and the C/N upper bound (this paper) jointly characterize binary CL's associativity profile. See `Q_SERIES_INTEGRATED_SYNTHESIS.md` at the repo root for the full relationship.
+> **Atlas cross-reference:** External citations (Bialynicki-Birula-Mycielski 1976 separability uniqueness; CRT per Lang 2002; asymptotic enumeration per Flajolet-Sedgewick 2009) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.8 scalar field theory). Internal anchors (σ rate theorem σ(N) ≤ C/N with C < 2, binary CL non-associativity, BB forcing corollary, N → ∞ log-nonlinearity) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§σ rate / §binary CL / §BB bridge). DOI: 10.5281/zenodo.18852047.
+>
+> **Readiness flag:** [fire — submit-ready] · **Tier 1** (submit-now) · Sprint 34 "Ship the First Three" · σ(N) ≤ C/N with C < 2 PROVED · proof_sigma_rate.py verifies to N = 10^5 · BB corollary is STRUCTURAL (separability hypothesis explicit per WP90 tightening).
 
 ---
 
@@ -94,3 +85,59 @@ This theorem closes the gap between "σ → 0 observed numerically" and "σ → 
 4. Bialynicki-Birula (1976) for the limit identification
 
 No heavy machinery. The result is sharp enough to confirm convergence and identify the mechanism: the ECHO fraction vanishes as 1/N because the number of additive-multiplicative agreement points (φ(N)) grows slower than the total pair count (N²).
+
+---
+
+## References
+
+### Classical Number Theory and Algebra
+- Gauss, C.F. (1801). *Disquisitiones Arithmeticae*. Leipzig. (CRT, cyclotomic polynomials)
+- Euler, L. (1763). "Theoremata arithmetica nova methodo demonstrata." (Totient function)
+- Hardy, G.H. & Wright, E.M. (2008). *An Introduction to the Theory of Numbers*, 6th ed. Oxford University Press.
+- Ireland, K. & Rosen, M. (1990). *A Classical Introduction to Modern Number Theory*, 2nd ed. Springer GTM 84.
+- Lang, S. (2002). *Algebra*, 3rd ed. Springer GTM 211.
+- Dummit, D.S. & Foote, R.M. (2004). *Abstract Algebra*, 3rd ed. Wiley.
+- Birkhoff, G. (1940). *Lattice Theory*. AMS Colloquium Publications 25.
+- Ore, O. (1942). "Theory of equivalence relations." Duke Math. J. 9:573-627.
+
+### Non-Associative Combinatorics / Quasigroup Associativity Rate (added 2026-04-19)
+- Kepka, T. (1980). "A note on associative triples of elements in cancellation groupoids." *Comment. Math. Univ. Carolin.* 21(3):479-487. [Universal lower bound $a(Q) \ge n$ on associative-triple counts in order-$n$ quasigroups; this paper establishes the $1/n$ scale that our $\sigma(N) \le C/N$ rate sits on.]
+- Drápal, A. & Kepka, T. (1985). "Group distances of Latin squares." *Comment. Math. Univ. Carolin.* 26(2):275-283. [Classical supporting reference for the Kepka lower bound.]
+- Drápal, A. & Lisoněk, P. (2020). "Maximally nonassociative quasigroups via quadratic orthomorphisms." *Algebraic Combinatorics* 3(3):695-717. [The **opposite** extremum: $\sigma \to 1$ via maximally nonassociative quasigroups. Establishes that the $\sigma$ landscape is populated at both ends.]
+- Drápal, A. & Wanless, I.M. (2021). "Maximally nonassociative quasigroups from finite fields." *J. Combin. Theory Ser. A* 181:105444. [JCT-A precedent for our venue; confirms that non-associativity density questions are a live topic in that journal.]
+- Kotlář, D., Stones, D.S., Stones, R.J. & Stones, E. (2023). "Cuboctahedra in Latin squares." *Discrete Math.* 346(1):113119. [Gives a $\Theta(n^{4})$ count of cuboctahedra in Latin squares of order $n$, which translates to a non-associativity density of the same order $1/n$ as our $\CL_N$ result; matches the rate but on a different object.]
+
+### Spectral / Analytic Number Theory
+- Riemann, B. (1859). "Über die Anzahl der Primzahlen unter einer gegebenen Größe." Monatsber. Berlin. Akad.
+- Montgomery, H.L. (1973). "The pair correlation of zeros of the zeta function." Proc. Sympos. Pure Math. 24:181-193.
+- Shannon, C.E. (1949). "Communication in the presence of noise." Proc. IRE 37(1):10-21.
+- Goldston, D.A., Pintz, J. & Yildirim, C.Y. (2009). Annals of Math. 170(2):819-862.
+- Zhang, Y. (2013). "Bounded gaps between primes." Annals of Math. 179(3):1121-1174.
+- Maynard, J. (2015). "Small gaps between primes." Annals of Math. 181(1):383-413.
+
+### Paradoxes and Foundations
+- Russell, B. (1903). *The Principles of Mathematics*. Cambridge University Press.
+- Godel, K. (1931). "Uber formal unentscheidbare Satze der Principia Mathematica." Monatsh. Math. Phys. 38:173-198.
+- Tarski, A. (1936). "Der Wahrheitsbegriff in den formalisierten Sprachen." Studia Philosophica 1:261-405.
+- Banach, S. & Tarski, A. (1924). "Sur la decomposition des ensembles de points." Fundamenta Mathematicae 6:244-277.
+- Quine, W.V. (1953). "On a so-called paradox." Mind 62:65-67.
+- Zermelo, E. (1908). "Untersuchungen uber die Grundlagen der Mengenlehre." Math. Annalen 65:261-281.
+
+### Bialynicki-Birula and Logarithmic Wave Equations
+- Bialynicki-Birula, I. & Mycielski, J. (1976). "Nonlinear wave mechanics." Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
+- Cazenave, T. & Haraux, A. (1980). "Equations d'evolution avec non linearite logarithmique." Ann. Fac. Sci. Toulouse.
+- Hoegh-Krohn, R. (1971). "A general class of quantum fields without cut-offs." Commun. Math. Phys. 38(3):195.
+
+### Discrete-to-Continuum Transport (Wasserstein / Markov)
+- Jordan, R., Kinderlehrer, D. & Otto, F. (1998). SIAM J. Math. Anal. 29(1):1-17.
+- Maas, J. (2011). "Gradient flows of the entropy for finite Markov chains." J. Funct. Anal. 261(8):2250-2292.
+- Gigli, N. & Maas, J. (2013). SIAM J. Math. Anal. 45(2):879-899.
+- Chow, S.-N., Huang, W., Li, Y. & Zhou, H. (2012). Arch. Rat. Mech. Anal. 203(3):969-1008.
+
+### TIG Framework (Novel — internal)
+- Sanders, B.R. et al. (2026). TIG / CK / Crossing Lemma / sigma framework. 7Site LLC. DOI: 10.5281/zenodo.18852047.
+- GitHub: github.com/TiredofSleep/ck (clay branch). See [GLOSSARY.md](../../../GLOSSARY.md) and [HISTORICAL_ARCHIVE_INDEX.md](../../../HISTORICAL_ARCHIVE_INDEX.md).
+
+### Citation Discipline
+Every term in this paper is either cited to published literature above, or explicitly flagged [NOVEL — extends X] with the prior framework identified. For full glossary, see [GLOSSARY.md](../../../GLOSSARY.md) at the repo root.
+
