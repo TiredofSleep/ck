@@ -217,10 +217,13 @@ required before submission email is sent.
 
 ## §8 — Open Items / Not Fixed This Round
 
-1. **Track 2.3 CROSSING_LEMMA_EXPORT_V1** — deferred; requires Sprint 8 AVFT + Productive Incompleteness + WP57 inputs. Not blocking Wednesday.
-2. **Optional DR2 re-fit** — if Brayden wants to convert "DR1-bounded" → "DR2-confirmed" before Wednesday, run `desi_xi_optimize.py` against public DR2 chains (2025-10-06 release). ~60 min of compute + fit validation.
-3. **Cover letter finalization** — venues 7 + 8 templates are in `cover_letter_template.md`; need Brayden's signature-line review before submit.
-4. **Sprint 35** — First-G Event paper rewrite for next-cycle Integers submission (replaces pulled venue 1).
+1. **Track 2.3 CROSSING_LEMMA_EXPORT_V1** — deferred; requires Sprint 8 AVFT + Productive Incompleteness + WP57 inputs. Not blocking Wednesday. **STATUS: OPEN.**
+
+2. **Optional DR2 re-fit** — **DISCHARGED 2026-04-19 (post-push, commit `954cc7d`).** `desi_xi_optimize.py` re-run at summary-statistic level reproduces JCAP §4 numbers: $\chi^2 = 3.059$ (paper 3.1), $w_0 = -0.7951$ (paper −0.80), $w_a = -0.2980$ (paper −0.30). The DR1-bounded label in the submitted paper is accurate and the DR2-era citations in WP82 §1 discharge the "residual risk" framing. A deeper raw-chain MCMC against the public DR2 chains is deferred to a companion numerical note post-submission. See `Atlas/DESI_DR2_SWEEP_2026_04_19.md` §6 for the discharge record.
+
+3. **Cover letter finalization** — venues 7 + 8 templates reviewed 2026-04-19 and are audit-consistent; addressee lines pending Brayden's final review before the Wednesday submission emails go out.
+
+4. **Sprint 35** — **DRAFT-COMPLETE 2026-04-19 (commit `954cc7d`).** First-G Event paper for next-cycle Integers submission materialized at `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/` (with Gen12 byte-identical mirror). Theorem: for $b > 1$ with smallest prime factor $p_1$, $|G_k(b)| = 0$ for $k < p_1$ and $G_{p_1}(b) = \{p_1\}$. 3-line elementary proof, four corollaries, verification on 305 squarefree $b \le 500$ (22,367 $(b,k)$ pairs, 0 exceptions, <3 s). Ships **next cycle** (2026-04-29 or 2026-05-06) — **not 2026-04-22**. See `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md`.
 
 ---
 

@@ -9,6 +9,10 @@
 
 > **2026-04-19 pre-push audit addendum:** Sprint 34 Tier-1 queue reduced from 3 venues to 2. Venue 1 (Integers, sinc² zero law) is **pulled back** due to Theorem 1 triviality (biconditional holds for all $n$, not only primes; see `Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md` and `Atlas/PRE_PUSH_DECISION_2026_04_19.md`). Venue 7 (JCAP, ξ cosmology) and venue 8 (JCT-A, σ rate theorem) continue on the 2026-04-22 target, with Atlas-derived rigor edits applied (see `PRE_PUSH_DECISION_2026_04_19.md §5` for the ship table). Overall Tier-1 ship count for Sprint 34: **2 papers**, not 3.
 
+> **2026-04-19 Sprint 35 addendum:** Sprint 35 (First-G Event paper, venue-1 replacement) is **DRAFT-COMPLETE** and committed to `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/` (commit `954cc7d`, byte-identical mirror at Gen12). Theorem is the algebraic First-G Event Localization statement from `SINC2_SHARPEN_DECISION_2026_04_19.md §4`: for $b > 1$ with smallest prime factor $p_1$, $|G_k(b)| = 0$ for every $k < p_1$, and $G_{p_1}(b) = \{p_1\}$. Verification: 305 squarefree $b \le 500$, 22,367 $(b,k)$ pairs, 0 exceptions. Target venue: *Integers — Electronic Journal of Combinatorial Number Theory*; backup *J. Combin. Theory Ser. A*. **Ship window:** 2026-04-29 or 2026-05-06 (next-cycle, **not** 2026-04-22). See `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md` for the checklist and failure-mode analysis.
+
+> **2026-04-19 DR2 re-fit discharge:** Pre-push decision §8 item 2 ("optional DR2 re-fit") discharged. `desi_xi_optimize.py` re-run reproduces JCAP §4 summary-statistic numbers ($\chi^2 = 3.059$ vs paper 3.1; $w_0 = -0.7951$; $w_a = -0.2980$). Venue 7 ships as-is; deeper raw-chain MCMC deferred to a companion numerical note. See `Atlas/DESI_DR2_SWEEP_2026_04_19.md §6`.
+
 ---
 
 ## §0. Purpose

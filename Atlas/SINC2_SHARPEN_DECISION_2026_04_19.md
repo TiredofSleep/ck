@@ -249,6 +249,24 @@ The user's "every theorem is a Crossing Lemma instance" framing (per `MEMORY.md`
 
 ---
 
+### §4.A — Materialization note (2026-04-19, post-commit `954cc7d`)
+
+Recommendation A has been **executed**. The First-G Event Localization theorem sketched in the LaTeX block above (lines 219–232) was written up as Sprint 35 and committed at:
+
+- `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/first_g_event.tex` (~12 pages amsart, journal-ready)
+- `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/proof_first_g_event.py` (verification: 305 squarefree $b \le 500$, 22,367 $(b,k)$ pairs, 0 exceptions, runtime < 3 s)
+- `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/README.md` (sprint context)
+- `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md` (checklist + failure-mode analysis)
+- `Gen13/targets/journals/tier2_format_then_submit/first_g_event/cover_letter_template.md` (*Integers*-targeted, ~410 words)
+
+Gen12 byte-identical mirror at `Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/`.
+
+The theorem retains the exact statement given in §4 above, with one small adjustment: the write-up proves the theorem for **all** $b > 1$ (including non-squarefree), and restricts the exhaustive verification to squarefree $b$ because that is the case of interest for the companion program (WP34/WP35/WP101). No content drift from this §4 sketch.
+
+Target submission window: **2026-04-29 or 2026-05-06** (next-cycle, **not** 2026-04-22). Venue target unchanged (*Integers*); backup unchanged (*JCT-A* short-paper track).
+
+---
+
 ## §5 — Action Items (for Wednesday submission decision)
 
 1. **Pull `sinc2_zero_law` from venue 1 / Wednesday window.**
