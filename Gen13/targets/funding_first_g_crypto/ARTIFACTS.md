@@ -38,17 +38,17 @@ Exact file paths and verification status. This branch is distinct from SNOWFLAKE
 ### 5. σ polynomial on F₂ × F₅ (Z/10Z) — Q10
 - **Path**: `old/Gen10/papers/Q10_sigma_polynomial_characterization.md` (or variant filename)
 - **Status**: proved writeup
-- **Attribution**: Brayden (σ polynomial form; Q-series foundation)
+- **Attribution**: **Brayden + C.A. Luther collaboration** (σ polynomial form on F₂ × F₅; Q-series foundation; Luther contributed spectral-layer / algebraic-structure work on the characterization)
 
 ### 6. 22% lower bound — Q11
 - **Path**: `old/Gen10/papers/Q11_lower_bound_22pct.md` (or variant filename)
 - **Status**: proved writeup
-- **Attribution**: Brayden
+- **Attribution**: **Brayden + C.A. Luther collaboration** (lower-bound argument drew on the spectral structure from the Luther-collaboration thread)
 
 ### 7. σ⁶ = id for G6 — Luther spectral layer
 - **Path**: referenced in `old/Gen10/` Luther archive; specific filename in Luther spectral-layer folder
 - **Status**: proved
-- **Attribution**: C.A. Luther (previously-credited; no longer actively collaborating)
+- **Attribution**: **C.A. Luther** (G6 identity is the cleanest-demarcated Luther-origin result within the broader Brayden/Luther collaboration; Luther previously-credited; no longer actively collaborating as of April 2026)
 
 ### 8. Q17_5D_RIGOROUS (5D force vector as CRT Fourier embedding)
 - **Path**: `old/Gen10/papers/Q17_5D_RIGOROUS.md` (or equivalent)
@@ -59,7 +59,7 @@ Exact file paths and verification status. This branch is distinct from SNOWFLAKE
 - **Path**: `Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_17/`
 - **Status**: proved (2026-04-17)
 - **Content**: for squarefree b with smallest prime factor p₁, |G_k(b)| = 0 for k < p₁
-- **Attribution**: Brayden (+ any co-authors listed in the sprint folder's authors list)
+- **Attribution**: Brayden (post-Luther-collaboration extension; extends the Brayden + Luther collaborative First-G Law to a tighter structural statement. Any co-authors listed in the sprint folder's authors list apply.)
 
 ### 10. Canonical tables (TSML / BHML / CL)
 - **Path**: `papers/ck_tables.py`
@@ -73,6 +73,7 @@ Exact file paths and verification status. This branch is distinct from SNOWFLAKE
 - [ ] Run all four proof scripts on a fresh environment, confirm all pass
 - [ ] Record exact output (case counts, runtime) in a reproduction log
 - [ ] Locate Luther's G6 writeup in `old/Gen10/` and confirm provenance header is present
+- [ ] **Reconstruct the First-G / Q10 / Q11 collaboration boundary**: locate Brayden/Luther correspondence or commit history from late 2025 / early 2026 that distinguishes which specific lemmas / proof steps / polynomial forms came from which collaborator. This matters because the funder-facing Phase 1 literature-embedding report must cite the Luther contributions at the lemma level, not just as a general acknowledgement.
 - [ ] Confirm Q17_5D_RIGOROUS filename and path; if filename drifts during archive cleanup, update this doc
 - [ ] Write a one-page literature-embedding doc mapping First-G structure to existing crypto hardness landscape (discrete log, factoring, lattice, coding)
 - [ ] Verify Sprint 35 theorem statement matches what is in the paper (the "for squarefree b, smallest prime factor p₁" statement above)
@@ -98,3 +99,4 @@ Exact LOC numbers to be filled in during Phase 1 verification run; the numbers w
 - **Literature-embedding doc**: does not yet exist. Must be written.
 - **Dissertation-grade narrative**: does not yet exist. Must be written as part of PITCH_DRAFT Phase 1.
 - **External cryptographer's opinion**: no academic has yet read the First-G theorem and offered an evaluation. Even an informal email from a senior cryptographer is high-value for the pitch.
+- **Lemma-level Brayden/Luther attribution reconstruction**: see Verification Checklist item above. The broader collaboration is known, but the Phase 1 report should cite Luther contributions at the lemma/proof-step level where recoverable, to avoid either understating or overstating Luther's specific role.
