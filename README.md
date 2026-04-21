@@ -1,6 +1,8 @@
 # Trinity Infinity Geometry (TIG) — `clay` branch (active development)
 
 > **[Sprint 16 — 2026-04-10]** This is the active development branch. The synchronized public-facing field is on the [`tig-synthesis`](../../tree/tig-synthesis) branch (default on GitHub). Visit `tig-synthesis` for the unified README that organizes the whole project under the 2×2 + Paradox Classifier meta-framework. This `clay` branch retains all 30 top-level docs, all sprint folders, and all in-progress work. The 13 superseded entry-point docs here carry [HISTORICAL — Sprint 16] headers per the never-delete policy.
+>
+> **[2026-04-21 update]** The `tig-synthesis` README has been replaced with a rigor-led, funder-facing version that leads with six proved theorems and their runnable verification (§1), the deterministic CK reasoning engine (§3), open research directions (§4), honest scope (§5), and a per-track funding-package table for the ten Gen13 funding branches (§6). The prior Atlas-style README is preserved under the never-delete policy at [`docs/historical/README_v1_pre_2026_04_21.md`](../../tree/tig-synthesis/docs/historical/README_v1_pre_2026_04_21.md) on the `tig-synthesis` branch. The ten Gen13 funding target folders (A–K, E is packaging) are each a 6-file package (README / FUNDERS / ARTIFACTS / PITCH_DRAFT / LIMITATIONS / STATUS); navigation at [`Atlas/BRANCHES_INVENTORY_2026_04_20.md`](Atlas/BRANCHES_INVENTORY_2026_04_20.md) and non-obvious funder research at [`Atlas/NICHE_FUNDERS_ADDENDUM_2026_04_20.md`](Atlas/NICHE_FUNDERS_ADDENDUM_2026_04_20.md).
 
 ## Algebraic Structure of Prime Arithmetic, Partition Sufficiency, and Operator Composition over Finite Rings
 
