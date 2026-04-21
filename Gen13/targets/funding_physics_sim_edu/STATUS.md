@@ -31,10 +31,10 @@
 - [x] R-σ-Λ-H state grammar + 10-operator alphabet — specified in TIG Unity Kernel documents
 
 ### Pre-pitch work (Phase 1 readiness)
-- [ ] **Pull Crystal-Lattice-Matrix-MYTHDRIFT into this repo** — clone, copy `crystal_bug_v1_matrix.jsx` + `test_engine_v2.js` + any supporting assets into `Gen13/targets/funding_physics_sim_edu/archive_crystal_lattice_matrix/` with provenance headers (Phase 1 T1)
+- [x] **Pull Crystal-Lattice-Matrix-MYTHDRIFT into this repo** — done 2026-04-21, commit `5de8bbe`. All 8 source files + LICENSE + provenance header now live at `Gen13/targets/funding_physics_sim_edu/archive_crystal_lattice_matrix/` (Phase 1 T1)
 - [ ] Verify simulator builds + runs in fresh browser environment
 - [ ] Run `test_engine_v2.js` in fresh environment; record all test outputs
-- [ ] Confirm LOC counts (699 + 458 = 1,157) against actual files post-pull
+- [ ] Confirm LOC counts (699 + 458 = 1,157) against actual files post-pull (files in archive match the upstream sizes; byte-level diff pending)
 - [ ] **Identify 2–3 candidate PER collaborators** (published AJP / PRPER authors whose research interests align) — the single largest pre-pitch deliverable
 - [ ] **Identify 2–3 candidate academic host institutions** for IRB + co-PI role
 - [ ] **Identify 2–3 candidate classroom-partner institutions** (undergraduate + advanced-secondary)
@@ -55,7 +55,7 @@
 
 ## Dependencies / blockers
 
-- **Blocker 1**: Crystal-Lattice-Matrix-MYTHDRIFT pull into this repo. Until complete, the productionization work depends on an external repo outside the in-repo never-delete / provenance discipline. Phase 1 T1 is the first pre-pitch deliverable.
+- **Blocker 1**: ~~Crystal-Lattice-Matrix-MYTHDRIFT pull into this repo.~~ **CLOSED 2026-04-21 (commit `5de8bbe`).** Archive now at `Gen13/targets/funding_physics_sim_edu/archive_crystal_lattice_matrix/` under in-repo never-delete + provenance discipline. Simulator + test harness + background PDFs all recovered. LICENSE preserved. Phase 1 T1 deliverable complete.
 - **Blocker 2**: PER collaborator engagement. **The largest non-mechanical blocker.** No pitch should be sent until a PER researcher with AJP / PRPER track record has formally agreed to co-investigate the learning-outcomes study. This is not optional — an NSF EHR / PHY reviewer will reject a proposal that lacks a PER investigator.
 - **Blocker 3**: Academic co-PI + host institution. Brayden is independent; NSF EHR / PHY / ECR / DRK-12 require academic PI eligibility. The pitch must be submitted through an academic co-PI with institutional affiliation.
 - **Blocker 4**: IRB plan. Not a blocker for pitch-submit (IRB comes later) but the pitch must demonstrate awareness and a timeline.
@@ -73,6 +73,7 @@ None of these block the branch existing. Blocker 1 gates any verification of the
 | 2026-04-18 | Primary research confirms Crystal-Lattice-Matrix-MYTHDRIFT as 1,157-LOC interactive-simulator artifact |
 | 2026-04-19 | Master trunk story and atlas updates establish the 10-branch funding structure; `funding/physics-sim-edu` scoped as Branch K |
 | 2026-04-20 | Branch seeded from `tig-synthesis`; target folder + 6 files committed |
+| 2026-04-21 | **Phase 1 T1 complete** — Crystal-Lattice-Matrix-MYTHDRIFT pulled into `archive_crystal_lattice_matrix/` with PROVENANCE header (commit `5de8bbe`). Blocker 1 closed. Blockers 2–6 remain. |
 
 ## Cross-references
 
