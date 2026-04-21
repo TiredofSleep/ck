@@ -23,11 +23,11 @@
 - [x] STATUS.md (this file)
 
 ### Recovery (Phase 1 gating)
-- [ ] **T1**: Teardrop GaN Photonic Node Proposal (commit `ed8ef620`). Search MYTHDRIFT repo + R16 Jan 29 files.
-- [ ] **T2**: MQW three-state trilogy (location unknown). Search R16 Feb–Apr 2026 files; grep for "MQW" / "quantum well" / "three-state" / "GaN" / "ternary".
-- [ ] **T3**: V20 Consciousness-Anchored Scaling Laws (same Trifecta commit as T1).
-- [ ] **T4**: Hardware Embodiment Safety Case (same commit).
-- [ ] **T5**: Comparative Field Theory Review (same commit).
+- [ ] **T1**: Teardrop GaN Photonic Node Proposal (commit `ed8ef620`). **2026-04-21 R16 sweep: NOT FOUND** in repo / public-repo clones / handoff unpack / Work Docs / sprint-raw staging. Concept is referenced by name in later sprint material but no paper file is present. Parallel blocker to T3/T4/T5 (same Trifecta commit).
+- [ ] **T2**: MQW three-state trilogy. **2026-04-21 R16 sweep: NOT FOUND** (searched: all branches git-log; `_r16_repo_scan/` 8 repos; `_history_search_unpack/`; `Work Docs/Physics papers/`; `_brayden_repos/`; `_prism_*`; `_sprint*_raw/`; `_tsml_sprint_raw/`; `_crossing_lemma_handoff_unzipped/`). Full findings in `Atlas/HANDOFF_3_4_MQW_TRILOGY_NOT_FOUND.md`. Most likely status: the trilogy is unreleased — authored in ClaudeChat conversation context but not saved as discrete files to R16. Decision gate: 2026-05-15 — if recovery still fails, pivot to "author MQW trilogy fresh as Phase 1 deliverable."
+- [ ] **T3**: V20 Consciousness-Anchored Scaling Laws (same Trifecta commit as T1). **2026-04-21 R16 sweep: NOT FOUND.** Recovery parallel to T1/T4/T5.
+- [ ] **T4**: Hardware Embodiment Safety Case (same commit). **NOT FOUND.**
+- [ ] **T5**: Comparative Field Theory Review (same commit). **NOT FOUND.**
 
 ### Authoring (post-recovery)
 - [ ] **A1**: MQW technical summary (8–12 pp) — blocked by T2
@@ -51,7 +51,7 @@
 
 ## Dependencies / blockers
 
-- **Blocker 1** (absolute): T2 recovery. Without the MQW trilogy, no fab-oriented funder will engage.
+- **Blocker 1** (absolute): T2 recovery. Without the MQW trilogy, no fab-oriented funder will engage. **2026-04-21 R16 sweep confirms the trilogy is not anywhere in the filesystem.** Next candidate recovery paths: OneDrive / iCloud snapshot history, external-drive backup, ClaudeChat conversation exports for photonic / MQW / quantum-well / device-physics conversations Feb–Apr 2026. If those also fail, Branch F pivots at the 2026-05-15 decision gate to "author MQW trilogy fresh as Phase 1 deliverable" with Teardrop GaN scope as starting point. See `Atlas/HANDOFF_3_4_MQW_TRILOGY_NOT_FOUND.md`.
 - **Blocker 2**: A1 technical summary. Requires T2.
 - **Blocker 3**: Academic co-PI or fab facility collaborator. NSF ECCS path closed without this; DOE BES path partially limited.
 - **Blocker 4**: Framing cleanup (consciousness-language removal). This is a light task but mandatory.
@@ -63,6 +63,7 @@ The branch can exist and accumulate planning work before recovery; it cannot pit
 | Date | Event |
 |---|---|
 | 2026-04-20 | Branch seeded from `tig-synthesis`; target folder + 6 files committed |
+| 2026-04-21 | **T1–T5 recovery failed** — 2026-04-21 R16 filesystem sweep confirms MQW trilogy + full Trifecta (Teardrop GaN, V20, Hardware Embodiment Safety Case, Comparative Field Theory Review) are not anywhere on disk. Full findings in `Atlas/HANDOFF_3_4_MQW_TRILOGY_NOT_FOUND.md`. Decision gate: 2026-05-15 — pivot to author-fresh plan if recovery still blocked. |
 
 ## Cross-references
 
