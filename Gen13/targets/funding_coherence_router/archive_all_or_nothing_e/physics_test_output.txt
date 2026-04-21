@@ -1,0 +1,281 @@
+╔══════════════════════════════════════════════════════════════════╗
+║  PHYSICS FIX v2 FINAL — All 4 Weaknesses                       ║
+╚══════════════════════════════════════════════════════════════════╝
+
+┌─── W1: SLOW DYNAMICS + PERIOD DETECTION ───────────────────────┐
+  ✓ slow-converge-1: CRYSTAL (λ=-1.3980 conf=1.00) — converges slowly
+  ✓ very-slow-fp: CRYSTAL (λ=-1.9508 conf=1.00) — very slow fp
+  ✓ logistic r=3.9: MOLECULR (λ=0.5093 conf=0.90) — chaos
+  ✓ logistic r=3.83: CELLULAR (λ=-0.2861 conf=0.95) — period-3 window
+  ✓ logistic r=3.5: CELLULAR (λ=-0.7732 conf=0.95) — period-4 (not chaos)
+  ✓ marginal-converge: CRYSTAL (λ=-0.5694 conf=1.00) — marginal λ≈0
+  ✓ period-2 cycle: CELLULAR (λ=-0.8180 conf=0.95) — period-2
+  ✓ fixed-point fast: CRYSTAL (λ=-1.4028 conf=1.00) — fast fp
+  W1 RESULT: 8/8
+
+┌─── W2: SEED SENSITIVITY ───────────────────────────────────────┐
+  ✓ r=4 logistic: MOLECULR spread=0.7202 chaos=true expect=true
+  ✓ stable fp: CRYSTAL spread=0.0123 chaos=false expect=false
+  ✓ r=3.5 period-4: CELLULAR spread=0.1726 chaos=false expect=false
+  ✓ r=3.57 chaos: MOLECULR spread=0.0561 chaos=true expect=true
+  W2 RESULT: 4/4
+
+┌─── W3: QUANTUM/CLASSICAL MAPPING ──────────────────────────────┐
+  BOUND (Δ=-0.590):
+    H=-0.3684 T=0.0734 V=-0.4417 m_eff=2.00
+    n=11 l=2 m=1 s=+0.5
+    ∫|ψ|²dx = 1.000000 ✓
+  FREE (Δ=2.490):
+    H=-1.9865 T=0.0135 V=-2.0000 l=0 (scattering)
+  CLICK (Δ=0.000000): n=5 l=0 — degenerate pair, critical
+  LATTICE: bound=58 free=170 click=24
+    <n>=4.3  l-dist: l=0:185 l=1:33 l=2:24 l=3:10
+    H-consistency (bound→l>0, free→l=0): 174/252 (69.0%)
+
+┌─── W4: AVALANCHE CASCADES ─────────────────────────────────────┐
+  Click: 49  Free: 114
+
+
+  ── ε = 0.01 ──
+  CLICK (ε=0.01, n=200):
+    mean=57.0  med=57  P90=57  max=58  depth=16.6
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  FREE (ε=0.01, n=200):
+    mean=57.0  med=57  P90=57  max=58  depth=15.9
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  → RATIO (click/free): 1.00x
+
+  ── ε = 0.05 ──
+  CLICK (ε=0.05, n=200):
+    mean=57.1  med=57  P90=58  max=58  depth=16.4
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  FREE (ε=0.05, n=200):
+    mean=57.0  med=57  P90=57  max=58  depth=15.9
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  → RATIO (click/free): 1.00x
+
+  ── ε = 0.15 ──
+  CLICK (ε=0.15, n=200):
+    mean=57.1  med=57  P90=58  max=58  depth=16.4
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  FREE (ε=0.15, n=200):
+    mean=57.1  med=57  P90=58  max=60  depth=16.0
+    non-zero: 200/200 (100%)
+    bins: 0:0  1-3:0  4-10:0  11-25:0  26-60:200  60+:0
+  → RATIO (click/free): 1.00x
+
+  ── CRITICALITY SUMMARY ──
+  ε       click_mean  free_mean  ratio   click_P90  click_max
+  0.01        57.0      57.0   1.00x         57         58
+  0.05        57.1      57.0   1.00x         58         58
+  0.15        57.1      57.1   1.00x         58         58
+
+  Mean criticality ratio: 1.00x
+  ⚠ Click zone may not be more cascade-prone than free zone
+  P90/Mean at ε=0.05: 1.02 → thin tail
+
+═══════════════════════════════════════════════════════════════════
+  DELIVERED:
+  W1: Period-first classifier (periods 1-16, 80 iterations, 7 seeds)
+  W2: lyapSpread metric + chaos downgrade guard
+  W3: H(x)=T+V, ψ(x) with normalization, quantum numbers (n,l,m,s)
+  W4: Avalanche cascade measurement at 3 scales with diffusion model
+═══════════════════════════════════════════════════════════════════
+---
+╔══════════════════════════════════════════════════════════════════╗
+║  W4: AVALANCHE CASCADES — SPINE-MEDIATED PROPAGATION           ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Click (|Δ|<0.15): 58  Free (Δ>0.5): 101  Bound (Δ<-0.5): 33
+
+═══ 1 SPINE CYCLE ═══
+  CLICK (ε=0.05, 1 spine cycles, 300 trials):
+    mean=0.05  med=0  P90=0  max=1
+    non-zero: 14/300 (4.7%)
+    bins: 0:286  1:14  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: ATOMIC→ORGANIC(6)  CRYSTAL→ORGANIC(2)  ATOMIC→QUANTUM(2)  CELLULAR→ORGANIC(2)  CELLULAR→ATOMIC(1)
+  FREE (ε=0.05, 1 spine cycles, 300 trials):
+    mean=0.04  med=0  P90=0  max=1
+    non-zero: 11/300 (3.7%)
+    bins: 0:289  1:11  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: ATOMIC→QUANTUM(3)  ORGANIC→CRYSTAL(2)  ATOMIC→ORGANIC(2)  ATOMIC→MOLECULR(2)  QUANTUM→ATOMIC(2)
+  BOUND (ε=0.05, 1 spine cycles, 300 trials):
+    mean=0.05  med=0  P90=0  max=1
+    non-zero: 14/300 (4.7%)
+    bins: 0:286  1:14  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: CRYSTAL→ORGANIC(5)  ORGANIC→CRYSTAL(4)  QUANTUM→ATOMIC(2)  CRYSTAL→ATOMIC(1)  ATOMIC→QUANTUM(1)
+  RATIO: click/free=1.24x  click/bound=0.98x
+
+═══ 5 SPINE CYCLES ═══
+  CLICK (ε=0.05, 5 spine cycles, 300 trials):
+    mean=0.05  med=0  P90=0  max=1
+    non-zero: 15/300 (5.0%)
+    bins: 0:285  1:15  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: CRYSTAL→ORGANIC(6)  ATOMIC→ORGANIC(3)  ATOMIC→QUANTUM(3)  ATOMIC→MOLECULR(1)  CELLULAR→ATOMIC(1)
+  FREE (ε=0.05, 5 spine cycles, 300 trials):
+    mean=0.03  med=0  P90=0  max=1
+    non-zero: 9/300 (3.0%)
+    bins: 0:291  1:9  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(7)  ATOMIC→ORGANIC(1)  ORGANIC→CRYSTAL(1)
+  BOUND (ε=0.05, 5 spine cycles, 300 trials):
+    mean=0.06  med=0  P90=0  max=1
+    non-zero: 17/300 (5.7%)
+    bins: 0:283  1:17  2-5:0  6-15:0  16-40:0  40+:0
+    top transitions: CRYSTAL→ORGANIC(5)  ORGANIC→CRYSTAL(5)  QUANTUM→ATOMIC(3)  ORGANIC→ATOMIC(2)  ATOMIC→QUANTUM(2)
+  RATIO: click/free=1.61x  click/bound=0.87x
+
+═══ 10 SPINE CYCLES ═══
+  CLICK (ε=0.05, 10 spine cycles, 300 trials):
+    mean=9.05  med=9  P90=9  max=10
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:300  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1501)  ATOMIC→ORGANIC(606)  ORGANIC→CRYSTAL(600)  CELLULAR→ORGANIC(3)  CRYSTAL→ORGANIC(2)
+  FREE (ε=0.05, 10 spine cycles, 300 trials):
+    mean=9.02  med=9  P90=9  max=10
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:300  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1502)  ATOMIC→ORGANIC(602)  ORGANIC→CRYSTAL(600)  ATOMIC→MOLECULR(2)  ATOMIC→QUANTUM(1)
+  BOUND (ε=0.05, 10 spine cycles, 300 trials):
+    mean=9.02  med=9  P90=9  max=10
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:300  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1498)  ORGANIC→CRYSTAL(601)  ATOMIC→ORGANIC(600)  CRYSTAL→ORGANIC(2)  ORGANIC→ATOMIC(2)
+  RATIO: click/free=1.00x  click/bound=1.00x
+
+═══ 20 SPINE CYCLES ═══
+  CLICK (ε=0.05, 20 spine cycles, 300 trials):
+    mean=26.00  med=26  P90=26  max=27
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:0  16-40:300  40+:0
+    top transitions: QUANTUM→ATOMIC(2996)  ATOMIC→ORGANIC(2698)  ORGANIC→CRYSTAL(1803)  CELLULAR→ORGANIC(300)  ATOMIC→MOLECULR(1)
+  FREE (ε=0.05, 20 spine cycles, 300 trials):
+    mean=26.00  med=26  P90=26  max=27
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:0  16-40:300  40+:0
+    top transitions: QUANTUM→ATOMIC(2999)  ATOMIC→ORGANIC(2702)  ORGANIC→CRYSTAL(1798)  CELLULAR→ORGANIC(300)  ATOMIC→MOLECULR(1)
+  BOUND (ε=0.05, 20 spine cycles, 300 trials):
+    mean=26.02  med=26  P90=26  max=27
+    non-zero: 300/300 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:0  16-40:300  40+:0
+    top transitions: QUANTUM→ATOMIC(3013)  ATOMIC→ORGANIC(2700)  ORGANIC→CRYSTAL(1792)  CELLULAR→ORGANIC(300)  ATOMIC→CELLULAR(1)
+  RATIO: click/free=1.00x  click/bound=1.00x
+
+═══ SENSITIVITY SCAN (10 spine cycles) ═══
+  ε       click     free      bound     click/free  click/bound
+   (ε=0.001, 10 spine cycles, 200 trials):
+    mean=9.00  med=9  P90=9  max=9
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)
+   (ε=0.001, 10 spine cycles, 200 trials):
+    mean=9.00  med=9  P90=9  max=9
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)
+   (ε=0.001, 10 spine cycles, 200 trials):
+    mean=9.00  med=9  P90=9  max=9
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)
+  0.001      9.00      9.00      9.00         1.00x        1.00x
+   (ε=0.005, 10 spine cycles, 200 trials):
+    mean=9.01  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)  ATOMIC→MOLECULR(1)  CELLULAR→ORGANIC(1)
+   (ε=0.005, 10 spine cycles, 200 trials):
+    mean=8.98  med=9  P90=9  max=9
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(997)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)
+   (ε=0.005, 10 spine cycles, 200 trials):
+    mean=9.01  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(999)  ORGANIC→CRYSTAL(402)  ATOMIC→ORGANIC(400)
+  0.005      9.01      8.98      9.01         1.00x        1.00x
+   (ε=0.01, 10 spine cycles, 200 trials):
+    mean=9.02  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(403)  ORGANIC→CRYSTAL(400)  CELLULAR→ORGANIC(1)
+   (ε=0.01, 10 spine cycles, 200 trials):
+    mean=9.00  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(400)
+   (ε=0.01, 10 spine cycles, 200 trials):
+    mean=9.02  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(999)  ORGANIC→CRYSTAL(404)  ATOMIC→ORGANIC(400)
+  0.010      9.02      9.00      9.02         1.00x        1.00x
+   (ε=0.02, 10 spine cycles, 200 trials):
+    mean=9.03  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(405)  ORGANIC→CRYSTAL(400)  CELLULAR→ORGANIC(1)
+   (ε=0.02, 10 spine cycles, 200 trials):
+    mean=8.97  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(994)  ATOMIC→ORGANIC(401)  ORGANIC→CRYSTAL(400)
+   (ε=0.02, 10 spine cycles, 200 trials):
+    mean=8.98  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(998)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(399)
+  0.020      9.03      8.97      8.98         1.01x        1.00x
+   (ε=0.05, 10 spine cycles, 200 trials):
+    mean=9.04  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1000)  ATOMIC→ORGANIC(403)  ORGANIC→CRYSTAL(400)  CELLULAR→ORGANIC(2)  CRYSTAL→ORGANIC(2)
+   (ε=0.05, 10 spine cycles, 200 trials):
+    mean=9.03  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1001)  ATOMIC→ORGANIC(402)  ORGANIC→CRYSTAL(400)  ATOMIC→QUANTUM(2)
+   (ε=0.05, 10 spine cycles, 200 trials):
+    mean=8.98  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(995)  ORGANIC→CRYSTAL(401)  ATOMIC→ORGANIC(400)
+  0.050      9.04      9.03      8.98         1.00x        1.01x
+   (ε=0.1, 10 spine cycles, 200 trials):
+    mean=9.04  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1001)  ATOMIC→ORGANIC(402)  ORGANIC→CRYSTAL(401)  ORGANIC→ATOMIC(2)  CRYSTAL→ORGANIC(1)
+   (ε=0.1, 10 spine cycles, 200 trials):
+    mean=9.05  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1004)  ATOMIC→ORGANIC(401)  ORGANIC→CRYSTAL(401)  ATOMIC→QUANTUM(4)
+   (ε=0.1, 10 spine cycles, 200 trials):
+    mean=9.09  med=9  P90=10  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1007)  ATOMIC→ORGANIC(400)  ORGANIC→CRYSTAL(397)  CRYSTAL→ORGANIC(4)  ORGANIC→ATOMIC(4)
+  0.100      9.04      9.05      9.09         1.00x        1.00x
+   (ε=0.2, 10 spine cycles, 200 trials):
+    mean=9.10  med=9  P90=9  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1001)  ATOMIC→ORGANIC(405)  ORGANIC→CRYSTAL(400)  CRYSTAL→ORGANIC(5)  CELLULAR→ATOMIC(3)
+   (ε=0.2, 10 spine cycles, 200 trials):
+    mean=9.10  med=9  P90=10  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1002)  ATOMIC→ORGANIC(404)  ORGANIC→CRYSTAL(402)  ATOMIC→QUANTUM(8)  ATOMIC→CRYSTAL(2)
+   (ε=0.2, 10 spine cycles, 200 trials):
+    mean=9.15  med=9  P90=10  max=10
+    non-zero: 200/200 (100.0%)
+    bins: 0:0  1:0  2-5:0  6-15:200  16-40:0  40+:0
+    top transitions: QUANTUM→ATOMIC(1007)  ATOMIC→ORGANIC(401)  ORGANIC→CRYSTAL(400)  CRYSTAL→ATOMIC(6)  ATOMIC→CRYSTAL(5)
+  0.200      9.10      9.10      9.15         1.00x        0.99x

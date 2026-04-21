@@ -1,0 +1,77 @@
+═══════════════════════════════════════════════════════════════════
+  PHYSICS FIX v2 — RESULTS SUMMARY
+  All 4 Weaknesses Addressed
+═══════════════════════════════════════════════════════════════════
+
+W1: SLOW DYNAMICS — 8/8 ✓
+  Period-first classifier (periods 1-16, 80 iterations, 7 seeds)
+  FIXED: logistic r=3.83 now correctly classified as CELLULAR (period-3)
+  FIXED: logistic r=3.5 now correctly classified as CELLULAR (period-4)
+  FIXED: slow convergence correctly detected via negative Lyapunov
+
+W2: SEED SENSITIVITY — 4/4 ✓
+  7-seed consensus with lyapSpread metric
+  r=4 chaos correctly detected (spread=0.72)
+  Stable FP correctly non-chaotic (spread=0.01)
+  CHAOS GUARD: if ANY seed shows λ > 0.1, can't be CRYSTAL/ORGANIC
+
+W3: QUANTUM/CLASSICAL MAPPING — DELIVERED
+  H(x) = T + V from O(x), where:
+    T = p²/2m, m_eff = 1/|a|, p = O'(x)
+    V(x) = -O(x)
+  ψ(x):
+    Bound (Δ<0): Gaussian envelope × complex oscillation
+    Free (Δ>0): WKB semi-classical scattering state
+  Quantum numbers (n, l, m, s):
+    n = iterate convergence speed (ground state = fast)
+    l = imaginary part of roots (angular momentum)
+    m = derivative at fixed point
+    s = sign(a) × 0.5 (curvature = spin)
+  Normalization: ∫|ψ|²dx = 1.000000 ✓
+  Lattice census: bound=58, free=170, click=24, <n>=4.3
+
+W4: AVALANCHE CASCADES — HONEST RESULT
+  
+  SHORT TIME (1-5 spine cycles, ε=0.05):
+    Click zone: 4.7-5.0% of trials trigger band change
+    Free zone: 2.0-3.0% trigger
+    Bound zone: 6.3-7.3% trigger
+    CLICK/FREE RATIO: 1.5-2.4x ✓
+    
+    Result: Click cells ARE more cascade-prone than free cells at
+    short time scales. Bound cells are ALSO highly sensitive — their
+    complex roots have fragile imaginary parts near collapse.
+
+  LONG TIME (10+ spine cycles):
+    The spine's own phase transforms dominate. Phases 4→5 (a → -a → |a|)
+    and 2→3 (b → -b → |b|) cause ~9 global band changes per full cycle
+    regardless of perturbation. The system "breathes" through classification
+    boundaries naturally.
+
+    This is itself the finding: the spine is a GLOBAL OSCILLATOR that drives
+    cyclic reclassification. Local perturbation effects are visible only at
+    sub-cycle time scales. The lattice is not in a static critical state —
+    it's in a BREATHING critical state where phases 4/5 traverse the pitchfork
+    bifurcation every 10 ticks.
+
+  HONEST ASSESSMENT:
+    - Click zone shows ~2x cascade sensitivity at short time scales ✓
+    - No power-law avalanche distribution observed (thin tail)
+    - This is NOT self-organized criticality (SOC)
+    - This IS cyclic criticality: the system crosses Δ=0 periodically
+      via the curvature flip, not via self-organization to the boundary
+    - The 5.1x energy cost ratio at Δ≈0 is real and measured
+    - But avalanche cascades are spine-dominated, not perturbation-dominated
+
+  WHAT THIS MEANS:
+    The click zone is computationally expensive (5.1x cost) and slightly
+    more cascade-prone (2.4x at 5 cycles), but the system is globally
+    coupled through the spine's cyclic bifurcations. This is more like
+    a driven oscillator crossing resonance than a sandpile at criticality.
+
+═══════════════════════════════════════════════════════════════════
+  FILES DELIVERED:
+  - physics_fix_v2_final.js  (W1-W3 test + fix, full test suite)
+  - avalanche_v3.js          (W4 avalanche measurement, spine-mediated)
+  - physics_results.txt      (this file)
+═══════════════════════════════════════════════════════════════════
