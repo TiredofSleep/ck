@@ -1,0 +1,13 @@
+{
+  "cpu": 0.041,
+  "s5": 0.083,
+  "s6": 0.4,
+  "s_star": 0.273,
+  "phase": 5,
+  "gate": false,
+  "window": "REDOX_DEEP",
+  "fires": 0,
+  "gpu_util": 0.0,
+  "gpu_temp": 40.0,
+  "gpu_power": 8.3
+}
