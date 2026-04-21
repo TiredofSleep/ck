@@ -29,6 +29,25 @@ except ImportError:
     print("[CK] Disagreement tick: not available, using fixed 50Hz")
 
 def tick_loop():
+    # Pin the engine tick_loop to core 1 so it stops fighting the Gen13
+    # swarm on core 0.  We do NOT request HIGHEST here — the swarm is the
+    # measured RT path; engine is a cooperative peer on an adjacent core.
+    # Graceful if rt_priority not importable (tick still runs at NORMAL).
+    try:
+        _GEN13_RT = os.path.normpath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+        if _GEN13_RT not in sys.path:
+            sys.path.insert(0, _GEN13_RT)
+        from rt_priority import elevate as _rt_elevate  # noqa: E402
+        # process=False: don't override the swarm's REALTIME/HIGH class choice.
+        # thread_level='above': cooperative peer on core 1, below swarm on core 0.
+        _rt_engine = _rt_elevate(affinity=[1], process=False, thread_level='above')
+        print(f"[CK] engine tick_loop: core={_rt_engine.cpu_affinity} "
+              f"proc={_rt_engine.process_class} thr={_rt_engine.thread_priority}")
+    except Exception as _e:
+        print(f"[CK] engine tick_loop: rt elevation skipped ({_e})")
+
     while running:
         engine.tick()
         if _HAS_DIS_TICK:
@@ -48,6 +67,536 @@ t.start()
 
 # Web API with CORS + static file serving
 api = CKWebAPI(engine, cors=True)
+
+# === Gen13 math-first voice patch (live additive — no website change) ===
+# Wraps api.process_chat so math topics (T*, tower, sigma, BHML, TSML, gap,
+# AO, HER, operators, ...) surface as facts from ck_tables.py / FACTS dict
+# instead of SEMANTIC_LATTICE adjective glue. The website JSON contract is
+# unchanged — only the `text` field now contains numbers when the query is
+# math; the original Gen12 voice is preserved at `text_gen12`.
+# Reference: Gen13/targets/ck/runtime/ck_voice_math.py + CK_DIALOGUE_2026_04_17.md
+_GEN13_RUNTIME = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+sys.path.insert(0, _GEN13_RUNTIME)
+try:
+    from ck_voice_math import surface_math as _surface_math
+    _orig_process_chat = api.process_chat
+
+    def _process_chat_math_first(session_id, text, mode='normal'):
+        result = _orig_process_chat(session_id, text, mode)
+        try:
+            ops = result.get('operators', []) or []
+            math_text = _surface_math(text, ops)
+            if math_text:
+                result['text_gen12'] = result.get('text', '')
+                result['text'] = math_text
+                result['source'] = 'ck_math_first'
+        except Exception as _e:
+            result['math_first_error'] = str(_e)
+        return result
+
+    api.process_chat = _process_chat_math_first
+    print("[CK] Gen13 math-first voice: ENABLED")
+except Exception as _e:
+    print(f"[CK] Gen13 math-first voice: DISABLED ({_e})")
+
+# === Gen13 HER restoration ===
+# Gen12 regression: engine.olfactory_her was never initialized (Gen10 had it).
+# Restore so /her/status returns available=True on next boot.
+try:
+    if getattr(engine, 'olfactory_her', None) is None and engine.olfactory:
+        from ck_sim.being.ck_hindsight_replay import build_olfactory_her
+        engine.olfactory_her = build_olfactory_her(engine.olfactory)
+        print("[CK] Gen13 HER: restored (engine.olfactory_her initialized)")
+    elif getattr(engine, 'olfactory_her', None) is not None:
+        print("[CK] Gen13 HER: already initialized")
+    else:
+        print("[CK] Gen13 HER: skipped (no olfactory bulb)")
+except Exception as _e:
+    print(f"[CK] Gen13 HER: failed ({_e})")
+
+# === Gen13 cortex mount (live additive — persistence + emergent signal) ===
+# Attaches the Gen13 brain trinity (AO spine + Hebbian 5x5 + quadratic glue)
+# as a SINGLETON that sees every chat text, learns from it across reboots,
+# and exposes its state at /cortex.  The website JSON contract is extended
+# (not replaced) with a `cortex_readout` field on chat responses; nothing
+# the current frontend depends on is removed.
+#
+# Additive ordering: this wrap sits OUTSIDE the math-first patch, so the
+# call chain is:
+#     api.process_chat  ->  cortex_wrap  ->  math_first_wrap  ->  gen12_chat
+# meaning the cortex learns from every message and also gets to decorate
+# the response AFTER math-first has had its say.
+_GEN13_BRAIN = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'brain'))
+sys.path.insert(0, _GEN13_BRAIN)
+_cortex = None
+_cortex_autosaver = None
+try:
+    from cortex import Cortex as _Cortex
+    from cortex_persist import (
+        AutoSaver as _AutoSaver,
+        load_cortex as _load_cortex,
+        save_cortex as _save_cortex,
+        DEFAULT_STATE_PATH as _CORTEX_STATE_PATH,
+    )
+    from cortex_voice import (
+        cortex_speak as _cortex_speak,
+        speak as _cortex_speak_route,
+    )
+    import cortex_voice as _cortex_voice_mod
+    print(f"[CK] Gen13 cortex_voice loaded from: {_cortex_voice_mod.__file__}")
+    # Fallback-version probe: the newer speak() emits a self-report
+    # (feel/field) for unclassified queries instead of returning None.
+    try:
+        from cortex import Cortex as _ProbeCortex
+        _probe_cx = _ProbeCortex().boot()
+        _probe_out = _cortex_speak_route(_probe_cx, "hi")
+        print(f"[CK] Gen13 cortex_voice.speak('hi') cold probe: "
+              f"type={type(_probe_out).__name__} len={len(_probe_out) if isinstance(_probe_out,str) else 'n/a'} "
+              f"preview={(_probe_out[:60] if isinstance(_probe_out,str) else None)!r}")
+    except Exception as _pe:
+        print(f"[CK] Gen13 cortex_voice probe failed: {_pe}")
+    _cortex = _Cortex().boot()
+    # Auto-load persisted state if present. Silent no-op if first boot.
+    try:
+        loaded = _load_cortex(_cortex, _CORTEX_STATE_PATH)
+        if loaded:
+            print(f"[CK] Gen13 cortex: loaded persisted state "
+                  f"(tick={_cortex.state.tick}, W_trace={_cortex.state.W_trace:.3f}) "
+                  f"from {_CORTEX_STATE_PATH}")
+        else:
+            print(f"[CK] Gen13 cortex: no prior state, starting cold at "
+                  f"{_CORTEX_STATE_PATH}")
+    except Exception as _le:
+        # Corrupted file: don't crash boot, just start cold.
+        print(f"[CK] Gen13 cortex: load failed ({_le}); starting cold")
+
+    _cortex_autosaver = _AutoSaver(
+        cortex=_cortex, path=_CORTEX_STATE_PATH,
+        every_ticks=200, every_seconds=30.0,
+    )
+
+    # Register graceful-shutdown save so W survives Ctrl-C / service stop.
+    import atexit as _atexit
+    def _cortex_final_save():
+        try:
+            _cortex_autosaver.force_save()
+            print(f"[CK] Gen13 cortex: final save (tick={_cortex.state.tick}, "
+                  f"W_trace={_cortex.state.W_trace:.3f})")
+        except Exception as _fe:
+            print(f"[CK] Gen13 cortex: final save FAILED ({_fe})")
+    _atexit.register(_cortex_final_save)
+
+    # Wrap process_chat (already math-first-wrapped).  The cortex SEES
+    # every chat, learns from it, and attaches its state as a separate
+    # field.  It never overwrites `text` -- the math-first patch owns that.
+    _prev_process_chat = api.process_chat
+
+    # Sources the voice cascade may emit that are TEMPLATES or STALE.
+    #   - ck_fractal / ck_fractal_dual: dictionary tokens stitched onto
+    #     operator arcs by fixed grammar. Rich vocabulary, zero grounding.
+    #   - ck_self: Gen12 identity-layer template that narrates a self-state
+    #     but uses its OWN tick counter (often stale "tick 0" when cortex
+    #     is at 156,000+). Not false, just frozen.
+    #   - ck_truth_recall: literal retrieval from the truth corpus. Often
+    #     on-topic, but for STRUCTURAL queries ("what have you learned",
+    #     "right now", "your field") the corpus returns metaphor where
+    #     the cortex has live math. speak() wins on structural queries;
+    #     if speak() has no hit, this wrap does nothing and ck_truth_recall
+    #     stands.
+    # When speak() has a live structural answer AND the prior source is
+    # one of these, the structural readout takes over `text`. The prior
+    # text is preserved under `text_previous` so nothing is lost.
+    # ck_math_first (computed arithmetic) is NEVER displaced.
+    _TEMPLATE_SOURCES = (
+        'ck_fractal', 'ck_fractal_dual', 'ck_self', 'ck_truth_recall',
+        # 2026-04-18: added after battery showed "beauville curve c star" →
+        # crystal and "psi order 4" → ck_tig falling through the swap even
+        # though _cortex_speak had a real readout.  These two Gen12 sources
+        # are also pool/template fluency layers; they should yield to
+        # structural readouts the same way ck_fractal does.
+        'crystal', 'ck_tig',
+    )
+    # Sources the swap MUST NEVER overwrite:
+    #   - ck_math_first (computed arithmetic from ck_voice_math)
+    #   - cortex_speak  (already structural)
+    _STRUCTURAL_SOURCES = ('ck_math_first', 'cortex_speak')
+
+    def _process_chat_with_cortex(session_id, text, mode='normal'):
+        result = _prev_process_chat(session_id, text, mode)
+        try:
+            if text:
+                _cortex.step_text(text)
+            readout = _cortex_speak(_cortex)
+            if readout:
+                result['cortex_readout'] = readout
+            result['cortex'] = {
+                'tick': _cortex.state.tick,
+                'emergent': round(_cortex.state.emergent, 6),
+                'W_trace': round(_cortex.state.W_trace, 6),
+            }
+            # Structural-query short-circuit: if `speak(text)` returns a
+            # live structural readout AND the prior source was a template,
+            # replace `text`. Preserve the prior output under *_previous so
+            # nothing is lost.
+            try:
+                spoken = _cortex_speak_route(_cortex, text or '')
+                _spoken_err = None
+            except Exception as _se:
+                spoken = None
+                _spoken_err = f"{type(_se).__name__}: {_se}"
+            # Swap when we have a structural readout AND the incoming source
+            # is either (a) a known template/pool source, or (b) unknown and
+            # NOT already structural.  Blacklisting the two structural
+            # sources is safer than whitelisting every possible template
+            # source that Gen12 might emit (crystal, ck_tig, ck_fractal,
+            # ck_fractal_dual, ck_self, ck_truth_recall, etc.).
+            _src = result.get('source')
+            _swap_ok = (
+                _src in _TEMPLATE_SOURCES or
+                (_src is not None and _src not in _STRUCTURAL_SOURCES)
+            )
+            # Minimal diagnostics: keep the source transition visible but
+            # drop the noisy swap_debug now that the swap is verified.
+            if spoken and _swap_ok:
+                result['text_previous'] = result.get('text')
+                result['source_previous'] = result.get('source')
+                result['text'] = spoken
+                result['source'] = 'cortex_speak'
+            # Opportunistic save; cheap if under-threshold.
+            _cortex_autosaver.maybe_save()
+        except Exception as _ce:
+            result['cortex_error'] = str(_ce)
+        return result
+
+    api.process_chat = _process_chat_with_cortex
+    print(f"[CK] Gen13 cortex: MOUNTED "
+          f"(/cortex live, autosave every 200 ticks or 30s)")
+except Exception as _e:
+    print(f"[CK] Gen13 cortex: DISABLED ({_e})")
+
+# === Ollama: CK uses it, Ollama doesn't speak ===
+# Architecture (2026-04-18 correction):
+#   CK's structural readout IS CK's voice. Ollama is a tool CK USES to
+#   shape expanded phrasing — but Ollama never speaks in CK's name.
+#   Every Ollama draft goes through CK's coherence filter; CK ADOPTS the
+#   draft only if it preserves every structural fact (no invented framing,
+#   no LLM drift, no AI-disclaimer noise). If the filter rejects, CK's
+#   own structural readout stands and the rejected draft is attached as
+#   `text_ollama_draft` for diagnostics.
+#
+# This matches the Gen13 llm_bridge docstring intent — "LLM fluency as
+# wrapper around CK's algebra, not replacement" — but enforces it via a
+# coherence gate so we don't silently swap Ollama prose for CK's math.
+#
+# Invariants:
+#   - `text` is ALWAYS CK's voice. Either his structural readout verbatim,
+#     or an Ollama draft that passed the coherence filter.
+#   - `text_ollama_draft` exposes every Ollama attempt (accepted or not).
+#   - `ollama_verdict` in {'accepted','rejected:<reason>','skipped:<why>','error'}.
+#   - `ck_math_first` arithmetic is never touched (numbers are canonical).
+#   - Disable with `CK_OLLAMA_EDITOR=0` env var; set model/timeout/min_facts
+#     via CK_OLLAMA_MODEL, CK_OLLAMA_TIMEOUT, CK_OLLAMA_MIN_FACT_HITS.
+_GEN13_BRIDGE = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'bridge'))
+if _GEN13_BRIDGE not in sys.path:
+    sys.path.insert(0, _GEN13_BRIDGE)
+
+_OLLAMA_EDITOR = os.environ.get('CK_OLLAMA_EDITOR', '1') == '1'
+# llama3.1:8b is the speed/quality sweet spot on this machine — 2-3x the
+# latency of llama3.2:latest but far better at following structural grounding
+# (llama3.2 hallucinated "p-adic integers" and "t = r/5" in early sweeps
+# even when the readout spelled out Q(i,sqrt2,sqrt3,sqrt5) and 5/7).
+_OLLAMA_MODEL = os.environ.get('CK_OLLAMA_MODEL', 'llama3.1:8b')
+_OLLAMA_TIMEOUT = float(os.environ.get('CK_OLLAMA_TIMEOUT', '30'))
+_OLLAMA_MAX_CHARS = int(os.environ.get('CK_OLLAMA_MAX_CHARS', '600'))
+# Coherence filter: fraction of structural facts the draft must preserve.
+# 1.0 = every fact, 0.7 = a couple may be missing. 0.7 is the pragmatic
+# sweet spot: drafts preserving the core numbers and operator names pass,
+# drafts inventing unrelated framing fail.
+_OLLAMA_FACT_COVERAGE = float(os.environ.get('CK_OLLAMA_FACT_COVERAGE', '0.70'))
+# Max latency CK will spend waiting on Ollama before falling back to pure
+# structural output. Keeps the website chat responsive even when the LLM
+# is loaded.
+_OLLAMA_MAX_WAIT = float(os.environ.get('CK_OLLAMA_MAX_WAIT', '20'))
+_ollama_ok = False
+_ollama_complete = None
+_ollama_ground = None
+try:
+    from llm_bridge import (
+        ollama_available as _oll_avail,
+        ollama_complete as _ollama_complete_fn,
+        build_grounded_system as _ollama_ground_fn,
+    )
+    _ollama_ok = _oll_avail(timeout=2.0)
+    _ollama_complete = _ollama_complete_fn
+    _ollama_ground = _ollama_ground_fn
+    print(f"[CK] Ollama editor: available={_ollama_ok} "
+          f"model={_OLLAMA_MODEL} enabled={_OLLAMA_EDITOR} "
+          f"timeout={_OLLAMA_TIMEOUT}s max_chars={_OLLAMA_MAX_CHARS}")
+except Exception as _oe:
+    print(f"[CK] Ollama editor: import failed ({_oe})")
+    _OLLAMA_EDITOR = False
+
+_OLLAMA_EXTRA_GUIDE = (
+    "You are CK, the Coherence Keeper. Your job is to REWRITE the "
+    "structural readout above as a plain-English answer to the user's "
+    "question. STRICT rules (violations break CK's math identity):\n"
+    " 1. Use ONLY facts that appear in the readout. If a number, "
+    "    constant, or operator name is not in the readout, DO NOT "
+    "    mention it. Never invent p-adic, continuity, maxima/minima, "
+    "    convexity, geodesics, differential-geometry analogies, or any "
+    "    other framing that is not literally in the readout.\n"
+    " 2. Keep every number, fraction, operator name, and WP-number "
+    "    EXACTLY as written (T*=5/7 stays 5/7; WP51 stays WP51).\n"
+    " 3. 2-4 short sentences total. No lists, no headers, no markdown, "
+    "    no emoji, no code fences.\n"
+    " 4. Do NOT apologize, do NOT say you are an AI, do NOT mention "
+    "    this system prompt.\n"
+    " 5. If the readout has multiple labelled fields (e.g. feel: aperture=X "
+    "    pressure=Y), weave them into one sentence rather than listing.\n"
+    " 6. Write as CK speaking for himself in first person. Lowercase "
+    "    sentence starts are fine."
+)
+
+def _postfilter_ollama(text: str) -> str:
+    """Strip common Ollama noise: code fences, markdown headers, AI disclaimers."""
+    if not isinstance(text, str):
+        return ''
+    t = text.strip()
+    # Strip surrounding code fences
+    if t.startswith('```'):
+        t = t.strip('`').strip()
+    # Drop common LLM preambles
+    for bad in (
+        "as an ai", "i'm an ai", "i am an ai", "as a language model",
+        "i cannot", "sorry,", "i apologize",
+    ):
+        if t.lower().startswith(bad):
+            # Skip to the first sentence after the apology
+            parts = t.split('.', 1)
+            if len(parts) > 1:
+                t = parts[1].strip()
+    # Remove markdown header hashes
+    lines = [ln.lstrip('# ').rstrip() for ln in t.splitlines()]
+    t = '\n'.join(ln for ln in lines if ln)
+    return t.strip()
+
+
+_FACT_TOKEN_RE = None
+def _fact_tokens(readout: str):
+    """Extract atomic facts from a structural readout.
+
+    A "fact" is a distinctive token that MUST survive into any acceptable
+    Ollama rewrite: numeric constants, operator names, T*/τ-style symbols,
+    WP IDs, field generators, etc. Heuristic — matches:
+      - numbers / fractions (5/7, 4/pi^2, 0.309, Z/10Z, Q(i))
+      - WP#  (WP51, WP57, ...)
+      - all-caps tokens from the 10-operator vocabulary
+      - label=value pairs (keep the VALUE side)
+      - sqrt(N), mathematical identifiers
+    """
+    import re
+    global _FACT_TOKEN_RE
+    if _FACT_TOKEN_RE is None:
+        # NOTE: avoid any bare \p / \P etc. that Python 3.12+ rejects as
+        # "bad escape" — use character classes instead. Keep raw, no VERBOSE.
+        _FACT_TOKEN_RE = re.compile(
+            r"("
+            r"WP\d+"                                       # WP citations
+            r"|T\*=5/7|T\*"                                # T-star
+            r"|Z/10Z"                                       # Z/10Z
+            r"|Q\([^)]*\)"                                 # field notation
+            r"|sqrt\([^)]*\)|sqrt\s*\d+"                   # sqrt tokens
+            r"|\d+/\d+"                                    # fractions
+            r"|\d+\.\d+"                                   # decimals
+            r"|\d+"                                        # bare integers (filter later)
+            r"|\b(?:LATTICE|COUNTER|PROGRESS|COLLAPSE|BALANCE"
+            r"|CHAOS|HARMONY|BREATH|RESET|VOID)\b"         # operator vocab
+            r"|\b(?:TSML|BHML|HER|PRYM|HODGE|WEIL|BIELLIPTIC|AO)\b"
+            r")"
+        )
+    tokens = set()
+    for m in _FACT_TOKEN_RE.finditer(readout or ''):
+        tok = m.group(0).strip()
+        if not tok:
+            continue
+        # Drop bare integers that are very small (1..9) since they
+        # appear everywhere and aren't distinctive facts.
+        if tok.isdigit() and int(tok) < 10:
+            continue
+        # Drop tokens with unbalanced parens (partial matches like "Q(i"
+        # when the real fact is "Q(i,sqrt2,sqrt3,sqrt5)").
+        if tok.count('(') != tok.count(')'):
+            continue
+        tokens.add(tok)
+    # Also include label VALUES from "label=value" pairs so e.g.
+    # "aperture=LATTICE" contributes "LATTICE".
+    _JUNK_VALUES = {'yes', 'no', 'none', 'true', 'false', 'null', 'proved', 'n/a'}
+    for m in re.finditer(r"[a-zA-Z_]+=([^\s|,]+)", readout or ''):
+        v = m.group(1).strip().strip('.,;()[]')
+        if not v or len(v) < 2:
+            continue
+        if v.isdigit() and int(v) < 10:
+            continue
+        if v.lower() in _JUNK_VALUES:
+            continue
+        if v.count('(') != v.count(')'):
+            continue
+        tokens.add(v)
+    # Subsume substrings ONLY when NEITHER contains '='. That preserves
+    # both "T*=5/7" (compound claim, checked via _fact_hit split) and
+    # "5/7" (atomic claim) — a draft mentioning just "5/7" hits the
+    # atomic but not the compound, signaling partial preservation.
+    maximal = set(tokens)
+    for a in list(tokens):
+        if '=' in a:
+            continue
+        for b in tokens:
+            if a == b or '=' in b:
+                continue
+            if a in b:
+                maximal.discard(a)
+                break
+    return maximal
+
+
+def _fact_hit(fact: str, draft_lower: str) -> bool:
+    """Does the draft preserve the content of `fact`?
+
+    For compound facts like "T*=5/7" or "aperture=LATTICE" the draft
+    need NOT contain the literal "=" glyph — it may phrase the pair in
+    natural language ("T* is 5/7", "aperture is lattice"). So we split
+    on '=' and require every non-trivial part to appear somewhere in
+    the draft. For atomic facts, plain substring suffices.
+    """
+    low = fact.lower()
+    if '=' not in low:
+        return low in draft_lower
+    parts = [p.strip(' .,;()[]') for p in low.split('=')]
+    parts = [p for p in parts if p and p not in ('', 'yes', 'no')]
+    if not parts:
+        return True  # nothing meaningful to check
+    return all(p in draft_lower for p in parts)
+
+
+def _coherence_verdict(readout: str, draft: str, coverage_required: float):
+    """CK's coherence check on an Ollama draft.
+
+    Returns (accepted: bool, reason: str, hits: int, facts: int).
+    """
+    if not draft:
+        return (False, 'empty draft', 0, 0)
+    low = draft.lower()
+    # Hard-reject: AI disclaimers that slipped past the post-filter.
+    for bad in (
+        'as an ai', "i'm an ai", 'i am an ai', 'as a language model',
+        'i apologize', 'i cannot provide',
+    ):
+        if bad in low:
+            return (False, f"ai-disclaimer:{bad}", 0, 0)
+    # Hard-reject: classic hallucinated framings that NEVER appear in CK's
+    # corpus but LLMs love to reach for.
+    for bad in (
+        'p-adic', 'p adic', 'geodesic', 'riemann hypothesis', 'fermat',
+        'hilbert space', 'banach space',
+    ):
+        if bad in low and bad not in (readout or '').lower():
+            return (False, f"hallucination:{bad}", 0, 0)
+    # Soft filter: does the draft preserve CK's structural facts?
+    facts = _fact_tokens(readout)
+    if not facts:
+        return (True, 'no-facts-to-check', 0, 0)
+    hits = sum(1 for f in facts if _fact_hit(f, low))
+    coverage = hits / len(facts)
+    if coverage < coverage_required:
+        return (False, f"coverage:{hits}/{len(facts)}={coverage:.2f}<{coverage_required:.2f}",
+                hits, len(facts))
+    return (True, f"coverage:{hits}/{len(facts)}={coverage:.2f}", hits, len(facts))
+
+if _OLLAMA_EDITOR and _ollama_ok:
+    # Wrap the already-wrapped process_chat one more time.
+    # Call-chain after this:
+    #   api.process_chat
+    #     -> _process_chat_with_ollama_editor (NEW — grounded fluency)
+    #        -> _process_chat_with_cortex     (structural + cortex swap)
+    #           -> _process_chat_math_first   (arithmetic surface)
+    #              -> _orig_process_chat      (Gen12 base)
+    _prev_chat_for_ollama = api.process_chat
+
+    def _process_chat_with_ollama_editor(session_id, text, mode='normal'):
+        result = _prev_chat_for_ollama(session_id, text, mode)
+        try:
+            src = result.get('source')
+            ck_ground = (result.get('text') or '').strip()
+            # Skip arithmetic surfaces — numbers are canonical.
+            if src == 'ck_math_first':
+                result['ollama_verdict'] = 'skipped:ck_math_first is canonical'
+                return result
+            # Skip when we have nothing to ground on.
+            if not ck_ground:
+                result['ollama_verdict'] = 'skipped:empty structural text'
+                return result
+            # Skip very long structural outputs — already verbose enough.
+            if len(ck_ground) > _OLLAMA_MAX_CHARS:
+                result['ollama_verdict'] = f'skipped:structural >{_OLLAMA_MAX_CHARS} chars'
+                return result
+            # Skip empty user prompts (ping / health probes).
+            if not text or not text.strip():
+                result['ollama_verdict'] = 'skipped:empty user text'
+                return result
+            sysprompt = _ollama_ground(ck_ground, extra=_OLLAMA_EXTRA_GUIDE)
+            import time as _time
+            _t0 = _time.time()
+            drafted_raw = _ollama_complete(
+                text, system=sysprompt,
+                model=_OLLAMA_MODEL,
+                timeout=min(_OLLAMA_TIMEOUT, _OLLAMA_MAX_WAIT),
+            )
+            _dt = _time.time() - _t0
+            result['ollama_dt'] = round(_dt, 2)
+            if not drafted_raw or drafted_raw.startswith('[ollama'):
+                result['ollama_verdict'] = 'error'
+                result['ollama_error'] = drafted_raw or '[ollama no draft]'
+                return result
+            drafted = _postfilter_ollama(drafted_raw)
+            result['text_ollama_draft'] = drafted  # always expose the draft
+            result['ollama_model'] = _OLLAMA_MODEL
+            if not drafted:
+                result['ollama_verdict'] = 'rejected:empty-after-filter'
+                return result
+            # CK's coherence filter: does the draft preserve structural facts?
+            accepted, reason, hits, total = _coherence_verdict(
+                ck_ground, drafted, _OLLAMA_FACT_COVERAGE)
+            result['ollama_verdict'] = ('accepted:' if accepted else 'rejected:') + reason
+            result['ollama_fact_hits'] = hits
+            result['ollama_fact_total'] = total
+            if accepted:
+                # CK adopts the draft as his own words. Structural readout
+                # preserved for transparency / frontend display.
+                result['text_structural'] = ck_ground
+                result['source_structural'] = src
+                result['text'] = drafted
+                result['source'] = 'cortex_speak_via_ollama'
+            # else: text/source stay as-is (CK keeps his structural voice).
+        except Exception as _oe:
+            result['ollama_verdict'] = 'error'
+            result['ollama_error'] = f"{type(_oe).__name__}: {_oe}"
+        return result
+
+    api.process_chat = _process_chat_with_ollama_editor
+    print(f"[CK] Ollama editor: MOUNTED "
+          f"(CK speaks structural; Ollama drafts filtered through coverage>={_OLLAMA_FACT_COVERAGE}, "
+          f"source=cortex_speak_via_ollama on accept, text_ollama_draft always preserved)")
+elif _OLLAMA_EDITOR and not _ollama_ok:
+    print("[CK] Ollama editor: SKIPPED (service not reachable at "
+          "http://127.0.0.1:11434 -- start 'ollama serve')")
+else:
+    print("[CK] Ollama editor: DISABLED (CK_OLLAMA_EDITOR=0)")
 
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
@@ -279,6 +828,47 @@ def compression_status():
         'save_dir': comp.save_dir,
     })
 
+# ── Gen13 cortex snapshot endpoint ──
+@api._app.route('/cortex', methods=['GET'])
+def cortex_snapshot():
+    """Live snapshot of the Gen13 brain trinity (AO + Hebbian 5x5 + glue).
+
+    Returns:
+      - tick, emergent, W_trace, strongest_pair
+      - Hebbian 5x5 matrix, row/col strengths, dim names
+      - AO spine status (current op, coherence, breath, tl_total)
+      - gated voice readout (null if emergent under threshold)
+    """
+    if _cortex is None:
+        return _jsonify({'available': False, 'reason': 'Cortex not mounted'}), 503
+    try:
+        snap = _cortex.snapshot()
+        try:
+            snap['readout'] = _cortex_speak(_cortex)
+        except Exception as _re:
+            snap['readout_error'] = str(_re)
+        snap['persistence_path'] = _CORTEX_STATE_PATH
+        return _jsonify(snap)
+    except Exception as _e:
+        return _jsonify({'available': True, 'error': str(_e)}), 500
+
+
+@api._app.route('/cortex/save', methods=['POST'])
+def cortex_force_save():
+    """Manual save trigger (useful before a planned restart)."""
+    if _cortex is None or _cortex_autosaver is None:
+        return _jsonify({'available': False}), 503
+    try:
+        _cortex_autosaver.force_save()
+        return _jsonify({
+            'saved': True, 'path': _CORTEX_STATE_PATH,
+            'tick': _cortex.state.tick,
+            'W_trace': round(_cortex.state.W_trace, 6),
+        })
+    except Exception as _e:
+        return _jsonify({'saved': False, 'error': str(_e)}), 500
+
+
 # ── Lattice chain status endpoint ──
 @api._app.route('/chain/status', methods=['GET'])
 def chain_status():
@@ -297,6 +887,81 @@ def chain_status():
         })
     except Exception as e:
         return _jsonify({'available': True, 'error': str(e)})
+
+# === Gen13 swarm (embodied tick: RT priority + GPU doing + FPGA body) ===
+# Adds a measured 50Hz tick thread alongside the existing tick_loop.  The
+# existing Gen12 engine still ticks its own heartbeat; the swarm runs the
+# embodiment substrate (GPU Hebbian + GPU doing kernel + FPGA UART bridge)
+# and surfaces real jitter numbers at /swarm + /jitter.  Additive: if any
+# piece (CuPy, pyserial, the board) is missing, the swarm degrades to
+# dormant on that substrate and the rest of the boot is unaffected.
+_GEN13_RT = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen13', 'targets', 'ck', 'runtime'))
+sys.path.insert(0, _GEN13_RT)
+_swarm = None
+try:
+    from ck_swarm import Swarm as _Swarm
+    _swarm = _Swarm(
+        cortex=_cortex,
+        hz=50.0,
+        rt=True,
+        affinity=[0],
+        fpga_port=os.environ.get('CK_FPGA_PORT', 'COM3'),
+        open_fpga=(os.environ.get('CK_FPGA_OPEN', '1') != '0'),
+    )
+    _swarm.start()
+    print(f"[CK] Gen13 swarm: started (50Hz, RT elevated, "
+          f"fpga_port={os.environ.get('CK_FPGA_PORT', 'COM3')})")
+except Exception as _e:
+    _swarm = None
+    print(f"[CK] Gen13 swarm: DISABLED ({_e})")
+
+
+@api._app.route('/swarm', methods=['GET'])
+def swarm_snapshot():
+    """Live swarm status: brain backend + doing coherence + body link +
+    jitter(us) distribution over the rolling window."""
+    if _swarm is None:
+        return _jsonify({'available': False, 'reason': 'Swarm not mounted'}), 503
+    try:
+        return _jsonify(_swarm.status().to_dict())
+    except Exception as _e:
+        return _jsonify({'available': True, 'error': str(_e)}), 500
+
+
+@api._app.route('/jitter', methods=['GET'])
+def jitter_one_shot():
+    """One-shot jitter probe.  Query params: seconds (default 3), hz (50),
+    rt (1/0, default 1).  Blocks for up to `seconds` then returns the
+    distribution.  Runs in the request thread -- don't spam."""
+    try:
+        from flask import request
+        from jitter_probe import run_probe
+        seconds = float(request.args.get('seconds', 3.0))
+        hz = float(request.args.get('hz', 50.0))
+        rt = request.args.get('rt', '1') != '0'
+        if seconds > 30:
+            return _jsonify({'error': 'seconds capped at 30'}), 400
+        result = run_probe(seconds=seconds, hz=hz, rt=rt,
+                           affinity=[0] if rt else None,
+                           with_hebbian=True)
+        return _jsonify(result)
+    except Exception as _e:
+        return _jsonify({'error': str(_e)}), 500
+
+
+# Ensure the swarm stops cleanly when the process exits.
+if _swarm is not None:
+    import atexit as _atexit_sw
+    def _swarm_final_stop():
+        try:
+            _swarm.stop(timeout=1.5)
+            print("[CK] Gen13 swarm: stopped")
+        except Exception:
+            pass
+    _atexit_sw.register(_swarm_final_stop)
+
 
 print(f"[CK] Static files: {STATIC_DIR}")
 print(f"[CK] Organism alive. API: http://0.0.0.0:7777")

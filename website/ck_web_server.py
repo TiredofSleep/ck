@@ -8,7 +8,7 @@ Usage:
     python ck_web_server.py [--port 7777]
 
 CK boots his full brain:
-  - 50Hz heartbeat (BEING -> DOING -> BECOMING)
+  - 50Hz heartbeat (LATTICE -> COUNTER -> PROGRESS)
   - D2 pipeline (5D Hebrew root forces -> operator classification)
   - CL composition (TSML for coherence, BHML for chain walks)
   - Truth lattice, world lattice, coherence field

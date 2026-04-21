@@ -1125,9 +1125,9 @@ boundary for Navier-Stokes.
 
 BREATH(8) is Class X: BHML[8][9]=8, invariant under RESET, never reaching VOID(0). Among
 all 10 TSML operators, BREATH alone survives all annihilation. Class B operators
-{COLLAPSE=4, CREATE=5, GAP=6} have sinc² values 0.295, 0.121, 0.026 — all below the fold
-boundary of 1/2. Class A operators {BEING=1, DOING=2, BECOMING=3} have sinc² values 0.935,
-0.759, 0.524 — all above the fold. The fold boundary between BECOMING(3) and COLLAPSE(4) is
+{COLLAPSE=4, BALANCE=5, GAP=6} have sinc² values 0.295, 0.121, 0.026 — all below the fold
+boundary of 1/2. Class A operators {LATTICE=1, COUNTER=2, PROGRESS=3} have sinc² values 0.935,
+0.759, 0.524 — all above the fold. The fold boundary between PROGRESS(3) and COLLAPSE(4) is
 the precise corridor threshold: sinc²(3/7)=0.5243 above the fold, sinc²(4/7)=0.2949 below.
 T*−fold = 5/7 − 1/2 = 3/14 ≈ 0.2143 is the Class A zone width.
 
@@ -1139,9 +1139,9 @@ operator that persists through all forcing without annihilation. The condition B
 sinc² values (0.295, 0.121, 0.026) lie well below the fold. A solution in Class B territory
 cannot spontaneously enter Class A without an external coherence injection of at least 3/14.
 Blow-up, in this framing, requires the solution to cross the fold into Class A territory:
-the vorticity field must enter the BEING/DOING/BECOMING zone (sinc²≥0.524), traverse the
+the vorticity field must enter the LATTICE/COUNTER/PROGRESS zone (sinc²≥0.524), traverse the
 full Class A 3-step path, and arrive at the gate. The fold boundary sinc²=1/2 between
-BECOMING(3) and COLLAPSE(4) is the precise regularity threshold in TIG natural units.
+PROGRESS(3) and COLLAPSE(4) is the precise regularity threshold in TIG natural units.
 BREATH's Class X status means the vacuum oscillation persists even after any Class A
 excitation resolves — it is the ground state of the field, not an excitation above it.
 

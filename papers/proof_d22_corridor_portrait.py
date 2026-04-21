@@ -11,7 +11,7 @@ Luther-Sanders Research Framework | April 1 2026
 THEOREM D22 (Corridor Portrait):
   The four spine-determined corridor positions are strictly ordered:
 
-    W < CREATE/10 < HARMONY/10 < T* < 1
+    W < BALANCE/10 < HARMONY/10 < T* < 1
     3/50 < 1/2 < 7/10 < 5/7 < 1
 
   This is proved by exact rational arithmetic — all four are fractions
@@ -80,15 +80,15 @@ print("  Four spine-determined positions, one ordering law, one amplitude portra
 # ============================================================
 section("SECTION 1: THE FOUR SPINE-FORCED CORRIDOR POSITIONS")
 
-CL = {0:'VOID',1:'BEING',2:'DOING',3:'BECOMING',4:'COLLAPSE',
-      5:'CREATE',6:'ASCEND',7:'HARMONY',8:'BREATH',9:'RESET'}
+CL = {0:'VOID',1:'LATTICE',2:'COUNTER',3:'PROGRESS',4:'COLLAPSE',
+      5:'BALANCE',6:'CHAOS',7:'HARMONY',8:'BREATH',9:'RESET'}
 
 # Each position with its derivation chain
 positions = [
     (Fraction(3, 50),   "W",           "D17",  "deviation/n² = 6/100 = 3/50, BHML carrier frequency"),
-    (Fraction(1, 2),    "CREATE/10",   "D21",  "centroid of (Z/10Z)* = 5, t = 5/10 = 1/2"),
+    (Fraction(1, 2),    "BALANCE/10",   "D21",  "centroid of (Z/10Z)* = 5, t = 5/10 = 1/2"),
     (Fraction(7, 10),   "HARMONY/10",  "D18d", "HARMONY = g^(-1) = 7, t = 7/10"),
-    (Fraction(5, 7),    "T*",          "D19",  "T* = CREATE/HARMONY = 5/7, coherence threshold"),
+    (Fraction(5, 7),    "T*",          "D19",  "T* = BALANCE/HARMONY = 5/7, coherence threshold"),
 ]
 
 print(f"  {'Position':>12}  {'Source':>10}  {'Decimal':>12}  Derivation")
@@ -99,9 +99,9 @@ for t, name, src, deriv in positions:
 print()
 print("  All four are forced by the spine:")
 print("  W = 3/50: RING-forced (D17 — deviation=6, n=10, W=6/100)")
-print("  1/2: RING-forced via LENS bridge (D21+B11 — CREATE=5, t=5/10)")
+print("  1/2: RING-forced via LENS bridge (D21+B11 — BALANCE=5, t=5/10)")
 print("  7/10: GENERATOR-forced (D18d — HARMONY=7, t=7/10)")
-print("  5/7: GENERATOR-forced (D19 — T*=CREATE/HARMONY)")
+print("  5/7: GENERATOR-forced (D19 — T*=BALANCE/HARMONY)")
 
 # ============================================================
 # SECTION 2: THE ORDERING PROOF
@@ -117,14 +117,14 @@ frac_names = [name for _, name, _, _ in positions]
 # Each inequality proved by reducing to common denominator
 # 3/50 < 1/2: 3/50 vs 25/50 → 3 < 25 ✓
 a, b = Fraction(3,50), Fraction(1,2)
-print(f"  (1) W < CREATE/10: {a} < {b}")
+print(f"  (1) W < BALANCE/10: {a} < {b}")
 print(f"      Common denom 50: {a.numerator}/{a.denominator} vs {b.numerator*25}/{b.denominator*25}")
 print(f"      {a.numerator} < {b*50}: {a.numerator} < {int(b*50)}  ✓")
 assert a < b
 
 # 1/2 < 7/10: 5/10 < 7/10 → 5 < 7 ✓
 a, b = Fraction(1,2), Fraction(7,10)
-print(f"  (2) CREATE/10 < HARMONY/10: {a} < {b}")
+print(f"  (2) BALANCE/10 < HARMONY/10: {a} < {b}")
 print(f"      Common denom 10: {a*10} < {b*10}: {int(a*10)} < {int(b*10)}  ✓")
 assert a < b
 
@@ -198,7 +198,7 @@ assert Fraction(5,7) - Fraction(7,10) == Fraction(1,70)
 print("  EXACT: T* = HARMONY/10 + 1/70  ✓")
 print()
 print("  Algebraic reading:")
-print("  T* = CREATE/HARMONY = 5/7")
+print("  T* = BALANCE/HARMONY = 5/7")
 print("  HARMONY/10 = 7/10 = HARMONY/(n)")
 print("  The gap 1/70 = 1/(7×10) = 1/(HARMONY × n)")
 print()
@@ -217,7 +217,7 @@ print("  exactly the inverse square of HARMONY=7.")
 # ============================================================
 section("SECTION 5: WHY t=1/2 IS NOT AMPLITUDE-MAXIMAL — THE ATTENUATION MECHANISM")
 
-print("  Question: CREATE=5 is the ring's dynamical attractor (D7, D21).")
+print("  Question: BALANCE=5 is the ring's dynamical attractor (D7, D21).")
 print("  It maps to t=1/2 in the corridor.")
 print("  t=1/2 is the SINE-MAXIMUM (B11).")
 print("  But sinc²(1/2) = 4/π² ≈ 0.405 — well BELOW the corridor entry 0.988.")
@@ -313,7 +313,7 @@ print("  The portrait has a DECREASING amplitude profile from left to right.")
 print("  RING-forced positions (W, center) occupy the high-amplitude left half.")
 print("  GENERATOR-forced positions (HARMONY, T*) occupy the low-amplitude right half.")
 print()
-print("  The corridor is divided by CREATE/10 = 1/2:")
+print("  The corridor is divided by BALANCE/10 = 1/2:")
 print(f"  LEFT HALF  (0 < t < 1/2): W=3/50 — RING-forced, high amplitude")
 print(f"  RIGHT HALF (1/2 < t < 1): HARMONY=7/10, T*=5/7 — GENERATOR-forced, low amplitude")
 
@@ -324,9 +324,9 @@ section("SECTION 7: INHERITANCE — WHY THE PORTRAIT IS SPLIT BY THE CENTER")
 
 print("  From D20 (Inheritance Audit):")
 print("  W=3/50 is RING-forced (deviation from ring arithmetic, no generator needed)")
-print("  CREATE=5→t=1/2 is RING-forced (centroid of (Z/10Z)* and ODD)")
+print("  BALANCE=5→t=1/2 is RING-forced (centroid of (Z/10Z)* and ODD)")
 print("  HARMONY=7→t=7/10 is GENERATOR-forced (g^(-1) mod 10 = 7, requires g=3)")
-print("  T*=5/7 is GENERATOR-forced (CREATE/HARMONY, requires g=3 for HARMONY=7)")
+print("  T*=5/7 is GENERATOR-forced (BALANCE/HARMONY, requires g=3 for HARMONY=7)")
 print()
 print("  The corridor portrait respects the inheritance hierarchy:")
 print()
@@ -336,12 +336,12 @@ print("  │   W = 3/50: ring arithmetic entry                  │")
 print("  │   sinc²(W) ≈ 0.988: high corridor amplitude        │")
 print("  ├────────────────────────────────────────────────────┤")
 print("  │ t = 1/2       CENTER      — ring center / bridge   │")
-print("  │   CREATE=5→1/2: ring centroid maps to midpoint     │")
+print("  │   BALANCE=5→1/2: ring centroid maps to midpoint     │")
 print("  │   sinc²(1/2) = 4/π²: sine-maximum amplitude       │")
 print("  ├────────────────────────────────────────────────────┤")
 print("  │ t ∈ (1/2, 1)  RIGHT HALF  — GENERATOR-forced      │")
 print("  │   HARMONY = 7/10: generator inverse image          │")
-print("  │   T* = 5/7: coherence threshold, CREATE/HARMONY    │")
+print("  │   T* = 5/7: coherence threshold, BALANCE/HARMONY    │")
 print("  │   sinc² values: 0.135 and 0.121 (low amplitude)   │")
 print("  └────────────────────────────────────────────────────┘")
 print()
@@ -357,7 +357,7 @@ section("CONCLUSION: THEOREM D22")
 print("  THEOREM D22 (Corridor Portrait):")
 print()
 print("  Four spine-forced positions in (0,1) are strictly ordered:")
-print("    W < CREATE/10 < HARMONY/10 < T* < 1")
+print("    W < BALANCE/10 < HARMONY/10 < T* < 1")
 print("    3/50 < 1/2 < 7/10 < 5/7 < 1")
 print("  (Proved by exact rational arithmetic.)")
 print()
@@ -392,6 +392,6 @@ assert sinc2(Fraction(3,50)) > sinc2(Fraction(1,2)) > sinc2(Fraction(7,10)) > si
 assert Fraction(5,7) - Fraction(7,10) == Fraction(1,70)
 print("  ALL ASSERTIONS PASSED.")
 print()
-print("  CHAINS FROM: D17 (W), D19 (T*, g), D21 (CREATE=5), D18d (HARMONY=7), B11 (sinc² monotone).")
+print("  CHAINS FROM: D17 (W), D19 (T*, g), D21 (BALANCE=5), D18d (HARMONY=7), B11 (sinc² monotone).")
 print("  CLOSES: The corridor portrait question. Spine positions are not just")
 print("          individually forced — they are ordered and split by inheritance class.")

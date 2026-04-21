@@ -1,5 +1,5 @@
 """
-D7 — Phi Fixed Point Theorem: CREATE=5 is the unique globally attracting fixed point.
+D7 — Phi Fixed Point Theorem: BALANCE=5 is the unique globally attracting fixed point.
 
 Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
 Licensed under the 7SiTe Public Sovereignty License v1.0.
@@ -34,13 +34,13 @@ def Phi(v: int) -> int:
 
 
 class TestPhiFixedPoint:
-    """D7: CREATE=5 is the unique fixed point of Phi."""
+    """D7: BALANCE=5 is the unique fixed point of Phi."""
 
     def test_phi_5_is_fixed_point(self):
         """Algebraic: Phi(5) = P_odd(BHML[5][7]) = P_odd(6) = 5."""
         assert W_OP[5] == 7, "W_op[5] should be HARMONY=7 (nearest carrier max to t=0.5)"
-        assert BHML[5][7] == 6, "BHML[5][7] should be ASCEND=6"
-        assert P_odd(6) == 5, "P_odd(6) should be CREATE=5 (lower tie-breaker)"
+        assert BHML[5][7] == 6, "BHML[5][7] should be CHAOS=6"
+        assert P_odd(6) == 5, "P_odd(6) should be BALANCE=5 (lower tie-breaker)"
         assert Phi(5) == 5
 
     def test_phi_5_is_only_fixed_point(self):
@@ -70,7 +70,7 @@ class TestPhiFixedPoint:
 
 
 class TestPhiConvergence:
-    """D7: All orbits reach CREATE=5 in at most 3 steps."""
+    """D7: All orbits reach BALANCE=5 in at most 3 steps."""
 
     def test_max_orbit_length_is_3(self):
         """Every starting state reaches 5 in ≤3 Phi applications."""
@@ -81,16 +81,16 @@ class TestPhiConvergence:
                 if cur == 5:
                     break
             assert cur == 5, (
-                f"State {v} ({CL[v]}) did not reach CREATE=5 in 3 steps"
+                f"State {v} ({CL[v]}) did not reach BALANCE=5 in 3 steps"
             )
 
     def test_1step_basin(self):
-        """TRANS operators {DOING=2, BECOMING=3, COLLAPSE=4} reach 5 in 1 step."""
+        """TRANS operators {COUNTER=2, PROGRESS=3, COLLAPSE=4} reach 5 in 1 step."""
         for v in [2, 3, 4, 5]:
             assert Phi(v) == 5, f"v={v} ({CL[v]}) should reach 5 in 1 step"
 
     def test_2step_basin(self):
-        """VOID(0), BEING(1), HARMONY(7) reach 5 in 2 steps."""
+        """VOID(0), LATTICE(1), HARMONY(7) reach 5 in 2 steps."""
         for v in [0, 1, 7]:
             assert Phi(Phi(v)) == 5, (
                 f"v={v} ({CL[v]}) should reach 5 in 2 steps; "
@@ -98,7 +98,7 @@ class TestPhiConvergence:
             )
 
     def test_3step_basin(self):
-        """UPPER operators {ASCEND=6, BREATH=8, RESET=9} reach 5 in 3 steps."""
+        """UPPER operators {CHAOS=6, BREATH=8, RESET=9} reach 5 in 3 steps."""
         for v in [6, 8, 9]:
             v2 = Phi(v)
             v3 = Phi(v2)
@@ -135,7 +135,7 @@ class TestPhiMarkovChain:
         pass  # proof is algebraic, verified by T^3 test
 
     def test_t_star_ratio_meaning(self):
-        """T* = CREATE(5)/HARMONY(7) = 5/7 — dynamic attractor / measurement attractor."""
+        """T* = BALANCE(5)/HARMONY(7) = 5/7 — dynamic attractor / measurement attractor."""
         create = 5   # Phi fixed point
         harmony = 7  # TSML dominant output (73 cells)
         import math

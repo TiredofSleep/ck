@@ -1,7 +1,7 @@
 /*
  * vortex_cl.v -- Vortex CL: 3-Body Operator on the Torus
  * ========================================================
- * Operator: BECOMING -- the trinity of prev, curr, next.
+ * Operator: PROGRESS -- the trinity of prev, curr, next.
  *
  * In standard math, an operator is a point.
  * In TIG, an operator is a vortex state on a manifold.

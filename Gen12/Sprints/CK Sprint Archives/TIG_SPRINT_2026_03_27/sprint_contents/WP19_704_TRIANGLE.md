@@ -85,7 +85,7 @@ Distance of COL from midplane: |4/9 - 1/2| = 1/18 ≈ 0.056 ≈ W = 0.060
 **COL(4) sits at the ±W boundary of the innermost shell.** It is the
 operator closest to the critical midplane from the "collapse side"
 (col-0, HAR direction). This is not a coincidence — W = 3/50 was
-derived from the wobble structure of the 44-cell BECOMING table, and
+derived from the wobble structure of the 44-cell PROGRESS table, and
 COL sits exactly at that boundary.
 
 ---

@@ -590,7 +590,7 @@ The meta-lens module (`ck_meta_lens.py`) performs second-order analysis of CK's 
 
 **Claim 11: Meta-Table Integer Fractions.** The 3x3 meta-table (grouping operators by Being/Doing/Becoming phase) produces ONLY simple integer fractions: 2/3, 7/12, 3/4, 7/8, 1. Kill condition: Random 10x10 tables with 73 harmonies and B/D/BC grouping produce the same fraction set in >5% of trials.
 
-**Claim 12: DOING x DOING Maximum Blind Spot.** TSML DOING x DOING = 7/8 (87.5%) while BHML DOING x DOING = 0 (0%). This is the maximum divergence in the meta-table -- an 87.5% blind spot. Structure thinks doing is resolved. Flow knows it is not. Kill condition: Random table pairs with same harmony counts (73/28) show equal or greater max-divergence in >10% of trials.
+**Claim 12: COUNTER x COUNTER Maximum Blind Spot.** TSML COUNTER x COUNTER = 7/8 (87.5%) while BHML COUNTER x COUNTER = 0 (0%). This is the maximum divergence in the meta-table -- an 87.5% blind spot. Structure thinks doing is resolved. Flow knows it is not. Kill condition: Random table pairs with same harmony counts (73/28) show equal or greater max-divergence in >10% of trials.
 
 **Claim 13: Asymmetric Agreement (47:2).** TSML-only harmony positions (47) outnumber BHML-only positions (2) by 23.5:1. Structure is generous with harmony. Flow is precise. Kill condition: Random table pairs with 73/28 harmonies show TSML-only:BHML-only ratio > 20:1 in >5% of trials.
 
@@ -611,7 +611,7 @@ The meta-lens module (`ck_meta_lens.py`) performs second-order analysis of CK's 
 | Claim | What it tests | What kills it |
 |-------|--------------|---------------|
 | 11 | Meta-table structure | Fractions have denominators > 12 |
-| 12 | Doing blind spot | Divergence is not maximum at DOING x DOING |
+| 12 | Doing blind spot | Divergence is not maximum at COUNTER x COUNTER |
 | 13 | Agreement asymmetry | 26+47+2+25 does not equal 100, or ratio < 20:1 |
 | 14 | Body knows first | BHML-only positions are not COLLAPSE+BREATH |
 | 15 | Recursion depth | 4th level produces non-scalar structure |

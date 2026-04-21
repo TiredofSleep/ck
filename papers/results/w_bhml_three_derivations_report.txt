@@ -79,7 +79,7 @@ SUMMARY of interpretations:
   2b (right dominance): 23 cells
   2c (DIS=0 cells): 4 cells
   2d (echo cells, non-0/7 TSML): 10 cells
-  2e (DOING=0, non-harmony): 3 cells
+  2e (COUNTER=0, non-harmony): 3 cells
   None of these give exactly 6 cells.
 
 HONEST FINDING: The '6 frozen cells' claim does not match any clean algebraic

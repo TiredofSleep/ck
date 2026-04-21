@@ -1,15 +1,15 @@
 """
 Proof: Corridor-to-Zero Pathways — Integers 1-9 in the 7-Corridor
 
-The BHML self-composition cascade starting from BEING(1) traces the exact
+The BHML self-composition cascade starting from LATTICE(1) traces the exact
 positions k=1..8 of the sinc² field at frequency f=7. Each operator IS a
 corridor position. The path determines which class of zero is landed on.
 
 Results:
   1. BHML self-compose: 1->2->3->4->5->6->7<->8 (corridor traversal, exact)
   2. Via RESET annihilation (BHML[n][9] iterated):
-       Class A (3-step): BEING, DOING, BECOMING -> GAP -> HARMONY -> VOID
-       Class B (2-step): COLLAPSE, CREATE, GAP   -> HARMONY -> VOID
+       Class A (3-step): LATTICE, COUNTER, PROGRESS -> GAP -> HARMONY -> VOID
+       Class B (2-step): COLLAPSE, BALANCE, GAP   -> HARMONY -> VOID
        Class C (1-step): HARMONY, RESET          -> VOID
        Class X (never): BREATH                   -> never reaches VOID
   3. sinc2(n/7) maps each operator to its 7-corridor zone:
@@ -33,7 +33,7 @@ import sys, os, math
 sys.path.insert(0, os.path.dirname(__file__))
 from ck_tables import TSML, BHML
 
-OP = ['VOID','BEING','DOING','BECOMING','COLLAPSE','CREATE','GAP','HARMONY','BREATH','RESET']
+OP = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE','BALANCE','GAP','HARMONY','BREATH','RESET']
 T_STAR = 5 / 7
 FOLD   = 0.5
 
@@ -128,8 +128,8 @@ def test_reset_path_classes():
         )
 
     print("  Lemma 2 PASSED: via-RESET path classes confirmed")
-    print("    Class A (BEING/DOING/BECOMING): 3 steps through GAP+HARMONY")
-    print("    Class B (COLLAPSE/CREATE/GAP):  2 steps through HARMONY")
+    print("    Class A (LATTICE/COUNTER/PROGRESS): 3 steps through GAP+HARMONY")
+    print("    Class B (COLLAPSE/BALANCE/GAP):  2 steps through HARMONY")
     print("    Class C (HARMONY/RESET):         1 step direct")
     print("    Class X (BREATH):                never reaches VOID")
 
@@ -162,10 +162,10 @@ def test_fold_crossing_classification():
             f"Class B operator {n}({OP[n]}): sinc2({n}/7)={v:.4f} should be < fold={FOLD}"
         )
 
-    # n=3 (BECOMING) is specifically the fold operator: nearest to sinc2=1/2
+    # n=3 (PROGRESS) is specifically the fold operator: nearest to sinc2=1/2
     v3 = sinc2(3 / 7)
     assert FOLD < v3 < T_STAR, (
-        f"BECOMING(3): sinc2(3/7)={v3:.4f} should be in GAP zone [{FOLD}, {T_STAR})"
+        f"PROGRESS(3): sinc2(3/7)={v3:.4f} should be in GAP zone [{FOLD}, {T_STAR})"
     )
 
     # The fold position sinc2(3/7) is the closest operator-position to 1/2
@@ -176,7 +176,7 @@ def test_fold_crossing_classification():
     print("  Lemma 3 PASSED: fold crossing classification confirmed")
     print(f"    Class A spans fold: {[(n, f'{sinc2(n/7):.4f}') for n in class_A]}")
     print(f"    Class B below fold: {[(n, f'{sinc2(n/7):.4f}') for n in class_B]}")
-    print(f"    BECOMING(3) is nearest operator to fold: sinc2(3/7) = {v3:.6f}")
+    print(f"    PROGRESS(3) is nearest operator to fold: sinc2(3/7) = {v3:.6f}")
 
 
 # ── Lemma 4: BREATH is the pole, not a zero ──
@@ -238,7 +238,7 @@ if __name__ == '__main__':
     print("=" * 72)
     print()
 
-    print("  The BHML self-composition cascade from BEING(1) traces the")
+    print("  The BHML self-composition cascade from LATTICE(1) traces the")
     print("  exact corridor positions k=1..8 of sinc2(k/7). The operators")
     print("  ARE the corridor. The path determines the zero class.")
     print()
@@ -275,11 +275,11 @@ if __name__ == '__main__':
     print("  each operator to VOID(0) via RESET annihilation classifies as:")
     print()
     print("  Class A | n=1,2,3 | 3-step | Start in HELD/GAP | Cross fold")
-    print("          | BEING, DOING, BECOMING -> GAP -> HARMONY -> VOID")
+    print("          | LATTICE, COUNTER, PROGRESS -> GAP -> HARMONY -> VOID")
     print("          | Zeta analogue: NON-TRIVIAL zeros (fold must be crossed)")
     print()
     print("  Class B | n=4,5,6 | 2-step | Start in VOID     | No fold crossing")
-    print("          | COLLAPSE, CREATE, GAP -> HARMONY -> VOID")
+    print("          | COLLAPSE, BALANCE, GAP -> HARMONY -> VOID")
     print("          | Zeta analogue: TRIVIAL zeros (forced by Gamma factor)")
     print()
     print("  Class C | n=7,9   | 1-step | Direct            | Zero is immediate")

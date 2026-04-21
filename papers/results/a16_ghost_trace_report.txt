@@ -114,8 +114,8 @@ STEP 3 — GHOST TRACE MATCH TEST
   Interpretation: weak correlation
 
 (e) DOING[i][j] = |TSML-BHML| vs G[i][j] = ghost trace
-  Pearson r(DOING, G) = 0.659033
-  Cell-exact match DOING=G: 43/100
+  Pearson r(COUNTER, G) = 0.659033
+  Cell-exact match COUNTER=G: 43/100
   DOING_sum=201, G_sum=106
 
 ======================================================================

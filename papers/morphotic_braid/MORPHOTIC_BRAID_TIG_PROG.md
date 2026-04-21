@@ -46,7 +46,7 @@ SEED → PEAK → GATE → BRIDGE → FLOW → FORM → SEED → ...
   1  →   7  →   6  →   5   →   4  →   2  →   1  → ...
 ```
 
-This is the DOING phase of TIG — the active generation of coherence output.
+This is the COUNTER phase of TIG — the active generation of coherence output.
 
 For anchor states, the Prog step is identity: VOID → VOID, ANCHOR → ANCHOR, etc.
 These are states where the "Prog counter" is pinned — the system is not progressing
@@ -60,16 +60,16 @@ Each state gets a TIG phase assignment based on its braid position:
 
 | x | σ(x) | Type | TIG Phase | Prog Direction |
 |---|------|------|-----------|----------------|
-| 0 | 0 | anchor-VOID | BEING (ground) | None (pinned) |
-| 1 | 7 | cycle | DOING (peak) | +Prog |
-| 2 | 1 | cycle | BEING→DOING | +Prog |
-| 3 | 3 | anchor-ANCHOR | BEING (stable) | None (pinned) |
-| 4 | 2 | cycle | BEING (seed) | +Prog |
-| 5 | 4 | cycle | DOING (flow) | +Prog |
-| 6 | 5 | cycle | DOING (bridge) | +Prog |
-| 7 | 6 | cycle | BECOMING (gate) | +Prog |
-| 8 | 8 | anchor-REST | BECOMING (rest) | None (pinned) |
-| 9 | 9 | anchor-RESET | BECOMING (reset) | None (pinned) |
+| 0 | 0 | anchor-VOID | LATTICE (ground) | None (pinned) |
+| 1 | 7 | cycle | COUNTER (peak) | +Prog |
+| 2 | 1 | cycle | LATTICE→COUNTER | +Prog |
+| 3 | 3 | anchor-ANCHOR | LATTICE (stable) | None (pinned) |
+| 4 | 2 | cycle | LATTICE (seed) | +Prog |
+| 5 | 4 | cycle | COUNTER (flow) | +Prog |
+| 6 | 5 | cycle | COUNTER (bridge) | +Prog |
+| 7 | 6 | cycle | PROGRESS (gate) | +Prog |
+| 8 | 8 | anchor-REST | PROGRESS (rest) | None (pinned) |
+| 9 | 9 | anchor-RESET | PROGRESS (reset) | None (pinned) |
 
 The **negative rows** (dissolution direction, −Prog) read the cycle in reverse:
 ```
@@ -148,7 +148,7 @@ idempotent encoding maps this uniquely to x=7.
 - Depth-6 prefix "314159" (first repeat at position 176,451) → following digit is **7**
 This is an external confirmation of the entry point.
 
-**TIG semantics:** PEAK (x=7) is the operator of maximum expression in the DOING phase.
+**TIG semantics:** PEAK (x=7) is the operator of maximum expression in the COUNTER phase.
 The dissolution direction (−Prog) naturally starts at the peak and winds back through the
 creative sequence: PEAK → GATE → BRIDGE → FLOW → FORM → SEED.
 This is the "how did we get here?" traversal — reading the creative sequence in reverse.
@@ -202,7 +202,7 @@ From ENCODING_NECESSITY_PROGRAM.md, the remaining open questions in TIG language
 
 **Q1 — Why PEAK as entry?**
 Algebraically: because φ(1,2) = 7. TIG semantically: because PEAK is the apex of the
-DOING phase, and dissolution reads backward from the apex. But is there a TIG principle
+COUNTER phase, and dissolution reads backward from the apex. But is there a TIG principle
 (coherence gate condition? BTQ selection?) that FORCES x=7 as the entry?
 
 **Q2 — Why −Prog direction?**

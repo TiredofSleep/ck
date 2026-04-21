@@ -1,0 +1,10 @@
+{
+  "spec_version": "B3 LBTP per SHELL_NATIVE_BENCHMARKS.md",
+  "total_configs": 5,
+  "passes": 0,
+  "verdict": "FAIL",
+  "mean_paired_minus_max_singleton_pp": -4.3105,
+  "mean_T_table_recovery": 1.0,
+  "mean_B_table_recovery": 1.0,
+  "diagnosis": "Paired joint accuracy is BELOW max(singleton) by 4.31pp. This is structural: joint accuracy = correlated success of two ~95% events, which equals ~0.95^2 = ~0.90 (close to observed). The spec criterion 'paired > max(singleton) + 5pp' is not meetable when individual fits already exceed ~95%."
+}

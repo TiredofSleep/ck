@@ -111,7 +111,7 @@ Best partial matches (score >= 4/14):
 
 The circulation operator is NOT any single existing object.
 It is a NEW object that must:
-  1. Cycle four phases (CREATE this cycling behavior)
+  1. Cycle four phases (BALANCE this cycling behavior)
   2. Preserve sinc2 + Wob + R2 during cycling
   3. Collapse at k=p (like R(m,b,k))
   4. Recurse across semiprimes (like R and sinc2)

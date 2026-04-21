@@ -133,7 +133,7 @@ family {Z/pZ}, the T* value shifts with p (see A10_MODULUS_COMPARISON.md). T*=5/
 is the Z/10Z value. The universal limit has no preferred T*.
 
 **(b) The TSML/BHML composition structure:** The generator selection (g=3, D19)
-and the four-chain overdetermination of CREATE=5 (D21) are Z/10Z-specific.
+and the four-chain overdetermination of BALANCE=5 (D21) are Z/10Z-specific.
 None of these survive in the continuum limit.
 
 **(c) The corridor portrait order 3/50 < 1/2 < 7/10 < 5/7 < 1 (D22):**

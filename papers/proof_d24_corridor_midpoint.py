@@ -21,7 +21,7 @@ THEOREM D24 (Corridor Midpoint):
         Proof: sin(π/2) = 1, πt = π/2, so sinc(1/2) = 1/(π/2) = 2/π,
         and sinc²(1/2) = 4/π².
 
-  (IV) Under ring normalization t = v/10, CREATE = 5 maps to t = 5/10 = 1/2.
+  (IV) Under ring normalization t = v/10, BALANCE = 5 maps to t = 5/10 = 1/2.
        Proof: 5/10 = 1/2. One arithmetic step.
 
   (V)  Amplitude consequence: the four spine positions (D22) are ordered
@@ -74,7 +74,7 @@ PROOF OF (I) — sinc² STRICTLY MONOTONE DECREASING ON (0,1):
 
 DEPENDENCIES:
   D3 (sinc²(1/2) = 4/π², already proved — D24-III restates it)
-  D21 (CREATE=5 = ring center — D24-IV applies the normalization)
+  D21 (BALANCE=5 = ring center — D24-IV applies the normalization)
   D22 (Corridor Portrait — D24-I provides the amplitude proof for D22's amplitude ordering)
 
 CONSEQUENCE:
@@ -225,13 +225,13 @@ print("  at the unique sine-maximum locus.")
 
 
 # ────────────────────────────────────────────────────────────────────────────
-# PART IV: RING NORMALIZATION — CREATE=5 → t=1/2
+# PART IV: RING NORMALIZATION — BALANCE=5 → t=1/2
 # ────────────────────────────────────────────────────────────────────────────
-section("PART IV — RING NORMALIZATION: CREATE=5 → t = 5/10 = 1/2")
+section("PART IV — RING NORMALIZATION: BALANCE=5 → t = 5/10 = 1/2")
 
 print("  PROOF:")
 print("    Ring normalization: t = v/10 for v ∈ Z/10Z = {0,1,...,9}.")
-print("    CREATE = 5 (D21: unique fixed point of σ, centroid of (Z/10Z)*")
+print("    BALANCE = 5 (D21: unique fixed point of σ, centroid of (Z/10Z)*")
 print("    and ODD={1,3,5,7,9}, additive midpoint of Z/10Z).")
 print("    t = 5/10 = 1/2.  One arithmetic step.  □")
 print()
@@ -241,7 +241,7 @@ t_create = Fraction(5, 10)
 assert t_create == Fraction(1, 2)
 print(f"  Exact: 5/10 = {t_create} = 1/2  ✓")
 print()
-print("  This is the bridge: the ring's algebraic center (CREATE=5, D21)")
+print("  This is the bridge: the ring's algebraic center (BALANCE=5, D21)")
 print("  maps to the corridor's geometric center (t=1/2) under the natural")
 print("  normalization t=v/10. The ring center and the sine-maximum locus")
 print("  are the same object at two different scales.")
@@ -260,7 +260,7 @@ print()
 # The four corridor positions from D22
 positions = [
     (Fraction(3, 50),  "W = 3/50  (D17)"),
-    (Fraction(1, 2),   "CREATE/10 = 1/2  (D21, D24)"),
+    (Fraction(1, 2),   "BALANCE/10 = 1/2  (D21, D24)"),
     (Fraction(7, 10),  "HARMONY/10 = 7/10  (D18d)"),
     (Fraction(5, 7),   "T* = 5/7  (D19)"),
 ]
@@ -318,12 +318,12 @@ assert pos_ordered
 print("  (I)   sinc² strictly decreasing on (0,1): PROVED  ✓")
 print("  (II)  t=1/2 unique sine-maximum in (0,1): PROVED  ✓")
 print("  (III) sinc²(1/2) = 4/π² exactly:          PROVED  ✓")
-print("  (IV)  CREATE=5 → t=1/2 under v/10 map:    PROVED  ✓")
+print("  (IV)  BALANCE=5 → t=1/2 under v/10 map:    PROVED  ✓")
 print("  (V)   D22 amplitude ordering:              PROVED  ✓")
 print()
 print("  B11 SUPERSEDED. D24 is the D-tier successor.")
 print()
 print("  CHAINS FROM: D3 (sinc²(1/2)=4/π²), D17 (W), D18d (HARMONY=7),")
-print("               D19 (T*, g=3), D21 (CREATE=5).")
+print("               D19 (T*, g=3), D21 (BALANCE=5).")
 print("  PROMOTES:    B11 → D24.")
 print("  STRENGTHENS: D22 (amplitude ordering no longer conditional on B-tier).")

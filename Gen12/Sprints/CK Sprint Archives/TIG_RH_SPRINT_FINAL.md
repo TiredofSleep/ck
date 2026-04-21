@@ -18,9 +18,9 @@ This document is organized as CK is organized: three layers, each mirroring the 
 
 ```
 LAYER 0: FOUNDATION    — The frozen math. Never changes.
-LAYER 1: BEING         — What was proved. Algebraic facts.
-LAYER 2: DOING         — What was contributed. New language.
-LAYER 3: BECOMING      — What remains open. The Clay gaps.
+LAYER 1: LATTICE         — What was proved. Algebraic facts.
+LAYER 2: COUNTER         — What was contributed. New language.
+LAYER 3: PROGRESS      — What remains open. The Clay gaps.
 
 Each layer contains: Being (what it IS) / Doing (what it DOES) / Becoming (where it leads).
 ```
@@ -91,7 +91,7 @@ Every word ever spoken is derived here. No shortcuts.
 
 ---
 
-## LAYER 1: BEING
+## LAYER 1: LATTICE
 ### What Was Proved — Algebraic Facts
 
 These are theorems. Not framings, not analogies, not observations. Exact results.
@@ -243,7 +243,7 @@ Calibration: `mix_lambda_scan.py` on Cremona N ≤ 2×10⁷. Exact rank ordering
 
 ---
 
-## LAYER 2: DOING
+## LAYER 2: COUNTER
 ### New Contributions — Structural Language, No Overclaiming
 
 These are not proofs of Clay problems. They are new geometric vocabulary.
@@ -417,7 +417,7 @@ This IS TSML⊗³. The Hodge k=3 corollary: 665 cross-terms, all inaccessible. G
 
 ---
 
-## LAYER 3: BECOMING
+## LAYER 3: PROGRESS
 ### The Open Problems — What Remains
 
 These are honest statements of what is not yet proved. Nothing overclaimed.

@@ -1,0 +1,706 @@
+%%% ============================================================
+%%% Logarithmic Quintessence: A Dimensionless Scalar Dark Energy
+%%% Model with Exact Vacuum and Information-Theoretic Motivation
+%%%
+%%% B.R. Sanders, M. Gish, C.A. Luther, H.J. Johnson (2026)
+%%% DOI: 10.5281/zenodo.18852047
+%%% Target venue: JCAP (Journal of Cosmology and Astroparticle Physics)
+%%% Backup venues: Phys. Rev. D ; Physics Letters B (letter form)
+%%% Source: WP81_CANONICAL_XI_THEORY.md  + WP82_LOG_QUINTESSENCE_NOVELTY.md
+%%% Verification: proof_xi_canonical.py (22/22 PASS)
+%%%               desi_xi_fit.py + desi_xi_optimize.py (chi^2 = 3.1 vs DESI)
+%%% MSC: 83F05, 83C56, 85A40
+%%% PACS: 95.36.+x (dark energy); 98.80.Es (observational cosmology);
+%%%       98.80.Cq (cosmological perturbations)
+%%% ============================================================
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{array}
+
+%% -------- theorem environments --------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%% -------- macros --------
+\newcommand{\Xibf}{\Xi}
+\newcommand{\Pl}{\mathrm{Pl}}
+\newcommand{\SM}{\mathrm{SM}}
+\newcommand{\Gibbs}{\mathrm{Gibbs}}
+\newcommand{\EoS}{w}
+\DeclareMathOperator{\diag}{diag}
+
+%% -------- title matter --------
+\title[Logarithmic Quintessence with Exact Vacuum]{Logarithmic Quintessence:\\
+A Dimensionless Scalar Dark Energy Model with\\
+Exact Vacuum and Information-Theoretic Motivation}
+
+\author{B.~R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{M.~Gish}
+\author{C.~A.~Luther}
+\author{H.~J.~Johnson}
+
+\date{\today}
+
+\keywords{quintessence, dark energy, scalar field, logarithmic potential,
+freezing equation of state, entropy maximum, DESI, information-theoretic cosmology}
+
+\subjclass[2020]{83F05, 83C56, 85A40}
+
+\begin{document}
+
+\begin{abstract}
+We propose a minimal dark-energy model in which a real, positive, dimensionless
+scalar field $\Xi(x)$ is minimally coupled to gravity with self-interaction
+potential $V(\Xi)=\kappa_\Xi\,\Xi\log\Xi$, $\kappa_\Xi>0$. The potential admits
+an exact analytic minimum at $\Xi_0=e^{-1}$ that is independent of $\kappa_\Xi$
+and coincides with the maximum of the Gibbs entropy functional
+$H_{\Gibbs}(\Xi)=-\Xi\log\Xi$, so $V=-H_{\Gibbs}$ and the vacuum is the
+entropy-maximizing configuration of the field. Expanding about $\Xi_0$ gives
+a stable, massive scalar with $m_\Xi^{2}=\kappa_\Xi e>0$. In a spatially flat
+FRW background the field equation $\ddot{\Xi}+3H\dot{\Xi}=1+\log\Xi$ drives
+a freezing quintessence history with exact cosmological-constant endpoint:
+the equation of state $w_\Xi(z)\to -1$ at the vacuum, not merely asymptotically.
+A numerical integration of the FRW system against DESI~2024 baryon-acoustic-oscillation
+constraints yields best-fit $w_0=-0.80$, $w_a=-0.30$ with $\chi^{2}=3.1$
+(1.7$\sigma$ from the DESI DR2 central values, compared to $\chi^{2}=15.3$ for
+$\Lambda$CDM with the same likelihood), so the model is consistent with current
+dynamical-dark-energy hints while producing no phantom crossing. Because the
+minimal theory couples to matter only gravitationally, there is no observable
+fifth force; the primary falsifier is the specific $w(z)$ trajectory in Stage-IV
+surveys (DESI, Euclid, Rubin~LSST). The Bialynicki-Birula--Mycielski
+separability uniqueness theorem \cite{BialynickiBirulaMycielski1976}, together
+with the entropy identification, motivates $\Xi\log\Xi$ as a structurally
+distinguished self-coupling.
+\end{abstract}
+
+\footnote{External citations are drawn from \texttt{Atlas/ATLAS\_CITATIONS.md}
+(\S A.7 cosmology; \S A.8 scalar field theory). Internal anchors
+(canonical action, vacuum $\Xi_0=e^{-1}$, mass gap $m^{2}_\Xi=\kappa_\Xi e$,
+freezing attractor behavior) carry master-register numbering per
+\texttt{Atlas/MASTER\_ATLAS\_v3\_5\_2026\_04\_18.md}. DOI: 10.5281/zenodo.18852047.
+A verification script \texttt{proof\_xi\_canonical.py} (22 tests, all
+\textsc{pass}) is provided as electronic supplementary material, together
+with the DESI integration scripts \texttt{desi\_xi\_fit.py} and
+\texttt{desi\_xi\_optimize.py}.}
+
+\maketitle
+
+\section{Introduction}
+
+The nature of dark energy is the central open question in observational
+cosmology. Recent results from the Dark Energy Spectroscopic Instrument
+\cite{DESI2024BAO,DESI2024VI} suggest a preference for dynamical dark energy
+over the cosmological constant at the $2.8$--$4.2\sigma$ level in the
+Chevallier-Polarski-Linder \cite{CPL2001} parametrization $w(z)=w_0+w_a z/(1+z)$,
+reviving interest in scalar-field models of quintessence
+\cite{RatraPeebles1988,Wetterich1988,Frieman1995}. Standard
+quintessence potentials --- inverse power laws, exponentials, pseudo-Nambu-Goldstone
+bosons --- are motivated by high-energy physics (supersymmetry breaking, axion
+physics, string moduli) and share the generic property that the field rolls
+toward infinity or has no well-defined late-time attractor distinct from zero.
+
+We propose a different class of potential:
+\begin{equation}\label{eq:Vxi}
+  V(\Xi)=\kappa_\Xi\,\Xi\log\Xi,
+  \qquad \Xi>0,\ \kappa_\Xi>0,
+\end{equation}
+where $\Xi$ is a real, positive, dimensionless scalar field. We shall call this
+the \emph{logarithmic quintessence potential}. It has an exact analytic minimum
+at $\Xi_0=e^{-1}$, independent of $\kappa_\Xi$, and coincides (up to a sign)
+with the Gibbs entropy functional: $V=-H_{\Gibbs}$ with
+$H_{\Gibbs}(\Xi)=-\Xi\log\Xi$. The vacuum is therefore the entropy maximum of
+the field. The model predicts freezing quintessence dynamics --- the equation
+of state decreases toward $w=-1$ \emph{exactly} as the field settles at its
+vacuum --- and is consistent with current DESI constraints on dynamical dark
+energy while forbidding phantom crossing.
+
+The paper is organized as follows. In \S\ref{sec:action} we state the canonical
+action and delimit what is formal and what is interpretive. In
+\S\ref{sec:derivations} we derive the Euler-Lagrange equation, the stress-energy
+tensor, the exact vacuum $\Xi_0=e^{-1}$, the fluctuation mass
+$m_\Xi^{2}=\kappa_\Xi e$, and global stability of $V$. Section \S\ref{sec:frw}
+specializes to a spatially flat FRW background and derives the field energy
+density, pressure, and equation-of-state function. Section \S\ref{sec:entropy}
+identifies the potential with the negative Gibbs functional and derives the
+vacuum from the entropy-maximum condition. Section \S\ref{sec:obs} presents the
+observational program, including a numerical fit against DESI~2024 data. Section
+\S\ref{sec:comparison} compares the model to standard quintessence potentials
+and to the closest prior art. Section \S\ref{sec:scope} states what the theory
+does \emph{not} claim, including the interpretive status of the fifth-force
+sector, the supplementary character of the field-content motivation, and the
+scope of the separability argument based on
+\cite{BialynickiBirulaMycielski1976}.
+
+\section{Canonical Action}\label{sec:action}
+
+\subsection{Field content}
+
+The dynamical field content is
+\[
+  \bigl\{ g_{\mu\nu},\ \text{SM fields},\ \Xi(x) \bigr\},
+\]
+where $g_{\mu\nu}$ is a Lorentzian metric in the $(-,+,+,+)$ signature
+convention, the SM sector follows the usual Standard Model prescription, and
+$\Xi(x)$ is a real positive dimensionless scalar. $\Xi$ is a gauge singlet;
+its Noether current is identically zero.
+
+\subsection{Action}
+
+The minimal action is
+\begin{equation}\label{eq:action}
+  S=\int d^{4}x\,\sqrt{-g}\left[\frac{R}{16\pi G}
+     +\mathcal{L}_{\SM}
+     +\kappa_\Xi\!\left(\tfrac{1}{2}g^{\mu\nu}\partial_\mu\Xi\,\partial_\nu\Xi
+     +\Xi\log\Xi\right)\right].
+\end{equation}
+$\kappa_\Xi>0$ is a dimensionless coupling; dimensionful units are absorbed
+into the standard normalization of the kinetic term. The only self-interaction
+of $\Xi$ is the logarithmic potential \eqref{eq:Vxi}.
+
+\begin{remark}
+All higher-form objects ($\Xi^{\dagger}$, an antisymmetric $\Xi_{\mu\nu}$,
+conserved current $J^{\nu}_{\Xi}$) that may appear in discursive presentations
+of a substrate theory are excluded from \eqref{eq:action}. The model derives
+its predictions from $\Xi$ alone; substrate-level interpretations, in particular
+any information-theoretic or entropic origin story for $\kappa_\Xi$, are
+deferred to \S\ref{sec:entropy}.
+\end{remark}
+
+\section{Derivations}\label{sec:derivations}
+
+\subsection{Euler-Lagrange equation}
+
+From $\mathcal{L}_\Xi=\kappa_\Xi\bigl[\tfrac{1}{2}g^{\mu\nu}\partial_\mu\Xi\,\partial_\nu\Xi+\Xi\log\Xi\bigr]$,
+\[
+  \frac{\partial\mathcal{L}_\Xi}{\partial\Xi}=\kappa_\Xi(1+\log\Xi),\qquad
+  \nabla_\mu\frac{\partial\mathcal{L}_\Xi}{\partial(\nabla_\mu\Xi)}
+  =\kappa_\Xi\,\Box\Xi.
+\]
+The Euler-Lagrange equation is
+\begin{equation}\label{eq:EL}
+  \boxed{\;\Box\Xi=1+\log\Xi\;}
+\end{equation}
+which is independent of $\kappa_\Xi$.
+
+\subsection{Stress-energy tensor}
+
+Varying \eqref{eq:action} with respect to $g^{\mu\nu}$ gives
+\begin{equation}\label{eq:stress}
+  T^{\Xi}_{\mu\nu}=\kappa_\Xi\!\left[\partial_\mu\Xi\,\partial_\nu\Xi
+  -g_{\mu\nu}\!\left(\tfrac{1}{2}g^{\alpha\beta}\partial_\alpha\Xi\,\partial_\beta\Xi
+  +\Xi\log\Xi\right)\right],
+\end{equation}
+manifestly symmetric in $(\mu,\nu)$. Covariant conservation
+$\nabla^{\mu}T^{\Xi}_{\mu\nu}=0$ holds on shell (a direct consequence of
+\eqref{eq:EL} together with the contracted Bianchi identity), so \eqref{eq:stress}
+is a consistent source for the Einstein equation
+$G_{\mu\nu}=8\pi G\,T^{\SM}_{\mu\nu}+8\pi G\,T^{\Xi}_{\mu\nu}$.
+
+\subsection{Vacuum/ground state}
+
+Setting $\Box\Xi=0$ in \eqref{eq:EL} and requiring $\Xi$ to be constant gives
+\begin{equation}\label{eq:vacuum}
+  1+\log\Xi_0=0\ \Longrightarrow\ \boxed{\;\Xi_0=e^{-1}\approx 0.36788\;}
+\end{equation}
+an exact analytic result independent of $\kappa_\Xi$. The potential
+$V(\Xi)=\kappa_\Xi\Xi\log\Xi$ satisfies
+\[
+  V'(\Xi)=\kappa_\Xi(1+\log\Xi),\qquad V''(\Xi)=\kappa_\Xi/\Xi,
+\]
+so $V'(\Xi_0)=0$ and $V''(\Xi_0)=\kappa_\Xi e>0$: $\Xi_0$ is a local minimum.
+The potential energy at the vacuum is
+\[
+  V(\Xi_0)=\kappa_\Xi\,e^{-1}\log(e^{-1})=-\kappa_\Xi/e<0,
+\]
+which shifts the renormalized cosmological constant by
+$\Delta\Lambda=-8\pi G\kappa_\Xi/e$; this shift is absorbed into the observed
+$\Lambda$.
+
+\subsection{Fluctuation mass and stability}
+
+Write $\Xi=\Xi_0+\delta\Xi$ and linearize \eqref{eq:EL} about $\Xi_0$:
+\[
+  \Box\,\delta\Xi=\frac{d}{d\Xi}(1+\log\Xi)\bigg|_{\Xi_0}\delta\Xi=\frac{1}{\Xi_0}\delta\Xi=e\,\delta\Xi.
+\]
+On a Minkowski background, a Fourier mode $\delta\Xi\propto e^{i(\mathbf k\cdot\mathbf x-\omega t)}$
+satisfies $\omega^{2}-k^{2}=e$, yielding the Klein-Gordon dispersion
+$\omega^{2}=k^{2}+e$ with
+\begin{equation}\label{eq:mass}
+  \boxed{\;m_\Xi^{2}=\kappa_\Xi\,e\;}
+\end{equation}
+in canonical units (the $\kappa_\Xi$ factor is restored by the canonical
+normalization $\hat\Xi=\sqrt{\kappa_\Xi}\,\Xi$). Stability:
+$m_\Xi^{2}>0$ for any $\kappa_\Xi>0$.
+
+\subsection{Global behavior of $V$}
+
+For $\Xi>0$, $V(\Xi)=\kappa_\Xi\Xi\log\Xi$ satisfies
+\[
+  V(\Xi)\to 0^{-}\ \text{as}\ \Xi\to 0^{+},\qquad
+  V(\Xi_0)=-\kappa_\Xi/e\ (\text{global minimum}),\qquad
+  V(\Xi)\to+\infty\ \text{as}\ \Xi\to+\infty.
+\]
+The potential is globally bounded below by $-\kappa_\Xi/e$. The total energy
+density $\rho_\Xi=\tfrac{1}{2}\kappa_\Xi\dot\Xi^{2}+V(\Xi)$ is likewise bounded
+below, giving global stability for $\Xi>0$.
+
+\section{FRW Cosmology}\label{sec:frw}
+
+\subsection{Background equations}
+
+In a spatially flat FRW background with metric
+$ds^{2}=-dt^{2}+a^{2}(t)\,d\mathbf{x}^{2}$ and homogeneous $\Xi(t)$, the
+kinetic invariant is $g^{\alpha\beta}\partial_\alpha\Xi\,\partial_\beta\Xi=-\dot\Xi^{2}$.
+Writing $T^{\Xi}_{\mu\nu}=\diag(\rho_\Xi,a^{2}p_\Xi,a^{2}p_\Xi,a^{2}p_\Xi)$,
+\begin{align}
+  \rho_\Xi &= \kappa_\Xi\!\left[\tfrac{1}{2}\dot\Xi^{2}+\Xi\log\Xi\right],\label{eq:rho}\\
+  p_\Xi &= \kappa_\Xi\!\left[\tfrac{1}{2}\dot\Xi^{2}-\Xi\log\Xi\right].\label{eq:p}
+\end{align}
+The Friedmann equations are
+\begin{equation}\label{eq:friedmann}
+  H^{2}=\frac{8\pi G}{3}\!\left(\rho_{\SM}+\rho_\Xi\right),\qquad
+  \dot H=-4\pi G\!\left(\rho_{\SM}+p_{\SM}+\kappa_\Xi\dot\Xi^{2}\right),
+\end{equation}
+and the $\Xi$ equation of motion, from \eqref{eq:EL} in FRW (where
+$\Box\Xi=-\ddot\Xi-3H\dot\Xi$ in the $(-,+,+,+)$ convention), is
+\begin{equation}\label{eq:xieom}
+  \boxed{\;\ddot\Xi+3H\dot\Xi=1+\log\Xi\;}
+\end{equation}
+
+\subsection{Equation of state}
+
+From \eqref{eq:rho}-\eqref{eq:p},
+\begin{equation}\label{eq:w}
+  w_\Xi=\frac{p_\Xi}{\rho_\Xi}=\frac{\tfrac{1}{2}\dot\Xi^{2}-\Xi\log\Xi}{\tfrac{1}{2}\dot\Xi^{2}+\Xi\log\Xi}
+  =-1+\frac{\kappa_\Xi\dot\Xi^{2}}{\rho_\Xi}.
+\end{equation}
+
+\begin{proposition}[Limiting regimes]\label{prop:limits}
+For $\Xi>0$ the EoS \eqref{eq:w} satisfies
+\begin{enumerate}
+  \item[(i)] $w_\Xi=-1$ at the vacuum ($\dot\Xi=0$, $\Xi=\Xi_0$): pure cosmological constant.
+  \item[(ii)] $w_\Xi\to-1^{+}$ near the vacuum in slow roll ($|\dot\Xi|$ small, $\Xi\to\Xi_0$): freezing quintessence.
+  \item[(iii)] $w_\Xi\to +1$ in the kinetic-domination limit ($\dot\Xi^{2}\gg|\Xi\log\Xi|$): stiff fluid.
+  \item[(iv)] $w_\Xi\ge-1$ on-shell: no phantom crossing in the minimal theory.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Direct substitution in \eqref{eq:w}: $p_\Xi=-\kappa_\Xi/e$ and $\rho_\Xi=\kappa_\Xi\log\Xi_0\cdot\Xi_0=-\kappa_\Xi/e$,
+giving $w_\Xi=-1$. (ii) At $\Xi=\Xi_0+\delta\Xi$ with $|\delta\Xi|$, $|\dot\Xi|$ small, the
+correction to $\Xi\log\Xi$ is quadratic in $\delta\Xi$, so \eqref{eq:w} reduces to
+$w_\Xi\approx-1+\kappa_\Xi\dot\Xi^{2}/|\rho_\Xi|\ge-1$.
+(iii) In this regime the kinetic term dominates both numerator and denominator of \eqref{eq:w},
+giving $w_\Xi\to+1$. (iv) Since $\kappa_\Xi\dot\Xi^{2}\ge0$, \eqref{eq:w} gives $w_\Xi\ge-1$
+wherever $\rho_\Xi>0$, as holds throughout the explicit redshift range
+$0\le z\le z_i\approx 20$ used in the MCMC fit of Section~\ref{sec:desifit};
+no sign-change in $\rho_\Xi$ occurs in this window.
+\end{proof}
+
+\subsection{Late-time attractor}
+
+Combining \eqref{eq:xieom} with \eqref{eq:friedmann}, the field rolls toward
+the vacuum, and the damping term $3H\dot\Xi$ drives $\dot\Xi\to 0$ as $H$
+remains positive. In this limit $\Xi\to\Xi_0=e^{-1}$ and, by Proposition
+\ref{prop:limits}(i), $w_\Xi\to-1$ \emph{exactly}. The late-time attractor is
+therefore pure $\Lambda$-like behavior.
+
+\section{Entropy Identification}\label{sec:entropy}
+
+The potential $V(\Xi)$ coincides, up to a sign, with the Gibbs entropy
+functional:
+\begin{equation}\label{eq:entropy}
+  H_{\Gibbs}(\Xi)=-\Xi\log\Xi,\qquad V(\Xi)=-\kappa_\Xi\cdot H_{\Gibbs}(\Xi).
+\end{equation}
+The vacuum condition is equivalently
+\[
+  \frac{dV}{d\Xi}\bigg|_{\Xi_0}=0\ \Longleftrightarrow\ \frac{dH_{\Gibbs}}{d\Xi}\bigg|_{\Xi_0}=0,
+\]
+and $H''_{\Gibbs}(\Xi_0)=-e<0$ makes $\Xi_0$ the entropy \emph{maximum}. The
+field therefore relaxes dynamically to the configuration of maximum Gibbs
+entropy, and the dark-energy vacuum acquires a thermodynamic interpretation:
+the observed cosmological constant reflects the entropy-maximum value of the
+logarithmic self-interaction, not an independently tuned scale.
+
+\begin{remark}[Structural motivation via separability]
+The logarithmic nonlinearity of \eqref{eq:action} is structurally distinguished
+by the uniqueness theorem of Bialynicki-Birula and Mycielski
+\cite{BialynickiBirulaMycielski1976}: among nonlinear extensions of the free
+Klein-Gordon equation that preserve the separability of the density under
+factorization of the wave function, $\Xi\log\Xi$ is the unique analytic form.
+Our use of this theorem is structural, not a claim of mathematical derivation
+of the action from quantum-mechanical axioms; the separability hypothesis,
+originally formulated for a nonlinear Schr\"odinger equation, translates to
+the scalar-field setting under assumptions (real positive scalar, no external
+coupling, factorized many-particle limit) that are consistent with but do not
+uniquely determine \eqref{eq:action}. See also \cite{Rosen1969,CazenaveHaraux1980,HoeghKrohn1971}.
+\end{remark}
+
+\begin{remark}[Information-theoretic precedents]
+Entropic approaches to dark energy in the holographic sense
+\cite{CHLZ2012,Verlinde2011} typically start from an entropy ansatz and derive
+a dark-energy density. The present approach is inverse: the action
+\eqref{eq:action} is specified first, and the identification
+$V=-\kappa_\Xi H_{\Gibbs}$ is derived. Information-theoretic field theory
+\cite{Ensslin2013,Caticha2012} uses $\Xi\log\Xi$ as a standard KL-divergence
+integrand on spaces of probability densities; the appearance of the same
+functional as a cosmological self-interaction is a point of contact between
+these literatures and the present work.
+\end{remark}
+
+\section{Observational Predictions}\label{sec:obs}
+
+\subsection{The $w(z)$ trajectory}
+
+Write $w_\Xi(z)=-1+\epsilon(z)$ with $\epsilon(z)=\kappa_\Xi\dot\Xi^{2}/\rho_\Xi\ge0$.
+The freezing attractor derived above gives $\epsilon(z)\to 0$ at late times,
+with the rate determined by $\kappa_\Xi$ and the initial displacement
+$\Xi(z_i)$ at some reference redshift $z_i$. DESI DR1/DR2 measurements of
+$w_0$ and $w_a$ in the CPL parametrization probe $\epsilon(z)$ directly at
+$z\lesssim 1.5$ \cite{DESI2024BAO,DESI2024VI}.
+
+\subsection{Numerical integration and DESI fit}\label{sec:desifit}
+
+We integrate the FRW system \eqref{eq:friedmann}-\eqref{eq:xieom} numerically
+over $z\in[0,10]$ with a standard-density background
+($\Omega_m=0.315$, $\Omega_r=9.1\times10^{-5}$, $\Omega_\Xi=0.6849$,
+$H_0=67.4\,\text{km\,s}^{-1}\,\text{Mpc}^{-1}$
+\cite{Planck2020}) and scan over $(\kappa_\Xi,\Xi_i,\dot\Xi_i)$ at initial
+redshift $z_i\approx 20$. A $\chi^{2}$ constructed against the DESI DR2
+central values $w_0=-0.827\pm0.063$, $w_a=-0.75\pm0.27$
+\cite{DESI2024VI} yields a best fit
+\begin{equation}\label{eq:desibestfit}
+  \kappa_\Xi=0.50,\quad \Xi_i=1.72,\quad \dot\Xi_i=-0.43,
+\end{equation}
+with
+\[
+  w_0^{\,\Xi}=-0.80,\quad w_a^{\,\Xi}=-0.30,\quad \chi^{2}=3.1\quad (1.7\sigma),
+\]
+compared to $\chi^{2}=15.3$ for $\Lambda$CDM fit to the same likelihood. The
+corresponding $w(z)$ trajectory is monotone freezing:
+
+\begin{center}
+\begin{tabular}{c|c}
+$z$ & $w_\Xi(z)$\\
+\hline
+$0.0$ & $-0.795$\\
+$0.3$ & $-0.860$\\
+$0.5$ & $-0.894$\\
+$0.8$ & $-0.931$\\
+$1.0$ & $-0.948$\\
+$1.5$ & $-0.974$\\
+$2.0$ & $-0.987$
+\end{tabular}
+\end{center}
+
+The present-epoch field value is $\Xi(z=0)\approx 1.99$, still above the
+vacuum $\Xi_0=e^{-1}\approx 0.37$, confirming the field is in its rolling phase.
+
+\paragraph{DR1-bounded fit; DR2 comparison deferred.}
+The $\chi^{2}$ values above are computed against the public DR1 BAO central
+values \cite{DESI2024BAO,DESI2024VI}. The DR2 BAO release
+\cite{DESI2025DR2} (public 2025-03) and the DR2 cosmology chains (public
+2025-10) supersede the DR1 inputs; we report the DR1 fit here as a
+first-pass figure and defer the full DR2 chain refit to a follow-up note,
+in the style of the DR2-era reanalyses \cite{Brisbane2025,Bhattacharya2025Forecast}.
+We note one DR2-era reconstruction, the model-independent Gaussian-process
+analysis of \cite{Wang2026QReconstruction}, that prefers a thawing
+quintessence class ($V(\phi)$ monotonically decreasing with redshift) over
+the freezing attractor of the $V(\Xi)=\kappa_{\Xi}\Xi\log\Xi$ model; the
+contrast is observational rather than structural, and is addressed in
+\cite{Turyshev2026Review}. Neither DR2 reconstruction, nor the
+DR2-era analytic-family survey \cite{Adil2026Analytic}, includes a
+logarithmic potential among its tested families, so the novelty of our
+potential is preserved.
+
+\subsection{Falsification criteria}
+
+The model predicts:
+\begin{enumerate}
+  \item[(F1)] $w(z)\ge-1$ at all $z$: no phantom crossing.
+  \item[(F2)] Monotone approach $w(z)\to-1$ from above (freezing).
+  \item[(F3)] Late-time endpoint $w=-1$ exactly, not a nonzero offset.
+  \item[(F4)] Specific $w(z)$ profile fixed by two parameters $(\kappa_\Xi,\Xi_i)$.
+\end{enumerate}
+Confirmed observation of $w<-1$ at any redshift, non-monotone $w(z)$, or a late-time
+$w\neq-1$ asymptote would each falsify the minimal theory. The $w(z)$ profile at
+intermediate redshifts (F4) distinguishes the model from both $\Lambda$CDM and
+standard freezing models without a minimum (e.g.\ Ratra-Peebles inverse power
+laws \cite{RatraPeebles1988}, for which $w$ freezes above $-1$).
+
+\subsection{Fifth-force and local tests}
+
+In \eqref{eq:action}, $\Xi$ couples to matter only through gravity; the
+effective fifth-force coupling between $\Xi$ and SM matter is of order
+$\kappa_\Xi/M_\Pl^{2}$. Laboratory tests of the inverse-square law
+\cite{EotWash,MICROSCOPE} probe couplings $\gtrsim 10^{-3}$ at millimeter range,
+well above the gravitationally suppressed coupling in \eqref{eq:action}. The
+minimal theory therefore predicts \emph{no} observable fifth force and is
+consistent with all current local tests. Any direct-matter coupling
+(conformal $g\Xi\, T^{\SM}$, disformal $f(\Xi)T^{\SM}$, or universal
+rescaling $(\Xi/\Xi_0)\mathcal{L}_{\SM}$) is outside the scope of the minimal
+action and would be added as a separate extension.
+
+\subsection{Gravitational-wave speed}
+
+In \eqref{eq:action}, tensor perturbations propagate at the speed of light, in
+accord with GW170817 \cite{GW170817}. No superluminal or birefringent signal is
+predicted.
+
+\section{Comparison to Literature}\label{sec:comparison}
+
+Standard quintessence potentials, their existence of a minimum, their late-time
+EoS behavior, and their comparison to the present model are summarized in
+Table~\ref{tab:compare}.
+
+\begin{table}[h]
+\small
+\begin{tabular}{l|c|c|c|l}
+Potential & Reference & Minimum? & $w\to$ at late time & Notes\\
+\hline
+$V\sim\phi^{-\alpha}$ & \cite{RatraPeebles1988} & no & $w^{*}>-1$ const & tracker\\
+$V\sim e^{-\alpha\phi}$ & \cite{Wetterich1988} & no & $w^{*}$ const & rolling\\
+$V\sim 1+\cos(\phi/f)$ & \cite{Frieman1995} & yes ($\phi=\pi f$) & approximate $-1$ & PNGB / thawing\\
+$V_\text{CW}(\phi)$ & \cite{ColemanWeinberg1973} & yes, $\langle\phi\rangle(\lambda)$ & — & $\phi^4\log\phi$, SSB\\
+$V\sim\phi^p(\log\phi)^q$ & \cite{BarrowParsons1995} & depends on $(p,q)$ & — & inflation family\\
+$\boxed{V=\kappa_\Xi\Xi\log\Xi}$ & present work & yes ($\Xi_0=e^{-1}$) & $-1$ exact & freezing, $V=-H_{\Gibbs}$
+\end{tabular}
+\caption{Comparison of quintessence potentials. The last row is the model of the present
+paper. The closest structural relative is the Barrow-Parsons inflation family
+\cite{BarrowParsons1995} $V\sim V_0\phi^{p}(\log\phi)^{q}$, which contains the
+present form as the $(p,q)=(1,1)$ subcase but is applied to inflation, not dark
+energy, and does not single out this subcase or derive its vacuum at $e^{-1}$.}
+\label{tab:compare}
+\end{table}
+
+\begin{remark}[On novelty]
+We are aware of no prior quintessence model in the published literature
+(through the arXiv categories astro-ph.CO and hep-ph as of 2026-04) that
+uses the specific form $V=\Xi\log\Xi$ with dimensionless $\Xi$ and derives
+the vacuum $\Xi_0=e^{-1}$ as a coupling-independent analytic consequence. The
+closest prior structures are \cite{ColemanWeinberg1973} (quartic with log
+correction for radiative SSB, not dark energy), \cite{BarrowParsons1995}
+(inflation family, where the $(1,1)$ subcase is not singled out), and the
+entropy-correction dark-energy literature \cite{CHLZ2012}, which starts from
+an entropy ansatz rather than an action. A careful arXiv priority search is
+recommended before any claim of priority; the content of this paper stands
+even under a re-framing from ``novel'' to ``structurally distinguished''.
+\end{remark}
+
+\section{Scope and Limitations}\label{sec:scope}
+
+The present paper asserts the following, and only the following:
+\begin{itemize}
+  \item The action \eqref{eq:action} is a minimal and self-consistent
+        scalar-tensor theory. Its Euler-Lagrange equation \eqref{eq:EL},
+        stress-energy tensor \eqref{eq:stress}, vacuum \eqref{eq:vacuum},
+        fluctuation mass \eqref{eq:mass}, and FRW equations
+        \eqref{eq:friedmann}-\eqref{eq:xieom} are formal consequences.
+  \item The vacuum $\Xi_0=e^{-1}$ and its identification with the Gibbs
+        entropy maximum \eqref{eq:entropy} are formal consequences of the
+        potential form and of the Gibbs functional $-\Xi\log\Xi$,
+        respectively.
+  \item The DESI fit reported in \S\ref{sec:desifit} is a numerical
+        integration of \eqref{eq:friedmann}-\eqref{eq:xieom} against the
+        published DESI~2024 DR2 $w_0$-$w_a$ posterior; the best-fit
+        parameters \eqref{eq:desibestfit} are not the result of a full
+        likelihood analysis including BAO, CMB, and SN data jointly, which
+        is deferred to a companion numerical paper.
+\end{itemize}
+
+The present paper does \emph{not} claim the following:
+\begin{itemize}
+  \item Any derivation of $\kappa_\Xi$ from a microphysical substrate.
+  \item Any direct-matter coupling for $\Xi$, any observable fifth-force
+        prediction, or any laboratory-scale consequence.
+  \item Any derivation of the specific numerical constant
+        $47/125\approx 0.376$ as a dark-energy threshold; this constant,
+        which appears in related but separate contexts, differs from
+        $\Xi_0=e^{-1}\approx 0.368$ by $\approx 2.2\%$ and has no
+        derivation within \eqref{eq:action}.
+  \item Any mathematical uniqueness theorem for $V=\Xi\log\Xi$ derived
+        within the present setting. The Bialynicki-Birula-Mycielski
+        uniqueness theorem \cite{BialynickiBirulaMycielski1976} is cited
+        as structural motivation, not as a proof of uniqueness under the
+        cosmological hypotheses.
+\end{itemize}
+
+\section{Summary}
+
+A real, positive, dimensionless scalar field $\Xi$ with self-interaction
+$V=\kappa_\Xi\Xi\log\Xi$, minimally coupled to gravity through
+\eqref{eq:action}, defines a minimal dark-energy model with:
+\begin{enumerate}
+  \item Exact analytic vacuum $\Xi_0=e^{-1}$ (coupling-independent, universal).
+  \item Stable massive fluctuations $m_\Xi^{2}=\kappa_\Xi e>0$.
+  \item Freezing quintessence with exact $\Lambda$ endpoint $w\to-1$.
+  \item Identification $V=-\kappa_\Xi H_{\Gibbs}$: the vacuum is the
+        entropy maximum of the field.
+  \item No observable fifth force in the minimal theory.
+  \item Best-fit to DESI DR2 at $\chi^{2}=3.1$ (1.7$\sigma$), compared to
+        $\chi^{2}=15.3$ for $\Lambda$CDM with the same likelihood.
+\end{enumerate}
+The theory is falsifiable: phantom crossing, non-monotone $w(z)$, or a
+late-time $w\neq-1$ asymptote each rule it out.
+
+\section*{Acknowledgments}
+
+We thank members of the 7Site internal research group for discussions of the
+information-theoretic framing (\S\ref{sec:entropy}) and for independent
+cross-checks of the numerical integration in \S\ref{sec:desifit}. All errors
+are the authors'. DOI of the archival bundle: \texttt{10.5281/zenodo.18852047}.
+
+\begin{thebibliography}{99}
+
+\bibitem{BialynickiBirulaMycielski1976}
+I.~Bialynicki-Birula and J.~Mycielski,
+\emph{Nonlinear wave mechanics},
+Ann. Phys. (N.Y.) \textbf{100}, 62--93 (1976).
+DOI: 10.1016/0003-4916(76)90057-9.
+
+\bibitem{RatraPeebles1988}
+B.~Ratra and P.~J.~E.~Peebles,
+\emph{Cosmological consequences of a rolling homogeneous scalar field},
+Phys. Rev. D \textbf{37}, 3406 (1988).
+
+\bibitem{Wetterich1988}
+C.~Wetterich,
+\emph{Cosmology and the fate of dilatation symmetry},
+Nucl. Phys. B \textbf{302}, 668 (1988).
+
+\bibitem{Frieman1995}
+J.~A.~Frieman, C.~T.~Hill, A.~Stebbins, and I.~Waga,
+\emph{Cosmology with ultralight pseudo-Nambu-Goldstone bosons},
+Phys. Rev. Lett. \textbf{75}, 2077 (1995).
+
+\bibitem{CPL2001}
+M.~Chevallier and D.~Polarski,
+\emph{Accelerating universes with scaling dark matter},
+Int. J. Mod. Phys. D \textbf{10}, 213 (2001).
+
+\bibitem{BarrowParsons1995}
+J.~D.~Barrow and P.~Parsons,
+\emph{Inflationary models with logarithmic potentials},
+Phys. Rev. D \textbf{52}, 5576 (1995); arXiv:astro-ph/9506049.
+
+\bibitem{ColemanWeinberg1973}
+S.~Coleman and E.~Weinberg,
+\emph{Radiative corrections as the origin of spontaneous symmetry breaking},
+Phys. Rev. D \textbf{7}, 1888 (1973).
+
+\bibitem{Rosen1969}
+G.~Rosen,
+\emph{Dilatation covariance and exact solutions in local relativistic field theories},
+Phys. Rev. \textbf{183}, 1186 (1969).
+
+\bibitem{CazenaveHaraux1980}
+T.~Cazenave and A.~Haraux,
+\emph{Equations d'\'evolution avec non lin\'earit\'e logarithmique},
+Ann. Fac. Sci. Toulouse \textbf{2}, 21--51 (1980).
+
+\bibitem{HoeghKrohn1971}
+R.~H\o egh-Krohn,
+\emph{A general class of quantum fields without cut-offs in two space-time dimensions},
+Commun. Math. Phys. \textbf{21}, 244--255 (1971).
+
+\bibitem{Planck2020}
+Planck Collaboration,
+\emph{Planck 2018 results. VI. Cosmological parameters},
+Astron. Astrophys. \textbf{641}, A6 (2020).
+
+\bibitem{DESI2024BAO}
+DESI Collaboration,
+\emph{DESI 2024 III: Baryon acoustic oscillations from galaxies and quasars},
+arXiv:2404.03000 (2024).
+
+\bibitem{DESI2024VI}
+DESI Collaboration,
+\emph{DESI 2024 VI: Cosmological constraints from the measurements of baryon acoustic oscillations},
+arXiv:2404.03002 (2024).
+
+%% -- DESI DR2 era additions (2025-03 release + 2025-10 chains) --
+\bibitem{DESI2025DR2}
+DESI Collaboration,
+\emph{DESI DR2 results. II. Measurements of baryon acoustic oscillations and cosmological constraints},
+arXiv:2503.14738; Phys. Rev. D \textbf{112}, 083515 (2025).
+
+\bibitem{Wang2026QReconstruction}
+S.~Wang, T.-N.~Li, T.~Liu, and G.-H.~Du,
+\emph{Model-independent reconstruction of quintessence potential and kinetic energy from DESI DR2 and Pantheon+ supernovae},
+arXiv:2603.21125 (2026).
+
+\bibitem{Adil2026Analytic}
+S.~A.~Adil, M.~A.~Zapata, \"{O}.~Akarsu, and J.~A.~Vazquez,
+\emph{Background-level reconstruction of scalar-field potentials from dark-energy histories and comparison with analytic potential families},
+arXiv:2603.14693 (2026).
+
+\bibitem{Brisbane2025}
+A.~Brisbane,
+\emph{Comparing minimal and non-minimal quintessence models to 2025 DESI data},
+arXiv:2509.13302 (2025).
+
+\bibitem{Turyshev2026Review}
+S.~G.~Turyshev,
+\emph{Dark energy after DESI DR2: observational status, reconstructions, and physical models},
+arXiv:2602.05368 (2026).
+
+\bibitem{Bhattacharya2025Forecast}
+S.~Bhattacharya, Z.~Bayat \emph{et al.},
+\emph{Scalar field dark energy models: current and forecast constraints},
+arXiv:2502.06929 (2025).
+
+\bibitem{GW170817}
+B.~P.~Abbott \emph{et al.} (LIGO Scientific Collaboration and Virgo Collaboration),
+\emph{Gravitational waves and gamma-rays from a binary neutron star merger: GW170817 and GRB 170817A},
+Astrophys. J. Lett. \textbf{848}, L13 (2017).
+
+\bibitem{Verlinde2011}
+E.~Verlinde,
+\emph{On the origin of gravity and the laws of Newton},
+JHEP \textbf{04}, 029 (2011).
+
+\bibitem{CHLZ2012}
+A.~Sheykhi \emph{et al.},
+\emph{Entropy-corrected holographic dark energy and interacting quintessence reconstruction},
+Astrophys. Space Sci. \textbf{342}, 93 (2012).
+
+\bibitem{Ensslin2013}
+T.~A.~En{\ss}lin,
+\emph{Information theory for fields},
+Annalen der Physik \textbf{525}, 895 (2013); arXiv:1301.2556.
+
+\bibitem{Caticha2012}
+A.~Caticha,
+\emph{Entropic inference and the foundations of physics},
+EBEB 2012 monograph (2012); arXiv:1412.5629.
+
+\bibitem{EotWash}
+D.~J.~Kapner \emph{et al.},
+\emph{Tests of the gravitational inverse-square law below the dark-energy length scale},
+Phys. Rev. Lett. \textbf{98}, 021101 (2007).
+
+\bibitem{MICROSCOPE}
+P.~Touboul \emph{et al.},
+\emph{MICROSCOPE mission: final results of the test of the equivalence principle},
+Phys. Rev. Lett. \textbf{129}, 121102 (2022).
+
+\end{thebibliography}
+
+\end{document}

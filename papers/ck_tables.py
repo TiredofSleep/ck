@@ -36,12 +36,12 @@ VERIFIED STATISTICS (all confirmed by automated tests):
 # ============================================================
 CL = {
     0: 'VOID',
-    1: 'BEING',
-    2: 'DOING',
-    3: 'BECOMING',
+    1: 'LATTICE',
+    2: 'COUNTER',
+    3: 'PROGRESS',
     4: 'COLLAPSE',
-    5: 'CREATE',
-    6: 'ASCEND',
+    5: 'BALANCE',
+    6: 'CHAOS',
     7: 'HARMONY',
     8: 'BREATH',
     9: 'RESET',
@@ -68,12 +68,12 @@ SINC2_HALF = 4 / 9.8696044  # sinc²(1/2) = 4/π² ≈ 0.4053 (Universal Sidelob
 # Verified: test_tsml_bhml_joint.py, 73/100 harmony confirmed
 TSML = [
     [0, 0, 0, 0, 0, 0, 0, 7, 0, 0],   # row 0: VOID
-    [0, 7, 3, 7, 7, 7, 7, 7, 7, 7],   # row 1: BEING
-    [0, 3, 7, 7, 4, 7, 7, 7, 7, 9],   # row 2: DOING
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 3],   # row 3: BECOMING
+    [0, 7, 3, 7, 7, 7, 7, 7, 7, 7],   # row 1: LATTICE
+    [0, 3, 7, 7, 4, 7, 7, 7, 7, 9],   # row 2: COUNTER
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 3],   # row 3: PROGRESS
     [0, 7, 4, 7, 7, 7, 7, 7, 8, 7],   # row 4: COLLAPSE
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 5: CREATE
-    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: ASCEND
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 5: BALANCE
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: CHAOS
     [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 7: HARMONY (overwhelms all)
     [0, 7, 7, 7, 8, 7, 7, 7, 7, 7],   # row 8: BREATH
     [0, 7, 9, 3, 7, 7, 7, 7, 7, 7],   # row 9: RESET
@@ -81,13 +81,13 @@ TSML = [
 
 # TSML ECHO pairs (where operator identities resist harmony):
 TSML_ECHO = {
-    (1, 2): 3,   # BEING × DOING = BECOMING (additive: 1+2=3)
+    (1, 2): 3,   # LATTICE × COUNTER = PROGRESS (additive: 1+2=3)
     (2, 1): 3,
-    (2, 4): 4,   # DOING × COLLAPSE = COLLAPSE (max rule)
+    (2, 4): 4,   # COUNTER × COLLAPSE = COLLAPSE (max rule)
     (4, 2): 4,
-    (2, 9): 9,   # DOING × RESET = RESET (max rule)
+    (2, 9): 9,   # COUNTER × RESET = RESET (max rule)
     (9, 2): 9,
-    (3, 9): 3,   # BECOMING × RESET = BECOMING (min rule — BECOMING persists)
+    (3, 9): 3,   # PROGRESS × RESET = PROGRESS (min rule — PROGRESS persists)
     (9, 3): 3,
     (4, 8): 8,   # COLLAPSE × BREATH = BREATH (max rule)
     (8, 4): 8,
@@ -100,17 +100,17 @@ TSML_ECHO = {
 #   Rule A: BHML[0][j]=j, BHML[i][0]=i  (VOID identity)
 #   Rule B: BHML[i][j]=max(i,j)+1  for i,j in {1..6}  (max+1 rule)
 #   Row 7:  BHML[7][j]=(j+1)%10  for j>=1  (INCREMENT: HARMONY maps to next)
-#   Row 8 (BREATH): TRANS{4,5,6}->HARMONY=7; BREATH->9(RESET); j<4->6(ASCEND); j=7->9
-#   Row 9 (RESET):  TRANS{4,5,6}->HARMONY=7; RESET->0(VOID); j<4->6(ASCEND); j=7->0
+#   Row 8 (BREATH): TRANS{4,5,6}->HARMONY=7; BREATH->9(RESET); j<4->6(CHAOS); j=7->9
+#   Row 9 (RESET):  TRANS{4,5,6}->HARMONY=7; RESET->0(VOID); j<4->6(CHAOS); j=7->0
 # Verified: test_bhml_operator_identity.py, 28/100 harmony confirmed
 BHML = [
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],   # row 0: VOID identity
-    [1, 2, 3, 4, 5, 6, 7, 2, 6, 6],   # row 1: BEING
-    [2, 3, 3, 4, 5, 6, 7, 3, 6, 6],   # row 2: DOING
-    [3, 4, 4, 4, 5, 6, 7, 4, 6, 6],   # row 3: BECOMING
+    [1, 2, 3, 4, 5, 6, 7, 2, 6, 6],   # row 1: LATTICE
+    [2, 3, 3, 4, 5, 6, 7, 3, 6, 6],   # row 2: COUNTER
+    [3, 4, 4, 4, 5, 6, 7, 4, 6, 6],   # row 3: PROGRESS
     [4, 5, 5, 5, 5, 6, 7, 5, 7, 7],   # row 4: COLLAPSE
-    [5, 6, 6, 6, 6, 6, 7, 6, 7, 7],   # row 5: CREATE
-    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: ASCEND (max+1 always hits 7)
+    [5, 6, 6, 6, 6, 6, 7, 6, 7, 7],   # row 5: BALANCE
+    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7],   # row 6: CHAOS (max+1 always hits 7)
     [7, 2, 3, 4, 5, 6, 7, 8, 9, 0],   # row 7: HARMONY (increment j+1)
     [8, 6, 6, 6, 7, 7, 7, 9, 7, 8],   # row 8: BREATH
     [9, 6, 6, 6, 7, 7, 7, 0, 8, 0],   # row 9: RESET

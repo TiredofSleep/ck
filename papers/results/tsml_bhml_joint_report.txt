@@ -81,10 +81,10 @@ Both tables symmetric: True
   either table individually.
 
 ======================================================================
-TASK C -- DOING STRUCTURE: WHERE TSML = BHML
+TASK C -- COUNTER STRUCTURE: WHERE TSML = BHML
 ======================================================================
 
-Cells where TSML[i][j] = BHML[i][j] (DOING=0): 29
+Cells where TSML[i][j] = BHML[i][j] (COUNTER=0): 29
   Agreement cells that are HARMONY: 26
   Agreement cells that are non-harmony: 3
 
@@ -94,7 +94,7 @@ Non-harmony agreement cells:
   (2,1): COUNTER x LATTICE = 3 PROGRESS
 
 DOING nonzero cells: 71/100
-DOING zero cells:     29/100 (= cells where TSML=BHML)
+COUNTER zero cells:     29/100 (= cells where TSML=BHML)
 
 Harmony breakdown:
   Both TSML and BHML = HARMONY: 26
@@ -174,7 +174,7 @@ Pattern analysis:
 
 Consolidated rules for echo pairs:
   (1,2): The ONLY additive echo. LATTICE+COUNTER=PROGRESS. 1+2=3.
-         This is also the ONLY non-harmony DOING=0 pair.
+         This is also the ONLY non-harmony COUNTER=0 pair.
   (2,4),(2,9),(4,8): max(i,j) rule. The larger operator wins.
          COUNTER(2) is overwritten by COLLAPSE(4) and RESET(9).
          COLLAPSE(4) is overwritten by BREATH(8).
@@ -305,7 +305,7 @@ NEW RESULTS:
    Combined with BHML symmetry: BOTH composition tables of the TIG framework
    are symmetric. This is a structural property of the CK algebra.
 
-3. DOING structure -- 29 agreement cells:
+3. COUNTER structure -- 29 agreement cells:
    Decomposed as: 26 shared harmony + 3 non-harmony agreements.
    The 3 non-harmony agreements:
      (0,0): VOID x VOID = VOID in both tables
@@ -381,6 +381,6 @@ KEY EQUATIONS (TSML):
 TASK RESULTS:
   A (TSML 73-cell derivation):  CLOSED
   B (TSML symmetry):             PASS
-  C (DOING structure):           COMPLETE (see above)
+  C (COUNTER structure):           COMPLETE (see above)
   D (Echo pair analysis):        COMPLETE
   E (73/28 ratio):               overlap=26, no W formula

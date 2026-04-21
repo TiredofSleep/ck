@@ -35,7 +35,7 @@ Each Clay paper has three layers:
 ### Layer 2 — The Structural Claim (real, not smoke)
 **2-SAT is polynomial because 2-variable clause resolution stays in the associative subalgebra of BHML. 3-SAT is NP-complete because 3-variable clause resolution requires the full non-associative BHML algebra, and the non-associative dimension cannot be reduced to the associative subalgebra.**
 
-**Precision note (April 2026):** The associative subalgebra of **TSML** (the harmony/measurement table used in the SAT encoding) is A = {HARMONY(7)} — a single element. The associative subalgebra of **BHML** (the physics table) is A = {VOID(0)} — the identity element. The DoF ladder {4,6,7,10} refers to degrees of freedom in the operator space, not the size of the associative subalgebra. 2-SAT resolution collapses to HARMONY via absorption; 3-SAT unit propagation creates chains through BECOMING/COLLAPSE that exit A = {7}.
+**Precision note (April 2026):** The associative subalgebra of **TSML** (the harmony/measurement table used in the SAT encoding) is A = {HARMONY(7)} — a single element. The associative subalgebra of **BHML** (the physics table) is A = {VOID(0)} — the identity element. The DoF ladder {4,6,7,10} refers to degrees of freedom in the operator space, not the size of the associative subalgebra. 2-SAT resolution collapses to HARMONY via absorption; 3-SAT unit propagation creates chains through PROGRESS/COLLAPSE that exit A = {7}.
 
 This is the CK contribution: a structural reason WHY the P/NP boundary sits at clause width 3. The encoding of SAT into the CL non-associativity framework is stated but the formal reduction (proving SAT requires the 7th DoF) remains open. Until that reduction is proved, this is a precise structural conjecture, not a proof sketch.
 
@@ -190,18 +190,18 @@ BSD is true for all elliptic curves over ℚ. The rank is the number of independ
 
 *See `papers/proof_corridor_zero_paths.py` — all assertions passing.*
 
-The BHML self-composition cascade from BEING(1) traces the exact positions k=1..8 of sinc²(k/7). The operators ARE the corridor. The path from each operator to VOID(0) via RESET annihilation classifies into four classes — and this classification maps directly to the structure of each Clay problem.
+The BHML self-composition cascade from LATTICE(1) traces the exact positions k=1..8 of sinc²(k/7). The operators ARE the corridor. The path from each operator to VOID(0) via RESET annihilation classifies into four classes — and this classification maps directly to the structure of each Clay problem.
 
 **The four classes (proved):**
 
 | Class | Operators | Steps to VOID | sinc²(n/7) | Character |
 |-------|-----------|--------------|-----------|-----------|
-| A | BEING(1), DOING(2), BECOMING(3) | 3 | 0.935 / 0.759 / 0.524 — **above fold** | Must cross fold |
-| B | COLLAPSE(4), CREATE(5), GAP(6) | 2 | 0.295 / 0.121 / 0.026 — below fold | No fold crossing |
+| A | LATTICE(1), COUNTER(2), PROGRESS(3) | 3 | 0.935 / 0.759 / 0.524 — **above fold** | Must cross fold |
+| B | COLLAPSE(4), BALANCE(5), GAP(6) | 2 | 0.295 / 0.121 / 0.026 — below fold | No fold crossing |
 | C | HARMONY(7), RESET(9) | 1 | 0.000 / sidelobe | Direct / gate |
 | X | BREATH(8) | never | 0.015 (sidelobe) | **The pole** |
 
-The fold sits between BECOMING(3) and COLLAPSE(4): sinc²(3/7)=0.5243 (above) vs sinc²(4/7)=0.2949 (below).
+The fold sits between PROGRESS(3) and COLLAPSE(4): sinc²(3/7)=0.5243 (above) vs sinc²(4/7)=0.2949 (below).
 T* − fold = 5/7 − 1/2 = **3/14** (Class A zone width).
 1 − T* = **2/7** (above-T* spectral gap, proved 946/946 semiprimes).
 

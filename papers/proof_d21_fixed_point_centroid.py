@@ -9,7 +9,7 @@ See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
 Luther-Sanders Research Framework | April 1 2026
 
 QUESTION (from Luther):
-  Is CREATE=5 forced by ring symmetry alone for any ODD-output map
+  Is BALANCE=5 forced by ring symmetry alone for any ODD-output map
   with a unique fixed point? Or is D7 the only path?
 
 ANSWER (two-part):
@@ -61,7 +61,7 @@ def section(t): print(f"\n{sep}\n  {t}\n{sep}\n")
 print("D21: FIXED-POINT CENTROID THEOREM")
 print("Luther-Sanders Research Framework | April 1 2026")
 print()
-print("  Is CREATE=5 forced by ring symmetry alone, or only by Phi's specific dynamics?")
+print("  Is BALANCE=5 forced by ring symmetry alone, or only by Phi's specific dynamics?")
 
 n = 10
 ODD = [1, 3, 5, 7, 9]
@@ -239,7 +239,7 @@ print(f"  CE violations at v ∈ {ce_violations}.")
 print(f"  Phi is NOT complement-equivariant (fails at v=2,3,4).")
 print()
 print("  Therefore: D21 does NOT explain why Phi has FP at 5.")
-print("  D7 (Phi fixed-point theorem) is an INDEPENDENT path to CREATE=5.")
+print("  D7 (Phi fixed-point theorem) is an INDEPENDENT path to BALANCE=5.")
 print()
 
 # Show image of Phi is complement-closed
@@ -254,9 +254,9 @@ print("  The output set {3,5,7} is symmetric around 5, but the map's assignment"
 print("  of inputs to outputs is asymmetric (it depends on BHML basin structure).")
 
 # ============================================================
-# SECTION 5: THE TWO INDEPENDENT ROUTES TO CREATE=5
+# SECTION 5: THE TWO INDEPENDENT ROUTES TO BALANCE=5
 # ============================================================
-section("SECTION 5: TWO INDEPENDENT ROUTES TO CREATE=5")
+section("SECTION 5: TWO INDEPENDENT ROUTES TO BALANCE=5")
 
 print("  ROUTE 1 — D21 (ring symmetry route):")
 print("  ─────────────────────────────────────")
@@ -273,7 +273,7 @@ print("  Scope: exactly the Phi map defined by BHML+W_op lens")
 print("  Independence: BHML max+1 rule, W_op carrier maxima, P_odd projection")
 print()
 print("  CONVERGENCE:")
-print("  Both routes identify CREATE=5 as the natural fixed point.")
+print("  Both routes identify BALANCE=5 as the natural fixed point.")
 print("  Route 1 gives it from ring symmetry.")
 print("  Route 2 gives it from specific dynamics.")
 print("  The fact that both paths end at 5 is not a coincidence —")

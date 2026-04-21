@@ -104,7 +104,7 @@ Verified values:
 - TSML: 73 harmony cells, symmetric, all C9 structure rules
 - BHML: 28 harmony cells, symmetric, Rules A/B/C from C9
 - W = 3/50 (from C8: CROSS_CYCLE=44, deviation=6, W=|44-50|/100)
-- T* = 5/7 (from b=35 unit_frac formula; also = CREATE/HARMONY)
+- T* = 5/7 (from b=35 unit_frac formula; also = BALANCE/HARMONY)
 
 ---
 
@@ -116,7 +116,7 @@ Verified values:
 | W | 3/50 = 0.06 | BHML cross-cycle derivation (C8) |
 | 4/π² | ≈ 0.4053 | sinc²(1/2), Montgomery bridge constant |
 | sinc²(0.1) | ≈ 0.9675 | Scale-free pre-echo floor |
-| CREATE | 5 | Dynamic attractor of Phi (D7) |
+| BALANCE | 5 | Dynamic attractor of Phi (D7) |
 | HARMONY | 7 | Measurement attractor of TSML |
 
 ---

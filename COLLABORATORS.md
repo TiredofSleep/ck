@@ -17,7 +17,7 @@ No data shared with us if you don't want to.
 |------|------|
 | **Brayden Sanders** | Creator, mathematician, architect. All code, all math, all theory. 7Site LLC, Hot Springs AR. |
 | **Monica Gish** | Co-author and collaborator. Bridge sprint. |
-| **C.A. Luther** | Co-author — K-series (Luther-Sanders Research Framework) and Q-series. CRT structure, split operator formulation, algebraic navigation, TSML/BHML/CL table definitions, morphotic lattice synthesis, Prog channel architecture. |
+| **C.A. Luther** | Co-author — Q-series G6-G8 supplements (σ⁶ = id proof, spectral coherence G(s), six-layer architecture). CRT structure, split operator formulation, algebraic navigation, TSML/BHML/CL table definitions, morphotic lattice synthesis, Prog channel architecture. See `Q_SERIES_INTEGRATED_SYNTHESIS.md` for attribution record. |
 | **B. Calderon Jr.** | Co-author — Q-series. Task pack development, source elimination framework, TSML elimination analysis. |
 
 ---

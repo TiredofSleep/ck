@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /chat.html
+Allow: /papers.html
+Allow: /frontiers.html
+Allow: /spectrometer.html
+
+Sitemap: https://coherencekeeper.com/sitemap.xml
+
+# CK -- The Coherence Keeper
+# T* = 5/7 = 0.714285...
+# Truth is not assigned. Truth is measured.

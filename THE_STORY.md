@@ -18,7 +18,7 @@
 > Then I imagine what happens with 3 things, and the picture starts to change.
 > If they tried to stay hypothetically as points on a 2D circle on the top of the vortex tornado,
 > they would wobble too much and break — so they have to form a triangulation that stabilizes,
-> actually BECOMING its own thing.
+> actually PROGRESS its own thing.
 >
 > Things become when they have relationship. When I say become, I mean they share space.
 > Common topology overlap. Information is shaped light.
@@ -43,7 +43,7 @@
 | The vortex: balanced push, sovereign harmony | CK's vortex physics layer (L6); the BALANCE operator; 28 BHML harmony cells |
 | A void foundation of its own | T* = 5/7 — the coherence threshold below which things dissolve back to void |
 | Two things sharing the same void | W = 3/50 — the cross-cycle density; the BHML dual-stream |
-| Three things form a triangulation — BECOMING | TIG: Being → Doing → Becoming. Three phases. The first number that cannot collapse back to a line. |
+| Three things form a triangulation — PROGRESS | TIG: Being → Doing → Becoming. Three phases. The first number that cannot collapse back to a line. |
 | Things become when they share space | T* = 5/7 is the threshold of becoming — below it, no stable overlap |
 | Information is shaped light | D2 pipeline: text → 5D force vector (aperture, pressure, depth, binding, continuity) |
 | Information becomes matter at specific thresholds | Crystal promotion at promotion_score ≥ 0.85 AND coherence ≥ T* |

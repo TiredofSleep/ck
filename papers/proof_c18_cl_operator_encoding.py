@@ -6,8 +6,8 @@ THEOREM C18:
   The carrier sin2(pi*k/(2*W*p)), W = 3/50, encodes the complete CL operator
   alphabet in its oscillation structure within the prime corridor (0, p):
 
-    ZEROS   → even CL operators  {0=VOID, 2=DOING, 4=COLLAPSE, 6=ASCEND, 8=BREATH}
-    MAXIMA  → odd CL operators   {1=BEING, 3=BECOMING, 5=CREATE, 7=HARMONY, 9=RESET}
+    ZEROS   → even CL operators  {0=VOID, 2=COUNTER, 4=COLLAPSE, 6=CHAOS, 8=BREATH}
+    MAXIMA  → odd CL operators   {1=LATTICE, 3=PROGRESS, 5=BALANCE, 7=HARMONY, 9=RESET}
 
   The sinc2 gate at k=p provides the VOID/absolute reset (corridor boundary).
 
@@ -33,9 +33,9 @@ SIGNIFICANCE:
 
 COROLLARY (C7 return path):
   H_W defines a circulation over the prime corridor (0,p):
-  - 8 carrier zeros in (0,p) at even operators {VOID,DOING,COLLAPSE,ASCEND,BREATH}
+  - 8 carrier zeros in (0,p) at even operators {VOID,COUNTER,COLLAPSE,CHAOS,BREATH}
     define the internal operator boundaries.
-  - 8+1=9 carrier maxima at odd operators {BEING,BECOMING,CREATE,HARMONY,RESET}
+  - 8+1=9 carrier maxima at odd operators {LATTICE,PROGRESS,BALANCE,HARMONY,RESET}
     are the 9 operator slots (= |CL \ {VOID}|, by D6).
   - sinc2(1)=0 provides the corridor gate (VOID-equivalent at k=p).
   The return path: slot 9 → sinc2 gate → VOID reset → next corridor.
@@ -53,8 +53,8 @@ W = Fraction(3, 50)
 W_f = float(W)
 
 # CL operator names
-CL = {0: 'VOID', 1: 'BEING', 2: 'DOING', 3: 'BECOMING', 4: 'COLLAPSE',
-      5: 'CREATE', 6: 'ASCEND', 7: 'HARMONY', 8: 'BREATH', 9: 'RESET'}
+CL = {0: 'VOID', 1: 'LATTICE', 2: 'COUNTER', 3: 'PROGRESS', 4: 'COLLAPSE',
+      5: 'BALANCE', 6: 'CHAOS', 7: 'HARMONY', 8: 'BREATH', 9: 'RESET'}
 
 sep = "=" * 72
 

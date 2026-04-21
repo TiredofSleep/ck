@@ -15,14 +15,14 @@
  *                     Being (theta/alpha), Doing (beta), Becoming (gamma).
  *                     Smooth crossfade between bands -- no hard switches.
  *
- *   BEING SIDE (measurement, driven by being_strobe):
+ *   LATTICE SIDE (measurement, driven by being_strobe):
  *   - chain_walker:   Lattice chain walk through BHML tree
  *
- *   DOING SIDE (physics, driven by doing_strobe):
+ *   COUNTER SIDE (physics, driven by doing_strobe):
  *   - d2_pipeline:    D2 curvature from symbols (Q1.14 fixed-point)
  *   - bhml_table:     BHML physics table (standalone for direct lookup)
  *
- *   BECOMING SIDE (vortex, driven by becoming_strobe):
+ *   PROGRESS SIDE (vortex, driven by becoming_strobe):
  *   - vortex_cl:      3-body vortex operator (prev ? curr ? next)
  *   - gait_vortex:    4-leg torus gait controller with self-healing
  *
@@ -58,7 +58,7 @@ module ck_top_zynq7020 (
     input  wire        rst_n,         // Active-low reset from PS
 
     // ============================================
-    // HEARTBEAT (BEING: self-sovereign CL composition)
+    // HEARTBEAT (LATTICE: self-sovereign CL composition)
     // ============================================
     input  wire [3:0]  hb_phase_b,
     input  wire [3:0]  hb_phase_d,
@@ -97,7 +97,7 @@ module ck_top_zynq7020 (
     output wire [3:0]  brain_fractal_level,
 
     // ============================================
-    // D2 PIPELINE (DOING: curvature classification)
+    // D2 PIPELINE (COUNTER: curvature classification)
     // ============================================
     input  wire [7:0]  d2_symbol,
     input  wire        d2_symbol_valid,
@@ -108,7 +108,7 @@ module ck_top_zynq7020 (
     output wire [31:0] d2_sym_count,
 
     // ============================================
-    // VORTEX (BECOMING: standalone 3-body lookup)
+    // VORTEX (PROGRESS: standalone 3-body lookup)
     // ============================================
     input  wire [3:0]  vtx_prev_op,
     input  wire [3:0]  vtx_curr_op,
@@ -120,7 +120,7 @@ module ck_top_zynq7020 (
     output wire [3:0]  vtx_delta,
 
     // ============================================
-    // CHAIN WALKER (BEING: lattice chain walk)
+    // CHAIN WALKER (LATTICE: lattice chain walk)
     // ============================================
     input  wire [3:0]  chain_op_in,
     input  wire        chain_op_valid,
@@ -135,7 +135,7 @@ module ck_top_zynq7020 (
     output wire [3:0]  chain_dominant,
 
     // ============================================
-    // GAIT VORTEX (BECOMING: 4-leg torus controller)
+    // GAIT VORTEX (PROGRESS: 4-leg torus controller)
     // ============================================
     input  wire [1:0]  gait_mode,
     input  wire        gait_start,

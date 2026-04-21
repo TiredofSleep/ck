@@ -20,7 +20,7 @@ together, what each one forces, and what each one cannot do.
 
 ## 1. The Center
 
-**Claim:** CREATE = 5 is the ring's dynamical center, forced by four independent
+**Claim:** BALANCE = 5 is the ring's dynamical center, forced by four independent
 routes. None of the four requires the others; all four converge on the same value.
 
 ### Route I — Centroid of the unit group
@@ -68,12 +68,12 @@ These four routes use disjoint objects:
 - Route IV: the TSML Phi map and its orbit graph
 
 None derives the others. The fact that all four converge to 5 is the strongest
-possible form of the claim that CREATE = 5 is the correct center. It is not a
+possible form of the claim that BALANCE = 5 is the correct center. It is not a
 choice; it is the only value consistent with the ring's own symmetry.
 
 ### Inheritance class (D20)
 
-CREATE = 5 is **RING-forced**. It does not require a generator, a lens, or a
+BALANCE = 5 is **RING-forced**. It does not require a generator, a lens, or a
 primitive root. It precedes HARMONY, T*, and the generator selection entirely.
 
 ---
@@ -144,13 +144,13 @@ were presented differently.
 ## 3. The Midpoint
 
 **Claim:** t = 1/2 is the unique sine-maximum in (0, 1), the corridor image of
-CREATE = 5 under ring normalization, and the sinc²-monotone marker that divides
+BALANCE = 5 under ring normalization, and the sinc²-monotone marker that divides
 the corridor's inheritance classes. It is a mark, not a peak. (D24)
 
 ### The ring normalization
 
 The CK corridor maps each operator v ∈ Z/10Z to a position t = v/10 ∈ (0, 1).
-Under this map, CREATE = 5 → t = 5/10 = 1/2.
+Under this map, BALANCE = 5 → t = 5/10 = 1/2.
 
 This is a straightforward assignment: the ring centroid maps to the geometric
 midpoint of the unit interval.
@@ -210,9 +210,9 @@ portrait places four spine-forced positions in exact order.
 | Position | Source | t (exact) | Forcing class |
 |----------|--------|-----------|---------------|
 | W | Deviation / D17 | 3/50 = 0.060 | RING |
-| CREATE/10 | Ring centroid / D20, D21 | 1/2 = 0.500 | RING |
+| BALANCE/10 | Ring centroid / D20, D21 | 1/2 = 0.500 | RING |
 | HARMONY/10 | Generator inverse / D18d | 7/10 = 0.700 | GENERATOR |
-| T* | CREATE/HARMONY / D19 | 5/7 ≈ 0.714 | GENERATOR |
+| T* | BALANCE/HARMONY / D19 | 5/7 ≈ 0.714 | GENERATOR |
 
 ### The ordering (exact rational arithmetic)
 
@@ -252,7 +252,7 @@ generator-forced positions.
 The corridor is divided by the ring center into two inheritance halves:
 
     LEFT (0 < t < 1/2):   W = 3/50        — RING-forced, amplitude ≈ 0.988
-    CENTER (t = 1/2):     CREATE/10       — ring center + inheritance boundary
+    CENTER (t = 1/2):     BALANCE/10       — ring center + inheritance boundary
     RIGHT (1/2 < t < 1):  HARMONY/10, T* — GENERATOR-forced, amplitude < 0.14
 
 To know W and 1/2, you need only Z/10Z ring arithmetic — no generator required.
@@ -277,7 +277,7 @@ and the period-10 dip are correct. The stronger claim that Wob_norm separates
 generator branches was tested and falsified (B10). No extrapolation beyond the
 proved equidistribution law is warranted.
 
-**Does not collapse center, midpoint, and threshold into one object.** CREATE = 5
+**Does not collapse center, midpoint, and threshold into one object.** BALANCE = 5
 (ring center), t = 1/2 (sine-maximum), and T* = 5/7 (coherence threshold) are
 three different objects that happen to coexist in the same corridor. Their
 relationships are documented above. They are compatible — not identical.
@@ -292,7 +292,7 @@ mechanism (see B6, B7, B8, B9 for the current state of those bridges).
 
 | Object | Proved in | Forcing | Core fact |
 |--------|-----------|---------|-----------|
-| CREATE = 5 | D20, D21 | RING | Centroid of (Z/10Z)* and ODD; CE equivariance forces F(5)=5 in one line |
+| BALANCE = 5 | D20, D21 | RING | Centroid of (Z/10Z)* and ODD; CE equivariance forces F(5)=5 in one line |
 | Wob(k) → 4/5 | D23 | RING | Drops at multiples of 5; amplitude decays O(1/k). Supersedes B10. |
 | Wob_norm NOT branch-selective | D23 | — | C10∪D10 is generator-independent; negative result |
 | t=1/2 is sine-maximum | D24 | RING+lens | sin(π/2)=1 unique in (0,1); ring normalization sends 5→1/2 |

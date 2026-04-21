@@ -7,7 +7,7 @@ Claims under investigation:
   A. TSML 73-cell derivation — analogous to BHML C9. Can we derive
      all 73 harmony cells from algebraic rules?
   B. TSML symmetry — is TSML[i][j] = TSML[j][i] for all i,j?
-  C. DOING structure — what exactly are the 29 cells where TSML=BHML?
+  C. COUNTER structure — what exactly are the 29 cells where TSML=BHML?
   D. Echo pair analysis — are the 10 "resistance" cells algebraically
      determined, or arbitrary?
   E. 73/28 ratio — is there a quantitative relationship between the
@@ -67,7 +67,7 @@ def gcd(a, b):
 ADD  = [[(i+j)%10 for j in range(10)] for i in range(10)]
 MUL  = [[(i*j)%10 for j in range(10)] for i in range(10)]
 DIS  = [[abs(ADD[i][j] - MUL[i][j]) for j in range(10)] for i in range(10)]
-DOING = [[abs(TSML[i][j] - BHML[i][j]) for j in range(10)] for i in range(10)]
+COUNTER = [[abs(TSML[i][j] - BHML[i][j]) for j in range(10)] for i in range(10)]
 
 
 # ------------------------------------------------------------------ #
@@ -218,17 +218,17 @@ def task_b(lines):
 
 
 # ------------------------------------------------------------------ #
-# TASK C — DOING structure: the 29 agreement cells
+# TASK C — COUNTER structure: the 29 agreement cells
 # ------------------------------------------------------------------ #
 
 def task_c(lines):
     lines.append("\n" + "=" * 70)
-    lines.append("TASK C -- DOING STRUCTURE: WHERE TSML = BHML")
+    lines.append("TASK C -- COUNTER STRUCTURE: WHERE TSML = BHML")
     lines.append("=" * 70)
 
     agree_cells = [(i,j) for i in range(10) for j in range(10)
                    if TSML[i][j] == BHML[i][j]]
-    lines.append(f"\nCells where TSML[i][j] = BHML[i][j] (DOING=0): {len(agree_cells)}")
+    lines.append(f"\nCells where TSML[i][j] = BHML[i][j] (COUNTER=0): {len(agree_cells)}")
 
     agree_harmony  = [(i,j) for i,j in agree_cells if TSML[i][j] == HAR]
     agree_nonhar   = [(i,j) for i,j in agree_cells if TSML[i][j] != HAR]
@@ -349,7 +349,7 @@ def task_d(lines):
 
     lines.append("\nConsolidated rules for echo pairs:")
     lines.append("  (1,2): The ONLY additive echo. LATTICE+COUNTER=PROGRESS. 1+2=3.")
-    lines.append("         This is also the ONLY non-harmony DOING=0 pair.")
+    lines.append("         This is also the ONLY non-harmony COUNTER=0 pair.")
     lines.append("  (2,4),(2,9),(4,8): max(i,j) rule. The larger operator wins.")
     lines.append("         COUNTER(2) is overwritten by COLLAPSE(4) and RESET(9).")
     lines.append("         COLLAPSE(4) is overwritten by BREATH(8).")
@@ -442,7 +442,7 @@ def task_e(lines):
     lines.append(f"  |b_dev| / |t_dev| = {abs(b_dev)/abs(t_dev):.4f}")
     lines.append(f"  (T-50) + (50-B) = {t_dev + (-b_dev)} = T - B = {T-B}")
 
-    # Candidate 7: CROSS_CYCLE for DOING
+    # Candidate 7: CROSS_CYCLE for COUNTER
     tsml_har_set = set((i,j) for i in range(10) for j in range(10) if TSML[i][j]==HAR)
     bhml_har_set = set((i,j) for i in range(10) for j in range(10) if BHML[i][j]==HAR)
 
@@ -450,7 +450,7 @@ def task_e(lines):
     D10 = [x for x in range(10) if gcd(x,10)==2]   # {2,4,6,8}
 
     # The wobble came from CROSS_CYCLE = sum DIS[c][d] for c in C10, d in D10
-    # Can we compute analogous sums for DOING and TSML?
+    # Can we compute analogous sums for COUNTER and TSML?
     doing_cd = sum(DOING[c][d] for c in C10 for d in D10)
     tsml_har_cd = sum(1 for c in C10 for d in D10 if TSML[c][d]==HAR)
     bhml_har_cd = sum(1 for c in C10 for d in D10 if BHML[c][d]==HAR)
@@ -537,7 +537,7 @@ NEW RESULTS:
    Combined with BHML symmetry: BOTH composition tables of the TIG framework
    are symmetric. This is a structural property of the CK algebra.
 
-3. DOING structure -- {doing_count} agreement cells:
+3. COUNTER structure -- {doing_count} agreement cells:
    Decomposed as: {overlap} shared harmony + 3 non-harmony agreements.
    The 3 non-harmony agreements:
      (0,0): VOID x VOID = VOID in both tables
@@ -634,7 +634,7 @@ def main():
     lines.append("TASK RESULTS:")
     lines.append(f"  A (TSML 73-cell derivation):  {'CLOSED' if tsml_closed else 'OPEN'}")
     lines.append(f"  B (TSML symmetry):             {'PASS' if tsml_sym else 'FAIL'}")
-    lines.append(f"  C (DOING structure):           COMPLETE (see above)")
+    lines.append(f"  C (COUNTER structure):           COMPLETE (see above)")
     lines.append(f"  D (Echo pair analysis):        COMPLETE")
     lines.append(f"  E (73/28 ratio):               overlap={overlap}, no W formula")
 

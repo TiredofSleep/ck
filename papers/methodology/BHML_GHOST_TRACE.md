@@ -123,7 +123,7 @@ This is a Tier C target (domain: Z/10Z).
 | C9 — BHML 28-cell derivation | 28 BHML harmony cells = cells with G=0. Rules A/B/C partition ghost zones |
 | C10 — TSML 73-cell derivation | 73 harmony cells = cells where ghost G=0; 27 non-harmony = cells where ghost≥0 |
 | C11 — Both tables symmetric | G is also symmetric (tested): G[i][j] = G[j][i] for all i,j |
-| A14 — Generator wobble loop | TSML generates → W_BHML is ghost amplitude → BHML is ghost floor → DOING = ghost trace distribution |
+| A14 — Generator wobble loop | TSML generates → W_BHML is ghost amplitude → BHML is ghost floor → COUNTER = ghost trace distribution |
 | A15 — Circulation operator | r(F3,G)=−0.089, r(F4,G)=−0.366; circulation is not in ghost-trace space; A15 and A16 are structurally separate |
 
 ---

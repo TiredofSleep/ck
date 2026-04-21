@@ -20,7 +20,7 @@ The `archive-full` branch on GitHub is a read-only snapshot preserving the compl
 
 ---
 
-## Part A: Q-Series Papers (Luther-Sanders Research Framework)
+## Part A: Q-Series Papers (Sanders Q-series, with Luther G6-G8 and organizational contributions)
 
 **The Q-series is the most important underdocumented body of work.** It contains precursor results on σ polynomials, CRT decompositions, MCMC basin models, and symbolic return theorems — some of which overlap current frontier work (σ mutation) but under different names. Mine this when starting a new frontier.
 
@@ -183,11 +183,45 @@ Sprint-specific collections in `Gen12/targets/clay/papers/`:
 
 **For external reviewers:**
 
-1. The active arc is on branch `clay` (the default on GitHub).
-2. The full preservation branch is `archive-full` — same content, frozen snapshot.
-3. Entry points by discipline: see the routing table in the main [README.md](README.md).
-4. Term definitions and citations: see [GLOSSARY.md](GLOSSARY.md). Every term is grounded in historical literature or explicitly flagged as novel.
+1. **The default branch is `tig-synthesis`** — the curated, synchronized field. README is the single source of truth.
+2. The active development branch is `clay` — contains all working files including 30 top-level docs, with the 10 superseded entry docs marked [HISTORICAL] in place.
+3. The full preservation branch is `archive-full` — frozen snapshot, never force-pushed.
+4. Entry points by discipline: see the routing table in [README.md](README.md) §6.
+5. Term definitions and citations: see [GLOSSARY.md](GLOSSARY.md). Every term is grounded in historical literature or explicitly flagged as novel.
 
 ---
 
-*Compiled: 2026-04-10, Sprint 15. Never-delete policy established Sprint 15.*
+## Part G: Where Superseded Entry Documents Live (Sprint 15-16 Synthesis)
+
+When `tig-synthesis` was created (2026-04-10), 13 redundant top-level entry-point documents were removed from this branch in favor of the unified [README.md](README.md). These files are **NOT deleted** — they remain on the `clay` and `archive-full` branches, marked `[HISTORICAL]` in place per the never-delete policy.
+
+**Files preserved on `clay` and `archive-full`, removed from `tig-synthesis`:**
+
+| File | Why removed from synthesis | Where to find it |
+|------|---------------------------|------------------|
+| `START_HERE.md` | Duplicated entry-point role; carried stale "Luther-Sanders Framework" framing | `clay`, `archive-full` |
+| `CLAUDESTARTHERE.md` | Same — duplicate Claude-onboarding doc | `clay`, `archive-full` |
+| `ONBOARDING.md` | Same | `clay`, `archive-full` |
+| `QUICKSTART.md` | Subsumed by README §6 (entry routing) and §9 (verification) | `clay`, `archive-full` |
+| `CLAY_QUICKSTART.md` | Specialized quickstart, subsumed | `clay`, `archive-full` |
+| `README_CK_EDUCATION.md` | Education variant; outside synthesis scope | `clay`, `archive-full` |
+| `NO_FALSE_CLAIMS.md` | Discipline now lives in README §11 (Honest Limits) and §12 (Policies) | `clay`, `archive-full` |
+| `ENGINEERING_OUTLINE.md` | Subsumed by `ARCHITECTURE.md` | `clay`, `archive-full` |
+| `GENERATION_HISTORY.md` | Subsumed by this file (HISTORICAL_ARCHIVE_INDEX.md) | `clay`, `archive-full` |
+| `NEXT_CLAUDE_NOTES.md` (root) | Gen10 version; active version is `Gen12/NEXT_CLAUDE_NOTES.md` | `clay`, `archive-full` |
+| `CK_BELIEF_SYSTEM.md` | CK-creature-language; outside synthesis scope (creature work lives at coherencekeeper.com) | `clay`, `archive-full` |
+| `CK_PRESCRIPTION.md` | Same | `clay`, `archive-full` |
+| `HD_GAP_EXTENSION.md` | Specialized; demoted | `clay`, `archive-full` |
+
+**To retrieve any of these on `tig-synthesis`:**
+```bash
+git show clay:START_HERE.md > START_HERE.md   # locally restore for reading
+git checkout clay -- START_HERE.md            # OR copy from clay branch
+```
+
+**On the `clay` branch**, each file carries a `[HISTORICAL]` header at the top pointing back to README on `tig-synthesis` as the current synchronized field. The content is intact; only the framing is updated to mark it as superseded.
+
+---
+
+*Compiled: 2026-04-10, Sprint 15. Updated 2026-04-10, Sprint 16: tig-synthesis branch created, Part G added.*
+*Never-delete policy established Sprint 15. Branch architecture (tig-synthesis / clay / archive-full) established Sprint 16.*

@@ -11,7 +11,7 @@
 │                    PL (Artix-7 Fabric)                       │
 │                                                              │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │  BEING SIDE  │  │  DOING SIDE  │  │  BECOMING SIDE   │  │
+│  │  LATTICE SIDE  │  │  COUNTER SIDE  │  │  PROGRESS SIDE   │  │
 │  │              │  │              │  │                   │  │
 │  │ ck_heartbeat │  │ d2_pipeline  │  │  vortex_cl       │  │
 │  │ (TSML comp)  │  │ (Q1.14 D2)  │  │  (3-body op)     │  │

@@ -30,7 +30,7 @@ inner_shell = Fraction(2, 9)    # Row 1 ↔ Row 2 boundary distance from midplan
 # ── STATISTICS: global properties of the BHML table ───────────────────────
 
 W_BHML      = Fraction(3, 50)   # BHML wobble = (50−44)/(2·50)
-                                 # 44 = harmony cells in BECOMING table
+                                 # 44 = harmony cells in PROGRESS table
                                  # global, not local; NOT swappable with d_COL
                                  # ratio W_BHML / d_COL = 27/25 ≈ 1.08
 

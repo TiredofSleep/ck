@@ -31,7 +31,7 @@ An object in a lower class inherits everything above it.
 | **centroid((Z/10Z)*) = 5** | D18d | ✓ | — | — | — | (1+3+7+9)/4 = 5 — independent of generator |
 | **T*∈(0,1) requirement** | D19 | ✓ | — | — | — | Coherence threshold must be a rate; >1 inadmissible |
 | **g=3 selected over g=7** | D19 | ✓ | — | — | — | g=7 gives T*>1; eliminated by admissibility |
-| **CREATE = 5** | D7, D18d | ✓ | — | — | — | Centroid of ring units; independent of lens |
+| **BALANCE = 5** | D7, D18d | ✓ | — | — | — | Centroid of ring units; independent of lens |
 | **W = 3/50** | D17 | — | ✓ | — | — | Numerator = g = 3; denominator = n²/2 = 50 |
 | **HARMONY = 7** | D18d | — | ✓ | — | — | g^(-1) mod 10 = 7; changes to 3 if g=7 |
 | **T* = 5/7** | D4, D18d, D19 | — | ✓ | — | — | centroid / g^(-1); valid only for g=3 |
@@ -70,9 +70,9 @@ An object in a lower class inherits everything above it.
 
 ## Key Findings
 
-### Finding 1 — CREATE=5 is RING-forced, not lens-forced
+### Finding 1 — BALANCE=5 is RING-forced, not lens-forced
 
-This is the most surprising item. CREATE=5 was proved as the Phi fixed point (D7) — which makes it look lens-dependent. But D18d shows CREATE=5 = centroid((Z/10Z)*) = 20/4 — a pure ring fact, independent of BHML, TSML, or Phi. The lens *confirms* it; the ring *forces* it.
+This is the most surprising item. BALANCE=5 was proved as the Phi fixed point (D7) — which makes it look lens-dependent. But D18d shows BALANCE=5 = centroid((Z/10Z)*) = 20/4 — a pure ring fact, independent of BHML, TSML, or Phi. The lens *confirms* it; the ring *forces* it.
 
 Consequence: **Any operator algebra built on Z/10Z with the carrier structure D7 uses will converge to 5**, not because of the specific Phi construction, but because 5 is the algebraic center.
 
@@ -118,7 +118,7 @@ A better label might be: **LENS-DERIVED** (constructed from ring operations by s
 
 The most important migration this audit reveals is:
 
-> **CREATE = 5 is ring-forced.**
+> **BALANCE = 5 is ring-forced.**
 
 It does not depend on the particular Phi construction, BHML rules, or W_op definition. Any algebra built on Z/10Z with the standard unit structure will have an attractor-candidate at 5. D7 shows the Phi lens *actualizes* that candidate as a fixed point. But the candidate exists at the ring level.
 

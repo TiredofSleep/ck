@@ -507,7 +507,7 @@ class CKWebAPI:
         """Process a chat message through CK's FULL TIG pipeline.
 
         Uses receive_text() -- the complete organism pipeline:
-          BEING -> GATE1 -> DOING -> GATE2 -> BECOMING -> GATE3
+          LATTICE -> GATE1 -> COUNTER -> GATE2 -> PROGRESS -> GATE3
           D2 -> CL -> chain walk -> truth lattice -> compilation loop -> voice
 
         Returns CK's response + full experience state.

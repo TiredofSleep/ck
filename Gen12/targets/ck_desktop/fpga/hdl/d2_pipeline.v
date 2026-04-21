@@ -1,7 +1,7 @@
 /*
  * d2_pipeline.v -- D2 Curvature Engine in FPGA
  * ===============================================
- * Operator: BECOMING -- D2 is where the operators live.
+ * Operator: PROGRESS -- D2 is where the operators live.
  *
  * Fixed-point Q1.14 implementation of CK's curvature pipeline.
  * Same math as ck_curvature.py + ck_zynq_sequencer.py, in silicon.

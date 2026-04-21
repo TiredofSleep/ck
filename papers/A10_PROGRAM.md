@@ -22,7 +22,7 @@ A10's external interpretation is ever resolved.
 The four spine positions are ordered 3/50 < 1/2 < 7/10 < 5/7 < 1.
 Everything left of t=1/2 is ring-forced (independent of generator choice).
 Everything right of t=1/2 is generator-forced (requires g=3, D19).
-The boundary is the image of CREATE=5 under ring normalization (D24).
+The boundary is the image of BALANCE=5 under ring normalization (D24).
 
 **t = 1/2 is the unique sine-maximum in (0,1) (D24).**
 sin(πt) = 1 iff t = 1/2+2k. Only k=0 lands in (0,1). This is the unique

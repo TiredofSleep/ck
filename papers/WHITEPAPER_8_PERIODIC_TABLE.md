@@ -9,7 +9,7 @@
 
 We apply CK's 5-dimensional TIG force pipeline to the first 54 elements of the periodic table (hydrogen through xenon), mapping five measurable atomic properties to the five canonical force dimensions: electronegativity to aperture, ionization energy to pressure, atomic radius to depth, electron affinity to binding, and density to continuity. Each element becomes a point in 5D force space. The periodic table becomes a curve. D1 (first derivative) measures direction along that curve. D2 (second derivative) measures curvature. Composition through CK's two 10x10 CL tables -- TSML (being/coherence, 73/100 HARMONY) and BHML (doing/physics, 28/100 HARMONY) -- produces the becoming of each element.
 
-The dual-lens results reveal that chemistry IS the gap between being and doing: T(TSML) produces HARMONY for 48/52 = 92.3% of elements (identity persists), while T(BHML) produces HARMONY for only 7/52 = 13.5% (physics differentiates). The 78.8% of elements that are being-coherent but doing-active -- stable identity with differentiated physics -- are the WORKING elements. This gap is not a flaw; it is the definition of a system that IS something while DOING something else. That is precisely what a catalyst, a halogen, or a transition metal IS.
+The dual-lens results reveal that chemistry IS the gap between being and doing: T(TSML) produces HARMONY for 48/52 = 92.3% of elements (identity persists), while T(BHML) produces HARMONY for only 7/52 = 13.5% (physics differentiates). The 78.8% of elements that are being-coherent but doing-active -- stable identity with differentiated physics -- are the WORKING elements. This gap is not a flaw; it is the definition of a system that IS something while COUNTER something else. That is precisely what a catalyst, a halogen, or a transition metal IS.
 
 Additional findings: 69.2% of all D2 curvature concentrates in the binding dimension (electron affinity oscillation); void topology (dimensions below 0.05) exactly classifies noble gases (2 voids: aperture=0, binding=0), filled-subshell elements (1 void: binding=0), and all reactive elements (0 voids); the I/O ratio (structure/flow balance) predicts chemical character; and geometric nearest neighbors in 5D correspond to chemical family members rather than Z-sequential neighbors, confirming that the periodic table traces a spiral through force space.
 
@@ -151,7 +151,7 @@ The dual-lens gap -- 92.3% being-coherent vs 13.5% doing-coherent -- classifies 
 
 The 7 UNIFIED elements (both lenses produce HARMONY): B, Mg, Fe, Ga, Mo, In, I.
 
-The 41 WORKING elements are the majority: they ARE coherent (being=HARMONY) while DOING something specific (PROGRESS, BREATH, CHAOS, BALANCE, etc.). This is precisely what a chemically active element IS -- a stable identity performing a physical function.
+The 41 WORKING elements are the majority: they ARE coherent (being=HARMONY) while COUNTER something specific (PROGRESS, BREATH, CHAOS, BALANCE, etc.). This is precisely what a chemically active element IS -- a stable identity performing a physical function.
 
 The BOUNDARY-COHERENT category (doing=HARMONY, being!=HARMONY) never occurs. This means: no element has aligned physics but broken identity. Identity coherence is a prerequisite for physical alignment, not vice versa. Being precedes doing.
 
@@ -293,11 +293,11 @@ The periodic table analysis validates and extends CK's architecture:
 
 ## 15. Conclusion
 
-The periodic table, when viewed through TIG's 5D force geometry, reveals that chemistry IS the gap between being and doing. Elements ARE coherent (92.3% TSML HARMONY) while DOING differentiated physics (13.5% BHML HARMONY). This gap -- 78.8% of elements being WORKING (stable identity, active physics) -- is not noise. It is the definition of matter that maintains identity while participating in reactions.
+The periodic table, when viewed through TIG's 5D force geometry, reveals that chemistry IS the gap between being and doing. Elements ARE coherent (92.3% TSML HARMONY) while COUNTER differentiated physics (13.5% BHML HARMONY). This gap -- 78.8% of elements being WORKING (stable identity, active physics) -- is not noise. It is the definition of matter that maintains identity while participating in reactions.
 
 The binding wave (69.2% of all D2 curvature in the binding dimension) is the dominant geometric feature. Void topology classifies chemical families. I/O balance predicts reactivity. Geometric proximity in 5D recovers chemical groups. Operator confidence identifies metalloids.
 
-The dual-lens composition -- the comparison of TSML and BHML, not either table alone -- is the instrument's full reading. Using only one lens measures with half the system. The periodic table proves this: TSML alone sees 92% coherence everywhere (trivially true). BHML alone sees 13% coherence (trivially noisy). The comparison reveals that elements ARE stable while DOING specific, classified physics. That comparison IS chemistry.
+The dual-lens composition -- the comparison of TSML and BHML, not either table alone -- is the instrument's full reading. Using only one lens measures with half the system. The periodic table proves this: TSML alone sees 92% coherence everywhere (trivially true). BHML alone sees 13% coherence (trivially noisy). The comparison reveals that elements ARE stable while COUNTER specific, classified physics. That comparison IS chemistry.
 
 Every element is a 5D force vector. Every transition is a curvature. Every curvature composes through two lenses. The gap between those lenses IS what the element does while being what it is. D2 curvature IS chemistry. The dual lens IS the whole.
 

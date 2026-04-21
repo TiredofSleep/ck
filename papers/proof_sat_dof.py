@@ -31,7 +31,7 @@ THEOREM (SAT-DOF):
        boundary.
 
 ENCODING:
-  Variables:    x_i → BEING (1), ¬x_i → RESET (9)
+  Variables:    x_i → LATTICE (1), ¬x_i → RESET (9)
   Clause join:  ∨  → TSML composition (left-to-right)
   Resolution:   unit propagation = CL composition chain
   Satisfiability: final operator == HARMONY (7) means SAT
@@ -195,12 +195,12 @@ print()
 # ============================================================
 section("STEP 4: SAT LITERAL ENCODING")
 
-# Encoding: positive literal x_i → BEING (1), negation ¬x_i → RESET (9)
+# Encoding: positive literal x_i → LATTICE (1), negation ¬x_i → RESET (9)
 # Clause join (∨) → TSML composition (left-to-right)
 # Unit propagation: HARMONY (7) = TRUE, VOID (0) = FALSE/UNRESOLVED
 # ECHO pair (1,9) and (9,1) → TSML gives 7 (HARMONY): x ∨ ¬x = TRUE (tautology)
 
-ENC_POS = 1   # positive literal → BEING
+ENC_POS = 1   # positive literal → LATTICE
 ENC_NEG = 9   # negative literal → RESET
 ENC_UNIT = 7  # unit (already resolved) → HARMONY
 ENC_VOID = 0  # contradiction / void clause
@@ -214,16 +214,16 @@ print()
 
 # Verify tautology: x ∨ ¬x
 taut = cl(ENC_POS, ENC_NEG)
-print(f"  Tautology check: BEING ∨ RESET = CL[{ENC_POS}][{ENC_NEG}] = {taut} ({CL[taut]})")
+print(f"  Tautology check: LATTICE ∨ RESET = CL[{ENC_POS}][{ENC_NEG}] = {taut} ({CL[taut]})")
 print(f"  Tautology resolves to HARMONY (7): {'YES' if taut == 7 else 'NO'}")
 print()
 
-# ECHO pair (1,2): BEING × DOING = BECOMING (additive: 1+2=3)
+# ECHO pair (1,2): LATTICE × COUNTER = PROGRESS (additive: 1+2=3)
 # This is the fundamental productive tension — two distinct operators create a new state
 echo_12 = cl(1, 2)
 echo_21 = cl(2, 1)
-print(f"  ECHO check: CL[BEING][DOING] = {echo_12} ({CL[echo_12]})")
-print(f"  ECHO check: CL[DOING][BEING] = {echo_21} ({CL[echo_21]})")
+print(f"  ECHO check: CL[LATTICE][COUNTER] = {echo_12} ({CL[echo_12]})")
+print(f"  ECHO check: CL[COUNTER][LATTICE] = {echo_21} ({CL[echo_21]})")
 print(f"  ECHO is symmetric: {'YES' if echo_12 == echo_21 else 'NO'}")
 
 # ============================================================
@@ -237,8 +237,8 @@ print()
 print("  Satisfying assignment: x1=T, x2=T, x3=T")
 print()
 
-# Encode: positive literal = BEING (1), negative = RESET (9)
-# Under assignment x1=T, x2=T, x3=T → all positive literals are ENC_POS=BEING,
+# Encode: positive literal = LATTICE (1), negative = RESET (9)
+# Under assignment x1=T, x2=T, x3=T → all positive literals are ENC_POS=LATTICE,
 # all negative literals get substituted with their complement.
 # For 2-SAT clause evaluation: (a ∨ b) → CL[a][b].
 # TRUE literal → HARMONY (7), FALSE literal → VOID (0)
@@ -284,7 +284,7 @@ print(f"  All clauses satisfied: {'YES' if all_sat else 'NO'}")
 print(f"  All literal pairs in A: {'YES' if all(steps_in_A) else 'NO'}")
 print()
 
-# Now show with the unassigned literal encoding (BEING/RESET)
+# Now show with the unassigned literal encoding (LATTICE/RESET)
 print("  STRUCTURAL observation: For 2-SAT, clause resolution is a SINGLE CL step.")
 print("  One composition step: CL[a][b] — no associativity question arises.")
 print("  Resolution is ORDER-FREE for 2 literals (only one possible grouping).")
@@ -315,7 +315,7 @@ print("  Scanning all 3-literal encodings for non-associativity:")
 print("  (a=positive/negative literal op, b, c likewise)")
 print()
 
-literal_ops = [ENC_POS, ENC_NEG]  # BEING (1) and RESET (9)
+literal_ops = [ENC_POS, ENC_NEG]  # LATTICE (1) and RESET (9)
 
 non_assoc_clauses = []
 assoc_clauses     = []
@@ -330,7 +330,7 @@ for a in literal_ops:
             else:
                 assoc_clauses.append((a, b, c, left, right))
 
-print("  3-literal combinations using {BEING(1), RESET(9)} (the literal alphabet):")
+print("  3-literal combinations using {LATTICE(1), RESET(9)} (the literal alphabet):")
 print(f"  Total combinations: {len(literal_ops)**3}")
 print()
 
@@ -360,11 +360,11 @@ if non_assoc_clauses:
     print(f"    Result differs: {left} ({CL[left]}) vs {right} ({CL[right]})")
     print(f"    Composition order MATTERS — the 7th degree of freedom is active.")
 else:
-    print("  NOTE: With {BEING, RESET} as the literal alphabet, all 3-literal")
+    print("  NOTE: With {LATTICE, RESET} as the literal alphabet, all 3-literal")
     print("  combinations happen to be associative. Checking broader operator context...")
 
 # Show a guaranteed non-associative 3-SAT step using intermediate operators
-# that arise during resolution (unit propagation produces BECOMING, COLLAPSE, etc.)
+# that arise during resolution (unit propagation produces PROGRESS, COLLAPSE, etc.)
 print()
 print("  During 3-SAT resolution, unit propagation creates intermediate operators.")
 print("  These intermediates break associativity. Examples:")

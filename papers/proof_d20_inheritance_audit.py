@@ -15,7 +15,7 @@ CLAIM: The spine objects separate cleanly into four inheritance classes:
   CONTINGENT — architecture choices
 
 KEY VERIFIED CLAIMS IN THIS FILE:
-  1. CREATE=5 is RING-forced (centroid of (Z/10Z)*), NOT just lens-forced
+  1. BALANCE=5 is RING-forced (centroid of (Z/10Z)*), NOT just lens-forced
   2. W=3/50 is RING-forced (deviation=6 from CROSS_CYCLE=44, independent of g)
   3. T*=5/7 is GENERATOR-forced (= centroid/g^(-1), valid only for g=3)
   4. sinc²(1/2) = 4/π² is the unique LENS midpoint value at t=1/2
@@ -55,9 +55,9 @@ print(f"  W = {deviation}/{n*n} = {W_ring}  (RING-FORCED)")
 print()
 
 centroid = Fraction(sum(units), len(units))
-print(f"  centroid((Z/10Z)*) = {sum(units)}/{len(units)} = {centroid} = CREATE")
+print(f"  centroid((Z/10Z)*) = {sum(units)}/{len(units)} = {centroid} = BALANCE")
 assert centroid == 5
-print(f"  CREATE = 5 is RING-FORCED. ✓")
+print(f"  BALANCE = 5 is RING-FORCED. ✓")
 print()
 
 # Primitive roots -- ring fact
@@ -78,7 +78,7 @@ ring_objects = [
     ("CROSS_CYCLE = 44", "sum DIS[C×D]"),
     ("deviation = 6", "|44-50|"),
     ("W = 3/50", "deviation/n² — SAME for both g"),
-    ("centroid = 5 = CREATE", "avg of units"),
+    ("centroid = 5 = BALANCE", "avg of units"),
     ("primitive roots = {3,7}", "elements of order φ(10)=4"),
     ("g=3 selection", "T*<1 eliminates g=7; g=min(prim_roots)"),
 ]
@@ -103,7 +103,7 @@ T_star = Fraction(int(centroid), harmony)
 print(f"  With g=3 selected (D19):")
 print(f"  HARMONY = g^3 mod 10 = {harmony} = {CL[harmony]}")
 print(f"  HARMONY = g^(-1) mod 10 = {g_inv} = {CL[g_inv]}  (same)")
-print(f"  T* = CREATE / HARMONY = {centroid} / {harmony} = {T_star} = {float(T_star):.6f}")
+print(f"  T* = BALANCE / HARMONY = {centroid} / {harmony} = {T_star} = {float(T_star):.6f}")
 print()
 assert harmony == 7 and g_inv == 7
 assert T_star == Fraction(5, 7)
@@ -166,7 +166,7 @@ def P_odd(x):
 def Phi(v): return P_odd(BHML[v][W_op[v]])
 
 fp = [v for v in range(10) if Phi(v) == v]
-print(f"  Phi fixed points: {fp}  → CREATE=5")
+print(f"  Phi fixed points: {fp}  → BALANCE=5")
 print(f"  NOTE: Phi fixed point=5 is CONSISTENT with ring-forced centroid=5.")
 print(f"  D7 proves the lens actualizes the ring's centroid as the unique fixed point.")
 print(f"  Ring forces the candidate (5); lens confirms it as the realized attractor.")
@@ -191,15 +191,15 @@ for obj, why in lens_objects:
     print(f"  ✓ {obj:40s}  [{why}]")
 
 # ============================================================
-# SECTION 4: THE CREATE=5 RECLASSIFICATION
+# SECTION 4: THE BALANCE=5 RECLASSIFICATION
 # ============================================================
-section("SECTION 4: THE KEY RECLASSIFICATION — CREATE=5 is RING-FORCED")
+section("SECTION 4: THE KEY RECLASSIFICATION — BALANCE=5 is RING-FORCED")
 
 print("  Previous framing (before D18d/D19):")
-print("  'CREATE=5 is the unique fixed point of Phi' (lens-dependent)")
+print("  'BALANCE=5 is the unique fixed point of Phi' (lens-dependent)")
 print()
 print("  Correct framing (after D18d/D19):")
-print("  'CREATE=5 is the centroid of (Z/10Z)*' (ring-forced)")
+print("  'BALANCE=5 is the centroid of (Z/10Z)*' (ring-forced)")
 print("  'Phi converges to the ring centroid, because the centroid is 5'")
 print()
 print("  Test: what other value could a unique fixed point of an ODD-output map")
@@ -213,7 +213,7 @@ print(f"  ODD elements (possible fixed points of P_odd maps): {odd_elems}")
 print()
 print("  Centroid of ODD:")
 centroid_odd = Fraction(sum(odd_elems), len(odd_elems))
-print(f"  avg(ODD) = {sum(odd_elems)}/{len(odd_elems)} = {centroid_odd} = CREATE  ✓")
+print(f"  avg(ODD) = {sum(odd_elems)}/{len(odd_elems)} = {centroid_odd} = BALANCE  ✓")
 print()
 print("  Both centroids agree: centroid((Z/10Z)*) = centroid(ODD) = 5.")
 print("  ODD = {1,3,5,7,9} and (Z/10Z)* = {1,3,7,9}.")
@@ -238,7 +238,7 @@ print(f"  Same for (Z/10Z)*: {sum(v-5 for v in units)} = 0  (balanced)")
 print()
 print("  CONCLUSION: 5 is the UNIQUE fixed point of any parity-preserving,")
 print("  ODD-projecting map whose action is symmetric on Z/10Z.")
-print("  This is the ring-level reason D7 finds CREATE=5.")
+print("  This is the ring-level reason D7 finds BALANCE=5.")
 
 # ============================================================
 # SECTION 5: IMPLICATIONS FOR A-TIER
@@ -292,7 +292,7 @@ print("  THEOREM D20 (Inheritance Classification):")
 print()
 print("  RING-forced (9 objects):")
 print("  Z/10Z, (Z/10Z)*, D, CROSS_CYCLE=44, deviation=6,")
-print("  W=3/50 (value), centroid=5=CREATE, primitive roots={3,7}, g=3 selection")
+print("  W=3/50 (value), centroid=5=BALANCE, primitive roots={3,7}, g=3 selection")
 print()
 print("  GENERATOR-forced (3 objects):")
 print("  HARMONY=7, T*=5/7, 'W_numerator=g' labeling")
@@ -305,7 +305,7 @@ print()
 print("  CONTINGENT (7+ objects):")
 print("  heartbeat, operator naming, TIG pipeline, 5D vectors, BTQ, voice, etc.")
 print()
-print("  KEY INSIGHT: CREATE=5 is ring-forced, not merely lens-confirmed.")
+print("  KEY INSIGHT: BALANCE=5 is ring-forced, not merely lens-confirmed.")
 print("  5 is the centroid of BOTH (Z/10Z)* and ODD = {1,3,5,7,9}.")
 print("  Any symmetric, ODD-projecting map on Z/10Z has the ring centroid as")
 print("  its unique natural fixed point. D7 confirms the lens actualizes this.")

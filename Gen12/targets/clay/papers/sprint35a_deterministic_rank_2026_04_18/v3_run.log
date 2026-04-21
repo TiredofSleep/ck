@@ -1,0 +1,75 @@
+  Q235 arithmetic self-test: PASS
+[1] Lambda^4 phi shape (70, 70), max|entry|=1
+[2] L: H^4 -> H^6 shape (28, 70)
+[3] Building Y (4x4) exactly over Q(s2,s3,s5) ...
+[3] Computing det(Y) over Q235 ...
+    det(Y) = Q235(2086*1 + 462*s15 + 498*s10 + 730*s6)  (dt=0.00s)
+[3] Computing N(det Y) ...
+    N(det Y) = 24864632774384309702656   (type: Integer)
+[3] Computing det(Y)^-1 via Galois-conjugate product / N ...
+    det(Y)^-1 built and verified  (dt=0.00s)
+[3] Computing adj(Y) (16 cofactors) ...
+    adj(Y) computed  (dt=0.00s)
+[3] Y^-1 = adj(Y) / det(Y) ...
+    Verifying Y * Y^-1 = I ...
+    Y * Y^-1 = I verified  (dt=0.00s)
+[checkpoint] Y_inverted
+[4] Building J_Omega as 8x8 Q235 matrix ...
+    J_Omega built  (dt=0.01s)
+[4] Verifying J_Omega^2 = -I ...
+    J_Omega^2 = -I verified EXACTLY  (dt=0.05s)
+[checkpoint] J_Omega_exact
+[5] Computing Lambda^4 J_Omega (exact, 70x70 = 4900 dets) ...
+    col 7/70  elapsed=2.0s
+    col 14/70  elapsed=4.1s
+    col 21/70  elapsed=6.0s
+    col 28/70  elapsed=8.0s
+    col 35/70  elapsed=10.0s
+    col 42/70  elapsed=12.1s
+    col 49/70  elapsed=14.2s
+    col 56/70  elapsed=16.2s
+    col 63/70  elapsed=18.1s
+    col 70/70  elapsed=20.0s
+[5] Lambda^4 J_Omega (exact) computed in 20.0s
+[checkpoint] J_star_4_exact
+[6] Subtracting I from C_22 basis-0 ...
+[7] Building stacked Q-matrix ...
+[7] stacked rows (nonzero): 378, cols: 70  (dt=0.0s)
+[checkpoint] stack_built_v3
+[8] Computing denominator LCM ...
+    denominator LCM has 36 bits  (den_lcm type: Integer)
+    (good primes: any prime not dividing this; primes > den_lcm are automatically good)
+[checkpoint] den_lcm
+[9] Computing rank over GF(p) for 20 primes near 2^31 ...
+    p = 2147483647:  rank_GF(p) = 70  (dt = 0.4s)
+    p = 2147483629:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483587:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483579:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483563:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483549:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483543:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483497:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483489:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483477:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483423:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483399:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483353:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483323:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483269:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483249:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483237:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483179:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483171:  rank_GF(p) = 70  (dt = 0.3s)
+    p = 2147483137:  rank_GF(p) = 70  (dt = 0.3s)
+
+========================================================================
+VERDICT (DETERMINISTIC):
+  W_*  cap  Q^70  =  {0}
+  rank over Q = 70 proved via single-good-prime mod-p rank
+  => every rational Hodge class on A_* is K-invariant
+  => every rational Hodge class on A_* is algebraic (S29 R1-KE)
+  => Beauville rank >= 3 CLOSES on A_* DETERMINISTICALLY.
+========================================================================
+
+Verdict written to sprint35a_verdict_v3.json
+[checkpoint] verdict_v3_written

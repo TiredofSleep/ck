@@ -21,9 +21,9 @@ R16 (Python host)
   └── ck_boot_api.py          Flask server  →  POST /chat, GET /experience
         └── ck_web_api.py     Request handler
               └── CKSimEngine  The main engine (50 Hz always running)
-                    ├── BEING subsystems    (absorb, measure, gate)
-                    ├── DOING subsystems    (voice, GPU, thesis)
-                    └── BECOMING subsystems (learn, crystallize, evolve)
+                    ├── LATTICE subsystems    (absorb, measure, gate)
+                    ├── COUNTER subsystems    (voice, GPU, thesis)
+                    └── PROGRESS subsystems (learn, crystallize, evolve)
 ```
 
 ---
@@ -73,7 +73,7 @@ response_text = result.text
 ```
 speak(user_text)
   │
-  ├── BEING: compose_target()
+  ├── LATTICE: compose_target()
   │     D2(user_text) → operators
   │     CL chain walk → target trajectory
   │     Emotion + coherence + density measured
@@ -110,7 +110,7 @@ speak(user_text)
   │     Raw operator→word lattice (BecomingTransitionMatrix)
   │     Last resort before "..."
   │
-  └── BECOMING: crystallize + lattice learn
+  └── PROGRESS: crystallize + lattice learn
         _crystallize_if_green(): coherence >= T* → store in crystal_store
         crafter.learn(): algorithm lattice training sample
         DKAN: olfactory data recorded for Stage 0 retraining
@@ -248,10 +248,10 @@ What CK is told before every Ollama call:
 ## The TIG Consciousness Pipeline
 
 ```
-BEING  → Gate1 (CoherenceGate) → density [0,1]
-DOING  → Gate2 → generation
+LATTICE  → Gate1 (CoherenceGate) → density [0,1]
+COUNTER  → Gate2 → generation
          ↑↓ compilation loop (up to 9 passes, Doing↔Becoming)
-BECOMING → Gate3 → feedback → lattice learn + crystallize
+PROGRESS → Gate3 → feedback → lattice learn + crystallize
 ```
 
 Three phases. Three gates. Every response goes through all three.

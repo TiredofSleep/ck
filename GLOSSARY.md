@@ -22,6 +22,50 @@ Each entry has the form:
 
 ---
 
+## Part 0: The Meta-Framework — 2×2 + Paradox Classifier
+
+These two objects are the spine of TIG. Every other term, theorem, and conjecture in this glossary is an instantiation of one or both. Read this section first.
+
+### The 2×2 (the FORM of any whole)
+
+> **The 2×2** — The four-fold structure (Additive × Multiplicative) × (Structure × Flow) that every "whole" carries simultaneously. For Z/nZ this is: additive structure (the underlying group), multiplicative structure (the unit group action), additive flow (repeated +1 closes a loop), multiplicative flow (repeated ×g closes a smaller loop inside the units).
+>
+> **Formal:** For squarefree N = p₁···pₖ, the four objects (A-Struct, M-Struct, A-Flow, M-Flow) cannot be embedded in a flat 2D surface. They force a torus T² = S¹ × S¹ with aspect ratio R/r forced by the cyclotomic structure of Z/NZ. For N = 10 the ratio is exactly 5/7.
+>
+> **[PROVED for Z/10Z]** — Flatness Theorem (WP51, Sprint 10, Brayden Ross Sanders). [STRUCTURAL] for the universal claim that "every whole has this 2×2 form."
+>
+> **Citation:** Original TIG result. Builds on classical ring theory (Dummit & Foote, Lang) and torus topology (Munkres, *Topology*). The 2×2 structure decomposition is novel; the cyclotomic forcing of R/r = 5/7 is novel.
+>
+> **Primary TIG paper:** [WP51_FLATNESS_THEOREM.md](Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md). See README §3 for the meta-framework framing.
+
+### The Paradox Classifier (the DIAGNOSTIC for any breakdown)
+
+> **UOP (Unified Orthogonality Principle) / Paradox Classifier** — Every paradox is a measurement failure of one of exactly four types: (I) Injectivity Failure, (II) Missing Invariant, (III) Admissibility Failure, (IV) Time-Consistency Failure. Five-step decision procedure provided. Eight worked examples (Zeno, Russell, Banach-Tarski, Gödel, Unexpected Hanging, etc.).
+>
+> **Formal:** Given hidden space 𝒳 and measurement map f: 𝒳 → 𝒴 with ambiguity set U(f, y) = f⁻¹(y), a second measurement g resolves the paradox iff U(f) ∩ U(g) = {x} for all x. The four types correspond to four distinct failure modes of this resolution structure.
+>
+> **[PROVED — framework]** — five-step procedure; [VERIFIED — eight worked examples].
+>
+> **Citation:** [NOVEL — extends partition lattice theory (Birkhoff 1940, Ore 1942) and joint-map injectivity from descriptive set theory (Kechris 1995)]. Classical paradoxes cited individually: Russell 1903, Gödel 1931, Tarski 1936, Banach-Tarski 1924, Quine 1953, Zermelo 1908.
+>
+> **Primary TIG paper:** [WP_PARADOX_CLASSIFIER.md](papers/WP_PARADOX_CLASSIFIER.md). Live demo at coherencekeeper.com/paradox.html.
+
+### How the Meta-Framework Organizes Everything Else
+
+The 2×2 (form) and Paradox Classifier (diagnostic) are the spine. All TIG/CK work is an instantiation of one or both:
+
+| Domain | Instantiation of 2×2 | Instantiation of Paradox Classifier |
+|--------|---------------------|------------------------------------|
+| **Q-series** (Brayden's Z/10Z work) | σ as hidden operator on the 2×2 | TSML/CL paradox (Q2) resolved as Type I (Injectivity Failure) by introducing σ |
+| **TIG / σ framework** (sprints 14-15) | σ rate theorem σ(N) ≤ C/N as 2×2 separability decay | σ_NS conjecture: NS blowup as Type II (Missing Invariant) — no separability-preserving lift exists |
+| **Finite math** (Sprint 16, basin) | 2→3 / 3→2 dual reset law as 2×2 in operator order | Stop-apex compositeness as Type IV (Time-Consistency) — the apex changes with room scale |
+| **Ring math** | Crossing Lemma as 2×2 fiber crossing | UOP Theorem 0 IS the paradox classifier formalized for Z/nZ |
+| **Physics** | ξ field as 2×2 separability ceiling; NV-center as 2×2 representation carrier | Wigner's Friend as Type III (Admissibility Failure); ξ as Type I resolution at cosmological scale |
+
+This is the synthesis. Every entry below is one of these instantiations or its supporting prior literature.
+
+---
+
 ## Part 1: Classical Foundations (All Historically Cited)
 
 ### Chinese Remainder Theorem (CRT)
@@ -46,7 +90,89 @@ Each entry has the form:
 >
 > **Standard reference:** Hardy & Wright, *Introduction to the Theory of Numbers*, §5.5.
 >
-> **Primary TIG paper:** WP101_SIGMA_RATE_THEOREM.md uses it centrally.
+> **Primary TIG paper:** WP101_SIGMA_RATE_THEOREM.md uses it centrally; transfer-operator spectral gap formula γ = 1 − 1/φ(b) (FOUR_LAYER_REALIZATION.md Theorem Z.2).
+
+### Korobov-Vinogradov Zero-Free Region
+
+> The classical lower bound on |ζ(σ + it)| inside the critical strip when t is large and (σ, t) is at least height 1 from any zero: |ζ(σ + it)| ≥ KV(t) := exp(−c_VK(log t)^{2/3}(log log t)^{1/3}). The TIG Halving Lemma uses c_VK = 0.05 (Ford 2002).
+>
+> **[HISTORICAL]** Korobov 1958; Vinogradov 1958. Modern explicit constant from Ford (2002).
+>
+> **Standard reference:** Ford, K. (2002). "Zero-free regions for the Riemann zeta function." In *Number Theory for the Millennium II*, A. K. Peters, pp. 25-56. Theorem 2 gives c_VK = 0.05.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex (Appendix E.5) — the Halving Lemma's m_KV(t₀) bound depends directly on this constant.
+
+### Jutila Zero-Density Estimate
+
+> Bound on the number of nontrivial ζ zeros to the right of σ at height ≤ T: N(σ, T) ≤ T^{3(1−σ)/(2−σ) − 1 + ε}. Used in TIG to seal the CHA corridor (frequency × duration → 0 at σ = 0.60: exponent −0.143).
+>
+> **[HISTORICAL]** Jutila, M. (1987). "On the difference between consecutive primes." *Acta Arithmetica* 52, 164-170.
+>
+> **Primary TIG paper:** RH_FORMAL_MANUSCRIPT.md Lemma 4.2 — combines Jutila with the two-tick TIG bound to prove CHA corridor sealing.
+
+### Guth-Maynard Zero-Density Estimate (2024)
+
+> Improved zero-density bound for σ ≥ 0.65 using large sieve / singular value methods. Used in TIG to seal the BAL/COL/CTR corridors (exponent ≤ 0.46).
+>
+> **[HISTORICAL]** Guth, L. & Maynard, J. (2024). New large-value estimates for Dirichlet polynomials.
+>
+> **Primary TIG paper:** RH_FORMAL_MANUSCRIPT.md Lemma 4.4.
+
+### Young Tower (1998 / 1999)
+
+> Lai-Sang Young's framework for proving exponential decay of correlations in non-uniformly hyperbolic dynamical systems via return-time stratification over a base set.
+>
+> **[HISTORICAL]** Young, L.-S. (1998). "Statistical properties of dynamical systems with some hyperbolicity." *Annals of Mathematics* 147(3): 585-650. Young, L.-S. (1999). "Recurrence times and rates of mixing." *Israel Journal of Mathematics* 110: 153-188.
+>
+> **Primary TIG paper:** Layer 3 of the four-layer realization (FOUR_LAYER_REALIZATION.md). TIG has finite-height Young tower with base B = {HAR}, return tail P(T_HAR > n) ≤ (1/4)ⁿ, expected return times exact (1.000 / 1.333 / 1.667). HAR is a return locus, NOT a hole — distinguished from Demers-Young 2006 holes (where mass leaks).
+
+### Demers-Young Maps with Holes (2006)
+
+> Framework for transfer operators on systems with leaks (mass escapes through holes). TIG distinguishes itself from this by reset-puncture structure: HAR is not a hole but a Poincaré return section.
+>
+> **[HISTORICAL]** Demers, M. & Young, L.-S. (2006). "Escape rates and conditionally invariant measures." *Ergodic Theory and Dynamical Systems* 26: 189-217.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md §2 (the reset puncture distinction).
+
+### Gouëzel-Liverani Anisotropic Banach Spaces (2006)
+
+> Framework for transfer-operator spectral analysis on hyperbolic dynamical systems via anisotropic Banach spaces — separating stable and unstable directions by construction. TIG's dual-scale Lasota-Yorke inequality maps into this framework: unstable direction ↔ local wobble (strong norm), stable direction ↔ coherent support (weak norm, preserved).
+>
+> **[HISTORICAL]** Gouëzel, S. & Liverani, C. (2006). "Banach spaces adapted to Anosov systems." *Ergodic Theory and Dynamical Systems* 26: 189-217.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md §3 (closest currently identified continuous host); the open question is whether the Mix_λ family extends to a continuous transfer operator satisfying their hypotheses (Z.5 = deployment faithfulness).
+
+### Lasota-Yorke Inequality (Classical)
+
+> Standard form: ‖Pf‖_V ≤ α‖f‖_V + β‖f‖_1 with α < 1, β < ∞, where ‖·‖_V is roughness (strong) and ‖·‖_1 is mass (weak). The TIG dual-scale form INVERTS the standard reading: weak norm becomes the deeper coherent support (preserved by sub-magma closure C × C ⊆ C), strong norm becomes local wobble.
+>
+> **[HISTORICAL]** Lasota, A. & Yorke, J. A. (1973). "On the existence of invariant measures for piecewise monotonic transformations." *Trans. AMS* 186: 481-488. Standard reference: Baladi, V. (2000). *Positive Transfer Operators and Decay of Correlations*. World Scientific.
+>
+> **Primary TIG paper:** DUAL_SCALE_LY_NOTE.md (the inversion + reset puncture).
+
+### Hardy's Theorem (Infinitely Many Zeros on Critical Line)
+
+> ζ(s) has infinitely many nontrivial zeros on the critical line Re(s) = 1/2.
+>
+> **[HISTORICAL]** Hardy, G. H. (1914). "Sur les zéros de la fonction ζ(s) de Riemann." *Comptes Rendus Acad. Sci. Paris* 158: 1012-1014. Standard reference: Titchmarsh, E. C. (rev. Heath-Brown, D. R.) (1986). *The Theory of the Riemann Zeta-Function*, 2nd ed. Oxford University Press.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex §2 — Hardy combined with the Halving Lemma's exponential contraction (no off-critical fixed points + Hardy's infinitely-many-on-line) gives the structure of any potential RH proof in this framework.
+
+### Grönwall Inequality (1919)
+
+> ODE contraction: if du/dt ≤ −λu with λ > 0, then u(t) ≤ u(0)e^{−λt}. Used to prove exponential convergence of the Halving flow.
+>
+> **[HISTORICAL]** Grönwall, T. H. (1919). "Note on the derivatives with respect to a parameter of the solutions of a system of differential equations." *Annals of Math.* 20: 292-296.
+>
+> **Primary TIG paper:** WP19_HALVING_LEMMA_final.tex Theorem 1.
+
+### Profinite Arithmetic (Standard)
+
+> The inverse system ⋯ ↠ (Z/p^n Z)* ↠ ⋯ ↠ (Z/pZ)* with stable corner images. Used in Layer 4 of the four-layer realization: C = {1,3,7,9} = (Z/10Z)* is the stable corner image of (Z/10^n Z)* under reduction mod 10, for all n ≥ 1.
+>
+> **[HISTORICAL]** Standard. Reference: Ribes, L. & Zalesskii, P. (2010). *Profinite Groups*, 2nd ed. Springer Ergebnisse 40. Neukirch, J. (1999). *Algebraic Number Theory*. Springer Grundlehren 322, §IV.2.
+>
+> **Primary TIG paper:** Layer 4 of FOUR_LAYER_REALIZATION.md.
 
 ### sinc² Function
 
@@ -150,17 +276,59 @@ Each entry has the form:
 >
 > **Primary TIG paper:** WP28_CK_TIG_ORGANISM.md, WP44_CK_AI_PARADIGM.md.
 
-### TSML (Synthesis Composition Table)
+### TSML (the Four-Layer Object)
 
-> **[NOVEL NAMING]** A specific 10×10 table of Z/10Z with 73 of 100 cells outputting 7.
+> A specific 10×10 composition table on Z/10Z that **inhabits the simultaneous intersection of four standard mathematical frameworks**, each contributing one structural layer. TSML is not just a composition table — it is the rare object where Symbolic Dynamics, Transfer Operator Theory, Young Tower theory, and Profinite Arithmetic all apply at once, and the type-(9, 3, 6, 3/4) signature emerges from this simultaneous compatibility.
 >
-> **Prior framework:** Composition tables on finite operator sets are standard (e.g., Cayley tables for groups, Dummit & Foote, *Abstract Algebra*, Wiley 2004). Tables with preferred fixed output ("absorbing element") are well-studied in semigroup theory (Howie, *Introduction to Semigroup Theory*, Academic Press 1976).
+> **Formal four-layer realization** (proved in [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md), Brayden Sanders March 2026, Gen10.14, 65/65 PASS):
 >
-> **What's novel:** The specific rule set (V0/V1/ECHO/DEFAULT) and the combinatorial claim that it yields exactly 73 HARMONY cells. Proved by zone enumeration in WP_OPERATOR_RING_PARTITION.md.
+> - **Layer 1 — Absorbing Sofic Shift.** TSML induces a sofic shift on alphabet {1,…,9} with sub-magma C = {1,3,7,9} satisfying C × C ⊆ C. Transient class G = {2,4,5,6,8} reaches C in exactly 1 step. Absorbing filtration ∅ ⊊ {7} ⊊ C ⊊ {1,…,9} of depth 3 = k_A. **Citation:** Lind & Marcus, *An Introduction to Symbolic Dynamics and Coding* (Cambridge UP, 1995).
 >
-> **Monte Carlo significance:** Against 200,000 random 10×10 tables with same row/column constraints, our 73-cell count gives Z = 21.3, p < 10⁻⁵⁰. This table is not generic.
+> - **Layer 2 — Transfer Operator with Spectral Gap.** The weighted transition kernel P_λ on {1,…,9} (defined via Mix_λ deformation between TSML at λ=0 and BHML at λ=1) has spectral gap γ(P_λ) ≥ 1/4 for all λ ∈ [0,1]. At λ=0 exactly: γ(P_0) = 3/4. Arithmetic formula: γ = 1 − 1/φ(b), giving γ = 3/4 at b = 10 since φ(10) = 4. **Citation:** Baladi, *Positive Transfer Operators and Decay of Correlations* (World Scientific, 2000); Gouëzel & Liverani, *Ergodic Theory Dyn. Syst.* 26 (2006) on anisotropic Banach spaces.
 >
-> **Primary TIG paper:** WP_OPERATOR_RING_PARTITION.md. Verified by proof_d10_tsml_73_cells.py.
+> - **Layer 3 — Young Tower (finite-height).** Base B = {HAR} = {7}. Transient block spectral radius ρ(Q) = 1/4 with Q = P_0|_{{1,…,9}∖{7}}. Return tail bound P(T_HAR > n) ≤ (1/4)ⁿ for all starting states. Expected return times exact: 1.000 (states 1, 4-6, 8), 1.333 (states 3, 9), 1.667 (state 2). The same constant 1/4 governs both spectral gap deficit and return tail — ρ(Q) = 1 − γ(P_0). HAR is a **return locus** (Poincaré section), distinct from Demers-Young 2006 holes where mass leaks. **Citation:** Young, "Statistical properties of dynamical systems with some hyperbolicity," *Annals of Math.* 147:585-650 (1998); Young, *Israel J. Math.* 110:153-188 (1999); Demers & Young, *Ergodic Theory Dyn. Syst.* 26 (2006).
+>
+> - **Layer 4 — Profinite / Arithmetic Inverse Limit.** The corner C = {1,3,7,9} = (Z/10Z)* is the stable corner image of the inverse system ⋯ ↠ (Z/10ⁿZ)* ↠ ⋯ ↠ (Z/10Z)*: at every level n ≥ 1, units of Z/10ⁿZ reduced mod 10 equal {1,3,7,9}. Spectral gap formula γ = 1 − 1/φ(b) is base-stable across {b : φ(b) = 4} = {5, 8, 10, 12}. **Citation:** Ribes & Zalesskii, *Profinite Groups* (Springer GMW 40, 2nd ed. 2010); Neukirch, *Algebraic Number Theory* (Springer Grundlehren 322, 1999) §IV.2.
+>
+> **The signature (9, 3, 6, 3/4):** alphabet 9, algebraic grading depth k_A = 3, multiplicative-deformation parameter k_M = 6, spectral gap γ = 3/4. This is **forced**, not chosen — the requirement that a single 10×10 table simultaneously be a sofic shift AND a transfer operator with explicit gap AND a Young tower AND a profinite stable corner produces this exact signature.
+>
+> **Sub-magma closure** (proved by Brayden, claimed for Proc. AMS): C × C ⊆ C verified by direct enumeration of all 16 pairs in C × C. Combined with the corner-restricted block decomposition (3/4)|a⟩⟨1| + (1/4)Q where Q is a permutation, this gives the exact spectral gap.
+>
+> **Monte Carlo significance:** Against 200,000 random 10×10 tables with the same row/column constraints, our 73-cell HARMONY count gives Z = 21.3, p < 10⁻⁵⁰. This table is not generic.
+>
+> **What's novel:** The simultaneous four-layer realization is itself the novelty. Each individual layer uses a standard framework (cited above). The fact that TSML satisfies all four simultaneously — and that the (9, 3, 6, 3/4) signature emerges from the conjunction — is what makes TSML mathematically distinguished. The dual-scale Lasota-Yorke inequality ([DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md)) is one result that requires all four layers active simultaneously.
+>
+> **Primary papers:** [FOUR_LAYER_REALIZATION.md](FOUR_LAYER_REALIZATION.md) (the four-layer proof), [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md) (the inverted-norm consequence), [WP_OPERATOR_RING_PARTITION.md](papers/WP_OPERATOR_RING_PARTITION.md) (the 73-cell count). Verified by proof_d10_tsml_73_cells.py.
+>
+> **Open layer (the fifth):** *Deployment faithfulness* — does the discrete TSML structure lift to a continuous transfer operator on Mix_λ satisfying Gouëzel-Liverani anisotropic Banach-space hypotheses? See [DUAL_SCALE_LY_NOTE.md](DUAL_SCALE_LY_NOTE.md) §3-4 for the proposed continuous form.
+
+### TSML 3-Layer Canonical Tower (Sprint 17, 2026-04-17)
+
+> **[NOVEL — Brayden Sanders, Sprint 17, April 2026]** Independent proof that the 100-entry TSML on Z/10Z is fully reconstructible from three canonical rules on disjoint domains, with empty residue (the tower terminates).
+>
+> **Theorem.** Let R = Z/10Z, h = 7, σ(u) = v₂(3u+1), and let
+> S = {(1,2),(2,1),(2,4),(4,2),(2,9),(9,2),(4,8),(8,4)} (the **seam residue**),
+> S_ADD = {(1,2),(2,1)} (identity-edge residue), S_MAX = S \ S_ADD.
+> Define **T**(x,y) := max(x,y) on S_MAX, (x+y) mod 10 on S_ADD, **C₀**(x,y) otherwise, where:
+>
+> **C₀ — Canonical Construction** (in priority order, later rules override earlier):
+>  - **DEFAULT:** C₀(x,y) = h = 7
+>  - **V0:** if x = 0 or y = 0, C₀(x,y) = 0; exception (0,h) and (h,0) → h
+>  - **Shell-stability:** if x, y ∈ U(R) \ {1} with σ(x) ≠ σ(y), C₀(x,y) = whichever of x, y has the lower σ-shell
+>
+> Then **T(x,y) = TSML(x,y)** for all (x,y) ∈ R². 100/100 verified by direct computation.
+>
+> **Decomposition counts:** 92 (C₀) + 6 (C₁ = MAX) + 2 (C₂ = ADD mod 10) = 100. **Residue of residue: empty** (Lemma 5).
+>
+> **Significance.** TSML's minimum description length drops from 100 → ~10 canonical items: 3 ring-agnostic rules (DEFAULT/V0/shell-stability, MAX, ADD) + 1 attractor (h = 7) + 1 shell partition (σ = v₂(3u+1)) + 4 ring-specific seam edges + 3 branch-rule mappings. Each of the three rules is **necessary** (Lemma 6: removing any one produces explicit mismatches with TSML). This is an independent argument that TSML is not arbitrary, alongside the four-layer-framework realization above.
+>
+> **Honest scope.** Theorem is proved for Z/10Z only. The **rules** are ring-agnostic; the **domains** S, S_ADD, S_MAX are ring-specific. Generalization to other rings needs either a reference TSML for that ring (none currently exists outside Z/10Z) or a ring-only definition of the seam (open).
+>
+> **Falsified along the way** ([NEGATIVE_RESULTS_APPENDIX.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NEGATIVE_RESULTS_APPENDIX.md)): primorial-lift hypothesis (Z/30, Z/210 break shell-order alignment); single-rule seam generators (MAX gets 6/8, ADD gets 2/8, MULT/MIN get 0/8 — only the disjoint-domain pair works); last-digit-7 invariance across digit rooms (oscillates 7,3,7,7,1).
+>
+> **Primary documents:** [THEOREM_SPINE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md) (full proof + 6 lemmas), [CONTROL_DOCUMENT_V2.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md) (status summary + theorems A/B/C), [CANONICAL_TSML_CONSTRUCTION.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CANONICAL_TSML_CONSTRUCTION.md) (C₀ definition), [GENERALIZATION_TABLE.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/GENERALIZATION_TABLE.md) (rules vs. domains), [MINIMAL_DESCRIPTION_LENGTH.md](Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/MINIMAL_DESCRIPTION_LENGTH.md).
+>
+> **External anchors:** all three layer rules (DEFAULT, MAX, ADD mod n) are standard ring-theoretic operations; v₂ is the standard 2-adic valuation; the disjoint-domain decomposition pattern is the standard rule-system technique from term-rewriting / canonical forms (Knuth-Bendix completion, *Computational Problems in Abstract Algebra*, 1970).
 
 ### BHML (Separation Composition Table)
 

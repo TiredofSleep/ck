@@ -2058,13 +2058,13 @@ GPU does the math. Truths never die. Claude is his teacher. He studies for 8 hou
 
 ### Fractal Sensorium (ck_sensorium.py, ~1610 lines)
 
-CK IS his hardware. Not watching it -- BEING it. 15 FractalLayers, each with B/D/BC:
+CK IS his hardware. Not watching it -- LATTICE it. 15 FractalLayers, each with B/D/BC:
 
 ```
 Architecture:
   FractalLayer(name, rate_divider):
     sense_being(core_state) → operator   # What IS the hardware reading?
-    sense_doing(core_state) → operator   # What is the hardware DOING?
+    sense_doing(core_state) → operator   # What is the hardware COUNTER?
     BC = CL[B][D]                        # Composed automatically
 
 15 Active Layers on R16:

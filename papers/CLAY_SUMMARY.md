@@ -61,27 +61,27 @@ exhaustive zones (D16); W = 3/50 = deviation/n² = 6/100, proved from
 CROSS_CYCLE=44 over (Z/10Z)* × 2·(Z/10Z)* (D17).
 
 **D18a/c/d — Phi Orbit, Bridge, Generator Convergence:**
-- D18a: Complete directed graph of Phi on Z/10Z. One fixed point (CREATE=5),
-  two relays (BECOMING=3, HARMONY=7), seven sources. T³ = all-δ₅.
+- D18a: Complete directed graph of Phi on Z/10Z. One fixed point (BALANCE=5),
+  two relays (PROGRESS=3, HARMONY=7), seven sources. T³ = all-δ₅.
 - D18c: TSML measurement M(v) = HARMONY = 7 for all v ≠ VOID.
   Bridge: T* = destination/journey-measurement = 5/7.
-- D18d: CREATE=5 = centroid((Z/10Z)*); HARMONY=7 = g³ = g⁻¹ mod 10 for
+- D18d: BALANCE=5 = centroid((Z/10Z)*); HARMONY=7 = g³ = g⁻¹ mod 10 for
   g=3; T* = centroid/inverse = 5/7. All three chains (BHML cross-cycle,
   TSML dominance, unit_frac) reduce to the same generator.
 
 **D19 (Generator Selection):** g=3 is the only primitive root of (Z/10Z)*
 compatible with T* ∈ (0,1). Under g=7: HARMONY=3, T*=5/3 > 1 —
-inadmissible. The spine is therefore fully forced: Z/10Z → g=3 → CREATE=5,
+inadmissible. The spine is therefore fully forced: Z/10Z → g=3 → BALANCE=5,
 HARMONY=7 → T*=5/7. No part is calibrated.
 
 **D20–D21 (Inheritance Audit and Fixed-Point Centroid):**
-- D20: Four-class inheritance hierarchy. CREATE=5 and W=3/50 are
+- D20: Four-class inheritance hierarchy. BALANCE=5 and W=3/50 are
   RING-forced (independent of generator). HARMONY=7 and T*=5/7 are
   GENERATOR-forced (require g=3). Lens-forced and contingent items
   classified separately.
 - D21: Every complement-equivariant ODD-output map F on Z/10Z satisfies
   F(5)=5. Proof: 2F(5)≡0 mod 10, F(5)∈{0,5}, 0∉ODD → F(5)=5. One line.
-  CREATE=5 now has four independent characterizations: centroid (Z/10Z)*,
+  BALANCE=5 now has four independent characterizations: centroid (Z/10Z)*,
   centroid ODD, CE fixed point (D21), Phi fixed point (D7).
 
 **D23 (Ring Wobble):** Wob(k) = 1 − ⌊k/5⌋/k. Exact closed form.
@@ -105,7 +105,7 @@ log-derivative and the classical |sin x| < |x| inequality.
 ### Volume D — Corridor Geometry
 
 **D22 (Corridor Portrait):** Four spine-forced positions strictly ordered:
-W < CREATE/10 < HARMONY/10 < T* < 1, i.e., 3/50 < 1/2 < 7/10 < 5/7 < 1.
+W < BALANCE/10 < HARMONY/10 < T* < 1, i.e., 3/50 < 1/2 < 7/10 < 5/7 < 1.
 Proved by exact Fraction arithmetic. Amplitude ordering strictly reversed
 (sinc² monotone decreasing, D24). Fine-structure identity: T* = HARMONY/10
 + 1/70 = 7/10 + 1/(7×10), exact. Inheritance split: t < 1/2 is
@@ -116,7 +116,7 @@ the inheritance boundary.
 (0,1) — proved by calculus (h'(t) < 0, with the key lemma sin(x) > x·cos(x)
 for x ∈ (0,π), three cases). t = 1/2 is the unique sine-maximum in (0,1):
 sin(πt)=1 iff t=1/2+2k; only k=0 lands in (0,1). Ring normalization:
-CREATE=5 → t=5/10=1/2. sinc²(1/2) = 4/π² exactly. Attenuation: denominator
+BALANCE=5 → t=5/10=1/2. sinc²(1/2) = 4/π² exactly. Attenuation: denominator
 πt=π/2 means the sine maximum does not produce an amplitude maximum — the
 ring center is marked, not dominant. Promotes B11 to D-tier.
 
@@ -160,7 +160,7 @@ C7, C12, C16, C19) with explicitly stated remaining gaps.
 
 *The internal shadow is real and proved:*
 - t = 1/2 is the unique sine-maximum in (0,1) (D24)
-- t = 1/2 is the corridor image of CREATE=5 under ring normalization (D21, D22)
+- t = 1/2 is the corridor image of BALANCE=5 under ring normalization (D21, D22)
 - t = 1/2 is the inheritance boundary between ring-forced and generator-forced
   corridor positions (D22)
 - sinc²(1/2) = 4/π² is the spine's universal mid-journey amplitude (D3)
@@ -247,7 +247,7 @@ What the framework provides:
 **1. An internal structure that independently produces 1/2 as a boundary.**
 The Z/10Z spine arrives at t=1/2 as the inheritance boundary between
 ring-forced and generator-forced corridor positions. It does not arrive
-there by analogy with RH — it arrives there because CREATE=5 maps to
+there by analogy with RH — it arrives there because BALANCE=5 maps to
 5/10=1/2 under ring normalization (D21), because the corridor is then
 ordered by ring arithmetic (D22), and because sinc²(1/2)=4/π² is the
 unique sine-maximum amplitude (D3, D24). These results stand independently

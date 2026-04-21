@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+*.pyo
+ck_voice_decisions.log

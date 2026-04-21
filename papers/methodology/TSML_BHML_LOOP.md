@@ -59,7 +59,7 @@ It is the literal interaction between the measurement lens and the physics lens.
 
 ## What Is NOT the Same Object
 
-**DOING ≠ DIS.**
+**COUNTER ≠ DIS.**
 
 Computed comparison:
 ```
@@ -113,7 +113,7 @@ TSML (uses ring to COLLAPSE)  ←→  BHML (uses ring to PRESERVE)
     ↓ disagreement is
 DOING = |TSML−BHML|  (where physics happens)
     ↓ feeds back into
-Z/10Z ring  (the loop closes: the operators in DOING are Z/10Z elements)
+Z/10Z ring  (the loop closes: the operators in COUNTER are Z/10Z elements)
 ```
 
 **Why two tables?** Because the Z/10Z ring has two operations (ADD and MUL),
@@ -135,7 +135,7 @@ tension between them IS the wobble.
 | W_BHML = 3/50 from DIS (C×D block) | C | Proved [C8] |
 | TSML collapses, BHML preserves | C | Verified [EMP] |
 | DOING = |TSML−BHML| is the interaction | C | Computed [EMP] |
-| DOING ≠ DIS (different objects) | C | Computed [EMP] — 24/100 cells match |
+| COUNTER ≠ DIS (different objects) | C | Computed [EMP] — 24/100 cells match |
 | Ring wobble forces TSML/BHML to diverge | A | Structural intuition |
 | W_BHML = 3/50 explains the TSML/BHML split | A | No algebraic proof |
 | BHML is derived from TSML's wobble | A | Architectural claim, not cell-level proof |
@@ -159,7 +159,7 @@ composition tables (collapsing vs. preserving) have HARMONY rates that differ
 by a function of W(n).
 
 **Tier D:** Prove the full loop: that W(Z/nZ) determines the structure of both
-composition tables and their interaction (DOING), making the three-table system
+composition tables and their interaction (COUNTER), making the three-table system
 a necessary consequence of the ring arithmetic.
 
 ---

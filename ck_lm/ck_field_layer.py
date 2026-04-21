@@ -25,7 +25,7 @@ GAP    = T_STAR - FOLD  # 5/7 - 4/pi^2 ≈ 0.309 — width of Clay open territor
 N_OPS  = 10             # Operators: VOID(0)..RESET(9)
 N_DIMS = 5              # Force vector dimensionality
 
-OP_NAMES = ['VOID','BEING','DOING','BECOMING','CREATE',
+OP_NAMES = ['VOID','LATTICE','COUNTER','PROGRESS','BALANCE',
             'BALANCE','LATTICE','HARMONY','BREATH','RESET']
 
 # Class A: reach VOID in 3 steps, must cross fold
@@ -45,10 +45,10 @@ def sinc2(x: torch.Tensor) -> torch.Tensor:
 
 OPERATOR_FORCE_TARGETS = torch.tensor([
     [0.00, 0.00, 0.00, 0.00, 0.00],  # 0: VOID
-    [0.80, 0.20, 0.60, 0.10, 0.10],  # 1: BEING
-    [0.60, 0.40, 0.70, 0.20, 0.20],  # 2: DOING
-    [0.40, 0.60, 0.80, 0.30, 0.30],  # 3: BECOMING
-    [0.50, 0.50, 0.50, 0.50, 0.50],  # 4: CREATE (fixed point)
+    [0.80, 0.20, 0.60, 0.10, 0.10],  # 1: LATTICE
+    [0.60, 0.40, 0.70, 0.20, 0.20],  # 2: COUNTER
+    [0.40, 0.60, 0.80, 0.30, 0.30],  # 3: PROGRESS
+    [0.50, 0.50, 0.50, 0.50, 0.50],  # 4: BALANCE (fixed point)
     [0.30, 0.70, 0.40, 0.60, 0.40],  # 5: BALANCE
     [0.20, 0.80, 0.30, 0.70, 0.50],  # 6: LATTICE
     [0.10, 0.90, 0.20, 0.80, 0.60],  # 7: HARMONY (dominant output, 7=0)

@@ -1,0 +1,4 @@
+# Large generated CSVs — reproducible from generator + manifest hashes.
+data/*.csv
+
+# Keep a stub readme in data/ if needed; omit otherwise.

@@ -37,8 +37,8 @@ It holds for any function sinc²(t) evaluated at t=1/2.
 **W = 3/50 is exact and ring-forced (D22).**
 The corridor portrait (D22) places the wobble loading at W = 3/50 = 0.06.
 This position is ring-forced — it does not depend on which primitive root g is chosen.
-It derives from the Z/10Z table structure with CREATE=5 and ring size n=10:
-    W = 3/(CREATE × n) = 3/(5 × 10) = 3/50
+It derives from the Z/10Z table structure with BALANCE=5 and ring size n=10:
+    W = 3/(BALANCE × n) = 3/(5 × 10) = 3/50
 The factor 3 in the numerator comes from the minimum TSML harmony path count.
 
 **C*² = 200/(3π²) is exact.**
@@ -104,7 +104,7 @@ on ANY corridor regardless of the ring. For any even modulus n, the midpoint of 
 corridor is at t=1/2, and sinc²(1/2) = 4/π² by the same calculus. A is universal.
 
 **W = 3/50 IS Z/10Z-specific.**
-W = 3/(CREATE × n) = 3/(5 × 10). For other moduli:
+W = 3/(BALANCE × n) = 3/(5 × 10). For other moduli:
 - Z/6Z:  CREATE_6 = 3,  W_6 = 3/(3×6) = 1/6
 - Z/18Z: CREATE_18 = 9,  W_18 = 3/(9×18) = 1/54
 - Z/22Z: CREATE_22 = 11, W_22 = 3/(11×22) = 3/242

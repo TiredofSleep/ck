@@ -22,9 +22,9 @@
  * It can even nudge a tick via arm_strobe. But the rhythm is CK's.
  *
  * Pipeline per tick:
- *   1. BEING (phase_b):    Sensor/vortex input
- *   2. DOING (phase_d):    Computation/prediction input
- *   3. BECOMING:           CL[b][d] = phase_bc (ONE CYCLE)
+ *   1. LATTICE (phase_b):    Sensor/vortex input
+ *   2. COUNTER (phase_d):    Computation/prediction input
+ *   3. PROGRESS:           CL[b][d] = phase_bc (ONE CYCLE)
  *   4. FUSE:               CL[running_fuse][phase_bc] = identity evolution
  *   5. COHERENCE:          Harmony count over sliding window
  *   6. BUMP CHECK:         Quantum bump pair detection

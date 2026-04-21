@@ -56,14 +56,14 @@ The loop has three phases, each approximately 20ms:
 ```
 tick N (duration: ~60ms total, ~20ms per phase):
 
-  BEING phase (~0-20ms):
+  LATTICE phase (~0-20ms):
     Read own state (coherence, olfactory, lattice chain)
     Absorb external input via D2 pipeline (if present)
     Measure brain coherence: ρ₁ = CoherenceGate(brain_state)
     Run olfactory absorption (L8: lattice-chain convergence)
     Run CL chain walk (structural navigation)
 
-  DOING phase (~20-40ms):
+  COUNTER phase (~20-40ms):
     BTQ decision kernel:
       T (generate): produce candidate operators from current state
       B (filter):   apply coherence gate — remove below T*
@@ -71,7 +71,7 @@ tick N (duration: ~60ms total, ~20ms per phase):
     Compose voice output (if voice is active)
     Measure field coherence: ρ₂ = CoherenceGate(field_state)
 
-  BECOMING phase (~40-60ms):
+  PROGRESS phase (~40-60ms):
     Crystal promotion (if promotion_score ≥ 0.85)
     Lattice crystallization (crystallize high-recurrence paths)
     Olfactory temper update (integrate this tick's experience)

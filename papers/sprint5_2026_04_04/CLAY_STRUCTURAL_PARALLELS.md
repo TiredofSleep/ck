@@ -71,7 +71,7 @@ The "distance" from Class B to Class A is T* − fold = 3/14 in TIG natural unit
 - This is the minimum coherence cost to produce a Class A event from Class B initial conditions
 - In Hodge: the B₁ Q-eigenvalue (0.0046) measures how "light" the softest obstruction direction is
 - In Yang-Mills: 3/14 is the algebraic mass gap (TIG units); 2/7 is the spectral window
-- In BSD: 0.5243 − 0.5 = 0.0243 (the distance from the fold operator BECOMING(3) to the fold); the full correction to 0.57 average rank is open
+- In BSD: 0.5243 − 0.5 = 0.0243 (the distance from the fold operator PROGRESS(3) to the fold); the full correction to 0.57 average rank is open
 - In NS: B_local must reach 5/7 − 1/2 = 3/14 above floor before blow-up; regularity holds while B_local < 3/14 above the fold
 
 ---

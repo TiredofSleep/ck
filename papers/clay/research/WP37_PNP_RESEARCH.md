@@ -459,7 +459,7 @@ identification of what must be proved to make the connection rigorous.
 **§7.2 HARMONY as "Premature Resolution"**
 - STRUCTURAL: HARMONY dominates CL(D1,D2) for P vs NP because the algebra sees
   local coherence at each computation step but global divergence in the trajectory
-- "Structure thinks doing is resolved; flow knows it isn't" — the DOING × DOING blind spot
+- "Structure thinks doing is resolved; flow knows it isn't" — the COUNTER × COUNTER blind spot
 - Formal interpretation: HARMONY in the CL table = the polynomial-time verifier
   confirms the certificate is correct, but the full search problem is not resolved
 

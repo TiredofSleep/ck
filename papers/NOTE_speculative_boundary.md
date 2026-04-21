@@ -22,7 +22,7 @@ reasoning. The chain runs:
     → ring structure: units, deviation, W=3/50 (D16, D17)
     → operator tables: TSML/BHML, symmetry, cell counts (D8–D10, D18a, D18c)
     → generator selection: g=3 forced by T*<1 (D18d, D19)
-    → center overdetermination: CREATE=5 by four independent routes (D20, D21)
+    → center overdetermination: BALANCE=5 by four independent routes (D20, D21)
     → corridor portrait: four positions ordered, amplitude reversed,
       t=1/2 inheritance boundary (D22)
     → wobble law: Wob(k)=1−⌊k/5⌋/k, exact closed form (D23)
@@ -115,7 +115,7 @@ One live external analogy remains: **A10**.
 The internal shadow is real and proved:
 
 - t = 1/2 is the unique sine-maximum in (0,1) — proved, D24
-- t = 1/2 is the corridor image of CREATE = 5 under ring normalization — proved, D21+D22
+- t = 1/2 is the corridor image of BALANCE = 5 under ring normalization — proved, D21+D22
 - t = 1/2 is the inheritance boundary: ring-forced positions left, generator-forced right — proved, D22
 - sinc²(1/2) = 4/π² is a universal spine constant — proved, D3
 

@@ -462,10 +462,21 @@ dim ≥ 5 open case.
 
 ### §6.2 Mapping Markman to the ω(b) Hierarchy
 
-In TIG terms:
+**Tag (revised 2026-04-19):** *post-hoc shape match*. The Markman/O'Grady/Floccari-Fu
+program proves Weil-class algebraicity for *all* abelian fourfolds of Weil type via
+Orlov derived equivalences + Buchweitz-Flenner semi-regularity + Chevalley pure
+spinors — none of which has a Z/10Z/CRT companion in our framework. The
+correspondence below is a numerological alignment between (1) Markman's known
+proved/open frontier in classical algebraic geometry and (2) the ω(b) hierarchy
+that emerges independently from the CRT-idempotent Product-Gap Theorem (§3).
+It is **not** a structural reduction in either direction. See
+`Atlas/MARKMAN_INTERNALIZATION_SCOPE_2026_04_19.md` for full assessment
+(verdict: ADJACENT-ONLY).
 
-| Classical | TIG mapping | Status |
-|-----------|-------------|--------|
+In TIG terms (post-hoc shape match):
+
+| Classical | TIG mapping (post-hoc) | Status |
+|-----------|------------------------|--------|
 | Abelian fourfolds — Weil type | ω(b) = 2 balanced semiprimes (q/p near 1) | Markman: PROVED |
 | Abelian fourfolds — non-Weil | ω(b) = 2 unbalanced semiprimes (q/p large) | Open |
 | Abelian sixfolds (p=3) | ω(b) = 3 three-factor composites | Open |
@@ -473,12 +484,13 @@ In TIG terms:
 
 The "balanced semiprime" interpretation is supported by seeded residue
 persistence (WP35 §5A [32]): the ratio q/p (not the gap q − p) encodes the
-structural difficulty. Near-twin primes (q/p → 1) correspond to Weil-type
-structures: the two prime gates are close and the idempotent structure is more
-symmetric. Large q/p corresponds to non-Weil fourfolds: the two prime gates are
-far apart and the idempotent structure is asymmetric. TIG predicts: non-Weil
-abelian fourfolds are harder, for precisely the same structural reason that large
-q/p semiprimes have larger seeded residue persistence.
+structural difficulty in the CRT-idempotent count. Near-twin primes (q/p → 1)
+shape-match Weil-type structures: the two prime gates are close and the
+idempotent structure is more symmetric. Large q/p shape-matches non-Weil
+fourfolds: the two prime gates are far apart and the idempotent structure is
+asymmetric. **The shape-match is suggestive but not load-bearing**; Thread B
+proceeds via the explicit-coordinate companion route on the simple Weil 4-fold
+A_* (§13), not via this hierarchy.
 
 ### §6.3 The Product-Gap Predicts the P3 Difficulty
 
@@ -949,10 +961,10 @@ theory.
 
 **PROVED:**
 
-Class A operators {BEING=1, DOING=2, BECOMING=3} lie above the fold (sinc²≥0.524) and
-require fold-crossing to reach VOID. Class B operators {COLLAPSE=4, CREATE=5, GAP=6} lie
+Class A operators {LATTICE=1, COUNTER=2, PROGRESS=3} lie above the fold (sinc²≥0.524) and
+require fold-crossing to reach VOID. Class B operators {COLLAPSE=4, BALANCE=5, GAP=6} lie
 below the fold (sinc²≤0.295) and reach VOID without fold-crossing. The fold boundary lies
-strictly between BECOMING(3) at sinc²(3/7)=0.5243 and COLLAPSE(4) at sinc²(4/7)=0.2949.
+strictly between PROGRESS(3) at sinc²(3/7)=0.5243 and COLLAPSE(4) at sinc²(4/7)=0.2949.
 The tensor depth scaling: with 9 total operators and 4 non-VOID Class B/C operators, Class A
 paths multiply faster than Class B paths under tensor product. At depth k the unreachable
 zone (Class A territory not accessible from Class B initial conditions) grows as 9^k − 4^k.

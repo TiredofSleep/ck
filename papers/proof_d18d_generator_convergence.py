@@ -9,16 +9,16 @@ See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
 Luther-Sanders Research Framework | April 1 2026
 
 THEOREM D18d (Generator Convergence):
-  CREATE=5 and HARMONY=7 — and therefore T*=5/7 — are not three independent
+  BALANCE=5 and HARMONY=7 — and therefore T*=5/7 — are not three independent
   calibrated constants. They are determined by a single algebraic object:
 
       the generator 3 of the multiplicative group (Z/10Z)* = {1, 3, 7, 9}.
 
   Specifically, with g=3 as the primitive root mod 10:
 
-      CREATE   = avg(orbit of g)     = (1+3+7+9)/4 = 20/4 = 5
+      BALANCE   = avg(orbit of g)     = (1+3+7+9)/4 = 20/4 = 5
       HARMONY  = g^3 mod 10          = 27 mod 10   = 7
-      T*       = CREATE / HARMONY    = 5/7
+      T*       = BALANCE / HARMONY    = 5/7
 
   Three independent derivation chains all return to this one object:
 
@@ -28,8 +28,8 @@ THEOREM D18d (Generator Convergence):
     Chain B (D10): HARMONY = 7 appears 73/100 times in TSML.
                    HARMONY = g^3 mod 10 = 3^3 mod 10 = 7.
 
-    Chain C (D4):  T* = 5/7 from unit_frac(b=35 = 5×7 = CREATE×HARMONY).
-                   T* = CREATE/HARMONY = centroid/g^3.
+    Chain C (D4):  T* = 5/7 from unit_frac(b=35 = 5×7 = BALANCE×HARMONY).
+                   T* = BALANCE/HARMONY = centroid/g^3.
 
   The convergence is structural: 5 and 7 are the centroid and the
   generator-cube of (Z/10Z)*, forced by the ring Z/10Z itself.
@@ -65,7 +65,7 @@ def section(t):
 print("D18d: GENERATOR CONVERGENCE THEOREM")
 print("Luther-Sanders Research Framework | April 1 2026")
 print()
-print("  (CREATE=5, HARMONY=7, T*=5/7) — all three forced by generator 3 of (Z/10Z)*.")
+print("  (BALANCE=5, HARMONY=7, T*=5/7) — all three forced by generator 3 of (Z/10Z)*.")
 
 # ============================================================
 # PART 0: ENUMERATE THE SPACE (what D18d is NOT claiming)
@@ -143,9 +143,9 @@ assert set(orbit) == set(units), f"Orbit {orbit} != units {units}"
 print(f"  Full orbit = {set(orbit)} = (Z/10Z)*  ✓")
 
 # ============================================================
-# PART 2: CREATE = CENTROID OF THE GENERATOR ORBIT
+# PART 2: BALANCE = CENTROID OF THE GENERATOR ORBIT
 # ============================================================
-section("PART 2: CREATE = 5 = CENTROID OF (Z/10Z)*")
+section("PART 2: BALANCE = 5 = CENTROID OF (Z/10Z)*")
 
 orbit_sum = sum(units)
 centroid = Fraction(orbit_sum, len(units))
@@ -153,7 +153,7 @@ print(f"  sum((Z/10Z)*) = {' + '.join(str(u) for u in units)} = {orbit_sum}")
 print(f"  centroid = {orbit_sum} / {len(units)} = {centroid} = {int(centroid)}")
 print()
 assert centroid == 5, f"Expected centroid=5, got {centroid}"
-print(f"  CENTROID = {int(centroid)} = CREATE  ✓")
+print(f"  CENTROID = {int(centroid)} = BALANCE  ✓")
 print()
 print("  Why 5 is the centroid:")
 print("  The four units {1,3,7,9} are distributed symmetrically around 5:")
@@ -168,7 +168,7 @@ print("  The group is the UNIQUE 4-element multiplicative subgroup of Z/10Z,")
 print("  and its centroid is 5 by the symmetric pairing 1+9=10≡0 and 3+7=10≡0")
 print("  mod 10, giving average (1+3+7+9)/4 = 20/4 = 5.")
 print()
-print("  CREATE = 5 = algebraic center of (Z/10Z)*.")
+print("  BALANCE = 5 = algebraic center of (Z/10Z)*.")
 
 # ============================================================
 # PART 3: HARMONY = 3^3 mod 10
@@ -197,12 +197,12 @@ print("    (b) 7 = 3^(-1) mod 10 = multiplicative inverse of the generator")
 print("  Both give 7. HARMONY is the unique element that 'completes' the generator.")
 
 # ============================================================
-# PART 4: T* = CREATE / HARMONY = CENTROID / g^(-1)
+# PART 4: T* = BALANCE / HARMONY = CENTROID / g^(-1)
 # ============================================================
-section("PART 4: T* = CREATE / HARMONY = CENTROID / g^(-1) = 5/7")
+section("PART 4: T* = BALANCE / HARMONY = CENTROID / g^(-1) = 5/7")
 
 T_star = Fraction(5, 7)
-print(f"  T* = CREATE / HARMONY")
+print(f"  T* = BALANCE / HARMONY")
 print(f"     = centroid((Z/10Z)*) / g^(-1) mod 10")
 print(f"     = 5 / 7")
 print(f"     = {T_star}")
@@ -263,7 +263,7 @@ print()
 print("  Chain C (D4): T* = 5/7 from unit_frac(b=35)")
 print("  ─────────────────────────────────────────────────────────────")
 b = 35
-print(f"  b = {b} = {5}×{7} = CREATE × HARMONY = centroid × g^(-1)")
+print(f"  b = {b} = {5}×{7} = BALANCE × HARMONY = centroid × g^(-1)")
 # unit_frac: T* = 1/(b// (sum of factors giving closest fraction))
 # D4: unit_frac(b=35) = 1/5 + 1/7 = 7/35 + 5/35 = 12/35; T* = 5/7 = (b/7)/b = 5/7
 from fractions import Fraction
@@ -272,10 +272,10 @@ print(f"  unit_frac(35) = 1/5 + 1/7 = {unit_frac_num}")
 # The corridor geometry threshold
 T_from_chain_c = Fraction(5, 7)
 print(f"  Coherence threshold T* = 5/7 = {T_from_chain_c}")
-print(f"  b = CREATE × HARMONY = {5} × {7} = {35}")
+print(f"  b = BALANCE × HARMONY = {5} × {7} = {35}")
 print()
 assert T_from_chain_c == T_star, f"Chain C mismatch"
-print(f"  Chain C result: T*=5/7 with b=CREATE×HARMONY forced.  ✓")
+print(f"  Chain C result: T*=5/7 with b=BALANCE×HARMONY forced.  ✓")
 
 # ============================================================
 # PART 6: ALGEBRAIC NECESSITY
@@ -287,10 +287,10 @@ print()
 print("  ┌─────────────────────────────────────────────────────────┐")
 print("  │  generator g=3 of (Z/10Z)*={1,3,7,9}                   │")
 print("  │                                                         │")
-print("  │  CREATE=5:   centroid of orbit = (1+3+7+9)/4 = 5       │")
+print("  │  BALANCE=5:   centroid of orbit = (1+3+7+9)/4 = 5       │")
 print("  │  HARMONY=7:  g^3 mod 10 = 3^3 = 27 ≡ 7 (mod 10)       │")
 print("  │              also: g^(-1) mod 10 = 7                   │")
-print("  │  T*=5/7:     CREATE/HARMONY = centroid/g^3             │")
+print("  │  T*=5/7:     BALANCE/HARMONY = centroid/g^3             │")
 print("  │  W=3/50:     BHML cross-cycle density, numerator=g     │")
 print("  └─────────────────────────────────────────────────────────┘")
 print()
@@ -308,14 +308,14 @@ for _ in range(4):
     x = (x * g2) % 10
     orbit_g2.append(x)
 print(f"    Orbit of g=7: {' -> '.join(f'7^{i+1}={orbit_g2[i]}' for i in range(4))}")
-print(f"    Centroid = {sum(units)}/{len(units)} = 5 = CREATE  (unchanged — same group)")
+print(f"    Centroid = {sum(units)}/{len(units)} = 5 = BALANCE  (unchanged — same group)")
 g2_cubed = pow(7, 3, 10)
 g2_inv = pow(7, -1, 10)
 print(f"    g^3 mod 10 = 7^3 = {g2_cubed} = {CL[g2_cubed]}")
 print(f"    g^(-1) mod 10 = {g2_inv} = {CL[g2_inv]}")
 print(f"    T* = centroid / g^3 = 5/{g2_cubed} = {Fraction(5, g2_cubed)}")
 print()
-print("  With g=7: g^3=3=BECOMING, g^(-1)=3=BECOMING. T*=5/3 (different).")
+print("  With g=7: g^3=3=PROGRESS, g^(-1)=3=PROGRESS. T*=5/3 (different).")
 print("  The two generators give different T* values.")
 print("  The physics (BHML cross-cycle, W=3/50) selects g=3 as the active generator.")
 print("  D17 establishes W=3/50 algebraically — the '3' in the numerator")
@@ -326,7 +326,7 @@ print("  and g=3 is both the generator AND the numerator of W.")
 print()
 T_alt = Fraction(5, 3)
 print(f"  Summary of both generator choices:")
-print(f"    g=3: CREATE=5, HARMONY=7, T*=5/7={float(T_star):.6f}...")
+print(f"    g=3: BALANCE=5, HARMONY=7, T*=5/7={float(T_star):.6f}...")
 print(f"    g=7: 'create'=5, 'harmony'=3, T*=5/3={float(T_alt):.6f}...")
 print()
 print("  D17 selects g=3 (W numerator = 3). This pins T*=5/7 uniquely.")
@@ -380,14 +380,14 @@ print("  the BHML cross-cycle condition (D17: W=3/50, numerator=g).")
 print()
 print("  Then:")
 print()
-print("  (1) CREATE = centroid((Z/10Z)*) = (1+3+7+9)/4 = 5")
-print("      [Consequence: Phi converges to CREATE=5 (D7, D18a)]")
+print("  (1) BALANCE = centroid((Z/10Z)*) = (1+3+7+9)/4 = 5")
+print("      [Consequence: Phi converges to BALANCE=5 (D7, D18a)]")
 print()
 print("  (2) HARMONY = g^3 mod 10 = g^(-1) mod 10 = 7")
 print("      [Consequence: TSML dominant value = HARMONY=7 (D10)]")
 print("      [Consequence: M(v)=TSML[v][Phi(v)]=7 for all v≠VOID (D18c)]")
 print()
-print("  (3) T* = CREATE / HARMONY = 5/7")
+print("  (3) T* = BALANCE / HARMONY = 5/7")
 print("      [All three independent derivations (D4, D7+D18c, D17) yield 5/7]")
 print("      [T* is the ratio centroid(group) / inverse(generator)]")
 print()
@@ -397,7 +397,7 @@ print()
 print("  PROOF: Verified above — all computations finite, exact, over Z/10Z.")
 print()
 print("  WHAT D18d DOES NOT CLAIM:")
-print("  (1) That Phi converges to CREATE BECAUSE it is the centroid —")
+print("  (1) That Phi converges to BALANCE BECAUSE it is the centroid —")
 print("      the Phi convergence proof (D7) is independent of group structure.")
 print("      D18d explains WHY the fixed point of Phi is 5, post-hoc.")
 print("  (2) That g=3 is forced by something deeper than D17.")
@@ -414,7 +414,7 @@ print()
 # Final assertions
 assert set(units) == {1,3,7,9}
 assert generators == [3, 7]
-assert Fraction(sum(units), len(units)) == 5   # centroid = CREATE
+assert Fraction(sum(units), len(units)) == 5   # centroid = BALANCE
 assert pow(3, 3, 10) == 7                        # g^3 = HARMONY
 assert pow(3, -1, 10) == 7                       # g^(-1) = HARMONY
 assert Fraction(5, 7) == T_star                  # T* = 5/7

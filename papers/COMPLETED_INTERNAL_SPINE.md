@@ -41,19 +41,19 @@ Z/10Z FOUNDATION
 
 RING STRUCTURE
   D8  — CL Encoding: EVEN/ODD class via gcd(v,10)
-  D7  — Phi Fixed Point: CREATE=5 is Phi's unique fixed point
+  D7  — Phi Fixed Point: BALANCE=5 is Phi's unique fixed point
   D9  — Table Symmetry: TSML and BHML both symmetric
   D10 — TSML 73 Cells: V0(9)+V1(8)+ECHO(10)=27; 100−27=73
   D16 — BHML 28 Cells: four disjoint zones sum to 28
   D17 — W=3/50: C=(Z/10Z)*; D=2C; CROSS_CYCLE=44; deviation/100=3/50
 
 OPERATOR DYNAMICS  (builds on D7, D9, D10, D16, D17)
-  D18a — Phi Orbit: complete directed graph; CREATE=5 sole fixed point
+  D18a — Phi Orbit: complete directed graph; BALANCE=5 sole fixed point
   D18c — Bridge: M(v)=TSML[v][Phi(v)]=HARMONY=7 for all v≠VOID; T*=5/7
-  D18d — Generator Convergence: g=3 forces CREATE=5, HARMONY=7, T*=5/7
+  D18d — Generator Convergence: g=3 forces BALANCE=5, HARMONY=7, T*=5/7
   D19  — Generator Selection: g=3 only primitive root with T*∈(0,1)
   D20  — Inheritance Audit: four-class hierarchy for all spine invariants
-  D21  — Fixed-Point Centroid: CE equivariance forces F(5)=5; CREATE=5
+  D21  — Fixed-Point Centroid: CE equivariance forces F(5)=5; BALANCE=5
          now has four independent characterizations
 
 CONTINUUM LIMITS  (parallel track; builds on D1, D11)
@@ -68,7 +68,7 @@ CORRIDOR GEOMETRY  (converges all threads)
          inheritance split at t=1/2; fine-structure T*=7/10+1/70
   D23 — Ring Wobble: Wob(k)=1−⌊k/5⌋/k; drops at period-5; limit 4/5
   D24 — Corridor Midpoint: sinc² strictly decreasing on (0,1) (calculus);
-         t=1/2 unique sine-max; CREATE=5→t=1/2; D22 amplitude unconditional
+         t=1/2 unique sine-max; BALANCE=5→t=1/2; D22 amplitude unconditional
 ```
 
 ---
@@ -76,7 +76,7 @@ CORRIDOR GEOMETRY  (converges all threads)
 ## The Unified Chain
 
     Z/10Z  →  g=3 (D19)
-           →  CREATE=5 (D18d, D20, D21) + HARMONY=7 (D18d)
+           →  BALANCE=5 (D18d, D20, D21) + HARMONY=7 (D18d)
            →  T*=5/7 (D4, D18c, D18d)
            →  corridor portrait (D22) + midpoint (D24)
            →  wobble law (D23)
@@ -95,7 +95,7 @@ b-independent. The corridor has a known spectral mean.
 **Volume B — Operator Tables and Ring Structure** (D7–D10, D16–D21)
 The CL tables are fully counted, proved symmetric, and structurally
 derivable. Generator g=3 is the only one compatible with T*∈(0,1).
-CREATE=5 is overdetermined: four independent characterizations.
+BALANCE=5 is overdetermined: four independent characterizations.
 
 **Volume C — Continuum Limits and Phase Structure** (D2–D6)
 The discrete field converges to sinc². The convergence rate is O(1/f²).
@@ -149,7 +149,7 @@ After D1–D24, one live external analogy remains: **A10**.
 
 Its internal shadow is proved:
 - t=1/2 is the unique sine-maximum in (0,1) — D24
-- t=1/2 is the corridor image of CREATE=5 — D24
+- t=1/2 is the corridor image of BALANCE=5 — D24
 - t=1/2 is the inheritance boundary (ring-forced left, generator-forced right) — D22
 - sinc²(1/2) = 4/π² — D3
 

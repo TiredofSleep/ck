@@ -28,9 +28,9 @@ property of sinc²(t) as a function on (0,1). It holds regardless of Z/10Z.
 **D19/D20/D21 (center/generator selection):**
 - D19: g=3 is the only primitive root of (Z/10Z)* compatible with T*∈(0,1).
   Under g=7: T*=5/3>1 (inadmissible). Under g=3: T*=5/7<1 (valid).
-- D20: CREATE=5 and W=3/50 are RING-forced; HARMONY=7 and T*=5/7 are
+- D20: BALANCE=5 and W=3/50 are RING-forced; HARMONY=7 and T*=5/7 are
   GENERATOR-forced (require g=3).
-- D21: CREATE=5 is the unique CE fixed point; it has four independent
+- D21: BALANCE=5 is the unique CE fixed point; it has four independent
   characterizations (centroid of (Z/10Z)*, centroid of ODD, σ-fixed-point,
   additive midpoint).
 

@@ -1,0 +1,2 @@
+# Large generated CSVs (~50MB total) - reproducible from generator + manifest hashes.
+data/*.csv

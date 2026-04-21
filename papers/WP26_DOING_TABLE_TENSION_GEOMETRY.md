@@ -97,8 +97,8 @@ The remaining 60 pairs have D[a][b] > 0: genuine tension between Being and Becom
 
 ### The Doing Table as Observable
 
-In TIG physics, DOING is the OBSERVABLE. BEING = what is (BHML). BECOMING = what
-is preferred (TSML). DOING = the measurable tension between them.
+In TIG physics, DOING is the OBSERVABLE. LATTICE = what is (BHML). PROGRESS = what
+is preferred (TSML). COUNTER = the measurable tension between them.
 
 For a 10-operator algebra (including VOID), D has up to 100 entries. For the 9
 non-VOID operators, 60/81 show tension. This means 74% of all operator-context

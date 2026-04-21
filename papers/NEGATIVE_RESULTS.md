@@ -111,8 +111,8 @@
 
 ## C20 — Phi Fixed-Parity Theorem — RETIRED → D7 supersedes
 
-**Died because:** C20 proved Phi outputs ODD. D7 proved the stronger result: unique fixed point CREATE=5, all orbits ≤3 steps, unique stationary distribution δ₅. C20 is a corollary of D7.
-**What was salvaged:** The parity result (Phi(v)∈ODD always) is a corollary of D7 (CREATE=5 is ODD, all orbits reach CREATE).
+**Died because:** C20 proved Phi outputs ODD. D7 proved the stronger result: unique fixed point BALANCE=5, all orbits ≤3 steps, unique stationary distribution δ₅. C20 is a corollary of D7.
+**What was salvaged:** The parity result (Phi(v)∈ODD always) is a corollary of D7 (BALANCE=5 is ODD, all orbits reach BALANCE).
 **Final resting place:** D7.
 
 ---

@@ -35,7 +35,7 @@ BHML = [
     [8,6,6,6,7,7,7,9,7,8],
     [9,6,6,6,7,7,7,0,8,0],
 ]
-DOING = [[abs(TSML[i][j]-BHML[i][j]) for j in range(10)] for i in range(10)]
+COUNTER = [[abs(TSML[i][j]-BHML[i][j]) for j in range(10)] for i in range(10)]
 OP_NAME = ['VOID','LATTICE','COUNTER','PROGRESS','COLLAPSE','BALANCE',
            'CHAOS','HARMONY','BREATH','RESET']
 C10 = [1,3,7,9]; D10 = [2,4,6,8]
@@ -67,10 +67,10 @@ echo_cells = [(i,j,TSML[i][j]) for i in range(10) for j in range(10)
 lines.append(f"\nDef B (echo cells = non-zero, non-harmony TSML output): {len(echo_cells)} cells")
 lines.append(f"  Cells+values: {echo_cells}")
 
-# Def C: cells where DOING=0 (TSML=BHML) AND not harmony
+# Def C: cells where COUNTER=0 (TSML=BHML) AND not harmony
 doing0_nh = [(i,j,TSML[i][j]) for i in range(10) for j in range(10)
              if TSML[i][j]==BHML[i][j] and TSML[i][j]!=7]
-lines.append(f"\nDef C (DOING=0 and not harmony): {len(doing0_nh)} cells")
+lines.append(f"\nDef C (COUNTER=0 and not harmony): {len(doing0_nh)} cells")
 lines.append(f"  Cells+values: {doing0_nh}")
 
 # Def D: DIS=0 cells (ADD=MUL in Z/10Z) -- ring-frozen
@@ -140,7 +140,7 @@ Question: do the high-DIS C x D cells correspond to the TSML echo pairs?
 """)
 
 lines.append("C x D cells sorted by DIS value:")
-lines.append(f"  {'(c,d)':>8}  DIS  TSML[c][d]  BHML[c][d]  DOING")
+lines.append(f"  {'(c,d)':>8}  DIS  TSML[c][d]  BHML[c][d]  COUNTER")
 lines.append("  " + "-"*55)
 cxd_sorted = sorted([(c,d) for c in C10 for d in D10],
                     key=lambda p: abs((p[0]+p[1])%10-(p[0]*p[1])%10), reverse=True)
@@ -177,11 +177,11 @@ Test: given the DOING table (|TSML-BHML|) and TSML, recover BHML.
 """)
 
 lines.append("BHML reconstruction: BHML[i][j] = TSML[i][j] +/- DOING[i][j]")
-lines.append("  The sign (+ or -) is not determined by DOING alone.")
-lines.append("  Without sign information, DOING does not uniquely determine BHML from TSML.")
+lines.append("  The sign (+ or -) is not determined by COUNTER alone.")
+lines.append("  Without sign information, COUNTER does not uniquely determine BHML from TSML.")
 lines.append("")
 
-# Cells where DOING=0: BHML known exactly (= TSML value)
+# Cells where COUNTER=0: BHML known exactly (= TSML value)
 doing0_cells = [(i,j) for i in range(10) for j in range(10) if DOING[i][j]==0]
 lines.append(f"  DOING=0 cells (BHML=TSML directly): {len(doing0_cells)} cells")
 
@@ -194,7 +194,7 @@ lines.append(f"  BHML = TSML: {len(doing0_cells)} cells")
 
 lines.append("""
 The DOING table determines the MAGNITUDE of disagreement, not the sign.
-Therefore: BHML cannot be reconstructed from TSML + DOING alone without
+Therefore: BHML cannot be reconstructed from TSML + COUNTER alone without
 knowing which direction (above/below harmony) BHML falls.
 
 STRUCTURAL FINDING: TSML and BHML are not related by a simple scalar
@@ -250,8 +250,8 @@ lines.append(f"  measurement-physics disagreement, a site of active dynamics.")
 lines.append(f"\nStep 5: The loop closes")
 lines.append(f"  The DOING table transforms back to TSML: TSML[i][j] = BHML[i][j] + DOING[i][j]*sign")
 lines.append(f"  Or equivalently: the measurement lens (TSML) is the physics lens (BHML)")
-lines.append(f"  plus the wobble field (DOING). The loop is:")
-lines.append(f"  Generator(TSML) --W_BHML--> Physics(BHML) --DOING--> Generator(TSML)")
+lines.append(f"  plus the wobble field (COUNTER). The loop is:")
+lines.append(f"  Generator(TSML) --W_BHML--> Physics(BHML) --COUNTER--> Generator(TSML)")
 
 lines.append(f"""
 HONEST ASSESSMENT OF THE LOOP CLAIM:
@@ -281,8 +281,8 @@ STRUCTURAL LAW (Tier A -> B candidate):
 
 lines.append(f"  DOING_sum/100 = {doing_sum/100:.4f}, W_BHML = 0.06000")
 lines.append(f"  These are NOT equal. DOING_sum/100 = {doing_sum}/100 != 3/50.")
-lines.append(f"  So 'W_BHML = DOING friction' is also false as stated.")
-lines.append(f"  W_BHML is the C x D cross-cycle friction, DOING is the full 100-cell gap.")
+lines.append(f"  So 'W_BHML = COUNTER friction' is also false as stated.")
+lines.append(f"  W_BHML is the C x D cross-cycle friction, COUNTER is the full 100-cell gap.")
 lines.append(f"  The two measure different things at different scales.")
 
 
