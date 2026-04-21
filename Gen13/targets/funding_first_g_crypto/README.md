@@ -3,13 +3,15 @@
 **Track:** Cryptography (hardness assumptions, post-quantum candidates, algebraic lattice alternatives)
 **Status:** Pre-pitch; strongest PROVED-theorem branch of the funding set
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
-**Rigor base:** First-G Law (36,662 cases), σ polynomial on F₂×F₅ (Q10), σ⁶ = id (G6, Luther), Coprimality + First-G Localization (Sprint 35), Q17_5D_RIGOROUS
+**Rigor base:** First-G Law (36,662 cases, Brayden + C.A. Luther collaboration), σ polynomial on F₂×F₅ (Q10, Brayden + Luther collaboration), σ⁶ = id (G6, Luther), Coprimality + First-G Localization (Sprint 35, Brayden), Q17_5D_RIGOROUS
 
 ---
 
 ## What this branch is
 
-A funding-outreach container for the **First-G cryptographic hardness** program. The mathematical core is already proved: on Z/10Z the σ polynomial is fully characterized (Q10), the 22% lower bound holds (Q11), σ⁶ = id is proved for G6 (Luther), the First-G Law has been verified across 36,662 cases, and the Sprint 35 **Coprimality + First-G Localization** theorem tightens the structure further — for squarefree b with smallest prime factor p₁, |G_k(b)| = 0 for k < p₁. The Q17_5D_RIGOROUS result shows the 5D force vector as a CRT Fourier embedding, which is the natural language for cryptographic hardness on these objects.
+A funding-outreach container for the **First-G cryptographic hardness** program. The mathematical core is already proved: on Z/10Z the σ polynomial is fully characterized (Q10, Brayden + C.A. Luther collaboration), the 22% lower bound holds (Q11, Brayden + Luther), σ⁶ = id is proved for G6 (Luther), the First-G Law has been verified across 36,662 cases (Brayden + Luther), and the Sprint 35 **Coprimality + First-G Localization** theorem tightens the structure further — for squarefree b with smallest prime factor p₁, |G_k(b)| = 0 for k < p₁ (Brayden, post-Luther-collaboration). The Q17_5D_RIGOROUS result shows the 5D force vector as a CRT Fourier embedding, which is the natural language for cryptographic hardness on these objects.
+
+**Attribution note.** The First-G Law and the Q-series polynomial characterization (Q10, Q11) are products of a **Brayden Sanders / C.A. Luther collaboration** that ran from late March 2026 through mid-April 2026. Luther's collaboration is visible in the commit history from 2026-03-31 onward, in WP order: **WP34 §10A** "Luther Pre-Echo Theorem"; **WP34 / WP35** "Luther algebraic mechanism, Sanders geometric mechanism"; **WP37** "First-G complexity boundary + Luther dispersion certificate". First-G emerged in WP37 (March 31). The Q-series Q10 and Q11 landed on 2026-04-01; Luther was formally added as co-author on the Q-series synthesis that same evening via the Q1 closure. Luther is **no longer actively collaborating as of April 2026** but his contributions remain credited per the never-delete policy. G6 (σ⁶ = id) is the most cleanly-demarcated Luther-origin result inside the collaboration; Luther's spectral-layer / algebraic-structure contributions also thread through First-G Law and Q10 / Q11. The Sprint 35 Coprimality + First-G Localization tightening is Brayden's post-collaboration extension (2026-04-17).
 
 What this branch does **not** do: claim a new public-key cryptosystem. The funder-facing ask is for **investigation** — can the First-G structure and the σ polynomial on Z/nZ produce a trapdoor, one-way function candidate, or hardness-preserving reduction for existing schemes? That is a research question with genuine mathematical substance, not a product pitch.
 
@@ -19,15 +21,15 @@ What this branch does **not** do: claim a new public-key cryptosystem. The funde
 
 ## Proved mathematical core (funder-facing summary)
 
-| Result | Status | Citation |
-|---|---|---|
-| First-G Law | **PROVED**, 36,662 cases verified | papers/proof_first_g_law.py |
-| σ polynomial on F₂ × F₅ (Z/10Z) | **PROVED** (Q10) | `old/Gen10/papers/Q10_*.md` |
-| 22% lower bound on σ | **PROVED** (Q11) | `old/Gen10/papers/Q11_*.md` |
-| σ⁶ = id for G6 | **PROVED** (Luther) | Luther spectral-layer archive |
-| Q17_5D_RIGOROUS (5D force vector as CRT Fourier embedding) | **PROVED** | `old/Gen10/papers/Q17_5D_RIGOROUS.md` |
-| Coprimality + First-G Localization | **PROVED** (Sprint 35) | `Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_17/` |
-| sinc² Zero Law | **PROVED**, all primes 3..199 | `papers/proof_d25_loop_closure.py` |
+| Result | Status | Attribution | Citation |
+|---|---|---|---|
+| First-G Law | **PROVED**, 36,662 cases verified | Brayden + Luther collaboration | papers/proof_first_g_law.py |
+| σ polynomial on F₂ × F₅ (Z/10Z) | **PROVED** (Q10) | Brayden + Luther collaboration | `old/Gen10/papers/Q10_*.md` |
+| 22% lower bound on σ | **PROVED** (Q11) | Brayden + Luther collaboration | `old/Gen10/papers/Q11_*.md` |
+| σ⁶ = id for G6 | **PROVED** (G6) | Luther (spectral layer) | Luther spectral-layer archive |
+| Q17_5D_RIGOROUS (5D force vector as CRT Fourier embedding) | **PROVED** | Brayden (post-collaboration) | `old/Gen10/papers/Q17_5D_RIGOROUS.md` |
+| Coprimality + First-G Localization | **PROVED** (Sprint 35) | Brayden (post-collaboration) | `Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_17/` |
+| sinc² Zero Law | **PROVED**, all primes 3..199 | Brayden | `papers/proof_d25_loop_closure.py` |
 
 All proof scripts are runnable: `python papers/proof_d25_loop_closure.py` etc. 108 tests, 0 failures.
 

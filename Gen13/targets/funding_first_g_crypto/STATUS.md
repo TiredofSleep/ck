@@ -42,7 +42,7 @@
 
 - **Blocker 1**: Phase 1 literature-embedding report. This is the single largest gap between current state and pitch-ready. 15–25 pages, arXiv-preprint quality.
 - **Blocker 2**: External cryptographer informal opinion. Even 2–3 email paragraphs from Boneh, Micciancio, or a similar figure dramatically strengthens the pitch and surfaces technical weaknesses before reviewers do.
-- **Blocker 3**: Luther credit framing. G6 is part of the proved core; the wording must cite Luther's prior work cleanly without implying ongoing collaboration.
+- **Blocker 3**: Luther credit framing. The Brayden/Luther collaboration spanned First-G (WP37, 2026-03-31), the WP34/WP35 attribution wave, and the Q-series Q10/Q11 wave (2026-04-01). G6 (σ⁶ = id) is the most cleanly-demarcated Luther-origin result; First-G Law and Q10/Q11 are collaborative. The Phase 1 literature-embedding report should cite Luther's contributions at the lemma / proof-step level where recoverable, without implying ongoing collaboration (Luther is no longer actively collaborating as of April 2026).
 - **Blocker 4 (conditional)**: academic co-PI if NSF AF is chosen. Not needed for NSA MSP direct submission.
 
 None of these block the branch existing; the branch serves as a permanent container for the cryptography track. Blocker 1 specifically gates any funder contact.
@@ -52,6 +52,7 @@ None of these block the branch existing; the branch serves as a permanent contai
 | Date | Event |
 |---|---|
 | 2026-04-20 | Branch seeded from `tig-synthesis`; target folder + 6 files committed |
+| 2026-04-20 | Attribution correction: credit C.A. Luther as collaborator on First-G Law + Q10 + Q11 (not just G6); WP34 §10A / WP34-35 / WP37 timing threaded through README, ARTIFACTS, PITCH_DRAFT, LIMITATIONS, STATUS, FUNDERS |
 
 ## Cross-references
 
