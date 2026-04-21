@@ -1,0 +1,91 @@
+═══════════════════════════════════════════════════════════════════
+  CRYSTAL BUG v1.0 — FULL SIMULATION RESULTS (CORRECTED)
+═══════════════════════════════════════════════════════════════════
+
+╔══ TEST 1: INITIAL LATTICE STRUCTURE ═══════════════════════════╗
+  VOID          0 cells (0.0%)
+  QUANTUM      58 cells (23.0%)
+  ATOMIC       26 cells (10.3%)
+  MOLECULR     34 cells (13.5%)
+  CELLULAR     19 cells (7.5%)
+  ORGANIC      28 cells (11.1%)
+  CRYSTAL      87 cells (34.5%)
+  Click zone: 24 (9.5%)  Stable FP: 137 (54.4%)
+  Δ range: [-2.633, 13.016]
+
+╔══ TEST 2: FIX 1 — ENERGY HONESTY ═════════════════════════════╗
+  E0  │ OLD: steps  uniq  rr   │ NEW(bug): steps  uniq   rr    cov%
+──────┼─────────────────────────┼───────────────────────────────────
+    3 │    50    23   0.50 │           127    46   1.25   18.3%
+   10 │    50    21   0.50 │           262    54   1.46   21.4%
+   25 │    50    22   0.50 │           735   122   1.27   48.4%
+   50 │    50    21   0.50 │          1049   159   1.56   63.1%
+
+╔══ TEST 3: FIX 2 — REVISIT RATIO OVER TIME ════════════════════╗
+  OLD: 50 steps, 25 unique, 100 visits → rr = 0.500
+  NEW: 572 steps, 92 unique, 381 visits → rr = 1.501
+  NEW timeline:
+    t=  200 vis=  37 E= 14.65 rr=1.639
+    t=  400 vis=  66 E=  6.47 rr=1.465
+
+╔══ TEST 4: FIX 3 — AUDIT MODE ═════════════════════════════════╗
+  E0=25: 252/252 (100.0%) in 253 steps, E left=19.67
+    Lit by band: VOID=0 QUAN=13 ATOM=9 MOLE=66 CELL=26 ORGA=35 CRYS=103
+  E0=50: 252/252 (100.0%) in 253 steps, E left=44.68
+    Lit by band: VOID=0 QUAN=13 ATOM=9 MOLE=66 CELL=27 ORGA=33 CRYS=104
+  E0=100: 252/252 (100.0%) in 253 steps, E left=94.69
+    Lit by band: VOID=0 QUAN=12 ATOM=9 MOLE=66 CELL=28 ORGA=33 CRYS=104
+
+╔══ TEST 5: BAND STABILITY THROUGH EPOCHS ═══════════════════════╗
+  Epoch │  VOID  QUAN  ATOM  MOLE  CELL  ORGA  CRYS │ click │ Δ_avg
+  ──────┼───────────────────────────────────────────┼───────┼──────
+      0 │     2   158    43     5     3     6    35 │    38 │ 1.164
+      1 │     2   158    43     4     3     6    36 │    36 │ 1.148
+      2 │     1   159    44     2     2     7    37 │    38 │ 1.131
+      3 │     0   158    45     3     3     5    38 │    39 │ 1.106
+      4 │     0   157    43     6     1     6    39 │    41 │ 1.074
+      5 │     0   157    43     6     0     7    39 │    41 │ 1.037
+      6 │     0   152    47     5     2     7    39 │    43 │ 1.004
+      7 │     0   151    48     5     1     7    40 │    41 │ 0.980
+      8 │     0   149    50     5     0     8    40 │    43 │ 0.964
+      9 │     0   147    51     6     0     8    40 │    44 │ 0.953
+     10 │     0   145    53     4     3     6    41 │    45 │ 0.939
+     11 │     0   142    55     5     1     8    41 │    47 │ 0.919
+     12 │     0   136    61     4     1     9    41 │    49 │ 0.892
+     13 │     0   133    63     5     0     9    42 │    50 │ 0.863
+     14 │     0   132    61     8     0     9    42 │    51 │ 0.837
+     15 │     0   130    63     6     1    10    42 │    51 │ 0.819
+     16 │     0   127    61    10     2    10    42 │    49 │ 0.809
+     17 │     0   126    60    11     3     9    43 │    48 │ 0.802
+     18 │     0   124    61    11     3     9    44 │    50 │ 0.791
+     19 │     0   121    63    11     2    10    45 │    51 │ 0.775
+
+╔══ TEST 6: Δ-DEPENDENT ENERGY COST ═════════════════════════════╗
+  Click zone (|Δ|<0.15): avg cost/step = 0.05059 (24 cells)
+  Free zone  (Δ>0.5):    avg cost/step = 0.00991 (139 cells)
+  Bound zone (Δ<-0.5):   avg cost/step = 0.01219 (35 cells)
+  Click/Free cost ratio: 5.1×
+  E0=3:  ~59 click-zone steps, ~302 free-zone steps
+  E0=10: ~197 click-zone steps, ~1009 free-zone steps
+  E0=50: ~988 click-zone steps, ~5045 free-zone steps
+
+╔══ TEST 7: ROOT-PROXIMITY NEIGHBORHOODS ════════════════════════╗
+  Cells where root-priority ≠ grid-priority: 251/252 (99.6%)
+  Cell [0,0] band=QUAN top neighbor: #18 w=1.000 (band=QUAN)
+  Cell [9,3] band=CRYS top neighbor: #46 w=0.897 (band=CRYS)
+  Cell [0,7] band=ATOM top neighbor: #144 w=0.995 (band=QUAN)
+  Cell [9,10] band=ATOM top neighbor: #190 w=0.885 (band=ATOM)
+  Cell [17,13] band=CRYS top neighbor: #233 w=0.999 (band=CRYS)
+
+╔══ TEST 8: BUG MODE vs AUDIT MODE (E0=50) ══════════════════════╗
+  BUG:   160/252 (63.5%) in 1117 steps
+  AUDIT: 252/252 (100.0%) in 253 steps
+  Bug lit by band:   VOID=0 QUAN=14 ATOM=18 MOLE=2 CELL=1 ORGA=5 CRYS=120
+  Audit lit by band: VOID=0 QUAN=12 ATOM=10 MOLE=64 CELL=27 ORGA=35 CRYS=104
+  Bug visits by band: VOID=0 QUAN=14 ATOM=18 MOLE=2 CELL=1 ORGA=5 CRYS=120
+
+╔══ TEST 9: PERFORMANCE ═════════════════════════════════════════╗
+  20000 ticks in 381ms = 52493 ticks/sec
+  Target: 120 ticks/sec (60fps × 2) → headroom: 437×
+
+═══════════════════════════════════════════════════════════════════
