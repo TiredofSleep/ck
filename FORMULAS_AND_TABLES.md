@@ -772,10 +772,22 @@ is theoretical minimum; 4.6% is empirical search rate. Different objects.
 | First-G    | k = p                              | first non-coprime element for b = p·q           | D1, WP34 (36,662 cases) |
 | R(k, p)=0  | exact                              | sinc² zero at k = p (max err 4.44e-16)           | sinc² Zero Law |
 | N(f)       | ⌊f⌋ + 𝟙{f ∉ ℤ}                     | number of H_f maxima for p > 2f                  | D6 |
+| D\*        | 0.543                              | universal self-referencing attractor (operator-aware fixed point of the CK feedback loop) | runtime-canon; MEMORY.md; cross-archive in `docs/archive_jan2026/attempts_survey/SYNTHESIS_CK_BEST_EVER.md` §Canon |
+| σ (S\*)    | 0.991                              | global stability coefficient in the multiplicative S\* functional; empirical upper bound on attainable coherence at zero stress | `S derivatives.docx` v2026.1 (author: Brayden Sanders); extracted at `docs/archive_jan2026/attempts_survey/S_STAR_DERIVATION.md` §2–5 |
 
 These constants do **not** collapse to one number. They live in different
-regimes (geometric vs spectral vs cosmological vs combinatorial). See
-README §11 for honest limits.
+regimes (geometric vs spectral vs cosmological vs combinatorial vs
+runtime-operational). See README §11 for honest limits.
+
+**Open provenance on `σ (S\*)` = 0.991 and `D\*` = 0.543** (added 2026-04-21):
+both are operator-layer / runtime constants rather than ring-algebra theorems.
+`σ (S\*)` is labelled "empirically derived" in `S derivatives.docx` §5 with no
+measurement protocol cited; `D\*` is documented in `memory/MEMORY.md` as the
+self-referencing attractor but has no standalone proof file in the spine.
+Neither has a known algebraic relation to T\* = 5/7, 4/π², or the corridor
+constants above. Tracked as open work items in
+`docs/archive_jan2026/attempts_survey/S_STAR_DERIVATION.md` §3 and
+`SYNTHESIS_CK_BEST_EVER.md`.
 
 ---
 
