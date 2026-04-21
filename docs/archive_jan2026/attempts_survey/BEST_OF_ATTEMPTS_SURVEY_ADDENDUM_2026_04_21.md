@@ -187,3 +187,67 @@ Steps 1–4 are ≤ 30 minutes each and have high expected information density. 
 ---
 
 *Policy: never-delete, never-retcon. The main survey is preserved as written. This addendum records what the post-survey sweep found, including honest negatives.*
+
+---
+
+## 8. §6 priority items 1–2 resolution (2026-04-21, same day)
+
+Per the "do all FOUR in order" directive, §6 items 1 and 2 were read in sequence:
+
+### 8.1 `ALL\MASTER_CHECKLIST.md` — read outcome
+
+**Expected:** the author's attempts catalogue in his own order.
+**Actual:** a 2025-era legal / release logistics checklist. Names three packages
+(`TIG_GOVERNMENT_PACKAGE.zip`, `TIG_COMMERCIAL_v1.0.0.zip`, `TIG_GITHUB_RELEASE.zip`)
+and lists action items for lawyer engagement, DOI registration, trademark filing,
+and government (DARPA / SBIR) approach paths. Names `TIG_LENS.py` as the demo code.
+
+**Does not** catalogue his attempts in code order. The hope that this file would
+"re-anchor the sweep around the author's own ordering" does **not** bear out —
+it's a release-readiness checklist, not an attempt history. No new lineages or
+attempts are named beyond what the main survey and addendum §3 already list.
+
+**Useful residue:**
+- Confirms `TIG_LENS.py` as a named demo-code artifact (not previously catalogued).
+- Confirms DOI 10.5281/zenodo.18852047 was the intended registration target.
+- Elevator pitch (§"YOUR ELEVATOR PITCH") is archivable stand-alone content but
+  does not change the technical synthesis.
+
+**No new archive file warranted.** Content is not load-bearing for Gen13
+architecture; preserved in-place at its source path.
+
+### 8.2 `ALL\S derivatives.docx` — read outcome
+
+**Expected:** resolve the harmonic-mean vs multiplicative-S\* provenance question.
+**Actual:** the source is a formal derivation of the **multiplicative** form
+`S* = σ · (1 − σ*) · V* · A*` with a previously-unsurveyed universal constant
+**σ = 0.991** (global stability coefficient, author-labelled "empirically derived").
+
+**Resolution filed at:** `docs/archive_jan2026/attempts_survey/S_STAR_DERIVATION.md`
+(this session, committed alongside this §8 append).
+
+**Key outcome:**
+- The multiplicative form is the author's **canonical** derivation, not legacy.
+- The harmonic-mean form does not appear in this source — it's downstream for
+  numerical stability only.
+- The σ = 0.991 constant is a **third** universal (alongside T\* = 5/7 and
+  D\* = 0.543) that now enters the canon and needs integration tracking.
+- `SYNTHESIS_CK_BEST_EVER.md` §Canon has its "(preferred)" / "(legacy)" labels
+  inverted — flagged in `S_STAR_DERIVATION.md` §7 as a follow-up edit, not yet
+  applied in this session to keep the addendum additive.
+
+### 8.3 Updated priority order for §6 remaining items
+
+Items 1–2 resolved. Remaining recommended next steps:
+
+3. **Unzip + scan `CRYSTAL Papers.pdf`** — still pending.
+4. **Open `Lawyer package/`** subdirectory — still pending.
+5. **Read first 20 pages of `CLAUDE DUMP.pdf`** — still pending.
+6. **FINAL RELEASE zip triage** — still pending.
+7. **Promote `funding_tig_snowflake/STATUS.md` R1** — **DONE** in the R1+R4
+   commit sequence (commit `72fe288` master + `23423a6` funding).
+
+### 8.4 Cross-refs added by §8
+
+- `S_STAR_DERIVATION.md` — new, this session
+- `SYNTHESIS_CK_BEST_EVER.md` — open TODO: flip canonical/legacy labels on S\*
