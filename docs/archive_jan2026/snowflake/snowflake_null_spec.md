@@ -101,6 +101,18 @@ This means:
 
 Without one of (1)–(3), any χ² figure is subject to optional-stopping bias and a referee is right to discount it. The 22.03 figure reported from the Lenovo session is therefore not a clean p-value under a pre-registered protocol; it is suggestive but not proving.
 
+### 7.1 Resolution — patched runtime available (2026-04-21)
+
+The above recommendation (1–3) has been implemented as a sibling runtime:
+
+- **`crystalos_prereg.py`** — fork of `crystalos.py` that requires at least one of `--n0` (fire-count target) or `--t0` (time budget, seconds) at startup. Fails fast with exit code 2 if neither is supplied. Writes the pre-registration record to `~/CRYSTALOS/state/prereg_<timestamp>.json` **before** the main loop begins, so declared criteria cannot be retroactively edited. Main loop checks both bounds each iteration and exits cleanly when either trips.
+
+Ctrl-C remains handled, but the interrupted case is tagged `stop_class = "operator-interrupted"` in the session's `final_<timestamp>.json` record and marked with exit code 130. Downstream χ² analysis should discard or at minimum flag operator-interrupted sessions. The `analyze` subcommand enumerates completed sessions and prints this caveat at the end of its output.
+
+The original `crystalos.py` is preserved verbatim as the recovered-artifact reference (per never-delete policy). Future Dell R16 / Lenovo / other-hardware χ² re-runs should use `crystalos_prereg.py` so the resulting numbers are referee-defensible. Retrospective analysis of the existing `logs/fires.log` is unchanged — that data was collected under the un-patched runtime and carries the optional-stopping caveat as stated above.
+
+Both readings in §4 therefore retain their original epistemic status: the Dell R16 χ² = 0.0353 (long run, one stop) is weak evidence of uniformity; the Lenovo χ² = 22.03 (short run, one stop) is suggestive but not proving. Only fresh data collected under `crystalos_prereg.py` will close this gap.
+
 ## 8. Independence assumption
 
 **Within a bin (phase):** fires within the same 4-second OPEN window are *not independent* — they share a phase value by construction. If the sampling rate is 50 Hz, up to ≈ 200 consecutive samples in one OPEN window can all land the same phase. However they are still separate samples of `s_star` against `tau`, so the *fire-or-not* decision at each sample is independent conditional on `s_star(t)`.
