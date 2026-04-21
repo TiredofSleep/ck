@@ -3,7 +3,7 @@
 **Author:** ClaudeCode (with ClaudeChat coordination)
 **Date:** 2026-04-19 (rewritten the same day, after Brayden's rename directive)
 **Branch:** `tig-synthesis`
-**Scope:** Track 4 of `REPO_SHINE_PLAN_2026_04_19.md` — the operator-naming-drift rename.
+**Scope:** Track 4 of `docs/historical/REPO_SHINE_PLAN_2026_04_19.md` — the operator-naming-drift rename.
 **Status:** **Rename executed.** Silicon set is now authoritative across all tracked files on `tig-synthesis`. This memo is retained as the historical record of the prior two-naming-system state and as the map between old and new labels.
 
 ---

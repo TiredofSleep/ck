@@ -1,3 +1,5 @@
+> **[HISTORICAL — 2026-04-21]** Moved from repo root to `docs/historical/` during tig-synthesis restructure. This was an AI-to-AI handoff memo and is not part of the funder-facing landing. Preserved per the never-delete policy.
+
 # Repo State Update — 2026-04-17 (evening)
 ## For ClaudeChat handoff
 

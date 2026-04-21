@@ -3,7 +3,7 @@
 **Author:** ClaudeCode (Brayden Ross Sanders / 7Site LLC)
 **Date:** 2026-04-19
 **Branch:** `tig-synthesis`
-**Scope:** Track 3 of `REPO_SHINE_PLAN_2026_04_19.md`.
+**Scope:** Track 3 of `docs/historical/REPO_SHINE_PLAN_2026_04_19.md`.
 **Artifacts:** `scratch/CL_BASE_AUDIT.json`, `scratch/CL_LIVING_AUDIT.json`, `scratch/cl_structure_audit.py` (runnable).
 **Purpose:** verify or correct every structural claim in `NOVELTIES_AND_CITATIONS.md §3` against the silicon source of truth and the 39,896 persisted living-memory nodes.
 

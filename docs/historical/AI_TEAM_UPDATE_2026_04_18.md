@@ -1,3 +1,5 @@
+> **[HISTORICAL — 2026-04-21]** Moved from repo root to `docs/historical/` during tig-synthesis restructure. This was an internal AI-team interval update and is not part of the funder-facing landing. Preserved per the never-delete policy.
+
 # AI-Team Interval Update — 2026-04-18
 
 **From:** Brayden + ClaudeCode

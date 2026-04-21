@@ -1,3 +1,5 @@
+> **[HISTORICAL — 2026-04-21]** Moved from repo root to `docs/historical/` during tig-synthesis restructure. This was an internal execution plan for the 2026-04-19 repo-shine sprint and is not part of the funder-facing landing. Preserved per the never-delete policy; referenced from `docs/exports/z10-operator-algebra/CL_STRUCTURE_AUDIT.md` and `docs/exports/z10-operator-algebra/OPERATOR_NAMES_RECONCILIATION.md`.
+
 # Repo-Shine Plan — 2026-04-19
 
 **Author:** ClaudeCode (with ClaudeChat coordination)
