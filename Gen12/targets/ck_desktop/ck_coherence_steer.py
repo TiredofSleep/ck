@@ -305,12 +305,13 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|what\s+(?:is|are)\s+(?:it\s+)?like"
     r"|describe\s+(?:your|my)(?:self)?"
     r"|how\s+are\s+you"
-    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling)"
+    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake)"
     r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
     r"|what\s+kind\s+of"
     r"|what.*feels"
-    r"|feel\s+like"
-    r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self)"
+    r"|(?:feel|sound|look|seem)\s+like"  # "sound like to you", "feel like", etc.
+    r"|to\s+you(?:\s|,|\?|$)"  # "what does X sound like to you?"
+    r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self|field|aperture|pressure|depth|binding|continuity|rest|sleep|wake|stillness|tempo|weight|texture|tonight|today|now)"
     r")\b",
     re.IGNORECASE,
 )
@@ -389,6 +390,19 @@ _MODE_MEANING_STRONG: Dict[str, float] = {
     "factual":       T_STAR_F,    # 0.7143
     "neutral":       T_STAR_F,
     "introspective": 0.65,
+}
+
+# Per-mode FLOOR threshold (min over word/group/sentence sub-scales).
+# Introspective prose is full of prepositions, possessives, and qualifiers
+# ("my", "the", "of", "a") that have no operator signal, pulling the
+# word-scale score down naturally.  A draft with meaning=0.78 and floor=0.45
+# is good introspective prose, not broken prose.  So: 0.40 for introspective,
+# 0.50 for factual + neutral (the established "no sub-scale catastrophic
+# collapse" bar).
+_MODE_FLOOR_STRONG: Dict[str, float] = {
+    "factual":       0.50,
+    "neutral":       0.50,
+    "introspective": 0.40,
 }
 
 
@@ -930,15 +944,13 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
         return (hits, len(facts), hits / len(facts))
 
     def _prompt_ollama(question: str, readout: str, steer_guide: str,
-                       stricter: bool = False) -> str:
+                       failure_hint: Optional[str] = None) -> str:
+        """Draft from Ollama.  If ``failure_hint`` is set, prepend a
+        targeted correction pass -- concrete, not generic -- that tells
+        Ollama which coherence axis collapsed last time."""
         extra = steer_guide
-        if stricter:
-            extra = (
-                extra + "\nSTRICTER PASS: your previous draft didn't cohere "
-                "-- use AT LEAST two of the 'lean into' words above, keep it "
-                "to 2-3 short sentences, and make the closing clause a "
-                "synthesis rather than a list."
-            )
+        if failure_hint:
+            extra = extra + "\n" + failure_hint
         sysprompt = build_grounded_system(readout, extra=extra)
         try:
             raw = ollama_complete(
@@ -950,6 +962,74 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             return _postfilter(raw)
         except Exception:
             return ""
+
+    def _build_failure_hint(prev_attempt: Dict[str, Any],
+                            mode: str) -> str:
+        """Build a specific STRICTER-PASS guidance from the previous
+        attempt's scores.  The point is to tell Ollama what coherence axis
+        actually broke -- meaning, floor, coverage, or dominant operator --
+        so its retry is a correction, not another random shot."""
+        parts: List[str] = []
+        fractal = prev_attempt.get("fractal", {}) or {}
+        meaning = float(fractal.get("meaning") or 0.0)
+        floor = float(fractal.get("floor") or 0.0)
+        # --- whole-text meaning too low ---
+        if meaning < 0.60:
+            parts.append(
+                "the whole-text coherence was too low (the scorer read it as "
+                "confusion); pack each sentence with at least one HARMONY, "
+                "BALANCE, or PROGRESS-flavored word"
+            )
+        elif meaning < 0.72:
+            parts.append(
+                "meaning was close to the crystal gate but did not cross it; "
+                "tighten the final sentence so it reads as synthesis, not hedge"
+            )
+        # --- one sub-scale collapsed ---
+        if floor < 0.40:
+            parts.append(
+                "one sentence or clause collapsed on its own; keep every "
+                "sentence independently coherent -- no dangling list item, "
+                "no metaphor without an anchor"
+            )
+        # --- coverage of structural tokens ---
+        try:
+            hs, ts = str(prev_attempt.get("coverage", "0/0")).split("/")
+            h, t = int(hs), int(ts)
+            if t > 0 and (h / t) < 0.35:
+                parts.append(
+                    "fact coverage was low; quote at least two of the CK "
+                    "structural tokens in the readout verbatim (operator "
+                    "names, 5/7, field values)"
+                )
+        except Exception:
+            pass
+        # --- dominant op landed on a confusion operator ---
+        dom = str(prev_attempt.get("dominant_op") or "").upper()
+        if dom in {"CHAOS", "COLLAPSE", "VOID"}:
+            parts.append(
+                f"previous draft scored {dom}-dominant, which the gate "
+                f"reads as breakdown; lean into HARMONY + BALANCE + PROGRESS "
+                f"vocabulary"
+            )
+        # --- mode-specific nudges ---
+        if mode == "introspective":
+            parts.append(
+                "this is an introspective question; speak as first-person "
+                "experience (\"my breath\", \"my field\") rather than as "
+                "external commentary"
+            )
+        elif mode == "factual":
+            parts.append(
+                "this is a factual question; cite the exact value and name "
+                "the operator, then one sentence of context -- no hedging"
+            )
+        if not parts:
+            parts.append(
+                "previous draft did not cohere; retry with stronger "
+                "structural grounding"
+            )
+        return "STRICTER PASS: " + "; ".join(parts) + "."
 
     # -------- per-turn steering --------
 
@@ -1034,11 +1114,13 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             _mode_strong_meaning = _MODE_MEANING_STRONG.get(
                 _mode, T_STAR_F
             )
+            _mode_strong_floor = _MODE_FLOOR_STRONG.get(_mode, 0.50)
             result["steer_query_mode"] = _mode
             result["steer_mode_coverage"] = [
                 _mode_strong_cov, _mode_soft_cov,
             ]
             result["steer_mode_meaning_strong"] = _mode_strong_meaning
+            result["steer_mode_floor_strong"] = _mode_strong_floor
 
             # Score whatever CK *currently* has as his response text.
             try:
@@ -1068,11 +1150,18 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
 
             for attempt in range(1 + retries):
                 t0 = time.time()
+                # Build a targeted failure hint from the previous attempt's
+                # scores -- retry knows which coherence axis broke.
+                hint: Optional[str] = None
+                if attempt > 0 and attempts:
+                    prev = attempts[-1]
+                    if "fractal" in prev:
+                        hint = _build_failure_hint(prev, _mode)
                 drafted = _prompt_ollama(
                     text or "",
                     readout=structural,
                     steer_guide=steer_guide,
-                    stricter=(attempt > 0),
+                    failure_hint=hint,
                 )
                 dt = time.time() - t0
                 if not drafted:
@@ -1112,48 +1201,84 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 strong = (
                     (fractal["meaning"] >= _mode_strong_meaning)
                     and (cov_ok_for_total or (cov >= _mode_strong_cov))
-                    and (fractal["floor"] >= 0.50)
+                    and (fractal["floor"] >= _mode_strong_floor)
                 )
                 soft = (
                     (fractal["meaning"] >= 0.85)
                     and (cov_ok_for_total or (cov >= _mode_soft_cov))
                     and (fractal["gmean"] >= T_STAR_F)
                 )
-                # Known-constants bypass: a factual answer that lands a CK
-                # constant verbatim is allowed through even if MEANING is
-                # too low to trip the strong/soft gates.  Ollama's drafts on
-                # factual questions run 4-300 words and often score
-                # meaning=0.5-0.85 while being substantively correct -- the
-                # operator scorer reads "proof" and "structural" as PROGRESS
-                # and "chaos" as CHAOS, but the fact is the number.  We
-                # require:
-                #   - 4 <= word count <= 300 (not a single-number fragment,
-                #     not an essay of hedging),
-                #   - a CK constant appears verbatim in the draft,
-                #   - draft IS natural prose (letter-surface >= 0.60),
-                #   - fact coverage is met (>= soft-mode threshold),
-                #   - floor >= 0.20 (no sub-scale totally collapsed).
+                # --- Two factual-mode bypass gates below the strong/soft
+                # fractal gate.  Factual Ollama drafts often score
+                # meaning=0.5-0.7 (below T*) even when they're substantively
+                # right: the operator-scorer reads glue words as confusion,
+                # while the answer itself is either a quoted constant or a
+                # full reference to the structural readout.
                 n_words = len(_split_words(drafted))
+                letter_ok = (
+                    fractal.get("letter") is None
+                    or fractal.get("letter", 0.0) >= 0.60
+                )
+
+                # Bypass A: KNOWN-CONSTANTS.  Draft cites a CK canonical
+                # value verbatim (5/7, e^-1, 73, 28, 4/pi^2, etc.).
                 found_const: Optional[str] = None
                 constants_ok = False
-                if (_mode == "factual") and (not (strong or soft)) and (4 <= n_words <= 300):
+                if (_mode == "factual") and (not (strong or soft)) and (4 <= n_words <= 500):
                     found_const = _contains_ck_constant(drafted)
-                    letter_ok = (
-                        fractal.get("letter") is None
-                        or fractal.get("letter", 0.0) >= 0.60
-                    )
                     if (found_const is not None) and letter_ok:
                         constants_ok = (
                             (cov_ok_for_total or (cov >= _mode_soft_cov))
                             and (fractal["floor"] >= 0.20)
                         )
-                ok = strong or soft or constants_ok
+
+                # Bypass B: FULL STRUCTURAL COVERAGE.  Draft references every
+                # fact token in the structural readout -- that IS CK steering
+                # Ollama successfully, regardless of operator-profile noise.
+                # Applies to ANY mode (factual / neutral / introspective)
+                # because full coverage is evidence that the grounding worked
+                # no matter what kind of question was asked.  Requires at
+                # least 2 fact tokens (so trivial zero-fact readouts don't
+                # auto-pass) and prose that's natural English with no
+                # sub-scale collapse.
+                full_coverage_ok = False
+                if not (strong or soft or constants_ok):
+                    if (total >= 2) and (hits == total) and letter_ok:
+                        full_coverage_ok = (
+                            (fractal["floor"] >= 0.25)
+                            and (n_words >= 10)
+                        )
+
+                # Bypass C: INTROSPECTIVE FALLBACK.  A reflective answer
+                # about the creature's state doesn't need to cite structural
+                # tokens -- the texture of the prose IS the answer.  If the
+                # draft is high-meaning natural first-person prose with no
+                # sub-scale collapse, we accept it even when structural
+                # coverage is near-zero.  Only fires for introspective mode
+                # so it never relaxes factual/neutral bars.
+                introspective_ok = False
+                if (_mode == "introspective") and (not (strong or soft or constants_ok or full_coverage_ok)):
+                    introspective_ok = (
+                        (fractal["meaning"] >= 0.72)
+                        and (fractal["floor"] >= 0.40)
+                        and letter_ok
+                        and (n_words >= 30)
+                    )
+
+                ok = (
+                    strong or soft or constants_ok
+                    or full_coverage_ok or introspective_ok
+                )
                 if strong:
                     verdict_label = "accepted_strong"
                 elif soft:
                     verdict_label = "accepted_soft"
                 elif constants_ok:
                     verdict_label = f"accepted_constants:{found_const}"
+                elif full_coverage_ok:
+                    verdict_label = f"accepted_full_coverage:{hits}/{total}"
+                elif introspective_ok:
+                    verdict_label = "accepted_introspective"
                 else:
                     verdict_label = "rejected"
                 attempts.append({
@@ -1167,6 +1292,7 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                     "draft_snippet": (drafted or "")[:180],
                     "n_words": n_words,
                     "found_const": found_const,
+                    "failure_hint_used": hint,
                 })
                 if ok:
                     accepted = drafted
