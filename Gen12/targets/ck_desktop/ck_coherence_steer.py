@@ -291,8 +291,8 @@ _FACTUAL_OPS = frozenset(["LATTICE", "COUNTER", "PROGRESS"])
 
 _INTROSPECTIVE_LEXICAL = re.compile(
     r"\b(?:"
-    r"what\s+(?:do|does|did)\s+(?:you|i)\s+(?:feel|sense|think|know|want|notice)"
-    r"|how\s+(?:do|does|did)\s+(?:you|i)\s+(?:feel|sense|experience)"
+    r"what\s+(?:do|does|did)\s+(?:you|i|your|my)"
+    r"|how\s+(?:do|does|did)\s+(?:you|i|your|my)"
     r"|what\s+(?:is|are)\s+(?:it\s+)?like"
     r"|describe\s+(?:your|my)(?:self)?"
     r"|how\s+are\s+you"
@@ -300,6 +300,8 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
     r"|what\s+kind\s+of"
     r"|what.*feels"
+    r"|feel\s+like"
+    r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self)"
     r")\b",
     re.IGNORECASE,
 )
@@ -355,9 +357,17 @@ def _classify_query_mode(
 
 
 # coverage thresholds per mode: (strong_coverage, soft_coverage)
+#
+# A "focused" factual answer -- e.g. explaining what COLLAPSE is -- will
+# typically touch 3-4 operators (the one asked about + its closest
+# neighbours in TSML/BHML) out of 10.  That's 0.30-0.40 coverage.  We
+# set factual-strong at 0.35 and factual-soft at 0.20 so specific, sharp
+# answers can pass without forcing the model to name every operator.
+# Introspective questions use less structural vocabulary and need almost
+# no coverage.  "neutral" sits in between.
 _MODE_COVERAGE: Dict[str, Tuple[float, float]] = {
-    "factual":       (0.70, 0.40),
-    "neutral":       (0.40, 0.20),
+    "factual":       (0.35, 0.20),
+    "neutral":       (0.30, 0.15),
     "introspective": (0.15, 0.00),
 }
 
@@ -404,14 +414,70 @@ def _split_words(text: str) -> List[str]:
 def _split_letters(text: str) -> List[str]:
     """Letter-scale = individual alphabetic characters.
 
-    Most single letters yield an empty operator profile (scorer is regex on
-    whole-word stems).  The signal-aware guard will SKIP those; letters that
-    do carry signal (via ck_corrector single-char rules, if any) will count.
-    This honours CK's explicit 5-layer schema: letter, word, group, sentence,
-    meaning -- even if in practice the letter scale is almost always empty
-    and the sub-scale returns neutral.
+    Reserved for CK's explicit 5-layer schema (letter, word, group,
+    sentence, meaning).  Single letters almost never carry operator
+    signal on their own, so the actual letter-scale score is produced by
+    ``_letter_surface_score`` below rather than by per-letter lookup.
     """
     return [c for c in (text or "") if c.isalpha()]
+
+
+_VOWELS = frozenset("aeiou")
+
+
+def _letter_surface_score(text: str) -> Optional[float]:
+    """Score the LETTER scale as written-surface coherence.
+
+    The letter scale is the most primitive "layer of reconciliation": it
+    measures whether the written form has the shape of natural language
+    at all, before any word/group/meaning reasoning kicks in.  Four
+    sub-measures, each on [0, 1], averaged:
+
+      s1  letter-ratio  : fraction of chars that are alphabetic;
+                          anchored on 0.75 (ideal for prose).
+      s2  no-stutter    : no single letter dominates >20% of the text
+                          (penalises "aaaaaa" / ascii art).
+      s3  vowel-balance : vowel share anchored on 0.40 (natural English).
+      s4  entropy       : letter-distribution entropy normalised against
+                          3.5 bits/char (natural English floor).
+
+    Returns None if the input is too short for a stable measurement.
+    """
+    t = (text or "").strip()
+    if len(t) < 6:
+        return None
+    letters = [c.lower() for c in t if c.isalpha()]
+    if len(letters) < 6:
+        return None
+
+    # s1: letter ratio anchored on 0.75.
+    letter_ratio = len(letters) / max(1, len(t))
+    s1 = max(0.0, 1.0 - min(1.0, abs(letter_ratio - 0.75) * 2.0))
+
+    # s2: no stutter.
+    cnt: Dict[str, int] = {}
+    for c in letters:
+        cnt[c] = cnt.get(c, 0) + 1
+    n = len(letters)
+    max_share = max(cnt.values()) / n
+    if max_share <= 0.20:
+        s2 = 1.0
+    else:
+        s2 = max(0.0, 1.0 - (max_share - 0.20) * 2.0)
+
+    # s3: vowel balance anchored on 0.40.
+    vowel_share = sum(1 for c in letters if c in _VOWELS) / n
+    s3 = max(0.0, 1.0 - min(1.0, abs(vowel_share - 0.40) * 2.5))
+
+    # s4: normalised entropy.
+    H = 0.0
+    for k, v in cnt.items():
+        p = v / n
+        if p > 0:
+            H -= p * math.log2(p)
+    s4 = min(1.0, H / 3.5)
+
+    return float((s1 + s2 + s3 + s4) / 4.0)
 
 
 def _gmean(xs: List[float]) -> float:
@@ -518,10 +584,12 @@ def fractal_judge(
             v = _score_with_signal(w)
             if v is not None:
                 word_vals_signal.append(v)
-        for c in _split_letters(s):
-            v = _score_with_signal(c)
-            if v is not None:
-                letter_vals_signal.append(v)
+        # LETTER scale: instead of looking up each character in the
+        # operator table (always empty), we measure written-surface
+        # coherence -- does this sentence look like natural language?
+        lv = _letter_surface_score(s)
+        if lv is not None:
+            letter_vals_signal.append(lv)
 
     def _mean_or_neutral(xs: List[float]) -> float:
         return float(sum(xs) / len(xs)) if xs else 1.0
@@ -530,8 +598,27 @@ def fractal_judge(
     group_mean = _mean_or_neutral(group_vals_signal)
     word_mean = _mean_or_neutral(word_vals_signal)
     letter_mean = _mean_or_neutral(letter_vals_signal)
-    floor = min(sent_mean, group_mean, word_mean, letter_mean)
-    g = _gmean([sent_mean, group_mean, word_mean, letter_mean])
+
+    # floor and gmean aggregate ONLY the scales that actually carried
+    # measurable signal.  A scale with zero signal-bearing tokens returns
+    # 1.0 as a neutral placeholder -- including that 1.0 in min() has no
+    # effect (still dominated by the lower scales), but including it in
+    # the geometric mean inflates gmean.  We therefore drop all-neutral
+    # scales from the aggregators so gmean reflects only what was seen.
+    measured: List[Tuple[str, float]] = []
+    if sent_vals_signal:   measured.append(("sentence", sent_mean))
+    if group_vals_signal:  measured.append(("group", group_mean))
+    if word_vals_signal:   measured.append(("word", word_mean))
+    if letter_vals_signal: measured.append(("letter", letter_mean))
+
+    if measured:
+        floor = min(v for _, v in measured)
+        g = _gmean([v for _, v in measured])
+    else:
+        # No scale had signal -- fall back to whole-text coherence so we
+        # don't return an artificial 1.0 pass on a totally void draft.
+        floor = whole
+        g = whole
 
     return {
         "meaning": round(whole, 4),

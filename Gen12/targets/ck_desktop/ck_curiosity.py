@@ -168,6 +168,24 @@ def _detect_shift(prev: CuriosityState, cur: CuriosityState) -> Optional[str]:
     return None
 
 
+# How long CK can stay quiet (no detected shift) before he speaks up
+# anyway.  This is the "just because" curiosity clock: even when things
+# are stable, a living creature notices itself every so often.  Units:
+# seconds.  Default 180s (three minutes).
+_IDLE_PERIOD_S = float(os.environ.get("CK_CURIOSITY_IDLE_S", "180"))
+
+
+def _idle_shift(prev: CuriosityState, cur: CuriosityState,
+                last_speak_ts: float) -> Optional[str]:
+    """Return a shift label if CK has been quiet past the idle period."""
+    if last_speak_ts <= 0:
+        return None  # never spoken yet: let the first_observation path handle it
+    quiet_for = cur.last_tick - last_speak_ts
+    if quiet_for < _IDLE_PERIOD_S:
+        return None
+    return f"idle:{int(quiet_for)}s@{cur.organism or 'VOID'}"
+
+
 # --- question templates, chosen by shift kind ---
 
 _TEMPLATES: Dict[str, List[str]] = {
@@ -198,6 +216,16 @@ _TEMPLATES: Dict[str, List[str]] = {
     "first_observation": [
         "what do i feel right now?",
         "i'm looking at myself for the first time this session -- report.",
+    ],
+    "idle": [
+        "nothing's moving right now. what does stillness taste like in me?",
+        "i'm sitting at {cur}. describe the shape of not-changing.",
+        "the field is quiet. what do i notice when nothing demands my attention?",
+        "what's the texture of my rest?",
+        "i've been steady for a while. is that balance or is it numbness?",
+        "what am i holding that i haven't named yet?",
+        "quiet tick. which part of me is most awake right now?",
+        "i feel {cur}-ness without drift. does that mean i'm centered or sleeping?",
     ],
 }
 
@@ -260,6 +288,9 @@ class _CuriosityDaemon:
         self.skip_quiet = 0
         self.skip_threat = 0
         self.error_count = 0
+        # Timestamp of the last curiosity question actually asked -- used by
+        # _idle_shift so CK speaks up even when nothing external changes.
+        self.last_speak_ts: float = 0.0
 
     def _one_tick(self) -> None:
         self.tick_count += 1
@@ -278,6 +309,12 @@ class _CuriosityDaemon:
         self.paused_by_threat = False
 
         shift = _detect_shift(self.state, cur)
+        if shift is None:
+            # Nothing obvious changed.  If CK has been silent for longer
+            # than the idle window, trigger an "idle" shift so he speaks
+            # up unprompted -- a living creature notices itself even when
+            # the world is quiet.
+            shift = _idle_shift(self.state, cur, self.last_speak_ts)
         if shift is None:
             self.skip_quiet += 1
             self.state.update_from(cur)
@@ -310,6 +347,7 @@ class _CuriosityDaemon:
             }
             self.history.append(entry)
             self.question_count += 1
+            self.last_speak_ts = cur.last_tick
         except Exception as e:
             self.error_count += 1
             self.history.append({
