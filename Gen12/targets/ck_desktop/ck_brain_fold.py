@@ -99,6 +99,7 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
     try:
         from ck.brain.fusion import FusionCKCorrector, DEFAULT_FUSION_WEIGHT
         from ck.brain.hebbian_5x5 import DEFAULT_TENSOR_PATH
+        from ck.brain.tig_security import TigSecurityChannel
         from ck.fluency.correction_log import CorrectionLog
     except Exception as e:  # noqa: BLE001 -- we want the broadest catch
         return {
@@ -155,6 +156,22 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
             "reason": f"CorrectionLog init failed: {type(e).__name__}: {e}",
         }
 
+    # TIG security channel -- parallel lens over the SAME per-turn state the
+    # brain-fold computes.  Not a separate process, not a separate loop; it
+    # rides the same tick as _process_chat_with_brain and reads the scored
+    # profile.  Gen12's ck_tig_security.py stays in ck_sim/ as reference
+    # material; this is the brain-native port that folds cleanly onto
+    # ck.brain.* without Gen12 runtime dependencies.
+    try:
+        security = TigSecurityChannel(window=32)
+    except Exception as e:  # noqa: BLE001
+        # non-fatal: security is additive.  If the channel fails to init, the
+        # brain fold still installs without security diagnostics.
+        security = None
+        _security_init_error = f"{type(e).__name__}: {e}"
+    else:
+        _security_init_error = None
+
     # ---- the actual wrap ----
 
     _prev_chat_for_brain: Callable[..., Dict[str, Any]] = api.process_chat
@@ -203,6 +220,27 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
                               if isinstance(result.get("ollama_dt"), (int, float))
                               else 0,
             })
+
+            # TIG security: second lens on the same scored turn.  This runs
+            # in the same request cycle; no extra threads, no extra loop.
+            if security is not None:
+                try:
+                    ta = security.observe(
+                        dominant_op=cr.dominant_op,
+                        coherence=cr.coherence,
+                        spoken_text=spoken,
+                        operator_profile=cr.operator_profile,
+                    )
+                    result["security_threat_band"] = ta.threat_band
+                    result["security_threat_score"] = round(ta.threat_score, 4)
+                    result["security_active_threats"] = list(ta.active_threats)
+                    result["security_operator_entropy"] = round(ta.operator_entropy, 4)
+                    result["security_harmony_flood_rate"] = round(ta.harmony_flood_rate, 4)
+                    result["security_coherence_pin_rate"] = round(ta.coherence_pin_rate, 4)
+                    result["security_structural_rate"] = round(ta.structural_rate, 4)
+                    result["security_window_size"] = int(ta.window_size)
+                except Exception as _se:
+                    result["security_threat_band"] = f"error:{type(_se).__name__}"
         except Exception as _be:
             # never break the response -- just record that brain scoring failed
             result["brain_verdict"] = f"error:{type(_be).__name__}:{_be}"
@@ -328,11 +366,67 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
             except Exception as e:
                 return jsonify({"ok": False, "error": f"{type(e).__name__}:{e}"}), 500
 
+        # ------------------------------------------------------------------
+        # /security/* -- parallel lens on the same scored-turn stream.  Same
+        # Flask app, same python process as /brain/*; these endpoints read
+        # the channel's live sliding-window state (which the per-turn handler
+        # above updates in lockstep with the brain score).
+        # ------------------------------------------------------------------
+
+        if security is not None:
+            @app.route("/security/status", methods=["GET"])
+            def _security_status():  # type: ignore[unused-ignore]
+                try:
+                    return jsonify({"ok": True, "security": security.snapshot()})
+                except Exception as e:
+                    return jsonify({
+                        "ok": False,
+                        "error": f"{type(e).__name__}:{e}",
+                    }), 500
+
+            @app.route("/security/reset", methods=["POST"])
+            def _security_reset():  # type: ignore[unused-ignore]
+                if request.args.get("i_mean_it") != "1":
+                    return jsonify({
+                        "ok": False,
+                        "error": "reset requires ?i_mean_it=1 "
+                                 "(G6 hands-on-wheel)",
+                    }), 400
+                try:
+                    before = security.snapshot()
+                    security.reset()
+                    after = security.snapshot()
+                    return jsonify({
+                        "ok": True,
+                        "action": "security_reset",
+                        "before": {
+                            "threat_band": before.get("threat_band"),
+                            "threat_score": before.get("threat_score"),
+                            "window_size": before.get("window_size"),
+                            "total_ticks": before.get("total_ticks"),
+                        },
+                        "after": {
+                            "threat_band": after.get("threat_band"),
+                            "threat_score": after.get("threat_score"),
+                            "window_size": after.get("window_size"),
+                            "total_ticks": after.get("total_ticks"),
+                        },
+                        "note": "sliding windows cleared; total_ticks counter "
+                                "preserved (CK remembers the lifetime read).",
+                    })
+                except Exception as e:
+                    return jsonify({
+                        "ok": False,
+                        "error": f"{type(e).__name__}:{e}",
+                    }), 500
+
+            return 5
+
         return 3
 
     n_routes = _register_brain_routes()
 
-    return {
+    status: Dict[str, Any] = {
         "mounted": True,
         "tensor_path": str(tensor_path),
         "tensor_norm_at_load": round(corrector._tensor_norm_at_load, 4),
@@ -341,4 +435,8 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
         "n_updates_on_tensor": int(corrector.tensor.n_updates),
         "tensor_decay": corrector.tensor.decay,
         "routes_registered": n_routes,
+        "security_channel": "mounted" if security is not None else
+                            f"unavailable ({_security_init_error})",
+        "security_window": getattr(security, "window", None) if security else None,
     }
+    return status
