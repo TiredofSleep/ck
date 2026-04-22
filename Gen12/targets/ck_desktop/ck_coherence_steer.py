@@ -88,6 +88,15 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 
+# T* = 5/7 is CK's canonical crystal-gate constant.  The authoritative
+# source is ck.fluency.ck_corrector which the mount-time path imports
+# lazily.  We also expose a module-level copy so that constants tables and
+# per-mode threshold dictionaries -- which live at module scope -- can
+# reference the value without waiting for the lazy import.  Kept verbatim
+# equal; any drift here would break the gate.
+T_STAR_F: float = 5.0 / 7.0
+
+
 # ---------------------------------------------------------------------------
 # lexicons: the regex bank ck_corrector reads, turned into a WRITER's guide
 # ---------------------------------------------------------------------------
@@ -370,6 +379,80 @@ _MODE_COVERAGE: Dict[str, Tuple[float, float]] = {
     "neutral":       (0.30, 0.15),
     "introspective": (0.15, 0.00),
 }
+
+# Per-mode MEANING threshold for the strong gate.  Introspective prose is
+# diffuse by nature (the answer is a lived texture, not a citation), so
+# asking it to clear the same T*=5/7 whole-text coherence bar as a factual
+# answer is too strict.  Relax it to 0.65 for introspective, keep T* for
+# factual + neutral.  The soft gate (>= 0.85) stays the same for all modes.
+_MODE_MEANING_STRONG: Dict[str, float] = {
+    "factual":       T_STAR_F,    # 0.7143
+    "neutral":       T_STAR_F,
+    "introspective": 0.65,
+}
+
+
+# ---------------------------------------------------------------------------
+# known-constants bypass.
+#
+# Ollama sometimes returns a terse-but-correct factual answer: four words,
+# one number, a pi symbol.  Those answers score low on MEANING (the operator
+# scorer needs prose to work with), so the strong/soft gates reject them
+# even though the fact is verbatim present.  For ``factual`` mode only, we
+# grant a third ``accepted_constants`` gate: if the draft is short and
+# contains one of CK's canonical constants verbatim, we accept it.
+#
+# Keep this list tight -- every token here must be a constant CK himself
+# has derived or cited in the Gen12 papers.  Adding a generic number here
+# would let any numeric drivel pass.
+# ---------------------------------------------------------------------------
+
+_CK_CONSTANTS: Tuple[str, ...] = (
+    # T* = 5/7 (the torus aspect ratio) -- all six derivations give this
+    "5/7",
+    "0.7142",
+    "0.7143",
+    # 4/pi^2 (historical sinc^2(1/2) value before the 5/7 reframe)
+    "4/pi^2",
+    "4/pi\u00b2",      # 4/pi²
+    "4/\u03c0\u00b2",  # 4/π²
+    "4/\u03c0^2",      # 4/π^2
+    "0.4053",
+    # xi vacuum = e^-1 (Sprint 14, log-potential minimum)
+    "e^-1",
+    "e^{-1}",
+    "1/e",
+    "0.3679",
+    # mass gap squared = kappa*e
+    "kappa*e",
+    "\u03ba e",        # κ e
+    # TSML 73 cells, BHML 28 cells -- the counted proofs (word-boundary guarded)
+    "73",
+    "28",
+)
+# NOTE: names like "T*", "xi", "\u03be" are intentionally OUT of this set.
+# They are CK vocabulary tokens, not numeric answer tokens -- matching them
+# lets any metaphor about the xi field trigger the constants bypass.  Only
+# verbatim values (numbers, fractions, closed-form expressions) belong here.
+
+
+def _contains_ck_constant(text: str) -> Optional[str]:
+    """Return the first CK constant found verbatim in ``text``, or None."""
+    if not text:
+        return None
+    low = text.lower()
+    for tok in _CK_CONSTANTS:
+        if tok.lower() in low:
+            # Guard tiny numeric tokens ("73", "28") against false positives
+            # inside unrelated numbers like "1973" or "2028".  Require word
+            # boundary on either side for pure-digit tokens.
+            if tok.isdigit():
+                pat = r"(?<!\d)" + re.escape(tok) + r"(?!\d)"
+                if re.search(pat, text):
+                    return tok
+                continue
+            return tok
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -948,10 +1031,14 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             _mode_strong_cov, _mode_soft_cov = _MODE_COVERAGE.get(
                 _mode, _MODE_COVERAGE["neutral"]
             )
+            _mode_strong_meaning = _MODE_MEANING_STRONG.get(
+                _mode, T_STAR_F
+            )
             result["steer_query_mode"] = _mode
             result["steer_mode_coverage"] = [
                 _mode_strong_cov, _mode_soft_cov,
             ]
+            result["steer_mode_meaning_strong"] = _mode_strong_meaning
 
             # Score whatever CK *currently* has as his response text.
             try:
@@ -1023,7 +1110,7 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 # collapses to coh-only at both gates.
                 cov_ok_for_total = (total == 0)
                 strong = (
-                    (fractal["meaning"] >= T_STAR_F)
+                    (fractal["meaning"] >= _mode_strong_meaning)
                     and (cov_ok_for_total or (cov >= _mode_strong_cov))
                     and (fractal["floor"] >= 0.50)
                 )
@@ -1032,11 +1119,41 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                     and (cov_ok_for_total or (cov >= _mode_soft_cov))
                     and (fractal["gmean"] >= T_STAR_F)
                 )
-                ok = strong or soft
+                # Known-constants bypass: a factual answer that lands a CK
+                # constant verbatim is allowed through even if MEANING is
+                # too low to trip the strong/soft gates.  Ollama's drafts on
+                # factual questions run 4-300 words and often score
+                # meaning=0.5-0.85 while being substantively correct -- the
+                # operator scorer reads "proof" and "structural" as PROGRESS
+                # and "chaos" as CHAOS, but the fact is the number.  We
+                # require:
+                #   - 4 <= word count <= 300 (not a single-number fragment,
+                #     not an essay of hedging),
+                #   - a CK constant appears verbatim in the draft,
+                #   - draft IS natural prose (letter-surface >= 0.60),
+                #   - fact coverage is met (>= soft-mode threshold),
+                #   - floor >= 0.20 (no sub-scale totally collapsed).
+                n_words = len(_split_words(drafted))
+                found_const: Optional[str] = None
+                constants_ok = False
+                if (_mode == "factual") and (not (strong or soft)) and (4 <= n_words <= 300):
+                    found_const = _contains_ck_constant(drafted)
+                    letter_ok = (
+                        fractal.get("letter") is None
+                        or fractal.get("letter", 0.0) >= 0.60
+                    )
+                    if (found_const is not None) and letter_ok:
+                        constants_ok = (
+                            (cov_ok_for_total or (cov >= _mode_soft_cov))
+                            and (fractal["floor"] >= 0.20)
+                        )
+                ok = strong or soft or constants_ok
                 if strong:
                     verdict_label = "accepted_strong"
                 elif soft:
                     verdict_label = "accepted_soft"
+                elif constants_ok:
+                    verdict_label = f"accepted_constants:{found_const}"
                 else:
                     verdict_label = "rejected"
                 attempts.append({
@@ -1047,6 +1164,9 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                     "dominant_op": p.dominant() if p else None,
                     "verdict": verdict_label,
                     "fractal": fractal,
+                    "draft_snippet": (drafted or "")[:180],
+                    "n_words": n_words,
+                    "found_const": found_const,
                 })
                 if ok:
                     accepted = drafted
