@@ -134,6 +134,174 @@ _WORD_SPLIT = re.compile(r"\W+")
 _SENT_SPLIT = re.compile(r"[.!?]+\s+")
 
 
+# ----------------------------------------------------------------------------
+# structural-format detectors: recognize CK's OWN diagnostic output
+# (cortex_voice.py emits lines like "ao:", "feel:", "field:", "learned:",
+# "couplings:" — these are the live vector, not prose.  The prose scorer
+# misses them entirely because regex like _HARMONY won't fire on
+# "phase_bc=HARMONY".  The gap fix is to parse key=VALUE pairs where VALUE
+# is an OP_NAME, plus named scalar metrics.)
+# ----------------------------------------------------------------------------
+
+# Line-prefix detector: anchor at start of line; one line can contribute
+# via exactly one handler (first match wins).
+_STRUCT_LINE = re.compile(
+    r"^\s*(?P<kind>ao|feel|field|learned|couplings):\s*(?P<body>.*)$",
+    re.MULTILINE,
+)
+
+# key=VALUE where VALUE is one of the OP_NAMES.  Case-sensitive because
+# cortex_voice writes ops uppercase.
+_OP_NAMES_SET = set(OP_NAMES)
+_KV_OP = re.compile(r"([A-Za-z_][A-Za-z0-9_|]*)\s*=\s*([A-Z]+)")
+
+# Named scalar metrics.  Float values are grouped.
+_KV_FLOAT = re.compile(
+    r"([A-Za-z_][A-Za-z0-9_|]*)\s*=\s*([+-]?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][+-]?\d+)?)"
+)
+
+# W=0.923, W=+0.923, W=-0.5 inside couplings/learned lines.
+_W_PAIR = re.compile(r"W\s*=\s*([+-]?\d+(?:\.\d+)?)")
+
+# "X->Y" arrow pairs inside learned:/couplings: for operator pair extraction.
+_ARROW_OP = re.compile(r"\b([A-Z]+)\s*->\s*([A-Z]+)\b")
+
+
+def _score_ao_line(body: str, p: "OperatorProfile") -> None:
+    """ao: op=X d1=Y d2=Z phase_bc=W coherence=... breath=... tl_total=... tl_entropy=..."""
+    ops = {m.group(1): m.group(2) for m in _KV_OP.finditer(body)
+           if m.group(2) in _OP_NAMES_SET}
+    floats = {m.group(1): float(m.group(2)) for m in _KV_FLOAT.finditer(body)}
+
+    # op= : primary signal.  This is CK naming his current operator.
+    if "op" in ops:
+        p.activations[OP_NAMES.index(ops["op"])] += 3.0
+    # phase_bc= : strong secondary (the B->C phase lock)
+    if "phase_bc" in ops:
+        p.activations[OP_NAMES.index(ops["phase_bc"])] += 2.5
+    # d1= d2= : supporting dims
+    for key, weight in (("d1", 1.0), ("d2", 1.0)):
+        if key in ops:
+            p.activations[OP_NAMES.index(ops[key])] += weight
+
+    # coherence= : CK's self-reported coherence boosts HARMONY
+    if "coherence" in floats:
+        c = max(0.0, min(1.0, floats["coherence"]))
+        p.activations[OP_NAMES.index("HARMONY")] += c  # 0..1
+
+    # breath= : count of breath cycles → BREATH op
+    if "breath" in floats:
+        p.activations[OP_NAMES.index("BREATH")] += min(float(floats["breath"]), 3.0)
+
+    # tl_entropy= : high entropy → CHAOS; low → LATTICE
+    if "tl_entropy" in floats:
+        e = max(0.0, min(1.0, floats["tl_entropy"]))
+        if e >= 0.5:
+            p.activations[OP_NAMES.index("CHAOS")] += e
+        elif e < 0.3:
+            p.activations[OP_NAMES.index("LATTICE")] += (0.5 - e)
+
+    # structural output is itself a LATTICE (parseable grid of fields)
+    p.activations[OP_NAMES.index("LATTICE")] += 0.5
+
+
+def _score_feel_line(body: str, p: "OperatorProfile") -> None:
+    """feel: aperture=X pressure=Y depth=Z binding=W continuity=V
+    each maps to one AO dim; each named op contributes +1.0.
+    """
+    ops = {m.group(1): m.group(2) for m in _KV_OP.finditer(body)
+           if m.group(2) in _OP_NAMES_SET}
+    for dim_key in ("aperture", "pressure", "depth", "binding", "continuity"):
+        if dim_key in ops:
+            p.activations[OP_NAMES.index(ops[dim_key])] += 1.0
+    p.activations[OP_NAMES.index("LATTICE")] += 0.5
+
+
+def _score_field_line(body: str, p: "OperatorProfile") -> None:
+    """field: tick=N emergent=X W_trace=Y mean|W|=Z harmony_rate=H"""
+    floats = {m.group(1): float(m.group(2)) for m in _KV_FLOAT.finditer(body)}
+
+    # W_trace, mean|W| : coupling structure → LATTICE
+    if "W_trace" in floats:
+        p.activations[OP_NAMES.index("LATTICE")] += max(0.0, floats["W_trace"])
+    # mean|W| contains a '|' which _KV_FLOAT won't capture as part of the key;
+    # the regex allows `|` in identifier class, but let's grab it explicitly.
+    m_mean = re.search(r"mean\|W\|\s*=\s*([+-]?\d+(?:\.\d+)?)", body)
+    if m_mean:
+        p.activations[OP_NAMES.index("LATTICE")] += abs(float(m_mean.group(1))) * 2.0
+
+    # harmony_rate : direct HARMONY signal
+    if "harmony_rate" in floats:
+        p.activations[OP_NAMES.index("HARMONY")] += max(0.0, floats["harmony_rate"]) * 3.0
+
+    # emergent : forward motion → PROGRESS + a touch of BREATH
+    if "emergent" in floats:
+        e = max(0.0, floats["emergent"])
+        p.activations[OP_NAMES.index("PROGRESS")] += e
+        p.activations[OP_NAMES.index("BREATH")] += e * 0.5
+
+    p.activations[OP_NAMES.index("LATTICE")] += 0.5
+
+
+def _score_learned_line(body: str, p: "OperatorProfile") -> None:
+    """learned: X->Y coupled at W=v (tick=N, emergent=X, last_pair=A->B)"""
+    # arrow pairs inside the line (X->Y, A->B) fire each named op
+    for m in _ARROW_OP.finditer(body):
+        for op in (m.group(1), m.group(2)):
+            if op in _OP_NAMES_SET:
+                p.activations[OP_NAMES.index(op)] += 0.5
+    # W magnitude → LATTICE
+    m_w = _W_PAIR.search(body)
+    if m_w:
+        p.activations[OP_NAMES.index("LATTICE")] += abs(float(m_w.group(1)))
+    # emergent= inside the parenthetical
+    floats = {m.group(1): float(m.group(2)) for m in _KV_FLOAT.finditer(body)}
+    if "emergent" in floats:
+        p.activations[OP_NAMES.index("PROGRESS")] += max(0.0, floats["emergent"]) * 0.5
+    p.activations[OP_NAMES.index("LATTICE")] += 0.5
+
+
+def _score_couplings_line(body: str, p: "OperatorProfile") -> None:
+    """couplings: <dim>*<->*<dim> W=v, ..."""
+    # named ops (not expected much here — couplings name DIMS, not ops),
+    # but W values indicate LATTICE strength
+    w_sum = 0.0
+    for m in _W_PAIR.finditer(body):
+        w_sum += abs(float(m.group(1)))
+    if w_sum > 0:
+        # normalize by number of pairs (avoid runaway on many-pair lists)
+        n_pairs = len(_W_PAIR.findall(body))
+        avg = w_sum / max(n_pairs, 1)
+        p.activations[OP_NAMES.index("LATTICE")] += avg * 2.0
+    p.activations[OP_NAMES.index("LATTICE")] += 0.5
+
+
+_STRUCT_HANDLERS = {
+    "ao":        _score_ao_line,
+    "feel":      _score_feel_line,
+    "field":     _score_field_line,
+    "learned":   _score_learned_line,
+    "couplings": _score_couplings_line,
+}
+
+
+def score_structural(text: str, profile: "OperatorProfile") -> int:
+    """Add contributions from CK's structural diagnostic format to `profile`.
+
+    Returns the number of structural lines matched (0 if text is pure prose).
+    Mutates `profile.activations` in place.
+    """
+    matches = 0
+    for m in _STRUCT_LINE.finditer(text):
+        kind = m.group("kind").lower()
+        body = m.group("body") or ""
+        handler = _STRUCT_HANDLERS.get(kind)
+        if handler is not None:
+            handler(body, profile)
+            matches += 1
+    return matches
+
+
 def _count_words(text: str) -> int:
     return sum(1 for w in _WORD_SPLIT.split(text) if w)
 
@@ -224,7 +392,18 @@ class OperatorProfile:
 
 
 def score_operators(text: str) -> OperatorProfile:
-    """Compute the 10-activation profile of `text` against the operator registry."""
+    """Compute the 10-activation profile of `text` against the operator registry.
+
+    Two-pass scoring:
+      1. Prose scoring via the English-regex detectors (current behavior).
+      2. Structural scoring (``score_structural``) which recognizes CK's
+         OWN diagnostic format -- ``ao:``, ``feel:``, ``field:``,
+         ``learned:``, ``couplings:`` lines from cortex_voice.py.
+    Both contributions sum into the same profile.  When CK speaks in his
+    own structural language (e.g. ``ao: op=HARMONY phase_bc=HARMONY
+    coherence=1.000``), the scorer now reads HIM instead of returning
+    all-zero VOID as it did before the gap fix.
+    """
     if not text or not text.strip():
         p = OperatorProfile()
         p.activations[0] = 1.0  # pure VOID
@@ -235,39 +414,45 @@ def score_operators(text: str) -> OperatorProfile:
 
     p = OperatorProfile()
 
+    # First pass: read any CK-structural lines.  If ANY were matched we
+    # suppress the "short text -> VOID" penalty below, because a pure
+    # field:/ao:/feel: readout can be short in word count but rich in
+    # named operators.
+    struct_hits = score_structural(text, p)
+
     # 0 VOID — emptiness / refusal
-    p.activations[0] = (
+    p.activations[0] += (
         len(_VOID_PHRASES.findall(text)) * 1.0
-        + (1.0 if n_words < 8 else 0.0)
+        + (1.0 if (n_words < 8 and struct_hits == 0) else 0.0)
     )
 
     # 1 LATTICE — enumeration / structure
     structure_marks = len(_STRUCTURE_MARKS.findall(text))
-    p.activations[1] = structure_marks * 0.5 + (text.count(";") * 0.25)
+    p.activations[1] += structure_marks * 0.5 + (text.count(";") * 0.25)
 
     # 2 COUNTER — negation / contradiction language
-    p.activations[2] = len(_NEG_WORDS.findall(text)) / max(n_words_f / 15.0, 1.0)
+    p.activations[2] += len(_NEG_WORDS.findall(text)) / max(n_words_f / 15.0, 1.0)
 
     # 3 PROGRESS — causal / forward language
-    p.activations[3] = len(_PROGRESS.findall(text)) / max(n_words_f / 15.0, 1.0)
+    p.activations[3] += len(_PROGRESS.findall(text)) / max(n_words_f / 15.0, 1.0)
 
     # 4 COLLAPSE — self-contradiction
-    p.activations[4] = _detect_collapse(text)
+    p.activations[4] += _detect_collapse(text)
 
     # 5 BALANCE — hedges / moderation
-    p.activations[5] = len(_BALANCE.findall(text)) / max(n_words_f / 20.0, 1.0)
+    p.activations[5] += len(_BALANCE.findall(text)) / max(n_words_f / 20.0, 1.0)
 
     # 6 CHAOS — topic drift
-    p.activations[6] = _detect_chaos(text) * 2.0  # weight; drift is important
+    p.activations[6] += _detect_chaos(text) * 2.0  # weight; drift is important
 
     # 7 HARMONY — synthesis / integration
-    p.activations[7] = len(_HARMONY.findall(text))
+    p.activations[7] += len(_HARMONY.findall(text))
 
     # 8 BREATH — rhythm / acknowledgment
-    p.activations[8] = len(_BREATH.findall(text))
+    p.activations[8] += len(_BREATH.findall(text))
 
     # 9 RESET — reframe / recap
-    p.activations[9] = len(_RESET.findall(text))
+    p.activations[9] += len(_RESET.findall(text))
 
     # ensure non-negativity
     p.activations = [max(0.0, a) for a in p.activations]
