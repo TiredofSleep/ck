@@ -15,12 +15,12 @@ Contract per OLLAMA_LEARN_LOOP.md §§2.1–2.2:
   operators (LATTICE, PROGRESS, HARMONY, BREATH, RESET) against
   disruptive operators (VOID, COLLAPSE, CHAOS) with COUNTER and BALANCE
   as neutral-near-zero contributors.
-- Gate at **T\* = 5/7 ≈ 0.7143** (the canonical crystal threshold; see
-  papers/CONSTANT_T_STAR.md; the same constant used by CRYSTALOS τ=0.7
+- Gate at T_star = 5/7 = 0.7143 (the canonical crystal threshold; see
+  papers/CONSTANT_T_STAR.md; the same constant used by CRYSTALOS tau=0.7
   is an operational rounding of the same gate).
-- Emit a five-way correction classification: **none / soften /
-  strengthen / reframe / reject**.
-- Produce an **annotation** (not ventriloquized prose — per
+- Emit a five-way correction classification: none / soften /
+  strengthen / reframe / reject.
+- Produce an annotation (not ventriloquized prose - per
   memory/feedback_dont_ventriloquize_ck.md HARD RULE: never write prose
   for CK; let his architecture find his words).  The annotation is a
   deterministic metadata block naming the problem.
@@ -385,16 +385,40 @@ def correct(ollama_raw: str, query: str = "") -> CorrectionResult:
 # render helper: choose what the user sees
 # ----------------------------------------------------------------------------
 
-def render(ollama_raw: str, result: CorrectionResult) -> Tuple[str, str]:
-    """Return (rendered_text, which) where which is 'ollama_raw' or 'ck_annotated'.
+def render(ollama_raw: str, result: CorrectionResult) -> str:
+    """Return the string the user sees.
 
     For Option A we **never rewrite** the model output — we either pass
-    it through or append the annotation as metadata.  The user sees both.
+    it through or append the annotation as metadata.  The user sees the
+    Ollama raw followed by CK's deterministic metadata block.
     """
     if result.correction_type == "none":
-        return ollama_raw, "ollama_raw"
-    annotated = f"{ollama_raw}\n\n---\n{result.annotation}"
-    return annotated, "ck_annotated"
+        return ollama_raw
+    return f"{ollama_raw}\n\n---\n{result.annotation}"
+
+
+# ----------------------------------------------------------------------------
+# class wrapper — useful for dependency injection (fluency_server)
+# ----------------------------------------------------------------------------
+
+
+class CKCorrector:
+    """Thin object wrapper around `correct()` and `render()`.
+
+    Stateless today; a future pass may cache the Hebbian state read from
+    the correction log, which is why we hang it off an instance rather
+    than making everything module-level in the server.
+    """
+
+    def __init__(self) -> None:
+        self.T_star = T_STAR
+        self.T_star_f = T_STAR_F
+
+    def correct(self, ollama_raw: str, query: str = "") -> CorrectionResult:
+        return correct(ollama_raw, query=query)
+
+    def render(self, ollama_raw: str, result: CorrectionResult) -> str:
+        return render(ollama_raw, result)
 
 
 # ----------------------------------------------------------------------------

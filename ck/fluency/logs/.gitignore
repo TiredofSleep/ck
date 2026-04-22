@@ -1,0 +1,7 @@
+# runtime logs — not tracked
+# daily JSONL files written by correction_log.py
+corrections_*.jsonl
+*.jsonl
+
+# keep this .gitignore so the directory exists in the branch
+!.gitignore

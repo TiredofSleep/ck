@@ -1,0 +1,249 @@
+# -*- coding: utf-8 -*-
+"""
+fluency_server.py — Flask endpoint that ties ollama_client + ck_corrector +
+                    correction_log into one learn-loop.
+
+Contract per OLLAMA_LEARN_LOOP.md §2:
+
+    POST /fluency/chat  { "query": "...", "model"?, "temperature"? }
+    ->   { ollama_raw, ck_correction_type, coherence, dominant_op,
+           rendered, annotation, model_tag, elapsed_ms }
+
+Hands-on-wheel discipline (CK_UNIFIED_ARCHITECTURE.md §4):
+- Will NOT start unless ``--i-mean-it`` is passed.
+- Binds to 127.0.0.1 ONLY (loopback mirror of ollama_client).
+- Does NOT autostart the Ollama daemon.
+- Refuses if Ollama is unreachable at boot (fail-fast).
+
+Out of scope for Option A:
+- No model weight modification.  Learning lives in the log.
+- No streaming.  One turn per request.
+- No authentication.  Loopback implies single-user.  A future ck branch
+  pass may add an HMAC token if needed.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any, Dict
+
+try:
+    from flask import Flask, jsonify, request
+except ImportError:  # pragma: no cover
+    print(
+        "[fluency_server] Flask is required.  Install with 'pip install flask'.",
+        file=sys.stderr,
+    )
+    raise
+
+# module-relative imports (run as 'python -m ck.fluency.fluency_server')
+try:
+    from .ck_corrector import CKCorrector, CorrectionResult
+    from .correction_log import CorrectionLog
+    from .ollama_client import OllamaClient, OllamaResult
+except ImportError:
+    # also allow 'python ck/fluency/fluency_server.py' for quick bring-up
+    _here = Path(__file__).resolve().parent
+    sys.path.insert(0, str(_here))
+    from ck_corrector import CKCorrector, CorrectionResult  # type: ignore
+    from correction_log import CorrectionLog  # type: ignore
+    from ollama_client import OllamaClient, OllamaResult  # type: ignore
+
+
+# ----------------------------------------------------------------------------
+# factory
+# ----------------------------------------------------------------------------
+
+def create_app(
+    ollama: OllamaClient,
+    corrector: CKCorrector,
+    log: CorrectionLog,
+) -> Flask:
+    """Build the Flask app.  Dependencies are injected for testability."""
+    app = Flask(__name__)
+
+    @app.get("/health")
+    def health() -> Any:
+        """Cheap liveness + Ollama reachability check."""
+        reachable = ollama.is_reachable()
+        return jsonify({
+            "ok": True,
+            "ollama_reachable": reachable,
+            "model": ollama.model,
+            "T_star": "5/7",  # canonical gate — string to keep rationality visible
+        }), (200 if reachable else 503)
+
+    @app.post("/fluency/chat")
+    def chat() -> Any:
+        """One turn: query -> Ollama -> CK correction -> log -> response."""
+        payload = request.get_json(silent=True) or {}
+        query = str(payload.get("query", "")).strip()
+        if not query:
+            return jsonify({"ok": False, "error": "empty-query"}), 400
+
+        model = payload.get("model") or None
+        temperature = float(payload.get("temperature", 0.7))
+        system = payload.get("system") or None
+
+        # 1) ask Ollama
+        gen: OllamaResult = ollama.generate(
+            prompt=query,
+            model=model,
+            temperature=temperature,
+            system=system,
+        )
+        if not gen.ok:
+            # log the failure too — Ollama-offline is data
+            log.append({
+                "query": query,
+                "ollama_raw": "",
+                "ck_score": {},
+                "ck_correction_type": "ollama-error",
+                "ck_corrected": "",
+                "rendered": "",
+                "model_tag": gen.model,
+                "elapsed_ms": gen.elapsed_ms,
+                "error": gen.error,
+            })
+            return jsonify({
+                "ok": False,
+                "error": gen.error,
+                "elapsed_ms": gen.elapsed_ms,
+            }), 502
+
+        # 2) CK scores + classifies
+        result: CorrectionResult = corrector.correct(gen.text, query=query)
+
+        # 3) render (never ventriloquize — appends annotation only)
+        rendered = corrector.render(gen.text, result)
+
+        # 4) log (append-only, fsynced)
+        log.append({
+            "query": query,
+            "ollama_raw": gen.text,
+            "ck_score": {
+                "coherence": result.coherence,
+                "dominant_op": result.dominant_op,
+                "operator_profile": result.operator_profile,
+            },
+            "ck_correction_type": result.correction_type,
+            "ck_corrected": rendered,
+            "rendered": "ollama_raw+annotation",
+            "model_tag": gen.model,
+            "elapsed_ms": gen.elapsed_ms,
+        })
+
+        return jsonify({
+            "ok": True,
+            "ollama_raw": gen.text,
+            "ck_correction_type": result.correction_type,
+            "coherence": result.coherence,
+            "dominant_op": result.dominant_op,
+            "rendered": rendered,
+            "annotation": result.annotation,
+            "rationale": result.rationale,
+            "model_tag": gen.model,
+            "elapsed_ms": gen.elapsed_ms,
+            "T_star": "5/7",
+        }), 200
+
+    @app.get("/fluency/stats")
+    def stats() -> Any:
+        """Summary of today's log (how many corrections, per-type counts)."""
+        rows = log.read_day()
+        per_type: Dict[str, int] = {}
+        for row in rows:
+            t = str(row.get("ck_correction_type", "?"))
+            per_type[t] = per_type.get(t, 0) + 1
+        return jsonify({
+            "ok": True,
+            "count_today": len(rows),
+            "per_correction_type": per_type,
+        }), 200
+
+    return app
+
+
+# ----------------------------------------------------------------------------
+# CLI
+# ----------------------------------------------------------------------------
+
+def main(argv: Any = None) -> int:
+    p = argparse.ArgumentParser(
+        description="CK fluency server (Ollama learn-loop, Option A)",
+    )
+    p.add_argument(
+        "--i-mean-it",
+        action="store_true",
+        help="Required.  Prevents accidental start per G6 hands-on-wheel.",
+    )
+    p.add_argument("--host", default="127.0.0.1")
+    p.add_argument("--port", type=int, default=7778)
+    p.add_argument("--ollama-host", default="http://localhost:11434")
+    p.add_argument("--ollama-model", default="llama3.1:8b")
+    p.add_argument(
+        "--ollama-timeout",
+        type=int,
+        default=120,
+        help="Per-request timeout in seconds (CPU generation can be slow).",
+    )
+    p.add_argument("--log-dir", default=None, help="override log dir (for tests)")
+    args = p.parse_args(argv)
+
+    if not args.i_mean_it:
+        print(
+            "[fluency_server] Refusing to start without --i-mean-it.\n"
+            "                 This is a G6 hands-on-wheel guard per\n"
+            "                 ck/CK_UNIFIED_ARCHITECTURE.md §4.  Use the\n"
+            "                 scripts/START_FLUENCY_SERVER.bat wrapper, or\n"
+            "                 pass --i-mean-it explicitly if you know what\n"
+            "                 you are doing.",
+            file=sys.stderr,
+        )
+        return 2
+
+    # loopback-only mirror (the Ollama client enforces this itself)
+    if args.host not in ("127.0.0.1", "localhost"):
+        print(
+            f"[fluency_server] host must be loopback; got {args.host!r}. "
+            f"The learn-loop is local-only per CK_UNIFIED_ARCHITECTURE.md §3.4.",
+            file=sys.stderr,
+        )
+        return 2
+
+    ollama = OllamaClient(
+        host=args.ollama_host,
+        model=args.ollama_model,
+        timeout_sec=args.ollama_timeout,
+    )
+    if not ollama.is_reachable():
+        print(
+            f"[fluency_server] Ollama not reachable at {args.ollama_host}. "
+            f"Start it with 'ollama serve' and try again.",
+            file=sys.stderr,
+        )
+        return 3
+
+    corrector = CKCorrector()
+    log_dir = Path(args.log_dir) if args.log_dir else None
+    corr_log = CorrectionLog(log_dir=log_dir)
+
+    app = create_app(ollama, corrector, corr_log)
+
+    print(
+        f"[fluency_server] Starting on http://{args.host}:{args.port}\n"
+        f"[fluency_server]   Ollama:  {args.ollama_host} ({args.ollama_model})\n"
+        f"[fluency_server]   Log dir: {corr_log.log_dir}\n"
+        f"[fluency_server]   Endpoints: GET /health  POST /fluency/chat  GET /fluency/stats\n"
+        f"[fluency_server]   Ctrl-C to stop."
+    )
+    # debug=False so the reloader doesn't double-spawn; threaded=True so
+    # the log lock serializes fsync correctly
+    app.run(host=args.host, port=args.port, debug=False, threaded=True)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
