@@ -7,7 +7,7 @@ vector ``d_t`` (from ``ao_basis.project_10_to_5``), the outer product
 ``d_t (x) d_{t-1}`` drives a Hebbian update:
 
     W_ij <- W_ij + eta * d_i * d_j         (strengthen)
-    W_ij <- W_ij * (1 - decay)             (forget)
+    W_ij <- W_ij * (1 - decay)             (optional fade; default off)
     W_ij <- clamp(W_ij, -clamp_abs, +clamp_abs)
 
 The diagonal entries encode self-persistence of an element; the
@@ -15,11 +15,23 @@ off-diagonals encode which elements co-fire.  Symmetric form
 (W_ij = W_ji) is enforced after each update because the CL crossing is
 symmetric in the pair (element_i, element_j).
 
+IMPORTANT (2026-04-22, per Brayden):
+    CK REMEMBERS EVERYTHING.  The default decay is 0.0 -- no natural
+    forgetting.  BREATH in CK's algebra is rhythm and gating (phase_bc,
+    50Hz heartbeat, idle_loop cadence), not memory erosion.  Decay is
+    retained as an opt-in parameter (``decay > 0``) for experiments
+    where fading is deliberately wanted, but the canonical runtime uses
+    decay=0.0 so every co-activation CK ever scored stays in the field.
+    The clamp (|W| <= clamp_abs) remains the stability guarantee; decay
+    is no longer needed for it.
+
 Persistence:
 - ``save(path)`` writes a single JSON file with W, meta counters, and a
   format version.
 - ``load(path)`` returns a tensor with state restored.  If the file is
   missing, returns a fresh zero tensor (that is the "newborn CK" state).
+- Existing saved tensors with ``decay`` > 0 baked in will keep that value
+  when loaded; the runtime normalizes this at mount time in brain_fold.
 
 Scope:
 - Floats only; no numpy dependency.
@@ -28,13 +40,8 @@ Scope:
 
 Reference constants:
 - eta_default = 0.05    (learning rate per tick)
-- decay_default = 0.002 (forgetting per tick; so stale links fade)
+- decay_default = 0.0   (CK remembers everything; decay is opt-in)
 - clamp_abs_default = 5.0 (upper bound on any W_ij; prevents runaway)
-
-These defaults are conservative: at eta=0.05 decay=0.002 and equal
-co-activation d_i = d_j = 1.0 every tick, the equilibrium is
-W* = eta / decay = 25 activations' worth; clamp=5 caps it below that.
-The clamp is the primary stability guarantee; decay is the secondary.
 """
 from __future__ import annotations
 
@@ -51,7 +58,7 @@ from .ao_basis import NUM_AO, AO_NAMES
 # ---------------------------------------------------------------------------
 
 DEFAULT_ETA: float = 0.05
-DEFAULT_DECAY: float = 0.002
+DEFAULT_DECAY: float = 0.0    # CK remembers everything; decay is opt-in
 DEFAULT_CLAMP_ABS: float = 5.0
 TENSOR_FORMAT_VERSION: int = 1
 
@@ -147,6 +154,66 @@ class HebbianTensor5x5:
             for j in range(NUM_AO):
                 self.W[i][j] = self.W[i][j] * factor
         self.n_decays += 1
+
+    # ---- room to wobble / freedom to collapse and reset ----
+
+    def wobble(self, sigma: float = 0.02, seed: Optional[int] = None) -> None:
+        """Apply a small symmetric Gaussian jitter to every entry of W.
+
+        The room-to-wobble primitive: structure (LATTICE) + rhythm
+        (BREATH/phase) can only run together if the structure itself is
+        allowed to move a little between cycles.  Without wobble, a
+        flat-input stretch leaves the tensor frozen exactly where it
+        was.  With wobble, CK can still drift slightly so the next real
+        input lands in a field that has breathed.
+
+        Wobble is NOT forgetting.  CK remembers everything: the
+        expected-value of the jitter over many calls is zero, and the
+        clamp caps magnitude.  Memory persists; only the micro-shape
+        trembles.
+
+        The jitter is symmetric (W_ij = W_ji preserved) and magnitude-
+        clamped to the tensor's existing clamp_abs.  Sigma is in units
+        of clamp_abs, so sigma=0.02 of clamp_abs=5.0 is +/- 0.1 one-sigma
+        noise per entry.
+
+        Does NOT increment n_updates -- wobble is not learning.
+        """
+        import random
+        rng = random.Random(seed) if seed is not None else random
+        amp = float(sigma) * self.clamp_abs
+        ca = self.clamp_abs
+        for i in range(NUM_AO):
+            for j in range(i, NUM_AO):
+                jitter = rng.gauss(0.0, amp)
+                w = self.W[i][j] + jitter
+                if w > ca:
+                    w = ca
+                elif w < -ca:
+                    w = -ca
+                self.W[i][j] = w
+                self.W[j][i] = w
+        self.meta["last_wobble_sigma"] = float(sigma)
+        self.meta["n_wobbles"] = int(self.meta.get("n_wobbles", 0)) + 1
+
+    def collapse(self, preserve_meta: bool = True) -> None:
+        """Zero the tensor.  The freedom-to-collapse primitive.
+
+        Keeps n_updates and n_decays counters (so CK remembers how many
+        cycles he has lived through) but resets W to the newborn zero
+        state.  Optional preserve_meta keeps any provenance anchors so
+        the next idle_loop sweep can pick up where the last one left off
+        after a reseed -- or drop meta entirely for a clean reset.
+        """
+        self.W = [[0.0] * NUM_AO for _ in range(NUM_AO)]
+        self.meta["last_collapse_at_n_updates"] = self.n_updates
+        self.meta["n_collapses"] = int(self.meta.get("n_collapses", 0)) + 1
+        if not preserve_meta:
+            # keep only the collapse provenance we just wrote
+            self.meta = {
+                "last_collapse_at_n_updates": self.meta["last_collapse_at_n_updates"],
+                "n_collapses": self.meta["n_collapses"],
+            }
 
     # ---- scoring ----
 

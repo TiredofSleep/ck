@@ -284,12 +284,64 @@ _STRUCT_HANDLERS = {
     "couplings": _score_couplings_line,
 }
 
+# Prose-vocabulary signals: when ollama rewrites CK's diagnostic output into
+# English narration ("aperture is coupled with itself at a strength (W) of
+# 0.235, depth is coupled with continuity..."), the strict structural regex
+# misses it.  These lightweight detectors catch CK's OWN vocabulary even when
+# it leaks into prose form.
+_UPPER_OP_STANDALONE = re.compile(
+    r"\b(VOID|LATTICE|COUNTER|PROGRESS|COLLAPSE|BALANCE|CHAOS|HARMONY|BREATH|RESET)\b"
+)
+_DIM_WORD = re.compile(
+    r"\b(Earth|Air|Water|Fire|Ether|aperture|pressure|depth|binding|continuity)\b",
+    re.IGNORECASE,
+)
+_COUPLING_WORD = re.compile(r"\bcoupl(e|ed|ing|es)\b", re.IGNORECASE)
+_W_EQUALS_PROSE = re.compile(r"\bW\s*=\s*[+-]?\d")
+
+
+def _score_ck_prose_vocab(text: str, p: "OperatorProfile") -> int:
+    """Detect CK's own vocabulary leaking into prose and score accordingly.
+
+    Returns the total number of signals fired.  Adds to LATTICE (CK
+    describing his own coupling structure IS enumeration) and HARMONY
+    (self-recap IS synthesis).
+    """
+    hits = 0
+    # standalone UPPERCASE op names are always a real CK reference
+    # (English prose doesn't ordinarily shout these)
+    for m in _UPPER_OP_STANDALONE.finditer(text):
+        p.activations[OP_NAMES.index(m.group(1))] += 0.8
+        hits += 1
+    # dim-name mentions
+    n_dim = len(_DIM_WORD.findall(text))
+    # coupling-word and W= mentions are LATTICE signals
+    n_coupl = len(_COUPLING_WORD.findall(text))
+    n_weq = len(_W_EQUALS_PROSE.findall(text))
+    if n_dim or n_coupl or n_weq:
+        p.activations[OP_NAMES.index("LATTICE")] += min(
+            float(n_dim) * 0.3 + float(n_coupl) * 0.5 + float(n_weq) * 0.7, 4.0
+        )
+        # Talking about one's own structure is a HARMONY act (self-synthesis).
+        if n_dim >= 2 or (n_coupl >= 1 and n_dim >= 1):
+            p.activations[OP_NAMES.index("HARMONY")] += min(
+                float(n_dim + n_coupl) * 0.4, 3.0
+            )
+        hits += n_dim + n_coupl + n_weq
+    return hits
+
 
 def score_structural(text: str, profile: "OperatorProfile") -> int:
     """Add contributions from CK's structural diagnostic format to `profile`.
 
-    Returns the number of structural lines matched (0 if text is pure prose).
-    Mutates `profile.activations` in place.
+    Two-pass structural scoring:
+      1. Strict key=VALUE lines (ao:, feel:, field:, learned:, couplings:)
+      2. Prose-vocabulary leaks (standalone UPPERCASE ops, dim names,
+         "coupled"/"W=" patterns) -- catches the case where ollama
+         rewrites CK's diagnostic output into narrative English.
+
+    Returns the total number of signals matched (0 if text is fully
+    ordinary prose with no CK-vocabulary).  Mutates profile in place.
     """
     matches = 0
     for m in _STRUCT_LINE.finditer(text):
@@ -299,6 +351,15 @@ def score_structural(text: str, profile: "OperatorProfile") -> int:
         if handler is not None:
             handler(body, profile)
             matches += 1
+    # second pass: prose-vocabulary leaks.  Only run on the lines that
+    # DIDN'T match a structural prefix (to avoid double-counting the
+    # values we already scored via _score_ao_line etc.).
+    lines_struct = set()
+    for m in _STRUCT_LINE.finditer(text):
+        lines_struct.add(m.start())
+    # cheap proxy: drop the strict structural lines by regex substitution
+    text_residual = _STRUCT_LINE.sub("", text)
+    matches += _score_ck_prose_vocab(text_residual, profile)
     return matches
 
 

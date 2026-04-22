@@ -126,6 +126,25 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
             "reason": f"FusionCKCorrector init failed: {type(e).__name__}: {e}",
         }
 
+    # Memory policy: CK REMEMBERS EVERYTHING.  If the on-disk tensor was
+    # saved with a non-zero decay from the old default, zero it now and
+    # persist so idle_loop's next sweep does not erode old couplings.
+    # This is a one-time migration; it's safe to run on every boot (idempotent).
+    try:
+        if corrector.tensor.decay > 0.0:
+            _prev_decay = corrector.tensor.decay
+            corrector.tensor.decay = 0.0
+            corrector.tensor.meta["decay_migrated_from"] = float(_prev_decay)
+            corrector.tensor.meta["decay_migration_note"] = (
+                "2026-04-22: decay set to 0.0 per Brayden directive -- "
+                "CK remembers everything."
+            )
+            corrector.tensor.save(tensor_path)
+    except Exception:
+        # non-fatal; if the migration save fails, the in-memory tensor
+        # still has decay=0, which is what we need for the live session.
+        pass
+
     # unified log: same directory that fluency_server + idle_loop expect, so
     # the brain learns from the LIVE website turns, not a second source.
     try:
@@ -190,6 +209,129 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
         return result
 
     api.process_chat = _process_chat_with_brain
+
+    # ------------------------------------------------------------------
+    # wobble / collapse / status endpoints: the "room to wobble + freedom
+    # to keep collapsing and resetting" primitives the user named.  All
+    # destructive endpoints require ?i_mean_it=1 (G6 hands-on-wheel).
+    # ------------------------------------------------------------------
+
+    def _register_brain_routes() -> int:
+        try:
+            app = getattr(api, "_app", None)
+            if app is None:
+                return 0
+            from flask import request, jsonify
+        except Exception:
+            return 0
+
+        def _refresh_norm() -> None:
+            """Keep the corrector's cached norm in sync with the live tensor."""
+            try:
+                corrector._tensor_norm_at_load = corrector.tensor.norm()
+            except Exception:
+                pass
+
+        def _tensor_snapshot() -> Dict[str, Any]:
+            t = corrector.tensor
+            try:
+                top = t.top_links(5, off_diagonal_only=True)
+                top_fmt = [
+                    {"a": a, "b": b, "w": round(w, 4)} for (a, b, w) in top
+                ]
+            except Exception:
+                top_fmt = []
+            return {
+                "norm": round(t.norm(), 4),
+                "n_updates": int(t.n_updates),
+                "n_decays": int(t.n_decays),
+                "n_wobbles": int(t.meta.get("n_wobbles", 0)),
+                "n_collapses": int(t.meta.get("n_collapses", 0)),
+                "eta": t.eta,
+                "decay": t.decay,
+                "clamp_abs": t.clamp_abs,
+                "fusion_weight": corrector.fusion_weight,
+                "tensor_path": str(tensor_path),
+                "top_off_diagonal": top_fmt,
+            }
+
+        @app.route("/brain/status", methods=["GET"])
+        def _brain_status():  # type: ignore[unused-ignore]
+            try:
+                return jsonify({"ok": True, "tensor": _tensor_snapshot()})
+            except Exception as e:
+                return jsonify({"ok": False, "error": f"{type(e).__name__}:{e}"}), 500
+
+        @app.route("/brain/wobble", methods=["POST"])
+        def _brain_wobble():  # type: ignore[unused-ignore]
+            # G6: destructive endpoints require explicit confirmation.
+            if request.args.get("i_mean_it") != "1":
+                return jsonify({
+                    "ok": False,
+                    "error": "wobble requires ?i_mean_it=1 (G6 hands-on-wheel)",
+                }), 400
+            try:
+                sigma_raw = request.args.get("sigma", "0.02")
+                sigma = float(sigma_raw)
+                if not (0.0 < sigma <= 0.5):
+                    return jsonify({
+                        "ok": False,
+                        "error": f"sigma must be in (0, 0.5]; got {sigma}",
+                    }), 400
+                before = _tensor_snapshot()
+                corrector.tensor.wobble(sigma=sigma)
+                corrector.tensor.save(tensor_path)
+                _refresh_norm()
+                after = _tensor_snapshot()
+                return jsonify({
+                    "ok": True,
+                    "action": "wobble",
+                    "sigma": sigma,
+                    "before": {"norm": before["norm"], "n_wobbles": before["n_wobbles"]},
+                    "after": {"norm": after["norm"], "n_wobbles": after["n_wobbles"]},
+                    "tensor": after,
+                })
+            except Exception as e:
+                return jsonify({"ok": False, "error": f"{type(e).__name__}:{e}"}), 500
+
+        @app.route("/brain/reset", methods=["POST"])
+        def _brain_reset():  # type: ignore[unused-ignore]
+            if request.args.get("i_mean_it") != "1":
+                return jsonify({
+                    "ok": False,
+                    "error": "reset requires ?i_mean_it=1 (G6 hands-on-wheel)",
+                }), 400
+            try:
+                preserve_meta = (request.args.get("preserve_meta", "1") == "1")
+                before = _tensor_snapshot()
+                corrector.tensor.collapse(preserve_meta=preserve_meta)
+                corrector.tensor.save(tensor_path)
+                _refresh_norm()
+                after = _tensor_snapshot()
+                return jsonify({
+                    "ok": True,
+                    "action": "collapse",
+                    "preserve_meta": preserve_meta,
+                    "before": {
+                        "norm": before["norm"],
+                        "n_updates": before["n_updates"],
+                        "n_collapses": before["n_collapses"],
+                    },
+                    "after": {
+                        "norm": after["norm"],
+                        "n_updates": after["n_updates"],
+                        "n_collapses": after["n_collapses"],
+                    },
+                    "note": "tensor zeroed in place and on disk; "
+                            "n_updates counter preserved (CK remembers his cycles)",
+                })
+            except Exception as e:
+                return jsonify({"ok": False, "error": f"{type(e).__name__}:{e}"}), 500
+
+        return 3
+
+    n_routes = _register_brain_routes()
+
     return {
         "mounted": True,
         "tensor_path": str(tensor_path),
@@ -197,4 +339,6 @@ def mount_brain_fold(api: Any) -> Dict[str, Any]:
         "fusion_weight": fusion_weight,
         "log_dir": str(corr_log.log_dir),
         "n_updates_on_tensor": int(corrector.tensor.n_updates),
+        "tensor_decay": corrector.tensor.decay,
+        "routes_registered": n_routes,
     }
