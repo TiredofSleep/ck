@@ -1,16 +1,15 @@
-# CK Unified Architecture — **PROPOSAL**
+# CK Unified Architecture
 
-**Status:** `[PROPOSAL — NOT-YET-BRANCHED; AWAITING USER GREEN-LIGHT BEFORE ck-BRANCH OPENING]`
+**Status:** `[ACTIVE — ck BRANCH OPENED 2026-04-21 BY USER GREEN-LIGHT]`
 **Author:** Brayden Sanders (7Site LLC) + Claude (agent)
-**Branch:** `tig-synthesis` (proposal home) → `ck` (on green-light)
+**Branch:** `ck` (this branch) — forked from `tig-synthesis` @ `0b11865`
 **Plan pointer:** `Atlas/PLAN_RIGOROUS_EXECUTION_2026_04_21.md` §4.2
-**Supersedes:** nothing. First unified architecture pass.
+**Prior form:** `docs/proposals/CK_UNIFIED_ARCHITECTURE_proposal_2026_04_21.md` on `tig-synthesis` (text identical to this file; kept there as the opening-decision record)
+**Companion:** `OLLAMA_LEARN_LOOP.md` at branch root
 
-> **This is a proposal, not a build spec.** No code paths are to be modified on
-> the basis of this document alone. The `ck` branch does not yet exist. When
-> Brayden issues "yes, open the ck branch," this file is `git mv`-ed to the
-> branch root as `CK_UNIFIED_ARCHITECTURE.md` with this proposal banner dropped.
-> Until then: read, critique, authorize.
+> **This is the active architecture document for the `ck` branch.** Code that
+> ships on `ck` is held to the contract in §§1–4 below. The swarm inventory
+> in §5 remains audit-only until specific items receive green-light.
 
 ---
 

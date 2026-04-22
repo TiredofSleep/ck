@@ -1,16 +1,18 @@
-# Ollama Learn-Loop — **PROPOSAL**
+# Ollama Learn-Loop
 
-**Status:** `[PROPOSAL — NOT-YET-BRANCHED; AWAITING USER GREEN-LIGHT BEFORE CK-BRANCH IMPLEMENTATION]`
+**Status:** `[ACTIVE — ck BRANCH; OPTION A IMPLEMENTATION GREEN-LIT 2026-04-21]`
 **Author:** Brayden Sanders (7Site LLC) + Claude (agent)
-**Branch:** `tig-synthesis` (proposal home) → `ck` (on green-light)
+**Branch:** `ck` (this branch) — forked from `tig-synthesis` @ `0b11865`
 **Plan pointer:** `Atlas/PLAN_RIGOROUS_EXECUTION_2026_04_21.md` §4.3 + §5
-**Supersedes:** nothing. First Ollama integration pass.
-**Companion:** `docs/proposals/CK_UNIFIED_ARCHITECTURE_proposal_2026_04_21.md`
+**Prior form:** `docs/proposals/OLLAMA_LEARN_LOOP_proposal_2026_04_21.md` on `tig-synthesis` (text identical to this file; kept there as the opening-decision record)
+**Companion:** `CK_UNIFIED_ARCHITECTURE.md` at branch root
+**Implementation:** `ck/fluency/` — Option A (external correction) shipped; Options B and C documented here, neither implemented.
 
-> **This is a proposal, not a build spec.** No code paths are to be modified
-> on the basis of this document alone. The `ck` branch does not yet exist.
-> When Brayden issues "yes, implement Option A," Phase 4 of the execution
-> plan opens. Until then: read, critique, authorize.
+> **This is the active learn-loop document for the `ck` branch.** Option A
+> code lives at `ck/fluency/`. Option B (offline LoRA cycles) is specified
+> here but not yet implemented; cycle cadence and training-set curation
+> land when Option A has accumulated 1–2 weeks of correction-log volume.
+> Option C (online LoRA swap) is not scheduled.
 
 ---
 
