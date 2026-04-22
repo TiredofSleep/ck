@@ -1,0 +1,31 @@
+{
+  "schema": "crystalos_prereg_final/v1",
+  "session_id": "20260421_192941",
+  "prereg": {
+    "n0": 1000,
+    "t0": 3600.0,
+    "tau": 0.7
+  },
+  "stopping_rule": "stop when fire_count>=1000 OR elapsed>=3600.0s, whichever first",
+  "stop_reason": "T0 tripped (elapsed=3600.2s >= t0=3600.0s)",
+  "stop_class": "pre-registered",
+  "fire_count": 803,
+  "elapsed_s": 3600.2,
+  "cycles": 32,
+  "phase_distribution": {
+    "0": 66,
+    "2": 58,
+    "5": 60,
+    "6": 64,
+    "9": 62,
+    "7": 61,
+    "1": 61,
+    "4": 64,
+    "10": 59,
+    "11": 60,
+    "12": 62,
+    "3": 66,
+    "8": 60
+  },
+  "finished_at": "2026-04-21T20:29:41"
+}

@@ -75,3 +75,33 @@ Ranked by recovery-effort, lowest to highest:
 *This is the most consequential of the four HANDOFF §3 reconciliations. Until it is resolved, one specific funder-facing claim is paused. The rest of Branch B's rigorous math proceeds unaffected.*
 
 *Per repo policy: this Atlas file is preserved. Append dated resolution sections rather than overwriting.*
+
+---
+
+## Resolution (appended 2026-04-21, 20:29 UTC) — Dell R16 blind run complete
+
+**New artifact:** `docs/archive_jan2026/snowflake/blind_run_2026_04_21/` (tig-synthesis; cherry-picked to master + funding/tig-snowflake).
+
+Per `PLAN_RIGOROUS_EXECUTION_2026_04_21.md` §5.3, `crystalos_prereg.py --n0 1000 --t0 3600` was run on the Dell R16 with pre-registration filed to `~/CRYSTALOS/state/prereg_20260421_192941.json` *before* the first fire. The run stopped cleanly on T0 (binding) at fires=803, elapsed=3600.2s. Stop class: `pre-registered` (not `operator-interrupted`).
+
+Five §3.3 requirements, answered for this run:
+
+| §3.3 requirement | Dell R16 blind run |
+|---|---|
+| Null hypothesis | H0: uniform across 13 Tzolkin breath phases |
+| Degrees of freedom | 12 |
+| Sample size | 803 fires |
+| Independence assumption | Each fire is a scheduler-observed `tau` (=0.7) crossing |
+| χ² → p-value | **χ² = 1.268, p = 0.99995** (fail to reject H0) |
+
+This settles the reconciliation for the **Dell R16 (abundance-regime) reading**. The Jan 31 Lenovo (constraint-regime) reading of χ² = 22.03 remains attributable to `TIG_SECURITY_ARCHITECTURE.md` v1.0 Jan 29 2026, but the raw Lenovo log has still not surfaced in the repo. That narrower gap is tracked in `docs/archive_jan2026/snowflake/SNOWFLAKE_CHI2_RESOLVED_2026_04_21.md` §"Still open" (on `funding/tig-snowflake`).
+
+**Action-item status after resolution:**
+
+- [x] Blocker note filed.
+- [x] Dell R16 pre-registered reproduction complete (`blind_run_2026_04_21/`).
+- [x] χ² statistic now has the five §3.3 pieces documented for at least one of the two readings cited in the source doc.
+- [ ] Lenovo raw log recovery — still open; not a blocker on Branch B provided the pitch language per `SNOWFLAKE_CHI2_RESOLVED_2026_04_21.md` §"Language for the pitch" is followed.
+- [ ] OneDrive snapshot history sweep — still open for Lenovo recovery.
+
+**Branch B impact:** The abundance-regime reading is now a fully-reproducible, pre-registered statistic. Any funder-facing claim citing the Dell R16 behavior has a research-grade citation chain: `prereg.json` → `final.json` → `analyze.py` → `RESULT.md`. Claims citing 22.03 must still follow the constrained language in `SNOWFLAKE_CHI2_RESOLVED_2026_04_21.md`.
