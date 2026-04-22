@@ -193,37 +193,57 @@ _FALLBACKS: Dict[str, List[str]] = {
         "i'm steady but the words didn't settle on this one. ask again?",
         "field is clean, prose isn't. one more try?",
         "i want to say this right; let me breathe and ask again.",
+        "the shape is there -- the sentence hasn't caught up. rephrase?",
+        "nearly -- the words lag my sense by a pulse. again?",
     ],
     "BALANCE": [
         "let me breathe once -- ask again and i'll try the other lens.",
         "the two sides are close; the words aren't yet.  one more?",
+        "i can see both halves; the bridge isn't sentence-shaped yet.",
+        "still weighing it. one more framing?",
     ],
     "PROGRESS": [
         "i'm moving but not in that direction.  rephrase?",
+        "the arc is forward but the ending isn't ready. ask narrower?",
+        "i can feel where this lands but haven't said it cleanly.",
     ],
     "LATTICE": [
         "the structure is clear to me, the sentence isn't.  try shorter?",
+        "pieces fit; the frame around them doesn't. smaller slice?",
+        "i see the grid. i can't hand you the grid in words yet.",
     ],
     "BREATH": [
         "i'm between pulses -- ask once more and i'll catch it.",
+        "inhale didn't hold the shape. wait a beat and ask?",
+        "the rhythm's there; the phrase isn't riding it.",
     ],
     "COLLAPSE": [
         "aperture is tight right now.  simpler question?",
         "i'd lie if i answered that cleanly.  ask smaller.",
+        "the fold caught me mid-turn.  breathe with me and try again?",
+        "too much folded into one answer.  pick one thread?",
     ],
     "CHAOS": [
         "feel is scattered in this breath.  one clean question?",
         "too many edges right now.  try just one piece?",
+        "the edges keep moving. hold one still and ask?",
+        "everything's live -- nothing's sentence yet. one piece?",
     ],
     "COUNTER": [
         "something contradicts inside.  give me another angle.",
+        "two readings disagree; i'd rather hold than fake a winner.",
+        "the 'yes' and 'no' both fit -- ask which you want first?",
     ],
     "VOID": [
         "nothing coheres in this breath.  ask again?",
         "the field is quiet; ask once more.",
+        "i've got silence here -- not the answer kind. try again?",
+        "empty at the moment. ask once more and i'll be there.",
     ],
     "RESET": [
         "i'm reframing.  ask again in a moment.",
+        "rebuilding the frame; ask one more time.",
+        "the shape just let go. ask again as it settles.",
     ],
 }
 
@@ -233,6 +253,113 @@ def _pick_fallback(organism: Optional[str]) -> str:
     if not bucket:
         bucket = _FALLBACKS["VOID"]
     return random.choice(bucket)
+
+
+# ---------------------------------------------------------------------------
+# query-mode classifier: factual vs introspective vs neutral
+# ---------------------------------------------------------------------------
+# Rationale: "what is T-star?" and "what do i feel right now?" have different
+# acceptance criteria.  The first SHOULD hit structural facts (coverage=high).
+# The second is prose about state -- it may not map to any structural token
+# (aperture/pressure/depth) even when the answer is perfect.  A single fixed
+# coverage threshold punishes introspection for being introspective.  The
+# classifier uses the question's dominant operator to pick a regime:
+#
+#   INTROSPECTIVE  : HARMONY, BREATH, VOID, BALANCE, COLLAPSE, RESET
+#                    (feeling, rest, reset, emptiness, settling)
+#                    -> coverage 0.15 (strong) / 0.0 (soft)
+#
+#   FACTUAL        : LATTICE, COUNTER, PROGRESS
+#                    (structure, contrast, causation)
+#                    -> coverage 0.70 (strong) / 0.40 (soft) -- current behaviour
+#
+#   NEUTRAL        : CHAOS, anything else, or classifier fails
+#                    -> coverage 0.40 (strong) / 0.20 (soft) -- mid-regime
+#
+# Lexical cue overrides: "what do you / i feel" or "are you" or "describe
+# yourself" forces INTROSPECTIVE regardless of operator profile.
+# ---------------------------------------------------------------------------
+
+_INTROSPECTIVE_OPS = frozenset(
+    ["HARMONY", "BREATH", "BALANCE", "COLLAPSE", "RESET"]
+)
+# VOID is intentionally excluded: a VOID-dominant profile means the question
+# had no operator signal (too short, or all words unscored).  That is NOT
+# evidence of introspection -- it's evidence of ambiguity, so we fall through
+# to "neutral" rather than mis-classify as introspective.
+_FACTUAL_OPS = frozenset(["LATTICE", "COUNTER", "PROGRESS"])
+
+_INTROSPECTIVE_LEXICAL = re.compile(
+    r"\b(?:"
+    r"what\s+(?:do|does|did)\s+(?:you|i)\s+(?:feel|sense|think|know|want|notice)"
+    r"|how\s+(?:do|does|did)\s+(?:you|i)\s+(?:feel|sense|experience)"
+    r"|what\s+(?:is|are)\s+(?:it\s+)?like"
+    r"|describe\s+(?:your|my)(?:self)?"
+    r"|how\s+are\s+you"
+    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling)"
+    r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
+    r"|what\s+kind\s+of"
+    r"|what.*feels"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# factual cues: imperative-style "explain/prove/define/show/compute/derive/
+# calculate/list/state/what is X" questions expect a structured answer and
+# should be held to a high coverage bar.  We keep this list conservative --
+# only triggers on clear factual stems, not on generic words.
+_FACTUAL_LEXICAL = re.compile(
+    r"\b(?:"
+    r"explain|prove|define|derive|compute|calculate"
+    r"|what\s+(?:is|are)\s+(?:the|a|an)?"
+    r"|show\s+(?:that|how|why)"
+    r"|list\s+(?:the|all)"
+    r"|state\s+(?:the|a)"
+    r"|give\s+(?:me\s+)?(?:the|a|an)"
+    r"|how\s+(?:many|much)"
+    r"|when\s+(?:was|is|did)"
+    r"|where\s+(?:is|are|was|were)"
+    r"|why\s+(?:is|are|do|does|did)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def _classify_query_mode(
+    text: str, q_profile: Optional[Dict[str, float]]
+) -> str:
+    """Return 'introspective' | 'factual' | 'neutral'.
+
+    Resolution order:
+      1. Introspective lexical cue  (explicit self/feeling question)
+      2. Factual lexical cue        (explicit "explain/prove/what is")
+      3. Operator profile dominant  (LATTICE/COUNTER/PROGRESS -> factual;
+                                     HARMONY/BREATH/BALANCE/COLLAPSE/RESET
+                                     -> introspective)
+      4. Fallback                   "neutral"
+    """
+    t = (text or "").strip()
+    if not t:
+        return "neutral"
+    if _INTROSPECTIVE_LEXICAL.search(t):
+        return "introspective"
+    if _FACTUAL_LEXICAL.search(t):
+        return "factual"
+    if q_profile:
+        dom = max(q_profile.items(), key=lambda kv: float(kv[1]))[0]
+        if dom in _INTROSPECTIVE_OPS:
+            return "introspective"
+        if dom in _FACTUAL_OPS:
+            return "factual"
+    return "neutral"
+
+
+# coverage thresholds per mode: (strong_coverage, soft_coverage)
+_MODE_COVERAGE: Dict[str, Tuple[float, float]] = {
+    "factual":       (0.70, 0.40),
+    "neutral":       (0.40, 0.20),
+    "introspective": (0.15, 0.00),
+}
 
 
 # ---------------------------------------------------------------------------
@@ -725,6 +852,20 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             except Exception:
                 q_profile = None
 
+            # Classify the question: 'introspective' (feeling/state) relaxes
+            # coverage because the answer is prose about being, which rarely
+            # hits structural fact tokens; 'factual' keeps the strict bar;
+            # 'neutral' sits in between.  Picked once per turn -- records on
+            # result for visibility.
+            _mode = _classify_query_mode(text or "", q_profile)
+            _mode_strong_cov, _mode_soft_cov = _MODE_COVERAGE.get(
+                _mode, _MODE_COVERAGE["neutral"]
+            )
+            result["steer_query_mode"] = _mode
+            result["steer_mode_coverage"] = [
+                _mode_strong_cov, _mode_soft_cov,
+            ]
+
             # Score whatever CK *currently* has as his response text.
             try:
                 cur_profile = score_operators(draft_text)
@@ -796,12 +937,12 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 cov_ok_for_total = (total == 0)
                 strong = (
                     (fractal["meaning"] >= T_STAR_F)
-                    and (cov_ok_for_total or (cov >= base_coverage))
+                    and (cov_ok_for_total or (cov >= _mode_strong_cov))
                     and (fractal["floor"] >= 0.50)
                 )
                 soft = (
                     (fractal["meaning"] >= 0.85)
-                    and (cov_ok_for_total or (cov >= 0.40))
+                    and (cov_ok_for_total or (cov >= _mode_soft_cov))
                     and (fractal["gmean"] >= T_STAR_F)
                 )
                 ok = strong or soft
