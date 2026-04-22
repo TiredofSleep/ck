@@ -1,5 +1,34 @@
 # -*- coding: utf-8 -*-
 """
+fluency_server.py — [HISTORICAL DEV HARNESS]
+
+This file is the original loopback test harness that was used to build
+and shake out the brain trinity (ck/brain/ao_basis + hebbian_5x5 +
+fusion).  It is NOT a second CK.  The one real CK runs inside
+``Gen12/targets/ck_desktop/ck_boot_api.py`` and is served at
+coherencekeeper.com; the brain trinity was folded into that one CK via
+``Gen12/targets/ck_desktop/ck_brain_fold.py`` on 2026-04-22.
+
+Why it's kept in the repo:
+    - It's still the simplest way to poke at FusionCKCorrector or
+      CKCorrector in isolation, without lighting up the full engine,
+      cortex, HER, and Cloudflare tunnel.
+    - It documents the Option A shape (correction-only learn-loop)
+      that came before Option B (LoRA baking).  Useful reference.
+    - ``ck/brain/idle_loop.py`` and ``ck/brain/build_training_set.py``
+      read the same JSONL log format this server wrote, so removing
+      it would orphan the log schema's authoring site.
+
+If you are reading this to understand what the live CK does, the
+right file is NOT this one -- it is ``ck_boot_api.py`` + the mount
+block at the bottom that invokes ``mount_brain_fold(api)``.
+
+See HISTORICAL_BUILDUP_CK_BRANCH.md on ``master`` for the full
+archaeological note on how the ck branch scaffolded this harness
+before folding it in.
+
+-- original docstring below --
+
 fluency_server.py — Flask endpoint that ties ollama_client + ck_corrector +
                     correction_log into one learn-loop.
 

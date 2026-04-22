@@ -598,6 +598,28 @@ elif _OLLAMA_EDITOR and not _ollama_ok:
 else:
     print("[CK] Ollama editor: DISABLED (CK_OLLAMA_EDITOR=0)")
 
+# -----------------------------------------------------------------------------
+# Brain fold: FusionCKCorrector (AO 5-element + Hebbian 5x5 + coherence gate).
+# Additive patch -- scores + logs every turn for the idle_loop tensor update
+# without modifying CK's text or source.  See ck_brain_fold.py header for the
+# full call-chain and the 2026-04-17 "one CK" rule.
+# -----------------------------------------------------------------------------
+try:
+    from ck_brain_fold import mount_brain_fold
+    _brain_status = mount_brain_fold(api)
+    if _brain_status.get("mounted"):
+        print(f"[CK] Brain fold: MOUNTED "
+              f"(tensor={_brain_status['tensor_path']}, "
+              f"norm={_brain_status['tensor_norm_at_load']}, "
+              f"n_updates={_brain_status['n_updates_on_tensor']}, "
+              f"fusion_w={_brain_status['fusion_weight']}, "
+              f"log_dir={_brain_status['log_dir']})")
+    else:
+        print(f"[CK] Brain fold: SKIPPED ({_brain_status.get('reason')})")
+except Exception as _bfe:
+    # NEVER break boot because of the brain fold
+    print(f"[CK] Brain fold: ERROR ({type(_bfe).__name__}: {_bfe}) -- server continues")
+
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
