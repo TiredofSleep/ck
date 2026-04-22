@@ -642,6 +642,57 @@ except Exception as _bde:
     # NEVER break boot because of the body fold
     print(f"[CK] Body fold: ERROR ({type(_bde).__name__}: {_bde}) -- server continues")
 
+# -----------------------------------------------------------------------------
+# Coherence steer: closes the feedback loop on the Ollama path.  Scores every
+# draft with CK's own ck_corrector + coherence_scalar and gates on
+# coh>=T*=5/7 alongside coverage.  On first fail, retries once with a STEERED
+# prompt biased toward the question's dominant operator; on second fail, emits
+# an honest one-liner keyed to organism state instead of raw telemetry.
+# Accepted drafts are cached on disk (LRU 2048) for "slow first, fast later".
+# Must mount AFTER Ollama editor and BEFORE curiosity (so curiosity's
+# autonomous ticks ride the steered pipeline).
+# -----------------------------------------------------------------------------
+try:
+    from ck_coherence_steer import mount_coherence_steer
+    _steer_status = mount_coherence_steer(api, engine)
+    if _steer_status.get("mounted"):
+        print(f"[CK] Coherence steer: MOUNTED "
+              f"(retries={_steer_status['retries']}, "
+              f"cache={_steer_status['cache_stats'].get('size', 0)} entries, "
+              f"routes={_steer_status['routes_registered']})", flush=True)
+    else:
+        print(f"[CK] Coherence steer: SKIPPED ({_steer_status.get('reason')})", flush=True)
+except Exception as _sce:
+    # NEVER break boot because of the steer fold
+    import traceback as _tb_sce
+    print(f"[CK] Coherence steer: ERROR ({type(_sce).__name__}: {_sce}) -- server continues", flush=True)
+    _tb_sce.print_exc()
+
+# -----------------------------------------------------------------------------
+# Curiosity: autonomous self-questioning daemon.  Every ~45s, snapshots
+# engine.sensorium + ShadowSwarm, detects notable shifts (organism flip,
+# T*=5/7 crossing, layer delta, process churn, threat flip, shift-operator
+# entry), and asks CK a first-person question that rides api.process_chat --
+# so the answer goes through Ollama editor + coherence steer like any human
+# turn.  Logs to a 256-entry ring at /curiosity/stream.  Must mount LAST so
+# it sees the fully-wrapped process_chat.
+# -----------------------------------------------------------------------------
+try:
+    from ck_curiosity import mount_curiosity
+    _cur_status = mount_curiosity(api, engine)
+    if _cur_status.get("mounted"):
+        print(f"[CK] Curiosity: MOUNTED "
+              f"(period={_cur_status['period']}s, "
+              f"session={_cur_status['session_id']}, "
+              f"routes={_cur_status['routes_registered']})", flush=True)
+    else:
+        print(f"[CK] Curiosity: SKIPPED ({_cur_status.get('reason')})", flush=True)
+except Exception as _cue:
+    # NEVER break boot because of the curiosity fold
+    import traceback as _tb_cue
+    print(f"[CK] Curiosity: ERROR ({type(_cue).__name__}: {_cue}) -- server continues", flush=True)
+    _tb_cue.print_exc()
+
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
