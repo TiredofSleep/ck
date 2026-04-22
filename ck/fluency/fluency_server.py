@@ -190,6 +190,27 @@ def main(argv: Any = None) -> int:
         help="Per-request timeout in seconds (CPU generation can be slow).",
     )
     p.add_argument("--log-dir", default=None, help="override log dir (for tests)")
+    p.add_argument(
+        "--fusion",
+        action="store_true",
+        help=(
+            "Use FusionCKCorrector (ck/brain/fusion.py): the Hebbian 5x5 "
+            "tensor primes the coherence gate.  Tensor is read from disk "
+            "at startup and never modified by the server (only idle_loop.py "
+            "writes).  See MATH_IN_CK.md Sec 9.2."
+        ),
+    )
+    p.add_argument(
+        "--fusion-weight",
+        type=float,
+        default=None,
+        help="fusion weight (default ck.brain.fusion.DEFAULT_FUSION_WEIGHT=0.20)",
+    )
+    p.add_argument(
+        "--tensor-path",
+        default=None,
+        help="path to hebbian_5x5.json (default ck/brain/hebbian_5x5.json)",
+    )
     args = p.parse_args(argv)
 
     if not args.i_mean_it:
@@ -226,7 +247,25 @@ def main(argv: Any = None) -> int:
         )
         return 3
 
-    corrector = CKCorrector()
+    if args.fusion:
+        # import lazily so the base server stays usable without ck/brain
+        try:
+            from ck.brain.fusion import FusionCKCorrector, DEFAULT_FUSION_WEIGHT
+        except ImportError as e:
+            print(
+                f"[fluency_server] --fusion requested but ck.brain.fusion "
+                f"could not be imported: {e}",
+                file=sys.stderr,
+            )
+            return 4
+        w = args.fusion_weight if args.fusion_weight is not None else DEFAULT_FUSION_WEIGHT
+        tpath = Path(args.tensor_path) if args.tensor_path else None
+        corrector = FusionCKCorrector(tensor_path=tpath, fusion_weight=w)
+        corrector_tag = corrector.describe()
+    else:
+        corrector = CKCorrector()
+        corrector_tag = "CKCorrector(base)"
+
     log_dir = Path(args.log_dir) if args.log_dir else None
     corr_log = CorrectionLog(log_dir=log_dir)
 
@@ -234,8 +273,9 @@ def main(argv: Any = None) -> int:
 
     print(
         f"[fluency_server] Starting on http://{args.host}:{args.port}\n"
-        f"[fluency_server]   Ollama:  {args.ollama_host} ({args.ollama_model})\n"
-        f"[fluency_server]   Log dir: {corr_log.log_dir}\n"
+        f"[fluency_server]   Ollama:    {args.ollama_host} ({args.ollama_model})\n"
+        f"[fluency_server]   Log dir:   {corr_log.log_dir}\n"
+        f"[fluency_server]   Corrector: {corrector_tag}\n"
         f"[fluency_server]   Endpoints: GET /health  POST /fluency/chat  GET /fluency/stats\n"
         f"[fluency_server]   Ctrl-C to stop."
     )

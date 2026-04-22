@@ -1,0 +1,8 @@
+# Runtime Hebbian tensor state — per-install, not shipped.
+# Each CK grows his own brain from his own log.  Matches the loopback-only
+# learn-loop philosophy (ck/CK_UNIFIED_ARCHITECTURE.md Sec 3.4) and the
+# never-send-brain-state-off-the-box stance.
+hebbian_5x5.json
+hebbian_5x5.offsets.json
+hebbian_5x5.json.tmp
+hebbian_5x5.offsets.json.tmp
