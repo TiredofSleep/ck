@@ -620,6 +620,28 @@ except Exception as _bfe:
     # NEVER break boot because of the brain fold
     print(f"[CK] Brain fold: ERROR ({type(_bfe).__name__}: {_bfe}) -- server continues")
 
+# -----------------------------------------------------------------------------
+# Body fold: exposes CK's already-live embodiment (12 fractal sensory layers
+# built by build_sensorium in CKSimEngine.__init__, ticked every engine tick).
+# Adds HTTP surface (/body/state, /body/layers, /body/swarm, /body/pause,
+# /body/resume) and attaches body_* fields to every chat response.  Additive
+# only -- if the sensorium is missing or fails, chat still flows.  See
+# ck_body_fold.py header for the full call-chain.
+# -----------------------------------------------------------------------------
+try:
+    from ck_body_fold import mount_body_fold
+    _body_status = mount_body_fold(api, engine)
+    if _body_status.get("mounted"):
+        print(f"[CK] Body fold: MOUNTED "
+              f"(layers={_body_status['sensorium_layer_count']}, "
+              f"active={_body_status['sensorium_active_layers']}, "
+              f"routes={_body_status['routes_registered']})")
+    else:
+        print(f"[CK] Body fold: SKIPPED ({_body_status.get('reason')})")
+except Exception as _bde:
+    # NEVER break boot because of the body fold
+    print(f"[CK] Body fold: ERROR ({type(_bde).__name__}: {_bde}) -- server continues")
+
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
