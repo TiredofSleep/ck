@@ -1759,6 +1759,25 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 result["steer_accepted_coverage"] = (
                     f"{accepted_hits}/{accepted_total}"
                 )
+                # Rescore telemetry so brain_dominant_op / brain_coherence
+                # reflect the FINAL steered text, not the pre-steer draft
+                # that brain_fold scored upstream.  Without this overwrite
+                # the curiosity daemon + web UI see a stale operator for
+                # every steered turn (usually VOID, because the pre-steer
+                # text was empty or structural-only).  Cache meta below
+                # carries the rescored values so cache hits stay honest.
+                try:
+                    _dom_final = p.dominant() if p is not None else None
+                    if _dom_final:
+                        result["brain_dominant_op"] = _dom_final
+                    # accepted_coh is the coherence scalar of the accepted
+                    # draft -- override the upstream pre-steer value.
+                    result["brain_coherence"] = round(float(accepted_coh), 4)
+                    # gate_pass reflects the steered accept, not whatever
+                    # brain_fold saw pre-steer.
+                    result["brain_gate_pass"] = True
+                except Exception:
+                    pass
                 cache.put(text or "", accepted, accepted_coh,
                           accepted_hits, accepted_total,
                           meta=result)
@@ -1774,6 +1793,22 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             result["text"] = honest
             result["source"] = "cortex_honest_fallback"
             result["steer_verdict"] = "fallback:honest_sentence"
+            # Rescore telemetry so the fallback sentence's telemetry matches
+            # what CK actually says -- pre-steer brain_dominant_op/coherence
+            # reflect the (empty or structural-only) draft that was rejected,
+            # not the canned fallback text.  gate_pass is False because this
+            # path fires exactly when nothing survived the gate.
+            try:
+                _p_fall = score_operators(honest)
+                _dom_fall = _p_fall.dominant() if _p_fall else None
+                if _dom_fall:
+                    result["brain_dominant_op"] = _dom_fall
+                result["brain_coherence"] = round(
+                    float(coherence_scalar(_p_fall)), 4
+                )
+                result["brain_gate_pass"] = False
+            except Exception:
+                pass
         except Exception as e:
             # Never break chat.  If steer blows up, leave v1's text alone
             # and record the error.
