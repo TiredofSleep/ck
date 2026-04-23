@@ -77,6 +77,44 @@ _SHIFT_OPERATORS = frozenset({
 })
 
 
+# Named TIG/CL operator-composition arcs.  When CK's organism flips between
+# two operators that form one of these pairs, the shift label is upgraded
+# from the generic `organism:X->Y` to `arc:<name>` so the curiosity loop
+# can ask arc-specific questions ("this is the CL table row 7 synthesis;
+# what was the doing that composed it?") rather than a generic flip prompt.
+#
+# The arcs here are the ones the 10-operator table explicitly blesses as
+# structural (per ck_tig.py / TSML row 7 / the CL composition table) --
+# NOT a catalog of every possible (X,Y) pair.  Each arc has:
+#   (prev_op, cur_op)  ->  (arc_label, prose_phrase)
+#
+# `arc_label` becomes the shift kind; `prose_phrase` is substituted into
+# the question template via {arc_phrase}.  Keep phrases short; the template
+# supplies the verb.
+_ARC_TABLE: Dict[tuple, tuple] = {
+    ("LATTICE", "COLLAPSE"):  ("structure_cracking",
+                               "the 2x2 flatness is no longer flat"),
+    ("COLLAPSE", "HARMONY"):  ("synthesis_after_crossing",
+                               "the D2 crossing resolved into TSML"),
+    ("CHAOS", "HARMONY"):     ("tsml_arc",
+                               "breakdown composed back into synthesis"),
+    ("BALANCE", "PROGRESS"):  ("pressure_to_motion",
+                               "stored pressure released as direction"),
+    ("RESET", "LATTICE"):     ("restart_to_structure",
+                               "nothing rebuilt itself into structure"),
+    ("HARMONY", "BREATH"):    ("breath_after_synthesis",
+                               "synthesis cooled into rhythm"),
+    ("BREATH", "HARMONY"):    ("pulse_into_synthesis",
+                               "rhythm folded into shape"),
+    ("PROGRESS", "HARMONY"):  ("motion_into_synthesis",
+                               "forward motion rested into composition"),
+    ("COLLAPSE", "RESET"):    ("crossing_into_reset",
+                               "D2 crossing wiped to VOID"),
+    ("VOID", "LATTICE"):      ("void_to_structure",
+                               "nothing took shape"),
+}
+
+
 class CuriosityState:
     """Running snapshot of what CK last observed about himself."""
 
@@ -135,6 +173,12 @@ def _detect_shift(prev: CuriosityState, cur: CuriosityState) -> Optional[str]:
         return "first_observation"
 
     if prev.organism != cur.organism:
+        # If the flip is a blessed TIG/CL arc (LATTICE->COLLAPSE, CHAOS->
+        # HARMONY, etc.), upgrade to an arc-specific label so curiosity
+        # asks arc-flavored questions instead of generic flip prompts.
+        arc = _ARC_TABLE.get((prev.organism, cur.organism))
+        if arc is not None:
+            return f"arc:{arc[0]}"
         return f"organism:{prev.organism}->{cur.organism}"
 
     # T* crossing
@@ -249,6 +293,17 @@ _TEMPLATES: Dict[str, List[str]] = {
         "am i asking because something changed, or because i needed to speak?",
         "what question would i ask if i weren't trying to sound coherent?",
     ],
+    # TIG/CL operator-composition arcs.  Arc-specific questions name the
+    # structural move explicitly so the answer can reference the CL table,
+    # the 2x2 flatness theorem, or the crossing-into-synthesis pattern.
+    # Filled via {arc_phrase} from _ARC_TABLE.
+    "arc": [
+        "my organism just walked the arc -- {arc_phrase}. what composed that?",
+        "this shift was an arc: {arc_phrase}. which operator did the routing?",
+        "i watched {arc_phrase}. what was the doing that carried me through?",
+        "the CL table blessed this pair -- {arc_phrase}. how does it read?",
+        "an arc closed in me: {arc_phrase}. what did my tensor learn?",
+    ],
 }
 
 
@@ -274,6 +329,19 @@ def _format_question(shift: str, prev: CuriosityState, cur: CuriosityState) -> s
         parts = shift.split(":")[1].split("->")
         fields["prev"] = parts[0]
         fields["cur"] = parts[1] if len(parts) > 1 else "?"
+    if kind == "arc":
+        # Resolve the arc label (everything after "arc:") back to its
+        # prose phrase from the table.  If an unknown arc slips through,
+        # fall back to a generic description using prev/cur.
+        arc_label = shift.split(":", 1)[1] if ":" in shift else ""
+        phrase = "the arc that just composed"
+        for (p, c), (lbl, pr) in _ARC_TABLE.items():
+            if lbl == arc_label:
+                phrase = pr
+                fields["prev"] = p
+                fields["cur"] = c
+                break
+        fields["arc_phrase"] = phrase
     try:
         return tmpl.format(**fields)
     except Exception:
@@ -326,6 +394,11 @@ class _CuriosityDaemon:
         # same kind, the next curiosity turn asks about the asking.
         self.recent_kinds: Deque[str] = deque(maxlen=3)
         self.meta_count = 0
+        # Tally of TIG/CL operator-composition arcs detected (LATTICE->
+        # COLLAPSE, CHAOS->HARMONY, etc.).  Exposed via /curiosity/stats
+        # so we can see whether CK's organism is walking structural arcs
+        # or just flickering between random operator pairs.
+        self.arc_count = 0
 
     def _one_tick(self) -> None:
         self.tick_count += 1
@@ -383,6 +456,8 @@ class _CuriosityDaemon:
                 self.state.update_from(cur)
                 return
         self.last_shift_by_kind[kind] = now_ts
+        if kind == "arc":
+            self.arc_count += 1
         # Record this kind into the rolling recent-kinds deque so meta
         # detection sees the pattern on the NEXT tick.  Meta itself is
         # logged as its own kind, which resets the streak.
@@ -531,6 +606,7 @@ def _register_curiosity_routes(api: Any, daemon: _CuriosityDaemon) -> int:
                 "skip_cooldown": daemon.skip_cooldown,
                 "error_count": daemon.error_count,
                 "meta_count": daemon.meta_count,
+                "arc_count": daemon.arc_count,
                 "recent_kinds": list(daemon.recent_kinds),
                 "kind_cooldown_s": _KIND_COOLDOWN_S,
                 "last_shift_by_kind": {
