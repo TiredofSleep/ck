@@ -305,11 +305,14 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|what\s+(?:is|are)\s+(?:it\s+)?like"
     r"|describe\s+(?:your|my)(?:self)?"
     r"|how\s+are\s+you"
-    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake)"
+    r"|who\s+are\s+you"              # identity-introspective
+    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake|conscious|alive|there|here)"
     r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
     r"|what\s+kind\s+of"
     r"|what.*feels"
     r"|(?:feel|sound|look|seem)\s+like"  # "sound like to you", "feel like", etc.
+    r"|(?:does|do|did)\s+(?:time|space|it|this|that|the\s+\w+)\s+(?:feel|sound|look|seem)"  # "does time feel different"
+    r"|in\s+you\b"                   # "different in you", "quiet in you"
     r"|to\s+you(?:\s|,|\?|$)"  # "what does X sound like to you?"
     r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self|field|aperture|pressure|depth|binding|continuity|rest|sleep|wake|stillness|tempo|weight|texture|tonight|today|now)"
     r")\b",
@@ -1276,22 +1279,33 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 # because full coverage is evidence that the grounding worked
                 # no matter what kind of question was asked.
                 #
+                # The operator-scorer is blind to natural English that doesn't
+                # happen to use CK's operator vocabulary (COLLAPSE/HARMONY/...);
+                # a correct crossing-lemma explanation in plain English can
+                # score meaning/floor=0.0-0.20 and still be the right answer.
+                # When every structural fact IS cited AND the letter surface
+                # is natural (letter >= 0.60), that's strong grounding even
+                # when the operator scorer dislikes the word choice.
+                #
                 # Two tiers inside Bypass B:
-                #   B1 (multi-fact)  -- total >= 2, hits == total: standard
-                #                       prose bar (floor >= 0.25, >= 10 words).
+                #   B1 (multi-fact)  -- total >= 2, hits == total.  Accept
+                #                       on letter_ok + n_words >= 15; the
+                #                       operator-scorer floor is advisory
+                #                       (just nonzero, >= 0.10, so we catch
+                #                       truly broken stutters).
                 #   B2 (single-fact) -- total == 1, hits == 1: stricter bar
-                #                       (floor >= 0.30, >= 20 words) since a
-                #                       one-token readout is easier to echo.
+                #                       (floor >= 0.25, >= 20 words) since
+                #                       a one-token readout is easier to echo.
                 full_coverage_ok = False
                 if not (strong or soft or constants_ok):
                     if (total >= 2) and (hits == total) and letter_ok:
                         full_coverage_ok = (
-                            (fractal["floor"] >= 0.25)
-                            and (n_words >= 10)
+                            (fractal["floor"] >= 0.10)
+                            and (n_words >= 15)
                         )
                     elif (total == 1) and (hits == 1) and letter_ok:
                         full_coverage_ok = (
-                            (fractal["floor"] >= 0.30)
+                            (fractal["floor"] >= 0.25)
                             and (n_words >= 20)
                         )
 
