@@ -1384,14 +1384,27 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             # Seed defaults so downstream inspectors don't choke
             result.setdefault("session_id", session_id)
             result.setdefault("turn", -1)
-            # Replace text with cached draft
+            # Replace text with cached draft.  We re-run the draft through
+            # the Ollama postfilter on READ so any sycophantic openers or
+            # AI-disclaimer prefixes that were cached BEFORE the filter
+            # was sharpened get stripped on the way out.  The fresh-write
+            # path already filters; this closes the backfill gap for
+            # entries written when the filter was weaker.
+            _cached_draft_raw = ent_early.get("draft", "") or ""
+            try:
+                from ck_ollama_filter import postfilter_ollama as _pf
+                _cached_draft = _pf(_cached_draft_raw)
+                if _cached_draft != _cached_draft_raw:
+                    result["steer_cache_refiltered"] = True
+            except Exception:
+                _cached_draft = _cached_draft_raw
             result["text_structural"] = result.get(
-                "text_structural", ent_early.get("draft", "")
+                "text_structural", _cached_draft
             )
             result["source_structural"] = result.get(
                 "source_structural", "cache_fastpath"
             )
-            result["text"] = ent_early["draft"]
+            result["text"] = _cached_draft
             result["source"] = "cortex_speak_via_ollama_steered_cached"
             result["steer_verdict"] = "cache_hit"
             result["steer_cache_fastpath"] = True

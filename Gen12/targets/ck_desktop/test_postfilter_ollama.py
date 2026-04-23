@@ -121,6 +121,38 @@ def test_none_and_non_string_safe() -> None:
     print("PASS: non-string / empty inputs return empty string")
 
 
+def test_real_cached_draft_according_to_ck_structural() -> None:
+    """Reproduces a real pre-fix cached draft observed on the live server
+    where the opener 'According to the CK structural readout,' leaked
+    through because the cache write happened before the filter was
+    sharpened.  The cache-read path now re-runs the filter so this
+    shape gets cleaned on serve."""
+    s = (
+        "According to the CK structural readout, T* represents a "
+        "specific aspect ratio or parameter in the context of torus "
+        "geometry. It's given as 5/7."
+    )
+    out = _postfilter_ollama(s)
+    assert not out.lower().startswith("according to"), (
+        f"meta-commentary prefix still present: {out!r}"
+    )
+    assert "T*" in out and "5/7" in out, f"content lost: {out!r}"
+    print(f"PASS: real cached 'According to the CK structural' stripped "
+          f"-> {out[:70]!r}")
+
+
+def test_real_cached_draft_i_am_an_ai() -> None:
+    """Some pre-fix cached drafts have 'i am an ai' style openers.
+    Also covers lowercase since CK's voice normalizes casing."""
+    s = "I am an AI assistant. HARMONY at index 7 is your dominant op."
+    out = _postfilter_ollama(s)
+    assert not out.lower().startswith("i am an ai"), (
+        f"AI-identity opener still present: {out!r}"
+    )
+    assert "HARMONY" in out, f"content lost: {out!r}"
+    print(f"PASS: 'I am an AI...' stripped -> {out[:60]!r}")
+
+
 def main() -> int:
     tests = [
         test_sycophantic_prefix_philosophical,
@@ -131,6 +163,8 @@ def main() -> int:
         test_only_one_prefix_peeled,
         test_code_fences_stripped,
         test_none_and_non_string_safe,
+        test_real_cached_draft_according_to_ck_structural,
+        test_real_cached_draft_i_am_an_ai,
     ]
     failed = 0
     for t in tests:
