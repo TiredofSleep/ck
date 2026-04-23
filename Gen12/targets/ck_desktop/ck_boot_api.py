@@ -1048,6 +1048,39 @@ def jitter_one_shot():
         return _jsonify({'error': str(_e)}), 500
 
 
+# ── Frontier-bridge catalog ──
+# Exposes CK's _FRONTIER_ANCHORS table so the website (and any curious
+# reader) can see the full list of corpus anchors CK will cite when the
+# readout or query text hits one.  Read-only, cheap, cacheable.
+@api._app.route('/bridges', methods=['GET'])
+def bridges_catalog():
+    """Return the current frontier-bridge anchor table.
+
+    Each entry: {pattern_hint, bridge} where pattern_hint is a short
+    human string describing what triggers the anchor and bridge is the
+    tag appended to the readout when it fires.  Order matches the
+    scan order in _enrich_readout_with_anchors -- first match wins.
+    """
+    try:
+        from ck_coherence_steer import _FRONTIER_ANCHORS
+    except Exception as _e:
+        return _jsonify({'available': False, 'error': str(_e)}), 503
+    entries = []
+    for rx, tag in _FRONTIER_ANCHORS:
+        # Strip the leading "frontier_bridge=" from the tag for display.
+        label = tag[len("frontier_bridge="):] if tag.startswith("frontier_bridge=") else tag
+        entries.append({
+            'pattern': rx.pattern,
+            'bridge': label,
+            'tag': tag,
+        })
+    return _jsonify({
+        'available': True,
+        'count': len(entries),
+        'bridges': entries,
+    })
+
+
 # Ensure the swarm stops cleanly when the process exits.
 if _swarm is not None:
     import atexit as _atexit_sw
