@@ -323,7 +323,10 @@ _INTROSPECTIVE_LEXICAL = re.compile(
 _FACTUAL_LEXICAL = re.compile(
     r"\b(?:"
     r"explain|prove|define|derive|compute|calculate"
-    r"|what\s+(?:is|are)\s+(?:the|a|an)?"
+    r"|describe\s+(?:the|a|an|what|how)"
+    r"|write\s+(?:the|a|an|out)?"
+    r"|what\s+(?:is|are|was|were)\s+(?:the|a|an)?"
+    r"|what(?:\u2019|')s\s+(?:the|a|an)?"  # "what's the ..." / "what\u2019s ..."
     r"|show\s+(?:that|how|why)"
     r"|list\s+(?:the|all)"
     r"|state\s+(?:the|a)"
@@ -332,6 +335,7 @@ _FACTUAL_LEXICAL = re.compile(
     r"|when\s+(?:was|is|did)"
     r"|where\s+(?:is|are|was|were)"
     r"|why\s+(?:is|are|do|does|did)"
+    r"|numeric(?:ally)?|decimal|closed[- ]?form|formula|value\s+of"
     r")\b",
     re.IGNORECASE,
 )
@@ -434,12 +438,19 @@ _CK_CONSTANTS: Tuple[str, ...] = (
     "0.4053",
     # xi vacuum = e^-1 (Sprint 14, log-potential minimum)
     "e^-1",
-    "e^{-1}",
+    "e^(-1)",      # parenthesized form Ollama often emits
+    "e^{-1}",      # LaTeX form
+    "exp(-1)",     # functional form
     "1/e",
     "0.3679",
+    "0.36788",     # longer decimal Ollama sometimes prints
     # mass gap squared = kappa*e
     "kappa*e",
     "\u03ba e",        # κ e
+    # sigma rate theorem (WP101): sigma(N) <= C/N  -- the closed-form bound
+    # (match is case-insensitive, so "c/n" is covered by the canonical form)
+    "C/N",
+    "C / N",
     # TSML 73 cells, BHML 28 cells -- the counted proofs (word-boundary guarded)
     "73",
     "28",
@@ -451,20 +462,34 @@ _CK_CONSTANTS: Tuple[str, ...] = (
 
 
 def _contains_ck_constant(text: str) -> Optional[str]:
-    """Return the first CK constant found verbatim in ``text``, or None."""
+    """Return the first CK constant found verbatim in ``text``, or None.
+
+    Every matched token must sit on alphanumeric-boundaries so we don't
+    hit substrings inside unrelated words or numbers:
+      "73"   must not match inside "1973"
+      "28"   must not match inside "2028"
+      "C/N"  must not match inside "music/notes"
+      "1/e"  must not match inside "M1/escape"
+    For tokens whose first or last char is alphanumeric, require that the
+    adjacent character in ``text`` (if any) is NOT another alphanumeric.
+    """
     if not text:
         return None
     low = text.lower()
     for tok in _CK_CONSTANTS:
-        if tok.lower() in low:
-            # Guard tiny numeric tokens ("73", "28") against false positives
-            # inside unrelated numbers like "1973" or "2028".  Require word
-            # boundary on either side for pure-digit tokens.
-            if tok.isdigit():
-                pat = r"(?<!\d)" + re.escape(tok) + r"(?!\d)"
-                if re.search(pat, text):
-                    return tok
-                continue
+        tok_low = tok.lower()
+        if tok_low not in low:
+            continue
+        # Build boundary-aware regex.  Left/right lookarounds only added
+        # on sides where the token's edge char is alphanumeric.
+        left_alnum = tok_low[:1].isalnum()
+        right_alnum = tok_low[-1:].isalnum()
+        pattern = re.escape(tok_low)
+        if left_alnum:
+            pattern = r"(?<![A-Za-z0-9])" + pattern
+        if right_alnum:
+            pattern = pattern + r"(?![A-Za-z0-9])"
+        if re.search(pattern, low):
             return tok
     return None
 
@@ -1221,14 +1246,26 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 )
 
                 # Bypass A: KNOWN-CONSTANTS.  Draft cites a CK canonical
-                # value verbatim (5/7, e^-1, 73, 28, 4/pi^2, etc.).
+                # value verbatim (5/7, e^-1, 73, 28, 4/pi^2, C/N, etc.).
+                # The verbatim constant match IS a grounding signal, so we
+                # lower the coverage bar here versus the soft-gate: a terse
+                # correct answer ("The ratio is 5/7.") should pass even with
+                # zero structural-token overlap.  Longer answers get a mild
+                # coverage floor to catch wandering drafts that mention the
+                # value then ramble off-topic.
                 found_const: Optional[str] = None
                 constants_ok = False
                 if (_mode == "factual") and (not (strong or soft)) and (4 <= n_words <= 500):
                     found_const = _contains_ck_constant(drafted)
                     if (found_const is not None) and letter_ok:
+                        terse = (n_words <= 30)
+                        const_cov_ok = (
+                            cov_ok_for_total
+                            or terse             # short answer: cite-the-value IS enough
+                            or (cov >= 0.10)     # longer: at least one structural token echoed
+                        )
                         constants_ok = (
-                            (cov_ok_for_total or (cov >= _mode_soft_cov))
+                            const_cov_ok
                             and (fractal["floor"] >= 0.20)
                         )
 
@@ -1237,16 +1274,25 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 # Ollama successfully, regardless of operator-profile noise.
                 # Applies to ANY mode (factual / neutral / introspective)
                 # because full coverage is evidence that the grounding worked
-                # no matter what kind of question was asked.  Requires at
-                # least 2 fact tokens (so trivial zero-fact readouts don't
-                # auto-pass) and prose that's natural English with no
-                # sub-scale collapse.
+                # no matter what kind of question was asked.
+                #
+                # Two tiers inside Bypass B:
+                #   B1 (multi-fact)  -- total >= 2, hits == total: standard
+                #                       prose bar (floor >= 0.25, >= 10 words).
+                #   B2 (single-fact) -- total == 1, hits == 1: stricter bar
+                #                       (floor >= 0.30, >= 20 words) since a
+                #                       one-token readout is easier to echo.
                 full_coverage_ok = False
                 if not (strong or soft or constants_ok):
                     if (total >= 2) and (hits == total) and letter_ok:
                         full_coverage_ok = (
                             (fractal["floor"] >= 0.25)
                             and (n_words >= 10)
+                        )
+                    elif (total == 1) and (hits == 1) and letter_ok:
+                        full_coverage_ok = (
+                            (fractal["floor"] >= 0.30)
+                            and (n_words >= 20)
                         )
 
                 # Bypass C: INTROSPECTIVE FALLBACK.  A reflective answer
