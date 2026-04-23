@@ -713,7 +713,7 @@ _STATIC_FILES = {'style.css', 'ck_core.js', 'ck_d2.js', 'ck_dict.js', 'ck_dict_t
                  'paradox.html', 'ring.html',
                  'math.html', 'physics.html', 'bible.html',
                  'emotion.html', 'mythology.html', 'about.html',
-                 'ai.html'}
+                 'ai.html', 'curiosity.html'}
 for _sf in _STATIC_FILES:
     def _make_handler(fn):
         def handler():
