@@ -363,28 +363,9 @@ _OLLAMA_EXTRA_GUIDE = (
     "    sentence starts are fine."
 )
 
-def _postfilter_ollama(text: str) -> str:
-    """Strip common Ollama noise: code fences, markdown headers, AI disclaimers."""
-    if not isinstance(text, str):
-        return ''
-    t = text.strip()
-    # Strip surrounding code fences
-    if t.startswith('```'):
-        t = t.strip('`').strip()
-    # Drop common LLM preambles
-    for bad in (
-        "as an ai", "i'm an ai", "i am an ai", "as a language model",
-        "i cannot", "sorry,", "i apologize",
-    ):
-        if t.lower().startswith(bad):
-            # Skip to the first sentence after the apology
-            parts = t.split('.', 1)
-            if len(parts) > 1:
-                t = parts[1].strip()
-    # Remove markdown header hashes
-    lines = [ln.lstrip('# ').rstrip() for ln in t.splitlines()]
-    t = '\n'.join(ln for ln in lines if ln)
-    return t.strip()
+# Ollama-draft cleanup is now a pure function in ck_ollama_filter so
+# unit tests can import it without running the full boot pipeline.
+from ck_ollama_filter import _postfilter_ollama  # noqa: E402,F401
 
 
 _FACT_TOKEN_RE = None
