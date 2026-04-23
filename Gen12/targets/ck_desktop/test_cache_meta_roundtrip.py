@@ -154,6 +154,26 @@ def test_persistence_across_instances() -> None:
     print("PASS: bridges_fired persists across cache instance restarts")
 
 
+def test_evict_removes_entry_and_persists() -> None:
+    """evict() must remove the entry and persist the deletion to disk."""
+    tmp = Path(tempfile.mkdtemp(prefix="ck_cache_evict_")) / "cache.json"
+    c1 = CoherenceCache(tmp)
+    c1.put("how are you?", "i'm good", 0.9, 3, 4,
+           meta={"brain_dominant_op": "BALANCE"})
+    assert c1.get("how are you?") is not None, "put/get sanity"
+    removed = c1.evict("how are you?")
+    assert removed is True, "evict should return True on real removal"
+    assert c1.get("how are you?") is None, "entry should be gone after evict"
+    # Re-open a fresh instance and confirm the eviction persisted
+    c2 = CoherenceCache(tmp)
+    assert c2.get("how are you?") is None, (
+        "eviction did not persist to disk"
+    )
+    # Evicting a non-existent entry returns False, does not raise
+    assert c2.evict("never existed") is False
+    print("PASS: evict removes entry and persists across restart")
+
+
 def main() -> int:
     tests = [
         test_bridges_fired_survives_put_get,
@@ -163,6 +183,7 @@ def main() -> int:
         test_none_bridges_dropped,
         test_empty_meta_safe,
         test_persistence_across_instances,
+        test_evict_removes_entry_and_persists,
     ]
     failed = 0
     for t in tests:

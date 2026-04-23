@@ -1078,6 +1078,19 @@ class CoherenceCache:
         except Exception:
             pass
 
+    def evict(self, q: str) -> bool:
+        """Remove the entry for ``q`` if present.  Returns True on
+        actual removal.  Used when the postfilter rejects a cached
+        draft wholesale (e.g. identity drift) so the next ask of the
+        same question regenerates cleanly instead of re-serving the
+        same poisoned draft and re-evicting on every hit."""
+        h = _q_hash(q)
+        with self._lock:
+            removed = self._data.pop(h, None) is not None
+        if removed:
+            self._save_safe()
+        return removed
+
     def stats(self) -> Dict[str, Any]:
         with self._lock:
             if not self._data:
@@ -1367,6 +1380,34 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             ent_early = cache.get(text or "")
         except Exception:
             ent_early = None
+        # Pre-filter the cached draft BEFORE deciding whether to take
+        # the fastpath.  Two outcomes:
+        #   (a) filter trims a sycophantic opener  -> take fastpath,
+        #       serve cleaned version, mark steer_cache_refiltered.
+        #   (b) filter rejects draft outright       -> identity drift
+        #       or similar hard-kill.  Evict the poisoned entry and
+        #       null out ent_early so we fall through to fresh
+        #       generation (prevents serving empty text).
+        _cached_draft = ""
+        _cached_draft_raw = ""
+        _cache_refiltered = False
+        if ent_early is not None:
+            _cached_draft_raw = ent_early.get("draft", "") or ""
+            try:
+                from ck_ollama_filter import postfilter_ollama as _pf
+                _cached_draft = _pf(_cached_draft_raw)
+                if not _cached_draft and _cached_draft_raw:
+                    # Filter killed the cached draft (identity drift).
+                    # Evict so we don't rechurn the same bad entry.
+                    try:
+                        cache.evict(text or "")
+                    except Exception:
+                        pass
+                    ent_early = None  # force the miss path
+                elif _cached_draft != _cached_draft_raw:
+                    _cache_refiltered = True
+            except Exception:
+                _cached_draft = _cached_draft_raw
         if ent_early is not None:
             # Call the underlying chat ONLY if the host has marked a
             # cheap "cache-mode" process_chat; otherwise skip and build
@@ -1384,20 +1425,8 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             # Seed defaults so downstream inspectors don't choke
             result.setdefault("session_id", session_id)
             result.setdefault("turn", -1)
-            # Replace text with cached draft.  We re-run the draft through
-            # the Ollama postfilter on READ so any sycophantic openers or
-            # AI-disclaimer prefixes that were cached BEFORE the filter
-            # was sharpened get stripped on the way out.  The fresh-write
-            # path already filters; this closes the backfill gap for
-            # entries written when the filter was weaker.
-            _cached_draft_raw = ent_early.get("draft", "") or ""
-            try:
-                from ck_ollama_filter import postfilter_ollama as _pf
-                _cached_draft = _pf(_cached_draft_raw)
-                if _cached_draft != _cached_draft_raw:
-                    result["steer_cache_refiltered"] = True
-            except Exception:
-                _cached_draft = _cached_draft_raw
+            if _cache_refiltered:
+                result["steer_cache_refiltered"] = True
             result["text_structural"] = result.get(
                 "text_structural", _cached_draft
             )
