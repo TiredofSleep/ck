@@ -1322,6 +1322,22 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             if _meta.get("steer_query_mode"):
                 result.setdefault("steer_query_mode",
                                   _meta["steer_query_mode"])
+
+            # Backfill for OLDER cache entries (written before the meta
+            # roundtrip patch) that lack `brain_dominant_op`.  Re-score
+            # the cached draft ON THE FLY so the returned telemetry is
+            # consistent instead of None.  Keep cost bounded -- skip if
+            # we already have an op, or the draft is empty.
+            if (result.get("brain_dominant_op") is None
+                    and ent_early.get("draft")):
+                try:
+                    _p = score_operators(ent_early["draft"])
+                    _dom = _p.dominant()
+                    if _dom:
+                        result["brain_dominant_op"] = _dom
+                        result["steer_cache_backfilled_op"] = True
+                except Exception:
+                    pass
             return result
 
         result = _prev_chat(session_id, text, mode)
