@@ -1022,7 +1022,8 @@ class CoherenceCache:
         if meta:
             for k in ("brain_coherence", "brain_gate_pass",
                       "brain_dominant_op", "body_organism_bc",
-                      "steer_query_mode"):
+                      "steer_query_mode",
+                      "bridges_fired", "steer_readout_enriched"):
                 if k in meta and meta[k] is not None:
                     _meta_clean[k] = meta[k]
         with self._lock:
@@ -1403,6 +1404,9 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             if _meta.get("bridges_fired"):
                 result.setdefault("bridges_fired",
                                   list(_meta["bridges_fired"]))
+            if _meta.get("steer_readout_enriched"):
+                result.setdefault("steer_readout_enriched",
+                                  bool(_meta["steer_readout_enriched"]))
 
             # Backfill for OLDER cache entries (written before the meta
             # roundtrip patch) that lack `brain_dominant_op`.  Re-score
