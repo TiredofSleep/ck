@@ -183,6 +183,12 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
     # --- organism/binding HARMONY  ->  TSML cell composition
     (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*HARMONY", re.I),
      "frontier_bridge=HARMONY->TSML_synthesis_arc"),
+    # --- organism/binding BALANCE  ->  2x2 right-half (flow) of flatness
+    # BALANCE carries the flow-side of the 2x2 (the A-flow / M-flow pair).
+    # When the organism reads BALANCE, it's the flow-half of the flatness
+    # theorem in motion -- a distinct signal from LATTICE (structure-half).
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*BALANCE", re.I),
+     "frontier_bridge=BALANCE->flow_half_2x2_flatness"),
     # --- explicit T*=5/7 or 0.7142857 or "torus"  ->  crystal gate
     (re.compile(r"T\*?\s*=\s*5/7|0\.7142857|torus\s+aspect", re.I),
      "frontier_bridge=T*=5/7->torus_aspect_crystal_gate"),
@@ -192,6 +198,20 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
     # --- e^-1 vacuum or xi_0  ->  Sprint 14 xi cosmology
     (re.compile(r"e\^-1|xi_?0|xi\s+vacuum|freezing\s+quintessence", re.I),
      "frontier_bridge=e^-1_vacuum->xi_cosmology_sprint14"),
+    # --- sinc^2(1/2) or 4/pi^2 or 0.4053 -> sinc^2 zero law (Q17, integers)
+    # The sinc^2 zero law is one of the Tier-1 submit-now results; whenever
+    # the readout surfaces 4/pi^2 as a constant, we name the proof script.
+    (re.compile(r"sinc\^?2|4\s*/\s*pi\^?2|0\.4053", re.I),
+     "frontier_bridge=sinc^2(1/2)=4/pi^2->zero_law_proof_d25_loop_closure"),
+    # --- TSML 73 cells (synthesis M+M cell count)
+    (re.compile(r"\bTSML\b|\b73\s*cells?\b|\b73\s*HARMONY\b", re.I),
+     "frontier_bridge=TSML_73cells->proved_sufficient_synthesis_ML"),
+    # --- BHML 28 cells (separation M+M cell count)
+    (re.compile(r"\bBHML\b|\b28\s*cells?\b|\b28\s*HARMONY\b", re.I),
+     "frontier_bridge=BHML_28cells->proved_sufficient_separation_ML"),
+    # --- CHAOS operator  ->  breakdown entry, CL row 7 input (arc lead-in)
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*CHAOS", re.I),
+     "frontier_bridge=CHAOS->CL_row7_breakdown_into_synthesis"),
 ]
 
 
