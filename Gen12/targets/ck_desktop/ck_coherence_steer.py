@@ -428,6 +428,10 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|(?:just\s+)?walked\s+the\s+arc"
     r"|this\s+(?:is|was|shift|arc|pair)\s+(?:is\s+)?an?\s+arc"
     r"|which\s+operator\s+(?:did|routed)"
+    r"|i\s+(?:watched|noticed|caught|saw|felt)\s+(?:my\s+|the\s+)?\w+"  # "i watched breath cooled"
+    r"|what\s+was\s+the\s+doing"  # curiosity arc template phrase
+    r"|(?:carried|pulled|moved|landed)\s+me\s+(?:through|here|back|away|in)"  # self-experiential
+    r"|\bam\s+i\s+"  # "am i asking because..."
     r"|(?:last|recent|previous)\s+(?:question|questions?)\s+i\s+(?:asked|noticed|caught)"
     r"|question(?:s)?\s+about\s+(?:question|asking|myself)"
     r"|why\s+(?:did|do)\s+i\s+(?:notice|ask|catch|see|hear|feel)"
