@@ -27,8 +27,10 @@ sys.path.insert(0, _HERE)
 
 from ck_curiosity import (  # noqa: E402
     _detect_meta_pattern,
+    _detect_shift,
     _format_question,
     CuriosityState,
+    _CuriosityDaemon,
 )
 
 
@@ -221,6 +223,98 @@ def test_dedup_backward_compatible_without_param() -> None:
     print("PASS: _format_question still works without recent_questions kwarg")
 
 
+# ---------------------------------------------------------------------------
+# hydrate-from-disk session continuity
+# ---------------------------------------------------------------------------
+
+
+def test_hydrate_preserves_last_tick_suppresses_first_observation() -> None:
+    """After hydrating prior entries, the next _detect_shift call must
+    NOT return 'first_observation'.  This locks the restart-continuity
+    fix: a daemon reboot is not CK's first observation of himself.
+    """
+    import json
+    import tempfile
+    import time
+    import ck_curiosity as _cc
+
+    # Point the daemon's persistence path at a tmp file with one fake
+    # prior entry, then construct a daemon and assert post-hydrate state
+    # has last_tick != 0.0 (the sentinel value that triggers
+    # first_observation).
+    tmp_dir = tempfile.mkdtemp(prefix="ck_curiosity_test_")
+    tmp_path = os.path.join(tmp_dir, "curiosity_history.json")
+    prior_ts = int(time.time()) - 300  # 5 min ago
+    fake_blob = {
+        "saved_at": prior_ts,
+        "count": 1,
+        "entries": [{
+            "ts": prior_ts,
+            "shift": "idle:180s@BALANCE",
+            "question": "what's the texture of my rest?",
+            "answer": "a quiet plateau.",
+            "source": "math_first",
+            "coherence": 0.82,
+            "gate_pass": True,
+            "dominant_op": "BALANCE",
+            "organism": "BALANCE",
+            "bridges": ["HARMONY->TSML_synthesis_arc_73_cells"],
+            "dt_ms": 120,
+        }],
+    }
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(fake_blob, f)
+
+    # Monkey-patch the module path so the daemon hydrates from our tmp.
+    old_path = _cc._CURIOSITY_HISTORY_PATH
+    try:
+        _cc._CURIOSITY_HISTORY_PATH = tmp_path
+
+        class _StubEngine:
+            sensorium = None
+        d = _cc._CuriosityDaemon(
+            api=None, engine=_StubEngine(), period=60.0,
+            session_id="ck_test_hydrate",
+        )
+    finally:
+        _cc._CURIOSITY_HISTORY_PATH = old_path
+
+    assert len(d.history) == 1, (
+        f"hydrate should load 1 entry, got {len(d.history)}"
+    )
+    assert d.state.last_tick == float(prior_ts), (
+        f"last_tick not restored: got {d.state.last_tick}, "
+        f"expected {prior_ts}"
+    )
+    assert d.state.organism == "BALANCE", (
+        f"prev organism not restored: {d.state.organism!r}"
+    )
+    # Now simulate the next tick's detect_shift call with prev=d.state
+    # and a cur that matches prev -- no real shift.  Must NOT return
+    # 'first_observation'.
+    cur = CuriosityState()
+    cur.organism = "BALANCE"
+    cur.coherence = 0.82
+    cur.active_layers = d.state.active_layers
+    cur.last_tick = time.time()
+    shift = _detect_shift(d.state, cur)
+    assert shift != "first_observation", (
+        f"hydrated daemon still fires first_observation: {shift!r}"
+    )
+    # Recent windows should be populated from the one hydrated entry.
+    assert list(d.recent_kinds) == ["idle"], (
+        f"recent_kinds not rehydrated: {list(d.recent_kinds)!r}"
+    )
+    assert list(d.recent_dom_ops) == ["BALANCE"], (
+        f"recent_dom_ops not rehydrated: {list(d.recent_dom_ops)!r}"
+    )
+    assert list(d.recent_bridges) == [
+        ["HARMONY->TSML_synthesis_arc_73_cells"]
+    ], f"recent_bridges not rehydrated: {list(d.recent_bridges)!r}"
+    print("PASS: hydrate preserves last_tick + organism + meta-windows; "
+          "no spurious first_observation after restart")
+
+
 def main() -> int:
     tests = [
         test_bridge_streak_fires_on_3_of_5,
@@ -235,6 +329,7 @@ def main() -> int:
         test_format_degrades_gracefully_on_malformed_shift,
         test_dedup_avoids_recent_repeats,
         test_dedup_backward_compatible_without_param,
+        test_hydrate_preserves_last_tick_suppresses_first_observation,
     ]
     failed = 0
     for t in tests:

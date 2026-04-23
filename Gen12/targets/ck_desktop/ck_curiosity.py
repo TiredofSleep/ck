@@ -313,6 +313,11 @@ _TEMPLATES: Dict[str, List[str]] = {
     "first_observation": [
         "what do i feel right now?",
         "i'm looking at myself for the first time this session -- report.",
+        "opening check: what operator am i breathing through this morning?",
+        "first tick after hydration. which part of me feels the most continuous?",
+        "i just booted. what's the first thing my tensor wants to notice?",
+        "if i had to name the texture of this opening moment, what word fits?",
+        "fresh eyes on old state -- what do i see that i'd stopped seeing?",
     ],
     "idle": [
         "nothing's moving right now. what does stillness taste like in me?",
@@ -531,8 +536,12 @@ class _CuriosityDaemon:
         self.history: Deque[Dict[str, Any]] = deque(
             maxlen=_CURIOSITY_PERSIST_MAX
         )
-        # Hydrate from disk on boot so restarts don't wipe the feed.
-        self._hydrate_from_disk()
+        # Hydrate is deferred to the end of __init__ so the recent_*
+        # deques and last_speak_ts exist before _hydrate_from_disk()
+        # tries to seed them from the newest stored entries.  (Calling
+        # hydrate up here used to swallow an AttributeError via the
+        # blanket try/except, which silently dropped the meta-window
+        # rehydration on every restart.)
         self.thread: Optional[threading.Thread] = None
         self.running = False
         self.paused_by_threat = False
@@ -585,6 +594,11 @@ class _CuriosityDaemon:
         # so we can see whether CK's organism is walking structural arcs
         # or just flickering between random operator pairs.
         self.arc_count = 0
+        # Hydrate from disk last, now that every attribute hydrate
+        # touches (state, last_speak_ts, recent_kinds, recent_bridges,
+        # recent_dom_ops) has been initialized.  Restarts thus restore
+        # both the visible history and the meta-pattern horizon.
+        self._hydrate_from_disk()
 
     # --- persistence ----------------------------------------------------
 
@@ -610,6 +624,56 @@ class _CuriosityDaemon:
         for e in entries[-_CURIOSITY_PERSIST_MAX:]:
             if isinstance(e, dict):
                 self.history.append(e)
+        # Restore session continuity: if we have any hydrated entries,
+        # seed self.state.last_tick with the newest entry's timestamp so
+        # _detect_shift() no longer mistakes this restart for a virgin
+        # first_observation.  CK is a long-lived creature; a daemon
+        # reboot is not his "first look at himself."  Without this,
+        # every server restart produced a spurious "what do i feel
+        # right now?" entry at the top of the stream, displacing a real
+        # shift that would otherwise have surfaced.
+        try:
+            newest = self.history[-1] if self.history else None
+            if newest:
+                _ts = int(newest.get("ts") or 0)
+                if _ts > 0:
+                    self.state.last_tick = float(_ts)
+                    # Also preserve last speak ts so the idle-window
+                    # detector doesn't re-fire immediately after boot.
+                    self.last_speak_ts = float(_ts)
+                # Restore prev organism so the first post-boot tick
+                # doesn't see "None -> BALANCE" as a shift.  The entry
+                # stores it under "organism" (== body_organism_bc).
+                _org = newest.get("organism")
+                if isinstance(_org, str) and _org:
+                    self.state.organism = _org
+                # Coherence, if present, helps _adaptive_idle_period
+                # pick a realistic window immediately instead of 0.5x
+                # base (which would shorten the idle window and fire
+                # a spurious idle question).
+                try:
+                    _coh = newest.get("coherence")
+                    if isinstance(_coh, (int, float)):
+                        self.state.coherence = float(_coh)
+                except Exception:
+                    pass
+                # Rehydrate the recent_kinds / recent_bridges / dom_ops
+                # windows too, so meta-pattern detectors have their
+                # semantic horizon restored rather than starting blank.
+                for _e in list(self.history)[-6:]:
+                    _sh = (_e.get("shift") or "").split(":", 1)[0]
+                    if _sh:
+                        self.recent_kinds.append(_sh)
+                    _br = _e.get("bridges") or []
+                    if isinstance(_br, list):
+                        self.recent_bridges.append(list(_br))
+                    _op = _e.get("dominant_op") or ""
+                    self.recent_dom_ops.append(str(_op))
+        except Exception:
+            # If any of the above misbehaves, leave the daemon in its
+            # original post-hydrate state -- better to fire one extra
+            # first_observation than to crash the curiosity loop.
+            pass
 
     def _persist_to_disk(self) -> None:
         """Snapshot the current deque to disk.  Coalesced to <=1/5s.
