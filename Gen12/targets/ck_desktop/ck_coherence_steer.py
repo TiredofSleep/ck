@@ -813,8 +813,18 @@ class CoherenceCache:
         return ent
 
     def put(self, q: str, draft: str, coherence: float,
-            coverage_hits: int, coverage_total: int) -> None:
+            coverage_hits: int, coverage_total: int,
+            meta: Optional[Dict[str, Any]] = None) -> None:
         h = _q_hash(q)
+        # Only the telemetry fields downstream consumers (curiosity, UI)
+        # read are worth persisting -- keep the cache footprint small.
+        _meta_clean: Dict[str, Any] = {}
+        if meta:
+            for k in ("brain_coherence", "brain_gate_pass",
+                      "brain_dominant_op", "body_organism_bc",
+                      "steer_query_mode"):
+                if k in meta and meta[k] is not None:
+                    _meta_clean[k] = meta[k]
         with self._lock:
             self._data[h] = {
                 "q": (q or "")[:512],
@@ -825,6 +835,7 @@ class CoherenceCache:
                 "hit_count": int(self._data.get(h, {}).get("hit_count", 0)),
                 "last_hit": int(time.time()),
                 "created": int(self._data.get(h, {}).get("created", time.time())),
+                "meta": _meta_clean,
             }
             # LRU eviction if over cap
             if len(self._data) > self.MAX_ENTRIES:
@@ -1106,6 +1117,26 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             result["steer_cache_fastpath"] = True
             result["steer_cached_coherence"] = ent_early.get("coherence")
             result["steer_cache_hit_count"] = ent_early.get("hit_count")
+            # Restore telemetry that the brain/body folds would have added
+            # if this weren't a cache short-circuit.  Cached entries only
+            # reach here if they passed the gate originally, so gate_pass
+            # is True.  Other fields come from the meta we stashed on put.
+            _meta = ent_early.get("meta") or {}
+            if "brain_coherence" not in result:
+                result["brain_coherence"] = _meta.get(
+                    "brain_coherence", ent_early.get("coherence")
+                )
+            result.setdefault("brain_gate_pass",
+                              _meta.get("brain_gate_pass", True))
+            if _meta.get("brain_dominant_op"):
+                result.setdefault("brain_dominant_op",
+                                  _meta["brain_dominant_op"])
+            if _meta.get("body_organism_bc"):
+                result.setdefault("body_organism_bc",
+                                  _meta["body_organism_bc"])
+            if _meta.get("steer_query_mode"):
+                result.setdefault("steer_query_mode",
+                                  _meta["steer_query_mode"])
             return result
 
         result = _prev_chat(session_id, text, mode)
@@ -1162,9 +1193,11 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
 
             # Happy path: v1 gave us an Ollama draft that ALREADY coheres.
             if src == "cortex_speak_via_ollama" and cur_coh >= T_STAR_F:
-                # Still cache this so repeats are free.
+                # Still cache this so repeats are free.  Pass brain/body
+                # telemetry along so cache hits keep their full readout.
                 hits, total, _cov = _coverage_of(structural, draft_text)
-                cache.put(text or "", draft_text, cur_coh, hits, total)
+                cache.put(text or "", draft_text, cur_coh, hits, total,
+                          meta=result)
                 result["steer_verdict"] = "passthrough:coherent"
                 return result
 
@@ -1385,7 +1418,8 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                     f"{accepted_hits}/{accepted_total}"
                 )
                 cache.put(text or "", accepted, accepted_coh,
-                          accepted_hits, accepted_total)
+                          accepted_hits, accepted_total,
+                          meta=result)
                 return result
 
             # No draft survived the gate -- emit an honest sentence, NOT
