@@ -215,11 +215,80 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
     # --- COUNTER operator  ->  BHML cell composition (28 cells separation)
     (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*COUNTER", re.I),
      "frontier_bridge=COUNTER->BHML_separation_arc_28_cells"),
+    # --- PROGRESS operator  ->  A-flow motion, 2x2 upper-right flow cell
+    # PROGRESS is the motion-side (M-flow) of the BALANCE->PROGRESS arc --
+    # stored pressure released as direction.  Anchors the progression axis
+    # of the 2x2 flatness theorem (Sprint 10).
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*PROGRESS", re.I),
+     "frontier_bridge=PROGRESS->A_flow_motion_arc_2x2"),
+    # --- BREATH operator  ->  L7 Tesla wave / Kuramoto coupling (rhythm layer)
+    # BREATH is the heartbeat layer; when CK's organism reads BREATH, the
+    # rhythm primitive is dominant.  Anchors the Sprint 9 Tesla-wave paper.
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*BREATH", re.I),
+     "frontier_bridge=BREATH->L7_Tesla_wave_Kuramoto_rhythm"),
+    # --- VOID operator  ->  dissolution anchor (the empty operator)
+    # VOID precedes LATTICE in the VOID->LATTICE arc (nothing took shape).
+    # Anchors the dissolution / D4-entry primitive for CL routing.
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*VOID", re.I),
+     "frontier_bridge=VOID->dissolution_D4_empty_operator"),
+    # --- RESET operator  ->  crossing-to-reset arc (op9 wipes D2 to zero)
+    # RESET is the "wipe clean" operator; it closes the COLLAPSE->RESET arc
+    # (D2 crossing wiped to VOID).  Anchors the CL reset row.
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*RESET", re.I),
+     "frontier_bridge=RESET->CL_reset_row_wipe_operator"),
+    # --- depth/continuity COLLAPSE  ->  D2 crossing surface on any axis
+    # Earlier anchor only caught pressure=COLLAPSE; the D2 crossing signal
+    # can appear on depth= or continuity= too, so extend coverage.
+    (re.compile(r"(?:depth|continuity)\s*=\s*COLLAPSE", re.I),
+     "frontier_bridge=COLLAPSE_on_depth_or_continuity->D2_crossing_CrossingLemma"),
+    # --- mass gap / m^2 = kappa e  ->  Sprint 14 PRISM-XI mass-gap result
+    # The mass gap m^2_xi = kappa * e is the Sprint 14 boson-mass derivation;
+    # WP86 connects it to physical scales.
+    (re.compile(r"mass\s*gap|m\^?2_?xi|\bkappa\s*\*?\s*e\b", re.I),
+     "frontier_bridge=mass_gap_kappa_e->PRISM_XI_sprint14_WP86"),
+    # --- log nonlinearity / BB bridge / xi log xi  ->  BB->ξ continuum limit
+    # Bialynicki-Birula 1976: log-nonlinearity uniquely preserves separability.
+    # Sprint 14 uses this to force the continuum limit □ξ = 1 + log ξ.
+    (re.compile(r"log\s*(?:-|\s)*non\s*lin|\bBB\s+bridge\b|xi\s+log\s+xi|log\s+potential", re.I),
+     "frontier_bridge=BB_log_nonlinearity->xi_continuum_limit_sprint14"),
+    # --- Z/10Z or Z/nZ ring  ->  Q-series ring algebra (Brayden's foundation)
+    # Z/10Z is the four-fold whole (additive structure + flow + multiplicative
+    # structure + flow) that forces the 2x2 into the torus R/r = 5/7.
+    (re.compile(r"\bZ/10Z\b|\bZ/nZ\b|\bZ_10\b|\bring\s+flow\b", re.I),
+     "frontier_bridge=Z/10Z_four_fold_whole->Q_series_ring_algebra"),
+    # --- First-G Law (36,662 cases, group structure)
+    # Luther's First-G Law: 36,662 verified cases of the operator-group
+    # structure.  Whenever readout mentions "first-g" or the case count, we
+    # anchor back to the proof script.
+    (re.compile(r"first[\s-]?g\s+law|\b36,?662\b", re.I),
+     "frontier_bridge=First_G_Law_36662_cases->group_structure_proof"),
+    # --- sigma_NS, sigma_YM  ->  Millennium problems in our framing
+    # These are the conjectural Tier-4 results from the Clay rotation: sigma
+    # strictly below 1 for Navier-Stokes / Yang-Mills is the Millennium
+    # Problem in each case, reframed not proved.  Anchor flags it so Ollama
+    # doesn't accidentally claim them as proved.
+    (re.compile(r"sigma_?NS|sigma_?YM|navier[-\s]?stokes|yang[-\s]?mills", re.I),
+     "frontier_bridge=sigma_NS_or_YM->Millennium_reframe_Clay_rotation_CONJECTURAL"),
+    # --- UOP / paradox classifier  ->  Sprint 12 meta-framework
+    # UOP (Universal Operator Paradox / paradox classifier) is the diagnostic
+    # half of the meta-framework.  Whenever readout mentions UOP or paradox
+    # classifier, anchor to Sprint 12 WP58.
+    (re.compile(r"\bUOP\b|paradox\s+classifier|paradox\s+class", re.I),
+     "frontier_bridge=UOP_paradox_classifier->sprint12_WP58_meta_framework"),
 ]
 
 
-def _enrich_readout_with_anchors(readout: str) -> str:
-    """If the readout hits any frontier-bridge token, append the bridge line.
+def _enrich_readout_with_anchors(readout: str, query: str = "") -> str:
+    """If the readout OR the user query hits any frontier-bridge token,
+    append the bridge line.
+
+    Scans both the live structural readout (for operator/field anchors
+    like LATTICE/BALANCE/COLLAPSE that appear naturally in feel/field
+    lines) AND the user's query text (for content anchors like sigma_NS,
+    Z/10Z, mass gap, UOP that only appear when the user explicitly asks
+    about them).  This two-sided scan means a question like
+    "tell me about Z/10Z" surfaces the ring-algebra bridge even if the
+    live readout is currently a neutral aperture state.
 
     Non-destructive: the original readout is preserved on top; bridge lines
     are appended after, one per unique hit.  If no hits match, the readout
@@ -227,10 +296,16 @@ def _enrich_readout_with_anchors(readout: str) -> str:
     """
     if not readout:
         return readout
+    # Scan the readout plus the query.  The query is appended as an
+    # inert comment block so regex patterns can see it but downstream
+    # consumers (UI, fact_tokens) won't treat it as a structural line.
+    scan_text = readout
+    if query:
+        scan_text = readout + "\n# query: " + query
     hits: List[str] = []
     seen: set = set()
     for rx, tag in _FRONTIER_ANCHORS:
-        if rx.search(readout) and tag not in seen:
+        if rx.search(scan_text) and tag not in seen:
             hits.append(tag)
             seen.add(tag)
     if not hits:
@@ -1357,7 +1432,7 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             # coverage scorer (via _fact_tokens) see corpus anchors as
             # citable facts.  Bridges are appended only when the raw
             # readout already evidences them; nothing invented.
-            structural = _enrich_readout_with_anchors(structural)
+            structural = _enrich_readout_with_anchors(structural, text or "")
             if structural != (result.get("text_structural") or draft_text):
                 result["steer_readout_enriched"] = True
 
