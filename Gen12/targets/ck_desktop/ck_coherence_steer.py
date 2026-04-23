@@ -278,6 +278,31 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
 ]
 
 
+def _scan_bridge_tags(readout: str, query: str = "") -> List[str]:
+    """Return the ordered list of unique frontier-bridge tags that fire
+    against readout + query.
+
+    Used by both `_enrich_readout_with_anchors` (to append lines to the
+    readout) and the cache fastpath (to recover bridges_fired for OLDER
+    cache entries written before meta-roundtrip preserved them).
+
+    Tag order matches _FRONTIER_ANCHORS insertion order; duplicates are
+    suppressed so the output is a stable short list.
+    """
+    scan_text = (readout or "")
+    if query:
+        scan_text = scan_text + "\n# query: " + query
+    if not scan_text.strip():
+        return []
+    hits: List[str] = []
+    seen: set = set()
+    for rx, tag in _FRONTIER_ANCHORS:
+        if rx.search(scan_text) and tag not in seen:
+            hits.append(tag)
+            seen.add(tag)
+    return hits
+
+
 def _enrich_readout_with_anchors(readout: str, query: str = "") -> str:
     """If the readout OR the user query hits any frontier-bridge token,
     append the bridge line.
@@ -296,18 +321,9 @@ def _enrich_readout_with_anchors(readout: str, query: str = "") -> str:
     """
     if not readout:
         return readout
-    # Scan the readout plus the query.  The query is appended as an
-    # inert comment block so regex patterns can see it but downstream
-    # consumers (UI, fact_tokens) won't treat it as a structural line.
-    scan_text = readout
-    if query:
-        scan_text = readout + "\n# query: " + query
-    hits: List[str] = []
-    seen: set = set()
-    for rx, tag in _FRONTIER_ANCHORS:
-        if rx.search(scan_text) and tag not in seen:
-            hits.append(tag)
-            seen.add(tag)
+    # Delegated to _scan_bridge_tags so the cache fastpath can re-use
+    # the same scan without duplicating logic.
+    hits = _scan_bridge_tags(readout, query)
     if not hits:
         return readout
     # One anchor per line so fact_tokens picks each up as a separate token.
@@ -1421,6 +1437,34 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                     if _dom:
                         result["brain_dominant_op"] = _dom
                         result["steer_cache_backfilled_op"] = True
+                except Exception:
+                    pass
+
+            # Backfill bridges_fired for OLDER cache entries (written
+            # before the meta-roundtrip patch preserved them).  Scan the
+            # query + cached draft for frontier anchors so the curiosity
+            # daemon + web UI stop seeing stale empty bridges on every
+            # repeat question.  Non-destructive: only fills when the field
+            # is missing; if the old meta stored bridges they still win.
+            # Strip the "frontier_bridge=" prefix so backfilled tags match
+            # the shape written by the fresh-path code (line ~1480).
+            if not result.get("bridges_fired"):
+                try:
+                    _scan_readout = (
+                        result.get("text_structural")
+                        or ent_early.get("draft", "")
+                        or ""
+                    )
+                    _tags = _scan_bridge_tags(_scan_readout, text or "")
+                    _clean = [
+                        (t[len("frontier_bridge="):]
+                         if t.startswith("frontier_bridge=")
+                         else t)
+                        for t in _tags
+                    ]
+                    if _clean:
+                        result["bridges_fired"] = _clean
+                        result["steer_cache_backfilled_bridges"] = True
                 except Exception:
                     pass
             return result
