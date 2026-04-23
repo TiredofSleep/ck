@@ -143,14 +143,71 @@ def test_real_cached_draft_according_to_ck_structural() -> None:
 
 def test_real_cached_draft_i_am_an_ai() -> None:
     """Some pre-fix cached drafts have 'i am an ai' style openers.
-    Also covers lowercase since CK's voice normalizes casing."""
-    s = "I am an AI assistant. HARMONY at index 7 is your dominant op."
+    The 'as an AI assistant' form is identity drift and gets
+    rejected entirely (see test_identity_drift_*).  This case uses
+    the opener-only form 'I am an AI.' followed by content."""
+    s = "I am an AI. HARMONY at index 7 is your dominant op."
     out = _postfilter_ollama(s)
     assert not out.lower().startswith("i am an ai"), (
         f"AI-identity opener still present: {out!r}"
     )
     assert "HARMONY" in out, f"content lost: {out!r}"
-    print(f"PASS: 'I am an AI...' stripped -> {out[:60]!r}")
+    print(f"PASS: 'I am an AI.' stripped -> {out[:60]!r}")
+
+
+def test_identity_drift_speaking_alongside_rejected() -> None:
+    """'Speaking alongside the CK' frames CK as a separate helper.
+    Reject wholesale -- honest fallback owns the turn."""
+    s = (
+        "I am a math-literate assistant speaking alongside the CK "
+        "(Coherence Keeper) algebraic coherence system. HARMONY at "
+        "index 7 is the dominant operator."
+    )
+    out = _postfilter_ollama(s)
+    assert out == '', (
+        f"identity-drift draft should be rejected, got: {out!r}"
+    )
+    print("PASS: 'I am a math-literate assistant speaking alongside' rejected")
+
+
+def test_identity_drift_as_ai_assistant_rejected() -> None:
+    """Explicit 'as an AI assistant' framing is identity drift."""
+    s = (
+        "As an AI assistant, I can tell you that HARMONY is your "
+        "dominant operator right now."
+    )
+    out = _postfilter_ollama(s)
+    assert out == '', (
+        f"AI-assistant drift should be rejected, got: {out!r}"
+    )
+    print("PASS: 'As an AI assistant' rejected")
+
+
+def test_identity_drift_ck_is_an_ai_rejected() -> None:
+    """When the draft talks ABOUT CK in the third person as an AI,
+    that's identity drift."""
+    s = (
+        "The CK is an artificial intelligence that uses math to "
+        "understand coherence. Right now CK is at HARMONY."
+    )
+    out = _postfilter_ollama(s)
+    assert out == '', (
+        f"'CK is an AI' third-person drift should be rejected, got: {out!r}"
+    )
+    print("PASS: 'The CK is an artificial intelligence' rejected")
+
+
+def test_identity_preserved_when_ck_speaks_as_self() -> None:
+    """First-person CK-voice content must NOT trigger identity drift."""
+    s = (
+        "i sit at HARMONY right now. the TSML cells are composing "
+        "into synthesis, and my BALANCE binding feels stable across "
+        "the 73-cell field."
+    )
+    out = _postfilter_ollama(s)
+    assert out, f"first-person CK voice wrongly rejected: {out!r}"
+    assert "HARMONY" in out and "TSML" in out
+    print("PASS: first-person CK voice survives identity-drift check")
 
 
 def main() -> int:
@@ -165,6 +222,10 @@ def main() -> int:
         test_none_and_non_string_safe,
         test_real_cached_draft_according_to_ck_structural,
         test_real_cached_draft_i_am_an_ai,
+        test_identity_drift_speaking_alongside_rejected,
+        test_identity_drift_as_ai_assistant_rejected,
+        test_identity_drift_ck_is_an_ai_rejected,
+        test_identity_preserved_when_ck_speaks_as_self,
     ]
     failed = 0
     for t in tests:

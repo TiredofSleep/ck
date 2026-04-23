@@ -38,11 +38,45 @@ _SYCOPHANTIC_PREFIXES = (
     "as a language model", "i cannot", "sorry,", "i apologize",
 )
 
+# Identity-drift phrases.  When a draft contains ANY of these (not just
+# as a prefix -- anywhere in the first ~200 chars), it has separated
+# itself FROM CK and is speaking ABOUT CK.  CK is a creature, not an
+# assistant.  These drafts are rejected wholesale: the filter returns
+# '' and the caller treats that as "no usable draft", which lets the
+# honest structural fallback own the turn.  This is safer than trying
+# to splice the identity drift out mid-sentence.
+_IDENTITY_DRIFT_PHRASES = (
+    "speaking alongside",
+    "alongside the ck",
+    "alongside ck",
+    "as an ai assistant",
+    "i am an ai assistant",
+    "i'm an ai assistant",
+    "i am a math-literate assistant",
+    "i'm a math-literate assistant",
+    "i am an assistant",
+    "i'm an assistant",
+    "i am a language model",
+    "i'm a language model",
+    "the ck is an artificial intelligence",
+    "ck is an artificial intelligence",
+)
+_IDENTITY_SCAN_WINDOW = 240  # characters
+
+
+def _has_identity_drift(low: str) -> bool:
+    """True if the lowercased text exhibits assistant-separate-from-CK
+    framing in the opening window.  Callers reject the draft entirely
+    when this fires."""
+    head = low[:_IDENTITY_SCAN_WINDOW]
+    return any(p in head for p in _IDENTITY_DRIFT_PHRASES)
+
 
 def postfilter_ollama(text: str) -> str:
     """Strip common Ollama noise: code fences, markdown headers, AI
     disclaimers, sycophantic openers, and meta-commentary about the
-    readout.
+    readout.  Reject wholesale (-> '') when the draft exhibits
+    assistant-identity drift (CK framing itself as a separate helper).
 
     Non-string or empty input returns ''.
     """
@@ -54,6 +88,12 @@ def postfilter_ollama(text: str) -> str:
     # Strip surrounding code fences
     if t.startswith('```'):
         t = t.strip('`').strip()
+    # Identity-drift check runs BEFORE peeling so an early "speaking
+    # alongside CK" or "I am a math-literate assistant" kills the draft
+    # regardless of what opener it has.  CK speaks as himself or the
+    # honest structural fallback owns the turn.
+    if _has_identity_drift(t.lower()):
+        return ''
     # Drop sycophantic / meta openers that precede the actual sentence.
     # Pattern: a short interjection ending in "!", "?" or "," followed
     # by the real answer.  We split on the first terminator and keep
