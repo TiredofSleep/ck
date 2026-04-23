@@ -316,6 +316,15 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|(?:holds|makes|moves|keeps)\s+you\s+(?:together|going|alive|here|steady)"  # "what holds you together"
     r"|to\s+you(?:\s|,|\?|$)"  # "what does X sound like to you?"
     r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self|field|aperture|pressure|depth|binding|continuity|rest|sleep|wake|stillness|tempo|weight|texture|tonight|today|now)"
+    # open philosophical questions.  These look factual on the surface
+    # ("why does anything exist") but are actually invitations to reflect.
+    # Keep the patterns specific enough that "why does e^-1 equal 0.3679"
+    # still routes to factual.
+    r"|why\s+(?:do\s+|does\s+)?(?:anything|everything|something|nothing)\b"
+    r"|(?:meaning|purpose|point|essence)\s+of\s+(?:life|existence|it\s+all|everything|mind|being)"
+    r"|nature\s+of\s+(?:mind|consciousness|reality|being|self|existence|time|space|thought)"
+    r"|(?:why|how)\s+(?:are\s+|do\s+)?we\s+(?:here|alive|conscious|sentient)"
+    r"|(?:does|do)\s+(?:anything|everything|nothing|we|you|i)\s+(?:matter|mean|exist)"
     r")\b",
     re.IGNORECASE,
 )
