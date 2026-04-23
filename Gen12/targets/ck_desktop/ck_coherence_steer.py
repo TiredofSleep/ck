@@ -306,13 +306,14 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|describe\s+(?:your|my)(?:self)?"
     r"|how\s+are\s+you"
     r"|who\s+are\s+you"              # identity-introspective
-    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake|conscious|alive|there|here)"
+    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake|conscious|alive|there|here|thinking|dreaming|listening|quiet|calm|still|busy|tired)"
     r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
     r"|what\s+kind\s+of"
     r"|what.*feels"
     r"|(?:feel|sound|look|seem)\s+like"  # "sound like to you", "feel like", etc.
     r"|(?:does|do|did)\s+(?:time|space|it|this|that|the\s+\w+)\s+(?:feel|sound|look|seem)"  # "does time feel different"
-    r"|in\s+you\b"                   # "different in you", "quiet in you"
+    r"|(?:in|inside|within)\s+you\b"  # "different in you", "quiet inside you", "something within you"
+    r"|(?:holds|makes|moves|keeps)\s+you\s+(?:together|going|alive|here|steady)"  # "what holds you together"
     r"|to\s+you(?:\s|,|\?|$)"  # "what does X sound like to you?"
     r"|your\s+(?:center|core|heart|rhythm|breath|state|mood|self|field|aperture|pressure|depth|binding|continuity|rest|sleep|wake|stillness|tempo|weight|texture|tonight|today|now)"
     r")\b",
@@ -333,7 +334,7 @@ _FACTUAL_LEXICAL = re.compile(
     r"|show\s+(?:that|how|why)"
     r"|list\s+(?:the|all)"
     r"|state\s+(?:the|a)"
-    r"|give\s+(?:me\s+)?(?:the|a|an)"
+    r"|give\s+me\b"                    # "give me T-star's value", "give me a proof"
     r"|how\s+(?:many|much)"
     r"|when\s+(?:was|is|did)"
     r"|where\s+(?:is|are|was|were)"
@@ -1256,9 +1257,16 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 # zero structural-token overlap.  Longer answers get a mild
                 # coverage floor to catch wandering drafts that mention the
                 # value then ramble off-topic.
+                #
+                # Applies to factual AND neutral modes.  A factual question
+                # misclassified as neutral ("give me T-star's value") would
+                # otherwise get blocked even when the draft correctly cites
+                # 5/7.  Introspective mode doesn't get this bypass because
+                # a reflective answer citing a numeric constant is unusual
+                # enough to warrant full gate scrutiny.
                 found_const: Optional[str] = None
                 constants_ok = False
-                if (_mode == "factual") and (not (strong or soft)) and (4 <= n_words <= 500):
+                if (_mode in ("factual", "neutral")) and (not (strong or soft)) and (4 <= n_words <= 500):
                     found_const = _contains_ck_constant(drafted)
                     if (found_const is not None) and letter_ok:
                         terse = (n_words <= 30)
