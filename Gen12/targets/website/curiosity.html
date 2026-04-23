@@ -374,7 +374,7 @@
     <div class="stat">
       <div class="stat-label">Meta</div>
       <div class="stat-value cyan" id="s-meta">&mdash;</div>
-      <div class="stat-sub">question-about-question</div>
+      <div class="stat-sub">questions about questions</div>
     </div>
     <div class="stat">
       <div class="stat-label">Organism</div>
@@ -426,7 +426,10 @@
     if (!shift || typeof shift !== 'string') return 'regular';
     const kind = shift.split(':')[0];
     if (kind === 'arc') return 'arc';
-    if (kind === 'meta') return 'meta';
+    // meta, meta_bridge, meta_op_gravity, meta_bridge_cold all use the
+    // "meta" visual treatment -- cyan left-border + kind chip -- so
+    // any question-about-questions entry stands out as such.
+    if (kind.startsWith('meta')) return 'meta';
     if (kind === 'organism') return 'organism';
     if (kind === 'T_star_cross') return 'T_star_cross';
     if (kind === 'first_observation') return 'first_observation';
@@ -486,7 +489,17 @@
     q('s-ticks').textContent    = s.tick_count ?? '&mdash;';
     q('s-questions').textContent= s.question_count ?? 0;
     q('s-arcs').textContent     = s.arc_count ?? 0;
-    q('s-meta').textContent     = s.meta_count ?? 0;
+    // Sum every meta-* counter so the "Meta" stat reflects ALL
+    // questions-about-questions (kind-streak + bridge-streak +
+    // op-gravity + bridge-cold).  The per-type breakdown is a
+    // tooltip so power-users can see the shape without cluttering
+    // the stat.
+    const mc  = s.meta_count ?? 0;
+    const mbc = s.meta_bridge_count ?? 0;
+    const mog = s.meta_op_gravity_count ?? 0;
+    const mbz = s.meta_bridge_cold_count ?? 0;
+    q('s-meta').textContent = mc + mbc + mog + mbz;
+    q('s-meta').title = `kind-streak=${mc} bridge-streak=${mbc} op-gravity=${mog} bridge-cold=${mbz}`;
     const ls = s.last_state || {};
     q('s-organism').textContent = ls.organism || '&mdash;';
     const coh = fmtCoh(ls.coherence);
