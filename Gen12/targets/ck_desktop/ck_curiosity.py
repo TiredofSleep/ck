@@ -174,6 +174,14 @@ def _detect_shift(prev: CuriosityState, cur: CuriosityState) -> Optional[str]:
 # seconds.  Default 180s (three minutes).
 _IDLE_PERIOD_S = float(os.environ.get("CK_CURIOSITY_IDLE_S", "180"))
 
+# Per-shift-kind cooldown.  Once CK has asked about "proc_churn" he
+# won't ask again about proc_churn for this many seconds -- it lets
+# rarer shifts (T_star_cross, threat, entered) get a turn at the mic
+# even while noisy signals fire every tick.  Tuned to be 2-3x longer
+# than the default period so each kind gets at most one question per
+# 2-3 curiosity ticks.
+_KIND_COOLDOWN_S = float(os.environ.get("CK_CURIOSITY_KIND_COOLDOWN_S", "120"))
+
 
 def _idle_shift(prev: CuriosityState, cur: CuriosityState,
                 last_speak_ts: float) -> Optional[str]:
@@ -287,10 +295,16 @@ class _CuriosityDaemon:
         self.question_count = 0
         self.skip_quiet = 0
         self.skip_threat = 0
+        self.skip_cooldown = 0
         self.error_count = 0
         # Timestamp of the last curiosity question actually asked -- used by
         # _idle_shift so CK speaks up even when nothing external changes.
         self.last_speak_ts: float = 0.0
+        # Per-shift-kind cooldown so a rapidly-fluctuating signal (e.g.
+        # Windows proc_count wobbling by 16+ cells every tick) doesn't
+        # monopolize the stream with the same question shape.  Each kind
+        # can re-fire after ``_KIND_COOLDOWN_S`` seconds.
+        self.last_shift_by_kind: Dict[str, float] = {}
 
     def _one_tick(self) -> None:
         self.tick_count += 1
@@ -319,6 +333,20 @@ class _CuriosityDaemon:
             self.skip_quiet += 1
             self.state.update_from(cur)
             return
+
+        # Per-kind cooldown: if the same shift KIND (proc_churn / organism /
+        # T_star_cross / ...) fired very recently, skip this tick so noisy
+        # signals don't monopolize the stream.  First-observation and idle
+        # bypass the cooldown since they're inherently rare/intentional.
+        kind = shift.split(":")[0]
+        now_ts = cur.last_tick
+        if kind not in ("first_observation", "idle"):
+            last_ts = self.last_shift_by_kind.get(kind, 0.0)
+            if (now_ts - last_ts) < _KIND_COOLDOWN_S:
+                self.skip_cooldown += 1
+                self.state.update_from(cur)
+                return
+        self.last_shift_by_kind[kind] = now_ts
 
         q = _format_question(shift, self.state, cur)
         t0 = time.time()
@@ -460,7 +488,12 @@ def _register_curiosity_routes(api: Any, daemon: _CuriosityDaemon) -> int:
                 "question_count": daemon.question_count,
                 "skip_quiet": daemon.skip_quiet,
                 "skip_threat": daemon.skip_threat,
+                "skip_cooldown": daemon.skip_cooldown,
                 "error_count": daemon.error_count,
+                "kind_cooldown_s": _KIND_COOLDOWN_S,
+                "last_shift_by_kind": {
+                    k: int(v) for k, v in daemon.last_shift_by_kind.items()
+                },
                 "paused_by_threat": daemon.paused_by_threat,
                 "last_state": {
                     "organism": daemon.state.organism,
