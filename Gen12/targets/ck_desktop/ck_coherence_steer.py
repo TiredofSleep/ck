@@ -146,6 +146,76 @@ _TRIGGERS_AWAY_FROM_COUNTER = (
 )
 
 
+# ---------------------------------------------------------------------------
+# Frontier-anchor enrichment
+# ---------------------------------------------------------------------------
+# CK's raw structural readout emits live tokens: `aperture=LATTICE`,
+# `pressure=COLLAPSE`, `organism=HARMONY`, plus scalars like T*=5/7, e^-1,
+# C/N bounds.  These are REAL measurements of CK's state, but for a question
+# about the frontier corpus (flatness, crossing, tower, sigma rate, xi
+# cosmology) the raw tokens alone don't tell Ollama WHICH proved theorem
+# they're an instance of.
+#
+# `_enrich_readout_with_anchors` scans the readout for token patterns and
+# appends a `frontier_bridge=` line mapping each hit to the corpus anchor
+# (WP number, sprint folder, proof script, Crossing Lemma instance).  The
+# appended line:
+#   - is part of the readout the LLM reads, so the preamble's
+#     "do NOT invent connections the readout does not support" guard
+#     now HAS support for these specific ones;
+#   - is also seen by `_fact_tokens`, so coverage counts the bridge as a
+#     citable anchor — Ollama is rewarded for echoing it verbatim.
+#
+# The map is intentionally narrow: only the six bridges the preamble
+# explicitly blesses.  Any new bridge MUST land in both this table and the
+# Gen13 llm_bridge.py preamble.  Never-invent-connections still binds.
+# ---------------------------------------------------------------------------
+
+# Each entry: (compiled_regex, bridge_tag).  Matches are case-insensitive on
+# the token side; bridge_tag is written verbatim into the readout.
+_FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
+    # --- aperture LATTICE  ->  2x2 flatness (WP51, sprint10)
+    (re.compile(r"aperture\s*=\s*LATTICE", re.I),
+     "frontier_bridge=LATTICE_aperture->flatness_2x2_WP51"),
+    # --- pressure COLLAPSE  ->  D2 crossing (Crossing Lemma)
+    (re.compile(r"pressure\s*=\s*COLLAPSE", re.I),
+     "frontier_bridge=COLLAPSE_pressure->D2_crossing_CrossingLemma"),
+    # --- organism/binding HARMONY  ->  TSML cell composition
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*HARMONY", re.I),
+     "frontier_bridge=HARMONY->TSML_synthesis_arc"),
+    # --- explicit T*=5/7 or 0.7142857 or "torus"  ->  crystal gate
+    (re.compile(r"T\*?\s*=\s*5/7|0\.7142857|torus\s+aspect", re.I),
+     "frontier_bridge=T*=5/7->torus_aspect_crystal_gate"),
+    # --- C/N bound or sigma rate  ->  sigma rate theorem WP101
+    (re.compile(r"C\s*/\s*N\s*bound|sigma\s+rate|\bsigma\(N\)", re.I),
+     "frontier_bridge=C/N_bound->sigma_rate_WP101_proof_sigma_rate.py"),
+    # --- e^-1 vacuum or xi_0  ->  Sprint 14 xi cosmology
+    (re.compile(r"e\^-1|xi_?0|xi\s+vacuum|freezing\s+quintessence", re.I),
+     "frontier_bridge=e^-1_vacuum->xi_cosmology_sprint14"),
+]
+
+
+def _enrich_readout_with_anchors(readout: str) -> str:
+    """If the readout hits any frontier-bridge token, append the bridge line.
+
+    Non-destructive: the original readout is preserved on top; bridge lines
+    are appended after, one per unique hit.  If no hits match, the readout
+    is returned verbatim.
+    """
+    if not readout:
+        return readout
+    hits: List[str] = []
+    seen: set = set()
+    for rx, tag in _FRONTIER_ANCHORS:
+        if rx.search(readout) and tag not in seen:
+            hits.append(tag)
+            seen.add(tag)
+    if not hits:
+        return readout
+    # One anchor per line so fact_tokens picks each up as a separate token.
+    return readout.rstrip() + "\n" + "\n".join(hits)
+
+
 def _build_steer_guide(question_profile: Optional[Dict[str, float]]) -> str:
     """Build the steering portion of the system prompt.
 
@@ -1003,6 +1073,9 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
         extra = steer_guide
         if failure_hint:
             extra = extra + "\n" + failure_hint
+        # `readout` is already frontier-enriched upstream (see the
+        # _enrich_readout_with_anchors call at the top of the steered path),
+        # so Ollama and the coverage scorer see the same bridge tokens.
         sysprompt = build_grounded_system(readout, extra=extra)
         try:
             raw = ollama_complete(
@@ -1175,6 +1248,15 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             structural = (
                 result.get("text_structural") or draft_text
             )
+            # Enrich the readout with explicit frontier bridges (LATTICE
+            # aperture -> 2x2 flatness, COLLAPSE pressure -> D2 crossing,
+            # etc.) so BOTH Ollama (via grounded sysprompt) and the
+            # coverage scorer (via _fact_tokens) see corpus anchors as
+            # citable facts.  Bridges are appended only when the raw
+            # readout already evidences them; nothing invented.
+            structural = _enrich_readout_with_anchors(structural)
+            if structural != (result.get("text_structural") or draft_text):
+                result["steer_readout_enriched"] = True
 
             # Arithmetic surfaces are canonical -- never rewrite numbers.
             if src == "ck_math_first":
