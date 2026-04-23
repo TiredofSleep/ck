@@ -1072,10 +1072,26 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 "external commentary"
             )
         elif mode == "factual":
-            parts.append(
-                "this is a factual question; cite the exact value and name "
-                "the operator, then one sentence of context -- no hedging"
-            )
+            # If the structural readout had NOTHING to cite (coverage total
+            # == 0), telling the model to "cite the exact value" is actively
+            # harmful -- it pushes Ollama toward hallucinating citations.
+            # Fall back to a weaker "be specific" nudge in that case.
+            try:
+                _hs, _ts = str(prev_attempt.get("coverage", "0/0")).split("/")
+                _t_total = int(_ts)
+            except Exception:
+                _t_total = 0
+            if _t_total == 0:
+                parts.append(
+                    "this is a factual question but the structural readout "
+                    "had no numeric anchors; keep the sentence specific and "
+                    "grounded -- do NOT invent citations, just answer directly"
+                )
+            else:
+                parts.append(
+                    "this is a factual question; cite the exact value and name "
+                    "the operator, then one sentence of context -- no hedging"
+                )
         if not parts:
             parts.append(
                 "previous draft did not cohere; retry with stronger "
