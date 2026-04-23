@@ -456,10 +456,13 @@
     return await r.json();
   }
 
+  // State we track for the "next tick in" countdown.
+  let _lastPeriodS = 45;
+  let _lastEntryTs = null;
+
   function renderStats(s) {
     const q = id => document.getElementById(id);
     q('s-ticks').textContent    = s.tick_count ?? '&mdash;';
-    q('s-period').textContent   = s.period_s ? `period ${s.period_s.toFixed(0)}s` : '';
     q('s-questions').textContent= s.question_count ?? 0;
     q('s-arcs').textContent     = s.arc_count ?? 0;
     q('s-meta').textContent     = s.meta_count ?? 0;
@@ -470,6 +473,23 @@
     q('s-coh').className        = 'stat-value ' + (coh.cls === 'hi' ? 'green' : coh.cls === 'mid' ? 'yellow' : '');
     q('s-layers').textContent   = (ls.active_layers != null) ? `layers ${ls.active_layers}` : '';
     q('s-threat').textContent   = ls.threat_band ? `threat: ${ls.threat_band}` : 'threat: clear';
+    _lastPeriodS = s.period_s || 45;
+    updatePeriodLine();
+  }
+
+  function updatePeriodLine() {
+    const el = document.getElementById('s-period');
+    if (!el) return;
+    const period = `period ${_lastPeriodS.toFixed(0)}s`;
+    if (_lastEntryTs == null) { el.textContent = period; return; }
+    const nowSec = Math.floor(Date.now() / 1000);
+    const elapsed = nowSec - _lastEntryTs;
+    const remaining = Math.max(0, Math.ceil(_lastPeriodS - elapsed));
+    if (elapsed < _lastPeriodS) {
+      el.textContent = `next in ${remaining}s`;
+    } else {
+      el.textContent = `overdue by ${elapsed - Math.floor(_lastPeriodS)}s`;
+    }
   }
 
   function renderEntry(e) {
@@ -512,6 +532,9 @@
     // Newest first, capped at MAX_ENTRIES.
     const recent = entries.slice().reverse().slice(0, MAX_ENTRIES);
     feed.innerHTML = recent.map(renderEntry).join('');
+    // Remember the most-recent timestamp so the "next in X" countdown
+    // stays accurate between polls.
+    _lastEntryTs = recent[0]?.ts || null;
   }
 
   async function tick() {
@@ -531,6 +554,8 @@
 
   tick();
   setInterval(tick, POLL_MS);
+  // Second-hand countdown for the "next in Xs" line -- cheaper than re-polling.
+  setInterval(updatePeriodLine, 1000);
 </script>
 
 </body>
