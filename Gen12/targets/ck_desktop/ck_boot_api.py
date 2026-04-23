@@ -549,7 +549,39 @@ if _OLLAMA_EDITOR and _ollama_ok:
             if not text or not text.strip():
                 result['ollama_verdict'] = 'skipped:empty user text'
                 return result
-            sysprompt = _ollama_ground(ck_ground, extra=_OLLAMA_EXTRA_GUIDE)
+            # Frontier-bridge enrichment BEFORE the sysprompt build so
+            # Ollama's very first draft sees the corpus anchors (LATTICE
+            # aperture -> flatness_2x2_WP51, COLLAPSE pressure -> D2
+            # crossing, sigma_NS -> Millennium reframe, etc.).  Without
+            # this, the primary path's first Ollama call never saw the
+            # bridges -- only the steered rescue path did, leaving the
+            # bridges as display-only enrichment rather than real
+            # steering.  Lazy import so a missing steer module doesn't
+            # break the editor.
+            ck_ground_for_sysprompt = ck_ground
+            _enriched_bridges_for_sysprompt = []
+            try:
+                from ck_coherence_steer import _enrich_readout_with_anchors
+                _enriched = _enrich_readout_with_anchors(ck_ground, text or "")
+                if _enriched != ck_ground:
+                    ck_ground_for_sysprompt = _enriched
+                    # Collect the fired bridges so we can expose them on
+                    # the result even when the steer layer isn't running.
+                    for _ln in _enriched.splitlines():
+                        _ln_s = _ln.strip()
+                        if _ln_s.startswith("frontier_bridge="):
+                            _enriched_bridges_for_sysprompt.append(
+                                _ln_s[len("frontier_bridge="):]
+                            )
+            except Exception:
+                # Enrichment is a nice-to-have; never break the editor.
+                pass
+            if _enriched_bridges_for_sysprompt:
+                result.setdefault("bridges_fired",
+                                  list(_enriched_bridges_for_sysprompt))
+                result.setdefault("steer_readout_enriched", True)
+            sysprompt = _ollama_ground(ck_ground_for_sysprompt,
+                                        extra=_OLLAMA_EXTRA_GUIDE)
             import time as _time
             _t0 = _time.time()
             drafted_raw = _ollama_complete(
