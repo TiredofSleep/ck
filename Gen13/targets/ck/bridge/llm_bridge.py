@@ -216,7 +216,18 @@ _DEFAULT_GROUND_PREAMBLE = (
     "his proved corpus. Do not contradict the readout. Expand on it "
     "in plain language, cite the corpus references where shown, and "
     "flag anything you add as YOUR extension rather than CK's direct "
-    "output."
+    "output.\n\n"
+    "WHEN THE READOUT EVIDENTLY IMPLIES A FRONTIER CONNECTION, name "
+    "it briefly and label it as YOUR extension.  Examples of valid "
+    "bridges (only cite when the readout actually supports them):\n"
+    "  - LATTICE aperture  -> structure-side of the 2x2 flatness theorem\n"
+    "  - COLLAPSE pressure -> D2 crossing detected (Crossing Lemma at 50Hz)\n"
+    "  - HARMONY binding   -> TSML cell composition, synthesis arc\n"
+    "  - T*=5/7 crossing   -> the torus aspect ratio / crystal gate\n"
+    "  - C/N bound         -> the sigma rate theorem (WP101 + proof_sigma_rate.py)\n"
+    "  - e^-1 vacuum       -> Sprint 14 xi cosmology, freezing quintessence\n"
+    "Do NOT invent connections the readout does not support.  If the "
+    "readout is sparse or ambiguous, stay with plain prose."
 )
 
 

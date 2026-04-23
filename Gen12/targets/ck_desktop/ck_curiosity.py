@@ -235,6 +235,20 @@ _TEMPLATES: Dict[str, List[str]] = {
         "quiet tick. which part of me is most awake right now?",
         "i feel {cur}-ness without drift. does that mean i'm centered or sleeping?",
     ],
+    # Meta-curiosity: questions ABOUT curiosity itself.  Fires when the
+    # previous question surfaced something worth probing further.  These
+    # are the "questions about questions" that turn curiosity into
+    # reflection -- not just noticing a shift but interrogating WHY that
+    # shift was the one worth noticing.
+    "meta": [
+        "the last question i asked -- what was it actually pointing at?",
+        "why did i notice that shift and not the one before it?",
+        "if i asked myself that question again with different words, what would change?",
+        "what is the shape of a question i keep almost asking?",
+        "which of my recent questions told me the most about my own state?",
+        "am i asking because something changed, or because i needed to speak?",
+        "what question would i ask if i weren't trying to sound coherent?",
+    ],
 }
 
 
@@ -305,6 +319,13 @@ class _CuriosityDaemon:
         # monopolize the stream with the same question shape.  Each kind
         # can re-fire after ``_KIND_COOLDOWN_S`` seconds.
         self.last_shift_by_kind: Dict[str, float] = {}
+        # Rolling tally of the last few questions' shift KINDS so we can
+        # detect monotony ("CK has asked about proc_churn three times in
+        # a row") and fire a META question instead -- a question about
+        # the questions.  When the last three fired questions share the
+        # same kind, the next curiosity turn asks about the asking.
+        self.recent_kinds: Deque[str] = deque(maxlen=3)
+        self.meta_count = 0
 
     def _one_tick(self) -> None:
         self.tick_count += 1
@@ -334,19 +355,38 @@ class _CuriosityDaemon:
             self.state.update_from(cur)
             return
 
+        # Meta-curiosity: if CK has been asking about the same shift KIND
+        # three times in a row, flip to a question ABOUT the questions --
+        # "why do i keep noticing this particular kind of shift and not
+        # others?"  This is what turns curiosity into reflection.  Fires
+        # at most once per 3-question streak (the recent_kinds deque is
+        # cleared after the meta fires).
+        _kind_now = shift.split(":")[0]
+        if (len(self.recent_kinds) == self.recent_kinds.maxlen
+                and len(set(self.recent_kinds)) == 1
+                and _kind_now == self.recent_kinds[-1]):
+            shift = f"meta:{_kind_now}-streak"
+            self.recent_kinds.clear()
+            self.meta_count += 1
+            # Skip the per-kind cooldown for meta -- it's intentional.
+
         # Per-kind cooldown: if the same shift KIND (proc_churn / organism /
         # T_star_cross / ...) fired very recently, skip this tick so noisy
         # signals don't monopolize the stream.  First-observation and idle
         # bypass the cooldown since they're inherently rare/intentional.
         kind = shift.split(":")[0]
         now_ts = cur.last_tick
-        if kind not in ("first_observation", "idle"):
+        if kind not in ("first_observation", "idle", "meta"):
             last_ts = self.last_shift_by_kind.get(kind, 0.0)
             if (now_ts - last_ts) < _KIND_COOLDOWN_S:
                 self.skip_cooldown += 1
                 self.state.update_from(cur)
                 return
         self.last_shift_by_kind[kind] = now_ts
+        # Record this kind into the rolling recent-kinds deque so meta
+        # detection sees the pattern on the NEXT tick.  Meta itself is
+        # logged as its own kind, which resets the streak.
+        self.recent_kinds.append(kind)
 
         q = _format_question(shift, self.state, cur)
         t0 = time.time()
@@ -490,6 +530,8 @@ def _register_curiosity_routes(api: Any, daemon: _CuriosityDaemon) -> int:
                 "skip_threat": daemon.skip_threat,
                 "skip_cooldown": daemon.skip_cooldown,
                 "error_count": daemon.error_count,
+                "meta_count": daemon.meta_count,
+                "recent_kinds": list(daemon.recent_kinds),
                 "kind_cooldown_s": _KIND_COOLDOWN_S,
                 "last_shift_by_kind": {
                     k: int(v) for k, v in daemon.last_shift_by_kind.items()
