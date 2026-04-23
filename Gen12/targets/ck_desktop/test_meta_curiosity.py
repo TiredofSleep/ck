@@ -178,6 +178,49 @@ def test_format_degrades_gracefully_on_malformed_shift() -> None:
     print(f"PASS: malformed shift falls back: {q[:70]}")
 
 
+# ---------------------------------------------------------------------------
+# recent_questions dedup
+# ---------------------------------------------------------------------------
+
+
+def test_dedup_avoids_recent_repeats() -> None:
+    """_format_question should avoid picking a template whose formatted
+    string matches an entry in recent_questions when alternatives exist.
+
+    We fire meta_op_gravity 100x; if every picked template had been
+    consulted blindly, the same sentence would recur on most calls given
+    a 4-5 entry bucket.  With recent_questions=[last_q] dedup, two
+    consecutive calls should almost never produce the same sentence.
+    """
+    s = CuriosityState()
+    s.organism = "BALANCE"
+    prev_q = None
+    repeats = 0
+    for _ in range(100):
+        q = _format_question("meta_op_gravity:4:HARMONY", s, s,
+                             recent_questions=[prev_q] if prev_q else None)
+        if q == prev_q:
+            repeats += 1
+        prev_q = q
+    # With 3 tries across a bucket of 4+ templates, probability of
+    # forcing a repeat (all 3 picks hit the same sentence) is tiny.
+    # Allow a generous ceiling to avoid flakiness on small buckets.
+    assert repeats <= 5, (
+        f"dedup failed: {repeats}/100 back-to-back repeats (expected <=5)"
+    )
+    print(f"PASS: recent_questions dedup holds repeats to {repeats}/100")
+
+
+def test_dedup_backward_compatible_without_param() -> None:
+    """Callers that don't pass recent_questions still get a valid
+    single pick (no crash, no repeat-loop overhead)."""
+    s = CuriosityState()
+    s.organism = "BALANCE"
+    q = _format_question("meta_op_gravity:4:HARMONY", s, s)
+    assert q and "HARMONY" in q, f"legacy call form broken: {q!r}"
+    print("PASS: _format_question still works without recent_questions kwarg")
+
+
 def main() -> int:
     tests = [
         test_bridge_streak_fires_on_3_of_5,
@@ -190,6 +233,8 @@ def main() -> int:
         test_format_meta_op_gravity,
         test_format_meta_bridge_cold,
         test_format_degrades_gracefully_on_malformed_shift,
+        test_dedup_avoids_recent_repeats,
+        test_dedup_backward_compatible_without_param,
     ]
     failed = 0
     for t in tests:

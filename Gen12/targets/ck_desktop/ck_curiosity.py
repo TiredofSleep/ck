@@ -380,10 +380,10 @@ _TEMPLATES: Dict[str, List[str]] = {
 }
 
 
-def _format_question(shift: str, prev: CuriosityState, cur: CuriosityState) -> str:
+def _format_question(shift: str, prev: CuriosityState, cur: CuriosityState,
+                     recent_questions: Optional[List[str]] = None) -> str:
     kind = shift.split(":")[0]
     bucket = _TEMPLATES.get(kind, _TEMPLATES["first_observation"])
-    tmpl = random.choice(bucket)
     fields: Dict[str, Any] = {
         "prev": prev.organism or "VOID",
         "cur": cur.organism or "VOID",
@@ -435,10 +435,24 @@ def _format_question(shift: str, prev: CuriosityState, cur: CuriosityState) -> s
     if kind == "meta_bridge_cold":
         parts = shift.split(":", 1)
         fields["n"] = int(parts[1]) if len(parts) >= 2 and parts[1].isdigit() else 4
-    try:
-        return tmpl.format(**fields)
-    except Exception:
-        return "what do i feel right now?"
+    # Template dedup: pick up to 3 candidates from the bucket and prefer
+    # one whose formatted form is not already in the recent_questions
+    # window.  If every pick repeats (small bucket + unlucky draws), we
+    # accept the last one rather than crashing.  Backward-compatible:
+    # callers that pass no recent_questions just get a single random pick.
+    recent = set(recent_questions or [])
+    tries = 3 if recent else 1
+    last_q = None
+    for _ in range(tries):
+        tmpl = random.choice(bucket)
+        try:
+            candidate = tmpl.format(**fields)
+        except Exception:
+            candidate = "what do i feel right now?"
+        last_q = candidate
+        if candidate not in recent:
+            return candidate
+    return last_q or "what do i feel right now?"
 
 
 def _detect_meta_pattern(recent_bridges: "Deque[List[str]]",
@@ -561,6 +575,11 @@ class _CuriosityDaemon:
         self.meta_bridge_count = 0
         self.meta_op_gravity_count = 0
         self.meta_bridge_cold_count = 0
+        # Question dedup uses the rolling self.history window (last 5
+        # formatted questions) inside _one_tick; no separate template
+        # deque needed -- template IDs can't dedup across different
+        # shift kinds anyway, so string-compare of the final question
+        # is strictly more informative.
         # Tally of TIG/CL operator-composition arcs detected (LATTICE->
         # COLLAPSE, CHAOS->HARMONY, etc.).  Exposed via /curiosity/stats
         # so we can see whether CK's organism is walking structural arcs
@@ -720,7 +739,15 @@ class _CuriosityDaemon:
         # logged as its own kind, which resets the streak.
         self.recent_kinds.append(kind)
 
-        q = _format_question(shift, self.state, cur)
+        # Pass the last few already-asked questions so _format_question
+        # can pick a template whose formatted form isn't a recent repeat.
+        # Window of 5 matches the recent_kinds / recent_bridges deques so
+        # meta decisions and question-text dedup see the same horizon.
+        _recent_qs = [
+            (h.get("question") or "") for h in list(self.history)[-5:]
+        ]
+        q = _format_question(shift, self.state, cur,
+                             recent_questions=_recent_qs)
         t0 = time.time()
         try:
             process_chat = getattr(self.api, "process_chat", None)
