@@ -270,6 +270,27 @@
     }
     .entry-a.err { color: var(--orange); }
 
+    /* Frontier-bridge pills:  corpus anchors CK cited on this turn */
+    .entry-bridges {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .bridge-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.3px;
+      color: var(--cyan);
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .bridge-pill:hover { background: rgba(34, 211, 238, 0.16); }
+
     .empty {
       text-align: center;
       color: var(--text-3);
@@ -505,6 +526,19 @@
     const answer = e.error
       ? `<div class="entry-a err">[${escapeHtml(e.error)}]</div>`
       : (e.answer ? `<div class="entry-a">${escapeHtml(e.answer)}</div>` : '');
+    // Bridge pills: which corpus anchors fired on this turn.
+    let bridges = '';
+    if (Array.isArray(e.bridges) && e.bridges.length > 0) {
+      const pills = e.bridges.slice(0, 6).map(b => {
+        // Each bridge is "LABEL->target"; show the LABEL side as the
+        // visible text, full "LABEL->target" in the title tooltip.
+        const bs = String(b);
+        const arrow = bs.indexOf('->');
+        const label = arrow > 0 ? bs.slice(0, arrow) : bs;
+        return `<span class="bridge-pill" title="${escapeHtml(bs)}">${escapeHtml(label)}</span>`;
+      }).join('');
+      bridges = `<div class="entry-bridges">${pills}</div>`;
+    }
     const q = escapeHtml(e.question || '(no question)');
     return `
       <div class="entry ${cls}${isNew ? ' new' : ''}">
@@ -518,6 +552,7 @@
         </div>
         <div class="entry-q">${q}</div>
         ${answer}
+        ${bridges}
       </div>`;
   }
 

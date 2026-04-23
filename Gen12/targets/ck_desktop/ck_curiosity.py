@@ -507,6 +507,25 @@ class _CuriosityDaemon:
             band = resp.get("security_threat_band")
             if isinstance(band, str):
                 cur.threat_band = band
+            # Frontier-bridge anchors that fired on this turn.  The
+            # steer module exposes them directly as `bridges_fired` --
+            # uniform across fresh generations and cache fastpath hits
+            # via the meta roundtrip.  Fall back to parsing
+            # text_structural only if the uniform field is missing
+            # (older cache entries or non-steered paths).
+            _bridges: List[str] = []
+            try:
+                _direct = resp.get("bridges_fired")
+                if isinstance(_direct, list) and _direct:
+                    _bridges = [str(x) for x in _direct]
+                else:
+                    _struct = resp.get("text_structural") or ""
+                    for _ln in _struct.splitlines():
+                        _ln = _ln.strip()
+                        if _ln.startswith("frontier_bridge="):
+                            _bridges.append(_ln[len("frontier_bridge="):])
+            except Exception:
+                _bridges = []
             entry = {
                 "ts": int(time.time()),
                 "shift": shift,
@@ -517,6 +536,7 @@ class _CuriosityDaemon:
                 "gate_pass": resp.get("brain_gate_pass"),
                 "dominant_op": resp.get("brain_dominant_op"),
                 "organism": resp.get("body_organism_bc"),
+                "bridges": _bridges,
                 "dt_ms": int(dt * 1000),
             }
             self.history.append(entry)

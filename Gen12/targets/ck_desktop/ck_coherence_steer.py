@@ -1400,6 +1400,9 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             if _meta.get("steer_query_mode"):
                 result.setdefault("steer_query_mode",
                                   _meta["steer_query_mode"])
+            if _meta.get("bridges_fired"):
+                result.setdefault("bridges_fired",
+                                  list(_meta["bridges_fired"]))
 
             # Backfill for OLDER cache entries (written before the meta
             # roundtrip patch) that lack `brain_dominant_op`.  Re-score
@@ -1435,6 +1438,17 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             structural = _enrich_readout_with_anchors(structural, text or "")
             if structural != (result.get("text_structural") or draft_text):
                 result["steer_readout_enriched"] = True
+            # Extract the list of bridge tags that fired so callers
+            # (curiosity daemon, web UI) can show them without having
+            # to re-parse text_structural.  Stable field survives the
+            # cache fastpath via the meta roundtrip below.
+            _bridges_fired: List[str] = []
+            for _ln in structural.splitlines():
+                _ln = _ln.strip()
+                if _ln.startswith("frontier_bridge="):
+                    _bridges_fired.append(_ln[len("frontier_bridge="):])
+            if _bridges_fired:
+                result["bridges_fired"] = _bridges_fired
 
             # Arithmetic surfaces are canonical -- never rewrite numbers.
             if src == "ck_math_first":
