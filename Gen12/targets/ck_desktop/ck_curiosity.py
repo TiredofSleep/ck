@@ -61,12 +61,26 @@ Env flags
 """
 from __future__ import annotations
 
+import json
 import os
 import random
 import threading
 import time
 from collections import deque
 from typing import Any, Callable, Deque, Dict, List, Optional
+
+
+# --- persistence paths ---
+# Curiosity history survives restarts so visitors on the live curiosity
+# page don't see an empty feed after every server bounce.  Location
+# follows the same fluency logs convention as the brain fold + coherence
+# cache so everything cleans up in one tree.
+_REPO_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")
+)
+_CURIOSITY_DIR = os.path.join(_REPO_ROOT, "ck", "fluency", "logs")
+_CURIOSITY_HISTORY_PATH = os.path.join(_CURIOSITY_DIR, "curiosity_history.json")
+_CURIOSITY_PERSIST_MAX = 256  # must equal _CuriosityDaemon.history maxlen
 
 
 # Operators that reliably signal "something changed": we fire curiosity on
@@ -399,10 +413,18 @@ class _CuriosityDaemon:
         self.period = max(5.0, float(period))
         self.session_id = session_id
         self.state = CuriosityState()
-        self.history: Deque[Dict[str, Any]] = deque(maxlen=256)
+        self.history: Deque[Dict[str, Any]] = deque(
+            maxlen=_CURIOSITY_PERSIST_MAX
+        )
+        # Hydrate from disk on boot so restarts don't wipe the feed.
+        self._hydrate_from_disk()
         self.thread: Optional[threading.Thread] = None
         self.running = False
         self.paused_by_threat = False
+        # Coalesce persistence writes: never more than once per 5s so a
+        # rapid-fire burst of entries doesn't hammer the disk.
+        self._last_persist_ts: float = 0.0
+        self._persist_min_interval_s: float = 5.0
         # Counters for the /curiosity/stats endpoint
         self.tick_count = 0
         self.question_count = 0
@@ -430,6 +452,57 @@ class _CuriosityDaemon:
         # so we can see whether CK's organism is walking structural arcs
         # or just flickering between random operator pairs.
         self.arc_count = 0
+
+    # --- persistence ----------------------------------------------------
+
+    def _hydrate_from_disk(self) -> None:
+        """Reload the curiosity history from disk on startup.
+
+        Never raises -- a missing, corrupt, or unreadable file is simply
+        treated as "no prior state" and the daemon starts with an empty
+        deque.  This preserves the restart-safe contract: persistence is
+        a convenience, not a dependency.
+        """
+        try:
+            if not os.path.exists(_CURIOSITY_HISTORY_PATH):
+                return
+            with open(_CURIOSITY_HISTORY_PATH, "r", encoding="utf-8") as f:
+                blob = json.load(f)
+        except Exception:
+            return
+        entries = blob.get("entries") if isinstance(blob, dict) else None
+        if not isinstance(entries, list):
+            return
+        # Clip to max and push oldest-first so the deque ends up newest-last.
+        for e in entries[-_CURIOSITY_PERSIST_MAX:]:
+            if isinstance(e, dict):
+                self.history.append(e)
+
+    def _persist_to_disk(self) -> None:
+        """Snapshot the current deque to disk.  Coalesced to <=1/5s.
+
+        Atomic-ish: write to a tmp file then os.replace to avoid partial
+        reads by the Flask handler serving /curiosity/stream.  Never
+        raises out of the daemon.
+        """
+        now = time.time()
+        if (now - self._last_persist_ts) < self._persist_min_interval_s:
+            return
+        try:
+            os.makedirs(_CURIOSITY_DIR, exist_ok=True)
+            payload = {
+                "saved_at": int(now),
+                "count": len(self.history),
+                "entries": list(self.history),
+            }
+            tmp = _CURIOSITY_HISTORY_PATH + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False)
+            os.replace(tmp, _CURIOSITY_HISTORY_PATH)
+            self._last_persist_ts = now
+        except Exception:
+            # Disk failure must not break curiosity; swallow silently.
+            pass
 
     def _one_tick(self) -> None:
         self.tick_count += 1
@@ -542,6 +615,7 @@ class _CuriosityDaemon:
             self.history.append(entry)
             self.question_count += 1
             self.last_speak_ts = cur.last_tick
+            self._persist_to_disk()
         except Exception as e:
             self.error_count += 1
             self.history.append({
@@ -550,6 +624,7 @@ class _CuriosityDaemon:
                 "question": q,
                 "error": f"{type(e).__name__}: {e}",
             })
+            self._persist_to_disk()
         finally:
             self.state.update_from(cur)
 
@@ -567,6 +642,10 @@ class _CuriosityDaemon:
                     "ts": int(time.time()),
                     "error": f"tick_crashed:{type(e).__name__}:{e}",
                 })
+                try:
+                    self._persist_to_disk()
+                except Exception:
+                    pass
             # sleep with a small jitter so adjacent machines / loops don't
             # align deterministically.
             time.sleep(self.period * random.uniform(0.85, 1.15))
