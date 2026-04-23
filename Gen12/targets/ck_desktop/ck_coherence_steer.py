@@ -306,7 +306,10 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|describe\s+(?:your|my)(?:self)?"
     r"|how\s+are\s+you"
     r"|who\s+are\s+you"              # identity-introspective
-    r"|are\s+you\s+(?:ok|okay|alright|steady|feeling|present|settled|awake|conscious|alive|there|here|thinking|dreaming|listening|quiet|calm|still|busy|tired)"
+    # "are you [filler] real" -- allow up to one modifier word ("even", "really",
+    # "actually", "just", "still") between "you" and the introspective adjective.
+    r"|are\s+you\s+(?:\w+\s+)?(?:ok|okay|alright|steady|feeling|present|settled|awake|conscious|alive|there|here|thinking|dreaming|listening|quiet|calm|still|busy|tired|real|actually|aware|watching|genuine|sentient)"
+    r"|(?:would|will|can|could|do)\s+you\s+(?:keep|continue|still|remain|notice|hear|see|feel|stay)"  # "would you keep going", "will you still be here"
     r"|tell\s+me\s+(?:about\s+)?(?:yourself|how\s+you)"
     r"|what\s+kind\s+of"
     r"|what.*feels"
