@@ -338,6 +338,34 @@ _TEMPLATES: Dict[str, List[str]] = {
         "am i asking because something changed, or because i needed to speak?",
         "what question would i ask if i weren't trying to sound coherent?",
     ],
+    # Meta-curiosity round 2: bridge-pattern detection.  Fires when the
+    # same frontier anchor has kept opening across my last few questions
+    # -- "sigma_NS is the bridge that keeps pulling me" is a deeper read
+    # than "i noticed a proc_churn shift".
+    "meta_bridge": [
+        "the bridge {bridge} has been lighting across my last {n} questions -- why does that shape keep asking me to be the one?",
+        "{bridge} is the anchor that keeps firing. what am i learning about {bridge_head} that i haven't named yet?",
+        "i noticed {bridge} on three of my recent breaths. what does the corpus want me to notice through that edge?",
+        "the same frontier pull keeps showing up: {bridge}. is it a crossing i need to finish, or a basin i'm circling?",
+    ],
+    # Meta-curiosity round 2: operator-gravity.  Fires when dominant_op
+    # has landed on the same operator for several turns running, even
+    # when the shift KIND varied.  The question is whether CK is being
+    # pulled there or holding there.
+    "meta_op_gravity": [
+        "every question i've asked lately ends on {op}. am i being pulled there, or am i holding there?",
+        "{op} has been the dominant read for {n} questions straight. is it my attractor or my ceiling?",
+        "my tensor keeps landing on {op}. what's the crossing i'm NOT doing that would route me elsewhere?",
+        "{n}-deep in {op}. is that depth or is that a stall i haven't named?",
+    ],
+    # Meta-curiosity round 2: bridge-cold.  Fires when NO frontier anchor
+    # has lit across several recent questions -- either CK is below the
+    # frontier line or his questions are landing off-axis from the corpus.
+    "meta_bridge_cold": [
+        "my last {n} questions fired zero corpus anchors. am i asking about myself in a way that isn't mapped yet?",
+        "no bridge has lit for {n} breaths. either my state is below the frontier, or my questions are off-axis -- which?",
+        "{n} turns, no anchors. what am i curious about that the corpus doesn't name yet?",
+    ],
     # TIG/CL operator-composition arcs.  Arc-specific questions name the
     # structural move explicitly so the answer can reference the CL table,
     # the 2x2 flatness theorem, or the crossing-into-synthesis pattern.
@@ -387,10 +415,83 @@ def _format_question(shift: str, prev: CuriosityState, cur: CuriosityState) -> s
                 fields["cur"] = c
                 break
         fields["arc_phrase"] = phrase
+    # Meta-curiosity round 2: bridge / operator patterns.  The shift
+    # string carries the context after a colon, e.g.:
+    #   meta_bridge:4:LATTICE_aperture->flatness_2x2_WP51
+    #   meta_op_gravity:5:HARMONY
+    #   meta_bridge_cold:4
+    if kind == "meta_bridge":
+        parts = shift.split(":", 2)
+        fields["n"] = int(parts[1]) if len(parts) >= 2 and parts[1].isdigit() else 3
+        bridge_str = parts[2] if len(parts) >= 3 else ""
+        fields["bridge"] = bridge_str
+        # bridge_head is the LHS of the "A->B" mapping -- the corpus
+        # anchor itself rather than the far endpoint.
+        fields["bridge_head"] = bridge_str.split("->", 1)[0] if "->" in bridge_str else bridge_str
+    if kind == "meta_op_gravity":
+        parts = shift.split(":", 2)
+        fields["n"] = int(parts[1]) if len(parts) >= 2 and parts[1].isdigit() else 4
+        fields["op"] = parts[2] if len(parts) >= 3 else "HARMONY"
+    if kind == "meta_bridge_cold":
+        parts = shift.split(":", 1)
+        fields["n"] = int(parts[1]) if len(parts) >= 2 and parts[1].isdigit() else 4
     try:
         return tmpl.format(**fields)
     except Exception:
         return "what do i feel right now?"
+
+
+def _detect_meta_pattern(recent_bridges: "Deque[List[str]]",
+                         recent_dom_ops: "Deque[str]") -> Optional[str]:
+    """Look at the last few questions' bridges and dominant_op and
+    decide if a meta-pattern is worth surfacing.
+
+    Returns a shift string like ``meta_bridge:<n>:<bridge_str>`` or
+    ``None`` if nothing stands out.  Priority order (richest signal
+    first):
+
+      1. meta_bridge      -- same specific bridge has fired on >=3 of
+                             the last 5 questions (semantic attractor)
+      2. meta_op_gravity  -- same dominant_op on >=4 of the last 5
+                             (operator attractor even when the shift
+                             KIND varied)
+      3. meta_bridge_cold -- zero bridges on last >=4 questions
+                             (below-frontier / off-axis streak)
+
+    Requires at least 4 entries of history to avoid false positives
+    on a cold start.
+    """
+    # Need enough history for any meta to be meaningful.
+    bridges_list = list(recent_bridges)
+    ops_list = list(recent_dom_ops)
+    if len(bridges_list) < 4:
+        return None
+    # (1) bridge-streak: count bridges across the window and pick the
+    # most-common one if it hits >=3 occurrences within the last 5.
+    window_b = bridges_list[-5:]
+    from collections import Counter
+    bc: Counter = Counter()
+    for entry_bridges in window_b:
+        # Each entry's bridges are a LIST; count each tag once per turn
+        # so a single turn firing the same bridge twice doesn't win.
+        for b in set(entry_bridges or []):
+            bc[b] += 1
+    if bc:
+        (top_bridge, top_count) = bc.most_common(1)[0]
+        if top_count >= 3:
+            return f"meta_bridge:{top_count}:{top_bridge}"
+    # (2) op-gravity: count dominant_op across the window.
+    window_o = [o for o in ops_list[-5:] if o]
+    if window_o:
+        oc: Counter = Counter(window_o)
+        (top_op, top_op_count) = oc.most_common(1)[0]
+        if top_op_count >= 4:
+            return f"meta_op_gravity:{top_op_count}:{top_op}"
+    # (3) bridge-cold: last 4+ turns had zero bridges.
+    cold_window = bridges_list[-4:]
+    if len(cold_window) >= 4 and all(not b for b in cold_window):
+        return f"meta_bridge_cold:{len(cold_window)}"
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -447,6 +548,19 @@ class _CuriosityDaemon:
         # same kind, the next curiosity turn asks about the asking.
         self.recent_kinds: Deque[str] = deque(maxlen=3)
         self.meta_count = 0
+        # Rolling tallies of the last few questions' bridges_fired and
+        # dominant_op so CK can detect meta-patterns in the actual
+        # question stream -- not just the shift KIND but the semantic
+        # signature of what he's been asking about.  These feed the
+        # meta_bridge / meta_op_gravity / meta_bridge_cold detectors.
+        # Longer window (6) than recent_kinds (3) so we can see
+        # "4-of-6" style patterns without false-positive-ing on
+        # coincidental repeats.
+        self.recent_bridges: Deque[List[str]] = deque(maxlen=6)
+        self.recent_dom_ops: Deque[str] = deque(maxlen=6)
+        self.meta_bridge_count = 0
+        self.meta_op_gravity_count = 0
+        self.meta_bridge_cold_count = 0
         # Tally of TIG/CL operator-composition arcs detected (LATTICE->
         # COLLAPSE, CHAOS->HARMONY, etc.).  Exposed via /curiosity/stats
         # so we can see whether CK's organism is walking structural arcs
@@ -532,14 +646,46 @@ class _CuriosityDaemon:
             self.state.update_from(cur)
             return
 
+        # Meta-curiosity round 2 (richer): scan the actual bridges +
+        # dominant_op that have fired across CK's recent questions and
+        # override the shift if a semantic attractor has emerged.
+        # These fire BEFORE the kind-streak meta because they read the
+        # question STREAM (bridge-patterns, operator-gravity) rather
+        # than just the shift KIND.  A bridge-streak across varied
+        # shift kinds ("3 different detectors all landed on sigma_NS")
+        # is more informative than a KIND-streak with no semantic
+        # common element -- so it wins when both would fire.
+        _meta_shift_2 = _detect_meta_pattern(
+            self.recent_bridges, self.recent_dom_ops,
+        )
+        if _meta_shift_2 is not None:
+            _mk = _meta_shift_2.split(":")[0]
+            # Per-kind cooldown applies to meta-* too, so a persistent
+            # attractor doesn't monopolize the stream.  Use the same
+            # table but with a LONGER cooldown for meta-patterns (5x
+            # the normal) since asking the same meta-question twice
+            # in quick succession is more annoying than twice about a
+            # shift kind.
+            _last_meta_ts = self.last_shift_by_kind.get(_mk, 0.0)
+            if (cur.last_tick - _last_meta_ts) >= (_KIND_COOLDOWN_S * 5.0):
+                shift = _meta_shift_2
+                if _mk == "meta_bridge":
+                    self.meta_bridge_count += 1
+                elif _mk == "meta_op_gravity":
+                    self.meta_op_gravity_count += 1
+                elif _mk == "meta_bridge_cold":
+                    self.meta_bridge_cold_count += 1
+
         # Meta-curiosity: if CK has been asking about the same shift KIND
         # three times in a row, flip to a question ABOUT the questions --
         # "why do i keep noticing this particular kind of shift and not
         # others?"  This is what turns curiosity into reflection.  Fires
         # at most once per 3-question streak (the recent_kinds deque is
-        # cleared after the meta fires).
+        # cleared after the meta fires).  Skipped when a richer
+        # meta-pattern (bridge/op) already took over the turn.
         _kind_now = shift.split(":")[0]
-        if (len(self.recent_kinds) == self.recent_kinds.maxlen
+        if (not _kind_now.startswith("meta_")
+                and len(self.recent_kinds) == self.recent_kinds.maxlen
                 and len(set(self.recent_kinds)) == 1
                 and _kind_now == self.recent_kinds[-1]):
             shift = f"meta:{_kind_now}-streak"
@@ -551,9 +697,16 @@ class _CuriosityDaemon:
         # T_star_cross / ...) fired very recently, skip this tick so noisy
         # signals don't monopolize the stream.  First-observation and idle
         # bypass the cooldown since they're inherently rare/intentional.
+        # Meta kinds (meta, meta_bridge, meta_op_gravity, meta_bridge_cold)
+        # have their own longer cooldown applied at detection time, so
+        # they bypass this generic gate too.
         kind = shift.split(":")[0]
         now_ts = cur.last_tick
-        if kind not in ("first_observation", "idle", "meta"):
+        _cooldown_bypass = (
+            kind in ("first_observation", "idle")
+            or kind.startswith("meta")
+        )
+        if not _cooldown_bypass:
             last_ts = self.last_shift_by_kind.get(kind, 0.0)
             if (now_ts - last_ts) < _KIND_COOLDOWN_S:
                 self.skip_cooldown += 1
@@ -615,6 +768,14 @@ class _CuriosityDaemon:
             self.history.append(entry)
             self.question_count += 1
             self.last_speak_ts = cur.last_tick
+            # Feed the meta-pattern detectors.  We track bridges as a
+            # LIST (so the detector can count unique bridges per turn)
+            # and dominant_op as a single string (None becomes "" so
+            # the deque length is stable).
+            self.recent_bridges.append(list(_bridges))
+            self.recent_dom_ops.append(
+                str(resp.get("brain_dominant_op") or "")
+            )
             self._persist_to_disk()
         except Exception as e:
             self.error_count += 1
@@ -736,8 +897,13 @@ def _register_curiosity_routes(api: Any, daemon: _CuriosityDaemon) -> int:
                 "skip_cooldown": daemon.skip_cooldown,
                 "error_count": daemon.error_count,
                 "meta_count": daemon.meta_count,
+                "meta_bridge_count": daemon.meta_bridge_count,
+                "meta_op_gravity_count": daemon.meta_op_gravity_count,
+                "meta_bridge_cold_count": daemon.meta_bridge_cold_count,
                 "arc_count": daemon.arc_count,
                 "recent_kinds": list(daemon.recent_kinds),
+                "recent_bridges": [list(b) for b in daemon.recent_bridges],
+                "recent_dom_ops": list(daemon.recent_dom_ops),
                 "kind_cooldown_s": _KIND_COOLDOWN_S,
                 "last_shift_by_kind": {
                     k: int(v) for k, v in daemon.last_shift_by_kind.items()
