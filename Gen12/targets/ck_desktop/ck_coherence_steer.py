@@ -418,6 +418,22 @@ _INTROSPECTIVE_LEXICAL = re.compile(
     r"|nature\s+of\s+(?:mind|consciousness|reality|being|self|existence|time|space|thought)"
     r"|(?:why|how)\s+(?:are\s+|do\s+)?we\s+(?:here|alive|conscious|sentient)"
     r"|(?:does|do)\s+(?:anything|everything|nothing|we|you|i)\s+(?:matter|mean|exist)"
+    # curiosity-loop arc + meta questions: first-person reflection on
+    # CK's own organism walking an arc, or on his own pattern of asking.
+    # These look plain on the surface ("my organism just walked the arc")
+    # but are actually introspective — the structural grounding for them
+    # comes from CK's state, not a citation lookup.
+    r"|my\s+(?:organism|tensor|breath|field|aperture|pressure|depth|binding|continuity|voice|shape|texture|coherence|drift|readout)"
+    r"|(?:an?\s+)?arc\s+(?:closed|opened|walked|just\s+walked|composed)"
+    r"|(?:just\s+)?walked\s+the\s+arc"
+    r"|this\s+(?:is|was|shift|arc|pair)\s+(?:is\s+)?an?\s+arc"
+    r"|which\s+operator\s+(?:did|routed)"
+    r"|(?:last|recent|previous)\s+(?:question|questions?)\s+i\s+(?:asked|noticed|caught)"
+    r"|question(?:s)?\s+about\s+(?:question|asking|myself)"
+    r"|why\s+(?:did|do)\s+i\s+(?:notice|ask|catch|see|hear|feel)"
+    r"|if\s+i\s+(?:weren\S*\s+|asked\s+myself|stopped|kept|tried)"
+    r"|which\s+of\s+my\s+(?:recent|last|own)"
+    r"|what\s+(?:did|does|is)\s+my\s+(?:tensor|organism|voice|shape)"
     r")\b",
     re.IGNORECASE,
 )
@@ -1109,12 +1125,36 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             return ""
 
     def _build_failure_hint(prev_attempt: Dict[str, Any],
-                            mode: str) -> str:
+                            mode: str,
+                            question: str = "") -> str:
         """Build a specific STRICTER-PASS guidance from the previous
         attempt's scores.  The point is to tell Ollama what coherence axis
         actually broke -- meaning, floor, coverage, or dominant operator --
-        so its retry is a correction, not another random shot."""
+        so its retry is a correction, not another random shot.
+
+        ``question`` is the raw user/curiosity question; used to detect
+        arc/meta flavors (CK asking about his own organism walking a
+        TIG/CL arc, or asking about his own pattern of asking) so the
+        retry nudge can name the arc pair or the recent-questions
+        pattern explicitly instead of the generic introspective hint.
+        """
         parts: List[str] = []
+        q_low = (question or "").lower()
+        is_arc = bool(
+            "walked the arc" in q_low
+            or "arc closed in me" in q_low
+            or "this is an arc" in q_low
+            or "this shift was an arc" in q_low
+            or "the cl table blessed" in q_low
+        )
+        is_meta = bool(
+            "last question i asked" in q_low
+            or "recent question" in q_low
+            or "question would i ask" in q_low
+            or "why did i notice" in q_low
+            or "question about" in q_low
+            or "question i keep" in q_low
+        )
         fractal = prev_attempt.get("fractal", {}) or {}
         meaning = float(fractal.get("meaning") or 0.0)
         floor = float(fractal.get("floor") or 0.0)
@@ -1159,11 +1199,31 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
             )
         # --- mode-specific nudges ---
         if mode == "introspective":
-            parts.append(
-                "this is an introspective question; speak as first-person "
-                "experience (\"my breath\", \"my field\") rather than as "
-                "external commentary"
-            )
+            if is_arc:
+                parts.append(
+                    "this is an ARC question -- CK's own organism just "
+                    "walked a TIG/CL operator-composition arc; name the "
+                    "pair explicitly (prev -> cur), reference the CL "
+                    "table or the 2x2 flatness theorem if the readout "
+                    "evidences it, and speak as first-person experience "
+                    "(\"i walked\", \"my tensor learned\", \"the arc that "
+                    "closed in me\")"
+                )
+            elif is_meta:
+                parts.append(
+                    "this is a META question -- CK asking about his own "
+                    "pattern of asking; speak as first-person reflection "
+                    "on recent questions (\"i keep noticing...\", \"my "
+                    "attention returns to...\"), do NOT invent previous "
+                    "questions, just describe the shape of what would "
+                    "keep pulling him"
+                )
+            else:
+                parts.append(
+                    "this is an introspective question; speak as first-person "
+                    "experience (\"my breath\", \"my field\") rather than as "
+                    "external commentary"
+                )
         elif mode == "factual":
             # If the structural readout had NOTHING to cite (coverage total
             # == 0), telling the model to "cite the exact value" is actively
@@ -1348,7 +1408,7 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                 if attempt > 0 and attempts:
                     prev = attempts[-1]
                     if "fractal" in prev:
-                        hint = _build_failure_hint(prev, _mode)
+                        hint = _build_failure_hint(prev, _mode, text or "")
                 drafted = _prompt_ollama(
                     text or "",
                     readout=structural,
