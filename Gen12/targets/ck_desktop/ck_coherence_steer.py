@@ -1467,6 +1467,49 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
                         result["steer_cache_backfilled_bridges"] = True
                 except Exception:
                     pass
+            # Refresh body state on cache hit.  body_organism_bc /
+            # body_organism_coherence describe CK himself (live), not
+            # the cached text.  Leaving the stale stored value means
+            # every cache hit reports the organism CK had when the
+            # entry was WRITTEN -- sometimes hours or days ago.  Take a
+            # fresh sensorium reading here so downstream consumers
+            # (curiosity daemon, web UI, /chat callers) see the actual
+            # current organism.  Brain fields (dominant_op, coherence,
+            # gate_pass) legitimately describe the stored TEXT so they
+            # stay as-is.
+            try:
+                _sens = getattr(engine, "sensorium", None)
+                if _sens is not None:
+                    _body = _sens.get_sense_for_voice() or {}
+                    if _body:
+                        _org_live = _body.get("organism")
+                        if _org_live:
+                            result["body_organism_bc"] = _org_live
+                            result["steer_cache_body_refreshed"] = True
+                        try:
+                            _coh_live = float(
+                                _body.get("organism_coherence", 0.0)
+                            )
+                            result["body_organism_coherence"] = round(
+                                _coh_live, 4
+                            )
+                        except Exception:
+                            pass
+                        _layers = _body.get("layers") or {}
+                        # Mirror body_fold's shape even when empty --
+                        # downstream consumers type-check these fields.
+                        result["body_active_layers"] = len(_layers)
+                        if _layers:
+                            result["body_layers"] = {
+                                k: (v.get("state")
+                                    if isinstance(v, dict) else None)
+                                for k, v in _layers.items()
+                            }
+                        else:
+                            result["body_layers"] = {}
+            except Exception:
+                # Stale body is still better than a crashed handler.
+                pass
             return result
 
         result = _prev_chat(session_id, text, mode)
