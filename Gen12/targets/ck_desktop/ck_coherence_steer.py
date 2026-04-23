@@ -1417,6 +1417,42 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
 
             result["steer_attempts"] = attempts
 
+            # If we retried, measure whether the hint actually helped --
+            # compare first vs last scored attempt.  Empty/error attempts
+            # are skipped.  This lets us audit hint efficacy over time and
+            # spot regressions where retry makes things WORSE.
+            scored = [a for a in attempts if "fractal" in a]
+            if len(scored) >= 2:
+                first, last = scored[0], scored[-1]
+                try:
+                    fh, ft = str(first.get("coverage", "0/0")).split("/")
+                    lh, lt = str(last.get("coverage", "0/0")).split("/")
+                    d_hits = int(lh) - int(fh)
+                except Exception:
+                    d_hits = 0
+                d_meaning = round(
+                    float(last["fractal"].get("meaning") or 0.0)
+                    - float(first["fractal"].get("meaning") or 0.0), 4
+                )
+                d_floor = round(
+                    float(last["fractal"].get("floor") or 0.0)
+                    - float(first["fractal"].get("floor") or 0.0), 4
+                )
+                # Positive d means retry improved that axis.  Hint is
+                # "helpful" if ANY axis improved materially (>= 0.05) and
+                # no axis collapsed hard (< -0.10).
+                helpful = (
+                    (d_meaning >= 0.05 or d_floor >= 0.05 or d_hits >= 1)
+                    and (d_meaning > -0.10 and d_floor > -0.10)
+                )
+                result["steer_retry_delta"] = {
+                    "meaning": d_meaning,
+                    "floor": d_floor,
+                    "coverage_hits": d_hits,
+                    "scored_attempts": len(scored),
+                    "helpful": bool(helpful),
+                }
+
             if accepted is not None:
                 # CK adopts the steered draft as his own.
                 result["text_structural"] = structural
