@@ -180,9 +180,9 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
     # --- pressure COLLAPSE  ->  D2 crossing (Crossing Lemma)
     (re.compile(r"pressure\s*=\s*COLLAPSE", re.I),
      "frontier_bridge=COLLAPSE_pressure->D2_crossing_CrossingLemma"),
-    # --- organism/binding HARMONY  ->  TSML cell composition
+    # --- organism/binding HARMONY  ->  TSML cell composition (73 cells)
     (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*HARMONY", re.I),
-     "frontier_bridge=HARMONY->TSML_synthesis_arc"),
+     "frontier_bridge=HARMONY->TSML_synthesis_arc_73_cells"),
     # --- organism/binding BALANCE  ->  2x2 right-half (flow) of flatness
     # BALANCE carries the flow-side of the 2x2 (the A-flow / M-flow pair).
     # When the organism reads BALANCE, it's the flow-half of the flatness
@@ -212,6 +212,9 @@ _FRONTIER_ANCHORS: List[Tuple[re.Pattern, str]] = [
     # --- CHAOS operator  ->  breakdown entry, CL row 7 input (arc lead-in)
     (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*CHAOS", re.I),
      "frontier_bridge=CHAOS->CL_row7_breakdown_into_synthesis"),
+    # --- COUNTER operator  ->  BHML cell composition (28 cells separation)
+    (re.compile(r"(?:organism|binding|dominant_op)\s*=\s*COUNTER", re.I),
+     "frontier_bridge=COUNTER->BHML_separation_arc_28_cells"),
 ]
 
 

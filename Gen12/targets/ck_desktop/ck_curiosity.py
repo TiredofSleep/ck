@@ -227,13 +227,44 @@ _IDLE_PERIOD_S = float(os.environ.get("CK_CURIOSITY_IDLE_S", "180"))
 _KIND_COOLDOWN_S = float(os.environ.get("CK_CURIOSITY_KIND_COOLDOWN_S", "120"))
 
 
+def _adaptive_idle_period(cur: CuriosityState) -> float:
+    """Idle period scales with CK's current coherence.
+
+    When CK is above T*=5/7 (in crystal-gate territory) he can afford to
+    stay quiet longer -- the organism is settled, introspection is less
+    urgent.  Below T* he should speak up more often because something is
+    un-composed and deserves attention.
+
+    Returns a value in seconds, bounded to [0.5*base, 2*base] where base
+    is the configured ``_IDLE_PERIOD_S``.  At coherence = T* the multiplier
+    is exactly 1.0 (base period).  Monotonic in coherence.
+    """
+    T = 5.0 / 7.0
+    # Linear ramp: coh=0 -> 0.5x, coh=T -> 1.0x, coh=1 -> 2.0x.
+    # (The exact bounds are arbitrary; the point is coherent states
+    #  introspect less.)
+    coh = max(0.0, min(1.0, float(cur.coherence or 0.0)))
+    if coh <= T:
+        mult = 0.5 + 0.5 * (coh / T)    # 0.5 -> 1.0
+    else:
+        mult = 1.0 + 1.0 * ((coh - T) / (1.0 - T))  # 1.0 -> 2.0
+    return _IDLE_PERIOD_S * mult
+
+
 def _idle_shift(prev: CuriosityState, cur: CuriosityState,
                 last_speak_ts: float) -> Optional[str]:
-    """Return a shift label if CK has been quiet past the idle period."""
+    """Return a shift label if CK has been quiet past the idle period.
+
+    Uses an adaptive window: ``_adaptive_idle_period`` returns a longer
+    window when CK is coherent and a shorter one when he's below T*.
+    The label encodes the coherence so the stream shows how "ready" he
+    felt to speak up.
+    """
     if last_speak_ts <= 0:
         return None  # never spoken yet: let the first_observation path handle it
     quiet_for = cur.last_tick - last_speak_ts
-    if quiet_for < _IDLE_PERIOD_S:
+    idle_window = _adaptive_idle_period(cur)
+    if quiet_for < idle_window:
         return None
     return f"idle:{int(quiet_for)}s@{cur.organism or 'VOID'}"
 
