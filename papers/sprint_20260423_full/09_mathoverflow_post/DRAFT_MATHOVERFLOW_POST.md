@@ -138,7 +138,7 @@ associativity (associativity rate $0.872$). The diagonal
 $\sigma(i) := \mathrm{CL}[i][i]$ has cycle structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$
 under iteration on the 10-element ground set.
 
-[betti-log]: ./betti_output.txt
+[betti-log]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/09_mathoverflow_post/betti_output.txt
 
 ### 3. What I am asking
 
@@ -209,7 +209,7 @@ answers are welcome.
 ### 5. Reproducibility
 
 Full reproducibility bundle at
-[GitHub: `ck/papers/sprint_20260423_full/`][repo-link-to-insert].
+[GitHub: `ck/papers/sprint_20260423_full/`](https://github.com/TiredofSleep/ck/tree/mantero-bridge-2026-04-23/papers/sprint_20260423_full).
 
 **Scripts in this folder:**
 
@@ -262,8 +262,9 @@ the subject of this post.
       (structural explanation of the bottom strand).
 - [ ] Pick the five MO tags (currently listed; final confirmation
       before posting).
-- [ ] Link the `betti_output.txt` file in the repo via GitHub raw URL
-      (URL to insert at post time).
+- [x] Link the `betti_output.txt` file in the repo via GitHub URL
+      (pre-filled to `mantero-bridge-2026-04-23` branch — swap for
+      commit-pinned URL at post time if the branch has moved).
 - [ ] Final read-through for tone: MathOverflow answers best when the
       question is narrow, motivated, and self-contained. No framework
       advocacy in the post body.

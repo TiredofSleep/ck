@@ -28,6 +28,12 @@ with 5 bump edges on {1,2,3,4,8,9}, which is the content Q5 speaks
 to on the bridge.
 ──────────────────────────────────────────────────────────────────────
 """
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass  # stdout may not be reconfigurable under some harnesses; safe to skip.
+
 import numpy as np
 from itertools import combinations
 from collections import Counter

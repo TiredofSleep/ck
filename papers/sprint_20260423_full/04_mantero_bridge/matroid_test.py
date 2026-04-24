@@ -19,6 +19,12 @@ Approach:
   4. Also: compute the cover ideal from circuit decomposition
   5. Test variants: VOID ideal, BUMP ideal, symmetric versions
 """
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass  # stdout may not be reconfigurable under some harnesses; safe to skip.
+
 import numpy as np
 from itertools import combinations, chain
 

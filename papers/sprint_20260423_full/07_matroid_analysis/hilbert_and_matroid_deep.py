@@ -5,6 +5,12 @@ DEEP COMPUTATIONS for the Mantero bridge:
   3. Matroid tests on the BUMP subgraph
   4. Check for Cohen-Macaulay via Reisner's criterion (homology condition)
 """
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass  # stdout may not be reconfigurable under some harnesses; safe to skip.
+
 import numpy as np
 from itertools import combinations
 from collections import Counter

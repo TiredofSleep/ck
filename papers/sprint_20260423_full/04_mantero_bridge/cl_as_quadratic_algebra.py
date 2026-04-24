@@ -39,6 +39,12 @@ Anything this script reports about "algebra dimension in degree 2" or
 to I_CL. Read the computed numbers with that scope in mind.
 ──────────────────────────────────────────────────────────────────────
 """
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass  # stdout may not be reconfigurable under some harnesses; safe to skip.
+
 import numpy as np
 from collections import Counter
 from itertools import product
