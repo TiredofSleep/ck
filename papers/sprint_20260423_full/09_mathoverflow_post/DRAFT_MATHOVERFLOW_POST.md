@@ -285,9 +285,6 @@ the subject of this post.
       `https://mathoverflow.net/questions/510662/`).
 - [x] Update `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`
       Status block with the live link (done 2026-04-24).
-- [ ] Email Dr. Mantero with the live link (draft at
-      `papers/sprint_20260423_full/08_correspondence/mantero_followup_email_draft_2026-04-24.md`;
-      Brayden to send from his own mail client).
 
 ---
 
