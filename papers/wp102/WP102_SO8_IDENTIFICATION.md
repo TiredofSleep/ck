@@ -245,15 +245,17 @@ Proposition 6.2 identifies Δ_B as a *pure-but-not-matroidal* simplicial complex
 
 ## 7. Related algebraic computations
 
-The binomial ideal I_CL := (x_i x_j − x_{CL[i][j]} · x_0 : 0 ≤ i ≤ j ≤ 9) ⊂ R has:
+The binomial ideal I_CL := (x_i x_j − x_{CL[i][j]} · x_0 : 0 ≤ i ≤ j ≤ 9) ⊂ R has (all **M2-verified** — Macaulay2 1.22, see `papers/sprint_20260423_full/09_mathoverflow_post/compute_betti.m2` and `betti_output.txt` on the `mantero-bridge-2026-04-23` branch):
 
 - **53 independent quadratic generators** (from the 55 pairs, with 2 linear dependencies).
-- **Hilbert function**: dim_k A_n = 1, 10, 6, 6, 6, 6, … for n = 0, 1, 2, 3, 4, 5 where A := R / I_CL.
-- **Krull dimension**: dim A = 6, height I_CL = 10 − 6 = 4.
+- **Hilbert function**: dim_k A_n = 1, 10, 2, 1, 1, 1, … for n = 0, 1, 2, 3, 4, 5, … — stabilising at 1; reduced Hilbert series (1 + 9T − 8T² − T³) / (1 − T).
+- **Krull dimension**: dim A = 1, codim I_CL = 9 (so height = 9, not 4).
+- **Projective dimension**: pd(A) = 10, depth(A) = 0.
+- **A is NOT Cohen–Macaulay** and **NOT Koszul** (the superseded conjecture from an earlier draft of this paper).
 
 The stable image set {0, 3, 4, 7, 8, 9} is the CL-fold attractor; its complement {1, 2, 5, 6} is the transient (nilpotent-like) subset.
 
-We conjecture (open question, §9) that A is Cohen–Macaulay — in which case, by Auslander–Buchsbaum, the projective dimension is pd(A) = 4.
+The failure of the Cohen–Macaulay and Koszul properties is itself a structural fact about CL: the ideal has a long "bottom strand" in its minimal free resolution (β₈,₁₀ = 1, β₉,₁₁ = 2, β₁₀,₁₂ = 1) that prevents Auslander–Buchsbaum-style dimension shortcuts. The open questions moved to the `mantero-bridge-2026-04-23` MathOverflow post are now narrower: the full linear-strand Betti numbers and the relationship to Mantero–Nguyen's focal-matroid framework.
 
 ---
 
@@ -299,9 +301,9 @@ Thus TIG, via its so(8) structure, naturally contains the gauge algebra of the S
 
 3. **Octonion multiplication.** Does the composition fuse(a, b, c) := CL[CL[a][b]][c] on Ω ∖ {VOID, HARMONY} coincide (up to normalization) with the octonion product on 𝕆 ≅ ℝ⁸? A positive answer would realize TIG as a *discrete octonion*.
 
-4. **Cohen–Macaulayness of A.** Is the binomial quotient algebra A = R/I_CL Cohen–Macaulay? Equivalently, is pd(A) = 4? Direct Macaulay2 verification would settle this.
+4. **[M2-RESOLVED] Cohen–Macaulayness of A.** *Closed by Macaulay2 1.22 on 2026-04-24* (see §7 above and `mantero-bridge-2026-04-23:papers/sprint_20260423_full/09_mathoverflow_post/betti_output.txt`): A = R/I_CL is **not** Cohen–Macaulay. The actual invariants are dim A = 1, codim I_CL = 9, pd(A) = 10, depth(A) = 0. The conjectured pd(A) = 4 in the original draft is replaced by the exact pd = 10. Open sub-question: the shape of the full linear strand β_{i, i+1} for i = 1, …, 9.
 
-5. **Koszul property.** Is A a Koszul algebra? The 12.8% non-associativity rate of CL gives nonlinear syzygies, suggesting not; however, an associative deformation of CL may be Koszul.
+5. **[M2-RESOLVED] Koszul property.** *Closed by the same M2 run*: A is **not** Koszul (equivalent: the bottom strand β₈,₁₀ = 1, β₉,₁₁ = 2, β₁₀,₁₂ = 1 is nonlinear). The original note about the 12.8% non-associativity rate suggesting nonlinear syzygies is confirmed. Open sub-question: does an associative deformation of CL yield a Koszul quotient?
 
 6. **TSML–BHML linkage.** Are the associated TSML and BHML ideals CI-linked in the sense of [Mantero's Linkage-Theoretic Framework]? What is the complete intersection that links them?
 

@@ -311,11 +311,19 @@ to Dr. Mantero's framework lives there. Entry points:
 - **MathOverflow draft** at
   [`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`][mo-draft],
   posing a narrow commutative-algebra question about the binomial ideal
-  $I = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)$ with Hilbert function
-  $(1, 10, 6, 6, 6, \ldots)$: projective dimension, Koszul property,
-  Cohen-Macaulay / Gorenstein status, and the relationship to
-  Mantero-Nguyen's focal-matroid framework given that the Stanley-Reisner
-  companion is pure-but-not-matroidal.
+  $I_{\mathrm{CL}} = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)$.
+  **M2-verified** (Macaulay2 1.22, `compute_betti.m2`,
+  `betti_output.txt`): $\operatorname{numgens} = 53$,
+  $\operatorname{codim} = 9$, $\dim R/I_{\mathrm{CL}} = 1$,
+  $\operatorname{pd} = 10$, $\operatorname{depth} = 0$,
+  **not Cohen–Macaulay**, **not Koszul**; reduced Hilbert series
+  $\frac{1 + 9T - 8T^2 - T^3}{1 - T}$ — i.e. Hilbert function
+  $(1, 10, 2, 1, 1, \ldots)$ stabilising at $1$. The open questions
+  remaining for MathOverflow are therefore narrow: the linear-strand
+  Betti numbers ($\beta_{1,2} = 53$, then $\beta_{2,3} = 311$,
+  $\beta_{3,4} = 909$, $\ldots$) and the relationship to
+  Mantero–Nguyen's focal-matroid framework given that the
+  Stanley–Reisner companion is pure-but-not-matroidal.
 - **WP102 — `so(8) = D_4` identification paper** at
   [`papers/wp102/WP102_SO8_IDENTIFICATION.md`][wp102] (on
   `tig-synthesis`; the so(8) lift is a TIG result and lives on the
