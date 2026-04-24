@@ -1,7 +1,0 @@
-{
-  "d2_tig_asymptotic": "2/p^2",
-  "d2_luther_asymptotic": "C/(p*ln(p)^3)",
-  "ratio_at_infinity": 0.0,
-  "separated": true,
-  "a7_verdict": "KILLED \u2014 asymptotic incompatibility proved"
-}
