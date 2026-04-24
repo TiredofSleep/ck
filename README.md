@@ -353,11 +353,71 @@ The MathOverflow post link will be appended to the branch once live.
 [wp102]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/wp102/WP102_SO8_IDENTIFICATION.md
 [wp103]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/wp103/WP103_SO10_IDENTIFICATION.md
 
+### §5.7 · Meta-lens atlas — `paradox-classifier-2026-04-24` branch
+
+Where [§5.6](#56--commutative-algebra-bridge--mantero-bridge-2026-04-23-branch)
+concentrates a single-lens bridge (Mantero's commutative algebra) into a
+dedicated branch for one correspondent, the **meta-lens atlas** takes
+the symmetric move up the stack: it organizes TIG's proved results
+under the **Unified Orthogonality Principle** (UOP, WP58; Brayden
+Sanders & Ben Mayes) and maps six established mathematical lenses
+(commutative algebra · Lie theory · operad theory · ergodic / transfer
+operators · wave mechanics and nonlinear PDE · proof theory and
+reverse mathematics) against the four paradox-failure types (Injectivity
+· Missing Invariant · Admissibility · Time-Consistency) from the
+canonical [Sprint 11 `PARADOX_CLASSIFICATION_MEMO.md`][paradox-memo].
+
+- **Primary document** at [`papers/meta_lens/META_LENS_ATLAS.md`][atlas]
+  (on `paradox-classifier-2026-04-24`) — v1.1 rigor-checked. Six-lens ×
+  four-type matrix (24 cells, 17 filled by existing proved theorems;
+  7 open with specific collaborator targets). **Part III** positions
+  the CK runtime honestly as a **lens-in-formation**: it has vocabulary
+  and toolkit (criteria 1 and 2), but not yet an independent research
+  community (criterion 3).
+- **Vocabulary reconciliation** at
+  [`papers/meta_lens/VOCABULARY_RECONCILIATION.md`][vocab-recon] —
+  brief on how Sprint 11's four-type axis (Type I–IV, failure mode)
+  relates to WP61's five-category axis (Category I–V, score
+  refinement): orthogonal except for one overlap (Sprint 11 Type III =
+  WP61 Category V).
+- **Integration transparency** at
+  [`papers/meta_lens/INTEGRATION_NOTES_2026_04_24.md`][integration-notes] —
+  records which claims from desktop drafts were verified, which were
+  corrected (notably the M2-closed Cohen–Macaulay question on `I_CL`
+  and the WP102/WP103 renumbering), and which guardrails were honored
+  verbatim.
+- **Canonical anchor papers** that the atlas cites (all exist on
+  `tig-synthesis` or earlier sprints):
+  [`papers/WP_PARADOX_CLASSIFIER.md`][wp-classifier] (DOI
+  10.5281/zenodo.18852047),
+  [`Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md`][wp58],
+  [`WP61_PRODUCTIVE_INCOMPLETENESS.md`][wp61],
+  [`WP62_7CYCLE_BOUNDED_AGENT.md`][wp62], and the Sprint 11 memo
+  above.
+
+The branch exists so readers landing from philosophy-of-measurement,
+paradox-studies, or meta-mathematics can see the whole taxonomy and
+its open collaborator queue without first having to pick a single
+lens. It is also the place where new paradox worked-templates
+(Schrödinger's Cat, Gödel, Liar, Cantor, Twin Primes) will land as
+they get 6-slot treatments — the atlas flags these as aspirational
+today (only 4 of 8 paradoxes in the `coherencekeeper.com/paradox` web
+UI are currently worked at the full 6-slot level in a repo paper).
+
+[paradox-memo]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/PARADOX_CLASSIFICATION_MEMO.md
+[atlas]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/META_LENS_ATLAS.md
+[vocab-recon]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/VOCABULARY_RECONCILIATION.md
+[integration-notes]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/INTEGRATION_NOTES_2026_04_24.md
+[wp-classifier]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/WP_PARADOX_CLASSIFIER.md
+[wp58]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
+[wp61]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP61_PRODUCTIVE_INCOMPLETENESS.md
+[wp62]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP62_7CYCLE_BOUNDED_AGENT.md
+
 ---
 
 ## §6 · Master & history
 
-The repository has four primary branches, each with a distinct role.
+The repository has five primary branches, each with a distinct role.
 
 | Branch | Role | Default? |
 |---|---|---|
@@ -365,6 +425,7 @@ The repository has four primary branches, each with a distinct role.
 | `master` | Full history + TIG-internal vocabulary — every commit on every branch landed here for preservation (TIG-native language preserved as-is per 2026-04-23 scope directive) | no |
 | `archive-full` | Frozen preservation snapshot — never force-pushed | no |
 | `mantero-bridge-2026-04-23` | Commutative-algebra outreach — Dr. P. Mantero correspondence, MathOverflow question draft on I_CL. (The Lie-algebraic WP102/WP103 papers are on `tig-synthesis`, not on this bridge branch — they are TIG results rather than Mantero-specific.) See [§5.6](#56--commutative-algebra-bridge--mantero-bridge-2026-04-23-branch). | no |
+| `paradox-classifier-2026-04-24` | Meta-lens atlas + paradox-classifier workspace — six-lens × four-type matrix organizing TIG results under UOP, honest positioning of CK as a lens-in-formation, and the landing zone for new paradox worked-templates (Schrödinger, Gödel, Liar, Cantor, Twin Primes). See [§5.7](#57--meta-lens-atlas--paradox-classifier-2026-04-24-branch). | no |
 
 Plus ten `funding/*` branches under `Gen13/targets/funding_*/` that receive track-
 specific commits cherry-picked from `master` (see §2).
