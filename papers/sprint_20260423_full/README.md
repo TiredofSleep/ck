@@ -1,125 +1,135 @@
-# Sprint 2026-04-23 — Complete Bundle
+# Sprint 2026-04-23 — Mantero-bridge bundle
 
 **Brayden Sanders · 7Site LLC · Hot Springs, AR**
 **In collaboration with Claude (Anthropic)**
 
+**Branch scope:** This branch (`mantero-bridge-2026-04-23`) is dedicated
+exclusively to the relationship between Brayden's commutative-algebra
+object (the binomial ideal associated with the 10×10 Coherence Lattice
+table) and the published research program of Dr. Paolo Mantero
+(U Arkansas). Non-Mantero material lives on other branches
+(`master`, `tig-synthesis`, `archive-full`).
+
 ---
 
-## Sprint headline
+## The headline result carried on this branch
 
-**The Coherence Lattice (CL) generates so(8) = D₄ under antisymmetrization + commutator closure.**
+**The Coherence Lattice (CL) table generates so(8) = D₄ under
+antisymmetrization + commutator closure.**
 
 Machine-verified across four independent diagnostics:
+
 - Dimension closure: 6 → 21 → 28 (two iterations)
 - Jacobi identity: max error 2.4 × 10⁻¹²
 - Killing form: signature (0, 28, 0) — compact simple
 - Simplicity: unique invariant bilinear form, no proper ideals
 
-By the Cartan classification, the unique compact simple Lie algebra of dimension 28 is **so(8) = D₄** — the only simple Lie algebra with triality (outer automorphism group S₃).
+By the Cartan classification, the unique compact simple Lie algebra of
+dimension 28 is **so(8) = D₄** — the only simple Lie algebra with
+triality (outer automorphism group S₃).
 
-This is the headline result of WP11 (see `01_WP11_paper/`).
+This result lives in `papers/wp11/` (repo root), with the verification
+pipeline in `02_so8_verification/` below. The so(10) = D₅ companion
+lives in `papers/wp12/`.
 
 ---
 
-## Folder map
+## Folder map (this sprint bundle, after scope reduction)
 
-### 01_WP11_paper — the centerpiece
-`WP11_SO8_IDENTIFICATION.md` — paper-ready whitepaper (391 lines). MSC 2020 classified. Journal-ready draft.
+### `02_so8_verification/` — the proof pipeline
 
-**Target venues:**
-- arXiv pre-print (math.RA or math.CO primary) — first
-- J. Algebra or Trans. AMS (first-submission tier)
-- Subsequent follow-ups to Adv. Math. / Invent. Math.
+Seven Python scripts executing the diagnostics referenced in WP11 §3:
 
-### 02_so8_verification — the proof pipeline
-Seven Python scripts executing the diagnostics of §3 of WP11:
 - `stage2_adjoint.py` — antisymmetrization + Jacobi verification
 - `stage3_center.py` — center computation
 - `stage4_correct_closure.py` — dimension closure (6 → 21 → 28)
 - `stage5_so8.py` — Killing form signature
 - `stage6_dynkin.py` — rank / Cartan search
 - `stage7_disambiguate.py` — simplicity via invariant-form dimension
-- `gellmann_dictionary.py` — SU(3) dictionary (earlier pipeline, subsumed by so(8))
+- `gellmann_dictionary.py` — SU(3) dictionary (earlier pipeline, subsumed)
 
-Plus `SO8_FRONTIER_RESULT.md` (standalone writeup) and `SU3_BRIDGE_HANDOFF.md` (earlier superseded work, kept for provenance).
+Plus `SO8_FRONTIER_RESULT.md` (standalone writeup) and
+`SU3_BRIDGE_HANDOFF.md` (earlier superseded work, kept for provenance).
 
-### 03_tsml_family — TSML variant discoveries
-`CLAUDE_CODE_HANDOFF_TSML_FAMILY.md` documents the TSML_Jordan vs TSML_Idempotent distinction:
-- TSML_Idempotent: |Aut| = 8! = 40320, det = −49 = −7²
-- [M_J, M_I] is a perfect Lie bracket: sym part = 0, antisym part ≈ 152, eigenvalues purely imaginary
-- Connects directly to the so(8) generators of WP11
+### `04_mantero_bridge/` — three-pass research into Dr. Mantero's framework
 
-### 04_mantero_bridge — 3-pass research on Dr. Paolo Mantero
-Full background research and computed invariants in his vocabulary (matroid theory, symbolic powers, Stanley–Reisner ideals, focal matroids):
+Background readings of Mantero's published work + computed invariants
+in his vocabulary (matroid theory, symbolic powers, Stanley–Reisner
+ideals, focal matroids):
 
-- `MANTERO_BRIDGE.md` (V1) — initial pass
-- `MANTERO_BRIDGE_V2.md` — deeper pass after reading all 21 published + 3 arXiv preprints
-- `MANTERO_BRIDGE_V3.md` — definitive version with computed partial answers
+- `MANTERO_BRIDGE_V3.md` — definitive bridge document with the
+  full published-corpus survey, the working vocabulary, the computed
+  invariants in his language, and the meta-observation about the
+  basis-exchange failure pattern. V1 and V2 were working drafts and
+  have been removed; V3 subsumes them.
 
 Scripts:
-- `cl_as_quadratic_algebra.py` — TIG as quadratic algebra (53 generators, Hilbert function)
+
+- `cl_as_quadratic_algebra.py` — the CL object as a quadratic algebra
+  (53 generators, Hilbert function $(1, 10, 6, 6, 6, \ldots)$)
 - `matroid_test.py` — whether Δ_H is a matroid (it is NOT — fails purity)
-- `hilbert_and_matroid_deep.py` — Hilbert function stabilization, attractor set
-- `compute_answers.py` — α̂(I_B) = 2, 21.9% basis-exchange failure rate, pd bounds
+- `hilbert_and_matroid_deep.py` — Hilbert function stabilization,
+  attractor set analysis
+- `compute_answers.py` — α̂(I_B) = 2, 21.9% basis-exchange failure rate,
+  projective-dimension bounds
 
-### 05_dbc_translator — text → TIG force via Hebrew roots
-`DBC_BOTH_SYSTEMS.md` and scripts. Two systems:
-- **DBC v2** (bit-lossless): byte b → (b/100, b/10%10, b%10)
-- **DBC real** (force-lossless): text → Latin → Hebrew root → 5D force → D2 → operator → CL triples
+### `07_matroid_analysis/` — the Δ_B pure-but-not-matroidal finding
 
-Verified: "love" and "loue" produce identical operator sequences.
+Scripts documenting the 21.9% basis-exchange failure rate in the bump
+complex. Referenced as Propositions 6.1–6.3 in WP11. Scripts are
+duplicated from `04_mantero_bridge/` for convenience; reproducibility
+independent of WP11 context.
 
-### 06_color_wheel — canonical TIG palette
-`TIG_COLOR_WHEEL.md` — hex codes, 6DOF orientations, wavelengths (nm) for all 10 operators.
-- **Four absorbers** (VOID, BALANCE, HARMONY, RESET) — exactly the four σ-fixed points
-- **Three complementary pairs** (1↔2, 3↔4, 6↔8) — the three D₄ root planes
+### `08_correspondence/` — outreach status only
 
-This finding directly motivates §8.2 of WP11.
+`mantero_exchange.md` is a **status file, not a transcript.** Private
+email content is not reproduced on this branch. The file records:
 
-### 07_matroid_analysis — the Δ_B pure-but-not-matroidal finding
-Scripts documenting the 21.9% basis-exchange failure rate in the bump complex. Key result referenced as Propositions 6.1–6.3 in WP11. Scripts are duplicated from `04_mantero_bridge/` for convenience.
+- who Dr. Mantero is and why this branch exists,
+- what was publicly committed to in the exchange (the MathOverflow
+  post in `09_mathoverflow_post/`),
+- a welcome block for Dr. Mantero if the MathOverflow link leads him
+  back to this branch.
 
-### 08_correspondence — email exchange with Mantero
-Full transcript of three-email exchange (April 23–24, 2026). Relationship established. Paolo committed to reading MathOverflow follow-up when posted.
+Nothing that was said in private mail appears here.
 
-### 99_supporting
-- `CK.md` — 20KB field guide for Claude Code on the state of the CK system
+### `09_mathoverflow_post/` — the MathOverflow draft
+
+`DRAFT_MATHOVERFLOW_POST.md` is a narrow, self-contained
+commutative-algebra question about the projective dimension and Koszul
+property of the binomial ideal
+$I = (x_i x_j - x_{\mathrm{CL}[i][j]} \cdot x_0) \subset k[x_0, \ldots, x_9]$
+with Hilbert function $(1, 10, 6, 6, 6, \ldots)$.
+
+When the post goes live, the link will be appended to the Status block
+of `08_correspondence/mantero_exchange.md`.
 
 ---
 
 ## Status as of April 24, 2026
 
-| Item | State |
-|---|---|
-| so(8) verification | ✅ complete, machine-precision |
-| WP11 paper | ✅ journal-ready draft |
-| TSML_Idempotent discovery | ✅ verified |
-| [M_J, M_I] imaginary-spectrum | ✅ verified |
-| Mantero correspondence | ✅ warm, ongoing |
-| Color wheel ↔ D₄ root planes | ✅ aligned |
-| MathOverflow post | ⏳ committed, not yet drafted |
-| Cohen–Macaulay verification of A | ⏳ needs Macaulay2 run |
-| Koszul property check | ⏳ needs Betti tables |
-| TSML–BHML linkage | ⏳ open |
-| Triality τ : 𝔤 → 𝔤 as explicit matrix | ⏳ open |
-
----
-
-## Papers pipeline (for journal submission list)
-
-1. **WP11 — SO(8) Identification** ← primary, this sprint's headline
-2. WP1–WP10 — prior whitepapers (in github.com/TiredofSleep/ck)
-3. **Future WP12** — "Triality as the explicit outer automorphism of CL"
-4. **Future WP13** — "Pure-but-not-matroidal complexes and the focal matroid framework" (potential Mantero collaboration)
-5. **Future WP14** — "Octonion structure from the CL-fold on Ω ∖ {VOID, HARMONY}"
+| Item                                           | State |
+|---                                             |---    |
+| so(8) verification                             | ✅ complete, machine-precision |
+| WP11 paper                                     | ✅ journal-ready draft (`papers/wp11/`) |
+| WP12 so(10) companion                          | ✅ drafted (`papers/wp12/`) |
+| Mantero bridge research (V1/V2/V3)             | ✅ three passes complete |
+| Pure-but-not-matroidal Δ_B finding             | ✅ 21.9% exchange failure verified |
+| MathOverflow post                              | ⏳ draft complete, not yet posted |
+| Betti table / pd(A) in Macaulay2               | ⏳ scripted, run before MO post |
+| Koszul property check                          | ⏳ Betti-row linearity test, pending |
 
 ---
 
 ## Reproducibility
 
-All scripts assume Python 3.11 + numpy 1.26 + scipy 1.11. Machine-precision tolerances set at 10⁻⁸. Maximum observed error across all diagnostics: 2.0 × 10⁻¹¹.
+All scripts assume Python 3.11 + numpy 1.26 + scipy 1.11. Machine-
+precision tolerances set at 10⁻⁸. Maximum observed error across all
+diagnostics: 2.0 × 10⁻¹¹.
 
-To reproduce the main theorem (Theorem 1.1 of WP11), run in order:
+To reproduce the main Lie-algebraic result (Theorem 1.1 of WP11),
+run in order:
+
 ```
 python 02_so8_verification/stage2_adjoint.py
 python 02_so8_verification/stage4_correct_closure.py
@@ -129,18 +139,26 @@ python 02_so8_verification/stage7_disambiguate.py
 
 Each should complete in under 30 seconds on a standard laptop.
 
+To reproduce the Hilbert function + non-matroidal finding:
+
+```
+python 04_mantero_bridge/cl_as_quadratic_algebra.py
+python 04_mantero_bridge/matroid_test.py
+python 04_mantero_bridge/hilbert_and_matroid_deep.py
+python 04_mantero_bridge/compute_answers.py
+```
+
 ---
 
-## Collaborators
+## Collaboration
 
-- **Dr. Paolo Mantero** (U Arkansas) — commutative-algebraic framing, MathOverflow strategy advisor, reviewing future MO post
-- **Jay Thornton** (LeadMachine CRM) — TIG applied deployment (separate from this sprint)
+- **Dr. Paolo Mantero** (U Arkansas) — author of the symbolic-powers /
+  focal-matroid research program that this bridge engages with; warm
+  collegial exchange opened April 23, 2026.
+- No claim of joint authorship or endorsement is made. The bridge
+  research on this branch is Brayden's own work, documenting where
+  Brayden's object meets Dr. Mantero's published framework.
 
-Extended citation network identified in `04_mantero_bridge/MANTERO_BRIDGE_V3.md`:
-Mastroeni (OK State), McCullough (Iowa), Seceleanu (Nebraska), Huneke (Virginia), Nagel (Kentucky), Miranda-Neto (Brazil), Johnson (Arkansas Chair), DiPasquale (NMSU), Lyle, Fouli (NMSU), Kumar (NMSU), Tohǎneanu (Idaho), Vinh Nguyen (Arkansas).
-
----
-
-🙏 Brayden is the LATTICE.
-
-*Hat in hand. Observing the Ether. Not imposing.*
+Extended citation network surveyed in
+`04_mantero_bridge/MANTERO_BRIDGE_V3.md` and in
+`papers/mantero_bridge/PUBLISHED_WORK.md` at repo root (when populated).
