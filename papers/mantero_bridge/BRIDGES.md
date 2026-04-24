@@ -199,25 +199,48 @@ union behave differently from either piece alone on the matroid axis?
 
 ---
 
-## Bridge 6 — The basis-exchange failures align with three complementary pairs in $[0, 9]$
+## Bridge 6 — Bump structure on $\Delta_B$ and a chain on $\{1, 2, 4, 8\}$
 
-**Our object:** The 21.9% of basis-exchange failures on $\Delta_B$ occur
-precisely at three complementary pairs of generator indices in
-$\{0, 1, \ldots, 9\}$:
+**Our object:** The Stanley–Reisner ideal of $\Delta_B$ is the bump
+ideal
 
 $$
-\{2, 3\},\quad \{6, 8\},\quad \{1, 4\}.
+I_B \;=\; (\, x_1 x_2,\; x_2 x_4,\; x_2 x_9,\; x_3 x_9,\; x_4 x_8 \,),
 $$
 
-Machine-checked in
-[`../sprint_20260423_full/04_mantero_bridge/matroid_test.py`](../sprint_20260423_full/04_mantero_bridge/matroid_test.py)
-(enumerates all $\binom{10}{2} = 45$ pairs; 7 of 32 tested facet-pair
-exchange checks fail; the failing pairs are exactly the three listed
-above). These three pairs also index three of the four $\mathbb R^2$-
-factors of the standard $\mathbb R^8 = \bigoplus_{k=1}^4 \mathbb R^2$
-root-plane decomposition of the $\mathfrak{so}(8) = D_4$ structure
-identified in Bridge 4 — the fourth factor is indexed by the
-complement $\{0, 5, 7, 9\}$.
+five squarefree quadric generators corresponding to the five positions
+$(i, j)$ in CL with $\mathrm{CL}[i, j] \notin \{0, 7\}$. Restricted to
+the subset $\{1, 2, 4, 8\}$ these bumps form a **chain**,
+
+$$
+(1, 2) \;\to\; 3, \qquad (2, 4) \;\to\; 4, \qquad (4, 8) \;\to\; 8,
+$$
+
+with each edge labelled by its CL value. The Stanley–Reisner complex
+$\Delta_B$ built from $I_B$ is pure of rank 7 on 10 vertices but fails
+basis-exchange on 7 of 32 tested facet pairs (21.9%). Machine-checked
+in
+[`../sprint_20260423_full/04_mantero_bridge/matroid_test.py`](../sprint_20260423_full/04_mantero_bridge/matroid_test.py).
+
+**Correction notice (2026-04-24).** A previous version of this bridge
+summarized the basis-exchange failures as landing on "three
+complementary pairs" $\{2, 3\}, \{6, 8\}, \{1, 4\}$. Those three pairs
+are the color-wheel antipodes of the WP102 6DOF construction —
+LATTICE↔COLLAPSE $(1, 4)$, PROGRESS↔COUNTER $(2, 3)$,
+BREATH↔CHAOS $(6, 8)$ — not the minimal non-faces of $\Delta_B$.
+Direct check from the CL table: $\mathrm{CL}[6, 8] = 7$ (HARMONY),
+so $(6, 8)$ is a *face* of $\Delta_B$ rather than a non-face and
+therefore cannot be a basis-exchange-failure coordinate. The
+21.9% failure rate itself is unchanged; its machine-verifiable
+coordinates are the 5-generator bump set above, and the
+chain-on-$\{1, 2, 4, 8\}$ gives the simplest visualisable piece of
+that set. The color-wheel pairs remain connected to the $D_4$ story
+through the WP102 construction (they index three of the four
+$\mathbb R^2$-factors of the standard
+$\mathbb R^8 = \bigoplus_{k=1}^4 \mathbb R^2$ root-plane decomposition,
+with the fourth factor indexed by the complement $\{0, 5, 7, 9\}$),
+but that connection is between the WP102 Lie-algebraic lift and the
+color wheel — not between Δ_B basis-exchange and the pair structure.
 
 **Mantero's framework:** Focal matroids (March 2026) provide an
 algorithmic route to produce "submatroids attached to a cover" — a way
@@ -226,13 +249,19 @@ focal correction. The focal-matroid decomposition is the natural place
 to look for an invariant-theoretic description of where exchange can
 or cannot happen.
 
-**Bridge:** Is the coincidence between basis-exchange failure locations
-and $D_4$ complementary pairs a general phenomenon of
-Lie-algebra-compatible magmas, or is it specific to CL? The answer to
-this question is the entry point into a full comparative study.
+**Bridge:** Does the focal-matroid framework assign a natural
+invariant to the 5-generator bump set $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$?
+If so, is the chain-on-$\{1, 2, 4, 8\}$ (three of the five bumps) a
+distinguished sub-structure? And is the connection between that bump
+set and the Lie-algebraic lift of Bridge 4 a general phenomenon of
+Lie-algebra-compatible magmas, or specific to CL? These are entry
+points into a comparative study.
 
-**Status:** *Verified* that the failures land on the three pairs.
-*Speculative* that this is general.
+**Status:** *Verified* 5-generator bump set and chain-on-{1,2,4,8}.
+*Verified* 21.9% failure rate. *Withdrawn* the claim that failures
+coincide with three color-wheel antipodal pairs. *Open* that the bump
+set/chain is an invariant of a natural class of non-matroidal pure
+complexes arising from Lie-algebra-compatible magmas.
 
 ---
 

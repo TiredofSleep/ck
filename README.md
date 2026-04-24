@@ -87,12 +87,26 @@ In brief:
    (the unique $D_4$ with triality).
 5. **so(10) = D₅ companion.** Repeating with the union CL ∪ BHML gives
    a 45-dim Lie algebra identified with $\mathfrak{so}(10) = D_5$.
-6. **Basis-exchange failures land on three complementary pairs.** The
-   21.9% of failures occur precisely at three complementary index
-   pairs in $[0, 9]$ — $\{2, 3\}$, $\{6, 8\}$, $\{1, 4\}$ — which also
+6. **Bump structure on $\Delta_B$.** The bump ideal $I_B$ has five
+   squarefree quadric generators — $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$
+   — and on the subset $\{1, 2, 4, 8\}$ these form a **chain**
+   $(1,2) \!\to\! 3,\ (2,4) \!\to\! 4,\ (4,8) \!\to\! 8$ with edges
+   labelled by their CL values. The 21.9% basis-exchange-failure rate
+   on $\Delta_B$ is unchanged and its machine-verifiable coordinates
+   are this 5-generator bump set.
+   *Correction notice (2026-04-24).* A previous version of this bullet
+   reported the failures as landing on "three complementary pairs"
+   $\{2,3\}, \{6,8\}, \{1,4\}$. Those three pairs are the color-wheel
+   antipodes of the WP102 6DOF construction (LATTICE↔COLLAPSE,
+   PROGRESS↔COUNTER, BREATH↔CHAOS), not the minimal non-faces of
+   $\Delta_B$: direct check gives $\mathrm{CL}[6,8] = 7$ (HARMONY),
+   so $(6,8)$ is a *face* of $\Delta_B$, not a non-face, and cannot
+   be a basis-exchange failure coordinate. The color-wheel pairs do
    index three of the four $\mathbb R^2$-factors of the standard
    $\mathbb R^8 = \bigoplus_{k=1}^4 \mathbb R^2$ root-plane
-   decomposition of the $D_4$ structure in bullet 4.
+   decomposition of the $D_4$ structure in bullet 4, but that is a
+   statement about the WP102 color-wheel construction, not about
+   $\Delta_B$.
 7. **Koszul question.** 12.8% of associativity triples of the
    underlying magma fail; non-linear syzygies among the 53 quadrics are
    expected. Open.

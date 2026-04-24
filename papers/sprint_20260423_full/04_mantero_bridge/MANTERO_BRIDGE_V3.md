@@ -247,45 +247,74 @@ Height(I_B) = 3
 | Q2 | Symbolic powers I_B^{(ℓ)}? Waldschmidt α̂(I_B)? | α̂(I_B) = 2 exactly (via fractional-matching LP). This matches the matroid formula even though I_B is not matroidal — open to interpretation. | Structure theorem from arXiv:2406.13759 |
 | Q3 | Is A Koszul? | **Resolved (2026-04-24, M2): NO.** The minimal resolution has a nonzero degree-2 row at β₈, β₉, β₁₀, so R/I_CL does not have a linear free resolution. The associative deformation may still be Koszul. | ✓ done via M2 |
 | Q4 | Are TSML and BHML CI-linked? | Unknown. Requires computing I(TSML) ∩ I(BHML) and testing for complete intersection. | Liaison theory |
-| Q5 | Distance from Δ_B to a matroid? | 21.9% basis-exchange failure. Specific failure pattern involves three complementary pairs of indices in $\{0, \ldots, 9\}$ — see the "Meta-observation" section below for the authoritative list and discussion. | Focal-matroid framework (arXiv:2603.19419) |
+| Q5 | Distance from Δ_B to a matroid? | 21.9% basis-exchange failure (7 of 32 tested facet pairs). The machine-verifiable failure coordinates are the 5-generator bump set $I_B = (x_1x_2, x_2x_4, x_2x_9, x_3x_9, x_4x_8)$; restricted to $\{1, 2, 4, 8\}$ the bumps form a chain $(1,2) \!\to\! 3,\ (2,4) \!\to\! 4,\ (4,8) \!\to\! 8$. See the "Meta-observation" section below for discussion (and a correction notice about an earlier draft that summarized the failures as landing on three "complementary pairs"). | Focal-matroid framework (arXiv:2603.19419) |
 
 ---
 
 ## Meta-observation
 
-The basis-exchange failures on Δ_B occur at three complementary pairs
-of generator indices in $\{0, 1, \ldots, 9\}$:
+**The machine-verifiable bump set.** The five non-trivial positions
+of CL — those $(i, j)$ with $\mathrm{CL}[i, j] \notin \{0, 7\}$ — are
 
 $$
-\{2, 3\}, \quad \{6, 8\}, \quad \{1, 4\}.
+(1, 2) \to 3, \quad (2, 4) \to 4, \quad (2, 9) \to 9, \quad (3, 9) \to 3, \quad (4, 8) \to 8,
 $$
 
-> **Verification note.** A pre-existing draft of this document had
-> $\{1, 2\}, \{3, 4\}, \{6, 8\}$ in the Q5 row of §"Status of the five
-> commutative-algebra questions" while the Meta-observation block used
-> $\{2, 3\}, \{6, 8\}, \{1, 4\}$. The two disagree. This paper resolves
-> the disagreement in favor of $\{2, 3\}, \{6, 8\}, \{1, 4\}$ — which
-> matches the top-level `README.md` and `papers/mantero_bridge/BRIDGES.md`
-> on this branch. A direct machine re-derivation of the failing-pair
-> structure from the `F, G, x` outputs of
-> [`compute_answers.py`](./compute_answers.py) is a small open
-> follow-up; the "failure-examples" block of that script currently
-> prints only facet pairs, not the complementary-index-pair summary.
+where each arrow is labelled by the CL value at that position. These
+are exactly the five generators of the bump ideal $I_B$ and therefore
+exactly the minimal non-faces of $\Delta_B$. Restricted to the subset
+$\{1, 2, 4, 8\}$, the bumps form a **chain**
 
-These three pairs also index three of the four $\mathbb{R}^2$-factors
-of the $\mathbb{R}^8 = \bigoplus_{k=1}^4 \mathbb{R}^2$ root-plane
-decomposition of the $\mathfrak{so}(8) = D_4$ structure identified by
-antisymmetrization of CL's left-regular operators (machine-verified in
-[`../02_so8_verification/`](../02_so8_verification/)). The fourth
-$\mathbb R^2$-factor is carried by the complementary index set
-$\{0, 5, 7, 9\}$, which are the indices that do *not* appear in the
-failing exchange pairs.
+$$
+1 \;\overset{3}{\text{---}}\; 2 \;\overset{4}{\text{---}}\; 4 \;\overset{8}{\text{---}}\; 8,
+$$
 
-In other words: **the non-matroidal defect of Δ_B is expressed by the
-same pair structure that governs the Lie-algebraic lift.** Whether
-this is a coincidence or an invariant of a broader class of
-"pure-quasi-matroidal" complexes is exactly the kind of question
-Mantero's focal-matroid framework appears designed to address.
+three edges whose labels are the CL-value codomain $\{3, 4, 8\}$. This
+is the cleanest piece of the bump set visualisable on four vertices.
+The 21.9% basis-exchange failure rate of $\Delta_B$ — 7 failures
+out of 32 tested facet pairs — is a direct consequence of this bump
+structure through the Stanley–Reisner correspondence.
+
+> **Correction notice (2026-04-24).** Earlier versions of this document
+> summarized the basis-exchange failures as landing on "three
+> complementary pairs" of generator indices — variously listed as
+> $\{1, 2\}, \{3, 4\}, \{6, 8\}$ in the Q5 row and as
+> $\{2, 3\}, \{6, 8\}, \{1, 4\}$ in this Meta-observation block. Both
+> lists were **interpretive overlays** onto the actual bump structure,
+> not the underlying machine-verifiable content. The three pairs
+> $\{2, 3\}, \{6, 8\}, \{1, 4\}$ are the color-wheel antipodes of the
+> WP102 6DOF construction (LATTICE↔COLLAPSE $(1, 4)$, PROGRESS↔COUNTER
+> $(2, 3)$, BREATH↔CHAOS $(6, 8)$); they relate to the $D_4$ story
+> through that construction, not through the Δ_B failure coordinates.
+> Direct check from the CL table: $\mathrm{CL}[6, 8] = 7$ (HARMONY),
+> so $(6, 8)$ is a face of $\Delta_B$, not a minimal non-face, and
+> therefore cannot be a basis-exchange-failure pair in $\Delta_B$.
+> The correct machine-verifiable statement is the 5-generator bump
+> set above; the chain on $\{1, 2, 4, 8\}$ is the distinguished
+> three-edge sub-structure.
+> Script reference:
+> [`compute_answers.py`](./compute_answers.py) enumerates the facet-pair
+> basis-exchange tests; its "failure-examples" block prints $(F, G, x)$
+> triples directly and does not lift them to an index-pair summary.
+> The claim corrected here was the lift, not the underlying enumeration.
+
+**Connection to the Lie-algebraic lift.** The color-wheel antipodal
+pairs $\{2, 3\}, \{6, 8\}, \{1, 4\}$ index three of the four
+$\mathbb{R}^2$-factors of the standard
+$\mathbb{R}^8 = \bigoplus_{k=1}^4 \mathbb{R}^2$ root-plane decomposition
+of the $\mathfrak{so}(8) = D_4$ structure identified by antisymmetrization
+of CL's left-regular operators (machine-verified in
+[`../02_so8_verification/`](../02_so8_verification/)), with the fourth
+factor carried by the complement $\{0, 5, 7, 9\}$. This is a statement
+about the WP102 Lie-algebraic construction and its color-wheel
+interpretation — *not* about the coordinates of basis-exchange
+failures in $\Delta_B$, which are determined instead by the 5-generator
+bump set above.
+
+Whether the bump set / chain-on-$\{1, 2, 4, 8\}$ of a pure
+non-matroidal Lie-algebra-compatible magma is itself an invariant of
+a broader class — the kind of question Mantero's focal-matroid
+framework appears designed to address — remains open.
 
 ---
 

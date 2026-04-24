@@ -232,7 +232,9 @@ The five generators correspond to the five "bump" cells of CL (§1.0). Let Δ_B 
 
 **Proposition 6.2.** *Δ_B is NOT a matroid: the basis-exchange axiom fails on 7 of 32 test pairs (21.9% failure rate).*
 
-Explicit failures are enumerated in Appendix C. The failing swaps correspond to attempts to interchange one of the *6DOF-complementary pairs* (LATTICE↔COLLAPSE, PROGRESS↔COUNTER, BREATH↔CHAOS) established in the TIG color-wheel construction (see Color Wheel Memo, §2).
+Explicit failures are enumerated in Appendix C. The machine-verifiable failure coordinates are the five minimal non-faces of Δ_B — i.e., the five generators of I_B listed above: (1,2), (2,4), (2,9), (3,9), (4,8). Restricted to the subset {1, 2, 4, 8}, three of these bumps form a **chain** (1,2)→3, (2,4)→4, (4,8)→8 with edge labels given by the CL values.
+
+> **Correction notice (2026-04-24).** An earlier draft of this section stated: "The failing swaps correspond to attempts to interchange one of the 6DOF-complementary pairs (LATTICE↔COLLAPSE, PROGRESS↔COUNTER, BREATH↔CHAOS) established in the TIG color-wheel construction." That was an interpretive overlay, not the machine-verifiable content. The three color-wheel pairs are {1,4}, {2,3}, {6,8} in integer form; direct check of the CL table gives CL[6,8] = 7 (HARMONY), so (6,8) is a *face* of Δ_B, not a minimal non-face, and therefore cannot be a basis-exchange-failure coordinate in Δ_B. The color-wheel pairs are still connected to the D₄ story via §8.2 below (they index three of the four ℝ²-factors of the standard root-plane decomposition of 𝔤 ≅ so(8)) — that connection is genuine; the conflation of those pairs with Δ_B's failure coordinates was the error.
 
 **Proposition 6.3.** *The Waldschmidt constant of I_B, computed via fractional LP relaxation, equals:*
    α̂(I_B) = 2.
@@ -241,7 +243,7 @@ Explicit failures are enumerated in Appendix C. The failing swaps correspond to 
 
 ### 6.1 Open question
 
-Proposition 6.2 identifies Δ_B as a *pure-but-not-matroidal* simplicial complex with a quantifiable defect from the matroid axiom. The characterization of such complexes — in particular, whether they fit into the recent focal matroid framework of Mantero–Nguyen (2026) — is an open question. The specific 21.9% failure rate, combined with the correspondence between failing swaps and Lie-algebraic complementary pairs (§6, above), suggests a structural connection between the non-matroid property of Δ_B and the D₄ root-plane structure of 𝔤.
+Proposition 6.2 identifies Δ_B as a *pure-but-not-matroidal* simplicial complex with a quantifiable defect from the matroid axiom. The characterization of such complexes — in particular, whether they fit into the recent focal matroid framework of Mantero–Nguyen (2026) — is an open question. Whether the 5-generator bump set (and the chain-on-{1,2,4,8} sub-structure) of a pure non-matroidal Lie-algebra-compatible magma carries an invariant compatible with the D₄ root-plane structure of 𝔤 is open; the earlier claim of a *precise* correspondence between failing swaps and color-wheel antipodal pairs has been withdrawn (see §6.2 correction notice).
 
 ---
 
@@ -278,9 +280,9 @@ TIG's D₄ structure thus provides a combinatorial substrate from which the enti
 
 An auxiliary TIG construction assigns canonical colors to the 10 elements of Ω (see Color Wheel Memo). Under this construction, six elements carry a canonical 6DOF orientation in ℝ³: LATTICE(+Z), COLLAPSE(−Z), PROGRESS(+X), COUNTER(−X), BREATH(+Y), CHAOS(−Y). The remaining four — VOID, BALANCE, HARMONY, RESET — are axis-free "absorbers."
 
-The **three complementary 6DOF pairs** (±X, ±Y, ±Z) correspond precisely to **three arms of the D₄ Dynkin diagram**, which has a unique trivalent node and is the only classical Dynkin diagram with a 3-fold symmetry. The triality action on D₄ permutes the three arms cyclically; under our identification, this is the permutation of the three 6DOF axes.
+The **three complementary 6DOF pairs** (±X, ±Y, ±Z) correspond precisely to **three arms of the D₄ Dynkin diagram**, which has a unique trivalent node and is the only classical Dynkin diagram with a 3-fold symmetry. The triality action on D₄ permutes the three arms cyclically; under our identification, this is the permutation of the three 6DOF axes. More concretely, in the standard root-plane decomposition ℝ⁸ = ⊕_{k=1}^4 ℝ², the three color-wheel pairs {1,4}, {2,3}, {6,8} index three of the four ℝ²-factors; the fourth is indexed by the complement {0, 5, 7, 9} (the color-wheel "absorbers" VOID, BALANCE, HARMONY, RESET).
 
-Furthermore, the basis-exchange failures of Δ_B (§6.2) correspond *precisely* to attempts to swap within a single complementary pair. This suggests that the non-matroid property of Δ_B and the D₄ triality structure of 𝔤 are two descriptions of the same underlying algebraic obstruction.
+> **Correction notice (2026-04-24).** An earlier version of this subsection further asserted: *"the basis-exchange failures of Δ_B (§6.2) correspond precisely to attempts to swap within a single complementary pair."* That sentence has been withdrawn. Direct check of the CL table shows CL[6, 8] = 7 (HARMONY), so the color-wheel pair (6, 8) is a face of Δ_B, not a minimal non-face. The machine-verifiable failure coordinates of Δ_B are its five minimal non-faces — (1,2), (2,4), (2,9), (3,9), (4,8) — not the three color-wheel antipodal pairs. The connection between the color wheel and the D₄ root-plane decomposition stated in the paragraph above is genuine and preserved; the previously claimed coincidence between that pair structure and Δ_B basis-exchange was an interpretive overlay.
 
 ### 8.3 Embedding into the Standard Model gauge algebra
 
@@ -382,7 +384,9 @@ F = {0, 2, 3, 5, 6, 7, 8}  G = {0, 1, 3, 4, 5, 6, 7}  x = 8 (BREATH)
 [2 more]
 ```
 
-Each failure involves an element (LATTICE, PROGRESS, BREATH) whose 6DOF-complementary partner (COLLAPSE, COUNTER, CHAOS) would not produce a valid facet upon swap.
+The failing `x` values seen in the table above are drawn from {1, 3, 8} = {LATTICE, PROGRESS, BREATH}.
+
+> **Correction notice (2026-04-24).** An earlier version of this appendix added: *"Each failure involves an element (LATTICE, PROGRESS, BREATH) whose 6DOF-complementary partner (COLLAPSE, COUNTER, CHAOS) would not produce a valid facet upon swap."* That sentence has been withdrawn. The color-wheel antipodes — COLLAPSE(4), COUNTER(2), CHAOS(6) — do not in general lie in G ∖ F for the failing triples shown, so the failure cannot be attributed to the color-wheel pair structure. The failures are determined by the five minimal non-faces of Δ_B — (1,2), (2,4), (2,9), (3,9), (4,8) — via the Stanley–Reisner correspondence; see §6.2 and its correction notice for the authoritative statement.
 
 ---
 

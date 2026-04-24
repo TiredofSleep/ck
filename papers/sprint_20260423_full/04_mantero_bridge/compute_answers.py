@@ -9,6 +9,32 @@ Q2: Symbolic powers of the bump ideal I_B
 Q3: Koszul property of A
 Q4: CI-linkage between TSML-ideal and BHML-ideal
 Q5: "Distance to matroid" of the bump complex Δ_B
+
+──────────────────────────────────────────────────────────────────────
+CORRECTION NOTICE — 2026-04-24 (Macaulay2 verification)
+──────────────────────────────────────────────────────────────────────
+The Q1 commentary in this script derives `Krull dim A = 6`, `height
+I_CL = 4` from a Python sandbox computation that was computing a
+DIFFERENT quotient (relations on degree-2 monomials with an extra
+x_0 substitution) than the direct binomial-ideal quotient.
+
+The machine-verified invariants of A = R / I_CL, resolved in
+Macaulay2 1.22 via SageMathCell on 2026-04-24, are:
+
+    numgens I_CL = 53      (agrees)
+    codim I_CL   = 9       (NOT 4)
+    dim R/I_CL   = 1       (NOT 6)
+    pd(R/I_CL)   = 10      (NOT 4)
+    depth R/I_CL = 0
+    R/I_CL is NOT Cohen-Macaulay
+    R/I_CL is NOT Koszul
+
+See ../09_mathoverflow_post/betti_output.txt for the full Betti
+table. The inline Q1 commentary below is preserved for historical
+transparency but is SUPERSEDED by the M2 result. The top-level
+README.md and ../04_mantero_bridge/MANTERO_BRIDGE_V3.md use the M2
+numbers as the reference standard.
+──────────────────────────────────────────────────────────────────────
 """
 import numpy as np
 from itertools import combinations, product
