@@ -1,9 +1,18 @@
-# MathOverflow Post — DRAFT (v2, 2026-04-24)
+# MathOverflow Post — POSTED (v2, 2026-04-24)
 
-**Status:** DRAFT with machine-verified invariants. Posted link will be
-added to this file when live. Superseded earlier draft (v1, 2026-04-23)
-whose open questions on pd and Koszul have now been resolved by the
-Macaulay2 run (`compute_betti.m2` / `betti_output.txt` in this folder).
+**Status:** POSTED to MathOverflow on 2026-04-24.
+
+- **Live URL:** [mathoverflow.net/questions/510662](https://mathoverflow.net/questions/510662/structural-explanation-for-bottom-strand-betti-beta-8-10-1-beta-9-11-2)
+- **Question ID:** 510662
+- **Title used:** "Structural explanation for bottom-strand Betti $\beta_{8,10}=1, \beta_{9,11}=2, \beta_{10,12}=1$ of a non-Koszul 10-variable binomial ideal"
+- **Tags used:** `ac.commutative-algebra`, `binomial-ideals`, `free-resolutions`, `cohen-macaulay-rings`, `koszul-duality` (final set after MO flagged `projective-dimension` and `koszul-algebras` as non-existent tags and we swapped in `cohen-macaulay-rings` and `koszul-duality`).
+- **Body:** as drafted below, pasted from `POST_READY.md`.
+
+This file is retained as the full draft record (including the
+pre-post checklist and editorial notes). Superseded the earlier draft
+(v1, 2026-04-23) whose open questions on pd and Koszul had already
+been resolved by the Macaulay2 run (`compute_betti.m2` /
+`betti_output.txt` in this folder) before posting.
 
 **Object of the post.** A focused commutative-algebra question on the
 free resolution, non-Cohen-Macaulay character, and associative
@@ -260,17 +269,25 @@ the subject of this post.
 - [x] Resolve Q1 (pd) and Q2 (Koszul) as machine-verified facts, not
       open questions; post's question is now one level up
       (structural explanation of the bottom strand).
-- [ ] Pick the five MO tags (currently listed; final confirmation
-      before posting).
+- [x] Pick the five MO tags. Final set:
+      `ac.commutative-algebra`, `binomial-ideals`, `free-resolutions`,
+      `cohen-macaulay-rings`, `koszul-duality`. MO flagged
+      `projective-dimension` and `koszul-algebras` from the earlier
+      candidate list as non-existent tags and required substitutes;
+      `cohen-macaulay-rings` and `koszul-duality` were both accepted
+      via MO's autocomplete.
 - [x] Link the `betti_output.txt` file in the repo via GitHub URL
       (pre-filled to `mantero-bridge-2026-04-23` branch — swap for
       commit-pinned URL at post time if the branch has moved).
-- [ ] Final read-through for tone: MathOverflow answers best when the
-      question is narrow, motivated, and self-contained. No framework
-      advocacy in the post body.
-- [ ] Post, then update
-      `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`
-      "Status" section with the link + email Dr. Mantero.
+- [x] Final read-through for tone (2026-04-24): narrow, motivated,
+      self-contained; no framework advocacy in the post body.
+- [x] Post on MathOverflow (2026-04-24, question #510662,
+      `https://mathoverflow.net/questions/510662/`).
+- [x] Update `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`
+      Status block with the live link (done 2026-04-24).
+- [ ] Email Dr. Mantero with the live link (draft at
+      `papers/sprint_20260423_full/08_correspondence/mantero_followup_email_draft_2026-04-24.md`;
+      Brayden to send from his own mail client).
 
 ---
 

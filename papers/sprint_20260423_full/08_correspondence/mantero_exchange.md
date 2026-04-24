@@ -43,11 +43,15 @@ NOT Cohen-Macaulay, NOT Koszul; see `09_mathoverflow_post/betti_output.txt`.)
 
 - **MathOverflow post** on projective dimension and Koszul property of the
   binomial ideal above, framed using the Hilbert function and the 10×10
-  table. Draft lives at
-  [`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`][mo-draft]
-  on this branch. Posted link will be appended to this file when live.
+  table. **Live on MathOverflow as of 2026-04-24:**
+  [Structural explanation for bottom-strand Betti $\beta_{8,10}=1, \beta_{9,11}=2, \beta_{10,12}=1$ of a non-Koszul 10-variable binomial ideal][mo-live]
+  (question #510662). Draft bundle (body, tags, reproducibility scripts,
+  Macaulay2 run log) lives at
+  [`papers/sprint_20260423_full/09_mathoverflow_post/`][mo-folder] on this
+  branch.
 
-[mo-draft]: ../09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md
+[mo-live]: https://mathoverflow.net/questions/510662/structural-explanation-for-bottom-strand-betti-beta-8-10-1-beta-9-11-2
+[mo-folder]: ../09_mathoverflow_post/
 
 ## What is NOT in this file
 

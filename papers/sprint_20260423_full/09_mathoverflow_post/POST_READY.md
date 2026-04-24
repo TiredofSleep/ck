@@ -1,11 +1,23 @@
 # Post-Ready Content — MathOverflow
 
+**Status (2026-04-24):** POSTED. Live at
+[mathoverflow.net/questions/510662](https://mathoverflow.net/questions/510662/structural-explanation-for-bottom-strand-betti-beta-8-10-1-beta-9-11-2).
+This file is retained as the canonical record of what was pasted.
+
 **Source draft:** `DRAFT_MATHOVERFLOW_POST.md` (commit `aee6844`).
 
 This file isolates the exact text that goes into the MathOverflow
 "Ask Question" form. Three fields: **Title**, **Body**, **Tags**.
 Everything below each heading is ready to copy-paste into the
 corresponding form field.
+
+**Tag note:** the original 5-tag suggestion listed
+`projective-dimension` and `koszul-algebras`; MO flagged both as
+non-existent tags at submit time. The live post uses
+`cohen-macaulay-rings` (for the Cohen-Macaulay result) and
+`koszul-duality` (the canonical MO tag for Koszul-adjacent material)
+in their place. The tag block below is preserved as originally
+suggested so that a future reader can see the swap.
 
 ---
 
