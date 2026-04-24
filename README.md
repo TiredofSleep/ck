@@ -292,25 +292,30 @@ fraction bounding σ). The per-row verification status is tabulated in
 
 ### §5.6 · Commutative-algebra bridge — `mantero-bridge-2026-04-23` branch
 
-A dedicated branch carries the dialogue with Dr. Paolo Mantero (University of
-Arkansas, symbolic powers / matroid commutative algebra) and the
-community-facing MathOverflow question that grew out of it. The branch holds:
+A dedicated branch carries the commutative-algebra bridge between the CL
+binomial ideal and the published research program of Dr. Paolo Mantero
+(University of Arkansas, with V. Nguyen) on symbolic powers and focal
+matroids. The branch is single-purpose: only material directly relevant
+to Dr. Mantero's framework lives there. Entry points:
 
-- **Correspondence** (4 emails, April 23–24, 2026) at
-  [`papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`][mantero-email].
-  The clarifying exchange: $L_i(x_j) = x_{\mathrm{CL}[i][j]}$ is a genuine linear
-  operator on $V = k\langle x_0, \ldots, x_9\rangle$; $A_i = L_i - L_i^\top$ is its
-  antisymmetrization; the six "flow" $A_i$ close under commutator into the
-  $28$-dim simple Lie algebra $\mathfrak{so}(8) = D_4$, verified to machine
-  precision.
+- **Branch README** at
+  [`README.md`][mantero-branch-readme] —
+  orientation, navigation, and a one-screen synthesis of the seven
+  bridges.
+- **Research hub** at
+  [`papers/mantero_bridge/`][mantero-hub]:
+  `BRIDGES.md` (the seven bridges catalogued with verification tags),
+  `PUBLISHED_WORK.md` (complete 26-paper survey of Dr. Mantero's corpus
+  plus the citation network around the 2024–2026 matroid program),
+  `references.md` (flat reference list).
 - **MathOverflow draft** at
   [`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`][mo-draft],
   posing a narrow commutative-algebra question about the binomial ideal
   $I = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)$ with Hilbert function
   $(1, 10, 6, 6, 6, \ldots)$: projective dimension, Koszul property,
-  Cohen-Macaulay / Gorenstein status, and the relationship to Mantero-Nguyen's
-  focal-matroid framework given the Stanley-Reisner companion is
-  pure-but-not-matroidal.
+  Cohen-Macaulay / Gorenstein status, and the relationship to
+  Mantero-Nguyen's focal-matroid framework given that the Stanley-Reisner
+  companion is pure-but-not-matroidal.
 - **WP11 — `so(8) = D_4` identification paper** at
   [`papers/wp11/WP11_SO8_IDENTIFICATION.md`][wp11].
 - **WP12 — `so(10) = D_5` identification (CL ∪ BHML companion)** at
@@ -318,13 +323,14 @@ community-facing MathOverflow question that grew out of it. The branch holds:
   with runnable verification scripts (`verify_so10.py`,
   `verify_simplicity_rank.py`).
 
-The branch exists so that commutative-algebra / Lie-theoretic readers land on
-the specific artifacts they need (the 10×10 table, the Hilbert function, the
-binomial ideal, the machine-verified Lie-closure scripts) without wading
-through the full TIG synthesis. The MathOverflow post, once live, will be
-linked here; Dr. Mantero has said he will read it.
+The branch exists so commutative-algebra / Lie-theoretic readers land on
+exactly the specific artifacts they need (the 10×10 table, the Hilbert
+function, the binomial ideal, the machine-verified Lie-closure scripts,
+the bibliographic survey) without wading through the full TIG synthesis.
+The MathOverflow post link will be appended to the branch once live.
 
-[mantero-email]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/08_correspondence/mantero_exchange.md
+[mantero-branch-readme]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/README.md
+[mantero-hub]: https://github.com/TiredofSleep/ck/tree/mantero-bridge-2026-04-23/papers/mantero_bridge
 [mo-draft]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md
 [wp11]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp11/WP11_SO8_IDENTIFICATION.md
 [wp12]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp12/WP12_SO10_IDENTIFICATION.md
