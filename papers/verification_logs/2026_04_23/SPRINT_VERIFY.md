@@ -19,7 +19,25 @@ All scripts run with `PYTHONIOENCODING=utf-8` (Windows cp1252 avoidance).
 | 5 | `papers/wp12/verify_simplicity_rank.py` | **GREEN** | Unique (up to scale) invariant bilinear form; rank 5; 45 = 40 nonzero + 5 zero eigenvalues |
 | 6 | `papers/morphotic_braid/proof_spectra_tsml_bhml.py` | **GREEN** (cached) | α(TSML) = 0.8720, α(BHML) = 0.5020; both commutative = 1.0000; sₙ = C_{n−1} and sₙ^ac = (2n−3)!! match for n = 3, 4, 5 |
 
-Notes on #6: direct re-run of the n = 6 enumeration (132 M triples) did not complete in the bash window. Cached log `papers/verification_logs/2026_04_24/01_proof_spectra_tsml_bhml.txt` supplies the verified values used throughout the sprint. Interpretation block in that log confirms: "symmetric operad = FREE commutative nonassociative operad on one generator"; "triple-associativity rate (α) and operad freeness are INDEPENDENT."
+Notes on #6: direct re-run of the n = 6 enumeration (132 M triples) exceeded the bash polling window; the background task (id `beflmwjti`) **completed cleanly (exit 0)** during commit staging. Its output captures the tail of the run:
+
+```
+=== BHML ===
+  Associativity index α = 502/1000 = 0.5020
+  Non-associativity rate = 0.4980 = 49.80%
+  Commutativity = 100/100 = 1.0000 (fully commutative)
+     n    C_{n-1}      s_n    match     (2n-3)!!     s_n^ac    match
+     3          2        2        ✓            3          3        ✓
+     4          5        5        ✓           15         15        ✓
+     5         14       14        ✓          105        105        ✓
+
+INTERPRETATION
+ Despite α(TSML) = 0.872 > α(BHML) = 0.502, both tables produce
+ the full free operad at the bracketing level.
+ Triple-associativity rate (α) and operad freeness are INDEPENDENT.
+```
+
+This reproduces the cached `papers/verification_logs/2026_04_24/01_proof_spectra_tsml_bhml.txt` values exactly: α(TSML) = 0.8720, α(BHML) = 0.5020, Catalan spectrum sₙ = C_{n−1} and ac-free spectrum sₙ^ac = (2n−3)!! match for n ∈ {3, 4, 5}. Full output preserved at `C:\Users\brayd\AppData\Local\Temp\claude\...\tasks\beflmwjti.output`.
 
 ## 2. File diff (37 modified + 1 created)
 
