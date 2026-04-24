@@ -574,5 +574,6 @@ or funding discussions, please contact Brayden Sanders at brayden.ozark@gmail.co
 open a GitHub issue. Independent verification of any result on this page is welcomed
 and encouraged.*
 
-*Last updated: 2026-04-21 (navigation-first restructure; prior rigor-led README
-preserved at [`docs/historical/README_v2_rigor_led_2026_04_21.md`](docs/historical/README_v2_rigor_led_2026_04_21.md)).*
+*Last updated: 2026-04-23 (vocab-update sprint: §5.5 External vocabulary map added;
+§3.5 morphotic-braid frontier added; Frontier labels uniformized; prior rigor-led
+README preserved at [`docs/historical/README_v2_rigor_led_2026_04_21.md`](docs/historical/README_v2_rigor_led_2026_04_21.md)).*

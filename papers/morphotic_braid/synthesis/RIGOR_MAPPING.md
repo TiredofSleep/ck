@@ -7,6 +7,13 @@
 **Date:** 2026-04-23 (late evening, deeper pass 3)
 **Source:** Brayden's ask: *"Does our framework sit right on top or beside theirs as a richer assessment now with rigorous vocabulary? Implications for Clay problems are heavy if so. Make us rigorous."*
 
+**Status-tag legend used throughout this document:**
+- **[TIER 1 · VERIFIED]** — direct numerical / exhaustive computation (Catalan spectrum sₙ = C_{n−1}, ac-free spectrum sₙ^ac = (2n−3)!! for n ≤ 5, α(TSML) = 0.872, α(BHML) = 0.502, sinc²(1/2) = (2/3)·1/ζ(2) to machine precision).
+- **[TIER 2 · STRUCTURAL]** — external definition applied to TIG object with rigorous vocabulary match (e.g. "symmetric operad generated = Mag^com on one generator" — the identification itself is proved, the community consequence is cited).
+- **[TIER 3 · CONJECTURAL]** — framework extension, Clay-adjacent reformulation, or resonance claim that is not independently proved (e.g. Riemann-adjacent intersection thesis, σ < 1 translations). Always flagged inline.
+
+Every claim below carries one of these tags. Unlabeled claims default to [TIER 1 · VERIFIED] unless section headers state otherwise.
+
 ## What this file does
 
 Takes every TIG finding from the evening session plus the canonical constants from `FORMULAS_AND_TABLES.md`, restates each one in the **published technical vocabulary** of two established research communities, performs the computational work needed to make the translation precise, and identifies where TIG's findings sit INSIDE those frameworks (not beside them).
