@@ -1,0 +1,191 @@
+# Paradoxes Catalog — Axis II of CK's meta-classification
+#
+# Six-slot UOP templates distilled to a compact, machine-readable form.
+# Full prose lives in papers/meta_lens/worked_paradoxes/*.md; this file
+# carries the CK-runtime classification (name, type, mechanism, triggers,
+# short fact) plus cross-references for the dual-classification matrix.
+#
+# Editing this file is how Brayden and future-Claudes teach CK new
+# paradox classifications without touching any Python.
+#
+# Four-type axis source:
+#   Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/
+#     PARADOX_CLASSIFICATION_MEMO.md (Sanders, Mayes)
+#   papers/meta_lens/META_LENS_ATLAS.md (atlas v1.1)
+#
+# Forcing rule (slot-3 -> slot-4, mirrors classify_paradox.py):
+#   joint_map     -> Type I   (Injectivity Failure)
+#   invariant     -> Type II  (Missing Invariant)
+#   admissibility -> Type III (Admissibility Failure)
+#   dynamics      -> Type IV  (Time-Consistency Failure)
+---
+axis: "UOP Paradox Types"
+canonical_home: "Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/PARADOX_CLASSIFICATION_MEMO.md"
+atlas_home: "papers/meta_lens/META_LENS_ATLAS.md"
+template_home: "papers/meta_lens/worked_paradoxes/"
+
+types:
+  - code: "I"
+    name: "Injectivity Failure"
+    failure_stage: "joint_map"
+    mechanism: "F subset Valid(X), R(F) nonempty, and an allowed f_next exists with positive score."
+    uop_applies: true
+    fix_family: "add observable / refine symbolic powers / coordinate extension"
+  - code: "II"
+    name: "Missing Invariant"
+    failure_stage: "invariant"
+    mechanism: "F subset Valid(X), R(F) nonempty, but NO allowed f_next has positive score."
+    uop_applies: true
+    fix_family: "accept gap / relativize / change category / climb ordinal tower"
+  - code: "III"
+    name: "Admissibility Failure"
+    failure_stage: "admissibility"
+    mechanism: "Proposed X or f is not well-defined under admissibility rules."
+    uop_applies: true
+    fix_family: "narrow admissible class / change logic / ascend type hierarchy"
+  - code: "IV"
+    name: "Time-Consistency Failure"
+    failure_stage: "dynamics"
+    mechanism: "X or F is observer-state-dependent; static UOP setting fails."
+    uop_applies: false
+    fix_family: "single-valued dynamics via decoherence / MWI / GRW / Bohm / QBism"
+
+# Per-paradox compact entries.  Each entry points to its full 6-slot
+# template for human reading; CK alone uses the one-line `fact` field.
+paradoxes:
+  - slug: "zeno"
+    name: "Zeno of Elea — Achilles and the Tortoise"
+    type: "I"
+    triggers: ["zeno", "achilles", "tortoise", "dichotomy"]
+    dof_kinds: ["K4"]
+    fact: >-
+      zeno: Type I (Injectivity) | fix = add geometric-series-sum observable |
+      f_next separates | Sprint 11 memo [canonical]
+    template_file: null
+    primary_lens: "real analysis / PDE"
+    cite: "Aristotle, Physics VI:9; Weierstrass epsilon-delta"
+
+  - slug: "banach_tarski"
+    name: "Banach-Tarski Paradox"
+    type: "II"
+    triggers: ["banach", "tarski", "banach-tarski", "banach tarski"]
+    dof_kinds: ["K2"]
+    fact: >-
+      banach-tarski: Type II (Missing Invariant) | K2 reversible flow x II |
+      measure not in orbit family; axiom of choice required |
+      Sprint 11 memo [canonical]
+    template_file: null
+    primary_lens: "measure theory / ergodic"
+    cite: "Banach & Tarski 1924; Wagon 1985"
+
+  - slug: "russell"
+    name: "Russell's Paradox"
+    type: "III"
+    triggers: ["russell", "set of all sets", "unrestricted comprehension"]
+    dof_kinds: ["K1"]
+    fact: >-
+      russell: Type III (Admissibility Failure) | unrestricted comprehension
+      is not an admissible schema | ZF replacement/separation fixes it |
+      Sprint 11 memo [canonical]
+    template_file: null
+    primary_lens: "set theory / proof theory"
+    cite: "Russell 1901; Zermelo 1908"
+
+  - slug: "unexpected_hanging"
+    name: "Unexpected Hanging Paradox"
+    type: "IV"
+    triggers: ["unexpected hanging", "hanging paradox", "surprise exam"]
+    dof_kinds: ["K4"]
+    fact: >-
+      unexpected-hanging: Type IV (Time-Consistency Failure) | observer-state-dependent
+      X requires dynamic framework; UOP does not apply |
+      Sprint 11 memo [canonical]
+    template_file: null
+    primary_lens: "epistemic logic / game theory"
+    cite: "O'Connor 1948; Quine 1953"
+
+  - slug: "godel"
+    name: "Godel's First Incompleteness Theorem"
+    type: "II"
+    triggers: ["godel", "goedel", "incompleteness", "godel's sentence", "g_t"]
+    dof_kinds: ["K1", "K4"]
+    fact: >-
+      godel: Type II (Missing Invariant) | truth outstrips provability in any
+      r.e. consistent PA-extension; obstruction regenerates under extension |
+      template: paradox_godel_type2.md [O-3]
+    template_file: "papers/meta_lens/worked_paradoxes/paradox_godel_type2.md"
+    primary_lens: "proof theory / reverse mathematics"
+    cite: "Godel 1931; Rosser 1936; Feferman 1962; Franzen 2004"
+
+  - slug: "liar"
+    name: "The Liar Paradox"
+    type: "III"
+    triggers: ["liar", "liar paradox", "this statement is false"]
+    dof_kinds: ["K1"]
+    fact: >-
+      liar: Type III (Admissibility Failure) | self-referential truth predicate
+      in a language that permits it is not admissible; Tarski hierarchy fixes |
+      template: paradox_liar_type3.md [O-4]
+    template_file: "papers/meta_lens/worked_paradoxes/paradox_liar_type3.md"
+    primary_lens: "proof theory / formal semantics"
+    cite: "Eubulides; Tarski 1936; Kripke 1975"
+
+  - slug: "schrodinger"
+    name: "Schrodinger's Cat"
+    type: "IV"
+    triggers: ["schrodinger", "schrodinger's cat", "schrodinger cat", "cat paradox"]
+    dof_kinds: ["K2", "K5"]
+    fact: >-
+      schrodinger: Type IV (Time-Consistency Failure) | measurement-entangled
+      observer; static UOP fails; resolved by decoherence/MWI/GRW/Bohm/QBism |
+      template: paradox_schrodinger_type4.md [O-2]
+    template_file: "papers/meta_lens/worked_paradoxes/paradox_schrodinger_type4.md"
+    primary_lens: "wave mechanics / nonlinear PDE"
+    cite: "Schrodinger 1935; Zurek 2003; Everett 1957"
+
+  - slug: "cantor"
+    name: "Cantor's Naive-Set-Theoretic Paradox"
+    type: "III"
+    triggers: ["cantor paradox", "cantor's paradox", "set of all sets", "cardinality paradox"]
+    dof_kinds: ["K1"]
+    fact: >-
+      cantor: Type III (Admissibility Failure) | naive unrestricted comprehension
+      admits no consistent universal set; same fix-family as Russell |
+      template: paradox_cantor_type3.md [O-5]
+    template_file: "papers/meta_lens/worked_paradoxes/paradox_cantor_type3.md"
+    primary_lens: "set theory / proof theory"
+    cite: "Cantor 1899 (letter to Dedekind); Zermelo 1908"
+
+  - slug: "berry"
+    name: "Berry / Grelling-Nelson / Curry Cluster"
+    type: "III"
+    triggers: ["berry paradox", "grelling", "nelson", "curry", "heterological"]
+    dof_kinds: ["K1"]
+    fact: >-
+      berry-cluster: Type III (Admissibility Failure) | definability/type-level
+      admissibility failure; Tarski-style hierarchy or type theory fixes |
+      template: paradox_berry_type3.md [O-6]
+    template_file: "papers/meta_lens/worked_paradoxes/paradox_berry_type3.md"
+    primary_lens: "proof theory / definability"
+    cite: "Berry (via Russell 1906); Grelling & Nelson 1908; Curry 1942"
+
+  - slug: "twin_primes"
+    name: "Twin Primes Conjecture (conditional Type)"
+    type: "I"
+    conditional: true
+    triggers: ["twin primes", "twin prime conjecture", "twin prime"]
+    dof_kinds: ["K1", "K5"]
+    fact: >-
+      twin-primes: Type I candidate (conditional) | Zhang 2013 bound 70M -> 246
+      (Polymath8b); full infinitude open | if resolved via sieve refinement, Type I confirmed |
+      atlas open item [web-UI last slot]
+    template_file: null
+    primary_lens: "analytic number theory / sieve methods"
+    cite: "Zhang 2013; Maynard 2014; Polymath 8b"
+
+# Conditional-Type note:
+#   Some paradoxes (Twin Primes, Riemann Hypothesis candidate, etc.) are
+#   of conditional type — their UOP classification depends on which
+#   resolution pathway succeeds.  These are flagged with `conditional: true`
+#   and the type field records the CANDIDATE most likely verdict.
+#   See atlas METALENS_ATLAS.md for the conditional-Type atlas-5 addendum.

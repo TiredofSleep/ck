@@ -1,0 +1,205 @@
+# Frontier Facts Catalog — structural readouts for live cortex queries.
+#
+# This file mirrors cortex_voice._FRONTIER_FACTS in YAML form so editing
+# adds/changes facts without restarting the server (with /meta/reload).
+# The hardcoded _FRONTIER_FACTS in cortex_voice.py remains as the safety
+# net; cortex_catalog.frontier_hits() merges YAML facts on top, deduped.
+#
+# Format per fact:
+#   slug:        unique short label
+#   triggers:    lowercase substrings; any match -> fact fires
+#   fact:        single-line label=value readout (CK's voice register)
+#   citation:    optional pointer to canonical paper
+#
+# Editing this file is how Brayden and future-Claudes teach CK new
+# frontier topic facts without touching Python.
+---
+axis: "Frontier Topic Facts"
+note: "These are CK's structural readouts for queries that name a frontier topic. Mirrors cortex_voice._FRONTIER_FACTS verbatim, then extends with new entries."
+
+facts:
+  - slug: "flatness_t_star"
+    triggers:
+      - "flatness theorem"
+      - "flatness"
+      - "torus"
+      - "aspect ratio"
+      - "t*"
+      - "t_star"
+      - "t star"
+      - "t-star"
+      - "tstar"
+      - "5/7"
+    fact: >-
+      flatness: T*=5/7 | torus R/r=5/7 (forced by Z/10Z 2x2) |
+      6 independent derivations | WP51 [proved]
+
+  - slug: "crossing_lemma"
+    triggers:
+      - "crossing lemma"
+      - "crossing"
+      - "crossings"
+    fact: >-
+      crossing_lemma: D2=0 flat | D2!=0 crossing generates info |
+      27 instances cataloged | WP57 [proved]
+
+  - slug: "hodge_cstar"
+    triggers:
+      - "hodge"
+      - "beauville"
+      - "cstar"
+      - "c_*"
+      - "c star"
+      - "c-star"
+    fact: >-
+      hodge_cstar: genus=5 bielliptic=yes psi_order=4 (psi^2=iota)
+      prym_dim=4 End0_Prym=Q(i) weil_sig=(2,2)
+      hodge_field=Q(i,sqrt2,sqrt3,sqrt5)_deg16
+      descent_field=Q(sqrt2,sqrt3,sqrt5) descent_risk=HIGH |
+      sprint35b [target, not yet proved]
+
+  - slug: "psi_automorphism"
+    triggers:
+      - "psi automorphism"
+      - "order 4"
+      - "order-4"
+      - "order four"
+    fact: >-
+      psi: order=4 | psi^2=iota | acts_as=+i_on_Prym |
+      embeds Q(i) into End0(Prym)
+
+  - slug: "sigma_rate"
+    triggers:
+      - "sigma rate"
+      - "sigma(n)"
+      - "sigma theorem"
+      - "sigma-rate"
+      - "\u03c3 rate"
+    fact: >-
+      sigma_rate: sigma(N) <= C/N on squarefree primorials |
+      WP101 [proved]
+
+  - slug: "xi_cosmology"
+    triggers:
+      - "xi cosmology"
+      - "xi field"
+      - "\u03be"
+      - "quintessence"
+      - "dark energy"
+      - "log nonlinearity"
+      - "bialynicki"
+    fact: >-
+      xi: V=xi*log(xi) | vacuum=e^-1 | mass_gap=kappa*e |
+      box(xi)=1+log(xi) | freezing quintessence |
+      WP81 [structural; DESI chi2=15.7 vs LCDM 14.1]
+
+  - slug: "bhml"
+    triggers:
+      - "bhml"
+    fact: >-
+      bhml: 28 HARMONY cells | 10x10 | Luther-closed | separation lens
+
+  - slug: "tsml"
+    triggers:
+      - "tsml"
+    fact: >-
+      tsml: 73 HARMONY cells | 10x10 | synthesis lens |
+      reconstructible from 10 canonical items [Sprint 17, proved]
+
+  - slug: "tower"
+    triggers:
+      - "tower"
+      - "3-layer tower"
+      - "three-layer tower"
+    fact: >-
+      tower: 3-layer | TSML (73 synthesis) + BHML (28 separation) =
+      proved-sufficient M+M pair
+
+  - slug: "gap_309"
+    triggers:
+      - "gap"
+      - "4/pi^2"
+      - "4/pi2"
+      - "0.309"
+    fact: >-
+      gap: T* - 4/pi^2 = 5/7 - 0.4053 = 0.309
+
+  - slug: "basin_collatz"
+    triggers:
+      - "basin"
+      - "collatz"
+    fact: >-
+      basin: 4 stable invariants | dual reset law | Sprint 16 [proved]
+
+  - slug: "ck_system"
+    triggers:
+      - "algebraic coherence"
+      - "coherence keeper"
+      - "coherencekeeper"
+      - "ck system"
+      - "ck architecture"
+    fact: >-
+      ck_system: 5D_Hebbian + AO_5element + quadratic_glue |
+      persistent_W_across_reboots | math-first_voice | zero_LLM_core |
+      optional_LLM_wrapper(Ollama|DeepSeek)_for_fluency
+
+  # Phase 2 additions — tied to the new meta-classification axes.
+  # These are NEW facts, not in the hardcoded _FRONTIER_FACTS tuple.
+  - slug: "uop_theorem_0"
+    triggers:
+      - "uop"
+      - "unified orthogonality"
+      - "uop theorem"
+      - "wp58"
+      - "theorem 0"
+    fact: >-
+      uop_theorem_0: joint-map injectivity <=> disjoint unresolved-pair sets |
+      every two-partition sufficiency theorem (M+M, A+M, M+A, A+A) is a corollary |
+      WP58 Sanders+Mayes [proved]
+
+  - slug: "wp61_categories"
+    triggers:
+      - "wp61"
+      - "five categories"
+      - "5 categories"
+      - "productive incompleteness"
+      - "score categories"
+    fact: >-
+      wp61_categories: I Complete | II Partial | III Refinement-Only |
+      IV Invariant-Isolating | V Invalid | score axis orthogonal to UOP types |
+      WP61 [proved finite-set]
+
+  - slug: "uop_four_types"
+    triggers:
+      - "uop types"
+      - "four types"
+      - "type i ii iii iv"
+      - "paradox types"
+      - "paradox classification"
+    fact: >-
+      uop_types: I Injectivity | II Missing-Invariant | III Admissibility |
+      IV Time-Consistency | mutual distinctness proved (Theorem 1) |
+      Sprint 11 memo [canonical]
+
+  - slug: "dof_kinds_summary"
+    triggers:
+      - "dof kinds"
+      - "five kinds"
+      - "5 kinds"
+      - "kinds of dof"
+      - "kind classification"
+    fact: >-
+      dof_kinds: K1 Structural | K2 Reversible-Flow | K3 Dissipative-Flow |
+      K4 Climbing | K5 Degeneration | exhaustive over D1..D30 |
+      DOF_CLASSIFICATION.md §3.2
+
+  - slug: "meta_axes_orthogonal"
+    triggers:
+      - "orthogonal axes"
+      - "three axes"
+      - "meta classification"
+      - "dual classification"
+    fact: >-
+      meta_axes: DoF Kinds (motion/structure) | UOP Types (paradox failure mode) |
+      WP61 Categories (conjecture score) | three orthogonal axes |
+      registry: speculations/CK_META_CLASSIFICATION_AXES.md

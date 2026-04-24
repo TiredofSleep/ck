@@ -278,6 +278,106 @@ try:
 except Exception as _e:
     print(f"[CK] Gen13 cortex: DISABLED ({_e})")
 
+# === Gen13 meta-classification endpoints (Phase 2) ===
+# YAML-backed catalogs exposing CK's classification axes via HTTP so the
+# website can render them live (Phase 3) and external clients can query
+# the paradox classifier / DoF taxonomy / constants table without booting
+# the full engine.
+#
+# Routes added:
+#   GET  /paradox/classify?slug=<slug>             -> Type I..IV verdict
+#   GET  /paradox/classify?stage=<stage>&name=<n>  -> stage-forced verdict
+#   GET  /dof/taxonomy                             -> 5 kinds + diagnostics
+#   GET  /meta/constants                           -> cross-kind constants
+#   GET  /meta/registry                            -> full paradox registry
+#   POST /meta/reload                              -> re-read YAML from disk
+#
+# All routes are read-only except /meta/reload (which requires local caller
+# by default).  Nothing here writes to engine state or cortex state.
+try:
+    # cortex_catalog was added to sys.path by the cortex mount above.
+    import cortex_catalog as _cat  # type: ignore
+    from flask import request as _req, jsonify as _jsonify
+    _app = api._app
+    if _app is None:
+        raise RuntimeError("api._app is None (Flask not mounted)")
+
+    @_app.route('/paradox/classify', methods=['GET'])
+    def _r_paradox_classify():
+        slug = _req.args.get('slug') or _req.args.get('paradox')
+        stage = _req.args.get('stage') or _req.args.get('failure_stage')
+        name = _req.args.get('name')
+        try:
+            verdict = _cat.classify_paradox(
+                slug_or_stage=slug,
+                failure_stage=stage,
+                name=name,
+            )
+            return _jsonify(verdict)
+        except KeyError as _ke:
+            return _jsonify({'error': str(_ke)}), 404
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/dof/taxonomy', methods=['GET'])
+    def _r_dof_taxonomy():
+        try:
+            return _jsonify(_cat.dof_taxonomy())
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/meta/constants', methods=['GET'])
+    def _r_meta_constants():
+        try:
+            return _jsonify({'constants': _cat.constants_table()})
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/meta/registry', methods=['GET'])
+    def _r_meta_registry():
+        try:
+            return _jsonify({'paradoxes': _cat.paradox_registry()})
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/meta/frontier', methods=['GET'])
+    def _r_meta_frontier():
+        try:
+            return _jsonify({'facts': _cat.frontier_facts()})
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/meta/summary', methods=['GET'])
+    def _r_meta_summary():
+        try:
+            return _jsonify(_cat.summary())
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    @_app.route('/meta/reload', methods=['POST'])
+    def _r_meta_reload():
+        # Local-only by default (matches the /save_all and /self_write
+        # convention).  Cloudflare sends X-Forwarded-For for external traffic;
+        # absence of it + 127.0.0.1 is the local-request marker.
+        _xff = _req.headers.get('X-Forwarded-For', '')
+        _ip = (_xff.split(',')[0].strip() if _xff else _req.remote_addr) or ''
+        if _ip not in ('127.0.0.1', '::1', 'localhost'):
+            return _jsonify({'error': 'local-only endpoint'}), 403
+        try:
+            _cat.reload()
+            return _jsonify({'status': 'ok', 'summary': _cat.summary()})
+        except Exception as _exc:
+            return _jsonify({'error': f'{type(_exc).__name__}: {_exc}'}), 500
+
+    _cat_summary = _cat.summary()
+    print(f"[CK] Gen13 meta-classification: MOUNTED "
+          f"(dof={_cat_summary['dof_kind_count']} "
+          f"paradoxes={_cat_summary['paradox_count']} "
+          f"constants={_cat_summary['constant_count']}) "
+          f"routes=/paradox/classify /dof/taxonomy /meta/[constants|registry|summary|reload]")
+except Exception as _e:
+    print(f"[CK] Gen13 meta-classification: DISABLED ({_e})")
+
 # === Ollama: CK uses it, Ollama doesn't speak ===
 # Architecture (2026-04-18 correction):
 #   CK's structural readout IS CK's voice. Ollama is a tool CK USES to

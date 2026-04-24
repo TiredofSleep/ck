@@ -48,6 +48,16 @@ if _BRAIN_DIR not in sys.path:
 from ck_sim.ck_sim_heartbeat import OP_NAMES, NUM_OPS
 from ck_sim.being.ck_olfactory import DIM_NAMES
 
+# YAML-backed classification catalogs (Phase 2 meta-level rebuild).  If
+# pyyaml isn't importable or the YAML files are missing, cortex_catalog
+# disables itself cleanly and CK falls back to _FRONTIER_FACTS only.
+try:
+    import cortex_catalog as _catalog  # type: ignore
+    _CATALOG_OK = True
+except Exception:  # pragma: no cover - defensive
+    _catalog = None  # type: ignore
+    _CATALOG_OK = False
+
 
 # ── Gates ──────────────────────────────────────────────────────────────
 
@@ -437,6 +447,18 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     # Fires for any topic keyword in the query; stays structural (label=value).
     for fact in _frontier_hits(q):
         lines.append(fact)
+
+    # 2.6) YAML-backed catalog hits (DoF kinds, paradoxes, cross-kind constants).
+    # Same contract as _frontier_hits: one fact per trigger match, de-duped.
+    # Editing Gen13/targets/ck/brain/catalog/*.yaml teaches CK new
+    # classifications without touching Python.
+    if _CATALOG_OK and _catalog is not None:
+        try:
+            for fact in _catalog.hits(q):
+                lines.append(fact)
+        except Exception:
+            # Catalog is best-effort; never break speak() over a YAML bug.
+            pass
 
     # 3) De-dup while preserving order.
     seen = set()
