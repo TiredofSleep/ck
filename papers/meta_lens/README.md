@@ -9,6 +9,13 @@ website.
 
 - [`META_LENS_ATLAS.md`](./META_LENS_ATLAS.md) — the atlas itself (v1.1,
   rigor pass against repo facts). **Primary document; read this first.**
+- [`FOUNDATION_TOUR_VERIFIED.md`](./FOUNDATION_TOUR_VERIFIED.md) —
+  rigor-first rewrite of ClaudeChat's 7-lens foundation tour
+  (2026-04-24). Every affiliation WebSearch-verified; every runtime
+  claim grepped. Unverified items flagged; speculative bridges tagged
+  `SPECULATIVE`. Contains what-sees / what-misses tables, UOP fill
+  matrices per lens, two honest orderings for outreach, and a
+  "claims that did NOT verify" section.
 - [`VOCABULARY_RECONCILIATION.md`](./VOCABULARY_RECONCILIATION.md) —
   short standalone brief on how Sprint 11's four-type axis (Type I–IV,
   failure-mode classification) and WP61's five-category axis (Category
@@ -19,6 +26,15 @@ website.
   which empirical claims were verified against the repo, which claims
   were corrected before integration, and which pieces of ClaudeChat's
   proposition were kept verbatim vs. rewritten.
+- [`worked_paradoxes/`](./worked_paradoxes/) — 6-slot UOP template
+  home. Currently contains Gödel (Type II), Liar (Type III), and
+  Schrödinger's cat (Type IV). See
+  [`worked_paradoxes/README.md`](./worked_paradoxes/README.md) for
+  the slot schema and per-template index.
+- [`correspondence/`](./correspondence/) — preserved ClaudeChat
+  correspondence with per-claim audit trail. Separated from the
+  rigor-clean `FOUNDATION_TOUR_VERIFIED.md` so provenance is legible
+  without contaminating the ship-ready document.
 
 ## What this folder is (and isn't)
 
@@ -51,21 +67,43 @@ theorem-proving.
 
 ## Key honest-scope notes
 
-1. **There is no runnable `classify_paradox.py` in the repo.**
-   `ck_diagnose.py` exists at the repo root but diagnoses quadrant
-   balance / corridor leakage / σ-non-associativity — not UOP paradox
-   types. Building a runnable classifier that takes arbitrary input
-   and returns `(verdict ∈ {I, II, III, IV}, score ∈ [0, 1])` is an
-   open engineering task, catalogued as [O-1] in the atlas's §Open work.
+1. **Runnable classifier now exists as `classify_paradox.py`**
+   (shipped 2026-04-24, closing atlas open item [O-1]). It reads
+   the six-slot markdown templates in `worked_paradoxes/` and
+   either returns a stored verdict for a shipped template
+   (`--template godel`) or classifies a JSON 6-slot instance
+   (`--json my.json`). It is rule-based, not an LLM — Slot 3's
+   user-provided failure stage forces Slot 4's type. It does
+   **not** parse natural-language paradox statements; that NLP
+   step is deliberately left open. `ck_diagnose.py` at the repo
+   root is a separate tool that diagnoses quadrant balance /
+   corridor leakage / σ-non-associativity and is not the paradox
+   classifier.
 2. **The `coherencekeeper.com/paradox` page is client-side only.** It
    hardcodes 8 paradox cases and renders the 6-slot UOP template for
    each; it does not accept free-form paradox text and call a backend.
-3. **Only 4 of the 8 web-UI paradoxes have full 6-slot worked templates
-   in a repo paper.** Zeno (I), Banach-Tarski (II), Russell (III), and
-   Unexpected Hanging (IV) are worked in the Sprint 11 memo. Twin
-   Primes, Schrödinger's Cat, Gödel's First Incompleteness, and the
-   Liar Paradox appear in `paradox.html` as aspirational rendering;
-   their 6-slot templates are [O-2]–[O-6] in the atlas's §Open work.
+3. **7 of the 8 web-UI paradoxes now have full 6-slot worked templates
+   in a repo paper** (updated 2026-04-24). Zeno (I), Banach-Tarski (II),
+   Russell (III), and Unexpected Hanging (IV) are worked in the Sprint 11
+   memo. Schrödinger's Cat (IV), Gödel's First Incompleteness (II), and
+   the Liar Paradox (III) shipped today in
+   [`worked_paradoxes/`](./worked_paradoxes/) — these correspond to
+   atlas open items [O-2], [O-3], and [O-4] respectively. Atlas
+   open items [O-5] (Cantor, Type III) and [O-6]
+   (Berry / Grelling-Nelson / Curry cluster, Type III) also
+   shipped today as `paradox_cantor_type3.md` and
+   `paradox_berry_type3.md`. The runnable classifier [O-1] also
+   shipped today as `classify_paradox.py` (see below). The one
+   remaining gap is **Twin Primes**, the single web-UI paradox not
+   in atlas §V — a candidate Type I treatment.
+4. **Runnable classifier now exists** (2026-04-24). See
+   [`classify_paradox.py`](./classify_paradox.py); `--list`,
+   `--template <slug>`, and `--json <path>` modes. The classifier
+   reads the markdown templates in
+   [`worked_paradoxes/`](./worked_paradoxes/) for stored verdicts
+   and enforces Slot-3-forces-Slot-4 on JSON 6-slot instances. An
+   example JSON input is in
+   [`worked_paradoxes/example_input.json`](./worked_paradoxes/example_input.json).
 4. **CK does not yet have an independent research community** — the
    third criterion for being a full lens. This is stated explicitly
    in atlas §III.3 and is not softened elsewhere.
