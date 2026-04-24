@@ -380,20 +380,6 @@ canonical [Sprint 11 `PARADOX_CLASSIFICATION_MEMO.md`][paradox-memo].
   relates to WP61's five-category axis (Category I–V, score
   refinement): orthogonal except for one overlap (Sprint 11 Type III =
   WP61 Category V).
-- **DOF classification — five kinds** at
-  [`papers/meta_lens/DOF_CLASSIFICATION.md`][dof-classification] —
-  synthesis paper placing `(CL, BHML)` against the 75-year
-  Dirac–Bergmann → Faddeev–Jackiw → conformal-symplectic literature
-  that sorts degrees of freedom by *kind*. Names five kinds as
-  exhaustive (structural · reversible-symplectic · irreversible-
-  dissipative · discrete-climbing · degenerative-limiting), verifies
-  every `D1–D25` item on `FORMULAS_AND_TABLES.md §0` populates at
-  least one kind, and adds a `5 × 4` DOF-Kinds × UOP-Types matrix
-  as the organizing extension. Includes an honest status note
-  flagging that `CKIS/ck_being.py` currently implements `E, A, K`
-  as toy bookkeeping scalars rather than the kind-coupled reads
-  the framing calls for — closing that gap is an open engineering
-  task.
 - **Integration transparency** at
   [`papers/meta_lens/INTEGRATION_NOTES_2026_04_24.md`][integration-notes] —
   records which claims from desktop drafts were verified, which were
@@ -422,7 +408,6 @@ UI are currently worked at the full 6-slot level in a repo paper).
 [atlas]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/META_LENS_ATLAS.md
 [vocab-recon]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/VOCABULARY_RECONCILIATION.md
 [integration-notes]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/INTEGRATION_NOTES_2026_04_24.md
-[dof-classification]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/DOF_CLASSIFICATION.md
 [wp-classifier]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/WP_PARADOX_CLASSIFIER.md
 [wp58]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
 [wp61]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP61_PRODUCTIVE_INCOMPLETENESS.md
