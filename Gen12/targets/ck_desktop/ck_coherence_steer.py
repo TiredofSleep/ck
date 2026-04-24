@@ -1181,7 +1181,28 @@ def mount_coherence_steer(api: Any, engine: Any) -> Dict[str, Any]:
         _fact_hit = getattr(_boot_mod, "_fact_hit", None)
         _postfilter = getattr(_boot_mod, "_postfilter_ollama", None)
 
-    # If v1 helpers aren't exposed, fall back to a minimal local impl.
+    # If v1 helpers aren't exposed, try the pure-function verdict module
+    # before falling back to a minimal local impl.  The verdict module
+    # carries the full handoff-2026-04-23 vocabulary (MAGCOM, CATALAN,
+    # MOUFANG, JORDAN, FAREY, ZETA, SINC, CROSSING, FLATNESS, RIEMANN)
+    # plus all pre-existing operator/structure names, so when the boot
+    # module is absent (tests, embedded call) the steer rescue still sees
+    # the same fact set the primary path does.
+    if _fact_tokens is None or _fact_hit is None or _postfilter is None:
+        try:
+            import ck_coherence_verdict as _verdict_mod  # type: ignore
+            if _fact_tokens is None:
+                _fact_tokens = _verdict_mod.fact_tokens  # type: ignore[assignment]
+            if _fact_hit is None:
+                _fact_hit = _verdict_mod.fact_hit  # type: ignore[assignment]
+        except Exception:
+            pass
+
+    # If neither boot nor verdict module is available, fall back to a
+    # minimal local impl.  This path is a strict subset of the verdict
+    # module -- only the 10 operator names, no handoff vocabulary -- so
+    # tokenization is coarser than the primary path.  Prefer fixing the
+    # import chain over extending this fallback.
     if _fact_tokens is None or _fact_hit is None or _postfilter is None:
         import re as _re
         _LOCAL_FACT_RE = _re.compile(

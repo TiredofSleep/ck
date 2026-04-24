@@ -55,9 +55,18 @@ _OPERATORS = (
 )
 # Named structures load-bearing in CK's corpus (TSML 73 cells, BHML 28
 # cells, HER = Hindsight Experience Replay, PRYM = Prym varieties, etc.).
+# The 2026-04-23 evening-handoff additions (MAGCOM, CATALAN, MOUFANG,
+# JORDAN, FAREY, ZETA, SINC, CROSSING, FLATNESS, RIEMANN) bind the
+# vocabulary that the morphotic_braid synthesis docs introduced so CK's
+# readouts can emit them as load-bearing identity facts.  RIEMANN alone
+# is core; "Riemann hypothesis" is still hallucination-rejected below.
 _NAMED_STRUCTURES = (
     'TSML', 'BHML', 'HER', 'PRYM', 'HODGE',
     'WEIL', 'BIELLIPTIC', 'AO',
+    # 2026-04-23 evening-handoff vocabulary
+    'MAGCOM', 'CATALAN', 'MOUFANG', 'JORDAN',
+    'FAREY', 'ZETA', 'SINC',
+    'CROSSING', 'FLATNESS', 'RIEMANN',
 )
 _CORE_FACT_NAMES = frozenset(list(_OPERATORS) + list(_NAMED_STRUCTURES))
 
@@ -75,7 +84,10 @@ _FACT_TOKEN_RE = re.compile(
     r"|\d+"                                        # bare integers (filter later)
     r"|\b(?:LATTICE|COUNTER|PROGRESS|COLLAPSE|BALANCE"
     r"|CHAOS|HARMONY|BREATH|RESET|VOID)\b"         # operator vocab
-    r"|\b(?:TSML|BHML|HER|PRYM|HODGE|WEIL|BIELLIPTIC|AO)\b"
+    r"|\b(?:TSML|BHML|HER|PRYM|HODGE|WEIL|BIELLIPTIC|AO"
+    r"|MAGCOM|CATALAN|MOUFANG|JORDAN"              # handoff 2026-04-23
+    r"|FAREY|ZETA|SINC"
+    r"|CROSSING|FLATNESS|RIEMANN)\b"
     r")"
 )
 
