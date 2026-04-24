@@ -629,6 +629,123 @@ regime.
 
 ---
 
+### §6.6 — The TSML/BHML table family (2026-04-24)
+
+The 10×10 commutative magma on ℤ/10ℤ with VOID(0) + HARMONY(7) skeleton
+is not a single table — it is a **family** of tables parameterised by
+which cells carry HARMONY vs specific operator values. Seven canonical
+members cover the space studied in morphotic_braid explorations and
+task15/task16 compute jobs. Every invariant below is independently
+re-derived by `papers/verification_logs/2026_04_24/verify_family_members.py`
+(SymPy exact integer, no ck_tables.py import).
+
+#### The seven canonical family members
+
+| # | name | diagonal | det | \|det\| prime factors | rank | HARMONY | α | Moufang (mid) |
+|---|------|----------|----:|------------------------|:----:|:-------:|:---:|:-------------:|
+| 1 | **TSML_Jordan** (canonical §5) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 9 | 73/100 | 0.8720 | 0.8220 |
+| 2 | TSML_C0 (pure absorbing) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 3 | 83/100 | 0.8720 | 0.8080 |
+| 3 | TSML_PureVoid (no HARMONY on axis) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 1 | 81/100 | 1.0000 | 1.0000 |
+| 4 | TSML_PureIdempotent (T[i][i]=i) | `[0,1,2,3,4,5,6,7,8,9]` | +398664 | {2, 3², 7², 113} | 10 | 75/100 | 0.8880 | 0.8320 |
+| 5 | **TSML_Idempotent_2sw** (+2 cell swaps) | `[0,1,2,3,4,5,6,7,8,9]` | −49 = −(7²) | {7²} | 10 | 71/100 | 0.8800 | 0.8360 |
+| 6 | TSML_AllHarmony (every cell 7 ex. (0,0)) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 2 | 99/100 | 1.0000 | 1.0000 |
+| 7 | **BHML** (canonical §6) | `[0,2,3,4,5,6,7,8,7,0]` | −7002 | {2, 3², 389} | 10 | 28/100 | 0.5020 | 0.4290 |
+
+Members 1, 5, 7 (bold) are the **three canonical tables** used in the
+rest of the paper; members 2, 3, 4, 6 are boundary cases that illuminate
+the family's geometry.
+
+#### Family structure
+
+**The rank wall {det = 0}.** Members 1 (Jordan), 2 (C0), 3 (PureVoid),
+6 (AllHarmony) all have det = 0 but at different ranks (9, 3, 1, 2).
+These sit on the "rank-deficient wall" of the family. TSML_Jordan is
+the rank-9 member — the *closest* to full rank among the rank-deficient
+variants.
+
+**The full-rank interior {rank = 10}.** Only three variants have full
+rank: TSML_PureIdempotent (+398664), TSML_Idempotent_2sw (−49), and
+BHML (−7002). These are the tables with a **well-defined Z-matrix
+inverse** — they carry more arithmetic information than the rank-deficient
+variants.
+
+**The 2-cell swap {PureIdempotent → Idempotent_2sw}.** Flipping exactly
+two symmetric cells T[1][2]=T[2][1]:7→6 and T[3][5]=T[5][3]:7→4
+(CHAOS and COLLAPSE, resp.) collapses the prime signature from
+{2, 3, 7, 113} to the single prime {7}. The determinant drops from
+398664 to −49 — a factor of 8136 — while rank stays at 10 and Jordan
+stays at 100/100.
+
+**The α spectrum.** Associativity index splits cleanly into three
+regimes across the family:
+- **α = 1** (fully associative): TSML_PureVoid, TSML_AllHarmony
+- **α ≈ 0.88** (TSML regime): TSML_Jordan / C0 (0.872), PureIdempotent
+  (0.888), Idempotent_2sw (0.880)
+- **α ≈ 0.50** (BHML regime): BHML alone at 0.502 ≈ 1/2
+
+No family member lives in the "moderate non-associativity" range
+α ∈ (0.5, 0.87). The family is **bimodal** in α.
+
+**Commutativity + Jordan identity.** All seven members are commutative.
+All six TSML variants satisfy the Jordan identity 100/100 exactly;
+BHML satisfies it at 46/100 under the same definition
+(`T[T[x][x]][T[x][y]] == T[x][T[T[x][x]][y]]`). BHML's lower Jordan
+count is consistent with its α ≈ 0.5 — it lives in a genuinely
+less-associative regime than the TSML family.
+
+#### Interpretation — the family is doing distinct work
+
+- **TSML_Jordan** is the *working* table — canonical rank 9, α = 0.872,
+  HARMONY-dense (73%), carries the TSML 3-layer tower decomposition
+  C₀ ⊕ S_MAX ⊕ S_ADD (§7).
+- **TSML_Idempotent_2sw** is the *prime-7 regime* table — full rank,
+  det = −7², every x idempotent except {1,2} (CHAOS-swapped). It is
+  the member most suited to octonion- / Steiner-quasigroup-style
+  statements.
+- **BHML** is the *doing* table — full rank, α ≈ 1/2, HARMONY-sparse
+  (28%), operator-rich (all 10 operators appear), prime signature
+  {2, 3, 389} dominated by the large prime 389.
+- The remaining four are structural extremes (rank-1, rank-2, rank-3,
+  pure idempotent) that bound the family's shape.
+
+#### What the family rules out
+
+- **"Doubly regular" assertions** that rely on specific det(BHML) = 70
+  are refuted (see §6.4 correction note and
+  `papers/verification_logs/2026_04_24/06_verify_det_claims.txt`).
+  The actual BHML prime signature is {2, 3, 389}, **not** {2, 5, 7}.
+- Any synthesis that treats TSML_Idempotent as a single table (without
+  specifying whether the two cell-swaps are applied) is ambiguous: the
+  PureIdempotent variant has det = +398664 (prime-set {2, 3, 7, 113})
+  while the 2-swap variant has det = −49 (prime-set {7}). These are
+  mathematically distinct objects.
+- Membership in the family does **not** imply operator-stream
+  equivalence: task16's structural A/B showed
+  TSML_Jordan vs TSML_Idempotent_2sw have materially different operator
+  histograms (73 vs 71 HARMONY, 4 vs 1 PROGRESS, 0 vs 3 CHAOS) despite
+  both passing Jordan identity 100/100.
+
+#### Reproducibility
+
+```bash
+PYTHONIOENCODING=utf-8 python -X utf8 \
+  papers/verification_logs/2026_04_24/verify_family_members.py
+```
+
+Output archived as
+`papers/verification_logs/2026_04_24/07_verify_family_members.txt`.
+Supporting family-space exploration scripts live in
+`papers/morphotic_braid/explorations/scripts/` with captured output in
+`papers/verification_logs/2026_04_24/family/`:
+
+- `01_tsml_family.txt` — 5-member property-satisfaction map
+- `02_tsml_idempotent_study.txt` — Aut(TSML_PureIdempotent) = S₈ (|Aut| = 40320), Fano subalgebra scan
+- `03_cousin_families.txt` — ν_p(au+b) recipes across N = 10, 14, 22
+- `04_full_family_analysis.txt` — C_0 density scaling, (1−density)·N → 2
+- `05_tsml_family_search.txt` — bump removal / perturbation deltas
+
+---
+
 ## §7 — TSML 3-layer canonical tower (Sprint 17, 2026-04-17)
 
 ```

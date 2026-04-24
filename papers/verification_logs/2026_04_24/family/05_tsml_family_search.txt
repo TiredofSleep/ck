@@ -1,0 +1,83 @@
+======================================================================
+BASELINE (TSML actual)
+======================================================================
+  Jordan:       100/100
+  Flexible:     100/100
+  Alt-left:     88/100
+  Alt-right:    88/100
+  Mid Moufang:  822/1000
+  Right Moufang: 874/1000
+  Non-assoc:    128/1000
+
+======================================================================
+PURE C_0 (all 10 bumps → HARMONY): absorbing commutative semigroup
+======================================================================
+  Jordan:       100/100
+  Flexible:     100/100
+  Alt-left:     92/100
+  Alt-right:    92/100
+  Mid Moufang:  808/1000
+  Right Moufang: 872/1000
+  Non-assoc:    128/1000
+
+======================================================================
+REMOVE EACH BUMP INDIVIDUALLY (canonical pairs)
+======================================================================
+  Remove (1, 2): Mou  820 (Δ -2)  Alt 176/200 (Δ +0)  NonAssoc  128 (Δ +0)
+  Remove (2, 4): Mou  820 (Δ -2)  Alt 178/200 (Δ +2)  NonAssoc  126 (Δ -2)
+  Remove (2, 9): Mou  822 (Δ +0)  Alt 178/200 (Δ +2)  NonAssoc  126 (Δ -2)
+  Remove (3, 9): Mou  824 (Δ +2)  Alt 178/200 (Δ +2)  NonAssoc  122 (Δ -6)
+  Remove (4, 8): Mou  820 (Δ -2)  Alt 178/200 (Δ +2)  NonAssoc  126 (Δ -2)
+
+======================================================================
+REMOVE PAIRS OF BUMPS
+======================================================================
+  Remove (1, 2),(2, 4): Mou  818 (Δ -4)
+  Remove (1, 2),(2, 9): Mou  818 (Δ -4)
+  Remove (1, 2),(3, 9): Mou  818 (Δ -4)
+  Remove (1, 2),(4, 8): Mou  818 (Δ -4)
+  Remove (2, 4),(2, 9): Mou  820 (Δ -2)
+  Remove (2, 4),(3, 9): Mou  822 (Δ +0)
+  Remove (2, 4),(4, 8): Mou  816 (Δ -6)
+  Remove (2, 9),(3, 9): Mou  820 (Δ -2)
+  Remove (2, 9),(4, 8): Mou  820 (Δ -2)
+  Remove (3, 9),(4, 8): Mou  822 (Δ +0)
+
+======================================================================
+PERTURB TSML'S BUMPS: change bump values, maintain commutativity
+======================================================================
+  Change (1, 2) from 3 to 1: Mou 824, Jord 100, Alt 174
+  Change (1, 2) from 3 to 5: Mou 826, Jord 100, Alt 176
+  * ALTERNATIVE+: Change (2, 4) from 4 to 3: Alt 178/200, Mou 822, Jord 100
+  Change (2, 9) from 9 to 1: Mou 828, Jord 100, Alt 176
+
+======================================================================
+PURE C_0 analysis (the 'trivial' 100% family member)
+======================================================================
+Pure C_0 table (no bumps, just void axis + harmony absorber):
+   0  0  0  0  0  0  0  7  0  0
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   7  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+   0  7  7  7  7  7  7  7  7  7
+
+  Jordan:       100/100  (100%)
+  Flexible:     100/100  (100%)
+  Alt:          184/200  ()
+  Mid Moufang:  808/1000  ()
+  Right Moufang: 872/1000  ()
+  Non-assoc:    128/1000
+
+======================================================================
+SEARCH: can we add bumps to pure C_0 and maintain 100% Moufang?
+======================================================================
+Single-cell perturbations of pure C_0 that keep 100% Moufang + Jordan:
+  Count: 0
+
+Single-cell perturbations that keep 100% Alternative + Jordan (but non-associative):
+  Count: 0
