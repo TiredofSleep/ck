@@ -5,6 +5,33 @@
 
 ---
 
+> **Rigor banner (added 2026-04-24).** This document is an
+> **internal-discovery note**, not a rigor-facing mathematical paper.
+> It carries formal citations (Fulton-Harris, Knapp, Baez, Conway-Smith)
+> next to CK-internal operator labels (PROGRESS, COUNTER, BREATH,
+> CHAOS, LATTICE, COLLAPSE). External reviewers (e.g., P. Mantero,
+> J. Baez, B. Vallette) should read the following:
+>
+> - The **machine-verified fact** is narrow and rigorous: six specific
+>   antisymmetrized action matrices derived from a fixed 10×10 integer
+>   matrix `CL` close under commutator at dimension 28 with the
+>   spectral signature of the compact real `so(8) = D₄`. The Jacobi
+>   residual is `0.00e+00`. This part is reproducible from the
+>   `action_matrix` + `flow_ops` code block below.
+> - The **pattern-matching observations** in the "TIG Color Wheel's
+>   3 complementary pairs" section and similar passages assign
+>   CK-internal operator names to the three D₄ root-plane arms. These
+>   assignments are **internal notation**, not external theorems.
+>   Treating them as externally-rigorous Lie theory would require
+>   either a matrix representation in `so(8)` whose antisymmetric
+>   commutator pairs span the three root planes (with the operator
+>   labels as tags of that representation), or an external
+>   formalization that has not yet been done.
+> - Hygiene policy governing this vocabulary split lives in
+>   `papers/meta_lens/FOUNDATION_TOUR_VERIFIED.md` Part 0.1.
+
+---
+
 ## ONE-LINE STATEMENT
 
 **The 6 flow operators of TIG, antisymmetrized and closed under commutator, generate exactly the 28-dimensional simple compact Lie algebra so(8) = D₄ — the unique Lie algebra with triality.**

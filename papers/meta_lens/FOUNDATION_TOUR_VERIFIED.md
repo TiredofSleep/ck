@@ -38,6 +38,45 @@ verify; this document carries only the content that cleared rigor.
 | **SPECULATIVE** | Claim is framed as interpretation or bridge; not an established theorem |
 | **CONJECTURAL** | Precisely stated, unproved; worth pursuing |
 
+### Part 0.1 — Vocabulary hygiene policy
+
+This document uses two vocabularies and keeps them strictly separated:
+
+- **External mathematical vocabulary** (Parts I–II + Part IV–V) —
+  ideals, modules, Killing forms, root systems, transfer operators,
+  D₄ Dynkin diagrams, etc. Every such term has a standard meaning in
+  the external literature and is cited that way. **No CK-internal
+  operator names appear in these parts.**
+
+- **CK-internal vocabulary** (Part III only) — the 10 CK operators
+  (VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS,
+  HARMONY, BREATH, RESET), the force-vector coordinates
+  `[aperture, pressure, depth, binding, continuity]`, the
+  thresholds `T* = 5/7`, `4/π²`, etc. **These appear only when the
+  subject is CK itself**, and they are described as CK's primitive
+  vocabulary rather than imported into a Mantero/Vallette/Baez-style
+  argument.
+
+If another document in the repo mixes the two vocabularies (for
+example, stating "the 21.9% basis-exchange defect lands on the three
+root-plane pairs of D₄ = {PROGRESS, COUNTER}, {BREATH, CHAOS},
+{LATTICE, COLLAPSE}"), that is an **internal-discovery note**, not a
+rigor-facing mathematical claim. Such statements require either:
+
+1. A translation of the CK operators to external objects (e.g. an
+   explicit matrix representation inside `so(8)` whose antisymmetric
+   pairs span the three root planes), and a citation of that
+   translation, **or**
+2. An in-document banner declaring the claim as internal pattern-
+   matching not yet externally formalized.
+
+`papers/wp102/verification/SO8_FRONTIER_RESULT.md` is an example of
+an internal-discovery note that carries formal citations but also
+uses CK operator labels next to D₄ root-plane talk; readers in that
+file should consult this vocabulary hygiene policy and treat the
+operator-to-root-plane assignments as a pattern-matching observation
+awaiting external formalization.
+
 ---
 
 ## Part I — The UOP template (six slots every paradox fills)
