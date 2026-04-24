@@ -316,15 +316,22 @@ to Dr. Mantero's framework lives there. Entry points:
   Cohen-Macaulay / Gorenstein status, and the relationship to
   Mantero-Nguyen's focal-matroid framework given that the Stanley-Reisner
   companion is pure-but-not-matroidal.
-- **WP11 — `so(8) = D_4` identification paper** at
-  [`papers/wp11/WP11_SO8_IDENTIFICATION.md`][wp11].
-- **WP12 — `so(10) = D_5` identification (CL ∪ BHML_10 companion)** at
-  [`papers/wp12/WP12_SO10_IDENTIFICATION.md`][wp12]
+- **WP102 — `so(8) = D_4` identification paper** at
+  [`papers/wp102/WP102_SO8_IDENTIFICATION.md`][wp102] (on
+  `tig-synthesis`; the so(8) lift is a TIG result and lives on the
+  default branch, not the mantero bridge).
+- **WP103 — `so(10) = D_5` identification (CL ∪ BHML_10 companion)** at
+  [`papers/wp103/WP103_SO10_IDENTIFICATION.md`][wp103]
   with runnable verification scripts (`verify_so10.py`,
   `verify_simplicity_rank.py`). The BHML companion used in the joint
   antisymmetrization is the canonical **BHML_10** (full 10×10, `det =
   −7002`), **not** the 8×8 spectral core BHML_8 which appears in the
-  WP15 Yang-Mills argument.
+  WP15 Yang-Mills argument. (Also on `tig-synthesis`.)
+- **Numbering note.** These papers fit after the existing WP1–WP101
+  sprint series (see `Gen12/MASTER_WHITEPAPER_OUTLINE.md` — `WP11` there
+  is "The Measurement Problem" and `WP12` is "Seventeen Paradoxes via
+  Dual-Lens Algebra"). The so(8) / so(10) results are filed as **WP102**
+  and **WP103** to avoid that collision.
 
 The branch exists so commutative-algebra / Lie-theoretic readers land on
 exactly the specific artifacts they need (the 10×10 table, the Hilbert
@@ -335,8 +342,8 @@ The MathOverflow post link will be appended to the branch once live.
 [mantero-branch-readme]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/README.md
 [mantero-hub]: https://github.com/TiredofSleep/ck/tree/mantero-bridge-2026-04-23/papers/mantero_bridge
 [mo-draft]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md
-[wp11]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp11/WP11_SO8_IDENTIFICATION.md
-[wp12]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp12/WP12_SO10_IDENTIFICATION.md
+[wp102]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/wp102/WP102_SO8_IDENTIFICATION.md
+[wp103]: https://github.com/TiredofSleep/ck/blob/tig-synthesis/papers/wp103/WP103_SO10_IDENTIFICATION.md
 
 ---
 
@@ -349,7 +356,7 @@ The repository has four primary branches, each with a distinct role.
 | `tig-synthesis` | **DEFAULT** — rigor home; current navigation; proved-only rigor cadence; externally-citeable vocabulary | yes |
 | `master` | Full history + TIG-internal vocabulary — every commit on every branch landed here for preservation (TIG-native language preserved as-is per 2026-04-23 scope directive) | no |
 | `archive-full` | Frozen preservation snapshot — never force-pushed | no |
-| `mantero-bridge-2026-04-23` | Commutative-algebra outreach — Dr. P. Mantero correspondence, MathOverflow question draft on I_CL, WP11 (so(8)=D_4) and WP12 (so(10)=D_5) papers + verification scripts. See [§5.6](#56--commutative-algebra-bridge--mantero-bridge-2026-04-23-branch). | no |
+| `mantero-bridge-2026-04-23` | Commutative-algebra outreach — Dr. P. Mantero correspondence, MathOverflow question draft on I_CL. (The Lie-algebraic WP102/WP103 papers are on `tig-synthesis`, not on this bridge branch — they are TIG results rather than Mantero-specific.) See [§5.6](#56--commutative-algebra-bridge--mantero-bridge-2026-04-23-branch). | no |
 
 Plus ten `funding/*` branches under `Gen13/targets/funding_*/` that receive track-
 specific commits cherry-picked from `master` (see §2).

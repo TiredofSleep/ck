@@ -15,8 +15,8 @@ All scripts run with `PYTHONIOENCODING=utf-8` (Windows cp1252 avoidance).
 | 1 | `proof_sinc_zeta_identity.py` | **GREEN** | sinc²(1/2) = (2/3) · 1/ζ(2); machine precision Δ = 5.55e-17; ratio = 3/2 exact |
 | 2 | `Gen13/targets/journals/tier1_submit_now/sigma_rate/proof_sigma_rate.py` | **GREEN** | σ(10)=0.128, σ(30)=0.058, σ(210)=0.009 — all < 3/N bound |
 | 3 | `papers/proof_d25_loop_closure.py` | **GREEN** | sinc² zero law holds for all odd primes p ∈ [3, 199] |
-| 4 | `papers/wp12/verify_so10.py` | **GREEN** | Lie closure dim = 45 = so(10, ℝ) = D₅; all 6 diagnostics ✓ |
-| 5 | `papers/wp12/verify_simplicity_rank.py` | **GREEN** | Unique (up to scale) invariant bilinear form; rank 5; 45 = 40 nonzero + 5 zero eigenvalues |
+| 4 | `papers/wp103/verification/verify_so10.py` | **GREEN** | Lie closure dim = 45 = so(10, ℝ) = D₅; all 6 diagnostics ✓ (renamed from `papers/wp12/verify_so10.py` on 2026-04-24 to avoid WP-number collision with WP12 "Seventeen Paradoxes") |
+| 5 | `papers/wp103/verification/verify_simplicity_rank.py` | **GREEN** | Unique (up to scale) invariant bilinear form; rank 5; 45 = 40 nonzero + 5 zero eigenvalues (same rename) |
 | 6 | `papers/morphotic_braid/proof_spectra_tsml_bhml.py` | **GREEN** (cached) | α(TSML) = 0.8720, α(BHML) = 0.5020; both commutative = 1.0000; sₙ = C_{n−1} and sₙ^ac = (2n−3)!! match for n = 3, 4, 5 |
 
 Notes on #6: direct re-run of the n = 6 enumeration (132 M triples) exceeded the bash polling window; the background task (id `beflmwjti`) **completed cleanly (exit 0)** during commit staging. Its output captures the tail of the run:
