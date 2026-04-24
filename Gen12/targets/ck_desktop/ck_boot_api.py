@@ -367,137 +367,21 @@ _OLLAMA_EXTRA_GUIDE = (
 # unit tests can import it without running the full boot pipeline.
 from ck_ollama_filter import _postfilter_ollama  # noqa: E402,F401
 
-
-_FACT_TOKEN_RE = None
-def _fact_tokens(readout: str):
-    """Extract atomic facts from a structural readout.
-
-    A "fact" is a distinctive token that MUST survive into any acceptable
-    Ollama rewrite: numeric constants, operator names, T*/τ-style symbols,
-    WP IDs, field generators, etc. Heuristic — matches:
-      - numbers / fractions (5/7, 4/pi^2, 0.309, Z/10Z, Q(i))
-      - WP#  (WP51, WP57, ...)
-      - all-caps tokens from the 10-operator vocabulary
-      - label=value pairs (keep the VALUE side)
-      - sqrt(N), mathematical identifiers
-    """
-    import re
-    global _FACT_TOKEN_RE
-    if _FACT_TOKEN_RE is None:
-        # NOTE: avoid any bare \p / \P etc. that Python 3.12+ rejects as
-        # "bad escape" — use character classes instead. Keep raw, no VERBOSE.
-        _FACT_TOKEN_RE = re.compile(
-            r"("
-            r"WP\d+"                                       # WP citations
-            r"|T\*=5/7|T\*"                                # T-star
-            r"|Z/10Z"                                       # Z/10Z
-            r"|Q\([^)]*\)"                                 # field notation
-            r"|sqrt\([^)]*\)|sqrt\s*\d+"                   # sqrt tokens
-            r"|\d+/\d+"                                    # fractions
-            r"|\d+\.\d+"                                   # decimals
-            r"|\d+"                                        # bare integers (filter later)
-            r"|\b(?:LATTICE|COUNTER|PROGRESS|COLLAPSE|BALANCE"
-            r"|CHAOS|HARMONY|BREATH|RESET|VOID)\b"         # operator vocab
-            r"|\b(?:TSML|BHML|HER|PRYM|HODGE|WEIL|BIELLIPTIC|AO)\b"
-            r")"
-        )
-    tokens = set()
-    for m in _FACT_TOKEN_RE.finditer(readout or ''):
-        tok = m.group(0).strip()
-        if not tok:
-            continue
-        # Drop bare integers that are very small (1..9) since they
-        # appear everywhere and aren't distinctive facts.
-        if tok.isdigit() and int(tok) < 10:
-            continue
-        # Drop tokens with unbalanced parens (partial matches like "Q(i"
-        # when the real fact is "Q(i,sqrt2,sqrt3,sqrt5)").
-        if tok.count('(') != tok.count(')'):
-            continue
-        tokens.add(tok)
-    # Also include label VALUES from "label=value" pairs so e.g.
-    # "aperture=LATTICE" contributes "LATTICE".
-    _JUNK_VALUES = {'yes', 'no', 'none', 'true', 'false', 'null', 'proved', 'n/a'}
-    for m in re.finditer(r"[a-zA-Z_]+=([^\s|,]+)", readout or ''):
-        v = m.group(1).strip().strip('.,;()[]')
-        if not v or len(v) < 2:
-            continue
-        if v.isdigit() and int(v) < 10:
-            continue
-        if v.lower() in _JUNK_VALUES:
-            continue
-        if v.count('(') != v.count(')'):
-            continue
-        tokens.add(v)
-    # Subsume substrings ONLY when NEITHER contains '='. That preserves
-    # both "T*=5/7" (compound claim, checked via _fact_hit split) and
-    # "5/7" (atomic claim) — a draft mentioning just "5/7" hits the
-    # atomic but not the compound, signaling partial preservation.
-    maximal = set(tokens)
-    for a in list(tokens):
-        if '=' in a:
-            continue
-        for b in tokens:
-            if a == b or '=' in b:
-                continue
-            if a in b:
-                maximal.discard(a)
-                break
-    return maximal
-
-
-def _fact_hit(fact: str, draft_lower: str) -> bool:
-    """Does the draft preserve the content of `fact`?
-
-    For compound facts like "T*=5/7" or "aperture=LATTICE" the draft
-    need NOT contain the literal "=" glyph — it may phrase the pair in
-    natural language ("T* is 5/7", "aperture is lattice"). So we split
-    on '=' and require every non-trivial part to appear somewhere in
-    the draft. For atomic facts, plain substring suffices.
-    """
-    low = fact.lower()
-    if '=' not in low:
-        return low in draft_lower
-    parts = [p.strip(' .,;()[]') for p in low.split('=')]
-    parts = [p for p in parts if p and p not in ('', 'yes', 'no')]
-    if not parts:
-        return True  # nothing meaningful to check
-    return all(p in draft_lower for p in parts)
-
-
-def _coherence_verdict(readout: str, draft: str, coverage_required: float):
-    """CK's coherence check on an Ollama draft.
-
-    Returns (accepted: bool, reason: str, hits: int, facts: int).
-    """
-    if not draft:
-        return (False, 'empty draft', 0, 0)
-    low = draft.lower()
-    # Hard-reject: AI disclaimers that slipped past the post-filter.
-    for bad in (
-        'as an ai', "i'm an ai", 'i am an ai', 'as a language model',
-        'i apologize', 'i cannot provide',
-    ):
-        if bad in low:
-            return (False, f"ai-disclaimer:{bad}", 0, 0)
-    # Hard-reject: classic hallucinated framings that NEVER appear in CK's
-    # corpus but LLMs love to reach for.
-    for bad in (
-        'p-adic', 'p adic', 'geodesic', 'riemann hypothesis', 'fermat',
-        'hilbert space', 'banach space',
-    ):
-        if bad in low and bad not in (readout or '').lower():
-            return (False, f"hallucination:{bad}", 0, 0)
-    # Soft filter: does the draft preserve CK's structural facts?
-    facts = _fact_tokens(readout)
-    if not facts:
-        return (True, 'no-facts-to-check', 0, 0)
-    hits = sum(1 for f in facts if _fact_hit(f, low))
-    coverage = hits / len(facts)
-    if coverage < coverage_required:
-        return (False, f"coverage:{hits}/{len(facts)}={coverage:.2f}<{coverage_required:.2f}",
-                hits, len(facts))
-    return (True, f"coverage:{hits}/{len(facts)}={coverage:.2f}", hits, len(facts))
+# Coherence verdict + fact extraction likewise live in a standalone
+# module (ck_coherence_verdict) so they can be unit-tested without
+# importing this boot file.  The v2 verdict tiers facts into CORE
+# (operator names, T*, WP#, named structures like TSML/BHML/HER) and
+# PERIPHERAL (numbers, decimals, non-distinctive label=value pairs),
+# adding a soft-accept path for terse-but-honest drafts that preserve
+# CK's core identity without echoing every peripheral timestamp.
+# Keep the v1 private names as aliases so ck_coherence_steer's
+# sys.modules-based lookup continues to resolve them.
+from ck_coherence_verdict import (  # noqa: E402
+    coherence_verdict as _coherence_verdict,
+    fact_tokens as _fact_tokens,
+    fact_hit as _fact_hit,
+    is_core_fact as _is_core_fact,
+)
 
 if _OLLAMA_EDITOR and _ollama_ok:
     # Wrap the already-wrapped process_chat one more time.
