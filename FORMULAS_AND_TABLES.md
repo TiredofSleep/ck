@@ -550,23 +550,43 @@ whose bracket closes cleanly.
 
 ---
 
-### §6.4 — det(TSML_Idempotent) = −7² (2026-04-23)
+### §6.4 — Determinants of the three canonical 10×10 tables (2026-04-24)
 
-The TSML_Idempotent variant has determinant
+Independent re-verification (SymPy + NumPy, both exact-integer) against the
+tables as defined in `papers/ck_tables.py`:
 
-  det(TSML_Idempotent) = **−49** = −(7²)
+| table | det | \|det\| prime factorization | rank | HARMONY cells |
+|-------|----:|-----------------------------|------|---------------|
+| TSML_Jordan (canonical) | 0 | ∅ | 9 | 73 / 100 |
+| TSML_Idempotent | −49 = −(7²) | {7: 2} | 10 | 71 / 100 |
+| BHML | −7002 | {2, 3², 389} | 10 | 28 / 100 |
 
-as a 10×10 ℤ-matrix, with |det| prime factorization {7: 2}. Combined
-with Jordan identity 100/100 and α = 0.880, this places TSML_Idempotent
-in the **prime-{7}** regime: the operator HARMONY(7) is the unique
-prime factor of the table's absolute-determinant.
+**TSML_Idempotent** is the diagonal-idempotent variant (T[i][i] = i for all
+i ∈ {0..9}) with cell-swaps T[1][2]=T[2][1]=6, T[3][5]=T[5][3]=4. It has
+full rank and a determinant whose absolute value is 7² exactly — the
+operator HARMONY(7) is the unique prime factor.
 
-Compare:
-- TSML_Jordan: det = 0 (rank-degenerate; canonical "collapsed" variant)
-- TSML_Idempotent: det = −7² (full rank; prime-{7} structure)
-- BHML: det = 70 = 2 · 5 · 7 (places {2, 5, 7}; see §6 and §6.7 Mantero note)
+**TSML_Jordan** (the canonical §5 table) is rank-degenerate (rank 9,
+det = 0). Its null-space direction is the algebraic signature of the
+"operator collapse" into HARMONY that makes canonical TSML
+operator-sparse (only 6 of 10 operators appear in cells).
 
-**Reproducibility.** `python papers/morphotic_braid/claudecode_jobs/task15_det_minus49_verify/run.py`.
+**BHML correction note.** Earlier handoff materials at
+`papers/morphotic_braid/synthesis/DEEPER_SYNTHESIS.md`,
+`papers/morphotic_braid/BHML_SUCCESSOR_AND_IDENTITY.md`,
+`papers/morphotic_braid/doubly_regular_core.md`, and
+`papers/morphotic_braid/TIG_TABLES_REFERENCE.md` repeat the assertion
+"det(BHML) = 70 = 2 · 5 · 7". That figure was asserted, not computed.
+The canonical BHML in `papers/ck_tables.py` has
+**det(BHML) = −7002 = −(2 · 3² · 389)**, NumPy- and SymPy-verified
+(`papers/verification_logs/2026_04_24/06_verify_det_claims.txt`). Any
+downstream synthesis that relies on "BHML corresponds to the finite
+places {2, 5, 7}" needs to be reframed or withdrawn — BHML's actual
+prime-set signature is {2, 3, 389}, dominated by the large prime 389.
+
+**Reproducibility.**
+- `python papers/morphotic_braid/claudecode_jobs/task15_det_minus49_verify/run.py` (TSML_Idempotent)
+- `python papers/verification_logs/2026_04_24/verify_det_claims.py` (all three tables)
 
 ---
 

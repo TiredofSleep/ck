@@ -1,0 +1,13 @@
+✓ sinc²(1/2) = 0.405284734569351
+✓ (2/3) · 1/ζ(2) = 0.405284734569351
+✓ Difference: 5.55e-17  (machine zero)
+✓ Ratio 1/ζ(2) / sinc²(1/2) = 1.500000000000000  (exactly 3/2)
+
+Interpretation:
+  The TIG corridor midpoint constant is in exact 2:3 ratio to
+  the fermionic primon gas density (density of squarefree integers),
+  which is also the leading coefficient of the Farey fraction spin
+  chain asymptotic.
+
+  Since WP101 (σ rate theorem) applies specifically to squarefree N,
+  TIG's σ-rate is a statement in the fermionic primon gas regime.
