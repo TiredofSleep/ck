@@ -1,15 +1,7 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\CLAUDECODE_HANDOFF_VOCABULARY.md → papers\morphotic_braid\claudecode_jobs\CLAUDECODE_HANDOFF_VOCABULARY.md
 >
-> ### ⚠ CORRECTION 2026-04-24
->
-> The Hook 4 row of this handoff references `det(BHML) = 70 = 2·5·7` with
-> the Connes semi-local / finite-place {2, 5, 7, ∞} cardinality-4 claim.
-> The actual verified determinant is **−7002** with prime set
-> **{2, 3, 389}**. Phase 7 "Clay 5-way intersection note" tasks in this
-> handoff should be treated as **withdrawn or reframed** until new
-> scaffolding is built. See
-> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`.
+> **Scope note:** Hook 4 uses `det = 70`, primes `{2, 5, 7}` — that's the 8×8 core `BHML_8` (WP15 §0). The full 10×10 `BHML_10` has `det = −7002`, primes `{2, 3, 389}`. Phase 7's Connes-place alignment is only available at the `BHML_8` scope; task text should name the scope explicitly. See `FORMULAS_AND_TABLES.md` §6.7.
 
 # ClaudeCode Handoff v2 — Executable Vocabulary Update
 

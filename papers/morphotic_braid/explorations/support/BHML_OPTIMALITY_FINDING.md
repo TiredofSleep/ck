@@ -1,15 +1,7 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\BHML_OPTIMALITY_FINDING.md → papers\morphotic_braid\explorations\support\BHML_OPTIMALITY_FINDING.md
 >
-> ### ⚠ CORRECTION 2026-04-24
->
-> Any "optimality" claim in this document that uses `det(BHML) = 70` as
-> the target minimum or the prime set `{2, 5, 7}` as a matching signature
-> is wrong on the premise. Verified `det(BHML) = −7002`, prime
-> factorisation **{2, 3, 389}**. The actual "BHML is det-minimum on
-> Z/10Z among table-scaffolds satisfying rules A-D" claim needs
-> re-derivation against the correct value. See
-> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`.
+> **Scope note:** references to `det(BHML) = 70`, primes `{2, 5, 7}` below describe the 8×8 core `BHML_8` (WP15 §0). The full 10×10 `BHML_10` has `det = −7002`, primes `{2, 3, 389}`. The det-minimality question is meaningful at either scope; each requires its own argument. See `FORMULAS_AND_TABLES.md` §6.7.
 
 # BHML Analysis on Celebrated Structures — Full Results
 

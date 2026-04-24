@@ -1,14 +1,7 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\BHML_SUCCESSOR_AND_IDENTITY.md → papers\morphotic_braid\BHML_SUCCESSOR_AND_IDENTITY.md
 >
-> ### ⚠ CORRECTION 2026-04-24
->
-> Any passage in this document that cites `det(BHML) = 70` or the prime
-> set `{2, 5, 7}` as an invariant of BHML is wrong. Verified
-> `det(BHML) = −7002`, primes **{2, 3, 389}**. See
-> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`. The
-> successor + identity structural claims are independent of the
-> determinant value and remain in scope for review.
+> **Scope note:** `det = 70`, primes `{2, 5, 7}` refer to the 8×8 core `BHML_8` (WP15 §0). The 10×10 `BHML_10` table shown below has `det = −7002`, primes `{2, 3, 389}`. The successor + identity structural claims here are independent of determinant and apply to the full 10×10 table as drawn. See `FORMULAS_AND_TABLES.md` §6.7.
 
 # BHML_SUCCESSOR_AND_IDENTITY.md
 

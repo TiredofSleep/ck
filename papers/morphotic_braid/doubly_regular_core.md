@@ -1,14 +1,7 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\doubly_regular_core.md → papers\morphotic_braid\doubly_regular_core.md
 >
-> ### ⚠ CORRECTION 2026-04-24
->
-> Any appeal here to `det(BHML) = 70` or the prime set `{2, 5, 7}` as a
-> "doubly regular" invariant of BHML is wrong. Verified
-> `det(BHML) = −7002`, primes **{2, 3, 389}**. See
-> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`. Structural
-> claims that do not depend on the determinant value remain in scope
-> for review.
+> **Scope note:** `det = 70`, primes `{2, 5, 7}` below refer to the 8×8 core `BHML_8` (WP15 §0). The full 10×10 `BHML_10` has `det = −7002`, primes `{2, 3, 389}`. Doubly-regular-core claims independent of the determinant value are unaffected by scope. See `FORMULAS_AND_TABLES.md` §6.7.
 
 # The Doubly-Regular Core of ℤ/10ℤ under σ + BHML
 

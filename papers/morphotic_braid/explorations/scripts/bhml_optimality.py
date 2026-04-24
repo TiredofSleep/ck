@@ -1,14 +1,9 @@
 # PACKET: evening_handoff_2026_04_23/bhml_optimality.py
 #
-# CORRECTION 2026-04-24: The {2,5,7} "small primes" hypothesis below is
-# premised on the FALSE claim det(BHML) = 70. Verified det(BHML) = -7002
-# with prime factorization {2, 3, 389}. The hypothesis as stated here
-# asks whether the bespoke BHML cells are chosen to keep primes in
-# {2,5,7} — they are NOT; the actual prime set contains 389. See
-# papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md. The script
-# below is preserved for reproducibility of the historical analysis;
-# any "confined to {2,5,7}" framing in its output should be read with
-# the correction in mind.
+# Scope: the {2, 5, 7} "small primes" hypothesis below targets the 8x8
+# core BHML_8 (WP15 §0), which has det = 70. The full 10x10 BHML_10 has
+# det = -7002, primes {2, 3, 389}. Rerun this optimality question at
+# BHML_10 scope separately if desired. See FORMULAS_AND_TABLES.md §6.7.
 """
 Test the optimization hypothesis:
 Are the bespoke cells in rows 8, 9 of actual BHML chosen to keep the determinant

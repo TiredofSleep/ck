@@ -320,7 +320,13 @@ following verified properties:
   absorber with 73/100 absorbing entries. Non-associativity rate: 12.8% of triples.
 - **BHML** is commutative, flexible, and power-associative, with element 0 as the
   unique two-sided identity and 28/100 entries equal to 7. Non-associativity rate:
-  49.8% of triples. The BHML table has determinant 70.
+  49.8% of triples. The full 10×10 BHML has determinant **−7002**
+  (prime factors {2, 3, 389}). Its 8×8 spectral core `BHML_8` — with
+  rows/columns 0 (VOID) and 7 (HARMONY) removed — has determinant
+  **+70** (prime factors {2, 5, 7}) and carries the eigenvalue ratio
+  |λ₇|/|λ₆| = 0.714865 ≈ 5/7 used in the Yang-Mills mass-gap argument
+  (WP15). See `FORMULAS_AND_TABLES.md` §6.7 for the canonical table
+  registry distinguishing BHML_10 from BHML_8.
 
 Both tables have been audited cell-by-cell; all framework-claimed numerical
 signatures verify exactly.

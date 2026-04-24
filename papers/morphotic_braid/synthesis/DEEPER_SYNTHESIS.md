@@ -1,20 +1,7 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\DEEPER_SYNTHESIS.md → papers\morphotic_braid\synthesis\DEEPER_SYNTHESIS.md
 >
-> ### ⚠ CORRECTION 2026-04-24 — Hook 4 is premised on a FALSE claim
->
-> This document asserts `det(BHML) = 70 = 2 · 5 · 7` and builds
-> **Hook 4 (Connes semi-local trace formula)** on that value. Independent
-> SymPy + NumPy verification shows the actual determinant of the
-> canonical BHML is **−7002**, with prime factorisation **{2, 3, 389}**
-> — not {2, 5, 7}. The 5-way intersection claim as stated here is
-> **withdrawn pending reframing**.
->
-> See `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md` for
-> the full correction and
-> `papers/verification_logs/2026_04_24/06_verify_det_claims.txt` for the
-> reproducible computation. `FORMULAS_AND_TABLES.md` §6.4 carries the
-> verified values; §6.6 formalises the seven-member TSML/BHML family.
+> **Scope note:** Hook 4 uses `det = 70 = {2, 5, 7}`. That's the 8×8 core `BHML_8` (WP15 §0), not the full 10×10 `BHML_10` (`det = −7002`, primes `{2, 3, 389}`). Hook 4 applies to BHML_8. See `FORMULAS_AND_TABLES.md` §6.7.
 
 # Deeper Synthesis — The Full Five-Way Intersection
 

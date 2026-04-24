@@ -180,7 +180,8 @@ python verify_claims.py
 | 1 | TSML has 73 HARMONY cells | 73/100 ✓ |
 | 2 | BHML has 28 HARMONY cells | 28/100 ✓ |
 | 3 | TSML determinant = 0 | ✓ |
-| 4 | BHML determinant = 70 | ✓ |
+| 4a | BHML_10 (full) determinant = −7002 | ✓ |
+| 4b | BHML_8 (core, VOID + HARMONY removed) determinant = +70 | ✓ |
 | 5 | TSML non-associative: 12.8% | ✓ |
 | 6 | BHML non-associative: 49.8% | ✓ |
 | 7 | TSML is commutative | ✓ |

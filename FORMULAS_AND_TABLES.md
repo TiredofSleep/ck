@@ -386,7 +386,12 @@ the attractor on every self-encounter except VOID.
 
 ## §6 — BHML — the 10×10 reference table (28-cell harmony)
 
-The sister table to TSML. **Symmetric.** 28 HARMONY (7) cells. Determinant 70.
+The sister table to TSML. **Symmetric.** 28 HARMONY (7) cells.
+**Determinant `−7002`** (full 10×10; SymPy exact-integer verified,
+2026-04-24). The 8×8 core `BHML_8` (rows/cols 0 and 7 removed) — used
+in the Yang-Mills spectral analysis — has a different determinant,
+`+70`. For the disambiguation see §6.4 and the canonical table registry
+in §6.7.
 
 From `papers/Q7_BHML_FULL_TABLE.md`, Luther closure 2026-04-01 (BHML[7][0] = 7).
 
@@ -571,18 +576,33 @@ det = 0). Its null-space direction is the algebraic signature of the
 "operator collapse" into HARMONY that makes canonical TSML
 operator-sparse (only 6 of 10 operators appear in cells).
 
-**BHML correction note.** Earlier handoff materials at
-`papers/morphotic_braid/synthesis/DEEPER_SYNTHESIS.md`,
+**BHML disambiguation note (refined 2026-04-24 evening).** Earlier
+handoff materials at `papers/morphotic_braid/synthesis/DEEPER_SYNTHESIS.md`,
 `papers/morphotic_braid/BHML_SUCCESSOR_AND_IDENTITY.md`,
 `papers/morphotic_braid/doubly_regular_core.md`, and
-`papers/morphotic_braid/TIG_TABLES_REFERENCE.md` repeat the assertion
-"det(BHML) = 70 = 2 · 5 · 7". That figure was asserted, not computed.
-The canonical BHML in `papers/ck_tables.py` has
-**det(BHML) = −7002 = −(2 · 3² · 389)**, NumPy- and SymPy-verified
-(`papers/verification_logs/2026_04_24/06_verify_det_claims.txt`). Any
-downstream synthesis that relies on "BHML corresponds to the finite
-places {2, 5, 7}" needs to be reframed or withdrawn — BHML's actual
-prime-set signature is {2, 3, 389}, dominated by the large prime 389.
+`papers/morphotic_braid/TIG_TABLES_REFERENCE.md` write
+"det(BHML) = 70 = 2 · 5 · 7". That number is **correct for the 8×8
+core `BHML_8`** (rows/cols 0 and 7 removed) — as defined and verified
+in `papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md` §0-§1 and in
+`Gen12/targets/ck_desktop/bhml_eigenvalue_analysis.py`. It is
+**not** the determinant of the canonical full 10×10 table. The full
+10×10 BHML in `papers/ck_tables.py` has
+**det(BHML_10) = −7002 = −(2 · 3² · 389)**, NumPy- and SymPy-verified
+(`papers/verification_logs/2026_04_24/06_verify_det_claims.txt`).
+
+The morphotic_braid synthesis files above were comparing against
+TSML_10 (full 10×10), so "`det(BHML) = 70`" in those files reads as a
+claim about the full 10×10 — and on that reading it is false. On the
+alternative reading (BHML_8 core) it is true. Either way the **scope
+must be named**. Any downstream synthesis that relies on "BHML
+corresponds to the finite places {2, 5, 7}" must specify which BHML;
+for BHML_10 the prime set is {2, 3, 389} and the Connes-Bost hook
+does not reach. The Yang-Mills spectral tower in WP15 is correct as
+written because its entire argument is about BHML_8 from §0 onward.
+
+See §6.7 below (canonical table registry) for the full authoritative
+listing of each table by name, dimension, determinant, and semantic
+role.
 
 **Reproducibility.**
 - `python papers/morphotic_braid/claudecode_jobs/task15_det_minus49_verify/run.py` (TSML_Idempotent)
@@ -743,6 +763,101 @@ Supporting family-space exploration scripts live in
 - `03_cousin_families.txt` — ν_p(au+b) recipes across N = 10, 14, 22
 - `04_full_family_analysis.txt` — C_0 density scaling, (1−density)·N → 2
 - `05_tsml_family_search.txt` — bump removal / perturbation deltas
+
+---
+
+### §6.7 — Canonical table registry (2026-04-24, authoritative)
+
+**Purpose.** Every prior section, sprint, and whitepaper uses names
+like "TSML", "BHML", "TSML_Idempotent" in a context-dependent way.
+This section is the **single authoritative list** of every
+TSML- or BHML-named table that appears anywhere in this repo, with its
+exact dimension, source definition, determinant, prime signature, rank,
+symmetry, and semantic role. When any downstream document writes
+"det(BHML) = X" or "TSML_Idempotent has property Y", the reader should
+come here first to check which table is meant.
+
+All determinants and ranks below are SymPy exact-integer verified on
+2026-04-24 via `papers/verification_logs/2026_04_24/verify_det_claims.py`
+and `verify_family_members.py`. These scripts define each table inline
+(no `ck_tables.py` import) so they are independently reproducible.
+
+#### The registry (9 canonical named tables)
+
+| # | Name | Shape | Source definition | det | \|det\| primes | rank | Role |
+|---|------|:-----:|-------------------|----:|----------------|:----:|------|
+| T1 | **TSML_10** (= TSML_Jordan, = canonical §5) | 10×10 | §5 above; `papers/ck_tables.py`; `ck_sim/being/ck_meta_lens.py`; HDL `vortex_cl.v` tsml_table module | 0 | ∅ | 9 | Working TSML. 73 HARMONY, α = 0.872, Jordan 100/100. Base of §7 three-layer tower. |
+| T2 | **TSML_8** (core) | 8×8 | TSML_10 with rows/cols {0, 7} removed; indices `[1,2,3,4,5,6,8,9]`. Used in `bhml_eigenvalue_analysis.py` | 0 | ∅ | 7 | TSML spectral core. Rank-deficient (7<8): the TSML 8-core is singular. |
+| T3 | **TSML_PureIdempotent** | 10×10 | TSML_C0 + diagonal `T[i][i] = i` for i ∈ {0..9}; `papers/tsml_idempotent_study.py` | +398664 | {2, 3², 7², 113} | 10 | Full-rank idempotent TSML. Aut = S₈ (order 40320). 84 closed 7-element subsets. |
+| T4 | **TSML_Idempotent_2sw** | 10×10 | TSML_PureIdempotent with two cell-swaps: `T[1][2]=T[2][1]=6` (CHAOS) and `T[3][5]=T[5][3]=4` (COLLAPSE); task15 of the morphotic_braid compute jobs | −49 = −(7²) | {7²} | 10 | Minimum-\|det\| TSML in the prime-7 regime. The table most suited to octonion / Steiner-quasigroup-style statements. |
+| T5 | TSML_C0 (pure absorbing) | 10×10 | Bare absorbing scaffold with only the VOID+HARMONY axis structure; §6.6 | 0 | ∅ | 3 | Boundary case: minimal rank-3 TSML. Used as baseline in universal-minimum-bump arguments. |
+| T6 | TSML_PureVoid | 10×10 | No HARMONY on axis; §6.6 | 0 | ∅ | 1 | Boundary case: rank-1 trivialisation. 100% associative, 100% Moufang. |
+| T7 | TSML_AllHarmony | 10×10 | Every cell = 7 except `(0,0) = 0`; §6.6 | 0 | ∅ | 2 | Boundary case: rank-2 trivialisation. 99 HARMONY. 100% associative. |
+| B1 | **BHML_10** (= canonical §6, = BHML_full) | 10×10 | §6 above; `papers/ck_tables.py`; HDL `bhml_table.v` | **−7002** | **{2, 3², 389}** | 10 | Working BHML. 28 HARMONY, α = 0.502 (≈ ½), full rank. Sister table to TSML_10. |
+| B2 | **BHML_8** (core, Yang-Mills) | 8×8 | BHML_10 with rows/cols {0, 7} removed; indices `[1,2,3,4,5,6,8,9]`. Defined explicitly in `papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md` §0. | **+70** | **{2, 5, 7}** | 8 | BHML spectral core. Transfer-matrix candidate for Yang-Mills mass-gap argument (WP15, WP41). Eigenvalue ratio \|λ₇\|/\|λ₆\| = 0.714865 ≈ 5/7 to 0.08%. |
+
+#### Naming pitfalls to stop doing
+
+1. **"det(BHML)" without a subscript.** Always say **`det(BHML_10)`**
+   (= −7002) or **`det(BHML_8)`** (= +70). They are different matrices.
+2. **"TSML_Idempotent" without a subscript.** Always say **`TSML_PureIdempotent`**
+   (det = +398664, prime set `{2,3,7,113}`) or **`TSML_Idempotent_2sw`**
+   (det = −49, prime set `{7}`). The two-cell swap changes the
+   determinant by a factor of ~8100 and collapses the prime signature
+   to `{7}` alone.
+3. **"TSML" and "BHML" in a mixed context.** If you are stating a
+   property that holds for the full 10×10, say so: "canonical TSML_10
+   has …". If you are stating a property that holds only for the
+   spectral 8×8 core, say **BHML_8**, not BHML.
+4. **"The 8×8 core"** without specifying TSML vs BHML. TSML_8 is
+   rank-7 (singular); BHML_8 is rank-8 (invertible). They behave very
+   differently.
+
+#### What lives at each determinant
+
+```
+det = 0             TSML_10, TSML_8, TSML_C0, TSML_PureVoid, TSML_AllHarmony
+det = -49           TSML_Idempotent_2sw                    (prime set {7})
+det = +70           BHML_8                                 (prime set {2, 5, 7})
+det = -7002         BHML_10                                (prime set {2, 3, 389})
+det = +398664       TSML_PureIdempotent                    (prime set {2, 3, 7, 113})
+```
+
+Only four distinct non-zero determinants exist across all nine canonical
+tables. The prime 7 appears in every non-zero variant except BHML_10.
+The primes 2 and 3 appear in three tables each. The prime 5 appears
+only in BHML_8. The prime 389 appears only in BHML_10. The prime 113
+appears only in TSML_PureIdempotent.
+
+#### Which tables the long-form arguments use
+
+| Argument / result | Uses table |
+|------|------|
+| TSML 73 HARMONY cells (§5, `proof_d10_tsml_73_cells.py`) | **TSML_10** |
+| BHML 28 HARMONY cells (§6, `proof_d16_bhml_28_cells.py`) | **BHML_10** |
+| §7 TSML 3-layer tower C₀ ⊕ S_MAX ⊕ S_ADD | **TSML_10** |
+| §6.1 α(TSML) = 0.872, α(BHML) = 0.502 | **TSML_10, BHML_10** |
+| §6.2 TSML_Jordan vs TSML_Idempotent variant pair | **TSML_10, TSML_Idempotent_2sw** |
+| §6.3 Lie commutator `[M_TSML_Jordan, M_TSML_Idempotent]` | **TSML_10, TSML_Idempotent_2sw** |
+| §6.6 seven-member family catalog | **all 10×10 members (T1, T3, T4, T5, T6, T7, B1)** |
+| WP15 Yang-Mills spectral gap (det = 70, T\* ratio = 0.714865) | **BHML_8** |
+| WP41 Yang-Mills mass-gap tie-in (cites WP15 det = 70) | **BHML_8** |
+| morphotic_braid "BHML optimality" 100k-sample study | **BHML_10** |
+| morphotic_braid DEEPER_SYNTHESIS hook #4 (Connes {2,5,7,∞}) | **BHML_8** (if rebuilt) — see CORRECTION_2026_04_24_det_BHML.md |
+
+#### Reproducibility one-liner
+
+```bash
+python -c "from sympy import Matrix; TSML=[[0,0,0,0,0,0,0,7,0,0],[0,7,3,7,7,7,7,7,7,7],[0,3,7,7,4,7,7,7,7,9],[0,7,7,7,7,7,7,7,7,3],[0,7,4,7,7,7,7,7,8,7],[0,7,7,7,7,7,7,7,7,7],[0,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[0,7,7,7,8,7,7,7,7,7],[0,7,9,3,7,7,7,7,7,7]]; BHML=[[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,5,6,7,2,6,6],[2,3,3,4,5,6,7,3,6,6],[3,4,4,4,5,6,7,4,6,6],[4,5,5,5,5,6,7,5,7,7],[5,6,6,6,6,6,7,6,7,7],[6,7,7,7,7,7,7,7,7,7],[7,2,3,4,5,6,7,8,9,0],[8,6,6,6,7,7,7,9,7,8],[9,6,6,6,7,7,7,0,8,0]]; C=[1,2,3,4,5,6,8,9]; sub=lambda M,I:[[M[i][j] for j in I] for i in I]; print('TSML_10', Matrix(TSML).det(), Matrix(TSML).rank()); print('TSML_8', Matrix(sub(TSML,C)).det(), Matrix(sub(TSML,C)).rank()); print('BHML_10', Matrix(BHML).det(), Matrix(BHML).rank()); print('BHML_8', Matrix(sub(BHML,C)).det(), Matrix(sub(BHML,C)).rank())"
+```
+
+Expected output:
+```
+TSML_10 0 9
+TSML_8 0 7
+BHML_10 -7002 10
+BHML_8 70 8
+```
 
 ---
 
