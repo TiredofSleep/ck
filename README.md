@@ -125,6 +125,10 @@ suites; publish a formal architecture paper positioning CK against existing symb
 AI (ACT-R, Soar, Cyc) and within the LLM-alignment determinism/interpretability
 literature.
 
+*Status:* runnable prototype with correct §7-theorem outputs; no adversarial suite,
+no scaled deployment, no formal architecture paper yet. Engineering-heavy frontier;
+unlocked by a software-engineering collaborator or institutional hosting.
+
 ### §3.3 · Hodge-lane Prym computation
 
 A numerical verification of a predicted Prym period determinant for a bielliptic
@@ -132,8 +136,11 @@ genus-5 curve is currently blocked at a single technical step. The curve, the
 framework-derived predicted value
 ($\det(\mathrm{Im}\,\tau_P) = 2086 + 462\sqrt{15} + 498\sqrt{10} + 730\sqrt{6}$),
 and the first four pipeline steps are all documented. The fifth step requires MAGMA
-with RieSrf or SageMath with the Bruin-Sijsling-Zotine extension. This is the single
-highest-leverage small-grant item in the project.
+with RieSrf or SageMath with the Bruin-Sijsling-Zotine extension.
+
+*Status:* curve definition, predicted value, and pipeline steps 1–4 documented;
+step 5 blocked on software access. Single highest-leverage small-grant item in the
+project.
 
 ### §3.4 · ξ-field cosmology and DESI data
 
@@ -141,11 +148,42 @@ A scalar-field action $V(\Xi) = \kappa_\Xi \Xi \log \Xi$ derived from the separa
 structure of the finite-algebra work produces a standard freezing quintessence model
 with exact vacuum $\Xi_0 = e^{-1}$. An initial fit against DESI 2024 DR1 has been
 performed; a full DR2 fit with joint BAO + CMB + SN likelihood is the next step.
-JCAP-target manuscript is near-ready. Status: `proof_xi_canonical.py` passes 22/22
-internal tests; DR2 analysis requires a collaborator with cosmology MCMC
-infrastructure.
+JCAP-target manuscript is near-ready.
 
-**Frontier-level navigation:** [`Atlas/FRONTIER_ALIGNMENT_2026_04_19.md`](Atlas/FRONTIER_ALIGNMENT_2026_04_19.md).
+*Status:* `proof_xi_canonical.py` passes 22/22 internal tests; DR2 analysis requires
+a collaborator with cosmology MCMC infrastructure.
+
+### §3.5 · Morphotic-braid / α-index / ac-free operad frontier
+
+The TSML and BHML composition tables on 10 elements are commutative non-associative
+groupoids with measurable associativity index $\alpha(A) = 1 - \sigma(A)$ (Braitt-
+Silberger 2006). Both attain the **ac-free spectrum extremum**
+$s_n^{\mathrm{ac}} = (2n-3)!!$ for $n \le 5$ (Huang-Lehtonen 2022, 2024): the
+symmetric operad generated at small $N$ is the free commutative magmatic operad
+$\mathrm{Mag}^{\mathrm{com}}$ on one generator. The WP101 σ-rate theorem
+($\sigma(N) \le C/N$ for squarefree $N$, $C < 2$) is therefore the statement
+$\mathrm{Mag}^{\mathrm{com}} \to \mathrm{Com}$ as $N \to \infty$. Bialynicki-
+Birula-Mycielski 1976 then identifies log-nonlinearity as the unique continuum
+wave equation compatible with that limit, providing the bridge from §7's proved
+rate to §5.1's cosmology bridge. Farey-fraction spin-chain (Kleban-Özlük 1999;
+Fiala-Kleban-Özlük 2002) and primon-gas (Julia 1990; Spector 1990) frameworks supply
+two additional external anchors for $T^* = 5/7$ and $\mathrm{sinc}^2(1/2) = 4/\pi^2$.
+
+*Status:* six runnable proofs confirm the operad spectra and identities
+(`proof_spectra_tsml_bhml.py`, `proof_sinc_zeta_identity.py`, `proof_sigma_rate.py`,
+`proof_d25_loop_closure.py`, `verify_so10.py`, `verify_simplicity_rank.py`). The
+per-row rigor audit lives in
+[`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md).
+Open questions: (i) is σ(N) → 0 provably sharp (not just ≤ 2/N)? (ii) does the
+primon-gas limit extend to the full $T^* = 5/7$ spectrum? (iii) does the WP101-
+BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly? Tier-1
+submission-ready as three independent journal doors (JCAP, $\sigma$-rate
+combinatorics, integers / sinc² zero law) per
+[`Gen13/targets/journals/SUBMISSION_LADDER.md`](Gen13/targets/journals/SUBMISSION_LADDER.md).
+
+**Frontier-level navigation:** [`Atlas/FRONTIER_ALIGNMENT_2026_04_19.md`](Atlas/FRONTIER_ALIGNMENT_2026_04_19.md)
+(historical) and [`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md)
+(current per-claim Tier 1/2/3 audit, as of 2026-04-23).
 
 ---
 
