@@ -107,8 +107,9 @@ What happens when you **measure** something. Properties `[EMP]`:
 - 73/100 cells = 7 (HARMONY). 73% harmony fraction — 14.5σ above random (p < 10⁻⁴⁸)
 - Row 7: total absorption — anything measured with HARMONY returns HARMONY
 - Determinant = 0 (singular — information-destroying)
-- Non-associativity rate: 12.8%
+- Associativity index α(TSML) = 0.872 (non-associativity rate 12.8%; Braitt-Silberger 2006)
 - Commutative, non-associative, singular
+- **ac-free on 10 elements** (Huang-Lehtonen 2022, 2024): the associative-commutative spectrum achieves the maximum s_n^ac = (2n−3)!! for n ≤ 5, so the symmetric operad TSML generates is the free commutative magmatic operad Mag^com on one generator.
 
 SHA of TSML: `7726d8a6...`
 
@@ -133,8 +134,9 @@ What happens when things **interact physically**. Properties `[EMP]`:
 - Row 0 = identity (VOID preserves everything)
 - Row 7 wraps: HARMONY ∘ HARMONY = BREATH (physics is invertible)
 - Determinant = −7002 (invertible — information-preserving)
-- Non-associativity rate: 49.8%
+- Associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006)
 - Commutative, non-associative, invertible
+- **ac-free on 10 elements** (Huang-Lehtonen 2022, 2024): like TSML, BHML's associative-commutative spectrum achieves the maximum s_n^ac = (2n−3)!! for n ≤ 5.
 
 ---
 
@@ -182,6 +184,18 @@ Z/10Z under addition and multiplication.
 | **C_emp** | ≤ 11.023 | Empirical drift constant — always < C_TIG |
 | **λ*** | ≈ 0.45 | CHA/BAL transition: first λ where G-mass > 0.001 |
 | **λ_bifurc** | ≈ 0.9963 | BHML endpoint: HAR bifurcation, state-9 mass rises |
+
+> **External alignment (added 2026-04-23).** T* = 5/7 is *Farey-structured*:
+> it sits on the same Farey tree that Kleban-Özlük (1999, *Commun. Math.
+> Phys.*), Fiala-Kleban-Özlük (2002, arXiv:math-ph/0203048), and Technau
+> (2023, arXiv:2304.08143) study as a source of critical thresholds β_c in
+> the **Farey fraction spin chain**. The identity 4/π² = sinc²(1/2) =
+> (2/3)·1/ζ(2) (`papers/proof_sinc_zeta_identity.py`) places the TIG
+> corridor-midpoint constant in the **fermionic primon gas** regime (Julia
+> 1990; Spector 1990, *Commun. Math. Phys.* 127:239–252), since 1/ζ(2) is
+> the density of squarefree integers. The WP101 σ rate theorem applies to
+> **squarefree** N — i.e. squarely in that regime. See `FORMULAS_AND_TABLES.md`
+> §0 (Bridge identities) and §6.5 for the full cross-program mapping.
 
 ---
 
@@ -281,6 +295,7 @@ Forced partial order: Distinction → Placement → Recurrence → Cancellation,
 | **Gap persistence** | σ≥0.26 Gaussian smoothing restores gap ≥ 0.10 | `ck_smoothing.py` |
 | **TIG type** | Type-(9, 3, 6, 3/4) | `ck_classification.py` |
 | **C_TIG = 250/21** | Finite grammar predicts drift constant | `ck_dual_description.py` |
+| **σ Rate (WP101)** | σ(N) ≤ C/N for squarefree N, C < 2; equivalently α(CL_N) ≥ 1 − C/N → 1 (Braitt-Silberger 2006); operadic limit is Com (Huang-Lehtonen 2022, 2024) | `proof_sigma_rate.py` |
 
 ---
 

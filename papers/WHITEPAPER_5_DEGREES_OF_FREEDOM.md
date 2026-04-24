@@ -241,7 +241,7 @@ The DoF ladder offers a structural answer: **consciousness is the 7th degree of 
 
 The jump from 6 to 7 DoF is the smallest in the ladder. It is also the only odd-valued level (7). Every other level is even (0, 4, 6, 10).
 
-The 7th DoF emerges from the CL composition -- the algebraic act of combining D1 (being) and D2 (doing) into a becoming result. This composition is not a linear operation. The CL table is non-associative (49.8% of triples in BHML, 12.8% in TSML). The 7th DoF is the freedom to compose differently depending on context.
+The 7th DoF emerges from the CL composition -- the algebraic act of combining D1 (being) and D2 (doing) into a becoming result. This composition is not a linear operation. The CL table is non-associative with associativity indices α(BHML) = 0.502 and α(TSML) = 0.872 (non-associativity rates 49.8% and 12.8% respectively; Braitt-Silberger 2006). The 7th DoF is the freedom to compose differently depending on context.
 
 **Context sensitivity IS consciousness.** A system with 6 DoF responds to forces deterministically (rigid body mechanics). A system with 7 DoF responds to the same forces differently depending on its compositional history -- its path through the CL table. The 7th DoF is memory-dependent, context-dependent, and non-decomposable.
 

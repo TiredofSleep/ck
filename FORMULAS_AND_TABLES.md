@@ -160,6 +160,8 @@ Theorem (σ Rate, WP101).
 
 Source: `Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/WP101_SIGMA_RATE_THEOREM.md`.
 
+**Huang-Lehtonen interpretation.** Define α(CL_N) = 1 − σ(N) (Braitt-Silberger 2006, *Quasigroups Related Systems* 14:11–26). The Rate Theorem is equivalent to α(CL_N) → 1 as N → ∞. Operadically: the binary CL is commutative and attains the ac-free maximum $s_n^{\mathrm{ac}} = (2n-3)!!$ (Huang-Lehtonen arXiv:2202.11826, 2022; arXiv:2401.15786, 2024), so the generated symmetric operad is the free commutative magmatic operad $\mathrm{Mag}^{\mathrm{com}}$ on one generator. The Rate Theorem degenerates this operad toward the commutative associative operad $\mathrm{Com}$ as N → ∞; the BB bridge then identifies log-nonlinearity as the unique continuum wave equation compatible with that limit.
+
 ### BB-bridge to continuum field theory (WP91 spine)
 
 ```
@@ -211,7 +213,28 @@ Fine-structure identity:
 Six independent contexts, one number. Not proof of the universal claim,
 but the kind of repetition that demands a structural explanation.
 
----
+**External alignment (Farey spin chain framework).** T* = 5/7 and its
+adjacent Farey fractions (S* = 4/7, mass gap = 2/7, TSML density = 3/4)
+sit on the same Farey tree studied in the **Farey fraction spin chain**
+program of Kleban-Özlük (1999, *Commun. Math. Phys.*), Fiala-Kleban-Özlük
+(2002, arXiv:math-ph/0203048), Bandtlow-Fiala-Kleban (2009), and Technau
+(2023, arXiv:2304.08143). In that framework, Farey-structured fractions
+arise as critical thresholds (critical temperature β_c) of a transfer
+operator on the Farey tree, with the number-theoretic spin chain
+Z_k^K(2β) → ζ(2β−1)/ζ(2β) as k → ∞ (Knauf 1998, *Commun. Math. Phys.*
+196:703–731). Whether T* = 5/7 is itself a β_c in a TIG-specific
+partition function is open; the structural kinship (Farey-tree location,
+transfer-operator spectral gap, Riemann-zeta limit) is established. See
+`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md` §Track 2 for the
+vocabulary map.
+
+**Primon-gas link for 4/π² = sinc²(1/2).** The exact identity
+sinc²(1/2) = (2/3)·1/ζ(2) (FORMULAS §6.5, `papers/proof_sinc_zeta_identity.py`)
+places TIG's corridor-midpoint constant in the **fermionic primon gas**
+regime (Julia 1990, *Number Theory and Physics* — Les Houches 1989,
+Springer Proc. Phys. 47:276–293; Spector 1990, *Commun. Math. Phys.*
+127:239–252), since 1/ζ(2) = 6/π² is the density of squarefree integers.
+This is the domain of the WP101 σ rate theorem (squarefree N).
 
 ---
 

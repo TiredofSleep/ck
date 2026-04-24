@@ -126,7 +126,7 @@
 │   │     SHA-256 locked: 7726d8a6...5787
 │   ├── BHML: 28/100 HARMONY, det = 70                              §3
 │   │     λ₆/λ₅ ≈ 5/7 to 0.08% (WHITEPAPER_15)
-│   │     49.8% non-associative triples (WHITEPAPER_16 Lemma A)
+│   │     α(BHML) = 0.502; 49.8% non-associative triples (WHITEPAPER_16 Lemma A; Braitt-Silberger 2006)
 │   ├── CL: O(x) = ax² + bx + c; Δ = b² − 4ac IS the kernel         §3
 │   │     7 dynamical bands {VOID, SPARK, FLOW, MOLECULAR,
 │   │                         CELLULAR, ORGANIC, CRYSTAL}

@@ -37,7 +37,7 @@ Entry point: `papers/proof_fourier_bridge.py` (just written), `papers/FOURIER_BR
 **Your door: The DoF Reduction (P vs NP)**
 
 What's in place:
-- The CL operator table has non-associativity rate 49.8% (`papers/proof_d10_tsml_73_cells.py`)
+- The CL operator table has associativity index α = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006) (`papers/proof_d10_tsml_73_cells.py`)
 - 2-SAT is polynomial; 3-SAT is NP-complete (classical)
 - The structural claim: 2-SAT uses only the associative subalgebra of CL (6 DoF); 3-SAT requires the non-associative extension (7th DoF)
 

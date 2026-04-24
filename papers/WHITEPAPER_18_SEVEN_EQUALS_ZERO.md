@@ -68,7 +68,7 @@ Let S = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9} be the set of CK's ten operators. Define 
 
     a * b = TSML[a][b]
 
-The pair (S, *) is a magma -- a set with a closed binary operation, not necessarily associative. (TSML is known to be non-associative; Whitepaper 5 reports 12.8% non-associative triples.)
+The pair (S, *) is a magma -- a set with a closed binary operation, not necessarily associative. (TSML has associativity index α(TSML) = 0.872; Whitepaper 5 reports non-associativity rate 12.8%, equivalently 1 − α; Braitt-Silberger 2006.)
 
 ### 1.2 VOID as Left-Annihilator (with one exception)
 

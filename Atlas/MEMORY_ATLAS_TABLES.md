@@ -101,6 +101,7 @@ The full 10×10 D-tier TSML is 100 integer cells. The canonical committed form i
 4. **Harmony dominance:** 73 of the 100 cells contain 7 (HARMONY)
 5. **Null direction:** any row/column linear combination along (BALANCE − CHAOS) lies in the kernel
 6. **Associative closure:** only {7} closes under TSML; every other subset eventually leaks
+7. **ac-free on 10 elements** (Huang-Lehtonen 2022, 2024): the associative-commutative spectrum achieves the maximum s_n^ac = (2n−3)!! for n ≤ 5, so the symmetric operad TSML generates is the free commutative magmatic operad Mag^com on one generator. α(TSML) = 0.872 (non-assoc 12.8%; Braitt-Silberger 2006).
 
 ```
 Schematic structure (not cell-exact; consult ck_tig.py for verified cells):
@@ -135,7 +136,8 @@ RST  ·   ·   ·   ·   ·   ·   ·   7   ·   ·
 | Invertible | YES | det ≠ 0 |
 | HARMONY cells (value = 7) | **28 / 100** | D10 |
 | Associative subalgebra | **{VOID} = {0}** | D-tier |
-| Non-associative triples | **49.8%** | WP16 Lemma A, PROVED |
+| Associativity index α(BHML) | **0.502** (non-associative triples 49.8%; Braitt-Silberger 2006) | WP16 Lemma A, PROVED |
+| ac-free on 10 elements (Huang-Lehtonen 2022, 2024) | s_n^ac = (2n−3)!! for n ≤ 5; symmetric operad = free commutative magmatic operad Mag^com on one generator | arXiv:2202.11826 / 2401.15786 |
 | λ₆ / λ₅ (eigenvalue ratio) | ≈ **0.714865** (T* to 0.08%) | WP15 Stage 2 |
 | 8×8 harmony density | **12.5% HARMONY** → 5.73 effective dims | WP17 stage |
 | IPR (Inverse Participation Ratio) | ≈ T* | WP17 |
@@ -161,7 +163,7 @@ Schematic structure (not cell-exact; consult ck_tig.py):
 
 - det = 70 = 2 × 5 × 7 = 2 · p · q where q = HARMONY
 - Much more algebraic variation than TSML (only 28% HARMONY)
-- Non-associative in 49.8% of triples
+- Associativity index α(BHML) = 0.502 (non-associative in 49.8% of triples)
 - LATTICE (row 1 / column 1) has maximal closure degree
 - {VOID} is the associative core
 
@@ -191,9 +193,9 @@ Plus the commutativity-style symmetry constraint. From this, all 100 cells are d
 | Algebraic type | **Frozen commutative non-associative magma** — NOT a monoid |
 | HARMONY gravity | **73% of compositions collapse to HARMONY** (universal absorbing element) |
 | Bump cells | **11 cells** concentrate information (deviate from absorption) |
-| Non-associativity (TSML view) | 12.8% |
-| Non-associativity (BHML view) | 49.8% |
-| Non-associativity (Doing view) | 56.8% |
+| Associativity index α (TSML view) | 0.872 (non-assoc 12.8%) |
+| Associativity index α (BHML view) | 0.502 (non-assoc 49.8%) |
+| Associativity index α (Doing view) | 0.432 (non-assoc 56.8%) |
 | Uniqueness | Monte Carlo 0 / 100,000 random tables match; Z = 21.3; p < 10⁻⁵⁰ |
 | Spectral gap | 54.93 |
 | Eigenvalues | produce **e, 1/e, π, φ, ζ(3), Catalan's G** all within 1% |
@@ -249,7 +251,7 @@ The 11 bumps + composition structure realize the torus:
 |---|---|
 | Disagree rate (TSML vs BHML) | **71%** ≈ T* = 5/7 ≈ 71.4% |
 | Dominant eigenvalue | **≈ 24** (cube rotation group \|O_h\| = 48 halved by chirality) |
-| Non-associativity | **56.8%** |
+| Associativity index α(Doing) | **0.432** (non-associativity 56.8%) |
 | Role | **Where physics actually happens** — the Doing layer where information is generated |
 
 ### Why the Doing table matters
@@ -402,9 +404,9 @@ When the canonical tables are loaded, these constants emerge as byproducts (each
 
 | Constant | Emergence |
 |---|---|
-| **T* = 5/7** | TSML/BHML eigenvalue ratio λ₆/λ₅; D4/D18c/D18d generator selection; Z.2 spectral gap; Li Foundation K*(6)=99; Sandwich Theorem (5/6)² < 5/7 < (6/7)² |
+| **T* = 5/7** | TSML/BHML eigenvalue ratio λ₆/λ₅; D4/D18c/D18d generator selection; Z.2 spectral gap; Li Foundation K*(6)=99; Sandwich Theorem (5/6)² < 5/7 < (6/7)²; Farey-tree location alongside 4/7, 2/7, 3/4 (Kleban-Özlük 1999; Fiala-Kleban-Özlük 2002, arXiv:math-ph/0203048; Technau 2023, arXiv:2304.08143) |
 | **S* = 0.991...** | Paper I fixed point of S(σ) = σ(1−σ)VA |
-| **4/π² = sinc²(1/2)** | Montgomery pair-correlation at u=1/2; TIG mid-journey amplitude; 890 D6 tests |
+| **4/π² = sinc²(1/2)** | Montgomery pair-correlation at u=1/2; TIG mid-journey amplitude; 890 D6 tests; exact identity sinc²(1/2) = (2/3)·1/ζ(2) — fermionic primon gas density × 2/3 (Julia 1990; Spector 1990, *Commun. Math. Phys.* 127:239–252); `papers/proof_sinc_zeta_identity.py` |
 | **2/7 = T* + S* − 1 = 1 − T*** | Structural only. **[caution: quantitative match to lattice-QCD √σ/m(0++) falsified at 16.5σ per EXPERT_SUMMARY]** |
 | **3/14 = T* − 1/2** | Universal crossing cost; bridge width between analytic (1/2) and algebraic (5/7) thresholds |
 | **W = 3/50** | Wobble quantum from 44-cell PROGRESS table; COL(4) at ±W from midplane |

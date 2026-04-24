@@ -182,8 +182,8 @@ python verify_claims.py
 | 3 | TSML determinant = 0 | ✓ |
 | 4a | BHML_10 (full) determinant = −7002 | ✓ |
 | 4b | BHML_8 (core, VOID + HARMONY removed) determinant = +70 | ✓ |
-| 5 | TSML non-associative: 12.8% | ✓ |
-| 6 | BHML non-associative: 49.8% | ✓ |
+| 5 | TSML associativity index α = 0.872 (non-assoc rate 12.8%) | ✓ |
+| 6 | BHML associativity index α = 0.502 (non-assoc rate 49.8%) | ✓ |
 | 7 | TSML is commutative | ✓ |
 | 8 | BHML is commutative | ✓ |
 | 9 | CROSS_CYCLE sum = 44 | ✓ |

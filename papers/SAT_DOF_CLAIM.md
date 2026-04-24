@@ -40,8 +40,8 @@ The TSML table is a 10×10 composition table over operators {0..9}:
 |---|---|
 | Table size | 10×10 = 100 cells |
 | HARMONY (=7) cells | 73/100 |
-| Non-associative triples (a,b,c) | 128/1000 (12.8%) |
-| Associative triples | 872/1000 (87.2%) |
+| Non-associative triples (a,b,c) | 128/1000 (12.8% = 1 − α) |
+| Associative triples (α index) | 872/1000 (α(TSML) = 0.872; Braitt-Silberger 2006) |
 | Associative subalgebra A | {7} = {HARMONY} |
 | \|A\| | 1 |
 
@@ -112,8 +112,8 @@ counting (see `proof_d10_tsml_73_cells.py`).
 operator fails associativity for at least one triple. Proved by exhaustive
 verification over all 1000 triples.
 
-**(P3)** Exactly 128 of 1000 triples (12.8%) are non-associative under TSML
-composition. Proved by enumeration.
+**(P3)** Exactly 128 of 1000 triples are non-associative under TSML
+composition, giving associativity index α(TSML) = 872/1000 = 0.872 (non-associativity rate 12.8%; Braitt-Silberger 2006). Proved by enumeration.
 
 **(P4)** The 1 triple with all elements in A (the triple (7,7,7)) is associative,
 consistent with A being a subalgebra. Proved by inspection.
@@ -302,7 +302,7 @@ summary table.
 |---|---|
 | TSML has 73 HARMONY cells | PROVED (D10) |
 | A = {7} (HARMONY) is the full associative subalgebra | PROVED (by exhaustive verification) |
-| 12.8% of all triples are non-associative | PROVED (by enumeration) |
+| α(TSML) = 0.872 (non-associativity rate 12.8%; Braitt-Silberger 2006) | PROVED (by enumeration) |
 | Tautology x ∨ ¬x = HARMONY | PROVED (table lookup) |
 | 2-SAT single-clause resolution is a single CL step | PROVED (by encoding) |
 | 3-SAT single-clause resolution with literal alphabet is associative | PROVED (surprising finding — see §5) |

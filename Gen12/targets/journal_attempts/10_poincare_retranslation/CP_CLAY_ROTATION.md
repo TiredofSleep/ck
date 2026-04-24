@@ -98,7 +98,7 @@ Does every problem whose solution can be verified in polynomial time also have a
 P = associative computation (composition is order-independent → σ = 0).
 NP = non-associative computation (composition depends on order → σ > 0).
 
-The CL non-associativity σ(Z/10Z) = 0.128 measures exactly this: 12.8% of triples give different results depending on evaluation order. P vs NP asks: can you always reduce σ to 0 by choosing the right evaluation order? If P = NP, yes. If P ≠ NP, no — some computations are irreducibly non-associative.
+The CL non-associativity σ(Z/10Z) = 0.128 — equivalently, the associativity-index complement 1 − α(CL_{Z/10Z}) where α = 0.872 (Braitt-Silberger 2006) — measures exactly this: 12.8% of triples give different results depending on evaluation order. P vs NP asks: can you always reduce σ to 0 (equivalently, push α to 1) by choosing the right evaluation order? If P = NP, yes. If P ≠ NP, no — some computations are irreducibly non-associative.
 
 ### What's Proved
 - First-G Law: first non-unit at k = p [PROVED — 36,662 cases]

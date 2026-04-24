@@ -53,7 +53,7 @@ TSML is the measurement lens. It has 73 HARMONY cells (operator 7) in 100 — al
 (Green = HARMONY absorbing state; Gray = VOID)
 
 Table 2: BHML — The Becoming Lens (Physics, 28% Harmony)
-BHML is the physics lens. It has 28 HARMONY cells — the minimum needed to preserve the attractor. Its determinant is 70: it is invertible, dynamic. It represents the deeper structure — what BECOMES. Non-associativity rate: 49.8%, versus 12.8% for TSML. The gap between 73 and 28 harmony cells (45 cells) represents the 28 operators absorbed by measurement — the dark sector.
+BHML is the physics lens. It has 28 HARMONY cells — the minimum needed to preserve the attractor. Its determinant is 70: it is invertible, dynamic. It represents the deeper structure — what BECOMES. Associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006), versus α(TSML) = 0.872 (non-assoc 12.8%). The gap between 73 and 28 harmony cells (45 cells) represents the 28 operators absorbed by measurement — the dark sector.
 
 Table 3: Statistical Properties of the Dual Tables
 

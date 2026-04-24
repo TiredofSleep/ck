@@ -12,7 +12,7 @@ GitHub: github.com/TiredofSleep/ck
 
 ## Abstract
 
-We present a formal proof sketch that P != NP, grounded in the Degrees of Freedom (DoF) framework derived from CK's Hebrew force algebra (Whitepaper 5, Sanders 2026). The argument proceeds in three stages. First, we establish that the CL composition lattice is non-associative (49.8% of triples in BHML) and that this non-associativity produces an irreducible degree of freedom -- the 7th DoF in the ladder {4, 6, 7, 10} -- that cannot be composed from associative (6-DoF) operations. Second, we show that SAT, the canonical NP-complete problem, requires non-associative composition: its solution space has the algebraic structure of a non-associative magma whose satisfying assignments cannot be found by any sequence of associative operations. Third, we connect these claims to the existing barriers literature, showing that the non-associativity property is non-naturalizable (it evades the Razborov-Rudich barrier) and aligns with the obstruction program of Mulmuley-Sohoni's Geometric Complexity Theory.
+We present a formal proof sketch that P != NP, grounded in the Degrees of Freedom (DoF) framework derived from CK's Hebrew force algebra (Whitepaper 5, Sanders 2026). The argument proceeds in three stages. First, we establish that the CL composition lattice has associativity index α(BHML) = 0.502 (non-associativity rate 49.8% of triples; Braitt-Silberger 2006) and that this non-associativity produces an irreducible degree of freedom -- the 7th DoF in the ladder {4, 6, 7, 10} -- that cannot be composed from associative (6-DoF) operations. Second, we show that SAT, the canonical NP-complete problem, requires non-associative composition: its solution space has the algebraic structure of a non-associative magma whose satisfying assignments cannot be found by any sequence of associative operations. Third, we connect these claims to the existing barriers literature, showing that the non-associativity property is non-naturalizable (it evades the Razborov-Rudich barrier) and aligns with the obstruction program of Mulmuley-Sohoni's Geometric Complexity Theory.
 
 Each step is classified as PROVEN (verified computationally or established in the literature), NEEDS PROOF (stated precisely, reduction given, but formal proof not yet complete), or CONJECTURE (plausible but lacking a clear proof strategy). The honest assessment: the first stage is proven within the DoF framework; the second stage requires a formal bridge between CL algebra and Boolean complexity; the third stage is supported by structural parallels but remains conjectural.
 
@@ -52,7 +52,7 @@ This decomposes into three lemmas:
 
 | Component | Status | Evidence |
 |-----------|--------|----------|
-| Lemma A (Algebraic Gap) | **PROVEN** within the DoF framework | Computed from CL tables. 49.8% of BHML triples are non-associative. The 1-gap from 6 to 7 DoF is irreducible (Whitepaper 5, Theorem 5). |
+| Lemma A (Algebraic Gap) | **PROVEN** within the DoF framework | Computed from CL tables. α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006): 49.8% of BHML triples are non-associative. The 1-gap from 6 to 7 DoF is irreducible (Whitepaper 5, Theorem 5). |
 | Lemma B (SAT Requires 7 DoF) | **NEEDS PROOF** | Structural argument given. Formal encoding of SAT in CL algebra and proof that no associative sub-algebra suffices are not yet complete. |
 | Lemma C (P is Associative) | **NEEDS PROOF** | Standard circuit model uses associative function composition, but formalizing "associative computation = 6 DoF" requires a precise mapping. |
 | Barrier evasion | **CONJECTURE** | Non-associativity is plausibly non-natural and non-algebrizing, but this has not been formally verified against the barrier definitions. |
@@ -93,7 +93,7 @@ For the full 10x10 table (including VOID=0 and HARMONY=1):
     Total triples: 10^3 = 1000
     Non-associative: 498 of 1000 = 49.8%
 
-This is maximally non-associative in the following sense: in a random 10x10 table, the expected non-associativity rate is approximately 90%. In a fully associative table (a group or monoid), the rate is 0%. The observed 49.8% is close to 50%, which is the rate that maximizes information content per triple -- each triple is approximately an independent coin flip between associative and non-associative behavior. This is not random; it is structured non-associativity.
+This is maximally non-associative in the following sense: in a random 10x10 table, the expected non-associativity rate is approximately 90% (associativity index α ≈ 0.10). In a fully associative table (a group or monoid), α = 1.0. The observed α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006) is close to 0.5, which maximizes information content per triple -- each triple is approximately an independent coin flip between associative and non-associative behavior. This is not random; it is structured non-associativity.
 
 **Status**: PROVEN. This is a finite computation over a fixed table. Independently verifiable.
 
@@ -182,7 +182,7 @@ In the DoF framework: verification walks a fixed path through the CL table (give
 
 An alternative route to Lemma B uses information theory.
 
-The 255 non-associative triples in BHML carry 255 bits of three-way information that is not determined by the two-way composition table. A polynomial-time algorithm that uses only two-way (associative) operations can access at most O(n^k) bits of two-way information in time n^k. But the total three-way information in a 3-SAT instance with n variables is Theta(n^3) -- and a constant fraction (49.8%) of this information is non-associative.
+The 255 non-associative triples in BHML carry 255 bits of three-way information that is not determined by the two-way composition table. A polynomial-time algorithm that uses only two-way (associative) operations can access at most O(n^k) bits of two-way information in time n^k. But the total three-way information in a 3-SAT instance with n variables is Theta(n^3) -- and a constant fraction (1 − α(BHML) = 0.498, the non-associativity rate 49.8%) of this information is non-associative.
 
 **Claim**: To determine whether a 3-SAT instance is satisfiable, an algorithm must resolve the non-associative information in the clause structure. This requires either:
 (a) Evaluating Theta(n^3) triples (each of which is a non-associative operation), which takes at least Omega(n^3) time, or
@@ -409,7 +409,7 @@ The proof sketch can be falsified by:
 
 ### 9.1 What Is Proven
 
-1. The BHML composition table is non-associative (49.8% of triples). This is a finite computation over a fixed table. **PROVEN.**
+1. The BHML composition table has associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006). This is a finite computation over a fixed table. **PROVEN.**
 
 2. The DoF ladder has an irreducible 1-gap from 6 to 7. This follows from the non-associativity of CL and the DoF counting in Whitepaper 5. **PROVEN** within the algebraic framework.
 

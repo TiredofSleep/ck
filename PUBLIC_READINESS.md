@@ -70,8 +70,8 @@ pip install numpy sympy
 | V3 | `det(BHML_8) = +70`, primes {2, 5, 7} | `verify_claims.py` claim 4b | `PASS` |
 | V4 | TSML has 73 HARMONY cells | `verify_claims.py` claim 1 | `73/100` |
 | V5 | BHML has 28 HARMONY cells | `verify_claims.py` claim 2 | `28/100` |
-| V6 | TSML non-associative rate = 12.8% | `verify_claims.py` claim 5 | `12.8%` |
-| V7 | BHML non-associative rate = 49.8% | `verify_claims.py` claim 6 | `49.8%` |
+| V6 | TSML associativity index α(TSML) = 0.872 (non-assoc rate 12.8%) | `verify_claims.py` claim 5 | `12.8%` |
+| V7 | BHML associativity index α(BHML) = 0.502 (non-assoc rate 49.8%) | `verify_claims.py` claim 6 | `49.8%` |
 | V8 | Both tables commutative | `verify_claims.py` claims 7–8 | 0 violations |
 | V9 | `det(TSML_Idempotent_2sw) = −49` | `verify_family_members.py` member 5 | `−49` |
 | V10 | `det(TSML_PureIdempotent) = +398664` | `verify_family_members.py` member 4 | `+398664` |

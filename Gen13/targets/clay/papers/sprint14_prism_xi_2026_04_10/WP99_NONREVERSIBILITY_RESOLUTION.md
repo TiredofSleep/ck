@@ -29,7 +29,7 @@ $$P(a \to c) = \frac{|\{b : \text{TSML}[a][b] = c\}|}{10}$$
 | Stationary distribution | **π(HARMONY) = 1.0**, all others = 0 | HARMONY is absorbing |
 | Spectral gap | **0.10** | Poincare inequality holds |
 | Second eigenvalue | **0.90** | Mixing time ~ 1/0.10 = 10 steps |
-| Non-associativity σ(Z/10Z) | **0.128** (128/1000 triples) | 12.8% of compositions are order-dependent |
+| Associativity index α(CL_{Z/10Z}) | **0.872** (non-associativity σ = 0.128; 128/1000 triples; Braitt-Silberger 2006) | 12.8% of compositions are order-dependent |
 
 ### 1.3 Why Detailed Balance Holds Trivially
 

@@ -348,7 +348,7 @@ identification of what must be proved to make the connection rigorous.
 - PROVED within TIG framework: DoF(k vectors) = {0, 4, 6, 7, 10}
 - Critical gap: 6 DoF (two vectors, associative composition) → 7 DoF (three vectors,
   non-associative composition) [cite I-3]
-- Non-associativity rate: 49.8% of BHML triples satisfy CL(CL(a,b),c) ≠ CL(a,CL(b,c))
+- Associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006): 49.8% of BHML triples satisfy CL(CL(a,b),c) ≠ CL(a,CL(b,c))
 - PROVED (computed): This is a finite computation over the fixed CL table
 
 **§4.2 The Octonion Connection**
@@ -517,10 +517,10 @@ Equivalently: a modulus b is semiprime iff its gate-size sequence has exactly on
 unit-height step before the second prime factor.
 
 ### Claim 3 (Proved within TIG — WP16 §2.2)
-**CL composition table is non-associative at rate 49.8%.**
+**CL composition table has associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006).**
 255 of 512 ordered triples in the 8×8 BHML core are non-associative.
-Full 10×10 table: 498 of 1000 = 49.8%. Finite computation over fixed table.
-This is maximally structured non-associativity (close to 50%, not random 90%).
+Full 10×10 table: 498 of 1000 = 49.8% non-assoc, giving α = 0.502. Finite computation over fixed table.
+This is maximally structured non-associativity (α ≈ 0.5, not random 0.1).
 
 ### Claim 4 (Proved within TIG — WP16 §2.3)
 **The 7th DoF is irreducible over associative composition.**
