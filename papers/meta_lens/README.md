@@ -20,6 +20,18 @@ website.
   short standalone brief on how Sprint 11's four-type axis (Type I–IV,
   failure-mode classification) and WP61's five-category axis (Category
   I–V, score refinement) relate.
+- [`DOF_CLASSIFICATION.md`](./DOF_CLASSIFICATION.md) — five-kinds
+  taxonomy of degrees of freedom, instantiated on `(CL, BHML)`.
+  Kinds 1–5 = structural / reversible-symplectic / irreversible-
+  dissipative / discrete-climbing / degenerative-limiting. Shows
+  every `D1–D25` item in `FORMULAS_AND_TABLES.md §0` populates at
+  least one kind, corrects the draft's Krull dim / pd values
+  (`dim = 1, pd = 10, depth = 0`, not `6, 4`), and adds a 5 × 4
+  DOF-Kinds × UOP-Types matrix as the organizing extension.
+  Honest status note on the `E, A, K` coherence-equation gap:
+  `CKIS/ck_being.py` currently implements `E, A, K` as toy bookkeeping
+  scalars, not as kind-coupled reads; the five-kinds framing is
+  therefore a design target for the runtime, not a shipped invariant.
 - [`INTEGRATION_NOTES_2026_04_24.md`](./INTEGRATION_NOTES_2026_04_24.md) —
   transparency record of what the desktop drafts (`META_LENS_ATLAS.md`
   v1.0 and `PROPOSITION_CK_POSITIONING.md`, both from ClaudeChat) said,
