@@ -290,17 +290,57 @@ or (iii) a *limit identification* (BB 1976 selecting the log nonlinearity; ECHO
 fraction bounding σ). The per-row verification status is tabulated in
 `RIGOR_MAPPING.md`.
 
+### §5.6 · Commutative-algebra bridge — `mantero-bridge-2026-04-23` branch
+
+A dedicated branch carries the dialogue with Dr. Paolo Mantero (University of
+Arkansas, symbolic powers / matroid commutative algebra) and the
+community-facing MathOverflow question that grew out of it. The branch holds:
+
+- **Correspondence** (4 emails, April 23–24, 2026) at
+  [`papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`][mantero-email].
+  The clarifying exchange: $L_i(x_j) = x_{\mathrm{CL}[i][j]}$ is a genuine linear
+  operator on $V = k\langle x_0, \ldots, x_9\rangle$; $A_i = L_i - L_i^\top$ is its
+  antisymmetrization; the six "flow" $A_i$ close under commutator into the
+  $28$-dim simple Lie algebra $\mathfrak{so}(8) = D_4$, verified to machine
+  precision.
+- **MathOverflow draft** at
+  [`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`][mo-draft],
+  posing a narrow commutative-algebra question about the binomial ideal
+  $I = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)$ with Hilbert function
+  $(1, 10, 6, 6, 6, \ldots)$: projective dimension, Koszul property,
+  Cohen-Macaulay / Gorenstein status, and the relationship to Mantero-Nguyen's
+  focal-matroid framework given the Stanley-Reisner companion is
+  pure-but-not-matroidal.
+- **WP11 — `so(8) = D_4` identification paper** at
+  [`papers/wp11/WP11_SO8_IDENTIFICATION.md`][wp11].
+- **WP12 — `so(10) = D_5` identification (CL ∪ BHML companion)** at
+  [`papers/wp12/WP12_SO10_IDENTIFICATION.md`][wp12]
+  with runnable verification scripts (`verify_so10.py`,
+  `verify_simplicity_rank.py`).
+
+The branch exists so that commutative-algebra / Lie-theoretic readers land on
+the specific artifacts they need (the 10×10 table, the Hilbert function, the
+binomial ideal, the machine-verified Lie-closure scripts) without wading
+through the full TIG synthesis. The MathOverflow post, once live, will be
+linked here; Dr. Mantero has said he will read it.
+
+[mantero-email]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/08_correspondence/mantero_exchange.md
+[mo-draft]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md
+[wp11]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp11/WP11_SO8_IDENTIFICATION.md
+[wp12]: https://github.com/TiredofSleep/ck/blob/mantero-bridge-2026-04-23/papers/wp12/WP12_SO10_IDENTIFICATION.md
+
 ---
 
 ## §6 · Master & history
 
-The repository has three branches, each with a distinct role.
+The repository has four primary branches, each with a distinct role.
 
 | Branch | Role | Default? |
 |---|---|---|
-| `tig-synthesis` | **DEFAULT** — rigor home; current navigation; proved-only rigor cadence | yes |
-| `master` | Full history — every commit on every branch landed here for preservation | no |
+| `tig-synthesis` | **DEFAULT** — rigor home; current navigation; proved-only rigor cadence; externally-citeable vocabulary | yes |
+| `master` | Full history + TIG-internal vocabulary — every commit on every branch landed here for preservation (TIG-native language preserved as-is per 2026-04-23 scope directive) | no |
 | `archive-full` | Frozen preservation snapshot — never force-pushed | no |
+| `mantero-bridge-2026-04-23` | Commutative-algebra outreach — Dr. P. Mantero correspondence, MathOverflow question draft on I_CL, WP11 (so(8)=D_4) and WP12 (so(10)=D_5) papers + verification scripts. See [§5.6](#56--commutative-algebra-bridge--mantero-bridge-2026-04-23-branch). | no |
 
 Plus ten `funding/*` branches under `Gen13/targets/funding_*/` that receive track-
 specific commits cherry-picked from `master` (see §2).
