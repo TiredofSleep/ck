@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/deep_subtable_scan.py -->
+# PACKET: evening_handoff_2026_04_23/deep_subtable_scan.py
 """
 Deeper scan:
 1. Find the actual DISTINCT algebraic types hiding inside TSML

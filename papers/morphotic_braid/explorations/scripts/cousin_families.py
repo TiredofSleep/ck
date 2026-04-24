@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/cousin_families.py -->
+# PACKET: evening_handoff_2026_04_23/cousin_families.py
 """
 Explore structural cousins of the σ-based C_0 family.
 

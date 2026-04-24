@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/collapse_celebrated.py -->
+# PACKET: evening_handoff_2026_04_23/collapse_celebrated.py
 """
 Ternary collapse of celebrated tables (treating them as BHML-like).
 

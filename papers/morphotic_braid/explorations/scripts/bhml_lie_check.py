@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/bhml_lie_check.py -->
+# PACKET: evening_handoff_2026_04_23/bhml_lie_check.py
 """
 Vidinli 2025 (arXiv:2511.09395) shows 7-dim algebras decompose as
 Jordan ⊕ Heisenberg-Lie. TSML is Jordan-type. Does BHML have any

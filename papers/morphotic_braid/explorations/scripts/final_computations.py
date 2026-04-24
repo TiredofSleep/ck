@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/final_computations.py -->
+# PACKET: evening_handoff_2026_04_23/final_computations.py
 """
 Final computations before PC handoff.
 1. Partial Task 3: 2-cell Moufang search bounded

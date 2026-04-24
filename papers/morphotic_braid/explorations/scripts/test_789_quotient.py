@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/test_789_quotient.py -->
+# PACKET: evening_handoff_2026_04_23/test_789_quotient.py
 """
 Test: is the partition {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7,8,9} a
 congruence of TSML?

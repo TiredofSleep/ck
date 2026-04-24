@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/family_study.py -->
+# PACKET: evening_handoff_2026_04_23/family_study.py
 """
 Systematic family study: canonical C_0 on Z/NZ for N = 2..10.
 For each N:

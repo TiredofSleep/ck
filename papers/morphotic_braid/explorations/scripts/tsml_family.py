@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/tsml_family.py -->
+# PACKET: evening_handoff_2026_04_23/tsml_family.py
 """
 TSML FAMILY CONSTRUCTION
 

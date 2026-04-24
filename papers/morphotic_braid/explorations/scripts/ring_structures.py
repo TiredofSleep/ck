@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/ring_structures.py -->
+# PACKET: evening_handoff_2026_04_23/ring_structures.py
 """
 Check for RING-LIKE structures pairing TIG tables.
 

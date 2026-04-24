@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/build_7_quotient.py -->
+# PACKET: evening_handoff_2026_04_23/build_7_quotient.py
 """
 Build the actual 7-element quotient table for the congruence:
 {1}, {2}, {4}, {5}, {6}, {8}, {0,3,7,9}

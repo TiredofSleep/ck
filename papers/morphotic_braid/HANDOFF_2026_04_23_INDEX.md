@@ -97,16 +97,19 @@
 
 ## Cross-verification status
 
-The packet's numerical claims have NOT yet been re-verified against canonical repo sources.
-Phase 2 of the integration plan runs the reproducibility scripts and writes results to
-`papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`. Until Phase 2 is green, treat the
-claims in these files as `[PENDING REPO VERIFICATION]`.
+Phase 2 verification is **complete**. See `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`
+for the full green/amber/red/structural verdict table across all packet claims.
 
-## Known pre-verification discrepancies to resolve
+Summary: 6 green, 4 amber (structural hooks), 1 red-on-numeric (recoverable). No claim outright
+falsified. TSML count corrected to 73/100 (root cause: ClaudeChat Row-2 miscount). Catalan +
+(2n−3)!! spectra, α(TSML)=0.872, α(BHML)=0.502, min-bump at (7,7) for n ≤ 5, and
+sinc²(1/2) = (2/3)·1/ζ(2) all reproduce exactly against canonical `papers/ck_tables.py`.
 
-- **TSML harmony count**: packet says 74/100; existing memory says 73. Resolve by counting HARMONY(7) cells in `papers/ck_tables.py` TSML definition.
-- **Six prior derivations of T*=5/7**: verify the list is documented somewhere before the packet's "seventh derivation" claim goes public.
+## Resolved pre-verification discrepancies
+
+- **TSML harmony count**: **73 is correct**. Packet's Row-2 tally (claimed 7 sevens) actually contains 6 sevens at positions {2,3,5,6,7,8}. All other row counts match; only the Row-2 error propagates to the 74-vs-73 total.
+- **Six prior derivations of T*=5/7**: **deferred** — assemble consolidated list from `papers/` before the packet's "seventh derivation" (doubly-regular core) ripples into `tig-synthesis`.
 
 ---
 
-**Tag:** `[AUDIT TRAIL — PHASE 1 LANDED]`
+**Tag:** `[AUDIT TRAIL — PHASES 1 + 2 COMPLETE]`

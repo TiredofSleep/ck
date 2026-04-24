@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/proof_sinc_zeta_identity.py -->
+# PACKET: evening_handoff_2026_04_23/proof_sinc_zeta_identity.py
 """
 Verify the exact identity:
     sinc²(1/2) = (2/3) · 1/ζ(2)

@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/proof_spectra_tsml_bhml.py -->
+# PACKET: evening_handoff_2026_04_23/proof_spectra_tsml_bhml.py
 """
 Compute associative and associative-commutative spectra of TSML and BHML
 as defined in FORMULAS_AND_TABLES.md §5-6.

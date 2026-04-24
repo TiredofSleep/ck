@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/find_congruences.py -->
+# PACKET: evening_handoff_2026_04_23/find_congruences.py
 """
 Find all congruences of TSML. A congruence is an equivalence relation
 ~ such that a~a', b~b' ⟹ T[a][b]~T[a'][b'].

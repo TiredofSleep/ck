@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/taxonomy_placement.py -->
+# PACKET: evening_handoff_2026_04_23/taxonomy_placement.py
 """
 TASK 2: Forget TSML and place it via standard taxonomic axes.
 

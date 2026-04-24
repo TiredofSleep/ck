@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/bhml_scaffolds_analysis.py -->
+# PACKET: evening_handoff_2026_04_23/bhml_scaffolds_analysis.py
 """
 Systematically build BHML-scaffolds for the size of each celebrated structure
 and analyze the resulting tables for interesting properties.

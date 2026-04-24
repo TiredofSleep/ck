@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/collapse_deep_dive.py -->
+# PACKET: evening_handoff_2026_04_23/collapse_deep_dive.py
 """
 Deeper analysis of the STS(7) collapse result specifically.
 

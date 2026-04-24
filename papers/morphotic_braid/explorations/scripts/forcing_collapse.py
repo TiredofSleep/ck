@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/forcing_collapse.py -->
+# PACKET: evening_handoff_2026_04_23/forcing_collapse.py
 """
 Forcing variant: VOID stays, SAT stays, mid class → SAT value (absorbed).
 This is what TIG actually does.

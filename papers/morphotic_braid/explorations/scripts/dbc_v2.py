@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/dbc_v2.py -->
+# PACKET: evening_handoff_2026_04_23/dbc_v2.py
 """
 DBC v2 — LOSSLESS 3-character encoding on the 10x10 CL table.
 

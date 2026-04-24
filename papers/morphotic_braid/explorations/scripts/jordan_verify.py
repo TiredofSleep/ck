@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/jordan_verify.py -->
+# PACKET: evening_handoff_2026_04_23/jordan_verify.py
 """
 Multiple independent checks that TSML is genuinely Jordan-type:
 1. Verify Jordan identity with explicit enumeration

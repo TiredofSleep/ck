@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/ternary_collapse.py -->
+# PACKET: evening_handoff_2026_04_23/ternary_collapse.py
 """
 TERNARY COLLAPSE OPERATOR (BHML → TSML direction)
 

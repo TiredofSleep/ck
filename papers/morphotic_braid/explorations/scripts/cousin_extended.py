@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/cousin_extended.py -->
+# PACKET: evening_handoff_2026_04_23/cousin_extended.py
 """
 Extend the cousin-family search to:
 1. Different N structures: 2p vs pq vs p^2 

@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/dictionary_translation.py -->
+# PACKET: evening_handoff_2026_04_23/dictionary_translation.py
 """
 TRANSLATION DICTIONARY: Octonion/Vidinli formulas applied to full 10-element TSML.
 

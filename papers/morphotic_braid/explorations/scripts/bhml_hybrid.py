@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/bhml_hybrid.py -->
+# PACKET: evening_handoff_2026_04_23/bhml_hybrid.py
 """
 HYBRID APPROACH: fill BHML-scaffold cells from rules A-D where they apply,
 then fill remaining '?' cells from the source table X itself.

@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/full_family_analysis.py -->
+# PACKET: evening_handoff_2026_04_23/full_family_analysis.py
 """
 Two analyses:
 1. Pure C_0 harmony density vs N — does it converge, and to what?

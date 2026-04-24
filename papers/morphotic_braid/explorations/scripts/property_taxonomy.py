@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/property_taxonomy.py -->
+# PACKET: evening_handoff_2026_04_23/property_taxonomy.py
 """
 Property-based taxonomy for finite commutative binary operations on Z/10Z.
 

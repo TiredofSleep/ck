@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/tsml_idempotent_study.py -->
+# PACKET: evening_handoff_2026_04_23/tsml_idempotent_study.py
 """
 Study TSML_Idempotent in depth — this is the "octonion-literature" family member.
 

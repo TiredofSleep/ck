@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/analyze_tsml_bumps_extra.py -->
+# PACKET: evening_handoff_2026_04_23/analyze_tsml_bumps_extra.py
 """Check additional structural predictions about TSML bump positions."""
 
 S_MAX = [(2,4), (4,2), (2,9), (9,2), (4,8), (8,4)]

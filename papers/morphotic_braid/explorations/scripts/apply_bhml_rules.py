@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/apply_bhml_rules.py -->
+# PACKET: evening_handoff_2026_04_23/apply_bhml_rules.py
 """
 Apply the BHML construction rules (Rules A-D) to celebrated tables.
 

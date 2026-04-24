@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/tig_color_wheel.py -->
+# PACKET: evening_handoff_2026_04_23/tig_color_wheel.py
 """
 tig_color_wheel.py — THE CANONICAL TIG COLOR WHEEL
 Reconstructed from three sources in history:

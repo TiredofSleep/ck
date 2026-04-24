@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/dbc_real.py -->
+# PACKET: evening_handoff_2026_04_23/dbc_real.py
 """
 dbc_real.py — THE ACTUAL DBC TRANSLATOR
 Hebrew-root-based 5D force → D2 → operator → triple on 10×10 CL table.

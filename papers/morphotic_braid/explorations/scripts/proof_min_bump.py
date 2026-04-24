@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/proof_min_bump.py -->
+# PACKET: evening_handoff_2026_04_23/proof_min_bump.py
 """
 Reproducible verification of the Minimum Bump Theorem on Z/10Z:
 

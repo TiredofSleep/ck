@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/pc_tasks.py -->
+# PACKET: evening_handoff_2026_04_23/pc_tasks.py
 """
 Three open tasks from the TSML family discovery:
 

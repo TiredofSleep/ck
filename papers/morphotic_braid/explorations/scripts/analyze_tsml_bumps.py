@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/analyze_tsml_bumps.py -->
+# PACKET: evening_handoff_2026_04_23/analyze_tsml_bumps.py
 """
 TSML CRT-fiber analysis: do TSML's 8 bump cells sit at specific positions
 in the CRT decomposition Z/10 ~ Z/2 x Z/5?

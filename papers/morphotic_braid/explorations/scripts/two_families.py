@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/two_families.py -->
+# PACKET: evening_handoff_2026_04_23/two_families.py
 """
 Analyze the two 'cousin' families that emerged:
 - TIG family: h = max odd u ≡ 3 (mod 4)

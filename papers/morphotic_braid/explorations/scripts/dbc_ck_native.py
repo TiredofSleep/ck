@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/dbc_ck_native.py -->
+# PACKET: evening_handoff_2026_04_23/dbc_ck_native.py
 """
 Test DBC on CK's OWN native data — not English text, not random bytes,
 but the actual operator streams CK works in.

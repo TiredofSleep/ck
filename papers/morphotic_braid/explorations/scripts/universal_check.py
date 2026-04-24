@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/universal_check.py -->
+# PACKET: evening_handoff_2026_04_23/universal_check.py
 """
 Big question: is the min-bump theorem UNIVERSAL for any harmony-absorbing semigroup,
 regardless of how h was chosen?

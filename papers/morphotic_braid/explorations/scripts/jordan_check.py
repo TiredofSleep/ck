@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/jordan_check.py -->
+# PACKET: evening_handoff_2026_04_23/jordan_check.py
 """
 Check: is TSML a Jordan-type magma?
 

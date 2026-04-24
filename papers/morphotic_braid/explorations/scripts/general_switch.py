@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/general_switch.py -->
+# PACKET: evening_handoff_2026_04_23/general_switch.py
 """
 GENERAL BINARY ↔ TERNARY SWITCH (no TIG constraints)
 

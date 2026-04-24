@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/subtable_scan.py -->
+# PACKET: evening_handoff_2026_04_23/subtable_scan.py
 """
 Scan TSML for subtables (closed subsets of elements) that satisfy different
 algebraic property profiles.

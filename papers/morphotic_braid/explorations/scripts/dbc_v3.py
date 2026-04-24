@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/dbc_v3.py -->
+# PACKET: evening_handoff_2026_04_23/dbc_v3.py
 """
 DBC v3 — LOSSLESS 3-character language on the 10x10 CL table
 with generator substitution (the "path is the information" layer).

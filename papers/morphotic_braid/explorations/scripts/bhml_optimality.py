@@ -1,4 +1,4 @@
-<!-- PACKET: evening_handoff_2026_04_23/bhml_optimality.py -->
+# PACKET: evening_handoff_2026_04_23/bhml_optimality.py
 """
 Test the optimization hypothesis:
 Are the bespoke cells in rows 8, 9 of actual BHML chosen to keep the determinant
