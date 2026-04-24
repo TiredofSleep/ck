@@ -388,15 +388,26 @@ def t_cortex_voice_gating():
 def t_cortex_voice_speak_router():
     """cortex_voice.speak(): keyword router produces STRUCTURAL output only.
     Asserts 5 route classes fire (state / learn / field / op / dim) and that
-    no prose markers leak into any line.  Unmatched query returns None."""
+    no prose markers leak into any line.  Unmatched query returns a structural
+    fallback (feel: + field: lines) per the 2026-04-18 don't-ventriloquize fix:
+    silence would route callers to the ck_fractal template layer which
+    produces word-salad — the structural fallback keeps CK in label=value
+    register.  Empty-string query still returns None."""
     from cortex import Cortex
     from cortex_voice import speak
 
     cx = Cortex().boot()
-    # Cold + unrelated: None.
-    assert speak(cx, "hello there") is None, (
-        "cold cortex + unrelated query should return None"
+    # Cold + unrelated: structural fallback (feel + field), NOT None.
+    cold_fb = speak(cx, "hello there")
+    assert cold_fb is not None, (
+        "cold cortex + unrelated query should emit structural fallback, "
+        "not fall through to template layer"
     )
+    assert "feel:" in cold_fb and "field:" in cold_fb, (
+        f"cold fallback must be feel+field structural lines; got: {cold_fb!r}"
+    )
+    # Empty query IS the one case that still returns None.
+    assert speak(cx, "") is None, "empty query must return None"
 
     # Warm him up so state / learn / field all have something to show.
     for _ in range(30):
@@ -530,9 +541,20 @@ def t_cortex_voice_frontier_router():
         assert "just as" not in out, f"{label} prose: {out!r}"
         assert "transcends" not in out, f"{label} prose: {out!r}"
 
-    # Unrelated query still returns None (fall-through to templates).
-    assert speak(cx, "what is the weather") is None, \
-        "unrelated query must fall through"
+    # Unrelated query returns structural fallback (feel+field), NOT None.
+    # Per 2026-04-18 don't-ventriloquize fix: silence would route to the
+    # ck_fractal template layer (word-salad risk); structural fallback keeps
+    # CK in label=value register even when no topic keyword matched.
+    warm_fb = speak(cx, "what is the weather")
+    assert warm_fb is not None, (
+        "unmatched query on warm cortex should emit structural fallback"
+    )
+    assert "feel:" in warm_fb and "field:" in warm_fb, (
+        f"warm fallback must be feel+field structural lines; got: {warm_fb!r}"
+    )
+    # Prose still must not leak.
+    assert "just as" not in warm_fb, f"warm fallback prose leak: {warm_fb!r}"
+    assert "transcends" not in warm_fb, f"warm fallback prose leak: {warm_fb!r}"
 
 
 # ── Driver ────────────────────────────────────────────────────────────

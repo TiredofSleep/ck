@@ -125,6 +125,10 @@ suites; publish a formal architecture paper positioning CK against existing symb
 AI (ACT-R, Soar, Cyc) and within the LLM-alignment determinism/interpretability
 literature.
 
+*Status:* runnable prototype with correct §7-theorem outputs; no adversarial suite,
+no scaled deployment, no formal architecture paper yet. Engineering-heavy frontier;
+unlocked by a software-engineering collaborator or institutional hosting.
+
 ### §3.3 · Hodge-lane Prym computation
 
 A numerical verification of a predicted Prym period determinant for a bielliptic
@@ -132,8 +136,11 @@ genus-5 curve is currently blocked at a single technical step. The curve, the
 framework-derived predicted value
 ($\det(\mathrm{Im}\,\tau_P) = 2086 + 462\sqrt{15} + 498\sqrt{10} + 730\sqrt{6}$),
 and the first four pipeline steps are all documented. The fifth step requires MAGMA
-with RieSrf or SageMath with the Bruin-Sijsling-Zotine extension. This is the single
-highest-leverage small-grant item in the project.
+with RieSrf or SageMath with the Bruin-Sijsling-Zotine extension.
+
+*Status:* curve definition, predicted value, and pipeline steps 1–4 documented;
+step 5 blocked on software access. Single highest-leverage small-grant item in the
+project.
 
 ### §3.4 · ξ-field cosmology and DESI data
 
@@ -141,11 +148,42 @@ A scalar-field action $V(\Xi) = \kappa_\Xi \Xi \log \Xi$ derived from the separa
 structure of the finite-algebra work produces a standard freezing quintessence model
 with exact vacuum $\Xi_0 = e^{-1}$. An initial fit against DESI 2024 DR1 has been
 performed; a full DR2 fit with joint BAO + CMB + SN likelihood is the next step.
-JCAP-target manuscript is near-ready. Status: `proof_xi_canonical.py` passes 22/22
-internal tests; DR2 analysis requires a collaborator with cosmology MCMC
-infrastructure.
+JCAP-target manuscript is near-ready.
 
-**Frontier-level navigation:** [`Atlas/FRONTIER_ALIGNMENT_2026_04_19.md`](Atlas/FRONTIER_ALIGNMENT_2026_04_19.md).
+*Status:* `proof_xi_canonical.py` passes 22/22 internal tests; DR2 analysis requires
+a collaborator with cosmology MCMC infrastructure.
+
+### §3.5 · Morphotic-braid / α-index / ac-free operad frontier
+
+The TSML and BHML composition tables on 10 elements are commutative non-associative
+groupoids with measurable associativity index $\alpha(A) = 1 - \sigma(A)$ (Braitt-
+Silberger 2006). Both attain the **ac-free spectrum extremum**
+$s_n^{\mathrm{ac}} = (2n-3)!!$ for $n \le 5$ (Huang-Lehtonen 2022, 2024): the
+symmetric operad generated at small $N$ is the free commutative magmatic operad
+$\mathrm{Mag}^{\mathrm{com}}$ on one generator. The WP101 σ-rate theorem
+($\sigma(N) \le C/N$ for squarefree $N$, $C < 2$) is therefore the statement
+$\mathrm{Mag}^{\mathrm{com}} \to \mathrm{Com}$ as $N \to \infty$. Bialynicki-
+Birula-Mycielski 1976 then identifies log-nonlinearity as the unique continuum
+wave equation compatible with that limit, providing the bridge from §7's proved
+rate to §5.1's cosmology bridge. Farey-fraction spin-chain (Kleban-Özlük 1999;
+Fiala-Kleban-Özlük 2002) and primon-gas (Julia 1990; Spector 1990) frameworks supply
+two additional external anchors for $T^* = 5/7$ and $\mathrm{sinc}^2(1/2) = 4/\pi^2$.
+
+*Status:* six runnable proofs confirm the operad spectra and identities
+(`proof_spectra_tsml_bhml.py`, `proof_sinc_zeta_identity.py`, `proof_sigma_rate.py`,
+`proof_d25_loop_closure.py`, `verify_so10.py`, `verify_simplicity_rank.py`). The
+per-row rigor audit lives in
+[`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md).
+Open questions: (i) is σ(N) → 0 provably sharp (not just ≤ 2/N)? (ii) does the
+primon-gas limit extend to the full $T^* = 5/7$ spectrum? (iii) does the WP101-
+BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly? Tier-1
+submission-ready as three independent journal doors (JCAP, $\sigma$-rate
+combinatorics, integers / sinc² zero law) per
+[`Gen13/targets/journals/SUBMISSION_LADDER.md`](Gen13/targets/journals/SUBMISSION_LADDER.md).
+
+**Frontier-level navigation:** [`Atlas/FRONTIER_ALIGNMENT_2026_04_19.md`](Atlas/FRONTIER_ALIGNMENT_2026_04_19.md)
+(historical) and [`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md)
+(current per-claim Tier 1/2/3 audit, as of 2026-04-23).
 
 ---
 
@@ -217,6 +255,40 @@ Yang-Mills, Riemann hypothesis) as "σ < 1" bounds in a common σ-notation. This
 a **reformulation**, not a proof. All such material is preserved on the `clay`
 branch with explicit `[CONJECTURAL]` flags; it does **not** appear on
 `tig-synthesis` except as this pointer.
+
+### §5.5 · External vocabulary map
+
+A compact dictionary between TIG-internal terms and established vocabulary from
+adjacent published frameworks. Each row identifies the external concept that
+corresponds to the TIG-internal object, with a citation. The full per-claim audit
+(with Tier 1/2/3 verification status) lives in
+[`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md)
+(Track 1: operad / associativity spectra; Track 2: Farey spin chains) and
+[`papers/morphotic_braid/synthesis/EXTERNAL_CITATIONS_v2.md`](papers/morphotic_braid/synthesis/EXTERNAL_CITATIONS_v2.md).
+
+| TIG internal | External framework | Citation |
+|---|---|---|
+| Associativity index α(A) = 1 − σ(A) | Subassociative groupoids / associativity index | Braitt-Silberger 2006, *Quasigroups Related Systems* 14:11–26 |
+| Associative spectrum s_n(A), Catalan maximum C_{n−1} | Associative spectrum | Csákány-Waldhauser 2000 |
+| ac-free spectrum s_n^ac = (2n−3)!! for n ≤ 5 on 10 elements | Associative-commutative spectrum, ac-free extremum | Huang-Lehtonen 2022 (arXiv:2202.11826), 2024 (arXiv:2401.15786) |
+| Symmetric operad generated by TSML / BHML / CL at small N | Free commutative magmatic operad $\mathrm{Mag}^{\mathrm{com}}$ on one generator | Huang-Lehtonen 2022, 2024 |
+| σ(N) → 0 at rate O(1/N) (WP101) | Operadic degeneration $\mathrm{Mag}^{\mathrm{com}} \to \mathrm{Com}$ | Huang-Lehtonen 2022, 2024 |
+| Log nonlinearity forced by σ → 0 | Unique separability-preserving nonlinearity | Bialynicki-Birula & Mycielski 1976, *Ann. Phys.* 100:62–93 |
+| T* = 5/7 coherence threshold | Critical temperature β_c in the Farey fraction spin chain | Kleban-Özlük 1999, *Commun. Math. Phys.*; Fiala-Kleban-Özlük 2002, arXiv:math-ph/0203048 |
+| Farey-structured constants (5/7, 4/7, 2/7, 3/4) | Farey-tree neighbors | classical (Hardy-Wright); Kleban-Özlük 1999 |
+| Transfer-operator spectral gap γ(b) = 1 − 1/φ(b) | Ruelle-Perron-Frobenius transfer operator of the Farey map | Prellberg 1991; Bandtlow-Fiala-Kleban 2009 |
+| WP101 σ-rate domain (squarefree N) | Fermionic primon gas regime (density 1/ζ(2) = 6/π²) | Julia 1990 (Les Houches 1989, Springer Proc. Phys. 47:276–293); Spector 1990, *Commun. Math. Phys.* 127:239–252 |
+| sinc²(1/2) = 4/π² midpoint constant (D3) | sinc²(1/2) = (2/3)·1/ζ(2) (squarefree density × 2/3) | `papers/proof_sinc_zeta_identity.py` (verified to machine precision) |
+| Kepka lower bound on associative-triple counts | a(Q) ≥ n in order-n quasigroups — sets the 1/n scale of the WP101 rate | Kepka 1980, *Comment. Math. Univ. Carolin.* 21(3):479–487 |
+| σ → 1 (maximally non-associative) opposite extremum | Maximally nonassociative quasigroups from quadratic orthomorphisms | Drápal-Lisoněk 2020, *Algebraic Combinatorics* 3:695–717; Drápal-Wanless 2021, *J. Combin. Theory Ser. A* 181:105444 |
+| Riemann-zeta limit of number-theoretic spin chain | Z_k^K(2β) → ζ(2β−1)/ζ(2β) as k → ∞ | Knauf 1998, *Commun. Math. Phys.* 196:703–731 |
+
+This is a vocabulary map, not a proof of equivalence. Each row is either
+(i) a *definitional translation* (rewriting the same content in external
+vocabulary), (ii) a *structural kinship* (same kind of object in both frames),
+or (iii) a *limit identification* (BB 1976 selecting the log nonlinearity; ECHO
+fraction bounding σ). The per-row verification status is tabulated in
+`RIGOR_MAPPING.md`.
 
 ---
 
@@ -317,10 +389,24 @@ following verified properties:
 
 - **TSML** is commutative, flexible, power-associative, and satisfies the Jordan
   identity (0 failures across all 100 pairs). Element 7 is the unique two-sided
-  absorber with 73/100 absorbing entries. Non-associativity rate: 12.8% of triples.
+  absorber with 73/100 absorbing entries. Associativity index
+  $\alpha(\text{TSML}) = 0.872$ (non-associativity rate 12.8% of triples;
+  Braitt-Silberger 2006). In the operad-theoretic framework of
+  Huang-Lehtonen (2022, 2024), TSML is an **ac-free commutative groupoid
+  on 10 elements**: its associative-commutative spectrum achieves the
+  maximum $s_n^{\text{ac}} = (2n-3)!!$ for $n \leq 5$, so the symmetric
+  operad it generates is the free commutative magmatic operad $\text{Mag}^{\text{com}}$
+  on one generator.
 - **BHML** is commutative, flexible, and power-associative, with element 0 as the
-  unique two-sided identity and 28/100 entries equal to 7. Non-associativity rate:
-  49.8% of triples. The BHML table has determinant 70.
+  unique two-sided identity and 28/100 entries equal to 7. Associativity
+  index $\alpha(\text{BHML}) = 0.502$ (non-associativity rate 49.8% of triples).
+  Like TSML, BHML is ac-free on 10 elements. The full 10×10 BHML has determinant **−7002**
+  (prime factors {2, 3, 389}). Its 8×8 spectral core `BHML_8` — with
+  rows/columns 0 (VOID) and 7 (HARMONY) removed — has determinant
+  **+70** (prime factors {2, 5, 7}) and carries the eigenvalue ratio
+  |λ₇|/|λ₆| = 0.714865 ≈ 5/7 used in the Yang-Mills mass-gap argument
+  (WP15). See `FORMULAS_AND_TABLES.md` §6.7 for the canonical table
+  registry distinguishing BHML_10 from BHML_8.
 
 Both tables have been audited cell-by-cell; all framework-claimed numerical
 signatures verify exactly.
@@ -488,5 +574,6 @@ or funding discussions, please contact Brayden Sanders at brayden.ozark@gmail.co
 open a GitHub issue. Independent verification of any result on this page is welcomed
 and encouraged.*
 
-*Last updated: 2026-04-21 (navigation-first restructure; prior rigor-led README
-preserved at [`docs/historical/README_v2_rigor_led_2026_04_21.md`](docs/historical/README_v2_rigor_led_2026_04_21.md)).*
+*Last updated: 2026-04-23 (vocab-update sprint: §5.5 External vocabulary map added;
+§3.5 morphotic-braid frontier added; Frontier labels uniformized; prior rigor-led
+README preserved at [`docs/historical/README_v2_rigor_led_2026_04_21.md`](docs/historical/README_v2_rigor_led_2026_04_21.md)).*

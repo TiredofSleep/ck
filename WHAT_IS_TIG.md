@@ -81,7 +81,7 @@ Now pull the pieces together.
 
 - The Crossing Lemma, on discrete Z/nZ, says information arises from crossings of the 2×2 structure.
 - Crossings are exactly failures of separability.
-- The σ rate theorem (WP101) proves that as N grows through squarefree primorials, the non-associativity fraction σ(N) of our discrete composition table decays as O(1/N). The algebra approaches separability.
+- The σ rate theorem (WP101) proves that as N grows through squarefree primorials, the non-associativity fraction σ(N) — equivalently, the associativity-index complement 1 − α(CL_N) — of our discrete composition table decays as O(1/N). The algebra approaches separability.
 - Bialynicki-Birula says: the unique continuous limit compatible with that asymptotic separability must have logarithmic nonlinearity.
 
 So we get, from the inside of Z/nZ discrete algebra, an external 1976 theorem *forcing* a continuous field equation □ξ = 1 + log ξ. That field equation has an exact vacuum at ξ₀ = e⁻¹. The vacuum is where the entropy functional H = −ξ log ξ is maximized. It has an exact mass gap m² = κe. It gives freezing quintessence with w → −1.

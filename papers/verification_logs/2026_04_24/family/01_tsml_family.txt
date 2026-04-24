@@ -1,0 +1,115 @@
+====================================================================================================
+TSML FAMILY: algebraic property comparison
+====================================================================================================
+
+Name                                      Jord  Flex  AltL  AltR  MMou  RMou  LBol Rank  NBin
+----------------------------------------------------------------------------------------------------
+TSML_Jordan (actual TSML)                 100%  100%   88%   88%   82%   87%   87%    9     Y
+TSML_C0 (pure absorbing)                  100%  100%   92%   92%   81%   87%   87%    3     Y
+TSML_PureVoid (no HARMONY-on-axis exception)  100%  100%  100%  100%  100%  100%  100%    1     Y
+TSML_Idempotent (x·x = x for all x)       100%  100%  100%  100%   83%   89%   89%   10     N
+TSML_AllHarmony (everything = 7 except (0,0))  100%  100%  100%  100%  100%  100%  100%    2     Y
+
+Detailed:
+
+TSML_Jordan (actual TSML):
+  Jordan: 100.0%, Flexible: 100.0%
+  Alternative: L=88.0%, R=88.0%
+  Moufang: Middle=82.2%, Right=87.4%, Left-Bol=87.4%
+  Non-associating triples: 128
+  Norm values (set of x²): [0, 7]
+  Norm is binary: True
+  Idempotents: [0, 7]
+  Absorbing: [7]
+  Identity: []
+  Rank: 9, det: 0
+
+TSML_C0 (pure absorbing):
+  Jordan: 100.0%, Flexible: 100.0%
+  Alternative: L=92.0%, R=92.0%
+  Moufang: Middle=80.8%, Right=87.2%, Left-Bol=87.2%
+  Non-associating triples: 128
+  Norm values (set of x²): [0, 7]
+  Norm is binary: True
+  Idempotents: [0, 7]
+  Absorbing: [7]
+  Identity: []
+  Rank: 3, det: 0
+
+TSML_PureVoid (no HARMONY-on-axis exception):
+  Jordan: 100.0%, Flexible: 100.0%
+  Alternative: L=100.0%, R=100.0%
+  Moufang: Middle=100.0%, Right=100.0%, Left-Bol=100.0%
+  Non-associating triples: 0
+  Norm values (set of x²): [0, 7]
+  Norm is binary: True
+  Idempotents: [0, 7]
+  Absorbing: [0]
+  Identity: []
+  Rank: 1, det: 0
+
+TSML_Idempotent (x·x = x for all x):
+  Jordan: 100.0%, Flexible: 100.0%
+  Alternative: L=100.0%, R=100.0%
+  Moufang: Middle=83.2%, Right=88.8%, Left-Bol=88.8%
+  Non-associating triples: 112
+  Norm values (set of x²): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  Norm is binary: False
+  Idempotents: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  Absorbing: [7]
+  Identity: []
+  Rank: 10, det: 398664
+
+TSML_AllHarmony (everything = 7 except (0,0)):
+  Jordan: 100.0%, Flexible: 100.0%
+  Alternative: L=100.0%, R=100.0%
+  Moufang: Middle=100.0%, Right=100.0%, Left-Bol=100.0%
+  Non-associating triples: 0
+  Norm values (set of x²): [0, 7]
+  Norm is binary: True
+  Idempotents: [0, 7]
+  Absorbing: [7]
+  Identity: []
+  Rank: 2, det: 0
+
+====================================================================================================
+PROPERTY SATISFACTION MAP
+====================================================================================================
+
+Criterion                       TSML_Jordan (actual   TSML_C0 (pure absorb  TSML_PureVoid (no HA  TSML_Idempotent (x·x  TSML_AllHarmony (eve
+--------------------------------------------------------------------------------------------------------------------------------------------
+Jordan=100%                                        ✓                     ✓                     ✓                     ✓                     ✓
+Flexible=100%                                      ✓                     ✓                     ✓                     ✓                     ✓
+Alternative=100%                                   ·                     ·                     ✓                     ✓                     ✓
+Middle Moufang=100%                                ·                     ·                     ✓                     ·                     ✓
+Right Moufang=100%                                 ·                     ·                     ✓                     ·                     ✓
+Left Bol=100%                                      ·                     ·                     ✓                     ·                     ✓
+Associative                                        ·                     ·                     ✓                     ·                     ✓
+Has identity                                       ·                     ·                     ·                     ·                     ·
+Has absorbing                                      ✓                     ✓                     ✓                     ✓                     ✓
+Norm binary                                        ✓                     ✓                     ✓                     ·                     ✓
+Full rank                                          ·                     ·                     ·                     ✓                     ·
+Multiple idempotents                               ✓                     ✓                     ✓                     ✓                     ✓
+Every x idempotent                                 ·                     ·                     ·                     ✓                     ·
+
+====================================================================================================
+INTERESTING OBSERVATION: Only TSML_AllHarmony is fully associative (0 non-assoc)
+====================================================================================================
+This is the 'trivial' HARMONY algebra: everything is 7 except VOID(0,0)=0.
+It satisfies ALL identities (Moufang, alternative, Jordan, flexible, etc.)
+but it has no interesting structure — everything collapses to HARMONY.
+
+This tells us: FOR A NON-TRIVIAL TSML, we MUST have the VOID axis asymmetry,
+and that asymmetry ALONE introduces the 128 non-associating triples.
+
+TSML's 10 bumps don't add non-associativity — they preserve it at 128.
+
+====================================================================================================
+TSML_PureVoid analysis (two-sided VOID, no HARMONY survival on axis)
+====================================================================================================
+  Middle Moufang: 100.0% (PERFECT)
+  Alternative: L=100.0%, R=100.0%
+  Jordan: 100.0%
+  Non-associating: 0
+  => TSML_PureVoid satisfies Moufang perfectly — suitable for Moufang-loop literature
+  => TSML_PureVoid satisfies Alternative perfectly — suitable for alternative-algebra literature

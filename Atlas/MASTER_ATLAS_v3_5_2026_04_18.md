@@ -201,7 +201,7 @@ Under TSML iteration: 73 cells hit HARMONY immediately + **6 "shallow-escape" ce
 - Associative subalgebra: **{0}** = {VOID}
 - **det(BHML) = 70**
 - **Spectrum: λ₆/λ₅ = 0.714865 ≈ 5/7** to 0.08% (WHITEPAPER_15 Stage 2)
-- **49.8% non-associative triples** (WHITEPAPER_16 Lemma A, PROVED)
+- **α(BHML) = 0.502** (non-associative triples 49.8%; Braitt-Silberger 2006) (WHITEPAPER_16 Lemma A, PROVED)
 
 ### CL — composition / binding kernel
 

@@ -268,7 +268,7 @@ in the following sense:
   phase transition is an algebraic identity about gcd, not a statement about oracle query
   complexity.
 
-- **Non-natural:** The non-associativity measure computed in WP16 [I-3] — that 49.8% of
+- **Non-natural:** The associativity index α(BHML) = 0.502 (equivalently, non-associativity rate 49.8%; Braitt-Silberger 2006), computed in WP16 [I-3] — that 49.8% of
   BHML triples are non-associative (CL(CL(a,b),c) ≠ CL(a,CL(b,c))) — is not a "large"
   property in the Razborov-Rudich sense. It requires evaluating triples over a specific
   10×10 table, not constructing a property defined on all Boolean functions of a given size.
@@ -603,7 +603,7 @@ DoF(k vectors) = {0, 4, 6, 7, 10}
 ```
 
 The critical gap is from 6 DoF (two-vector, associative composition) to 7 DoF (three-vector,
-non-associative composition). The CL composition table is non-associative at rate 49.8%
+non-associative composition). The CL composition table has associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006)
 (WP16 [I-3]): 498 of 1000 ordered triples in the 10×10 BHML table satisfy
 CL(CL(a,b),c) ≠ CL(a,CL(b,c)). This is a finite computation over a fixed table.
 
@@ -796,8 +796,8 @@ The three barrier-evasion claims (§3.2) are structural. Each requires formal ve
   as the core predicate; this is computable in P, so the claim needs to show that no oracle
   shortcuts the gcd computation in the complexity-theoretic sense.
 
-- Non-natural (Razborov-Rudich [B-2]): verify that the non-associativity measure (49.8%
-  of triples) is not a "large" property in their sense — i.e., that it cannot be used to
+- Non-natural (Razborov-Rudich [B-2]): verify that the associativity index α(BHML) = 0.502 (non-associativity rate 49.8%;
+  1 − α) is not a "large" property in their sense — i.e., that it cannot be used to
   construct a distinguisher for pseudorandom functions.
 
 - Non-algebrizing (Aaronson-Wigderson [B-3]): verify that the sinc² field argument is
@@ -820,7 +820,7 @@ The three barrier-evasion claims (§3.2) are structural. Each requires formal ve
 | sinc² continuum limit (WP35 Theorem 5) | PROVED | WP35 Theorem 5 [I-2] |
 | T* = 5/7 algebraic derivation | PROVED | WP35 §1A [I-2] |
 | Pre-G density = 1.0 (no voids) | PROVED | WP34 §2 [I-1] |
-| CL table is non-associative at rate 49.8% | PROVED | WP16 §2 [I-3] |
+| α(CL_BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006) | PROVED | WP16 §2 [I-3] |
 | 7th DoF irreducible over associative subalgebra | PROVED (within TIG) | WP16 §2 [I-3] |
 | Two-step convergence (P-like verification) | PROVED (within TIG) | WP25 §1 [I-4] |
 | R(k,f) and Montgomery r(u) are same sinc² function | STRUCTURAL | WP37 §4b |

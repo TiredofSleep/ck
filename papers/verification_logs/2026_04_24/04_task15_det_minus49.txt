@@ -1,0 +1,11 @@
+[task15] det(T) = -49
+[task15] Jordan: 100/100
+[task15] prime factorization of |det|: {7: 2}
+
+[task15] det == -49?           True
+[task15] Jordan == 100/100?    True
+[task15] primes of |det|=={7}? True
+
+[task15] VERDICT: PASS
+
+[task15] wrote C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\papers\morphotic_braid\results\task15_det_minus49_result.md

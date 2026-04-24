@@ -225,7 +225,7 @@ The index midpoint of the 8 active operators {1, 2, 3, 4, 5, 6, 8, 9} is (1+9)/2
 
 The synthesis conjecture SC requires three things that are not established:
 
-**Gap 1: Existence of Phi.** We have not constructed an explicit algebra homomorphism from the TSML composition magma to bounded operators on a Hilbert space of Dirichlet series. The TSML composition is non-associative (12.8% of triples violate associativity), so Phi cannot be a standard group representation. It must be a magma homomorphism, which is a weaker and less-studied object.
+**Gap 1: Existence of Phi.** We have not constructed an explicit algebra homomorphism from the TSML composition magma to bounded operators on a Hilbert space of Dirichlet series. The TSML composition has associativity index α(TSML) = 0.872 (non-associativity rate 12.8%; Braitt-Silberger 2006), so Phi cannot be a standard group representation. It must be a magma homomorphism, which is a weaker and less-studied object.
 
 **Gap 2: Density of Dirichlet series.** The claim that Dirichlet series form a dense subspace of H requires specifying the topology on H. The natural choice is the Hardy space H^2 of the half-plane Re(s) > 1/2, in which Dirichlet series sum a_n n^{-s} with sum |a_n|^2 < infinity converge. This is the Hilbert space studied by Hedenmalm, Lindqvist, and Seip (1997). The density claim is standard in this setting.
 

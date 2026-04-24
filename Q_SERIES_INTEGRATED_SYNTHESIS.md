@@ -67,7 +67,7 @@ Q10 proved σ on Z/10Z as a closed-form polynomial on F₂ × F₅:
 - ε' = ε ⊕ α(ε, y), where α = 1 − (y² + 2y + 2)⁴ − ε[(y² + 3y)⁴ − (y² + 2y + 2)⁴]
 - y' = y + β(ε, y), with exceptions LATTICE (+1) and COLLAPSE (−2)
 
-**Relationship**: Q10 characterizes σ. WP101 characterizes its non-associativity rate as N grows through primorials. **Both are compatible.** WP101 assumes σ is well-defined and computes the rate. Q10 is what makes σ well-defined.
+**Relationship**: Q10 characterizes σ. WP101 characterizes its non-associativity rate σ(N) — equivalently, the associativity-index complement 1 − α(CL_N) — as N grows through primorials. **Both are compatible.** WP101 assumes σ is well-defined and computes the rate. Q10 is what makes σ well-defined.
 
 **Citation needed in WP101**: "Sanders (Q10, 2026-04-01) established the closed-form polynomial representation of σ on Z/10Z. This theorem extends the rate structure to Z/NZ for squarefree N via the CRT decomposition of each factor."
 

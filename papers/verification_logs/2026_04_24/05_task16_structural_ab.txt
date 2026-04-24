@@ -1,0 +1,58 @@
+=== ARM: TSML_Jordan (canonical) ===
+  operator histogram (out of 100 cells):
+    0=VOID    :  17
+    3=PROGRESS:   4
+    4=COLLAPSE:   2
+    7=HARMONY :  73
+    8=BREATH  :   2
+    9=RESET   :   2
+  HARMONY rate (=7): 73/100
+  ZERO rate (=0):    17/100
+  symmetric?         True
+  DIS cells: 0  DOING cells: 100
+  Jordan identity:   100/100
+  Moufang L/R/M:     874/1000, 874/1000, 822/1000
+  associativity idx: 872/1000 = alpha = 0.8720
+  det:               0    |det| primes: {}
+
+=== ARM: TSML_Idempotent (rank-10) ===
+  operator histogram (out of 100 cells):
+    0=VOID    :  17
+    1=LATTICE :   1
+    2=COUNTER :   1
+    3=PROGRESS:   1
+    4=COLLAPSE:   3
+    5=BALANCE :   1
+    6=CHAOS   :   3
+    7=HARMONY :  71
+    8=BREATH  :   1
+    9=RESET   :   1
+  HARMONY rate (=7): 71/100
+  ZERO rate (=0):    17/100
+  symmetric?         True
+  DIS cells: 0  DOING cells: 100
+  Jordan identity:   100/100
+  Moufang L/R/M:     888/1000, 888/1000, 836/1000
+  associativity idx: 880/1000 = alpha = 0.8800
+  det:               -49    |det| primes: {7: 2}
+
+=== DIVERGENCE ===
+  op 1=LATTICE : A=  0  B=  1  A-B=-1
+  op 2=COUNTER : A=  0  B=  1  A-B=-1
+  op 3=PROGRESS: A=  4  B=  1  A-B=+3
+  op 4=COLLAPSE: A=  2  B=  3  A-B=-1
+  op 5=BALANCE : A=  0  B=  1  A-B=-1
+  op 6=CHAOS   : A=  0  B=  3  A-B=-3
+  op 7=HARMONY : A= 73  B= 71  A-B=+2
+  op 8=BREATH  : A=  2  B=  1  A-B=+1
+  op 9=RESET   : A=  2  B=  1  A-B=+1
+
+  harmony rate equal?  False
+  zero rate equal?     True
+  Jordan count equal?  True
+  alpha equal?         False
+  det equal?           False
+
+[task16] STRUCTURAL DIVERGENCE CONFIRMED -- runtime A/B has a shot.
+
+[task16] wrote C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\papers\morphotic_braid\results\task16_structural_ab_result.md

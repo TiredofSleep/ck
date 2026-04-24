@@ -68,9 +68,9 @@ These are claims the framework produces that are *not* obviously classical. The 
 |---|---|---|---|
 | S.1 | Op 7 (HARMONY) is a 73% absorber in the CL[10×10] table | memory files + framework narrative | Count `{(i,j) : CL[i][j] == 7}` over `Gen12/targets/ck_desktop/ck_sim/being/ck_sim_heartbeat.py` `CL_TSML` — is it exactly 73 out of 100? |
 | S.2 | BHML has 28/100 HARMONY cells | same | Count against `papers/ck_tables.py` `BHML` |
-| S.3 | TSML non-associativity rate ≈ 12.8% | framework narrative | 1000 random triples `(a,b,c)`, compare `CL[CL[a][b]][c]` vs `CL[a][CL[b][c]]` |
-| S.4 | BHML non-associativity rate ≈ 49.8% | same | same with BHML |
-| S.5 | DOING-table non-associativity rate ≈ 56.8% | same | same with `\|TSML - BHML\|` |
+| S.3 | TSML associativity index α(TSML) = 0.872 (non-associativity rate 12.8%; Braitt-Silberger 2006) | framework narrative | 1000 random triples `(a,b,c)`, compare `CL[CL[a][b]][c]` vs `CL[a][CL[b][c]]` |
+| S.4 | BHML associativity index α(BHML) = 0.502 (non-associativity rate 49.8%) | same | same with BHML |
+| S.5 | DOING-table associativity index α(Doing) = 0.432 (non-associativity rate 56.8%) | same | same with `\|TSML - BHML\|` |
 | S.6 | T\* = 5/7 admits six independent derivations | `sprint9_torus_2026_04_05/CL_TORUS_TOPOLOGY_PAPER.md` | Each derivation must land at 5/7 from a distinct argument, not from the same argument in different notation |
 | S.7 | Gap = 5/7 − 4/π² ≈ 0.309 is a structural constant | Clay / Atlas | Deserves a "why this gap is a real object" derivation, not a named difference |
 | S.8 | σ(N) ≤ C/N rate theorem | `Gen12/.../sprint14_prism_xi_2026_04_10/WP101 proof_sigma_rate.py` | Proof script is committed; classical peer referee still open |

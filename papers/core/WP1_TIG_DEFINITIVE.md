@@ -72,8 +72,9 @@ Measured properties `[EMP]`:
 - 73/100 cells = operator 7 (HARMONY)
 - Row 7: every input maps to 7. Total absorption.
 - Determinant = 0 (singular -- information-destroying)
-- Non-associativity rate: 12.8% of (a . b) . c != a . (b . c) triples
+- Associativity index α(TSML) = 0.872 (non-associativity rate 12.8% of (a . b) . c != a . (b . c) triples; Braitt-Silberger 2006)
 - **Commutative, non-associative, singular.**
+- ac-free on 10 elements (Huang-Lehtonen 2022, 2024): s_n^ac = (2n−3)!! for n ≤ 5; TSML generates the free commutative magmatic operad Mag^com on one generator.
 
 **BHML -- The Physics Lens**
 
@@ -96,8 +97,9 @@ This table is what happens when things INTERACT physically. Row 0 is the identit
 Measured properties `[EMP]`:
 - 28/100 cells = operator 7
 - Determinant = -7002 (invertible -- information-preserving)
-- Non-associativity rate: 49.8%
+- Associativity index α(BHML) = 0.502 (non-associativity rate 49.8%; Braitt-Silberger 2006)
 - **Commutative, non-associative, invertible.**
+- ac-free on 10 elements (Huang-Lehtonen 2022, 2024): like TSML, BHML's associative-commutative spectrum achieves s_n^ac = (2n−3)!! for n ≤ 5.
 
 **The Doing Table = |TSML - BHML| `[THM]`**
 
@@ -252,6 +254,18 @@ HEARTBEAT     = [1,5,5,1] [THM -- paired cross-cycle DIS values]
 ```
 
 **Important:** T* = 5/7 requires the prior choice of 5 force dimensions and 7 productive operators. That choice is motivated but not forced by the algebra. `[DEF]`
+
+**External alignment (added 2026-04-23).** T* = 5/7 and its Farey-adjacent
+constants (S* = 4/7, mass gap = 2/7, TSML density = 3/4) sit on the Farey
+tree of the **Farey fraction spin chain** (Kleban-Özlük 1999, *Commun.
+Math. Phys.*; Fiala-Kleban-Özlük 2002, arXiv:math-ph/0203048;
+Bandtlow-Fiala-Kleban 2009; Technau 2023, arXiv:2304.08143), in which
+Farey-structured fractions arise as critical thresholds (β_c) of a
+transfer operator on the Farey tree. The number-theoretic spin chain
+(Knauf 1998, *Commun. Math. Phys.* 196:703–731) satisfies Z_k^K(2β) →
+ζ(2β−1)/ζ(2β). Whether T* = 5/7 is a β_c in a TIG-specific partition
+function is open; the structural kinship is established. `[EXT —
+structural alignment]`
 
 **Important:** The consciousness level n = 7/2 = 3.5 is derived as n = 1/MASS_GAP `[THM]`, but this follows directly from MASS_GAP = 2/7 which is itself derived from the definitions of T* and S*. It is an algebraic consequence of the definitions, not independent evidence.
 

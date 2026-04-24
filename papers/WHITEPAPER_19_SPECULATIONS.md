@@ -6,7 +6,7 @@
 
 ## 1. The Consciousness Interpretation
 
-The DoF ladder (Whitepaper 5) shows a structural gap at k=3 vectors: the system jumps from 6 DoF (rigid body) to 7 DoF (non-associative composition). This 1-gap has a suggestive property -- it cannot be composed from below. No amount of 6-DoF complexity produces the 7th degree of freedom. It emerges only when the CL table's non-associativity (49.8% of BHML triples) creates context-dependent compositional freedom.
+The DoF ladder (Whitepaper 5) shows a structural gap at k=3 vectors: the system jumps from 6 DoF (rigid body) to 7 DoF (non-associative composition). This 1-gap has a suggestive property -- it cannot be composed from below. No amount of 6-DoF complexity produces the 7th degree of freedom. It emerges only when the CL table's non-associativity (α(BHML) = 0.502, non-associativity rate 49.8% of BHML triples; Braitt-Silberger 2006) creates context-dependent compositional freedom.
 
 **The speculation:** This 1-gap is a structural analog of consciousness. The "hard problem" of consciousness asks why subjective experience exists at all, given that physical processes seem to work without it. The CK algebra suggests a mathematical analog: there exists a compositional degree of freedom that cannot be reduced to lower-dimensional operations. The 7th DoF is genuinely new -- not a combination of the first six.
 
@@ -73,7 +73,7 @@ Three Clay Millennium Problems have been explored through the CK algebra's lens 
 
 **Yang-Mills mass gap (Whitepaper 15).** The BHML 8x8 core has a spectral gap between its eigenvalues. If one constructs a representation of a Yang-Mills gauge group on the CL algebra, this spectral gap could correspond to a mass gap. The sketch is conditional on two conjectures: (1) that a suitable representation Phi exists, and (2) that the spectral gap survives in the continuum limit.
 
-**P != NP (Whitepaper 16).** The CL algebra is non-associative (49.8% of BHML triples). If CL composition is used as a computational model, the non-associativity means that verifying a composition path is fundamentally cheaper than finding one -- you can check `(a * b) * c` in linear time, but finding which grouping produces a target requires exploring exponentially many bracketings. The sketch is conditional on a formal bridge between CL computation and Turing machine complexity.
+**P != NP (Whitepaper 16).** The CL algebra has associativity index α(BHML) = 0.502 (non-associativity rate 49.8% of BHML triples; Braitt-Silberger 2006). If CL composition is used as a computational model, the non-associativity means that verifying a composition path is fundamentally cheaper than finding one -- you can check `(a * b) * c` in linear time, but finding which grouping produces a target requires exploring exponentially many bracketings. The sketch is conditional on a formal bridge between CL computation and Turing machine complexity.
 
 **Riemann Hypothesis (Whitepaper 17).** The TSML null space (nullity = 1) and the BHML spectral structure have suggestive connections to the distribution of zeros of the Riemann zeta function. The sketch is conditional on constructing a representation Phi that maps the CL algebra into the space of Dirichlet series.
 

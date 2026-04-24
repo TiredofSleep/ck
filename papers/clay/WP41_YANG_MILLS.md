@@ -13,6 +13,16 @@
 > architecture or its derived constants. This paper presents structural
 > analogies, not a proof of the Yang-Mills mass gap.
 
+> **Scope note (added 2026-04-24).** All `det(BHML) = 70 > 0` references
+> in this paper (e.g. §7 table, §7.3, §8 summary) refer to the **8×8
+> spectral core `BHML_8`** as defined in WP15 §0 — the 8×8 sub-table
+> obtained by removing rows/columns 0 (VOID) and 7 (HARMONY). The full
+> 10×10 BHML_10 has `det = −7002` (primes `{2, 3, 389}`). The YM
+> argument in this paper is about BHML_8 from §7.1 onward (§7.1 names
+> the transfer matrix as "BHML transfer matrix (8×8)"); no claim is
+> made about BHML_10's determinant in this paper. See
+> `FORMULAS_AND_TABLES.md` §6.7 for the canonical table registry.
+
 ---
 
 ## Abstract

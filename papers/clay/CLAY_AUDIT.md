@@ -29,7 +29,7 @@ Each Clay paper has three layers:
 ### Layer 1 — Proved
 - First-G event at exactly k = p: proved algebraically, verified 36,662 semiprimes, zero exceptions.
 - sinc²(k/p) closed form with exact zeros at k = p: verified across all tested primes.
-- Non-associativity rate 49.8% of BHML triples (498/1000): exact table computation. (TSML rate is 12.8% — the DoF claim uses BHML, the physics table.)
+- Associativity index α(BHML) = 0.502 (non-associativity rate 49.8% of BHML triples, 498/1000; Braitt-Silberger 2006): exact table computation. (α(TSML) = 0.872 = non-assoc 12.8% — the DoF claim uses BHML, the physics table.)
 - T* = 5/7 algebraic identity: proved (D7, D18c).
 
 ### Layer 2 — The Structural Claim (real, not smoke)
