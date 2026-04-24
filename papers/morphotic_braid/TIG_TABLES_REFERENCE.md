@@ -1,5 +1,15 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\TIG_TABLES_REFERENCE.md → papers\morphotic_braid\TIG_TABLES_REFERENCE.md
+>
+> ### ⚠ CORRECTION 2026-04-24
+>
+> If this reference cites `det(BHML) = 70` or the prime set `{2, 5, 7}`
+> as an invariant of BHML: that claim is **false**. Verified
+> `det(BHML) = −7002`, prime factorisation **{2, 3, 389}**. The cell
+> values of the BHML 10×10 table listed here are correct; the
+> determinant claim is not. See
+> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md` and
+> `FORMULAS_AND_TABLES.md` §6.4 and §6.6.
 
 # TIG Tables — Authoritative Reference (Persistent Record)
 

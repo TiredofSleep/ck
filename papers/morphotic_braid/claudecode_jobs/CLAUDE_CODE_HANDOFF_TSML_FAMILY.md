@@ -1,5 +1,15 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\CLAUDE_CODE_HANDOFF_TSML_FAMILY.md → papers\morphotic_braid\claudecode_jobs\CLAUDE_CODE_HANDOFF_TSML_FAMILY.md
+>
+> ### ⚠ CORRECTION 2026-04-24
+>
+> Any passage in this handoff that cites `det(BHML) = 70` or the prime
+> set `{2, 5, 7}` as a "family benchmark" is wrong. Verified
+> `det(BHML) = −7002`, primes **{2, 3, 389}**. The TSML_Idempotent_2sw
+> det = −49 (prime {7}) result is **independently verified** and stands
+> on its own without the BHML comparison. See
+> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md` and
+> `FORMULAS_AND_TABLES.md` §6.6 (seven-member family catalog).
 
 # CLAUDE CODE HANDOFF: TSML Family Tasks
 

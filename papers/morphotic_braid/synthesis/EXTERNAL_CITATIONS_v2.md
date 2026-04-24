@@ -1,5 +1,13 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\EXTERNAL_CITATIONS_v2.md → papers\morphotic_braid\synthesis\EXTERNAL_CITATIONS_v2.md
+>
+> ### ⚠ CORRECTION 2026-04-24
+>
+> This document's citation tables list `det(BHML) = 70, invertible`.
+> Independent verification shows the actual determinant is **−7002**,
+> with prime factorisation **{2, 3, 389}**, not {2, 5, 7}. Any Connes
+> semi-local / finite-place alignment built on the 70 value is withdrawn
+> pending reframing. See `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`.
 
 # External Citation Review v2 — Deep Read
 

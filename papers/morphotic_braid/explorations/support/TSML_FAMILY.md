@@ -1,5 +1,15 @@
 > **Provenance:** Drafted 2026-04-23 (evening session, ClaudeChat). Transcribed from packet `evening_handoff_2026_04_23/`. Cross-verification against repo canonical sources: [pending — see `papers/morphotic_braid/VERIFICATION_LOG_2026_04_23.md`].
 > **Copy path:** evening_handoff_2026_04_23\evening_handoff_2026_04_23\TSML_FAMILY.md → papers\morphotic_braid\explorations\support\TSML_FAMILY.md
+>
+> ### ⚠ CORRECTION 2026-04-24
+>
+> Line 138 asks whether TSML_Idempotent's det is minimal over its prime
+> class "parallel to BHML's det = 70 being minimal in {2, 5, 7}". That
+> BHML premise is **false**. Verified `det(BHML) = −7002` with primes
+> **{2, 3, 389}**. The minimality question for TSML_Idempotent remains
+> open but must be stated without the BHML comparison. Canonical family
+> catalog: `FORMULAS_AND_TABLES.md` §6.6.
+> Correction detail: `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`.
 
 # TSML Family: Different Members for Different Studies
 

@@ -1,5 +1,18 @@
 # Verification Log — Evening Handoff 2026-04-23
 
+> ### ⚠ CORRECTION 2026-04-24 — Claim 4 was assessed AMBER on false numeric premise
+>
+> Claim 4 of this log (`det(BHML) = 70 = 2 · 5 · 7`) was tagged **AMBER
+> (structural)** on the reasoning that "det(BHML) = 70 is a numerical
+> fact about BHML that we can verify here." That assumption was wrong.
+> Independent SymPy + NumPy computation on the canonical BHML table
+> gives **det(BHML) = −7002**, with prime factorisation **{2, 3, 389}**.
+> Claim 4 is therefore promoted to **RED (the numeric claim contradicts
+> verified repo)**. See
+> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md` and
+> `papers/verification_logs/2026_04_24/06_verify_det_claims.txt`.
+> FORMULAS_AND_TABLES.md §6.4 now carries the verified values.
+
 **Purpose:** Cross-verify every numeric / computational claim in the `evening_handoff_2026_04_23/` packet against canonical repo sources. Green = packet matches repo. Amber = packet correct on structure but misstated on a number. Red = packet claim contradicts verified repo.
 
 **Canonical sources used:**

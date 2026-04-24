@@ -1,5 +1,14 @@
 # Task 11 — Optimize TSML_Idempotent determinant to small-prime support
 
+> ### ⚠ CORRECTION 2026-04-24
+>
+> This spec's "parallel" argument (line 13) cites `BHML det = 70 = 2·5·7`.
+> Verified `det(BHML) = −7002`, primes **{2, 3, 389}**. The motivation
+> for this task remains valid — TSML_Idempotent's det = 398664 really
+> does simplify to −49 (prime set {7}) under the 2-cell swap — but the
+> "BHML parallel" is false and must not be used as precedent. See
+> `papers/morphotic_braid/CORRECTION_2026_04_24_det_BHML.md`.
+
 **Tier:** 2 (deep compute — 1-4 hr)
 **Parent handoff:** `../CLAUDE_CODE_HANDOFF_TSML_FAMILY.md` §Task 4
 **Related:** Task 15 already found a det = −49 = −(7²) variant — this task generalizes
