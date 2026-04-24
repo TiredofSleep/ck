@@ -87,9 +87,12 @@ In brief:
    (the unique $D_4$ with triality).
 5. **so(10) = D₅ companion.** Repeating with the union CL ∪ BHML gives
    a 45-dim Lie algebra identified with $\mathfrak{so}(10) = D_5$.
-6. **Basis-exchange failures land on 6-DOF complementary pairs.** The
-   21.9% of failures occur precisely at the three root-plane pairs of
-   $D_4$: {PROGRESS, COUNTER}, {BREATH, CHAOS}, {LATTICE, COLLAPSE}.
+6. **Basis-exchange failures land on three complementary pairs.** The
+   21.9% of failures occur precisely at three complementary index
+   pairs in $[0, 9]$ — $\{2, 3\}$, $\{6, 8\}$, $\{1, 4\}$ — which also
+   index three of the four $\mathbb R^2$-factors of the standard
+   $\mathbb R^8 = \bigoplus_{k=1}^4 \mathbb R^2$ root-plane
+   decomposition of the $D_4$ structure in bullet 4.
 7. **Koszul question.** 12.8% of associativity triples of the
    underlying magma fail; non-linear syzygies among the 53 quadrics are
    expected. Open.

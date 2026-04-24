@@ -191,7 +191,7 @@ All computed in the Python sandbox; scripts are in this directory.
 
 ```
 CL table:  10×10 frozen commutative non-associative magma on {0,…,9}
-           73% HARMONY cells, 17% VOID cells, 10% bump cells
+           73% of cells have value 7, 17% have value 0, 10% bump cells
 R = k[x_0, …, x_9]
 A = R / I_CL
 I_CL = (x_i x_j − x_{CL[i][j]} · x_0  :  0 ≤ i ≤ j ≤ 9)   [53 independent quadrics]
@@ -205,17 +205,21 @@ I_CL = (x_i x_j − x_{CL[i][j]} · x_0  :  0 ≤ i ≤ j ≤ 9)   [53 independe
 HF_A:  1, 10, 6, 6, 6, 6, …      (stabilizes at dim A_n = 6 for n ≥ 2)
 ```
 
-Stable set of variables in higher-degree components: `{VOID, PROGRESS,
-COLLAPSE, HARMONY, BREATH, RESET}` — the CL-fold attractor. Transient
-(nilpotent) set: `{LATTICE, COUNTER, BALANCE, CHAOS}`.
+Stable index set in higher-degree components:
+$\{0, 3, 4, 7, 8, 9\}$. Transient (nilpotent) index set:
+$\{1, 2, 5, 6\}$.
 
 **2. Three squarefree monomial ideals derived from the table**
 
 ```
-I_H  =  HARMONY ideal   = (x_i x_j : CL[i][j] = 7)                   41 generators
-I_V  =  VOID ideal      = (x_i x_j : CL[i][j] = 0)                    9 generators
-I_B  =  BUMP ideal      = (x_1 x_2, x_2 x_4, x_2 x_9, x_3 x_9, x_4 x_8)   5 generators
+I_7  =  (x_i x_j : CL[i][j] = 7)                                     41 generators
+I_0  =  (x_i x_j : CL[i][j] = 0)                                      9 generators
+I_B  =  bump ideal = (x_1 x_2, x_2 x_4, x_2 x_9, x_3 x_9, x_4 x_8)    5 generators
 ```
+
+(The subscripts `7` and `0` are the numerical values of CL[i][j] selected
+as ideal generators; they carry no further mathematical significance
+for this paper beyond being two distinct elements of $\{0, \ldots, 9\}$.)
 
 **3. I_B — the pure-but-not-matroidal companion**
 
@@ -243,25 +247,39 @@ Height(I_B) = 3
 | Q2 | Symbolic powers I_B^{(ℓ)}? Waldschmidt α̂(I_B)? | α̂(I_B) = 2 exactly (via fractional-matching LP). This matches the matroid formula even though I_B is not matroidal — open to interpretation. | Structure theorem from arXiv:2406.13759 |
 | Q3 | Is A Koszul? | **Resolved (2026-04-24, M2): NO.** The minimal resolution has a nonzero degree-2 row at β₈, β₉, β₁₀, so R/I_CL does not have a linear free resolution. The associative deformation may still be Koszul. | ✓ done via M2 |
 | Q4 | Are TSML and BHML CI-linked? | Unknown. Requires computing I(TSML) ∩ I(BHML) and testing for complete intersection. | Liaison theory |
-| Q5 | Distance from Δ_B to a matroid? | 21.9% basis-exchange failure. Specific failure pattern involves the LATTICE↔COUNTER, PROGRESS↔COLLAPSE, BREATH↔CHAOS complementary pairs. | Focal-matroid framework (arXiv:2603.19419) |
+| Q5 | Distance from Δ_B to a matroid? | 21.9% basis-exchange failure. Specific failure pattern involves three complementary pairs of indices in $\{0, \ldots, 9\}$ — see the "Meta-observation" section below for the authoritative list and discussion. | Focal-matroid framework (arXiv:2603.19419) |
 
 ---
 
 ## Meta-observation
 
-The basis-exchange failures on Δ_B occur precisely at the 6-DOF
-complementary pairs of the underlying operator structure: the pairs
+The basis-exchange failures on Δ_B occur at three complementary pairs
+of generator indices in $\{0, 1, \ldots, 9\}$:
 
-```
-X:   PROGRESS(3)  ↔  COUNTER(2)
-Y:   BREATH(8)    ↔  CHAOS(6)
-Z:   LATTICE(1)   ↔  COLLAPSE(4)
-```
+$$
+\{2, 3\}, \quad \{6, 8\}, \quad \{1, 4\}.
+$$
 
-are exactly the indices across which basis-exchange fails on Δ_B.
-This is the same complementary structure that appears in the
-antisymmetrization-lift of the CL table to so(8) = D₄ (verified in
-`../02_so8_verification/`).
+> **Verification note.** A pre-existing draft of this document had
+> $\{1, 2\}, \{3, 4\}, \{6, 8\}$ in the Q5 row of §"Status of the five
+> commutative-algebra questions" while the Meta-observation block used
+> $\{2, 3\}, \{6, 8\}, \{1, 4\}$. The two disagree. This paper resolves
+> the disagreement in favor of $\{2, 3\}, \{6, 8\}, \{1, 4\}$ — which
+> matches the top-level `README.md` and `papers/mantero_bridge/BRIDGES.md`
+> on this branch. A direct machine re-derivation of the failing-pair
+> structure from the `F, G, x` outputs of
+> [`compute_answers.py`](./compute_answers.py) is a small open
+> follow-up; the "failure-examples" block of that script currently
+> prints only facet pairs, not the complementary-index-pair summary.
+
+These three pairs also index three of the four $\mathbb{R}^2$-factors
+of the $\mathbb{R}^8 = \bigoplus_{k=1}^4 \mathbb{R}^2$ root-plane
+decomposition of the $\mathfrak{so}(8) = D_4$ structure identified by
+antisymmetrization of CL's left-regular operators (machine-verified in
+[`../02_so8_verification/`](../02_so8_verification/)). The fourth
+$\mathbb R^2$-factor is carried by the complementary index set
+$\{0, 5, 7, 9\}$, which are the indices that do *not* appear in the
+failing exchange pairs.
 
 In other words: **the non-matroidal defect of Δ_B is expressed by the
 same pair structure that governs the Lie-algebraic lift.** Whether

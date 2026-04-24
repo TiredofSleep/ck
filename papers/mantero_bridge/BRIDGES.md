@@ -199,20 +199,25 @@ union behave differently from either piece alone on the matroid axis?
 
 ---
 
-## Bridge 6 — The basis-exchange failures align with the 6-DOF complementary pairs
+## Bridge 6 — The basis-exchange failures align with three complementary pairs in $[0, 9]$
 
 **Our object:** The 21.9% of basis-exchange failures on $\Delta_B$ occur
-precisely at the three complementary pairs that appear as the root
-planes of $D_4$:
+precisely at three complementary pairs of generator indices in
+$\{0, 1, \ldots, 9\}$:
 
-```
-X:   PROGRESS(3)  ↔  COUNTER(2)
-Y:   BREATH(8)    ↔  CHAOS(6)
-Z:   LATTICE(1)   ↔  COLLAPSE(4)
-```
+$$
+\{2, 3\},\quad \{6, 8\},\quad \{1, 4\}.
+$$
 
-These are the same pairs that organize the color-wheel decomposition
-and the 6-DOF structure in the so(8) adjoint action.
+Machine-checked in
+[`../sprint_20260423_full/04_mantero_bridge/matroid_test.py`](../sprint_20260423_full/04_mantero_bridge/matroid_test.py)
+(enumerates all $\binom{10}{2} = 45$ pairs; 7 of 32 tested facet-pair
+exchange checks fail; the failing pairs are exactly the three listed
+above). These three pairs also index three of the four $\mathbb R^2$-
+factors of the standard $\mathbb R^8 = \bigoplus_{k=1}^4 \mathbb R^2$
+root-plane decomposition of the $\mathfrak{so}(8) = D_4$ structure
+identified in Bridge 4 — the fourth factor is indexed by the
+complement $\{0, 5, 7, 9\}$.
 
 **Mantero's framework:** Focal matroids (March 2026) provide an
 algorithmic route to produce "submatroids attached to a cover" — a way
