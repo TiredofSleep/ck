@@ -14,8 +14,10 @@ $$
 I \;=\; \bigl(\, x_i x_j - x_{\mathrm{CL}[i][j]} \cdot x_0 \;\big|\; 0 \le i \le j \le 9 \bigr) \;\subset\; R = k[x_0, \ldots, x_9]
 $$
 
-with Hilbert function $(1, 10, 6, 6, 6, \ldots)$ and Stanley-Reisner
-companion $\Delta_B$ on the bump ideal
+with Hilbert function $(1, 10, 2, 1, 1, 1, \ldots)$ for $n \ge 3$
+(reduced series $(1 + 9t - 8t^2 - t^3)/(1-t)$, Macaulay2 1.22 via
+SageMathCell, 2026-04-24; see Bridge 1 below for the full invariant
+list) and Stanley-Reisner companion $\Delta_B$ on the bump ideal
 
 $$
 I_B = (x_1 x_2, \; x_2 x_4, \; x_2 x_9, \; x_3 x_9, \; x_4 x_8),

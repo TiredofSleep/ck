@@ -21,10 +21,14 @@ relationship without reading private mail.
 Brayden constructed a specific commutative-algebra object — the binomial
 ideal
 $I = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0) \subset k[x_0, \ldots, x_9]$,
-associated with the Coherence Lattice (CL) 10×10 composition table — whose
-Hilbert function $(1, 10, 6, 6, 6, \ldots)$ and Stanley-Reisner companion
-sit near, but outside, Mantero's published framework (the companion is
-*pure but not matroidal*).
+associated with the Coherence Lattice (CL) 10×10 composition table —
+whose M2-verified invariants (see `09_mathoverflow_post/betti_output.txt`)
+are numgens 53, codim 9, dim 1, pd 10, depth 0, NOT Cohen-Macaulay, NOT
+Koszul, reduced Hilbert series $(1 + 9T - 8T^2 - T^3)/(1-T)$ with stable
+Hilbert function $1, 10, 2, 1, 1, 1, \ldots$ for $n \ge 3$. Its Stanley-Reisner
+companion $\Delta_B$ (the bump complex) is *pure but not matroidal* —
+21.9% basis-exchange failure rate — which sits near but outside
+Mantero's published framework.
 
 This branch collects the bridge material: the object stated in Mantero's
 vocabulary, the associated Lie-algebraic structure (WP102 so(8) = D₄,

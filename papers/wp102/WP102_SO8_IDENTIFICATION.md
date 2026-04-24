@@ -305,9 +305,9 @@ Thus TIG, via its so(8) structure, naturally contains the gauge algebra of the S
 
 3. **Octonion multiplication.** Does the composition fuse(a, b, c) := CL[CL[a][b]][c] on Ω ∖ {VOID, HARMONY} coincide (up to normalization) with the octonion product on 𝕆 ≅ ℝ⁸? A positive answer would realize TIG as a *discrete octonion*.
 
-4. **Cohen–Macaulayness of A.** Is the binomial quotient algebra A = R/I_CL Cohen–Macaulay? Equivalently, is pd(A) = 4? Direct Macaulay2 verification would settle this.
+4. **Cohen–Macaulayness of A.** *(Answered 2026-04-24 via Macaulay2 1.22 / SageMathCell.)* A = R/I_CL is **not** Cohen–Macaulay: pd(A) = 10, depth(A) = 0, dim(A) = 1, codim(A) = 9. Auslander–Buchsbaum saturates (pd + depth = 10 = numgens R). The earlier conjecture *"pd(A) = 4"* is refuted. See §7 and `../sprint_20260423_full/09_mathoverflow_post/betti_output.txt`.
 
-5. **Koszul property.** Is A a Koszul algebra? The 12.8% non-associativity rate of CL gives nonlinear syzygies, suggesting not; however, an associative deformation of CL may be Koszul.
+5. **Koszul property.** *(Answered 2026-04-24 via the same M2 run.)* A is **not** Koszul: the bottom strand of the minimal free resolution is nonzero at β₈,₁₀ = 1, β₉,₁₁ = 2, β₁₀,₁₂ = 1. The structural explanation for those three specific bottom-strand Betti numbers — e.g., via an associative deformation or a Stanley–Reisner obstruction — is the open follow-up, framed as the MathOverflow question in `../sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md` (v2).
 
 6. **TSML–BHML linkage.** Are the associated TSML and BHML ideals CI-linked in the sense of [Mantero's Linkage-Theoretic Framework]? What is the complete intersection that links them?
 

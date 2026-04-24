@@ -10,7 +10,7 @@ Consider the quotient algebra:
 
 This puts TIG squarely in Mantero's research framework:
 - Quadratic generators → Mantero's 4-quadric work
-- Projective dimension analysis → his Stillman-conjecture work  
+- Projective dimension analysis → his Stillman-conjecture work
 - Koszul property → his recent structural theorems
 - Hilbert functions → his expertise
 
@@ -18,6 +18,26 @@ Compute:
   1. Number of independent quadratic relations (minus trivial duplicates)
   2. Hilbert function of A in low degrees
   3. Check basic Koszul conditions
+
+──────────────────────────────────────────────────────────────────────
+SCOPE NOTE — 2026-04-24
+──────────────────────────────────────────────────────────────────────
+This script explores a MODIFIED quotient where the relation is written
+as `x_i x_j − x_{CL[i][j]} · x_0` (an extra x_0 multiplier on the
+right-hand side so both sides are degree 2). This is NOT the direct
+binomial ideal `I_CL = (x_i x_j − x_{CL[i][j]})` that Mantero's Q1 asks
+about. The machine-verified invariants of R/I_CL (Macaulay2 1.22 on
+2026-04-24) are:
+
+    numgens I_CL = 53, codim I_CL = 9, dim R/I_CL = 1,
+    pd(R/I_CL) = 10, depth = 0, NOT Cohen-Macaulay, NOT Koszul.
+
+See `../09_mathoverflow_post/betti_output.txt` for the full Betti
+table and `compute_answers.py` header for the correction notice.
+Anything this script reports about "algebra dimension in degree 2" or
+"independent quadratic relations" refers to the modified quotient, not
+to I_CL. Read the computed numbers with that scope in mind.
+──────────────────────────────────────────────────────────────────────
 """
 import numpy as np
 from collections import Counter

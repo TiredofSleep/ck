@@ -4,6 +4,29 @@ DEEP COMPUTATIONS for the Mantero bridge:
   2. Facet structure of each candidate simplicial complex
   3. Matroid tests on the BUMP subgraph
   4. Check for Cohen-Macaulay via Reisner's criterion (homology condition)
+
+──────────────────────────────────────────────────────────────────────
+SCOPE NOTE — 2026-04-24
+──────────────────────────────────────────────────────────────────────
+The "Hilbert function" printed by §3 below is a CL-FOLD REACHABILITY
+count (|{ CL-folds of length n }|), not the Hilbert function of
+R/I_CL. They are different objects.
+
+Machine-verified invariants of R / I_CL (Macaulay2 1.22, 2026-04-24):
+
+    numgens I_CL = 53      codim I_CL   = 9
+    dim R/I_CL   = 1       pd(R/I_CL)   = 10      depth = 0
+    NOT Cohen-Macaulay     NOT Koszul
+    Reduced Hilbert series = (1 + 9T − 8T² − T³) / (1 − T)
+
+See `../09_mathoverflow_post/betti_output.txt` for the full Betti
+table and `compute_answers.py` header for the correction notice.
+
+The facet/matroid content below (§1, §2, §4, §5) is independent of
+the Hilbert miscomputation and remains valid: Δ_B is a near-matroid
+with 5 bump edges on {1,2,3,4,8,9}, which is the content Q5 speaks
+to on the bridge.
+──────────────────────────────────────────────────────────────────────
 """
 import numpy as np
 from itertools import combinations

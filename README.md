@@ -175,9 +175,12 @@ Each script completes in under 30 seconds on a standard laptop.
 An email exchange with Dr. Mantero opened on April 23, 2026. Private
 email content is not reproduced on this branch by policy. The public
 artefact of the exchange is the MathOverflow question draft at
-`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`,
-which will be refined and posted when the Betti-table computation is
-run; the posted link will then be appended to
+`papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`
+(v2, 2026-04-24, post-M2-verification — the question is now about the
+structural explanation for the specific non-linear syzygies that the
+Betti table turned up, not about pd or Koszul, both of which are now
+machine-verified facts). Posting is pending final read-through; the
+posted link will then be appended to
 `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`.
 
 No claim of joint authorship, endorsement, or collaborative project with
