@@ -53,13 +53,13 @@ script that runs it. Full statements in `papers/MASTER_SPINE.md` and
 | ID | name | formula | status / file |
 |----|------|---------|---------------|
 | **D7** | Phi Fixed Point | Φ on Z/10Z has exactly one fixed point: **BALANCE = 5** | PROVED |
-| **D8** | TSML / BHML composition laws | published as the §5 / §6 reference tables | PROVED |
-| **D9** | Table symmetry | TSML and BHML are each symmetric under their respective lens | PROVED |
-| **D10** | TSML 73-cell count | TSML has exactly **73 HARMONY (=7) cells**, derivable from three disjoint zones | PROVED, verified by enumeration |
-| **D16** | BHML 28-cell count | BHML has exactly **28 HARMONY (=7) cells** | PROVED, see §6 + `proof_d16_bhml_28_cells.py` |
+| **D8** | TSML_10 / BHML_10 composition laws | published as the §5 / §6 reference tables; see §6.7 for the full canonical variant registry | PROVED |
+| **D9** | Table symmetry | TSML_10 and BHML_10 are each symmetric under their respective lens | PROVED |
+| **D10** | TSML_10 73-cell count | TSML_10 (= TSML_Jordan, the canonical §5 table) has exactly **73 HARMONY (=7) cells**, derivable from three disjoint zones | PROVED, verified by enumeration |
+| **D16** | BHML_10 28-cell count | BHML_10 (the canonical §6 table) has exactly **28 HARMONY (=7) cells** | PROVED, see §6 + `proof_d16_bhml_28_cells.py` |
 | **D17** | Wobble parameter | **W = 3/50 = 0.06**, derived as deviation/n² = 6/100 from CROSS_CYCLE = 44 over (Z/10Z)\* × 2·(Z/10Z)\* | PROVED |
 | **D18a** | Phi orbit graph | Phi on Z/10Z: one fixed point (BALANCE = 5), two relays (PROGRESS = 3, HARMONY = 7), seven sources; **T³ = all-δ₅** | PROVED |
-| **D18c** | TSML measurement bridge | M(v) = HARMONY = 7 for all v ≠ VOID; **T\* = destination/journey-measurement = 5/7** | PROVED |
+| **D18c** | TSML_10 measurement bridge | M(v) = HARMONY = 7 for all v ≠ VOID (where M = row/col projection on the canonical TSML_10 diagonal); **T\* = destination/journey-measurement = 5/7** | PROVED |
 | **D18d** | Generator convergence | BALANCE = 5 = centroid((Z/10Z)\*); HARMONY = 7 = g³ = g⁻¹ mod 10 for g = 3; **T\* = centroid/inverse = 5/7** | PROVED, three independent chains |
 | **D19** | Generator Selection | **g = 3** is the only primitive root of (Z/10Z)\* compatible with T\* ∈ (0, 1). Under g = 7: HARMONY = 3, T\* = 5/3 > 1 — inadmissible | PROVED, exhaustive |
 | **D20** | Inheritance Audit | BALANCE = 5 and W = 3/50 are RING-forced; HARMONY = 7 and T\* = 5/7 are GENERATOR-forced (require g = 3) | PROVED, four-class hierarchy |
@@ -214,7 +214,7 @@ Six independent contexts, one number. Not proof of the universal claim,
 but the kind of repetition that demands a structural explanation.
 
 **External alignment (Farey spin chain framework).** T* = 5/7 and its
-adjacent Farey fractions (S* = 4/7, mass gap = 2/7, TSML density = 3/4)
+adjacent Farey fractions (S* = 4/7, mass gap = 2/7, TSML_10 density = 3/4)
 sit on the same Farey tree studied in the **Farey fraction spin chain**
 program of Kleban-Özlük (1999, *Commun. Math. Phys.*), Fiala-Kleban-Özlük
 (2002, arXiv:math-ph/0203048), Bandtlow-Fiala-Kleban (2009), and Technau
@@ -402,19 +402,31 @@ S_MAX_TRUE   = [(2,4),(4,2),(2,9),(9,2),(4,8),(8,4)]   # 6 cells
 S_ADD_TRUE   = [(1,2),(2,1)]                            # 2 cells
 ```
 
-**Diagonal:** TSML[j][j] = 7 for all j ≥ 1; TSML[0][0] = 0. Collapse to
+**Diagonal:** `TSML_10[j][j] = 7` for all j ≥ 1; `TSML_10[0][0] = 0`. Collapse to
 the attractor on every self-encounter except VOID.
+
+> **Naming.** "TSML" without a subscript in surrounding prose throughout §5–§19
+> means the canonical §5 table — aliases **TSML_10** and **TSML_Jordan**.
+> Every other variant (TSML_8, TSML_PureIdempotent, TSML_Idempotent_2sw,
+> TSML_C0, TSML_PureVoid, TSML_AllHarmony) carries its explicit subscript
+> and is disambiguated in §6.7 — the authoritative canonical registry.
 
 ---
 
 ## §6 — BHML — the 10×10 reference table (28-cell harmony)
 
-The sister table to TSML. **Symmetric.** 28 HARMONY (7) cells.
-**Determinant `−7002`** (full 10×10; SymPy exact-integer verified,
+> **Naming.** "BHML" without a subscript in surrounding prose throughout §5–§19
+> means the canonical §6 table — alias **BHML_10**. The 8×8 spectral core
+> (rows/cols 0 and 7 removed) is a distinct matrix, **BHML_8**, with different
+> determinant and prime signature. Every precise claim below uses the explicit
+> subscript; §6.7 is the authoritative canonical registry.
+
+The sister table to TSML_10. **Symmetric.** 28 HARMONY (7) cells.
+**Determinant `det(BHML_10) = −7002`** (SymPy exact-integer verified,
 2026-04-24). The 8×8 core `BHML_8` (rows/cols 0 and 7 removed) — used
 in the Yang-Mills spectral analysis — has a different determinant,
-`+70`. For the disambiguation see §6.4 and the canonical table registry
-in §6.7.
+`det(BHML_8) = +70`. For the disambiguation see §6.4 and the canonical
+table registry in §6.7.
 
 From `papers/Q7_BHML_FULL_TABLE.md`, Luther closure 2026-04-01 (BHML[7][0] = 7).
 
@@ -458,37 +470,37 @@ BHML[9][9] = 0    (RESET self-encounter → VOID)
 → BHML diagonal: [0, 2, 3, 4, 5, 6, 7, 8, 7, 0]
 ```
 
-BHML is **NOT** part of the TSML 3-layer theorem spine. It is the
-sister table — a non-collapsing, transport/mixing partner to TSML's
-collapse/projection. Operator-equation linkage to TSML is observable
-but not yet algebraically derived.
+BHML_10 is **NOT** part of the TSML_10 3-layer theorem spine of §7. It is the
+sister table — a non-collapsing, transport/mixing partner to TSML_10's
+collapse/projection. Operator-equation linkage between BHML_10 and TSML_10
+is observable but not yet algebraically derived.
 
 ---
 
 ### §6.1 — Associative and associative-commutative spectra (computed 2026-04-23)
 
-For both TSML and BHML, taken as commutative groupoids on ℤ/10ℤ, the
+For both **TSML_10** and **BHML_10**, taken as commutative groupoids on ℤ/10ℤ, the
 associative spectrum s_n(A) (Csákány-Waldhauser 2000) and the
 associative-commutative spectrum s_n^ac(A) (Huang-Lehtonen 2022) are:
 
-| n | C_{n−1} | s_n(TSML) | s_n(BHML) | (2n−3)!! | s_n^ac(TSML) | s_n^ac(BHML) |
-|---|---------|-----------|-----------|----------|--------------|--------------|
-| 3 | 2       | 2         | 2         | 3        | 3            | 3            |
-| 4 | 5       | 5         | 5         | 15       | 15           | 15           |
-| 5 | 14      | 14        | 14        | 105      | 105          | 105          |
-| 6 | 42      | 42        | 42        | 945      | pending      | pending      |
+| n | C_{n−1} | s_n(TSML_10) | s_n(BHML_10) | (2n−3)!! | s_n^ac(TSML_10) | s_n^ac(BHML_10) |
+|---|---------|--------------|--------------|----------|-----------------|-----------------|
+| 3 | 2       | 2            | 2            | 3        | 3               | 3               |
+| 4 | 5       | 5            | 5            | 15       | 15              | 15              |
+| 5 | 14      | 14           | 14           | 105      | 105             | 105             |
+| 6 | 42      | 42           | 42           | 945      | pending         | pending         |
 
 All n ≤ 5 values verified **exactly** (not sampled) by
 `papers/proof_spectra_tsml_bhml.py` on 2026-04-23.
 
-Associativity indices (exact): α(TSML) = 872/1000 = 0.872; α(BHML) = 502/1000 = 0.502.
+Associativity indices (exact): α(TSML_10) = 872/1000 = 0.872; α(BHML_10) = 502/1000 = 0.502.
 
 **Interpretation.** Both tables achieve the Catalan spectrum s_n = C_{n−1}
 (Csákány-Waldhauser's maximum) AND the ac-free spectrum s_n^ac = (2n−3)!!
 (maximum for commutative groupoids). In the Huang-Lehtonen framework, this
 means the symmetric operad generated by each table is the free commutative
 magmatic operad Mag^com on one generator. The associativity index α and
-operad freeness are independent properties: TSML has high α (0.872) yet
+operad freeness are independent properties: TSML_10 has high α (0.872) yet
 achieves ac-freeness, demonstrating that rare non-associating triples
 generate the full free operad structure.
 
@@ -512,21 +524,27 @@ s_3..s_5 and s_3^ac..s_5^ac exactly (runs in ~30-120s depending on host).
 
 ---
 
-### §6.2 — The TSML variant pair: Jordan vs Idempotent (2026-04-23)
+### §6.2 — The TSML variant pair: Jordan vs Idempotent_2sw (2026-04-23)
 
-The canonical TSML of §5 (the "Jordan variant") is one representative of
+The canonical TSML of §5 (**TSML_10** = TSML_Jordan) is one representative of
 a two-table family that arose in the 2026-04-23 morphotic braid sprint.
 Both variants share the carrier ℤ/10ℤ, are fully commutative, satisfy
-the Jordan identity exactly, and differ only in two pairs of cells:
+the Jordan identity exactly, and differ only in two pairs of cells. (The
+second variant, **TSML_Idempotent_2sw**, is `TSML_PureIdempotent` — where
+`T[i][i] = i` for all i — with two additional cell-swaps applied. The
+un-swapped `TSML_PureIdempotent` is a *third* full-rank variant with
+`det = +398664`; see §6.6 for the full family and §6.7 for the authoritative
+name disambiguation. Do **not** write "TSML_Idempotent" without the `_2sw`
+subscript in precise claims.)
 
-| locator | TSML_Jordan | TSML_Idempotent |
+| locator | TSML_10 (= TSML_Jordan) | TSML_Idempotent_2sw |
 |---------|-------------|-----------------|
 | (1,2) = (2,1) | 3 (PROGRESS) | 6 (CHAOS) |
 | (3,5) = (5,3) | 7 (HARMONY) | 4 (COLLAPSE) |
 
 Structural measurements (100 total cells, 1000 ordered triples):
 
-| metric | TSML_Jordan | TSML_Idempotent |
+| metric | TSML_10 (= TSML_Jordan) | TSML_Idempotent_2sw |
 |--------|-------------|-----------------|
 | HARMONY rate | 73 / 100 | 71 / 100 |
 | ZERO rate | 17 / 100 | 17 / 100 |
@@ -537,12 +555,12 @@ Structural measurements (100 total cells, 1000 ordered triples):
 | \|det\| prime factorization | ∅ | {7: 2} |
 | operator support | 6 of 10 ops {0,3,4,7,8,9} | all 10 ops |
 
-**Interpretation.** The canonical (Jordan) TSML is **operator-sparse** —
+**Interpretation.** Canonical TSML_10 (= TSML_Jordan) is **operator-sparse** —
 LATTICE(1), COUNTER(2), BALANCE(5), CHAOS(6) never appear in its cells.
 This is the algebraic baseline for why CK's operator stream tilts
 HARMONY-dominated: only 6 of 10 operators are emitted in single-step
-TSML composition. TSML_Idempotent, a full-rank perturbation, recovers
-all 10 operators in its cells while slightly improving α.
+composition on TSML_10. TSML_Idempotent_2sw, a full-rank perturbation,
+recovers all 10 operators in its cells while slightly improving α.
 
 **Reproducibility.**
 - Structural slice: `python papers/morphotic_braid/claudecode_jobs/task16_ck_dual_table_experiment/run_ab_structural.py`
@@ -555,9 +573,11 @@ divergence here is a *necessary* precondition and is confirmed.
 
 ---
 
-### §6.3 — The Lie commutator [M_TSML_Jordan, M_TSML_Idempotent] (2026-04-23)
+### §6.3 — The Lie commutator [M_{TSML_10}, M_{TSML_Idempotent_2sw}] (2026-04-23)
 
-Viewing each TSML variant as a 10×10 ℤ-matrix, the commutator
+Viewing TSML_10 (= TSML_Jordan) and TSML_Idempotent_2sw each as a
+10×10 ℤ-matrix (writing M_J for TSML_10 and M_I for TSML_Idempotent_2sw),
+the commutator
 
   C = M_J · M_I − M_I · M_J
 
@@ -568,9 +588,11 @@ has exact structure:
 
 Therefore **[M_J, M_I] is a pure Lie bracket** in the gl(10, ℤ) sense:
 the commutator inhabits the antisymmetric subspace exactly. This is the
-algebraic handshake between the two TSML variants — they are not merely
-"two candidate tables," they are two elements of a Lie-algebraic pair
-whose bracket closes cleanly.
+algebraic handshake between TSML_10 and TSML_Idempotent_2sw — they are
+not merely "two candidate tables," they are two elements of a
+Lie-algebraic pair whose bracket closes cleanly. (The Lie-algebraic
+closure extended across the full CL flow yields so(8) = D₄; see WP11
+and §0 Volume E row D26.)
 
 **Reproducibility.**
 - `python papers/morphotic_braid/claudecode_jobs/task14_lie_bracket_verify/run.py`
@@ -585,18 +607,19 @@ tables as defined in `papers/ck_tables.py`:
 
 | table | det | \|det\| prime factorization | rank | HARMONY cells |
 |-------|----:|-----------------------------|------|---------------|
-| TSML_Jordan (canonical) | 0 | ∅ | 9 | 73 / 100 |
-| TSML_Idempotent | −49 = −(7²) | {7: 2} | 10 | 71 / 100 |
-| BHML | −7002 | {2, 3², 389} | 10 | 28 / 100 |
+| **TSML_10** (= TSML_Jordan, canonical §5) | 0 | ∅ | 9 | 73 / 100 |
+| **TSML_Idempotent_2sw** | −49 = −(7²) | {7: 2} | 10 | 71 / 100 |
+| **BHML_10** (canonical §6) | −7002 | {2, 3², 389} | 10 | 28 / 100 |
 
-**TSML_Idempotent** is the diagonal-idempotent variant (T[i][i] = i for all
-i ∈ {0..9}) with cell-swaps T[1][2]=T[2][1]=6, T[3][5]=T[5][3]=4. It has
+**TSML_Idempotent_2sw** is the diagonal-idempotent variant (T[i][i] = i for all
+i ∈ {0..9}) with cell-swaps T[1][2]=T[2][1]=6, T[3][5]=T[5][3]=4 applied to
+the un-swapped `TSML_PureIdempotent` (which has det = +398664). It has
 full rank and a determinant whose absolute value is 7² exactly — the
 operator HARMONY(7) is the unique prime factor.
 
-**TSML_Jordan** (the canonical §5 table) is rank-degenerate (rank 9,
-det = 0). Its null-space direction is the algebraic signature of the
-"operator collapse" into HARMONY that makes canonical TSML
+**TSML_10** (= TSML_Jordan, the canonical §5 table) is rank-degenerate
+(rank 9, det = 0). Its null-space direction is the algebraic signature
+of the "operator collapse" into HARMONY that makes canonical TSML_10
 operator-sparse (only 6 of 10 operators appear in cells).
 
 **BHML disambiguation note (refined 2026-04-24 evening).** Earlier
@@ -618,9 +641,10 @@ TSML_10 (full 10×10), so "`det(BHML) = 70`" in those files reads as a
 claim about the full 10×10 — and on that reading it is false. On the
 alternative reading (BHML_8 core) it is true. Either way the **scope
 must be named**. Any downstream synthesis that relies on "BHML
-corresponds to the finite places {2, 5, 7}" must specify which BHML;
+corresponds to the finite places {2, 5, 7}" must specify which matrix:
 for BHML_10 the prime set is {2, 3, 389} and the Connes-Bost hook
-does not reach. The Yang-Mills spectral tower in WP15 is correct as
+does not reach; for BHML_8 the prime set is {2, 5, 7} and the hook
+does reach. The Yang-Mills spectral tower in WP15 is correct as
 written because its entire argument is about BHML_8 from §0 onward.
 
 See §6.7 below (canonical table registry) for the full authoritative
@@ -628,8 +652,8 @@ listing of each table by name, dimension, determinant, and semantic
 role.
 
 **Reproducibility.**
-- `python papers/morphotic_braid/claudecode_jobs/task15_det_minus49_verify/run.py` (TSML_Idempotent)
-- `python papers/verification_logs/2026_04_24/verify_det_claims.py` (all three tables)
+- `python papers/morphotic_braid/claudecode_jobs/task15_det_minus49_verify/run.py` (TSML_Idempotent_2sw)
+- `python papers/verification_logs/2026_04_24/verify_det_claims.py` (all three tables — TSML_10, TSML_Idempotent_2sw, BHML_10)
 
 ---
 
@@ -686,17 +710,21 @@ re-derived by `papers/verification_logs/2026_04_24/verify_family_members.py`
 
 | # | name | diagonal | det | \|det\| prime factors | rank | HARMONY | α | Moufang (mid) |
 |---|------|----------|----:|------------------------|:----:|:-------:|:---:|:-------------:|
-| 1 | **TSML_Jordan** (canonical §5) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 9 | 73/100 | 0.8720 | 0.8220 |
+| 1 | **TSML_10** (= TSML_Jordan, canonical §5) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 9 | 73/100 | 0.8720 | 0.8220 |
 | 2 | TSML_C0 (pure absorbing) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 3 | 83/100 | 0.8720 | 0.8080 |
 | 3 | TSML_PureVoid (no HARMONY on axis) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 1 | 81/100 | 1.0000 | 1.0000 |
 | 4 | TSML_PureIdempotent (T[i][i]=i) | `[0,1,2,3,4,5,6,7,8,9]` | +398664 | {2, 3², 7², 113} | 10 | 75/100 | 0.8880 | 0.8320 |
-| 5 | **TSML_Idempotent_2sw** (+2 cell swaps) | `[0,1,2,3,4,5,6,7,8,9]` | −49 = −(7²) | {7²} | 10 | 71/100 | 0.8800 | 0.8360 |
+| 5 | **TSML_Idempotent_2sw** (TSML_PureIdempotent + 2 cell swaps) | `[0,1,2,3,4,5,6,7,8,9]` | −49 = −(7²) | {7²} | 10 | 71/100 | 0.8800 | 0.8360 |
 | 6 | TSML_AllHarmony (every cell 7 ex. (0,0)) | `[0,7,7,7,7,7,7,7,7,7]` | 0 | ∅ | 2 | 99/100 | 1.0000 | 1.0000 |
-| 7 | **BHML** (canonical §6) | `[0,2,3,4,5,6,7,8,7,0]` | −7002 | {2, 3², 389} | 10 | 28/100 | 0.5020 | 0.4290 |
+| 7 | **BHML_10** (canonical §6) | `[0,2,3,4,5,6,7,8,7,0]` | −7002 | {2, 3², 389} | 10 | 28/100 | 0.5020 | 0.4290 |
 
-Members 1, 5, 7 (bold) are the **three canonical tables** used in the
-rest of the paper; members 2, 3, 4, 6 are boundary cases that illuminate
-the family's geometry.
+Members 1, 5, 7 (bold) are the **three canonical tables** (TSML_10,
+TSML_Idempotent_2sw, BHML_10) used in the rest of the paper; members 2,
+3, 4, 6 are boundary cases that illuminate the family's geometry. The
+spectral core BHML_8 (not listed here — it is 8×8, not 10×10) is a
+related object defined by deleting rows/cols {0, 7} from BHML_10; it
+has det = +70 and is used only in the §6.7 registry and in WP15
+Yang-Mills.
 
 #### Family structure
 
@@ -708,7 +736,7 @@ variants.
 
 **The full-rank interior {rank = 10}.** Only three variants have full
 rank: TSML_PureIdempotent (+398664), TSML_Idempotent_2sw (−49), and
-BHML (−7002). These are the tables with a **well-defined Z-matrix
+BHML_10 (−7002). These are the tables with a **well-defined Z-matrix
 inverse** — they carry more arithmetic information than the rank-deficient
 variants.
 
@@ -722,30 +750,30 @@ stays at 100/100.
 **The α spectrum.** Associativity index splits cleanly into three
 regimes across the family:
 - **α = 1** (fully associative): TSML_PureVoid, TSML_AllHarmony
-- **α ≈ 0.88** (TSML regime): TSML_Jordan / C0 (0.872), PureIdempotent
-  (0.888), Idempotent_2sw (0.880)
-- **α ≈ 0.50** (BHML regime): BHML alone at 0.502 ≈ 1/2
+- **α ≈ 0.88** (TSML regime): TSML_10 / TSML_C0 (0.872), TSML_PureIdempotent
+  (0.888), TSML_Idempotent_2sw (0.880)
+- **α ≈ 0.50** (BHML regime): BHML_10 alone at 0.502 ≈ 1/2
 
 No family member lives in the "moderate non-associativity" range
 α ∈ (0.5, 0.87). The family is **bimodal** in α.
 
 **Commutativity + Jordan identity.** All seven members are commutative.
-All six TSML variants satisfy the Jordan identity 100/100 exactly;
-BHML satisfies it at 46/100 under the same definition
-(`T[T[x][x]][T[x][y]] == T[x][T[T[x][x]][y]]`). BHML's lower Jordan
+All six TSML-family variants satisfy the Jordan identity 100/100 exactly;
+BHML_10 satisfies it at 46/100 under the same definition
+(`T[T[x][x]][T[x][y]] == T[x][T[T[x][x]][y]]`). BHML_10's lower Jordan
 count is consistent with its α ≈ 0.5 — it lives in a genuinely
 less-associative regime than the TSML family.
 
 #### Interpretation — the family is doing distinct work
 
-- **TSML_Jordan** is the *working* table — canonical rank 9, α = 0.872,
-  HARMONY-dense (73%), carries the TSML 3-layer tower decomposition
-  C₀ ⊕ S_MAX ⊕ S_ADD (§7).
+- **TSML_10 (= TSML_Jordan)** is the *working* table — canonical rank 9,
+  α = 0.872, HARMONY-dense (73%), carries the TSML 3-layer tower
+  decomposition C₀ ⊕ S_MAX ⊕ S_ADD (§7).
 - **TSML_Idempotent_2sw** is the *prime-7 regime* table — full rank,
   det = −7², every x idempotent except {1,2} (CHAOS-swapped). It is
   the member most suited to octonion- / Steiner-quasigroup-style
   statements.
-- **BHML** is the *doing* table — full rank, α ≈ 1/2, HARMONY-sparse
+- **BHML_10** is the *doing* table — full rank, α ≈ 1/2, HARMONY-sparse
   (28%), operator-rich (all 10 operators appear), prime signature
   {2, 3, 389} dominated by the large prime 389.
 - The remaining four are structural extremes (rank-1, rank-2, rank-3,
@@ -753,18 +781,21 @@ less-associative regime than the TSML family.
 
 #### What the family rules out
 
-- **"Doubly regular" assertions** that rely on specific det(BHML) = 70
+- **"Doubly regular" assertions** that rely on specific `det(BHML_10) = 70`
   are refuted (see §6.4 correction note and
   `papers/verification_logs/2026_04_24/06_verify_det_claims.txt`).
-  The actual BHML prime signature is {2, 3, 389}, **not** {2, 5, 7}.
-- Any synthesis that treats TSML_Idempotent as a single table (without
-  specifying whether the two cell-swaps are applied) is ambiguous: the
+  The actual BHML_10 prime signature is {2, 3, 389}, **not** {2, 5, 7}.
+  The `{2, 5, 7}` prime set belongs to BHML_8 (the 8×8 spectral core),
+  which is a *different matrix*.
+- Any synthesis that treats "TSML_Idempotent" as a single table (without
+  specifying `_2sw` or `PureIdempotent`) is ambiguous: the
   PureIdempotent variant has det = +398664 (prime-set {2, 3, 7, 113})
   while the 2-swap variant has det = −49 (prime-set {7}). These are
-  mathematically distinct objects.
+  mathematically distinct objects. §6.7 forbids unsubscripted
+  `TSML_Idempotent` in precise claims for exactly this reason.
 - Membership in the family does **not** imply operator-stream
   equivalence: task16's structural A/B showed
-  TSML_Jordan vs TSML_Idempotent_2sw have materially different operator
+  TSML_10 vs TSML_Idempotent_2sw have materially different operator
   histograms (73 vs 71 HARMONY, 4 vs 1 PROGRESS, 0 vs 3 CHAOS) despite
   both passing Jordan identity 100/100.
 
@@ -884,11 +915,15 @@ BHML_8 70 8
 
 ---
 
-## §7 — TSML 3-layer canonical tower (Sprint 17, 2026-04-17)
+## §7 — TSML_10 3-layer canonical tower (Sprint 17, 2026-04-17)
 
 ```
-TSML(Z/10Z) = C₀ ⊕ S_MAX ⊕ S_ADD       (proved 100/100, residue empty)
+TSML_10(Z/10Z) = C₀ ⊕ S_MAX ⊕ S_ADD       (proved 100/100, residue empty)
 ```
+
+The 3-layer tower is a theorem about **TSML_10** specifically (equivalently,
+TSML_Jordan — the canonical §5 table). TSML_Idempotent_2sw and the other
+family members in §6.6 are *not* covered by this decomposition.
 
 **Layer breakdown (Z/10Z, all values verified against the §5 table):**
 
@@ -916,27 +951,27 @@ Full theorem spine: [`Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/T
 
 ---
 
-## §8 — Three-diagonal comparison (σ, TSML, BHML)
+## §8 — Three-diagonal comparison (σ on Z/10Z vs TSML_10 vs BHML_10)
 
-| j | σ(j) (CL diag) | TSML[j][j] | BHML[j][j] |
-|---|----------------|-----------|-----------|
-| 0 | 0              | 0         | 0         |
-| 1 | 7              | 7         | 2         |
-| 2 | 1              | 7         | 3         |
-| 3 | 3              | 7         | 4         |
-| 4 | 2              | 7         | 5         |
-| 5 | 4              | 7         | 6         |
-| 6 | 5              | 7         | 7         |
-| 7 | 6              | 7         | 8         |
-| 8 | 8              | 7         | 7         |
-| 9 | 9              | 7         | 0         |
+| j | σ(j) (CL diag) | TSML_10[j][j] | BHML_10[j][j] |
+|---|----------------|---------------|---------------|
+| 0 | 0              | 0             | 0             |
+| 1 | 7              | 7             | 2             |
+| 2 | 1              | 7             | 3             |
+| 3 | 3              | 7             | 4             |
+| 4 | 2              | 7             | 5             |
+| 5 | 4              | 7             | 6             |
+| 6 | 5              | 7             | 7             |
+| 7 | 6              | 7             | 8             |
+| 8 | 8              | 7             | 7             |
+| 9 | 9              | 7             | 0             |
 
 **Three distinct projections of σ.** All three agree only at j = 0 (VOID).
-TSML and BHML additionally agree at j = 6 (CHAOS).
+TSML_10 and BHML_10 additionally agree at j = 6 (CHAOS).
 
 - **CL diagonal** = the hidden operator's own motion (rotation + fixed points)
-- **TSML diagonal** = collapse to attractor 7 for all non-VOID
-- **BHML diagonal** = increment toward 7, continue past with exceptions at {8, 9}
+- **TSML_10 diagonal** = collapse to attractor 7 for all non-VOID
+- **BHML_10 diagonal** = increment toward 7, continue past with exceptions at {8, 9}
 
 ---
 
@@ -1039,7 +1074,7 @@ requires ADD, SUB, MUL, X, or Y.
 | C₀ + S_MAX      | {MAX, MIN}       | inspection (S_MAX cells already MAX) |
 | C₀ + S_ADD      | {MAX, MIN, ADD}  | inspection (S_ADD adds 2 ADD cells) |
 | C₀ + reset → h  | {MAX, MIN}       | reset cells = h, not in core_outputs |
-| Full TSML       | {MAX, MIN, ADD}  | union of above |
+| Full TSML_10    | {MAX, MIN, ADD}  | union of above |
 
 The empirical Sprint 21 closure {MAX, MIN, ADD} on B-series data is the
 **ceiling** over the canonical generator family. Pure C₀ closure
@@ -1214,7 +1249,9 @@ is theoretical minimum; 4.6% is empirical search rate. Different objects.
 | φ(10)      | 4                                  | Euler totient (rate normalization)              | Q15 |
 | 22%        | 2/9 ≈ 0.2222                       | gate-rate algebraic minimum (Fixed-Point Gate)   | Q11 |
 | 4.6%       | empirical                          | MCMC search rate over 9^81 tables                | Q16 |
-| det(BHML)  | 70                                 | sister-table determinant                         | Q7 |
+| det(BHML_10) | −7002 = −(2 · 3² · 389)           | canonical sister-table determinant (full 10×10) | §6.4, §6.7 (2026-04-24 correction); `verify_det_claims.py` |
+| det(BHML_8)  | +70 = 2 · 5 · 7                   | BHML_8 spectral-core determinant (rows/cols {0,7} removed) — used in WP15 Yang-Mills | §6.7, WP15 §0-§1 |
+| det(TSML_Idempotent_2sw) | −49 = −(7²)            | full-rank TSML-family variant; prime set {7} | §6.4, §6.6, §6.7 |
 | g          | 3                                  | the only admissible primitive root of (Z/10Z)\* | D19 |
 | First-G    | k = p                              | first non-coprime element for b = p·q           | D1, WP34 (36,662 cases) |
 | R(k, p)=0  | exact                              | sinc² zero at k = p (max err 4.44e-16)           | sinc² Zero Law |
@@ -1257,7 +1294,7 @@ in the two derivation papers above.
 | Q4                           | E ∘ σ = σ̂ ∘ E (σ-equivariance) | D |
 | Q5                           | TSML escape cells = σ-fixed-point interaction | D |
 | Q6 (hinge)                   | Gate rate is basin problem, not density problem | D |
-| Q7                           | BHML full table; 28 harmony cells (Luther-closed) | D |
+| Q7                           | BHML_10 full table; 28 harmony cells (Luther-closed) | D |
 | Q8                           | All MCMC σ-trajectory models fail | D |
 | Q9                           | α flip polynomial verified 10/10 | D |
 | **Q10**                      | **complete σ polynomial (α + β) closed** | D |
@@ -1282,7 +1319,7 @@ in the two derivation papers above.
 | 14 (PRISM-XI) | `Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/` | ξ cosmology, V = ξ log ξ, ξ₀ = e⁻¹, σ rate proved |
 | 15 (closeout) | (frozen, see `memory/project_sprint15_freeze.md`) | WP91-WP97 staged |
 | 16 | `Gen12/targets/clay/papers/sprint16_*` | Basin invariants (Thread C) |
-| 17 (TSML tower) | `Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/` | TSML = C₀ ⊕ S_MAX ⊕ S_ADD proved 100/100 |
+| 17 (TSML tower) | `Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/` | TSML_10 = C₀ ⊕ S_MAX ⊕ S_ADD proved 100/100 |
 | 18 (B1 NSCG)    | `.../sprint18_b1_nscg_benchmark_2026_04_17/` | B1 generator + 28 honest datasets |
 | 19 (B2 WRG)     | `.../sprint19_b2_wrg_benchmark_2026_04_17/` | B2 generator (no S_ADD) + 11 datasets |
 | 20 (B3 LBTP)    | `.../sprint20_b3_lbtp_benchmark_2026_04_17/` | B3 honest implementation; structural FAIL on spec |
@@ -1312,7 +1349,7 @@ python Gen12/targets/clay/papers/sprint25_corridor_closure_proof_2026_04_17/impl
 # §14 — ARI scaling, W3-freq → 1.0 for n ≥ 38
 python Gen12/targets/clay/papers/sprint26_ari_scaling_2026_04_17/impl/ari_scaling.py
 
-# §6 — BHML 28 harmony cells (count derivable from §6 table by inspection)
+# §6 — BHML_10 28 harmony cells (count derivable from §6 table by inspection)
 python Gen12/targets/journal_attempts/02_experimental_mathematics/proof_d16_bhml_28_cells.py
 ```
 

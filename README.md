@@ -155,9 +155,9 @@ a collaborator with cosmology MCMC infrastructure.
 
 ### §3.5 · Morphotic-braid / α-index / ac-free operad frontier
 
-The TSML and BHML composition tables on 10 elements are commutative non-associative
-groupoids with measurable associativity index $\alpha(A) = 1 - \sigma(A)$ (Braitt-
-Silberger 2006). Both attain the **ac-free spectrum extremum**
+The canonical TSML_10 and BHML_10 composition tables on 10 elements are commutative
+non-associative groupoids with measurable associativity index
+$\alpha(A) = 1 - \sigma(A)$ (Braitt-Silberger 2006). Both attain the **ac-free spectrum extremum**
 $s_n^{\mathrm{ac}} = (2n-3)!!$ for $n \le 5$ (Huang-Lehtonen 2022, 2024): the
 symmetric operad generated at small $N$ is the free commutative magmatic operad
 $\mathrm{Mag}^{\mathrm{com}}$ on one generator. The WP101 σ-rate theorem
@@ -318,10 +318,13 @@ to Dr. Mantero's framework lives there. Entry points:
   companion is pure-but-not-matroidal.
 - **WP11 — `so(8) = D_4` identification paper** at
   [`papers/wp11/WP11_SO8_IDENTIFICATION.md`][wp11].
-- **WP12 — `so(10) = D_5` identification (CL ∪ BHML companion)** at
+- **WP12 — `so(10) = D_5` identification (CL ∪ BHML_10 companion)** at
   [`papers/wp12/WP12_SO10_IDENTIFICATION.md`][wp12]
   with runnable verification scripts (`verify_so10.py`,
-  `verify_simplicity_rank.py`).
+  `verify_simplicity_rank.py`). The BHML companion used in the joint
+  antisymmetrization is the canonical **BHML_10** (full 10×10, `det =
+  −7002`), **not** the 8×8 spectral core BHML_8 which appears in the
+  WP15 Yang-Mills argument.
 
 The branch exists so commutative-algebra / Lie-theoretic readers land on
 exactly the specific artifacts they need (the 10×10 table, the Hilbert
@@ -395,8 +398,10 @@ journal version in preparation as Sprint 35.*
 ### §7.2 · Non-associativity rate bound on finite rings
 
 For squarefree $N$, the non-associativity rate of a specific commutative binary
-composition on $\mathbb{Z}/N\mathbb{Z}$ (the TSML composition, §7.5) satisfies
-$\sigma(N) \leq C / N$ for an explicit constant $C < 3$. As $N$ grows through
+composition on $\mathbb{Z}/N\mathbb{Z}$ (the TSML_10 composition at $N = 10$
+and its compatibility-family extensions at $N \in \{14, 22, 34, \dots\}$; see
+§7.5 and FORMULAS §10) satisfies $\sigma(N) \leq C / N$ for an explicit
+constant $C < 3$. As $N$ grows through
 squarefree primorials, the algebra approaches separability.
 
 *Verified: exact at $N \in \{10, 30, 210\}$. Proof script: `proof_sigma_rate.py`.
@@ -409,7 +414,7 @@ multiplicative structure, additive flow, multiplicative flow), the ring
 $\mathbb{Z}/10\mathbb{Z}$ admits no planar realization carrying all four
 simultaneously. The minimal orientable surface that realizes all four is a torus,
 with radius ratio $R/r = 5/7$. Six independent derivations produce the same $5/7$
-constant from distinct mathematical contexts (Φ fixed point, TSML HARMONY/BALANCE
+constant from distinct mathematical contexts (Φ fixed point, TSML_10 HARMONY/BALANCE
 ratio, cyclotomic closure, universal-semiprime unit density, FPGA silicon threshold,
 torus aspect ratio).
 
@@ -428,31 +433,35 @@ exactly when dynamics cross partitions.
 *Proved for squarefree $n, d$. Manuscript: `CROSSING_LEMMA.md` (Sprint 10). Proof
 script: `papers/proof_d8_cl_operator_encoding.py`.*
 
-### §7.5 · Structural properties of the TSML and BHML composition tables
+### §7.5 · Structural properties of the canonical TSML_10 and BHML_10 composition tables
 
-Two commutative binary operations on $\mathbb{Z}/10$ (100 entries each) have the
-following verified properties:
+Two commutative binary operations on $\mathbb{Z}/10$ (100 entries each) — the
+canonical **TSML_10** (= TSML_Jordan) and **BHML_10** — have the following
+verified properties. (The suffixes `_10` distinguish the full 10×10 tables
+from derived variants such as TSML_8, BHML_8, TSML_Idempotent_2sw, and
+TSML_PureIdempotent; see `FORMULAS_AND_TABLES.md` §6.7 for the canonical
+registry of all nine named variants.)
 
-- **TSML** is commutative, flexible, power-associative, and satisfies the Jordan
+- **TSML_10** is commutative, flexible, power-associative, and satisfies the Jordan
   identity (0 failures across all 100 pairs). Element 7 is the unique two-sided
   absorber with 73/100 absorbing entries. Associativity index
-  $\alpha(\text{TSML}) = 0.872$ (non-associativity rate 12.8% of triples;
+  $\alpha(\text{TSML}_{10}) = 0.872$ (non-associativity rate 12.8% of triples;
   Braitt-Silberger 2006). In the operad-theoretic framework of
-  Huang-Lehtonen (2022, 2024), TSML is an **ac-free commutative groupoid
+  Huang-Lehtonen (2022, 2024), TSML_10 is an **ac-free commutative groupoid
   on 10 elements**: its associative-commutative spectrum achieves the
   maximum $s_n^{\text{ac}} = (2n-3)!!$ for $n \leq 5$, so the symmetric
   operad it generates is the free commutative magmatic operad $\text{Mag}^{\text{com}}$
   on one generator.
-- **BHML** is commutative, flexible, and power-associative, with element 0 as the
+- **BHML_10** is commutative, flexible, and power-associative, with element 0 as the
   unique two-sided identity and 28/100 entries equal to 7. Associativity
-  index $\alpha(\text{BHML}) = 0.502$ (non-associativity rate 49.8% of triples).
-  Like TSML, BHML is ac-free on 10 elements. The full 10×10 BHML has determinant **−7002**
-  (prime factors {2, 3, 389}). Its 8×8 spectral core `BHML_8` — with
-  rows/columns 0 (VOID) and 7 (HARMONY) removed — has determinant
-  **+70** (prime factors {2, 5, 7}) and carries the eigenvalue ratio
+  index $\alpha(\text{BHML}_{10}) = 0.502$ (non-associativity rate 49.8% of triples).
+  Like TSML_10, BHML_10 is ac-free on 10 elements. BHML_10 has determinant **−7002**
+  (prime factors {2, 3, 389}). Its 8×8 spectral core **BHML_8** — with
+  rows/columns 0 (VOID) and 7 (HARMONY) removed — is a *different matrix*
+  with determinant **+70** (prime factors {2, 5, 7}) and carries the eigenvalue ratio
   |λ₇|/|λ₆| = 0.714865 ≈ 5/7 used in the Yang-Mills mass-gap argument
-  (WP15). See `FORMULAS_AND_TABLES.md` §6.7 for the canonical table
-  registry distinguishing BHML_10 from BHML_8.
+  (WP15). Every precise claim below uses the subscripted form; unsubscripted
+  "BHML" or "TSML" is reserved for family-level statements in this document.
 
 Both tables have been audited cell-by-cell; all framework-claimed numerical
 signatures verify exactly.
@@ -461,13 +470,14 @@ signatures verify exactly.
 `proof_tsml_3layer_tower.py`. Manuscript: `WP_OPERATOR_RING_PARTITION.md`,
 `Q7_BHML_FULL_TABLE.md`.*
 
-### §7.6 · TSML three-layer canonical tower
+### §7.6 · TSML_10 three-layer canonical tower
 
-The full TSML composition table on $\mathbb{Z}/10\mathbb{Z}$ (100 entries)
+The canonical TSML_10 composition table on $\mathbb{Z}/10\mathbb{Z}$ (100 entries)
 decomposes as a three-layer tower: a base layer of 92 cells governed by the
 canonical operator $C_0$, a maximum-rule layer of 6 cells, and an additive-rule
 layer of 2 cells. The decomposition is canonical, terminating, and has empty
-residue.
+residue. (The theorem is specific to TSML_10; the other family members in
+§6.6 of FORMULAS are *not* covered by this decomposition.)
 
 *Verified: 100/100 cells match; each layer necessary; domains partition exactly.
 Proof script: `papers/proof_tsml_3layer_tower.py`. Manuscript: Sprint 17
@@ -484,7 +494,7 @@ python papers/proof_d_first_g.py
 # σ-rate bound: exact at N ∈ {10, 30, 210}
 python papers/proof_sigma_rate.py
 
-# TSML three-layer tower: 100/100 decomposition verified
+# TSML_10 three-layer tower: 100/100 decomposition verified
 python papers/proof_tsml_3layer_tower.py
 
 # Flatness Theorem: T* = 5/7 from φ fixed point
