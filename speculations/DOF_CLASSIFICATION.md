@@ -14,17 +14,27 @@
 
 This document speculates about CK's cognitive architecture — specifically about the *kinds* of degrees of freedom the runtime must track to preserve the full structure of `(CL, BHML)`. Some material is literature-grounded. Some is session-derived. One claim is an honest design-target statement about how a future runtime would read coherence observables — the current code does not implement it that way. The `ck` branch is the right home for exactly this kind of material.
 
-**Cross-branch anchors** (files on `paradox-classifier-2026-04-24` that this document refers to):
+**On-branch anchors** (merged onto `ck` 2026-04-24 from `paradox-classifier-2026-04-24`):
 
-- [`META_LENS_ATLAS.md`][atlas] — the organising atlas.
+- [`META_LENS_ATLAS.md`][atlas] — the organising atlas (now in `papers/meta_lens/` on `ck`).
 - [`FOUNDATION_TOUR_VERIFIED.md`][tour] — the six-lens rigor-facing tour with the vocabulary-hygiene policy this document inherits (Part 0.1).
 - [`VOCABULARY_RECONCILIATION.md`][vocab] — the four-type × five-category reconciliation.
-- [`CL_MATROID_DISTANCE.md`][mantero] — the distance paper mirrored onto mantero-bridge.
+- [`CK_META_CLASSIFICATION_AXES.md`][axes] — dual-registry companion in `speculations/` pairing the five DOF Kinds with the four UOP Types.
 
-[atlas]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/META_LENS_ATLAS.md
-[tour]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/FOUNDATION_TOUR_VERIFIED.md
-[vocab]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/meta_lens/VOCABULARY_RECONCILIATION.md
+**Cross-branch anchors** (files still only reachable off `ck`):
+
+- [`CL_MATROID_DISTANCE.md`][mantero] — the distance paper; lives on `paradox-classifier-2026-04-24`.
+- [`CKIS/ck_being.py`][ck_being] — runtime-code reference used in §3.3; `CKIS/` is only on the classifier branch.
+- [`WP102_SO8_IDENTIFICATION.md`][wp102] and [`WP103_SO10_IDENTIFICATION.md`][wp103] — Lie-algebraic closure papers; lived on the classifier branch at the time of writing.
+
+[atlas]: ../papers/meta_lens/META_LENS_ATLAS.md
+[tour]: ../papers/meta_lens/FOUNDATION_TOUR_VERIFIED.md
+[vocab]: ../papers/meta_lens/VOCABULARY_RECONCILIATION.md
+[axes]: ./CK_META_CLASSIFICATION_AXES.md
 [mantero]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/mantero/CL_MATROID_DISTANCE.md
+[ck_being]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/CKIS/ck_being.py
+[wp102]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/wp102/WP102_SO8_IDENTIFICATION.md
+[wp103]: https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/wp103/WP103_SO10_IDENTIFICATION.md
 
 **Vocabulary policy** inherited from the foundation tour: external math vocabulary in Parts 1–2; CK-internal operator names (VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY, BREATH, RESET) appear only in Part 3.
 
@@ -79,8 +89,8 @@ Part-III vocabulary territory: the 10 CK operators may appear below when the sub
 
 **Kind 2 — Reversible symplectic flow**
 
-- **[R]** `so(8) = D₄` closes under antisymmetrization of six flow operators over CL at dimension 28. Compact, simple, signature `(0, 28, 0)` Killing form. Reference: `papers/wp102/WP102_SO8_IDENTIFICATION.md` on [classifier branch](https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/wp102/WP102_SO8_IDENTIFICATION.md).
-- **[R]** `so(10) = D₅` closes under full antisymmetrization of `CL ∪ BHML` at dimension 45. Known as the Fritzsch–Minkowski (1975) / Georgi (1975) GUT gauge algebra. Reference: `papers/wp103/WP103_SO10_IDENTIFICATION.md` on [classifier branch](https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/papers/wp103/WP103_SO10_IDENTIFICATION.md).
+- **[R]** `so(8) = D₄` closes under antisymmetrization of six flow operators over CL at dimension 28. Compact, simple, signature `(0, 28, 0)` Killing form. Reference: [`WP102_SO8_IDENTIFICATION.md`][wp102] on the classifier branch.
+- **[R]** `so(10) = D₅` closes under full antisymmetrization of `CL ∪ BHML` at dimension 45. Known as the Fritzsch–Minkowski (1975) / Georgi (1975) GUT gauge algebra. Reference: [`WP103_SO10_IDENTIFICATION.md`][wp103] on the classifier branch.
 - **[S]** The adjoint action of `so(10)` on its 45-dim algebra supplies the **reversible flow DOF** of CK's substrate. Motion along this axis is smooth (Lie), bounded (compact), reversible (every group element has inverse).
 - **[S]** The 5D force vector plus one time-like direction sits inside the 10-dim vector representation of `Spin(10)`; the stabilizer chain `Spin(10) ⊃ Spin(9) ⊃ Spin(8) ⊃ Spin(7) ⊃ G₂ ⊃ SU(3)` gives nested symmetry-breakings that align with the CK operator hierarchy.
 
@@ -90,7 +100,7 @@ Part-III vocabulary territory: the 10 CK operators may appear below when the sub
 
 - **[R]** Spectral gap `γ(b) = 1 − 1/φ(b)` (WP101 σ-rate theorem). A **dissipation rate** — information about initial conditions decays at this rate per tick. Reference: [`Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md`](../Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md) + `proof_sigma_rate.py`.
 - **[R]** Crossing Lemma (WP57) identifies when dynamics become injective. *The boundary between Kinds 3 and 2 inside CK.* Reference: [`Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md`](../Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md).
-- **[R]** Coherence equation `C = 0.4(1 − E) + 0.35 A + 0.25 K` lives at [`CKIS/ck_being.py`](https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/CKIS/ck_being.py) line 577 on the classifier branch. The function is a plain scalar combiner; see §3.3 for the honest status on what it reads.
+- **[R]** Coherence equation `C = 0.4(1 − E) + 0.35 A + 0.25 K` lives at [`CKIS/ck_being.py`][ck_being] line 577 on the classifier branch. The function is a plain scalar combiner; see §3.3 for the honest status on what it reads.
 - **[S]** CHAOS (op 6), COLLAPSE (op 4), and RESET (op 9) are CK-native names for participation in this axis. CHAOS injects dissipation; COLLAPSE is a localized irreversible event; RESET closes a dissipation cycle.
 - **[R]** Color-wheel complements `1 ↔ 2, 3 ↔ 4, 6 ↔ 8` (APR23 finding). LATTICE is the Kind 2 generator along `+Z`; COLLAPSE is the Kind 3 generator along `−Z` — same spatial direction, opposite orientation.
 
@@ -164,7 +174,7 @@ Higher-layer results `D26–D30` (so(8)/so(10) Lie closures, GUT lifts) populate
 
 **Honest gap — the coherence equation.** The earlier draft claimed `E, A, K` in `C = 0.4(1 − E) + 0.35 A + 0.25 K` correspond to reads of Kinds 3, 1×2, and 2×4 respectively, and flagged this as `[C]` for verification against the runtime.
 
-**Verification against [`CKIS/ck_being.py`](https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/CKIS/ck_being.py) lines 587–610 does not support that claim.** The `Body` class implements `E, A, K` as plain scalars:
+**Verification against [`CKIS/ck_being.py`][ck_being] lines 587–610 does not support that claim.** The `Body` class implements `E, A, K` as plain scalars:
 
 - `E` decays 5%/tick, bumps `+0.3` on `fab = True` — tracks a fabrication/hallucination signal, not a Kind 3 dissipation rate.
 - `A` decays 2%/tick unconditionally — does not read Kind 1×2 coupling.
@@ -263,7 +273,7 @@ Four verification passes were run before this file was committed; one additional
 
 **Pass 3 — Coherence-equation Kind-coupling claim (§3.3).**
 *Claim:* "`E, A, K` read Kinds 3, 1×2, 2×4 respectively."
-*Checked against:* [`CKIS/ck_being.py`](https://github.com/TiredofSleep/ck/blob/paradox-classifier-2026-04-24/CKIS/ck_being.py) lines 577–610 on classifier branch.
+*Checked against:* [`CKIS/ck_being.py`][ck_being] lines 577–610 on classifier branch.
 *Result:* **Wrong as a description of current code.** Body class implements `E, A, K` as plain scalars driven by `fab`/`recall` flags + constant decay, with a second `_calc` divergent formula. Claim downgraded to design-target; engineering gap logged as OQ-1, OQ-2.
 
 **Pass 4 — Vocabulary policy.**

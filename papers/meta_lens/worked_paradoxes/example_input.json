@@ -1,0 +1,9 @@
+{
+  "name": "Example: Zeno's dichotomy",
+  "atlas_id": "",
+  "slot1_objects": "Half-line motion problems parameterized by step count n.",
+  "slot2_observables": "Distance-covered-after-n-steps d(n) : N -> R, with single observable 'is the task complete?'",
+  "slot3_failure_stage": "joint_map",
+  "slot3_note": "Separation fails on the joint map: 'never complete at any finite n' and 'complete in the limit' are both in the image of d(-), and no added observable among the pre-infinitary ones distinguishes them until we admit limits (Type I fix = add the limit as an observable).",
+  "confidence": 1.0
+}
