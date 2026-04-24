@@ -446,7 +446,8 @@ Fritzsch-Minkowski, and Georgi via
 
 **Criterion 3 — independent research community.** **CK does not yet
 have it.** The current CK-engaged research community is: Brayden
-Sanders, C. A. Luther, Jay Thornton, Ben Mayes (WP58 UOP co-author),
+Sanders, C. A. Luther, Ben Mayes (WP58 UOP co-author), H. J. Johnson
+(Sprint 14 ξ cosmology co-author), M. Gish (Sprint 14 co-author),
 and three AI systems (Claude, Claude Code, Grok). Dr. Paolo Mantero
 is in warm contact via `mantero-bridge-2026-04-23` but has not yet
 published independently on CK's specific claims. No external
