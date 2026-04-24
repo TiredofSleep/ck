@@ -9,7 +9,7 @@ Macaulay2 run (`compute_betti.m2` / `betti_output.txt` in this folder).
 free resolution, non-Cohen-Macaulay character, and associative
 deformation of the binomial ideal
 $I = (x_i x_j - x_{\mathrm{CL}[i][j]} \cdot x_0) \subset k[x_0, \ldots, x_9]$.
-The v1 question ("what is $\operatorname{pd}$? is it Koszul?") is now
+The v1 question ("what is $\mathrm{pd}$? is it Koszul?") is now
 answered — the open question is whether the explicit non-linear
 syzygies of $R/I$ have a structural explanation, e.g. via the
 associative deformation of the underlying magma.
@@ -109,12 +109,12 @@ length.
 
 **Derived invariants:**
 
-- $\operatorname{numgens} I = 53$
-- $\operatorname{codim} I = 9$
+- $\mathrm{numgens}\, I = 53$
+- $\mathrm{codim}\, I = 9$
 - $\dim A = 1$
-- $\operatorname{pd}_R(R/I) = 10$, $\operatorname{depth}(R/I) = 0$
+- $\mathrm{pd}_R(R/I) = 10$, $\mathrm{depth}(R/I) = 0$
 - Auslander-Buchsbaum saturates:
-  $\operatorname{pd} + \operatorname{depth} = 10 = \operatorname{numgens} R$.
+  $\mathrm{pd} + \mathrm{depth} = 10 = \mathrm{numgens}\, R$.
 - **$A$ is not Cohen-Macaulay.**
 - **$A$ is not Koszul** (the degree-$2$ row of the Betti table —
   $\beta_{i, i+2}$ — is nonzero at $\beta_{8,10}=1$, $\beta_{9,11}=2$,
@@ -142,7 +142,7 @@ under iteration on the 10-element ground set.
 
 ### 3. What I am asking
 
-The original v1 questions ("what is $\operatorname{pd}_R(A)$? is $A$
+The original v1 questions ("what is $\mathrm{pd}_R(A)$? is $A$
 Koszul?") are now answered by Section 2 above. The question I am
 asking is one level up:
 

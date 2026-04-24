@@ -29,7 +29,7 @@ quotient $A = R/I$ has reduced Hilbert series
 $\mathrm{HS}_A(t) = (1 + 9t - 8t^2 - t^3)/(1 - t)$, so the Hilbert
 function is $h(n) = 1, 10, 2, 1, 1, 1, \ldots$ stabilising at
 $\deg A = 1$; codimension 9, Krull dimension 1, projective dimension
-$\operatorname{pd}_R A = 10$, depth $0$, and $A$ is *not*
+$\mathrm{pd}_R A = 10$, depth $0$, and $A$ is *not*
 Cohen-Macaulay. The Stanley-Reisner companion $\Delta_B$ is pure of
 rank 7 on 10 vertices but **not** matroidal (21.9% of basis-exchange
 pair-tests fail). All numbers verified in Macaulay2 1.22 via
@@ -70,8 +70,8 @@ In brief:
 
 1. **Hilbert + pd (Macaulay2 2026-04-24).**
    $\mathrm{HS}_A(t) = (1 + 9t - 8t^2 - t^3)/(1 - t)$.
-   $\operatorname{codim} I = 9$, $\dim A = 1$,
-   $\operatorname{pd}_R A = 10$, $\operatorname{depth} A = 0$. **A is
+   $\mathrm{codim}\, I = 9$, $\dim A = 1$,
+   $\mathrm{pd}_R A = 10$, $\mathrm{depth}\, A = 0$. **A is
    not Cohen-Macaulay** (Auslander-Buchsbaum saturates: pd + depth =
    10 = numgens R). The bottom strand of the Betti table is nonzero
    at $\beta_{8,10}=1, \beta_{9,11}=2, \beta_{10,12}=1$, so **A is

@@ -41,9 +41,9 @@ numbers, see
 For $A = R/I$ the machine-verified invariants are
 
 - numgens $I = 53$
-- $\operatorname{codim} I = 9$
+- $\mathrm{codim}\, I = 9$
 - $\dim A = 1$
-- $\operatorname{pd}_R A = 10$, $\operatorname{depth} A = 0$
+- $\mathrm{pd}_R A = 10$, $\mathrm{depth}\, A = 0$
 - $A$ is **not Cohen-Macaulay**
 - reduced Hilbert series
   $\mathrm{HS}_A(t) = \dfrac{1 + 9 t - 8 t^2 - t^3}{1 - t}$
@@ -62,13 +62,12 @@ standard; any downstream claim still written as "stabilizes at 6" or
 
 **Mantero's framework:** Cohen-Macaulayness and projective dimension
 bounds on binomial / toric ideals. Auslander-Buchsbaum requires
-$\operatorname{pd}_R A + \operatorname{depth} A = \operatorname{pd}_R k
-= 10$; the Macaulay2 run confirms this identity with
-$\operatorname{pd} = 10$ and $\operatorname{depth} = 0$, putting $A$
-maximally far from Cohen-Macaulay.
+$\mathrm{pd}_R A + \mathrm{depth}\, A = \mathrm{pd}_R k = 10$;
+the Macaulay2 run confirms this identity with $\mathrm{pd} = 10$ and
+$\mathrm{depth} = 0$, putting $A$ maximally far from Cohen-Macaulay.
 
 **Bridge:** $A$ sits at the *worst possible* position on the CM axis —
-depth zero, pd saturating the $\operatorname{pd} \le \dim R$ bound. The
+depth zero, pd saturating the $\mathrm{pd} \le \dim R$ bound. The
 non-Cohen-Macaulay defect is therefore an invariant that can be
 computed and compared against the non-matroidal part of the table; the
 connection to Mantero's focal-matroid machinery (Bridge 2) is what we
