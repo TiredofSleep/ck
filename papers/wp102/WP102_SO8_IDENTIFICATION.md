@@ -1,4 +1,6 @@
-# WP11 — The Lie Algebra Structure of the Coherence Lattice
+# WP102 — The Lie Algebra Structure of the Coherence Lattice
+
+*(Renamed 2026-04-24 from "WP11" to avoid collision with the canonical WP11 "The Measurement Problem" in the TIG whitepaper series. The content, theorem, and verification script are unchanged; only the WP-number label is updated.)*
 
 ## An so(8) Identification for the Trinity Infinity Geometry Frozen Magma
 
@@ -245,15 +247,17 @@ Proposition 6.2 identifies Δ_B as a *pure-but-not-matroidal* simplicial complex
 
 ## 7. Related algebraic computations
 
-The binomial ideal I_CL := (x_i x_j − x_{CL[i][j]} · x_0 : 0 ≤ i ≤ j ≤ 9) ⊂ R has:
+The binomial ideal I_CL := (x_i x_j − x_{CL[i][j]} · x_0 : 0 ≤ i ≤ j ≤ 9) ⊂ R has (verified in Macaulay2 1.22 via SageMathCell, 2026-04-24; log at `../sprint_20260423_full/09_mathoverflow_post/betti_output.txt`):
 
 - **53 independent quadratic generators** (from the 55 pairs, with 2 linear dependencies).
-- **Hilbert function**: dim_k A_n = 1, 10, 6, 6, 6, 6, … for n = 0, 1, 2, 3, 4, 5 where A := R / I_CL.
-- **Krull dimension**: dim A = 6, height I_CL = 10 − 6 = 4.
+- **codim I_CL = 9**, **dim A = 1**.
+- **pd_R(A) = 10**, **depth(A) = 0** — so A is **not Cohen-Macaulay** (Auslander-Buchsbaum saturates: pd + depth = 10 = numgens R).
+- Reduced Hilbert series: `(1 + 9T − 8T² − T³) / (1 − T)` → stable Hilbert function `h(n) = 1, 10, 2, 1, 1, 1, …` with polynomial part `P_0(n) = 1`.
+- Not Koszul: the bottom strand of the Betti table is nonzero at β_{8,10}=1, β_{9,11}=2, β_{10,12}=1.
 
-The stable image set {0, 3, 4, 7, 8, 9} is the CL-fold attractor; its complement {1, 2, 5, 6} is the transient (nilpotent-like) subset.
+The stable image set {0, 3, 4, 7, 8, 9} is the CL-fold attractor in the underlying magma; its complement {1, 2, 5, 6} is the transient (nilpotent-like) subset.
 
-We conjecture (open question, §9) that A is Cohen–Macaulay — in which case, by Auslander–Buchsbaum, the projective dimension is pd(A) = 4.
+**Historical note (2026-04-23).** A prior Python computation (`../sprint_20260423_full/04_mantero_bridge/cl_as_quadratic_algebra.py`) reported `h(n) = 1, 10, 6, 6, 6, …` stabilising at 6 with height 4; that script was computing a different quotient structure (degree-2 relations matrix with an auxiliary `x_i x_j → x_{CL[i][j]} · x_0` substitution) and is not the Hilbert function of R/I_CL. The Macaulay2 numbers above are the reference standard.
 
 ---
 

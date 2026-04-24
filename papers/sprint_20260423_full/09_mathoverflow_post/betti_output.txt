@@ -1,0 +1,70 @@
+### Macaulay2 execution log for compute_betti.m2
+### Script: C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\papers\sprint_20260423_full\09_mathoverflow_post\compute_betti.m2
+### Command: M2 --script compute_betti.m2
+### M2 version: 1.22  (SageCell container, Sage 10.x)
+### Execution host: SageMathCell (sagecell.sagemath.org) — remote fallback,
+###   because no local M2 install was achievable on this Windows 11 machine
+###   without admin rights (no choco / winget package / Cygwin M2 repo / WSL / Docker).
+### Return code: 0
+### Date: 2026-04-24
+
+Raw binomial generators produced: 53
+Trimmed ideal I_CL: numgens = 53
+                    codim   = 9
+                    dim R/I = 1
+                    deg R/I = 1
+
+Computing minimal free resolution...
+
+=== BETTI TABLE of R/I_CL ===
+       0  1   2   3    4    5    6   7   8  9 10
+total: 1 53 311 909 1644 1974 1602 861 285 48  2
+    0: 1  .   .   .    .    .    .   .   .  .  .
+    1: . 53 311 909 1644 1974 1602 861 284 46  1
+    2: .  .   .   .    .    .    .   .   1  2  1
+
+Resolution length:            10
+pd(R/I_CL)       =            10
+pd(I_CL)         =            9
+
+n (= numgens R)  =            10
+dim R/I          =            1
+depth R/I (A-B)  =            0
+Cohen-Macaulay?  =            false
+
+Hilbert series of R/I (numerator, denominator):
+       2       3       4        5        6        7       8       9      10    11    12
+1 - 53T  + 311T  - 909T  + 1644T  - 1974T  + 1602T  - 861T  + 284T  - 45T   - T   + T
+---------------------------------------------------------------------------------------
+                                              10
+                                       (1 - T)
+                         2    3
+              1 + 9T - 8T  - T
+reduced form: -----------------
+                   (1 - T)
+
+Hilbert polynomial of R/I:
+P
+ 0
+
+Ranks of free modules in the minimal free resolution:
+  F_0  rank = 1
+  F_1  rank = 53
+  F_2  rank = 311
+  F_3  rank = 909
+  F_4  rank = 1644
+  F_5  rank = 1974
+  F_6  rank = 1602
+  F_7  rank = 861
+  F_8  rank = 285
+  F_9  rank = 48
+  F_10  rank = 2
+
+Tor dim beta_0 = 1
+Tor dim beta_1 = 53
+Tor dim beta_2 = 311
+Tor dim beta_3 = 909
+Tor dim beta_4 = 1644
+Tor dim beta_5 = 1974
+
+=== DONE ===

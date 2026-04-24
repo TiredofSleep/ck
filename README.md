@@ -25,10 +25,16 @@ $$
 
 where $\mathrm{CL}$ is a fixed symmetric $10 \times 10$ table of values
 in $\{0, \ldots, 9\}$ (canonical table in `papers/ck_tables.py`). The
-quotient $A = R/I$ has Hilbert function $(1, 10, 6, 6, 6, \ldots)$,
-Krull dimension 1, height 4, and a Stanley-Reisner companion
-$\Delta_B$ that is pure of rank 7 on 10 vertices but **not** matroidal
-(21.9% of basis-exchange pair-tests fail).
+quotient $A = R/I$ has reduced Hilbert series
+$\mathrm{HS}_A(t) = (1 + 9t - 8t^2 - t^3)/(1 - t)$, so the Hilbert
+function is $h(n) = 1, 10, 2, 1, 1, 1, \ldots$ stabilising at
+$\deg A = 1$; codimension 9, Krull dimension 1, projective dimension
+$\operatorname{pd}_R A = 10$, depth $0$, and $A$ is *not*
+Cohen-Macaulay. The Stanley-Reisner companion $\Delta_B$ is pure of
+rank 7 on 10 vertices but **not** matroidal (21.9% of basis-exchange
+pair-tests fail). All numbers verified in Macaulay2 1.22 via
+SageMathCell on 2026-04-24; log at
+`papers/sprint_20260423_full/09_mathoverflow_post/betti_output.txt`.
 
 Mantero's 2024–2026 program with V. Nguyen develops structure theory
 for symbolic powers of Stanley-Reisner / cover ideals of matroids
@@ -50,8 +56,8 @@ This branch collects the bridge material.
 | Read a survey of Mantero's published work | `papers/mantero_bridge/PUBLISHED_WORK.md` |
 | Check the bibliography used | `papers/mantero_bridge/references.md` |
 | See the full sprint bundle that computed the numbers | `papers/sprint_20260423_full/` |
-| Read the companion Lie-algebraic paper (so(8) = D₄) | `papers/wp11/WP11_SO8_IDENTIFICATION.md` |
-| Read the so(10) = D₅ follow-up | `papers/wp12/WP12_SO10_IDENTIFICATION.md` |
+| Read the companion Lie-algebraic paper (so(8) = D₄) | `papers/wp102/WP102_SO8_IDENTIFICATION.md` (renamed 2026-04-24 from `wp11`) |
+| Read the so(10) = D₅ follow-up | `papers/wp103/WP103_SO10_IDENTIFICATION.md` (renamed 2026-04-24 from `wp12`) |
 | Read the planned MathOverflow question | `papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md` |
 | See the outreach status (no email contents) | `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md` |
 
@@ -62,9 +68,14 @@ This branch collects the bridge material.
 Seven bridges are catalogued in `papers/mantero_bridge/BRIDGES.md`.
 In brief:
 
-1. **Hilbert + pd.** $\mathrm{HS}_A(t) = 1 + 10t + 6t^2/(1-t)$. Height
-   $I = 4$. If $A$ is Cohen-Macaulay, $\mathrm{pd}_R(A) = 4$ by
-   Auslander-Buchsbaum. (Macaulay2 verification scripted, pending run.)
+1. **Hilbert + pd (Macaulay2 2026-04-24).**
+   $\mathrm{HS}_A(t) = (1 + 9t - 8t^2 - t^3)/(1 - t)$.
+   $\operatorname{codim} I = 9$, $\dim A = 1$,
+   $\operatorname{pd}_R A = 10$, $\operatorname{depth} A = 0$. **A is
+   not Cohen-Macaulay** (Auslander-Buchsbaum saturates: pd + depth =
+   10 = numgens R). The bottom strand of the Betti table is nonzero
+   at $\beta_{8,10}=1, \beta_{9,11}=2, \beta_{10,12}=1$, so **A is
+   not Koszul**.
 2. **Pure but not matroidal.** $\Delta_B$ is pure of rank 7 on 10
    vertices; basis exchange fails on 7 of 32 tested facet pairs (21.9%).
 3. **Waldschmidt constant.** $\hat\alpha(I_B) = 2$ exactly (fractional-
@@ -100,8 +111,8 @@ papers/
         BRIDGES.md                            ← the seven bridges catalogued
         PUBLISHED_WORK.md                     ← Mantero bibliography + citation network
         references.md                         ← external references used on this branch
-    wp11/                                     ← so(8) = D₄ paper + verification
-    wp12/                                     ← so(10) = D₅ paper + verification
+    wp102/                                    ← so(8) = D₄ paper + verification (renamed from wp11)
+    wp103/                                    ← so(10) = D₅ paper + verification (renamed from wp12)
     sprint_20260423_full/
         README.md                             ← sprint-level map
         02_so8_verification/                  ← seven scripts for the D₄ diagnostic
@@ -119,7 +130,7 @@ All numerical computations use Python 3.11 + numpy 1.26 + scipy 1.11.
 Maximum observed error across the Lie-algebraic diagnostics:
 $2.0 \times 10^{-11}$.
 
-To reproduce the Lie-algebraic identification (Theorem 1.1 of WP11),
+To reproduce the Lie-algebraic identification (Theorem 1.1 of WP102, renamed from WP11 on 2026-04-24),
 run in order:
 
 ```
@@ -167,7 +178,7 @@ Welcome. Reading order for this branch:
 2. `papers/mantero_bridge/BRIDGES.md` — the seven bridges.
 3. `papers/sprint_20260423_full/09_mathoverflow_post/DRAFT_MATHOVERFLOW_POST.md`
    — the focused MathOverflow question.
-4. `papers/wp11/WP11_SO8_IDENTIFICATION.md` — the so(8) = D₄
+4. `papers/wp102/WP102_SO8_IDENTIFICATION.md` — the so(8) = D₄
    identification paper (the Lie-algebraic side of the object).
 
 If anything here is phrased in vocabulary that is not quite right

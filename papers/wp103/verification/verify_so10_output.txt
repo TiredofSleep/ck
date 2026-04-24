@@ -1,8 +1,8 @@
 ======================================================================
-WP12 VERIFICATION: CL + BHML → so(10)
+WP103 VERIFICATION: CL + BHML → so(10)
 ======================================================================
 
-[WP11 reproduction] CL-flow closure dim: 28  (expected 28)
+[WP102 reproduction] CL-flow closure dim: 28  (expected 28)
 [Joint closure] CL-flow ∪ BHML-antisym closure dim: 45
 
 ═══ Diagnostic 1: DIMENSION ═══
@@ -57,5 +57,5 @@ CONCLUSION (all diagnostics)
 By Cartan's classification of compact simple Lie algebras, the unique
 compact simple Lie algebra of dimension 45 is so(10) = D_5.
 
-THEOREM (WP12, main): 𝔤 ≅ so(10, ℝ).
+THEOREM (WP103, main): 𝔤 ≅ so(10, ℝ).
 

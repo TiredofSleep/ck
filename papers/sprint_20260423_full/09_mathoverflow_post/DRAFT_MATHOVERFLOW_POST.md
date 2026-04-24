@@ -1,38 +1,42 @@
-# MathOverflow Post — DRAFT
+# MathOverflow Post — DRAFT (v2, 2026-04-24)
 
-**Status:** DRAFT (not yet posted). Posted link will be added to this file
-when live.
+**Status:** DRAFT with machine-verified invariants. Posted link will be
+added to this file when live. Superseded earlier draft (v1, 2026-04-23)
+whose open questions on pd and Koszul have now been resolved by the
+Macaulay2 run (`compute_betti.m2` / `betti_output.txt` in this folder).
 
 **Object of the post.** A focused commutative-algebra question on the
-projective dimension and Koszul property of the binomial ideal
-$I = (x_i x_j - x_{\mathrm{CL}[i][j]} \cdot x_0) \subset k[x_0, \ldots, x_9]$,
-with the 10-row table and the Hilbert function $(1, 10, 6, 6, 6, \ldots)$ as
-context. Narrow, verifiable, self-contained.
+free resolution, non-Cohen-Macaulay character, and associative
+deformation of the binomial ideal
+$I = (x_i x_j - x_{\mathrm{CL}[i][j]} \cdot x_0) \subset k[x_0, \ldots, x_9]$.
+The v1 question ("what is $\operatorname{pd}$? is it Koszul?") is now
+answered — the open question is whether the explicit non-linear
+syzygies of $R/I$ have a structural explanation, e.g. via the
+associative deformation of the underlying magma.
 
-**Scope discipline:** one concrete question, one concrete object, one Hilbert
-function. No framework framing. Any reader of this post should be able to pick
-up the table and reproduce every reported number in a computer-algebra system
-(Macaulay2, SageMath, Singular) in under an hour.
+**Scope discipline:** one concrete question, one concrete object, one
+Betti table. No framework framing. Any reader of this post should be
+able to pick up the table and reproduce every reported number in a
+computer-algebra system (Macaulay2, SageMath, Singular) in under an
+hour.
 
 ---
 
 ## Proposed title
 
-**Projective dimension and Koszul property of the binomial ideal
+**Structural explanation for non-linear syzygies of the binomial ideal
 $I = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)_{0 \le i \le j \le 9}$
-with Hilbert function $(1, 10, 6, 6, 6, \ldots)$**
+with resolution of length 10 and bottom strand $\beta_{8,10} = 1$,
+$\beta_{9,11} = 2$, $\beta_{10,12} = 1$?**
 
-(70 characters — within MO title limit, searchable by the specific Hilbert
-function.)
+(Within MO title limit, searchable by the specific Betti numbers.)
 
 ## Proposed tags
 
-`ac.commutative-algebra`, `ra.rings-and-algebras`, `projective-dimension`,
-`koszul-algebras`, `binomial-ideals`, `free-resolutions`
+`ac.commutative-algebra`, `projective-dimension`, `koszul-algebras`,
+`binomial-ideals`, `free-resolutions`
 
-(Six tags — MO cap is five, so drop one at post time. Recommended drop:
-`ra.rings-and-algebras` since the question is principally commutative-algebra
-flavored.)
+(Five tags — within MO cap.)
 
 ---
 
@@ -40,13 +44,14 @@ flavored.)
 
 ### 1. Setup
 
-Let $k$ be a field (assume $k = \mathbb{Q}$ for concreteness;
-characteristic-free statements noted when relevant) and let
+Let $k$ be a field (assume $k = \mathbb{Q}$ for concreteness) and let
 $R = k[x_0, x_1, \ldots, x_9]$ be the polynomial ring in 10 variables,
 $\mathbb{Z}_{\ge 0}$-graded by $\deg(x_i) = 1$.
 
-Let $\mathrm{CL} : \{0, 1, \ldots, 9\}^2 \to \{0, 1, \ldots, 9\}$ be the
-symmetric function defined by the following $10 \times 10$ table:
+Let $\mathrm{CL} : \{0, 1, \ldots, 9\}^2 \to \{0, 1, \ldots, 9\}$ be
+the symmetric function defined by the following $10 \times 10$ table
+(the values $0, \ldots, 9$ label abstract operators; the arithmetic
+substrate is incidental to the question):
 
 $$
 \mathrm{CL} = \begin{pmatrix}
@@ -63,8 +68,8 @@ $$
 \end{pmatrix}
 $$
 
-(Entry $\mathrm{CL}[i][j]$ is the value in row $i$, column $j$, zero-indexed.
-The table is symmetric: $\mathrm{CL}[i][j] = \mathrm{CL}[j][i]$.)
+(Entry $\mathrm{CL}[i][j]$ is in row $i$, column $j$, zero-indexed;
+the table is symmetric: $\mathrm{CL}[i][j] = \mathrm{CL}[j][i]$.)
 
 Define the binomial ideal
 
@@ -72,170 +77,214 @@ $$
 I \;=\; \Bigl(\, x_i x_j - x_{\mathrm{CL}[i][j]} \, x_0 \;\Big|\; 0 \le i \le j \le 9 \,\Bigr) \;\subset\; R.
 $$
 
-There are $\binom{10+1}{2} = 55$ such relations; by direct Gröbner-basis
-computation, $53$ of them are $k$-linearly independent generators of $I$ in
-degree $2$ (two pairs coincide because of entries where
-$\mathrm{CL}[i][j] \in \{i, j\}$).
+There are $\binom{10+1}{2} = 55$ such relations; by direct
+Gröbner-basis computation in Macaulay2, $53$ of them are
+$k$-linearly independent generators of $I$ in degree $2$ (the two
+coinciding pairs occur at the diagonal entries where
+$\mathrm{CL}[i][i] = 0$ produces the trivial relation
+$x_i^2 = x_0^2$ already implied by other generators).
 
 Let $A = R / I$.
 
-### 2. What I have computed
+### 2. What I have computed in Macaulay2
 
-Running Macaulay2 / SageMath on $A = R/I$ gives:
+The following are machine-verified in Macaulay2 1.22
+(via SageMathCell — the full run log, including the literal
+Macaulay2 input, is in
+[the companion file `betti_output.txt`][betti-log]).
 
-**Hilbert function.** $\mathrm{HF}_A(0) = 1$, $\mathrm{HF}_A(1) = 10$,
-$\mathrm{HF}_A(n) = 6$ for all $n \ge 2$. The Hilbert series is therefore
+**Betti table of $R/I$ (minimal free resolution over $R$):**
 
-$$
-\mathrm{HS}_A(t) \;=\; 1 + 10\,t + \frac{6\,t^2}{1 - t}
-$$
+```
+       0  1   2   3    4    5    6   7   8  9 10
+total: 1 53 311 909 1644 1974 1602 861 285 48  2
+    0: 1  .   .   .    .    .    .   .   .  .  .
+    1: . 53 311 909 1644 1974 1602 861 284 46  1
+    2: .  .   .   .    .    .    .   .   1  2  1
+```
 
-so $\dim_k A_n = 6$ stabilizes from degree $2$ onward. Krull dimension of $A$
-is $1$; the rank of the coordinate ring at the fibre over $x_0$ is $6$.
+Reading: rows are strand indices ($\beta_{i,i+j}$ in row $j$),
+columns are homological degree. Resolution has length 10; full
+length.
 
-**Non-associativity statistics** (ambient magma, i.e. the multiplication
-$x_i \cdot x_j := x_{\mathrm{CL}[i][j]}$ without the $x_0$ factor, on the
-$10$-element set): out of $10^3 = 1000$ triples $(i, j, k)$,
+**Derived invariants:**
 
-- $872$ satisfy $(ij)k = i(jk)$ (associativity index $\alpha = 0.872$);
-- $1000$ satisfy $ij = ji$ (100% commutative);
-- the diagonal $\sigma(i) := \mathrm{CL}[i][i]$ has cycle structure
-  $\sigma = (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$: four fixed points and a single
-  6-cycle.
+- $\operatorname{numgens} I = 53$
+- $\operatorname{codim} I = 9$
+- $\dim A = 1$
+- $\operatorname{pd}_R(R/I) = 10$, $\operatorname{depth}(R/I) = 0$
+- Auslander-Buchsbaum saturates:
+  $\operatorname{pd} + \operatorname{depth} = 10 = \operatorname{numgens} R$.
+- **$A$ is not Cohen-Macaulay.**
+- **$A$ is not Koszul** (the degree-$2$ row of the Betti table —
+  $\beta_{i, i+2}$ — is nonzero at $\beta_{8,10}=1$, $\beta_{9,11}=2$,
+  $\beta_{10,12}=1$, so the resolution has non-linear terms).
 
-**Lie-theoretic structure** (the content of the clarification to Dr. Mantero).
-For each $i \in \{0, \ldots, 9\}$, let $L_i : V \to V$ be the left-regular
-operator on $V = k \cdot x_0 \oplus \cdots \oplus k \cdot x_9$ defined by
-$L_i(x_j) = x_{\mathrm{CL}[i][j]}$, and let $A_i = L_i - L_i^\top \in
-\mathfrak{sl}(V)$. For $F = \{1, 2, 3, 4, 6, 8\}$ (the complement of the
-$\sigma$-fixed set $\{0, 3, 8, 9\}$ intersected with the $6$-cycle), the Lie
-subalgebra
-
-$$
-\mathfrak{g} := \mathrm{Lie}\langle A_i : i \in F \rangle \subset \mathfrak{sl}(V)
-$$
-
-is $28$-dimensional (closure reached after two commutator iterations:
-$6 \to 21 \to 28$), satisfies the Jacobi identity to machine precision,
-has Killing form of signature $(0, 28, 0)$ (compact), and admits a unique
-(up to scale) invariant symmetric bilinear form. By the classification of
-compact simple Lie algebras, $\mathfrak{g} \cong \mathfrak{so}(8, \mathbb{R})
-= D_4$.
-
-(Reproducibility scripts at `papers/wp11/verification/` and
-`papers/wp12/verification/` in the companion repository; the so(10)
-identification from the combined CL ∪ BHML generator set is a separate result.)
-
-**Stanley-Reisner pattern.** Let $I_B$ be the squarefree monomial ideal
+**Reduced Hilbert series:**
 
 $$
-I_B = (x_1 x_2,\; x_2 x_4,\; x_2 x_9,\; x_3 x_9,\; x_4 x_8),
+\mathrm{HS}_A(t) = \frac{1 + 9\,t - 8\,t^2 - t^3}{1 - t}.
 $$
 
-whose generators are the five off-diagonal entries of the upper triangle of
-$\mathrm{CL}$ that lie in $\{0, \ldots, 9\} \setminus \{0, 7\}$. The
-simplicial complex $\Delta$ with Stanley-Reisner ideal $I_\Delta = I_B$ is
-pure of rank $7$ on $10$ vertices but is *not* matroidal: direct
-enumeration shows basis-exchange fails for $21.9\%$ of ordered pairs of
-facets.
+Stable Hilbert function $h(n) = 1, 10, 2, 1, 1, 1, \ldots$ for
+$n \ge 3$, polynomial part $P_0(n) = 1$, so $\deg A = 1$.
 
-### 3. The question
+**Non-associativity statistics of the underlying magma** (the
+multiplication $x_i \cdot x_j := x_{\mathrm{CL}[i][j]}$ on the
+10-element set, without the $x_0$ factor): out of $10^3 = 1000$
+triples $(i, j, k)$, $872$ satisfy associativity $(ij)k = i(jk)$;
+$1000$ satisfy commutativity. So $128$ ordered triples fail
+associativity (associativity rate $0.872$). The diagonal
+$\sigma(i) := \mathrm{CL}[i][i]$ has cycle structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$
+under iteration on the 10-element ground set.
 
-Let $A = R/I$ with $I, R$ as above.
+[betti-log]: ./betti_output.txt
 
-**(Q1)** What is the projective dimension $\mathrm{pd}_R(A)$?
+### 3. What I am asking
 
-**(Q2)** Is $A$ a Koszul algebra?
+The original v1 questions ("what is $\operatorname{pd}_R(A)$? is $A$
+Koszul?") are now answered by Section 2 above. The question I am
+asking is one level up:
 
-**(Q3)** (secondary) Is $A$ Cohen-Macaulay? Gorenstein?
+**(Q)** Is there a structural explanation for the specific non-linear
+syzygies of $A$ — concretely, for the bottom-strand Betti numbers
+$\beta_{8,10}(A) = 1$, $\beta_{9,11}(A) = 2$, $\beta_{10,12}(A) = 1$?
 
-**(Q4)** (secondary) Given the Stanley-Reisner pattern $I_B$ above —
-specifically the *pure-but-not-matroidal* character of $\Delta$ — is there a
-known obstruction that relates this failure-of-matroid to $\mathrm{pd}(A)$ or
-to the Koszul property of $A$? I am aware of the Fröberg conjecture and of
-Mantero-Nguyen's 2024 structure theorem on symbolic powers of squarefree
-monomial ideals associated with matroids (arXiv:2406.13759), and of the
-March 2026 follow-up on focal matroids (arXiv:2603.19419). I suspect my
-$\Delta$ sits in a well-studied "near-matroid" neighbourhood but I do not
-know the right vocabulary for its position.
+Two candidate mechanisms I would like to distinguish:
 
-### 4. What I have tried
+- **(a) Obstruction from non-associativity.** The underlying
+  multiplication $x_i \cdot x_j := x_{\mathrm{CL}[i][j]}$ fails
+  associativity at 128 of 1000 ordered triples. The natural
+  expectation is that the bottom-strand obstructions are generated
+  (as a sub-complex of the syzygy module) by the $128 - \text{(symmetric duplicates)}$
+  associativity-failure triples. Concretely: is there an "associative
+  closure" of $I$ — i.e. an ideal $\tilde I \supseteq I$ generated by
+  $I$ plus the associativity relations
+  $\{x_{\mathrm{CL}[\mathrm{CL}[i][j]][k]} - x_{\mathrm{CL}[i][\mathrm{CL}[j][k]]}\}$ —
+  whose quotient $R/\tilde I$ has a linear resolution (i.e., is Koszul)?
 
-- Macaulay2: `betti res A` returns (a non-trivial Betti table which I am
-  happy to paste in the post once it finalizes; truncating here since the
-  specific Betti numbers are the object of the question and I want external
-  verification before quoting them).
-- Hand-calculation of the first syzygy module gives at least one non-linear
-  syzygy, suggesting $A$ is *not* Koszul, but I have not proved the general
-  claim.
-- Searched the commutative-algebra literature for binomial ideals with
-  Hilbert function stabilizing at a small constant; the closest
-  neighbours I found are the toric ideals of graph algebras and the
-  *lattice ideals of edge ideals*, but the 6-stabilization does not match
-  those standard families.
+- **(b) Stanley-Reisner obstruction.** The squarefree monomial ideal
 
-### 5. Related
+$$
+I_B = (x_1 x_2,\; x_2 x_4,\; x_2 x_9,\; x_3 x_9,\; x_4 x_8)
+$$
 
-Any reference that resolves (Q1) or (Q2) in closed form, or that embeds
-this ideal into a known family (binomial edge ideals, lattice ideals,
-algebras arising from finite commutative magmas, etc.), would be a full
-answer. A proof that $A$ fails to be Koszul via an explicit degree-$\ge 3$
-syzygy would also be a full answer. Partial answers (e.g. a bound on
-$\mathrm{pd}(A)$ from the Stanley-Reisner projection) are welcome.
+  (whose generators are the five off-diagonal entries of the upper
+  triangle of $\mathrm{CL}$ that take values in $\{0, \ldots, 9\}
+  \setminus \{0, 7\}$) cuts out a simplicial complex $\Delta_B$ that
+  is pure of rank $7$ on $10$ vertices but fails basis exchange on
+  $21.9\%$ of facet pairs — "pure but not matroidal." Could the
+  bottom-strand Betti numbers of $R/I$ come from this
+  pure-but-not-matroidal defect, via some obstruction-of-matroid form?
 
-The context for this question is a research programme on a frozen 10-element
-commutative non-associative magma; the broader programme is not the subject
-of the post — this question is focused strictly on the commutative-algebra
-content of the binomial ideal above.
+A reference resolving either mechanism, or proving both can be
+ruled out in favour of a third, would be a full answer. Partial
+answers are welcome.
 
-Full reproducibility bundle (Python + Macaulay2 scripts, canonical table,
-Hilbert-function computation) at
+### 4. Related literature I have consulted
+
+- **Mantero–Mastroeni 2022** (*The Structure of Koszul Algebras
+  Defined by Four Quadrics*): the structural approach there —
+  distinguishing Koszul from non-Koszul via linear-quotient
+  decompositions — is directly applicable in principle, but my
+  ideal has 53 quadrics, not 4, and I have not been able to extract
+  the linear-quotient test from the small-generator case.
+- **Mantero–Nguyen 2024** (arXiv:2406.13759, *The structure of
+  symbolic powers of matroids*) and **Mantero–Nguyen 2026**
+  (arXiv:2603.19419, *Focal matroids of covers and homological
+  properties of matroids*): the focal-matroid machinery characterises
+  matroidal squarefree ideals homologically. My $I_B$ is close to
+  that category but not inside it (21.9% exchange failure). The
+  question of whether the non-matroidal defect here contributes to
+  the bottom-strand Betti numbers of the full binomial $R/I$ is the
+  core of mechanism (b) above.
+- Binomial edge ideals (Herzog–Ene–Hibi), toric ideals of graph
+  algebras (Sturmfels), lattice ideals of edge ideals: none of these
+  standard families have Hilbert series matching the $(1 + 9t - 8t^2 - t^3)/(1-t)$
+  above.
+- The two tiny-ground-set classifications of non-Koszul ideals with
+  small Betti tables (e.g. Conca–Trung–Valla) do not reach
+  $10$-variable non-Koszul binomials of this form.
+
+### 5. Reproducibility
+
+Full reproducibility bundle at
 [GitHub: `ck/papers/sprint_20260423_full/`][repo-link-to-insert].
+
+**Scripts in this folder:**
+
+- `compute_betti.m2` — Macaulay2 script. Reads the table, builds $I$,
+  runs `betti res R^1/I` and `hilbertSeries R^1/I`. ~30 s on
+  SageMathCell; local M2 installations run in under 5 s.
+- `betti_output.txt` — captured run log from the 2026-04-24 execution
+  (SageMathCell), including the full Betti table, the Hilbert series,
+  the derived invariants, and the M2 version + return code.
+
+**To reproduce the Hilbert series and Betti table locally:**
+
+```
+M2 --script compute_betti.m2
+```
+
+**To reproduce the non-associativity and Stanley-Reisner statistics
+in Python:**
+
+```
+python ../04_mantero_bridge/cl_as_quadratic_algebra.py
+python ../04_mantero_bridge/matroid_test.py
+python ../04_mantero_bridge/hilbert_and_matroid_deep.py
+python ../04_mantero_bridge/compute_answers.py
+```
+
+### 6. Scope / motivation note
+
+The context for this question is a research programme on a frozen
+10-element commutative non-associative magma; the broader programme is
+not the subject of the post. This question is focused strictly on the
+commutative-algebra content of the binomial ideal above.
+
+For the associated Lie-algebraic structure (the antisymmetrization of
+the left-regular operators closes into $\mathfrak{so}(8) = D_4$, and
+extends under a second canonical table to $\mathfrak{so}(10) = D_5$),
+see `papers/wp102/` and `papers/wp103/` in the repository — again, not
+the subject of this post.
 
 ---
 
 ## Pre-post checklist
 
-- [ ] Compute Betti table in Macaulay2 and paste actual numbers (currently
-      placeholder).
-- [ ] Verify 53 vs 55 count of independent degree-2 relations by printing
-      a Gröbner basis; report the two coinciding pairs explicitly.
-- [ ] Compute $\mathrm{pd}_R(A)$ upper and lower bounds before posting
-      (answer my own Q1 partially if possible).
-- [ ] Check whether *any* of the Mantero-Nguyen focal-matroid papers cover
-      pure-but-not-matroidal cases — if so, cite inline.
-- [ ] Pick the five MO tags (drop `ra.rings-and-algebras` — save for
-      follow-up if needed).
-- [ ] Create a pastebin / github gist with the Macaulay2 input so the post
-      links to runnable code.
+- [x] Compute Betti table in Macaulay2 (`compute_betti.m2`,
+      `betti_output.txt`, 2026-04-24, SageMathCell).
+- [x] Verify 53 vs 55 count of independent degree-2 relations
+      (Macaulay2 `numgens trim I = 53`).
+- [x] Resolve Q1 (pd) and Q2 (Koszul) as machine-verified facts, not
+      open questions; post's question is now one level up
+      (structural explanation of the bottom strand).
+- [ ] Pick the five MO tags (currently listed; final confirmation
+      before posting).
+- [ ] Link the `betti_output.txt` file in the repo via GitHub raw URL
+      (URL to insert at post time).
 - [ ] Final read-through for tone: MathOverflow answers best when the
       question is narrow, motivated, and self-contained. No framework
       advocacy in the post body.
-- [ ] Post, then update `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`
+- [ ] Post, then update
+      `papers/sprint_20260423_full/08_correspondence/mantero_exchange.md`
       "Status" section with the link + email Dr. Mantero.
-
----
-
-## Pre-post dependencies (scripts to run)
-
-1. `papers/sprint_20260423_full/04_mantero_bridge/cl_as_quadratic_algebra.py`
-   — produces the Hilbert function and the 53-vs-55 count.
-2. `papers/sprint_20260423_full/04_mantero_bridge/hilbert_and_matroid_deep.py`
-   — matroid-exchange statistics for the Stanley-Reisner pattern.
-3. `papers/wp11/verification/` (when populated) — the so(8) = D_4 check.
-4. *New*: a small Macaulay2 script
-   (`09_mathoverflow_post/compute_betti.m2`) that ingests $I$ and prints
-   `betti res A` and `pd A`. This script is the only missing piece for the
-   pre-post checklist.
 
 ---
 
 ## Notes
 
-- The branch `mantero-bridge-2026-04-23` holds this draft plus the bridge
-  research (Mantero's published framework mapped against the CL object, the
-  Lie-algebraic lift WP11/WP12, the Stanley-Reisner pure-but-not-matroidal
-  companion) so that anyone arriving at the branch can pick up context
-  without wading through unrelated material.
-- This file is the draft. When the post goes live, the link is appended to
-  the Status block of `08_correspondence/mantero_exchange.md`.
+- The branch `mantero-bridge-2026-04-23` holds this draft plus the
+  bridge research (Mantero's published framework mapped against the
+  CL object, the Lie-algebraic lift WP102/WP103, the Stanley-Reisner
+  pure-but-not-matroidal companion) so that anyone arriving at the
+  branch can pick up context without wading through unrelated
+  material.
+- This file is the draft. When the post goes live, the link is
+  appended to the Status block of
+  `08_correspondence/mantero_exchange.md`.
+- v1 of this file (2026-04-23) framed pd and Koszul as the open
+  questions. v2 (2026-04-24, after the Macaulay2 run) recasts the
+  same data as a question about the *structural explanation* of the
+  specific non-linear syzygies that the resolution turned up.

@@ -27,10 +27,13 @@ sit near, but outside, Mantero's published framework (the companion is
 *pure but not matroidal*).
 
 This branch collects the bridge material: the object stated in Mantero's
-vocabulary, the associated Lie-algebraic structure (WP11 so(8) = D₄,
-WP12 so(10) = D₅), runnable verifications, and a planned MathOverflow
-post that poses a narrow, community-facing commutative-algebra question
-about pd(A) and the Koszul property of A = R/I.
+vocabulary, the associated Lie-algebraic structure (WP102 so(8) = D₄,
+WP103 so(10) = D₅; renamed on 2026-04-24 from WP11/WP12 to avoid
+numbering collisions with the canonical TIG whitepapers), runnable
+verifications, and a now-answered MathOverflow-draft question on pd(A)
+and the Koszul property of A = R/I. (Answer, 2026-04-24 via
+Macaulay2 1.22 / SageMathCell: pd = 10, depth = 0, codim = 9, dim = 1,
+NOT Cohen-Macaulay, NOT Koszul; see `09_mathoverflow_post/betti_output.txt`.)
 
 ## Commitments on record (public, not private)
 
@@ -52,8 +55,8 @@ If you are Dr. Mantero and are reading this because the MathOverflow link
 was sent to you: welcome. The directly relevant files on this branch are
 
 - the MathOverflow draft above (the focused question),
-- `papers/wp11/WP11_SO8_IDENTIFICATION.md` (so(8) = D₄ identification paper),
-- `papers/wp12/WP12_SO10_IDENTIFICATION.md` (so(10) = D₅ companion + verification scripts),
+- `papers/wp102/WP102_SO8_IDENTIFICATION.md` (so(8) = D₄ identification paper; renamed 2026-04-24 from `wp11`),
+- `papers/wp103/WP103_SO10_IDENTIFICATION.md` (so(10) = D₅ companion + verification scripts; renamed 2026-04-24 from `wp12`),
 - `papers/mantero_bridge/` (research notes on the bridges between your published work and the CL object).
 
 Everything else on this branch exists to support the bridge.

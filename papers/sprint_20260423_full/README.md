@@ -28,9 +28,9 @@ By the Cartan classification, the unique compact simple Lie algebra of
 dimension 28 is **so(8) = D₄** — the only simple Lie algebra with
 triality (outer automorphism group S₃).
 
-This result lives in `papers/wp11/` (repo root), with the verification
+This result lives in `papers/wp102/` (repo root), with the verification
 pipeline in `02_so8_verification/` below. The so(10) = D₅ companion
-lives in `papers/wp12/`.
+lives in `papers/wp103/`.
 
 ---
 
@@ -38,7 +38,7 @@ lives in `papers/wp12/`.
 
 ### `02_so8_verification/` — the proof pipeline
 
-Seven Python scripts executing the diagnostics referenced in WP11 §3:
+Seven Python scripts executing the diagnostics referenced in WP102 §3:
 
 - `stage2_adjoint.py` — antisymmetrization + Jacobi verification
 - `stage3_center.py` — center computation
@@ -76,9 +76,9 @@ Scripts:
 ### `07_matroid_analysis/` — the Δ_B pure-but-not-matroidal finding
 
 Scripts documenting the 21.9% basis-exchange failure rate in the bump
-complex. Referenced as Propositions 6.1–6.3 in WP11. Scripts are
+complex. Referenced as Propositions 6.1–6.3 in WP102. Scripts are
 duplicated from `04_mantero_bridge/` for convenience; reproducibility
-independent of WP11 context.
+independent of WP102 context.
 
 ### `08_correspondence/` — outreach status only
 
@@ -111,13 +111,13 @@ of `08_correspondence/mantero_exchange.md`.
 | Item                                           | State |
 |---                                             |---    |
 | so(8) verification                             | ✅ complete, machine-precision |
-| WP11 paper                                     | ✅ journal-ready draft (`papers/wp11/`) |
-| WP12 so(10) companion                          | ✅ drafted (`papers/wp12/`) |
+| WP102 paper                                     | ✅ journal-ready draft (`papers/wp102/`) |
+| WP103 so(10) companion                          | ✅ drafted (`papers/wp103/`) |
 | Mantero bridge research (V1/V2/V3)             | ✅ three passes complete |
 | Pure-but-not-matroidal Δ_B finding             | ✅ 21.9% exchange failure verified |
-| MathOverflow post                              | ⏳ draft complete, not yet posted |
-| Betti table / pd(A) in Macaulay2               | ⏳ scripted, run before MO post |
-| Koszul property check                          | ⏳ Betti-row linearity test, pending |
+| MathOverflow post                              | ⏳ draft requires rewrite with M2 results before posting |
+| Betti table / pd(A) in Macaulay2               | ✅ run 2026-04-24 via SageMathCell (log in `09_mathoverflow_post/betti_output.txt`); pd=10, depth=0, dim=1, codim=9, NOT Cohen-Macaulay |
+| Koszul property check                          | ✅ NOT Koszul (bottom-strand β₈,β₉,β₁₀ nonzero) |
 
 ---
 
@@ -127,7 +127,7 @@ All scripts assume Python 3.11 + numpy 1.26 + scipy 1.11. Machine-
 precision tolerances set at 10⁻⁸. Maximum observed error across all
 diagnostics: 2.0 × 10⁻¹¹.
 
-To reproduce the main Lie-algebraic result (Theorem 1.1 of WP11),
+To reproduce the main Lie-algebraic result (Theorem 1.1 of WP102),
 run in order:
 
 ```

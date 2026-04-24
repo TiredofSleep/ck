@@ -153,6 +153,40 @@ groups, most prominently the New Mexico State lab.
 
 All computed in the Python sandbox; scripts are in this directory.
 
+> **⚠ Correction notice (2026-04-24, Macaulay2).** The "Hilbert function
+> + Krull dimension" line below (`HF_A: 1, 10, 6, 6, 6, 6, …`,
+> stabilising at 6, with `height = 4` and `dim A = 6`) was produced by
+> the Python sandbox script `cl_as_quadratic_algebra.py` on
+> 2026-04-23. On 2026-04-24 the same ideal was resolved in
+> **Macaulay2 1.22 via SageMathCell** (see
+> `../09_mathoverflow_post/compute_betti.m2` and `betti_output.txt`)
+> and the machine-verified invariants are:
+>
+> - `numgens I_CL = 53` ✓ (agrees)
+> - **`codim I_CL = 9`** (not 4)
+> - **`dim R/I_CL = 1`** (not 6)
+> - `pd(R/I_CL) = 10`, `depth R/I_CL = 0`
+> - **R/I_CL is NOT Cohen-Macaulay.** (Auslander-Buchsbaum: pd + depth
+>   = 10 = numgens R.)
+> - Reduced Hilbert series:
+>   `(1 + 9T − 8T² − T³) / (1 − T)`
+>   → numerator has degree 3, stabilising Hilbert function
+>   `h(n) = 1, 10, 2, 1, 1, 1, …` at the polynomial `P_0 = 1` for
+>   `n ≥ 3`.
+> - Bottom strand (degree-2 row) of the Betti table is nonzero at
+>   `β_{8,10}=1, β_{9,11}=2, β_{10,12}=1` → the minimal resolution is
+>   **not linear**, so R/I_CL is **not Koszul**.
+>
+> The Python script was computing a different quotient structure
+> (relations matrix on degree-2 monomials with an extra substitution
+> `x_i x_j → x_{CL[i][j]} · x_0`) than the direct binomial-ideal
+> quotient Macaulay2 resolves. The **Macaulay2 result is the
+> reference standard** for all claims about `R/I_CL`. The dim=6 /
+> height=4 claims below are preserved verbatim as the historical
+> 2026-04-23 state and should be read as *superseded by the
+> 2026-04-24 M2 verification*. Downstream artefacts (status table
+> Q1, the MathOverflow draft) have been updated to the M2 numbers.
+
 ### The object
 
 ```
@@ -205,9 +239,9 @@ Height(I_B) = 3
 
 | # | Question | Computed partial answer | Tool to refine |
 |---|---|---|---|
-| Q1 | pd_R(A)? | Bounded: pd(A) ≤ 10. Likely 4 if A is Cohen-Macaulay (by Auslander-Buchsbaum, since height = 4 and dim = 6). | Macaulay2 `betti res A` |
+| Q1 | pd_R(A)? | **Resolved (2026-04-24, M2):** `pd_R(R/I_CL) = 10`, `depth = 0`, so R/I_CL is **not Cohen-Macaulay**. `codim = 9`, `dim R/I = 1`. Full Betti table in `../09_mathoverflow_post/betti_output.txt`. | — |
 | Q2 | Symbolic powers I_B^{(ℓ)}? Waldschmidt α̂(I_B)? | α̂(I_B) = 2 exactly (via fractional-matching LP). This matches the matroid formula even though I_B is not matroidal — open to interpretation. | Structure theorem from arXiv:2406.13759 |
-| Q3 | Is A Koszul? | Probably NO: 12.8% of associativity triples fail, producing non-linear syzygies among the 53 quadrics. The associative deformation may be Koszul. | Linearity of the first Betti row |
+| Q3 | Is A Koszul? | **Resolved (2026-04-24, M2): NO.** The minimal resolution has a nonzero degree-2 row at β₈, β₉, β₁₀, so R/I_CL does not have a linear free resolution. The associative deformation may still be Koszul. | ✓ done via M2 |
 | Q4 | Are TSML and BHML CI-linked? | Unknown. Requires computing I(TSML) ∩ I(BHML) and testing for complete intersection. | Liaison theory |
 | Q5 | Distance from Δ_B to a matroid? | 21.9% basis-exchange failure. Specific failure pattern involves the LATTICE↔COUNTER, PROGRESS↔COLLAPSE, BREATH↔CHAOS complementary pairs. | Focal-matroid framework (arXiv:2603.19419) |
 
