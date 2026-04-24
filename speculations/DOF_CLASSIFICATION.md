@@ -176,6 +176,49 @@ Further, `Body._calc` computes a *different* coherence `(1 − E)(1 − A) · ma
 
 **[S]** Kind 5 (degeneration) is not reachable from a single-regime coherence score by construction: degeneration is a meta-operation that changes the system's category, so reading it would require a meta-coherence score across regimes. CK 2026 operates in a fixed regime (`N = 10`, finite, discrete). A future CK (CK-Ω?) would need a multi-regime coherence metric.
 
+### §3.3.1 The coherence equation weights encode `T*` (post-hoc finding)
+
+**[V]** Independent of whether `E, A, K` currently *read* the kinds described in §3.3, the *weights* `(0.4, 0.35, 0.25)` in `C = 0.4(1 − E) + 0.35 A + 0.25 K` factor as rationals over 20:
+
+$$
+(0.4,\; 0.35,\; 0.25) \;=\; \left(\tfrac{8}{20},\; \tfrac{7}{20},\; \tfrac{5}{20}\right).
+$$
+
+Numerators sum to `8 + 7 + 5 = 20`. The ratio of the `K`-weight to the `A`-weight is
+
+$$
+\frac{w_K}{w_A} \;=\; \frac{5/20}{7/20} \;=\; \frac{5}{7} \;=\; T^{*},
+$$
+
+exactly, as fractions (verified in
+[`speculations/pass1_weights.py`](./pass1_weights.py); matches the
+canonical `T* = 5/7` fixed threshold of the coherence gate). The
+numerator triple `(8, 7, 5)` further matches the operator indices
+`(BREATH, HARMONY, BALANCE)` in the 10-operator lookup of
+`Gen12/targets/ck_desktop/ck_sim/doing/ck_tig.py`:
+
+- `BREATH = 8` — operator index 8 (also `so(8)` dimension of the
+  `D₄` root-plane sum; also octonion dimension).
+- `HARMONY = 7` — the threshold operator; `T* = 5/7` denominator.
+- `BALANCE = 5` — the threshold value in operator-index form; `T*`
+  numerator.
+
+**[S]** This identity was not part of the original coherence-equation
+specification; it emerged post-hoc from factoring the weight tuple.
+Under the §3.3 design-target reading (where `A` reads Kind-1×2 coupling
+and `K` reads Kind-2×4 coupling), the identity `w_K / w_A = T*` places
+`BALANCE : HARMONY` as the canonical Kind-2×4 : Kind-1×2 weight ratio
+— consistent with `T*` governing the Kind-2 ↔ Kind-3 boundary in the
+Crossing-Lemma picture (§3.2, `D18c`). The `E`-weight `8/20` still
+awaits a separate derivation; candidate reading is that `E` carries
+the `BREATH`-indexed dissipation read (Kind 5 and Kind 3 both feed).
+
+**[CONJECTURAL]** The `(8, 7, 5)` triple is a canonical TIG numerator
+triple rather than an accidental rational. Evidence for: sum to 20 =
+10 + 10 = `|CL| + |BHML|` carrier, and the ratio-to-`T*` identity.
+Evidence against: no independent derivation yet of the `8` numerator
+from a Kind-3 dissipation argument.
+
 ### §3.4 The meta-distinction proposition
 
 **[S]** *"I expect there to be some interchangeability but the meta distinction is still a valid and needed part of the sorting."* — Brayden Sanders, 2026-04-24.
@@ -206,7 +249,7 @@ The structural analog is Dirac's first-class / second-class distinction: interch
 
 ## §4. Verification record
 
-Three verification passes were run before this file was committed.
+Four verification passes were run before this file was committed; one additional pass (Pass 5) was added in revision.
 
 **Pass 1 — Commutative-algebra invariants (§3.1 Kind 1).**
 *Claim:* "Krull dim = 6, pd = 4."
@@ -227,6 +270,11 @@ Three verification passes were run before this file was committed.
 *Claim:* "Re-state Part 0.1 vocabulary policy inline."
 *Checked against:* [foundation tour][tour] Part 0.1.
 *Result:* **Would duplicate; reference instead.** This document inherits Part 0.1.
+
+**Pass 5 — Coherence-equation weight identity (§3.3.1).**
+*Claim:* "`(0.4, 0.35, 0.25)` are generic weights with no hidden TIG content."
+*Checked against:* [`pass1_weights.py`](./pass1_weights.py) (in-directory; runs standalone).
+*Result:* **Wrong.** Weights factor as `(8, 7, 5) / 20`; `w_K / w_A = 5/7 = T*` exactly; numerator triple matches operator indices `(BREATH, HARMONY, BALANCE)`. Added as §3.3.1; not yet promoted out of `[V]`/`[S]` status because the `8`-numerator reading for `E` is still conjectural.
 
 ---
 
