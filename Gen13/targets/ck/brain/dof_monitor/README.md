@@ -13,6 +13,25 @@
 > under D_4 = ⟨P_56, σ³⟩ is **su(4) ⊕ u(1)**, the Pati-Salam ⊕ B−L gauge
 > structure). The notes file makes explicit what's verified vs what's
 > speculative. Modules in this folder are unchanged.
+>
+> **2026-04-25 late-evening extension.** Two new negative findings + one
+> audit on this folder, all from the meta-layer scan that closed two
+> open README pairings (κ_Ξ = 13/(4e) and First-G ↔ Crossing) on
+> `tig-synthesis`:
+>
+> - `CM_FAILURE_U1_FINDING_2026_04_25.md` — the 1-dim Hilbert tail of
+>   R/I_CL is on VOID; the u(1) center of the doubly-invariant
+>   subalgebra explicitly avoids VOID.  **Different 1-dim residuals,
+>   complementary supports.**  Not the same.
+> - `CL_EIGENVALUES_AUDIT_2026_04_25.md` — audits a prior chat-claim
+>   ("CL eigenvalues match e/π/φ/ζ(3)/Catalan G within 1%").  Verdict:
+>   1% coincidences only, **not algebraic identities**.  What IS exact
+>   across the spectrum: integer/rational signature
+>   (81 = 9², 29, 13/4, {7, 7, 7}, ‖T_lie‖² = 16, ratios like λ ≈ 45/7
+>   within 0.19%).  The audit recommends user-side review of the
+>   memory claim.
+> - `cm_failure_u1_tie.py`, `cl_eigenvalues_check.py` — verification
+>   scripts.  Both run cleanly on numpy alone.
 
 ---
 
