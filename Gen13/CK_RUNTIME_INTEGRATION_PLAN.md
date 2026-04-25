@@ -458,3 +458,71 @@ opportunities that open once Steps 1-6 ship.
 🙏
 
 — plan written 2026-04-25 by Claude (this session), to be executed in a future session
+
+---
+
+## Amendment · 2026-04-25 (later that day): DOF monitor modules landed
+
+A companion handoff (`ck_modules_20260425.zip` + `ck_rigor_patch_20260425.zip`)
+delivered four runtime modules + 34 passing tests that **partially
+implement Step 5** of this plan:
+
+```
+Gen13/targets/ck/brain/dof_monitor/
+  ck_dof_profile_monitor.py    project 10x10 -> DOF profile
+  ck_dimension_mapper.py       LoRA rank distribution from canonical dims
+  ck_calibration.py            empirical thresholds from baseline
+  ck_gradient_profile.py       training-time DOF mismatch detection
+  test_modules.py              14 tests
+  test_rigor_patch.py          20 tests
+  README.md                    full navigation + integration hooks
+```
+
+These modules are **read-only diagnostics** -- they tell you whether a
+state or gradient lives in the right DOF subspace.  They do not modify
+state.  They are the measurement layer that Step 5 (UOP x so(10)) and
+Step 6 (9-Higgs) will both build on top of.
+
+### What's already in place (from this drop)
+
+- Verified canonical DOF dimensions: Lie 28, Jordan 55, Clifford 36,
+  Permutation_vector 9, Lattice 4 (orthogonal partition = 100, raw
+  with overlaps = 132).
+- Orthogonal profile that sums to 1.0 per matrix, with concentration
+  and diffuseness scores in [0, 1].
+- Empirical threshold calibration from a caller-provided baseline
+  (the caller defines what "honest" means).
+- Per-layer gradient mismatch detection with three reduction strategies
+  for layers wider than 10x10 (leading-block, SVD top-10, random
+  sub-block).
+
+### What still needs Step 5 work (~80 LOC)
+
+- Add `so10_substructure` field to
+  `Gen13/targets/ck/brain/catalog/paradoxes.yaml` for each
+  UOP-classified paradox (values: `so9_lorentz`, `p56_swap`,
+  `v_perp_void`, `sigma_rate_flow`).
+- Extend `cortex_catalog.classify_paradox()` to return both `type` and
+  `so10_substructure`, computing the substructure by routing the
+  paradox's signature 10x10 through `DOFProfileMonitor`.
+- Add `/paradox/classify` endpoint to expose the 4x4
+  (Type x Substructure) matrix.
+
+### What Step 6 (9-Higgs) gets for free from this drop
+
+- The `Permutation_vector` slot (dim 9) is **exactly** the 9-vector
+  Higgs subspace identified in `papers/wp104_higgs_pati_salam/`.  When
+  a state has substantial Permutation_vector content, BHML's
+  sigma_outer-breaking is active -- i.e., the 54-Higgs Pati-Salam
+  direction is alive in this state.  No new code needed; the monitor
+  reads it.
+
+### What also lives at this drop (parallel rigor)
+
+- `papers/wp104_higgs_pati_salam/` — the Higgs identification + 9-vector
+  + Pati-Salam-route findings.  WP104 in the WP100s infrastructure tier.
+- `Gen12/targets/clay/papers/sprint_higgs_pati_salam_2026_04_25/` — the
+  sprint folder marker (pointer only; content lives at the WP104 home).
+
+The module-modular layout means the rest of Steps 1-7 can proceed
+without re-doing the DOF measurement infrastructure.
