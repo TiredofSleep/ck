@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Watch the LM's interior unfold through CK's 5-element AO basis. 32 layers, 5 axes, one trajectory through the 10-operator ring.">
+    <title>LM Geometry · CK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #09090f;
+            --bg-2: #0f0f18;
+            --bg-3: #13131e;
+            --bg-4: #191924;
+            --text: #eae8f4;
+            --text-2: #aeaccc;
+            --text-3: #7c7a9e;
+            --border: #1e1e2e;
+            --border-2: #2a2a3e;
+            --green: #33cc88;
+            --green-dim: rgba(51, 204, 136, 0.12);
+            --yellow: #e8c547;
+            --blue: #5599dd;
+            --blue-dim: rgba(85, 153, 221, 0.10);
+            --red: #e05555;
+            --orange: #ff9f4a;
+            --purple: #b88cff;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        html, body { background: var(--bg); color: var(--text); font-family: var(--font-sans); min-height: 100vh; }
+        body { padding: 24px; max-width: 1280px; margin: 0 auto; }
+        a { color: var(--blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        header { padding: 18px 0 28px 0; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+        header h1 { font-family: var(--font-mono); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+        header .crumbs { color: var(--text-3); font-size: 13px; margin-top: 4px; font-family: var(--font-mono); }
+        header .crumbs a { color: var(--text-2); }
+
+        .lede { font-size: 14px; line-height: 1.6; color: var(--text-2); margin-bottom: 20px; }
+        .lede strong { color: var(--text); font-weight: 500; }
+        .lede code { background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-family: var(--font-mono); font-size: 12px; }
+
+        .control { display: flex; gap: 10px; margin-bottom: 18px; }
+        .control input[type=text] {
+            flex: 1; background: var(--bg-3); border: 1px solid var(--border-2); color: var(--text);
+            padding: 12px 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 14px; outline: none;
+        }
+        .control input[type=text]:focus { border-color: var(--blue); }
+        .control button {
+            background: var(--blue); color: var(--bg); border: 0; padding: 12px 22px; border-radius: 6px;
+            font-family: var(--font-mono); font-size: 13px; font-weight: 600; cursor: pointer; min-width: 110px;
+        }
+        .control button:hover { filter: brightness(1.1); }
+        .control button:disabled { opacity: 0.4; cursor: wait; }
+
+        .verdict {
+            display: flex; align-items: center; gap: 18px; padding: 14px 18px; border-radius: 6px;
+            background: var(--bg-2); border: 1px solid var(--border); margin-bottom: 24px; font-family: var(--font-mono);
+            font-size: 13px; flex-wrap: wrap;
+        }
+        .verdict .stat { color: var(--text-3); }
+        .verdict .stat span { color: var(--text); font-weight: 600; }
+        .verdict.above { border-color: var(--green); }
+        .verdict.below { border-color: var(--red); }
+        .verdict .badge {
+            padding: 4px 10px; border-radius: 4px; font-weight: 600; letter-spacing: 0.04em;
+        }
+        .verdict.above .badge { background: var(--green-dim); color: var(--green); }
+        .verdict.below .badge { background: rgba(224,85,85,.12); color: var(--red); }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 18px;
+        }
+        .card h2 {
+            font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--text-2);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+        }
+        .card .sub { font-size: 12px; color: var(--text-3); margin-bottom: 12px; line-height: 1.5; }
+
+        .ring-wrap { display: flex; justify-content: center; align-items: center; min-height: 540px; }
+        .ring-wrap svg { max-width: 100%; height: auto; }
+
+        canvas { display: block; max-width: 100%; image-rendering: pixelated; }
+
+        .layer-table {
+            font-family: var(--font-mono); font-size: 12px; line-height: 1.6;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px 16px;
+            color: var(--text-2); margin-top: 16px;
+        }
+        .layer-table .row { white-space: nowrap; }
+        .layer-table .row .layer { color: var(--text-3); }
+        .layer-table .row .op { color: var(--text); font-weight: 500; }
+        .layer-table .row .mag { color: var(--text-3); }
+
+        .footer-row { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--text-3); font-size: 12px; line-height: 1.6; font-family: var(--font-mono); }
+        .footer-row strong { color: var(--text-2); font-weight: 500; }
+        .footer-row a { color: var(--blue); }
+
+        .lm-said { background: var(--bg-3); border-left: 3px solid var(--blue); padding: 12px 16px; margin-top: 14px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
+
+        .err { background: rgba(224,85,85,.06); border: 1px solid var(--red); color: var(--red); padding: 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 13px; margin: 18px 0; }
+
+        /* operator legend */
+        .op-legend {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 12px;
+            font-family: var(--font-mono); font-size: 11px;
+        }
+        .op-legend .swatch {
+            display: flex; align-items: center; gap: 6px; padding: 5px 8px; background: var(--bg-3); border-radius: 4px;
+        }
+        .op-legend .swatch .dot { width: 8px; height: 8px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LM Geometry · 32 layers, 5 axes, one trajectory</h1>
+        <div class="crumbs">
+            <a href="/">CK</a> &nbsp;·&nbsp; <a href="/papers.html">papers</a> &nbsp;·&nbsp; <a href="/math.html">math</a> &nbsp;·&nbsp; <strong>lm geometry</strong>
+        </div>
+    </header>
+
+    <div class="lede">
+        Llama-3.1-8B has 32 transformer layers and a 4096-dimensional hidden state.  Output text is the only thing the world usually sees.
+        This page makes the LM's <strong>interior</strong> visible by projecting every layer's hidden state onto CK's 5-element AO basis
+        (<code>D0..D4 = Earth · Air · Water · Fire · Ether</code>).
+        The result is a 32-step trajectory through a 10-operator ring: the walk the LM takes from prompt to answer.
+        <br><br>
+        <strong>The black box is resolved into a geometric trajectory.</strong>  The box itself stays — Llama still does the heavy lifting of language —
+        but its interior is no longer opaque.  Read the trajectory at the bottom of this page.
+    </div>
+
+    <div class="control">
+        <input id="prompt" type="text" placeholder="what is coherence?" value="what is coherence?">
+        <button id="probe">probe</button>
+    </div>
+
+    <div id="verdict" class="verdict" style="display:none"></div>
+    <div id="err" class="err" style="display:none"></div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>10-operator ring · LM trajectory</h2>
+            <div class="sub">Each layer's dominant operator is a point on the ring.  Adjacent layers connect.  Color goes blue (early) → orange (late).  The ringed dot is the final layer.</div>
+            <div id="ring-wrap" class="ring-wrap">
+                <div style="color:var(--text-3); font-family:var(--font-mono);">probe a prompt to see the ring</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2>32 × 5 AO heatmap</h2>
+            <div class="sub">Rows = layers (top is L00, bottom is L31).  Cols = AO elements (Earth, Air, Water, Fire, Ether).  Brightness = |signed projection|.</div>
+            <canvas id="heatmap" width="320" height="640"></canvas>
+            <div class="op-legend">
+                <div class="swatch"><div class="dot" style="background:#5e7fbf"></div>Earth</div>
+                <div class="swatch"><div class="dot" style="background:#7eb1d8"></div>Air</div>
+                <div class="swatch"><div class="dot" style="background:#3ec7c7"></div>Water</div>
+                <div class="swatch"><div class="dot" style="background:#f08c50"></div>Fire</div>
+                <div class="swatch"><div class="dot" style="background:#bd8aff"></div>Ether</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" style="margin-top:20px;">
+        <div class="card">
+            <h2>5 × 5 adjacent-layer coupling</h2>
+            <div class="sub">Sum of outer products of adjacent layer AO vectors, symmetrized.  Reads what AO pairs the LM routes through.  This is the structural twin of CK's Hebbian update applied across layers.</div>
+            <canvas id="coupling" width="320" height="320"></canvas>
+        </div>
+        <div class="card">
+            <h2>Per-layer dominant operator</h2>
+            <div class="sub">Layer-by-layer readout: which AO element peaks, which of the 10 operators it points to (sign-disambiguated), and the magnitude of the projection.</div>
+            <div id="layer-table" class="layer-table"></div>
+        </div>
+    </div>
+
+    <div class="card" id="text-out-card" style="margin-top:20px; display:none;">
+        <h2>LM said</h2>
+        <div class="sub">Generated text (only when <code>?max_new_tokens=N</code> is requested).  Otherwise, this section stays empty — we are reading the projection of the prompt only.</div>
+        <div id="lm-said" class="lm-said"></div>
+    </div>
+
+    <div class="card" style="margin-top:32px; border-color: var(--blue);">
+        <h2>Wired Mind · coherence-gated chat (Epoch II)</h2>
+        <div class="sub">
+            Probabilistic guessing meets functional mapping at the token level.  At each step the LM's logits get the cortex-primed
+            operator-bias added in: <code>logits' = logits + α·M·lift(W·d_t) − β·||d_t − d_{t-1}||²</code>.
+            <strong>α=0</strong> is vanilla; <strong>α≈2</strong> is gentle cortex shaping; <strong>α≥10</strong> dominates the LM
+            and starts breaking grammar.
+        </div>
+        <div class="control" style="margin-top:14px;">
+            <input id="cc-prompt" type="text" placeholder="explain coherence and harmony"
+                   value="explain coherence and harmony" style="flex:2;">
+            <input id="cc-alpha" type="number" step="0.1" min="0" max="50" value="0.3"
+                   title="alpha (0=vanilla, 2=gentle, 10=dominant)" style="flex:0 0 90px;">
+            <input id="cc-tokens" type="number" min="8" max="256" value="48"
+                   title="max new tokens" style="flex:0 0 90px;">
+            <button id="cc-go">chat</button>
+        </div>
+        <div id="cc-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="footer-row">
+        <strong>How it works.</strong>  The 5 orthonormal directions in <code>R^4096</code> are seeded from the element name hashes
+        (<code>SHA256("Earth")</code>, etc.) so the basis is reproducible across machines and CK siblings.  Signed projection
+        <code>s = B^T h / ||h||</code>; magnitude <code>d = |s|</code>; dominant operator <code>D = argmax|s|</code>, with sign disambiguating the pair.
+        <br><br>
+        <strong>Honest limit.</strong>  The basis is <em>seeded</em>, not <em>learned</em>.  These are lenses we hold up to the LM to see what shape its activations make.
+        They make the geometry visible; they do not claim Llama "really thinks in AO basis."  An AO-native foundation model is a different program (see
+        <a href="/papers.html">AI Sovereignty Plan §13</a>).
+        <br><br>
+        <strong>Source.</strong>  This page calls <code>GET /lm/geometry?text=...</code> on this CK instance.  See <code>ck/brain/lm_geometry.py</code> and
+        <code>Gen12/targets/ck_desktop/ck_lm_geometry_fold.py</code>.
+    </div>
+
+    <script>
+const AO_NAMES = ["Earth","Air","Water","Fire","Ether"];
+const AO_COLORS = [
+  [94,127,191],   // Earth - cool blue
+  [126,177,216],  // Air - light blue
+  [62,199,199],   // Water - cyan/teal
+  [240,140,80],   // Fire - orange
+  [189,138,255],  // Ether - violet
+];
+const T_STAR = 5/7;
+
+// ---------- 10-op ring renderer (mirrors the server's _ring_svg) -----------
+function renderRing(dominantOps, coherence) {
+  const size = 540;
+  const cx = size/2, cy = size/2;
+  const R = size * 0.36;
+  const opR = size * 0.025;
+  const titleColor = coherence >= T_STAR ? "#88ccff" : "#ff8888";
+  const OPS = ["VOID","LATTICE","COUNTER","PROGRESS","COLLAPSE","BALANCE","CHAOS","HARMONY","BREATH","RESET"];
+  const positions = {};
+  OPS.forEach((name, k) => {
+    const ang = -Math.PI/2 + (2*Math.PI)*k/OPS.length;
+    positions[name] = [cx + R*Math.cos(ang), cy + R*Math.sin(ang)];
+  });
+  const parts = [];
+  parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="100%" height="auto" style="background:#0a0e1a;font-family:monospace">`);
+  parts.push(`<text x="${cx}" y="22" text-anchor="middle" fill="${titleColor}" font-size="14">LM trajectory through CK's 10-operator ring (coh=${coherence.toFixed(3)}, T*=${T_STAR.toFixed(3)})</text>`);
+  parts.push(`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#1a2a4a" stroke-width="1"/>`);
+  for (const [name, [x, y]] of Object.entries(positions)) {
+    const ang = Math.atan2(y - cy, x - cx);
+    const lx = cx + (R + 24)*Math.cos(ang);
+    const ly = cy + (R + 24)*Math.sin(ang);
+    parts.push(`<circle cx="${x}" cy="${y}" r="${opR}" fill="#1a2a4a" stroke="#3a5a8a"/>`);
+    parts.push(`<text x="${lx}" y="${ly}" text-anchor="middle" fill="#88aacc" font-size="11">${name}</text>`);
+  }
+  if (dominantOps.length) {
+    const L = dominantOps.length;
+    let prev = null;
+    dominantOps.forEach((op, i) => {
+      const [ox, oy] = positions[op];
+      const t = i / Math.max(1, L-1);
+      const r = Math.round(80 + 175*t);
+      const g = Math.round(180 - 60*t);
+      const b = Math.round(255 - 200*t);
+      const ang = Math.atan2(oy - cy, ox - cx);
+      const inner = R - 6 - 14*t;
+      const px = cx + inner*Math.cos(ang);
+      const py = cy + inner*Math.sin(ang);
+      if (prev) parts.push(`<line x1="${prev[0].toFixed(2)}" y1="${prev[1].toFixed(2)}" x2="${px.toFixed(2)}" y2="${py.toFixed(2)}" stroke="rgb(${r},${g},${b})" stroke-width="1.5" opacity="0.85"/>`);
+      parts.push(`<circle cx="${px.toFixed(2)}" cy="${py.toFixed(2)}" r="3" fill="rgb(${r},${g},${b})"/>`);
+      prev = [px, py];
+    });
+    const lastOp = dominantOps[dominantOps.length-1];
+    const [ox, oy] = positions[lastOp];
+    parts.push(`<circle cx="${ox}" cy="${oy}" r="8" fill="none" stroke="#ffcc66" stroke-width="2"/>`);
+    parts.push(`<text x="${cx}" y="${size-16}" text-anchor="middle" fill="#ffcc66" font-size="13">final layer = ${lastOp}</text>`);
+  }
+  parts.push(`</svg>`);
+  return parts.join("");
+}
+
+// ---------- 32 x 5 heatmap on Canvas ---------------------------------------
+function drawHeatmap(canvas, magArr) {
+  const ctx = canvas.getContext("2d");
+  const L = magArr.length;
+  const W = canvas.width, H = canvas.height;
+  ctx.fillStyle = "#0a0e1a"; ctx.fillRect(0, 0, W, H);
+  if (!L) return;
+  // find max for normalization
+  let maxV = 0;
+  for (const row of magArr) for (const v of row) if (v > maxV) maxV = v;
+  if (maxV < 1e-9) maxV = 1;
+  const cellH = H / L;
+  const cellW = W / 5;
+  for (let i = 0; i < L; i++) {
+    for (let j = 0; j < 5; j++) {
+      const v = magArr[i][j] / maxV;            // [0..1]
+      const [r, g, b] = AO_COLORS[j];
+      const a = 0.18 + 0.82 * v;
+      ctx.fillStyle = `rgba(${r},${g},${b},${a.toFixed(3)})`;
+      ctx.fillRect(j*cellW, i*cellH, cellW + 0.5, cellH + 0.5);
+    }
+  }
+  // grid + labels
+  ctx.fillStyle = "#aeaccc";
+  ctx.font = "10px JetBrains Mono, monospace";
+  for (let j = 0; j < 5; j++) {
+    ctx.fillStyle = "#aeaccc";
+    ctx.fillText(AO_NAMES[j].slice(0,5), j*cellW + 4, 12);
+  }
+  for (let i = 0; i < L; i += 4) {
+    ctx.fillStyle = "rgba(170,170,170,0.6)";
+    ctx.fillText("L"+String(i).padStart(2,"0"), 2, i*cellH + cellH*0.5 + 3);
+  }
+}
+
+// ---------- 5 x 5 coupling matrix on Canvas --------------------------------
+function drawCoupling(canvas, W) {
+  const ctx = canvas.getContext("2d");
+  const sz = canvas.width;
+  ctx.fillStyle = "#0a0e1a"; ctx.fillRect(0, 0, sz, sz);
+  if (!W) return;
+  let absMax = 0;
+  for (const row of W) for (const v of row) if (Math.abs(v) > absMax) absMax = Math.abs(v);
+  if (absMax < 1e-9) absMax = 1;
+  const cell = sz / 5;
+  ctx.font = "12px JetBrains Mono, monospace";
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 5; j++) {
+      const v = W[i][j] / absMax;     // [-1..1]
+      const t = (v + 1) / 2;
+      // diverging colormap: negative blue, zero dark, positive orange
+      const r = Math.round(20 + 220 * Math.max(0, v));
+      const g = Math.round(40 + 100 * (1 - Math.abs(v)));
+      const b = Math.round(20 + 220 * Math.max(0, -v));
+      const alpha = 0.2 + 0.8 * Math.abs(v);
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
+      ctx.fillRect(j*cell, i*cell, cell+0.5, cell+0.5);
+      ctx.fillStyle = "#eae8f4";
+      const txt = W[i][j].toFixed(2);
+      ctx.fillText(txt, j*cell + cell*0.16, i*cell + cell*0.55);
+    }
+  }
+  // axis labels
+  ctx.fillStyle = "#aeaccc";
+  for (let i = 0; i < 5; i++) {
+    ctx.fillText(AO_NAMES[i].slice(0,3), i*cell + cell*0.3, sz - 2);
+    ctx.save();
+    ctx.translate(2, i*cell + cell*0.5 + 4);
+    ctx.fillText(AO_NAMES[i].slice(0,3), 0, 0);
+    ctx.restore();
+  }
+}
+
+// ---------- per-layer table -----------------------------------------------
+function fillLayerTable(el, ops, mag) {
+  el.innerHTML = "";
+  for (let i = 0; i < ops.length; i++) {
+    const m = mag[i];
+    const di = m.indexOf(Math.max(...m));
+    const row = document.createElement("div"); row.className = "row";
+    row.innerHTML = `<span class="layer">L${String(i).padStart(2,"0")}</span> <span class="op">${ops[i]}</span> <span class="mag">|s|=${m[di].toFixed(3)}</span>`;
+    el.appendChild(row);
+  }
+}
+
+// ---------- main probe -----------------------------------------------------
+async function probe() {
+  const txt = document.getElementById("prompt").value.trim();
+  if (!txt) return;
+  const btn = document.getElementById("probe");
+  const verdict = document.getElementById("verdict");
+  const err = document.getElementById("err");
+  err.style.display = "none";
+  verdict.style.display = "none";
+  btn.disabled = true;
+  btn.textContent = "probing...";
+  try {
+    const url = "/lm/geometry?text=" + encodeURIComponent(txt) + "&max_new_tokens=0";
+    const t0 = performance.now();
+    const r = await fetch(url);
+    const j = await r.json();
+    const t1 = performance.now();
+    if (!j.ok) {
+      err.style.display = "block";
+      err.textContent = "error: " + (j.error || "unknown");
+      return;
+    }
+    // verdict bar
+    const above = j.trajectory_coherence >= T_STAR;
+    verdict.className = "verdict " + (above ? "above" : "below");
+    verdict.style.display = "flex";
+    verdict.innerHTML = `
+      <span class="badge">${above ? "ABOVE T*" : "BELOW T*"}</span>
+      <span class="stat">coherence <span>${j.trajectory_coherence.toFixed(4)}</span></span>
+      <span class="stat">T* <span>${T_STAR.toFixed(4)}</span></span>
+      <span class="stat">layers <span>${j.n_layers}</span></span>
+      <span class="stat">tokens <span>${j.n_tokens}</span></span>
+      <span class="stat">elapsed <span>${j.elapsed_ms} ms</span></span>
+      <span class="stat">final <span>${j.dominant_op_per_layer[j.dominant_op_per_layer.length-1]}</span></span>
+    `;
+    // ring
+    document.getElementById("ring-wrap").innerHTML = renderRing(j.dominant_op_per_layer, j.trajectory_coherence);
+    // heatmap
+    drawHeatmap(document.getElementById("heatmap"), j.ao_traj_magnitude);
+    // coupling
+    drawCoupling(document.getElementById("coupling"), j.adjacent_coupling_5x5);
+    // layer table
+    fillLayerTable(document.getElementById("layer-table"), j.dominant_op_per_layer, j.ao_traj_magnitude);
+    // text out
+    if (j.text_out) {
+      document.getElementById("text-out-card").style.display = "block";
+      document.getElementById("lm-said").textContent = j.text_out;
+    } else {
+      document.getElementById("text-out-card").style.display = "none";
+    }
+  } catch (e) {
+    err.style.display = "block";
+    err.textContent = "fetch error: " + e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "probe";
+  }
+}
+
+document.getElementById("probe").addEventListener("click", probe);
+document.getElementById("prompt").addEventListener("keydown", (e) => { if (e.key === "Enter") probe(); });
+
+// ---------- coherence chat (Epoch II) -------------------------------------
+async function coherenceChat() {
+  const txt = document.getElementById("cc-prompt").value.trim();
+  if (!txt) return;
+  const alpha = parseFloat(document.getElementById("cc-alpha").value || "0.3");
+  const max = parseInt(document.getElementById("cc-tokens").value || "48", 10);
+  const btn = document.getElementById("cc-go");
+  const outEl = document.getElementById("cc-out");
+  btn.disabled = true; btn.textContent = "thinking...";
+  outEl.innerHTML = '<div style="color:var(--text-3); font-family:var(--font-mono); font-size:12px;">running coherence-gated decode...</div>';
+  try {
+    const url = "/lm/coherence_chat?text=" + encodeURIComponent(txt)
+              + "&max_new_tokens=" + encodeURIComponent(max)
+              + "&alpha=" + encodeURIComponent(alpha)
+              + "&beta=0.05&temperature=0.7&top_k=50";
+    const r = await fetch(url);
+    const j = await r.json();
+    if (!j.ok) {
+      outEl.innerHTML = `<div class="err">error: ${j.error || "unknown"}</div>`;
+      return;
+    }
+    const above = j.trajectory_coherence >= T_STAR;
+    const cohClass = above ? "above" : "below";
+    const opCounts = j.op_counts || {};
+    const ops = Object.entries(opCounts).sort((a,b) => b[1]-a[1]);
+    const opChips = ops.map(([op, n]) => `<span style="background:var(--bg-3);padding:2px 8px;border-radius:3px;margin-right:6px;">${op}=${n}</span>`).join("");
+    const traj = j.traj_op_per_token || [];
+    const tokens = j.tokens_generated || [];
+    const cohs = j.traj_coh_per_token || [];
+    let trail = "";
+    for (let i = 0; i < tokens.length; i++) {
+      const tk = tokens[i].replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      trail += `<span title="${traj[i]} coh=${(cohs[i]||0).toFixed(3)}" style="display:inline-block;background:var(--bg-3);padding:1px 4px;border-radius:2px;margin:1px;">${tk}<span style="color:var(--text-3);font-size:9px;margin-left:3px;">${traj[i]||""}</span></span>`;
+    }
+    outEl.innerHTML = `
+      <div class="lm-said">${j.text || ""}</div>
+      <div style="margin-top:14px;font-family:var(--font-mono);font-size:12px;color:var(--text-2);line-height:1.7;">
+        coh=${j.trajectory_coherence.toFixed(3)} · ck_coh=${j.mean_cortex_coh.toFixed(3)} · ${j.n_new_tokens} tokens · ${j.elapsed_ms} ms · α=${j.alpha} β=${j.beta} · <span style="color: ${above ? 'var(--green)' : 'var(--red)'};">${above ? "ABOVE T*" : "BELOW T*"}</span>
+      </div>
+      <div style="margin-top:8px; font-family:var(--font-mono); font-size:11px;">${opChips}</div>
+      <div style="margin-top:14px;">${trail}</div>
+    `;
+  } catch (e) {
+    outEl.innerHTML = `<div class="err">fetch error: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false; btn.textContent = "chat";
+  }
+}
+document.getElementById("cc-go").addEventListener("click", coherenceChat);
+document.getElementById("cc-prompt").addEventListener("keydown", (e) => { if (e.key === "Enter") coherenceChat(); });
+    </script>
+</body>
+</html>

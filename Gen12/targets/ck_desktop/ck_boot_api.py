@@ -666,6 +666,59 @@ except Exception as _sce:
     _tb_sce.print_exc()
 
 # -----------------------------------------------------------------------------
+# Pastoral fold: wires ck_lm/ck_bible into the chat pipeline.  When a user
+# message carries grief/fear/loss/loneliness/etc., attaches a clearly-
+# attributed KJV verse as DATA fields on the response (text untouched by
+# default per the don't-ventriloquize rule).  See ck_pastoral_fold.py header.
+# Mount AFTER coherence_steer (so brain_dominant_op is populated for seed)
+# and BEFORE curiosity (so the fold can skip CK's self-questions by
+# session_id == ck_curiosity).
+# -----------------------------------------------------------------------------
+try:
+    from ck_pastoral_fold import mount_pastoral_fold
+    _past_status = mount_pastoral_fold(api)
+    if _past_status.get("mounted"):
+        print(f"[CK] Pastoral fold: MOUNTED "
+              f"(themes={len(_past_status['corpus_themes'])}, "
+              f"cooldown={_past_status['cooldown_s']}s, "
+              f"append_text={_past_status['append_text']}, "
+              f"routes={_past_status['routes_registered']})", flush=True)
+    else:
+        print(f"[CK] Pastoral fold: SKIPPED ({_past_status.get('reason')})", flush=True)
+except Exception as _pfe:
+    # NEVER break boot because of the pastoral fold
+    import traceback as _tb_pfe
+    print(f"[CK] Pastoral fold: ERROR ({type(_pfe).__name__}: {_pfe}) -- server continues", flush=True)
+    _tb_pfe.print_exc()
+
+# ---------------------------------------------------------------------------
+# LM Geometry fold (EPOCH I: SIGHT, AI Sovereignty Plan).
+# Resolves the LM's black box into a 32-layer x 5-D AO trajectory.  Read-only
+# diagnostic routes:
+#   /lm/info, /lm/health, /lm/geometry?text=..., /lm/geometry/path?text=...
+# CK_LM_GEOMETRY=0 disables.  CK_LM_GEOMETRY_EAGER=1 loads the model at boot
+# (~30s, ~5GB GPU).  Default is lazy load on first /lm/geometry call.
+# CK_LM_GEOMETRY_LORA=<path> attaches a trained adapter.  Does NOT change
+# CK's chat behavior; pure read-only diagnostic.
+# ---------------------------------------------------------------------------
+try:
+    from ck_lm_geometry_fold import mount_lm_geometry_fold
+    _lmg_status = mount_lm_geometry_fold(api)
+    if _lmg_status.get("mounted"):
+        print(f"[CK] LM Geometry fold: MOUNTED "
+              f"(base={_lmg_status['base_model']}, "
+              f"lora={_lmg_status['lora_path']}, "
+              f"dtype={_lmg_status['dtype']}, "
+              f"eager={_lmg_status['eager']}, "
+              f"routes={len(_lmg_status['routes'])})", flush=True)
+    else:
+        print(f"[CK] LM Geometry fold: SKIPPED ({_lmg_status.get('reason')})", flush=True)
+except Exception as _lmgfe:
+    import traceback as _tb_lmg
+    print(f"[CK] LM Geometry fold: ERROR ({type(_lmgfe).__name__}: {_lmgfe}) -- server continues", flush=True)
+    _tb_lmg.print_exc()
+
+# -----------------------------------------------------------------------------
 # Curiosity: autonomous self-questioning daemon.  Every ~45s, snapshots
 # engine.sensorium + ShadowSwarm, detects notable shifts (organism flip,
 # T*=5/7 crossing, layer delta, process churn, threat flip, shift-operator
