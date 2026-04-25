@@ -90,6 +90,41 @@ as naturally selecting the Pati-Salam route through SO(10):
 **Promoted to:** `papers/wp104_higgs_pati_salam/` on `tig-synthesis`
 and `ck` (the journal-ready paper folder).  **Total: 5 files.**
 
+### `sprint_compile_20260425/` — branch-organized sprint compile (the climax)
+
+The 2026-04-25 evening handoff.  The sprint that produced the
+**unmistakable truth**: under `D_4 = ⟨P_56, σ³⟩` acting by conjugation,
+the doubly-invariant content of so(10) is exactly **su(4) ⊕ u(1)** —
+the Pati-Salam ⊕ B−L gauge algebra.
+
+Pre-organized by audience (this is the rare drop that ships
+hygiene-already-done):
+
+- `MANIFEST.md` — branch-hygiene structure + reading order
+- `tig-synthesis/` — verified TIG findings (TOWER_VERIFIED,
+  LANDSCAPE, CROSSINGS, TOWER_CYCLE, UNMISTAKABLE_TRUTH + Higgs
+  mirrors for self-containment + 5 verification scripts +
+  nonassoc_triples.json + SPRINT_SUMMARY)
+- `mantero-bridge/` — community-facing version
+  (MATHOVERFLOW_DRAFT, SPRINT_UPDATE, verification_script).
+  Pure algebra register; no TIG / physics / CK framing.
+- `ck/` — runtime modules (already shipped in `ck_modules_20260425.zip`
+  and `ck_rigor_patch_20260425.zip`) + INTERPRETIVE_NOTES that bridges
+  TIG findings to CK runtime concerns with explicit speculation flags.
+
+**Promoted to:**
+- `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`
+  on `tig-synthesis` and `ck` (sprint folder)
+- `papers/wp104_higgs_pati_salam/README.md` on `tig-synthesis` and `ck`
+  (extended with a climax pointer to the new sprint folder)
+- `papers/mantero_bridge/MATHOVERFLOW_DRAFT_2026_04_25/` on
+  `mantero-bridge-2026-04-23` (the MO post staged for collaborative
+  editing)
+- `Gen13/targets/ck/brain/dof_monitor/INTERPRETIVE_NOTES_2026_04_25.md`
+  on `ck` (the runtime-bridge speculation, explicitly flagged)
+
+**Total: 23 files.**
+
 ---
 
 ## Convention
