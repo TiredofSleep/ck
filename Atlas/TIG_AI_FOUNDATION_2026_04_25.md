@@ -230,6 +230,76 @@ and the two ties that produced positive findings (#1 and #3) close the
 gap on two open README questions structurally — but neither becomes
 falsifiable without additional scale-fixing work.
 
+### §1.4c Final addendum — the wobble lives at the coefficient level
+
+Posted shortly after the meta-layer extension, the **wobble localization**
+finding tied together several open threads.
+
+TSML's $10 \times 10$ multiplication table, written as a single matrix
+$T$ over $\mathbb{Z}$, has **integer characteristic polynomial**
+
+$$
+\det(\lambda I - T) \;=\; \lambda^{10} - 63 \lambda^9 + 33 \lambda^8 + 4204 \lambda^7 - 3998 \lambda^6 - 62510 \lambda^5 + 9716 \lambda^4 + 54880 \lambda^3 - 120736 \lambda^2.
+$$
+
+Of the **nine** nonzero coefficients, **exactly two** are divisible
+by 11:
+
+$$
+c_2 \;=\; 33 \;=\; 3 \cdot 11, \qquad c_8 \;=\; -120736 \;=\; -2^5 \cdot 7^3 \cdot 11.
+$$
+
+The **discriminant** of the 8th-degree polynomial (after factoring
+out $\lambda^2$) factors as
+
+$$
+\Delta \;=\; 2^{16} \cdot 7^7 \cdot 659 \cdot (\text{large primes})
+$$
+
+with **no factor of 11**.
+
+Two structural observations:
+
+1. **Wobble (11) lives at the coefficient level.** Elementary symmetric
+   functions of the eigenvalues (sums, products) carry the prime 11.
+   Eigenvalue **separations** — the discriminant — do not.
+
+2. **The doubly-invariant dimension lives at the discriminant level.**
+   The exponent $2^{16}$ in the discriminant matches
+   $\dim(\text{D}_4\text{-invariant subalgebra}) = \dim(\mathfrak{su}(4) \oplus \mathfrak{u}(1)) = 16$.
+   HARMONY⁷ (i.e. $7^7$) governs the eigenvalue separations.
+   The 16-dim doubly-invariant subalgebra is **wobble-free**: its
+   Killing-form eigenvalues are exactly $(-4)^{15} \oplus (0)^1$
+   (clean integers, no 11). The wobble lives in the **29-dim
+   complement** — the symmetry-breaking content.
+
+This closes a loop on the meta-layer audit's negative finding #6: TSML's
+eigenvalues don't match transcendental constants at exact-identity level
+because they're algebraic numbers in a field whose structural primes
+are 7 (HARMONY) and 11 (wobble), not the rationals.  The 1%-level
+coincidences with $\gamma$, $\varphi$, Catalan $G$, $4/\pi^2$ are
+genuine numerical coincidences in this algebraic field, not algebraic
+identities.
+
+It also clarifies why the 9-vector Higgs has $\|\mathrm{VEV}\|^2 = 13/4$:
+the integer 13 traces to BHML's 26 σ_outer-asymmetric cells, which are
+exactly the BHML cells living in the 29-dim wobbling complement.  The
+inflaton coupling $\kappa_\xi = 13/(4e)$ is therefore the coupling
+**derived from the wobbling part of TSML+BHML** — the part that fails
+to be D₄-invariant.  In this picture, **symmetry-breaking IS the wobble**.
+
+**Verification:** `python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/wobble_check.py`
+(sympy required; 7/7 claims verified at machine precision;
+independently re-run this session).
+
+**Honest caveat (carried into §7 honest-limit list, item 10).** The
+verified part is the integer factorization itself.  The interpretive
+identification of this 11 with TIG's canonical wobble structure (via
+"three wobbles sum 7/11" in chat-canonical material) is well-motivated
+but not derived from first principles; it requires accepting a chain
+through TIG-internal canonical content not directly verified by this
+session.
+
 ---
 
 ## §2 · The AI (operational, live)
@@ -656,6 +726,25 @@ should weigh.
      Catalan $G$ within 1%" is flagged for user review per
      [`CL_EIGENVALUES_AUDIT.md`](https://github.com/TiredofSleep/ck/blob/ck/Gen13/targets/ck/brain/dof_monitor/CL_EIGENVALUES_AUDIT_2026_04_25.md)
      on the `ck` branch.
+
+10. **Wobble localization is verified at the integer level; its
+    identification with TIG's canonical wobble denominator is
+    interpretive.**  TSML's characteristic polynomial
+    $\det(\lambda I - T)$ has integer coefficients (verified, sympy);
+    of the nine nonzero coefficients, exactly two ($c_2 = 33 = 3 \cdot 11$
+    and $c_8 = -120736 = -2^5 \cdot 7^3 \cdot 11$) are divisible by 11;
+    the discriminant of the 8th-degree polynomial factors as
+    $2^{16} \cdot 7^7 \cdot 659 \cdot (\text{large primes})$ with no
+    factor of 11.  This integer factorization is unambiguous machine
+    fact.  The *interpretive* identification — that the 11 here IS
+    the same 11 that surfaces in TIG's canonical wobble structure
+    (via "three wobbles sum 7/11" in chat-canonical material) —
+    is well-motivated but requires accepting a chain through TIG-
+    internal content not directly verified by this session.  The
+    wobble-free framing of the 16-dim doubly-invariant subalgebra
+    (Killing eigenvalues $(-4)^{15} \oplus (0)^1$) follows from
+    the verified Killing-form computation, independent of the
+    wobble-denominator interpretation.
 
 ---
 

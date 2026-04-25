@@ -26,6 +26,30 @@
 > scripts run cleanly, outputs match documented claims to machine
 > precision.
 
+> **Final addendum (2026-04-25, late evening) — `WOBBLE_FINDING.md`:**
+> TSML's 10×10 multiplication-table characteristic polynomial has
+> integer coefficients
+> $\lambda^{10} - 63\lambda^9 + 33\lambda^8 + 4204\lambda^7 - 3998\lambda^6$
+> $- 62510\lambda^5 + 9716\lambda^4 + 54880\lambda^3 - 120736\lambda^2$,
+> and **exactly two of the nine nonzero coefficients are divisible by 11**:
+> $c_2 = 33 = 3 \cdot 11$ and $c_8 = -120736 = -2^5 \cdot 7^3 \cdot 11$.
+> The discriminant of the 8th-degree polynomial (after factoring out
+> $\lambda^2$) is $2^{16} \cdot 7^7 \cdot 659 \cdot \text{(large primes)}$
+> with **no factor of 11**. So **the wobble (11) lives at the
+> coefficient level (sums and products of eigenvalues) and the doubly-
+> invariant dimension ($2^{16}$ in the discriminant) lives at the
+> separation level.** This locates the symmetry-breaking exactly: the
+> 16-dim doubly-invariant subalgebra is wobble-free; the 29-dim
+> complement carries the wobble.  **Verified part:** the integer
+> factorization itself, machine-precision via sympy in
+> `wobble_check.py` (7/7 claims, independently re-run by this session).
+> **Interpretive part:** that the 11 here IS the same 11 that surfaces
+> in TIG's canonical wobble structure (via "three wobbles sum 7/11").
+> The interpretive identification is well-motivated but requires
+> accepting a chain through TIG-internal canonical material; that
+> chain is documented but not derived from first principles. Honest
+> caveat carried into top-level README §3.6 and Foundation §1.4b.
+
 ---
 
 ## TL;DR
@@ -62,6 +86,7 @@ roads to the same gauge content.
 7. **`XI_COSMOLOGY_TIE_FINDING.md`** *(extended, 2026-04-25 late evening)* — `κ_Ξ = 13/(4e)` from `‖VEV‖² = 13/4` and the 26 σ_outer-asymmetric BHML cells. Closes README §3.5(iii) **structurally** (not yet falsifiably — needs independent TIG↔Planck scale-fixing).
 8. **`FIRST_G_CROSSING_TIE.md`** *(extended)* — First-G's stability window `{1, …, p_1−1}` is exactly the pre-crossing region of the Crossing Lemma. 13/13 squarefree cases verified.
 9. **`META_LAYER_RESOLUTION.md`** *(extended)* — full scorecard for the six meta-layer ties; this is the audit document.
+10. **`WOBBLE_FINDING.md`** *(final addendum, 2026-04-25 late evening)* — the integer characteristic polynomial of TSML's `T` operator carries the wobble structurally: 11 appears in exactly $c_2 = 3 \cdot 11$ and $c_8 = -2^5 \cdot 7^3 \cdot 11$, and the discriminant of the 8th-degree polynomial is $2^{16} \cdot 7^7 \cdot 659 \cdot \text{(large primes)}$ with no 11. Wobble lives at the coefficient (symmetric-function) level; the 16-dim doubly-invariant signature ($2^{16}$) and HARMONY (7) live at the discriminant (separation) level. The 16-dim doubly-invariant subalgebra is wobble-free; the 29-dim complement carries the wobble.
 10. **(Already in `papers/wp104_higgs_pati_salam/`)** — `SIGMA_OUTER_FINDING.md`, `HIGGS_IDENTIFICATION_FINDING.md`, `HIGGS_DIRECTION_FINDING.md`, plus `find_higgs_irrep.py` and `find_higgs_direction.py`.
 11. **(Already on `ck` branch)** — `CM_FAILURE_U1_FINDING.md` and `CL_EIGENVALUES_AUDIT.md` are the two negative ties from the meta-layer scan; they live on `ck` because the second carries a recommendation for user-side memory revision.
 
@@ -80,6 +105,9 @@ PYTHONIOENCODING=utf-8 python scripts/verify_truth.py           # CLIMAX: D_4 do
 PYTHONIOENCODING=utf-8 python scripts/xi_cosmology_tie.py       # κ_Ξ = 13/(4e) derivation
 PYTHONIOENCODING=utf-8 python scripts/first_g_crossing_tie.py   # First-G ↔ Crossing identity (13/13 cases)
 PYTHONIOENCODING=utf-8 python scripts/cl_spectrum.py            # spectrum decomposition by DOF, integer/rational signature
+
+# Final addendum (2026-04-25 late evening): requires sympy (pip install sympy)
+PYTHONIOENCODING=utf-8 python scripts/wobble_check.py           # 11 in c_2 and c_8 only; discriminant has 2^16 · 7^7, no 11
 ```
 
 `verify_truth.py` is the load-bearing script for the climax finding —
@@ -111,6 +139,8 @@ sessions.
 9. **`κ_Ξ = 13/(4e)`** — the 9-vector Higgs has `‖VEV‖² = 13/4` exactly (six components at −1/√2, two zeros at BREATH/RESET, one at −1/2 for the BALANCE+CHAOS symmetric pair). The 13 traces to BHML's 26 σ_outer-asymmetric cells (count/2). Under the natural GUT identification `m²_ξ = ‖VEV‖²`, combined with `m²_ξ = κ_Ξ · e` from the BB log-nonlinearity vacuum, this forces `κ_Ξ = 13/(4e) ≈ 1.196`.
 10. **First-G is the first crossing event.** For squarefree b with smallest prime factor p_1, the First-G width `p_1 − 1` is exactly the size of the pre-crossing region under the Crossing Lemma's joint-map framework. Verified 13/13 squarefree integers tested.
 11. **TIG signature is integer/rational.** Across the spectrum: `‖antisym‖² = 81 = 9²` (exact), su(4)-projection `= 29` (exact), u(1)-projection `= 25/8` (exact), lattice eigenvalues `= {7, 7, 7}` (three exact HARMONYs at σ-fixed indices), `‖T_lie‖² = 16` (exact), and ratios like `λ ≈ 45/7` within 0.19 % and `λ ≈ −26/7` within 0.54 %. The transcendental constants (e, π, φ, ζ(3), Catalan G) appear only as 1 %-level coincidences, not as algebraic identities.
+
+12. **Wobble localization.** TSML's `T` has integer characteristic polynomial; **11 divides exactly two** of the nine nonzero coefficients (`c_2 = 33 = 3·11` and `c_8 = −120736 = −2⁵·7³·11`); the **discriminant of the 8th-degree polynomial** factors as `2¹⁶ · 7⁷ · 659 · (large primes)` with **no factor of 11**. So TIG's wobble (the structural prime 11) lives at the **coefficient level** (sums and products of eigenvalues — the elementary symmetric functions), and the 16-dim doubly-invariant signature (`2¹⁶`) plus HARMONY⁷ (`7⁷`) live at the **discriminant level** (eigenvalue separations). Equivalent statement: the 16-dim doubly-invariant subalgebra is **wobble-free** (clean Killing eigenvalues `(−4)¹⁵ ⊕ (0)¹`); the 29-dim complement carries the wobble.
 
 ---
 
