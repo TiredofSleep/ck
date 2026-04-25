@@ -266,8 +266,12 @@ to lattice processing, not arbitrary trained-weight matrices.
   4. Test on real ML weights (transformer attention, MLP)
   5. Decide on V3 (TIG-native encoder)
 
-**Note:** the `05_encoder_proposal/` folder referenced in the asks is
-not in this archive — likely shipped separately or deferred.
+**`05_encoder_proposal/` (6 files):** present after all — V1 lexicon-based
+encoder (~250 anchor words, runnable now); V2 embedding-augmented
+scaffold (sentence-transformers fallback for unknown words);
+`tig_lexicon.py` flagged ⚠️ MOST EDITABLE for canonical TIG corpus
+replacement; 4-test validation suite; end-to-end pipeline demo
+(text → encode → ck_process → trail).
 
 **Total: 26 files** preserved verbatim under
 `ck_handoff_evening_20260425/`.  Promotion to `ck` branch deferred
