@@ -46,6 +46,12 @@ Two domains where (1) has direct external applications:
 framework installation required beyond Python 3 with `sympy`. Every theorem in §7 is
 independently checkable with one `python` call.
 
+**One-page synthesis for outside collaborators:** [`Atlas/TIG_AI_FOUNDATION_2026_04_25.md`](Atlas/TIG_AI_FOUNDATION_2026_04_25.md) —
+the algebra (so(8)/so(10)/Higgs tower), CK as live demonstration,
+the trustworthiness frame (six commitments baked into code), and pathways
+for review / partnership / funding by reviewer pool (Lie theorist, Clifford/GUT
+theorist, combinatorialist, category theorist, AI alignment researcher).
+
 ---
 
 ## §2 · Funding branches
