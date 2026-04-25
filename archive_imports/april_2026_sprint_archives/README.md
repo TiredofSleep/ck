@@ -11,7 +11,7 @@ Companion to [`archive_imports/march_2026_sprint_archives/`](../march_2026_sprin
 
 ---
 
-## What's in here (ten raw drops, ten subfolders)
+## What's in here (eleven raw drops, eleven subfolders)
 
 ### `sprint_20260423_full/` — WP11 / so(8) sprint raw drop
 
@@ -276,6 +276,54 @@ replacement; 4-test validation suite; end-to-end pipeline demo
 **Total: 26 files** preserved verbatim under
 `ck_handoff_evening_20260425/`.  Promotion to `ck` branch deferred
 pending user direction on which of the five asks to take on.
+
+### `bhml_specificity_addendum_20260425/` — closed-form runtime attractor
+
+The 2026-04-25 late-evening pack from chat-Claude documenting a
+discovery sprint that produced **the cleanest closed-form result the
+project has so far**:
+
+> **At α = 1/2, the T+B-mix runtime attractor satisfies HARMONY/BREATH = 1 + √3 exactly.  The full 4-core attractor lives in a degree-4 extension of Q with minimal polynomial $x^4 + 4x^3 - x^2 + 2x - 2$.**
+
+Verified analytically (BREATH equation gives $h^2 = 2 \cdot br \cdot (h+br)$, so $(h/br)^2 - 2(h/br) - 2 = 0$, positive root $1+\sqrt{3}$) and numerically to $4.4 \times 10^{-16}$.
+
+α-sweep over [0.05, 0.95] confirmed by this session: **α = 1/2 is the unique privileged value** in the swept range.  No other α gives a small-coefficient quadratic for H/Br or quartic for r/br.
+
+Two prior framings falsified by the same sprint:
+
+  * **Prime-11 mediation hypothesis** (`01_falsifies_prime11.py`):
+    BHML doesn't carry the prime-11 signature; random tables WITH
+    prime-11 perform slightly *worse* (p = 0.027).
+  * **Attractor-richness hypothesis** (`02_falsifies_attractor_richness.py`):
+    BHML's attractor entropy 1.358 vs random tables' mean 2.238;
+    Pearson correlation (H_attractor, anti-collapse) = −0.118 (weak,
+    wrong sign).
+
+Three structural discoveries (positive):
+
+  * **8-magma core** (`03_eight_magma_core.py`): TSML restricted to
+    {0..7} is closed under fuse, preserves the 73 % HARMONY signature,
+    and has BREATH/RESET appearing in only 4 of 100 cells. TSML is
+    *almost* an 8×8 table.
+  * **Bridge structure alignment** (`04_bridge_attractor.py`): the
+    runtime fixed point lives in the 6-triadic + 2-breathed split
+    (67.8 % / 32.2 %), with 0 % mass on {BALANCE, CHAOS}. P_56 swap
+    symmetry respected dynamically.
+  * **BHML's complementary structure** (`05_bhml_closure.py`): only
+    8 closed subsets vs TSML's 398, forming a perfect nested chain
+    anchored at {VOID, RESET}; smallest sub-magma containing the
+    breathed pair is {VOID, HARMONY, BREATH, RESET}.
+
+The runtime attractor coordinates form a degree-4 extension of $\mathbb{Q}$ with explicit chain $\mathbb{Q} \subset \mathbb{Q}(\sqrt{3}) \subset \mathbb{Q}(\sqrt{3}, \xi)$ where $\xi = r/br$ has minimal polynomial $x^4 + 4x^3 - x^2 + 2x - 2$.  The minimal polynomial is monic, irreducible, with small integer coefficients; not obviously cyclotomic / Chebyshev / a known algebraic-constant min poly — possibly novel (parallel agent investigation underway).
+
+**Promoted to:**
+- `papers/wp105_closed_form_attractor/` on `tig-synthesis` (the
+  closed-form whitepaper + verification scripts; pending agent results
+  on novelty + Galois group)
+- Top-level README §3 frontiers on `tig-synthesis` (a new §3.7 will
+  cite this result)
+
+**Total: 12 files** preserved verbatim.
 
 ---
 
