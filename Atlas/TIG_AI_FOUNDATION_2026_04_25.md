@@ -172,6 +172,64 @@ electroweak breaking).  But the alignment between TIG's two natural
 Z₂ involutions and the Pati-Salam embedding is forced by the math
 alone.
 
+### §1.4b Meta-layer extension (2026-04-25 evening)
+
+A scan of the README's open pairings — places where two pieces of
+verified structure existed but the bridge between them hadn't been
+computed — produced six audited ties.  Two are positive new findings
+(integrated above where they fit), one is clarified, one is deferred,
+and two are honest negative findings:
+
+- **Tie #1 — ξ-cosmology coupling (POSITIVE).**  The 9-vector Higgs
+  has $\|\mathrm{VEV}\|^2 = 13/4$ exactly (six components at $-1/\sqrt{2}$,
+  two zeros at BREATH and RESET, one at $-1/2$ for the BALANCE+CHAOS
+  symmetric pair).  The integer 13 traces to BHML's 26 σ_outer-asymmetric
+  cells.  Under the GUT-natural identification $m^2_\xi = \|\mathrm{VEV}\|^2$,
+  combined with the BB-vacuum relation $m^2_\xi = \kappa_\xi e$, this
+  forces
+
+  $$
+  \boxed{\,\kappa_\xi \;=\; \frac{13}{4e} \;\approx\; 1.196\,}
+  $$
+
+  This **closes README §3.5(iii) at the structural level** — but
+  falsifiability against DESI requires independent TIG ↔ Planck scale-
+  fixing, not yet computed.  Three candidate routes are in §7 honest
+  limit #8.
+
+- **Tie #3 — First-G ↔ Crossing Lemma (POSITIVE).**  For squarefree b
+  with smallest prime factor $p_1$, the First-G stability window
+  $\{1, \ldots, p_1 - 1\}$ is exactly the **pre-crossing region** in
+  the Crossing Lemma's joint-map framework.  Verified across 13 of 13
+  squarefree integers tested.  This **literal identification** unifies
+  §7.1 (First-G theorem) and §7.4 (Crossing Lemma) conceptually; it
+  doesn't yet change §3.1's open status on cryptographic complexity.
+
+- **Tie #2 (CLARIFIED).**  T*=5/7 governs coherent-state survival in
+  TIG runtime; the Killing eigenvalue −4 is su(4)'s standard internal
+  scaling.  Both involve the integers {4, 7} — for *different* reasons.
+  No direct tie; not the same constant.
+
+- **Tie #4 (DEFERRED).**  The BB log-nonlinearity / σ-rate quantitative
+  bridge requires careful unpacking of Bialynicki-Birula 1976.  Not done
+  in this sprint.
+
+- **Ties #5 and #6 (NEGATIVE; on `ck` branch).**  Hilbert-tail of
+  $R/I_\mathrm{CL}$ ≠ u(1) center (different supports), and the
+  "CL eigenvalues match e/π/φ/ζ(3)/Catalan G within 1%" claim survives
+  only as 1%-level coincidences, not algebraic identities.  What IS
+  exact across the spectrum is the **integer/rational signature**
+  ($81 = 9^2$, $29$, $13/4$, $\{7, 7, 7\}$, $\|T_\text{lie}\|^2 = 16$,
+  ratios like $\lambda \approx 45/7$ within 0.19%).  Full audit:
+  [`META_LAYER_RESOLUTION.md`](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/META_LAYER_RESOLUTION.md).
+
+The combined effect of the meta-layer extension is a sharpened picture
+of TIG's structural content: the *integer / rational* spectrum is
+robust, the *transcendental* alignments are decorative coincidences,
+and the two ties that produced positive findings (#1 and #3) close the
+gap on two open README questions structurally — but neither becomes
+falsifiable without additional scale-fixing work.
+
 ---
 
 ## §2 · The AI (operational, live)
@@ -456,10 +514,10 @@ the project has one math.NT arXiv endorsement and is seeking one more.
 
 ---
 
-## §6 · Reproducibility — six commands
+## §6 · Reproducibility — eight commands
 
 A fresh clone with Python ≥ 3.10 and numpy installed can verify the
-load-bearing claims in six commands:
+load-bearing claims in eight commands:
 
 ```bash
 # 1. so(8) closure dim 28 = D_4
@@ -478,7 +536,13 @@ PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_hi
 #    is su(4) ⊕ u(1) — Pati-Salam ⊕ B−L gauge algebra
 PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py
 
-# 6. CK runtime: 6-DOF independence + AO basis self-test
+# 6. META-LAYER CLOSURE: kappa_Xi = 13/(4e) from |VEV|^2 = 13/4 + 26 BHML asymmetric cells
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/xi_cosmology_tie.py
+
+# 7. META-LAYER UNIFICATION: First-G IS the first crossing event (13/13 squarefree)
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/first_g_crossing_tie.py
+
+# 8. CK runtime: 6-DOF independence + AO basis self-test
 PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/six_dof_check.py
 PYTHONIOENCODING=utf-8 python ck/brain/ao_basis.py
 ```
@@ -487,7 +551,7 @@ PYTHONIOENCODING=utf-8 python ck/brain/ao_basis.py
 in the script output otherwise crash the cp1252 default codec.  Linux
 and macOS are fine without it.)
 
-All six complete in under 30 seconds combined.  All produce machine-
+All eight complete in under 60 seconds combined.  All produce machine-
 precision residuals (10⁻¹⁵ or better).
 
 For the live CK runtime: `python ck/brain/test_brain.py` runs the
@@ -555,6 +619,43 @@ should weigh.
    TSML; it isn't.  The 12.6% figure has been carried through all
    downstream documents (this Foundation, top-level README, WP104) and
    any prior place that cited 49.8% is now flagged historically.
+
+8. **κ_Ξ = 13/(4e) is a structural derivation, not a falsifiable physics
+   prediction.**  The 9-vector Higgs has $\|\mathrm{VEV}\|^2 = 13/4$
+   exactly, with the integer 13 traceable to BHML's 26 σ_outer-asymmetric
+   cells.  Under the GUT-natural identification $m^2_\xi = \|\mathrm{VEV}\|^2$,
+   combined with $m^2_\xi = \kappa_\xi e$ from the BB log-nonlinearity
+   vacuum, this forces $\kappa_\xi = 13/(4e) \approx 1.196$.  But: this
+   is in TIG-internal units, with no scale-fixing yet to physical
+   $M_\mathrm{Planck}$.  Falsifiability against DESI / Planck cosmology
+   data requires an independent identification of the TIG ↔ Planck
+   conversion.  Three candidate routes (Crossing-Lemma RGE flow,
+   WP102/103 + standard SO(10) coupling matching, First-G ↔ EFT cutoff)
+   are each substantial work, none done in this sprint.  Documented in
+   [`XI_COSMOLOGY_TIE_FINDING.md`](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/XI_COSMOLOGY_TIE_FINDING.md).
+
+9. **Two of the six meta-layer ties are negative; one is mixed.**  Of
+   the six bridge-pairings audited 2026-04-25 evening
+   ([`META_LAYER_RESOLUTION.md`](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/META_LAYER_RESOLUTION.md)):
+   - #2 (T*=5/7 ↔ Killing −4) is **clarified** — both involve {4, 7}
+     for *different* reasons; no direct tie.  T*=5/7 governs coherent-
+     state survival; the −4 is su(4)'s standard Killing scaling.
+   - #4 (BB log nonlinearity ↔ σ-rate quantitative bridge) is **not
+     fully tested** — the κ_Ξ result above addresses one direction
+     (Higgs VEV → coupling); the BB-rate direction requires careful
+     unpacking of BB 1976.  Open.
+   - #5 (Cohen-Macaulay failure ↔ u(1) center) is **negative**: the
+     Hilbert-tail of $R/I_\mathrm{CL}$ lives on VOID, the u(1) center
+     of the doubly-invariant subalgebra explicitly avoids VOID.
+     Different 1-dim residuals, complementary supports.
+   - #6 (CL eigenvalues ↔ transcendentals) is **mixed**: 1%-level
+     coincidences exist for $\gamma$, $\varphi$, Catalan $G$, $4/\pi^2$,
+     but **not algebraic identities**.  What IS exact is the integer/
+     rational structure ($81 = 9^2$, $29$, $13/4$, $\{7,7,7\}$).  The
+     prior chat-claim "CL eigenvalues produce $e, \pi, \varphi, \zeta(3)$,
+     Catalan $G$ within 1%" is flagged for user review per
+     [`CL_EIGENVALUES_AUDIT.md`](https://github.com/TiredofSleep/ck/blob/ck/Gen13/targets/ck/brain/dof_monitor/CL_EIGENVALUES_AUDIT_2026_04_25.md)
+     on the `ck` branch.
 
 ---
 

@@ -207,7 +207,14 @@ per-row rigor audit lives in
 [`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md).
 Open questions: (i) is σ(N) → 0 provably sharp (not just ≤ 2/N)? (ii) does the
 primon-gas limit extend to the full $T^* = 5/7$ spectrum? (iii) does the WP101-
-BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly? Tier-1
+BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly?
+**Status of (iii) — partial closure (2026-04-25):** the 9-vector Higgs direction in BHML's σ_outer-breaking (54 irrep) has $\|\mathrm{VEV}\|^2 = 13/4$ exactly, with the integer 13 traceable to BHML's 26 σ_outer-asymmetric cells. Under the GUT-natural identification $m^2_\xi = \|\mathrm{VEV}\|^2$, combined with the BB-vacuum relation $m^2_\xi = \kappa_\xi e$, this forces
+
+$$
+\boxed{\,\kappa_\xi \;=\; \frac{13}{4e} \;\approx\; 1.196\,}
+$$
+
+— a structural derivation, not a physics prediction. **Falsifiability against DESI requires independent TIG↔Planck scale-fixing, not yet computed.** Verification: `python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/xi_cosmology_tie.py`. Full audit of all six meta-layer ties (including a separate **First-G IS the first crossing event** verified identification, plus two negative-result tie audits flagged for review) at [`Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/META_LAYER_RESOLUTION.md`](Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/META_LAYER_RESOLUTION.md). Tier-1
 submission-ready as three independent journal doors (JCAP, $\sigma$-rate
 combinatorics, integers / sinc² zero law) per
 [`Gen13/targets/journals/SUBMISSION_LADDER.md`](Gen13/targets/journals/SUBMISSION_LADDER.md).
@@ -275,7 +282,7 @@ residuals) via 14 numpy-only scripts in
 [`Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/`](Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/),
 2 in
 [`papers/wp104_higgs_pati_salam/verification/`](papers/wp104_higgs_pati_salam/verification/),
-and 5 more in the unmistakable-truth sprint above.
+and 8 more in the unmistakable-truth sprint above (5 main arc + 3 meta-layer extension).
 **This is structural alignment, not a physics prediction.** Whether the
 TIG-derived 9-vector VEV gives realistic Pati-Salam phenomenology is the
 next question (~200–3000 LOC of Yukawa / RG / electroweak-breaking work
@@ -287,6 +294,25 @@ A community-facing **MathOverflow draft** posing the doubly-invariant
 question in pure-algebra register is staged on the
 [`mantero-bridge-2026-04-23`](../../tree/mantero-bridge-2026-04-23) branch
 for collaborative editing before posting.
+
+**Late-evening extension (2026-04-25): meta-layer audit.** A scan of the
+six README pairings whose endpoints existed but whose bridges hadn't
+been computed produced two new positive findings —
+$\kappa_\xi = 13/(4e)$ closing §3.5(iii) at structural level (above), and
+**First-G IS the first crossing event** in the Crossing Lemma framework
+(verified 13/13 squarefree test cases), unifying §7.1 and §7.4
+conceptually — alongside two honest negative findings on the `ck` branch:
+the Hilbert-tail of $R/I_\mathrm{CL}$ and the $\mathfrak{u}(1)$ center
+of the doubly-invariant subalgebra are **different** 1-dim residuals
+(complementary supports, VOID vs 6-cycle), and the prior chat-claim
+that "CL eigenvalues produce $e, \pi, \varphi, \zeta(3)$, Catalan $G$
+within 1%" survives only as 1%-level coincidences, not as algebraic
+identities. **What IS exact** across the spectrum: integer/rational
+structure ($\|\text{antisym}\|^2 = 81 = 9^2$, su(4)-projection $= 29$,
+u(1)-projection $= 25/8$, lattice eigenvalues $= \{7, 7, 7\}$,
+$\|T_\text{lie}\|^2 = 16$, ratios like $\lambda \approx 45/7$ within
+0.19%). Audit document:
+[`META_LAYER_RESOLUTION.md`](Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/META_LAYER_RESOLUTION.md).
 
 ---
 
@@ -682,7 +708,7 @@ python papers/proof_d7_phi_fixed_point.py
 pytest papers/
 ```
 
-**Three additional commands for the so(8)/so(10)/Higgs tower** (§3.6):
+**Six additional commands for the so(8)/so(10)/Higgs tower** (§3.6) and the meta-layer extension (§3.5(iii)):
 
 ```bash
 # WP102: TSML's flow operators close at dim 28 = so(8) = D_4
@@ -693,6 +719,15 @@ PYTHONIOENCODING=utf-8 python papers/wp103/verification/verify_so10.py
 
 # WP104: BHML's σ_outer-breaking is 100% in the 54 irrep (Pati-Salam route)
 PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py
+
+# Doubly-invariant content of so(10) under D_4 = <P_56, sigma^3> is su(4) (+) u(1)
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py
+
+# Meta-layer §3.5(iii): kappa_Xi = 13/(4e) from |VEV|^2 = 13/4 + 26 BHML asymmetric cells
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/xi_cosmology_tie.py
+
+# Meta-layer §7.1 ↔ §7.4: First-G IS the first crossing event (13/13 squarefree)
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/first_g_crossing_tie.py
 ```
 
 (`PYTHONIOENCODING=utf-8` is required only on Windows, where the scripts'

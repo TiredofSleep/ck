@@ -1,8 +1,30 @@
-# Sprint · The Unmistakable Truth · 2026-04-25 (evening)
+# Sprint · The Unmistakable Truth · 2026-04-25 (evening, extended)
 
 **Authors:** Claude (Anthropic) · Brayden Sanders / 7Site LLC
 **Status:** every claim machine-verified at 10⁻¹⁵ residuals
 **Position:** infrastructure tier, **climax of the so(8)→so(10)→Higgs→D₄ arc**
+
+> **Late-evening extension (2026-04-25).** After the climax, a meta-layer
+> scan of the README's open questions identified six pairings where both
+> endpoints existed but the bridge hadn't been computed. This sprint
+> folder now contains the resolution:
+>
+> - **POSITIVE — `XI_COSMOLOGY_TIE_FINDING.md`:** under the GUT-natural
+>   identification `m²_ξ = ‖VEV‖²`, the 9-vector Higgs structure forces
+>   `κ_Ξ = 13/(4e)`. Closes README §3.5(iii) at structural level.
+> - **POSITIVE — `FIRST_G_CROSSING_TIE.md`:** First-G IS the first
+>   crossing event under the Crossing Lemma framework
+>   (verified 13/13 squarefree test cases). Unifies §7.1 and §7.4
+>   conceptually.
+> - **AUDIT — `META_LAYER_RESOLUTION.md`:** scorecard for all six ties
+>   (#2 clarified, #4 deferred, #5 negative, #6 mixed). Two of the six
+>   resolutions live on the `ck` branch (`CM_FAILURE_U1_FINDING.md` and
+>   `CL_EIGENVALUES_AUDIT.md`) because they document negative findings
+>   that need user-side review of a memory claim.
+>
+> Independent re-verification by this session: all four extension
+> scripts run cleanly, outputs match documented claims to machine
+> precision.
 
 ---
 
@@ -37,7 +59,11 @@ roads to the same gauge content.
 4. **`CROSSINGS_FINDING.md`** — Lie and Jordan are **dual presentations of one algebra**, not complementary halves. Both sides of the antisymmetric/symmetric split independently regenerate so(10) at dim 45.
 5. **`TOWER_CYCLE_FINDING.md`** — three involutions (`τ_1`, `τ_2`, `τ_3`) give three **structurally different decompositions** of so(10): `τ_1` is the global Lie/Jordan flip; `τ_2 = P_56` gives `45 = 36 + 9` (so(9) ⊕ R⁹); `τ_3 = σ³` gives `45 = 24 + 21` (a finer grading not yet placed in textbook GUT phenomenology).
 6. **`UNMISTAKABLE_TRUTH.md`** — the climax. Under D₄ = ⟨P_56, σ³⟩, the doubly-invariant content of so(10) is `su(4) ⊕ u(1)`.
-7. **(Already in `papers/wp104_higgs_pati_salam/`)** — `SIGMA_OUTER_FINDING.md`, `HIGGS_IDENTIFICATION_FINDING.md`, `HIGGS_DIRECTION_FINDING.md`, plus `find_higgs_irrep.py` and `find_higgs_direction.py`.
+7. **`XI_COSMOLOGY_TIE_FINDING.md`** *(extended, 2026-04-25 late evening)* — `κ_Ξ = 13/(4e)` from `‖VEV‖² = 13/4` and the 26 σ_outer-asymmetric BHML cells. Closes README §3.5(iii) **structurally** (not yet falsifiably — needs independent TIG↔Planck scale-fixing).
+8. **`FIRST_G_CROSSING_TIE.md`** *(extended)* — First-G's stability window `{1, …, p_1−1}` is exactly the pre-crossing region of the Crossing Lemma. 13/13 squarefree cases verified.
+9. **`META_LAYER_RESOLUTION.md`** *(extended)* — full scorecard for the six meta-layer ties; this is the audit document.
+10. **(Already in `papers/wp104_higgs_pati_salam/`)** — `SIGMA_OUTER_FINDING.md`, `HIGGS_IDENTIFICATION_FINDING.md`, `HIGGS_DIRECTION_FINDING.md`, plus `find_higgs_irrep.py` and `find_higgs_direction.py`.
+11. **(Already on `ck` branch)** — `CM_FAILURE_U1_FINDING.md` and `CL_EIGENVALUES_AUDIT.md` are the two negative ties from the meta-layer scan; they live on `ck` because the second carries a recommendation for user-side memory revision.
 
 ---
 
@@ -48,7 +74,12 @@ PYTHONIOENCODING=utf-8 python scripts/compute_transitions.py    # tower transiti
 PYTHONIOENCODING=utf-8 python scripts/count_crossings.py        # Lie/Jordan dual presentations
 PYTHONIOENCODING=utf-8 python scripts/full_landscape.py         # 126 non-associative triples + structural breakdown
 PYTHONIOENCODING=utf-8 python scripts/cycle_tower_v2.py         # three-involution decomposition (45 = 24+21)
-PYTHONIOENCODING=utf-8 python scripts/verify_truth.py           # FINAL: D_4 doubly-invariant = su(4) (+) u(1)
+PYTHONIOENCODING=utf-8 python scripts/verify_truth.py           # CLIMAX: D_4 doubly-invariant = su(4) (+) u(1)
+
+# Late-evening extension (2026-04-25):
+PYTHONIOENCODING=utf-8 python scripts/xi_cosmology_tie.py       # κ_Ξ = 13/(4e) derivation
+PYTHONIOENCODING=utf-8 python scripts/first_g_crossing_tie.py   # First-G ↔ Crossing identity (13/13 cases)
+PYTHONIOENCODING=utf-8 python scripts/cl_spectrum.py            # spectrum decomposition by DOF, integer/rational signature
 ```
 
 `verify_truth.py` is the load-bearing script for the climax finding —
@@ -75,6 +106,11 @@ sessions.
 6. P_56 = σ_outer in the spinor representation (`SIGMA_OUTER_FINDING.md` in WP104).
 7. BHML's σ_outer-breaking is 100% in the 54 irrep (`HIGGS_IDENTIFICATION_FINDING.md` in WP104).
 8. The Higgs direction is a specific 9-vector with BREATH=RESET=0 (`HIGGS_DIRECTION_FINDING.md` in WP104).
+
+### Extension (added 2026-04-25 late evening)
+9. **`κ_Ξ = 13/(4e)`** — the 9-vector Higgs has `‖VEV‖² = 13/4` exactly (six components at −1/√2, two zeros at BREATH/RESET, one at −1/2 for the BALANCE+CHAOS symmetric pair). The 13 traces to BHML's 26 σ_outer-asymmetric cells (count/2). Under the natural GUT identification `m²_ξ = ‖VEV‖²`, combined with `m²_ξ = κ_Ξ · e` from the BB log-nonlinearity vacuum, this forces `κ_Ξ = 13/(4e) ≈ 1.196`.
+10. **First-G is the first crossing event.** For squarefree b with smallest prime factor p_1, the First-G width `p_1 − 1` is exactly the size of the pre-crossing region under the Crossing Lemma's joint-map framework. Verified 13/13 squarefree integers tested.
+11. **TIG signature is integer/rational.** Across the spectrum: `‖antisym‖² = 81 = 9²` (exact), su(4)-projection `= 29` (exact), u(1)-projection `= 25/8` (exact), lattice eigenvalues `= {7, 7, 7}` (three exact HARMONYs at σ-fixed indices), `‖T_lie‖² = 16` (exact), and ratios like `λ ≈ 45/7` within 0.19 % and `λ ≈ −26/7` within 0.54 %. The transcendental constants (e, π, φ, ζ(3), Catalan G) appear only as 1 %-level coincidences, not as algebraic identities.
 
 ---
 
