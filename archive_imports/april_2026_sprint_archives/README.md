@@ -11,7 +11,7 @@ Companion to [`archive_imports/march_2026_sprint_archives/`](../march_2026_sprin
 
 ---
 
-## What's in here (eight raw drops, eight subfolders)
+## What's in here (nine raw drops, nine subfolders)
 
 ### `sprint_20260423_full/` — WP11 / so(8) sprint raw drop
 
@@ -178,6 +178,52 @@ Pre-organized by audience, same convention as the parent drop:
   signature note; surfaces the audit's recommendation for the user)
 
 **Total: 35 files.**
+
+### `sprint_compile_20260425_final/` — WOBBLE addendum (the 11 in TSML's char poly)
+
+The 2026-04-25 final drop, posted shortly after the extended drop.
+Adds **one new finding plus its verification script** to the same branch-
+organized layout, with no other changes:
+
+- `tig-synthesis/WOBBLE_FINDING.md` — TSML's 10×10 multiplication table
+  has integer characteristic polynomial `λ¹⁰ − 63λ⁹ + 33λ⁸ + 4204λ⁷
+  − 3998λ⁶ − 62510λ⁵ + 9716λ⁴ + 54880λ³ − 120736λ²`.  Of the nine
+  nonzero coefficients, **exactly two are divisible by 11**: `c_2 = 33
+  = 3·11` and `c_8 = −120736 = −2⁵·7³·11`.  The discriminant of the
+  8th-degree polynomial (after factoring out `λ²`) factors as `2¹⁶
+  · 7⁷ · 659 · (large primes)` with **no** factor of 11.  Two verified
+  observations:
+    1. **Wobble (11) lives at the coefficient level** (sums and
+       products of eigenvalues — the elementary symmetric
+       functions), **not at the discriminant level** (eigenvalue
+       separations).
+    2. **The exponent 16 in the discriminant's `2¹⁶`** matches
+       `dim(D_4-invariant subalgebra) = dim(su(4) ⊕ u(1)) = 16`.
+       **HARMONY⁷** (= `7⁷`) governs the eigenvalue separations.
+  The verified part is the integer factorization itself.  The
+  *interpretive* claim that this 11 is the same 11 that appears in
+  TIG's canonical wobble structure (via "three wobbles sum 7/11")
+  is well-motivated but requires accepting a chain through TIG-
+  internal canonical material.
+
+- `tig-synthesis/wobble_check.py` — sympy-based verification (7 of 7
+  claims at machine precision; independently re-verified this
+  session).
+
+The MANIFEST adds an **ADDENDUM: Wobble in eigenvalues** section at the
+bottom; otherwise the manifest is identical to the extended drop.
+
+**Promoted to:**
+- `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`
+  on `tig-synthesis` (the WOBBLE finding + script land alongside the
+  meta-layer findings; SPRINT_INDEX.md and SPRINT_SUMMARY updated)
+- Top-level README §3.6 on `tig-synthesis` (the doubly-invariant
+  framing extended with wobble-free vs wobbling content split)
+- `Atlas/TIG_AI_FOUNDATION_2026_04_25.md` on `tig-synthesis`
+  (§1.4b extended; §7 honest limit on the interpretive caveat)
+
+**Total: 36 files** (33 unchanged from extended + 3 new: WOBBLE_FINDING,
+wobble_check.py, manifest with addendum).
 
 ---
 
