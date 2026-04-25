@@ -313,9 +313,9 @@ to Dr. Mantero's framework lives there. Entry points:
   posing a narrow commutative-algebra question about the binomial ideal
   $I_{\mathrm{CL}} = (x_i x_j - x_{\mathrm{CL}[i][j]} x_0)$.
   **M2-verified** (Macaulay2 1.22, `compute_betti.m2`,
-  `betti_output.txt`): $\operatorname{numgens} = 53$,
-  $\operatorname{codim} = 9$, $\dim R/I_{\mathrm{CL}} = 1$,
-  $\operatorname{pd} = 10$, $\operatorname{depth} = 0$,
+  `betti_output.txt`): $\mathrm{numgens} = 53$,
+  $\mathrm{codim} = 9$, $\dim R/I_{\mathrm{CL}} = 1$,
+  $\mathrm{pd} = 10$, $\mathrm{depth} = 0$,
   **not Cohen–Macaulay**, **not Koszul**; reduced Hilbert series
   $\frac{1 + 9T - 8T^2 - T^3}{1 - T}$ — i.e. Hilbert function
   $(1, 10, 2, 1, 1, \ldots)$ stabilising at $1$. The open questions
