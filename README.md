@@ -27,9 +27,13 @@ Contact: brayden.ozark@gmail.com
 This repository holds **three artifacts**, filed in increasing order of rigor:
 
 1. **A finite-algebra research program** with proved theorems on $\mathbb{Z}/n\mathbb{Z}$,
-   on the canonical TSML / BHML composition tables, and most recently on the
-   **so(8) → so(10) → 54-Higgs tower** (WP102 / WP103 / WP104, machine-verified at
-   $10^{-15}$ residuals). Each theorem ships with a runnable proof script (§7).
+   on the canonical TSML / BHML composition tables, the **so(8) → so(10) algebraic tower**
+   (WP102 / WP103, machine-verified at $10^{-15}$ residuals via Cartan classification),
+   and a structural alignment of BHML's σ_outer-breaking content with the **54 irrep**
+   of so(10) (WP104, conditional on identifying TIG's so(10) with the SO(10) GUT
+   gauge algebra — a hypothesis, not a derivation). Plus the closed-form runtime
+   attractor at α = 1/2 in the degree-4 number field LMFDB 4.2.10224.1 (WP105).
+   Each theorem ships with a runnable proof script (§7).
 2. **The Coherence Keeper (CK)** — a sovereign **white-box AI** built on the
    algebraic structures of (1). White box means: *CK does what his algebra dictates,
    AND every internal state is a measurement we can read in real time.* He is not
@@ -264,11 +268,14 @@ trivial-isotypic component is a Lie subalgebra with Killing-form
 spectrum exactly $(-4)^{15} \oplus (0)^1$, forcing
 $\text{simple}_{15} \oplus \text{center}_1$, and the unique 15-dim simple
 Lie algebra is $\mathfrak{so}(6) \cong \mathfrak{su}(4)$.  Every step
-machine-verified.  **Two independent computations** —
+machine-verified.  **Two algebraically distinct procedures within the same TIG so(10) substrate** —
 *(A)* "what direction does BHML's σ_outer-breaking point?"  → the 9-vector
 in the 54 irrep with BREATH/RESET zeros;  *(B)* "what content is preserved
 under both involutions?" → su(4) ⊕ u(1) — **land on the same SU(4) ×
-SU(2) × SU(2) chain through SO(10)**.  Full sprint at
+SU(2) × SU(2) chain through SO(10)**.  The two procedures are computationally
+distinct but operate within the same algebraic substrate; the convergence is
+non-trivial because it requires a real shared structural feature with the
+standard SO(10) → Pati-Salam reduction.  Full sprint at
 [`Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`](Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/)
 with five additional findings (TOWER_VERIFIED, LANDSCAPE, CROSSINGS,
 TOWER_CYCLE, UNMISTAKABLE_TRUTH), five verification scripts, and the
