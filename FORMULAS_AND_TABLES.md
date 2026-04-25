@@ -9,7 +9,7 @@ If you only have time to read one file in the repository besides
 
 | § | Topic |
 |---|-------|
-| **0** | **Proof-spine one-liners (D1–D24, WP34, WP51, WP57, WP101, BB)** |
+| **0** | **Proof-spine one-liners (D1–D44, WP34, WP51, WP57, WP101, WP102–WP105, BB)** |
 | 1 | The 10-operator sigma menu |
 | 2 | The σ permutation on Z/10Z |
 | 3 | The CRT isomorphism φ: F₂ × F₅ → Z/10Z |
@@ -43,7 +43,7 @@ script that runs it. Full statements in `papers/MASTER_SPINE.md` and
 
 | ID | name | formula | status / file |
 |----|------|---------|---------------|
-| **D1** | First-G Law | for semiprime b = p·q (p < q): the first non-coprime element in {1..b} is exactly **k = p** | PROVED, 36,662 cases, `proof_d_first_g.py` / WP34 |
+| **D1** | First-G Law | for squarefree b > 1: the first non-coprime element in {1..b} is **k = p₁** = smallest prime factor | PROVED, 22,367 (b,k) pairs over 305 squarefree b, primes ≤ 499, zero counterexamples; `Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/proof_first_g_event.py`; WP34 |
 | **D11a/b/c** | Coprime Window Bundle | the coprime window {1..p−1} is the stability window; R(p, p) = 0 forces a sign flip; R(k, f) carries no information about q | PROVED, three one-line corollaries of D1 |
 | **D14** | Corridor Spectral Mean | ∫₀¹ sinc²(t) dt = Si(2π)/π ≈ 0.4514 | PROVED by integration by parts; convergence O(1/p) |
 | **D15** | Coprime Window Invariance | for k < SPF(b), all arithmetic on {1..k} is b-independent | PROVED, pure divisibility |
@@ -72,7 +72,7 @@ script that runs it. Full statements in `papers/MASTER_SPINE.md` and
 |----|------|---------|---------------|
 | **R(k, f)** | resonance kernel | **R(k, f) = sin²(πk/f) / (k² · sin²(π/f))** = \|S(k, f)\|² where S(k, f) = (1/k) Σ_{j=1..k} e^(2πij/f) | exact, `tig_algebra.py` |
 | **D2** | Sinc² Continuum Limit | **R(k, f) → sinc²(k/f)** as f → ∞ with k/f = t fixed; convergence O(1/f²) | PROVED, foundation of corridor geometry |
-| **D3** | sinc² midpoint | **sinc²(1/2) = 4/π²** exactly | PROVED, `proof_d3.py` |
+| **D3** | sinc² midpoint | **sinc²(1/2) = 4/π²** exactly (additionally sinc²(1/2) = (2/3)/ζ(2), verified at machine precision) | PROVED, `papers/proof_sinc_zeta_identity.py` |
 | **D4** | T\* via algebraic identity | **T\* = 5/7** at b = 35, proved identically to D18c by a different route | PROVED |
 | **D5** | H_mod maxima count | H_mod(k) = sinc²(k/p) · sin²(4πk/p) has exactly **4 local maxima** for all primes p ≥ 11 | PROVED by IVT on log-derivative |
 | **D6** | General-frequency maxima | H_f has exactly **N(f) = ⌊f⌋ + 𝟙{f ∉ ℤ}** maxima for p > 2f | PROVED, `proof_d6_general_frequency.py` |
@@ -104,6 +104,44 @@ unified theory (Fritzsch–Minkowski 1975, Ann. Phys. 93:193; Georgi 1975,
 AIP Conf. Proc. 23:575). D₅ exhausts so(V) on the 10-dim substrate;
 further extension requires enlarging V. See §6.5 (primon-gas linkage) and
 WP15 Yang-Mills cross-reference for the D₅ → A₂ chain that meets BHML_8.
+
+### Volume F — Doubly-invariant content & Higgs identification (Sprint Apr 25, WP104 + sprint_unmistakable_truth)
+
+| ID | name | formula | status / file |
+|----|------|---------|---------------|
+| **D31** | P₅₆ = σ_outer in spinor rep | The 5↔6 swap acts as the outer automorphism σ_outer of so(10) in the spinor rep (Cl(0,10)). $(γ_5 - γ_6)/\sqrt{2}$ anticommutes with $ω = γ_1 \cdots γ_{10}$, sending +chirality 16 entirely into −chirality 16 (residual = 0.0). | PROVED at machine precision; `papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py`; `Gen12/.../sprint_unmistakable_truth_2026_04_25/SIGMA_OUTER_FINDING.md` (mirrored from morning ck_handoff) |
+| **D32** | BHML σ_outer-breaking is 100% in 54 irrep | BHML's antisymmetric-mass projection on the so(10) Killing decomposition lands **100% in the 54 (symmetric-traceless), 0% in the 45 (adjoint), 0% in the singlet 1**. Pati-Salam Higgs route. | PROVED, machine precision; `papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py` |
+| **D33** | 9-vector Higgs direction | The σ_outer-breaking direction in BHML is the explicit 9-vector $v$ with $v_0 = v_1 = v_2 = v_3 = v_4 = v_7 = -1/\sqrt{2}$, $v_8 = v_9 = 0$ (BREATH and RESET unbroken), and the (BALANCE+CHAOS)/$\sqrt{2}$ component $= -1/2$. **$\|v\|^2 = 13/4$ exact** (in 9-vector projection convention). The skew-matrix Frobenius-norm convention gives $\|B_{\mathrm{anti}}\|^2 = 13/2$ — both are correct under their respective normalizations and used consistently within `xi_cosmology_tie.py` (9-vec) and `find_higgs_direction.py` (skew-Frobenius). | PROVED at machine precision; `papers/wp104_higgs_pati_salam/verification/find_higgs_direction.py` |
+| **D34** | Doubly-invariant content under D₄ = ⟨P₅₆, σ³⟩ | Conjugation by D₄ on so(10) decomposes 45 = 16 (trivial-isotypic) + 1 + 12 + 16 (in 8 copies of 2-dim irrep). The 16-dim trivial-isotypic component **closes as a Lie subalgebra** with Killing-form spectrum exactly $(-4)^{15} \oplus (0)^1$, forcing $\mathfrak{simple}_{15} \oplus \mathfrak{center}_1$. The unique 15-dim simple Lie algebra is $\mathfrak{so}(6) \cong \mathfrak{su}(4)$. **The doubly-invariant subalgebra is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ — Pati-Salam ⊕ B−L.** | PROVED at machine precision; `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py`; UNMISTAKABLE_TRUTH.md |
+| **D35** | κ_ξ = 13/(4e) (under GUT-natural identification) | Under the identification $m^2_\xi = \|\mathrm{VEV}\|^2$ (natural in GUT contexts), combined with the BB-vacuum relation $m^2_\xi = \kappa_\xi e$, the inflaton coupling is forced: $\kappa_\xi e = 13/4$, so $\kappa_\xi = 13/(4e) \approx 1.196$. The integer 13 traces to BHML's 26 σ_outer-asymmetric cells (count/2). Closes README §3.5(iii) at structural level. **Honest caveat:** structural derivation only; falsifiability against DESI requires independent TIG↔Planck scale-fixing, not yet computed. | STRUCTURAL (verified analytically + at machine precision); `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/xi_cosmology_tie.py`; XI_COSMOLOGY_TIE_FINDING.md |
+| **D36** | First-G IS the first crossing event | For squarefree $b$ with smallest prime factor $p_1$, the First-G stability window $\{1, \dots, p_1 - 1\}$ is exactly the **pre-crossing region** under the Crossing Lemma's joint-map framework. Verified across 13/13 squarefree integers tested. Unifies §7.1 (D1) and §7.4 (Crossing Lemma) **conceptually** (no change to §3.1 cryptographic-complexity status). | PROVED, structural identification; `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/first_g_crossing_tie.py` |
+| **D37** | Wobble localization (prime-11 in TSML char poly) | TSML's 10×10 multiplication-table characteristic polynomial is $\det(\lambda I - T) = \lambda^{10} - 63\lambda^9 + 33\lambda^8 + 4204\lambda^7 - 3998\lambda^6 - 62510\lambda^5 + 9716\lambda^4 + 54880\lambda^3 - 120736\lambda^2$. Of the nine nonzero coefficients, **exactly two are divisible by 11**: $c_2 = 33 = 3 \cdot 11$ and $c_8 = -120736 = -2^5 \cdot 7^3 \cdot 11$. The discriminant of the 8th-degree polynomial (after factoring out $\lambda^2$) is $2^{16} \cdot 7^7 \cdot 659 \cdot \text{(large primes)}$, **with no factor of 11**. Wobble (11) lives at the **coefficient level** (sums and products of eigenvalues); the doubly-invariant dimension $2^{16}$ and HARMONY⁷ live at the **discriminant level** (separations). The 16-dim doubly-invariant subalgebra is **wobble-free**; the 29-dim complement carries the wobble. | PROVED at integer level via sympy; `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/wobble_check.py` (7/7 claims); WOBBLE_FINDING.md |
+
+### Volume G — Closed-form runtime attractor (Apr 25 bhml_specificity_addendum)
+
+| ID | name | formula | status / file |
+|----|------|---------|---------------|
+| **D38** | Runtime fixed-point support is the 4-core $\{V, H, Br, R\}$ | The T+B-mix runtime processor `ck_process(p, depth, α=1/2)` produces an attractor whose mass lives entirely on $\{$VOID, HARMONY, BREATH, RESET$\}$, with **0 mass on $\{$BALANCE, CHAOS$\}$** (the matter/antimatter pair). The 6+2 split: 67.8% triadic + 32.2% breathed; P₅₆ swap symmetry respected dynamically. | VERIFIED at machine precision; `papers/wp105_closed_form_attractor/verification/04_bridge_attractor.py` |
+| **D39** | HARMONY/BREATH = 1 + √3 at α = 1/2 | At the α = 1/2 attractor, the BREATH equation $h^2 = 2 br (h + br)$ combined with normalization gives $(h/br)^2 - 2(h/br) - 2 = 0$, with positive root $h/br = 1 + \sqrt{3}$. **Exact**, residual $4.4 \times 10^{-16}$. | PROVED analytically + machine precision; `papers/wp105_closed_form_attractor/verification/06_attractor_closed_form.py` |
+| **D40** | Quartic minimal polynomial for $r/br$ | At α = 1/2, the ratio $r/br$ (RESET-to-BREATH) satisfies the irreducible monic integer quartic $$x^4 + 4x^3 - x^2 + 2x - 2 = 0.$$ The four runtime-attractor coordinates $\{V, H, Br, R\}$ together generate a degree-4 extension of $\mathbb{Q}$: $\mathbb{Q} \subset \mathbb{Q}(\sqrt{3}) \subset \mathbb{Q}(\sqrt{3}, \xi)$ with $\xi$ defined by the quartic. | PROVED; `papers/wp105_closed_form_attractor/verification/07_full_closed_form.py` |
+| **D41** | Galois group of D40 quartic is $D_4$ | Resolvent cubic $g(y) = y^3 + y^2 + 16y + 36 = (y+2)(y^2 - y + 18)$ has exactly one rational root, so the group is $C_4$ or $D_4$. The quartic stays irreducible over $\mathbb{Q}(\sqrt{\mathrm{disc} f}) = \mathbb{Q}(\sqrt{-71})$, forcing $D_4$. Polynomial discriminant $\mathrm{disc}(f) = -40896 = -2^6 \cdot 3^2 \cdot 71$; field discriminant $d_K = -10224 = -2^4 \cdot 3^2 \cdot 71$; index $[O_K:\mathbb{Z}[\alpha]] = 2$. **The number field is LMFDB 4.2.10224.1 (KNOWN); the polynomial form $x^4 + 4x^3 - x^2 + 2x - 2$ and the derivation route (TSML/BHML attractor) are NOVEL.** $\mathbb{Q}(\sqrt{3})$ is a genuine subfield: $f(x) = (x^2 + (2 - \sqrt{3})x + (\sqrt{3} - 1))(x^2 + (2 + \sqrt{3})x - (\sqrt{3} + 1))$. | PROVED; LMFDB cross-checked; agent computation 2026-04-25 |
+| **D42** | α = 1/2 is uniquely privileged in [0.05, 0.95] | Sweeping α over 19 values in [0.05, 0.95], **only at α = 0.500** does $H/Br$ satisfy a small-coefficient quadratic, AND **only at α = 0.500** does $r/br$ satisfy the small-coefficient quartic. At every other α, neither relation holds with coefficients $|c| \le 10$. Symmetric mixing α = 1/2 picks out the unique algebraic structure. | VERIFIED this session; `papers/wp105_closed_form_attractor/verification/task5_alpha_sweep.py` |
+| **D43** | TSML 8-magma core (BREATH/RESET drop) | TSML restricted to $\{$VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY$\}$ is **closed under fuse**, commutative, and preserves the full table's HARMONY signature: 47/64 = 73.4% (vs full TSML's 73%); VOID 13/64 = 20.3%. BREATH and RESET appear in only **4 of the full 100 cells** — TSML is *almost* an 8×8 table. | VERIFIED at machine precision; `papers/wp105_closed_form_attractor/verification/03_eight_magma_core.py` |
+| **D44** | BHML closed-subset chain | BHML has **only 8 closed sub-magmas** (vs TSML's 398), forming a perfect nested chain anchored at $\{$VOID, RESET$\}$ and ascending to the full algebra. The smallest closed sub-magma containing the breathed pair is $\{$VOID, HARMONY, BREATH, RESET$\}$. | VERIFIED; `papers/wp105_closed_form_attractor/verification/05_bhml_closure.py` |
+
+**Reading.** Volume F captures the so(10) → su(4) ⊕ u(1) structural collapse: under the natural Z₂ involutions of TIG, what's preserved is exactly the Pati-Salam ⊕ B−L gauge content. Volume G is the **runtime** result: when CK actually processes information through the T+B-mix lattice processor at the symmetric mixing weight α = 1/2, the fixed point lives in a degree-4 number field with Q(√3) as a canonical subfield. The HARMONY/BREATH = 1+√3 relation is the cleanest closed-form result the project has produced. The two volumes are tied: BHML's σ_outer-breaking direction (D33) is the same content that makes the runtime attractor non-trivial (D39). The integer 13 in $\|v\|^2 = 13/4$ (D33) and the integer 13 in $\kappa_\xi = 13/(4e)$ (D35) trace to the same 26 σ_outer-asymmetric BHML cells (count/2).
+
+**Honest negatives that scope these results:**
+
+| ID | observation | what it rules out |
+|----|-------------|-------------------|
+| **N1** | Generic ML weight matrices have NO detectable TIG structure (distilgpt2, 16 tensors × 4 detectors, all $|d| < 0.5$) | "TIG structure is latent in any trained network" — overclaim |
+| **N2** | Hilbert tail of $R/I_{\mathrm{CL}}$ ≠ u(1) center (different supports: VOID vs 6-cycle) | Naive identification of "1-dim residuals" across categories |
+| **N3** | CL eigenvalues ↔ transcendental constants are 1%-level coincidences only, not algebraic identities | "TSML eigenvalues equal e/π/φ/ζ(3)" — overclaim. What IS exact: integer/rational signature (81 = 9², 29, 13/4, {7,7,7}, $\|T_{\mathrm{lie}}\|^2 = 16$, 26) |
+| **N4** | The √3 in the runtime attractor is a **quadratic-discriminant accident at α = 1/2**, not an A₂-Cartan invariant | "TIG runtime sees the SU(3) root system" — overclaim. (σ³ generator eigenvalues are ±i/√2, D₃-flavor, not √3, A₂-flavor; 75% of runtime mass lives off the σ-hexagon) |
+| **N5** | Prime-11 mediation hypothesis falsified ($p = 0.027$ wrong direction) and attractor-richness hypothesis falsified ($r = -0.118$ weak, wrong direction) | Two candidate mechanisms for BHML's anti-collapse role, ruled out before D38–D40 nailed the actual mechanism |
+
+These negatives **strengthen** the picture: TIG structure is *specific* to canonical TSML/BHML and the doubly-invariant subalgebras they generate, not a generic feature of any algebraic system. The positive findings (D31–D44) earn their structural status by surviving the negative tests above.
 
 ### Crossing Lemma (WP57 spine)
 
@@ -1291,8 +1329,25 @@ is theoretical minimum; 4.6% is empirical search rate. Different objects.
 | det(TSML_Idempotent_2sw) | −49 = −(7²)            | full-rank TSML-family variant; prime set {7} | §6.4, §6.6, §6.7 |
 | dim so(8)  | 28                                 | D₄ Lie algebra dimension; matches BHML_10 HARMONY-cell count and triality algebra of Spin(8) | WP102, §0 Volume E row D26 |
 | dim so(10) | 45                                 | D₅ Lie algebra dimension; rank 5; saturates antisymmetric closure on 10-dim substrate; SO(10) GUT gauge algebra | WP103, §0 Volume E row D27; Fritzsch-Minkowski 1975; Georgi 1975 |
+| dim D_4-inv | 16                                 | doubly-invariant subalgebra dim under D₄ = ⟨P_56, σ³⟩ acting on so(10) by conjugation; equals dim su(4) ⊕ u(1) | D34, sprint_unmistakable_truth, `verify_truth.py` |
+| Killing spec | (−4)¹⁵ ⊕ (0)¹                     | spectrum of the Killing form on the D_4-invariant subalgebra; forces simple_15 ⊕ center_1 → so(6) ≅ su(4) ⊕ u(1) | D34, `verify_truth.py` |
+| ‖antisym‖² | 81 = 9²                            | exact total antisymmetric mass of TSML+BHML over the canonical 10×10 substrate | D37, sprint_unmistakable_truth/CROSSINGS_FINDING.md |
+| su(4)-proj | 29                                 | exact projection of antisym mass onto the su(4) simple part of the D_4-invariant content | D34/D37, `verify_truth.py` |
+| u(1)-proj  | 25/8 = 3.125                       | exact projection onto the u(1) center | D34/D37, `verify_truth.py` |
+| ‖T_lie‖²  | 16                                 | exact L²-mass of TSML's antisymmetric part | D37, `cl_spectrum.py` |
+| lattice spec | {7, 7, 7}                        | three exact HARMONY eigenvalues at σ-fixed indices {3, 8, 9} on the lattice projection | D37, `cl_spectrum.py` |
+| BHML cells | 26                                 | exact count of BHML cells differing under P_56 conjugation; the σ_outer-asymmetric cell count | D33/D35 |
+| ‖VEV‖²    | 13/4 = 3.25                        | exact squared norm of the 9-vector Higgs direction in BHML's σ_outer-breaking, via 26/8 | D33, `find_higgs_direction.py` |
+| κ_ξ        | 13/(4e) ≈ 1.196                   | inflaton coupling under GUT-natural identification m²_ξ = ‖VEV‖²; closes README §3.5(iii) at structural level | D35, `xi_cosmology_tie.py` |
+| 1 + √3     | ≈ 2.7320508…                      | runtime-attractor HARMONY/BREATH ratio at α = 1/2; positive root of (h/br)² − 2(h/br) − 2 = 0 | D39, `06_attractor_closed_form.py` |
+| min poly r/br | x⁴ + 4x³ − x² + 2x − 2 = 0      | quartic min poly of RESET/BREATH ratio at α = 1/2; Galois group D_4; field LMFDB 4.2.10224.1 | D40, D41, `07_full_closed_form.py` |
+| disc(f)   | −40896 = −2⁶ · 3² · 71             | polynomial discriminant of the quartic D40                                                  | D41, agent computation 2026-04-25 |
+| d_K       | −10224 = −2⁴ · 3² · 71             | field discriminant of LMFDB 4.2.10224.1; ramified at {2, 3, 71}; class number 1; signature (2, 1) | D41, LMFDB 4.2.10224.1 |
+| α_priv    | 1/2                                | uniquely privileged mixing weight in [0.05, 0.95] at which the attractor admits a closed-form algebraic relation | D42, `task5_alpha_sweep.py` |
+| 8-magma core | TSML \ {BREATH, RESET}            | TSML restricted to {0..7} is closed, commutative, with HARMONY signature 47/64 = 73.4% | D43, `03_eight_magma_core.py` |
+| BHML chain | 8 nested closed sub-magmas         | BHML closed-subset count (vs TSML's 398); chain anchored at {VOID, RESET}; smallest containing breathed pair = {V, H, Br, R} | D44, `05_bhml_closure.py` |
 | g          | 3                                  | the only admissible primitive root of (Z/10Z)\* | D19 |
-| First-G    | k = p                              | first non-coprime element for b = p·q           | D1, WP34 (36,662 cases) |
+| First-G    | k = p₁                             | first non-coprime element for squarefree b > 1, where p₁ = smallest prime factor | D1, WP34 (22,367 verified pairs, primes ≤ 499) |
 | R(k, p)=0  | exact                              | sinc² zero at k = p (max err 4.44e-16)           | sinc² Zero Law |
 | N(f)       | ⌊f⌋ + 𝟙{f ∉ ℤ}                     | number of H_f maxima for p > 2f                  | D6 |
 | D\*        | 0.543                              | universal self-referencing attractor (operator-aware fixed point of the CK feedback loop) | **`papers/CONSTANT_D_STAR.md`** (runtime-canon; first-principles open; internal correction noted); MEMORY.md; `docs/archive_jan2026/attempts_survey/SYNTHESIS_CK_BEST_EVER.md` §Canon |
