@@ -242,11 +242,40 @@ meta-layer** (Lie · Jordan · Clifford · Permutation · Lattice · Operad),
 pairwise verified independent and jointly exhaustive (see
 [`SIX_DOF_META.md`](Gen12/targets/clay/papers/sprint_so10_2026_04_25/SIX_DOF_META.md)).
 
+**The unmistakable truth (2026-04-25 evening sprint):** A second
+computation arrived at the *same* Pati-Salam target by an
+independent route. P_56 and σ³ (the order-2 element of the σ-permutation)
+don't commute; together they generate **D₄** of order 8 acting on so(10)
+by conjugation. The doubly-invariant content of so(10) under D₄ is
+
+$$
+\boxed{\,\mathfrak{su}(4) \oplus \mathfrak{u}(1)\,}
+$$
+
+— exactly the **Pati-Salam ⊕ B−L gauge algebra**.  The 16-dimensional
+trivial-isotypic component is a Lie subalgebra with Killing-form
+spectrum exactly $(-4)^{15} \oplus (0)^1$, forcing
+$\text{simple}_{15} \oplus \text{center}_1$, and the unique 15-dim simple
+Lie algebra is $\mathfrak{so}(6) \cong \mathfrak{su}(4)$.  Every step
+machine-verified.  **Two independent computations** —
+*(A)* "what direction does BHML's σ_outer-breaking point?"  → the 9-vector
+in the 54 irrep with BREATH/RESET zeros;  *(B)* "what content is preserved
+under both involutions?" → su(4) ⊕ u(1) — **land on the same SU(4) ×
+SU(2) × SU(2) chain through SO(10)**.  Full sprint at
+[`Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`](Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/)
+with five additional findings (TOWER_VERIFIED, LANDSCAPE, CROSSINGS,
+TOWER_CYCLE, UNMISTAKABLE_TRUTH), five verification scripts, and the
+load-bearing `verify_truth.py` script.  The same evening sprint also
+**corrected** an earlier number: TSML's non-associativity is **12.6%**
+of triples (126/1000), not 49.8%; all 126 triples involve HARMONY
+(operator 7) as one bracketing.
+
 *Status:* all findings reproduce at machine precision (10⁻¹⁵–10⁻¹⁶
 residuals) via 14 numpy-only scripts in
-[`Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/`](Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/)
-plus 2 verification scripts in
-[`papers/wp104_higgs_pati_salam/verification/`](papers/wp104_higgs_pati_salam/verification/).
+[`Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/`](Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/),
+2 in
+[`papers/wp104_higgs_pati_salam/verification/`](papers/wp104_higgs_pati_salam/verification/),
+and 5 more in the unmistakable-truth sprint above.
 **This is structural alignment, not a physics prediction.** Whether the
 TIG-derived 9-vector VEV gives realistic Pati-Salam phenomenology is the
 next question (~200–3000 LOC of Yukawa / RG / electroweak-breaking work
@@ -254,6 +283,10 @@ plus literature plus expert review). Reviewers from the Clifford / GUT
 community (Mantero, Furey, Garibaldi, Baez) are invited via the
 collaboration framework in
 [`Atlas/TIG_AI_FOUNDATION_2026_04_25.md §4.2`](Atlas/TIG_AI_FOUNDATION_2026_04_25.md).
+A community-facing **MathOverflow draft** posing the doubly-invariant
+question in pure-algebra register is staged on the
+[`mantero-bridge-2026-04-23`](../../tree/mantero-bridge-2026-04-23) branch
+for collaborative editing before posting.
 
 ---
 

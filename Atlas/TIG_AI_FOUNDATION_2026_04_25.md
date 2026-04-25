@@ -53,7 +53,7 @@ get the same answer.
 
 ### §1.2 The session arc that produced WP104
 
-A 2026-04-25 session ([sprint folder](../Gen12/targets/clay/papers/sprint_so10_2026_04_25/),
+A 2026-04-25 morning session ([sprint folder](../Gen12/targets/clay/papers/sprint_so10_2026_04_25/),
 14 verification scripts) produced four additional structural results:
 
 - **R¹⁰ = V_8 ⊕ V_perp** with `V_perp = span{VOID, (e_5 − e_6)/√2}`
@@ -69,6 +69,55 @@ A 2026-04-25 session ([sprint folder](../Gen12/targets/clay/papers/sprint_so10_2
 
 These flow into WP104 as the structural setup that lets BHML's σ_outer
 breaking be classified into a specific Higgs irrep.
+
+### §1.2b The unmistakable truth (2026-04-25 evening)
+
+A second sprint the same day ([sprint folder](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/),
+5 additional verification scripts) arrived at the *same* Pati-Salam target
+by an **independent computation**:
+
+> **The doubly-invariant content of so(10) under D₄ = ⟨P_56, σ³⟩ is exactly
+> `su(4) ⊕ u(1)` — the Pati-Salam ⊕ B−L gauge algebra.**
+
+P_56 (the matter/antimatter swap) and σ³ (the order-2 element of the
+σ-permutation) don't commute; together they generate D₄ of order 8 acting
+on so(10) by conjugation.  The 16-dimensional trivial-isotypic component
+is a Lie subalgebra; its Killing form has eigenvalue spectrum exactly
+$(-4)^{15} \oplus (0)^1$ (machine-verified, `scripts/verify_truth.py`),
+forcing $\text{simple}_{15} \oplus \text{center}_1$.  The unique 15-dim
+simple Lie algebra is $\mathfrak{so}(6) \cong \mathfrak{su}(4)$, so the
+doubly-invariant subalgebra is `su(4) ⊕ u(1)`.
+
+**Two independent computations land on the same gauge content:**
+
+- **Path A** (WP104, Higgs-direction): *"in what direction does BHML's
+  σ_outer-breaking point?"* → a specific 9-vector in the 54 irrep with
+  BREATH and RESET as zeros.
+- **Path B** (this sprint, doubly-invariant content): *"what content is
+  preserved under both involutions?"* → `su(4) ⊕ u(1)`, the Pati-Salam ⊕
+  B−L gauge algebra.
+
+The two paths approach the same SU(4) × SU(2)_L × SU(2)_R chain through
+SO(10) from opposite directions.  This is **not** a physics derivation;
+it's a sharper structural claim: TIG's mathematical content singles out
+the same Pati-Salam target by two distinct algebraic procedures.
+
+Three additional findings from the same sprint:
+
+- **TSML's non-associativity is 12.6%** (correction from earlier 49.8%);
+  all 126 non-associative triples involve HARMONY (operator 7) as one
+  bracketing; only 5 distinct unordered {L, R} pairs occur; VOID never
+  appears in middle position.  The 126 triples are preserved as
+  [`nonassoc_triples.json`](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/nonassoc_triples.json)
+  for the canonical fuse-rule program.
+- **Lie and Jordan are dual presentations of the same algebra** — both
+  the antisymmetric and symmetric sides of TSML+BHML independently
+  regenerate so(10) at dim 45.  The "two sides of one coin" framing
+  was wrong; it's one coin viewed from two angles.
+- **Three involutions, three decompositions**: τ_1 (transposition), τ_2
+  (P_56), τ_3 (σ³) give 45 = 45+0, 36+9, 24+21 respectively.  The 24+21
+  split under σ³ is structurally new and not yet placed in textbook GUT
+  phenomenology.
 
 ### §1.3 The 6-DOF meta-layer
 
@@ -99,10 +148,29 @@ algebra" — trivially true since there's only one so(10) up to
 isomorphism.
 
 After this work, the connection is: **TIG's bipartite TSML/BHML
-structure naturally selects the same Z₂ involution (σ_outer) and the
-same breaking irrep (54) as the Pati-Salam route through SO(10)**.
-That alignment is non-trivial.  It only happens when there's a real
-shared structural feature.
+structure singles out the Pati-Salam route through SO(10) by two
+independent algebraic procedures.**
+
+- **Path A (Higgs-direction, WP104):** P_56 acts as σ_outer in the
+  spinor representation; BHML's σ_outer-breaking lives 100% in the
+  54 irrep with a specific 9-vector direction.  The 54-Higgs route
+  is exactly Pati-Salam: SO(10) → SO(6) × SO(4) ≅ SU(4) × SU(2) × SU(2).
+- **Path B (doubly-invariant content, §1.2b):** P_56 and σ³ generate
+  D_4 of order 8.  The doubly-invariant subalgebra of so(10) under
+  D_4 is exactly `su(4) ⊕ u(1)` — the gauge algebra of Pati-Salam ⊕
+  B−L.  Killing-form spectrum forces this; the 15-dim simple Lie
+  algebra at this signature is uniquely `so(6) ≅ su(4)`.
+
+That two distinct algebraic procedures land on the same target is
+**non-trivial**.  It only happens when there's a real shared
+structural feature.
+
+This is **not** a derivation of physics.  Whether the TIG-side
+identification of so(10) with the SO(10) GUT gauge group is
+warranted requires additional work (Yukawa couplings, RG running,
+electroweak breaking).  But the alignment between TIG's two natural
+Z₂ involutions and the Pati-Salam embedding is forced by the math
+alone.
 
 ---
 
@@ -265,21 +333,38 @@ standard basis.
 
 ### §4.2 Clifford / GUT theorists (Mantero, Furey, …)
 
-**Entry point:** `papers/wp104_higgs_pati_salam/`, especially
-`HIGGS_IDENTIFICATION_FINDING.md`.  Companion with `mantero-bridge-2026-04-23`
-branch for the matroid-distance work.
+**Entry points:**
+- `papers/wp104_higgs_pati_salam/` (Path A: Higgs-direction)
+- `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`
+  (Path B: doubly-invariant content under D_4 = ⟨P_56, σ³⟩)
+- Companion: `mantero-bridge-2026-04-23` branch for the matroid-distance work
+  and the staged community-facing **MathOverflow draft**
 
-**What's there:** explicit Dirac generators in TSML basis at machine
-precision; 100% classification of BHML's σ_outer-breaking content into
-the 54 irrep; the specific 9-vector direction (six entries at −1/√2,
-two at zero, one at −1/2); identification of P_56 with σ_outer in the
-spinor representation.
+**What's there:**
+- Explicit Dirac generators in TSML basis at machine precision
+- 100% classification of BHML's σ_outer-breaking content into the 54 irrep
+- The specific 9-vector direction (six entries at −1/√2, two zeros at
+  BREATH and RESET, one at −1/2)
+- Identification of P_56 with σ_outer in the spinor representation
+- **The doubly-invariant content of so(10) under D₄ = ⟨P_56, σ³⟩ is
+  exactly `su(4) ⊕ u(1)`** — Path A and Path B converge on the same
+  Pati-Salam ⊕ B−L gauge algebra by two independent computations.
+  Killing spectrum forces this; the math is rigid.
 
-**Ask:** does this direction match a known viable Pati-Salam VEV?  If
-yes: what's the quickest path from "TIG's structural Higgs direction"
-to "computed Yukawa couplings"?  If no: what's the diagnostic for
-"why this direction is pathological" — and is that diagnostic itself
-useful for the open question?
+**Asks:**
+1. Does the 9-vector direction match a known viable Pati-Salam VEV?
+   If yes: what's the quickest path from "TIG's structural Higgs
+   direction" to "computed Yukawa couplings"?  If no: what's the
+   diagnostic for "why this direction is pathological" — and is that
+   diagnostic itself useful for the open question?
+2. The non-commuting-involutions question is also posed in pure-algebra
+   register on `mantero-bridge-2026-04-23`'s
+   [`papers/mantero_bridge/MATHOVERFLOW_DRAFT_2026_04_25/`](https://github.com/TiredofSleep/ck/tree/mantero-bridge-2026-04-23/papers/mantero_bridge),
+   staged for collaborative editing before posting:
+   *"Doubly-invariant subalgebras of so(n) under non-commuting Z₂
+   involutions: when is the invariant content uniformly Killing-scaled?"*
+   That post does **not** mention TIG / GUT / CK — pure community-facing
+   algebra question.  Comments on the draft welcome.
 
 ### §4.3 Combinatorialists / matroid theorists
 
@@ -371,10 +456,10 @@ the project has one math.NT arXiv endorsement and is seeking one more.
 
 ---
 
-## §6 · Reproducibility — five commands
+## §6 · Reproducibility — six commands
 
 A fresh clone with Python ≥ 3.10 and numpy installed can verify the
-load-bearing claims in five commands:
+load-bearing claims in six commands:
 
 ```bash
 # 1. so(8) closure dim 28 = D_4
@@ -389,7 +474,11 @@ PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_hi
 # 4. The specific 9-vector direction (BREATH, RESET unbroken)
 PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_higgs_direction.py
 
-# 5. CK runtime: 6-DOF independence + AO basis self-test
+# 5. THE UNMISTAKABLE TRUTH: doubly-invariant content under D_4 = <P_56, σ³>
+#    is su(4) ⊕ u(1) — Pati-Salam ⊕ B−L gauge algebra
+PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py
+
+# 6. CK runtime: 6-DOF independence + AO basis self-test
 PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_so10_2026_04_25/scripts/six_dof_check.py
 PYTHONIOENCODING=utf-8 python ck/brain/ao_basis.py
 ```
@@ -398,7 +487,7 @@ PYTHONIOENCODING=utf-8 python ck/brain/ao_basis.py
 in the script output otherwise crash the cp1252 default codec.  Linux
 and macOS are fine without it.)
 
-All five complete in under 30 seconds combined.  All produce machine-
+All six complete in under 30 seconds combined.  All produce machine-
 precision residuals (10⁻¹⁵ or better).
 
 For the live CK runtime: `python ck/brain/test_brain.py` runs the
@@ -449,11 +538,23 @@ should weigh.
    `SIGMA_OUTER_FINDING.md`.
 
 6. **No quantitative phenomenology yet.**  We have identified a Higgs
-   irrep and a specific direction.  Mass ratios, mixing angles, and
+   irrep and a specific direction, plus the doubly-invariant `su(4) ⊕
+   u(1)` gauge algebra.  Mass ratios, mixing angles, and
    neutrino-mass-scale predictions all require committing to a
    physical interpretation, computing Yukawa couplings, RG-running,
    and electroweak breaking.  That's 200–3000 LOC of follow-up plus
    literature plus expert review per §4.2.
+
+7. **Earlier-cited 49.8% non-associativity figure was wrong.**  TSML's
+   non-associativity rate is **12.6%** of triples (126/1000), not
+   49.8%, machine-verified by `scripts/full_landscape.py` in the
+   unmistakable-truth sprint folder.  The correction is documented
+   honestly in
+   [`LANDSCAPE_FINDINGS.md`](../Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/LANDSCAPE_FINDINGS.md).
+   The earlier number had been treated as a structural fact about
+   TSML; it isn't.  The 12.6% figure has been carried through all
+   downstream documents (this Foundation, top-level README, WP104) and
+   any prior place that cited 49.8% is now flagged historically.
 
 ---
 
