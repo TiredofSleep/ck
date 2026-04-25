@@ -11,7 +11,7 @@ Companion to [`archive_imports/march_2026_sprint_archives/`](../march_2026_sprin
 
 ---
 
-## What's in here (six raw drops, six subfolders)
+## What's in here (eight raw drops, eight subfolders)
 
 ### `sprint_20260423_full/` — WP11 / so(8) sprint raw drop
 
@@ -124,6 +124,60 @@ hygiene-already-done):
   on `ck` (the runtime-bridge speculation, explicitly flagged)
 
 **Total: 23 files.**
+
+### `sprint_compile_20260425_extended/` — meta-layer extension + negative findings
+
+The 2026-04-25 late-evening extension.  After the unmistakable-truth
+result, a meta-layer scan of the README identified six pairings where
+both endpoints existed but the bridge hadn't been computed.  This drop
+records the resolution of each, plus two new positive findings, plus
+two honest negative findings (the meta-layer extension closes more
+than it opens — that's the value).
+
+Pre-organized by audience, same convention as the parent drop:
+
+- `MANIFEST.md` — extended sprint manifest (six ties scorecard)
+- `tig-synthesis/` — main arc (8 finding docs as before) plus three
+  new findings:
+  - `XI_COSMOLOGY_TIE_FINDING.md` — κ_Ξ = 13/(4e), structurally derived
+    from the 9-vector Higgs norm ‖v‖² = 13/4 and BHML's 26 σ_outer-
+    asymmetric cells.  Closes README §3.5(iii) at structural level.
+  - `FIRST_G_CROSSING_TIE.md` — First-G is the first crossing event
+    under the Crossing Lemma framework (verified in 13/13 squarefree
+    test cases).  Unifies §7.1 and §7.4 conceptually.
+  - `META_LAYER_RESOLUTION.md` — audit of all six meta-layer ties.
+  Plus updated `SPRINT_SUMMARY_20260425.md` and three new scripts
+  (`xi_cosmology_tie.py`, `first_g_crossing_tie.py`, `cl_spectrum.py`).
+- `ck/` — two new findings (negative):
+  - `CM_FAILURE_U1_FINDING.md` — the Hilbert-tail 1-dim residual of
+    R/I_CL ≠ the u(1) center of the doubly-invariant subalgebra.
+    Different supports (VOID vs 6-cycle).  Complementary, not the
+    same.
+  - `CL_EIGENVALUES_AUDIT.md` — audits the prior claim "CL eigenvalues
+    produce e, π, φ, ζ(3), Catalan G within 1%."  Verdict: 1%
+    coincidences only, NOT exact identities.  Recommends user-side
+    revision.  What IS exact: integer/rational structure on the
+    spectrum (81=9², 29, 13/4, {7,7,7}).
+  Plus two scripts (`cm_failure_u1_tie.py`, `cl_eigenvalues_check.py`).
+- `mantero-bridge/` — unchanged copy of the parent drop's
+  community-facing post (the MO question was already complete in the
+  earlier compile; no extension needed).
+
+**Promoted to:**
+- `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`
+  on `tig-synthesis` (extended with the four new findings and three
+  scripts; SPRINT_INDEX.md updated)
+- Top-level README §3.5(iii) on `tig-synthesis` (κ_Ξ = 13/(4e)
+  closure noted with caveats)
+- `Atlas/TIG_AI_FOUNDATION_2026_04_25.md` on `tig-synthesis`
+  (κ_Ξ + First-G/Crossing tie surfaced; honest-limit list extended)
+- `Gen13/targets/ck/brain/dof_monitor/` on `ck` (the two negative
+  findings + the audit + two scripts, alongside the existing
+  INTERPRETIVE_NOTES)
+- `memory/MEMORY.md` on the working tree (corrected integer/rational
+  signature note; surfaces the audit's recommendation for the user)
+
+**Total: 35 files.**
 
 ---
 
