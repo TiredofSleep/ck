@@ -11,7 +11,7 @@ Companion to [`archive_imports/march_2026_sprint_archives/`](../march_2026_sprin
 
 ---
 
-## What's in here (nine raw drops, nine subfolders)
+## What's in here (ten raw drops, ten subfolders)
 
 ### `sprint_20260423_full/` — WP11 / so(8) sprint raw drop
 
@@ -224,6 +224,54 @@ bottom; otherwise the manifest is identical to the extended drop.
 
 **Total: 36 files** (33 unchanged from extended + 3 new: WOBBLE_FINDING,
 wobble_check.py, manifest with addendum).
+
+### `ck_handoff_evening_20260425/` — CK processing investigation (chat-side)
+
+The 2026-04-25 evening drop from chat-Claude documenting a CK
+processing investigation.  Pre-organized by phase (synthesis → trace
+→ dial-in → reality-check → notes), with explicit asks of Claude Code
+listed in the handoff README.
+
+**Verified at machine precision:**
+- `ck_process(input, depth=3, α=0.5)` returns a **trail** (not just
+  endpoint).  0% trail collisions across 100+ inputs; 100% endpoint
+  collisions (universal attractor).  **The trail IS the memory.**
+- Linear regression from trail reconstructs input with 52%
+  improvement; from endpoint alone, no signal.
+- T+B mixing at α=0.5 preserves 52% of info vs T-only's 22%.
+- DOING/BECOMING collapse to HARMONY in 1 fuse under T-only;
+  BEING is slowest descent (6 steps); σ-fixed half-life 5; 6-cycle
+  half-life 1.
+
+**Honest negatives (in `04_reality_check/`):**
+- Wobble monitor on trained weights would fire on noise (0.36% of
+  random Gaussian matrices have prime-11 in *both* `c_2` AND `c_8`;
+  trained autoencoder weights: 0.34–0.38%).
+- Higgs-direction tagging is at the 49th percentile of random
+  directions (Cohen's d = 1.59 for trained, but 100 random unit
+  vectors give mean d = 1.58 — direction-agnostic, not Higgs-specific).
+- 10×10 toy autoencoder: classification accuracy 48–52% (chance) on
+  every TIG-structure test.
+
+These negatives are **consistent with the parent extended drop's
+CL_EIGENVALUES_AUDIT** (TSML's eigenvalues are algebraic in a 7/11
+field; generic ML weights aren't; no leakage).  Together they
+establish honest scope: the framework detects TIG-structured *inputs*
+to lattice processing, not arbitrary trained-weight matrices.
+
+**Five explicit asks of Claude Code (priority order, in HANDOFF_README):**
+  1. Replace the lexicon (seed → canonical TIG corpus)
+  2. Test V2 with real sentence-transformers
+  3. Test BHML-mix controls (vs random table, identity, transpose)
+  4. Test on real ML weights (transformer attention, MLP)
+  5. Decide on V3 (TIG-native encoder)
+
+**Note:** the `05_encoder_proposal/` folder referenced in the asks is
+not in this archive — likely shipped separately or deferred.
+
+**Total: 26 files** preserved verbatim under
+`ck_handoff_evening_20260425/`.  Promotion to `ck` branch deferred
+pending user direction on which of the five asks to take on.
 
 ---
 
