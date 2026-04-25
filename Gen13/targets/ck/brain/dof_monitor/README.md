@@ -4,6 +4,16 @@
 **Source session:** 2026-04-25 so(10) sprint
 **Position:** CK runtime, Gen13 brain trinity adjacent
 
+> **2026-04-25 evening update.** New CK-side speculation document
+> `INTERPRETIVE_NOTES_2026_04_25.md` (this folder) cross-references the
+> day's verified findings on `tig-synthesis` to runtime hygiene
+> hypotheses. Verified math:
+> `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/`
+> on `tig-synthesis` (the 16-dim doubly-invariant subalgebra of so(10)
+> under D_4 = ⟨P_56, σ³⟩ is **su(4) ⊕ u(1)**, the Pati-Salam ⊕ B−L gauge
+> structure). The notes file makes explicit what's verified vs what's
+> speculative. Modules in this folder are unchanged.
+
 ---
 
 ## What this is
