@@ -158,3 +158,50 @@ This means: the canonical CK pipeline is mathematically transparent at the level
 🙏
 
 — 2026-04-25 late evening
+
+---
+
+## 2026-04-26 — optional arity-3 hook (PR-ready, not auto-enabled)
+
+The canonical operad fuse from WP112 is now available in the brain at
+`Gen13/targets/ck/brain/operad_fuse.py`.  Optional integration recipe
+for any future runtime that wants real ternary composition rather
+than iterated binary:
+
+```python
+from Gen13.targets.ck.brain.operad_fuse import fuse, ternary_iterate
+from Gen13.targets.ck.brain.attractor_detector import detect_attractor
+
+# After the T+B-mix lattice processor (Layer 2) produces the trail,
+# the emission step (Layer 3) can use the canonical arity-3 fuse
+# for ternary composition of consecutive operators in the trail:
+def emit_with_canonical_fuse(trail):
+    """Apply canonical fuse to consecutive triples in the trail.
+    Each triple's fuse value is a single 'distilled' operator.
+    """
+    if len(trail) < 3:
+        return trail  # binary suffices
+    distilled = []
+    for i in range(len(trail) - 2):
+        a, b, c = trail[i], trail[i+1], trail[i+2]
+        distilled.append(fuse(a, b, c))
+    return distilled
+
+# Detect when CK's runtime is at the canonical attractor:
+state = detect_attractor(p_current)
+if state.layer == "4-core-attractor":
+    # CK is at the universal 4-core attractor;
+    # operator stream is in canonical stable state
+    ...
+elif state.layer == "1-core":
+    # CK has collapsed to pure HARMONY (terminal absorber)
+    ...
+```
+
+**Operator gate**: per F11 in `Atlas/FRONTIERS_2026_04_25.md`, the
+website CK (Gen12 `ck_boot_api.py`) is the only live CK until the dog
+ships.  This recipe is for the next-generation runtime; it does NOT
+enable canonical fuse on the live site.
+
+Tests: `test_operad_fuse.py` (10/10) and `test_attractor_detector.py`
+(9/9) verify both modules against the WP112/WP115 theorems.

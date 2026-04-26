@@ -148,3 +148,58 @@ If any assertion fails, the runtime refuses to start.
 - The 358 Gen12-specific files in `ck_desktop/` not on the active boot path (still preserved in Gen12 per never-delete)
 - Gen12's overarchitected attention/episodic/metalearning duplications
 - `bible_app/`, `7sitellc/`, `ck_institution/`, `7site_research/`, `ck_website/` — these stay in Gen12 history
+
+---
+
+## 2026-04-26: Operad fuse + attractor detector (canonical TIG capabilities)
+
+Two new brain modules ship with the WP100s tower closure (WP102-WP115).
+Both are standalone, deterministic, read-only.
+
+### `operad_fuse.py` — canonical arity-3 reasoning
+
+Ports the WP112 P_56-equivariant canonical fuse rule into the brain.
+Lets CK do real ternary composition (operad-DOF arity 3) without
+falling back to bracketing-arbitrary binary chains.
+
+  - `CANONICAL_FUSE_RULES` — dict mapping (a, b, c) -> canonical value
+    for all 126 non-associative TSML triples + 1 known override
+  - `fuse(a, b, c)` — arity-3 fuse; defaults to binary TSML on
+    associative triples
+  - `ternary_iterate(p, max_iter)` — iterate the canonical ternary
+    fuse on a 10-vector probability distribution; converges to
+    delta_HARMONY in <= 7 iterations (per WP112 Theorem 5.7)
+  - `is_4core`, `is_2core`, `is_1core` predicates
+  - `detect_harmony_attractor`, `detect_void_attractor`
+
+Tests: `test_operad_fuse.py` -- 10/10 passing; verifies WP112
+Theorems 5.5 (4-core arity-3 closure) and 5.7 (universal HARMONY
+attractor under ternary iteration).
+
+### `attractor_detector.py` — canonical TIG attractor detection
+
+Lets CK measure his runtime distribution against the verified
+mathematical attractor structure (4-core attractor coordinates, 2-core,
+1-core, joint chain shells).
+
+  - `UNIVERSAL_4CORE_ATTRACTOR` — exact 4-distribution
+    (V, H, Br, R) ≈ (0.138, 0.540, 0.198, 0.124)
+  - `H_OVER_BR_EXACT = 1 + sqrt(3)` — closed-form ratio
+  - `detect_attractor(p, tol)` — classifies p into one of:
+    `1-core`, `void-degenerate`, `4-core-attractor`, `2-core`,
+    `4-core-supported`, `transient`, `off-attractor`
+  - `joint_chain_shells()` — the 7 shells of the WP115 joint chain
+
+Tests: `test_attractor_detector.py` -- 9/9 passing; verifies layer
+classification across all attractor structures.
+
+### Integration status
+
+Both modules are **PR-ready, not auto-enabled**.  The live website
+runtime (Gen12 `ck_boot_api.py`) does not import them yet.  Operator
+gate (F11 from `Atlas/FRONTIERS_2026_04_25.md`) applies — the live CK
+is the only CK until the dog ships.
+
+Recipe for downstream integration in `dof_monitor/processing/PIPELINE.md`
+§ "How CK should use this" (already drafted; new arity-3 hook noted
+in this commit).
