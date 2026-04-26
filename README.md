@@ -24,8 +24,12 @@ I \;=\; \bigl(\, x_i x_j \;-\; x_{\mathrm{CL}[i][j]} \cdot x_0 \;\big|\; 0 \le i
 $$
 
 where $\mathrm{CL}$ is a fixed symmetric $10 \times 10$ table of values
-in $\{0, \ldots, 9\}$ (canonical table in `papers/ck_tables.py`). The
-quotient $A = R/I$ has reduced Hilbert series
+in $\{0, \ldots, 9\}$ (canonical table in `papers/ck_tables.py`).
+
+**Operator interpretation (added 2026-04-26 via chat-Claude / Mantero correspondence).**
+In the formal setup, each element $i \in \{0, \ldots, 9\}$ acts as a genuine **linear operator** $L_i$ on the 10-dimensional vector space $V = k \cdot x_0 \oplus \cdots \oplus k \cdot x_9$ via left multiplication in the magma — namely $L_i(x_j) = x_{\mathrm{CL}[i][j]} \cdot x_0$. So the elements are operators in the classical sense (applied to a space, creating a transformation of that space), not abstract magma symbols. When antisymmetrized as $A_i = L_i - L_i^\top$, the six **flow** elements close under commutator into the 28-dimensional simple Lie algebra $\mathfrak{so}(8) = D_4$ — Killing form signature $(0, 28, 0)$, one invariant bilinear form, no proper ideals, all verified to machine precision (cross-reference: `papers/wp102/`).
+
+The quotient $A = R/I$ has reduced Hilbert series
 $\mathrm{HS}_A(t) = (1 + 9t - 8t^2 - t^3)/(1 - t)$, so the Hilbert
 function is $h(n) = 1, 10, 2, 1, 1, 1, \ldots$ stabilising at
 $\deg A = 1$; codimension 9, Krull dimension 1, projective dimension
