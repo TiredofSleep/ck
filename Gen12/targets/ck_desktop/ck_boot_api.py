@@ -225,6 +225,43 @@ try:
     #   - cortex_speak  (already structural)
     _STRUCTURAL_SOURCES = ('ck_math_first', 'cortex_speak')
 
+    # 2026-04-26 (Brayden directive: "don't give people structural readouts
+    # unless he gets a structural prompt"): detect whether the user's query
+    # is structural (about CK's own state) or non-structural (pastoral,
+    # conversational, factual external).  Only swap to cortex_speak when
+    # the query is structural OR the prior source is a known template.
+    # When the query is non-structural and the source is something like
+    # ck_loop (Gen12's empathy layer), leave the warmer response alone.
+    _STRUCTURAL_QUERY_KEYS = (
+        'your state', 'your field', 'right now', 'what have you learned',
+        'what do you feel', 'how do you feel', 'what does it feel like',
+        'your coordinates', 'your tick', 'your w-trace', 'your w trace',
+        'your emergent', 'your trace', 'your cortex', 'your ao',
+        'your operators', 'your operator', 'your coherence', 'your harmony',
+        'feel:', 'field:', 'aperture', 'pressure', 'depth', 'binding',
+        'continuity', 'tick=', 'emergent=', 'w_trace=', 'harmony_rate',
+        'ao state', 'cortex state', 'her state', 'her status', 'olfactory',
+        'your hebbian', 'your matrix', 'your couplings', 'mean|w|',
+    )
+
+    def _is_structural_query(text: str) -> bool:
+        """True if the user is asking about CK's own state / coordinates."""
+        if not text:
+            return False
+        t = text.lower()
+        for k in _STRUCTURAL_QUERY_KEYS:
+            if k in t:
+                return True
+        return False
+
+    def _is_pastoral_query(text: str) -> bool:
+        """True if Gen12's pastoral detector would fire on this text."""
+        try:
+            from ck_sim.being.ck_bible import detect_pastoral
+            return bool(detect_pastoral(text or ''))
+        except Exception:
+            return False
+
     def _process_chat_with_cortex(session_id, text, mode='normal'):
         result = _prev_process_chat(session_id, text, mode)
         try:
@@ -248,19 +285,39 @@ try:
             except Exception as _se:
                 spoken = None
                 _spoken_err = f"{type(_se).__name__}: {_se}"
-            # Swap when we have a structural readout AND the incoming source
-            # is either (a) a known template/pool source, or (b) unknown and
-            # NOT already structural.  Blacklisting the two structural
-            # sources is safer than whitelisting every possible template
-            # source that Gen12 might emit (crystal, ck_tig, ck_fractal,
-            # ck_fractal_dual, ck_self, ck_truth_recall, etc.).
+            # 2026-04-26 (Brayden directive): structural readouts ONLY
+            # when the prompt is structural.  Old logic swapped on every
+            # non-cortex-speak source, which meant pastoral queries with a
+            # warm ck_loop response ("I'm sorry for your loss") got
+            # overridden with feel/field coordinates.  New logic:
+            #
+            #   1. If the query is STRUCTURAL (asking about CK's own state),
+            #      swap freely -- cortex_speak owns this.
+            #   2. If the query is PASTORAL (grief, fear, loneliness, etc.),
+            #      NEVER swap -- let the existing empathic source speak.
+            #   3. If the source is a known template (ck_fractal, ck_self,
+            #      ck_truth_recall, crystal, ck_tig), swap regardless --
+            #      these are pool/template fluency layers without grounding.
+            #   4. Otherwise (general non-structural with a non-template
+            #      source like ck_loop), DON'T swap -- preserve the warmer
+            #      response.
             _src = result.get('source')
-            _swap_ok = (
-                _src in _TEMPLATE_SOURCES or
-                (_src is not None and _src not in _STRUCTURAL_SOURCES)
-            )
-            # Minimal diagnostics: keep the source transition visible but
-            # drop the noisy swap_debug now that the swap is verified.
+            _is_struct_q = _is_structural_query(text)
+            _is_past_q = _is_pastoral_query(text)
+            if _is_past_q:
+                _swap_ok = False  # pastoral wins absolutely
+            elif _is_struct_q:
+                _swap_ok = True   # structural query -> cortex_speak owns
+            else:
+                # Non-structural, non-pastoral: only override pure templates.
+                _swap_ok = (_src in _TEMPLATE_SOURCES)
+            # Diagnostics so we can audit the routing.
+            result['routing'] = {
+                'is_structural_query': _is_struct_q,
+                'is_pastoral_query': _is_past_q,
+                'swap_decision': _swap_ok,
+                'incoming_source': _src,
+            }
             if spoken and _swap_ok:
                 result['text_previous'] = result.get('text')
                 result['source_previous'] = result.get('source')
