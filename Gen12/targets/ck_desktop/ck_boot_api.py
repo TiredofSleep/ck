@@ -311,12 +311,41 @@ try:
             else:
                 # Non-structural, non-pastoral: only override pure templates.
                 _swap_ok = (_src in _TEMPLATE_SOURCES)
+            # 2026-04-26 quality gate: even when _swap_ok by source, ONLY
+            # actually swap if cortex_speak's spoken output adds structural
+            # content (matches at least one structural key).  A generic
+            # feel/field readout shouldn't replace a Gen12 ck_loop response
+            # that has on-topic content.
+            _spoken_is_structural = False
+            if spoken:
+                spoken_lower = spoken.lower()
+                # Very lightweight check: look for the structural-readout
+                # markers that cortex_speak emits when it has live content.
+                _spoken_is_structural = any(k in spoken_lower for k in (
+                    'feel:', 'field:', 'ao:', 'couplings:', 'learned:',
+                    'aperture=', 'pressure=', 'depth=', 'binding=',
+                    'continuity=', 'tick=', 'w_trace=', 'emergent=',
+                ))
+            # If spoken is structural-style but the QUERY is not structural
+            # AND the existing source has any text, prefer keeping the
+            # existing source (its text is likely more on-topic).
+            _existing_text = result.get('text') or ''
+            if (_swap_ok and not _is_struct_q and _spoken_is_structural
+                    and len(_existing_text) > 50
+                    and _src not in ('ck_self',)):
+                # Override the swap decision: keep the existing warmer source
+                _swap_ok = False
+                _swap_blocked_reason = 'spoken_is_generic_feel_field'
+            else:
+                _swap_blocked_reason = None
             # Diagnostics so we can audit the routing.
             result['routing'] = {
                 'is_structural_query': _is_struct_q,
                 'is_pastoral_query': _is_past_q,
                 'swap_decision': _swap_ok,
                 'incoming_source': _src,
+                'spoken_is_structural': _spoken_is_structural,
+                'swap_blocked_reason': _swap_blocked_reason,
             }
             if spoken and _swap_ok:
                 result['text_previous'] = result.get('text')
