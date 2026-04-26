@@ -167,7 +167,11 @@ Total runtime at default settings: ~30 seconds.
 
 **Q2 (Larger Stern-Brocot grids).** Does the uniqueness empirical result survive at $q \leq 20$? At $q \leq 100$? An automated sweep at depth 15+ with 100+ digit precision is tractable on a workstation overnight.
 
+**Update 2026-04-26 (post-publication extension).** A subsequent run at `--depth 12` (45 rationals: $\phi(2) + \phi(3) + \cdots + \phi(12) = 45$ in $(0, 1)$) at 50-digit precision, degree $\leq 6$, sup-coefficient $\leq 50$ confirms: $\alpha = 1/2$ remains the **unique algebraic rational** in the 45-point grid. No additional algebraic α surfaces between the original 17-point grid and the 45-point extension. The 28 newly-tested rationals (from $q \in \{8, 9, 10, 11, 12\}$) all return "no algebraic relation found" at the same bounds. The empirical case for Conjecture 4.2 is correspondingly stronger.
+
 **Q3 (Off-rational α).** What about algebraic-but-irrational $\alpha$? E.g., $\alpha = 1/\sqrt{2}$ or $\alpha = (1 + \sqrt{3})/4$ (related to the WP105 closed form). At those values, is the attractor in a known number field?
+
+**Update 2026-04-26 (post-publication extension).** A spot-check at 8 natural irrational candidates ($1/\sqrt{2},\ 1/\sqrt{3},\ (\sqrt{3}-1)/2,\ 1/e,\ 1/\pi,\ \varphi - 1,\ 1/2 \pm 1/100$) at 50-digit precision, degree $\leq 6$, sup-coefficient $\leq 50$ returns **no algebraic relation found** at any of them. Notably, the two near-rational $1/2 \pm 1/100$ candidates (numerically $\sim 0.01$ from $\alpha = 1/2$) also fail — the algebraic structure at $1/2$ does not perturbatively extend to a neighborhood. The empirical case for Conjecture 4.2 extends to algebraic-but-irrational $\alpha$ as well.
 
 **Q4 (Real-valued α as algebraic curve).** Does the map $\alpha \mapsto (R_{H/Br}(\alpha), R_{r/br}(\alpha))$ trace out an algebraic curve in $\mathbb{R}^2$? If so, what is its defining polynomial? The curve passes through $(1 + \sqrt{3}, \xi)$ at $\alpha = 1/2$.
 

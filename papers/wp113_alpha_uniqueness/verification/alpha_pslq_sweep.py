@@ -142,25 +142,13 @@ def pslq_polynomial(x, max_degree=8, max_coeff=50, tol=None):
 
 
 def stern_brocot_fractions(depth):
-    """All Stern-Brocot fractions in (0, 1) up to a given depth."""
+    """All rationals p/q in (0, 1) with q <= depth and gcd(p, q) = 1."""
+    from math import gcd
     seen = set()
-    seen.add(Fraction(1, 2))
-    seen.add(Fraction(1, 3))
-    seen.add(Fraction(2, 3))
-    seen.add(Fraction(1, 4))
-    seen.add(Fraction(3, 4))
-    seen.add(Fraction(1, 5))
-    seen.add(Fraction(2, 5))
-    seen.add(Fraction(3, 5))
-    seen.add(Fraction(4, 5))
-    seen.add(Fraction(1, 6))
-    seen.add(Fraction(5, 6))
-    seen.add(Fraction(1, 7))
-    seen.add(Fraction(2, 7))
-    seen.add(Fraction(3, 7))
-    seen.add(Fraction(4, 7))
-    seen.add(Fraction(5, 7))
-    seen.add(Fraction(6, 7))
+    for q in range(2, depth + 1):
+        for p in range(1, q):
+            if gcd(p, q) == 1:
+                seen.add(Fraction(p, q))
     return sorted(seen)
 
 
@@ -170,6 +158,8 @@ def main():
                         help="mpmath decimal precision (default 50)")
     parser.add_argument("--max-degree", type=int, default=8)
     parser.add_argument("--max-coeff", type=int, default=50)
+    parser.add_argument("--depth", type=int, default=7,
+                        help="Max denominator in Stern-Brocot grid (default 7)")
     args = parser.parse_args()
 
     mp.mp.dps = args.precision
@@ -185,9 +175,12 @@ def main():
     T = [[int(c) for c in row] for row in TSML_ROWS]
     B = [[int(c) for c in row] for row in BHML_ROWS]
 
-    alphas = stern_brocot_fractions(7)
-    print(f"Sweeping {len(alphas)} rational alpha values:")
-    print(f"  {[str(a) for a in alphas]}")
+    alphas = stern_brocot_fractions(args.depth)
+    print(f"Sweeping {len(alphas)} rational alpha values (q <= {args.depth}):")
+    if len(alphas) <= 25:
+        print(f"  {[str(a) for a in alphas]}")
+    else:
+        print(f"  {[str(a) for a in alphas[:10]]} ... {[str(a) for a in alphas[-5:]]}")
     print()
 
     print(f"{'alpha':<10} {'H/Br':<14} {'H/Br min poly':<28} {'r/br':<14} {'r/br min poly':<28}")
