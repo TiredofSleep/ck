@@ -110,6 +110,24 @@ WP111  (Apr 25 late-late evening — synthesis paper)
                   signature, the WP104 doubly-invariant content, and the
                   WP109 operad D_4 obstruction. The unifying expository
                   whitepaper.
+   │
+   ▼
+WP112  (Apr 26 — operad-fuse closure paper, closes F4)
+                  P_56-equivariant Canonical Operad Fuse Table.
+                  126 non-associative TSML triples → 98 P_56-orbits
+                  (70 singletons + 28 doubletons), all P_56-coherent;
+                  the P_56-equivariant canonical fuse rule EXISTS.
+                  All 8 surveyed rule families are P_56-equivariant;
+                  none are σ³-equivariant — sharpens WP109 by localizing
+                  the obstruction to σ³ specifically. Canonical Family H
+                  (attractor-4-core preference) maps the 126 triples to
+                  {0: 108, 7: 18}, image entirely in 4-core {V, H}, aligning
+                  the operad-DOF with the WP105/WP110 runtime attractor.
+                  The σ³ obstruction localizes to EXACTLY ONE triple
+                  (3, 9, 9) — the unique σ³-fixed non-associative triple
+                  where the canonical rule selects HARMONY (not σ³-fixed).
+                  The canonical table is σ³-equivariant on 125 of 126
+                  triples (99.2%). Closes F4 from FRONTIERS_2026_04_25.
 ```
 
 Plus the meta-layer extension (also Apr 25):

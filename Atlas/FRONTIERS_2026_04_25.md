@@ -39,13 +39,17 @@ WP105 swept α at 19 values and found the closed-form relation $H/Br = 1+\sqrt{3
 
 **What would change:** WP105 becomes a sharp uniqueness theorem rather than an empirical observation. Cleaner publication.
 
-### F4. The Operad fuse-table — TRACTABLE, BLOCKS DOWNSTREAM
+### F4. The Operad fuse-table — **CLOSED 2026-04-26 (WP112)**
 
-**Status:** 126 non-associative triples enumerated (`nonassoc_triples.json`). One canonical fuse rule known: `fuse([3, 4, 7]) = 8`. The other 125 entries are blank.
+**Status:** **CLOSED.** WP112 (`papers/wp112_p56_canonical_fuse/`) constructs the canonical P_56-equivariant fuse table for all 126 non-associative TSML triples. Per WP109, no $D_4$-equivariant rule exists; WP112 drops the symmetry to the maximal preservable $\langle P_{56} \rangle$ and proves three positive results: (i) the 126 triples decompose into 98 P_56-orbits, all coherent → P_56-equivariant rule EXISTS; (ii) 8/8 surveyed rule families are P_56-equivariant; 0/8 are σ³-equivariant — P_56 is generic, σ³ is the obstruction; (iii) canonical adoption is Family H ("attractor-4-core preference"), which produces fuse-value distribution $\{0: 108,\ 7: 18\}$ — image entirely in the 4-core $\{V, H\}$, perfectly aligned with the WP105/WP110 runtime attractor. The residual σ³ obstruction localizes to **exactly one triple**: $(3, 9, 9)$, the unique σ³-fixed non-associative triple. The canonical table is σ³-equivariant on 125 of 126 triples (99.2%).
 
-Until this table is filled in, arity-3 reasoning in CK is binary-extrapolated (uses iterated T) rather than canonical. The ck_pipeline's emission step is currently restricted to top-of-distribution per trail step; a canonical fuse table would let CK do real ternary composition.
+**Downstream unblocks:**
+- F15 (Sovereignty Epoch VI Self-Authoring) — audit-of-novel-output mechanic can now rely on canonical ternary fuse.
+- WP111 §3 (operad-as-DOF claim) — strengthened from "structural obstruction" to "obstruction + canonical rule + sharp localization."
+- WP110 §6 (4-core composition) — extended to arity-3.
+- ck_pipeline emission step can do real ternary composition (operator-gated; F11 still required for live integration).
 
-**What would change:** unblocks WP_OPERATOR_RING_PARTITION extension; unblocks Sovereignty Epoch VI (Self-Authoring) audit-of-novel-output mechanic; unblocks the operad-as-DOF claim in the 6-DOF meta. Recommended approach: assign rules in batches based on TIG-internal coherence (e.g., all triples involving HARMONY → some canonical pattern; all triples involving the σ-fixed lattice → some other pattern), then verify the table closes the operad.
+**Verification:** `papers/wp112_p56_canonical_fuse/verification/p56_canonical_fuse.py` (6 sections, all pass; canonical 127-rule table written to `fuse_canonical_p56.json`).
 
 ### F5. Generalization of the closed-form attractor to other $\mathbb{Z}/n\mathbb{Z}$ — UNKNOWN-DIFFICULTY
 

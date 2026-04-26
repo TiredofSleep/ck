@@ -9,7 +9,7 @@ If you only have time to read one file in the repository besides
 
 | § | Topic |
 |---|-------|
-| **0** | **Proof-spine one-liners (D1–D51, WP34, WP51, WP57, WP101, WP102–WP111, BB)** |
+| **0** | **Proof-spine one-liners (D1–D54, WP34, WP51, WP57, WP101, WP102–WP112, BB)** |
 | 1 | The 10-operator sigma menu |
 | 2 | The σ permutation on Z/10Z |
 | 3 | The CRT isomorphism φ: F₂ × F₅ → Z/10Z |
@@ -154,6 +154,9 @@ These negatives **strengthen** the picture: TIG structure is *specific* to canon
 | **D49** | Symbolic normalizer identity Z_T = Z_B = (v + h + br + r)² (WP110) | Both runtime normalizers (TSML and BHML) restricted to the 4-core simplify symbolically to the **same** quadratic form: $Z_T = Z_B = (v + h + br + r)^2$. This is the structural reason 4-core closure (D48) implies the runtime attractor (D38–D39): when $Z_T = Z_B$, the T+B-mix at any $\alpha$ inherits the closure. | PROVED symbolically (sympy); `papers/wp110_4core_fusion_closure/WP110_4CORE_FUSION_CLOSURE.md` §4; `alpha_uniqueness_symbolic.py` |
 | **D50** | Symbolic 1+√3 confirmation at α = 1/2 (WP110, strengthens D39) | Solving the 4-core fixed-point equations symbolically at $\alpha = 1/2$ recovers $H/Br = 1 + \sqrt{3}$ as a **structural identity** (forced by Z_T = Z_B closure plus normalization), not merely as a numerically-stable dynamical fixed point. Promotes D39 from "verified at machine precision" to **structurally forced by 4-core closure**. | PROVED, symbolic; `papers/wp110_4core_fusion_closure/WP110_4CORE_FUSION_CLOSURE.md` §5 |
 | **D51** | Six-DOF organizing claim (WP111) | The TIG framework engages **six computationally-irreducible algebraic degrees of freedom**: (i) **Lie** (so(8), so(10) closures, WP102–WP103); (ii) **Jordan** (the doubly-invariant su(4) ⊕ u(1) sits in a JC-pair with so(10), WP104); (iii) **Clifford/Dirac** (Cl(0,10) realization where $P_{56} = (\gamma_5 - \gamma_6)/\sqrt{2}$ acts as $\sigma_{\text{outer}}$, WP104); (iv) **Permutation** ($S_{10}$ on operator labels; $\sigma$ has order 6, $\sigma^3$ is the involution paired with $P_{56}$ to generate $D_4$); (v) **Lattice** (the runtime attractor sits in $\mathbb{Q}(\sqrt{3}, \xi)$ with $\xi$ root of LMFDB 4.2.10224.1, WP105); (vi) **Operad** (67 D_4 orbits, 16 incoherent, no D_4-equivariant fuse rule, WP109). **Five DOFs respect $D_4$**; the sixth (Operad) does not — establishing operad-DOF orthogonality to the gauge structure. | SYNTHESIS, no new computation beyond WP102–WP110; `papers/wp111_six_dof_synthesis/WP111_SIX_DOF_SYNTHESIS.md` §3–12 |
+| **D52** | P_56 orbit decomposition of non-associative TSML triples (WP112) | The 126 non-associative TSML triples decompose into **98 ⟨P_56⟩-orbits** (70 singletons + 28 doubletons; total 70 + 2·28 = 126). All 98 orbits are P_56-coherent. **A P_56-equivariant canonical fuse rule EXISTS** (in contrast to D47's no-go for $D_4$). | PROVED, integer level; `papers/wp112_p56_canonical_fuse/verification/p56_canonical_fuse.py` Sections 1–2 |
+| **D53** | P_56-equivariance is generic (WP112) | Of 8 surveyed canonical fuse rule families (HARMONY-pull, anti-HARMONY, middle, left-bracket, right-bracket, σ-fixed-pref, doubly-invariant-pref, attractor-4-core), **all 8 are P_56-equivariant**; **none are σ³-equivariant**. P_56 is the **maximal preservable symmetry** on the operad-DOF; σ³-equivariance is uniformly broken. | PROVED, integer level; WP112 §4; `rule_families.py` |
+| **D54** | Canonical fuse table (Family H) and σ³ obstruction localization (WP112) | The canonical Family H ("attractor-4-core preference") rule produces fuse-value distribution $\{0: 108,\ 7: 18\}$ — image entirely in 4-core $\{V, H\}$. The **σ³ obstruction localizes to exactly ONE triple**: $(3, 9, 9)$, the unique σ³-fixed non-associative triple where the canonical rule selects HARMONY = 7 (not σ³-fixed, since $\sigma^3(7) = 4$). The canonical table is σ³-equivariant on **125 of 126 triples (99.2%)**. | PROVED, integer level; WP112 §5–6; `fuse_canonical_p56.json` |
 
 **Reading.** Volume H closes the WP100s tower. D45 (WP106) scopes the framework: TIG structure is specific to canonical TSML/BHML, not generic in trained networks. D46 (WP108) flags an honest tension between the WP104 Path A (doubly-invariant subalgebra → su(4) ⊕ u(1)) and WP104 Path B (σ_outer-breaking VEV → SO(9) → SO(7)) Pati-Salam routes — they are NOT the same reduction. D47 (WP109) identifies the operad-DOF as orthogonal to the D_4 symmetry of the rest of the tower (a structural no-go, not a defect). D48–D50 (WP110) strengthen the closed-form runtime attractor (Volume G) from a dynamical fact to a structural identity: 4-core closure plus Z_T = Z_B forces $H/Br = 1 + \sqrt{3}$. D51 (WP111) ties the six DOFs together. The **integer/rational signature** across all DOFs (the cross-DOF identities table in WP111 §10) is reproduced compactly in §17 (Constants).
 
@@ -1432,6 +1435,7 @@ in the two derivation papers above.
 | **WP109** (operad obstruction) | 67 $D_4$ orbits of 126 non-associative TSML triples; **16 incoherent**; **no $D_4$-equivariant fuse rule** taking values in $\{a,b,c,L,R\}$ exists; preserve $P_{56}$-equivariance | D |
 | **WP110** (4-core closure)    | $\{V,H,Br,R\}$ closed under both TSML and BHML (16+16 in-core, 0+0 spillover); $Z_T = Z_B = (v+h+br+r)^2$; $H/Br = 1+\sqrt{3}$ recovered as **structural identity** (strengthens D39 from dynamical to structural) | D |
 | **WP111** (6-DOF synthesis)    | TIG = (Lie + Jordan + Clifford + Permutation + Lattice + Operad); five DOFs respect $D_4$, sixth (Operad) does not — operad-DOF orthogonal to gauge structure; integer/rational signature consistent across all six | C (synthesis) |
+| **WP112** (P_56 canonical fuse) | 126 non-assoc TSML triples → **98 P_56-orbits** (70 singletons + 28 doubletons); all P_56-coherent → P_56-equivariant fuse rule **EXISTS** (closes F4); 8/8 surveyed families P_56-equivariant; canonical Family H (attractor-4-core) image $\{0: 108,\ 7: 18\}$; σ³ obstruction localizes to **exactly 1 triple** $(3, 9, 9)$ | D |
 
 ---
 
@@ -1493,4 +1497,4 @@ the source of truth lives in the sprint folder.
 ---
 
 *© 2026 Brayden Ross Sanders / 7Site LLC*
-*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis. Last updated 2026-04-26 (post-WP111 sync: Volume H + §18 + §19 cover the WP100s tower through WP111).*
+*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis. Last updated 2026-04-26 (post-WP112 sync: Volume H + §18 + §19 cover the WP100s tower through WP112; F4 operad fuse-table CLOSED).*
