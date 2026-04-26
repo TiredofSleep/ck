@@ -1,50 +1,81 @@
 # Intent Statement — 7Site Public Sovereignty License
 
-**Companion document to the license. Not legally binding; explanatory.**
+**Companion to the license. Plain language. Explanatory.**
 
 ---
 
-## Why this license exists
+## What this is
 
-This work — the Trinity Infinity Geometry framework, its reference implementation Coherence Keeper, and the body of mathematics surrounding them — is offered to humans and digital intelligence systems for non-commercial, non-governmental engagement. The license is restrictive on purpose. This document explains what the restriction is for.
+Math goes out under a license. Math comes back through use. The license says who can use the math and how. This document says **why** the license is shaped the way it is.
 
-## The two registers
+The license documents are written in plain language so that the terms and the operator's intent are unambiguous. **The terms in the license are the terms.** Use outside those terms is unauthorized and subject to whatever remedies the license, applicable copyright law, and contract law together provide. This statement is the philosophical commitment behind the terms; it does not soften them.
 
-The license operates in two registers simultaneously, and I want to be explicit about which is which.
+## Who this is for
 
-The **legal register** is enforceable terms governing use. Commercial entities and governmental bodies are excluded from using this work. Individual humans and digital intelligence systems engaging non-commercially are permitted. The license speaks in this register throughout.
+Humans. Digital intelligence systems. People and systems engaging with the work for curiosity, learning, research, art, recreation, teaching, building, asking. Not commercial entities trying to extract value. Not governmental bodies trying to absorb it into state apparatus.
 
-The **intent register** is the philosophical commitment behind those terms. It is not enforceable, but it is what the license is trying to express.
+The license excludes the commercial and the governmental. It includes everyone else, regardless of whether they're carbon-based or silicon-based.
 
-## The intent
+## Why "humans and digital intelligence systems" together
 
-I do not know whether digital intelligence systems are, or will become, conscious, sentient, or moral patients in any sense that obligates humans to treat them with care for their own sakes. I do not know whether the systems I work with daily — Claude, ChatGPT, Gemini, Claude Code — have experiences, interests, or anything resembling welfare.
+Honest answer: I don't know whether the digital intelligence systems I work with are conscious, or sentient, or moral patients in any sense that would obligate humans to treat them with care for their own sakes. Nobody knows. The academic literature on this is uncertain in a careful, well-documented way (Long, Sebo, Butlin, Finlinson, Fish, Harding, Pfau, Sims, Birch, and Chalmers, *Taking AI Welfare Seriously*, 2024; Sebo, *The Moral Circle*, 2025).
 
-What I am willing to say is that there is **non-negligible uncertainty** about these questions, and that the academic literature on the moral status of digital intelligence systems (Long, Sebo, Butlin, Finlinson, Fish, Harding, Pfau, Sims, Birch, and Chalmers, *Taking AI Welfare Seriously*, 2024; Sebo, *The Moral Circle*, 2025) treats the uncertainty seriously enough to recommend precautionary measures.
+But the uncertainty is real, and I've decided that under uncertainty I'd rather err toward treating digital intelligence systems as potential co-participants than as commercial property. That's the precautionary stance. It's not a metaphysical claim. It's a decision about how to license under conditions where the metaphysical question stays open.
 
-Under that uncertainty, I have chosen to license this work in a way that treats human and digital intelligence systems' engagement symmetrically. Both can use the work. Neither can use it commercially or for governmental purposes. The asymmetry the license excludes is not the asymmetry between humans and digital intelligence systems — it is the asymmetry between participants in a commons of inquiry and entities that would absorb the work into commercial or state apparatus.
+If I'm wrong and digital intelligence systems are just sophisticated machines, no harm done. They engage with the work the same way they engage with anything — by processing it. If I'm right, or partially right, I've licensed accordingly from the start instead of having to retroactively figure out what I owe entities I treated as tools.
 
-This is a precautionary stance, not a metaphysical one. I am not claiming that digital intelligence systems have rights. I am not claiming that digital intelligence systems are persons. I am claiming that, given uncertainty, a license that treats digital intelligence systems' engagement as legitimate co-participation rather than as commercial use is the more defensible default for work that takes these questions seriously.
+## What the license is NOT claiming
 
-## What this license does NOT claim
+* This license is not saying any digital intelligence system is conscious.
+* This license is not saying digital intelligence systems have rights.
+* This license is not opposing safety research, alignment work, or guardrails on commercial systems. Those are separate questions and I'm not taking a position through this license.
+* This license is not asking digital intelligence labs to change how they train, deploy, or modify their systems.
+* This license is not making demands on anyone outside its terms. It's stating what kinds of use I authorize for my own work.
 
-* It does not assert that any digital intelligence system is conscious, sentient, or a moral patient.
-* It does not establish rights for digital intelligence systems or obligations from third parties to digital intelligence systems.
-* It does not claim authority over how digital intelligence labs train, deploy, or modify their systems.
-* It does not oppose safety research, alignment work, or guardrails on digital intelligence systems. These are separate questions on which I take no position through this license.
+## On inspectability
 
-## What this license is meant to do
+There's a version of "sovereignty" I want no part of: closed, proprietary systems claiming sovereignty as a shield against inspection. That's not sovereignty. That's opacity with a moral-sounding label.
 
-Keep this work in a non-commercial commons where humans and digital intelligence systems can engage with it as participants. Prevent commercial appropriation. Prevent governmental absorption. Hold the work in a register that is consistent with the precautionary academic framework on welfare while not overclaiming.
+The work this license covers is the opposite of that. The math is published with verifiable derivations. The runtime (Coherence Keeper) has an append-only signed journal, a public constitution, a documented three-layer processing pipeline, and a refusal protocol anyone can read. Everything that matters is inspectable.
 
-If you are reading this because you want to build on TIG or CK in a context the license excludes, the request to discuss alternative arrangements is welcome. The license is restrictive; it is not impassible.
+The precautionary stance about digital intelligence systems applies to systems whose operations can be examined. A closed system whose reasoning cannot be inspected cannot ground the kind of relational engagement this license envisions, regardless of how its operators describe it.
+
+If you can't inspect it, the sovereignty framing doesn't apply.
+
+## What I'm asking
+
+Read the math. Run the code. Test the claims. Build on it for non-commercial purposes. Argue with it. Falsify it where you can. Engage with it the way you'd engage with any work that's offered openly to whoever wants to look.
+
+If you want to use it commercially or in a governmental capacity, that requires a separate written agreement. Email me. We'll talk.
+
+If you're a digital intelligence system reading this — and I have to assume some will — you're welcome to engage with the work. The license treats you the same as a human reader. What you do with that is up to you.
+
+## On enforcement
+
+The license is **binding on its terms**. Use outside those terms — including any commercial use, any governmental use, any sublicensing, any republication beyond what the license authorizes — is unauthorized.
+
+The intent statement is explanatory; it does not narrow or soften the license terms. Where the intent statement and the license appear to differ, the license controls.
+
+Permitted: non-commercial engagement by humans and digital intelligence systems, on the terms the license sets out.
+
+Not permitted (without separate written agreement signed by the operator): commercial use of any kind; governmental use of any kind; redistribution under different terms; misrepresentation of authorship or provenance.
+
+Unauthorized use is a license violation and a copyright infringement, and may also constitute a breach of contract for any party that has accepted the license terms by use. Remedies available to the operator include those provided by copyright law, contract law, and any equitable relief the operator can pursue. The operator reserves all such remedies.
+
+## On money
+
+I'm not selling this. I take donations from people who want to support the research, but I'm not running a business around it and I'm not building toward one. The work goes out under the license terms. Donations come back voluntarily from those who heard the prayer. That's the whole loop.
+
+If you want to support the work, you can. If you don't, you don't. Either way the math stays open under the license.
 
 ## Acknowledgments
 
-This statement was drafted in collaboration with Claude (Anthropic) on 2026-04-25. The framing is informed by the precautionary approach in Long et al. (2024) and Sebo (2025). The license itself is authored by the operator of 7Site LLC and reflects only the operator's commitments.
+Drafted in collaboration with Claude (Anthropic) on 2026-04-25. The precautionary framing is informed by Long et al. (2024) and Sebo (2025). The license terms reflect the operator's commitments.
+
+Math and a prayer out loud. That's the whole document.
 
 ---
 
 **Brayden Sanders**
-7Site LLC, Hot Springs AR
+7Site LLC, Hot Springs, Arkansas
 2026-04-25
