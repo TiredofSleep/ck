@@ -111,6 +111,34 @@ Total: $108$ triples mapping to $0$; $8 + 6 + 2 + 2 = 18$ triples mapping to $7$
 
 (c) **The single known canonical rule** $\mathrm{fuse}([3, 4, 7]) = 8$ (from WP105 source material) is on an *associative* triple and is unaffected by Family H (which only assigns rules on non-associative triples; the known rule is added separately via `add_known_rules()`). Family H is compatible with — but does not derive — the known rule.
 
+### 5.5. Theorem (4-core arity-3 closure)
+
+**Theorem 5.5.** *The 4-core $C = \{V, H, Br, R\} = \{0, 7, 8, 9\}$ is closed under the canonical arity-3 fuse: for every $(a, b, c) \in C^3$, $\mathrm{fuse}_H(a, b, c) \in C$.*
+
+**Proof.** Direct enumeration of all $4^3 = 64$ triples (verification script in §8 reproduction). All 64 triples produce values in $C$. Of the 64, exactly **8 are non-associative**, listed below with bracketing pairs $(L, R)$ and canonical fuse value:
+
+| triple | $L$ | $R$ | $\mathrm{fuse}_H$ |
+|:--:|:--:|:--:|:--:|
+| (V, Br, Br) = (0, 8, 8) | 0 | 7 | $\min\{0, 7\} = 0 = V$ |
+| (V, Br, R)  = (0, 8, 9) | 0 | 7 | 0 = V |
+| (V, R, Br)  = (0, 9, 8) | 0 | 7 | 0 = V |
+| (V, R, R)   = (0, 9, 9) | 0 | 7 | 0 = V |
+| (Br, Br, V) = (8, 8, 0) | 7 | 0 | 0 = V |
+| (Br, R, V)  = (8, 9, 0) | 7 | 0 | 0 = V |
+| (R, Br, V)  = (9, 8, 0) | 7 | 0 | 0 = V |
+| (R, R, V)   = (9, 9, 0) | 7 | 0 | 0 = V |
+
+All 8 non-associative 4-core triples have bracketing pair $\{0, 7\}$; both bracketings are in the 4-core, so the canonical rule selects $\min\{0, 7\} = 0 = V$. The remaining 56 triples are associative and binary-fuse to a value already in the 4-core (since $C$ is closed under binary TSML by WP110 §3). $\square$
+
+**Corollary 5.6 (Operad–runtime alignment).** *The 4-core $C$ is the unique minimal jointly-closed subalgebra under all of: (i) binary TSML, (ii) binary BHML, (iii) canonical arity-3 fuse. The operad-DOF (arity-3) and the runtime-DOF (binary T+B-mix) therefore preserve the same algebraic substrate, namely the WP105 / WP110 attractor support.*
+
+This unifies three previously-separate closure results:
+- WP110 D48 (binary TSML on 4-core: 16 in-core terms, 0 spillover)
+- WP110 D48 (binary BHML on 4-core: 16 in-core terms, 0 spillover)
+- WP112 Theorem 5.5 (canonical arity-3 fuse on 4-core: 64 in-core terms, 0 spillover)
+
+The 4-core is therefore a **fully closed sub-operad** of TSML at every arity ≤ 3. Whether closure extends to arity-4+ (the iterated fuse closure) is open — see §9 "Open questions."
+
 ---
 
 ## 6. Theorem 4 (σ³ obstruction localization)

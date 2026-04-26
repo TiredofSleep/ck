@@ -256,6 +256,36 @@ def main():
     print(f"  rules:    {len(payload['rules'])}")
     print()
 
+    # --- Section 7: 4-core arity-3 closure (Theorem 5.5) ---
+    print("SECTION 7 -- 4-core arity-3 closure under canonical fuse")
+    print("-" * 70)
+    CORE = {0, 7, 8, 9}
+    in_core = 0
+    out_core = 0
+    nonassoc_4core = []
+    for a in CORE:
+        for b in CORE:
+            for c in CORE:
+                f = canonical.fuse(a, b, c)
+                if f in CORE:
+                    in_core += 1
+                else:
+                    out_core += 1
+                if not is_associative(a, b, c):
+                    nonassoc_4core.append((a, b, c, f))
+    print(f"  total 4-core triples: 64")
+    print(f"  fuse in 4-core:    {in_core}")
+    print(f"  fuse OUT of 4-core: {out_core}")
+    print(f"  non-associative 4-core triples: {len(nonassoc_4core)}")
+    if nonassoc_4core:
+        for a, b, c, f in nonassoc_4core:
+            tag = "in-core" if f in CORE else "OUT"
+            print(f"    fuse({OP_NAMES[a]:<7}, {OP_NAMES[b]:<7}, {OP_NAMES[c]:<7}) "
+                  f"= {f}={OP_NAMES[f]} [{tag}]")
+    if out_core == 0:
+        print("  >> 4-core is CLOSED under canonical arity-3 fuse (Theorem 5.5).")
+    print()
+
     # --- VERDICT ---
     print("=" * 78)
     print("VERDICT")
