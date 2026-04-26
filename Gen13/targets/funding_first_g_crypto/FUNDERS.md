@@ -1,5 +1,10 @@
 # FUNDERS — funding/first-g-crypto
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
+
 ## Primary candidates (★ priority)
 
 ### 1. NSA Mathematical Sciences Program (MSP) — ★★★★★
@@ -55,7 +60,7 @@
 1. **A clean theorem statement.** First-G Law, σ⁶ = id, Q10 polynomial, Q11 22% lower bound, Coprimality + First-G Localization — each statable in 3–5 lines with citation to runnable proof.
 2. **An open question, crisply framed.** "Does inverting σ under constrained input produce a trapdoor? Does the CRT Fourier embedding yield a reduction to lattice problems?" — not "can we build a cryptosystem?"
 3. **A verdict outcome.** Phase 2 should commit to publishing one of three outcomes: (a) trapdoor candidate with security reduction, (b) structural obstruction, (c) honestly-scoped continuation.
-4. **Academic partnership** or credible solo track record. Brayden is the funder-facing PI; the mathematical core includes a properly-credited prior collaboration with C.A. Luther (see attribution discussion in README / PITCH_DRAFT / LIMITATIONS). This hybrid posture — sole funder-facing author, honestly-credited prior collaborator — reads well at Simons Collaboration and NSA MSP. NSF AF would still want an active academic co-PI; the Luther prior collaboration does not substitute for that, since Luther is no longer actively collaborating.
+4. **Academic partnership** or credible solo track record. Brayden is the thread-facing PI; the mathematical core includes a properly-credited prior collaboration with C.A. Luther (see attribution discussion in README / PITCH_DRAFT / LIMITATIONS). This hybrid posture — sole thread-facing author, honestly-credited prior collaborator — reads well at Simons Collaboration and NSA MSP. NSF AF would still want an active academic co-PI; the Luther prior collaboration does not substitute for that, since Luther is no longer actively collaborating.
 
 ## What the branch already has vs. still needs
 

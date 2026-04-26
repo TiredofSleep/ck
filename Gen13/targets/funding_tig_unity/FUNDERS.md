@@ -6,6 +6,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Primary candidates
 
 ### 1. NSF CNS (Computer and Network Systems)
@@ -14,7 +18,7 @@
 - **Scope match:** ★★★★★ — CSR explicitly funds systems-reliability
   research with empirical methods. TIG Unity's R-σ-Λ-H grammar is a
   clean fit for the "fault tolerance and resilience" track.
-- **Ask size:** Small ($100K-$250K, 2-3 years) or Medium ($500K-$1.2M)
+- **Scope size:** Small ($100K-$250K, 2-3 years) or Medium ($500K-$1.2M)
 - **Path in:** submit unsolicited proposal; program officer contact through
   program website (`cise.nsf.gov/div/index.jsp?div=cns`)
 - **Prerequisite:** institutional affiliation (7Site LLC can serve as PI
@@ -27,7 +31,7 @@
 - **Scope match:** ★★★★☆ — resilient exascale computing is an ASCR
   priority. TIG Unity's asymmetric-failure result on 100-node clusters
   aligns with LLNL/ORNL/ANL research directions.
-- **Ask size:** Typically $250K-$1M
+- **Scope size:** Typically $250K-$1M
 - **Path in:** ASCR Basic Research Needs workshops; national-lab staff
   contact (LLNL HPC Security, ORNL Future Technologies group)
 - **Prerequisite:** benchmark reproduction on a real HPC testbed
@@ -39,7 +43,7 @@
 - **Scope match:** ★★★☆☆ — Sloan funds computational-science tools and
   methods; fits if framed as reusable coherence grammar for
   heterogeneous workloads
-- **Ask size:** $100K-$200K seed
+- **Scope size:** $100K-$200K seed
 
 ### 4. AWS / GCP / Azure Research Credits
 
@@ -48,7 +52,7 @@
 - **Scope match:** ★★★★☆ — cloud credits directly unblock reproduction
   at scale. TIG Unity needs ~$500-$5K/month in cloud compute to run
   real 100-node simulations.
-- **Ask size:** $500/month-$50K/year in compute credits
+- **Scope size:** $500/month-$50K/year in compute credits
 - **Path in:** direct application (all three programs accept
   single-researcher proposals)
 - **Timing:** rolling
@@ -59,7 +63,7 @@
 - **Scope match:** ★★★☆☆ — if TIG Unity is packaged as an
   OpenTelemetry-integrated coherence metric, it could apply for
   Sandbox status. Would give visibility + small-grant access.
-- **Ask size:** In-kind + introductions (typically no direct grants)
+- **Scope size:** In-kind + introductions (typically no direct grants)
 
 ## Secondary / adjacent
 

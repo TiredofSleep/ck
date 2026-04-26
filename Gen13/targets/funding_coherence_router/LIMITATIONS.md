@@ -4,6 +4,10 @@ Honest scope for the production-coherence-classifier branch.
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. No realistic-telemetry benchmark has been run yet
 
 The core empirical question — "does coherence-router perform competitively against golden-signals and anomaly-detection baselines on realistic distributed-systems telemetry?" — has not been answered. Phase 1 funds the productionization; Phase 2 funds the realistic-telemetry comparison study. Any pitch implying the comparison has already been done would be overclaiming. The honest framing is: "we have a runnable classifier, a runnable 7-test benchmark on synthetic data, a specific Phase 2 comparison-study design, and a commitment to publish the comparison outcome regardless of which classifier wins."
@@ -78,4 +82,4 @@ The `All-or-Nothing-E` repo (github.com/TiredofSleep/All-or-Nothing-E) holds the
 
 ## The verdict framing as limitation
 
-The Phase 2 deliverable commits to publishing the comparison outcome whether coherence-router dominates, is competitive with, or is dominated by golden-signals and anomaly-detection baselines. This is deliberate. The funder is paying for a disciplined comparative study, not a guaranteed win. An SRE reviewer who reads this as weakness is reviewing the wrong proposal; an SRE reviewer who reads it as methodological discipline is reading it correctly. The SRE community publishes comparative studies of classifiers routinely — this branch fits that profile exactly.
+The Phase 2 deliverable commits to publishing the comparison outcome whether coherence-router dominates, is competitive with, or is dominated by golden-signals and anomaly-detection baselines. This is deliberate. A supporter of this thread is paying for a disciplined comparative study, not a guaranteed win. An SRE reviewer who reads this as weakness is reviewing the wrong proposal; an SRE reviewer who reads it as methodological discipline is reading it correctly. The SRE community publishes comparative studies of classifiers routinely — this branch fits that profile exactly.

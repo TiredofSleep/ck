@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Branch state
 
 - Branch seeded: 2026-04-20
@@ -46,7 +50,7 @@
 - [ ] One external observational-cosmology informal review (ideally a DESI-adjacent astronomer)
 - [ ] Brayden + H.J. Johnson review + edit PITCH_DRAFT
 
-### Pitch-to-send
+### Thread framing-to-send
 - [ ] Brayden + Johnson confirm Simons vs Heising-Simons vs NSF AAG vs Templeton as first funder
 - [ ] Institutional host identified if NSF AAG path is chosen (via Johnson or other academic partner)
 - [ ] DESI Collaboration affiliation explored (a pathway to pursue, not required for submission)

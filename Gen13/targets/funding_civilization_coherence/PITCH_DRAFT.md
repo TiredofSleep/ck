@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Computational social science has produced a lineage of simulators that compress civilizational dynamics into tractable models: Axelrod on culture dissemination, Schelling on segregation, Turchin on secular cycles, Bettencourt-West on urban scaling. Each buys tractability with a specific representational choice — a scalar, a lattice, an equation-of-motion — whose empirical fit is then evaluated against specific datasets.
@@ -42,7 +46,7 @@ Outcomes are:
 **Deliverable B**: A1 simulator documentation (10–15 pp).
 **Deliverable C**: A2 empirical-fit specification (8–12 pp) — chooses dataset, fixes metric, pre-registers pass/fail.
 **Deliverable D**: A3 literature positioning (5–8 pp).
-**Deliverable E**: A4 framing cleanup — ensure no consciousness-anchored language appears in funder-facing materials.
+**Deliverable E**: A4 framing cleanup — ensure no consciousness-anchored language appears in thread-facing materials.
 
 ### Phase 2 — Empirical-fit run (Month 5–16, $120K–$300K)
 **Deliverable**: execute the comparison per A2. Publish outcome in computational-social-science venue — candidate venues: Journal of Artificial Societies and Social Simulation (JASSS), Journal of Statistical Physics, Advances in Complex Systems, or a Santa Fe Institute working paper series.
@@ -87,7 +91,7 @@ Templeton's online LOI is a low-barrier first contact. If Templeton invites a fu
 - [ ] A1 simulator documentation written
 - [ ] A2 empirical-fit spec pre-registered (the pre-registration commits to the analysis BEFORE seeing results)
 - [ ] A3 literature positioning drafted
-- [ ] A4 framing cleanup done (consciousness-anchored language removed from funder-facing materials)
+- [ ] A4 framing cleanup done (consciousness-anchored language removed from thread-facing materials)
 - [ ] SFI contact or academic co-PI engaged
 - [ ] Brayden confirms SFI vs DISES vs Templeton as first funder
 - [ ] Brayden reviews + edits

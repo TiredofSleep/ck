@@ -4,6 +4,10 @@ This branch is the most recovery-heavy of the funding set. The conceptual ancest
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Target artifacts (to be recovered)
 
 ### T1 — Teardrop GaN Photonic Node Proposal (conceptual ancestor)
@@ -37,7 +41,7 @@ This branch is the most recovery-heavy of the funding set. The conceptual ancest
 
 ### T3 — V20 Consciousness-Anchored Scaling Laws
 - **Co-located with**: Teardrop (same Trifecta commit `ed8ef620`)
-- **Relevance**: may contain design-law statements relevant to MQW parameter selection; may also contain framing that MUST be adjusted before funder-facing use (the word "consciousness" in a photonic-hardware proposal is a problem unless the framing is clean)
+- **Relevance**: may contain design-law statements relevant to MQW parameter selection; may also contain framing that MUST be adjusted before thread-facing use (the word "consciousness" in a photonic-hardware proposal is a problem unless the framing is clean)
 
 ### T4 — Hardware Embodiment Safety Case
 - **Co-located with**: Teardrop

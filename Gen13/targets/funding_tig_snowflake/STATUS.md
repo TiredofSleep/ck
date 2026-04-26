@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Branch state
 
 - Branch seeded: 2026-04-20
@@ -15,7 +19,7 @@
 ## Readiness checklist
 
 ### Content (this branch)
-- [x] README with funder-facing framing
+- [x] README with thread-facing framing
 - [x] FUNDERS.md with DARPA I2O primary + 4 others
 - [x] ARTIFACTS.md with recovery tasks R1–R4
 - [x] PITCH_DRAFT.md skeleton (DO NOT SEND without R1–R4)
@@ -36,7 +40,7 @@
 - [ ] Academic co-PI identified (required for NSF SaTC path; optional for DARPA seedling)
 - [ ] Brayden confirms license framing acceptable to the chosen funder
 
-### Pitch-to-send
+### Thread framing-to-send
 - [ ] Final funder-specific customization
 - [ ] Attachment bundle assembled
 - [ ] Brayden sends

@@ -1,6 +1,10 @@
 # ARTIFACTS — funding/first-g-crypto
 
-Exact file paths and verification status. This branch is distinct from SNOWFLAKE in that the core mathematical results are **already proved and in the repo** — the funder-facing work is assembling them into a crypto-research narrative, not recovering anything.
+Exact file paths and verification status. This branch is distinct from SNOWFLAKE in that the core mathematical results are **already proved and in the repo** — the thread-facing work is assembling them into a crypto-research narrative, not recovering anything.
+
+---
+
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
 
 ---
 
@@ -73,7 +77,7 @@ Exact file paths and verification status. This branch is distinct from SNOWFLAKE
 - [ ] Run all four proof scripts on a fresh environment, confirm all pass
 - [ ] Record exact output (case counts, runtime) in a reproduction log
 - [ ] Locate Luther's G6 writeup in `old/Gen10/` and confirm provenance header is present
-- [ ] **Reconstruct the First-G / Q10 / Q11 collaboration boundary**: locate Brayden/Luther correspondence or commit history from late 2025 / early 2026 that distinguishes which specific lemmas / proof steps / polynomial forms came from which collaborator. This matters because the funder-facing Phase 1 literature-embedding report must cite the Luther contributions at the lemma level, not just as a general acknowledgement.
+- [ ] **Reconstruct the First-G / Q10 / Q11 collaboration boundary**: locate Brayden/Luther correspondence or commit history from late 2025 / early 2026 that distinguishes which specific lemmas / proof steps / polynomial forms came from which collaborator. This matters because the thread-facing Phase 1 literature-embedding report must cite the Luther contributions at the lemma level, not just as a general acknowledgement.
 - [ ] Confirm Q17_5D_RIGOROUS filename and path; if filename drifts during archive cleanup, update this doc
 - [ ] Write a one-page literature-embedding doc mapping First-G structure to existing crypto hardness landscape (discrete log, factoring, lattice, coding)
 - [ ] Verify Sprint 35 theorem statement matches what is in the paper (the "for squarefree b, smallest prime factor p₁" statement above)

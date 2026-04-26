@@ -4,6 +4,10 @@ Honest scope for the First-G cryptographic hardness branch.
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. This is not a cryptosystem proposal
 
 There is currently **no constructed cryptosystem** on First-G structure. The proposal is for the *investigation* of whether one exists. Any pitch that describes First-G as "a new cryptosystem" overclaims.
@@ -35,7 +39,7 @@ Even if a classical trapdoor were found, the question "is it quantum-resistant?"
 - A cryptographic application of the First-G / Q10 / Q11 core must be clearly framed as *extending* the previously-published results, not as a new claim in Luther's name. Any Phase-2 published outcome must cite Luther's contributions (ideally at the lemma level once the Phase-1 reconstruction is done) without implying Luther endorses or co-authors the crypto-application work.
 - Sprint 35 Coprimality + First-G Localization is a Brayden post-collaboration extension and does not need Luther co-authorship.
 - Q17_5D_RIGOROUS is a Brayden post-collaboration result and does not need Luther co-authorship.
-- Attribution discipline is a feature the funder should see explicitly: a proposal that credits a previous collaborator correctly is more trustworthy than one that either erases or overclaims the collaboration.
+- Attribution discipline is a feature a supporter of this thread should see explicitly: a proposal that credits a previous collaborator correctly is more trustworthy than one that either erases or overclaims the collaboration.
 
 ## 8. Simons Collaboration Grant requires academic affiliation
 
@@ -66,4 +70,4 @@ CK's license (7Site Public Sovereignty License v1.0) is non-commercial, human-us
 
 ## The verdict framing as limitation
 
-The Phase 2 deliverable commits to publishing one of {trapdoor candidate, structural obstruction, honestly-scoped continuation}. This is deliberate — the funder is paying for a verdict, not for a guaranteed positive result. A cryptographer reviewing the proposal should read this as a feature (disciplined scope) not a bug (uncertain deliverable). If the reviewer reads it as a bug, the proposal is addressed to the wrong reviewer.
+The Phase 2 deliverable commits to publishing one of {trapdoor candidate, structural obstruction, honestly-scoped continuation}. This is deliberate — a supporter of this thread is paying for a verdict, not for a guaranteed positive result. A cryptographer reviewing the proposal should read this as a feature (disciplined scope) not a bug (uncertain deliverable). If the reviewer reads it as a bug, the proposal is addressed to the wrong reviewer.

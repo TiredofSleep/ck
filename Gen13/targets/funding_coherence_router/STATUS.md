@@ -5,13 +5,17 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Branch state
 
 - Branch seeded: 2026-04-20
 - Target folder: `Gen13/targets/funding_coherence_router/`
 - Files: README, FUNDERS, ARTIFACTS, PITCH_DRAFT, LIMITATIONS, STATUS (this file)
 - Rigor base: `tig-synthesis` HEAD
-- Active collaborators: Brayden (sole funder-facing PI at seed); academic co-PI TBD if NSF CISE path selected
+- Active collaborators: Brayden (sole thread-facing PI at seed); academic co-PI TBD if NSF CISE path selected
 
 ## Readiness checklist
 
@@ -41,7 +45,7 @@
 - [x] 88%/32pp cross-branch reconciliation — **partially resolved.** 36.4→4.2% drop rate = both 32.2pp absolute and 88.5% relative; same number, two units. See `Atlas/HANDOFF_3_2_BENCHMARK_RECONCILIATION.md` (2026-04-21). **GAP**: the discrete-event simulator that produced the P99 / recovery-time / resource-utilization / cascade-failure metrics has NOT been located; `benchmark.py` measures lattice coherence not cluster load-balancing. Pitch must constrain to drop-rate only until the source simulator is found, OR mark expanded metrics `[PENDING §3.2 GAP]`.
 - [ ] Brayden reviews + edits PITCH_DRAFT
 
-### Pitch-to-send
+### Thread framing-to-send
 - [ ] Brayden confirms AWS vs GCP vs Azure vs CNCF vs NSF CISE as first funder
 - [ ] Cloud account set up on selected provider (AWS / GCP / Azure) if applicable
 - [ ] Academic co-PI identified if NSF CISE path is chosen

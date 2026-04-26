@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Branch state
 
 - Branch seeded: 2026-04-20
@@ -32,7 +36,7 @@
 - [ ] **A1**: Simulator documentation (10–15 pp)
 - [ ] **A2**: Empirical-fit specification with pre-registration (8–12 pp)
 - [ ] **A3**: Literature positioning (5–8 pp)
-- [ ] **A4**: Framing cleanup — consciousness-anchored language removed from funder-facing materials
+- [ ] **A4**: Framing cleanup — consciousness-anchored language removed from thread-facing materials
 
 ### Pre-pitch work
 - [ ] SFI affiliate or academic co-PI engaged
@@ -40,7 +44,7 @@
 - [ ] If Templeton path: LOI submitted
 - [ ] Brayden reviews + edits PITCH_DRAFT
 
-### Pitch-to-send
+### Thread framing-to-send
 - [ ] Dataset chosen (V-Dem vs Seshat vs WVS vs ANES vs Pew)
 - [ ] Pre-registration of empirical-fit metric submitted (OSF or similar)
 - [ ] Brayden confirms SFI vs DISES vs Templeton as first funder

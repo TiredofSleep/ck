@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Branch state
 
 - Branch seeded: 2026-04-20
@@ -31,7 +35,7 @@
 - [ ] Sovereignty license linked and discussed in the paper
 - [ ] Brayden reviews + edits PITCH_DRAFT
 
-### Pitch-to-send
+### Thread framing-to-send
 - [ ] Brayden confirms Open Phil vs LTFF as first funder
 - [ ] Brayden decides on Phase 2 benchmark (TruthfulQA vs causal-reasoning vs IG3 deception-detection)
 - [ ] Attachment bundle prepared

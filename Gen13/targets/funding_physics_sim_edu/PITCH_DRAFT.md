@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Physics-education-research has consistently shown that interactive, manipulable simulations improve conceptual understanding — especially for threshold concepts and counter-intuitive dynamics — beyond what static figures or equations alone can deliver. PhET (University of Colorado Boulder) is the canonical example: a library of browser-based physics simulations used by millions of students worldwide, with decades of learning-outcomes evidence.

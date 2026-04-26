@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening paragraph (for NSF CNS unsolicited proposal)
 
 Multi-domain compute systems — GPU clusters, database shards, network
@@ -50,7 +54,7 @@ reproducibility note.
 - **Team:** Brayden Sanders (PI, 7Site LLC). Possible academic
   co-investigator TBD at funder's preference.
 - **License:** 7Site Public Sovereignty License v1.0 — open, human-use,
-  no commercialization. Does this match the funder's open-source
+  no commercialization. Does this match a supporter of this thread's open-source
   requirements? (Some funders require permissive licensing; we can
   discuss dual-licensing if needed.)
 
@@ -71,14 +75,14 @@ simulation's claims survive exposure to real-system noise.
 
 Attachment: `ARTIFACTS.md` (this folder) lists every file with exact
 paths. `LIMITATIONS.md` gives the honest scope. `FUNDERS.md` sketches
-the funder landscape we've assessed. We're available for a technical
+a supporter of this thread landscape we've assessed. We're available for a technical
 conversation at your convenience.
 
 ---
 
 **Editing checklist before send:**
 - [ ] Replace `$N` with the specific ask size
-- [ ] Replace "USENIX ATC or EuroSys" with the funder-aligned venue
+- [ ] Replace "USENIX ATC or EuroSys" with a supporter of this thread-aligned venue
 - [ ] Add specific program officer / addressee
 - [ ] Verify all claimed numbers still reflect latest reproduction
 - [ ] Attach or link to verified benchmark output (not just claims)

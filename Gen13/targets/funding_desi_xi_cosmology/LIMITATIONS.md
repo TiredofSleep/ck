@@ -4,6 +4,10 @@ Honest scope for the ξ-field cosmology branch.
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. The DESI DR2 fit has not been done yet
 
 The central deliverable — the MCMC fit of the ξ cosmology against DESI DR2 — has not been run. This is **the funded work**, not a pre-existing result. Any pitch that implies a fit has already been performed would be overclaiming. The honest framing is: "we have a specific falsifiable model, a specific data target, and a specific pipeline design, and we commit to publishing the fit outcome."
@@ -18,7 +22,7 @@ The ξ field is a dark-energy candidate. It is not a dark-matter candidate. Any 
 
 ## 4. No formal link currently established to the TIG / Crossing Lemma branches
 
-WP87 (Cross-Branch Analysis) explicitly states that no formal mathematical link is currently established between the ξ cosmology branch and the TIG / Crossing Lemma / σ-framework branches. The ξ log ξ potential has suggestive parallels to the coherence-grammar framework, and the σ-rate theorem (WP101) has a role in vacuum-relaxation timescale analysis, but these are parallels, not a derivation. The funder-facing pitch for this branch should stand on the ξ cosmology alone and not attempt to ride the TIG framework's authority.
+WP87 (Cross-Branch Analysis) explicitly states that no formal mathematical link is currently established between the ξ cosmology branch and the TIG / Crossing Lemma / σ-framework branches. The ξ log ξ potential has suggestive parallels to the coherence-grammar framework, and the σ-rate theorem (WP101) has a role in vacuum-relaxation timescale analysis, but these are parallels, not a derivation. The thread-facing pitch for this branch should stand on the ξ cosmology alone and not attempt to ride the TIG framework's authority.
 
 ## 5. Log-quintessence prior-art is nontrivial
 
@@ -30,11 +34,11 @@ BB 1976 establishes that log nonlinearity is the unique separability-preserving 
 
 ## 7. The 47/125 threshold and other asserted parameters
 
-WP81 lists several items as "asserted" rather than derived (e.g., the 47/125 threshold). These are items the funder-facing paper should treat honestly as phenomenological parameters pending derivation, not as predicted values. A confident reviewer will ask for derivations; we say openly that some of these are not yet derived.
+WP81 lists several items as "asserted" rather than derived (e.g., the 47/125 threshold). These are items the thread-facing paper should treat honestly as phenomenological parameters pending derivation, not as predicted values. A confident reviewer will ask for derivations; we say openly that some of these are not yet derived.
 
 ## 8. H₀ tension is a compound problem
 
-The H₀ tension between local (SH0ES) and CMB (Planck) inferences is not settled, and any claim that "ξ cosmology resolves the H₀ tension" is premature. Phase 2's H₀ analysis will report Δχ² and posterior shifts, not a resolution claim. The funder should see this framing explicitly.
+The H₀ tension between local (SH0ES) and CMB (Planck) inferences is not settled, and any claim that "ξ cosmology resolves the H₀ tension" is premature. Phase 2's H₀ analysis will report Δχ² and posterior shifts, not a resolution claim. A supporter of this thread should see this framing explicitly.
 
 ## 9. Foreground and systematics in DESI DR2
 
@@ -79,4 +83,4 @@ CK's license (7Site Public Sovereignty License v1.0) is non-commercial, human-us
 
 ## The verdict framing as limitation
 
-The Phase 1 deliverable commits to publishing the fit outcome regardless of whether ξ cosmology fits DR2 better than, comparable to, or worse than ΛCDM. This is deliberate — the funder is paying for a disciplined test, not for a guaranteed positive result. An astronomy reviewer should read this as methodological discipline, not as hedging. If a reviewer reads the "publish negative results" commitment as weakness, the proposal is addressed to the wrong reviewer.
+The Phase 1 deliverable commits to publishing the fit outcome regardless of whether ξ cosmology fits DR2 better than, comparable to, or worse than ΛCDM. This is deliberate — a supporter of this thread is paying for a disciplined test, not for a guaranteed positive result. An astronomy reviewer should read this as methodological discipline, not as hedging. If a reviewer reads the "publish negative results" commitment as weakness, the proposal is addressed to the wrong reviewer.

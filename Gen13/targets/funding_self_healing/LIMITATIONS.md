@@ -4,6 +4,10 @@ Honest scope for the dual-lattice self-healing branch. Autonomous-systems funder
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. Dual-lattice self-healing is not a general self-repair framework
 
 The approach works when damage modes are **partition-enumerable** and repair actions are **compositional over those partitions**. It does not work on damage modes that fall outside the enumeration (novel failure modes) or on systems where actions cannot be decomposed into a finite vocabulary. This restriction is a feature — it is why the approach is tractable — but it is also a genuine limit.
@@ -46,7 +50,7 @@ Any self-healing layer added to a real system (Phase 3 pilot) must compose clean
 
 ## 11. Attribution discipline
 
-- Brayden is the funder-facing author
+- Brayden is the thread-facing author
 - Prior collaborators credited for their specific past contributions (spectral layer, UOP/GUT arc, ξ cosmology) but the self-healing framing is not a claim in their names
 - Academic or industrial collaborator (once identified during Phase 2) takes on genuine intellectual credit for their role
 

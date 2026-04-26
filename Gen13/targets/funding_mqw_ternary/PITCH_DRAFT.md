@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Ternary logic has been a theoretical target since before binary computing was commercialized — three-state logic offers log₂ 3 ≈ 1.585 bits per digit (versus binary's 1 bit), lower switching energy per functional unit, and more compact arithmetic circuits. The reason ternary has remained theoretical is substrate: most physical media naturally produce two distinguishable states, not three. A ternary logic device either compiles down to binary underneath (defeating the purpose) or requires a physical substrate where three states are native.
@@ -67,7 +71,7 @@ DARPA's current photonic-computing portfolio includes programs descended from PI
 
 ## Attribution
 
-- **Brayden Sanders** — PI, sole funder-facing author, architect of Teardrop GaN and contributor to MQW trilogy
+- **Brayden Sanders** — PI, sole thread-facing author, architect of Teardrop GaN and contributor to MQW trilogy
 - Architectural dialogues with ClaudeChat, Celeste/GPT acknowledged in methods
 - Prior collaborators (C.A. Luther et al.) credited only where their specific prior work is cited; Luther not actively collaborating as of April 2026
 - Academic co-PI in III-nitride epitaxy to be identified during Phase 2

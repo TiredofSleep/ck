@@ -4,6 +4,10 @@ Honest scope for the civilization-coherence simulator branch. Scope discipline h
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. This is not futurism
 
 The branch makes NO claim to predict specific social, political, or economic events. No predictions of collapse, revolution, political turnover, or demographic transition. No calendar dates attached to any outcome. The branch is a *simulator-vs-empirical-data comparison study*, not a forecast.

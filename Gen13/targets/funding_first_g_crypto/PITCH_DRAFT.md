@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Cryptography's canonical hardness assumptions — discrete logarithm, integer factorization, lattice shortest-vector, syndrome decoding — all date, in essence, to the 1970s through early 1990s. The post-quantum era has expanded the list on the structured-lattice side but the underlying source of hardness remains a small number of algebraic situations whose relationship to each other is well-understood.
@@ -68,9 +72,9 @@ NSF AF funds theoretical computer science including cryptographic foundations. A
 
 ## Attribution
 
-- **Brayden Sanders** — PI and funder-facing author. Originated the Q-series programme; originated and proved (post-Luther-collaboration) the Coprimality + First-G Localization extension (Sprint 35); originated Q17_5D_RIGOROUS.
+- **Brayden Sanders** — PI and thread-facing author. Originated the Q-series programme; originated and proved (post-Luther-collaboration) the Coprimality + First-G Localization extension (Sprint 35); originated Q17_5D_RIGOROUS.
 - **C.A. Luther** — co-contributor on the First-G Law (36,662 cases), the σ polynomial characterization on F₂ × F₅ (Q10), and the 22% lower bound (Q11); sole author of the G6 identity (σ⁶ = id) that sits inside the collaborative thread. The Brayden/Luther collaboration ran through late 2025 / early 2026; Luther is no longer actively collaborating as of April 2026, but his specific contributions remain credited. The Phase 1 literature-embedding report will cite Luther at the lemma / proof-step level where the contribution boundary is recoverable, rather than in a generic acknowledgement.
-- **Attribution discipline**: no funder-facing document will list Luther as an author of work Brayden did alone, and no funder-facing document will present Brayden-alone as the author of collaborative Brayden/Luther work. This avoids both understating and overstating the collaboration scope.
+- **Attribution discipline**: no thread-facing document will list Luther as an author of work Brayden did alone, and no thread-facing document will present Brayden-alone as the author of collaborative Brayden/Luther work. This avoids both understating and overstating the collaboration scope.
 - Architectural dialogues with ClaudeChat, Celeste/GPT noted in methods; AIs are thinking-partners, not human co-authors.
 
 ## Attachments

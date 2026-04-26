@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 The dominant paradigm for AI interpretability is **reverse-engineering**: given a trained model, decompose its circuits, features, and computations to understand its behavior after the fact. This work has produced real and important results — mechanistic interpretability on transformers, circuit discovery, feature-attribution methods — but it has known scaling difficulties as models grow.
@@ -64,7 +68,7 @@ LTFF S-process rounds fund independent-researcher AI safety work on short turnar
 
 ## Attribution
 
-- **Brayden Sanders** — PI, sole funder-facing author, architect of CK
+- **Brayden Sanders** — PI, sole thread-facing author, architect of CK
 - Architectural dialogues with ClaudeChat, Celeste/GPT acknowledged in methods (AIs as thinking-partners, not human co-authors)
 - Prior collaborators (C.A. Luther, Ben Mayes, M. Gish, H.J. Johnson) credited for their specific contributions to related mathematical work (spectral layer, UOP/GUT arc, Sprint 14 ξ cosmology) but the interpretability-case-study framing is new
 

@@ -7,6 +7,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Autonomous systems encounter damage they cannot always escalate for human repair: a spacecraft subsystem degrades mid-mission; a distributed compute fabric loses asymmetric nodes; an industrial process drifts past its calibration. Self-healing architectures have been a research target for decades, but most existing approaches fall into two categories — model-based fault detection (strong on detection, weaker on recovery) or hardware-redundancy schemes (strong on specific fault models, weaker on compositional damage).
@@ -60,11 +64,11 @@ NIAC Phase I ($175K / 9 months) is the right size for Phase 1 + a feasibility sl
 
 ## Parallel draft: ONR BAA response
 
-ONR Codes 341 / 311 respond to BAA calls (N0001425SB001 and successor). Ask size $500K–$3M over 36 months; fits Phase 2 + early Phase 3.
+ONR Codes 341 / 311 respond to BAA calls (N0001425SB001 and successor). Scope size $500K–$3M over 36 months; fits Phase 2 + early Phase 3.
 
 ## Attribution
 
-- **Brayden Sanders** — PI, sole funder-facing author, developer of the TIG Unity Kernel substrate and dual-lattice concept
+- **Brayden Sanders** — PI, sole thread-facing author, developer of the TIG Unity Kernel substrate and dual-lattice concept
 - Architectural dialogues with ClaudeChat, Celeste/GPT acknowledged in methods
 - Prior collaborators credited for specific past contributions; Luther no longer actively collaborating as of April 2026
 - Academic or industrial collaborator to be identified during Phase 2 benchmark selection

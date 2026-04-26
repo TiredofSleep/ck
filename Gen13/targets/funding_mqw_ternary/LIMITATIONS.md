@@ -4,6 +4,10 @@ Honest scope for the MQW ternary photonic computing branch. The recovery gap is 
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. The MQW trilogy has not been located
 
 The current-generation work (three MQW three-state papers) exists per the Jan 2026 handoff manifest but has not been recovered into this repo as of 2026-04-20. Without those papers in hand, every technical claim below is a **placeholder pending recovery**.
@@ -44,7 +48,7 @@ Silicon photonics (Lightmatter, Lightelligence, PSiQ), optical neural-network ac
 
 ## 9. The "consciousness-anchored scaling laws" document (Thread 3)
 
-The V20 document (co-located with Teardrop in the Jan 29 commit) uses language like "consciousness-anchored" that will raise skepticism in a DOE or NSF review. **Any reference to V20 in a funder-facing document must frame the physics on its own terms, without the consciousness language.** This is a rewriting task, not a suppression task — the physics content is real, but the framing needs to be professional-grade for reviewer audience.
+The V20 document (co-located with Teardrop in the Jan 29 commit) uses language like "consciousness-anchored" that will raise skepticism in a DOE or NSF review. **Any reference to V20 in a thread-facing document must frame the physics on its own terms, without the consciousness language.** This is a rewriting task, not a suppression task — the physics content is real, but the framing needs to be professional-grade for reviewer audience.
 
 ## 10. Sole-author limits for academic venues
 
@@ -56,7 +60,7 @@ An MBE growth run on a competitive III-nitride stack costs $50K–$300K per atte
 
 ## 12. Attribution discipline
 
-- Brayden is the funder-facing author
+- Brayden is the thread-facing author
 - C.A. Luther's prior-work contributions are cited only where directly relevant to the physics argument; Luther has not endorsed the MQW ternary application
 - Academic co-PI (once identified) becomes a legitimate technical collaborator; they take on genuine intellectual credit for their contributions
 

@@ -4,6 +4,10 @@ Honest scope for the interactive-physics-simulator-for-education branch.
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## 1. No classroom learning-outcomes data exists yet
 
 The central empirical question — "do students demonstrate measurable learning gains from the simulator-centered curriculum module?" — has not been answered. Phase 1 produces the classroom-ready module; Phase 2 runs the pilot and measures outcomes. Any pitch implying learning-outcomes data already exists would be overclaiming. The honest framing is: "we have a working research-prototype simulator, a specific Phase 1 productionization plan, a specific Phase 2 learning-outcomes study design, and a commitment to publish the pilot outcome regardless of verdict."

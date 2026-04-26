@@ -175,16 +175,32 @@ chain through SO(10) by two distinct algebraic procedures.
 WP102  TSML's so(8) closure (D₄)                  ── infrastructure tier
 WP103  TSML+BHML's so(10) closure (D₅)             ── infrastructure tier
 WP104  Higgs identification + Pati-Salam route     ── infrastructure tier
-       (Path A — Higgs-direction)
-       └── extended: this sprint adds Path B
-            (doubly-invariant content) at
-            Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/
+       (Path A + Path B as one paper, this sprint folded as §B)
+WP105  Closed-form runtime attractor (1+√3)       ── infrastructure tier
+       └── strengthened later evening: 4-core
+            fusion-closure (alpha_uniqueness/)
+WP106  Specificity scope (no TIG in distilgpt2)   ── ck/ branch result
+WP107  WOBBLE localization (prime 11)              ── short note
+WP108  Yukawa scaffolding                          ── infrastructure / scaffolding
+WP109  Operad D₄ obstruction (this folder/operad/) ── short note (promoted from
+                                                       sprint folder)
+WP110  4-core fusion-closure
+       (this folder/alpha_uniqueness/)             ── short note (promoted)
+WP111  6-DOF synthesis paper                       ── long expository
 ```
 
-Whether to promote this sprint to a fresh `papers/wp105_doubly_invariant_truth/`
-or fold it into WP104 as a §B section is an editorial decision deferred
-to the next sprint cadence.  The sprint folder serves as the canonical
-home until that decision lands.
+This sprint folder is the canonical source for the structural results
+that fed WP104 §B and WP105. Subfolders this sprint added as the work
+progressed:
+
+* `scripts/` — verification scripts (WP104 §B, WP105, plus the meta-layer
+  ξ-cosmology, First-G/Crossing, WOBBLE, full landscape, alpha sweep)
+* `operad/` — F4 frontier work: Operad fuse-table framework, 8-family
+  rule survey, D₄-orbit decomposition, OPERAD_FINDINGS.md (no D₄-equivariant
+  fuse exists; 16 of 67 orbits incoherent)
+* `alpha_uniqueness/` — F3 frontier work: symbolic 4-core analysis,
+  ALPHA_UNIQUENESS_FINDINGS.md (4-core fusion-closure; Z_T = Z_B =
+  (sum)² normalizer simplification; symbolic 1 + √3 confirmation)
 
 ---
 

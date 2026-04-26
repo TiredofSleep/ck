@@ -1,5 +1,10 @@
 # FUNDERS — funding/physics-sim-edu
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
+
 ## Primary candidates (★ priority)
 
 ### 1. NSF EHR — Division of Undergraduate Education (DUE) + DRK-12 + ECR — ★★★★★

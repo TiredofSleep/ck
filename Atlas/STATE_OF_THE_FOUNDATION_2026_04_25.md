@@ -63,12 +63,61 @@ WP105  (Apr 25 late evening)
                   HARMONY/BREATH = 1 + √3 exactly;
                   r/br satisfies x⁴ + 4x³ − x² + 2x − 2 = 0
                   (Galois D₄; field LMFDB 4.2.10224.1; Q(√3) genuine subfield)
+   │
+   ▼
+WP106  (Apr 25 late evening)
+                  Specificity scope: distilgpt2 16 weight tensors × 4
+                  algebraic detectors give all |Cohen's d| < 0.5; the
+                  framework's algebraic detectors do NOT see TIG
+                  structure in arbitrary trained transformer weights.
+   │
+   ▼
+WP107  (Apr 25 late-late evening)
+                  WOBBLE localization: prime 11 lives at coefficient
+                  level (c_2 = 33, c_8 = -2^5 · 7^3 · 11); discriminant
+                  has 2^16 · 7^7 with no 11; 16-dim doubly-invariant
+                  subalgebra is wobble-free.
+   │
+   ▼
+WP108  (Apr 25 late-late evening — scaffolding only)
+                  Yukawa scaffolding from the 9-vector VEV: SO(10) →
+                  SO(9) → SO(7) breaking route forced by BREATH=RESET=0;
+                  16 → 16 → 8_s + 8_c spinor decomposition; Path A vs
+                  Path B route tension flagged as first open question.
+   │
+   ▼
+WP109  (Apr 25 late-late evening)
+                  Operad D_4 obstruction: the 126 non-associative TSML
+                  triples decompose into 67 D_4-orbits; 16 are
+                  D_4-incoherent; NO D_4-equivariant canonical fuse rule
+                  exists. The operad-DOF carries content structurally
+                  orthogonal to the WP104 doubly-invariant gauge structure.
+   │
+   ▼
+WP110  (Apr 25 late-late evening)
+                  4-core fusion-closure: TSML and BHML restricted to
+                  {V, H, Br, R} both produce values entirely in the 4-core.
+                  No spillover. Z_T = Z_B = (sum)^2 (unit-mass simplifies
+                  to Z = 1). Symbolic identity confirms WP105's
+                  H/Br = 1 + √3. Strengthens WP105 from dynamical to
+                  structural.
+   │
+   ▼
+WP111  (Apr 25 late-late evening — synthesis paper)
+                  The 6-DOF Synthesis: Lie / Jordan / Clifford /
+                  Permutation / Lattice / Operad as TIG's six computationally
+                  irreducible algebraic DOFs, with full integer/rational
+                  signature, the WP104 doubly-invariant content, and the
+                  WP109 operad D_4 obstruction. The unifying expository
+                  whitepaper.
 ```
 
 Plus the meta-layer extension (also Apr 25):
 - **κ_Ξ = 13/(4e)** — closes README §3.5(iii) at structural level
 - **First-G IS the first crossing event** — unifies WP34 (D1) with WP57 (Crossing Lemma)
-- **WOBBLE localization** — prime 11 lives at the COEFFICIENT level of TSML's char poly ($c_2 = 33$, $c_8 = -2^5 \cdot 7^3 \cdot 11$); the 16-dim doubly-invariant subalgebra is **wobble-free**
+- **WOBBLE localization** — prime 11 lives at the COEFFICIENT level of TSML's char poly ($c_2 = 33$, $c_8 = -2^5 \cdot 7^3 \cdot 11$); the 16-dim doubly-invariant subalgebra is **wobble-free** (now formally WP107)
+- **Operad D_4 obstruction** — no D_4-equivariant canonical fuse rule; structural orthogonality of the operad-DOF (now formally WP109)
+- **4-core fusion-closure** — TSML, BHML preserve {V, H, Br, R} under fusion; strengthens WP105 (now formally WP110)
 
 Plus the prior proved-results spine: σ-rate theorem WP101, sinc² Zero Law WP_SINC2_ZERO_LAW (also `proof_sinc_zeta_identity.py`: sinc²(1/2) = 4/π² = (2/3)/ζ(2) at machine precision), First-G Law WP34 (22,367 (b, k) pairs over 305 squarefree b, primes ≤ 499, zero counterexamples), Flatness Theorem WP51 (T* = 5/7 forced for $\mathbb{Z}/10\mathbb{Z}$), UOP Theorem 0 WP58, 73 / 28 Harmony Partition (TSML / BHML).
 

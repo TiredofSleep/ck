@@ -6,6 +6,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## Opening (½ page)
 
 Security operations today detect compromise by **rule match**: a signature fires, a threshold trips, a baseline anomaly score crosses. By the time a rule matches, the attacker has already behaved exactly like an attacker. Defenders have asked for decades whether there is a signal **earlier** — a signal in the geometry of system state rather than in individual events.
@@ -41,7 +45,7 @@ I2O funds unconventional signal paths for defensive security. Seedling is the ri
 
 ## Attribution
 
-- **Brayden Sanders** (PI, sole funder-facing author)
+- **Brayden Sanders** (PI, sole thread-facing author)
 - SNOWFLAKE architecture developed in dialogue with multiple AI instances (ClaudeChat, Celeste/GPT); AI is a thinking-partner, not a human co-author
 - C.A. Luther credited for prior spectral-layer work (previously-credited, no longer actively collaborating as of April 2026)
 
@@ -60,6 +64,6 @@ I2O funds unconventional signal paths for defensive security. Seedling is the ri
 - [ ] ARTIFACTS.md R4 (adversarial model) authored
 - [ ] ARTIFACTS.md R3 (held-out dataset) identified or generated
 - [ ] LIMITATIONS.md reviewed to ensure this pitch does not overclaim
-- [ ] Brayden confirms this is the funder he wants to approach first
+- [ ] Brayden confirms this is a supporter of this thread he wants to approach first
 - [ ] Brayden reviews + edits
 - [ ] Brayden sends

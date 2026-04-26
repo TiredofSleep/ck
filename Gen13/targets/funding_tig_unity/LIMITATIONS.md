@@ -5,6 +5,10 @@
 
 ---
 
+> **Note (2026-04-25 revision).** This file was originally drafted as part of a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is **thread documentation**, not a fundraising pitch. The operator-of-record makes **no commitments to donors of any kind**. Any dollar amounts, time scopes, or "ask" framings appearing below are **scope estimates of the work this thread would cover**, not price tags or commitments.
+
+---
+
 ## What is NOT proved
 
 - TIG Unity's benchmark numbers are **simulation-only**. No production
@@ -42,7 +46,7 @@ From the 2026-04-20 handoff §3 Issue 2:
       version; 88% = later version with corrected formula)
   (b) one is the ratio improvement, the other is the absolute improvement
   (c) expanded metrics are extrapolation
-- Before any number appears in a funder-facing document, the exact
+- Before any number appears in a thread-facing document, the exact
   seed + code + output trail must be recovered.
 
 ## Risk to funder
@@ -56,7 +60,7 @@ From the 2026-04-20 handoff §3 Issue 2:
   "rewrite from the spec" outcome vs a straight port.
 - **Attribution risk:** C. A. Luther is no longer actively collaborating
   per 2026-04-20 handoff note; prior-credited work stays credited but
-  the seed-engagement team is Brayden alone unless the funder helps
+  the seed-engagement team is Brayden alone unless a supporter of this thread helps
   recruit a co-investigator.
 - **License risk:** 7Site Public Sovereignty License v1.0 is
   non-commercial. Some funders require open-source compatible licensing;
