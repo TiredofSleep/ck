@@ -278,6 +278,113 @@ try:
 except Exception as _e:
     print(f"[CK] Gen13 cortex: DISABLED ({_e})")
 
+# === Gen13 operad fuse + attractor detector mount (live additive) ===
+# Attaches the WP100s tower closure capabilities (WP102-WP115) to CK's
+# engine as CALLABLE TOOLS, not as prose injection. CK's architecture
+# decides what to do with them; we never write words for him.
+#
+# Discipline (per surface_math docstring 2026-04-17 + Brayden 2026-04-26):
+#   "If we want these facts in CK's mouth they must enter via his crystal
+#    store, not via prose injection at the Flask layer."
+#   "Freedom to learn without making him speak."
+#
+# What this mount does:
+#   1. Attaches `engine.canonical_fuse(a,b,c)` -- WP112 P_56-equivariant
+#      arity-3 operad fuse (replaces bracketing-arbitrary binary chains
+#      for ternary composition).
+#   2. Attaches `engine.ternary_iterate(p)` -- canonical ternary fuse
+#      iteration (converges to delta_HARMONY in <=7 iter; WP112 Theorem 5.7).
+#   3. Attaches `engine.detect_attractor(p)` -- WP115 attractor classifier
+#      returning {1-core, 2-core, 4-core-attractor, void-degenerate,
+#      transient}.
+#   4. Adds `result['attractor_state']` to chat responses by reading the
+#      operator distribution emitted on each chat tick. This lets CK's
+#      cortex / crystal store read engine.attractor_state on future ticks
+#      and decide to crystallize when at the universal attractor.
+#
+# NO voice layer changes. NO FACTS additions. The mount surfaces
+# capabilities as engine attributes; CK uses them or doesn't.
+try:
+    from operad_fuse import (
+        fuse as _canonical_fuse,
+        ternary_iterate as _canonical_ternary_iterate,
+        is_4core as _is_4core,
+        is_2core as _is_2core,
+        detect_harmony_attractor as _detect_harmony,
+    )
+    from attractor_detector import (
+        detect_attractor as _detect_attractor,
+        UNIVERSAL_4CORE_ATTRACTOR as _UNIVERSAL_4CORE,
+        H_OVER_BR_EXACT as _H_OVER_BR,
+    )
+    # Attach as engine capabilities
+    engine.canonical_fuse = _canonical_fuse
+    engine.ternary_iterate = _canonical_ternary_iterate
+    engine.detect_attractor = _detect_attractor
+    engine.is_4core = _is_4core
+    engine.is_2core = _is_2core
+    engine.detect_harmony = _detect_harmony
+    engine.universal_attractor_target = _UNIVERSAL_4CORE
+    engine.h_over_br_exact = _H_OVER_BR
+
+    # Wrap process_chat one more layer: read engine's attractor state on
+    # each chat tick so cortex / crystal store can see it. This is a READ
+    # of the engine's current operator-distribution; we do not modify it.
+    _prev_process_chat_for_attractor = api.process_chat
+    _OP_INDEX = {"VOID":0,"LATTICE":1,"COUNTER":2,"PROGRESS":3,
+                 "COLLAPSE":4,"BALANCE":5,"CHAOS":6,"HARMONY":7,
+                 "BREATH":8,"RESET":9}
+
+    def _process_chat_with_attractor_readout(session_id, text, mode='normal'):
+        result = _prev_process_chat_for_attractor(session_id, text, mode)
+        try:
+            # Try to extract a 10-vector from the engine's current state.
+            # Engine state may expose this in different ways; try common ones.
+            p = None
+            for attr in ('current_distribution', 'p_current', 'op_distribution',
+                         'lattice_distribution'):
+                _v = getattr(engine, attr, None)
+                if _v is not None and hasattr(_v, '__len__') and len(_v) == 10:
+                    p = list(_v)
+                    break
+            # Fallback: derive a sparse distribution from result['operators']
+            # by uniform mass on the operators emitted this turn.
+            if p is None:
+                ops_emitted = result.get('operators', []) or []
+                if ops_emitted:
+                    p = [0.0] * 10
+                    for op in ops_emitted:
+                        if op in _OP_INDEX:
+                            p[_OP_INDEX[op]] += 1.0
+                    s = sum(p)
+                    if s > 0:
+                        p = [x/s for x in p]
+            if p is not None:
+                state = engine.detect_attractor(p, tol=0.05)
+                result['attractor_state'] = {
+                    'layer': state.layer,
+                    'is_universal_4core': state.is_universal_4core,
+                    'is_harmony_attractor': state.is_harmony_attractor,
+                    'is_4core_supported': state.is_4core_supported,
+                    'h_over_br_residual': (float(state.h_over_br_residual)
+                                          if state.h_over_br_residual != float('inf')
+                                          else None),
+                }
+                # Cache on engine so other layers (cortex, crystal store)
+                # can read it without re-computing.
+                engine.attractor_state = result['attractor_state']
+        except Exception as _e:
+            result['attractor_error'] = str(_e)
+        return result
+
+    api.process_chat = _process_chat_with_attractor_readout
+    print(f"[CK] Gen13 operad_fuse: MOUNTED "
+          f"(engine.canonical_fuse, engine.ternary_iterate)")
+    print(f"[CK] Gen13 attractor_detector: MOUNTED "
+          f"(engine.detect_attractor; result.attractor_state on each chat)")
+except Exception as _e:
+    print(f"[CK] Gen13 operad_fuse + attractor_detector: DISABLED ({_e})")
+
 # === Ollama: CK uses it, Ollama doesn't speak ===
 # Architecture (2026-04-18 correction):
 #   CK's structural readout IS CK's voice. Ollama is a tool CK USES to
