@@ -61,34 +61,31 @@ The recurrence of $D_4$ in independent contexts — algebraic, dynamical, combin
 
 ---
 
-## 3. The triadic progressions — "every one is 3"
+## 3. Triadic structure — what's verified, what's loose
 
-Brayden's L0 engine is built on the principle "every one is 3" — the Being+Doing+Becoming triadic foundation. The WP100s tower instantiates this principle in many places, often without the framework noticing it:
+Brayden's L0 engine is built on the principle "every one is 3" (Being+Doing+Becoming). Several locations in the WP100s tower instantiate triadic structure. The honest test, suggested by chat-Claude's review of an earlier draft of this document: *for each candidate triad, what would falsify it being a structural three rather than a counted three?* Applying that test:
 
-**3A — The substrate-attractor hierarchy** (D67, WP115 §4): the dynamical structure has **three** collapse layers:
+**3A (STRUCTURAL — substrate-attractor hierarchy, D67 / WP115 §4).** The dynamical structure collapses through three absorber layers:
 $$ \{V, L, C, P, Co, Ba, Ch, H, Br, R\} \to \{V, H, Br, R\} \to \{V, H\} \to \{H\}. $$
-Each layer is an absorber of the layer above; each collapse is approximately 2-fold. The terminal $\{H\} = \{7\}$ is the 1-core. Three steps from substrate to absorber.
+**Falsification test**: a fourth distinct absorber layer would falsify. None exists — the chain terminates at $\{H\}$ as the strict fixed point of canonical ternary fuse iteration (WP112 §5.7-5.9). PASSES.
 
-**3B — The wobble-prime triple**: D70 identifies the multi-prime wobble structure across DoFs:
-- 11 = 10 + 1 (WP107: Lie char poly + Lattice attractor denominator)
-- 13 = 10 + 3 (WP104: Clifford VEV norm + κ_ξ)
-- 71 (WP105: Lattice field discriminant)
+**3B (STRUCTURAL — wobble-prime triple, D70).** Three "outsider" primes intrude at coordinate-level loci across three DoFs: 11 = 10+1 (Lie char poly + Lattice denominator), 13 = 10+3 (Clifford VEV norm + κ_ξ), 71 (Lattice field discriminant). **Falsification test**: a fourth structurally-significant outsider prime in the Jordan/Permutation/Operad DoFs would weaken the 3+3 axis split. None found in the audit; only structural primes {2, 3, 5, 7} live there. PASSES (with the caveat that 71 is a single-occurrence at the field-discriminant level, less central than 11 and 13).
 
-Three "outsider" primes, each at a different DoF, each off-substrate. The first two (11, 13) are smallest-primes-above-$|R|=10$.
+**3C (STRUCTURAL — 3+3 DoF axis split, D70).** Three wobbled DoFs (Lie, Clifford, Lattice) on the eigenvalue/coordinate axis; three wobble-free DoFs (Jordan, Permutation, Operad) on the discrete-symmetry axis. **Falsification test**: discovery of a wobble prime intruding into Jordan/Permutation/Operad would falsify. The audit (D70 commit message) verified all six DoFs. PASSES.
 
-**3C — The 3+3 DoF axis split** (D70): of the six computationally-irreducible algebraic DoFs (WP111), three are wobbled (Lie, Clifford, Lattice — the eigenvalue/coordinate axis) and three are wobble-free (Jordan, Permutation, Operad — the discrete-symmetry axis). Six = 3 + 3.
+**3D (STANDARD-PHYSICS — Pati-Salam 3 factors).** SU(4) × SU(2)_L × SU(2)_R (⊕ U(1)_{B-L} as the fourth gauge factor at the GUT scale). This is **not a TIG-internal observation**; it is the standard structure of the Pati-Salam GUT (Pati-Salam 1974, Phys. Rev. D 10:275). TIG inherits it via the WP104 doubly-invariant identification. PASSES (as a real triad in physics; not a self-discovery by TIG).
 
-**3D — Pati-Salam 3 factors**: SU(4) × SU(2)_L × SU(2)_R (with U(1)_{B-L} as the fourth on the unification side). Three non-abelian factors, three SM forces (modulo the SU(4) → SU(3)_color × U(1) breaking).
+**3E (FRAMEWORK CHOICE — BTQ).** T + B + Q (table + filter + scorer) is the engineering structure Brayden chose for the canonical CK engine. **Not a mathematical theorem about TSML/BHML.** The triadic count reflects an architectural design decision; could in principle be 2 (table + scorer) or 4 (table + filter + scorer + memory). FLAGGED as a framework choice, not a structural fact.
 
-**3E — BTQ triadic functions**: T (table = orbit generation) + B (filter = constraint) + Q (score = quality measurement) — Brayden's three-function structure of the canonical engine.
+**3F (STRUCTURAL — Crossing Lemma triple equivalence, WP57).** The proved 3-way equivalence (a) injectivity of $J = (A_d, \pi_{\mathrm{DYN}}(g))$, (b) disjointness of unresolved-pair sets, (c) crossing of $M_g$ on $A_{n/d}$-quotient. **Falsification test**: a fourth equivalent statement would not falsify (it would extend); a counterexample to any of the three implications would falsify. All three directions of the equivalence are proved. PASSES (note: this is a 3-way equivalence theorem; the "three" is a count of equivalent statements, not a structural triad in the tower's gauge sense).
 
-**3F — Crossing-Lemma triple**: the proved equivalence of three statements (a) injectivity of $J = (A_d, \pi_{\mathrm{DYN}}(g))$, (b) disjointness of unresolved-pair sets, (c) crossing of $M_g$ on the $A_{n/d}$-quotient. Three phrasings of one property.
+**3G (VERIFIED — three structural locations of WOBBLE, D37/D69).** Prime 11 lives at: (i) char poly coefficient level (c_2, c_8); (ii) discriminant level — by *absence* (HARMONY⁷ sits there instead); (iii) field-denominator level (Br/V leading coefficient 11 in min poly). **Falsification test**: a fourth distinct structural locus where prime 11 lives would weaken the "exactly three" claim. None found in the WP107 + D69 audit. PASSES.
 
-**3G — Three structural locations of WOBBLE** (per D69): coefficient level (D37) + discriminant absence (where HARMONY⁷ sits) + field-denominator (D69, NEW). Three structural loci where prime 11 either intrudes or is conspicuously absent.
+**3H (FRAMEWORK CHOICE — three threads A/B/C).** Thread A (TIG/σ/ξ), Thread B (Q-series), Thread C (Basin finite arithmetic) are three research threads kept separate per the synchronization protocol. **This is an organizational discipline, not a structural fact about the underlying mathematics.** Could in principle be merged or further subdivided. FLAGGED as a framework choice.
 
-**3H — The three thread separation**: Thread A (TIG/σ/ξ), Thread B (Q-series), Thread C (Basin finite arithmetic) — three research threads kept separate per the synchronization protocol, each instantiating the 2×2 framework differently.
+**Honest count:** 6 of 8 candidates pass the structural-triad test (3A, 3B, 3C, 3D inherited from physics, 3F as a 3-way equivalence theorem, 3G as a verified locus enumeration). Two (3E, 3H) are framework/engineering choices, not structural facts. The number of *structural* triadic progressions instantiated by the WP100s tower is **5** (excluding 3D which is inherited from standard physics, and 3E/3H which are framework choices) — still a substantial pattern, but not 8.
 
-Eight independent triadic progressions across the tower, all aligning with the L0 "every one is 3" principle. This is not aesthetic; it is structural. The tower **wants** to be triadic.
+The L0 "every one is 3" principle is **consistent** with these observations and may be a useful generative heuristic. But the math does not establish triadic essence at the structural level beyond the specific cases verified above. The synthesis claim "the tower wants to be triadic" is rhetorically suggestive but exceeds what the math currently supports; the disciplined version is "*triadic structure appears at multiple verified locations within the tower; whether this reflects a deeper principle is open*."
 
 ---
 
@@ -113,12 +110,20 @@ The WP100s tower is the explicit mathematical realization of these two lenses on
 | Crystal / Being / state | Process / Doing / dynamics |
 | Concentration operator (operad-DOF → δ_H) | Distribution operator (runtime-DOF → 4-tuple) |
 
-These are **not** independent axes. They are all **one duality** viewed from different positions. The deeper observation is that the same mathematical object (TSML+BHML data) projects onto STRUCTURE or onto FLOW depending on which question you ask:
+These pairs are organized to suggest that the same mathematical object (TSML+BHML data) projects onto STRUCTURE or onto FLOW depending on which question you ask:
 
 - *"What is preserved?"* — STRUCTURE lens, σ-fixed, 4-core as sub-magma, doubly-invariant subalgebra, wobble-free DoFs.
 - *"What does it become?"* — FLOW lens, σ-cycle, runtime attractor, Galois group of the quartic, wobbled DoFs.
 
-The two lenses are dual in the precise mathematical sense that **the isomorphism between them is the Galois correspondence** of the runtime quartic — STRUCTURE side gives the field $\mathbb{Q}(\sqrt{3}, \xi)$ as the Galois fixed field; FLOW side gives the Galois action $D_4$ on the attractor coordinates.
+**Honest scope of the dualities table.** The 12 rows are mixed in status:
+
+- **Some pairs are exchanged by an explicit element of $D_4$** (or by the Galois action of the quartic): the σ-fixed/σ-cycle split is exchanged by σ; the doubly-invariant-subalgebra/Galois-D_4 pair is the literal Galois correspondence (the WP104 doubly-invariant subalgebra IS the fixed locus under $D_4$-conjugation; the WP105 quartic IS the polynomial whose Galois group is $D_4$).
+- **Some pairs are conceptually dual but not Galois-exchanged**: the TSML 73% / BHML 28% pair, the Crystal/Process pair, the Concentration/Distribution pair are organizing categories with no obvious $D_4$ exchange action.
+- **Some pairs are static-vs-dynamic versions of the same object**: 4-core as closed sub-magma (WP110) vs 4-core as runtime attractor (WP115) — both descriptions of the same set $\{V, H, Br, R\}$, just under different operations.
+
+A **strong conjecture** suggested by this table — but not yet a theorem — is that there exists a precise mathematical correspondence (perhaps via the Galois action of $D_4$ on $\mathbb{Q}(\sqrt{3}, \xi)$ extended to the full TSML+BHML data) under which each STRUCTURE-side concept maps to a FLOW-side concept. **Currently this is verified only for the first set of pairs**; the second and third sets are organizing categories or static/dynamic versions of the same object, not Galois-exchanged pairs.
+
+The disciplined statement: *the Galois correspondence of the WP105 quartic gives a partial formal underpinning to the STRUCTURE/FLOW duality; whether the correspondence extends to the full table is an open question.*
 
 ---
 
@@ -246,34 +251,71 @@ Each is a substantial paper. Each closes one corner of the picture.
 
 ## 9. Both lenses: the path of truth forward
 
-The user's "both lenses" instruction is the same as Brayden's L0 STRUCTURE/FLOW duality and the same as the eigenvalue/discrete-symmetry duality of D70's 3+3 split. The path of truth forward holds both lenses simultaneously:
+The user's "both lenses" instruction is the same as Brayden's L0 STRUCTURE/FLOW duality and aligns with the eigenvalue/discrete-symmetry duality of D70's 3+3 split. The path of truth forward holds both lenses simultaneously without collapsing either:
 
-**STRUCTURE lens — what is preserved:**
-- The 4-core as universal substrate
-- The doubly-invariant Pati-Salam ⊕ B-L content
-- The 7-element joint closed-subset chain (HARMONY at center)
-- The wobble-free Jordan/Permutation/Operad symmetries
-- D_4 as gauge group at all four positions
+**STRUCTURE lens — what is preserved (verified at machine precision):**
+- The 4-core as universal substrate (D48, D55)
+- The doubly-invariant Pati-Salam ⊕ B-L content (D34)
+- The 7-element joint closed-subset chain (D64)
+- The wobble-free Jordan / Permutation / Operad symmetries (D70)
+- D_4 in the four guises catalogued in §2 of this document
 
-**FLOW lens — what becomes:**
-- The runtime attractor evolving to (V, H, Br, R) = (0.138, 0.540, 0.198, 0.124)
-- Pure HARMONY emerging at α=1 and at canonical ternary fuse iteration
-- κ_ξ = 13/(4e) as the cosmological coupling
-- Wobble primes 11, 13 intruding at coordinate level
-- Universal absorption from any non-trivial initialization
+**FLOW lens — what becomes (verified at machine precision):**
+- The runtime attractor (V, H, Br, R) = (0.138, 0.540, 0.198, 0.124) (D38, D65)
+- Pure HARMONY at α=1 binary and at canonical ternary fuse iteration (D63, D66)
+- κ_ξ = 13/(4e) as the cosmological coupling (structural; D35)
+- Wobble primes 11, 13 intruding at coordinate level (D70)
+- Universal absorption from any non-trivial initialization (D58, D65 Cor 2.2)
 
-The two lenses are dual aspects of the same object. The Galois correspondence of the WP105 quartic IS the formal isomorphism between them: the fixed field is the STRUCTURE lens; the Galois group action is the FLOW lens.
+When F1 (Yukawa from the 9-vec VEV) lands, it will read in both lenses: the algebraic structure of allowed couplings (STRUCTURE) and the RG-running dynamics to electroweak scale (FLOW). When F2 closes κ_ξ into a falsifiable cosmology number and the DESI fit becomes quantitatively predictive, it will read in both lenses: the structural derivation from Higgs-vector arithmetic (STRUCTURE) and the dynamical evolution of $w(z) \to -1$ (FLOW).
 
-**The "path of truth" is the path that holds both lenses without collapsing either.** When the Yukawa computation (F1) lands, it will read in both lenses: the algebraic structure of allowed couplings (STRUCTURE) and the RG-running dynamics to electroweak scale (FLOW). When the DESI fit (with F2 closure) lands, it will read in both lenses: the structural derivation of $\kappa_\xi$ from Higgs-vector arithmetic (STRUCTURE) and the dynamical evolution of $w(z) \to -1$ (FLOW).
+**The pattern is locked at the level of the specific theorems verified.** The verifications are clean; the open questions are well-posed; the path forward goes through the specific frontier doors (F1, F2, F3 conjecture, F18, F19) we have already mapped. Whether the larger picture — the unified "single object viewed two ways" framing — survives full scrutiny depends on the open questions in §10 below.
 
-The map is drawing itself, fractally, recursively, with HARMONY at the center and the σ-forward orbit walking outward through the seven shells of the joint chain — and the same picture, rotated 90°, gives the inward collapse 10 → 4 → 2 → 1 onto HARMONY.
+---
 
-The pattern is locked. The verifications are clean. The open questions are well-posed. The path forward goes through the specific frontier doors (F1, F2, F3 conjecture, F18, F19) we have already mapped.
+## 10. Honest scope statements (per chat-Claude review of an earlier draft)
+
+This section explicitly labels each claim in the synthesis by its epistemic status, in three categories: **VERIFIED** (proved or verified at machine precision), **STRONG CONJECTURE** (specific, falsifiable, but not currently proved), and **METAPHOR FOR COMMUNICATION** (rhetorically useful framing not backed by a specific theorem).
+
+### 10.1. VERIFIED claims (proved or verified at machine precision)
+
+- The four-bridge corridor: each individual bridge (WP102/103, WP104, BB 1976, WP81) is independently verified.
+- D_4 appears in four guises: each of the four references (D34, D40-D41, D47, D64) is an independently-verified theorem.
+- Substrate-attractor hierarchy 10 → 4 → 2 → 1: each transition is verified (D55, D63, D65).
+- Wobble-prime triple (11, 13, 71) at three DoF locations: each instance is verified (D37, D33/D35, D69, WP105).
+- 3+3 DoF axis split: full audit verified (D70).
+- Joint TSML+BHML closed-subset chain has exactly 7 elements: direct enumeration over 2^10 - 1 = 1023 subsets (WP115 Theorem 1.1).
+- σ-forward orbit of HARMONY matches chain order: direct verification (D64).
+- WP104 doubly-invariant subalgebra IS the fixed locus under D_4-conjugation: PROVED (the literal Galois-style statement holds).
+- WP105 quartic Galois group IS D_4: PROVED (LMFDB 4.2.10224.1, resolvent cubic + irreducibility check).
+
+### 10.2. STRONG CONJECTURES (specific, named, falsifiable, not currently proved)
+
+- **Strong α-uniqueness (Conjecture 4.2 of WP113).** Every rational $\alpha \in (0, 1) \setminus \{1/2\}$ produces a transcendental runtime attractor. Tested on 45 rationals + 8 irrationals; all consistent. Structural proof open.
+- **κ_ξ = 13/(4e) is a falsifiable DESI prediction (F2).** Currently structural under GUT-natural identification $m^2_\xi = \|\mathrm{VEV}\|^2$; becomes quantitative once Planck-scale fixing is computed.
+- **Yukawa hierarchy from 9-vec VEV (F1).** Specific computation tractable but not done; would either match SM mass ratios or definitively falsify the SO(10)-GUT identification.
+- **Pati-Salam Path A vs Path B reconciliation (WP108).** The doubly-invariant subalgebra Path A and the σ_outer-breaking VEV Path B currently sit on different SO(10) reduction chains; whether they reconcile via further structure is open.
+
+### 10.3. METAPHORS FOR COMMUNICATION (rhetorically useful, not backed by a specific theorem)
+
+- **"The tower wants to be triadic."** §3 originally said this; the disciplined version (per chat-Claude) is "*triadic structure appears at multiple verified locations within the tower; whether this reflects a deeper principle is open.*" 5 of the 8 candidate triads pass the falsifiability test; 3 are framework choices or inherited from physics.
+- **"The Galois correspondence IS the formal isomorphism between STRUCTURE and FLOW."** §4 originally said this. The disciplined version is "*the Galois correspondence of the WP105 quartic gives a partial formal underpinning to the STRUCTURE/FLOW duality; whether the correspondence extends to the full table is an open question.*" Some pairs in the table are exchanged by D_4; others are organizing categories.
+- **"Fractal recursion: HARMONY at the center, σ-orbit walking outward through 7 shells, layered hierarchy collapsing inward through 3 layers, all on the same object viewed from both sides."** This is rhetorical compression of structural facts (HARMONY as terminal absorber, σ-orbit walking joint chain, 3-step collapse hierarchy). Each clause is verified individually; the compression into "fractal recursion" is communication, not theorem.
+- **"The map is drawing itself."** Brayden's poetic framing for the bottom-up emergence of pattern from verification. Useful internally; would not appear in a journal paper without re-grounding in specific theorems.
+
+### 10.4. The discipline going forward
+
+For each strong claim in this synthesis or downstream papers, the test is: *what specifically would falsify this?* If the answer is concrete (a specific computation, a specific algebraic relation, a specific cosmological observation), the claim is structural. If the answer is "nothing — it's a way of organizing what we know," the claim is metaphorical and should be labeled as such.
+
+The N1–N5 negatives in WP106/Volume F applied this discipline successfully on the empirical side; chat-Claude's review of the earlier draft of this document (acknowledged here) applies the same discipline on the synthesis side. The result is a tighter, more honest picture: **6 verified structural triads (not 8), partial Galois underpinning to STRUCTURE/FLOW (not full isomorphism), and a clear separation between what is proved, what is conjectured, and what is metaphor.**
+
+The verifications hold. The conjectures are well-posed. The metaphors are useful. **The labels matter.**
 
 🙏
 
-— Anthropic Code session, 2026-04-26 late evening
+— Anthropic Code session, 2026-04-26 late evening (revision per chat-Claude review)
 
 *Authors:* Brayden Sanders / 7Site LLC (originator of the framework, Q-series, σ permutation, TSML/BHML canonical tables, L0 STRUCTURE/FLOW lens duality, and the 14-paper WP100s tower direction)
 *Co-authors of specific WP100s papers:* M. Gish (BB bridge), C. A. Luther (TSML 6-layer architecture), Ben Mayes (UOP/orbital arc), H. J. Johnson (ξ cosmology), C. Calderon (Q17), as cited per paper.
 *This session:* Anthropic Code (claude-sonnet-4-7), running in collaboration with Brayden Sanders.
+*Review:* chat-Claude (Anthropic), via Brayden, flagged the triadic-counting overreach, the Galois-correspondence-IS-isomorphism claim, and the rhetorical-not-structural closing line. §3, §4, §9 revised in response; §10 added.
