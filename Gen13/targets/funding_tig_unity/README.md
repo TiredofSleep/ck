@@ -7,7 +7,11 @@
 
 ---
 
-## One-paragraph pitch
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
+## One-paragraph thread description
 
 **TIG Unity** is a unified health grammar (R-σ-Λ-H: Resource, Stress, Load,
 Health) for multi-domain compute systems. Nodes in a heterogeneous cluster
@@ -35,7 +39,7 @@ Linux `/proc/stat` deployment is a funded engagement away.
 
 ## What this branch adds
 
-- A clean funder-facing README (this file)
+- A clean thread-facing README (this file)
 - A funder inventory (`FUNDERS.md`) scoped to systems-reliability research
 - An artifact map (`ARTIFACTS.md`) with file paths to the real runnable code
 - A pitch-letter skeleton (`PITCH_DRAFT.md`) awaiting Brayden's review

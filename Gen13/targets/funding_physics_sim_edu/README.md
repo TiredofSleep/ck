@@ -1,23 +1,27 @@
 # funding/physics-sim-edu — Interactive Physics Simulator for Education
 
 **Track:** Applied education — interactive web-based physics simulator for undergraduate / advanced-secondary physics classrooms
-**Status:** Pre-pitch; runnable artifact exists in Crystal-Lattice-Matrix-MYTHDRIFT external repo (`crystal_bug_v1_matrix.jsx` 699 LOC React frontend + `test_engine_v2.js` 458 LOC Node test harness = 1,157 LOC), integration + classroom-use framing pending
+**Status:** Thread description (not actively soliciting funding); runnable artifact exists in Crystal-Lattice-Matrix-MYTHDRIFT external repo (`crystal_bug_v1_matrix.jsx` 699 LOC React frontend + `test_engine_v2.js` 458 LOC Node test harness = 1,157 LOC), integration + classroom-use framing pending
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
 **Rigor base:** TIG Unity Kernel, R-σ-Λ-H state grammar, TSML/BHML coherence operators, interactive-visualization design from the live coherencekeeper.com website
 
 ---
 
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
 ## What this branch is
 
-A funding-outreach container for **the interactive physics simulator** — productionization of the Crystal-Lattice-Matrix-MYTHDRIFT artifact as a classroom-grade educational tool. Distinct from all 9 other funding branches: this branch targets **physics and mathematics education funders** (NSF EHR, NSF PHY Education & Interdisciplinary Research in Physics, Templeton Learning & Discovery, Simons Foundation Education, Moore Foundation Science) with a framing of "a web-based interactive simulator that makes coherence-grammar / TIG-adjacent physics visible to students."
+A thread-description container for **the interactive physics simulator** — productionization of the Crystal-Lattice-Matrix-MYTHDRIFT artifact as a classroom-grade educational tool. Distinct from all 9 other funding branches: this branch targets **physics and mathematics education funders** (NSF EHR, NSF PHY Education & Interdisciplinary Research in Physics, Templeton Learning & Discovery, Simons Foundation Education, Moore Foundation Science) with a framing of "a web-based interactive simulator that makes coherence-grammar / TIG-adjacent physics visible to students."
 
 The premise: students of physics and mathematics learn more deeply from **manipulable interactive simulations** than from static lecture material or problem sets alone. The Crystal-Lattice-Matrix-MYTHDRIFT artifact is already a working interactive simulator that visualizes discrete-to-continuous transitions, crossing-lemma-style information emergence, coherence-threshold behavior, and the R-σ-Λ-H state grammar in a form that a student can **drag, click, and perturb**. The branch asks an education-aligned funder to support a 6–18 month productionization: pedagogical redesign, classroom-tested curriculum module, accessibility audit, open-source release, and a companion instructor's guide.
 
 **This is applied education work, not new physics or new simulator architecture.** The simulator is already written (Crystal-Lattice-Matrix-MYTHDRIFT, runnable). The underlying physics framework (TIG Unity Kernel, R-σ-Λ-H grammar) is described in the sprint 10–14 Clay papers. The funded work is pedagogical productionization: how do students actually learn from this, what curriculum wraps around it, what accessibility constraints govern classroom use, what assessment instruments track learning outcomes.
 
-## One-paragraph pitch
+## One-paragraph thread description
 
-> Undergraduate and advanced-secondary physics students learn concepts like phase transitions, information-theoretic emergence, coherence thresholds, and state-vector dynamics more deeply from **manipulable interactive simulations** than from equations or static figures alone. The Crystal-Lattice-Matrix-MYTHDRIFT simulator — 699 LOC React frontend + 458 LOC test harness = 1,157 LOC of working interactive visualization — already demonstrates crossing-lemma-style information generation, coherence-threshold (T* = 5/7) transitions, and the R-σ-Λ-H state grammar in a manipulable browser-based form. The funder-facing ask is to productionize this as a classroom-grade educational tool: pedagogical redesign with input from physics-education-research (PER) experts, a curriculum module for one-week classroom use, an accessibility audit (WCAG 2.1 AA), open-source release under a permissive license, and a companion instructor's guide with assessment rubrics. Funders: NSF EHR (DUE, ECR, DRK-12), NSF PHY (Education & Interdisciplinary Research in Physics), Templeton Learning & Discovery, Simons Foundation Education, Moore Foundation Science.
+> Undergraduate and advanced-secondary physics students learn concepts like phase transitions, information-theoretic emergence, coherence thresholds, and state-vector dynamics more deeply from **manipulable interactive simulations** than from equations or static figures alone. The Crystal-Lattice-Matrix-MYTHDRIFT simulator — 699 LOC React frontend + 458 LOC test harness = 1,157 LOC of working interactive visualization — already demonstrates crossing-lemma-style information generation, coherence-threshold (T* = 5/7) transitions, and the R-σ-Λ-H state grammar in a manipulable browser-based form. The thread-facing ask is to productionize this as a classroom-grade educational tool: pedagogical redesign with input from physics-education-research (PER) experts, a curriculum module for one-week classroom use, an accessibility audit (WCAG 2.1 AA), open-source release under a permissive license, and a companion instructor's guide with assessment rubrics. Aligned research communities: NSF EHR (DUE, ECR, DRK-12), NSF PHY (Education & Interdisciplinary Research in Physics), Templeton Learning & Discovery, Simons Foundation Education, Moore Foundation Science.
 
 ## Runnable artifacts
 
@@ -52,7 +56,7 @@ Branch J targets the **DevOps / SRE practitioner community** (AWS / GCP / Azure 
 
 The branch claims: a specific working simulator (the Crystal-Lattice-Matrix-MYTHDRIFT artifact), a specific productionization plan (Phase 1 pedagogical redesign + accessibility + open-source), a specific classroom pilot (Phase 2), a specific community (physics and math educators), a specific evidence-based learning-outcomes study (Phase 2), and a commitment to publish the pilot outcome in a physics-education venue (AJP, PER, JRST).
 
-## Ask sizes
+## Scope this thread could cover
 
 | Phase | Scope | Ask |
 |---|---|---|

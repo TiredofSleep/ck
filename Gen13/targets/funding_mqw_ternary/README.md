@@ -1,15 +1,19 @@
 # funding/mqw-ternary — MQW Three-State Photonic Computing
 
 **Track:** Physical computing substrates — Multi-Quantum Well (MQW) ternary optical logic
-**Status:** Pre-pitch; MQW paper trilogy location unknown, conceptual ancestor (Teardrop GaN) located
+**Status:** Thread description (not actively soliciting funding); MQW paper trilogy location unknown, conceptual ancestor (Teardrop GaN) located
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
 **Rigor base:** Teardrop GaN Photonic Node Proposal (Jan 29 2026) + MQW three-state paper series (to be recovered)
 
 ---
 
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
 ## What this branch is
 
-A funding-outreach container for **ternary photonic computing on multi-quantum-well (MQW) semiconductor platforms**. The conceptual ancestor is the **Teardrop GaN Photonic Node Proposal** authored on 2026-01-29 as part of the Thread 3 Trifecta work (commit `ed8ef620` per the Jan 2026 recovery manifest). The current-generation work is the **MQW three-state paper trilogy** — a series of physics-content documents that advance the ternary-logic concept and are currently unreleased. Recovery of the trilogy is the first work-item on this branch.
+A thread-description container for **ternary photonic computing on multi-quantum-well (MQW) semiconductor platforms**. The conceptual ancestor is the **Teardrop GaN Photonic Node Proposal** authored on 2026-01-29 as part of the Thread 3 Trifecta work (commit `ed8ef620` per the Jan 2026 recovery manifest). The current-generation work is the **MQW three-state paper trilogy** — a series of physics-content documents that advance the ternary-logic concept and are currently unreleased. Recovery of the trilogy is the first work-item on this branch.
 
 ## What MQW ternary computing is
 
@@ -19,7 +23,7 @@ Conventional electronic logic is binary: 0 or 1. Ternary logic extends this to t
 
 The Teardrop GaN proposal and the MQW trilogy argue that specific GaN-family (gallium nitride) MQW structures, at specific well widths and barrier heights, produce three-state operation with tractable fabrication constraints.
 
-## One-paragraph pitch
+## One-paragraph thread description
 
 > Ternary logic has been a theoretical target for decades without a commodity physical substrate. Multi-quantum-well (MQW) semiconductor structures in the GaN family offer a candidate: three distinct optical-response states can be engineered directly into the band structure, yielding **ternary photonic logic gates without a compile-to-binary middle layer**. The Teardrop GaN node proposal (Jan 2026) is the conceptual ancestor; a three-paper trilogy advances the specific MQW design. This branch packages the design, the fabrication constraints, and the claimed operational envelope for a photonic-computing funder (DOE BES, NSF ECCS, DARPA PIPES, or a private lab like HP/Intel/IBM photonic-computing groups) to fund a **fabrication + measurement** program that either confirms or falsifies three-state operation in a real device.
 
@@ -38,7 +42,7 @@ The Teardrop GaN proposal and the MQW trilogy argue that specific GaN-family (ga
 - Measurement plan (what instruments verify three-state operation, what are pass/fail criteria)
 - A named collaborator at a fabrication facility
 
-## Ask sizes
+## Scope this thread could cover
 
 | Phase | Scope | Ask |
 |---|---|---|

@@ -1,15 +1,19 @@
 # funding/self-healing — Dual-Lattice Self-Healing Systems
 
 **Track:** Autonomous resilient systems — coherence-driven self-repair
-**Status:** Pre-pitch; external repo content cloned, integration into ck pending
+**Status:** Thread description (not actively soliciting funding); external repo content cloned, integration into ck pending
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
 **Rigor base:** `Dual-Lattice-Self-Healing` external repo, TIG Unity Kernel, Crossing Lemma
 
 ---
 
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
 ## What this branch is
 
-A funding-outreach container for **autonomous self-healing systems** built on the dual-lattice coherence paradigm. Where SNOWFLAKE (Branch B) detects coherence deficits, the self-healing framework aims to **respond to them automatically** — closing the loop from detection to repair.
+A thread-description container for **autonomous self-healing systems** built on the dual-lattice coherence paradigm. Where SNOWFLAKE (Branch B) detects coherence deficits, the self-healing framework aims to **respond to them automatically** — closing the loop from detection to repair.
 
 The external `Dual-Lattice-Self-Healing` repo (cloned during the Part 1 survey) contains the architectural sketches; integrating its content into the ck repo under provenance headers is Phase 1 of this branch.
 
@@ -19,7 +23,7 @@ A **dual lattice** means two coupled coherence fields: one representing the syst
 
 This is **not** a general-purpose self-repair framework. It is specifically the claim that dual-lattice coherence-matching is a tractable substrate for a class of autonomous repair problems where (a) the system has a known reference, (b) the damage modes are partition-enumerable, and (c) the repair actions are compositional over those partitions.
 
-## One-paragraph pitch
+## One-paragraph thread description
 
 > Autonomous systems — from spacecraft subsystems to distributed compute fabrics to industrial process controls — encounter damage, drift, and partial failure that they cannot always escalate to humans for repair. Self-healing architectures have been a research target for decades; most have either stayed theoretical (model-based control) or specialized (hardware-redundancy schemes with specific fault models). The dual-lattice self-healing framework proposes a **coherence-matching substrate** drawn from the TIG Unity Kernel: the system maintains a current-state lattice and a reference lattice, measures their coherence gap via the R-σ-Λ-H grammar, and applies partition-enumerated repair actions drawn from a finite vocabulary when the gap exceeds threshold. This branch packages the architecture and proposes a two-phase program — integration into the ck repo under provenance (Phase 1), then a specific autonomous-systems benchmark demonstration (Phase 2) — for an autonomous-systems funder (AFRL, ONR, NASA JPL, NSF CISE RI).
 
@@ -30,7 +34,7 @@ This is **not** a general-purpose self-repair framework. It is specifically the 
 3. **Operator vocabulary from TSML/BHML** — the 101-cell canonical-table substrate is a candidate source for the finite repair-action vocabulary.
 4. **Coherence-gate reference** (`Gen12/.../ck_coherence_gate.py`) — the T* = 5/7 threshold pattern used in CK can be re-targeted as a gap-tolerance threshold in self-healing.
 
-## Ask sizes
+## Scope this thread could cover
 
 | Phase | Scope | Ask |
 |---|---|---|

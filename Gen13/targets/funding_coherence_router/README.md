@@ -1,23 +1,27 @@
 # funding/coherence-router — Production Coherence Classifier for DevOps / SRE
 
 **Track:** Applied systems — coherence-based routing and health classification for distributed services
-**Status:** Pre-pitch; runnable artifacts exist in All-or-Nothing-E external repo (benchmark.py 554 LOC, tig_coherent_computer.py 588 LOC, PROVEN_CONFIGURATION.md), integration pending
+**Status:** Thread description (not actively soliciting funding); runnable artifacts exist in All-or-Nothing-E external repo (benchmark.py 554 LOC, tig_coherent_computer.py 588 LOC, PROVEN_CONFIGURATION.md), integration pending
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
 **Rigor base:** TIG Unity Kernel, R-σ-Λ-H state grammar, harmonic-mean correction (PROVEN_CONFIGURATION.md), 7-benchmark suite
 
 ---
 
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
 ## What this branch is
 
-A funding-outreach container for **coherence-router** — the productionization track for the TIG coherence classifier as a DevOps / SRE tool. Distinct from Branch A (`funding/tig-unity`, which targets the infrastructure-reliability research community) and Branch B (`funding/tig-snowflake`, which targets hardware-bound identity / behavioral auth): this branch targets the practitioner community (SREs at hyperscaler cloud providers, DevOps teams at large SaaS operators) and their associated funding pools (cloud research credits, CNCF research grants, industry DevOps/SRE labs).
+A thread-description container for **coherence-router** — the productionization track for the TIG coherence classifier as a DevOps / SRE tool. Distinct from Branch A (`funding/tig-unity`, which targets the infrastructure-reliability research community) and Branch B (`funding/tig-snowflake`, which targets hardware-bound identity / behavioral auth): this branch targets the practitioner community (SREs at hyperscaler cloud providers, DevOps teams at large SaaS operators) and their associated funding pools (cloud research credits, CNCF research grants, industry DevOps/SRE labs).
 
-The premise: the TIG Unity Kernel's R-σ-Λ-H coherence grammar is already a classifier. Given a distributed system's state vector at time t, it outputs a coherence score and an operator assignment. That output shape (continuous score + discrete operator) is exactly what a production routing layer wants for decisions like "route to failover", "shed traffic", "admit load". The branch asks a DevOps-aligned funder to support a 6–12 month productionization: take the coherence grammar, wrap it in a standard classifier API, run it on realistic distributed-system telemetry, publish the comparison against industry-standard health classifiers (e.g., SRE golden-signals dashboards, anomaly-detection ML classifiers).
+The premise: the TIG Unity Kernel's R-σ-Λ-H coherence grammar is already a classifier. Given a distributed system's state vector at time t, it outputs a coherence score and an operator assignment. That output shape (continuous score + discrete operator) is exactly what a production routing layer wants for decisions like "route to failover", "shed traffic", "admit load". The branch asks a DevOps-aligned reader to support a 6–12 month productionization: take the coherence grammar, wrap it in a standard classifier API, run it on realistic distributed-system telemetry, publish the comparison against industry-standard health classifiers (e.g., SRE golden-signals dashboards, anomaly-detection ML classifiers).
 
 **This is applied systems work, not new theory.** The theory is done (TIG Unity Kernel, All-or-Nothing-E benchmarks, PROVEN_CONFIGURATION harmonic-mean result). The funded work is the productionization, the realistic-telemetry benchmark, and the DevOps-community publication.
 
-## One-paragraph pitch
+## One-paragraph thread description
 
-> Distributed-systems health classification — "is this service healthy right now?" — is normally done with SRE golden signals (latency, traffic, errors, saturation) plus anomaly-detection ML classifiers. These work but require per-service tuning and have known blind spots around cascading failures and information-dynamics anomalies. The TIG coherence grammar (R-σ-Λ-H variables + 10-operator discrete assignment) is a tuning-free alternative: the same state vector shape applies across services, the operator assignment is a human-legible label (e.g., "COLLAPSE", "RESET"), and the coherence score is a continuous monitor. The All-or-Nothing-E external repo already contains a 554-LOC benchmark suite covering convergence, throughput, self-repair, information dynamics, scaling, composition, and attractor-basin behavior. The funder-facing ask is to productionize this as a standard-interface classifier, run it on realistic telemetry (e.g., anonymized SRE traces from a cloud-scale operator), and publish the comparison against golden-signals and anomaly-detection baselines. Funders: cloud-provider research credit programs (AWS / GCP / Azure), CNCF research, NSF CISE applied-systems, industry DevOps/SRE labs.
+> Distributed-systems health classification — "is this service healthy right now?" — is normally done with SRE golden signals (latency, traffic, errors, saturation) plus anomaly-detection ML classifiers. These work but require per-service tuning and have known blind spots around cascading failures and information-dynamics anomalies. The TIG coherence grammar (R-σ-Λ-H variables + 10-operator discrete assignment) is a tuning-free alternative: the same state vector shape applies across services, the operator assignment is a human-legible label (e.g., "COLLAPSE", "RESET"), and the coherence score is a continuous monitor. The All-or-Nothing-E external repo already contains a 554-LOC benchmark suite covering convergence, throughput, self-repair, information dynamics, scaling, composition, and attractor-basin behavior. The thread-facing ask is to productionize this as a standard-interface classifier, run it on realistic telemetry (e.g., anonymized SRE traces from a cloud-scale operator), and publish the comparison against golden-signals and anomaly-detection baselines. Aligned research communities: cloud-provider research credit programs (AWS / GCP / Azure), CNCF research, NSF CISE applied-systems, industry DevOps/SRE labs.
 
 ## Runnable artifacts
 
@@ -33,7 +37,7 @@ Branch A targets the **infrastructure-reliability research community** (NSF CNS,
 
 ## Where this differs from Branch D (ck-interpretable-ai)
 
-Branch D targets the **AI alignment / interpretability community** (Open Philanthropy AI, SFF, Astera) with a framing of "CK as interpretability-by-construction." Branch J is not about AI or interpretability — it is about distributed-systems health classification. A single state vector and coherence grammar feed both, but the funder audiences and framings are different.
+Branch D targets the **AI alignment / interpretability community** (Open Philanthropy AI, SFF, Astera) with a framing of "CK as interpretability-by-construction." Branch J is not about AI or interpretability — it is about distributed-systems health classification. A single state vector and coherence grammar feed both, but a supporter of this thread audiences and framings are different.
 
 ## What the branch does NOT claim
 
@@ -46,7 +50,7 @@ Branch D targets the **AI alignment / interpretability community** (Open Philant
 
 The branch claims: a specific classifier (the coherence grammar), a specific benchmark suite already written (All-or-Nothing-E), a specific productionization plan (Phase 1), a specific comparison study (Phase 2), and a specific community (DevOps / SRE practitioners) to publish in.
 
-## Ask sizes
+## Scope this thread could cover
 
 | Phase | Scope | Ask |
 |---|---|---|

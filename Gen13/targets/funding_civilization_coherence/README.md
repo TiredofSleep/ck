@@ -1,21 +1,25 @@
 # funding/civilization-coherence — Civilization-Scale Coherence Simulator
 
 **Track:** Computational social science — coherence-based civilization modeling
-**Status:** Pre-pitch; runnable simulators exist (tig_civilization_v5.py, v7.py) in external repo, integration pending
+**Status:** Thread description (not actively soliciting funding); runnable simulators exist (tig_civilization_v5.py, v7.py) in external repo, integration pending
 **Branch seeded:** 2026-04-20 from `tig-synthesis`
 **Rigor base:** TIG Unity Kernel, R-σ-Λ-H coherence grammar, tig_civilization_v5/v7 simulators
 
 ---
 
+> **Note (2026-04-25 revision).** This branch was originally seeded as a pitch-style packet. Per the operator-of-record's actual stance documented at [`FUNDING.md`](../../../FUNDING.md) (root) and [`INTENT_STATEMENT.md`](../../../INTENT_STATEMENT.md), this is a **thread description**, not a fundraising pitch. The math is open under the 7Site Public Sovereignty License regardless of whether anyone donates. **The operator-of-record makes no commitments to donors of any kind.** A donation, if anyone makes one, is a thank-you to the project and creates no obligation in either direction. If you are reading this branch because you are oriented toward this thread of the work, that is welcome; the description below tells you what is in this thread.
+
+---
+
 ## What this branch is
 
-A funding-outreach container for the **civilization-coherence simulator** — the `tig_civilization_v5.py` and `tig_civilization_v7.py` scripts (1,340 LOC combined) that live in the `TIME-FOR-HELP-AND-SCRUTINY` external repo. These simulators apply the R-σ-Λ-H coherence grammar to societal-scale models: what variables track civilizational integrity, how do they degrade, what interventions restore them.
+A thread-description container for the **civilization-coherence simulator** — the `tig_civilization_v5.py` and `tig_civilization_v7.py` scripts (1,340 LOC combined) that live in the `TIME-FOR-HELP-AND-SCRUTINY` external repo. These simulators apply the R-σ-Λ-H coherence grammar to societal-scale models: what variables track civilizational integrity, how do they degrade, what interventions restore them.
 
 **Strict scope discipline**: this is computational social science. It is NOT a claim to predict specific historical outcomes, NOT a claim to prescribe political action, NOT a claim to measure "civilization collapse risk" on a calendar. It is the claim that a simulator with specific state variables, specific dynamics, and explicit assumptions produces patterns worth comparing to empirical social-science data.
 
-## One-paragraph pitch
+## One-paragraph thread description
 
-> Computational social science uses simulation to study emergent societal dynamics — from Axelrod's culture-dissemination models to Schelling segregation to agent-based urban models. This branch proposes a coherence-grammar civilization simulator (tig_civilization_v5.py, v7.py, 1,340 LOC combined) that tracks R-σ-Λ-H state variables at civilization scale under specific dynamical rules. The research question is narrow and honest: **do the simulator's output patterns match features of empirical social-science data on cohesion, polarization, or institutional integrity, better than chance under a pre-specified comparison?** The deliverable is a published computational-social-science paper with a verdict. This is not futurism and not policy; it is a disciplined simulator-vs-empirical-data comparison suitable for a computational social science funder (Santa Fe Institute, NSF SBE, Templeton, Schmidt Futures).
+> Computational social science uses simulation to study emergent societal dynamics — from Axelrod's culture-dissemination models to Schelling segregation to agent-based urban models. This branch proposes a coherence-grammar civilization simulator (tig_civilization_v5.py, v7.py, 1,340 LOC combined) that tracks R-σ-Λ-H state variables at civilization scale under specific dynamical rules. The research question is narrow and honest: **do the simulator's output patterns match features of empirical social-science data on cohesion, polarization, or institutional integrity, better than chance under a pre-specified comparison?** The deliverable is a published computational-social-science paper with a verdict. This is not futurism and not policy; it is a disciplined simulator-vs-empirical-data comparison suitable for a computational social science researcher (Santa Fe Institute, NSF SBE, Templeton, Schmidt Futures).
 
 ## Runnable artifacts
 
@@ -23,7 +27,7 @@ A funding-outreach container for the **civilization-coherence simulator** — th
 2. **tig_civilization_v7.py** — revised version with expanded state vector, ~690 LOC
 3. **Combined**: 1,340 LOC of runnable simulation code (Python)
 4. **Source repo**: `github.com/TiredofSleep/TIME-FOR-HELP-AND-SCRUTINY-please-No-more-AI-MYTHDRIFT` — cloned to `_brayden_repos/` during Part 1 survey
-5. **Provenance flagging**: the source repo uses 3-tier epistemic flagging (CONJECTURAL / STRUCTURAL / PROVED) which is the right discipline for this branch's funder-facing framing
+5. **Provenance flagging**: the source repo uses 3-tier epistemic flagging (CONJECTURAL / STRUCTURAL / PROVED) which is the right discipline for this branch's thread framing
 
 ## What the simulators do (draft, subject to Phase 1 recovery verification)
 
@@ -43,7 +47,7 @@ A funding-outreach container for the **civilization-coherence simulator** — th
 
 The comparison is not "does the simulator predict the future?" (an impossible ask). The comparison is "does the simulator's qualitative output envelope lie within, or outside, the empirical envelope for specific measured features?"
 
-## Ask sizes
+## Scope this thread could cover
 
 | Phase | Scope | Ask |
 |---|---|---|
