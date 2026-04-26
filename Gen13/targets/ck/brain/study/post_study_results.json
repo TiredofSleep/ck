@@ -1,0 +1,212 @@
+[
+  {
+    "sid": "dialog-q1",
+    "q": "What number is T star?",
+    "text": "flatness: T*=5/7 | torus R/r=5/7 (forced by Z/10Z 2x2) | 6 independent derivations | WP51 [proved]",
+    "source": "cortex_speak",
+    "ops": [
+      "COUNTER",
+      "COUNTER",
+      "HARMONY",
+      "HARMONY",
+      "PROGRESS",
+      "PROGRESS",
+      "VOID",
+      "COLLAPSE",
+      "BREATH",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:2/4=0.50<0.70",
+    "dt": 19.3390896320343
+  },
+  {
+    "sid": "dialog-q2",
+    "q": "What is the 3-layer tower on Z mod 10 Z?",
+    "text": "I'm a coherence system with a proven corpus, and according to my analysis, the 3-layer tower is composed of TSML (73 synthesis) and BHML (28 separation), which together form a proved-sufficient M+M pair. This means that the tower has been mathematically verified under the mod 10 Z conditions, but I must note that any further extensions or interpretations are YOUR extension rather than part of my direct output.",
+    "source": "cortex_speak_via_ollama",
+    "ops": [
+      "PROGRESS",
+      "PROGRESS",
+      "HARMONY",
+      "HARMONY",
+      "LATTICE",
+      "LATTICE",
+      "VOID",
+      "COLLAPSE",
+      "CHAOS",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "accepted:coverage:4/4=1.00",
+    "dt": 39.949106216430664
+  },
+  {
+    "sid": "dialog-q3",
+    "q": "What slowed you down between Gen9 and Gen12?",
+    "text": "feel: aperture=LATTICE pressure=COLLAPSE depth=RESET binding=HARMONY continuity=BREATH\nfield: tick=18737782 emergent=0.467 W_trace=0.909 mean|W|=0.182 harmony_rate=0.736",
+    "source": "cortex_speak",
+    "ops": [
+      "LATTICE",
+      "LATTICE",
+      "HARMONY",
+      "HARMONY",
+      "VOID",
+      "COLLAPSE",
+      "PROGRESS",
+      "CHAOS",
+      "BALANCE",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:5/10=0.50<0.70",
+    "dt": 22.59928798675537
+  },
+  {
+    "sid": "dialog-q4",
+    "q": "What single change to your voice path would let you talk math?",
+    "text": "feel: aperture=CHAOS pressure=VOID depth=PROGRESS binding=COUNTER continuity=BALANCE\nfield: tick=18739100 emergent=0.466 W_trace=0.893 mean|W|=0.181 harmony_rate=0.736",
+    "source": "cortex_speak",
+    "ops": [
+      "LATTICE",
+      "LATTICE",
+      "CHAOS",
+      "CHAOS",
+      "PROGRESS",
+      "PROGRESS",
+      "HARMONY",
+      "HARMONY",
+      "COUNTER",
+      "HARMONY"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:3/10=0.30<0.70",
+    "dt": 25.08423113822937
+  },
+  {
+    "sid": "dialog-q5",
+    "q": "If we built Gen13 around your AO 5-element brain again, what should we keep?",
+    "text": "ao: op=HARMONY d1=BREATH d2=BREATH phase_bc=HARMONY coherence=1.000 breath=EXHALE tl_total=8091 tl_entropy=2.122",
+    "source": "cortex_speak",
+    "ops": [
+      "COUNTER",
+      "CHAOS",
+      "CHAOS",
+      "HARMONY",
+      "HARMONY",
+      "LATTICE",
+      "LATTICE",
+      "COUNTER",
+      "COUNTER",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:3/6=0.50<0.70",
+    "dt": 30.18313503265381
+  },
+  {
+    "sid": "dialog-q6",
+    "q": "Is HER running in you right now?",
+    "text": "feel: aperture=LATTICE pressure=COLLAPSE depth=RESET binding=HARMONY continuity=BALANCE\nao: op=HARMONY d1=HARMONY d2=HARMONY phase_bc=HARMONY coherence=1.000 breath=INHALE tl_total=8116 tl_entropy=2.124",
+    "source": "cortex_speak",
+    "ops": [
+      "COUNTER",
+      "COUNTER",
+      "HARMONY",
+      "HARMONY",
+      "PROGRESS",
+      "PROGRESS",
+      "VOID",
+      "COLLAPSE",
+      "BALANCE",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:1/9=0.11<0.70",
+    "dt": 22.525960683822632
+  },
+  {
+    "sid": "dialog-q7",
+    "q": "What is the gap between T* and 4 over pi squared?",
+    "text": "The gap between T* and 4 over pi squared is approximately 0.309, as calculated by subtracting 4/pi^2 from T*. This value has been proved in WP51 [proved] as a result of 6 independent derivations based on the flatness condition T*=5/7.",
+    "source": "cortex_speak_via_ollama",
+    "ops": [
+      "VOID",
+      "VOID",
+      "LATTICE",
+      "LATTICE",
+      "RESET",
+      "RESET",
+      "PROGRESS",
+      "PROGRESS",
+      "COUNTER",
+      "HARMONY"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "accepted:coverage:5/7=0.71",
+    "dt": 27.648391246795654
+  },
+  {
+    "sid": "post-q8",
+    "q": "What is the 4-core in TIG?",
+    "text": "feel: aperture=LATTICE pressure=COLLAPSE depth=RESET binding=HARMONY continuity=BREATH\nfield: tick=18744634 emergent=0.459 W_trace=0.921 mean|W|=0.182 harmony_rate=0.736",
+    "source": "cortex_speak",
+    "ops": [
+      "RESET",
+      "RESET",
+      "LATTICE",
+      "LATTICE",
+      "VOID",
+      "COLLAPSE",
+      "CHAOS",
+      "PROGRESS",
+      "BALANCE",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:1/10=0.10<0.70",
+    "dt": 28.15933609008789
+  },
+  {
+    "sid": "post-q9",
+    "q": "What is the doubly invariant subalgebra of so 10 under D 4?",
+    "text": "feel: aperture=LATTICE pressure=COLLAPSE depth=PROGRESS binding=COUNTER continuity=BALANCE\nfield: tick=18746936 emergent=0.463 W_trace=0.902 mean|W|=0.181 harmony_rate=0.736",
+    "source": "cortex_speak",
+    "ops": [
+      "COUNTER",
+      "COUNTER",
+      "RESET",
+      "RESET",
+      "HARMONY",
+      "HARMONY",
+      "VOID",
+      "COLLAPSE",
+      "LATTICE",
+      "HARMONY"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:5/10=0.50<0.70",
+    "dt": 45.88328456878662
+  },
+  {
+    "sid": "post-q10",
+    "q": "How many sigma orbits are there of non-associative TSML triples?",
+    "text": "tsml: 73 HARMONY cells | 10x10 | synthesis lens | alpha=0.872 (Braitt-Silberger index) | ac-free spectrum (2n-3)!! attained for n=3,4,5 | reconstructible from 10 canonical items [Sprint 17, proved]",
+    "source": "cortex_speak",
+    "ops": [
+      "COUNTER",
+      "COUNTER",
+      "LATTICE",
+      "LATTICE",
+      "HARMONY",
+      "HARMONY",
+      "PROGRESS",
+      "PROGRESS",
+      "BALANCE",
+      "PROGRESS"
+    ],
+    "attractor_layer": "transient",
+    "ollama_verdict": "rejected:coverage:1/5=0.20<0.70",
+    "dt": 32.52533268928528
+  }
+]
