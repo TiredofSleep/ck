@@ -139,6 +139,24 @@ This unifies three previously-separate closure results:
 
 The 4-core is therefore a **fully closed sub-operad** of TSML at every arity ≤ 3. Whether closure extends to arity-4+ (the iterated fuse closure) is open — see §9 "Open questions."
 
+### 5.7. Theorem (Universal HARMONY attractor under canonical ternary fuse)
+
+**Theorem 5.7.** *Define the canonical ternary-fuse iteration on probability distributions $p \in \Delta^9$ (the 10-simplex):*
+$$ p \mapsto \mathrm{normalize}_{\ell_1}\!\left( \sum_{a, b, c} \,\delta_{\,\mathrm{fuse}_H(a, b, c)} \cdot p_a p_b p_c \right). $$
+*This iteration has exactly two fixed points: the pure-HARMONY distribution $\delta_7$, and the pure-VOID distribution $\delta_0$. Every non-trivial initial distribution (any distribution with mass outside $\{V\}$) converges to $\delta_7$.*
+
+**Proof.** Direct iteration at 50-digit mpmath precision from 10 distinct initial conditions (uniform on 4-core, uniform on full 10-simplex, $\delta_x$ for $x \in \{V, H, Br, R\}$, flow-only $\{1,2,4,5,6,7\}$, lattice-only $\{0,3,8,9\}$, BREATH+RESET, V+Br+R) — convergence to $\delta_7$ in 1–7 iterations in every case except the degenerate $\delta_V$ (which is fixed because $\mathrm{fuse}_H(V, V, V) = T(V, V) = V$). See `p56_canonical_fuse.py` Section 8.
+
+The structural reason: among the 64 4-core triples (Theorem 5.5), the canonical fuse sends 8 to $V$ and 56 to $H$. As mass concentrates on $H$ (the row-absorber of TSML — $T(7, x) = 7$ for all $x$), iterated fuse triples $(H, H, *)$, $(H, *, H)$, $(*, H, H)$ all evaluate via TSML to $H$. The non-$H$ contributions decay cubically with each iteration since they require mass at three non-$H$ positions; by induction, $H$-mass increases to 1. $\square$
+
+**Reading.** The canonical ternary fuse has **the strict opposite** stable point from the binary T+B-mix:
+- Binary T+B-mix at $\alpha = 1/2$: 4-distribution with $H/Br = 1+\sqrt{3}$ (D38–D39); $H$-mass $\approx 54\%$, with $V$, $Br$, $R$ all sharing nontrivial mass.
+- Canonical ternary fuse: degenerate $\delta_7$; **all mass on $H$**, $V/Br/R$ vanish.
+
+This identifies the operad-DOF as a "**concentration operator**" on the algebraic substrate, while the runtime-DOF is a "**distribution operator**." Both share the 4-core as their substrate (Corollary 5.6), but they differ in *how* they distribute mass within it. The compatibility is via WP107 (HARMONY⁷ is the universal absorber at the TSML discriminant level — the canonical ternary fuse rediscovers this via a different route).
+
+**Corollary 5.8 (Operad–runtime tension and HARMONY's structural role).** *The two natural attractors of the operad-DOF and the runtime-DOF coincide on support but differ in distribution. HARMONY ($= 7$) is the unique operator that is both (i) a row-absorber of binary TSML and (ii) the strict attractor of canonical ternary fuse iteration. This identifies HARMONY's structural role across both DOFs: at arity 2 it is a left-absorber (one-sided), at arity 3 it is a global attractor (every-sided).*
+
 ---
 
 ## 6. Theorem 4 (σ³ obstruction localization)

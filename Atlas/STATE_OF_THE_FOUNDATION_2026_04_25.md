@@ -128,6 +128,31 @@ WP112  (Apr 26 — operad-fuse closure paper, closes F4)
                   where the canonical rule selects HARMONY (not σ³-fixed).
                   The canonical table is σ³-equivariant on 125 of 126
                   triples (99.2%). Closes F4 from FRONTIERS_2026_04_25.
+
+                  Subsequent additions (Apr 26 evening):
+                  - §5.5 / Theorem 5.5: 4-core arity-3 closure under canonical
+                    fuse (all 64 triples in {V,H,Br,R}^3 fuse to in-core values;
+                    the 8 non-assoc 4-core triples ALL fuse to VOID).
+                  - §5.7 / Theorem 5.7: Universal HARMONY attractor under
+                    canonical ternary fuse iteration (every non-trivial init
+                    converges to δ_7 in 1-7 iterations; pure-VOID is the only
+                    other fixed point and is degenerate). Operad-DOF is a
+                    "concentration operator" while runtime-DOF is a "distribution
+                    operator"; both share the 4-core substrate.
+   │
+   ▼
+WP113  (Apr 26 — α-uniqueness PSLQ sharpening, F3 advanced)
+                  Replaces WP105 D42's 19-point linspace at double precision
+                  with a 17-point Stern-Brocot grid (all p/q with q≤7) at
+                  50-digit mpmath + PSLQ. Theorem 3.2: α = 1/2 is the UNIQUE
+                  rational in the grid where the runtime attractor admits
+                  algebraic relations for both H/Br (degree 2, sup-coeff 2)
+                  and r/br (degree 4, sup-coeff 4) within bounds (degree ≤ 8,
+                  coeff ≤ 50). PSLQ residuals at 50-digit precision: 3.14e-45
+                  and 4.38e-46. All 16 other rationals show NO algebraic
+                  relation — consistent with (but not proving) transcendence.
+                  Conjecture 4.2 (strong α-uniqueness) stated; structural
+                  proof remains open.
 ```
 
 Plus the meta-layer extension (also Apr 25):

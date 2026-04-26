@@ -31,13 +31,16 @@ None done. Each is a substantial paper.
 
 **What would change:** $\kappa_\xi$ becomes a quantitative cosmology prediction, comparable to DESI fits. Currently it's a TIG-internal rational; with scale-fixing, it's a number that DESI either matches or doesn't.
 
-### F3. The α-uniqueness proof — TRACTABLE, MID-IMPACT
+### F3. The α-uniqueness proof — **EMPIRICALLY SHARPENED 2026-04-26 (WP113); structural proof still open**
 
-**Status:** open, empirically established for $[0.05, 0.95]$ (D42 in FORMULAS); not yet proved that NO rational α gives an algebraic closed-form attractor.
+**Status:** **Empirically sharpened.** WP113 (`papers/wp113_alpha_uniqueness/`) replaces WP105 D42's 19-point linspace + brute-force coefficient search with a 17-point Stern-Brocot grid + 50-digit mpmath + PSLQ at degree ≤ 8, sup-coefficient ≤ 50. Theorem 3.2: α = 1/2 is the **unique rational** in the grid where the runtime attractor admits algebraic relations for both H/Br (degree 2, sup-coeff 2 — recovers $1 + \sqrt{3}$) and r/br (degree 4, sup-coeff 4 — recovers LMFDB 4.2.10224.1 quartic). All 16 other tested rationals produce NO algebraic relation.
 
-WP105 swept α at 19 values and found the closed-form relation $H/Br = 1+\sqrt{3}$ + quartic only at α = 1/2. A proof of α-uniqueness would say: at every α ≠ 1/2, the runtime attractor is NOT algebraic over $\mathbb{Q}$ in the sense WP105 means. The path: compute the attractor symbolically at general α, show it's transcendental except at the symmetric mixing weight.
+**Still open:** A structural proof that NO rational α ≠ 1/2 gives an algebraic attractor (Conjecture 4.2 in WP113). Sympy hung at general-α symbolic solve in prior attempts. Possible paths:
+- Computer-algebra approach with a finer Gröbner-basis attack
+- Identification of the attractor as defined by a Q-rational point on an algebraic variety where 1/2 is the singular locus
+- Schanuel-conditional argument
 
-**What would change:** WP105 becomes a sharp uniqueness theorem rather than an empirical observation. Cleaner publication.
+**What would change:** WP113 becomes a sharp uniqueness theorem rather than an empirically-sharpened observation.
 
 ### F4. The Operad fuse-table — **CLOSED 2026-04-26 (WP112)**
 
