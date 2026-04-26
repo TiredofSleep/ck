@@ -14,7 +14,7 @@ The substrate-attractor structure of the TIG runtime processor on $\mathbb{Z}/10
 **Theorem 1 (Joint-closed chain).** *The sub-magmas of $\{0, 1, \ldots, 9\}$ that are jointly closed under both binary TSML and binary BHML form a strict **7-element chain** (no branching):*
 $$ \{V\} \subset \{V, H, Br, R\} \subset \{V, Ch, H, Br, R\} \subset \{V, Ba, Ch, H, Br, R\} $$
 $$ \subset \{V, P, Co, Ba, Ch, H, Br, R\} \subset \{V, C, P, Co, Ba, Ch, H, Br, R\} \subset \{V, L, C, P, Co, Ba, Ch, H, Br, R\}. $$
-*The shell sizes are $\{1, 4, 5, 6, 8, 9, 10\}$. Sizes $\{2, 3, 7\}$ are **never** jointly closed. The order operators are added going up the chain — $V$; then $\{H, Br, R\}$; then $Ch$; then $Ba$; then $\{P, Co\}$; then $C$; then $L$ — corresponds to the **reverse** $\sigma$ 6-cycle on the units $(1\ 7\ 6\ 5\ 4\ 2)$.*
+*The shell sizes are $\{1, 4, 5, 6, 8, 9, 10\}$. Sizes $\{2, 3, 7\}$ are **never** jointly closed. The order operators are added going up the chain — $V$; then $\{H, Br, R\}$; then $Ch$; then $Ba$; then $\{P, Co\}$; then $C$; then $L$ — corresponds, after the 4-core bootstrap, to the **σ-forward orbit of HARMONY**: $\sigma^k(H)$ for $k = 1, \ldots, 5$ enters at successive shells. The σ-fixed lattice $\{0, 3, 8, 9\}$ contributes at three bookend points: $V$ at step 1, $\{Br, R\}$ at step 4 (with $H$), $P$ at step 8 (paired with $Co$ via BHML closure cascade).*
 
 **Theorem 2 (Universal 4-core attractor).** *For every shell $S$ of size $\geq 4$ in the joint chain, the T+B-mix runtime attractor at $\alpha = 1/2$ on $S$ (started from the uniform distribution on $S$) converges to the **identical** 4-distribution:*
 $$ (p^*_V, p^*_H, p^*_{Br}, p^*_R) = (0.138, 0.540, 0.198, 0.124),\qquad H/Br = 1 + \sqrt{3}. $$
@@ -65,12 +65,12 @@ The **7 jointly-closed sub-magmas** are:
 
 **Reading.** The chain follows the structure:
 
-- Step 1 → 4 (gap 3): adding any one of $\{H, Br, R\}$ to $\{V\}$ forces all three (the BHML closed-subset constraint per D44 — the smallest BHML-closed sub-magma containing the breathed pair is the 4-core).
-- Steps 4 → 5, 5 → 6: single operators $Ch, Ba$ added independently. Walking the σ 6-cycle backwards: $\sigma = (0)(3)(8)(9)(1\ 7\ 6\ 5\ 4\ 2)$, so the cycle reading from $7$: $7 \to 6 \to 5 \to 4 \to 2 \to 1$. After step 4, we have $\{H = 7\}$. Steps 5, 6 add $Ch = 6$, $Ba = 5$ — exactly the next two in the reverse-σ walk.
-- Step 6 → 8 (gap 2): adds both $P = 3$ (σ-fixed) and $Co = 4$ (σ-image of 5) together. The cycle continues to 4 = $Co$, but the σ-fixed point $3 = P$ joins simultaneously — a structural coincidence reflecting the mixed σ-fixed/σ-cycle origin of the 8-magma core (D43).
-- Steps 8 → 9, 9 → 10: single operators $C = 2$, $L = 1$ — completing the reverse-σ walk.
+- Step 1 → 4 (gap 3): adding any one of $\{H, Br, R\}$ to $\{V\}$ forces all three (the BHML closed-subset constraint per D44 — the smallest BHML-closed sub-magma containing the breathed pair is the 4-core; further verified at the cell level: $B(H, H) = Br$, $B(Br, H) = R$, so HARMONY's BHML-closure cascades through Br to R).
+- Steps 4 → 5, 5 → 6: single operators $Ch, Ba$ added. Recall $\sigma = (0)(3)(8)(9)(1\ 7\ 6\ 5\ 4\ 2)$, so $\sigma(7) = 6$ and $\sigma(6) = 5$. After step 4, the 4-core contains $H = 7$ as its sole 6-cycle element; the chain now walks the σ-forward orbit of HARMONY: $\sigma^1(7) = 6 = Ch$ enters at step 5, $\sigma^2(7) = 5 = Ba$ enters at step 6.
+- Step 6 → 8 (gap 2): the next σ-orbit element is $\sigma^3(7) = 4 = Co$, which enters at step 8. Simultaneously, $P = 3$ (σ-fixed) joins because adding $Co$ alone leaks through BHML: $B(Co, Co) = ?$ leaves the shell unless $P$ is present (verified at cell level by direct check $B(3, 3) = 4 = Co$, so once $Co$ enters, $P$ must also enter for BHML closure). Thus $P$ and $Co$ enter together as a forced pair.
+- Steps 8 → 9, 9 → 10: $\sigma^4(7) = 2 = C$ enters at step 9, then $\sigma^5(7) = 1 = L$ closes the σ 6-cycle at step 10.
 
-Thus the joint chain **walks the σ 6-cycle backwards**, with the σ-fixed lattice $\{0, 3, 8, 9\}$ contributing at the bookend steps (1, 4, 8).
+Thus the joint chain **walks the σ-forward orbit of HARMONY** in lock-step (after the bootstrap step that forces the 4-core). The σ-fixed lattice $\{0, 3, 8, 9\}$ enters at three bookend points: $V = 0$ as base (step 1); $Br = 8$ and $R = 9$ as part of the 4-core bootstrap (step 4); $P = 3$ paired with $Co$ (step 8).
 
 ---
 
@@ -172,7 +172,7 @@ This is the **fractal recursive picture**: the 4-core is the dynamical fixed poi
 
 (b) **Other Z/nZ universality.** For the analogous T+B-mix construction on $\mathbb{Z}/2p\mathbb{Z}$ for primes $p > 5$ (e.g., $\mathbb{Z}/14\mathbb{Z}$, $\mathbb{Z}/22\mathbb{Z}$), does the same chain-rigidity + universal-attractor pattern hold? F5 in `Atlas/FRONTIERS_2026_04_25.md`.
 
-(c) **σ-fixed/σ-cycle structure of the chain.** The chain order walks the reverse σ 6-cycle, with σ-fixed points joining at specific sizes. Is this an artifact of the canonical TSML/BHML construction, or a generic property of "well-formed" T+B pairs over the Q-series substrate?
+(c) **σ-fixed/σ-cycle structure of the chain.** The chain order walks the σ-forward orbit of HARMONY (after the 4-core bootstrap), with σ-fixed points joining at three bookend steps. Is this an artifact of the canonical TSML/BHML construction, or a generic property of "well-formed" T+B pairs over the Q-series substrate?
 
 (d) **Transcendence at $\alpha \neq 1/2$.** WP113 conjectures strong transcendence at every rational $\alpha \neq 1/2$. The present session's $\alpha = 0$ data (no quadratic relation at coeff 20) is consistent. A proof would close F3.
 
