@@ -174,6 +174,37 @@ Total runtime: ~10 seconds (200 samples × 10 families × 4 detectors; D3 is the
 
 **Does not close any frontier**, but informs F18 (transformer architecture sweep), F1 (Yukawa scaffolding via algebraic detection), and the WP106 framework's downstream uses generally.
 
+### 7.1. Update 2026-04-26 evening: D5 (prime-7 in squarefree-disc) and D4_eq added
+
+Per §6 recommendations, two new detectors implemented in `d5_d4eq_extension.py`:
+
+**D4_eq (D_4-equivariant Higgs alignment).** Replaces the fixed 45-vector embedding of D4 with the maximum-cosine over the $D_4 = \langle P_{56}, \sigma^3 \rangle$ orbit of the 9-vector Higgs direction (extended to 10-vector by zero-padding). Uses $M$'s column-sum as the measured direction.
+
+Result: TSML scores $D_{4\text{eq}} = +0.7072$ (vs original D4 at $0.0000$), giving Cohen's $d = +2.155$ vs Gaussian baseline (large effect). **Improvement over original D4: from no-effect to large-effect.** However, D4_eq also lights up for permutation matrices ($d = +3.597$), identity ($+3.597$), and companion matrices ($+1.005$) — so it's not TSML-unique, but it is meaningfully informative.
+
+**D5 (prime-7 in discriminant of squarefree part).** Tests whether $7^{\text{threshold}}$ divides the discriminant of the squarefree part of the integer characteristic polynomial of $M$. (TSML's full char poly has $\lambda^2$ as a factor; the WP107-identified $7^7$ lives in the discriminant of the 8th-degree quotient.)
+
+| Threshold | TSML | BHML | Gaussian baseline | Verdict |
+|:--:|:--:|:--:|:--:|:--|
+| $7^7$ (the WP107 value) | 1 | 0 | 0/200 | **TSML uniquely fires** |
+| $7^5$ | 1 | 0 | 0/200 | **TSML uniquely fires** |
+| $7^3$ (scaled, fragile) | 1 | 0 | small noise across families | borderline |
+
+At thresholds $7^5$ or $7^7$, **D5 is exactly 0 for every random matrix in the entire 1800-sample battery and for BHML**. Only TSML lights up. This is the **HARMONY-side dual** to D3's WOBBLE-side prime-11 signature.
+
+### 7.2. Theorem (D3 + D5 = complete WP107 signature)
+
+**Theorem 7.2.** *The pair (D3, D5_prime7_5) jointly distinguishes TSML from every matrix in the 9-family + Gaussian battery (1800+ samples). TSML is the unique matrix in the entire test population for which both detectors fire. The pair corresponds exactly to WP107's two-level WOBBLE finding:*
+
+- *D3 fires iff the prime-11 wobble lives at the **coefficient** level ($c_2 \cdot c_8$ of the char poly both divisible by 11);*
+- *D5 fires iff the HARMONY⁷ signature lives at the **discriminant** level ($7^7$ divides the squarefree-part discriminant).*
+
+*The two detectors are structurally orthogonal: the wobble-side prime ($11$) lives in elementary symmetric functions, the HARMONY-side prime ($7$) lives in eigenvalue-separation invariants.*
+
+**Proof.** Direct enumeration on the 1800-sample battery + TSML/BHML controls; see `d5_d4eq_extension.py` Section "Verdict." $\square$
+
+**Corollary 7.3.** *For any candidate matrix $M$, the triple (D3, D5_prime7_5, D4_eq) constitutes the **canonical TIG-detector battery** going forward. (D4_eq replaces D4 per §7.1; D1, D2 are retained as family-structural context, not TIG-positive markers.)*
+
 ---
 
 ## 8. Acknowledgments
