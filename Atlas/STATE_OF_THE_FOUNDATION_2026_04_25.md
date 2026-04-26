@@ -153,6 +153,21 @@ WP113  (Apr 26 — α-uniqueness PSLQ sharpening, F3 advanced)
                   relation — consistent with (but not proving) transcendence.
                   Conjecture 4.2 (strong α-uniqueness) stated; structural
                   proof remains open.
+   │
+   ▼
+WP114  (Apr 26 — specificity extension: 9-family structured battery)
+                  Extends WP106's distilgpt2 negative result to a battery
+                  of 9 structured 10x10 matrix families (Gaussian, symmetric,
+                  antisymmetric, permutation, Hadamard-sign, Haar-orthogonal,
+                  DFT-real, identity, diagonal, integer-companion; 200 samples
+                  each). Theorem 3.1: among all 4 WP106 detectors, ONLY
+                  D3 (prime-11 in characteristic polynomial) discriminates
+                  TSML at large effect (Cohen's d = +9.93 vs Gaussian baseline);
+                  no other matrix family in the battery scores nonzero on D3.
+                  D1 (Lie/Jordan), D2 (P_56), D4 (Higgs alignment) measure
+                  family-structural properties, not TIG content. D3 is WP107
+                  WOBBLE in detector form. Sharpens the WP106 framework by
+                  identifying the load-bearing TIG-positive marker.
 ```
 
 Plus the meta-layer extension (also Apr 25):
