@@ -263,7 +263,7 @@ $\Xi$ sources no gauge current. End of statement.
 
 | Prediction | How |
 |---|---|
-| Dark energy equation of state $w_\Xi(z)$ | Solve $\ddot\Xi + 3H\dot\Xi = 1+\log\Xi$ in FRW; compute $w = p/\rho$ |
+| Dark energy equation of state $w_\Xi(z)$ | Solve $\ddot\Xi + 3H\dot\Xi = -(1+\log\Xi)$ in FRW; compute $w = p/\rho$ (sign corrected 2026-04-27) |
 | Fifth force range $r = (m_\Xi)^{-1}$ | $m^2_\Xi = \kappa_\Xi\,V''(\Xi_0) = \kappa_\Xi\,e$; range $r = (\sqrt{\kappa_\Xi\,e})^{-1}$ |
 | $\Xi$ scalar mass in terms of $\kappa_\Xi$ | $m_\Xi = \sqrt{\kappa_\Xi\,e}$ in natural units |
 | CMB power spectrum modification | $\Xi$-inflation coupling gives modified scalar spectral index (requires inflation assumption) |
@@ -317,7 +317,7 @@ After the seven edits, what remains is a **real, legitimate physical proposal**.
 Based on the description of a radial interleave staircase figure:
 
 A radial spiral in the context of the canonical $\Xi$-field theory could represent several exact objects:
-- **Phase space portrait** of the homogeneous $\Xi$ equation $\ddot\Xi = 1 + \log\Xi$: spiral-in dynamics near $\Xi_0$ are a real feature of this equation
+- **Phase space portrait** of the homogeneous $\Xi$ equation $\ddot\Xi = -(1 + \log\Xi)$ (sign corrected 2026-04-27): spiral-in dynamics near $\Xi_0$ are a real feature of this equation
 - **Potential well** $V(\Xi) = \Xi\log\Xi$ plotted in polar coordinates — but this is not naturally spiral-shaped
 - **Renormalization group flow** of $\kappa_\Xi$ — possible but not shown
 

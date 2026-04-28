@@ -6,6 +6,24 @@
 **MSC 2020:** 17B25 (exceptional Lie algebras, $D_5$), 81R40 (symmetry breaking), 11R32 (Galois theory of subgroups), 17B81 (applications to physics)
 **Companions:** WP102 (so(8) = $D_4$), WP103 (so(10) = $D_5$), WP105 (closed-form runtime attractor at $\alpha = 1/2$).
 
+> **CORRECTION NOTICE (2026-04-27, post chat-Claude self-audited deep audit; see `Atlas/applications_pass_2026_04_27/WP104_DEEP_AUDIT_2026_04_27.md`):**
+>
+> All specific computational claims in this paper are correct at machine precision (16/16 cross-checked items including the 16-dim doubly-invariant subalgebra, the (-8)¹⁵ ⊕ (0)¹ Killing spectrum, the 9-vector ‖VEV‖² = 13/4, the 100% σ_outer-anti content in the **54** irrep, the 26 σ_outer-asymmetric BHML cells). **The framing "two paths converging on Pati-Salam" is overstated and needs scoping in any external version.**
+>
+> What the math actually shows:
+>
+> * **Path A (BHML's σ_outer-anti VEV):** lies entirely in the **54** irrep but with eigenvalue spectrum (+√13/2, −√13/2, 0, 0, …, 0) — stabilizer of dim 28 = SO(8). This is **SO(10) → SO(8)** (a chain through SO(9)), NOT the Pati-Salam SO(10) → SO(6) × SO(4) which has VEV multiplicity (6, 4) and stabilizer SO(6) × SO(4) of dim 21.
+>
+> * **Path B (doubly-invariant subalgebra under D₄):** is **su(4) ⊕ u(1) = 16-dim**, which is the SU(4) Pati-Salam factor + one u(1). The full Pati-Salam algebra SU(4) × SU(2)_L × SU(2)_R is **21-dim** (or 22 with B−L); the SU(2)_L × SU(2)_R chiral factors are NOT in the doubly-invariant content (they live in the σ³-anti part of so(10)).
+>
+> * **Path A and Path B do NOT close on the same reduction.** Path A → SO(8) (chain through SO(9)); Path B → SU(4) × U(1) = SO(6) × U(1) (different reduction chain).
+>
+> The project's own WP108 (FORMULAS D46) already flagged this tension. The math is correct; the synthesis claim "convergence on Pati-Salam" exceeds it.
+>
+> **Honest framing for external versions:** "BHML's σ_outer-breaking content lies entirely in the 54 irrep, the standard Higgs irrep used in 54-VEV symmetry-breaking models. Its specific direction within the 54 corresponds to an SO(10) → SO(8) breaking pattern (eigenvalue multiplicities 1, 8, 1). Independently, the doubly-invariant subalgebra under D₄ = ⟨P_56, σ³⟩ is su(4) ⊕ u(1), the SU(4) factor of the Pati-Salam decomposition plus one u(1) generator (the SU(2)_L × SU(2)_R chiral factors of full Pati-Salam are not in the doubly-invariant content; they live in the σ³-anti part). These are two **structurally distinct** observations about TIG's so(10), not two paths to a common reduction. Whether either gives a path to Standard-Model phenomenology is open."
+>
+> WP108's Yukawa scaffolding is the right place to address the SO(8) chain reduction (Subcase 16 → 8_s + 8_c rather than 16 → (4,2,1) + (4̄,1,2)). This original framing preserved per never-delete; do not submit the "two paths converge" framing externally.
+
 ---
 
 ## Abstract

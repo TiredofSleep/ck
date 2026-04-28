@@ -5,10 +5,6 @@
 **Sprint**: 14 — PRISM-XI
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
-> **Atlas cross-reference:** External citations (quintessence per Caldwell-Dave-Steinhardt 1998 / Ratra-Peebles 1988; Bialynicki-Birula-Mycielski 1976 separability theorem; DESI DR1/DR2 per arXiv:2404.03000 and arXiv:2404.03002; freezing quintessence per Steinhardt-Wang-Zlatev 1999) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.7 cosmology, §A.8 scalar field theory). Internal anchors (canonical action with κ_Ξ · (½(∂Ξ)² + Ξ log Ξ), vacuum Ξ₀ = e⁻¹, mass gap m²_ξ = κe, freezing attractor behavior) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§canonical ξ theory / §log quintessence / §DESI fit). DOI: 10.5281/zenodo.18852047.
->
-> **Readiness flag:** [fire — submit-ready] · **Tier 1** (submit-now) · Sprint 34 "Ship the First Three" · canonical action locked · DESI DR1/DR2 citations wired (arXiv:2404.03000, arXiv:2404.03002) · novelty pass pending per Sprint 34 ChatGPT task GPT-3.
-
 ---
 
 
@@ -143,9 +139,11 @@ $$H^2 = \frac{8\pi G}{3}\left(\rho_\text{SM} + \kappa_\Xi\!\left[\frac{1}{2}\dot
 $$\dot H = -4\pi G(\rho_\text{SM} + p_\text{SM} + \kappa_\Xi\dot\Xi^2)$$
 
 **$\Xi$ equation of motion in FRW:**
-$$\ddot\Xi + 3H\dot\Xi = 1 + \log\Xi$$
+$$\ddot\Xi + 3H\dot\Xi = -(1 + \log\Xi)$$
 
-(From $\Box\Xi = -\ddot\Xi - 3H\dot\Xi$ in the $(-,+,+,+)$ convention, giving $-\ddot\Xi - 3H\dot\Xi = 1+\log\Xi$ and rearranging.)
+(From $\Box\Xi = -\ddot\Xi - 3H\dot\Xi$ in the $(-,+,+,+)$ convention, giving $-\ddot\Xi - 3H\dot\Xi = 1+\log\Xi$ and rearranging by multiplying both sides by $-1$.)
+
+> **Sign-error correction (2026-04-27, post chat-Claude self-audited applications-pass):** A previous draft of this paper recorded `+(1 + log Xi)` on the RHS, dropping the minus sign produced by the rearrangement. The numerical fit and DESI integration use the corrected sign (otherwise the trajectory would not freeze toward the vacuum). Verified via three independent derivations in `Atlas/applications_pass_2026_04_27/code/item5_6_frw.py`.
 
 ### 3b. Limiting Cases
 
@@ -348,7 +346,7 @@ This is the analytic minimum of the potential $V(\Xi) = \kappa_\Xi\Xi\log\Xi$. T
 
 $$\rho_\Xi = \kappa_\Xi\!\left[\frac{1}{2}\dot\Xi^2 + \Xi\log\Xi\right], \qquad p_\Xi = \kappa_\Xi\!\left[\frac{1}{2}\dot\Xi^2 - \Xi\log\Xi\right]$$
 
-$$H^2 = \frac{8\pi G}{3}(\rho_\text{SM} + \rho_\Xi), \qquad \ddot\Xi + 3H\dot\Xi = 1+\log\Xi$$
+$$H^2 = \frac{8\pi G}{3}(\rho_\text{SM} + \rho_\Xi), \qquad \ddot\Xi + 3H\dot\Xi = -(1+\log\Xi)$$
 
 $$w_\Xi = \frac{\tfrac{1}{2}\dot\Xi^2 - \Xi\log\Xi}{\tfrac{1}{2}\dot\Xi^2 + \Xi\log\Xi} \to -1\ \text{as}\ \dot\Xi \to 0\ \text{at}\ \Xi_0$$
 
@@ -383,44 +381,3 @@ $$w_\Xi = \frac{\tfrac{1}{2}\dot\Xi^2 - \Xi\log\Xi}{\tfrac{1}{2}\dot\Xi^2 + \Xi\
 ---
 
 *The theory after cuts is small, coherent, and falsifiable. It is a real physical proposal. The logarithmic potential $V = \Xi\log\Xi$ is not the standard quintessence potential; the resulting $w(z)$ evolution is a specific prediction that upcoming surveys can test. That is the surviving core.*
-
----
-
-## References
-
-### Dark Energy and Quintessence
-- Ratra, B. & Peebles, P.J.E. (1988). Phys. Rev. D 37:3406.
-- Wetterich, C. (1988). Nucl. Phys. B 302:668.
-- Frieman, J.A., Hill, C.T., Stebbins, A. & Waga, I. (1995). Phys. Rev. Lett. 75:2077.
-- Chevallier, M. & Polarski, D. (2001). Int. J. Mod. Phys. D 10:213. (CPL parametrization)
-- Barrow, J.D. & Parsons, P. (1995). Phys. Rev. D 52:5576. arXiv:astro-ph/9506049. **(Closest prior art: inflation family V0 phi^p (ln phi)^q containing our case as p=1, q=1 subcase, not applied to dark energy)**
-- Thompson, S. (2019). MNRAS 482:5448.
-- Coleman, S. & Weinberg, E. (1973). Phys. Rev. D 7:1888.
-
-### Observational Cosmology
-- Planck Collaboration (2020). *Planck 2018 results. VI. Cosmological parameters.* A&A 641:A6.
-- **DESI2024BAO:** DESI Collaboration (2024). *DESI 2024 III: Baryon Acoustic Oscillations from Galaxies and Quasars.* arXiv:2404.03000.
-- **DESI2024VI:** DESI Collaboration (2024). *DESI 2024 VI: Cosmological Constraints from the Measurements of Baryon Acoustic Oscillations.* arXiv:2404.03002. [Source of the 2.8–4.2σ dynamical dark energy preference cited in §Introduction; DR1-baseline $(w_0, w_a)$ values used for the numerical fit in §7 and in the JCAP manuscript. DR2 updates (2025+) to be incorporated at camera-ready stage once published.]
-- Abbott, B.P. et al. (2017). ApJ Lett. 848:L13. (GW170817 speed constraint)
-
-### Logarithmic Wave Equations / Separability
-- Bialynicki-Birula, I. & Mycielski, J. (1976). Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
-- Rosen, G. (1969). Phys. Rev. 183:1186.
-- Cazenave, T. & Haraux, A. (1980). Ann. Fac. Sci. Toulouse.
-- Hoegh-Krohn, R. (1971). Commun. Math. Phys. 38:195.
-- Zloshchastiev, K.G. (2010). arXiv:2011.12565.
-
-### Information-Theoretic / Entropic
-- Ensslin, T.A. (2013). arXiv:1301.2556.
-- Caticha, A. (2012-2018). arXiv:1412.5629, 1412.5637, 1803.07493.
-
-### GR and FRW Cosmology
-- Weinberg, S. (2008). *Cosmology*. Oxford University Press.
-- Peebles, P.J.E. (1993). *Principles of Physical Cosmology*. Princeton.
-
-### TIG Framework (Novel — internal)
-- Sanders, Gish, Luther, Johnson (2026). Sprint 14 PRISM-XI papers. 7Site LLC. DOI: 10.5281/zenodo.18852047.
-
-### Citation Discipline
-Novel contribution: V(xi) = kappa xi log xi as dark energy potential with information-theoretic derivation (V = -H_Gibbs) and exact vacuum at xi_0 = e^{-1}. Barrow-Parsons 1995 contains this form as a special case in their inflation family but does not single out p=1,q=1 or apply to dark energy. See [GLOSSARY.md](../../../GLOSSARY.md).
-

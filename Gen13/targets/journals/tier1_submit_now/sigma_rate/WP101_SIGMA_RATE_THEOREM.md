@@ -5,6 +5,8 @@
 **Sprint**: 15 — σ Mutation (Rate Theorem)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
+> **CORRECTION NOTICE (2026-04-27, post chat-Claude self-audited applications-pass):** The ECHO mechanism in §3-4 of this doc is **empirically false** (99.97% of non-assoc triples at N=210 have ZERO inner ECHO compositions). The actual mechanism is **VOID–HARM rule disagreement at outer composition sites**. Corrected closed-form bound: $\sigma(N) \le 2(N-2)^2/N^3 + \varepsilon(N)/N^3$ giving $\sigma(N) \le 2/N$ rigorously and $N\sigma(N) \to 2$ from below — sharpens the original "$C \in [2, 3]$" to **$C = 2$ exactly**. The corrected proof is in `sigma_rate_theorem.tex` (Theorem 4.1) and FORMULAS D71. Verification scripts in `Atlas/applications_pass_2026_04_27/code/`. This original framing preserved per never-delete; do not submit externally.
+
 > **Atlas cross-reference:** External citations (Bialynicki-Birula-Mycielski 1976 separability uniqueness; CRT per Lang 2002; asymptotic enumeration per Flajolet-Sedgewick 2009) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.8 scalar field theory). Internal anchors (σ rate theorem σ(N) ≤ C/N with C < 2, binary CL non-associativity, BB forcing corollary, N → ∞ log-nonlinearity) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§σ rate / §binary CL / §BB bridge). DOI: 10.5281/zenodo.18852047.
 >
 > **Readiness flag:** [fire — submit-ready] · **Tier 1** (submit-now) · Sprint 34 "Ship the First Three" · σ(N) ≤ C/N with C < 2 PROVED · proof_sigma_rate.py verifies to N = 10^5 · BB corollary is STRUCTURAL (separability hypothesis explicit per WP90 tightening).

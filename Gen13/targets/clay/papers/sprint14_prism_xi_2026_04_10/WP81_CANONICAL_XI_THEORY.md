@@ -139,9 +139,11 @@ $$H^2 = \frac{8\pi G}{3}\left(\rho_\text{SM} + \kappa_\Xi\!\left[\frac{1}{2}\dot
 $$\dot H = -4\pi G(\rho_\text{SM} + p_\text{SM} + \kappa_\Xi\dot\Xi^2)$$
 
 **$\Xi$ equation of motion in FRW:**
-$$\ddot\Xi + 3H\dot\Xi = 1 + \log\Xi$$
+$$\ddot\Xi + 3H\dot\Xi = -(1 + \log\Xi)$$
 
-(From $\Box\Xi = -\ddot\Xi - 3H\dot\Xi$ in the $(-,+,+,+)$ convention, giving $-\ddot\Xi - 3H\dot\Xi = 1+\log\Xi$ and rearranging.)
+(From $\Box\Xi = -\ddot\Xi - 3H\dot\Xi$ in the $(-,+,+,+)$ convention, giving $-\ddot\Xi - 3H\dot\Xi = 1+\log\Xi$ and rearranging by multiplying both sides by $-1$.)
+
+> **Sign-error correction (2026-04-27, post chat-Claude self-audited applications-pass):** A previous draft of this paper recorded `+(1 + log Xi)` on the RHS, dropping the minus sign produced by the rearrangement. The numerical fit and DESI integration use the corrected sign (otherwise the trajectory would not freeze toward the vacuum). Verified via three independent derivations in `Atlas/applications_pass_2026_04_27/code/item5_6_frw.py`.
 
 ### 3b. Limiting Cases
 
@@ -344,7 +346,7 @@ This is the analytic minimum of the potential $V(\Xi) = \kappa_\Xi\Xi\log\Xi$. T
 
 $$\rho_\Xi = \kappa_\Xi\!\left[\frac{1}{2}\dot\Xi^2 + \Xi\log\Xi\right], \qquad p_\Xi = \kappa_\Xi\!\left[\frac{1}{2}\dot\Xi^2 - \Xi\log\Xi\right]$$
 
-$$H^2 = \frac{8\pi G}{3}(\rho_\text{SM} + \rho_\Xi), \qquad \ddot\Xi + 3H\dot\Xi = 1+\log\Xi$$
+$$H^2 = \frac{8\pi G}{3}(\rho_\text{SM} + \rho_\Xi), \qquad \ddot\Xi + 3H\dot\Xi = -(1+\log\Xi)$$
 
 $$w_\Xi = \frac{\tfrac{1}{2}\dot\Xi^2 - \Xi\log\Xi}{\tfrac{1}{2}\dot\Xi^2 + \Xi\log\Xi} \to -1\ \text{as}\ \dot\Xi \to 0\ \text{at}\ \Xi_0$$
 

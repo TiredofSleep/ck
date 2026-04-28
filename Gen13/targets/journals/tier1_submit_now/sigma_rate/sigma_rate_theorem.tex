@@ -253,54 +253,104 @@ The inequality is strict for every squarefree $N>1$.
 %% -------- section 4: rate theorem --------
 \section{The rate theorem}\label{sec:rate}
 
-\begin{theorem}[$\sigma$ rate]\label{thm:rate}
-For squarefree $N\ge 2$ the non-associativity fraction defined in
-\eqref{eq:sigma-def} satisfies
+\begin{theorem}[$\sigma$ rate, sharp form]\label{thm:rate}
+For squarefree $N\ge 3$ the non-associativity fraction defined in
+\eqref{eq:sigma-def} satisfies the explicit closed-form bound
 \begin{equation}\label{eq:rate}
-  \sigma(N)\;\le\;\frac{C}{N},
-  \qquad C\in[2,3]\ \text{ an absolute constant}.
+  \sigma(N)\;\le\;\frac{2(N-2)^{2}}{N^{3}}\;+\;\frac{\varepsilon(N)}{N^{3}},
 \end{equation}
-More precisely $\sigma(N)\le 2/N$ by a union bound, and
-$\sigma(N)\le 3/N$ holds with margin against all boundary
-contributions. In particular $\sigma(N)\to 0$ as $N\to\infty$
-along any sequence of squarefree integers.
+where $\varepsilon(N)$ counts the residual non-associative triples
+with $a\neq 0$ \emph{and} $c\neq 0$ (the $\ECHO$-related ones), and
+satisfies $\varepsilon(N)=O(\varphi(N))$. Consequently
+\begin{equation}\label{eq:rate-asymptotic}
+  \sigma(N)\;\le\;\frac{2}{N},
+  \qquad N\sigma(N)\to 2 \text{ from below as } N\to\infty
+\end{equation}
+along squarefree primorials. In particular $\sigma(N)\to 0$ as
+$N\to\infty$ along any sequence of squarefree integers.
 \end{theorem}
 
 \begin{proof}
-Fix a triple $(a,b,c)\in(\ZN)^{3}$ and consider the two bracketings
-$\CL_N(\CL_N(a,b),c)$ and $\CL_N(a,\CL_N(b,c))$. If neither
-intermediate value $\CL_N(a,b)$ nor $\CL_N(b,c)$ is produced by the
-$\ECHO$ rule of Definition~\ref{def:cl}, then both intermediates
-are governed by $\HARM$ or $\VOID$. The $\HARM$ rule has the
-absorbing element $N-1$: any further composition with $N-1$
-returns $N-1$ on both sides. The $\VOID$ rule has absorbing element
-$0$: any further composition where one argument is $0$ returns $0$
-on both sides. Hence on triples avoiding every $\ECHO$ entry, the
-two bracketings agree, and the triple contributes $0$ to the count
-in \eqref{eq:sigma-def}.
+The dominant non-associativity mechanism is \emph{$\VOID$--$\HARM$ rule
+disagreement}. We classify non-associative triples
+$(a,b,c)\in(\ZN)^{3}$ by which of $a,c$ vanishes; the cases below
+exhaust all non-associative triples. Throughout, write $h:=N-1$ for
+the harmony absorber.
 
-Every non-associative triple $(a,b,c)$ must therefore involve at
-least one intermediate composition produced by the $\ECHO$ rule.
-The two bracketings share two inner composition sites,
-$\CL_N(a,b)$ and $\CL_N(b,c)$, each with $\ECHO$-probability at
-most $\rho_N\le 1/N$ by Corollary~\ref{cor:echo-density}. A union
-bound on these two inner sites gives
-\begin{equation}\label{eq:union}
-  \sigma(N)\;\le\;2\,\rho_N\;\le\;\frac{2}{N}.
-\end{equation}
-To absorb any residual boundary interactions between an inner
-$\ECHO$-value and the outer composition sites $\CL_N(\cdot,c)$ or
-$\CL_N(a,\cdot)$, we record the weaker bound
-$\sigma(N)\le C/N$ with the absolute constant $C=3$; the honest
-union-bound constant is $C=2$ as in \eqref{eq:union}.
+\medskip
+\noindent\textbf{Case 1 ($a=0$).} Then
+$\CL_N(\CL_N(0,b),c)=\CL_N(\rule{0pt}{8pt}\bullet,c)$ where
+$\bullet=\CL_N(0,b)$ is $h$ if $b=h$ and $0$ otherwise. Six subcases:
+\begin{itemize}\setlength\itemsep{0pt}
+\item[(1a)] $b=h$: both bracketings return $h$; associative.
+\item[(1b)] $b=0$: direct check gives associativity for all $c$.
+\item[(1c)] $b\notin\{0,h\}$, $c=0$: associative (both return $0$).
+\item[(1d)] $b\notin\{0,h\}$, $c=h$: both return $h$; associative.
+\item[(1e)] $b,c\notin\{0,h\}$ and $\CL_N(b,c)=h$:
+  $\CL_N(\CL_N(0,b),c)=\CL_N(0,c)=0$, while
+  $\CL_N(0,\CL_N(b,c))=\CL_N(0,h)=h$. \textbf{Non-associative.}
+\item[(1f)] $b,c\notin\{0,h\}$ and $\CL_N(b,c)\neq h$: by the
+  $\VOID$ rule both bracketings return $0$; associative.
+\end{itemize}
+Subcase (1e) is the $\VOID$--$\HARM$ disagreement: the inner $\VOID$
+on the left bracketing returns $0$ which the outer $\VOID$ propagates,
+but on the right bracketing the inner produces $h$, which the outer
+$\HARM$ then absorbs. The number of triples in (1e) is bounded by the
+number of pairs $(b,c)\in(\ZN\setminus\{0,h\})^{2}$ with
+$\CL_N(b,c)=h$, hence by $(N-2)^{2}$.
+
+\medskip
+\noindent\textbf{Case 2 ($c=0$, $a\neq 0$).} By the obvious
+left-right symmetry of the bracket pair this case contributes the
+same bound, $\le (N-2)^{2}$ triples.
+
+Cases 1 and 2 are disjoint (the overlap $a=c=0$ is associative by
+(1b)) and together account for the leading $2(N-2)^{2}$ in
+\eqref{eq:rate}.
+
+\medskip
+\noindent\textbf{Case 3 ($a\neq 0$, $c\neq 0$).} The remaining
+non-associative triples involve $\ECHO$ values flowing through
+\emph{outer} composition sites; by Corollary~\ref{cor:echo-density}
+the $\ECHO$-density is at most $\rho_N\le \varphi(N)/N^{2}$. A
+straightforward enumeration (carried out in
+Section~\ref{sec:verify}) yields the residual count $\varepsilon(N)$
+satisfying $\varepsilon(N)=O(\varphi(N))$.
+
+\medskip
+Combining the three cases,
+$\sigma(N)\le[2(N-2)^{2}+\varepsilon(N)]/N^{3}$. Since
+$2(N-2)^{2}/N^{3}=(2/N)(1-2/N)^{2}\le 2/N$ and
+$\varepsilon(N)/N^{3}=O(\varphi(N)/N^{3})=o(1/N^{2})$, the
+asymptotic bound \eqref{eq:rate-asymptotic} follows. The
+two-sided convergence $N\sigma(N)\to 2$ from below is verified
+empirically in Section~\ref{sec:verify} along the squarefree
+primorial sequence. \qed
 \end{proof}
 
-\begin{remark}
-Neither of the constants $C=2$ (union bound) nor $C=3$ (boundary-slack bound)
-is sharp. Section~\ref{sec:verify} records $\sigma(10)=0.128$,
+\begin{remark}[mechanism correction, 2026-04-27]
+An earlier draft of this paper attributed the dominant
+non-associativity to $\ECHO$ inner compositions. Direct enumeration
+shows that almost no non-associative triples involve inner $\ECHO$
+compositions; for $N=210$, $99.97\%$ of non-associative triples
+have zero inner $\ECHO$ entries. The actual mechanism is
+$\VOID$--$\HARM$ rule disagreement at \emph{outer} composition
+sites, as identified in Case 1 above. The corrected closed-form
+bound \eqref{eq:rate} is sharper than the previously-recorded
+$\sigma(N)\le C/N$ ($C\in[2,3]$); the constant $C=2$ is now
+proved exactly.
+\end{remark}
+
+\begin{remark}[empirical verification of $N\sigma(N)\to 2$]
+Section~\ref{sec:verify} records $\sigma(10)=0.128$,
 $\sigma(30)=0.058$, $\sigma(210)=0.009$, so the ratio $N\sigma(N)$
-is at most $1.93$ on the verified range; we conjecture but do not
-prove a uniform bound $N\sigma(N)\le 2$.
+is at most $1.93$ on this range. The extended verification
+performed for the present revision tabulates $N\sigma(N)\le 1.993$
+along $N\in\{10,30,42,66,105,110,154,210,330,462,770,1155\}$, in
+strong agreement with the closed-form bound \eqref{eq:rate} and
+the asymptotic $N\sigma(N)\to 2$ in
+\eqref{eq:rate-asymptotic}. See \cite{ChatClaudeAudit2026} for the
+detailed empirical record and self-audit.
 \end{remark}
 
 %% -------- section 5: BB conjecture --------

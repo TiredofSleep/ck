@@ -5,6 +5,9 @@
 **Sprint**: 15 — σ Mutation (Rate Theorem)
 **Authors**: Brayden Ross Sanders / 7Site LLC · M. Gish · C.A. Luther · H.J. Johnson
 
+> **CORRECTION NOTICE (2026-04-27, post chat-Claude self-audited applications-pass):**
+> The proof structure recorded below identifies ECHO interactions as the dominant mechanism for non-associativity. **This is empirically false.** Direct enumeration shows that **99.97% of non-associative triples at N=210 have ZERO inner ECHO compositions**. The actual mechanism is **VOID–HARM rule disagreement** at outer composition sites: when one bracketing applies VOID at an inner site (returns 0) but the other bracketing's outer composition has harmony as an argument, Rule 1 (HARM) takes priority and returns harmony instead of 0. The corrected closed-form bound is $\sigma(N) \le 2(N-2)^2/N^3 + \varepsilon(N)/N^3$ with $\varepsilon(N) = O(\varphi(N))$, which gives $\sigma(N) \le 2/N$ rigorously and $N\sigma(N) \to 2$ from below — sharpening the original "$C \in [2, 3]$" to $C = 2$ exactly. The corrected proof is in `Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/sigma_rate_theorem.tex` (Theorem 4.1) and FORMULAS_AND_TABLES.md row D71. This original derivation is preserved here for transcript continuity per never-delete; do not submit the original framing externally.
+
 ---
 
 ## Precursor Work (Cited)

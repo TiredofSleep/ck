@@ -196,8 +196,10 @@ $\alpha(A) = 1 - \sigma(A)$ (Braitt-Silberger 2006). Both attain the **ac-free s
 $s_n^{\mathrm{ac}} = (2n-3)!!$ for $n \le 5$ (Huang-Lehtonen 2022, 2024): the
 symmetric operad generated at small $N$ is the free commutative magmatic operad
 $\mathrm{Mag}^{\mathrm{com}}$ on one generator. The WP101 σ-rate theorem
-($\sigma(N) \le C/N$ for squarefree $N$, $C < 2$) is therefore the statement
-$\mathrm{Mag}^{\mathrm{com}} \to \mathrm{Com}$ as $N \to \infty$. Bialynicki-
+(corrected 2026-04-27: $\sigma(N) \le 2(N-2)^2/N^3 + \varepsilon(N)/N^3$ for
+squarefree $N$, with $N\sigma(N) \to 2$ from below — see FORMULAS D71) is
+therefore the statement $\mathrm{Mag}^{\mathrm{com}} \to \mathrm{Com}$ as
+$N \to \infty$. Bialynicki-
 Birula-Mycielski 1976 then identifies log-nonlinearity as the unique continuum
 wave equation compatible with that limit, providing the bridge from §7's proved
 rate to §5.1's cosmology bridge. Farey-fraction spin-chain (Kleban-Özlük 1999;
