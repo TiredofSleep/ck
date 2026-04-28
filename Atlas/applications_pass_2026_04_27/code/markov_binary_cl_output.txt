@@ -1,0 +1,180 @@
+======================================================================
+OPTION A: UNIVERSAL MARKOV CHAIN PROPERTIES
+======================================================================
+
+               Table    Gap   DB   sigma  H/Hmax  Attractor   Frac   Absorb
+--------------------------------------------------------------------------------
+                TSML  0.100    0   0.128  -0.000          7   0.73     none
+                BHML  0.659   70   0.498   0.836          7   0.28     none
+        ADD (a+b)%10  1.000    0   0.000   1.000          1   0.10     none
+        MUL (a*b)%10  0.200    0   0.000  -0.000          0   0.27     none
+       DIS |add-mul|  0.500   20   0.300   0.386          1   0.33     none
+      D2 (curvature)  0.718   16   0.554   0.599          0   0.49     none
+
+======================================================================
+OPTION B: BINARY CL CONSTRUCTION FOR Z/30Z
+======================================================================
+
+Z/30Z element classification by DIS curvature:
+  a  avg_D  max_D  zeros  unit  gcd(a,30)
+---------------------------------------------
+  0   14.5     29      1 False          0
+  1    1.9     29      0  True          1
+  2    9.2     27      1 False          2
+  3   10.5     25      0 False          3
+  4   10.4     25      0 False          2
+  5    9.9     29      0 False          5
+  6   10.1     26      0 False          6
+  7    9.5     25      0  True          1
+  8   10.4     26      1 False          2
+  9   10.5     29      0 False          3
+ 10   10.6     28      0 False         10
+ 11    9.9     29      0  True          1
+ 12    9.7     27      1 False          6
+ 13    9.9     25      0  True          1
+ 14   11.2     29      1 False          2
+ 15   11.3     29      0 False         15
+ 16    8.0     16      0 False          2
+ 17    9.8     27      0  True          1
+ 18   10.1     28      1 False          6
+ 19   10.7     29      0  True          1
+ 20   10.8     29      1 False         10
+ 21    9.0     21      0 False          3
+ 22   10.4     26      0 False          2
+ 23   10.2     25      0  True          1
+ 24   10.9     29      1 False          6
+ 25    9.7     25      0 False          5
+ 26    9.6     26      0 False          2
+ 27   10.1     27      0 False          3
+ 28   11.6     28      0 False          2
+ 29   15.0     29      0  True          1
+
+Units of Z/30Z sorted by DIS curvature:
+  a=29, avg_curvature=15.0
+  a=19, avg_curvature=10.7
+  a=23, avg_curvature=10.2
+  a=11, avg_curvature=9.9
+  a=13, avg_curvature=9.9
+  a=17, avg_curvature=9.8
+  a= 7, avg_curvature=9.5
+  a= 1, avg_curvature=1.9
+
+HARMONY candidate for Z/30Z: 29 (highest curvature unit)
+
+--- Verification: Binary CL on Z/10Z ---
+Z/10Z units by curvature: [(9, 5.0), (7, 3.4), (3, 2.6), (1, 1.8)]
+HARMONY candidate: 9
+Binary CL vs TSML: 17/100 match
+Mismatches:
+  (0,7): binary=0, TSML=7, DIS=7, (a+b)%10=7, (a*b)%10=0
+  (0,9): binary=9, TSML=0, DIS=9, (a+b)%10=9, (a*b)%10=0
+  (1,1): binary=9, TSML=7, DIS=1, (a+b)%10=2, (a*b)%10=1
+  (1,2): binary=9, TSML=3, DIS=1, (a+b)%10=3, (a*b)%10=2
+  (1,3): binary=9, TSML=7, DIS=1, (a+b)%10=4, (a*b)%10=3
+  (1,4): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=4
+  (1,5): binary=9, TSML=7, DIS=1, (a+b)%10=6, (a*b)%10=5
+  (1,6): binary=9, TSML=7, DIS=1, (a+b)%10=7, (a*b)%10=6
+  (1,7): binary=9, TSML=7, DIS=1, (a+b)%10=8, (a*b)%10=7
+  (1,8): binary=9, TSML=7, DIS=1, (a+b)%10=9, (a*b)%10=8
+  (1,9): binary=9, TSML=7, DIS=9, (a+b)%10=0, (a*b)%10=9
+  (2,1): binary=9, TSML=3, DIS=1, (a+b)%10=3, (a*b)%10=2
+  (2,2): binary=4, TSML=7, DIS=0, (a+b)%10=4, (a*b)%10=4
+  (2,3): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=6
+  (2,4): binary=9, TSML=4, DIS=2, (a+b)%10=6, (a*b)%10=8
+  (2,5): binary=9, TSML=7, DIS=7, (a+b)%10=7, (a*b)%10=0
+  (2,6): binary=9, TSML=7, DIS=6, (a+b)%10=8, (a*b)%10=2
+  (2,7): binary=9, TSML=7, DIS=5, (a+b)%10=9, (a*b)%10=4
+  (2,8): binary=9, TSML=7, DIS=6, (a+b)%10=0, (a*b)%10=6
+  (3,1): binary=9, TSML=7, DIS=1, (a+b)%10=4, (a*b)%10=3
+  (3,2): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=6
+  (3,3): binary=9, TSML=7, DIS=3, (a+b)%10=6, (a*b)%10=9
+  (3,4): binary=9, TSML=7, DIS=5, (a+b)%10=7, (a*b)%10=2
+  (3,5): binary=9, TSML=7, DIS=3, (a+b)%10=8, (a*b)%10=5
+  (3,6): binary=9, TSML=7, DIS=1, (a+b)%10=9, (a*b)%10=8
+  (3,7): binary=9, TSML=7, DIS=1, (a+b)%10=0, (a*b)%10=1
+  (3,8): binary=9, TSML=7, DIS=3, (a+b)%10=1, (a*b)%10=4
+  (3,9): binary=9, TSML=3, DIS=5, (a+b)%10=2, (a*b)%10=7
+  (4,1): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=4
+  (4,2): binary=9, TSML=4, DIS=2, (a+b)%10=6, (a*b)%10=8
+  (4,3): binary=9, TSML=7, DIS=5, (a+b)%10=7, (a*b)%10=2
+  (4,4): binary=9, TSML=7, DIS=2, (a+b)%10=8, (a*b)%10=6
+  (4,5): binary=9, TSML=7, DIS=9, (a+b)%10=9, (a*b)%10=0
+  (4,6): binary=9, TSML=7, DIS=4, (a+b)%10=0, (a*b)%10=4
+  (4,7): binary=9, TSML=7, DIS=7, (a+b)%10=1, (a*b)%10=8
+  (4,8): binary=2, TSML=8, DIS=0, (a+b)%10=2, (a*b)%10=2
+  (4,9): binary=9, TSML=7, DIS=3, (a+b)%10=3, (a*b)%10=6
+  (5,1): binary=9, TSML=7, DIS=1, (a+b)%10=6, (a*b)%10=5
+  (5,2): binary=9, TSML=7, DIS=7, (a+b)%10=7, (a*b)%10=0
+  (5,3): binary=9, TSML=7, DIS=3, (a+b)%10=8, (a*b)%10=5
+  (5,4): binary=9, TSML=7, DIS=9, (a+b)%10=9, (a*b)%10=0
+  (5,5): binary=9, TSML=7, DIS=5, (a+b)%10=0, (a*b)%10=5
+  (5,6): binary=9, TSML=7, DIS=1, (a+b)%10=1, (a*b)%10=0
+  (5,7): binary=9, TSML=7, DIS=3, (a+b)%10=2, (a*b)%10=5
+  (5,8): binary=9, TSML=7, DIS=3, (a+b)%10=3, (a*b)%10=0
+  (5,9): binary=9, TSML=7, DIS=1, (a+b)%10=4, (a*b)%10=5
+  (6,1): binary=9, TSML=7, DIS=1, (a+b)%10=7, (a*b)%10=6
+  (6,2): binary=9, TSML=7, DIS=6, (a+b)%10=8, (a*b)%10=2
+  (6,3): binary=9, TSML=7, DIS=1, (a+b)%10=9, (a*b)%10=8
+  (6,4): binary=9, TSML=7, DIS=4, (a+b)%10=0, (a*b)%10=4
+  (6,5): binary=9, TSML=7, DIS=1, (a+b)%10=1, (a*b)%10=0
+  (6,6): binary=9, TSML=7, DIS=4, (a+b)%10=2, (a*b)%10=6
+  (6,7): binary=9, TSML=7, DIS=1, (a+b)%10=3, (a*b)%10=2
+  (6,8): binary=9, TSML=7, DIS=4, (a+b)%10=4, (a*b)%10=8
+  (6,9): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=4
+  (7,0): binary=0, TSML=7, DIS=7, (a+b)%10=7, (a*b)%10=0
+  (7,1): binary=9, TSML=7, DIS=1, (a+b)%10=8, (a*b)%10=7
+  (7,2): binary=9, TSML=7, DIS=5, (a+b)%10=9, (a*b)%10=4
+  (7,3): binary=9, TSML=7, DIS=1, (a+b)%10=0, (a*b)%10=1
+  (7,4): binary=9, TSML=7, DIS=7, (a+b)%10=1, (a*b)%10=8
+  (7,5): binary=9, TSML=7, DIS=3, (a+b)%10=2, (a*b)%10=5
+  (7,6): binary=9, TSML=7, DIS=1, (a+b)%10=3, (a*b)%10=2
+  (7,7): binary=9, TSML=7, DIS=5, (a+b)%10=4, (a*b)%10=9
+  (7,8): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=6
+  (7,9): binary=9, TSML=7, DIS=3, (a+b)%10=6, (a*b)%10=3
+  (8,1): binary=9, TSML=7, DIS=1, (a+b)%10=9, (a*b)%10=8
+  (8,2): binary=9, TSML=7, DIS=6, (a+b)%10=0, (a*b)%10=6
+  (8,3): binary=9, TSML=7, DIS=3, (a+b)%10=1, (a*b)%10=4
+  (8,4): binary=2, TSML=8, DIS=0, (a+b)%10=2, (a*b)%10=2
+  (8,5): binary=9, TSML=7, DIS=3, (a+b)%10=3, (a*b)%10=0
+  (8,6): binary=9, TSML=7, DIS=4, (a+b)%10=4, (a*b)%10=8
+  (8,7): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=6
+  (8,8): binary=9, TSML=7, DIS=2, (a+b)%10=6, (a*b)%10=4
+  (8,9): binary=9, TSML=7, DIS=5, (a+b)%10=7, (a*b)%10=2
+  (9,0): binary=9, TSML=0, DIS=9, (a+b)%10=9, (a*b)%10=0
+  (9,1): binary=9, TSML=7, DIS=9, (a+b)%10=0, (a*b)%10=9
+  (9,3): binary=9, TSML=3, DIS=5, (a+b)%10=2, (a*b)%10=7
+  (9,4): binary=9, TSML=7, DIS=3, (a+b)%10=3, (a*b)%10=6
+  (9,5): binary=9, TSML=7, DIS=1, (a+b)%10=4, (a*b)%10=5
+  (9,6): binary=9, TSML=7, DIS=1, (a+b)%10=5, (a*b)%10=4
+  (9,7): binary=9, TSML=7, DIS=3, (a+b)%10=6, (a*b)%10=3
+  (9,8): binary=9, TSML=7, DIS=5, (a+b)%10=7, (a*b)%10=2
+  (9,9): binary=9, TSML=7, DIS=7, (a+b)%10=8, (a*b)%10=1
+
+--- Binary CL on Z/30Z ---
+  Spectral gap: 0.0333
+  DB violations: 0
+  Non-associativity sigma: 0.0578
+  Attractor: 29 (fraction: 0.929)
+  ECHO entries (DIS=0): 7
+  H/Hmax: -0.0000
+
+--- Binary CL on Z/210Z ---
+HARMONY candidate: 209 (curvature: 105.0)
+  Spectral gap: 0.0048
+  DB violations: 0
+  Non-associativity sigma: 0.009336
+  Attractor: 209 (fraction: 0.9895)
+  ECHO entries (DIS=0): 47
+  H/Hmax: -0.0000
+
+======================================================================
+CONVERGENCE: sigma(N) and spectral gap as N grows
+======================================================================
+
+     N  HARMONY    sigma      gap   H_frac   ECHO  DB_viol
+-----------------------------------------------------------------
+    10        9   0.1280   0.1000    0.800      3        0
+    30       29   0.0578   0.0333    0.929      7        0
+   210      209 0.009336   0.0048   0.9895     47        0
+
+e^{-1} = 0.367879

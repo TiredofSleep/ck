@@ -1,0 +1,111 @@
+======================================================================
+ITEM 1b: Actual mechanism behind non-associativity
+======================================================================
+
+--- N = 10 ---
+Harmony: 9, total non-assoc: 128
+
+Categories of disagreement (left_value vs right_value):
+  VOID(0) vs HARM(h):         61 (47.7%)
+  HARM(h) vs VOID(0):         61 (47.7%)
+  VOID(0) vs other:            0 (0.0%)
+  other vs VOID(0):            0 (0.0%)
+  HARM(h) vs other:            3 (2.3%)
+  other vs HARM(h):            3 (2.3%)
+  other vs other:              0 (0.0%)
+
+  TOTAL pure VOID-HARM disagreement: 122 (95.3%)
+
+--- N = 30 ---
+Harmony: 29, total non-assoc: 1560
+
+Categories of disagreement (left_value vs right_value):
+  VOID(0) vs HARM(h):        777 (49.8%)
+  HARM(h) vs VOID(0):        777 (49.8%)
+  VOID(0) vs other:            0 (0.0%)
+  other vs VOID(0):            0 (0.0%)
+  HARM(h) vs other:            3 (0.2%)
+  other vs HARM(h):            3 (0.2%)
+  other vs other:              0 (0.0%)
+
+  TOTAL pure VOID-HARM disagreement: 1554 (99.6%)
+
+--- N = 210 ---
+Harmony: 209, total non-assoc: 86464
+
+Categories of disagreement (left_value vs right_value):
+  VOID(0) vs HARM(h):      43217 (50.0%)
+  HARM(h) vs VOID(0):      43217 (50.0%)
+  VOID(0) vs other:            0 (0.0%)
+  other vs VOID(0):            0 (0.0%)
+  HARM(h) vs other:           15 (0.0%)
+  other vs HARM(h):           15 (0.0%)
+  other vs other:              0 (0.0%)
+
+  TOTAL pure VOID-HARM disagreement: 86434 (100.0%)
+
+======================================================================
+CORRECTED MECHANISM: VOID-HARM disagreement
+======================================================================
+
+The non-associativity in binary CL[Z/NZ] is dominated by triples
+where VOID (returns 0) and HARM (returns harmony) fire at different
+sites of the bracket tree, producing left=0 and right=harmony
+(or vice versa).
+
+Counting argument:
+  - VOID fires when a=0 or b=0 (Rule 2). The set is 2N-1 pairs (avoiding double-count of (0,0)).
+  - HARM fires when a=harmony or b=harmony. Same: 2N-1 pairs.
+  - For (a,b,c) with a=0 (VOID at left inner site) and b,c configured so the right
+    bracketing hits HARM, we get a non-assoc triple.
+
+Number of triples (a,b,c) with a=0:        N^2 = N^2
+Of these, how many give VOID-HARM disagreement?
+  - Left: CL(0,b) = 0 (VOID). CL(0, c) = 0. So left = 0 always.
+  - Right: CL(0, CL(b,c)) = 0 (VOID rule, since first arg is 0).
+  - WAIT — both are 0 in this case. No disagreement!
+
+Let me recount:
+
+Pattern that matches (0,1,c) family from item 1:
+  a=0, b=1, c=anything
+  CL(0,1) = 0 (VOID)
+  CL(1,c) = ? (not VOID since 1 ≠ 0; could be HARM if 1=h, ECHO, or DEFAULT=harmony)
+  Left:  CL(CL(0,1),c) = CL(0,c) = 0 (VOID)
+  Right: CL(0, CL(1,c)) = ?
+
+If CL(1,c) = harmony, then right = CL(0, harmony) = harmony (HARM, since b=harmony)
+→ left=0, right=harmony, disagreement. (Note: VOID has priority over HARM in
+   our rules — Rule 1 fires first if a=harmony OR b=harmony. CL(0,harmony) checks
+   if 0=h or harmony=h; harmony=h is true, so Rule 1 fires returning harmony.)
+
+This explains the (0,1,c) examples: a=0 hits VOID at left, but the right
+bracketing's inner CL(1,c) returns harmony, and then CL(0,harmony) hits HARM
+(Rule 1) before VOID (Rule 2), returning harmony.
+
+KEY INSIGHT: Rule 1 (HARM) has priority over Rule 2 (VOID). So when Rule 2
+fires at the LEFT inner site (CL(0,b)=0) but the OUTER right composition
+CL(0, harmony) hits Rule 1 (because the second arg is harmony), the rules
+DISAGREE on which absorbing element to return.
+
+This is the actual mechanism. The σ-rate proof assumes 'absorbing rules
+are associative' but this is only true if the SAME absorbing element fires
+everywhere along the bracket tree.
+
+======================================================================
+CORRECTED BOUND (rigorous)
+======================================================================
+
+Triples (a,b,c) where Rule 1 and Rule 2 disagree at the outer sites:
+
+CASE A: a=0 (VOID at left inner).
+  Left always = 0. Right = CL(0, CL(b,c)).
+  Right ≠ 0 iff CL(b,c) = harmony, in which case right = harmony.
+  Number of (b,c) with CL(b,c) = harmony depends on harmony's column...
+
+Let's count this empirically.
+
+   N     a=0 disagreement     c=0 disagreement      sum  observed nonassoc
+  10                   80                   80      160                128
+  30                  836                  836     1672               1560
+ 210                43636                43636    87272              86464

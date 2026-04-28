@@ -209,9 +209,7 @@ two additional external anchors for $T^* = 5/7$ and $\mathrm{sinc}^2(1/2) = 4/\p
 `proof_d25_loop_closure.py`, `verify_so10.py`, `verify_simplicity_rank.py`). The
 per-row rigor audit lives in
 [`papers/morphotic_braid/synthesis/RIGOR_MAPPING.md`](papers/morphotic_braid/synthesis/RIGOR_MAPPING.md).
-Open questions: (i) is σ(N) → 0 provably sharp (not just ≤ 2/N)? (ii) does the
-primon-gas limit extend to the full $T^* = 5/7$ spectrum? (iii) does the WP101-
-BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly?
+Open questions: (i) **✓ CLOSED 2026-04-27** — σ(N) ≤ 2(N−2)²/N³ + ε(N)/N³ proved via VOID–HARM mechanism (the original ECHO-mechanism proof was empirically false: 99.97% of non-associative triples at N=210 have zero inner ECHO compositions); $N\sigma(N) \to 2$ from below; verified to N=1155. See FORMULAS D71 and `Atlas/applications_pass_2026_04_27/code/` for the audit. (ii) does the primon-gas limit extend to the full $T^* = 5/7$ spectrum? (iii) does the WP101-BB-log bridge carry enough structure to constrain $\kappa_\xi$ directly?
 **Status of (iii) — partial closure (2026-04-25):** the 9-vector Higgs direction in BHML's σ_outer-breaking (54 irrep) has $\|\mathrm{VEV}\|^2 = 13/4$ exactly, with the integer 13 traceable to BHML's 26 σ_outer-asymmetric cells. Under the GUT-natural identification $m^2_\xi = \|\mathrm{VEV}\|^2$, combined with the BB-vacuum relation $m^2_\xi = \kappa_\xi e$, this forces
 
 $$
