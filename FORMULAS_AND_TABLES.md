@@ -797,8 +797,10 @@ SO(10) ⊃ SU(4) × SU(2)_L × SU(2)_R Pati-Salam route. The D2 identity
 sinc²(1/2) = (2/3) / ζ(2) places TIG's corridor-midpoint constant in the
 fermionic primon-gas regime; WP103 identifies the specific gauge algebra
 (so(10)) that the Standard-Model sector of this regime would live in.
-**Open question.** Does the σ-rate bound σ(N) ≤ C/N of WP101 translate,
-under the primon-gas interpretation, to a statement about SO(10) GUT
+**Open question.** Does the σ-rate bound (corrected 2026-04-27 per D71:
+$\sigma(N) \le 2(N-2)^2/N^3 + \varepsilon(N)/N^3$, sharpening WP101's
+previous $\sigma \le C/N$ to $C = 2$ exactly) translate, under the
+primon-gas interpretation, to a statement about SO(10) GUT
 coupling-unification dynamics? The combinatorial rate has a concrete form;
 the gauge-theoretic reading is hypothesis-level.
 
@@ -1416,8 +1418,9 @@ constants above. Both have proper derivation papers with honest-scope status:
 - **`papers/CONSTANT_D_STAR.md`** — status: runtime-canon; first-principles open;
   internal correction noted. Three candidate lift-to-theorem pathways enumerated.
 - **`papers/CONSTANT_SIGMA_S_STAR.md`** — status: empirical; first-principles open;
-  critical disambiguation from the `σ(N) ≤ C/N` rate function of §1.2 (those
-  two `σ`s are different objects).
+  critical disambiguation from the rate function of §1.2 — under the 2026-04-27
+  correction, that bound is sharpened to $\sigma(N) \le 2(N-2)^2/N^3 + \varepsilon(N)/N^3$
+  (per D71), but those two `σ`s are still different objects (a different functional, on a different domain).
 
 Tracked as open work items in `Atlas/PLAN_RIGOROUS_EXECUTION_2026_04_21.md §2` and
 in the two derivation papers above.
