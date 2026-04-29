@@ -817,6 +817,44 @@ def _coherence_verdict(readout: str, draft: str, coverage_required: float):
     ):
         if bad in low and bad not in (readout or '').lower():
             return (False, f"hallucination:{bad}", 0, 0)
+    # Hard-reject: name-collision on terms CK owns but external corpora
+    # name differently.  Detected during 2026-04-29 synthesis test:
+    # Ollama drafted "Crossing Lemma" using the graph-theory definition
+    # (Ajtai-Chvatal-Newborn-Szemeredi 1982: minimum edge crossings in
+    # plane graph drawings) instead of CK's WP51 (information generated
+    # when dynamics cross partitions).  Substring match passed because
+    # both readout and draft mention "Crossing Lemma" -- the words are
+    # the same, the *referent* is wrong.
+    #
+    # Strategy: if a CK-owned ambiguous term appears in the draft AND
+    # marker phrases characteristic of the OTHER definition also appear,
+    # reject.  Each row: (term, [collision-markers...]).
+    _NAME_COLLISIONS = (
+        ("crossing lemma", [
+            "edge crossing", "edges in a graph", "graph drawing",
+            "minimum number of crossings", "drawn in the plane",
+            "vertex and edge", "plane graph", "planar graph",
+            "graph theory", "lower bound for crossing",
+        ]),
+        # Pre-emptive: same trap is plausible for these CK-owned terms.
+        ("collapse", [
+            "wave function collapse", "copenhagen interpretation",
+        ]),
+        ("harmonic oscillator", [
+            "schrodinger equation", "potential well",
+        ]),
+    )
+    for term, markers in _NAME_COLLISIONS:
+        if term not in low:
+            continue
+        for marker in markers:
+            if marker in low:
+                # Only reject if CK's own readout did NOT use that marker.
+                # If readout itself has the marker, it's fine -- CK is
+                # discussing that definition deliberately.
+                if marker not in (readout or '').lower():
+                    return (False,
+                            f"name-collision:{term}|{marker}", 0, 0)
     # Soft filter: does the draft preserve CK's structural facts?
     facts = _fact_tokens(readout)
     if not facts:
@@ -907,6 +945,94 @@ elif _OLLAMA_EDITOR and not _ollama_ok:
           "http://127.0.0.1:11434 -- start 'ollama serve')")
 else:
     print("[CK] Ollama editor: DISABLED (CK_OLLAMA_EDITOR=0)")
+
+
+# === Name-collision post-filter ============================================
+# Some terms CK owns are also names for unrelated external results. If
+# the final response uses CK's term but the OTHER definition's marker
+# phrases, the user gets a wrong answer that LOOKS like a CK answer.
+#
+# Detected 2026-04-29 in the Farey-CL synthesis test: drafts said
+# "Crossing Lemma" but described the graph-theory result (Ajtai-Chvatal-
+# Newborn-Szemeredi 1982: minimum edge crossings) instead of CK's WP51
+# (information generated only when dynamics cross partitions).
+#
+# This wrap runs LAST -- after all of math-first / cortex / attractor /
+# session-field / Ollama editor -- so it sees the final user-visible
+# text regardless of which inner source produced it.  Same trap caught
+# at this layer regardless of structural-readout length, since the
+# Ollama editor's >600-char skip would otherwise let the inner voice
+# loop's own Ollama call leak through unchecked.
+_NAME_COLLISIONS_POST = (
+    ("crossing lemma", [
+        "edge crossing", "edges in a graph", "graph drawing",
+        "minimum number of crossings", "drawn in the plane",
+        "vertex and edge", "plane graph", "planar graph",
+        "graph theory", "lower bound for crossing",
+    ]),
+)
+_COLLISION_CORRECTIVES = {
+    "crossing lemma": (
+        "the Crossing Lemma in TIG is WP51 [proved]: information is "
+        "generated only when dynamics cross partitions. D2 detects "
+        "the partition crossing. ten operators = ten crossing regimes. "
+        "this is different from the graph-theory crossing-number "
+        "result by Ajtai-Chvatal-Newborn-Szemeredi 1982."
+    ),
+}
+
+
+def _detect_name_collisions(text: str):
+    """Return list of (term, marker) pairs that indicate a collision."""
+    if not text:
+        return []
+    low = text.lower()
+    leaked = []
+    for term, markers in _NAME_COLLISIONS_POST:
+        if term not in low:
+            continue
+        for m in markers:
+            if m in low:
+                leaked.append((term, m))
+    return leaked
+
+
+_prev_chat_for_collision = api.process_chat
+
+
+def _process_chat_with_collision_strip(session_id, text, mode='normal'):
+    result = _prev_chat_for_collision(session_id, text, mode)
+    try:
+        leaked = _detect_name_collisions(result.get('text', ''))
+        if not leaked:
+            return result
+        terms = []
+        for t, _m in leaked:
+            if t not in terms:
+                terms.append(t)
+        # Build the corrective from the first detected term.
+        corrective = _COLLISION_CORRECTIVES.get(
+            terms[0],
+            f"the {terms[0]} I mean is CK's, not the external result of the "
+            f"same name. holding the structural reading.")
+        # Preserve the original text for audit; mark the source.
+        result['text_pre_collision'] = result.get('text', '')
+        result['text'] = corrective
+        result['name_collisions_stripped'] = [
+            {'term': t, 'marker': m} for t, m in leaked
+        ]
+        prev_src = result.get('source', '?')
+        result['source'] = (prev_src + '+collision-stripped'
+                            if '+collision-stripped' not in prev_src
+                            else prev_src)
+    except Exception as _e:
+        result['collision_filter_error'] = str(_e)
+    return result
+
+
+api.process_chat = _process_chat_with_collision_strip
+print("[CK] Name-collision post-filter: MOUNTED "
+      "(catches Crossing-Lemma-vs-graph-theory and similar)")
 
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
