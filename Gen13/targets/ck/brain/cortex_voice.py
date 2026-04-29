@@ -416,6 +416,26 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "factually wrong per the published literature."
     ),
     (
+        ("tsml8 bhml10", "5/7 on tsml", "1/2 on bhml", "associativity break",
+         "magma intrinsic alpha", "magma carrier landmark"),
+        "tsml_bhml_landmark_carry: TSML and BHML carry the two privileged "
+        "Stern-Brocot landmarks differently | BHML_10 intrinsic Braitt-"
+        "Silberger alpha = 0.5020 = 1/2 EXACT within 0.003 (verified "
+        "papers/wp113_alpha_uniqueness/verification/alpha_by_size.py "
+        "2026-04-29) -- this IS the closed-form-mixing alpha=1/2 in WP105 "
+        "| TSML restricted to size n is FULLY ASSOCIATIVE for all n in "
+        "{2..7}; first non-associativity at n=8 where alpha drops from "
+        "1.0 to 0.871 | the formula (n-3)/(n-1) at n=8 gives 5/7 = T* | "
+        "denominator 7 of T*=5/7 = max size where TSML's restricted "
+        "structure remains group-like | Brayden 2026-04-29 hint: '5/7 "
+        "on TSML8 and 1/2 on BHML10 is the key' VERIFIED with right "
+        "reading (5/7 is the structural-formula value at TSML's "
+        "associativity-break; 1/2 is BHML's numeric intrinsic alpha at "
+        "Z/10Z) | the two magmas are NOT symmetric carriers -- they "
+        "encode the two Stern-Brocot landmarks via different intrinsic "
+        "algebraic indices | logged Atlas/FRONTIER_FINDINGS_2026_04_29.md §15"
+    ),
+    (
         ("two-level alignment", "two level alignment", "1/2 fixed point",
          "5/7 saddle", "stern-brocot landmarks"),
         "tig_fqh_two_level: TIG-alpha axis and FQH-nu axis share TWO "
