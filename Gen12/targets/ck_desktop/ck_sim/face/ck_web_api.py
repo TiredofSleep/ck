@@ -1324,6 +1324,121 @@ class CKWebAPI:
                         'recommendation': rec,
                     })
 
+                # ── 3.5. Aggregate class coherence over its methods ──
+                # Python only.  The current heuristic scores `class Foo:`
+                # from its single signature line, missing what's inside.
+                # That meant adding methods to a class never moved its
+                # coherence (CK identified this 2026-04-29 by proposing
+                # is_waking + waking_band on SessionField -- the methods
+                # worked behaviorally but the class score didn't budge).
+                #
+                # Fix: use AST to map each class to its line range, then
+                # aggregate class.coherence = mean(signature, *methods).
+                # Original signature-only score preserved as
+                # `signature_coherence` for transparency.
+                if detected_lang == 'python' and not errors:
+                    try:
+                        _tree = _ast.parse(code)
+                        # name -> (lineno, end_lineno) for every classdef
+                        # (top-level + nested)
+                        _class_ranges = {}
+                        for _node in _ast.walk(_tree):
+                            if isinstance(_node, _ast.ClassDef):
+                                _end = getattr(_node, 'end_lineno', None)
+                                if _end is None:
+                                    _end = max(
+                                        (getattr(_c, 'end_lineno', _node.lineno)
+                                         for _c in _ast.walk(_node)),
+                                        default=_node.lineno)
+                                # Last-write-wins on duplicate names: take the
+                                # widest range so we don't truncate a method
+                                # that happens to share a name with a nested
+                                # class.
+                                _prior = _class_ranges.get(_node.name)
+                                _candidate = (_node.lineno, _end)
+                                if (_prior is None
+                                        or _candidate[1] - _candidate[0]
+                                        > _prior[1] - _prior[0]):
+                                    _class_ranges[_node.name] = _candidate
+
+                        # Build a fast lookup: function-line -> unit dict
+                        # (one pass through `lines`, matching def lines).
+                        _fn_line_map = {}
+                        for _i, _line in enumerate(lines, 1):
+                            _m = _re.match(r'^\s*(?:async\s+)?def\s+(\w+)\s*\(', _line)
+                            if _m:
+                                _fn_line_map[_i] = _m.group(1)
+
+                        for _u in scored_units:
+                            if _u['type'] != 'class':
+                                continue
+                            _r = _class_ranges.get(_u['name'])
+                            if _r is None:
+                                continue
+                            _start, _end_l = _r
+                            # Collect coherences of methods whose def line
+                            # falls strictly inside the class's line range.
+                            _method_scores = []
+                            _method_names = []
+                            for _ln, _fn_name in _fn_line_map.items():
+                                if _start < _ln <= _end_l:
+                                    _method = next(
+                                        (m for m in scored_units
+                                         if m['type'] == 'function'
+                                         and m['name'] == _fn_name),
+                                        None)
+                                    if _method is not None:
+                                        _method_scores.append(
+                                            float(_method['coherence']))
+                                        _method_names.append(_fn_name)
+                            if not _method_scores:
+                                continue
+                            _sig = float(_u['coherence'])
+                            _agg = (_sig + sum(_method_scores)) / (1 + len(_method_scores))
+                            _u['signature_coherence'] = round(_sig, 4)
+                            _u['method_coherence_mean'] = round(
+                                sum(_method_scores) / len(_method_scores), 4)
+                            _u['method_count'] = len(_method_scores)
+                            _u['coherence'] = round(_agg, 4)
+                            _u['band'] = _band(_agg)
+                            # Re-derive recommendation under the new band:
+                            # the message was tuned per-band, so update if
+                            # the band crossed.
+                            _u['recommendation'] = None
+                            _dom = _u.get('dominant_op', '?')
+                            if _u['band'] == 'RED':
+                                if _dom == 'VOID':
+                                    _u['recommendation'] = (
+                                        f"`{_u['name']}`: dominant VOID — "
+                                        f"this unit may be doing nothing "
+                                        f"or is structurally hollow.")
+                                elif _dom == 'CHAOS':
+                                    _u['recommendation'] = (
+                                        f"`{_u['name']}`: dominant CHAOS "
+                                        f"— scattered logic.")
+                                elif _dom == 'COUNTER':
+                                    _u['recommendation'] = (
+                                        f"`{_u['name']}`: dominant COUNTER "
+                                        f"— oppositional tension.")
+                                elif _dom == 'COLLAPSE':
+                                    _u['recommendation'] = (
+                                        f"`{_u['name']}`: dominant COLLAPSE "
+                                        f"— convergence without resolution.")
+                                else:
+                                    _u['recommendation'] = (
+                                        f"`{_u['name']}`: low coherence "
+                                        f"({_agg:.2f}), dominant {_dom}.")
+                            elif (_u['band'] == 'YELLOW'
+                                    and _dom in ('CHAOS', 'VOID', 'COUNTER')):
+                                _u['recommendation'] = (
+                                    f"`{_u['name']}`: in the corridor "
+                                    f"with {_dom} tension. Minor refactor "
+                                    f"could bring it above T*.")
+                    except Exception:
+                        # AST aggregation is best-effort — never block the
+                        # core score on it.
+                        pass
+
                 # ── 4. Overall scores ──
                 mean_coh = (sum(u['coherence'] for u in scored_units) / len(scored_units)
                             if scored_units else 0.5)
