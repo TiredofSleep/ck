@@ -2274,3 +2274,86 @@ For a fixed conductor range, curves with cleaner j (depth 1, simpler denominator
 This is consistent with the lens being a **structural language**, not a single uniformity: different projections live at different depths, and the depth-relations between projections are what the lens articulates.
 
 — end findings 2026-04-29 (§29, F9 58-curve scan: rank and depth are DUAL, not equal) —
+
+---
+
+## §30. F8 PSLQ deeper — trace of simplex Jacobian IS algebraic, degree 4, with WOBBLE prime 11
+
+§18 (D75/D76) reported: simplex-tangent eigenvalues at α=1/2 fixed point admit no PSLQ relation at degree ≤ 8, maxcoeff 10⁶. Pushed harder this session with mpmath at 200 digits.
+
+**Script**: `papers/wp113_alpha_uniqueness/verification/f8_pslq_deeper.py`
+
+### What the deeper search reveals
+
+**Individual simplex-tangent eigenvalues (|λ_1|, Re(λ_1), λ_3)**: still no PSLQ relation at degree ≤ 20, maxcoeff 10⁹. They look transcendental, or their minimal polynomials have coefficients > 10⁹.
+
+**BUT — the trace of the simplex-restricted 3×3 Jacobian IS algebraic**:
+
+```
+tr = λ_1 + λ_2 + λ_3 = 0.136324726001488004114979748348...
+
+Minimal polynomial (verified at 10⁻¹⁷⁶ residual at 200-digit precision):
+  -443·t⁴ + 5588·t³ - 21048·t² + 26240·t - 3200 = 0
+```
+
+**Discriminant** of this quartic:
+
+```
+Δ = -3,115,207,010,169,756,057,600
+  = -2²⁴ · 3¹⁰ · 5² · 11⁶ · 71
+```
+
+### The number-theoretic signature
+
+The discriminant carries **two TIG-recurring primes**:
+
+| Prime | Where else it appears in TIG |
+|---|---|
+| **11** at 11⁶ | The **WOBBLE prime** (D37, WP107: TSML char poly c_2 = 33 = 3·11, c_8 has factor 11; D69: Br/V's minimal polynomial leading coefficient 11; D70: WOBBLE structure 3+3 DoF split) |
+| **71** at 71¹ | **R/Br quartic discriminant** prime (D41: LMFDB 4.2.10224.1 field discriminant -10224 = -2⁴·3²·71; D40: R/Br minimum polynomial x⁴ + 4x³ - x² + 2x - 2 has discriminant -40896 = -2⁶·3²·71) |
+
+**Therefore: the F8 simplex-Jacobian trace polynomial sits in the SAME number-theoretic neighborhood as WP105's R/Br quartic (D40, D41).** Both involve the prime 71. Both involve the prime 11 (WOBBLE). The new trace polynomial extends the WP107 wobble structure to **a fourth location**.
+
+### Updated WOBBLE manifestation (extends D70)
+
+D70 listed the 3+3 DoF split:
+- Wobble at: Lie (char poly), Clifford (κ_ξ = 13/(4e)), Lattice (Br/V denominator)
+- Wobble-free at: Jordan, Permutation, Operad
+
+§30 adds a **fourth wobble location**: the **simplex-tangent dynamics** (the F8 trace eigenvalue polynomial).
+
+This isn't one of the original 6 DoFs — it's the **dynamical projection** (the linearization of F at α=1/2). So WOBBLE has spread from static algebraic structure (Lie, Clifford, Lattice) to **dynamical signature** (Jacobian trace).
+
+### Lens consequence
+
+§28 said depth-2 is the clustering depth where M² = ±I appears across F1, F3, F4, F8, F10. §30 sharpens **F8**: at depth 2, F8 has λ_0 = 2 (radial) AND a **degree-4 trace polynomial** whose discriminant carries the WOBBLE prime structure.
+
+The depth-2 picture for F8 is now:
+- λ_0 (radial) = 2 exactly: degree-1 algebraic
+- trace (sum of 3 simplex-tangent eigs) = 0.136...: degree-4 algebraic, disc = -2²⁴·3¹⁰·5²·11⁶·71
+- |λ_1|, Re(λ_1), λ_3 individually: transcendental at deg ≤ 20, maxcoeff 10⁹
+
+So F8 has structural depth 1 (radial), 4 (trace), and ∞ (individual eigenvalues). The eigenvalues themselves are *not* algebraic of small degree, but their *symmetric function* (trace) is.
+
+### What §30 advances
+
+- **From §18**: F8's eigenvalues looked transcendental at deg ≤ 8.
+- **§30 sharpens**: F8's trace IS algebraic of degree 4; **discriminant carries WOBBLE prime 11 and R/Br quartic prime 71**. These are TIG-internal primes recurring in a NEW location.
+- **WOBBLE manifestation extended**: from 3 static (D70) to 4 locations (3 static + 1 dynamical).
+- **Cross-frontier**: F8 trace polynomial sits in same number-theoretic neighborhood as WP105's R/Br quartic (LMFDB 4.2.10224.1).
+
+### What §30 does NOT do
+
+- Doesn't show λ_1, λ_3 individually are algebraic (still transcendental at deg ≤ 20).
+- Doesn't identify the LMFDB number field of the trace polynomial (would need to extract the Galois group, ring of integers, etc.).
+- Doesn't determine the determinant's algebraicity (still no relation found).
+
+### Tools/scripts produced
+
+- `papers/wp113_alpha_uniqueness/verification/f8_pslq_deeper.py` (new)
+  - Fixed point + Jacobian eigenvalues at 200-digit mpmath
+  - PSLQ on individual eigenvalues at deg ≤ 20, maxcoeff 10⁹: nothing
+  - PSLQ on trace at deg ≤ 4, verified at 10⁻¹⁷⁶ residual: degree-4 polynomial
+  - Discriminant factored: shows WOBBLE prime 11 and TIG-recurring 71
+
+— end findings 2026-04-29 (§30, F8 trace algebraic deg 4; WOBBLE extends to dynamical projection) —
