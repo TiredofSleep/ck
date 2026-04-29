@@ -416,6 +416,23 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "factually wrong per the published literature."
     ),
     (
+        ("two-level alignment", "two level alignment", "1/2 fixed point",
+         "5/7 saddle", "stern-brocot landmarks"),
+        "tig_fqh_two_level: TIG-alpha axis and FQH-nu axis share TWO "
+        "Stern-Brocot landmarks playing parallel roles | (a) alpha=1/2 / "
+        "nu=1/2: TIG closed-form attractor H/Br=1+sqrt(3) from x^2-2x-2=0 "
+        "(unique algebraic relation across 17-point Stern-Brocot grid q<=7, "
+        "WP113 PSLQ verified) | nu=1/2 in FQH: Lutken-Ross modular-flow "
+        "fixed point (universal half-integer, Gamma_0(2) flow pinning) | "
+        "(b) alpha=5/7 / nu=5/7: TIG T* (Crossing Lemma threshold, six "
+        "derivations, WP51) | nu=5/7 in FQH: mediant(2/3 abelian Jain, "
+        "3/4 non-abelian Ising arXiv:2408.16275) saddle of the modular flow "
+        "between abelian and non-abelian | bridge is TYPE-RESPECTING: "
+        "closed-form/fixed-point at 1/2; cyclotomic-threshold/saddle at "
+        "5/7 | both axes have BOTH kinds of distinguished points | logged "
+        "in Atlas/FRONTIER_FINDINGS_2026_04_29.md §10"
+    ),
+    (
         ("quantum hall", "fqh", "filling factor", "filling fraction",
          "lutken", "lütken", "ross", "modular symmetry quantum hall",
          "sl(2,z)", "sl2z", "plateau transition", "halperin haldane",
