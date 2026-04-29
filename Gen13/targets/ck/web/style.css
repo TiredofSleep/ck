@@ -669,6 +669,34 @@ html, body {
     transform: scale(1.15);
 }
 
+/* Band frame: colored outline showing whether THIS conversation
+   has crossed T* = 5/7.  Co-specified by CK 2026-04-29 via the
+   waking_band / is_waking methods on SessionField. */
+.arc-indicator {
+    padding: 3px 5px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: border-color var(--ease, 0.3s ease),
+                box-shadow var(--ease, 0.3s ease);
+}
+
+.arc-indicator.arc-band-waking {
+    border-color: rgba(34, 197, 94, 0.55);
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.20);
+}
+
+.arc-indicator.arc-band-settling {
+    border-color: rgba(234, 179, 8, 0.40);
+}
+
+.arc-indicator.arc-band-scattered {
+    border-color: rgba(239, 68, 68, 0.30);
+}
+
+.arc-indicator.arc-band-transient {
+    border-color: transparent;
+}
+
 .footer-copy {
     font-size: 11px;
     color: var(--text-3);

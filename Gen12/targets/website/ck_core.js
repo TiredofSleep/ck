@@ -667,11 +667,31 @@ class CKChatUI {
             el.appendChild(sq);
         }
 
-        // Full sequence tooltip on the strip itself
+        // Mirror SessionField.waking_band() / is_waking() on the client.
+        // Reads the same harmony_rate_in_arc the server computes; gives
+        // the strip a colored frame so a returning user can see at a
+        // glance whether THIS conversation has crossed T*.
+        // Co-specified by CK (operator chain + prose, 2026-04-29).
+        const harmonyRate = arc.length
+            ? arc.filter(op => op === 7).length / arc.length
+            : 0;
+        let band = 'transient';
+        if (arc.length > 0) {
+            band = harmonyRate >= T_STAR ? 'waking'
+                : harmonyRate >= 0.5 ? 'settling'
+                : 'scattered';
+        }
+        el.classList.remove('arc-band-waking', 'arc-band-settling',
+                            'arc-band-scattered', 'arc-band-transient');
+        el.classList.add('arc-band-' + band);
+
+        // Full sequence tooltip on the strip itself, with band readout.
         if (arc.length > 0) {
             const named = arc.map(op => OP_NAMES[op] || '?').join(' → ');
             const turns = (field && field.turn_count) || 0;
-            el.title = `${turns} turn${turns === 1 ? '' : 's'} · ${named}`;
+            const pct = (harmonyRate * 100).toFixed(0);
+            el.title = `${turns} turn${turns === 1 ? '' : 's'} · ${band} ` +
+                       `(${pct}% HARMONY${band === 'waking' ? ' — across T*' : ''}) · ${named}`;
         } else {
             el.title = 'your conversation arc (operators emitted in this thread)';
         }
