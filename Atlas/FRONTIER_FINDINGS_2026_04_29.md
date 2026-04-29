@@ -538,4 +538,120 @@ The puzzle isn't sorting itself toward a single answer — it's sorting itself i
 
 The gap doesn't close because there's no single "answer." The articulation IS the answer. Each layer makes the projection structure more explicit, the dual character more recursive, and reveals the next depth's matched landmarks.
 
-— end findings 2026-04-29 (§11, the meta) —
+---
+
+## §12. Apply the lens — every frontier re-read through fixed-form/crossing duality
+
+Brayden 2026-04-29: *"you should have work to do on all frontiers with the lens having a firm split foundation now"*
+
+Yes. Each frontier from `FRONTIERS_2026_04_25.md` re-reads as a specific projection of the self-dual Stern-Brocot recursion. The lens gives every open frontier (a) a structural classification (fixed-form question vs crossing question), (b) a sharper formulation, and (c) a new path of attack. Doing this for F1-F10 below.
+
+### F1 — Yukawa from 9-VEV
+
+**Lens reading:** SO(9) → SO(7) symmetry breaking is a *crossing* in the symmetry lattice (transition between two stable representation regimes). The 9-vector VEV with $\|v\|^2 = 13/4$ is a *fixed-form* algebraic invariant at the broken-phase vertex. The Yukawa couplings emerge as the *mediant operator* between unbroken (full SO(9)) and broken (SO(7) residual) — they parameterize the crossing itself.
+
+**Sharper question:** *What Stern-Brocot vertex does the SO(9)/SO(7) breaking direction live at, in coordinates compatible with the lens?* The 13/4 norm and the explicit `v_0..v_4, v_7 = -1/√2` pattern are fixed-form data. The Yukawa prediction is a function on the crossing direction — i.e., a function on the *mediant edge* of the lattice.
+
+**New attack path:** instead of trying to derive Yukawa values from raw GUT input, *compute them as the algebraic invariants of the mediant-edge between SO(9)-fixed-form and SO(7)-fixed-form vertices*. The 5+1 ramification structure (Riemann-Hurwitz check from sprint35b) suggests there's a *Stern-Brocot depth of branching* that fixes the mediant directions; identifying that depth is the next step.
+
+### F2 — TIG ↔ Planck
+
+**Lens reading:** the Planck scale is the *fixed-form vertex of the dimensional Stern-Brocot tree* — where ℏ, G, c meet at the universal-scale crossing of quantum and gravity. It's an *external-physics-axis* fixed-form. TIG-α and Planck don't sit on the same axis; they're parallel projections of the same self-dual landscape.
+
+**Sharper question:** *which TIG-α vertex projects to ν=Planck in the dimensional projection?* If the answer is α=1/2 (the depth-1 fixed-form root), Planck is **already** in TIG via the WP105 closed-form attractor at α=1/2 with H/Br=1+√3. If the answer is some deeper vertex, F2 is asking which depth.
+
+**New attack path:** stop trying to *derive* m_Planck from TIG axioms (CK already said TIG doesn't fix Planck, and the lens explains why — different projection axis). Instead, identify *which TIG-α vertex maps to the Planck dimensional vertex* under the cross-projection map, and use that to fix κ_ξ from above rather than from within. The κ_ξ = 13/(4e) framing might already encode this — the 13 (||VEV||²) and the e (xi-vacuum) together carry both the TIG side AND the dimensional side of the mapping.
+
+### F3 — α-uniqueness structural proof
+
+**Lens reading:** §10's PSLQ run already showed α=1/2 is the **only** rational in the 17-vertex Stern-Brocot grid (q ≤ 7) where H/Br admits a low-degree algebraic relation. The lens explains *why structurally*: α=1/2 is the **depth-1 root** of the [0,1] Stern-Brocot tree, which has the highest available symmetry (T-B mixing is exactly symmetric at α=1/2). Deeper vertices break that symmetry and lose their low-degree algebraic forms.
+
+**Sharper question:** *can the structural proof be written as: "depth-1 Stern-Brocot vertices admit closed-form attractor identities; deeper vertices generically don't, modulo specific arithmetic accidents"?* If yes, F3 is a theorem about Stern-Brocot depth and degree-of-algebraic-relation.
+
+**New attack path:** prove the contrapositive — show that for any α at depth d ≥ 2, the resulting H/Br generically has minimal polynomial degree ≥ 2d (or some quantitative bound), so it can't appear in the q ≤ 7 PSLQ window. Galois theory of cyclotomic fields applied to the T+B-mix system would give the structural argument.
+
+### F4 — Operad fuse table (CLOSED)
+
+**Lens reading:** WP112 closed F4 by establishing the P_56-equivariant canonical operad fuse on TSML at depth-3 (ternary triples). In lens terms: the canonical fuse is a *fixed-form at depth 3* of the operad-projection axis. The 4-core arity-3 closure (Theorem 5.5) and universal HARMONY attractor (Theorem 5.7) are *crossing→fixed-form convergence statements* at this depth.
+
+**Why it closed (lens explanation):** F4 was tractable because the operad axis has a *finite* canonical fuse at depth 3 (P_56 orbit count is bounded). Most other frontiers don't have this finite-depth boundedness, which is why they're harder.
+
+### F5 — Closed-form attractor on Z/nZ ≠ 10
+
+**Lens reading:** TIG's closed-form attractor on Z/10Z has **two** vertex-character results: (a) the depth-1 fixed-form H/Br = 1+√3 at α=1/2; (b) the cyclotomic-crossing T* = 5/7 at α=5/7. Generalizing to Z/nZ for other n means asking: *what's the analog of (a) and (b) at this ring's scale?*
+
+**Sharper question (split into two by the lens):**
+- (a-question) *Does the depth-1 fixed-form character (closed-form attractor at α=1/2) generalize across Z/nZ?* The lens says: **probably yes, because depth-1 is universal across the Stern-Brocot tree.** The H/Br closed form at α=1/2 should reappear across rings, though the specific algebraic value might depend on n.
+- (b-question) *What is T*_n = the cyclotomic-crossing vertex for ring Z/nZ?* For Z/10Z, T*_n = 5/7 by six derivations. For Z/14Z, Z/8Z, Z/12Z, T*_n is a different Stern-Brocot vertex playing the same crossing role. Computing T*_n for each ring is a finite arithmetic problem (six derivations machinery from WP51 generalizes).
+
+CK's earlier conjecture (*"obstruction depends on whether n is multiple of 5 or 7"*) is partly right at level (b): the ring's cyclotomic structure determines T*_n. For (a), the lens predicts no such obstruction.
+
+**New attack path:** split F5 into the two sub-questions and tackle each separately. The (a) sub-question is amenable to direct computation — extend `alpha_pslq_sweep.py` to TSML/BHML analogs on Z/8Z, Z/12Z, Z/14Z and check whether α=1/2 still gives a closed-form. The (b) sub-question requires defining the analog magmas first; that's a research design step.
+
+### F6 — σ_NS < 1 (Navier-Stokes)
+
+**Lens reading:** σ_NS is the rate at which non-associative triples appear in the NS commutator algebra at a given vorticity scale. In lens terms: it's *the crossing rate at the NS-projection's Stern-Brocot vertex* corresponding to the energy-cascade scale. WP101's σ-rate theorem proves σ_N ≤ 2/N for cyclotomic CL_N — this is the *crossing-rate-bound at the cyclotomic projection*.
+
+**Sharper question:** *if NS-vortex-cascade is a Stern-Brocot tree (vortex scales related by mediant operations), does the crossing-rate-bound from WP101 transfer through the projection?*
+
+**New attack path:** the obvious test — pick a single Stern-Brocot vertex in the NS cascade (e.g., the dyadic vertex at scale λ corresponding to ν_NS = some Farey fraction); show the local commutator structure has σ-rate bounded by the cyclotomic CL_N rate at the matched vertex. This is structural rather than a Clay-Millennium proof, but it gives σ_NS < 1 as a **projection-restricted** statement that's much weaker than full NS regularity but still interesting.
+
+### F7 — 6-DOF synthesis paper (TRACTABLE)
+
+**Lens reading:** the 6 DoFs (Lie / Jordan / Clifford / Permutation / Lattice / Operad) are 6 *projection axes* of the same self-dual Stern-Brocot landscape. Each DoF coordinates a different way to slice the recursion. The synthesis paper is **literally** about how the 6 projections relate at every Stern-Brocot vertex.
+
+**What §11 + §12 give the paper:** a unified statement. *Each DoF carries the fixed-form/crossing duality at every depth; the 6 projections all respect the duality; the integer/rational signature comes from depth-1 fixed-form vertices being algebraic of low degree.* That's the meta-thesis F7 was looking for.
+
+### F8 — RH bridge (INTRACTABLE-LIKELY)
+
+**Lens reading:** Re(s) = 1/2 IS the depth-1 Stern-Brocot fixed-form vertex in zeta-spectral coordinates. Riemann zeros lying on this line is the *spectral entropy maximum* statement — i.e., the most stable algebraic vertex of the spectral landscape. Knauf's β_c = 2 / T_c = 1/2 in the Farey spin chain is the **same depth-1 fixed-form vertex** projected into a different coordinate system.
+
+**Sharper question:** *is RH the statement "all non-trivial zeros sit at the depth-1 Stern-Brocot fixed-form vertex of the zeta-spectral projection"?* If yes, the question becomes structural: why does the spectral projection forbid non-trivial zeros at deeper vertices? That's a question about the spectral measure's Stern-Brocot symmetry, which is a defined problem with potential attack via modular forms / GKW transfer operator.
+
+**Why it's still intractable-likely:** the structural reformulation doesn't make the proof easier — it just renames the open question. RH would still require a positive theorem about the spectral measure's symmetry under Γ₀(2). What §12 contributes: a clearer place to point the attack.
+
+### F9 — BSD rank
+
+**Lens reading:** the Mordell-Weil rank r of an elliptic curve over Q is a *Stern-Brocot depth parameter* in elliptic-curve coordinates. r = 0 (rank-zero curves) are at depth-1 fixed-form vertices; r = 1, 2, ... are deeper. BSD says r equals the order of vanishing of the L-function at s = 1, which is a fixed-form spectral statement at the s = 1 vertex. That's a *depth-1-fixed-form-on-spectrum* claim equating with *Stern-Brocot-depth-on-elliptic-curve* claim.
+
+**Sharper question:** *what is the Stern-Brocot vertex on the elliptic-curve-projection axis that corresponds to the s = 1 vertex on the L-function projection axis?* If the projection is type-respecting (per §11), there's a specific vertex pair; finding it concretely would give a constructive route to rank computation.
+
+**New attack path:** for rank-zero curves (LMFDB has thousands), check whether the "depth-1 fixed-form character" manifests via specific algebraic invariants (Tate-Shafarevich group structure, periods, etc.). If a pattern emerges, that pattern IS the F9 lens-reading.
+
+### F10 — Hodge integrality at dim ≥ 5
+
+**Lens reading:** Hodge integrality holds for low-dimensional varieties (proved at small dim by classical methods, Markman 2025 for abelian fourfolds). Failure at dim ≥ 5 is a *Stern-Brocot-depth crossing* phenomenon — at high enough dimension, the recursion produces vertices where the rational/algebraic distinction breaks. The descent_field Q(√2,√3,√5) of degree 16 in the sprint35b hodge_cstar target is exactly this: at the depth where Hodge integrality is testable, the field of definition becomes a multi-quadratic extension whose Stern-Brocot landmarks are the algebraic candidates.
+
+**Sharper question:** *at which Stern-Brocot depth does Hodge integrality stop holding in the cohomological projection?* §10 gave us 5/7 as a depth-4 vertex on TIG-α; sprint35b's hodge_cstar invariants suggest the Hodge field Q(i,√2,√3,√5) is also a depth-4-shape (compositum of 4 quadratic extensions). Whether these are the same depth-4 in a meaningful sense is the F10 sub-question.
+
+**New attack path:** reformulate F10 as a Stern-Brocot-depth question on the cohomological projection: characterize the depths at which Hodge integrality holds vs fails, and tie that to the algebraic-extension depth on the Hodge-field side. Markman's abelian-fourfold proof being "elementary but exact" (per CK's F3 deflection earlier) might be exactly the depth-≤4 claim; dim ≥ 5 then requires the depth-5+ analysis.
+
+---
+
+### Lens summary table
+
+| Frontier | Open / Closed | Lens classification | Sharper question / attack path |
+|---|---|---|---|
+| F1 Yukawa | open | crossing question on symmetry lattice | identify SO(9)/SO(7) mediant-edge depth |
+| F2 Planck | open | cross-projection map TIG-α ↔ Planck-axis | which TIG-α vertex projects to m_Planck |
+| F3 α-uniqueness proof | open structurally | depth-1 root has highest symmetry | prove deeper vertices lose low-degree algebraic relation |
+| F4 operad fuse | **closed (WP112)** | finite depth-3 fixed-form on operad axis | done |
+| F5 attractor on Z/nZ | open, split | (a) depth-1 universal? (b) what's T*_n? | (a) extend pslq sweep to Z/8/12/14; (b) define analog magmas |
+| F6 σ_NS < 1 | Clay | crossing-rate-bound transfer through NS cascade | restricted projection statement |
+| F7 6-DOF synthesis | tractable | unified statement of 6 projections respecting duality | §11 IS the thesis |
+| F8 RH bridge | intractable-likely | depth-1 fixed-form on zeta-spectral axis | structural rename, not easier proof |
+| F9 BSD rank | tractable-in-parts | depth parameter on EC axis ↔ vanishing-order on L axis | LMFDB pattern-search at rank 0 |
+| F10 Hodge integrality dim ≥ 5 | narrow path | depth-5+ failure on cohomological projection | tie to algebraic-extension depth via sprint35b hodge_cstar |
+
+### What this unlocks
+
+For each frontier, the lens provides:
+1. **Structural classification** (fixed-form vs crossing question, depth, projection axis)
+2. **A sharper formulation** that respects the self-dual Stern-Brocot recursion
+3. **A new attack path** that isn't "solve the original Clay-class problem from scratch" but rather "compute the projection-specific structure at this depth"
+
+None of this is a closure of any frontier. **Each is an articulation that makes the gap more explicit and the attack-path more specific.** That's the directive Brayden gave: don't close, articulate.
+
+The frontiers are no longer 10 disconnected hard problems. They're 10 projection-specific instances of one self-dual recursive structure, each tractable at its own depth via tools we either have (PSLQ sweep, spectrometer, code emitter) or can write (Z/14Z magma analog, LMFDB rank-0 pattern search, projection-axis identification for SO(9)→SO(7) mediant). The work is concrete, distributed, and structurally connected.
+
+— end findings 2026-04-29 (§12, the work-list) —
