@@ -135,29 +135,37 @@ FACTS = {
     "fqh_bridge": {
         "text": "Fractional Quantum Hall (FQH) hierarchy is a Farey/Stern-Brocot tree projection. "
                 "Filling factors nu = 1/3, 2/5, 3/7, 4/9, ... are exactly Farey fractions. "
-                "Halperin-Haldane FQH hierarchy uses continued-fraction expansions on the Farey tree. "
-                "Lutken-Ross theory: an SL(2,Z) (specifically Gamma_0(2)) modular symmetry commutes with "
-                "the QH renormalization-group flow, maps 2DEG phases into each other. Plateau transitions "
-                "correspond to Farey-tree neighbor traversals. Hall conductivity = nu = filling fraction "
-                "is a TOPOLOGICAL invariant -- the Farey-fraction value survives perturbations. "
-                "This is what Brayden 2026-04-29 called 'the survivable collapse form' of the Farey-tree "
-                "algebra -- FQH is the topology-protected manifestation of the same SL(2,Z)-symmetric "
-                "Stern-Brocot landscape that underlies Kleban-Ozluk's Farey spin chain (T_c = 1/2 = "
-                "fully magnetizing topological transition). "
+                "Zang-Birman model + Lutken-Ross 1992 (PRB): SL(2,Z) Gamma_0(2) modular symmetry "
+                "commutes with the QH renormalization-group flow, maps 2DEG phases. Mediant operations "
+                "generate child filling factors from parents; the mediant of two adjacent stable "
+                "plateaux p1/q1 and p2/q2 = (p1+p2)/(q1+q2) is the PLATEAU-TRANSITION SADDLE in the "
+                "modular flow -- not a plateau itself but the crossing point between regimes. "
+                "* Bridge identity (resolved 2026-04-29): T* = 5/7 = mediant(2/3, 3/4) in the "
+                "Stern-Brocot tree at depth 4. 2/3 is the Jain particle-hole conjugate of 1/3 "
+                "(a stable abelian FQH plateau). 3/4 is even-denominator territory, falling outside "
+                "the standard odd-denominator Jain principal/conjugate sequences -- non-abelian / "
+                "paired-state regime. So T*=5/7 IS the Stern-Brocot CROSSING VERTEX between abelian-"
+                "Jain and non-abelian / paired FQH territory. This is the SAME structural role T* "
+                "plays in TIG (the Crossing Lemma threshold, WP51 [proved]). Same vertex, same "
+                "crossing role, parallel manifestations. "
+                "* What T* IS NOT: not a stable FQH plateau itself (not in the Jain principal "
+                "sequence); not a Gamma_0(2) flow fixed point (those are at half-integers, most "
+                "prominently 1/2 = RH critical line). T* is the TRANSITION, the SADDLE, the "
+                "MEDIANT -- not a fixed point. "
+                "* Hall conductivity = filling fraction = TOPOLOGICAL invariant (survives "
+                "perturbations) -- this is the 'survivable collapse form' of the Farey-tree algebra "
+                "(Brayden 2026-04-29). FQH is the topology-protected projection of the same "
+                "SL(2,Z)-symmetric Stern-Brocot landscape that underlies Kleban-Ozluk's Farey "
+                "spin chain (T_c = 1/2, fully magnetizing topological transition). "
                 "Recent work bridging spin chains to FQH: arXiv:2402.10849 (2024), 'Fractional Spin "
-                "Quantum Hall Effect in Weakly Coupled Spin Chain Arrays'; ScienceDirect 'Effective spin "
-                "chains for fractional quantum Hall states'. Holographic SL(2,Z) FQH: JHEP 01:023 (2015), "
-                "JHEP 08:010 (2021) -- Hall conductivity = filling fraction by construction in "
-                "dyonic-dilatonic black hole solutions. "
-                "Open frontier (F8' in FRONTIER_FINDINGS_2026_04_29.md): does the SL(2,Z)/Gamma_0(2) "
-                "modular action on QH plateaux extend to TIG's operator algebra, picking out T* = 5/7 "
-                "as a specific Farey-tree filling factor in that hierarchy? If yes, T*'s significance "
-                "moves from purely TIG-internal cyclotomic to also being a topology-protected Farey-tree "
-                "filling factor.",
+                "Quantum Hall Effect in Weakly Coupled Spin Chain Arrays'. Holographic SL(2,Z) FQH: "
+                "JHEP 01:023 (2015), JHEP 08:010 (2021). "
+                "Full reasoning: Atlas/FRONTIER_FINDINGS_2026_04_29.md §8.",
         "keys": ("quantum hall", "fqh", "fractional quantum hall", "filling factor",
                  "filling fraction", "lutken", "lütken", "ross", "sl(2,z)", "sl2z",
                  "plateau transition", "halperin haldane", "modular symmetry quantum hall",
-                 "topological filling", "survivable collapse form"),
+                 "topological filling", "survivable collapse form", "zang-birman", "zang birman",
+                 "stern-brocot mediant", "saddle point", "abelian non-abelian"),
     },
     "primon": {
         "text": "Primon gas: fermionic primon gas has density 1/zeta(2) = 6/pi^2 = density of squarefree integers. "

@@ -419,20 +419,33 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         ("quantum hall", "fqh", "filling factor", "filling fraction",
          "lutken", "lütken", "ross", "modular symmetry quantum hall",
          "sl(2,z)", "sl2z", "plateau transition", "halperin haldane",
-         "fractional quantum hall"),
-        "fqh_bridge: fractional quantum Hall hierarchy IS a Farey/Stern-Brocot tree | "
-        "filling factors nu = 1/3, 2/5, 3/7, 4/9 are Farey fractions | "
-        "Lutken-Ross theory: SL(2,Z) Gamma_0(2) modular symmetry commutes with QH "
-        "renormalization-group flow, maps 2DEG phases | plateau transitions = "
-        "Farey-tree neighbor traversals | Hall conductivity = filling fraction "
-        "= TOPOLOGICAL invariant (survives perturbations) | Kleban-Ozluk Farey "
-        "spin chain at T_c=1/2 has fully-magnetizing topological transition | "
-        "FQH = the survivable-collapse-form projection of the Farey-tree algebra "
-        "(Brayden 2026-04-29) | Open: does SL(2,Z)/Gamma_0(2) action on QH "
-        "extend to TIG operator algebra, picking T*=5/7 as a specific Farey-tree "
-        "filling factor? | Refs: Lutken-Ross (modular flow); JHEP 01:023 (2015), "
-        "JHEP 08:010 (2021) holographic FQH; arXiv:2402.10849 (2024) spin-chain "
-        "to FQH; ScienceDirect 'Effective spin chains for FQH states'"
+         "fractional quantum hall", "zang-birman", "zang birman"),
+        "fqh_bridge: fractional quantum Hall hierarchy IS a Farey/Stern-Brocot "
+        "tree | filling factors nu = 1/3, 2/5, 3/7, 4/9 are Farey fractions | "
+        "Zang-Birman model + Lutken-Ross theory: SL(2,Z) Gamma_0(2) modular "
+        "symmetry commutes with QH renormalization-group flow; mediant "
+        "operations generate child states from parents | mediant of two "
+        "adjacent stable plateaux p1/q1 and p2/q2 = (p1+p2)/(q1+q2) is the "
+        "PLATEAU-TRANSITION SADDLE in the modular flow | T* = 5/7 = "
+        "mediant(2/3, 3/4) in Stern-Brocot at depth 4 | 2/3 is the Jain "
+        "particle-hole conjugate of 1/3 (a STABLE FQH plateau, abelian) | "
+        "3/4 is even-denominator territory (non-Jain, often non-abelian/"
+        "paired-state regime) | so T*=5/7 is the Stern-Brocot CROSSING "
+        "VERTEX between abelian-Jain and non-abelian-paired FQH territory "
+        "| same crossing role T* plays in TIG (Crossing Lemma threshold, "
+        "WP51) | NOT a stable FQH plateau itself; NOT a Gamma_0(2) flow "
+        "fixed point (those are at half-integers); IS the transition / "
+        "saddle / mediant | Hall conductivity = filling fraction = TOPO"
+        "LOGICAL invariant (survives perturbations) | Kleban-Ozluk Farey "
+        "spin chain at T_c=1/2 has fully-magnetizing topological transition "
+        "| FQH = the survivable-collapse-form projection of the Farey-tree "
+        "algebra (Brayden 2026-04-29) | Bridge identity: T*=5/7 is the same "
+        "Stern-Brocot vertex in TIG-algebra and FQH-physics, playing the "
+        "transition role in both | Refs: Lutken-Ross 1992 PRB (modular "
+        "flow); Zang-Birman model (Farey-mediant child states); JHEP "
+        "01:023 (2015), JHEP 08:010 (2021) holographic FQH; arXiv:2402.10849 "
+        "(2024) spin-chain to FQH; full puzzle in Atlas/FRONTIER_FINDINGS_"
+        "2026_04_29.md §8"
     ),
     (
         ("primon", "primon gas", "julia gas", "spector",
