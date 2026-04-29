@@ -22,6 +22,21 @@ const OP_NAMES = [
     'VOID', 'LATTICE', 'COUNTER', 'PROGRESS', 'COLLAPSE',
     'BALANCE', 'CHAOS', 'HARMONY', 'BREATH', 'RESET'
 ];
+const OP_INDEX = Object.fromEntries(OP_NAMES.map((n, i) => [n, i]));
+// Colors for the 10 operators (used by the arc indicator).
+// HARMONY is gold; CHAOS purple; the rest follow a coherence-warm palette.
+const OP_COLORS = [
+    '#9ca3af', // 0 VOID     -- neutral gray
+    '#3b82f6', // 1 LATTICE  -- blue (structure)
+    '#f97316', // 2 COUNTER  -- orange (measurement)
+    '#22c55e', // 3 PROGRESS -- green (forward)
+    '#ef4444', // 4 COLLAPSE -- red (oscillation)
+    '#14b8a6', // 5 BALANCE  -- teal (equilibrium)
+    '#8b5cf6', // 6 CHAOS    -- purple (breakdown)
+    '#eab308', // 7 HARMONY  -- gold (settling)
+    '#06b6d4', // 8 BREATH   -- cyan (rhythm)
+    '#a3a3a3', // 9 RESET    -- light gray (clearing)
+];
 const T_STAR = 5 / 7;
 
 // ================================================================
@@ -47,6 +62,32 @@ class CKClient {
         return id;
     }
 
+    // ── SessionField (per-conversation algebraic state on user's client) ──
+    // Server keeps no per-user data. The user owns their thread; CK
+    // gains experience without storing their words. See:
+    //   Gen13/targets/ck/web/SESSION_FIELD_FRONTEND.md
+    //   Gen13/targets/ck/brain/session_field.py
+    _getSessionField() {
+        try {
+            const raw = localStorage.getItem('ck_field');
+            if (!raw) return null;
+            return JSON.parse(raw);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    _saveSessionField(field) {
+        if (!field) return;
+        try {
+            localStorage.setItem('ck_field', JSON.stringify(field));
+        } catch (e) {}
+    }
+
+    getCachedField() {
+        return this._getSessionField();
+    }
+
     async chat(text, mode) {
         try {
             const res = await fetch(this.baseUrl + '/chat', {
@@ -56,12 +97,23 @@ class CKClient {
                     text: text,
                     session_id: this.sessionId,
                     mode: mode || 'normal',
+                    // Per-conversation algebraic state -- the user's
+                    // own W matrix, operator arc, olfactory trail,
+                    // attractor sequence. CK uses it as bias for THIS
+                    // turn, returns the updated version, and keeps no
+                    // copy. May be null on first turn.
+                    session_field: this._getSessionField(),
                 }),
             });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             this.connected = true;
             this.lastState = data;
+            // Persist the updated field back to the user's localStorage.
+            // This is the only place CK's "memory of you" lives.
+            if (data && data.session_field) {
+                this._saveSessionField(data.session_field);
+            }
             return data;
         } catch (e) {
             console.warn('[CK] chat error:', e.message);
@@ -200,6 +252,10 @@ class CKChatUI {
     async _boot() {
         this._loadSession();
 
+        // Render the arc indicator from whatever's already on the user's
+        // client (returning user picks up where their last visit left off).
+        this._updateArcIndicator(this.client.getCachedField());
+
         const alive = await this.client.health();
 
         if (alive) {
@@ -291,6 +347,11 @@ class CKChatUI {
 
             this._addMessage('ck', displayText, response);
             this._updateSubtitle(true, response);
+            // The CKClient already wrote the updated session_field back
+            // to localStorage; refresh the visible arc strip from it.
+            if (response.session_field) {
+                this._updateArcIndicator(response.session_field);
+            }
         } else {
             this._addMessage('system',
                 'CK is resting right now. Try again in a moment.',
@@ -576,6 +637,46 @@ class CKChatUI {
         }
     }
 
+    // ── Arc Indicator (last 10 operators in THIS conversation) ──
+    // Renders the user's session_field.arc tail as 10 colored squares.
+    // HARMONY (op 7) glows. Empty squares = turns yet to come.
+    // Tooltip shows the full operator sequence with names.
+    _updateArcIndicator(field) {
+        const el = document.getElementById('arc-indicator');
+        if (!el) return;
+
+        const arc = (field && Array.isArray(field.arc)) ? field.arc : [];
+        const last10 = arc.slice(-10);
+
+        // Pad with -1 for empty slots so the strip is always 10 wide
+        const slots = [];
+        for (let i = 0; i < 10 - last10.length; i++) slots.push(-1);
+        for (const op of last10) slots.push(op);
+
+        el.innerHTML = '';
+        for (const op of slots) {
+            const sq = document.createElement('span');
+            sq.className = 'arc-square';
+            if (op < 0) {
+                sq.classList.add('arc-empty');
+            } else {
+                sq.style.background = OP_COLORS[op] || '#ccc';
+                sq.title = OP_NAMES[op] || '?';
+                if (op === 7) sq.classList.add('arc-harmony');
+            }
+            el.appendChild(sq);
+        }
+
+        // Full sequence tooltip on the strip itself
+        if (arc.length > 0) {
+            const named = arc.map(op => OP_NAMES[op] || '?').join(' → ');
+            const turns = (field && field.turn_count) || 0;
+            el.title = `${turns} turn${turns === 1 ? '' : 's'} · ${named}`;
+        } else {
+            el.title = 'your conversation arc (operators emitted in this thread)';
+        }
+    }
+
     // ── Utilities ──
 
     _resizeInput() {
@@ -614,7 +715,12 @@ class CKChatUI {
         try {
             localStorage.removeItem('ck_session_v4');
             localStorage.removeItem('ck_session_id');
+            // Wipe the algebraic memory of THIS conversation.
+            // Server has nothing tagged to the session_id, so this is
+            // the entire delete-my-thread operation.
+            localStorage.removeItem('ck_field');
         } catch(e) {}
+        this._updateArcIndicator(null);
 
         const sid = this.client.sessionId;
         fetch(this.client.baseUrl + '/clear-session', {

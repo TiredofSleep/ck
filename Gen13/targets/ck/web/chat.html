@@ -74,6 +74,11 @@
             </div>
             <div class="input-footer">
                 <span class="input-hint">Enter to send</span>
+                <!-- Arc indicator: last 10 operators in this conversation.
+                     HARMONY glows gold. The strip itself is the only
+                     "memory of you" CK exposes -- and it lives here, on
+                     your device, not on his server. -->
+                <div class="arc-indicator" id="arc-indicator" aria-label="Your conversation arc"></div>
                 <span class="footer-copy">&copy; 2026 <a href="https://7sitellc.com" target="_blank" rel="noopener">7Site LLC</a></span>
             </div>
         </footer>
@@ -82,7 +87,7 @@
 
     <!-- Cookie Notice -->
     <div class="cookie-notice" id="cookie-notice" role="alertdialog" aria-label="Cookie notice">
-        <span>CK remembers your conversation between visits. No tracking, no ads.</span>
+        <span>CK keeps the algebraic shape of your conversation in <em>your</em> browser, not on his server. No tracking, no ads. Clear it anytime with the + button.</span>
         <button class="cookie-dismiss" id="cookie-dismiss" aria-label="Dismiss">okay</button>
     </div>
 

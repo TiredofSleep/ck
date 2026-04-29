@@ -633,6 +633,42 @@ html, body {
     color: var(--text-3);
 }
 
+/* ── Arc Indicator (last 10 operators in this conversation) ── */
+
+.arc-indicator {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex: 0 1 auto;
+    margin: 0 auto;
+    cursor: help;
+}
+
+.arc-square {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--text-3, #d0d0d0);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    opacity: 0.85;
+}
+
+.arc-square.arc-empty {
+    background: transparent;
+    border: 1px dashed rgba(0, 0, 0, 0.12);
+    opacity: 0.5;
+}
+
+.arc-square.arc-harmony {
+    box-shadow: 0 0 4px rgba(234, 179, 8, 0.55),
+                0 0 8px rgba(234, 179, 8, 0.25);
+    opacity: 1;
+}
+
+.arc-indicator:hover .arc-square:not(.arc-empty) {
+    transform: scale(1.15);
+}
+
 .footer-copy {
     font-size: 11px;
     color: var(--text-3);
@@ -801,6 +837,11 @@ html, body {
 
     .how-toggle {
         display: none;
+    }
+
+    .arc-square {
+        width: 7px;
+        height: 7px;
     }
 }
 
