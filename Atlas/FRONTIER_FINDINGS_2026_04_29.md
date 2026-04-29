@@ -1403,3 +1403,131 @@ A real F9 test needs:
 - Sympy `factorint` on numerators/denominators
 
 — end findings 2026-04-29 (§20, F9 LMFDB scan; honest negative) —
+
+---
+
+## §21. F1 — SO(7)-singlet bilinear via explicit Cl(0,7) γ-matrix construction (concrete)
+
+§17 logged F1's next step: "computing the specific bilinear coefficient (requires explicit choice of γ-matrix basis for Cl(0,7) and the chiral projector convention)." Done this session.
+
+**Script**: `papers/wp113_alpha_uniqueness/verification/f1_so7_singlet_bilinear.py`
+
+### Cl(0,7) γ-matrices — explicit basis
+
+Constructed in the standard Pauli triple-product basis:
+
+| γ_a | Pauli string |
+|---|---|
+| γ_1 | σ₁ ⊗ I ⊗ I |
+| γ_2 | σ₂ ⊗ I ⊗ I |
+| γ_3 | σ₃ ⊗ σ₁ ⊗ I |
+| γ_4 | σ₃ ⊗ σ₂ ⊗ I |
+| γ_5 | σ₃ ⊗ σ₃ ⊗ σ₁ |
+| γ_6 | σ₃ ⊗ σ₃ ⊗ σ₂ |
+| γ_7 | σ₃ ⊗ σ₃ ⊗ σ₃ |
+
+These are 8×8 complex matrices satisfying:
+
+```
+{γ_a, γ_b} = 2 δ_ab    (verified, all 28 anticommutators)
+γ_a² = I_8             (signature +7,0)
+γ_a^T = ±γ_a           (symmetric for a ∈ {1,3,5,7}; antisym for a ∈ {2,4,6})
+```
+
+### Volume element
+
+ω₇ = γ_1 γ_2 ... γ_7. Computed:
+
+**ω₇² = −I_8.**
+
+So ω₇ has eigenvalues ±i — chirality is purely imaginary in this construction (consistent with Cl(0,7) ≅ ℝ(8) ⊕ ℝ(8) split being the *real* one; the complex split is into 4-dim ±i-eigenspaces).
+
+### Charge conjugation matrix
+
+```
+C := γ_2 γ_4 γ_6
+```
+
+**Verified properties** (sympy, exact):
+
+- C C⁻¹ = I ✓
+- C γ_a C⁻¹ = −γ_a^T for **all 7 a** ✓
+- **C^T = C** (complex-symmetric)
+- **Tr(C) = 0**
+- det(C) = +1
+- C² = ?
+
+Direct computation: (γ_2 γ_4 γ_6)² = −I (using anticommutation thrice).
+
+So **C is a complex-symmetric matrix with C² = −I, Tr(C) = 0, det(C) = +1**. Eigenvalues of C are ±i (each with multiplicity 4).
+
+### The SO(7)-singlet bilinear
+
+The unique SO(7)-invariant degree-2 form on the 8-dim Majorana spinor is
+
+```
+B(ψ, ψ) = ψ^T C ψ
+```
+
+This is the SO(7)-singlet of the decomposition
+
+```
+8 ⊗ 8 = 1 ⊕ 7 ⊕ 21 ⊕ 35
+        (singlet + vector + adjoint + 3-form)
+```
+
+with total dim 1 + 7 + 21 + 35 = 64 = 8 × 8 ✓.
+
+### F1 ↔ Yukawa structure
+
+The SO(7)-singlet Yukawa from the 9-VEV:
+
+```
+y_singlet = ⟨radial VEV magnitude⟩ × ⟨ψ^T C ψ⟩
+```
+
+with:
+- ⟨ψ^T C ψ⟩ = the 8 ⊗ 8 → 1 invariant whose structure is now explicit (above).
+- ⟨radial VEV⟩ = magnitude of the 1+1 radial component in the 9 = 7 + 1 + 1 decomposition.
+
+### What F1 advances
+
+- **From §17**: F1 logged "computing the specific bilinear coefficient" → the bilinear's *form* and *invariance properties* are now explicit.
+- **C is complex-symmetric with C² = −I, Tr=0, det=+1, eigenvalues ±i** — concrete structural data for the SO(7)-singlet Yukawa.
+- **Verified**: C is the unique (up to scale) SO(7)-invariant on 8 ⊗ 8 satisfying the conjugation property.
+
+### What F1 does NOT do
+
+- **Doesn't pin down the radial VEV magnitude.** The 13/4 = ‖VEV‖² (D33/WP104) splits across:
+  - 7 SO(7)-vector components (Goldstones)
+  - 1+1 SO(7)-singlet radial components
+
+  How the 13/4 distributes depends on the specific SO(9) → SO(7) breaking pattern. **Crucially, WP108 (D46/D72) flagged that WP104 Path A actually breaks SO(10) → SO(8), not SO(10) → SO(7) Pati-Salam.** So this rotation can't produce a final Yukawa value without resolving the WP104 path-tension first.
+- **Doesn't give a numerical Yukawa coefficient.** The structural form is fixed; the value depends on the resolution of D46/D72 and on a chosen normalization.
+
+### F1 status
+
+The framework is concrete:
+
+1. γ-matrix basis chosen and verified.
+2. Charge conjugation C explicit and verified.
+3. SO(7)-singlet bilinear ψ^T C ψ identified with explicit C structure.
+4. Yukawa formula y = ⟨radial-VEV⟩ × ⟨ψ^T C ψ⟩ is now fully scaffolded.
+
+Numerical Yukawa requires:
+- Resolving WP108's flagged ambiguity (D46/D72): does WP104 Path A really go through SO(7) or actually SO(8)?
+- Picking a specific 1+1 radial-VEV magnitude split.
+- Picking a Yukawa normalization convention.
+
+These are scoped as separate sub-tasks for future rotations.
+
+### Tools/scripts produced
+
+- `papers/wp113_alpha_uniqueness/verification/f1_so7_singlet_bilinear.py` (new)
+  - Pauli triple-product γ-matrix construction
+  - All 28 Clifford anticommutators verified (sympy exact)
+  - Volume element ω² = −I verified
+  - Charge conjugation C = γ_2 γ_4 γ_6 verified explicit
+  - C²=−I, Tr(C)=0, det(C)=+1, C^T=C all confirmed
+
+— end findings 2026-04-29 (§21, F1 SO(7)-singlet bilinear concrete) —
