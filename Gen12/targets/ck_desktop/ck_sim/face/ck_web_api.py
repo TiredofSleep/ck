@@ -421,6 +421,18 @@ class CKWebAPI:
             session_id = data.get('session_id', 'default')
             mode = data.get('mode', 'normal')
 
+            # 2026-04-28 (Brayden): per-conversation algebraic state lives
+            # on the USER's client (localStorage).  Server receives it on
+            # each request, biases the turn, returns updated version, and
+            # KEEPS NO COPY.  Stash on Flask `g` so the wrap chain in
+            # ck_boot_api.py can read it without changing process_chat's
+            # signature.  See Gen13/targets/ck/brain/session_field.py.
+            try:
+                from flask import g as _g
+                _g.session_field_in = data.get('session_field')
+            except Exception:
+                pass
+
             result = self.process_chat(session_id, text, mode)
             return jsonify(result)
 

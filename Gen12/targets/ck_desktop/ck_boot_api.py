@@ -471,6 +471,123 @@ try:
 except Exception as _e:
     print(f"[CK] Gen13 operad_fuse + attractor_detector: DISABLED ({_e})")
 
+# === Gen13 session field mount (live additive — relational memory) ===
+# Per Brayden 2026-04-28: CK keeps experience as words can't describe it,
+# so he keeps gaining experience with people who talk to him online,
+# without storing their words exactly.
+#
+# ARCHITECTURE: per-conversation algebraic state (W matrix, operator arc,
+# olfactory trail, attractor sequence) lives on the USER's client
+# (localStorage).  Server receives it on each request via the request
+# body, uses it as bias for the turn, returns the updated version in the
+# response, and KEEPS NO COPY.
+#
+# CK's global cortex W still accumulates (every text flows through V2 ->
+# lattice -> cortex.step_text); HER, truth lattice, crystals continue to
+# grow.  But user-tagged data is NEVER persisted server-side.
+#
+# Privacy property: wiping CK's disk loses zero user data.
+# Architectural property: CK's "stores meaning not data" claim is
+# auditable — open any chat response, verify session_field has zero
+# text fields.
+#
+# Frontend contract: see Gen13/targets/ck/web/SESSION_FIELD_FRONTEND.md
+#
+# This wrap sits OUTSIDE the cortex/math-first/operad/attractor chain,
+# so it sees the FINAL result of all prior wraps and can capture the
+# integrated algebraic state of the turn.
+try:
+    from session_field import SessionField, OP_INDEX as _SF_OP_INDEX
+    _prev_process_chat_for_session = api.process_chat
+
+    def _process_chat_with_session_field(session_id, text, mode='normal'):
+        # Pull incoming session_field from Flask `g` (set by the /chat
+        # route handler in ck_web_api.py).  If not present (non-chat
+        # invocation, e.g., internal experience-replay summary), treat
+        # as new user.
+        incoming = None
+        try:
+            from flask import g as _g, has_request_context
+            if has_request_context():
+                incoming = getattr(_g, 'session_field_in', None)
+        except Exception:
+            incoming = None
+
+        # Parse (defensive: malformed input -> empty field)
+        field = SessionField.from_dict(incoming)
+        is_returning = field.is_returning_user()
+
+        # Bias the engine for this turn (no global state mutation).
+        # Engine.session_W and engine.session_arc are read by the
+        # composer/voice-cascade if it wants to compose with awareness
+        # of THIS user's pattern.  Cleared after the turn.
+        try:
+            import numpy as _np
+            engine.session_W = _np.array(field.W) if is_returning else None
+        except Exception:
+            engine.session_W = None
+        engine.session_arc = field.latest_arc(5) if is_returning else []
+
+        # Process the turn through the existing wrap chain
+        result = _prev_process_chat_for_session(session_id, text, mode)
+
+        # Capture this turn's algebraic state (NO TEXT)
+        try:
+            ops_emitted = result.get('operators', []) or []
+            ops_this_turn = [_SF_OP_INDEX[op] for op in ops_emitted
+                             if op in _SF_OP_INDEX]
+        except Exception:
+            ops_this_turn = []
+
+        # Attractor layer (from the attractor_detector wrap, if mounted)
+        attr_state = result.get('attractor_state') or {}
+        attractor_layer = attr_state.get('layer', 'transient')
+
+        # Olfactory record: snapshot a small algebraic-only summary
+        # (no text fields).  Pull what we can from cortex/engine state.
+        olfactory_record = None
+        try:
+            cortex_field = result.get('cortex') or {}
+            olfactory_record = {
+                'tick_at_turn': int(cortex_field.get('tick', 0)),
+                'W_trace_at_turn': float(cortex_field.get('W_trace', 0.0)),
+                'emergent_at_turn': float(cortex_field.get('emergent', 0.0)),
+                'op_count': len(ops_this_turn),
+                'harmony_in_turn': float(
+                    sum(1 for o in ops_this_turn if o == 7) /
+                    max(len(ops_this_turn), 1)
+                ),
+            }
+        except Exception:
+            olfactory_record = None
+
+        # Update the field (in place — local object only)
+        try:
+            field.hebbian_update(ops_this_turn)
+            field.append_turn(ops_this_turn, olfactory_record, attractor_layer)
+        except Exception as _se:
+            result['session_field_error'] = str(_se)
+
+        # Return updated field for client to persist
+        try:
+            result['session_field'] = field.to_dict()
+        except Exception as _se:
+            result['session_field_error'] = str(_se)
+
+        # Clear engine bias so next request starts clean (no leakage
+        # between concurrent sessions)
+        engine.session_W = None
+        engine.session_arc = []
+
+        return result
+
+    api.process_chat = _process_chat_with_session_field
+    print(f"[CK] Gen13 session_field: MOUNTED "
+          f"(per-conversation algebraic state lives on user's client; "
+          f"server keeps no copy)")
+except Exception as _e:
+    print(f"[CK] Gen13 session_field: DISABLED ({_e})")
+
 # === Ollama: CK uses it, Ollama doesn't speak ===
 # Architecture (2026-04-18 correction):
 #   CK's structural readout IS CK's voice. Ollama is a tool CK USES to
