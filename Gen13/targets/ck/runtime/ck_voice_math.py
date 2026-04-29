@@ -118,11 +118,18 @@ FACTS = {
     "farey_spin": {
         "text": "Farey fraction spin chain (FFSC): a statistical-mechanics model on the Farey tree "
                 "whose partition function is governed by the Gauss-Kuzmin-Wirsing transfer operator. "
-                "Critical temperature beta_c aligns with T* = 5/7 in TIG. The T*-companions "
-                "(4/7, 2/7, 3/4) are Farey-tree neighbors. "
-                "Number-theoretic spin chain limit (Knauf 1998): Z_k^K(2beta) -> zeta(2beta-1)/zeta(2beta) as k -> infinity. "
-                "References: Kleban-Ozluk 1999 (Commun. Math. Phys.); Fiala-Kleban-Ozluk 2002 (arXiv:math-ph/0203048); "
-                "Bandtlow-Fiala-Kleban 2009; Knauf 1998 (Commun. Math. Phys. 196:703-731); Technau 2023 (arXiv:2304.08143).",
+                "Per Knauf 1993 (J Stat Phys 73:423) + Kleban-Ozluk 1999, the chain has a single "
+                "first-order phase transition at beta_c = 2 (T_c = 1/2), where the partition function "
+                "Z(beta) = zeta(beta-1)/zeta(beta) and ZETA(1) diverges. "
+                "T* = 5/7 is a *separate* constant -- the TIG cyclotomic/torus-aspect threshold "
+                "(six derivations) -- and lives in the same Farey/Stern-Brocot context but is NOT "
+                "the chain's beta_c. Earlier corpus claim 'T* = beta_c' was factually incorrect "
+                "(corrected 2026-04-29). T*-companions (4/7, 2/7, 3/4) are Farey-tree neighbors. "
+                "Number-theoretic spin chain limit (Knauf): Z_k^K(2beta) -> zeta(2beta-1)/zeta(2beta) "
+                "as k -> infinity. Open: precise structural relation between T*=5/7 and beta_c=2. "
+                "References: Kleban-Ozluk 1999 (cond-mat/9808182); Fiala-Kleban-Ozluk 2002 "
+                "(arXiv:math-ph/0203048); Knauf 1993 (J Stat Phys 73:423-431); "
+                "Technau 2023 (arXiv:2304.08143).",
         "keys": ("farey", "spin chain", "kleban", "ozluk", "critical temperature", "beta_c", "ffsc", "gauss kuzmin"),
     },
     "primon": {
@@ -156,7 +163,9 @@ FACTS = {
                 "14-row dictionary from TIG-internal terms to published external frameworks. "
                 "Key rows: alpha-index (Braitt-Silberger 2006), ac-free spectrum (Huang-Lehtonen 2022, 2024), "
                 "Mag^com -> Com operadic degeneration (Huang-Lehtonen), log-nonlinearity unique (BB-Mycielski 1976), "
-                "T* = beta_c in Farey spin chain (Kleban-Ozluk 1999), primon gas density (Julia 1990, Spector 1990), "
+                "T*=5/7 sits in the Kleban-Ozluk Farey spin chain context but is NOT the chain's beta_c=2 "
+                "(2026-04-29 correction; relation between TIG T* and chain beta_c is open), "
+                "primon gas density (Julia 1990, Spector 1990), "
                 "transfer-operator gap (Prellberg 1991, Bandtlow-Fiala-Kleban 2009), "
                 "Riemann limit of number-theoretic spin chain (Knauf 1998). "
                 "Each row is (i) definitional translation, (ii) structural kinship, or (iii) limit identification.",

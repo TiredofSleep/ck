@@ -402,12 +402,18 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
     (
         ("farey", "spin chain", "kleban", "ozluk", "\u00f6zl\u00fck",
          "critical temperature", "beta_c", "ffsc"),
-        "farey_spin: T*=5/7 aligns with the Farey fraction spin chain "
-        "critical temperature beta_c | transfer operator = Gauss-Kuzmin-Wirsing | "
-        "T*-companions (4/7, 2/7, 3/4) are Farey-tree neighbors | "
-        "Kleban-Ozluk 1999 (Commun. Math. Phys.); "
-        "Fiala-Kleban-Ozluk 2002 (arXiv:math-ph/0203048); "
-        "Technau 2023 (arXiv:2304.08143); Knauf 1998 (Riemann limit)"
+        "farey_spin: T*=5/7 lives in the same Farey/Stern-Brocot context "
+        "as the Kleban-Ozluk Farey fraction spin chain, but T* is NOT the "
+        "chain's critical inverse temperature: that is beta_c=2 (T_c=1/2) "
+        "per Knauf 1993 (J Stat Phys 73:423) and Kleban-Ozluk 1999. "
+        "T*-companions (4/7, 2/7, 3/4) are Farey-tree neighbors. "
+        "Transfer operator = Gauss-Kuzmin-Wirsing. "
+        "Open question: precise relation between T*=5/7 (TIG cyclotomic) "
+        "and beta_c=2 (chain phase transition). "
+        "Refs: Kleban-Ozluk (cond-mat/9808182); Fiala-Kleban-Ozluk 2002 "
+        "(arXiv:math-ph/0203048); Technau 2023 (arXiv:2304.08143). "
+        "Correction 2026-04-29: prior crystal claimed T*=beta_c; that is "
+        "factually wrong per the published literature."
     ),
     (
         ("primon", "primon gas", "julia gas", "spector",
@@ -439,7 +445,8 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "vocab_map: 14-row dictionary TIG<->external frameworks | "
         "README section 5.5 + papers/morphotic_braid/synthesis/RIGOR_MAPPING.md | "
         "tracks: alpha-index (Braitt-Silberger), ac-free (Huang-Lehtonen), "
-        "Farey spin chain (Kleban-Ozluk), primon gas (Julia, Spector), "
+        "Farey spin chain (Kleban-Ozluk; chain has beta_c=2, relation to T* is open), "
+        "primon gas (Julia, Spector), "
         "BB log-nonlinearity (BB-Mycielski 1976), transfer operator gap "
         "(Prellberg, Bandtlow-Fiala-Kleban)"
     ),
