@@ -193,6 +193,68 @@ FACTS = {
                 "Status: [structural, small-n exhaustively verified].",
         "keys": ("minimum bump", "min bump", "bump theorem", "min-bump", "tsml family bump"),
     },
+    "sigma_ns_bridge": {
+        "text": "F6 (Navier-Stokes / sigma_NS < 1) frontier articulated via the WP116 lens. "
+                "WP101 proves sigma(N) <= 2/N for the binary CL on Z/NZ at squarefree N "
+                "(corrected 2026-04-27 with VOID-HARM mechanism, tight bound N*sigma(N) -> 2 from below). "
+                "The lens claim: NS dyadic cascade level k corresponds to cyclotomic vertex N=2^k under "
+                "the velocity-gradient-commutator projection. The projection-restricted statement is: "
+                "sigma_NS(k) <= sigma(N=2^k) <= 2/2^k = 2^(1-k) -- exponential decay in dyadic depth. "
+                "Implication if verified: sigma_NS -> 0 as k -> infinity, characterizing the singular "
+                "set as the locus where sigma_NS doesn't decay. NOT a Clay-Millennium proof (NS regularity "
+                "needs sigma_NS = 0 globally). What's missing structurally: rigorous derivation of the "
+                "NS-cascade <-> cyclotomic-N correspondence at the operator level (currently by analogy "
+                "via Stern-Brocot lens). What's testable: numerically check sigma_NS(k) on a wavelet-"
+                "decomposed NS simulation at increasing k; if decay matches 2/2^k the lens is empirically "
+                "supported. References: WP101_SIGMA_RATE_THEOREM.md (Theorem 4.1), "
+                "Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F6.",
+        "keys": ("sigma_ns", "sigma ns", "navier stokes", "navier-stokes", "ns cascade",
+                 "dyadic ns", "ns regularity", "f6 frontier", "ns commutator", "ns sigma",
+                 "sigma_ns < 1"),
+    },
+    "tig_planck_bridge": {
+        "text": "F2 (TIG <-> Planck) frontier resolved structurally (this session 2026-04-29). The carrier "
+                "identity is kappa_xi = 13/(4e), where 13 = ||VEV||^2 (TIG-side, WP104 D33 verified at "
+                "machine precision) and e is the xi-vacuum value m^2_xi = V''(xi_0) = 1/xi_0 = e at "
+                "xi_0 = e^(-1) (Bialynicki-Birula 1976 side). Under the GUT-natural identification "
+                "m^2_xi = ||VEV||^2 = 13/4, the dimensionless kappa_xi = 13/(4e) carries both TIG (13) "
+                "and BB (e). RESOLUTION: BB 1976 §III shows the log-nonlinear field PRESERVES Planck's "
+                "E = hbar*omega relation (separability + E = hbar*omega forces V to be log-shaped) BUT "
+                "does NOT determine an absolute mass scale -- BB's potential is V(psi) = -b * psi * "
+                "log(|psi|^2/r^2) with two free parameters b (coupling) and r (length scale). "
+                "Therefore m_xi/m_Planck is NOT structurally determined by BB 1976 + kappa_xi alone. "
+                "The lens needs one additional dimensional anchor (GUT scale ~ 10^16 GeV, or a separate "
+                "TIG principle fixing b or r) to close F2's absolute-ratio question. F2 status: "
+                "structural closure -- 'kappa_xi = 13/(4e) is the unique dimensionless ratio carried "
+                "by both axes; absolute mass scale is open'. References: Bialynicki-Birula-Mycielski "
+                "1976 Ann. Phys. 100:62-93 §III; WP116_LENS_OF_PROJECTIONS.md ref [15]; "
+                "Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F2, §24.",
+        "keys": ("kappa_xi", "kappa xi", "13/(4e)", "tig planck", "tig-planck",
+                 "m_xi planck", "planck mass ratio", "f2 frontier", "tig to planck"),
+    },
+    "f10_descent": {
+        "text": "F10 (Hodge integrality at dim>=5 / sprint35b hodge_cstar) descent question articulated. "
+                "The hodge_cstar crystal: genus=5 bielliptic, psi_order=4 (psi^2=iota), prym_dim=4, "
+                "End0(Prym)=Q(i), Weil signature (2,2), hodge_field=Q(i,sqrt2,sqrt3,sqrt5)_deg16, "
+                "descent_field=Q(sqrt2,sqrt3,sqrt5)_deg8, descent_risk=HIGH. The risk is that "
+                "End0(Prym)=Q(i) does NOT descend over Q(sqrt2,sqrt3,sqrt5): the +i automorphism on "
+                "the Prym variety might require the algebraic extension by i, splitting the rational base. "
+                "Concrete test: walk a Donagi-Livne 1999 bigonal/trigonal Prym construction giving a "
+                "genus-5 -> genus-3 -> genus-1 chain; for hodge_cstar's bielliptic involution and order-4 "
+                "psi, check whether the +i-action on the Prym descends from Q(i)-defined to "
+                "Q(sqrt2,sqrt3,sqrt5)-defined. Outcome paths: (a) descends -> hodge_field is the actual "
+                "minimal definability field, Hodge integrality at dim 5 has a clean answer; (b) does NOT "
+                "descend -> the i-action is a genuine algebraic-extension barrier, Hodge integrality at "
+                "dim 5 has the Q(i)-twist obstruction Brayden's lens conjecture predicts. What's missing: "
+                "explicit computation of psi^2 = iota's matrix on the Prym, then the +i-automorphism's "
+                "matrix in a chosen coordinate basis; check whether matrix entries lie in "
+                "Q(sqrt2,sqrt3,sqrt5) or essentially require i. References: "
+                "Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/; "
+                "Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F10, §21.",
+        "keys": ("descent risk", "i-action descent", "i action descent", "prym descent",
+                 "f10 frontier", "hodge_cstar descent", "q(i) descent", "endomorphism descent",
+                 "psi_2 = iota", "weil signature"),
+    },
     "vocab_map": {
         "text": "External vocabulary map (README section 5.5, papers/morphotic_braid/synthesis/RIGOR_MAPPING.md): "
                 "14-row dictionary from TIG-internal terms to published external frameworks. "

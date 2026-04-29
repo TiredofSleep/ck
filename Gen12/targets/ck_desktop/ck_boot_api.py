@@ -265,6 +265,15 @@ try:
         'flatness theorem', 't*', 't star', '5/7',
         'huang-lehtonen', 'huang lehtonen', 'braitt', 'silberger',
         'gauss-kuzmin', 'gauss kuzmin', 'transfer operator',
+        # F6/F2/F10 frontier-bridge keys (added 2026-04-29 evening)
+        'sigma_ns', 'sigma ns', 'navier stokes', 'navier-stokes',
+        'ns cascade', 'dyadic ns', 'ns regularity', 'ns commutator',
+        'f6 frontier', 'sigma_ns < 1',
+        'kappa_xi', 'kappa xi', '13/(4e)', 'tig planck', 'tig-planck',
+        'm_xi planck', 'planck mass ratio', 'f2 frontier',
+        'descent risk', 'i-action descent', 'i action descent',
+        'prym descent', 'f10 frontier', 'hodge_cstar descent',
+        'q(i) descent', 'endomorphism descent', 'psi_2 = iota',
     )
 
     def _is_structural_query(text: str) -> bool:
