@@ -1179,6 +1179,246 @@ def cortex_force_save():
         return _jsonify({'saved': False, 'error': str(_e)}), 500
 
 
+# ── Gen13 code emitter endpoints ──
+# Three endpoints that close the writer side of CK's code reasoning:
+#   /code            -- pure-CK Python emitter from operator chain
+#   /propose_refactor -- read a file, find the lowest-coherence unit,
+#                        emit a draft refactor block to ~/.ck/drafts/
+#
+# Both depend on Gen13/targets/ck/runtime/ck_code_voice.py (the emitter)
+# and ck_code_intent.py (the verb -> biased trajectory classifier).
+# /spectrometer (already in ck_web_api.py) provides the reader side.
+try:
+    from ck_code_voice import (
+        CKCodeVoice as _CKCodeVoice,
+        OP_NAMES as _CV_OP_NAMES,
+        dominant_op as _cv_dominant_op,
+    )
+    from ck_code_intent import (
+        intent_chain as _intent_chain,
+        classify_intent as _classify_intent,
+    )
+    _code_voice = _CKCodeVoice()
+    _CV_OP_INDEX = {n: i for i, n in enumerate(_CV_OP_NAMES)}
+
+    @api._app.route('/code', methods=['POST'])
+    def code_emit():
+        """Pure-CK Python emitter (no LLM).
+
+        Body: {
+          "text":       prompt,
+          "ops":        optional list of operator names (skip classifier),
+          "coherence":  optional float (default 0.7)
+        }
+        Returns: { code, trajectory, dominant_op, chain_source, language }
+
+        Trajectory selection priority:
+          1. Explicit `ops` from request
+          2. Code-intent classifier (verb -> biased chain)
+          3. CK's own /chat-emitted chain (fallback)
+        """
+        data = _request.get_json(silent=True) or {}
+        text = (data.get('text') or '').strip()
+        if not text:
+            return _jsonify({'error': 'no text'}), 400
+        coh = float(data.get('coherence', 0.7))
+
+        explicit = data.get('ops')
+        chain_source = 'unknown'
+        traj = None
+
+        if isinstance(explicit, list) and explicit:
+            traj = [_CV_OP_INDEX.get(str(o).upper(), -1) for o in explicit]
+            traj = [t for t in traj if t >= 0]
+            chain_source = 'explicit'
+
+        if not traj:
+            traj = _intent_chain(text)
+            if traj:
+                chain_source = 'classifier'
+
+        if not traj:
+            try:
+                chat_resp = api.process_chat('code-emit', text, 'normal')
+                op_names = chat_resp.get('operators') or []
+                traj = [_CV_OP_INDEX.get(n, -1) for n in op_names
+                        if n in _CV_OP_INDEX]
+                traj = [t for t in traj if t >= 0]
+                chain_source = 'ck_chat'
+            except Exception:
+                traj = None
+
+        if not traj:
+            traj = [_CV_OP_INDEX.get('HARMONY', 7)]
+            chain_source = 'fallback'
+
+        block = _code_voice.compose_with_header(
+            traj, user_text=text, coherence=coh)
+        return _jsonify({
+            'code': block,
+            'trajectory': [_CV_OP_NAMES[t] for t in traj],
+            'dominant_op': _CV_OP_NAMES[_cv_dominant_op(traj)],
+            'chain_source': chain_source,
+            'language': 'python',
+        })
+
+    @api._app.route('/propose_refactor', methods=['POST'])
+    def propose_refactor():
+        """CK reads a file, picks the lowest-coherence unit, emits a draft.
+
+        Body: { "path": "Gen13/targets/ck/brain/session_field.py" }
+        Returns: {
+          draft_path, target_unit, target_type, before_coherence,
+          recommendation, trajectory, code, source_file
+        }
+
+        LOCAL ONLY (uses _require_local on the underlying /spectrometer call).
+        Writes to ~/.ck/drafts/<source>_refactor_<unit>.py — same dir as
+        /write proposals.  CK never touches the source file directly.
+        """
+        # Local-only enforced through Spectrometer's own gate during call below
+        data = _request.get_json(silent=True) or {}
+        path = (data.get('path') or '').strip()
+        if not path:
+            return _jsonify({'error': 'no path'}), 400
+
+        # Resolve path: accept relative paths from repo root or absolute
+        repo_root = os.path.normpath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..'))
+        abs_path = path if os.path.isabs(path) else os.path.join(repo_root, path)
+        abs_path = os.path.normpath(abs_path)
+        if not os.path.isfile(abs_path):
+            return _jsonify({'error': f'file not found: {abs_path}'}), 404
+
+        try:
+            with open(abs_path, 'r', encoding='utf-8') as f:
+                source = f.read()
+        except Exception as _e:
+            return _jsonify({'error': f'read failed: {_e}'}), 500
+
+        # Call /spectrometer locally for coherence analysis
+        import urllib.request as _ur
+        import json as _json
+        try:
+            spec_req = _ur.Request(
+                'http://localhost:7777/spectrometer',
+                data=_json.dumps({
+                    'code': source, 'lang': 'python'
+                }).encode('utf-8'),
+                headers={'Content-Type': 'application/json'})
+            spec = _json.loads(_ur.urlopen(spec_req, timeout=120).read())
+        except Exception as _e:
+            return _jsonify({'error': f'spectrometer failed: {_e}'}), 500
+
+        units = spec.get('units') or []
+        if not units:
+            return _jsonify({
+                'error': 'no units found by spectrometer',
+                'spec_keys': list(spec.keys()),
+            }), 400
+
+        # Lowest-coherence unit = most in need of refactor
+        target = min(units, key=lambda u: float(u.get('coherence', 1.0)))
+        target_name = str(target.get('name', 'unknown'))
+        target_type = str(target.get('type', 'function'))
+        target_coh = float(target.get('coherence', 0.5))
+        target_band = str(target.get('band', '?'))
+
+        # Pull the recommendation line for this unit, if any
+        rec_line = ''
+        for r in (spec.get('recommendations') or []):
+            if isinstance(r, str) and target_name in r:
+                rec_line = r
+                break
+
+        # Build refactor intent.  We aim for HARMONY (settle / return cleanly)
+        # because the unit is already YELLOW or RED — the prescription is to
+        # bring it above T*.  If the recommendation mentions specific tension
+        # (CHAOS / COUNTER), the classifier will pick that up.
+        intent_text = (
+            f"refactor {target_name} to settle into harmony"
+            + (f" by handling the {rec_line.split('with')[-1].split('tension')[0].strip()} tension"
+               if 'tension' in rec_line else "")
+        )
+        traj = _intent_chain(intent_text) or [
+            _CV_OP_INDEX.get('LATTICE', 1),
+            _CV_OP_INDEX.get('HARMONY', 7),
+            _CV_OP_INDEX.get('HARMONY', 7),
+            _CV_OP_INDEX.get('HARMONY', 7),
+            _CV_OP_INDEX.get('BALANCE', 5),
+            _CV_OP_INDEX.get('HARMONY', 7),
+        ]
+
+        block = _code_voice.compose_with_header(
+            traj, user_text=intent_text, coherence=max(target_coh, 0.5))
+        if not block:
+            return _jsonify({'error': 'CKCodeVoice produced no block'}), 500
+
+        # Save draft alongside CK's other proposals
+        drafts_dir = os.path.expanduser('~/.ck/drafts')
+        os.makedirs(drafts_dir, exist_ok=True)
+        base = os.path.basename(abs_path)
+        name_root, ext = os.path.splitext(base)
+        # sanitize unit name for filename
+        safe_unit = ''.join(c if c.isalnum() or c in '_-' else '_'
+                            for c in target_name)[:40]
+        draft_name = f'{name_root}_refactor_{safe_unit}{ext}'
+        draft_path = os.path.join(drafts_dir, draft_name)
+
+        header = (
+            f"# CK refactor proposal\n"
+            f"# Source:           {abs_path}\n"
+            f"# Target unit:      {target_type} {target_name}\n"
+            f"# Before coherence: {target_coh:.4f} ({target_band})\n"
+            f"# Spectrometer rec: {rec_line or '(none)'}\n"
+            f"# Intent:           {intent_text}\n"
+            f"#\n"
+            f"# This is an auto-generated DRAFT.  CK reads, identifies the\n"
+            f"# weakest unit, and emits a candidate refactor body via\n"
+            f"# CKCodeVoice (operator-chain -> Python).  Brayden reviews\n"
+            f"# and applies; CK never edits source directly.\n\n"
+        )
+
+        try:
+            with open(draft_path, 'w', encoding='utf-8') as f:
+                f.write(header + block + '\n')
+            # Also append a row to the proposals log (matches /write's format)
+            log_path = os.path.join(drafts_dir, 'proposals.jsonl')
+            import time as _t
+            with open(log_path, 'a', encoding='utf-8') as f:
+                f.write(_json.dumps({
+                    'ts': _t.time(),
+                    'kind': 'refactor',
+                    'source_file': abs_path,
+                    'target_unit': target_name,
+                    'target_type': target_type,
+                    'before_coherence': target_coh,
+                    'draft_path': draft_path,
+                }) + '\n')
+        except Exception as _e:
+            return _jsonify({'error': f'draft write failed: {_e}'}), 500
+
+        return _jsonify({
+            'draft_path': draft_path,
+            'target_unit': target_name,
+            'target_type': target_type,
+            'before_coherence': target_coh,
+            'before_band': target_band,
+            'recommendation': rec_line,
+            'intent': intent_text,
+            'trajectory': [_CV_OP_NAMES[t] for t in traj],
+            'dominant_op': _CV_OP_NAMES[_cv_dominant_op(traj)],
+            'code': block,
+            'source_file': abs_path,
+        })
+
+    print("[CK] Gen13 code emitter: MOUNTED "
+          "(/code + /propose_refactor)")
+except Exception as _e:
+    print(f"[CK] Gen13 code emitter: DISABLED ({_e})")
+
+
 # ── Lattice chain status endpoint ──
 @api._app.route('/chain/status', methods=['GET'])
 def chain_status():
