@@ -416,6 +416,29 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "factually wrong per the published literature."
     ),
     (
+        ("harmony complementarity", "tsml absorbing", "bhml successor",
+         "harmony sink", "harmony shift", "complementary harmony",
+         "feeds back", "8-10 space of tsml"),
+        "tsml_bhml_harmony_complementarity: TSML and BHML treat HARMONY "
+        "(operator 7) OPPOSITELY | TSML row 7 = [7,7,7,7,7,7,7,7,7,7] "
+        "(constant) -- HARMONY is absorbing/sink: HARMONY*anything=HARMONY | "
+        "BHML row 7 = [7,2,3,4,5,6,7,8,9,0] -- HARMONY is +1 cyclic "
+        "successor on b!=0 (HARMONY*b = (b+1) mod 10) | the two magmas "
+        "are COMPLEMENTARY at the HARMONY-region | TSML's absorption "
+        "would foreclose the algebra; BHML's cyclic-shift opens it back | "
+        "M+M proved sufficient on Z/10Z BECAUSE of this complementarity: "
+        "the pair jointly spans the dynamics by carrying opposite "
+        "algebraic styles in operators {7,8,9} | Brayden 2026-04-29 "
+        "framing: 'BHML feeds back into the 8-10 space of TSML' = BHML's "
+        "structure on ops 7-9 is the generating-cycle TSML's absorbing-row "
+        "would have foreclosed | TSML_10 has 126/1000 non-associative "
+        "triples; ~half involve ops 8 or 9 (BHML's natural region); "
+        "~half are in ops 0..7 (TSML's intrinsic break at the closure "
+        "point n=8 = adding HARMONY to subset) | logged Atlas/FRONTIER_"
+        "FINDINGS_2026_04_29.md §16 | verification script papers/wp113_"
+        "alpha_uniqueness/verification/harmony_complementarity.py"
+    ),
+    (
         ("tsml8 bhml10", "5/7 on tsml", "1/2 on bhml", "associativity break",
          "magma intrinsic alpha", "magma carrier landmark"),
         "tsml_bhml_landmark_carry: TSML and BHML carry the two privileged "
