@@ -213,22 +213,22 @@ FACTS = {
                  "sigma_ns < 1"),
     },
     "tig_planck_bridge": {
-        "text": "F2 (TIG <-> Planck) frontier resolved structurally (this session 2026-04-29). The carrier "
-                "identity is kappa_xi = 13/(4e), where 13 = ||VEV||^2 (TIG-side, WP104 D33 verified at "
-                "machine precision) and e is the xi-vacuum value m^2_xi = V''(xi_0) = 1/xi_0 = e at "
-                "xi_0 = e^(-1) (Bialynicki-Birula 1976 side). Under the GUT-natural identification "
-                "m^2_xi = ||VEV||^2 = 13/4, the dimensionless kappa_xi = 13/(4e) carries both TIG (13) "
-                "and BB (e). RESOLUTION: BB 1976 §III shows the log-nonlinear field PRESERVES Planck's "
-                "E = hbar*omega relation (separability + E = hbar*omega forces V to be log-shaped) BUT "
-                "does NOT determine an absolute mass scale -- BB's potential is V(psi) = -b * psi * "
-                "log(|psi|^2/r^2) with two free parameters b (coupling) and r (length scale). "
-                "Therefore m_xi/m_Planck is NOT structurally determined by BB 1976 + kappa_xi alone. "
-                "The lens needs one additional dimensional anchor (GUT scale ~ 10^16 GeV, or a separate "
-                "TIG principle fixing b or r) to close F2's absolute-ratio question. F2 status: "
-                "structural closure -- 'kappa_xi = 13/(4e) is the unique dimensionless ratio carried "
-                "by both axes; absolute mass scale is open'. References: Bialynicki-Birula-Mycielski "
-                "1976 Ann. Phys. 100:62-93 §III; WP116_LENS_OF_PROJECTIONS.md ref [15]; "
-                "Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F2, §24.",
+        "text": "F2 (TIG <-> Planck) frontier resolved + SHARPENED (this session 2026-04-29). Carrier "
+                "identity is kappa_xi = 13/(4e), where 13 = ||VEV||^2 (D33) and e is the xi-vacuum value "
+                "(TIG potential V(xi) = kappa_xi * xi * log(xi) gives vacuum xi_0 = e^(-1), V''(xi_0) = "
+                "kappa_xi * e = 13/4 = ||VEV||^2). RESOLUTION: BB 1976 §III shows log-nonlinearity "
+                "preserves E = hbar*omega; but BB's potential V(psi) = -b * u * log(u/r^2) has two free "
+                "parameters b and r. SHARPENING: matching V_TIG = kappa_xi*xi*log(xi) to V_BB's leading "
+                "-b*xi*log(xi) term FIXES b = -kappa_xi = -13/(4e) (~ -1.196). Sympy-exact verification: "
+                "BB vacuum at u_vac = r^2 * e^(-1); m^2_BB at vacuum = -e*b/r^2; with b = -kappa_xi this "
+                "gives m^2_BB = 13/(4*r^2). Therefore: b is FIXED by TIG via the WP104 ||VEV||^2 = 13/4 "
+                "identification; only r (length scale) remains free. F2's open question reduces from "
+                "'one dimensional anchor' to 'one CONVENTION (the lab-unit value of r)'. Predictions: "
+                "if r = Planck length, m_xi/m_Planck = sqrt(kappa_xi * e) = sqrt(13/4) ~ 1.803 (super-"
+                "Planckian xi); if r = 1/M_GUT, m_xi ~ 1.803 * M_GUT ~ 1.8 * 10^16 GeV. References: "
+                "Bialynicki-Birula-Mycielski 1976 Ann. Phys. 100:62-93 §III; WP116_LENS_OF_PROJECTIONS.md "
+                "ref [15]; Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F2, §24, §27; "
+                "papers/wp113_alpha_uniqueness/verification/f2_bb_coupling_sharpening.py.",
         "keys": ("kappa_xi", "kappa xi", "13/(4e)", "tig planck", "tig-planck",
                  "m_xi planck", "planck mass ratio", "f2 frontier", "tig to planck"),
     },

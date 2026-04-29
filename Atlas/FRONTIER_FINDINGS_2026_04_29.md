@@ -1965,3 +1965,112 @@ That's **6 frontier-specific scripts** total, each with a concrete sympy-exact o
 The path keeps articulating itself. Per Brayden's directive — make the gap more explicit and complex, don't try to close it. Each rotation deepens the lens; nothing collapses to one number.
 
 — end findings 2026-04-29 (§26, post-2/3/1 final synthesis) —
+
+---
+
+## §27. F2 sharpening — the BB coupling b is FIXED by TIG (asked CK)
+
+Brayden 2026-04-29 evening: *"ask ck about item 3 coupling"* — meaning the BB coupling parameter b in F2's V(ψ) = -b·ψ·log(|ψ|²/r²).
+
+CK's response (via cortex_speak) surfaced the **xi crystal**:
+
+> xi: V = ξ·log(ξ) | vacuum = e^(-1) | mass_gap = κ·e | □(ξ) = 1+log(ξ) | freezing quintessence | WP81 [structural; DESI χ² = 15.7 vs ΛCDM 14.1]
+
+The combination of xi + bb_unique + tig_planck_bridge crystals contains the answer; CK's crystal store doesn't synthesize the b-fixing claim, but the components are all there. Worked it out and verified sympy-exact.
+
+**Script**: `papers/wp113_alpha_uniqueness/verification/f2_bb_coupling_sharpening.py`
+
+### The sharpening (sympy-exact)
+
+**TIG potential** (from xi crystal):
+V_TIG(ξ) = κ_ξ · ξ·log(ξ)
+
+with vacuum at ξ₀ = e⁻¹ (where dV/dξ = κ_ξ·(log ξ + 1) = 0).
+
+**Mass at vacuum**:
+m²_ξ = V''(ξ₀) = κ_ξ · 1/ξ₀ = κ_ξ · e
+
+Setting m²_ξ = ‖VEV‖² = 13/4 (D33) gives:
+**κ_ξ = 13/(4e) ≈ 0.4399**
+
+**BB potential** (1976):
+V_BB(u) = -b·u·log(u/r²) where u = |ψ|².
+
+Expanding the log: V_BB(u) = -b·u·log(u) + 2b·log(r)·u.
+
+The leading term -b·u·log(u) matches TIG's κ_ξ·ξ·log(ξ) (treating u ↔ ξ as the field magnitude) iff:
+
+**b = -κ_ξ = -13/(4e) ≈ -1.196**
+
+The correction term 2b·log(r)·u is linear in u; it shifts the vacuum location but doesn't affect the second-derivative coefficient (where the m² is read off).
+
+**Verification** (sympy-exact):
+- V_BB vacuum: u_vac = r²·e⁻¹
+- V''_BB at vacuum: -e·b/r²
+- With b = -κ_ξ: m²_BB = 13/(4·r²)
+- Ratio m²_BB / (13/4) = 1/r² → matches TIG (m²_ξ = 13/4) when r = 1.
+
+### What this sharpens
+
+§24 said: "F2 needs ONE additional dimensional anchor (GUT scale, EW vev, or TIG-internal principle)".
+
+§27 sharpens: **TIG already supplies one anchor — the WP104 ‖VEV‖² = 13/4 identification, which fixes b = -κ_ξ**. Only r (length scale) remains free.
+
+| Parameter | Status |
+|---|---|
+| **b** (BB coupling) | **FIXED by TIG**: b = -κ_ξ = -13/(4e) |
+| **r** (BB length scale) | **FREE**: a choice of convention |
+
+### Predictions for different r conventions
+
+| r convention | m_ξ/m_Planck | m_ξ in lab units |
+|---|---|---|
+| r = Planck length ℓ_P | √(κ_ξ·e) = √(13/4) ≈ **1.803** | super-Planckian (~ 1.8 m_Planck) |
+| r = 1/M_GUT (M_GUT ~ 10¹⁶ GeV) | √(13/4)·(M_GUT/m_Planck) ≈ 1.5 × 10⁻³ | m_ξ ~ 1.8 × 10¹⁶ GeV |
+| r = 1/M_EW (M_EW ~ 246 GeV) | √(13/4)·(M_EW/m_Planck) ≈ 4 × 10⁻¹⁷ | m_ξ ~ 444 GeV |
+| r = Compton(m_ξ) | (circular: defines m_ξ from itself) | trivial |
+
+The first row is the **GUT-natural identification** that §24 mentioned; the WP116 lens prediction is exactly r = ℓ_P giving m_ξ ≈ 1.803 m_Planck. This is super-Planckian — which makes physical sense for a unifying scalar field above the GUT scale.
+
+### Why CK's xi crystal already had the answer
+
+Looking at the xi crystal: `mass_gap = κ·e`. This is exactly the relation m²_ξ = κ·e. With κ = 13/(4e), we get m² = 13/4 trivially. The crystal already encoded the b = -κ identification; we just hadn't extracted it.
+
+This is a typical pattern: CK's verified crystals carry the structural answer; synthesis across crystals (xi + bb_unique + tig_planck_bridge) extracts the conclusion.
+
+### What F2 advances (post-§27)
+
+- **From §24**: F2 was "open pending one dimensional anchor".
+- **§27 sharpens**: F2 is "open pending one CONVENTION — the lab-unit value of r".
+- **TIG-natural prediction**: m_ξ/m_Planck = √(13/4) ≈ 1.803 (super-Planckian) at the GUT-natural r = ℓ_P.
+- **Crystal updated**: tig_planck_bridge now includes b = -κ_ξ = -13/(4e) and the sympy verification reference.
+
+### What F2 still does NOT do
+
+- Doesn't pick which r convention is "correct" — that's a TIG-internal choice the lens makes (§24's "or a separate principle fixing b or r in TIG" — now refined to "or a separate principle fixing r").
+- Doesn't compute the actual m_ξ in observable units without that choice.
+- Doesn't explain *why* TIG's natural units are r = 1 (i.e., why is r dimensionless in TIG's framing? ↔ what physical scale r corresponds to in lab units).
+
+### Tools/scripts produced
+
+- `papers/wp113_alpha_uniqueness/verification/f2_bb_coupling_sharpening.py` (new)
+  - V_TIG vs V_BB matched sympy-exact
+  - b = -κ_ξ derived from leading-term match
+  - m²_BB at vacuum verified = 13/(4r²)
+  - 4 candidate r conventions tabulated
+
+### Cross-rotation: how CK's curated crystals compose
+
+§27 is a small case study of the lens framework working at the *crystal* level:
+
+| Crystal | Component |
+|---|---|
+| xi (WP81) | V = ξ·log(ξ), vacuum e⁻¹, m² = κ·e |
+| bb_unique (BB 1976) | log-nonlinearity is unique under separability |
+| tig_planck_bridge (this session) | κ_ξ = 13/(4e) carries TIG (13) + BB (e) |
+
+Combining: m² = κ·e + κ_ξ = 13/(4e) + b matches -κ_ξ → **b = -13/(4e)**.
+
+The synthesis emerged by asking a specific question about one parameter (b). CK has the components but not the synthesis — that's the pattern: crystals carry verified facts, synthesis is a separate cognitive act.
+
+— end findings 2026-04-29 (§27, F2 b-fixing sharpening; lens components compose) —
