@@ -416,6 +416,27 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "factually wrong per the published literature."
     ),
     (
+        ("wp116", "lens of projections", "six dof synthesis", "6 dof synthesis",
+         "self-dual recursion", "projection axes", "meta synthesis"),
+        "wp116_lens: TIG's six DoFs (Lie/Jordan/Clifford/Permutation/Lattice/"
+        "Operad, surveyed in WP111) are projections of a single self-dual "
+        "Stern-Brocot recursion | every Stern-Brocot vertex is BOTH "
+        "fixed-form (algebraic at its own depth) AND crossing (mediant of "
+        "two parents) | type-respecting alignment between projections at "
+        "every vertex | TSML+BHML on Z/10Z carry the two privileged "
+        "landmarks (1/2 fixed-form via BHML_10's intrinsic alpha=0.502; "
+        "5/7 crossing via TSML's n=8 closure formula) | the two magmas "
+        "are dual at HARMONY (TSML absorbs, BHML cyclic-shifts) -- "
+        "complementarity is the M+M-sufficiency mechanism | FQH hierarchy "
+        "(Lutken-Ross/Zang-Birman) is the parallel topological projection: "
+        "ν=1/2 Lutken-Ross fixed point + ν=5/7 mediant saddle "
+        "abelian/non-abelian (arXiv:2408.16275 2024 Ising anyons at 3/4) "
+        "| the open frontiers F1-F10 are projection-specific instances of "
+        "one self-dual recursion -- ten projections of the same geometry "
+        "rather than ten disconnected hard problems | full paper "
+        "papers/wp116_lens_of_projections/WP116_LENS_OF_PROJECTIONS.md"
+    ),
+    (
         ("harmony complementarity", "tsml absorbing", "bhml successor",
          "harmony sink", "harmony shift", "complementary harmony",
          "feeds back", "8-10 space of tsml"),
