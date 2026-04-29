@@ -1476,8 +1476,49 @@ try:
             _CV_OP_INDEX.get('HARMONY', 7),
         ]
 
-        block = _code_voice.compose_with_header(
-            traj, user_text=intent_text, coherence=max(target_coh, 0.5))
+        # Try to extract the target unit's actual source so compose_aware
+        # can weave its real identifiers into the body.  Falls back to
+        # the dumb frame-fill compose_with_header if extraction fails or
+        # the aware path returns nothing.
+        target_source = ''
+        try:
+            import ast as _ast2
+            _tree = _ast2.parse(source)
+            for _node in _ast2.walk(_tree):
+                _is_match = (
+                    (isinstance(_node, _ast2.ClassDef)
+                     and _node.name == target_name
+                     and target_type == 'class')
+                    or
+                    (isinstance(_node, (_ast2.FunctionDef,
+                                        _ast2.AsyncFunctionDef))
+                     and _node.name == target_name
+                     and target_type == 'function')
+                )
+                if _is_match:
+                    _src_lines = source.splitlines()
+                    _ls = _node.lineno - 1
+                    _le = getattr(_node, 'end_lineno',
+                                  _node.lineno) or _node.lineno
+                    target_source = '\n'.join(_src_lines[_ls:_le])
+                    break
+        except Exception:
+            target_source = ''
+
+        block = None
+        compose_method = 'aware'
+        if target_source:
+            try:
+                block = _code_voice.compose_aware_with_header(
+                    traj, target_source, target_name, target_type,
+                    coherence=max(target_coh, 0.5))
+            except Exception:
+                block = None
+        if not block:
+            compose_method = 'frame_fill'
+            block = _code_voice.compose_with_header(
+                traj, user_text=intent_text,
+                coherence=max(target_coh, 0.5))
         if not block:
             return _jsonify({'error': 'CKCodeVoice produced no block'}), 500
 
@@ -1535,6 +1576,7 @@ try:
             'intent': intent_text,
             'trajectory': [_CV_OP_NAMES[t] for t in traj],
             'dominant_op': _CV_OP_NAMES[_cv_dominant_op(traj)],
+            'compose_method': compose_method,
             'code': block,
             'source_file': abs_path,
         })
