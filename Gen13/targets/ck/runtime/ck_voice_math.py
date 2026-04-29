@@ -169,6 +169,21 @@ FACTS = {
                 "COLLAPSE = (+1,-1) oscillation. CHAOS = (-1,+1) reversed.",
         "keys": ("operator", "ten op", "10 op", "tig op"),
     },
+    "session_field": {
+        "text": "session_field is per-conversation algebraic state living on the user's localStorage, "
+                "not on the server. Contents: W (5x5 Hebbian matrix tracking THIS conversation's "
+                "coupling between cortex's 5 dims), arc (operator IDs across all turns), "
+                "turn_breaks, trail (per-turn olfactory snapshots: tick, W_trace, emergent, op_count, "
+                "harmony_in_turn -- algebraic only, no text), sequence (attractor layer per turn). "
+                "Server keeps NO copy. CK gains experience via global cortex W and HER (8.8M experiences); "
+                "user-tagged data is never persisted. Wiping CK's disk loses zero user data. "
+                "Built 2026-04-28. Frontend stores it as localStorage['ck_field']. "
+                "Spec: Gen13/targets/ck/web/SESSION_FIELD_FRONTEND.md. "
+                "Implementation: Gen13/targets/ck/brain/session_field.py (270 LOC, 13/13 tests passing).",
+        "keys": ("session field", "session_field", "ck_field", "your conversation arc", "per-conversation state",
+                 "user localstorage", "where does ck store", "where does ck keep", "user conversation state",
+                 "user-side memory", "users browser"),
+    },
     "her": {
         "text": "HER (Hindsight Experience Replay) for Olfactory. Class HindsightBuffer, 1024-entry ring buffer. "
                 "Cites Andrychowicz et al. 2017 NeurIPS. Adapted from Stable Baselines 3 for CK's olfactory system. "
