@@ -704,6 +704,189 @@ def _frontier_hits(q_lower: str) -> List[str]:
     return facts
 
 
+# Crystal op_signatures -- what operators each crystal is "about".
+# Used for state-aware crystal surfacing (CK volunteers a crystal when his
+# current operator stream matches it, even without keyword trigger).
+# Keyed by the first word of the crystal text (e.g., "wobble_prime_eleven").
+# Operator IDs: VOID=0, LATTICE=1, COUNTER=2, PROGRESS=3, COLLAPSE=4,
+# BALANCE=5, CHAOS=6, HARMONY=7, BREATH=8, RESET=9.
+_CRYSTAL_OP_SIGNATURES = {
+    # WOBBLE 11 = sum of LATTICE(1) + CHAOS(6) + COLLAPSE(4)  (the σ²
+    # transformation 3-cycle, §31 / D86).
+    "wobble_prime_eleven":              (1, 4, 6),
+    # σ² depth-3 primitive: both 3-cycles {1,4,6} and {2,5,7}.
+    "depth_primitive_lens":             (1, 2, 4, 5, 6, 7),
+    # σ² lives in {LATTICE, CHAOS, COLLAPSE} ∪ {HARMONY, BALANCE, COUNTER}
+    "tsml_bhml_harmony_complementarity": (7, 8, 9),  # HARMONY-region
+    "tsml_bhml_landmark_carry":         (7, 8, 9),
+    "fqh_bridge":                       (7,),         # T* threshold = HARMONY
+    "farey_spin":                       (7,),         # T* + Stern-Brocot
+    "wp116_lens":                       (1, 7),       # LATTICE+HARMONY core
+    "tig_fqh_two_level":                (5, 7),       # 1/2 + 5/7 landmarks
+    "sigma_ns_bridge":                  (3, 7),       # PROGRESS + HARMONY (cascade + threshold)
+    "tig_planck_bridge":                (7, 8),       # HARMONY + BREATH (mass scale)
+    "f10_descent":                      (4, 8),       # COLLAPSE + BREATH (descent obstruction)
+    "xi":                               (8, 7),       # BREATH (mass), HARMONY
+    "bb_unique":                        (8,),         # BREATH (continuum field)
+    "primon":                           (1, 5),       # LATTICE + BALANCE (density)
+    "min_bump":                         (1,),         # LATTICE (bump structure)
+    "vocab_map":                        (1, 7),       # LATTICE + HARMONY (cited)
+    "sigma_rate":                       (3, 7),
+    "flatness":                         (5, 7),       # BALANCE + HARMONY (T*)
+    "tsml":                             (7,),
+    "bhml":                             (7,),
+    "crossing":                         (5, 7),
+    "ck_tables":                        (7,),
+}
+
+
+def _state_aware_crystal_hits(
+    cortex: Any,
+    threshold: float = 0.5,
+    max_hits: int = 2,
+) -> List[str]:
+    """Return facts whose op_signature matches the cortex's current operator
+    state.  This is the "spontaneous crystal surfacing" path -- CK volunteers
+    a fact based on his current ao state, not on user keywords.
+
+    Match scoring:
+      - Build the cortex's recent-operator set: {last_b, last_d, ao_current_op}
+      - For each crystal, compute |op_signature ∩ recent_ops| / |op_signature|
+      - Surface crystals with score >= threshold, up to max_hits.
+
+    Returns list of fact strings.  Empty list if no crystal scores high enough.
+    """
+    try:
+        st = cortex.state
+        recent_ops = {st.last_b, st.last_d}
+        # Add AO's current op
+        try:
+            recent_ops.add(cortex.ao.current_op)
+        except Exception:
+            pass
+        # Add the dominant ops in profile_5d
+        try:
+            profile = cortex.ao.profile_5d()
+            for op in profile:
+                recent_ops.add(op)
+        except Exception:
+            pass
+    except Exception:
+        return []
+
+    if not recent_ops:
+        return []
+
+    scored: List[Tuple[float, str]] = []
+    for triggers, fact in _FRONTIER_FACTS:
+        # First word of fact (before ":") is the crystal name
+        first_word = fact.split(":", 1)[0].strip()
+        op_sig = _CRYSTAL_OP_SIGNATURES.get(first_word)
+        if not op_sig:
+            continue
+        sig_set = set(op_sig)
+        if not sig_set:
+            continue
+        overlap = len(sig_set & recent_ops)
+        score = overlap / len(sig_set)
+        if score >= threshold:
+            scored.append((score, fact))
+
+    scored.sort(key=lambda t: -t[0])
+    return [fact for score, fact in scored[:max_hits]]
+
+
+def _crystal_op_boost_targets(fact: str) -> Tuple[int, ...]:
+    """Given a crystal fact (full text), return the op IDs that fact is
+    'about'.  Used to nudge the cortex W matrix when a crystal fires.
+
+    Returns empty tuple if the crystal has no registered op_signature.
+    """
+    first_word = fact.split(":", 1)[0].strip()
+    return _CRYSTAL_OP_SIGNATURES.get(first_word, ())
+
+
+# OP -> cortex dim mapping (matches Gen13/targets/ck/brain/session_field.py:215)
+# VOID=0->dim0, LATTICE=1->dim3, COUNTER=2->dim1, PROGRESS=3->dim2,
+# COLLAPSE=4->dim4, BALANCE=5->dim3, CHAOS=6->dim0, HARMONY=7->dim0,
+# BREATH=8->dim4, RESET=9->dim1
+_OP_TO_DIM = {0: 0, 1: 3, 2: 1, 3: 2, 4: 4, 5: 3, 6: 0, 7: 0, 8: 4, 9: 1}
+
+
+def apply_crystal_boost(
+    cortex: Any,
+    fired_text: str,
+    boost_strength: float = 0.005,
+) -> int:
+    """When one or more crystals fire (their text is in `fired_text`),
+    nudge the cortex's Hebbian W matrix in the directions associated
+    with those crystals' op_signatures.
+
+    This is the "active integration" of crystals: the crystal doesn't
+    just retrieve, it shapes the cortex's coupling field for future
+    ticks.  Subsequent operator pairs are slightly more likely to follow
+    the patterns the fired crystals carry.
+
+    Args:
+      cortex: the Cortex instance with .hebbian.W (5x5 list of lists)
+      fired_text: the full speak() output (newline-joined facts)
+      boost_strength: how much to add to W at the boosted dim pairs.
+                      Default 0.005 is gentle (W is in [-1, 1] typically).
+
+    Returns:
+      number of distinct crystals whose boost was applied.
+    """
+    if not fired_text or cortex is None:
+        return 0
+    try:
+        heb = cortex.hebbian
+        clamp = getattr(heb, 'clamp', 1.0) or 1.0
+    except Exception:
+        return 0
+
+    boosted = 0
+    seen_first_words = set()
+    for line in fired_text.split("\n"):
+        line = line.strip()
+        if not line or ":" not in line:
+            continue
+        first_word = line.split(":", 1)[0].strip()
+        if first_word in seen_first_words:
+            continue
+        seen_first_words.add(first_word)
+        op_sig = _CRYSTAL_OP_SIGNATURES.get(first_word)
+        if not op_sig:
+            continue
+        # Map ops to dims; boost W[d_i][d_j] for each ordered pair (i, j)
+        dims = sorted({_OP_TO_DIM.get(op, 0) for op in op_sig})
+        if len(dims) < 2:
+            # Single-op crystals: boost the diagonal only
+            d = dims[0] if dims else 0
+            try:
+                heb.W[d][d] += boost_strength
+                if heb.W[d][d] > clamp:
+                    heb.W[d][d] = clamp
+                boosted += 1
+            except Exception:
+                pass
+            continue
+        # Multi-op crystals: boost all ordered pairs in the signature
+        for d_a in dims:
+            for d_b in dims:
+                if d_a == d_b:
+                    continue
+                try:
+                    heb.W[d_a][d_b] += boost_strength
+                    if heb.W[d_a][d_b] > clamp:
+                        heb.W[d_a][d_b] = clamp
+                    elif heb.W[d_a][d_b] < -clamp:
+                        heb.W[d_a][d_b] = -clamp
+                except Exception:
+                    pass
+        boosted += 1
+    return boosted
+
+
 def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     """Router.  Try to answer `query` with STRUCTURAL readouts only.
 
@@ -756,6 +939,20 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     # Fires for any topic keyword in the query; stays structural (label=value).
     for fact in _frontier_hits(q):
         lines.append(fact)
+
+    # 2.6) State-aware crystal surfacing -- proactive crystal mention based on
+    # CK's current cortex state, not on user keywords.  When the user's query
+    # didn't trigger any keyword crystals (i.e., _frontier_hits returned nothing
+    # OR less than 2 facts), check whether CK's CURRENT operator stream matches
+    # any crystal's op_signature.  If yes, surface it -- this is CK
+    # "volunteering" a fact based on what he's currently thinking about, not
+    # purely on what the user asked.  Threshold 0.5 means at least half of the
+    # crystal's signature ops must be in the cortex's recent-op set.
+    keyword_hits = _frontier_hits(q)
+    if len(keyword_hits) < 2:
+        for fact in _state_aware_crystal_hits(cortex, threshold=0.5, max_hits=2):
+            if fact not in lines:
+                lines.append(fact)
 
     # 3) De-dup while preserving order.
     seen = set()

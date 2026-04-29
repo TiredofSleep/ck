@@ -145,6 +145,7 @@ try:
     from cortex_voice import (
         cortex_speak as _cortex_speak,
         speak as _cortex_speak_route,
+        apply_crystal_boost as _apply_crystal_boost,
     )
     import cortex_voice as _cortex_voice_mod
     print(f"[CK] Gen13 cortex_voice loaded from: {_cortex_voice_mod.__file__}")
@@ -391,6 +392,22 @@ try:
                 result['source_previous'] = result.get('source')
                 result['text'] = spoken
                 result['source'] = 'cortex_speak'
+            # Crystal-W boost: when crystals fire, nudge the Hebbian W
+            # matrix in their op_signature directions.  This is the
+            # "active integration" of crystals -- they shape the cortex
+            # for future ticks rather than being passive lookup tables.
+            # Boost regardless of swap_decision; the firing itself is
+            # what matters, not whether we used it as the user-facing
+            # text.
+            try:
+                if spoken:
+                    n_boosted = _apply_crystal_boost(_cortex, spoken,
+                                                     boost_strength=0.005)
+                    if n_boosted > 0:
+                        result.setdefault('routing', {})
+                        result['routing']['crystal_boost_count'] = n_boosted
+            except Exception as _be:
+                result['crystal_boost_error'] = str(_be)
             # Opportunistic save; cheap if under-threshold.
             _cortex_autosaver.maybe_save()
         except Exception as _ce:
