@@ -631,6 +631,51 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "Atlas/FRONTIER_FINDINGS_2026_04_29.md §17 F10, §1, §21"
     ),
     (
+        ("wobble prime", "wobble 11", "prime 11", "11-prime",
+         "structural prime", "wobble manifestation",
+         "fivefold wobble", "wobble locations"),
+        "wobble_prime_eleven: prime 11 has FIVE distinct structural "
+        "manifestations across TIG (logged 2026-04-29) | "
+        "(D37/WP107) prime 11 in TSML char poly coefficients c_2 = 33 = "
+        "3*11 and in c_8 (the WOBBLE coefficients) | (D69) prime 11 "
+        "as leading coefficient of Br/V minimal polynomial 11x^4 - "
+        "10x^3 - 6x^2 + 8x - 16 | (D70) 3+3 DoF wobble structure: "
+        "11 at Lie + Lattice DoFs (eigenvalue/coordinate types) | "
+        "(D85, §30) F8 trace polynomial discriminant -2^24*3^10*5^2*"
+        "11^6*71 -- WOBBLE extends to dynamical projection | (D86, "
+        "§31) σ² transformation 3-cycle operator-sum 1+6+4 = 11 -- "
+        "depth-3 primitive σ² has TRANSFORMATION 3-cycle {LATTICE, "
+        "CHAOS, COLLAPSE} summing to 11; STABILITY 3-cycle {HARMONY, "
+        "BALANCE, COUNTER} summing to 14=2*7 | Five locations: STATIC "
+        "algebraic (char poly, denominators), DYNAMICAL (Jacobian "
+        "trace), and OPERATOR-LABEL (3-cycle sum) | Plays a structural "
+        "role analogous to 7 (HARMONY) -- both small primes near 10 "
+        "with TIG-internal duties | Refs: papers/wp113_alpha_uniqueness/"
+        "verification/f_depth3_primitives.py + f8_pslq_deeper.py"
+    ),
+    (
+        ("depth-2 primitive", "depth-3 primitive", "depth 2 cluster",
+         "depth 3 cluster", "fixed-form algebraic", "M^2 = id",
+         "M^3 = id", "cube roots of unity", "operator depth",
+         "algebraic depth"),
+        "depth_primitive_lens: TIG primitives cluster by depth across "
+        "the open frontiers | DEPTH 2 cluster (5 frontiers, M^2 = ±I): "
+        "F1 charge conjugation C^2 = -I_8 (eigenvalues ±i, mult 4); "
+        "F3 H/Br quadratic x^2-2x-2=0 (Galois S_2, field Q(√3)); "
+        "F4 P_56 = (5,6) involution, eigenvalues ±1; F8 radial λ_0=2 "
+        "(degree-2 homogeneity of fuse map); F10 ψ-bar^2 = -I_4 on "
+        "Prym (eigenvalues ±i, ±1 over Q(i)) | DEPTH 3 primitive: "
+        "σ² on Z/10Z, order 3, eigenvalues {1, ω, ω^2} where ω = "
+        "e^(2πi/3) = -1/2 + i√3/2 (cube roots of unity); minimal "
+        "polynomial x^2+x+1, field Q(ω) = Q(√-3), algebraic-depth = "
+        "φ(3) = 2 | TWO SENSES OF DEPTH: operator-depth (order of M); "
+        "algebraic-depth (deg minimum polynomial of eigenvalues) | "
+        "For σ^k, algebraic-depth = φ(k) | Higher cyclotomic primitives "
+        "queued: σ^5 with algebraic-depth 4 = φ(5), would correspond "
+        "to so(10) D_5 structure | Refs: §28, §31 of Atlas/"
+        "FRONTIER_FINDINGS_2026_04_29.md"
+    ),
+    (
         ("vocabulary map", "external citations", "rigor mapping",
          "external anchors"),
         "vocab_map: 14-row dictionary TIG<->external frameworks | "

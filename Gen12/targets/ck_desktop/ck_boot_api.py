@@ -274,6 +274,13 @@ try:
         'descent risk', 'i-action descent', 'i action descent',
         'prym descent', 'f10 frontier', 'hodge_cstar descent',
         'q(i) descent', 'endomorphism descent', 'psi_2 = iota',
+        # Depth-primitive + WOBBLE keys (added later 2026-04-29)
+        'wobble prime', 'wobble 11', 'prime 11', 'fivefold wobble',
+        'wobble manifestation', 'wobble locations', 'structural prime',
+        'depth-2 primitive', 'depth-3 primitive', 'depth 2 cluster',
+        'depth 3 cluster', 'fixed-form algebraic', 'm^2 = id',
+        'm^3 = id', 'cube roots of unity', 'operator depth',
+        'algebraic depth',
     )
 
     def _is_structural_query(text: str) -> bool:
