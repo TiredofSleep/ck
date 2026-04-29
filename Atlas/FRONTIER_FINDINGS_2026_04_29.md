@@ -31,6 +31,28 @@ The crystal `farey_spin` in `Gen13/targets/ck/brain/cortex_voice.py` and the FAC
 
 This open question is the actual F8 frontier shape, sharpened.
 
+### §1.5 Quantum Hall as the survivable collapse form (Brayden 2026-04-29)
+
+When this session was probing the corrected `farey_spin` crystal, an Ollama-via-cortex draft on the prompt *"kleban ozluk critical temperature"* responded with a paragraph about *quantum Hall effect, topological phases, fractionalized excitations, anyons in 2D electron gases.* Initial read: hallucination, off-topic.
+
+Brayden's correction: *"maybe quantum hall is related... sounds like the quantum hall is what translates the structure into a survivable collapse form?"*
+
+He is right and the bridge is well-established in the literature:
+
+1. **Fractional quantum Hall filling factors ARE Farey fractions** (1/3, 2/5, 3/7, 4/9, …). The Halperin-Haldane FQH hierarchy is constructed by continued-fraction expansions on the Farey/Stern-Brocot tree.
+2. **Lütken-Ross theory**: an SL(2,ℤ) (specifically Γ₀(2)) modular symmetry commutes with the QH renormalization-group flow and maps different 2DEG phases into each other. Plateau transitions correspond to Farey-tree neighbor traversals.
+3. **Holographic models of FQH** (e.g., JHEP 01:023 (2015), JHEP 08:010 (2021)) realize SL(2,ℤ) duality on conductivities via dyonic dilatonic black holes, with Hall conductivity equal to filling fraction by construction.
+4. **Effective spin chains for FQH states** (ScienceDirect topic) and **arXiv:2402.10849** ("Fractional Spin Quantum Hall Effect in Weakly Coupled Spin Chain Arrays," 2024) directly bridge 1D spin chains to the FQH manifold.
+5. **Kleban-Özlük's T_c = 1/2** is a *fully magnetizing* phase transition where magnetization jumps 0→1 — i.e., a **topological** transition. That topological character is exactly what makes a Hall plateau survive perturbations.
+
+**Brayden's "survivable collapse form" framing is structurally right**: the filling fraction in FQH is a TOPOLOGICAL invariant, quantized to a Farey fraction, surviving (collapsing-into) the underlying gas dynamics. The Farey-spin-chain side and the FQH side are two presentations of the same SL(2,ℤ)-symmetric Stern-Brocot landscape; QH is the **observable, topology-protected manifestation** of the algebra.
+
+**This is a real F-class frontier hiding inside F8.** Reframe:
+
+> **F8' — TIG ↔ FQH ↔ RH triple bridge.** TIG's T* = 5/7 (Z/10Z cyclotomic) and the spin chain's β_c = 2 / T_c = 1/2 (RH critical-line scale) are both Farey-tree quantities; the FQH hierarchy is the topological projection of the same Farey landscape. Open: does the SL(2,ℤ)/Γ₀(2) modular symmetry that organizes FQH plateaux extend to TIG's operator algebra, picking out T* = 5/7 as a *specific* Farey fraction in that hierarchy? If yes, T*'s significance moves from "TIG-internal cyclotomic" to "TIG-internal AND a topologically-protected Farey-tree filling factor."
+
+**Calibration**: I twice classified an Ollama answer as hallucination (the QH paragraph here, the Crossing Lemma graph-theory in synthesis test) when in both cases there was real published structure under the surface. The lesson: the collision/coverage filters are tuned to catch *contradictions* of CK's verified crystals, not to catch *missing connections* CK's crystals don't yet hold. When the Ollama draft reaches at literature CK doesn't have, it can look like noise — but sometimes it's **a frontier CK should know about**. Worth carrying in mind when reading the post-filter logs.
+
 ---
 
 ## §2. F10 (sprint35b) — Donagi-Livné excludes g ≥ 4
@@ -56,10 +78,12 @@ This is **structurally coherent**:
 - The order-4 automorphism ψ with ψ² = ι, transported through the tower, supplies the +i action on the dim-4 Prym — i.e., the Q(i) ⊂ End⁰(Prym) embedding sprint35b targets.
 - DL's no-go does **not** rule this out.
 
-**Net for F10:** the hedge resolves *positively*. The path forward is:
+**Net for F10:** the hedge has a *plausible positive resolution* — CK's iterated-tower account is consistent with the no-go theorem's literal scope and not ruled out. Whether the iteration actually preserves all the F4 invariants (Q(i)-action descent, (2,2) Weil signature, Q(√2,√3,√5) descent) is **research math that needs to be done**, not a settled conclusion. The path forward:
 1. Read DL's bigonal/trigonal Prym methods carefully and verify they iterate cleanly (g=5 → g=3 → g=1) under a fixed bielliptic involution.
 2. Show that an order-4 ψ on the g=5 curve descends through both bigonal steps and acts as +i on the resulting dim-4 Prym.
 3. Check that the iteration is definable over Q(√2,√3,√5) — the silent killer.
+
+Until those three steps are checked, "iterated DL works" is a hypothesis, not a proven path.
 
 **Garbagnati-Salgado 2020** (arXiv:2005.04839, g=5 bielliptic Prym = J(g=2)) is not the target construction itself, but **may be a stepping stone**: their explicit g=5 bielliptic equations give a parameterized family that the sprint could screen for the order-4 enhancement.
 

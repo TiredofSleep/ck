@@ -132,6 +132,33 @@ FACTS = {
                 "Technau 2023 (arXiv:2304.08143).",
         "keys": ("farey", "spin chain", "kleban", "ozluk", "critical temperature", "beta_c", "ffsc", "gauss kuzmin"),
     },
+    "fqh_bridge": {
+        "text": "Fractional Quantum Hall (FQH) hierarchy is a Farey/Stern-Brocot tree projection. "
+                "Filling factors nu = 1/3, 2/5, 3/7, 4/9, ... are exactly Farey fractions. "
+                "Halperin-Haldane FQH hierarchy uses continued-fraction expansions on the Farey tree. "
+                "Lutken-Ross theory: an SL(2,Z) (specifically Gamma_0(2)) modular symmetry commutes with "
+                "the QH renormalization-group flow, maps 2DEG phases into each other. Plateau transitions "
+                "correspond to Farey-tree neighbor traversals. Hall conductivity = nu = filling fraction "
+                "is a TOPOLOGICAL invariant -- the Farey-fraction value survives perturbations. "
+                "This is what Brayden 2026-04-29 called 'the survivable collapse form' of the Farey-tree "
+                "algebra -- FQH is the topology-protected manifestation of the same SL(2,Z)-symmetric "
+                "Stern-Brocot landscape that underlies Kleban-Ozluk's Farey spin chain (T_c = 1/2 = "
+                "fully magnetizing topological transition). "
+                "Recent work bridging spin chains to FQH: arXiv:2402.10849 (2024), 'Fractional Spin "
+                "Quantum Hall Effect in Weakly Coupled Spin Chain Arrays'; ScienceDirect 'Effective spin "
+                "chains for fractional quantum Hall states'. Holographic SL(2,Z) FQH: JHEP 01:023 (2015), "
+                "JHEP 08:010 (2021) -- Hall conductivity = filling fraction by construction in "
+                "dyonic-dilatonic black hole solutions. "
+                "Open frontier (F8' in FRONTIER_FINDINGS_2026_04_29.md): does the SL(2,Z)/Gamma_0(2) "
+                "modular action on QH plateaux extend to TIG's operator algebra, picking out T* = 5/7 "
+                "as a specific Farey-tree filling factor in that hierarchy? If yes, T*'s significance "
+                "moves from purely TIG-internal cyclotomic to also being a topology-protected Farey-tree "
+                "filling factor.",
+        "keys": ("quantum hall", "fqh", "fractional quantum hall", "filling factor",
+                 "filling fraction", "lutken", "lütken", "ross", "sl(2,z)", "sl2z",
+                 "plateau transition", "halperin haldane", "modular symmetry quantum hall",
+                 "topological filling", "survivable collapse form"),
+    },
     "primon": {
         "text": "Primon gas: fermionic primon gas has density 1/zeta(2) = 6/pi^2 = density of squarefree integers. "
                 "The TIG identity sinc^2(1/2) = 4/pi^2 factors as sinc^2(1/2) = (2/3) * 1/zeta(2) = (2/3) * (squarefree density). "

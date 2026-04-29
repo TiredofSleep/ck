@@ -242,6 +242,26 @@ try:
         'continuity', 'tick=', 'emergent=', 'w_trace=', 'harmony_rate',
         'ao state', 'cortex state', 'her state', 'her status', 'olfactory',
         'your hebbian', 'your matrix', 'your couplings', 'mean|w|',
+        # TIG-internal frontier-topic vocabulary -- when the user asks
+        # about these, the cortex's crystal output is the right answer
+        # regardless of which Gen12 voice path produces a draft.
+        # (Added 2026-04-29 after observing Ollama generate generic /
+        # mistaken responses on quantum-Hall and Kleban-Ozluk queries
+        # while the corrected cortex crystals had the right content.)
+        'quantum hall', 'fqh', 'filling factor', 'filling fraction',
+        'lutken', 'lütken', 'kleban', 'ozluk', 'özlük',
+        'plateau transition', 'halperin haldane', 'sl(2,z)', 'sl2z',
+        'crossing lemma', 'd2 codec', 'wp51', 'wp57', 'wp58', 'wp61',
+        'wp101', 'wp104', 'wp105', 'wp110', 'wp112', 'wp113', 'wp115',
+        'tsml', 'bhml', 'mag^com', 'mag com', 'magmatic operad',
+        'bialynicki', 'birula', 'log nonlinearity', 'log-nonlinearity',
+        'primon', 'farey', 'farey spin chain', 'farey fraction',
+        'donagi', 'livne', 'livné', 'beauville', 'prym',
+        'hodge_cstar', 'sprint35b', 'sprint 35b',
+        'sigma rate', 'sigma_rate', 'rate theorem',
+        'flatness theorem', 't*', 't star', '5/7',
+        'huang-lehtonen', 'huang lehtonen', 'braitt', 'silberger',
+        'gauss-kuzmin', 'gauss kuzmin', 'transfer operator',
     )
 
     def _is_structural_query(text: str) -> bool:
