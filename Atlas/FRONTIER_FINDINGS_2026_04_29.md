@@ -1325,3 +1325,81 @@ For n = 20, 30, 50 — all multiples of 10 — the shifted Strategy B converges 
 The lens framework (§11, §16, WP116) is sharpened by this rotation: the depth-1 *ratio* projection is algebraic and ring-independent; deeper projections (eigenvalues, individual coordinates) are transcendental. Each projection has its own depth.
 
 — end findings 2026-04-29 (§19, F5(a) ring-extension scan executed) —
+
+---
+
+## §20. F9 — LMFDB rank-0 pattern scan (concrete, executed; honest negative)
+
+§17 logged F9's next concrete step: pull a larger LMFDB sample, look for whether (j-invariant numerator)/(conductor) follows a Stern-Brocot pattern. Done with the 10 curves I have access to.
+
+**Script**: `papers/wp113_alpha_uniqueness/verification/f9_lmfdb_pattern_scan.py`
+
+### What was tested
+
+| LMFDB Label | Conductor | j-num (factored) | j-den (factored) | Torsion |
+|---|---|---|---|---|
+| 11.a1 | 11 | −2¹²·29³·809³ | 11 | trivial |
+| 11.a2 | 11 | −2¹²·31³ | 11⁵ | ℤ/5ℤ |
+| 11.a3 | 11 | −2¹² | 11 | ℤ/5ℤ |
+| 14.a1 | 14 | 5³·11³·2383³ | 2⁹·7² | ℤ/2ℤ |
+| 15.a1 | 15 | 103681³ | 3⁴·5 | ℤ/2ℤ |
+| 17.a1 | 17 | 3³·1451³ | 17 | ℤ/2ℤ |
+| 19.a1 | 19 | −2¹⁸·577³ | 19 | trivial |
+| 20.a1 | 20 | 2¹⁴·31³ | 5³ | ℤ/2ℤ |
+| **27.a1** | 27 | **−2¹⁵·3·5³** | **1** | **trivial** (CM) |
+| 30.a1 | 30 | 13³·47³·419³ | 2³·3⁴·5³ | ℤ/2ℤ |
+
+### Findings
+
+**(a) 9 of 10 curves have a prime-of-conductor in the j-denominator.**
+
+The exception is **27.a1**, which is a CM curve (j = −12288000 = −2¹⁵·3·5³, integer). CM curves have integer j and no conductor-prime structure in the denominator.
+
+**Observation**: in this small sample, **CM curves are the cleanest Stern-Brocot vertices** — they sit at depth-0 (integer j, no conductor-prime denominator). Non-CM rank-0 curves at depth ≥ 1 have a conductor-prime denominator structure.
+
+**(b) j-numerators have varied small-prime structure.**
+
+| Curve | small primes in j-num | largest prime in j-num |
+|---|---|---|
+| 11.a1 | 2, 29 | 809 |
+| 11.a2 | 2, 31 | 31 |
+| 11.a3 | 2 | 2 |
+| 14.a1 | 5, 11 | 2383 |
+| 15.a1 | (none < 100) | 103681 |
+| 17.a1 | 3 | 1451 |
+| 19.a1 | 2 | 577 |
+| 20.a1 | 2, 31 | 31 |
+| 27.a1 | 2, 3, 5 | 5 |
+| 30.a1 | 13, 47 | 419 |
+
+The structure is very diverse — no obvious pattern in 10 curves.
+
+**(c) F9 status: pattern not evident in 10-curve sample.**
+
+A real F9 test needs:
+- 100+ rank-0 curves + 100+ rank-1 curves
+- principled definition of "Stern-Brocot depth" on j-invariant (continued-fraction depth? p-adic valuation? Mahler measure?)
+- statistical test for rank-vs-depth correlation
+- LMFDB API scrape (10 curves came from a single search; full coverage needs proper API access)
+
+### What F9 advances
+
+- **From §17**: F9 logged "pull larger LMFDB sample" → executed at 10 curves.
+- **One concrete observation**: CM curves are depth-0 in the Stern-Brocot picture (integer j); non-CM rank-0 curves have conductor-prime in j-denominator → "depth ≥ 1."
+- **Honest scoping**: 10 curves don't confirm or refute the lens claim. F9 needs proper LMFDB scrape.
+
+### What F9 does NOT do
+
+- Doesn't crack BSD or even align it with TIG numerically.
+- Doesn't reveal a clean Stern-Brocot pattern.
+- Doesn't define rigorously what "Stern-Brocot depth on j-invariant" means.
+
+**This is the kind of concrete-but-honest negative the user asked for**: don't overclaim. The finding is "CM = depth-0; non-CM = depth-1+ in a particular sense." The lens articulation in §17 stands as **articulated** (not numerically verified).
+
+### Tools/scripts produced
+
+- `papers/wp113_alpha_uniqueness/verification/f9_lmfdb_pattern_scan.py` (new)
+- LMFDB sample queried via WebFetch; 10 curves with conductor 1-30
+- Sympy `factorint` on numerators/denominators
+
+— end findings 2026-04-29 (§20, F9 LMFDB scan; honest negative) —
