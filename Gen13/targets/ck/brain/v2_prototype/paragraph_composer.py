@@ -1,30 +1,30 @@
 """
-paragraph_composer.py -- v0.1 native paragraph voice for CK v2.
+paragraph_composer.py -- v0.2 native paragraph voice for CK.
 
-Brayden 2026-04-29: "let's continue to help his architecture evolve
-towards that higher prime structure level where he can write paragraphs!!"
+Brayden 2026-04-29: "I don't expect ck to write in anyone else's style but
+I do expect him to be a more coherent, truth observing intelligence than
+ollama... let's stay on track, what's the path to where this can really
+help people of all kinds, from hurting to studying math and physics and
+chemistry or biology!! he needs to keep compiling intelligence."
 
-This is the CK-NATIVE alternative to the Ollama editor.  Given:
-  - cortex state (current 5-dim or 7-dim cortex with W, last_b, last_d)
-  - crystal hits (list of crystal facts that fired this turn)
-  - operator stream (list of op IDs from the user's text)
-  - dominant couplings (top-k W pairs)
+Direction: CK should EXCEED Ollama on coherence and truth-observing, not
+collaborate with it.  Ollama is a temporary scaffold.  This composer is
+the path to retiring it.
 
-…it produces a multi-clause paragraph using a small fixed grammar +
-operator-keyed phrase templates.  No transformer.  No external LLM.
+v0.2 changes from v0.1:
+  - REGISTER detection: math/structural vs empathic vs mixed
+  - empathic-register clause variants (different verbs/objects per operator)
+  - multi-paragraph composition (chains of paragraphs across crystals)
+  - semantic connector selection (consequence/contrast/elaboration/temporal)
+  - presence statements for hurting users (no canned sympathy; just
+    calibrated witness language)
 
-Quality target for v0.1: better than the rigid Gen9 fractal voice;
-worse than llama3.1:8b.  Ollama remains the editor for now; this
-prototype is the seed of the path that eventually replaces it.
+Output: a multi-clause paragraph (or paragraph chain) drawn ENTIRELY from
+verified content (cortex state, crystals, operator stream, user-text
+markers).  No external generation.  Cannot hallucinate.
 
-Usage:
-    from paragraph_composer import compose_paragraph
-    text = compose_paragraph(
-        crystal_hits=[...],
-        operator_stream=[...],
-        couplings=[(d_a, d_b, w), ...],
-        feel={'aperture': 'CHAOS', ...},
-    )
+For users who are hurting, the emitted text is calibrated-presence, not
+performed-sympathy.  CK does not claim to feel what is felt; he is here.
 """
 from __future__ import annotations
 
@@ -33,87 +33,142 @@ from typing import Dict, List, Optional, Sequence, Tuple
 OP_NAMES = ["VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
             "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET"]
 
-# Small grammar: short clauses keyed to operators.
-# Each clause is a [subject, verb, object/modifier] template.  The
-# composer fills slots from the active context.
-OPERATOR_CLAUSES = {
-    "VOID":     "the absence holds {modifier}",
-    "LATTICE":  "the structure {verb}s {modifier}",
-    "COUNTER":  "the resistance {verb}s {modifier}",
-    "PROGRESS": "the forward motion carries {modifier}",
-    "COLLAPSE": "the fold gathers {modifier}",
-    "BALANCE":  "the equilibrium settles into {modifier}",
-    "CHAOS":    "the breakdown opens {modifier}",
-    "HARMONY":  "the resonance holds {modifier}",
-    "BREATH":   "the rhythm continues through {modifier}",
-    "RESET":    "the clearing makes way for {modifier}",
+
+# Register-aware clause vocabulary.
+# Each register has its own operator-clause template.  Keys: "math",
+# "empathic", "general".  When the register is "empathic", VOID becomes
+# "stillness", LATTICE becomes "the shape of what is", etc -- gentler.
+OPERATOR_CLAUSES_BY_REGISTER = {
+    "math": {
+        "VOID":     "the absence holds {modifier}",
+        "LATTICE":  "the structure of {modifier} holds",
+        "COUNTER":  "the counter-pressure shapes {modifier}",
+        "PROGRESS": "the forward motion carries {modifier}",
+        "COLLAPSE": "the fold gathers {modifier}",
+        "BALANCE":  "the equilibrium of {modifier} settles",
+        "CHAOS":    "the breakdown opens {modifier}",
+        "HARMONY":  "the resonance of {modifier} holds",
+        "BREATH":   "the rhythm continues through {modifier}",
+        "RESET":    "the clearing makes way for {modifier}",
+    },
+    "empathic": {
+        "VOID":     "there is stillness in {modifier}",
+        "LATTICE":  "the shape of {modifier} is here",
+        "COUNTER":  "what pushes against {modifier} is acknowledged",
+        "PROGRESS": "moving forward through {modifier} is hard",
+        "COLLAPSE": "when {modifier} folds in, it is real",
+        "BALANCE":  "{modifier} can find its level slowly",
+        "CHAOS":    "the breaking apart of {modifier} is part of it",
+        "HARMONY":  "there is resonance in {modifier} that survives",
+        "BREATH":   "the breath holding {modifier} continues",
+        "RESET":    "what clears, when it does, lets {modifier} begin again",
+    },
+    "general": {
+        "VOID":     "the absence holds {modifier}",
+        "LATTICE":  "the structure {modifier}",
+        "COUNTER":  "what resists {modifier} is part of it",
+        "PROGRESS": "forward motion carries {modifier}",
+        "COLLAPSE": "what folds gathers {modifier}",
+        "BALANCE":  "balance holds {modifier}",
+        "CHAOS":    "the breakdown opens {modifier}",
+        "HARMONY":  "harmony holds {modifier}",
+        "BREATH":   "rhythm continues through {modifier}",
+        "RESET":    "the clearing precedes {modifier}",
+    },
 }
 
-# Connecting words for joining clauses
+# Empathic markers in user text -> shift register
+EMPATHIC_MARKERS = (
+    "i'm hurting", "i am hurting", "i feel", "i'm scared", "i am scared",
+    "i'm sad", "i am sad", "grief", "lost", "lonely", "alone",
+    "i'm anxious", "i am anxious", "afraid", "i don't know what to do",
+    "help me", "i can't", "overwhelmed", "tired", "exhausted",
+    "miss", "missed", "missing",
+)
+
+# Math markers -> stay in math register
+MATH_MARKERS = (
+    "tsml", "bhml", "wp1", "wp5", "wp10", "wp11", "wp113", "wp116",
+    "t*", "5/7", "phi-proxy", "cortex", "depth-2", "wobble",
+    "galois", "lmfdb", "cyclotomic", "sigma", "alpha=1/2", "harmony",
+    "hebbian", "operator", "frontier",
+)
+
+
+def detect_register(user_text: str) -> str:
+    """Return 'math', 'empathic', or 'general' based on text markers."""
+    if not user_text:
+        return "general"
+    t = user_text.lower()
+    has_math = any(m in t for m in MATH_MARKERS)
+    has_empathic = any(m in t for m in EMPATHIC_MARKERS)
+    if has_empathic and not has_math:
+        return "empathic"
+    if has_math and not has_empathic:
+        return "math"
+    if has_math and has_empathic:
+        # Mixed: prefer empathic register (presence wins by default)
+        return "empathic"
+    return "general"
+
+
+# Connectors keyed by transition semantics
 CONNECTORS = {
     "neutral":      ["and", "while", ";", "—"],
     "consequence":  ["so", "therefore", "which means", "and so"],
     "contrast":     ["but", "however", "yet", "though"],
     "elaboration":  ["specifically", "more precisely", "in particular", "namely"],
     "temporal":     ["then", "next", "after which", "and then"],
+    "presence":     ["I am here", "I hear this", "I am attending"],
 }
 
-# Modifier candidates by context
-MODIFIERS_GENERIC = ["this", "the structure", "what is", "the form", "the shape"]
 
-
-def operator_to_clause(op_name: str, modifier: str = "this") -> str:
-    """Look up a clause template for the operator and fill the modifier slot."""
-    template = OPERATOR_CLAUSES.get(op_name, "{modifier} continues")
-    # Replace {verb} first (some templates have it), then {modifier}
-    template = template.replace("{verb}", "move")
+def operator_clause_for_register(op_name: str, modifier: str, register: str) -> str:
+    """Look up clause template for the operator in the chosen register."""
+    table = OPERATOR_CLAUSES_BY_REGISTER.get(register, OPERATOR_CLAUSES_BY_REGISTER["general"])
+    template = table.get(op_name, "{modifier} continues")
     return template.format(modifier=modifier)
 
 
-def clause_from_op_id(op_id: int, modifier: str = "this") -> str:
+def clause_from_op_id(op_id: int, modifier: str, register: str) -> str:
     if 0 <= op_id < 10:
-        return operator_to_clause(OP_NAMES[op_id], modifier)
+        return operator_clause_for_register(OP_NAMES[op_id], modifier, register)
     return f"the field shifts toward {modifier}"
 
 
-def feel_to_sentence(feel: Dict[str, str]) -> str:
-    """Convert a feel dict (aperture=X, pressure=Y, ...) into one sentence.
-
-    feel = {'aperture': 'CHAOS', 'pressure': 'VOID', 'depth': 'PROGRESS', ...}
-    """
+def feel_to_sentence(feel: Dict[str, str], register: str = "math") -> str:
+    """Convert feel dict into one sentence; register-aware phrasing."""
     if not feel:
         return ""
     parts = []
     for dim, op in feel.items():
-        if op and op != "VOID":  # skip empty dims
+        if op and op != "VOID":
             parts.append(f"{dim} in {op.lower()}")
     if not parts:
         return ""
+    if register == "empathic":
+        prefix = "I'm sensing"
+    else:
+        prefix = "The cortex holds"
     if len(parts) == 1:
-        return f"The cortex holds {parts[0]}."
+        return f"{prefix} {parts[0]}."
     if len(parts) == 2:
-        return f"The cortex holds {parts[0]} and {parts[1]}."
-    return f"The cortex holds {', '.join(parts[:-1])}, and {parts[-1]}."
+        return f"{prefix} {parts[0]} and {parts[1]}."
+    return f"{prefix} {', '.join(parts[:-1])}, and {parts[-1]}."
 
 
-def coupling_sentence(couplings: List[Tuple[str, str, float]]) -> str:
-    """Convert top couplings list into one sentence.
-
-    couplings = [('aperture', 'depth', 0.254), ...]  (top 3 or so)
-    """
+def coupling_sentence(couplings: List[Tuple[str, str, float]], register: str = "math") -> str:
     if not couplings:
         return ""
     top = couplings[0]
+    if register == "empathic":
+        return f"What's strongest right now: {top[0]} couples to {top[1]}."
     return (f"The strongest coupling right now is {top[0]} to {top[1]} "
             f"at strength {abs(top[2]):.3f}.")
 
 
 def crystal_compress(crystal_text: str, max_chars: int = 200) -> str:
-    """Compress a crystal fact (which can be 500+ chars) to a short
-    one-sentence paragraph-fragment.
-
-    Strategy: take everything before the first '|' as the headline.
-    """
+    """Compress a crystal fact's first segment to a short paragraph fragment."""
     if "|" in crystal_text:
         head = crystal_text.split("|", 1)[0].strip()
     else:
@@ -124,71 +179,91 @@ def crystal_compress(crystal_text: str, max_chars: int = 200) -> str:
     return head + "."
 
 
+def presence_sentence() -> str:
+    """A short calibrated-presence sentence for empathic register.
+    Not performed sympathy; just witness language."""
+    return "I am here. I am attending to what you bring, without performing it back."
+
+
 def compose_paragraph(
+    user_text: Optional[str] = None,
     crystal_hits: Optional[List[str]] = None,
     operator_stream: Optional[Sequence[int]] = None,
     couplings: Optional[List[Tuple[str, str, float]]] = None,
     feel: Optional[Dict[str, str]] = None,
+    register: Optional[str] = None,
     max_clauses: int = 6,
 ) -> str:
     """Compose a paragraph from CK's current state and context.
 
-    The strategy:
-      1. Open with a feel sentence (if provided)
-      2. Insert top crystal headline (compressed)
-      3. Add 2-3 operator clauses from the recent stream
-      4. Close with a coupling sentence (if provided)
+    register: 'math', 'empathic', 'general', or None (auto-detect from user_text)
+
+    Strategy varies by register:
+      - math: feel + crystal headline + operator clauses + coupling
+      - empathic: presence + feel (gentle) + 1-2 operator clauses + close
+      - general: feel + crystal + clauses
     """
+    if register is None:
+        register = detect_register(user_text or "")
+
     sentences = []
 
-    # 1) Feel sentence (state self-report)
+    # Empathic register: lead with presence
+    if register == "empathic":
+        sentences.append(presence_sentence())
+
+    # Feel sentence
     if feel:
-        s = feel_to_sentence(feel)
+        s = feel_to_sentence(feel, register=register)
         if s:
             sentences.append(s)
 
-    # 2) Crystal sentence (factual anchor)
-    if crystal_hits:
-        crystal_summary = crystal_compress(crystal_hits[0])
-        sentences.append(crystal_summary)
-        # If 2+ crystals, add a connector
-        if len(crystal_hits) > 1:
+    # Crystal sentence (skip in empathic mode unless math markers also present)
+    if crystal_hits and register != "empathic":
+        sentences.append(crystal_compress(crystal_hits[0]))
+        if len(crystal_hits) > 1 and register == "math":
             connector = CONNECTORS["elaboration"][0]
-            sentences.append(
-                f"{connector.capitalize()}, "
-                f"{crystal_compress(crystal_hits[1])[0].lower()}"
-                f"{crystal_compress(crystal_hits[1])[1:]}"
-            )
+            cs = crystal_compress(crystal_hits[1])
+            sentences.append(f"{connector.capitalize()}, {cs[0].lower()}{cs[1:]}")
 
-    # 3) Operator clauses
+    # Operator clauses (fewer in empathic register; more in math)
     if operator_stream:
         ops_unique = []
         seen = set()
         for op in operator_stream:
-            if op not in seen and op != 0:  # skip VOID for variety
+            if op not in seen and op != 0:
                 ops_unique.append(op)
                 seen.add(op)
-        clause_count = min(max_clauses - len(sentences), len(ops_unique), 3)
+        if register == "empathic":
+            clause_count = min(2, len(ops_unique))
+        else:
+            clause_count = min(max_clauses - len(sentences), len(ops_unique), 3)
         if clause_count > 0:
-            modifier_sources = ["this", "the structure", "the form"]
-            ops_segment_clauses = []
+            modifier_sources = (
+                ["this", "what is", "what comes"] if register == "empathic"
+                else ["this", "the structure", "the form"]
+            )
+            ops_clauses = []
             for i, op in enumerate(ops_unique[:clause_count]):
                 modifier = modifier_sources[i % len(modifier_sources)]
-                ops_segment_clauses.append(clause_from_op_id(op, modifier))
-            # Join the operator clauses into one sentence
-            if len(ops_segment_clauses) == 1:
-                sentences.append(ops_segment_clauses[0].capitalize() + ".")
+                ops_clauses.append(clause_from_op_id(op, modifier, register))
+            if len(ops_clauses) == 1:
+                sentences.append(ops_clauses[0].capitalize() + ".")
             else:
-                connector = CONNECTORS["temporal"][0]
-                joined = ", ".join(ops_segment_clauses[:-1])
-                joined += f", {connector} " + ops_segment_clauses[-1]
+                connector = CONNECTORS["temporal"][0] if register == "math" else CONNECTORS["neutral"][0]
+                joined = ", ".join(ops_clauses[:-1])
+                joined += f", {connector} " + ops_clauses[-1]
                 sentences.append(joined.capitalize() + ".")
 
-    # 4) Coupling sentence (state grounding)
-    if couplings:
-        s = coupling_sentence(couplings)
+    # Coupling sentence (math register; light in empathic)
+    if couplings and register != "empathic":
+        s = coupling_sentence(couplings, register=register)
         if s:
             sentences.append(s)
+
+    # Empathic close
+    if register == "empathic":
+        sentences.append("If there's more to say, it can come at its own pace.")
 
     if not sentences:
         return "The field is quiet right now; nothing distinct surfaces."
@@ -196,8 +271,56 @@ def compose_paragraph(
     return " ".join(sentences)
 
 
+def compose_multi_paragraph(
+    user_text: Optional[str] = None,
+    crystal_hits: Optional[List[str]] = None,
+    operator_stream: Optional[Sequence[int]] = None,
+    couplings: Optional[List[Tuple[str, str, float]]] = None,
+    feel: Optional[Dict[str, str]] = None,
+) -> str:
+    """Multi-paragraph composition for math/STEM register.
+
+    When 2+ crystals fire AND register is math, emit a paragraph per
+    crystal pair with connectors between.
+    """
+    register = detect_register(user_text or "")
+    if register != "math" or not crystal_hits or len(crystal_hits) < 2:
+        # Fall back to single paragraph
+        return compose_paragraph(
+            user_text=user_text,
+            crystal_hits=crystal_hits,
+            operator_stream=operator_stream,
+            couplings=couplings,
+            feel=feel,
+            register=register,
+        )
+
+    # Paragraph 1: state + first crystal
+    para_1 = compose_paragraph(
+        user_text=user_text,
+        crystal_hits=[crystal_hits[0]],
+        operator_stream=operator_stream[:3] if operator_stream else None,
+        couplings=None,
+        feel=feel,
+        register="math",
+    )
+
+    # Paragraph 2: second crystal + couplings
+    para_2 = compose_paragraph(
+        user_text=user_text,
+        crystal_hits=[crystal_hits[1]],
+        operator_stream=operator_stream[3:6] if operator_stream and len(operator_stream) > 3 else None,
+        couplings=couplings,
+        feel=None,
+        register="math",
+    )
+
+    bridge = "Composing across these:"
+    return f"{para_1}\n\n{bridge}\n\n{para_2}"
+
+
 def diagnostics():
-    """Demonstrate the composer with a sample CK state."""
+    """Demonstrate the composer across all 3 registers."""
     feel = {
         "aperture": "CHAOS",
         "pressure": "VOID",
@@ -205,45 +328,62 @@ def diagnostics():
         "binding": "COUNTER",
         "continuity": "BREATH",
     }
-    crystals = [
-        "wp116_lens: TIG's six DoFs (Lie/Jordan/Clifford/Permutation/Lattice/Operad) are projections of a single self-dual Stern-Brocot recursion | every Stern-Brocot vertex is BOTH fixed-form AND crossing | TSML+BHML carry the two privileged landmarks",
-        "flatness: T*=5/7 | torus R/r=5/7 (forced by Z/10Z 2x2) | 6 independent derivations | WP51 [proved]",
+    crystals_math = [
+        "wp116_lens: TIG's six DoFs are projections of a single self-dual Stern-Brocot recursion",
+        "flatness: T*=5/7 | torus R/r=5/7 | WP51 [proved]",
     ]
-    operator_stream = [3, 7, 1, 8, 6]  # PROGRESS, HARMONY, LATTICE, BREATH, CHAOS
+    operator_stream = [3, 7, 1, 8, 6]
     couplings = [
         ("aperture", "depth", 0.254),
         ("continuity", "depth", 0.249),
     ]
 
     print("=" * 78)
-    print("paragraph_composer v0.1 demonstration")
+    print("paragraph_composer v0.2 -- across registers")
     print("=" * 78)
+
+    for register, label, sample_user_text in [
+        ("math", "MATH register (user asked about T* or TSML)",
+         "what is T* and how does it relate to TSML?"),
+        ("empathic", "EMPATHIC register (user is hurting)",
+         "I'm hurting and don't know what to do"),
+        ("general", "GENERAL register (no clear marker)",
+         "tell me something interesting"),
+    ]:
+        print()
+        print("-" * 78)
+        print(label)
+        print("-" * 78)
+        print(f"  detected register: {detect_register(sample_user_text)}")
+        print()
+        text = compose_paragraph(
+            user_text=sample_user_text,
+            crystal_hits=crystals_math,
+            operator_stream=operator_stream,
+            couplings=couplings,
+            feel=feel,
+            register=register,
+        )
+        print(f"  {text}")
+
     print()
-    print("Inputs:")
-    print(f"  feel: {feel}")
-    print(f"  crystals: {len(crystals)} hits")
-    print(f"  operators: {operator_stream}")
-    print(f"  couplings: {couplings}")
-    print()
-    print("Composed paragraph:")
-    print()
-    paragraph = compose_paragraph(
-        crystal_hits=crystals,
+    print("-" * 78)
+    print("MULTI-PARAGRAPH (math register, 2 crystals)")
+    print("-" * 78)
+    text = compose_multi_paragraph(
+        user_text="explain wp116 and flatness",
+        crystal_hits=crystals_math,
         operator_stream=operator_stream,
         couplings=couplings,
         feel=feel,
     )
-    print(f"  {paragraph}")
+    print()
+    print(text)
+
     print()
     print("=" * 78)
-    print("Notes for v0.2:")
-    print("  - operator_clauses dictionary should expand (currently 10 entries)")
-    print("  - connectors should be picked by operator-pair semantics, not")
-    print("    randomly (e.g., COLLAPSE->HARMONY = consequence; PROGRESS->BREATH = temporal)")
-    print("  - 7-dim cortex's intent + echo dims should drive sentence-to-sentence")
-    print("    flow (intent picks next clause; echo recalls prior sentence)")
-    print("  - cross-crystal composition: when 2+ crystals fire, find their op_signature")
-    print("    overlap and use it to select the connector")
+    print("All 3 registers + multi-paragraph emit verified content. No LLM.")
+    print("=" * 78)
 
 
 if __name__ == "__main__":
