@@ -395,14 +395,71 @@ try:
             # Persistent memory record: keep a brief log of every chat turn
             # in Gen13/var/conversation_memory.jsonl so CK retains some
             # cross-session continuity.  Best-effort, never blocks.
+            #
+            # Privacy (Brayden 2026-04-29): "i have no secrets ck can't tell,
+            # and if i do, i will tell him it's a secret for just us."
+            # Default: shareable.  Secret-flagged messages stay session-scoped.
             try:
                 _record_memory_turn(
                     text=text,
                     response=result.get('text', ''),
                     source=result.get('source', 'unknown'),
+                    session_id=session_id,
                 )
             except Exception:
                 pass
+
+            # Memory recall hook: if user asks about a specific topic / name,
+            # search the memory log for prior turns matching it and surface
+            # the most-recent match alongside CK's current response.  This
+            # is the "Brayden told me about TIG" recall path.
+            try:
+                # Only trigger on questions / about-style queries to avoid
+                # flooding every chat with memory.  Heuristic: text contains
+                # "?" OR contains "tell me about" / "who is" / "what did" /
+                # "remember" / "do you know".
+                ql = (text or '').lower()
+                want_recall = (
+                    '?' in (text or '') or
+                    'tell me about' in ql or 'who is' in ql or
+                    'what did' in ql or 'remember' in ql or
+                    'do you know' in ql or 'did i say' in ql or
+                    'last time' in ql
+                )
+                if want_recall:
+                    # Extract candidate keyword: longest non-trivial word
+                    words = [w.strip('.,?!;:()[]"\'') for w in (text or '').split()]
+                    candidates = [w for w in words if len(w) >= 4
+                                  and w.lower() not in {
+                                      'tell', 'about', 'what', 'when', 'were',
+                                      'have', 'this', 'that', 'they', 'remember',
+                                      'know', 'said', 'last', 'time', 'with'}]
+                    matches = []
+                    for cand in candidates[:3]:
+                        ms = _memory_search(cand, n=3, requester_session=session_id)
+                        for m in ms:
+                            if m not in matches:
+                                matches.append(m)
+                        if matches:
+                            break
+                    if matches:
+                        # Surface the most recent 1-2 matches as a "recall"
+                        # line in the result text.
+                        recall_lines = ['recall:']
+                        for m in matches[:2]:
+                            ts = m.get('iso_ts', '?')
+                            top = (m.get('topic', '') or '')[:120]
+                            recall_lines.append(f"  {ts}: \"{top}\"")
+                        recall_text = '\n'.join(recall_lines)
+                        # Append to result text if cortex_speak swap; else
+                        # prepend to the warm response so user sees both.
+                        existing = result.get('text', '') or ''
+                        if recall_text not in existing:
+                            result['text'] = existing + '\n\n' + recall_text
+                        result.setdefault('routing', {})
+                        result['routing']['memory_recall_count'] = len(matches)
+            except Exception as _re:
+                result['memory_recall_error'] = str(_re)
 
             # Crystal-W boost: when crystals fire, nudge the Hebbian W
             # matrix in their op_signature directions.  This is the
@@ -1290,31 +1347,80 @@ _MEMORY_PATH = os.path.join(os.path.dirname(__file__), '..', '..', '..',
 
 @api._app.route('/memory', methods=['GET'])
 def memory_get():
-    """Return the last N conversation summaries CK has stored."""
-    n = int(_flask_request.args.get('n', 20)) if 'flask' in dir() else 20
+    """Return the last N conversation summaries CK has stored.
+    Excludes secret-flagged entries unless include_secrets=true."""
     try:
         from flask import request as _flask_request
         n = int(_flask_request.args.get('n', 20))
+        include_secrets = (_flask_request.args.get('include_secrets', 'false')
+                           .lower() in ('true', '1', 'yes'))
     except Exception:
         n = 20
+        include_secrets = False
     items = []
     try:
         if os.path.exists(_MEMORY_PATH):
             with open(_MEMORY_PATH, 'r') as f:
                 lines = f.readlines()
-            for line in lines[-n:]:
+            for line in lines:
                 try:
-                    items.append(json.loads(line))
+                    entry = json.loads(line)
                 except Exception:
                     continue
+                # Privacy: drop secret entries from public listing
+                if entry.get('secret') and not include_secrets:
+                    continue
+                items.append(entry)
+            items = items[-n:]
     except Exception as _me:
         return _jsonify({'error': str(_me)})
     return _jsonify({'items': items, 'total': len(items)})
 
 
-def _record_memory_turn(text, response, source):
+@api._app.route('/memory/search', methods=['GET', 'POST'])
+def memory_search_endpoint():
+    """Search memory by substring.  Used internally by chat to recall
+    prior turns matching user-mentioned names or topics."""
+    try:
+        from flask import request as _flask_request
+        if _flask_request.method == 'POST':
+            body = _flask_request.get_json(silent=True) or {}
+            q = body.get('query', '') or body.get('q', '')
+            n = int(body.get('n', 10))
+            requester = body.get('session_id')
+        else:
+            q = _flask_request.args.get('query', '') or _flask_request.args.get('q', '')
+            n = int(_flask_request.args.get('n', 10))
+            requester = _flask_request.args.get('session_id')
+    except Exception:
+        q, n, requester = '', 10, None
+    matches = _memory_search(q, n=n, requester_session=requester)
+    return _jsonify({'query': q, 'matches': matches, 'count': len(matches)})
+
+
+_SECRET_FLAGS = (
+    'this is a secret', 'between us', 'just for us', 'just between us',
+    'do not share', "don't share", 'keep this private', 'private:',
+    '[secret]', '(secret)', 'just you and me',
+)
+
+
+def _is_secret(text):
+    """Detect whether the user wants this turn kept private from other users."""
+    if not text:
+        return False
+    low = text.lower()
+    return any(flag in low for flag in _SECRET_FLAGS)
+
+
+def _record_memory_turn(text, response, source, session_id=None):
     """Append a brief summary of this chat turn to the memory file.
-    Called from process_chat_with_cortex.  Best-effort, never blocks."""
+    Called from process_chat_with_cortex.  Best-effort, never blocks.
+
+    Brayden 2026-04-29: "i have no secrets ck can't tell, and if i do,
+    i will tell him it's a secret for just us."  Default: shareable.
+    Marked secret only if user explicitly flags it.
+    """
     try:
         with _MEMORY_LOCK:
             os.makedirs(os.path.dirname(_MEMORY_PATH), exist_ok=True)
@@ -1326,10 +1432,47 @@ def _record_memory_turn(text, response, source):
                     'response_first_120': (response or '')[:120],
                     'source': source,
                     'tick': _cortex.state.tick if _cortex else None,
+                    'session_id': session_id,
+                    'secret': _is_secret(text),
                 }
                 f.write(json.dumps(entry) + '\n')
     except Exception:
         pass
+
+
+def _memory_search(query, n=10, include_secrets=False, requester_session=None):
+    """Search the memory log for turns matching the query (case-insensitive
+    substring match).  Returns up to n most-recent matches.
+
+    Brayden's privacy rule: secret-flagged turns are EXCLUDED from
+    cross-session retrieval unless the requester is the same session as
+    the original speaker.
+    """
+    if not query:
+        return []
+    q = query.lower()
+    matches = []
+    try:
+        if not os.path.exists(_MEMORY_PATH):
+            return []
+        with open(_MEMORY_PATH, 'r') as f:
+            lines = f.readlines()
+        for line in lines:
+            try:
+                entry = json.loads(line)
+            except Exception:
+                continue
+            # Privacy: secret entries only available to original session
+            if entry.get('secret'):
+                if not include_secrets and entry.get('session_id') != requester_session:
+                    continue
+            topic = (entry.get('topic') or '').lower()
+            response = (entry.get('response_first_120') or '').lower()
+            if q in topic or q in response:
+                matches.append(entry)
+        return matches[-n:]
+    except Exception:
+        return []
 
 
 # Inner monologue endpoint: peek at CK's unspoken thoughts
