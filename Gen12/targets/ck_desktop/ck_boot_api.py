@@ -409,6 +409,61 @@ try:
             except Exception:
                 pass
 
+            # Confidence reading (Brayden 2026-04-30):
+            #   crystal fired      -> 0.95-0.99 (depends on # crystals + state-aware match)
+            #   crystal compose    -> 0.85-0.95 (cross-crystal graph)
+            #   lookup / search    -> 0.80-0.95 (depends on source quality)
+            #   drift / synthesis  -> 0.40-0.70 (unverified recombination)
+            #   pure speculation   -> 0.30-0.45 (no anchor)
+            try:
+                _src = result.get('source', '')
+                _routing_now = result.get('routing', {}) or {}
+                _crystal_boost = _routing_now.get('crystal_boost_count', 0) or 0
+                _is_struct = _routing_now.get('is_structural_query', False)
+                _spoken_struct = _routing_now.get('spoken_is_structural', False)
+                _has_recall = _routing_now.get('memory_recall_count', 0) or 0
+                # Inspect text for DRIFT marker (set by dream/drift surfacing)
+                _text_now = (result.get('text', '') or '')
+                _has_drift_marker = '[DRIFT' in _text_now or 'DRIFT,' in _text_now
+                if _has_drift_marker:
+                    confidence = 0.50  # drift is unverified
+                    confidence_kind = "drift"
+                elif _src == 'cortex_speak' and _crystal_boost >= 2:
+                    # Multiple crystals fired + state-aware -> high confidence
+                    confidence = min(0.99, 0.92 + 0.02 * _crystal_boost)
+                    confidence_kind = "multi-crystal"
+                elif _src == 'cortex_speak':
+                    confidence = 0.95
+                    confidence_kind = "single-crystal"
+                elif _src == 'ck_math_first':
+                    confidence = 0.99  # math facts are canonical
+                    confidence_kind = "canonical-math"
+                elif _src == 'cortex_speak_via_ollama':
+                    # Ollama-edited but coherence-filtered cortex content
+                    confidence = 0.85
+                    confidence_kind = "cortex-via-ollama"
+                elif _src in ('ck_loop_synthesized', 'ck_loop'):
+                    # Warm response without strong cortex grounding
+                    confidence = 0.70
+                    confidence_kind = "warm-response"
+                elif _src in ('ck_truth_recall',):
+                    confidence = 0.80
+                    confidence_kind = "truth-lattice-recall"
+                elif _src in ('ck_self', 'ck_fractal', 'crystal', 'ck_tig'):
+                    # Templates without active grounding
+                    confidence = 0.50
+                    confidence_kind = "template"
+                else:
+                    confidence = 0.55
+                    confidence_kind = "general"
+                # Recall bonus
+                if _has_recall and confidence < 0.99:
+                    confidence = min(0.99, confidence + 0.02)
+                result['confidence'] = round(confidence, 3)
+                result['confidence_kind'] = confidence_kind
+            except Exception:
+                pass
+
             # User-model update (paper 4 step 7): track per-session metadata.
             # Best-effort.
             try:
@@ -1795,6 +1850,145 @@ def propose_bridge_endpoint():
             'note': 'human review required before adding as a crystal. '
                     'use /crystals/add with appropriate triggers + op_signature.',
         })
+    except Exception as e:
+        return _jsonify({'error': str(e)}), 500
+
+
+# /dream -- on-demand dream/drift generation.
+# Returns a freshly generated drift candidate marked DRIFT.
+@api._app.route('/dream', methods=['POST', 'GET'])
+def dream_endpoint():
+    try:
+        # Run dream_daemon.dream_one() inline.
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..',
+                                          '..', 'Gen13', 'targets', 'ck',
+                                          'brain', 'study'))
+        from dream_daemon import (
+            load_crystals, dream_one, write_dream, DEFAULT_JOURNAL
+        )
+        crystals, op_sigs = load_crystals()
+        if not crystals:
+            return _jsonify({'error': 'no crystals available'}), 503
+        # Use live cortex state from _cortex if available
+        cortex_state_dict = None
+        if _cortex is not None:
+            try:
+                W = [row[:] for row in _cortex.hebbian.W]
+                cortex_state_dict = {
+                    "state": {
+                        "tick": _cortex.state.tick,
+                        "last_b": _cortex.state.last_b,
+                        "last_d": _cortex.state.last_d,
+                        "W_trace": _cortex.state.W_trace,
+                    },
+                    "hebbian": {"W": W},
+                }
+            except Exception:
+                pass
+        entry = dream_one(crystals, op_sigs, cortex_state_dict)
+        if entry is None:
+            return _jsonify({'error': 'no drift produced'}), 503
+        write_dream(entry, DEFAULT_JOURNAL)
+        return _jsonify(entry)
+    except Exception as e:
+        return _jsonify({'error': str(e)}), 500
+
+
+# /dream/journal -- recent drift entries
+@api._app.route('/dream/journal', methods=['GET'])
+def dream_journal_endpoint():
+    from flask import request as _flask_request
+    n = int(_flask_request.args.get('n', 20))
+    journal_path = os.path.join(os.path.dirname(__file__), '..', '..',
+                                  '..', 'Gen13', 'var', 'dream_journal.jsonl')
+    items = []
+    if os.path.exists(journal_path):
+        with open(journal_path) as f:
+            for line in f:
+                try:
+                    items.append(json.loads(line))
+                except Exception:
+                    continue
+    return _jsonify({'count': len(items), 'recent': items[-n:]})
+
+
+# /search/queue -- topic queue for autonomous web search
+# When CK gets a query he can't answer well, the query gets added here.
+# A separate process (Claude-the-agent or a future web-fetch daemon)
+# services the queue, fetches journal abstracts, distills to corpora.
+_SEARCH_QUEUE_PATH = os.path.join(os.path.dirname(__file__), '..', '..', '..',
+                                    'Gen13', 'var', 'search_queue.jsonl')
+
+
+@api._app.route('/search/queue', methods=['GET', 'POST'])
+def search_queue_endpoint():
+    from flask import request as _flask_request
+    if _flask_request.method == 'POST':
+        body = _flask_request.get_json(silent=True) or {}
+        query = body.get('query', '')
+        source = body.get('source', 'manual')
+        priority = int(body.get('priority', 5))
+        if not query:
+            return _jsonify({'error': 'query required'}), 400
+        entry = {
+            'ts': time.time(),
+            'iso_ts': time.strftime('%Y-%m-%dT%H:%M:%S'),
+            'query': query[:300],
+            'source': source,
+            'priority': priority,
+            'status': 'pending',
+            'session_id': body.get('session_id'),
+        }
+        try:
+            os.makedirs(os.path.dirname(_SEARCH_QUEUE_PATH), exist_ok=True)
+            with open(_SEARCH_QUEUE_PATH, 'a') as f:
+                f.write(json.dumps(entry) + '\n')
+            return _jsonify({'ok': True, 'queued': entry})
+        except Exception as e:
+            return _jsonify({'error': str(e)}), 500
+
+    # GET: return pending queue
+    items = []
+    status_filter = _flask_request.args.get('status', 'pending')
+    if os.path.exists(_SEARCH_QUEUE_PATH):
+        with open(_SEARCH_QUEUE_PATH) as f:
+            for line in f:
+                try:
+                    item = json.loads(line)
+                    if status_filter == 'all' or item.get('status') == status_filter:
+                        items.append(item)
+                except Exception:
+                    continue
+    return _jsonify({'count': len(items), 'items': items[-50:]})
+
+
+# /search/results -- when a search has been serviced, store the result
+# (called by the search-servicing process, not by chat).
+@api._app.route('/search/result', methods=['POST'])
+def search_result_endpoint():
+    from flask import request as _flask_request
+    body = _flask_request.get_json(silent=True) or {}
+    query = body.get('query', '')
+    finding = body.get('finding', '')
+    sources = body.get('sources', [])
+    confidence = body.get('confidence', 0.85)
+    if not query or not finding:
+        return _jsonify({'error': 'query and finding required'}), 400
+    results_path = os.path.join(os.path.dirname(__file__), '..', '..', '..',
+                                  'Gen13', 'var', 'search_results.jsonl')
+    entry = {
+        'ts': time.time(),
+        'iso_ts': time.strftime('%Y-%m-%dT%H:%M:%S'),
+        'query': query[:300],
+        'finding': finding[:1000],
+        'sources': sources,
+        'confidence': float(confidence),
+    }
+    try:
+        os.makedirs(os.path.dirname(results_path), exist_ok=True)
+        with open(results_path, 'a') as f:
+            f.write(json.dumps(entry) + '\n')
+        return _jsonify({'ok': True, 'stored': entry})
     except Exception as e:
         return _jsonify({'error': str(e)}), 500
 

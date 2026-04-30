@@ -59,8 +59,13 @@ DEFAULT_LOG = SCRIPT_DIR / "autonomous_study_log.jsonl"
 # is available.  Missing corpora are skipped (logged but not a failure).
 CORPUS_POOL = {
     # Multi-domain corpus covers all 18 standard domains in one file.
-    # The daemon picks this when ANY of the standard domains is the gap.
     "_human_domains": SCRIPT_DIR / "human_domains_corpus_2026_04_29.json",
+    # Deep STEM corpus (9 sub-areas: QM, thermo, SR, cell bio, genetics,
+    # evolution, organic chem, number theory, topology).
+    "_stem_deep": SCRIPT_DIR / "stem_deep_corpus_2026_04_29.json",
+    # TIG-LENS corpus -- 27 domains re-authored as TIG operator projections.
+    # This is the primary fresh-content corpus going forward.
+    "_tig_lens": SCRIPT_DIR / "tig_lens_corpus_2026_04_30.json",
     "consciousness": SCRIPT_DIR / "consciousness_corpus_2026_04_29.json",
     "session_2026_04_29": SCRIPT_DIR / "session_2026_04_29_corpus.json",
 }
@@ -71,6 +76,18 @@ DOMAINS_IN_HUMAN_CORPUS = {
     "engineering", "politics", "sociology", "anthropology", "chemistry",
     "computer_science",
 }
+
+DOMAINS_IN_STEM_CORPUS = {
+    "quantum_mechanics", "thermodynamics", "special_relativity", "cell_biology",
+    "genetics", "evolution", "organic_chemistry", "number_theory", "topology",
+}
+
+# Map gap-detector domain names to which corpus(s) cover them
+DOMAIN_TO_CORPUS_KEYS = {}
+for d in DOMAINS_IN_HUMAN_CORPUS:
+    DOMAIN_TO_CORPUS_KEYS[d] = "_human_domains"
+for d in DOMAINS_IN_STEM_CORPUS:
+    DOMAIN_TO_CORPUS_KEYS[d] = "_stem_deep"
 
 
 def run_subprocess(cmd, timeout=180):
@@ -102,15 +119,44 @@ def detect_gaps(top_n=3):
 
 
 def pick_corpus_for_domain(domain):
-    """Return the corpus file path for `domain`, or None if not available."""
-    # Direct match: corpus file named after the domain
+    """Return the corpus file path for `domain`, or None if not available.
+
+    Priority:
+      1. Direct file match: <domain>_corpus.json
+      2. TIG-lens corpus (preferred -- contains operator-projections)
+      3. STEM corpus (if domain is one of the 9 STEM sub-areas)
+      4. Human-domains corpus (covers 18 standard domains)
+      5. Curated corpora by name
+    """
+    # Direct match
     direct = SCRIPT_DIR / f"{domain}_corpus.json"
     if direct.exists():
         return direct
-    # Multi-domain corpus covers any standard domain
+    # TIG-lens corpus FIRST -- it has operator-projection statements for
+    # any domain we've re-authored.  This is the freshest content.
+    tig_lens = CORPUS_POOL.get("_tig_lens")
+    if tig_lens and tig_lens.exists():
+        # Check the TIG-lens corpus has a topic for this domain
+        try:
+            with open(tig_lens) as f:
+                data = json.load(f)
+            domain_key = f"{domain}_through_tig"
+            if domain_key in data:
+                return tig_lens
+            # Also accept the bare domain name without _through_tig
+            if domain in data:
+                return tig_lens
+        except Exception:
+            pass
+    # STEM corpus
+    if domain in DOMAINS_IN_STEM_CORPUS:
+        stem = CORPUS_POOL.get("_stem_deep")
+        if stem and stem.exists():
+            return stem
+    # Human-domains
     if domain in DOMAINS_IN_HUMAN_CORPUS:
         return CORPUS_POOL.get("_human_domains")
-    # Curated corpora by name
+    # Curated by name
     return CORPUS_POOL.get(domain)
 
 
