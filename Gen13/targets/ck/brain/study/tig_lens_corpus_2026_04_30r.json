@@ -1,0 +1,89 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 noon. 6 domain-projections: statistics, Bayesian inference, theory of computation, blockchain/cryptocurrency, discrete mathematics, chaos theory. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30r",
+  "statistics_through_tig": [
+    "Statistics is operator-inference from data; descriptive summarizes inferential generalizes.",
+    "Descriptive statistics summarize operator-LATTICE of observations; mean median mode range variance standard deviation each capture aspect.",
+    "Inferential statistics generalize from sample to operator-population; uses sampling distribution to quantify uncertainty.",
+    "Hypothesis testing is operator-binary-decision framework; null versus alternative, evidence assessed via test statistic.",
+    "P-value is operator-tail-probability under null; smaller value means more surprising data assuming null true.",
+    "Confidence interval is operator-coverage-set; 95 percent of intervals constructed this way contain true parameter HARMONY.",
+    "Regression analysis fits operator-functional-relationship; linear logistic Poisson and others model conditional expectation E[Y|X].",
+    "ANOVA partitions operator-variance into between-group and within-group; F statistic compares ratio to assess group differences.",
+    "Chi-square test is operator-categorical-deviation measure; observed minus expected squared over expected sum.",
+    "Correlation measures operator-linear-association strength; Pearson r in [-1, 1], does not imply causation HARMONY.",
+    "Sampling distribution is operator-LATTICE of statistic across many possible samples; central limit theorem makes it approximately Gaussian for large n."
+  ],
+  "bayesian_inference_through_tig": [
+    "Bayesian inference is operator-belief-updating from evidence; posterior proportional to likelihood times prior.",
+    "Bayes theorem: P(H|D) = P(D|H) P(H) / P(D); the operator-RESET-PROGRESS rule for combining prior with data.",
+    "Prior probability P(H) is operator-belief-before-data; can encode domain knowledge or be uninformative for fairness.",
+    "Likelihood P(D|H) is operator-data-given-hypothesis probability; how well does this hypothesis explain the observations.",
+    "Posterior probability P(H|D) is operator-belief-after-data; updated rational degree of confidence given prior plus data.",
+    "Bayesian updating is operator-sequential-revision; each new datum becomes prior for the next observation.",
+    "Conjugate prior is operator-LATTICE-closed under update; beta-binomial gamma-Poisson normal-normal each preserve form.",
+    "MCMC is operator-stochastic-sampling from posterior; Metropolis Hastings Gibbs slice each navigate intractable LATTICE.",
+    "Marginal likelihood P(D) integrates over hypotheses; the operator-evidence used for model comparison via Bayes factor.",
+    "Bayesian network is operator-LATTICE of conditional dependencies; directed acyclic graph encodes joint distribution factorization.",
+    "Credible interval is operator-posterior-coverage; range containing parameter with specified posterior probability."
+  ],
+  "theory_of_computation_through_tig": [
+    "Theory of computation studies operator-limits of algorithmic problem solving; what can be computed at all and how efficiently.",
+    "Turing machine is canonical operator-substrate; tape plus state plus transition function defines computability.",
+    "Decidability: a problem is decidable if some operator-Turing-machine halts on every input giving correct yes-or-no.",
+    "Halting problem: undecidable to determine whether arbitrary program halts on given input (Turing 1936); operator-RESET-no-algorithm.",
+    "Church-Turing thesis: all reasonable operator-computational-models are equivalent in power; lambda calculus Turing machines partial recursive functions.",
+    "Computational complexity classifies operator-resource-requirements; time space alternation each have hierarchy of complexity classes.",
+    "NP-completeness: problems in NP at least as hard as any problem in NP; SAT is canonical example (Cook Levin 1971).",
+    "P versus NP: are operator-PROGRESS (search) and COUNTER (verify) HARMONY-equivalent in polynomial time. Open Clay problem.",
+    "Automata theory studies operator-LATTICE of abstract machines; finite automata pushdown automata Turing machines hierarchy.",
+    "Regular language is operator-recognizable by finite automaton; equivalent to regular expression and Type-3 grammar.",
+    "Context-free grammar generates operator-LATTICE-of-strings via productions; recognized by pushdown automata, Type-2 in Chomsky hierarchy.",
+    "Lambda calculus is operator-function-substrate; functions as first-class objects, equivalent to Turing machines in expressive power."
+  ],
+  "blockchain_through_tig": [
+    "Blockchain is operator-LATTICE of cryptographically chained blocks; each block hash includes previous, tampering breaks the chain.",
+    "Distributed ledger is operator-replicated-database; peer-to-peer network maintains consistent copies without central authority.",
+    "Proof of work is operator-computational-puzzle; must find nonce making hash below target, expensive to compute trivial to verify.",
+    "Proof of stake selects operator-validators by stake; lower energy consumption than PoW, attack costs scale with locked value.",
+    "Mining is operator-block-creation; nodes assemble transactions solve puzzle and broadcast new block to network.",
+    "Smart contract is operator-self-executing-code on chain; deterministic logic runs when conditions met without trusted intermediary.",
+    "Hash function is operator-COLLAPSE to fixed-length digest; collision-resistant preimage-resistant essential for chain integrity.",
+    "Public key cryptography pairs operator-keys; address public hash for receiving, private signs transactions.",
+    "Decentralization is operator-NO-CENTRAL-AUTHORITY architecture; data stored across peer LATTICE, control distributed.",
+    "Consensus mechanism is operator-AGREEMENT-protocol; nodes reach HARMONY on transaction order despite Byzantine adversaries.",
+    "Cryptocurrency is operator-digital-asset on blockchain; bitcoin native, ether for Ethereum, stablecoins pegged to fiat."
+  ],
+  "discrete_math_through_tig": [
+    "Discrete mathematics studies operator-finite-or-countable-LATTICE structures; the substrate of computer science.",
+    "Set theory is operator-foundational-collections; Zermelo-Fraenkel axioms ground all of mathematics on operator-membership.",
+    "Logic studies operator-valid-inference; propositional and predicate logics give formal LATTICE of reasoning.",
+    "Combinatorics counts operator-arrangements; permutations combinations partitions probability distributions.",
+    "Graph theory studies operator-LATTICE of vertices and edges; trees DAGs cycles colorings flows each have rich theory.",
+    "Number theory studies operator-integer-properties; primes divisibility congruences cryptography.",
+    "Recurrence relations define operator-sequences-implicitly; Fibonacci a_n = a_{n-1} + a_{n-2}, solved by characteristic polynomial.",
+    "Generating functions encode operator-sequences as power series; algebraic operations on series correspond to LATTICE-operations on sequences.",
+    "Boolean algebra is operator-LATTICE on {0, 1}; AND OR NOT generate all logical operations, basis of digital circuits.",
+    "Formal languages are operator-strings-over-alphabet; regular context-free context-sensitive recursively enumerable hierarchy.",
+    "Mathematical induction proves operator-properties for all natural numbers; base case plus inductive step gives infinite HARMONY-coverage."
+  ],
+  "chaos_theory_through_tig": [
+    "Chaos theory studies operator-dynamics with sensitive dependence on initial conditions; deterministic but unpredictable PROGRESS.",
+    "Phase space is operator-state-LATTICE; trajectories evolve through phase space showing structure of dynamics.",
+    "Fixed point is operator-equilibrium; system state unchanged over time, can be stable or unstable.",
+    "Attractor is operator-asymptotic-set; trajectories converge toward attractor regardless of nearby initial condition.",
+    "Bifurcation is operator-RESET in qualitative behavior; parameter crossing critical value changes attractor LATTICE-structure.",
+    "Chaotic system has operator-LATTICE of three properties: sensitive dependence + topological transitivity + dense periodic orbits.",
+    "Sensitive dependence on initial conditions: tiny operator-CHAOS in start grows exponentially in time; butterfly effect.",
+    "Fractal is operator-self-similar geometry; Mandelbrot Koch Sierpinski Cantor each have non-integer dimension and detail at all scales.",
+    "Strange attractor is operator-LATTICE in chaotic phase space; Lorenz attractor butterfly shape, fractal dimension.",
+    "Lyapunov exponent measures operator-divergence-rate; positive value means CHAOS, magnitude quantifies how fast trajectories separate.",
+    "Period doubling is operator-route-to-chaos; period-1 to period-2 to period-4 to period-8 ... to chaos at Feigenbaum constant 4.669."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 90 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design and theoretical foundations.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection; he holds the operators, the projections multiply."
+  ]
+}
