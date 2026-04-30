@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 13:13. 6 creative arts domain-projections: photography, cinematography, poetry, theater, painting, music composition. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30aa",
+  "photography_through_tig": [
+    "Photography is operator-LIGHT-CAPTURE; sensor or film records photons producing image LATTICE.",
+    "Aperture is operator-OPENING-IN-LENS controlling light volume and depth-of-field; f-stops form geometric LATTICE (f/1.4 f/2 f/2.8 f/4).",
+    "Shutter speed is operator-EXPOSURE-DURATION; fast freezes motion slow blurs, doubles or halves with each stop.",
+    "ISO is operator-SENSOR-SENSITIVITY; lower (50-100) cleaner, higher (3200+) noisier but enables low-light HARMONY.",
+    "Exposure is operator-LATTICE-PRODUCT of aperture shutter ISO; correct exposure varies by subject and intent.",
+    "Focal length is operator-LENS-PROJECTION-SCALE; wide (16-35mm) for landscape standard (50mm) eye-level tele (200mm+) for distance.",
+    "Depth of field is operator-LATTICE-OF-SHARP-FOCUS; narrow DoF isolates subject wide DoF keeps everything sharp.",
+    "Composition is operator-VISUAL-ARRANGEMENT; rule of thirds leading lines symmetry framing guide viewer eye.",
+    "White balance is operator-COLOR-TEMPERATURE-CORRECTION; tungsten daylight cloudy each have distinct Kelvin values.",
+    "RAW is operator-UNPROCESSED-SENSOR-DATA; preserves dynamic range for editing, JPEG is operator-COMPRESSED-FINAL.",
+    "Dynamic range is operator-LATTICE-FROM-SHADOW-TO-HIGHLIGHT; modern sensors capture ~14 stops, HDR exceeds via bracketing."
+  ],
+  "cinematography_through_tig": [
+    "Cinematography is operator-MOTION-PICTURE-LIGHT-CAPTURE; deliberate visual storytelling through camera plus framing plus lighting.",
+    "Shot composition is operator-VISUAL-ARRANGEMENT-IN-FRAME; rule of thirds golden ratio symmetry guide viewer attention.",
+    "Camera angle is operator-VANTAGE-POINT; high-angle (small) low-angle (powerful) Dutch (unsettling) eye-level (neutral).",
+    "Framing is operator-WHAT-IS-IN-VIEW; close-up medium long extreme-long each create different emotional LATTICE.",
+    "Lighting is operator-ILLUMINATION-DESIGN; key fill back rim three-point classic, hard versus soft, color temperature sets mood.",
+    "Montage is operator-EDITING-RHYTHM; sequence of shots compresses time creates meaning beyond individual frames (Eisenstein).",
+    "Mise-en-scene is operator-ARRANGEMENT-IN-SCENE; set design props costume actor placement together create operator-LATTICE-of-meaning.",
+    "Narrative arc is operator-STORY-PROGRESSION; setup confrontation resolution or three-act structure shapes audience experience.",
+    "Genre is operator-LATTICE-CONVENTIONS; western noir horror sci-fi romance each have characteristic visual and thematic codes.",
+    "Auteur theory: director as operator-PRIMARY-AUTHOR; consistent style themes across films reveal directorial voice (Bazin Truffaut).",
+    "Sound design is operator-AURAL-LATTICE; dialogue music effects Foley combine to support and shape visual narrative."
+  ],
+  "poetry_through_tig": [
+    "Poetry is operator-CONDENSED-LANGUAGE; meaning maximized per word through sound rhythm image figurative LATTICE.",
+    "Meter is operator-RHYTHMIC-PATTERN; iambic pentameter trochaic anapestic each impose regular operator-LATTICE on syllables.",
+    "Rhyme is operator-PHONETIC-MATCH; end rhyme internal rhyme slant rhyme each provide HARMONY-binding within and across lines.",
+    "Image is operator-SENSORY-LANGUAGE; visual auditory tactile evocations let reader experience scene through their own perceptual LATTICE.",
+    "Metaphor is operator-CROSS-DOMAIN-MAPPING; one thing IS another, opens semantic space neither alone could reach.",
+    "Alliteration is operator-INITIAL-CONSONANT-REPETITION; sound texture binds words aesthetically and emphasizes meaning.",
+    "Line break is operator-PROSODIC-PUNCTUATION; placement creates pause emphasis surprise or enjambed flow across lines.",
+    "Stanza is operator-LATTICE-GROUPING-OF-LINES; couplet (2) tercet (3) quatrain (4) sestet (6) octet (8) each have history.",
+    "Free verse is operator-WITHOUT-FIXED-METER-OR-RHYME; relies on subtle prosody natural speech rhythms image structure.",
+    "Sonnet is operator-14-LINE-FIXED-FORM; Petrarchan (octave + sestet) versus Shakespearean (3 quatrains + couplet) variations.",
+    "Prosody is operator-STUDY-OF-METER-RHYTHM-INTONATION; the technical analysis of poetic sound LATTICE."
+  ],
+  "theater_through_tig": [
+    "Theater is operator-LIVE-PERFORMANCE in shared space; collective audience reception of staged story.",
+    "Dramatic structure is operator-ORGANIZATION-OF-ACTION; exposition rising action climax falling action resolution (Freytag) or alternative.",
+    "Three-act structure is operator-SETUP-CONFRONTATION-RESOLUTION; classical Western dramatic LATTICE.",
+    "Protagonist is operator-CENTRAL-AGENT; drives plot through choice and action, audience empathy point.",
+    "Antagonist is operator-COUNTER-FORCE; opposes protagonist, can be person nature society self.",
+    "Dialogue is operator-CHARACTER-EXCHANGE; words reveal motive subtext relationship advance plot.",
+    "Monologue is operator-EXTENDED-SOLO-SPEECH; soliloquy when character alone reveals inner thought.",
+    "Stage directions are operator-AUTHOR-INSTRUCTIONS; entrances exits actions delivery cues set mood guide blocking.",
+    "Setting is operator-PLACE-AND-TIME; specifies where and when scene unfolds, shapes meaning of action.",
+    "Character development is operator-PROGRESS-OR-CHANGE; arc from beginning to end shows growth fall or revelation.",
+    "Dramatic irony is operator-AUDIENCE-KNOWS-MORE; audience aware of facts character does not, source of suspense or comedy."
+  ],
+  "painting_through_tig": [
+    "Painting is operator-PIGMENT-ON-SURFACE; deliberate creation of visual artwork through color and composition.",
+    "Color theory is operator-LATTICE-OF-COLOR-RELATIONSHIPS; primary secondary tertiary, complementary analogous triadic.",
+    "Composition is operator-VISUAL-ARRANGEMENT-WITHIN-FRAME; balance focal points eye movement guide viewer attention.",
+    "Perspective is operator-3D-PROJECTION-ON-2D-SURFACE; one-point two-point three-point linear, plus atmospheric (color depth).",
+    "Line is operator-FUNDAMENTAL-VISUAL-ELEMENT; defines edges directs eye creates structure mood.",
+    "Value is operator-LIGHTNESS-DARKNESS; chiaroscuro tonal ranges create form volume drama (Caravaggio).",
+    "Texture is operator-SURFACE-QUALITY; visual or tactile, rough smooth granular silky achieve emotional resonance.",
+    "Form is operator-3D-VOLUME-ON-2D-SURFACE; light shadow modeling create sculptural presence in painting.",
+    "Balance is operator-VISUAL-WEIGHT-DISTRIBUTION; symmetric asymmetric radial each create different feel.",
+    "Focal point is operator-PRIMARY-ATTENTION-LOCATION; emphasized via contrast color isolation pull viewer eye.",
+    "Art movements are operator-LATTICE-OF-COLLECTIVE-AESTHETIC; Renaissance Baroque Impressionism Cubism Abstract Expressionism each shifted what painting could be."
+  ],
+  "music_composition_through_tig": [
+    "Music composition is operator-DESIGN-OF-SOUND-OVER-TIME; melody harmony rhythm form interact in temporal LATTICE.",
+    "Melody is operator-PITCH-SEQUENCE-OVER-TIME; primary thematic operator that carries identity of piece.",
+    "Harmony is operator-SIMULTANEOUS-PITCH-COMBINATION; chords progressions tonality versus modality versus atonality.",
+    "Rhythm is operator-TEMPORAL-ORGANIZATION; meter beat subdivision syncopation polyrhythm shape time.",
+    "Tempo is operator-OVERALL-SPEED; slow (largo) medium (andante moderato) fast (allegro presto) plus changes within piece.",
+    "Key is operator-TONAL-CENTER; major minor modal each have characteristic operator-LATTICE-of-relationships.",
+    "Form is operator-LARGE-SCALE-STRUCTURE; binary ternary sonata rondo theme-and-variations through-composed each shape narrative.",
+    "Counterpoint is operator-INDEPENDENT-VOICES-COMBINING; species counterpoint to fugue Bach the master.",
+    "Orchestration is operator-INSTRUMENTAL-CHOICE-AND-COMBINATION; brings color and weight to compositional voices.",
+    "Dynamics is operator-LOUDNESS-VARIATION; pianissimo to fortissimo plus crescendo decrescendo shape emotional LATTICE.",
+    "Motif development is operator-THEMATIC-TRANSFORMATION; small idea becomes large work through repetition variation extension."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 144 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines medical specialties chemistry depth and creative arts.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}
