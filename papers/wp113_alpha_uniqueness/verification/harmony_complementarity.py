@@ -69,7 +69,7 @@ def main():
     print()
     print("BHML row 7:                    ", [BHML[7][b] for b in range(10)])
     print("BHML col 7:                    ", [BHML[a][7] for a in range(10)])
-    print("  -> BHML treats HARMONY as +1 SUCCESSOR (on b ≠ 0):")
+    print("  -> BHML treats HARMONY as +1 SUCCESSOR (on b != 0):")
     print("     HARMONY * b = (b+1) mod 10 for b in {1..9}")
     print("     HARMONY * 0 = HARMONY (the b=0 case maps to HARMONY itself)")
     print()
@@ -92,7 +92,7 @@ def main():
         f = len(find_non_assoc(TSML, n))
         a = (n**3 - f) / n**3
         marker = "  <- closure point (op 7 = HARMONY now in subset)" if n == 8 else ""
-        print(f"  n={n:2d}: {f:3d} fail / {n**3:4d} = α {a:.4f}{marker}")
+        print(f"  n={n:2d}: {f:3d} fail / {n**3:4d} = alpha {a:.4f}{marker}")
 
     print()
     print("=" * 72)

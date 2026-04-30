@@ -1,0 +1,83 @@
+{
+  "_about": "Study corpus from session 2026-04-29 (sections 28-33 of Atlas/FRONTIER_FINDINGS_2026_04_29.md and D-rows D74 through D87 of FORMULAS_AND_TABLES.md). Each sentence is a verified declarative claim. Push through CK's chat pipeline so cortex W-traces and HER experiences develop for these findings.",
+  "_source": "Atlas/FRONTIER_FINDINGS_2026_04_29.md sections 28 through 33; FORMULAS_AND_TABLES.md D74 through D87.",
+  "_replays": 1,
+  "_session_prefix": "session_2026_04_29",
+  "session_28_depth2_cluster": [
+    "Five of eight open math frontiers F1 F3 F4 F8 F10 share one algebraic primitive M squared equals plus or minus identity.",
+    "F1 charge conjugation C equals gamma 2 times gamma 4 times gamma 6 satisfies C squared equals minus identity 8.",
+    "F3 H over Br at alpha equal one half satisfies x squared minus 2 x minus 2 equals 0.",
+    "F4 P56 is the 5 6 transposition involution with P56 squared equal identity.",
+    "F8 fuse map F is degree 2 homogeneous so radial Jacobian eigenvalue lambda 0 equals 2 exactly.",
+    "F10 psi bar on Prym variety satisfies psi bar squared equals minus identity 4.",
+    "The number 2 appears in the algebraic degree of H over Br and in the homogeneity exponent of F and in the radial eigenvalue.",
+    "At depth 2 TIG primitives carry plus or minus 1 or plus or minus i eigenspaces and Q sqrt 3 or Q i Galois extensions."
+  ],
+  "session_29_f9_rank_depth": [
+    "58 LMFDB elliptic curves split as 20 rank zero plus 20 rank one plus 18 rank two.",
+    "Mean number of primes in j denominator decreases monotonically with rank from 1.7 at rank zero to 1.39 at rank two.",
+    "Rank 2 curves have FEWER primes in j denominator than rank 0 curves which contradicts naive rank equals depth.",
+    "Curve 15 a 7 has rank 0 with j equal minus 1 over 15 the cleanest depth 1 vertex.",
+    "Curve 433 a 1 has rank 2 with j equal minus 1 over 433 the cleanest depth 1 vertex.",
+    "Refined F9 conjecture rank and depth are dual not equal.",
+    "Rank counts free Mordell Weil generators while depth counts cohomological complexity of j denominator.",
+    "Higher rank correlates with simpler j structure not deeper algebraic complexity."
+  ],
+  "session_30_f8_trace_quartic": [
+    "F8 simplex Jacobian trace at alpha equal one half is 0.13632472600 to 12 digits.",
+    "Trace satisfies polynomial minus 443 x to the fourth plus 5588 x cubed minus 21048 x squared plus 26240 x minus 3200 equals 0.",
+    "Trace polynomial is verified at 10 to the minus 176 residual at 200 digit mpmath precision.",
+    "Discriminant of trace polynomial factors as minus 2 to the 24 times 3 to the 10 times 5 squared times 11 to the 6 times 71.",
+    "The WOBBLE prime 11 appears in F8 trace polynomial as 11 to the 6.",
+    "Prime 71 in trace discriminant matches the prime 71 from R over Br quartic discriminant LMFDB 4.2.10224.1.",
+    "Individual simplex tangent eigenvalues remain transcendental at degree below 20 with coefficient bound 10 to the 9.",
+    "Only the trace as symmetric function is algebraic of degree 4 the eigenvalues themselves are not."
+  ],
+  "session_31_sigma_squared": [
+    "Sigma cycle structure is fixed points 0 3 8 9 with one 6-cycle 1 7 6 5 4 2.",
+    "Sigma squared has order 3 and decomposes as two disjoint 3-cycles 1 6 4 and 7 5 2.",
+    "Sigma squared eigenvalues are 1 with multiplicity 6 and omega and omega squared each with multiplicity 2.",
+    "Omega equals exp 2 pi i over 3 equals minus one half plus i sqrt 3 over 2 the primitive cube root of unity.",
+    "Omega satisfies x squared plus x plus 1 equals 0 with discriminant minus 3.",
+    "Field Q omega equals Q sqrt minus 3 of degree 2 over the rationals.",
+    "Operator depth 3 with algebraic depth 2 since phi 3 equals 2.",
+    "Sigma squared transformation 3-cycle is LATTICE CHAOS COLLAPSE with operator-sum 1 plus 6 plus 4 equal to 11.",
+    "Sigma squared stability 3-cycle is HARMONY BALANCE COUNTER with operator-sum 7 plus 5 plus 2 equal to 14.",
+    "Operator-value-sum 11 of sigma squared transformation 3-cycle equals the WOBBLE prime."
+  ],
+  "session_32_lmfdb_unification": [
+    "F8 trace polynomial and WP105 R over Br quartic generate the same number field LMFDB 4.2.10224.1.",
+    "Both polynomials have squarefree discriminant equal to minus 71.",
+    "Both Galois groups equal D 4 the dihedral group of order 8.",
+    "F8 dynamical projection at alpha equal one half lives in the same field as F8 static fixed-point ratio.",
+    "LMFDB 4.2.10224.1 has field discriminant minus 10224 equals minus 2 to the 4 times 3 squared times 71 with class number 1.",
+    "Wobble prime 11 is polynomial-coefficient artifact while prime 71 is field-theoretic invariant.",
+    "Two distinct wobble primes operate at two structural levels in TIG.",
+    "Different projections of one TIG vertex share one number field this is the lens working."
+  ],
+  "session_33_three_quadratics": [
+    "TIG visits three quadratic fields with smallest absolute discriminants.",
+    "Q sqrt minus 3 has discriminant minus 3 and hosts sigma squared depth 3 primitive.",
+    "Q i has discriminant minus 4 and hosts F1 charge conjugation and F10 Prym psi bar.",
+    "Q sqrt 3 has discriminant 12 and hosts F3 H over Br equal 1 plus sqrt 3.",
+    "Three TIG-natural quadratic discriminants are minus 3 minus 4 and 12 the smallest possible.",
+    "F1 characteristic polynomial of C equals x squared plus 1 to the fourth power.",
+    "F10 characteristic polynomial of psi bar equals x squared plus 1 to the second power.",
+    "Both F1 and F10 eigenspace decompositions live in Q i.",
+    "Depth 4 TIG number field is LMFDB 4.2.10224.1 with field discriminant minus 10224.",
+    "TIG is structurally connected to the simplest possible extensions of the rationals."
+  ],
+  "session_meta_lens": [
+    "TIG eight open math frontiers project into a small canonical set of number fields.",
+    "F4 P56 lives in Q at depth 1 with eigenvalues plus or minus 1.",
+    "F8 radial eigenvalue lambda 0 equals 2 in Q at depth 1.",
+    "Three depth 2 quadratic fields cover F1 F3 F10 and sigma squared.",
+    "Depth 4 quartic LMFDB 4.2.10224.1 covers F8 trace and F8 R over Br quartic both unifying there.",
+    "WOBBLE prime 11 has 5 distinct structural manifestations across TIG.",
+    "WOBBLE prime 71 has 2 field-theoretic manifestations both in LMFDB 4.2.10224.1.",
+    "F2 BB coupling b equals minus kappa xi equals minus 13 over 4 e is fixed by TIG.",
+    "F6 sigma NS less than 1 conjecture has projection-restricted bound 2 to the 1 minus k at dyadic level k.",
+    "F10 i action does not descend over totally real Q sqrt 2 sqrt 3 sqrt 5.",
+    "Depth-2 cluster shows the lens framework is not metaphor but explicit number-field structure."
+  ]
+}

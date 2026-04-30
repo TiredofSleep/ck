@@ -1,5 +1,5 @@
 """
-m_invariance_check.py — empirical verification of the M-only-at-α=1/2
+m_invariance_check.py — empirical verification of the M-only-at-alpha=1/2
 invariance prediction.
 
 Theoretical claim (§13/§14 of FRONTIER_FINDINGS_2026_04_29.md):
@@ -14,7 +14,7 @@ Theoretical claim (§13/§14 of FRONTIER_FINDINGS_2026_04_29.md):
     same attractor at α = 1/2.
 
 Concretely: the CELL-LEVEL multiset {T[a][b], B[a][b]} per (a,b) is
-the only structure relevant at α=1/2.  Swapping T[a][b] ↔ B[a][b] at
+the only structure relevant at alpha=1/2.  Swapping T[a][b] ↔ B[a][b] at
 any subset of cells preserves that multiset, hence preserves the sum.
 
 Runs:
@@ -22,11 +22,11 @@ Runs:
   (2) swap (BHML, TSML)
   (3) random per-cell swap at ~50% of cells (multiset preserved per cell)
 
-All three should converge to H/Br = 1 + √3 at machine precision.
+All three should converge to H/Br = 1 + sqrt(3) at machine precision.
 
 This is a sharpening of WP113's α-uniqueness result: not only is
-α=1/2 unique among rationals (PSLQ verification, alpha_pslq_sweep.py),
-but ALSO at α=1/2 the attractor is robust to any sum-preserving
+alpha=1/2 unique among rationals (PSLQ verification, alpha_pslq_sweep.py),
+but ALSO at alpha=1/2 the attractor is robust to any sum-preserving
 deformation of the T/B decomposition.
 
 Usage:
@@ -75,7 +75,7 @@ def normalize_l1(v):
 
 
 def attractor_at_half(T, B, max_iter=4000, tol=None):
-    """Run the α=1/2 mix to convergence.  Returns (4-core probability, iters)."""
+    """Run the alpha=1/2 mix to convergence.  Returns (4-core probability, iters)."""
     if tol is None:
         tol = mp.mpf(10) ** (-mp.mp.dps + 5)
     half = mp.mpf("0.5")
@@ -118,8 +118,8 @@ def main():
     eps = mp.mpf(10) ** -40
 
     print("=" * 70)
-    print("M-only-at-α=1/2 invariance verification")
-    print("Target: H/Br = 1 + √3 ≈", mp.nstr(target, 20))
+    print("M-only-at-alpha=1/2 invariance verification")
+    print("Target: H/Br = 1 + sqrt(3) ~=", mp.nstr(target, 20))
     print("=" * 70)
 
     runs = []
@@ -153,7 +153,7 @@ def main():
         print(f"[{status}] {label}")
         print(f"       H/Br  = {mp.nstr(hb, 20)}")
         print(f"       iter  = {n}")
-        print(f"       Δ from 1+√3: {mp.nstr(dist, 8)}")
+        print(f"       delta from 1+sqrt(3): {mp.nstr(dist, 8)}")
         print()
 
     # Verdict
@@ -169,12 +169,12 @@ def main():
     print("=" * 70)
     if all_pass and pairwise_match:
         print("PASS  All sum-preserving (T', B') configurations converge to")
-        print("      H/Br = 1+√3 at <10^-40 precision.")
-        print("      M-only-at-α=1/2 invariance VERIFIED.")
+        print("      H/Br = 1+sqrt(3) at <10^-40 precision.")
+        print("      M-only-at-alpha=1/2 invariance VERIFIED.")
         sys.exit(0)
     else:
         if not all_pass:
-            print("FAIL  Some run did not converge to 1+√3.")
+            print("FAIL  Some run did not converge to 1+sqrt(3).")
         if not pairwise_match:
             print("FAIL  Runs gave different H/Br values.")
         sys.exit(1)
