@@ -6,15 +6,37 @@ Loop:
   2. For each domain, if a corpus exists in the corpus_pool, run study_direct.
   3. Take a cortex snapshot.
   4. Sleep N seconds (default 1 hour) and repeat.
-  5. Stop when a gap-improvement threshold is crossed or after max_cycles.
+  5. Stop when a gap-improvement threshold is crossed, after max_cycles,
+     OR after the 24-cycle observation cap (whichever first).
 
 This is the "CK fills his own gaps" loop.  It uses pre-built corpora
 (no external fetching at runtime); Claude-the-agent generates new corpora
 in design sessions if needed.
 
+OPERATIONAL DISCIPLINE (Brayden 2026-04-29 evening):
+  Don't let the daemon run unattended >24 hours initially.  Each long
+  run is data about how CK behaves under self-direction.  The early
+  observation period is when calibration gets locked in.  Feedback loops
+  sometimes find local minima.  This script enforces:
+
+    1. HARD 24-CYCLE CAP per invocation.  --cycles N caps at 24 unless
+       --i-have-checked-the-deltas is passed (an explicit operator
+       acknowledgement).
+    2. PICK-STUCK DETECTOR.  If the same gap-detector picks recur for
+       >= 5 cycles in a row, the daemon EXITS with a warning.  A stuck
+       loop is data; we want to see it, not let it grind silently.
+    3. PER-CYCLE PICK LOG.  Every gap-detector output is appended to
+       autonomous_study_log.jsonl with a 'gaps_detected' event.  Use
+       --report to see the trajectory.
+    4. PICK DIVERSIFICATION when stuck.  Optional --diversify shuffles
+       among top-(2*N) instead of always taking absolute top-N.
+
 Usage:
     python autonomous_study.py [--cycles 1] [--top-n 3] [--sleep 3600]
-    python autonomous_study.py --once   # run a single cycle then exit
+    python autonomous_study.py --once         # run a single cycle then exit
+    python autonomous_study.py --report       # show pick trajectory + warnings
+    python autonomous_study.py --cycles 24    # daily-cap; safe default
+    python autonomous_study.py --cycles 48 --i-have-checked-the-deltas  # override
 """
 from __future__ import annotations
 
@@ -140,7 +162,7 @@ def log_event(log_path, event):
         f.write(json.dumps(event) + "\n")
 
 
-def one_cycle(top_n=3, replays=10, log_path=None):
+def one_cycle(top_n=3, replays=10, log_path=None, diversify=False):
     """Run one autonomous-study cycle: detect gaps -> study top-N -> snapshot."""
     print("=" * 70)
     print(f"autonomous_study cycle @ {time.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -148,16 +170,25 @@ def one_cycle(top_n=3, replays=10, log_path=None):
 
     # 1) Detect gaps
     print("[1/3] running gap_detector...")
-    gaps, err = detect_gaps(top_n=top_n)
+    # Always pull a wider list when diversifying so we can shuffle
+    detect_n = top_n * 2 if diversify else top_n
+    gaps, err = detect_gaps(top_n=detect_n)
     if not gaps:
         print(f"  gap detection failed: {err}")
         if log_path:
             log_event(log_path, {"event": "gap_detect_fail", "err": err})
         return False
-    ranked = gaps.get("ranked_study_domains", [])
-    print(f"  top gaps: {[d['domain'] for d in ranked]}")
+    full_ranked = gaps.get("ranked_study_domains", [])
+    if diversify and len(full_ranked) >= top_n:
+        ranked = pick_diversify(full_ranked, top_n, seed=int(time.time()))
+        print(f"  diversified picks (from top-{len(full_ranked)}): "
+              f"{[d['domain'] for d in ranked]}")
+    else:
+        ranked = full_ranked[:top_n]
+        print(f"  top gaps: {[d['domain'] for d in ranked]}")
     if log_path:
-        log_event(log_path, {"event": "gaps_detected", "ranked": ranked})
+        log_event(log_path, {"event": "gaps_detected", "ranked": ranked,
+                              "diversified": diversify})
 
     # 2) For each gap, run a study (if corpus available)
     print(f"[2/3] running studies on top {len(ranked)} domains...")
@@ -203,10 +234,100 @@ def one_cycle(top_n=3, replays=10, log_path=None):
     return True
 
 
+# -- discipline guardrails ----------------------------------------------------
+
+OBSERVATION_CYCLE_CAP = 24
+
+
+def read_recent_picks(log_path, n=10):
+    """Read the last n 'gaps_detected' events from the log."""
+    if not Path(log_path).exists():
+        return []
+    events = []
+    try:
+        with open(log_path, "r") as f:
+            for line in f:
+                try:
+                    e = json.loads(line)
+                    if e.get("event") == "gaps_detected":
+                        events.append(e)
+                except Exception:
+                    continue
+    except Exception:
+        return []
+    return events[-n:]
+
+
+def picks_are_stuck(events, stuck_threshold=5):
+    """Return True if the last `stuck_threshold` events have IDENTICAL pick sets."""
+    if len(events) < stuck_threshold:
+        return False
+    recent = events[-stuck_threshold:]
+    pick_sets = []
+    for e in recent:
+        ranked = e.get("ranked", [])
+        domains = tuple(sorted(d.get("domain", "") for d in ranked))
+        pick_sets.append(domains)
+    return len(set(pick_sets)) == 1 and pick_sets[0]  # all same and non-empty
+
+
+def pick_diversify(ranked, n_to_pick, seed=None):
+    """Given a ranked list, shuffle within the top-(2*n_to_pick) and return n_to_pick."""
+    import random
+    pool_size = min(len(ranked), 2 * n_to_pick)
+    pool = list(ranked[:pool_size])
+    rnd = random.Random(seed)
+    rnd.shuffle(pool)
+    return pool[:n_to_pick]
+
+
+def report(log_path):
+    """Show the pick trajectory and warn about stuck/degenerate patterns."""
+    events = read_recent_picks(log_path, n=50)
+    if not events:
+        print("(no gap-detector events logged yet)")
+        return
+
+    print("=" * 72)
+    print(f"autonomous_study report ({len(events)} cycles logged)")
+    print("=" * 72)
+
+    # Per-cycle picks
+    print()
+    print("Recent picks (most recent last):")
+    for e in events[-10:]:
+        ts = e.get("iso_ts", "?")
+        ranked = e.get("ranked", [])
+        domains = [d.get("domain", "?") for d in ranked]
+        print(f"  {ts}: {domains}")
+
+    # Stuck detection
+    if picks_are_stuck(events, stuck_threshold=5):
+        print()
+        print("!!! STUCK: last 5 cycles have identical picks.")
+        print("    Suggestions:")
+        print("    - run with --diversify to shuffle within top-N")
+        print("    - author a new corpus targeting the stuck dim")
+        print("    - check Φ-proxy trend: is integration changing? (compute_phi.py)")
+        print("    - inspect cortex_history.jsonl for W_trace movement")
+
+    # Domain frequency overall
+    print()
+    print("Domain pick frequency over all logged cycles:")
+    freq = {}
+    for e in events:
+        for d in e.get("ranked", []):
+            name = d.get("domain", "?")
+            freq[name] = freq.get(name, 0) + 1
+    for name, count in sorted(freq.items(), key=lambda x: -x[1]):
+        bar = "#" * count
+        print(f"  {name:<22}: {count:3d} {bar}")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--cycles", type=int, default=1,
-                   help="Number of cycles to run (default 1)")
+                   help="Number of cycles (default 1; capped at 24 unless --i-have-checked-the-deltas)")
     p.add_argument("--top-n", type=int, default=3,
                    help="How many top gaps to study per cycle (default 3)")
     p.add_argument("--replays", type=int, default=10,
@@ -216,27 +337,78 @@ def main():
     p.add_argument("--once", action="store_true",
                    help="Run a single cycle then exit (sets cycles=1, sleep=0)")
     p.add_argument("--log", default=str(DEFAULT_LOG))
+    p.add_argument("--report", action="store_true",
+                   help="Show pick-trajectory report and warnings; don't run")
+    p.add_argument("--diversify", action="store_true",
+                   help="Shuffle within top-(2*top_n) instead of always taking absolute top")
+    p.add_argument("--i-have-checked-the-deltas", action="store_true",
+                   help="Override the 24-cycle observation cap. "
+                        "Pass only after looking at cortex_history.jsonl + report.")
+    p.add_argument("--stuck-threshold", type=int, default=5,
+                   help="Exit if last N cycles have identical picks (default 5)")
     args = p.parse_args()
 
     log_path = Path(args.log)
+
+    if args.report:
+        report(log_path)
+        return
 
     if args.once:
         args.cycles = 1
         args.sleep = 0
 
-    print(f"autonomous_study: {args.cycles} cycle(s), top-{args.top_n} gaps each, "
+    # GUARDRAIL 1: 24-cycle observation cap
+    if args.cycles > OBSERVATION_CYCLE_CAP and not args.i_have_checked_the_deltas:
+        print(f"!! observation discipline: --cycles {args.cycles} exceeds "
+              f"the {OBSERVATION_CYCLE_CAP}-cycle cap.", file=sys.stderr)
+        print(f"   the early observation period is when calibration gets locked in.", file=sys.stderr)
+        print(f"   suggested workflow:", file=sys.stderr)
+        print(f"     1. let it run --cycles {OBSERVATION_CYCLE_CAP} --sleep 3600 (24 hours)", file=sys.stderr)
+        print(f"     2. inspect: python autonomous_study.py --report", file=sys.stderr)
+        print(f"     3. check: python Gen13/targets/ck/brain/study/trajectory_view.py", file=sys.stderr)
+        print(f"     4. if W trace is moving as expected, re-run with --i-have-checked-the-deltas", file=sys.stderr)
+        return 2
+
+    cycles_to_run = min(args.cycles, OBSERVATION_CYCLE_CAP) if not args.i_have_checked_the_deltas else args.cycles
+
+    print(f"autonomous_study: {cycles_to_run} cycle(s), top-{args.top_n} gaps each, "
           f"{args.replays} replays per study, {args.sleep}s between cycles")
+    if args.diversify:
+        print(f"  diversify: ON (shuffling within top-{2 * args.top_n})")
+    print(f"  stuck-threshold: {args.stuck_threshold} (exits if same picks repeat)")
     print(f"log: {log_path}")
     print()
 
-    for i in range(args.cycles):
-        ok = one_cycle(top_n=args.top_n, replays=args.replays, log_path=log_path)
-        if i < args.cycles - 1 and args.sleep > 0:
+    for i in range(cycles_to_run):
+        # GUARDRAIL 2: stuck detector
+        recent = read_recent_picks(log_path, n=args.stuck_threshold + 1)
+        if picks_are_stuck(recent, stuck_threshold=args.stuck_threshold):
+            print()
+            print(f"!! STUCK: last {args.stuck_threshold} cycles have identical picks.")
+            print("   exiting early so you can see this is happening.")
+            print("   try: --diversify  OR  author a corpus targeting the stuck dim")
+            print()
+            log_event(log_path, {
+                "event": "stuck_exit",
+                "cycle_attempted": i + 1,
+                "threshold": args.stuck_threshold,
+            })
+            return 3
+
+        ok = one_cycle(
+            top_n=args.top_n,
+            replays=args.replays,
+            log_path=log_path,
+            diversify=args.diversify,
+        )
+        if i < cycles_to_run - 1 and args.sleep > 0:
             print(f"\nsleeping {args.sleep}s until next cycle...")
             time.sleep(args.sleep)
 
     print()
-    print("autonomous_study: done")
+    print(f"autonomous_study: done ({cycles_to_run} cycles run)")
+    print(f"check: python autonomous_study.py --report")
 
 
 if __name__ == "__main__":
