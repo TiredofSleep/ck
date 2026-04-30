@@ -43,6 +43,8 @@ def main():
                    default=str(GEN13_ROOT / "var" / "cortex_state.json"))
     p.add_argument("--no-save", action="store_true",
                    help="Run study but don't save state back (dry-run-like)")
+    p.add_argument("--replays", type=int, default=None,
+                   help="Override _replays from corpus (default 1)")
     args = p.parse_args()
 
     corpus_path = Path(args.corpus)
@@ -82,13 +84,17 @@ def main():
     # Load corpus
     with open(corpus_path) as f:
         corpus = json.load(f)
-    flat = []
+    replays = args.replays if args.replays is not None else corpus.get("_replays", 1)
+    flat_per_replay = []
     for topic, items in corpus.items():
         if topic.startswith("_") or not isinstance(items, list):
             continue
         for stmt in items:
-            flat.append((topic, stmt))
-    print(f"  corpus: {corpus_path.name}  total: {len(flat)} statements")
+            flat_per_replay.append((topic, stmt))
+    flat = flat_per_replay * replays
+    print(f"  corpus: {corpus_path.name}")
+    print(f"  per-replay: {len(flat_per_replay)} statements; replays: {replays}")
+    print(f"  total: {len(flat)} statement-passes")
     print()
 
     # Snapshot BEFORE
