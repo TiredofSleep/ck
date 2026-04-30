@@ -1,0 +1,72 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 afternoon. 6 domain-projections: deep learning, ecology, dynamical systems, probability theory, cybernetics, fluid mechanics. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30d",
+  "deep_learning_through_tig": [
+    "Deep networks are stacked LATTICE of nonlinear operators; each layer projects onto a different subspace.",
+    "Backpropagation is COUNTER-flow gradient; error PROGRESS reverses through the operator chain to update weights.",
+    "Convolutional layers exploit translational HARMONY; the same operator scans across spatial positions.",
+    "Attention mechanism is operator-weighted LATTICE selection; queries match keys to retrieve values.",
+    "Transformer is parallel attention LATTICE; sequence positions interact via operator-product not BREATH-recurrence.",
+    "Residual connections preserve PROGRESS through depth; gradient flow stays HARMONY without vanishing COLLAPSE.",
+    "Batch normalization RESET activations to BALANCE; rescales operator distribution at each layer.",
+    "Dropout is stochastic VOID injection; randomly silences operator units to prevent CHAOS-fragile co-adaptation.",
+    "Generative models learn the operator alphabet of data distribution; sample by stochastic LATTICE walk.",
+    "Diffusion models reverse a CHAOS-injection BREATH cycle; learn to step from noise back to coherent operator-state."
+  ],
+  "ecology_through_tig": [
+    "Ecosystems are LATTICE of species coupled by predation competition mutualism; each interaction is a directed operator edge.",
+    "Food webs are operator chains; energy PROGRESS from primary producers through trophic levels with COLLAPSE at each transfer.",
+    "Population dynamics oscillate in BREATH cycles; predator-prey coupling produces phase-shifted HARMONY.",
+    "Carrying capacity is the BALANCE point where birth and death operators equilibrate.",
+    "Biodiversity is LATTICE richness; high operator-alphabet stabilizes against CHAOS perturbation.",
+    "Succession is RESET-followed-by-PROGRESS; disturbance clears LATTICE then community rebuilds toward HARMONY climax.",
+    "Niche is the operator-state region a species occupies; competitive exclusion forbids two species in identical niches.",
+    "Trophic cascades are COUNTER waves; removing top predator reverberates COLLAPSE down the operator chain."
+  ],
+  "dynamical_systems_through_tig": [
+    "Dynamical systems are operator-evolution rules on state space; the LATTICE of points connected by flow.",
+    "Attractors are HARMONY operator-states; trajectories COLLAPSE toward them regardless of initial condition.",
+    "Limit cycles are closed BREATH orbits; periodic operator-return without convergence to a point.",
+    "Bifurcations are RESET events in parameter space; qualitative LATTICE structure changes at critical values.",
+    "Chaos is bounded but unpredictable PROGRESS; sensitive dependence amplifies CHAOS in initial conditions exponentially.",
+    "Lyapunov exponent measures CHAOS-rate; positive value means trajectories diverge in operator-stretching.",
+    "Lorenz attractor is the canonical strange attractor; butterfly LATTICE in three dimensions.",
+    "Phase space is the operator-manifold of all possible states; dynamics traces curves through it."
+  ],
+  "probability_through_tig": [
+    "Probability assigns weight to operator-states; total HARMONY across all outcomes equals one.",
+    "Random variables are operator-functions from sample space to numbers.",
+    "Independence is operator-orthogonality; joint distribution factors into LATTICE product of marginals.",
+    "Bayes theorem is COUNTER-update; posterior probability inverts conditional via prior and likelihood.",
+    "Central limit theorem: sums of independent operators COLLAPSE toward Gaussian HARMONY regardless of source distribution.",
+    "Markov chain is BREATH stepwise; future depends only on current operator-state not history.",
+    "Stochastic process is operator-stream over time; each tick samples from a distribution.",
+    "Law of large numbers: empirical average HARMONY-converges to expected value as sample size grows."
+  ],
+  "cybernetics_through_tig": [
+    "Cybernetics studies operator-feedback in systems; circular causality where output COUNTER-affects input.",
+    "Norbert Wiener founded the field 1948; control and communication in animal and machine.",
+    "Negative feedback is BALANCE-restoring; deviation triggers COUNTER correction toward setpoint.",
+    "Positive feedback is CHAOS-amplifying; deviation triggers PROGRESS in same direction.",
+    "Homeostasis is HARMONY maintained through negative feedback; living systems hold operator-state against perturbation.",
+    "Requisite variety: controller must have operator-alphabet at least as rich as the system controlled.",
+    "Black box is operator-opaque; only input-output BREATH visible without internal LATTICE structure.",
+    "Second-order cybernetics observes the observer; operator-recursion includes the modeling agent in the model."
+  ],
+  "fluid_mechanics_through_tig": [
+    "Fluids are LATTICE continua; particles flow with operator-coupled velocity and pressure fields.",
+    "Navier-Stokes equations: momentum BREATH balance with viscous COLLAPSE and pressure gradient.",
+    "Reynolds number is the COUNTER-ratio of inertia to viscosity; high values give CHAOS-turbulence.",
+    "Laminar flow is HARMONY-layered; particles move in parallel operator-streams without mixing.",
+    "Turbulence is multi-scale CHAOS; energy cascades from large LATTICE eddies to small viscous COLLAPSE.",
+    "Bernoulli equation: pressure plus kinetic plus potential energy is HARMONY-conserved along a streamline.",
+    "Vorticity measures local rotational PROGRESS; the curl operator of velocity field.",
+    "Boundary layer is the COLLAPSE region where viscosity dominates near a wall."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans deep learning, ecology, dynamical systems, probability, cybernetics, fluid mechanics.",
+    "Each domain crystallizes by identifying operators in its own substrate; CK reads through the lens not by adopting alien vocabularies.",
+    "Continued growth: every new domain compresses to ~6-10 operator-projections that share the same alphabet."
+  ]
+}

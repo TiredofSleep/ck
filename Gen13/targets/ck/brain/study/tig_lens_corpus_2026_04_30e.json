@@ -1,0 +1,81 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 mid-afternoon. 6 domain-projections: quantum mechanics, thermodynamics, algorithms, economics, linguistics, genetics. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30e",
+  "qm_through_tig": [
+    "Wave-particle duality is operator alternation between CHAOS (wave mode, distributed pattern) and COLLAPSE (particle mode, localized point).",
+    "Superposition is LATTICE-coherent sum of basis operator-states; the system inhabits the full alphabet at once.",
+    "Measurement is RESET-COLLAPSE; the operator-state projects onto an eigenbasis chosen by the apparatus.",
+    "Entanglement is non-local LATTICE-binding; two systems share one operator-state that cannot be factorized.",
+    "Uncertainty principle is COUNTER between conjugate operators; position and momentum cannot both achieve HARMONY simultaneously.",
+    "Schrodinger equation is the deterministic BREATH of the wave function; unitary PROGRESS until measurement breaks the flow.",
+    "Operators are observables; eigenvalues are the discrete LATTICE of possible measurement outcomes.",
+    "Hilbert space is the LATTICE substrate of all quantum states; complex linear combinations preserve operator algebra.",
+    "Tunneling is COLLAPSE-improbable but allowed PROGRESS through classically forbidden barrier.",
+    "Decoherence is environment-induced LATTICE-fragmentation; quantum HARMONY washes into classical mixture."
+  ],
+  "thermodynamics_through_tig": [
+    "Zeroth law: thermal HARMONY is transitive; if A balances B and B balances C then A balances C.",
+    "First law: energy is HARMONY-conserved across operator boundaries; only redistributes among heat work and internal forms.",
+    "Second law: entropy of an isolated system PROGRESSes monotonically; CHAOS at microscopic level grows.",
+    "Third law: at zero temperature operator-fluctuations COLLAPSE to ground state; entropy reaches a finite minimum.",
+    "Entropy is LATTICE-count of microstates; logarithm of operator-multiplicity at given macroscopic conditions.",
+    "Free energy is the operator-fraction of internal energy available for useful PROGRESS; the rest dissipates as bound entropy.",
+    "Heat engines exploit COUNTER between hot and cold reservoirs; convert thermal LATTICE difference into mechanical PROGRESS.",
+    "Carnot cycle is the reversible BREATH limit; isothermal-adiabatic alternation gives maximum HARMONY-efficiency 1 - T_cold/T_hot.",
+    "Reversible processes maintain operator-equilibrium at every step; irreversible processes generate entropy via CHAOS."
+  ],
+  "algorithms_through_tig": [
+    "Algorithms are operator-procedures with finite LATTICE structure; deterministic PROGRESS from input to output.",
+    "Time complexity measures operator-count BREATH growth as input size scales; big-O bounds the asymptotic profile.",
+    "Space complexity measures memory LATTICE size; how much storage the operator chain consumes.",
+    "P versus NP asks whether COUNTER (verification) and PROGRESS (search) are HARMONY-equivalent in polynomial time.",
+    "Sorting algorithms impose total LATTICE order on data; comparison or radix operators rearrange into HARMONY.",
+    "Graph algorithms walk operator edges; BFS DFS shortest-path each implement different traversal BREATH.",
+    "Dynamic programming caches subproblem solutions; HARMONY between computation and memory through memoization.",
+    "Greedy algorithms make local COLLAPSE choices; sometimes coincide with global optimum sometimes not.",
+    "Divide and conquer is recursive RESET; split problem into smaller operator-instances, solve, combine.",
+    "Turing machine is the canonical operator-substrate; tape plus state plus transition table defines computability."
+  ],
+  "economics_through_tig": [
+    "Supply and demand are COUNTER operators; price equilibrates where the curves meet in HARMONY.",
+    "Opportunity cost is COLLAPSE alternative; choosing one operator forecloses the others.",
+    "Scarcity forces COLLAPSE-choice; finite resources cannot satisfy infinite operator-wants.",
+    "Comparative advantage is LATTICE-specialization; each agent operates where their relative cost is lowest.",
+    "Market equilibrium is HARMONY operator-state; no participant can improve by unilateral COUNTER move (Pareto efficient).",
+    "Marginal analysis is derivative PROGRESS; incremental operator-changes drive optimization decisions.",
+    "Externalities are operator-leakage to third parties; market price misses the full LATTICE of effects.",
+    "Public goods are non-rival non-excludable LATTICE; private market under-provides them.",
+    "Elasticity is operator-sensitivity; how much quantity responds to unit price change.",
+    "Rational choice assumes utility-maximizing operator-selection; agents pick highest-value option given constraints."
+  ],
+  "linguistics_through_tig": [
+    "Phonology is the operator alphabet of sound; phonemes are minimal contrastive LATTICE units.",
+    "Morphology composes morphemes; minimal meaning operators stack into words via productive PROGRESS rules.",
+    "Syntax is the LATTICE of phrase structure; words combine into sentences through hierarchical operator-trees.",
+    "Semantics assigns operator-meaning to expressions; lexical and compositional contribute to truth conditions.",
+    "Pragmatics is context-operator; meaning emerges from utterance plus situation plus speaker intent.",
+    "Generative grammar treats language as operator-recursion; finite rules generate infinite LATTICE of sentences.",
+    "Universal grammar posits HARMONY across all human languages; common operator-principles constrain variation.",
+    "Sociolinguistics studies operator-variation across communities; dialect register style as social LATTICE.",
+    "Language acquisition is BREATH-development of operator competence; children master native grammar without explicit instruction.",
+    "Structural linguistics decomposes utterances into operator-parts; Saussure signified-signifier as foundational pair."
+  ],
+  "genetics_through_tig": [
+    "DNA is the operator-substrate of heredity; double helix LATTICE encoding life's operator alphabet in four bases.",
+    "RNA is operator-messenger and operator-catalyst; bridges DNA blueprint to protein BREATH.",
+    "Gene is the operator-unit of heredity; coding region plus regulatory LATTICE producing one functional product.",
+    "Protein is folded operator-string; amino acid sequence COLLAPSEs into 3D structure performing the function.",
+    "Transcription is DNA-to-RNA operator-copy; RNA polymerase reads template strand in PROGRESS direction.",
+    "Translation is RNA-to-protein operator-decoding; ribosome reads codons and assembles amino acid LATTICE.",
+    "Genome is the complete operator-set; total DNA content of an organism across all chromosomes.",
+    "Mutation is operator-error in replication; point insertion deletion can be COLLAPSE harmful or HARMONY beneficial.",
+    "Central dogma: DNA -> RNA -> protein operator flow; reverse transcription COUNTER exists in retroviruses.",
+    "Natural selection is HARMONY-filter; differential reproduction favors operator-states fit for environment."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans QM, thermo, algorithms, economics, linguistics, genetics.",
+    "Each domain compresses to ~10 operator-projections sharing the same alphabet (VOID LATTICE COUNTER PROGRESS COLLAPSE BALANCE CHAOS HARMONY BREATH RESET).",
+    "CK reads through the lens; he does not adopt foreign vocabulary, he projects."
+  ]
+}

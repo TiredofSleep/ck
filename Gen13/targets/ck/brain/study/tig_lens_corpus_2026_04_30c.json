@@ -1,0 +1,53 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 noon. Statistical mechanics, machine learning, climate, game theory, linear algebra, calculus.",
+  "_replays": 22,
+  "_session_prefix": "tig_lens_2026_04_30c",
+  "stat_mech_through_tig": [
+    "An ensemble is a LATTICE of system copies in different microstates; probability over configurations.",
+    "Partition function Z is the operator-sum over all microstates; differentiating Z gives every macroscopic observable.",
+    "Boltzmann distribution is the HARMONY-weighted population of energy levels at thermal equilibrium.",
+    "Microstates are the operator-states the system actually occupies; entropy = log(microstate count).",
+    "Phase transitions are RESET-COLLAPSE events in macroscopic properties at critical temperature.",
+    "Statistical equilibrium is BREATH steady at the ensemble level even as individual particles move."
+  ],
+  "ml_through_tig": [
+    "Supervised learning is operator-fitting from labeled pairs; unsupervised seeks LATTICE patterns in unlabeled data.",
+    "Neural networks are LATTICE of nonlinear gates trained by PROGRESS gradient through backprop.",
+    "Gradient descent is iterated COLLAPSE toward lower error; the operator field finds local minima.",
+    "Overfitting is COUNTER to generalization; the model memorizes train set CHAOS instead of pattern.",
+    "Generalization is HARMONY between training and test distributions; the deep goal of learning.",
+    "Common algorithms decision tree forest SVM logistic regression each implement different LATTICE topologies."
+  ],
+  "climate_through_tig": [
+    "Greenhouse effect is the BREATH cycle of solar energy partly retained by atmospheric CO2 and methane.",
+    "Atmospheric circulation is operator-redistribution of heat across LATITUDE; Hadley Ferrel polar cells.",
+    "Ocean currents are slow BREATH redistributing thermal energy across decades.",
+    "Climate models are operator algebras simulating atmosphere-ocean-land HARMONY across decades to centuries.",
+    "Feedback loops can amplify (CHAOS-amplifying) or stabilize (BALANCE-restoring); ice-albedo amplifies, vegetation often stabilizes.",
+    "Current warming is human-driven CHAOS injection at rates exceeding natural BREATH timescales by orders of magnitude."
+  ],
+  "game_theory_through_tig": [
+    "Nash equilibrium is operator-state where no player can improve by unilateral COUNTER.",
+    "Zero-sum games are perfect COUNTER; one player gain equals other player loss.",
+    "Prisoner dilemma shows rational COLLAPSE leads to suboptimal HARMONY when cooperation cannot be enforced.",
+    "Mixed strategies are probability distributions over actions; stochastic operator selection.",
+    "Evolutionarily stable strategy is HARMONY persistent across population BREATH; Maynard Smith.",
+    "Mechanism design crafts the LATTICE so individual incentives align with collective HARMONY."
+  ],
+  "linear_algebra_through_tig": [
+    "Vectors are operator-elements in a vector space; addable scalable.",
+    "Matrices are LATTICE of numbers representing linear operators between vector spaces.",
+    "Span is the LATTICE of all linear combinations; closure under addition and scaling.",
+    "Basis is the minimal independent operator set spanning a space.",
+    "Eigenvalues are operator-fixed-points scaled; eigenvectors are directions preserved by the matrix.",
+    "Determinant is a LATTICE-volume invariant; zero means the matrix collapses dimension."
+  ],
+  "calculus_through_tig": [
+    "Limits formalize approaching a value; the BREATH of approach without arrival.",
+    "Derivatives measure instantaneous PROGRESS; the slope of the operator stream at a point.",
+    "Integrals accumulate over BREATH; area under a curve is total operator-flow.",
+    "Fundamental theorem: differentiation and integration are HARMONY-inverse operations.",
+    "Optimization uses derivatives to find HARMONY (max) or COLLAPSE (min) operator states.",
+    "Chain rule is the operator-composition theorem for derivatives; d/dx f(g(x)) = f'(g) g'(x)."
+  ]
+}

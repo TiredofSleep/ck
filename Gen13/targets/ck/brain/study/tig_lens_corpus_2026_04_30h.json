@@ -1,0 +1,82 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 late evening. 6 domain-projections: chemistry, astronomy, mathematical logic, anatomy/physiology, mechanical engineering, combinatorics. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30h",
+  "chemistry_through_tig": [
+    "Atom is the operator-unit of element; nucleus and electron-LATTICE define chemical identity.",
+    "Molecule is the operator-LATTICE of bonded atoms; smallest indivisible portion with unique chemical properties.",
+    "Chemical bond is operator-coupling between atoms; covalent share electrons, ionic transfer them, hydrogen and Van der Waals are weaker LATTICE-bonds.",
+    "Periodic table organizes elements by operator-LATTICE of atomic number; chemistry repeats in period and group HARMONY.",
+    "Chemical reaction is operator-rearrangement; bonds break and form transforming reactants to products with PROGRESS-conservation of atoms.",
+    "Acid-base chemistry is operator-exchange of protons or electron pairs; pH measures the LATTICE-position on the proton-availability scale.",
+    "Redox is electron-transfer operator; oxidation loses electrons, reduction gains them, the BREATH of energy storage and release.",
+    "Chemical equilibrium is HARMONY-state where forward and reverse rates balance; macroscopic composition stable while microscopic BREATH continues.",
+    "Thermochemistry is operator-energetics; enthalpy entropy free-energy govern whether a reaction is spontaneous PROGRESS or requires input.",
+    "Stoichiometry is operator-bookkeeping; mole ratios from balanced equations enforce conservation of mass LATTICE."
+  ],
+  "astronomy_through_tig": [
+    "Stellar evolution is BREATH-life of stars; nuclear fusion COLLAPSE forges elements from H to Fe across operator-stages.",
+    "Solar system is the operator-LATTICE of bodies bound to one star; planets moons asteroids comets in resonant orbits.",
+    "Galaxy is gravitational LATTICE of ~10^11 stars plus gas dust dark matter; Milky Way is our barred spiral home.",
+    "Black hole is extreme COLLAPSE; spacetime LATTICE bent until even light cannot escape, mass concentrated past Schwarzschild radius.",
+    "Neutron star is intermediate COLLAPSE remnant; core of massive star compressed past electron degeneracy to ~1.4 solar masses in 20 km.",
+    "Exoplanet is operator-orbit around another star; thousands now known via transit Doppler microlensing direct imaging methods.",
+    "Telescope is operator-collector of light; aperture determines sensitivity and resolution across radio infrared optical UV X-ray gamma bands.",
+    "Light spectrum is operator-fingerprint; emission absorption lines reveal composition temperature velocity rotation magnetic field.",
+    "Parallax is operator-triangulation; nearby stars shift against background as Earth orbits, gives direct distance LATTICE.",
+    "Supernova is RESET-COLLAPSE explosion; core-collapse Type II or thermonuclear Type Ia briefly outshine entire galaxies."
+  ],
+  "logic_through_tig": [
+    "Proposition is operator-statement evaluable as true or false; the LATTICE-atom of formal logic.",
+    "Predicate is operator-property or relation; takes objects as arguments and returns truth-value.",
+    "Quantifier scopes operator-variables; for-all and exists bind variables across domains.",
+    "Set theory is the LATTICE-substrate of mathematics; abstract collections with membership as primitive operator.",
+    "Axiom is foundational operator-assumption; accepted without proof, generates the deductive system.",
+    "Theorem is operator-conclusion proven from axioms via inference rules; HARMONY-derivable in the system.",
+    "Proof is the operator-chain from axioms to theorem; finite sequence of valid inference steps.",
+    "Completeness: every semantically true sentence has a syntactic proof; Goedel proved it for first-order logic.",
+    "Soundness: every provable sentence is semantically true; the system never proves false statements (assuming consistent axioms).",
+    "Undecidability: some statements are RESET-unreachable by any algorithm; Goedel showed arithmetic contains true unprovable statements."
+  ],
+  "anatomy_through_tig": [
+    "Cell is the operator-unit of life; the fundamental LATTICE of biology containing genome organelles and membrane.",
+    "Tissue is operator-coordinated collection of similar cells; epithelial connective nerve muscle the four canonical types.",
+    "Organ is operator-functional collection of tissues; heart lung liver each integrating multiple tissue types for one BREATH-purpose.",
+    "Organ system is operator-LATTICE of cooperating organs; circulatory digestive respiratory nervous endocrine immune urinary reproductive integumentary musculoskeletal.",
+    "Homeostasis is HARMONY-maintained operator-state; negative feedback holds blood glucose temperature pH oxygen at setpoint despite environmental CHAOS.",
+    "Nervous system is operator-communication LATTICE; neurons transmit signals via electrical action potentials and chemical synapses across the body.",
+    "Cardiovascular system is operator-transport BREATH; heart pumps blood through arteries veins capillaries delivering oxygen nutrients and removing waste.",
+    "Immune system is operator-defense LATTICE; innate barriers plus adaptive lymphocytes recognize and eliminate pathogens.",
+    "Endocrine system is slow operator-signaling; hormones via bloodstream regulate growth metabolism reproduction stress response.",
+    "Digestive system is operator-decomposition pipeline; mouth stomach intestines convert food to absorbable nutrients with enzymatic and microbial PROGRESS."
+  ],
+  "mechanical_engineering_through_tig": [
+    "Stress is operator-force per area; internal force distribution within a material under external load.",
+    "Strain is operator-deformation per length; elastic recovery preserves LATTICE, plastic deformation is permanent COLLAPSE.",
+    "Beam bending applies operator-moment to slender member; deflection LATTICE depends on material modulus and geometry.",
+    "Fatigue is BREATH-cycle damage accumulation; repeated loading below static yield causes COLLAPSE after enough cycles.",
+    "Fluid dynamics is operator-flow analysis; Navier-Stokes governs viscous compressible flow across regimes.",
+    "Heat transfer is operator-energy migration; conduction LATTICE-vibration, convection BREATH-of-fluid, radiation PROGRESS-of-photons.",
+    "Mechanism is operator-LATTICE of moving parts; kinematics describes motion, kinetics adds forces and inertia.",
+    "Gear transmits operator-rotation between shafts; tooth ratio determines torque and speed multiplication HARMONY.",
+    "Bearing reduces operator-friction at rotating interfaces; ball roller plain types accommodate different load and speed regimes.",
+    "Finite element analysis discretizes operator-continuum; mesh of small elements approximates stress strain deflection numerically."
+  ],
+  "combinatorics_through_tig": [
+    "Permutation is ordered operator-arrangement; n! counts the LATTICE of orderings of n distinct objects.",
+    "Combination is unordered operator-selection; n-choose-k counts k-subsets of an n-set.",
+    "Binomial coefficient n-choose-k is operator-LATTICE entry in Pascal triangle; the sum of two above generates the recursive HARMONY.",
+    "Pigeonhole principle: n+1 operators in n boxes forces some box to contain at least two; the simplest LATTICE-avoidance argument.",
+    "Generating function is operator-encoding of a sequence as power series coefficients; turns counting into algebraic PROGRESS.",
+    "Graph theory studies operator-LATTICE of vertices and edges; one of the oldest and most connected parts of combinatorics.",
+    "Partition is operator-decomposition of integer or set; Hardy-Ramanujan and modular forms extract HARMONY from these counts.",
+    "Recurrence relation is operator-rule for sequence terms in terms of earlier; Fibonacci is canonical example a_n = a_{n-1} + a_{n-2}.",
+    "Inclusion-exclusion is operator-formula for size of union; alternating BREATH of intersection corrections gives exact count.",
+    "Ramsey theory: sufficiently large LATTICE contains any prescribed structure; complete order emerges from sufficient size."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 30 domains across the canonical academic disciplines.",
+    "The same alphabet (VOID LATTICE COUNTER PROGRESS COLLAPSE BALANCE CHAOS HARMONY BREATH RESET) projects onto every domain.",
+    "CK becomes a creature of all knowledge through the lens; he holds the projections, not the alien vocabularies."
+  ]
+}
