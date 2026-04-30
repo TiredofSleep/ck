@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 13:05. 6 domain-projections: marine biology, botany, forensic science, photonics, pediatrics, mechanism design. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30y",
+  "marine_biology_through_tig": [
+    "Marine biology studies operator-LATTICE-of-life-in-saltwater; from coastal tide pools to deep ocean trenches.",
+    "Ocean zones are operator-LATTICE-by-depth; epipelagic mesopelagic bathypelagic abyssopelagic hadopelagic each have distinct LATTICE.",
+    "Plankton are operator-DRIFTERS-AT-BASE-OF-FOOD-WEB; phytoplankton (cyanobacteria diatoms dinoflagellates) plus zooplankton.",
+    "Coral reef is operator-LATTICE-of-coral-and-symbionts; calcium-carbonate skeleton plus zooxanthellae HARMONY-photosynthesis.",
+    "Marine ecosystem is operator-LATTICE-of-organism-environment-interactions; coastal pelagic benthic each have characteristic communities.",
+    "Marine food web is operator-LATTICE-of-trophic-levels; primary producers (plankton) consumers (small fish) higher predators (sharks orcas).",
+    "Deep sea is operator-EXTREME-LATTICE; high pressure cold dark hydrothermal vents support chemosynthetic life.",
+    "Marine mammals are operator-AIR-BREATHING-VERTEBRATES; cetaceans (whales dolphins) sirenians (manatees) pinnipeds (seals sea lions).",
+    "Ocean acidification is operator-CO2-DRIVEN-pH-COLLAPSE; carbonic acid lowers pH dissolves coral and shell-building organism LATTICE.",
+    "Biodiversity in oceans is operator-RICHNESS-LATTICE; coral reefs and continental shelves richest, deep sea has unique endemism.",
+    "Biogeography traces operator-DISTRIBUTION-PATTERNS; tagged organisms tracked across migrations and lifecycles."
+  ],
+  "botany_through_tig": [
+    "Botany is operator-study of plants; algae mosses ferns gymnosperms angiosperms across LATTICE-of-clades.",
+    "Photosynthesis is operator-CHAOS-INTO-LATTICE; light energy plus CO2 plus H2O produces glucose plus O2 (fundamental autotrophic PROGRESS).",
+    "Chlorophyll is operator-LIGHT-ABSORBING-PIGMENT; chlorophyll a (primary) and b (in plants and green algae) absorb red and blue.",
+    "Plant cell wall is operator-RIGID-OUTER-LATTICE; cellulose pectin xyloglucan polysaccharides give structural support.",
+    "Vascular plant is operator-WATER-AND-NUTRIENT-TRANSPORT-LATTICE; xylem (up) phloem (around) ~391000 species.",
+    "Root is operator-ANCHOR-AND-ABSORBER; underground structure pulls water and minerals from soil.",
+    "Stem is operator-SUPPORT-AND-CONDUIT; above-ground holds leaves to light, transports through xylem and phloem.",
+    "Leaf is operator-LIGHT-COLLECTOR-AND-GAS-EXCHANGER; specialized for photosynthesis with stomata controlling water and CO2.",
+    "Flower is operator-REPRODUCTIVE-STRUCTURE in angiosperms; petals sepals stamens carpels facilitate pollination HARMONY.",
+    "Pollen is operator-MALE-GAMETOPHYTE; microscopic grains carry sperm cells, dispersed by wind insects animals.",
+    "Seed is operator-EMBRYO-PLUS-RESERVES-PLUS-COAT; dormant package ready for germination when conditions right."
+  ],
+  "forensic_science_through_tig": [
+    "Forensic science is operator-APPLICATION-OF-SCIENCE-TO-LAW; evidence collection analysis interpretation for criminal cases.",
+    "Chain of custody is operator-EVIDENCE-INTEGRITY-LATTICE; documentation from collection through court ensures admissibility.",
+    "Crime scene investigation is operator-EVIDENCE-COLLECTION-PROTOCOL; secure document collect preserve transport without contamination.",
+    "DNA analysis is operator-GENETIC-IDENTIFICATION; STR loci compared between sample and reference yields probability matching.",
+    "Fingerprinting is operator-RIDGE-PATTERN-LATTICE; loops whorls arches plus minutiae give individual unique pattern.",
+    "Ballistics is operator-PROJECTILE-MOTION-AND-MARKINGS; barrel rifling leaves unique striations linking bullet to firearm.",
+    "Forensic toxicology is operator-DETECTION-OF-DRUGS-POISONS; biological samples analyzed by GC-MS LC-MS for cause-of-death.",
+    "Forensic pathology is operator-CAUSE-OF-DEATH-DETERMINATION; autopsy combined with circumstances determines manner.",
+    "Autopsy is operator-EXAMINATION-OF-DECEASED; external internal organ-by-organ documents injuries disease state.",
+    "Trace evidence is operator-MICROSCOPIC-PHYSICAL-MATERIALS; fibers glass paint hair gunshot residue link suspect to scene.",
+    "Expert witness is operator-COURT-TESTIFIER; qualified specialist testifies under cross-examination about findings."
+  ],
+  "photonics_through_tig": [
+    "Photonics is operator-engineering-with-photons; generation manipulation detection of light for technology.",
+    "Laser is operator-COHERENT-LIGHT-SOURCE; stimulated emission produces narrow-spectrum collimated phase-locked beam.",
+    "Optical fiber is operator-WAVEGUIDE-FOR-LIGHT; total internal reflection carries signal over 100+ km in glass core.",
+    "Photodetector is operator-LIGHT-TO-ELECTRICAL-SIGNAL; photodiodes APDs solar cells each suit different speed-sensitivity LATTICE.",
+    "LED is operator-SEMICONDUCTOR-LIGHT-SOURCE; electron-hole recombination across band gap emits photons of corresponding wavelength.",
+    "Photonic crystal is operator-LATTICE-WITH-PHOTONIC-BAND-GAP; periodic dielectric structure controls light propagation as crystal does electrons.",
+    "Nonlinear optics is operator-INTENSITY-DEPENDENT-RESPONSE; second-harmonic generation Kerr effect parametric amplification require strong fields.",
+    "Quantum optics studies operator-QUANTUM-PROPERTIES-OF-LIGHT; photon statistics squeezed states entanglement underlie many technologies.",
+    "Optical computing uses operator-PHOTONS-INSTEAD-OF-ELECTRONS; potential bandwidth advantage limited by need for nonlinear gates.",
+    "Integrated photonics combines operator-MULTIPLE-OPTICAL-FUNCTIONS-on-chip; modulators detectors waveguides on silicon-photonic platform.",
+    "Modulator encodes operator-INFORMATION-ON-LIGHT; intensity phase polarization modulation for fiber-optic communication."
+  ],
+  "pediatrics_through_tig": [
+    "Pediatrics is operator-medicine-of-children; from neonate through adolescence with attention to growth and development.",
+    "Growth and development is operator-LATTICE-of-changes-with-age; physical cognitive social emotional milestones trackable on standard curves.",
+    "Vaccination schedule is operator-LATTICE-of-timed-immunizations; CDC schedule from birth through adolescence builds protective immunity.",
+    "Common pediatric infections include operator-LATTICE: otitis media URI viral exanthems gastroenteritis UTI strep pharyngitis.",
+    "Congenital disease is operator-DEVELOPMENTAL-DISRUPTION; structural genetic chromosomal teratogenic each cause distinct presentations.",
+    "Pediatric pharmacology accounts for operator-DEVELOPMENTAL-DIFFERENCES; absorption distribution metabolism elimination differ from adult.",
+    "Neonatology is operator-NEWBORN-CARE specialty; NICU manages prematurity respiratory distress congenital problems.",
+    "Adolescent medicine addresses operator-PUBERTY-THROUGH-EARLY-ADULTHOOD; mental health sexual health substance use specific concerns.",
+    "Breastfeeding is operator-OPTIMAL-INFANT-NUTRITION; passive immunity maternal bond cognitive benefits well-documented HARMONY.",
+    "Well-child visit is operator-PERIODIC-PREVENTIVE-EXAM; growth check development assessment immunization anticipatory guidance.",
+    "Developmental milestones are operator-LATTICE-OF-EXPECTED-ACHIEVEMENTS; gross motor fine motor language social by age intervals."
+  ],
+  "mechanism_design_through_tig": [
+    "Mechanism design is operator-REVERSE-GAME-THEORY; design rules so equilibrium achieves designer's goal.",
+    "Implementation is operator-RULE-DESIGN that achieves desired outcome; agents respond strategically to incentives.",
+    "Incentive compatibility is operator-TRUTHFUL-REPORTING optimal; agents find honest disclosure their best strategy.",
+    "Individual rationality is operator-VOLUNTARY-PARTICIPATION; agents must receive enough utility to choose to participate.",
+    "Revelation principle: operator-EVERY-MECHANISM-EQUIVALENT to direct truthful mechanism; simplifies design space (Myerson Gibbard).",
+    "Vickrey auction is operator-SECOND-PRICE-SEALED-BID; highest bidder wins pays second-highest bid, truthful bidding dominant.",
+    "Dominant strategy is operator-OPTIMAL-REGARDLESS of others; strategy-proof mechanism makes truthfulness always best.",
+    "Optimal mechanism maximizes operator-DESIGNER-OBJECTIVE subject to IC and IR constraints; revenue-optimal auction (Myerson 1981).",
+    "Social choice function maps operator-PREFERENCES-TO-OUTCOMES; aggregates individual rankings into collective decision.",
+    "Arrow impossibility theorem: operator-NO-VOTING-SYSTEM satisfies all desirable democratic axioms simultaneously (1951).",
+    "Gibbard-Satterthwaite theorem: operator-NO-NON-DICTATORIAL strategy-proof voting rule for >=3 alternatives."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 132 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines medical specialties and reverse-game-theory mechanism design.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}

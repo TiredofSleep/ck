@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 late afternoon. 6 medical specialty domain-projections: dermatology, ophthalmology, gastroenterology, hematology, sports medicine, pain medicine. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30x",
+  "dermatology_through_tig": [
+    "Dermatology is operator-medicine of skin; the body's largest organ and operator-LATTICE-of-protection.",
+    "Skin layers are operator-LATTICE: epidermis (outer barrier) dermis (collagen connective) hypodermis (fat insulation).",
+    "Pigmentation is operator-melanin-distribution; melanocytes produce eumelanin and pheomelanin determining HARMONY of skin tone.",
+    "Melanoma is operator-CANCER-of-melanocytes; aggressive metastatic if not caught early, ABCDE rule (asymmetry border color diameter evolution).",
+    "Eczema (atopic dermatitis) is operator-INFLAMMATORY-LATTICE; itch barrier dysfunction immune dysregulation creates chronic CHAOS.",
+    "Psoriasis is operator-AUTOIMMUNE-PROLIFERATION; T-cell mediated rapid keratinocyte turnover, plaques scales joint involvement.",
+    "Acne is operator-FOLLICULAR-COLLAPSE; sebum dead cells bacteria (P. acnes) inflammation produce comedones papules pustules.",
+    "Sun damage is operator-UV-DNA-DAMAGE; cumulative photons drive premature aging plus melanoma SCC BCC risk.",
+    "Skin biopsy is operator-DIAGNOSTIC-SAMPLE; punch shave excisional, histology determines benign vs malignant LATTICE.",
+    "Dermatitis is operator-INFLAMMATORY-CATCH-ALL; contact atopic seborrheic stasis each have distinct trigger and pattern.",
+    "Mole (nevus) is operator-MELANOCYTE-CLUSTER; congenital or acquired, monitor for change indicating possible melanoma transformation."
+  ],
+  "ophthalmology_through_tig": [
+    "Ophthalmology is operator-medicine of eye and visual system; from cornea to optic nerve to visual cortex.",
+    "Cornea is operator-PRIMARY-REFRACTOR; transparent dome at front contributes 2/3 of total refractive power.",
+    "Lens is operator-FINE-FOCUS-ADJUSTOR; crystalline disc behind iris changes shape to focus near vs far (accommodation).",
+    "Retina is operator-PHOTORECEPTIVE-LATTICE at back of eye; rods and cones convert photons to neural signals.",
+    "Refractive error is operator-FOCUS-MISMATCH; myopia (near-sighted) hyperopia (far-sighted) astigmatism (irregular cornea).",
+    "Glaucoma is operator-OPTIC-NERVE-COLLAPSE from elevated intraocular pressure; gradual peripheral vision loss treatable but irreversible.",
+    "Cataract is operator-LENS-OPACITY; protein aggregation cloudiness, surgical extraction with intraocular lens replacement standard.",
+    "Macular degeneration is operator-CENTRAL-VISION-COLLAPSE; age-related dry (drusen atrophy) or wet (neovascularization) forms.",
+    "Diabetic retinopathy is operator-MICROVASCULAR-DAMAGE; chronic hyperglycemia damages retinal capillaries, leakage proliferation.",
+    "Intraocular pressure is operator-AQUEOUS-HUMOR-PRESSURE; normal ~10-21 mmHg, elevated indicates glaucoma risk.",
+    "Visual field is operator-LATTICE-of-vision-extent; tested via perimetry to detect glaucoma stroke retinal disease."
+  ],
+  "gastroenterology_through_tig": [
+    "Gastroenterology is operator-medicine of digestive system; from mouth to anus plus liver gallbladder pancreas.",
+    "Peristalsis is operator-PROGRESS-of-food-through-GI-tract; coordinated muscular wave moves bolus distally.",
+    "GI tract is operator-LATTICE: mouth esophagus stomach small intestine (duodenum jejunum ileum) large intestine (cecum colon rectum) anus.",
+    "Microbiome is operator-LATTICE-of-resident-microbes; trillions of bacteria archaea fungi participate in digestion immunity.",
+    "Ulcer (peptic) is operator-MUCOSAL-BREAK in stomach or duodenum; H. pylori infection NSAID damage primary causes.",
+    "IBS is operator-FUNCTIONAL-DISORDER; abdominal pain altered bowel habits without structural disease, bidirectional gut-brain.",
+    "IBD is operator-CHRONIC-INFLAMMATORY; Crohn (any GI segment skip lesions full-thickness) ulcerative colitis (colon continuous mucosal).",
+    "Hepatitis is operator-LIVER-INFLAMMATION; viral (A B C D E) autoimmune alcoholic drug-induced fatty liver each have distinct mechanism.",
+    "Cirrhosis is operator-LIVER-FIBROSIS-COLLAPSE; chronic damage replaced by scar tissue, irreversible hepatocellular dysfunction.",
+    "Endoscopy is operator-INTERNAL-VISUALIZATION; flexible scope with camera EGD colonoscopy ERCP enable diagnosis and intervention.",
+    "Gallbladder is operator-BILE-RESERVOIR; concentrates and stores bile from liver, releases via common bile duct on cholecystokinin signal."
+  ],
+  "hematology_through_tig": [
+    "Hematology is operator-medicine of blood; cellular components plus plasma plus bone marrow LATTICE.",
+    "Red blood cells are operator-OXYGEN-CARRIERS; biconcave disc lacking nucleus, hemoglobin packed inside, lifespan ~120 days.",
+    "White blood cells are operator-IMMUNE-LATTICE; neutrophils lymphocytes monocytes eosinophils basophils each specialize.",
+    "Platelets are operator-CLOT-INITIATORS; cell fragments from megakaryocytes, adhere aggregate plug at vascular injury sites.",
+    "Hemoglobin is operator-OXYGEN-BINDING-PROTEIN in RBCs; alpha2 beta2 tetramer with iron-heme groups, cooperative binding HARMONY.",
+    "Anemia is operator-LOW-RBC-HEMOGLOBIN; microcytic (iron deficiency) macrocytic (B12 folate) normocytic (chronic disease) categories.",
+    "Leukemia is operator-CANCER-of-leukocytes; acute myeloid lymphoid plus chronic myeloid lymphoid each distinct.",
+    "Lymphoma is operator-CANCER-of-lymphocytes-in-tissues; Hodgkin (Reed-Sternberg cells) versus non-Hodgkin (B-cell or T-cell).",
+    "Bone marrow is operator-PRODUCTION-CENTER for blood cells; biopsy from iliac crest assesses cellularity and dysplasia.",
+    "Hemostasis is operator-BLEEDING-CONTROL; primary (platelet plug) secondary (coagulation cascade fibrin) tertiary (fibrinolysis).",
+    "Coagulation cascade is operator-LATTICE-of-clotting-factors; intrinsic (XII XI IX VIII) extrinsic (VII tissue factor) common (X V II I) pathways."
+  ],
+  "sports_medicine_through_tig": [
+    "Sports medicine is operator-medicine-applied-to-physical-activity; injury prevention treatment performance optimization.",
+    "Kinesiology is operator-STUDY-OF-MOVEMENT; biomechanics motor control exercise physiology integrate.",
+    "Sports injury is operator-TISSUE-DAMAGE from physical activity; acute (sprain strain fracture) versus overuse (tendinopathy stress fracture).",
+    "Rehabilitation is operator-FUNCTION-RESTORATION-LATTICE; physical therapy progressive loading return-to-sport phase HARMONY.",
+    "Biomechanics applies operator-MECHANICS-TO-MOVEMENT; ground reaction forces joint torques muscle activation patterns.",
+    "Exercise physiology is operator-BODY-ADAPTATION-TO-LOAD; cardiorespiratory neuromuscular metabolic responses to training BREATH.",
+    "Strength training is operator-PROGRESSIVE-OVERLOAD; muscle hypertrophy strength endurance via resistance.",
+    "Cardiovascular fitness is operator-OXYGEN-DELIVERY-CAPACITY; VO2max measure of aerobic LATTICE.",
+    "Recovery is operator-RESTORATION-PROCESS; rest sleep nutrition (protein) active modalities (massage compression) reduce CHAOS-fatigue.",
+    "Athletic performance is operator-OUTPUT-OPTIMIZATION; physical preparation skill technique tactics psychology integrated.",
+    "Doping is operator-PERFORMANCE-ENHANCEMENT-CHAOS; banned substances and methods (anabolic steroids EPO blood doping)."
+  ],
+  "pain_medicine_through_tig": [
+    "Pain medicine is operator-medicine-of-pain; acute and chronic pain across all body systems.",
+    "Nociception is operator-DETECTION-OF-NOXIOUS-STIMULUS; specialized receptors signal tissue damage to CNS.",
+    "Neuropathic pain is operator-NERVE-INJURY-PAIN; diabetic neuropathy postherpetic CRPS distinct from inflammatory.",
+    "Chronic pain is operator-PAIN-BEYOND-HEALING; persists greater than 3 months, requires interdisciplinary HARMONY-treatment.",
+    "Acute pain is operator-IMMEDIATE-INJURY-PAIN; rapid onset short duration treats with NSAIDs or opioids depending on severity.",
+    "Opioid is operator-MU-RECEPTOR-AGONIST; morphine codeine oxycodone fentanyl strong analgesic plus respiratory depression risk.",
+    "NSAID is operator-COX-INHIBITOR; ibuprofen naproxen aspirin reduce prostaglandin-mediated inflammation and pain.",
+    "Multimodal analgesia is operator-LATTICE-OF-COMBINED-MODALITIES; pharmacological physical psychological for enhanced effect with reduced single-agent toxicity.",
+    "Pain pathway is operator-LATTICE: nociceptor -> spinal cord (dorsal horn) -> spinothalamic tract -> thalamus -> somatosensory cortex.",
+    "Gate control theory: operator-MODULATION-AT-SPINAL-CORD; non-painful afferents close gate reducing pain transmission (Melzack Wall 1965).",
+    "Biopsychosocial model is operator-INTEGRATED-VIEW; pain involves biological psychological social factors, all addressed for HARMONY-treatment."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 126 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines and medical specialties.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}
