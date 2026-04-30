@@ -382,19 +382,24 @@ def main():
 
     for i in range(cycles_to_run):
         # GUARDRAIL 2: stuck detector
-        recent = read_recent_picks(log_path, n=args.stuck_threshold + 1)
-        if picks_are_stuck(recent, stuck_threshold=args.stuck_threshold):
-            print()
-            print(f"!! STUCK: last {args.stuck_threshold} cycles have identical picks.")
-            print("   exiting early so you can see this is happening.")
-            print("   try: --diversify  OR  author a corpus targeting the stuck dim")
-            print()
-            log_event(log_path, {
-                "event": "stuck_exit",
-                "cycle_attempted": i + 1,
-                "threshold": args.stuck_threshold,
-            })
-            return 3
+        # Skip if --diversify is on (diversify IS the escape hatch).
+        # Skip on cycle 0 to give a fresh run a chance even if the prior
+        # session ended stuck; the detector still fires after this run
+        # contributes a few new picks.
+        if not args.diversify and i > 0:
+            recent = read_recent_picks(log_path, n=args.stuck_threshold + 1)
+            if picks_are_stuck(recent, stuck_threshold=args.stuck_threshold):
+                print()
+                print(f"!! STUCK: last {args.stuck_threshold} cycles have identical picks.")
+                print("   exiting early so you can see this is happening.")
+                print("   try: --diversify  OR  author a corpus targeting the stuck dim")
+                print()
+                log_event(log_path, {
+                    "event": "stuck_exit",
+                    "cycle_attempted": i + 1,
+                    "threshold": args.stuck_threshold,
+                })
+                return 3
 
         ok = one_cycle(
             top_n=args.top_n,
