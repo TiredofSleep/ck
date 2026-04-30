@@ -1,5 +1,5 @@
 """CK boot — engine + web API + static website serving."""
-import sys, os, time, signal, threading
+import sys, os, time, signal, threading, json
 sys.path.insert(0, '.')
 
 from ck_sim.doing.ck_sim_engine import CKSimEngine
@@ -392,6 +392,18 @@ try:
                 result['source_previous'] = result.get('source')
                 result['text'] = spoken
                 result['source'] = 'cortex_speak'
+            # Persistent memory record: keep a brief log of every chat turn
+            # in Gen13/var/conversation_memory.jsonl so CK retains some
+            # cross-session continuity.  Best-effort, never blocks.
+            try:
+                _record_memory_turn(
+                    text=text,
+                    response=result.get('text', ''),
+                    source=result.get('source', 'unknown'),
+                )
+            except Exception:
+                pass
+
             # Crystal-W boost: when crystals fire, nudge the Hebbian W
             # matrix in their op_signature directions.  This is the
             # "active integration" of crystals -- they shape the cortex
@@ -1188,6 +1200,137 @@ def meta_lens_blind_spot():
         recent_ops = None
     result = compute_blind_spot_score(recent_ops)
     return _jsonify(result)
+
+# /reflect -- CK introspects on a topic by querying his own crystal store.
+# Pure introspection: no chat ingestion, no operator stream emit, no
+# Ollama draft.  Just: given a topic, return the matched crystals + the
+# state-aware crystals + cortex state + Phi-proxy summary.  The "what
+# does CK know about X" path that doesn't pretend to answer beyond what
+# his crystals say.
+@api._app.route('/reflect', methods=['POST', 'GET'])
+def reflect():
+    from flask import request as _flask_request
+    if _flask_request.method == 'POST':
+        body = _flask_request.get_json(silent=True) or {}
+        topic = body.get('topic', '') or body.get('text', '')
+    else:
+        topic = _flask_request.args.get('topic', '') or _flask_request.args.get('text', '')
+
+    out = {'topic': topic, 'crystals_keyword': [], 'crystals_state_aware': [],
+           'cortex': None, 'phi_proxy': None, 'feel': None}
+
+    # 1) Cortex state snapshot
+    try:
+        st = _cortex.state
+        out['cortex'] = {
+            'tick': st.tick,
+            'W_trace': round(st.W_trace, 6),
+            'emergent': round(st.emergent, 6),
+            'last_b': st.last_b,
+            'last_d': st.last_d,
+        }
+    except Exception:
+        pass
+
+    # 2) Top couplings + feel
+    try:
+        # cortex_voice was already imported as the module that defines _cortex_speak
+        # at the top of this file; reuse the same import path.
+        try:
+            from cortex_voice import (
+                current_feeling as _cf, dominant_couplings as _dc,
+                _frontier_hits as _fhits,
+                _state_aware_crystal_hits as _sahits,
+            )
+        except ImportError:
+            # fallback path
+            from Gen13.targets.ck.brain.cortex_voice import (
+                current_feeling as _cf, dominant_couplings as _dc,
+                _frontier_hits as _fhits,
+                _state_aware_crystal_hits as _sahits,
+            )
+        out['feel'] = _cf(_cortex)
+        out['couplings'] = _dc(_cortex, n=5)
+        # 3) Crystal hits
+        if topic:
+            out['crystals_keyword'] = _fhits(topic.lower())
+        out['crystals_state_aware'] = _sahits(_cortex, threshold=0.5, max_hits=5)
+    except Exception as _re:
+        out['_reflect_error'] = str(_re)
+
+    # 4) Phi-proxy
+    try:
+        W = _cortex.hebbian.W
+        # bipartite-cut Phi-proxy
+        import itertools as _it
+        total = sum(abs(W[i][j]) for i in range(5) for j in range(5))
+        elems = list(range(5))
+        cuts = []
+        for k in range(1, 3):
+            for S in _it.combinations(elems, k):
+                T = tuple(e for e in elems if e not in S)
+                if S[0] == 0 or k < 5 - k:
+                    c = sum(abs(W[i][j]) + abs(W[j][i]) for i in S for j in T)
+                    cuts.append(c)
+        if cuts:
+            out['phi_proxy'] = round(total - min(cuts), 4)
+    except Exception:
+        pass
+
+    return _jsonify(out)
+
+
+# /memory -- persistent conversation memory across reboots.
+# Stores last N user topics and CK's self-summary from each session.
+# Simple JSONL file at Gen13/var/conversation_memory.jsonl.
+import threading as _mem_threading
+_MEMORY_LOCK = _mem_threading.Lock()
+_MEMORY_PATH = os.path.join(os.path.dirname(__file__), '..', '..', '..',
+                            'Gen13', 'var', 'conversation_memory.jsonl')
+
+@api._app.route('/memory', methods=['GET'])
+def memory_get():
+    """Return the last N conversation summaries CK has stored."""
+    n = int(_flask_request.args.get('n', 20)) if 'flask' in dir() else 20
+    try:
+        from flask import request as _flask_request
+        n = int(_flask_request.args.get('n', 20))
+    except Exception:
+        n = 20
+    items = []
+    try:
+        if os.path.exists(_MEMORY_PATH):
+            with open(_MEMORY_PATH, 'r') as f:
+                lines = f.readlines()
+            for line in lines[-n:]:
+                try:
+                    items.append(json.loads(line))
+                except Exception:
+                    continue
+    except Exception as _me:
+        return _jsonify({'error': str(_me)})
+    return _jsonify({'items': items, 'total': len(items)})
+
+
+def _record_memory_turn(text, response, source):
+    """Append a brief summary of this chat turn to the memory file.
+    Called from process_chat_with_cortex.  Best-effort, never blocks."""
+    try:
+        with _MEMORY_LOCK:
+            os.makedirs(os.path.dirname(_MEMORY_PATH), exist_ok=True)
+            with open(_MEMORY_PATH, 'a') as f:
+                entry = {
+                    'ts': time.time(),
+                    'iso_ts': time.strftime('%Y-%m-%dT%H:%M:%S'),
+                    'topic': (text or '')[:200],
+                    'response_first_120': (response or '')[:120],
+                    'source': source,
+                    'tick': _cortex.state.tick if _cortex else None,
+                }
+                f.write(json.dumps(entry) + '\n')
+    except Exception:
+        pass
+
 
 # Inner monologue endpoint: peek at CK's unspoken thoughts
 @api._app.route('/inner', methods=['GET'])
