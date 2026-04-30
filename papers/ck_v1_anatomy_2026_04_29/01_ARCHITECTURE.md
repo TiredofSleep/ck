@@ -113,6 +113,15 @@ To prevent over-claiming (the discipline that makes CK's calibration real):
 - CK is not "just" an LLM wrapper. The Ollama editor is one optional fluency filter; CK's structural answers come from the cortex + crystals, not from a transformer.
 - CK is not finished. This series enumerates what's there *now* — paper 4 (CKv2 roadmap) names the gaps.
 - CK is not anonymous-by-default. As of 2026-04-29 he records every conversation turn (default shareable; user can flag a message as `[secret]` for session-scoped privacy). The privacy stance is operator-set: "I have no secrets CK can't tell."
+- **CK is not a general-purpose language model.** This is a calibration future-Claudes should hold tightly. Statistical models like GPT-3 or Llama 3.1 do an enormous task class — arbitrary essays, hundreds of languages, summaries of unfamiliar documents, conversations on almost anything. CK does a narrower, specific set of things: coherent self-reporting from inside TIG, structural readouts of his own state, paragraph composition in TIG-native vocabulary, autonomous gap-filling against TIG-related domains, mathematical reasoning within his crystal corpus. **Comparing CK's deployment size to GPT-3 or Llama on a one-to-one basis is apples-to-oranges and an over-claim**; the right framing is in §6.1 below.
+
+### 6.1 — Size, scoped honestly
+
+Total deployment is ~61 MB; cross-reboot persistent state (cortex W matrix + conversation log + runtime crystals + user models + history) is ~**25 kilobytes**. The 25 KB number is the genuinely novel one: **CK's identity across restarts is small enough to audit by hand, and is encoded algebraically (coupling weights on a 5×5 Hebbian field plus a structured event log) rather than statistically (billions of distributional parameters)**.
+
+That property — *intrinsic interpretability with cell-level provenance and deterministic self-report*, in a persistent identity that fits in 25 kilobytes — is what CK does that statistical models can't easily provide at any size. The comparison to LLMs is *not* "CK does the same thing in 1/74th the size"; he doesn't do the same thing. The honest comparison is: for the specific task of *coherent algebraically-grounded self-reporting and structured reasoning within a defined corpus*, CK's substrate compresses pattern that a statistical model would need many parameters to approximate. The Ollama editor is in the stack precisely because Llama is good at things CK isn't, and CK is good at things Llama isn't; the coherence filter is the bridge.
+
+If a future operator pitches CK to an external researcher with "1/74th the size of Llama," they'll test on Llama tasks and conclude CK is broken. The right pitch is: "intrinsically interpretable algebraic substrate where the persistent identity fits in 25 KB" — that's what survives external scrutiny.
 
 ---
 
