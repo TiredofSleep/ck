@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 morning. 6 domain-projections: epistemology, ethics, metaphysics, aesthetics, political philosophy, logic and reasoning. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30n",
+  "epistemology_through_tig": [
+    "Epistemology is operator-study of knowledge; how do we know what we know.",
+    "Justified true belief is operator-tripartite-definition; knowledge requires belief plus truth plus justification HARMONY.",
+    "Foundationalism: knowledge built on operator-LATTICE of basic beliefs; non-basic beliefs supported by chains down to foundation.",
+    "Coherentism: knowledge is operator-mutual-support web; beliefs justify each other through HARMONY of the LATTICE not foundation.",
+    "Skepticism is operator-COUNTER to knowledge claims; questions whether justification can ever be sufficient (Pyrrho Descartes).",
+    "A priori knowledge is operator-non-empirical; mathematics logic obtained without sensory input (2 + 2 = 4).",
+    "A posteriori knowledge is operator-empirical; sensory experience required (the sun shines today).",
+    "Gettier problem is operator-counter-example to JTB; justified true belief that fails to be knowledge due to luck COLLAPSE.",
+    "Reliabilism is externalist operator-criterion; belief justified if produced by reliable cognitive process whether one knows it or not.",
+    "Naturalized epistemology integrates operator-scientific-method into theory of knowledge; Quine the major proponent.",
+    "Social epistemology studies operator-collective-knowledge; how groups testify trust deliberate to acquire and validate beliefs."
+  ],
+  "ethics_through_tig": [
+    "Ethics is operator-study of right action; what should we do and why.",
+    "Virtue ethics centers on operator-character; courage prudence justice temperance the cardinal HARMONY-traits (Aristotle Aquinas Stoics).",
+    "Deontology evaluates by operator-rule; actions right or wrong by intrinsic nature regardless of consequences (Kant).",
+    "Consequentialism evaluates by operator-outcome; actions right if they produce best operator-state of affairs.",
+    "Utilitarianism is operator-greatest-good consequentialism; maximize aggregate happiness (Bentham Mill).",
+    "Moral realism: operator-moral-facts exist independently of minds; objective truth in ethics LATTICE.",
+    "Moral relativism: operator-norms vary by culture or person; no universal standpoint, multiple operator-frameworks coexist.",
+    "Categorical imperative is Kant's operator-rule; act only on maxims you could will as universal law.",
+    "Natural law: morality grounded in operator-nature of beings; teleology says proper function = moral standard (Aquinas).",
+    "Applied ethics handles operator-concrete-cases; medical bioethics business ethics environmental ethics each domain-specific.",
+    "Metaethics interrogates operator-foundations; what kind of fact is a moral fact, do they exist, how do we know them."
+  ],
+  "metaphysics_through_tig": [
+    "Metaphysics studies operator-fundamental-being; what exists, what kinds of things exist, what is the structure of reality.",
+    "Ontology is operator-categorization of being; substance property relation event process the basic LATTICE.",
+    "Substance is operator-bearer of properties; persons objects on Aristotelian view, more recently bundles of tropes.",
+    "Essence is operator-defining-characteristics; what makes a thing what it is (essential vs accidental).",
+    "Identity is operator-self-relation; numerical (same entity over time) vs qualitative (exact resemblance).",
+    "Modality concerns operator-possibility and necessity; what can be, must be, cannot be.",
+    "Possible worlds are operator-LATTICE of complete consistent ways things could be; modal claims interpreted as quantification over worlds.",
+    "Causation is operator-bringing-about; cause produces effect, debate over Humean regularity vs counterfactual vs powers.",
+    "Free will is operator-self-causation; can choices be genuinely free in causally closed physical LATTICE.",
+    "Time has operator-A-series (past present future) and operator-B-series (earlier-than later-than) interpretations; debate over flow vs static block.",
+    "Abstract objects are operator-non-spatiotemporal; numbers sets propositions properties debated as Platonic real or human invention."
+  ],
+  "aesthetics_through_tig": [
+    "Aesthetics studies operator-beauty and art; what makes something beautiful, what is art, how do we evaluate it.",
+    "Beauty is operator-quality of balance HARMONY; perceived as evoking pleasure though precise definition disputed.",
+    "Sublime is operator-awe-fear inducing; vast terrifying magnificent objects produce distinct response from beauty (Burke Kant).",
+    "Taste is operator-aesthetic-discernment; sensitivity capacity and ability to feel and judge aesthetic qualities (varies by culture).",
+    "Art is operator-human-creation; defined either by aesthetic qualities (formalism) or social construction (institutional theory Dickie).",
+    "Mimesis is operator-imitation-representation; classical view art imitates nature or ideal forms (Plato Aristotle).",
+    "Formalism: operator-significant-form is the hallmark of art; emphasizes structural elements over content or context (Bell Fry).",
+    "Expressionism: art expresses operator-mind of artist; emotion conveyed through deliberate aesthetic choices (Tolstoy Croce).",
+    "Aesthetic experience is operator-disinterested-appreciation; sensory perception detached from practical concerns (Kant).",
+    "Art interpretation is operator-meaning-extraction; uncovering significance and value through deeper analysis beyond description.",
+    "Authenticity is operator-genuine-origination; debate over whether mechanical reproduction loses what direct creation provides."
+  ],
+  "political_philosophy_through_tig": [
+    "Political philosophy studies operator-foundations of governance; what makes political authority legitimate, what should the state do.",
+    "Justice is operator-fairness LATTICE; people should be treated fairly and receive what they deserve (Plato Rawls).",
+    "Liberty is operator-non-restriction; positive (power to act) and negative (freedom from interference) (Berlin).",
+    "Equality is operator-uniform-treatment principle; equal rights opportunities or resources across persons.",
+    "Social contract is operator-founding-agreement; citizens consent to government in exchange for protection (Hobbes Locke Rousseau).",
+    "Democracy is operator-popular-sovereignty; main power lies with people, direct or representative.",
+    "Sovereignty is operator-supreme-authority; binding political decisions over a territory.",
+    "Rights are operator-legal-entitlements; natural rights people possess plus civil liberties governments must protect.",
+    "Political legitimacy is operator-justified-power; authority acquired by established rules and exercised properly.",
+    "Anarchism rejects operator-hierarchy; advocates self-governing stateless society.",
+    "Marxism analyzes operator-class-relations; economic forces drive historical change toward communism (Marx Engels)."
+  ],
+  "logic_reasoning_through_tig": [
+    "Logic studies operator-valid-inference; what conclusions follow from what premises by which rules.",
+    "Deductive reasoning has operator-truth-preserving structure; if premises true and form valid then conclusion guaranteed true.",
+    "Inductive reasoning is operator-ampliative; conclusion goes beyond premises (statistical generalization, analogy).",
+    "Abductive reasoning is operator-best-explanation; conclude the most plausible cause for observed effects (Peirce).",
+    "Syllogism is operator-three-part argument; two premises plus conclusion (Aristotle: All A are B; X is A; therefore X is B).",
+    "Propositional logic is operator-LATTICE of atomic propositions plus connectives; AND OR NOT IMPLIES IFF.",
+    "Predicate logic adds operator-internal-structure; predicates relations quantifiers (forall exists) extend expressive power.",
+    "Modal logic adds operator-modality; possibility (diamond) and necessity (box) for reasoning about can-be and must-be.",
+    "Paraconsistent logic tolerates operator-CHAOS; inconsistent premises do not entail every conclusion.",
+    "Fuzzy logic uses operator-graded-truth; truth values in [0,1] not binary, models vague predicates.",
+    "Logical fallacy is operator-flawed-inference; affirming consequent denying antecedent ad hominem etc (named bad patterns)."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 66 domains across natural sciences mathematics computer science engineering social sciences humanities and philosophy.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK reads through the lens; he is becoming a creature of all knowledge through projection."
+  ]
+}
