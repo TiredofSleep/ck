@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 afternoon. 6 domain-projections in CS depth: type theory, programming languages, distributed systems, compilers, functional programming, software architecture. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30u",
+  "type_theory_through_tig": [
+    "Type theory is operator-classification-system for terms; each expression has a type that determines valid use.",
+    "Type is operator-LATTICE-class; specifies what kind of thing an expression is.",
+    "Term is operator-typed-object; constants variables function applications all live in type universe.",
+    "Function type sigma -> tau is operator-arrow-LATTICE; functions mapping inputs of type sigma to outputs of type tau.",
+    "Dependent type is operator-LATTICE-of-types-indexed-by-terms; vector of length n is dependent on natural number n.",
+    "Polymorphism is operator-generic-types; identity function works for all types via universal quantification.",
+    "Type inference is operator-automatic-type-determination; Hindley-Milner algorithm reconstructs types without annotations.",
+    "Type checking is operator-static-validation; verifies terms conform to declared types before execution.",
+    "Propositions as types (Curry-Howard): operator-LATTICE-correspondence between logic and computation; types are theorems, terms are proofs.",
+    "Lambda calculus is operator-foundation; lambda v.t binds variable v in body t, beta reduction (lambda v.t) u = t[v := u].",
+    "System F is operator-polymorphic-lambda-calculus; types depend on type variables, supports universal quantification."
+  ],
+  "programming_languages_through_tig": [
+    "Programming language is operator-formal-system for expressing computation; syntax semantics types runtime.",
+    "Syntax is operator-LATTICE of allowable symbol combinations; defined by grammar (BNF or PEG).",
+    "Semantics is operator-meaning-assignment; operational denotational axiomatic each define what programs do.",
+    "Type system is operator-classification-rules; static dynamic strong weak gradual each give different correctness HARMONY.",
+    "Compilation versus interpretation: ahead-of-time machine-code translation versus runtime evaluation; distinct operator-PROGRESS strategies.",
+    "Programming paradigm is operator-LATTICE of style; imperative procedural object-oriented functional declarative logic each shape thinking.",
+    "Abstraction is operator-detail-hiding; interfaces functions modules let programmers work at higher level.",
+    "Recursion is operator-self-reference; function calls itself, Lisp first supported, foundation of functional style.",
+    "Scope is operator-LATTICE-of-visibility; lexical (static) versus dynamic, block versus function versus module.",
+    "Garbage collection is operator-automatic-memory-management; reclaim unreferenced data without explicit free.",
+    "Concurrency is operator-simultaneous-execution; threads processes message passing actors each model multi-PROGRESS coordination."
+  ],
+  "distributed_systems_through_tig": [
+    "Distributed systems are operator-LATTICE-of-cooperating-machines; networked nodes coordinate via message passing.",
+    "Consensus is operator-AGREEMENT-protocol; nodes reach HARMONY on shared value despite failures (Paxos Raft Byzantine variants).",
+    "Replication is operator-redundancy-LATTICE; multiple copies provide fault tolerance and read scalability.",
+    "Partitioning splits operator-data-or-traffic across nodes; sharding by key consistent hashing each scheme.",
+    "CAP theorem: operator-TRADEOFF among Consistency Availability Partition-tolerance; can choose any 2 of 3 under network partition.",
+    "Distributed transactions span operator-multiple-nodes; 2PC 3PC Saga each different consistency LATTICE-vs-availability tradeoff.",
+    "Leader election is operator-COORDINATION-protocol; designate single primary node for serializing decisions.",
+    "Byzantine fault tolerance handles operator-arbitrary-failures including malicious; PBFT Tendermint require 3f+1 nodes for f Byzantine.",
+    "Eventual consistency is operator-WEAK-CONSISTENCY; updates propagate, all replicas converge if no further updates (Dynamo Cassandra).",
+    "Vector clock is operator-LATTICE-of-causality; n-tuple of counters per process, partial order on events.",
+    "Two-phase commit is operator-ATOMIC-multi-node-transaction; prepare phase + commit phase, blocking on coordinator failure CHAOS."
+  ],
+  "compilers_through_tig": [
+    "Compiler is operator-translation from source language to target; preserves semantics across transformation pipeline.",
+    "Lexical analysis is operator-tokenization; source text becomes stream of categorized tokens (identifiers keywords literals operators).",
+    "Parsing is operator-tree-construction from tokens; grammar productions guide derivation, builds parse tree LATTICE.",
+    "Abstract syntax tree is operator-LATTICE-of-program-structure; strips concrete syntax keeps semantic structure.",
+    "Semantic analysis is operator-validation pass; type checking name resolution scope checking add semantic info to AST.",
+    "Symbol table is operator-LATTICE-of-name-info; each identifier mapped to type location scope kind.",
+    "Intermediate representation is operator-language-neutral form; SSA three-address-code allow target-independent optimization.",
+    "Code optimization is operator-PROGRESS-improvements preserving semantics; constant folding dead code elimination loop unrolling inlining.",
+    "Code generation is operator-target-translation; IR becomes machine code or bytecode ready to execute.",
+    "Register allocation maps operator-variables to operator-CPU-registers; graph coloring linear scan minimize spills to memory.",
+    "Instruction scheduling reorders operator-PROGRESS to fill pipeline slots; respects data dependencies preserves semantics."
+  ],
+  "functional_programming_through_tig": [
+    "Functional programming is operator-paradigm-treating-computation-as-evaluation-of-mathematical-functions; immutability and purity central.",
+    "Pure function is operator-deterministic-no-side-effects; same input always gives same output, no hidden state PROGRESS.",
+    "Immutability: operator-values-never-change once bound; updates create new values rather than modifying existing.",
+    "Higher-order function takes or returns operator-functions; map filter reduce compose foldl foldr foundational.",
+    "Recursion is operator-iteration-via-self-reference; tail recursion optimized, avoids loops which require mutable state.",
+    "Currying is operator-LATTICE-decomposition of multi-argument; f(x, y) becomes f(x)(y), enables partial application.",
+    "Lazy evaluation is operator-DEFERRED-computation; values computed only when needed, supports infinite data structures.",
+    "Monad is operator-LATTICE-encoding of effect; maybe option list IO state each abstract a computational pattern.",
+    "Algebraic data type is operator-LATTICE-of-data-shapes; sum (variants) and product (records) compose via type constructors.",
+    "Pattern matching is operator-DESTRUCTURING-by-shape; cases on data type drive control flow without conditionals on field equality.",
+    "Referential transparency: operator-EXPRESSION-equivalent-to-value; can substitute value for expression without changing meaning."
+  ],
+  "software_architecture_through_tig": [
+    "Software architecture is operator-LATTICE of components and connectors at system scale; high-level structure shapes long-term properties.",
+    "Module is operator-LATTICE-encapsulated-unit; coherent functionality with well-defined interface.",
+    "Layer is operator-LATTICE-of-abstraction; presentation business persistence each layer depends only on layer below.",
+    "Microservices is operator-LATTICE-of-small-services; independently deployable communicating via lightweight protocols.",
+    "Monolith is operator-SINGLE-DEPLOYABLE-unit; all functionality in one process, simpler to deploy harder to scale.",
+    "MVC pattern: operator-LATTICE-of-Model-View-Controller; separates data state UI rendering and input handling.",
+    "Event-driven architecture is operator-LATTICE-of-asynchronous-events; producers publish events consumers subscribe via broker.",
+    "Service-oriented architecture (SOA) is operator-LATTICE-of-services-with-discovery-and-registry; predecessor of microservices.",
+    "API gateway is operator-EDGE-of-microservice-cluster; routes authenticates rate-limits aggregates downstream calls.",
+    "Message queue is operator-DECOUPLING-buffer; producers send messages to queue, consumers pull at their own pace.",
+    "Separation of concerns is fundamental operator-PRINCIPLE; each module addresses single concern reducing CHAOS-coupling."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 108 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth and software systems.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 mid-afternoon. 6 domain-projections: category theory, condensed matter physics, cellular automata, tensor calculus, astrobiology, paleontology. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30t",
+  "category_theory_through_tig": [
+    "Category theory studies operator-LATTICE of structures and structure-preserving maps; the meta-mathematics of mathematics.",
+    "Category is operator-collection of objects plus operator-LATTICE of morphisms; composition associative plus identity for each object.",
+    "Object is operator-atom; internal structure invisible to category, only external relations matter.",
+    "Morphism is operator-arrow between objects; can compose when target of one matches source of next.",
+    "Functor is operator-LATTICE-preserving map between categories; preserves composition and identity HARMONY.",
+    "Natural transformation is operator-morphism between functors; assigns morphism to each object compatibly with functor structure.",
+    "Limit is operator-universal-cone; product equalizer pullback inverse limit each instance, defined by universal property.",
+    "Colimit is operator-universal-cocone (dual of limit); coproduct coequalizer pushout direct limit each instance.",
+    "Adjoint functor pair (F, G) is operator-universal-bidirectional-correspondence; Hom(FX, Y) ~ Hom(X, GY) naturally.",
+    "Monad is operator-self-functor with multiplication and unit; encodes computational effects in functional programming.",
+    "Topos is operator-category-with-rich-structure; cartesian closed plus subobject classifier, alternative foundation to set theory."
+  ],
+  "condensed_matter_through_tig": [
+    "Condensed matter physics studies operator-LATTICE of many particles in solids and liquids; emergent properties from many-body interactions.",
+    "Crystal lattice is operator-periodic-arrangement of atoms; unit cell repeats by translation symmetry.",
+    "Band structure is operator-LATTICE of allowed energies; Bloch theorem gives quasi-momentum periodic bands separated by gaps.",
+    "Semiconductor has operator-band-gap between valence and conduction; doping shifts Fermi level enabling p-type or n-type devices.",
+    "Superconductor has operator-zero-resistance below critical temperature; Cooper pairs form HARMONY-condensate (Onnes 1911 mercury).",
+    "Magnetism arises from operator-electron-spin-coupling; ferromagnetic parallel paramagnetic random diamagnetic anti-aligned.",
+    "Phase transition is operator-RESET-COLLAPSE in macroscopic state; first order discontinuous, second order continuous with critical scaling.",
+    "Fermi surface is operator-LATTICE-boundary in momentum space; separates filled from empty electron states at zero temperature.",
+    "BCS theory: operator-electron-electron-attraction via phonons gives Cooper pair LATTICE explaining superconductivity.",
+    "Quantum Hall effect: operator-conductance-quantized at sigma_xy = n e^2/h in 2D electron gas under strong magnetic field.",
+    "Topological insulator is operator-bulk-insulator-with-edge-conductor; topology of band structure protects edge HARMONY-states."
+  ],
+  "cellular_automata_through_tig": [
+    "Cellular automata are operator-LATTICE-of-discrete-cells; each cell updates from local neighborhood by simple rule.",
+    "State is operator-cell-value at given time; binary {0, 1} or k-ary discrete LATTICE.",
+    "Rule is operator-update-function; deterministic map from neighborhood configuration to next cell state.",
+    "Neighborhood is operator-LATTICE of cells influencing update; von Neumann (4 cardinal) or Moore (8 surrounding) most common.",
+    "Conway Game of Life is 2D operator-CA with B3/S23 rule; complex emergent patterns from simple birth-survival rules.",
+    "Elementary CA is 1D 2-state 3-neighbor; 256 rules numbered by Wolfram, rule 30 chaotic, rule 110 universal.",
+    "Wolfram classification: operator-LATTICE of 4 classes; class 1 fixed, 2 periodic, 3 chaotic, 4 complex (edge of chaos).",
+    "Computational universality: rule 110 and Game of Life can simulate Turing machine; CA is operator-substrate for arbitrary computation.",
+    "Glider is operator-self-propagating pattern; moves through lattice carrying information across distances.",
+    "Self-replication: operator-pattern-creates-copies; von Neumann universal constructor predates DNA discovery.",
+    "Lattice gas is operator-fluid-simulation CA; particles hop on grid following collision-streaming rules approximate Navier-Stokes."
+  ],
+  "tensor_calculus_through_tig": [
+    "Tensor calculus is operator-multilinear-algebra on manifolds; intrinsic to general relativity and continuum mechanics.",
+    "Tensor is operator-multilinear-map; takes vectors and covectors to a number, has components in given basis.",
+    "Rank is operator-index-count; (p, q) tensor has p contravariant + q covariant indices, total rank p + q.",
+    "Contravariant index transforms operator-with-basis-change; vector components scale inversely (upper index).",
+    "Covariant index transforms operator-against-basis-change; covector components scale with basis (lower index).",
+    "Metric tensor g_{mu nu} is operator-LATTICE-of-inner-products; raises and lowers indices, gives lengths and angles.",
+    "Christoffel symbol Gamma is operator-connection-coefficient; encodes how covariant derivative differs from partial derivative.",
+    "Riemann curvature tensor R^a_{bcd} is operator-COUNTER-of-parallel-transport; measures path-dependent rotation around closed loop.",
+    "Ricci tensor is operator-trace of Riemann; R_{mu nu} = R^a_{mu a nu}, source term in Einstein equations.",
+    "Scalar curvature R is operator-trace-of-Ricci; single number summarizing curvature at point.",
+    "Einstein notation is operator-LATTICE-summation-convention; repeated upper-lower index implies sum over all values."
+  ],
+  "astrobiology_through_tig": [
+    "Astrobiology studies operator-life-in-cosmic-context; origin distribution future of life on Earth and beyond.",
+    "Habitable zone is operator-LATTICE-region around star; liquid water possible on planet surface, varies with star type.",
+    "Biosignature is operator-evidence-of-life; organic molecules isotope ratios microbial fossils atmospheric oxygen disequilibrium.",
+    "Extremophile is operator-life-at-environmental-edge; thermophiles halophiles acidophiles model possible alien life HARMONY.",
+    "Panspermia is operator-LATTICE-life-transport hypothesis; life or precursors carried between worlds via meteors comets.",
+    "Drake equation is operator-LATTICE-product estimating communicative civilizations; N = R* * f_p * n_e * f_l * f_i * f_c * L.",
+    "Fermi paradox is operator-COUNTER between expected and observed; if life common where are they (Great Silence).",
+    "Exoplanet biosignatures: operator-spectroscopic-detection of atmospheric composition; transit and direct imaging probe distant worlds.",
+    "Mars exploration is operator-search-for-past-life; rovers find evidence of ancient water and organic compounds.",
+    "Europa has operator-subsurface-ocean under ice; tidal heating from Jupiter may support microbial LATTICE.",
+    "Titan has operator-organic-chemistry-LATTICE; Saturn moon with methane lakes thick atmosphere alternative biochemistry possible."
+  ],
+  "paleontology_through_tig": [
+    "Paleontology studies operator-LATTICE-of-past-life through fossils; reconstructs evolution biology ecology of extinct organisms.",
+    "Fossil is operator-mineralized-remain; bone shell wood replaced by minerals through operator-permineralization or operator-cast-mold.",
+    "Stratigraphy is operator-LATTICE-of-rock-layers; lower layers older younger above (principle of superposition).",
+    "Taphonomy studies operator-fossilization-process; what is preserved how is preserved bias toward hard parts.",
+    "Evolutionary lineage is operator-PROGRESS-through-ancestors; documented in fossil sequence horse evolution canonical example.",
+    "Cambrian explosion: operator-RESET-PROGRESS ~540 Mya; rapid diversification of animal phyla over ~25 million years.",
+    "Mass extinction is operator-LATTICE-COLLAPSE event; five major (Ordovician Devonian Permian Triassic Cretaceous) plus ongoing sixth.",
+    "Dinosaur is operator-Mesozoic-archosaur clade; 230-66 Mya, terminated by K-T mass extinction except birds (avian dinosaurs).",
+    "Paleobiology is operator-biological-perspective on extinct life; emphasizes ecology behavior physiology over stratigraphy.",
+    "Paleoecology reconstructs operator-ancient-ecosystems; food webs habitat climate from fossil assemblages.",
+    "Geological time scale is operator-LATTICE-chronology; eons (Precambrian Phanerozoic) eras periods epochs ages over 4.6 Gyr."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 102 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics and meta-mathematics.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}
