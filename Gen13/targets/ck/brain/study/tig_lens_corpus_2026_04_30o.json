@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 mid-morning. 6 domain-projections: cardiology, oncology, endocrinology, psychiatry, public health, clinical pharmacology. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30o",
+  "cardiology_through_tig": [
+    "Cardiology is operator-medicine of heart and circulation; structural and electrical and hemodynamic LATTICE.",
+    "Cardiac cycle is operator-BREATH of heart; systole contraction ejects blood, diastole relaxation refills chambers.",
+    "ECG records operator-electrical-activity; P wave (atria) QRS (ventricles) T wave (repolarization) form the rhythm signature.",
+    "Blood pressure is operator-pressure in arteries; systolic peak (~120) over diastolic trough (~80) mmHg in healthy adult HARMONY.",
+    "Atherosclerosis is operator-COLLAPSE of vessel patency; plaque accumulation in arterial wall narrows lumen progressively.",
+    "Myocardial infarction is operator-RESET-COLLAPSE of cardiac muscle; coronary occlusion deprives tissue of oxygen, cells die.",
+    "Arrhythmia is operator-CHAOS of rhythm; atrial fibrillation ventricular tachycardia bradycardia each disrupt normal HARMONY.",
+    "Heart failure is operator-decompensation of pumping; reduced ejection fraction or diastolic dysfunction limits cardiac output.",
+    "Coronary artery disease is operator-narrowing of cardiac vessels; ischemia produces angina infarction sudden death.",
+    "Cardiac output is operator-volume per minute pumped; CO = stroke volume * heart rate, ~5 L/min at rest, increases with exercise.",
+    "Valvular disease is operator-disruption of one-way flow; stenosis narrows opening, regurgitation leaks backward, both reduce HARMONY-efficiency."
+  ],
+  "oncology_through_tig": [
+    "Oncology is operator-medicine of cancer; abnormal cell growth that has lost normal control LATTICE.",
+    "Tumor is operator-mass of abnormal cells; benign (operator-localized) versus malignant (operator-invasive metastatic).",
+    "Malignancy is operator-runaway-growth state; cells lose contact inhibition invade surrounding tissues spread distantly.",
+    "Metastasis is operator-PROGRESS to distant sites; cancer cells detach travel via blood or lymph establish secondary tumors.",
+    "Oncogene is operator-accelerator gene mutated; activated form drives uncontrolled division (Ras Myc HER2).",
+    "Tumor suppressor is operator-brake gene; loss-of-function mutation removes checkpoint LATTICE (p53 RB BRCA1).",
+    "Chemotherapy is operator-cytotoxic-drug treatment; targets rapidly dividing cells, side effects damage normal proliferating tissues.",
+    "Radiation therapy is operator-energy-deposition treatment; ionizing radiation damages DNA preferentially in dividing cells.",
+    "Immunotherapy is operator-immune-redirection; checkpoint inhibitors release T cells, CAR-T engineers them, vaccines prime response.",
+    "Biopsy is operator-tissue-sampling for diagnosis; histology and molecular markers guide treatment selection.",
+    "Staging is operator-LATTICE-extent assessment; TNM (tumor node metastasis) classification determines prognosis and approach."
+  ],
+  "endocrinology_through_tig": [
+    "Endocrinology is operator-medicine of hormones; chemical signals coordinating distant organ systems.",
+    "Hormone is operator-bloodborne-signal molecule; produced by gland acts on target cell expressing matching receptor.",
+    "Endocrine gland is operator-secretory tissue; releases hormone directly into bloodstream not through duct.",
+    "Hypothalamus is operator-master integrator of brain and endocrine; senses internal state and commands pituitary.",
+    "Pituitary is operator-master gland; anterior secretes ACTH TSH GH FSH LH PRL, posterior releases ADH oxytocin.",
+    "Thyroid is operator-metabolism regulator; T3 T4 from neck gland set basal metabolic rate body temperature.",
+    "Adrenal is operator-stress responder; cortex makes cortisol aldosterone sex steroids, medulla makes catecholamines.",
+    "Insulin is operator-glucose-lowering hormone; pancreatic beta cells respond to elevated blood sugar by promoting cellular uptake.",
+    "Diabetes is operator-glucose-regulation failure; type 1 autoimmune COLLAPSE of beta cells, type 2 insulin resistance plus exhaustion.",
+    "Negative feedback is operator-BALANCE-restoring loop; hormone level rises, target produces effect, signal back inhibits further release.",
+    "Receptor is operator-binding-target; cell-surface or nuclear protein responds to specific hormone with downstream cascade."
+  ],
+  "psychiatry_through_tig": [
+    "Psychiatry is operator-medicine of mental disorders; brain-behavior interface treated through medication therapy and intervention.",
+    "Depression is operator-COLLAPSE of mood and motivation; persistent sadness anhedonia psychomotor slowing and biological symptoms.",
+    "Anxiety is operator-amplified-threat-detection; persistent worry physiological arousal avoidance behavior beyond adaptive level.",
+    "Schizophrenia is operator-fragmentation of thought and reality testing; positive symptoms (hallucinations delusions) and negative symptoms (flattening withdrawal).",
+    "Bipolar disorder is operator-BREATH-oscillation of mood; mania and depression episodes alternating with euthymic intervals.",
+    "PTSD is operator-trauma-imprint; intrusive re-experience hyperarousal avoidance after life-threatening event LATTICE.",
+    "Antidepressants modulate operator-monoamine-LATTICE; SSRIs SNRIs MAOIs and tricyclics increase synaptic serotonin or norepinephrine.",
+    "Antipsychotics block operator-dopamine-receptors; first-generation (haloperidol) and second-generation (risperidone clozapine) reduce psychotic symptoms.",
+    "Psychotherapy is operator-talk-based-intervention; CBT psychodynamic interpersonal each work through different mechanisms.",
+    "DSM-5 is operator-diagnostic-LATTICE; American Psychiatric Association manual standardizes criteria across clinicians.",
+    "Neurotransmitter imbalance hypotheses: serotonin in depression dopamine in schizophrenia GABA-glutamate in anxiety; theories evolving as evidence accumulates."
+  ],
+  "public_health_through_tig": [
+    "Public health is operator-population-level-medicine; prevention and promotion of health for whole populations not individuals.",
+    "Surveillance is operator-monitoring of disease patterns; systematic data collection on incidence prevalence outcomes.",
+    "Prevention is operator-pre-disease-action; primary (avert exposure) secondary (early detection) tertiary (limit damage) levels.",
+    "Health disparity is operator-LATTICE-inequality; differences in access and outcomes by race income geography education.",
+    "Social determinants of health are operator-non-medical-influences; class race income education housing employment HARMONY.",
+    "Health policy is operator-governmental-framework; laws regulations resource allocation that organize health system.",
+    "Vaccination program is operator-population-immunization; herd immunity HARMONY achieved when sufficient coverage.",
+    "Sanitation is operator-waste-management; toilets sewers waste-water treatment prevent fecal-oral transmission.",
+    "Water quality is operator-clean-drinking-source; filtration disinfection distribution prevent waterborne disease.",
+    "Nutrition is operator-adequate-food-intake; macro and micronutrient requirements vary by age sex activity life-stage.",
+    "Global health is operator-cross-border-LATTICE; addresses infectious disease maternal-child health non-communicable disease worldwide."
+  ],
+  "clinical_pharmacology_through_tig": [
+    "Clinical pharmacology is operator-translation from drug to patient; bridges basic pharmacology to therapeutic application.",
+    "Clinical trial is operator-rigorous-evaluation; controlled study determines safety and efficacy in humans before approval.",
+    "Phase 1 trial is operator-first-in-human safety; small healthy volunteer group establishes dose tolerability LATTICE.",
+    "Phase 2 trial is operator-efficacy-screen; small patient group establishes whether drug works at safe doses.",
+    "Phase 3 trial is operator-confirmation; large randomized comparison against standard or placebo establishes regulatory evidence.",
+    "Drug efficacy is operator-therapeutic-effect under ideal conditions; controlled trial result.",
+    "Adverse drug reaction is operator-unwanted-effect; on-target dose-related (Type A) versus idiosyncratic (Type B).",
+    "Drug-drug interaction is operator-COUNTER between agents; pharmacokinetic (one alters another absorption metabolism) or pharmacodynamic (combined effect different).",
+    "Therapeutic index is operator-safety-margin ratio; toxic dose / effective dose, narrow index requires careful monitoring.",
+    "Bioavailability is operator-fraction reaching systemic circulation; oral typically <100 percent due to first-pass liver metabolism.",
+    "Pharmacogenomics is operator-genetic-personalization; CYP2D6 variants affect codeine warfarin tamoxifen metabolism in HARMONY-individualized way."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 72 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy and clinical medicine.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection; he holds the operator alphabet, the projections multiply."
+  ]
+}
