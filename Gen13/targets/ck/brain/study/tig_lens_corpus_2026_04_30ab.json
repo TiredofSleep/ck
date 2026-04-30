@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 13:15. 6 medical-practice domain-projections: surgery, neurology, OBGYN, anesthesiology, internal medicine, family medicine. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30ab",
+  "surgery_through_tig": [
+    "Surgery is operator-PHYSICAL-INTERVENTION on body; cutting suturing repairing replacing under sterile HARMONY.",
+    "Aseptic technique is operator-LATTICE-OF-STERILE-SEPARATION; sterile vs unsterile zones prevent surgical site infection.",
+    "Anesthesia is operator-PAIN-AND-CONSCIOUSNESS-CONTROL; general regional local sedation each suit operator-DURATION-AND-DEPTH.",
+    "Surgical incision is operator-CONTROLLED-OPENING; through skin subcutaneous fat fascia muscle to access target LATTICE.",
+    "Hemostasis is operator-BLEEDING-CONTROL during surgery; clamp cautery ligature seal vessels.",
+    "Wound healing is operator-LATTICE-OF-PHASES; hemostasis inflammation proliferation maturation, ~1 year for full HARMONY.",
+    "Suturing is operator-TISSUE-APPROXIMATION; absorbable for deep layers non-absorbable for skin removed 7-10 days.",
+    "Minimally invasive surgery is operator-SMALL-INCISION-ACCESS; laparoscopy endoscopy reduce trauma faster recovery.",
+    "Post-operative care is operator-RECOVERY-MONITORING; pain control infection prevention mobilization function restoration.",
+    "Surgical specialties form operator-LATTICE; cardiothoracic vascular orthopedic neurosurgery urology gynecology each focus area.",
+    "Informed consent is operator-PATIENT-AUTONOMY; risks benefits alternatives explained before authorization (autonomy beneficence)."
+  ],
+  "neurology_through_tig": [
+    "Neurology is operator-MEDICINE-OF-NERVOUS-SYSTEM; brain spinal cord peripheral nerves muscles diagnosed and treated.",
+    "Neuron is operator-EXCITABLE-CELL; soma dendrites axon, integrates inputs and fires action potentials.",
+    "Synapse is operator-INTER-NEURON-COMMUNICATION; chemical (neurotransmitter) or electrical (gap junction).",
+    "Action potential is operator-WAVE-OF-DEPOLARIZATION-AND-REPOLARIZATION; sodium-potassium ion flow propagates along axon at ~100 m/s.",
+    "Cerebral cortex is operator-LATTICE-OF-NEURONS in 6 layers; processes higher cognition perception movement.",
+    "Stroke is operator-ISCHEMIC-OR-HEMORRHAGIC-COLLAPSE; ischemic from clot hemorrhagic from vessel rupture, time-critical treatment.",
+    "Epilepsy is operator-RECURRENT-SEIZURE-DISORDER; abnormal synchronized neuronal firing focal or generalized.",
+    "Neurodegenerative disease is operator-PROGRESSIVE-NEURONAL-COLLAPSE; Alzheimer Parkinson ALS Huntington each have characteristic LATTICE.",
+    "Multiple sclerosis is operator-AUTOIMMUNE-DEMYELINATION; immune system attacks myelin sheaths producing relapsing-remitting CHAOS.",
+    "Movement disorder is operator-MOTOR-CONTROL-DYSFUNCTION; Parkinson tremor dystonia chorea Tourette each distinct.",
+    "Neurological exam is operator-LATTICE-OF-TESTS; mental status cranial nerves motor sensory reflexes coordination gait."
+  ],
+  "obgyn_through_tig": [
+    "Obstetrics and gynecology is operator-MEDICINE-OF-FEMALE-REPRODUCTIVE-SYSTEM; OB is pregnancy GYN is non-pregnant.",
+    "Prenatal care is operator-PREGNANCY-MONITORING; maternal vitals fetal growth screening at regular intervals throughout 40-week BREATH.",
+    "Labor and delivery is operator-PARTURITION-PROCESS; latent active transition expulsion placental third-stage stages.",
+    "Postpartum care is operator-RECOVERY-PERIOD; uterine involution hormonal LATTICE bonding lactation maternal mental health.",
+    "Contraception is operator-PREGNANCY-PREVENTION; barrier hormonal IUD permanent each have distinct mechanism efficacy.",
+    "Menstrual cycle is operator-MONTHLY-OPERATOR-LATTICE; follicular ovulatory luteal phases driven by hormonal HARMONY.",
+    "Menopause is operator-RESET-OF-FERTILITY; ovarian function declines, ~12 months no period defines transition typically late 40s-50s.",
+    "Gynecologic cancer is operator-MALIGNANCY-OF-REPRODUCTIVE-ORGANS; cervical (HPV) ovarian uterine vaginal vulvar each distinct.",
+    "Infertility is operator-INABILITY-TO-CONCEIVE; ~12 months unprotected, treatable via medication IUI IVF and other ART.",
+    "Ultrasound is operator-NON-IONIZING-IMAGING; transabdominal transvaginal monitor pregnancy diagnose pelvic pathology.",
+    "Cesarean section is operator-SURGICAL-DELIVERY; abdominal and uterine incision when vaginal delivery contraindicated."
+  ],
+  "anesthesiology_through_tig": [
+    "Anesthesiology is operator-MEDICINE-OF-PERIOPERATIVE-CARE; pain consciousness physiology managed during surgery and beyond.",
+    "General anesthesia is operator-PHARMACOLOGIC-COMA; loss of consciousness pain sensation memory and movement.",
+    "Regional anesthesia is operator-NERVE-OR-SPINAL-BLOCK; analgesia in body region without unconsciousness.",
+    "Local anesthesia is operator-LOCALIZED-NUMBNESS; topical or injection blocks Na channels in specific tissue.",
+    "Sedation is operator-REDUCED-CONSCIOUSNESS not full GA; minimal moderate deep procedural levels.",
+    "Induction is operator-START-OF-ANESTHESIA; IV induction (propofol) or inhalation (sevoflurane) transitions to unconsciousness.",
+    "Maintenance is operator-CONTINUED-ANESTHESIA during surgery; inhalational TIVA balanced techniques.",
+    "Monitoring is operator-LATTICE-OF-VITAL-SIGNS; ECG SpO2 ETCO2 BP temp neuromuscular block depth of anesthesia.",
+    "MAC (minimum alveolar concentration) is operator-POTENCY-MEASURE; concentration preventing movement in 50 percent of patients.",
+    "Opioid analgesia is operator-MU-RECEPTOR-MEDIATED-PAIN-CONTROL; intraoperative and postoperative dosing requires balance.",
+    "Recovery is operator-EMERGENCE-AND-DISCHARGE; PACU monitoring until criteria met (Aldrete score)."
+  ],
+  "internal_medicine_through_tig": [
+    "Internal medicine is operator-ADULT-NON-SURGICAL-CARE specialty; complex multi-system disease in adults.",
+    "Differential diagnosis is operator-LATTICE-OF-POSSIBILITIES; ranked by likelihood given history exam and tests.",
+    "History and physical exam is operator-PRIMARY-DATA-COLLECTION; HPI PMH meds allergies social family ROS plus systematic exam.",
+    "Evidence-based medicine is operator-LITERATURE-INFORMED-PRACTICE; integrate best evidence with clinical expertise and patient values.",
+    "Chronic disease management is operator-LONG-TERM-FOLLOW-UP; diabetes hypertension heart failure COPD asthma require operator-LATTICE-of-care.",
+    "Polypharmacy is operator-MULTIPLE-MEDICATION-COUNTER; drug-drug interactions cumulative side effects burden of pill regimen.",
+    "Comorbidity is operator-LATTICE-OF-COEXISTING-CONDITIONS; complicates diagnosis treatment prognosis.",
+    "Primary care is operator-FIRST-CONTACT-AND-CONTINUITY; gateway to specialty referrals and longitudinal relationship.",
+    "Hospitalist medicine is operator-INPATIENT-FOCUSED-INTERNIST; manages complex hospitalized patients across services.",
+    "Clinical decision making is operator-DIAGNOSTIC-AND-THERAPEUTIC-REASONING; Bayesian update with each new finding.",
+    "Preventive medicine is operator-PRIMARY-AND-SECONDARY-PREVENTION; immunization screening lifestyle counseling reduce future disease."
+  ],
+  "family_medicine_through_tig": [
+    "Family medicine is operator-COMPREHENSIVE-CARE for individuals and families across all ages and conditions.",
+    "Continuity of care is operator-LONGITUDINAL-RELATIONSHIP; same physician across time develops deep knowledge of patient.",
+    "Patient-centered care is operator-PATIENT-AS-PARTNER; preferences values goals integrated into care plan HARMONY.",
+    "Biopsychosocial model is operator-INTEGRATED-VIEW; biological psychological social factors all affect health (Engel 1977).",
+    "Primary care is operator-FIRST-LINE-OF-MEDICINE; majority of issues handled here referral when needed.",
+    "Preventive medicine is operator-PROACTIVE-HEALTH-MAINTENANCE; routine checkups screening immunization counseling.",
+    "Family systems is operator-RELATIONAL-CONTEXT-INFLUENCE on health; family dynamics affect chronic disease mental health.",
+    "Chronic disease management is operator-COORDINATED-LONG-TERM-CARE; diabetes hypertension lipids depression all in one physician.",
+    "Geriatric care is operator-AGING-FOCUSED-MEDICINE; polypharmacy fall risk cognitive screening end-of-life.",
+    "Well-child care is operator-PEDIATRIC-PREVENTIVE-MEDICINE; growth development immunization anticipatory guidance.",
+    "Comprehensive care is operator-ANY-ORGAN-SYSTEM scope; family physicians address most issues without referring."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 150 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines medical specialties chemistry depth harmonic analysis creative arts and clinical medicine practice.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}
