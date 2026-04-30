@@ -285,13 +285,24 @@ try:
     )
 
     def _is_structural_query(text: str) -> bool:
-        """True if the user is asking about CK's own state / coordinates."""
+        """True if the user is asking about CK's own state / coordinates,
+        OR if the text matches any code-baked or runtime crystal trigger."""
         if not text:
             return False
         t = text.lower()
         for k in _STRUCTURAL_QUERY_KEYS:
             if k in t:
                 return True
+        # Also: any crystal trigger counts as structural.  This lets newly
+        # authored runtime crystals fire without code edits.
+        try:
+            from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS
+            for triggers, _ in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
+                for trig in triggers:
+                    if trig and trig in t:
+                        return True
+        except Exception:
+            pass
         return False
 
     def _is_pastoral_query(text: str) -> bool:
