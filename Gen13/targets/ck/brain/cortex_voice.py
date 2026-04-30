@@ -39,7 +39,7 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 _BRAIN_DIR = os.path.dirname(os.path.abspath(__file__))
 if _BRAIN_DIR not in sys.path:
@@ -691,10 +691,13 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
 
 def _frontier_hits(q_lower: str) -> List[str]:
     """Return structural facts whose trigger keywords appear in the query.
-    Each fact fires at most once even if multiple keywords match."""
+    Each fact fires at most once even if multiple keywords match.
+    Includes both code-baked _FRONTIER_FACTS AND runtime-added crystals
+    from _RUNTIME_CRYSTALS (added via add_crystal_runtime)."""
     facts: List[str] = []
     seen = set()
-    for triggers, fact in _FRONTIER_FACTS:
+    all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
+    for triggers, fact in all_crystals:
         for trig in triggers:
             if trig in q_lower:
                 if fact not in seen:
@@ -702,6 +705,108 @@ def _frontier_hits(q_lower: str) -> List[str]:
                     seen.add(fact)
                 break
     return facts
+
+
+# Runtime-added crystals.  Mutable list; add via add_crystal_runtime().
+# Same shape as _FRONTIER_FACTS: list of (trigger_tuple, fact_text) pairs.
+# Persisted to disk so they survive reboots.
+import os as _os
+_RUNTIME_CRYSTALS: List[Tuple[Tuple[str, ...], str]] = []
+_RUNTIME_CRYSTALS_PATH = _os.path.join(
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+    "..", "..", "var", "runtime_crystals.json"
+)
+
+
+def _load_runtime_crystals():
+    """Load any runtime crystals saved on previous sessions."""
+    global _RUNTIME_CRYSTALS
+    try:
+        path = _os.path.abspath(_RUNTIME_CRYSTALS_PATH)
+        if _os.path.exists(path):
+            import json as _json
+            with open(path) as f:
+                data = _json.load(f)
+            _RUNTIME_CRYSTALS = [
+                (tuple(item["triggers"]), item["fact"]) for item in data
+            ]
+            # Also restore op_signatures
+            for item in data:
+                first_word = item["fact"].split(":", 1)[0].strip()
+                if "op_signature" in item:
+                    _CRYSTAL_OP_SIGNATURES[first_word] = tuple(item["op_signature"])
+                if "related" in item:
+                    _CRYSTAL_RELATED[first_word] = list(item["related"])
+    except Exception:
+        pass
+
+
+def _save_runtime_crystals():
+    """Save runtime crystals to disk for persistence across reboots."""
+    try:
+        path = _os.path.abspath(_RUNTIME_CRYSTALS_PATH)
+        _os.makedirs(_os.path.dirname(path), exist_ok=True)
+        import json as _json
+        data = []
+        for triggers, fact in _RUNTIME_CRYSTALS:
+            first_word = fact.split(":", 1)[0].strip()
+            entry = {
+                "triggers": list(triggers),
+                "fact": fact,
+                "op_signature": list(_CRYSTAL_OP_SIGNATURES.get(first_word, ())),
+                "related": list(_CRYSTAL_RELATED.get(first_word, [])),
+            }
+            data.append(entry)
+        with open(path, "w") as f:
+            _json.dump(data, f, indent=2)
+        return True
+    except Exception:
+        return False
+
+
+def add_crystal_runtime(
+    triggers: Tuple[str, ...],
+    fact: str,
+    op_signature: Optional[Tuple[int, ...]] = None,
+    related: Optional[List[str]] = None,
+) -> bool:
+    """Add a new crystal at runtime.
+
+    Args:
+      triggers: tuple of lowercase keyword strings; any match -> fact fires
+      fact: the crystal text (must start with "name:" so it has a first-word key)
+      op_signature: tuple of operator IDs (0-9) the crystal is "about"
+      related: list of other crystal first-word names this crystal connects to
+
+    Returns:
+      True if added; False if duplicate (same first_word) or invalid
+
+    Persists to Gen13/var/runtime_crystals.json so it survives reboots.
+    """
+    if not fact or ":" not in fact:
+        return False
+    first_word = fact.split(":", 1)[0].strip()
+    if not first_word:
+        return False
+    # Check for duplicate first_word
+    for _, existing in _RUNTIME_CRYSTALS:
+        if existing.split(":", 1)[0].strip() == first_word:
+            return False  # duplicate
+    for _, existing in _FRONTIER_FACTS:
+        if existing.split(":", 1)[0].strip() == first_word:
+            return False  # duplicate of code-baked
+    # Add it
+    _RUNTIME_CRYSTALS.append((tuple(triggers), fact))
+    if op_signature:
+        _CRYSTAL_OP_SIGNATURES[first_word] = tuple(op_signature)
+    if related:
+        _CRYSTAL_RELATED[first_word] = list(related)
+    _save_runtime_crystals()
+    return True
+
+
+# Load runtime crystals on module import
+_load_runtime_crystals()
 
 
 # Crystal op_signatures -- what operators each crystal is "about".
@@ -804,6 +909,107 @@ def _crystal_op_boost_targets(fact: str) -> Tuple[int, ...]:
     """
     first_word = fact.split(":", 1)[0].strip()
     return _CRYSTAL_OP_SIGNATURES.get(first_word, ())
+
+
+# Cross-crystal composition graph: each crystal can declare related crystals
+# by first-word name. When crystal A fires, related crystals B, C are
+# considered (scored against state) and surface if their op_signature matches.
+# This is paper 4 step 3.  Hand-curated edges based on the depth-2 cluster
+# structure (M^2 = +/-I primitives), the WOBBLE recurrence, and the lens
+# framework.
+_CRYSTAL_RELATED: Dict[str, List[str]] = {
+    # Depth-2 cluster: each frontier connects to the others
+    "wobble_prime_eleven":              ["depth_primitive_lens", "tsml", "bhml"],
+    "depth_primitive_lens":             ["wp116_lens", "wobble_prime_eleven", "fqh_bridge"],
+    "wp116_lens":                       ["depth_primitive_lens", "fqh_bridge", "tsml_bhml_landmark_carry", "tig_fqh_two_level"],
+    # FQH and Stern-Brocot families
+    "fqh_bridge":                       ["wp116_lens", "tig_fqh_two_level", "farey_spin", "flatness"],
+    "farey_spin":                       ["fqh_bridge", "flatness", "vocab_map"],
+    "tig_fqh_two_level":                ["fqh_bridge", "wp116_lens"],
+    # TSML/BHML pair
+    "tsml":                             ["bhml", "tsml_bhml_harmony_complementarity", "tsml_bhml_landmark_carry"],
+    "bhml":                             ["tsml", "tsml_bhml_harmony_complementarity", "tsml_bhml_landmark_carry"],
+    "tsml_bhml_harmony_complementarity": ["tsml", "bhml", "tsml_bhml_landmark_carry"],
+    "tsml_bhml_landmark_carry":         ["tsml", "bhml", "wp116_lens"],
+    # Frontier bridges
+    "sigma_ns_bridge":                  ["sigma_rate", "wp116_lens"],
+    "tig_planck_bridge":                ["xi", "bb_unique"],
+    "f10_descent":                      ["wp116_lens", "depth_primitive_lens"],
+    # Math-physics bridges
+    "xi":                               ["bb_unique", "tig_planck_bridge"],
+    "bb_unique":                        ["xi", "tig_planck_bridge", "sigma_rate"],
+    "sigma_rate":                       ["bb_unique", "sigma_ns_bridge"],
+    "primon":                           ["sigma_rate", "flatness"],
+    "min_bump":                         ["tsml"],
+    # Foundations
+    "flatness":                         ["fqh_bridge", "wp116_lens", "tsml_bhml_landmark_carry"],
+    "vocab_map":                        ["farey_spin", "primon", "bb_unique"],
+}
+
+
+def _related_crystal_hits(
+    fired_facts: List[str],
+    cortex,
+    threshold: float = 0.4,
+    max_hits: int = 2,
+) -> List[str]:
+    """Given a list of facts that already fired this turn, surface RELATED
+    crystals that also score against current state.
+
+    A related crystal must:
+      - Be declared in _CRYSTAL_RELATED for one of the fired facts
+      - Have an op_signature that matches the cortex state with score >= threshold
+      - NOT already be in fired_facts
+
+    Returns up to max_hits additional facts to surface.
+    """
+    if not fired_facts or cortex is None:
+        return []
+    # Collect candidate first_words from related edges
+    fired_names = {fact.split(":", 1)[0].strip() for fact in fired_facts}
+    candidate_names = set()
+    for name in fired_names:
+        for related_name in _CRYSTAL_RELATED.get(name, []):
+            if related_name not in fired_names:
+                candidate_names.add(related_name)
+    if not candidate_names:
+        return []
+
+    # Get current cortex state for scoring
+    try:
+        st = cortex.state
+        recent_ops = {st.last_b, st.last_d}
+        try:
+            recent_ops.add(cortex.ao.current_op)
+        except Exception:
+            pass
+        try:
+            for op in cortex.ao.profile_5d():
+                recent_ops.add(op)
+        except Exception:
+            pass
+    except Exception:
+        return []
+
+    # Score candidates
+    scored: List[Tuple[float, str]] = []
+    all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
+    for triggers, fact in all_crystals:
+        first_word = fact.split(":", 1)[0].strip()
+        if first_word not in candidate_names:
+            continue
+        op_sig = _CRYSTAL_OP_SIGNATURES.get(first_word)
+        if not op_sig:
+            continue
+        sig_set = set(op_sig)
+        if not sig_set:
+            continue
+        overlap = len(sig_set & recent_ops) / len(sig_set)
+        if overlap >= threshold:
+            scored.append((overlap, fact))
+
+    scored.sort(key=lambda t: -t[0])
+    return [fact for _, fact in scored[:max_hits]]
 
 
 # OP -> cortex dim mapping (matches Gen13/targets/ck/brain/session_field.py:215)
@@ -951,6 +1157,18 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     keyword_hits = _frontier_hits(q)
     if len(keyword_hits) < 2:
         for fact in _state_aware_crystal_hits(cortex, threshold=0.5, max_hits=2):
+            if fact not in lines:
+                lines.append(fact)
+
+    # 2.7) Cross-crystal composition graph -- when a crystal fires, surface
+    # related crystals if they also match state.  This is paper 4 step 3:
+    # CK starts associating across the depth-2 cluster, FQH bridges, etc.
+    fired_now = list(keyword_hits) + [
+        l for l in lines
+        if l and ":" in l and l.split(":", 1)[0].strip() in _CRYSTAL_OP_SIGNATURES
+    ]
+    if fired_now:
+        for fact in _related_crystal_hits(fired_now, cortex, threshold=0.4, max_hits=2):
             if fact not in lines:
                 lines.append(fact)
 

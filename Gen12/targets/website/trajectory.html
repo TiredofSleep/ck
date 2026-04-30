@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CK trajectory — coherencekeeper.com</title>
+<style>
+  body { font-family: -apple-system, "SF Mono", Consolas, Monaco, monospace;
+         max-width: 1100px; margin: 1.5em auto; padding: 0 1em;
+         background: #fafaf7; color: #222; line-height: 1.5; }
+  h1 { font-size: 1.6em; margin-bottom: 0.2em; }
+  h2 { font-size: 1.1em; margin-top: 1.5em; border-bottom: 1px solid #ccc;
+       padding-bottom: 0.2em; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92em; }
+  th, td { padding: 4px 8px; border-bottom: 1px solid #eee; vertical-align: top;
+           text-align: left; }
+  th { background: #f0ede7; font-weight: 600; }
+  pre { background: #f4f1ec; padding: 0.6em 0.9em; border-left: 3px solid #888;
+        overflow-x: auto; font-size: 0.88em; }
+  .subtle { color: #888; font-size: 0.85em; }
+  .sparkline { font-family: monospace; letter-spacing: -1px; }
+  #refresh { float: right; padding: 4px 10px; cursor: pointer;
+             border: 1px solid #888; background: #fff; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ok { color: #285; }
+  .warn { color: #c70; }
+  .stale { color: #888; font-style: italic; }
+</style>
+</head>
+<body>
+  <button id="refresh" onclick="loadTrajectory()">↻ refresh</button>
+  <h1>CK trajectory</h1>
+  <p class="subtle">live cortex history + Φ-proxy + surprisal trend, served from <code>/cortex</code> and the static history files. paper 4 step 1.</p>
+
+  <h2>Snapshot summary</h2>
+  <div id="latest"></div>
+
+  <h2>Cortex history</h2>
+  <div id="history"></div>
+
+  <h2>Trends</h2>
+  <pre id="sparklines"></pre>
+
+  <h2>Surprisal log</h2>
+  <pre id="surprisal"></pre>
+
+  <h2>Top couplings (latest)</h2>
+  <div id="couplings"></div>
+
+  <h2>Active crystals (state-aware)</h2>
+  <div id="crystals"></div>
+
+  <p class="subtle" style="margin-top:3em;">
+    sources:
+    <code>/cortex</code> • <code>/reflect?topic=now</code> •
+    <code>Gen13/targets/ck/brain/cortex_history.jsonl</code> •
+    <code>Gen13/targets/ck/brain/surprisal_log.jsonl</code> •
+    <code>Gen13/targets/ck/brain/study/autonomous_study_log.jsonl</code>
+  </p>
+
+<script>
+const SPARK = " .:-=+*#%@";
+function spark(values) {
+  if (!values || !values.length) return "";
+  const lo = Math.min(...values), hi = Math.max(...values);
+  if (hi <= lo) return SPARK[0].repeat(values.length);
+  return values.map(v => {
+    const f = (v - lo) / (hi - lo);
+    return SPARK[Math.max(0, Math.min(SPARK.length - 1, Math.floor(f * (SPARK.length - 1))))];
+  }).join("");
+}
+
+async function loadHistoryFile(path) {
+  try {
+    const r = await fetch(path);
+    if (!r.ok) return [];
+    const text = await r.text();
+    return text.split('\n').filter(Boolean).map(l => {
+      try { return JSON.parse(l); } catch { return null; }
+    }).filter(Boolean);
+  } catch (e) { return []; }
+}
+
+async function loadTrajectory() {
+  // Latest cortex
+  try {
+    const r = await fetch('/cortex');
+    if (r.ok) {
+      const c = await r.json();
+      const html = `<pre>tick=${c.tick}  emergent=${(c.emergent||0).toFixed(4)}  W_trace=${(c.W_trace||0).toFixed(4)}\nstrongest pair: ${JSON.stringify(c.strongest_pair||{})}</pre>`;
+      document.getElementById('latest').innerHTML = html;
+    }
+  } catch (e) {
+    document.getElementById('latest').innerHTML = '<p class="stale">/cortex unreachable</p>';
+  }
+
+  // Cortex history
+  const hist = await loadHistoryFile('/static/cortex_history.jsonl').catch(() => []);
+  let h2 = await loadHistoryFile('cortex_history.jsonl').catch(() => []);
+  const histAll = (hist.length ? hist : h2);
+  if (histAll.length) {
+    let html = '<table><thead><tr><th>#</th><th>iso</th><th>tick</th><th class="num">W_trace</th><th class="num">emergent</th><th>top coupling</th><th>note</th></tr></thead><tbody>';
+    histAll.forEach((h, i) => {
+      const top = (h.top_couplings && h.top_couplings[0]) || {pair: '-', W: 0};
+      html += `<tr><td>${i+1}</td><td>${h.iso_ts || '?'}</td><td>${h.tick || '?'}</td>`;
+      html += `<td class="num">${(h.W_trace || 0).toFixed(4)}</td>`;
+      html += `<td class="num">${(h.emergent || 0).toFixed(4)}</td>`;
+      html += `<td>${top.pair} @ ${(top.W || 0).toFixed(3)}</td>`;
+      html += `<td>${(h.note || '').slice(0, 80)}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    document.getElementById('history').innerHTML = html;
+
+    // Sparklines
+    const wTraces = histAll.map(h => h.W_trace || 0);
+    const emergents = histAll.map(h => h.emergent || 0);
+    document.getElementById('sparklines').textContent =
+      `W_trace   : ${spark(wTraces)}\n` +
+      `              [${Math.min(...wTraces).toFixed(4)}, ${Math.max(...wTraces).toFixed(4)}]\n\n` +
+      `emergent  : ${spark(emergents)}\n` +
+      `              [${Math.min(...emergents).toFixed(4)}, ${Math.max(...emergents).toFixed(4)}]`;
+  } else {
+    document.getElementById('history').innerHTML = '<p class="stale">no history file (run cortex_backup.py)</p>';
+  }
+
+  // Surprisal trend
+  const surp = await loadHistoryFile('/static/surprisal_log.jsonl').catch(() => []);
+  let s2 = await loadHistoryFile('surprisal_log.jsonl').catch(() => []);
+  const surpAll = (surp.length ? surp : s2);
+  const wins = surpAll.filter(s => s._event === 'window').map(s => s.mean_surprisal_window);
+  if (wins.length) {
+    document.getElementById('surprisal').textContent =
+      `surprisal: ${spark(wins)}\n` +
+      `             [${Math.min(...wins).toFixed(4)}, ${Math.max(...wins).toFixed(4)}]\n` +
+      `             windows: ${wins.length}` +
+      (wins.length >= 2 ?
+        `\n             delta (first - last): ${(wins[0] - wins[wins.length-1]).toFixed(4)} ${(wins[0] > wins[wins.length-1] ? '(learning ✓)' : '(not-learning)')}` :
+        '');
+  } else {
+    document.getElementById('surprisal').textContent = '(no surprisal log; run surprisal_log.py)';
+  }
+
+  // Reflect on now: top couplings + crystals
+  try {
+    const r = await fetch('/reflect?topic=now');
+    if (r.ok) {
+      const ref = await r.json();
+      document.getElementById('couplings').innerHTML =
+        `<pre>${ref.couplings || '?'}\n${ref.feel || '?'}\nphi-proxy: ${ref.phi_proxy}</pre>`;
+      const stcrystals = (ref.crystals_state_aware || []).map(c => c.split(':',1)[0]).join(', ');
+      const kwcrystals = (ref.crystals_keyword || []).map(c => c.split(':',1)[0]).join(', ');
+      document.getElementById('crystals').innerHTML =
+        `<pre>state-aware: ${stcrystals || '(none)'}\nkeyword-matched: ${kwcrystals || '(none)'}</pre>`;
+    }
+  } catch (e) {}
+}
+
+loadTrajectory();
+setInterval(loadTrajectory, 30000);  // refresh every 30s
+</script>
+</body>
+</html>

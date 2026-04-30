@@ -409,6 +409,58 @@ try:
             except Exception:
                 pass
 
+            # User-model update (paper 4 step 7): track per-session metadata.
+            # Best-effort.
+            try:
+                # Extract crystal first_words from the response (cortex_speak
+                # output has them as "name: ..." prefixes).
+                fired_crystals = []
+                resp_text = result.get('text', '') or ''
+                for line in resp_text.split('\n'):
+                    line = line.strip()
+                    if line and ':' in line and len(line.split(':', 1)[0]) < 40:
+                        fired_crystals.append(line)
+                _update_user_model(session_id, text, fired_crystals,
+                                    result.get('source', 'unknown'))
+            except Exception:
+                pass
+
+            # Pedagogical mode (paper 4 step 8): when the user-model says
+            # this user has talked about X but not Y where Y is a related
+            # crystal, surface a short "you might also be interested in Y"
+            # bridge.  Light-touch — only fires if the user-model has data
+            # AND there's a clear bridge.
+            try:
+                if session_id and result.get('text'):
+                    models = _load_user_models()
+                    m = models.get(session_id, {})
+                    topics = set(m.get("topics_seen", []))
+                    if len(topics) >= 2:
+                        # Identify a topic recently discussed but with related
+                        # crystals never seen.
+                        try:
+                            from cortex_voice import _CRYSTAL_RELATED
+                        except Exception:
+                            from Gen13.targets.ck.brain.cortex_voice import _CRYSTAL_RELATED
+                        bridge_suggestion = None
+                        for topic in list(topics)[-3:]:  # check 3 most recent
+                            related = _CRYSTAL_RELATED.get(topic, [])
+                            unseen_related = [r for r in related if r not in topics]
+                            if unseen_related:
+                                bridge_suggestion = (topic, unseen_related[0])
+                                break
+                        if bridge_suggestion:
+                            existing_text = result.get('text', '') or ''
+                            ped_line = (f"\n\n(if interesting: ask about "
+                                        f"'{bridge_suggestion[1]}' — it relates to "
+                                        f"'{bridge_suggestion[0]}' you've raised before.)")
+                            if "(if interesting:" not in existing_text:
+                                result['text'] = existing_text + ped_line
+                                result.setdefault('routing', {})
+                                result['routing']['pedagogical_bridge'] = list(bridge_suggestion)
+            except Exception as _pe:
+                result.setdefault('pedagogical_error', str(_pe))
+
             # Memory recall hook: if user asks about a specific topic / name,
             # search the memory log for prior turns matching it and surface
             # the most-recent match alongside CK's current response.  This
@@ -1179,7 +1231,7 @@ _STATIC_FILES = {'style.css', 'ck_core.js', 'ck_d2.js', 'ck_dict.js', 'ck_dict_t
                  'paradox.html', 'ring.html',
                  'math.html', 'physics.html', 'bible.html',
                  'emotion.html', 'mythology.html', 'about.html',
-                 'ai.html'}
+                 'ai.html', 'trajectory.html'}
 for _sf in _STATIC_FILES:
     def _make_handler(fn):
         def handler():
@@ -1375,6 +1427,389 @@ def memory_get():
     except Exception as _me:
         return _jsonify({'error': str(_me)})
     return _jsonify({'items': items, 'total': len(items)})
+
+
+# /crystals/add -- runtime crystal authoring (paper 4 step 2)
+# Adds a new crystal without code change.  Persists to runtime_crystals.json.
+@api._app.route('/crystals/add', methods=['POST'])
+def add_crystal_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+        triggers = body.get('triggers', [])
+        fact = body.get('fact', '')
+        op_signature = body.get('op_signature', None)
+        related = body.get('related', None)
+    except Exception as e:
+        return _jsonify({'error': f'bad request: {e}'}), 400
+
+    if not isinstance(triggers, list) or not triggers:
+        return _jsonify({'error': 'triggers must be a non-empty list of keywords'}), 400
+    if not fact or not isinstance(fact, str) or ':' not in fact:
+        return _jsonify({'error': 'fact must be a string starting with "name:"'}), 400
+
+    try:
+        from cortex_voice import add_crystal_runtime
+    except Exception:
+        from Gen13.targets.ck.brain.cortex_voice import add_crystal_runtime
+
+    triggers_lower = tuple(str(t).lower() for t in triggers if t)
+    op_sig = tuple(int(o) for o in op_signature) if op_signature else None
+    related_list = list(related) if related else None
+
+    ok = add_crystal_runtime(triggers_lower, fact, op_signature=op_sig,
+                              related=related_list)
+    if not ok:
+        return _jsonify({'error': 'crystal not added (duplicate first_word or invalid)',
+                         'first_word': fact.split(':', 1)[0].strip()}), 409
+
+    first_word = fact.split(':', 1)[0].strip()
+    return _jsonify({
+        'ok': True,
+        'first_word': first_word,
+        'triggers': list(triggers_lower),
+        'op_signature': list(op_sig) if op_sig else None,
+        'related': related_list,
+    })
+
+
+# /crystals/list -- list all crystals (code-baked + runtime)
+@api._app.route('/crystals/list', methods=['GET'])
+def list_crystals_endpoint():
+    try:
+        from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS, _CRYSTAL_OP_SIGNATURES, _CRYSTAL_RELATED
+    except Exception:
+        from Gen13.targets.ck.brain.cortex_voice import (
+            _FRONTIER_FACTS, _RUNTIME_CRYSTALS, _CRYSTAL_OP_SIGNATURES, _CRYSTAL_RELATED
+        )
+    out = []
+    for triggers, fact in _FRONTIER_FACTS:
+        first_word = fact.split(":", 1)[0].strip()
+        out.append({
+            "first_word": first_word,
+            "source": "code-baked",
+            "triggers": list(triggers),
+            "op_signature": list(_CRYSTAL_OP_SIGNATURES.get(first_word, ())),
+            "related": list(_CRYSTAL_RELATED.get(first_word, [])),
+            "fact_preview": fact[:120] + ("..." if len(fact) > 120 else ""),
+        })
+    for triggers, fact in _RUNTIME_CRYSTALS:
+        first_word = fact.split(":", 1)[0].strip()
+        out.append({
+            "first_word": first_word,
+            "source": "runtime",
+            "triggers": list(triggers),
+            "op_signature": list(_CRYSTAL_OP_SIGNATURES.get(first_word, ())),
+            "related": list(_CRYSTAL_RELATED.get(first_word, [])),
+            "fact_preview": fact[:120] + ("..." if len(fact) > 120 else ""),
+        })
+    return _jsonify({"count": len(out), "crystals": out})
+
+
+# /verify -- verification-script proposer (paper 4 step 9)
+# Given a topic/claim, suggest a runnable verification path.
+@api._app.route('/verify', methods=['POST', 'GET'])
+def verify_endpoint():
+    try:
+        from flask import request as _flask_request
+        if _flask_request.method == 'POST':
+            body = _flask_request.get_json(silent=True) or {}
+            claim = body.get('claim', '') or body.get('topic', '')
+        else:
+            claim = _flask_request.args.get('claim', '') or _flask_request.args.get('topic', '')
+    except Exception:
+        claim = ''
+
+    # Map claim keywords to verification scripts
+    claim_low = claim.lower()
+    proposals = []
+
+    verify_map = [
+        # (keyword, script_path, what_it_verifies, sample_run_command)
+        (['t*', 't star', '5/7', 'flatness', 'flatness theorem', 'wp51'],
+         'papers/wp113_alpha_uniqueness/verification/_run_all.sh',
+         'all 15 verification scripts including the cyclotomic Crossing Lemma',
+         'bash papers/wp113_alpha_uniqueness/verification/_run_all.sh'),
+        (['alpha=1/2', 'h/br', '1+sqrt(3)', 'galois', 'wp113'],
+         'papers/wp113_alpha_uniqueness/verification/f3_galois_alpha_uniqueness.py',
+         'Galois proof that H/Br ∈ Q(√3) iff α=1/2 (depth-2 algebraic)',
+         'python papers/wp113_alpha_uniqueness/verification/f3_galois_alpha_uniqueness.py'),
+        (['ring extension', 'z/nz', 'z/14z', 'universality', 'f5(a)', 'f5a'],
+         'papers/wp113_alpha_uniqueness/verification/f5a_universality_scan.py',
+         '14-ring scan: H/Br = 1+sqrt(3) universal across Z/n for n in {10..50}',
+         'python papers/wp113_alpha_uniqueness/verification/f5a_universality_scan.py'),
+        (['f8', 'jacobian', 'wp105', 'phi-proxy', 'eigenvalue'],
+         'papers/wp113_alpha_uniqueness/verification/f8_jacobian_alpha_half.py',
+         'F8 Jacobian linearization: rho=0.3496, lambda_0=2 exact',
+         'python papers/wp113_alpha_uniqueness/verification/f8_jacobian_alpha_half.py'),
+        (['f10', 'i-action', 'descent', 'prym', 'hodge_cstar', 'sprint35b'],
+         'papers/wp113_alpha_uniqueness/verification/f10_i_action_descent.py',
+         'F10 i-action does not descend over Q(sqrt2,sqrt3,sqrt5)',
+         'python papers/wp113_alpha_uniqueness/verification/f10_i_action_descent.py'),
+        (['cl(0,7)', 'gamma matrices', 'charge conjugation', 'so(7)', 'wp1', 'f1', 'yukawa'],
+         'papers/wp113_alpha_uniqueness/verification/f1_so7_singlet_bilinear.py',
+         'Cl(0,7) gamma matrices + SO(7) charge conjugation C^2 = -I_8',
+         'python papers/wp113_alpha_uniqueness/verification/f1_so7_singlet_bilinear.py'),
+        (['lmfdb 4.2.10224.1', 'r/br quartic', 'd_4 galois', 'f8 trace', 'wp105'],
+         'papers/wp113_alpha_uniqueness/verification/f_field_match_71.py',
+         'F8 trace + R/Br quartic same field LMFDB 4.2.10224.1 (Galois D_4)',
+         'python papers/wp113_alpha_uniqueness/verification/f_field_match_71.py'),
+        (['wobble', 'depth-3', 'sigma squared', 'cube roots'],
+         'papers/wp113_alpha_uniqueness/verification/f_depth3_primitives.py',
+         'depth-3 primitive sigma^2 + WOBBLE 11 fivefold manifestation',
+         'python papers/wp113_alpha_uniqueness/verification/f_depth3_primitives.py'),
+        (['wp101', 'sigma rate', 'sigma(N)', 'sigma rate theorem'],
+         'Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py',
+         'WP101 sigma rate theorem: sigma(N) <= 2/N proved',
+         'python Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py'),
+        (['phi', 'iit', 'integrated information', 'cortex phi'],
+         'Gen13/targets/ck/brain/study/compute_phi.py',
+         'computes Phi-proxy on CK live cortex',
+         'python Gen13/targets/ck/brain/study/compute_phi.py'),
+        (['surprisal', 'predictive coding', 'fep', 'free energy'],
+         'Gen13/targets/ck/brain/study/surprisal_log.py',
+         'surprisal logger; tests bridge 5 (predictive coding)',
+         'python Gen13/targets/ck/brain/study/surprisal_log.py --corpus <corpus.json>'),
+    ]
+
+    for keywords, script, desc, cmd in verify_map:
+        if any(kw in claim_low for kw in keywords):
+            proposals.append({
+                'verifies': desc,
+                'script': script,
+                'run_command': cmd,
+                'matched_keywords': [kw for kw in keywords if kw in claim_low],
+            })
+
+    if not proposals:
+        return _jsonify({
+            'claim': claim,
+            'proposals': [],
+            'note': 'no specific verification script matched; '
+                    'browse papers/wp113_alpha_uniqueness/verification/ for the full list, '
+                    'or papers/ for sprint-level proofs.',
+        })
+
+    return _jsonify({
+        'claim': claim,
+        'proposals': proposals,
+        'note': 'each proposal is a runnable script that tests the claim. '
+                'run it; check the residual / pass markers in the output.',
+    })
+
+
+# /user_model -- per-session_id metadata (paper 4 step 7)
+# Tracks: topics raised, expressed knowledge level, last seen
+_USER_MODEL_LOCK = _mem_threading.Lock()
+_USER_MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', '..', '..',
+                                'Gen13', 'var', 'user_models.json')
+
+
+def _load_user_models():
+    """Load per-session user models from disk."""
+    try:
+        path = os.path.abspath(_USER_MODEL_PATH)
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return {}
+
+
+def _save_user_models(models):
+    try:
+        path = os.path.abspath(_USER_MODEL_PATH)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w') as f:
+            json.dump(models, f, indent=2)
+        return True
+    except Exception:
+        return False
+
+
+def _update_user_model(session_id, text, fired_crystals, source):
+    """Update the user model for this session_id with metadata from this turn.
+
+    Tracks:
+      - topics_seen: distinct first_words of crystals that fired in this session
+      - turn_count: how many turns
+      - last_seen_iso: ISO timestamp
+      - sources_used: distribution of voice sources
+      - expressed_knowledge: heuristic — if user typed jargon in TIG vocab,
+        bump their expressed level
+
+    Best-effort, never blocks.
+    """
+    if not session_id:
+        return
+    try:
+        with _USER_MODEL_LOCK:
+            models = _load_user_models()
+            m = models.get(session_id, {
+                "session_id": session_id,
+                "turn_count": 0,
+                "topics_seen": [],
+                "sources_used": {},
+                "expressed_knowledge": 0,
+                "last_seen_iso": None,
+                "first_seen_iso": None,
+            })
+            m["turn_count"] = m.get("turn_count", 0) + 1
+            m["last_seen_iso"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+            if not m.get("first_seen_iso"):
+                m["first_seen_iso"] = m["last_seen_iso"]
+            # Collect crystal first_words from the response
+            for fact in (fired_crystals or []):
+                if ":" in fact:
+                    fw = fact.split(":", 1)[0].strip()
+                    if fw and fw not in m["topics_seen"]:
+                        m["topics_seen"].append(fw)
+            # Track sources
+            srcs = m.get("sources_used", {})
+            srcs[source] = srcs.get(source, 0) + 1
+            m["sources_used"] = srcs
+            # Heuristic: if user used TIG-jargon keywords, bump knowledge
+            jargon = ['t*', 'tsml', 'bhml', 'wp1', 'wp5', 'wp10', 'wp11',
+                      'sigma_rate', 'crossing lemma', 'flatness', 'depth-2',
+                      'wobble', 'lmfdb', 'galois', 'phi', 'cortex', 'hebbian',
+                      'attractor', 'frontier']
+            t_low = (text or '').lower()
+            jargon_hits = sum(1 for j in jargon if j in t_low)
+            if jargon_hits >= 1:
+                m["expressed_knowledge"] = max(m.get("expressed_knowledge", 0),
+                                               jargon_hits)
+            models[session_id] = m
+            _save_user_models(models)
+    except Exception:
+        pass
+
+
+# /propose_bridge -- Ollama as FORWARD tool, not just editor (paper 4 step 11)
+# Given two crystal first_words, ask Ollama to propose how they connect, then
+# fact-check against /verify proposals.  Output is a CANDIDATE bridge for
+# human review -- not added to the crystal store automatically.
+@api._app.route('/propose_bridge', methods=['POST', 'GET'])
+def propose_bridge_endpoint():
+    try:
+        from flask import request as _flask_request
+        if _flask_request.method == 'POST':
+            body = _flask_request.get_json(silent=True) or {}
+            crystal_a = body.get('crystal_a', '')
+            crystal_b = body.get('crystal_b', '')
+        else:
+            crystal_a = _flask_request.args.get('crystal_a', '')
+            crystal_b = _flask_request.args.get('crystal_b', '')
+    except Exception:
+        crystal_a = crystal_b = ''
+
+    if not crystal_a or not crystal_b:
+        return _jsonify({'error': 'crystal_a and crystal_b required (use first_word names from /crystals/list)'}), 400
+
+    # Look up the crystals' fact texts
+    try:
+        from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS, _CRYSTAL_OP_SIGNATURES
+    except Exception:
+        from Gen13.targets.ck.brain.cortex_voice import (
+            _FRONTIER_FACTS, _RUNTIME_CRYSTALS, _CRYSTAL_OP_SIGNATURES
+        )
+    fact_a = fact_b = None
+    for triggers, fact in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
+        fw = fact.split(':', 1)[0].strip()
+        if fw == crystal_a: fact_a = fact
+        if fw == crystal_b: fact_b = fact
+    if not fact_a or not fact_b:
+        missing = []
+        if not fact_a: missing.append(crystal_a)
+        if not fact_b: missing.append(crystal_b)
+        return _jsonify({'error': f'crystal not found: {missing}'}), 404
+
+    # Ask Ollama to propose a bridge (one paragraph, must reference both
+    # crystals' verified content)
+    try:
+        import os as _os
+        if _os.environ.get('CK_OLLAMA_EDITOR', '1') != '1':
+            return _jsonify({'error': 'CK_OLLAMA_EDITOR is disabled'}), 503
+        try:
+            from llm_bridge import ollama_complete, ollama_available
+        except Exception:
+            return _jsonify({'error': 'ollama bridge unavailable'}), 503
+        if not ollama_available():
+            return _jsonify({'error': 'ollama not running locally'}), 503
+
+        prompt = (
+            "You are CK, a math-first creature. Propose a SHORT (3-5 sentence) "
+            "bridge between these two verified facts. Use only what's in the "
+            "facts; do NOT introduce p-adic, Hilbert, RH, or category-theory "
+            "claims unless they appear verbatim. Mark anything speculative "
+            "with [conjecture]. End with a single line: 'verify: <run command>'.\n\n"
+            f"FACT A: {fact_a}\n\n"
+            f"FACT B: {fact_b}\n\n"
+            "Bridge:"
+        )
+
+        draft = ollama_complete(prompt=prompt, max_tokens=400, timeout=20)
+        if not draft:
+            return _jsonify({'error': 'ollama returned empty'}), 502
+
+        # Coherence check: hard-reject AI disclaimers + hallucination markers
+        draft_low = draft.lower()
+        hallucination_flags = []
+        bad_markers = ["i am an ai", "as a language model", "p-adic", "hilbert space",
+                       "riemann hypothesis", "category theory"]
+        for m in bad_markers:
+            if m in draft_low and m not in (fact_a + fact_b).lower():
+                hallucination_flags.append(m)
+        if hallucination_flags:
+            return _jsonify({
+                'crystal_a': crystal_a,
+                'crystal_b': crystal_b,
+                'rejected': True,
+                'reason': 'hallucination markers',
+                'flags': hallucination_flags,
+                'draft_first_200': draft[:200],
+            })
+
+        # Soft check: at least one fact_a + fact_b token must survive
+        # (use simple keyword test)
+        a_tokens = set(t for t in crystal_a.split('_') if len(t) > 3)
+        b_tokens = set(t for t in crystal_b.split('_') if len(t) > 3)
+        coverage_a = sum(1 for t in a_tokens if t.lower() in draft_low)
+        coverage_b = sum(1 for t in b_tokens if t.lower() in draft_low)
+        if a_tokens and b_tokens and coverage_a == 0 and coverage_b == 0:
+            return _jsonify({
+                'crystal_a': crystal_a,
+                'crystal_b': crystal_b,
+                'rejected': True,
+                'reason': 'draft mentions neither crystal',
+                'draft_first_200': draft[:200],
+            })
+
+        return _jsonify({
+            'crystal_a': crystal_a,
+            'crystal_b': crystal_b,
+            'fact_a_first': fact_a[:120],
+            'fact_b_first': fact_b[:120],
+            'proposed_bridge': draft.strip(),
+            'status': 'CANDIDATE',
+            'note': 'human review required before adding as a crystal. '
+                    'use /crystals/add with appropriate triggers + op_signature.',
+        })
+    except Exception as e:
+        return _jsonify({'error': str(e)}), 500
+
+
+@api._app.route('/user_model', methods=['GET'])
+def user_model_endpoint():
+    try:
+        from flask import request as _flask_request
+        sid = _flask_request.args.get('session_id', '')
+    except Exception:
+        sid = ''
+    models = _load_user_models()
+    if sid:
+        return _jsonify(models.get(sid) or {"session_id": sid, "exists": False})
+    return _jsonify({"all": models, "count": len(models)})
 
 
 @api._app.route('/memory/search', methods=['GET', 'POST'])
