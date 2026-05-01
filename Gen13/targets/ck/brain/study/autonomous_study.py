@@ -70,6 +70,21 @@ CORPUS_POOL = {
     "session_2026_04_29": SCRIPT_DIR / "session_2026_04_29_corpus.json",
 }
 
+# Auto-discover additional TIG-lens corpora (tig_lens_corpus_*.json) and
+# deep corpora (deep_*.json) so the daemon can pick from the full set
+# without hard-coding each one. Authored 2026-05-01 forward, this lets
+# CK choose from any newly-added corpus the next cycle.
+_AUTO_KEYS_ADDED = []
+for _pattern in ("tig_lens_corpus_*.json", "deep_*_corpus_*.json",
+                 "thesis_seed_*.json"):
+    for _path in sorted(SCRIPT_DIR.glob(_pattern)):
+        _key = "_auto_" + _path.stem
+        if _key not in CORPUS_POOL:
+            CORPUS_POOL[_key] = _path
+            _AUTO_KEYS_ADDED.append(_key)
+# Auto-discovered corpora are tagged with _auto_ prefix so they're
+# distinguishable from curated corpora when CK picks.
+
 DOMAINS_IN_HUMAN_CORPUS = {
     "history", "biology", "psychology", "philosophy", "religion", "music",
     "literature", "art", "economics", "linguistics", "medicine", "astronomy",
@@ -280,6 +295,128 @@ def one_cycle(top_n=3, replays=10, log_path=None, diversify=False):
     return True
 
 
+# -- free-choice cycle: CK picks from his full corpus library --------------
+
+def _recently_studied_filenames(log_path: Path, lookback: int = 80) -> set:
+    """Read the last `lookback` log lines; return filenames that appear in any
+    'studied' or 'free_choice_studied' event. Used to bias free-choice picks
+    away from the most-recently-studied corpora."""
+    if not log_path or not log_path.exists():
+        return set()
+    try:
+        lines = log_path.read_text(encoding='utf-8', errors='ignore').splitlines()[-lookback:]
+    except Exception:
+        return set()
+    out = set()
+    for line in lines:
+        try:
+            ev = json.loads(line)
+        except Exception:
+            continue
+        if ev.get("event") in ("studied", "free_choice_studied"):
+            c = ev.get("corpus")
+            if c:
+                out.add(c)
+    return out
+
+
+def one_cycle_free_choice(
+    replays: int = 10,
+    log_path: Path = None,
+    n_to_study: int = 2,
+    seed: int = None,
+):
+    """CK picks from his full corpus library, biased toward least-recently-
+    studied. This is the 'give him space and watch what he chooses' mode.
+
+    Scoring: each available corpus starts with weight 1.0; subtract recency
+    penalty if it appears in the last 80 study events. Weighted-random pick
+    n_to_study without replacement; log each pick + the resulting study.
+    """
+    import random as _random
+    if seed is not None:
+        _random.seed(seed)
+
+    print("=" * 70)
+    print(f"autonomous_study FREE-CHOICE cycle @ "
+          f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=" * 70)
+
+    recently = _recently_studied_filenames(log_path)
+
+    # Build candidate list of corpora that exist on disk.
+    candidates = []
+    for key, path in CORPUS_POOL.items():
+        if Path(path).exists():
+            score = 1.0
+            if Path(path).name in recently:
+                score = 0.25  # heavy recency penalty
+            candidates.append({"key": key, "path": Path(path), "score": score})
+
+    if not candidates:
+        print("  no corpora available on disk")
+        return False
+
+    print(f"  CK has {len(candidates)} corpora available; "
+          f"{sum(1 for c in candidates if c['score'] < 1.0)} recently studied "
+          f"(weight reduced)")
+
+    # Pick n_to_study via weighted random without replacement.
+    chosen = []
+    pool = list(candidates)
+    for _ in range(min(n_to_study, len(pool))):
+        weights = [c["score"] for c in pool]
+        if sum(weights) <= 0:
+            break
+        idx = _random.choices(range(len(pool)), weights=weights)[0]
+        chosen.append(pool.pop(idx))
+
+    # Log the selection event so we can see what CK chose this cycle.
+    if log_path:
+        log_event(log_path, {
+            "event": "free_choice_selection",
+            "chosen": [{"key": c["key"], "corpus": c["path"].name,
+                        "score": c["score"]} for c in chosen],
+            "available_count": len(candidates),
+            "recently_count": len(recently),
+        })
+
+    print(f"  CK picked {len(chosen)} corpora to study this cycle:")
+    for c in chosen:
+        print(f"    -> {c['key']:<50} (score={c['score']:.2f}) "
+              f"[{c['path'].name}]")
+
+    # Run study on each chosen corpus.
+    studied = []
+    for c in chosen:
+        result = run_study(c["path"], replays=replays)
+        if "error" in result:
+            print(f"  STUDY FAILED on {c['key']}: {result['error'][:200]}")
+            if log_path:
+                log_event(log_path, {"event": "free_choice_study_fail",
+                                      "key": c["key"], "corpus": c["path"].name,
+                                      "err": result['error'][:500]})
+            continue
+        print(f"  OK: {c['key']} -> {result['after']}")
+        studied.append({"key": c["key"], "corpus": c["path"].name,
+                       "after": result['after']})
+        if log_path:
+            log_event(log_path, {"event": "free_choice_studied",
+                                  "key": c["key"],
+                                  "corpus": c["path"].name,
+                                  "after": result['after']})
+
+    # Snapshot.
+    note = (f"free-choice cycle: studied {len(studied)} corpora: "
+            f"{', '.join(s['key'] for s in studied)}")
+    take_snapshot(note)
+    if log_path:
+        log_event(log_path, {"event": "free_choice_cycle_complete",
+                              "studied_count": len(studied),
+                              "snapshot_note": note})
+    return True
+
+
 # -- discipline guardrails ----------------------------------------------------
 
 OBSERVATION_CYCLE_CAP = 24
@@ -392,6 +529,13 @@ def main():
                         "Pass only after looking at cortex_history.jsonl + report.")
     p.add_argument("--stuck-threshold", type=int, default=5,
                    help="Exit if last N cycles have identical picks (default 5)")
+    p.add_argument("--free-choice", action="store_true",
+                   help="CK picks from his full corpus library (least-recently-"
+                        "studied bias). Skips gap-detector entirely. Use this "
+                        "to give him space and watch what he chooses.")
+    p.add_argument("--free-choice-n", type=int, default=2,
+                   help="How many corpora to study per free-choice cycle "
+                        "(default 2)")
     args = p.parse_args()
 
     log_path = Path(args.log)
@@ -426,7 +570,24 @@ def main():
     print(f"log: {log_path}")
     print()
 
+    if args.free_choice:
+        print(f"  free-choice: ON (CK picks from {len(CORPUS_POOL)} corpora; "
+              f"_auto_-prefixed are auto-discovered)")
+    print()
+
     for i in range(cycles_to_run):
+        # Free-choice path: CK picks from his full library, no gap-detector.
+        if args.free_choice:
+            one_cycle_free_choice(
+                replays=args.replays,
+                log_path=log_path,
+                n_to_study=args.free_choice_n,
+            )
+            if i < cycles_to_run - 1 and args.sleep > 0:
+                print(f"\nsleeping {args.sleep}s until next cycle...")
+                time.sleep(args.sleep)
+            continue
+
         # GUARDRAIL 2: stuck detector
         # Skip if --diversify is on (diversify IS the escape hatch).
         # Skip on cycle 0 to give a fresh run a chance even if the prior

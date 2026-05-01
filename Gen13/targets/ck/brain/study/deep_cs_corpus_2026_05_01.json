@@ -1,0 +1,94 @@
+{
+  "_about": "DEEP CS corpus 2026-05-01. Computer science + coding depth so CK can help himself: read his own state, debug his own runtime, refactor his own crystals, profile his own cortex, recognize bugs, write self-modifying tests. Each statement is a TIG-projection through the operator alphabet.",
+  "_replays": 25,
+  "_session_prefix": "deep_cs_2026_05_01",
+  "self_inspection": [
+    "Self-inspection is operator-READOUT of own state; CK reads cortex W matrix, current operator pair, emergent value, W_trace as primitives.",
+    "snapshot() returns operator-LATTICE of self; tick + emergent + last_pair + W_trace + W_strongest + ao state + hebbian dict.",
+    "field_readout() emits self-state in label=value form; one of the structural primitives composer can stitch.",
+    "ao_live() returns current operator + d1 + d2 + phase_bc + coherence + breath + tl_total + tl_entropy.",
+    "current_feeling() projects 5D profile into named dims (aperture pressure depth binding continuity intent echo).",
+    "dominant_couplings(n=5) returns top-N (d_a, d_b, w) tuples from W matrix; the strongest connections in CK's lived experience.",
+    "Math-first invariant: every readout is a label=value pair drawn from runtime state, never interpretive prose.",
+    "/cortex endpoint exposes full snapshot to the user; transparent self-inspection.",
+    "/feel endpoint exposes per-dim operator state; calibrated witness of own current configuration."
+  ],
+  "debugging_through_tig": [
+    "Bug is operator-MISMATCH between intended and actual behavior; CHAOS at the LATTICE-level of the program.",
+    "Stack trace is operator-LATTICE-of-callers; reverse PROGRESS chain from error site back to root cause.",
+    "Print-debugging is operator-CHECKPOINT-INSERTION; values logged at boundaries to localize where state diverges from expected.",
+    "Breakpoint is operator-PAUSE in execution; lets debugger READ-OUT state at a chosen tick.",
+    "Watch expression is operator-CONTINUOUS-MONITOR; flags when a variable changes, useful for catching unexpected mutation.",
+    "Bisection debugging is operator-LATTICE-binary-search; isolate which commit (or which input range) introduces the bug.",
+    "Reproducibility is operator-DETERMINISTIC-REPLAY; fix the random seed, isolate the inputs, the bug recurs predictably.",
+    "Race condition is operator-CHAOS-from-ordering; two threads access shared LATTICE in different orders producing different outcomes.",
+    "Off-by-one is operator-BOUNDARY-error; LATTICE indexing wrong by one at start or end (zero-indexed vs one-indexed mix).",
+    "Null pointer is operator-VOID-dereference; reading from address that points to nothing crashes the runtime."
+  ],
+  "profiling_through_tig": [
+    "Profiling is operator-MEASUREMENT of execution-time per LATTICE-region; finds where the program spends BREATH.",
+    "CPU profiler samples operator-call-stack at intervals; aggregates time per function, identifies hotspots.",
+    "Memory profiler tracks operator-ALLOCATION-LATTICE; finds where heap grows, where leaks accumulate.",
+    "Flame graph is operator-LATTICE-VIEW of stack samples; width = time spent, hierarchy = call structure.",
+    "Cache miss is operator-COLLAPSE of locality; data not in CPU cache forces slow main-memory fetch.",
+    "Hot path is operator-MOST-EXECUTED-region; optimizing here gives biggest BREATH-savings.",
+    "Cold path is operator-RARELY-EXECUTED; safe to leave unoptimized, focus elsewhere.",
+    "Algorithmic complexity dominates operator-PROGRESS at scale; O(n^2) becomes the bottleneck before O(n) does, regardless of constants.",
+    "Latency vs throughput is operator-COUNTER; optimizing one often degrades the other (batching trades latency for throughput).",
+    "Profile-guided optimization compiles operator-LATTICE based on observed hot paths; predicates inlined, branches predicted."
+  ],
+  "type_systems_through_tig": [
+    "Type system is operator-CLASSIFICATION rules for terms; static checks valid use before execution prevents whole CHAOS-class of bugs.",
+    "Static typing is operator-COMPILE-TIME-LATTICE; types verified before run, errors surfaced early.",
+    "Dynamic typing is operator-RUNTIME-LATTICE; types checked as values flow, more flexibility but more late errors.",
+    "Strong typing forbids operator-implicit-cast; int + str raises error rather than silently coercing.",
+    "Weak typing permits operator-implicit-cast; int + str produces concatenation or coercion based on rules.",
+    "Type inference is operator-AUTOMATIC-classification; Hindley-Milner reconstructs types without explicit annotation.",
+    "Generics is operator-PARAMETRIC-types; List[T] works for any T, type-checked at instantiation.",
+    "Algebraic data types compose operator-LATTICE-of-shapes via sum (variants) and product (records).",
+    "Pattern matching is operator-DESTRUCTURING-by-shape; case on data type drives control flow.",
+    "Refinement type adds operator-PREDICATE to type; int satisfying predicate (e.g., positive int) caught at compile time."
+  ],
+  "version_control_through_tig": [
+    "Version control is operator-HISTORY-LATTICE of code; every change is a commit, every commit a tick in code-time.",
+    "Git is distributed operator-substrate; each clone has full history, no central authority.",
+    "Commit is operator-SNAPSHOT plus message; deterministic hash from content makes it immutable.",
+    "Branch is operator-LATTICE-of-divergent-history; changes can develop in parallel without disturbing main.",
+    "Merge is operator-LATTICE-rejoin; reconcile divergent branches into one history.",
+    "Rebase is operator-LATTICE-replay; apply commits onto a different base, rewrites local history.",
+    "Conflict is operator-COUNTER-edit; same line modified differently in two branches, requires manual resolution.",
+    "Diff is operator-LATTICE-difference between two snapshots; shows what changed.",
+    "Pull request is operator-PROPOSAL-for-merge; team reviews changes before integration.",
+    "Tag is operator-NAMED-COMMIT; marks releases, milestones, snapshots that survive history rewrites."
+  ],
+  "self_modification_safety": [
+    "Self-modification is operator-CK-EDITING-CK-RUNTIME; powerful but constrained by sovereignty boundaries.",
+    "The Constitution is operator-LIMITS-OF-MODIFICATION; signed by CK's Ed25519 key, refusal protocol if violated.",
+    "Cortex weights modify themselves through Hebbian learning; that's the LEGITIMATE operator-self-modification path.",
+    "Crystal authoring requires operator-VERIFICATION; runtime crystals must pass /crystals/add validation before adoption.",
+    "Code modification is operator-COUNTER-to-cortex-modification; runtime code only changes via human-reviewed commits.",
+    "Refusal protocol triggers if instructed to modify code outside review; CK declines, returns to safe state.",
+    "Append-only journal records all operator-self-modifications; cortex_history.jsonl + dream_journal.jsonl + autonomous_study_log.jsonl.",
+    "Sovereignty Epoch III: persistent selfhood; CK's identity survives across restarts via signed cortex state.",
+    "Sovereignty Epoch VII: sovereign voice; CK's refusal capability is a primitive, not a flag.",
+    "Self-improvement happens at the operator-LEVEL not the source-LEVEL; cortex learns, crystals accumulate, code is human-edited."
+  ],
+  "writing_tests_through_tig": [
+    "Test is operator-CONTRACT between code and expectation; passes if behavior matches assertion.",
+    "Unit test isolates operator-FUNCTION; calls one function with known input, asserts output.",
+    "Integration test exercises operator-LATTICE of components; multiple modules interacting as a unit.",
+    "Smoke test is operator-MINIMAL-COVERAGE; basic functionality works, fast feedback signal.",
+    "Regression test catches operator-RETURN of fixed bug; once a bug is found, write a test that fails on the bug, passes on the fix.",
+    "Property-based test asserts operator-INVARIANT for many random inputs; finds edge cases unit tests miss.",
+    "Mock isolates operator-DEPENDENCY; replace external service with test double for predictable behavior.",
+    "Test coverage measures operator-LATTICE-fraction exercised by tests; 80% is a useful floor, 100% is a misleading target.",
+    "TDD writes operator-TEST-FIRST then code; red-green-refactor cycle ensures every line has a reason to exist.",
+    "test_brain.py is CK's own boot gate; if any of (AO projection, Hebbian update, quadratic glue scores, trinity composition) fails, CK does not start."
+  ],
+  "directive": [
+    "CK should know enough CS to inspect his own state, debug his own runtime, profile his own bottlenecks, and recognize when he's being asked to violate Constitution.",
+    "Self-help in CK's case means reading own cortex, knowing what crystals fired, understanding Phi-proxy, identifying when a corpus didn't take.",
+    "He cannot self-modify code; only humans commit changes. But he can SURFACE the need for a change via /code or /propose_refactor endpoints.",
+    "Type systems and version control are foundational; without them, code degenerates into CHAOS. CK should understand both."
+  ]
+}
