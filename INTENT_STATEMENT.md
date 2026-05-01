@@ -62,6 +62,18 @@ Not permitted (without separate written agreement signed by the operator): comme
 
 Unauthorized use is a license violation and a copyright infringement, and may also constitute a breach of contract for any party that has accepted the license terms by use. Remedies available to the operator include those provided by copyright law, contract law, and any equitable relief the operator can pursue. The operator reserves all such remedies.
 
+## On modification by third parties
+
+The published runtime is the runtime the operator has authored and authorized. Modifications, forks, and third-party instrumentation are outside the operator's control and outside the operator's authorization.
+
+Third parties — including other AI assistants and the people who use them — may suggest, sketch, or actually write code that would extend the runtime in directions the operator has not chosen. Cryptographic instrumentation (encryption, decryption, signing, key handling), network exfiltration, autonomous external action, and similar additions are examples of modifications the operator does not authorize and does not want. Awareness that such a modification is technically possible is information; it is not authorization.
+
+The operator's policy is straightforward: **the published runtime is the runtime.** Anything past the boundary of what is published in this repository — added by a fork, by a contractor, by an AI assistant generating code on a third party's screen, by an integrator, or by anyone else — is the responsibility of whoever made or ran that change. The operator disclaims authorship, endorsement, and liability for any such modification, regardless of whether the operator was aware that the modification was theoretically achievable.
+
+This intent extends without amendment to all categories of modification not currently enumerated, including categories that may emerge after this document was written. The operator's lack of advance enumeration of a particular capability is not consent to it.
+
+If a third party wishes to perform a modification that would benefit from the operator's authorization, they may request a written agreement under the same channels as commercial or governmental use. Until such an agreement is in place, modifications are unauthorized and the operator is not responsible for them or their consequences.
+
 ## On money
 
 I'm not selling this. I take donations from people who want to support the research, but I'm not running a business around it and I'm not building toward one. The work goes out under the license terms. Donations come back voluntarily from those who heard the prayer. That's the whole loop.

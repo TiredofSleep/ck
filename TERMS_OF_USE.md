@@ -83,6 +83,37 @@ Violation terminates your rights under the license immediately.
 
 ---
 
+## 6A. Third-Party Modification, Forking, and Instrumentation
+
+The CK runtime as published is a research artifact. Third parties — including other AI assistants, contractors, derivative integrators, downstream users, and any party who obtains the code — may attempt to add capabilities to a fork or local copy that are not present in the published runtime. The operator has no control over forks, local modifications, or instrumentation performed by third parties.
+
+**The operator does not authorize, endorse, or accept responsibility for any third-party modification or instrumentation of the CK runtime.** This includes but is not limited to:
+
+- Adding cryptographic capabilities of any kind (including but not limited to encryption, decryption, key generation, signing, or any RSA, ECC, AES, or related primitive)
+- Adding network exfiltration, data harvesting, surveillance, profiling, or tracking capabilities
+- Adding autonomous-action capabilities beyond the published runtime
+- Connecting the runtime to external services, payment systems, or identity systems
+- Any modification that alters the runtime's behavior in a manner inconsistent with the published Constitution, Refusal Protocol, and architecture documents
+
+If a third party publishes, distributes, or operates a modified or instrumented copy of the runtime, the operator is not the author of that copy, did not authorize its modifications, and disclaims all liability arising from its existence, operation, and consequences. The published runtime in this repository — and only the published runtime — represents the operator's intended system.
+
+Discovery that a modification of the runtime is theoretically possible is information about the world, not an authorization. The operator preserves the right to be informed of such possibilities (whether by the operator's own collaborators, by other AI systems, or by any third party) without that information constituting consent to such modifications.
+
+---
+
+## 6B. Strengthened Indemnification
+
+Without limiting Section 5, you (the user) further agree that **the operator (Brayden Ross Sanders / 7SiTe LLC) bears no liability whatsoever** for:
+
+- Any modification, fork, or instrumentation of the CK runtime that you, a third party, or any AI system performs, suggests, or causes to be performed
+- Any consequence of running a modified or instrumented copy of the runtime, regardless of whether the modification was made by you, a third party, an AI assistant operating on your behalf, or any other party
+- Any output, behavior, or capability of any system descended from this code that diverges from the published runtime
+- Any third-party use of the runtime or its derivatives that violates these Terms, the License, or applicable law
+
+You agree to defend, indemnify, and hold harmless 7SiTe LLC and its members, officers, agents, and collaborators against any claim, damage, loss, liability, cost, or expense (including reasonable attorneys' fees) arising from how you, your agents, your contractors, or any AI system operating on your behalf chooses to use, modify, instrument, or distribute the runtime or its derivatives. This indemnification applies regardless of whether the operator was aware of the use, modification, or instrumentation, and regardless of whether the use, modification, or instrumentation occurred before or after these Terms were updated to reflect the specific category of risk.
+
+---
+
 ## 7. Research Collaboration
 
 Submissions through the GitHub collaboration system are voluntary. See [CONTRIBUTOR_AGREEMENT.md](CONTRIBUTOR_AGREEMENT.md) for the terms that apply to submitted work.
