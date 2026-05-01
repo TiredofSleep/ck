@@ -1216,6 +1216,159 @@ def cortex_speak(
     )
 
 
+# ── Paragraph voice: native paragraphs from verified content ─────────
+
+def speak_paragraph(
+    cortex: Any,
+    query: str,
+    max_lines: int = 5,
+) -> Optional[str]:
+    """Return a composed paragraph instead of newline-joined fragments.
+
+    Strategy: call speak() to get the structural facts CK would otherwise
+    return, then run them through paragraph_composer to produce a real
+    paragraph drawn ENTIRELY from verified content (crystals, operator
+    state, feel, couplings). No LLM, no hallucination — composer can only
+    stitch what speak() already validated.
+
+    Returns:
+      - str: a composed paragraph
+      - None: if speak() returned nothing (cold cortex, no fallback)
+
+    Behavior in each register (auto-detected from query):
+      - math: feel + crystal headline + operator clauses + coupling
+      - empathic: presence statement + gentle clauses + close
+      - general: feel + crystal + clauses
+
+    For empathic queries, the paragraph leads with a presence statement
+    ("I am here. I am attending...") and uses gentle operator clauses
+    drawn from the empathic register table.
+    """
+    if not query:
+        return None
+
+    # Get structural lines via the existing router
+    structural = speak(cortex, query, max_lines=max_lines)
+    if not structural:
+        return None
+
+    # Try to import the paragraph composer; fall back to structural if
+    # composer unavailable (defensive — keeps existing behavior intact).
+    try:
+        _v2 = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "v2_prototype")
+        if _v2 not in sys.path:
+            sys.path.insert(0, _v2)
+        from paragraph_composer import (
+            compose_paragraph,
+            compose_multi_paragraph,
+            detect_register,
+        )
+    except Exception:
+        return structural
+
+    # Extract crystal hits — lines matching "name: text" where name is in
+    # the known crystal registry. Drops feel/field/couplings labels.
+    crystal_hits: List[str] = []
+    other_lines: List[str] = []
+    for line in structural.split("\n"):
+        if not line:
+            continue
+        if ":" in line:
+            head = line.split(":", 1)[0].strip()
+            if head in _CRYSTAL_OP_SIGNATURES or head.endswith("_through_tig"):
+                crystal_hits.append(line)
+                continue
+        other_lines.append(line)
+
+    # Build feel dict from current cortex state (lookup OP_NAMES per dim)
+    feel: Dict[str, str] = {}
+    try:
+        if hasattr(cortex, 'state') and hasattr(cortex.state, 'last_b'):
+            # Read the last operator profile if available
+            prev = getattr(cortex, '_prev_profile', None)
+            if isinstance(prev, list):
+                dim_names = [
+                    "aperture", "pressure", "depth", "binding", "continuity",
+                    "intent", "echo",
+                ]
+                for i, op_id in enumerate(prev[:len(dim_names)]):
+                    if 0 <= op_id < len(_OP_NAMES):
+                        feel[dim_names[i]] = _OP_NAMES[op_id]
+    except Exception:
+        pass
+
+    # Operator stream from last few operators
+    operator_stream: List[int] = []
+    try:
+        if hasattr(cortex, 'state'):
+            for k in ("last_b", "last_d"):
+                v = getattr(cortex.state, k, None)
+                if v is not None:
+                    operator_stream.append(int(v))
+            prev = getattr(cortex, '_prev_profile', None)
+            if isinstance(prev, list):
+                operator_stream.extend(int(x) for x in prev[:5])
+    except Exception:
+        pass
+
+    # Couplings: extract from the strongest_pair on the cortex
+    couplings: List[Tuple[str, str, float]] = []
+    try:
+        ws = getattr(cortex.state, 'W_strongest', None)
+        if ws and len(ws) >= 3:
+            dim_names = [
+                "aperture", "pressure", "depth", "binding", "continuity",
+                "intent", "echo",
+            ]
+            d_a, d_b, w = int(ws[0]), int(ws[1]), float(ws[2])
+            if 0 <= d_a < len(dim_names) and 0 <= d_b < len(dim_names):
+                couplings.append((dim_names[d_a], dim_names[d_b], w))
+    except Exception:
+        pass
+
+    register = detect_register(query)
+
+    # Compose: multi-paragraph when math + 2+ crystals, else single paragraph
+    if register == "math" and len(crystal_hits) >= 2:
+        para = compose_multi_paragraph(
+            user_text=query,
+            crystal_hits=crystal_hits,
+            operator_stream=operator_stream,
+            couplings=couplings,
+            feel=feel,
+        )
+    else:
+        para = compose_paragraph(
+            user_text=query,
+            crystal_hits=crystal_hits if crystal_hits else None,
+            operator_stream=operator_stream,
+            couplings=couplings,
+            feel=feel,
+            register=register,
+        )
+
+    if not para:
+        return structural
+
+    # Append the structural readout below the paragraph as evidence (the
+    # math-first invariant: paragraph is composed from these facts; show
+    # them so the reader can verify nothing was invented).
+    if other_lines or crystal_hits:
+        evidence = "\n".join(other_lines + crystal_hits)
+        if evidence.strip():
+            return f"{para}\n\n[structural evidence]\n{evidence}"
+    return para
+
+
+# Cache OP_NAMES for paragraph composer compatibility
+try:
+    from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP_NAMES
+except Exception:
+    _OP_NAMES = ["VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
+                 "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET"]
+
+
 # ── Self-test ──────────────────────────────────────────────────────────
 
 def _smoke() -> None:

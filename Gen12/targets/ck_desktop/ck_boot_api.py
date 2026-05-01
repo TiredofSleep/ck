@@ -174,9 +174,24 @@ try:
 
     from cortex_voice import (
         cortex_speak as _cortex_speak,
-        speak as _cortex_speak_route,
+        speak as _cortex_speak_route_lines,
         apply_crystal_boost as _apply_crystal_boost,
     )
+    # Paragraph voice: default ON. Set CK_PARAGRAPH_VOICE=0 to fall back to
+    # the original line-joined structural output.
+    _PARAGRAPH_VOICE = os.environ.get('CK_PARAGRAPH_VOICE', '1') != '0'
+    if _PARAGRAPH_VOICE:
+        try:
+            from cortex_voice import speak_paragraph as _cortex_speak_route
+            print(f"[CK] Gen13 paragraph voice: ENABLED "
+                  f"(speak_paragraph drives chat responses)")
+        except Exception as _pe:
+            _cortex_speak_route = _cortex_speak_route_lines
+            print(f"[CK] Gen13 paragraph voice: unavailable ({_pe}); "
+                  f"falling back to line-joined structural")
+    else:
+        _cortex_speak_route = _cortex_speak_route_lines
+        print(f"[CK] Gen13 paragraph voice: DISABLED (CK_PARAGRAPH_VOICE=0)")
     import cortex_voice as _cortex_voice_mod
     print(f"[CK] Gen13 cortex_voice loaded from: {_cortex_voice_mod.__file__}")
     # Fallback-version probe: the newer speak() emits a self-report
