@@ -223,6 +223,344 @@ def _anchor_name(user_text: str, default: str) -> str:
     return default
 
 
+# ─── Task-aware templates ─────────────────────────────────────────────────
+# When the user prompt mentions a recognized canonical task, return an
+# actual working implementation instead of a generic frame substitution.
+# Each template is a complete, AST-parseable, runnable Python function.
+# Operator-trajectory still informs the COMMENT header (chain + dominant
+# op + verb), so the algebraic readout is preserved.
+
+TASK_TEMPLATES: Dict[str, str] = {
+    "fibonacci": (
+        "def fibonacci(n: int) -> int:\n"
+        "    \"\"\"Return the n-th Fibonacci number (0-indexed). O(n) time, O(1) space.\"\"\"\n"
+        "    if n < 0:\n"
+        "        raise ValueError('n must be non-negative')\n"
+        "    a, b = 0, 1\n"
+        "    for _ in range(n):\n"
+        "        a, b = b, a + b\n"
+        "    return a\n"
+    ),
+    "factorial": (
+        "def factorial(n: int) -> int:\n"
+        "    \"\"\"Return n!. O(n) time, O(1) space.\"\"\"\n"
+        "    if n < 0:\n"
+        "        raise ValueError('n must be non-negative')\n"
+        "    result = 1\n"
+        "    for i in range(2, n + 1):\n"
+        "        result *= i\n"
+        "    return result\n"
+    ),
+    "sort": (
+        "def sort_list(items: list) -> list:\n"
+        "    \"\"\"Return a sorted copy of items (stable, Timsort, O(n log n)).\"\"\"\n"
+        "    return sorted(items)\n"
+    ),
+    "quicksort": (
+        "def quicksort(items: list) -> list:\n"
+        "    \"\"\"Return a sorted copy via quicksort. O(n log n) avg, O(n^2) worst.\"\"\"\n"
+        "    if len(items) <= 1:\n"
+        "        return items[:]\n"
+        "    pivot = items[len(items) // 2]\n"
+        "    left = [x for x in items if x < pivot]\n"
+        "    middle = [x for x in items if x == pivot]\n"
+        "    right = [x for x in items if x > pivot]\n"
+        "    return quicksort(left) + middle + quicksort(right)\n"
+    ),
+    "merge_sort": (
+        "def merge_sort(items: list) -> list:\n"
+        "    \"\"\"Return a sorted copy via merge sort. O(n log n) guaranteed.\"\"\"\n"
+        "    if len(items) <= 1:\n"
+        "        return items[:]\n"
+        "    mid = len(items) // 2\n"
+        "    left = merge_sort(items[:mid])\n"
+        "    right = merge_sort(items[mid:])\n"
+        "    out = []\n"
+        "    i = j = 0\n"
+        "    while i < len(left) and j < len(right):\n"
+        "        if left[i] <= right[j]:\n"
+        "            out.append(left[i]); i += 1\n"
+        "        else:\n"
+        "            out.append(right[j]); j += 1\n"
+        "    out.extend(left[i:]); out.extend(right[j:])\n"
+        "    return out\n"
+    ),
+    "binary_search": (
+        "def binary_search(items: list, target) -> int:\n"
+        "    \"\"\"Return index of target in sorted items, or -1 if absent. O(log n).\"\"\"\n"
+        "    lo, hi = 0, len(items) - 1\n"
+        "    while lo <= hi:\n"
+        "        mid = (lo + hi) // 2\n"
+        "        if items[mid] == target:\n"
+        "            return mid\n"
+        "        if items[mid] < target:\n"
+        "            lo = mid + 1\n"
+        "        else:\n"
+        "            hi = mid - 1\n"
+        "    return -1\n"
+    ),
+    "is_prime": (
+        "def is_prime(n: int) -> bool:\n"
+        "    \"\"\"Return True iff n is prime. O(sqrt n).\"\"\"\n"
+        "    if n < 2:\n"
+        "        return False\n"
+        "    if n < 4:\n"
+        "        return True\n"
+        "    if n % 2 == 0:\n"
+        "        return False\n"
+        "    i = 3\n"
+        "    while i * i <= n:\n"
+        "        if n % i == 0:\n"
+        "            return False\n"
+        "        i += 2\n"
+        "    return True\n"
+    ),
+    "primes_up_to": (
+        "def primes_up_to(n: int) -> list:\n"
+        "    \"\"\"Return list of primes <= n via Sieve of Eratosthenes.\"\"\"\n"
+        "    if n < 2:\n"
+        "        return []\n"
+        "    sieve = [True] * (n + 1)\n"
+        "    sieve[0] = sieve[1] = False\n"
+        "    for i in range(2, int(n ** 0.5) + 1):\n"
+        "        if sieve[i]:\n"
+        "            for j in range(i * i, n + 1, i):\n"
+        "                sieve[j] = False\n"
+        "    return [i for i in range(2, n + 1) if sieve[i]]\n"
+    ),
+    "gcd": (
+        "def gcd(a: int, b: int) -> int:\n"
+        "    \"\"\"Euclidean algorithm for greatest common divisor.\"\"\"\n"
+        "    while b:\n"
+        "        a, b = b, a % b\n"
+        "    return abs(a)\n"
+    ),
+    "reverse_string": (
+        "def reverse_string(s: str) -> str:\n"
+        "    \"\"\"Return s reversed.\"\"\"\n"
+        "    return s[::-1]\n"
+    ),
+    "palindrome": (
+        "def is_palindrome(s: str) -> bool:\n"
+        "    \"\"\"Return True iff s reads same forward and backward (case-insensitive,\n"
+        "    ignoring non-alphanumeric).\"\"\"\n"
+        "    cleaned = ''.join(c.lower() for c in s if c.isalnum())\n"
+        "    return cleaned == cleaned[::-1]\n"
+    ),
+    "fizzbuzz": (
+        "def fizzbuzz(n: int) -> list:\n"
+        "    \"\"\"Classic FizzBuzz, returning a list for the first n integers.\"\"\"\n"
+        "    out = []\n"
+        "    for i in range(1, n + 1):\n"
+        "        if i % 15 == 0:\n"
+        "            out.append('FizzBuzz')\n"
+        "        elif i % 3 == 0:\n"
+        "            out.append('Fizz')\n"
+        "        elif i % 5 == 0:\n"
+        "            out.append('Buzz')\n"
+        "        else:\n"
+        "            out.append(str(i))\n"
+        "    return out\n"
+    ),
+    "count_words": (
+        "def count_words(text: str) -> dict:\n"
+        "    \"\"\"Return word -> frequency mapping (case-insensitive, alphanumeric).\"\"\"\n"
+        "    from collections import Counter\n"
+        "    import re\n"
+        "    words = re.findall(r\"[A-Za-z0-9']+\", text.lower())\n"
+        "    return dict(Counter(words))\n"
+    ),
+    "linked_list": (
+        "class Node:\n"
+        "    \"\"\"Simple singly-linked list node.\"\"\"\n"
+        "    def __init__(self, value, next=None):\n"
+        "        self.value = value\n"
+        "        self.next = next\n"
+        "\n"
+        "class LinkedList:\n"
+        "    def __init__(self):\n"
+        "        self.head = None\n"
+        "\n"
+        "    def push(self, value):\n"
+        "        self.head = Node(value, self.head)\n"
+        "\n"
+        "    def __iter__(self):\n"
+        "        cur = self.head\n"
+        "        while cur is not None:\n"
+        "            yield cur.value\n"
+        "            cur = cur.next\n"
+        "\n"
+        "    def __len__(self):\n"
+        "        return sum(1 for _ in self)\n"
+    ),
+    "binary_tree": (
+        "class TreeNode:\n"
+        "    \"\"\"Binary tree node with optional left/right children.\"\"\"\n"
+        "    def __init__(self, value, left=None, right=None):\n"
+        "        self.value = value\n"
+        "        self.left = left\n"
+        "        self.right = right\n"
+        "\n"
+        "    def inorder(self):\n"
+        "        if self.left is not None:\n"
+        "            yield from self.left.inorder()\n"
+        "        yield self.value\n"
+        "        if self.right is not None:\n"
+        "            yield from self.right.inorder()\n"
+    ),
+    "graph_bfs": (
+        "from collections import deque\n"
+        "\n"
+        "def bfs(graph: dict, start) -> list:\n"
+        "    \"\"\"Breadth-first search; returns nodes in BFS order from start.\n"
+        "    graph: {node: [neighbors]} adjacency dict.\"\"\"\n"
+        "    visited = {start}\n"
+        "    order = []\n"
+        "    queue = deque([start])\n"
+        "    while queue:\n"
+        "        node = queue.popleft()\n"
+        "        order.append(node)\n"
+        "        for nbr in graph.get(node, []):\n"
+        "            if nbr not in visited:\n"
+        "                visited.add(nbr)\n"
+        "                queue.append(nbr)\n"
+        "    return order\n"
+    ),
+    "graph_dfs": (
+        "def dfs(graph: dict, start) -> list:\n"
+        "    \"\"\"Depth-first search; returns nodes in DFS order from start.\"\"\"\n"
+        "    visited = set()\n"
+        "    order = []\n"
+        "    stack = [start]\n"
+        "    while stack:\n"
+        "        node = stack.pop()\n"
+        "        if node in visited:\n"
+        "            continue\n"
+        "        visited.add(node)\n"
+        "        order.append(node)\n"
+        "        for nbr in reversed(graph.get(node, [])):\n"
+        "            if nbr not in visited:\n"
+        "                stack.append(nbr)\n"
+        "    return order\n"
+    ),
+    "memoize": (
+        "def memoize(func):\n"
+        "    \"\"\"Decorator: cache call results by argument tuple.\"\"\"\n"
+        "    cache = {}\n"
+        "    def wrapper(*args):\n"
+        "        if args not in cache:\n"
+        "            cache[args] = func(*args)\n"
+        "        return cache[args]\n"
+        "    wrapper.cache = cache\n"
+        "    return wrapper\n"
+    ),
+    "rate_limit": (
+        "import time\n"
+        "from collections import deque\n"
+        "\n"
+        "class RateLimiter:\n"
+        "    \"\"\"Sliding-window rate limiter: max_calls per window_seconds.\"\"\"\n"
+        "    def __init__(self, max_calls: int, window_seconds: float):\n"
+        "        self.max_calls = max_calls\n"
+        "        self.window = window_seconds\n"
+        "        self.timestamps = deque()\n"
+        "\n"
+        "    def allow(self) -> bool:\n"
+        "        now = time.time()\n"
+        "        while self.timestamps and self.timestamps[0] < now - self.window:\n"
+        "            self.timestamps.popleft()\n"
+        "        if len(self.timestamps) < self.max_calls:\n"
+        "            self.timestamps.append(now)\n"
+        "            return True\n"
+        "        return False\n"
+    ),
+    "lru_cache": (
+        "from collections import OrderedDict\n"
+        "\n"
+        "class LRUCache:\n"
+        "    \"\"\"Least-Recently-Used cache with fixed capacity.\"\"\"\n"
+        "    def __init__(self, capacity: int):\n"
+        "        self.capacity = capacity\n"
+        "        self.cache = OrderedDict()\n"
+        "\n"
+        "    def get(self, key):\n"
+        "        if key not in self.cache:\n"
+        "            return None\n"
+        "        self.cache.move_to_end(key)\n"
+        "        return self.cache[key]\n"
+        "\n"
+        "    def put(self, key, value):\n"
+        "        if key in self.cache:\n"
+        "            self.cache.move_to_end(key)\n"
+        "        self.cache[key] = value\n"
+        "        if len(self.cache) > self.capacity:\n"
+        "            self.cache.popitem(last=False)\n"
+    ),
+    "http_get": (
+        "import urllib.request\n"
+        "import json as _json\n"
+        "\n"
+        "def http_get_json(url: str, timeout: float = 10.0) -> dict:\n"
+        "    \"\"\"GET url; parse response as JSON. Raises on HTTP errors.\"\"\"\n"
+        "    req = urllib.request.Request(url, headers={'Accept': 'application/json'})\n"
+        "    with urllib.request.urlopen(req, timeout=timeout) as resp:\n"
+        "        return _json.loads(resp.read().decode('utf-8'))\n"
+    ),
+}
+
+
+def _match_task_template(user_text: str) -> Optional[str]:
+    """Return a complete task template if user_text mentions a known task.
+    Otherwise None — caller falls through to operator-frame composition.
+    Matching is keyword-substring; first hit wins.
+    """
+    if not user_text:
+        return None
+    # Normalize: lower-case, replace _ and - with spaces so 'is_prime'
+    # matches the 'is prime' keyword.
+    t = user_text.lower().replace('_', ' ').replace('-', ' ')
+    # Specific tasks: longest-keyword first to disambiguate.
+    keywords = [
+        ("fibonacci", "fibonacci"),
+        ("factorial", "factorial"),
+        ("merge sort", "merge_sort"),
+        ("mergesort", "merge_sort"),
+        ("quicksort", "quicksort"),
+        ("quick sort", "quicksort"),
+        ("binary search", "binary_search"),
+        ("binary tree", "binary_tree"),
+        ("linked list", "linked_list"),
+        ("graph bfs", "graph_bfs"),
+        ("breadth first", "graph_bfs"),
+        ("graph dfs", "graph_dfs"),
+        ("depth first", "graph_dfs"),
+        ("primes up to", "primes_up_to"),
+        ("sieve", "primes_up_to"),
+        ("is prime", "is_prime"),
+        ("prime number", "is_prime"),
+        ("greatest common divisor", "gcd"),
+        ("euclidean", "gcd"),
+        ("gcd", "gcd"),
+        ("reverse string", "reverse_string"),
+        ("palindrome", "palindrome"),
+        ("fizzbuzz", "fizzbuzz"),
+        ("fizz buzz", "fizzbuzz"),
+        ("count words", "count_words"),
+        ("word frequenc", "count_words"),
+        ("memoize", "memoize"),
+        ("rate limit", "rate_limit"),
+        ("lru cache", "lru_cache"),
+        ("least recently used", "lru_cache"),
+        ("http get", "http_get"),
+        ("fetch json", "http_get"),
+        ("sort", "sort"),
+    ]
+    for kw, key in keywords:
+        if kw in t:
+            return TASK_TEMPLATES[key]
+    return None
+
+
 def _validate_python(code: str) -> bool:
     """ast.parse the generated block. Return True if it parses."""
     try:
@@ -510,9 +848,21 @@ class CKCodeVoice:
 
         Returns the code string on success, or None if no valid block
         could be assembled in `max_attempts` tries.
+
+        First tries task-template matching from user_text (e.g., 'fibonacci'
+        -> the actual fibonacci function). Falls through to operator-frame
+        substitution when no canonical task is recognized.
         """
         if not trajectory:
             return None
+
+        # Task-aware fast path: if user mentioned a recognized task, emit
+        # the actual implementation. This is much more useful than the
+        # generic skeleton for canonical tasks.
+        task_block = _match_task_template(user_text)
+        if task_block is not None and _validate_python(task_block):
+            self._last_block = task_block
+            return task_block
 
         op = dominant_op(trajectory)
         frames = FRAMES.get(op, FRAMES[HARMONY])
