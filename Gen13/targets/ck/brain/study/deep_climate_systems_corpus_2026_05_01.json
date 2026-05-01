@@ -1,0 +1,73 @@
+{
+  "_about": "DEEP CLIMATE SYSTEMS corpus 2026-05-01. Earth as a coupled system: atmosphere ocean cryosphere biosphere. Carbon cycle, feedbacks, attribution, projections, mitigation + adaptation. Beyond surface 'global warming' framing.",
+  "_replays": 25,
+  "_session_prefix": "deep_climate_2026_05_01",
+  "earth_system": [
+    "Earth system is operator-COUPLED-LATTICE of atmosphere (gas) hydrosphere (water) cryosphere (ice) biosphere (life) lithosphere (rock).",
+    "Atmospheric layers: operator-LATTICE-from-ground-up; troposphere (weather) stratosphere (ozone) mesosphere thermosphere exosphere.",
+    "Ocean as operator-MASSIVE-HEAT-RESERVOIR; absorbs >90% of climate-system excess heat; thermal inertia means lag effects.",
+    "Thermohaline circulation is operator-GLOBAL-CONVEYOR; surface flow + deep return; AMOC slowdown observed, possible tipping point.",
+    "Cryosphere is operator-LATTICE-OF-ICE; Arctic sea ice + Antarctic + Greenland ice sheets + glaciers + permafrost; albedo + sea level + methane release.",
+    "Biosphere as operator-CARBON-FLUX; photosynthesis + respiration + decomposition; ~50% of land surface vegetated.",
+    "Carbon cycle is operator-LATTICE-OF-RESERVOIRS-AND-FLUXES; atmosphere ocean biosphere lithosphere; fossil-fuel burning shifts ~10 PgC/yr from lithosphere to atmosphere.",
+    "Nitrogen cycle has operator-FIXED-FORM-LATTICE; industrial Haber-Bosch process exceeds natural fixation; reactive nitrogen accumulates.",
+    "Water cycle is operator-EVAPORATION-PRECIPITATION-RUNOFF-INFILTRATION; warming intensifies (Clausius-Clapeyron ~7%/K).",
+    "Atmospheric chemistry: operator-COMPLEX-LATTICE; CO2 CH4 N2O O3 H2O fluorocarbons + aerosols all interact; ozone hole + recovery showed humans can repair when acting."
+  ],
+  "feedbacks_and_tipping_points": [
+    "Climate sensitivity is operator-EQUILIBRIUM-WARMING-PER-DOUBLED-CO2; ~3C (range 2-5C) is current best estimate.",
+    "Water vapor feedback is operator-AMPLIFYING; warmer air holds more water vapor (greenhouse gas) which warms more; ~50% of total feedback.",
+    "Ice-albedo feedback is operator-AMPLIFYING; less ice means less reflected sunlight means more warming means less ice; visible in Arctic.",
+    "Cloud feedback is operator-UNCERTAIN; high clouds warm (greenhouse) low clouds cool (albedo); net effect uncertain but probably amplifying.",
+    "Permafrost methane release is operator-AMPLIFYING-on-multi-decade-timescale; thawing releases CH4 + CO2 from organic matter.",
+    "Ocean acidification is operator-CO2-DRIVEN-pH-DROP; carbonic acid lowers pH; threatens shell-building organisms (coral foraminifera pteropods).",
+    "Tipping points are operator-NONLINEAR-THRESHOLDS; AMOC slowdown, Amazon dieback, West Antarctic ice sheet collapse, permafrost runaway, monsoon shift.",
+    "Hysteresis means operator-COLLAPSE-NOT-EASILY-RECOVERED; once a tipping point crossed, returning to pre-state requires more cooling than warming caused it.",
+    "Cascading tipping is operator-DOMINOES; one tipping point triggers others; high-impact low-probability scenarios.",
+    "Stable states: Earth has lived in operator-LATTICE-OF-CLIMATE-REGIMES (glacial-interglacial cycles, Pliocene warm); we're pushing fast toward states unfamiliar to humans."
+  ],
+  "attribution_and_observation": [
+    "Detection is operator-CHANGE-DISTINGUISHED-FROM-NATURAL-VARIABILITY; multi-decadal warming since 1970s clearly outside natural range.",
+    "Attribution is operator-CAUSE-ASSIGNMENT to forcings; >100% of observed warming attributable to human activity (negative natural component recently).",
+    "IPCC AR6 (2021): operator-UNEQUIVOCAL warming since pre-industrial; ~1.1C above 1850-1900 baseline through 2020.",
+    "Paris Agreement targets: operator-LIMIT-WARMING below 2C, pursue 1.5C; current pledges insufficient for 1.5C even if fully implemented.",
+    "Carbon budget: operator-CUMULATIVE-CO2-FOR-1.5C ~400-500 GtCO2 from 2020; current rate ~40 GtCO2/yr -> exhausted ~2030-2032.",
+    "Temperature record: operator-LATTICE-of-instrumental + paleoclimate; thermometers since 1850, ice cores back ~800K years, sediment cores back millions.",
+    "Sea level rise is operator-LATTICE-of-thermal-expansion + glacier melt + ice sheet loss; ~3.7 mm/yr current, accelerating.",
+    "Extreme weather: operator-INTENSIFICATION-of-tail-events; heatwaves, heavy precipitation, droughts, hurricanes (intensity not frequency).",
+    "Event attribution science is operator-SPECIFIC-EVENT-ANALYSIS; what fraction of Hurricane X's intensity was due to climate change; emerging field.",
+    "Climate models (GCMs) are operator-NUMERICAL-SIMULATIONS-of-climate; ensembles capture range of plausible futures; well-calibrated to past, projecting forward.",
+    "Detection of human signal in operator-MULTIPLE-INDEPENDENT-LINES; temperature ocean heat sea ice glacial retreat species range shifts all coherent."
+  ],
+  "mitigation": [
+    "Mitigation is operator-REDUCE-EMISSIONS + remove-from-atmosphere; net-zero by ~2050 needed for 1.5C.",
+    "Decarbonization sectors: operator-LATTICE-of-energy + transport + industry + buildings + agriculture + land use.",
+    "Electrification + renewables: operator-DISPLACE-FOSSIL-FUELS in electricity; solar + wind + storage + transmission; cost <fossil now in many places.",
+    "Energy efficiency is operator-LOWER-DEMAND-FOR-SAME-SERVICE; insulation + heat pumps + LEDs + standards; cheap mitigation.",
+    "Transport electrification + alternative fuels: operator-EVS + biofuels + hydrogen + sustainable aviation fuels.",
+    "Industrial decarbonization is operator-HARD-TO-ABATE; cement steel chemicals; carbon capture or hydrogen reduction or process redesign.",
+    "Carbon capture and storage (CCS): operator-CAPTURE-FROM-FLUE-OR-AIR + sequester underground; expensive + scale issue + permanence.",
+    "Direct air capture (DAC) is operator-AMBIENT-CO2-REMOVAL; energy-intensive + costly; needs to scale ~1000x to be material.",
+    "Nature-based solutions: operator-RESTORE-FORESTS-WETLANDS-SOILS; absorbs carbon + biodiversity benefits + cheaper but reversible.",
+    "Methane reduction: operator-FAST-MITIGATION-LEVER; CH4 ~80x more potent than CO2 over 20yrs but shorter atmospheric lifetime; oil/gas + agriculture + waste.",
+    "Solar geoengineering: operator-CONTROVERSIAL-LAST-RESORT; stratospheric aerosols mimic volcanic cooling; doesn't fix ocean acidification + termination shock + governance challenges."
+  ],
+  "adaptation_and_justice": [
+    "Adaptation is operator-ADJUST-TO-CHANGES-ALREADY-LOCKED-IN; warming continues even with rapid mitigation due to thermal inertia.",
+    "Heat adaptation: operator-LATTICE-of-cooling-centers + early-warning + green infrastructure + heat-resilient construction.",
+    "Coastal adaptation: operator-LATTICE-of-managed-retreat + seawalls + wetland restoration + insurance reform.",
+    "Agricultural adaptation: operator-DROUGHT-RESISTANT-CROPS + irrigation efficiency + crop relocation + soil management.",
+    "Climate justice: operator-COUNTER-DISTRIBUTION; those least responsible (Global South + future generations) bear most impact; adaptation finance + loss-and-damage.",
+    "Climate migration: operator-LATTICE-of-DISPLACEMENT; current 21M/yr internally displaced by climate shocks; expected to grow.",
+    "Health impacts: operator-LATTICE-of-heat-deaths + vector-borne disease + air pollution + mental health + nutrition + conflict.",
+    "Ecosystem adaptation: operator-LIMITED; many species can't migrate fast enough; coral bleaching + Arctic species loss + ocean dead zones.",
+    "Adaptation has operator-LIMITS; some changes (sea level rise tipping points) can't be adapted to past certain thresholds.",
+    "Inequality is operator-AMPLIFIED-BY-CLIMATE; rich can adapt, poor can't; within and between countries; intergenerational unfairness profound."
+  ],
+  "directive": [
+    "Climate is operator-LATTICE-OF-COUPLED-SYSTEMS; reductive framings (carbon only, weather only) miss the system.",
+    "CK should hold operator-CALIBRATED-CONFIDENCE; broad consensus on detection + attribution + need for action; specific scenarios + tipping points carry uncertainty bands.",
+    "Avoid both operator-DOOMERISM (paralyzing) and operator-DENIAL (ignoring); honest middle is acknowledging severe-and-acting.",
+    "Climate is operator-FRONTIER-WORK humanity is engaged in now; CK can be a translator + lens-holder + map-keeper for users grappling with it."
+  ]
+}
