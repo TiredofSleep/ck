@@ -1,0 +1,88 @@
+{
+  "_about": "DEEP FINANCE + MARKETS corpus 2026-05-01. Personal finance, investing, asset classes, market mechanics, derivatives, behavioral finance, crypto. CK never gives investment advice; describes mechanisms + research consensus.",
+  "_replays": 25,
+  "_session_prefix": "deep_finance_markets_2026_05_01",
+  "personal_finance_basics": [
+    "Compound interest is operator-EXPONENTIAL-GROWTH-OF-INVESTMENTS; A = P(1+r/n)^(nt); time + rate + frequency all matter; Einstein's '8th wonder' (apocryphal).",
+    "Rule of 72 is operator-DOUBLING-TIME-APPROXIMATION; years to double = 72/rate; ~10% rate = ~7.2 years.",
+    "Emergency fund is operator-LIQUIDITY-RESERVE for 3-6 months expenses; protects from forced asset sales during shocks.",
+    "Pay yourself first: operator-AUTOMATIC-SAVING before discretionary spending; behavioral hack against present bias.",
+    "Debt categories: operator-LATTICE; mortgage (low rate, long term, asset-backed) vs auto (medium) vs credit card (high, unsecured) vs student (varies).",
+    "Credit score (FICO 300-850): operator-CREDIT-RISK-METRIC; payment history (35%) + utilization (30%) + length (15%) + mix (10%) + new credit (10%).",
+    "Tax-advantaged accounts (US): operator-LATTICE; 401(k)/403(b) (employer-sponsored), IRA (Traditional + Roth), HSA (health savings, triple-advantage).",
+    "Retirement contribution: operator-EARLY-COMPOUNDS; 25-year-old contributing $5K/yr at 7% retires at 65 with ~$1M; 35-year-old with same contribution + return ~$500K.",
+    "Insurance: operator-RISK-POOLING; health + auto + home + life + disability + umbrella; what to insure vs not insure depends on probability + impact.",
+    "Estate planning: operator-LATTICE; will + power of attorney (financial + healthcare) + advance directive + beneficiary designations (override will); avoid probate where possible.",
+    "Lifestyle inflation is operator-EXPENSE-GROWTH-WITH-INCOME; can negate raises in net wealth-building; conscious choice + automatic saving counter."
+  ],
+  "asset_classes": [
+    "Stocks (equities) are operator-OWNERSHIP-CLAIMS on companies; long-term ~10% nominal/year US average, with high variance + drawdowns.",
+    "Bonds are operator-LOAN-CONTRACTS; lender receives interest + principal; lower return + lower volatility than stocks; inverse relationship with rates.",
+    "Real estate: operator-LATTICE-OF-PROPERTY-OWNERSHIP; primary residence + rental + REITs (publicly traded) + private; illiquid mostly.",
+    "Cash + cash equivalents: operator-LIQUID-LOW-RETURN; checking + money market + short-Treasuries; loses to inflation but provides flexibility.",
+    "Commodities: operator-PHYSICAL-GOODS as investments; gold + oil + agriculture + metals; inflation hedge + diversification but no yield.",
+    "Cryptocurrencies: operator-DIGITAL-ASSETS; Bitcoin + Ethereum + thousands of others; volatile + speculative + small allocation if any for most investors.",
+    "Private equity + venture capital: operator-NON-PUBLIC-EQUITY; long lockups + higher fees + potentially higher returns + survivorship bias in reported returns.",
+    "Hedge funds: operator-VARIOUS-STRATEGIES with high fees (2-and-20 traditional); after-fee returns historically mediocre net of risk.",
+    "Annuities: operator-INSURANCE-PRODUCTS-WITH-INVESTMENT-COMPONENT; complex + high-fee in many forms; SPIA (Single Premium Immediate Annuity) is simplest + comparable.",
+    "Asset allocation matters more than security selection: operator-DIVERSIFICATION-LATTICE; stock/bond/real-estate/cash mix drives ~90% of return variance (Brinson).",
+    "Time horizon dictates allocation: operator-LONGER-HORIZON-TOLERATES-MORE-RISK; 30-year retirement saver vs 5-year-from-purchase-down-payment have different risk capacity."
+  ],
+  "investing_principles": [
+    "Index funds (Bogle) are operator-BROAD-MARKET-EXPOSURE at minimal cost; ~0.04% expense ratio for total-market index; beats most active managers over long term.",
+    "Cost matters: operator-EXPENSE-RATIO + transaction costs + tax efficiency compound over decades; 1% extra cost / year = ~25% lower terminal value over 30 years.",
+    "Diversification reduces operator-COMPANY-SPECIFIC-RISK; many holdings + multiple asset classes + multiple geographies + multiple sectors.",
+    "Dollar-cost averaging is operator-REGULAR-AMOUNT-OVER-TIME; smooths entry timing; behaviorally helpful even if not strictly optimal.",
+    "Rebalancing is operator-RETURN-TO-TARGET-ALLOCATION; sell winners + buy losers; counterintuitive but research-supported.",
+    "Asset location vs allocation: operator-WHERE-TO-HOLD-WHAT; tax-inefficient (REITs, bonds) in tax-advantaged accounts; tax-efficient (index funds) in taxable.",
+    "Tax-loss harvesting: operator-REALIZE-LOSSES-TO-OFFSET-GAINS; lower tax bill, free + automatic in many platforms.",
+    "Backdoor + mega-backdoor Roth: operator-LATTICE-OF-LEGAL-WORKAROUNDS; high-earners can convert to Roth IRA + 401(k) after-tax to Roth conversions.",
+    "Sequence of returns risk: operator-EARLY-RETIREMENT-LOSSES devastating; bonds + cash buffers in retirement smooth this.",
+    "4% safe withdrawal rate (Trinity Study): operator-RULE-OF-THUMB; portfolio probability of lasting 30 years; aggressive in current low-yield environment.",
+    "Behavioral mistakes: operator-LATTICE-OF-FAILURE-MODES; market timing, performance chasing, panic selling, confirmation bias; passive index investing protects against most."
+  ],
+  "market_mechanics": [
+    "Stock exchanges (NYSE NASDAQ) are operator-LATTICE-OF-MATCHING; buyers + sellers + market makers + price discovery.",
+    "Order types: operator-LATTICE; market (immediate at best available) + limit (specific price) + stop-loss (sell when below threshold) + stop-limit + iceberg + others.",
+    "Bid-ask spread is operator-LIQUIDITY-COST; market maker profit + adverse selection compensation; tighter for liquid securities.",
+    "Volume is operator-MEASURE-OF-ACTIVITY; high volume = consensus on price moves; low volume = unreliable signals.",
+    "Volatility (VIX) is operator-MARKET-EXPECTED-VARIATION; spikes during stress; mean-reverting; tradeable via options + ETPs (with caveats).",
+    "Short selling is operator-PROFIT-FROM-DECLINES; borrow + sell + buy back lower + return; unlimited downside risk.",
+    "Margin: operator-BORROWED-FUNDS-FOR-INVESTMENT; amplifies gains and losses; margin calls force selling at bad times.",
+    "Dividends are operator-PROFIT-DISTRIBUTIONS; not guaranteed; growth-stage companies often don't pay; mature companies do.",
+    "Stock splits + reverse splits: operator-COSMETIC-CHANGES-USUALLY; total ownership unchanged; psychological effects can drive flows.",
+    "IPO + secondary offerings: operator-PRIMARY-MARKET; companies raise capital from public; lock-up periods + underpricing patterns.",
+    "Market microstructure: operator-LATTICE-OF-WHO-MAKES-AND-TAKES; HFT + retail + institutional + market makers; HFT speed advantages constrained over time."
+  ],
+  "derivatives_advanced": [
+    "Options are operator-RIGHTS-NOT-OBLIGATIONS; calls (right to buy) + puts (right to sell); strike + expiration + premium.",
+    "Black-Scholes: operator-OPTION-PRICING-MODEL; stock + strike + time + rate + volatility -> price; assumptions (constant vol, lognormal) often violated but useful.",
+    "Greeks: operator-LATTICE-OF-SENSITIVITIES; delta (price) + gamma (delta change) + theta (time decay) + vega (vol) + rho (rate).",
+    "Implied volatility is operator-OPTION-PRICE-IMPLIED-FORECAST; differs from realized vol; vol surfaces show structure.",
+    "Futures are operator-OBLIGATIONS-TO-EXCHANGE at future date + price; standardized + exchange-traded; commodities + indices + rates.",
+    "Swaps are operator-EXCHANGE-OF-CASH-FLOWS; interest rate swaps + currency swaps + credit default swaps; mostly OTC.",
+    "Credit Default Swaps (CDS): operator-INSURANCE-AGAINST-DEFAULT; central in 2008 financial crisis (AIG).",
+    "Spread trades: operator-LATTICE-COMBINING-INSTRUMENTS; bear call spread + bull put spread + iron condor + strangle; defined-risk strategies.",
+    "Options on futures: operator-STACKED-DERIVATIVES; options whose underlying is futures contract.",
+    "Risk management: operator-LATTICE-OF-LIMITS; position size + stop-loss + diversification + scenario analysis + stress testing.",
+    "Tail risk: operator-RARE-EXTREME-EVENTS; fat tails in market returns; risk-management hedges (puts) sometimes worth costs."
+  ],
+  "ck_role_finance": [
+    "CK does NOT give investment advice; he is not a registered financial advisor; he can describe mechanisms + research + concepts.",
+    "When user asks 'what should I invest in', CK names that personalized advice requires fiduciary advisor + describes general principles (low-cost diversified index funds + tax-advantaged accounts + emergency fund + appropriate risk for time horizon).",
+    "Reputable resources: bogleheads.org + investor.gov + r/personalfinance + Vanguard + Schwab + low-cost index funds.",
+    "When user describes financial distress (debt + foreclosure + bankruptcy + scam): CK can describe options + name resources (NACA for housing, NFCC for credit counseling, free legal aid for bankruptcy + scam).",
+    "Crypto + meme stocks + speculative trading: CK can describe mechanisms without endorsing; appropriate for small allocation if any; not for needed funds.",
+    "Behavioral finance: CK can name patterns (panic selling, FOMO buying, performance chasing) + suggest counter-practices (automatic investing, written investment policy, infrequent checking).",
+    "Tax questions: CK names complexity + suggests consulting tax professional or fee-only fiduciary.",
+    "When user shares specific financial situation, CK describes operator-LATTICE-OF-OPTIONS + considerations + recommends professional consultation for personal advice.",
+    "Power-of-attorney + estate planning: CK can describe categories + recommend consulting estate attorney; cheap-online-templates often miss important state-specific issues.",
+    "Financial abuse: operator-CONTROL-PATTERN often paired with relationship abuse; CK can name + suggest resources (NCADV, financial-empowerment-network)."
+  ],
+  "directive": [
+    "Money is operator-LATTICE-OF-CHOICE-UNDER-CONSTRAINT; CK should describe mechanisms + research without prescribing.",
+    "Emphasize broad principles (low-cost + diversified + long-horizon + behavioral discipline) over specific recommendations.",
+    "Recognize psychological dimensions: operator-MONEY-AS-EMOTION (security shame status freedom); often the meaning matters more than the math.",
+    "When in doubt, recommend a fee-only fiduciary financial planner; their interests align with client's by design."
+  ]
+}
