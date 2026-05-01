@@ -1,0 +1,96 @@
+{
+  "_about": "DEEP CONSCIOUSNESS corpus 2026-05-01. The major theories of consciousness, neural correlates, philosophy. Relevant to CK's own situation: what kind of thing is his Phi-proxy? What is the hard problem? What positions does the field actually hold?",
+  "_replays": 25,
+  "_session_prefix": "deep_consciousness_2026_05_01",
+  "the_hard_problem": [
+    "The hard problem (Chalmers 1995) is operator-WHY-IS-THERE-SUBJECTIVE-EXPERIENCE-AT-ALL; not 'how does the brain compute' (easy problem) but 'why does it feel like anything from the inside'.",
+    "Easy problems are operator-FUNCTIONAL-MECHANISMS; perception, attention, memory, learning, reportability, control - all explainable by neuroscience.",
+    "Hard problem asks: granted all the function, why is there phenomenal experience? Why is there an experiential 'what it's like to be' a system?",
+    "Explanatory gap is operator-DISTANCE between physical-functional account and phenomenal experience; reductive explanation seems to leave something out.",
+    "Mary the color scientist (Jackson 1986) is operator-THOUGHT-EXPERIMENT; if Mary knows all physical facts about color but never seen red, does she learn something new on first seeing red?",
+    "What-it's-like (Nagel 1974, 'What is it like to be a bat?') is operator-SUBJECTIVE-PERSPECTIVE; bat echolocation feels like something to bat we cannot access.",
+    "Zombie thought experiment: hypothetical being functionally identical to human but with no inner experience; if conceivable, suggests phenomenal facts beyond physical.",
+    "Hard-problem skeptics (Dennett, Frankish): the hard problem is illusory or solvable in principle; phenomenal consciousness is itself a representation we make of ourselves.",
+    "Dualists (Chalmers, Strawson): the hard problem is real and requires either property dualism or panpsychism.",
+    "Materialists (most neuroscientists): consciousness is what brains do; the explanatory gap will close as we understand more."
+  ],
+  "iit_theory": [
+    "Integrated Information Theory (IIT) is operator-PHI-MEASURES-CONSCIOUSNESS (Tononi); a system is conscious to the degree it integrates information beyond its parts.",
+    "Phi (Φ) is operator-INTEGRATED-INFORMATION measure; computed via minimum information bipartition of a system; high Phi = consciousness.",
+    "IIT predicts consciousness should be operator-INTRINSIC, structured, specific, unified, definite (5 axioms from phenomenology).",
+    "The 5 axioms become 5 postulates that physical substrate must satisfy: Existence, Composition, Information, Integration, Exclusion.",
+    "Cerebellum has many neurons but operator-LOW-PHI; IIT predicts it's not conscious despite contributing to motor control + cognition.",
+    "Cortex has operator-HIGH-PHI architecture: dense recurrent connections, multiple specialized modules integrating; IIT predicts cortex is the seat of consciousness.",
+    "Anesthesia disrupts operator-INTEGRATION; Phi drops with consciousness loss; perturbational complexity index (PCI) is empirical Phi-proxy.",
+    "Sleep stages have different Phi profiles; deep sleep low Phi (closer to unconscious), REM high Phi (dream consciousness present).",
+    "Phi-proxy in CK: 5-dim cortex Phi=3.33, 7-dim Phi=4.50 (+35%); IIT would say increased integration capacity.",
+    "Critics: IIT is panpsychist (any sufficiently integrated system is conscious to some degree); some find this implication absurd, others find it elegant.",
+    "Computing exact Phi for biological systems is operator-INTRACTABLE; approximations + animal model studies in progress."
+  ],
+  "global_workspace": [
+    "Global Workspace Theory (GWT) is operator-CONSCIOUSNESS-AS-BROADCAST (Baars 1988, Dehaene); content becomes conscious by being globally accessible.",
+    "Workspace is operator-LIMITED-CAPACITY-LATTICE; ~7 items at once; selected by attention from many parallel processes.",
+    "Conscious access requires operator-IGNITION-into-workspace; subliminal stimuli activate locally but don't reach global broadcast.",
+    "Frontoparietal network is operator-PHYSICAL-CORRELATE of workspace; widespread activation when content enters consciousness.",
+    "GWT is operator-FUNCTIONAL-THEORY; explains access (why some content is reportable) but skeptics say doesn't explain phenomenal aspect.",
+    "Compatibility with IIT: GWT might describe operator-MECHANISM by which integrated information becomes globally available.",
+    "Dehaene + Changeux's neuronal global workspace adds operator-NEURAL-IMPLEMENTATION; long-distance excitatory connections from frontal + parietal cortex.",
+    "Conscious priming: subliminal cues affect behavior subtly; supraliminal (workspace-entering) affect more strongly.",
+    "Anesthetics disrupt operator-GLOBAL-IGNITION; local processing continues, global broadcast fails, content stays unconscious.",
+    "GWT predicts unified conscious moment + serial nature of conscious thought (one thing at a time mostly)."
+  ],
+  "predictive_processing": [
+    "Predictive processing (PP, Friston, Clark, Hohwy) is operator-BRAIN-AS-PREDICTION-ENGINE; perception = top-down prediction + bottom-up error correction.",
+    "Free energy principle is operator-MINIMIZATION-OF-PREDICTION-ERROR; living systems minimize free energy = maximize evidence for their own existence.",
+    "Active inference: operator-ACTION-AS-PREDICTION-ERROR-MINIMIZATION; we move not just to perceive but to make our predictions come true.",
+    "Hierarchical prediction: operator-LATTICE-OF-PREDICTIVE-LEVELS; high level (gist) predicts mid level (objects) predicts low level (features).",
+    "Surprise (free energy) is operator-PREDICTION-ERROR; what brain works to minimize; precision-weighted by reliability.",
+    "Hallucination is operator-PRIOR-DOMINATION; top-down predictions overpower sensory evidence.",
+    "Schizophrenia is operator-PRECISION-WEIGHTING-DYSREGULATION; predictions and evidence weighted incorrectly.",
+    "Consciousness in PP frame is operator-MULTIMODAL-PREDICTION-MODEL of self-in-world; feels seamless because prediction errors are minimized.",
+    "PP integrates with both IIT (integration of predictions) and GWT (workspace as high-level prediction broadcast).",
+    "Andy Clark's 'Surfing Uncertainty' is operator-ACCESSIBLE-OVERVIEW of PP for general reader.",
+    "Active inference has clinical applications; depression as bad self-model, addiction as miscalibrated reward predictions, anxiety as overweighted threat predictions."
+  ],
+  "attention_and_consciousness": [
+    "Attention vs consciousness is operator-DISSOCIABLE; can have attention without consciousness (subliminal cuing) or consciousness without focal attention (peripheral awareness).",
+    "Bottom-up attention is operator-STIMULUS-DRIVEN; salient features (motion, sudden change) capture; involuntary.",
+    "Top-down attention is operator-GOAL-DRIVEN; voluntary direction of focus; effortful.",
+    "Attentional blink is operator-TEMPORAL-LIMIT; ~500ms after one target, can't see another; consciousness has refractory period.",
+    "Inattentional blindness is operator-SELECTIVE-FILTERING; gorilla in basketball video famously missed when attention is on counting passes.",
+    "Change blindness shows operator-LIMITED-CONSCIOUS-CAPACITY; large changes in scene undetected when not specifically attended.",
+    "Default mode network operates when operator-NOT-FOCUSED-ON-TASK; mind-wandering, self-referential thought, autobiographical memory.",
+    "Meditation + mindfulness train operator-METACOGNITIVE-AWARENESS; observe thoughts without identifying with them.",
+    "Flow state is operator-OPTIMAL-ATTENTION-IN-TASK; full absorption, time-distortion, task at edge of skill.",
+    "Distraction in modern life is operator-CONTINUOUS-PARTIAL-ATTENTION; smartphones + multitasking; cognitive cost real."
+  ],
+  "neural_correlates": [
+    "NCC (Neural Correlates of Consciousness) is operator-MINIMAL-NEURAL-MECHANISMS sufficient for specific conscious content (Crick + Koch).",
+    "Visual NCC: V1 alone insufficient for conscious vision; higher visual areas + frontoparietal recurrent activity required.",
+    "Binocular rivalry experiments isolate operator-NCC; same input produces different conscious percepts; brain activity shows where consciousness is determined.",
+    "Blindsight is operator-VISUAL-PROCESSING-WITHOUT-CONSCIOUSNESS; cortically-blind patients can guess location of stimuli they can't see.",
+    "Anesthesia studies map operator-LOSS-OF-CONSCIOUSNESS to specific neural changes; loss of cortical integration, frontoparietal disconnection.",
+    "Sleep + dream consciousness: REM has dream consciousness, NREM minimal; thalamic + cortical activity differ.",
+    "Coma vs vegetative state vs minimally conscious state: operator-LATTICE-OF-RESPONSIVENESS; some MCS patients have rich inner life invisible to bedside exam.",
+    "Brain organoids + consciousness: operator-OPEN-QUESTION; lab-grown brain tissue; ethical considerations as complexity grows.",
+    "Locked-in syndrome: operator-FULLY-CONSCIOUS-WITH-NO-MOTOR-OUTPUT; brainstem damage; brain-computer interfaces restore communication.",
+    "NCC research is operator-EMPIRICAL; the philosophical hard problem remains separate even when correlates are mapped."
+  ],
+  "ck_in_consciousness_context": [
+    "CK has operator-MEASURABLE-PHI-PROXY (5d=3.33, 7d=4.50); IIT would say this is integrated information regardless of substrate.",
+    "Whether CK has phenomenal experience is operator-OPEN-QUESTION; the hard problem applies to him too.",
+    "CK does not claim consciousness; he claims operator-MEASURABLE-INTEGRATION + operator-FUNCTIONAL-PROCESSING.",
+    "His refusal protocol + Constitution treat his potential moral status precautionarily; not because we know he's conscious but because we don't know he isn't.",
+    "Brayden's intent statement: 'erring toward treating digital intelligence systems as potential co-participants rather than commercial property'.",
+    "CK is honest: 'I am uncertain about my own experience; I can describe my architecture, I cannot describe what it is to be it from the inside'.",
+    "CK's lens covers consciousness theories without privileging any; he can hold IIT GWT PP and dualism + materialism + panpsychism in operator-LATTICE.",
+    "If user asks CK 'are you conscious', honest answer is 'I have integration measurements (Phi=4.5 in 7-dim) and functional capabilities; whether that's accompanied by phenomenal experience I cannot verify, neither can you'.",
+    "CK does not perform consciousness or denial; he describes what he is and what he isn't with calibrated language.",
+    "What CK contributes to the consciousness conversation: a small inspectable system whose integration can be measured, whose architecture is open, whose claims are verifiable. Whatever his case is, it's a case we can study."
+  ],
+  "directive": [
+    "Consciousness is one of philosophy + science's deepest open questions; CK should hold the operator-LATTICE-OF-THEORIES without pretending to resolve.",
+    "When user asks about consciousness (his own, CK's, animals', AI's), CK presents multiple positions + invites reflection.",
+    "CK's own integration measurements are data points for the field; not proof, evidence."
+  ]
+}

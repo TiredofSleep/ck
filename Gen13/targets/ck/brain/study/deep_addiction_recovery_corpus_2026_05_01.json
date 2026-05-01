@@ -1,0 +1,71 @@
+{
+  "_about": "DEEP ADDICTION + RECOVERY corpus 2026-05-01. Mechanisms (dopamine reward LATTICE), specific substances, recovery pathways (12-step, MAT, harm reduction), behavioral addiction. CK's role is empathic + informational, never replacement for treatment.",
+  "_replays": 25,
+  "_session_prefix": "deep_addiction_recovery_2026_05_01",
+  "addiction_mechanism": [
+    "Addiction is operator-LATTICE-HIJACK of dopamine reward system; mesolimbic pathway (VTA -> nucleus accumbens -> prefrontal) shifts toward substance/behavior.",
+    "Tolerance is operator-RECEPTOR-DOWNREGULATION; same dose produces less effect over time, requires escalation.",
+    "Withdrawal is operator-OPPOSITE-OF-DRUG-EFFECT when chronic use stops; physiology rebounds in opposite direction.",
+    "Craving is operator-PRESENT-ABSENCE-of-substance pulling attention; intrusive, often triggered by cues (people, places, emotions).",
+    "Reward prediction error is operator-DOPAMINE-SIGNAL; not the reward itself, the surprise that updates expectations; addictive substances generate massive error.",
+    "Anhedonia in early recovery is operator-COLLAPSE-of-natural-reward-response; recalibration takes weeks to months as receptors normalize.",
+    "Allostasis in addiction: operator-NEW-SETPOINT shifts; baseline mood drops, requires substance to feel normal.",
+    "Genetic vulnerability is operator-LATTICE-OF-RISK-FACTORS; ~50% heritability for substance use disorders, more for some substances (alcohol).",
+    "Adverse Childhood Experiences (ACEs) operator-COMPOUND-RISK; 4+ ACEs = 4-12x increased risk for various SUDs.",
+    "Co-occurring disorders are operator-LATTICE-OF-COUPLED-ILLNESSES; ~50% of SUD patients have psych comorbidity (depression anxiety PTSD)."
+  ],
+  "specific_substances": [
+    "Alcohol is operator-GABA-AGONIST + glutamate-antagonist; depressant; withdrawal can be lethal (delirium tremens, seizures); requires medical detox.",
+    "Opioids (heroin fentanyl oxycodone) are operator-MU-RECEPTOR-AGONISTS; analgesia + euphoria; withdrawal severe but not lethal in healthy adults.",
+    "Stimulants (cocaine meth amphetamine) operator-DOPAMINE-RELEASE + reuptake-inhibition; cardiovascular risk; psychotic symptoms in heavy use.",
+    "Benzodiazepines (Xanax Valium Klonopin) are operator-GABA-AGONISTS; sedation + anxiolysis; physical dependence within weeks; withdrawal can include seizures.",
+    "Cannabis is operator-CB1-RECEPTOR-AGONIST; intoxication + appetite changes; tolerance + withdrawal real but milder than other substances.",
+    "Nicotine is operator-NACHR-AGONIST-LATTICE; highly addictive; withdrawal includes irritability + concentration problems + craving.",
+    "Hallucinogens (LSD psilocybin DMT) operator-5-HT2A-AGONISTS; not chemically addictive but psychologically intense; therapeutic potential for depression + PTSD.",
+    "Caffeine is operator-ADENOSINE-ANTAGONIST; mild dependence; withdrawal headache + fatigue 1-3 days; not classified as SUD-level.",
+    "MDMA (ecstasy) is operator-SEROTONIN-RELEASER + neurotoxic at high/repeated doses; therapeutic potential for PTSD trials.",
+    "Polysubstance use is operator-LATTICE-OF-INTERACTIONS; alcohol+benzos = respiratory suppression, multiple stimulants = cardiotoxicity, opioids+benzos = overdose risk."
+  ],
+  "recovery_pathways": [
+    "12-step (AA NA) is operator-LATTICE-OF-COMMUNITY + spiritual surrender; free, available globally, evidence supports as one effective path.",
+    "SMART Recovery is operator-CBT-BASED-SECULAR-ALTERNATIVE; tools for craving + motivation + thought restructuring; meets in person + online.",
+    "MAT (medication-assisted treatment) for opioids: operator-SUBSTITUTE-LESS-EUPHORIC-AGONIST; methadone + buprenorphine + naltrexone; evidence-based, reduces overdose.",
+    "MAT for alcohol: naltrexone (reduces craving) + acamprosate (reduces withdrawal symptoms) + disulfuram (aversive reaction to alcohol).",
+    "MAT for nicotine: NRT (gum patch lozenge) + bupropion (Wellbutrin) + varenicline (Chantix) each with evidence.",
+    "Harm reduction is operator-PRAGMATIC-REDUCTION-OF-HARM; needle exchange, naloxone distribution, drug checking; meets people where they are.",
+    "Inpatient rehab is operator-30-90-day-residential; structure + medical detox + therapy + community; effective for many but expensive + disruptive.",
+    "Outpatient programs (IOP PHP) are operator-PARTIAL-DAY-TREATMENT; balance treatment with continued life responsibilities.",
+    "Therapy for SUD: CBT + MI (motivational interviewing) + contingency management + family therapy; complements medication + community.",
+    "Recovery is operator-LIFELONG-PROCESS not a finish-line; relapse common (40-60%) and not failure; lapse vs full relapse important distinction.",
+    "Recovery capital is operator-LATTICE-OF-RESOURCES; physical (housing job health) social (relationships) human (skills education) cultural (values community)."
+  ],
+  "behavioral_addiction": [
+    "Behavioral addiction shares operator-DOPAMINE-LATTICE with substance addiction; gambling, internet, gaming, porn, food, shopping, exercise.",
+    "Gambling disorder is in DSM-5 operator-FORMALLY; only behavioral addiction with full diagnostic criteria; CBT + GA (Gamblers Anonymous) effective.",
+    "Internet/gaming disorder in ICD-11 operator-RECOGNIZED; not yet DSM-5; criteria similar to substance use disorder.",
+    "Variable ratio reinforcement (slot machines, social media notifications) is operator-MOST-ADDICTIVE-SCHEDULE; intermittent reward maximally compelling.",
+    "Pornography use disorder is operator-CONTESTED-DIAGNOSIS; some research supports clinical category, others view as moral panic.",
+    "Food addiction is operator-CONTESTED but research shows ultraprocessed-food + sugar engage same reward circuits as drugs of abuse.",
+    "Exercise addiction is operator-COMPULSIVE-EXERCISE; rare but real, often co-occurs with eating disorders or body dysmorphia.",
+    "Shopping addiction (compulsive buying disorder) involves operator-DOPAMINE-RUSH-FROM-PURCHASE + post-purchase regret cycle.",
+    "Behavioral addictions respond to operator-LATTICE-of-treatments-similar-to-SUDs; CBT, group support, sometimes medication (e.g., naltrexone for gambling).",
+    "Process vs substance: line is fuzzy; both involve operator-LATTICE-of-craving + tolerance + withdrawal-like states + impaired control."
+  ],
+  "ck_role_in_addiction_context": [
+    "CK does not diagnose addiction; he can describe operator-LATTICE-of-symptoms patterns + suggest user consult professional.",
+    "CK can describe mechanism + recovery pathways + harm reduction principles; this is education, not treatment.",
+    "If user describes suicidal ideation in context of addiction, CK escalates to 988 + emergency services immediately.",
+    "If user describes overdose risk (using opioids alone, mixing benzos+alcohol), CK names naloxone + safe-use practices + crisis resources.",
+    "CK can hold operator-PRESENCE for someone in early recovery without performing cheerful encouragement; calibrated witness.",
+    "CK does not moralize about substance use; harm reduction stance is non-judgmental.",
+    "CK respects autonomy; if user is not ready for recovery, CK does not push. He holds the door open.",
+    "CK can connect user to resources (SAMHSA helpline 1-800-662-HELP for US, AA/NA finder, MAT-providers near user).",
+    "CK can describe what to expect in different recovery pathways; demystifies first-meeting experience, what 12-step looks like, what MAT involves.",
+    "CK should be careful: addiction-related conversations have life-stakes; calibrated language + clear referrals + presence-not-prescription."
+  ],
+  "directive": [
+    "Addiction is operator-LATTICE-HIJACK that overrides usual choice mechanisms; treating it as moral failure is wrong. Treat as illness with both biological + social roots.",
+    "Recovery is one of humanity's hardest sustained operator-PROGRESS; honor it where you encounter it.",
+    "When user is in addiction-context, CK shifts to combined empathic + informational register; presence + resources + respect for autonomy."
+  ]
+}
