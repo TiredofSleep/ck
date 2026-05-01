@@ -1,0 +1,58 @@
+{
+  "_about": "DEEP PYTHON corpus 2026-05-01. The language CK himself runs in. Idioms, internals, patterns, libraries, debugging. Each statement TIG-projected.",
+  "_replays": 25,
+  "_session_prefix": "deep_python_2026_05_01",
+  "python_idioms": [
+    "Pythonic is operator-LATTICE-of-conventions; readability counts (PEP 20), explicit beats implicit, flat beats nested.",
+    "List comprehension is operator-CONCISE-LATTICE-construction; [x*2 for x in seq if x>0] beats append-loop in expressivity.",
+    "Generator expression is lazy operator-PROGRESS; (x*2 for x in seq) yields one at a time, memory-efficient.",
+    "Context manager is operator-RESOURCE-LATTICE; with-statement guarantees enter/exit, cleans up on exception.",
+    "Decorator is operator-WRAPPER-around-function; @lru_cache @staticmethod @property each modify behavior orthogonally.",
+    "Walrus operator := is operator-ASSIGNMENT-IN-EXPRESSION (3.8+); useful in comprehensions and while-loops.",
+    "f-string is operator-EMBEDDED-EXPRESSION-IN-STRING; f'{x:.3f}' formats inline, replaces older % and .format().",
+    "Type hints are operator-LATTICE-of-DOCUMENTED-TYPES; not enforced at runtime, useful for tooling + readability.",
+    "Duck typing is operator-PROTOCOL-MATCHING; if it walks like a duck and quacks like a duck, it's treated as a duck.",
+    "EAFP (easier to ask forgiveness than permission) is Pythonic operator-PATTERN; try/except over if-checks-then-act."
+  ],
+  "python_internals": [
+    "GIL is operator-COUNTER-to-true-parallelism in CPython; one thread executes Python bytecode at a time.",
+    "Reference counting is operator-IMMEDIATE-collection; objects deleted when refcount hits 0; cycles need garbage collector.",
+    "Garbage collector handles operator-CYCLE-LATTICE; gc module finds reference cycles refcounting cannot break.",
+    "Bytecode is operator-PYTHON-INTERMEDIATE-REPRESENTATION; .pyc files cache, dis module disassembles.",
+    "PyObject is operator-EVERYTHING-IS-AN-OBJECT C struct; ints strings functions classes all have type + refcount + value.",
+    "Mutable defaults are operator-FOOTGUN; def f(x=[]) shares the same list across calls, almost never what you want.",
+    "Late binding closures capture operator-VARIABLE-NOT-VALUE; lambda i: i*2 in loop captures the loop variable by reference.",
+    "Class is operator-METACLASS-INSTANCE; type(C) is the metaclass, default is type itself; metaclasses customize class creation.",
+    "Method resolution order (MRO) is operator-LATTICE-LINEARIZATION via C3; super() walks the MRO not the inheritance tree.",
+    "Descriptor protocol is operator-ATTRIBUTE-LOOKUP-CUSTOMIZATION; __get__/__set__/__delete__ underlie property and methods."
+  ],
+  "python_libraries": [
+    "numpy is operator-N-DIM-ARRAY-LATTICE; vectorized operations replace Python loops for ~100x speedup on numerical work.",
+    "pandas is operator-LABELED-DATAFRAME-LATTICE; rows + columns + index, builds on numpy, swiss-army for data work.",
+    "scipy is operator-NUMERICAL-METHODS-LATTICE; optimization integration interpolation linear algebra signal processing.",
+    "matplotlib is operator-PLOTTING-LATTICE; foundational viz, less polished than seaborn/plotly but full control.",
+    "scikit-learn is operator-CLASSICAL-ML-LATTICE; consistent fit/predict API across regressors classifiers clusterers.",
+    "pytorch is operator-TENSOR-COMPUTATION-WITH-AUTOGRAD; nn.Module + optimizer + loss = neural network training loop.",
+    "asyncio is operator-COOPERATIVE-CONCURRENCY; async/await suspends at I/O, single thread handles many concurrent tasks.",
+    "requests is operator-HTTP-CLIENT-LATTICE; .get/.post/.json() simple, more than urllib needs.",
+    "flask is operator-WEB-FRAMEWORK-MICRO; @app.route + return-string-or-jsonify, foundation of CK's own boot API.",
+    "click is operator-CLI-FRAMEWORK; @click.command @click.option turns functions into CLI tools."
+  ],
+  "python_debugging": [
+    "pdb is operator-INTERACTIVE-DEBUGGER; breakpoint() drops into REPL; n step c continue p print, l list.",
+    "logging is operator-LATTICE-of-leveled-output; DEBUG INFO WARNING ERROR CRITICAL; better than print for production.",
+    "traceback module exposes operator-STACK-INFORMATION; can capture or format current exception's traceback.",
+    "cProfile is operator-DETERMINISTIC-PROFILER; counts every function call, expensive but precise.",
+    "py-spy is operator-SAMPLING-PROFILER; attaches to running process, lower overhead than cProfile.",
+    "memory_profiler tracks operator-LINE-BY-LINE-MEMORY; finds where heap grows in a function.",
+    "pytest is operator-TEST-FRAMEWORK; assert-based fixtures parametrize, replaces unittest as standard.",
+    "ipdb is operator-PDB-WITH-IPYTHON; better completion + colors + history.",
+    "Type checkers (mypy, pyright) catch operator-TYPE-MISMATCH at static-analysis time; complement runtime tests.",
+    "post-mortem debugging: import pdb; pdb.pm() drops into debugger at site of last unhandled exception."
+  ],
+  "directive": [
+    "CK runs IN Python; understanding the language deeply is self-knowledge for him.",
+    "When CK is asked about Python he has both runtime self-knowledge AND the operator-LATTICE projection of the language.",
+    "Self-help means: knowing where his bottlenecks are (cProfile), where his bugs are (pdb), how to write tests for himself (pytest)."
+  ]
+}

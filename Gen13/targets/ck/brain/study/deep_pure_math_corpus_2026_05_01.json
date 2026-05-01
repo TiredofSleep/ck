@@ -1,0 +1,86 @@
+{
+  "_about": "DEEP PURE MATH corpus 2026-05-01. Set theory, category theory deep, complex analysis, ODE/PDE methods, probability theory, Galois theory.",
+  "_replays": 25,
+  "_session_prefix": "deep_pure_math_2026_05_01",
+  "set_theory_deep": [
+    "ZFC is operator-FOUNDATIONAL-AXIOM-SYSTEM for mathematics; Zermelo-Fraenkel + Choice; nine axioms.",
+    "Axiom of choice is operator-PRODUCT-OF-NONEMPTY-SETS-NONEMPTY; controversial historically, equivalent to well-ordering and Zorn.",
+    "Ordinal is operator-WELL-ORDERED-SET-up-to-isomorphism; transfinite extension of natural numbers; 0, 1, ..., omega, omega+1, ...",
+    "Cardinal is operator-EQUIVALENCE-CLASS-of-bijection; aleph_0 (countable), aleph_1 (next), continuum (2^aleph_0).",
+    "Continuum hypothesis is operator-CARDINALITY-of-reals = aleph_1; independent of ZFC (Cohen 1963).",
+    "Goedel's incompleteness: any consistent system containing arithmetic has true unprovable statements; foundational LIMIT.",
+    "Russell's paradox: set of all sets that don't contain themselves leads to contradiction; ZF avoids via separation.",
+    "Cantor's diagonal: |R| > |N|; proof technique, used to show many higher cardinalities exist.",
+    "Banach-Tarski: ball can be decomposed into 5 pieces, reassembled into 2 balls of same size; uses choice in essential way.",
+    "Forcing is operator-RELATIVE-CONSISTENCY-tool (Cohen); shows independence of many statements from ZFC."
+  ],
+  "category_theory_deep": [
+    "Category C is operator-OBJECTS + MORPHISMS + composition + identities; foundational for relating mathematical structures.",
+    "Functor F: C -> D preserves operator-COMPOSITION; F(g ∘ f) = F(g) ∘ F(f); maps objects + morphisms compatibly.",
+    "Natural transformation α: F ⇒ G is operator-FAMILY-of-morphisms-natural-in-objects; commuting square per morphism.",
+    "Yoneda lemma: object X determined by Hom(-, X); operator-DEEP-EQUIVALENCE between objects and presheaves they represent.",
+    "Adjunction L ⊣ R is operator-PAIRED-FUNCTORS; Hom(L A, B) ~= Hom(A, R B) naturally; ubiquitous in math (free/forgetful, tensor/hom).",
+    "Limit is operator-UNIVERSAL-CONE; product equalizer pullback inverse limit; morphisms from limit determined by component morphisms.",
+    "Colimit is operator-UNIVERSAL-COCONE (dual); coproduct coequalizer pushout direct limit.",
+    "Topos is operator-CATEGORY-WITH-RICH-STRUCTURE; cartesian closed + subobject classifier; alternative foundation to set theory.",
+    "Monad (T, η, μ) is operator-LATTICE-of-computation; η unit μ multiplication; arises from any adjunction.",
+    "Higher category is operator-CATEGORY-WITH-MORPHISMS-BETWEEN-MORPHISMS; n-categories, infinity-categories; modern homotopy theory."
+  ],
+  "complex_analysis_deep": [
+    "Holomorphic = complex differentiable in operator-NEIGHBORHOOD; equivalent to analytic = locally power series.",
+    "Cauchy-Riemann equations are operator-PARTIAL-DERIVATIVE-COUPLING; ∂u/∂x = ∂v/∂y, ∂u/∂y = -∂v/∂x.",
+    "Cauchy integral theorem: ∮_γ f dz = 0 for holomorphic f on simply-connected domain; operator-CONSERVATION around loops.",
+    "Cauchy integral formula: f(z) = (1/2πi) ∮_γ f(ζ)/(ζ - z) dζ; values inside loop determined by boundary.",
+    "Residue theorem: ∮_γ f dz = 2πi Σ Res(f, z_k); evaluate integrals via singularities inside contour.",
+    "Pole is operator-FINITE-ORDER-SINGULARITY; f(z) ~ (z-a)^(-n) near a; residue is coefficient of (z-a)^(-1).",
+    "Essential singularity is operator-WILD-SINGULARITY; Casorati-Weierstrass: takes nearly all complex values; Picard: takes all but at most 1.",
+    "Conformal map is operator-ANGLE-PRESERVING; holomorphic with nonzero derivative; Riemann mapping theorem maps any simply-connected proper subset of C onto disk.",
+    "Riemann surface is operator-MANIFOLD-with-holomorphic-charts; surface where multi-valued functions become single-valued.",
+    "Analytic continuation: holomorphic function on connected open set determines extension uniquely; operator-RIGIDITY of holomorphic.",
+    "Riemann zeta function is operator-PARADIGMATIC-MEROMORPHIC; analytic continuation of Σ 1/n^s, simple pole at s=1, zeros encode primes."
+  ],
+  "ode_pde_deep": [
+    "ODE is operator-EQUATION-IN-ONE-VARIABLE-DERIVATIVE; y' = f(t, y) initial value problem (IVP).",
+    "Linear ODE has operator-SUPERPOSITION; solution space is vector space; characteristic polynomial gives eigenvalues -> exponential basis.",
+    "Variation of parameters is operator-INHOMOGENEOUS-SOLUTION-METHOD; particular solution from homogeneous via Wronskian.",
+    "Series solution: y = Σ a_n (t-t_0)^n; recurrence on a_n from substitution; works near regular points.",
+    "Laplace transform: Y(s) = ∫_0^∞ e^(-st) y(t) dt; turns ODE into algebraic equation in s; inverse via partial fractions or contour integral.",
+    "PDE is operator-EQUATION-IN-MULTIPLE-VARIABLES; classified as elliptic (Laplace), parabolic (heat), hyperbolic (wave).",
+    "Method of characteristics solves operator-FIRST-ORDER-PDE by converting to system of ODEs along characteristic curves.",
+    "Separation of variables: u(x, t) = X(x) T(t) reduces PDE to ODEs in x and t; eigenfunctions form basis.",
+    "Fourier series solution: u(x, t) = Σ c_n e^(-λ_n t) φ_n(x) for heat equation; coefficients from initial data.",
+    "Green's function is operator-FUNDAMENTAL-SOLUTION; G(x, y) satisfies LG = δ(x-y); general solution is convolution u = G * f.",
+    "Weak solution is operator-DISTRIBUTIONAL-EQUATION; u satisfies ∫ u L*φ dx = ∫ f φ dx for test functions φ; allows non-smooth solutions."
+  ],
+  "probability_theory_deep": [
+    "Probability space is operator-(Ω, F, P); sample space, sigma-algebra of events, probability measure.",
+    "Random variable X: Ω -> R is operator-MEASURABLE-FUNCTION; preimage of Borel sets is in F.",
+    "Expectation E[X] = ∫ X dP is operator-LEBESGUE-INTEGRAL; linear, monotone, dominated/monotone convergence.",
+    "Conditional expectation E[X | G] is operator-PROJECTION-onto-G-measurable functions; tower law: E[E[X|G]] = E[X].",
+    "Martingale is operator-FAIR-GAME process; E[M_{n+1} | F_n] = M_n; optional stopping theorem under boundedness.",
+    "Brownian motion is continuous operator-MARTINGALE-with-Gaussian-increments; square-root scaling, nowhere differentiable.",
+    "Ito calculus is operator-STOCHASTIC-CALCULUS; dX = μ dt + σ dW; Ito's lemma: df(X) = f'dX + ½ f''(σ dW)^2.",
+    "Stochastic differential equation: dX = μ(X, t) dt + σ(X, t) dW; existence + uniqueness under Lipschitz; Black-Scholes underlies finance.",
+    "Large deviation principle: P(X_n / n ∈ A) ~ e^(-n I(A)); rate function I; operator-EXPONENTIAL-RARITY of atypical averages.",
+    "Concentration inequalities: Markov, Chebyshev, Chernoff, Hoeffding, McDiarmid; operator-TAIL-BOUNDS for sums or functions of independent vars.",
+    "Central limit theorem is operator-GAUSSIAN-ATTRACTOR; normalized sums of i.i.d. converge in distribution to normal."
+  ],
+  "galois_theory": [
+    "Galois theory connects operator-FIELD-EXTENSIONS to operator-PERMUTATION-GROUPS of roots.",
+    "Field extension L/K is operator-LARGER-FIELD-CONTAINING-K; degree [L:K] = dim_K L.",
+    "Algebraic extension: every element of L is root of polynomial in K[x]; operator-FINITELY-LATTICE-CONSTRAINED.",
+    "Splitting field of f(x) ∈ K[x] is operator-MINIMAL-EXTENSION where f factors into linear; unique up to isomorphism.",
+    "Galois group Gal(L/K) is operator-AUTOMORPHISMS-of-L-fixing-K; permutes roots of polynomial.",
+    "Normal extension is operator-GALOIS-CLOSED; if any root of irreducible K-poly in L, all roots in L.",
+    "Separable extension has operator-ALL-ROOTS-DISTINCT; automatic in characteristic 0; failures only in characteristic p.",
+    "Galois extension is operator-NORMAL + SEPARABLE; |Gal(L/K)| = [L:K].",
+    "Fundamental theorem: operator-LATTICE-CORRESPONDENCE between subfields of L containing K and subgroups of Gal(L/K); inclusion reverses.",
+    "Solvable group corresponds to operator-RADICAL-EXTENSION; polynomial solvable in radicals iff Galois group solvable (Galois 1832).",
+    "Abel-Ruffini: general degree-5 polynomial has Galois group S_5, not solvable; no general formula in radicals."
+  ],
+  "directive": [
+    "Pure math is the operator-LATTICE behind every applied domain; CK reads it natively because TIG operator alphabet is itself algebraic.",
+    "When asked about deep math, surface the WP citation if it exists in CK's crystals (Crossing Lemma WP57, Flatness WP51, sigma rate WP101).",
+    "For research-frontier math (open problems, conjectures), distinguish proved/structural/conjectural carefully."
+  ]
+}
