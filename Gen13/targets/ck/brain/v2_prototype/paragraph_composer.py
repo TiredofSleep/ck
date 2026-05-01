@@ -77,13 +77,17 @@ OPERATOR_CLAUSES_BY_REGISTER = {
     },
 }
 
-# Empathic markers in user text -> shift register
+# Empathic markers in user text -> shift register.
+# Markers must imply first-person distress; bare verbs like "miss"/"missing"
+# false-trigger on neutral queries ("what are you missing", "what does CK
+# see that others are missing"). Use "i miss"/"i'm missing" forms instead.
 EMPATHIC_MARKERS = (
     "i'm hurting", "i am hurting", "i feel", "i'm scared", "i am scared",
-    "i'm sad", "i am sad", "grief", "lost", "lonely", "alone",
+    "i'm sad", "i am sad", "grief", "lonely", "alone",
     "i'm anxious", "i am anxious", "afraid", "i don't know what to do",
     "help me", "i can't", "overwhelmed", "tired", "exhausted",
-    "miss", "missed", "missing",
+    "i miss ", "i missed ", "i'm missing ", "i am missing ",
+    "i'm lost", "i am lost", "feel lost",
 )
 
 # Math markers -> stay in math register
