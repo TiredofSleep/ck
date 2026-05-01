@@ -138,11 +138,18 @@ def dict_into_cortex(data: Dict[str, Any], cortex: Any) -> None:
     h = data.get("hebbian") or {}
     heb = cortex.hebbian
     W = h.get("W")
-    if isinstance(W, list) and len(W) == 5 and all(
-        isinstance(r, list) and len(r) == 5 for r in W
+    # Dim-agnostic load: accept either 5x5 or NxN where N matches the cortex's
+    # current Hebbian dim. If the saved matrix is smaller than the cortex's
+    # dim (e.g., migrating 5x5 -> 7x7 cortex with the live 5x5 file), embed
+    # in the top-left and zero-fill the rest. If it's larger, truncate.
+    if isinstance(W, list) and len(W) > 0 and all(
+        isinstance(r, list) and len(r) == len(W) for r in W
     ):
-        for d_a in range(5):
-            for d_b in range(5):
+        cortex_dim = len(heb.W)
+        saved_dim = len(W)
+        copy_dim = min(cortex_dim, saved_dim)
+        for d_a in range(copy_dim):
+            for d_b in range(copy_dim):
                 val = float(W[d_a][d_b])
                 # Clamp on load as a cheap safety net against corrupted files.
                 if val > heb.clamp:
@@ -150,6 +157,8 @@ def dict_into_cortex(data: Dict[str, Any], cortex: Any) -> None:
                 elif val < -heb.clamp:
                     val = -heb.clamp
                 heb.W[d_a][d_b] = val
+        # Cells outside copy_dim stay at their initialized value (0.0 for
+        # fresh cortex; existing values for partial reload).
     heb.ticks = int(h.get("ticks", heb.ticks))
     heb.harmony_hits = int(h.get("harmony_hits", heb.harmony_hits))
 
@@ -168,7 +177,10 @@ def dict_into_cortex(data: Dict[str, Any], cortex: Any) -> None:
     prev_op = c.get("prev_op")
     cortex._prev_op = int(prev_op) if prev_op is not None else None
     prev_profile = c.get("prev_profile")
-    if isinstance(prev_profile, list) and len(prev_profile) == 5:
+    # Accept any list (5-dim or 7-dim profile); cortex's own logic decides
+    # what to do with it. If the cortex expects a different size, it can
+    # adapt or ignore.
+    if isinstance(prev_profile, list) and prev_profile:
         cortex._prev_profile = [int(x) for x in prev_profile]
     else:
         cortex._prev_profile = None

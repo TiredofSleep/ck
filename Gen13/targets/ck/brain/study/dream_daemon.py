@@ -94,7 +94,12 @@ def first_word(crystal):
 
 def pick_crystals_for_dream(crystals, op_sigs, recent_ops, n=3):
     """Pick crystals biased by op_signature overlap with recent_ops.
-    Some fraction picked randomly to ensure drift breadth."""
+    Some fraction picked randomly to ensure drift breadth.
+
+    Tie-breaking: pre-shuffle so equal-score crystals don't always pick the
+    same load-order winners (TIG-core were always loaded first; runtime
+    crystals would never appear without the shuffle).
+    """
     if not crystals:
         return []
     # Score each crystal
@@ -106,6 +111,9 @@ def pick_crystals_for_dream(crystals, op_sigs, recent_ops, n=3):
             continue
         overlap = len(set(sig) & set(recent_ops))
         scored.append((overlap, fact, fw))
+    # Pre-shuffle so equal-score crystals don't break ties by load order
+    random.shuffle(scored)
+    # Sort by score descending; ties keep shuffled order
     scored.sort(key=lambda t: -t[0])
     # Top half by score, then randomize within
     top_half = scored[: max(n * 2, 6)]

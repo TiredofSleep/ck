@@ -135,13 +135,43 @@ sys.path.insert(0, _GEN13_BRAIN)
 _cortex = None
 _cortex_autosaver = None
 try:
-    from cortex import Cortex as _Cortex
-    from cortex_persist import (
-        AutoSaver as _AutoSaver,
-        load_cortex as _load_cortex,
-        save_cortex as _save_cortex,
-        DEFAULT_STATE_PATH as _CORTEX_STATE_PATH,
-    )
+    # Cortex selection: CK_CORTEX_DIM=7 uses the live 7-dim cortex (cortex_v2);
+    # otherwise the 5-dim cortex (cortex.py). State files are dim-specific so
+    # the two paths don't trample each other.
+    _cortex_dim = int(os.environ.get('CK_CORTEX_DIM', '5'))
+    if _cortex_dim == 7:
+        from cortex_v2 import CortexV2 as _Cortex
+        from cortex_persist import (
+            AutoSaver as _AutoSaver,
+            load_cortex as _load_cortex,
+            save_cortex as _save_cortex,
+        )
+        # 7-dim uses its own state file so it doesn't overwrite 5-dim state.
+        _CORTEX_STATE_PATH = os.path.normpath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..', 'Gen13', 'var', 'cortex_state_7d.json'))
+        # If 7-dim state doesn't exist yet, seed from migrated file (which
+        # embeds the live 5-dim W in the top-left 5x5).
+        _migrated_path = os.path.normpath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..', 'Gen13', 'var',
+            'cortex_state_7d_migrated.json'))
+        if not os.path.exists(_CORTEX_STATE_PATH) and os.path.exists(_migrated_path):
+            import shutil
+            shutil.copy(_migrated_path, _CORTEX_STATE_PATH)
+            print(f"[CK] Gen13 cortex: seeded 7-dim state from migration "
+                  f"{_migrated_path}")
+        print(f"[CK] Gen13 cortex: dim=7 (CortexV2 with 7x7 Hebbian)")
+    else:
+        from cortex import Cortex as _Cortex
+        from cortex_persist import (
+            AutoSaver as _AutoSaver,
+            load_cortex as _load_cortex,
+            save_cortex as _save_cortex,
+            DEFAULT_STATE_PATH as _CORTEX_STATE_PATH,
+        )
+        print(f"[CK] Gen13 cortex: dim=5 (Cortex with 5x5 Hebbian)")
+
     from cortex_voice import (
         cortex_speak as _cortex_speak,
         speak as _cortex_speak_route,
@@ -152,8 +182,7 @@ try:
     # Fallback-version probe: the newer speak() emits a self-report
     # (feel/field) for unclassified queries instead of returning None.
     try:
-        from cortex import Cortex as _ProbeCortex
-        _probe_cx = _ProbeCortex().boot()
+        _probe_cx = _Cortex().boot()
         _probe_out = _cortex_speak_route(_probe_cx, "hi")
         print(f"[CK] Gen13 cortex_voice.speak('hi') cold probe: "
               f"type={type(_probe_out).__name__} len={len(_probe_out) if isinstance(_probe_out,str) else 'n/a'} "
