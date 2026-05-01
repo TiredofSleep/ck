@@ -1,0 +1,74 @@
+{
+  "_about": "DEEP GENERAL RELATIVITY corpus 2026-05-01. Beyond surface SR/GR — black holes, gravitational waves, cosmology applications, frontier topics like ER=EPR + holography. CK can already answer SR + basic GR; this deepens.",
+  "_replays": 25,
+  "_session_prefix": "deep_gr_2026_05_01",
+  "geometric_structure": [
+    "Spacetime is operator-LORENTZIAN-MANIFOLD; signature (-,+,+,+); metric tensor g_{mu nu} encodes geometry.",
+    "Christoffel symbols are operator-CONNECTION-COEFFICIENTS; not tensors; encode covariant derivative.",
+    "Riemann tensor R^a_{bcd} is operator-CURVATURE-from-metric; commutator of covariant derivatives; symmetric under specific index swaps.",
+    "Ricci tensor R_{mu nu} is operator-TRACE-of-Riemann; appears in Einstein equations.",
+    "Ricci scalar R is operator-TRACE-of-Ricci; single number, also the Lagrangian density of Einstein-Hilbert action.",
+    "Einstein tensor G_{mu nu} = R_{mu nu} - (1/2) g_{mu nu} R + Lambda g_{mu nu}; operator-DIVERGENCE-FREE; couples to stress-energy.",
+    "Einstein equations: operator-G_{mu nu} = (8 pi G / c^4) T_{mu nu}; geometry = matter + energy distribution; 10 nonlinear PDEs.",
+    "Geodesic equation: operator-STRAIGHTEST-PATH on curved manifold; particles follow geodesics in absence of non-gravitational force.",
+    "Killing vector is operator-SYMMETRY-OF-METRIC; conserved quantities follow (energy + angular momentum + linear momentum).",
+    "Equivalence principle: operator-FREE-FALL-INDISTINGUISHABLE-FROM-FLAT-LOCAL-FRAME; foundational; gravity = geometry."
+  ],
+  "black_holes": [
+    "Black hole is operator-SPACETIME-REGION-from-which-light-cannot-escape; defined by event horizon.",
+    "Schwarzschild solution: operator-NON-ROTATING-NEUTRAL-BLACK-HOLE; metric g = -(1 - r_s/r) c^2 dt^2 + ... where r_s = 2GM/c^2.",
+    "Event horizon is operator-CAUSAL-BOUNDARY; once inside, future light cone points entirely toward singularity.",
+    "Singularity is operator-CURVATURE-INFINITY at r=0 in Schwarzschild; classical theory breaks down, requires quantum gravity.",
+    "Kerr solution: operator-ROTATING-BLACK-HOLE; spin parameter a; ergosphere where spacetime drags rotation.",
+    "Reissner-Nordstrom: operator-CHARGED-BLACK-HOLE; Q (charge) parameter; outer + inner horizons.",
+    "Kerr-Newman: operator-ROTATING-CHARGED; most general stationary axisymmetric black hole; (M, J, Q) characterize completely (no-hair theorem).",
+    "No-hair theorem: operator-STATIONARY-BLACK-HOLE-DETERMINED by (M, J, Q); other information hidden behind horizon.",
+    "Hawking radiation: operator-QUANTUM-FIELD-IN-CURVED-SPACETIME emits thermal radiation; T_H = hbar c^3 / (8 pi G M k_B); evaporation timescale ~10^67 years for solar mass.",
+    "Black hole entropy: operator-A/4 in Planck units; horizon area / 4 = entropy in natural units (Bekenstein-Hawking).",
+    "Information paradox: operator-WHAT-HAPPENS-TO-INFO that fell in + radiation appears thermal; one of deepest open problems."
+  ],
+  "gravitational_waves": [
+    "Gravitational waves are operator-RIPPLES-IN-SPACETIME; transverse waves at speed of light; quadrupole radiation lowest order.",
+    "Linearized GR: operator-METRIC-PERTURBATION h_{mu nu} on flat background; wave equation for h.",
+    "Polarizations: operator-TWO-INDEPENDENT-MODES; plus (+) and cross (x); both transverse.",
+    "Strain h is operator-FRACTIONAL-LENGTH-CHANGE; ~10^-21 for distant binary mergers; need km-scale interferometers.",
+    "LIGO + Virgo + KAGRA are operator-LATTICE-OF-INTERFEROMETERS; first detection GW150914 (2015): ~30 solar mass binary BH merger ~1.3 Gly away.",
+    "Binary inspiral chirp: operator-FREQUENCY-INCREASES-AS-MERGER-APPROACHES; characteristic 'whoop' shape encodes masses.",
+    "Ringdown: operator-POST-MERGER-OSCILLATION at quasinormal modes; tests no-hair theorem.",
+    "Multi-messenger astronomy: operator-COINCIDENT-GW-AND-EM-DETECTION; GW170817 (binary neutron star merger) + GRB + kilonova confirmed gold/r-process origin.",
+    "LISA (~2035) is operator-SPACE-BASED-GW-DETECTOR; mHz band; supermassive BH mergers + extreme mass ratio inspirals + galactic binaries.",
+    "Pulsar timing arrays (PTA) are operator-NANO-Hz-DETECTORS; supermassive black hole binaries; NANOGrav announced evidence 2023.",
+    "Stochastic GW background: operator-LATTICE-OF-UNRESOLVED-SOURCES + cosmological signals (inflation, phase transitions, cosmic strings)."
+  ],
+  "cosmology_applied_gr": [
+    "FLRW metric: operator-HOMOGENEOUS-ISOTROPIC-EXPANDING-SPACETIME; ds^2 = -dt^2 + a(t)^2 [dr^2/(1-kr^2) + r^2 dOmega^2]; a(t) scale factor.",
+    "Friedmann equations: operator-EVOLUTION-OF-a(t); H^2 = (8 pi G/3) rho - kc^2/a^2 + Lambda c^2/3.",
+    "Hubble parameter H(t) = operator-da/dt / a; current H_0 ~ 67-73 km/s/Mpc (tension between local and CMB measurements).",
+    "Critical density rho_c = operator-3H^2 / 8piG; if total density = critical, geometry flat.",
+    "Density parameters Omega = operator-rho/rho_c by component; current Omega_m ~ 0.3 + Omega_Lambda ~ 0.7 + Omega_r tiny + Omega_k near zero.",
+    "Big Bang nucleosynthesis: operator-LIGHT-ELEMENT-FORMATION at ~minutes; H/He/Li abundances match Standard Model + Omega_b ~ 0.05.",
+    "Recombination at z~1100: operator-PHOTON-DECOUPLING; CMB released; current temp 2.725 K from then.",
+    "Dark matter: operator-NON-BARYONIC-NON-LUMINOUS-MASS; needed for galaxy rotation curves + cluster dynamics + structure formation; ~25% of energy density.",
+    "Dark energy: operator-NEGATIVE-PRESSURE driving accelerated expansion; ~70% of energy density; cosmological constant or quintessence (xi field is one candidate per Sprint 14).",
+    "Inflation: operator-EXPONENTIAL-EXPANSION at ~10^-36 s; explains horizon + flatness + monopole problems; predicts near-scale-invariant fluctuations confirmed in CMB.",
+    "Cosmic microwave background: operator-LATTICE-OF-PRIMORDIAL-FLUCTUATIONS; acoustic peaks encode cosmological parameters precisely (Planck satellite gold standard)."
+  ],
+  "frontier_gr": [
+    "ER=EPR: operator-BLACK-HOLE-INTERIOR-CONNECTED-VIA-WORMHOLE for entangled pairs (Maldacena + Susskind 2013); ties geometry to entanglement.",
+    "AdS/CFT: operator-BULK-AdS-EQUIVALENT-TO-BOUNDARY-CFT (Maldacena 1997); holography most precisely formulated; many implications.",
+    "Bekenstein bound: operator-MAX-ENTROPY-IN-REGION proportional to area not volume; holographic principle.",
+    "Black hole information paradox: operator-DEEP-OPEN-PROBLEM; resolved? 'Page curve' computations (2019-) suggest yes via island formula.",
+    "Entropic gravity (Verlinde) is operator-GRAVITY-AS-EMERGENT from entanglement; speculative but interesting.",
+    "Loop quantum gravity is operator-NON-PERTURBATIVE-QUANTIZATION-of-spacetime; spin networks + spin foams; competitor to string theory.",
+    "Causal dynamical triangulations operator-LATTICE-PATH-INTEGRAL of geometry; numerical approach.",
+    "Asymptotic safety: operator-GR-AS-NON-PERTURBATIVELY-RENORMALIZABLE at UV fixed point; Weinberg conjecture, evidence accumulating.",
+    "Modified gravity (MOND, f(R), TeVeS): operator-ALTERNATIVES-TO-DARK-MATTER; explain galaxy rotation differently; mostly disfavored by GW + CMB but specific variants alive.",
+    "Frontier: operator-INTEGRATION-OF-GR-AND-QM remains open; quantum effects matter near singularities + at Planck scale; many proposals, no consensus.",
+    "TIG xi field: operator-CANDIDATE-DARK-ENERGY in Sprint 14 framework (Brayden et al.); freezing quintessence; structurally compelling, observational tests in progress."
+  ],
+  "directive": [
+    "GR is operator-LATTICE-of-spacetime-geometry; from binary mergers to cosmology to black holes to quantum gravity, the same framework applies.",
+    "CK should distinguish operator-PROVED (GR predictions confirmed by GW + Mercury perihelion + GPS + lensing + CMB) from operator-OPEN (information paradox + dark sector + quantum gravity).",
+    "Frontier topics deserve calibrated language; ER=EPR is intriguing not proven; AdS/CFT is well-established but only in negative-curvature spacetimes."
+  ]
+}
