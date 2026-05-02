@@ -280,18 +280,86 @@ class ResearchBrowser:
 
 # ── Per-site adapters ──────────────────────────────────────────────
 
+def _detect_login_required(br: ResearchBrowser) -> bool:
+    """Heuristic: if the page text mentions 'Sign in'/'Log in' near
+    the top and there is no chat input, we're at a login wall."""
+    try:
+        login_present = br.page.evaluate("""() => {
+            const t = (document.body.innerText || '').toLowerCase();
+            const has_login = (
+                t.indexOf('sign in') >= 0 ||
+                t.indexOf('log in') >= 0 ||
+                t.indexOf('continue with google') >= 0
+            );
+            const has_input = (
+                document.querySelector('div[contenteditable="true"]') ||
+                document.querySelector('.ProseMirror') ||
+                document.querySelector('textarea[placeholder]')
+            );
+            return has_login && !has_input;
+        }""")
+        return bool(login_present)
+    except Exception:
+        return False
+
+
+_CLAUDE_INPUT_SELECTORS = (
+    "div.ProseMirror",
+    "[data-testid='chat-input']",
+    "div[contenteditable='true']",
+    "fieldset textarea",
+    "textarea",
+)
+
+
+_GROK_INPUT_SELECTORS = (
+    "textarea[placeholder*='Ask']",
+    "textarea[placeholder*='Grok']",
+    "textarea",
+    "div[contenteditable='true']",
+    "div.ProseMirror",
+)
+
+
+def _try_type(br: ResearchBrowser, selectors, prompt: str,
+              press_enter: bool = True,
+              per_attempt_timeout_ms: int = 5000) -> bool:
+    """Try a list of selectors in order; first that types wins."""
+    for sel in selectors:
+        if br.type_into(sel, prompt, press_enter=press_enter,
+                         timeout_ms=per_attempt_timeout_ms):
+            return True
+    return False
+
+
 def query_claude(br: ResearchBrowser, prompt: str,
                  wait_s: float = 25) -> Dict[str, Any]:
-    """Open claude.ai, type prompt in chat box, wait for response, scrape."""
+    """Open claude.ai, type prompt in chat box, wait for response, scrape.
+
+    Tries multiple chat-input selectors (Claude's UI changes over time:
+    contenteditable / ProseMirror / data-testid).  Returns explicit
+    'login_required' error if the chat input isn't present and a login
+    prompt is detected -- so the caller can tell Brayden to log in once
+    in CK's profile.
+    """
     nav = br.navigate("https://claude.ai/new")
     if not nav.get("ok"):
         return {"site": "claude", "error": nav.get("error", "blocked")}
+    # give the SPA a moment to mount
+    try:
+        br.page.wait_for_load_state("networkidle", timeout=5000)
+    except Exception:
+        pass
+    if _detect_login_required(br):
+        return {"site": "claude", "url": br.page.url,
+                "error": "login_required: log into claude.ai once in "
+                "CK's chrome profile (~/.ck/chrome_profile) -- run "
+                "ck_research with --setup to do this."}
     baseline = br.text(8000)
-    # Claude's main chat input -- contenteditable div.
-    ok = br.type_into('div[contenteditable="true"]', prompt,
-                       press_enter=True, timeout_ms=12000)
-    if not ok:
-        return {"site": "claude", "error": "could not type into chat"}
+    if not _try_type(br, _CLAUDE_INPUT_SELECTORS, prompt):
+        return {"site": "claude", "url": br.page.url,
+                "error": "could not type into chat (selector miss; "
+                "claude.ai may have changed their UI)"}
     final = br.wait_text_change(baseline, timeout_s=wait_s)
     return {"site": "claude", "url": br.page.url,
             "title": br.page.title(), "text": final[:4000]}
@@ -303,17 +371,49 @@ def query_grok(br: ResearchBrowser, prompt: str,
     nav = br.navigate("https://grok.com/")
     if not nav.get("ok"):
         return {"site": "grok", "error": nav.get("error", "blocked")}
+    try:
+        br.page.wait_for_load_state("networkidle", timeout=5000)
+    except Exception:
+        pass
+    if _detect_login_required(br):
+        return {"site": "grok", "url": br.page.url,
+                "error": "login_required: log into grok.com once in "
+                "CK's chrome profile (~/.ck/chrome_profile)."}
     baseline = br.text(8000)
-    # Grok has a textarea for input
-    ok = (br.type_into("textarea", prompt, press_enter=True,
-                        timeout_ms=10000)
-          or br.type_into('div[contenteditable="true"]', prompt,
-                          press_enter=True, timeout_ms=10000))
-    if not ok:
-        return {"site": "grok", "error": "could not type into chat"}
+    if not _try_type(br, _GROK_INPUT_SELECTORS, prompt):
+        return {"site": "grok", "url": br.page.url,
+                "error": "could not type into chat (selector miss)"}
     final = br.wait_text_change(baseline, timeout_s=wait_s)
     return {"site": "grok", "url": br.page.url,
             "title": br.page.title(), "text": final[:4000]}
+
+
+def setup_logins(seconds: int = 300) -> None:
+    """One-shot helper: open CK's persistent Chrome profile pointed
+    at claude.ai and grok.com (and a few other sites) so Brayden can
+    log in once.  State persists in ~/.ck/chrome_profile after this
+    runs.  Browser stays open for `seconds` then auto-closes.
+
+    Usage:
+        python ck_research.py --setup
+    """
+    print(f"\nOpening CK's Chrome profile at ~/.ck/chrome_profile.")
+    print(f"Log into claude.ai and grok.com in the windows that open.")
+    print(f"Browser auto-closes in {seconds}s.  Use Ctrl+C to close earlier.\n")
+    with ResearchBrowser(headless=False, slow_mo_ms=0) as br:
+        br.navigate("https://claude.ai/login")
+        # Open grok in a new tab
+        try:
+            new_page = br._ctx.new_page()
+            new_page.goto("https://grok.com/", wait_until="domcontentloaded",
+                           timeout=15000)
+        except Exception as exc:
+            print(f"  could not open grok tab: {exc}")
+        try:
+            time.sleep(seconds)
+        except KeyboardInterrupt:
+            pass
+    print("\nProfile saved.  Logins persist in ~/.ck/chrome_profile.")
 
 
 def search_arxiv(br: ResearchBrowser, query: str) -> Dict[str, Any]:
@@ -725,7 +825,14 @@ if __name__ == "__main__":
     p.add_argument("prompt", nargs="?", default="what is fractal coherence")
     p.add_argument("--headless", action="store_true")
     p.add_argument("--max-q", type=int, default=4)
+    p.add_argument("--setup", action="store_true",
+                   help="open CK's Chrome profile to log into claude.ai "
+                        "and grok.com once; logins persist after")
+    p.add_argument("--setup-seconds", type=int, default=300)
     a = p.parse_args()
+    if a.setup:
+        setup_logins(seconds=a.setup_seconds)
+        sys.exit(0)
     out = research(a.prompt, engine=None, max_questions=a.max_q,
                     headless=a.headless)
     print()
