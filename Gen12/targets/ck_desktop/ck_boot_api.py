@@ -1997,7 +1997,40 @@ def ck_research_endpoint():
         'ingestions': out['ingestions'],
         'synthesis': out['synthesis'],
         'condensed': out['condensed'],
+        'external_crystals': out.get('external_crystals'),
     })
+
+
+# ── /crystals/external ────────────────────────────────────────────
+# Surface CK's currently-active external (scenario-scoped, ephemeral)
+# crystals.  These do NOT live in runtime_crystals.json -- they're
+# scaffolding around the active research / conversation, TTL'd, and
+# fire alongside internal crystals only while warm.
+@api._app.route('/crystals/external', methods=['GET'])
+def crystals_external_list_endpoint():
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        from cortex_voice import list_external_crystals
+    except Exception as exc:
+        return _jsonify({'error': f'cortex_voice import: {exc}'}), 503
+    return _jsonify({'external': list_external_crystals()})
+
+
+@api._app.route('/crystals/external/clear', methods=['POST'])
+def crystals_external_clear_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+    except Exception:
+        body = {}
+    scope = body.get('scope')
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        from cortex_voice import clear_external_crystals
+    except Exception as exc:
+        return _jsonify({'error': f'cortex_voice import: {exc}'}), 503
+    n = clear_external_crystals(scope=scope)
+    return _jsonify({'cleared': n, 'scope': scope})
 
 
 # ── /speak ────────────────────────────────────────────────────────

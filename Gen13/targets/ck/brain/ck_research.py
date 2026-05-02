@@ -765,14 +765,117 @@ def condense(prompt: str, findings: List[Dict[str, Any]],
 
 # ── Top-level: research(prompt) ────────────────────────────────────
 
+def _slug(s: str, n: int = 32) -> str:
+    s = re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
+    return s[:n] or "x"
+
+
+def _top_ops_from_dist(dist: Optional[Dict[str, float]],
+                        k: int = 3) -> Optional[Tuple[int, ...]]:
+    if not dist:
+        return None
+    op_idx = {n: i for i, n in enumerate([
+        "VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
+        "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET"
+    ])}
+    pairs = sorted(dist.items(), key=lambda kv: -kv[1])[:k]
+    return tuple(op_idx[n] for n, _ in pairs if n in op_idx)
+
+
+def author_external_crystals(prompt: str, terms: List[str],
+                              findings: List[Dict[str, Any]],
+                              ttl_sec: float = 1800) -> Dict[str, Any]:
+    """Author ephemeral 'external' crystals around the active research:
+      - one per prompt term (so each part of the prompt fires alongside
+        internal canon)
+      - one per substantive finding (so the research itself fires)
+
+    External crystals live in cortex_voice._EXTERNAL_CRYSTALS, TTL'd,
+    never persisted.  Scope label distinguishes them from each other
+    and from internal crystals.
+
+    Returns count summary.
+    """
+    try:
+        sys.path.insert(0, _BRAIN_DIR)
+        from cortex_voice import add_external_crystal as _add_ext
+    except Exception as exc:
+        _log("external_crystal_import_fail", error=str(exc))
+        return {"authored": 0, "error": str(exc)}
+
+    authored = 0
+    # Prompt-term crystals: each meaningful term in the prompt becomes
+    # a fire-able trigger on a small fact about the active scenario.
+    prompt_dist = operator_dist_of_text(prompt)
+    prompt_op_sig = _top_ops_from_dist(prompt_dist)
+    for term in terms[:8]:
+        first_word = f"prompt_term_{_slug(term)}"
+        fact = (
+            f"{first_word}: '{term}' is a focus term in the active "
+            f"prompt: {prompt!r}.  External (scenario-scoped) crystal -- "
+            f"fires alongside internal canon while the research is warm."
+        )
+        if _add_ext(triggers=(term, term.replace("_", " ")),
+                     fact=fact,
+                     op_signature=prompt_op_sig,
+                     ttl_sec=ttl_sec,
+                     scope="prompt_term"):
+            authored += 1
+
+    # Per-finding crystals: each substantive finding becomes a crystal
+    # whose triggers are the prompt terms that appear in its text.
+    for f in findings:
+        text = (f.get("text") or "")
+        if not text or len(text) < 80:
+            continue
+        site = f.get("site") or "?"
+        # Pick the first non-trivial line as the title (works for arxiv
+        # API output which leads with [date] Title)
+        head = next((ln.strip() for ln in text.splitlines()
+                     if len(ln.strip()) > 24), "")[:200]
+        # Triggers: every prompt term that appears in the finding text,
+        # plus the question's own term, plus 1-2 distinctive words from
+        # the head line.
+        text_low = text.lower()
+        present = [t for t in terms if t in text_low]
+        if not present:
+            present = [terms[0]] if terms else []
+        # Pull distinctive content words from head
+        head_words = re.findall(r"[A-Za-z][A-Za-z'-]{4,}", head)
+        head_keys = [w.lower() for w in head_words[:3]
+                      if w.lower() not in _STOPWORDS]
+        triggers = tuple(dict.fromkeys(present + head_keys))
+        if not triggers:
+            continue
+        finding_dist = operator_dist_of_text(text)
+        finding_op_sig = _top_ops_from_dist(finding_dist)
+        first_word = f"research_{site}_{_slug(head[:48])}"
+        snippet = re.sub(r"\s+", " ", text)[:420].strip()
+        fact = (
+            f"{first_word}: [{site}] {head} | external research finding "
+            f"under prompt {prompt!r} | excerpt: {snippet}"
+        )
+        if _add_ext(triggers=triggers,
+                     fact=fact,
+                     op_signature=finding_op_sig,
+                     ttl_sec=ttl_sec,
+                     scope=f"research:{site}"):
+            authored += 1
+
+    _log("external_crystals_authored", count=authored,
+         terms=len(terms), findings=len(findings))
+    return {"authored": authored, "ttl_sec": ttl_sec}
+
+
 def research(prompt: str, engine: Any = None,
              max_questions: int = 6,
-             headless: bool = False) -> Dict[str, Any]:
+             headless: bool = False,
+             external_ttl_sec: float = 1800) -> Dict[str, Any]:
     """Full fractal-recursive research pipeline.
 
     Returns dict with:
-        prompt, terms, questions, findings, synthesis, condensed,
-        ingest (per-finding ingestion stats)
+        prompt, terms, questions, findings, ingestions, synthesis,
+        condensed, external_crystals (count authored)
     """
     _log("research_start", prompt=prompt)
     terms = decompose_prompt(prompt)
@@ -805,7 +908,14 @@ def research(prompt: str, engine: Any = None,
 
     synth = synthesize(prompt, findings)
     cond = condense(prompt, findings, synth)
-    _log("research_done", n_findings=len(findings), overlap=synth.get("overlap"))
+    # External crystals: author after synthesis so each prompt term and
+    # each finding becomes a fire-able crystal alongside the internal
+    # canon, while the research scenario is warm.
+    ext = author_external_crystals(prompt, terms, findings,
+                                     ttl_sec=external_ttl_sec)
+    _log("research_done", n_findings=len(findings),
+         overlap=synth.get("overlap"),
+         external_authored=ext.get("authored"))
     return {
         "prompt": prompt,
         "terms": terms,
@@ -814,6 +924,7 @@ def research(prompt: str, engine: Any = None,
         "ingestions": ingestions,
         "synthesis": synth,
         "condensed": cond,
+        "external_crystals": ext,
     }
 
 

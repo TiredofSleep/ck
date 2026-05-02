@@ -722,18 +722,33 @@ def _frontier_hits(q_lower: str) -> List[str]:
     """Return structural facts whose trigger keywords appear in the query.
 
     Each fact fires at most once even if multiple keywords match.
-    Includes both code-baked _FRONTIER_FACTS AND runtime-added crystals
-    from _RUNTIME_CRYSTALS (added via add_crystal_runtime).
+    Three sources are folded together at fire time:
+      _FRONTIER_FACTS    code-baked, never change
+      _RUNTIME_CRYSTALS  authored via /crystals/add, persisted to disk,
+                         survives reboot ('internal crystals' --
+                         settled lattice)
+      _EXTERNAL_CRYSTALS ephemeral, scenario-scoped, TTL-expired,
+                         NEVER persisted to disk ('external crystals'
+                         -- temporary working scaffolding around the
+                         active research/conversation)
 
-    Crystals are returned sorted by SPECIFICITY: the longest trigger that
-    matched wins.  This avoids "vowel team ai" surfacing the generic
-    'vowel' crystal first instead of team_ai (which had the literal
-    'vowel team ai' as a trigger).  More specific = longer match = more
-    relevant to the user's actual question.
+    Per Brayden 2026-05-02: 'his internal crystals are not that easily
+    shifted, but his external ones have to work temporarily around
+    the research'.  External crystals fire alongside internal ones
+    in this matcher; internal store stays unchanged.
+
+    Crystals are returned sorted by SPECIFICITY: longest matched
+    trigger wins.
     """
+    _gc_external_crystals()
     matches: List[Tuple[int, int, str]] = []  # (best_match_len, order, fact)
     seen = set()
     all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
+    # Append external crystals at the end so internal-source 'order'
+    # numbers are stable, but external crystals win when their
+    # trigger length is longer (specificity sort).
+    for c in _EXTERNAL_CRYSTALS:
+        all_crystals.append((c["triggers"], c["fact"]))
     for order, (triggers, fact) in enumerate(all_crystals):
         if fact in seen:
             continue
@@ -754,11 +769,136 @@ def _frontier_hits(q_lower: str) -> List[str]:
 # Same shape as _FRONTIER_FACTS: list of (trigger_tuple, fact_text) pairs.
 # Persisted to disk so they survive reboots.
 import os as _os
+import time as _time
 _RUNTIME_CRYSTALS: List[Tuple[Tuple[str, ...], str]] = []
 _RUNTIME_CRYSTALS_PATH = _os.path.join(
     _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
     "..", "..", "var", "runtime_crystals.json"
 )
+
+
+# ── External crystals (scenario-scoped, TTL'd, never persisted) ────
+#
+# Brayden 2026-05-02: "he needs to make crystals out of his current
+# scenarios, not just have persistent memory crystals... his internal
+# crystals are not that easily shifted, but his external ones have
+# to work temporarily around the research"
+#
+# These are ephemeral working scaffolds: prompt terms become external
+# crystals so the prompt's own substance fires alongside internal
+# canon; research findings become external crystals so the abstracts
+# CK just pulled influence the response while still warm.  TTL'd
+# (default 30 min); never written to disk.
+#
+# Shape: list of dicts:
+#   {
+#     'triggers': tuple[str, ...],
+#     'fact':     str (must start with "name:" so first_word works),
+#     'op_signature': Optional[Tuple[int, ...]],
+#     'expires_at': float (unix ts),
+#     'scope':    str (e.g., 'prompt_term', 'research:arxiv'),
+#     'created':  float (unix ts),
+#   }
+
+_EXTERNAL_CRYSTALS: List[Dict[str, Any]] = []
+_EXTERNAL_DEFAULT_TTL = 30 * 60  # 30 minutes
+
+
+def add_external_crystal(triggers: Tuple[str, ...], fact: str,
+                          op_signature: Optional[Tuple[int, ...]] = None,
+                          related: Optional[List[str]] = None,
+                          ttl_sec: float = _EXTERNAL_DEFAULT_TTL,
+                          scope: str = "external") -> bool:
+    """Author an ephemeral, scenario-scoped crystal.  Lives in memory
+    only; auto-expires after ttl_sec; never written to runtime_crystals.json.
+    Same shape as add_crystal_runtime so it can fire through the same
+    _frontier_hits matcher and same op_signature/related machinery."""
+    if not fact or ":" not in fact:
+        return False
+    first_word = fact.split(":", 1)[0].strip()
+    if not first_word:
+        return False
+    triggers_lc = tuple(str(t).lower() for t in triggers if t)
+    if not triggers_lc:
+        return False
+    now = _time.time()
+    _EXTERNAL_CRYSTALS.append({
+        "triggers": triggers_lc,
+        "fact": fact,
+        "op_signature": tuple(op_signature) if op_signature else None,
+        "related": list(related) if related else None,
+        "expires_at": now + float(ttl_sec),
+        "scope": str(scope),
+        "created": now,
+    })
+    if op_signature:
+        _CRYSTAL_OP_SIGNATURES[first_word] = tuple(op_signature)
+    if related:
+        _CRYSTAL_RELATED[first_word] = list(related)
+    return True
+
+
+def _gc_external_crystals() -> int:
+    """Remove expired external crystals.  Returns number dropped."""
+    global _EXTERNAL_CRYSTALS
+    if not _EXTERNAL_CRYSTALS:
+        return 0
+    now = _time.time()
+    keep = []
+    dropped = 0
+    for c in _EXTERNAL_CRYSTALS:
+        if c["expires_at"] > now:
+            keep.append(c)
+        else:
+            dropped += 1
+            # Also clean up the op_signature/related entries we added,
+            # but only if no other surviving crystal claims that
+            # first_word.
+            fw = c["fact"].split(":", 1)[0].strip()
+            still_used = any(
+                e["fact"].split(":", 1)[0].strip() == fw
+                for e in keep
+            ) or any(
+                fact.split(":", 1)[0].strip() == fw
+                for _, fact in (list(_FRONTIER_FACTS)
+                                 + list(_RUNTIME_CRYSTALS))
+            )
+            if not still_used:
+                _CRYSTAL_OP_SIGNATURES.pop(fw, None)
+                _CRYSTAL_RELATED.pop(fw, None)
+    _EXTERNAL_CRYSTALS = keep
+    return dropped
+
+
+def list_external_crystals() -> List[Dict[str, Any]]:
+    """Return active external crystals (post-GC) as a list of small
+    summary dicts.  Useful for /crystals/external endpoint + tests."""
+    _gc_external_crystals()
+    now = _time.time()
+    return [{
+        "first_word": c["fact"].split(":", 1)[0].strip(),
+        "triggers": list(c["triggers"]),
+        "scope": c["scope"],
+        "ttl_remaining_sec": round(c["expires_at"] - now, 1),
+        "fact_preview": c["fact"][:160] + ("..." if len(c["fact"]) > 160
+                                              else ""),
+        "op_signature": list(c["op_signature"]) if c["op_signature"]
+                         else None,
+    } for c in _EXTERNAL_CRYSTALS]
+
+
+def clear_external_crystals(scope: Optional[str] = None) -> int:
+    """Clear external crystals.  If scope given, only crystals with
+    that exact scope.  Returns number dropped."""
+    global _EXTERNAL_CRYSTALS
+    if scope is None:
+        n = len(_EXTERNAL_CRYSTALS)
+        _EXTERNAL_CRYSTALS = []
+        return n
+    before = len(_EXTERNAL_CRYSTALS)
+    _EXTERNAL_CRYSTALS = [c for c in _EXTERNAL_CRYSTALS
+                           if c["scope"] != scope]
+    return before - len(_EXTERNAL_CRYSTALS)
 
 
 def _load_runtime_crystals():
