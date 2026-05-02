@@ -82,11 +82,16 @@ _DOM_SIGN_TO_OP: Dict[Tuple[int, int], int] = {
 }
 
 # Peace threshold for "no curvature, no operator action."  ck_curvature
-# uses 0.15 for Hebrew-root-derived D2.  Audio D2 magnitudes (from
-# force9-unpacked 5D vectors) sit in a similar [0, ~1] regime so the
-# threshold transfers cleanly.  Per-channel calibration may be added
-# later if measurements show systematic mismatch.
-PEACE_THRESHOLD = 0.15
+# uses 0.15 for Hebrew-root-derived D2 magnitudes.  Empirically, audio
+# D2 magnitudes from force9-unpacked vectors are SMALLER than text's
+# (most audio windows have curvature 0.0-0.15) so the same 0.15
+# threshold collapsed 4/5 audio sources to COUNTER (Peace) regardless
+# of content.  Audio's natural scale is ~0.05-0.20, so we use 0.05 as
+# the audio-default Peace threshold.  Caller can override via
+# pcm_to_operator_stream(..., peace_threshold=...).
+PEACE_THRESHOLD_TEXT = 0.15
+PEACE_THRESHOLD_AUDIO = 0.05
+PEACE_THRESHOLD = PEACE_THRESHOLD_AUDIO  # default for audio path
 
 
 # ── Force-vector unpacking (Brayden's pcm_to_force9 -> 5D) ─────────

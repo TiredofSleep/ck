@@ -1161,6 +1161,56 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     q = query.lower()
     lines: List[str] = []
 
+    # 0) Audio introspection: when the user asks about something CK
+    # just heard ("what did you just hear", "describe the audio",
+    # "what was that sound", etc.), surface engine._recent_audio
+    # ahead of any keyword crystal lookup.  Without this hook, the
+    # query falls through to keyword matching ("sound" -> word_sound)
+    # which gives a phonics fact, not what was actually heard.
+    _AUDIO_INTROSPECTION_HINTS = (
+        "what did you just hear", "what did you hear",
+        "describe what you heard", "describe the audio",
+        "describe what you just heard", "what was that sound",
+        "what is your dominant operator right now",
+        "what is your last operator pair",
+        "tell me about the audio", "your recent audio",
+        "what just played",
+    )
+    if any(h in q for h in _AUDIO_INTROSPECTION_HINTS):
+        try:
+            # cortex_obj passed in might or might not have a backref
+            # to the engine, but the engine is stashed on cortex_obj
+            # via boot wiring in some setups.  Try a few paths.
+            engine_obj = (getattr(cortex, "_engine", None)
+                          or getattr(cortex, "engine", None))
+            recent = (getattr(engine_obj, "_recent_audio", None)
+                      if engine_obj is not None else None)
+            # Last-ditch: check any module-level engine reference
+            if recent is None:
+                import sys as _sys
+                for _mname, _m in list(_sys.modules.items()):
+                    if "ck_boot_api" in _mname or "ck_web_api" in _mname:
+                        eng = getattr(_m, "engine", None)
+                        if eng is not None:
+                            recent = getattr(eng, "_recent_audio", None)
+                            break
+            if recent:
+                dom = recent.get("dominant_op", "?")
+                n = recent.get("n_ops", 0)
+                lp = recent.get("last_pair") or [None, None]
+                od = recent.get("op_dist") or {}
+                top_ops = sorted(od.items(), key=lambda kv: -kv[1])[:5]
+                top_str = ", ".join(f"{op}:{v:.0%}" for op, v in top_ops
+                                     if v > 0.01)
+                src = recent.get("source_label", "audio")
+                lines.append(
+                    f"recent_audio: source={src} | n_ops={n} | "
+                    f"dominant={dom} | top: {top_str} | "
+                    f"closing pair: {lp[0]}->{lp[1]}"
+                )
+        except Exception:
+            pass
+
     # 1) Explicit entity hits always fire (user named a dim or op).
     dim_idx = _match_dim_in_query(q)
     if dim_idx is not None:

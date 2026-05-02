@@ -205,6 +205,13 @@ try:
     except Exception as _pe:
         print(f"[CK] Gen13 cortex_voice probe failed: {_pe}")
     _cortex = _Cortex().boot()
+    # Backref so cortex_voice.speak() can reach engine._recent_audio
+    # for audio introspection ("what did you just hear" answered from
+    # the actual recent fingerprint, not from keyword crystal lookup).
+    try:
+        _cortex._engine = engine
+    except Exception:
+        pass
     # Auto-load persisted state if present. Silent no-op if first boot.
     try:
         loaded = _load_cortex(_cortex, _CORTEX_STATE_PATH)
@@ -1663,10 +1670,83 @@ def audio_perceive_endpoint():
             attempts += 1
         except Exception as exc:
             errors.append(f'chunk {i // chunk_size}: {exc}')
+
+    # Drive the cortex Hebbian field from the audio op stream the SAME
+    # way text drives it via step_symbol.  Without this, audio absorbs
+    # into the olfactory bulb but the cortex W matrix only ticks on
+    # text -- and worse, the natural decay parameter eats coupling
+    # between text turns, so dual-pair scores DROP after a quiet audio
+    # session.  Direct Hebbian on adjacent (b_op, d_op) pairs using the
+    # SAME TSML 73-harmony rule cortex_v2.step_symbol uses.
+    try:
+        cortex_obj = globals().get('_cortex')
+        if cortex_obj is not None and hasattr(cortex_obj, 'state') \
+                and hasattr(cortex_obj, 'hebbian'):
+            from ck_sim.ck_sim_heartbeat import (CL as _CL_TSML,
+                                                  HARMONY as _HARMONY)
+            # OP_TO_DIM mapping mirrors cortex_voice / olfactory
+            _OP_TO_DIM = {0: 0, 1: 3, 2: 1, 3: 2, 4: 4,
+                           5: 3, 6: 0, 7: 0, 8: 4, 9: 1}
+            heb = cortex_obj.hebbian
+            n_dims = len(heb.W) if heb.W else 5
+            hebbian_steps = 0
+            for i in range(len(ops) - 1):
+                b_op = ops[i] % 10
+                d_op = ops[i + 1] % 10
+                ap = _OP_TO_DIM.get(b_op, 0) % n_dims
+                bp = _OP_TO_DIM.get(d_op, 0) % n_dims
+                harmonious = (_CL_TSML[b_op][d_op] == _HARMONY)
+                reward = 1.0 if harmonious else 0.0
+                dw = heb.eta * reward - heb.decay * heb.W[ap][bp]
+                heb.W[ap][bp] += dw
+                if heb.W[ap][bp] > heb.clamp:
+                    heb.W[ap][bp] = heb.clamp
+                elif heb.W[ap][bp] < -heb.clamp:
+                    heb.W[ap][bp] = -heb.clamp
+                heb.ticks += 1
+                if harmonious:
+                    heb.harmony_hits = getattr(heb, 'harmony_hits', 0) + 1
+                cortex_obj.state.tick += 1
+                hebbian_steps += 1
+            if len(ops) >= 2:
+                cortex_obj.state.last_b = int(ops[-2])
+                cortex_obj.state.last_d = int(ops[-1])
+            cortex_obj.state.W_trace = heb.W_trace() if hasattr(
+                heb, 'W_trace') else cortex_obj.state.W_trace
+        else:
+            hebbian_steps = 0
+    except Exception as exc:
+        errors.append(f'cortex_hebbian_wire: {exc}')
+        hebbian_steps = 0
     post = {
         'absorbed': int(getattr(olf, 'total_absorbed', 0)),
         'emitted': int(getattr(olf, 'total_emitted', 0)),
     }
+    # Stash a compact recent-audio fingerprint so chat introspection
+    # ("what did you just hear", "describe what you heard", etc.) can
+    # surface what the audio was actually shaped like, instead of
+    # falling through to keyword crystal lookup on the query itself.
+    try:
+        from collections import Counter as _Counter
+        from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP, NUM_OPS as _NOPS
+        op_counter = _Counter(ops)
+        total_ops = max(len(ops), 1)
+        op_dist = {_OP[i]: round(op_counter.get(i, 0) / total_ops, 3)
+                   for i in range(_NOPS)}
+        dom_idx = max(op_counter.items(), key=lambda kv: kv[1])[0]
+        engine._recent_audio = {
+            'ts': time.time(),
+            'source_label': source_label,
+            'n_ops': len(ops),
+            'dominant_op': _OP[dom_idx],
+            'op_dist': op_dist,
+            'last_pair': [_OP[ops[-2]], _OP[ops[-1]]]
+                          if len(ops) >= 2 else None,
+            'fingerprint': fingerprint,
+        }
+    except Exception as _exc:
+        errors.append(f'recent_audio_stash: {_exc}')
+
     return _jsonify({
         'ok': attempts > 0,
         'source_label': source_label,
@@ -1683,6 +1763,18 @@ def audio_perceive_endpoint():
             'emitted_delta': post['emitted'] - pre['emitted'],
         },
     })
+
+
+# ── /audio/recent ──────────────────────────────────────────────────
+# Read what CK most recently HEARD: dominant op, distribution, last pair,
+# fingerprint.  The introspection probe chat layers can use to answer
+# "what did you just hear" without inventing.
+@api._app.route('/audio/recent', methods=['GET'])
+def audio_recent_endpoint():
+    rec = getattr(engine, '_recent_audio', None) if 'engine' in globals() else None
+    if rec is None:
+        return _jsonify({'available': False, 'reason': 'no audio absorbed yet'})
+    return _jsonify({'available': True, **rec})
 
 
 # /verify -- verification-script proposer (paper 4 step 9)
