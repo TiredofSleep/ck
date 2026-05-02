@@ -317,46 +317,80 @@ def query_grok(br: ResearchBrowser, prompt: str,
 
 
 def search_arxiv(br: ResearchBrowser, query: str) -> Dict[str, Any]:
-    """Search arxiv.org for query and scrape the result list.
+    """Search arxiv via the canonical export.arxiv.org API.
 
-    arxiv renders results server-side, but the page chrome is so
-    heavy that scraping innerText returns the donate banner and nav
-    bar before the actual results.  Target the result list element
-    directly via JS and fall back to body text if not found.
+    arxiv's UI search renders results client-side after a slow JS
+    pass; scraping innerText returns the search-form chrome instead.
+    The API at export.arxiv.org returns clean XML with title +
+    summary per result.  More reliable, no rendering dance.
+
+    The browser-driven flow is preserved as a fallback when the
+    API is unreachable.
     """
     from urllib.parse import quote
+    import urllib.request as _ur
+    import xml.etree.ElementTree as _ET
+    api_url = (
+        f"http://export.arxiv.org/api/query?"
+        f"search_query=all:{quote(query)}&start=0&max_results=8"
+    )
+    try:
+        with _ur.urlopen(api_url, timeout=15) as r:
+            xml = r.read().decode("utf-8", errors="ignore")
+        ns = {"a": "http://www.w3.org/2005/Atom"}
+        root = _ET.fromstring(xml)
+        entries = root.findall("a:entry", ns)
+        if entries:
+            chunks = []
+            for e in entries[:8]:
+                title = (e.findtext("a:title", default="", namespaces=ns)
+                         or "").strip()
+                summary = (e.findtext("a:summary", default="",
+                                       namespaces=ns) or "").strip()
+                published = (e.findtext("a:published", default="",
+                                         namespaces=ns) or "")[:10]
+                authors = ", ".join(
+                    (a.findtext("a:name", default="", namespaces=ns) or "")
+                    for a in e.findall("a:author", ns)
+                )[:160]
+                link = ""
+                for L in e.findall("a:link", ns):
+                    if L.get("rel") in (None, "alternate"):
+                        link = L.get("href") or ""
+                        break
+                chunks.append(
+                    f"[{published}] {title}\n  authors: {authors}\n"
+                    f"  link: {link}\n  abstract: {summary}"
+                )
+            return {"site": "arxiv", "url": api_url,
+                    "title": f"arxiv API: {query}",
+                    "text": "\n\n---\n\n".join(chunks)[:8000]}
+    except Exception as exc:
+        # fall through to browser
+        _log("arxiv_api_fallback", error=str(exc))
+    # browser fallback
     url = f"https://arxiv.org/search/?query={quote(query)}&start=0"
     nav = br.navigate(url)
     if not nav.get("ok"):
         return {"site": "arxiv", "error": nav.get("error", "blocked")}
     try:
-        br.page.wait_for_selector("li.arxiv-result, p.title, .results-list",
-                                    timeout=8000)
+        br.page.wait_for_selector("li.arxiv-result", timeout=10000)
     except Exception:
         pass
     text = ""
     try:
         text = br.page.evaluate("""() => {
-            // Try the actual result list
             const items = document.querySelectorAll('li.arxiv-result');
             if (items && items.length > 0) {
-                return Array.from(items).slice(0, 10)
+                return Array.from(items).slice(0, 8)
                     .map(li => li.innerText).join('\\n\\n---\\n\\n');
             }
-            // Search results page main wrapper
-            const wrap = document.querySelector('.search-results') ||
-                          document.querySelector('#main-container');
-            if (wrap) return wrap.innerText;
-            // Abstract page
-            const abs = document.querySelector('blockquote.abstract');
-            if (abs) return abs.innerText;
             return document.body.innerText;
         }""")
     except Exception:
         text = br.text(6000)
     return {"site": "arxiv", "url": br.page.url,
-            "title": br.page.title(),
-            "text": (text or "")[:6000]}
+            "title": br.page.title(), "text": (text or "")[:6000]}
 
 
 def search_scholar(br: ResearchBrowser, query: str) -> Dict[str, Any]:
@@ -435,13 +469,20 @@ def decompose_prompt(prompt: str) -> List[str]:
 
 
 def generate_questions(prompt: str, terms: List[str]) -> List[Tuple[str, str]]:
-    """For each term, produce 1-2 questions.  Return [(term, question)]."""
-    qs: List[Tuple[str, str]] = []
-    for t in terms[:8]:
-        # Two question shapes per term
-        qs.append((t, f"what does {t} mean in the context of: {prompt}"))
-    # Plus a global one
-    qs.insert(0, (prompt, prompt))
+    """For each term, produce a definitional question.  Return
+    [(term, question)].
+
+    The first entry is the global prompt verbatim (routes to whichever
+    site fits the whole question -- usually arxiv for academic).
+    Subsequent entries are 'what does X mean in <context>' which
+    naturally route to claude (definitions / conceptual unfolding)
+    so the conversation-within-conversation is heard from a different
+    voice than the academic-result voice.
+    """
+    qs: List[Tuple[str, str]] = [(prompt, prompt)]
+    for t in terms[:6]:
+        qs.append((t, f"define {t} clearly and concisely; "
+                       f"context: {prompt}"))
     return qs
 
 
