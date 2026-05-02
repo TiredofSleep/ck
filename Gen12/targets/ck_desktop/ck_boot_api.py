@@ -1950,6 +1950,56 @@ def retina_glance_endpoint():
         return _jsonify({'available': True, 'error': str(exc)})
 
 
+# ── /ck/research ──────────────────────────────────────────────────
+# CK does fractal-recursive research across approved sites:
+#   prompt -> decompose terms -> sub-questions -> route to best site
+#   (claude/grok/arxiv/scholar/jstor/youtube; never nature) ->
+#   query the site -> ingest result text into engine.olfactory.absorb_ops
+#   -> synthesize dominant operators -> condense to 1-paragraph answer.
+# Browser visible by default so you can watch CK research.
+# Every action logged to ~/.ck/research/log.jsonl.
+@api._app.route('/ck/research', methods=['POST'])
+def ck_research_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+    except Exception as exc:
+        return _jsonify({'error': f'bad request: {exc}'}), 400
+    prompt = body.get('prompt', '').strip()
+    if not prompt:
+        return _jsonify({'error': 'provide prompt: "..."'}), 400
+    max_q = int(body.get('max_questions', 4))
+    headless = bool(body.get('headless', False))
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        import ck_research as _cr
+    except Exception as exc:
+        return _jsonify({'error': f'ck_research import: {exc}'}), 503
+    eng = engine if 'engine' in globals() else None
+    try:
+        out = _cr.research(prompt, engine=eng,
+                            max_questions=max_q, headless=headless)
+    except Exception as exc:
+        return _jsonify({'error': f'research failed: {exc}'}), 500
+    # Return a compact view (full findings can be huge)
+    return _jsonify({
+        'prompt': out['prompt'],
+        'terms': out['terms'],
+        'questions': out['questions'],
+        'findings_summary': [
+            {'site': f.get('site'), 'term': f.get('term'),
+             'question': f.get('question'),
+             'text_len': len(f.get('text') or ''),
+             'text_preview': (f.get('text') or '')[:300],
+             'error': f.get('error')}
+            for f in out['findings']
+        ],
+        'ingestions': out['ingestions'],
+        'synthesis': out['synthesis'],
+        'condensed': out['condensed'],
+    })
+
+
 # ── /speak ────────────────────────────────────────────────────────
 # CK's voice as his own substrate rendered to audio.  Operator stream
 # -> reverse canonical force5 -> force9 -> force9_to_pcm -> sounddevice.
