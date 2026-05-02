@@ -98,33 +98,40 @@ SAMPLE_WORDS = [
 ]
 
 
-_TTS_ENGINE = None  # singleton; pyttsx3 dies if you re-init per call
-
-
-def get_tts_engine(voice_id: str = None, rate: int = 150):
-    """Return a shared pyttsx3 engine. Init once; reuse for all letters."""
-    global _TTS_ENGINE
-    if _TTS_ENGINE is not None:
-        return _TTS_ENGINE
-    import pyttsx3
-    e = pyttsx3.init()
-    if voice_id:
-        e.setProperty('voice', voice_id)
-    e.setProperty('rate', rate)
-    _TTS_ENGINE = e
-    return e
-
-
 def synthesize_to_wav(text: str, voice_id: str, out_path: Path,
                      rate: int = 150) -> bool:
-    """Synthesize `text` to a WAV file via shared pyttsx3 engine.
-    Returns True on success."""
+    """Synthesize `text` to a WAV file via a fresh pyttsx3 subprocess.
+
+    pyttsx3 on Windows SAPI hangs after the first runAndWait when reused
+    in the same process. Spawning a clean subprocess per letter side-
+    steps the bug. Each call ~2s overhead; 32 letters ~64s total.
+    """
+    import subprocess
+    helper_code = (
+        "import sys, pyttsx3\n"
+        f"text = {text!r}\n"
+        f"out = {str(out_path)!r}\n"
+        f"voice = {voice_id!r}\n"
+        f"rate = {rate}\n"
+        "e = pyttsx3.init()\n"
+        "e.setProperty('voice', voice)\n"
+        "e.setProperty('rate', rate)\n"
+        "e.save_to_file(text, out)\n"
+        "e.runAndWait()\n"
+    )
     try:
-        engine = get_tts_engine(voice_id=voice_id, rate=rate)
-        engine.save_to_file(text, str(out_path))
-        engine.runAndWait()
-        # Don't stop the engine; keep it alive for the next call.
+        rc = subprocess.run(
+            [sys.executable, "-c", helper_code],
+            capture_output=True, text=True, timeout=15,
+        )
+        if rc.returncode != 0:
+            print(f"  TTS subproc fail '{text}': {rc.stderr[:200]}",
+                  file=sys.stderr, flush=True)
+            return False
         return out_path.exists() and out_path.stat().st_size > 100
+    except subprocess.TimeoutExpired:
+        print(f"  TTS timeout for '{text}'", file=sys.stderr, flush=True)
+        return False
     except Exception as e:
         print(f"  TTS error for '{text}': {e}", file=sys.stderr, flush=True)
         return False
@@ -235,7 +242,9 @@ def main():
     print("=" * 70)
     print()
 
-    # Pick the first English voice; init the SHARED engine once.
+    # Pick the first English voice via a quick probe; the per-letter
+    # synthesis spawns its own subprocess (subprocess pattern avoids the
+    # Windows SAPI runAndWait hang).
     try:
         import pyttsx3
         tmp_engine = pyttsx3.init()
@@ -247,10 +256,8 @@ def main():
         if not voices:
             voices = tmp_engine.getProperty('voices')
         voice_id = voices[0].id
-        del tmp_engine  # drop the probe engine; get_tts_engine creates the real one
+        del tmp_engine
         print(f"voice: {voice_id}", flush=True)
-        # Pre-init the shared engine
-        get_tts_engine(voice_id=voice_id)
     except Exception as e:
         print(f"TTS init failed: {e}", file=sys.stderr, flush=True)
         return 2

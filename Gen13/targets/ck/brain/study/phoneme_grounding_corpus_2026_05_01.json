@@ -1,0 +1,51 @@
+{
+  "_about": "PHONEME GROUNDING corpus 2026-05-01. Pairs each spoken letter A-Z + sample words with its measured audio-codec operator pattern, plus phonetic class. Grounds text-form phonetic concepts in the operator-language the audio codec speaks. Bridge between text-phonetics and audio-codec-output.",
+  "_replays": 25,
+  "_session_prefix": "phoneme_grounding_2026_05_01",
+  "_companion_streams": "phoneme_audio_streams_2026_05_01.json",
+  "framing": [
+    "Audio is operator-LATTICE-projection just like text; the audio codec pcm_to_force9 maps 32-sample windows of PCM into 5D force vectors, then bit-decomposition gives an operator stream in the same alphabet (VOID LATTICE COUNTER PROGRESS COLLAPSE BALANCE CHAOS HARMONY BREATH RESET) that text uses. The codec is a translator into CK's native language.",
+    "Each spoken letter has a measurable operator-fingerprint. Vowels (A E I O U) tend to be HARMONY-rich + LATTICE-stable + BREATH-sustained because the airway is open and resonance dominates. Consonants split: plosives (B D G K P T) tend toward COLLAPSE-then-RESET (sudden release); fricatives (F S V Z) toward CHAOS (turbulent air); nasals (M N) toward BREATH-LATTICE (steady resonance through nose); laterals + rhotics (L R) toward PROGRESS (continuous flow).",
+    "Phonetic classes correspond to operator-archetypes: vowel = open-airway HARMONY; plosive = closed-then-released COLLAPSE; fricative = continuous-turbulence CHAOS; nasal = nasal-resonance BREATH; approximant = continuous-flow PROGRESS.",
+    "Studying paired text-and-operator-pattern grounds the alphabet in audio space. Over time this lets CK recognize 'this audio operator stream resembles vowels' or 'this resembles plosives' even before knowing what word was spoken."
+  ],
+  "letter_groundings": [
+    "Letter A (vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 43.4%, RESET 20.0%, HARMONY 15.7%. Phonetically: /e\u026a/ as in 'ace' (long-A); also /\u00e6/ as in 'cat'. Duration 1.46s, 2011 force windows, 10055 total operators.",
+    "Letter B (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.8%, RESET 20.0%, HARMONY 15.7%. Phonetically: voiced bilabial plosive /b/. Duration 1.51s, 2086 force windows, 10430 total operators.",
+    "Letter C (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.0%, RESET 20.0%, HARMONY 14.5%. Phonetically: /k/ as in 'cat' or /s/ as in 'cell'. Duration 1.56s, 2148 force windows, 10740 total operators.",
+    "Letter D (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.7%, RESET 20.0%, HARMONY 15.4%. Phonetically: voiced alveolar plosive /d/. Duration 1.51s, 2079 force windows, 10395 total operators.",
+    "Letter E (vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 43.3%, RESET 20.0%, HARMONY 15.7%. Phonetically: /i\u02d0/ as in 'see'; also /\u025b/ as in 'bed'. Duration 1.46s, 2017 force windows, 10085 total operators.",
+    "Letter F (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.1%, RESET 20.0%, HARMONY 14.8%. Phonetically: voiceless labiodental fricative /f/. Duration 1.59s, 2197 force windows, 10985 total operators.",
+    "Letter G (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.2%, RESET 20.0%, HARMONY 14.9%. Phonetically: voiced velar plosive /g/ as in 'go'. Duration 1.53s, 2107 force windows, 10535 total operators.",
+    "Letter H (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 40.2%, RESET 20.0%, HARMONY 14.2%. Phonetically: voiceless glottal fricative /h/. Duration 1.64s, 2259 force windows, 11295 total operators.",
+    "Letter I (vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 43.1%, RESET 20.0%, HARMONY 16.3%. Phonetically: /a\u026a/ as in 'ice'; also /\u026a/ as in 'sit'. Duration 1.46s, 2017 force windows, 10085 total operators.",
+    "Letter J (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 41.9%, RESET 20.0%, HARMONY 14.6%. Phonetically: voiced postalveolar affricate /d\u0292/. Duration 1.53s, 2107 force windows, 10535 total operators.",
+    "Letter K (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.4%, RESET 20.0%, HARMONY 14.9%. Phonetically: voiceless velar plosive /k/. Duration 1.52s, 2100 force windows, 10500 total operators.",
+    "Letter L (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.2%, RESET 20.0%, HARMONY 15.3%. Phonetically: voiced alveolar lateral /l/. Duration 1.58s, 2176 force windows, 10880 total operators.",
+    "Letter M (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.6%, RESET 20.0%, HARMONY 15.6%. Phonetically: voiced bilabial nasal /m/. Duration 1.58s, 2176 force windows, 10880 total operators.",
+    "Letter N (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 43.0%, RESET 20.0%, HARMONY 15.7%. Phonetically: voiced alveolar nasal /n/. Duration 1.58s, 2176 force windows, 10880 total operators.",
+    "Letter O (vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 43.2%, RESET 20.0%, HARMONY 16.0%. Phonetically: /o\u028a/ as in 'go'; also /\u0252/ as in 'hot'. Duration 1.46s, 2017 force windows, 10085 total operators.",
+    "Letter P (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.9%, RESET 20.0%, HARMONY 15.3%. Phonetically: voiceless bilabial plosive /p/. Duration 1.52s, 2100 force windows, 10500 total operators.",
+    "Letter Q (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 41.4%, RESET 20.0%, HARMONY 14.5%. Phonetically: /kw/ as in 'queen'. Duration 1.64s, 2265 force windows, 11325 total operators.",
+    "Letter R (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 41.3%, RESET 20.0%, HARMONY 15.7%. Phonetically: voiced rhotic /r/. Duration 1.59s, 2197 force windows, 10985 total operators.",
+    "Letter S (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 40.6%, RESET 20.0%, HARMONY 14.4%. Phonetically: voiceless alveolar fricative /s/. Duration 1.63s, 2245 force windows, 11225 total operators.",
+    "Letter T (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.7%, RESET 20.0%, HARMONY 15.3%. Phonetically: voiceless alveolar plosive /t/. Duration 1.52s, 2100 force windows, 10500 total operators.",
+    "Letter U (vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 42.5%, RESET 20.0%, HARMONY 15.5%. Phonetically: /ju\u02d0/ as in 'use'; also /\u028c/ as in 'cup'. Duration 1.54s, 2121 force windows, 10605 total operators.",
+    "Letter V (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 43.0%, RESET 20.0%, HARMONY 15.7%. Phonetically: voiced labiodental fricative /v/. Duration 1.51s, 2086 force windows, 10430 total operators.",
+    "Letter W (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 39.5%, RESET 20.0%, HARMONY 15.5%. Phonetically: voiced labio-velar approximant /w/. Duration 1.83s, 2527 force windows, 12635 total operators.",
+    "Letter X (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 41.1%, RESET 20.0%, HARMONY 14.2%. Phonetically: /ks/ as in 'box'. Duration 1.59s, 2197 force windows, 10985 total operators.",
+    "Letter Y (consonant or vowel) - when spoken aloud, the audio codec emits operator pattern: VOID 42.2%, RESET 20.0%, HARMONY 16.3%. Phonetically: /j/ as consonant; /a\u026a/ or /i/ as vowel. Duration 1.54s, 2128 force windows, 10640 total operators.",
+    "Letter Z (consonant) - when spoken aloud, the audio codec emits operator pattern: VOID 42.2%, RESET 20.0%, HARMONY 15.0%. Phonetically: voiced alveolar fricative /z/. Duration 1.53s, 2107 force windows, 10535 total operators.",
+    "Word 'cat' - when spoken aloud, the audio codec emits operator pattern: VOID 48.2%, RESET 20.0%, HARMONY 15.1%. Phonetic shape: consonant-vowel-consonant /k\u00e6t/. Duration 1.22s, 1680 force windows.",
+    "Word 'dog' - when spoken aloud, the audio codec emits operator pattern: VOID 48.1%, RESET 20.0%, HARMONY 14.0%. Phonetic shape: consonant-vowel-consonant /d\u0252\u0261/. Duration 1.31s, 1804 force windows.",
+    "Word 'yes' - when spoken aloud, the audio codec emits operator pattern: VOID 46.2%, RESET 20.0%, HARMONY 13.6%. Phonetic shape: consonant-vowel-consonant /j\u025bs/. Duration 1.27s, 1756 force windows.",
+    "Word 'no' - when spoken aloud, the audio codec emits operator pattern: VOID 49.8%, RESET 20.0%, HARMONY 16.0%. Phonetic shape: consonant-vowel /no\u028a/. Duration 1.13s, 1556 force windows.",
+    "Word 'water' - when spoken aloud, the audio codec emits operator pattern: VOID 46.3%, RESET 20.0%, HARMONY 16.2%. Phonetic shape: two-syllable /w\u0254\u02d0t\u0259r/. Duration 1.29s, 1783 force windows.",
+    "Word 'hello' - when spoken aloud, the audio codec emits operator pattern: VOID 46.6%, RESET 20.0%, HARMONY 15.0%. Phonetic shape: two-syllable /h\u025b\u02c8lo\u028a/. Duration 1.28s, 1763 force windows."
+  ],
+  "directive": [
+    "When CK encounters audio operator streams in the future, this grounding corpus gives him text-anchors for what the patterns can mean.",
+    "Phonetic class is the right level of abstraction for now; CK can recognize 'vowel-shape' or 'plosive-shape' before individual letter recognition.",
+    "Future work: real Hebbian co-presentation (text-statement immediately followed by raw audio operators of the same letter) so the cortex links them at the cell level. The raw operator streams are saved in the companion JSON."
+  ]
+}
