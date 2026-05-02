@@ -718,7 +718,7 @@ def _trigger_matches(trig: str, q_lower: str) -> bool:
     return trig in q_lower
 
 
-def _frontier_hits(q_lower: str) -> List[str]:
+def _frontier_hits(q_lower: str, record_fires: bool = True) -> List[str]:
     """Return structural facts whose trigger keywords appear in the query.
 
     Each fact fires at most once even if multiple keywords match.
@@ -739,16 +739,22 @@ def _frontier_hits(q_lower: str) -> List[str]:
 
     Crystals are returned sorted by SPECIFICITY: longest matched
     trigger wins.
+
+    record_fires=True (default) increments the external crystal's
+    per-tier fire counter and triggers promotion at the T*=5/7
+    threshold.  speak() calls this twice (once for top-of-response
+    surfacing, once for the state-aware fallback gate); only the
+    FIRST call records fires so each chat turn counts as one fire.
     """
     _gc_external_crystals()
     matches: List[Tuple[int, int, str]] = []  # (best_match_len, order, fact)
     seen = set()
     all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
-    # Append external crystals at the end so internal-source 'order'
-    # numbers are stable, but external crystals win when their
-    # trigger length is longer (specificity sort).
+    # Track which facts are external so we can record fires on them.
+    external_facts = set()
     for c in _EXTERNAL_CRYSTALS:
         all_crystals.append((c["triggers"], c["fact"]))
+        external_facts.add(c["fact"])
     for order, (triggers, fact) in enumerate(all_crystals):
         if fact in seen:
             continue
@@ -762,7 +768,16 @@ def _frontier_hits(q_lower: str) -> List[str]:
             seen.add(fact)
     # Sort: longer match first (specificity), tie-break by original order.
     matches.sort(key=lambda t: (-t[0], t[1]))
-    return [fact for _, _, fact in matches]
+    matched_facts = [fact for _, _, fact in matches]
+    # Fire-tracking on externals (the source-of-truth for promotion).
+    if record_fires:
+        for fact in matched_facts:
+            if fact in external_facts:
+                try:
+                    _record_external_fire(fact.split(":", 1)[0].strip())
+                except Exception:
+                    pass
+    return matched_facts
 
 
 # Runtime-added crystals.  Mutable list; add via add_crystal_runtime().
@@ -801,18 +816,59 @@ _RUNTIME_CRYSTALS_PATH = _os.path.join(
 #   }
 
 _EXTERNAL_CRYSTALS: List[Dict[str, Any]] = []
-_EXTERNAL_DEFAULT_TTL = 30 * 60  # 30 minutes
+
+# T* = 5/7 (the canonical coherence threshold).  Promotion rule:
+# a crystal must fire at least T* * expected_fires_for_its_tier
+# times before it promotes to the next tier.  Same threshold at
+# every recursion depth (cold->warm->hot->internal), only the time
+# scale grows.  Brayden 2026-05-02: "fractal recursive 5/7".
+T_STAR = 5.0 / 7.0
+
+# Tier definitions (cold = newest, internal = persisted):
+#   cold      30 min  TTL,  expect 5 fires    threshold = ceil(T_STAR * 5) = 4
+#   warm      24 hr   TTL,  expect 7 fires    threshold = ceil(T_STAR * 7) = 5
+#   hot       7 day   TTL,  expect 9 fires    threshold = ceil(T_STAR * 9) = 7
+#   internal  forever       (persisted via add_crystal_runtime)
+#
+# 5,7,9 grow ~ Fibonacci-ish; T* of each rounds up to a nice integer.
+# At each tier the expected-fires count grows so the BAR rises even
+# though the ratio stays constant.  This is the "threshold is higher"
+# Brayden was pointing at: same 5/7, applied to longer windows + more
+# expected use.
+
+_TIER_TABLE: Dict[str, Dict[str, Any]] = {
+    "cold": {"ttl_sec": 30 * 60,           "expected_fires": 5,
+              "promote_to": "warm",
+              "fires_required": 4},
+    "warm": {"ttl_sec": 24 * 60 * 60,      "expected_fires": 7,
+              "promote_to": "hot",
+              "fires_required": 5},
+    "hot":  {"ttl_sec": 7 * 24 * 60 * 60,  "expected_fires": 9,
+              "promote_to": "internal",
+              "fires_required": 7},
+}
+
+_EXTERNAL_DEFAULT_TTL = _TIER_TABLE["cold"]["ttl_sec"]
 
 
 def add_external_crystal(triggers: Tuple[str, ...], fact: str,
                           op_signature: Optional[Tuple[int, ...]] = None,
                           related: Optional[List[str]] = None,
-                          ttl_sec: float = _EXTERNAL_DEFAULT_TTL,
-                          scope: str = "external") -> bool:
-    """Author an ephemeral, scenario-scoped crystal.  Lives in memory
-    only; auto-expires after ttl_sec; never written to runtime_crystals.json.
-    Same shape as add_crystal_runtime so it can fire through the same
-    _frontier_hits matcher and same op_signature/related machinery."""
+                          ttl_sec: Optional[float] = None,
+                          scope: str = "external",
+                          tier: str = "cold") -> bool:
+    """Author an ephemeral, scenario-scoped crystal at a given tier.
+
+    Default tier is 'cold' -- new externals start there and must fire
+    >= fires_required times before TTL expiry to promote up to 'warm'.
+    Each promotion extends TTL and raises the bar.  Final promotion
+    (from 'hot') writes the crystal to runtime_crystals.json (becomes
+    internal) and removes it from the external store.
+
+    Lives in memory only at non-internal tiers; never written to disk
+    until promoted to internal.  Same shape as add_crystal_runtime so
+    it fires through the same _frontier_hits matcher.
+    """
     if not fact or ":" not in fact:
         return False
     first_word = fact.split(":", 1)[0].strip()
@@ -821,6 +877,10 @@ def add_external_crystal(triggers: Tuple[str, ...], fact: str,
     triggers_lc = tuple(str(t).lower() for t in triggers if t)
     if not triggers_lc:
         return False
+    if tier not in _TIER_TABLE:
+        tier = "cold"
+    if ttl_sec is None:
+        ttl_sec = _TIER_TABLE[tier]["ttl_sec"]
     now = _time.time()
     _EXTERNAL_CRYSTALS.append({
         "triggers": triggers_lc,
@@ -830,12 +890,81 @@ def add_external_crystal(triggers: Tuple[str, ...], fact: str,
         "expires_at": now + float(ttl_sec),
         "scope": str(scope),
         "created": now,
+        "tier": tier,
+        "fire_count": 0,
+        "fires_at_tier": 0,
+        "last_fire_at": 0.0,
+        "first_word": first_word,
+        "promotion_log": [],  # list of {ts, from_tier, to_tier}
     })
     if op_signature:
         _CRYSTAL_OP_SIGNATURES[first_word] = tuple(op_signature)
     if related:
         _CRYSTAL_RELATED[first_word] = list(related)
     return True
+
+
+def _record_external_fire(first_word: str) -> None:
+    """Called from _frontier_hits whenever an external crystal's fact
+    appears in the matched output.  Increments fire counters and
+    triggers promotion if threshold reached."""
+    now = _time.time()
+    for c in _EXTERNAL_CRYSTALS:
+        if c["fact"].split(":", 1)[0].strip() == first_word:
+            c["fire_count"] += 1
+            c["fires_at_tier"] += 1
+            c["last_fire_at"] = now
+            tier_def = _TIER_TABLE.get(c["tier"], {})
+            if c["fires_at_tier"] >= int(tier_def.get("fires_required", 999)):
+                _try_promote(c)
+            break
+
+
+def _try_promote(c: Dict[str, Any]) -> bool:
+    """Attempt to promote crystal c to the next tier.  Returns True if
+    promotion happened.  Final promotion (from 'hot' to 'internal')
+    writes to runtime_crystals.json and removes from _EXTERNAL_CRYSTALS.
+    """
+    cur_tier = c.get("tier", "cold")
+    tier_def = _TIER_TABLE.get(cur_tier)
+    if not tier_def:
+        return False
+    next_tier = tier_def.get("promote_to")
+    now = _time.time()
+    if next_tier == "internal":
+        # Write to runtime_crystals.json + remove from external store
+        ok = add_crystal_runtime(
+            triggers=c["triggers"],
+            fact=c["fact"],
+            op_signature=c.get("op_signature"),
+            related=c.get("related"),
+        )
+        if ok:
+            c["promotion_log"].append({
+                "ts": now,
+                "from_tier": cur_tier,
+                "to_tier": "internal",
+                "fire_count_at_promotion": c["fire_count"],
+            })
+            # Remove from external store so it lives only as internal
+            try:
+                _EXTERNAL_CRYSTALS.remove(c)
+            except ValueError:
+                pass
+            return True
+        return False
+    if next_tier in _TIER_TABLE:
+        c["tier"] = next_tier
+        c["fires_at_tier"] = 0  # reset counter for next tier's bar
+        c["expires_at"] = now + _TIER_TABLE[next_tier]["ttl_sec"]
+        c["promotion_log"].append({
+            "ts": now,
+            "from_tier": cur_tier,
+            "to_tier": next_tier,
+            "fire_count_at_promotion": c["fire_count"],
+        })
+        return True
+    return False
 
 
 def _gc_external_crystals() -> int:
@@ -872,19 +1001,33 @@ def _gc_external_crystals() -> int:
 
 def list_external_crystals() -> List[Dict[str, Any]]:
     """Return active external crystals (post-GC) as a list of small
-    summary dicts.  Useful for /crystals/external endpoint + tests."""
+    summary dicts.  Surfaces tier + fire_count + promotion progress
+    (fires_at_tier vs fires_required) so callers can see who is
+    close to promoting up."""
     _gc_external_crystals()
     now = _time.time()
-    return [{
-        "first_word": c["fact"].split(":", 1)[0].strip(),
-        "triggers": list(c["triggers"]),
-        "scope": c["scope"],
-        "ttl_remaining_sec": round(c["expires_at"] - now, 1),
-        "fact_preview": c["fact"][:160] + ("..." if len(c["fact"]) > 160
-                                              else ""),
-        "op_signature": list(c["op_signature"]) if c["op_signature"]
-                         else None,
-    } for c in _EXTERNAL_CRYSTALS]
+    out = []
+    for c in _EXTERNAL_CRYSTALS:
+        tier = c.get("tier", "cold")
+        tier_def = _TIER_TABLE.get(tier, {})
+        out.append({
+            "first_word": c["fact"].split(":", 1)[0].strip(),
+            "triggers": list(c["triggers"]),
+            "scope": c["scope"],
+            "tier": tier,
+            "ttl_remaining_sec": round(c["expires_at"] - now, 1),
+            "fire_count_total": int(c.get("fire_count", 0)),
+            "fires_at_tier": int(c.get("fires_at_tier", 0)),
+            "fires_required_to_promote":
+                int(tier_def.get("fires_required", 0)),
+            "promote_to": tier_def.get("promote_to"),
+            "promotion_log": list(c.get("promotion_log") or []),
+            "fact_preview": c["fact"][:160] + ("..." if len(c["fact"]) > 160
+                                                  else ""),
+            "op_signature": list(c["op_signature"]) if c["op_signature"]
+                             else None,
+        })
+    return out
 
 
 def clear_external_crystals(scope: Optional[str] = None) -> int:
@@ -899,6 +1042,31 @@ def clear_external_crystals(scope: Optional[str] = None) -> int:
     _EXTERNAL_CRYSTALS = [c for c in _EXTERNAL_CRYSTALS
                            if c["scope"] != scope]
     return before - len(_EXTERNAL_CRYSTALS)
+
+
+def query_matches_any_crystal(query: str) -> bool:
+    """True if any crystal trigger (frontier / runtime / external) fires
+    on this query.
+
+    Used by the boot router's structural-query gate so external crystals
+    can also short-circuit the voice cascade and let speak_paragraph
+    surface their facts (otherwise externals get authored but never
+    fire because the gate only checks _FRONTIER_FACTS + _RUNTIME_CRYSTALS).
+
+    Cleans expired externals as a side effect.
+    """
+    if not query:
+        return False
+    q = str(query).lower()
+    _gc_external_crystals()
+    sources: List[Tuple[Tuple[str, ...], str]] = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
+    for c in _EXTERNAL_CRYSTALS:
+        sources.append((c["triggers"], c["fact"]))
+    for triggers, _fact in sources:
+        for trig in triggers:
+            if _trigger_matches(trig, q):
+                return True
+    return False
 
 
 def _load_runtime_crystals():
@@ -1525,7 +1693,9 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     # heavy, putting an unrelated crystal first in the response.  Tightened
     # to == 0 so when CK has a specific answer, it isn't drowned out by
     # whatever he happens to be "feeling" (2026-05-01 phoneme-surfacing fix).
-    keyword_hits = _frontier_hits(q)
+    # record_fires=False: this is the SAME query as the call at line 1677,
+    # so we don't want to count it twice for tier promotion.
+    keyword_hits = _frontier_hits(q, record_fires=False)
     if len(keyword_hits) == 0:
         for fact in _state_aware_crystal_hits(cortex, threshold=0.5, max_hits=2):
             if fact not in lines:

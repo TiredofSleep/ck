@@ -337,23 +337,40 @@ try:
 
     def _is_structural_query(text: str) -> bool:
         """True if the user is asking about CK's own state / coordinates,
-        OR if the text matches any code-baked or runtime crystal trigger."""
+        OR if the text matches any code-baked or runtime crystal trigger
+        OR if it matches an active external crystal (scenario-scoped).
+
+        External crystals (research findings, prompt terms during an active
+        research session) MUST count as structural here -- otherwise the
+        chat router classifies the query as 'general' and never asks
+        speak_paragraph for an answer, which means the externals get
+        authored but never fire and never promote up the tier ladder.
+        """
         if not text:
             return False
         t = text.lower()
         for k in _STRUCTURAL_QUERY_KEYS:
             if k in t:
                 return True
-        # Also: any crystal trigger counts as structural.  This lets newly
-        # authored runtime crystals fire without code edits.
+        # All three crystal stores count as structural triggers.  Use
+        # cortex_voice's canonical matcher so the trigger semantics
+        # (word-boundary on alnum, substring on special chars) match
+        # what _frontier_hits actually does.
         try:
-            from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS
-            for triggers, _ in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
-                for trig in triggers:
-                    if trig and trig in t:
-                        return True
+            from cortex_voice import query_matches_any_crystal
+            res = query_matches_any_crystal(text)
+            if res:
+                return True
         except Exception:
-            pass
+            # Fallback: legacy substring check across runtime + frontier.
+            try:
+                from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS
+                for triggers, _ in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
+                    for trig in triggers:
+                        if trig and trig in t:
+                            return True
+            except Exception:
+                pass
         return False
 
     def _is_pastoral_query(text: str) -> bool:
