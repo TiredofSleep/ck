@@ -105,6 +105,23 @@ for d in DOMAINS_IN_STEM_CORPUS:
     DOMAIN_TO_CORPUS_KEYS[d] = "_stem_deep"
 
 
+# Daemon trains the 7-dim cortex state when CK_CORTEX_DIM=7 is set in
+# the environment (or the 7d state file exists). Default behavior was
+# to train the 5d state (which was good for the 5d cortex but useless
+# for coherencekeeper.com once the 7d cortex went live).
+_GEN13_VAR = SCRIPT_DIR.parent.parent.parent.parent / "var"
+_DEFAULT_7D_STATE = _GEN13_VAR / "cortex_state_7d.json"
+_DEFAULT_5D_STATE = _GEN13_VAR / "cortex_state.json"
+def _state_path_for_daemon():
+    """Pick which state file the daemon trains.
+    7d preferred when env says so or 7d file exists. Falls back to 5d."""
+    if os.environ.get("CK_CORTEX_DIM") == "7":
+        return _DEFAULT_7D_STATE
+    if _DEFAULT_7D_STATE.exists():
+        return _DEFAULT_7D_STATE
+    return _DEFAULT_5D_STATE
+
+
 def run_subprocess(cmd, timeout=180):
     """Run a Python subprocess and capture stdout/stderr."""
     try:
@@ -176,7 +193,11 @@ def pick_corpus_for_domain(domain):
 
 
 def run_study(corpus_path, replays=10):
-    """Run study_direct.py on a corpus.  Returns dict with deltas."""
+    """Run study_direct.py on a corpus.  Returns dict with deltas.
+    study_direct uses the 5-dim Cortex (well-tested + has full TSML
+    interaction matrix). The 7-dim runtime state is refreshed from the
+    5-dim trained state via periodic re-migration (see
+    migrate_cortex_5to7_live.py)."""
     cmd = [
         sys.executable,
         str(SCRIPT_DIR / "study_direct.py"),

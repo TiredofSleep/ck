@@ -40,7 +40,7 @@ if _BRAIN_DIR not in sys.path:
 # Hebbian substrate, not the operator-stream source.
 from ao_5element import AO5Element
 from quadratic_glue import quadratic_glue
-from ck_sim.ck_sim_heartbeat import HARMONY, NUM_OPS, OP_NAMES
+from ck_sim.ck_sim_heartbeat import HARMONY, NUM_OPS, OP_NAMES, CL as CL_TSML
 
 # Import from v2_prototype (these stay in v2_prototype/ as the canonical
 # 7-dim definitions; cortex_v2.py is just the live wrapper).
@@ -136,12 +136,15 @@ class CortexV2:
         b_op = self._prev_op if self._prev_op is not None else r["current_op"]
         self._prev_op = d_op
 
-        # Hebbian update — local Oja on the projected target cell, no
-        # aggressive off-target decay (the v2_prototype's off-target decay
-        # of 0.998/tick collapses the migrated 5x5 weights over 1000s of
-        # ticks). Behavior here matches the 5-dim spirit: only the active
-        # cell experiences reward+decay each tick.
-        harmonious = (b_op == HARMONY) or (d_op == HARMONY)
+        # Hebbian update — uses TSML 10x10 table (CL_TSML) to determine
+        # harmony per pair (matches 5-dim cortex's 73-harmony rule), not
+        # the narrow 'either op is HARMONY' proxy. The narrow proxy made
+        # 90% of cells decay-only because diagonal cells like (3,3) need
+        # both ops to map to dim 3 (LATTICE or BALANCE), neither of which
+        # is HARMONY=7, so reward was always 0. Result: W_trace bled out
+        # over time. The TSML lookup gives 73 harmonies across 100 op-
+        # pairs — much richer reward distribution.
+        harmonious = (CL_TSML[b_op][d_op] == HARMONY)
         target_d_a = OP_TO_DIM_7.get(b_op, 0)
         target_d_b = OP_TO_DIM_7.get(d_op, 0)
         reward = 1.0 if harmonious else 0.0

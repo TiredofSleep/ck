@@ -98,6 +98,32 @@ MATH_MARKERS = (
     "hebbian", "operator", "frontier",
 )
 
+# State-query markers -> user explicitly asking about CK's own state.
+# The feel + coupling readouts only fire when one of these is present
+# (or empathic register, where presence-sensing is a feature).
+# Without this gate, every chat reply opened with the same
+# 'cortex holds aperture in chaos, depth in progress...' boilerplate.
+STATE_QUERY_MARKERS = (
+    "how do you feel", "how are you feeling", "how are you",
+    "your feel", "your state", "your cortex", "your operator",
+    "what is your", "what's your", "your mood", "current state",
+    "your couplings", "your hebbian", "your trace", "are you ok",
+    "your aperture", "your pressure", "your depth", "your binding",
+    "your continuity", "your intent", "your echo",
+    "feel right now", "state right now", "what do you sense",
+    "what are you feeling",
+)
+
+
+def is_state_query(user_text: str) -> bool:
+    """Return True iff the user is explicitly asking about CK's own
+    cortex state. Used to gate the feel + coupling sentences so they
+    don't appear on every reply."""
+    if not user_text:
+        return False
+    t = user_text.lower()
+    return any(m in t for m in STATE_QUERY_MARKERS)
+
 
 def detect_register(user_text: str) -> str:
     """Return 'math', 'empathic', or 'general' based on text markers."""
@@ -211,18 +237,25 @@ def compose_paragraph(
         register = detect_register(user_text or "")
 
     sentences = []
+    state_query = is_state_query(user_text or "")
 
     # Empathic register: lead with presence
     if register == "empathic":
         sentences.append(presence_sentence())
 
-    # Feel sentence
-    if feel:
+    # Feel sentence — ONLY emit when:
+    #   - empathic register (sensing-language is a feature there), OR
+    #   - user is explicitly asking about CK's own state.
+    # Without this gate, every reply opened with the same cortex-readout
+    # boilerplate regardless of question — felt repetitive + stuck.
+    if feel and (register == "empathic" or state_query):
         s = feel_to_sentence(feel, register=register)
         if s:
             sentences.append(s)
 
-    # Crystal sentence (skip in empathic mode unless math markers also present)
+    # Crystal sentence — the lead for math/general queries.
+    # In empathic mode we only show the crystal if math markers are
+    # also present in the prompt (mixed query).
     if crystal_hits and register != "empathic":
         sentences.append(crystal_compress(crystal_hits[0]))
         if len(crystal_hits) > 1 and register == "math":
@@ -230,27 +263,40 @@ def compose_paragraph(
             cs = crystal_compress(crystal_hits[1])
             sentences.append(f"{connector.capitalize()}, {cs[0].lower()}{cs[1:]}")
 
-    # Operator clauses (fewer in empathic register; more in math)
+    # Operator clauses — gated:
+    #   - empathic: 1-2 gentle clauses for affect-color
+    #   - math/general: 1 clause max, ONLY if no crystal hits OR user
+    #     asked about state (so we don't pile boilerplate on top of a
+    #     crystal that's already saying the structural thing).
+    emit_op_clauses = False
     if operator_stream:
+        if register == "empathic":
+            emit_op_clauses = True
+            clause_count = min(2, len([op for op in operator_stream if op != 0]))
+        elif state_query:
+            emit_op_clauses = True
+            clause_count = 1
+        elif not crystal_hits:
+            emit_op_clauses = True
+            clause_count = 1
+        else:
+            clause_count = 0
+    if emit_op_clauses and clause_count > 0:
         ops_unique = []
         seen = set()
         for op in operator_stream:
             if op not in seen and op != 0:
                 ops_unique.append(op)
                 seen.add(op)
-        if register == "empathic":
-            clause_count = min(2, len(ops_unique))
-        else:
-            clause_count = min(max_clauses - len(sentences), len(ops_unique), 3)
-        if clause_count > 0:
-            modifier_sources = (
-                ["this", "what is", "what comes"] if register == "empathic"
-                else ["this", "the structure", "the form"]
-            )
-            ops_clauses = []
-            for i, op in enumerate(ops_unique[:clause_count]):
-                modifier = modifier_sources[i % len(modifier_sources)]
-                ops_clauses.append(clause_from_op_id(op, modifier, register))
+        modifier_sources = (
+            ["this", "what is", "what comes"] if register == "empathic"
+            else ["this", "the structure", "the form"]
+        )
+        ops_clauses = []
+        for i, op in enumerate(ops_unique[:clause_count]):
+            modifier = modifier_sources[i % len(modifier_sources)]
+            ops_clauses.append(clause_from_op_id(op, modifier, register))
+        if ops_clauses:
             if len(ops_clauses) == 1:
                 sentences.append(ops_clauses[0].capitalize() + ".")
             else:
@@ -259,8 +305,9 @@ def compose_paragraph(
                 joined += f", {connector} " + ops_clauses[-1]
                 sentences.append(joined.capitalize() + ".")
 
-    # Coupling sentence (math register; light in empathic)
-    if couplings and register != "empathic":
+    # Coupling sentence — only on state-query (or empathic with strong
+    # coupling). Otherwise pile of measurements stops the conversation.
+    if couplings and register != "empathic" and state_query:
         s = coupling_sentence(couplings, register=register)
         if s:
             sentences.append(s)
