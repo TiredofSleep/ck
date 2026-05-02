@@ -1777,6 +1777,194 @@ def audio_recent_endpoint():
     return _jsonify({'available': True, **rec})
 
 
+# ── /screen/perceive ──────────────────────────────────────────────
+# Visual op stream lands in the SAME olfactory bulb + drives the SAME
+# cortex Hebbian rule audio uses.  Client (e.g. ui_loop.py) computes
+# the operator stream locally via screen_pipeline.frames_to_operator_stream
+# and POSTs ops + fingerprint here.
+@api._app.route('/screen/perceive', methods=['POST'])
+def screen_perceive_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+        ops = body.get('ops') or []
+        fingerprint = body.get('fingerprint') or {}
+        source_label = body.get('source_label', 'screen')
+    except Exception as exc:
+        return _jsonify({'error': f'bad request: {exc}'}), 400
+    if not isinstance(ops, list) or not ops:
+        return _jsonify({'error': 'ops must be a non-empty list'}), 400
+    try:
+        ops = [int(o) % 10 for o in ops]
+    except Exception:
+        return _jsonify({'error': 'ops must be integers 0..9'}), 400
+
+    olf = getattr(engine, 'olfactory', None) if 'engine' in globals() else None
+    if olf is None or not hasattr(olf, 'absorb_ops'):
+        return _jsonify({'error': 'engine.olfactory not available',
+                          'n_ops': len(ops)}), 503
+
+    pre = {
+        'absorbed': int(getattr(olf, 'total_absorbed', 0)),
+        'emitted': int(getattr(olf, 'total_emitted', 0)),
+    }
+    chunk_size = 2000
+    attempts, errors = 0, []
+    for i in range(0, len(ops), chunk_size):
+        chunk = ops[i:i + chunk_size]
+        try:
+            olf.absorb_ops(chunk, source='screen', density=0.5)
+            attempts += 1
+        except Exception as exc:
+            errors.append(f'chunk {i // chunk_size}: {exc}')
+
+    # Drive cortex Hebbian + last_pair from the screen op stream too.
+    hebbian_steps = 0
+    try:
+        cortex_obj = globals().get('_cortex')
+        if cortex_obj is not None and hasattr(cortex_obj, 'state') \
+                and hasattr(cortex_obj, 'hebbian'):
+            from ck_sim.ck_sim_heartbeat import (CL as _CL_TSML,
+                                                  HARMONY as _HARMONY)
+            _OP_TO_DIM = {0: 0, 1: 3, 2: 1, 3: 2, 4: 4,
+                           5: 3, 6: 0, 7: 0, 8: 4, 9: 1}
+            heb = cortex_obj.hebbian
+            n_dims = len(heb.W) if heb.W else 5
+            for i in range(len(ops) - 1):
+                b_op, d_op = ops[i] % 10, ops[i + 1] % 10
+                ap = _OP_TO_DIM.get(b_op, 0) % n_dims
+                bp = _OP_TO_DIM.get(d_op, 0) % n_dims
+                harmonious = (_CL_TSML[b_op][d_op] == _HARMONY)
+                reward = 1.0 if harmonious else 0.0
+                dw = heb.eta * reward - heb.decay * heb.W[ap][bp]
+                heb.W[ap][bp] += dw
+                if heb.W[ap][bp] > heb.clamp:
+                    heb.W[ap][bp] = heb.clamp
+                elif heb.W[ap][bp] < -heb.clamp:
+                    heb.W[ap][bp] = -heb.clamp
+                heb.ticks += 1
+                if harmonious:
+                    heb.harmony_hits = getattr(heb, 'harmony_hits', 0) + 1
+                cortex_obj.state.tick += 1
+                hebbian_steps += 1
+            if len(ops) >= 2:
+                cortex_obj.state.last_b = int(ops[-2])
+                cortex_obj.state.last_d = int(ops[-1])
+            if hasattr(heb, 'W_trace'):
+                cortex_obj.state.W_trace = heb.W_trace()
+    except Exception as exc:
+        errors.append(f'cortex_hebbian_wire: {exc}')
+
+    post = {
+        'absorbed': int(getattr(olf, 'total_absorbed', 0)),
+        'emitted': int(getattr(olf, 'total_emitted', 0)),
+    }
+
+    # Stash recent screen for chat introspection
+    try:
+        from collections import Counter as _Counter
+        from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP, NUM_OPS as _NOPS
+        op_counter = _Counter(ops)
+        total_ops = max(len(ops), 1)
+        op_dist = {_OP[i]: round(op_counter.get(i, 0) / total_ops, 3)
+                   for i in range(_NOPS)}
+        dom_idx = max(op_counter.items(), key=lambda kv: kv[1])[0]
+        engine._recent_screen = {
+            'ts': time.time(),
+            'source_label': source_label,
+            'n_ops': len(ops),
+            'dominant_op': _OP[dom_idx],
+            'op_dist': op_dist,
+            'last_pair': [_OP[ops[-2]], _OP[ops[-1]]]
+                          if len(ops) >= 2 else None,
+            'fingerprint': fingerprint,
+        }
+    except Exception as _exc:
+        errors.append(f'recent_screen_stash: {_exc}')
+
+    return _jsonify({
+        'ok': attempts > 0,
+        'source_label': source_label,
+        'n_ops_total': len(ops),
+        'absorb_attempts': attempts,
+        'hebbian_steps': hebbian_steps,
+        'errors': errors,
+        'fingerprint': fingerprint,
+        'olfactory_delta': {
+            'absorbed_pre': pre['absorbed'],
+            'absorbed_post': post['absorbed'],
+            'absorbed_delta': post['absorbed'] - pre['absorbed'],
+            'emitted_pre': pre['emitted'],
+            'emitted_post': post['emitted'],
+            'emitted_delta': post['emitted'] - pre['emitted'],
+        },
+    })
+
+
+# ── /screen/recent ────────────────────────────────────────────────
+@api._app.route('/screen/recent', methods=['GET'])
+def screen_recent_endpoint():
+    rec = getattr(engine, '_recent_screen', None) if 'engine' in globals() else None
+    if rec is None:
+        return _jsonify({'available': False, 'reason': 'no screen perceived yet'})
+    return _jsonify({'available': True, **rec})
+
+
+# ── /action/plan ──────────────────────────────────────────────────
+# Read CK's cortex state and return the action it would emit.  Does
+# NOT execute anything (dry-run); a separate /action/emit toggles real
+# mouse/keyboard.  Default safe.
+@api._app.route('/action/plan', methods=['GET', 'POST'])
+def action_plan_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = (_flask_request.get_json(silent=True) or {}) \
+            if _flask_request.method == 'POST' else {}
+        step_px = int(body.get('step_px', 12))
+    except Exception:
+        step_px = 12
+    cortex_obj = globals().get('_cortex')
+    if cortex_obj is None:
+        return _jsonify({'error': 'cortex not available'}), 503
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        from action_pipeline import cortex_state_to_action, send_action
+    except Exception as exc:
+        return _jsonify({'error': f'action_pipeline import: {exc}'}), 503
+    plan = cortex_state_to_action(cortex_obj, step_px=step_px)
+    out = send_action(plan, dry_run=True)
+    return _jsonify(out)
+
+
+# ── /action/emit ──────────────────────────────────────────────────
+# Actually execute an action.  Requires explicit body {execute: true}
+# so accidental invocations don't move the cursor.
+@api._app.route('/action/emit', methods=['POST'])
+def action_emit_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+    except Exception as exc:
+        return _jsonify({'error': f'bad request: {exc}'}), 400
+    if not body.get('execute'):
+        return _jsonify({
+            'error': 'set body.execute=true to actually emit',
+            'note': 'use /action/plan for dry-run',
+        }), 400
+    step_px = int(body.get('step_px', 12))
+    cortex_obj = globals().get('_cortex')
+    if cortex_obj is None:
+        return _jsonify({'error': 'cortex not available'}), 503
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        from action_pipeline import cortex_state_to_action, send_action
+    except Exception as exc:
+        return _jsonify({'error': f'action_pipeline import: {exc}'}), 503
+    plan = cortex_state_to_action(cortex_obj, step_px=step_px)
+    out = send_action(plan, dry_run=False)
+    return _jsonify(out)
+
+
 # /verify -- verification-script proposer (paper 4 step 9)
 # Given a topic/claim, suggest a runnable verification path.
 @api._app.route('/verify', methods=['POST', 'GET'])
