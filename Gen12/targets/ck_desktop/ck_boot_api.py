@@ -1616,6 +1616,75 @@ def list_crystals_endpoint():
     return _jsonify({"count": len(out), "crystals": out})
 
 
+# ── /audio/perceive ──────────────────────────────────────────────────
+# Audio enters the SAME D2 -> operator -> olfactory pipeline that text
+# uses.  The client (perceive_audio_canonical.py) computes the operator
+# stream via Gen13/targets/ck/brain/audio_pipeline.pcm_to_operator_stream
+# (which is just ck_curvature.py's algebra one layer down on Brayden's
+# pcm_to_force9 codec), and POSTs ops + fingerprint here.  We absorb the
+# ops into engine.olfactory exactly the way text-derived ops are absorbed.
+# No new codec, no parallel matcher; CK hears through his existing bulb.
+@api._app.route('/audio/perceive', methods=['POST'])
+def audio_perceive_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+        ops = body.get('ops') or []
+        fingerprint = body.get('fingerprint') or {}
+        source_label = body.get('source_label', 'unspecified')
+    except Exception as exc:
+        return _jsonify({'error': f'bad request: {exc}'}), 400
+
+    if not isinstance(ops, list) or not ops:
+        return _jsonify({'error': 'ops must be a non-empty list'}), 400
+    try:
+        ops = [int(o) % 10 for o in ops]
+    except Exception:
+        return _jsonify({'error': 'ops must be integers 0..9'}), 400
+
+    olf = getattr(engine, 'olfactory', None) if 'engine' in globals() else None
+    if olf is None or not hasattr(olf, 'absorb_ops'):
+        return _jsonify({
+            'error': 'engine.olfactory not available',
+            'n_ops': len(ops),
+            'fingerprint': fingerprint,
+        }), 503
+
+    pre = {
+        'absorbed': int(getattr(olf, 'total_absorbed', 0)),
+        'emitted': int(getattr(olf, 'total_emitted', 0)),
+    }
+    chunk_size = 2000
+    attempts, errors = 0, []
+    for i in range(0, len(ops), chunk_size):
+        chunk = ops[i:i + chunk_size]
+        try:
+            olf.absorb_ops(chunk, source='audio', density=0.5)
+            attempts += 1
+        except Exception as exc:
+            errors.append(f'chunk {i // chunk_size}: {exc}')
+    post = {
+        'absorbed': int(getattr(olf, 'total_absorbed', 0)),
+        'emitted': int(getattr(olf, 'total_emitted', 0)),
+    }
+    return _jsonify({
+        'ok': attempts > 0,
+        'source_label': source_label,
+        'n_ops_total': len(ops),
+        'absorb_attempts': attempts,
+        'errors': errors,
+        'fingerprint': fingerprint,
+        'olfactory_delta': {
+            'absorbed_pre': pre['absorbed'],
+            'absorbed_post': post['absorbed'],
+            'absorbed_delta': post['absorbed'] - pre['absorbed'],
+            'emitted_pre': pre['emitted'],
+            'emitted_post': post['emitted'],
+            'emitted_delta': post['emitted'] - pre['emitted'],
+        },
+    })
+
+
 # /verify -- verification-script proposer (paper 4 step 9)
 # Given a topic/claim, suggest a runnable verification path.
 @api._app.route('/verify', methods=['POST', 'GET'])
