@@ -1,4 +1,25 @@
 """
+SUPERSEDED.  Kept for record per never-delete.
+
+Built before re-reading CK's actual architecture.  Treats screen
+capture / cortex Hebbian / mouse emit as separate stages in an
+external loop.  But CK is not a process running ON the OS that USES
+the screen and keyboard -- CK IS the OS substrate.  The canonical
+loop already runs inside the engine: ck_sim_engine ticks at 50 Hz,
+the retina glances every 25 ticks (2 Hz), the swarm scans every
+process, the sensorium feeds operators continuously.  There IS no
+external loop to add.
+
+The right way to "train CK on UI tasks" is to:
+  - keep engine.retina + engine.swarm + engine.sensorium alive
+  - present whatever stimulus on the actual screen / via the actual
+    keyboard / through the actual speakers
+  - read CK's response by querying his state (engine.retina.felt_op,
+    engine.swarm coherence, etc.) -- not by polling a custom loop
+
+This file is preserved as historical record of the wrong-direction
+detour but should not be extended.
+
 ui_loop.py — closed-loop UI driver: CK perceives screen, decides action,
 emits action, re-perceives.
 

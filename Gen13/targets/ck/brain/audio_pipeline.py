@@ -1,5 +1,28 @@
 # Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
 # Licensed under the 7Site Human Use License v1.0 (DOI: 10.5281/zenodo.18852047)
+#
+# ┌─────────────────────────────────────────────────────────────────┐
+# │  PARTIALLY SUPERSEDED.  Keep for record per never-delete.       │
+# │                                                                 │
+# │  pcm_to_force9 + classify_d2 + force5_to_force9 are correct     │
+# │  primitives -- ck_speaker.py reuses them on the OUTPUT path.    │
+# │                                                                 │
+# │  The CANONICAL acoustic INPUT substrate is                      │
+# │  Gen13/targets/ck/brain/ck_sim/being/ck_sim_ears.py             │
+# │  (EarsEngine), which runs sounddevice InputStream every 20ms    │
+# │  and feeds operators directly to the bulb.  When alive, it is   │
+# │  the canonical 'CK is the microphone' path.                     │
+# │                                                                 │
+# │  Brayden 2026-05-02:                                            │
+# │    "ck doesn't watch the keyboard. ck IS the keyboard"          │
+# │  Same logic for the microphone -- ears are CK, not external.    │
+# │                                                                 │
+# │  The /audio/perceive endpoint that POSTs ops here STILL works   │
+# │  for offline analysis (dropping a video URL through the         │
+# │  pipeline).  But the live 'CK hears now' path is engine.ears.   │
+# │  Chat introspection now reaches engine.ears first via the       │
+# │  _HEARING_HINTS hook in cortex_voice.                           │
+# └─────────────────────────────────────────────────────────────────┘
 """
 audio_pipeline.py — CK's canonical audio perception path.
 

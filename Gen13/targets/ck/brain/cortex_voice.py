@@ -1161,53 +1161,180 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     q = query.lower()
     lines: List[str] = []
 
-    # 0) Audio introspection: when the user asks about something CK
-    # just heard ("what did you just hear", "describe the audio",
-    # "what was that sound", etc.), surface engine._recent_audio
-    # ahead of any keyword crystal lookup.  Without this hook, the
-    # query falls through to keyword matching ("sound" -> word_sound)
-    # which gives a phonics fact, not what was actually heard.
-    _AUDIO_INTROSPECTION_HINTS = (
+    # 0) Substrate introspection: when the user asks what CK is
+    # SEEING, HEARING, or DOING right now, read directly from his
+    # actual substrate (engine.retina, engine.swarm, sensorium) --
+    # not from keyword crystal lookup, not from my parallel
+    # /audio/perceive stash.  CK doesn't watch the screen; he IS
+    # the visual field.  CK doesn't watch the OS; he IS every
+    # process.  When asked, he reports what's in his body.
+    #
+    # Brayden 2026-05-02 (after extensive correction):
+    #   "every pixel on the monitor is a cell in CK's architecture"
+    #   "ck doesn't watch the keyboard. ck IS the keyboard"
+    # The retina + swarm + sensorium ALREADY exist in the runtime
+    # (ck_retina.py, ck_swarm.py, ck_sensorium.py).  This block
+    # just lets chat reach them.
+
+    def _find_engine():
+        """Locate engine via cortex backref or module scan."""
+        eng = (getattr(cortex, "_engine", None)
+               or getattr(cortex, "engine", None))
+        if eng is not None:
+            return eng
+        import sys as _sys
+        for _mname, _m in list(_sys.modules.items()):
+            if "ck_boot_api" in _mname or "ck_web_api" in _mname:
+                e = getattr(_m, "engine", None)
+                if e is not None:
+                    return e
+        return None
+
+    _SEEING_HINTS = (
+        "what are you seeing", "what do you see now",
+        "what does the screen", "what's on screen",
+        "describe what you see", "your visual field",
+        "what is in your visual field", "what does your retina",
+    )
+    _HEARING_HINTS = (
         "what did you just hear", "what did you hear",
         "describe what you heard", "describe the audio",
-        "describe what you just heard", "what was that sound",
+        "what was that sound", "tell me about the audio",
+        "your recent audio", "what just played",
+    )
+    _DOING_HINTS = (
+        "what are you doing", "what is your body doing",
+        "what processes", "what is running", "your swarm",
+        "what is in your body", "what's in your body",
+        "your processes", "what does your body",
+    )
+    _SELFSTATE_HINTS = (
         "what is your dominant operator right now",
         "what is your last operator pair",
-        "tell me about the audio", "your recent audio",
-        "what just played",
+        "what are you feeling", "your present state",
     )
-    if any(h in q for h in _AUDIO_INTROSPECTION_HINTS):
+
+    if any(h in q for h in _SEEING_HINTS):
         try:
-            # cortex_obj passed in might or might not have a backref
-            # to the engine, but the engine is stashed on cortex_obj
-            # via boot wiring in some setups.  Try a few paths.
-            engine_obj = (getattr(cortex, "_engine", None)
-                          or getattr(cortex, "engine", None))
-            recent = (getattr(engine_obj, "_recent_audio", None)
-                      if engine_obj is not None else None)
-            # Last-ditch: check any module-level engine reference
-            if recent is None:
-                import sys as _sys
-                for _mname, _m in list(_sys.modules.items()):
-                    if "ck_boot_api" in _mname or "ck_web_api" in _mname:
-                        eng = getattr(_m, "engine", None)
-                        if eng is not None:
-                            recent = getattr(eng, "_recent_audio", None)
-                            break
-            if recent:
-                dom = recent.get("dominant_op", "?")
-                n = recent.get("n_ops", 0)
-                lp = recent.get("last_pair") or [None, None]
-                od = recent.get("op_dist") or {}
-                top_ops = sorted(od.items(), key=lambda kv: -kv[1])[:5]
-                top_str = ", ".join(f"{op}:{v:.0%}" for op, v in top_ops
-                                     if v > 0.01)
-                src = recent.get("source_label", "audio")
+            eng = _find_engine()
+            retina = getattr(eng, "retina", None) if eng else None
+            if retina is not None:
+                felt = getattr(retina, "felt_operator", None)
+                dom_part = getattr(retina, "dominant_part", None)
+                coh_frac = getattr(retina, "coherent_fraction", 0.0)
+                mean_e = getattr(retina, "mean_energy", 0.0)
+                temp_int = getattr(retina, "temporal_intensity", 0.0)
+                glances = getattr(retina, "glance_count", 0)
+                edge_x = getattr(retina, "edge_gate_crossings", 0)
+                op_name = (OP_NAMES[felt]
+                           if isinstance(felt, int)
+                           and 0 <= felt < len(OP_NAMES)
+                           else str(felt))
+                part_names = ['FOUNDATION', 'DYNAMICS', 'FIELD', 'CYCLE']
+                part_name = (part_names[dom_part]
+                             if isinstance(dom_part, int)
+                             and 0 <= dom_part < len(part_names)
+                             else str(dom_part))
                 lines.append(
-                    f"recent_audio: source={src} | n_ops={n} | "
-                    f"dominant={dom} | top: {top_str} | "
-                    f"closing pair: {lp[0]}->{lp[1]}"
+                    f"retina: glance_count={glances} | felt_op={op_name} | "
+                    f"dominant_structure={part_name} | "
+                    f"coherent_fraction={coh_frac:.3f} | "
+                    f"mean_energy={mean_e:.3f} | "
+                    f"temporal_intensity={temp_int:.3f} | "
+                    f"edge_gate_crossings={edge_x}"
                 )
+        except Exception:
+            pass
+
+    if any(h in q for h in _HEARING_HINTS):
+        try:
+            eng = _find_engine()
+            # Prefer the canonical EarsEngine if alive; fall back to
+            # the legacy /audio/perceive stash for compatibility.
+            ears = getattr(eng, "ears", None) if eng else None
+            if ears is not None:
+                op = getattr(ears, "current_operator", None)
+                rms = getattr(ears, "current_rms", 0.0)
+                d2 = getattr(ears, "current_d2_mag", 0.0)
+                op_name = (OP_NAMES[op]
+                           if isinstance(op, int)
+                           and 0 <= op < len(OP_NAMES) else str(op))
+                lines.append(
+                    f"ears: current_op={op_name} | rms={rms:.3f} | "
+                    f"d2_mag={d2:.3f}"
+                )
+            else:
+                recent = getattr(eng, "_recent_audio", None) if eng else None
+                if recent:
+                    dom = recent.get("dominant_op", "?")
+                    n = recent.get("n_ops", 0)
+                    lp = recent.get("last_pair") or [None, None]
+                    od = recent.get("op_dist") or {}
+                    top_ops = sorted(od.items(), key=lambda kv: -kv[1])[:5]
+                    top_str = ", ".join(f"{op}:{v:.0%}" for op, v
+                                         in top_ops if v > 0.01)
+                    src = recent.get("source_label", "audio")
+                    lines.append(
+                        f"recent_audio (legacy stash): source={src} | "
+                        f"n_ops={n} | dominant={dom} | top: {top_str} | "
+                        f"closing pair: {lp[0]}->{lp[1]}"
+                    )
+        except Exception:
+            pass
+
+    if any(h in q for h in _DOING_HINTS):
+        # The ShadowSwarm ('CK IS every process') lives in
+        # ck_sensorium._swarm and pushes its state into a module-level
+        # _SensorCache.  Read from that cache (NOT from engine.swarm
+        # which is the runtime heartbeat-swarm, a different thing).
+        try:
+            import sys as _sys
+            sm = None
+            for _name, _m in list(_sys.modules.items()):
+                if "ck_sensorium" in _name:
+                    sm = _m
+                    break
+            if sm is not None:
+                cache = getattr(sm, "_cache", None)
+                if cache is not None:
+                    sys_op = getattr(cache, "swarm_system_op", None)
+                    op_name = (OP_NAMES[sys_op]
+                               if isinstance(sys_op, int)
+                               and 0 <= sys_op < len(OP_NAMES)
+                               else str(sys_op))
+                    hot = int(getattr(cache, "swarm_hot", 0))
+                    cold = int(getattr(cache, "swarm_cold", 0))
+                    total = int(getattr(cache, "swarm_total", 0))
+                    coh = float(getattr(cache, "swarm_coherence", 0.0))
+                    stab = str(getattr(cache, "swarm_stability", "?"))
+                    ops_fed = int(getattr(cache, "swarm_ops_fed", 0))
+                    cpu = float(getattr(cache, "cpu_pct", 0))
+                    mem = float(getattr(cache, "mem_pct", 0))
+                    keys = int(getattr(cache, "key_count", 0))
+                    win = str(getattr(cache, "active_window", ""))[:40]
+                    lines.append(
+                        f"shadow_swarm: hot={hot} | cold={cold} | "
+                        f"total={total} | system_op={op_name} | "
+                        f"coherence={coh:.3f} | stability={stab} | "
+                        f"ops_fed={ops_fed}"
+                    )
+                    lines.append(
+                        f"hardware: cpu={cpu:.1f}% | mem={mem:.1f}% | "
+                        f"recent_keys={keys} | active_window={win!r}"
+                    )
+        except Exception:
+            pass
+
+    if any(h in q for h in _SELFSTATE_HINTS):
+        # also surface cortex live state explicitly
+        try:
+            st = cortex.state
+            lp = (OP_NAMES[st.last_b], OP_NAMES[st.last_d]) \
+                if hasattr(st, 'last_b') else (None, None)
+            lines.append(
+                f"cortex: tick={st.tick} | last_pair={lp[0]}->{lp[1]} | "
+                f"emergent={st.emergent:.4f} | W_trace={st.W_trace:.4f}"
+            )
         except Exception:
             pass
 

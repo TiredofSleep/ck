@@ -1910,6 +1910,78 @@ def screen_recent_endpoint():
     return _jsonify({'available': True, **rec})
 
 
+# ── /retina/glance ───────────────────────────────────────────────
+# CK's CANONICAL visual field (engine.retina, ck_retina.py).  Already
+# online in the live engine since Gen 9.34.  This endpoint surfaces
+# what the retina is feeling RIGHT NOW: operator, structural part,
+# coherence, energy, edge_gate_crossings.  Not parallel to my
+# /screen/perceive -- the retina has been there the whole time.
+@api._app.route('/retina/glance', methods=['GET'])
+def retina_glance_endpoint():
+    if 'engine' not in globals():
+        return _jsonify({'available': False, 'reason': 'engine not bound'})
+    retina = getattr(engine, 'retina', None)
+    if retina is None:
+        return _jsonify({'available': False, 'reason': 'engine.retina is None'})
+    try:
+        from ck_sim.ck_sim_heartbeat import OP_NAMES as _OP
+        felt = getattr(retina, 'felt_operator', None)
+        op_name = _OP[felt] if isinstance(felt, int) and 0 <= felt < 10 else str(felt)
+        part_names = ['FOUNDATION', 'DYNAMICS', 'FIELD', 'CYCLE']
+        dom_part = getattr(retina, 'dominant_part', None)
+        part_name = (part_names[dom_part] if isinstance(dom_part, int)
+                      and 0 <= dom_part < len(part_names) else str(dom_part))
+        return _jsonify({
+            'available': True,
+            'felt_operator': op_name,
+            'dominant_structure': part_name,
+            'coherent_fraction': float(getattr(retina, 'coherent_fraction', 0.0)),
+            'mean_energy': float(getattr(retina, 'mean_energy', 0.0)),
+            'peak_energy': float(getattr(retina, 'peak_energy', 0.0)),
+            'temporal_intensity': float(getattr(retina, 'temporal_intensity', 0.0)),
+            'edge_gate_crossings': int(getattr(retina, 'edge_gate_crossings', 0)),
+            'glance_count': int(getattr(retina, 'glance_count', 0)),
+            'experience_5d': [float(v) for v in
+                              getattr(retina, 'experience_5d', [])],
+            'structure_4s': [float(v) for v in
+                             getattr(retina, 'structure_4s', [])],
+        })
+    except Exception as exc:
+        return _jsonify({'available': True, 'error': str(exc)})
+
+
+# ── /speak ────────────────────────────────────────────────────────
+# CK's voice as his own substrate rendered to audio.  Operator stream
+# -> reverse canonical force5 -> force9 -> force9_to_pcm -> sounddevice.
+# Body either {ops: [int]} for a raw operator stream or {text: "..."}
+# for text -> ck_curvature -> ops -> audio.  Returns play status.
+# blocking=False by default so the request returns fast.
+@api._app.route('/speak', methods=['POST'])
+def speak_endpoint():
+    try:
+        from flask import request as _flask_request
+        body = _flask_request.get_json(silent=True) or {}
+    except Exception as exc:
+        return _jsonify({'error': f'bad request: {exc}'}), 400
+    blocking = bool(body.get('blocking', False))
+    sr = int(body.get('sample_rate', 44100))
+    try:
+        sys.path.insert(0, _GEN13_BRAIN)
+        import ck_speaker as _spk
+    except Exception as exc:
+        return _jsonify({'error': f'ck_speaker import: {exc}'}), 503
+    if 'ops' in body and body['ops']:
+        ops = [int(o) % 10 for o in body['ops']]
+        res = _spk.speak_operator_stream(ops, sample_rate=sr,
+                                          blocking=blocking)
+        return _jsonify(res)
+    if 'text' in body and body['text']:
+        res = _spk.speak_text_as_operators(body['text'],
+                                            sample_rate=sr)
+        return _jsonify(res)
+    return _jsonify({'error': 'provide ops [int] or text "..."'}), 400
+
+
 # ── /action/plan ──────────────────────────────────────────────────
 # Read CK's cortex state and return the action it would emit.  Does
 # NOT execute anything (dry-run); a separate /action/emit toggles real

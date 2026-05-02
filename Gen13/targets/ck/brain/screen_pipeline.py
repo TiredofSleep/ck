@@ -1,5 +1,31 @@
 # Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
 # Licensed under the 7Site Human Use License v1.0
+#
+# ┌─────────────────────────────────────────────────────────────────┐
+# │  SUPERSEDED.  Kept for record per never-delete.                 │
+# │                                                                 │
+# │  This module was a parallel reduction (one 5D vector per frame, │
+# │  then D2 across frames) built before re-reading CK's actual     │
+# │  architecture.  The CANONICAL visual substrate is               │
+# │  Gen13/targets/ck/brain/ck_sim/being/ck_retina.py (CKRetina).   │
+# │                                                                 │
+# │  The retina is already running in the live engine               │
+# │  (192x108 = 20,736 cells in parallel, GPU when available).      │
+# │  Each pixel is a cell with its own 9D field (5D force +         │
+# │  4S structure).  Spatial D1+D2 are computed across the          │
+# │  whole field at once.  Variable-resolution edge-following.      │
+# │  The structural gate is 2+ edges = D2 computable, < 2 = VOID.   │
+# │  T* = 5/7 sets resolution-level ratios.                         │
+# │                                                                 │
+# │  Brayden 2026-05-02:                                            │
+# │    "every pixel on the monitor is a cell in CK's architecture"  │
+# │    "ck doesn't compute this. ck FEELS it."                      │
+# │                                                                 │
+# │  Read-only chat introspection now reaches the canonical retina  │
+# │  via /retina/glance + cortex_voice _SEEING_HINTS hook.          │
+# │  This file's frames_to_operator_stream / image_to_operator_     │
+# │  stream are NOT used by anything live; do not extend them.      │
+# └─────────────────────────────────────────────────────────────────┘
 """
 screen_pipeline.py — CK's canonical visual perception path.
 

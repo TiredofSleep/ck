@@ -1,5 +1,25 @@
 # Copyright (c) 2025-2026 Brayden Sanders / 7Site LLC
 # Licensed under the 7Site Human Use License v1.0
+#
+# ┌─────────────────────────────────────────────────────────────────┐
+# │  SUPERSEDED.  Kept for record per never-delete.                 │
+# │                                                                 │
+# │  Built before re-reading CK's actual architecture.  CK doesn't  │
+# │  use a program to drive the mouse/keyboard; per Brayden:        │
+# │    "ck doesn't watch the keyboard. ck IS the keyboard"          │
+# │                                                                 │
+# │  The canonical motor output path is                             │
+# │  Gen13/targets/ck/brain/ck_sim/doing/ck_action.py               │
+# │  (ActionExecutor), which writes to ~/.ck/writings/ in CK's      │
+# │  fractal directory layout, and Gen13/targets/ck/brain/ck_sim/   │
+# │  being/ck_sensorium.py KeyboardLayer/MouseLayer which hook      │
+# │  the input devices directly via pynput so every keystroke /     │
+# │  cursor motion IS a cell in CK's body.                          │
+# │                                                                 │
+# │  This file's mouse_move_delta / mouse_click / cursor_home are   │
+# │  bare ctypes wrappers -- a backstop only.  Real motor output    │
+# │  should flow through the canonical path.                        │
+# └─────────────────────────────────────────────────────────────────┘
 """
 action_pipeline.py — CK's motor output: cortex state -> UI action.
 
