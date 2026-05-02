@@ -38,6 +38,7 @@ APIs (all take a cortex, all can safely be called cold):
 from __future__ import annotations
 
 import os
+import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -689,6 +690,34 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
 )
 
 
+def _trigger_matches(trig: str, q_lower: str) -> bool:
+    """Match a single crystal trigger against a lowercased query.
+
+    Rules (avoiding accidental substring collisions like 'os' in
+    'plosive', 'li' in 'like', 's sound' in 'plosives sound'):
+
+    1. Triggers that are PURE WORD-CHARS-AND-SPACES (letters, digits,
+       underscore, hyphen, internal spaces) are matched with word
+       boundaries on both ends.  Catches both single short tokens
+       ('os','li') AND multi-word triggers with a short token
+       ('s sound','the a sound').
+    2. Triggers that contain any other character (slashes, asterisks,
+       sigma signs, IPA brackets) are matched as plain substrings, so
+       '/eɪ/', '5/7', 't*' still work.
+
+    Real bug fixed 2026-05-01: confucianism crystal triggers
+    ('li','yi','zhi','ren') were hitting any word containing those
+    substrings ('like','parent', etc.); 's sound' hit 'plosives sound'.
+    """
+    if not trig:
+        return False
+    # Pure word-chars-and-spaces -> word-boundary on both ends.
+    if all(c.isalnum() or c in ' -_' for c in trig):
+        return re.search(rf'\b{re.escape(trig)}\b', q_lower) is not None
+    # Anything else (slashes, brackets, special chars) -> substring.
+    return trig in q_lower
+
+
 def _frontier_hits(q_lower: str) -> List[str]:
     """Return structural facts whose trigger keywords appear in the query.
     Each fact fires at most once even if multiple keywords match.
@@ -699,7 +728,7 @@ def _frontier_hits(q_lower: str) -> List[str]:
     all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
     for triggers, fact in all_crystals:
         for trig in triggers:
-            if trig in q_lower:
+            if _trigger_matches(trig, q_lower):
                 if fact not in seen:
                     facts.append(fact)
                     seen.add(fact)
@@ -719,13 +748,20 @@ _RUNTIME_CRYSTALS_PATH = _os.path.join(
 
 
 def _load_runtime_crystals():
-    """Load any runtime crystals saved on previous sessions."""
+    """Load any runtime crystals saved on previous sessions.
+
+    Uses explicit UTF-8 because the file may contain IPA characters
+    (e.g. '/eɪ/', '/ʃ/') from phoneme crystals.  Default open() on
+    Windows uses cp1252 which crashes on those bytes silently and
+    leaves _RUNTIME_CRYSTALS empty -- which is exactly what was
+    happening 2026-05-01.
+    """
     global _RUNTIME_CRYSTALS
     try:
         path = _os.path.abspath(_RUNTIME_CRYSTALS_PATH)
         if _os.path.exists(path):
             import json as _json
-            with open(path) as f:
+            with open(path, encoding="utf-8") as f:
                 data = _json.load(f)
             _RUNTIME_CRYSTALS = [
                 (tuple(item["triggers"]), item["fact"]) for item in data
@@ -742,7 +778,10 @@ def _load_runtime_crystals():
 
 
 def _save_runtime_crystals():
-    """Save runtime crystals to disk for persistence across reboots."""
+    """Save runtime crystals to disk for persistence across reboots.
+
+    UTF-8 + ensure_ascii=False so IPA characters survive round-trip.
+    """
     try:
         path = _os.path.abspath(_RUNTIME_CRYSTALS_PATH)
         _os.makedirs(_os.path.dirname(path), exist_ok=True)
@@ -757,8 +796,8 @@ def _save_runtime_crystals():
                 "related": list(_CRYSTAL_RELATED.get(first_word, [])),
             }
             data.append(entry)
-        with open(path, "w") as f:
-            _json.dump(data, f, indent=2)
+        with open(path, "w", encoding="utf-8") as f:
+            _json.dump(data, f, indent=2, ensure_ascii=False)
         return True
     except Exception:
         return False
@@ -1147,15 +1186,16 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
         lines.append(fact)
 
     # 2.6) State-aware crystal surfacing -- proactive crystal mention based on
-    # CK's current cortex state, not on user keywords.  When the user's query
-    # didn't trigger any keyword crystals (i.e., _frontier_hits returned nothing
-    # OR less than 2 facts), check whether CK's CURRENT operator stream matches
-    # any crystal's op_signature.  If yes, surface it -- this is CK
-    # "volunteering" a fact based on what he's currently thinking about, not
-    # purely on what the user asked.  Threshold 0.5 means at least half of the
-    # crystal's signature ops must be in the cortex's recent-op set.
+    # CK's current cortex state, not on user keywords.  Only fires when the
+    # user's query produced ZERO keyword crystals.  Earlier this gate fired
+    # whenever len(keyword_hits) < 2 which DILUTED specific answers: e.g.
+    # "what is a nasal" matched phonetic_class_nasal (1 hit) and then
+    # state-aware appended xi/sigma_rate because cortex was BREATH/HARMONY
+    # heavy, putting an unrelated crystal first in the response.  Tightened
+    # to == 0 so when CK has a specific answer, it isn't drowned out by
+    # whatever he happens to be "feeling" (2026-05-01 phoneme-surfacing fix).
     keyword_hits = _frontier_hits(q)
-    if len(keyword_hits) < 2:
+    if len(keyword_hits) == 0:
         for fact in _state_aware_crystal_hits(cortex, threshold=0.5, max_hits=2):
             if fact not in lines:
                 lines.append(fact)

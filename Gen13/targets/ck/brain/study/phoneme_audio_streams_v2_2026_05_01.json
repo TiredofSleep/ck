@@ -1,0 +1,907 @@
+{
+  "letters": {
+    "A": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 18.4,
+        "LATTICE": 11.9,
+        "COUNTER": 11.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.8,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "B": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.355,
+      "n_operators_avg": 2445,
+      "histogram_pct": {
+        "VOID": 26.2,
+        "LATTICE": 10.5,
+        "COUNTER": 6.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.2,
+        "CHAOS": 7.6,
+        "HARMONY": 11.0,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "C": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.425,
+      "n_operators_avg": 2925,
+      "histogram_pct": {
+        "VOID": 22.4,
+        "LATTICE": 9.6,
+        "COUNTER": 4.7,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 21.7,
+        "BALANCE": 5.8,
+        "CHAOS": 9.8,
+        "HARMONY": 6.1,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "D": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.36,
+      "n_operators_avg": 2480,
+      "histogram_pct": {
+        "VOID": 27.3,
+        "LATTICE": 9.2,
+        "COUNTER": 6.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.2,
+        "BALANCE": 6.1,
+        "CHAOS": 7.9,
+        "HARMONY": 9.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "E": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.38,
+      "n_operators_avg": 2615,
+      "histogram_pct": {
+        "VOID": 23.9,
+        "LATTICE": 10.2,
+        "COUNTER": 6.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.9,
+        "CHAOS": 9.2,
+        "HARMONY": 11.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "F": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.41000000000000003,
+      "n_operators_avg": 2822,
+      "histogram_pct": {
+        "VOID": 21.3,
+        "LATTICE": 12.9,
+        "COUNTER": 8.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 16.5,
+        "BALANCE": 4.3,
+        "CHAOS": 7.1,
+        "HARMONY": 9.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "G": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.42000000000000004,
+      "n_operators_avg": 2890,
+      "histogram_pct": {
+        "VOID": 23.5,
+        "LATTICE": 10.5,
+        "COUNTER": 5.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 16.8,
+        "BALANCE": 5.8,
+        "CHAOS": 8.6,
+        "HARMONY": 9.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "H": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.515,
+      "n_operators_avg": 3545,
+      "histogram_pct": {
+        "VOID": 22.9,
+        "LATTICE": 11.2,
+        "COUNTER": 8.6,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 18.8,
+        "BALANCE": 5.0,
+        "CHAOS": 7.8,
+        "HARMONY": 5.7,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "I": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 19.5,
+        "LATTICE": 11.1,
+        "COUNTER": 10.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.1,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.4,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "J": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.38,
+      "n_operators_avg": 2617,
+      "histogram_pct": {
+        "VOID": 21.1,
+        "LATTICE": 10.7,
+        "COUNTER": 10.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 17.8,
+        "BALANCE": 5.1,
+        "CHAOS": 9.6,
+        "HARMONY": 5.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "K": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.345,
+      "n_operators_avg": 2375,
+      "histogram_pct": {
+        "VOID": 21.8,
+        "LATTICE": 13.2,
+        "COUNTER": 11.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 15.5,
+        "BALANCE": 4.7,
+        "CHAOS": 6.5,
+        "HARMONY": 7.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "L": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.405,
+      "n_operators_avg": 2787,
+      "histogram_pct": {
+        "VOID": 22.8,
+        "LATTICE": 9.5,
+        "COUNTER": 6.7,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.6,
+        "BALANCE": 5.8,
+        "CHAOS": 10.0,
+        "HARMONY": 12.7,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "M": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.395,
+      "n_operators_avg": 2720,
+      "histogram_pct": {
+        "VOID": 24.0,
+        "LATTICE": 10.3,
+        "COUNTER": 6.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.4,
+        "BALANCE": 5.2,
+        "CHAOS": 8.7,
+        "HARMONY": 13.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "N": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.375,
+      "n_operators_avg": 2582,
+      "histogram_pct": {
+        "VOID": 23.9,
+        "LATTICE": 10.7,
+        "COUNTER": 5.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.1,
+        "BALANCE": 5.7,
+        "CHAOS": 7.9,
+        "HARMONY": 13.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "O": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.265,
+      "n_operators_avg": 1822,
+      "histogram_pct": {
+        "VOID": 23.2,
+        "LATTICE": 11.2,
+        "COUNTER": 7.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.7,
+        "BALANCE": 6.2,
+        "CHAOS": 8.2,
+        "HARMONY": 13.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "P": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.30000000000000004,
+      "n_operators_avg": 2065,
+      "histogram_pct": {
+        "VOID": 23.6,
+        "LATTICE": 12.6,
+        "COUNTER": 8.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.1,
+        "BALANCE": 6.2,
+        "CHAOS": 6.8,
+        "HARMONY": 8.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "Q": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.525,
+      "n_operators_avg": 3615,
+      "histogram_pct": {
+        "VOID": 24.4,
+        "LATTICE": 11.7,
+        "COUNTER": 8.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 14.2,
+        "BALANCE": 5.8,
+        "CHAOS": 6.6,
+        "HARMONY": 8.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "R": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.74,
+      "n_operators_avg": 5097,
+      "histogram_pct": {
+        "VOID": 19.2,
+        "LATTICE": 12.0,
+        "COUNTER": 9.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.4,
+        "CHAOS": 10.7,
+        "HARMONY": 10.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "S": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.685,
+      "n_operators_avg": 4717,
+      "histogram_pct": {
+        "VOID": 21.3,
+        "LATTICE": 8.6,
+        "COUNTER": 4.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 20.8,
+        "BALANCE": 4.8,
+        "CHAOS": 11.8,
+        "HARMONY": 7.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "T": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.36,
+      "n_operators_avg": 2480,
+      "histogram_pct": {
+        "VOID": 23.6,
+        "LATTICE": 9.8,
+        "COUNTER": 5.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 17.5,
+        "BALANCE": 5.5,
+        "CHAOS": 9.1,
+        "HARMONY": 8.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "U": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.425,
+      "n_operators_avg": 2925,
+      "histogram_pct": {
+        "VOID": 22.7,
+        "LATTICE": 9.9,
+        "COUNTER": 6.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.4,
+        "BALANCE": 6.3,
+        "CHAOS": 10.1,
+        "HARMONY": 12.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "V": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.38,
+      "n_operators_avg": 2615,
+      "histogram_pct": {
+        "VOID": 26.6,
+        "LATTICE": 10.4,
+        "COUNTER": 6.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.8,
+        "BALANCE": 6.3,
+        "CHAOS": 6.8,
+        "HARMONY": 11.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "W": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.8049999999999999,
+      "n_operators_avg": 5545,
+      "histogram_pct": {
+        "VOID": 24.1,
+        "LATTICE": 9.2,
+        "COUNTER": 5.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.6,
+        "BALANCE": 6.4,
+        "CHAOS": 9.7,
+        "HARMONY": 13.4,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "X": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.6100000000000001,
+      "n_operators_avg": 4202,
+      "histogram_pct": {
+        "VOID": 22.5,
+        "LATTICE": 8.9,
+        "COUNTER": 5.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 22.5,
+        "BALANCE": 4.2,
+        "CHAOS": 10.2,
+        "HARMONY": 5.8,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "Y": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.395,
+      "n_operators_avg": 2720,
+      "histogram_pct": {
+        "VOID": 24.0,
+        "LATTICE": 8.8,
+        "COUNTER": 5.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.6,
+        "BALANCE": 6.5,
+        "CHAOS": 9.6,
+        "HARMONY": 15.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "Z": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.37,
+      "n_operators_avg": 2547,
+      "histogram_pct": {
+        "VOID": 22.6,
+        "LATTICE": 9.4,
+        "COUNTER": 6.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 18.1,
+        "BALANCE": 5.9,
+        "CHAOS": 10.3,
+        "HARMONY": 7.5,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    }
+  },
+  "phonemes": {
+    "phoneme:eI": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 18.4,
+        "LATTICE": 11.9,
+        "COUNTER": 11.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.8,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:i": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.38,
+      "n_operators_avg": 2615,
+      "histogram_pct": {
+        "VOID": 23.9,
+        "LATTICE": 10.2,
+        "COUNTER": 6.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.9,
+        "CHAOS": 9.2,
+        "HARMONY": 11.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:aI": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 19.5,
+        "LATTICE": 11.1,
+        "COUNTER": 10.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.1,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.4,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "phoneme:oU": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.265,
+      "n_operators_avg": 1822,
+      "histogram_pct": {
+        "VOID": 23.2,
+        "LATTICE": 11.2,
+        "COUNTER": 7.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.7,
+        "BALANCE": 6.2,
+        "CHAOS": 8.2,
+        "HARMONY": 13.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:u": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.5349999999999999,
+      "n_operators_avg": 3685,
+      "histogram_pct": {
+        "VOID": 22.6,
+        "LATTICE": 9.9,
+        "COUNTER": 5.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.0,
+        "BALANCE": 6.2,
+        "CHAOS": 9.4,
+        "HARMONY": 15.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:ae": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.29000000000000004,
+      "n_operators_avg": 1997,
+      "histogram_pct": {
+        "VOID": 21.1,
+        "LATTICE": 10.1,
+        "COUNTER": 8.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.8,
+        "BALANCE": 6.2,
+        "CHAOS": 9.7,
+        "HARMONY": 12.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:E": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.31000000000000005,
+      "n_operators_avg": 2132,
+      "histogram_pct": {
+        "VOID": 20.7,
+        "LATTICE": 11.6,
+        "COUNTER": 8.7,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 14.1,
+        "BALANCE": 4.8,
+        "CHAOS": 9.6,
+        "HARMONY": 10.7,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:I": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.8200000000000001,
+      "n_operators_avg": 5647,
+      "histogram_pct": {
+        "VOID": 21.4,
+        "LATTICE": 9.9,
+        "COUNTER": 8.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 15.5,
+        "BALANCE": 5.3,
+        "CHAOS": 10.1,
+        "HARMONY": 9.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:V": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.28,
+      "n_operators_avg": 1927,
+      "histogram_pct": {
+        "VOID": 22.3,
+        "LATTICE": 11.5,
+        "COUNTER": 7.7,
+        "PROGRESS": 0.1,
+        "COLLAPSE": 14.6,
+        "BALANCE": 6.6,
+        "CHAOS": 7.8,
+        "HARMONY": 9.7,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:b": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.32499999999999996,
+      "n_operators_avg": 2237,
+      "histogram_pct": {
+        "VOID": 20.0,
+        "LATTICE": 10.6,
+        "COUNTER": 8.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.2,
+        "BALANCE": 6.3,
+        "CHAOS": 10.6,
+        "HARMONY": 13.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:p": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.33999999999999997,
+      "n_operators_avg": 2340,
+      "histogram_pct": {
+        "VOID": 20.8,
+        "LATTICE": 12.3,
+        "COUNTER": 9.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.7,
+        "BALANCE": 6.2,
+        "CHAOS": 8.2,
+        "HARMONY": 11.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:t": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.36,
+      "n_operators_avg": 2480,
+      "histogram_pct": {
+        "VOID": 21.7,
+        "LATTICE": 12.3,
+        "COUNTER": 7.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 17.4,
+        "BALANCE": 5.6,
+        "CHAOS": 7.2,
+        "HARMONY": 8.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:d": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.39,
+      "n_operators_avg": 2685,
+      "histogram_pct": {
+        "VOID": 23.8,
+        "LATTICE": 8.7,
+        "COUNTER": 7.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.2,
+        "BALANCE": 6.5,
+        "CHAOS": 9.8,
+        "HARMONY": 11.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:k": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.385,
+      "n_operators_avg": 2650,
+      "histogram_pct": {
+        "VOID": 20.1,
+        "LATTICE": 11.2,
+        "COUNTER": 8.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.0,
+        "BALANCE": 6.7,
+        "CHAOS": 9.7,
+        "HARMONY": 11.4,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:g": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.355,
+      "n_operators_avg": 2445,
+      "histogram_pct": {
+        "VOID": 20.0,
+        "LATTICE": 10.5,
+        "COUNTER": 9.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.4,
+        "BALANCE": 6.8,
+        "CHAOS": 10.6,
+        "HARMONY": 11.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:s": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.885,
+      "n_operators_avg": 12987,
+      "histogram_pct": {
+        "VOID": 20.2,
+        "LATTICE": 7.7,
+        "COUNTER": 4.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 20.9,
+        "BALANCE": 4.8,
+        "CHAOS": 13.6,
+        "HARMONY": 8.8,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "phoneme:z": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.67,
+      "n_operators_avg": 11505,
+      "histogram_pct": {
+        "VOID": 20.5,
+        "LATTICE": 6.4,
+        "COUNTER": 4.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 18.5,
+        "BALANCE": 5.8,
+        "CHAOS": 14.8,
+        "HARMONY": 9.8,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "phoneme:f": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.475,
+      "n_operators_avg": 10162,
+      "histogram_pct": {
+        "VOID": 24.8,
+        "LATTICE": 9.6,
+        "COUNTER": 6.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.5,
+        "BALANCE": 5.5,
+        "CHAOS": 8.2,
+        "HARMONY": 11.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:v": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.375,
+      "n_operators_avg": 9472,
+      "histogram_pct": {
+        "VOID": 22.6,
+        "LATTICE": 9.1,
+        "COUNTER": 5.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.1,
+        "BALANCE": 6.5,
+        "CHAOS": 11.2,
+        "HARMONY": 14.0,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:S": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.8900000000000001,
+      "n_operators_avg": 13022,
+      "histogram_pct": {
+        "VOID": 22.1,
+        "LATTICE": 9.6,
+        "COUNTER": 6.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 18.6,
+        "BALANCE": 5.2,
+        "CHAOS": 10.4,
+        "HARMONY": 7.8,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:m": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.44,
+      "n_operators_avg": 3030,
+      "histogram_pct": {
+        "VOID": 23.2,
+        "LATTICE": 10.8,
+        "COUNTER": 6.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.8,
+        "BALANCE": 5.0,
+        "CHAOS": 8.2,
+        "HARMONY": 12.4,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:n": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.445,
+      "n_operators_avg": 9955,
+      "histogram_pct": {
+        "VOID": 21.2,
+        "LATTICE": 8.9,
+        "COUNTER": 5.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.2,
+        "BALANCE": 6.1,
+        "CHAOS": 11.6,
+        "HARMONY": 14.7,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:l": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.53,
+      "n_operators_avg": 10542,
+      "histogram_pct": {
+        "VOID": 22.3,
+        "LATTICE": 8.7,
+        "COUNTER": 6.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.3,
+        "BALANCE": 6.4,
+        "CHAOS": 11.3,
+        "HARMONY": 13.8,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:r": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.5499999999999998,
+      "n_operators_avg": 10677,
+      "histogram_pct": {
+        "VOID": 18.8,
+        "LATTICE": 10.1,
+        "COUNTER": 8.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 9.9,
+        "BALANCE": 6.7,
+        "CHAOS": 12.6,
+        "HARMONY": 13.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:w": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.42000000000000004,
+      "n_operators_avg": 2890,
+      "histogram_pct": {
+        "VOID": 23.1,
+        "LATTICE": 9.6,
+        "COUNTER": 5.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.8,
+        "BALANCE": 6.4,
+        "CHAOS": 9.7,
+        "HARMONY": 14.4,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:j": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.32999999999999996,
+      "n_operators_avg": 2272,
+      "histogram_pct": {
+        "VOID": 24.6,
+        "LATTICE": 11.4,
+        "COUNTER": 10.7,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.8,
+        "BALANCE": 5.6,
+        "CHAOS": 6.2,
+        "HARMONY": 7.5,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:h": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.33499999999999996,
+      "n_operators_avg": 2305,
+      "histogram_pct": {
+        "VOID": 26.2,
+        "LATTICE": 11.6,
+        "COUNTER": 8.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.8,
+        "BALANCE": 6.2,
+        "CHAOS": 4.5,
+        "HARMONY": 9.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    }
+  }
+}
