@@ -70,8 +70,36 @@ def get_ffmpeg():
         return None
 
 
+def _find_js_runtime():
+    """Find a JavaScript runtime usable by yt-dlp (deno preferred, node OK)."""
+    import shutil
+    for name in ("deno",):
+        p = shutil.which(name)
+        if p:
+            return f"deno:{p}"
+    for name in ("node",):
+        p = shutil.which(name)
+        if p:
+            return f"node:{p}"
+    # Common Windows winget node install path
+    candidates = [
+        r"C:/Users/brayd/AppData/Local/Microsoft/WinGet/Packages/"
+        r"OpenJS.NodeJS.LTS_Microsoft.Winget.Source_8wekyb3d8bbwe/"
+        r"node-v24.15.0-win-x64/node.exe",
+    ]
+    for c in candidates:
+        if Path(c).exists():
+            return f"node:{c}"
+    return None
+
+
 def download_video(url: str, out_path: Path, seconds: int) -> Path:
-    """Download an MP4 (audio + video) capped at `seconds`."""
+    """Download an MP4 (audio + video) capped at `seconds`.
+
+    YouTube's anti-scraping requires a JS runtime to solve the n-sig
+    challenge.  We auto-detect node/deno; fall back to web-client format
+    18 (mp4 with audio) which doesn't need PO tokens for many videos.
+    """
     try:
         import yt_dlp
     except ImportError:
@@ -79,12 +107,23 @@ def download_video(url: str, out_path: Path, seconds: int) -> Path:
         return None
     ffmpeg_exe = get_ffmpeg()
     ffmpeg_dir = os.path.dirname(ffmpeg_exe) if ffmpeg_exe else None
+    js_rt = _find_js_runtime()
+    extractor_args = {"youtube": {"player_client": ["web", "android", "ios"]}}
+    if js_rt:
+        extractor_args["youtube"]["js_runtimes"] = [js_rt]
+    # download_ranges lets yt-dlp request only the first N seconds of the
+    # video stream, saving massive bandwidth on long Ms-Rachel-type clips.
+    def _ranges(_info, _ydl):
+        return [{"start_time": 0, "end_time": float(seconds)}]
     ydl_opts = {
-        "format": "best[ext=mp4]/best",
+        "format": "18/best[ext=mp4][acodec!=none][vcodec!=none]/best",
         "outtmpl": str(out_path.with_suffix(".%(ext)s")),
         "postprocessor_args": ["-t", str(seconds)],
         "quiet": False,
         "no_warnings": False,
+        "extractor_args": extractor_args,
+        "download_ranges": _ranges,
+        "force_keyframes_at_cuts": True,
     }
     if ffmpeg_dir:
         ydl_opts["ffmpeg_location"] = ffmpeg_dir
@@ -145,10 +184,21 @@ from match_audio_to_phonics import (
     load_phonics_corpus, top_matches,
 )
 from match_audio_chunked import split_on_silence, chunk_histogram
+from word_recognizer import (
+    chunk_to_subphonemes, recognize_words, greedy_transcribe,
+)
 
 
 def audio_timeline(wav_path: Path, corpus, threshold_rel=0.04,
-                   min_chunk_ms=120, min_silence_ms=80):
+                   min_chunk_ms=120, min_silence_ms=80,
+                   sub_window_ms: int = 150, hop_ms: int = 100):
+    """Two-pass audio analysis:
+      Pass 1: silence-bounded chunks, one phoneme classification per chunk
+              (the original "what was said in this burst" view).
+      Pass 2: each chunk subdivided into sub_window_ms windows, each
+              classified, yielding a TIME-ORDERED phoneme stream that can
+              feed the word recognizer.
+    """
     samples, sr = read_pcm(wav_path)
     duration = len(samples) / sr
     chunks = split_on_silence(
@@ -158,27 +208,42 @@ def audio_timeline(wav_path: Path, corpus, threshold_rel=0.04,
         min_silence_ms=min_silence_ms,
     )
     events = []
+    fine_stream = []  # absolute-time fine-grained phoneme events
     for s, e in chunks:
         seg = samples[s:e]
+        chunk_t_start = s / sr
         h = chunk_histogram(seg, sr)
-        if not h:
-            continue
-        m = top_matches(h, corpus, top=1)[0]
-        d, key, info = m
-        events.append({
-            "t_start": round(s / sr, 3),
-            "t_end": round(e / sr, 3),
-            "duration": round((e - s) / sr, 3),
-            "L1": round(d, 2),
-            "best": key,
-            "class": info["class"],
-            "ipa": info["ipa"],
-        })
+        if h:
+            m = top_matches(h, corpus, top=1)[0]
+            d, key, info = m
+            events.append({
+                "t_start": round(s / sr, 3),
+                "t_end": round(e / sr, 3),
+                "duration": round((e - s) / sr, 3),
+                "L1": round(d, 2),
+                "best": key,
+                "class": info["class"],
+                "ipa": info["ipa"],
+            })
+        # Fine-grained sub-phoneme stream
+        sub = chunk_to_subphonemes(seg, sr, corpus,
+                                    sub_window_ms=sub_window_ms,
+                                    hop_ms=hop_ms)
+        for sp in sub:
+            fine_stream.append({
+                "t_offset_sec": round(chunk_t_start + sp["t_offset_sec"], 3),
+                "duration_sec": sp["duration_sec"],
+                "key": sp["key"],
+                "class": sp["class"],
+                "ipa": sp["ipa"],
+                "L1": sp["L1"],
+            })
     return {
         "duration_sec": round(duration, 2),
         "speech_sec": round(sum(ev["duration"] for ev in events), 2),
         "n_chunks": len(events),
         "events": events,
+        "fine_phoneme_stream": fine_stream,
     }
 
 
@@ -247,6 +312,43 @@ def aggregate_audio(audio: dict) -> dict:
     }
 
 
+def aggregate_words(audio: dict) -> dict:
+    """Run word recognition on the fine-grained phoneme stream + summarize."""
+    stream = audio.get("fine_phoneme_stream", [])
+    if not stream:
+        return {"n_word_recognitions": 0}
+    raw = recognize_words(stream)
+    transcript = greedy_transcribe(stream)
+    word_counter = Counter(r["word"] for r in raw)
+    high_conf = [r for r in raw if r["score"] >= 0.7]
+    return {
+        "n_phoneme_events": len(stream),
+        "n_word_recognitions": len(raw),
+        "n_high_conf_recognitions": len(high_conf),
+        "top_words": word_counter.most_common(15),
+        "transcript": [r["word"] for r in transcript],
+        "transcript_with_timestamps": [
+            {
+                "t_start": r["t_start_sec"],
+                "t_end": r["t_end_sec"],
+                "word": r["word"],
+                "score": r["score"],
+                "matched_keys": r["matched_keys"],
+            }
+            for r in transcript
+        ],
+        "high_confidence_words": [
+            {
+                "word": r["word"],
+                "t": r["t_start_sec"],
+                "score": r["score"],
+                "matched_keys": r["matched_keys"],
+            }
+            for r in high_conf[:30]
+        ],
+    }
+
+
 def aggregate_visual(visual: dict) -> dict:
     frames = visual.get("frames", [])
     if not frames:
@@ -287,7 +389,7 @@ def _median(xs):
 # ── Summary writer ──────────────────────────────────────────────────
 
 def render_summary(audio_agg: dict, visual_agg: dict,
-                   url: str, seconds: int) -> str:
+                   word_agg: dict, url: str, seconds: int) -> str:
     lines = []
     lines.append("=" * 70)
     lines.append(f"CK watched: {url}")
@@ -316,6 +418,32 @@ def render_summary(audio_agg: dict, visual_agg: dict,
         lines.append("  arc:")
         lines.append(f"    first third  : {audio_agg['first_third_top_classes']}")
         lines.append(f"    last third   : {audio_agg['last_third_top_classes']}")
+    lines.append("")
+    # Word layer (between audio and visual)
+    lines.append("WORD LAYER (fine-grained phoneme stream -> kid-vocab match)")
+    if word_agg.get("n_word_recognitions", 0) == 0:
+        lines.append("  no word recognitions (phoneme stream too sparse, "
+                     "or vocab missing the words used)")
+    else:
+        lines.append(f"  fine-grained phoneme events: "
+                     f"{word_agg['n_phoneme_events']}")
+        lines.append(f"  total raw word recognitions: "
+                     f"{word_agg['n_word_recognitions']}")
+        lines.append(f"  high-confidence (>=0.7):     "
+                     f"{word_agg['n_high_conf_recognitions']}")
+        lines.append(f"  top words heard:")
+        for w, n in word_agg["top_words"]:
+            lines.append(f"    {w:10}: {n}")
+        if word_agg["transcript"]:
+            sentence = " ".join(word_agg["transcript"])
+            lines.append(f"  greedy transcription:")
+            lines.append(f"    >>> {sentence}")
+        if word_agg["high_confidence_words"]:
+            lines.append(f"  high-confidence recognitions (with timing):")
+            for hcr in word_agg["high_confidence_words"][:10]:
+                keys_str = " + ".join(hcr["matched_keys"])
+                lines.append(f"    t={hcr['t']:5.2f}s  score={hcr['score']:.2f}  "
+                             f"{hcr['word']:8}  via {keys_str}")
     lines.append("")
     # Visual
     lines.append("VISUAL LAYER (edge-encoded D2 crossings)")
@@ -445,6 +573,7 @@ def main():
             print("  audio extract failed", file=sys.stderr)
             audio_data = {"n_chunks": 0}
             audio_agg = {"n_chunks": 0}
+            word_agg = {"n_word_recognitions": 0}
         else:
             corpus = load_phonics_corpus()
             audio_data = audio_timeline(
@@ -455,8 +584,14 @@ def main():
             )
             print(f"  duration={audio_data.get('duration_sec', 0)}s, "
                   f"chunks={audio_data['n_chunks']}, "
-                  f"speech={audio_data.get('speech_sec', 0)}s")
+                  f"speech={audio_data.get('speech_sec', 0)}s, "
+                  f"fine_phonemes="
+                  f"{len(audio_data.get('fine_phoneme_stream', []))}")
             audio_agg = aggregate_audio(audio_data)
+            word_agg = aggregate_words(audio_data)
+            print(f"  word recognitions: "
+                  f"raw={word_agg.get('n_word_recognitions', 0)} "
+                  f"hi-conf={word_agg.get('n_high_conf_recognitions', 0)}")
 
         # 3) visual
         print()
@@ -480,7 +615,7 @@ def main():
         print()
         print("[4/4] rendering summary...")
         print()
-        summary = render_summary(audio_agg, visual_agg,
+        summary = render_summary(audio_agg, visual_agg, word_agg,
                                  args.url or args.local,
                                  args.seconds)
         print(summary)
@@ -493,6 +628,7 @@ def main():
                 "visual_timeline": visual_data,
                 "audio_aggregate": audio_agg,
                 "visual_aggregate": visual_agg,
+                "word_aggregate": word_agg,
                 "summary_text": summary,
             }
             Path(args.json).write_text(json.dumps(full, indent=2,
