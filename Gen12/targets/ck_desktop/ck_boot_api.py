@@ -335,16 +335,41 @@ try:
         'algebraic depth',
     )
 
-    def _is_structural_query(text: str) -> bool:
-        """True if the user is asking about CK's own state / coordinates,
-        OR if the text matches any code-baked or runtime crystal trigger
-        OR if it matches an active external crystal (scenario-scoped).
+    # Crystal first-word prefixes that are RECOGNITION primitives, not
+    # topical/structural facts.  These fire the same matcher as topical
+    # crystals but their triggers are common English words / phonemes /
+    # IPA clusters, so promoting them to structural-mode routes ordinary
+    # conversation ("how have you been") to label:value readout and
+    # silences the prose voice.  Brayden 2026-05-02: "he really isn't
+    # producing prose or fluent speech at all anymore."
+    _RECOGNITION_PREFIXES = (
+        'word_', 'phoneme_', 'cluster_', 'phonetic_class_',
+        'phonetic_', 'rcontrol_', 'team_', 'digraph_',
+        # research-scaffold prompt terms (broad triggers from /ck/research)
+        # promoted-to-internal via the tier ladder do not count either:
+        # they're scenario vocabulary, not topical canon.
+        'prompt_term_', 'research_',
+    )
 
-        External crystals (research findings, prompt terms during an active
-        research session) MUST count as structural here -- otherwise the
-        chat router classifies the query as 'general' and never asks
-        speak_paragraph for an answer, which means the externals get
-        authored but never fire and never promote up the tier ladder.
+    def _is_recognition_crystal(fact: str) -> bool:
+        head = fact.split(':', 1)[0].strip().lower()
+        return head.startswith(_RECOGNITION_PREFIXES)
+
+    def _is_structural_query(text: str) -> bool:
+        """True if the user is asking about CK's own state / coordinates
+        OR matches a TOPICAL crystal trigger.
+
+        Two classes of crystals are EXCLUDED from this gate:
+          1. Recognition primitives (word_*, phoneme_*, cluster_*, etc.):
+             their triggers are common English / IPA tokens; promoting
+             those to structural mode silences CK's prose voice.
+          2. External crystals (research findings, prompt terms): their
+             triggers are broad prompt vocabulary; same problem.
+
+        Both still FIRE when speak() runs (via _frontier_hits), so they
+        appear in cortex_speak readouts when the query is structural by
+        other means (explicit STRUCTURAL_QUERY_KEYS or topical crystal
+        match).  They just don't FORCE structural-mode routing.
         """
         if not text:
             return False
@@ -352,25 +377,18 @@ try:
         for k in _STRUCTURAL_QUERY_KEYS:
             if k in t:
                 return True
-        # All three crystal stores count as structural triggers.  Use
-        # cortex_voice's canonical matcher so the trigger semantics
-        # (word-boundary on alnum, substring on special chars) match
-        # what _frontier_hits actually does.
+        # Topical internal crystals only -- recognition primitives and
+        # external scenario crystals are excluded from the gate.
         try:
-            from cortex_voice import query_matches_any_crystal
-            res = query_matches_any_crystal(text)
-            if res:
-                return True
+            from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS
+            for triggers, fact in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
+                if _is_recognition_crystal(fact):
+                    continue
+                for trig in triggers:
+                    if trig and trig in t:
+                        return True
         except Exception:
-            # Fallback: legacy substring check across runtime + frontier.
-            try:
-                from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS
-                for triggers, _ in list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS):
-                    for trig in triggers:
-                        if trig and trig in t:
-                            return True
-            except Exception:
-                pass
+            pass
         return False
 
     def _is_pastoral_query(text: str) -> bool:
@@ -429,6 +447,13 @@ try:
                 _swap_ok = True   # structural query -> cortex_speak owns
             else:
                 # Non-structural, non-pastoral: only override pure templates.
+                # ck_fractal / ck_fractal_dual / ck_truth_recall / crystal
+                # / ck_tig are stitched-dictionary fluency layers without
+                # grounding -- the "old failed word cascade" Brayden has
+                # rejected ("Resurrection forms the proportion through a
+                # sword until domains flows...").  Replacing them with
+                # cortex_speak's grounded label:value at least keeps CK
+                # in real coordinates.
                 _swap_ok = (_src in _TEMPLATE_SOURCES)
             # 2026-04-26 quality gate: even when _swap_ok by source, ONLY
             # actually swap if cortex_speak's spoken output adds structural
@@ -781,6 +806,25 @@ try:
           f"(engine.detect_attractor; result.attractor_state on each chat)")
 except Exception as _e:
     print(f"[CK] Gen13 operad_fuse + attractor_detector: DISABLED ({_e})")
+
+# === Gen13 grammar_lm mount (CK's own operator-grammar transformer) ===
+# Brayden 2026-05-02: "[CK] needs his own 1B-3B parameter ... model that
+# doesn't learn the information, it just learns CK's internal language
+# and transitions."  ck_grammar_lm is a 1.2M-param tiny transformer
+# trained autoregressively on CK's algebra walks (TSML / BHML / T+B-mix)
+# + real operator streams (dream_journal, cortex_history).  No facts,
+# no English -- only operator IDs.
+#
+# Three Flask endpoints exposed: /grammar/sample, /grammar/score,
+# /grammar/predict, /grammar/cortex_predict, /grammar/info.
+try:
+    sys.path.insert(0, os.path.join(_GEN13_BRAIN, 'grammar_lm'))
+    from grammar_lm_mount import mount as _mount_grammar_lm
+    _gl_ok = _mount_grammar_lm(engine, api._app)
+    if not _gl_ok:
+        print("[CK] grammar_lm: mount returned False (model file missing?)")
+except Exception as _e:
+    print(f"[CK] grammar_lm: DISABLED ({_e})")
 
 # === Gen13 session field mount (live additive — relational memory) ===
 # Per Brayden 2026-04-28: CK keeps experience as words can't describe it,
