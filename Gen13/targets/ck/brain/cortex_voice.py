@@ -720,20 +720,34 @@ def _trigger_matches(trig: str, q_lower: str) -> bool:
 
 def _frontier_hits(q_lower: str) -> List[str]:
     """Return structural facts whose trigger keywords appear in the query.
+
     Each fact fires at most once even if multiple keywords match.
     Includes both code-baked _FRONTIER_FACTS AND runtime-added crystals
-    from _RUNTIME_CRYSTALS (added via add_crystal_runtime)."""
-    facts: List[str] = []
+    from _RUNTIME_CRYSTALS (added via add_crystal_runtime).
+
+    Crystals are returned sorted by SPECIFICITY: the longest trigger that
+    matched wins.  This avoids "vowel team ai" surfacing the generic
+    'vowel' crystal first instead of team_ai (which had the literal
+    'vowel team ai' as a trigger).  More specific = longer match = more
+    relevant to the user's actual question.
+    """
+    matches: List[Tuple[int, int, str]] = []  # (best_match_len, order, fact)
     seen = set()
     all_crystals = list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)
-    for triggers, fact in all_crystals:
+    for order, (triggers, fact) in enumerate(all_crystals):
+        if fact in seen:
+            continue
+        best = 0
         for trig in triggers:
             if _trigger_matches(trig, q_lower):
-                if fact not in seen:
-                    facts.append(fact)
-                    seen.add(fact)
-                break
-    return facts
+                if len(trig) > best:
+                    best = len(trig)
+        if best > 0:
+            matches.append((best, order, fact))
+            seen.add(fact)
+    # Sort: longer match first (specificity), tie-break by original order.
+    matches.sort(key=lambda t: (-t[0], t[1]))
+    return [fact for _, _, fact in matches]
 
 
 # Runtime-added crystals.  Mutable list; add via add_crystal_runtime().
