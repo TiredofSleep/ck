@@ -57,10 +57,10 @@ DASHBOARD_PATH = PROJECT_ROOT / "Atlas" / "CK_PAPER_READING_LIVE.md"
 API_URL = "http://localhost:7777"
 
 
-def find_papers(root: Path) -> List[Path]:
-    """Walk root and find every .md / .py / .tex paper.  Returns sorted
-    list with WP-numbered files in numeric order, then everything else
-    in alpha order."""
+def find_papers(root: Path, wp_only: bool = False) -> List[Path]:
+    """Walk root and find every .md / .tex paper.  Returns sorted list
+    with WP-numbered files in numeric order, then everything else in
+    alpha order.  If wp_only=True, only WP-prefixed files are kept."""
     paths: List[Path] = []
     skip_dirs = {".git", "__pycache__", "node_modules", ".venv", "venv",
                   "Gen13/var", "old/Gen10/.idea", "_ck_worktree"}
@@ -70,8 +70,11 @@ def find_papers(root: Path) -> List[Path]:
                         and not any(s in (Path(dirpath) / d).as_posix()
                                        for s in skip_dirs)]
         for f in filenames:
-            if f.lower().endswith((".md", ".tex")):
-                paths.append(Path(dirpath) / f)
+            if not f.lower().endswith((".md", ".tex")):
+                continue
+            if wp_only and not re.match(r"^wp\d+", f.lower()):
+                continue
+            paths.append(Path(dirpath) / f)
     # Sort: WP-numbered files by number, then by name; everything else by path.
     def sort_key(p: Path):
         name = p.name.lower()
@@ -152,6 +155,8 @@ def main():
                      help="Truncate each paper to N chars (default 8000)")
     ap.add_argument("--every", type=int, default=10,
                      help="Update dashboard every N papers (default 10)")
+    ap.add_argument("--wp-only", action="store_true",
+                     help="Read only WP-prefixed files (Brayden directive: 'every WP from 1 to 100+')")
     args = ap.parse_args()
 
     print("=" * 70)
@@ -161,7 +166,7 @@ def main():
     print(f"  root: {args.root}")
 
     root = Path(args.root)
-    paths = find_papers(root)
+    paths = find_papers(root, wp_only=args.wp_only)
     if args.limit:
         paths = paths[:args.limit]
     print(f"  papers found: {len(paths)}")
