@@ -173,24 +173,117 @@ class CellBase:
 
 # ── TSML cell ────────────────────────────────────────────────────────────
 
+class _OpTransformerLoader:
+    """Shared loader for TSML/BHML transformer tissues.  Both cells use
+    OpTransformerTissue (10-vocab, 8-window pair sequences)."""
+    @staticmethod
+    def try_load(name: str):
+        try:
+            import sys, os
+            from pathlib import Path
+            tissue_path = Path(
+                fr"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\var\cells\{name}_tissue_transformer.pt"
+            )
+            if not tissue_path.exists():
+                return None, None
+            import torch
+            here = Path(__file__).parent.resolve()
+            if str(here) not in sys.path:
+                sys.path.insert(0, str(here))
+            from train_tsml_bhml_tissue import OpTransformerTissue  # type: ignore
+            ckpt = torch.load(tissue_path, map_location="cpu",
+                                weights_only=False)
+            cfg = ckpt.get("config", {})
+            model = OpTransformerTissue(
+                vocab_size=cfg.get("vocab_size", 10),
+                window=cfg.get("window", 8),
+                embed_dim=cfg.get("embed_dim", 32),
+                n_layer=cfg.get("n_layer", 2),
+                n_head=cfg.get("n_head", 4),
+                dropout=cfg.get("dropout", 0.1),
+            )
+            model.load_state_dict(ckpt["model_state"])
+            model.eval()
+            return model, cfg.get("window", 8)
+        except Exception:
+            return None, None
+
+
 class TSMLCell(CellBase):
-    """10-vocab cell. Core: TSML[a][b] table. Tissue: 10-d scoring head."""
+    """10-vocab cell. Core: TSML[a][b] table. Tissue: 10-d scoring head
+    + optional transformer for sequence prediction."""
     name = "tsml"
     vocab_size = 10
 
+    def __init__(self):
+        super().__init__()
+        self._transformer, self._tx_window = _OpTransformerLoader.try_load("tsml")
+
     def core_argmax(self, a: int, b: int) -> int:
         return TSML[int(a) % 10][int(b) % 10]
+
+    def predict_sequence(self, history_pairs) -> int:
+        """history_pairs: list of (a, b) tuples.  Returns next-op argmax."""
+        if self._transformer is None:
+            return 7  # HARMONY default
+        try:
+            import torch
+            window = self._tx_window or 8
+            # Flatten + pad
+            flat = []
+            for p in history_pairs[-window:]:
+                if isinstance(p, (list, tuple)) and len(p) >= 2:
+                    flat.extend([int(p[0]) % 10, int(p[1]) % 10])
+            if len(flat) < window * 2:
+                flat = [7] * (window * 2 - len(flat)) + flat
+            x = torch.tensor([flat[:window*2]], dtype=torch.long)
+            with torch.no_grad():
+                logits = self._transformer(x)
+                return int(logits.argmax(-1).item())
+        except Exception:
+            return 7
+
+    def has_transformer(self) -> bool:
+        return self._transformer is not None
 
 
 # ── BHML cell ────────────────────────────────────────────────────────────
 
 class BHMLCell(CellBase):
-    """10-vocab cell. Core: BHML[a][b] table. Tissue: 10-d scoring head."""
+    """10-vocab cell. Core: BHML[a][b] table. Tissue: 10-d scoring head
+    + optional transformer for sequence prediction."""
     name = "bhml"
     vocab_size = 10
 
+    def __init__(self):
+        super().__init__()
+        self._transformer, self._tx_window = _OpTransformerLoader.try_load("bhml")
+
     def core_argmax(self, a: int, b: int) -> int:
         return BHML[int(a) % 10][int(b) % 10]
+
+    def predict_sequence(self, history_pairs) -> int:
+        """history_pairs: list of (a, b) tuples.  Returns next-op argmax."""
+        if self._transformer is None:
+            return 7
+        try:
+            import torch
+            window = self._tx_window or 8
+            flat = []
+            for p in history_pairs[-window:]:
+                if isinstance(p, (list, tuple)) and len(p) >= 2:
+                    flat.extend([int(p[0]) % 10, int(p[1]) % 10])
+            if len(flat) < window * 2:
+                flat = [7] * (window * 2 - len(flat)) + flat
+            x = torch.tensor([flat[:window*2]], dtype=torch.long)
+            with torch.no_grad():
+                logits = self._transformer(x)
+                return int(logits.argmax(-1).item())
+        except Exception:
+            return 7
+
+    def has_transformer(self) -> bool:
+        return self._transformer is not None
 
 
 # ── F3 cell ──────────────────────────────────────────────────────────────
