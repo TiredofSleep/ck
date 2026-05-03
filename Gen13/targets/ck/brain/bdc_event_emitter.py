@@ -325,6 +325,64 @@ def detect_idle_event(cortex, engine, session_id: str = "default") -> int:
     return 0
 
 
+def detect_perception_events(cortex, engine, source: str = "perception",
+                              n_ops: int = 0, hebbian_steps: int = 0,
+                              session_id: str = "default") -> int:
+    """Called from /audio/perceive and /screen/perceive after the cortex
+    has absorbed perceptual ops.  Synthesizes a chat-result-like dict
+    from the current cortex state and runs detect_chat_events on it.
+
+    Brayden 2026-05-03: "lets see if watching video speeds it up faster
+    than chat" -- video drives the cortex through audio/screen endpoints
+    at 1-2 Hz, which is much faster than the human chat-typing rate.
+    Events fire on the same cortex transitions detected on the chat path.
+    """
+    state = getattr(cortex, 'state', None)
+    if state is None:
+        return 0
+    ao = getattr(engine, 'ao', None)
+    # Try to get attractor state
+    attractor_state = {}
+    detect_fn = getattr(engine, 'detect_attractor', None)
+    if detect_fn is not None:
+        try:
+            attractor_state = detect_fn(getattr(state, 'profile', None) or [])
+        except Exception:
+            attractor_state = {}
+    # Synthesize result dict so existing detector can fire on diffs
+    result = {
+        "source": source,
+        "operators": [],  # perceptual events don't have an "operator profile"
+                          # in the chat sense; the ops were already absorbed
+        "experience": {
+            "breath": str(getattr(ao, 'breath', '')) if ao else '',
+            "stage": "GROKKED" if hebbian_steps > 0 else "",
+            "voice_crystals": 0,
+            "crystals": 0,
+        },
+        "attractor_state": attractor_state if isinstance(attractor_state, dict) else {},
+        "band": "",
+        "coherence": float(getattr(ao, 'coherence', 0.0)) if ao else 0.0,
+        "confidence": 0.0,
+        "cortex": {"tick": int(getattr(state, 'tick', 0) or 0)},
+        "routing": {"crystal_boost_count": 0,
+                    "is_structural_query": False,
+                    "is_pastoral_query": False},
+        "text": "",
+    }
+    n = detect_chat_events(result, session_id=f"{session_id}:{source}")
+    # Also emit a "nature_event" code for sustained perceptual feed
+    # (large n_ops indicates real video/audio flow, not noise)
+    if n_ops >= 100:
+        emit("nature_event",
+             tick=int(getattr(state, 'tick', 0) or 0),
+             session_id=f"{session_id}:{source}",
+             context={"source": source, "n_ops": n_ops,
+                      "hebbian_steps": hebbian_steps})
+        n += 1
+    return n
+
+
 # ── Public inspection ─────────────────────────────────────────────────
 
 def recent_events(n: int = 32):

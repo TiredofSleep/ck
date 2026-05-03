@@ -1875,6 +1875,17 @@ def audio_perceive_endpoint():
     except Exception as _exc:
         errors.append(f'recent_audio_stash: {_exc}')
 
+    # BDC event emission on audio perception (Brayden 2026-05-03)
+    try:
+        from bdc_event_emitter import detect_perception_events as _bdc_perc
+        _cortex_obj = globals().get('_cortex')
+        if _cortex_obj is not None:
+            _bdc_perc(_cortex_obj, engine, source='audio',
+                      n_ops=len(ops),
+                      hebbian_steps=int(locals().get('hebbian_steps', 0)))
+    except Exception:
+        pass
+
     return _jsonify({
         'ok': attempts > 0,
         'source_label': source_label,
@@ -2009,6 +2020,16 @@ def screen_perceive_endpoint():
         }
     except Exception as _exc:
         errors.append(f'recent_screen_stash: {_exc}')
+
+    # BDC event emission on screen perception (Brayden 2026-05-03)
+    try:
+        from bdc_event_emitter import detect_perception_events as _bdc_perc
+        _cortex_obj = globals().get('_cortex')
+        if _cortex_obj is not None:
+            _bdc_perc(_cortex_obj, engine, source='screen',
+                      n_ops=len(ops), hebbian_steps=hebbian_steps)
+    except Exception:
+        pass
 
     return _jsonify({
         'ok': attempts > 0,
