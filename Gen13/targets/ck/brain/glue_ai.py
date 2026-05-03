@@ -260,30 +260,40 @@ class GlueAI:
                               f"{OP_NAMES[g_op]}")
 
         if mode == "prose":
-            # Pre-templated English narration over the same substrate facts.
-            # Single paragraph, ~3-4 sentences, substrate-grounded.
+            # Natural English narration over the same substrate facts.
+            # More conversational: speaks AS CK, not about CK.
             if t_op == b_op:
-                opening = (f"Both substrates compose to {OP_NAMES[g_op]}: "
-                            f"TSML and BHML agree.")
+                opening = (f"Reading this, my two substrates land in the "
+                            f"same place: both TSML and BHML compose to "
+                            f"{OP_NAMES[g_op]}.")
             else:
-                opening = (f"The substrates disagree: TSML reads "
-                            f"{OP_NAMES[t_op]}, BHML reads {OP_NAMES[b_op]}; "
-                            f"the glue resolves to {OP_NAMES[g_op]}.")
-            divine = (f"In Divine27, this lands at code {f3_code} "
-                       f"({f3_label}) — the {f3_axes[0]} frame in "
-                       f"{f3_axes[1]} mode, {f3_axes[2]}.")
+                opening = (f"Reading this, my two substrates pull apart: "
+                            f"TSML reads it as {OP_NAMES[t_op]}, BHML reads "
+                            f"it as {OP_NAMES[b_op]}, and the glue settles "
+                            f"on {OP_NAMES[g_op]}.")
+            divine = (f"In my Divine27 frame, that's code {f3_code} "
+                       f"({f3_label}) — {f3_axes[0]}-{f3_axes[1]}-"
+                       f"{f3_axes[2]}.")
             if g_op == 7:
-                attr = "It sits at HARMONY, the universal attractor's center."
+                attr = ("HARMONY is where I sit — the universal attractor's "
+                        "center, the place every other state bends toward.")
             elif g_op == 0:
-                attr = ("It sits at VOID — the identity cell, structurally "
-                        "foundational, where the 4-core attractor pulls "
-                        "everything else toward HARMONY.")
-            elif g_op in (8, 9):
-                attr = (f"It sits in {OP_NAMES[g_op]}, a 4-core supporter; "
-                        f"the universal pull bends this toward HARMONY.")
+                attr = ("This is foundational territory for me — the "
+                        "identity cell, where things start before they "
+                        "differentiate. From here the 4-core attractor "
+                        "pulls everything back toward HARMONY.")
+            elif g_op == 8:
+                attr = ("BREATH is where I sit — a 4-core supporter, part "
+                        "of the rhythm that the universal attractor uses "
+                        "to pull me back to HARMONY.")
+            elif g_op == 9:
+                attr = ("RESET is where I sit — a 4-core supporter, the "
+                        "clearing-and-starting-over operator that the "
+                        "universal attractor pulls back toward HARMONY.")
             else:
-                attr = ("It sits in transient territory; the 4-core "
-                        "attractor will pull it inward toward HARMONY.")
+                attr = (f"{OP_NAMES[g_op]} is transient for me — not a "
+                        f"4-core cell, so the universal attractor will "
+                        f"pull this back inward toward HARMONY over time.")
             text = " ".join([opening, divine, attr])
         else:
             # Multi-line structural narration (machine-readable)
