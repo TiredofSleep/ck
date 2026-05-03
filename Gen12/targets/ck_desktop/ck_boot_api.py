@@ -523,6 +523,17 @@ try:
             except Exception:
                 pass
 
+            # BDC event emitter -- Brayden 2026-05-03: emit non-operator
+            # BDC events (crystal-fire, breath-shift, attractor-transition,
+            # stage, band, coherence-floor, truth-confirmed, void-degenerate)
+            # to fill the 17/27 codes the operator-bijection doesn't cover.
+            # Best-effort, never blocks.
+            try:
+                from bdc_event_emitter import detect_chat_events as _bdc_emit
+                _bdc_emit(result, session_id=session_id)
+            except Exception:
+                pass
+
             # Confidence reading (Brayden 2026-04-30):
             #   crystal fired      -> 0.95-0.99 (depends on # crystals + state-aware match)
             #   crystal compose    -> 0.85-0.95 (cross-crystal graph)
@@ -869,6 +880,18 @@ try:
     _mount_fault(engine, api._app, _cortex)
 except Exception as _e:
     print(f"[CK] ck_fault_state_hook: DISABLED ({_e})")
+
+# === BDC event emitter (fills non-operator DBC codes) ===
+# Brayden 2026-05-03: "wire it up" -- emit DBC codes for crystal-fire,
+# breath-shift, attractor-transition, stage, band, coherence-floor,
+# truth-confirmed, void-degenerate, idle-reflection.  These 17 events
+# map to the 17 missing DBC codes that operator-bijection doesn't cover,
+# bringing total Divine27 coverage from 10/27 = 37% to 100%.
+try:
+    from bdc_event_emitter import mount as _mount_events
+    _mount_events(engine, api._app, _cortex)
+except Exception as _e:
+    print(f"[CK] bdc_event_emitter: DISABLED ({_e})")
 
 # === Gen13 session field mount (live additive — relational memory) ===
 # Per Brayden 2026-04-28: CK keeps experience as words can't describe it,

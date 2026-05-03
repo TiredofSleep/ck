@@ -106,6 +106,15 @@ class TickSampler:
         log_event(trigger="tick_sample", payload=payload)
         self._n_samples += 1
 
+        # Also emit a BDC reflection-idle event when the cortex has been
+        # stable across two consecutive samples (no chat-driven change).
+        # Best-effort.
+        try:
+            from bdc_event_emitter import detect_idle_event as _bdc_idle
+            _bdc_idle(self.cortex, self.engine)
+        except Exception:
+            pass
+
 
 _SAMPLER_SINGLETON: Optional[TickSampler] = None
 
