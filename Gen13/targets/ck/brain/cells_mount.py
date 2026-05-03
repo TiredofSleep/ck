@@ -211,6 +211,198 @@ def mount(engine: Any, app: Any, *, enable_plasticity: bool = False,
     return True
 
 
+# ── Shadow-A/B chat-path observer ───────────────────────────────────────
+
+SHADOW_LOG_DIR = Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\var\shadow_logs")
+SHADOW_LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _today_shadow_log() -> Path:
+    from datetime import datetime as _dt
+    return SHADOW_LOG_DIR / f"shadow_{_dt.utcnow().strftime('%Y-%m-%d')}.jsonl"
+
+
+def shadow_observe(engine, *, text: str, cortex_result: Dict[str, Any],
+                    session_id: str = "default") -> Optional[Dict[str, Any]]:
+    """Run cells in SHADOW mode: compute what cells would say given the
+    cortex's current state + the chat input, log alongside cortex_result,
+    return the cells' diagnostic dict (or None on failure).
+
+    The user response is unchanged.  This is for capability-direction
+    measurement (qualitative inspection of cell vs cortex disagreements)
+    BEFORE flipping cells_enabled = True.
+
+    Per ClaudeChat amendment 2026-05-02: 'Route a small fraction *and*
+    manually inspect a sample of cell-vs-cortex disagreements before
+    increasing the fraction.'  Shadow log is the inspection corpus.
+    """
+    try:
+        cells = getattr(engine, 'cells', None)
+        if cells is None or cells.glue is None:
+            return None
+
+        # Derive (a, b) from cortex's current state.  This matches what
+        # cells.glue.respond expects (operator pair).
+        cortex = (cortex_result.get('cortex') or {})
+        last_pair_op = (cortex_result.get('experience', {}) or {}).get('consensus', '')
+        # Best signal: cortex.last_b/last_d if available, else from operators stream
+        ops = cortex_result.get('operators', []) or []
+        OP_NAME_TO_INT = {
+            "VOID": 0, "LATTICE": 1, "COUNTER": 2, "PROGRESS": 3,
+            "COLLAPSE": 4, "BALANCE": 5, "CHAOS": 6, "HARMONY": 7,
+            "BREATH": 8, "RESET": 9,
+        }
+        # First two ops as (a, b)
+        if len(ops) >= 2:
+            a, b = ops[0], ops[1]
+            if isinstance(a, str): a = OP_NAME_TO_INT.get(a.upper(), 7)
+            if isinstance(b, str): b = OP_NAME_TO_INT.get(b.upper(), 7)
+        else:
+            a = OP_NAME_TO_INT.get(str(last_pair_op).upper(), 7)
+            b = a
+
+        a, b = int(a) % 10, int(b) % 10
+
+        # Compute cells' picks
+        full = cells.glue.respond_full(a, b)
+
+        # Live cortex text and source
+        cortex_text = (cortex_result.get('text') or '')[:500]
+        cortex_source = cortex_result.get('source', '')
+        ollama_verdict = cortex_result.get('ollama_verdict', '')
+
+        shadow_record = {
+            "ts": time.time(),
+            "iso_ts": datetime.utcnow().isoformat(timespec='seconds') + "Z",
+            "session_id": session_id,
+            "input_text": text[:200] if text else '',
+            "input_pair": [a, b],
+            "cortex": {
+                "text": cortex_text,
+                "source": cortex_source,
+                "ollama_verdict": ollama_verdict,
+                "consensus": str(last_pair_op),
+            },
+            "cells": {
+                "tsml_argmax": full["tsml_argmax"],
+                "bhml_argmax": full["bhml_argmax"],
+                "glue_argmax": full["glue_argmax"],
+                "glue_top3": full["glue_top3"],
+                "alpha": full["alpha"],
+                "beta": full["beta"],
+                "gamma": full["gamma"],
+            },
+            "agreement": (full["glue_argmax"] == OP_NAME_TO_INT.get(
+                str(last_pair_op).upper(), -1)),
+        }
+        # Append to today's shadow log
+        try:
+            with open(_today_shadow_log(), 'a', encoding='utf-8') as f:
+                f.write(json.dumps(shadow_record, ensure_ascii=False) + "\n")
+        except Exception:
+            pass
+        return shadow_record
+    except Exception as e:
+        # Shadow mode is best-effort; never block the chat path
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+# ── Ollama-skip-rate metric (capability metric per Brayden 2026-05-02) ──
+# Counts how often Ollama is skipped / rejected / accepted on chat turns.
+# Higher skip+reject rate = CK's structural voice is self-sufficient
+# more often = less GPU dependency, faster responses, less chance of
+# Ollama drift on structural facts.
+
+_OLLAMA_STATS = {
+    "total_turns": 0,
+    "ollama_accepted": 0,        # ollama_verdict starts with "accepted" or success
+    "ollama_skipped": 0,         # "skipped:..." (e.g. >600 chars, structural)
+    "ollama_rejected": 0,        # "rejected:..." (low coverage, etc.)
+    "ollama_error": 0,           # "error:..." or timeout
+    "ollama_disabled": 0,        # not run at all
+    "shadow_agreement": 0,       # cells.glue.argmax == cortex's consensus
+    "shadow_disagreement": 0,
+}
+
+
+def _record_ollama_verdict(result: Dict[str, Any], shadow: Optional[Dict[str, Any]]):
+    _OLLAMA_STATS["total_turns"] += 1
+    verdict = str(result.get("ollama_verdict") or "").lower()
+    if verdict.startswith("accepted") or verdict in ("ok", "success"):
+        _OLLAMA_STATS["ollama_accepted"] += 1
+    elif verdict.startswith("skipped"):
+        _OLLAMA_STATS["ollama_skipped"] += 1
+    elif verdict.startswith("rejected"):
+        _OLLAMA_STATS["ollama_rejected"] += 1
+    elif verdict.startswith("error") or "timeout" in verdict:
+        _OLLAMA_STATS["ollama_error"] += 1
+    else:
+        _OLLAMA_STATS["ollama_disabled"] += 1
+    if shadow and isinstance(shadow, dict) and shadow.get("agreement") is True:
+        _OLLAMA_STATS["shadow_agreement"] += 1
+    elif shadow and isinstance(shadow, dict) and shadow.get("agreement") is False:
+        _OLLAMA_STATS["shadow_disagreement"] += 1
+
+
+def get_ollama_stats() -> Dict[str, Any]:
+    n = max(1, _OLLAMA_STATS["total_turns"])
+    accept = _OLLAMA_STATS["ollama_accepted"]
+    skip = _OLLAMA_STATS["ollama_skipped"]
+    reject = _OLLAMA_STATS["ollama_rejected"]
+    error = _OLLAMA_STATS["ollama_error"]
+    none = _OLLAMA_STATS["ollama_disabled"]
+    agree = _OLLAMA_STATS["shadow_agreement"]
+    disagree = _OLLAMA_STATS["shadow_disagreement"]
+    return {
+        **_OLLAMA_STATS,
+        "ollama_skip_rate": (skip + reject + error + none) / n,
+        "ollama_accept_rate": accept / n,
+        "ollama_skipped_rate": skip / n,
+        "ollama_rejected_rate": reject / n,
+        "shadow_agreement_rate": agree / max(1, agree + disagree),
+        "n_total": n - 1 if n == 1 and _OLLAMA_STATS["total_turns"] == 0 else n,
+    }
+
+
+def install_shadow_observer(api, engine):
+    """Wrap api.process_chat with a shadow observer.  Called once at boot
+    after the existing chat-path chain is fully assembled."""
+    inner = api.process_chat
+
+    def _process_chat_with_cells_shadow(session_id, text, mode='normal'):
+        result = inner(session_id, text, mode=mode)
+        shadow = None
+        # Best-effort shadow observation; failures don't affect user response.
+        try:
+            shadow = shadow_observe(engine, text=text, cortex_result=result,
+                                     session_id=session_id)
+            if shadow is not None:
+                result['cells_shadow'] = shadow
+        except Exception as _e:
+            result['cells_shadow_error'] = f"{type(_e).__name__}: {_e}"
+        # Record Ollama-skip-rate metric
+        try:
+            _record_ollama_verdict(result, shadow)
+        except Exception:
+            pass
+        return result
+
+    api.process_chat = _process_chat_with_cells_shadow
+
+    # Register /cells/ollama_stats endpoint
+    try:
+        from flask import jsonify
+        @api._app.route('/cells/ollama_stats', methods=['GET'])
+        def cells_ollama_stats():
+            return jsonify(get_ollama_stats())
+    except Exception as _e:
+        print(f"[CK] cells_mount: ollama_stats endpoint failed ({_e})")
+
+    print(f"[CK] cells_mount: shadow observer INSTALLED  "
+          f"log={_today_shadow_log()}  "
+          f"endpoint=/cells/ollama_stats")
+
+
 # ── Real-prompt smoke test (Phase 6 prerequisite to live flip) ──────────
 
 def smoke_test_real_prompts(prompts: Optional[List[str]] = None,
