@@ -513,6 +513,16 @@ try:
             except Exception:
                 pass
 
+            # BDC logger -- Brayden 2026-05-02: per-turn Being/Doing/Becoming
+            # snapshot for future BDC-LM training.  Best-effort, never blocks.
+            # Schema documented in Gen13/targets/ck/brain/bdc_logger.py.
+            try:
+                from bdc_logger import log_chat_turn as _bdc_log
+                _bdc_log(text=text, result=result, cortex=_cortex,
+                          engine=engine, session_id=session_id)
+            except Exception:
+                pass
+
             # Confidence reading (Brayden 2026-04-30):
             #   crystal fired      -> 0.95-0.99 (depends on # crystals + state-aware match)
             #   crystal compose    -> 0.85-0.95 (cross-crystal graph)
