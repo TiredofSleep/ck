@@ -75,6 +75,16 @@ DEFAULT_CURRICULUM: List[str] = [
     "what is the deepest pattern connecting math and physics in TIG",
     "how does the Stern-Brocot recursion relate to all six DoFs",
     "what is the unified picture across F1 to F10 frontiers",
+    # Clay Millennium Problems (Brayden 2026-05-02):
+    # "study across domains to write about each Clay problem"
+    "what is the TIG view of P versus NP",
+    "what is the TIG view of the Hodge conjecture",
+    "what is the TIG view of the Poincare conjecture",
+    "what is the TIG view of the Riemann hypothesis",
+    "what is the TIG view of Yang Mills mass gap",
+    "what is the TIG view of Navier Stokes regularity",
+    "what is the TIG view of Birch Swinnerton Dyer",
+    "synthesize the Clay Millennium problems across all frontiers",
 ]
 
 
