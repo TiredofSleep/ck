@@ -843,10 +843,32 @@ try:
             _bank_ok = _mount_bank(engine, api._app, engine.grammar_lm)
             if not _bank_ok:
                 print("[CK] bank_mount: returned False")
+            else:
+                # Sim-gated ensemble (LM + Bank with similarity routing)
+                try:
+                    from ensemble import mount as _mount_ensemble
+                    _mount_ensemble(engine, api._app, engine.grammar_lm,
+                                     engine.operator_bank)
+                except Exception as _ee:
+                    print(f"[CK] sim_gated_ensemble: DISABLED ({_ee})")
     except Exception as _be:
         print(f"[CK] bank_mount: DISABLED ({_be})")
 except Exception as _e:
     print(f"[CK] grammar_lm: DISABLED ({_e})")
+
+# === Tick-sample logger (more BDC data accumulation) ===
+try:
+    from bdc_tick_sampler import mount as _mount_sampler
+    _mount_sampler(engine, api._app, _cortex, interval_sec=10.0)
+except Exception as _e:
+    print(f"[CK] bdc_tick_sampler: DISABLED ({_e})")
+
+# === Fault-state diagnostic (V/F/S/T role analysis per chat) ===
+try:
+    from ck_fault_state_hook import mount as _mount_fault
+    _mount_fault(engine, api._app, _cortex)
+except Exception as _e:
+    print(f"[CK] ck_fault_state_hook: DISABLED ({_e})")
 
 # === Gen13 session field mount (live additive — relational memory) ===
 # Per Brayden 2026-04-28: CK keeps experience as words can't describe it,
