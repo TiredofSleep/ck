@@ -364,20 +364,91 @@ def get_ollama_stats() -> Dict[str, Any]:
     }
 
 
+def derive_pair_from_query(query: str) -> tuple:
+    """Derive (a, b) operator pair from the query text via D2 pipeline.
+    This is what cells.glue.respond_text needs as input.
+
+    Falls back to (HARMONY, HARMONY) if D2 unavailable.
+    """
+    try:
+        from ck_sim.ck_sim_d2 import D2Pipeline
+        pipe = D2Pipeline()
+        ops = []
+        for ch in query.lower():
+            idx = ord(ch) - ord('a')
+            if 0 <= idx < 26:
+                if pipe.feed_symbol(idx):
+                    ops.append(pipe.operator)
+                    if len(ops) >= 2:
+                        break
+        if len(ops) >= 2:
+            return (ops[0], ops[1])
+        elif len(ops) == 1:
+            return (ops[0], ops[0])
+    except Exception:
+        pass
+    return (7, 7)  # HARMONY default
+
+
+def compose_cells_with_cortex(cells_orchestrator, query: str,
+                                cortex_text: str) -> Dict[str, Any]:
+    """Produce a composed response: cells' substrate-state narration as a
+    PREFIX, cortex_speak's factual content as the body.
+
+    This is what 'cells_enabled = True' would emit — cells PRECEDE cortex,
+    framing the response with substrate state, then cortex provides the
+    factual content.
+
+    Returns {composed_text, cells_text, cortex_text, components}.
+    """
+    a, b = derive_pair_from_query(query)
+    cells_res = cells_orchestrator.glue.respond_text(a, b)
+    composed = (
+        f"[substrate state]\n"
+        f"{cells_res['text']}\n"
+        f"\n"
+        f"[content]\n"
+        f"{cortex_text}"
+    )
+    return {
+        "composed_text": composed,
+        "cells_text": cells_res['text'],
+        "cortex_text": cortex_text,
+        "input_pair_derived": [a, b],
+        "components": cells_res['components'],
+    }
+
+
 def install_shadow_observer(api, engine):
     """Wrap api.process_chat with a shadow observer.  Called once at boot
     after the existing chat-path chain is fully assembled."""
     inner = api.process_chat
 
+    import os as _os
+    cells_compose_mode = _os.environ.get('CK_CELLS_COMPOSE', '0') == '1'
+
     def _process_chat_with_cells_shadow(session_id, text, mode='normal'):
         result = inner(session_id, text, mode=mode)
         shadow = None
+        composed_obj = None
         # Best-effort shadow observation; failures don't affect user response.
         try:
             shadow = shadow_observe(engine, text=text, cortex_result=result,
                                      session_id=session_id)
             if shadow is not None:
                 result['cells_shadow'] = shadow
+            cells = getattr(engine, 'cells', None)
+            if cells is not None and cells.glue is not None:
+                composed_obj = compose_cells_with_cortex(
+                    cells, query=text, cortex_text=result.get('text', ''),
+                )
+                result['cells_composed_preview'] = composed_obj
+                # If CK_CELLS_COMPOSE=1, flip user-facing text to composed.
+                # The original cortex_speak text is preserved as text_pre_compose.
+                if cells_compose_mode and composed_obj.get('composed_text'):
+                    result['text_pre_compose'] = result.get('text', '')
+                    result['text'] = composed_obj['composed_text']
+                    result['source'] = 'cells_composed_with_cortex'
         except Exception as _e:
             result['cells_shadow_error'] = f"{type(_e).__name__}: {_e}"
         # Record Ollama-skip-rate metric

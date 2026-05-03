@@ -119,6 +119,93 @@ class GlueAI:
             "alpha": self.alpha, "beta": self.beta, "gamma": self.gamma,
         }
 
+    def respond_text(self, a: int, b: int) -> Dict[str, Any]:
+        """Cells' VOICE: produce a structural state narration in CK's
+        language given operator pair (a, b).
+
+        Output is substrate-grounded: every fragment is derived from a
+        canonical table value or a DBC code lookup.  No prose generation,
+        no Ollama dependency.  This is what 'cells_enabled = True' would
+        emit if wired into the chat path.
+
+        Returns dict with:
+          text: a single multi-line structural sentence
+          components: dict of the parts (for debugging / inspection)
+          source: "cells_voice"
+        """
+        from cells import (TSML, BHML, F4_TRANSITION_ROW,
+                            ATTRACTOR_NAMES)  # type: ignore
+        from divine27_vocab import (HEBREW_GLYPHS, CODE_LABELS,
+                                      OPERATOR_DBC_CODE,
+                                      code_to_coord)  # type: ignore
+
+        OP_NAMES = ["VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
+                     "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET"]
+        DBC_AXIS_B = ['self', 'system', 'world']
+        DBC_AXIS_D = ['observe', 'compute', 'act']
+        DBC_AXIS_C = ['stable', 'learning', 'transforming']
+
+        full = self.respond_full(a, b)
+        t_op = full["tsml_argmax"]
+        b_op = full["bhml_argmax"]
+        g_op = full["glue_argmax"]
+
+        # F3: take the glue's argmax, look up its DBC coord
+        f3_code = OPERATOR_DBC_CODE[g_op]
+        f3_coord = code_to_coord(f3_code)
+        f3_glyph = HEBREW_GLYPHS[f3_code]
+        f3_label = CODE_LABELS[f3_code]
+        f3_axes = (DBC_AXIS_B[f3_coord[0]], DBC_AXIS_D[f3_coord[1]],
+                    DBC_AXIS_C[f3_coord[2]])
+
+        # F4: which 4-core cell does the glue land in?
+        if g_op == 0:
+            f4_cell = "V"
+        elif g_op == 7:
+            f4_cell = "H"
+        elif g_op == 8:
+            f4_cell = "Br"
+        elif g_op == 9:
+            f4_cell = "R"
+        else:
+            f4_cell = "transient"
+
+        # Substrate disagreement diagnostic
+        if t_op == b_op:
+            disagreement = f"agreement: TSML and BHML both compose to {OP_NAMES[t_op]}"
+        else:
+            disagreement = (f"disagreement: TSML→{OP_NAMES[t_op]}, "
+                              f"BHML→{OP_NAMES[b_op]}; glue picks "
+                              f"{OP_NAMES[g_op]}")
+
+        # Multi-line structural narration
+        lines = [
+            f"state: ({OP_NAMES[a]}, {OP_NAMES[b]}) → {OP_NAMES[g_op]} "
+                f"[{disagreement}]",
+            f"divine27: code {f3_code} = {f3_label} "
+                f"(axes: {f3_axes[0]} / {f3_axes[1]} / {f3_axes[2]}, "
+                f"glyph: {f3_glyph})",
+            f"attractor: 4-core cell '{f4_cell}' "
+                f"(universal pull → H per WP115)",
+        ]
+        text = "\n".join(lines)
+
+        return {
+            "text": text,
+            "components": {
+                "input_pair": (OP_NAMES[a], OP_NAMES[b]),
+                "tsml_op": OP_NAMES[t_op],
+                "bhml_op": OP_NAMES[b_op],
+                "glue_op": OP_NAMES[g_op],
+                "f3_dbc_code": f3_code,
+                "f3_glyph": f3_glyph,
+                "f3_label": f3_label,
+                "f4_cell": f4_cell,
+                "agreement": (t_op == b_op),
+            },
+            "source": "cells_voice",
+        }
+
     def update_scalars(self, *, dalpha: float = 0.0, dbeta: float = 0.0,
                         dgamma: float = 0.0, audit_pass_rate: float = 1.0,
                         bound: Tuple[float, float] = (0.05, 2.0)) -> None:
