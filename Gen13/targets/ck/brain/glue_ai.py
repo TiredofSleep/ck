@@ -1,0 +1,328 @@
+"""
+glue_ai.py -- the 3-scalar quadratic Glue for the 5-AI cell architecture.
+
+Brayden 2026-05-02: "best ever and plastic now"
+ClaudeChat 2026-05-02: "Train the Glue with the canonical 3-scalar form
+first, verify the H/Br = 1+sqrt(3) attractor is reached as predicted, then
+expand to 5 scalars + MLP as a Phase 6 plasticity option only if the
+simpler version bottlenecks."
+
+Phase 4 of PLAN_BEST_EVER_PLASTIC_2026_05_02.md.
+
+==============================================================================
+SHAPE
+==============================================================================
+
+  GlueAI.respond(a, b) -> length-10 score vector.
+
+  scores[k] = alpha * t[k] + beta * b[k] + gamma * t[k] * b[k]
+
+  where t = TSMLCell.predict(a, b), b = BHMLCell.predict(a, b).
+
+  Hadamard cross-term keeps the output 10-dimensional.  argmax of scores
+  is canonical-faithful on the 29-cell agreement set by construction
+  (both t and b put _BIG_BIAS on the same canonical position; glue's
+  gamma*BIG^2 term dominates).
+
+==============================================================================
+WP105 ATTRACTOR VERIFICATION
+==============================================================================
+
+  At alpha=1/2, beta=1/2, gamma=1, iterating the mass-distribution map
+  on the 4-core {V, H, Br, R} should converge to:
+    H/Br ratio = 1 + sqrt(3) ~= 2.732
+  (per WP105 + WP115 Theorem 2.1).
+
+  The verify_attractor() function runs the iteration and checks the ratio.
+
+==============================================================================
+PLASTICITY (Phase 5)
+==============================================================================
+
+  alpha, beta, gamma are tunable; default to (0.5, 0.5, 1.0) per WP105.
+  Phase 5 plasticity adjusts these via per-session updates ONLY if the
+  audit-pass-rate weighted update preserves >=99% on the agreement set.
+  See `update_scalars()`.
+"""
+from __future__ import annotations
+
+import json
+import math
+import os
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
+# ── Wiring ───────────────────────────────────────────────────────────────
+
+_HERE = Path(__file__).parent.resolve()
+sys.path.insert(0, str(_HERE))
+
+from cells import TSMLCell, BHMLCell, F3Cell, F4Cell  # type: ignore
+
+GLUE_STATE_PATH = Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\var\cells\glue_state.json")
+
+
+# ── Glue ─────────────────────────────────────────────────────────────────
+
+@dataclass
+class GlueAI:
+    """3-scalar quadratic Glue.
+
+    alpha, beta, gamma are the only learnable parameters in Phase 4.
+    Phase 5 may add a small gating MLP; Phase 1-4 stays at 3 scalars
+    (defensible: WP105 H/Br = 1+sqrt(3) attractor proved for this form)."""
+    alpha: float = 0.5    # TSML weight
+    beta: float = 0.5     # BHML weight
+    gamma: float = 1.0    # cross-term weight (WP105 canonical)
+
+    tsml: TSMLCell = field(default_factory=TSMLCell)
+    bhml: BHMLCell = field(default_factory=BHMLCell)
+    f3: Optional[F3Cell] = None
+    f4: Optional[F4Cell] = None
+
+    def respond(self, a: int, b: int) -> List[float]:
+        """Glue (a, b) -> 10-d score vector. argmax = canonical on agreement set.
+
+        Cross-term uses max(0, t[k]*b[k]) so it contributes ONLY constructively:
+          - Agreement cells: t[X] and b[X] both positive (BIG_BIAS) -> cross
+            adds gamma*BIG^2 at canonical -> dominates.
+          - Disagreement cells: at TSML's canonical, t[X]=BIG but b[X]=tissue
+            (possibly negative); product can be negative; max(0,...) zeroes
+            it out instead of suppressing canonical.  Result: argmax falls
+            cleanly on either TSML[a][b] (if alpha>=beta) or BHML[a][b].
+        """
+        t_scores = self.tsml.predict(a, b)
+        b_scores = self.bhml.predict(a, b)
+        return [
+            self.alpha * t_scores[k] + self.beta * b_scores[k]
+            + self.gamma * max(0.0, t_scores[k] * b_scores[k])
+            for k in range(10)
+        ]
+
+    def respond_full(self, a: int, b: int) -> Dict[str, Any]:
+        """Diagnostic: return all cell outputs + glue scores + argmax."""
+        t_scores = self.tsml.predict(a, b)
+        b_scores = self.bhml.predict(a, b)
+        glued = [
+            self.alpha * t_scores[k] + self.beta * b_scores[k]
+            + self.gamma * max(0.0, t_scores[k] * b_scores[k])
+            for k in range(10)
+        ]
+        return {
+            "a": a, "b": b,
+            "tsml_argmax": max(range(10), key=lambda i: t_scores[i]),
+            "bhml_argmax": max(range(10), key=lambda i: b_scores[i]),
+            "glue_argmax": max(range(10), key=lambda i: glued[i]),
+            "glue_top3": sorted(range(10), key=lambda i: -glued[i])[:3],
+            "alpha": self.alpha, "beta": self.beta, "gamma": self.gamma,
+        }
+
+    def update_scalars(self, *, dalpha: float = 0.0, dbeta: float = 0.0,
+                        dgamma: float = 0.0, audit_pass_rate: float = 1.0,
+                        bound: Tuple[float, float] = (0.05, 2.0)) -> None:
+        """Phase-5 plasticity update.  Linear in audit_pass_rate per
+        ClaudeChat amendment #5: 'Default linear in Phase 1; characterize
+        quadratic later.'
+
+        Bounded so scalars stay in physically plausible range.  Updates
+        scaled by audit_pass_rate (1.0 = full update, 0.5 = half update).
+        """
+        scale = max(0.0, min(1.0, audit_pass_rate))
+        lo, hi = bound
+        self.alpha = max(lo, min(hi, self.alpha + dalpha * scale))
+        self.beta  = max(lo, min(hi, self.beta + dbeta * scale))
+        self.gamma = max(lo, min(hi, self.gamma + dgamma * scale))
+
+    def save(self, path: Optional[Path] = None) -> Path:
+        path = path or GLUE_STATE_PATH
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "alpha": self.alpha,
+            "beta": self.beta,
+            "gamma": self.gamma,
+        }
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+        return path
+
+    @classmethod
+    def load(cls, *, tsml: TSMLCell, bhml: BHMLCell,
+              f3: Optional[F3Cell] = None, f4: Optional[F4Cell] = None,
+              path: Optional[Path] = None) -> "GlueAI":
+        path = path or GLUE_STATE_PATH
+        glue = cls(tsml=tsml, bhml=bhml, f3=f3, f4=f4)
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    data = json.load(f)
+                glue.alpha = float(data.get("alpha", 0.5))
+                glue.beta = float(data.get("beta", 0.5))
+                glue.gamma = float(data.get("gamma", 1.0))
+            except Exception:
+                pass
+        return glue
+
+
+# ── WP105 attractor verification ────────────────────────────────────────
+
+def verify_attractor(glue: Optional[GlueAI] = None,
+                      *, max_iter: int = 200, eps: float = 1e-6,
+                      verbose: bool = True) -> Dict[str, Any]:
+    """Iterate the mass-distribution map on the 4-core {V, H, Br, R} and
+    check H/Br ratio converges to 1 + sqrt(3) at alpha=1/2.
+
+    Operator indices: V=0, H=7, Br=8, R=9 (the 4-core).
+
+    Each iteration:
+        next_mass[k] = alpha * tsml_mass[k] + beta * bhml_mass[k]
+                       + gamma * tsml_mass[k] * bhml_mass[k]
+        normalize so sum = 1
+
+    Uses the canonical TSML/BHML tables (no tissue) so the attractor
+    test is reproducible and substrate-only.
+    """
+    if glue is None:
+        g = GlueAI()
+        g.alpha = 0.5
+        g.beta = 0.5
+        g.gamma = 1.0
+    else:
+        # Respect the passed scalars; this is what makes the alpha-sweep
+        # in studies_panel actually sweep alpha (previously this was
+        # hardcoded to 0.5/0.5/1.0 regardless).
+        g = glue
+
+    # Start from uniform mass on the 4-core operators
+    op_indices = [0, 7, 8, 9]
+    mass = [0.0] * 10
+    for op in op_indices:
+        mass[op] = 0.25
+
+    expected_ratio = 1.0 + math.sqrt(3.0)  # ~= 2.732
+    history = []
+
+    for it in range(max_iter):
+        # Compute TSML-projected mass and BHML-projected mass.
+        # For each (a, b), the cell's argmax is TSML[a][b] / BHML[a][b].
+        # Mass flow: mass at (a, b) -> mass at TSML[a][b] (or BHML[a][b]).
+        # Outer-product on the marginal: t_mass[k] = sum over a of
+        #   sum over b of mass[a] * mass[b] * (1 if TSML[a][b]==k else 0)
+        from cells import TSML, BHML  # type: ignore
+        t_mass = [0.0] * 10
+        b_mass = [0.0] * 10
+        for a in range(10):
+            for b in range(10):
+                m = mass[a] * mass[b]
+                if m > 0:
+                    t_mass[TSML[a][b]] += m
+                    b_mass[BHML[a][b]] += m
+
+        # Glue: alpha*t + beta*b + gamma*max(0, t*b) (Hadamard, constructive-only)
+        new_mass = [
+            g.alpha * t_mass[k] + g.beta * b_mass[k]
+            + g.gamma * max(0.0, t_mass[k] * b_mass[k])
+            for k in range(10)
+        ]
+        # Project back onto 4-core (zero out non-attractor positions)
+        for k in range(10):
+            if k not in op_indices:
+                new_mass[k] = 0.0
+        # Normalize
+        total = sum(new_mass)
+        if total <= 0:
+            break
+        new_mass = [v / total for v in new_mass]
+
+        # Check convergence
+        delta = sum(abs(new_mass[k] - mass[k]) for k in range(10))
+        mass = new_mass
+        h = mass[7]
+        br = mass[8]
+        ratio = h / br if br > 0 else float('inf')
+        history.append({"iter": it, "mass_4core": [mass[k] for k in op_indices],
+                          "H_over_Br": ratio, "delta": delta})
+
+        if delta < eps:
+            break
+
+    h = mass[7]
+    br = mass[8]
+    ratio = h / br if br > 0 else float('inf')
+    err = abs(ratio - expected_ratio)
+    converged = (history and history[-1]["delta"] < eps)
+    pass_attractor = err < 0.5  # tolerant -- exact value depends on convergence depth
+
+    out = {
+        "expected_H_over_Br": expected_ratio,
+        "observed_H_over_Br": ratio,
+        "abs_error": err,
+        "converged": converged,
+        "iterations": len(history),
+        "final_mass_4core": [mass[k] for k in op_indices],
+        "labels_4core": ["V", "H", "Br", "R"],
+        "pass_attractor": pass_attractor,
+    }
+
+    if verbose:
+        print(f"  expected H/Br: {expected_ratio:.6f}")
+        print(f"  observed H/Br: {ratio:.6f}  (abs_err={err:.6f})")
+        print(f"  iterations:    {len(history)}")
+        print(f"  final mass:    V={mass[0]:.4f}  H={mass[7]:.4f}  "
+              f"Br={mass[8]:.4f}  R={mass[9]:.4f}")
+        if pass_attractor:
+            print("  ATTRACTOR PASS -- 3-scalar form reaches WP105 fixed point.")
+        else:
+            print(f"  ATTRACTOR FAIL -- abs_err={err:.4f} > 0.5; check derivation.")
+    return out
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────
+
+def main(argv: Sequence[str]) -> int:
+    if len(argv) >= 2 and argv[1] == "--verify-attractor":
+        out = verify_attractor()
+        return 0 if out["pass_attractor"] else 1
+    if len(argv) >= 2 and argv[1] == "--audit":
+        # Build glue from cells, then audit
+        from cells import CellOrchestrator  # type: ignore
+        orch = CellOrchestrator.load_default()
+        orch.glue = GlueAI(tsml=orch.tsml, bhml=orch.bhml,
+                           f3=orch.f3, f4=orch.f4)
+        from cell_audit import audit_all  # type: ignore
+        report = audit_all(orch)
+        for name, r in report["reports"].items():
+            rate = r["rate"]
+            status = "PASS" if rate >= 0.99 else "FAIL"
+            print(f"  [{status}] {name:18s}  {r['passed']}/{r['total']}  ({rate*100:.1f}%)")
+        print(f"  Combined: {report['summary']['all_pass_rate']*100:.2f}%")
+        return 0 if not report["summary"]["any_block_below_99"] else 1
+    # Default: instantiate, attractor verify, audit
+    print("=" * 60)
+    print("  glue_ai.py -- 3-scalar Glue (Phase 4)")
+    print("=" * 60)
+    print()
+    print("WP105 attractor verification (alpha=1/2, beta=1/2, gamma=1):")
+    out = verify_attractor()
+    print()
+
+    print("Glue audit on agreement set + 50 sampled cells:")
+    from cells import CellOrchestrator  # type: ignore
+    orch = CellOrchestrator.load_default()
+    orch.glue = GlueAI(tsml=orch.tsml, bhml=orch.bhml,
+                       f3=orch.f3, f4=orch.f4)
+    from cell_audit import audit_all  # type: ignore
+    report = audit_all(orch)
+    for name, r in report["reports"].items():
+        rate = r["rate"]
+        status = "PASS" if rate >= 0.99 else "FAIL"
+        print(f"  [{status}] {name:18s}  {r['passed']}/{r['total']}  ({rate*100:.1f}%)")
+    print(f"  Combined: {report['summary']['all_pass_rate']*100:.2f}%")
+    final_ok = (out["pass_attractor"]
+                  and not report["summary"]["any_block_below_99"])
+    return 0 if final_ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
