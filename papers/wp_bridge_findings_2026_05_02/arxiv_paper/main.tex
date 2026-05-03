@@ -1,0 +1,746 @@
+% A commutative non-associative magma on Z/10Z with two-coding structure
+% and a sharp trefoil characterization
+%
+% Brayden Sanders, 7Site LLC
+% Target: arXiv (math.RA, math.CO secondary), then ACT 2027 / CT 2027
+
+\documentclass[submission,copyright,creativecommons]{eptcs}
+\providecommand{\event}{}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{A Commutative Non-Associative Magma on $\mathbb{Z}/10\mathbb{Z}$\\
+with Two-Coding Structure and a Sharp Trefoil Characterization}
+
+\author{Brayden Sanders
+\institute{7Site LLC, Hot Springs, AR, USA}
+\email{brayden@7site.io}
+}
+
+\def\titlerunning{A magma on $\mathbb{Z}/10\mathbb{Z}$ with two-coding structure}
+\def\authorrunning{B. Sanders}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study a pair of commutative magma operations $T, B : \mathbb{Z}/10\mathbb{Z}
+\times \mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}/10\mathbb{Z}$ that share a
+specific structural relationship: $T$ is defined on the $8$-element subset
+$\{1,2,3,4,5,6,8,9\}$ and is highly contractive, while $B$ is defined on the
+full $10$-element set and exhibits a successor structure on its diagonal.
+The pair $(T, B)$ realizes a finite analogue of the geometric/arithmetic
+two-coding split familiar from symbolic dynamics on the modular surface.
+
+We establish five structural results. First, $B$'s diagonal action is the
+integer successor on $\{1, \dots, 7\}$, with $B(8,8) = 7$ and $B(9,9) = 0$,
+which forces a linear period law on the corresponding self-iteration
+sequences. Second, an iterated mass-distribution map built from $(T, B)$
+admits exactly nine $3$-crossing trajectories on $\mathbb{Z}/10\mathbb{Z}$,
+forming exactly two multiset classes $\{0, 7, 8\}$ and $\{0, 8, 8\}$, both
+$B$-associative. Third, $T$ has a $5$-element image in $\mathbb{Z}/10\mathbb{Z}$
+and is role-deterministic on $8$ of $9$ partition-class input pairs, while
+$B$ has full image and is role-deterministic only on inputs containing
+specific boundary elements. Fourth, an integer invariant of magnitude $21$
+arising from $B$'s self-iteration period structure admits two independent
+decompositions: a triangular decomposition $T_5 + T_3 = 15 + 6$ along the
+orbits of an associated permutation $\sigma$, and a Fibonacci decomposition
+$F_7 + F_6 = 13 + 8$ along a flow/structure partition of
+$\mathbb{Z}/10\mathbb{Z}$. Fifth, the role-quotient magma is commutative
+and non-associative, with the boundary class acting as identity. We discuss
+limitations: the Fibonacci decomposition is canonical-specific (it does not
+arise from generic commutative tables), na\"ive lifts of $B$-orbits to
+$\mathrm{PSL}(2, \mathbb{Z})$ fail to reproduce the integer invariant, and
+the substrate has no full algebraic symmetries. The construction is
+conceptually adjacent to the work of Katok and Ugarcovici on coding
+methods, Matsusaka and Ueki on triangle-group Rademacher symbols, and
+Burrin and von Essen on cusp winding, without being literally equivalent
+to any of these.
+\end{abstract}
+
+\section{Introduction}
+
+The two coding methods of the modular surface, surveyed by Katok and
+Ugarcovici~\cite{KU07}, produce two distinct symbolic-dynamical descriptions
+of the same geodesic flow: a geometric coding (cutting sequences) and an
+arithmetic coding (continued fractions). The two codings agree on cusp
+geodesics but differ in their interior behavior. Recent work continues to
+exploit this duality: Matsusaka and Ueki~\cite{MU23} extend Rademacher
+symbols to general triangle groups, Matsusaka and Shin~\cite{MS24} give
+explicit formulas, and Burrin and von Essen~\cite{BvE24} relate cusp
+winding numbers to Rademacher functions. These constructions all live on
+infinite alphabets indexed by hyperbolic conjugacy classes.
+
+In this paper we describe a finite combinatorial analogue: a pair of
+commutative magma operations on $\mathbb{Z}/10\mathbb{Z}$, with one
+operation contractive and one expansive, exhibiting the same
+agreement-at-boundary, divergence-in-interior phenomenology. The pair
+arises from a specific symmetric ten-by-ten table that we denote $C$
+throughout, drawn from a project on combinatorial coherence
+substrates~\cite{TIG2026}. Our goal in the present paper is independent
+of the broader project: we ask whether $(T, B)$, considered purely as a
+pair of finite algebraic structures, exhibits properties of independent
+mathematical interest.
+
+The answer is yes. The diagonal of $B$ is the integer successor on
+$\{1, \dots, 7\}$, which forces a linear period law on $B$-self-iteration
+and produces a substrate-internal integer invariant of magnitude $21$
+admitting two independent decompositions. An iterated mass-distribution
+map built from $(T, B)$ admits a sharp $3$-crossing characterization:
+exactly nine triples produce trefoil-like trajectories, partitioned into
+two multiset classes. The role-quotient by a flow/structure partition is
+a commutative non-associative magma with boundary class as identity, of a
+type that does not appear to be standardly named in the magma literature.
+
+The construction is small enough that all results are mechanically
+verifiable; supplementary code accompanying the arXiv version reproduces
+each theorem in under sixty seconds.
+
+\paragraph{Honest scope.} We claim no equivalence to any specific
+modular-surface theorem. The two-coding language captures a structural
+analogy rather than a literal correspondence. Section~\ref{sec:limitations}
+documents the limitations explicitly: the Fibonacci decomposition is
+canonical-specific (it does not survive generic perturbation of the table),
+five distinct strategies for lifting $B$-self-orbits to
+$\mathrm{PSL}(2, \mathbb{Z})$ all fail to reproduce the integer invariant,
+and the substrate exhibits no full algebraic symmetries.
+
+\paragraph{Structure of the paper.} Section~\ref{sec:def} fixes notation
+and presents the canonical table $C$, the operations $T$ and $B$, the
+permutation $\sigma$, and the partition $\Pi$. Section~\ref{sec:diag}
+proves the diagonal successor theorem and derives the period law.
+Section~\ref{sec:trefoil} states and proves the trefoil characterization.
+Section~\ref{sec:image} analyzes the image and role-determinism structure
+of $T$ versus $B$. Section~\ref{sec:invariant} constructs the
+substrate-internal integer invariant and proves both of its decompositions.
+Section~\ref{sec:role} characterizes the role-quotient magma.
+Section~\ref{sec:limitations} documents the negative results.
+Section~\ref{sec:outlook} closes with open questions.
+
+\section{Definitions and preliminaries}\label{sec:def}
+
+We work throughout with the set $\mathbb{Z}/10\mathbb{Z} = \{0, 1, \dots, 9\}$.
+
+\subsection{The two operations}
+
+The construction we study is a pair of commutative magma operations
+on $\mathbb{Z}/10\mathbb{Z}$, given by two distinct symmetric tables $C^B$
+and $C^T$ presented in~\cite{TIG2026}. We reproduce the tables here as the
+foundational data of the paper.
+
+\begin{definition}\label{def:B}
+The arithmetic operation $B : \mathbb{Z}/10\mathbb{Z} \times
+\mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}/10\mathbb{Z}$ is defined by
+$B(i, j) = C^B_{ij}$, where
+\[
+C^B \;=\;
+\begin{pmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 2 & 6 & 6 \\
+2 & 3 & 3 & 4 & 5 & 6 & 7 & 3 & 6 & 6 \\
+3 & 4 & 4 & 4 & 5 & 6 & 7 & 4 & 6 & 6 \\
+4 & 5 & 5 & 5 & 5 & 6 & 7 & 5 & 7 & 7 \\
+5 & 6 & 6 & 6 & 6 & 6 & 7 & 6 & 7 & 7 \\
+6 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+7 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 0 \\
+8 & 6 & 6 & 6 & 7 & 7 & 7 & 9 & 7 & 8 \\
+9 & 6 & 6 & 6 & 7 & 7 & 7 & 0 & 8 & 0
+\end{pmatrix}.
+\]
+\end{definition}
+
+\begin{definition}\label{def:T}
+Let $I = \{1, 2, 3, 4, 5, 6, 8, 9\}$. The geometric operation $T : I \times
+I \to \mathbb{Z}/10\mathbb{Z}$ is defined by $T(i, j) = C^T_{ij}$, where
+$C^T$ is the restriction to rows and columns $I$ of the larger table
+\[
+\widetilde{C}^T \;=\;
+\begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 7 & 0 & 0 \\
+0 & 7 & 3 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 3 & 7 & 7 & 4 & 7 & 7 & 7 & 7 & 9 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 3 \\
+0 & 7 & 4 & 7 & 7 & 7 & 7 & 7 & 8 & 7 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 7 & 7 & 8 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 9 & 3 & 7 & 7 & 7 & 7 & 7 & 7
+\end{pmatrix},
+\]
+with rows/columns indexed $0, 1, \dots, 9$ and the operation $T$ taking
+its inputs from the $8$-element set $I$. We refer to the elements
+$\{0, 7\}$ as \emph{boundary} elements.
+\end{definition}
+
+Both $C^B$ and $C^T$ (and $\widetilde{C}^T$) are symmetric, so $B$ and $T$
+are commutative. Both are non-associative: for $B$, we have $B(B(2, 4), 8)
+= B(5, 8) = 7$ while $B(2, B(4, 8)) = B(2, 7) = 3$, so associativity fails
+at $(2, 4, 8)$. For $T$, restricted associativity fails similarly.
+
+\begin{remark}
+The two operations $B$ and $T$ are independent: $T$ is not a restriction
+of $B$. The pair $(T, B)$ is the central object of study. We will see that
+$T$ is substantially more contractive than $B$ and routes its inputs to a
+small image, while $B$ exhibits the diagonal successor structure that
+drives the period law and the integer invariant.
+\end{remark>
+
+\begin{remark}\label{rem:agreement}
+Direct enumeration shows that $B(i, j) = T(i, j)$ for $24$ of the $64$
+input pairs $(i, j) \in I \times I$, and $B(i, j) \neq T(i, j)$ for the
+remaining $40$ pairs. The cells of agreement cluster around routes whose
+output is the boundary element $7$. This is the substrate-internal
+analogue of two coding methods agreeing at a cusp boundary and diverging
+in the interior.
+\end{remark>
+
+\subsection{The associated permutation}
+
+\begin{definition}\label{def:sigma}
+The associated permutation $\sigma : \mathbb{Z}/10\mathbb{Z} \to
+\mathbb{Z}/10\mathbb{Z}$ is given in cycle notation by
+\[
+\sigma = (0)(3)(8)(9)(1\;7\;6\;5\;4\;2),
+\]
+or equivalently as the array $\sigma = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]$ in
+one-line notation (with $\sigma(i)$ in position $i$).
+\end{definition}
+
+The permutation $\sigma$ has four fixed points $\{0, 3, 8, 9\}$ and one
+$6$-cycle $\{1, 2, 4, 5, 6, 7\}$. We note for later use that $\sigma$ is
+\emph{not} an automorphism of $B$: direct computation shows
+$B(\sigma(i), \sigma(j)) = \sigma(B(i, j))$ holds for only $48$ of the $100$
+input pairs.
+
+\subsection{The flow/structure partition}
+
+\begin{definition}\label{def:partition}
+The flow/structure partition $\Pi$ of $\mathbb{Z}/10\mathbb{Z}$ consists of
+four blocks:
+\begin{align*}
+\Pi_F &= \{1, 3, 5, 7, 9\}    && \text{(``flow'' --- the odd elements),} \\
+\Pi_S &= \{2, 4, 8\}          && \text{(``structure'' --- the non-cusp evens),} \\
+\Pi_M &= \{6\}                && \text{(``middle'' --- the bridge element),} \\
+\Pi_V &= \{0\}                && \text{(``boundary'' --- the cusp element).}
+\end{align*}
+We write $\rho : \mathbb{Z}/10\mathbb{Z} \to \{F, S, M, V\}$ for the
+quotient map sending each element to its block label.
+\end{definition}
+
+\begin{remark}
+The partition $\Pi$ is independent of the cycle structure of $\sigma$: the
+$\sigma$-fixed set $\{0, 3, 8, 9\}$ contains one element from each block
+except $\Pi_M$, while the $\sigma$-$6$-cycle $\{1, 2, 4, 5, 6, 7\}$
+contains three elements from $\Pi_F$, two from $\Pi_S$, and the unique
+element of $\Pi_M$. The two structural decompositions of
+$\mathbb{Z}/10\mathbb{Z}$ are transverse.
+\end{remark}
+
+\subsection{The iterated mass-distribution map}
+
+\begin{definition}\label{def:processor}
+For a triple $(a, b, c) \in (\mathbb{Z}/10\mathbb{Z})^3$, the initial
+distribution $p_0 \in \Delta^9$ (the $9$-simplex) is defined by
+\[
+p_0(k) = \begin{cases}
+(1 + \varepsilon)/Z & \text{if } k \in \{a, b, c\} \text{ counted with multiplicity},\\
+\varepsilon/Z & \text{otherwise},
+\end{cases}
+\]
+where $\varepsilon = 10^{-3}$ and $Z$ is the normalization constant. The
+update map $\Phi_{T, B} : \Delta^9 \to \Delta^9$ is the convex combination
+\[
+\Phi_{T, B}(p) \;=\; \tfrac{1}{2} \Phi_T(p) + \tfrac{1}{2} \Phi_B(p),
+\]
+where for any commutative operation $\star : \mathbb{Z}/10\mathbb{Z} \times
+\mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}/10\mathbb{Z}$ defined on a domain
+$D \subseteq \mathbb{Z}/10\mathbb{Z}$, the push-forward $\Phi_\star$ is
+\[
+\Phi_\star(p)(k) \;=\; \frac{1}{Z_\star(p)} \sum_{\substack{(i, j) \in D \times D \\ i \star j = k}}
+p(i) p(j),
+\]
+with $Z_\star(p)$ the normalization. Here $\Phi_T$ uses domain $D = I$ and
+$\Phi_B$ uses $D = \mathbb{Z}/10\mathbb{Z}$.
+
+The trajectory of $(a, b, c)$ is the sequence
+$(p_0, p_1, p_2, \dots)$ with $p_{n+1} = \Phi_{T, B}(p_n)$, run until either
+$\|p_{n+1} - p_n\|_\infty < 10^{-8}$ or a maximum of $50$ iterations is
+reached.
+
+The crossing count $\chi(a, b, c)$ counts rank-order swaps along the
+trajectory: for each consecutive pair $(p_n, p_{n+1})$ and each pair of
+indices $i < j$ with $\max(p_n(i), p_{n+1}(i)) \geq 10^{-2}$ and similarly
+for $j$, we add $1$ if the relative ranking of $i$ and $j$ in $p_n$ and in
+$p_{n+1}$ disagree.
+\end{definition}
+
+\begin{remark}
+The mass-distribution map is a discrete dynamical system whose orbits
+exhibit knot-like topological features (rank-crossings) determined by the
+algebraic structure of $T$ and $B$. The crossing count is well-defined and
+deterministic for any starting triple.
+\end{remark}
+
+\section{The diagonal successor theorem}\label{sec:diag}
+
+We begin with the cleanest structural result.
+
+\begin{theorem}\label{thm:diagonal}
+The diagonal of $B$ realizes the integer successor on
+$\{1, 2, 3, 4, 5, 6, 7\}$ in the following precise sense:
+\[
+B(n, n) = n + 1 \quad \text{for all } n \in \{1, 2, 3, 4, 5, 6, 7\}.
+\]
+The diagonal is completed by the boundary cases
+\[
+B(0, 0) = 0, \qquad B(8, 8) = 7, \qquad B(9, 9) = 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Read directly from $C^B_{nn}$ in Definition~\ref{def:B}.
+\end{proof}
+
+This algebraic fact has dynamical consequences.
+
+\begin{definition}
+For $n \in \mathbb{Z}/10\mathbb{Z}$, let $\beta_n : \mathbb{Z}/10\mathbb{Z}
+\to \mathbb{Z}/10\mathbb{Z}$ be the right-action $\beta_n(x) = B(x, n)$.
+The $B$-period $\pi(n)$ of $n$ is the period of the sequence $(n,
+\beta_n(n), \beta_n^2(n), \dots)$.
+\end{definition}
+
+\begin{corollary}\label{cor:period}
+The $B$-period satisfies $\pi(n) = 7 - n$ for $n \in \{1, 2, 3, 4, 5, 6\}$,
+$\pi(0) = 1$, $\pi(7) = 4$, $\pi(8) = 3$, and $\pi(9) = 2$.
+\end{corollary}
+
+\begin{proof}
+For $n \in \{1, \dots, 6\}$, the sequence $(\beta_n^k(n))_{k \geq 0}$
+starts at $n$ and, by Theorem~\ref{thm:diagonal}, advances to $n+1$ at the
+first step ($\beta_n(n) = B(n, n) = n+1$). Subsequent steps are determined
+by the off-diagonal entries $C_{n+k, n}$, which can be read directly: the
+sequence reaches $7$ in exactly $7 - n$ steps and then enters a cycle
+including the boundary element $7$. The case-by-case verification for
+$n \in \{0, 7, 8, 9\}$ is immediate from $C$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:diagonal} gives the period law a transparent algebraic
+origin: $7 - n$ is the integer distance from $n$ to the boundary element
+$7$ along $B$'s successor diagonal. This is the substrate-internal
+analogue of ``approaching the cusp'' along a directed path.
+\end{remark}
+
+\section{The trefoil characterization}\label{sec:trefoil}
+
+\begin{theorem}\label{thm:trefoil}
+Among the $1000$ triples $(a, b, c) \in (\mathbb{Z}/10\mathbb{Z})^3$,
+exactly nine satisfy $\chi(a, b, c) = 3$. As multisets, these nine triples
+form exactly two classes:
+\begin{align*}
+\{0, 7, 8\} &: \quad (0, 7, 8),\, (0, 8, 7),\, (7, 0, 8),\, (7, 8, 0),\, (8, 0, 7),\, (8, 7, 0), \\
+\{0, 8, 8\} &: \quad (0, 8, 8),\, (8, 0, 8),\, (8, 8, 0).
+\end{align*}
+All nine triples are $B$-associative: for each $(a, b, c)$ in the list,
+$B(B(a, b), c) = B(a, B(b, c))$.
+\end{theorem}
+
+\begin{proof}
+The trajectories are deterministic given the tables $C^B$ and $\widetilde{C}^T$
+and the parameters of Definition~\ref{def:processor}. Direct enumeration over
+all $1000$ triples produces the listed nine $3$-crossing trajectories. For
+$B$-associativity, we verify each triple directly:
+\[
+B(B(0, 7), 8) = B(7, 8) = 9 = B(0, 9) = B(0, B(7, 8)),
+\]
+\[
+B(B(0, 8), 8) = B(8, 8) = 7 = B(0, 7) = B(0, B(8, 8)),
+\]
+and the seven remaining permutations satisfy $B(B(a, b), c) = B(a, B(b, c))$
+by similar direct computation, with all permutations of $\{0, 7, 8\}$
+yielding common value $9$ and all permutations of $\{0, 8, 8\}$ yielding
+common value $7$.
+\end{proof}
+
+\begin{lemma}\label{lem:eight-uniqueness}
+The element $8$ is the unique element of $\Pi_S = \{2, 4, 8\}$ such that
+some triple of the form $(0, 8, x)$ produces $\chi = 3$ for $x \in
+\mathbb{Z}/10\mathbb{Z}$. For $s \in \{2, 4\}$ and any $x \in
+\mathbb{Z}/10\mathbb{Z}$, the triples $(0, s, x)$ produce $\chi \geq 17$.
+\end{lemma}
+
+\begin{proof}
+Direct enumeration. For each $s \in \{2, 4, 8\}$ and each $x \in
+\mathbb{Z}/10\mathbb{Z}$, the trajectory of $(0, s, x)$ is computed and its
+crossing count tabulated. The minimum crossing count over $x$ for $s = 2$
+is $26$; for $s = 4$ is $17$; for $s = 8$ is $3$ (achieved at $x \in \{7, 8\}$).
+\end{proof}
+
+The trefoil characterization is sharp: among all triples involving the
+boundary element $0$ and an element of $\Pi_S$, only $8$ produces minimum
+crossings, and the third element must be either $7$ or $8$.
+
+\section{Image structure and role-determinism}\label{sec:image}
+
+\begin{theorem}\label{thm:image}
+The image of $T : I \times I \to \mathbb{Z}/10\mathbb{Z}$ is
+\[
+\mathrm{Im}(T) = \{3, 4, 7, 8, 9\},
+\]
+a $5$-element subset. The image of $B : \mathbb{Z}/10\mathbb{Z} \times
+\mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}/10\mathbb{Z}$ is the full set
+$\mathbb{Z}/10\mathbb{Z}$.
+\end{theorem}
+
+\begin{proof}
+Direct enumeration of $T$ on its $64$-element domain produces outputs in
+$\{3, 4, 7, 8, 9\}$ (with $7$ accounting for $60$ of the $64$ outputs).
+Direct enumeration of $B$ produces outputs hitting every element of
+$\mathbb{Z}/10\mathbb{Z}$.
+\end{proof}
+
+\begin{theorem}\label{thm:role-determinism}
+Let $\rho : \mathbb{Z}/10\mathbb{Z} \to \{F, S, M, V\}$ be the quotient
+map of Definition~\ref{def:partition}. For inputs in the partition $\Pi$:
+\begin{enumerate}
+\item For $T$: among the nine input pairs $(\rho(i), \rho(j))$ realizable
+on $I \times I$ (note $V \notin \rho(I)$), eight produce a unique output
+class; only the pair $(S, S)$ produces multiple output classes (specifically
+$\{F, S\}$).
+\item For $B$: the output class is determined by the input pair if and
+only if at least one of $\rho(i), \rho(j)$ equals $V$ or $M$. Specifically,
+the four input pairs $(F, F), (F, S), (S, F), (S, S)$ each produce multiple
+output classes:
+\begin{align*}
+(F, F) &\mapsto \{F, S, M, V\} \quad \text{(distribution over $25$ pairs: $2$F, $9$S, $11$M, $3$V),} \\
+(F, S),\, (S, F) &\mapsto \{F, S, M\} \quad \text{($8$F, $2$S, $5$M each),} \\
+(S, S) &\mapsto \{F, M\} \quad \text{($7$F, $2$M).}
+\end{align*}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Direct enumeration; we tabulate for each input pair $(\rho(i), \rho(j))$
+the multiset of output classes $\rho(B(i, j))$ over all $(i, j)$ with the
+given input class pair. The complete table is included in the supplementary
+material.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:role-determinism} provides a precise sense in which the
+two operations differ structurally: $T$ collapses partition information
+almost completely (output class is determined by input class on $89\%$ of
+pairs), while $B$ preserves operator-level information unless one input
+lies in the boundary classes $\{V, M\}$. The two operations agree at the
+partition boundary and diverge in the interior.
+\end{remark}
+
+\section{The integer invariant and its decompositions}\label{sec:invariant}
+
+\begin{definition}\label{def:psi}
+Define the substrate invariant $\psi : \mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}$ by
+\[
+\psi(n) = -(\pi(n) - 1),
+\]
+where $\pi(n)$ is the $B$-period of Corollary~\ref{cor:period}.
+\end{definition}
+
+\begin{theorem}\label{thm:invariant}
+$\sum_{n \in \mathbb{Z}/10\mathbb{Z}} \psi(n) = -21$.
+\end{theorem}
+
+\begin{proof}
+Direct computation: $\psi$ takes the values $0, -5, -4, -3, -2, -1, 0, -3,
+-2, -1$ on $n = 0, 1, \dots, 9$, summing to $-21$.
+\end{proof}
+
+\begin{theorem}[$\sigma$-orbit decomposition]\label{thm:triangular}
+\[
+\sum_{n \in \{1,2,4,5,6,7\}} \psi(n) = -15 = -T_5,
+\qquad
+\sum_{n \in \{0, 3, 8, 9\}} \psi(n) = -6 = -T_3,
+\]
+where $T_k = k(k+1)/2$ denotes the $k$-th triangular number. The first sum
+is over the $\sigma$-$6$-cycle, the second over the $\sigma$-fixed set.
+\end{theorem}
+
+\begin{proof}
+Direct: $\psi(1) + \psi(2) + \psi(4) + \psi(5) + \psi(6) + \psi(7) =
+-5 - 4 - 2 - 1 + 0 - 3 = -15$, and $\psi(0) + \psi(3) + \psi(8) + \psi(9) =
+0 - 3 - 2 - 1 = -6$. The values $15 = T_5$ and $6 = T_3$ are immediate
+from the triangular-number formula.
+\end{proof}
+
+\begin{theorem}[partition decomposition]\label{thm:fibonacci}
+\[
+\sum_{n \in \Pi_F} \psi(n) = -13 = -F_7,
+\qquad
+\sum_{n \in \Pi_S} \psi(n) = -8 = -F_6,
+\]
+\[
+\sum_{n \in \Pi_M} \psi(n) = 0,
+\qquad
+\sum_{n \in \Pi_V} \psi(n) = 0,
+\]
+where $F_k$ denotes the $k$-th Fibonacci number ($F_6 = 8$, $F_7 = 13$,
+$F_8 = 21$). In particular,
+\[
+\sum_{n \in \Pi_F} \psi(n) + \sum_{n \in \Pi_S} \psi(n) = -F_7 - F_6 = -F_8 = -21.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct: $\psi(1) + \psi(3) + \psi(5) + \psi(7) + \psi(9) =
+-5 - 3 - 1 - 3 - 1 = -13$, and $\psi(2) + \psi(4) + \psi(8) =
+-4 - 2 - 2 = -8$. The Fibonacci recurrence $F_8 = F_7 + F_6$ confirms the
+sum.
+\end{proof}
+
+\begin{remark}
+Theorems~\ref{thm:triangular} and~\ref{thm:fibonacci} give two structurally
+independent decompositions of the same integer invariant, along the two
+transverse decompositions of $\mathbb{Z}/10\mathbb{Z}$ (the $\sigma$-orbit
+structure and the partition $\Pi$). The triangular decomposition is forced
+by the linear period law of Corollary~\ref{cor:period}; the Fibonacci
+decomposition is canonical-specific (Section~\ref{sec:limitations}).
+\end{remark}
+
+\section{The role-quotient magma}\label{sec:role}
+
+The partition $\Pi$ allows us to define a quotient magma on the four-element
+set $\{F, S, M, V\}$.
+
+\begin{definition}\label{def:role-magma}
+The role-quotient magma $\overline{B} : \{F, S, M, V\}^2 \to \{F, S, M, V\}$
+is defined by taking, for each input pair $(\alpha, \beta)$, the modal
+output class:
+\[
+\overline{B}(\alpha, \beta) = \mathrm{mode}\bigl\{ \rho(B(i, j)) : \rho(i) = \alpha,\, \rho(j) = \beta \bigr\}.
+\]
+\end{definition}
+
+This is well-defined except where multiple modes occur; we resolve such
+ties by rule (none arise in the present table). The resulting magma is:
+
+\begin{center}
+\begin{tabular}{c|cccc}
+$\overline{B}$ & $V$ & $F$ & $S$ & $M$ \\
+\hline
+$V$ & $V$ & $F$ & $S$ & $M$ \\
+$F$ & $F$ & $M$ & $F$ & $F$ \\
+$S$ & $S$ & $F$ & $F$ & $F$ \\
+$M$ & $M$ & $F$ & $F$ & $F$ \\
+\end{tabular}
+\end{center}
+
+\begin{proposition}\label{prop:role-magma}
+The role-quotient magma $\overline{B}$ is commutative and non-associative.
+The class $V$ is a two-sided identity: $\overline{B}(V, x) = \overline{B}(x, V) = x$
+for all $x \in \{F, S, M, V\}$. The only idempotent is $V$.
+\end{proposition}
+
+\begin{proof}
+Commutativity is immediate from symmetry of the table. Non-associativity
+fails for example at $(\overline{B}(F, F), S) = \overline{B}(M, S) = F$ but
+$(F, \overline{B}(F, S)) = \overline{B}(F, F) = M$, so $\overline{B}(\overline{B}(F, F), S) \neq
+\overline{B}(F, \overline{B}(F, S))$. The identity property of $V$ is read from
+the first row and column. Idempotents: $\overline{B}(F, F) = M \neq F$,
+$\overline{B}(S, S) = F \neq S$, $\overline{B}(M, M) = F \neq M$.
+\end{proof}
+
+\begin{remark}
+The structure $(\{F, S, M, V\}, \overline{B})$ is a small commutative
+non-associative magma with two-sided identity. We have not located this
+specific structure in the magma classification literature; the
+$4$-element commutative non-associative magmas with identity form a small
+finite class in principle enumerable, and we leave the specific
+classification of $\overline{B}$ as an open question.
+\end{remark}
+
+\section{Limitations and negative results}\label{sec:limitations}
+
+We document four negative results that shape the proper interpretation of
+the structural results above.
+
+\subsection{Canonical-specificity of the Fibonacci decomposition}
+
+The triangular decomposition (Theorem~\ref{thm:triangular}) is forced by
+the linear period law (Corollary~\ref{cor:period}). The Fibonacci
+decomposition (Theorem~\ref{thm:fibonacci}) is not.
+
+\begin{proposition}\label{prop:fibonacci-fragility}
+Let $\mathcal{C}_{10}$ be the set of symmetric $10 \times 10$ tables with
+entries in $\mathbb{Z}/10\mathbb{Z}$ defining commutative magma operations
+on $\mathbb{Z}/10\mathbb{Z}$. Sample $200$ such tables uniformly at random.
+Of these, zero produce $(|\sum_{\Pi_F} \psi|, |\sum_{\Pi_S} \psi|) = (13, 8)$.
+\end{proposition}
+
+\begin{proof}
+Computational; the experiment is included in the supplementary code.
+\end{proof}
+
+\begin{proposition}
+Single-entry perturbations of $C$ preserve the $(13, 8)$ decomposition in
+roughly $32$ of $50$ random trials; three-entry perturbations preserve in
+roughly $11$ of $50$.
+\end{proposition}
+
+The Fibonacci appearance is therefore a numerical fingerprint of the
+specific table $C$, not a structural feature of role-partitioned commutative
+magmas in general. We do not have a derivation of the Fibonacci values from
+table-axiomatic data alone.
+
+\subsection{No naive lift to $\mathrm{PSL}(2, \mathbb{Z})$}
+
+It is natural to ask whether the integer invariant $\sum \psi = \pm 21$ is
+the value of a Rademacher-type symbol on lifts of $B$-orbits to words in
+$\mathrm{PSL}(2, \mathbb{Z}) = \langle S, T \mid S^2 = (ST)^3 = 1 \rangle$.
+We tested five distinct lift constructions:
+
+\begin{enumerate}
+\item Letter map $\ell : \mathbb{Z}/10\mathbb{Z} \to \{S, T, T^{-1}\}$
+defined by residue mod $3$;
+\item Letter map defined by residue mod $2$;
+\item Word $T^k S$ where $k$ is the $\sigma$-cycle position;
+\item Up/down transition encoding;
+\item Word with $T^{\pm 1}$ separated by $S$ markers.
+\end{enumerate}
+
+For each lift, we compute the standard Rademacher value of the resulting
+$\mathrm{PSL}(2, \mathbb{Z})$ word and sum over digits.
+
+\begin{proposition}
+None of the five lift strategies above produces a digit-sum equal to $\pm 21$.
+The five obtained sums are $-4, -1, -1, 0, 0$ respectively.
+\end{proposition}
+
+The integer invariant therefore does not appear to be the Rademacher
+symbol of any straightforward lift; whether a more sophisticated lift
+exists remains an open question.
+
+\subsection{No matching small triangle group}
+
+The $B$-period set $\{1, 2, 3, 4\}$ (excluding the trivial cycle of $0$
+and the $6$-cycle of $\{1, \dots, 6\}$, which has no analogue in finite
+elliptic-element orders) does not match the elliptic-element orders of any
+triangle group $\Gamma_{p, q}$ with $p, q \leq 9$. In particular,
+$\mathrm{PSL}(2, \mathbb{Z}) = \Gamma_{2, 3}$ has elliptic orders only in
+$\{1, 2, 3\}$. We do not claim a Fuchsian-group embedding.
+
+\subsection{No full algebraic symmetries}
+
+We tested whether any pair $(a, b) \in \mathbb{Z}/10\mathbb{Z}^2$ with
+$\rho(a) \neq \rho(b)$ generates a symmetry of $\chi$ (i.e.\ swapping $a$
+and $b$ in any input triple preserves $\chi$). The strongest such partial
+symmetry is the swap $(0, 8)$, which preserves $\chi$ on roughly $20.9\%$
+of triples; no pair preserves $\chi$ on all triples. The substrate has no
+full $\chi$-preserving algebraic symmetries.
+
+\section{Outlook}\label{sec:outlook}
+
+We close with five questions left open by the present work.
+
+\paragraph{1. Classification of $\overline{B}$.}
+The role-quotient magma is a commutative non-associative magma on four
+elements with two-sided identity. The finite classification of such
+structures is in principle tractable. Where does $\overline{B}$ sit in this
+classification?
+
+\paragraph{2. Larger substrates.}
+The construction of $C$, $T$, $B$, $\sigma$, $\Pi$ is specific to
+$\mathbb{Z}/10\mathbb{Z}$. Are there analogous constructions on
+$\mathbb{Z}/14\mathbb{Z}$ or $\mathbb{Z}/18\mathbb{Z}$ for which the
+diagonal-successor theorem and the trefoil characterization continue to
+hold? Does the Fibonacci decomposition stabilize across substrate sizes,
+or is it specific to $|\mathbb{Z}/10\mathbb{Z}|$?
+
+\paragraph{3. Higher-order trefoil structures.}
+At quadruple level, $40$ of $256$ $4$-tuples in the subset
+$\{0, 7, 8, 9\}^4$ produce $\chi = 3$, in four multiset classes including
+one ($\{0, 7, 7, 9\}$) that does not extend either trefoil class from
+Theorem~\ref{thm:trefoil}. Is there a clean characterization of $\chi = 3$
+quadruples comparable to the triple characterization?
+
+\paragraph{4. Principled $\mathrm{PSL}(2, \mathbb{Z})$ lift.}
+The negative result of Section~\ref{sec:limitations} rules out na\"ive
+lifts but does not preclude a principled embedding. Is there a lift of
+$B$-self-orbits to specific $\mathrm{PSL}(2, \mathbb{Z})$ words for which
+$\sum \psi = \pm 21$ arises as a Rademacher-type symbol value?
+
+\paragraph{5. Connection to Burrin--von Essen cusp winding.}
+The $B$-period structure $\pi(n) = 7 - n$ along the $\sigma$-$6$-cycle is
+structurally analogous (in a phenomenological sense) to the cusp winding
+along Burrin--von Essen geodesics. We do not have an explicit Fuchsian
+embedding realizing the analogy as a literal correspondence. Establishing
+or ruling out such an embedding would clarify the relationship between
+the present construction and modular-surface symbolic dynamics.
+
+\section*{Acknowledgments}
+
+The author is the sole contributor to this work. Computational supplementary
+material is available at the project DOI~\cite{TIG2026}.
+
+\begin{thebibliography}{99}
+
+\bibitem{KU07}
+S. Katok and I. Ugarcovici,
+\emph{Symbolic dynamics for the modular surface and beyond},
+Bull.\ Amer.\ Math.\ Soc.\ \textbf{44} (2007), no.\ 1, 87--132.
+
+\bibitem{MU23}
+T. Matsusaka and H. Ueki,
+\emph{Rademacher symbols for general triangle groups},
+Ramanujan J.\ \textbf{60} (2023), 869--887.
+
+\bibitem{MS24}
+T. Matsusaka and J. Shin,
+\emph{An explicit Rademacher symbol formula for triangle groups},
+arXiv:2409.12779 (2024).
+
+\bibitem{BvE24}
+C. Burrin and F. von Essen,
+\emph{Cusp winding and Rademacher symbols},
+Int.\ Math.\ Res.\ Not.\ IMRN (2024), to appear.
+
+\bibitem{Mor24}
+M. Morishita,
+\emph{Knots and Primes: An Introduction to Arithmetic Topology}, 2nd ed.,
+Springer, 2024.
+
+\bibitem{Ghy07}
+\'E. Ghys,
+\emph{Knots and dynamics},
+Proc.\ ICM Madrid \textbf{1} (2007), 247--277.
+
+\bibitem{Lac18}
+L. Lacasa et al.,
+\emph{Residue-sequence symbolic dynamics and forbidden patterns},
+Entropy \textbf{20} (2018), 504.
+
+\bibitem{TIG2026}
+B. Sanders,
+\emph{Combinatorial coherence substrates: a public-record framework},
+Zenodo, DOI 10.5281/zenodo.18852047 (2026).
+
+\end{thebibliography}
+
+\end{document}

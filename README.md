@@ -612,6 +612,30 @@ specific commits cherry-picked from `master` (see §2).
 
 ---
 
+## §6.5 · arXiv paper (May 2026 — bridge findings)
+
+**Title:** *A Commutative Non-Associative Magma on $\mathbb{Z}/10\mathbb{Z}$ with Two-Coding Structure and a Sharp Trefoil Characterization*
+
+**Path in repo:** [`papers/wp_bridge_findings_2026_05_02/arxiv_paper/main.tex`](papers/wp_bridge_findings_2026_05_02/arxiv_paper/main.tex)
+
+**Verification:** [`papers/wp_bridge_findings_2026_05_02/arxiv_paper/verify_paper.py`](papers/wp_bridge_findings_2026_05_02/arxiv_paper/verify_paper.py) — self-contained, 42 numerical claims verified, 0 failures.
+
+**Targeted venues:** arXiv math.RA primary, math.CO + math.CT secondary; then *Communications in Algebra* (Tier 1) per `STRATEGY_EXTENSION_2026_05_03.md §3`.
+
+**Five proven theorems** (all canonical entries D88–D94 in §17 below): BHML successor diagonal (D90), trefoil characterization $\{V,B,H\} \cup \{V,B,B\}$ (D89), two-coding split TSML_8/BHML_10 (D91), $\pm 21$ invariant with σ-orbit and role decompositions (D92), role-quotient magma with VOID identity (D93).
+
+**Ten honest negatives preserved** (N1–N10): no naive PSL(2,ℤ) lift produces ±21; no small triangle group has the period set as elliptic orders; not a literal Borromean structure; σ is not an automorphism of either magma; TSML and BHML do not distribute; substrate doesn't factor through Z/2 × Z/5; Fibonacci role decomposition is canonical-specific not structural; etc.
+
+**Companion docs:**
+- [`SCRUTINY_NOTES.md`](papers/wp_bridge_findings_2026_05_02/arxiv_paper/SCRUTINY_NOTES.md) — errors caught during drafting + reviewer checklist
+- [`META_STRATEGY.md`](papers/wp_bridge_findings_2026_05_02/META_STRATEGY.md) — Bucket-1 alignment moves
+- [`STRATEGY_EXTENSION_2026_05_03.md`](papers/wp_bridge_findings_2026_05_02/STRATEGY_EXTENSION_2026_05_03.md) — concrete next-actions: Burrin–von Essen 2024 publication confirmed (IMRN Vol 2024 Issue 22), magma literature search done (role-quotient not in Bruck/Smith/nLab — open classification question), outreach drafts to Spivak/Fong/Coecke ready
+- Volume I bridge findings in [`FORMULAS_AND_TABLES.md`](FORMULAS_AND_TABLES.md) (D88–D94 + 10 negatives table)
+
+The paper is the first "rope" of META_STRATEGY's Bucket-1 sequence: one specific algebraic-structure claim, fully proved, before broader claims earn the territory.
+
+---
+
 ## §7 · Runnable proofs (rigor appendix)
 
 Six theorems with runnable verification. Each is a finite algebraic fact,
