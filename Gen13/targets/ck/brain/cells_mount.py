@@ -404,16 +404,35 @@ def compose_cells_with_cortex(cells_orchestrator, query: str,
     mode='structural' -- machine-readable diagnostic block, then content.
     """
     a, b = derive_pair_from_query(query)
+
+    # Detect meta-synthesis queries: open-ended questions that benefit from
+    # cross-frontier weaving rather than a single-fact route.
+    meta_kw = ('synthesis', 'meta', 'pattern', 'connect', 'bridge',
+                'unified', 'deepest', 'across', 'overall', 'big picture',
+                'how does it all fit', 'tie together')
+    is_meta = any(k in query.lower() for k in meta_kw)
+    synthesis_block = ""
+    facts_used = []
+    if is_meta:
+        try:
+            syn = cells_orchestrator.glue.respond_synthesis(query, max_facts=4)
+            if syn.get('text'):
+                synthesis_block = (
+                    f"\n[cross-frontier synthesis]\n{syn['text']}\n"
+                )
+                facts_used = syn.get('facts_used', [])
+        except Exception:
+            pass
+
     if mode == "both":
         prose_res = cells_orchestrator.glue.respond_text(a, b, mode="prose")
         struct_res = cells_orchestrator.glue.respond_text(a, b, mode="structural")
         composed = (
             f"{prose_res['text']}\n"
-            f"\n"
-            f"[machine readout]\n"
+            f"{synthesis_block}"
+            f"\n[machine readout]\n"
             f"{struct_res['text']}\n"
-            f"\n"
-            f"[content]\n"
+            f"\n[content]\n"
             f"{cortex_text}"
         )
         cells_text = prose_res['text']
@@ -441,6 +460,8 @@ def compose_cells_with_cortex(cells_orchestrator, query: str,
         "input_pair_derived": [a, b],
         "components": components,
         "mode": mode,
+        "synthesis_facts_used": facts_used,
+        "is_meta_query": is_meta,
     }
 
 

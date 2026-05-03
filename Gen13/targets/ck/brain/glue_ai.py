@@ -119,6 +119,88 @@ class GlueAI:
             "alpha": self.alpha, "beta": self.beta, "gamma": self.gamma,
         }
 
+    def respond_synthesis(self, query: str, *, max_facts: int = 4) -> Dict[str, Any]:
+        """Cross-frontier synthesis: weave N relevant frontier facts.
+
+        Used when query is open-ended (no specific topic keyword).  Cells
+        call cortex_voice's _FRONTIER_FACTS, score by overlap with query
+        terms, and produce a synthesis paragraph touching the top N.
+
+        This addresses the gap identified in CK_FRONTIER_VOICE_2026_05_02:
+          'Open-ended synthesis queries without specific topic keywords
+           ... cortex_voice router fires one fact at a time; weaving
+           multiple together would need a meta-synthesizer.'
+
+        Returns dict with text (synthesis paragraph), facts_used (list of
+        frontier-fact labels), and components.
+        """
+        try:
+            import sys
+            from pathlib import Path
+            here = Path(__file__).parent.resolve()
+            if str(here) not in sys.path:
+                sys.path.insert(0, str(here))
+            from cortex_voice import _FRONTIER_FACTS, _RUNTIME_CRYSTALS  # type: ignore
+        except Exception:
+            return {"text": "", "facts_used": [], "components": {}}
+
+        # Score each frontier fact by query-term overlap + always include
+        # the "wp116_lens" meta-synthesis fact for its synthesis power.
+        q_words = set(w.lower() for w in query.split() if len(w) > 2)
+        scored = []
+        for triggers, fact in (list(_FRONTIER_FACTS) + list(_RUNTIME_CRYSTALS)):
+            label = triggers[0] if triggers else "?"
+            # Score: # of query words appearing in fact + # of query words
+            #         appearing in triggers + meta-synthesis bonus
+            fact_lower = fact.lower()
+            triggers_lower = " ".join(triggers).lower()
+            score = sum(1 for w in q_words if w in fact_lower)
+            score += 2 * sum(1 for w in q_words if w in triggers_lower)
+            # Meta-synthesis topics get a bonus for synthesis queries
+            meta_keywords = ('synthesis', 'meta', 'pattern', 'connect',
+                              'bridge', 'unified', 'deepest', 'across')
+            if any(k in query.lower() for k in meta_keywords):
+                if 'wp116' in label.lower() or 'lens' in label.lower():
+                    score += 5
+                if 'two-level' in label.lower() or 'tig_fqh' in fact_lower[:50]:
+                    score += 3
+                if 'farey' in fact_lower[:50] or 'stern' in fact_lower[:80]:
+                    score += 2
+            if score > 0:
+                scored.append((score, label, fact))
+
+        scored.sort(key=lambda t: -t[0])
+        top = scored[:max_facts]
+        if not top:
+            return {"text": "", "facts_used": [], "components": {}}
+
+        # Build synthesis paragraph: lead sentence + per-fact one-liner
+        labels_used = [t[1] for t in top]
+        lines = [
+            f"Across {len(top)} frontier topics, the through-line is the "
+            f"Stern-Brocot self-dual recursion (wp116_lens): every TIG "
+            f"vertex is both fixed-form and crossing, projected through "
+            f"the algebraic / lattice / operad / Lie / Jordan / Clifford "
+            f"degrees of freedom.",
+        ]
+        for score, label, fact in top:
+            # Take first sentence of fact (up to first period or pipe)
+            first = fact.split('|')[0].split('.')[0].strip()
+            if len(first) > 200:
+                first = first[:200] + "..."
+            lines.append(f"- {label}: {first}")
+
+        text = "\n".join(lines)
+        return {
+            "text": text,
+            "facts_used": labels_used,
+            "n_facts": len(top),
+            "components": {
+                "top_scores": [(s, l) for s, l, _ in top],
+                "query_terms": sorted(q_words),
+            },
+        }
+
     def respond_text(self, a: int, b: int, *, mode: str = "structural") -> Dict[str, Any]:
         """Cells' VOICE: produce a state narration in CK's language.
 
