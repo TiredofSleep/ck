@@ -391,31 +391,56 @@ def derive_pair_from_query(query: str) -> tuple:
 
 
 def compose_cells_with_cortex(cells_orchestrator, query: str,
-                                cortex_text: str) -> Dict[str, Any]:
-    """Produce a composed response: cells' substrate-state narration as a
+                                cortex_text: str,
+                                mode: str = "both") -> Dict[str, Any]:
+    """Produce a composed response: cells' substrate narration as a
     PREFIX, cortex_speak's factual content as the body.
 
-    This is what 'cells_enabled = True' would emit — cells PRECEDE cortex,
-    framing the response with substrate state, then cortex provides the
-    factual content.
-
-    Returns {composed_text, cells_text, cortex_text, components}.
+    mode='both'       -- prose paragraph FIRST, then [machine readout]
+                          block, then [content].  Default — Brayden 2026-05-02:
+                          'give both, it's kinda neat, and people may learn
+                          to speak the machine language eventually.'
+    mode='prose'      -- English-sentence prose only, then content.
+    mode='structural' -- machine-readable diagnostic block, then content.
     """
     a, b = derive_pair_from_query(query)
-    cells_res = cells_orchestrator.glue.respond_text(a, b)
-    composed = (
-        f"[substrate state]\n"
-        f"{cells_res['text']}\n"
-        f"\n"
-        f"[content]\n"
-        f"{cortex_text}"
-    )
+    if mode == "both":
+        prose_res = cells_orchestrator.glue.respond_text(a, b, mode="prose")
+        struct_res = cells_orchestrator.glue.respond_text(a, b, mode="structural")
+        composed = (
+            f"{prose_res['text']}\n"
+            f"\n"
+            f"[machine readout]\n"
+            f"{struct_res['text']}\n"
+            f"\n"
+            f"[content]\n"
+            f"{cortex_text}"
+        )
+        cells_text = prose_res['text']
+        components = prose_res['components']
+    elif mode == "prose":
+        cells_res = cells_orchestrator.glue.respond_text(a, b, mode="prose")
+        composed = f"{cells_res['text']}\n\n{cortex_text}"
+        cells_text = cells_res['text']
+        components = cells_res['components']
+    else:  # structural
+        cells_res = cells_orchestrator.glue.respond_text(a, b, mode="structural")
+        composed = (
+            f"[substrate state]\n"
+            f"{cells_res['text']}\n"
+            f"\n"
+            f"[content]\n"
+            f"{cortex_text}"
+        )
+        cells_text = cells_res['text']
+        components = cells_res['components']
     return {
         "composed_text": composed,
-        "cells_text": cells_res['text'],
+        "cells_text": cells_text,
         "cortex_text": cortex_text,
         "input_pair_derived": [a, b],
-        "components": cells_res['components'],
+        "components": components,
+        "mode": mode,
     }
 
 
@@ -426,6 +451,15 @@ def install_shadow_observer(api, engine):
 
     import os as _os
     cells_compose_mode = _os.environ.get('CK_CELLS_COMPOSE', '0') == '1'
+    # CK_CELLS_FORMAT in {'both', 'prose', 'structural'}; default 'both'
+    # per Brayden 2026-05-02: 'give both, it's kinda neat, and people may
+    # learn to speak the machine language eventually.'
+    cells_compose_format = _os.environ.get('CK_CELLS_FORMAT', 'both').lower()
+    if cells_compose_format not in ('both', 'prose', 'structural'):
+        cells_compose_format = 'both'
+    # Back-compat: CK_CELLS_PROSE=1 forces 'prose' (overrides FORMAT).
+    if _os.environ.get('CK_CELLS_PROSE', '0') == '1':
+        cells_compose_format = 'prose'
 
     def _process_chat_with_cells_shadow(session_id, text, mode='normal'):
         result = inner(session_id, text, mode=mode)
@@ -441,6 +475,7 @@ def install_shadow_observer(api, engine):
             if cells is not None and cells.glue is not None:
                 composed_obj = compose_cells_with_cortex(
                     cells, query=text, cortex_text=result.get('text', ''),
+                    mode=cells_compose_format,
                 )
                 result['cells_composed_preview'] = composed_obj
                 # If CK_CELLS_COMPOSE=1, flip user-facing text to composed.

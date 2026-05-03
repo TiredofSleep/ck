@@ -119,19 +119,18 @@ class GlueAI:
             "alpha": self.alpha, "beta": self.beta, "gamma": self.gamma,
         }
 
-    def respond_text(self, a: int, b: int) -> Dict[str, Any]:
-        """Cells' VOICE: produce a structural state narration in CK's
-        language given operator pair (a, b).
+    def respond_text(self, a: int, b: int, *, mode: str = "structural") -> Dict[str, Any]:
+        """Cells' VOICE: produce a state narration in CK's language.
 
-        Output is substrate-grounded: every fragment is derived from a
-        canonical table value or a DBC code lookup.  No prose generation,
-        no Ollama dependency.  This is what 'cells_enabled = True' would
-        emit if wired into the chat path.
+        mode='structural' (default) -- machine-readable diagnostic format
+            (state: ... | divine27: code N = LABEL | attractor: cell X)
 
-        Returns dict with:
-          text: a single multi-line structural sentence
-          components: dict of the parts (for debugging / inspection)
-          source: "cells_voice"
+        mode='prose' -- English sentences over the same substrate facts.
+            Pre-templated; substrate-grounded; no Ollama, no GPU, still
+            sub-millisecond.  Good for users who want fluent reading.
+
+        Both modes are derived from the same canonical-table values; only
+        the English wrapping differs.  Argmax-faithful by construction.
         """
         from cells import (TSML, BHML, F4_TRANSITION_ROW,
                             ATTRACTOR_NAMES)  # type: ignore
@@ -178,17 +177,44 @@ class GlueAI:
                               f"BHML→{OP_NAMES[b_op]}; glue picks "
                               f"{OP_NAMES[g_op]}")
 
-        # Multi-line structural narration
-        lines = [
-            f"state: ({OP_NAMES[a]}, {OP_NAMES[b]}) → {OP_NAMES[g_op]} "
-                f"[{disagreement}]",
-            f"divine27: code {f3_code} = {f3_label} "
-                f"(axes: {f3_axes[0]} / {f3_axes[1]} / {f3_axes[2]}, "
-                f"glyph: {f3_glyph})",
-            f"attractor: 4-core cell '{f4_cell}' "
-                f"(universal pull → H per WP115)",
-        ]
-        text = "\n".join(lines)
+        if mode == "prose":
+            # Pre-templated English narration over the same substrate facts.
+            # Single paragraph, ~3-4 sentences, substrate-grounded.
+            if t_op == b_op:
+                opening = (f"Both substrates compose to {OP_NAMES[g_op]}: "
+                            f"TSML and BHML agree.")
+            else:
+                opening = (f"The substrates disagree: TSML reads "
+                            f"{OP_NAMES[t_op]}, BHML reads {OP_NAMES[b_op]}; "
+                            f"the glue resolves to {OP_NAMES[g_op]}.")
+            divine = (f"In Divine27, this lands at code {f3_code} "
+                       f"({f3_label}) — the {f3_axes[0]} frame in "
+                       f"{f3_axes[1]} mode, {f3_axes[2]}.")
+            if g_op == 7:
+                attr = "It sits at HARMONY, the universal attractor's center."
+            elif g_op == 0:
+                attr = ("It sits at VOID — the identity cell, structurally "
+                        "foundational, where the 4-core attractor pulls "
+                        "everything else toward HARMONY.")
+            elif g_op in (8, 9):
+                attr = (f"It sits in {OP_NAMES[g_op]}, a 4-core supporter; "
+                        f"the universal pull bends this toward HARMONY.")
+            else:
+                attr = ("It sits in transient territory; the 4-core "
+                        "attractor will pull it inward toward HARMONY.")
+            text = " ".join([opening, divine, attr])
+        else:
+            # Multi-line structural narration (machine-readable)
+            lines = [
+                f"state: ({OP_NAMES[a]}, {OP_NAMES[b]}) → {OP_NAMES[g_op]} "
+                    f"[{disagreement}]",
+                f"divine27: code {f3_code} = {f3_label} "
+                    f"(axes: {f3_axes[0]} / {f3_axes[1]} / {f3_axes[2]}, "
+                    f"glyph: {f3_glyph})",
+                f"attractor: 4-core cell '{f4_cell}' "
+                    f"(universal pull → H per WP115)",
+            ]
+            text = "\n".join(lines)
 
         return {
             "text": text,
