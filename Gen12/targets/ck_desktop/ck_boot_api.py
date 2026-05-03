@@ -833,6 +833,18 @@ try:
     _gl_ok = _mount_grammar_lm(engine, api._app)
     if not _gl_ok:
         print("[CK] grammar_lm: mount returned False (model file missing?)")
+    # Also mount the operator memory bank (non-parametric retrieval).
+    # Brayden 2026-05-02 reframe: "the AI is the memory transfer device --
+    # in and out".  Bank stores (encoded_context, observed_next) pairs
+    # from training data; queries retrieve nearest by cosine similarity.
+    try:
+        from bank_mount import mount as _mount_bank
+        if _gl_ok and getattr(engine, 'grammar_lm', None) is not None:
+            _bank_ok = _mount_bank(engine, api._app, engine.grammar_lm)
+            if not _bank_ok:
+                print("[CK] bank_mount: returned False")
+    except Exception as _be:
+        print(f"[CK] bank_mount: DISABLED ({_be})")
 except Exception as _e:
     print(f"[CK] grammar_lm: DISABLED ({_e})")
 
