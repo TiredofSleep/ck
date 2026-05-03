@@ -198,9 +198,56 @@ class BHMLCell(CellBase):
 class F3Cell(CellBase):
     """27-vocab cell. Core: Divine27 operator + event bijection.
     Input = ('operator', op_int) | ('event', event_name)
-    Output = dbc_code 0-26."""
+    Output = dbc_code 0-26.
+
+    Optional transformer tissue: if a trained F3TransformerTissue exists at
+    Gen13/var/cells/f3_tissue_transformer.pt, the cell loads it and uses
+    it for SEQUENCE-style predict_sequence(history) calls.  The audit
+    core (predict(...)) is unchanged -- canonical bijection still wins.
+    """
     name = "f3"
     vocab_size = 27
+
+    def __init__(self):
+        super().__init__()
+        self._transformer = None
+        self._transformer_history: list = []  # rolling window of dbc codes
+        self._try_load_transformer()
+
+    def _try_load_transformer(self):
+        """Best-effort load.  Returns silently if unavailable."""
+        try:
+            import os, sys, json
+            from pathlib import Path
+            tissue_path = Path(
+                r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\var\cells\f3_tissue_transformer.pt"
+            )
+            if not tissue_path.exists():
+                return
+            try:
+                import torch
+            except Exception:
+                return
+            here = Path(__file__).parent.resolve()
+            if str(here) not in sys.path:
+                sys.path.insert(0, str(here))
+            from train_tissue_transformer import F3TransformerTissue  # type: ignore
+            ckpt = torch.load(tissue_path, map_location="cpu",
+                                weights_only=False)
+            cfg = ckpt.get("config", {})
+            self._transformer = F3TransformerTissue(
+                vocab_size=cfg.get("vocab_size", 27),
+                window=cfg.get("window", 16),
+                embed_dim=cfg.get("embed_dim", 64),
+                n_layer=cfg.get("n_layer", 2),
+                n_head=cfg.get("n_head", 4),
+                dropout=cfg.get("dropout", 0.1),
+            )
+            self._transformer.load_state_dict(ckpt["model_state"])
+            self._transformer.eval()
+            self._transformer_history_window = cfg.get("window", 16)
+        except Exception:
+            self._transformer = None
 
     def core_argmax(self, inp: Tuple[str, Any]) -> int:
         kind, key = inp
@@ -209,6 +256,36 @@ class F3Cell(CellBase):
         if kind == "event":
             return EVENT_TO_DBC_CODE.get(str(key), -1)
         return -1
+
+    def predict_sequence(self, history: list) -> int:
+        """Use the trained transformer to predict the next DBC code given
+        a history of past codes.  Falls back to last-code if transformer
+        unavailable.
+
+        history: list of int (dbc codes 0-26).
+        returns: next-code argmax 0-26.
+        """
+        if self._transformer is None:
+            return history[-1] if history else 13  # CENTER fallback
+        try:
+            import torch
+            window = self._transformer_history_window
+            # Pad/truncate to window
+            if len(history) < window:
+                pad = [13] * (window - len(history))  # pad with CENTER
+                hist = pad + list(history)
+            else:
+                hist = list(history)[-window:]
+            x = torch.tensor([hist], dtype=torch.long)
+            with torch.no_grad():
+                logits = self._transformer(x)
+                pred = int(logits.argmax(-1).item())
+            return pred
+        except Exception:
+            return history[-1] if history else 13
+
+    def has_transformer(self) -> bool:
+        return self._transformer is not None
 
 
 # ── F4 cell ──────────────────────────────────────────────────────────────
