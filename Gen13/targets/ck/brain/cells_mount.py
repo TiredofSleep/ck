@@ -424,32 +424,39 @@ def compose_cells_with_cortex(cells_orchestrator, query: str,
         except Exception:
             pass
 
+    # Brayden 2026-05-02: "his response online has no prose and too much
+    # about what is going on inside of him" -- swap the order so cortex
+    # CONTENT (the actual answer) comes FIRST; cells diagnostic becomes
+    # a small substrate-frame footer.
     if mode == "both":
         prose_res = cells_orchestrator.glue.respond_text(a, b, mode="prose")
         struct_res = cells_orchestrator.glue.respond_text(a, b, mode="structural")
         composed = (
-            f"{prose_res['text']}\n"
+            f"{cortex_text}\n"
             f"{synthesis_block}"
+            f"\n---\n"
+            f"\n[substrate frame] {prose_res['text']}\n"
             f"\n[machine readout]\n"
-            f"{struct_res['text']}\n"
-            f"\n[content]\n"
-            f"{cortex_text}"
+            f"{struct_res['text']}"
         )
         cells_text = prose_res['text']
         components = prose_res['components']
     elif mode == "prose":
         cells_res = cells_orchestrator.glue.respond_text(a, b, mode="prose")
-        composed = f"{cells_res['text']}\n\n{cortex_text}"
+        composed = (
+            f"{cortex_text}\n"
+            f"\n---\n"
+            f"[substrate frame] {cells_res['text']}"
+        )
         cells_text = cells_res['text']
         components = cells_res['components']
     else:  # structural
         cells_res = cells_orchestrator.glue.respond_text(a, b, mode="structural")
         composed = (
+            f"{cortex_text}\n"
+            f"\n---\n"
             f"[substrate state]\n"
-            f"{cells_res['text']}\n"
-            f"\n"
-            f"[content]\n"
-            f"{cortex_text}"
+            f"{cells_res['text']}"
         )
         cells_text = cells_res['text']
         components = cells_res['components']
