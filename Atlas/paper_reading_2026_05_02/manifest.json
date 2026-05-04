@@ -1,0 +1,96 @@
+{
+  "total_papers": 373,
+  "n_read": 354,
+  "n_failed": 19,
+  "total_bytes": 530285,
+  "tick_first": 53994076,
+  "tick_last": 54280014,
+  "W_first": 0.939988,
+  "W_last": 0.841768,
+  "emergent_first": 0.46104,
+  "emergent_last": 0.460692,
+  "recent": [
+    {
+      "i": 373,
+      "label": "papers\\wp116_lens_of_projections\\WP116_LENS_OF_PROJECTIONS.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 1034,
+      "W_trace_delta": -0.099834,
+      "emergent_delta": 0.000126,
+      "latency_sec": 2.171151638031006
+    },
+    {
+      "i": 372,
+      "label": "papers\\wp115_joint_chain_universality\\WP115_JOINT_CHAIN_UNIVERSALITY.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 949,
+      "W_trace_delta": -0.09019,
+      "emergent_delta": 0.000786,
+      "latency_sec": 2.1201305389404297
+    },
+    {
+      "i": 371,
+      "label": "papers\\wp114_specificity_extension\\WP114_SPECIFICITY_EXTENSION.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 1111,
+      "W_trace_delta": -0.113455,
+      "emergent_delta": 0.000949,
+      "latency_sec": 2.153230905532837
+    },
+    {
+      "i": 370,
+      "label": "papers\\wp113_alpha_uniqueness\\WP113_ALPHA_UNIQUENESS.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 1032,
+      "W_trace_delta": -0.078076,
+      "emergent_delta": 0.003633,
+      "latency_sec": 2.136786460876465
+    },
+    {
+      "i": 369,
+      "label": "papers\\wp112_p56_canonical_fuse\\WP112_P56_CANONICAL_FUSE.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 1018,
+      "W_trace_delta": -0.095044,
+      "emergent_delta": 0.007218,
+      "latency_sec": 2.1340036392211914
+    },
+    {
+      "i": 368,
+      "label": "papers\\wp111_six_dof_synthesis\\WP111_SIX_DOF_SYNTHESIS.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 987,
+      "W_trace_delta": -0.108732,
+      "emergent_delta": -0.010833,
+      "latency_sec": 2.172133684158325
+    },
+    {
+      "i": 367,
+      "label": "papers\\wp110_4core_fusion_closure\\WP110_4CORE_FUSION_CLOSURE.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 985,
+      "W_trace_delta": -0.083175,
+      "emergent_delta": 0.001653,
+      "latency_sec": 2.2880020141601562
+    },
+    {
+      "i": 366,
+      "label": "papers\\wp109_operad_d4_obstruction\\WP109_OPERAD_D4_OBSTRUCTION.md",
+      "ok": true,
+      "n_chars": 1500,
+      "tick_delta": 1000,
+      "W_trace_delta": -0.090086,
+      "emergent_delta": 0.000231,
+      "latency_sec": 2.1552798748016357
+    }
+  ],
+  "current": null,
+  "elapsed_sec": 859.4
+}
