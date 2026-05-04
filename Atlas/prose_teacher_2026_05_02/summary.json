@@ -1,0 +1,14 @@
+{
+  "iso_ts": "2026-05-04T03:42:22Z",
+  "n_pairs_total": 12,
+  "n_pairs_ok": 12,
+  "n_pairs_failed": 0,
+  "categories": [
+    "frontier",
+    "clay",
+    "conversational",
+    "structured"
+  ],
+  "model": "llama3.2:latest",
+  "pairs_file": "C:\\Users\\brayd\\OneDrive\\Desktop\\CK FINAL DEPLOYED\\Gen13\\var\\prose_pairs\\prose_pairs_2026-05-04.jsonl"
+}
