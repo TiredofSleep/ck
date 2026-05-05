@@ -368,8 +368,10 @@ def derive_pair_from_query(query: str) -> tuple:
     """Derive (a, b) operator pair from the query text via D2 pipeline.
     This is what cells.glue.respond_text needs as input.
 
-    Falls back to (HARMONY, HARMONY) if D2 unavailable.
+    Falls back to (HARMONY, HARMONY) if D2 unavailable or query empty.
     """
+    if not query:
+        return (7, 7)  # empty query -> HARMONY default
     try:
         from ck_sim.ck_sim_d2 import D2Pipeline
         pipe = D2Pipeline()
