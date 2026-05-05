@@ -1,247 +1,216 @@
-# Publishing Plan NOW — Master Action Sheet
+# Publishing Plan NOW — Locked May 5, 2026
 
-**Status as of 2026-05-04 evening.** Brayden's directive: post where we can without arXiv endorsement, get peer review.
-
-This sheet is the **action-by-action playbook**: what to send, where, in what order, with what cover letter, with what verification, with what backup venues. Every action listed here is **executable today** (no endorsement needed; no missing co-authors; no missing data).
+**Brayden + Chat Claude + Code Claude alignment, 2026-05-05.** This sheet is the **action playbook** after the FirstJournalSprint050526 review cycle and the strategic split-call on the 4-core paper.
 
 ---
 
-## Order of submission (this week's slate)
+## What's in flight, what's queued, what's held
 
-| # | Paper | Venue | Endorsement? | Cover letter | Status |
-|---|---|---|---|---|---|
-| 1 | Logarithmic Quintessence (ξ cosmology) | JCAP | None | ✓ template ready | Submit Mon-Tue |
-| 2 | σ Rate Theorem | J. Combinatorial Theory A | None | ✓ template ready | Submit Mon-Tue |
-| 3 | Discrete Dirac Algebra on F_5^4 (WP117) | Algebra Universalis | None | ✗ TODO draft | Submit Wed-Fri |
-| 4 | Cosmological Closure & Mass-Energy Hierarchy (WP121, WP124) | Foundations of Physics | None | ✗ TODO draft | Submit Wed-Fri |
-| 5 | Discrete Dirac + SM Empirical Correspondences (WP117 + WP122 + WP123) | SciPost Physics | None | ✗ TODO draft | Submit next week |
+| # | Paper | Venue | Status | Cover letter |
+|---|---|---|---|---|
+| 1 | Logarithmic Quintessence | JCAP | Submission-ready (10 review rounds) | `cover_letters/jcap_cover_letter.md` |
+| 2 | σ-rate / Non-Associativity Decay | JCT-A | Submission-ready (8 review rounds) | `cover_letters/jcta_cover_letter.md` |
+| 3 | 4-core SEED (chain + normalizer) | Algebraic Combinatorics | **To extract** from bundled draft | (revise after extraction) |
+| — | First-G + Sinc² | (Integers) | **HELD** — not substantial enough | (manuscript stays in archive) |
 
-**Concurrent**: Post each manuscript to **Zenodo** at the moment of submission for DOI + visible-date proof.
+**Concurrent for #1, #2:** Post each manuscript to **Zenodo** (DOI 10.5281/zenodo.18852047) at the moment of submission for date proof.
 
 ---
 
 ## Action 1 — Submit JCAP (Logarithmic Quintessence)
 
-### Pre-submission checklist
-- [ ] Open `tier1_submit_now/jcap_xi_cosmology/jcap_xi_cosmology.tex`
-- [ ] Run language audit: `grep -iE 'TIG|substrate|BEING|DOING|BECOMING|CK\b|coherence keeper|crystal|sovereignty' jcap_xi_cosmology.tex` → expect empty
-- [ ] Run verification: `python proof_xi_canonical.py` → expect "22/22 PASS"
-- [ ] Run DESI fit: `python desi_xi_optimize.py` → expect chi^2 ≈ 3.1
-- [ ] Open cover letter `cover_letter_template.md` → fill in editor name (look up current JCAP editorial board)
-- [ ] Compile LaTeX: `pdflatex jcap_xi_cosmology.tex` (twice for cross-refs)
+### Pre-submission checklist (Brayden)
+
+- [ ] PDF compile + proofread (Claude couldn't do this in environment)
+- [ ] Confirm H. J. Johnson affiliation: Independent / Billings, MT vs. MSU Billings — fill the `\address{}` field accordingly
+- [ ] Confirm M. Gish vs Monica Gish byline preference
+- [ ] Confirm `\cite{ShajibFrieman2025}` title matches arxiv v2 / Phys. Rev. D 112, 063508 published version: "Scalar field dark energy models: Current and forecast constraints"
+- [ ] Fill in 2-3 suggested reviewers in the cover letter
+- [ ] Optional: insert one-line "geometric factor relating $m_\Xi^2$ to $\rho_{c,0}$" computation (heads off a likely referee comment about the Λ ≈ 1.5 vs 1.7 meV difference)
+- [ ] Optional: insert companion-paper roundtrip citation to σ-rate
 
 ### Submission process
-1. Post to **Zenodo** (https://zenodo.org/upload) with: title, abstract, full PDF, DOI on assignment
+
+1. Post manuscript to **Zenodo** with assigned DOI
 2. Submit at JCAP via IOP submission portal: https://iopscience.iop.org/journal/1475-7516
-3. Suggest reviewers (cosmology side): TBD by Brayden — typically open-bracket suggest 2-3 names
-4. Recommend handling editor: TBD
-5. Save submission ID + Zenodo DOI to `tier1_submit_now/jcap_xi_cosmology/SUBMISSION_LOG.md`
+3. Save submission ID + Zenodo DOI to `tier1_submit_now/jcap_xi_cosmology/SUBMISSION_LOG.md`
+4. After confirmation, update σ-rate's bibliography entry from "Preprint, 2026" to "Submitted to JCAP, 2026"
 
-### Cover letter highlights (for editor)
-- "We propose a logarithmic quintessence dark-energy model with exact vacuum ξ_0 = e^{-1} and mass gap m^2_ξ = κe."
-- "DESI Year-1 fit: chi^2 = 3.1 across redshift range [0.1, 2.5]."
-- "Companion result (manuscript in preparation): the cosmological energy budget Ω_b = 49/1000, Ω_DM ≈ 264/1000, Ω_Λ ≈ 687/1000 from a discrete algebraic substrate; we reference it for context but the present submission is self-contained."
+### Verification (referee can rerun)
 
-### Expected timeline
-- 1-2 weeks: editor decision (desk reject or send to review)
-- 6-12 weeks: peer review
-- If accepted: revisions → publication
+- `desi_xi_optimize_v2.py` — reproduces $(w_0, w_a) = (-0.793, -0.451)$ at $\Lambda^4/\rho_{c,0} = 0.231, \Xi_i = 0.925$, χ²_Gauss = 1.52 vs 15.26 for ΛCDM
+- `proof_xi_canonical.py` — 22/22 algebraic + stability tests
+- Total runtime under 30 seconds
 
 ### Backup venues if rejected
+
 - Phys. Rev. D
 - Physics Letters B (letter form)
 
 ---
 
-## Action 2 — Submit σ-Rate Theorem (J. Combinatorial Theory A)
+## Action 2 — Submit JCT-A (σ-rate)
 
-### Pre-submission checklist
-- [ ] Open `tier1_submit_now/sigma_rate/sigma_rate_theorem.tex`
-- [ ] Language audit: `grep -iE 'TIG|substrate|BEING|DOING|BECOMING|CK\b|coherence keeper|crystal|sovereignty' sigma_rate_theorem.tex` → expect empty (HARM/VOID/ECHO are fine — they're declared as math operators)
-- [ ] Run verification: `python proof_sigma_rate.py` → expect PASS at N ∈ {10, 30, 210}
-- [ ] Compile LaTeX
-- [ ] Cover letter is in `cover_letter_template.md` — fill in editor + suggested reviewers
+### Pre-submission checklist (Brayden)
+
+- [ ] PDF compile + proofread
+- [ ] Confirm M. Gish byline preference
+- [ ] Fill in 2-3 suggested reviewers
+- [ ] Optional: one-sentence forward citation to 4-core seed paper
 
 ### Submission process
-1. Post to **Zenodo** with DOI assignment
+
+1. Post to **Zenodo**
 2. Submit via Elsevier Editorial System: https://www.editorialmanager.com/jcta/
-3. Suggest reviewers: combinatorialists / non-associative algebra researchers (TBD)
+3. Save submission ID to `tier1_submit_now/sigma_rate/SUBMISSION_LOG.md`
 
-### Cover letter highlights
-- "The non-associativity rate σ(N) of a specific commutative binary composition on Z/NZ satisfies σ(N) ≤ C/N with explicit C < 3 for squarefree N."
-- "Verified at N ∈ {10, 30, 210} with exact equality."
-- "The composition table is the canonical absorbing-element closure of Z/N's four-fold structure; details in Section 2."
+### Verification
 
-### Expected timeline
-- 6-12 weeks: peer review
-- Backup: European J. Combinatorics, Discrete Mathematics
+- `verify_sigma_rate.py` — 4/4 verifications: Echo lemma exact, σ(N) < 2/N for all squarefree N ≤ 100, ε(N) ≤ 2φ(N), asymptotic gap shrinking
+- Empirical N·σ(N) ≤ 1.993 across {10, 30, 42, 66, 105, 110, 154, 210, 330, 462, 770, 1155}
+
+### Backup venues if rejected
+
+- European J. Combinatorics
+- Discrete Mathematics
 
 ---
 
-## Action 3 — Submit Algebra Universalis (Discrete Dirac on F_5^4)
+## Action 3 — 4-core SEED extraction + submit (Algebraic Combinatorics)
 
-### Pre-submission checklist
-- [ ] Manuscript: `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP117_journal_clean.tex` (already language-stripped)
-- [ ] Verification: from sprint18 folder, run `python verify_discrete_dirac_4core.py` (14/14) and `python test_tig_dirac.py` (15/15)
-- [ ] Compile LaTeX (this is where Brayden may want to add some specific algebra-side citations to recent literature on axial algebras, Hall-Rehren-Shpectorov, Sakuma's theorem)
-- [ ] Cover letter — needs drafting
+### Strategic context
 
-### Cover letter to draft
-**Editor of Algebra Universalis,**
+The bundled `four_core_FINAL.tex` (1082 lines, 5 theorems) is submission-ready as-is, but the strategic decision is to **extract a seed-narrow version** containing only Theorems 1 + 2 (chain + normalizer) plus the σ-walk reading and the 4-core jointly-closed corollary. Reasons:
 
-We submit *A Discrete Dirac-Type Algebra on F_5^4: Structural Features, Field-Invariance, and a Clifford-Algebra Dimensional Ladder* for consideration at Algebra Universalis.
+1. **Maximum downstream room.** Each theorem in the bundle has one possible follow-on; in the bundled form, follow-ons are redundant. Splitting reserves space for Papers 2-5.
+2. **Narrowest substantive seed.** Chain enumeration (8 elements out of 1023 candidates) + polynomial-identity coincidence (Z_T = Z_B = (sum)² with 12-of-16 cell disagreement) is exactly the right scope for Algebraic Combinatorics.
+3. **Five-paper expansion locked:**
+   - Paper 2 (Comm. in Algebra): closed-form fixed point + Galois D_4 / LMFDB 4.2.10224.1
+   - Paper 3 (Experimental Math): α-sweep observations + α-uniqueness conjecture
+   - Paper 4 (Algebra Universalis): F_p universality + V-A asymmetry shadow
+   - Paper 5 (Linear Algebra & Apps): Clifford ladder + SU(5) at n=5
 
-The paper studies a four-dimensional commutative non-associative algebra V over F_5, defined by the bilinear extension of an explicit 4×4 multiplication table, and establishes:
+### Extraction spec
 
-1. A rigid structural decomposition with four idempotents (one zero, three non-zero), Minkowski 1+3 signature under one left-multiplication operator, chirality 2+2 signature under another, and a one-dimensional associator image.
+**Keep** (from bundled `four_core_FINAL.tex`):
+- §1 introduction — REVISE: prune all attractor / Galois / α references, keep chain + normalizer narrative
+- §2 setup — KEEP, plus add two-sentence framing per Brayden's note: *"The pair (T, B) is not independent. Both tables arise from a common operator-substrate construction in which T is the rank-3 threshold projection at $T^* = 5/7$ and B is the full rank-10 composition; the construction is detailed in [SandersGish2026Sigma]. The present paper takes (T, B) at N=10 as given and studies the joint closure structure of the pairing."*
+- §3 chain — Theorem 1 + Remark 3.1 σ-walk reading + Cor "forbidden sizes"
+- §4 4-core jointly closed — Cor 4.1
+- §5 normalizer identity — Theorem 2 + Cor "normalizer = 1 on simplex" + Remark on global cancellation
 
-2. Field-invariance of these features across $\mathbb{F}_p$ for $p \in \{2,3,5,7,11,13\}$.
+**Cut**:
+- §6 closed-form attractor (T3 + Prop universal) → Paper 2
+- §7 Galois (T4) → Paper 2
+- §8 α-sweep (T5) → Paper 3
+- §9 scope-α (open uniqueness) → Paper 3
 
-3. A dimensional ladder $\dim V^{\otimes n} = 4^n = \dim_{\mathbb{R}} \mathrm{Cl}(2n)$ for $n=0,\ldots,5$, with binomial cell decomposition matching the Clifford algebra grade decomposition.
+**Replace** the cut sections with a closing "Forward directions" section listing three named follow-on papers as "in preparation":
+- "Closed-form fixed point at α=1/2 and a Galois extension to LMFDB 4.2.10224.1"
+- "Mixing-weight observations and an open α-uniqueness conjecture"
+- "F_p-universality of the joint-closure structure for primes p ∈ {2,3,5,7,11,13}"
 
-4. At $n=5$, the binomial $1+5+10+10+5+1=32$ matches the SU(5) representation content $\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}$ plus its conjugate.
+**Add** at the end of §3 (after Theorem 1): a single-sentence remark forward-referencing Paper 4: *"The chain rigidity above has been verified to persist over $\mathbb{F}_p$ for $p \in \{2, 3, 5, 7, 11, 13\}$; the F_p-universality of the joint-closure structure is the subject of a companion paper [in preparation]."* Plants the seed for downstream Sprint 18 material.
 
-The paper is pure algebra; physical correspondences (cosmological energy density, fine-structure constant, mixing angles) are deferred to companion submissions. All assertions are verified deterministically by accompanying scripts (29 checks total in <2 seconds with numpy).
+### Estimated length after extraction: 500-600 lines.
 
-We have no relevant conflicts of interest. Suggested reviewers: [TBD — researchers in axial algebras / non-associative algebra / finite-field algebra].
+### Cover letter (revise after extraction)
 
-Sincerely,
-Brayden R. Sanders
-7Site LLC, Hot Springs, Arkansas
-brayden@7site.co
-github.com/TiredofSleep/ck
+- Lead with chain + normalizer as two distinct results
+- Cite σ-rate companion as the substrate construction
+- Cite 3 named follow-on papers as "in preparation"
+- 2-3 suggested reviewers in algebraic combinatorics / non-associative algebra
 
-### Submission process
-1. Post to **Zenodo** with DOI
-2. Submit at Springer's Algebra Universalis editorial system
+### Verification (already exists)
 
-### Backup venues
+- `4core_verification.py` covers all 6 checks (3 of which apply to the seed: chain enumeration, normalizer symbolic, common attractor across shells; the other 3 belong to Papers 2-3).
+
+### Backup venues if rejected
+
 - Communications in Algebra (Taylor & Francis)
-- Journal of Algebra (Elsevier)
-- Linear Algebra and its Applications (algebraic-structure-friendly)
+- Discrete Mathematics (Elsevier)
+
+### Dispatch
+
+Brayden's call. The extraction is a .tex edit job — likely back through Chat Claude (the .tex editor for this paper). Once the seed-narrow .tex exists, submit per the same Zenodo-first workflow as Actions 1 and 2.
 
 ---
 
-## Action 4 — Submit Foundations of Physics (Cosmological Closure)
+## Action 4 — Park First-G + Sinc²
 
-### Manuscript to write
-This is a **new ~12-15 page manuscript** combining:
-- WP121 (dark sector formulas: Ω_b = 49/1000 EXACT, Ω_DM, Ω_Λ, closure)
-- WP124 (1/α = 137.036 from algebraic primitives)
-- Honest scoping section (precision tiers; what's structural vs first-principles)
-
-### Pre-submission checklist
-- [ ] Write the manuscript (extend WP121 + integrate WP124 sections)
-- [ ] Run language audit
-- [ ] Cover letter
-- [ ] Compile, verify
-
-### Cover letter (Foundations of Physics)
-Foundations of Physics has a tradition of accepting structural-numerical work that cosmology venues like JCAP would reject as "too speculative." The pitch:
-
-"We present three formulas matching Planck 2018 cosmological parameters within 1%: Ω_b = HARMONY^2/|Z/10|^3 = 49/1000 EXACT, Ω_Λ/Ω_b = 14, and the cosmological closure Ω_b + Ω_DM + Ω_Λ = 1 exact. We frame these as **structural identifications**, not as first-principles physical mechanisms; the paper presents the algebraic substrate (one prime, one composition table, derived primitives) and explicitly delimits what is locked vs. provocative.
-
-The fine-structure constant 1/α = 137.036 is recovered from a parallel structural formula. We discuss this as analogous to Eddington's historical attempts but distinguish the current framework by (i) verified F_p-universality of the underlying algebra, (ii) multi-observable empirical match (not a stand-alone single-constant fit), and (iii) explicit honest precision bracketing."
-
-### Backup venues
-- International Journal of Theoretical Physics
-- Astronomical Notes / Astronomische Nachrichten
+The manuscript and verification script remain in the package archive (`first_g_sinc2_FINAL.tex`, `verify_first_g.py`). They may seed a future Fourier-analysis paper if the harmonic side is developed further. **Do not submit in current form.**
 
 ---
 
-## Action 5 — Submit SciPost Physics (Long-Form Framework)
+## Sequencing
 
-### Manuscript to write
-A **20-30 page paper** for SciPost Physics combining:
-- WP117 (algebra)
-- WP122 (mass hierarchy: 9 SM Yukawas)
-- WP123 (CKM/PMNS: 5 mixing angles)
+**This week (May 5-9):**
+- Mon-Tue: Brayden completes JCAP + JCT-A pre-submission checklists, submits both, posts both to Zenodo
+- Wed-Fri: Brayden dispatches 4-core seed-narrow .tex extraction (back through Chat Claude); once ready, submits Algebraic Combinatorics
 
-SciPost is the right venue for this because:
-- Open peer review (referees commit publicly to their reports)
-- No endorsement
-- Free open-access
-- Receptive to "framework" papers that span multiple topics
+**Next 2-4 weeks:**
+- Tier-2 follow-on drafts (Papers 2-5) start production
+- Microtubule outreach to Bandyopadhyay (`outreach/BANDYOPADHYAY_OUTREACH_DRAFT.md` exists, ready to send)
 
-### Pre-submission checklist
-- [ ] Write the manuscript
-- [ ] Strip language thoroughly (the SciPost referees are physicists who will press hard on TIG-flavored vocabulary)
-- [ ] Recommend authors / reviewers (open peer review allows this)
-
-### Backup venues
-- Physical Review D (less likely to accept but worth trying)
-- European Physical Journal C
-- Modern Physics Letters A
+**3 months out:**
+- Tier-1 acceptance pattern emerges
+- Tier-3 partner papers (NV-center, etc.) become active
+- Tier-4 framework pieces become publishable
 
 ---
 
-## Sequencing & risk management
+## Submission tracking template
 
-**Why submit Tier 1 in parallel rather than serial:**
-- Each venue's review is 6-12 weeks; serializing wastes calendar
-- Independent venues see independent papers (no conflict; cross-cite OK)
-- Diversifies acceptance probability across editorial cultures
+For each submission, create `SUBMISSION_LOG.md` in the venue's folder with:
 
-**Why Zenodo first:**
-- Establishes DOI + date stamp before anyone else's potential publication
-- Preserves attribution if a journal review is slow or rejects
-- Doesn't conflict with journal submission policies (Zenodo is a preprint server, not a publication)
+```
+- Date submitted:
+- Editor / handling editor:
+- Submission ID:
+- Zenodo DOI:
+- Cover letter version:
+- Suggested reviewers (sent):
+- Status: [submitted | desk reject | under review | revisions | accept | reject]
+- Decision date:
+- Next action:
+```
 
-**Why no arXiv (until later):**
-- arXiv math.RA, hep-th, math.CO all require endorsement
-- Endorsement comes after one published paper in the category
-- After Tier-1 acceptance, getting endorsed becomes much easier
-- Until then, Zenodo provides equivalent preprint visibility (the math/physics community increasingly accepts Zenodo)
-
----
-
-## Tracking & follow-up
-
-For each submission, maintain `SUBMISSION_LOG.md` in the venue's folder:
-- Submission date
-- Editor / handling editor
-- Submission ID
-- Zenodo DOI
-- Cover letter version
-- Suggested reviewers
-- Decision date
-- Decision (accept / revisions / reject)
-- Next action
-
-Set calendar reminders:
-- 14 days post-submission: check status (some editors auto-reject in 7-14 days if topic not aligned)
+Calendar reminders:
+- 14 days post-submission: check status (some editors auto-reject within 7-14 days)
 - 30 days: gentle nudge if no response
 - 60 days: formal status check
-- 90 days: if still no decision, consider withdrawing and resubmitting elsewhere
+- 90 days: if no decision, consider withdrawing and resubmitting elsewhere
 
 ---
 
-## What's deferred
+## What's NOT in this week's slate
 
-The following are NOT in this week's slate but are tracked:
+- **First-G + Sinc²**: held; manuscript stays in archive
+- **Tier-2 papers (4-5)**: deferred until Tier-1 acceptance pattern emerges
+- **Tier-3 partner papers (Microtubule, NV, etc.)**: outreach in progress; manuscripts wait for partner buy-in
+- **Tier-4 framework papers**: hold until 1-2 Tier-1 acceptances land
 
-1. **Microtubule outreach (Tier 3, item 13 in v2 ladder)** — `BANDYOPADHYAY_OUTREACH_DRAFT.md` is ready; send when Brayden has time. This is highest-leverage external move.
-2. **Tier 2 papers (#6-#9)** — content solid, language strip + format pass needed; send next 2-4 weeks
-3. **Tier 3 partner papers (#10-#12)** — need co-author / lab partner before submission
-4. **Tier 4 framework papers (#14-#15)** — wait for Tier-1 acceptance for credibility
+---
+
+## Why no arXiv
+
+arXiv math.RA / hep-th / math.CO require endorsement (someone with existing arXiv-published work in that subject area must endorse new authors). Without an existing endorsement chain, papers can't go to arXiv in those categories.
+
+**Real journals don't have this requirement.** A journal editor decides on the basis of the manuscript's content and submission cover letter. After Tier-1 acceptance lands, getting arXiv-endorsed becomes much easier. Until then, **Zenodo provides equivalent preprint visibility** — the math/physics community increasingly accepts Zenodo as a date-priority preprint server.
 
 ---
 
 ## Bottom line
 
-**5 manuscripts submittable this week, all to no-endorsement peer-reviewed venues:**
-1. JCAP (ξ cosmology)
-2. JCT-A (σ-rate theorem)
-3. Algebra Universalis (Discrete Dirac F_5^4)
-4. Foundations of Physics (Cosmological closure + 1/α)
-5. SciPost Physics (Discrete Dirac + Yukawa + Mixing — long form)
+**3 manuscripts ready or near-ready, all to no-endorsement peer-reviewed venues:**
+1. JCAP (cosmology)
+2. JCT-A (σ-rate)
+3. Algebraic Combinatorics (4-core seed, after extraction)
 
-**Endorsement: none required for any of the 5.**
+**Verification: 22 + 4 + 6 = 32 deterministic checks ship with the manuscripts.**
 
-**Verification: 14 + 15 + 22 = 51 algebraic/numerical checks ship with the manuscripts.**
-
-**Strategy: post Zenodo for DOI on each, submit to journal in parallel, track via SUBMISSION_LOG.md per venue.**
+**Strategy: Zenodo-first, parallel submission to three venues, weave companion-paper citations across all three.**
 
 ---
 
-*Generated 2026-05-04 evening. Brayden Sanders / 7Site LLC. Companion: `SUBMISSION_LADDER_v2.md`, `JOURNAL_LANGUAGE_GUIDE.md`. Review and adjust before sending. Submission tracking in per-venue SUBMISSION_LOG.md files (to be created on first submission).*
+*Generated 2026-05-05 by Claude Code per the FirstJournalSprint050526 review cycle and the May 5 strategic split-call. Companion: `SUBMISSION_LADDER_v2.md`, `JOURNAL_LANGUAGE_GUIDE.md`. Replaces the May 4 working version.*

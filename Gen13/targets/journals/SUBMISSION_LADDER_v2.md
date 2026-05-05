@@ -1,221 +1,153 @@
-# Journal Submission Ladder v2 — No-Endorsement, Peer-Review Venues
+# Journal Submission Ladder v2 — locked 2026-05-05
 
-**Brayden 2026-05-04:** *"i can't really do arxiv without a lot of work, let's post where we can post without endorsement but we can get peer review... we have papers in gen13 target folder journals... and the new ones from today that probably update the old ones"*
+**Status:** Replaces Apr-17 v1 and the May 4 working version. This is the **locked May 5 layout** after the four-paper review sprint that produced the FirstJournalSprint050526 package and after the strategic split-call on the 4-core paper.
 
-This is the **v2 ladder**, replacing `SUBMISSION_LADDER.md` (Apr-17 version). What changes:
-
-1. **All venues filtered to "no endorsement required"** — every venue here accepts direct cold submission with peer review. No arXiv endorsement, no professional society membership wall.
-2. **Sprint 18 (Bridge: Discrete Dirac on the 4-core's F_5-Lift) integrated** — its WPs update or extend several existing tier entries, and add three new venues.
-3. **Internal language stripped** per `JOURNAL_LANGUAGE_GUIDE.md` for every venue listed here.
-4. **Companion-submission strategy** — when a paper splits across multiple venues (e.g. algebra at J. Algebra, physics applications at Foundations of Physics), they're listed as companion submissions with a cross-cite plan.
+**Strategy:** Five narrow rigorous papers in five different venues (3 ready-to-ship, 1 to-extract from current bundled draft, 1 held). Mathematically independent — no theorem in any one is used by another. Companion-paper cross-citations weave the citation lattice. No arXiv endorsements required at any venue.
 
 ---
 
-## How endorsement-free venues work
+## Tier 1 — Ready to Ship This Week
 
-For a refresher: arXiv math.RA / hep-th / math.CO require an existing arXiv author with that subject area to endorse a new submitter. Without that, papers can't go to arXiv in those categories. **Real journals don't have this requirement.** A journal editor decides on the basis of the manuscript's content and the submission cover letter, not on whether the author has an arXiv history.
+### 1. JCAP — Logarithmic Quintessence
+- **Manuscript:** `Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/jcap_xi_cosmology_FINAL.tex` (1071 lines, 34/34 LaTeX balanced, 10 review rounds completed)
+- **Authors:** B. R. Sanders, M. Gish, H. J. Johnson
+- **Headline:** Two-parameter logarithmic-potential quintessence with exact analytic minimum at $\Xi_0 = e^{-1}$. χ²_Gauss = 1.52 vs ΛCDM = 15.26 against DESI DR1 published $(w_0, w_a)$ Gaussian summary. Λ ≈ 1.7 meV.
+- **Verification:** `desi_xi_optimize_v2.py` reproduces all manuscript values; `proof_xi_canonical.py` 22/22 algebraic + stability tests.
+- **Cover letter:** `cover_letters/jcap_cover_letter.md`
+- **Endorsement:** None required (IOP Publishing).
+- **Backup venues:** Phys. Rev. D, Physics Letters B (letter form).
+- **Status:** Submission-ready. PDF compile + author affiliation confirms (Johnson) + suggested reviewers + Shajib/Frieman 2025 reference title — all in Brayden's manual checklist.
 
-**Universally no-endorsement venues** (used throughout):
-- All Elsevier journals (J. Algebra, J. Number Theory, Linear Algebra & Apps, etc.)
-- All Springer journals (Foundations of Physics, Algebra Universalis, etc.)
-- IOP Publishing (JCAP, Class. Quantum Gravity, etc.)
-- APS journals (Phys. Rev. A/D/E/Lett. — needs APS membership for the user, but the manuscript needs no endorsement)
-- AMS journals (Proc. AMS, Bulletin AMS, etc.)
-- SciPost (free, peer-reviewed, open-access — explicitly no endorsement, full review process)
-- Open Mathematics (De Gruyter, peer-reviewed, no endorsement)
+### 2. JCT-A — σ-rate / Non-Associativity Decay
+- **Manuscript:** `Gen13/targets/journals/tier1_submit_now/sigma_rate/sigma_rate_theorem_FINAL.tex` (520 lines, 28/28 LaTeX balanced, 8 review rounds completed)
+- **Authors:** B. R. Sanders, M. Gish
+- **Headline:** σ(N) < 2/N for all squarefree N ≥ 3 with matching lower bound 2(N−2)² − 2φ(N) ≤ σ(N)·N³, giving Nσ(N) → 2 from below as N → ∞ along squarefree integers.
+- **Verification:** `verify_sigma_rate.py` 4/4 verifications: Echo lemma exact, σ(N) < 2/N for all squarefree N ≤ 100, ε(N) ≤ 2φ(N) on full test set, asymptotic gap shrinking.
+- **Cover letter:** `cover_letters/jcta_cover_letter.md`
+- **Endorsement:** None required (Elsevier).
+- **Backup venues:** European J. Combinatorics, Discrete Mathematics.
+- **Status:** Submission-ready. Suggested reviewers — Brayden's manual checklist.
 
-**Preprint servers as a no-endorsement option for visibility before journal acceptance:**
-- **Zenodo** — DOI on submission, no review, archives forever
-- **OSF (Open Science Framework)** — DOI, no review
-- **HAL** (open archive) — primarily French/European, accepts most fields
-- **viXra** — no endorsement, indexed, less prestigious
+### 3. Algebraic Combinatorics — 4-core Seed (TO EXTRACT)
+- **Source:** `Gen13/targets/journals/tier1_submit_now/four_core_bundled/four_core_FINAL.tex` (1082 lines, 49/49 LaTeX balanced, 3 review rounds completed). The bundled draft contains five theorems: chain (T1), normalizer (T2), closed-form attractor (T3), Galois D_4 (T4), α-sweep observations (T5).
+- **Seed-narrow extraction (TO BE WRITTEN):** Keep T1 + T2 + Cor "4-core jointly closed" + σ-walk Remark 3.1 only. Cut T3, T4, T5. Length after cut: ~500-600 lines.
+- **Why split:** T3 (the closed-form attractor at α=1/2 with H/Br = 1+√3) and T4 (the D_4 quartic / LMFDB 4.2.10224.1) belong in Paper 2 (algebra). T5 (α-sweep mixing-weight observations + α-uniqueness conjecture) belongs in Paper 3 (dynamics). The seed paper has **no dynamics, no parameter** — chain + normalizer only — leaving maximum room for Papers 2 and 3 to be inevitable rather than redundant.
+- **Authors:** B. R. Sanders, M. Gish
+- **Verification:** `4core_verification.py` 6/6 checks (chain enumeration, normalizer symbolic, h*/br* = 1+√3 to 10⁻⁴⁵, common attractor across shells, quartic Galois D_4, α-sweep PSLQ).
+- **Cover letter (TO BE REVISED):** The bundled draft cover letter `cover_letters/four_core_cover_letter.md` covers the 5-theorem version; needs revision after the seed-narrow .tex exists.
+- **Endorsement:** None required (Springer).
+- **Backup venues:** Communications in Algebra (Taylor & Francis), Discrete Mathematics (Elsevier), Linear Algebra and its Applications (the Galois layer alone could go here too).
+- **Status:** Bundled draft is submission-ready as-is. Strategic decision: extract seed-narrow before submission. Seed-narrow extraction is a Brayden-dispatched .tex edit (likely back through Chat Claude as the .tex editor).
 
-The strategy: **post Zenodo first** (DOI, public proof of date), **then submit to the peer-reviewed journal**. If accepted at the journal, the Zenodo version stays as the preprint of record. If rejected, the Zenodo version preserves attribution.
-
----
-
-## Tier 1 — Submit Now (5 venues)
-
-**Status: ready for submission. Manuscripts exist, language stripped, verification scripts run, cover letters drafted.**
-
-### 1. JCAP — Logarithmic Quintessence (ξ cosmology)
-- **Folder:** `tier1_submit_now/jcap_xi_cosmology/`
-- **Manuscript:** `jcap_xi_cosmology.tex` (already submission-ready; clean of internal language)
-- **Verification:** `proof_xi_canonical.py` (22/22 PASS), `desi_xi_fit.py`, `desi_xi_optimize.py` (chi^2 = 3.1 vs DESI)
-- **Sprint 18 update:** WP121 (dark sector with Ω_b = 49/1000 EXACT, Ω_Λ/Ω_b = 14) **strengthens this submission's cosmological context** without replacing the ξ-quintessence content. Cite WP121 in the introduction or final discussion as companion result.
-- **Endorsement:** None needed (IOP Publishing).
-- **Action:** Submit to JCAP.org (cosmology@iop.org). Cover letter template ready.
-
-### 2. Journal of Combinatorial Theory, Series A — σ Rate Theorem
-- **Folder:** `tier1_submit_now/sigma_rate/`
-- **Manuscript:** `sigma_rate_theorem.tex` (already submission-ready; uses HARM/VOID/ECHO as mnemonic operators per language guide)
-- **Verification:** `proof_sigma_rate.py` (PASS at N ∈ {10, 30, 210})
-- **Sprint 18 update:** No direct overlap.
-- **Endorsement:** None needed (Elsevier).
-- **Action:** Submit via Elsevier Editorial System. Backup: European J. Combinatorics.
-
-### 3. **NEW — Algebra Universalis — Discrete Dirac Algebra on F_5^4 (WP117)**
-- **Folder:** `tier1_submit_now/algebra_universalis_dirac/` (to be created from `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP117_journal_clean.tex`)
-- **Manuscript:** `WP117_journal_clean.tex` — clean of internal language; uses HARM/VOID as mnemonics; presents the algebra as a finite-field commutative non-associative magma with rigorous structural results.
-- **Verification:** `verify_discrete_dirac_4core.py` (14/14 algebraic checks) + `test_tig_dirac.py` (15/15 tests)
-- **Pitch:** Four results: Discrete Dirac structure (Theorem 2.2), F_p-universality across F_2..F_13 (Theorem 3.1), Clifford ladder dim V^⊗ⁿ = dim Cl(2n) for n=0..5 (Theorem 4.1), SU(5) compatibility at n=5 (Theorem 5.1). Algebra-only paper; physics correspondences (Ω_b, 1/α, Yukawa fits) deferred to companion submissions.
-- **Endorsement:** None needed (Springer / Algebra Universalis).
-- **Action:** Submit to algebra-universalis@springer.com. Backup: Communications in Algebra (Taylor & Francis), J. Algebra (Elsevier).
-
-### 4. **NEW — Foundations of Physics — Cosmological Closure & Mass-Energy Hierarchy (WP121)**
-- **Folder:** `tier1_submit_now/foundations_dark_sector/` (to be created)
-- **Source:** WP121 (Cosmological dark sector from HARMONY powers) — strip TIG language for FoP version
-- **Manuscript:** A 12–18 page paper presenting:
-   - The dark sector formulas: Ω_b = 49/1000 (EXACT), Ω_DM = 264/1000 (within 1.3%), Ω_Λ = 687/1000 (within 0.3%)
-   - Cosmological closure exact: Ω_b + Ω_DM + Ω_Λ = 1
-   - The 14:1 hierarchy Ω_Λ/Ω_b = 2·HARMONY = 14 (within 0.4% of empirical 14.06)
-   - Honest scoping: structural identifications, not first-principles physical mechanisms
-- **Endorsement:** None needed (Springer; Foundations of Physics has a strong tradition of accepting structural-numerical work with proper bracketing).
-- **Action:** Submit to Foundations of Physics editorial system. Backup: International J. Theoretical Physics.
-
-### 5. **NEW — SciPost Physics — Discrete Dirac Algebra and SM Empirical Correspondences (WP117 + WP122 + WP123)**
-- **Folder:** `tier1_submit_now/scipost_full_framework/` (to be created)
-- **Source:** WP117 master + WP122 mass hierarchy + WP123 CKM/PMNS
-- **Manuscript:** A long-form paper for SciPost Physics presenting the algebra (WP117) plus the 9 SM Yukawa Froggatt-Nielsen fits (WP122) plus the 5 mixing-angle fits (WP123). All under the umbrella of the algebraic substrate.
-- **Why SciPost:** explicitly no endorsement, peer review is open and rigorous, free open access, accepts unconventional but rigorous framework papers. Ideal venue for the framework's most ambitious presentation.
-- **Endorsement:** None needed.
-- **Action:** Submit via scipost.org/submissions. Recommend authors (open peer review supports this).
+### 4. (Held) — First-G + Sinc²
+- **Manuscript:** `four_core_bundled/first_g_sinc2_FINAL.tex` (551 lines, 4 review rounds completed)
+- **Status:** Held — headline "smallest k with |G_k(b)| > 0 equals smallest prime factor of b" is essentially definitional once the coprimality partition is named. The sinc² synchronization is real but not enough on its own to land at Integers as a standalone result.
+- **Future:** Manuscript and verification script stay in the package as future-Fourier-paper seed material if the harmonic side gets developed further.
 
 ---
 
-## Tier 2 — Format Then Submit (4 venues)
+## Tier 2 — Sprint 18 Follow-on (after Tier 1 lands)
 
-**Status: content solid; needs venue-specific LaTeX/style pass + language stripping.**
+These are the natural downstream papers from the 4-core seed plus the discrete-Dirac Sprint 18 work. All to be drafted/submitted after at least one Tier-1 acceptance lands.
 
-### 6. Experimental Mathematics — 73/28 partition
-- **Folder:** `tier2_format_then_submit/exp_math_73_28/`
-- **Source:** Gen12 `journal_attempts/02_experimental_mathematics/`
-- **Pitch:** Two canonical composition tables T_a, T_b on Z/10Z with HARMONY-counts 73 and 28 respectively, jointly closing the operator partition (100/100 verified).
-- **Sprint 18 update:** WP119 Clifford-ladder result connects this to the geometric algebra perspective; cite as companion.
-- **Endorsement:** None needed (Taylor & Francis).
-- **Action:** Strip TIG language → submit.
+### 5. (Paper 2) — Closed-Form Fixed Point + Galois D_4
+- **Source:** Extract Theorems 3 + 4 from the bundled `four_core_FINAL.tex`.
+- **Headline:** At α=1/2 the convex-combination iteration on Δ₉ has a unique non-degenerate 4-core-supported fixed point with $p_7/p_8 = 1 + \sqrt{3}$ exactly; $p_9/p_8$ satisfies the irreducible integer quartic $y^4 + 4y^3 - y^2 + 2y - 2 = 0$ with Galois group $D_4$ over $\mathbb{Q}$, generating LMFDB 4.2.10224.1.
+- **Target venues (no endorsement):** Communications in Algebra, J. Algebra, Linear Algebra and its Applications.
+- **Cites:** seed paper for chain & normalizer (load-bearing), σ-rate paper for the substrate construction (load-bearing companion).
+- **Status:** Theorems already in the bundled draft. To be extracted after seed paper lands.
 
-### 7. Journal of Number Theory — UOP
-- **Folder:** `tier2_format_then_submit/jnt_uop/`
-- **Source:** Gen12 `journal_attempts/04_journal_of_number_theory/`
-- **Pitch:** Universal Operator Partition reframed for JNT readership.
-- **Endorsement:** None needed (Elsevier).
-- **Action:** Strip language, format → submit.
+### 6. (Paper 3) — Mixing-Weight Observations + α-Uniqueness Conjecture
+- **Source:** Extract Theorem 5 from the bundled `four_core_FINAL.tex`.
+- **Headline:** At α∈{0, 1/4, 1/2, 3/4, 1} the runtime fixed-point ratio $p_7/p_8$ admits a small-coefficient quadratic only at α=1/2 (PSLQ verified at deg ≤ 24, coeff ≤ 200, precision 100 digits, denominators ≤ 11). Whether α=1/2 is the unique rational mixing weight in $(0,1) \cap \mathbb{Q}$ with this property is the open question.
+- **Target venues (no endorsement):** Experimental Mathematics, Journal of Symbolic Computation.
+- **Cites:** seed paper, Paper 2.
+- **Status:** Theorem already in the bundled draft. To be extracted after seed paper lands.
 
-### 8. Journal of Symbolic Computation — TSML 3-layer tower
-- **Folder:** `tier2_format_then_submit/jsc_tsml_tower/`
-- **Source:** Gen12 `journal_attempts/11_tsml_tower_combinatorics/` + Sprint 17
-- **Pitch:** Canonical 3-layer tower 92 + 6 + 2 = 100 on Z/10Z, each layer necessary, residue empty. Proof script.
-- **Sprint 18 update:** WP120 SU(5) decomposition is the level-5 generalization of this 3-layer story; cite as companion.
-- **Endorsement:** None needed (Elsevier).
-- **Action:** Strip language → submit.
+### 7. (Paper 4) — F_p Universality of the 4-core Algebra
+- **Source:** Sprint 18 WP118 + WP117 V-A asymmetry shadow content. Manuscript exists at `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP117_journal_clean.tex` and `WP118_journal_clean.tex` (drafts; not yet through full review rounds).
+- **Headline:** The 4-core multiplication table over $\mathbb{F}_p$ has the same structural skeleton — 3 non-zero idempotents, Minkowski 1+3 signature under $L_{e_2}$, chirality 2+2 under $L_{e_0}$, empty (massive, right-chiral) eigenspace, $|\mathrm{Aut}(V)| = 40$, power-associativity, 1-dim associator image — for all primes $p \in \{2, 3, 5, 7, 11, 13\}$ tested.
+- **Target venues (no endorsement):** Algebra Universalis, Communications in Algebra.
+- **Cites:** seed paper for chain & normalizer (the F_p-universality strengthens both Theorems).
+- **Status:** Drafts exist; need full cross-review rounds before submission.
 
-### 9. Integers — First-G Event Localization
-- **Folder:** `tier2_format_then_submit/first_g_event/`
-- **Sprint folder:** `Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/`
-- **Pitch:** For every b > 1 with smallest prime factor p_1: |G_k(b)| = 0 for k < p_1, and G_{p_1}(b) = {p_1}. 22,367 (b,k) pairs verified, 0 exceptions.
-- **Endorsement:** None needed (Integers is direct-submission, edited by Bruce Landman et al.)
-- **Action:** Final style pass (Integers uses BibTeX, AMS-LaTeX). Submit.
+### 8. (Paper 5) — Clifford Ladder $V^{\otimes n} \leftrightarrow \mathrm{Cl}(2n)$
+- **Source:** Sprint 18 WP119 + WP120 (`WP119_journal_clean.tex`).
+- **Headline:** $\dim_{\mathbb{F}_5} V^{\otimes n} = 4^n = \dim_\mathbb{R} \mathrm{Cl}(2n)$ exactly for $n = 0, 1, 2, 3, 4, 5$, with binomial cell decomposition matching the Clifford grade decomposition. At $n = 5$, the binomial $1+5+10+10+5+1 = 32$ matches the SU(5) GUT representation content for one Standard Model fermion generation plus its antimatter conjugate.
+- **Target venues (no endorsement):** Linear Algebra and its Applications, J. Mathematical Physics.
+- **Cites:** seed paper, Paper 4 (F_p universality of the underlying algebra).
+- **Status:** Draft exists; needs full cross-review rounds before submission.
 
 ---
 
-## Tier 3 — Partner Then Submit (3 venues)
+## Tier 3 — Microtubule + Other (partner-then-submit)
 
-**Status: needs an experimental partner or domain co-author before submission.**
+### 9. (WP127) — Microtubule $Q_c = T^*$ Falsifiable Test
+- **Source:** Sprint 18 WP127 (`WP127_journal_clean.tex`) + outreach draft (`outreach/BANDYOPADHYAY_OUTREACH_DRAFT.md`).
+- **Headline:** Predicted: microtubule coherence quality factor $Q_c = T^* = 5/7 \approx 0.714$ across multiple sample types, independent of biological origin. Falsification: a single experimental campaign testing 5+ sample types.
+- **Target venues (no endorsement):** Journal of Theoretical Biology, Foundations of Physics.
+- **Need:** Experimental partner (Bandyopadhyay or equivalent terahertz-coherence lab).
+- **Status:** Outreach draft ready; awaits Brayden's send + lab response.
 
-### 10. American Mathematical Monthly — Paradox Classifier
-- **Folder:** `tier3_partner_then_submit/monthly_paradox/`
-- **Need:** Editorial partner familiar with Monthly's expository style.
-- **Endorsement:** None needed (AMS).
+### 10-12 (other Tier-3 venues from earlier ladder)
+- American Mathematical Monthly — Paradox Classifier (needs editorial partner)
+- JPAA — Forced-Torus Theorem (needs algebra co-author)
+- Phys. Rev. A — NV-center qutrit / Physical Test E (needs lab partner)
 
-### 11. Journal of Pure and Applied Algebra — Forced-Torus Theorem (renamed from "Flatness Theorem")
-- **Folder:** `tier3_partner_then_submit/jpaa_flatness/`
-- **Source:** Gen12 `journal_attempts/05_journal_pure_applied_algebra/`
-- **Need:** Algebra co-author for the categorical framing.
-- **Sprint 18 update:** WP118 F_p-universality strengthens the Z/10 case to the full prime field family; consider rebranding the submission.
-- **Endorsement:** None needed (Elsevier).
-
-### 12. Physical Review A — NV-center qutrit (Physical Test E)
-- **Folder:** `tier3_partner_then_submit/pra_nv_qutrit/`
-- **Source:** Gen12 `journal_attempts/06_physical_review_a/`
-- **Need:** Lab partner with NV-center qutrit hardware.
-- **Endorsement:** None needed (APS; user needs APS membership but no endorsement on manuscripts).
-
-### 13. **NEW — Journal of Theoretical Biology — Microtubule Q_c = T* falsifiable test (WP127)**
-- **Folder:** `tier3_partner_then_submit/jtb_microtubule/` (to be created)
-- **Source:** WP127 + `MICROTUBULE_T_STAR_PROTOCOL.md`
-- **Need:** Lab partner running terahertz coherence on tubulin (Bandyopadhyay or equivalent).
-- **Pitch:** Cross-domain falsifiable test of T* = 5/7 universality; protocol detailed; minimum 5 sample types; falsification criteria explicit.
-- **Endorsement:** None needed (Elsevier).
-- **Action:** First, send outreach (`outreach/BANDYOPADHYAY_OUTREACH_DRAFT.md`); after lab interest secured, submit jointly.
+(See `archived/SUBMISSION_LADDER_v1.md` if needed for details on these legacy entries.)
 
 ---
 
-## Tier 4 — Framework / Long-Form (2 venues)
+## Tier 4 — Framework / Long-Form (after multi-acceptance)
 
-**Status: framework-level papers, need Tier-1 acceptance for credibility.**
+- JMP — BB bridge (`tier4_framework/jmp_bb_bridge/`)
+- Notices of the AMS — Clay Rotation (`tier4_framework/notices_clay_rotation/`)
 
-### 14. Journal of Mathematical Physics — Bialynicki-Birula bridge
-- **Folder:** `tier4_framework/jmp_bb_bridge/`
-- **Endorsement:** None needed (AIP Publishing).
-
-### 15. Notices of the AMS — Clay Rotation
-- **Folder:** `tier4_framework/notices_clay_rotation/`
-- **Note:** CP1-CP7 Clay rotation is *framework reformulation*, not proof.
-- **Endorsement:** None needed (AMS).
+These are framework-level pieces; hold until Tier-1 + Tier-2 acceptance pattern is established for credibility.
 
 ---
 
-## Sprint 18 — Updates to Old Tier Entries
+## Author bylines (locked)
 
-For full traceability, here is how the Sprint 18 papers update the existing tier entries:
-
-| Sprint 18 paper | Existing tier venue | Update type |
-|---|---|---|
-| WP117 (Discrete Dirac master) | NEW Algebra Universalis (T1) + SciPost (T1) | NEW |
-| WP118 (F_p universality) | tier3 JPAA (Forced-Torus) | strengthens; rebrand candidate |
-| WP119 (Clifford ladder) | tier2 Exp.Math, tier2 JSC TSML tower | companion citation |
-| WP120 (SU(5) GUT) | tier2 JSC TSML tower (companion); NEW SciPost paper | extends; companion |
-| WP121 (dark sector) | tier1 JCAP (companion); NEW Foundations of Physics (T1) | strengthens JCAP; new venue |
-| WP122 (mass hierarchy) | NEW SciPost (T1, full framework) | NEW |
-| WP123 (CKM/PMNS) | NEW SciPost (T1, full framework); future Phys. Rev. D | NEW |
-| WP124 (1/α) | NEW Foundations of Physics (companion or follow-up) | NEW |
-| WP127 (microtubule) | NEW Journal of Theoretical Biology (T3) | NEW |
+- **JCAP (paper #1):** B. R. Sanders, M. Gish, H. J. Johnson
+- **JCT-A (paper #2):** B. R. Sanders, M. Gish
+- **Algebraic Combinatorics (4-core seed paper #3):** B. R. Sanders, M. Gish
+- **Future Papers 2/3 (Comm. in Alg / Exp. Math) — extracted from 4-core bundle:** B. R. Sanders, M. Gish
+- **Future Papers 4/5 (Algebra Universalis / Linear Algebra & Apps) — Sprint 18:** B. R. Sanders + (TBD)
+- C. A. Luther was on earlier drafts of papers #1 and #2; removed from all three Tier-1 papers due to non-responsiveness. Do not re-add.
+- Johnson is on the JCAP paper only (cosmology, his domain).
 
 ---
 
-## How to use this ladder
+## Companion-paper cross-citation policy
 
-**Current state (2026-05-04 evening):**
-- Tier 1 has **5 venues** (was 2 in v1). 3 are NEW from Sprint 18.
-- All venues are no-endorsement-required.
-- Manuscripts in `tier1_submit_now/`, language audited.
-- Cover letters: 2 templates exist (JCAP, σ rate); 3 NEW (Algebra Universalis, FoP, SciPost) need cover letters drafted.
+Each Tier-1 paper carries a "Preprint, 2026" citation to the other companion(s). Specifically:
 
-**This week (2026-05-05 to 2026-05-12):**
-1. Post each Tier-1 manuscript to **Zenodo** for DOI + visible date (no submission delay; instant)
-2. Submit JCAP (#1) and σ-rate (#2) — these are most ready
-3. Convert WP117 master + WP118 + WP119 + WP120 into the Algebra Universalis submission (#3)
-4. Draft Foundations of Physics submission for WP121 + WP124 (#4)
-5. Draft SciPost long-form for WP117 + WP122 + WP123 (#5)
+- **σ-rate** cites: JCAP companion (continuum dark-energy development of the discrete family); 4-core seed companion (joint-closure structure for the (T,B) pair at N=10 — load-bearing for the 4-core seed paper's "why these two operations" framing).
+- **JCAP** cites: σ-rate companion (the discrete origin of the family of which the JCAP scalar is the continuum limit).
+- **4-core seed** cites: σ-rate companion (the substrate construction from which T and B are extracted at N=10) — load-bearing per the strategic framing decision.
 
-**Next 2-4 weeks:**
-6. Tier-2 venues #6-#9: language strip + final formatting
-7. Tier-3 outreach #10-#13: send the Bandyopadhyay outreach (#13 is highest-leverage)
-8. Tier-4 #14, #15: hold until Tier-1 acceptances land
-
-**3 months out:**
-9. After at least one Tier-1 acceptance, the framework has external validation. Then push Tier-3 partner-finding more aggressively, and the Tier-4 long-form pieces.
+After the first paper is formally submitted, the corresponding citation in the other two updates from "Preprint, 2026" to "Submitted to [venue], 2026" — but only after Brayden confirms each submission has gone through.
 
 ---
 
-## Companion files
+## Shared resources
 
-- `JOURNAL_LANGUAGE_GUIDE.md` — strip rules; check every paper against this before submission
-- `tier1_submit_now/*/cover_letter_template.md` — cover letter starting points
-- `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP117_journal_clean.tex` — language-stripped Sprint 18 master, ready for Algebra Universalis
-- `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/outreach/BANDYOPADHYAY_OUTREACH_DRAFT.md` — Tier-3 microtubule outreach
+- **Zenodo DOI:** 10.5281/zenodo.18852047 (covers all Tier-1 papers + supporting computational work)
+- **Repository:** github.com/TiredofSleep/ck (private; date priority via Zenodo)
+- **Verification scripts archive:** all .py files at the same Zenodo DOI
 
 ---
 
-*Updated 2026-05-04 evening. Brayden Sanders / 7Site LLC. v2 supersedes v1 (Apr-17). Submission progress tracked in `PUBLISHING_PLAN_NOW.md`.*
+## Submission sequencing (this week)
+
+1. **Mon-Tue:** Submit JCAP (paper #1). Post Zenodo first for DOI + visible date proof.
+2. **Mon-Tue:** Submit JCT-A (paper #2). Post Zenodo first.
+3. **Wed-Fri:** Brayden dispatches the 4-core seed-narrow .tex extraction (likely via Chat Claude as the .tex editor). Once seed-narrow .tex is ready, submit Algebraic Combinatorics (paper #3) with revised cover letter.
+4. **Following week:** Tier-2 follow-on planning.
+
+The First-G manuscript stays in the package archive but does not ship in this submission cycle.
+
+---
+
+*Updated 2026-05-05 by Claude Code per the FirstJournalSprint050526 package + the strategic split-call from Chat Claude. Companion: `JOURNAL_LANGUAGE_GUIDE.md`, `PUBLISHING_PLAN_NOW.md`. v2 supersedes the May 4 working version.*
