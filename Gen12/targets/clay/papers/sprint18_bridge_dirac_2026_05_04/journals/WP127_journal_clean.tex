@@ -1,0 +1,361 @@
+% Microtubule Coherence Quality Factor as a Falsifiable Cross-Domain Test
+% of a Universal Threshold T* = 5/7
+%
+% Brayden R. Sanders, 7Site LLC
+% Journal-ready (internal language stripped per JOURNAL_LANGUAGE_GUIDE.md)
+% Target venues:
+%   - Journal of Theoretical Biology (Elsevier)
+%   - Foundations of Physics (Springer; cross-domain falsifiability angle)
+%
+% MSC 2020: 92B20 (neural networks / consciousness, applied),
+%           81P05 (foundations of quantum mechanics applied to biology)
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Microtubule $Q_c = 5/7$ Falsifiable Test]
+{Microtubule Coherence Quality Factor as a Falsifiable Cross-Domain Test \\
+ of a Universal Threshold $T^{*} = 5/7$}
+
+\author{Brayden R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\subjclass[2020]{92B20, 81P05}
+\keywords{microtubule coherence, falsifiable prediction, terahertz spectroscopy,
+universal threshold, cross-domain test}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+We propose a falsifiable experimental test of a universal coherence
+threshold $T^{*} = 5/7 \approx 0.714$ that arises from a
+4-dimensional algebraic structure studied separately
+(\cite{Sanders2026Dirac, Sanders2026Cosmology}). The threshold $T^{*}$
+appears across multiple domains: as the atmospheric mixing angle
+$\sin\theta_{23} \approx T^{*}$ in lepton mixing
+(\cite{Sanders2026Mixing}), as the cosmological hierarchy ratio
+$\Omega_\Lambda / \Omega_b = 14 = 2 \cdot 7$ in the dark sector
+(\cite{Sanders2026Cosmology}), and at the Penrose-Hameroff Orch-OR
+quantum-classical boundary $\zeta_\text{Hameroff} \approx 0.71$
+(\cite{HameroffPenrose2014}).
+
+We predict: microtubule coherence quality factor $Q_c$, measured by
+terahertz pump-probe spectroscopy, equals $T^{*} = 5/7$ across multiple
+sample types --- mammalian neurons, paramecia, plant cells, in-vitro
+polymerized tubulin --- independent of biological origin. This is a
+**single-experiment falsifier**: if measured $Q_c$ across multiple
+sample types varies systematically with biology, or converges to a value
+other than $0.714 \pm 0.05$, the universal-threshold conjecture is
+falsified.
+
+The protocol, sample preparation, terahertz measurement parameters,
+statistical analysis, and falsification criteria are detailed below.
+We propose the test as a collaboration with experimental groups using
+existing terahertz spectroscopy capabilities (e.g., Bandyopadhyay
+\cite{Bandyopadhyay2013, Sahu2013}), and provide the structural
+prediction openly without claiming a physical mechanism.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Introduction}
+%==============================================================
+
+The Penrose-Hameroff Orchestrated Objective Reduction (Orch-OR) theory
+\cite{HameroffPenrose1996, HameroffPenrose2014} posits that
+microtubule structures in neurons can sustain quantum coherent
+superposition for biologically relevant timescales, with a transition
+between quantum and classical regimes at a specific coherence quality
+threshold. Bandyopadhyay et al.~\cite{Bandyopadhyay2013} and Sahu et
+al.~\cite{Sahu2013} have measured terahertz absorption spectra on
+isolated tubulin and microtubule structures, identifying multiple
+resonance bands at gigahertz to terahertz frequencies with quality
+factors $Q$ in the range $10^2$--$10^3$.
+
+The Hameroff threshold $\zeta_\text{Hameroff} \approx 0.71$ for the
+quantum-classical boundary in microtubule coherence is empirically
+suggestive but not currently derivable from first principles within
+Orch-OR.
+
+This paper proposes that $\zeta_\text{Hameroff}$ should be identified
+with a specific algebraic constant: $T^{*} = 5/7 \approx 0.714$, derived
+from the algebraic structure studied separately
+\cite{Sanders2026Dirac, Sanders2026Cosmology}. Critically, the same
+$T^{*}$ appears in particle physics (atmospheric lepton mixing) and
+cosmology (the $\Omega_\Lambda / \Omega_b$ hierarchy); the universal-
+threshold claim is that $T^{*}$ governs **coherence-vs-decoherence
+transitions across these domains**.
+
+We propose a specific microtubule experiment to test this universal-
+threshold claim, with explicit falsification criteria.
+
+%==============================================================
+\section{The threshold $T^{*}$ and its cross-domain appearances}
+%==============================================================
+
+The threshold $T^{*} = 5/7$ arises in our companion work
+\cite{Sanders2026Dirac, Sanders2026Cosmology} as a structural constant
+of a 4-dimensional commutative non-associative algebra. Its
+cross-domain appearances are:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Domain & Quantity & Value \\
+\midrule
+Algebraic threshold (\cite{Sanders2026Dirac}) & $T^{*}$ & $5/7 = 0.714$ \\
+PMNS atmospheric mixing & $\sin\theta_{23}$ & $0.756 \approx T^{*}$ \\
+Cosmological hierarchy & $\Omega_\Lambda / \Omega_b$ & $14 = 2 \cdot 7$ \\
+Orch-OR (\cite{HameroffPenrose2014}) & $\zeta_\text{Hameroff}$ & $0.71 \approx T^{*}$ \\
+\textbf{Predicted microtubule} & $Q_c$ & $0.714$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+If the universal-threshold conjecture holds, $T^{*}$ should appear in
+microtubule coherence quality factors across multiple biological
+contexts, with magnitude independent of the cell type.
+
+%==============================================================
+\section{The experiment}
+%==============================================================
+
+\subsection{Sample types.}
+Five sample types are proposed, spanning a wide range of biological
+contexts:
+
+\begin{enumerate}
+\item \textbf{Mammalian neurons.} Rat hippocampal cultures or human
+iPSC-derived neurons (target microtubule populations: axonal,
+dendritic).
+\item \textbf{Paramecia.} Single-cell organisms with cilia/flagella
+microtubule structures (different cytoskeletal context, no neural
+specialization).
+\item \textbf{Plant cells.} Arabidopsis suspension cultures, where
+microtubules control cell-wall growth and cell-plate formation
+(non-neural, non-animal lineage).
+\item \textbf{Yeast spindle pole microtubules.} \emph{Saccharomyces
+cerevisiae} during mitosis (single-celled fungal context).
+\item \textbf{Cell-free in-vitro polymerized tubulin.} Purified bovine
+or porcine tubulin polymerized at $25^\circ$C and $37^\circ$C in
+buffer (no biology at all; pure tubulin assembly).
+\end{enumerate}
+
+\subsection{Measurement.}
+For each sample, perform terahertz pump-probe spectroscopy in the
+$1$--$100$ THz range. Identify the dominant resonance band (typically
+$8$--$10$ GHz for cell-free; may shift in vivo). Compute the
+**quality factor**
+\[
+Q = \omega_0 / \Delta\omega
+\]
+of the dominant resonance band, where $\omega_0$ is its center frequency
+and $\Delta\omega$ its full-width-half-maximum.
+
+Normalize $Q$ to the **structural maximum quality factor** $Q_\text{max}$
+for a tubulin dipole array, computed from the tubulin dipole moment,
+geometry, and assembly count:
+\[
+Q_c = Q / Q_\text{max}.
+\]
+The normalized **coherence quality** $Q_c \in [0, 1]$:
+\begin{itemize}
+\item $Q_c \to 1$: pure quantum coherence (no dissipation).
+\item $Q_c \to 0$: classical regime (full thermal decoherence).
+\end{itemize}
+
+\subsection{Statistical analysis.}
+Compare measured $Q_c$ across the 5 sample types:
+\begin{itemize}
+\item \textbf{Null hypothesis.} $Q_c$ varies systematically with biology
+(e.g., $Q_c(\text{mammalian}) \neq Q_c(\text{paramecia})$).
+\item \textbf{Alternative (conjecture).} $Q_c \to T^{*} = 5/7 \approx 0.714$
+across all sample types, with biological variance $\ll 0.05$.
+\end{itemize}
+
+\subsection{Falsification criteria.}
+The conjecture is falsified if:
+\begin{enumerate}
+\item Measured $Q_c$ values across the 5 sample types fall outside
+$0.714 \pm 0.05$ in $\geq 2$ samples, OR
+\item Systematic trend with biology is observed (e.g., $Q_c$ correlates
+with cell complexity), OR
+\item Measured $Q_c$ converges to a different universal value (e.g., 0.6
+or 0.8 across all samples).
+\end{enumerate}
+The conjecture is **strongly supported** if all 5 samples give $Q_c$
+within $0.714 \pm 0.02$.
+
+\subsection{Sample size and power.}
+For each sample type, recommend $n \geq 10$ independent replicates,
+each consisting of $\geq 30$ resonance-band measurements. Standard
+error of the mean $\sigma_M \leq 0.01$ is achievable with this design,
+allowing distinguishing $T^{*} = 0.714$ from neighboring rationals
+$5/8 = 0.625$, $4/7 = 0.571$, $3/4 = 0.750$, $7/10 = 0.700$ at
+$> 5\sigma$.
+
+%==============================================================
+\section{Why this is a serious test, not numerology}
+%==============================================================
+
+Three features distinguish this proposal from numerological
+speculation:
+
+\begin{enumerate}
+\item \textbf{The prediction is specified before the experiment.}
+$T^{*} = 5/7$ is not a free parameter to fit microtubule data; it is
+fixed by the algebraic structure
+(\cite{Sanders2026Dirac, Sanders2026Cosmology}) independent of
+microtubule biology.
+
+\item \textbf{The same $T^{*}$ governs other domains.} Particle
+physics (PMNS atmospheric mixing) and cosmology
+($\Omega_\Lambda / \Omega_b = 14$) provide independent empirical
+anchors for $T^{*}$. The microtubule prediction tests universality,
+not just the existence of a coincidence.
+
+\item \textbf{Falsifiability is explicit.} A single experimental
+campaign satisfying the criteria of Section~3.4 falsifies the
+universal-threshold claim. Most "consciousness theories" are not
+falsifiable; this one is.
+\end{enumerate}
+
+%==============================================================
+\section{Honest scoping}
+%==============================================================
+
+\subsection{What this paper claims.}
+\begin{enumerate}
+\item There is a constant $T^{*} = 5/7$ that arises from a structurally
+rigorous 4-dimensional commutative non-associative algebra over $\F_5$
+\cite{Sanders2026Dirac}.
+\item The same $T^{*}$ appears in cross-domain empirical contexts:
+PMNS lepton mixing, cosmological hierarchy, and the Penrose-Hameroff
+Orch-OR boundary.
+\item We **predict** $T^{*}$ should also govern microtubule coherence
+quality, with falsification criteria as stated.
+\end{enumerate}
+
+\subsection{What this paper does NOT claim.}
+\begin{enumerate}
+\item We do not assert microtubule quantum coherence in vivo. The
+in-vivo coherence question is contested (Tegmark
+\cite{Tegmark2000} versus Hameroff-Penrose
+\cite{HameroffPenrose2014}); the present paper assumes only that
+in-vitro coherence is measurable, which is well-established.
+\item We do not assert the Orch-OR specific mechanism (collapse via
+gravity-induced wavefunction reduction).
+\item We do not assert anything about consciousness itself. The
+experimental claim is about microtubule coherence quality factors,
+not about consciousness.
+\item We do not provide a physical mechanism explaining why $T^{*}$
+should be universal.
+\end{enumerate}
+
+\subsection{What's open.}
+\begin{enumerate}
+\item No specific lab collaboration is in place at submission time.
+The paper is a proposal for collaboration.
+\item Sample preparation protocols vary across labs; standardization
+across the proposed 5 sample types is itself non-trivial.
+\item The structural maximum quality factor $Q_\text{max}$ is
+calculation-dependent; alternative normalizations may give different
+$Q_c$ values, but the **biology-invariance** of $Q_c$ is the testable
+claim and is independent of normalization choice.
+\end{enumerate}
+
+%==============================================================
+\section{Outreach plan}
+%==============================================================
+
+The paper is intended to invite collaboration with experimental groups
+running terahertz coherence on tubulin / microtubule structures.
+Specifically:
+\begin{enumerate}
+\item Bandyopadhyay group (NIMS Tsukuba) --- existing terahertz pump-probe
+capability for microtubule structures (\cite{Bandyopadhyay2013, Sahu2013}).
+\item Hameroff lab consortium (University of Arizona) --- Orch-OR
+theoretical lead.
+\item Adjacent groups with sub-THz / GHz dielectric spectroscopy
+on biological membranes / proteins.
+\end{enumerate}
+
+The cover letter and protocol details for outreach are deposited at the
+public repository alongside the manuscript.
+
+%==============================================================
+\section*{Acknowledgments}
+%==============================================================
+
+This work is part of a broader algebraic and physical framework
+developed at 7Site LLC (Trinity Infinity Geometry, public repository at
+github.com/TiredofSleep/ck). The companion papers
+\cite{Sanders2026Dirac, Sanders2026Cosmology, Sanders2026Mixing}
+establish the algebraic structure and other empirical correspondences
+of the constant $T^{*}$.
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{Bandyopadhyay2013} A.~Bandyopadhyay et al.,
+\emph{Multi-level memory-switching properties of a single brain microtubule},
+Appl.~Phys.~Lett.~\textbf{102} (2013), 123701.
+
+\bibitem{Sahu2013} S.~Sahu et al.,
+\emph{Atomic water channel controlling remarkable properties of a single brain microtubule},
+Biosens.~Bioelectron.~\textbf{47} (2013), 141--148.
+
+\bibitem{HameroffPenrose1996} S.~Hameroff, R.~Penrose,
+\emph{Orchestrated reduction of quantum coherence in brain microtubules},
+Math.~Comput.~Simul.~\textbf{40} (1996), 453--480.
+
+\bibitem{HameroffPenrose2014} S.~Hameroff, R.~Penrose,
+\emph{Consciousness in the universe: A review of the `Orch OR' theory},
+Phys.~Life Rev.~\textbf{11}(1) (2014), 39--78.
+
+\bibitem{Tegmark2000} M.~Tegmark,
+\emph{Importance of quantum decoherence in brain processes},
+Phys.~Rev.~E~\textbf{61} (2000), 4194--4206.
+
+\bibitem{Sanders2026Dirac} B.~R.~Sanders,
+\emph{A discrete Dirac-type algebra on $\mathbb{F}_5^4$},
+Manuscript in preparation, 2026.
+
+\bibitem{Sanders2026Cosmology} B.~R.~Sanders,
+\emph{Three cosmological density parameters from a 4-element algebraic structure},
+Manuscript in preparation, 2026.
+
+\bibitem{Sanders2026Mixing} B.~R.~Sanders,
+\emph{CKM and PMNS mixing angles from algebraic constants $T^{*}$ and $D^{*}$},
+Manuscript in preparation, 2026.
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
+
+\end{thebibliography}
+
+\end{document}

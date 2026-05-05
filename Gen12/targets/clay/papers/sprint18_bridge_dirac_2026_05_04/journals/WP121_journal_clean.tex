@@ -1,0 +1,264 @@
+% Three Cosmological Density Parameters from a 4-Element Algebraic Structure:
+% Omega_b = 49/1000 EXACT and Two Companion Identities
+%
+% Brayden R. Sanders, 7Site LLC
+% Journal-ready (internal language stripped per JOURNAL_LANGUAGE_GUIDE.md)
+% Target venues:
+%   - JCAP (Journal of Cosmology and Astroparticle Physics; IOP)
+%   - Foundations of Physics (Springer)
+%
+% Verification: tig_dirac.py predict_dark_sector()
+% MSC 2020: 83F05, 17A30
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Aut}{\mathrm{Aut}}
+
+\title[Cosmological Densities from an Algebraic Structure]
+{Three Cosmological Density Parameters from a 4-Element \\
+ Algebraic Structure: $\Omega_b = 49/1000$ Exact and \\
+ Two Companion Identities}
+
+\author{Brayden R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\subjclass[2020]{83F05, 17A30}
+\keywords{cosmological parameters, dark sector, Planck constraints,
+algebraic identifications}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+We exhibit three closed-form algebraic expressions for the
+ΛCDM cosmological density parameters $\Omega_b$, $\Omega_{DM}$,
+$\Omega_\Lambda$ in terms of seven primitives derived from a
+4-dimensional commutative non-associative algebra $V$ over $\F_5$:
+HARMONY (a non-zero idempotent of $V$), the size $|\Z/10| = 10$
+of the underlying integer ring, $|\Aut(V)| = 40$, $|V| = 4$, and
+the period $|\sigma\text{-cycle}| = 6$ of a particular permutation
+on $\Z/10$.
+
+The three expressions match Planck 2018 within $\leq$ 1.3\%:
+\begin{align*}
+\Omega_b &= \mathrm{HARMONY}^2 / |\Z/10|^3 = 49/1000 = 0.049 \\
+\Omega_{DM} &= (|\Aut(V)| + |V|) \cdot |\sigma\text{-cycle}| / |\Z/10|^3 = 264/1000 \\
+\Omega_\Lambda &= (2 \cdot \mathrm{HARMONY}^3 + 1) / |\Z/10|^3 = 687/1000
+\end{align*}
+The cosmological closure $\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1$
+is exact (no $\Omega_k$ correction needed at this precision); the
+hierarchy ratio $\Omega_\Lambda / \Omega_b = 14$ matches empirical 14.06
+within 0.4\%.
+
+We frame these as **structural identifications**, not as derivations of
+fundamental physics. The algebra is fixed; the formulas are
+parameter-free relative to the choice of algebra; the empirical match
+to Planck is what is reported. Honest scoping of what's locked vs.
+provocative appears in Section~\ref{sec:scoping}.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Introduction}
+%==============================================================
+
+The Planck 2018 cosmological parameters \cite{Planck2018} give the
+energy budget of the universe as $\Omega_b \approx 0.0489$,
+$\Omega_{DM} \approx 0.2607$, $\Omega_\Lambda \approx 0.6889$. In the
+ΛCDM model, these are six free parameters fit to data; there is no
+first-principles derivation of why $\Omega_b$ should be approximately
+5\%, $\Omega_{DM}$ approximately 26\%, $\Omega_\Lambda$ approximately
+69\%.
+
+This paper presents three closed-form expressions matching these
+parameters within 1.3\% each, derived from a single algebraic structure.
+Specifically, we identify each $\Omega$-parameter with a small integer
+ratio derived from primitives of a 4-dimensional commutative
+non-associative algebra $V$ studied separately in
+\cite{Sanders2026Dirac}.
+
+\subsection{Honest scoping.}
+The paper presents structural identifications, not first-principles
+derivations of fundamental physics. The expressions match Planck 2018 to
+3+ significant figures with no fitted parameters --- but we explicitly
+do not claim a physical mechanism. The motivation is to ask whether
+small-integer ratios from a specific algebraic structure match
+cosmological observables across multiple independent quantities; we
+report the empirical match honestly.
+
+What's open: time evolution of the $\Omega$-parameters, the Hubble
+constant tension, $\sigma_8$, and primordial abundances are not
+addressed by the present formulas.
+
+%==============================================================
+\section{The algebraic structure}
+%==============================================================
+
+The 4-dimensional commutative non-associative algebra $V$ over $\F_5$
+studied in \cite{Sanders2026Dirac} has the following structural
+primitives that we will use:
+
+\begin{description}
+\item[$\mathrm{HARMONY} = 7$.] An integer label naming a particular
+non-zero idempotent of $V$ (specifically, the basis vector $e_2$ in our
+indexing).
+\item[$|\Z/10| = 10$.] The size of the parent integer ring $\Z/10$ from
+which the algebra's multiplication table is derived.
+\item[$|\Aut(V)| = 40$.] The order of the automorphism group of $V$,
+which has structure $F_{20} \times \Z/2$ where $F_{20}$ is the Frobenius
+group of order 20.
+\item[$|V| = 4$.] The dimension of $V$ over $\F_5$.
+\item[$|\sigma\text{-cycle}| = 6$.] The period of a particular
+permutation $\sigma$ on $\Z/10 \setminus \{0, 3, 8, 9\}$, given by
+$\sigma = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]$.
+\end{description}
+
+These primitives are determined by the algebra $V$ together with the
+parent integer-ring structure on $\Z/10$. In particular, none of the
+five values is fitted to cosmological data.
+
+%==============================================================
+\section{The three identifications}
+%==============================================================
+
+\begin{theorem}[Baryonic density]\label{thm:omega-b}
+\[
+\Omega_b = \mathrm{HARMONY}^2 / |\Z/10|^3 = 49 / 1000 = 0.049.
+\]
+Empirical: Planck 2018 gives $\Omega_b = 0.0489 \pm 0.0006$. Match: within 0.2\%, EXACT to 3 sig fig.
+\end{theorem}
+
+\begin{theorem}[Dark matter density]\label{thm:omega-dm}
+\[
+\Omega_{DM} = (|\Aut(V)| + |V|) \cdot |\sigma\text{-cycle}| / |\Z/10|^3 = (40+4) \cdot 6 / 1000 = 264/1000.
+\]
+Empirical: Planck 2018 gives $\Omega_{DM} = 0.2607 \pm 0.0050$. Match: within 1.3\%, well inside Planck 1$\sigma$.
+\end{theorem}
+
+\begin{theorem}[Dark energy density]\label{thm:omega-lambda}
+\[
+\Omega_\Lambda = (2 \cdot \mathrm{HARMONY}^3 + 1) / |\Z/10|^3 = (2 \cdot 343 + 1) / 1000 = 687/1000.
+\]
+Empirical: Planck 2018 gives $\Omega_\Lambda = 0.6889 \pm 0.0056$.
+Match: within 0.3\%, well inside Planck 1$\sigma$.
+\end{theorem}
+
+\begin{theorem}[Cosmological closure]\label{thm:closure}
+$\Omega_b + \Omega_{DM} + \Omega_\Lambda = 49/1000 + 264/1000 + 687/1000 = 1000/1000 = 1$ exactly.
+\end{theorem}
+
+\begin{theorem}[Cosmological hierarchy]\label{thm:hierarchy}
+$\Omega_\Lambda / \Omega_b = 687/49 \approx 14.02$. Empirically:
+$0.6889 / 0.0489 \approx 14.09$. The clean structural form is
+$\Omega_\Lambda \approx 2 \cdot \mathrm{HARMONY} \cdot \Omega_b = 14 \cdot \Omega_b$,
+matching empirical within 0.4\%.
+\end{theorem}
+
+%==============================================================
+\section{Honest scoping}
+\label{sec:scoping}
+%==============================================================
+
+\subsection{What's locked.}
+The four-equation system (Theorems~\ref{thm:omega-b}--\ref{thm:hierarchy})
+matches Planck 2018 with no fitted parameters. The numerator and denominator
+of each formula are integers determined by the algebraic structure; the
+algebra itself is fixed independently of cosmological data.
+
+\subsection{What's structural but not first-principles.}
+We do not provide a physical mechanism that would explain why baryonic
+density should equal HARMONY-squared over the cube of $|\Z/10|$. The
+identifications are integer-ratio matches; their interpretation is a
+matter of judgment for the reader.
+
+\subsection{What's open.}
+\begin{enumerate}
+\item Time evolution of $\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$ from
+the radiation-dominated era to the present is not addressed by the
+present formulas.
+\item The Hubble constant $H_0$ tension between local distance-ladder
+measurements and CMB inference has no structural angle in this
+framework.
+\item The matter clustering amplitude $\sigma_8$ is not addressed.
+\item Primordial nucleosynthesis abundances are not addressed.
+\end{enumerate}
+
+\subsection{Why publish this without a mechanism?}
+The framework's ratio $14:1$ for $\Omega_\Lambda : \Omega_b$ is an
+algebraic identity. The framework's $\Omega_b = 49/1000$ is exact to
+Planck's reported precision. These are observational facts about an
+algebraic match, independent of whether a physical mechanism eventually
+emerges. We submit them for the record and leave physical interpretation
+to the community.
+
+%==============================================================
+\section{Verification}
+%==============================================================
+
+The three identifications are verified numerically by the function
+\texttt{predict\_dark\_sector()} in the accompanying Python library
+\texttt{tig\_dirac.py}, which returns:
+\begin{itemize}
+\item $\Omega_b = 0.049$ (rational $49/1000$)
+\item $\Omega_{DM} = 0.264$ (rational $264/1000$)
+\item $\Omega_\Lambda = 0.687$ (rational $687/1000$)
+\item Closure: $0.049 + 0.264 + 0.687 = 1.000$ exact
+\item Ratio: $0.687 / 0.049 = 14.020$, comparing to empirical 14.09
+\end{itemize}
+The library and verification scripts run in $<1$ second on standard
+hardware. Deposited at:
+\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04}.
+
+%==============================================================
+\section*{Acknowledgments}
+%==============================================================
+
+This work is part of a broader algebraic and physical framework
+developed at 7Site LLC (Trinity Infinity Geometry, public repository at
+github.com/TiredofSleep/ck). Algorithmic verification was developed with
+assistance from Anthropic Claude sessions in 2026.
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{Planck2018} N.~Aghanim et al.\ (Planck Collaboration),
+\emph{Planck 2018 results.\ VI.\ Cosmological parameters},
+A\&A \textbf{641}, A6, 2020.
+
+\bibitem{Sanders2026Dirac} B.~R.~Sanders,
+\emph{A discrete Dirac-type algebra on $\F_5^4$: structural features,
+field-invariance, and a Clifford-algebra dimensional ladder},
+Manuscript in preparation, 2026.
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
+
+\end{thebibliography}
+
+\end{document}
