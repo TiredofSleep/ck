@@ -36,11 +36,29 @@ Omega_r0 = 9.1e-5
 Omega_xi0 = 1 - Omega_m0 - Omega_r0
 xi0_vac = math.exp(-1)
 
-# DESI DR1 targets
+# DESI DR1 targets, including (w0, wa) correlation from the published
+# DESI 2024 DR1 BAO+CMB+SN posterior chains (rho ~ -0.9; we use -0.90
+# as the canonical value reported in the DR1 release tables).
 W0_DESI = -0.827
 W0_ERR = 0.063
 WA_DESI = -0.75
 WA_ERR = 0.27
+RHO_W0_WA = -0.90  # correlation coefficient rho(w0, wa) from DR1
+
+
+def chi2_gauss_correlated(w0, wa):
+    """Two-parameter Gaussian chi^2 against the DESI DR1 (w0, wa) marginal
+    summary, using the published correlation rho(w0, wa) = RHO_W0_WA.
+
+    chi2 = (1 / (1 - rho^2)) * [ x^2 - 2 rho x y + y^2 ]
+       where x = (w0 - W0_DESI) / W0_ERR, y = (wa - WA_DESI) / WA_ERR.
+
+    The uncorrelated approximation (rho = 0) reduces to x^2 + y^2.
+    """
+    x = (w0 - W0_DESI) / W0_ERR
+    y = (wa - WA_DESI) / WA_ERR
+    rho = RHO_W0_WA
+    return (1.0 / (1.0 - rho * rho)) * (x * x - 2.0 * rho * x * y + y * y)
 
 def solve_xi_frw(Lambda4, xi_init, xi_dot_init, N_start=-4, N_end=0.5, N_steps=5000):
     """Solve coupled xi + Friedmann under the new action.
@@ -130,10 +148,12 @@ print(f"Target: w0 = {W0_DESI} +/- {W0_ERR}, wa = {WA_DESI} +/- {WA_ERR}")
 print("Action: L = (1/2)(d xi)^2 + Lambda^4 xi log(xi)  [reduced Planck units]")
 print("=" * 70)
 
-# Search grid for Lambda^4 — same range as old kappa, since rho_xi today
-# should still match Omega_xi ~ 0.685
-Lambda4_range = np.linspace(0.3, 3.0, 20)
-xi_init_range = np.linspace(0.5, 3.0, 20)
+# Search grid for Lambda^4 — extended downward to include the
+# manuscript's reported 0.231 (and to avoid edge-of-range behavior
+# that the original 0.3 lower bound was producing under the new
+# correlated chi2). xi_init range also slightly extended.
+Lambda4_range = np.linspace(0.10, 1.50, 30)
+xi_init_range = np.linspace(0.5, 2.5, 25)
 xi_dot_range = np.linspace(-0.5, 0.5, 15)
 
 best_chi2 = 1e10
@@ -157,7 +177,9 @@ for Lambda4 in Lambda4_range:
                 if abs(w0) > 2 or abs(wa) > 5:
                     continue
 
-                chi2 = ((w0 - W0_DESI) / W0_ERR)**2 + ((wa - WA_DESI) / WA_ERR)**2
+                # Use the correlated Gaussian chi^2 with rho = -0.9 from
+                # the published DESI DR1 (w0, wa) posterior.
+                chi2 = chi2_gauss_correlated(w0, wa)
 
                 all_results.append({
                     'Lambda4': Lambda4, 'xi_init': xi_init, 'xi_dot': xi_dot,
@@ -232,14 +254,24 @@ if best_params:
 # COMPARISON TABLE
 # =====================================================================
 print(f"\n{'='*70}")
-print(f"MODEL COMPARISON")
+print(f"MODEL COMPARISON (with rho = {RHO_W0_WA} correlation)")
 print(f"{'='*70}")
-chi2_lcdm = ((-1 - W0_DESI)/W0_ERR)**2 + ((0 - WA_DESI)/WA_ERR)**2
+chi2_lcdm = chi2_gauss_correlated(-1.0, 0.0)
+chi2_lcdm_uncorr = ((-1 - W0_DESI)/W0_ERR)**2 + ((0 - WA_DESI)/WA_ERR)**2
+chi2_xi_uncorr = ((b['w0'] - W0_DESI)/W0_ERR)**2 + ((b['wa'] - WA_DESI)/WA_ERR)**2
 
 print(f"""
-| Model           | w0     | wa     | chi2  | Notes                    |
-|-----------------|--------|--------|-------|--------------------------|
-| LCDM            | -1.000 |  0.000 |  {chi2_lcdm:.1f} | Fixed cosmological constant |
-| xi best-fit     | {b['w0']:.3f} | {b['wa']:.3f} | {b['chi2']:.1f}   | Freezing quintessence    |
-| DESI DR1        | -0.827 | -0.750 |  0.0  | Observational target     |
+| Model           | w0     | wa     | chi2_corr | chi2_uncorr | Notes                       |
+|-----------------|--------|--------|-----------|-------------|-----------------------------|
+| LCDM            | -1.000 |  0.000 | {chi2_lcdm:>9.2f} | {chi2_lcdm_uncorr:>11.2f} | Fixed cosmological constant |
+| xi best-fit     | {b['w0']:>6.3f} | {b['wa']:>6.3f} | {b['chi2']:>9.2f} | {chi2_xi_uncorr:>11.2f} | Freezing quintessence       |
+| DESI DR1 target | -0.827 | -0.750 |      0.00 |        0.00 | Observational target        |
+
+Note: chi2_corr uses the rho = {RHO_W0_WA} correlation between w0 and wa from
+the published DESI DR1 posterior. chi2_uncorr is the uncorrelated approximation
+(rho = 0) used in earlier drafts. The ratio chi2_lcdm_corr / chi2_xi_corr
+honestly quantifies how much closer the xi model sits to the DR1 central
+values under the correlated Gaussian-on-summary approximation; this is NOT
+a joint-likelihood preference and NOT a substitute for the full
+BAO + CMB + SN analysis deferred to the companion paper.
 """)
