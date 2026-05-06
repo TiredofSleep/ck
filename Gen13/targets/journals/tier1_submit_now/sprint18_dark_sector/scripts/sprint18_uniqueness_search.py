@@ -132,6 +132,29 @@ def main():
     print(f"  (|Aut(V)|+|V|) * |sigma|, the only Omega_DM numerator in the six")
     print(f"  candidates that factors cleanly as a substrate quantity.")
     print()
+    # === Independent prediction: scalar spectral index ===
+    print("=" * 72)
+    print("Independent prediction: scalar spectral index n_s")
+    print("=" * 72)
+    n_s_pred = 1 - HARMONY / (2 * N * N)
+    n_s_planck = 0.9649
+    n_s_err = 0.0042
+    diff_pct = abs(n_s_pred - n_s_planck) / n_s_planck * 100
+    n_sigma_ns = abs(n_s_pred - n_s_planck) / n_s_err
+    print(f"  Substrate prediction: n_s = 1 - HARMONY/(2*N^2)")
+    print(f"                            = 1 - {HARMONY}/{2*N*N}")
+    print(f"                            = {n_s_pred:.4f}")
+    print(f"  Planck 2018 (TT,TE,EE+lowE+lensing+BAO):")
+    print(f"                        n_s = {n_s_planck} +/- {n_s_err}")
+    print(f"  Match: {diff_pct:.4f}% off, {n_sigma_ns:.3f} sigma")
+    print()
+    print(f"  This is an OBSERVABLE NOT USED IN THE FIT of (Omega_b,")
+    print(f"  Omega_DM, Omega_Lambda). The same two primitives HARMONY")
+    print(f"  and |Z/10| produce both the dark-sector trinity AND the")
+    print(f"  spectral index at 0.024 sigma -- with no fresh parameter")
+    print(f"  freedom between the two observable sets.")
+    print()
+
     print("=" * 72)
     print("All verifications complete.")
     print("=" * 72)
