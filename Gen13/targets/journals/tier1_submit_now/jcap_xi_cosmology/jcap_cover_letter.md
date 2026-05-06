@@ -11,9 +11,7 @@ brayden@7site.co
 **Manuscript title:** Logarithmic Quintessence: A Dimensionless Scalar
 Dark Energy Model with an Analytic Vacuum
 
-**Co-authors:** M. Gish (Independent Researcher, Hot Springs, AR);
-H. J. Johnson ([CONFIRM AFFILIATION: Independent Researcher / MSU
-Billings])
+**Co-author:** M. Gish (Independent Researcher, Hot Springs, AR)
 
 ---
 

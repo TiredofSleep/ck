@@ -47,8 +47,8 @@ The result fits the JCT-A profile in three ways:
    solutions in Case 3.B-i of the proof, closing the residual count.
 3. **σ → 0 as a counterpoint.** The result gives an explicit O(1/N)
    bound in the σ → 0 regime, which is opposite in direction to the
-   maximally-non-associative quasigroup program (Drápal, Kepka,
-   Vojtěchovský; Stones et al.) where σ → 1.
+   maximally-non-associative quasigroup program (Drápal, Kepka, and
+   collaborators) where σ → 1.
 
 ## Companion submissions
 
@@ -78,16 +78,9 @@ manuscript.
 
 ## Suggested reviewers
 
-[BRAYDEN: fill in 2-3 names before submission. ClaudeChat audit
-suggested candidates from the cited literature:
-  - Aleš Drápal (Charles University) — author of cited
-    Drápal-Wanless / Drápal-Kepka quasigroup-distance papers.
-  - Ian Wanless (Monash University) — author of cited
-    Drápal-Wanless 2019.
-  - Petr Vojtěchovský (University of Denver) — active in
-    finite-quasigroup combinatorics, not a coauthor of the cited
-    works (avoids COI concern).
-Confirm at least one is not a personal contact before submission.]
+We will provide suggested reviewers through the JCT-A submission
+portal's reviewer-recommendation field rather than in this cover
+letter.
 
 ## Conflict of interest
 

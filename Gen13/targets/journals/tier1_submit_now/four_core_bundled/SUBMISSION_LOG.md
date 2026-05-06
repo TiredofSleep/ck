@@ -1,30 +1,62 @@
 # Submission Log — 4-core seed / Communications in Algebra
 
-## Status as of 2026-05-06: ON HOLD — see `HOLD_PENDING_AUDIT.md`
+## Status as of 2026-05-06: PATH B IN PROGRESS — consolidated v3 drafted
 
 ClaudeChat round-3 audit (2026-05-06 morning) caught a fatal flaw
 in the v1 Theorem 2 framing: the "normalizer identity"
 `Z_T(p) = Z_B(p) = (v+h+β+r)²` on 𝓒-supported `p` is the trivial
 total-mass identity — it holds for any pair of binary operations on
 Z/10, regardless of joint closure or cell agreement, by elementary
-bilinearity. v2 manuscript demotes Theorem 2 to Proposition 5.1
-(per-coordinate fuse data) and adds five other line-by-line fixes.
-Even with the v2 fixes, the seed-narrow scope is too thin for
-Comm. Algebra. **Recommendation: Path B (wait for companion +
-consolidate, submit to *Algebraic Combinatorics*).** See
-`HOLD_PENDING_AUDIT.md` for full details.
+bilinearity. v2 manuscript demoted Theorem 2 to Proposition 5.1
+(per-coordinate fuse data) and added five other line-by-line fixes.
 
-## Manuscript
-- **Title:** Joint Closure of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$:
-  an Eight-Element Chain and Per-Coordinate Fuse Data on the 4-Core
-  *(v2 retitled per audit demotion of normalizer claim)*
+**Path B chosen by Brayden 2026-05-06 morning.** The consolidated
+v3 manuscript `four_core_consolidated.tex` (1260 lines, 48/48 LaTeX
+balanced) integrates the v2 seed (chain + per-coordinate fuse data)
+with bridge-sprint material WP105 (closed-form attractor at α=1/2
+with `H/Br = 1+√3`), WP110 (4-core fusion-closure), and WP113
+(α-uniqueness PSLQ Stern-Brocot scan), targeting
+*Algebraic Combinatorics*.
+
+The consolidated paper has three theorem-level results:
+1. Theorem 1 (chain): 8-element joint-closure chain
+2. Proposition 5.1 (fuse data): per-coordinate symbolic forms +
+   rank disparity on the 4-core
+3. Theorem 7 + Theorem 8 (closed-form attractor): unique attractor
+   `p*` of `F_{1/2}` on `Δ³_𝓒` with `H/Br = 1+√3` and
+   `R/Br` = unique positive root of `x⁴ + 4x³ - x² + 2x - 2`
+   (Galois `D_4`, LMFDB 4.2.10224.1)
+4. Conjecture 9.1 (α-uniqueness): empirically supported by PSLQ
+   over Stern-Brocot grid up to denominator 7
+
+Active source: `four_core_consolidated.tex`.
+Active cover letter: `four_core_consolidated_cover_letter.md`.
+Held source: `four_core_seed.tex` (v2, kept on disk; superseded by
+consolidated for AC submission). v1 cover letter still archived
+in `master/four_core_seed_cover_letter_v1_HELD.md`.
+
+## Manuscript (active, Path B consolidated v3)
+- **Title:** Joint Closure, Per-Coordinate Fuse Data, and a
+  Closed-Form Algebraic Attractor of Two Commutative Binary
+  Operations on $\mathbb{Z}/10\mathbb{Z}$
 - **Authors:** B. R. Sanders, M. Gish
-- **Source file:** `four_core_seed.tex` (v2, ~700 lines, 34/34 LaTeX balanced)
-  - This is the **seed-narrow extraction** from the bundled draft
-    (5 theorems → 1 theorem + 1 proposition: chain + per-coordinate fuse data)
-- **Cover letter:** `four_core_seed_cover_letter.md` *(NEEDS REWRITE per audit)*
-- **Verification script:** `4core_verification.py`
+- **Source file:** `four_core_consolidated.tex` (1260 lines, 48/48 LaTeX balanced)
+- **Cover letter:** `four_core_consolidated_cover_letter.md`
+- **Verification scripts (5):** `4core_verification.py` plus
+  `04_bridge_attractor.py`, `06_attractor_closed_form.py`,
+  `07_full_closed_form.py`, `alpha_pslq_sweep.py` (the latter four
+  to be copied from `papers/wp105_closed_form_attractor/verification/`
+  and `papers/wp113_alpha_uniqueness/verification/` into this
+  folder before submission, or referenced via the shared deposit)
 - **Zenodo DOI (shared):** 10.5281/zenodo.18852047
+
+## v2 seed (held; superseded by consolidated)
+- **Title:** Joint Closure of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$
+  and Per-Coordinate Fuse Data on the 4-Core
+- **Source file:** `four_core_seed.tex` (v2, ~700 lines, 34/34 LaTeX balanced)
+- **Cover letter:** v1 archived in `master/four_core_seed_cover_letter_v1_HELD.md`
+- **Reason held:** seed-narrow scope too thin for AC even with audit
+  fixes; consolidated paper is the AC submission target.
 
 ## Strategic note: redirected from Algebraic Combinatorics
 
