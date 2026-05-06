@@ -198,12 +198,73 @@ def main():
         print(f"   which is what the cosmological formula uses).")
     print()
 
+    # =========================================================================
+    # SANITY CHECK: |Aut(V)| = 40 IS NOT |Aut(C, T)| OR |Aut(C, B)|
+    # =========================================================================
+    # The 4-element magma C = {0, 7, 8, 9} under TIG's TSML/BHML composition has
+    # only a small symmetry group; the "40" arises ONLY AFTER the F_5-lift.
+    # Verify this directly so the manuscript's construction is unambiguous.
+
+    print("Sanity check: 4-element magma's own automorphism counts")
+    print("  (under the original TSML/BHML restricted to {0, 7, 8, 9}):")
+
+    # CL fuse table T (TSML) restricted to 4-core {0, 7, 8, 9}.
+    T_4core = {
+        (0, 0): 0, (0, 7): 7, (0, 8): 0, (0, 9): 0,
+        (7, 0): 7, (7, 7): 7, (7, 8): 7, (7, 9): 7,
+        (8, 0): 0, (8, 7): 7, (8, 8): 7, (8, 9): 7,
+        (9, 0): 0, (9, 7): 7, (9, 8): 7, (9, 9): 7,
+    }
+    # BHML B restricted to 4-core (per Sanders-Gish 2026 four-core-seed Table 2).
+    B_4core = {
+        (0, 0): 0, (0, 7): 0, (0, 8): 8, (0, 9): 9,
+        (7, 0): 0, (7, 7): 7, (7, 8): 8, (7, 9): 9,
+        (8, 0): 8, (8, 7): 8, (8, 8): 8, (8, 9): 8,
+        (9, 0): 9, (9, 7): 9, (9, 8): 8, (9, 9): 9,
+    }
+    elements = (0, 7, 8, 9)
+    from itertools import permutations
+
+    def count_aut(table):
+        n = 0
+        for perm in permutations(elements):
+            phi = dict(zip(elements, perm))
+            ok = all(phi[table[(a, b)]] == table[(phi[a], phi[b])]
+                     for a in elements for b in elements)
+            if ok:
+                n += 1
+        return n
+
+    aut_T = count_aut(T_4core)
+    aut_B = count_aut(B_4core)
+    aut_TB = sum(
+        1 for perm in permutations(elements)
+        if all(
+            dict(zip(elements, perm))[T_4core[(a, b)]] == T_4core[(dict(zip(elements, perm))[a], dict(zip(elements, perm))[b])]
+            and dict(zip(elements, perm))[B_4core[(a, b)]] == B_4core[(dict(zip(elements, perm))[a], dict(zip(elements, perm))[b])]
+            for a in elements for b in elements
+        )
+    )
+    print(f"  |Aut(C, T)|       = {aut_T}")
+    print(f"  |Aut(C, B)|       = {aut_B}")
+    print(f"  |Aut(C, T) cap B| = {aut_TB}")
+    print()
+    print(f"  None of these is 40. The 40 in |Aut(V)| arises ONLY")
+    print(f"  AFTER the F_5-bilinear extension that defines V; it is")
+    print(f"  the count of F_5-LINEAR multiplication-preserving")
+    print(f"  bijections of the 625-element algebra V, NOT of the")
+    print(f"  4-element magma C itself.")
+    print()
+
     print("=" * 72)
-    print(f"|Aut(V)| = 40 verified")
+    print(f"|Aut(V)| = 40 verified for the F_5-LIFT V (5^4 = 625 elements)")
     print(f"Therefore |Aut(V)| + |V| = 40 + 4 = 44")
     print(f"With |sigma-cycle| = 6 (from sigma-rate companion paper),")
     print(f"  the dark-matter numerator is (40 + 4) * 6 = 264")
     print(f"  giving Omega_DM = 264/1000 = 0.264.")
+    print()
+    print(f"The naturalness of the F_5-lift is a substrate-construction")
+    print(f"question flagged as open in the manuscript's section 2.")
     print("=" * 72)
 
 

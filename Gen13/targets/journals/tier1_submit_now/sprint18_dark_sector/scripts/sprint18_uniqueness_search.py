@@ -144,27 +144,45 @@ def main():
     print(f"  (|Aut(V)|+|V|) * |sigma|, the only Omega_DM numerator in the six")
     print(f"  candidates that factors cleanly as a substrate quantity.")
     print()
-    # === Independent prediction: scalar spectral index ===
+    # === Consistency check (NOT prediction): scalar spectral index ===
     print("=" * 72)
-    print("Independent prediction: scalar spectral index n_s")
+    print("Consistency check (NOT prediction): scalar spectral index n_s")
     print("=" * 72)
-    n_s_pred = 1 - HARMONY / (2 * N * N)
+    n_s_match = 1 - HARMONY / (2 * N * N)
     n_s_planck = 0.9649
     n_s_err = 0.0042
-    diff_pct = abs(n_s_pred - n_s_planck) / n_s_planck * 100
-    n_sigma_ns = abs(n_s_pred - n_s_planck) / n_s_err
-    print(f"  Substrate prediction: n_s = 1 - HARMONY/(2*N^2)")
-    print(f"                            = 1 - {HARMONY}/{2*N*N}")
-    print(f"                            = {n_s_pred:.4f}")
+    diff_pct = abs(n_s_match - n_s_planck) / n_s_planck * 100
+    n_sigma_ns = abs(n_s_match - n_s_planck) / n_s_err
+    print(f"  Small-integer expression: n_s = 1 - HARMONY/(2*N^2)")
+    print(f"                                = 1 - {HARMONY}/{2*N*N}")
+    print(f"                                = {n_s_match:.4f}")
     print(f"  Planck 2018 (TT,TE,EE+lowE+lensing+BAO):")
-    print(f"                        n_s = {n_s_planck} +/- {n_s_err}")
+    print(f"                            n_s = {n_s_planck} +/- {n_s_err}")
     print(f"  Match: {diff_pct:.4f}% off, {n_sigma_ns:.3f} sigma")
     print()
-    print(f"  This is an OBSERVABLE NOT USED IN THE FIT of (Omega_b,")
-    print(f"  Omega_DM, Omega_Lambda). The same two primitives HARMONY")
-    print(f"  and |Z/10| produce both the dark-sector trinity AND the")
-    print(f"  spectral index at 0.024 sigma -- with no fresh parameter")
-    print(f"  freedom between the two observable sets.")
+    print(f"  HONEST BASELINE: among small-integer candidate forms")
+    print(f"    n_s = 1 - a*HARMONY^p / (b*N^q),")
+    print(f"  with a,b in 1..20, p,q in 1..3 (3600 tuples), how many")
+    print(f"  hit Planck within 1 sigma?")
+    hits_1sigma = 0
+    hits_exact = 0
+    for a in range(1, 21):
+        for b in range(1, 21):
+            for p in (1, 2, 3):
+                for q in (1, 2, 3):
+                    ns = 1 - a * (HARMONY**p) / (b * (N**q))
+                    if abs(ns - n_s_planck) < n_s_err:
+                        hits_1sigma += 1
+                    if abs(ns - 0.9650) < 1e-9:
+                        hits_exact += 1
+    pct = 100.0 * hits_1sigma / 3600
+    print(f"    {hits_1sigma} / 3600 = {pct:.2f}% within 1 sigma")
+    print(f"    {hits_exact} tuples give 0.9650 exactly")
+    print()
+    print(f"  Conclusion: the match is suggestive, not a Bayesian update.")
+    print(f"  It becomes load-bearing only if the specific form")
+    print(f"  HARMONY/(2*|Z/10|^2) has an independent structural")
+    print(f"  derivation (open in present manuscript).")
     print()
 
     print("=" * 72)

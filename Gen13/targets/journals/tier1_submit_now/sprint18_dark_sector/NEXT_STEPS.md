@@ -1,7 +1,41 @@
 # Sprint 18 — Dark-Sector Trinity — Next Steps
 
-**Status:** Working draft + verification script committed.
+**Status:** Working draft + verification scripts committed.
+Recalibrated 2026-05-06 morning per claudechat audit (n_s baseline +
+V-naturalness flagging).
 **Created:** 2026-05-05 night (Scenario A continuation).
+
+## Audit calibration (post claudechat scrutiny pass)
+
+Two flags landed and were addressed in-place:
+
+1. **n_s match is suggestive, not Bayesian.** Baseline search shows
+   86/3600 = 2.39% of small-integer forms `1 - a*H^p/(b*N^q)` hit
+   Planck within 1σ; 18 tuples give 0.9650 exactly. Picking the
+   specific tuple `1 - 7/(2·100)` is a ~2.4% baseline event. The
+   manuscript now frames §7 as **"consistency"** not **"prediction"**
+   and discloses the baseline. A genuine independent prediction
+   remains open until the form has a structural derivation.
+
+2. **|Aut(V)| = 40 is for the F_5-lift V, NOT the 4-core magma.**
+   Direct enumeration: |Aut(C, T)| = 2, |Aut(C, B)| = 1,
+   |Aut(C, T) ∩ Aut(C, B)| = 1. None is 40. The 40 arises only
+   AFTER the F_5-bilinear extension. Manuscript §2 now defines V
+   explicitly with the construction and adds a **caveat paragraph**
+   noting the magma counts and flagging the naturalness of the
+   F_5-lift as open. Verification script
+   `verify_aut_V_order.py` reproduces the magma counts as a sanity
+   check.
+
+**What stays load-bearing (unaffected by audit):**
+- The dark-sector trinity (Ω_b, Ω_DM, Ω_Λ all within 1σ + integer
+  closure). Joint uniqueness within 784 (H,N) pairs is the
+  load-bearing claim.
+- The Λ scale match 1.74 vs 1.7 meV (2.5%).
+- ρ_DE,0/Λ⁴ ≈ 2.97 ≈ 3 at the JCAP fit (consistency check, ~1%).
+- Closure picking a = +1 by factorization 264 = 44·6 (the 44 and
+  6 ARE documented; the (|Aut(V)|+|V|) decomposition strength
+  depends on V-naturalness, but the integer is the same either way).
 
 ## What's done
 

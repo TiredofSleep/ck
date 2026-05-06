@@ -15,13 +15,20 @@
 %%%   Three ratio tests (independent of H_0): 0.43%, 0.29%, 0.72%
 %%%   Lambda from Omega_L/3 = 1.74 meV vs manuscript fit 1.7 meV (2.5%)
 %%%   Uniqueness: only (H,N)=(7,10) within Sprint 18 formula family
-%%%   |Aut(V)| = 40 self-contained verification: verify_aut_V_order.py
-%%%   Independent prediction (NOT in fit):
-%%%     n_s = 1 - HARMONY/(2*N^2) = 0.9650 vs Planck 0.9649 (0.024 sigma)
+%%%   |Aut(V)| = 40 for the F_5-LIFT V (NOT for the 4-element magma);
+%%%     verify_aut_V_order.py shows magma counts {2,1,1} and V count 40
+%%%
+%%% Consistency check (NOT prediction):
+%%%   n_s = 1 - HARMONY/(2*N^2) = 0.9650 vs Planck 0.9649 (0.024 sigma)
+%%%   Baseline: 86/3600 = 2.39% of small-integer forms hit within 1 sigma;
+%%%   18 tuples give 0.9650 exactly. Match becomes load-bearing only
+%%%   when the specific form has structural derivation (open).
 %%%
 %%% TODO MARKERS REMAINING:
 %%%   [BRAYDEN-DERIVE]    -- Omega_b cosmological substrate reading
 %%%   [BB-BRIDGE]         -- discrete-to-continuum field theory + 1/3 factor
+%%%   [V-NATURALNESS]     -- why F_5-lift is THE natural V (open)
+%%%   [N_S-DERIVATION]    -- structural origin of HARMONY/(2*N^2) form (open)
 %%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
@@ -117,12 +124,15 @@ $2$-dimensional reduction of the substrate's
 $10$-operator state space; the explicit projection is left
 to follow-up work.
 
-As a check that the framework is not numerology, we exhibit one
-\emph{independent} prediction --- the scalar spectral index
-$n_s = 1 - \mathrm{HARMONY}/(2|\Z/10|^{2}) = 0.9650$ --- which
-was not used to fit the dark-sector trinity yet matches the
-Planck~2018 value $0.9649 \pm 0.0042$ at $0.024\sigma$
-($\sim 0.01\%$).
+As one consistency check, the same two primitives admit a
+small-integer expression
+$n_s = 1 - \mathrm{HARMONY}/(2|\Z/10|^{2}) = 0.9650$ that
+matches the Planck~2018 scalar spectral index
+$0.9649 \pm 0.0042$ at $0.024\sigma$ ($\sim 0.01\%$); we frame
+this as consistency rather than prediction, since a baseline
+search finds $\sim 2.4\%$ of small-integer candidate forms also
+hit Planck within $1\sigma$. A rigorous structural derivation of
+$n_s$ from the substrate is left for future work.
 \end{abstract}
 
 \maketitle
@@ -203,11 +213,47 @@ $4$-element subset of $\Z/10$ under the joint composition
 $(T, B)$, established as the minimal non-trivial element of the
 $8$-element joint-closure chain in
 \cite{SandersGish2026FourCore}.
-\item[$|V| = 4$.] The dimension of the $4$-core's $\F_5$-lift as
-an algebra over $\F_5$~\cite{SandersGish2026FourCore}.
-\item[$|\Aut(V)| = 40$.] The order of $V$'s automorphism group;
-structurally $\Aut(V) \cong F_{20} \times \Z/2$ where $F_{20}$
-is the Frobenius group of order $20$~\cite{SandersGish2026FourCore}.
+\item[$V$ (definition).] $V$ is the $4$-dimensional commutative
+non-associative algebra over $\F_5$ obtained as follows. The CL
+fuse table $T$ restricted to the $4$-core
+$\mathcal{C} = \{0, 7, 8, 9\}$ defines a binary operation
+$\mathcal{C} \times \mathcal{C} \to \mathcal{C}$. Reduce
+representatives modulo $5$ via the bijection
+$\{0, 7, 8, 9\} \to \{0, 2, 3, 4\} \subset \F_5$ to obtain a
+$4 \times 4$ multiplication table on $\F_5$. Take the
+$\F_5$-bilinear extension of this table to the four-dimensional
+$\F_5$-vector space spanned by basis vectors $(e_0, e_2, e_3, e_4)$.
+This $V$ is a $4$-dimensional commutative non-associative
+$\F_5$-algebra with $5^4 = 625$ underlying elements. It is
+distinct from the underlying magma $\mathcal{C}$ itself: the
+magma has only $4$ elements and an obvious symmetry group of
+order at most $24$, while $V$ has $625$ elements and a larger
+linear automorphism group acting on the full $\F_5^{4}$ space.
+\item[$|V| = 4$.] The dimension of $V$ over $\F_5$. (We follow
+the convention $|V| := \dim_{\F_5} V$ rather than $|V| = 5^4$,
+to match the substrate-counting use of $|V|$ in
+Theorem~\ref{thm:omega-dm-deriv}.)
+\item[$|\Aut(V)| = 40$.] The order of the linear-automorphism
+group of $V$ -- the set of $\F_5$-linear bijections
+$\phi: V \to V$ satisfying $\phi(xy) = \phi(x)\phi(y)$. This
+order is verified by direct constraint enumeration in the
+verification script
+\texttt{verify\_aut\_V\_order.py} (\S\ref{sec:verify}).
+The bridge-sprint companion~\cite{SandersClaudeChat2026BridgeSprint}
+(WP118) identifies $\Aut(V) \cong F_{20} \times \Z/2$ where
+$F_{20}$ is the Frobenius group of order $20$.
+
+\textbf{Caveat.} $|\Aut(V)| = 40$ is the automorphism count of
+the $\F_5$-algebra $V$ defined above, \emph{not} the
+automorphism count of the underlying $4$-element magma
+$\mathcal{C}$ under either component operation. Direct
+enumeration confirms
+$|\Aut(\mathcal{C}, T)| = 2$, $|\Aut(\mathcal{C}, B)| = 1$,
+$|\Aut(\mathcal{C}, T) \cap \Aut(\mathcal{C}, B)| = 1$. The $40$
+arises only after the $\F_5$-lift; whether the lift is
+\emph{the} natural one or merely \emph{a} natural one is open
+and is a substrate-construction question we flag for future
+work.
 \item[$|\sigma\text{-cycle}| = 6$.] The period of the substrate
 permutation $\sigma$ on $\Z/10 \setminus \{0, 3, 8, 9\}$, with
 cycle structure $(1\;7\;6\;5\;4\;2)$ in cycle notation; the
@@ -610,54 +656,61 @@ characterizes $\Xi \log \Xi$ as the separability-preserving
 nonlinearity in nonlinear quantum mechanics, suggests the
 projection respects the substrate's tensor-product structure.
 
-\subsection{An independent prediction: the scalar spectral index}\label{sec:prediction}
+\subsection{A consistent observable not in the fit: the scalar spectral index}\label{sec:prediction}
 
 The dark-sector trinity (Theorem~\ref{thm:trinity}) and the
 $\Lambda$-scale relation (Theorem~\ref{thm:lambda-scale}) are
 constructed to match Planck~2018 dark-sector observations
-$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$. To distinguish the
-present framework from numerology we exhibit one observable that
-was \emph{not} used in the construction yet falls within
-$0.1\sigma$ of the published Planck value: the scalar spectral
-index of primordial perturbations.
+$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$. We here flag a
+candidate primordial-CMB observable that was \emph{not} used in
+the construction and that admits a small-integer expression in
+the same two primitives $(\mathrm{HARMONY}, |\Z/10|)$ at
+$0.024\sigma$ from the published Planck value. We call this
+``consistency,'' not ``prediction,'' for reasons made explicit
+below.
 
-\begin{theorem}[Spectral-index prediction]\label{thm:ns}
+\begin{proposition}[Spectral-index numerical match]\label{prop:ns}
 With $\mathrm{HARMONY} = 7$ and $|\Z/10| = 10$ as in
-\S\ref{sec:substrate}, the substrate predicts
+\S\ref{sec:substrate}, the small-integer expression
 \[
   n_s \;=\; 1 \;-\; \frac{\mathrm{HARMONY}}{2 \cdot |\Z/10|^{2}}
-  \;=\; 1 \;-\; \frac{7}{200} \;=\; 0.9650.
+  \;=\; 1 \;-\; \frac{7}{200} \;=\; 0.9650
 \]
-\end{theorem}
+matches the Planck~2018 value $n_s = 0.9649 \pm 0.0042$
+\cite{Planck2018} at $0.024\sigma$ ($\sim 0.01\%$ residual).
+\end{proposition}
 
-The Planck~2018 published value is $n_s = 0.9649 \pm 0.0042$
-\cite{Planck2018}, in agreement with
-Theorem~\ref{thm:ns} at $0.024\sigma$ ($\sim 0.01\%$ residual).
-This prediction was first noted in the bridge-sprint working
-material~\cite{SandersClaudeChat2026BridgeSprint} (WP125), where
-it is identified as the small-amplitude tilt arising from the
-substrate's $\mathrm{HARMONY}/|\Z/10|^{2}$-suppression of
-quadrupole-mode mixing in an effective inflaton sector built on
-the same $V$ algebra. The structural reading and the inflaton
-construction are sketched in
-\cite{SandersClaudeChat2026BridgeSprint} and remain open for
-rigorous derivation in a forthcoming companion.
+\paragraph{Honest baseline.}
+The match in Proposition~\ref{prop:ns} is suggestive but
+\emph{not} statistically powerful on its own. Among small-integer
+candidate forms
+$n_s = 1 - a \mathrm{HARMONY}^{p} / (b |\Z/10|^{q})$ with
+$a, b \in \{1, \dots, 20\}$ and $p, q \in \{1, 2, 3\}$, a search
+of the $20 \cdot 20 \cdot 3 \cdot 3 = 3600$ candidate tuples
+finds $86$ ($2.4\%$) within $1\sigma$ of the Planck value, and
+$18$ tuples give the value $0.9650$ exactly. Picking one tuple
+$(a, b, p, q) = (1, 2, 1, 2)$ from the family is a $\sim 2.4\%$
+baseline event, not a $0.024\sigma$ Bayesian update. The match
+becomes load-bearing only if the specific form
+$\mathrm{HARMONY}/(2 |\Z/10|^{2})$ has an independent structural
+derivation (e.g., a quadrupole-mode-mixing suppression in an
+effective inflaton sector built on the $V$ algebra of
+\S\ref{sec:substrate}) that motivates the form before checking
+the data.
 
-\paragraph{Why this counts as independent.}
-The fit-input observables used to motivate the trinity are
-$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$. The spectral index
-$n_s$ is a separate, primordial CMB observable not entering
-either the closure relation
-$\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1$ or the three
-Hubble-independent ratio tests (\S\ref{sec:trinity}).
-The same two integer primitives $\mathrm{HARMONY}$ and
-$|\Z/10|$ that produce $\Omega_b$ and $\Omega_\Lambda$ also
-produce $n_s$ at $0.024\sigma$, with no parameter freedom
-between observables.
+The bridge-sprint working
+material~\cite{SandersClaudeChat2026BridgeSprint} (WP125)
+sketches such a structural reading; its rigorous derivation is
+open. We therefore frame Proposition~\ref{prop:ns} as
+\emph{consistency} of the substrate primitives with one
+non-fit-input observable, with the understanding that the
+strength of the consistency depends entirely on the substrate
+derivation that we leave for follow-up work.
 
-\paragraph{Other candidates.}
+\paragraph{Other consistent observables.}
 The same bridge-sprint material identifies further candidate
-predictions in the same primitives:
+small-integer matches in the same primitives, each subject to
+the same structural-derivation caveat:
 \begin{itemize}
 \item Baryon-photon ratio $\eta = |\sigma|/|\Z/10|^{10}$
 predicting $\eta = 6 \times 10^{-10}$ vs measured
@@ -669,10 +722,11 @@ $= 11/49 \approx 0.224$.
 \approx 0.30$ from $\Omega_{DM}/\Omega_\Lambda \cdot
 \mathrm{HARMONY}/|\sigma|$.
 \end{itemize}
-We report these candidates as supporting the framework's
-predictive reach but do not develop them in the present
-submission, since each requires a separate physical-side
-derivation analogous to that for $n_s$.
+We list these to indicate the substrate primitives' reach but do
+not develop them in the present submission. A genuine
+\emph{independent prediction}, in the sense required to upgrade
+this paper from ``empirical pattern with structural candidate''
+to ``predictive theory,'' remains open.
 
 \subsection{$\Omega_{DM}$ derivation rigor}
 
