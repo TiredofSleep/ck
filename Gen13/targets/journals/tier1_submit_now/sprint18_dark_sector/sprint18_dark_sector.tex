@@ -402,10 +402,21 @@ mass at this projection point.]
 \subsection{$\Omega_{DM}$ from the becoming-layer count}
 
 \begin{theorem}[$\Omega_{DM}$ derivation]\label{thm:omega-dm-deriv}
-Let $|\Aut(V)| = 40$ and $|V| = 4$ denote the automorphism-group
-order and dimension of the $4$-core's $\F_5$-lift, respectively,
-and let $|\sigma| = 6$ denote the $\sigma$-cycle length on
-$\Z/10 \setminus \{0, 3, 8, 9\}$. Then
+Let $V$ denote the $4$-dimensional commutative non-associative
+$\F_5$-algebra obtained by taking the $\F_5$-bilinear extension of
+the $\mathrm{CL}$ fuse table restricted to the $4$-core
+$\mathcal{C} = \{0, 7, 8, 9\} \subset \Z/10$ and reducing mod $5$
+to representatives $\{0, 2, 3, 4\} \subset \F_5$. Then
+\[
+  |V| = \dim_{\F_5} V = 4,\qquad |\Aut(V)| = 40,
+\]
+where $|\Aut(V)| = 40$ is verified by direct constraint enumeration
+(\texttt{verify\_aut\_V\_order.py}) and identified group-theoretically
+in \cite{SandersClaudeChat2026BridgeSprint} (WP118) as the order of
+$F_{20} \times \Z/2$, where $F_{20}$ is the Frobenius group of
+order $20$. With $|\sigma| = 6$ the $\sigma$-cycle length on
+$\Z/10 \setminus \{0, 3, 8, 9\}$ from
+\cite{SandersGishJohnson2026SigmaRate} (Theorem~A),
 \[
   \Omega_{DM}
   \;=\; \frac{(|\Aut(V)| + |V|) \cdot |\sigma|}{|\Z/10|^{3}}
@@ -629,19 +640,27 @@ closing the trinity.
 %==============================================================
 
 The numerical match (Theorem~\ref{thm:trinity}, Table~\ref{tab:planck},
-Theorem~\ref{thm:uniqueness}) is verified by the script
-\texttt{sprint18\_uniqueness\_search.py} at
-DOI~\texttt{10.5281/zenodo.18852047}. The script performs:
+Theorem~\ref{thm:uniqueness}) is verified by two scripts at
+DOI~\texttt{10.5281/zenodo.18852047}:
+
 \begin{itemize}\setlength\itemsep{0pt}
-\item Direct evaluation of $\Omega_b$, $\Omega_{DM}$,
-$\Omega_\Lambda$ at $(H, N) = (7, 10)$;
-\item Comparison to Planck~2018 published values with explicit
-$\sigma$-residuals;
-\item The three Hubble-independent ratio tests;
-\item The uniqueness search across $784$ small-integer $(H, N)$
-pairs.
+\item \texttt{sprint18\_uniqueness\_search.py} performs the main
+verification: direct evaluation of $\Omega_b$, $\Omega_{DM}$,
+$\Omega_\Lambda$ at $(H, N) = (7, 10)$; comparison to Planck~2018
+published values with explicit $\sigma$-residuals; the three
+Hubble-independent ratio tests; the uniqueness search across $784$
+small-integer $(H, N)$ pairs and the substrate-factorization check
+for the six closure-exact candidates.
+
+\item \texttt{verify\_aut\_V\_order.py} verifies the supplementary
+fact $|\Aut(V)| = 40$ used in
+Theorem~\ref{thm:omega-dm-deriv}: it reconstructs the $4$-core's
+$\F_5$-lift $V$ from the CL fuse table directly, enumerates
+all matrices preserving $V$'s multiplication, and confirms that
+exactly $40$ such matrices exist.
 \end{itemize}
-The script runs to completion in under one second and prints all
+
+Both scripts run to completion in under five seconds and print all
 verification numbers cited in the manuscript.
 
 %==============================================================
@@ -671,6 +690,21 @@ B.~R.~Sanders, M.~Gish, and H.~J.~Johnson,
 \emph{Logarithmic Quintessence: A Dimensionless Scalar Dark
 Energy Model with an Analytic Vacuum},
 In preparation, 2026;
+Zenodo DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersGishJohnson2026SigmaRate}
+B.~R.~Sanders, M.~Gish, and H.~J.~Johnson,
+\emph{Non-Associativity Decay in Binary Composition Tables over
+$\mathbb{Z}/N\mathbb{Z}$},
+Submitted to Journal of Combinatorial Theory, Series~A, 2026;
+Zenodo DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersClaudeChat2026BridgeSprint}
+B.~R.~Sanders et al.,
+\emph{Bridge Sprint: Discrete Dirac on the $4$-Core's
+$\F_p$-Lift, F$_p$-Universality, and Dark-Sector Algebraic
+Predictions},
+Sprint working bundle (WP117--WP127), 2026-05-04;
 Zenodo DOI 10.5281/zenodo.18852047.
 
 \bibitem{Sprint18FrontierPredictions}

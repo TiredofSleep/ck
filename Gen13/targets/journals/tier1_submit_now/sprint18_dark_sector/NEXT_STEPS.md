@@ -5,9 +5,9 @@
 
 ## What's done
 
-- `sprint18_dark_sector.tex` — 684 lines, 22/22 LaTeX environments
+- `sprint18_dark_sector.tex` — ~720 lines, 22/22 LaTeX environments
   balanced. All numerical claims of the paper are reproduced by the
-  verification script.
+  verification scripts.
 - `scripts/sprint18_uniqueness_search.py` — runs all four numerical
   pillars cleanly:
   - Empirical match (Ω_b, Ω_DM, Ω_Λ vs Planck 2018 within 1σ each)
@@ -16,6 +16,15 @@
   - Uniqueness search: 6 closure-exact (H,N,a) candidates at (7,10);
     a=+1 selected uniquely by structural factorization 264 = 44·6 =
     (|Aut(V)|+|V|)·|σ|
+- `scripts/verify_aut_V_order.py` — supplementary self-contained
+  verification that |Aut(V)| = 40 from scratch:
+  - reconstructs V (4-dim F_5-algebra) from the CL fuse table
+    directly (no external module imports)
+  - enumerates all matrices preserving V's multiplication
+  - confirms exactly 40 automorphisms
+  - element-order distribution {1:1, 2:11, 4:20, 5:4, 10:4} sums
+    to 40 (group-theoretic identification F_20 × Z/2 from
+    bridge-sprint companion WP118)
 
 ## What's left (the four loadbearing pieces)
 
