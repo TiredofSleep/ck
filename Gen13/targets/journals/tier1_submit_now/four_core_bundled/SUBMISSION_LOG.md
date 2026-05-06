@@ -1,13 +1,28 @@
 # Submission Log — 4-core seed / Communications in Algebra
 
+## Status as of 2026-05-06: ON HOLD — see `HOLD_PENDING_AUDIT.md`
+
+ClaudeChat round-3 audit (2026-05-06 morning) caught a fatal flaw
+in the v1 Theorem 2 framing: the "normalizer identity"
+`Z_T(p) = Z_B(p) = (v+h+β+r)²` on 𝓒-supported `p` is the trivial
+total-mass identity — it holds for any pair of binary operations on
+Z/10, regardless of joint closure or cell agreement, by elementary
+bilinearity. v2 manuscript demotes Theorem 2 to Proposition 5.1
+(per-coordinate fuse data) and adds five other line-by-line fixes.
+Even with the v2 fixes, the seed-narrow scope is too thin for
+Comm. Algebra. **Recommendation: Path B (wait for companion +
+consolidate, submit to *Algebraic Combinatorics*).** See
+`HOLD_PENDING_AUDIT.md` for full details.
+
 ## Manuscript
 - **Title:** Joint Closure of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$:
-  an Eight-Element Chain and a Normalizer Identity
+  an Eight-Element Chain and Per-Coordinate Fuse Data on the 4-Core
+  *(v2 retitled per audit demotion of normalizer claim)*
 - **Authors:** B. R. Sanders, M. Gish
-- **Source file:** `four_core_seed.tex` (679 lines, 32/32 LaTeX balanced)
+- **Source file:** `four_core_seed.tex` (v2, ~700 lines, 34/34 LaTeX balanced)
   - This is the **seed-narrow extraction** from the bundled draft
-    (5 theorems → 2 theorems: chain + normalizer)
-- **Cover letter:** `four_core_seed_cover_letter.md`
+    (5 theorems → 1 theorem + 1 proposition: chain + per-coordinate fuse data)
+- **Cover letter:** `four_core_seed_cover_letter.md` *(NEEDS REWRITE per audit)*
 - **Verification script:** `4core_verification.py`
 - **Zenodo DOI (shared):** 10.5281/zenodo.18852047
 
@@ -23,11 +38,22 @@ Paper 4; Clifford ladder in Paper 5).
 
 ## Pre-submission checklist (Brayden's manual items)
 
+**ALL ITEMS ON HOLD pending Path A vs Path B decision —
+see `HOLD_PENDING_AUDIT.md`.**
+
+- [ ] DECIDE Path A vs Path B (recommendation: Path B — wait for
+      companion + consolidate for *Algebraic Combinatorics*)
+- [ ] If Path A: rewrite cover letter to honest "chain enumeration
+      + per-coordinate fuse data" framing; resubmit to *Discrete
+      Mathematics* or *Communicationes Mathematicae Universitatis
+      Carolinae*
+- [ ] If Path B: write up companion content (closed-form fixed
+      point at α=½ with `H/Br = 1+√3`, quartic Galois D_4 over
+      LMFDB 4.2.10224.1, PSLQ uniqueness conjecture); consolidate
+      with v2 seed; submit to *Algebraic Combinatorics*
 - [ ] PDF compile + proofread (Claude couldn't compile in this environment)
 - [ ] Confirm M. Gish vs Monica Gish byline preference
-- [ ] Fill in 2-3 suggested reviewers in cover letter (researchers in
-      finite-magma combinatorics / non-associative algebra / sub-magma
-      lattice theory)
+- [ ] Fill in 2-3 suggested reviewers in cover letter
 - [ ] Optional: post to Zenodo first for DOI + visible date stamp
 
 ## Round-1 + Round-2 referee history

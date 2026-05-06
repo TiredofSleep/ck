@@ -62,8 +62,10 @@ simultaneously to other venues:
   (submitted to Integers)
 
 The JCT-A paper does not depend on either; the cross-references are
-provided for readers tracking the broader program. All three share
-Zenodo DOI 10.5281/zenodo.18852047.
+provided for readers tracking the broader program. All three are
+archived in the shared Zenodo deposit DOI 10.5281/zenodo.18852047
+(a single-deposit bundle of the family's verification scripts and
+preprint PDFs, not a per-paper preprint DOI).
 
 ## Reproducibility
 
@@ -76,9 +78,16 @@ manuscript.
 
 ## Suggested reviewers
 
-[BRAYDEN: please add 2-3 names — possible candidates include
-researchers in quasigroup theory, finite combinatorial designs, or
-algebraic structures on ℤ/Nℤ.]
+[BRAYDEN: fill in 2-3 names before submission. ClaudeChat audit
+suggested candidates from the cited literature:
+  - Aleš Drápal (Charles University) — author of cited
+    Drápal-Wanless / Drápal-Kepka quasigroup-distance papers.
+  - Ian Wanless (Monash University) — author of cited
+    Drápal-Wanless 2019.
+  - Petr Vojtěchovský (University of Denver) — active in
+    finite-quasigroup combinatorics, not a coauthor of the cited
+    works (avoids COI concern).
+Confirm at least one is not a personal contact before submission.]
 
 ## Conflict of interest
 
