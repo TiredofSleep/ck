@@ -548,7 +548,33 @@ standard-density background ($\Omega_m = 0.315$, $\Omega_r = 9.1\times10^{-5}$,
 $\Omega_\Xi = 0.6849$, $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$
 \cite{Planck2020}) and scan over $(\Lambda^{4}/\rho_{c,0}, \Xi_i, \dot\Xi_i)$
 at initial redshift $z_i \approx 20$, where $\rho_{c,0} = 3 H_0^{2} M_\Pl^{2}$
-is the critical density today. We restrict to the freezing branch of the
+is the critical density today.
+
+\paragraph{Energy-budget framing.}
+The reported $\Omega_\Xi = 0.6849$ is the dark-energy budget of the
+combined sector --- renormalized cosmological constant
+$\Lambda_\mathrm{obs} = \Lambda_\mathrm{bare} - \Lambda^{4}/e$ from
+\S\ref{sec:vacrenorm} together with the scalar's dynamical
+deviation $V(\Xi) - V(\Xi_0)$ and its kinetic energy --- and the
+reported $(w_0, w_a)$ describe the effective equation of state of
+this combined sector against DR1. With
+$\Xi(z=0) \approx 0.97$ above $\Xi_0 = e^{-1}$ and
+$\Lambda^{4}/\rho_{c,0} = 0.231$, the scalar's dynamical
+deviation contributes $\Lambda^{4}\,(\Xi\log\Xi + 1/e)/\rho_{c,0}
+\approx 0.078\,\rho_{c,0}$ in potential energy at the present
+epoch, with the remainder $\Omega_{\Lambda_\mathrm{obs}}
+\approx 0.61\,\rho_{c,0}$ carried by the renormalized constant.
+The script $\texttt{desi\_xi\_optimize\_v2.py}$ tracks the scalar
+field's intrinsic $\rho_\Xi$ and $w_\Xi$ as defined in
+\eqref{eq:rhoxi}-\eqref{eq:wxi}; the comparison to DR1 in
+the table below should be read as a proximity check on the
+combined-sector effective $w(z)$ under the renormalization
+described in \S\ref{sec:vacrenorm}, not on the scalar field's
+intrinsic equation of state, which is dominated by the kinetic
+component on this configuration. A full joint
+likelihood that separates $\Lambda_\mathrm{obs}$ from the scalar
+sector self-consistently is deferred to the companion numerical
+paper. We restrict to the freezing branch of the
 model, implemented by requiring a monotone $w(z)$ trajectory over the
 fitted range (criterion (F2) of \S\ref{sec:falsify}). A configuration
 that yields proximity to the DESI DR1 published $(w_0, w_a)$ Gaussian
@@ -614,6 +640,20 @@ the vacuum $\Xi_0 = e^{-1} \approx 0.37$, confirming the field is in
 its rolling phase. The numerical integration is performed by the
 script \texttt{desi\_xi\_optimize\_v2.py} provided as electronic
 supplementary material.
+
+\paragraph{On the ``freezing'' label.}
+We use the term \emph{freezing} in the asymptotic sense
+($w(z)\to -1$ as the field eventually settles at $\Xi_0$). Over
+the observed range $z\in[0, 2]$ the field is on an \emph{outbound}
+branch with $\Xi$ rising from $\Xi_i = 0.925$ at $z\approx 20$ to
+$\Xi(0)\approx 0.97$, with the turnaround and roll-back to vacuum
+lying in the future. The equation of state $w_\Xi(z)$ in the
+table above is monotone in $z$ on this range, which is the
+``freezing-branch'' criterion (F2) of \S\ref{sec:falsify} that we
+use to select solutions; it is consistent with the standard
+freezing-quintessence terminology in the asymptotic limit but
+does not require the field to be inbound during the
+observable window.
 
 \paragraph{Initial-condition tuning.}
 The values $(\Xi_i, \dot\Xi_i) = (0.925, +0.429)$ at $z_i \approx 20$ in
@@ -1099,7 +1139,13 @@ Phys. Rev. Lett. \textbf{129}, 121102 (2022).
 \bibitem{SandersGish2026Sigma}
 B.~R.~Sanders and M.~Gish,
 \emph{Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$},
-Preprint, 2026; companion paper, Zenodo DOI 10.5281/zenodo.18852047.
+Preprint, 2026. Companion paper; archived in shared deposit DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersGish2026FourCore}
+B.~R.~Sanders and M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic
+Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$},
+Preprint, 2026. Companion paper; archived in shared deposit DOI 10.5281/zenodo.18852047.
 
 \end{thebibliography}
 

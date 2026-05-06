@@ -99,13 +99,16 @@ preprints in the bibliography:
 
 - "Non-Associativity Decay in Binary Composition Tables over Z/NZ"
   (submitted to Journal of Combinatorial Theory, Series A)
-- "Joint Closure of Two Commutative Binary Operations on Z/10Z"
+- "Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+  Algebraic Attractor of Two Commutative Binary Operations on Z/10Z"
   (submitted to Algebraic Combinatorics)
 
 These are independent results; the JCAP paper does not depend on
 them. The cross-references exist for readers interested in the
-broader foundational program. All three share Zenodo DOI
-10.5281/zenodo.18852047.
+broader foundational program. All three are archived in the shared
+Zenodo deposit DOI 10.5281/zenodo.18852047 (a single-deposit bundle
+of the family's verification scripts and preprint PDFs, not a
+per-paper preprint DOI).
 
 ## Reproducibility
 
@@ -119,11 +122,9 @@ in under one minute on standard hardware.
 
 ## Suggested reviewers
 
-[BRAYDEN: please add 2-3 names of cosmologists working on quintessence
-or dark-energy parameterization; e.g., one DESI / Euclid phenomenology
-lead, one theorist working on scalar-field dark energy, one researcher
-familiar with the Bialynicki-Birula--Mycielski nonlinear-Schrödinger
-literature.]
+We will provide suggested reviewers through the JCAP submission
+portal's reviewer-recommendation field rather than in this cover
+letter.
 
 ## Conflict of interest
 

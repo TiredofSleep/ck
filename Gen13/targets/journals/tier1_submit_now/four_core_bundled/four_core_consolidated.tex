@@ -14,12 +14,17 @@
 %%%   - bridge-sprint WP110 (4-core fusion-closure structural)
 %%%   - bridge-sprint WP113 (alpha-uniqueness PSLQ Stern-Brocot)
 %%%
-%%% Theorem 1: 8-element joint-closure chain
-%%% Proposition 5.1: per-coordinate fuse data on the 4-core
-%%% Theorem 2: closed-form attractor at alpha=1/2 (H/Br = 1+sqrt(3))
-%%% Theorem 3: R/Br quartic Galois D_4, LMFDB 4.2.10224.1
-%%% Conjecture 9.1: alpha=1/2 unique rational mixing weight
-%%%   (PSLQ-supported on Stern-Brocot grid up to denominator 7)
+%%% Theorem 1 (printed as Thm thm:chain):    8-element joint-closure chain
+%%% Proposition 1 (printed as prop:fuse-data):
+%%%                                         per-coordinate fuse data on 4-core
+%%% Lemma + Theorems 2-4 (printed as lem:boundary, thm:attractor,
+%%%   thm:attractor-half):                  boundary fixed points and
+%%%                                         interior existence/uniqueness
+%%% Theorem 5 (thm:hbr-ratio):              h/beta = 1+sqrt(3) at alpha=1/2
+%%% Theorem 6 (thm:galois):                 R/Br quartic Galois D_4,
+%%%                                         LMFDB 4.2.10224.1
+%%% Conjecture (conj:alpha-unique):         alpha=1/2 unique rational mixing
+%%%                                         weight (PSLQ Stern-Brocot grid)
 %%%
 %%% Verification: 4core_verification.py + WP105 verification scripts
 %%% archived at shared deposit DOI 10.5281/zenodo.18852047.
@@ -51,6 +56,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
 \newcommand{\Zten}{\Z/10\Z}
 \newcommand{\Cfour}{\mathcal{C}}
 \newcommand{\Tfuse}{\widehat{T}}
@@ -568,7 +574,7 @@ is the observation that this specific $\pi$ also organizes the
 chain of Theorem~\ref{thm:chain}. The chain proceeds:
 \begin{itemize}\setlength\itemsep{0pt}
 \item Step $1\to 4$: adds $\{7,8,9\}$. Of these, $7$ is in the
-$6$-cycle and $\{8,9\}$ are $\sigma$-fixed.
+$6$-cycle and $\{8,9\}$ are $\pi$-fixed.
 \item Steps $4\to 5$, $5\to 6$, $6\to 7$: each adds the next
 element of the $\pi$-forward orbit of $7$, namely
 $\pi(7)=6$, $\pi^{2}(7)=5$, $\pi^{3}(7)=4$.
@@ -787,30 +793,38 @@ than the four vertices listed above.
 data of Proposition~\ref{prop:fuse-data} gives
 $\Tfuse(e_{0}) = (v^{2}, 0, 0, 0) = e_{0}$ and
 $\Bfuse(e_{0}) = (v^{2}, 0, 0, 0) = e_{0}$, so $F_{\alpha}(e_{0})
-= e_{0}$ for every $\alpha$. The Jacobian computation: writing
-the simplex tangent space at $e_{0}$ in coordinates
-$(h, \beta, r)$ (with $v = 1 - h - \beta - r$), the linearizations
-of $\Tfuse$ and $\Bfuse$ at $e_{0}$ are
+= e_{0}$ for every $\alpha\in[0,1]$.
+For the spectral-radius computation, write the simplex tangent
+space at $e_{0}$ in coordinates $(h, \beta, r)$ (with
+$v = 1 - h - \beta - r$). Substituting $v = 1 - h - \beta - r$
+into the per-coordinate fuse polynomials and reading off the
+linear-in-$(h, \beta, r)$ terms gives
 \[
-  D\Tfuse(e_{0})\big|_{(h,\beta,r)}
-    = \begin{pmatrix} 2 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix},
-  \quad
-  D\Bfuse(e_{0})\big|_{(h,\beta,r)}
-    = \begin{pmatrix} 0 & 0 & 0 \\ 2 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}.
+  D\Tfuse(e_{0})\big|_{(h,\beta,r)} = \mathrm{diag}(2, 0, 0),
+  \qquad
+  D\Bfuse(e_{0})\big|_{(h,\beta,r)} = 2\,I_{3}.
 \]
-(For $\Tfuse$: only the $\Tfuse(p)_{7} = 2vh + \cdots$
-contribution gives a first-order term in $h$ at $e_{0}$, namely
-$2h$. For $\Bfuse$: $\Bfuse(p)_{8} = 2v\beta + \cdots$ gives
-first-order $2\beta$, and $\Bfuse(p)_{9} = 2vr + \cdots$ gives
-first-order $2r$.) Therefore $DF_{\alpha}(e_{0})$ has eigenvalues
-$\{2\alpha, 2(1-\alpha), 2(1-\alpha)\}$. For
-$\alpha\in(0, 1)$, all three eigenvalues are strictly positive,
-and at least one strictly exceeds $1$ since
-$2\alpha + 2(1-\alpha) + 2(1-\alpha) = 4 + 2(1-\alpha) - 2\alpha
-\geq 2$ with the maximum at $\alpha\in\{0, 1\}$ giving $\rho = 2$.
-A direct check confirms that $\max\{2\alpha, 2(1-\alpha)\} > 1$
-for all $\alpha\in(0, 1)$. Hence $e_{0}$ is a repellor on the
-interior.
+For $\Tfuse$: only $\Tfuse(p)_{7} = 2vh + h^{2} + \cdots$ has a
+linear-in-tangent contribution, $\partial_{h}\Tfuse(p)_{7}|_{e_{0}}
+= 2$; the $\Tfuse(p)_{0} = v^{2} + \cdots$ component contributes
+no first-order term in $(h, \beta, r)$ since
+$\partial_{h}v^{2}|_{e_{0}} = -2$ but the corresponding
+tangent-direction is the $v$-direction, off-simplex. For
+$\Bfuse$: each of
+$\Bfuse(p)_{7} = 2vh + \beta^{2}$,
+$\Bfuse(p)_{8} = 2v\beta + h^{2} + 2\beta r$,
+$\Bfuse(p)_{9} = 2vr + 2 h\beta$
+contributes $2$ on the diagonal in its respective coordinate, and
+the off-diagonal first-order terms vanish at $e_{0}$. Thus
+$D\Bfuse(e_{0}) = 2I_{3}$. Combining,
+\[
+  DF_{\alpha}(e_{0})
+  = \alpha \cdot \mathrm{diag}(2, 0, 0) + (1-\alpha)\cdot 2 I_{3}
+  = \mathrm{diag}\bigl(2,\ 2(1-\alpha),\ 2(1-\alpha)\bigr),
+\]
+with spectral radius $\rho(DF_{\alpha}(e_{0})) = 2 > 1$ for every
+$\alpha\in[0, 1]$. Hence $e_{0}$ is a (linear) repellor on the
+interior of the simplex for every $\alpha\in(0, 1)$.
 
 \textbf{(b)} At $e_{7}$: $T(7, 7) = 7$ gives $\Tfuse(e_{7}) =
 e_{7}$, while $B(7, 7) = 8$ gives $\Bfuse(e_{7}) = e_{8}$.
