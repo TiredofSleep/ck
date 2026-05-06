@@ -88,6 +88,18 @@ def main():
     print(f"  Match with companion fit: {(Lambda_meV - 1.7)/1.7*100:+.2f}%")
     print()
 
+    # === The 1/3 factor: empirical check rho_DE,0 / Lambda^4 ~ 3 ===
+    print("Cross-check: rho_DE,0 / Lambda^4 at the JCAP fit point")
+    Lambda4_over_rho_jcap_fit = 0.231  # from desi_xi_optimize_v2.py
+    rho_DE_over_Lambda4 = OL_obs / Lambda4_over_rho_jcap_fit
+    print(f"  JCAP fit:  Lambda^4 / rho_c0    = {Lambda4_over_rho_jcap_fit:.4f}")
+    print(f"  Planck:    Omega_Lambda          = {OL_obs:.4f}")
+    print(f"  Therefore: rho_DE,0 / Lambda^4   = {rho_DE_over_Lambda4:.4f}")
+    print(f"  Sprint 18 prediction (eq with Lambda4/rho_c0 = OmegaL/3):")
+    print(f"             rho_DE,0 / Lambda^4   = 3 (exact)")
+    print(f"  Match: {(rho_DE_over_Lambda4 - 3)/3*100:+.2f}%")
+    print()
+
     # === Uniqueness search ===
     print("=" * 72)
     print("Uniqueness search: (H, N, a) within Sprint 18 formula family")
