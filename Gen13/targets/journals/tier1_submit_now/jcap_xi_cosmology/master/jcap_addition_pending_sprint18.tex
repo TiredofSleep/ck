@@ -1,0 +1,98 @@
+% jcap_addition_pending_sprint18.tex
+%
+% HOLD STATE: this is a draft addition for the JCAP paper that is
+% NOT to be merged into the active jcap_xi_cosmology.tex submission
+% source until BOTH conditions are met:
+%
+%   (1) Sprint 18 (the dark-sector cosmological-accounting paper)
+%       is on Zenodo with a real DOI, OR submitted to a venue.
+%
+%   (2) The 1/3 factor in Lambda^4 = rho_c0 * Omega_Lambda / 3 has
+%       a first-principles physical derivation IN the present
+%       quintessence model -- specifically, why
+%       rho_DE,today = 3 * Lambda^4 in this specific Lagrangian.
+%
+% Until both (1) and (2) hold, this addition is a hold/placeholder.
+% The current JCAP submission (jcap_xi_cosmology.tex) is unmodified
+% by this draft.
+%
+% The citation key Sprint18Cosmology2026 is a placeholder; replace
+% with whatever Sprint 18's actual title key becomes when it lands
+% on Zenodo.
+%
+% Drafted 2026-05-05 night per Brayden + claudechat decision to
+% hold JCAP submission until Sprint 18 lands. Tier-1 papers shipped
+% tonight: sigma-rate (JCT-A), 4-core seed (Comm. Algebra). JCAP
+% held for the architectural promotion this addition would require.
+%
+% Where to insert: at end of section sec:vacrenorm, after the
+% "Dark-energy scale" paragraph that ends with
+% "this is a consistency observation, not a derivation."
+%
+% =============================================================
+
+\paragraph{Algebraic-substrate origin (companion work).}
+The dimensional estimate $\Lambda \approx 1.5$~meV and the
+fitted $\Lambda \approx 1.7$~meV both lie within $\sim 1\%$ of the
+algebraic value
+\begin{equation}\label{eq:Lambda-structural}
+  \frac{\Lambda^{4}}{\rho_{c,0}}
+  \;\stackrel{?}{=}\;
+  \frac{2 \cdot \mathrm{HARMONY}^{3} + 1}{3 \cdot |\mathbb{Z}/10|^{3}}
+  \;=\; \frac{687}{3000}
+  \;=\; 0.229,
+\end{equation}
+where $\mathrm{HARMONY} = 7$ and $|\mathbb{Z}/10| = 10$ are the
+two integer primitives of the discrete substrate that underlies
+this model in the broader research program; the rational
+expression on the right-hand side is the dark-sector prediction
+for $\Omega_\Lambda/3$ developed in the companion
+preprint~\cite{Sprint18Cosmology2026}. The factor of $3$ in the
+denominator is the standard Friedmann normalization
+$\rho_{c,0} = 3 H_{0}^{2} M_\mathrm{Pl}^{2}$; the numerator
+$2 \cdot 343 + 1 = 687$ is derived in
+\cite{Sprint18Cosmology2026} from the substrate's
+HARMONY-cubed pair anchor with a closure-exact $+1$ offset.
+
+We mark \eqref{eq:Lambda-structural} with the question mark to be
+explicit about its status: at the level of the present manuscript,
+\eqref{eq:Lambda-structural} is a \emph{numerical coincidence}
+between the fitted $\Lambda^{4}/\rho_{c,0}$ and the algebraic
+ratio $687/3000$, with $\sim 1\%$ residual that we have not
+derived from first principles within this paper. Specifically,
+the relation $\rho_{\mathrm{DE},0} = 3 \Lambda^{4}$ implicit in
+\eqref{eq:Lambda-structural} is not a direct identity in the
+action~\eqref{eq:action}; it depends on the present field
+configuration $(\Xi_\mathrm{today}, \dot\Xi_\mathrm{today})$ and
+the Friedmann history. A first-principles derivation of why
+$\rho_{\mathrm{DE},0} = 3 \Lambda^{4}$ in this specific
+quintessence model --- whether from
+$V_\mathrm{eff}(\Xi_\mathrm{today})$ at the freezing-branch
+field value, from the $w \to -1$ trajectory's energy budget, or
+from a yet-to-be-identified structural relation --- is the
+central open question that \eqref{eq:Lambda-structural} raises
+and that the companion paper~\cite{Sprint18Cosmology2026}
+addresses on the algebraic side.
+
+The implication, if \eqref{eq:Lambda-structural} survives as a
+derived identity rather than a coincidence, is that
+$\Lambda$ in the present model is not a free parameter to be
+fitted to observation but a \emph{prediction} of the broader
+algebraic substrate at the few-percent level. We do not claim
+this status for $\Lambda$ in the present paper; we mark the
+candidate identity, cite the companion work, and proceed with
+the fitted value $\Lambda^{4}/\rho_{c,0} = 0.231$ for
+the numerical results below.
+
+% =============================================================
+% PLACEHOLDER bibitem to add to jcap_xi_cosmology.tex
+% bibliography when Sprint 18 lands; replace title and venue with
+% Sprint 18's actual title and Zenodo DOI / venue.
+% =============================================================
+
+% \bibitem{Sprint18Cosmology2026}
+% B.~R.~Sanders et al.,
+% \emph{[SPRINT 18 TITLE PLACEHOLDER -- the dark-sector cosmological
+% accounting paper]},
+% Preprint, 2026.
+% Companion paper; Zenodo DOI [TO BE FILLED IN AT SPRINT 18 LANDING].
