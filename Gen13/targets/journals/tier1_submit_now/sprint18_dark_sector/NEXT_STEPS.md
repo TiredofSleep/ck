@@ -2,8 +2,34 @@
 
 **Status:** Working draft + verification scripts committed.
 Recalibrated 2026-05-06 morning per claudechat audit (n_s baseline +
-V-naturalness flagging).
+V-naturalness flagging). Extended 2026-05-06 morning (round 2) with
+operator-to-observable conjecture as forward claim, 8-anomaly tracker,
+title + abstract reframed.
 **Created:** 2026-05-05 night (Scenario A continuation).
+
+## The eight open anomalies (as of 2026-05-06)
+
+This is the load-bearing list. Each item is something the
+manuscript flags as open; closure of any one strengthens Sprint
+18's case for being a real predictive theory rather than an
+empirical pattern.
+
+| # | Marker | What's open | Where flagged |
+|---|---|---|---|
+| 1 | [BRAYDEN-DERIVE] §5.1 | Cosmological reading of HARMONY² as Ω_b numerator (why HARMONY, why squared, why /N³) | manuscript §5.1, 3 sub-questions enumerated |
+| 2 | [BB-BRIDGE] / 1/3 factor | Why ρ_DE,0 = 3·Λ⁴ at the JCAP fit point (triadic projection? freezing branch? other?) | manuscript §6 with 3 candidate readings; ρ_DE,0/Λ⁴ ≈ 2.97 = 3 within 1% empirically |
+| 3 | a = +1 selection | Six closure-exact `a` values; only `a = +1` factors as 264 = 44·6 — but 44 reduces to (|Aut(V)| + |V|) only via the F_5-lift, which is itself open | manuscript Remark after Theorem 4.2 |
+| 4 | [V-NATURALNESS] | Why F_5-lift V (not the 4-element magma) is the right substrate algebra (magma counts {2, 1, 1}; lift gives 40) | manuscript §2 + verify_aut_V_order.py sanity check |
+| 5 | σ-cycle 6 = 6DoF 6 | Same number; possibly the same six operators viewed differently; possibly coincidence; untested | not yet in manuscript; flag here for future-Claude |
+| 6 | [N_S-DERIVATION] | Structural origin of the form HARMONY/(2N²) — 2.4% baseline rate means the match alone is not statistically powerful | manuscript §7.2 "honest baseline" paragraph |
+| 7 | Operator-to-observable map | The forward conjecture itself: which operator from {0..9} corresponds to which observable, and why; needs structural prediction not post-hoc fit | manuscript §7 with falsifiability scan: α/masses fail the simple family; 5 other constants give 0.04–1.31% baseline |
+| 8 | 44 in only one observable | If 44 = BHML harmonic count is structurally fundamental, why does it appear in Ω_DM only, not in η_b, n_s, σ_8, or other constants? | NEW — flag for §5.2 substrate notes |
+
+**Resonance, not load-bearing:**
+The sprint number 18 = 3·6 = (3 layers) × (σ-cycle length) is
+recorded in §7 as a numerological observation. Sprint numbering
+is sequential; the resonance is internally consistent but not a
+derivation.
 
 ## Audit calibration (post claudechat scrutiny pass)
 
@@ -36,6 +62,12 @@ Two flags landed and were addressed in-place:
 - Closure picking a = +1 by factorization 264 = 44·6 (the 44 and
   6 ARE documented; the (|Aut(V)|+|V|) decomposition strength
   depends on V-naturalness, but the integer is the same either way).
+- The operator-to-observable conjecture is non-trivially testable:
+  3 of 8 fundamental constants outside the dark-sector fit have
+  ZERO matches in the simple OP^k/N^m family (α, m_e/m_p, m_μ/m_e),
+  while 5 others have low baseline rates (0.04–1.31%). The family
+  is discriminating; the question is whether structural readings
+  predict which observable picks which operator.
 
 ## What's done
 
