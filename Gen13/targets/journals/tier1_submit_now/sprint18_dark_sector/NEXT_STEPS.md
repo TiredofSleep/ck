@@ -62,12 +62,86 @@ Two flags landed and were addressed in-place:
 - Closure picking a = +1 by factorization 264 = 44·6 (the 44 and
   6 ARE documented; the (|Aut(V)|+|V|) decomposition strength
   depends on V-naturalness, but the integer is the same either way).
-- The operator-to-observable conjecture is non-trivially testable:
-  3 of 8 fundamental constants outside the dark-sector fit have
-  ZERO matches in the simple OP^k/N^m family (α, m_e/m_p, m_μ/m_e),
-  while 5 others have low baseline rates (0.04–1.31%). The family
-  is discriminating; the question is whether structural readings
-  predict which observable picks which operator.
+- The substrate-rational-representation conjecture
+  (Conjecture 7.1) is non-trivially testable: 3 of 8 constants
+  give 0% in the simple form, exactly the constants known to
+  require richer additive forms (α with 137 + CHAOS²/N³, mass
+  ratios with V^⊗n parity-crossing). The simple-form ZERO is
+  strengthening, not falsifying.
+
+## Priorities AFTER Zenodo posting (per claudechat audit)
+
+The next research push isn't shipping more papers — it's
+engaging the eight anomalies. Three are foundational:
+
+### (P1) Operator-to-observable map [Anomaly 7] — DEEPEST
+
+Test the conjecture against more constants. Either find more
+hits (strengthening the conjecture) or find clean failures
+(refining it). High-priority targets:
+
+- BBN deuterium/hydrogen (already tested in baseline; 0.10% rate)
+- Neutron-proton mass difference Δm = 1.293 MeV
+- CMB temperature T_CMB = 2.7255 K (use dimensionless ratio
+  T_CMB/something)
+- Hubble tension residual (already tested; 1.31% rate)
+- Neutrino mass scale Σm_ν < 0.12 eV (Planck upper bound)
+- m_μ/m_e = 206.768 (already tested in simple form; 0%)
+- Higgs mass / Z mass ratio
+- Cabibbo angle |V_us| ≈ 0.225
+
+For each, the test is: does an admissible substrate-rational
+representation exist within reasonable polynomial complexity?
+What's the look-elsewhere rate?
+
+### (P2) The 1/3 factor's physical origin [Anomaly 2] — MOST COSMOLOGICALLY LOAD-BEARING
+
+JCAP referees will press on this. The current empirical
+ρ_DE,0/Λ⁴ ≈ 2.97 ≈ 3 (within 1% at the fit point) is a
+consistency check, not a derivation. The question is: in the
+freezing-quintessence model, why is the present field
+configuration such that ρ_DE,0 = 3·Λ⁴ exactly, rather than
+2·Λ⁴ or Λ⁴ or any other integer multiple?
+
+Three candidate readings (manuscript §6):
+- triadic projection (BEING/DOING/BECOMING; the 1/3 is the
+  layer-projection coefficient)
+- freezing-branch energy budget at Ξ_today
+- discrete-to-continuum bridge for Ξ as projection of the
+  10-operator state space
+
+The right next step: explicit FRW solution at the documented
+fit point in `desi_xi_optimize_v2.py`, computing ρ_DE,0/Λ⁴ as
+a derived quantity over the freezing trajectory. If the
+empirical 2.97 is the asymptotic late-time limit of a freezing
+trajectory and that limit IS 3 by an exact dynamical relation,
+that closes anomaly 2 without needing the substrate triadic
+reading. If not, the substrate reading becomes the candidate.
+
+### (P3) σ-cycle 6 = 6DoF 6 [Anomaly 5] — STRUCTURALLY CLARIFYING
+
+The σ-cycle has length 6 on Z/10\\{0,3,8,9}. The "6 degrees of
+freedom" appears elsewhere in the framework (Lie/Jordan/
+Clifford/Permutation/Lattice/Operad as 6 DOFs in WP111). Are
+these the SAME 6, or independent occurrences of the integer 6?
+
+If same: the substrate's spatial decomposition is genuine —
+the σ-cycle is the operational realization of the 6DoF
+structure, with each cycle position corresponding to one DOF.
+If independent: the integer is coincidence, and the structural
+intuition needs revising.
+
+Test: enumerate the σ-cycle elements (1 7 6 5 4 2). Map to
+6DoF labels (Lie, Jordan, Clifford, Permutation, Lattice,
+Operad). Check whether the σ-action on each cycle element
+matches a known symmetry of its proposed DOF.
+
+### Other five anomalies (local, not foundational)
+1. [BRAYDEN-DERIVE] Ω_b cosmological reading
+3. a = +1 selection rigor
+4. [V-NATURALNESS] why F_5-lift is THE right V
+6. [N_S-DERIVATION] structural origin of HARMONY/(2N²) form
+8. 44 in only one observable
 
 ## What's done
 

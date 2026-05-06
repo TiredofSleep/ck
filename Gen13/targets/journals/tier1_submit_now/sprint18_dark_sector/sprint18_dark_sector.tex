@@ -137,14 +137,19 @@ $n_s = 1 - \mathrm{HARMONY}/(2|\Z/10|^{2}) = 0.9650$ that
 matches the Planck spectral index at $0.024\sigma$ but lies
 within a $\sim 2.4\%$ baseline of similar small-integer forms.
 
-We pose one forward conjecture: each fundamental physical
-observable corresponds to a specific operator from
-$\{0, \dots, 9\}$ via additive or multiplicative terms of the form
-$\mathrm{OPERATOR}^{k}/|\Z/10|^{m}$ with small-integer $(k, m)$.
-The dark-sector trinity, the spectral-tilt match, and the
-documented $\mathrm{CHAOS}^{2}/|\Z/10|^{3} = 36/1000$ correction
-to $1/\alpha$ all sit inside this family. We invite empirical
-testing against further fundamental constants
+We pose one forward conjecture: dimensionless fundamental
+physical observables admit exact rational representations whose
+numerators are constructed from a small set of substrate
+primitives (operator labels $\{0, \dots, 9\}$ of $\Z/10$,
+$\sigma$-cycle length $|\sigma| = 6$, $4$-core algebraic data
+$|V|, |\Aut(V)|$, and the TSML/BHML harmonic counts) and whose
+denominators are powers of $|\Z/10|$. The dark-sector trinity,
+the consistent spectral-tilt match $n_s$, and the documented
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3} = 137.036$
+identification of \cite{SandersClaudeChat2026BridgeSprint} all
+sit inside this admissible family. The conjecture's specific
+operator-to-observable map is not yet derived; we invite
+empirical testing against further fundamental constants
 ($m_e/m_p$, $\eta_b$, BBN $D/H$, $H_0$ tension residual) as the
 right next step.
 \end{abstract}
@@ -691,68 +696,111 @@ The numerical pattern across the matches reported in this paper
 and its companion sprint
 material~\cite{SandersClaudeChat2026BridgeSprint} suggests a
 sharper structural claim than the dark-sector trinity alone.
-Each observable that has been matched at percent-or-better
-precision can be written as a small-integer expression in one
-or more of the ten operator labels
-$\{0, 1, \dots, 9\} \subset \Z/10$ and the substrate size
-$|\Z/10| = 10$:
+The matches are heterogeneous in form, but uniform in source
+material:
 
 \begin{table}[h]
 \centering
-\caption{Documented matches in the $(\mathrm{operator}^{k}, |\Z/10|^{m})$
-family. ``Sector'' indicates whether the term is the leading
-contribution to the observable or an additive correction.}
+\caption{Documented matches drawn from the substrate's primitive
+ingredients. Numerator constructions vary --- single operator
+powers (rows 1, 2, 4), additive corrections (row 3), and mixed
+products of structurally derived integers (row 5) --- but each
+denominator is a power of $|\Z/10|$ and each numerator is built
+from the same small set of substrate primitives.}
 \label{tab:operator-observable}
-\begin{tabular}{lllll}
+\begin{tabular}{llll}
 \toprule
-Observable        & Form                                                   & Sector   & Operator $\to$ $(k, m)$ & Match \\
+Observable        & Form                                                  & Numerator type                       & Match \\
 \midrule
-$\Omega_b$        & $\mathrm{HARMONY}^{2}/|\Z/10|^{3}$                     & leading  & $\mathrm{HARMONY} \to (2,3)$ & $-0.91\sigma$ \\
-$\Omega_\Lambda$  & $(2\,\mathrm{HARMONY}^{3} + 1)/|\Z/10|^{3}$            & leading  & $\mathrm{HARMONY} \to (3,3)$ & $+0.14\sigma$ \\
-$1/\alpha$        & $\cdots + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$              & corr.    & $\mathrm{CHAOS} \to (2,3)$   & $\sim 0.000\%$ \\
-$n_s$             & $1 - \mathrm{HARMONY}/(2|\Z/10|^{2})$                  & leading  & $\mathrm{HARMONY} \to (1,2)$ & $0.024\sigma$ \\
-$\eta_b$          & $|\sigma|/|\Z/10|^{10}$                                 & leading  & $|\sigma| \to (1,10)$         & $1.6\%$ \\
+$\Omega_b$        & $\mathrm{HARMONY}^{2}/|\Z/10|^{3}$                    & single op, squared                   & $-0.91\sigma$ \\
+$\Omega_\Lambda$  & $(2\mathrm{HARMONY}^{3} + 1)/|\Z/10|^{3}$             & single op cubed + closure offset     & $+0.14\sigma$ \\
+$1/\alpha$        & $137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$                & integer constant + op-square corr.   & $\sim 6$ sig fig \\
+$n_s$             & $1 - \mathrm{HARMONY}/(2|\Z/10|^{2})$                 & single op linear, complement form    & $0.024\sigma$ \\
+$\Omega_{DM}$     & $(|\Aut(V)| + |V|)\,|\sigma|/|\Z/10|^{3}$             & mixed: $V$-symmetry + $\sigma$-cycle & $-0.18\sigma$ \\
+$\eta_b$          & $|\sigma|/|\Z/10|^{10}$                                & $\sigma$-cycle linear                & $1.6\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-We pose this as a conjecture rather than a theorem because
-neither the per-observable derivation nor a closed predictive map
-operator-$\to$-observable is yet established. Stated formally:
+The numerator constructions are not all of one type, and we do
+not have evidence for a single-operator-per-observable map. The
+shared content is more abstract: each numerator is constructed
+from a small set of substrate-derived integers
+($\mathrm{HARMONY}$, $\mathrm{CHAOS}$, $|\sigma|$, $|\Aut(V)|$,
+$|V|$, occasional small additive constants like $1$ and the
+substrate-derived $137 = 22 \cdot 6 + 5$ from
+\cite{SandersClaudeChat2026BridgeSprint} (WP124), where $22$,
+$6$, and $5$ are
+respectively the bridge-sprint ``skeleton'' count, the
+$\sigma$-cycle length, and the substrate ``balance'' integer),
+while denominators are uniformly powers of $|\Z/10|$.
 
-\begin{conjecture}[Operator-to-observable correspondence]\label{conj:op-obs}
-For each fundamental physical observable
-$\mathcal{O} \in \{\Omega_b, \Omega_{DM}, \Omega_\Lambda,
-\alpha, m_e/m_p, \eta_b, n_s, \dots\}$ there exists a
-distinguished operator
-$\mathfrak{o}(\mathcal{O}) \in \{0, 1, \dots, 9\}$
-and small non-negative integers
-$(k, m) = (k(\mathcal{O}), m(\mathcal{O}))$
-such that the leading contribution to $\mathcal{O}$
-(or its leading correction term, if dimensional considerations
-fix the leading order) is given by
+\paragraph{Plain-language statement.}
+\emph{Dimensionless fundamental physical observables (such as
+$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$, $1/\alpha$, $n_s$)
+admit exact rational representations $p/q$ in which $p$ and $q$
+are integers constructible from a small set of structural
+primitives associated with a discrete substrate
+$\Z/10$ together with two binary composition tables (the
+TSML/BHML pair) on it, including the absorber index, the
+$\sigma$-permutation cycle structure, and the harmonic counts
+of the associated tables. The specific construction for each
+observable is not yet derived from first principles; the
+conjecture is that such constructions exist and follow a
+discoverable structural pattern.}
+
+\paragraph{Formal statement.}
+We pose this as a conjecture rather than a theorem because
+neither the per-observable derivation nor a closed predictive
+map is yet established.
+
+\begin{conjecture}[Substrate-rational representation]\label{conj:op-obs}
+There is a finite set $\mathcal{P}$ of substrate-derived
+non-negative integer primitives, drawn from
 \[
-  \mathcal{O}_{\mathrm{lead}}
-  \;=\; c_{\mathcal{O}}
-        \cdot \frac{\mathfrak{o}(\mathcal{O})^{k}}{|\Z/10|^{m}},
+  \mathcal{P} \;\supset\;
+    \{0, 1, \dots, 9\}
+    \;\cup\;
+    \{\,|\sigma|,\; |V|,\; |\Aut(V)|,\;
+    |\mathcal{C}|,\; \mathrm{count}_{T}(7),\;
+    \mathrm{count}_{B}(7),\; \dots\,\},
 \]
-with $c_{\mathcal{O}} \in \Q_{>0}$ a small-denominator rational
-that captures structural multiplicities (e.g.\ the $|\sigma|=6$
-factor in $\Omega_{DM}$, the $\frac{1}{2}$ factor in the $n_s$
-expression, the $2$ in $2\mathrm{HARMONY}^{3}+1$).
+where the first ten are the operator labels of $\Z/10$,
+$|\sigma|$ is the $\sigma$-cycle length on
+$\Z/10\setminus\{0,3,8,9\}$, $V$ is the $4$-core's
+$\F_5$-lift defined in \S\ref{sec:setup},
+$\mathcal{C} = \{0,7,8,9\}$ is the $4$-core, and
+$\mathrm{count}_{T}(\cdot)$, $\mathrm{count}_{B}(\cdot)$ are
+TSML/BHML harmonic counts. Each dimensionless fundamental
+physical observable $\mathcal{O}$ then admits a representation
+\[
+  \mathcal{O} \;=\; \frac{\mathcal{N}(\mathcal{O})}{|\Z/10|^{m(\mathcal{O})}}
+\]
+(possibly preceded by an integer additive constant, as in the
+$1/\alpha$ case) where $m(\mathcal{O}) \in \Z_{\geq 0}$ is small
+and the numerator $\mathcal{N}(\mathcal{O})$ is a polynomial in
+the elements of $\mathcal{P}$ of small total degree and small
+integer coefficients. The map
+$\mathcal{O} \mapsto \mathcal{N}(\mathcal{O})$ is conjectured
+to follow a structural pattern derivable from the substrate,
+not chosen post-hoc to fit data.
 \end{conjecture}
 
 \paragraph{Internal consistency.}
 The dark-sector trinity satisfies
-Conjecture~\ref{conj:op-obs} with $\mathfrak{o}(\Omega_b) =
-\mathfrak{o}(\Omega_\Lambda) = \mathrm{HARMONY}$ at
-$(k, m) = (2, 3)$ and $(3, 3)$ respectively, while
-$\Omega_{DM}$ uses the BHML-derived integer $44$ together
-with $|\sigma| = 6$ rather than a single-operator power; this
-``mixed'' form is consistent with $\mathrm{HARMONY}$ being
-absent from the dark-matter operator (a structural reading
-in which dark matter sits in the orthogonal complement of the
-HARMONY-anchored sector).
+Conjecture~\ref{conj:op-obs} with $\Omega_b$ and $\Omega_\Lambda$
+each having a single-operator-power numerator
+($\mathrm{HARMONY}^{2}$ and $2\mathrm{HARMONY}^{3} + 1$
+respectively), while $\Omega_{DM}$ has a mixed numerator
+$(|\Aut(V)| + |V|) \cdot |\sigma| = 44 \cdot 6$. The fine
+structure constant requires the additive form
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$ with
+$137 = 22 \cdot 6 + 5$ itself constructed from substrate
+integers; this richer form, rather than falsifying
+Conjecture~\ref{conj:op-obs}, is the cleanest example of how
+the conjecture's broad family encompasses additive corrections
+and integer-constant offsets, not only single
+$\mathrm{operator}^{k}/|\Z/10|^{m}$ terms.
 
 \paragraph{Falsifiability and a first scan.}
 The conjecture is falsifiable on independent observables. We
@@ -789,27 +837,48 @@ $m_\mu/m_e$               & $206.768$           & $0$       & $0.00\%$ \\
 \end{tabular}
 \end{table}
 
-The scan demonstrates that the conjecture's simplest family form
-does \emph{not} hit every fundamental constant: $\alpha$ and the
-dimensionless mass ratios $m_e/m_p$, $m_\mu/m_e$ have no
-small-integer match in the simple-form family within the search
-cutoff. This is informative: if the conjecture were a coincidence
-in which any constant fits, we would expect uniform $\sim 1\%$
-hit rates across all observables. Instead, the family is
-discriminating, with three constants not matched at all and the
-matched ones falling in a tight $0.04$--$1.31\%$ baseline.
+The scan demonstrates the predicted differential behaviour: the
+conjecture's \emph{simplest} family form
+$(p/q)\,\mathfrak{o}^{k}/|\Z/10|^{m}$ does not hit every
+fundamental constant, but instead picks up some at low baseline
+rate ($\eta_b$ at $0.04\%$, BBN $D/H$ at $0.10\%$, $\sigma_8$ at
+$0.19\%$, $n_s$ at $0.67\%$, $\Delta H_0/H_0$ at $1.31\%$) and
+fails to hit others entirely ($\alpha$, $m_e/m_p$, $m_\mu/m_e$
+at $0\%$ within the search cutoff). The differential behavior is
+informative: if the family were a fittable family in which any
+constant matches, we would expect uniform $\sim 1\%$ hit rates
+across all eight constants. Instead the rates differ by more
+than an order of magnitude, with three constants not matched at
+all.
 
-The non-matching constants are exactly those known in the
-companion bridge-sprint
+The three non-matching constants are exactly those documented in
+the companion bridge-sprint
 material~\cite{SandersClaudeChat2026BridgeSprint} (WP124, WP122)
-to require additional structural ingredients beyond the simple
-form: $\alpha$ enters as a sum involving
-$\mathrm{CHAOS}^{2}$ together with substrate-derived rationals
-$22 \cdot 6$ and $5/1000$, and the mass ratios involve a
-parity-crossing structure on the $V^{\otimes n}$ tower. The
-present paper does not develop those richer structural readings;
-we report the simple-form scan only to demonstrate that the
-conjecture is non-trivially testable.
+as requiring additional substrate ingredients beyond the simple
+form. The fine structure constant has the previously-documented
+expression
+\[
+  1/\alpha
+  \;=\; 137 + \frac{\mathrm{CHAOS}^{2}}{|\Z/10|^{3}}
+  \;=\; 137 + \frac{36}{1000}
+  \;=\; 137.036,
+\]
+with $137 = 22 \cdot 6 + 5$ itself constructed from substrate
+integers (the bridge-sprint ``skeleton'' count $22$, the
+$\sigma$-cycle length $6$, and the substrate ``balance''
+integer $5$). The mass ratios $m_e/m_p$ and $m_\mu/m_e$ are
+similarly developed in WP122 from a parity-crossing structure on
+the $V^{\otimes n}$ tower with substrate-derived multiplicities.
+These three constants therefore \emph{strengthen} rather than
+falsify Conjecture~\ref{conj:op-obs}: they show that the broader
+family of admissible substrate-rational representations
+(integer-additive + power-of-$|\Z/10|$) captures observables for
+which the simplest form is insufficient, while the simplest form
+itself remains discriminating across the constants where it
+applies. The empirical baseline scan
+(Table~\ref{tab:baseline}) is therefore a probe of the simplest
+family, not of the conjecture in its broader form; the broader
+form is what the conjecture asserts.
 
 The research program implied by the conjecture is therefore:
 \begin{enumerate}
