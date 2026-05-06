@@ -1077,9 +1077,22 @@ hit rates. Three constants ($\alpha$, $m_e/m_p$, $m_\mu/m_e$)
 yield zero matches; five others yield baseline rates
 $0.04$--$1.31\%$; this confirms the family is non-trivially
 discriminating without being a closed predictor.
+
+\item \texttt{verify\_alpha\_richer\_form.py}
+verifies the bridge-sprint companion's substrate expression for
+the fine structure constant,
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$ with
+$137 = 22 \cdot 6 + 5$, against CODATA~2018
+$1/\alpha = 137.035999084(21)$. The substrate prediction matches
+the CODATA central value to $\sim 6$ significant figures. The
+script explicitly flags the post-hoc nature of the
+$137 = 22 \cdot 6 + 5$ decomposition (the integer $22$ was
+selected to make the prefix work via the bridge-sprint wobble
+prime $11$), framing the match as supporting the broader-form
+conjecture but not as a structurally derived identity.
 \end{itemize}
 
-All three scripts run to completion in under thirty seconds and
+All four scripts run to completion in under thirty seconds and
 print all verification numbers cited in the manuscript.
 
 %==============================================================
