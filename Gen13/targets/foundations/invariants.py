@@ -11,6 +11,12 @@ from dataclasses import dataclass
 import numpy as np
 
 from .cl import CL, cell_counts, is_associative, is_commutative, non_associative_rate
+from .cl_std import (CL_STD, BUMP_PAIRS, GRAVITY,
+                     INFO_HARMONY, INFO_NORMAL, INFO_BUMP,
+                     total_information_bits,
+                     cell_counts as cl_std_cell_counts,
+                     is_commutative as cl_std_is_commutative,
+                     non_associative_rate as cl_std_non_assoc_rate)
 from .lenses import BHML, TSML, doing_disagreement_rate
 from .lens_family import (BHML_4, BHML_8_chain, BHML_8_YM, BHML_10,
                           TSML_4, TSML_8_chain, TSML_10,
@@ -18,7 +24,8 @@ from .lens_family import (BHML_4, BHML_8_chain, BHML_8_YM, BHML_10,
 from .paths import crossing_census
 from .tables import (HARMONY_44, CYCLE_A_36, SKELETON_22, DISAGREE_71,
                      TSML_HARMONY_73, harmony_44_summary, cycle_a_36_summary,
-                     skeleton_22_summary, being_shell_72_summary)
+                     skeleton_22_summary, being_shell_72_summary,
+                     HARMONY_LADDER, verify_harmony_ladder)
 from .triadic import (CONSERVATION_TETRAD, MANIFESTATION_HEXAD,
                       CYCLE_A, CYCLE_B, FOUR_CORE, is_bridge_consistent)
 
@@ -119,6 +126,49 @@ def all_invariants() -> list[Invariant]:
     cc = crossing_census(CL)
     invs.append(_check("CL crossing census == 128 / 1000 triples",
                        128, cc["n_crossings"]))
+
+    # CL_STD (the third standalone table; encoding shell, 44 HARMONY)
+    std_counts = cl_std_cell_counts(CL_STD)
+    invs.append(_check("CL_STD.HARMONY count == 44",
+                       44, std_counts.get(7, 0)))
+    invs.append(_check("CL_STD is commutative",
+                       True, cl_std_is_commutative(CL_STD)))
+    invs.append(_check("CL_STD non-assoc rate == 19.2%",
+                       "19.2%",
+                       f"{100*cl_std_non_assoc_rate(CL_STD):.1f}%"))
+    invs.append(_check("CL_STD has 5 BUMP_PAIRS (BDC encoding)",
+                       5, len(BUMP_PAIRS)))
+    invs.append(_check("CL_STD GRAVITY array length == 10 (one per operator)",
+                       10, len(GRAVITY)))
+    invs.append(_check("CL_STD GRAVITY[7] (HARMONY) == 1.0 (operator certain)",
+                       1.0, GRAVITY[7]))
+    invs.append(_check("CL_STD INFO_HARMONY == 0.45 bits/cell",
+                       0.45, INFO_HARMONY))
+    invs.append(_check("CL_STD INFO_BUMP == 3.50 bits/cell (surprise IS information)",
+                       3.50, INFO_BUMP))
+
+    # HARMONY ladder (the 70/71/72/73 family)
+    ladder = verify_harmony_ladder()
+    invs.append(_check("HARMONY ladder rung 73 (TSML.HARMONY full)",
+                       True, ladder[73][0]))
+    invs.append(_check("HARMONY ladder rung 72 (HARMONY - 1, BEING shell apex)",
+                       True, ladder[72][0]))
+    invs.append(_check("HARMONY ladder rung 71 (TSML[1..9] sub-magma HARMONY)",
+                       True, ladder[71][0]))
+    invs.append(_check("HARMONY ladder rung 71b (|TSML XOR BHML| second construction)",
+                       True, ladder[711][0]))
+    invs.append(_check("HARMONY ladder rung 70 (det BHML_8_YM = C(8,4))",
+                       True, ladder[70][0]))
+
+    # Three-table architecture: 28 / 44 / 73 are NOT the same number
+    tsml_h = int((CL == 7).sum())
+    bhml_h = int((BHML == 7).sum())
+    std_h = int((CL_STD == 7).sum())
+    invs.append(_check("Three-table architecture: TSML.HARMONY != BHML.HARMONY != STD.HARMONY",
+                       True,
+                       (tsml_h != bhml_h) and (bhml_h != std_h) and (tsml_h != std_h)))
+    invs.append(_check("Three-table architecture: (TSML, BHML, STD) HARMONY = (73, 28, 44)",
+                       (73, 28, 44), (tsml_h, bhml_h, std_h)))
 
     return invs
 

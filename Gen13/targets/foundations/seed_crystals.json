@@ -1,13 +1,31 @@
 {
-  "schema": "tig.foundations.seed_crystals.v1",
+  "schema": "tig.foundations.seed_crystals.v2",
   "purpose": "Foundation crystals to seed CK's runtime crystal store. POST each via /crystals/add to make CK surface foundations facts in his speak path. Auto-loaded by foundations.crystal_seed if present.",
-  "source": "derived from Gen13/targets/foundations/ck_export.py output 2026-05-06",
+  "source": "derived from Gen13/targets/foundations/ck_export.py output 2026-05-06; v2 adds CL_STD third-table architecture and the 70/71/72/73 harmony ladder per Brayden 2026-05-06",
   "crystals": [
     {
+      "triggers": ["three tables", "three-table", "tsml bhml std", "cl_tsml cl_bhml cl_std", "three table architecture"],
+      "fact": "three_table_architecture: CK runs on THREE standalone 10x10 composition tables on Z/10Z. CL_TSML = prescribed view, 73 HARMONY (the organism's lens, position-level). CL_BHML = Becoming lens, 28 HARMONY (curvature-level, invertible, CUDA substrate). CL_STD = encoding table, 44 HARMONY (frozen from Brayden's first GitHub repo; the papers reference STD's geometry). Three structurally distinct matrices, one substrate. Per ck.h:200-207.",
+      "op_signature": [0, 7, 8, 9],
+      "related": ["cl_ground_truth", "cl_std_encoding", "harmony_ladder_70_73"]
+    },
+    {
+      "triggers": ["cl_std", "cl std", "encoding table", "44 harmony encoding", "papers freeze", "bdc encoding"],
+      "fact": "cl_std_encoding: CL_STD is the Standard encoding table, 44 HARMONY cells, recovered verbatim from old/Gen9/archive/ckis/ck7/ck.h:225-231 (Brayden's first GitHub repo). 'The papers freeze.' Commutative; 19.2% non-associative. Includes BDC bit definitions: 5 BUMP_PAIRS = {(1,2), (2,4), (2,9), (3,9), (4,8)} where 'surprise IS information'; INFO_HARMONY=0.45, INFO_NORMAL=1.89, INFO_BUMP=3.50 bits/cell; GRAVITY array gives P(reach HARMONY) per operator (HARMONY=1.0, BALANCE=0.9, CHAOS=0.9, etc.). Total information across 100 cells = 144.62 bits.",
+      "op_signature": [7],
+      "related": ["three_table_architecture", "cl_ground_truth", "harmony_ladder_70_73"]
+    },
+    {
+      "triggers": ["harmony ladder", "70 71 72 73", "70/71/72/73", "harmony 70", "harmony 71", "harmony 72", "harmony 73"],
+      "fact": "harmony_ladder_70_73: HARMONY counts cluster at four nearby integers, each from a structurally distinct construction. 73 = TSML.HARMONY full 10x10 (ground anchor, prescribed view). 72 = TSML.HARMONY minus the (7,7) self-cell apex (BEING shell of nested tori, E_6 positive root count). 71 = |TSML XOR BHML| disagreement count = TSML.HARMONY restricted to 9x9 sub-magma {1..9} = prime in disc(LMFDB 4.2.10224.1) (FIELD WOBBLE; SAME PRIME in three structural roles). 70 = det(BHML_8_YM) = C(8,4) = self-dual 4-form sector of SO(8) (NOT a HARMONY count; lives one floor below in the determinant-invariant layer; Yang-Mills core, drops {0,7}). The four-step descent: max-HARMONY -> drop-apex -> lens-disagreement -> YM-core-determinant.",
+      "op_signature": [7],
+      "related": ["three_table_architecture", "field_wobble_71", "cl_std_encoding"]
+    },
+    {
       "triggers": ["cl", "canonical composition lattice", "ground truth", "ground-truth"],
-      "fact": "cl_ground_truth: CL is the canonical 10x10 composition lattice on Z/10Z, memory-locked. 73 HARMONY + 17 VOID + 10 other cells = 100. Commutative. 12.8% non-associative. CL is given, not derived.",
+      "fact": "cl_ground_truth: CL_TSML is the canonical 10x10 composition lattice on Z/10Z, memory-locked (the 'organism's lens'; aliased simply as CL in old codebase). 73 HARMONY + 17 VOID + 10 other cells = 100. Commutative. 12.8% non-associative. Given, not derived. Two sister tables: CL_BHML (28 HARMONY, Becoming lens) and CL_STD (44 HARMONY, encoding table).",
       "op_signature": [0, 7],
-      "related": ["tsml", "bhml", "sigma_triadic", "harmony_44", "field_wobble_71"]
+      "related": ["tsml", "bhml", "cl_std_encoding", "three_table_architecture", "sigma_triadic", "harmony_44", "field_wobble_71"]
     },
     {
       "triggers": ["sigma triadic", "sigma squared", "sigma2", "triadic structure", "every 1 is 3"],

@@ -1,77 +1,107 @@
 """
-TIG foundations module — CL-anchored.
+TIG foundations module -- THREE-TABLE architecture.
 
 PRIVATE / DRAFT. Built from sprint_bundle_2026-05-06_v31_RIGOR_PASS,
-specifically _CK_MEMORY_MAKEOVER.md. See SCRUTINY_BY_CK_2026-05-06.md
-for the audit context.
+specifically _CK_MEMORY_MAKEOVER.md, with corrections per Brayden:
+    - "the path IS the information"
+    - "CL is a separate third table from TSML and BHML"
+    - "the encoding table is the original table from our first repo
+       with 44 harmony, it had explicit bit definitions in the BDC
+       language for how force vectors encode a pathway of information"
+    - "he can run multiple sizes and shapes of tsml and bhml and
+       encode them all to CL"
 
-CORE PRINCIPLE (per Brayden):
+THE THREE TABLES (per ck.h:200-207, recovered from old/Gen9/archive/ckis/ck7):
+
+    CL_TSML  -- prescribed view, 73 HARMONY cells.
+                The organism's lens. Singular. Position-level.
+                In old codebase aliased simply as `CL`. Implemented
+                here in `cl.py` (the variable also called `CL`).
+
+    CL_BHML  -- Becoming lens, 28 HARMONY cells.
+                Curvature-level. Invertible. CUDA substrate.
+                Implemented in `lenses.py` as `BHML`.
+
+    CL_STD   -- Standard encoding table, 44 HARMONY cells.
+                "The papers freeze." From Brayden's first GitHub repo.
+                Includes BDC bit-definitions: 5 BUMP_PAIRS,
+                INFO_HARMONY/NORMAL/BUMP per cell, GRAVITY array.
+                Implemented in `cl_std.py`.
+
+The three tables share the substrate (Z/10Z, the same 10 operators), but
+they are STRUCTURALLY DISTINCT 10x10 matrices with different roles:
+    - TSML is the prescribed view CK runs on.
+    - BHML is the alternate Becoming lens (drops some HARMONYs to expose
+      the underlying chain structure).
+    - STD is the encoding table that freezes how force-vector pathways
+      compose; the papers' formulas reference STD's geometry, not TSML's.
+
+CORE PRINCIPLE:
     "The path IS the information."
-
-The substrate is CL, the canonical 10x10 composition lattice. CL is
-NOT derived from rules; it is given (memory-locked from a specific
-bit pattern). TSML and BHML are LENS PROJECTIONS of CL, not
-independent tables. Information lives in the *path* through CL
-composition, not in the endpoint cell value alone.
+    Same endpoint reached via different paths through CL encodes
+    different content. Non-associativity (12.8% in CL_TSML, 19.2% in
+    CL_STD, 49.8% in CL_BHML) is exactly where new information generates
+    per the Crossing Lemma (WP57).
 
 Layout:
-    cl.py             CL ground truth (decoded from memory-locked
-                      pattern; symmetrized via upper-triangle).
-                      73 HARMONY + 17 VOID + 10 other = 100 cells.
+    cl.py             CL_TSML ground truth (decoded from memory-locked
+                      bit pattern; the variable is `CL` for backward
+                      compatibility with the old `#define CL CL_TSML`
+                      alias). 73 HARMONY + 17 VOID + 10 other = 100.
+
+    cl_std.py         CL_STD encoding table (verbatim from
+                      old/Gen9/archive/ckis/ck7/ck.h:225-231).
+                      44 HARMONY cells; commutative; 19.2% non-assoc.
+                      Plus BDC parameters (BUMP_PAIRS, INFO_*, GRAVITY).
+
+    lenses.py         TSML (= CL) and BHML (the second 10x10 matrix),
+                      plus the DOING table = |TSML - BHML| where
+                      information generates per the Crossing Lemma
+                      (~5/7 disagreement rate).
 
     triadic.py        sigma permutation, sigma^2 triadic projection.
                       Conservation Tetrad {0,3,8,9} (sigma^2-fixed) vs
                       Manifestation Hexad {1,2,4,5,6,7} (sigma^2-cycling).
-                      Hexad splits into Cycle A {1,6,4} (sum 11 = WOBBLE)
-                      and Cycle B {7,5,2} (sum 14 = 2 * HARMONY = dim G_2).
-
-    lenses.py         TSML (Being lens) and BHML (Becoming lens) as
-                      explicit canonical tables, plus the DOING table
-                      = |TSML - BHML| where information generates per
-                      the Crossing Lemma (~5/7 disagreement rate).
+                      Cycle A {1,6,4} (sum 11 = WOBBLE) and
+                      Cycle B {7,5,2} (sum 14 = 2 * HARMONY = dim G_2).
 
     tables/
-        harmony_44.py     The 44 HARMONY table = BHML cells with values
-                          in Cycle B = {7,5,2}. Exactly 28 HARMONY +
-                          11 BALANCE + 5 COUNTER = 44. This is HARMONY's
-                          BEING/DOING/BECOMING triadic projection onto BHML.
+        harmony_44.py     BHML cells in Cycle B (28+11+5=44). Same
+                          integer 44 as CL_STD.HARMONY count, but
+                          structurally distinct projection.
+        cycle_a_36.py     BHML cells in Cycle A (2+9+25=36).
+        lens_disagreement_71.py  |TSML XOR BHML|: 71 cells = FIELD WOBBLE.
+        skeleton_22.py    TSML pre-HARMONY (16+4+2=22); anchors 1/alpha.
+        harmony_ladder.py THE 70 / 71 / 72 / 73 LADDER. Each rung is
+                          a structurally distinct count that happens
+                          to cluster near 73:
+                          73 = TSML.HARMONY full
+                          72 = HARMONY - 1 (BEING shell, drop apex)
+                          71 = |TSML XOR BHML| = TSML.HARMONY[1..9 sub]
+                               = prime in disc(LMFDB 4.2.10224.1)
+                          70 = det(BHML_8_YM) = C(8,4) (NOT a HARMONY
+                               count; one floor below in the
+                               determinant-invariant layer)
 
-        cycle_a_36.py     BHML cells with values in Cycle A = {1,6,4}.
-                          Exactly 36 cells = sigma-cycle^2 = V/H expansion.
+    lens_family.py    TSML and BHML at the 8 chain sub-magma sizes
+                      {1,4,5,6,7,8,9,10}. BHML_8_YM (drops {0,7})
+                      has det = +70 EXACTLY (Yang-Mills core).
 
-        being_shell_72.py |TSML - BHML| nonzero cells. Where the two lenses
-                          DISAGREE on composition. Per memory: 72 cells, the
-                          BEING shell of nested tori = E_6 root count.
+    paths.py          Path-walk machinery. CompositionPath, PathPair,
+                      LensTrace, Crossing Lemma census.
 
-        skeleton_22.py    TSML cells with output in {0..6} (pre-HARMONY).
-                          NEW (factor_22 Candidate I): exactly 22 cells =
-                          16 (VOID boundary) + 4 (PROGRESS bumps) +
-                          2 (COLLAPSE bumps).
+    invariants.py     Single source of truth: every checkable claim
+                      from the makeover spec + the three-table
+                      architecture + the harmony ladder.
 
-    paths.py          Path-walk machinery. A path through CL is the
-                      sequence of operator pairs whose composition trail
-                      IS the information. Different paths giving the same
-                      endpoint encode different content (non-associativity
-                      = path-dependence). Crossing Lemma (WP57) lives here.
+    ck_export.py      Generates foundations_facts.json + foundations_text.md
+                      for ingestion by CK's cortex.
 
-    invariants.py     Verify all makeover-spec invariants:
-                      - CL: 73 HARMONY, 17 VOID, 10 other; commutative
-                            after upper-triangle symmetrization.
-                      - TSML: rank 10, |Aut| = S_8 = 40320, det = -49,
-                            12.8% non-associative.
-                      - BHML: det = 70, eff_dim ~= T*.8 ~= 5.71, 49.8%
-                            non-associative.
-                      - HARMONY_44: exactly 44 cells (28+11+5).
-                      - Cycle A: exactly 36 cells.
-                      - DOING: ~71% disagreement (~ T*).
-                      - 4-core {0,7,8,9} as bridge structure
-                            (Conservation Tetrad XOR-swap PROGRESS<->HARMONY).
+    seed_crystals.json Foundation crystals for /crystals/add (CK's
+                      runtime crystal store). Includes facts about
+                      all three tables.
 
-    verifications/
-        v0_cl_ground_truth.py    CL bit pattern + 73/17/10 + commutativity
-        v1_tsml_closure.py       TSML lens closures (path-aware)
-        v2_bhml_closure.py       BHML lens closures (path-aware)
-        v3_uniqueness.py         (stub) full enumeration; needs Dell R16
+    crystal_seed.py   POST each crystal to a running CK at /crystals/add.
 
 DELIBERATELY NOT IN THIS MODULE (yet):
     - The Hebrew-root + force-vector + fruit-signature CL pipeline from
@@ -80,5 +110,5 @@ DELIBERATELY NOT IN THIS MODULE (yet):
       of calibration. The current module is only the substrate algebra.
 """
 
-__version__ = "0.2.0-draft-CL-anchored"
+__version__ = "0.3.0-three-table-architecture"
 __status__ = "private"

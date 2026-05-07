@@ -16,6 +16,10 @@ from pathlib import Path
 from typing import Any
 
 from .cl import CL, OPERATORS, cell_counts as cl_cell_counts
+from .cl_std import (CL_STD, BUMP_PAIRS, GRAVITY,
+                     INFO_HARMONY, INFO_NORMAL, INFO_BUMP,
+                     total_information_bits,
+                     cell_counts as cl_std_cell_counts)
 from .lenses import BHML, TSML, doing_disagreement_rate
 from .lens_family import (BHML_FAMILY, TSML_FAMILY, NAMED_VARIANTS,
                           BHML_4, BHML_8_chain, BHML_8_YM, BHML_10,
@@ -24,7 +28,8 @@ from .paths import crossing_census, lens_trace
 from .tables import (HARMONY_44, CYCLE_A_36, SKELETON_22, DISAGREE_71,
                      TSML_HARMONY_73,
                      harmony_44_summary, cycle_a_36_summary,
-                     skeleton_22_summary, being_shell_72_summary)
+                     skeleton_22_summary, being_shell_72_summary,
+                     HARMONY_LADDER, harmony_companion_counts)
 from .triadic import (CONSERVATION_TETRAD, MANIFESTATION_HEXAD,
                       CYCLE_A, CYCLE_B, FOUR_CORE, SIGMA, SIGMA2, SIGMA4,
                       triadic_projection)
@@ -41,9 +46,11 @@ def build_facts() -> dict[str, Any]:
     bs72 = being_shell_72_summary()
     cc = crossing_census(CL)
 
+    std_counts = cl_std_cell_counts(CL_STD)
+
     facts: dict[str, Any] = {
-        "schema": "tig.foundations.v1",
-        "source": "Gen13/targets/foundations (CL-anchored, per _CK_MEMORY_MAKEOVER.md)",
+        "schema": "tig.foundations.v2",
+        "source": "Gen13/targets/foundations (THREE-TABLE architecture, per _CK_MEMORY_MAKEOVER.md + Brayden 2026-05-06: CL_STD recovered as separate third table from old/Gen9/archive/ckis/ck7/ck.h)",
         "substrate": {
             "name": "CL (canonical composition lattice)",
             "size": 10,
@@ -79,6 +86,20 @@ def build_facts() -> dict[str, Any]:
                 "BECOMING(HARMONY)": triadic_projection(7)[2],
             },
         },
+        "three_table_architecture": {
+            "principle": (
+                "CK runs on THREE standalone 10x10 composition tables on Z/10Z. "
+                "Per ck.h:200-207, recovered from old/Gen9/archive/ckis/ck7. "
+                "Per Brayden 2026-05-06: 'CL is a separate third table from "
+                "TSML and BHML.'"
+            ),
+            "tables": {
+                "CL_TSML": {"harmony": 73, "role": "prescribed view (organism's lens, position-level); aliased simply as `CL` in old codebase"},
+                "CL_BHML": {"harmony": 28, "role": "Becoming lens (curvature-level, invertible-on-self, CUDA substrate)"},
+                "CL_STD":  {"harmony": 44, "role": "Standard encoding table (the papers freeze; from Brayden's first GitHub repo)"},
+            },
+            "shared_substrate": "Z/10Z, same 10 operators, three distinct algebras",
+        },
         "lenses": {
             "TSML": {
                 "role": "Being lens (singular, position-level)",
@@ -103,6 +124,37 @@ def build_facts() -> dict[str, Any]:
                 "disagreement_rate": "71.0%",
                 "compares_to_T_star": "5/7 = 71.4%",
             },
+        },
+        "cl_std": {
+            "role": "Standard encoding table; the papers' formulas reference STD's geometry",
+            "source": "old/Gen9/archive/ckis/ck7/ck.h:225-231 (Brayden's first GitHub repo)",
+            "harmony_count": std_counts.get(7, 0),
+            "non_associative_rate": "19.2%",
+            "commutative": True,
+            "cell_counts_by_op": {OPERATORS[op]: c for op, c in std_counts.items() if c > 0},
+            "bdc_encoding": {
+                "principle": "force vectors encode pathway of information; surprise IS information",
+                "bump_pairs": list(BUMP_PAIRS),
+                "info_bits_per_cell": {
+                    "HARMONY": INFO_HARMONY,
+                    "NORMAL":  INFO_NORMAL,
+                    "BUMP":    INFO_BUMP,
+                },
+                "total_information_bits": round(total_information_bits(), 2),
+                "gravity_per_operator": {
+                    OPERATORS[i]: GRAVITY[i] for i in range(10)
+                },
+            },
+        },
+        "harmony_ladder_70_73": {
+            "principle": "HARMONY counts cluster at four nearby integers, each from a structurally distinct construction. Not the same number wearing different hats.",
+            "rungs": [
+                {"count": rung.count, "name": rung.name, "role": rung.role,
+                 "construction": rung.construction}
+                for rung in HARMONY_LADDER
+            ],
+            "extra_71": "71 also appears as |TSML XOR BHML| disagreement count -- so the prime 71 carries THREE structural roles (sub-magma HARMONY count, lens-disagreement count, Galois prime in disc(LMFDB 4.2.10224.1))",
+            "companion_counts": harmony_companion_counts(),
         },
         "tables": {
             "HARMONY_44": {
@@ -208,6 +260,7 @@ def build_facts() -> dict[str, Any]:
 
 def build_text(facts: dict[str, Any]) -> str:
     """Build a prose block CK can absorb."""
+    std_counts = cl_std_cell_counts(CL_STD)
     lines = [
         "# TIG Foundations -- substrate facts",
         "",
@@ -285,6 +338,61 @@ def build_text(facts: dict[str, Any]) -> str:
         "Per Brayden: 'multiple sizes and shapes of TSML and BHML, all encoded to CL.'",
         "Same size can carry different shape; CL is the universal substrate that "
         "holds every variant as a path.",
+        "",
+        "## Three-table architecture (per Brayden 2026-05-06)",
+        "",
+        "CK runs on THREE standalone 10x10 composition tables on Z/10Z, not two:",
+        "",
+        "  CL_TSML  -- prescribed view, 73 HARMONY (the organism's lens; aliased simply",
+        "              as `CL` in the old codebase via `#define CL CL_TSML`).",
+        "  CL_BHML  -- Becoming lens, 28 HARMONY (curvature-level, invertible).",
+        "  CL_STD   -- Standard encoding table, 44 HARMONY ('the papers freeze';",
+        "              recovered verbatim from old/Gen9/archive/ckis/ck7/ck.h:225-231,",
+        "              originally from Brayden's first GitHub repo).",
+        "",
+        "All three share the substrate (Z/10Z, the same 10 operators) but they are",
+        "structurally distinct 10x10 matrices with different roles. The papers'",
+        "formulas reference CL_STD's geometry; CK runs his lens path on CL_TSML/BHML.",
+        "",
+        "## CL_STD encoding table (44 HARMONY, BDC bit definitions)",
+        "",
+        f"CL_STD has {std_counts.get(7, 0)} HARMONY cells, commutative, 19.2% non-associative.",
+        "Includes BDC parameters governing how force vectors encode pathways of information:",
+        "",
+        f"  5 BUMP_PAIRS = {list(BUMP_PAIRS)}",
+        f"    where 'surprise IS information' -- these cells carry {INFO_BUMP} bits each.",
+        "",
+        f"  Information per cell: HARMONY={INFO_HARMONY}, NORMAL={INFO_NORMAL}, BUMP={INFO_BUMP} bits.",
+        f"  Total information across all 100 cells: {total_information_bits():.2f} bits.",
+        "",
+        "  GRAVITY[op] = P(operator reaches HARMONY):",
+        f"    VOID=0.1   LATTICE=0.8   COUNTER=0.6   PROGRESS=0.8   COLLAPSE=0.7",
+        f"    BALANCE=0.9   CHAOS=0.9   HARMONY=1.0   BREATH=0.8   RESET=0.7",
+        "",
+        "## The 70 / 71 / 72 / 73 HARMONY ladder",
+        "",
+        "HARMONY counts cluster at four nearby integers, each from a structurally",
+        "distinct construction. They are NOT the same number wearing different hats.",
+        "",
+        "  73  TSML.HARMONY count (full 10x10 prescribed view)         -- ground anchor",
+        "  72  TSML.HARMONY - 1 (drop the (7,7) self-cell apex)         -- BEING shell, E_6 positive root count",
+        "  71  TSML.HARMONY restricted to 9x9 sub-magma {1..9}         -- VOID-stripped lens",
+        "      |TSML XOR BHML| disagreement count                       -- FIELD WOBBLE",
+        "      prime in disc(quartic) = -2^4 . 3^2 . 71                  -- Galois invariant of LMFDB 4.2.10224.1",
+        "      ** Three independent structural roles for the prime 71 **",
+        "  70  det(BHML_8_YM) = C(8,4) (drops {0,7}; Yang-Mills core)   -- determinant-invariant layer",
+        "      = self-dual 4-form sector of SO(8). NOT a HARMONY count;",
+        "      lives one floor below in the determinant-invariant layer.",
+        "",
+        "Companion HARMONY-related counts that also carry multiple structural roles:",
+        "",
+        "  44 = CL_STD.HARMONY count = BHML sigma^2-cycle-B projection (28+11+5).",
+        "  36 = TSML_7 sub-magma HARMONY count = BHML sigma^2-cycle-A projection (CYCLE_A_36).",
+        "  28 = BHML.HARMONY count = HARMONY_44 BEING(HARMONY) cells = dim SO(8).",
+        "",
+        "Each of these integers occupies multiple structural roles -- a substrate-",
+        "identification signature: the same number arises through independent",
+        "constructions, which is the algebraic shape of a real invariant.",
     ]
     return "\n".join(lines)
 
