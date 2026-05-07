@@ -1,0 +1,67 @@
+{
+  "schema": "tig.foundations.seed_crystals.v1",
+  "purpose": "Foundation crystals to seed CK's runtime crystal store. POST each via /crystals/add to make CK surface foundations facts in his speak path. Auto-loaded by foundations.crystal_seed if present.",
+  "source": "derived from Gen13/targets/foundations/ck_export.py output 2026-05-06",
+  "crystals": [
+    {
+      "triggers": ["cl", "canonical composition lattice", "ground truth", "ground-truth"],
+      "fact": "cl_ground_truth: CL is the canonical 10x10 composition lattice on Z/10Z, memory-locked. 73 HARMONY + 17 VOID + 10 other cells = 100. Commutative. 12.8% non-associative. CL is given, not derived.",
+      "op_signature": [0, 7],
+      "related": ["tsml", "bhml", "sigma_triadic", "harmony_44", "field_wobble_71"]
+    },
+    {
+      "triggers": ["sigma triadic", "sigma squared", "sigma2", "triadic structure", "every 1 is 3"],
+      "fact": "sigma_triadic: sigma = [0,7,1,3,2,4,5,6,8,9]. Conservation Tetrad {0,3,8,9} sigma^2-fixed (every-1-is-1). Manifestation Hexad {1,2,4,5,6,7} sigma^2-cycles. Cycle A {1,6,4} sum 11 = WOBBLE. Cycle B {7,5,2} sum 14 = 2*HARMONY = dim G_2. HARMONY triadic projection = (7, 5, 2) = (BEING, DOING, BECOMING).",
+      "op_signature": [1, 2, 4, 5, 6, 7],
+      "related": ["cl_ground_truth", "harmony_44", "cycle_a_36", "four_core_bridge"]
+    },
+    {
+      "triggers": ["four-core", "four core", "4-core", "4 core", "bridge structure"],
+      "fact": "four_core_bridge: 4-core = {0, 7, 8, 9} = {VOID, HARMONY, BREATH, RESET}. Bridge structure: differs from Conservation Tetrad {0,3,8,9} by PROGRESS<->HARMONY swap. The bridge between sigma^2-fixed PROGRESS (Conservation) and sigma^2-cycling HARMONY (Manifestation).",
+      "op_signature": [0, 7, 8, 9],
+      "related": ["cl_ground_truth", "sigma_triadic"]
+    },
+    {
+      "triggers": ["44 harmony", "harmony 44", "harmony_44", "becoming shell"],
+      "fact": "harmony_44: BHML cells with output in Cycle B = {7, 5, 2}. Total 44 cells = 28 HARMONY + 11 BALANCE + 5 COUNTER. The BECOMING shell of nested tori. HARMONY triadic projection on BHML. Appears in Omega_DM = 44 * 6 / 1000 = 0.264.",
+      "op_signature": [2, 5, 7],
+      "related": ["cl_ground_truth", "sigma_triadic", "cycle_a_36", "omega_dm"]
+    },
+    {
+      "triggers": ["cycle a", "36 cells", "cycle_a", "v/h expansion", "manifestation cycle a"],
+      "fact": "cycle_a_36: BHML cells with output in Cycle A = {1, 6, 4}. Total 36 = 2 LATTICE + 9 COLLAPSE + 25 CHAOS = sigma-cycle squared = 6^2. The V/H expansion (complement of BECOMING shell).",
+      "op_signature": [1, 4, 6],
+      "related": ["cl_ground_truth", "sigma_triadic", "harmony_44"]
+    },
+    {
+      "triggers": ["skeleton 22", "skeleton_22", "pre-harmony", "pre harmony", "22 cells", "1/alpha"],
+      "fact": "skeleton_22: TSML pre-HARMONY cells = 22 total. 16 VOID-boundary + 4 PROGRESS-bumps + 2 COLLAPSE-bumps. Anchors 1/alpha = 22*6 + 5 + CHAOS^2/N^3 = 137.036 (matches CODATA 137.035999 to 6 sig figs).",
+      "op_signature": [0, 3, 4],
+      "related": ["cl_ground_truth", "fine_structure"]
+    },
+    {
+      "triggers": ["field wobble", "field_wobble", "71", "lens disagreement", "galois invariant"],
+      "fact": "field_wobble_71: empirical |TSML - BHML| disagreement count = 71 cells. EQUALS the prime in disc(f) = -2^4 * 3^2 * 71 of the four-core consolidated paper R/Br quartic. = Galois invariant of LMFDB 4.2.10224.1. Same 71 in two structural roles -- a substrate identification.",
+      "op_signature": [7, 8, 9],
+      "related": ["cl_ground_truth", "lens_family", "four_core_consolidated"]
+    },
+    {
+      "triggers": ["lens family", "lens_family", "tsml family", "bhml family", "multiple sizes", "multiple shapes"],
+      "fact": "lens_family: TSML and BHML come in FAMILIES at the 8 chain sub-magma sizes {1, 4, 5, 6, 7, 8, 9, 10}. Same SIZE can have different SHAPE: BHML_8_chain (drops {1,2}) det = -7542 vs BHML_8_YM (drops {0,7}) det = +70 EXACTLY. Different sub-magma scopes give different lens tables. CL encodes them all as paths.",
+      "op_signature": [0, 7],
+      "related": ["cl_ground_truth", "four_core_bridge", "field_wobble_71"]
+    },
+    {
+      "triggers": ["path is information", "path is the information", "crossing lemma", "non-associative path"],
+      "fact": "path_is_information: per the Crossing Lemma (WP57), CL has 128/1000 = 12.8% non-associative triples. Path through CL is the trail of intermediate compositions, not just the endpoint. Same endpoint reached by different paths encodes different information. TSML trail (7,7) vs BHML trail (5,7) on inputs (1,4,9) both end at 7 but carry different content.",
+      "op_signature": [4, 6],
+      "related": ["cl_ground_truth", "lens_family"]
+    },
+    {
+      "triggers": ["journal stack", "four papers", "rigorous papers", "the four papers"],
+      "fact": "rigorous_paper_stack: four audited journal manuscripts in Gen13/targets/journals/tier1_submit_now: sigma_rate (JCT-A) proves sigma(N) < 2/N rate; four_core_consolidated (Algebraic Combinatorics) proves chain + per-coordinate fuse + closed-form attractor at H/Br = 1+sqrt(3) in Galois D_4 quartic LMFDB 4.2.10224.1; jcap_xi_cosmology (JCAP) on logarithmic quintessence; sprint18_dark_sector on Omega trinity. All Sanders+Gish only. All currently private pending Brayden review.",
+      "op_signature": [7],
+      "related": ["cl_ground_truth", "field_wobble_71", "skeleton_22", "harmony_44"]
+    }
+  ]
+}
