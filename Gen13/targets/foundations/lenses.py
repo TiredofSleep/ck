@@ -1,154 +1,155 @@
 """
-A5 -- The two-lens projection.
+TSML and BHML — the two-lens projection of CL.
 
-Construct TSML and BHML FROM RULES (not hardcoded). Constructing from
-rules catches axiom drift: if you change the rule for the C_0 absorb
-behavior or the BHML successor row, the table changes accordingly,
-and downstream verifications either still pass (rule was equivalent)
-or fail (rule was not the canonical one).
+Per _CK_MEMORY_MAKEOVER.md:
+    CL is ground truth (the canonical algebra).
+    TSML is the Being-mode projection of CL (singular, position-level).
+    BHML is the Becoming-mode projection of CL (curvature-level, invertible).
+    DOING = |TSML - BHML| is where information generates per the
+            Crossing Lemma. Disagreement rate ~ T* = 5/7 = 71.4%.
 
-CONSTRUCTION:
+Empirically: TSML's matrix coincides with CL's matrix (the same 73-HARMONY
+table). The conceptual distinction is in how it is read -- as ground-truth
+composition (CL) or as Being-lens projection (TSML). They share the same
+numerical content; the lens role is interpretive.
 
-TSML (Being lens, measurement projection):
-  The C_0 rule defines TSML's bare backbone, with two perturbation
-  patches (S_MAX = sigma-MAX overrides; S_ADD = closure-completing
-  cells) added to satisfy the canonical-pair axioms. Inside this
-  module we construct only the C_0 backbone explicitly; the
-  S_MAX / S_ADD perturbations are an open derivation
-  (sprint_bundle's SPRINT_FACTOR_6_DARK_MATTER explores them).
+BHML is a SEPARATE matrix (the Becoming lens, hardcoded canonically from
+WP105). Its cell counts per the makeover spec:
 
-BHML (Becoming lens, transformation projection):
-  Built from four explicit rules:
-    Rule 0:  BHML[0, j] = j           (VOID is identity)
-    Rule 1:  BHML[i, j] = (max(i,j)+1) mod N for i, j in {1..6}
-    Rule 7:  BHML[7, j] = (j + 1) mod N    (HARMONY-row successor)
-    Rule 89: BHML[i, j] = (i + j) mod N for i, j in {8, 9}
-  Plus commutativity: BHML[i, j] = BHML[j, i]. The remaining
-  outer-x-inner cells (i in {8,9}, j in {1..6}) are filled with
-  (i + j) mod N as a placeholder; the canonical rule for these is
-  open (see SPRINT_V1_V2_CLOSURE.md note).
+    Op 0 (VOID):    4 cells
+    Op 1 (LATTICE): 2 cells
+    Op 2 (COUNTER): 5 cells
+    Op 3 (PROGRESS): 7 cells
+    Op 4 (COLLAPSE): 9 cells
+    Op 5 (BALANCE): 11 cells
+    Op 6 (CHAOS):   25 cells
+    Op 7 (HARMONY): 28 cells
+    Op 8 (BREATH):  5 cells
+    Op 9 (RESET):   4 cells
+    -- Total: 100 = N^2.
+
+Cycle B = {7, 5, 2}: 28 + 11 + 5 = 44   (the "44 HARMONY" table)
+Cycle A = {1, 6, 4}: 2 + 25 + 9  = 36   (V/H expansion)
+Conservation Tetrad cells (output in {0,3,8,9}): 4 + 7 + 5 + 4 = 20
 """
 from __future__ import annotations
 
+from collections import Counter
+
 import numpy as np
 
-from .substrate import N, sigma_units
+from .cl import CL, N, OPERATORS
 
-CORE = frozenset({0, 7, 8, 9})    # the 4-core
-UNITS = frozenset({1, 3, 7, 9})   # multiplicative units of Z/10Z
-HARMONY = 7
-VOID = 0
+# ---------------------------------------------------------------------------
+# TSML = the Being lens
+# Empirically same matrix as CL; the lens role is conceptual.
+# ---------------------------------------------------------------------------
+
+TSML: np.ndarray = CL.copy()
 
 
 # ---------------------------------------------------------------------------
-# TSML's C_0 rule (bare backbone, before S_MAX / S_ADD perturbations)
+# BHML = the Becoming lens (hardcoded canonical, per WP105)
 # ---------------------------------------------------------------------------
 
-def build_C0() -> np.ndarray:
-    """Build the C_0 backbone for TSML.
-
-    Rules (in priority order):
-        1. VOID absorbs:        if i == 0 or j == 0 -> 0.
-        2. HARMONY absorbs:     if (i == HARMONY or j == HARMONY) AND
-                                neither is VOID -> HARMONY.
-        3. Off-Core -> HARMONY:  if i not in CORE or j not in CORE -> HARMONY.
-        4. On-Core, non-units -> HARMONY (default).
-        5. On-Core units, smaller sigma_units wins;
-           sigma-tie -> HARMONY.
-    """
-    C0 = np.zeros((N, N), dtype=int)
-    for i in range(N):
-        for j in range(N):
-            if i == VOID or j == VOID:
-                C0[i, j] = VOID
-            elif i == HARMONY or j == HARMONY:
-                C0[i, j] = HARMONY
-            elif i not in CORE or j not in CORE:
-                C0[i, j] = HARMONY
-            elif i not in UNITS or j not in UNITS:
-                C0[i, j] = HARMONY
-            else:
-                si, sj = sigma_units(i), sigma_units(j)
-                if si < sj:
-                    C0[i, j] = i
-                elif sj < si:
-                    C0[i, j] = j
-                else:
-                    C0[i, j] = HARMONY
-    return C0
+BHML: np.ndarray = np.array([
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 2, 3, 4, 5, 6, 7, 2, 6, 6],
+    [2, 3, 3, 4, 5, 6, 7, 3, 6, 6],
+    [3, 4, 4, 4, 5, 6, 7, 4, 6, 6],
+    [4, 5, 5, 5, 5, 6, 7, 5, 7, 7],
+    [5, 6, 6, 6, 6, 6, 7, 6, 7, 7],
+    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+    [8, 6, 6, 6, 7, 7, 7, 9, 7, 8],
+    [9, 6, 6, 6, 7, 7, 7, 0, 8, 0],
+], dtype=int)
 
 
 # ---------------------------------------------------------------------------
-# BHML construction (four-rule)
+# DOING = |TSML - BHML| (information generation; Crossing Lemma)
 # ---------------------------------------------------------------------------
 
-def build_BHML() -> np.ndarray:
-    """Build BHML from its four canonical rules.
-
-    Note: the outer-x-inner cells (i in {8,9}, j in {1..6}) use
-    (i + j) mod N as the default, which the bundle's V1V2 sprint flags
-    as needing canonical-rule confirmation.
-    """
-    B = np.full((N, N), -1, dtype=int)
-
-    # Rule 0: VOID is identity (rows and columns)
-    for k in range(N):
-        B[0, k] = k
-        B[k, 0] = k
-
-    # Rule 1: max(i,j)+1 on inner 6x6 (operators 1..6)
-    for i in range(1, 7):
-        for j in range(1, 7):
-            B[i, j] = (max(i, j) + 1) % N
-
-    # Rule 7: HARMONY row = successor (j + 1) mod N
-    for k in range(N):
-        B[7, k] = (k + 1) % N
-        B[k, 7] = (k + 1) % N  # commutativity
-
-    # Rule 89: BREATH/RESET wrap
-    for i in (8, 9):
-        for j in (8, 9):
-            B[i, j] = (i + j) % N
-
-    # Outer x inner default placeholder (i in {8,9}, j in {1..6})
-    for i in (8, 9):
-        for j in range(1, 7):
-            if B[i, j] < 0:
-                B[i, j] = (i + j) % N
-                B[j, i] = (i + j) % N
-
-    assert (B >= 0).all(), "BHML construction left some cells unfilled"
-    return B
+def doing_table() -> np.ndarray:
+    """The DOING table: per-cell absolute difference between Being and Becoming."""
+    return np.abs(TSML.astype(int) - BHML.astype(int)).astype(int)
 
 
-def fuse_axiom_holds_on(table: np.ndarray) -> bool:
-    """Verify A4: fuse(3, 4, 7) = 8 -- equivalently table[7, 7] = 8 here.
+def doing_cells_disagree() -> list[tuple[int, int, int, int]]:
+    """All (i, j, TSML[i,j], BHML[i,j]) where TSML != BHML."""
+    return [(i, j, int(TSML[i, j]), int(BHML[i, j]))
+            for i in range(N) for j in range(N)
+            if int(TSML[i, j]) != int(BHML[i, j])]
 
-    Rationale: in the 4-rule BHML, rule 7 forces table[7, 7] =
-    (7 + 1) mod 10 = 8, satisfying the fuse axiom directly on the
-    diagonal. TSML's C_0 backbone does NOT satisfy this (table[7, 7] =
-    7 by the HARMONY-absorbs rule), which distinguishes the lenses.
-    """
-    return int(table[7, 7]) == 8
 
+def doing_disagreement_rate() -> float:
+    """Fraction of cells where the two lenses disagree."""
+    return len(doing_cells_disagree()) / (N * N)
+
+
+# ---------------------------------------------------------------------------
+# Lens-level invariants
+# ---------------------------------------------------------------------------
+
+def cell_counts(M: np.ndarray) -> dict[int, int]:
+    ct = Counter(int(v) for v in M.flatten())
+    return {op: ct.get(op, 0) for op in range(N)}
+
+
+def is_commutative(M: np.ndarray) -> bool:
+    return bool((M == M.T).all())
+
+
+def non_associative_rate(M: np.ndarray) -> float:
+    bad = 0
+    for a in range(N):
+        for b in range(N):
+            for c in range(N):
+                lhs = int(M[int(M[a, b]), c])
+                rhs = int(M[a, int(M[b, c])])
+                if lhs != rhs:
+                    bad += 1
+    return bad / (N ** 3)
+
+
+# ---------------------------------------------------------------------------
+# Self-test
+# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("Lenses (A5) self-test")
+    print("TSML, BHML, and DOING report")
     print("=" * 60)
-
-    C0 = build_C0()
-    print("C_0 (TSML backbone):")
-    print(C0)
-    print(f"  C_0[7, 7] = {C0[7, 7]}  -- HARMONY (fuse axiom NOT on TSML, expected)")
-
-    B = build_BHML()
     print()
-    print("BHML:")
-    print(B)
-    print(f"  BHML[7, 7] = {B[7, 7]}  -- expected 8 (fuse axiom holds)")
 
+    print("TSML (Being lens; matrix = CL):")
+    print(TSML)
+    tsml_counts = cell_counts(TSML)
+    print(f"  HARMONY={tsml_counts[7]}, VOID={tsml_counts[0]}, "
+          f"other={sum(c for op, c in tsml_counts.items() if op not in (0, 7))}")
+    print(f"  commutative={is_commutative(TSML)}, "
+          f"non_assoc={100*non_associative_rate(TSML):.1f}%")
     print()
-    print(f"fuse axiom on C_0:  {fuse_axiom_holds_on(C0)}  (expected False)")
-    print(f"fuse axiom on BHML: {fuse_axiom_holds_on(B)}  (expected True)")
+
+    print("BHML (Becoming lens):")
+    print(BHML)
+    bhml_counts = cell_counts(BHML)
+    print(f"  Cell counts:")
+    for op in range(N):
+        print(f"    {op} ({OPERATORS[op]:8s}): {bhml_counts[op]}")
+    expected_BHML = {0: 4, 1: 2, 2: 5, 3: 7, 4: 9, 5: 11, 6: 25, 7: 28, 8: 5, 9: 4}
+    counts_match = bhml_counts == expected_BHML
+    print(f"  Counts match makeover spec: {counts_match}")
+    print(f"  commutative={is_commutative(BHML)}, "
+          f"non_assoc={100*non_associative_rate(BHML):.1f}%")
+    det_BHML = round(float(np.linalg.det(BHML.astype(float))))
+    print(f"  determinant: {det_BHML}  (expected 70)")
+    print()
+
+    print("DOING table = |TSML - BHML|:")
+    D = doing_table()
+    print(D)
+    print(f"  disagreement cells: {len(doing_cells_disagree())} of 100")
+    rate = doing_disagreement_rate()
+    print(f"  disagreement rate: {100*rate:.1f}% (expected ~ T* = 71.4%)")
+    print(f"  vs T* = 5/7 = {100*5/7:.1f}%")
