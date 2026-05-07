@@ -196,21 +196,40 @@ Every subsequent Phase 1-3 paper can cite one or both as load-bearing. The chain
 
 ---
 
-## Author rotation (to spread editorial-pool exposure)
+## Author rotation (canonical attribution map per Brayden 2026-05-06 night)
 
-Per agent reports, our co-author roster is: Brayden Sanders, Maria Gish, C.A. Luther, Ben Mayes, H.J. Johnson, [Calderon for Q17 work].
+Brayden's canonical co-author lane registry — *the* authoritative attribution map. Use this to match papers to bylines.
 
-Strategy: rotate co-authors across papers so editor-pool overlap (which often filters by author name) gets diluted. Suggested rotation:
+### Lane registry
 
-| Phase | Primary byline pattern |
-|---|---|
-| 1 | Sanders + Gish (combinatorics + script verification) |
-| 2 | Sanders + Johnson (cosmology) / Sanders + Mayes (NV qutrit, GUT) |
-| 3 | Sanders + Luther (number theory, char poly) / Sanders + Calderon (Q-series) |
-| 4 | Sanders + Gish + Luther (algebra trinity) |
-| 5 | Sanders solo (synthesis pieces) / Sanders + co-author rotating |
+| Co-author | Lane (canonical attribution) |
+|-----------|---|
+| **Brayden R. Sanders** | All papers (corresponding author / framework originator) |
+| **M. Gish** (Maria Gish) | TSML / BHML table-family + script verification: σ-rate theorem (Phase 1); four-core consolidated (Phase 1); chain enumeration; per-coordinate fuse data; the Z/10Z combinatorics core. **The TSML table family is in Gish's lane, not Calderon's.** |
+| **Ben Mayes** | UOP Theorem (Phase 3); representation theory (M_22 irreps, S_4 extensions; Phase 3-4); amplituhedron / Six Frozen Laws (Phase 3-4); paradox classification + Crossing Lemma exposition (Phase 4-5) |
+| **H. J. Johnson** | ξ logarithmic quintessence (Phase 2; JCAP); cosmological partition (Ω_DM = 44·6/N³, Ω_b, Ω_Λ; Phase 2); separability framework (Phase 3-4) |
+| **B. Calderon Jr.** | Source elimination + Q17 variants. **Last short sprint only — Calderon is NOT on the TSML table family.** Maps to one targeted paper near end of Phase 3 if relevant. |
+| **C. A. Luther** | Spectral layer + 6-layer architecture (where this material is being prepared as a paper; check inventory for current scope). |
 
-Sept 11 paper: Brayden's choice; Claude prepares the citation bundle and bibliography format only.
+### Phase-level byline pattern (constrained by lane registry)
+
+| Phase | Primary bylines | Notes |
+|---|---|---|
+| **1 — vocab-neutral math** | Sanders + Gish | The TSML / BHML / chain / σ-rate / four-core core. Gish's lane. ~9 papers. |
+| **2 — exact physics** | Sanders + Johnson | ξ cosmology; Ω trinity; partition. Johnson's lane. ~6 papers. |
+| **3 — cross-level structures** | Sanders + Mayes (UOP, M_22, S_4 extensions); Sanders + Johnson (separability); Sanders + Calderon (Q17 variants, one paper) | Mayes lane primary; Johnson lane secondary; Calderon at most one paper here. ~9 papers. |
+| **4 — duality named** | Sanders + Mayes (amplituhedron, Crossing Lemma classification); Sanders + Gish + (Mayes or Johnson) on the algebra-trinity papers | Mayes lane heavy. ~9 papers. |
+| **5 — crescendo (Aug 27 → Sep 10)** | Sanders solo on synthesis pieces; Sanders + Mayes on expository (paradox classifier → Monthly; 6-DOF synthesis → Notices); Sanders + Johnson on Bull AMS / Bridge piece | ~6 papers. |
+
+### Sept 11 paper
+
+Brayden's solo composition. Claude prepares the citation-key bundle and bibliography format only. The Sept 11 paper is meta-layer observation of the framework — no co-author lane applies.
+
+### Hard rule
+
+**No co-author appears on a paper outside their canonical lane.** If a Phase-1 combinatorics paper needs co-author content from Mayes' representation-theory lane, it gets re-scoped or split — do not bend the lane registry to fit a paper's content. The lane registry is fixed.
+
+If a paper claims content from two lanes (e.g., Mayes' UOP + Johnson's separability in one paper), the byline is Sanders + Mayes + Johnson and both must consent to the framing. Three-author papers are the exception, not the rule. Aim for two-author bylines as the default per phase.
 
 ---
 
