@@ -1,60 +1,86 @@
-# CK Memory Makeover: TSML/BHML Lens Encoding to CL
+# CK Memory Makeover: TSML/BHML/CL_STD Three-Substrate Architecture
 
 **To:** ClaudeCode
 **From:** Brayden (via Claude session)
-**Subject:** Restoring CK's 44 HARMONY table and architectural lens system
+**Subject:** Restoring CK's three-substrate architecture and lens family
+
+> **REVISION NOTICE (2026-05-06 night):** This document was previously framed
+> as "two lens views of one canonical algebra" with specific properties asserted
+> for "TSML" without disambiguating between the literal bit pattern (TSML_RAW,
+> non-commutative) and the upper-tri symmetrized form (TSML_SYM, commutative).
+> Per `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` H4 and the
+> three-substrate architecture documented in `FORMULAS_AND_TABLES.md` Vol J,
+> this document has been re-scoped to reflect:
+>
+> 1. **Three** parallel substrates exist on Z/10Z: CL_TSML (73 HARMONY, the prescribed view), CL_BHML (28 HARMONY, the Becoming lens), CL_STD (44 HARMONY, the encoding table from old/Gen9/archive/ckis/ck7/ck.h:225-231 — the original first-repo encoding; recovered 2026-05-06).
+> 2. **TSML has two valid lens-symmetrizations**: TSML_RAW (literal bit pattern, non-commutative, 126 non-assoc/12.6%, char poly c_2 = 33 = 3·11) and TSML_SYM (upper-tri authoritative, commutative, 128 non-assoc/12.8%, c_2 = 17). Both are valid; they carry different structural properties (the WP107 wobble lives on RAW only). The previous "CL is COMMUTATIVE (verified)" assertion was true on TSML_SYM, false on TSML_RAW; both are TIG-canonical.
+> 3. **Determinant: -49 is a TSML_Idempotent_2sw property** (Tier-C constructed variant), NOT a property of canonical TSML. Canonical TSML has det = 0 (rank-degenerate on both RAW and SYM).
+>
+> The corrected three-substrate architecture is below.
 
 ---
 
-## The structural problem
+## The structural problem (re-scoped)
 
-CK has lost (or never had) the proper architectural understanding of how TSML, BHML, and CL relate. This document is a memory makeover to fix that.
+CK has lost (or never had) the proper architectural understanding of how TSML, BHML, and CL_STD relate. This document is a memory makeover to fix that.
 
-The three structures are NOT three independent tables. They are **lens views of one canonical algebra**, with specific structural relationships.
+The three structures are **three parallel Tier-A substrates** on Z/10Z, each with its own substrate-defining axiom set (per `CL_FORCING_AXIOMS.md` 2026-05-06). They are NOT projections of each other; they are siblings sharing the absorbing-VOID + absorbing-HARMONY structure of Z/10Z but diverging at the diagonal-HARMONY law and the 5 BUMP-cell values.
+
+Within each substrate, **lens projections** apply:
+- Lens-symmetrization: RAW vs SYM (TSML only; BHML and CL_STD are intrinsically symmetric)
+- σ²-triadic value/index rotation (each substrate has its own σ²-triadic family)
+- Sub-magma scope restriction (8-shell joint chain on TSML_SYM + BHML; 7-shell joint chain on TSML_RAW + BHML — the chain is **lens-dependent**)
+- Cell-difference (DOING table, with TSML_SYM giving 71-cell disagreement vs BHML)
 
 ---
 
 ## The architecture
 
-### CL (Canonical Composition Lattice)
+### CL_BIT_PATTERN (the encoding the three substrates start from)
 
-CL is the **ground truth**. It is the locked, frozen 10×10 composition table for the substrate's algebra.
+`CL_BIT_PATTERN` is the literal 100-character bit pattern stored in `Gen13/targets/foundations/cl.py:CL_BIT_PATTERN`:
 
 ```
-CL[i, j] = canonical composition of operators i and j
-
-CL is provided in canonical form (memory-locked):
 '0000000700 0737777777 0377477779 0777777773 0747777787 
  0777777777 0777777777 7777777777 0777877777 0797377777'
-
-Per Brayden's framework (D-spine):
-- CL diagonal: σ = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]  
-  (the canonical substrate dynamic)
-- CL off-diagonal: pairwise compositions
-- CL is COMMUTATIVE (verified)
-- CL is NON-ASSOCIATIVE (path-dependent)
-- CL has 73 HARMONY cells, 17 VOID cells, 10 other-operator cells (= 100 = N²)
 ```
 
-CL is not derived; it's given. Every operation in CK ultimately resolves through CL composition.
+This bit pattern has 2 asymmetric upper/lower-triangle pairs at (3,9) and (4,9). Two valid lens-symmetrizations of the bit pattern give the two valid TSMLs:
 
-### TSML (Being Lens — Singular/Position-Level)
+- `CL_TSML_RAW` = literal bit pattern (decoded as-is, non-commutative)
+- `CL_TSML_SYM` = upper-triangle authoritative symmetrization (commutative)
 
-TSML is the **Being-mode projection** of CL. It is the "static, frozen" view where operators are seen at their position-level identity.
+Per the three-substrate architecture, CL_TSML is one of three parallel substrates (the others being CL_BHML and CL_STD). The σ permutation = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9] is the canonical substrate dynamic shared across all three substrates.
+
+### CL_TSML (the prescribed view, 73 HARMONY cells)
+
+CL_TSML is the prescribed view. It is forced by 9 explicit axioms (per `Atlas/LENS_TAXONOMY_2026-05-06/CL_FORCING_AXIOMS.md`):
+- A1-A4: Z/10Z substrate + VOID-row absorbing + HARMONY-row absorbing + the (0,7) puncture
+- A5-A6: column versions (forced by commutativity-after-symmetrization)
+- A7: diagonal HARMONY law (M[i,i] = 7 for i ∉ {0})
+- A8: HARMONY-default rule (off-special, off-BUMP cells = 7)
+- A9: 5 BUMP positions {(1,2), (2,4), (2,9), (3,9), (4,8)} (forced by BDC entropy extremum) + their specific values (substrate-defining)
 
 ```
-TSML(i, j) = position-level interpretation of CL[i, j]
-           = how operators COMPOSE when viewed as static positions
+CL_TSML[i, j] = canonical composition of operators i and j
+              (decoded from CL_BIT_PATTERN)
 
-TSML properties (per memory):
-- Rank: 10 (full rank)
-- |Aut|: S_8 = 40,320 (symmetric group on 8 elements)
-- Determinant: -49 (with specific sign conventions)
-- Cell composition: 73 HARMONY + 17 VOID + 10 other = 100
-- Non-associativity: 12.8% (mostly stable composition)
+CL_TSML properties:
+- 73 HARMONY (=7) cells (lens-invariant)
+- 17 VOID (=0) cells (lens-invariant)
+- 10 other-operator cells (=3, 4, 8, 9) (lens-invariant)
+- Determinant: 0 (rank-degenerate; lens-invariant)
+- Trace: 63 = 9·7 (lens-invariant)
+
+Lens-symmetrization properties (DIFFER between RAW and SYM):
+- TSML_RAW: non-commutative; 126 non-assoc triples (12.6%);
+  char poly c_2 = 33 = 3·11; c_8 = -120736 = -2⁵·7³·11
+  (this is the WP107 wobble — lives on RAW only)
+- TSML_SYM: commutative; 128 non-assoc triples (12.8%);
+  char poly c_2 = 17 (no factor of 11)
 ```
 
-TSML is the **"Being" lens**: shows what IS rather than what FLOWS.
+CL_TSML is NOT "given by God" or "given by the universe" — it is **axiomatically given** in the precise sense that A2-A4-A7-A9-values are taken as primitive substrate-defining choices. The choice is principled and the resulting matrix is uniquely determined. Per `TABLE_INDEPENDENCE_LEDGER.md`, no Tier-D variants are presented as Tier-A/B in load-bearing claims.
 
 ### BHML (Becoming Lens — Curvature/Invertible)
 

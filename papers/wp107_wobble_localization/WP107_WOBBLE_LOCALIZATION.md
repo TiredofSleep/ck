@@ -10,9 +10,11 @@
 
 ## Abstract
 
-Let $T \in M_{10}(\mathbb{Z})$ be the canonical TSML composition table on $\mathbb{Z}/10\mathbb{Z}$. Its characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has integer coefficients. We prove that the prime $11$ divides **exactly two** of the nine nonzero coefficients of $f$, namely $c_2 = 33 = 3 \cdot 11$ and $c_8 = -120736 = -2^5 \cdot 7^3 \cdot 11$, and divides **none** of the discriminant of the 8th-degree polynomial $f(\lambda)/\lambda^2$, which factors as $2^{16} \cdot 7^7 \cdot 659 \cdot (\text{large primes})$.
+Let $T \in M_{10}(\mathbb{Z})$ be the **canonical TSML_RAW** composition table on $\mathbb{Z}/10\mathbb{Z}$ — the literal CL_BIT_PATTERN decoded as a 10×10 matrix without symmetrization. Its characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has integer coefficients. We prove that the prime $11$ divides **exactly two** of the nine nonzero coefficients of $f$, namely $c_2 = 33 = 3 \cdot 11$ and $c_8 = -120736 = -2^5 \cdot 7^3 \cdot 11$, and divides **none** of the discriminant of the 8th-degree polynomial $f(\lambda)/\lambda^2$, which factors as $2^{16} \cdot 7^7 \cdot 659 \cdot (\text{large primes})$.
 
 This identifies a structural separation: the prime 11 lives at the **coefficient level** (sums and products of eigenvalues — the elementary symmetric functions), while the doubly-invariant dimension $2^{16}$ and HARMONY⁷ ($= 7^7$) live at the **discriminant level** (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ under $D_4 = \langle P_{56}, \sigma^3 \rangle$ (verified $= \mathfrak{su}(4) \oplus \mathfrak{u}(1)$ in WP104) is therefore **wobble-free** in this technical sense; the 29-dimensional complement carries the wobble.
+
+> **Lens-scope note (2026-05-06):** Throughout this paper, $T$ denotes the literal bit pattern $T_{\mathrm{RAW}}$ (TSML_RAW: non-commutative, with asymmetric cells $T[3,9]=3 \neq 7 = T[9,3]$ and $T[4,9]=7 \neq 3 = T[9,4]$). The upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ has $c_2 = 17$ (no factor of 11) and **does not exhibit the prime-11 wobble at the coefficient level**. The wobble theorem of this paper therefore applies to the canonical literal-bit-pattern TSML_RAW as defined here; the symmetrized variant is a different lens of the same encoding (per `Atlas/LENS_TAXONOMY_2026-05-06/TABLE_INDEPENDENCE_LEDGER.md` §3.1 and `Atlas/LENS_TAXONOMY_2026-05-06/TSML_RECONCILIATION.md`).
 
 ---
 

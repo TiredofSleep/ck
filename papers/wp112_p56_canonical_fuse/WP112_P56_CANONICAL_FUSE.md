@@ -9,7 +9,9 @@
 
 ## Abstract
 
-The 126 non-associative TSML triples on $\mathbb{Z}/10\mathbb{Z}$ admit no $D_4 = \langle P_{56}, \sigma^3 \rangle$-equivariant canonical fuse rule (WP109): of 67 $D_4$-orbits, exactly 16 are obstructed. This paper drops one generator, weakening the symmetry to $\langle P_{56} \rangle$ (order 2), and proves three positive results:
+The 126 non-associative **TSML_RAW** triples on $\mathbb{Z}/10\mathbb{Z}$ (the literal CL_BIT_PATTERN; per `Atlas/LENS_TAXONOMY_2026-05-06/TSML_RECONCILIATION.md`) admit no $D_4 = \langle P_{56}, \sigma^3 \rangle$-equivariant canonical fuse rule (WP109): of 67 $D_4$-orbits, exactly 16 are obstructed.
+
+> **Lens-scope note (2026-05-06):** The 126 → 98 orbit decomposition and the obstruction count are computed on TSML_RAW. The upper-triangle symmetrized variant TSML_SYM has 128 non-associative triples (5 of the 126 RAW triples involve the asymmetric column at index 9 and resolve differently after symmetrization; the count differs by 2 net). The 4-core arity-3 closure result (Theorem 5.5 below) and the Family H universal HARMONY attractor (Theorem 5.7) are **lens-invariant** because the 4-core sub-magma is lens-invariant. This paper drops one generator, weakening the symmetry to $\langle P_{56} \rangle$ (order 2), and proves three positive results:
 
 (i) **P_56-coherence is universal.** The 126 triples decompose into **98 $\langle P_{56} \rangle$-orbits** (70 singletons + 28 doubletons), and **every orbit is P_56-coherent**: a P_56-equivariant fuse rule exists.
 
