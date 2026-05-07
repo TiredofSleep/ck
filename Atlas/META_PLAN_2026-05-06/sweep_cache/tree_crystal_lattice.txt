@@ -1,0 +1,8 @@
+ChatGPT Theory Paper.pdf
+ENGINEERING_SPEC.docx
+LICENSE
+README.md
+TIG FALSIFIABILITY AND AWE.pdf
+crystal_bug_v1_matrix.jsx
+test_engine_v2.js
+test_results.txt

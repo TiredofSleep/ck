@@ -1,0 +1,13 @@
+CITATION.cff
+CONTRIBUTING.md
+LICENSE
+README.md
+docs/COMPUTE.md
+docs/DERIVATIVES.md
+docs/GLOSSARY.md
+docs/OPERATORS.md
+docs/Our Simulations Overview
+docs/REFERENCES.md
+docs/S derivatives.pdf
+docs/THEORY.md
+docs/VALIDATION.md

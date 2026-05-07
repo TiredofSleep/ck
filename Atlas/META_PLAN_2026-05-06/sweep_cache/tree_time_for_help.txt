@@ -1,0 +1,74 @@
+00_SERIES_INDEX.md
+01_TIG_HUMAN_PHYSIOLOGY.md
+02_COHERENCE_TRAINING_PROTOCOL.md
+03_SELF_REFERENCE_CONSCIOUSNESS.md
+04_BIOLOGICAL_COMPUTATION.md
+7SiTe_SeedRelease_v1.1LEGAL - ChatGPT- Celeste.zip
+CELESTE_LETTER.md
+CLAUDE PAPERS.zip
+COHERENT_DAEMON.py
+CRYSTAL_BUG.py
+Center of the Onion.zip
+Civilization sims.zip
+Claude 7Site Release Paradox ADD.zip
+CoherenceIntelligenceMachine.zip
+D_STAR_SELF_REFERENCE.md
+Dual Langrangian workup
+EDGE_91.json
+ENSEMBLE_LATTICE.json
+EQUATIONS.md
+Fractal test results.zip
+LICENSE.md
+MythtoMachine.zip
+NEWESTENGINE.py
+ONION_FINAL.md
+OllieV2.1.zip
+OllieV4.zip
+Operator Suite.zip
+PAPER1_Falsifiability.md
+PAPER2_OperatorDerivation.md
+PAPER3_Mod3Algebra.md
+PAPER4_CrossScript.md
+PAPER5_ReplicationTests.md
+PRESS_BRIEF.md
+R16Deployment.zip
+README.md
+TIG FALSIFIABILITY AND AWE.pdf
+TIGFractalEngine.py
+TIGIMPLEMENTATION.zip
+TIG_12_AGENT_PANEL.py
+TIG_3CHANNEL.py
+TIG_3CHANNEL_RESULTS.json
+TIG_COMPLETE_PACKAGE.zip
+TIG_ENSEMBLE.py
+TIG_OPERATORS.md
+TIG_OPERATORS_COMPLETE.md
+TIG_SCIENTIFIC_FRAMEWORK.md
+TIG_SECURITY_ARCHITECTURE.md
+TIG_VALIDATION.py
+TIG_VALIDATION_RESULTS.json
+TIG_WORD_MATH_FORMALISM.md
+Tig Crystal.py
+TigCoreDemo.py
+TigOfTig.zip
+UNIVERSE_LATTICE_7.json
+Universe Lattice.zip
+VALIDATION_LOG.md
+VALIDATION_REPORT.md
+WP1_Coherence_Field_Equation.docx
+WP1_Coherence_Field_Equation.pdf
+WP2_Operator_Algebra.docx
+WP2_Operator_Algebra.pdf
+WP3_Fractal_Lattice.docx
+WP3_Fractal_Lattice.pdf
+WP4_Computational_Validation.docx
+WP4_Computational_Validation.pdf
+WP5_Applied_Coherence_Routing.docx
+WP5_Applied_Coherence_Routing.pdf
+crystal_bug_matrix.jsx
+ollie_semantics.py
+tig_physics_results.json
+tig_physics_test.py
+v3.py
+v4.2/TIG_COMPLETE_PACKAGE.zip
+v4.2/v4.2.py

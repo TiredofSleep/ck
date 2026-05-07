@@ -1,0 +1,67 @@
+AGENCY PROTOCOL.docx
+AI Brain workup.docx
+AI Physical and material builds.docx
+AI SAFETY.docx
+C5 Math duality.docx
+C5 constant.docx
+CELESTE BACKBONE.docx
+CRYSTAL Papers.docx
+How to use the Lattice, full derivations.docx
+LICENSE
+New physics constant c5.docx
+New physics constant.docx
+Papers 1-all self healing lattice/Appendix.docx
+Papers 1-all self healing lattice/CLAUDE PAPERS/PAPERS_1-3_COMPLETE_RESULTS.md.txt
+Papers 1-all self healing lattice/CLAUDE PAPERS/files.zip
+Papers 1-all self healing lattice/Dual Lattice Self Healing Field Paper.docx
+Papers 1-all self healing lattice/Dual-Lattice Self-Healing Field Paper.pdf
+Papers 1-all self healing lattice/Paper 10.docx
+Papers 1-all self healing lattice/Paper 11.docx
+Papers 1-all self healing lattice/Paper 12.docx
+Papers 1-all self healing lattice/Paper 13.docx
+Papers 1-all self healing lattice/Paper 14.docx
+Papers 1-all self healing lattice/Paper 15.docx
+Papers 1-all self healing lattice/Paper 16.docx
+Papers 1-all self healing lattice/Paper 17.docx
+Papers 1-all self healing lattice/Paper 18.docx
+Papers 1-all self healing lattice/Paper 19.docx
+Papers 1-all self healing lattice/Paper 2.docx
+Papers 1-all self healing lattice/Paper 20.docx
+Papers 1-all self healing lattice/Paper 21.docx
+Papers 1-all self healing lattice/Paper 22.docx
+Papers 1-all self healing lattice/Paper 23.docx
+Papers 1-all self healing lattice/Paper 24.docx
+Papers 1-all self healing lattice/Paper 25.docx
+Papers 1-all self healing lattice/Paper 3.docx
+Papers 1-all self healing lattice/Paper 4.docx
+Papers 1-all self healing lattice/Paper 5.docx
+Papers 1-all self healing lattice/Paper 6.docx
+Papers 1-all self healing lattice/Paper 7.docx
+Papers 1-all self healing lattice/Paper 8.docx
+Papers 1-all self healing lattice/Paper 9.docx
+Papers 1-all self healing lattice/Papers 121-160.docx
+Papers 1-all self healing lattice/Papers 161-170.docx
+Papers 1-all self healing lattice/Papers 171-190.docx
+Papers 1-all self healing lattice/Papers 191-200.docx
+Papers 1-all self healing lattice/Papers 26-56.docx
+Papers 1-all self healing lattice/Papers 57-64.docx
+Papers 1-all self healing lattice/Papers 65-95.docx
+Papers 1-all self healing lattice/Papers 96-120.docx
+Papers 1-all self healing lattice/Unified Abstract.docx
+Published Sim docs/Run.txt
+Published Sim docs/plot_results.py.txt
+Published Sim docs/readme.md.txt
+Published Sim docs/requirements.txt
+Published Sim docs/simulate_dual_lattice.py.txt
+README.md
+Run.txt
+TIG ALIGNMENT.docx
+TIG ALIGNMENTS and AI SAFETY.docx
+TIG FULL MYTHICAL.docx
+TIG SIMS.docx
+TIGCodexEngine.py
+claudeWHAT_IS_TIG_WHITE_PAPER_v3.md
+plot_results.py.txt
+readme.md.txt
+requirements.txt
+simulate_dual_lattice.py.txt
