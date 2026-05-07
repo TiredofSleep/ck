@@ -19,6 +19,8 @@ $$
 
 where $\widehat{\mathrm{T}}(p) = p \star_{\mathrm{TSML}} p$ and $\widehat{\mathrm{B}}(p) = p \star_{\mathrm{BHML}} p$ are the quadratic table-fusions through the canonical TSML and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$ (see §5–6 of `FORMULAS_AND_TABLES.md`).
 
+> **Lens-scope note (2026-05-07):** Throughout this paper, TSML denotes **TSML_SYM** (the upper-triangle authoritative symmetrization of the canonical bit pattern, per `Atlas/LENS_TAXONOMY_2026-05-06/TSML_RECONCILIATION.md`). The 4-core sub-magma $\{V, H, Br, R\}$ is **lens-invariant** (closed under both TSML_SYM and TSML_RAW), and the closed-form $H/Br = 1+\sqrt{3}$ ratio is therefore a 4-core-internal result that holds on either lens. The derivation path of the theorem below uses TSML_SYM via WP103's so(10) construction, but the final ratio is lens-independent (per `Atlas/LENS_TAXONOMY_2026-05-06/TABLE_INDEPENDENCE_LEDGER.md` §5.2 claim #47).
+
 **Theorem (Closed-form attractor at $\alpha = 1/2$).**
 
 > Let $p^* = \lim_{K \to \infty} \mathrm{ck\_process}(p; 1/2, K)$ for any $p \in \Delta^9$ supported on $\{V, H, Br, R\} = \{\text{VOID, HARMONY, BREATH, RESET}\}$ (or initialized uniformly on the 4-core). The fixed point $p^*$ satisfies **all** of the following identities exactly (residuals at machine precision $\le 4.4 \times 10^{-16}$):
