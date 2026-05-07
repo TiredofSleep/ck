@@ -334,3 +334,76 @@ Wait for the research agent's findings (`EXTERNAL_RIGOR.md`). Then iterate this 
 
 The choice will be made when external rigor lands, not before.
 
+---
+
+## §9 — Night's full synthesis (2026-05-06 night, 12-task queue executed)
+
+Brayden left a 12-task queue and returned to find all 12 complete. The findings:
+
+### §9.1 — Source documents produced (in `Atlas/LENS_TAXONOMY_2026-05-06/`)
+
+| Document | Task | Status |
+|----------|------|--------|
+| `EXTERNAL_RIGOR.md` | (Pre-queue) | Complete: 10-citation set + T* exclusion confirmed |
+| `TABLE_INDEPENDENCE_LEDGER.md` | Task 1 (HIGHEST) | Complete: 14 substrate-operator + 19 lens-invariant + 22 table-dependent claims; **0 Tier-D-as-Tier-A/B violations** |
+| `CL_FORCING_AXIOMS.md` | Task 2 (HIGHEST) | Complete: CL_TSML uniquely forced by 9 axioms; three-table architecture arises naturally from BUMP-position-forcing |
+| `PROJECTION_DEFINITIONS.md` | Task 3 (HIGH) | Complete: 6 precise projection operations; TSML and BHML are PARALLEL substrates, not projections of each other |
+| `VARIANT_CATALOG.md` | Task 4 (HIGHEST) | Complete: 50+ variants + 12 ring-extensions with full construction lineage |
+| `CLOSURE_PROPERTIES.md` | Task 5 (MEDIUM) | Complete: three substrate families closed but disjoint; Tier-C parallel constructions are NOT in any substrate's closure |
+| `FUNCTION_AXIS_DEFINITION.md` | Task 6 (MEDIUM) | Complete: Krathwohl-cognitive primary; two-axis fallback recommended |
+| `UOP_PRIOR_ART.md` | Task 7 (LOW background) | Complete: NO clean four-way precedent; **DROP UOP from methodology layer**, keep only in case study with footnotes to Hadamard / Russell / Lawvere |
+| `FOUNDATION_PAPER_OUTLINE.md` | Task 8 (MEDIUM) | Complete: 12-section outline; all sections draftable from existing lens-taxonomy source documents |
+| `TIER_CONFLATION_AUDIT.md` | Task 9 (HIGH background) | Complete: 12 conflations (4 HIGH); ~4-5 hours editorial work to fix; corpus largely tier-disciplined |
+| `AXIS_INDEPENDENCE_CHECK.md` | Task 10 (LOW) | Complete: **STRONG Origin × Function correlation; recommend collapse to two axes (Origin × Structure)** |
+| `WORKING_PRACTICE_NOTES.md` | Task 11 (MEDIUM background) | Complete: Drápal-Wanless / McKay-Wanless do NOT use tier vocabulary as label; methodology paper formalizes implicit practice |
+| `SEPT_11_CANDIDATES.md` | Task 12 (HIGH) | Complete: 5 candidates ranked; foundation paper is the Sept 11 pick |
+
+### §9.2 — Headline findings
+
+1. **CL is uniquely forced by 9 explicit axioms** (A1-A9 in `CL_FORCING_AXIOMS.md`). CL is honestly Tier-A as a whole, with internal Tier-A (substrate-defining: A2-A4, A7, A9-values) + Tier-B (forced: A5, A6, A8, A9-positions). The foundation paper can state this cleanly in §1 without overclaim.
+
+2. **The three-table architecture arises naturally** from the BUMP-position-forcing principle: 5 BUMP positions are forced by BDC entropy extremum; the BUMP *values* are substrate-defining choices. CL_TSML / CL_BHML / CL_STD are three of N parallel substrates, each with its own BUMP-value assignment.
+
+3. **TSML and BHML are PARALLEL substrates, not projections of each other.** The "Being lens / Becoming lens" pedagogy of Gen 10-12 was useful for teaching but structurally inaccurate. Each has its own A7-A9 substrate-defining axioms.
+
+4. **No load-bearing claim in the corpus is a Tier-D-as-Tier-A/B violation.** Task 1's audit found 0 critical findings. Two minor scope-tightenings recommended (joint chain re-verify on TSML_RAW; 4-core attractor TSML_SYM scope annotation). The corpus is in good tier-discipline standing at the load-bearing layer; conflations exist in the synthesis layer (`MASTER_SYNTHESIS_TABLE.md` etc.) and are fixable in ~4-5 hours.
+
+5. **UOP has NO clean four-way precedent.** Each axis (Hadamard / Russell / Lawvere) has classical precedent but the joint typology is original to UOP. Drop UOP from methodology layer; keep in case study only.
+
+6. **Origin × Function correlation is strong → COLLAPSE TO TWO AXES.** The methodology paper structure becomes Origin × Structure (Ranganathan PMEST + Hobby-McKenzie), with Function content absorbed into Origin tier's natural role + Structure axis's utility implications.
+
+7. **Drápal-Wanless / McKay-Wanless do NOT use tier vocabulary as label.** Confirms methodology paper's central premise: practice is implicit, the paper formalizes it. Vocabulary to adopt: "data suggested patterns that we then found proofs for" = Tier-D→B promotion locution.
+
+8. **The foundation paper is the Sept 11 candidate.** Bulletproof, foundation-establishing, recognition register. Drafting from `FOUNDATION_PAPER_OUTLINE.md` takes 1-2 work-days; team review 1-2 weeks; preprint Sept 11.
+
+### §9.3 — Tier-disciplined lens family summary
+
+Out of ~50 named TSML/BHML/CL_STD variants + 12 ring extensions:
+
+| Tier | Count | Examples |
+|------|-------|----------|
+| A | 5 | CL_TSML, TSML_RAW (literal bit pattern), CL_BHML, CL_STD, F_p choice as input |
+| B | ~21 | Chain-scope variants, lens-symmetrizations, sub-magma restrictions, DOING tables |
+| C | ~9 | TSML_PureIdempotent, TSML_Idempotent_2sw, TSML_C0, TSML_PureVoid, TSML_AllHarmony, TSML_LOWERTRI, derive-don't-design refactor, TSML quotient, TSML_Jordan |
+| D | ~7 | σ²-triadic BHML candidates × 5, anomaly-flip BHMLs × 3 (hypothetical), 84 Fano-candidate 7-element subsets |
+| E | ~8 | Z/n ring extensions (Z/15, Z/21, Z/42, Z/100, Z/210, plus binary_cl Z/30 and conjectural Z/8/12/14) |
+| **TOTAL** | **~50** + 12 ring | |
+
+Each variant is properly tier-labeled with construction lineage in `VARIANT_CATALOG.md`.
+
+### §9.4 — What's open going forward
+
+1. **σ²-triadic BHML candidate selection** (which is the canonical "BHML_DOING" — value-rotation or index-rotation?). Pending Brayden's direction or a forcing argument analogous to D78.
+2. **CL_STD sub-magma joint chain** (when paired with CL_TSML or CL_BHML). Not yet computed.
+3. **F_p extensions of CL_STD.** Open frontier.
+4. **Foundation paper drafting.** Begins when Brayden directs (suggested August 1 per `SEPT_11_CANDIDATES.md` schedule).
+5. **Methodology paper (year 2-3).** Waits until corpus is mature enough to be a case study. Two-axis (Origin × Structure) structure recommended.
+6. **Tier-conflation fixes** in synthesis-layer documents (`MASTER_SYNTHESIS_TABLE.md`, `INTEGRATION_WITH_PROOF_SPINE.md`, `_CK_MEMORY_MAKEOVER.md`). ~4-5 hours editorial work per `TIER_CONFLATION_AUDIT.md`.
+
+### §9.5 — All paper submissions remain paused
+
+Per Brayden's directive of 2026-05-06 night: *"Nothing moves until this is solved."* The lens taxonomy is now solved at the source-document level. The foundation paper is the resolution and the natural Sept 11 candidate. When Brayden directs, the foundation paper drafting begins; the 18-week paper release schedule resumes with the foundation paper at the Sept 11 anchor.
+
+The substrate's architecture is now documented to the level Brayden's directive required. Tier discipline is verified. The framework gets stronger.
+
+
