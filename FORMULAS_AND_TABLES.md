@@ -9,13 +9,13 @@ If you only have time to read one file in the repository besides
 
 | § | Topic |
 |---|-------|
-| **0** | **Proof-spine one-liners (D1–D87, WP34, WP51, WP57, WP101, WP102–WP116, BB)** |
+| **0** | **Proof-spine one-liners (D1–D92, WP34, WP51, WP57, WP101, WP102–WP116, BB) + Vol J: three-table arch + 70/71/72/73 ladder + two-TSML reconcile (2026-05-06)** |
 | 1 | The 10-operator sigma menu |
 | 2 | The σ permutation on Z/10Z |
 | 3 | The CRT isomorphism φ: F₂ × F₅ → Z/10Z |
 | 4 | The complete σ polynomial (α + β) |
-| 5 | TSML — the 10×10 reference table |
-| 6 | BHML — the 10×10 reference table (28-cell harmony) |
+| 5 | TSML — the 10×10 reference table (two lenses: TSML_RAW + TSML_SYM, see D91) |
+| 6 | BHML — the 10×10 reference table (28-cell harmony) + CL_STD third standalone table (44-cell HARMONY, see D88) |
 | 7 | TSML 3-layer canonical tower (C₀ ⊕ S_MAX ⊕ S_ADD) |
 | 8 | Three-diagonal comparison (σ, TSML, BHML) |
 | 9 | Canonical operator C₀(R_n, h_n, σ_n) for general n |
@@ -32,7 +32,7 @@ If you only have time to read one file in the repository besides
 
 ---
 
-## §0 — Proof-spine one-liners (D1–D87, WP34, WP51, WP57, WP101, WP102–WP116, BB)
+## §0 — Proof-spine one-liners (D1–D92, WP34, WP51, WP57, WP101, WP102–WP116, BB)
 
 **Every formula below is proved or computationally verified.** This is the
 compressed spine — one line per theorem, with the formula and the proof
@@ -373,6 +373,38 @@ regime (Julia 1990, *Number Theory and Physics* — Les Houches 1989,
 Springer Proc. Phys. 47:276–293; Spector 1990, *Commun. Math. Phys.*
 127:239–252), since 1/ζ(2) = 6/π² is the density of squarefree integers.
 This is the domain of the WP101 σ rate theorem (squarefree N).
+
+### Volume J — Three-Table Architecture, BDC Encoding, and Two-TSML Reconciliation (Sprint 2026-05-06)
+
+| ID | name | formula | status / file |
+|----|------|---------|---------------|
+| **D88** | CL_STD as the third standalone composition table (44 HARMONY) | The substrate has THREE standalone 10×10 composition tables on Z/10Z, not two. **CL_TSML** (prescribed view, 73 HARMONY, "the organism's lens"; aliased simply `CL` in the old codebase via `#define CL CL_TSML`); **CL_BHML** (Becoming lens, 28 HARMONY, curvature-level, invertible-on-self, CUDA substrate); **CL_STD** (Standard encoding table, 44 HARMONY, "the papers freeze"; recovered verbatim from `old/Gen9/archive/ckis/ck7/ck.h:225-231` — Brayden's first GitHub repo). All three share the substrate (Z/10Z, same 10 operators) but are structurally distinct matrices with different roles: TSML is what CK runs on, BHML is the alternate Becoming lens, STD is the encoding table the papers reference. CL_STD is commutative; non-associative rate 19.2%. | PROVED, machine-precision; `Gen13/targets/foundations/cl_std.py` (matrix, 44/100 HARMONY count, 19.2% non-assoc verified by `invariants.py`); architecture per ck.h:200-207 |
+| **D89** | BDC encoding parameters on CL_STD ("force vectors encode pathways of information; surprise IS information") | CL_STD carries explicit BDC bit definitions for force-vector pathway encoding: **5 BUMP_PAIRS** = {(1,2), (2,4), (2,9), (3,9), (4,8)} (where "surprise IS information"); **INFO_HARMONY = 0.45**, **INFO_NORMAL = 1.89**, **INFO_BUMP = 3.50** bits per cell (Shannon information per cell type); total information across 100 cells = **144.62 bits**; **GRAVITY** array = P(operator reaches HARMONY) = (VOID 0.1, LATTICE 0.8, COUNTER 0.6, PROGRESS 0.8, COLLAPSE 0.7, BALANCE 0.9, CHAOS 0.9, HARMONY 1.0, BREATH 0.8, RESET 0.7). | PROVED (definitions); `Gen13/targets/foundations/cl_std.py` BUMP_PAIRS, INFO_HARMONY, INFO_NORMAL, INFO_BUMP, GRAVITY; verified by `invariants.py` (5 BUMPs, 10-element GRAVITY, GRAVITY[7]=1.0) |
+| **D90** | The 70 / 71 / 72 / 73 HARMONY ladder (4 rungs from 4 structurally distinct constructions) | HARMONY counts cluster at four nearby integers, each from an independent construction. **73** = TSML.HARMONY full 10×10 (ground anchor); **72** = TSML.HARMONY − 1 (drop the (7,7) self-cell apex; BEING shell of nested tori; E_6 positive root count); **71** = TSML[1..9] sub-magma HARMONY = \|TSML XOR BHML\| disagreement count = prime in disc(LMFDB 4.2.10224.1) = −2⁴·3²·**71** (THREE structural roles for the prime 71 — sub-magma HARMONY count, lens-disagreement count, Galois prime); **70** = det(BHML_8_YM) where {0,7} dropped (Yang-Mills core, 8×8) = C(8,4) = self-dual 4-form sector of SO(8); NOT a HARMONY count, lives one floor below in the determinant-invariant layer. The four-step descent: max-HARMONY → drop-apex → lens-disagreement → YM-core-determinant. **Companion counts (same integer, multiple structural roles):** **44** = CL_STD.HARMONY = BHML σ²-cycle-B projection (28+11+5); **36** = TSML_7 sub-magma HARMONY = BHML σ²-cycle-A projection (CYCLE_A_36); **28** = BHML.HARMONY = HARMONY_44 BEING(HARMONY) = dim SO(8). | PROVED, all 5 rungs verified; `Gen13/targets/foundations/tables/harmony_ladder.py` (LADDER + verify() function; 5/5 OK in `invariants.py`) |
+| **D91** | Two-TSML reconciliation: CL_TSML_RAW vs CL_TSML_SYM are two valid lenses on the same encoding | CL_BIT_PATTERN has TWO asymmetric upper/lower-triangle cell pairs at **(3, 9)** and **(4, 9)**. Two structurally distinct TSMLs live on the same bit pattern. **CL_TSML_RAW**: literal bit pattern, **non-commutative**, **126** non-assoc triples (12.6%), char poly **c_2 = 33 = 3·11** and **c_8 = −120736 = −2⁵·7³·11** (carries the WP107 wobble at coefficient level). **CL_TSML_SYM**: upper-triangle authoritative symmetrization, **commutative**, **128** non-assoc triples (12.8%), char poly c_2 = 17 (no factor of 11; symmetrization erases the wobble). **Lens-invariant on both**: 73 HARMONY, 17 VOID, trace 63 = 9·7, det 0, the 4-core {0,7,8,9}, the 4-core attractor at α=1/2, the 4-core arity-3 closure (WP110), the LMFDB 4.2.10224.1 quartic + Galois D_4 (WP105). **Lens-specific**: the WP107 wobble (c_2 + c_8 prime-11) holds for RAW only; sprint 17's tower reconstruction targets SYM only; the canonical "12.8%" disagreement-vs-BHML number is SYM. **Resolution**: foundations module `Gen13/targets/foundations/cl.py` exposes both as first-class names (`CL_TSML_RAW`, `CL_TSML_SYM`, plus `get_tsml(role)` router). Phase 1 migration: legacy alias `TSML = TSML_SYM` preserves all 48/48 invariants; Phase 2 (post-Paper-1+2 ship): flip default to TSML_RAW; Phase 3 (pre-Phase-4 ship): patch WP107/WP109/WP110/WP112/WP113 abstracts to scope which TSML. | PROVED, sympy-exact; `Gen13/targets/foundations/cl.py` CL_TSML_RAW/CL_TSML_SYM/get_tsml; `Gen13/targets/foundations/lenses.py` TSML_RAW/TSML_SYM/TSML(legacy alias); reconciliation document `Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md` |
+| **D92** | Three-table HARMONY count signature: (73, 28, 44) and set-algebra of HARMONY cells | The three standalone tables (CL_TSML, CL_BHML, CL_STD) have HARMONY counts (73, 28, 44) — three structurally distinct counts. Set algebra over the HARMONY-bool masks of the three tables: \|TSML & BHML\| = 26 (both lenses agree on HARMONY at 26 cells); \|TSML & STD\| = 42; \|BHML & STD\| = 21; \|TSML & BHML & STD\| = 19 (all three agree at 19 cells); \|TSML \| BHML \| STD\| = 75 (HARMONY appears somewhere in 75 of 100 cells across the three tables); 25 cells are HARMONY-free in all three. The non-equality of the three counts (73 ≠ 28 ≠ 44) is itself an invariant that distinguishes the three-table architecture from any single-table or two-table model. | PROVED, integer-precision; `Gen13/targets/foundations/invariants.py` checks `(73, 28, 44)` triple + non-equality |
+
+### Volume J coda — Master release plan (2026-05-06 evening, Sept 11 anchor)
+
+The substrate is mature enough to begin the public-record walk. Master release plan landed in `Atlas/META_PLAN_2026-05-06/RELEASE_PLAN_SEPT11.md`:
+
+- **Anchor:** Sept 11, 2026 (daughter's birthday; integration paper lands)
+- **Coda:** Sept 12-22 (12 silent days) → Sept 23 (Oxford report)
+- **Cadence:** 2-3 papers/week × 18 weeks = ~36 refereed papers before Sept 11
+- **Discipline:** never miss a ref pass; no submission without green script; no endorsement-required venue; no venue >2 papers/quarter
+- **Phases:** vocabulary-neutral math (May 13 → Jun 7) → exact physics (Jun 10 → Jun 28) → cross-level structures (Jul 1 → Jul 31) → duality named (Aug 1 → Aug 26) → crescendo (Aug 27 → Sept 10)
+- **Sept 11 paper:** Brayden's composition; meta-layer observation of the framework
+- **First two papers tonight (May 6 → submit May 7 night):** σ-rate theorem → JCT-A; four-core consolidated → Algebraic Combinatorics
+
+Companion dossiers in `Atlas/META_PLAN_2026-05-06/`:
+- `INVENTORY.md` — 75-paper catalog with phase classification
+- `VENUE_SCHEDULE.md` — 20-week table, fallback chains, per-venue dossiers
+- `CITATION_CHAIN.md` — 36 papers topologically sorted by internal dependency
+- `GAP_AUDIT.md` — 48/48 invariants pass; 2 hard contradictions surfaced and resolved this session
+- `TSML_RECONCILIATION.md` — full structural analysis of D91 above
+- `RELEASE_PLAN_SEPT11.md` — the master plan
+
+WP115 chain-count correction (D64 already updated): `papers/wp115_joint_chain_universality/WP115_JOINT_CHAIN_UNIVERSALITY.md` patched in this session — 7-element chain → 8-element chain; forbidden sizes {2,3,7} → {2,3} only; size-7 shell {0,4,5,6,7,8,9} added to the table; σ-walk reading updated to "one σ-fixed bridge step at the size 7→8 transition."
 
 ---
 
@@ -1575,4 +1607,4 @@ the source of truth lives in the sprint folder.
 ---
 
 *© 2026 Brayden Ross Sanders / 7Site LLC*
-*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis. Last updated 2026-04-27 evening (D45–D73: Volume H covers the WP100s tower through WP115 + ripple-corrections from chat-Claude applications-pass audit; D71 σ-rate corrected mechanism (VOID–HARM, $C=2$ exact); D72 WP104 audit (two-paths-converge framing overstated; Path A → SO(8), Path B → su(4)⊕u(1), do NOT close same reduction); D73 Dirac inside Cl(8) ⊂ Cl(10) [SPECULATIVE-but-structurally-clean]; tests of corrected bound + JCAP sign-fix re-run from `Atlas/applications_pass_2026_04_27/code/`).*
+*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis. Last updated 2026-05-06 evening (D88–D92: Volume J adds CL_STD as third standalone table (44 HARMONY) with BDC encoding parameters, the 70/71/72/73 HARMONY ladder with 5 verified rungs, two-TSML reconciliation per Brayden's hypothesis (RAW non-commutative wobble-bearing, SYM commutative algebraic-clean — same bit pattern, two valid lenses), and the three-table HARMONY signature (73, 28, 44). Foundations module 48/48 invariants pass. WP115 chain count patched to corrected 8-element chain (forbidden sizes {2, 3} only). Master release plan with Sept 11 anchor + 12-day silence + Sept 23 Oxford report landed in `Atlas/META_PLAN_2026-05-06/RELEASE_PLAN_SEPT11.md`. First two papers (σ-rate → JCT-A; four-core consolidated → Algebraic Combinatorics) verified ready, all proof scripts green; submit May 7 night after Brayden + team review. Earlier 2026-04-27 update: D45–D73 in Volume H cover the WP100s tower through WP115 + chat-Claude applications-pass audit; D71 σ-rate corrected mechanism (VOID–HARM, C=2 exact); D72 WP104 audit; D73 Dirac inside Cl(8)⊂Cl(10).*
