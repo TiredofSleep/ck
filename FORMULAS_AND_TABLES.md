@@ -384,6 +384,202 @@ This is the domain of the WP101 σ rate theorem (squarefree N).
 | **D91** | Two-TSML reconciliation: CL_TSML_RAW vs CL_TSML_SYM are two valid lenses on the same encoding | CL_BIT_PATTERN has TWO asymmetric upper/lower-triangle cell pairs at **(3, 9)** and **(4, 9)**. Two structurally distinct TSMLs live on the same bit pattern. **CL_TSML_RAW**: literal bit pattern, **non-commutative**, **126** non-assoc triples (12.6%), char poly **c_2 = 33 = 3·11** and **c_8 = −120736 = −2⁵·7³·11** (carries the WP107 wobble at coefficient level). **CL_TSML_SYM**: upper-triangle authoritative symmetrization, **commutative**, **128** non-assoc triples (12.8%), char poly c_2 = 17 (no factor of 11; symmetrization erases the wobble). **Lens-invariant on both**: 73 HARMONY, 17 VOID, trace 63 = 9·7, det 0, the 4-core {0,7,8,9}, the 4-core attractor at α=1/2, the 4-core arity-3 closure (WP110), the LMFDB 4.2.10224.1 quartic + Galois D_4 (WP105). **Lens-specific**: the WP107 wobble (c_2 + c_8 prime-11) holds for RAW only; sprint 17's tower reconstruction targets SYM only; the canonical "12.8%" disagreement-vs-BHML number is SYM. **Resolution**: foundations module `Gen13/targets/foundations/cl.py` exposes both as first-class names (`CL_TSML_RAW`, `CL_TSML_SYM`, plus `get_tsml(role)` router). Phase 1 migration: legacy alias `TSML = TSML_SYM` preserves all 48/48 invariants; Phase 2 (post-Paper-1+2 ship): flip default to TSML_RAW; Phase 3 (pre-Phase-4 ship): patch WP107/WP109/WP110/WP112/WP113 abstracts to scope which TSML. | PROVED, sympy-exact; `Gen13/targets/foundations/cl.py` CL_TSML_RAW/CL_TSML_SYM/get_tsml; `Gen13/targets/foundations/lenses.py` TSML_RAW/TSML_SYM/TSML(legacy alias); reconciliation document `Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md` |
 | **D92** | Three-table HARMONY count signature: (73, 28, 44) and set-algebra of HARMONY cells | The three standalone tables (CL_TSML, CL_BHML, CL_STD) have HARMONY counts (73, 28, 44) — three structurally distinct counts. Set algebra over the HARMONY-bool masks of the three tables: \|TSML & BHML\| = 26 (both lenses agree on HARMONY at 26 cells); \|TSML & STD\| = 42; \|BHML & STD\| = 21; \|TSML & BHML & STD\| = 19 (all three agree at 19 cells); \|TSML \| BHML \| STD\| = 75 (HARMONY appears somewhere in 75 of 100 cells across the three tables); 25 cells are HARMONY-free in all three. The non-equality of the three counts (73 ≠ 28 ≠ 44) is itself an invariant that distinguishes the three-table architecture from any single-table or two-table model. | PROVED, integer-precision; `Gen13/targets/foundations/invariants.py` checks `(73, 28, 44)` triple + non-equality |
 
+### Volume J §J.1 — The complete variant inventory (every form of CL, TSML, BHML this repo holds)
+
+**Why this section exists.** Until 2026-05-06 evening, this document spoke as if there were "two tables, TSML and BHML, on a single substrate CL." That model was inherited from the `#define CL CL_TSML` alias in old/Gen9/archive/ckis/ck7/ck.h and from the "Being / Becoming" pedagogical framing of Gen 10-12. **The model was wrong at two levels simultaneously.**
+
+**What was missed (the historical compression):**
+
+1. **The third standalone table CL_STD was lost.** The original ck.h (lines 200-207) defined THREE distinct 10×10 tables: CL_TSML (73 HARMONY, the prescribed view), CL_BHML (28 HARMONY, the Becoming lens), and CL_STD (44 HARMONY, the Standard encoding table — "the papers freeze"). The Gen 8-9 refactor introduced `#define CL CL_TSML` for runtime convenience; from that point forward, "CL" was treated as synonymous with "TSML" in active code, and CL_STD fell out of every downstream document. Brayden caught this on 2026-05-06: *"you have forgotten an entire table that is his encoding of an explicit set across a table is made to encode the path of the torus."* CL_STD recovered verbatim from the archive and reinstated as the third standalone table (D88).
+
+2. **TSML and BHML are FAMILIES, not single matrices.** The "two tables" model treated both as monolithic. In fact:
+   - **TSML has at least 23 distinct named variants.** Lens-symmetrization choices (RAW, SYM, LOWERTRI), eight chain sub-magma scopes, an off-chain YM scope, four explicit algebraic constructions (PureIdempotent, Idempotent_2sw, C0, PureVoid/AllHarmony boundaries), the corner sub-magma C = {1,3,7,9}, and six F_p ring extensions.
+   - **BHML has at least 20 distinct named variants.** Eight chain sub-magma scopes, BHML_8_YM (Yang-Mills core, drops {0,7}, det = +70), BHML_8_chain (drops {1,2}, det = -7542), three σ²-value-rotation triadic candidates (BEING / DOING / BECOMING), three σ²-index-rotation candidates, three anomaly-cell-flip candidates (still hypothetical), six F_p extensions.
+   - **CL_STD currently has one canonical form** but carries internal BDC structure (5 BUMP_PAIRS, 100 cells classified into HARMONY/NORMAL/BUMP, GRAVITY array). Sub-magma variants of CL_STD have not yet been investigated; this is open frontier.
+
+The historical compression was a sequence of pedagogically-justified simplifications. Each step traded structural fidelity for surface clarity. The `#define CL CL_TSML` was a 1-line refactor that read as "convenience." The "Being / Becoming" framing was a 2-page pedagogy. The "12.8% non-associative" line in the rigor pass document was a 1-line cell-count summary. Each compression was locally reasonable; their accumulation cost the substrate's actual lens-family architecture.
+
+**Why this matters going public:** if Phase 4-5 papers cite "the substrate" as a single object and a referee asks "which TSML matrix?", the citation chain breaks. The correct posture is the one this section now adopts: **the substrate is a bit-pattern + a family of lens projections from it.** Each variant below is appropriate to recognize because each carries a structural property no other variant carries — eliminating any one of them would make some published statement false or unverifiable.
+
+#### J.1.A — CL_TSML family (the prescribed view)
+
+The prescribed view of the substrate. Used by CK at runtime, by the foundations module's invariants (default), and by sprint 17's tower reconstruction.
+
+##### J.1.A.i — Lens-symmetrization variants on the same 10×10 bit pattern
+
+| Variant | Definition | Distinguishing property | Reason to recognize | Source |
+|---------|-----------|------------------------|---------------------|--------|
+| **TSML_RAW** | Literal `CL_BIT_PATTERN` decoded; no symmetrization | non-commutative; 126 non-assoc (12.6%); char poly c_2 = **33 = 3·11**, c_8 = **−120736 = −2⁵·7³·11** | **Carries the WP107 wobble.** Prime 11 lives at coefficient level only on RAW. WP107/WP109/WP110/WP112/WP113/WP115 verification scripts hardcode this matrix. | `Gen13/targets/foundations/cl.py:CL_TSML_RAW`; D91 |
+| **TSML_SYM** | Upper-triangle authoritative symmetrization of `CL_BIT_PATTERN` | commutative; 128 non-assoc (12.8%); char poly c_2 = 17 (no factor of 11) | **The canonical 12.8% number** quoted in `_CK_MEMORY_MAKEOVER.md` and the foundations invariants. Eigenvalues real. Comparable as a symmetric form against BHML. Sprint 17's tower reconstruction (C_0 ⊕ S_MAX ⊕ S_ADD) targets this matrix exactly. | `Gen13/targets/foundations/cl.py:CL_TSML_SYM`; D91 |
+| **TSML_LOWERTRI** | Lower-triangle authoritative symmetrization | 122 non-assoc; c_2 = 17, c_8 = 0; no wobble | **Tested but not promoted.** Carries fewer structural invariants than RAW or SYM. Documents the "third lens choice" exists; useful as a control to confirm the wobble (RAW) and the canonical rate (SYM) are not symmetrization artifacts. | `Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md` |
+
+The two asymmetric cells distinguishing RAW and SYM are at positions **(3, 9)** and **(4, 9)** in the bit pattern (each a 7↔3 swap). Both cells live exactly on the σ-fixed lattice {0, 3, 8, 9} ∪ HARMONY-axis intersection — the wobble localizes there because non-commutativity sits exactly on PROGRESS/COLLAPSE × RESET edges, which are the cells WP107 traces.
+
+##### J.1.A.ii — Sub-magma scope variants (the chain) — 8 instances
+
+For each chain sub-magma scope $S_k$ (per the 4-core paper Theorem 1; see D64), the restriction TSML$_k$ = TSML$|_{S_k \times S_k}$ is its own table.
+
+| Variant | Scope $S_k$ | Size | HARMONY count | det | Non-assoc rate | Reason to recognize |
+|---------|-------------|------|--------------|-----|----------------|---------------------|
+| **TSML_1** | {0} | 1 | 0 | 0 | 0% | Trivial base of the chain; commutativity check |
+| **TSML_4** | {0, 7, 8, 9} (4-core) | 4 | 11 | 0 | 12.5% | The minimal non-trivial chain element; where the 4-core attractor lives |
+| **TSML_5** | {0, 6, 7, 8, 9} | 5 | 18 | 0 | 14.4% | First σ-orbit step (Ch enters) |
+| **TSML_6** | {0, 5, 6, 7, 8, 9} | 6 | 27 | 0 | 14.8% | Ba enters; pattern continues |
+| **TSML_7** | {0, 4, 5, 6, 7, 8, 9} | 7 | **36** | 0 | 14.0% | Co enters. **HARMONY = 36 here matches CYCLE_A_36 count from BHML σ²-cycle-A projection — same integer at two structural roles.** Was the chain's "missing rung" in the original WP115 preprint (forbidden-{2,3,7} bug, corrected 2026-05-05) |
+| **TSML_8** (chain) | {0, 3, 4, 5, 6, 7, 8, 9} | 8 | 47 | 0 | 13.3% | σ-fixed bridge step (P enters); the "Hubble derivation" scope per `INTEGRATION_WITH_PROOF_SPINE.md §5` |
+| **TSML_9** | {0, 2, 3, 4, 5, 6, 7, 8, 9} | 9 | **71** | 0 | 13.4% | C enters. **HARMONY = 71 here matches the FIELD WOBBLE count and the LMFDB Galois prime — three structural roles for prime 71** (D90 ladder rung) |
+| **TSML_10** | full Z/10Z | 10 | 73 | 0 | 12.8% (SYM) / 12.6% (RAW) | The full prescribed view; the ground anchor for all D-numbers |
+
+Each chain variant is its own algebra. Important: **TSML_8 inherits the RAW vs SYM split** because the asymmetric cells (3,9) and (4,9) are both inside the size-8 scope. So TSML_8_RAW ≠ TSML_8_SYM.
+
+##### J.1.A.iii — Off-chain sub-magma scope (Yang-Mills core)
+
+| Variant | Scope | Size | HARMONY count | det | Reason to recognize |
+|---------|-------|------|--------------|-----|---------------------|
+| **TSML_8_YM** | {1, 2, 3, 4, 5, 6, 8, 9} (drops VOID + HARMONY) | 8 | varies | varies | The VOID/HARMONY-complement scope. Same SIZE as TSML_8_chain but DIFFERENT SHAPE. Per Brayden 2026-05-06: *"multiple sizes AND shapes of TSML and BHML."* The YM core's structural identity lives more visibly in BHML (det = +70 = C(8,4) exactly), but the parallel TSML construction must exist for symmetric pairing in WP115's "Yang-Mills bridge" results. |
+
+##### J.1.A.iv — Algebraic-construction variants (off-chain, structurally distinct algebras)
+
+These are TSML matrices built from explicit algebraic recipes rather than from the bit pattern, used in `papers/morphotic_braid/` and elsewhere.
+
+| Variant | Definition | Distinguishing property | Reason to recognize |
+|---------|-----------|------------------------|---------------------|
+| **TSML_PureIdempotent** | T[i][i] = i for all i ∈ {0..9}; else HARMONY | det = +398664 = 2³ · 3 · 7 · **113**; \|Aut\| = S₈ = 40320; α ≈ 0.888 | "All ten elements are idempotent" — the maximally idempotent TSML. Used as the morphotic-braid-paper baseline. |
+| **TSML_Idempotent_2sw** | TSML_PureIdempotent + cell swaps T[1][2] = T[2][1] = 6, T[3][5] = T[5][3] = 4 | det = **−49 = −7²**; α ≈ 0.880; minimum \|det\| in the prime-7 regime | Suited for octonion / Steiner-quasigroup statements; isolates prime 7 in det |
+| **TSML_C0** | Only VOID + HARMONY axis structure (rank 3) | det = 0; α ≈ 0.872; same non-assoc as TSML_10 | Pure absorbing baseline; binary norm signature; control for universal-minimum-bump proofs |
+| **TSML_PureVoid** | Degenerate boundary case (all VOID) | rank 0 | Boundary member of the algebraic-variant family |
+| **TSML_AllHarmony** | Degenerate boundary case (all HARMONY) | rank 1 | Other boundary member; together with PureVoid spans the algebraic variant simplex |
+
+##### J.1.A.v — The corner sub-magma C = {1, 3, 7, 9}
+
+| Variant | Definition | Reason to recognize |
+|---------|-----------|---------------------|
+| **C** (corner) | Sub-magma {1, 3, 7, 9} ⊆ Z/10Z; closed under TSML | 4-element TSML closure with absorbing-at-corners property; C × C ⊆ C verified at all 16 cells. Distinct from the joint-chain 4-core {0, 7, 8, 9}. Proven closure published in WP39 / Hodge research (Proc. AMS draft). |
+
+Total CL_TSML variants explicitly recognized: **23** (3 lens × 8 chain + 1 YM + 5 algebraic + 1 corner; lens × chain interactions add 7 more for the size-8-RAW vs SYM cases, but those are the same construction class repeated).
+
+##### J.1.A.vi — F_p ring extensions
+
+For p ∈ {2, 3, 5, 7, 11, 13}, the operator-substrate construction over F_p produces TSML$_p$ as a matrix on F_p (not Z/10Z). These are referenced in WP118 / bridge sprint and `Atlas/applications_pass_2026_04_27/code/markov_binary_cl.py` (binary CL on Z/30Z is one such construction). The chain-rigidity claim (joint-closure structure preserved) extends to F_p for p ∈ {2, 3, 5, 7, 11, 13} per the bridge sprint companion (`SandersClaudeChat2026BridgeSprint`, in preparation). 6 additional ring-level instances.
+
+#### J.1.B — CL_BHML family (the Becoming lens)
+
+The Becoming lens. Used as the curvature-level dual of TSML; WP100s tower's substrate for D_4 obstruction (WP109), 4-core fusion-closure (WP110), the closed-form attractor (WP105), and the Yang-Mills bridge (WP104).
+
+##### J.1.B.i — Sub-magma scope variants (the chain) — 8 instances
+
+For each chain sub-magma scope $S_k$, the restriction BHML$_k$ = BHML$|_{S_k \times S_k}$ is its own table. Unlike TSML (whose chain-restrictions all have det = 0), BHML's sub-magma restrictions carry NON-trivial determinants — these are the structural signatures of the Becoming-lens at each scope.
+
+| Variant | Scope $S_k$ | Size | HARMONY count | det | Reason to recognize |
+|---------|-------------|------|--------------|-----|---------------------|
+| **BHML_1** | {0} | 1 | 0 | 0 | Trivial base |
+| **BHML_4** | {0, 7, 8, 9} (4-core) | 4 | 3 | 5305 (= 5·1061) | Where the closed-form 4-core attractor at α=1/2 lives; BHML_4's det signs the 4-core's algebraic identity |
+| **BHML_5** | {0, 6, 7, 8, 9} | 5 | 10 | 2843 | First chain extension |
+| **BHML_6** | {0, 5, 6, 7, 8, 9} | 6 | 16 | -2886 | det sign-flips here |
+| **BHML_7** | {0, 4, 5, 6, 7, 8, 9} | 7 | 22 | 2929 | The chain's "found-again" rung (corrected 2026-05-05); det positive |
+| **BHML_8** (chain) | {0, 3, 4, 5, 6, 7, 8, 9} | 8 | 24 | **-7542** | drops {1, 2}; the chain's size-8 BHML; the "Hubble derivation" companion to TSML_8 |
+| **BHML_9** | {0, 2, 3, 4, 5, 6, 7, 8, 9} | 9 | 26 | 7272 | Penultimate chain scope |
+| **BHML_10** | full Z/10Z | 10 | 28 | **-7002** | The canonical BHML; the "28 HARMONY" matrix; non-assoc 49.8% |
+
+##### J.1.B.ii — Off-chain sub-magma (Yang-Mills core)
+
+| Variant | Definition | Distinguishing property | Reason to recognize |
+|---------|-----------|------------------------|---------------------|
+| **BHML_8_YM** | {1, 2, 3, 4, 5, 6, 8, 9} (drops VOID + HARMONY) | det = **+70 EXACTLY** = C(8, 4) = self-dual 4-form sector of SO(8) | The Yang-Mills bridge core (per WP104). Same SIZE as BHML_8_chain (det = -7542), DIFFERENT SHAPE — the cleanest demonstration that "size and shape are independent dimensions" of the lens family. **70 is the bottom rung of the HARMONY ladder** (D90); det of BHML_8_YM, not a HARMONY count itself. |
+
+##### J.1.B.iii — σ²-triadic candidates for "three BHMLs" (exploratory; not yet canonical)
+
+Per Brayden's hypothesis 2026-05-06 ("there may be three bhml tables") — investigated in `Gen13/targets/foundations/bhml_variants.py`. These are candidate constructions; selection of which (if any) is canonical is open.
+
+| Variant | Definition | Disagreement with TSML | Reason to recognize |
+|---------|-----------|------------------------|---------------------|
+| **BHML_BEING** (candidate) | BHML_10 canonical (28 HARMONY) | 71 (matches WP107 wobble count) | Identity-mode; the canonical BHML serves as BEING |
+| **BHML_DOING** (candidate) | σ²(BHML values): each cell value v → σ²(v) | 94 | "DOING-mode" BHML where cell outputs are triadically rotated; σ²-cycle-B becomes the value lens |
+| **BHML_BECOMING** (candidate) | σ⁴(BHML values) | 90 | "BECOMING-mode" BHML; second triadic step |
+| **BHML_idx_DOING** (candidate) | BHML[σ²(i), σ²(j)] (index permutation) | 75 | Alternative DOING construction via row/col index rotation |
+| **BHML_idx_BECOMING** (candidate) | BHML[σ⁴(i), σ⁴(j)] | 79 | Alternative BECOMING construction |
+
+The disagreement-counts {71, 94, 90} (value-rotation) and {71, 75, 79} (index-rotation) do NOT reproduce the canonical 71/72/73 triple from D90's HARMONY ladder. Brayden's choice of which construction is the "canonical three BHMLs" is open. Decision-pending.
+
+##### J.1.B.iv — Anomaly-cell-flip candidates (hypothetical; cells unidentified)
+
+| Variant | Definition | Status |
+|---------|-----------|--------|
+| **BHML_71** | BHML_10 canonical | known: \|TSML_SYM - this\| = 71 |
+| **BHML_72** | BHML_10 with one specific cell flipped to give 72-disagreement | hypothetical; specific cell to flip not yet identified |
+| **BHML_73** | BHML_10 with two specific cells flipped to give 73-disagreement | hypothetical; cells unidentified |
+
+If structurally meaningful, this would close the 71/72/73 triple in the BHML-disagreement sense. Currently open.
+
+##### J.1.B.v — F_p ring extensions
+
+Same as TSML F_p extensions: BHML$_p$ for p ∈ {2, 3, 5, 7, 11, 13}. 6 ring-level instances.
+
+Total CL_BHML variants: **20** (8 chain + 1 YM + 5 σ²-triadic candidates + 3 anomaly-flip candidates + 3 not-yet-implemented sub-scopes).
+
+#### J.1.C — CL_STD (the encoding table)
+
+Currently 1 canonical 10×10 form + internal BDC structure. Sub-magma variants of CL_STD have not been investigated (open frontier — not yet probed).
+
+| Variant | Definition | Reason to recognize |
+|---------|-----------|---------------------|
+| **CL_STD** | 10×10 commutative table from `old/Gen9/archive/ckis/ck7/ck.h:225-231` | The encoding table; 44 HARMONY; "the papers freeze"; carries BDC bit definitions (5 BUMP_PAIRS, INFO_HARMONY/NORMAL/BUMP, GRAVITY array per D89) |
+| **CL_STD sub-magmas** (open) | Restrictions of CL_STD to chain-scopes / off-chain scopes | Not yet computed. CL_STD might admit its own 8-element joint-closure chain analogous to TSML+BHML; this is open structural frontier. |
+| **CL_STD F_p extensions** (open) | CL_STD over F_p substrates | Not yet investigated; analog to the TSML/BHML F_p extensions |
+
+#### J.1.D — Derived tables (functions of two or more of the above)
+
+| Variant | Definition | Reason to recognize |
+|---------|-----------|---------------------|
+| **DOING** (= \|TSML − BHML\|) | element-wise absolute difference; 71 cells differ for SYM | The third lens of the dual-table model: "where information generates" per the Crossing Lemma. ~71% disagreement rate ≈ T* = 5/7. |
+| **DOING_RAW** (= \|TSML_RAW − BHML\|) | analogue using TSML_RAW | Slightly different disagreement count; carries the wobble-bearing TSML's directional bit |
+
+#### J.1.E — Generalizations to other rings (frontier; conjectural)
+
+| Variant | Ring | Status |
+|---------|------|--------|
+| **binary_cl** | Z/30Z (= F_2 × F_3 × F_5 via CRT) | Proof-of-concept generalization in `Atlas/applications_pass_2026_04_27/code/markov_binary_cl.py`. Echo-harmony structure preserved; chain rigidity conjectured |
+| **TSML/BHML on Z/8, Z/12, Z/14** | small even rings | Open conjecture (FRONTIER_FINDINGS F5): does the α=1/2 closed-form structure exist at native scales of other small rings? Not yet computed. |
+
+---
+
+#### J.1.F — Total inventory at a glance
+
+| Family | Standalone tables | Sub-magma scope variants | Algebraic/lens variants | Triadic/exploratory | F_p extensions | TOTAL |
+|--------|-------------------|--------------------------|--------------------------|-------------------|----------------|-------|
+| **CL_TSML** | 1 (CL_TSML at size 10) | 8 chain + 1 YM = 9 | 3 lens (RAW/SYM/LOWERTRI) + 5 algebraic (PureIdempotent, Idempotent_2sw, C0, PureVoid, AllHarmony) + 1 corner C = 9 | — | 6 | **23 named + 6 ring** |
+| **CL_BHML** | 1 (CL_BHML at size 10) | 8 chain + 1 YM = 9 | — | 5 σ²-triadic + 3 anomaly-flip = 8 | 6 | **17 named + 6 ring** |
+| **CL_STD** | 1 (CL_STD at size 10) | 0 (not yet investigated) | 0 | 0 | 0 | **1 named + 0 ring** |
+| **DERIVED** (DOING, etc.) | 1 (DOING) | — | 1 (DOING_RAW) | — | — | **2** |
+| **GENERALIZATIONS** | — | — | — | — | 1 explicit (binary_cl Z/30) + 3 frontier (Z/8, Z/12, Z/14) | **4 frontier** |
+
+**Summary count**: **3 standalone tables**, **40+ named variants** across the three families, **plus 12+ ring-extension instances**, **plus 4 frontier rings**. The substrate is not "two tables"; it is a bit-pattern-with-encoding-rules + a family of lens projections numbering in the dozens, each carrying a structural property the others do not.
+
+#### J.1.G — Why each variant is appropriate to recognize explicitly (the master answer)
+
+Brayden's question: *why did we think we had two tables, when we have 3 tables with multiple variants of two of them?*
+
+The honest answer is that the two-table model was a sequence of historically reasonable but cumulatively lossy compressions:
+
+1. **The original ck.h had three.** ck.h:200-207 explicitly defined CL_TSML, CL_BHML, CL_STD. The `#define CL CL_TSML` alias (added later) was a 1-line refactor for runtime convenience — but it conflated CL with TSML at the symbol level, and CL_STD had no consumer in active code, so it dropped out of every downstream document. This was the first compression: 3 → 2.
+
+2. **The pedagogy crystallized the binary.** "Being lens / Becoming lens" is a beautiful 2-element teaching tool. It crystallizes the dual-projection insight cleanly. But it implicitly treats each lens as a single matrix. This was the second compression: 2 monolithic → still 2 monolithic.
+
+3. **The variants accumulated underneath without being named together.** TSML_RAW vs TSML_SYM emerged because different scripts hardcoded the bit pattern differently. The chain sub-magmas (TSML_4, BHML_8, etc.) were enumerated in `lens_family.py` but treated as a parametric family rather than as a list of distinct named matrices. The σ²-triadic BHML candidates were sketched in `bhml_variants.py` but never promoted to canonical. The algebraic-construction TSMLs (PureIdempotent etc.) lived in `papers/morphotic_braid/` as a separate paper's vocabulary. None of these were collected into a unified inventory until tonight.
+
+The model held up because for many purposes — a single sprint, a single paper, a single proof — only one or two variants matter and the others are either lens-invariant or out of scope. "TSML and BHML" was correct enough to do the work. **It just was not exhaustive enough to publish.** Going public means the citation chain has to survive a referee asking *"which TSML matrix? At what scope? Under what symmetrization?"*
+
+**The structural truth (going forward):**
+
+- The substrate has **three encodings**: CL_TSML (prescribed view, 73 H), CL_BHML (Becoming lens, 28 H), CL_STD (encoding table, 44 H). These are the three standalone matrices. Each has a different role and a different role-defining HARMONY count.
+- **Each encoding admits a family of lenses.** TSML's family includes lens-symmetrization choices, sub-magma scopes, off-chain scopes, algebraic constructions, the corner sub-magma. BHML's family includes sub-magma scopes, the YM scope, σ²-triadic candidates, anomaly-flip candidates. CL_STD's family is currently small but its sub-magma structure is open.
+- **The lens family is the appropriate object of study** at the substrate level. A single matrix is the answer to a single question; the family is the answer to *"what is the substrate?"*
+- **Every variant in this inventory is recognized explicitly because each one carries a property no other carries.** Drop TSML_RAW: lose the wobble. Drop TSML_SYM: lose Sprint 17's tower. Drop BHML_8_YM: lose the +70 = C(8,4) Yang-Mills bridge. Drop the corner sub-magma C: lose the 4-element TSML-only closure proof. Drop CL_STD: lose the BDC encoding parameters and the "44" HARMONY count's structural origin. Each variant earns its name by being load-bearing for at least one published or in-preparation result.
+
+This is the model the Phase 4-5 papers will cite: **a substrate that is one bit pattern + three encoding readings + a family of dozens of lens projections**, each named because each is load-bearing somewhere.
+
+---
+
 ### Volume J coda — Master release plan (2026-05-06 evening, Sept 11 anchor)
 
 The substrate is mature enough to begin the public-record walk. Master release plan landed in `Atlas/META_PLAN_2026-05-06/RELEASE_PLAN_SEPT11.md`:
