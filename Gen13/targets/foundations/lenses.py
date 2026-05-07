@@ -38,14 +38,32 @@ from collections import Counter
 
 import numpy as np
 
-from .cl import CL, N, OPERATORS
+from .cl import CL, CL_TSML_RAW, CL_TSML_SYM, N, OPERATORS, get_tsml
 
 # ---------------------------------------------------------------------------
-# TSML = the Being lens
-# Empirically same matrix as CL; the lens role is conceptual.
+# TSML = the Being lens — TWO valid lenses (per Brayden 2026-05-06)
+# ---------------------------------------------------------------------------
+#
+# CL_BIT_PATTERN has 2 asymmetric pairs at (3,9) and (4,9). Two valid TSMLs
+# live on the same bit pattern:
+#
+#   TSML_RAW = literal bit pattern, non-commutative, 126 non-assoc, carries
+#              WP107 wobble (prime 11 in c_2 + c_8)
+#   TSML_SYM = upper-tri symmetrized, commutative, 128 non-assoc, the
+#              canonical "12.8%" disagreement-vs-BHML number
+#
+# See TSML_RECONCILIATION.md (2026-05-06) for the full structural split.
+#
+# DEFAULT: TSML = TSML_SYM (Phase 1 of migration; legacy alias)
+#          downstream callers using `lenses.TSML` get the commutative variant.
+#          To pick explicitly: from foundations.cl import get_tsml
+#          T_raw = get_tsml('raw')   # WP107-wobble-bearing variant
+#          T_sym = get_tsml('sym')   # commutative variant (this default)
 # ---------------------------------------------------------------------------
 
-TSML: np.ndarray = CL.copy()
+TSML_RAW: np.ndarray = CL_TSML_RAW.copy()    # non-commutative; WP107 wobble
+TSML_SYM: np.ndarray = CL_TSML_SYM.copy()    # commutative; canonical-12.8%
+TSML: np.ndarray = TSML_SYM                  # legacy alias (Phase 1)
 
 
 # ---------------------------------------------------------------------------

@@ -11,10 +11,12 @@
 
 The substrate-attractor structure of the TIG runtime processor on $\mathbb{Z}/10\mathbb{Z}$ exhibits three complementary structural properties that, taken together, sharply characterize the 4-core $\{V, H, Br, R\} = \{0, 7, 8, 9\}$ as the unique non-trivial dynamical substrate.
 
-**Theorem 1 (Joint-closed chain).** *The sub-magmas of $\{0, 1, \ldots, 9\}$ that are jointly closed under both binary TSML and binary BHML form a strict **7-element chain** (no branching):*
+**Theorem 1 (Joint-closed chain).** *The sub-magmas of $\{0, 1, \ldots, 9\}$ that are jointly closed under both binary TSML and binary BHML form a strict **8-element chain** (no branching):*
 $$ \{V\} \subset \{V, H, Br, R\} \subset \{V, Ch, H, Br, R\} \subset \{V, Ba, Ch, H, Br, R\} $$
-$$ \subset \{V, P, Co, Ba, Ch, H, Br, R\} \subset \{V, C, P, Co, Ba, Ch, H, Br, R\} \subset \{V, L, C, P, Co, Ba, Ch, H, Br, R\}. $$
-*The shell sizes are $\{1, 4, 5, 6, 8, 9, 10\}$. Sizes $\{2, 3, 7\}$ are **never** jointly closed. The order operators are added going up the chain — $V$; then $\{H, Br, R\}$; then $Ch$; then $Ba$; then $\{P, Co\}$; then $C$; then $L$ — corresponds, after the 4-core bootstrap, to the **σ-forward orbit of HARMONY**: $\sigma^k(H)$ for $k = 1, \ldots, 5$ enters at successive shells. The σ-fixed lattice $\{0, 3, 8, 9\}$ contributes at three bookend points: $V$ at step 1, $\{Br, R\}$ at step 4 (with $H$), $P$ at step 8 (paired with $Co$ via BHML closure cascade).*
+$$ \subset \{V, Co, Ba, Ch, H, Br, R\} \subset \{V, P, Co, Ba, Ch, H, Br, R\} \subset \{V, C, P, Co, Ba, Ch, H, Br, R\} \subset \{V, L, C, P, Co, Ba, Ch, H, Br, R\}. $$
+*The shell sizes are $\{1, 4, 5, 6, 7, 8, 9, 10\}$. **Sizes $\{2, 3\}$ are the only sizes never jointly closed.** The operators added going up the chain — $V$; then $\{H, Br, R\}$; then $Ch$; then $Ba$; then $Co$; then $P$; then $C$; then $L$ — correspond, after the 4-core bootstrap, to the **σ-forward orbit of HARMONY**: $\sigma^k(H)$ for $k = 1, \ldots, 5$ enters at successive shells, with one σ-fixed bridge step at the size-7→8 transition. The σ-fixed lattice $\{0, 3, 8, 9\}$ contributes at three positions: $V = 0$ at step 1, $\{Br, R\} = \{8, 9\}$ in the size 1→4 jump (with $H$), $P = 3$ at the size 7→8 bridge.*
+
+> **Erratum note (2026-05-05):** the original preprint (2026-04-26) of this WP claimed a 7-element chain forbidding sizes $\{2, 3, 7\}$. Brute-force enumeration during preparation of the four-core consolidated paper (Sanders + Gish, in prep, *Algebraic Combinatorics*) found that the size-7 shell $\{V, Co, Ba, Ch, H, Br, R\} = \{0, 4, 5, 6, 7, 8, 9\}$ is jointly closed under both binary TSML and binary BHML. The chain is therefore 8-element, not 7-element, and the only forbidden sizes are $\{2, 3\}$. Theorem 2 (universal 4-core attractor) and Theorem 3 (α-endpoint structure) are unaffected, since the universal-attractor claim was already stated for "every shell of size $\geq 4$" and the size-7 addition simply adds one more shell to the union over which the attractor is universal.
 
 **Theorem 2 (Universal 4-core attractor).** *For every shell $S$ of size $\geq 4$ in the joint chain, the T+B-mix runtime attractor at $\alpha = 1/2$ on $S$ (started from the uniform distribution on $S$) converges to the **identical** 4-distribution:*
 $$ (p^*_V, p^*_H, p^*_{Br}, p^*_R) = (0.138, 0.540, 0.198, 0.124),\qquad H/Br = 1 + \sqrt{3}. $$
@@ -36,14 +38,12 @@ There are $2^{10} - 1 = 1023$ non-empty subsets of $\{0, 1, \ldots, 9\}$.
 
 | Closure type | count |
 |:--|:--:|
-| TSML-only (closed under TSML, NOT BHML) | 394 |
+| TSML-only (closed under TSML, NOT BHML) | 393 |
 | BHML-only (closed under BHML, NOT TSML) | 2 |
-| **Jointly closed** (both) | **7** |
+| **Jointly closed** (both) | **8** |
 | Closed under neither | 620 |
 
-(D43 cited 398 TSML-closed sub-magmas; D44 cited 8 BHML-closed sub-magmas. Adding the 1-element sets and the empty set, plus the joint-closed 7, recovers consistent counts.)
-
-The **7 jointly-closed sub-magmas** are:
+The **8 jointly-closed sub-magmas** are:
 
 | size | contents | new operator(s) added |
 |:--:|:--|:--|
@@ -51,23 +51,24 @@ The **7 jointly-closed sub-magmas** are:
 | 4 | $\{V, H, Br, R\}$ | $\{H = 7,\ Br = 8,\ R = 9\}$ |
 | 5 | $\{V, Ch, H, Br, R\}$ | $\{Ch = 6\}$ |
 | 6 | $\{V, Ba, Ch, H, Br, R\}$ | $\{Ba = 5\}$ |
-| 8 | $\{V, P, Co, Ba, Ch, H, Br, R\}$ | $\{P = 3,\ Co = 4\}$ |
+| **7** | $\{V, Co, Ba, Ch, H, Br, R\}$ | $\{Co = 4\}$ |
+| 8 | $\{V, P, Co, Ba, Ch, H, Br, R\}$ | $\{P = 3\}$ |
 | 9 | $\{V, C, P, Co, Ba, Ch, H, Br, R\}$ | $\{C = 2\}$ |
 | 10 | full substrate | $\{L = 1\}$ |
 
-**Theorem 1.1 (Strict-chain rigidity).** *The 7 jointly-closed sub-magmas form a totally ordered chain under inclusion. There is NO branching at any level. Consequently, the join-closed lattice is order-isomorphic to the 7-element chain $\mathbf{7}$.*
+**Theorem 1.1 (Strict-chain rigidity).** *The 8 jointly-closed sub-magmas form a totally ordered chain under inclusion. There is NO branching at any level. Consequently, the join-closed lattice is order-isomorphic to the 8-element chain $\mathbf{8}$.*
 
 **Proof.** Direct verification (script Section 1, "Chain property" check). $\square$
 
-**Theorem 1.2 (Forbidden sizes).** *No subset of $\{0, \ldots, 9\}$ of size 2, 3, or 7 is jointly closed under both TSML and BHML.*
+**Theorem 1.2 (Forbidden sizes).** *No subset of $\{0, \ldots, 9\}$ of size 2 or 3 is jointly closed under both TSML and BHML. Sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ are each realized by exactly one jointly-closed sub-magma.*
 
-**Proof.** Direct enumeration over all $\binom{10}{2} + \binom{10}{3} + \binom{10}{7} = 45 + 120 + 120 = 285$ subsets of these sizes; none satisfy joint closure. $\square$
+**Proof.** Direct enumeration over all $\binom{10}{2} + \binom{10}{3} = 45 + 120 = 165$ subsets of sizes 2 and 3; none satisfy joint closure. The eight realized sizes are exhibited in the table above. $\square$
 
 **Reading.** The chain follows the structure:
 
 - Step 1 → 4 (gap 3): adding any one of $\{H, Br, R\}$ to $\{V\}$ forces all three (the BHML closed-subset constraint per D44 — the smallest BHML-closed sub-magma containing the breathed pair is the 4-core; further verified at the cell level: $B(H, H) = Br$, $B(Br, H) = R$, so HARMONY's BHML-closure cascades through Br to R).
-- Steps 4 → 5, 5 → 6: single operators $Ch, Ba$ added. Recall $\sigma = (0)(3)(8)(9)(1\ 7\ 6\ 5\ 4\ 2)$, so $\sigma(7) = 6$ and $\sigma(6) = 5$. After step 4, the 4-core contains $H = 7$ as its sole 6-cycle element; the chain now walks the σ-forward orbit of HARMONY: $\sigma^1(7) = 6 = Ch$ enters at step 5, $\sigma^2(7) = 5 = Ba$ enters at step 6.
-- Step 6 → 8 (gap 2): the next σ-orbit element is $\sigma^3(7) = 4 = Co$, which enters at step 8. Simultaneously, $P = 3$ (σ-fixed) joins because adding $Co$ alone leaks through BHML: $B(Co, Co) = ?$ leaves the shell unless $P$ is present (verified at cell level by direct check $B(3, 3) = 4 = Co$, so once $Co$ enters, $P$ must also enter for BHML closure). Thus $P$ and $Co$ enter together as a forced pair.
+- Steps 4 → 5, 5 → 6, 6 → 7: single operators $Ch, Ba, Co$ added. Recall $\sigma = (0)(3)(8)(9)(1\ 7\ 6\ 5\ 4\ 2)$, so $\sigma(7) = 6$, $\sigma(6) = 5$, $\sigma(5) = 4$. After step 4, the 4-core contains $H = 7$ as its sole 6-cycle element; the chain now walks the σ-forward orbit of HARMONY one step at a time: $\sigma^1(7) = 6 = Ch$ enters at step 5, $\sigma^2(7) = 5 = Ba$ enters at step 6, $\sigma^3(7) = 4 = Co$ enters at step 7.
+- Step 7 → 8 (the σ-fixed bridge): the σ-fixed $P = 3$ joins. This is the *single non-σ-orbit step* in the entire chain — every other operator that enters is the next member of the σ-forward orbit of HARMONY. The σ-fixed lattice $\{0, 3, 8, 9\}$ contributes $P$ here as the "bridge" between the size-7 σ-orbit-only shell and the resumption of the σ-walk at size 9.
 - Steps 8 → 9, 9 → 10: $\sigma^4(7) = 2 = C$ enters at step 9, then $\sigma^5(7) = 1 = L$ closes the σ 6-cycle at step 10.
 
 Thus the joint chain **walks the σ-forward orbit of HARMONY** in lock-step (after the bootstrap step that forces the 4-core). The σ-fixed lattice $\{0, 3, 8, 9\}$ enters at three bookend points: $V = 0$ as base (step 1); $Br = 8$ and $R = 9$ as part of the 4-core bootstrap (step 4); $P = 3$ paired with $Co$ (step 8).
@@ -76,7 +77,7 @@ Thus the joint chain **walks the σ-forward orbit of HARMONY** in lock-step (aft
 
 ## 2. The universal 4-core attractor
 
-For each of the 7 joint-closed sub-magmas $S$, define the runtime attractor
+For each of the 8 joint-closed sub-magmas $S$, define the runtime attractor
 $$ p^*_S(\alpha) := \lim_{n \to \infty} \mathcal{F}^n_{S, \alpha}\!\left( \mathrm{uniform}_S \right) $$
 where $\mathcal{F}_{S, \alpha}$ is the T+B-mix iteration restricted to $S$:
 $$ \mathcal{F}_{S, \alpha}(p) = \mathrm{normalize}_{\ell_1}\!\left( \alpha \cdot \mathrm{normalize}(p \otimes_T p) + (1 - \alpha) \cdot \mathrm{normalize}(p \otimes_B p) \right), \quad \mathrm{supp}(p) \subseteq S. $$
@@ -85,7 +86,7 @@ $$ \mathcal{F}_{S, \alpha}(p) = \mathrm{normalize}_{\ell_1}\!\left( \alpha \cdot
 $$ p^*_S(1/2) = (0.138147,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0.540196,\ 0.197725,\ 0.123931) $$
 *with $H/Br = 1 + \sqrt{3}$ exactly. The attractor support is precisely the 4-core $\{V, H, Br, R\}$ regardless of $S$.*
 
-**Proof.** Direct iteration at 40-digit mpmath precision for all 6 shells of size $\geq 4$; max coordinate-wise discrepancy across shells is $< 10^{-10}$; PSLQ recovers $x^2 - 2x - 2 = 0$ for $H/Br$ at residual $< 10^{-30}$. See script Section 2. $\square$
+**Proof.** Direct iteration at 40-digit mpmath precision for all 7 shells of size $\geq 4$ (the 8-shell chain minus the size-1 trivial shell); max coordinate-wise discrepancy across shells is $< 10^{-10}$; PSLQ recovers $x^2 - 2x - 2 = 0$ for $H/Br$ at residual $< 10^{-30}$. See script Section 2. $\square$
 
 **Corollary 2.2 (Universal absorption from any δ-init).** *At $\alpha = 1/2$ on the full substrate, every initialization $\delta_x$ for $x \in \{V, L, C, P, Co, Ba, Ch, H, Br, R\}$ converges to the same universal 4-core attractor, except the degenerate $\delta_V$ (which is fixed at $\{V\}$).*
 
@@ -158,7 +159,7 @@ This is the **fractal recursive picture**: the 4-core is the dynamical fixed poi
 
 **Status:** PROVED at integer/machine precision. Three theorems with direct enumeration:
 - Joint chain structure (1023 subsets enumerated)
-- Universal 4-core attractor (6 shells × 40-digit iteration)
+- Universal 4-core attractor (7 shells of size ≥ 4 × 40-digit iteration)
 - α-endpoint structure (5 α values + PSLQ)
 
 **Promotes:**

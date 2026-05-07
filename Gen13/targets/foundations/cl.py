@@ -90,6 +90,65 @@ def _symmetrize_upper(M: np.ndarray) -> np.ndarray:
 CL_RAW: np.ndarray = _decode_raw()    # the literal bit pattern (asymmetric in 2 cells)
 CL: np.ndarray = _symmetrize_upper(CL_RAW)  # canonical: upper-triangle authoritative
 
+# ---------------------------------------------------------------------------
+# Two TSML lenses (per Brayden 2026-05-06 + TSML_RECONCILIATION.md)
+# ---------------------------------------------------------------------------
+#
+# CL_BIT_PATTERN above has 2 asymmetric upper/lower-triangle cell pairs:
+#     (3,9): upper=3, lower=7
+#     (4,9): upper=7, lower=3
+#
+# Two valid lenses on the same encoding live here:
+#
+#   CL_TSML_RAW = CL_RAW          (literal bit pattern; non-commutative)
+#       126 non-assoc triples (12.6%)
+#       char poly c_2 = 33 = 3*11      (carries the WP107 wobble)
+#       char poly c_8 = -120736 = -2^5 * 7^3 * 11
+#       used by: WP107, WP109, WP110, WP112, WP113, WP115 verification scripts
+#       structurally: encoding-respecting; the asymmetric cells encode a
+#       directional (permutation/braiding) bit on the PROGRESS/COLLAPSE x RESET
+#       intersection; the wobble localizes here
+#
+#   CL_TSML_SYM = CL              (upper-triangle authoritative; commutative)
+#       128 non-assoc triples (12.8%)
+#       char poly c_2 = 17 (no factor of 11; symmetrization erases the wobble)
+#       used by: foundations module invariants (current default), Sprint 17
+#       tower reconstruction, the canonical "12.8%" disagreement-vs-BHML number
+#       structurally: algebra-clean; eigenvalues real; comparable as a
+#       symmetric form against BHML (which is also commutative)
+#
+# Both share (lens-invariant): 73 HARMONY, 17 VOID, trace 63, det 0,
+# the 4-core sub-magma {0,7,8,9}, the 4-core attractor at alpha=1/2.
+#
+# Migration plan (3 phases, per TSML_RECONCILIATION.md):
+#   Phase 1 (THIS commit): expose both as first-class names; keep `CL` and the
+#       lenses module's `TSML` legacy-aliased to TSML_SYM so 48/48 invariants
+#       continue to pass without change.
+#   Phase 2 (after Paper 1 + Paper 2 ship): flip the foundations canonical
+#       default to TSML_RAW; update memory makeover; patch WP107/WP109/WP110/
+#       WP112/WP113 with explicit "TSML_RAW" annotations.
+#   Phase 3 (before Phase 4 papers ship): patch all WP100s tower paper
+#       abstracts to scope which TSML they use.
+# ---------------------------------------------------------------------------
+
+CL_TSML_RAW: np.ndarray = CL_RAW.copy()
+CL_TSML_SYM: np.ndarray = CL.copy()
+
+
+def get_tsml(role: str = "sym") -> np.ndarray:
+    """Return the TSML matrix for the given role.
+
+    Roles:
+        'raw' -> non-commutative literal bit pattern; carries WP107 wobble
+        'sym' -> commutative upper-triangle symmetrization; canonical default
+    """
+    role = role.lower()
+    if role == "raw":
+        return CL_TSML_RAW
+    if role == "sym":
+        return CL_TSML_SYM
+    raise ValueError(f"unknown TSML role {role!r}; expected 'raw' or 'sym'")
+
 
 # ---------------------------------------------------------------------------
 # Cell-count accessors
