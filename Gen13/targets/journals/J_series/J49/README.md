@@ -31,12 +31,18 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-04 (Phase 5).
+**Status:** MANUSCRIPT FINALIZED 2026-09-04 (Phase 5). **REJECT verdict from J Theor Biol fresh-eyes referee 2026-05-06; SAVE PLAN written 2026-05-07.**
 **Citation chain:** 1 direct dependency (J13 forced 5/7 torus) + 10 co-citing companions (J01, J46, J07, J05, J47, J33, J36, J48, J50, J43).
 **Manuscript:** `manuscript/J49_microtubule_qc_tstar.md` (~10 pages, finalized).
 **Cover letter:** `cover_letter.md` (finalized).
 **Verification:** algebraic provenance of $T^* = 5/7$ via six independent J-paper derivations; experimental protocol pre-registered in `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/source_bundle/MICROTUBULE_T_STAR_PROTOCOL.md` (269 lines).
-**Submission readiness:** ready pending Brayden's referee-rigor pass + lab outreach (Bandyopadhyay, Hameroff, Penrose Foundation).
+**Submission readiness:** **NOT submission-ready in current form.** Hold for save-plan revision + Phase 6 lab-collaboration outreach.
+
+### §5.1 — Save-plan summary (per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J49.md`)
+
+**Save path:** drop the unsubstantiated "$\zeta_\mathrm{Hameroff} \approx 0.71$" attribution (the referee confirmed it is not in Hameroff–Penrose 1996/2014/2024); reframe as a falsifiable *cross-domain prediction* anchored in the **actual** Bandyopadhyay 2013/2024 + Sahu 2013 microtubule Q-factor measurements (which ARE in *J Theor Biol* scope). Define $Q_\mathrm{structural\ max}$ operationally as the geometric ceiling $\omega_0 \cdot L / c_\mathrm{lattice}$ on a single 8-nm tubulin unit cell — this is the missing operational denominator the referee flagged. Add **Appendix A** with one self-contained derivation of $T^* = 5/7$ inline (the cyclotomic Galois closure on $\mathbb{Z}/10\mathbb{Z}$ from [J20] / Flatness Theorem [J6]) so the JTB referee has a mathematical anchor without depending on six unread companions. Drop the §4.2 "73/100 → 5/7" rationalization; engage Tegmark 2000 decoherence critique directly; widen the falsification window to $\pm 0.1$ if the published Bandyopadhyay $Q$-scatter implies it; remove "wager" rhetoric. **Estimated revision: 15–20 person-hours + lab outreach.**
+**Retarget option:** stay at *Journal of Theoretical Biology* (the referee's "Reject" with explicit path-to-resubmission is genuinely a Major Revision under the save plan). Alternatives: *Bull. Math. Biol.* or *Theor. Biol. Med. Modell.* if JTB redirects.
+**Submission gate:** (a) Appendix A drafted; (b) at least one of J20/J6/J33 on arXiv; (c) initial conversation with Bandyopadhyay/Hameroff/Penrose Foundation lab.
 
 
 
