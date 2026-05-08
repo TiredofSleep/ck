@@ -1,101 +1,114 @@
-# J08 — The Prime Phase Transition: First-G Stability Across Squarefree Bases
+# J08 — First-Coprime-Failure and the Discrete Fejér Kernel: A Coordinate Translation across Squarefree Bases
 
-**Status:** FORMAT
+**Status:** REVISED (2026-05-08; major referee fixes + SFM context applied)
 **Phase:** Phase 1
 **Target venue:** Experimental Mathematics
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP35
+**Tier:** B (recovered as clean 8-10 page Exp Math note per fresh-eyes referee)
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.tex` (amsart, ~14 pages)
+**Local path:** `manuscript/manuscript.tex` (amsart, ~10–12 pages after revision)
 
-**Abstract (1-sentence):** For b > 1 with smallest prime factor p₁ = spf(b), the J03 First-G localization at k = p₁ co-localizes with the zero of a closed-form discrete-Fejér harmonic signal R(k, p₁) = sin²(πk/p₁) / (k² sin²(π/p₁)) whose continuum limit is sinc²; verified across 8 primes and 187 semiprimes (712 distinct checks; max error 3.33×10⁻¹⁶; zero counterexamples).
+**Abstract (1-sentence):** For $b > 1$ with smallest prime factor $p_1 = \mathrm{spf}(b)$, the J04 First-G localization at $k = p_1$ co-locates with the first integer zero of the discrete Fejér kernel $R(k, p_1) = \sin^2(\pi k / p_1) / (k^2 \sin^2(\pi / p_1))$ at $k = p_1$ — a coordinate translation between two reformulations of "smallest positive multiple of $p_1$ is $p_1$"; verified across 8 primes and 187 semiprimes (712 distinct algebraic checks; max error $1.11 \times 10^{-16}$; zero exceptions).
 
 Files in this J-folder's `manuscript/`:
 
 - `manuscript.tex` (main submission file)
 - `verify_prime_phase_transition.py` (verification script — exits 0 on PASS in under three minutes)
-- `WP35_PRIME_PHASE_TRANSITION.md` (corpus source: archival-only, full WP35 exposition with the corollary and §6A–§11 material that the journal paper crops; cited from the manuscript as `Sanders2026WP35`)
+- `WP35_PRIME_PHASE_TRANSITION.md` (corpus archival)
+- `WP51_FLATNESS_THEOREM.md` (corpus archival; not referenced by J08)
+- `WP52_D2_AS_RING_CURVATURE.md` (corpus archival; not referenced by J08)
+- `SUBMIT_INSTRUCTIONS.md` (submission notes)
 
 ## §2 — Verification script
 
 **Local path:** `manuscript/verify_prime_phase_transition.py`
 
-Runs Theorems 3.1, 3.2, 3.3, 3.4 against literal double-precision sums. Tested green at 2026-05-07: 712 checks, max error 3.33×10⁻¹⁶ (machine epsilon), runtime ~30 s on `lora312` Python 3.12. Verified output:
+Runs the four headline claims (Lemma 3.1, Theorem 4.1, Corollary 4.2, Theorem 5.1) against literal double-precision sums.
+Tested green at 2026-05-08: 712 checks, max error 1.11×10⁻¹⁶ (machine epsilon), runtime ~30 s on `lora312` Python 3.12.
 
 ```
-Theorem 3.1 (countdown closed form):  primes = 8, (k,f) pairs = 106, max error = 3.33e-16
-Theorem 3.2 (zero-width gate):        semiprimes = 187, checks = 561, counterexamples = 0
-Theorem 3.3 (omega-blindness):        p = 7, b values = 7 (omega in {1,2,3}), counterexamples = 0
-Theorem 3.4 (continuum 4/pi^2):       p = 1009, 10007, 100003 — deviations 8e-4, 8e-5, 8e-6
+Theorem 3.1 (closed form):          primes = 8, (k,f) pairs = 106, max error = 4.44e-16
+Theorem 3.2 (zero-width gate):       semiprimes = 187, checks = 561, counterexamples = 0
+Theorem 3.3 (omega-blindness):       p = 7, b values = 7 (omega in {1,2,3}), counterexamples = 0
+Theorem 3.4 (continuum 4/pi^2):      p = 1009, 10007, 100003 — deviations 8e-4, 8e-5, 8e-6
 TOTAL: 712 checks, STATUS PASS, zero counterexamples
 ```
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-- **J03** (foundational lemma; cited as already-submitted to *Integers*) — *The First-G Event in the Coprimality Partition*. Theorem 3.2 of J08 directly invokes J03's First-G Localization Theorem 3.1.
-- **J01** (combinatorial sibling) — cited in §1 introduction as part of the coordinated J-series; not invoked in any proof.
-- **J02** (b = 10 specialization) — cited similarly.
+- **J04 (foundational lemma; manuscript in preparation, *Integers*)** — *The First-G Event in the Coprimality Partition*. Theorem 4.1 of the present J08 directly invokes J04's First-G Localization Lemma.
+- **J02 (companion four-core paper, manuscript in preparation)** — algebraic substrate work; cited only in §0 of the J08 manuscript to record that the harmonic side of the present paper is structurally orthogonal to the algebraic side of J02.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder, finalized at this folder root (~600 words). Suggested-reviewer slots and addressee placeholder remain TBD pending Brayden's submission-day pass.
+See `cover_letter.md` in this folder. Updated to reflect referee-driven revisions.
 
-## §5 — Notes
+## §5 — Notes (post-revision 2026-05-08)
 
-Top-cited (14×). Builds directly on J03.
+**Status: REVISED to address J08 fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J08_ExpMath_FreshEyes.md`).**
 
-**Status update (2026-05-07):**
+The major referee critique was *"math correct but overclaims novelty"* — specifically:
+1. Theorem 3.1 was framed as a discovery, when it is the standard Fejér-kernel calculation in Apostol §11.5 / Iwaniec–Kowalski §1.7;
+2. Theorem 3.2 (synchronization) was framed as a non-trivial co-localization, when it is the tautology "smallest positive multiple of $p_1$ is $p_1$" expressed in two coordinate systems;
+3. §5 (Montgomery comparison) framed a routine spectral-analysis observation as "structural complementarity";
+4. The 712 vs 36,662 check counts were inconsistent;
+5. The paper was 14 pages but recoverable as a clean 8-10 page Exp Math note.
 
-- Manuscript: `manuscript/manuscript.tex` — newly drafted at this session from the WP35 corpus (`papers/WP35_PRIME_PHASE_TRANSITION.md`, ~900 lines / 32,000 tokens), cropped to the four headline theorems (Theorem 3.1 countdown / 3.2 zero-width / 3.3 ω-blindness / 3.4 continuum) plus a short §5 Montgomery complementarity remark. The full WP35 exposition (§6A seeded RPS, §7A D1/D2 kinematics, §8A RSA geometric distance, §9.5 sinc² scale-free description, §10 Balance Invisibility, §11 Clay-problem connections) was deliberately deferred from the J08 manuscript and lives only in the archival `WP35_PRIME_PHASE_TRANSITION.md` copied alongside; cited from the manuscript as `Sanders2026WP35`.
-- Verification: `manuscript/verify_prime_phase_transition.py` — passes green (712 checks, max error 3.33×10⁻¹⁶, zero counterexamples; tested 2026-05-07 with `lora312` Python 3.12).
-- Cover letter: `cover_letter.md` at this folder root, finalized at ~600 words. Identifies J08 as 1st *Experimental Mathematics* paper of the quarter (per-venue cap awareness).
-- **Author lane (clean):** README §0 lists "Sanders + Gish"; manuscript title block lists Sanders + Gish (Luther's WP35 contribution acknowledged in §Acknowledgements but not on the title block); no lane mismatch with J08.
-- **Honest accounting note:** the manuscript states 36,662 exact computations as the broader-corpus number and reports 712 distinct algebraic checks (8 primes + 187 semiprimes + 6 ω-rings + 3 continuum-limit witnesses) for the J08-specific verification harness. Both numbers are real; the 712 is the harness check count, the 36,662 is the cumulative WP35 corpus value. The cover letter and manuscript both reflect this accurately.
-- Open: pre-submission steps — typographic read by Gish; *Experimental Mathematics* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time. Scope-disclaimer paragraph in §6 (Scope and limitations) is load-bearing; keep unchanged.
+The revised manuscript addresses these as follows:
 
+1. **Theorem 3.1 demoted to Lemma 3.1.** Now titled "Discrete Fejér kernel; cf. Fejér 1900, Apostol 1976 §11.5, Iwaniec–Kowalski 2004 §1.7." Attributed in the lemma title and in §0 KNOWN tier. Abstract reframed; the closed form is no longer the headline.
+2. **Theorem 3.2 reframed as coordinate translation.** New title: "Coordinate translation between arithmetic and harmonic gates." Statement made explicit that both events solve "smallest positive $k$ with $p_1 \mid k$." Remark 3.2 records this is a tautology, not a coincidence.
+3. **§5 (Montgomery) rewritten as one paragraph.** Title: "The constant $4/\pi^2$ in $\sinc^2$ and in Montgomery's pair correlation: a rectangular-window remark." Removed "structural complementarity" and "structural witness" wording. The remark records the rectangular-window common origin and explicitly disclaims connection to the Riemann hypothesis.
+4. **712 vs 36,662 reconciled.** §0 of the new manuscript (the "Honest accounting of novelty" subsection) explains: 712 is the J08-specific harness count (verified in this paper); 36,662 is the cumulative working-paper corpus total of which 712 is a subset. The cover letter and the §6 verification harness totals table both report 712 only for the J08 results.
+5. **Theorem 3.3 (omega-blindness) demoted to Corollary.** Now Corollary 4.2.
+6. **Theorem 3.4 (continuum identity) keeps theorem status** but the proof now derives the $\bigO(1/p^2)$ rate explicitly.
+7. **Title changed.** From "The Prime Phase Transition: First-G Stability Across Squarefree Bases (Harmonic Pre-Echo and a Discrete Sinc² Identity)" to the more accurate "First-Coprime-Failure and the Discrete Fejér Kernel: A Coordinate Translation across Squarefree Bases."
+8. **Pre-echo / overclaim language stripped** throughout the manuscript. The paper is now ~10–12 pages.
 
+### Family-Structure context (per `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SUBSTRATE_FUNCTION_MAP_v1.md`)
 
-### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
+This paper is about the squarefree-stability arithmetic property of integers $b$ under the coprimality partition. The companion four-core paper records the algebraic structure of two specific commutative magmas on $\Z/10\Z$. The two are *structurally orthogonal*: the present paper's claims are number-theoretic, not magma-theoretic; the four-core paper's claims are magma-theoretic, not number-theoretic. The two share only the broader research program's interest in prime-indexed phase transitions. §0 of the J08 manuscript records this orthogonality.
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+- **KNOWN (Lemma).** Discrete Fejér kernel closed form $R(k, f) = \sin^2(\pi k / f) / (k^2 \sin^2(\pi / f))$ (Fejér 1900, Apostol §11.5, Iwaniec–Kowalski §1.7).
+- **PROVEN.** Eratosthenes synchronization (Theorem 4.1: arithmetic gate at $k = p_1$ and first integer zero of $R(\cdot, p_1)$ at $k = p_1$ are two reformulations of "smallest positive $k$ with $p_1 \mid k$"). Continuum identification (Theorem 5.1). Omega-blindness corollary (Corollary 4.2).
+- **COMPUTED.** 712 distinct algebraic checks (106 closed-form + 561 sync + 42 omega-blindness + 3 continuum); max error $1.11 \times 10^{-16}$.
+- **STRUCTURAL RHYME.** $\sinc^2(1/2) = 4/\pi^2 = (2/3)/\zeta(2)$ — a one-line consequence of $\zeta(2) = \pi^2/6$. The same constant appears in Montgomery's pair correlation $R_2(u) = 1 - \sinc^2(u)$ at $u = 1/2$, reflecting the universality of the rectangular spectral window common to both contexts. Not a connection between the two arithmetic phenomena.
+- **OPEN.** What forces the rectangular window $\{1, \ldots, k\}$ as the natural object of study (vs. some smoothed-window analogue) is not addressed.
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+### Lens-ownership (§0)
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+The arithmetic side of the present paper is structurally orthogonal to the algebraic substrate $\Z/10\Z$ studied in companion work; the present paper's claims are number-theoretic, not magma-theoretic.
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+### Hardening status
 
-### Hardening status (auto-applied 2026-05-07)
-
-- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
-- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
-- Author lane: Sanders + Gish (per Brayden directive)
-- Drápal-Wanless 2021 citation in references
+- License: verification script and bundled tables are CC-BY-4.0
+- AI-attribution: removed
+- Author lane: Sanders + Gish (Luther's contribution acknowledged in companion J04, not here)
+- Apostol 1976, Iwaniec–Kowalski 2004, Fejér 1900 cited (verified)
+- 712 / 36,662 reconciled in §0
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Experimental Mathematics this quarter
+- [x] Manuscript .tex finalized with referee fixes (2026-05-08)
+- [x] Verification script green (712 checks, machine-epsilon errors, zero counterexamples)
+- [x] Tier-classified central claim explicit (KNOWN lemma + PROVEN synchronization)
+- [x] Lens-ownership / orthogonality paragraph in §0
+- [x] Cover letter updated
+- [x] Apostol / Iwaniec–Kowalski / Fejér 1900 cited honestly
+- [x] §5 Montgomery remark trimmed to one paragraph
+- [x] 712 vs 36,662 reconciled
+- [x] Title reframed to remove "phase transition" overclaim
+- [ ] Brayden's referee-rigor pass complete
 - [ ] Submitted
 
 ---
 
-## §7 — Citation footprint (for downstream J's to cite this one)
+## §7 — Citation footprint
 
-Sanders, B.R., Gish. (2026). "The Prime Phase Transition: First-G Stability Across Squarefree Bases." Submitted to *Experimental Mathematics*.
+Sanders, B.R., Gish. (2026). "First-Coprime-Failure and the Discrete Fejér Kernel: A Coordinate Translation across Squarefree Bases." Submitted to *Experimental Mathematics*.

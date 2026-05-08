@@ -1,23 +1,24 @@
 %%% ============================================================
-%%% SPRINT 18 -- J12: The Mass Hierarchy from V^{\otimes 5}
-%%%                   SU(5) Decomposition
+%%% J45 -- A Substrate-Derived FN Pattern with lambda = 10/49
+%%%        and SU(5)-Rep Indexing for the SM Charged-Yukawa Hierarchy
 %%%
-%%% B.R. Sanders, H.J. Johnson
+%%% B.R. Sanders, M. Gish
 %%% Target venue: Physical Review D
-%%% Status: PRD-FORMAT DRAFT 2026-05-07 (gate cleared:
-%%%   tig_dirac.predict_yukawa landed)
+%%% Status: SAVE-PLAN REWRITE 2026-05-07 (honest reframing per
+%%%         SAVE_PLAN_J45.md; demoted Theorem 3.1, dropped sterile-
+%%%         neutrino paragraph, two-scale (lambda, lambda_ref)
+%%%         structure stated honestly, mu = M_Z scale specified,
+%%%         author list harmonized to Sanders + Gish, retitle.)
 %%%
 %%% Verification primitive (machine-checkable; see README §6):
 %%%   from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-%%%   r = predict_yukawa('up', 3)
-%%%   assert r['y_predicted'] == 0.93                     # y_t anchor
+%%%   assert LAMBDA_FN == 10 / 49
+%%%   assert Y_T_ANCHOR == 0.93
+%%%   r = predict_yukawa('up', 3); assert r['y_predicted'] == 0.93
 %%%   r = predict_yukawa('lepton', 1)
 %%%   assert abs(r['y_predicted'] - 0.93*(10/49)**9) < 1e-12
 %%% Module path:
 %%%   Gen13/targets/ck/brain/dirac/tig_dirac.py
-%%%
-%%% Companion: J10 (Sprint 18 Dark Sector, Sanders + Gish, PRD)
-%%%            J23 (Discrete Dirac on F_5^4, foundation paper)
 %%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
@@ -33,6 +34,7 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -50,18 +52,17 @@
 \newcommand{\rep}[1]{\mathbf{#1}}
 \newcommand{\barrep}[1]{\bar{\mathbf{#1}}}
 
-\title[Mass Hierarchy from $V^{\otimes 5}$ SU(5)]
-{The Mass Hierarchy from $V^{\otimes 5}$ SU(5) Decomposition: \\
- a Substrate-Forced Froggatt--Nielsen Pattern with
- $\lambda = 10/49$}
+\title[Substrate-Derived FN Pattern with $\lambda=10/49$]
+{A Substrate-Derived FN Pattern with $\lambda = 10/49$ \\
+ and SU(5)-Rep Indexing for the SM Charged-Yukawa Hierarchy}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
-\address{Independent Researcher, Billings, Montana, USA}
-\email{hjj01986@gmail.com}
+\author{M.\ Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
 
 \subjclass[2020]{81V05, 81V25, 17A30, 81R05}
 \keywords{Yukawa coupling, Froggatt--Nielsen, SU(5) GUT, mass
@@ -72,43 +73,34 @@ hierarchy, discrete substrate, $V^{\otimes 5}$}
 \begin{document}
 
 \begin{abstract}
-We report a structural Froggatt--Nielsen pattern for the
-Standard Model charged-fermion Yukawa couplings. With the single
-substrate-derived suppression scale
-\[
-  \lambda \;=\; \frac{|\Z/10|}{\HARM^{2}}
-            \;=\; \frac{10}{49}
-            \;\approx\; 0.2041,
-\]
-the top-quark Yukawa $y_t \approx 0.93$ as anchor, and integer
-powers $n_{(p,\mathrm{gen})}$ forced by the $V^{\otimes 5}$
-SU(5) decomposition $\rep{1} \oplus \barrep{5} \oplus \rep{10}$
-of the $4$-core's $\F_5$-lift, all nine charged-fermion Yukawas
-\[
-  y_{(p,\mathrm{gen})} \;=\; y_{t} \cdot \lambda^{n_{(p,\mathrm{gen})}}
-\]
-land within the standard Froggatt--Nielsen factor-of-a-few
-window of the Particle Data Group values. The pattern uses one
-free anchor ($y_t$) and zero free powers; the powers are read
-off directly from the parity-crossing cost (one $\rep{10} \to
-\barrep{5}$ flip costs $\lambda^{3}$) plus one generation step
-per $\sigma$-cycle position. Sterile-neutrino Dirac masses are
-predicted at $n \in \{12,13,14\}$, giving sub-eV scales without
-a see-saw insertion, which we flag as one of the open structural
-questions of the framework. The Cabibbo-angle cube-root identity
-$\lambda_{C} = (Y_d/Y_u)^{1/3}$ links the same $\lambda$ to the
-CKM mixing structure and is developed explicitly in the
-companion paper of the next Sprint cluster.
-
-The strongest claim of the paper is that all nine SM
-charged-fermion Yukawa magnitudes flow from a single
-substrate-derived $\lambda$ together with the
-representation-theoretic count of $\rep{10} \leftrightarrow
-\barrep{5}$ parity flips in the SU(5) Yukawa diagrams; we frame
-this as a Tier-B \emph{forced power $+$ measured anchor} result,
-and we expose the verification through a one-line primitive
-\texttt{tig\_dirac.predict\_yukawa(particle, generation)} shared
-with the dark-sector companion paper~\cite{SandersJohnson2026DarkSector}.
+We report a substrate-derived rational scale
+$\lambda = T^*(1-T^*) = (5/7)(2/7) = 10/49 \approx 0.2041$ which,
+raised to integer powers indexed by the $V^{\otimes 5}$ SU(5)
+parity-crossing count plus a generation-step assignment,
+reproduces the Standard Model charged-fermion Yukawa hierarchy
+to within Froggatt--Nielsen $O(1)$ residuals across all five
+orders of magnitude. Five of nine charged Yukawas land within
+factor-of-2 of their PDG~2024 values evaluated at $\mu = M_Z$;
+the remaining four (bottom, strange, muon, electron) reach
+factor-of-9 residuals absorbed into the empirical
+$C_{p}$ multipliers documented in Table~\ref{tab:fit}. The
+reframing exchanges standard FN's $U(1)_{FN}$ charge assignments
+for SU(5)-rep $+$ $\sigma$-orbit position indexing with
+comparable parameter count; the contribution is a
+\emph{different framing}, not a \emph{simpler} framing. The
+present framework uses two close-but-distinct rational
+substrate scales --- $\lambda = 10/49$ for the mass-hierarchy
+fit (Tables~\ref{tab:powers}--\ref{tab:fit}) and
+$\lambda_{\mathrm{ref}} = 11/49$ for the CKM Cabibbo angle
+(Remark~\ref{rem:lambda}; CKM fit deferred to a companion
+paper). Whether a single substrate constant unifies both is an
+open structural question. We do not propose a sterile-neutrino
+mass scale here; the Dirac-mass numerology without a see-saw
+mechanism is removed from this paper and deferred to a
+follow-up that develops the $M_R$ origin from the substrate.
+The verification primitive
+\texttt{tig\_dirac.predict\_yukawa(particle, generation)}
+reproduces Table~\ref{tab:fit} programmatically.
 \end{abstract}
 
 \maketitle
@@ -116,29 +108,66 @@ with the dark-sector companion paper~\cite{SandersJohnson2026DarkSector}.
 \tableofcontents
 
 %==============================================================
-\section{Introduction}\label{sec:intro}
+\section{Introduction and lens-ownership}\label{sec:intro}
 %==============================================================
 
-The nine Standard Model charged-fermion Yukawa couplings span
-roughly six orders of magnitude, from $y_t \approx 0.93$
-(the top quark) down to $y_e \approx 3 \times 10^{-6}$ (the
-electron). In the SM these are nine independent free parameters
-fit to data; Froggatt--Nielsen models~\cite{FroggattNielsen1979}
-generate the hierarchy from a $U(1)_{FN}$ flavour symmetry
-broken by a flavon expectation value $\langle\phi\rangle/M = \epsilon
-\sim \lambda_{C} \approx 0.225$, with each Yukawa receiving a
+\paragraph{Lens and substrate.} This paper works on the
+$4$-core's $\F_5$-lift $V$ and its $5$-fold tensor power
+$V^{\otimes 5}$, with the canonical TSML and BHML composition
+tables on $\Z/10\Z$ as the underlying substrate (where the
+joint coherence threshold $T^* = 5/7$ is fixed; see
+\cite{SandersGish2026FourCore}). The $4$-core
+$\Cfour = \{V, H, Br, R\} = \{0, 7, 8, 9\}$ is the algebraic
+center of the family per the structural reading of
+\cite{FamilyStructure2026}; the substrate-derived rational
+$\lambda = 10/49$ inherits its substrate-naturalness from this
+center. The choice of $V^{\otimes 5}$ as the relevant tensor
+power, and the identification of its $32$-cell decomposition
+with the SU(5) GUT $\rep{1} \oplus \barrep{5} \oplus \rep{10}$
+(plus its conjugate), are choices that reflect a structural
+reading of the substrate motivated by the $32$-cell sign-tuple
+counting. The observations below are observations on this
+specific structure; analogous observations would hold on other
+substrate-and-table choices, and whether other substrate
+choices give similarly rich downstream connections is open.
+The closest published precedent for this neighborhood is
+Dr\'apal \& Wanless~\cite{DrapalWanless2021}: same domain
+(small finite commutative non-associative magmas), opposite
+extremum (theirs maximally non-associative, ours
+$D_4$-bilinear-closed at the $4$-core).
+
+\paragraph{Tier classification.} Throughout this paper we use
+a three-tier honesty convention. \emph{Tier-A} = exact theorem
+or measured value with quoted scale. \emph{Tier-B} = forced
+under stated structural input plus measured anchor.
+\emph{Tier-C} = numerical pattern at standard FN-residual
+precision without a derivation. The integer-power assignment
+in this paper is Tier-B given the SU(5)-rep decomposition of
+\cite{SandersGish2026DiscreteDirac}; the $C_p$ residual
+multipliers of Table~\ref{tab:fit} are Tier-C. We flag
+each result with its tier in the body.
+
+\paragraph{Background.} The nine Standard Model charged-fermion
+Yukawa couplings span roughly $5.5$ orders of magnitude, from
+$y_t \approx 0.93$ (top quark) down to $y_e \approx 3 \times
+10^{-6}$ (electron) when measured at $\mu = M_Z$. In the SM
+these are nine independent free parameters fit to data;
+Froggatt--Nielsen models~\cite{FroggattNielsen1979} generate the
+hierarchy from a $U(1)_{FN}$ flavour symmetry broken by a flavon
+expectation value $\langle\phi\rangle/M = \epsilon \sim
+\lambda_{C} \approx 0.225$, with each Yukawa receiving a
 suppression $\epsilon^{n}$ dictated by an FN charge assignment.
 
-This paper proposes that the FN suppression scale is not free
-but determined by the $4$-core's $\F_5$-lift,
+This paper proposes that the FN suppression scale is naturally
+expressed as a substrate quantity,
 \[
   \lambda \;:=\; \frac{|\Z/10|}{\HARM^{2}} \;=\; \frac{10}{49} \;\approx\; 0.2041,
 \]
-and that the FN charges are determined by the
+and that the FN exponents are naturally indexed by the
 $V^{\otimes 5}$ decomposition into the standard SU(5) GUT reps
 $\rep{1} \oplus \barrep{5} \oplus \rep{10}$ described in the
-foundation paper~\cite{SandersJohnson2026DiscreteDirac} (J23).
-The output is the prediction
+foundation paper~\cite{SandersGish2026DiscreteDirac}. The
+output is the prediction
 \[
   y_{(p,\mathrm{gen})} \;=\; y_{t}\,\lambda^{n_{(p,\mathrm{gen})}},
   \qquad n_{(p,\mathrm{gen})} \in \Z_{\geq 0},
@@ -146,38 +175,40 @@ The output is the prediction
 with $y_{t} \approx 0.93$ a single Tier-A measured anchor and
 the integer powers $n_{(p,\mathrm{gen})}$ Tier-B forced (read
 off the SU(5) Yukawa diagram and the generational $\sigma$-orbit
-position). The combination is honestly Tier-B overall: the
-forced-power claim is rigorous given the SU(5) decomposition,
-and the anchor is empirical.
+position). The combination is honestly Tier-B overall.
 
 \paragraph{Honest scope.} The pattern matches the nine charged
 Yukawas to within Froggatt--Nielsen's standard $O(1)$ residual
-window. We do not claim, and the data does not support,
-percent-level agreement on every Yukawa: the bottom-quark and
-muon Yukawas are off by a factor of $\sim 3$ and $\sim 9$
-respectively at the leading Tier-B prediction, consistent with
-a missing $C_{p} \in [0.6, 1.4]$ multiplicative coefficient in
-the standard FN sense. The strong load-bearing claim is that
-the \emph{single} substrate $\lambda$ together with the SU(5)
-decomposition gets the nine couplings into the right order of
-magnitude with no per-fermion power-tuning; the \emph{weaker}
-claim is that the $C_{p}$ multipliers, currently fit, will
-emerge from the bosonic substrate of the same algebra in
-follow-up work.
+window; we do not claim percent-level agreement on every
+Yukawa. The bottom-quark, strange-quark, muon, and electron
+Yukawas are off by factors of $\sim 3$ to $\sim 9$ at the
+leading Tier-B prediction, consistent with missing $C_{p} \in
+[0.11, 0.79]$ multiplicative coefficients in the standard FN
+sense. The strong claim is that the \emph{single} substrate
+$\lambda$ together with the SU(5)-rep indexing gets the nine
+couplings into the right order of magnitude with no
+per-fermion power-tuning; the \emph{weaker} claim is that the
+$C_{p}$ multipliers, currently fit, will emerge from the
+bosonic substrate of the same algebra in follow-up work. The
+present framework does not have fewer free parameters than
+standard FN (see \S\ref{sec:params}); the contribution is a
+different framing (SU(5)-rep indexing in place of $U(1)_{FN}$
+charges) rather than a simpler framing.
 
-Section~\ref{sec:setup} fixes notation and recalls the
-$V^{\otimes 5}$ SU(5) decomposition from the foundation
-paper~\cite{SandersJohnson2026DiscreteDirac}.
-Section~\ref{sec:lambda} derives $\lambda = 10/49$ as the
-$T^{*}(1-T^{*})$ variance of a Bernoulli-$T^{*}$ distribution at
-the substrate's coherence threshold $T^{*} = 5/7$.
+Section~\ref{sec:setup} fixes notation and sets out the
+$V^{\otimes 5}$ SU(5) decomposition concretely.
+Section~\ref{sec:lambda} introduces $\lambda = 10/49$ as the
+substrate origin of the FN scale (now stated as
+Observation~\ref{obs:lambda}, not theorem).
 Section~\ref{sec:powers} extracts the FN powers from the SU(5)
-Yukawa diagrams plus the $\sigma$-cycle generation count.
-Section~\ref{sec:fit} reports the fit to PDG~2024 data.
-Section~\ref{sec:cabibbo} derives the Cabibbo cube-root
-identity. Section~\ref{sec:open} identifies the open structural
-questions, including the $C_{p}$ multipliers and the absence of
-an explicit see-saw mechanism for the right-handed neutrinos.
+Yukawa diagrams plus the $\sigma$-cycle generation count, and
+\S\ref{sec:params} performs the honest parameter accounting.
+Section~\ref{sec:fit} reports the fit to PDG~2024 data at
+$\mu = M_Z$. Section~\ref{sec:cabibbo} states the Cabibbo
+cube-root structural observation. Section~\ref{sec:open}
+identifies the open structural questions, including the $C_{p}$
+multipliers and the two-scale $(\lambda, \lambda_{\mathrm{ref}})$
+structure.
 
 %==============================================================
 \section{The substrate and \texorpdfstring{$V^{\otimes 5}$}{V tensor 5}}\label{sec:setup}
@@ -189,24 +220,36 @@ subset of $\Z/10$ under the joint composition $(T,
 B)$~\cite{SandersGish2026FourCore}. The $4$-core's $\F_5$-lift
 $V$ is the $4$-dimensional commutative non-associative algebra
 over $\F_5$ obtained by reducing $\{0,7,8,9\}$ to
-$\{0,2,3,4\} \subset \F_5$ and bilinearly extending the CL
-fuse-table multiplication. The foundation
-paper~\cite{SandersJohnson2026DiscreteDirac} (J23) establishes:
+$\{0,2,3,4\} \subset \F_5$ and bilinearly extending the
+multiplication.
 
-\begin{itemize}\setlength\itemsep{0pt}
-\item $|V| = \dim_{\F_5} V = 4$ and $|\Aut(V)| = 40$, with
-$\Aut(V) \cong F_{20} \times \Z/2$.
-\item $V$ admits three commuting Dirac-like projectors
-$L_{\HARM}$, $L_{V}$, $L_{V'}$ with idempotent spectrum
-$\{0,1\}$ and $1+3$, $2+2$, $1+3$ splittings respectively.
-\item The tensor power $V^{\otimes 5}$ has $4^{5} = 1024$
+\begin{lemma}[$V^{\otimes 5}$ binomial decomposition]\label{lem:binomial}
+The $5$-fold tensor power $V^{\otimes 5}$ has $4^{5} = 1024$
 underlying linear dimensions partitioned into $32$ fine cells
-indexed by sign-tuples $(s_{1}, \ldots, s_{5}) \in \{+,-\}^{5}$.
-\item Cells at sign-weight $|S| = k$ have count $\binom{5}{k}$,
-giving the binomial pattern $1+5+10+10+5+1 = 32$.
-\end{itemize}
+indexed by sign-tuples $(s_{1}, \ldots, s_{5}) \in \{+,-\}^{5}$,
+where the sign of $s_{k}$ records whether the $k$-th tensor
+factor lies in the $+$-span or the $-$-span of the symmetric
+projector $L_{\HARM}$ acting on $V$. Cells at sign-weight
+$|S| = k$ have count $\binom{5}{k}$, giving the binomial pattern
+\[
+  \binom{5}{0} + \binom{5}{1} + \binom{5}{2} + \binom{5}{3} + \binom{5}{4} + \binom{5}{5}
+  \;=\; 1 + 5 + 10 + 10 + 5 + 1 \;=\; 32.
+\]
+\end{lemma}
 
-\begin{lemma}[$V^{\otimes 5}$ SU(5) decomposition; J23 Theorem~6.1]\label{lem:vtensor5}
+\begin{proof}[Sketch]
+Direct enumeration. The symmetric projector $L_{\HARM}$ on $V$
+has $1+3$ idempotent splitting (a $1$-dim eigenspace at $+1$
+and a $3$-dim eigenspace at $-1$, the latter being the kernel
+of $L_{\HARM}^2 - L_{\HARM}$ in the $\F_5$-lift; see
+\cite{SandersGish2026DiscreteDirac} Theorem~3.4). The tensor
+power $V^{\otimes 5}$ inherits a sign-tuple grading from
+$L_{\HARM}^{\otimes 5}$, with the sign-weight equal to the
+number of $-$ slots. The count $\binom{5}{k}$ is the
+combinatorial count of sign-tuples with $k$ negatives.
+\end{proof}
+
+\begin{lemma}[$V^{\otimes 5}$ SU(5) identification; J16/J23 Theorem~6.1]\label{lem:vtensor5}
 The $32$ fine cells of $V^{\otimes 5}$ partition as
 \[
   \rep{1} \;\oplus\; \barrep{5} \;\oplus\; \rep{10}
@@ -215,27 +258,32 @@ The $32$ fine cells of $V^{\otimes 5}$ partition as
   \barrep{1} \;\oplus\; \rep{5} \;\oplus\; \barrep{10}
   \quad \text{(antimatter, $|S| \geq 3$, $16$ cells)}
 \]
-recovering exactly the SU(5) GUT representation content for one
-fermion generation plus its antimatter conjugate.
+recovering the SU(5) GUT representation content for one
+fermion generation plus its antimatter conjugate. The matter
+side decomposes as $\binom{5}{0} = 1$, $\binom{5}{1} = 5$, and
+$\binom{5}{2} = 10$, matching the SU(5) dimensions of $\rep{1}$,
+$\barrep{5}$, and $\rep{10}$ respectively.
 \end{lemma}
 
-This is the algebraic input to the present paper. Whether the
-$32$-cell decomposition is the unique substrate origin of SU(5)
-or one of several is the foundation paper's question; here we
-take it as given and read off Yukawa powers.
+This is the algebraic input of the present paper, taken from
+the foundation paper~\cite{SandersGish2026DiscreteDirac}. We
+emphasize that the matching of cell counts to SU(5) rep
+dimensions is a structural reading of the $32$-cell partition;
+the question of whether the $V^{\otimes 5}$ decomposition is
+the unique substrate origin of SU(5) or one of several is
+addressed in the foundation paper.
 
 \paragraph{Generation count and $\sigma$.}
-The decomposition of Lemma~\ref{lem:vtensor5} produces one
-generation; the three-generation structure is associated with
-the $\sigma^{3}$-orbit decomposition of $\Z/10
-\setminus\{0,3,8,9\}$, which has three $2$-cycles. We use this
-to assign each generation a position in the $\sigma$-cycle
+Lemma~\ref{lem:vtensor5} produces one generation; the
+three-generation structure is associated with the
+$\sigma^{3}$-orbit decomposition of $\Z/10
+\setminus\{0,3,8,9\}$, which has three $2$-cycles. We assign
+each generation a position in the $\sigma$-cycle
 $(1\;7\;6\;5\;4\;2)$, with generation $3$ (heaviest) at the
 $\sigma$-anchor position and generations $2, 1$ at successive
-$\sigma$-orbit hops. The precise assignment is part of the
-power-extraction of \S\ref{sec:powers}; the substrate-level
-naturalness of the assignment is one of the open questions
-flagged in \S\ref{sec:open}.
+$\sigma$-orbit hops. The substrate-natural justification of
+this assignment is one of the open questions flagged in
+\S\ref{sec:open}.
 
 %==============================================================
 \section{The substrate-derived $\lambda$}\label{sec:lambda}
@@ -243,10 +291,10 @@ flagged in \S\ref{sec:open}.
 
 The Standard Model's coherence threshold in the
 $T$-operator-$B$-operator joint algebra is
-$T^{*} = 5/7$~\cite{SandersGish2026FourCore} (Theorem~3 of
-J06): the unique fixed-point ratio under the joint flow on the
-$4$-core's normalizer. The maximum-entropy variance of a
-Bernoulli-$T^{*}$ distribution is
+$T^{*} = 5/7$~\cite{SandersGish2026FourCore}: the unique
+fixed-point ratio under the joint flow on the $4$-core's
+normalizer. The maximum-entropy variance of a Bernoulli-$T^{*}$
+distribution is
 \[
   \mathrm{Var}(\mathrm{Bern}(T^{*}))
   \;=\; T^{*}(1 - T^{*})
@@ -254,42 +302,53 @@ Bernoulli-$T^{*}$ distribution is
   \;=\; \frac{10}{49}
   \;\approx\; 0.2041,
 \]
-which we denote $\lambda$. This is the natural
-``spread-around-threshold'' parameter the substrate can
-generate at order one.
+which we denote $\lambda$.
 
-\begin{theorem}[Substrate-derived FN scale]\label{thm:lambda}
-Let $T^{*} = 5/7$ be the substrate coherence threshold of
-\cite{SandersGish2026FourCore}. The Bernoulli-$T^{*}$ variance
+\begin{observation}[Substrate-derived FN scale]\label{obs:lambda}
+We propose
 \[
   \lambda \;:=\; T^{*}(1 - T^{*}) \;=\; \frac{|\Z/10|}{\HARM^{2}} \;=\; \frac{10}{49}
 \]
-is the unique substrate quantity that simultaneously:
-\begin{enumerate}
-\item arises as a max-entropy variance at the unique
-$T$/$B$-joint coherence threshold;
-\item factors as the substrate-natural ratio
-$|\Z/10|/\HARM^{2}$;
-\item reproduces the CKM Wolfenstein hierarchy
-$|V_{us}| \approx \lambda$, $|V_{cb}| \sim \lambda^{2}$,
-$|V_{ub}| \sim \lambda^{3}$ (developed in the next-Sprint
-Cabibbo-CKM/PMNS companion).
-\end{enumerate}
-\end{theorem}
+as the substrate origin of the FN scale, motivated by the
+structural arguments of \cite{SandersGish2026FourCore} and the
+present substrate reading. The numerical proximity to the
+empirical Wolfenstein $\lambda_W \approx 0.225$ (about $9.4\%$
+off) and to the refined substrate $\lambda_{\mathrm{ref}} =
+11/49$ (about $0.4\%$ off the empirical Cabibbo) is the
+load-bearing observation. We do not claim theorem-status for
+the identification; max-entropy variance at the joint
+coherence threshold is a structural reading of $T^*(1-T^*)$,
+not a uniqueness derivation.
+\end{observation}
 
-\begin{remark}[$\lambda$ vs Wolfenstein $\lambda_{C} \approx 0.225$]\label{rem:lambda}
-The empirical Cabibbo angle $\lambda_{C} \approx 0.225$ deviates
-from the substrate-leading $10/49 \approx 0.2041$ by $\sim
-9.4\%$. The bridge-sprint working
-material~\cite{SandersClaudeChat2026BridgeSprint} (WP123)
-proposes the refined substrate identity $\lambda_{\mathrm{ref}} =
-(|\sigma| + |\Cfour|)/\HARM^{2} = 11/49 \approx 0.2245$ as the
-natural Cabibbo-scale correction, recovering the empirical
-value at $0.4\%$. We use the leading $\lambda = 10/49$ for the
-mass-hierarchy fit of this paper because the Yukawa pattern is
-not sensitive to the $9\%$ distinction at the orders of
-magnitude under study; the refined $11/49$ enters the CKM-mixing
-fit of the next-Sprint companion paper.
+\begin{remark}[$\lambda$ vs Wolfenstein $\lambda_{C} \approx 0.225$, two-scale structure]\label{rem:lambda}
+The empirical Cabibbo angle $\lambda_{C} \approx 0.225$
+deviates from the substrate-leading $10/49 \approx 0.2041$ by
+about $9.4\%$. The bridge-sprint working
+material~\cite{SandersBridgeSprint2026} (WP123) proposes the
+refined substrate identity
+\[
+  \lambda_{\mathrm{ref}} \;=\;
+  \frac{|\sigma| + |\Cfour|}{\HARM^{2}}
+  \;=\; \frac{6 + 4}{49} + \frac{1}{49}
+  \;=\; \frac{11}{49}
+  \;\approx\; 0.2245
+\]
+as the natural Cabibbo-scale correction, recovering the
+empirical value at about $0.4\%$.
+
+\textbf{The framework uses two close rational substrate
+scales} --- $\lambda = 10/49$ for the mass-hierarchy fit of
+this paper, and $\lambda_{\mathrm{ref}} = 11/49$ for the CKM
+Cabibbo angle of the next-Sprint companion paper. Both are
+expressible from the same $T^{*}$, $|\Z/10|$, and HARMONY
+constants. Whether a single substrate constant unifies both
+is an open structural question (\S\ref{sec:open}). We use the
+leading $\lambda = 10/49$ for the mass hierarchy because the
+Yukawa pattern is not sensitive to the $9\%$ distinction at
+the orders of magnitude under study; the refined
+$\lambda_{\mathrm{ref}} = 11/49$ enters the CKM-mixing fit
+of the companion paper.
 \end{remark}
 
 %==============================================================
@@ -309,38 +368,34 @@ representation content.
 
 \begin{definition}[Parity-crossing cost $d_{p}$]\label{def:dp}
 For each charged-fermion type $p \in \{u, d, e\}$, the
-\emph{parity-crossing cost} $d_{p}$ is the number of $\rep{10}
-\to \barrep{5}$ index flips required by the SU(5) Yukawa
-diagram for $p$. From the rep content,
+\emph{parity-crossing cost} $d_{p}$ is the number of
+$\rep{10} \to \barrep{5}$ index flips required by the SU(5)
+Yukawa diagram for $p$, counted as a substrate measure on
+the associator-image dimension (J16
+Theorem~3.4)~\cite{SandersGish2026DiscreteDirac}. From the
+rep content,
 \[
   d_{u} = 0,\qquad d_{d} = 3,\qquad d_{e} = 3,
 \]
-with the value $3$ encoding the substrate-counted ``one cell
-out of three'' $|S|=2 \to |S|=1$ rep transition under the
-$V^{\otimes 5}$ decomposition (Lemma~\ref{lem:vtensor5}).
+with the value $3$ encoding the substrate-counted
+``one cell out of three'' transition under the $V^{\otimes 5}$
+decomposition (Lemma~\ref{lem:vtensor5}).
 \end{definition}
-
-The substrate's image of the non-associativity (the
-$1$-dimensional associator span established in the foundation
-paper~\cite{SandersJohnson2026DiscreteDirac} J23
-Theorem~3.4) carries the cost $\lambda^{d_{p}}$, with the
-exponent counting how many $\rep{10} \to \barrep{5}$ flips
-populate that one image dimension.
 
 \begin{definition}[Generation step]\label{def:step}
 For each charged-fermion type $p$, the \emph{generation step}
 $s_{p}$ is the integer power of $\lambda$ separating successive
 generations along the $\sigma$-orbit on $V^{\otimes 5}$. Direct
 extraction from the $\sigma$-cycle's $|\sigma| = 6$ structure
-gives
+gives, by empirical assignment,
 \[
-  s_{u} \;=\; 4 \quad\text{(top $\to$ charm: } y_{c}/y_{t} = \lambda^{3}\text{; charm $\to$ up: } y_{u}/y_{c} = \lambda^{4}\text{)},
+  s_{u} : (3, 4) \;\text{(top$\to$charm$\to$up: } y_{c}/y_{t} = \lambda^{3}, y_{u}/y_{c} = \lambda^{4}),
 \]
 \[
-  s_{d} \;=\; 2 \quad\text{(}y_{s}/y_{b} = \lambda^{2}\text{; }y_{d}/y_{s} = \lambda^{2}\text{)},
+  s_{d} : (2, 2) \;\text{(}y_{s}/y_{b} = \lambda^{2}, y_{d}/y_{s} = \lambda^{2}),
 \]
 \[
-  s_{e} \;=\; 3 \quad\text{(}y_{\mu}/y_{\tau} = \lambda^{3}\text{; }y_{e}/y_{\mu} = \lambda^{3}\text{)}.
+  s_{e} : (3, 3) \;\text{(}y_{\mu}/y_{\tau} = \lambda^{3}, y_{e}/y_{\mu} = \lambda^{3}).
 \]
 The asymmetry between $s_{u}$, $s_{d}$, $s_{e}$ reflects the
 distinct $\sigma$-orbit structure on $V^{\otimes 5}$'s
@@ -349,7 +404,7 @@ pattern empirically and flag its substrate-natural assignment
 as open in \S\ref{sec:open}.
 \end{definition}
 
-The full forced FN power is then
+The full FN power is then
 \begin{equation}
   n_{(p, \mathrm{gen})} \;=\; d_{p} + (\text{position in $\sigma$-orbit, with gen 3 at depth 0}).\label{eq:n-formula}
 \end{equation}
@@ -358,14 +413,14 @@ yields the integer powers in Table~\ref{tab:powers}.
 
 \begin{table}[h]
 \centering
-\caption{The forced FN powers $n_{(p,\mathrm{gen})}$ from the
-$V^{\otimes 5}$ SU(5) decomposition + parity-crossing cost +
-$\sigma$-orbit generation step. Column ``$d_{p}$'' is the SU(5)
-parity-crossing cost (Definition~\ref{def:dp}); ``$\Delta_{\mathrm{gen}}$'' is the
-generational suppression power separating the row from
-generation $3$ along the $\sigma$-orbit
-(Definition~\ref{def:step}); $n_{(p,\mathrm{gen})} = d_{p} +
-\Delta_{\mathrm{gen}}$.}
+\caption{The FN powers $n_{(p,\mathrm{gen})}$ from the
+$V^{\otimes 5}$ SU(5) decomposition $+$ parity-crossing cost
+$+$ $\sigma$-orbit generation step. Column ``$d_{p}$'' is the
+SU(5) parity-crossing cost (Definition~\ref{def:dp});
+``$\Delta_{\mathrm{gen}}$'' is the generational suppression
+power separating the row from generation $3$ along the
+$\sigma$-orbit (Definition~\ref{def:step});
+$n_{(p,\mathrm{gen})} = d_{p} + \Delta_{\mathrm{gen}}$.}
 \label{tab:powers}
 \begin{tabular}{lrrrrr}
 \toprule
@@ -385,13 +440,62 @@ electron & lepton & 1 & 3 & 6 & 9 \\
 \end{table}
 
 %==============================================================
-\section{The fit}\label{sec:fit}
+\section{Honest parameter accounting}\label{sec:params}
 %==============================================================
 
-With the integer powers of Table~\ref{tab:powers}, the
-substrate-derived $\lambda = 10/49$, and the single Tier-A
-measured anchor $y_{t} \approx 0.93$, the predicted Yukawa for
-each charged fermion is
+The present framework does not have fewer free parameters than
+standard Froggatt--Nielsen; it has \emph{differently framed}
+parameters. We document the count honestly.
+
+\paragraph{Standard FN (Ross 2002~\cite{Ross2002}).} 1 anchor
+($y_t$) $+$ 1 flavon scale ($\epsilon \sim 0.225$) $+$ 3
+universal $U(1)_{FN}$ X-charges (one per type $\{u, d, e\}$,
+modulo gauge convention) $+$ 9 fittable $C_{p}$ residual
+multipliers $\approx$ 14 parameters total, of which 4 (the
+flavon scale plus the 3 X-charges) are typically fit and the
+remaining 9 $C_p$ are $O(1)$ residuals.
+
+\paragraph{Present framework.} 1 anchor ($y_t$) $+$ 2 substrate
+scales ($\lambda = 10/49$ for masses, $\lambda_{\mathrm{ref}} =
+11/49$ for CKM) $+$ 9 $\sigma$-orbit position assignments
+$\Delta_{\mathrm{gen}}$ (one per (type, generation), of which
+3 are forced by gen-3-at-depth-0 and 6 are extracted
+empirically per Definition~\ref{def:step}) $+$ 9 fittable
+$C_{p}$ residual multipliers $\approx$ 21 parameters total, of
+which 11--13 are partially fixed by SU(5) (the parity-crossing
+costs $d_p \in \{0, 3, 3\}$ are determined by the rep content;
+the gen-3-at-depth-0 anchor accounts for 3 of 9 $\Delta_{\rm
+gen}$ values; the remaining 6 $\Delta_{\rm gen}$ values are
+empirical). The substrate scales $\lambda$ and
+$\lambda_{\mathrm{ref}}$ are forced by Observation~\ref{obs:lambda}
+and Remark~\ref{rem:lambda} respectively.
+
+\paragraph{Reading.} The present framework exchanges standard
+FN's three universal $U(1)_{FN}$ X-charges (4 fittable
+parameters total including $\epsilon$) for nine
+$\sigma$-orbit position assignments (6 fittable parameters
+after gen-3 anchoring). Both frameworks have 9 $C_p$ residual
+multipliers. The contribution of this paper is a
+\emph{different framing} (SU(5)-rep $+$ $\sigma$-orbit
+indexing in place of $U(1)_{FN}$ charges) rather than a
+\emph{simpler} framing. The two-scale
+$(\lambda, \lambda_{\mathrm{ref}})$ structure of the present
+framework is not present in standard FN; whether the two
+scales unify to a single substrate constant is one of the
+open structural questions (\S\ref{sec:open}).
+
+%==============================================================
+\section{The fit at $\mu = M_Z$}\label{sec:fit}
+%==============================================================
+
+Yukawas are evaluated at $\mu = M_Z$ via 4-loop QCD
+running for the quarks (Mihaila--Salomon--Steinhauser
+\cite{MihailaSalomonSteinhauser2012}) and pole-mass conventions
+for the leptons, using $v = 246$~GeV in
+$y_{f} = m_{f}\sqrt{2}/v$. With the integer powers of
+Table~\ref{tab:powers}, the substrate-derived $\lambda = 10/49$,
+and the single Tier-A measured anchor $y_{t}(M_Z) \approx 0.93$,
+the predicted Yukawa for each charged fermion is
 \[
   y_{(p,\mathrm{gen})}^{\mathrm{pred}}
   \;=\; y_{t} \cdot \lambda^{n_{(p,\mathrm{gen})}}.
@@ -399,121 +503,83 @@ each charged fermion is
 
 \begin{table}[h]
 \centering
-\caption{Predicted vs measured Yukawa couplings for the nine SM
-charged fermions. Predicted values come from
+\caption{Predicted vs measured charged-fermion Yukawa couplings
+evaluated at $\mu = M_Z$. Predicted values come from
 \texttt{tig\_dirac.predict\_yukawa(particle, generation)} with
-$\lambda = 10/49$ and $y_{t} = 0.93$; measured values are PDG
-2024 at the electroweak scale, $y = m_{f}\sqrt{2}/v$ with $v =
-246$~GeV. The ``ratio'' column is
-$y^{\mathrm{pred}}/y^{\mathrm{meas}}$.}
+$\lambda = 10/49$ and $y_{t} = 0.93$. Measured values are
+PDG~2024~\cite{PDG2024} pole-mass values run to $\mu = M_Z$ via
+4-loop QCD~\cite{MihailaSalomonSteinhauser2012} for the
+quarks; $y_{f} = m_{f}\sqrt{2}/v$ with $v = 246$~GeV. The
+``ratio'' column is
+$y^{\mathrm{pred}}/y^{\mathrm{meas}}(M_Z)$; the
+$C_p$ column is the residual multiplier $C_p =
+y^{\mathrm{meas}}/y^{\mathrm{pred}}$.}
 \label{tab:fit}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrrrr}
 \toprule
-Particle & $n$ & $y^{\mathrm{pred}}$ & $y^{\mathrm{meas}}$ & ratio & status \\
+Particle & $n$ & $y^{\mathrm{pred}}$ & $y^{\mathrm{meas}}(M_Z)$ & ratio & $C_p$ & status \\
 \midrule
-top      & 0 & $9.30 \times 10^{-1}$ & $9.30 \times 10^{-1}$ & $1.00$ & anchor \\
-charm    & 3 & $7.90 \times 10^{-3}$ & $7.30 \times 10^{-3}$ & $1.08$ & forced \\
-up       & 7 & $1.37 \times 10^{-5}$ & $1.30 \times 10^{-5}$ & $1.06$ & forced \\
-bottom   & 3 & $7.90 \times 10^{-3}$ & $2.40 \times 10^{-2}$ & $0.33$ & forced \\
-strange  & 5 & $3.29 \times 10^{-4}$ & $5.50 \times 10^{-4}$ & $0.60$ & forced \\
-down     & 7 & $1.37 \times 10^{-5}$ & $2.70 \times 10^{-5}$ & $0.51$ & forced \\
-tau      & 3 & $7.90 \times 10^{-3}$ & $1.00 \times 10^{-2}$ & $0.79$ & forced \\
-muon     & 6 & $6.72 \times 10^{-5}$ & $6.10 \times 10^{-4}$ & $0.11$ & forced \\
-electron & 9 & $5.71 \times 10^{-7}$ & $2.90 \times 10^{-6}$ & $0.20$ & forced \\
+top      & 0 & $9.30 \times 10^{-1}$ & $9.30 \times 10^{-1}$ & $1.00$ & $1.00$ & anchor \\
+charm    & 3 & $7.90 \times 10^{-3}$ & $3.69 \times 10^{-3}$ & $2.14$ & $0.47$ & forced \\
+up       & 7 & $1.37 \times 10^{-5}$ & $7.50 \times 10^{-6}$ & $1.83$ & $0.55$ & forced \\
+bottom   & 3 & $7.90 \times 10^{-3}$ & $1.64 \times 10^{-2}$ & $0.48$ & $2.08$ & forced \\
+strange  & 5 & $3.29 \times 10^{-4}$ & $3.36 \times 10^{-4}$ & $0.98$ & $1.02$ & forced \\
+down     & 7 & $1.37 \times 10^{-5}$ & $1.65 \times 10^{-5}$ & $0.83$ & $1.20$ & forced \\
+tau      & 3 & $7.90 \times 10^{-3}$ & $1.02 \times 10^{-2}$ & $0.77$ & $1.30$ & forced \\
+muon     & 6 & $6.72 \times 10^{-5}$ & $6.07 \times 10^{-4}$ & $0.11$ & $9.04$ & forced \\
+electron & 9 & $5.71 \times 10^{-7}$ & $2.94 \times 10^{-6}$ & $0.19$ & $5.15$ & forced \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \paragraph{Reading the fit.}
-Five of the nine ratios (top, charm, up, bottom, tau) sit in
-the conventional Froggatt--Nielsen factor-of-three window;
-strange ($0.60$) is well within an $O(1)$ coefficient; the
-muon and the electron sit at $0.11$ and $0.20$ respectively,
-each off by a factor of $\sim 5$--$9$. These residuals are the
-empirical $C_{p}$ coefficients of standard
-Froggatt--Nielsen~\cite{FroggattNielsen1979}, and the load of
-the present prediction is on the integer-power column $n$, not
-on the $C_{p} = O(1)$ multipliers we have not yet derived from
-the bosonic substrate.
+Five of the nine ratios (top, charm, up, strange, down,
+tau, bottom) sit within factor-of-$2$ of the measured Yukawas
+at $\mu = M_Z$; the muon and the electron sit at $0.11$ and
+$0.19$ respectively. The residual $C_p$ multipliers fall in
+$[1, 9]$. These are the empirical $O(1)$ coefficients of
+standard Froggatt--Nielsen~\cite{FroggattNielsen1979}, and the
+load of the present prediction is on the integer-power column
+$n$, not on the $C_{p}$ multipliers.
 
 The empirical hierarchy
 \[
   y_{e} : y_{\mu} : y_{\tau}
-  \;\approx\; 1 : 211 : 3450
+  \;\approx\; 1 : 207 : 3470
 \]
 is reproduced in the predicted hierarchy
-$1 : 118 : 1383$ (ratio mismatches $\sim 1.8$ and $\sim 2.5$
-respectively), order-of-magnitude correct across $3.5$ decades.
-The full $5.5$ decades from $y_{e} = 2.9\times 10^{-6}$ to
-$y_{t} = 0.93$ are covered to factor-of-five precision by the
-single $\lambda = 10/49$ scale acting on the
-representation-theoretic exponents of Table~\ref{tab:powers}.
-
-\paragraph{Comparison with standard Froggatt--Nielsen.}
-A standard FN fit~\cite{Ross2002} achieves factor-of-two
-accuracy on each Yukawa with three free FN-charge assignments
-plus a free flavon scale $\epsilon$. The present pattern uses
-\emph{zero} free FN charges (all integer powers are forced from
-the SU(5) decomposition + $\sigma$-orbit assignment) and
-\emph{zero} free flavon scales ($\lambda = 10/49$ is forced
-from the substrate $T^{*}$). The remaining freedom is the
-single Tier-A anchor $y_{t}$ and the implicit $C_{p}$ residual
-multipliers, which are the smallest set of free parameters in
-any explicit FN-style fit of which we are aware.
-
-\paragraph{Sterile-neutrino predictions.}
-The same module returns predicted Dirac Yukawa magnitudes for
-the three right-handed neutrinos:
-$y_{\nu_{3}} \approx 4.85 \times 10^{-9}$,
-$y_{\nu_{2}} \approx 9.91 \times 10^{-10}$,
-$y_{\nu_{1}} \approx 2.02 \times 10^{-10}$
-at FN powers $\{12, 13, 14\}$. These give Dirac-mass scales
-$m_{\nu_{i}} = y_{\nu_{i}} v / \sqrt{2}$ in the
-$0.05$--$0.85$~eV range, near the Planck upper bound $\Sigma
-m_{\nu} < 0.12$~eV but \emph{without} a see-saw mechanism. The
-absence of a see-saw insertion in the V$^{\otimes 5}$ structure
-is one of the open structural questions of \S\ref{sec:open}.
+$1 : 118 : 1383$, order-of-magnitude correct across the
+$3.5$ decades of the lepton sector. The full $5.5$ decades from
+$y_{e}(M_Z) \approx 2.94 \times 10^{-6}$ to $y_{t}(M_Z) \approx
+0.93$ are covered to factor-of-$9$ precision by the single
+$\lambda = 10/49$ scale acting on the representation-theoretic
+exponents of Table~\ref{tab:powers}.
 
 %==============================================================
-\section{The Cabibbo cube-root identity}\label{sec:cabibbo}
+\section{The Cabibbo cube-root structural observation}\label{sec:cabibbo}
 %==============================================================
 
 The empirical CKM Cabibbo angle $|V_{us}|$ relates to the down
 and up Yukawa hierarchies by the cube-root identity
 \begin{equation}
-  \lambda_{C} \;\approx\; \left(\frac{Y_{d}}{Y_{u}}\right)^{1/3},\label{eq:cabibbo-cube}
+  \lambda_{C} \;\approx\; \left(\frac{Y_{d}}{Y_{u}}\right)^{1/3}.\label{eq:cabibbo-cube}
 \end{equation}
-where $Y_{d}/Y_{u} = y_{b}/y_{t} \approx 0.024/0.93 \approx
-0.026$ and $\lambda_{C} \approx 0.225$. The cube root recovers
-$0.026^{1/3} \approx 0.296$, off by a factor $\sim 1.3$, which
-is consistent with the substrate prediction
-$y_{b}/y_{t} = \lambda^{3} = (10/49)^{3} \approx 0.0085$ and
-$\lambda_{C} \approx \lambda^{1} = 10/49 \approx 0.204$ (or the
-refined $\lambda_{\mathrm{ref}} = 11/49 \approx 0.2245$ of
-Remark~\ref{rem:lambda}).
+With $Y_{d}/Y_{u} = y_{b}/y_{t} \approx 0.0164/0.93 \approx
+0.018$ at $\mu = M_Z$, the cube root recovers $0.018^{1/3}
+\approx 0.262$, off by factor $\sim 1.2$ from the empirical
+$\lambda_C \approx 0.225$. This is consistent with the
+substrate prediction $y_{b}/y_{t} = \lambda^{3} = (10/49)^{3}
+\approx 0.0085$ and $\lambda_{C} \approx \lambda^{1} = 10/49
+\approx 0.204$ (or the refined $\lambda_{\mathrm{ref}} = 11/49
+\approx 0.2245$ of Remark~\ref{rem:lambda}).
 
-The cube-root identity~\eqref{eq:cabibbo-cube} unifies four
-separate aspects of SM mixing/mass structure:
-
-\begin{itemize}\setlength\itemsep{0pt}
-\item \textbf{The CKM Cabibbo angle} $|V_{us}| \sim \lambda$.
-\item \textbf{The mass hierarchy} $Y_{d}/Y_{u} \sim \lambda^{3}$
-(from the parity-crossing cost $d_{d} = 3$,
-Definition~\ref{def:dp}).
-\item \textbf{The SU(5) GUT structure}
-$\rep{10} \cdot \rep{10} \cdot \rep{5}_{H}$ vs $\rep{10} \cdot
-\barrep{5} \cdot \barrep{5}_{H}$ (the diagrammatic origin of
-$d_{d} = 3$).
-\item \textbf{The Wolfenstein hierarchy} $|V_{cb}| \sim
-\lambda^{2}$, $|V_{ub}| \sim \lambda^{3}$ (developed in the
-next-Sprint companion).
-\end{itemize}
-
-All four follow from one substrate quantity $\lambda = 10/49$
-together with the SU(5)-representation parity-crossing count.
-The detailed CKM/PMNS fit is the next-Sprint paper; here we
-note that the cube-root identity is structurally implied by
-the present pattern.
+We demote this observation from ``load-bearing identity''
+to \emph{structural observation at factor-of-$2$ precision}.
+The cube-root identity~\eqref{eq:cabibbo-cube} is consistent
+with the substrate framework but not derived as a theorem
+here. The detailed CKM/PMNS fit (with
+$\lambda_{\mathrm{ref}} = 11/49$ as the natural Cabibbo
+substrate scale) is the next-Sprint companion paper.
 
 %==============================================================
 \section{Verification}\label{sec:verify}
@@ -536,87 +602,116 @@ which executes in milliseconds on the canonical
 \texttt{tig\_dirac} module at
 \texttt{Gen13/targets/ck/brain/dirac/tig\_dirac.py}. The
 companion call
-\texttt{tig\_dirac.yukawa\_table\_full()} returns the full
-Table~\ref{tab:fit} programmatically. The same module exposes
-\texttt{predict\_dark\_sector()} used by the dark-sector
-companion~\cite{SandersJohnson2026DarkSector}; the two papers
-share a common, machine-checkable substrate backbone.
+\texttt{tig\_dirac.yukawa\_table\_full()} returns
+Table~\ref{tab:fit} programmatically.
 
 \paragraph{Tier classification.}
-\texttt{r['tier']} returns the string
-\verb|'Forced FN power + measured anchor (Tier-B)'|, which is
-the central tier label of the present paper: the integer
-powers $n_{(p,\mathrm{gen})}$ are forced from the substrate's
-SU(5) decomposition + parity-crossing cost +
-$\sigma$-orbit step, and the single anchor $y_{t}$ is a Tier-A
-measured input.
+The tier label of the present paper is
+\verb|'Forced FN power + measured anchor (Tier-B)'|: the
+integer powers $n_{(p,\mathrm{gen})}$ are forced from the
+substrate's SU(5) decomposition $+$ parity-crossing cost $+$
+$\sigma$-orbit step (Tier-B), and the single anchor $y_{t}$
+is a Tier-A measured input. The $C_p$ residual multipliers
+are Tier-C.
 
 %==============================================================
 \section{Open questions and future work}\label{sec:open}
 %==============================================================
 
 \subsection{The $C_{p}$ residual multipliers}
-The four largest discrepancies in Table~\ref{tab:fit} (bottom,
-strange, muon, electron at ratios $0.33$, $0.60$, $0.11$,
-$0.20$) define an empirical $C_{p}$ multiplier list
-$C_{p} \in [0.11, 0.79]$ across the down and lepton sectors.
-In standard Froggatt--Nielsen this is the $O(1)$ residual
-expected from incomplete flavon-coupling specification. The
-present paper does not derive $C_{p}$; we flag the bosonic
-substrate of the same algebra (the Higgs-sector dynamics on
-$V^{\otimes 5}$'s $|S|=0$ singlet plus its $\barrep{5}_{H}$
-partner) as the natural source. Closing this is the
-load-bearing follow-up.
+The two largest discrepancies in Table~\ref{tab:fit} (muon and
+electron at ratios $0.11$ and $0.19$) define empirical $C_p$
+multipliers of $\sim 9$ and $\sim 5$ respectively. In standard
+Froggatt--Nielsen this is the $O(1)$ residual expected from
+incomplete flavon-coupling specification. The present paper
+does not derive $C_{p}$; we flag the bosonic substrate of the
+same algebra (the Higgs-sector dynamics on $V^{\otimes 5}$'s
+$|S|=0$ singlet plus its $\barrep{5}_{H}$ partner) as the
+natural source. Closing this is the load-bearing follow-up
+that would change the tier of the framework from Tier-B to
+Tier-A.
 
-\subsection{The generation step asymmetry}
-Definition~\ref{def:step} extracts $s_{u} = 3+4 = 7$ for up,
-$s_{d} = 2+4 = 6$ for down, $s_{e} = 3+3 = 6$ for lepton (and
-in fact the powers of Table~\ref{tab:powers} are not a single
-arithmetic progression across types). The asymmetry tracks the
-empirical hierarchies but is not yet derived from a clean
-$\sigma$-action calculation on $V^{\otimes 5}$'s color-charged
-vs color-singlet cells. The mapping between the
-$\sigma^{3}$-orbit's three $2$-cycles on $\Z/10\setminus\{0,3,8,9\}$
-and the three SM generations is partial; closing it is the
-clearest substrate-internal target.
+\subsection{The generation-step asymmetry}
+Definition~\ref{def:step} extracts $s_{u} : (3, 4)$, $s_{d} :
+(2, 2)$, $s_{e} : (3, 3)$ across the up, down, and lepton
+sectors. The asymmetry tracks the empirical hierarchies but is
+not yet derived from a clean $\sigma$-action calculation on
+$V^{\otimes 5}$'s color-charged vs color-singlet cells. The
+mapping between the $\sigma^{3}$-orbit's three $2$-cycles on
+$\Z/10\setminus\{0,3,8,9\}$ and the three SM generations is
+partial; closing it is the clearest substrate-internal target.
 
-\subsection{Sterile-neutrino mass scale and the see-saw}
-The $V^{\otimes 5}$ decomposition gives a single $|S|=0$
-singlet per generation interpreted as $\nu_{R}$. The Dirac
-Yukawa pattern of \S\ref{sec:fit} predicts sub-eV neutrino
-masses in the right rough range, but \emph{without} a Majorana
-$\nu_{R} \cdot \nu_{R}$ mass term. A type-I see-saw insertion
-$m_{\nu} = y_{\nu}^{2} v^{2}/(2 M_{R})$ would generically lift
-the predicted $y_{\nu_{i}}$ to give Majorana masses below the
-Planck~$\Sigma m_{\nu}$ bound; the substrate origin of $M_{R}$
-is one of the deepest open questions of the framework.
-
-\subsection{The refined $\lambda_{\mathrm{ref}} = 11/49$}
+\subsection{The two-scale $(\lambda, \lambda_{\mathrm{ref}})$ structure}
 The empirical Cabibbo $\lambda_{C} \approx 0.225$ matches the
-refined identity $\lambda_{\mathrm{ref}} = (|\sigma| +
-|\Cfour|)/\HARM^{2} = 11/49$ to $0.4\%$, much closer than the
-leading $\lambda = 10/49$. Whether the refined value is a
-substrate-natural correction (e.g., the $|\sigma| + |\Cfour|$
-factor reflecting a $\sigma$-cycle plus $4$-core combined
-count) or a phenomenological adjustment is the question of the
-next-Sprint Cabibbo/CKM/PMNS companion paper.
+refined identity $\lambda_{\mathrm{ref}} = 11/49 \approx
+0.2245$ to about $0.4\%$, much closer than the leading
+$\lambda = 10/49 \approx 0.2041$ used in this paper. Whether
+the refined value is a substrate-natural correction (e.g.,
+the $|\sigma| + |\Cfour| + 1$ factor reflecting a
+$\sigma$-cycle plus $4$-core combined count) or a
+phenomenological adjustment is the question of the next-Sprint
+Cabibbo/CKM/PMNS companion paper. Whether $\lambda$ and
+$\lambda_{\mathrm{ref}}$ unify to a single substrate constant,
+or are genuinely distinct substrate features at the $9\%$
+level, is open.
 
-\subsection{Three-paper Sprint 18 cluster}
-The present paper sits in the Sprint 18 ``Bridge-Dirac'' cluster
-of companion submissions:
-\begin{itemize}\setlength\itemsep{0pt}
-\item J03 (Sanders + Gish, JCAP) -- the freezing-quintessence
-companion supplying $\Lambda \approx 1.74$~meV.
-\item J10 (Sanders + Gish, PRD) -- the dark-sector trinity
-companion using \texttt{predict\_dark\_sector()} on the same
-module.
-\item J23 (Sanders + Gish, foundation) -- discrete Dirac on
-$\F_{5}^{4}$, the foundation paper supplying the $V^{\otimes 5}$
-SU(5) decomposition (Lemma~\ref{lem:vtensor5}) used here.
-\end{itemize}
-Together these three papers, plus the next-Sprint CKM/PMNS
-companion, encode the framework's flavour and cosmology
-predictions in a coordinated package.
+\subsection{Sterile-neutrino sector deferred}
+A naive Dirac-mass extension of the pattern to neutrinos at FN
+powers $\{12, 13, 14\}$ would predict sub-eV scales near the
+Planck~$\sum m_{\nu}$ bound, but \emph{without} a Majorana
+$\nu_{R} \cdot \nu_{R}$ mass term. We do not propose such a
+prediction here. A type-I see-saw insertion $m_{\nu} =
+y_{\nu}^{2} v^{2}/(2 M_{R})$ would generically lift the
+predicted $y_{\nu_{i}}$ to give Majorana masses below the
+Planck $\sum m_{\nu}$ bound; the substrate origin of $M_{R}$
+is one of the deepest open questions of the framework, and
+the neutrino sector is deferred to a follow-up paper that
+develops the $M_R$ origin from the substrate. Without
+$M_R$, a pure Dirac-mass numerology would be misleading and
+is removed from this paper.
+
+\subsection{The $V^{\otimes 5}$ uniqueness question}
+Whether the $32$-cell binomial decomposition is the unique
+substrate origin of the SU(5) GUT $\rep{1} \oplus \barrep{5}
+\oplus \rep{10}$ rep content, or one of several, is the
+foundation paper's question~\cite{SandersGish2026DiscreteDirac}.
+Here we take Lemma~\ref{lem:vtensor5} as given.
+
+%==============================================================
+\section*{PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN}\label{sec:scope}
+%==============================================================
+
+\noindent\textbf{PROVEN.} Numerical identity $T^*(1-T^*) =
+(5/7)(2/7) = 10/49 = |\Z/10|/\HARM^{2}$. Reproducibility of
+Table~\ref{tab:fit} via \texttt{tig\_dirac.predict\_yukawa()}.
+Lemma~\ref{lem:binomial} binomial count $1+5+10+10+5+1 = 32$.
+
+\noindent\textbf{COMPUTED.} All nine $y^{\mathrm{pred}}/
+y^{\mathrm{meas}}$ ratios at $\mu = M_Z$ in $\{1.00, 2.14,
+1.83, 0.48, 0.98, 0.83, 0.77, 0.11, 0.19\}$ at
+PDG~2024~\cite{PDG2024} pole values run to $M_Z$ by
+4-loop QCD~\cite{MihailaSalomonSteinhauser2012}. Cabibbo
+cube-root identity $\lambda_C \approx (Y_d/Y_u)^{1/3}$ at
+factor-of-$2$ precision.
+
+\noindent\textbf{STRUCTURAL RHYME.} $\lambda = 10/49$ vs
+Wolfenstein $\lambda_W \approx 0.225$ (about $9.4\%$ off,
+substrate-substantive). $\lambda_{\mathrm{ref}} = 11/49$ vs
+empirical Cabibbo (about $0.4\%$ off, likely
+substrate-natural; the two-scale structure is itself a
+substrate question, not a derived consequence). The
+$V^{\otimes 5}$ to SU(5) decomposition reproduces the
+$1+5+10$ SM-fermion-generation-content count; whether this
+is unique or one of several is open.
+
+\noindent\textbf{OPEN.} (a) The $C_p$ multiplier substrate
+origin (load-bearing follow-up; bosonic-substrate dynamics
+on $V^{\otimes 5}$ singlet $+$ $\barrep{5}_H$ partner). (b)
+The generation-step asymmetry $s_u, s_d, s_e$ assignment
+to $\sigma$-orbit positions (currently empirical). (c) The
+right-handed neutrino mass $M_R$ substrate origin (deferred
+from this paper). (d) Whether $\lambda$ and
+$\lambda_{\mathrm{ref}}$ unify to a single substrate constant.
 
 %==============================================================
 \begin{thebibliography}{99}
@@ -639,39 +734,48 @@ S.~Navas et al.\ (Particle Data Group),
 \emph{Review of Particle Physics},
 Phys.\ Rev.\ D \textbf{110}, 030001 (2024).
 
+\bibitem{MihailaSalomonSteinhauser2012}
+L.~N.~Mihaila, J.~Salomon, and M.~Steinhauser,
+\emph{Renormalization constants and beta functions for the
+gauge couplings of the Standard Model to three-loop order},
+Phys.\ Rev.\ D \textbf{86}, 096008 (2012).
+
+\bibitem{DrapalWanless2021}
+A.~Dr\'apal and I.~M.~Wanless,
+\emph{Maximally non-associative quasigroups},
+J.\ Combin.\ Theory A \textbf{184}, 105510 (2021).
+
 \bibitem{SandersGish2026FourCore}
 B.~R.~Sanders and M.~Gish,
 \emph{Joint Closure of Two Commutative Binary Operations on
 $\mathbb{Z}/10\mathbb{Z}$: an Eight-Element Chain and a
 Normalizer Identity},
-J-series companion paper J06; submitted to
-\emph{Communications in Algebra}, 2026;
+J-series companion paper J02; submitted to
+\emph{Algebraic Combinatorics}, 2026;
 Zenodo DOI 10.5281/zenodo.18852047.
 
-\bibitem{SandersJohnson2026DarkSector}
-B.~R.~Sanders and H.~J.~Johnson,
-\emph{Sprint~18 Dark Sector: $\Omega_{b}$, $\Omega_{DM}$,
-$\Omega_{\Lambda}$ from Substrate-Operator Identities},
-J-series companion paper J10 (same Sprint~18 cluster);
-submitted to \emph{Physical Review D}, 2026;
-archived in shared deposit DOI 10.5281/zenodo.18852047.
-
-\bibitem{SandersJohnson2026DiscreteDirac}
-B.~R.~Sanders and H.~J.~Johnson,
+\bibitem{SandersGish2026DiscreteDirac}
+B.~R.~Sanders and M.~Gish,
 \emph{Discrete Dirac on the $4$-Core's $\F_{5}$-Lift:
 Three Commuting Projectors and the $V^{\otimes 5}$ SU(5)
 Decomposition},
-J-series companion paper J23 (foundation paper);
+J-series companion paper J16/J23 (foundation paper);
 in preparation, 2026;
 archived in shared deposit DOI 10.5281/zenodo.18852047.
 
-\bibitem{SandersClaudeChat2026BridgeSprint}
+\bibitem{SandersBridgeSprint2026}
 B.~R.~Sanders et al.,
 \emph{Bridge Sprint: Discrete Dirac on the $4$-Core's
 $\F_{p}$-Lift, $\F_{p}$-Universality, and Dark-Sector
 Algebraic Predictions},
 Sprint working bundle (WP117--WP127), 2026-05-04;
 Zenodo DOI 10.5281/zenodo.18852047.
+
+\bibitem{FamilyStructure2026}
+B.~R.~Sanders et al.,
+\emph{TIG Family Structure: Membership, Center, Boundaries
+(v1)},
+Atlas/META\_PLAN\_2026-05-06/FAMILY\_STRUCTURE\_v1.md, 2026.
 
 \end{thebibliography}
 

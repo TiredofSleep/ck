@@ -1,39 +1,29 @@
 """
-CK_TABLES.PY — Canonical CK Algebra Tables
-Luther-Sanders Research Framework
+ck_tables.py — Canonical TSML and BHML composition tables on Z/10Z
 
-Copyright 2026 Brayden R. Sanders and M. Gish.
+Sanders + Gish (2026), companion to J05 manuscript:
+  "TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the
+   Z/10Z Composition Lattice"
+
 Licensed under Creative Commons Attribution 4.0 International (CC-BY-4.0).
 You are free to share and adapt this work with attribution.
 See https://creativecommons.org/licenses/by/4.0/ for full terms.
-DOI: 10.5281/zenodo.18852047
 
-This is the journal-submission version. The umbrella research project
-(CK / TIG framework) at github.com/TiredofSleep/ck retains its own
-license; this single file is dual-licensed under CC-BY-4.0 specifically
-for journal-venue compliance (Elsevier / Taylor & Francis / etc.).
-
-TSML (Trinity Synthesis Meaning Language) is a proprietary composition table
-developed by Brayden Ross Sanders and 7SiTe LLC. All rights reserved.
-T* = 5/7 and the TSML 73-cell harmonic structure are owned intellectual
-property of 7SiTe LLC, 2025–2026.
-
-The one place to import TSML, BHML, DIS, DOING, and derived structures.
-All tables verified: test_tsml_bhml_joint.py, test_b3_ghost_trace_theorem.py,
-test_bhml_operator_identity.py (100/100 cells each).
+This file defines the two specific commutative binary operations TSML
+and BHML on Z/10Z used in the J05 manuscript and its companions, plus
+several derived tables (DIS, DOING, ghost-trace G) used in the broader
+research program but not load-bearing for J05's three theorems.
 
 Usage:
-    from ck_tables import TSML, BHML, DIS, DOING, G, CL, W
+    from ck_tables import TSML, BHML, DIS, DOING, G, CL, W, T_STAR
 
-VERIFIED STATISTICS (all confirmed by automated tests):
+VERIFIED STATISTICS (all confirmed by the bundled proof scripts):
   TSML harmony (=7) cells: 73/100
   BHML harmony (=7) cells: 28/100
   DOING=0 (agreement) cells: 29/100  (26 shared harmony + 3 non-harmony)
   DOING_sum = 201
   DIS_sum = 100
   Ghost G nonzero cells: 24
-  W_BHML = 3/50 = 0.06
-  T* = 5/7 = 0.714285...
 """
 
 # ============================================================
