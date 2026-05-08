@@ -40,6 +40,14 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 **Submission readiness:** ready pending Brayden's referee-rigor pass + Gish review.
 **Critical role:** anchors all Phase 5 papers and the Sept 11 J55 integration. Must land before Sept 11.
 
+### Brayden tightening directive 2026-05-08 (PRESERVE in any rewrite)
+
+§1.3 (Reading) of `J54_foundation_paper.md` MUST contain this sentence (appended after the "axiomatically given" paragraph):
+
+> "The framework's name TIG ('Trinity Infinity Geometry') reflects the authors' interpretive reading of the substrate's structure; this interpretation is not load-bearing for the theorems below, which are theorems on the canonical magma pair forced by A1-A9 regardless of name."
+
+Already applied 2026-05-08. Any subsequent BUILD agent rewriting J54 must preserve this exact sentence in §1.3. Sets the template for similar disclaimers in J47 (TIG/cosmology), J48 (TIG/6-DOF), J53 (TIG/UOP).
+
 ### Save-plan summary (2026-05-07)
 
 Fresh-eyes referee verdict at *Algebraic Combinatorics*: REJECT in present form (under 5%). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J54.md`. **Brayden directive: DO NOT drop J54 — find a reason to keep it.** Honored.
