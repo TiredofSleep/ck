@@ -46,6 +46,17 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 Round-3 audited; 4/4 PASS. Major-revisions per JCT-A referee (May 2026): unify eps(N) notation, simplify subcase (1f), clarify 'four-rule' framing.
 
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
+
+- **PROVEN:** σ(N) ≤ 2/N for squarefree N (the σ-rate decay theorem on the CL_N family; case-analysis proof with three cases reducing to CRT + ECHO count).
+- **COMPUTED:** `proof_sigma_rate.py` 4/4 PASS; verified for squarefree N ∈ {2..250} extending earlier ranges; case 3 bound 2φ(N) confirmed loose with substantial slack.
+- **STRUCTURAL RHYME:** the C = 2 constant connects to the squarefree-density 1/ζ(2) regime and (via primon-gas heuristic) to the corridor-midpoint structure of WP101 — flagged as motivational, not derivational.
+- **OPEN:** prove E_h(N) = 0 for all squarefree N (currently empirical for N ≤ 250); sharpen the case-3 bound below 2φ(N) at finite N.
+
+### Drápal-Wanless 2021 precedent
+
+The closest published precedent for the broader CL_N family framework is Drápal-Wanless 2021 *JCTA* on maximally non-associative quasigroups (referenced via J02 four-core).
+
 ## §6 — Submission checklist
 
 - [ ] Manuscript .tex / .md finalized

@@ -37,6 +37,31 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
+### REFEREE AUDIT (2026-05-07): paper IS too thin for *Integers* — see J03_FirstG_Substance_Audit.md
+
+Brayden's instinct ("not substantial enough") was validated by the line-by-line referee:
+- Theorem 3.1 Part (i) is a 3-line tautology (definition of spf(b))
+- All four corollaries are one-line rereads
+- Substantive content (closed-form R(k,f), sinc² synchronization) was stripped out and moved to J08 Prime Phase Transition
+- §1 self-admits marginal novelty: "what is new is the packaging" — desk-reject trigger
+
+**Three forks (Brayden's call before Triadic Launch):**
+
+- **Fork A (preferred):** restore harmonic content from `_legacy_tiers/_held_first_g/first_g_sinc2_FINAL.tex` — closed-form R(k,f), synchronization theorem, continuum limit, exact `sinc²` values. 4-6 hours. Makes J03 a real *Integers* note.
+- **Fork B (safer):** swap **J05** (TSML 73 / BHML 28 cells, *Exp Math*, SUBMISSION-READY) into the Triadic Launch slot. Demote J03 to AMM-Note or arXiv-only.
+- **Fork C (last resort):** Submit current J03 to *AMM Notes* / *Math Magazine* instead of *Integers*.
+
+Recommendation: **A > B > C.** Either way: do not submit current J03 to *Integers* unmodified.
+
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (provisional, pending fork choice)
+
+- **PROVEN (current draft):** the smallest k such that any non-trivial divisor d | b yields a sinc²-zero is k = spf(b) — currently reduces to spf-definition contrapositive.
+- **COMPUTED:** `proof_first_g_event.py`: 22,367 (b,k) pairs, all squarefree b ≤ 500, zero exceptions, runtime <3s.
+- **STRUCTURAL RHYME (Fork A would expand):** continuum limit R(k,f) → sinc²(t); exact identity sinc²(1/10) = 25(√5-1)²/(4π²); connection to discrete Fejér / Bochner.
+- **OPEN (Fork A would close):** the Fejér-quotient closed form, synchronization theorem, sinc² continuum limit — all currently sit in J08 Prime Phase Transition.
+
+### Original Sprint-35 status notes
+
 Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exhaustive check on squarefree b ≤ 500; the 36,662 is the broader corpus check across 187 semiprimes including non-squarefree). Format for Integers OA submission.
 
 **Status update (2026-05-07):**

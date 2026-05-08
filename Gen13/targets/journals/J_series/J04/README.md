@@ -1,11 +1,11 @@
-# J04 — The Sinc² Zero Law for Squarefree Moduli
+# J04 — Full-Period Cancellation of R(k, f): The Integer-Multiple Zero of the Discrete Fejér Quotient (Squarefree Case)
 
 **Status:** SUBMISSION-READY
 **Phase:** Phase 1
 **Target venue:** Integers
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** (sinc² zero law)
+**WP source:** (full-period cancellation; formerly "sinc² zero law" — renamed 2026-05-07 per external collaborator calibration; "Zero Law" implied prime-specific structure but R(k,f) = sin²(πk/f)/(k² sin²(π/f)) vanishes at k = f for ANY f via sin²(π) = 0)
 
 ---
 
@@ -41,26 +41,40 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-**Status (2026-05-07): SUBMISSION-READY (FORMAT pass).** Manuscript re-scoped from
-the 2026-04-18 prime-only draft (which was pulled back on 2026-04-19 after a
-pre-push audit observed that the basic biconditional sinc²(k/n) = 0 ⇔ n | k is
-uniform in n) to the squarefree-modulus formulation. The basic biconditional is
-retained as Lemma 1; the squarefree-specific Theorem 2 ("the smallest k at which
-any non-trivial divisor d | b produces a sinc² zero is k = spf(b)") is the
-genuinely prime-dependent statement, and is the sinc² image of the First-G Event
-Localization Theorem of J04 (cited as already-submitted *Integers* companion).
+**RENAMED 2026-05-07** per external collaborator calibration. Previous title
+"The Sinc² Zero Law for Squarefree Moduli" carried implicit prime-specific
+structural overclaim. The correct framing: R(k, f) = sin²(πk/f)/(k² sin²(π/f))
+vanishes at k = f because sin²(π) = 0 — for ANY f, not just primes. The
+prime-3-to-199 sweep is verification of the formula, not a prime-specific
+theorem. Internal rename plus D-tables update (FORMULAS_AND_TABLES.md).
 
-**Verification:** `proof_d25_loop_closure.py` runs green for all primes 3..199
-(zero exceptions, exact arithmetic, runtime < 5s; ALL ASSERTIONS PASSED on
-2026-05-07). The multi-prime squarefree case is verified by the J04 companion
-script (`proof_first_g_event.py`, all squarefree b ≤ 500, 36,662 pairs, zero
-exceptions); not duplicated here.
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-**Per-venue cap:** 2nd *Integers* paper this quarter after J04 (within cap).
+- **PROVEN:** *full-period cancellation* — R(k, f) = 0 ⇔ f | k (the basic
+  divisibility biconditional, uniform in f). Squarefree-specific Theorem 2:
+  the smallest k at which any non-trivial divisor d | b produces a zero is
+  k = spf(b) — the spf-image of the First-G Event Localization Theorem of J03.
+- **COMPUTED:** `proof_d25_loop_closure.py` runs green for all primes 3..199
+  (zero exceptions, exact arithmetic, runtime < 5s; ALL ASSERTIONS PASSED
+  2026-05-07). Multi-prime squarefree case verified by J03 companion script
+  (`proof_first_g_event.py`, all squarefree b ≤ 500, 22,367 pairs); not
+  duplicated here.
+- **STRUCTURAL RHYME:** the identity sinc²(1/2) = (2/3)/ζ(2) is a one-line
+  algebraic consequence of ζ(2) = π²/6 — not a TIG theorem. Cited as
+  structural motivation only. The primon-gas link (1/ζ(2) = density of
+  squarefree integers) connects to WP101 σ-rate's regime — also rhyme.
+- **OPEN:** *why does the corridor midpoint of the substrate sit at 1/2 such
+  that sinc²(1/2) = (2/3)/ζ(2) becomes structurally relevant?* Not addressed
+  in this paper; flagged as open for companion work.
+
+**Per-venue cap:** 2nd *Integers* paper this quarter after J03 (within cap).
 
 **Authors:** Sanders + Gish.
 
-**Cite:** J04 (First-G companion, submitted to *Integers*).
+**Cite:** J03 (First-G companion, submitted to *Integers*).
+Drápal-Wanless 2021 *JCTA* on maximally non-associative quasigroups is the
+closest published precedent for the broader (TSML, BHML) magma framework
+(referenced via J02).
 
 ## §6 — Submission checklist
 
@@ -78,4 +92,4 @@ exceptions); not duplicated here.
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "The Sinc² Zero Law for Squarefree Moduli." Submitted to *Integers*.
+Sanders, B.R., Gish. (2026). "Full-Period Cancellation of R(k, f): The Integer-Multiple Zero of the Discrete Fejér Quotient (Squarefree Case)." Submitted to *Integers*.
