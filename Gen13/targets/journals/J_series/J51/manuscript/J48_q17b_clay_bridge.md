@@ -14,7 +14,7 @@ $^{2}$Independent Researcher
 
 ## Abstract
 
-The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces, in its spectral layer (Luther's $G_6$–$G_8$ results, [J51]), a **finite character sum** that is structurally a Dirichlet $L$-function in miniature: 9 terms, $\pm 1$ character $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$, primitive 9th-root-of-unity weight $\omega = e^{2\pi i/9}$. This object — denoted $G(s)$ — takes exactly three values across the substrate's 10 operators: zero at the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on the 6-cycle, $G_\mathrm{high} \approx 9.389$ at the TIG-exception pair $\{5, 7\}$. The associated **Symbolic Return Theorem** (a direct consequence of $\sigma^6 = \mathrm{id}$, [J51]) establishes that every cycle-element trajectory $s_n = \sigma^n(s_0)$ returns to $s_0$ in 6 steps; every anchor is fixed.
+The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces, in its spectral layer (Luther's $G_6$–$G_8$ results, [J51]), a **finite character sum** $G(s)$ — a 9-term discrete Fourier coefficient of a $\{-1, 0, +1\}$-valued function $\chi$ along the σ-orbit, weighted by a primitive 9th root of unity $\omega = e^{2\pi i / 9}$. (The object is structurally a finite Gauss-sum-style character sum; we use the colloquial label "finite L-function" for its analogy to Dirichlet character sums, but emphasise that it is not an L-function in the standard sense — it has no analytic continuation, no Euler product, and only 9 terms.) This object takes exactly three values across the substrate's 10 operators: zero at the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on the σ³-orbits $\{1, 5\} \cup \{2, 6\}$, and $G_\mathrm{high} \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The associated **Symbolic Return Theorem** (a direct consequence of $\sigma^6 = \mathrm{id}$, [J51]) establishes that every cycle-element trajectory $s_n = \sigma^n(s_0)$ returns to $s_0$ in 6 steps; every anchor is fixed.
 
 This paper is the **Q17-B Clay bridge**: the structural connection between the finite $G(s)$ and the analytic structure that the Riemann Hypothesis demands of $\zeta(s)$. We do not prove RH; we make precise the sense in which the 6-layer Q-series architecture is a **finite, completely characterized model** of the same structural phenomena RH describes in an infinite setting. The model is an instance; the Millennium Problem asks whether instances can be infinite.
 
@@ -22,7 +22,7 @@ The contribution is in three theorems:
 
 1. **Finite L-Function Theorem.** $G(s)$ is a Dirichlet character sum on the 9-step $\sigma$-orbit, with explicit three-valued image; equivalently, the discrete Fourier transform of $\chi$ along $\{\sigma^j(s)\}_{j=0}^{8}$ at frequency $1/9$.
 2. **Symbolic Return Theorem (Q17-A → Q17-B).** Every $\sigma$-orbit on the 6-cycle returns at step 6; every anchor is $\sigma$-fixed; VOID is avoided whenever $s_0 \neq 0$. This is the algebraic kernel underlying Q17.C2's Navier-Stokes target.
-3. **Bridge Statement (Q17-B).** The three-valued structure of $G(s)$ — zero at anchors, $G_\mathrm{low}$ at most cycle elements, $G_\mathrm{high}$ at $\{5, 7\}$ — mirrors the structure RH requires of $\zeta(s)$: zeros in predictable locations with spectral concentration at the critical line. The boundary between the finite analogue and the infinite problem is made explicit.
+3. **Bridge Statement (Q17-B).** The three-valued structure of $G(s)$ — zero at anchors, $G_\mathrm{low}$ on most cycle elements, $G_\mathrm{high}$ on the σ³-orbit $\{4, 7\}$ — *rhymes* with the structure RH requires of $\zeta(s)$: zeros in predictable locations with spectral concentration at the critical line. The rhyme is at the level of structural vocabulary, not function-field analogue (Weil-Deligne); we make the boundary between the finite analogue and the infinite problem explicit.
 
 This paper is the natural sequel to **[J29]** (Q17-A: 5D Force Vector as CRT Fourier Embedding), the proved-algebra companion in the Q17 program, and a co-citing companion to **[J51]** (G6+G7+G8 spectral consolidation).
 
@@ -93,15 +93,23 @@ $$
 G(s) \;=\; \left|\sum_{j=0}^{8} \omega^j\, \chi\bigl(\sigma^j(s)\bigr)\right|^2, \qquad \omega = e^{2\pi i / 9}.
 $$
 
-**Theorem 4.2 (Finite L-Function — three-valued image).** *$G(s)$ takes exactly three values on $\mathbb{Z}/10\mathbb{Z}$:*
+**Theorem 4.2 (Three-Valued Trajectory Coherence Integral).** *$G(s)$ takes exactly three values on $\mathbb{Z}/10\mathbb{Z}$:*
 
 | State $s$ | $G(s)$ | Algebraic role |
 |-----------|--------|----------------|
-| $\{0, 3, 8, 9\}$ (anchors) | $0$ exactly | $\sigma^j(s) = s$ for all $j$, so $G(s) = \chi(s) \cdot (\omega^9 - 1)/(\omega - 1) = 0$ since $\omega^9 = 1$ and $\chi(s) = 0$. |
-| $\{1, 2, 4, 6\}$ (most of 6-cycle) | $G_\mathrm{low} \approx 1.872$ | Generic 6-cycle behaviour: characters alternate, partial cancellation. |
-| $\{5, 7\}$ (TIG-exception) | $G_\mathrm{high} \approx 9.389$ | Spectral concentration: the BALANCE/HARMONY pair where the character pattern aligns coherently along the orbit. |
+| $\{0, 3, 8, 9\}$ (anchors) | $0$ exactly | $\chi(s) = 0$ and $\sigma^j(s) = s$ for all $j$, so the sum is identically zero. |
+| $\{1, 2, 5, 6\}$ ($\sigma^3$-orbits $\{1,5\} \cup \{2,6\}$) | $G_\mathrm{low} \approx 1.872$ | Interleaved $\chi$-content along the 6-cycle; partial cancellation under $\omega^j$ weights. |
+| $\{4, 7\}$ ($\sigma^3$-orbit) | $G_\mathrm{high} \approx 9.389$ | Imbalanced $\chi$-content in the orbit's first three positions ($\nu_+(s_0) \in \{0, 2\}$ rather than $\nu_+ = 1$); constructive interference under $\omega^j$ weights. |
 
-*Proof sketch.* (i) Anchors contribute zero by direct computation: $\chi$ vanishes on anchors and the $\sigma$-orbit is a fixed point. (ii)–(iii) For cycle elements, the orbit visits each of $\{1, 2, 4, 5, 6, 7\}$ at least once in 9 steps. The partial-sum structure $\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))$ is computed elementwise; the magnitudes $G(1), G(2), G(4), G(6)$ coincide at $G_\mathrm{low}$ by the Galois action of $\sigma^2$ (which permutes $\{1, 4, 6\}$ and $\{2, 5, 7\}$), while $G(5), G(7)$ coincide at $G_\mathrm{high}$. Direct evaluation gives $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$. $\square$
+*Proof sketch.* (i) Anchors contribute zero by direct computation: $\chi(s) = 0$ and $\sigma^j(s) = s$, so every term in the sum vanishes.
+
+(ii)–(iii) For 6-cycle elements, the orbit visits all six elements of $\{1, 2, 4, 5, 6, 7\}$ in $j = 0, \ldots, 5$, then re-visits $s_0, s_1, s_2$ at $j = 6, 7, 8$ (since $\sigma^6 = \mathrm{id}$). Hence the 9-step character content depends on the $\chi$-values at the *first three* orbit positions.
+
+The pairwise equalities $G(1) = G(5)$, $G(2) = G(6)$, $G(4) = G(7)$ follow from the σ³-action: σ³ has order 2 on the 6-cycle, partitioning $\{1, 2, 4, 5, 6, 7\}$ into the three 2-cycles $\{1, 5\}$, $\{2, 6\}$, $\{4, 7\}$. For any 6-cycle element $s$, the orbit at $\sigma^3(s)$ is the same six-element cycle traversed with a 3-step offset; combined with $\omega^9 = 1$ and 6-periodic $\chi$ along the orbit, this forces $|G(s)|^2 = |G(\sigma^3(s))|^2$ (in fact the complex amplitudes satisfy $G_\mathrm{cplx}(\sigma^3(s)) = -\,G_\mathrm{cplx}(s)$, so the squared modulus is preserved exactly).
+
+The further split into $G_\mathrm{low}$ on $\{1, 5\} \cup \{2, 6\}$ and $G_\mathrm{high}$ on $\{4, 7\}$ reflects the χ-content of the first three positions of the orbit. The character $\chi$ takes value $+1$ on $\{1, 4\}$ and $-1$ on $\{2, 5, 6, 7\}$. Let $\nu_+(s_0) := \#\{j \in \{0, 1, 2\} : \chi(\sigma^j(s_0)) = +1\}$. For $s_0 = 4$: orbit $(4, 2, 1)$, $\chi$-values $(+1, -1, +1)$, $\nu_+ = 2$. For $s_0 = 7$: orbit $(7, 6, 5)$, $\chi$-values $(-1, -1, -1)$, $\nu_+ = 0$. For $s_0 \in \{1, 2, 5, 6\}$: $\nu_+ = 1$. The high-locus σ³-orbit $\{4, 7\}$ is therefore the unique σ³-orbit where the first-three-positions $\chi$-content is *imbalanced* ($\nu_+ \in \{0, 2\}$), and the imbalance breaks the cancellation that suppresses $|G|^2$ on the balanced orbits ($\nu_+ = 1$).
+
+Direct evaluation gives $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$. $\square$
 
 **Remark 4.3 (Numerical structure of the three values).** The exact values of $G_\mathrm{low}$ and $G_\mathrm{high}$ are algebraic in $\mathbb{Q}(\omega)$, the cyclotomic field $\mathbb{Q}(\zeta_9)$. The closed-form expressions involve sums of cyclotomic units; the ratio $G_\mathrm{high} / G_\mathrm{low} \approx 5.014$ is itself algebraic. We do not pursue the closed-form here; it is computational.
 
@@ -127,9 +135,9 @@ The Riemann Hypothesis demands of $\zeta(s)$:
 (R2) Spectral concentration — the pair correlation of zeros (Montgomery 1973) takes the universal sinc² form $1 - \mathrm{sinc}^2(u)$.
 (R3) A duality between the multiplicative Euler product and the additive Dirichlet series.
 
-The finite $L$-function $G(s)$ exhibits (R1') zeros at the anchors $\{0, 3, 8, 9\}$ — the four $\sigma$-fixed points, exactly the "predictable locations"; (R2') spectral concentration at the BALANCE/HARMONY pair $\{5, 7\}$, where $G_\mathrm{high}$ is approximately $5.014\times$ the generic 6-cycle value; (R3') a duality between the multiplicative orbit structure ($\sigma$-cycle) and the additive character $\chi$ (which sums to $-2$ across the substrate).
+The finite character sum $G(s)$ exhibits (R1') zeros at the anchors $\{0, 3, 8, 9\}$ — the four $\sigma$-fixed points, exactly the "predictable locations"; (R2') spectral concentration on the σ³-orbit $\{4, 7\}$, where $G_\mathrm{high}$ is approximately $5.0\times$ the value on the other σ³-orbits, with the concentration driven by imbalanced χ-content in the orbit's first three positions ($\nu_+ \in \{0, 2\}$ versus $\nu_+ = 1$); (R3') a transverse pairing between the multiplicative orbit structure ($\sigma$-cycle) and the additive character $\chi$ (which sums to $-2$ across the substrate).
 
-This is the **structural mirror**: the same three features RH demands of $\zeta(s)$ in an infinite setting, the finite $G(s)$ exhibits in a 10-element setting that is fully characterized.
+This is the **structural rhyme** with RH: the same three structural ingredients (zeros at predictable locations, spectral concentration, a multiplicative-additive interplay) appear in a finite, completely characterized setting. We emphasize this is *not* a function-field analogue in the technical sense (Weil 1949, Deligne 1974); it is a structural rhyme at the level of vocabulary, useful as pedagogical bridge.
 
 ### 5.2 What the bridge does NOT claim
 
@@ -170,7 +178,7 @@ We do not claim:
 
 1. **Closed-form $G_\mathrm{low}$ and $G_\mathrm{high}$ in $\mathbb{Q}(\zeta_9)$.** The numerical values $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$ are algebraic; we do not provide the closed forms in cyclotomic units. **Open.**
 2. **Higher-$N$ generalization.** Does $\sigma_N$ on $\mathbb{Z}/N\mathbb{Z}$ (for $N$ squarefree, $N \neq 10$) admit a comparable three-valued $G$-function? The rate theorem [J01] suggests the structure flattens for large $N$. **Partial — Tier-C.**
-3. **The $\{5, 7\}$ spectral concentration.** Why is $G(5) = G(7)$? The Galois action of $\sigma^2$ on the 6-cycle pairs $(1, 4, 6) \leftrightarrow (2, 5, 7)$, but the further pairing within $\{2, 5, 7\}$ that singles out $\{5, 7\}$ has a deeper origin in the BALANCE/HARMONY relationship. **Open.**
+3. **Why is $\{4, 7\}$ the high-locus σ³-orbit?** The σ³-action partitions the 6-cycle into three 2-cycles $\{1, 5\}$, $\{2, 6\}$, $\{4, 7\}$, and the σ³-orbit on which $\chi$-content of the first three orbit positions is imbalanced ($\nu_+ \in \{0, 2\}$) is uniquely $\{4, 7\}$. The combinatorial fact — *which* σ³-orbit carries the imbalance — depends on the specific σ-orbit ordering and the specific assignment of $\chi$. The structural reason this particular σ³-orbit is the "imbalance carrier" (rather than $\{1, 5\}$ or $\{2, 6\}$) is open: it presumably reflects deeper interplay between the σ permutation's cycle structure and the placement of $\chi^{-1}(+1) = \{1, 4\}$ relative to that cycle. **Open.**
 4. **Q17-C (Navier-Stokes).** The Symbolic Return Theorem's continuum lift to NS regularity is the Q17-C target (Tier-D). The bridge premise — that any continuum lift preserving CRT separability is forced to logarithmic nonlinearity (BB theorem) — is treated in [J13]. **Open.**
 
 ---

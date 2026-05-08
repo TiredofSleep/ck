@@ -31,13 +31,21 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-06 (Phase 5; Sanders + Gish lane).
-**Citation chain:** foundational paper citing 4 prior J-companions (J01, J05, J21, J33) + 5 cross-references (J48, J51, J49, J31, J32). Cited downstream by many later J-papers as canonical $G_6$/$G_7$/$G_8$ reference.
-**Manuscript:** `manuscript/J51_spectral_layer_consolidation.md` (~10 pages, finalized).
+**Status:** REVISED 2026-05-07 in response to fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J43_EJC_FreshEyes.md`). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J43.md`.
+
+**Math-fix summary (2026-05-07):**
+- **G8 partition error fixed.** §4.2 originally claimed high-locus = {5,7}, low-locus = {1,2,4,6}. Direct numpy computation with the manuscript's stated σ and χ gives high-locus = **{4, 7}**, low-locus = **{1, 2, 5, 6}** — i.e., elements 4 and 5 swap roles. Partition table corrected.
+- **σ²-Galois explanation replaced with σ³-pairing argument.** The original "σ²-Galois action permutes {1,4,6} and {2,5,7}" is wrong: σ² has 3-cycles `(1 6 4)` and `(2 7 5)` on those sets, not pair-actions. The correct invariance is the σ³-action: σ³ has order 2 on the 6-cycle, partitioning {1,2,4,5,6,7} into the three 2-cycles {1,5}, {2,6}, **{4,7}**. The G-values pair within these σ³-orbits because the orbit at σ³(s) is the same 6-element cycle traversed with a 3-step phase offset; combined with ω⁹=1 and the 6-periodic χ-sequence, |G(s)|² = |G(σ³(s))|² (the complex amplitudes satisfy G_cplx(σ³(s)) = -G_cplx(s)).
+- **High/low discriminator clarified.** The high-locus σ³-orbit {4,7} is uniquely the one where the χ-content of the orbit's first three positions is *imbalanced* (ν₊ ∈ {0, 2}, rather than ν₊ = 1 on the other two σ³-orbits). This is the load-bearing combinatorial fact behind the spectral concentration.
+- **Verification script added:** `manuscript/verify_G6_G7_G8.py` confirms G6 (σ⁶=id), G7 (period bimodal 2/5, 3/5), and G8 (corrected three-valued partition); also verifies the σ³-pairing algebraically.
+- **Architecture framing scope-tightened.** §1 now states up-front that the paper covers Layers 1, 3, 4 (Layer 2 trivial; Layers 5, 6 deferred to companions).
+
+**Citation chain:** foundational paper citing 4 prior J-companions (J01, J05, J21, J33) + 5 cross-references (J48, J51, J49, J31, J32). Cited downstream by many later J-papers as canonical G₆/G₇/G₈ reference.
+**Manuscript:** `manuscript/J51_spectral_layer_consolidation.md` (~10 pages; revised 2026-05-07). Filename retains `J51_*` for now; rename to `J43_*` at camera-ready.
 **Cover letter:** `cover_letter.md` (finalized).
 **Per-venue cap warning:** 3rd EJC submission of the J-series — fallback to *LinAlgApps* or *PLOS ONE* if needed (per `J_SERIES_ORDERING.md` §5).
-**Verification:** $G_6$, $G_7$, $G_8$ all numerically reproducible from corpus scripts; consolidation paper.
-**Submission readiness:** ready pending Brayden's referee-rigor pass + Luther's review of attribution and proofs.
+**Verification:** `manuscript/verify_G6_G7_G8.py` runs all three theorems.
+**Submission readiness:** ready for resubmission to EJC after Brayden's referee-rigor pass.
 
 
 

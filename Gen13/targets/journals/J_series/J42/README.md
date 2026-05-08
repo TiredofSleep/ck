@@ -13,7 +13,7 @@
 
 **Local path:** `manuscript/J15_DiscreteSinc2_QM_JMathPhys.md`
 
-**Abstract (one paragraph).** For an integer $f \ge 2$ and $k \ge 1$, the squared overlap of a momentum eigenstate with a position-space rectangular window of size $k$ in finite-dimensional QM on $\mathbb{Z}/N\mathbb{Z}$ admits the closed form $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$. We derive three QM-relevant consequences: (i) a finite uncertainty product, (ii) a first-zero theorem (for prime $f$, first zero at $k = f$), and (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event: for $f = \mathrm{spf}(b)$, the first integer zero of $R(\cdot, f)$ coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$.
+**Abstract (one paragraph).** For an integer $f \ge 2$ and $k \ge 1$, the squared overlap of a momentum eigenstate with a position-space rectangular window of size $k$ in finite-dimensional QM on $\mathbb{Z}/N\mathbb{Z}$ admits the closed form $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$ (the Fejér kernel; cf. Fejér 1900). We derive three QM-relevant consequences: (i) the squared overlap of a momentum eigenstate with the normalized rectangular position window (corrected from the earlier "probability mass" reading), (ii) a first-zero theorem (for **every $f \ge 2$**, the first integer zero of $R(\cdot, f)$ is at $k = f$ — no primality needed), and (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event: for $f = \mathrm{spf}(b)$, the first integer zero of $R(\cdot, f)$ coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$.
 
 **Source corpus:**
 - The closed-form identity (Theorem 3.1) is taken from the source paper `first_g_sinc2_FINAL.tex` (J03 / J04 corpus); the QM framing (Hilbert space on $\mathbb{Z}/N\mathbb{Z}$, momentum-position rectangular-window overlap, finite uncertainty) is novel for J42.
@@ -21,7 +21,7 @@
 
 ## §2 — Verification script
 
-**Path:** Closed-form is verified at machine precision on $f \in \{3,5,7,11,13,17,19,23\}$ (max deviation $4.44 \times 10^{-16}$) by direct comparison with the literal geometric sum. The verification carries over from the J03/J04 corpus; a J42-dedicated `verify_J15_sinc2.py` could be added (TBD, would be 10 lines of `numpy`).
+**Path:** `manuscript/verify_J42_sinc2.py` (run with `python manuscript/verify_J42_sinc2.py`). Verifies Theorem 3.1 at machine precision (max deviation $3.33 \times 10^{-16}$) on $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ and $k \in \{1,\dots,f+1\}$; the unrestricted Corollary 4.2 (first zero at $k = f$ for all $f \ge 2$); the corrected special value $\sinc^2(1/10) = 25(\sqrt{5}-1)^2/(4\pi^2) \approx 0.9675$; and the Proposition 5.1 synchronization for $b \in \{6, 10, 15, 21, 22, 35, 105\}$. Runtime $<2$ s; deterministic.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -33,19 +33,18 @@ See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-
 
 ## §5 — Notes & Status
 
-**Status: DRAFT (manuscript drafted; per-venue cap flag — fallback path identified).**
+**Status: REVISED 2026-05-07** in response to fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J42_JMP_FreshEyes.md`). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J42.md`.
 
-**Per-venue cap warning.** This is the **3rd JMP target** in the J-series (J40 1st, J41 2nd). The 2/quarter cap is reached. **Action required before submission:** decide between
+**Math-fix summary (2026-05-07):**
+- **Numerical error fixed:** §4.3 `sinc²(1/10) ≈ 0.9355` was wrong — correct value is `0.9675` (closed form `25(√5-1)²/(4π²)` was correct; only the printed decimal was wrong). Verified via sympy and direct numpy computation in `manuscript/verify_J42_sinc2.py`.
+- **Fejér kernel attribution added:** Theorem 3.1 is the Fejér kernel (1900) — explicit acknowledgement now in §3 proof.
+- **Corollary 4.2 generalized:** prime-f restriction was unnecessary; restated for all f ≥ 2. Prime structure is now relegated to its actual role at Proposition 5.1 (synchronization).
+- **Proposition 4.1 reformulated:** language changed from "position-space probability mass" to "squared transition amplitude" / "squared overlap with the normalized window state". The `·k` un-normalization factor is explicit; the difference between this overlap and the actual position-marginal probability `k/N` is noted.
+- **Verification script added:** `manuscript/verify_J42_sinc2.py` runs Theorem 3.1 (max dev 3.33e-16), unrestricted Corollary 4.2, the corrected sinc²(1/10), and Proposition 5.1 synchronization.
 
-1. **Defer JMP submission to Q2 next quarter** (after J40 + J41 are accepted/under review), OR
-2. **Submit immediately to a fallback venue:**
-    - *Letters in Mathematical Physics* (Springer) — preferred fallback (short-format note)
-    - *Journal of Physics A: Mathematical and Theoretical* (IOP) — natural alternative
-    - *Communications in Mathematical Physics* (Springer) — higher impact
+**Per-venue cap:** This is the **3rd JMP target** in the J-series (J40 1st, J41 2nd). The 2/quarter cap is reached. Per referee + per-venue-cap discipline, **submit to *Letters in Mathematical Physics*** (preferred fallback already documented in cover letter §6.3).
 
-The cover letter and README make the cap conflict explicit so Brayden can choose the venue path during the referee-rigor pass.
-
-The paper is **Tier 1/2** (fully proved): all theorems are elementary and verified at machine precision. No conjectural content.
+The paper is **Tier 1/2** (fully proved): all theorems are elementary and verified at machine precision. No conjectural content. The note is honestly framed as a Fejér-kernel application to QM-on-cyclic-group, not as a new identity.
 
 
 
@@ -53,16 +52,16 @@ The paper is **Tier 1/2** (fully proved): all theorems are elementary and verifi
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Theorem 3.1 (closed form for $R(k,f)$ — the Fejér kernel evaluated at $\theta = 2\pi/f$, $n = k$); Corollary 4.2 (first zero of $R(\cdot, f)$ at $k = f$ for every $f \ge 2$, no primality used); Theorem 4.3 ($\sinc^2$ continuum limit); Proposition 5.1 (synchronization $k^\star(b) = \mathrm{spf}(b)$ with the First-G event).
+- **COMPUTED:** machine-precision verification (max deviation $3.33 \times 10^{-16}$) of Theorem 3.1 over $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ and $k \in \{1,\dots,f+1\}$; unrestricted Corollary 4.2 confirmed for $f \in \{2,\dots,15\}$; corrected $\sinc^2(1/10) = 25(\sqrt{5}-1)^2/(4\pi^2) \approx 0.9675312093$ (sympy + numpy agreement to 10 digits); synchronization confirmed for $b \in \{6, 10, 15, 21, 22, 35, 105\}$. All in `manuscript/verify_J42_sinc2.py`.
+- **STRUCTURAL RHYME:** the closed form $25(\sqrt{5}-1)^2/(4\pi^2)$ at $f = 10$ folds in Ptolemy's pentagon identity $\sin(\pi/10) = (\sqrt{5}-1)/4$ — connecting cyclic-group QM at $f = 10$ to the regular-pentagon arithmetic. Cited as structural motif, not load-bearing.
+- **OPEN:** does $R(k,f)$ for $f$ ranging over the prime factors of squarefree $b$ encode the full coprimality structure of $(\mathbb{Z}/b\mathbb{Z})^\times$? (See Proposition 5.1 and §5.)
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (insert at manuscript §0 if/when LMP-style version is built)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on $\mathbb{Z}/N\mathbb{Z}$ as the cyclic-group quantum-mechanics substrate, with no TSML/BHML lens dependence. The momentum-position duality is the standard one (DFT-related orthonormal bases). The theorems are statements about the Fejér-kernel restriction to integer arguments and its arithmetic synchronization with smallest-prime-factor partitions. No 10-operator framework is invoked; the substrate $\mathbb{Z}/10\mathbb{Z}$ enters only as a special case ($f = 10$ in §4.3) and not load-bearingly.
 
 ### Hardening status (auto-applied 2026-05-07)
 

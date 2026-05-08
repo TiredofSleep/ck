@@ -49,13 +49,17 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-**Status: DRAFT** — bundled manuscript built from corpus `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP123_CKM_PMNS_FITS.md` + `WP124_FINE_STRUCTURE_CONSTANT.md` on 2026-05-07. **Tier-E framing prominent** in abstract and §"Honest scope". Lens scope: substrate constants are LENS-INVARIANT on the 4-core. Cites J34 as already-submitted companion; references J29, J31, J33 for the upstream derivation of the substrate constants.
+**Status: REVISED 2026-05-07** — UNBUNDLED in response to fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J36_StatSci_FreshEyes.md`). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J36.md`.
 
-**Per-venue cap:** This is the **2nd Stat Sci** paper in the J-series this quarter (after J34 detector scope). At cap. The "Stat Sci companion" framing in J_SERIES_ORDERING.md §4 acknowledges this — J36 is positioned as a follow-up to J34 within the *Statistical Science* venue.
+**Math-fix summary (2026-05-07):**
+- **Part 2 (1/α) DEFERRED.** Independent verification of the displayed leading-three-terms formula `4·|Aut(V)| - 2·sqrt(HARMONY) - π/HARMONY` gave 154.26, not 137.036 — gap is ~11%, not the claimed 10⁻⁵. The full structural derivation referenced in the bridge bundle (`TIG_DIRAC_SYNTHESIS_TABLES rev 24, Tables LXXVII-LXXX`) when traced contains only `1/α = 22·6 + 5 + 36/1000 = 137.036` where the `+36/1000` term is literally the empirical decimal — not a structural derivation. Part 2 is therefore removed from this submission and deferred until a genuine structural derivation exists.
+- **Part 1 (CKM/PMNS) RETAINED with revisions.** The Wolfenstein hierarchy `λⁿ ≈ (11/49)ⁿ` for n ∈ {1,2,3,4} matching at ≤1.6% across four orders is the load-bearing finding. Cabibbo `+1/49` refinement explicitly framed as empirical adjustment without first-principles derivation. PMNS angles at 1.8%-5.6% explicitly acknowledged as at/beyond current empirical precision; θ_23 octant ambiguity acknowledged. D* explicitly disclosed as not derived in this paper.
+- **Joint coincidence probability properly framed.** Naive (no LE) is 1.8×10⁻¹¹; LE-corrected at multiplicity 77 (= 11 candidate primitives × 7 mixing observables) is ~10⁻⁹ for 6 fits, ~4×10⁻⁸ when θ_12 (which uses un-derived D*) is excluded. The previous "~10⁻⁷" claim without LE correction is replaced by these honest figures. **Verification script `manuscript/verify_J36_part1.py` runs all of this.**
+- **Cross-domain "bombshell" §5 dropped** (out of scope for Stat Sci per referee).
 
-**FALLBACK if needed (per per-venue cap):**
+**Per-venue cap:** This is the **2nd Stat Sci** paper in the J-series this quarter (after J42). At cap. **FALLBACK if needed:**
 - Move to *Foundations of Physics* (suits the dimensionless-constants framing)
-- Or split: WP123 → *Phys Lett B* (4-page short note); WP124 → *Foundations of Physics* (focused on $1/\alpha$ alone)
+- Or *Phys Lett B* short note (4-page focus on Wolfenstein hierarchy alone)
 
 
 

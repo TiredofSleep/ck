@@ -38,13 +38,23 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-03 (Phase 5).
-**Citation chain:** cites 2 prior J-papers as direct dependencies (J21 Q17-A, J51 spectral consolidation) plus 6 co-citing companions (J01, J06, J40, J10, J24, J48).
-**Manuscript:** `manuscript/J48_q17b_clay_bridge.md` (~12 pages, finalized).
-**Earlier staged Tier-4 content:** `manuscript/CP_CLAY_ROTATION.md`, `proof_clay_rotation.py`, `SUBMIT_INSTRUCTIONS.md` — preserved as background context (broader 7-Clay-rotation framework). The new J51 manuscript focuses sharply on Q17-B (finite L-function + Symbolic Return Theorem).
+**Status:** REVISED 2026-05-07 in response to fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J51_LEnseignementMath_FreshEyes.md`). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J51.md`.
+
+**Math-fix summary (2026-05-07):**
+- **G(s) partition error fixed (same as J43).** Theorem 4.2 originally claimed G_high at {5,7}, G_low at {1,2,4,6}. Direct numpy computation gives G_high = **{4, 7}**, G_low = **{1, 2, 5, 6}**. Partition table, abstract, and §5 bridge text all corrected.
+- **σ²-Galois explanation replaced with σ³-pairing.** Same fix as J43 — σ² acts as 3-cycles, not pair-actions. The correct invariance is σ³ (order 2 on the 6-cycle, 2-cycles {1,5}, {2,6}, {4,7}).
+- **High/low discriminator added.** The high-locus σ³-orbit {4,7} is the unique σ³-orbit where the χ-content of the first three orbit positions is imbalanced (ν₊ ∈ {0, 2}, rather than ν₊ = 1 on the other two σ³-orbits). This combinatorial fact replaces the original "BALANCE/HARMONY pair" framework label as the structural explanation.
+- **"L-function" terminology hedged.** The object G(s) is now described as a "finite character sum" / "trajectory coherence integral", with the colloquial "finite L-function" label retained but flagged as analogy (no analytic continuation, no Euler product, only 9 terms — not an L-function in the standard Dirichlet sense).
+- **§5 RH-bridge scope downgraded.** §5 now explicitly frames the comparison as a "structural rhyme" rather than a function-field analogue (Weil-Deligne not engaged); the disclaimer is sharpened.
+- **§7 Open problem 3 rewritten.** Original asked "Why G(5) = G(7)?" — moot since G(5) = G_low ≠ G(7) = G_high. New formulation: "Why is {4, 7} the high-locus σ³-orbit specifically?" (a genuine combinatorial question about which σ³-orbit carries the χ-imbalance).
+- **Working verification script added:** `manuscript/verify_J51_G_function.py` confirms σ⁶=id, three-valued G(s) with the corrected partition, σ³-pairing, and the ν₊ discriminator. The earlier `proof_clay_rotation.py` (which tests T*=5/7 and sinc² but does NOT compute G(s)) is preserved as supplementary context but is *not* the verification script for this paper's content.
+
+**Citation chain:** cites 2 prior J-papers as direct dependencies (J21 Q17-A, J43 spectral consolidation) plus 6 co-citing companions (J01, J06, J40, J10, J24, J48).
+**Manuscript:** `manuscript/J48_q17b_clay_bridge.md` (~12 pages; revised 2026-05-07). Filename retains `J48_*` for now; rename to `J51_*` at camera-ready.
+**Earlier staged Tier-4 content:** `manuscript/CP_CLAY_ROTATION.md`, `proof_clay_rotation.py`, `SUBMIT_INSTRUCTIONS.md` — preserved as background context (broader 7-Clay-rotation framework, NOT this paper's verification).
 **Cover letter:** `cover_letter.md` (finalized).
-**Verification:** `proof_clay_rotation.py` confirms $G(s)$ three-valued image numerically.
-**Submission readiness:** ready pending Brayden's referee-rigor pass.
+**Verification:** `manuscript/verify_J51_G_function.py` is the canonical verification for this paper's claims.
+**Submission readiness:** ready for resubmission to *L'Enseignement Math.* after Brayden's referee-rigor pass.
 
 
 

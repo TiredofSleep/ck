@@ -64,29 +64,35 @@ $$\boxed{\;R(k,f) = \frac{\sin^2(\pi k/f)}{k^2 \sin^2(\pi/f)}.\;}$$
 
 *Proof.* The geometric series gives
 $$\sum_{j=1}^k e^{2\pi i j/f} = e^{2\pi i / f}\,\frac{1 - e^{2\pi i k/f}}{1 - e^{2\pi i/f}}.$$
-Taking $1/k$ times the squared modulus and applying $|1 - e^{i\theta}|^2 = 4 \sin^2(\theta/2)$:
+Taking $1/k$ times the squared modulus and applying the standard identity $|1 - e^{i\theta}|^2 = (1 - e^{i\theta})(1 - e^{-i\theta}) = 2 - 2\cos\theta = 4 \sin^2(\theta/2)$:
 $$R(k,f) = \frac{1}{k^2} \cdot \frac{4\sin^2(\pi k/f)}{4\sin^2(\pi/f)} = \frac{\sin^2(\pi k/f)}{k^2\sin^2(\pi/f)}. \qed$$
 
-**Verification.** Numerical check at machine precision over $f \in \{3,5,7,11,13,17,19,23\}$ and $k \in \{1,\dots,f+1\}$ gives a maximum deviation of $4.44 \times 10^{-16}$ between the closed form and the direct geometric-sum evaluation.
+**Remark (Fejér kernel attribution).** The closed form $R(k,f)$ is the **Fejér kernel** $K_n(\theta)$ at $\theta = 2\pi/f$, $n = k$, normalized so that $R$ has unit value at $k = 0$ and matches $\sinc^2$ in the continuum limit (§4.3). The identity is therefore not new — it dates to Fejér's 1900 paper [Fejér 1900] — and we cite it accordingly. The contribution of this note is the QM-on-cyclic-group interpretation (§§2, 4) and the arithmetic-bridge synchronization (§5).
+
+**Verification.** Numerical check at machine precision over $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ and $k \in \{1,\dots,f+1\}$ gives a maximum deviation of $4.44 \times 10^{-16}$ between the closed form and the direct geometric-sum evaluation. Verification covers both prime and composite $f$, supporting the unrestricted first-zero theorem (Corollary 4.2 below).
 
 ---
 
 ## 4. Quantum-Mechanical Consequences
 
-### 4.1 Finite uncertainty
+### 4.1 Squared overlap with normalized position window
 
-**Proposition 4.1 (finite uncertainty product).** *For a momentum eigenstate $|\hat p\rangle$ on $\mathbb{Z}/N\mathbb{Z}$ with $\hat p = N/f$ (assume $f | N$), the position-space probability mass on $\{1,\dots,k\}$ is*
-$$P(\hat p, \mathrm{window}_k) = |\langle \hat p | w_k\rangle|^2 \cdot k = \frac{k^2}{N}\cdot R(k,f) = \frac{k^2}{N} \cdot \frac{\sin^2(\pi k/f)}{k^2 \sin^2(\pi/f)} = \frac{1}{N}\cdot \frac{\sin^2(\pi k/f)}{\sin^2(\pi/f)}.$$
+**Proposition 4.1 (Squared overlap with normalized window).** *For a momentum eigenstate $|\hat p\rangle$ on $\mathbb{Z}/N\mathbb{Z}$ with $\hat p = N/f$ ($f \mid N$), the squared transition amplitude with the normalized rectangular position window $|w_k\rangle = k^{-1/2}\sum_{j=1}^k |j\rangle$ is*
+$$|\langle \hat p | w_k\rangle|^2 = \frac{k}{N} \cdot R(k,f) = \frac{1}{N}\cdot \frac{\sin^2(\pi k/f)}{k\,\sin^2(\pi/f)}.$$
 
-In the continuum limit $N, f \to \infty$ with $k/f \to t \in (0,1]$ and $f/N \to 1$ (full ring), this recovers the standard rectangular-window position-momentum uncertainty: a sharp momentum implies position spread of order $f/k$.
+**Note on interpretation.** This squared overlap is the *fidelity* between $|\hat p\rangle$ and the normalized window state $|w_k\rangle$, not the probability of position-measurement outcome in $\{1,\dots,k\}$. The latter (the marginal of the position distribution given the momentum eigenstate) is uniform: $\sum_{j=1}^k |\langle j | \hat p\rangle|^2 = k/N$. The squared overlap $|\langle \hat p | w_k\rangle|^2$ is a different object — it measures coherent alignment between $|\hat p\rangle$ and the unit-norm window state — and is the kernel of practical interest for finite QM scattering / projection problems on cyclic groups.
 
-**Reading.** $R(k,f)$ is the *finite-dimensional analog of $\sinc^2(k/f)$*, the squared rectangular-pulse spectrum. It is the natural object for finite-uncertainty bounds on cyclic-group QM.
+In the continuum limit $N, f \to \infty$ with $k/f \to t \in (0,1]$, this recovers the standard $\sinc^2(t) / N$ scaling for the squared overlap of a momentum eigenstate with a normalized rectangular position window.
+
+**Reading.** $R(k,f)$ is the *finite-dimensional analog of $\sinc^2(k/f)$*, the squared rectangular-pulse spectrum. It is the natural fidelity kernel for cyclic-group QM.
 
 ### 4.2 First-zero theorem
 
-**Corollary 4.2 (First zero of $R$).** *For every prime $f$ and every $k \in \{1,\dots,f-1\}$, $R(k,f) > 0$. At $k = f$, $R(f,f) = 0$. Hence the first integer zero of $R(\cdot, f)$ is exactly $k = f$.*
+**Corollary 4.2 (First zero of $R$).** *For every $f \ge 2$ and every $k \in \{1,\dots,f-1\}$, $R(k,f) > 0$. At $k = f$, $R(f,f) = 0$. Hence the first integer zero of $R(\cdot, f)$ in $\mathbb{Z}_{\ge 1}$ is exactly $k = f$, regardless of whether $f$ is prime or composite.*
 
-*Proof.* For $1 \le k \le f-1$ with $f$ prime, $f \nmid k$, so $\pi k/f \notin \pi \mathbb{Z}$ and $\sin(\pi k/f) \neq 0$. At $k = f$, $\sin(\pi f/f) = 0$. $\qed$
+*Proof.* For $1 \le k \le f-1$, $f \nmid k$ (since $0 < k < f$), so $\pi k/f \notin \pi \mathbb{Z}$ and $\sin(\pi k/f) \neq 0$. At $k = f$, $\sin(\pi f/f) = 0$. The argument does not use the prime structure of $f$. $\qed$
+
+**Remark (where prime structure enters).** Primality of $f$ is *not* used in Corollary 4.2; the first-zero result holds uniformly for $f \ge 2$. The prime restriction enters only at the synchronization with the First-G event (Proposition 5.1 below), where one needs $\gcd(k, b) = 1$ for $1 \le k < p_1$ to deduce that no obstruction lies below the smallest prime factor.
 
 **QM reading.** The momentum eigenstate $|\hat p\rangle$ with $\hat p = N/f$ has zero amplitude on the position window $\{1,\dots,f\}$ — the first $k$ at which the momentum-position overlap vanishes is exactly $k = f$. This is the cyclic-group analog of the first-zero of $\sinc^2(t)$ at $t = 1$.
 
@@ -100,7 +106,7 @@ $$\lim_{f \to \infty,\, k/f \to t} R(k, f) = \sinc^2(t).$$
 **QM reading.** The continuum limit recovers the rectangular-window momentum spectrum exactly: $|\langle \hat p | \mathrm{window}_t\rangle|^2 \to \sinc^2(t)$ as the lattice is refined. The discrete $\sinc^2$ identity is therefore the natural finite QM counterpart of the continuous spectrum.
 
 **Specific exact values** (continuum limit at rational arguments):
-$$\sinc^2(1/2) = 4/\pi^2 \approx 0.4053, \qquad \sinc^2(1/10) = \frac{25(\sqrt{5}-1)^2}{4\pi^2} \approx 0.9355.$$
+$$\sinc^2(1/2) = 4/\pi^2 \approx 0.4053, \qquad \sinc^2(1/10) = \frac{25(\sqrt{5}-1)^2}{4\pi^2} \approx 0.9675.$$
 
 ---
 

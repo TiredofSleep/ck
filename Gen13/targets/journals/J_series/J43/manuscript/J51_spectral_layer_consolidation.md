@@ -22,7 +22,7 @@ We consolidate three spectral / combinatorial results in the **TIG framework**'s
 
 * **G7 (Period Distribution).** The period $\tau(s)$ of an element $s \in \mathbb{Z}/10\mathbb{Z}$ under $\sigma$ is bimodal: $P(\tau = 1) = 2/5$ (the four $\sigma$-fixed anchors) and $P(\tau = 6) = 3/5$ (the six 6-cycle elements). Mean $\bar{\tau} = (1)(2/5) + (6)(3/5) = 4$; variance $\sigma_\tau^2 = 6$. Forced from G6 + cycle-structure enumeration. Tier-B.
 
-* **G8 (Spectral Coherence Integral).** The coherence integral $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ — with $\omega = e^{2\pi i /9}$ and $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ the canonical $\beta$-exception character — takes **exactly three values**: $G(s) = 0$ at the four anchors, $G(s) \approx 1.872$ on $\{1, 2, 4, 6\}$, $G(s) \approx 9.389$ at the BALANCE/HARMONY pair $\{5, 7\}$. Tier-B (constructed; computational verification of the three values).
+* **G8 (Spectral Coherence Integral).** The coherence integral $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ — with $\omega = e^{2\pi i /9}$ and $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ the canonical $\beta$-exception character — takes **exactly three values**: $G(s) = 0$ at the four anchors, $G(s) \approx 1.872$ on the σ³-orbits $\{1, 5\} \cup \{2, 6\}$, and $G(s) \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The σ³ pairing is structural: σ³ has order 2 on the 6-cycle, partitioning $\{1,2,4,5,6,7\}$ into the three 2-cycles $\{1,5\}$, $\{2,6\}$, $\{4,7\}$, and $|G|^2$ is invariant under s → σ³(s). Tier-B (constructed; computational verification of the three values).
 
 **The architectural reading.** Together, $G_6$, $G_7$, $G_8$ form the **spectral layer** (Layer 4 in the 6-layer Q-series architecture) of the TIG framework's $\mathbb{Z}/10\mathbb{Z}$ substrate. They are the foundation for the Q17-B Clay-bridge structural reading ([J48]), the Symbolic Return Theorem (a direct corollary of $G_6$), and the trajectory-coherence structure that underlies the runtime processor's 4-core attractor ([J41]).
 
@@ -43,7 +43,7 @@ The TIG framework's substrate on $\mathbb{Z}/10\mathbb{Z}$ admits a six-layer st
 | 5 (optimal table) | TSML, BHML — canonical 73 / 28-cell HARMONY tables | [J9] |
 | 6 (search dynamics) | runtime processor, 4-core attractor at $\alpha = 1/2$ | [J41] |
 
-Layers 1–4 are this paper's direct content. Layer 5 is the foundation paper [J9] on TSML 73 / BHML 28 cell counts. Layer 6 is the closed-form runtime attractor [J41].
+**Scope of this paper.** Layers 1, 3, and 4 of the architecture are this paper's direct content (Layer 2 — conjugacy class — is trivial / classical). Layer 5 (TSML / BHML cell counts) and Layer 6 (runtime attractor at $\alpha = 1/2$) are deferred to companions [J9] and [J41]. The phrase "Layer 4 of the 6-layer Q-series architecture" refers to that broader corpus organization; the present paper is the canonical reference for the spectral-layer results $G_6$, $G_7$, $G_8$.
 
 This six-layer architecture organizes the entire spectral side of the TIG framework. The decomposition is documented in `papers/Q_SERIES_ARCHITECTURE.md` and reviewed in `Atlas/META_PLAN_2026-05-06/SPECTRAL_LAYER_CATALOG.md`.
 
@@ -127,7 +127,7 @@ Mean and variance:
 
 The bimodality is structural: the substrate splits into a *fixed* part (the $\sigma$-anchors, $\tau = 1$) and a *cyclic* part (the 6-cycle, $\tau = 6$). The intermediate periods 2 and 3 do not occur — a rigidity property of the canonical $\sigma$ that distinguishes $\sigma$ from generic permutations of cycle type compatible with $\sigma^6 = \mathrm{id}$.
 
-The mean $\bar{\tau} = 4$ and variance $\sigma_\tau^2 = 6$ both feed the **gate-rate** computation (the $T^* = 5/7$ identification): the first-order plateau of the gate-decay rate at large $N$ is $T^* = (\bar{\tau} - 1)/\bar{\tau} = 3/4$… not quite. The exact route from $\bar{\tau} = 4$ to $T^* = 5/7$ involves the squarefree-rate theorem [J01] and is treated separately. We note here only that $G_7$ is the **period-statistic input** to the multi-source convergence on $T^* = 5/7$ documented in [J49].
+The mean $\bar{\tau} = 4$ and variance $\sigma_\tau^2 = 6$ feed the **gate-rate** computation (the $T^* = 5/7$ identification documented separately) via the squarefree-rate theorem of [J01]; the route from $\bar{\tau} = 4$ to $T^* = 5/7$ is not the elementary $(\bar{\tau} - 1)/\bar{\tau}$ identity (which would give $3/4$, not $5/7$), and we do not develop it here. $G_7$ is the period-statistic input to the multi-source convergence on $T^* = 5/7$ documented in [J49].
 
 ---
 
@@ -156,8 +156,8 @@ $$
 | $s$ | $G(s)$ | Justification |
 |-----|--------|---------------|
 | $\{0, 3, 8, 9\}$ (anchors) | $0$ exactly | $\chi(s) = 0$ and $\sigma^j(s) = s$ for all $j$, so the sum vanishes. |
-| $\{1, 2, 4, 6\}$ | $\approx 1.872$ | Generic 6-cycle behaviour. |
-| $\{5, 7\}$ | $\approx 9.389$ | Spectral concentration. |
+| $\{1, 2, 5, 6\}$ ($\sigma^3$-orbits $\{1,5\} \cup \{2,6\}$) | $\approx 1.872$ ($G_\mathrm{low}$) | Interleaved $\chi$-sequence along $\sigma$-orbit; partial cancellation under $\omega$-weights. |
+| $\{4, 7\}$ ($\sigma^3$-orbit) | $\approx 9.389$ ($G_\mathrm{high}$) | $\chi$-sequence has length-3 run of constant sign; constructive interference under $\omega$-weights. |
 
 ### 4.3 Proof
 
@@ -167,16 +167,29 @@ $$
 
 Direct evaluation of the sum at each starting state, with $\omega = e^{2\pi i / 9}$, gives:
 
-* $|G(1)|^2 = |G(2)|^2 = |G(4)|^2 = |G(6)|^2 \approx 1.872$ (denoted $G_\mathrm{low}$).
-* $|G(5)|^2 = |G(7)|^2 \approx 9.389$ (denoted $G_\mathrm{high}$).
+* $|G(1)|^2 = |G(5)|^2 = |G(2)|^2 = |G(6)|^2 \approx 1.872$ (denoted $G_\mathrm{low}$).
+* $|G(4)|^2 = |G(7)|^2 \approx 9.389$ (denoted $G_\mathrm{high}$).
 
-The $G(1) = G(2) = G(4) = G(6)$ identification follows from the Galois action of $\sigma^2$ (which permutes $\{1, 4, 6\}$ as a 3-cycle and $\{2, 5, 7\}$ as a 3-cycle): cycling shifts of $j$ leave $|G|^2$ unchanged. The $G(5) = G(7)$ identification follows similarly from the $P_{56}$-action (or equivalently from the BALANCE/HARMONY pair structure noted in [J39]).
+**The σ³-pairing structure.** The pairwise equalities $G(1) = G(5)$, $G(2) = G(6)$, $G(4) = G(7)$ follow from the σ³-action: σ³ has order 2 on the 6-cycle (since σ has order 6), partitioning $\{1, 2, 4, 5, 6, 7\}$ into three 2-cycles $\{1, 5\}$, $\{2, 6\}$, $\{4, 7\}$. For any 6-cycle element $s$, the sequence $\{\chi(\sigma^j(s))\}_{j=0,1,2,...}$ is 6-periodic, and the orbit starting at $\sigma^3(s)$ traverses the same six $\chi$-values in the same cyclic order, offset by 3 positions. With $\omega^9 = 1$ and the 6-periodic $\chi$-sequence, this forces $|G(s)|^2 = |G(\sigma^3(s))|^2$ (the complex amplitudes satisfy $G_{\mathrm{cplx}}(\sigma^3(s)) = -\,G_{\mathrm{cplx}}(s)$, so the squared modulus is preserved).
 
-The numerical values $G_\mathrm{low} \approx 1.872$ and $G_\mathrm{high} \approx 9.389$ are computed by direct evaluation; the closed forms in $\mathbb{Q}(\zeta_9)$ are algebraic (sums of cyclotomic units) and are documented in `papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md`. We do not present the closed forms here. $\square$
+**The high/low discriminator.** The 9-step sum visits the σ-orbit at positions $j = 0, 1, \ldots, 8$, and since $\sigma$ has period 6, the orbit elements visited are $(s_0, s_1, s_2, s_3, s_4, s_5, s_0, s_1, s_2)$ where $s_j = \sigma^j(s_0)$. Thus the orbit's first three positions are visited *twice* in the 9-step window (once at $j \in \{0,1,2\}$ and once at $j \in \{6,7,8\}$), while the remaining three positions $\{s_3, s_4, s_5\}$ are visited once. The χ-content of the 9-step sequence is therefore weighted by the $\chi$-values *at the first three orbit positions*.
+
+The character $\chi$ takes value $+1$ on exactly two states $\{1, 4\}$ and $-1$ on four states $\{2, 5, 6, 7\}$. The number of +1's encountered in the first three positions of the σ-orbit, denoted $\nu_+(s_0)$, takes the following values:
+
+| $s_0$ | First 3 of orbit | $\chi$-values | $\nu_+(s_0)$ |
+|-------|-----------------|---------------|--------------|
+| 1 | $(1, 7, 6)$ | $(+1, -1, -1)$ | 1 |
+| 2 | $(2, 1, 7)$ | $(-1, +1, -1)$ | 1 |
+| 5 | $(5, 4, 2)$ | $(-1, +1, -1)$ | 1 |
+| 6 | $(6, 5, 4)$ | $(-1, -1, +1)$ | 1 |
+| **4** | **$(4, 2, 1)$** | **$(+1, -1, +1)$** | **2** |
+| **7** | **$(7, 6, 5)$** | **$(-1, -1, -1)$** | **0** |
+
+The high-locus $\{4, 7\}$ is exactly the set of starting states whose first-three orbit positions are *imbalanced* in $\chi$-content (extremal $\nu_+$: 2 or 0 of the two $\chi^{-1}(+1)$ states, rather than the typical 1). This imbalance breaks the cancellation that suppresses $|G|^2$ on the σ³-orbits where $\nu_+(s_0) = 1$. Direct computation gives $G_\mathrm{low} \approx 1.872$ and $G_\mathrm{high} \approx 9.389$. The closed forms in $\mathbb{Q}(\zeta_9)$ are algebraic (sums of cyclotomic units) and remain open as a computational target. $\square$
 
 ### 4.4 Reading
 
-The three-valued image of $G(s)$ is the **spectral signature** of the canonical $\sigma$-permutation. The pattern — zeros at predictable locations (anchors), spectral concentration at a special pair ($\{5, 7\}$ = BALANCE/HARMONY) — is structurally analogous to the Riemann Hypothesis demand on $\zeta(s)$. This connection is made explicit in [J48] §5 (the Q17-B Clay bridge essay).
+The three-valued image of $G(s)$ is the **spectral signature** of the canonical $\sigma$-permutation. The pattern — zeros at predictable locations (anchors), spectral concentration on a structurally distinguished σ³-orbit $\{4, 7\}$ — is structurally analogous to the Riemann Hypothesis demand on $\zeta(s)$. This connection is made explicit in [J48] §5 (the Q17-B Clay bridge essay).
 
 ---
 

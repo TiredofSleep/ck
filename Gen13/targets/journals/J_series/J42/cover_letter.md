@@ -1,6 +1,6 @@
 # Cover letter — J42: A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics
 
-**To:** Editors, *Journal of Mathematical Physics* (with fallback options noted)
+**To:** Editors, *Letters in Mathematical Physics* (preferred; per-venue cap on JMP — see §6.3 of manuscript)
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -14,7 +14,7 @@
 
 ## Summary
 
-We give a clean, fully proved closed-form identity for the squared overlap $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$ between a momentum eigenstate and a position-space rectangular window in finite-dimensional QM on the cyclic group $\mathbb{Z}/N\mathbb{Z}$. We derive three QM-relevant consequences: (i) a finite uncertainty product (Proposition 4.1) that recovers the rectangular-window position-momentum spectrum; (ii) a first-zero theorem (Corollary 4.2) — for prime $f$, the first integer $k$ with $R(k,f) = 0$ is $k = f$; (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event in coprimality partitions: when $f = \mathrm{spf}(b)$, the QM first-zero coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$. The note is short, theorem-proof-corollary in structure, and machine-precision verified on $f \in \{3,5,7,11,13,17,19,23\}$.
+We give a clean, fully proved closed-form identity for the squared overlap $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$ between a momentum eigenstate and a position-space rectangular window in finite-dimensional QM on the cyclic group $\mathbb{Z}/N\mathbb{Z}$. The closed form is the **Fejér kernel** [Fejér 1900] in disguise; the present note's contribution is the QM-on-cyclic-group interpretation and the arithmetic-bridge synchronization with the First-G event (§5). We derive three QM-relevant consequences: (i) the squared overlap of a momentum eigenstate with the normalized rectangular position window (corrected from the earlier "probability mass" reading; Proposition 4.1); (ii) a first-zero theorem (Corollary 4.2) — **for every $f \ge 2$**, the first integer $k$ with $R(k,f) = 0$ is $k = f$ (no primality needed); (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event in coprimality partitions: when $f = \mathrm{spf}(b)$, the QM first-zero coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$. The note is short, theorem-proof-corollary in structure, and machine-precision verified on $f \in \{3,4,\ldots,13,17,19,23\}$ via the bundled `manuscript/verify_J42_sinc2.py`.
 
 ## Why JMP (with fallback)
 
