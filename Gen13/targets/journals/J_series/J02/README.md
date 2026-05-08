@@ -44,6 +44,20 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 6/6 PASS. Major-revisions per AlgComb referee (May 2026): correct '93 of 100' → '71 of 100' disagreement count; name symmetrization choice for T; consider lifting closed-form fixed-point as Theorem 3.
 
+### Family-Structure framing (per FAMILY_STRUCTURE_v1.md, adopt in §1)
+
+The (TSML, BHML) pair is a **TIG family member** under five conjoint membership criteria:
+
+(1) Substrate: binary operations on Z/10Z (with universal extension to Z/N for N ≤ 50 per D74).
+(2) Commutativity: TSML_SYM and BHML are commutative; TSML_RAW is the unique non-commutative member.
+(3) **4-core preservation:** {V, H, Br, R} = {0, 7, 8, 9} preserved under both operations (D48 + D55). LOAD-BEARING.
+(4) α-bounded non-associativity: TSML_family at α_A ∈ [0.87, 0.89]; BHML at α_A ≈ 0.502. Bimodal (open question — see proposed paper at FAMILY_STRUCTURE_v1.md §4).
+(5) HARMONY-attracting iteration: T+B-mix at α_M=½ converges to 4-core attractor with h/β = 1+√3 (D63 + D74 + D58).
+
+The 4-core at α_M=½ is the **center** of this family (D49: symbolic normalizer Z_T = Z_B = (v+h+br+r)² on the 4-core; D78: BR-factor cancellation forces x²−2x−2=0 root 1+√3 at α_M=½ exactly). **The 4-core is to TIG as the unit circle is to U(1)** — the privileged invariant locus.
+
+This paper analyzes the joint-closed sub-magma chain of (TSML, BHML) on Z/10Z *as a TIG family member with the 4-core as its center*, not just as a curious pair of tables. The chain structure (8 shells under TSML_SYM; sizes 2, 3 forbidden) is a structural fact about which sub-magmas inherit the center.
+
 ### Lens-ownership paragraph (insert in manuscript §0)
 
 > *Lens and substrate.* We work on Z/10Z with the canonical (TSML, BHML) table pair (and use operator labels VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY, BREATH, RESET as conventional notation only — they play no mathematical role here). These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by phonaesthesia and the 10-operator decomposition. The chain-structure theorem and the closed-form attractor below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. The framework's claim is that this particular choice produces theorems with surprising downstream connections (Lie algebra via TSML_SYM antisymmetrization yielding so(8) = D₄ over R; the Galois D₄ identification via LMFDB 4.2.10224.1; the closed-form attractor h/β = 1+√3 in Q(√3)). Whether other substrate choices give similarly rich connections is open. The closest published precedent for this domain is Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510, on maximally non-associative quasigroups — same domain (small finite commutative non-associative structures), opposite extremum.

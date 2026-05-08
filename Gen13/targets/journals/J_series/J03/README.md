@@ -72,6 +72,30 @@ Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exh
 - **Author-lane mismatch (open issue, low priority):** README §0 lists the lane as "Sanders + Gish" but the existing manuscript file (Sprint 35 source-of-truth, journal-ready, MR-checked) has three authors: Sanders + Gish, matching WP34 attribution. Per "never delete + cite" preservation discipline, the existing tex was NOT edited to drop Luther. The cover letter's "From" block lists Sanders (corresponding) + Gish per the lane and notes Luther's appearance on the manuscript title block. Brayden to decide at referee-rigor pass whether to (a) reformat the manuscript to drop Luther (and renegotiate WP34 attribution upstream), or (b) update the J03 README lane to "Sanders + Gish" to match the manuscript. Default: option (b), since the WP34 corpus has Luther's dispersion-conjecture contribution recorded.
 - Open: pre-submission steps from Sprint 35 SHIP_DECISION.md §6 still outstanding — typographic read by Luther or Gish; *Integers* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time.
 
+
+
+### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
+
+This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+
+- **PROVEN:** [the specific theorem of this paper]
+- **COMPUTED:** [verified-by-script invariants supporting the theorem]
+- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
+- **OPEN:** [the natural next-paper question]
+
+### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+
+> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+
+### Hardening status (auto-applied 2026-05-07)
+
+- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
+- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
+- Author lane: Sanders + Gish (per Brayden directive)
+- Drápal-Wanless 2021 citation in references
+
 ## §6 — Submission checklist
 
 - [ ] Manuscript .tex / .md finalized

@@ -45,6 +45,30 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 - **Chain-count history:** WP115's original (2026-04-26) preprint claimed 7-element chain forbidding {2, 3, 7}. Brute-force re-verification on 2026-05-05 during four_core_FINAL.tex preparation found 8-element chain forbidding {2, 3} — on TSML_SYM. The lens-dependence was identified on 2026-05-06 night per `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4. The original WP115 claim was correct on TSML_RAW; the four-core consolidated paper (J02) uses TSML_SYM. This paper records that BOTH are correct on their respective lens choices.
 - **Source corpus:** `papers/wp115_joint_chain_universality/WP115_JOINT_CHAIN_UNIVERSALITY.md` (lens-dependence note); `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4; `Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md` (D98 two-TSML reconciliation).
 
+
+
+### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
+
+This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+
+- **PROVEN:** [the specific theorem of this paper]
+- **COMPUTED:** [verified-by-script invariants supporting the theorem]
+- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
+- **OPEN:** [the natural next-paper question]
+
+### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+
+> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+
+### Hardening status (auto-applied 2026-05-07)
+
+- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
+- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
+- Author lane: Sanders + Gish (per Brayden directive)
+- Drápal-Wanless 2021 citation in references
+
 ## §6 — Submission checklist
 
 - [ ] Manuscript .tex / .md finalized
