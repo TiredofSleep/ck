@@ -319,7 +319,14 @@ class VoiceLoop:
     DECISION_LOG_PATH = 'ck_voice_decisions.log'
 
     def __init__(self, engine, crafter, ollama_url='http://localhost:11434',
-                 model='phi4:latest'):
+                 model=None):
+        # Brayden 2026-05-02: "only run the small ollama please".
+        # Default to env CK_VOICE_LOOP_MODEL or llama3.2:latest (2GB,
+        # smallest available); was 'phi4:latest' (10GB) which was crowding
+        # llama3.1:8b out of GPU and slowing the chat path.
+        if model is None:
+            import os as _os_vl
+            model = _os_vl.environ.get('CK_VOICE_LOOP_MODEL', 'llama3.2:latest')
         self.engine = engine
         self.crafter = crafter
         self.ollama_url = ollama_url

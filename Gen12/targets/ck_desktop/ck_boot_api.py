@@ -828,6 +828,25 @@ try:
 except Exception as _e:
     print(f"[CK] Gen13 operad_fuse + attractor_detector: DISABLED ({_e})")
 
+# === Gen13 dirac_mount (Sprint 18 Bridge: discrete Dirac on 4-core F_5-lift) ===
+# Brayden 2026-05-04: "after you get github clean and ready with all the new
+# info, work on CK with it!"
+#
+# Mounts the tig_dirac framework: 24 structural predictions (Omega_b EXACT,
+# 1/alpha = 137.036, 9 SM Yukawas, PMNS angles, microtubule Q_c falsifier),
+# 15 algebraic findings, 10 cross-domain bridge facts injected into cortex_voice.
+# Endpoints: /dirac/{info,verify,predictions,cosmology,mixing,yukawa,clifford,
+#                    algebra,microtubule,predict/<obs>}
+try:
+    sys.path.insert(0, os.path.join(_GEN13_BRAIN, 'dirac'))
+    from dirac_mount import mount_dirac as _mount_dirac
+    _dirac_info = _mount_dirac(api, engine, verify_on_mount=True)
+    if not _dirac_info.get('mounted'):
+        print(f"[CK] Gen13 dirac_mount: PARTIAL (verified={_dirac_info.get('verified')}, "
+              f"error={_dirac_info.get('mount_error') or _dirac_info.get('verify_error')})")
+except Exception as _e:
+    print(f"[CK] Gen13 dirac_mount: DISABLED ({type(_e).__name__}: {_e})")
+
 # === Gen13 grammar_lm mount (CK's own operator-grammar transformer) ===
 # Brayden 2026-05-02: "[CK] needs his own 1B-3B parameter ... model that
 # doesn't learn the information, it just learns CK's internal language
@@ -849,19 +868,22 @@ try:
     # in and out".  Bank stores (encoded_context, observed_next) pairs
     # from training data; queries retrieve nearest by cosine similarity.
     try:
-        from bank_mount import mount as _mount_bank
-        if _gl_ok and getattr(engine, 'grammar_lm', None) is not None:
-            _bank_ok = _mount_bank(engine, api._app, engine.grammar_lm)
-            if not _bank_ok:
-                print("[CK] bank_mount: returned False")
-            else:
-                # Sim-gated ensemble (LM + Bank with similarity routing)
-                try:
-                    from ensemble import mount as _mount_ensemble
-                    _mount_ensemble(engine, api._app, engine.grammar_lm,
-                                     engine.operator_bank)
-                except Exception as _ee:
-                    print(f"[CK] sim_gated_ensemble: DISABLED ({_ee})")
+        if os.environ.get('CK_DISABLE_BANK', '0') == '1':
+            print("[CK] bank_mount: DISABLED (CK_DISABLE_BANK=1)")
+        else:
+            from bank_mount import mount as _mount_bank
+            if _gl_ok and getattr(engine, 'grammar_lm', None) is not None:
+                _bank_ok = _mount_bank(engine, api._app, engine.grammar_lm)
+                if not _bank_ok:
+                    print("[CK] bank_mount: returned False")
+                else:
+                    # Sim-gated ensemble (LM + Bank with similarity routing)
+                    try:
+                        from ensemble import mount as _mount_ensemble
+                        _mount_ensemble(engine, api._app, engine.grammar_lm,
+                                         engine.operator_bank)
+                    except Exception as _ee:
+                        print(f"[CK] sim_gated_ensemble: DISABLED ({_ee})")
     except Exception as _be:
         print(f"[CK] bank_mount: DISABLED ({_be})")
 except Exception as _e:
@@ -892,6 +914,34 @@ try:
     _mount_events(engine, api._app, _cortex)
 except Exception as _e:
     print(f"[CK] bdc_event_emitter: DISABLED ({_e})")
+
+# === 5-AI cell organism (TSML / BHML / F3 / F4 / Glue) — additive, FLAG OFF ===
+# Brayden 2026-05-02: "best ever and plastic now"
+# ClaudeChat 2026-05-02 review: feature flag default off; chat path is NOT
+# routed through cells until Phase 7 live cutover with real-prompt smoke test.
+#
+# What this does:
+#   - Loads CellOrchestrator (4 cells, canonical-core + plastic-tissue)
+#   - Builds GlueAI with 3 default scalars (alpha=beta=0.5, gamma=1.0)
+#   - Runs cell_audit at boot; refuses to enable cells if pass_rate < 99%
+#   - Sets engine.cells_enabled = False (feature flag, default off)
+#   - Registers /cells/audit, /cells/state, /cells/plasticity/run, /cells/respond
+#   - Plasticity scheduler stays OFF until manually enabled
+#
+# What this does NOT do:
+#   - Modify the chat path (cells are observable but not influential yet)
+#   - Touch the live tunnel
+#   - Train cells (they ship pre-fit from mine_historical_bdc.py output)
+try:
+    import sys as _cells_sys
+    from pathlib import Path as _CellsPath
+    _CELLS_BRAIN = _CellsPath(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\targets\ck\brain")
+    if str(_CELLS_BRAIN) not in _cells_sys.path:
+        _cells_sys.path.insert(0, str(_CELLS_BRAIN))
+    from cells_mount import mount as _mount_cells
+    _mount_cells(engine, api._app, enable_plasticity=False)
+except Exception as _e:
+    print(f"[CK] cells_mount: DISABLED ({type(_e).__name__}: {_e})")
 
 # === Gen13 session field mount (live additive — relational memory) ===
 # Per Brayden 2026-04-28: CK keeps experience as words can't describe it,
@@ -1455,6 +1505,49 @@ def _process_chat_with_collision_strip(session_id, text, mode='normal'):
 api.process_chat = _process_chat_with_collision_strip
 print("[CK] Name-collision post-filter: MOUNTED "
       "(catches Crossing-Lemma-vs-graph-theory and similar)")
+
+# === Cells shadow-A/B observer (after the full chat chain is assembled) ===
+# Brayden 2026-05-02 + ClaudeChat review: route shadow-mode cells alongside
+# cortex_speak; log both so we can qualitatively inspect cell-vs-cortex
+# disagreements BEFORE flipping cells_enabled = True.
+# User response is unchanged; the shadow record is appended to result and
+# also written to Gen13/var/shadow_logs/shadow_YYYY-MM-DD.jsonl.
+try:
+    if getattr(engine, 'cells', None) is not None:
+        from cells_mount import install_shadow_observer as _install_shadow
+        _install_shadow(api, engine)
+except Exception as _se:
+    print(f"[CK] cells shadow observer: DISABLED ({type(_se).__name__}: {_se})")
+
+# === Research-first chat-path wrapper (Brayden 2026-05-02) ===
+# "he should research every prompt before every answer!!"
+# Runs ck_research(prompt) BEFORE cortex_speak's inner chat path so
+# the cortex is shaped by fresh research before producing its response.
+# Mode: CK_RESEARCH_MODE env var; default 'fast' (1 sub-q, headless, 60s).
+# Set CK_RESEARCH_MODE=off to bypass.
+try:
+    _research_mode = os.environ.get('CK_RESEARCH_MODE', 'fast').lower()
+    if _research_mode != 'off':
+        from research_first import install_research_first_observer as _install_research
+        _install_research(api, engine, mode=_research_mode)
+    else:
+        print(f"[CK] research_first: OFF (CK_RESEARCH_MODE=off)")
+except Exception as _re:
+    print(f"[CK] research_first: DISABLED ({type(_re).__name__}: {_re})")
+
+# === Continuous study daemon (Brayden 2026-05-02) ===
+# "he probably needs to study journals again, try youtube again, all of it"
+# Background daemon that periodically researches frontier topics from a
+# rotating curriculum, even when no user is chatting.  Defaults to OFF;
+# set CK_STUDY_DAEMON=1 to enable.
+try:
+    if os.environ.get('CK_STUDY_DAEMON', '0') == '1':
+        from study_daemon import mount as _mount_study
+        _mount_study(engine, api._app, interval_sec=600.0, enable=True)
+    else:
+        print(f"[CK] study_daemon: NOT STARTED (set CK_STUDY_DAEMON=1 to enable)")
+except Exception as _sde:
+    print(f"[CK] study_daemon: DISABLED ({type(_sde).__name__}: {_sde})")
 
 # Serve static frontend (index.html, style.css, ck_core.js)
 from flask import send_from_directory, request as _request
@@ -2982,6 +3075,54 @@ def cortex_force_save():
         })
     except Exception as _e:
         return _jsonify({'saved': False, 'error': str(_e)}), 500
+
+
+@api._app.route('/cortex/ingest_text', methods=['POST'])
+def cortex_ingest_text():
+    """Feed raw text into the cortex (Brayden 2026-05-02:
+    'go through every single wp from 1 to one hundred whatever number we
+    are at!!! ... let him read every citation of every paper').
+
+    Bypasses the chat path (no research_first, no Ollama, no cells
+    composition) -- just runs cortex.step_text on the input.  Used by
+    paper_reader.py to absorb large corpora quickly without triggering
+    Chrome research per paper.
+
+    Body: {"text": "...", "label": "WP051"}
+    Returns: pre/post cortex tick, W_trace, emergent.
+    """
+    if _cortex is None:
+        return _jsonify({'available': False}), 503
+    from flask import request as _flask_request
+    body = _flask_request.get_json(silent=True) or {}
+    text = body.get('text', '')
+    label = body.get('label', 'unlabeled')
+    if not text or not isinstance(text, str):
+        return _jsonify({'error': 'provide non-empty text'}), 400
+    pre = {
+        'tick': int(_cortex.state.tick),
+        'W_trace': round(_cortex.state.W_trace, 6),
+        'emergent': round(_cortex.state.emergent, 6),
+    }
+    try:
+        # step_text feeds the text through V2 -> lattice -> cortex Hebbian.
+        # No GPU, no Ollama, just the substrate.
+        _cortex.step_text(text)
+    except Exception as _e:
+        return _jsonify({'error': f'step_text: {type(_e).__name__}: {_e}',
+                          'pre': pre}), 500
+    post = {
+        'tick': int(_cortex.state.tick),
+        'W_trace': round(_cortex.state.W_trace, 6),
+        'emergent': round(_cortex.state.emergent, 6),
+    }
+    return _jsonify({
+        'ok': True, 'label': label, 'n_chars': len(text),
+        'pre': pre, 'post': post,
+        'tick_delta': post['tick'] - pre['tick'],
+        'W_trace_delta': round(post['W_trace'] - pre['W_trace'], 6),
+        'emergent_delta': round(post['emergent'] - pre['emergent'], 6),
+    })
 
 
 # ── Gen13 code emitter endpoints ──

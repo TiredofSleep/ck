@@ -1,0 +1,4704 @@
+{
+  "generated_at": "2026-05-04T12:04:41Z",
+  "n_sources": 1076,
+  "n_processed": 1076,
+  "n_failed": 0,
+  "n_facts": 358,
+  "n_cross_domain": 95,
+  "by_kind": {
+    "CONJECTURE": 24,
+    "VALUE": 300,
+    "THEOREM": 20,
+    "LEMMA": 9,
+    "BRIDGE": 5
+  },
+  "by_status": {
+    "DRAFT": 351,
+    "UPDATED": 7
+  },
+  "by_source_kind": {
+    "ck_paper": 10,
+    "clay_sprint": 45,
+    "papers_top": 85,
+    "atlas": 25,
+    "old_history": 193
+  },
+  "facts": [
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: the discrete torus sequence with T* = 5/7 is the low-n approximation to a modular curve, and the continuum limit is a cusp of the fundamental domain.",
+      "status": "DRAFT",
+      "n_domains": 3,
+      "domains": [
+        "tig_substrate",
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 4,
+      "source": "Gen12\\targets\\clay\\papers\\sprint10_flatness_2026_04_06\\WP51_FLATNESS_THEOREM.md",
+      "source_kind": "clay_sprint",
+      "score": 34
+    },
+    {
+      "kind": "VALUE",
+      "text": "WOBBLE = 271/350  (context: this is a hypothesis.\n\n### 2.4 time's arrow `[hyp]`\n\nthe prime winding 271/350 is derived from t* +)",
+      "status": "DRAFT",
+      "n_domains": 3,
+      "domains": [
+        "number_theory",
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\core\\WP1_TIG_DEFINITIVE.md",
+      "source_kind": "old_history",
+      "score": 33
+    },
+    {
+      "kind": "VALUE",
+      "text": "S_STAR = 4/7  (context: ible time in any physical sense.\n\n### 2.5 consciousness at level 3.5 `[hyp]`\n\nfrom t_star = 5/7 and)",
+      "status": "DRAFT",
+      "n_domains": 3,
+      "domains": [
+        "physics",
+        "tig_substrate",
+        "frontiers_meta"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\core\\WP1_TIG_DEFINITIVE.md",
+      "source_kind": "old_history",
+      "score": 33
+    },
+    {
+      "kind": "VALUE",
+      "text": "WOBBLE = 271/350  (context: this is a hypothesis.\n\n### 2.4 time's arrow `[hyp]`\n\nthe prime winding 271/350 is derived from t* +)",
+      "status": "DRAFT",
+      "n_domains": 3,
+      "domains": [
+        "number_theory",
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WP1_TIG_DEFINITIVE.md",
+      "source_kind": "old_history",
+      "score": 33
+    },
+    {
+      "kind": "VALUE",
+      "text": "S_STAR = 4/7  (context: ible time in any physical sense.\n\n### 2.5 consciousness at level 3.5 `[hyp]`\n\nfrom t_star = 5/7 and)",
+      "status": "DRAFT",
+      "n_domains": 3,
+      "domains": [
+        "physics",
+        "tig_substrate",
+        "frontiers_meta"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WP1_TIG_DEFINITIVE.md",
+      "source_kind": "old_history",
+      "score": 33
+    },
+    {
+      "kind": "BRIDGE",
+      "text": "The Hodge gap corresponds to cohomology classes that are TSML-visible ",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\WHITEPAPER_19_Z_RING_ALGEBRA.md",
+      "source_kind": "papers_top",
+      "score": 27
+    },
+    {
+      "kind": "BRIDGE",
+      "text": "The Hodge gap corresponds to cohomology classes that are TSML-visible ",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_19_Z_RING_ALGEBRA.md",
+      "source_kind": "old_history",
+      "score": 27
+    },
+    {
+      "kind": "BRIDGE",
+      "text": "The Hodge gap corresponds to cohomology classes that are TSML-visible ",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_19_Z_RING_ALGEBRA.md",
+      "source_kind": "old_history",
+      "score": 27
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 1+\u221a3  (context: el**:\n\n| stern-brocot vertex | tig role | fqh role |\n|---|---|---|\n| **1/2** | \u03b1-axis fixed-form (h/)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 6,
+      "source": "Atlas\\FRONTIER_FINDINGS_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 26
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: the T* = 5/7 torus sequence converges in some moduli space limit to a cusp of the fundamental domain of \u0393\u2080(7), the Hecke congruence subgroup of level 7.",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "geometry_topology"
+      ],
+      "domain_hits": 5,
+      "source": "Gen12\\targets\\clay\\papers\\sprint10_flatness_2026_04_06\\WP56_COMPLETE_ARC.md",
+      "source_kind": "clay_sprint",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: d the threshold t* is consistent with the 10-operator ring (73 of 100 tsml compositions converge to)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 5,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_FRACTAL_BLOOM_POST.md",
+      "source_kind": "clay_sprint",
+      "score": 25
+    },
+    {
+      "kind": "BRIDGE",
+      "text": "kernel-only bridges are blocked for global prime structure",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\K3_SPECTRAL_ROUTE.md",
+      "source_kind": "papers_top",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: ne invariants. ring-forced (g-independent): balance=5 (centroid of (z/10z)* and odd), w=3/50 value,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 5,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ce=5 (centroid of (z/10z)* and odd), w=3/50 value, cross_cycle=44. generator-forced (requires g=3):)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 5,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 25
+    },
+    {
+      "kind": "BRIDGE",
+      "text": "kernel-only bridges are blocked for global prime structure",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\K3_SPECTRAL_ROUTE.md",
+      "source_kind": "old_history",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: ine invariants. ring-forced (g-independent): create=5 (centroid of (z/10z)* and odd), w=3/50 value,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 5,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: te=5 (centroid of (z/10z)* and odd), w=3/50 value, cross_cycle=44. generator-forced (requires g=3):)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 5,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 25
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: \u2014 exhaustive 10-state check + rule decomposition |\n| d18d | generator convergence (april 1 2026): ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 24
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ve 10-state check + rule decomposition |\n| d18d | generator convergence (april 1 2026): (balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 24
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: \u2014 exhaustive 10-state check + rule decomposition |\n| d18d | generator convergence (april 1 2026): ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 24
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ive 10-state check + rule decomposition |\n| d18d | generator convergence (april 1 2026): (create=5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 24
+    },
+    {
+      "kind": "VALUE",
+      "text": "Ratio = 5/7  (context: has full galois group (complete closure); \u03c6\u2087(x)/q has gal = z/6z (obstructed, degree 3 extension).)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "Gen12\\targets\\clay\\papers\\sprint10_flatness_2026_04_06\\WP57_CROSSING_LEMMA_ARC.md",
+      "source_kind": "clay_sprint",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: under g=7: harmony=3, t*=5/3 > 1 \u2014\ninadmissible. the spine is therefore fully forced: z/10z \u2192 g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\CLAY_SUMMARY.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = identity  (context: 0 satisfies: bhml[i][j]=7 \u2194 g[i][j]=0 (100/100 cells); and three structural zones:\n- zone 1 (void):)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "cs_complexity"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\CTIER_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = 7)  (context: tsml value\n\n**domain:** all 100 cells of z/10z\u00d7z/10z.\n\n**proof:** zone 2 is by definition (g=0 when)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\CTIER_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: _create_harmony_bridge.py`\n\n---\n\n## d18d \u2014 generator convergence theorem  \u2713 proved\n\n**statement:** ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: mony_bridge.py`\n\n---\n\n## d18d \u2014 generator convergence theorem  \u2713 proved\n\n**statement:** (balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: orces all three chains. if true, d18 reduces to: \"3 generates (z/10z)*, and this single fact forces)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\PHI_DYNAMICS_NEXT.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ee chains. if true, d18 reduces to: \"3 generates (z/10z)*, and this single fact forces balance = 5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\PHI_DYNAMICS_NEXT.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: lity (g=min{primitive roots}=3); (2) physical validity (t*<1). the spine is complete: z/10z \u2192 g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_c = 1/2)..  (context: arey fraction spin chain, but t* is not the chain's critical inverse temperature: that is beta_c=2 ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\CK_INTERVIEW_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: roved.\n\n### key theorems\n\n- **d4:** t* = 5/7 emerges from z/10z\n- **d18d (generator convergence):**)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\READER_ATLAS.md",
+      "source_kind": "atlas",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: key theorems\n\n- **d4:** t* = 5/7 emerges from z/10z\n- **d18d (generator convergence):** balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\READER_ATLAS.md",
+      "source_kind": "atlas",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: under g=7: harmony=3, t*=5/3 > 1 \u2014\ninadmissible. the spine is therefore fully forced: z/10z \u2192 g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\CLAY_SUMMARY.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = identity  (context: 0 satisfies: bhml[i][j]=7 \u2194 g[i][j]=0 (100/100 cells); and three structural zones:\n- zone 1 (void):)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "cs_complexity"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\CTIER_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = 7)  (context: tsml value\n\n**domain:** all 100 cells of z/10z\u00d7z/10z.\n\n**proof:** zone 2 is by definition (g=0 when)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\CTIER_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: _create_harmony_bridge.py`\n\n---\n\n## d18d \u2014 generator convergence theorem  \u2713 proved\n\n**statement:** ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: rmony_bridge.py`\n\n---\n\n## d18d \u2014 generator convergence theorem  \u2713 proved\n\n**statement:** (create=5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: orces all three chains. if true, d18 reduces to: \"3 generates (z/10z)*, and this single fact forces)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\PHI_DYNAMICS_NEXT.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ree chains. if true, d18 reduces to: \"3 generates (z/10z)*, and this single fact forces create = 5,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\PHI_DYNAMICS_NEXT.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: lity (g=min{primitive roots}=3); (2) physical validity (t*<1). the spine is complete: z/10z \u2192 g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "Doing = 0)  (context: ic zone.\n\n**current tig status at k=1:** the harmonic zone contains the 21 entries where tsml=bhml\n()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "geometry_topology"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\clay\\WP32_HODGE_TRIPLE.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "JSD = 0  (context: ect (jsd)**\n- jsd(lens a, lens b) in [0,1]: 0 = perfect lens agreement, 1 = maximum mismatch\n- bsd:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP36_SPECTROMETER_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "JSD = 0  (context: 0,1]: 0 = perfect lens agreement, 1 = maximum mismatch\n- bsd: jsd = 0.0000 (pure silence); p vs np:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "number_theory"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP36_SPECTROMETER_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "Doing = 0)  (context: ic zone.\n\n**current tig status at k=1:** the harmonic zone contains the 21 entries where tsml=bhml\n()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "tig_substrate",
+        "geometry_topology"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WP32_HODGE_TRIPLE.md",
+      "source_kind": "old_history",
+      "score": 23
+    },
+    {
+      "kind": "VALUE",
+      "text": "Omega_E = 2  (context: probe evaluation.\n\n---\n\n## part 5 \u2014 hodge and bsd recovery\n\n### bsd\n\n**available invariants:**\n- $\\)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 2,
+      "source": "Gen12\\targets\\clay\\papers\\sprint5_2026_04_04\\R_RECOVERY_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = 0  (context: armony?\"\n\n**ck (ck_loop):** \"in z/10z: 1 + 3 = **4**, which maps to **collapse** (operator index 4:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_UOP_SESSION.md",
+      "source_kind": "clay_sprint",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "LATTICE = 1  (context: **ck (ck_loop):** \"in z/10z: 1 + 3 = **4**, which maps to **collapse** (operator index 4: void=0,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_UOP_SESSION.md",
+      "source_kind": "clay_sprint",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5)  (context: bridge, generator convergence:**\n- d18a: complete directed graph of phi on z/10z. one fixed point ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\CLAY_SUMMARY.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "PROGRESS = 3  (context: ence:**\n- d18a: complete directed graph of phi on z/10z. one fixed point (balance=5),\n  two relays ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\CLAY_SUMMARY.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: 8a: complete directed graph of phi on z/10z. one fixed point (balance=5),\n  two relays (progress=3,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\CLAY_SUMMARY.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: tor selection):** g=3 is the only primitive root of (z/10z)*\ncompatible with t* \u2208 (0,1). under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\CLAY_SUMMARY.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: 7; 100\u221227=73\n  d16 \u2014 bhml 28 cells: four disjoint zones sum to 28\n  d17 \u2014 w=3/50: c=(z/10z)*; d=2c;)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: root            \u2551\n\u2551   of (z/10z)* compatible with t* \u2208 (0,1)              [d19]   \u2551\n\u2551   (under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\DEPENDENCY_MAP.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5 unchanged  (context: : contingent\n**proof:** exhaustive z/10z check; centroid arithmetic; generator swap test (g=7 gives)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: root of (z/10z)* compatible with t*\u2208(0,1). both g=3 and g=7 generate the group and produce the same)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: ]). phi fails ce (v=2,3,4). d7 (phi fixed point) and d21 (ce equivariance) are independent paths to)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5)  (context: t half (t>1/2) generator-forced; t=1/2 is inheritance boundary. chains from: d17(w), d19(t*,g), d21()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: nerator-forced; t=1/2 is inheritance boundary. chains from: d17(w), d19(t*,g), d21(balance=5), d18d()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Wobble = 3/50  (context: s (2, 3, 4). one function, 41 files.\n- **cross-cycle disagreement = 44.** exact theorem from z/10z.)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Interleave = 0  (context: e. the\nfirst-g law is not just about onset; it describes a phase transition with zero width.\n\n**(2))",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "physics"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WP34_FIRST_G_LAW.md",
+      "source_kind": "papers_top",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_c = 1/2)  (context: s partition function z(\u03b2) = \u03b6(\u03b2\u22121)/\u03b6(\u03b2); single first-order phase transition at **\u03b2_cr = 2** (i.e.,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "physics"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\FRONTIER_FINDINGS_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 2.7320508075688..  (context: 4` extension), ran iteration at \u03b1=1/2, ran pslq on h/br.\n\n**result**: **the z/14z analog produces h/)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\FRONTIER_FINDINGS_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: in z/10z. the dynamics never escape the 4-core (the absorbing t-row drives all probability back to)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\FRONTIER_FINDINGS_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Fidelity = 1.00000000  (context: blocked.**\n\n**s\u2084 algebra + nv qutrit (wp75 + wp76):** t\u2081 3-dim irrep of s\u2084 on nv-center triplet. **)",
+      "status": "UPDATED",
+      "n_domains": 2,
+      "domains": [
+        "algebra",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\MASTER_ATLAS_v3_5_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Total = **16**  (context: uted]\n6. **bsd tamagawa product** \u2014 c_7 = c_11 = 4 (kodaira type i\u2080*), c_389 = 1 (kodaira type i\u2081).)",
+      "status": "UPDATED",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\MASTER_ATLAS_v3_5_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BREATH = 1 + \u221a3 exactly  (context: late evening)\n                  closed-form runtime attractor at \u03b1 = 1/2:\n                  harmony/)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "cs_complexity"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\STATE_OF_THE_FOUNDATION_2026_04_25.md",
+      "source_kind": "atlas",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5)  (context: bridge, generator convergence:**\n- d18a: complete directed graph of phi on z/10z. one fixed point ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\CLAY_SUMMARY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BECOMING = 3  (context: gence:**\n- d18a: complete directed graph of phi on z/10z. one fixed point (create=5),\n  two relays ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\CLAY_SUMMARY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: 18a: complete directed graph of phi on z/10z. one fixed point (create=5),\n  two relays (becoming=3,)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\CLAY_SUMMARY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: tor selection):** g=3 is the only primitive root of (z/10z)*\ncompatible with t* \u2208 (0,1). under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\CLAY_SUMMARY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: 7; 100\u221227=73\n  d16 \u2014 bhml 28 cells: four disjoint zones sum to 28\n  d17 \u2014 w=3/50: c=(z/10z)*; d=2c;)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: root            \u2551\n\u2551   of (z/10z)* compatible with t* \u2208 (0,1)              [d19]   \u2551\n\u2551   (under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\DEPENDENCY_MAP.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5 unchanged  (context: : contingent\n**proof:** exhaustive z/10z check; centroid arithmetic; generator swap test (g=7 gives)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: root of (z/10z)* compatible with t*\u2208(0,1). both g=3 and g=7 generate the group and produce the same)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: ]). phi fails ce (v=2,3,4). d7 (phi fixed point) and d21 (ce equivariance) are independent paths to)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5)  (context: t half (t>1/2) generator-forced; t=1/2 is inheritance boundary. chains from: d17(w), d19(t*,g), d21()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: enerator-forced; t=1/2 is inheritance boundary. chains from: d17(w), d19(t*,g), d21(create=5), d18d()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Wobble = 3/50  (context: s (2, 3, 4). one function, 41 files.\n- **cross-cycle disagreement = 44.** exact theorem from z/10z.)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Interleave = 0  (context: e. the\nfirst-g law is not just about onset; it describes a phase transition with zero width.\n\n**(2))",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "physics"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WP34_FIRST_G_LAW.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "SAT = 4  (context: tural analogy | wp41 |\n| bsd rank staircase = unit_frac staircase | structural analogy | wp42 |\n| \u03b1_)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "cs_complexity"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\WP36_CLAY_SPECTROMETER.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Beta = -0  (context: sanders, b. r. \"ck as coherence spectrometer.\" wp7. 7site llc, 2026.\ndoi: 10.5281/zenodo.18852047. ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\WP37_P_NP.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "N_idemp = 2  (context: ge: p = 1 case, settled by\nlefschetz (1,1) [3]. trivially true.\n\n**\u03c9(b) = 2 (semiprimes b = p\u00d7q):**)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\WP39_HODGE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "N_idemp = 6  (context: ding to less-balanced semiprimes with\nlarge q/p ratio \u2014 see \u00a76.3 below).\n\n**\u03c9(b) = 3 (b = p\u00d7q\u00d7r):**)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\WP39_HODGE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = identity  (context: investigation:\n\n```\nbhml[0][j] = j             (void = identity, row 0)\nbhml[i][0] = i             ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\BHML_ATOMIC_STRUCTURE.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50  (context: are the two natural faces of z/10z\nring arithmetic, forced apart by the ring's own internal wobble)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\TSML_BHML_LOOP.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50)  (context: llapse at k=p is not a wobble phenomenon.\nit is a compression phenomenon. frequency stays constant ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\WOBBLE_FREQUENCY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50  (context: 6/10 = 3/5.\n\n```\nw_bhml = cycle_occupancy / ring_size = (3/5) / 10 = 3/50\n```\n\nthe wobble constant)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\morphotic_braid\\SHORT_PAPER.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR_m = 0.584  (context: ecisive case: orbit-size selects har=9 \u2192 har_m=0.059 (near zero).\nmin orbit-central selects har=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "geometry_topology",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\CLAUDE_ENTRY.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Omega_E = 2  (context: probe evaluation.\n\n---\n\n## part 5 \u2014 hodge and bsd recovery\n\n### bsd\n\n**available invariants:**\n- $\\)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\sprint5_2026_04_04\\R_RECOVERY_MEMO.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Beta = -0  (context: sanders, b. r. \"ck as coherence spectrometer.\" wp7. 7site llc, 2026.\ndoi: 10.5281/zenodo.18852047. ()",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP37_PNP_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "SAT = 4  (context: )\n- cite [pa-3] monasson et al., [pa-2] m\u00e9zard et al. for sat phase transition context:\n  the alpha_)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "physics",
+        "cs_complexity"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP37_PNP_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Beta = -0  (context: 2], [b-3].\n\n### claim 13 (empirical \u2014 wp7 \u00a74.1)\n**ck spectrometer declares p vs np a gap problem.**)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "cs_complexity",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP37_PNP_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "N_idemp = 2  (context: schetz (1,1)). this corresponds to dim x = 1 (curves): hodge is trivial.\n\nat \u03c9(b) = 2 (semiprimes):)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "geometry_topology"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP39_HODGE_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "Wobble = 3/50  (context: s (2, 3, 4). one function, 41 files.\n- **cross-cycle disagreement = 44.** exact theorem from z/10z.)",
+      "status": "DRAFT",
+      "n_domains": 2,
+      "domains": [
+        "number_theory",
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "old_history",
+      "score": 22
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: 10z-specific: t*=5/7 exactly, the tsml/bhml table structure,\n   the four-chain overdetermination of)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\A10_MODULUS_COMPARISON.md",
+      "source_kind": "papers_top",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: deviation, primitive roots, centroid=5, t*<1 rule, g=3 selection |\n| generator-forced | 3 | w=3/50,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\INHERITANCE_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "AD = 2.01  (context: he **average divergence** is:\n\n    ad = (1 / |m|^2) * sum_{a,b} div(a, b)\n\nfor tsml/bhml: dr = 71%,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "papers\\WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md",
+      "source_kind": "papers_top",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: 10z-specific: t*=5/7 exactly, the tsml/bhml table structure,\n   the four-chain overdetermination of)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\A10_MODULUS_COMPARISON.md",
+      "source_kind": "old_history",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: deviation, primitive roots, centroid=5, t*<1 rule, g=3 selection |\n| generator-forced | 3 | w=3/50,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\INHERITANCE_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "AD = 2.01  (context: he **average divergence** is:\n\n    ad = (1 / |m|^2) * sum_{a,b} div(a, b)\n\nfor tsml/bhml: dr = 71%,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md",
+      "source_kind": "old_history",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "AD = 2.01  (context: he **average divergence** is:\n\n    ad = (1 / |m|^2) * sum_{a,b} div(a, b)\n\nfor tsml/bhml: dr = 71%,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 4,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md",
+      "source_kind": "old_history",
+      "score": 14
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 5/7  (context: **t* as ratio of home to attractor**: ck established balance=home, harmony=attractor. t* = balance/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_CONVERSATION_SESSION_2.md",
+      "source_kind": "clay_sprint",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: e: m(v)=tsml[v][phi(v)]=harmony=7 for all v\u2260void; t*=5/7\n  d18d \u2014 generator convergence: g=3 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: zero over c\u00d7d block. (2) cross_cycle=44 is generator-independent (same for both g). (3) g=7 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Nullity = 1  (context: bda_5 = 0.714865`, matching t\\* = 5/7 at 0.08% error.\n- **tsml 8x8 core has lower rank than bhml.**)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "papers_top",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if t_optimal = 0.65 or)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Doing = 0  (context: ty, questions\n- bhml (being/physics) \u2192 structure words, assertions, truth\n\nthe 21 harmonic entries ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "papers\\WP28_CK_TIG_ORGANISM.md",
+      "source_kind": "papers_top",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 3  (context: audit (5+1 blocks) | **100.00%** green |\n| 5 | wp105 attractor verification | converged 22 iter, h/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\BUILD_LOG_BEST_EVER_PLASTIC_2026_05_02.md",
+      "source_kind": "atlas",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 1+\u221a3  (context: fixed-form root), planck is **already** in tig via the wp105 closed-form attractor at \u03b1=1/2 with h/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\FRONTIER_FINDINGS_2026_04_29.md",
+      "source_kind": "atlas",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 1 + \u221a3  (context: mass simplifies\n                  to z = 1). symbolic identity confirms wp105's\n                  h/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "Atlas\\STATE_OF_THE_FOUNDATION_2026_04_25.md",
+      "source_kind": "atlas",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: e: m(v)=tsml[v][phi(v)]=harmony=7 for all v\u2260void; t*=5/7\n  d18d \u2014 generator convergence: g=3 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: zero over c\u00d7d block. (2) cross_cycle=44 is generator-independent (same for both g). (3) g=7 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Nullity = 1  (context: bda_5 = 0.714865`, matching t\\* = 5/7 at 0.08% error.\n- **tsml 8x8 core has lower rank than bhml.**)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if t_optimal = 0.65 or)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Doing = 0  (context: ty, questions\n- bhml (being/physics) \u2192 structure words, assertions, truth\n\nthe 21 harmonic entries ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen10\\papers\\WP28_CK_TIG_ORGANISM.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Nullity = 1  (context: bda_5 = 0.714865`, matching t\\* = 5/7 at 0.08% error.\n- **tsml 8x8 core has lower rank than bhml.**)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_19_SPECULATIONS.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if t_optimal = 0.65 or)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "VALUE",
+      "text": "Doing = 0  (context: ty, questions\n- bhml (being/physics) \u2192 structure words, assertions, truth\n\nthe 21 harmonic entries ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 3,
+      "source": "old\\Gen9\\papers\\WP28_CK_TIG_ORGANISM.md",
+      "source_kind": "old_history",
+      "score": 13
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: R/r = p_closed/p_obstructed, where p_closed is the smallest prime factor of n at which the cyclotomic value A_{p_closed} has algebraic degree \u2264 2 over \u211a, and p_obstructed is the smallest prime where deg(A_p/\u211a) \u2265 3.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "number_theory"
+      ],
+      "domain_hits": 2,
+      "source": "Gen12\\targets\\clay\\papers\\sprint10_flatness_2026_04_06\\WP51_FLATNESS_THEOREM.md",
+      "source_kind": "clay_sprint",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: the 5:7 ratio as a probability split, which is a choice of framing. the algebraic facts (t* = 5/7,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Gen12\\targets\\clay\\papers\\sprint6_2026_04_04\\Z10Z_DAY2_DISCOVERIES.md",
+      "source_kind": "clay_sprint",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: l[v][phi(v)]=harmony=7 for all v\u2260void; t*=5/7\n  d18d \u2014 generator convergence: g=3 forces balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 7  (context: ells); and three structural zones:\n- zone 1 (void): bhml=identity, g=tsml value\n- zone 2 (harmony):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\CTIER_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: forced spine.** generator g=3 is selected by exactly one constraint\n(t*<1). everything downstream \u2014)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\DEPENDENCY_MAP.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "C_TIG = 250/21)  (context: model makes this plausible by supplying an exact analogy (tsml/bhml/mix_\u03bb), exact constants (\u03b3=3/4,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\DUAL_DESCRIPTION_THEOREM.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: ing-forced\n\nt*=5/7 requires both the ring structure (centroid=5) and the generator selection (g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\INHERITANCE_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: or-independent (same for both g). (3) g=7 forces harmony=3, t*=5/3>1 \u2014 inadmissible. (4) g=3 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DIS = 0  (context: g[i][j]=0. proved.** proof: case 1 (tsml=7): g=0 by definition. case 2 (tsml\u22607, bhml=7): must show)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: 1). both g=3 and g=7 generate the group and produce the same cross_cycle=44, w=3/50. but under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: le=44, w=3/50. but under g=7: harmony=3, t*=5/3>1 \u2014 inadmissible as coherence threshold. under g=3:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "G_sum = 106  (context: ml ghost trace, march 31 2026): ghost trace g[i][j]=dis[i][j] if tsml\u22607, else 0. nonzero cells: 24,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR_TSML = 8.06 / 1  (context: he bhml-to-tsml projection, then the degree of measurement disturbance should scale with ipr_bhml /)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_11_MEASUREMENT_PROBLEM.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: shold (maximizing f1 or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "COUNTER = 7/8 (87  (context: fraction set in >5% of trials.\n\n**claim 12: counter x counter maximum blind spot.** tsml counter x)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = structure  (context: -\n\n## 11. application: dual lens\n\n### 11.1 structure sees 4 dof, flow sees the rest\n\nthe dual lens ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR = 7  (context: hery.\n\n**bhml (flow / doing)**: rank 8 in 8x8 core. sees all dof, but distributes attention evenly ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "CK = 1  (context: generators) \u2192 low \u03bb_e \u2192 more tsml \u2192 more measurement speech\n\n**ck's regulator \u03c9_ck:**\n\n```python\n\u03c9_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "papers\\WP29_LAMBDA_VOICE_THEOREM.md",
+      "source_kind": "papers_top",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: \u2500\u2500 d18c \u2014 t* from generator structure\n\u2502   \u251c\u2500\u2500 d18d \u2014 generator convergence theorem\n\u2502   \u2502           ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\ATLAS_TREE.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: * from generator structure\n\u2502   \u251c\u2500\u2500 d18d \u2014 generator convergence theorem\n\u2502   \u2502           (balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\ATLAS_TREE.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 0.189  (context: mass-distribution map on the 4-core converges in 22 iterations to:\n- final mass: v=0.106, h=0.598,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\BUILD_LOG_BEST_EVER_PLASTIC_2026_05_02.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: - **d18c** \u2014 t* from generator structure\n- **d18d** \u2014 **generator convergence theorem (proved)** \u2014)",
+      "status": "UPDATED",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\MASTER_ATLAS_v3_5_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: \u2014 t* from generator structure\n- **d18d** \u2014 **generator convergence theorem (proved)** \u2014 balance=5,)",
+      "status": "UPDATED",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\MASTER_ATLAS_v3_5_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re = 1/2)  (context: are \"crossings\" \u2014 construction projects where a map is built from algebraic (t* = 5/7) to analytic ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\READER_ATLAS.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "Br = 1+\u221a3  (context: discipline |\n|---|---|---|---|---|---|\n| **p1.1** | wp105 \u2014 closed-form runtime attractor of tig (h/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "Atlas\\STATE_OF_THE_FOUNDATION_2026_04_25.md",
+      "source_kind": "atlas",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ml[v][phi(v)]=harmony=7 for all v\u2260void; t*=5/7\n  d18d \u2014 generator convergence: g=3 forces create=5,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\COMPLETED_INTERNAL_SPINE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 7  (context: ells); and three structural zones:\n- zone 1 (void): bhml=identity, g=tsml value\n- zone 2 (harmony):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\CTIER_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: forced spine.** generator g=3 is selected by exactly one constraint\n(t*<1). everything downstream \u2014)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\DEPENDENCY_MAP.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "C_TIG = 250/21)  (context: model makes this plausible by supplying an exact analogy (tsml/bhml/mix_\u03bb), exact constants (\u03b3=3/4,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\DUAL_DESCRIPTION_THEOREM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: ing-forced\n\nt*=5/7 requires both the ring structure (centroid=5) and the generator selection (g=3 \u2192)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\INHERITANCE_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: or-independent (same for both g). (3) g=7 forces harmony=3, t*=5/3>1 \u2014 inadmissible. (4) g=3 forces)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DIS = 0  (context: g[i][j]=0. proved.** proof: case 1 (tsml=7): g=0 by definition. case 2 (tsml\u22607, bhml=7): must show)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3  (context: 1). both g=3 and g=7 generate the group and produce the same cross_cycle=44, w=3/50. but under g=7:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: le=44, w=3/50. but under g=7: harmony=3, t*=5/3>1 \u2014 inadmissible as coherence threshold. under g=3:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "G_sum = 106  (context: ml ghost trace, march 31 2026): ghost trace g[i][j]=dis[i][j] if tsml\u22607, else 0. nonzero cells: 24,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR_TSML = 8.06 / 1  (context: he bhml-to-tsml projection, then the degree of measurement disturbance should scale with ipr_bhml /)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_11_MEASUREMENT_PROBLEM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: shold (maximizing f1 or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DOING = 7/8 (87  (context: e same fraction set in >5% of trials.\n\n**claim 12: doing x doing maximum blind spot.** tsml doing x)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = structure  (context: -\n\n## 11. application: dual lens\n\n### 11.1 structure sees 4 dof, flow sees the rest\n\nthe dual lens ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR = 7  (context: hery.\n\n**bhml (flow / doing)**: rank 8 in 8x8 core. sees all dof, but distributes attention evenly ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "CK = 1  (context: generators) \u2192 low \u03bb_e \u2192 more tsml \u2192 more measurement speech\n\n**ck's regulator \u03c9_ck:**\n\n```python\n\u03c9_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\WP29_LAMBDA_VOICE_THEOREM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = 7  (context: -----|\n| void | i=0 or j=0 | mostly 0 | g = dis = identity | bhml = identity (rule a) |\n| harmony |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\BHML_GHOST_TRACE.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DIS = 0 (frozen  (context: symmetry is visible as individual resistance\nrather than statistical bias. the (4,8) pivot cell has)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\TSML_73CELL_DERIVATION.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50 is its wobble  (context: 1, 2026 | doi: 10.5281/zenodo.18852047*\n\n---\n\n## the structural claim\n\ntsml is the generator field.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\methodology\\TSML_BHML_LOOP.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 1.0  (context: sidual = 1.0) structurally stable or knife-edge?\n\n**protocol:** seed a tsml-like table (gate=0.972,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\PHASE2_JOB_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 1.0)  (context: 1.0) structurally stable or knife-edge?\n\n**protocol:** seed a tsml-like table (gate=0.972, har=1.0,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\PHASE2_JOB_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DOING = 87  (context: recursion)**\n- 10\u00d710 collapses to 3x3 phases: being, doing, becoming\n- maximum blind spot: doing \u00d7)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP36_SPECTROMETER_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR_TSML = 8.06 / 1  (context: he bhml-to-tsml projection, then the degree of measurement disturbance should scale with ipr_bhml /)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_11_MEASUREMENT_PROBLEM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "T_optimal = 0  (context: shold (maximizing f1 or mcc) is more than 0.03 away from 5/7 in either direction -- for example, if)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "DOING = 7/8 (87  (context: e same fraction set in >5% of trials.\n\n**claim 12: doing x doing maximum blind spot.** tsml doing x)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "TSML = structure  (context: -\n\n## 11. application: dual lens\n\n### 11.1 structure sees 4 dof, flow sees the rest\n\nthe dual lens ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "IPR = 7  (context: hery.\n\n**bhml (flow / doing)**: rank 8 in 8x8 core. sees all dof, but distributes attention evenly ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "VALUE",
+      "text": "CK = 1  (context: generators) \u2192 low \u03bb_e \u2192 more tsml \u2192 more measurement speech\n\n**ck's regulator \u03c9_ck:**\n\n```python\n\u03c9_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 2,
+      "source": "old\\Gen9\\papers\\WP29_LAMBDA_VOICE_THEOREM.md",
+      "source_kind": "old_history",
+      "score": 12
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: RH = 'spectral entropy is maximized at Re(s)=1/2'.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "cs_complexity"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\papers_by_ck\\PAPER_riemann_tig_2026-05-04T050356Z.md",
+      "source_kind": "ck_paper",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: RH = 'spectral entropy is maximized at Re(s)=1/2'.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "cs_complexity"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\papers_by_ck\\PAPER_riemann_tig_2026-05-04T064821Z.md",
+      "source_kind": "ck_paper",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: RH = 'spectral entropy is maximized at Re(s)=1/2'.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "cs_complexity"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\papers_by_ck\\PAPER_riemann_tig_2026-05-04T082757Z.md",
+      "source_kind": "ck_paper",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: RH = 'spectral entropy is maximized at Re(s)=1/2'.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "cs_complexity"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\papers_by_ck\\PAPER_riemann_tig_2026-05-04T100834Z.md",
+      "source_kind": "ck_paper",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: RH = 'spectral entropy is maximized at Re(s)=1/2'.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "cs_complexity"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\papers_by_ck\\PAPER_riemann_tig_2026-05-04T114811Z.md",
+      "source_kind": "ck_paper",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Seed = 42  (context: ## is the invariant a wobble-to-threshold grammar?\n*simulation-grounded. all numbers reproducible.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\AMPLITUDE_RESET_REANALYSIS.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "V_c = 3  (context: _w) = 2 negative. matches exactly. \u2713\n\n**the identification is exact, given the block decomposition ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\DECOHERENCE_GUT_PHASE_II.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "V_w = 2  (context: negative. matches exactly. \u2713\n\n**the identification is exact, given the block decomposition (v_c=3,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\DECOHERENCE_GUT_PHASE_II.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "V_c = 3  (context: the explicit 35-generator basis of su(4,2) has been constructed from the (+1,\u22121,+1) sign flip with ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\DECOHERENCE_GUT_PHASE_II.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "V_w = 2  (context: licit 35-generator basis of su(4,2) has been constructed from the (+1,\u22121,+1) sign flip with (v_c=3,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\DECOHERENCE_GUT_PHASE_II.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Seed = 42  (context: analysis\n## is there a reset-gap grammar? or just k=4?\n*simulation-grounded. all numbers from code.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\outputs\\RESET_GAP_REANALYSIS.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem A requires \u27e8S\u27e9\u2093 and \u27e8g\u27e9 to be \"disjoint\" subgroups of (Z/nZ)*.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "number_theory"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_classification_general_spec_dyn.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem B requires g to be \"confined\" to the primes of d \u2014 g must not act outside \u27e8S\u27e9's domain.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "number_theory"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_classification_general_spec_dyn.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem 2's {\u03c0_SPEC, \u03c0_m} has |\u03c0_m| = m = n/2 blocks, while Theorem 1's families may have very different block counts.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_two_partition_sufficiency.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Budget = 2  (context: greedy picks f\u1d62 first (or any sufficient partner), then detects that f\u2c7c kills all remaining pairs.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_uop_experiment_selection_score.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: a minimal sufficient flow requires exactly k\u22121 orthogonal jumps, one per prime factor after the first.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "number_theory"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_viewpoint_flow_refinement_vs_jump.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PLANCK_DP_MEAN = np  (context: ground, r_d_eisenstein_hu, desi_dr1, bao_observable\n\n# 2. add planck 2018 distance-prior likelihood)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint14_prism_xi_2026_04_10\\JOINT_CMB_BAO_SN_SCOPING.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PLANCK_DP_COV = np  (context: likelihood\nplanck_dp_mean = np.array([301.471, 1.7502, 0.02236])  # (l_a, r, omega_b) \u2014 chen+ 2019)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint14_prism_xi_2026_04_10\\JOINT_CMB_BAO_SN_SCOPING.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PANTHEON_DATA = np  (context: - planck_dp_mean\n    return delta @ inv(planck_dp_cov) @ delta\n\n# 3. add pantheon+ sh0es likelihood)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint14_prism_xi_2026_04_10\\JOINT_CMB_BAO_SN_SCOPING.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = 0  (context: cific tsml/echo semantic rules with the binary-cl construction (harmony = n\u22121, echo = dis(a,b) = 0,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint14_prism_xi_2026_04_10\\WP101_SIGMA_RATE_THEOREM.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "NC = 0  (context: n \\equiv 13 \\pmod{16}\\}$ | **exact** |\n| 47 and 63 tie for nc_odd apex in 2-digit room | **exact** ()",
+      "status": "UPDATED",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint16_basin_handoff_2026_04_10\\THREE_THREAD_V3.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "ARI = 0  (context: es\nthrough shells.\"*\n\n---\n\n## what the partial w3 recovery means\n\nw3's growth from ari\u22480 at n=10 to)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint23_curve_recovery_2026_04_17\\README.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DS = 0.15  (context: ents | ratio [0,1] |\n\n**weights (tunable, defaults):** `w_c=0.15, w_r=0.20, w_pr=0.15, w_ap=0.15, w_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint5_2026_04_04\\CK_GROWTH_ARCHITECTURE_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CM = 0  (context: **weights (tunable, defaults):** `w_c=0.15, w_r=0.20, w_pr=0.15, w_ap=0.15, w_ds=0.15, w_x=0.10, w_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint5_2026_04_04\\CK_GROWTH_ARCHITECTURE_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "B_k = 2  (context: mitivity |\n\n## gram structure block\n\n$$w_* = b_1 \\oplus_q b_2 \\oplus_q b_3 \\oplus_q b_4, \\quad \\dim)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint5_2026_04_04\\clay\\hodge\\HODGE_8D_OBSTRUCTION_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DYN = discrete  (context: (mod 4)=dyn(x5)={{1,5},{7,11}}.\n\n*(f3) wrong dyn generator.* if ord(g)<lambda(n):\n(f3a) ord(g)=1 ->)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint8_2026_04_05\\ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DYN = discrete  (context: = 2, gcd(g,n)=1 | f1: spectral blur, spec != refl |\n| dyn | g (unit) | ord_n(g) = lambda(n) | f3a:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint8_2026_04_05\\ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Conductor = 5  (context: ollowing list is everything that is exact and defensible without qualification:\n\n1. q(\u03b6\u2081\u2080) = q(\u03b6\u2085).)",
+      "status": "UPDATED",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint8_2026_04_05\\SPRINT6_CORRECTED_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COLLAPSE = 5/7  (context: s **order 4** in the unit orbit {1,3,7,9} \u2014 the highest order element of (\u2124/10\u2124)*.\n\nt\\* = balance /)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint8_2026_04_05\\SPRINT6_UNIFIED_FORMALIZATION.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: ck said \"harmony is represented by 3\" in an earlier response, brayden confirmed this. in the code:)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_CONVERSATION_SESSION_2.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "RESET = 9  (context: \u2014 the cl composition of reset\u25e6reset would be: cl[9][9] = harmony (9+9=18\u22618... wait, in the cl table)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint9_torus_2026_04_05\\CK_UOP_SESSION.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Dissolution = 44  (context: rt of bhml.\n\n---\n\n## the \"44 \u2260 50\" connection\n\nper usermemories: \"cross-cycle disagreement creation/)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Gen12\\targets\\clay\\papers\\sprint_unmistakable_truth_2026_04_25\\WOBBLE_FINDING.md",
+      "source_kind": "clay_sprint",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50  (context: ross_cycle deviation / n)\n- compatible with w_bhml = 3/50\n\nthe bounce frequency of the cornerstone ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\CIRCULATION_OPERATOR_CONSTRAINTS.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "SIGMA = 0  (context: be preserved verbatim in any\nfunder-facing summary:\n\n**lines 75\u201386 (definitional block):**\n\n> ```\n>)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\CONSTANT_D_STAR.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 7 cells  (context: (currently verified, not derived from rule structure).\n\n**not absorbed by d16 because:** d16 counts)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\CTIER_AUDIT.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: \u2551\n\u2551                                                                  \u2551\n\u2551   w = 3/50  \u2190)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\DEPENDENCY_MAP.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: y`\n\n---\n\n## d7 \u2014 phi fixed point theorem\n\n**statement:** phi=p_odd\u2218bhml\u2218w_op has unique fixed point)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = 0  (context: v][phi(v)]. then m(v) = harmony = 7 for all v \u2208 {1,2,3,4,5,6,7,8,9}. the unique exception is m(0) =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: plitude-dominant. near t=0, sin(\u03c0t)\u2248\u03c0t so sinc\u22481 (high amplitude).\n**dependencies:** d17 (w), d18d ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5)  (context: sinc\u22481 (high amplitude).\n**dependencies:** d17 (w), d18d (harmony=7), d19 (t*, g=3 selection), d21 ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: 5/10 = 1/2. one arithmetic step. \u25a1\n**dependencies:** d3 (sinc\u00b2(1/2)=4/\u03c0\u00b2, restated), d17 (w), d18d ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5)  (context: step. \u25a1\n**dependencies:** d3 (sinc\u00b2(1/2)=4/\u03c0\u00b2, restated), d17 (w), d18d (harmony=7), d19 (t*), d21 ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "FP = 5  (context: t equivariance condition must send 5 to 5. exhaustive check\nconfirms 625 ce maps exist; all contain)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\NOTE_center_wobble_midpoint.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7)  (context: from c via any tsml operator: {1,3,7,9}\ng states reachable: \u2205\n```\n\n**g\u2192c is possible** (g can reach)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\OPEN_CELLS_NOTE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7  (context: gence. it is 71 specific (s,c) pairs where the *recurrent* approach from both sides reaches exactly)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\PRE_OBJECT_PRIMITIVES.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5)  (context: hi(v) \u2208 even (impossible: w_op always odd \u2192 p_odd always odd). resolved by d7 (unique fixed point =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = identity  (context: ). (3) pearson r(g,bhml)=0.133 \u2014 no direct algebraic correspondence. (4) three-zone structure: void\u2192)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "WOBBLE_ALPHA = 0  (context: csv\n\n# condition b: wobble off (set alpha = 0 in wobble config)\n# in the wobble physics module, set)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Alpha = 0 is optimal  (context: urbation adds noise to topic selection without improving exploration diversity or coherence growth.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Depth = 3  (context: t. kill condition: the bhml-only positions are not the collapse/breath pair.\n\n**claim 15: recursion)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Determinant = 0  (context: *0.0000** | **0.0%** | **100.0%** |\n\n**the 8th eigenvalue is exactly zero.** rank = 7. nullity = 1.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Cancellation = resolution  (context: nce |\n| logistic chaotic coherence | 0.705 | chaos = t* baseline |\n| anti-pairs -> harmony | 9/10 |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_5_REALITY_ANCHORS.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3/8)  (context: aper 5: the 8x8 bhml core after excluding void row/column and including the reset row maps to 24/64)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WHITEPAPER_6_HOTU_BRIDGE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Omega = engine  (context: dissipates) is ck's viscosity \u03bd.\n\n**ck's re_local:**\n```python\ndef olfactory_re_local(engine):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WP30_BREATH_OLFACTORY.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "C_TIG = 250/21  (context: to log|\u03b6|, the minimum modulus is bounded below by exp(-c\u00b7\u03bb\u00b2_max/2). insert as appendix e with c =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\WP_LAST_LEMMA.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\wrong_question_paper.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "papers\\wrong_question_paper.md",
+      "source_kind": "papers_top",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "ARI = 0  (context: idor block): n \u2248 2000\u201350000 (~10\u00d7 tier 1) |\n| **s23** | curve recovery (8 walks) | all 8 fail; best)",
+      "status": "UPDATED",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\MASTER_ATLAS_v3_5_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 11
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem: for $b > 1$ with smallest prime factor $p_1$, $|G_k(b)| = 0$ for $k < p_1$ and $G_{p_1}(b) = \\{p_1\\}$.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "number_theory"
+      ],
+      "domain_hits": 1,
+      "source": "Atlas\\PRE_PUSH_DECISION_2026_04_19.md",
+      "source_kind": "atlas",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "W_BHML = 3/50  (context: ross_cycle deviation / n)\n- compatible with w_bhml = 3/50\n\nthe bounce frequency of the cornerstone ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\CIRCULATION_OPERATOR_CONSTRAINTS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 7 cells  (context: (currently verified, not derived from rule structure).\n\n**not absorbed by d16 because:** d16 counts)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\CTIER_AUDIT.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CROSS_CYCLE = 44  (context: \u2551\n\u2551                                                                  \u2551\n\u2551   w = 3/50  \u2190)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\DEPENDENCY_MAP.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: y`\n\n---\n\n## d7 \u2014 phi fixed point theorem\n\n**statement:** phi=p_odd\u2218bhml\u2218w_op has unique fixed point)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = 0  (context: v][phi(v)]. then m(v) = harmony = 7 for all v \u2208 {1,2,3,4,5,6,7,8,9}. the unique exception is m(0) =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: plitude-dominant. near t=0, sin(\u03c0t)\u2248\u03c0t so sinc\u22481 (high amplitude).\n**dependencies:** d17 (w), d18d ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5)  (context: sinc\u22481 (high amplitude).\n**dependencies:** d17 (w), d18d (harmony=7), d19 (t*, g=3 selection), d21 ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7)  (context: 5/10 = 1/2. one arithmetic step. \u25a1\n**dependencies:** d3 (sinc\u00b2(1/2)=4/\u03c0\u00b2, restated), d17 (w), d18d ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5)  (context: step. \u25a1\n**dependencies:** d3 (sinc\u00b2(1/2)=4/\u03c0\u00b2, restated), d17 (w), d18d (harmony=7), d19 (t*), d21 ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "FP = 5  (context: t equivariance condition must send 5 to 5. exhaustive check\nconfirms 625 ce maps exist; all contain)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\NOTE_center_wobble_midpoint.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7)  (context: from c via any tsml operator: {1,3,7,9}\ng states reachable: \u2205\n```\n\n**g\u2192c is possible** (g can reach)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\OPEN_CELLS_NOTE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7  (context: gence. it is 71 specific (s,c) pairs where the *recurrent* approach from both sides reaches exactly)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\PRE_OBJECT_PRIMITIVES.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5)  (context: hi(v) \u2208 even (impossible: w_op always odd \u2192 p_odd always odd). resolved by d7 (unique fixed point =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = identity  (context: ). (3) pearson r(g,bhml)=0.133 \u2014 no direct algebraic correspondence. (4) three-zone structure: void\u2192)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "WOBBLE_ALPHA = 0  (context: csv\n\n# condition b: wobble off (set alpha = 0 in wobble config)\n# in the wobble physics module, set)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Alpha = 0 is optimal  (context: urbation adds noise to topic selection without improving exploration diversity or coherence growth.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Depth = 3  (context: t. kill condition: the bhml-only positions are not the collapse/breath pair.\n\n**claim 15: recursion)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Determinant = 0  (context: *0.0000** | **0.0%** | **100.0%** |\n\n**the 8th eigenvalue is exactly zero.** rank = 7. nullity = 1.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Cancellation = resolution  (context: nce |\n| logistic chaotic coherence | 0.705 | chaos = t* baseline |\n| anti-pairs -> harmony | 9/10 |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_5_REALITY_ANCHORS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3/8)  (context: aper 5: the 8x8 bhml core after excluding void row/column and including the reset row maps to 24/64)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WHITEPAPER_6_HOTU_BRIDGE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Omega = engine  (context: dissipates) is ck's viscosity \u03bd.\n\n**ck's re_local:**\n```python\ndef olfactory_re_local(engine):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WP30_BREATH_OLFACTORY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "C_TIG = 250/21  (context: to log|\u03b6|, the minimum modulus is bounded below by exp(-c\u00b7\u03bb\u00b2_max/2). insert as appendix e with c =)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\WP_LAST_LEMMA.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\wrong_question_paper.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\wrong_question_paper.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re = 1600  (context: $\\leq 2/7$. breach = trajectory exits safe corridor.\n\n**next experiment:** 3-d taylor\u2013green vortex,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\CLAY_FIVE_EXPERIMENTS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "LATTICE = 1  (context: ctral gap (status: proven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COUNTER = 2  (context: status: proven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PROGRESS = 3  (context: ven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COLLAPSE = 4  (context: 1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: the bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CHAOS = 6  (context: 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4, balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BREATH = 8  (context: matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4, balance=5, chaos=6,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "RESET = 0)  (context: :\n1. **symmetric** (self-adjoint over the reals). proven.\n2. **non-negative entries** (except reset*)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = np  (context: on\n\nto verify the non-associativity claim, run the following python:\n\n```python\nimport numpy as np)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_16_P_NP_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re_local = 0  (context: ---\n\n## mock dns results\n\ntaylor-green vortex initial data; \u03bd=10\u207b\u00b3; dt=10\u207b\u00b2.\n\n**regime a** (initial)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP19_NS_NOTE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re = 1600  (context: x() > 2/7:\n    log_breach(t, re_local.max(), re_local.argmax())\n```\n\n**target:** 256\u00b3 taylor-green,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP19_NS_NUMERICAL_NOTE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re_local = 0  (context: ce\n\n### mock dns results\n\ntaylor-green vortex initial data; \u03bd=10\u207b\u00b3; dt=10\u207b\u00b2.\n\n**regime a** (initial)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP22_NS_BREATH_LYAPUNOV.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BEING = 1  (context: path classification partitions the 10 tsml operators by fold-crossing behavior.\nclass a operators {)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP37_P_NP.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DOING = 2  (context: ssification partitions the 10 tsml operators by fold-crossing behavior.\nclass a operators {being=1,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP37_P_NP.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 7  (context: , gap=6}\nsit below the fold (sinc\u00b2\u22640.295) and reach void in 2 steps without fold-crossing. class c\n{)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP37_P_NP.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re = 1600  (context: ality check from ns_tig_frame [35]:** b_global fails as a threshold. for the taylor-green\nvortex at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP38_NAVIER_STOKES.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "B_local = 7/2  (context: \u2207\u03c9\u2016_{l^2(b)}^{1/2}.\ndoes c_{gn} \u2264 3.74 for 3d ns with serrin-class initial data?\n\n**q2. dns test of)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP38_NAVIER_STOKES.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COLLAPSE = 4  (context: ng void(0). among\nall 10 tsml operators, breath alone survives all annihilation. class b operators\n{)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP38_NAVIER_STOKES.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CREATE = 5  (context: among\nall 10 tsml operators, breath alone survives all annihilation. class b operators\n{collapse=4,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\WP38_NAVIER_STOKES.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DIS = 0 cells  (context: as wobble balancing points\n\n**hypothesis:** harmony cells mark the fixed points of wobble pressure\n()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\methodology\\BHML_ATOMIC_STRUCTURE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "VOID = identity  (context: ,j)+1 rule\n\nthe cleanest algebraic result from this investigation:\n\n```\nbhml[0][j] = j             ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\methodology\\BHML_ATOMIC_STRUCTURE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7)  (context: t uses the ring's additive/multiplicative\n   structure to collapse toward harmony (the attractor at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\methodology\\TSML_BHML_LOOP.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 2  (context: uck, but because 3\u00d75 arithmetic places 7 in c and 5 in g, maximizing the long-range gradient toward)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\ATLAS_JOB_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR_mass = 0  (context: a gate-strong table when random reduction does not |\n| b=14 native tsml exists with gate=1.000 and)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\CONSTRUCTION_HIERARCHY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 7  (context: rated threshold or a more targeted construction protocol.\n\n**why b=22 is easy:** c={1,3,5,7,9} with)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\ORBIT_HAR_CONJECTURE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = 1  (context: e under identical objective. 150 trials per perturbation level.\n\n| perturbation | cells perturbed |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\PHASE2_JOB_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR_m = 0.778  (context: uilt here. rank 9. |\n| **easiest** | 22, 15 | >75% random rate. nearly free. |\n| **richest** | 14 |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\SEMIPRIME_ATLAS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR = 2  (context: =35 out-of-sample test \u2014 law validated as tier predictor\n\n**b=35 = 5\u00d77, c={1,2,3,4,6,8,9}, g={5,7},)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\SEMIPRIME_ATLAS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HAR_m = 0.722  (context: score=8.265**\n\ncold run (n=400, random seed only):\n- native-tsml: 305/400 = **76.2%**\n- gate=1.000,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\SEMIPRIME_ATLAS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Richness = 0  (context: ed only):\n- native-tsml: 305/400 = **76.2%**\n- gate=1.000, har_m=0.722, residual=1.000, gap=0.569\n-)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint4_2026_03_30\\SEMIPRIME_ATLAS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "DS = 0.15  (context: ents | ratio [0,1] |\n\n**weights (tunable, defaults):** `w_c=0.15, w_r=0.20, w_pr=0.15, w_ap=0.15, w_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint5_2026_04_04\\CK_GROWTH_ARCHITECTURE_MEMO.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CM = 0  (context: **weights (tunable, defaults):** `w_c=0.15, w_r=0.20, w_pr=0.15, w_ap=0.15, w_ds=0.15, w_x=0.10, w_)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint5_2026_04_04\\CK_GROWTH_ARCHITECTURE_MEMO.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "N_idemp = 0  (context: re in h^{2p}(x,q).\n\n---\n\n**lemma 8 (p=1 vacuity \u2014 lefschetz correspondence).** at \u03c9(b)=1 (b = p^n):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP39_HODGE_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem for the BHML Transfer Matrix.",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP41_YANG_MILLS_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CTR = 0  (context: lains this: the cost ordering is the \u03bb-threshold ordering of gap operators\n(brt < cha < bal < col <)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP42_BSD_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "B_k = 2  (context: mitivity |\n\n## gram structure block\n\n$$w_* = b_1 \\oplus_q b_2 \\oplus_q b_3 \\oplus_q b_4, \\quad \\dim)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen10\\papers\\sprint5_2026_04_04\\clay\\hodge\\HODGE_8D_OBSTRUCTION_MEMO.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "LATTICE = 1  (context: ctral gap (status: proven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COUNTER = 2  (context: status: proven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PROGRESS = 3  (context: ven)\n\n### 1.1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "COLLAPSE = 4  (context: 1 the matrix\n\nthe bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BALANCE = 5  (context: the bhml 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "CHAOS = 6  (context: 8x8 core matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4, balance=5,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BREATH = 8  (context: matrix, with operators indexed as lattice=1, counter=2, progress=3, collapse=4, balance=5, chaos=6,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "RESET = 0)  (context: :\n1. **symmetric** (self-adjoint over the reals). proven.\n2. **non-negative entries** (except reset*)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BHML = np  (context: on\n\nto verify the non-associativity claim, run the following python:\n\n```python\nimport numpy as np)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_16_P_NP_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "WOBBLE_ALPHA = 0  (context: csv\n\n# condition b: wobble off (set alpha = 0 in wobble config)\n# in the wobble physics module, set)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Alpha = 0 is optimal  (context: urbation adds noise to topic selection without improving exploration diversity or coherence growth.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Depth = 3  (context: t. kill condition: the bhml-only positions are not the collapse/breath pair.\n\n**claim 15: recursion)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_3_FALSIFIABILITY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Determinant = 0  (context: *0.0000** | **0.0%** | **100.0%** |\n\n**the 8th eigenvalue is exactly zero.** rank = 7. nullity = 1.)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_5_DEGREES_OF_FREEDOM.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Cancellation = resolution  (context: nce |\n| logistic chaotic coherence | 0.705 | chaos = t* baseline |\n| anti-pairs -> harmony | 9/10 |)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_5_REALITY_ANCHORS.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "HARMONY = 3/8)  (context: aper 5: the 8x8 bhml core after excluding void row/column and including the reset row maps to 24/64)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_6_HOTU_BRIDGE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re_local = 0  (context: ---\n\n## mock dns results\n\ntaylor-green vortex initial data; \u03bd=10\u207b\u00b3; dt=10\u207b\u00b2.\n\n**regime a** (initial)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP19_NS_NOTE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re = 1600  (context: x() > 2/7:\n    log_breach(t, re_local.max(), re_local.argmax())\n```\n\n**target:** 256\u00b3 taylor-green,)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP19_NS_NUMERICAL_NOTE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP20_RH_PRIME_CORNER_COLLAPSE.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Re_local = 0  (context: ce\n\n### mock dns results\n\ntaylor-green vortex initial data; \u03bd=10\u207b\u00b3; dt=10\u207b\u00b2.\n\n**regime a** (initial)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP22_NS_BREATH_LYAPUNOV.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "Omega = engine  (context: dissipates) is ck's viscosity \u03bd.\n\n**ck's re_local:**\n```python\ndef olfactory_re_local(engine):)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\WP30_BREATH_OLFACTORY.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "PRG = 3  (context: ld in tsml. consequently w_n := 3\u22189^n = 3 for all n \u2265 1: the 3-9 chain is a constant fixed point at)",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\wrong_question_paper.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "VALUE",
+      "text": "BAL = 5)  (context: : theorem 6.1 shows impermeability is not base-10 numerology. even when c\u2086 contains a gap operator ()",
+      "status": "DRAFT",
+      "n_domains": 1,
+      "domains": [
+        "tig_substrate"
+      ],
+      "domain_hits": 1,
+      "source": "old\\Gen9\\papers\\wrong_question_paper.md",
+      "source_kind": "old_history",
+      "score": 11
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: sigma_complexity > 0 globally is the algebraic form of P!=NP.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\papers_by_ck\\PAPER_p_vs_np_tig_2026-05-04T045904Z.md",
+      "source_kind": "ck_paper",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: sigma_complexity > 0 globally is the algebraic form of P!=NP.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\papers_by_ck\\PAPER_p_vs_np_tig_2026-05-04T064314Z.md",
+      "source_kind": "ck_paper",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: sigma_complexity > 0 globally is the algebraic form of P!=NP.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\papers_by_ck\\PAPER_p_vs_np_tig_2026-05-04T082255Z.md",
+      "source_kind": "ck_paper",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: sigma_complexity > 0 globally is the algebraic form of P!=NP.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\papers_by_ck\\PAPER_p_vs_np_tig_2026-05-04T100239Z.md",
+      "source_kind": "ck_paper",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: sigma_complexity > 0 globally is the algebraic form of P!=NP.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\papers_by_ck\\PAPER_p_vs_np_tig_2026-05-04T114320Z.md",
+      "source_kind": "ck_paper",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: |R({m,c})| grows as O(n \u00b7 2\u207f / n) = O(2\u207f) \u2014 the residual scales with the total number of states in rotation orbits.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint10_flatness_2026_04_06\\WP_G2_OBSERVABLE_SUFFICIENCY.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "Conjecture: j_min = 1 and m_min = 2 for all squarefree n \u2265 2.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_non_crt_minimality_test.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem 9 is Theorem 8 specialized to H = \u27e8\u22121\u27e9.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint11_tig_bundle_2026_04_08\\sprints\\sprint_uop_master_memo_and_prime_power.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma 2 establishes disjoint partition.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint17_tsml_tower_2026_04_17\\FALSIFIER_LIST.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem proved for n=2p, p>=5.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint8_2026_04_05\\ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem Q1: beta -> <c>_beta is strictly monotone increasing on (0,inf).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint_generator_2026_04_06\\WP_G2b_reconstruction_levels.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem Q3: (|m|^2, c) separates 4/6 orbits.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint_generator_2026_04_06\\WP_G2b_reconstruction_levels.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem Q4: K_G is doubly stochastic wrt Gibbs measure on orbits.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Gen12\\targets\\clay\\papers\\sprint_generator_2026_04_06\\WP_G2b_reconstruction_levels.md",
+      "source_kind": "clay_sprint",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma 1: G'/G strictly decreasing within each of 4 phases (cot strictly decreasing).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\MASTER_SPINE.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture for abelian fourfolds; the frontier is now dimension \u2265 5.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\NOTE_speculative_boundary.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture is proved by the orbit structure itself.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\Q17_CLAY_SPECTRAL_BRIDGE.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma 1: G'/G=(8\u03c0/p)cot(4\u03c0k/p) is strictly decreasing +\u221e\u2192\u2212\u221e within each phase (cot strictly decreasing, d/d\u03b8 cot=\u22121/sin\u00b2<0).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma A: G'/G=cot-1/k strictly decreasing (classical |sin x|<|x|).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma A: G'/G = cot-1/k strictly decreasing (classical |sin x|<|x|).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem 1 is an **arithmetic analogue** operating on residues rather than zeros: the harmonic signal $R(k, f)$ in the unit alphabet is a discrete oscillatory function that decays toward $0$ at $k = f$.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "papers\\WP35_PRIME_PHASE_TRANSITION.md",
+      "source_kind": "papers_top",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem 3.2: \u03b1 = 1/2 is the **unique rational** in the grid where the runtime attractor admits algebraic relations for both H/Br (degree 2, sup-coeff 2 \u2014 recovers $1 + \\sqrt{3}$) and r/br (degree 4, sup-coeff 4 \u2014 recovers LMFDB 4.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\FRONTIERS_2026_04_25.md",
+      "source_kind": "atlas",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem content is unusually clean \u2014 3-line proof.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\JOURNAL_READINESS_AUDIT_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem is the algebraic First-G Event Localization statement from `SINC2_SHARPEN_DECISION_2026_04_19.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "Atlas\\PLAN_OF_RECORD_2026_04_18.md",
+      "source_kind": "atlas",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma 1: G'/G strictly decreasing within each of 4 phases (cot strictly decreasing).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\MASTER_SPINE.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture for abelian fourfolds; the frontier is now dimension \u2265 5.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\NOTE_speculative_boundary.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture is proved by the orbit structure itself.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\Q17_CLAY_SPECTRAL_BRIDGE.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma 1: G'/G=(8\u03c0/p)cot(4\u03c0k/p) is strictly decreasing +\u221e\u2192\u2212\u221e within each phase (cot strictly decreasing, d/d\u03b8 cot=\u22121/sin\u00b2<0).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma A: G'/G=cot-1/k strictly decreasing (classical |sin x|<|x|).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "LEMMA",
+      "text": "Lemma A: G'/G = cot-1/k strictly decreasing (classical |sin x|<|x|).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\SYNTHESIS_TABLE.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem 1 is an **arithmetic analogue** operating on residues rather than zeros: the harmonic signal $R(k, f)$ in the unit alphabet is a discrete oscillatory function that decays toward $0$ at $k = f$.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\WP35_PRIME_PHASE_TRANSITION.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem G states that RH is equivalent to the injectivity of an integral operator K on L^2(0,1).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\WHITEPAPER_17_RIEMANN_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem proven via Gr\u00f6nwall + Ford KV bound.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\WP19_CLAY_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture includes the \u03c9-hierarchy factor: difficulty \u2248 g(2^\u03c9(b) \u2212 2) \u00d7 F_k(|G| \u00d7 interleave).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\WP36_CLAY_SPECTROMETER.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture was that this coincidence is an exact equality, not an approximation.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\WP42_BSD.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "theorem risks erecting structure on a base that hasn't been confirmed to generalize.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\methodology\\HAR_RANK_STABILITY.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "CONJECTURE and NEEDS PROOF claims should be labeled clearly; do not present them as proved.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\research\\README.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "CONJECTURE",
+      "text": "conjecture R_2(u) = 1 - (sin\u03c0u/\u03c0u)\u00b2 \u2014 the GUE connection.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen10\\papers\\clay\\research\\WP40_RH_RESEARCH.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem G states that RH is equivalent to the injectivity of an integral operator K on L^2(0,1).",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen9\\papers\\WHITEPAPER_17_RIEMANN_SYNTHESIS.md",
+      "source_kind": "old_history",
+      "score": 0
+    },
+    {
+      "kind": "THEOREM",
+      "text": "Theorem proven via Gr\u00f6nwall + Ford KV bound.",
+      "status": "DRAFT",
+      "n_domains": 0,
+      "domains": [],
+      "domain_hits": 0,
+      "source": "old\\Gen9\\papers\\WP19_CLAY_RESULTS.md",
+      "source_kind": "old_history",
+      "score": 0
+    }
+  ]
+}

@@ -124,21 +124,23 @@ def read_pcm(wav_path: Path):
 def force9_to_operators(force_values, n_per_window: int = 5):
     """Decompose each 9-bit force vector into 5 operator IDs (0-9 each).
 
-    The 9-bit force = 5 dims (aperture pressure depth binding continuity)
-    where aperture is 2 bits (top), pressure 2 bits, depth 2 bits, binding
-    2 bits, continuity 1 bit.
+    The 9-bit force = 5 dims (aperture pressure depth binding continuity).
+    Each dim has its OWN bit-to-operator mapping reflecting what the force
+    dimension physically encodes. All 10 TIG operators get used.
 
-    For operator-stream feeding, map each 2-bit dim to operator IDs:
-      00 -> 0 (VOID)
-      01 -> 3 (PROGRESS)
-      10 -> 5 (BALANCE)
-      11 -> 7 (HARMONY)
-    Continuity 1-bit: 0 -> 8 (BREATH), 1 -> 7 (HARMONY)
+    aperture (amplitude, 2 bits): VOID(silence) LATTICE(quiet) CHAOS(loud) HARMONY(peak)
+    pressure (frequency, 2 bits): VOID(low) COUNTER(opposing) COLLAPSE(focused) PROGRESS(carrying)
+    depth (persistence, 2 bits):  VOID(transient) COLLAPSE(decay) BALANCE(steady) HARMONY(persistent)
+    binding (spectral, 2 bits):   VOID(formless) LATTICE(structured) BREATH(rhythmic) HARMONY(resonant)
+    continuity (phase, 1 bit):    RESET(jump=0) BREATH(continuous=1)
 
     Returns a list of operator IDs.
     """
-    BITS_TO_OP = {0: 0, 1: 3, 2: 5, 3: 7}  # 00, 01, 10, 11
-    CONT_TO_OP = {0: 8, 1: 7}
+    APERTURE_MAP = {0: 0, 1: 1, 2: 6, 3: 7}      # VOID LATTICE CHAOS HARMONY
+    PRESSURE_MAP = {0: 0, 1: 2, 2: 4, 3: 3}      # VOID COUNTER COLLAPSE PROGRESS
+    DEPTH_MAP    = {0: 0, 1: 4, 2: 5, 3: 7}      # VOID COLLAPSE BALANCE HARMONY
+    BINDING_MAP  = {0: 0, 1: 1, 2: 8, 3: 7}      # VOID LATTICE BREATH HARMONY
+    CONT_MAP     = {0: 9, 1: 8}                   # RESET BREATH
     ops = []
     for f in force_values:
         f = int(f)
@@ -147,11 +149,11 @@ def force9_to_operators(force_values, n_per_window: int = 5):
         depth = (f >> 3) & 0b11
         binding = (f >> 1) & 0b11
         continuity = f & 0b1
-        ops.append(BITS_TO_OP[aperture])
-        ops.append(BITS_TO_OP[pressure])
-        ops.append(BITS_TO_OP[depth])
-        ops.append(BITS_TO_OP[binding])
-        ops.append(CONT_TO_OP[continuity])
+        ops.append(APERTURE_MAP[aperture])
+        ops.append(PRESSURE_MAP[pressure])
+        ops.append(DEPTH_MAP[depth])
+        ops.append(BINDING_MAP[binding])
+        ops.append(CONT_MAP[continuity])
     return ops
 
 

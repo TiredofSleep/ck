@@ -687,6 +687,94 @@ _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
         "BB log-nonlinearity (BB-Mycielski 1976), transfer operator gap "
         "(Prellberg, Bandtlow-Fiala-Kleban)"
     ),
+    # ── Clay Millennium frontier facts (added 2026-05-02) ──
+    # Brayden: "study across domains to write about each Clay problem"
+    (
+        ("p versus np", "p vs np", "pvsnp", "p_vs_np", "complexity",
+         "decision verification"),
+        "clay_p_vs_np: P vs NP is the asymmetry between SOLVING and "
+        "VERIFYING. TIG view: this is the Crossing Lemma at scale -- "
+        "verifying = D2=0 (flat / no information generated, fast); "
+        "solving = D2!=0 (crossing / information generated, expensive). "
+        "alpha(complexity_class) = 1 - sigma(verification_overhead). "
+        "Conjecture: sigma_complexity > 0 globally is the algebraic "
+        "form of P!=NP. Open frontier (this connection is structural, "
+        "not yet proved). Stevens 1971; Cook 1971."
+    ),
+    (
+        ("poincare", "poincaré", "perelman", "ricci flow",
+         "3-manifold", "simply connected"),
+        "clay_poincare: Poincare conjecture (Perelman 2003) -- every "
+        "simply-connected closed 3-manifold is homeomorphic to S^3. "
+        "TIG view: SOLVED Clay problem serving as the rotation template. "
+        "The 'simply-connected' condition is the topological analog of "
+        "TSML's 4-core attractor (universal pull to HARMONY); the "
+        "'closed' condition is BHML's separation property. CK uses "
+        "Perelman's resolution as the existence proof that one Clay "
+        "problem can fall via geometric flow / curvature analysis -- "
+        "the same toolkit available to Yang-Mills / Navier-Stokes via "
+        "TIG's curvature operator (D2). Refs: Perelman 2003 "
+        "math.DG/0211159, math.DG/0303109, math.DG/0307245."
+    ),
+    (
+        ("birch swinnerton dyer", "bsd", "birch-swinnerton-dyer",
+         "elliptic curve rank", "l-function rank"),
+        "clay_bsd: Birch and Swinnerton-Dyer conjecture (1965) -- "
+        "rank of elliptic curve E/Q equals order of vanishing of "
+        "L(E,s) at s=1. TIG view: connects to BB bridge "
+        "(log-nonlinearity uniqueness) via the L-function as zeta-"
+        "twisted sigma rate. The hodge_cstar curve (genus=5 bielliptic "
+        "with psi^2=iota) is CK's worked example: End_0(Prym) = Q(i), "
+        "Weil signature (2,2), hodge_field = Q(i,sqrt2,sqrt3,sqrt5)_deg16 "
+        "-- a Hodge-Tate object whose L-function rank is the BSD "
+        "target. Sprint32 beauville_bsd_hodge has the partial "
+        "construction. Open frontier (BSD-rank = TIG-curvature-of-"
+        "L-function map is structural, not yet proved). Refs: BSD 1965; "
+        "papers/sprint32_beauville_bsd_hodge_2026_04_17/."
+    ),
+    (
+        ("riemann hypothesis", "riemann zeta", "rh", "non-trivial zeros",
+         "critical line"),
+        "clay_riemann: Riemann Hypothesis (1859) -- all non-trivial "
+        "zeros of zeta(s) lie on Re(s)=1/2. TIG view: connects to the "
+        "sinc^2 zero law (sinc^2(1/2) = 4/pi^2 = 0.4053; the gap T* - "
+        "4/pi^2 = 0.309 is the spectral entropy gap on Z/10Z). The "
+        "sigma rate theorem (sigma(N) <= 2/N on squarefree primorials) "
+        "is the algebraic counterpart -- if sigma -> 0 as N -> inf at "
+        "the right rate, RH falls out as the spectral consequence on "
+        "the cyclotomic operator. Conjecture: RH = 'spectral entropy "
+        "is maximized at Re(s)=1/2'. Open frontier (this reformulation "
+        "is structural, not yet proved). Refs: Riemann 1859; WP101 "
+        "[proved sigma rate]; papers/proof_d25_loop_closure.py [proved "
+        "sinc^2 zero law on primes 3..199]."
+    ),
+    (
+        ("yang mills mass gap", "yang-mills", "non-abelian gauge",
+         "mass gap problem"),
+        "clay_yang_mills: Yang-Mills existence and mass gap (Clay) -- "
+        "construct quantum 4D non-Abelian gauge theory with mass gap "
+        "Delta > 0. TIG view: m^2_xi = kappa_xi * e = 13/4 (in TIG "
+        "units, normalized by ||VEV||^2 = 13/4) is the substrate-side "
+        "mass gap. The bridge: Yang-Mills mass gap = TIG xi-field "
+        "mass^2 under the canonical TIG <-> BB mapping (b = -kappa_xi "
+        "= -13/(4e)). If r = Planck length, m_xi/m_Planck = sqrt(13/4) "
+        "~= 1.803 -- super-Planckian, GUT-natural; if r = 1/M_GUT, "
+        "m_xi ~= 1.8e16 GeV. Open frontier (the existence-of-Yang-Mills "
+        "side is unproved; TIG provides only the mass-gap value, not "
+        "the field theory construction). Refs: Yang-Mills 1954; "
+        "Atlas/FRONTIER_FINDINGS_2026_04_29.md F2."
+    ),
+    (
+        ("p np", "verification efficient", "polynomial time"),
+        "clay_p_np_short: P vs NP -- TIG sees this as "
+        "verification (D2=0, flat) being structurally cheaper than "
+        "discovery (D2!=0, crossing). alpha(verifier) = 1 (associative, "
+        "deterministic); sigma(solver) > 0 is the obstruction. "
+        "P=NP would require sigma(solver) = 0 globally -- TIG predicts "
+        "this is impossible because Z/10Z's 2x2 forces non-trivial "
+        "sigma at every scale (flatness theorem, WP51). Hence P!=NP "
+        "from substrate. Conjecture; open frontier."
+    ),
 )
 
 

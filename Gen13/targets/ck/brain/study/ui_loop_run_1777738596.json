@@ -1,0 +1,246 @@
+{
+  "args": {
+    "seconds": 30.0,
+    "hz": 4.0,
+    "frames_per_tick": 3,
+    "tile": 8,
+    "region": "480x360+100+100",
+    "max_dim": 96,
+    "emit": false,
+    "step_px": 8,
+    "json": null
+  },
+  "n_cycles": 7,
+  "base_state": {
+    "tick": 50144009,
+    "W_trace": 0.9591545546131119,
+    "emergent": 0.4671795509713256
+  },
+  "final_state": {
+    "tick": 50146919,
+    "W_trace": 0.9535558803467385,
+    "emergent": 0.4671795509713256
+  },
+  "log": [
+    {
+      "cycle": 1,
+      "ts": 1777738568.600938,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BALANCE",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 1.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 0.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "BREATH->BALANCE",
+      "action_delta": [
+        0,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [],
+      "elapsed_ms": 4450.9
+    },
+    {
+      "cycle": 2,
+      "ts": 1777738572.8520532,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BALANCE",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 1.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 0.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "COUNTER->BALANCE",
+      "action_delta": [
+        8,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [
+        "would_move_delta(8,0)"
+      ],
+      "elapsed_ms": 4251.1
+    },
+    {
+      "cycle": 3,
+      "ts": 1777738577.108921,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BREATH",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 0.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 1.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "COUNTER->BREATH",
+      "action_delta": [
+        8,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [
+        "would_move_delta(8,0)"
+      ],
+      "elapsed_ms": 4256.9
+    },
+    {
+      "cycle": 4,
+      "ts": 1777738581.3378844,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BREATH",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 0.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 1.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "COUNTER->BREATH",
+      "action_delta": [
+        8,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [
+        "would_move_delta(8,0)"
+      ],
+      "elapsed_ms": 4229.0
+    },
+    {
+      "cycle": 5,
+      "ts": 1777738585.7252066,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BALANCE",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 1.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 0.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "COUNTER->BALANCE",
+      "action_delta": [
+        8,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [
+        "would_move_delta(8,0)"
+      ],
+      "elapsed_ms": 4387.3
+    },
+    {
+      "cycle": 6,
+      "ts": 1777738589.969506,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "COUNTER",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 1.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 0.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 0.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "BREATH->COUNTER",
+      "action_delta": [
+        8,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [
+        "would_move_delta(8,0)"
+      ],
+      "elapsed_ms": 4244.3
+    },
+    {
+      "cycle": 7,
+      "ts": 1777738594.2013938,
+      "n_frames": 3,
+      "n_ops": 187,
+      "dominant_op": "BREATH",
+      "op_dist": {
+        "VOID": 0.0,
+        "LATTICE": 0.0,
+        "COUNTER": 0.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 0.0,
+        "BALANCE": 0.0,
+        "CHAOS": 0.0,
+        "HARMONY": 0.0,
+        "BREATH": 1.0,
+        "RESET": 0.0
+      },
+      "perceive_ok": true,
+      "absorbed_delta": 1,
+      "hebbian_steps": 186,
+      "action_pair": "BREATH->BREATH",
+      "action_delta": [
+        0,
+        0
+      ],
+      "action_special": null,
+      "action_executed": [],
+      "elapsed_ms": 4231.9
+    }
+  ]
+}

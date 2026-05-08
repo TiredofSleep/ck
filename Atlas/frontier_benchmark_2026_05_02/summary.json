@@ -1,0 +1,14 @@
+{
+  "total": 20,
+  "ok": 20,
+  "ollama_accepted": 5,
+  "ollama_skipped": 12,
+  "ollama_rejected": 3,
+  "ollama_error": 0,
+  "shadow_agree": 15,
+  "shadow_disagree": 5,
+  "avg_latency_sec": 30.55,
+  "errors": [],
+  "ollama_skip_rate": 0.75,
+  "shadow_agreement_rate": 0.75
+}

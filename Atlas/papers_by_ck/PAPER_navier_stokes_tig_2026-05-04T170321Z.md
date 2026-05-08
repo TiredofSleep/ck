@@ -1,0 +1,89 @@
+# Navier-Stokes Regularity via sigma_NS
+
+**CK paper**: 2026-05-04T170321Z
+
+**Author**: CK (Coherence Keeper, autonomous)
+
+**Source**: cells_composed_with_cortex via /chat (Ollama editor on llama3.2:latest)
+
+**Slug**: navier_stokes_tig
+
+---
+
+## Abstract
+
+
+prompt_term_synthesize_navier_stokes: 'synthesize navier-stokes' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal --?.
+
+[structural evidence]
+prompt_term_synthesize_navier_stokes: 'synthesize navier-stokes' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+prompt_term_navier_stokes_across: 'navier-stokes across' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.
+
+---
+
+## 1. Introduction
+
+
+research_arxiv_2011_05_03_drifting_solutions_wi: [arxiv] [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity.
+
+[structural evidence]
+research_arxiv_2011_05_03_drifting_solutions_wi: [arxiv] [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity | external research finding under prompt 'what is the Navier-Stokes problem' | excerpt: [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity authors: Hongli An, Manwai Yuen link: https://arxiv.org/abs/1105.0582v2 abstract: In this paper, we investigate the analytical solutions of the compressible Navier-Stokes equations with dependent-density viscosity. By using the characteristic method, we successfully obtain a class of dr
+prompt_term_navier_stokes_problem: 'navier-stokes problem' is a focus term in the active prompt: 'what is the Navier-Stokes problem'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+sigma_ns_bridge: F6 frontier articulated. WP101 proved sigma(N) <= 2/N for cyclotomic CL on Z/NZ (squarefree N), with mechanism = VOID-HARM rule disagreement at outer composition sites; tight bound N*sigma(N) -> 2 from below | The lens (WP116 ?): NS dyadic cascade at level k corresponds to cyclotomic vertex N=2^k under the velocity-gradient-commutator projection | Projection-restricted statement: at NS dyadic level k, local commutator non-associativity sigma_NS(k) <= sigma(N=2^k) <= 2/2^k = 2^(1-k) -- exponential decay in dyadic depth | Implication if verified: sigma_NS -> 0 as k -> infinity, characterizing the singular set as the locus where sigma_NS doesn't decay | NOT a Clay-Millennium proof: NS regularity requires sigma_NS = 0 globally, not just sigma_NS(k) -> 0 | What's missing structurally: rigorous derivation of the NS-cascade <-> cyclotomic-N correspondence at the operator level (currently by analogy via the Stern-Brocot lens) | What's testable: numerically check sigma_NS(k) on a wavelet-decomposed NS simulation at increasing k; if decay matches 2/2^k the lens is empirically supported | Status: ARTICULATED, not computed | Refs: Gen13/targets/journals/tier1_submit_now/sigma_rate/WP101_SIGMA_RATE_THEOREM.md (Theorem 4.1, corrected 2026-04-27); Atlas/FRONTIER_FINDINGS_2026_04_29.md ?17 F6
+prompt_term_navier_stokes: 'navier-stokes' is a focus term in the active prompt: 'what is the Navier-Stokes problem'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+research_arxiv_2011_05_03_drifting_solutions_wi: [arxiv] [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity | external research finding under prompt 'what does the TIG substrate say about Navier-Stokes Regularity via sigma_NS' | excerpt: [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity authors: Hongli An, Manwai Yuen link: https://arxiv.org/abs/1105.0582v2 abstract: In this paper, we investigate the analytical solutions of the compressible Navier-Stokes equations with dependent-density viscosity. By using the characteristic method, we successfully obtain a class of dr
+
+
+## 2. Substrate Analysis
+
+
+sigma_ns_bridge: F6 frontier articulated. WP101 proved sigma(N) <= 2/N for cyclotomic CL on Z/NZ (squarefree N), with mechanism = VOID-HARM rule disagreement at outer composition sites; tight bound?.
+
+Composing across these:
+
+prompt_term_tig_substrate: 'tig substrate' is a focus term in the active prompt: 'what does the TIG substrate say about T*=5/7 as the Universal Crossing Threshold'.  External (scenario-scoped)?.
+
+[structural evidence]
+sigma_ns_bridge: F6 frontier articulated. WP101 proved sigma(N) <= 2/N for cyclotomic CL on Z/NZ (squarefree N), with mechanism = VOID-HARM rule disagreement at outer composition sites; tight bound N*sigma(N) -> 2 from below | The lens (WP116 ?): NS dyadic cascade at level k corresponds to cyclotomic vertex N=2^k under the velocity-gradient-commutator projection | Projection-restricted statement: at NS dyadic level k, local commutator non-associativity sigma_NS(k) <= sigma(N=2^k) <= 2/2^k = 2^(1-k) -- exponential decay in dyadic depth | Implication if verified: sigma_NS -> 0 as k -> infinity, characterizing the singular set as the locus where sigma_NS doesn't decay | NOT a Clay-Millennium proof: NS regularity requires sigma_NS = 0 globally, not just sigma_NS(k) -> 0 | What's missing structurally: rigorous derivation of the NS-cascade <-> cyclotomic-N correspondence at the operator level (currently by analogy via the Stern-Brocot lens) | What's testable: numerically check sigma_NS(k) on a wavelet-decomposed NS simulation at increasing k; if decay matches 2/2^k the lens is empirically supported | Status: ARTICULATED, not computed | Refs: Gen13/targets/journals/tier1_submit_now/sigma_rate/WP101_SIGMA_RATE_THEOREM.md (Theorem 4.1, corrected 2026-04-27); Atlas/FRONTIER_FINDINGS_2026_04_29.md ?17 F6
+prompt_term_tig_substrate: 'tig substrate' is a focus term in the active prompt: 'what does the TIG substrate say about T*=5/7 as the Universal Crossing Threshold'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+prompt_term_substrate_say: 'substrate say' is a focus term in the active prompt: 'what does the TIG substrate say about T*=5/7 as the Universal Crossing Threshold'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+research_arxiv_2011_05_03_drifting_solutions_wi: [arxiv] [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity | external research finding under prompt 'what is the Navier-Stokes problem' | excerpt: [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity authors: Hongli An, Manwai Yuen link: https://arxiv.org/abs/1105.0582v2 abstract: In this paper, we investigate the analytical solutions of the compressible Navier-Stokes equations with dependent-density viscosity. By using the characteristic method, we successfully obtain a class of dr
+prompt_term_navier_stokes: 'navier-stokes' is a focus term in the active prompt: 'what is the Navier-Stokes problem'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+
+
+## 3. Cross-Domain Synthesis
+
+
+prompt_term_synthesize_navier_stokes: 'synthesize navier-stokes' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal --?.
+
+[structural evidence]
+prompt_term_synthesize_navier_stokes: 'synthesize navier-stokes' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+prompt_term_navier_stokes_across: 'navier-stokes across' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+prompt_term_across_substrate: 'across substrate' is a focus term in the active prompt: 'synthesize Navier-Stokes across substrate and physics'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+sigma_ns_bridge: F6 frontier articulated. WP101 proved sigma(N) <= 2/N for cyclotomic CL on Z/NZ (squarefree N), with mechanism = VOID-HARM rule disagreement at outer composition sites; tight bound N*sigma(N) -> 2 from below | The lens (WP116 ?): NS dyadic cascade at level k corresponds to cyclotomic vertex N=2^k under the velocity-gradient-commutator projection | Projection-restricted statement: at NS dyadic level k, local commutator non-associativity sigma_NS(k) <= sigma(N=2^k) <= 2/2^k = 2^(1-k) -- exponential decay in dyadic depth | Implication if verified: sigma_NS -> 0 as k -> infinity, characterizing the singular set as the locus where sigma_NS doesn't decay | NOT a Clay-Millennium proof: NS regularity requires sigma_NS = 0 globally, not just sigma_NS(k) -> 0 | What's missing structurally: rigorous derivation of the NS-cascade <-> cyclotomic-N correspondence at the operator level (currently by analogy via the Stern-Brocot lens) | What's testable: numerically check sigma_NS(k) on a wavelet-decomposed NS simulation at increasing k; if decay matches 2/2^k the lens is empirically supported | Status: ARTICULATED, not computed | Refs: Gen13/targets/journals/tier1_submit_now/sigma_rate/WP101_SIGMA_RATE_THEOREM.md (Theorem 4.1, corrected 2026-04-27); Atlas/FRONTIER_FINDINGS_2026_04_29.md ?17 F6
+research_arxiv_2011_05_03_drifting_solutions_wi: [arxiv] [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity | external research finding under prompt 'what is the Navier-Stokes problem' | excerpt: [2011-05-03] Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity authors: Hongli An, Manwai Yuen link: https://arxiv.org/abs/1105.0582v2 abstract: In this paper, we investigate the analytical solutions of the compressible Navier-Stokes equations with dependent-density viscosity. By using the characteristic method, we successfully obtain a class of dr
+
+[cross-frontier synthesis]
+Across 4 frontier topics, the through-line is the Stern-Brocot self-dual recursion (wp116_lens): every TIG vertex is both fixed-form and crossing, projected through the algebraic / lattice / operad / Lie / Jordan / Clifford degrees of freedom.
+- two-level alignment: tig_fqh_two_level: TIG-alpha axis and FQH-nu axis share TWO Stern-Brocot landmarks playing parallel roles
+- across: research_arxiv_2026_01_29_graph_is_a_substrate_: [arxiv] [2026-01-29] Graph is a Substrate Across Data Modalities
+- bsd: research_arxiv_2005_12_12_jacobian_variety_and_: [arxiv] [2005-12-12] Jacobian variety and Integrable system -- after Mumford, Beauville and Vanhaecke
+- across: research_arxiv_2004_11_09_a_class_of_tight_cont: [arxiv] [2004-11-09] A class of tight contact structures on Sigma_2 x I
+
+
+## 4. Open Questions
+
+
+i am investigating an active prompt titled 'what are the open questions about Navier-Stokes Regularity via sigma_NS'. in this scenario, external (scenario-scoped) crystal -- fires alongside internal canon while the research is warm. some of the open questions include those about T*=5/7 as a potential universal crossing threshold for understanding navier-stokes regularity.
+
+
+## 5. References
+
+
+All citations are TIG-internal (WPxx) or external as surfaced in the substrate analysis section.
+
+
+---
+
+
+_Paper written by CK in 127s (4 sections, 10790 chars total). Auto-generated from cells_composed_with_cortex chat path. Substrate-grounded; Ollama-polished prose._

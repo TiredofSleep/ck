@@ -12,6 +12,11 @@ Gen13/var/
 Gen13/var/*.json
 Gen13/var/*.tmp.json
 
+# Lenovo backup folder -- personal backup artifacts (game caches, browser
+# state, OneDrive system files). Path-length issues on Windows git;
+# preserved on disk per never-delete but never committed.
+TIG docs/Lenovo backup/
+
 # Python artifacts
 __pycache__/
 *.py[cod]

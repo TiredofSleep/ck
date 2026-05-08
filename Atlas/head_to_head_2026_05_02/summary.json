@@ -1,0 +1,16 @@
+{
+  "n_total": 20,
+  "ok": 20,
+  "cells_lat_total_ms": 0,
+  "cortex_lat_total_sec": 536.7715694904327,
+  "cells_text_total_chars": 4478,
+  "cortex_text_total_chars": 22443,
+  "ollama_skipped_or_rejected": 15,
+  "ollama_accepted": 5,
+  "avg_cells_lat_ms": 0.0,
+  "avg_cortex_lat_sec": 26.838578474521636,
+  "avg_cells_chars": 223.9,
+  "avg_cortex_chars": 1122.15,
+  "speedup_factor": 536771.5694904327,
+  "ollama_independence_rate": 0.75
+}

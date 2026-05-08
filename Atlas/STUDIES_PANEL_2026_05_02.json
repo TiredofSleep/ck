@@ -1,0 +1,448 @@
+{
+  "ts": 1777830926.055192,
+  "iso_ts": "2026-05-03T17:55:26Z",
+  "studies": {
+    "A": {
+      "name": "A_glue_routing",
+      "total_cells": 100,
+      "glue_argmax_distribution": {
+        "0": 17,
+        "3": 4,
+        "4": 2,
+        "6": 2,
+        "7": 75
+      },
+      "matches_both_canonical": 29,
+      "matches_tsml_only": 67,
+      "matches_bhml_only": 4,
+      "matches_neither": 0,
+      "tsml_preference_rate_on_disagreement": 0.9436619718309859
+    },
+    "B": {
+      "name": "B_scalar_sensitivity",
+      "grid": [
+        {
+          "alpha": 0.2,
+          "beta": 0.2,
+          "gamma": 0.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.2,
+          "gamma": 1.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.5,
+          "gamma": 0.0,
+          "tsml_pref": 0,
+          "bhml_pref": 71,
+          "ratio": 0.0
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.5,
+          "gamma": 1.0,
+          "tsml_pref": 47,
+          "bhml_pref": 24,
+          "ratio": 0.6619718309859155
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.8,
+          "gamma": 0.0,
+          "tsml_pref": 0,
+          "bhml_pref": 71,
+          "ratio": 0.0
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.8,
+          "gamma": 1.0,
+          "tsml_pref": 47,
+          "bhml_pref": 24,
+          "ratio": 0.6619718309859155
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.2,
+          "gamma": 0.0,
+          "tsml_pref": 71,
+          "bhml_pref": 0,
+          "ratio": 1.0
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.2,
+          "gamma": 1.0,
+          "tsml_pref": 69,
+          "bhml_pref": 2,
+          "ratio": 0.971830985915493
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.5,
+          "gamma": 0.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.5,
+          "gamma": 1.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.8,
+          "gamma": 0.0,
+          "tsml_pref": 0,
+          "bhml_pref": 71,
+          "ratio": 0.0
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.8,
+          "gamma": 1.0,
+          "tsml_pref": 47,
+          "bhml_pref": 24,
+          "ratio": 0.6619718309859155
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.2,
+          "gamma": 0.0,
+          "tsml_pref": 71,
+          "bhml_pref": 0,
+          "ratio": 1.0
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.2,
+          "gamma": 1.0,
+          "tsml_pref": 69,
+          "bhml_pref": 2,
+          "ratio": 0.971830985915493
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.5,
+          "gamma": 0.0,
+          "tsml_pref": 71,
+          "bhml_pref": 0,
+          "ratio": 1.0
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.5,
+          "gamma": 1.0,
+          "tsml_pref": 69,
+          "bhml_pref": 2,
+          "ratio": 0.971830985915493
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.8,
+          "gamma": 0.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        },
+        {
+          "alpha": 0.8,
+          "beta": 0.8,
+          "gamma": 1.0,
+          "tsml_pref": 67,
+          "bhml_pref": 4,
+          "ratio": 0.9436619718309859
+        }
+      ]
+    },
+    "C": {
+      "name": "C_plasticity_commits",
+      "n_windows": 10,
+      "session_commits": 10,
+      "hour_commits": 10,
+      "session_results": [
+        {
+          "i": 0,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 1,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 2,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 3,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 4,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 5,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 6,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 7,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 8,
+          "commit": true,
+          "rate": 1.0
+        },
+        {
+          "i": 9,
+          "commit": true,
+          "rate": 1.0
+        }
+      ],
+      "hour_results": [
+        {
+          "i": 0,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 1,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 2,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 3,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 4,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 5,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 6,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 7,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 8,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        },
+        {
+          "i": 9,
+          "commit": true,
+          "rate": 1.0,
+          "n_recs": 100
+        }
+      ]
+    },
+    "D": {
+      "name": "D_confidence_ablation",
+      "all_tiers_norm": 1.9998693982357736,
+      "high_only_norm": 1.9127284830837743,
+      "norm_diff": 0.08714091515199929,
+      "all_tiers_audit": 1.0,
+      "high_only_audit": 1.0,
+      "audit_invariant": true
+    },
+    "E": {
+      "name": "E_f3_synthetic",
+      "tissue_norm_before": 0.9093648772632482,
+      "tissue_norm_after": 2.1017907793117616,
+      "audit_before": 27,
+      "audit_after": 27,
+      "nonzero_tissue_positions": 27,
+      "audit_invariant": true
+    },
+    "F": {
+      "name": "F_cross_cell",
+      "agreement_set_size": 29,
+      "agreement_glue_match": 29,
+      "disagreement_set_size": 71,
+      "disagree_picks_tsml": 47,
+      "disagree_picks_bhml": 24,
+      "disagree_picks_other": 0,
+      "first_disagree_examples": []
+    },
+    "G": {
+      "name": "G_attractor_sweep",
+      "expected_H_over_Br": 2.732050807568877,
+      "sweep": [
+        {
+          "alpha": 0.1,
+          "beta": 0.9,
+          "iterations": 15,
+          "converged": true,
+          "H": 0.35566034874169367,
+          "Br": 0.23682918682900517,
+          "H_over_Br": 1.5017589407106595
+        },
+        {
+          "alpha": 0.3,
+          "beta": 0.7,
+          "iterations": 21,
+          "converged": true,
+          "H": 0.4772543531254951,
+          "Br": 0.2089032176068338,
+          "H_over_Br": 2.284571576220101
+        },
+        {
+          "alpha": 0.5,
+          "beta": 0.5,
+          "iterations": 22,
+          "converged": true,
+          "H": 0.5981939375053976,
+          "Br": 0.18859962496529434,
+          "H_over_Br": 3.1717663150999154
+        },
+        {
+          "alpha": 0.7,
+          "beta": 0.30000000000000004,
+          "iterations": 17,
+          "converged": true,
+          "H": 0.7333704506266093,
+          "Br": 0.15757360654553149,
+          "H_over_Br": 4.654145238559981
+        },
+        {
+          "alpha": 0.9,
+          "beta": 0.09999999999999998,
+          "iterations": 11,
+          "converged": true,
+          "H": 0.9018493796922082,
+          "Br": 0.08063433704445398,
+          "H_over_Br": 11.184433490102556
+        }
+      ]
+    },
+    "H": {
+      "name": "H_live_regression",
+      "queries": [
+        "what is T*",
+        "tell me about the tower",
+        "what is sigma rate"
+      ],
+      "results": [
+        {
+          "q": "what is T*",
+          "ms": 29327,
+          "source": "cortex_speak",
+          "attractor": "transient",
+          "ollama_verdict": "skipped:structural >600 chars",
+          "text_preview": "flatness: T*=5/7.\n\nComposing across these:\n\nwp116_lens: TIG's six DoFs (Lie/Jordan/Clifford/Permutation/Lattice/Operad, surveyed in WP111) are projections of a "
+        },
+        {
+          "q": "tell me about the tower",
+          "ms": 12791,
+          "source": "cortex_speak",
+          "attractor": "transient",
+          "ollama_verdict": "rejected:coverage:4/10=0.40<0.70",
+          "text_preview": "What resists this is part of it.\n\n[structural evidence]\ntower: 3-layer | TSML (73 synthesis) + BHML (28 separation) = proved-sufficient M+M pair\nword_the: word "
+        },
+        {
+          "q": "what is sigma rate",
+          "ms": 41743,
+          "source": "cortex_speak",
+          "attractor": "transient",
+          "ollama_verdict": "skipped:structural >600 chars",
+          "text_preview": "sigma_rate: sigma(N) <= C/N on squarefree primorials (C<2).\n\nComposing across these:\n\nsigma_ns_bridge: F6 frontier articulated. WP101 proved sigma(N) <= 2/N for"
+        }
+      ]
+    },
+    "I": {
+      "name": "I_tissue_saturation",
+      "n_updates": 100000,
+      "pre_audit": 1.0,
+      "post_audit": 1.0,
+      "tsml_tissue_norm": 2.9745665230416343,
+      "bhml_tissue_norm": 2.9745665230416343,
+      "tsml_max_abs": 1.0,
+      "audit_invariant": true
+    },
+    "J": {
+      "name": "J_audit_stability",
+      "n_iterations": 100,
+      "elapsed_sec": 0.16753172874450684,
+      "ms_per_audit": 1.6753172874450684,
+      "min_rate": 1.0,
+      "max_rate": 1.0,
+      "avg_rate": 1.0,
+      "perfectly_stable": true
+    },
+    "K": {
+      "name": "K_bdc_growth",
+      "n_queries": 5,
+      "log_pre": 5037,
+      "log_post": 5068,
+      "log_delta": 31,
+      "events_pre": 1257,
+      "events_post": 1283,
+      "events_delta": 26
+    },
+    "L": {
+      "name": "L_shadow_ab",
+      "n_samples": 44,
+      "glue_argmax_distribution": {
+        "7": 35,
+        "6": 4,
+        "4": 1,
+        "3": 4
+      },
+      "glue_matches_live": 31,
+      "tsml_matches_live": 31,
+      "bhml_matches_live": 7,
+      "cell_disagrees_with_live": 13
+    }
+  }
+}
