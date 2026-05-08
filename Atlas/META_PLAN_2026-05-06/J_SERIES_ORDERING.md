@@ -43,7 +43,7 @@ The Phase 1 "vocabulary-neutral math" critical-path papers per the citation grap
 | J# | Title | WP # | Venue | Lane | Tier | Cites |
 |----|-------|------|-------|------|------|-------|
 | **J4** | First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window | WP34 | **Integers** (open OA, no APC) | Sanders + Gish | B | 12× |
-| **J5** | Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas | WP57 | **American Mathematical Monthly** (expository) | Sanders + Mayes | A/B | 7× |
+| **J5** | Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas | WP57 | **JCT-A** OR **JPAA** (theorem rigor; NOT expository) | Sanders + Mayes | A/B | 7× |
 | **J6** | Flatness Theorem: The Forced 2×2 Torus on $\mathbb{Z}/10\mathbb{Z}$ | WP51 | **Journal of Pure and Applied Algebra** | Sanders + Gish | B | 10× |
 | **J7** | The Prime Phase Transition: First-G Stability Across Squarefree Bases | WP35 | **Experimental Mathematics** | Sanders + Gish | B | 14× |
 | **J8** | The Sinc² Zero Law for Squarefree Moduli | (sinc² zero law / Integers) | **Integers** | Sanders + Gish | B | — |
