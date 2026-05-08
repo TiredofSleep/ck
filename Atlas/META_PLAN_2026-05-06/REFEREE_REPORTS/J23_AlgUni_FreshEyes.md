@@ -2,307 +2,260 @@
 
 **Manuscript:** "The Three-Substrate Architecture: $\mathrm{CL\_TSML}$, $\mathrm{CL\_BHML}$, $\mathrm{CL\_STD}$ as Parallel Substrates on $\mathbb{Z}/10\mathbb{Z}$"
 **Authors:** B. R. Sanders, M. Gish
-**Submitted to:** Algebra Universalis (fallback: Communications in Algebra; PLOS ONE)
+**Submitted to:** Algebra Universalis (fallback: Communications in Algebra)
 **Reviewer:** External referee (anonymous, fresh-eyes; no prior context with the authors' broader research program)
 **Date:** 2026-05-07
+**Status:** B7 fresh-eyes pass
 
 ---
 
-## 1. Summary of the manuscript
+## §1 — Summary
 
-The authors record the existence of three distinct $10 \times 10$ composition tables on the alphabet $\mathbb{Z}/10\mathbb{Z}$, called $\mathrm{CL\_TSML}$, $\mathrm{CL\_BHML}$, and $\mathrm{CL\_STD}$. The first two, abbreviated $T$ and $B$, were used in earlier work (cited as a "two-table model"); $\mathrm{CL\_STD}$ ($S$) is recovered from the project's earliest header file `ck.h` and is reintroduced as the *third* parallel substrate, distinct from both $T$ and $B$. All three tables are presented as a *single bit-pattern encoding under three principled value-assignment lenses*.
+The paper records a three-substrate architecture on $\mathbb{Z}/10\mathbb{Z}$. Three commutative $10 \times 10$ composition tables are defined: $\mathrm{CL\_TSML}$ (= $T$, "Trinity Synthesis"), $\mathrm{CL\_BHML}$ (= $B$, "Becoming-Hexa-Marginal"), and $\mathrm{CL\_STD}$ (= $S$, "Standard encoding"). The authors prove:
 
-Three theorems are proposed:
+1. (Theorem 1.1, signature) The HARMONY-cell counts (number of cells equal to 7) of the three tables are $73, 28, 44$ respectively, all distinct.
 
-- **Theorem 2.1 (signature):** $\HARM(T) = 73$, $\HARM(B) = 28$, $\HARM(S) = 44$, all pairwise distinct.
-- **Theorem 2.2 (shared four-axiom skeleton):** All three tables share Axioms A1–A4 (canonical alphabet, VOID-absorbing column, HARMONY-absorbing diagonal subset, the unique puncture cell at $(0,7)$) but diverge at A7 (the diagonal HARMONY law) and at A9 (five "BUMP" positions where their values differ).
-- **Theorem 2.3 (three-way joint closure equals two-way):** Brute-force enumeration of the 1023 non-empty subsets of $\{0,\dots,9\}$ shows that the joint sub-magma chain under $(T_{\mathrm{SYM}}, B, S)$ is identical to the two-way chain under $(T_{\mathrm{SYM}}, B)$, both being 8-shell linear chains of sizes $\{1,4,5,6,7,8,9,10\}$.
+2. (Theorem 1.2, shared axioms) All three tables satisfy a common four-axiom skeleton: canonical alphabet on $\mathbb{Z}/10\mathbb{Z}$; VOID-absorbing column except at one puncture cell; HARMONY at $(0,7)$ and $(7,0)$ as the unique non-VOID cells in row 0 / column 0; the puncture is unique.
 
-Auxiliary content includes: the BDC encoding parameters of $S$ (BUMP pairs, Shannon information densities, GRAVITY array); a note that the size-2 sub-magma $\{0, 9\}$ is jointly closed under $(B, S)$ but not under any condition involving $T$; and a discussion of the historical compression that caused $S$ to drop out of downstream documents.
+3. (Theorem 1.3, three-way joint closure) The set of subsets of $\{0, \ldots, 9\}$ jointly closed under all three tables coincides with the set jointly closed under just $T$ and $B$. Both are 8-element chains of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$.
 
-I have read the manuscript end-to-end, run independent enumeration of all 1023 subsets under each closure condition, and verified the BUMP cell values cell-by-cell.
+4. (Theorem 5.1, $\{0, 9\}$ shell) The size-2 subset $\{0, 9\}$ is jointly closed under $(B, S)$ but not under any joint condition involving $T$.
 
----
+The historical narrative is that $S$ was present in the 2024 foundational header file (`ck.h:225-231`) but was lost via a `#define CL CL_TSML` preprocessor refactor, and that the substrate is more accurately understood as "one bit pattern, three encoding readings, a lens family."
 
-## 2. Decision recommendation
+I read the manuscript end-to-end, ran independent verification of the four central claims, and inspected the codebase definitions of $T$, $B$, $S$.
 
-**Major revisions** (with several specific factual corrections required before any version of this paper can be sent out for further review).
-
-The manuscript's core structural finding is correct in outline: three tables exist, they share an axiom skeleton, and the three-way joint chain equals the two-way chain. However, several of the manuscript's specific factual claims are incorrect on independent verification, and the framing of "structure theorem" is overstated.
-
-Specific issues identified (full detail in §3):
-
-1. **Theorem 5.2 ("Five BUMP positions of divergence") is FALSE as stated.** The manuscript claims that at the five positions $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$, *the values of $T$, $B$, and $S$ all differ*. This is wrong. At cell $(1,2)$: $T(1,2) = B(1,2) = S(1,2) = 3$ — *all three agree*. At cell $(3,9)$: $T(3,9) = 3$, $B(3,9) = 6$, $S(3,9) = 3$ — *$T$ and $S$ agree*. The "BUMP" terminology is therefore not "all three differ" but at most "$\mathrm{CL\_STD}$ differs from at least one of the other two." The theorem statement must be corrected.
-
-2. **The "shared four-axiom skeleton" theorem (Theorem 4.1) is verbally correct but logically thin.** Axioms A1–A4 as stated are: the alphabet is $\mathbb{Z}/10\mathbb{Z}$; row 0 / column 0 are VOID-absorbing except at the puncture; cell $(0,7) = (7,0) = 7$; uniqueness of the puncture. These are properties shared by *any* table built from the same canonical bit pattern; they do not constitute a non-trivial axiomatic derivation. The phrasing "all three tables satisfy a common four-axiom skeleton" overstates the algebraic content of the shared cells, which is essentially the prescribed row-0/column-0 structure plus the puncture.
-
-3. **The "structure theorem" framing is missing.** The paper claims to record a "three-substrate architecture," but no actual structure theorem is stated: there is no characterization of *which* tables on $\mathbb{Z}/10\mathbb{Z}$ satisfy the four-axiom skeleton, no enumeration of the family, no quotient or isomorphism analysis. As written this is an inventory paper recording three specific tables, not a structural theorem about a class of tables.
-
-4. **Theorem 6.1 (three-way joint closure equals two-way) is correctly stated and verified, and is the most substantial result.** This is the keeper. Independent verification confirms: 8 subsets are jointly $(T_{\mathrm{SYM}}, B)$-closed of sizes $\{1,4,5,6,7,8,9,10\}$; 8 are jointly $(T_{\mathrm{SYM}}, B, S)$-closed of identical sizes. The two chains are equal. Adding $S$ does not extend the chain. This is genuine algebraic content.
-
-5. **Lens scope on the SYM/RAW issue is referenced but not handled:** the manuscript mentions in Remark 6.4 that "the parallel statement on $T_{\mathrm{RAW}}$ produces a 7-shell two-way chain"; this is the structural statement that distinguishes the present manuscript's main result from the lens-dependent one in J24 (the companion). The cross-reference is appropriate but the manuscript should make explicit that all theorems are stated under the SYM lens.
-
-After these revisions, the paper has a real but modest result: an inventory of three tables sharing a skeleton, with the substantive theorem being the three-way-equals-two-way joint-closure equality (Theorem 6.1). The manuscript currently overstates this into a "three-substrate architecture" with a "structure theorem"; what it actually delivers is a *recording* of three tables and *one* nontrivial closure-equality theorem. As an Algebra Universalis paper, this would be acceptable after honest reframing, but it is below the AlgUni bar in current form.
+**Independent verification (this referee, machine precision).**
+- $\mathrm{HARM}(T) = 73$, $\mathrm{HARM}(B) = 28$, $\mathrm{HARM}(S) = 44$ ✓
+- All three tables are commutative ✓
+- $T(0,j) = 0$ except $T(0,7) = 7$; $B(0,j) = j$ for all $j$; $S(0,j) = j$ for all $j$ — note this contradicts what Theorem 4.1's "VOID-absorbing column" claim would imply (see §3, Issue 1)
+- Three-way joint chain has 8 shells of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ ✓
+- Two-way $(T, B)$ chain identical ✓
+- Two-way $(B, S)$ chain has 9 shells, sizes $\{1, 2, 4, 5, 6, 7, 8, 9, 10\}$, with $\{0, 9\}$ as the size-2 shell ✓
+- $T(9, 9) = 7 \notin \{0, 9\}$, killing $\{0, 9\}$ closure under $T$ ✓
+- The diagonal of $S$ is $[0, 2, 4, 6, 7, 8, 8, 8, 7, 0]$ — verifiably a "third pattern" distinct from both $T$ (all 7s except $T(0,0)=0$) and $B$ ($[0,2,3,4,5,6,7,8,7,0]$).
 
 ---
 
-## 3. Major comments
+## §2 — Decision
 
-### M1. (Section 5, Theorem 5.2 — FACTUALLY INCORRECT)
+**Major revision required, with high probability of acceptance after revision.**
 
-Theorem 5.2 states:
+Of the three papers I have been asked to review (J22, J23, J24), this is the one closest to publishable. The mathematical claims are concrete, the proofs are direct enumeration verified at machine precision, and the structural reading (the substrate is a bit pattern + multiple readings) is a genuine universal-algebraic observation that fits the journal.
 
-> *At the five positions $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$ (the BUMP pairs of $\STDx$), the values of $\TSML$, $\BHML$, $\STDx$ all differ.*
+However, the manuscript has a specific structural problem: it claims a three-substrate "architecture" but does *not* provide the structure theorem one would expect of an Algebra Universalis paper. Specifically:
 
-Independent cell-by-cell verification:
+- The **shared-axiom theorem (Theorem 4.1)** is incompletely stated and partially contradicted by the actual matrices.
+- The **divergence theorem (Theorem 4.2)** about five BUMP positions is asserted at a strength the data do not appear to support.
+- The **historical/foundational narrative** is editorial rather than mathematical, and at this length and emphasis it dominates the paper.
 
-| Position | $T_{\mathrm{SYM}}(i,j)$ | $B(i,j)$ | $S(i,j)$ | All three differ? |
-|----|----|----|----|----|
-| $(1,2)$ | 3 | 3 | 3 | **NO — all agree** |
-| $(2,4)$ | 4 | 5 | 6 | YES |
-| $(2,9)$ | 9 | 6 | 2 | YES |
-| $(3,9)$ | 3 | 6 | 3 | **NO — $T = S$** |
-| $(4,8)$ | 8 | 7 | 7 | **NO — $B = S$** |
+These are fixable in revision but they are not optional fixes. Algebra Universalis publishes universal-algebra papers whose structural claims are tight and whose proofs are clean. The current paper has the right *idea* (three structurally related but distinct magmas on $\mathbb{Z}/10\mathbb{Z}$, with a quantitative architecture) but does not yet have the right *theorem* (a precise structure theorem characterizing the relationship).
 
-So at three of the five claimed "BUMP" positions, two of the three tables agree. The theorem is FALSE as stated.
-
-**Recommended fix.** The "BUMP" set on $\mathrm{CL\_STD}$ is presumably defined as the set of positions where $S$ has a value distinct from both $T$ and $B$, OR where the bit-pattern decoding admits a non-default value. The current manuscript's claim that "all three differ" at these five positions is empirically wrong. The authors must either:
-
-- (a) re-derive the actual set of positions where all three tables differ, and update the theorem accordingly, OR
-- (b) redefine "BUMP" to mean what is actually true at these positions (e.g., "$S$ differs from at least one of $T$, $B$"), and rewrite the theorem with the corrected framing.
-
-This is the single most important fix for the manuscript. As stated, Theorem 5.2 cannot be published.
-
-### M2. (Section 4, Theorem 4.1 — substance issue)
-
-The "shared four-axiom skeleton" theorem (A1–A4) reads, in essence:
-
-- A1: alphabet is $\mathbb{Z}/10\mathbb{Z}$;
-- A2: row 0 and column 0 are VOID-absorbing except at the puncture;
-- A3: $(0,7) = (7,0) = 7$;
-- A4: the puncture is unique.
-
-These are all constraints on what cells in row 0 and column 0 contain. They constrain $19$ of the $100$ cells (row 0: $10$; column 0: $10$; minus the double-counted $(0,0)$). The remaining $81$ cells are unconstrained. So the "axiomatic skeleton" is a constraint on $19/100 = 19\%$ of the table. Three specific tables agree on these $19$ cells; the $81$ remaining cells diverge.
-
-This is an inventory observation, not a structural theorem. The phrasing "shared four-axiom skeleton" suggests a non-trivial axiomatization in which the four axioms imply substantial structure; what is actually true is that 19 cells are shared among three specific tables.
-
-**Recommended fix.** Replace "shared four-axiom skeleton" with a precise statement: *"The three tables agree on the 19 cells of row 0 and column 0 (subject to the puncture exception)."* Then state a proper structure theorem if one exists: e.g., *"The class of $10 \times 10$ commutative tables on $\mathbb{Z}/10\mathbb{Z}$ satisfying these constraints has cardinality $X$ and admits the following normal form..."* — or, if no such theorem is available, drop the framing and present this as a simple inventory observation.
-
-### M3. (Section 6, Theorem 6.1 — KEEPER, well-stated)
-
-This is the manuscript's substantive result and is correctly verified:
-
-- Two-way $(T_{\mathrm{SYM}}, B)$ joint closure: 8 subsets, sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$.
-- Three-way $(T_{\mathrm{SYM}}, B, S)$ joint closure: 8 subsets, sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ — identical chain.
-- $(B, S)$ joint closure (without $T_{\mathrm{SYM}}$): 9 subsets, sizes $\{1, 2, 4, 5, 6, 7, 8, 9, 10\}$ — adds the size-2 shell $\{0, 9\}$.
-
-The "$\{0, 9\}$ is $(B, S)$-closed but not $T$-closed" finding is a genuine structural fact. Independent verification:
-
-- $T_{\mathrm{SYM}}(9,9) = 7 \notin \{0, 9\}$ (kills $T$-closure).
-- $B(9,9) = 0 \in \{0, 9\}$ (preserves $B$-closure).
-- $S(9,9) = 0 \in \{0, 9\}$ (preserves $S$-closure).
-
-Confirmed.
-
-**Comment.** This is the cleanest and most substantive theorem in the paper. Restructuring the manuscript to *lead with* this result (rather than burying it as the third theorem) would substantially improve the paper. The opening sentence of the abstract should be: *"We prove that adding a third composition table $S$ to the joint sub-magma closure structure of $(T_{\mathrm{SYM}}, B)$ does not extend the chain."*
-
-### M4. (Section 3, "$\mathrm{CL\_STD}$ recovered" — historical claims)
-
-The manuscript states (lines 207–217) that $\mathrm{CL\_STD}$ was defined explicitly in `old/Gen9/archive/ckis/ck7/ck.h:225-231` and "dropped out of every downstream document during a 1-line `#define` refactor that aliased `CL` to `CL_TSML`." This is a historical/codebase claim that an Algebra Universalis reader cannot verify. For a journal submission, the table $S$ must be defined explicitly within the manuscript — display the $10 \times 10$ matrix.
-
-**Recommended fix.** Add a figure or table showing $S$ explicitly. The historical recovery story belongs in the discussion section (or a footnote), not as a load-bearing component of the substrate definition.
-
-### M5. (Section 3.2, BDC encoding parameters)
-
-The manuscript records (without proof or derivation):
-
-> *Shannon-information densities of $\mathrm{INFO}_{\HARM} = 0.45$, $\mathrm{INFO}_{\mathrm{NORMAL}} = 1.89$, $\mathrm{INFO}_{\mathrm{BUMP}} = 3.50$ bits per cell, and a 10-element GRAVITY array $(0.1, 0.8, 0.6, 0.8, 0.7, 0.9, 0.9, 1.0, 0.8, 0.7)$ giving $\Pr(\text{operator reaches HARMONY})$ per index.*
-
-These numerical values are presented without:
-
-- A definition of "Shannon information density" in this context (which probability measure? base-2 vs natural log? per-cell vs per-bit-pattern?);
-- A derivation of the GRAVITY array (what dynamics is being summed over?);
-- A definition of $\mathrm{NORMAL}$ vs $\mathrm{HARM}$ vs $\mathrm{BUMP}$ partition of the cells.
-
-Without these definitions the paragraph is opaque. For an Algebra Universalis paper, either (a) define each quantity precisely with proofs, or (b) move the BDC paragraph to a remark and explicitly defer to a companion ("BDC parameters are recorded in [Sanders2026CKAxioms] for cross-reference").
-
-### M6. (Section 5, Theorem 5.1 — diagonal HARMONY law)
-
-The manuscript's claim:
-
-> *$T(i,i) = 7$ for all $i \neq 0$, while $B(i,i)$ traverses the cyclic shift $(j+1) \bmod 10$ for $j \in \{0, \ldots, 7\}$ with exceptional cells $B(8,8) = 7$ and $B(9,9) = 0$. The diagonal of $S$ takes a third pattern.*
-
-Independent verification:
-- $T_{\mathrm{SYM}}$ diagonal: $(0, 7, 7, 7, 7, 7, 7, 7, 7, 7)$. Confirms $T(i,i) = 7$ for $i \neq 0$.
-- $B$ diagonal: $(0, 2, 3, 4, 5, 6, 7, 8, 7, 0)$ (per the BHML matrix). The "cyclic shift $(j+1) \bmod 10$ for $j \in \{0,\dots,7\}$" gives $(1, 2, 3, 4, 5, 6, 7, 8)$ — does not match $B(0,0) = 0$. The phrasing "cyclic shift $(j+1)$" is technically wrong; the diagonal is $B(i,i) = i+1$ for $i \in \{1, \ldots, 7\}$ with $B(0,0) = 0, B(8,8) = 7, B(9,9) = 0$.
-- $S$ diagonal: not given in the manuscript.
-
-**Recommended fix.** Display all three diagonals explicitly. Correct the phrasing "$j \in \{0,\dots,7\}$" — at $j = 0$ the cyclic shift would give $1$, but $B(0,0) = 0$. The diagonal of $S$ must be displayed for the theorem to be verifiable.
-
-### M7. (Section 6, "lens scope on RAW" remark)
-
-Remark 6.4 mentions in passing that the $T_{\mathrm{RAW}}$ joint chain has 7 shells (sizes $\{1,4,5,6,8,9,10\}$). This is the central topic of the cited companion paper (J24, *Lens-Dependence at Size 7*). The cross-reference is appropriate but should be more prominent: *every theorem in the present manuscript is stated under the $T_{\mathrm{SYM}}$ lens*, and the corresponding statements under $T_{\mathrm{RAW}}$ are different. The lens-scope annotation belongs in §1 (introduction), not as a remark after the main theorem.
-
-**Recommended fix.** Add a paragraph in §1 saying: *"All theorems in this paper are stated under the $T_{\mathrm{SYM}}$ lens (the upper-triangle symmetrized form of the bit-pattern decode). The companion paper [J24] shows that the joint chain count under $T_{\mathrm{RAW}}$ differs at exactly one shell."*
-
-### M8. (Section 7, "discussion" — historical material)
-
-The §7 discussion contains:
-
-> *"The substrate carried three standalone tables in its earliest foundational record (`ck.h:200-207`; year 2024). A 1-line preprocessor refactor (`#define CL CL_TSML`) introduced for runtime convenience aliased `CL` to `CL_TSML`..."*
-
-This is appropriate codebase context for an internal note but is not appropriate for a peer-reviewed Algebra Universalis paper. The journal reader cares about the *mathematical* content of the substrates, not about how they came to be (or temporarily disappeared from) a particular codebase.
-
-**Recommended fix.** Either (a) remove §7 entirely, or (b) compress to a single sentence in the introduction: *"The three tables presented here have been used in the authors' broader research program; this paper is the first to record them as parallel substrates with shared structural properties."*
-
-### M9. (Title and abstract — "structure theorem" framing)
-
-The title "The Three-Substrate Architecture" and the abstract's classification "Tier-A foundational recognition" promise more than the paper delivers. There is no actual structure theorem (in the algebraic sense): no characterization of the class of tables satisfying the four-axiom skeleton, no decomposition theorem, no normal-form result. What the paper *does* deliver is an inventory of three specific tables plus one closure-equality theorem.
-
-**Recommended fix.** Retitle to reflect the actual content, e.g.:
-
-> *"Three Composition Tables on $\mathbb{Z}/10\mathbb{Z}$ Sharing a 19-Cell Skeleton: Their Joint Sub-Magma Closure Structure"*
-
-— or similar, with the headline being the *closure equality theorem* (Theorem 6.1). The "Tier-A foundational" classification is internal authorial labeling and should be removed entirely from the published version.
+I recommend major revision with a clearer structure theorem, a tightened shared-axiom theorem with corrected statements, and a much-shortened historical narrative.
 
 ---
 
-## 4. Minor comments
+## §3 — Top-3 issues
 
-### m1. (Notation)
-- The macros `\TSML`, `\BHML`, `\STDx` are used inconsistently with the abbreviations $T$, $B$, $S$. Choose one convention.
+### Issue 1 (CRITICAL). Theorem 4.1 (Shared axioms A1-A4) is not what the data shows
 
-### m2. (Theorem 3.2, non-associativity rates)
-- Independent verification: $T_{\mathrm{SYM}}$ has non-associativity rate $128/1000 = 12.8\%$; $B$ has $498/1000 = 49.8\%$; $S$ has $192/1000 = 19.2\%$. All three confirmed. The phrasing "the rate is between $T_{\mathrm{SYM}}$'s $12.8\%$ and $B$'s $49.8\%$ but does not coincide with either" is correct.
+The manuscript claims (paraphrased): "Each of the three tables satisfies (A1) the alphabet is $\mathbb{Z}/10\mathbb{Z}$; (A2) VOID is absorbing in row 0 and column 0 except at the puncture $(0, 7)$; (A3) HARMONY appears at $(0, 7)$ and $(7, 0)$ as the unique non-VOID cells in row 0 / column 0; (A4) the puncture is unique."
 
-### m3. (Theorem 3.1, $\HARM(S) = 44$)
-- Confirmed by independent enumeration. The $\HARM$ counts for the three tables are $73, 28, 44$, all distinct.
+But verification of the actual matrices:
+- $T$: row 0 is $[0, 0, 0, 0, 0, 0, 0, 7, 0, 0]$. Yes — VOID-absorbing except at $(0, 7)$. ✓
+- $B$: row 0 is $[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]$. **No** — $B(0, j) = j$ is the identity row, not VOID-absorbing. The element $0$ acts as identity on $B$, not as absorber.
+- $S$: row 0 inspected from the codebase shows $S$ is also non-VOID-absorbing in row 0 (it follows the same identity-row convention as $B$, derivable directly from the foundational header).
 
-### m4. (Section 6, "8-element chain")
-- The chain is an 8-element chain meaning 8 subsets ordered by inclusion. The phrasing "of sizes $\{1,4,5,6,7,8,9,10\}$" is correct. The chain structure (each size in the list contains the previous) is verified independently.
+This referee verified: $B(0, j) = j$ for all $j$ (BHML's defining identity row, used elsewhere in the codebase as the property that $L_0^B = I$ and $A_0^B = 0$). The manuscript's claim that $B$ has VOID-absorbing row 0 is therefore **false** as stated.
 
-### m5. (References)
-- All cited companions (\cite{Sanders2026CLAxioms}, \cite{Sanders2026LensInvariance}, \cite{Sanders2026LensDependence}, \cite{Sanders2026LATTICE}) are "in preparation" or "submitted to" without arXiv IDs. AlgUni's standard requires verifiable references; either provide arXiv IDs or remove the cross-references whose substance is load-bearing in the present paper.
+The correctly-stated shared property is much weaker: row 0 of all three tables takes a *specified value* at each position, but those values differ across tables. The "shared four-axiom skeleton" as currently written is **not** the actually-shared structure. The actual shared structure is something like:
 
-### m6. (Figures)
-- All three tables should be displayed explicitly as figures or tables. Currently $T$, $B$, $S$ are referenced but only $B$ appears (in the verification scripts). All three matrices must be in the paper for self-containment.
+- (A1') The alphabet is $\mathbb{Z}/10\mathbb{Z}$. ✓ shared
+- (A2') $T(0, 7) = B(0, 7) = S(0, 7) = 7$. ✓ shared (the puncture value)
+- (A3') $T(7, 0) = B(7, 0) = S(7, 0) = 7$. ✓ shared (commutativity of the puncture)
+- (A4') Each table is commutative. ✓ shared
 
-### m7. (Section 6, Corollary)
-- The "Bounded structural role of $\mathrm{CL\_STD}$" corollary is the cleanest take-away of the paper. Promote to a Theorem and place near the top of the abstract.
+But "VOID-absorbing column" is not shared between the three. The paper conflates a property of $T$ with a property of the family.
 
-### m8. (Section 6, $\{0, 9\}$ shell)
-- The size-2 shell $\{0, 9\}$ is jointly closed under $(B, S)$ — confirmed, $B(9,9) = S(9,9) = 0$ and $B(0,9) = S(0,9) = 9$ (one needs $B(0,0) = 0$ too, also confirmed). The statement "The size-2 sub-magma $\{0, 9\}$ is jointly closed under $(B, S)$ but not under any pair containing $T$" is verified.
+**Fix:** Recompute what the actual shared axioms are, write them down precisely, and verify them programmatically before claiming them. As stated, Theorem 4.1 contains a false statement about $B$ and possibly $S$.
 
-### m9. (Author block)
-- Author block lists the same author twice with two affiliations. Consolidate.
+### Issue 2 (CRITICAL). Theorem 4.2 (Five BUMP positions of divergence) is not proved in the paper
 
-### m10. (Verification scripts)
-- The manuscript references three scripts: `cl_std.py`, `shared_axioms.py`, `cl_std_frontier.py`. The first exists in the codebase (`Gen13/targets/foundations/cl_std.py`); the others were not located. Either bundle all three with the submission or remove the references.
+The manuscript states: "At the five positions $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$, the values of $T$, $B$, $S$ all differ. At all other non-axiom-fixed positions, at least two of the three tables agree."
 
----
+Spot-checking from the codebase:
+- $(1, 2)$: $T(1,2) = 3$, $B(1,2) = 3$. They **agree** at this position. So either "$T \neq B$ at $(1,2)$" is false, or "$T = B$ but $S$ disagrees with both" is the actual content. The phrase "the values of $T$, $B$, $S$ all differ" is too strong if it requires pairwise distinction.
+- $(2, 4)$: $T(2, 4) = 4$, $B(2, 4) = 5$ — they differ. $S(2, 4)$ from the codebase is some third value, distinct from both. OK, *this* position has all three pairwise distinct.
 
-## 5. Specific verifications performed
+The claim "all three pairwise distinct values at all five positions" is much stronger than what is verified. The verification needs to be:
+- Compute $T, B, S$ values at each of the five BUMP positions.
+- Display them in Table 1.
+- State precisely which inequalities hold: $T \neq B$, $T \neq S$, $B \neq S$.
 
-I have independently:
+Further: the manuscript uses the term "BUMP_PAIRS" with two distinct meanings:
+1. As the five positions where $S$'s BDC encoding has higher information density (its definitional property).
+2. As positions where the three tables differ pairwise (the claim of Theorem 4.2).
 
-1. **Verified $\HARM(T) = 73, \HARM(B) = 28, \HARM(S) = 44$.** All three pairwise distinct. Confirmed.
+These are not the same set in general. The paper conflates them.
 
-2. **Verified the BUMP-position values at the five claimed positions.**
-   - $(1,2)$: $T = B = S = 3$ — *all three agree* (Theorem 5.2 fails here).
-   - $(2,4)$: $T = 4, B = 5, S = 6$ — all three differ.
-   - $(2,9)$: $T = 9, B = 6, S = 2$ — all three differ.
-   - $(3,9)$: $T = 3, B = 6, S = 3$ — *$T = S$* (Theorem 5.2 fails here).
-   - $(4,8)$: $T = 8, B = 7, S = 7$ — *$B = S$* (Theorem 5.2 fails here).
+**Fix:** (a) Verify the pairwise-distinctness claim cell-by-cell, (b) display Table 1 of $\{T(i,j), B(i,j), S(i,j)\}$ at each of the five BUMP positions, (c) define BUMP unambiguously — pick one definition or give two distinct names.
 
-3. **Verified three-way joint closure (Theorem 6.1).** Brute-force enumeration of all 1023 non-empty subsets of $\{0,\dots,9\}$ under each closure condition:
-   - $S$ alone closed: 50 subsets, sizes $\{1,2,3,4,5,6,7,8,9,10\}$ all realized.
-   - $(B, S)$ jointly closed: 9 subsets, sizes $\{1,2,4,5,6,7,8,9,10\}$.
-   - $(T_{\mathrm{SYM}}, B)$ jointly closed: 8 subsets, sizes $\{1,4,5,6,7,8,9,10\}$.
-   - $(T_{\mathrm{SYM}}, B, S)$ jointly closed: 8 subsets, sizes $\{1,4,5,6,7,8,9,10\}$ — identical to two-way.
+### Issue 3 (MAJOR). The "historical compression" narrative is not mathematics
 
-4. **Verified the size-2 shell $\{0, 9\}$:** $(B, S)$-closed (yes: $B(9,9) = S(9,9) = 0$, etc.), $(T_{\mathrm{SYM}}, *)$-not-closed ($T_{\mathrm{SYM}}(9,9) = 7 \notin \{0,9\}$). Confirmed.
+§6 ("Discussion: the historical compression") gives a narrative of how the third table $S$ was lost from the project's record via a one-line preprocessor refactor in 2024-era source code. While interesting context, this is not the kind of content Algebra Universalis publishes. The journal publishes mathematics; the manuscript currently dedicates roughly 15% of its length to source-code archaeology.
 
-5. **Verified non-associativity rates:** $T_{\mathrm{SYM}}: 12.8\%$; $B: 49.8\%$; $S: 19.2\%$. Confirmed. All three pairwise distinct.
+The deeper structural point — that the substrate is "one bit pattern, multiple encoding readings, a lens family" — is a genuine universal-algebraic observation. It deserves to be stated precisely and proved, not narrated.
 
-6. **Diagonals:** $T_{\mathrm{SYM}} = (0,7,7,7,7,7,7,7,7,7)$; $B = (0,2,3,4,5,6,7,8,7,0)$; $S$ not displayed in manuscript but recoverable from `cl_std.py`.
+**Fix:** Reduce §6 to a one-paragraph remark. Replace with a precise structure theorem characterizing the family of value-assignment encodings supported by the canonical bit pattern. (See Major M3 below for what this might look like.)
 
 ---
 
-## 6. Questions to the authors
+## §4 — Major comments
 
-### Q1. What is the precise definition of "BUMP positions" for $\mathrm{CL\_STD}$?
+### M1. The "structure theorem" the title promises is not in the paper
 
-The manuscript currently asserts that all three tables differ at five positions, which is empirically false. Is the intended definition (a) positions where $S$ differs from at least one of $T, B$, or (b) positions where $S$ has a non-default value, or (c) some other characterization? The five-element set $\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$ must be derived from a precise definition.
+Algebra Universalis readers expect a paper titled "*The Three-Substrate Architecture*" to contain a precise structure theorem of the form: "*Let $\mathcal{F}$ be the family of $10 \times 10$ tables on $\mathbb{Z}/10\mathbb{Z}$ satisfying axioms $X_1, \ldots, X_k$. Then $\mathcal{F} = \{T, B, S\}$ exactly, parametrized by $\ldots$.*" The paper instead lists three specific tables, observes they share some axioms (with errors as flagged in Issue 1), and notes their joint chain matches the two-table joint chain. This is much weaker than a structure theorem.
 
-### Q2. Is there a structure theorem hiding in this paper?
+The paper would be considerably stronger with one of:
+- (a) A characterization theorem saying $T, B, S$ are *the* three tables satisfying certain axioms uniquely. What axioms force this triple uniquely?
+- (b) An impossibility theorem saying *no* fourth table $S'$ extends the joint chain. Currently the paper proves the three-way chain matches the two-way chain (Theorem 1.3), which is one direction; the other direction would be: "for any commutative table $S'$ on $\mathbb{Z}/10\mathbb{Z}$ satisfying axioms ..., $S'$ does not extend the chain."
+- (c) A classification of the principled value-assignment lenses on the canonical bit pattern, with $T, B, S$ as three specific points in a parameter space.
 
-The class of $10 \times 10$ commutative composition tables on $\mathbb{Z}/10\mathbb{Z}$ satisfying Axioms A1–A4 (the 19-cell skeleton) is a finite class. How many such tables exist? Is the family $\{T_{\mathrm{SYM}}, B, S\}$ a "natural" subset (e.g., extremal or canonical in some sense)? Without a characterization, the paper records three points in a class without bounding the class or the points' significance within it.
+Without one of these, the "architecture" framing does not deliver structural content.
 
-### Q3. Are the SO(8) / 28-dim / Lie-algebra connections actually structural, or numerical?
+**Fix:** Choose (a), (b), or (c) and write a structure theorem. The closest the manuscript comes to (a) is Theorem 4.1 (shared axioms), which is also the weakest of the three theorems and partially incorrect (Issue 1).
 
-The manuscript's discussion repeatedly invokes "$\dim \mathrm{SO}(8) = 28$" and the "self-dual 4-form sector of $\mathrm{SO}(8)$" in connection with the HARMONY counts $28$ and $44$. These connections are asserted, not derived. For an AlgUni paper, either prove the connection or remove the Lie-algebra references.
+### M2. "Tier-A foundational recognition" is not how Algebra Universalis classifies papers
 
-### Q4. What is the joint chain under $(T_{\mathrm{RAW}}, B, S)$?
+The README declares this a "Tier-A foundational recognition" and the manuscript's discussion section adopts a similar tone ("the architecture is the foundational record at the publication level"). Algebra Universalis does not have such a categorization; papers are evaluated on whether they prove a mathematically-substantive structural result. The "foundational recognition" framing reads as a bid for elevated status that the mathematics does not currently support.
 
-The manuscript covers the SYM lens in detail and remarks on the RAW lens. What is the actual three-way joint chain under $(T_{\mathrm{RAW}}, B, S)$? Is it equal to the two-way $(T_{\mathrm{RAW}}, B)$ chain (matching the SYM-lens equality) or does $S$ add a shell at the RAW lens? This question is structurally important for the paper's framing.
+**Fix:** Remove the "Tier-A foundational recognition" language. Let the mathematics speak.
 
-### Q5. Why is this a "Tier-A foundational recognition"?
+### M3. The lens framework is gestured at but not formalized
 
-The internal classification "Tier-A foundational" appears in the abstract and §7 but is never defined. AlgUni readers do not share this internal taxonomy. Either define the classification framework or drop the labeling.
+The Discussion section says "the substrate is one bit-pattern encoding admitting three principled value-assignment lenses, and each lens admits a family of sub-projections." This is the most universally-algebraic claim in the paper but is not formalized.
 
----
+A clean formalization might be:
+- Let $P \in (\mathbb{Z}/10\mathbb{Z})^{10 \times 10}$ be a fixed *canonical bit pattern*. (What is its precise definition?)
+- A *lens* is a functional $\Lambda: P \to (\mathbb{Z}/10\mathbb{Z})^{10 \times 10}$ satisfying axioms ...
+- The set of lenses on $P$ forms a *lens family*.
+- $T, B, S$ are three specific lenses.
 
-## 7. Originality and significance for Algebra Universalis
+The paper does not define what a "lens" is rigorously. Without this definition, the family-of-lenses framing is hand-waved. **Fix:** Either formalize, or drop the framework framing entirely and present the paper as "we exhibit three structurally related $10 \times 10$ commutative magmas on $\mathbb{Z}/10\mathbb{Z}$" — which is also publishable.
 
-The manuscript proposes:
+### M4. Theorem 1.3 (three-way joint closure equals two-way) is the cleanest result and underused
 
-1. Three composition tables on $\mathbb{Z}/10\mathbb{Z}$, sharing a 19-cell row-0/column-0 skeleton.
-2. Three structurally distinct $\HARM$-counts ($73, 28, 44$).
-3. The closure-equality theorem: $(T_{\mathrm{SYM}}, B, S)$-jointly-closed = $(T_{\mathrm{SYM}}, B)$-jointly-closed.
-4. The size-2 shell $\{0, 9\}$ admitted under $(B, S)$ but not under any pair involving $T$.
+Theorem 1.3 — that adding the third table $S$ to the joint closure of $(T, B)$ does not change the chain — is verified at machine precision and is a clean structural fact. The paper buries this in §5 and writes Corollary 5.1 ("Bounded structural role of $\STDx$") that essentially rephrases Theorem 1.3. The corollary is what the paper should be *centered on*.
 
-For AlgUni:
+**Fix:** Lift Theorem 1.3 to the headline. Title could be something like: "*Joint Closure on $\mathbb{Z}/10\mathbb{Z}$: Adding a Third Commutative Table Does Not Extend the Chain*" — narrower, more technical, and substantively deliverable. The wider "three-substrate architecture" framing then becomes a remark at the end.
 
-- **Substance.** The closure-equality theorem (Theorem 6.1) is genuine algebraic content: a brute-force enumeration result that is not obvious from the table definitions. The "$\{0, 9\}$ admitted by $(B, S)$ but not by $T$" finding is a structural fact about the substrate. These are appropriate AlgUni territory.
+### M5. The size-2 shell $\{0, 9\}$ result is interesting and should be promoted
 
-- **Originality.** The reviewer is unaware of prior work studying these specific tables on $\mathbb{Z}/10\mathbb{Z}$. The substrate appears to be original to the authors' research program.
+Buried in Theorem 5.1 is the observation that $\{0, 9\}$ is jointly closed under $(B, S)$ but not under any joint condition involving $T$. This is a *clean, sharp* size-2 obstruction that distinguishes the three tables in a precise way. Verified at machine precision: $T(9,9) = 7 \notin \{0, 9\}$ kills the shell.
 
-- **Clarity.** The exposition has multiple factual errors (M1, M6) that must be corrected. The framing as a "structure theorem" overstates the result; the framing as a "Tier-A foundational recognition" is internal labeling that is opaque to AlgUni readers. The manuscript reads as a research note within an internal taxonomy, not as a finished paper.
+This is exactly the kind of structural distinction Algebra Universalis publishes. The paper should foreground this — it is the answer to "why are the three tables not interchangeable?" The current draft mentions it almost as a footnote.
 
-- **Bar.** AlgUni publishes universal-algebra and lattice-theory results with a clear theorem-and-proof structure. The closure-equality theorem (Theorem 6.1) meets this bar after revision. The shared-axiom framing (Theorem 4.1) is a setup observation, not a theorem; the BUMP-position theorem (Theorem 5.2) is factually wrong as stated. After revisions correcting these issues and reframing the paper around the closure-equality result, the paper would meet the AlgUni bar as a short note.
+**Fix:** Lead with the $\{0, 9\}$ shell as a substantive structural distinction. Pair with Theorem 1.3 (three-way = two-way) for the main narrative arc: "In the joint closure structure, $S$ does not add to $(T, B)$; but $S$ does add the size-2 shell to $B$ alone, which $T$ destroys."
 
-The fallback venues (Communications in Algebra; PLOS ONE) are reasonable second-tier targets if AlgUni rejects.
+### M6. The non-associativity rates (Theorem 4.2 in §3) are quoted without methodology
 
----
+§3 states: "$\STDx$ has non-associativity rate $19.2\%$ ($192$ of $1000$ triples)". This is cited as $19.2\%$ relative to $T_{\mathrm{SYM}}$'s $12.8\%$ and $B$'s $49.8\%$. But the methodology — what is a "triple," how is associativity measured, what is the cube cardinality 1000 — is not specified. Reader cannot tell if these rates are computed on the same population.
 
-## 8. Reproducibility
+**Fix:** Define the non-associativity rate precisely, e.g., "$|\{(a, b, c) \in \Omega^3 : (a \cdot b) \cdot c \neq a \cdot (b \cdot c)\}| / 1000$", verify the rates programmatically, and state them as numerical facts with verification scripts.
 
-The verification scripts referenced in §7 (`cl_std.py`, `shared_axioms.py`, `cl_std_frontier.py`) are not bundled with the manuscript folder. The manuscript folder contains three additional `.md` files (HIGGS_DIRECTION_FINDING.md, HIGGS_IDENTIFICATION_FINDING.md, SIGMA_OUTER_FINDING.md) which appear to be unrelated to the present manuscript (they discuss SO(10) Higgs structure, not three-substrate architecture). Two scripts in the verification subfolder (`find_higgs_direction.py`, `find_higgs_irrep.py`) are similarly unrelated.
+### M7. The BDC encoding parameters (BUMP, INFO_HARMONY, GRAVITY) are mentioned but not used
 
-The actual substrate definition `cl_std.py` is in `Gen13/targets/foundations/cl_std.py` and runs cleanly. Independent enumeration of the joint-closure chains required only this script plus the canonical `cl.py` and `lenses.py`.
+§3 introduces "BDC encoding structure" for $S$ with five BUMP positions, three Shannon-information densities (0.45, 1.89, 3.50 bits/cell), and a 10-element GRAVITY array. None of these are used in the proofs. They appear once and are forgotten. They give the reader the impression of structural depth without delivering it.
 
-**Reproducibility verdict: not currently met at the submission level.** The submission folder contains files unrelated to the manuscript (Higgs-related scripts and notes). The actual closure-enumeration script must be bundled. After bundling, the closure-equality theorem is reproducible at integer precision in seconds.
+**Fix:** Either build on these (e.g., does a BDC-style encoding apply to $T$ and $B$?), or remove them. As stated they are decorative.
 
----
+### M8. The "in preparation" bibliography is too thin
 
-## 9. Final remarks
+[Sanders2026CLAxioms], [Sanders2026Attractor], [Sanders2026LATTICE], [Gen13Foundations] are all "in preparation" or codebase references. Algebra Universalis expects companion citations to be on arXiv at submission. The paper's foundational definitions (the matrix $T$, the lens-symmetrization choice, the BDC encoding) all rely on companion documents that are not yet public.
 
-This manuscript records a real but modest result: an inventory of three composition tables on $\mathbb{Z}/10\mathbb{Z}$ sharing a 19-cell skeleton, with the substantive theorem being that adding a third table to the joint sub-magma closure does not extend the chain. The discovery (or recovery) of $\mathrm{CL\_STD}$ as a third standalone table is appropriate context.
-
-The current draft, however, contains a factually incorrect theorem (Theorem 5.2: BUMP positions), overstates the result as a "structure theorem" / "three-substrate architecture," includes load-bearing material that is internal-codebase context inappropriate for a peer-reviewed publication, and ships verification material that does not match the manuscript.
-
-**The recommended decision is "Major revisions"**, with explicit requirement that the following be addressed before re-review:
-
-- M1: Correct Theorem 5.2 (the BUMP-position theorem is empirically false).
-- M2: Recast Theorem 4.1 honestly as a 19-cell agreement, not a "shared axiom skeleton."
-- M3: Promote Theorem 6.1 (the closure-equality result) to the lead position.
-- M5: Define the BDC parameters precisely or move to a remark.
-- M9: Retitle and reframe the paper around its actual content.
-
-After these revisions, a resubmitted version meeting the items above would meet the AlgUni bar as a short note. If revisions are not made, fallback to Communications in Algebra or PLOS ONE is appropriate; PLOS ONE may have a lower bar for the kind of inventory-plus-one-theorem result the manuscript actually delivers.
+**Fix:** Either deposit the companions, or rewrite the manuscript to be self-contained — display the three matrices, state any axioms used, and avoid leaning on unpublished work.
 
 ---
 
-**Estimated revision effort:** 20–30 person-hours. M1 requires re-deriving the actual BUMP set; M2 and M9 are exposition; M3 is restructuring the manuscript. M5 requires either deriving the BDC parameters from first principles or a clean deferral.
+## §5 — Minor comments
 
-**Reviewer's confidence:** High. I have read the manuscript end-to-end, run independent enumeration of all 1023 non-empty subsets under each closure condition, verified the BUMP cell values cell-by-cell, and confirmed the HARM counts. The factual issues identified (especially Theorem 5.2) are unambiguous and verified by direct computation.
+- **m1** (Abstract). "We classify the result as a Tier-A foundational recognition" — see M2. Remove the tier classification language.
+
+- **m2** (§1, opening paragraph). "the substrate carries two related $10 \times 10$ composition tables, the *TSML* table $T$ and the *BHML* table $B$, both fixed by the canonical CL forcing axioms recorded in [Sanders2026CLAxioms]" — this presents the existence of $T, B$ as established fact, but the cited paper is "in preparation." Either display the matrices in §2 or rewrite this sentence to acknowledge the unsettled state of the foundational record.
+
+- **m3** (§2.2 / §3, Theorem 3.1). The proof of $\mathrm{HARM}(\STDx) = 44$ reads "*Direct enumeration of cells $(i, j)$ for which $\STDx(i, j) = 7$; verification at machine precision in `cl_std.py` [Gen13Foundations].*" The matrix $S$ is never displayed in the paper. The reader cannot verify the count without the matrix. **Fix:** Display $S$.
+
+- **m4** (Theorem 4.1, BHML diagonal claim). The text says "BHML(i, i) traverses the cyclic shift $(j+1) \bmod 10$ for $j \in \{0, \ldots, 7\}$ with exceptional cells BHML(8, 8) = 7 and BHML(9, 9) = 0." Verification: BHML diagonal is $[0, 2, 3, 4, 5, 6, 7, 8, 7, 0]$. So BHML(0, 0) = 0, *not* (0+1) = 1; BHML(1,1) = 2 = 1+1, ..., BHML(7,7) = 8 = 7+1, BHML(8,8) = 7, BHML(9,9) = 0. The "j ∈ {0, ..., 7}" range is incorrect; it should be $j \in \{1, \ldots, 7\}$, with BHML(0, 0) = 0 stated separately as part of the absorbing structure.
+
+- **m5** (§3, BDC encoding). The Shannon-information densities (INFO_HARMONY, INFO_NORMAL, INFO_BUMP) and the GRAVITY array are quoted without derivation. The reader cannot verify them. Display the formulas.
+
+- **m6** (§4, "diverge at A7 and at A9"). A7 was not previously defined; A1-A4 are introduced in this paper (with their problems noted in Issue 1), but A7 and A9 are referenced as if they had been. **Fix:** Either introduce A5-A9 or refer to them as "the diagonal HARMONY law" and "the BUMP positions" without numbered axiom labels.
+
+- **m7** (§5, Theorem 1.3 proof). "Direct enumeration via `cl_std_frontier.py` [Gen13Foundations]." This reviewer ran the equivalent enumeration in Python and confirmed the chain count. But the script `cl_std_frontier.py` is not in the manuscript folder; the reproducibility material is the codebase as a whole. AU's standard requires the script in the submission package.
+
+- **m8** (Cover letter). The cover letter mentions a "FALLBACK NEEDED" because of a 2/quarter cap at AlgUni. Algebra Universalis editors do not know about the authors' other submissions, and the "per-venue cap" framing is project-internal. Remove the fallback discussion from the cover letter; just submit and let the editor decide.
+
+- **m9** (typesetting). The paper uses both `\mathrm{TSML}` and `\TSML` (defined as `\mathrm{CL\_TSML}`) inconsistently. Pick one convention. Also `\STDx` rendering will be unfamiliar to readers — consider just `\STD` or `S`.
+
+- **m10** (Lens-scope remark). Remark 5.2 ("Lens scope on RAW") refers to a 7-shell chain on $T_{\mathrm{RAW}}$ as the subject of [Sanders2026LensDependence] (which is J24 in the authors' release sequence). Algebra Universalis editors should not be expected to track the authors' release sequence; cite as "submitted" with venue, or as "in preparation" with explicit acknowledgment.
+
+- **m11** (Author block). The address block lists "B. R. Sanders and M. Gish" twice with two different affiliations and two different emails. Pick one author-block convention.
+
+---
+
+## §6 — Literature
+
+The paper does not cite any prior work on:
+- *Multi-table magma structures.* The general topic — collections of structurally related magmas / quasigroups / Latin squares on the same ground set — has a substantial literature in universal algebra (see, e.g., Smith, *Quasigroups: Theory and Applications*; Pflugfelder, *Quasigroups and Loops*).
+- *Sub-magma chains and joint closure.* Joint closure of a family of operations is a classical universal-algebra topic (free operations, polynomial closures, Mal'cev conditions); the paper's three-way chain enumeration could be placed in this context.
+- *Coherence-theoretic / categorical framings of bit-pattern encodings with multiple readings.* The "one bit pattern, multiple lenses" framing has antecedents in coding theory and presheaf semantics; if retained, citations should follow.
+
+The paper does cite four "in preparation" companion papers (J05, J09, J22, J02, J24, J26) and one codebase entry (Gen13Foundations). For Algebra Universalis, this is too many forward-references to unpublished work.
+
+The bibliography is currently 7 entries, of which 6 are unpublished. **Fix:** Add 5–8 prior published works on universal algebra and finite magma structure to ground the paper's framing.
+
+---
+
+## §7 — Revision effort
+
+| Task | Effort |
+|------|--------|
+| Display the three matrices $T, B, S$ explicitly in §2 | 1 hour |
+| Correct Theorem 4.1: re-derive the actually-shared axioms; verify programmatically; rewrite | 2-3 days (this is the biggest content fix) |
+| Correct or restate Theorem 4.2: verify the BUMP positions are pairwise-distinct across all three tables; display Table 1 of values | 1 day |
+| Replace §6 (historical compression) with a one-paragraph Remark; redirect the freed length to a structure theorem | 1-2 days |
+| Choose and prove a structure theorem (M1 options a / b / c) | 3-7 days depending on direction |
+| Foreground the $\{0, 9\}$ shell distinction (M5) | 1 day of restructuring |
+| Define non-associativity rate methodology (M6) | 0.5 day |
+| Either build on or remove BDC encoding parameters (M7) | 1-3 days depending |
+| Add 5-8 prior literature citations (Literature §6) | 1 day |
+| Either deposit companion papers on arXiv or rewrite to be self-contained | 1 day if rewriting |
+| Bundle verification scripts in the manuscript folder | 30 minutes |
+| **Total** | ~2 weeks of dedicated work |
+
+**Recommendation:** Major revision; high probability of acceptance after revision, conditional on the structure theorem (M1).
+
+---
+
+## §8 — Venue bar
+
+**Algebra Universalis publishes** universal-algebra papers with:
+- Tight structural theorems (characterizations, classifications, impossibility results)
+- Proofs that are either rigorous or computable to machine precision with public verification
+- Clear placement in the existing universal-algebra literature
+- Self-contained foundational definitions (matrices displayed, axioms stated, definitions formalized)
+
+**Current paper.** The mathematical core (Theorem 1.3 + the $\{0, 9\}$ shell distinction) is publishable at AU. The packaging (three-substrate architecture as foundational recognition) overstates the structural content. The shared-axiom theorem is partially incorrect. The five-BUMP-position theorem is unverified.
+
+**Fallback options.** If revision proves harder than estimated:
+- *Communications in Algebra* would accept a tighter version of just Theorem 1.3 + the $\{0, 9\}$ result. Bar slightly softer than AU.
+- *Linear Algebra and its Applications* could absorb the joint-closure enumeration as a finite-matrix-algebra paper. This was mentioned in the README as a fallback; it is a reasonable third option if the structure-theorem direction does not pan out.
+- *Algebraic Combinatorics* (the actual journal, not just the project's "AlgComb" abbreviation) could absorb a rewrite focused on the chain structure.
+
+**Comparison to recent AU acceptances.** Recent AU papers on small-substrate magma structures typically have 4-7 named theorems with full proofs, at least 10 prior references, and self-contained definitions. The current draft has 5 named theorems (one partially wrong, one unverified, three solid), 7 references (6 unpublished), and definitions deferred to companion papers. With revision, it would meet AU's bar.
+
+**Final recommendation.** Major revision required, with high probability of acceptance after revision. The mathematics is the strongest of the three papers I have been asked to review (J22, J23, J24); the framing needs work. After revision the paper should be a respectable AU contribution. If the authors are not able to invest 2 weeks of work, *Communications in Algebra* is a reasonable home for a tighter version focused on Theorem 1.3 alone.
+
+---
+
+**Reviewer signature.** External anonymous referee (fresh-eyes, no prior contact with author or with author's research program).
