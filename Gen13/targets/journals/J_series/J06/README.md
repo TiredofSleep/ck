@@ -1,6 +1,6 @@
 # J06 — Flatness Theorem: The Forced 2x2 Torus on Z/10Z
 
-**Status:** FORMAT
+**Status:** APPENDIX-COMPLETE (T*=5/7 proof-sketch landed; manuscript ready for Brayden's referee-rigor pass)
 **Phase:** Phase 1
 **Target venue:** Journal of Pure and Applied Algebra
 **Author lane:** Sanders + Gish
@@ -16,7 +16,7 @@
 Files in this J-folder's `manuscript/`:
 
 - `SUBMIT_INSTRUCTIONS.md`
-- `WP51_FLATNESS_THEOREM.md`
+- `WP51_FLATNESS_THEOREM.md` (revised 2026-05-07: added Appendix A — T*=5/7 proof-sketch)
 - `WP52_D2_AS_RING_CURVATURE.md`
 
 The submission package lives in this J-folder. Edit + verify here; submit from here.
@@ -25,19 +25,38 @@ The submission package lives in this J-folder. Edit + verify here; submit from h
 
 **Path:** `(no script — theorem-paper)`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+The proof of Theorem 3 (aspect ratio R/r = 5/7) reduces to two cyclotomic minimal-polynomial calculations: deg A_5 = 2 over ℚ (A_5 = φ, polynomial x² − x − 1), deg A_7 = 3 over ℚ (A_7 = 2cos(π/7), polynomial 8x³ − 4x² − 4x + 1, irreducible). Both verifiable by hand or in any CAS. The gate is referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01, J02, J05
+J01, J02, J04 (cited in Appendix A.3 for D1), **J05 (cited as algebraic ground throughout new Appendix A)**
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companions, Reproducibility, Reviewers all populated, includes new Appendix A note.)
 
 ## §5 — Notes
 
-10x cited. NEEDS: T*=5/7 proof-sketch appendix added before bibliography (per ClaudeChat J20 advice).
+**Status (2026-05-07):** T*=5/7 proof-sketch appendix landed. Manuscript ready for referee-rigor pass.
+
+**What was done:**
+- Added **Appendix A — Proof-Sketch: T* = 5/7 from the Forced 2×2 Torus** to `manuscript/WP51_FLATNESS_THEOREM.md` immediately before the Bibliography section. The appendix includes:
+  - **§A.1** Six independent derivations table (D1–D6) with status labels (PROVED / STRUCTURAL / CONJECTURAL).
+  - **§A.2** Self-contained proof-sketch: forced 2×2 torus → cyclotomic closure at p=5 (R ∝ 5) and cyclotomic obstruction at p=7 (r ∝ 7) → R/r = 5/7. Hand-checkable via deg A_5 = 2 vs deg A_7 = 3 over ℚ.
+  - **§A.3** Cross-check of all six derivations with explicit mechanism for each.
+  - **§A.4** Conjectural extensions (A.1: general aspect ratio; A.2: universal T*=5/7; A.3: continuous T*) all clearly labeled.
+  - **§A.5** Statement that this appendix renders T*=5/7 citable from any J-series paper downstream of J06.
+- Cited **J05 (Crossing Lemma; Sanders & Mayes 2026)** as already-submitted algebraic ground throughout Appendix A. Added J05 reference to companion-submissions section in the Bibliography.
+- Added M. Gish to the author block (joint authorship for J06 submission, alongside corpus author Sanders).
+- Cover letter: finalized with Summary, Why-JPAA (3 bullets including J05 companion framing), Companions (J01, J02, J04, J05), Reproducibility (cyclotomic CAS check), Suggested reviewers, COI.
+
+**Open issues:**
+- Conjecture A.1 (general aspect ratio R/r = p_closed / p_obstructed for arbitrary squarefree n) is *not* proved in this paper; if a JPAA referee asks for it, refer them to Open Problem 1 in §8.
+- Conjecture A.2 (universal T*=5/7 — i.e., p_obstructed = 7 for *every* squarefree n) is held strongly but not formally proved. D1 (first-G law) provides 36,662 cases of empirical support per J04; rigor of universality across the family is open.
+- D4 (TSML/BHML cell geometry) is labeled STRUCTURAL — the cell counts (73, 28, 5) are exact, the precise algebraic path from cell counts to T*=5/7 is held as structural pending fully formalized derivation. Reviewer may flag this; the appendix is honest about it.
+- The author block on the manuscript was updated to add M. Gish; the original WP51 source has only Sanders. If desired before submission, the original author line can be reverted and Gish added as J06-specific co-author in a separate front-matter note.
+
+**Per ClaudeChat J20 advice:** appendix-route was the faster path (vs spawning a separate "J20 T*=5/7 paper"). T* = 5/7 is now citable from any downstream paper without dependencies on a not-yet-shipped J20.
 
 ## §6 — Submission checklist
 
