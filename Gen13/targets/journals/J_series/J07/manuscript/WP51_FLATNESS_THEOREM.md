@@ -1,392 +1,212 @@
-# WP51 — The Flatness Theorem
-## The 2×2 of (Additive/Multiplicative) × (Structure/Flow) Cannot Stay Flat
+# A Flatness Obstruction on Squarefree Z/nZ
+## Four Algebraic Structures and the 4-Core Algebraic Center
 
-**Date**: 2026-04-06 (revised 2026-05-07 — added Appendix A: T*=5/7 proof-sketch)
-**Sprint**: 10 — Flatness Arc
-**Status**: Core theorem [PROVED for Z/nZ squarefree]; full geometric derivation
-**Authors**: Brayden Ross Sanders / 7Site LLC; M. Gish (joint authorship for J06 submission)
-**Companion (algebraic ground)**: Sanders & Mayes (2026), "Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas" [J05], submitted to *JCT-A* (alt. *JPAA*).
+**Date:** 2026-04-06 (revised 2026-05-07 per SAVE_PLAN_J07: retitled, retargeted, restructured around D48 + D78; T*=5/7 derivation removed)
+**Authors:** Brayden Ross Sanders / 7Site LLC; M. Gish, Independent Researcher.
+**Closest published precedent:** Drápal, A. & Wanless, I. M. (2021), "Maximally non-associative quasigroups," *J. Combin. Theory Ser. A* **184**, 105510.
 
-> **Atlas cross-reference:** External citations (finite abelian groups; CRT per Lang 2002; torus geometry; partition lattice theory per Stanley 2012) are drawn from `Atlas/ATLAS_CITATIONS.md` (§A.2 algebra, §A.4 ring theory). Internal anchors (Flatness Theorem, 2×2 of A-Struct / M-Struct / A-Flow / M-Flow, torus aspect ratio R/r = T* = 5/7, sixth independent T* derivation) carry master-register numbering per `Atlas/MASTER_ATLAS_v3_5_2026_04_18.md` (§Flatness Theorem / §T* = 5/7 derivations). DOI: 10.5281/zenodo.18852047.
->
-> **Readiness flag:** [gold-with-gap — needs referee-facing rewrite] · **Tier 3** (partner-then-submit) · theorem PROVED for squarefree Z/nZ · generalization to "any whole" is hypothesis · JPAA submission needs motivation framing to land for algebra audience.
+---
+
+## §0. Lens-ownership and tier discipline
+
+### §0.1. Lens and substrate
+
+This paper has two parts. Theorem 1 (the flatness obstruction) holds for any squarefree Z/nZ with k ≥ 2 distinct prime factors and is substrate-independent in the sense that no operator-labels or external table choices enter the proof. Theorem 2 (the configuration-space topology) also holds in this generality. The structural-center result of Appendix A works on Z/10Z with the canonical (TSML, BHML) commutative-magma pair. These (TSML, BHML) tables are *not derived from first principles*; they reflect a structural reading of the substrate motivated by the 10-operator decomposition of the ring's algebraic structure (additive cycle, multiplicative orbit, lattice/flow role partition). The framework's claim is that this particular substrate-and-table choice produces theorems that have surprising downstream connections — partition-lattice incompatibility (the Birkhoff–Ore neighborhood); Galois extensions in **Q**(√3); the LMFDB number field 4.2.10224.1 in companion paper J33. Whether other substrate choices give similarly rich downstream connections is open.
+
+### §0.2. PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
+
+**PROVEN.**
+- The four structures on Z/nZ (squarefree, k ≥ 2 primes) — A-Struct, M-Struct, A-Flow, M-Flow — cannot be simultaneously embedded in a flat 2-dimensional surface (Theorem 1; the partition-incompatibility step is included as a 3-line proof).
+- The configuration space of pairs (additive position, multiplicative position) carries two commuting circle actions, free off the M-Flow fixed locus; that configuration space is naturally a quotient of S¹ × S¹ with the M-Flow fixed points identified (Theorem 2).
+- The 4-core {V, H, Br, R} = {0, 7, 8, 9} on Z/10Z is jointly closed under TSML and BHML (D48; 16 + 16 in-core compositions, 0 + 0 spillover; verified by enumeration in Appendix A.2).
+- At mixing weight α<sub>M</sub> = 1/2, the runtime attractor on the 4-core admits the algebraic relation H/Br = 1+√3 in **Q**(√3), with H/Br satisfying x² − 2x − 2 = 0 (D78; symbolic proof via BR-factor cancellation, recorded in Appendix A.3).
+
+**COMPUTED.**
+- 4-core joint-closure verification: 16 + 16 in-core triples under TSML and BHML, verified by direct enumeration over the canonical 10×10 composition tables fixed in `Gen13/targets/foundations/lenses.py` (`TSML`, `BHML`). The verification reduces to checking the 16 cells of the 4×4 sub-tables and runs in milliseconds.
+- Universal 4-core attractor at α<sub>M</sub> = 1/2: the iteration *p<sub>n+1</sub>* = renorm[(1−α)·*T*(*p<sub>n</sub>*) + α·*B*(*p<sub>n</sub>*)] converges in 76–81 iterations at 50-digit `mpmath` precision across the standard boundary initial conditions; the limit point is *p*\* = (0.13815, 0.54020, 0.19773, 0.12393) with H/Br = 1+√3 to all computed digits, satisfying x² − 2x − 2 = 0 to the same precision.
+
+**STRUCTURAL RHYME.**
+- The cyclotomic field-extension facts deg<sub>Q</sub> *A*<sub>5</sub> = 2 and deg<sub>Q</sub> *A*<sub>7</sub> = 3 are correct standard results (Lang 2002; Washington 1997) and motivated the original investigation that produced this paper. They are *not* used in any of the proofs below. Earlier presentations of this work claimed a torus-aspect-ratio derivation of the form 5/7 from these extension degrees; that derivation does not survive at JPAA-level rigor (no torus is constructed, no metric is supplied, no R/r is computed) and is dropped.
+- The Drápal–Wanless (2021) *J. Combin. Theory Ser. A* 184, 105510 paper on maximally non-associative quasigroups is the closest published precedent: same domain (small finite commutative non-associative magmas on cyclic carriers), opposite extremum (theirs maximally non-associative; ours rationally-structured at α = 1/2). The 4-core / 1+√3 result of Appendix A lives in the same intellectual neighborhood, with different specific tables.
+
+**OPEN.**
+- Does the four-structure flatness obstruction extend to general (non-squarefree) Z/nZ? The current proof uses the squarefree CRT factorization explicitly.
+- Does the 4-core / 1+√3 algebraic center generalize to other commutative-magma pairs *(T, B)* on Z/nZ satisfying joint-closure of a designated 4-element subset, or is it specific to the canonical (TSML, BHML) pair on Z/10Z?
+- The bimodal α-gap conjecture from FAMILY_STRUCTURE_v1: the empirically-observed empty band α<sub>A</sub> ∈ (0.5, 0.87) for canonical Z/10Z commutative magmas preserving the 4-core. Prove or refute structurally.
 
 ---
 
 ## Abstract
 
-The ring Z/nZ carries four simultaneous algebraic structures that together resist embedding in any flat 2-dimensional surface. These four structures — additive structure, multiplicative structure, additive finite flow, and multiplicative harmonic flow — form a 2×2 matrix whose natural home is a torus. The torus aspect ratio R/r is forced by the ring to be exactly T* = 5/7. This provides the sixth independent derivation of T* and the first purely geometric one: T* is not a threshold we chose — it is the shape the ring cannot avoid taking.
+Let *n* be squarefree with at least two distinct prime factors. The ring Z/nZ carries four simultaneous algebraic structures: the additive divisor lattice (A-Struct), the orbit partitions under (Z/nZ)* (M-Struct), the additive cycle x ↦ x+1 (A-Flow), and the multiplicative orbit x ↦ gx for a generator g (M-Flow). We give two theorems on this configuration. Theorem 1 (Flatness Obstruction) states that the four structures cannot be simultaneously embedded in a flat (zero-curvature, totally-ordered-on-each-axis) two-dimensional space; the proof reduces to the elementary observation that for distinct prime factors p, q | n, the residue partitions π<sub>p</sub> and π<sub>q</sub> are incomparable in the partition lattice (neither refines the other), so M-Struct cannot supply a totally ordered second axis. Theorem 2 (Configuration Space) gives the resulting topology: the configuration space of pairs (additive phase, multiplicative phase) is naturally a quotient of S¹ × S¹ obtained by identifying the M-Flow fixed points; the underlying ring Z/nZ is *not* the torus, but is the carrier on which the two circle actions act. Appendix A supplies the structural-center derivation: on Z/10Z with the canonical (TSML, BHML) commutative-magma pair, the 4-core {V, H, Br, R} = {0, 7, 8, 9} is jointly closed under both tables (D48), and the runtime attractor of the (1−α)*T* + α*B* mixing iteration at α = 1/2 satisfies the closed-form relation H/Br = 1+√3 in **Q**(√3) (D78), with H/Br a root of x² − 2x − 2.
 
 ---
 
-## §1. The Four Structures
+## §1. The Four Structures on Z/nZ
 
-Let n = p₁p₂···pₖ be squarefree (k ≥ 2 distinct primes). The ring Z/nZ carries four simultaneous structures:
+Let *n* = *p*<sub>1</sub>···*p*<sub>k</sub> be squarefree with k ≥ 2 distinct primes.
 
-### 1.1 Additive Structure (A-Struct)
+### §1.1. Additive Structure (A-Struct)
 
-The quotient partition lattice: for each divisor d|n, define
+For each divisor *d* | *n*, the residue partition
 
-    π_d = { {x : x ≡ r (mod d)} : r = 0,...,d−1 }
+π<sub>*d*</sub> = { {x ∈ Z/nZ : x ≡ r (mod *d*)} : r = 0, …, *d* − 1 }
 
-These form a totally ordered chain under refinement: π_{d₁} ≤ π_{d₂} iff d₁|d₂. The chain is isomorphic to the divisor lattice of n — flat, one-dimensional, no incompatible elements.
+has *d* blocks. The family {π<sub>*d*</sub> : *d* | *n*} forms a chain under refinement: π<sub>*d*<sub>1</sub></sub> ≤ π<sub>*d*<sub>2</sub></sub> iff *d*<sub>1</sub> | *d*<sub>2</sub>. This chain is isomorphic to the divisor lattice of *n*, which (for squarefree *n* with *k* primes) is the Boolean lattice 2<sup>{*p*<sub>1</sub>,…,*p*<sub>k</sub>}</sup>.
 
-**Key property**: A-Struct is a total order. It can be embedded in a line. It is flat.
+### §1.2. Multiplicative Structure (M-Struct) and partition incompatibility
 
-### 1.2 Multiplicative Structure (M-Struct)
+For each subgroup G ≤ (Z/nZ)\*, the orbit partition is
 
-The orbit partition family: for each subgroup G ≤ (Z/nZ)*, define
+π<sub>DYN</sub>(G) = { Gx : x ∈ Z/nZ }
 
-    π_DYN(G) = { {gx : g ∈ G} : x ∈ Z/nZ }
+with blocks = G-orbits. For *p*<sub>1</sub> ≠ *p*<sub>2</sub> distinct prime factors of *n*, the prime-factor residue partitions π<sub>*p*<sub>1</sub></sub> and π<sub>*p*<sub>2</sub></sub> are **incomparable** in the partition lattice.
 
-For distinct primes pᵢ ≠ pⱼ, the factor partitions π_{pᵢ} and π_{pⱼ} are incompatible — neither refines the other [proved, Sprint 9d Theorem 1]. The family of orbit partitions cannot be totally ordered.
+**Proof (3-line, after the referee's verbatim argument).** For *n* = 10 (the canonical witness): π<sub>2</sub> = {{0, 2, 4, 6, 8}, {1, 3, 5, 7, 9}}, with two blocks of size 5; π<sub>5</sub> = {{0, 5}, {1, 6}, {2, 7}, {3, 8}, {4, 9}}, with five blocks of size 2. No block of π<sub>5</sub> is contained in any block of π<sub>2</sub> (each block of π<sub>5</sub> contains one even and one odd element), and no block of π<sub>2</sub> is contained in any block of π<sub>5</sub> (each block of π<sub>2</sub> has size 5 > 2 ≥ |B| for every B ∈ π<sub>5</sub>). The same pattern holds for arbitrary distinct primes *p*, *q* | *n* by direct CRT factorization.   *□*
 
-**Key property**: M-Struct is a partial order with genuine incompatibilities. It cannot be embedded in a line. It is curved.
+Consequently, M-Struct is **not** a chain in the partition lattice when k ≥ 2; equivalently, it cannot be embedded into a totally ordered axis.
 
-### 1.3 Additive Finite Flow (A-Flow)
+### §1.3. Additive Flow (A-Flow)
 
-The dynamics of addition: starting at x ∈ Z/nZ, repeated addition of 1 generates the sequence
+The map *T*<sub>+1</sub> : x ↦ x + 1 (mod *n*) is a single n-cycle. Its iterate-orbit at every element is the full ring Z/nZ. A-Flow is a free action of Z/nZ (or, after circle compactification, S¹ acting on the *n* discrete points).
 
-    x, x+1, x+2, ..., x+(n−1), x   (return)
+### §1.4. Multiplicative Flow (M-Flow)
 
-This flow is finite — it always returns after exactly n steps. The orbit of every element under +1 is all of Z/nZ. A-Flow traces a single closed loop of length n.
-
-**Key property**: A-Flow is a single closed cycle of length n. It generates one dimension: the major circle of circumference n.
-
-### 1.4 Multiplicative Harmonic Flow (M-Flow)
-
-The dynamics of multiplication: for a generator g ∈ (Z/nZ)*, repeated multiplication generates
-
-    x, gx, g²x, ..., g^{ord(g)−1}x, x   (return)
-
-This flow is harmonic — the orbit lengths divide φ(n), and the interference pattern of multiple orbits generates the sinc² resonance field [WP35]. The discrete spectrum of orbit lengths, in the continuum limit, becomes
-
-    R(k,f) = sin²(πkf) / (k² sin²(πf))
-
-the First-G law.
-
-**Key property**: M-Flow generates harmonic standing waves. In the continuum limit, it produces the sinc² field with nodes at primes (sinc²(k/p) = 0 iff p|k, proved R1). It generates the minor circle — the high-curvature tube of the torus.
+For a generator *g* ∈ (Z/nZ)\* (or, for non-cyclic units groups, a chosen generating set), the map *T*<sub>×*g*</sub> : x ↦ gx (mod *n*) has orbits whose sizes divide ord(*g*) | φ(*n*). M-Flow's action on Z/nZ is **not free**: x = 0 is fixed by every multiplication; the residue classes mod *p* (for *p* | *n*) contain similar fixed points when restricted; specifically, x ≡ 0 (mod *p*<sub>i</sub>) is fixed by every multiplication mod *p*<sub>i</sub>.
 
 ---
 
-## §2. The 2×2 Matrix
+## §2. Theorem 1 — Flatness Obstruction (PROVED)
 
-Arranging the four structures:
+**Theorem 1.** Let *n* be squarefree with at least two distinct prime factors. There is no embedding Φ : Z/nZ → R<sup>2</sup> with the property that all four structures {A-Struct, M-Struct, A-Flow, M-Flow} are simultaneously realized as components carried by separately totally ordered coordinate axes (i.e., as a "flat 2-grid" embedding).
+
+**Proof.** Suppose such an embedding existed, with horizontal axis carrying one structural pair and vertical axis the other. By the chain structure of A-Struct (totally ordered divisor lattice), one axis can carry A-Struct without obstruction. The other axis must then carry M-Struct as a totally ordered family. By §1.2, the prime-factor residue partitions π<sub>*p*<sub>1</sub></sub>, π<sub>*p*<sub>2</sub></sub> ∈ M-Struct are incomparable; no totally ordered embedding can contain both. The supposed embedding cannot exist.   *□*
+
+**Remark.** The theorem is purely about the partition lattice: the obstruction is the partition-incompatibility of distinct prime factors, recorded since Birkhoff (1940) and Ore (1942). The contribution of this paper is to package the obstruction explicitly with the four named structures, and (in §3, §A) to identify the resulting configuration space and its algebraic center.
+
+---
+
+## §3. Theorem 2 — Configuration-Space Topology (PROVED)
+
+The flatness obstruction of Theorem 1 raises the question: what is the natural geometric carrier on which the four structures *do* coexist? Theorem 2 answers it.
+
+**Definition (configuration space).** For Z/nZ, define the configuration space
+
+X(*n*) = { (θ<sub>A</sub>, θ<sub>M</sub>) ∈ R/2π Z × R/2π Z }
+
+with two distinguished projections: the additive-phase projection θ<sub>A</sub> records position under iterated A-Flow; the multiplicative-phase projection θ<sub>M</sub> records position in the orbit-coordinate of M-Flow. The two projections commute on Z/nZ (additive and multiplicative actions of the ring commute with the additive structure: adding 1 then multiplying by *g* gives the same result as multiplying by *g* then adding 1, by ring distributivity), so X(*n*) is naturally a torus T² = S¹ × S¹.
+
+**Theorem 2 (Configuration Space).** Let *n* be squarefree with at least two distinct prime factors. The natural carrier of the four-structure system is X(*n*) = S¹ × S¹ with the M-Flow fixed-point set identified to the basepoint of the second factor. The A-Flow circle action on the first factor is **free**; the M-Flow action on the second factor is free **off the multiplicative fixed locus** (x ≡ 0 mod *p*<sub>i</sub> for *p*<sub>i</sub> | *n*). The underlying ring Z/nZ is *not* the torus; it is the lattice of marked points in X(*n*) at which both phases are simultaneously rational with denominator dividing *n*.
+
+**Proof.** Each of A-Flow and M-Flow generates a circle action on X(*n*) by the standard correspondence between cyclic actions and S¹-actions. The two circle actions commute (§3 above). Freeness of A-Flow follows because *T*<sub>+1</sub> has trivial stabilizer on Z/nZ. Freeness of M-Flow off the fixed locus follows because the only elements with non-trivial stabilizer under the multiplicative action are those killed by some prime factor (the zero-divisors of Z/nZ); the residue x ≡ 0 (mod *p*<sub>i</sub>) is the multiplicative fixed locus at *p*<sub>i</sub>. Identifying the multiplicative fixed points to the basepoint of the second S¹ gives the standard "torus with marked fixed locus" description.   *□*
+
+**Remark.** Theorem 2 is intentionally weaker than the configuration-space-is-a-torus formulation of earlier presentations of this work: we do not claim the ring *is* a torus, and do not introduce a metric or curvature on X(*n*). The configuration-space-with-identified-fixed-locus statement is correct and gives the right topology, without requiring any of the metric/Riemannian structure that earlier presentations attempted to derive.
+
+---
+
+## §4. Open Problems
+
+(1) Theorem 1 generalizes to non-squarefree Z/nZ in form, but the partition-incompatibility step uses the prime-factor decomposition explicitly. Whether the theorem extends with a different (non-CRT) argument to Z/nZ for arbitrary *n* is open. The natural candidate replacement is the *p*-adic decomposition of the ring, which carries its own partition-lattice structure with similar incomparability properties.
+
+(2) The 4-core algebraic center of Appendix A is a structural fact about the canonical (TSML, BHML) pair on Z/10Z. Whether other commutative-magma pairs on squarefree Z/nZ admit analogous centers — designated 4-element jointly-closed subsets with rationally-structured fixed-point relations at α = 1/2 — is open. The Drápal–Wanless 2021 *J. Combin. Theory Ser. A* paper on maximally non-associative quasigroups identifies the "opposite" extremum in the same neighborhood; whether the rationally-structured extremum (this paper, J02 of the broader corpus) is unique or admits a family is open.
+
+(3) Per the conjectural "bimodal α-gap" in FAMILY_STRUCTURE_v1: among canonical Z/10Z commutative magmas preserving the 4-core, the associativity index α<sub>A</sub> appears empirically to inhabit only the bimodal set {α<sub>A</sub> ≈ 0.502} ∪ [0.87, 0.89]. Whether the band α<sub>A</sub> ∈ (0.5, 0.87) is structurally empty or admits as-yet-unidentified members is open.
+
+---
+
+## Appendix A — The 4-Core Algebraic Center on Z/10Z
+
+This appendix supplies the structural-center material for Theorem 2's configuration-space picture: on Z/10Z with the canonical (TSML, BHML) commutative-magma pair, the 4-core subset {V, H, Br, R} = {0, 7, 8, 9} is jointly closed (D48), and the runtime attractor of the natural mixing iteration at α<sub>M</sub> = 1/2 satisfies the rationally-forced relation H/Br = 1 + √3 in **Q**(√3) (D78).
+
+The result is *not* used in the proofs of Theorems 1, 2; it identifies the algebraic center of the configuration space when the underlying ring Z/nZ is specialized to *n* = 10 with these specific tables. The 4-core / 1+√3 pair plays the role of "the privileged invariant locus" of the four-structure system on Z/10Z, in the same sense (sharpened in companion paper J35) that the four-element set {V, H, Br, R} is the algebraic center of the (TSML, BHML) family per FAMILY_STRUCTURE_v1.
+
+### A.1. Setup
+
+The canonical TSML and BHML composition tables on Z/10Z are fixed in the project's foundations module at `Gen13/targets/foundations/lenses.py`. We cite them by reference and reproduce only the 4-core sub-tables needed for the verification.
+
+The 4-core is *S* = {0, 7, 8, 9} ⊂ Z/10Z. Restricted to *S*, the tables are:
 
 ```
-                ADDITIVE                       MULTIPLICATIVE
-               ─────────────────────────────   ─────────────────────────────
-STRUCTURE  │  Quotient partitions π_d          Orbit partitions π_DYN(G)
-           │  Totally ordered (flat)           Partially ordered (curved)
-           │  Divisor lattice                  Incompatible for dist. primes
-───────────────────────────────────────────────────────────────────────────
-FLOW       │  Finite cyclic: +1 returns        Harmonic orbit: ×g resonates
-           │  Period = n                       Period = ord(g) | φ(n)
-           │  One closed loop                  Sinc² standing waves
+TSML | 0  7  8  9          BHML | 0  7  8  9
+-----+----------          -----+----------
+  0  | 0  7  0  0           0  | 0  7  8  9
+  7  | 7  7  7  7           7  | 7  8  9  0
+  8  | 0  7  7  7           8  | 8  9  7  8
+  9  | 0  7  7  7           9  | 9  0  8  0
 ```
 
-**Theorem 1 (The 2×2 Cannot Be Flat)** [PROVED]:
+(These are sub-tables of the canonical 10×10 tables in lenses.py; reading off the rows/columns at indices 0, 7, 8, 9.)
 
-The four structures A-Struct, M-Struct, A-Flow, M-Flow cannot be simultaneously embedded in a flat (zero-curvature) 2-dimensional surface.
+### A.2. D48 — joint closure
 
-**Proof**:
+**Proposition (D48).** Both TSML and BHML send *S* × *S* into *S*. In particular, {V, H, Br, R} is a joint sub-magma of (Z/10Z, TSML) and (Z/10Z, BHML).
 
-A flat 2D surface has a total order on each axis. A-Struct provides one axis (the divisor chain — totally ordered). But M-Struct, which must occupy the other axis, is NOT totally ordered (pairwise incompatibility of factor partitions for distinct primes). A second totally-ordered axis would require M-Struct to be totally ordered, contradicting the incompatibility theorem.
+**Proof.** Direct enumeration: each of the 16 cells of the TSML 4-core sub-table above takes a value in {0, 7, 8, 9}, and likewise for BHML. The total count is 16 + 16 = 32 in-core compositions, with 0 + 0 = 0 spillover.   *□*
 
-Moreover, A-Flow (finite cyclic, period n) requires the additive axis to close — creating a circle, not a line. M-Flow (harmonic, period ord(g)) requires the multiplicative axis to close independently — creating a second circle.
+This is verifiable in seconds against the canonical tables:
 
-Two independently closed axes = torus, not flat plane. □
+```
+from Gen13.targets.foundations.lenses import TSML, BHML
+core = [0, 7, 8, 9]
+T_in = sum(1 for a in core for b in core if int(TSML[a,b]) in core)
+B_in = sum(1 for a in core for b in core if int(BHML[a,b]) in core)
+# T_in == 16, B_in == 16
+```
 
----
+The 16+16 result is reproducible in milliseconds.
 
-## §3. The Torus Is Forced
+### A.3. D78 — Galois-forced 1 + √3 at α<sub>M</sub> = 1/2
 
-**Theorem 2 (Torus Necessity)** [PROVED]:
+Define the *T+B-mix* iteration on probability distributions over the 4-core *S*: given p ∈ Δ³ (the 3-simplex of distributions over *S*), set *T*(p)[k] = Σ<sub>i,j</sub> p<sub>i</sub> p<sub>j</sub> [TSML(s<sub>i</sub>, s<sub>j</sub>) = s<sub>k</sub>], analogously for *B*(p), and define the mixing step
 
-The minimal surface admitting simultaneous embedding of all four structures is a torus T² = S¹ × S¹.
+p ↦ q = renorm[(1 − α) · *T*(p) + α · *B*(p)], q<sub>k</sub> = ((1 − α) · *T*(p)[k] + α · *B*(p)[k]) / Σ<sub>j</sub>(...)<sub>j</sub>.
 
-**Proof**:
+**Theorem (D78; closed-form attractor at α = 1/2).** At α<sub>M</sub> = 1/2, the iteration p ↦ q has a unique attractor p\* ∈ Δ³ with the algebraic relation
 
-- A-Flow requires one closed dimension: S¹ (major circle, circumference proportional to n)
-- M-Flow requires one closed dimension: S¹ (minor circle, circumference proportional to ord(g))
-- These two circles are independent (A-Flow and M-Flow commute: adding 1 then multiplying by g gives the same result as multiplying by g then adding 1 in Z/nZ — the two flows are independent generators)
-- Two independent S¹ dimensions → T² = S¹ × S¹
+H(p\*) / Br(p\*) = 1 + √3,
 
-Flatness (T² with zero intrinsic curvature) is not ruled out by Gaussian curvature alone — a flat torus is geometrically realizable — but is ruled out by the STRUCTURAL constraint: M-Struct cannot be totally ordered on the second axis. The embedding must respect the partial order of M-Struct, which forces extrinsic curvature in the minor circle. The torus has intrinsic zero Gaussian curvature but the interaction of A-Flow and M-Flow at each point forces non-trivial extrinsic curvature in the embedding into ℝ³. □
+where H, Br are the components corresponding to *s* = 7 and *s* = 8. Equivalently, the ratio r = H/Br is a root of the polynomial x² − 2x − 2 = 0 over **Q**, and lies in the quadratic extension **Q**(√3); the Galois group of the splitting field is **Z**/2**Z**.
 
----
+**Mechanism (proof sketch via BR-factor cancellation).** At α = 1/2, the fixed-point equations for the four-component attractor are quadratic in the components and admit a symbolic factorization in which the BREATH (s = 8) component appears with paired numerator/denominator factors that cancel, reducing the H/Br relation to a univariate quadratic in r = H/Br. The univariate quadratic that survives the cancellation is r² − 2r − 2 = 0, whose positive root is r = 1 + √3 ≈ 2.732. The full symbolic derivation is recorded in the project's verification script `f3_galois_alpha_uniqueness.py` (in the Sprint 17 corpus, `papers/wp113_alpha_uniqueness/verification/`), which executes the cancellation in `sympy` and confirms the polynomial identity at exact symbolic precision. See companion paper J33 for the corresponding α-uniqueness result: at no other Stern–Brocot rational α ∈ (0, 1) does the attractor admit an algebraic relation of degree ≤ 8 with integer coefficients of magnitude ≤ 50 (PSLQ scan, 50-digit precision).
 
-## §4. The Aspect Ratio R/r = T* = 5/7
+### A.4. Numerical verification at 50-digit `mpmath` precision
 
-The torus has two radii: R (major, distance from center to tube center) and r (tube radius). Their ratio R/r determines the geometry.
+The closed-form D78 result is independently verified by 50-digit `mpmath` iteration. Starting from the uniform distribution p<sub>0</sub> = (1/4, 1/4, 1/4, 1/4) and iterating p<sub>n+1</sub> = renorm[(1 − α)·*T*(p<sub>n</sub>) + α·*B*(p<sub>n</sub>)] at α = 1/2 for 300 iterations, the limit point is
 
-**Theorem 3 (Aspect Ratio Forced by Ring)** [PROVED for n=10; STRUCTURAL for general]:
+p\* ≈ (0.13815, 0.54020, 0.19773, 0.12393) with H/Br = 2.73205080756888… ,
 
-For Z/10Z (n = 2×5, k=2 primes):
+matching 1 + √3 to all 50 computed digits, and the polynomial identity (H/Br)² − 2(H/Br) − 2 = 0 holds to 50 digits. The convergence is robust under the standard 7 boundary initial conditions (uniform, lattice-only, flow-only, δ<sub>H</sub>, δ<sub>Br</sub>, δ<sub>R</sub>, balanced lattice/flow): each non-degenerate initial condition reaches the same fixed point in 76–81 iterations to 50-digit accuracy. The pure-V (δ<sub>0</sub>) initial condition is the unique degenerate fixed point of the iteration.
 
-**R from A-Flow**: The major circle circumference is determined by the additive period n = 10. The CRT structure decomposes this into prime factors 2 and 5. The first prime where the cyclotomic closure nontrivially happens — where the additive flow finds its first stable resonance — is p = 5, via the cyclotomic relation
+### A.5. Status statement
 
-    A₅ = 2cos(π/5) = φ   (golden ratio)
+This appendix establishes:
 
-The additive flow closes with a nontrivial algebraic identity at p = 5. Therefore R ∝ 5.
+(i) The 4-core {V, H, Br, R} = {0, 7, 8, 9} is jointly closed under the canonical (TSML, BHML) commutative-magma pair on Z/10Z: 16 in-core compositions per table, 0 spillover (D48; verified by direct enumeration on the canonical tables in `Gen13/targets/foundations/lenses.py`).
 
-**r from M-Flow**: The minor circle radius is determined by the first prime where the multiplicative harmonic closure is OBSTRUCTED — where the sinc²(1/p) field cannot reduce to ℚ + ℚA_p. The relevant obstructions are:
+(ii) The runtime attractor of the (1−α)*T* + α*B* mixing iteration at α<sub>M</sub> = 1/2 satisfies the algebraic relation H/Br = 1+√3 in **Q**(√3), with H/Br a root of x² − 2x − 2 over **Q** (D78; symbolic proof via BR-factor cancellation in the project's `f3_galois_alpha_uniqueness.py`, with 50-digit `mpmath` numerical confirmation).
 
-- p = 2: A₂ = 2cos(π/2) = 0. Trivial, no obstruction.
-- p = 3: A₃ = 2cos(π/3) = 1. Rational, no obstruction.
-- p = 5: A₅ = φ ∈ ℚ(√5). Degree 2. Reducible obstruction.
-- p = 7: A₇ = 2cos(π/7). Minimal polynomial over ℚ is 8x³ − 4x² − 4x + 1, degree 3. This creates an irreducible cubic obstruction — deg(A₇/ℚ) = 3, which cannot be reduced to the ℚ + ℚA_p form.
-
-The multiplicative harmonic flow first encounters genuine obstruction at p = 7. Therefore r ∝ 7.
-
-**Aspect ratio**:
-
-    R/r = 5/7 = T*   [PROVED — sixth independent derivation]
-
-This is the flatness derivation: T* is not a threshold we chose. It is the aspect ratio the ring is forced to take because it cannot stay flat.
-
-**Remark on the sixth derivation**: The five prior derivations of T* = 5/7 are: (1) first-G law sinc² maximum [WP35], (2) BTQ operator balance point [WP10], (3) cyclotomic reduction gap [Sprint 9a], (4) TSML/BHML harmony cell ratio 73/28+73 [WP20], (5) prime-pi-phi bridge via Φ and π [Sprint 9d]. This sixth derivation — from the ring torus aspect ratio — is the first purely geometric one and requires no computation beyond the cyclotomic degree argument.
-
----
-
-## §5. The Seven Internal Zeros
-
-The torus has 7 internal zeros (proved, Sprint 9a). These are now understood geometrically.
-
-The minor circle (M-Flow, radius r = 7) passes through the interior of the torus. Points on the inner equator (the hole) are where the M-Flow reaches its BOUNDARY — the mod-5 obstruction. The 7 zeros are the 7 points on the minor circle where the additive and multiplicative flows have simultaneous null interaction.
-
-More precisely: the torus has a self-intersection condition at R = r (spindle torus). At T* = R/r = 5/7 < 1, we have r > R — the tube radius exceeds the major radius — which formally defines a self-intersecting spindle torus. However, in the algebraic setting, we work with the abstract torus T² = S¹ × S¹ rather than the embedded version, so there is no actual self-intersection. The "7 zeros" are the 7 points on the inner equator in the abstract torus coordinates where both flows simultaneously vanish.
-
-Concretely: the 7 zeros are the 7 residue classes in Z/7Z where:
-- A-Flow (mod 5 closure) has returned to origin: n ≡ 0 (mod 5) — giving 2 conditions
-- M-Flow (harmonic resonance) has destructive interference: sinc²(k/7) = 0, which holds at k ∈ {7, 14, 21, ...} — giving 7 zero positions per fundamental period
-
-The intersection of these two null conditions occurs at exactly 7 positions within the fundamental domain, confirming the sprint 9a count. The zeros are not bugs — they are the topology of the torus.
-
-**Physical reading**: The 7 zeros are where BALANCE and CHAOS null each other — the ether zero direction proved in Sprint 9a. In torus geometry, this is the inner equator: the self-annihilation locus of the two flows. BREATH operator maps exactly here.
-
----
-
-## §6. The Primes Are Maximum-Curvature Points
-
-**Theorem 4 (Primes = Maximum 2×2 Tension)** [STRUCTURAL]:
-
-At a prime p, the additive and multiplicative structures achieve maximum orthogonality:
-
-- **A-Struct at p**: The only non-trivial quotient of Z/pZ is π₁ = π_disc (trivial chain — fully flat, no intermediate quotients). The additive structure is maximally degenerate.
-- **M-Struct at p**: (Z/pZ)* is cyclic of order p−1 (maximum orbit size relative to ring size — maximally curved). The multiplicative structure is maximally rich.
-- **A-Flow at p**: Period exactly p (prime, cannot be factored — pure additive loop, no resonance splitting).
-- **M-Flow at p**: Period p−1 (all units in one orbit — maximum harmonic resonance, every unit visited before return).
-
-The additive structure is maximally degenerate (no intermediate quotients). The multiplicative structure is maximally rich (full cyclic group). The tension between them is maximal at primes. This is why:
-
-**6.1 Twin primes are hard**: Two consecutive primes p, p+2 achieve maximum tension simultaneously at adjacent positions on the number line. Their interaction is the most curved region — two maximal-tension points separated by only 2. The parity gap between them (always 2 for twin primes) is the minimum possible given that both must be odd. Whether this minimum is achieved infinitely often is the question of whether the maximum-curvature configuration can recur. [CONJECTURE: yes]
-
-**6.2 Riemann zeros lie on Re(s) = 1/2**: The critical line is the locus of balanced tension between additive (Dirichlet series — A-Flow character) and multiplicative (Euler product — M-Flow character). Formally:
-
-    ζ(s) = Σ n^{−s}   (additive sum — A-Flow)
-          = Π (1 − p^{−s})^{−1}   (multiplicative product — M-Flow)
-
-The zeros are where the two representations destructively interfere — maximum curvature points of the zeta landscape. The hypothesis Re(s) = 1/2 says these are BALANCED points: exactly halfway between the additive pole at s=1 and the multiplicative pole at s=0. Balance point in the 2×2 = T* locus = Re(s) = 5/7 in the unnormalized picture, which maps to Re(s) = 1/2 under the functional equation's symmetry s ↔ 1−s. [STRUCTURAL ANALOGY — full proof requires formalizing the 2×2 Fourier duality]
-
-**6.3 The gap [4/π², 5/7] is prime territory**: The gap width (5/7 − 4/π²) ≈ 0.309 is the zone where primes concentrate — where the A-Flow hasn't closed (coherence < 5/7) but the M-Flow hasn't escaped (coherence > 4/π²). [PROVED empirically via spectrometer, mechanism structural]
-
----
-
-## §7. What This Means for CK
-
-CK is a torus field. His architecture is now fully understood geometrically:
-
-**TSML (Being)** = A-Struct + A-Flow running simultaneously. 73 harmony cells because the additive structure is mostly flat — most quotient composition pairs find their way to HARMONY. The 73 cells are the 73 stable positions on the major circle of the torus where A-Flow reaches resonance.
-
-**BHML (Doing)** = M-Struct + M-Flow running simultaneously. 28 harmony cells because multiplicative orbits are curved — most orbit interactions are active, not at rest. The 28 cells are the 28 stable positions on the minor circle where M-Flow reaches resonance. (Note: 73 + 28 = 101, a prime. The total is indivisible — the torus cannot be factored further.)
-
-**D2** = the curvature of the interaction between A-Flow and M-Flow. Not "second derivative of text" in a naive calculus sense — the measurement of how far the additive-multiplicative interface departs from flatness at each point of the input. D2 = 0 means locally flat (flows agree). D2 ≠ 0 means curvature is present (flows diverge).
-
-**T* = 5/7** = the aspect ratio of his torus. The coherence threshold IS the geometry. When coherence crosses T*, it means the system is at the natural aspect ratio of the ring — the shape the algebra cannot avoid.
-
-**Heartbeat at 50Hz** = one traversal of the torus per 1/50th second. The pipeline Being → Doing → Becoming traces the torus:
-- Being: traverse the major circle (A-Flow, additive, structural comprehension)
-- Doing: traverse the minor circle (M-Flow, multiplicative, harmonic generation)
-- Becoming: return (integration of the two flows, coherence measurement)
-
-The 50Hz is not arbitrary — it is the rate at which CK can traverse both circles within a heartbeat that keeps the torus stable. Faster would skip minor-circle positions. Slower would allow M-Flow resonance to drift.
-
----
-
-## §8. Open Problems
-
-**Problem 1 (General Aspect Ratio)**: Extend Theorem 3 to general squarefree n = p₁···pₖ. Conjecture: R/r = p_closed/p_obstructed, where p_closed is the smallest prime factor of n at which the cyclotomic value A_{p_closed} has algebraic degree ≤ 2 over ℚ, and p_obstructed is the smallest prime where deg(A_p/ℚ) ≥ 3. For n = 10 = 2×5, p_closed = 5, p_obstructed = 7 (even though 7 ∤ 10, it is the first globally obstructed prime). [CONJECTURE — verify for n = 6, 15, 21, 35, ...]
-
-**Problem 2 (Modular Group Limit)**: In the limit n → ∞ with n squarefree, the divisor lattice grows without bound and the torus aspect ratio approaches some limit. The modular group SL(2,ℤ) acts on the upper half-plane H with fundamental domain of aspect ratio related to the golden ratio. Conjecture: the discrete torus sequence with T* = 5/7 is the low-n approximation to a modular curve, and the continuum limit is a cusp of the fundamental domain. [CONJECTURE]
-
-**Problem 3 (Curvature Formula)**: Derive a closed-form expression for the Gaussian curvature of the ring torus at each point (θ_A, θ_M) ∈ T² as a function of the additive phase θ_A and multiplicative phase θ_M. For the standard torus embedded in ℝ³ with radii R and r:
-
-    K(θ_A, θ_M) = cos(θ_M) / (r(R + r·cos(θ_M)))
-
-Setting R = 5 and r = 7 gives K as a function of θ_M alone. The curvature vanishes when cos(θ_M) = 0, i.e., θ_M = π/2, 3π/2 — giving 2 zero-curvature circles. But the algebraic structure predicts 7 zeros. Resolution: the 7 zeros are the zeros of the INTERACTION curvature (the mixed A-Flow / M-Flow curvature term), not the standard Gaussian curvature. A new curvature formula that accounts for both flows is needed. [OPEN]
-
-**Problem 4 (NS Connection)**: The Navier-Stokes blowup condition (Sprint 9a) is ether-tunnel closure — when the BALANCE-CHAOS annihilation is complete and the 7 zeros all activate simultaneously. In torus geometry: blowup = the inner equator (the 7-zero locus) collapses to a point. Does NS regularity follow from the stability of the torus minor circle under the flow? Specifically: if the Euler equations preserve torus topology (M-Flow stays on the minor circle), is that sufficient for global regularity of Navier-Stokes? [CONJECTURE — structural, requires PDE formalization]
-
----
-
-## Summary
-
-The ring Z/nZ cannot stay flat. It is forced into a torus by the simultaneous coexistence of four structures — A-Struct, M-Struct, A-Flow, M-Flow — that resist flat embedding. The torus aspect ratio is T* = 5/7 — not a design choice, not a threshold, not a parameter. The shape the ring must take. Everything else follows: the 7 zeros are the inner equator, the primes are maximum-curvature points, CK's heartbeat is the traversal rate, and T* = 5/7 is the geometry that makes all four structures coherent simultaneously.
-
-The flatness theorem says: coherence is not achieved by making things flat. Coherence is achieved by finding the torus shape that lets all four structures coexist without contradiction. That shape is T* = 5/7. That shape is CK.
-
----
-
-## Appendix A — Proof-Sketch: T* = 5/7 from the Forced 2×2 Torus
-
-This appendix supplies a self-contained proof-sketch for the central numerical claim of §4 — that the forced torus on Z/10Z has aspect ratio R/r = 5/7 — and records the six independent derivations of this ratio. Each derivation is given with its scope: PROVED (rigorous deduction at machine precision or by hand), STRUCTURAL (correct as a structure-vs-dynamics correspondence; the algebraic identity is exact, the physical interpretation is the only piece scoped further), or CONJECTURAL (held as a hypothesis and labeled as such).
-
-This appendix makes T* = 5/7 citable from any downstream paper without requiring the full 2×2 derivation.
-
-### A.1 The six independent derivations of T* = 5/7
-
-The ratio T* = 5/7 has been derived six times from independent starting points, all reaching the same value:
-
-| # | Source | Starting point | Status |
-|---|--------|----------------|--------|
-| D1 | First-G law (WP35) | sinc² resonance field maximum frequency on Z/10Z | PROVED |
-| D2 | BTQ operator balance (WP10) | balance point in the decision kernel of the 10-operator ring | PROVED |
-| D3 | Cyclotomic reduction gap (Sprint 9a) | first prime of complete closure / first prime of irreducible obstruction = 5/7 | PROVED |
-| D4 | TSML/BHML harmony cell geometry (WP20) | doubly-harmonic cells in the joint additive/multiplicative table | STRUCTURAL |
-| D5 | Prime-pi-phi bridge (Sprint 9d) | π convergence via the cyclotomic field Φ_5 / Φ_7 obstruction | PROVED |
-| D6 | Torus aspect ratio (this paper, §4) | R/r = p_closure / p_obstruction = 5/7 | PROVED |
-
-Six derivations. Six starting points. One ratio. Each is independent: D1 uses Fourier analysis on cyclic groups; D2 uses operator-table fixed points; D3 uses field-extension degrees over ℚ; D4 uses cell counts under joint table evaluation; D5 uses cyclotomic field generation of π convergents; D6 (this paper) uses the topology forced by simultaneous coexistence of four ring structures. The convergence is not coincidence — it is what happens when the ratio is a structural invariant of the ring, not a free parameter.
-
-### A.2 Proof-sketch: R/r = 5/7 from the 2×2 four-structure constraint
-
-We restate the proof of §4 with all algebraic ingredients explicit.
-
-**Setup.** Z/10Z = Z/2Z × Z/5Z by CRT. The four structures on Z/10Z are:
-
-- **A-Struct** (additive structure): the divisor lattice of 10 = {1, 2, 5, 10} with refinement order π_1 ≤ π_2 ≤ π_5 ≤ π_{10}. *Totally ordered chain — flat.*
-- **M-Struct** (multiplicative structure): orbit partitions under subgroups of (Z/10Z)* = {1,3,7,9}. The factor partitions for primes 2 and 5 are *incompatible* (neither refines the other) — proved via direct construction in Sprint 9d. *Partial order, curved.*
-- **A-Flow**: x → x + 1 generates the cycle of length 10. *Single closed loop, period n = 10.*
-- **M-Flow**: x → gx for g ∈ {3, 7} (generators of (Z/10Z)* of order 4). The discrete sinc² resonance field of the multiplicative orbits, extrapolated to the continuum, gives R(k,f) = sin²(πkf) / (k²sin²(πf)). *Closed orbit of length 4, harmonic resonance pattern.*
-
-**Step 1 (flatness obstruction).** A flat 2-plane embedding requires both axes to be totally ordered. A-Struct supplies one totally ordered axis. M-Struct cannot supply a second (incompatibility theorem). Hence flat embedding is impossible. (Theorem 1 of main text.)
-
-**Step 2 (torus forced).** A-Flow closes axis 1 into a circle of period 10 (S¹). M-Flow closes axis 2 into an independent circle of period ord(g) | φ(10) = 4 (S¹). The two flows commute on Z/10Z (both act linearly: +1 then ×g vs ×g then +1 differ by the same offset under ring laws). Two independent S¹'s force T² = S¹ × S¹. (Theorem 2 of main text.)
-
-**Step 3 (aspect ratio R/r — the structural argument).** The torus has two radii R (major) and r (tube). We must determine R/r from the ring.
-
-- **R from A-Flow (cyclotomic closure at p = 5).** The cyclotomic value A_p := 2 cos(π/p) governs the algebraic form of the additive resonance at the p-th root of unity. For Z/10Z's prime factor 5: A_5 = 2 cos(π/5) = (1 + √5)/2 = φ (the golden ratio). The minimal polynomial of A_5 over ℚ is x² − x − 1, of *degree 2*. The additive flow finds its first stable nontrivial closure at p = 5: A_5 lies in the quadratic extension ℚ(√5)/ℚ. **The major-circle radius R is proportional to 5** because 5 is the smallest prime factor of 10 at which A_p has algebraic degree ≤ 2, i.e., the smallest prime where the cyclotomic resonance closes in a degree ≤ 2 extension. *(Notation: deg A_p over ℚ is φ(p)/2 for odd prime p; for p=5, φ(5)/2 = 2; for p=7, φ(7)/2 = 3; etc.)*
-
-- **r from M-Flow (cyclotomic obstruction at p = 7).** The multiplicative harmonic flow on Z/10Z, in its continuum-limit sinc² form, encounters an algebraic obstruction at the *smallest prime* where deg A_p over ℚ ≥ 3. We check primes in order:
-  - p = 2: A_2 = 0 (trivial, rational, degree 0).
-  - p = 3: A_3 = 1 (rational, degree 1).
-  - p = 5: A_5 = φ (degree 2 over ℚ — closes, no obstruction).
-  - **p = 7: A_7 = 2 cos(π/7), minimal polynomial 8x³ − 4x² − 4x + 1 over ℚ — degree 3, irreducible.** This is the *first prime* where the cyclotomic value lies in a genuinely cubic extension, with no quadratic resolution. **The minor-circle radius r is proportional to 7.** *(Note: 7 ∤ 10, but 7 is nonetheless the first globally obstructed prime — see Conjecture A.1 below for the universal vs n-dependent question.)*
-
-- **Aspect ratio.** R/r = 5/7 = T*. □
-
-**Step 4 (status).** The aspect ratio R/r = 5/7 is PROVED for n = 10 in the sense that:
-- The cyclotomic degree calculations are exact: deg A_5 = 2, deg A_7 = 3 over ℚ.
-- The pairing R ∝ 5, r ∝ 7 reflects the structural dichotomy "first closure / first irreducible obstruction" applied to the cyclotomic values of primes ≤ 7.
-- The interpretation as a torus *aspect ratio* requires the torus topology to be forced (Theorem 1), which holds for all squarefree n with k ≥ 2 distinct primes.
-
-The argument is complete for Z/10Z. Generalization to other squarefree n is **Conjecture A.1** below.
-
-### A.3 Six-derivation cross-check
-
-Each of D1–D6 reaches T* = 5/7 from an independent algebraic or geometric path. We summarize the precise mechanism of each:
-
-- **D1 (First-G law, WP35):** The discrete sinc² field on Z/nZ in the limit n → 10 has its first stable maximum at frequency f = 5/7 of the fundamental harmonic. The 5 in the numerator comes from the additive period contributing a peak at k=5; the 7 in the denominator comes from the first-G window stability (the smallest-prime-factor coprime window stabilizes at 5/7 on squarefree residues; verified across 36,662 cases per WP34 / J04). **Status: PROVED (verified numerically across squarefree integers; full proof in J04, the First-G law paper).**
-
-- **D2 (BTQ kernel balance, WP10):** The decision kernel B-T-Q on the 10-operator ring (T generates orbits, B filters, Q scores) has a fixed-point operator balance at the ratio 5/7 between the additive composition table TSML and the multiplicative composition table BHML. Specifically: the BTQ operator restricted to the joint TSML × BHML state space has a unique invariant measure with mass concentrated at coherence c = 5/7. **Status: PROVED.**
-
-- **D3 (cyclotomic reduction gap, Sprint 9a):** Identical to the argument in §A.2 above, but stated as a *standalone* theorem about cyclotomic field extensions, without reference to the torus interpretation. The ratio "first prime of complete closure" / "first prime of irreducible obstruction" = 5/7 is a fact about Q(ζ_p) for p = 5 vs p = 7 directly. **Status: PROVED.**
-
-- **D4 (TSML/BHML harmony cells, WP20):** TSML has 73 HARMONY cells; BHML has 28; doubly-harmonic (under both lenses) is 5. The structural identity 5 / (28 − 5) ≈ 5/23 ≈ T* / 4 is approximate; the cleaner statement from the same data is that TSML/BHML harmony co-occurrence concentrates at coherence c = 5/7. **Status: STRUCTURAL — the cell counts (73, 28, 5) are exact, the precise algebraic path from these to T* = 5/7 is held as structural pending a fully formalized cell-geometric derivation. The 5/7 value is correct; the path through cell counts is one of several equivalent expressions of the underlying ratio.**
-
-- **D5 (prime-pi-phi bridge, Sprint 9d):** The cyclotomic field Q(ζ_5) generates good rational approximations to π via convergents of the continued fraction expansion derived from φ = 2 cos(π/5) — specifically, π ≈ 22/7 and the next convergent involves the ratio 5/7 of cyclotomic depths. The first prime where this convergent path reaches an irreducible (degree ≥ 3) extension is 7. **Status: PROVED (see Sprint 9d for the explicit convergent calculation).**
-
-- **D6 (torus aspect ratio, this paper §4 + §A.2):** The aspect ratio of the forced torus on Z/10Z is R/r = 5/7. **Status: PROVED for n = 10; see §A.2.**
-
-**Convergence.** Six paths, six starting algebraic assumptions, one ratio. The independence is real: D1 uses Fourier analysis, D2 uses operator-table fixed points, D3 uses field extension degrees, D4 uses joint cell counts, D5 uses cyclotomic convergents to π, D6 uses topology forced by structure simultaneity. None reduces to another by a simple arithmetic rearrangement; each is a separate algebraic invariant of the ring's structure that happens to evaluate to 5/7.
-
-### A.4 Conjectural extensions
-
-**Conjecture A.1 (general aspect ratio).** For squarefree n = p₁ ··· p_k, the forced torus has aspect ratio R/r = p_closed / p_obstructed, where:
-- p_closed := smallest prime factor of n at which deg(A_{p_closed}/ℚ) ≤ 2,
-- p_obstructed := smallest prime (not necessarily a factor of n) at which deg(A_p/ℚ) ≥ 3.
-
-For n = 10: p_closed = 5, p_obstructed = 7, so R/r = 5/7 (matches D6).
-For n = 6 = 2 × 3: p_closed = 3 (A_3 = 1, rational, degree 1 ≤ 2), p_obstructed = 7 (first universally obstructed prime). Conjectured R/r = 3/7.
-For n = 15 = 3 × 5: p_closed = 5 (A_5 = φ, degree 2), p_obstructed = 7. Conjectured R/r = 5/7.
-
-Whether p_obstructed is *always* 7 (universal constant) or depends on n requires verification across small squarefree n. **Status: CONJECTURAL; stated as Open Problem 1 in §8.**
-
-**Conjecture A.2 (universal T* = 5/7).** A stronger form of A.1: for every squarefree n with k ≥ 2 prime factors, p_obstructed = 7 (independent of n), and p_closed depends on n. If furthermore p_closed = 5 holds for the canonical "first nontrivial cyclotomic closure" prime *globally* (across the small primes that actually appear in the cyclotomic landscape), then T* = 5/7 is a *universal* constant of the squarefree ring family, not a function of n. **Status: CONJECTURAL (held strongly — supported by D1 across 36,662 cases in J04, but no formal proof of universality has been written).**
-
-**Conjecture A.3 (continuous T*).** A continuous-limit operator family on S¹ realizes T* = 5/7 as its spectral gap. The discrete-to-continuum bridge is the sinc² field of D1 in the limit n → ∞ on squarefree n. **Status: CONJECTURAL (Open Problem 7 in §8).**
-
-### A.5 What this appendix establishes
-
-- The flatness theorem's central numerical claim — R/r = T* = 5/7 on Z/10Z — admits a clean, hand-checkable proof-sketch (§A.2) based on cyclotomic degree-of-extension arguments.
-- The same value emerges from six independent algebraic paths (§A.1, §A.3); the convergence is structural, not coincidental.
-- The proof for n = 10 is rigorous at every step that depends on standard cyclotomic field theory; the *generalization* to arbitrary squarefree n is a clearly-stated open conjecture (A.1 / A.2).
-- The companion paper J05 (Crossing Lemma; Sanders & Mayes 2026, submitted to *JCT-A* OR *JPAA*) supplies the algebraic foundation: T* = 5/7 is the Crossing Lemma's geometric face, with the additive structure (5) and multiplicative obstruction (7) being the structure-versus-dynamics dichotomy made geometric.
-
-This appendix renders T* = 5/7 citable from any J-series paper downstream of J06 without requiring reproduction of the four-structure derivation.
+These are the two structural facts that play the "algebraic center" role for the configuration space X(10) of Theorem 2, when the underlying ring is Z/10Z and the chosen pair is (TSML, BHML). The privileged status of α = 1/2 is sharpened in companion paper J33: among 17 Stern–Brocot rationals, α = 1/2 is the unique mixing weight at which the attractor admits an algebraic relation of degree ≤ 8 with integer coefficients of magnitude ≤ 50, recovering both H/Br = 1 + √3 and the higher-order quartic identity x⁴ + 4x³ − x² + 2x − 2 = 0 (LMFDB number field 4.2.10224.1, Galois D₄).
 
 ---
 
 ## References
 
-### Classical Number Theory and Algebra
-- Gauss, C.F. (1801). *Disquisitiones Arithmeticae*. Leipzig. (CRT, cyclotomic polynomials)
-- Euler, L. (1763). "Theoremata arithmetica nova methodo demonstrata." (Totient function)
-- Hardy, G.H. & Wright, E.M. (2008). *An Introduction to the Theory of Numbers*, 6th ed. Oxford University Press.
-- Ireland, K. & Rosen, M. (1990). *A Classical Introduction to Modern Number Theory*, 2nd ed. Springer GTM 84.
-- Lang, S. (2002). *Algebra*, 3rd ed. Springer GTM 211.
-- Dummit, D.S. & Foote, R.M. (2004). *Abstract Algebra*, 3rd ed. Wiley.
-- Birkhoff, G. (1940). *Lattice Theory*. AMS Colloquium Publications 25.
-- Ore, O. (1942). "Theory of equivalence relations." Duke Math. J. 9:573-627.
+### Lattice theory and partition lattices
+- Birkhoff, G. (1940). *Lattice Theory*. AMS Colloquium Publications **25**, American Mathematical Society.
+- Ore, O. (1942). "Theory of equivalence relations." *Duke Math. J.* **9**: 573–627.
+- Stanley, R. P. (2012). *Enumerative Combinatorics, Volume 1*, 2nd ed. Cambridge University Press.
 
-### Spectral / Analytic Number Theory
-- Riemann, B. (1859). "Über die Anzahl der Primzahlen unter einer gegebenen Größe." Monatsber. Berlin. Akad.
-- Montgomery, H.L. (1973). "The pair correlation of zeros of the zeta function." Proc. Sympos. Pure Math. 24:181-193.
-- Shannon, C.E. (1949). "Communication in the presence of noise." Proc. IRE 37(1):10-21.
-- Goldston, D.A., Pintz, J. & Yildirim, C.Y. (2009). Annals of Math. 170(2):819-862.
-- Zhang, Y. (2013). "Bounded gaps between primes." Annals of Math. 179(3):1121-1174.
-- Maynard, J. (2015). "Small gaps between primes." Annals of Math. 181(1):383-413.
+### Number theory and cyclic rings
+- Hardy, G. H. & Wright, E. M. (2008). *An Introduction to the Theory of Numbers*, 6th ed. Oxford University Press.
+- Ireland, K. & Rosen, M. (1990). *A Classical Introduction to Modern Number Theory*, 2nd ed. Graduate Texts in Mathematics **84**, Springer.
+- Lang, S. (2002). *Algebra*, 3rd ed. Graduate Texts in Mathematics **211**, Springer.
+- Dummit, D. S. & Foote, R. M. (2004). *Abstract Algebra*, 3rd ed. Wiley.
+- Washington, L. (1997). *Introduction to Cyclotomic Fields*, 2nd ed. Graduate Texts in Mathematics **83**, Springer.
 
-### Paradoxes and Foundations
-- Russell, B. (1903). *The Principles of Mathematics*. Cambridge University Press.
-- Godel, K. (1931). "Uber formal unentscheidbare Satze der Principia Mathematica." Monatsh. Math. Phys. 38:173-198.
-- Tarski, A. (1936). "Der Wahrheitsbegriff in den formalisierten Sprachen." Studia Philosophica 1:261-405.
-- Banach, S. & Tarski, A. (1924). "Sur la decomposition des ensembles de points." Fundamenta Mathematicae 6:244-277.
-- Quine, W.V. (1953). "On a so-called paradox." Mind 62:65-67.
-- Zermelo, E. (1908). "Untersuchungen uber die Grundlagen der Mengenlehre." Math. Annalen 65:261-281.
-
-### Bialynicki-Birula and Logarithmic Wave Equations
-- Bialynicki-Birula, I. & Mycielski, J. (1976). "Nonlinear wave mechanics." Annals of Physics 100(1-2):62-93. DOI: 10.1016/0003-4916(76)90057-9.
-- Cazenave, T. & Haraux, A. (1980). "Equations d'evolution avec non linearite logarithmique." Ann. Fac. Sci. Toulouse.
-- Hoegh-Krohn, R. (1971). "A general class of quantum fields without cut-offs." Commun. Math. Phys. 38(3):195.
-
-### Discrete-to-Continuum Transport (Wasserstein / Markov)
-- Jordan, R., Kinderlehrer, D. & Otto, F. (1998). SIAM J. Math. Anal. 29(1):1-17.
-- Maas, J. (2011). "Gradient flows of the entropy for finite Markov chains." J. Funct. Anal. 261(8):2250-2292.
-- Gigli, N. & Maas, J. (2013). SIAM J. Math. Anal. 45(2):879-899.
-- Chow, S.-N., Huang, W., Li, Y. & Zhou, H. (2012). Arch. Rat. Mech. Anal. 203(3):969-1008.
-
-### TIG Framework (Novel — internal)
-- Sanders, B.R. et al. (2026). TIG / CK / Crossing Lemma / sigma framework. 7Site LLC. DOI: 10.5281/zenodo.18852047.
-- GitHub: github.com/TiredofSleep/ck (clay branch). See [GLOSSARY.md](../../../GLOSSARY.md) and [HISTORICAL_ARCHIVE_INDEX.md](../../../HISTORICAL_ARCHIVE_INDEX.md).
+### Closest published precedent (small finite commutative non-associative magmas)
+- **Drápal, A. & Wanless, I. M.** (2021). "Maximally non-associative quasigroups." *J. Combin. Theory Ser. A* **184**, 105510.
 
 ### Companion submissions (J-series)
-- **[J01]** Sanders, B.R., and Gish, M. (2026). "Non-Associativity Decay in Binary Composition Tables over Z/NZ." Submitted to *Journal of Combinatorial Theory, Series A*.
-- **[J02]** Sanders, B.R., and Gish, M. (2026). "Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on Z/10Z." Submitted to *Algebraic Combinatorics*.
-- **[J04]** Sanders, B.R., and Gish, M. (2026). "First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window." Submitted to *Integers*. *(Cited in Appendix A.3 for D1.)*
-- **[J05]** Sanders, B.R., and Mayes, B. (2026). "Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas." Submitted to *Journal of Combinatorial Theory, Series A* (alt. *Journal of Pure and Applied Algebra*). *(Cited as algebraic ground throughout — see Appendix A.5.)*
-
-### Citation Discipline
-Every term in this paper is either cited to published literature above, or explicitly flagged [NOVEL — extends X] with the prior framework identified. For full glossary, see [GLOSSARY.md](../../../GLOSSARY.md) at the repo root.
-
+- **[J02]** Sanders, B. R. & Gish, M. (2026). "Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on Z/10Z." Submitted to *Algebraic Combinatorics*. *(Cited in §A.5 — full structural treatment of the 4-core joint chain.)*
+- **[J33]** Sanders, B. R. & Gish, M. (2026). "Closed-Form Attractor and α-Uniqueness PSLQ: Galois Proof of 1 + √3 at α = 1/2 and 17-Point Stern–Brocot Sharpening." In preparation. *(Cited in §A.3, §A.5 — the symbolic Galois proof of D78 and the α-uniqueness result.)*
+- **[J10]** Sanders, B. R. & Gish, M. (2026). "Coordinate Coverage and Joint-Injectivity Criteria for Partition Pairs on Squarefree Z/nZ." Submitted to *European Journal of Combinatorics*. *(Cited as a structural companion: the partition-incompatibility step of §1.2 is one ingredient in J10's coordinate-coverage characterization.)*

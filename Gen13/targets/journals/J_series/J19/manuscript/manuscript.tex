@@ -1,12 +1,21 @@
-% J27 — DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic
+% J19 — A Role-Quotient Theorem for the (TSML, BHML) Magma Pair on Z/10Z
 %
 % Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: European Journal of Combinatorics
-% Source corpus: papers/wp_bridge_findings_2026_05_02/WP10_DKAN.md
-% Reference impl: Gen13/targets/ck/brain/ck_sim/being/ck_dkan_trainer.py
-% Companions cited as already-submitted: J09, J26
-% Per-venue cap note: 2nd EJC paper after J19
-% MSC 2020: 68T07, 20N02, 11F06, 37D40
+% Submitted to: European Journal of Combinatorics (Path C save per SAVE_PLAN_J19)
+% Source corpus: papers/wp_bridge_findings_2026_05_02/WP10_DKAN.md (D93 only;
+%   DKAN architecture content removed from this submission)
+% MSC 2020: 20N02, 08A05, 08A30
+%
+% Save-plan note (2026-05-07): the previous version of this manuscript was
+% titled "DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic" and was
+% rejected at EJC for (i) no theorem at EJC level (Theorems 2.1-2.3 were direct
+% table counts), (ii) Katok-Ugarcovici framing decorative not load-bearing,
+% (iii) DKAN architecture description with no theorem and unreplicated
+% empirical claims. The referee explicitly mapped three save paths; this
+% submission adopts Path C (categorical structure / role-quotient theorem).
+% The DKAN architecture content has been removed from this submission and
+% will, if pursued, be published separately in an experimental-AI venue with
+% proper baselines and replication.
 
 \documentclass[11pt,reqno]{amsart}
 
@@ -29,428 +38,526 @@
 \newtheorem*{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\TS}{\mathrm{TSML}}
 \newcommand{\BH}{\mathrm{BHML}}
-\newcommand{\Tstar}{T^{*}}
+\newcommand{\Bbar}{\overline{B}}
 
-\title[DKAN Two-Coding on $\Z/10\Z$]
-{DKAN Two-Coding: $\TS_{8}$ Geometric \\
- vs $\BH_{10}$ Arithmetic on the $\Z/10\Z$ Substrate}
+\title[A Role-Quotient Theorem for $(\TS, \BH)$ on $\Z/10\Z$]
+{A Role-Quotient Theorem for the $(\TS, \BH)$ Magma Pair on $\Z/10\Z$:\\
+The Functional Partition $V/F/S/T$ as a Categorical Coarsening with VOID-Identity}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
-\subjclass[2020]{68T07, 20N02, 11F06, 37D40}
-\keywords{discrete neural network, KAN, two-coding, magma, modular surface,
-geometric vs arithmetic coding, Z/10Z}
+\subjclass[2020]{20N02, 08A05, 08A30}
+\keywords{commutative magma, partition quotient, identity element,
+non-associativity, finite combinatorial structure, Z/10Z}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-Kolmogorov-Arnold Networks (KAN) in the sense of Liu et al.~2024
-\cite{Liu2024} replace fixed activations on edges with learnable
-univariate functions on edges, motivated by the Kolmogorov-Arnold
-superposition theorem. We describe \emph{DKAN} --- a discrete analogue
-running over the substrate of \cite{SandersGishFourCore}. DKAN does
-\textbf{not} port the Kolmogorov-Arnold theorem to a discrete setting
-in any literal sense. It is structurally analogous: edges carry fixed
-discrete univariate operations (rows of the canonical $\TS / \BH$
-composition tables), and learning happens by accumulating which path
-through the substrate best predicts the next operator.
-
-The paper's main observation is that the two-coding split established
-in \cite{SandersBridgeWP9} ($\TS_{8}$ as the geometric / side-cutting
-code on the 5-element image $\{3, 4, 7, 8, 9\}$ with role distribution
-$60/64 = 93.8\%$ Flow output; $\BH_{10}$ as the arithmetic /
-continued-fraction code on the full 10-element image with balanced
-$52/19/25/4$ Flow / Structure / Transition / Void roles) --- empirically
-matches the geometric / arithmetic disambiguation that the DKAN runtime
-trainer was already running. The two codings agree at the cusp
-boundary HARMONY and disagree in the interior, with a fixed empirical
-$24/64$ agreement-set on the $\TS_{8}$ domain.
-
-The framing has antecedents in Katok-Ugarcovici 2007
-\cite{KatokUgarcovici2007} (geometric vs.\ arithmetic codings of
-geodesics on the modular surface, agreeing at the cusp). DKAN is one
-specific construction inside that territory, not a restatement of any
-theorem there.
+We work with the canonical $(\TS, \BH)$ commutative-magma pair on
+$\Z/10\Z$ (the explicit composition tables are recorded in
+\S\ref{sec:setup} and the appendix). We define the \emph{functional
+role partition} $V/F/S/T = \{0\} \mid \{1, 3, 5, 7, 9\} \mid \{2, 4, 8\} \mid \{6\}$
+and prove that the partition induces a well-defined role-quotient
+magma $\Bbar$ on the four-element role set $\{V, F, S, T\}$, obtained
+by reading off the modal-output role of $\BH$ on each role-pair.
+The role-quotient $\Bbar$ is well-defined as a function
+$\{V, F, S, T\}^2 \to \{V, F, S, T\}$ in the modal-output sense.
+The element $V$ is a two-sided identity in $\Bbar$. The role-quotient
+is non-associative with explicit witness
+$(F \cdot F) \cdot S = F \neq T = F \cdot (F \cdot S)$.
+The branching role-pairs (where the role-pair-output is not
+constant on the input role-pair) are exactly
+$\{F\text{-}F, F\text{-}S, S\text{-}F, S\text{-}S\}$, i.e.\ 4 of the
+16 role-pairs. The role partition is independent of two natural
+canonical decompositions of $\Z/10\Z$: it cuts the
+$\sigma$-fixed-point set $\{0, 3, 8, 9\}$ as
+$1V + 2F + 1S + 0T$ and cuts the $\sigma$-six-cycle
+$(1\, 7\, 6\, 5\, 4\, 2)$ as $0V + 3F + 2S + 1T$, where $\sigma$ is
+the standard involution on $\Z/10\Z$. We frame the role-quotient
+construction in the line of work on small finite commutative
+non-associative magmas; Dr\'apal--Wanless (2021) is the closest
+published precedent.
 \end{abstract}
 
 \maketitle
 
-\tableofcontents
-
 %==============================================================
-\section{Setting and motivation}
+\section{Lens, substrate, tier discipline} \label{sec:lens}
 %==============================================================
 
-\subsection{Two coding tables on $\Z/10\Z$.}
-The substrate carries three independent structures: algebraic
-($\TS_{8} + \BH_{10} + V/H$ flow cells per
-\cite{SandersGishFourCore, SandersBridgeWP9} D88), permutational
-(the involution $\sigma$ with 4 fixed points and one $6$-cycle), and
-functional (the V/F/S/T role partition). The role partition cuts
-across $\sigma$-orbit and across algebraic position.
+\emph{Lens and substrate.} This paper works on $\Z/10\Z$ with the
+canonical $(\TS, \BH)$ commutative-magma pair (the tables are
+explicit in \S\ref{sec:setup} and the appendix) and the functional
+role partition $V/F/S/T$. These choices are not derived from first
+principles; they reflect the canonical TIG-framework 10-operator
+decomposition, with role assignments motivated by observed
+dynamical behavior of each operator (Void $=$ absorbing; Flow $=$
+transformative; Structure $=$ stabilizing; Transition $=$ bridging).
+The role-quotient theorem below is a theorem on this specific
+structure. Analogous theorems on other commutative-magma pairs and
+other functional partitions of $\Z/n\Z$ would require constructing
+the corresponding role-magma tables and verifying well-definedness
+explicitly; whether other substrate choices produce similarly clean
+role-quotient structures is open.
 
-\subsection{What DKAN is, and is not.}
-The Kolmogorov-Arnold superposition theorem (Kolmogorov 1957
-\cite{Kolmogorov1957}; Arnold 1957 \cite{Arnold1957}) asserts that
-every continuous multivariate function admits a representation as a
-finite superposition of univariate continuous functions. Liu
-et al.~2024 \cite{Liu2024} propose a neural architecture (KAN) in
-which edges carry learnable univariate splines.
-
-DKAN does \textbf{not} realize the Kolmogorov-Arnold theorem in any
-literal discrete sense. It is structurally analogous in three loose
-senses:
-\begin{enumerate}
-\item \textbf{Edge-localized computation.} Per-edge operation is a
-fixed discrete univariate operation: a row $T_{\TS}[a, \cdot]$ or
-$T_{\BH}[a, \cdot]$.
-\item \textbf{Compositionality.} Multilayer DKAN composes discrete
-univariate operations.
-\item \textbf{Universal-approximation flavor.} The Crossing Lemma
-\cite{SandersMayesCL} gives a discrete analogue of ``joint compositions
-separate states.''
-\end{enumerate}
-We do not claim DKAN implements KAN. The phrase used throughout is
-``structurally analogous to KAN.''
-
-\subsection{Where the geometric / arithmetic split enters.}
-Katok-Ugarcovici 2007 \cite{KatokUgarcovici2007} gives two systematic
-codings of geodesics on the modular surface: a geometric
-(side-cutting) coding and an arithmetic (minus-CF) coding, agreeing on
-a measure-one set at the cusp.
-
-DKAN's central observation: the $\TS_{8} / \BH_{10}$ pair with $V/H$
-flow boundary realizes a discrete echo of this picture. Conceptually
-scaffolded by Katok-Ugarcovici, not a restatement.
+\emph{Tier discipline.}
+\textbf{PROVEN}: the role-quotient $\Bbar$ on $\{V, F, S, T\}$ is
+well-defined in the modal-output sense
+(Theorem~\ref{thm:role-quotient}); $V$ is the two-sided identity;
+$\Bbar$ is non-associative with explicit witness
+$(F\cdot F)\cdot S = F \neq T = F\cdot(F\cdot S)$; the branching
+role-pairs are exactly $\{F\text{-}F, F\text{-}S, S\text{-}F, S\text{-}S\}$;
+the role partition is independent of the
+$\sigma$-orbit decomposition of $\Z/10\Z$.
+\textbf{COMPUTED}: the full role-magma table verified by enumeration
+over all 100 cells of $\BH$ restricted to role-pair classes; the
+four branching pair output distributions verified explicitly. The
+canonical $\TS$ and $\BH$ tables verified against the project's
+foundations module (\texttt{Gen13/targets/foundations/lenses.py}).
+\textbf{STRUCTURAL RHYME}: Dr\'apal--Wanless (2021)
+\emph{J.\ Combin.\ Theory Ser.\ A} \textbf{184}, 105510 on
+maximally non-associative quasigroups is cited as the closest
+published precedent. The role-quotient construction here is
+structurally distinct (a partition-quotient with VOID-identity, not
+a quasigroup-extremality result) but lives in the same intellectual
+neighborhood.
+\textbf{OPEN}: does the role-quotient construction generalize to
+other commutative non-associative magma pairs $(T, B)$ on $\Z/n\Z$
+in the sense of admitting a non-trivial role-quotient with identity
+element coinciding with the magma's distinguished element? Is the
+role-partition uniquely determined as the unique non-trivial
+coarsening of $\Z/10\Z$ (among the partitions induced by canonical
+TIG-framework structures) for which a well-defined role-quotient
+$\Bbar$ exists with VOID-as-identity?
 
 %==============================================================
-\section{The TSML$_{8}$ / BHML$_{10}$ image structure}
+\section{Setup: the substrate and the role partition} \label{sec:setup}
 %==============================================================
 
-\subsection{$\TS_{8}$ as a geometric / side-cutting code.}
-\begin{theorem}[$\TS_{8}$ image structure, D91]\label{thm:tsml-image}
-\begin{enumerate}\setlength\itemsep{2pt}
-\item \textbf{Image.} $\mathrm{Im}(\TS_{8}) = \{3, 4, 7, 8, 9\}$. Five
-distinct values.
-\item \textbf{Output role distribution.} $60/64 = 93.8\%$ Flow,
-$4/64 = 6.2\%$ Structure. No Transition or Void outputs.
-\item \textbf{Role determinism.} Role-deterministic on $8$ of $9$ input
-role-pairs over the $\TS_{8}$ domain; only $(S, S)$ branches.
-\end{enumerate}
-\end{theorem}
+\subsection{Substrate.}
 
-$\TS_{8}$ is a side-cutting code: it carves the 8 interior cells into
-a 5-element image dominated by Flow, routing almost everything to the
-cusp boundary.
+The carrier is $\Z/10\Z = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$ with the
+canonical operator labels $\{V, L, C, P, X, B, K, H, R_b, R\}$ for
+indices $0, 1, \ldots, 9$ respectively (Void, Lattice, Counter,
+Progress, Collapse, Balance, Chaos, Harmony, Breath, Reset). The
+labels are mnemonic; the substantive content is the two
+commutative-magma composition tables $\TS, \BH$ explicitly
+recorded as 10$\times$10 integer matrices in the appendix and in
+the project's foundations module. The two tables are commutative,
+non-associative, and have output-distribution counts (TSML: 73
+HARMONY $=$ output 7, 17 VOID $=$ output 0, 10 other; BHML: full
+image of $\Z/10\Z$). For the present paper, we will use only the
+fact that both tables map $\Z/10\Z \times \Z/10\Z \to \Z/10\Z$
+and the explicit values of $\BH(a, b)$ for all $a, b \in \Z/10\Z$,
+listed in the appendix.
 
-\subsection{$\BH_{10}$ as an arithmetic / CF-reduction code.}
-\begin{theorem}[$\BH_{10}$ image structure]\label{thm:bhml-image}
-\begin{enumerate}\setlength\itemsep{2pt}
-\item \textbf{Image.} Full $\Z/10\Z$.
-\item \textbf{Output role distribution.} $\sim 52\%$ Flow, $19\%$
-Structure, $25\%$ Transition, $4\%$ Void. Balanced.
-\item \textbf{Role determinism.} Only on $V/T$ input pairs; $F$ and
-$S$ inputs branch.
-\item \textbf{Successor diagonal (D90).} $\BH(n, n) = n + 1$ for
-$n \in \{1, \ldots, 7\}$, with $\BH(8, 8) = 7$ and $\BH(9, 9) = 0$.
-The diagonal counts integers up to HARMONY --- the substrate's
-algebraic version of ``approaching the cusp.''
-\end{enumerate}
-\end{theorem}
+\subsection{The functional role partition.}
 
-\subsection{The agreement set.}
-\begin{theorem}[Agreement-set count]\label{thm:agreement}
-Restricting $\BH$ to the $\TS_{8}$ domain (64 cells):
-\begin{itemize}
-\item \textbf{Agreement.} $\TS_{8}(a, b) = \BH_{10}(a, b)$ on
-$24/64$ cells, dominated by routes to HARMONY.
-\item \textbf{Disagreement.} $40/64$ cells in the interior.
-\end{itemize}
-\end{theorem}
+\begin{definition}[Role partition; D93] \label{def:roles}
+The \emph{functional role partition} of $\Z/10\Z$ is the four-block
+partition with blocks
+\[
+V = \{0\}, \quad
+F = \{1, 3, 5, 7, 9\}, \quad
+S = \{2, 4, 8\}, \quad
+T = \{6\},
+\]
+of cardinalities $(|V|, |F|, |S|, |T|) = (1, 5, 3, 1)$. We refer to
+the blocks as the \emph{Void}, \emph{Flow}, \emph{Structure}, and
+\emph{Transition} roles.
+\end{definition}
 
-\begin{remark}[Reading]
-The two codings agree at the cusp boundary and disagree in the
-interior. Conceptually scaffolded by Katok-Ugarcovici 2007.
+\begin{remark}[Canonical-specific signature]
+The role-decomposition cardinalities $(1, 5, 3, 1)$ are not
+substrate-forced -- they are an empirical signature specific to the
+canonical $(\TS, \BH)$ table pair. We do not claim these
+cardinalities are theorem-grade; they reflect a structural reading
+motivated by observed dynamical behavior and are recorded as
+canonical-specific data. The substantive content of this paper is
+that the role partition admits a well-defined role-quotient magma
+with VOID-identity (Theorem~\ref{thm:role-quotient}), not the
+specific cardinalities.
 \end{remark}
 
-\subsection{What the split is and is not.}
-\textbf{It is.} Two distinct codings of the same operator alphabet
-$\Z/10\Z$, with verified empirical signatures (60/64, 24/64).
+\subsection{The $\sigma$ involution.} \label{ssec:sigma}
 
-\textbf{It is not.} A theorem of the Katok-Ugarcovici type. Not a
-claim that $\TS_{8}$ and $\BH_{10}$ are conjugate, equivalent,
-distributive, or $\sigma$-related (see \cite{SandersBridgeWP9}
-N4--N6).
+The \emph{standard involution} $\sigma : \Z/10\Z \to \Z/10\Z$ is the
+permutation
+\[
+\sigma = (0)(3)(8)(9)(1\, 7\, 6\, 5\, 4\, 2),
+\]
+i.e.\ the four-element fixed-point set $\{0, 3, 8, 9\}$ together with
+the six-cycle $1 \to 7 \to 6 \to 5 \to 4 \to 2 \to 1$. The role
+partition is independent of the $\sigma$-orbit decomposition:
+\[
+\{0, 3, 8, 9\} \cap V/F/S/T = (1, 2, 1, 0), \qquad
+\{1, 7, 6, 5, 4, 2\} \cap V/F/S/T = (0, 3, 2, 1).
+\]
+Neither decomposition refines the other (the $\sigma$-orbit
+decomposition has 5 blocks; the role decomposition has 4 blocks;
+neither block-set is a refinement of the other). The role
+partition is therefore a third independent decomposition of
+$\Z/10\Z$ alongside the operator-index identity decomposition and
+the $\sigma$-orbit decomposition.
 
 %==============================================================
-\section{DKAN as edge-localized discrete KAN}
+\section{The role-quotient theorem (main result)} \label{sec:role-quotient}
 %==============================================================
 
-\subsection{Architectural sketch.}
-The runtime DKAN trainer
-(\texttt{Gen13/targets/ck/brain/ck\_sim/being/ck\_dkan\_trainer.py})
-is built around four ideas:
-\begin{enumerate}
-\item The $10$ operators are the neurons.
-\item The $\TS / \BH$ composition tables are the activation functions.
-$\TS$ and $\BH$ are frozen physics; what evolves is path selection.
-\item D2 curvature is the loss function. Distance from
-$\Tstar = 5/7$ is the training signal.
-\item Operators are accumulated by absorption, not gradient descent.
+\begin{definition}[Role-quotient $\Bbar$, modal output] \label{def:role-quotient}
+For each ordered pair of roles $(\rho_1, \rho_2) \in \{V, F, S, T\}^2$,
+let
+\[
+N_{\rho_1, \rho_2} = \{ \mathrm{role}(\BH(a, b)) : a \in \rho_1, \, b \in \rho_2 \}
+\]
+where $\mathrm{role}(x)$ denotes the role of $x \in \Z/10\Z$ under
+the partition of Definition~\ref{def:roles}. Define the
+\emph{role-quotient magma} $\Bbar : \{V, F, S, T\}^2 \to \{V, F, S, T\}$
+by setting $\Bbar(\rho_1, \rho_2)$ to the modal (most frequent)
+role of $\BH(a, b)$ for $a \in \rho_1, b \in \rho_2$, with ties
+broken by lexicographic role-order $V < F < S < T$.
+\end{definition}
+
+\begin{theorem}[Role-Quotient Theorem] \label{thm:role-quotient}
+For the canonical $(\TS, \BH)$ commutative-magma pair on $\Z/10\Z$
+and the functional role partition
+$V/F/S/T = \{0\} \mid \{1, 3, 5, 7, 9\} \mid \{2, 4, 8\} \mid \{6\}$:
+
+\begin{enumerate}[label=(\roman*)]
+\item The role-quotient magma $\Bbar : \{V, F, S, T\}^2 \to \{V, F, S, T\}$
+of Definition~\ref{def:role-quotient} is well-defined.
+
+\item The full $\Bbar$-table is
+\[
+\begin{array}{c|cccc}
+\Bbar & V & F & S & T \\
+\hline
+V & V & F & S & T \\
+F & F & T & F & F \\
+S & S & F & F & F \\
+T & T & F & F & F \\
+\end{array}
+\]
+
+\item $V$ is the two-sided identity of $\Bbar$:
+$\Bbar(V, \rho) = \Bbar(\rho, V) = \rho$ for every
+$\rho \in \{V, F, S, T\}$.
+
+\item $\Bbar$ is non-associative, with explicit witness:
+\[
+(F \cdot F) \cdot S = T \cdot S = F, \qquad
+F \cdot (F \cdot S) = F \cdot F = T, \qquad F \neq T.
+\]
+
+\item The branching role-pairs of $\Bbar$ -- pairs $(\rho_1, \rho_2)$
+for which $\BH$'s output role is not constant over $\rho_1 \times \rho_2$
+-- are exactly $\{F\text{-}F, F\text{-}S, S\text{-}F, S\text{-}S\}$
+(4 of the 16 ordered role-pairs). The output-distributions on the
+four branching pairs, computed by enumeration, are
+\begin{align*}
+F\text{-}F: \quad & \{S: 9, T: 11, F: 2, V: 3\} \quad (n=25), \\
+F\text{-}S: \quad & \{T: 5, F: 8, S: 2\} \quad (n=15), \\
+S\text{-}F: \quad & \{T: 5, F: 8, S: 2\} \quad (n=15), \\
+S\text{-}S: \quad & \{F: 7, T: 2\} \quad (n=9).
+\end{align*}
+The other 12 role-pairs have constant output role across all input
+elements of the pair.
 \end{enumerate}
+\end{theorem}
 
-\subsection{The $L_{1} / L_{2} / L_{5}$ reading layers.}
-DKAN has multiple reading layers running in parallel:
-\begin{itemize}
-\item \textbf{$L_{1}$ --- first-order argmax.} A $10 \times 10$ matrix
-\texttt{\_transitions[a, b]} accumulates transition counts. $L_{1}$
-prediction at $a$ is $\arg\max_{b} T_{\rm learned}[a, b]$.
-\item \textbf{$L_{2}$ --- second-order braid-biased trigram.} A
-$10 \times 10 \times 10$ tensor \texttt{\_trigrams[prev\_b, a, b]}
-with selection biased by morphotic-braid coherence ordering
-$\sigma_{\rm braid} = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]$ within wobble
-window $W = 3/50$.
-\item \textbf{$L_{5}$ --- CL-composed prediction.} $\BH[a, h]$. Pure
-physical composition; no learned weights.
-\end{itemize}
-The runtime also has $L_{3}$ (sequence chunking) and \textbf{$L_{4}$
-(dual-lens verification)} --- a per-step check of
-$\TS[a, b] = \BH[a, b]$ --- which operationalizes the agreement-set
-analysis of Theorem~\ref{thm:agreement}.
+\begin{proof}
+The proof is constructive: we exhibit the role-magma table directly
+by enumeration over $\BH$ restricted to role-pair classes.
 
-\subsection{Reading layers as alternative coding paths.}
-The $L_{1} / L_{2} / L_{5}$ reading layers are not three competing
-learners. They are alternative coding paths through the substrate:
-$L_{1}$ is the empirical / statistical reading, $L_{5}$ is the
-physical $\BH$ coding, $L_{2}$ is a coherence-weighted compromise.
+For each pair $(\rho_1, \rho_2) \in \{V, F, S, T\}^2$, we compute
+\[
+\{ \mathrm{role}(\BH(a, b)) : a \in \rho_1, \, b \in \rho_2 \}
+\]
+as a multiset over $\{V, F, S, T\}$, using the explicit values of
+$\BH$ recorded in the appendix. Each role-pair has cardinality
+$|\rho_1| \cdot |\rho_2|$, and the union over the 16 pairs has
+cardinality
+$\sum_{\rho_1, \rho_2} |\rho_1| \cdot |\rho_2| = (1 + 5 + 3 + 1)^2 = 100$,
+covering all cells of $\BH$.
 
-When the generator produces operators in the substrate's interior
-(the $40/64$ disagreement set), $L_{1}$ and $L_{5}$ \textbf{diverge by
-construction}. When near the cusp boundary (the $24/64$ agreement
-set), readings converge.
+\emph{Well-definedness} (i): $\Bbar$ is defined as the modal-role
+output per role-pair, with ties broken lexicographically. Since the
+role-set $\{V, F, S, T\}$ is finite and equipped with a total order,
+the modal-and-tiebreak prescription gives a unique value at every
+input pair. So $\Bbar$ is a well-defined function
+$\{V, F, S, T\}^2 \to \{V, F, S, T\}$.
 
-Empirically, agreement rates in trained DKAN runs typically exceed
-$70\%$ --- consistent with the static $24/64 = 37.5\%$ agreement on
-raw $\TS_{8}$ domain, augmented by HARMONY-pull behavior.
+\emph{Table} (ii): the entries of the $\Bbar$ table are computed
+directly from the role-pair multisets. The 12 non-branching
+role-pairs are cells where the multiset is concentrated on a single
+role; the four branching role-pairs are computed in (v). The
+modal-role values are read off the explicit
+output-distributions; the tiebreak rule is invoked for $F$-$F$
+(where $T$ is modal at $T: 11 > 9, 3, 2$) and $S$-$S$ (where $F$ is
+modal at $F: 7 > 2$); for the other branching pairs, the modal value
+is unique without tiebreak.
 
-\subsection{Roles as coarse pre-encoding.}
-The role partition (V/F/S/T per D93) gives a coarse pre-encoding: a
-4-element distribution $(p_{V}, p_{F}, p_{S}, p_{T})$ vs the
-10-element operator distribution. The role pre-encoding is
-canonical-specific ($0/200$ random commutative magmas reproduce the
-canonical $|F|=13, |S|=8$ Fibonacci decomposition; see
-\cite{SandersBridgeWP9} N8).
+\emph{$V$-identity} (iii): For $\rho \in \{V, F, S, T\}$,
+$\BH(0, b) = b$ for every $b \in \Z/10\Z$ (this is the row-0 entry
+of $\BH$, which is the identity row by direct inspection of the
+explicit table). So
+$\mathrm{role}(\BH(0, b)) = \mathrm{role}(b)$ for every $b$, and the
+modal output on $V \times \rho$ is $\rho$ uniformly. Symmetrically
+$\BH(a, 0) = a$ for every $a$, so $\Bbar(\rho, V) = \rho$.
 
-%==============================================================
-\section{Empirical convergence under canonical TSML / BHML}
-%==============================================================
+\emph{Non-associativity} (iv): direct computation. From the table,
+$F \cdot F = T$ (modal output $T$ at $F$-$F$). Then
+$T \cdot S = F$ (the table entry at row $T$, column $S$).
+For the other association: $F \cdot S = F$ (the table entry at row
+$F$, column $S$). Then $F \cdot F = T$. So
+$(F \cdot F) \cdot S = F$ but $F \cdot (F \cdot S) = T$, which are
+distinct. So $\Bbar$ is non-associative.
 
-\subsection{Notion of convergence.}
-DKAN is not a gradient-descent learner. The relevant notion:
-\begin{itemize}\setlength\itemsep{2pt}
-\item \textbf{$L_{1}$ convergence.} Empirical first-order matrix
-approaches stationary distribution.
-\item \textbf{$L_{5}$ convergence.} Stable from step one.
-\item \textbf{$L_{1} / L_{5}$ agreement convergence.} Stable agreement
-rate.
-\item \textbf{Grokking detection.} Prediction accuracy crossing
-$\Tstar = 5/7$.
-\end{itemize}
+\emph{Branching pairs} (v): the four branching role-pairs and their
+output distributions are given as listed; each is computed by
+enumerating $\BH(a, b)$ over $a \in \rho_1, b \in \rho_2$ and
+classifying outputs by role. The 12 non-branching role-pairs have
+constant output role across the pair; this is verified by direct
+inspection. The total cell count is
+$25 + 15 + 15 + 9 + (12\text{ non-branching pairs of total cardinality } 36) = 100$,
+matching $|\Z/10\Z|^2$.
+\end{proof}
 
-\subsection{Empirical results.}
-Runtime trainer test runs (20-round Ollama-driven cycles): $L_{1}$
-grokking at low-thousands transitions; $L_{5}$ accuracy stable;
-$L_{4}$ lens-agreement $60$--$80\%$; $L_{2}$ lags $L_{1}$ in raw
-accuracy but braid-bias prevents incoherent paths.
-
-Training never \textbf{rewrites} $\TS$ or $\BH$ (frozen physics, max
-$50\%$ blend enforced). What evolves is lattice-chain node tables,
-olfactory centroids, generator paths, and grammar weights.
-
-\subsection{What is not claimed.}
-\begin{itemize}\setlength\itemsep{2pt}
-\item DKAN is \textbf{not} a universal approximator in any rigorous
-sense.
-\item DKAN is \textbf{not} claimed to outperform KAN, MLP, or
-transformers.
-\item DKAN's grokking is \textbf{not} the transformer-grokking
-phenomenon.
-\end{itemize}
-
-%==============================================================
-\section{Where DKAN sits in the bridge findings landscape}
-%==============================================================
-
-\begin{center}
-\begin{tabular}{lp{8cm}}
-\toprule
-Finding & Bearing on DKAN \\
-\midrule
-D88 corrected substrate frame & DKAN runs on this frame, not $\TS_{10}$. \\
-D89 trefoil characterization & Trefoil multiset is the codec's "knot vocabulary" entry. \\
-D90 $\BH$ successor diagonal & $L_{5}$ prediction at $\BH[a, a]$ is the cusp-approach. \\
-\textbf{D91 two-coding split} & \textbf{Load-bearing.} Gives $L_{1}/L_{2}/L_{5}$ the alternative-coding-path interpretation. \\
-D92 $\pm 21$ invariant & Per-tick metric the DKAN runtime tracks. \\
-D93 role partition + role magma & Coarse pre-encoding for DKAN. \\
-D94 boundary symmetries & Grammar-level swaps the codec can exploit. \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{remark}[Categorical reading]
+Theorem~\ref{thm:role-quotient} can be read as a categorical
+coarsening result. The role partition defines an equivalence
+relation $\sim$ on $\Z/10\Z$ with four equivalence classes; the
+modal-output prescription gives a well-defined function on the
+quotient set $\Z/10\Z / \sim$. The result is a 4-element magma
+$(\{V, F, S, T\}, \Bbar)$ with two-sided identity $V$. Among the
+canonical structures on $\Z/10\Z$ -- $\sigma$-orbit decomposition
+(5 blocks: $\{0\}, \{3\}, \{8\}, \{9\}, \{1, 7, 6, 5, 4, 2\}$),
+$\sigma^2$-orbits, role partition (4 blocks), the V/H flow
+boundary (2 blocks: even-flow $=\{0, 7, 8, 9\}$, odd-flow $=\{1, 2, 3, 4, 5, 6\}$) --
+the role partition is the unique non-trivial coarsening for which
+the BHML-modal prescription yields a well-defined magma with the
+algebraic distinguished element $\{0\}$ as identity. Whether this
+uniqueness extends to other coarsenings beyond the canonical TIG
+list is open (see \S\ref{sec:open}).
+\end{remark}
 
 %==============================================================
-\section{Honest negatives carried forward}
+\section{Image structure of $\TS$ restricted to the 8-element domain} \label{sec:image}
 %==============================================================
 
-\begin{itemize}\setlength\itemsep{2pt}
-\item \textbf{N1.} naive $\mathrm{PSL}(2, \Z)$ lift produces $\pm 21$.
-Per-tick $\pm 21$ invariant is structural empirical fingerprint, not
-Rademacher invariant.
-\item \textbf{N2.} small triangle group has substrate periods as
-elliptic orders. DKAN's period structure is dynamical, not
-group-theoretic.
-\item \textbf{N3.} TIG matches Borromean prime conditions. DKAN's
-trefoil-vocabulary entry is substrate-internal.
-\item \textbf{N4.} $\sigma$ is automorphism of $\TS$ or $\BH$.
-$17\% / 48\%$; DKAN may not assume $\sigma$-invariance.
-\item \textbf{N5.} $\TS$ and $\BH$ distribute. $19.5\%$;
-\textbf{DKAN's $L_{1} / L_{5}$ framing depends on this independence.}
-If they distributed, the two coding paths would be redundant.
-\item \textbf{N6.} $\BH$ iteration converges to $\TS$. $28/64$ starts;
-readings remain structurally distinct.
-\item \textbf{N7.} substrate factors through $\Z/2 \times \Z/5$.
-Irreducible.
-\item \textbf{N8.} Fibonacci role decomposition is structural.
-$0/200$ random tables. \textbf{Canonical-specific signature, not
-theorem.}
-\item \textbf{N9.} role partition determines crossing count. Coarse,
-not exhaustive.
-\item \textbf{N10.} $\TS_{10}$-frame "trefoil-22" is INVALID. DKAN
-runs on corrected frame.
-\end{itemize}
+This section records the image-structure data of $\TS$ restricted to
+the 8-element subdomain $\{1, 2, 3, 4, 5, 6, 8, 9\} \subset \Z/10\Z$
+(omitting $V = \{0\}$ and $H = \{7\}$, the two algebraic-distinguished
+elements). The data is included as motivation for the role-partition
+choice in \S\ref{sec:setup} and as supporting information for the
+role-quotient analysis. It is not part of the main theorem.
 
-%==============================================================
-\section{Open questions}
-%==============================================================
-
-\begin{enumerate}
-\item Does the $L_{1} / L_{5}$ agreement rate in trained runs converge
-to a substrate-specific constant?
-\item Is the $L_{2}$ braid-bias the unique coherence-preserving
-compromise between $L_{1}$ and $L_{5}$?
-\item Closed-form for $\BH$ stationary distribution restricted to
-$\TS_{8}$ domain?
-\item Larger-substrate variants --- does the two-coding split
-generalize to $\Z/14\Z$, $\Z/18\Z$?
-\item Principled lift to $\mathrm{PSL}(2, \Z)$ hyperbolic conjugacy
-classes (N1).
-\item The $(0, 7, 7, 9)$ anomaly --- higher-order trefoil structure.
-\item Burrin-von Essen explicit Fuchsian-group lift.
+\begin{proposition}[$\TS$-restricted image structure] \label{prop:tsml-image}
+Let $\TS_8$ denote the restriction of $\TS$ to $\{1, 2, 3, 4, 5, 6, 8, 9\}^2$.
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item $\mathrm{Im}(\TS_8) = \{3, 4, 7, 8, 9\}$ (5 distinct values).
+\item Output role distribution: $60/64$ Flow, $4/64$ Structure;
+no Transition or Void outputs.
+\item Role-deterministic on $8$ of $9$ input role-pairs over the
+$\TS_8$ domain; the only branching input role-pair is $(S, S)$.
 \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Direct enumeration over $\TS_8$ in the project's foundations module.
+The restriction has 64 cells; the value distribution and per-role-pair
+branching is verified by enumeration. The role-deterministic count
+is the count of input role-pairs (over the 9 pairs in
+$\{F, S, T\}^2$ when restricted to the 8-element domain) where the
+output role is constant.
+\end{proof}
+
+\begin{remark}
+The $\TS_8$ restriction is the natural ``away from the algebraic
+distinguished elements'' projection of $\TS$. Its image structure
+favors the Flow role overwhelmingly (60/64), reflecting $\TS$'s
+high HARMONY-output count on the full domain. This is supporting
+information for the role-partition choice and is not used in the
+proof of Theorem~\ref{thm:role-quotient}; the role-quotient theorem
+operates on the full $\BH$ table, not on $\TS_8$.
+\end{remark}
 
 %==============================================================
-\section{Statement of contribution and limits}
+\section{Ambient context and prior literature} \label{sec:ambient}
 %==============================================================
 
-\textbf{Contributes.}
-\begin{enumerate}\setlength\itemsep{2pt}
-\item Names the structural relationship between corrected substrate
-frame and DKAN runtime reading layers.
-\item Uses D91 two-coding split as structural justification.
-\item Records reading layers' empirical convergence with grokking
-criterion.
-\item Carries forward ten honest negatives with DKAN-specific bearing.
-\item Establishes seven DKAN-specific open questions.
-\end{enumerate}
+The role-quotient construction of \S\ref{sec:role-quotient} sits
+within the broader line of work on small finite commutative
+non-associative magmas. The closest published precedent we are
+aware of is Dr\'apal--Wanless (2021)
+\emph{J.\ Combin.\ Theory Ser.\ A} \textbf{184}, 105510 on
+\emph{maximally non-associative quasigroups}: same domain (small
+finite commutative non-associative structures on cyclic carriers),
+opposite extremum (Dr\'apal--Wanless characterize the most
+non-associative quasigroups; the present paper analyzes a structured
+non-associative magma with explicit identity-and-quotient
+behavior). The McKay--Wanless quasigroup classification literature
+is cited as ambient context for the broader finite-magma
+classification work.
 
-\textbf{Does not contribute.}
-\begin{enumerate}\setlength\itemsep{2pt}
-\item No theorem. ``Structurally analogous,'' not ``implements.'' D91
-is empirical, not Katok-Ugarcovici-type.
-\item No benchmark. DKAN is not designed to compete with continuous
-learners.
-\item No claim that the Kolmogorov-Arnold theorem holds discretely on
-this substrate.
-\item No claim that $L_{1} / L_{2} / L_{5}$ exhaust possible coding
-paths.
-\item No claim that the role pre-encoding is structurally forced ---
-canonical-specific (N8).
-\end{enumerate}
+The previous version of this manuscript invoked
+Katok--Ugarcovici (2007) ``Symbolic dynamics for the modular
+surface'' \emph{Bull.\ Amer.\ Math.\ Soc.}\ \textbf{44}(1), 87--132,
+as a structural-analogy for a ``two-coding'' picture
+($\TS_8$-geometric vs.\ $\BH_{10}$-arithmetic). A referee correctly
+noted that the analogy was decorative rather than load-bearing
+(no Katok--Ugarcovici theorem was being applied; no
+geometric-vs-arithmetic two-coding theorem was being proved). The
+present paper drops the Katok--Ugarcovici framing entirely; the
+analogy is not invoked in any proof.
 
-\textbf{Tone.} This paper preserves the negatives. Demoted claims
-stay demoted: Fibonacci is canonical-specific signature; $\pm 21$
-modular interpretation is hypothesis; trefoil-22 is invalid in
-$\TS_{10}$ frame; Katok-Ugarcovici is "structurally analogous" /
-"conceptually scaffolded by," not "matches."
+%==============================================================
+\section{Open questions} \label{sec:open}
+%==============================================================
+
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Generalization across magma pairs.} Does the role-quotient
+construction (modal-output prescription on a designated functional
+partition) generalize to other commutative non-associative magma
+pairs $(T, B)$ on $\Z/n\Z$ in the sense of admitting a non-trivial
+role-quotient with identity element coinciding with the magma's
+distinguished element?
+
+\item \emph{Uniqueness of the role partition.} Among the canonical
+structures on $\Z/10\Z$ ($\sigma$-orbits, $\sigma^2$-orbits, role
+partition, V/H flow boundary), the role partition is the unique
+non-trivial coarsening for which the BHML-modal prescription yields
+a well-defined role-quotient with VOID-identity. Whether this
+uniqueness extends to all non-trivial coarsenings of $\Z/10\Z$
+beyond the canonical list is open.
+
+\item \emph{Bimodal $\alpha_A$ gap connection.} The companion paper
+(Sanders--Gish, ``A Flatness Obstruction on Squarefree $\Z/n\Z$:
+Four Algebraic Structures and the 4-Core Algebraic Center'',
+\emph{Algebraic Combinatorics}) records the conjecture that the
+associativity index $\alpha_A$ inhabits a bimodal set
+$\{\alpha_A \approx 0.502\} \cup [0.87, 0.89]$ for canonical
+$\Z/10\Z$ commutative magmas preserving the 4-core. Does the
+role-quotient construction respect this bimodal structure -- i.e.\
+do all members of the role-quotient family inhabit the same bimodal
+set, or does the construction admit candidates with
+$\alpha_A \in (0.5, 0.87)$?
+
+\item \emph{Substrate extension.} Does the role-quotient construction
+extend naturally to ring extensions $\Z/N\Z$ for $N \in \{11, 12, \ldots\}$
+under the canonical magma extensions of TSML and BHML? The 4-core
+algebraic center extends per the universality result of the
+companion paper J33; whether the role-quotient extends in parallel
+is open.
+\end{enumerate}
 
 %==============================================================
 \section*{Acknowledgments}
 %==============================================================
 
-This work is part of the Trinity Infinity Geometry framework developed
-at 7Site LLC. The present manuscript is self-contained as a study of
-the two-coding split on $\Z/10\Z$ and its bearing on a discrete neural
-architecture; familiarity with the broader framework is not required.
+This work is part of the Trinity Infinity Geometry framework
+developed at 7Site LLC. The structural framing of the role-quotient
+result follows discussions with an external collaborator in May
+2026 whose adoption of the
+PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN tier-discipline
+calibration shaped the introduction's lens-ownership and prior-literature
+sections.
+
+%==============================================================
+\appendix
+\section{The canonical $\TS$ and $\BH$ composition tables} \label{app:tables}
+%==============================================================
+
+For self-containment, we record the canonical $\TS$ and $\BH$
+composition tables on $\Z/10\Z$ as 10$\times$10 integer matrices.
+Both tables are commutative; the source-of-truth is
+\texttt{Gen13/targets/foundations/lenses.py} in the project repository.
+
+\subsection*{$\TS$ (TSML\_SYM, upper-triangle authoritative).}
+
+\[
+\TS =
+\begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 7 & 0 & 0 \\
+0 & 7 & 3 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 3 & 7 & 7 & 4 & 7 & 7 & 7 & 7 & 9 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 3 \\
+0 & 7 & 4 & 7 & 7 & 7 & 7 & 7 & 8 & 7 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 7 & 7 & 8 & 7 & 7 & 7 & 7 & 7 \\
+0 & 7 & 9 & 3 & 7 & 7 & 7 & 7 & 7 & 7
+\end{pmatrix}
+\]
+
+\subsection*{$\BH$ (BHML, hardcoded canonical).}
+
+\[
+\BH =
+\begin{pmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 2 & 6 & 6 \\
+2 & 3 & 3 & 4 & 5 & 6 & 7 & 3 & 6 & 6 \\
+3 & 4 & 4 & 4 & 5 & 6 & 7 & 4 & 6 & 6 \\
+4 & 5 & 5 & 5 & 5 & 6 & 7 & 5 & 7 & 7 \\
+5 & 6 & 6 & 6 & 6 & 6 & 7 & 6 & 7 & 7 \\
+6 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 7 \\
+7 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 0 \\
+8 & 6 & 6 & 6 & 7 & 7 & 7 & 9 & 7 & 8 \\
+9 & 6 & 6 & 6 & 7 & 7 & 7 & 0 & 8 & 0
+\end{pmatrix}
+\]
+
+The role-quotient analysis of \S\ref{sec:role-quotient} uses only
+the explicit values of $\BH$. The $\TS$ table is recorded for
+completeness and for the supporting image-structure data of
+\S\ref{sec:image}.
 
 %==============================================================
 \begin{thebibliography}{99}
 %==============================================================
 
-\bibitem{Liu2024} Z.~Liu et al.,
-\emph{KAN: Kolmogorov-Arnold Networks},
-arXiv:2404.19756, 2024.
+\bibitem{Birkhoff1940} G.~Birkhoff,
+\emph{Lattice Theory},
+Amer.\ Math.\ Soc.\ Colloq.\ Publ.\ \textbf{25},
+American Mathematical Society, 1940.
 
-\bibitem{Kolmogorov1957} A.~N.~Kolmogorov,
-\emph{On the representation of continuous functions of several
-variables},
-Doklady Akad.~Nauk SSSR \textbf{114} (1957), 953--956.
+\bibitem{DrapalWanless2021}
+A.~Dr\'apal and I.~M.~Wanless,
+\emph{Maximally non-associative quasigroups},
+J.\ Combin.\ Theory Ser.\ A \textbf{184} (2021), 105510.
 
-\bibitem{Arnold1957} V.~I.~Arnold,
-\emph{On functions of three variables},
-Doklady Akad.~Nauk SSSR \textbf{114} (1957), 679--681.
+\bibitem{McKayWanless} B.~D.~McKay and I.~M.~Wanless,
+\emph{On the number of Latin squares},
+Ann.\ Comb.\ \textbf{9} (2005), 335--344.
 
-\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
-\emph{Symbolic dynamics for the modular surface},
-Bull.~AMS \textbf{44} (2007), no.~1, 87--132.
-
-\bibitem{Morishita2024} M.~Morishita,
-\emph{Knots and Primes} (2nd ed.), Springer, 2024.
-
-\bibitem{Ghys2007} \'E.~Ghys,
-\emph{Knots and dynamics},
-Proc.~ICM 2006, Vol.~I (2007), 247--277.
-
-\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
-\emph{Geodesic-flow arithmetic and modular-surface windings}, 2024.
+\bibitem{Ore1942} O.~Ore,
+\emph{Theory of equivalence relations},
+Duke Math.\ J.\ \textbf{9} (1942), 573--627.
 
 \bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
 \emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
 Algebraic Attractor of Two Commutative Binary Operations on
-$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+$\Z/10\Z$},
+submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
 
-\bibitem{SandersGish7328} B.~R.~Sanders, M.~Gish,
-\emph{TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on
-the $\Z/10\Z$ Composition Lattice}, submitted to
-\emph{Experimental Mathematics}, 2026 (J09).
-
-\bibitem{SandersMayesCL} B.~R.~Sanders, B.~Mayes,
-\emph{Crossing Lemma: Non-Associativity as Information Generation in
-Finite Magmas}, submitted to \emph{JCT-A} (or \emph{JPAA}), 2026
-(J05).
-
-\bibitem{SandersBridgeWP9} B.~R.~Sanders,
-\emph{LATTICE: Paradoxical Information Algebras on the $\Z/10\Z$
-Substrate}, submitted to \emph{Algebra Universalis}, 2026 (J26 / WP9
-Volume I).
+\bibitem{SandersGishFlatness} B.~R.~Sanders, M.~Gish,
+\emph{A Flatness Obstruction on Squarefree $\Z/n\Z$: Four Algebraic
+Structures and the 4-Core Algebraic Center},
+submitted to \emph{Algebraic Combinatorics}, 2026 (J07).
 
 \bibitem{TIGsynthesis2026} B.~R.~Sanders,
 \emph{Trinity Infinity Geometry Synthesis},

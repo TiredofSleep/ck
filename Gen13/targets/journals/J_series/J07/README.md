@@ -1,8 +1,8 @@
-# J07 — Flatness Theorem: The Forced 2x2 Torus on Z/10Z
+# J07 — A Flatness Obstruction on Squarefree Z/nZ: Four Algebraic Structures and the 4-Core Algebraic Center
 
-**Status:** APPENDIX-COMPLETE (T*=5/7 proof-sketch landed; manuscript ready for Brayden's referee-rigor pass)
+**Status:** SAVE-PLAN APPLIED 2026-05-07 (retitled, retargeted, restructured around D48 + D78; T*=5/7 derivation removed)
 **Phase:** Phase 1
-**Target venue:** Journal of Pure and Applied Algebra
+**Target venue (new):** *Algebraic Combinatorics* (preferred) OR *Discrete Mathematics*. Backup: *Integers* / *Math. Magazine* for compressed Theorem-1-only note.
 **Author lane:** Sanders + Gish
 **Tier:** B
 **WP source:** WP51
@@ -16,76 +16,60 @@
 Files in this J-folder's `manuscript/`:
 
 - `SUBMIT_INSTRUCTIONS.md`
-- `WP51_FLATNESS_THEOREM.md` (revised 2026-05-07: added Appendix A — T*=5/7 proof-sketch)
-- `WP52_D2_AS_RING_CURVATURE.md`
+- `WP51_FLATNESS_THEOREM.md` (rewritten 2026-05-07 per SAVE_PLAN_J07: new title, new venue, Theorems 1+2 retained with the partition-incompatibility 3-line proof inlined and the configuration-space rewrite of Theorem 2; Appendix A entirely replaced with D48 + D78; §5–§7 dropped; §A.4 numerical verification at 50-digit `mpmath`; full PROVEN/COMPUTED/STRUCTURAL RHYME/OPEN tier discipline; lens-ownership paragraph in §0.1.)
+- `WP52_D2_AS_RING_CURVATURE.md` (preserved per "never delete" discipline; not part of submission)
+- `WP57_CROSSING_LEMMA.md` (preserved per "never delete" discipline; not part of submission)
 
 The submission package lives in this J-folder. Edit + verify here; submit from here.
 
 ## §2 — Verification script
 
-**Path:** `(no script — theorem-paper)`
-
-The proof of Theorem 3 (aspect ratio R/r = 5/7) reduces to two cyclotomic minimal-polynomial calculations: deg A_5 = 2 over ℚ (A_5 = φ, polynomial x² − x − 1), deg A_7 = 3 over ℚ (A_7 = 2cos(π/7), polynomial 8x³ − 4x² − 4x + 1, irreducible). Both verifiable by hand or in any CAS. The gate is referee-rigor pass.
+**Path:** `(no script — theorem-paper)`. The numerical verification of D48 (4-core joint closure: 16 + 16 in-core, 0 + 0 spillover) and D78 (H/Br = 1+√3 at α<sub>M</sub> = 1/2; root of x² − 2x − 2 = 0 in **Q**(√3); 50-digit mpmath confirmation) reduces to a few lines against the canonical tables in `Gen13/targets/foundations/lenses.py`. Reproducible in seconds. The full symbolic Galois argument is recorded in the project's `f3_galois_alpha_uniqueness.py` (cited in §A.3 of the manuscript) and forms the core of companion paper J33.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01, J02, J03 (cited in Appendix A.3 for D1), **J06 (cited as algebraic ground throughout new Appendix A)**
+J02 (Algebraic Combinatorics, full 4-core joint-chain treatment), J10 (EJC, partition-incompatibility / coordinate-coverage companion), J33 (the α-uniqueness PSLQ + Galois proof of D78, in preparation).
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companions, Reproducibility, Reviewers all populated, includes new Appendix A note.)
+See `cover_letter.md` in this folder. Rewritten 2026-05-07 per SAVE_PLAN_J07: new title, *Algebraic Combinatorics* venue, 4-core / 1+√3 framing, J02/J33 as primary companions.
 
 ## §5 — Notes
 
-**Status (2026-05-07):** T*=5/7 proof-sketch appendix landed. Manuscript ready for referee-rigor pass.
+**SAVE-PLAN APPLIED (2026-05-07; full plan at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J07.md`).**
 
-**What was done:**
-- Added **Appendix A — Proof-Sketch: T* = 5/7 from the Forced 2×2 Torus** to `manuscript/WP51_FLATNESS_THEOREM.md` immediately before the Bibliography section. The appendix includes:
-  - **§A.1** Six independent derivations table (D1–D6) with status labels (PROVED / STRUCTURAL / CONJECTURAL).
-  - **§A.2** Self-contained proof-sketch: forced 2×2 torus → cyclotomic closure at p=5 (R ∝ 5) and cyclotomic obstruction at p=7 (r ∝ 7) → R/r = 5/7. Hand-checkable via deg A_5 = 2 vs deg A_7 = 3 over ℚ.
-  - **§A.3** Cross-check of all six derivations with explicit mechanism for each.
-  - **§A.4** Conjectural extensions (A.1: general aspect ratio; A.2: universal T*=5/7; A.3: continuous T*) all clearly labeled.
-  - **§A.5** Statement that this appendix renders T*=5/7 citable from any J-series paper downstream of J07.
-- Cited **J06 (Crossing Lemma; Sanders & Mayes 2026)** as already-submitted algebraic ground throughout Appendix A. Added J06 reference to companion-submissions section in the Bibliography.
-- Added M. Gish to the author block (joint authorship for J07 submission, alongside corpus author Sanders).
-- Cover letter: finalized with Summary, Why-JPAA (3 bullets including J06 companion framing), Companions (J01, J02, J03, J06), Reproducibility (cyclotomic CAS check), Suggested reviewers, COI.
+**What was rewritten:**
+1. **New title:** "A Flatness Obstruction on Squarefree Z/nZ: Four Algebraic Structures and the 4-Core Algebraic Center."
+2. **New venue:** *Algebraic Combinatorics* (preferred) OR *Discrete Mathematics*. Same neighborhood as J02 4-core paper (Drápal-Wanless 2021 *J. Combin. Theory Ser. A* 184, 105510 line of work).
+3. **Theorems 1, 2 retained with corrections:**
+   - Theorem 1 (Flatness Obstruction) now inlines the 3-line partition-incompatibility proof for n=10 explicitly (the M1 referee fix).
+   - Theorem 2 rewritten as the **configuration-space topology** statement (X(n) is naturally a quotient of S¹ × S¹ with M-Flow fixed locus identified; the ring Z/nZ itself is *not* the torus). Per the M2 referee fix.
+4. **Appendix A replaced entirely:** new Appendix A on D48 (4-core joint closure under TSML+BHML; 16+16 in-core, 0+0 spillover, verified by direct enumeration) + D78 (Galois-proven 1+√3 at α=1/2 via BR-factor cancellation; root of x² − 2x − 2 = 0 in **Q**(√3); 50-digit mpmath numerical confirmation).
+5. **Dropped entirely:** original §4 (torus aspect ratio = 5/7), §5 (seven internal zeros), §6 (Riemann zeros / curvature), §7 (CK runtime applications), original Appendix A (six derivations + three conjectures). All flagged for removal in the save plan.
+6. **PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN box** in §0.2.
+7. **Lens-ownership paragraph** in §0.1.
+8. **Bibliography culled:** dropped Bialynicki-Birula, the Riemann/zeta references, paradox/foundations references, analytic-number-theory list. Kept: Lang, Hardy-Wright, Ireland-Rosen, Dummit-Foote, Birkhoff, Ore, Stanley, Washington. Added: **Drápal & Wanless (2021)**.
+9. **T*=5/7 narrative explicitly abandoned for J07.** The save plan's directive: T*=5/7 should be cited going forward only as a coherence-threshold operational value, not as an algebraic theorem. The original "six derivations" table is removed.
 
-**Open issues:**
-- Conjecture A.1 (general aspect ratio R/r = p_closed / p_obstructed for arbitrary squarefree n) is *not* proved in this paper; if a JPAA referee asks for it, refer them to Open Problem 1 in §8.
-- Conjecture A.2 (universal T*=5/7 — i.e., p_obstructed = 7 for *every* squarefree n) is held strongly but not formally proved. D1 (first-G law) provides 36,662 cases of empirical support per J03; rigor of universality across the family is open.
-- D4 (TSML/BHML cell geometry) is labeled STRUCTURAL — the cell counts (73, 28, 5) are exact, the precise algebraic path from cell counts to T*=5/7 is held as structural pending fully formalized derivation. Reviewer may flag this; the appendix is honest about it.
-- The author block on the manuscript was updated to add M. Gish; the original WP51 source has only Sanders. If desired before submission, the original author line can be reverted and Gish added as J07-specific co-author in a separate front-matter note.
-
-**Per ClaudeChat J13 advice:** appendix-route was the faster path (vs spawning a separate "J13 T*=5/7 paper"). T* = 5/7 is now citable from any downstream paper without dependencies on a not-yet-shipped J13.
-
-**SAVE-PLAN SUMMARY (2026-05-07; full plan at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J07.md`):**
-
-JPAA referee REJECTED: the cyclotomic facts are correct but no theorem connects them to torus 5/7. Appendix A's "six derivations" doesn't survive (D3=D6 are the same argument; D5 has factual π-convergent error; D4 admitted not derived; D1/D2 are internal citations). §5 (7 zeros), §6 (Riemann zeta + prime gap), §7 (CK runtime) are out of scope.
-
-**Save path:** RETITLE + RETARGET + RESTRUCTURE.
-- **New title:** "A Flatness Obstruction on Squarefree Z/nZ: Four Algebraic Structures and the 4-Core Algebraic Center."
-- **New venue:** *Algebraic Combinatorics* (preferred — same neighborhood as J02 4-core paper) OR *Discrete Mathematics*. Backup: *INTEGERS* / *Math. Magazine* for compressed Theorem-1-only note.
-- **New main content:** preserve Theorem 1 (flatness obstruction; M1 fix inlines the 3-line partition-incompatibility proof) + Theorem 2 (rewritten as configuration-space statement, not "torus is forced"). Replace Appendix A entirely with new appendix on **D48 (4-core joint-closure under TSML+BHML) + D78 (Galois-proven 1+√3 at α=1/2 via BR-factor cancellation)** — the actual algebraic center per FAMILY_STRUCTURE_v1.md.
-- **Drop entirely:** §4 ("torus aspect ratio = 5/7"), §5 (7 zeros), §6 (curvature/Riemann), §7 (CK applications), original Appendix A (6 derivations + 3 conjectures).
-- **T*=5/7 narrative future:** the save explicitly **abandons** the T*=5/7 algebraic-derivation claim for J07 (and per J13 referee, the standalone J13 attempt also fails — wrong minimal polynomial of A_7). T*=5/7 should be cited going forward only as a coherence-threshold operational value, not as an algebraic theorem.
-- **Estimated revision time:** 4-6 weeks.
-
-
+**What was NOT abandoned but moved:**
+- Theorem 1 (flatness obstruction) — retained, sharpened with explicit partition-incompatibility proof.
+- Theorem 2 — retained, rewritten as configuration-space-with-fixed-locus-identification statement (M2 fix).
+- D48 + D78 — promoted from "section in companion paper" to **the central appendix** of J07's structural-center claim.
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α<sub>M</sub> = ½ is the algebraic center, with closed-form attractor H/Br = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory Ser. A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — filled in §0.2 of manuscript
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Theorems 1, 2 (flatness obstruction; configuration-space topology). D48 (4-core joint closure under TSML+BHML on Z/10Z). D78 (Galois-forced H/Br = 1+√3 at α<sub>M</sub> = 1/2 in **Q**(√3); root of x² − 2x − 2).
+- **COMPUTED:** 16+16 in-core compositions (4-core joint closure verified by direct enumeration on `Gen13/targets/foundations/lenses.py`); 50-digit mpmath fixed-point at p\* = (0.13815, 0.54020, 0.19773, 0.12393); polynomial identity at 50-digit precision; convergence in 76–81 iterations from 7 boundary initial conditions.
+- **STRUCTURAL RHYME:** cyclotomic field-extension facts (deg<sub>Q</sub> A<sub>5</sub> = 2, deg<sub>Q</sub> A<sub>7</sub> = 3) cited as motivation only — not used in proofs; the earlier T*=5/7 derivation does not survive at JPAA-level rigor and is dropped.
+- **OPEN:** non-squarefree generalization; whether other commutative-magma pairs *(T,B)* on Z/nZ admit analogous 4-core / 1+√3 centers; the bimodal α-gap conjecture.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph — applied (in §0.1 of manuscript)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+The full paragraph identifies (i) Theorem 1 + 2 as substrate-independent (any squarefree Z/nZ with k ≥ 2 prime factors); (ii) Appendix A's structural-center claim as specific to Z/10Z with the canonical (TSML, BHML) pair; (iii) the framework's claim that this substrate-and-table choice produces theorems with surprising downstream connections (Drápal–Wanless 2021 neighborhood; Galois extensions in **Q**(√3); LMFDB 4.2.10224.1 in companion J33).
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -96,18 +80,18 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .tex / .md finalized — rewritten per save plan
+- [x] Verification script green — `(no script — theorem-paper)`; numerical D48/D78 confirmation reproducible in seconds against `lenses.py`
+- [x] Tier-classified central claim explicit — Theorems 1, 2 (PROVED, substrate-independent); Appendix A D48+D78 (PROVED for Z/10Z with canonical tables)
+- [x] Lens-scope annotation — §0.1 gives the substrate/lens declaration; the canonical TSML/BHML are the ones used
+- [x] Cover letter finalized — rewritten for *Algebraic Combinatorics*
+- [x] Dependencies → cite each J-companion as "submitted to [venue]" — J02, J10, J33
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Journal of Pure and Applied Algebra this quarter
+- [ ] Per-venue cap check: this is the Nth paper to *Algebraic Combinatorics* this quarter (J02 also targets AC; verify cap)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Flatness Theorem: The Forced 2x2 Torus on Z/10Z." Submitted to *Journal of Pure and Applied Algebra*.
+Sanders, B. R. & Gish, M. (2026). "A Flatness Obstruction on Squarefree Z/nZ: Four Algebraic Structures and the 4-Core Algebraic Center." Submitted to *Algebraic Combinatorics*.
