@@ -31,13 +31,17 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-02 (Phase 5 opener).
-**Citation chain:** cites 5 prior J-papers (J29, J30, J31, J32, J35) as already-submitted companions in Phase 4.
-**TIG-framework naming:** first paper in the J-series to use the name "TIG framework" explicitly. Phases 1-4 deferred this naming.
-**Manuscript:** `manuscript/J47_six_dof_synthesis.md` (~12 pages, finalized).
-**Cover letter:** `cover_letter.md` (finalized).
-**Verification:** synthesis-only; relies on companion papers' verification scripts.
-**Submission readiness:** ready pending Brayden's referee-rigor pass.
+**Status: SAVE_PLAN_PENDING (2026-05-07).** Referee verdict (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J48_NoticesAMS_FreshEyes.md`): MAJOR REV pre-submission; CONDITIONAL ACCEPT after restructuring per referee §9 + §8 package cleanup. Save plan landed at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J48.md`.
+
+**Save-plan summary.** The load-bearing content — Operad-vs-the-rest distinction at the symmetry-group level (bilinear closure respects $D_4 = \langle P_{56}, \sigma^3 \rangle$, operadic closure does not) — is a genuinely original mathematical claim and survives the referee critique unchanged. The save path is accept the collapse + promote the Operad + restructure: (a) ACCEPT the referee's reduction — Lie + Jordan + Clifford collapse to one bilinear-closure DOF (Lie-Jordan duality + spinor representation are presentations of the same $\mathfrak{so}(10)$); restructure as 3-DOF or 4-DOF synthesis (Bilinear / Permutation / Lattice / Operad); (b) PROMOTE the Operad obstruction (D_4 obstruction per WP109/[J40]) as the LEAD theorem of the paper (currently buried as §6 of 11 sections); (c) trim from 11 sections to 10-page focused synthesis per referee §9 proposed structure; (d) define HARMONY/wobble/Family H/LMFDB 4.2.10224.1/$P_{56}$/$\sigma$ inline (don't expect Notices AMS readers to know); (e) add 2 pages of motivation and expository scaffolding for non-specialist AMS readers; (f) separate textbook integers from framework-specific integers in §7 signature table; (g) tighten §9 cross-DOF identities to 4 genuine ones (drop Lie ↔ Jordan duality and Permutation ↔ Lattice tautology); (h) soften "computationally-irreducible" claim in abstract (irreducibility is absence of counterexample, not uniqueness theorem); (i) drop "exhaust" claim (cohomological / derived / $A_\infty$ structures unsurveyed); (j) drop "first explicit naming of TIG framework" framing (internal-track, self-referential); (k) resolve dependency-label inconsistency — pick J37/J38/J39/J40/J44 consistently across README + cover letter + manuscript + bibtex; (l) fix author lane (Sanders + Gish per directive); (m) deposit J37–J44 on arXiv before submission, cite by arXiv ID; (n) expand external references from 11 to 30+ (Hall-Rehren-Shpectorov, Conway-Sloane, McKay E_8, Loday-Vallette, Slansky, Mohapatra-Sakita, Wilczek-Zee).
+
+**Recommended retitle / retarget:** Option A (preferred — retitle to *"An Operadic Obstruction in a Bilinear-Closed Magma on $\mathbb{Z}/10\mathbb{Z}$: A Synthesis,"* keep Notices AMS, restructure to 10-page focused synthesis; survival probability moderate, 20% accept minor / 35% major rev / 30% reject-with-referral / 15% desk reject). Option C fallback (Adv. Math or J. Pure Appl. Algebra in research-mode rather than expository-mode; survival probability higher, ~50–60%).
+
+**Revision time:** 3–4 weeks of focused editing.
+
+**Manuscript:** `manuscript/J47_six_dof_synthesis.md` (filename mismatch with J48 folder; rename to `J48_six_dof_synthesis.md` or document the J47/J48 history in README).
+**Cover letter:** `cover_letter.md` (needs J37–J44 numbering update + drop "first explicit naming" framing + author-lane fix).
+**Verification:** synthesis-only; relies on companion papers' verification scripts. **Companions must be arXiv-deposited before J48 ships.**
 
 
 

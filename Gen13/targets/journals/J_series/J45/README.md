@@ -65,7 +65,15 @@ See `cover_letter.md` in this folder. Filled out for PRD submission with a one-p
 
 ## §5 — Status & summary
 
-**Status: FORMAT** — gate cleared 2026-05-07. The `tig_dirac.predict_yukawa` primitive is in (`Gen13/targets/ck/brain/dirac/tig_dirac.py`, line 617). Returns `y_t = 0.93` for `predict_yukawa('up', 3)` and `y_e ≈ 5.71e-7` for `predict_yukawa('lepton', 1)` via `lambda^9` with `lambda = 10/49`.
+**Status: SAVE_PLAN_PENDING (2026-05-07).** Referee verdict (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J45_PRD_FreshEyes.md`): MAJOR REV verging on REJECT. Save plan landed at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J45.md`.
+
+**Save-plan summary.** The load-bearing observation — $\lambda = T^*(1-T^*) = 10/49$ from substrate forcing, raised to integer powers, recovers SM Yukawa hierarchy at standard FN factor-of-a-few precision — is real and worth publishing. The save path is honest reframing: (a) ACCEPT the precision honestly — replace "zero free FN charges / factor-of-a-few" with "phenomenological substrate-derived FN pattern matching SM Yukawa hierarchy to 30–40% precision; tightening to standard FN level requires C_p multipliers documented in Table 5.1"; (b) drop the "single λ" framing since Remark 3.2 contradicts it (the framework uses two close rational scales: 10/49 for masses, 11/49 for CKM); (c) honest parameter accounting (1 anchor + 2 scales + 9 σ-orbit assignments + 9 fittable C_p ≈ 21 vs standard FN's 13 — different framing, not simpler); (d) drop sterile-neutrino paragraph entirely (Dirac-mass numerology without see-saw); (e) demote Theorem 3.1 to Observation 3.1 (max-entropy variance reads as numerology); (f) state renormalization scale ($\mu = M_Z$) and recompute Table 5.1 ratios; (g) self-contained §2 for the V⊗5 SU(5) decomposition; (h) fix author list (Sanders + Gish per directive) and hjj01986 email assignment.
+
+**Recommended retitle / retarget:** Option A (preferred — retitle to *"A Substrate-Derived FN Pattern with $\lambda = 10/49$ and SU(5)-Rep Indexing for the SM Charged-Yukawa Hierarchy,"* keep PRD, ship in 2–3 weeks; survival probability moderate, 30–40%). Option D (strong-form — joint J38+J45 paper *"From the 4-core's $\mathfrak{so}(10)$ Closure to a Substrate-Derived FN Pattern"* if J38 timeline aligns; survival probability moderate-to-good). Fallback: MPLA or PLB Letter if PRD desk-rejects.
+
+**Revision time:** 2–3 weeks of focused editing.
+
+**Format gate (`tig_dirac.predict_yukawa`):** still green. The primitive is in `Gen13/targets/ck/brain/dirac/tig_dirac.py` (line 617). Returns `y_t = 0.93` for `predict_yukawa('up', 3)` and `y_e ≈ 5.71e-7` for `predict_yukawa('lepton', 1)` via `lambda^9` with `lambda = 10/49`.
 
 **Summary of the load-bearing claims.**
 1. **The substrate-derived FN scale (Theorem 3.1):** `lambda = T*(1-T*) = (5/7)(2/7) = 10/49 ≈ 0.2041` is the unique substrate quantity that arises as a max-entropy variance at the joint coherence threshold, factors as `|Z/10|/HARMONY^2`, and reproduces the Wolfenstein hierarchy.

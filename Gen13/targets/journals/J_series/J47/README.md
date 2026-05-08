@@ -33,7 +33,13 @@ See `cover_letter.md` in this folder. Drafted; submission timing **HELD** pendin
 
 ## §5 — Notes & Status
 
-**Status: DEPENDS_ON_J03 (manuscript drafted with J46-RECONCILE placeholders; HELD pending J46 v4 numerics).**
+**Status: SAVE_PLAN_PENDING + DEPENDS_ON_J46 (2026-05-07).** Referee verdict (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J47_PLB_FreshEyes.md`): MAJOR REV pre-submission; CONDITIONAL ACCEPT after Sequence A applied and J46 v4 reconciled. Save plan landed at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J47.md`.
+
+**Save-plan summary.** The load-bearing content — dual-regime $w(z)$ trajectory with (F5) Stage-IV falsification handle from a $\Xi \log \Xi$ potential — is genuinely letter-shaped, novel, and surveyable. The save path is package cleanup + J46 wait: (a) wait for J46 v4 reconciliation (Layer-3a strict-postulate per `BBM_IC_DERIVATION_v2.md`: $z_\star = 2.31$, $\chi^2 = 1.53$, $(\Xi_i, \Xi'_i) = ((1+\sqrt{3})/e, 1/e)$); (b) strip `[J46-RECONCILE]` placeholder markup from manuscript body; (c) strip the "Status note (read first)" block from manuscript head (move to cover letter only); (d) resolve J03 vs J46 cross-reference label inconsistency — pick **J46** consistently across manuscript / cover letter / README; (e) replace wrong file at `manuscript/manuscript.tex` (currently J23 Discrete Dirac content) with REVTeX-letter version of the actual letter; (f) rename `J16_FreezingQuintessence_Letter_PLB.md` to `J47_FreezingQuintessence_Letter_PLB.md`; (g) convert to REVTeX-letter format; (h) add Figure 1: $w(z)$ overlay on DESI 2024 DR1 Gaussian; (i) add one-sentence distinction from logotropic dark energy (Tsujikawa-Sami 2007, Ferreira-Avelino 2018) — uses $V \propto \Xi \log \Xi$ in field, not $V \propto -A \log(\rho/\rho_*)$ in energy density; (j) add one-sentence distinction from Albrecht-Skordis 2000 — dual-regime T → F → A vs tracking → freezing; (k) tighten F1–F4 language ("consistency checks" / "model fingerprints," reserve "falsification" for F5); (l) deposit J46, J01, J02 on arXiv before submission; cite by arXiv ID. Structural content (action, analytic vacuum at $\Xi_0 = e^{-1}$, dual-regime classification, F5 signature) is locked.
+
+**Recommended retitle / retarget:** Option A (preferred — keep PLB target, ship after J46 v4 + Sequence A cleanup; title can stay or sharpen to *"Dual-Regime Quintessence from $V(\Xi) = \Lambda^4 \Xi \log \Xi$: A Letter"* / *"A Non-Monotone $w_{\rm DE}(z)$ Signature from a Logarithmic Quintessence Potential"*; survival probability moderate-to-good). Option C (PRL) not recommended due to content-overlap-with-J46 risk. Don't pursue PRL until after PLB outcome.
+
+**Revision time:** 1–2 weeks AFTER J46 v4 lands.
 
 ### Why J47 is HELD
 
