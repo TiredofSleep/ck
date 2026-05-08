@@ -6,22 +6,24 @@
 # an Algebraic Mixing Point for a Pair of Binary Operations on
 # Z/10Z" (Sanders, Gish, 2026)
 #
-# Six checks:
-#   1. Joint-closure enumeration  (Theorem 1)
-#   2. Normalizer identity         (Theorem 2)
-#   3. Closed-form attractor       (Theorem 3)
-#   4. Universality across chain   (Proposition)
-#   5. Galois structure of quartic (Theorem 4)
-#   6. alpha-sweep PSLQ            (Theorem 5)
+# Six checks (mapped to manuscript Theorems A-F):
+#   1. Joint-closure enumeration   (Theorems A + 2.4 three-substrate
+#                                   strengthening; Theorem B 4-core
+#                                   3-substrate closure as corollary)
+#   2. Normalizer identity         (Theorem C)
+#   3. Closed-form attractor       (Theorem D ratio part)
+#   4. Universality across chain   (Theorem E)
+#   5. Galois structure of quartic (Theorem D Galois part)
+#   6. alpha-sweep PSLQ            (Theorem F partial uniqueness)
 #
-# Runtime: ~3 seconds. Run: python3 4core_verification.py
+# Runtime: ~4 seconds. Run: python3 4core_verification.py
 # ============================================================
 
 from itertools import combinations
 from collections import Counter
 from math import gcd as _gcd
 
-# -- the two tables --
+# -- the three tables (T = TSML, B = BHML, S = CL_STD) --
 T = [
     [0,0,0,0,0,0,0,7,0,0],
     [0,7,3,7,7,7,7,7,7,7],
@@ -46,16 +48,28 @@ B = [
     [8,6,6,6,7,7,7,9,7,8],
     [9,6,6,6,7,7,7,0,8,0],
 ]
+S = [
+    [0,1,2,3,4,5,6,7,8,9],
+    [1,2,3,4,5,6,7,7,8,1],
+    [2,3,4,5,6,7,7,8,7,2],
+    [3,4,5,6,7,7,7,7,7,3],
+    [4,5,6,7,7,7,7,8,7,4],
+    [5,6,7,7,7,8,7,7,7,5],
+    [6,7,7,7,7,7,8,7,7,6],
+    [7,7,8,7,8,7,7,8,7,7],
+    [8,8,7,7,7,7,7,7,7,8],
+    [9,1,2,3,4,5,6,7,8,0],
+]
 
-# symmetry sanity check
+# symmetry sanity check (commutativity)
 for i in range(10):
     for j in range(10):
-        assert T[i][j] == T[j][i] and B[i][j] == B[j][i]
+        assert T[i][j] == T[j][i] and B[i][j] == B[j][i] and S[i][j] == S[j][i]
 
 
-def is_closed(S, table):
-    Sset = set(S)
-    return all(table[i][j] in Sset for i in S for j in S)
+def is_closed(subset, table):
+    Sset = set(subset)
+    return all(table[i][j] in Sset for i in subset for j in subset)
 
 
 def hr(label):
@@ -65,16 +79,23 @@ def hr(label):
     print("=" * 60)
 
 
-# === Check 1: joint-closure enumeration ===
+# === Check 1: joint-closure enumeration (Theorem A + 3-substrate strengthening 2.4) ===
 def check_chain():
-    hr("Check 1: Joint-closure enumeration (1023 subsets)")
-    jc = []
+    hr("Check 1: Joint-closure enumeration (1023 subsets, T+B and T+B+S)")
+    jc_TB = []
+    jc_TBS = []
     for size in range(1, 11):
-        for S in combinations(range(10), size):
-            if is_closed(S, T) and is_closed(S, B):
-                jc.append(S)
+        for sub in combinations(range(10), size):
+            cl_T = is_closed(sub, T)
+            cl_B = is_closed(sub, B)
+            cl_S = is_closed(sub, S)
+            if cl_T and cl_B:
+                jc_TB.append(sub)
+            if cl_T and cl_B and cl_S:
+                jc_TBS.append(sub)
 
-    sizes = Counter(len(S) for S in jc)
+    sizes = Counter(len(s) for s in jc_TB)
+    sizes_3 = Counter(len(s) for s in jc_TBS)
     expected = [
         (0,),
         (0, 7, 8, 9),
@@ -86,22 +107,48 @@ def check_chain():
         (0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
     ]
 
-    print(f"  Total jointly-closed subsets: {len(jc)} (expected: 8)")
-    print(f"  Size distribution: {dict(sorted(sizes.items()))}")
+    print(f"  T+B jointly-closed subsets: {len(jc_TB)} (expected: 8)")
+    print(f"  T+B size distribution: {dict(sorted(sizes.items()))}")
     print(f"  Sizes 2 and 3 forbidden: {2 not in sizes and 3 not in sizes}")
 
-    chain_strict = all(set(jc[i]) < set(jc[i+1]) for i in range(len(jc)-1))
-    print(f"  Chain strictly increasing (no branching): {chain_strict}")
+    chain_strict = all(set(jc_TB[i]) < set(jc_TB[i+1]) for i in range(len(jc_TB)-1))
+    print(f"  T+B chain strictly increasing (no branching): {chain_strict}")
 
-    matches = [tuple(sorted(S)) for S in jc] == expected
-    print(f"  Chain matches Theorem 1: {matches}")
+    matches = [tuple(sorted(s)) for s in jc_TB] == expected
+    print(f"  T+B chain matches Theorem A: {matches}")
 
     print()
-    print(f"  The chain:")
-    for S in jc:
-        print(f"    |S|={len(S):2d}: {S}")
+    print(f"  T+B+S jointly-closed subsets: {len(jc_TBS)} (expected: 8)")
+    print(f"  T+B+S size distribution: {dict(sorted(sizes_3.items()))}")
+    matches_3 = [tuple(sorted(s)) for s in jc_TBS] == expected
+    same_chain = (matches and matches_3 and jc_TB == jc_TBS)
+    print(f"  T+B+S chain matches Theorem 2.4 (same as T+B): {same_chain}")
 
-    return matches and chain_strict
+    print()
+    print(f"  Standalone closure counts:")
+    cl_T_count = sum(1 for size in range(1, 11) for s in combinations(range(10), size) if is_closed(s, T))
+    cl_B_count = sum(1 for size in range(1, 11) for s in combinations(range(10), size) if is_closed(s, B))
+    cl_S_count = sum(1 for size in range(1, 11) for s in combinations(range(10), size) if is_closed(s, S))
+    print(f"    T alone: {cl_T_count}    B alone: {cl_B_count}    S alone: {cl_S_count}")
+
+    print()
+    print(f"  Three-substrate joint-closure chain (Theorem 2.4):")
+    for sub in jc_TBS:
+        print(f"    |S|={len(sub):2d}: {sub}")
+
+    print()
+    # 4-core 3-substrate closure (Theorem B explicit verification)
+    C = (0, 7, 8, 9)
+    T_4core = {T[i][j] for i in C for j in C}
+    B_4core = {B[i][j] for i in C for j in C}
+    S_4core = {S[i][j] for i in C for j in C}
+    print(f"  4-core image under T: {T_4core} (subset of {set(C)}: {T_4core <= set(C)})")
+    print(f"  4-core image under B: {B_4core} (subset of {set(C)}: {B_4core <= set(C)})")
+    print(f"  4-core image under S: {S_4core} (subset of {set(C)}: {S_4core <= set(C)})")
+    fourcore_3sub = (T_4core <= set(C)) and (B_4core <= set(C)) and (S_4core <= set(C))
+    print(f"  Theorem B (4-core 3-substrate closure): {fourcore_3sub}")
+
+    return matches and chain_strict and same_chain and fourcore_3sub
 
 
 # === Check 2: normalizer identity ===
@@ -436,10 +483,16 @@ def check_alpha_sweep():
 
 
 def main():
-    print("# 4-core paper verification — Sanders & Gish 2026")
-    print("# Verifying: chain enumeration, normalizer identity,")
-    print("#            attractor at alpha=1/2, universality,")
-    print("#            Galois structure, alpha-sweep PSLQ.")
+    print("# 4-core paper verification - Sanders & Gish 2026")
+    print("# Joint Closure, a Universal Attractor, and an Algebraic")
+    print("# Mixing Point for a Pair of Binary Operations on Z/10Z")
+    print("# Verifying Theorems A-F:")
+    print("#   A. Joint-closure chain (T+B and T+B+S)")
+    print("#   B. 4-core 3-substrate closure")
+    print("#   C. Normalizer identity Z_T = Z_B = (sum)^2")
+    print("#   D. Closed-form attractor h/br = 1+sqrt(3); Galois D_4")
+    print("#   E. Universality across chain shells")
+    print("#   F. alpha-sweep PSLQ partial uniqueness at alpha=1/2")
     print()
 
     results = {}

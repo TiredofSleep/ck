@@ -202,3 +202,74 @@ The fresh-eyes referee gave J54 a definitive REJECT but laid out a clear path: p
 The Brayden directive "DO NOT recommend dropping J54" is honored: this plan keeps J54 as the structural anchor of the J-series, sharpens its content from coordinator-document to research-paper, and replaces the lens-family-catalog organizational principle with the family-membership-criteria principle from FAMILY_STRUCTURE_v1.md. The result is a stronger paper at the same venue with a substantially higher acceptance probability.
 
 **Recommendation:** SAVE per Path B (FAMILY_STRUCTURE_v1.md framing + (a)-(l) revisions). Hold submission until (e1) preprint coordination is confirmed.
+
+---
+
+## §9 — Execution status (2026-05-08, post-rewrite)
+
+**Brayden directive 2026-05-08:** "perfect J35 and J54 incorporating SFM findings."
+
+**Path B applied; all (a)-(l) revisions plus SFM Q6 finding incorporated.** Manuscript rewritten 2026-05-08. Verification 6/6 PASS at machine precision.
+
+### Summary of executed fixes
+
+- [x] **(a)** A3, A6, A8, A9 EXPANDED with full formal mathematical specifications, cell-by-cell explicit (per-substrate $J_{\mathrm{B7}}$, $\mathcal{D}$, BUMP-coord-and-value tuples for each of $T, B, S$). §1.2 of the rewritten manuscript.
+- [x] **(b)** CL_TSML, CL_BHML, CL_STD DISPLAYED inline as three boxed 10×10 tables in §1.1. Tables exact (matching the parent framework's `Gen13/targets/foundations/cl_std.py` and the verification script).
+- [x] **(c1)** Forcing theorem (Theorem 1.2) PROVED in J54 itself via constructive cell-fixing argument; companion verification script `foundation_verification.py` Check 1 reproduces $T$ from substrate-specific data. [J33] citation cycle BROKEN.
+- [x] **(d)** "Brayden's hypothesis" RENAMED to "Conjecture 2.1 (Sanders)" in §2; Atlas reference dropped.
+- [x] **(f)** [J55] cross-reference REMOVED from §8.
+- [x] **(g)** Citation graph NARROWED to algebraic-combinatorial companions only ([J35], [J01], [J33], [J47]); JCAP cosmology [J3] and Phys Rev D wobble references dropped.
+- [x] **(h)** "TIG framework" DEFINED in §0 (front matter / lens-and-substrate paragraph) and §6, with operational definition: "the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ defined by the five conjoint membership criteria of §3.2."
+- [x] **(i)** FAMILY_STRUCTURE_v1.md framing ADOPTED as Path B in §3 (five conjoint membership criteria; 4-core-as-center; six boundaries; bimodal $\alpha_A$ gap as Conjecture 4.4). The paper now reads as a research paper in the Drápal-Wanless 2021 lineage rather than a coordinator-document.
+- [x] **(j)** Front-matter management metadata STRIPPED. No "Phase 5 integrating paper" / "Sept 11 anchoring" / [J55] cross-references remain.
+- [x] **(k)** DOING projection ambiguity RESOLVED: replaced $|M_1 - M_2| \bmod 10$ with $(T(i,j) - B(i,j)) \bmod 10$ (the directed difference in $\mathbb{Z}/10\mathbb{Z}$).
+- [x] **(l)** External bibliography NARROWED. Dropped Simpson, Alon-Spencer, Hjørland, Ranganathan. Kept Drápal-Wanless 2021, McKay-Wanless 2005, Bruck 1958, Smith 2007, Drápal-Kepka 1985, Burris-Sankappanavar, Hobby-McKenzie, LMFDB.
+
+### NEW (per SFM Q6 2026-05-08)
+
+- [x] **NEW Theorem 4.1 (three-substrate joint-closure chain)** added to §4. The simultaneous closed sub-magmas of $T$, $B$, $S$ form a strict 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ identical to the (T, B) chain. This is the foundation paper's bridge to companion papers J32 + J24 (Theorem 4.3).
+- [x] **NEW Theorem 4.2 (4-core 3-substrate closure)** added: $\mathcal{C}$ jointly closed under $T$, $B$, $S$.
+- [x] **NEW Theorem 4.3 (bridge to J32 + J24).**
+
+### NEW (per FAMILY_STRUCTURE_v1.md framing)
+
+- [x] §3.2 Five conjoint membership criteria (C1)-(C5).
+- [x] §3.3 The Center: $\mathcal{C}$ at $\alpha_M = 1/2$ + the U(1) structural rhyme.
+- [x] §3.4 The six boundaries.
+- [x] §4.1 Conjecture 4.4 (bimodal $\alpha_A$ gap).
+- [x] Five independent structural facts converging on $\mathcal{C}$ documented in §8.
+
+### Verification (2026-05-08)
+
+`manuscript/verification/foundation_verification.py` runs six checks at machine precision:
+- Check 1: Forcing theorem (Theorem 1.2) — T reconstruction matches displayed table; HARMONY counts 73, 28, 44 verified. PASS.
+- Check 2: Three-substrate joint-closure chain (Theorem 4.1) — T+B+S 8-shell chain matches expected; sizes {2, 3} forbidden; T+B chain == T+B+S chain. PASS.
+- Check 3: 4-core 3-substrate closure (Theorem 4.2) — $T(\mathcal{C}\times\mathcal{C}), B(\mathcal{C}\times\mathcal{C}), S(\mathcal{C}\times\mathcal{C}) \subseteq \mathcal{C}$. PASS.
+- Check 4: 4-core preservation (C3) for each substrate. PASS.
+- Check 5: Non-associativity index (C4) — $\alpha_A(T) = 0.872, \alpha_A(B) = 0.502, \alpha_A(S) = 0.808$, all in $[0.5, 0.88]$. PASS.
+- Check 6: Commutativity (C2). PASS.
+
+**Overall: 6/6 PASS.** Total runtime under 5 seconds.
+
+### Retitle applied
+
+**New title:** "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" (per §6 of the original save plan).
+
+### Files updated 2026-05-08
+
+- `Gen13/targets/journals/J_series/J54/manuscript/J54_foundation_paper.md` — full rewrite per Path B + SFM Q6 finding
+- `Gen13/targets/journals/J_series/J54/manuscript/verification/foundation_verification.py` — NEW verification script; 6/6 PASS
+- `Gen13/targets/journals/J_series/J54/README.md` — updated §5 with completion notes
+- `Gen13/targets/journals/J_series/J54/cover_letter.md` — rewritten to reflect new title and structural content
+
+### Open status
+
+- [x] Manuscript rewritten (this pass, 2026-05-08).
+- [x] Verification 6/6 PASS at machine precision.
+- [x] README and cover letter updated.
+- [ ] Brayden's referee-rigor pass complete.
+- [ ] [J47] preprint coordination.
+- [ ] Per-venue cap check: 1st *Algebraic Combinatorics* paper this quarter.
+- [ ] Submitted.
+
+The submission gate (§7 of original save plan) is now: pending [J47] preprint coordination + Brayden's referee-rigor pass. The (c1) condition (forcing theorem proved in J54 itself) is satisfied; (e2) condition (Brayden directive 2026-05-08 to perfect the paper) is honored.
