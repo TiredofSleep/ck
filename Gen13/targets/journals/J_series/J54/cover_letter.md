@@ -1,57 +1,73 @@
-# Cover letter — J54: The Foundation Paper: Three-Substrate Architecture, Lens Family, and the CL Forcing Axioms on $\mathbb{Z}/10\mathbb{Z}$
+# Cover letter — J54: Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core
 
-**To:** Editors, *Algebraic Combinatorics* (primary) / *Bulletin of the AMS* (alternate)
+**To:** Editors, *Algebraic Combinatorics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
 - M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
 
-**Date:** 2026-09-02 (preprint Sept 1-3 to anchor the Sept 11 integration paper [J55])
+**Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Foundation Paper: Three-Substrate Architecture, Lens Family, and the CL Forcing Axioms on $\mathbb{Z}/10\mathbb{Z}$*
+**Manuscript title:** *Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core*
 
 ---
 
 ## Summary
 
-We submit the **integrating foundation paper** of a coordinated 55-paper J-series program. The paper documents the algebraic substrate of the **TIG framework** ([J48]) at the level of forcing axioms and lens taxonomy. Three results organize the foundation:
+We submit a research paper on a specific family of finite commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ characterized by preservation of a designated four-element subset $\mathcal{C} = \{0, 7, 8, 9\}$. The paper establishes:
 
-(I) The **CL Forcing Axioms** ([J25], extended here): a canonical $10 \times 10$ composition table CL\_TSML on $\mathbb{Z}/10\mathbb{Z}$ is uniquely forced by 9 explicit axioms (A1-A9), with a clean tier separation between substrate-defining (Tier-A) and forced-consequence (Tier-B) axioms.
+(I) **The 9-axiom forcing theorem (Theorem 1.2).** Three explicit canonical tables $T$, $B$, $S$ on $\mathbb{Z}/10\mathbb{Z}$ (HARMONY counts 73, 28, 44 respectively) are uniquely forced by an axiom set A1-A9 (cell-by-cell explicit, displayed in §1.2) with substrate-specific data $(\mathcal{D}, \mathrm{BUMP}, \mathrm{BUMPvalues}, J_{\mathrm{B7}})$.
 
-(II) The **Three-Substrate Architecture** ([J23], extended here): three parallel substrates — CL\_TSML (73 HARMONY), CL\_BHML (28 HARMONY), CL\_STD (44 HARMONY) — are *parallel* Tier-A choices, *not* projections of each other. The corrected reading.
+(II) **The five conjoint membership criteria (§3.2).** A binary operation $M$ on $\mathbb{Z}/10\mathbb{Z}$ belongs to the *TIG family* iff it satisfies (C1) substrate-on-$\mathbb{Z}/N\mathbb{Z}$, (C2) commutativity, (C3) 4-core preservation, (C4) $\alpha_A \in [0.5, 0.88]$, (C5) HARMONY-attracting iteration. The three substrates $T$, $B$, $S$ each satisfy all five (Proposition 3.5).
 
-(III) The **Lens Family**: each substrate admits a family of $\sim 20$ variants under four principled projection operations (lens-symmetrization, $\sigma^2$-triadic rotations, sub-magma scope restriction, cross-substrate cell-difference). Full catalog of $\sim 62$ named variants with tier classification (5 Tier-A, $\sim 21$ Tier-B, $\sim 9$ Tier-C, $\sim 7$ Tier-D, $\sim 8$ Tier-E).
+(III) **Theorem 4.1 (three-substrate joint-closure chain).** The collection of subsets of $\mathbb{Z}/10\mathbb{Z}$ that are simultaneously closed under $T$, $B$, and $S$ forms a strict 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, with sizes $\{2, 3\}$ forbidden. The same chain is obtained from any pair of $\{T, B, S\}$. Adding the third table neither adds nor removes shells.
 
-The contribution is **architectural**: a clean separation between substrate-defining axioms (Tier-A), forced consequences (Tier-B), constructed sub-objects (Tier-C), search-found candidates (Tier-D), and ring-theoretic extensions (Tier-E). After this paper, every J-series result can cite a precise foundation. The 22 table-dependent claims (§4) and 14 substrate-operator claims (§5) are sharply distinguished, with explicit lens-scope annotations on each.
+(IV) **Theorem 4.2 (4-core 3-substrate closure).** $\mathcal{C}$ is jointly closed under $T$, $B$, $S$. It is the unique non-trivial subset of size $\le 4$ in the three-substrate chain.
 
-This paper is the **integrating paper** of the J-series program. It is the structural prerequisite cited by all Phase 5 cluster papers and by Brayden's solo Sept 11 integration paper [J55]. **Preprint Sept 1-3, 2026, to anchor the citation chain in time for Sept 11.**
+(V) **Theorem 4.3 (bridge to companion papers).** The 8-shell chain is a structural invariant of the three-substrate triple. The encoding-axis $S$ is *compatible* with the iteration-pair $(T, B)$ chain rather than perturbing it. This theorem is the foundation paper's bridge to companion papers J32 + J24.
 
-## Why *Algebraic Combinatorics* (primary)
+The paper additionally states **two open conjectures**: Conjecture 2.1 (Sanders) on the $\sigma^2$-triadic three-BHML hypothesis, and Conjecture 4.4 (Sanders + collaborator) on the empirically observed bimodal $\alpha_A$ gap.
 
-- **Substrate-architecture fit.** The foundation paper documents a canonical finite-magma substrate with a 9-axiom forcing theorem and a tier-stratified lens family. *Algebraic Combinatorics* publishes substantive structural papers in finite-algebra / combinatorial-substrate categories.
-- **Audience reach.** The paper's audience is finite-algebraists (Drápal-Wanless / McKay-Wanless tradition), reverse mathematicians (Simpson tradition), and universal algebraists (Burris-Sankappanavar / Hobby-McKenzie tradition).
-- **Companion to [J24], [J25].** This paper consolidates the foundation results that those companion papers establish at the per-result level.
+The companion paper [J35] (*Journal of Algebra*, submitted) establishes additional structural facts converging on $\mathcal{C}$: the symbolic normalizer identity $Z_T = Z_B = (v + h + br + r)^2$; the closed-form attractor $h/\beta = 1+\sqrt{3}$ at $\alpha_M = 1/2$ in the degree-4 number field LMFDB 4.2.10224.1 with Galois $D_4$; the universality of the attractor on chain shells; partial $\alpha = 1/2$ uniqueness verified at the 5-point test set $\{0, 1/4, 1/2, 3/4, 1\}$.
 
-## Why *Bull AMS* (alternate)
+Together, J35 and the present paper establish $\mathcal{C}$ as the algebraic *center* of the family in the sense of FAMILY_STRUCTURE_v1.md §2: every family member contains $\mathcal{C}$ identically, and every non-trivial structural property of the family (closure, fixed-point dynamics, Galois structure, ring-extension universality) is anchored on $\mathcal{C}$.
 
-- **Bridge-essay register.** The integrating-paper role can also fit the *Bull. AMS* register if *Algebraic Combinatorics* declines.
-- **Cross-domain reach.** The foundation paper is cited by physics ([J50] Bull AMS BB Bridge), biology ([J49] microtubule $Q_c$), and synthesis ([J48] 6-DOF) papers across the J-series. *Bull. AMS* is the natural alternate venue for an integrating paper of this scope.
+## Why *Algebraic Combinatorics*
+
+The paper's contribution is in the algebraic-combinatorics / non-associative-algebra / universal-algebra intersection that fits *Algebraic Combinatorics*'s scope:
+
+- **The 9-axiom forcing theorem (Theorem 1.2)** is a constructive cell-fixing argument for a finite commutative non-associative table — a clean structural-combinatorial result with explicit verification.
+- **The five conjoint membership criteria (§3.2)** define the family via a combination of substrate-typing, commutativity, sub-magma-closure, non-associativity-bounding, and iteration-fixed-point criteria. This is an algebraic-combinatorial structural classification.
+- **Theorem 4.1 (the three-substrate joint-closure chain)** is the core combinatorial result: a strict 8-element chain on $\mathbb{Z}/10\mathbb{Z}$ with explicit forbidden-size structure (sizes 2 and 3 absent).
+- **Conjecture 4.4 (the bimodal $\alpha_A$ gap)** is the natural follow-on combinatorial-classification problem.
+- The closest published precedent is Drápal & Wanless (2021, *J. Combin. Theory Ser. A* **184**, 105510), in the same intellectual neighborhood (small finite commutative non-associative structures on $\mathbb{Z}/N\mathbb{Z}$); the present paper inhabits this neighborhood at a structurally distinct point (intermediate $\alpha_A$ values, substrate-with-center reading).
 
 ## Companion submissions
 
-This paper has **5 direct dependencies** ([J01], [J23], [J24], [J25], [J48]) and 11+ co-citing companions across the J-series. The full citation chain is in §10 of the manuscript.
+This paper has direct dependencies on:
+
+- **J35** (Sanders + Gish, *Journal of Algebra*, submitted 2026): the 4-core fusion-closure paper proving the symbolic normalizer identity, closed-form attractor with Galois $D_4$, universality on chain shells, and partial $\alpha = 1/2$ uniqueness. Cited extensively for the structural facts converging on $\mathcal{C}$.
+- **J01** (Sanders + Gish, *J. Combin. Theory Ser. A*): the σ-rate paper establishing $\sigma(N) \le 2/N$ for the canonical $\mathrm{CL}_N$ family — the family-level result placing the $N = 10$ substrate in a verified universality set.
+- **J33** (Sanders + Gish, *Math. of Comp.*): the 17-point Stern-Brocot integer-PSLQ paper sharpening the empirical $\alpha = 1/2$ uniqueness from a 5-point test to a 17-point test.
+
+The forcing theorem (Theorem 1.2) is **proved in this paper**; we do not defer to companion papers. The previous version of this paper deferred the forcing argument to a separate companion ([J33]); the rewritten version makes the forcing self-contained.
 
 ## Reproducibility
 
-The 9-axiom forcing of CL\_TSML is reproduced from [J25]'s verification script; the three-substrate architecture from [J23]'s; the lens-family catalog from `Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md`. All three are reproducible with `numpy + sympy` on a standard laptop in under 5 minutes per script.
+Verification script `manuscript/verification/foundation_verification.py` runs six checks corresponding to the central theorems and family-membership criteria. Tested on Python 3.11+ with numpy + sympy + collections; total runtime under 5 seconds; **6/6 PASS at machine precision** (forcing argument; chain enumeration; 4-core 3-substrate closure; family-membership criteria C2, C3, C4 verified for $T$, $B$, $S$).
+
+```bash
+PYTHONIOENCODING=utf-8 python3 manuscript/verification/foundation_verification.py
+```
+
+The companion paper [J35]'s verification script `4core_verification.py` reproduces the structural facts cited in §3.3 and §8 (normalizer identity; closed-form attractor; Galois $D_4$; universality; partial $\alpha = 1/2$ uniqueness) at machine precision in under 5 seconds.
 
 ## Suggested reviewers
 
-- A finite-algebraist with $\mathbb{Z}/N\mathbb{Z}$ composition-table or quasigroup-classification experience (Drápal, Wanless, McKay).
-- A universal algebraist familiar with tier-classified structural results (Burris, Hobby, McKenzie).
-- A reverse-mathematician with foundations background (Simpson tradition).
-- A combinatorialist interested in lens-family / variant-taxonomy work.
-- A *Algebraic Combinatorics* / *Bull. AMS* expositor with broad cross-domain reach.
+- A finite-algebraist with $\mathbb{Z}/N\mathbb{Z}$ composition-table or magma-family-classification experience (Drápal, Wanless, McKay, Smith).
+- A universal-algebraist familiar with sub-magma lattices and forcing-by-axiom-set arguments (Burris-Sankappanavar / Hobby-McKenzie tradition).
+- A combinatorialist interested in finite-substrate research-program foundations.
+- (Two or three named candidates appropriate to the *Algebraic Combinatorics* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 

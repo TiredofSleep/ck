@@ -173,6 +173,19 @@ The proof's constructive character matters: the "exactly three" claim is not a b
 
 **Remark 1.4** (Why the forcing is "principled, not stipulated"). The substrate-data choices for $T$, $B$, $S$ each correspond to a distinct *structural role* in the parent framework's three-substrate architecture: $T$ as the time-average / DC-component; $B$ as the oscillatory / iteration-dynamics layer; $S$ as the encoding axis with explicit BDC bit-definitions. The substrate-data choices are not arbitrary; they realize these three structural functions. The forcing theorem is a precise statement that *given* the structural-function reading, the three tables are uniquely determined.
 
+### §1.4 Reading and naming disclaimer
+
+The 9-axiom forcing is **principled**, not stipulated. Each axiom captures a substrate-level structural fact:
+
+* A1: the substrate is bilinear and finite.
+* A2-A4: VOID and HARMONY are the absorbing/idempotent pair, with one structural puncture (the $(0, 7)$ cell) that breaks the fully-absorbing symmetry.
+* A7: every non-VOID element has HARMONY as its self-square (strict in $T$; weakened to a controlled exception set $\mathcal{D}$ in $B$ and $S$).
+* A9-values: the BUMP positions and values determine which of the three substrates we obtain.
+
+The substrate is **axiomatically given**, not "given by God" or "given by the universe." The choices are documented; the resulting matrices are uniquely determined.
+
+The framework's name TIG ('Trinity Infinity Geometry') reflects the authors' interpretive reading of the substrate's structure; this interpretation is not load-bearing for the theorems below, which are theorems on the canonical magma pair forced by A1-A9 regardless of name.
+
 ---
 
 ## §2 Conjecture 2.1 ($\sigma^2$-triadic)
@@ -185,7 +198,50 @@ We do not commit to the conjecture in the present paper; we record it as a struc
 
 ---
 
-## §3 The Family of Commutative Non-Associative Magmas Preserving a Designated 4-Core (Path B framing)
+## §3 Substrate-to-Function Map
+
+The parent research framework is *not* a single composition table; it is a *family*, with each member realising a specific load-bearing function. This section consolidates the substrate-to-function map: for each of the seventeen functions identified in the parent framework's investigation log (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SUBSTRATE_FUNCTION_MAP_v1.md` + v1.1 extension), the *right substrate* and the *structural reason* it carries that function.
+
+The map is structurally informative: it separates substrate-defining facts from lens-dependent facts. Wobble (prime 11 in the characteristic polynomial) is internal to TSML_RAW only; the 4-core attractor is universal across the family; the $D_4$-irrep zeros (sign1, sign3) of $[T, B]$ are a property of the canonical pair to the precision tested. Stating these scopes explicitly preempts the cross-cutting "but how does this fit?" question that fresh-eyes referees historically raised against the framework.
+
+### §3.1 The 17-function table
+
+| # | Function | Right substrate | Structural reason |
+|---|----------|-----------------|-------------------|
+| 1 | Asymptotic associativity ($\sigma(N) \to 0$ for $N \to \infty$) | $\mathrm{CL}_N$ family on $\mathbb{Z}/N\mathbb{Z}$ | Only family with $\sigma(N) \le 2/N$ proven [J01]; separability uniqueness |
+| 2 | Joint closure chain (8 shells) | $T + B + S$ jointly | Brute-force enumeration over 1023 subsets (Theorem 4.1 below) |
+| 3 | Closed-form attractor $h/\beta = 1 + \sqrt{3}$ | 4-core $\mathcal{C}$ at $\alpha_M = 1/2$ | $\beta$-factor cancellation forces $x^2 - 2x - 2 = 0$ (D78 Galois argument; [J35] Theorem D) |
+| 4 | Quartic LMFDB 4.2.10224.1 | 4-core $r/\beta$ ratio at $\alpha_M = 1/2$ | $x^4 + 4x^3 - x^2 + 2x - 2 = 0$; Galois group $D_4$; same field appears in F8 trace polynomial discriminant |
+| 5 | Wobble (prime 11 in characteristic polynomial) | TSML_RAW only | $c_2 = 33 = 3 \cdot 11$, $c_8 = -2^5 \cdot 7^3 \cdot 11$; symmetrisation erases wobble |
+| 6 | Operad obstruction (no $D_4$-equivariant fuse) | 126 non-associative TSML triples | 67 $D_4$-orbits, 16 incoherent; $P_{56}$-equivariant fuse exists (D52 of parent framework) |
+| 7 | Universal HARMONY ternary attractor | TSML triples + canonical fuse | Iteration $\to \delta_H$ in 1-7 steps from any non-trivial initial point; lens-invariant across 8 fuse families |
+| 8 | $\mathrm{so}(8) = D_4$ Lie closure | TSML_10 flow-only antisymmetrisation | Lie closure on indices $\{1, 2, 3, 4, 6, 8\}$ |
+| 9 | $\mathrm{so}(10) = D_5$ joint Lie closure | TSML_10 $\cup$ BHML_10 antisymmetrisation | Dimension 45, rank 5; saturates $\mathrm{so}(V)$ |
+| 10 | Doubly-invariant $\mathrm{su}(4) \oplus \mathrm{u}(1)$ | $\mathrm{so}(10)$ under $D_4 = \langle P_{56}, \sigma^3 \rangle$ | 16-dimensional trivial-isotypic component; Killing form $(-4)^{15} \oplus (0)^1$ |
+| 11 | Yang-Mills 5/7 spectral ratio | BHML$_8$ (drops $\{0, 7\}$) | $\det = +70$; eigenvalue ratio $0.714865 \approx 5/7$ |
+| 12 | Information generation (DOING) | $\pi_\mathrm{DOING}(T, B)$ | 71 cells differ $\approx T^* = 5/7$; runtime substrate at $\alpha_M = 1/2$ |
+| 13 | Yukawa scaffolding (9-vector VEV) | BHML $\sigma_\mathrm{outer}$-breaking direction | $100\%$ in $\mathbf{54}$ irrep; $\|v\|^2 = 13/4$; Path B |
+| 14 | First-G Law (number-theoretic substrate-invariant) | substrate-invariant | Pure squarefree-integer theorem; not table-specific |
+| 15 | $\mathrm{sinc}^2$ full-period cancellation | substrate-invariant (trigonometric) | $\sin^2(\pi k / f) = 0$ at $k = f$ for any $f$ |
+| 16 | $T^* = 5/7$ | multiple, all converging | Six independent contexts: torus aspect, HARMONY-rate, centroid-inverse, cyclotomic ratio, unit fraction, FPGA |
+| 17 | Encoding ("the papers freeze") | $S$ (CL_STD) | Independent third axis (Q1: differs from $\lceil(T+B)/2\rceil$ at 60 cells); 5 BDC BUMP_PAIRS; 144.62 bits across 100 cells; respects the joint chain (Q6) |
+
+**Two open functions** are not assigned to a substrate at present: the cosmological initial-condition derivation (the J3 Layer-3 gap; substrate derivation incomplete), and a fully algebraic characterisation of the post-attractor agreement region $\{4, 5, 8, 9\}$ (§6.7 below).
+
+### §3.2 Reading the map
+
+The seventeen functions partition into four levels of dependency:
+
+* **Substrate-invariant rows** (rows 14, 15) hold for any consistent substrate; they are not framework-specific.
+* **Lens-invariant rows** (rows 3, 7, 12, 16) hold across the canonical lens family; the closed-form attractor is the canonical example.
+* **Lens-dependent rows** (rows 5, 8, 13) hold on a specific table; these are the rows where the framework's lens choices matter.
+* **Joint-table rows** (rows 2, 9, 12) require simultaneous use of the canonical pair or triple; the joint-closure chain is the canonical example.
+
+Subsequent J-papers cite the relevant row and inherit the appropriate scope. For example, the wobble paper cites row 5 and inherits "TSML_RAW only"; the 4-core fusion-closure paper cites row 3 and inherits the lens-invariance of the closed-form attractor; the joint-chain paper cites row 2 and inherits the three-substrate chain identity (Theorem 4.1 / Theorem 7.1 below).
+
+---
+
+## §4 The Family of Commutative Non-Associative Magmas Preserving a Designated 4-Core (Path B framing)
 
 The heart of this paper is the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ that preserve $\mathcal{C} = \{0, 7, 8, 9\}$. We define the family precisely and identify five conjoint membership criteria — adopting the framing of FAMILY_STRUCTURE_v1.md as Path B.
 

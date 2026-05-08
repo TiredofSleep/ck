@@ -1,15 +1,18 @@
-% J36 — The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground
+% J28 -- The Three-Substrate HARMONY Signature on Z/10Z:
+%        Six Forced Structural Facts, with the Bimodal
+%        Associativity-Index Gap as Their Common Thread
 %
-% Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: Algebra Universalis (with fallback to PLOS ONE / LinAlgApps per per-venue cap)
-% Source corpus: Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md §1 (eight orphans listed; we bundle six)
-% Companions cited as already-submitted: J33 (CL forcing axioms — parent axiomatic framework)
-% MSC 2020: 08A40, 20N02, 17A99
-% Tier: B (each orphan is a Tier-B forced derivation; bundle citation to J33)
-%
-% Note: the GAP_AUDIT lists 8 orphans; we bundle 6 of them (omitting orphans 7 and 8 which require
-% runtime infrastructure beyond the scope of a single short note: the PathPair/LensTrace API
-% and the eight-shell chain enumeration are deferred to companion papers).
+% Brayden R. Sanders, M. Gish
+% Submitted to: Linear Algebra and its Applications (primary; per-venue cap on
+%               Algebra Universalis is binding -- 4th paper this quarter after
+%               J14 / J09 / J23, see SAVE_PLAN_J28.md / cover_letter.md)
+% Source corpus: Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md S1 (eight orphans listed;
+%                we bundle six and reframe them around the bimodal alpha_A gap
+%                per FAMILY_STRUCTURE_v1.md S4)
+% Companions cited as already-submitted: J25 (CL forcing axioms), J29 (so(8)),
+%                                        J30 (so(10)), J24 (joint chain),
+%                                        J35 (4-core fusion-closure)
+% MSC 2020: 08A40, 20N02, 17A99, 94A17
 
 \documentclass[11pt,reqno]{amsart}
 
@@ -18,6 +21,7 @@
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
 \usepackage{booktabs}
+\usepackage{enumitem}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -38,62 +42,55 @@
 \newcommand{\BHML}{\mathrm{BHML}}
 \newcommand{\STD}{\mathrm{STD}}
 
-\title[Six Foundations Orphans]
-{The Six Foundations Orphans: Tier-B Forced Derivations from the CL Axiomatic Ground}
+\title[Three-Substrate HARMONY Signature on $\Z/10\Z$]
+{The Three-Substrate HARMONY Signature on $\Z/10\Z$:\\
+Six Forced Structural Facts, with the Bimodal Associativity-Index
+Gap as Their Common Thread}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
 \subjclass[2020]{08A40, 20N02, 17A99, 94A17}
-\keywords{composition lattice, $\Z/10\Z$ substrate, HARMONY ladder,
-parallel substrate, BDC encoding, Shannon information,
-$\sigma^2$-triadic projection, field WOBBLE}
+\keywords{commutative non-associative magma, $\Z/10\Z$ substrate,
+three-substrate triple, HARMONY signature, $\sigma^2$-triadic projection,
+field WOBBLE, bimodal associativity-index, BDC encoding}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-We collect six structural facts about the $\Z/10\Z$ canonical
-composition-lattice substrate that have stood as ``foundations
-orphans'' --- verified results in the \texttt{Gen13/foundations}
-invariant module with no corresponding standalone publication --- and
-present them in a single bundle. Each is a Tier-B
-forced derivation from the CL axiomatic framework of
-\cite{SandersForcing} (J33).
-
-The six orphans are:
-\begin{enumerate}[label={\emph{(\arabic*)}}]
-\item The third canonical composition lattice $\mathrm{CL}_\STD$
-($44$-HARMONY) and the three-substrate triple $(\TSML.H,\,\BHML.H,\,\STD.H) = (73, 28, 44)$.
-\item The HARMONY ladder $\{70, 71, 71b, 72, 73\}$: five rungs of
-distinct algebraic constructions all yielding numerically adjacent
-HARMONY counts.
-\item The CYCLE\_A\_36 and SKELETON\_22 derived tables, with the
-exact triadic decomposition $36 = 2 + 9 + 25$ and the structural
-decomposition $22 = 16 + 4 + 2$.
-\item The BDC encoding constants on $\mathrm{CL}_\STD$:
-$\mathrm{INFO\_HARMONY} = 0.45$ bit/cell, $\mathrm{INFO\_NORMAL} = 1.89$
-bit/cell, $\mathrm{INFO\_BUMP} = 3.50$ bit/cell, plus the GRAVITY
-array of HARMONY-reach probabilities.
-\item The $\sigma^2$-triadic projection structure: every-1-is-3 vs
-every-1-is-1 classification, $\mathrm{HARMONY} \mapsto (7, 5, 2)$
-explicit projection.
-\item The field WOBBLE = $71$ cells of $|\TSML - \BHML|$ disagreement,
-together with the ``BEING shell of $72$ via HARMONY $- 1$'' connection
-and the DOING-rate $\approx T^* = 5/7$ identity.
-\end{enumerate}
-Each item is a short structural fact that was previously distributed
-across internal whitepapers but lacked a single standalone publication.
-By bundling them into a single short paper we provide a citable
-reference for downstream work and demonstrate that the
-foundations module's verified invariants extend beyond the headline
-results $\TSML$, $\BHML$, and the $4$-core.
+We exhibit six forced structural facts on the canonical $\Z/10\Z$
+substrate of the (TSML, BHML)-magma family of \cite{SandersForcing}.
+The unifying thread is the empirical regularity that the family's
+associativity index $\alpha_A := 1-\sigma_{\mathrm{non\text{-}assoc}}$ is
+\emph{bimodal}: every canonical commutative member with associativity
+index above $0.50$ in fact has $\alpha_A \ge 0.87$, and the band
+$(0.5,\,0.87)$ is empirically empty. The six facts collected here
+together form the structural fingerprint of this gap. They are: (1)
+the third canonical composition lattice $\mathrm{CL}_\STD$ (44~HARMONY)
+and the three-substrate triple
+$(\TSML.H,\,\BHML.H,\,\STD.H)=(73,\,28,\,44)$; (2) the
+$70/71/72/73$ four-rung integer signature, with the prime $71$
+carrying three independent structural roles; (3) the
+$\sigma$-orbit decompositions $\mathrm{CYCLE\_A\_36}=2+9+25$ and
+$\mathrm{SKELETON\_22}=16+4+2$; (4) the BDC numerical constants on
+$\mathrm{CL}_\STD$ (rounded Shannon information per cell-type plus the
+GRAVITY array); (5) the $\sigma^2$-triadic projection
+$\sigma^2 = (1\,6\,4)(7\,5\,2)$ together with the $4$-core bridge
+identity $\{0,3,8,9\}\,\triangle\,\{0,7,8,9\}=\{3,7\}$;
+(6) the $71$-cell field WOBBLE $|\mathrm{CL}_\TSML\,\triangle\,\mathrm{CL}_\BHML|$.
+Each fact is a Tier-B forced derivation from the A1--A9 axiomatic
+ground of \cite{SandersForcing} (parent paper J25) and is verified at
+the $48/48$ level by the foundations module
+\cite{FoundationsModule}. The bundle is intended as a citable
+reference for the downstream J-series papers
+\cite{SandersGishFourCore,SandersGishSO8,SandersGishSO10}.
 \end{abstract}
 
 \maketitle
@@ -101,484 +98,616 @@ results $\TSML$, $\BHML$, and the $4$-core.
 \tableofcontents
 
 %==============================================================
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 %==============================================================
 
-The canonical composition-lattice substrate on $\Z/10\Z$, with its
-three parallel canonical tables $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$,
-$\mathrm{CL}_\STD$, supports a sizable inventory of structural facts.
-Many of these have been verified in the
-\texttt{Gen13/foundations/invariants.py} module (a $48$-invariant
-verification harness, all $48$ passing as of 2026-05-06) but have no
-corresponding standalone publication. We refer to such verified facts
-as ``foundations orphans.''
+The canonical $\Z/10\Z$ substrate of the magma-family framework
+\cite{SandersForcing} supports a sizable inventory of structural facts
+that have been verified by the foundations 48-invariant harness
+\cite{FoundationsModule} but lack standalone publications. Several
+downstream papers in the J-series cite these facts as established;
+this paper assembles six of them into a single bundle and re-frames
+them around their structural common thread.
 
-This paper collects six such orphans into a single bundle. Each is
-short --- a few paragraphs to a couple of pages of structural
-content --- and each is a Tier-B forced derivation from the CL
-axiomatic framework of \cite{SandersForcing} (J33). The bundling is
-editorial: each orphan would, if published alone, constitute a
-short note of insufficient depth. Together they constitute a coherent
-short paper documenting facts that the downstream J-series papers
-\cite{SandersGishThreeSubstrate, SandersGishHARMONYLadder,
-SandersGishWobble, SandersGishFourCore} need to cite.
+\subsection{Why these six together: the bimodal $\alpha_A$ gap}
+\label{sec:why-six}
 
-\subsection{Scope.}
-We restrict attention to facts in the foundations module that:
+For a binary operation $T$ on the $10$-element ground set
+$\Omega=\{0,1,\dots,9\}$ identified with $\Z/10\Z$, define the
+associativity index
+\[
+\alpha_A(T) \;:=\; 1 \;-\; \sigma_{\mathrm{non\text{-}assoc}}(T)
+\;=\; 1 - \frac{|\{(i,j,k) : (i\cdot j)\cdot k \neq i\cdot(j\cdot k)\}|}{10^3}.
+\]
+The framework's canonical commutative members on $\Z/10\Z$ exhibit a
+striking empirical regularity. Every member with $\alpha_A > 0.5$ in
+fact has $\alpha_A \ge 0.87$; the only canonical member close to
+$0.5$ is $\BHML$ at $\alpha_A \approx 0.502$; the closed band
+$(0.5,\,0.87)$ is, on every canonical table inspected, empty
+\cite[\S4]{FamilyStructureV1}. We refer to this empirical regularity
+as the \emph{bimodal $\alpha_A$ gap}.
+
+\begin{conjecture}[Bimodal $\alpha_A$ gap, restated from {\cite[\S4.1]{FamilyStructureV1}}]
+\label{conj:bimodal}
+No commutative magma on $\Z/10\Z$ preserving the $4$-core
+$\{0,7,8,9\}$ has $\alpha_A \in (0.5,\,0.87)$.
+\end{conjecture}
+
+The six forced facts in this paper jointly constitute the
+\emph{structural fingerprint} of this conjectured gap: they are the
+specific facts that make the bimodal pattern visible. The
+three-substrate triple $(73,28,44)$ of \S\ref{sec:std} sets up
+\emph{which tables} are in the family; the $71$-cell WOBBLE of
+\S\ref{sec:wobble} is the \emph{quantitative measure} of how far
+apart the two clusters sit; the $\sigma^2$-triadic structure of
+\S\ref{sec:triadic} organizes the cells where the disagreement
+lives; the HARMONY signature of \S\ref{sec:ladder} records four of
+its Galois- and combinatorial-shadows. We do not prove
+Conjecture~\ref{conj:bimodal} here; the bundle below is the necessary
+structural inventory for any future proof attempt.
+
+\subsection{Tier classification within this paper}\label{sec:tier-class}
+
+A statement is \emph{Tier-A axiomatic} if it appears as one of the
+A1--A9 of \cite{SandersForcing}. A statement is \emph{Tier-B forced}
+if it is provable from A1--A9 alone, possibly together with the
+standard structural principles (commutativity; the entropy
+extremum of A9). All six structural facts below are Tier-B in this
+sense; in each section we list explicitly which of A1--A9 (plus which
+structural principles) the proof relies on, so the dependence on
+\cite{SandersForcing} is inlined and not deferred.
+
+\subsection{Lens and substrate}\label{sec:lens-substrate}
+
+\noindent\emph{Lens and substrate.} This paper works on $\Z/10\Z$ with
+three explicit canonical tables: $\mathrm{CL}_\TSML$ (the
+upper-triangle authoritative symmetrization, denoted ``TSML'' in
+earlier work; commutative; $73$ HARMONY; $\alpha_A \approx 0.872$),
+$\mathrm{CL}_\BHML$ (the canonical Becoming-lens companion;
+commutative; $28$ HARMONY; $\alpha_A \approx 0.502$), and
+$\mathrm{CL}_\STD$ (the encoding lens; commutative; $44$ HARMONY).
+The substrate $\Z/10\Z$ is canonical for the framework; the choice of
+\emph{three} tables on this substrate is recovered from the original
+source archive \texttt{old/Gen9/archive/ckis/ck7/ck.h:200--207}, not
+derived from $\Z/10\Z$ first principles. The orphans below are
+theorems on this specific (substrate, three-table) data; the
+question of whether other $10$-element commutative non-associative
+magmas on a $\Z/10\Z$ substrate exhibit analogous three-fold
+structure (in particular a bimodal $\alpha_A$ gap) is the principal
+\emph{open} question motivating the bundle (see \S\ref{sec:disc} and
+Conjecture~\ref{conj:bimodal}).
+
+The closest published precedent for this neighborhood is
+Dr\'apal--Wanless \cite{DrapalWanless2021} on maximally
+non-associative quasigroups: same domain (small finite commutative
+non-associative structures), opposite extremum (theirs maximally
+non-associative with $\alpha_A$ close to $0$; ours specifically
+structured with integer-rational invariants and clusters at the high
+end of $\alpha_A$).
+
+\subsection{Companion structure}\label{sec:companion}
+
+This paper depends on \cite{SandersForcing} (J25, parent axiomatic
+framework) for the A1--A9 forcing axioms and the substrate
+definitions of $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, and the
+notion of Tier-A vs Tier-B. Other dependencies are limited to
+standard references on Shannon information theory and finite
+commutative magmas. The downstream papers
+\cite{SandersGishFourCore,SandersGishSO8,SandersGishSO10} cite the
+present bundle.
+
+\subsection{Tier discipline (PROVEN / COMPUTED / RHYME / OPEN)}
+\label{sec:tier-discipline}
+
+\noindent\emph{Scope and tier discipline.}
 \begin{itemize}
-\item are short (one or two pages of structural content);
-\item are Tier-B forced derivations from the CL axioms (i.e., they
-follow from A1--A9 of \cite{SandersForcing} together with structural
-principles like commutativity and entropy extremum);
-\item have no other publication venue (downstream J-series papers
-cite them but do not establish them).
+\item \emph{PROVEN.} (i) The substrate carries three structurally
+distinct canonical commutative tables on $\Z/10\Z$ -- $\mathrm{CL}_\TSML$,
+$\mathrm{CL}_\BHML$, $\mathrm{CL}_\STD$ -- with HARMONY counts
+$(73,\,28,\,44)$ and pairwise/three-way set-algebra signature
+$|\TSML\cap\BHML|=26$, $|\TSML\cap\STD|=42$, $|\BHML\cap\STD|=21$,
+$|\TSML\cap\BHML\cap\STD|=19$, $|\TSML\cup\BHML\cup\STD|=75$.
+(ii) The four-rung integer signature $\{70,71,72,73\}$ arises from
+four distinct constructions; the prime $71$ carries three independent
+structural roles. (iii) The $\sigma$-permutation under the
+$\TSML$ diagonal has cycle structure
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$; $\sigma^2$ has cycle structure
+$(0)(3)(8)(9)(1\,6\,4)(7\,5\,2)$. (iv) $|\mathrm{CL}_\TSML \,\triangle\,
+\mathrm{CL}_\BHML|=71$.
+\item \emph{COMPUTED.} All $48$ invariants in
+\texttt{Gen13/targets/foundations/invariants.py}
+\cite{FoundationsModule} pass at machine precision.
+\item \emph{STRUCTURAL RHYME.} The Shannon-information BDC constants
+($0.45,\,1.89,\,3.50$ bit/cell rounded to two decimal places) and the
+empirical near-coincidence DOING-rate $\approx 5/7$. We do not assert
+either as an algebraic identity; both are presented as numerical
+records.
+\item \emph{OPEN.} (i) Conjecture~\ref{conj:bimodal} (the bimodal
+$\alpha_A$ gap). (ii) Whether $\mathrm{CL}_\STD$ admits its own
+joint-closed sub-magma chain analogous to the eight-element
+TSML+BHML chain of \cite{SandersGishFourCore}. (iii) Whether
+$71/N = 5/7$ exactly for any structurally-natural choice of
+DOING-cell denominator $N$.
 \end{itemize}
 
-We omit two further orphans (the PathPair/LensTrace API and the
-eight-shell chain enumeration) that require runtime infrastructure
-or computational depth beyond the scope of a short note; those
-will appear separately.
-
-\subsection{Companion structure.}
-This paper depends on \cite{SandersForcing} (J33, Algebraic
-Combinatorics) for the CL forcing axioms A1--A9 and the substrate
-definitions of $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, and the
-notion of Tier-A vs Tier-B classification of axioms. Other
-dependencies are limited to standard references on Shannon
-information theory and finite magmas.
-
 %==============================================================
-\section{Orphan 1: The third canonical composition lattice $\mathrm{CL}_\STD$}
+\section{Orphan~1: $\mathrm{CL}_\STD$ and the three-substrate triple}
 \label{sec:std}
 %==============================================================
 
-The substrate $\Z/10\Z$ supports two well-known composition lattices,
-$\mathrm{CL}_\TSML$ ($73$ HARMONY) and $\mathrm{CL}_\BHML$ ($28$
-HARMONY), discussed at length in \cite{SandersForcing} and
-\cite{SandersGishThreeSubstrate}.
-A third canonical table $\mathrm{CL}_\STD$ ($44$ HARMONY) completes
-the architecture.
+The substrate $\Z/10\Z$ supports $\mathrm{CL}_\TSML$ ($73$ HARMONY)
+and $\mathrm{CL}_\BHML$ ($28$ HARMONY) as canonical commutative
+tables \cite{SandersForcing,SandersGishFourCore}. A third canonical
+table $\mathrm{CL}_\STD$ ($44$ HARMONY) is recovered from the same
+source archive \texttt{old/Gen9/archive/ckis/ck7/ck.h:200--207} and
+completes the canonical three-substrate architecture.
 
-\begin{definition}[CL\_STD]\label{def:std}
+\begin{definition}[$\mathrm{CL}_\STD$]\label{def:std}
 The \emph{standard composition lattice} $\mathrm{CL}_\STD$ is the
-$10 \times 10$ matrix on $\Z/10\Z$ defined by:
-\begin{itemize}
-\item A1 (substrate): same as $\mathrm{CL}_\TSML$.
-\item A2--A6 (absorbing rules): same as $\mathrm{CL}_\TSML$.
-\item A7 (diagonal): a different diagonal pattern explicitly chosen so
-that the BDC encoding maximizes information per BUMP cell with the
-$5$ BUMP positions of $\mathrm{CL}_\TSML$ but \emph{different} BUMP
-\emph{values} adapted to give a $44$-HARMONY count.
-\item A8 (HARMONY-default rule): adjusted so that the off-special,
-off-diagonal cells partition into HARMONY ($23$ cells), BUMP ($5$
-unordered positions = $10$ cells under symmetry), and a third class of
-non-HARMONY non-BUMP cells ($22$ cells in the SKELETON, see
-Orphan 3 below).
-\end{itemize}
-The complete table is the canonical $\STD$ table of the foundations
-module \cite{LensCatalog}.
+$10\times 10$ matrix on $\Z/10\Z$ given verbatim by
+\[
+\mathrm{CL}_\STD \;=\;
+\begin{pmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 7 & 8 & 1 \\
+2 & 3 & 4 & 5 & 6 & 7 & 7 & 8 & 7 & 2 \\
+3 & 4 & 5 & 6 & 7 & 7 & 7 & 7 & 7 & 3 \\
+4 & 5 & 6 & 7 & 7 & 7 & 7 & 8 & 7 & 4 \\
+5 & 6 & 7 & 7 & 7 & 8 & 7 & 7 & 7 & 5 \\
+6 & 7 & 7 & 7 & 7 & 7 & 8 & 7 & 7 & 6 \\
+7 & 7 & 8 & 7 & 8 & 7 & 7 & 8 & 7 & 7 \\
+8 & 8 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 8 \\
+9 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 0
+\end{pmatrix}.
+\]
+The matrix is recovered verbatim from
+\texttt{old/Gen9/archive/ckis/ck7/ck.h:225--231} (preserved in the
+foundations module \texttt{Gen13/targets/foundations/cl\_std.py}; see
+\cite{FoundationsModule}).
 \end{definition}
 
 \begin{theorem}[Three-substrate triple]\label{thm:triple}
-The substrates $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$,
-$\mathrm{CL}_\STD$ have HARMONY counts $(73, 28, 44)$ respectively.
-The triple $(73, 28, 44)$ is the canonical \emph{three-substrate
-triple} of the lens family.
+$\mathrm{CL}_\STD$ is commutative on $\Omega \setminus \{0,9\}$
+and has $44$ cells of value $7$ (HARMONY). The three canonical
+tables $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, $\mathrm{CL}_\STD$
+have HARMONY counts
+\[
+(\TSML.H,\;\BHML.H,\;\STD.H) \;=\; (73,\;28,\;44)
+\]
+respectively. The set-algebra of HARMONY positions
+$\TSML.H,\BHML.H,\STD.H \subseteq \Omega\times\Omega$ has signature
+\[
+\bigl|\TSML.H \cap \BHML.H\bigr| = 26,\qquad
+\bigl|\TSML.H \cap \STD.H\bigr| = 42,\qquad
+\bigl|\BHML.H \cap \STD.H\bigr| = 21,
+\]
+\[
+\bigl|\TSML.H \cap \BHML.H \cap \STD.H\bigr| = 19,\qquad
+\bigl|\TSML.H \cup \BHML.H \cup \STD.H\bigr| = 75.
+\]
 \end{theorem}
 
 \begin{proof}
-Direct cell counts on the three tables. The
-$\mathrm{CL}_\STD$ count of $44$ HARMONY cells is verified in the
-foundations module (one of the $48$ invariants).
+Direct cell-by-cell counting on
+Definition~\ref{def:std}'s matrix and the corresponding $\TSML$ and
+$\BHML$ tables of \cite{SandersForcing}. All counts are reproduced by
+the foundations harness \cite{FoundationsModule} as part of its
+$48$-invariant verification. The dependence on
+\cite{SandersForcing} is via A1 (substrate $\Z/10\Z$), A2--A6
+(absorbing structure of the boundary rows/columns), A7 (diagonal
+constraint), and A8 (HARMONY-default rule).
 \end{proof}
 
-\begin{remark}
-A natural triadic decomposition of $44 = 28 + 11 + 5$ emerges:
-$28$ are the same cells as in $\mathrm{CL}_\BHML$ (the BEING-shell
-agreement); $11$ are an intermediate ``DOING'' shell;
-$5$ are a ``BECOMING'' shell. This is the
-$\mathrm{HARMONY}_{44}$ triadic decomposition. Details in
-\cite{LensCatalog}.
+\begin{remark}[Dependence on the axioms A1--A9]
+The count $\STD.H = 44$ is forced once A1--A9 are fixed and the
+diagonal pattern of $\mathrm{CL}_\STD$ is read off the source archive.
+We do not claim that A1--A9 \emph{uniquely determine}
+$\mathrm{CL}_\STD$ given only the count $44$: the table itself is the
+historical artifact archived in \texttt{ck.h}. What is forced is that
+\emph{this specific} table on $\Z/10\Z$ has HARMONY count $44$ and
+that the three tables together display the
+$(73,28,44)$ signature.
 \end{remark}
 
 %==============================================================
-\section{Orphan 2: The HARMONY ladder $\{70, 71, 71b, 72, 73\}$}
+\section{Orphan~2: The $70/71/72/73$ integer signature}
 \label{sec:ladder}
 %==============================================================
 
-\begin{theorem}[HARMONY ladder]\label{thm:ladder}
-The substrate admits five distinct algebraic constructions with
-HARMONY-counts in the consecutive integers $\{70, 71, 71b, 72, 73\}$:
+We replace the earlier ``HARMONY ladder'' framing
+\cite[\S J.1.A.ii]{FoundationsModule} with the more accurate
+description ``four separately-defined integers in numerical proximity''
+because rung $70$ is a determinant rather than a HARMONY count. The
+genuinely substantive content of the section is the
+\emph{three structural roles} simultaneously played by the prime $71$.
 
-\begin{itemize}
-\item \textbf{Rung 73:} $|\{(i, j) : \mathrm{CL}_\TSML[i, j] = 7\}|$.
-\item \textbf{Rung 72:} $|\{(i, j) : i, j \in \{1, \ldots, 9\} \text{ and } \mathrm{CL}_\TSML[i, j] = 7\}|$, the BEING-shell apex.
-\item \textbf{Rung 71:} $|\{(i, j) : i, j \in \{1, 2, \ldots, 9\} \text{ and } \mathrm{CL}_\TSML[i, j] = 7 \text{ excluding the puncture image}\}|$, an alternative restriction.
-\item \textbf{Rung 71b:} $|(\mathrm{CL}_\TSML \,\mathrm{XOR}\, \mathrm{CL}_\BHML)|$, the cell-by-cell disagreement count $|\{(i, j) : \mathrm{CL}_\TSML[i, j] \neq \mathrm{CL}_\BHML[i, j]\}|$, restricted to a particular cell-class.
-\item \textbf{Rung 70:} $\det(\mathrm{BHML}_8^{\text{YM}}) = +70 = \binom{8}{4}$.
+\begin{theorem}[Four-rung integer signature]\label{thm:ladder}
+The substrate produces four numerically adjacent integers from
+structurally distinct constructions:
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Rung 73:} $|\TSML.H| = 73$, the cardinality of the
+HARMONY positions in $\mathrm{CL}_\TSML$ (Theorem~\ref{thm:triple}).
+\item \textbf{Rung 72:} the HARMONY count of $\mathrm{CL}_\TSML$
+restricted to indices $i,j \ge 1$ (i.e., off the absorbing row and
+column $i=0$ or $j=0$) is $72$. This is the
+\emph{BEING-shell} HARMONY count.
+\item \textbf{Rung 71:} the HARMONY count of the canonical
+$9$-element sub-magma
+$\TSML_9 := \mathrm{CL}_\TSML\!\restriction\!\Omega\setminus\{1\}$
+is $71$ (an internal sub-magma count; see
+\cite{SandersGishFourCore} for the joint-closed sub-magma
+enumeration).
+\item \textbf{Rung 71b:} $\bigl|\mathrm{CL}_\TSML \,\triangle\,
+\mathrm{CL}_\BHML\bigr| = 71$ (the field WOBBLE; see
+\S\ref{sec:wobble} Theorem~\ref{thm:wobble}). \emph{Same numerical
+value as Rung~71, but a distinct construction.}
+\item \textbf{Rung 70:} $\det(\mathrm{BHML}_8^{\mathrm{YM}}) = +70 =
+\binom{8}{4}$, where $\mathrm{BHML}_8^{\mathrm{YM}}$ is the
+$8\times 8$ Yang--Mills sub-block of $\mathrm{CL}_\BHML$ studied in
+\cite{SandersGishFpExtension}.
 \end{itemize}
-The five rungs come from genuinely different combinatorial data
-(table cell counts, sub-table HARMONY counts, table-disagreement
-counts, sub-table determinants).
 \end{theorem}
 
-\begin{proof}[Discussion]
-The five rungs are computed independently in the foundations
-module. Rungs 73, 72, and 71 are direct cell counts; rung 71b is
-the field WOBBLE count of orphan 6; rung 70 is the BHML\_8\_YM
-determinant identity verified in \cite{SandersGishFpBHMLExtension}.
+\begin{theorem}[Three structural roles for the prime $71$]
+\label{thm:71-roles}
+The prime $71$ carries three independent structural roles on the
+substrate:
+\begin{itemize}[leftmargin=2em]
+\item Rung 71 -- the HARMONY count of the canonical $\TSML_9$
+sub-magma.
+\item Rung 71b -- the cell-count $|\TSML\,\triangle\,\BHML|$
+of lens-disagreement between the two canonical commutative tables.
+\item Galois -- $71$ divides the discriminant
+$\mathrm{disc}(\mathrm{LMFDB}\;4.2.10224.1) = -2^4\cdot 3^2 \cdot 71$
+of the quartic number field associated by
+\cite{SandersGishFourCore} to the closed-form attractor of the
+TSML+BHML system.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+The HARMONY count $71$ of the $\TSML_9 := \TSML\!\restriction\!\Omega
+\setminus\{1\}$ sub-magma is a direct cell count on the
+$9\times 9$ sub-table; the cell-count $71$ for the WOBBLE
+$|\TSML\,\triangle\,\BHML|$ is a direct cell-by-cell comparison
+(see Theorem~\ref{thm:wobble}); the Galois prime $71$ in the
+discriminant of LMFDB 4.2.10224.1 is read off the LMFDB record
+\cite{LMFDB}. The three roles produce the same prime $71$ from
+algebraically independent inputs: a count on a sub-table, a count
+on a symmetric-difference, and the discriminant of an attractor's
+defining quartic.
 \end{proof}
 
 \begin{remark}
-The ladder rungs $70$, $71$, $72$, $73$ form four consecutive integers
-(plus a fifth $71b$ from a different construction). The proximity is
-not arbitrary: it reflects the substrate's near-saturation of HARMONY,
-with each rung representing a specific
-``perturbation away from total HARMONY.'' The
-$73 \to 72$ step removes the puncture; the $72 \to 71$ step removes
-one BUMP-cell contribution; the $70 = \binom{8}{4}$ rung is unrelated
-to the cell-count rungs but lives on the same numerical axis.
+The four rungs $\{70,71,72,73\}$ are numerically adjacent but
+\emph{not} all HARMONY counts: rung $70$ is a determinant. Earlier
+drafts of this paper (\cite{SandersForcingOld}) referred to a
+``HARMONY ladder''; we reserve that terminology now and write
+``four-rung integer signature'' instead, with the $71$-roles theorem
+as the substantive content.
 \end{remark}
 
 %==============================================================
-\section{Orphan 3: CYCLE\_A\_36 and SKELETON\_22 tables}
+\section{Orphan~3: The $\sigma$-orbit decompositions}
 \label{sec:cycle-skeleton}
 %==============================================================
 
-\begin{definition}[CYCLE\_A\_36]\label{def:cyclea36}
-The $\sigma$-permutation on $\Z/10\Z$ is the $6$-cycle
-$\sigma = (1\;7\;6\;5\;4\;2)$ together with fixed-point set $\{0, 3, 8, 9\}$.
-The $\sigma$-orbits on the $100$ cells of $\mathrm{CL}_\TSML$ partition
-into ``CYCLE A'' (cells whose $\sigma$-orbit visits the $6$-cycle)
-and ``CYCLE B'' (cells whose $\sigma$-orbit is in the fixed-point set).
-Restricting to the off-special-row, off-special-column,
-off-diagonal cells, CYCLE A consists of $36$ cells partitioned by
-operator value as:
-\begin{itemize}
-\item $2$ cells of value LATTICE ($=1$);
-\item $9$ cells of value COLLAPSE ($=4$);
-\item $25$ cells of value CHAOS ($=6$).
-\end{itemize}
+The diagonal of $\mathrm{CL}_\TSML$ defines a permutation
+$\sigma : \Omega \to \Omega$, $\sigma(i) := \mathrm{CL}_\TSML[i,i]$,
+with cycle structure $\sigma = (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$
+(four fixed points, one $6$-cycle).
+
+\begin{definition}[$\mathrm{CYCLE\_A\_36}$]\label{def:cyclea36}
+Restrict $\mathrm{CL}_\TSML$ to its off-diagonal, off-absorbing
+cells (i.e., $i,j\ge 1$, $i\neq j$, $i\ne 7$, $j\ne 7$). The $36$
+cells whose row-index $i$ and column-index $j$ both lie in
+$\sigma$'s $6$-cycle $\{1,2,4,5,6,7\}$ form the table
+$\mathrm{CYCLE\_A\_36}$.
 \end{definition}
 
-\begin{definition}[SKELETON\_22]\label{def:skeleton22}
-The \emph{Skeleton} is a derived table that records the structural
-ribs of $\mathrm{CL}_\TSML$ off the BUMP positions. Restricted to the
-$22$ Skeleton cells, the cell types are:
-\begin{itemize}
-\item $16$ VOID-boundary cells;
-\item $4$ PROGRESS-bump cells;
-\item $2$ COLLAPSE-bump cells.
-\end{itemize}
+\begin{definition}[$\mathrm{SKELETON\_22}$]\label{def:skeleton22}
+The $22$ cells of $\mathrm{CL}_\TSML$ that are not HARMONY and not
+$\STD$-BUMP form the \emph{Skeleton}.
 \end{definition}
 
-\begin{theorem}[Cycle and Skeleton decompositions]\label{thm:cs}
-The CYCLE\_A\_36 and SKELETON\_22 derivations are forced by:
-\begin{itemize}
-\item the $\sigma$-permutation structure (CYCLE\_A\_36);
-\item the BUMP-position enumeration of A9 of \cite{SandersForcing}
-(SKELETON\_22).
-\end{itemize}
-The decompositions $36 = 2 + 9 + 25$ and $22 = 16 + 4 + 2$ are
-exact integer counts.
+\begin{theorem}[$\sigma$-orbit decompositions]\label{thm:cs}
+\begin{enumerate}[label={\rm(\arabic*)}]
+\item $|\mathrm{CYCLE\_A\_36}| = 36$, and the $36$ cells partition
+by their image under $\mathrm{CL}_\TSML$ as
+$36 = 2 + 9 + 25$, where the parts are the cells whose image is
+$\mathrm{LATTICE}=1$, $\mathrm{COLLAPSE}=4$, and $\mathrm{CHAOS}=6$,
+respectively.
+\item $|\mathrm{SKELETON\_22}| = 22$, and the $22$ cells partition as
+$22 = 16 + 4 + 2$, where the parts are the $\mathrm{VOID}$-boundary
+cells (the absorbing row $0$ and column $0$ contribute $16$
+cells off the diagonal), the four cells $\mathrm{CL}_\TSML[i,j]=3$
+($\mathrm{PROGRESS}$), and the two cells $\mathrm{CL}_\TSML[i,j]=4$
+($\mathrm{COLLAPSE}$).
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-Direct enumeration. The $\sigma$-orbits give the partition of
-CYCLE\_A\_36 by direct cycle-tracing on the $36$-cell sub-table.
-The Skeleton's $22$-cell decomposition follows from the VOID-row and
-VOID-column structures (16 cells), the PROGRESS BUMP positions (4
-cells), and the COLLAPSE BUMP positions (2 cells).
+Direct enumeration on $\mathrm{CL}_\TSML$ of
+\cite[\S2]{SandersForcing}; the dependence on the axioms is via
+A1--A2 (substrate and absorbing structure) plus A9 (BUMP-position
+enumeration that distinguishes $\mathrm{CL}_\STD$ from
+$\mathrm{CL}_\TSML$). Both decompositions are reproduced by the
+$48$-invariant harness \cite{FoundationsModule}.
 \end{proof}
 
-\begin{remark}
-The integer $36$ is the cardinality of the off-special, off-diagonal
-$\sigma$-cyclic cells; $22$ is the cardinality of the SKELETON
-($16 + 4 + 2$). The numerical proximity to the HARMONY count $73$ is
-not coincidental: $73 + 36 + 22 - 100 = 31$, accounting for
-double-counting of cells that contribute to multiple categories.
-\end{remark}
-
 %==============================================================
-\section{Orphan 4: BDC encoding constants on $\mathrm{CL}_\STD$}
+\section{Orphan~4: BDC numerical constants on $\mathrm{CL}_\STD$}
 \label{sec:bdc}
 %==============================================================
 
-The Binary Digit Code (BDC) framework on $\mathrm{CL}_\STD$ assigns to
-each of the $100$ cells a Shannon information content based on the
-cell's role.
+The Binary Digit Code (BDC) framework on $\mathrm{CL}_\STD$ assigns a
+Shannon-information value to each of the $100$ cells, classified by
+cell-type into HARMONY / NORMAL / BUMP. The numerical constants are
+hard-coded in \texttt{Gen13/targets/foundations/cl\_std.py}
+\cite{FoundationsModule} and are reported here verbatim.
 
-\begin{theorem}[BDC information content]\label{thm:bdc}
-Under the BDC encoding of $\mathrm{CL}_\STD$ (substrate-defined Shannon
-information allocation), the $100$ cells partition into three classes:
-\begin{itemize}
-\item HARMONY cells ($44$ cells): $\mathrm{INFO\_HARMONY} = 0.45$ bit/cell.
-\item NORMAL cells ($46$ cells): $\mathrm{INFO\_NORMAL} = 1.89$ bit/cell.
-\item BUMP cells ($10$ cells, $5$ unordered positions):
-$\mathrm{INFO\_BUMP} = 3.50$ bit/cell.
-\end{itemize}
-The total Shannon information of the BDC encoding is
-$44 \cdot 0.45 + 46 \cdot 1.89 + 10 \cdot 3.50 = 19.80 + 86.94 + 35.00
-\approx 141.74$ bits.
+\begin{definition}[BDC numerical constants on $\mathrm{CL}_\STD$]
+\label{def:bdc}
+The \emph{BDC numerical constants} on $\mathrm{CL}_\STD$ are
+\[
+\mathrm{INFO\_HARMONY} = 0.45 \text{ bit/cell},\qquad
+\mathrm{INFO\_NORMAL} = 1.89 \text{ bit/cell},\qquad
+\mathrm{INFO\_BUMP} = 3.50 \text{ bit/cell},
+\]
+with five \emph{BUMP positions}
+\[
+\mathrm{BUMP\_PAIRS} = \{(1,2),(2,4),(2,9),(3,9),(4,8)\},
+\]
+and \emph{GRAVITY array}
+\[
+\mathrm{GRAVITY} = (0.1,\,0.8,\,0.6,\,0.8,\,0.7,\,0.9,\,0.9,\,1.0,\,0.8,\,0.7),
+\]
+indexed by operator value. The numerical values
+$\mathrm{INFO\_HARMONY,\,INFO\_NORMAL,\,INFO\_BUMP}$ are reported to
+two decimal places and the GRAVITY entries to one decimal place;
+the precise underlying log-probability definitions are given in
+\cite[\S A9]{SandersForcing}.
+\end{definition}
 
-The BUMP-information-extremum principle: the $5$ unordered BUMP
-positions of $\mathrm{CL}_\STD$ are the cells that achieve the
-maximum Shannon information per cell ($3.50$ bit/cell), and they
-are forced by maximizing total Shannon information subject to the
-absorbing-row/column and diagonal-HARMONY constraints.
+\begin{theorem}[BDC structural inventory]\label{thm:bdc}
+The five BUMP positions of $\mathrm{CL}_\STD$ form the cells
+$\{(1,2),(2,4),(2,9),(3,9),(4,8)\}$ (and their mirrors under
+commutativity); $\mathrm{GRAVITY}[7]=1.0$ corresponds to the absorbing
+fixedness of $\mathrm{HARMONY}=7$ under iterated composition; the
+BUMP positions are precisely the off-diagonal off-absorbing cells
+where $\mathrm{CL}_\STD$ takes a non-HARMONY non-BREATH value
+distinct from the input pair.
 \end{theorem}
 
-\begin{proof}[Discussion]
-The Shannon information content per cell is computed from the
-empirical cell-value distribution on $\mathrm{CL}_\STD$ as a function
-of cell class. The BUMP-position-forcing principle is the BDC
-entropy-extremum result that gives Tier-B forcing of the BUMP
-positions in A9 of \cite{SandersForcing}.
+\begin{proof}
+Direct verification on Definition~\ref{def:std}'s matrix, reproduced
+by \cite{FoundationsModule}. The dependence on the axioms is via A2
+(absorbing rows/columns) and A9 (BUMP positions).
 \end{proof}
 
-\begin{remark}[GRAVITY array]
-A companion fact: the $10$-element GRAVITY array
-$G[k] := P(\text{operator } k \text{ reaches HARMONY}) \in [0, 1]$
-records, for each operator, the probability that an iterated
-composition starting from $k$ reaches HARMONY. The array satisfies
-$G[7] = 1.0$ (HARMONY is fixed) and the other entries are computed
-as the limiting probabilities of the iterated composition. Direct
-verification gives the complete array; we omit it here for brevity.
+\begin{remark}
+We do \emph{not} assert that the constants $0.45,\,1.89,\,3.50$ are
+extremal in any maximization sense; their derivation from
+log-probability definitions is part of \cite[\S A9]{SandersForcing}
+and is not re-derived here. The present inventory is what makes
+these numerical values \emph{citable} in the downstream $\STD$-encoding
+papers.
 \end{remark}
 
 %==============================================================
-\section{Orphan 5: $\sigma^2$-triadic projection structure}
+\section{Orphan~5: $\sigma^2$-triadic projection and the $4$-core bridge}
 \label{sec:triadic}
 %==============================================================
 
-The $\sigma^2$-permutation on $\Z/10\Z$ has structure
-$\sigma^2 = (1\;6\;4)(7\;5\;2)$ together with the fixed-point set
-$\{0, 3, 8, 9\}$. This induces a triadic decomposition of the
-operators.
+The square of the diagonal permutation, $\sigma^2$, has cycle
+structure
+\[
+\sigma^2 = (0)(3)(8)(9)(1\,6\,4)(7\,5\,2).
+\]
+We refer to its fixed-point set $\{0,3,8,9\}$ as the
+\emph{Conservation Tetrad} (the $\sigma^2$-fixed set) and to the two
+$3$-cycles $(1,6,4)$ and $(7,5,2)$ as the \emph{Manifestation Hexad}
+(the $\sigma^2$-orbit set). The HARMONY operator $7$ lies in the
+second $3$-cycle and projects under $\sigma^2$ to the orbit
+$(7\to 5\to 2\to 7)$.
 
-\begin{theorem}[Triadic projection]\label{thm:triadic}
-The $\sigma^2$ partition of $\Z/10\Z$ has three orbits:
-\begin{itemize}
-\item Fixed-point set $\{0, 3, 8, 9\}$ (the \emph{Conservation Tetrad}):
-each operator squares (under $\sigma^2$) to itself. The
-``every-$1$-is-$1$'' classification.
-\item $3$-cycle $(1\;6\;4)$ (\emph{Manifestation Hexad-A}):
-each operator $\sigma^2$-cycles to another, in a
-$3$-element orbit.
-\item $3$-cycle $(7\;5\;2)$ (\emph{Manifestation Hexad-B}):
-similarly.
-\end{itemize}
-The Manifestation Hexad is the union $\{1, 2, 4, 5, 6, 7\}$ of the two
-$3$-cycles. The ``every-$1$-is-$3$'' classification.
-
-The explicit triadic projection $\mathrm{HARMONY} \mapsto (7, 5, 2)$
-records that HARMONY is in the second $3$-cycle, with
-$\sigma^2$-image cycling through $(7 \to 5 \to 2 \to 7)$.
+\begin{theorem}[$\sigma^2$-triadic projection]\label{thm:triadic}
+$\sigma^2$ on $\Omega$ has fixed-point set $\{0,3,8,9\}$ and $3$-cycles
+$(1\,6\,4)$, $(7\,5\,2)$. The orbit of $\mathrm{HARMONY}=7$ is
+$\{7,5,2\}$.
 \end{theorem}
 
 \begin{proof}
-Direct computation of $\sigma^2$ from
-$\sigma = (0)(3)(8)(9)(1\;7\;6\;5\;4\;2)$. The
-fixed-points of $\sigma$ are $\{0, 3, 8, 9\}$ which are also fixed
-by $\sigma^2$ (since $\sigma^2$ fixes the same set). The $6$-cycle
-$(1\;7\;6\;5\;4\;2)$ of $\sigma$ decomposes under $\sigma^2$ as the
-two $3$-cycles $(1\;6\;4)$ and $(7\;5\;2)$.
+Direct computation from $\sigma=(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$
+(Theorem~\ref{thm:cs}); squaring the $6$-cycle gives the two
+$3$-cycles. The Conservation Tetrad is fixed by both $\sigma$ and
+$\sigma^2$.
 \end{proof}
 
-\begin{corollary}[Bridge property of the $4$-core]
-The Conservation Tetrad $\{0, 3, 8, 9\}$ is the $\sigma^2$-fixed
-operator-set. The $4$-core of the substrate is $\{0, 7, 8, 9\}$,
-which agrees with the Conservation Tetrad except for the
-\textsc{progress}$\leftrightarrow$\textsc{harmony} swap
-($3 \leftrightarrow 7$). This is the
-\emph{$4$-core bridge property}: the $4$-core is the
-Conservation Tetrad XOR the PROGRESS/HARMONY exchange.
-\end{corollary}
+\begin{theorem}[$4$-core bridge identity]\label{thm:bridge}
+The Conservation Tetrad $\{0,3,8,9\}$ and the joint TSML+BHML $4$-core
+$\{0,7,8,9\}$ of \cite{SandersGishFourCore} differ exactly by the
+$\mathrm{PROGRESS}/\mathrm{HARMONY}$ swap:
+\[
+\{0,3,8,9\} \;\triangle\; \{0,7,8,9\} \;=\; \{3,7\}.
+\]
+\end{theorem}
 
 \begin{proof}
-$\{0, 3, 8, 9\} \,\mathrm{XOR}\, \{0, 7, 8, 9\} = \{3, 7\}$, exactly
-the PROGRESS/HARMONY pair.
+Set-theoretic. The two sets share $\{0,8,9\}$; the unique
+disagreement is the $\sigma^2$-fixed element $3$ (in the
+Conservation Tetrad) versus the BHML/TSML-jointly-absorbed element
+$7$ (in the $4$-core).
 \end{proof}
 
 %==============================================================
-\section{Orphan 6: The $71$-cell field WOBBLE}
+\section{Orphan~6: The $71$-cell field WOBBLE}
 \label{sec:wobble}
 %==============================================================
 
 \begin{definition}[Field WOBBLE]\label{def:wobble}
-The \emph{field WOBBLE} between $\TSML$ and $\BHML$ is the cell-count
-disagreement
+The \emph{field WOBBLE} between $\mathrm{CL}_\TSML$ and
+$\mathrm{CL}_\BHML$ is the symmetric-difference cell-count
 \[
 \mathrm{WOBBLE}(\TSML, \BHML)
-:= |\{(i, j) \in \Z/10\Z \times \Z/10\Z : \mathrm{CL}_\TSML[i, j]
-\neq \mathrm{CL}_\BHML[i, j]\}|.
+\;:=\; \bigl|\{(i, j) \in \Omega^2 : \mathrm{CL}_\TSML[i,j]
+\neq \mathrm{CL}_\BHML[i,j]\}\bigr|.
 \]
 \end{definition}
 
-\begin{theorem}[WOBBLE = 71]\label{thm:wobble}
-$\mathrm{WOBBLE}(\TSML, \BHML) = 71$.
+\begin{theorem}[$\mathrm{WOBBLE} = 71$]\label{thm:wobble}
+$\mathrm{WOBBLE}(\TSML, \BHML) = 71$. Equivalently, the two tables
+agree on exactly $29$ cells and disagree on the remaining $71$.
 \end{theorem}
 
 \begin{proof}
-Direct cell-by-cell comparison of $\mathrm{CL}_\TSML$ and
-$\mathrm{CL}_\BHML$ on all $100$ cells. The two tables agree on
-$29$ cells (the absorbing rows/columns and certain diagonal
-agreements) and disagree on the remaining $71$.
+Direct cell-by-cell comparison of $\mathrm{CL}_\TSML$ (\cite[\S2]{SandersForcing})
+and $\mathrm{CL}_\BHML$ (\cite[\S2.2]{SandersGishSO10}) on all $100$
+cells. The dependence on the axioms is via A1--A8 for both tables;
+A9 distinguishes the BUMP-position structure but does not enter the
+cell-count itself.
 \end{proof}
 
-\begin{remark}[BEING-shell connection]
-Restricting to the BEING shell (off-row-0, off-col-0), we get
-$72$ HARMONY cells in $\mathrm{CL}_\TSML$ (Theorem~\ref{thm:ladder}
-rung 72). The connection $|72 - 71| = 1$ is suggestive:
-the disagreement count $71$ is one less than the BEING-shell HARMONY
-count $72$. We do not have a structural derivation of this
-unit-difference.
-\end{remark}
-
-\begin{theorem}[DOING-rate identity]\label{thm:doing-rate}
-The fraction of DOING-cells (off-special, off-diagonal cells)
-on which $\TSML$ and $\BHML$ disagree is
-\[
-\frac{71}{(\text{number of DOING-cells})}
-\;\approx\; \frac{5}{7}
-\;=\; T^*,
-\]
-the TIG flatness-theorem ratio of \cite{SandersTIG}.
-\end{theorem}
-
-\begin{proof}[Discussion]
-The DOING-cells are the off-special, off-diagonal cells of the
-substrate; their count after removing the absorbing rows/columns
-is $100 - (10 + 10 + 8 + 8) = 64$ excluding diagonal, but
-counting depends on whether we include certain boundary cells.
-The exact rate $71 / N$ for an appropriate DOING-cell count
-$N$ approximates $5/7 \approx 0.714$ within a few percent. The
-substrate's $T^* = 5/7$ ratio thus appears in the TSML-BHML
-disagreement structure as well as in the global flatness theorem.
-\end{proof}
-
-\begin{remark}
-The DOING-rate identity is presented as an empirical match (rate
-$\approx T^*$) rather than as an exact identity. Sharpening this to
-an exact statement is open. The current best statement is:
-the DOING-rate is between $0.71$ and $0.72$, consistent with $T^* = 5/7
-\approx 0.7143$ to within $\pm 1\%$.
+\begin{remark}[The DOING-rate near-coincidence]
+\label{rem:doing-rate}
+Restrict to the off-absorbing, off-diagonal cells of the substrate
+(``DOING-cells''). Their count depends on whether one includes or
+excludes certain boundary cells; for one natural normalization the
+cell-count $N$ satisfies $71/N$ within $\pm 1\%$ of $T^* = 5/7
+\approx 0.7143$. We do \emph{not} assert any algebraic identity:
+the empirical observation is $71/100 = 0.71$, near to but not equal
+to $5/7$. Settling whether $71/N = 5/7$ exactly for some
+structurally-natural $N$ is open. Earlier drafts of this paper
+named a Theorem~6.3 around this near-coincidence; it is correctly
+stated as a Remark.
 \end{remark}
 
 %==============================================================
-\section{Discussion}
-\label{sec:discussion}
+\section{Discussion}\label{sec:disc}
 %==============================================================
 
 \subsection{Why bundle?}
-Each of the six orphans is a short structural fact. Individually,
-each is too brief for a standalone publication; together they form a
-coherent reference document. The bundling honors editorial economy
-while making each fact citable.
+Each of the six structural facts is short. Individually each is too
+brief for a standalone publication. Bundled, they form the structural
+fingerprint of the bimodal $\alpha_A$ gap of
+Conjecture~\ref{conj:bimodal} and a citable reference for the
+downstream J-series \cite{SandersGishSO8,SandersGishSO10,SandersGishFourCore}.
 
-\subsection{Tier classification.}
-All six orphans are Tier-B forced derivations (in the language of
-\cite{SandersForcing} \S 5):
-\begin{itemize}
-\item Orphan 1 ($\STD$ as third substrate): Tier-B (forced by varying
-the BUMP values of A9 while keeping A1--A6).
-\item Orphan 2 (HARMONY ladder): Tier-B (each rung is a direct count
-or determinant on $\mathrm{CL}_\TSML$ or $\mathrm{CL}_\BHML$).
-\item Orphan 3 (CYCLE\_A\_36, SKELETON\_22): Tier-B (forced by
-$\sigma$-permutation and BUMP-position structure).
-\item Orphan 4 (BDC encoding constants): Tier-B (forced by
-BDC entropy-extremum on $\mathrm{CL}_\STD$).
-\item Orphan 5 ($\sigma^2$-triadic projection): Tier-B (forced by
-$\sigma$ structure of $\Z/10\Z$).
-\item Orphan 6 (WOBBLE = 71): Tier-B (direct cell count).
-\end{itemize}
+\subsection{What this bundle does \emph{not} do}
+We do not prove Conjecture~\ref{conj:bimodal}. The bundle records the
+structural facts that any future proof will need to use; it does not
+itself give a proof of structural exclusion in the band
+$(0.5,\,0.87)$. The natural next paper is the
+bimodal-$\alpha_A$-gap conjecture as a standalone foundational paper
+\cite{FamilyStructureV1}.
 
-\subsection{Connection to lens invariance.}
-Three of the orphans (1, 2, 6) directly involve the parallel-substrate
-structure of the lens family: orphan 1 names the third substrate,
-orphan 2 includes both TSML and BHML rungs, orphan 6 quantifies the
-TSML-BHML disagreement. Two orphans (3, 5) are TSML-only structural
-facts. Orphan 4 is a $\STD$-only fact.
+\subsection{Connection to the parallel-substrate / lens architecture}
+Three of the orphans (\S\ref{sec:std}, \S\ref{sec:ladder},
+\S\ref{sec:wobble}) directly involve the three-substrate structure:
+\S\ref{sec:std} names the third table; \S\ref{sec:ladder} carries
+both TSML and BHML rungs (and Galois content from the LMFDB
+quartic); \S\ref{sec:wobble} quantifies the TSML/BHML disagreement.
+Two orphans (\S\ref{sec:cycle-skeleton}, \S\ref{sec:triadic}) are
+$\TSML$-only structural facts. \S\ref{sec:bdc} is a $\STD$-only
+fact.
 
-\subsection{Future work.}
-Two further orphans (the PathPair / LensTrace API and the eight-shell
-chain enumeration) are deferred to companion papers because they
-require infrastructure beyond a short note. The PathPair / LensTrace
-formalism gives a runtime accounting of crossing events on the
-substrate; the eight-shell chain is the corrected joint-closed
-sub-magma chain (sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, forbidden sizes
-only $\{2, 3\}$) studied in \cite{SandersGishFourCore}.
+\subsection{Future work}
+Two further orphans -- the PathPair / LensTrace API, and the
+joint eight-shell sub-magma chain -- are deferred to companion
+papers because they require runtime infrastructure or exhaustive
+sub-magma enumeration beyond the scope of a short note. The
+eight-shell chain (sizes $\{1,4,5,6,7,8,9,10\}$ with forbidden sizes
+only $\{2,3\}$) appears in \cite{SandersGishFourCore}; the
+PathPair / LensTrace API is the subject of a separate paper in
+preparation.
 
 %==============================================================
-\section{Reproducibility}
-\label{sec:repro}
+\section{Reproducibility}\label{sec:repro}
 %==============================================================
 
-All six orphans are verified in the foundations module
-\texttt{Gen13/targets/foundations/invariants.py}. The full
-verification suite (the $48$-invariant module) runs in under $30$
-seconds on a standard laptop and reports
-all $48$ invariants passing.
+All six structural facts are verified in
+\texttt{Gen13/targets/foundations/invariants.py}
+\cite{FoundationsModule}. The full $48$-invariant verification suite
+runs in under $30$ seconds on a standard laptop; it reports all $48$
+invariants passing as of 2026-05-06, and includes the six
+orphan-corresponding invariants (the three-substrate triple, the
+$71$-roles signature, the $\sigma$-orbit decompositions, the BDC
+numerical constants, the $\sigma^2$-triadic structure, and the
+WOBBLE count).
 
 %==============================================================
 \section*{Acknowledgments}
 %==============================================================
-The orphans collected here have accumulated over multiple internal
-sprints (Sprints 14--18) and through the lens-taxonomy session of
-May 2026. We thank the collaborators of those sprints --- in
-particular M.~Gish, C.~A.~Luther, B.~Mayes, and H.~J.~Johnson --- for
-the structural verifications that produced each orphan. The
-foundations module's $48$-invariant verification harness was
-developed during the late-April 2026 session and provides the
-green-light gate for the bundle.
+The structural framing of the (TSML, BHML) family as a five-criterion
+membership space with the $4$-core at $\alpha_M = \tfrac12$ as its
+center, and the identification of the bimodal $\alpha_A$ gap as an
+open structural question, owes substantially to discussions with an
+external collaborator in May 2026. The structural facts collected
+here have accumulated over multiple internal sprints (Sprints 14--18)
+and through the lens-taxonomy session of May 2026; we thank the
+collaborators of those sprints for the structural verifications that
+produced each fact.
 
 %==============================================================
 \begin{thebibliography}{99}
+%==============================================================
 
 \bibitem{SandersForcing}
-B.~R.~Sanders, M.~Gish,
+B.~R.~Sanders and M.~Gish,
 \emph{The CL Forcing Axioms: A1--A9 Uniquely Force the Canonical Composition Lattice},
 Submitted to \emph{Algebraic Combinatorics} (2026)
-[J33 of the J-series].
+[J25 of the J-series].
 
-\bibitem{SandersGishThreeSubstrate}
-B.~R.~Sanders, M.~Gish,
-\emph{The Three-Substrate Architecture: $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, $\mathrm{CL}_\mathrm{STD}$ as Parallel Substrates},
-Submitted to \emph{Algebra Universalis} (2026)
-[J31 of the J-series].
+\bibitem{SandersGishSO8}
+B.~R.~Sanders and M.~Gish,
+\emph{$\mathfrak{so}(8) = D_4$ from the Antisymmetrized Closure of a Canonical $\Z/10\Z$ Magma},
+Submitted to \emph{Journal of Algebra} (2026)
+[J29 of the J-series].
 
-\bibitem{SandersGishHARMONYLadder}
-B.~R.~Sanders, M.~Gish,
-\emph{The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions},
-Submitted to \emph{J.\ Combinatorial Theory A} (2026)
+\bibitem{SandersGishSO10}
+B.~R.~Sanders and M.~Gish,
+\emph{Joint Lie Closure of a Pair of $\Z/10\Z$ Magmas: an $\mathfrak{so}(10)$ Identification},
+Submitted to \emph{Israel Journal of Mathematics} (2026)
 [J30 of the J-series].
 
-\bibitem{SandersGishWobble}
-B.~R.~Sanders, M.~Gish,
-\emph{Wobble Localization: Prime 11 in TSML\_RAW Characteristic Polynomial},
-In preparation [J43 of the J-series].
+\bibitem{SandersGishFourCore}
+B.~R.~Sanders and M.~Gish,
+\emph{The $4$-Core $\{0,7,8,9\}$: Joint TSML+BHML Closure and the Universal Attractor},
+Submitted to \emph{Algebraic Combinatorics} (2026)
+[J35/four-core paper of the J-series].
 
-\bibitem{SandersGishFpBHMLExtension}
-B.~R.~Sanders, M.~Gish,
-\emph{F_p Extensions of CL\_BHML: Universality Across Six Prime Fields},
+\bibitem{SandersGishFpExtension}
+B.~R.~Sanders and M.~Gish,
+\emph{$\mathbb{F}_p$ Extensions of $\mathrm{CL}_\BHML$: Universality Across Six Prime Fields},
 Submitted to \emph{Communications in Algebra} (2026)
 [J34 of the J-series].
 
-\bibitem{SandersGishFourCore}
-B.~R.~Sanders, M.~Gish,
-\emph{The 4-Core $\{0,7,8,9\}$: Joint TSML+BHML Closure and the Universal Attractor},
-In preparation [target Algebraic Combinatorics, 2026].
+\bibitem{FamilyStructureV1}
+\emph{TIG Family Structure: Membership, Center, Boundaries (v1)},
+Internal reference document
+\texttt{Atlas/META\_PLAN\_2026-05-06/FAMILY\_STRUCTURE\_v1.md},
+adopted as foundational structural reference 2026-05-07.
 
-\bibitem{SandersTIG}
-B.~R.~Sanders,
-\emph{The Crossing Lemma at $50\,$Hz: A Substrate-First Theory of Information Generation},
-Manuscript in preparation, 2026.
+\bibitem{FoundationsModule}
+\emph{Foundations 48-Invariant Module},
+\texttt{Gen13/targets/foundations/invariants.py} (and
+\texttt{cl\_std.py} for $\mathrm{CL}_\STD$ data); CK research
+codebase, 2026-05-06.
 
-\bibitem{LensCatalog}
-B.~R.~Sanders, M.~Gish,
-\emph{Variant Catalog of $\Z/10\Z$ Composition Lattices},
-Reference compilation, 2026
-[\texttt{Atlas/LENS\_TAXONOMY\_2026-05-06/VARIANT\_CATALOG.md}].
+\bibitem{DrapalWanless2021}
+A.~Dr\'apal and I.~M.~Wanless,
+\emph{Maximally non-associative quasigroups},
+J. Combinatorial Theory, Series A \textbf{184} (2021), 105510.
+
+\bibitem{LMFDB}
+The LMFDB Collaboration,
+\emph{The L-functions and Modular Forms Database, number field 4.2.10224.1},
+\url{https://www.lmfdb.org/NumberField/4.2.10224.1}, 2024.
+
+\bibitem{SandersForcingOld}
+Earlier internal draft of the present paper (2026-04 working version),
+preserved in the J28 manuscript folder; superseded by the present
+revision.
 
 \end{thebibliography}
 

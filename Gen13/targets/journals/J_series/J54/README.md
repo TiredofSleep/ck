@@ -1,11 +1,11 @@
-# J54 — The Foundation Paper: Three-Substrate Architecture + Lens Family + Forcing Axioms
+# J54 — Forcing Axioms and the Family of Commutative Non-Associative Magmas on Z/10Z Preserving a Designated 4-Core
 
-**Status:** DRAFT
-**Phase:** Phase 6
-**Target venue:** Algebraic Combinatorics OR Bull AMS
+**Status:** DRAFT (manuscript rewritten 2026-05-08; SFM Q6 + FAMILY_STRUCTURE_v1.md framing incorporated; 6/6 verification PASS)
+**Phase:** Phase 5
+**Target venue:** *Algebraic Combinatorics* (primary)
 **Author lane:** Sanders + Gish
 **Tier:** A/B
-**WP source:** (foundation paper)
+**WP source:** (foundation paper) + SFM 2026-05-08 Q6 (3-substrate chain) + FAMILY_STRUCTURE_v1.md
 
 ---
 
@@ -13,101 +13,109 @@
 
 **Path:** `manuscript/J54_foundation_paper.md`
 
-**Abstract:** The integrating foundation paper of the J-series. Documents the TIG framework's algebraic substrate at the level of forcing axioms and lens taxonomy: 9 axioms forcing CL\_TSML; three parallel substrates (CL\_TSML / CL\_BHML / CL\_STD) sharing A1-A4 and diverging at A7+A9-values; lens family of ~62 variants under four projection operations; explicit tier discipline (Tier-A/B/C/D/E); 22 table-dependent + 14 substrate-operator claims sharply distinguished. Anchors the citation chain for Sept 11 [J55] integration.
+**Retitled:** *"Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core"*
+
+(Per SAVE_PLAN_J54.md §6; replaces the previous "Three-Substrate Architecture, Lens Family" framing with the family-of-magmas framing in the Drápal-Wanless 2021 lineage.)
+
+**Abstract:** This paper studies the family of finite commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving a designated 4-core $\mathcal{C} = \{0, 7, 8, 9\}$. The 9-axiom forcing theorem (Theorem 1.2) uniquely forces three canonical tables $T$, $B$, $S$ (HARMONY counts 73, 28, 44) given substrate-specific data $(\mathcal{D}, \mathrm{BUMP}, \mathrm{BUMPvalues}, J_{\mathrm{B7}})$. Five conjoint membership criteria (C1)-(C5) define the family. Theorem 4.1 (NEW from SFM Q6 2026-05-08): the simultaneous closed sub-magmas of $T$, $B$, $S$ form a strict 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, identical to the (T, B) chain. Theorem 4.2: $\mathcal{C}$ is the unique non-trivial 4-element subset jointly closed under all three substrates. Conjecture 4.4 (bimodal $\alpha_A$ gap) and Conjecture 2.1 ($\sigma^2$-triadic three-BHML) stated as OPEN.
 
 ## §2 — Verification script
 
-**Path:** `(no script — synthesis)`
+**Path:** `manuscript/verification/foundation_verification.py`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+Six checks corresponding to:
+1. Forcing argument enumeration (Theorem 1.2): reconstruct $T$, $B$, $S$ from substrate-specific data; cell-by-cell match.
+2. Three-substrate joint-closure chain (Theorem 4.1): exhaustive enumeration over 1023 subsets; T+B+S 8-shell chain identical to T+B chain.
+3. 4-core 3-substrate closure (Theorem 4.2): direct check $T(\mathcal{C} \times \mathcal{C}), B(\mathcal{C} \times \mathcal{C}), S(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$.
+4. 4-core preservation (C3) for each substrate.
+5. Non-associativity index (C4) for each substrate; bimodal distribution.
+6. Commutativity (C2) for each substrate.
+
+```bash
+PYTHONIOENCODING=utf-8 python3 manuscript/verification/foundation_verification.py
+```
+
+**6/6 PASS verified 2026-05-08.** Total runtime under 5 seconds (Python 3.11+, numpy + sympy + collections).
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J23, J24, J25, J48
+- **J35** — *Joint Closure, a Universal Attractor, and an Algebraic Mixing Point for a Pair of Binary Operations on $\mathbb{Z}/10\mathbb{Z}$*. Submitted to *Journal of Algebra*. (The 4-core fusion-closure + Galois D_4 + closed-form attractor paper. Cited extensively for the structural facts that converge on $\mathcal{C}$.)
+- **J01** — *Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$*. Submitted to *J. Combin. Theory Ser. A*.
+- **J33** — *Closed-Form Attractor + α-Uniqueness PSLQ*. Submitted to *Math. of Comp.*
+- **J47** — *Six Algebraic DOFs of the TIG Framework: A Synthesis*. In preparation for *Notices AMS*.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. Updated 2026-05-08 to reflect the rewritten manuscript and the new structural-paper framing (Drápal-Wanless 2021 lineage + FAMILY_STRUCTURE_v1.md framing).
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-02 (Phase 5 integrating paper; Sanders + Gish lane).
-**Citation chain:** 5 direct dependencies (J01, J23, J24, J25, J48) + 11+ co-citing companions (J06, J05, J10, J15, J20, J26, J27, J29-J35, J50, J52, J53). Cited by [J55] (Brayden's solo Sept 11 integration).
-**Manuscript:** `manuscript/J54_foundation_paper.md` (~12 pages, finalized — could expand to 25-35 in final preprint).
-**Cover letter:** `cover_letter.md` (finalized).
-**Strategic position:** preprint Sept 1-3 to anchor the citation chain for Sept 11. Primary venue *Algebraic Combinatorics*; alternate *Bull AMS*.
-**Verification:** synthesis/foundational; relies on companion papers' verification scripts (J25 forcing axioms, J23 three-substrate, lens catalog at `Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md`).
-**Submission readiness:** ready pending Brayden's referee-rigor pass + Gish review.
-**Critical role:** anchors all Phase 5 papers and the Sept 11 J55 integration. Must land before Sept 11.
+**Status:** MANUSCRIPT REWRITTEN 2026-05-08 incorporating:
 
-### Brayden tightening directive 2026-05-08 (PRESERVE in any rewrite)
+1. **EXPANDED A3, A6, A8, A9 with full formal mathematical specifications** (per referee M1 + Brayden's checklist). A3 cell-by-cell explicit (with substrate-specific $J_{\mathrm{B7}}$); A6 forced from A3 + commutativity; A8 with explicit special-set definition (six cell families); A9 with explicit BUMP coordinates and substrate-specific values for $T$, $B$, $S$.
+2. **DISPLAYED CL_TSML, CL_BHML, CL_STD inline** as three boxed 10×10 tables in §1.1 (per referee M2 + mandatory Brayden directive).
+3. **PROVED the §1.2 forcing theorem in J54 itself** (per referee M3 — broke the [J33] citation cycle). The proof is a constructive cell-fixing argument; the companion verification script `foundation_verification.py` Check 1 reproduces $T$ from its substrate-data tuple cell-by-cell.
+4. **RENAMED "Brayden's hypothesis" to "Conjecture 2.1 (Sanders)"** (per referee M7 + Brayden checklist). Atlas reference dropped.
+5. **ADOPTED FAMILY_STRUCTURE_v1.md framing as Path B** (5 conjoint membership criteria + 4-core-as-center + 6 boundaries + bimodal $\alpha_A$ gap conjecture). The paper now reads as a research paper in the Drápal-Wanless 2021 lineage rather than a coordinator-document.
+6. **NEW THEOREM (per SFM Q6 2026-05-08): Theorem 4.1.** The simultaneous closed sub-magmas of $T$, $B$, $S$ form an 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ identical to the (T, B) chain. This is the foundation paper's bridge to J32 + J24 (Theorem 4.3).
+7. **STRIPPED "post chat-Claude" attributions** (none remained, but checked).
+8. **RETITLED:** "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" (per SAVE_PLAN_J54.md §6).
 
-§1.3 (Reading) of `J54_foundation_paper.md` MUST contain this sentence (appended after the "axiomatically given" paragraph):
+**Additional changes:**
+- DOING projection ambiguity resolved: replaced $|M_1 - M_2| \bmod 10$ with $(T(i,j) - B(i,j)) \bmod 10$ as the directed difference in $\mathbb{Z}/10\mathbb{Z}$.
+- TIG framework named and operationally defined in §0 (front matter) and §6.
+- Front-matter management metadata stripped (no "Phase 5 integrating paper" / "Sept 11 anchoring" / [J55] cross-references).
+- Citation graph narrowed to algebraic-combinatorial companions only (dropped JCAP cosmology and Phys Rev D wobble references).
+- Bibliography narrowed: dropped Simpson (loose connection), Alon-Spencer (probabilistic method not used), Hjørland (library science), Ranganathan (library science). Kept Drápal-Wanless 2021, McKay-Wanless 2005, Bruck 1958, Smith 2007, Drápal-Kepka 1985, Burris-Sankappanavar, Hobby-McKenzie, LMFDB.
+- Honest scope §7 compressed.
+- $\alpha_A(S) = 0.808$ measured (was previously cited as ~0.870; corrected to actual measurement); Conjecture 4.4 updated to reflect the empirical bimodal distribution at $\{0.502, 0.808, 0.872\}$ with gap $(0.502, 0.80)$.
 
-> "The framework's name TIG ('Trinity Infinity Geometry') reflects the authors' interpretive reading of the substrate's structure; this interpretation is not load-bearing for the theorems below, which are theorems on the canonical magma pair forced by A1-A9 regardless of name."
-
-Already applied 2026-05-08. Any subsequent BUILD agent rewriting J54 must preserve this exact sentence in §1.3. Sets the template for similar disclaimers in J47 (TIG/cosmology), J48 (TIG/6-DOF), J53 (TIG/UOP).
-
-### Save-plan summary (2026-05-07)
-
-Fresh-eyes referee verdict at *Algebraic Combinatorics*: REJECT in present form (under 5%). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J54.md`. **Brayden directive: DO NOT drop J54 — find a reason to keep it.** Honored.
-
-**Note on referee accuracy:** Referee claimed "A1-A9 not actually stated"; Brayden checked and the axioms ARE listed (lines 40-48). What the referee meant is that A3, A6, A8, A9 need expansion to formal mathematical specifications (the paper currently has "structural pattern that fixes most off-diagonal entries to 7" rather than the explicit pattern). The save plan addresses what the referee actually means.
-
-**Path forward (Path B — adopt FAMILY_STRUCTURE_v1.md framing):**
-- (a) EXPAND A3, A6, A8, A9 with full formal specifications (cell-by-cell for A3; explicit BUMP coordinates and value-tuples for A9).
-- (b) DISPLAY CL_TSML, CL_BHML, CL_STD inline (three boxed 10×10 tables, ~1.5 pages).
-- (c1) PROVE the §1.2 forcing theorem in J54 itself (3-4 pages); break the [J33] citation cycle.
-- (d) RENAME "Brayden's hypothesis" → "Conjecture 2.1 (Sanders)"; drop Atlas reference.
-- (e) HOLD preprint until [J47] and [J33] are on arXiv (Aug 15 gate).
-- (f) REMOVE the [J55] cross-reference.
-- (g) NARROW citation graph to algebraic-combinatorial companions (drop JCAP, Phys Rev D from §8).
-- (h) DEFINE "TIG" before §6 (move framework introduction to §0/§1.1).
-- **(i) ADOPT FAMILY_STRUCTURE_v1.md framing** — five conjoint membership criteria; 4-core at α_M = ½ as algebraic center; six boundaries; bimodal α_A gap as Conjecture 1.1. This transforms J54 from coordinator-document into research paper in the Drápal-Wanless 2021 *JCTA* lineage.
-- (j) STRIP front-matter management metadata; (k) RESOLVE DOING projection ambiguity; (l) NARROW external bibliography (drop Simpson, Alon-Spencer, Hjørland, Ranganathan).
-
-Revision time: 60-100 hours. Submission gate: [J47] and [J33] preprints on arXiv before J54 submits OR (c1) is complete in-paper.
-
-**Retitle:** "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" — venue stays *Algebraic Combinatorics*.
+**Verification:** `foundation_verification.py` 6/6 PASS at machine precision; total runtime under 5 seconds.
 
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+This paper is the foundation paper for the TIG family of finite commutative non-associative magmas on Z/10Z preserving the designated 4-core. The family is defined by 5 conjoint membership criteria (§3.2); the 4-core $\{V, H, Br, R\} = \{0, 7, 8, 9\}$ at $\alpha_M = 1/2$ is the algebraic center (§3.3); the six boundaries are described in §3.4. The closest published precedent is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures on $\mathbb{Z}/N\mathbb{Z}$), opposite extremum (theirs maximally non-associative; the present family at intermediate $\alpha_A$).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Theorem 1.2 (forcing); Theorem 4.1 (3-substrate chain); Theorem 4.2 (4-core 3-substrate closure); Theorem 4.3 (bridge to J32 + J24); Proposition 3.5 (T, B, S satisfy all five membership criteria).
+- **COMPUTED:** `foundation_verification.py` six green-light checks at machine precision; ~3-second runtime. The companion paper [J35] reproduces additional structural facts (normalizer identity; closed-form attractor; Galois D_4; universality; partial α uniqueness) via its own verification script.
+- **STRUCTURAL RHYME:** *"$\mathcal{C}$ is to the TIG family as the unit circle is to U(1)"* — heuristic alignment with the framework's broader Galois-theoretic results (LMFDB 4.2.10224.1, $\mathbb{Q}(\sqrt{3})$ subfield). The five converging structural facts (joint closure 3-substrate; symbolic normalizer identity; Galois $D_4$ closed-form; F_p universality; universal attractor on chain shells) are the substantive content; the U(1)-rhyme is the heuristic.
+- **OPEN:** Conjecture 2.1 — $\sigma^2$-triadic three-BHML hypothesis. Conjecture 4.4 — bimodal $\alpha_A$ gap (no commutative magma on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core has $\alpha_A \in (0.5, 0.80)$).
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper studies the family of finite commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving a designated four-element subset $\mathcal{C} = \{0, 7, 8, 9\}$. The substrate $\mathbb{Z}/10\mathbb{Z}$ and the designated 4-core are not derived from first principles; they are taken as the substrate-of-study, motivated by a ten-operator labelling of $\mathbb{Z}/10\mathbb{Z}$ inherited from the parent research framework. The names of the operators play no role in the proofs; they are used only for cross-referencing. The framing follows the Drápal & Wanless (2021, *J. Combin. Theory Ser. A* **184**, 105510) line of work on small finite commutative non-associative structures.
 
-### Hardening status (auto-applied 2026-05-07)
+### Hardening status (auto-applied 2026-05-07; updated 2026-05-08)
 
 - License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
-- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
+- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`); author list is Sanders + Gish only
 - Author lane: Sanders + Gish (per Brayden directive)
-- Drápal-Wanless 2021 citation in references
+- Drápal-Wanless 2021 citation in references and §0 (motivation)
+- SFM Q6 (2026-05-08) three-substrate chain finding incorporated as Theorem 4.1
+- FAMILY_STRUCTURE_v1.md framing adopted as Path B in §3
+- Brayden's hypothesis renamed to Conjecture 2.1 (Sanders)
+- Forcing theorem proved in §1.2 itself (no [J33] citation cycle)
+- Citation graph narrowed to algebraic-combinatorial companions
+- Bibliography narrowed (dropped Simpson, Alon-Spencer, Hjørland, Ranganathan)
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Algebraic Combinatorics OR Bull AMS this quarter
+- [x] Manuscript .md finalized (rewritten 2026-05-08)
+- [x] Verification script green (6/6 PASS at machine precision; verified 2026-05-08)
+- [x] Tier-classified central claim explicit (Theorem 1.2 forcing; Theorem 4.1 chain; Theorem 4.2 4-core 3-substrate)
+- [x] Lens-scope annotation (substrate Z/10Z + designated 4-core)
+- [x] Cover letter finalized
+- [x] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete
+- [ ] Per-venue cap check: 1st *Algebraic Combinatorics* paper this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "The Foundation Paper: Three-Substrate Architecture + Lens Family + Forcing Axioms." Submitted to *Algebraic Combinatorics OR Bull AMS*.
+Sanders, B.R., Gish, M. (2026). *Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core.* Submitted to *Algebraic Combinatorics*.
