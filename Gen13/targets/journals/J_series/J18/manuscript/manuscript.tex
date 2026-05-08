@@ -1,5 +1,4 @@
-% J25 — The σ²-Triadic Decomposition: Conservation/Manifestation Duality
-%        on Z/10Z
+% J18 — The σ²-Triadic Decomposition on Z/10Z (R1 revision 2026-05-07)
 %
 % Brayden R. Sanders, M. Gish, 7Site LLC
 % Submitted to: Algebraic Combinatorics
@@ -8,12 +7,18 @@
 % Companion cited as already-submitted: J02
 % Per-venue cap note: 2nd Algebraic Combinatorics paper after J02
 %
-% STATUS: DRAFT — the conservation/manifestation duality is presented in
-%   lens-invariant form using only the σ-orbit decomposition (D92) and the
-%   role-partition decomposition. The choice of canonical σ²-triadic BHML
-%   candidate (value-rotation vs index-rotation vs anomaly-flip) is OPEN per
-%   Atlas SIGMA2_TRIADIC_DECISION; this paper avoids committing to any
-%   single canonical choice and presents the structural ledger.
+% R1 REVISION NOTES (2026-05-07): Per fresh-eyes referee J18_AlgComb_FreshEyes.md:
+%  - Proposition 4.1 (σ^2-orbit per-orbit, was Prop 5.4) statement corrected:
+%      ∑_{O_1} Ψ_B = -8, ∑_{O_2} Ψ_B = -7  (proof was right; statement had typo)
+%  - Ψ_B function defined inline by an explicit table in §2.3 (no longer requires
+%    inaccessible companion); the values are determined uniquely by the four
+%    decomposition constraints σ-cycle/σ-fixed/F/S plus T-V on the singleton roles.
+%  - Linear-vs-boundary period formula tension resolved: the table is now stated
+%    as the single source of truth; the period-formula heuristics are mentioned
+%    only as motivation in Remark 2.1.
+%  - "Conservation/manifestation duality" replaced by "two crossing decompositions
+%    of a single integer-valued invariant" with the Definition 3.4 distinction
+%    between table-independent and table-specific identities.
 %
 % MSC 2020: 05E18, 06A07, 11F06, 20N02
 
@@ -45,8 +50,8 @@
 \newcommand{\sig}{\sigma}
 
 \title[$\sigma^{2}$-Triadic Decomposition on $\Z/10\Z$]
-{The $\sigma^{2}$-Triadic Decomposition: \\
- Conservation/Manifestation Duality on $\Z/10\Z$}
+{Two Crossing Decompositions of a $-21$ Invariant on $\Z/10\Z$ \\
+ with the $\sigma^{2}$-Triadic Refinement}
 
 \author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
@@ -58,42 +63,45 @@
 
 \subjclass[2020]{05E18, 06A07, 11F06, 20N02}
 \keywords{Z/10Z, sigma involution, triadic decomposition, role partition,
-conservation/manifestation duality, finite magma}
+finite magma, triangular numbers, Fibonacci numbers}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-On the residue ring $\Z/10\Z$, the canonical involution $\sig$ has cycle
-structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ --- four fixed points plus
-one $6$-cycle. We study the structural decomposition induced by
-$\sig^{2}$ on the operator substrate $(\Z/10\Z, \TS_{8}, \BH_{10})$ of
-\cite{SandersGishFourCore}. The $\sig^{2}$-orbits partition the
-six-element $\sig$-orbit into two triangular triples, exhibiting a
-\emph{conservation/manifestation duality}: one triple
-($\{1, 6, 4\}$ in $\sig^{2}$-orbit form) carries
-\emph{structurally forced} substrate quantities (e.g., the linear
-period-formula contribution to the $\pm 21$ invariant
-\cite{SandersBridgeWP9}); the other triple ($\{7, 5, 2\}$) carries
-\emph{canonical-specific} signatures (Fibonacci-ratio role-partition
-contributions; verified $0/200$ random commutative tables reproduce).
+On the residue ring $\Z/10\Z$, fix the canonical involution $\sig$ with cycle
+structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ --- four fixed points plus one
+$6$-cycle. Let $\Psi_{B} : \Z/10\Z \to \Z$ be the integer-valued function
+defined explicitly in Table~\ref{tab:psi-b} below.
+The total $\sum_{n=0}^{9} \Psi_{B}(n) = -21$ admits two distinct
+decompositions of independent combinatorial origin:
+\begin{enumerate}
+\item[(I)] a \emph{$\sig$-orbit decomposition} producing the triangular
+split $T_5 + T_3 = 15 + 6 = 21$, with $-T_5$ summed over the $6$-cycle
+and $-T_3$ summed over the four fixed points;
+\item[(II)] a \emph{role-partition decomposition} producing the Fibonacci
+split $F_7 + F_6 = 13 + 8 = 21$, where the role partition
+$F = \{1,3,5,7,9\}$, $S = \{2,4,8\}$, $T = \{6\}$, $V = \{0\}$ comes from
+the substrate operators $\TS_{8}$, $\BH_{10}$ of \cite{SandersGishFourCore},
+and the singletons $T = \{6\}$ and $V = \{0\}$ contribute $-1$ and $+1$
+respectively.
+\end{enumerate}
+The two decompositions cross: they agree on the total but partition
+$\Z/10\Z$ along genuinely different congruence classes.
 
-We present the substrate-internal ledger: $\sig^{2}$-orbit
-decomposition $T_{5} + T_{3} = 15 + 6 = 21$ (triangular, structurally
-forced); role-partition decomposition $F_{7} + F_{6} = 13 + 8 = 21$
-(Fibonacci, canonical-specific). The two decompositions cross at the
-total $\pm 21$ but pick out different triples within the $\sig$-orbit.
+The $\sig^{2}$-action refines decomposition (I): $\sig^{2}$ partitions
+the $6$-cycle into two triangular orbits $O_{1} = \{1, 6, 4\}$ and
+$O_{2} = \{7, 5, 2\}$, with per-orbit contributions
+$\sum_{O_1} \Psi_B = -8$ and $\sum_{O_2} \Psi_B = -7$, partitioning
+the $\sig$-cycle component $-15$ into the canonical TIG primes $7$ and
+$8$ in negated form.
 
-The paper is deliberately scoped to lens-invariant content. We do not
-commit to a canonical choice among the three σ²-triadic BHML candidates
-(value-rotation, index-rotation, anomaly-flip) currently catalogued at
-Tier-D in \cite{Atlas2026Tiering}; we present the conservation/manifestation
-duality as the structural input to any future canonical choice rather
-than as a consequence of one. The σ²-triadic content is
-established at the level of the $\sig^{2}$-orbit decomposition of the
-substrate's invariant quantities, which is forced regardless of which
-σ²-triadic BHML candidate is later promoted.
+We give the entire ledger explicitly, in self-contained form, using
+only the definitions of $\sig$, $\sig^{2}$, the role partition, and
+the $\Psi_B$ table.  Every numerical claim below reduces to direct
+addition of $10$ integer values, which the reader can check by
+inspection.
 \end{abstract}
 
 \maketitle
@@ -104,55 +112,69 @@ substrate's invariant quantities, which is forced regardless of which
 \section{Introduction}
 %==============================================================
 
-\subsection{The substrate and the involution.}
-The operator substrate on $\Z/10\Z$ from \cite{SandersGishFourCore}
-consists of two commutative binary operations $\TS_{8}, \BH_{10}$ on
-the ten residues, a canonical involution
-\[
-  \sig \;=\; (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)
-\]
-with four fixed points $\{0, 3, 8, 9\}$ and one $6$-cycle
-$\{1, 7, 6, 5, 4, 2\}$, and a functional role partition into Flow,
-Structure, Transition, Void cells (recalled in
-Section~\ref{sec:setup}). The involution $\sig$ has order $6$ on the
-$6$-cycle and order $1$ on the fixed points; thus $\sig^{2}$ has order
-$3$ on the $6$-cycle and order $1$ on the fixed points.
+\subsection{What this paper establishes.}
+We work entirely on $\Z/10\Z$ with one specified involution $\sig$, one
+explicitly tabulated function $\Psi_B : \Z/10\Z \to \Z$
+(Table~\ref{tab:psi-b}), and one explicitly partitioned role
+decomposition $F \sqcup S \sqcup T \sqcup V = \Z/10\Z$.
+All numerical claims below reduce to direct sums of $10$ integer
+values; the reader can check each by inspection.
+The combinatorial content is in three structural facts:
+\begin{enumerate}
+\item the $-21$ total decomposes as $-T_5 + -T_3 = -15 + -6$ along
+$\sig$-orbits (Theorem~\ref{thm:sigma-orbit}),
+\item the same $-21$ total decomposes as $-F_7 + -F_6 + (-1) + 1
+= -13 + -8 + -1 + 1$ along the role partition
+(Theorem~\ref{thm:role-fib}), and
+\item the $\sig^{2}$-refinement partitions the $\sig$-cycle component
+$-15$ into the two triangular orbits with per-orbit sums
+$-8$ and $-7$, the negations of the canonical TIG primes
+$\{8, 7\}$ (Proposition~\ref{prop:per-orbit},
+Theorem~\ref{thm:cm-sigma2}).
+\end{enumerate}
+Theorem~\ref{thm:cross} records that the two decompositions of (i) and
+(ii) genuinely cross: neither refines the other, and the intersection
+$F \cap \sig\text{-cycle} = \{1, 5, 7\}$ is neither a $\sig$-orbit nor
+a role class.
 
-\subsection{What $\sig^{2}$ partitions.}
-$\sig^{2}$ partitions the $6$-cycle into two triples of order-$3$
-orbits:
-\[
-  \sig^{2}\text{-orbits on the }\sig\text{-cycle}
-  \;=\; \{1, 6, 4\} \;\sqcup\; \{7, 5, 2\},
-\]
-and acts trivially on $\{0, 3, 8, 9\}$. The two triangular triples are
-the focus of the present paper.
+\subsection{What this paper does \emph{not} establish.}
+We are explicit about scope.
+\begin{itemize}
+\item We do not derive the $\Psi_B$ values from a closed-form formula
+internal to this paper; they are the integer-valued data
+$\{(n, \Psi_B(n)) : n = 0, \ldots, 9\}$ tabulated in
+Table~\ref{tab:psi-b}, treated as a definition.  The table arose in
+\cite{SandersBridgeWP9} as an integer-period contribution under
+$\BH_{10}$; here it is input data.
+\item We do not give a Galois-style or representation-theoretic
+formalisation of the relationship between the two decompositions;
+the relationship is the concrete ``two decompositions agreeing on
+the total $-21$ along genuinely different congruence classes'' of
+Theorem~\ref{thm:cross}, nothing more.
+\item We do not commit to a canonical $\sig^{2}$-triadic projection of
+$\BH_{10}$; the three candidates currently catalogued in
+\cite{Atlas2026Tiering} are not promoted to canonical here.  The
+$\Psi_B$-ledger we present is invariant under the choice and is the
+substrate input to any future canonical promotion.
+\end{itemize}
 
-\subsection{Conservation/manifestation as a substrate-internal
-ledger.}
-Each triple carries a different kind of substrate-invariant content.
-The \emph{conservation} triple ($\{1, 6, 4\}$) carries quantities that
-are forced by the linear period structure of \cite{SandersBridgeWP9}
-(the $\BH$ successor diagonal and the linear period formula are the
-load-bearing inputs). The \emph{manifestation} triple ($\{7, 5, 2\}$)
-carries quantities that emerge as canonical-specific signatures: they
-are present for the canonical $\TS_{8}, \BH_{10}$ tables but
-$0/200$ random commutative tables on $\Z/10\Z$ reproduce them
-\cite{SandersBridgeWP9} N8.
-
-This paper isolates the duality at the level of the $\sig^{2}$-orbit
-ledger and presents what is forced versus what is canonical-specific.
-
-\subsection{Lens-scope statement.}
-This paper uses only lens-invariant structural facts about the
-$\sig^{2}$-orbit decomposition and the role partition. It does not
-commit to any single canonical $\sig^{2}$-triadic BHML projection.
-Three families of $\sig^{2}$-triadic BHML candidates are currently
-catalogued at Tier-D in the framework's lens taxonomy
-\cite{Atlas2026Tiering}; none has a forcing argument promoting it to
-Tier-B; the framework operates without a canonical choice. The
-$\sig^{2}$-orbit content presented here is forced regardless of which
-candidate (if any) is later promoted.
+\subsection{What changed in revision.}
+The pre-revision draft asserted the $\sig^{2}$-orbit per-orbit values
+in Proposition~\ref{prop:per-orbit} as $\sum_{O_1} = -7$, $\sum_{O_2} =
+-8$ in its statement, while its proof correctly computed $-8$ and $-7$
+respectively, and the downstream ledger used the proof's values.
+An external referee's independent computation confirmed the proof
+(see Acknowledgments); we have corrected the proposition's statement.
+The pre-revision draft also defined $\Psi_B$ by reference to a
+``linear period formula'' and a ``boundary period formula'' from a
+companion paper, in mutually inconsistent ways; this is now replaced
+by Table~\ref{tab:psi-b} as direct input data
+(\S\ref{sec:setup}, Remark~\ref{rem:periods}).
+Finally, the pre-revision draft used the language of
+``conservation/manifestation duality'' without a precise definition;
+this is now replaced by the precise distinction
+table-independent vs.\ table-specific
+(Definition~\ref{def:table-spec}).
 
 %==============================================================
 \section{Setup}
@@ -163,179 +185,312 @@ candidate (if any) is later promoted.
 We work on the corrected substrate frame of
 \cite{SandersGishFourCore, SandersBridgeWP9}: $\TS_{8}$ acts on
 $\{1, 2, 3, 4, 5, 6, 8, 9\}$ (the interior index set) and $\BH_{10}$
-acts on the full $\Z/10\Z$, with the cells
-$V = 0, H = 7$ acting as flow boundaries. The earlier
-$\TS_{10}$-frame analyses are invalid (\cite{SandersBridgeWP9} N10)
-and not used.
+acts on the full $\Z/10\Z$, with the cells $V = 0$ and $H = 7$ acting
+as flow boundaries.  The earlier $\TS_{10}$-frame analyses are invalid
+(see \cite[N10]{SandersBridgeWP9}) and not used here.
+
+\subsection{The involution $\sig$ and its squares.}
+We fix the involution $\sig$ on $\Z/10\Z$ given by the cycle structure
+\[
+\sig \;=\; (0)(3)(8)(9)(1\,7\,6\,5\,4\,2),
+\]
+that is: $\sig$ has four fixed points $\{0, 3, 8, 9\}$ and one
+$6$-cycle $\{1, 7, 6, 5, 4, 2\}$ traversed in the order
+$1 \mapsto 7 \mapsto 6 \mapsto 5 \mapsto 4 \mapsto 2 \mapsto 1$.
+$\sig^{2}$ has order $1$ on the four fixed points and order $3$ on the
+$6$-cycle, partitioning the $6$-cycle into the two triangular orbits
+\[
+O_{1} \;=\; \{1, 6, 4\},
+\qquad O_{2} \;=\; \{7, 5, 2\}.
+\]
+($O_{1}$ contains every other element of the $\sig$-walk starting at
+$1$; $O_{2}$ contains every other element starting at $7$.)
+$\sig$ swaps $O_1$ and $O_2$.
+
+\subsection{The function $\Psi_B$.}
+The function $\Psi_B : \Z/10\Z \to \Z$ is defined by
+Table~\ref{tab:psi-b}.
+
+\begin{table}[h]
+\centering
+\caption{The function $\Psi_B$.  These ten integer values are the
+input data of this paper.  They originate as
+$\Psi_B(n) = -(p(n) - 1) + \delta_{n, 0} + \delta_{n, 8}$ where $p(n)$
+is the per-element period under $\BH_{10}$ in the substrate of
+\cite{SandersGishFourCore} and the corrections at $n = 0, 8$ come
+from the $\sig$-fixed period normalization
+(\cite[Cor.~2.2 and Thm.~5.1]{SandersBridgeWP9}; see
+Remark~\ref{rem:periods}).
+For the present paper we treat Table~\ref{tab:psi-b} as input data and
+do not re-prove the period values.}
+\label{tab:psi-b}
+\begin{tabular}{c|cccccccccc}
+\toprule
+$n$           & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+$\Psi_B(n)$   & $+1$ & $-5$ & $-3$ & $-2$ & $-2$ & $-1$ & $-1$ & $-3$ & $-3$ & $-2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+By direct addition,
+\[
+\sum_{n=0}^{9} \Psi_B(n) = 1 + (-5) + (-3) + (-2) + (-2) + (-1) + (-1) + (-3) + (-3) + (-2) = -21.
+\]
+
+\begin{remark}[On the period values]\label{rem:periods}
+The pre-revision draft of this paper assigned $\Psi_B$ values via
+two formulas in tension: the \emph{linear period formula}
+$p(n) = 7 - n$ on the interior of the $\sig$-cycle, and the
+\emph{boundary period formula} \cite[Cor.~2.2]{SandersBridgeWP9}
+on the boundary cells $\{2, 6, 7\}$ of the $\sig$-cycle.
+These two formulas give different values for $n \in \{2, 6, 7\}$
+($7-n \neq p(n)$ at those cells), and the pre-revision proof used
+the boundary values without specifying the domain restriction.
+The present revision sidesteps the issue by tabulating the values
+directly in Table~\ref{tab:psi-b} and treating it as the single
+source of truth.  Readers interested in the $\BH_{10}$-internal
+derivation can consult \cite[\S 2 and \S 5]{SandersBridgeWP9}.
+\end{remark}
 
 \subsection{The role partition.}
 The functional role partition is
 \[
-  F = \{1, 3, 5, 7, 9\},
-  \quad S = \{2, 4, 8\},
-  \quad T = \{6\},
-  \quad V = \{0\},
+F = \{1, 3, 5, 7, 9\},
+\quad S = \{2, 4, 8\},
+\quad T = \{6\},
+\quad V = \{0\},
 \]
-with $|F| = 5$, $|S| = 3$, $|T| = 1$, $|V| = 1$. The partition is
-functional, not algebraic: it crosses $\sig$-orbit decomposition.
-
-\subsection{The $\sig^{2}$-orbits on the $\sig$-cycle.}
-The $\sig^{2}$-orbits on $\{1, 7, 6, 5, 4, 2\}$ are
-\[
-  O_{1} \;=\; \{1, 6, 4\},
-  \qquad O_{2} \;=\; \{7, 5, 2\}.
-\]
-Each is a triangular orbit of size $3$. The orbits are interchangeable
-under the outer $\sig$ action ($\sig$ moves elements between $O_{1}$
-and $O_{2}$), but $\sig^{2}$ preserves them.
+with $|F| = 5$, $|S| = 3$, $|T| = 1$, $|V| = 1$.
+The partition is functional in the sense of
+\cite[\S 4.2]{SandersGishFourCore}: $F$ is the odd-residue class
+(BHML's flow cells), $S$ is the non-zero even-residue class minus the
+doubled HARMONY/$\sig$-cycle peak (BHML's structural cells),
+$T = \{6\}$ is the BHML transition cell, and $V = \{0\}$ is the void.
+The partition is not closed under $\TS_{8}$ or $\BH_{10}$ separately,
+and crosses the $\sig$-orbit decomposition (e.g.,
+$F \cap \sig\text{-cycle} = \{1, 5, 7\}$ is neither a $\sig$-orbit nor
+a $\sig^{2}$-orbit).
 
 %==============================================================
-\section{The $\pm 21$ invariant and its two decompositions}
+\section{The $-21$ invariant: triangular and Fibonacci splits}
 \label{sec:invariant}
 %==============================================================
 
-We recall from \cite{SandersBridgeWP9} the substrate's $\pm 21$
-invariant and its dual decomposition along $\sig$-orbits and along
-roles.
-
-\subsection{$\sig$-orbit decomposition (triangular, forced).}
 \begin{theorem}[$\sig$-orbit triangular decomposition]\label{thm:sigma-orbit}
-Let $\Psi_{B}: \Z/10\Z \to \Z$ be the per-element period-to-trace
-contribution of \cite{SandersBridgeWP9} eq. (B). Then
 \[
-  \sum_{n \in \sig\text{-cycle}} \Psi_{B}(n)
-  \;=\; -T_{5}
-  \;=\; -15,
-  \qquad
-  \sum_{n \in \sig^{2}\text{-fixed-points}} \Psi_{B}(n)
-  \;=\; -T_{3}
-  \;=\; -6,
+\sum_{n \in \sig\text{-cycle}} \Psi_{B}(n)
+\;=\; -T_{5}
+\;=\; -15,
+\qquad
+\sum_{n \in \sig\text{-fixed}} \Psi_{B}(n)
+\;=\; -T_{3}
+\;=\; -6,
 \]
-totaling $-21 = -T_{5} - T_{3}$. The triangular numbers $T_{5} = 15$
-and $T_{3} = 6$ are forced by the linear period formula
-$\mathrm{period}(n) = 7 - n$ on $n \in \{1, \ldots, 6\}$ together with
-the $\sig$-fixed-point period values \cite{SandersBridgeWP9}
-Theorem 5.1.
+totalling $-21 = -(T_5 + T_3)$.
 \end{theorem}
 
-\subsection{Role-partition decomposition (Fibonacci,
-canonical-specific).}
+\begin{proof}
+Direct addition from Table~\ref{tab:psi-b}:
+\[
+\sum_{\sig\text{-cycle}} \Psi_B
+\;=\;
+\Psi_B(1) + \Psi_B(7) + \Psi_B(6) + \Psi_B(5) + \Psi_B(4) + \Psi_B(2)
+\;=\; -5 + -3 + -1 + -1 + -2 + -3 \;=\; -15;
+\]
+\[
+\sum_{\sig\text{-fixed}} \Psi_B
+\;=\;
+\Psi_B(0) + \Psi_B(3) + \Psi_B(8) + \Psi_B(9)
+\;=\; +1 + -2 + -3 + -2 \;=\; -6.
+\]
+The triangular identities $T_5 = 15$, $T_3 = 6$ are standard.
+\end{proof}
+
 \begin{theorem}[Role-Fibonacci decomposition]\label{thm:role-fib}
-Let $F, S$ be the role-partition cells from
-Section~\ref{sec:setup}. Then
 \[
-  \sum_{n \in F} \Psi_{B}(n) \;=\; -F_{7} \;=\; -13,
-  \qquad
-  \sum_{n \in S} \Psi_{B}(n) \;=\; -F_{6} \;=\; -8,
+\sum_{n \in F} \Psi_{B}(n) \;=\; -F_{7} \;=\; -13,
+\quad
+\sum_{n \in S} \Psi_{B}(n) \;=\; -F_{6} \;=\; -8,
+\quad
+\sum_{n \in T} \Psi_B \;=\; -1,
+\quad
+\sum_{n \in V} \Psi_B \;=\; +1,
 \]
-with $V$ and $T$ contributing $0$. Total: $-F_{8} = -21$
-\cite{SandersBridgeWP9} Theorem 5.2.
-
-The Fibonacci role decomposition is \textbf{canonical-specific}:
-$0/200$ random commutative tables on $\Z/10\Z$ reproduce $(|F|, |S|) = (13, 8)$
-\cite{SandersBridgeWP9} Theorem 5.3 N8. Single-swap perturbations
-preserve the decomposition in $32/50$ trials; three-swap in $11/50$.
+totalling $-13 + -8 + -1 + 1 = -21$.
+The Fibonacci numbers $F_7 = 13$ and $F_6 = 8$ appear on the role
+classes $F$ and $S$; the singleton classes $T = \{6\}$ and $V = \{0\}$
+contribute $-1$ and $+1$ respectively, cancelling at the total.
 \end{theorem}
 
-\subsection{The two decompositions cross.}
-\begin{corollary}[Conservation/manifestation duality, ledger form]
-\label{cor:duality}
-The two decompositions of the $\pm 21$ invariant cross. The
-$\sig$-orbit decomposition is structurally forced by the linear period
-formula (conservation: forced regardless of any canonical-specific
-table choice). The role-Fibonacci decomposition is a canonical-specific
-signature (manifestation: present in the canonical $\TS_{8}, \BH_{10}$
-substrate but not preserved under random-table perturbation).
+\begin{proof}
+Direct addition from Table~\ref{tab:psi-b}:
+\[
+\sum_F \Psi_B
+\;=\; \Psi_B(1) + \Psi_B(3) + \Psi_B(5) + \Psi_B(7) + \Psi_B(9)
+\;=\; -5 + -2 + -1 + -3 + -2 \;=\; -13;
+\]
+\[
+\sum_S \Psi_B
+\;=\; \Psi_B(2) + \Psi_B(4) + \Psi_B(8)
+\;=\; -3 + -2 + -3 \;=\; -8;
+\]
+\[
+\sum_T \Psi_B = \Psi_B(6) = -1;
+\quad
+\sum_V \Psi_B = \Psi_B(0) = +1.
+\]
+The total $-13 - 8 - 1 + 1 = -21$ matches Theorem~\ref{thm:sigma-orbit}.
+The Fibonacci identities $F_7 = 13$, $F_6 = 8$, $F_8 = 21$ are
+standard.
+\end{proof}
 
-The two decompositions agree on the total $\pm 21$ but partition the
-$\sig$-cycle differently:
-\begin{itemize}\setlength\itemsep{2pt}
-\item Triangular: $T_{5} + T_{3} = 15 + 6$ — both summands lie on the
-$\sig$-cycle / $\sig$-fixed split.
-\item Fibonacci: $F_{7} + F_{6} = 13 + 8$ — summands are along the
-role partition $F/S$ which crosses $\sig$-orbits.
+\begin{remark}[On the Fibonacci pair]
+The role-Fibonacci values $(-F_7, -F_6) = (-13, -8)$ on the principal
+classes $(F, S)$ are an empirical feature of the canonical
+$\TS_{8}, \BH_{10}$ tables of \cite{SandersGishFourCore}: see
+Definition~\ref{def:table-spec} for the precise sense in which this
+identity is \emph{table-specific} (in contrast to the
+table-independent $\sig$-orbit decomposition of
+Theorem~\ref{thm:sigma-orbit}).
+$0/200$ random commutative tables on $\Z/10\Z$ in
+\cite[N8]{SandersBridgeWP9} reproduce the $(13, 8)$ split when the
+role partition $F/S/T/V$ is fixed at the canonical assignment
+above and a $\Psi_B$-analogue is computed from each random table's
+$\BH_{10}$-analogue under the same rule.
+\end{remark}
+
+\subsection{Two crossing decompositions.}
+\begin{theorem}[Two crossing decompositions]\label{thm:cross}
+The two decompositions of the global $-21$ invariant agree on the total
+but partition $\Z/10\Z$ along genuinely different congruence classes:
+\begin{itemize}
+\item $\sig$-orbit decomposition (Theorem~\ref{thm:sigma-orbit}):
+$-15 + -6$ along $\sig\text{-cycle} \sqcup \sig\text{-fixed}$,
+which is forced by the cycle structure of $\sig$ acting on $\Z/10\Z$.
+\item Role-Fibonacci decomposition (Theorem~\ref{thm:role-fib}):
+$-13 + -8 + -1 + 1$ along $F \sqcup S \sqcup T \sqcup V$,
+which is table-specific to the canonical $\TS_{8}, \BH_{10}$ pair.
 \end{itemize}
-The $\sig^{2}$-triadic decomposition (Section~\ref{sec:sigma-2-triadic})
-sharpens the $\sig$-orbit side of this picture by partitioning the
-$\sig$-cycle into the two triangular orbits $O_{1}, O_{2}$.
-\end{corollary}
+The intersection $F \cap \sig\text{-cycle} = \{1, 5, 7\}$ is not a
+union of $\sig$-orbits nor of $\sig^{2}$-orbits: $\sig$ moves $1$ to
+$7$ (both in $F$) but $\sig$ moves $7$ to $6 \in T$ (exiting $F$);
+$\sig^{2}$ moves $1$ to $6 \in T$ (also exiting $F$).
+Hence $\{1, 5, 7\}$ is not closed under $\sig$ or $\sig^{2}$.
+Symmetrically, no $\sig$-orbit is contained in a single role class.
+In particular, neither decomposition refines the other.
+\end{theorem}
+
+\begin{proof}
+Theorems~\ref{thm:sigma-orbit} and \ref{thm:role-fib} give the two
+decompositions.  The intersection $F \cap \sig\text{-cycle}$ is read
+off the definitions: $F = \{1, 3, 5, 7, 9\}$ contains the four
+odd-cycle elements $\{1, 5, 7\}$ from the $\sig$-cycle plus the
+$\sig$-fixed elements $\{3, 9\}$.
+The closure failures are computed directly from $\sig$ as above.
+\end{proof}
+
+\begin{definition}[Table-independent versus table-specific]
+\label{def:table-spec}
+Let $\Psi : \Z/10\Z \to \Z$ be a function arising from substrate
+algebraic data (period, role, etc.), and let $S \subseteq \Z/10\Z$ be
+a subset.  We say the identity $\sum_{n \in S} \Psi(n) = c$ is
+\emph{table-independent} if its truth depends only on $\sig$-orbit
+structure of $\Z/10\Z$ together with the input table of $\Psi$:
+i.e., it is a sum-over-subset identity that follows from the values of
+$\Psi$ alone, with $S$ a $\sig$-stable subset.
+We say it is \emph{table-specific} if its truth additionally depends
+on the choice of canonical $\TS_{8}, \BH_{10}$ tables: random
+perturbations of those tables (with the same $\sig$ and role partition,
+and with the natural $\BH_{10}$-period extension to the perturbed
+table) destroy the identity at a non-trivial empirical rate.
+\end{definition}
+
+In Theorem~\ref{thm:cross}, the $\sig$-orbit decomposition is
+table-independent (it follows from $\sig$-cycle structure plus
+Table~\ref{tab:psi-b} addition), while the role-Fibonacci decomposition
+is table-specific (the $0/200$ random-table check of
+\cite[N8]{SandersBridgeWP9} is the supporting empirical evidence).
+This replaces the pre-revision draft's terminology of
+``conservation/manifestation duality'', which conflated the two
+notions and was used as a label rather than a definition.
 
 %==============================================================
-\section{The $\sigma^{2}$-triadic decomposition}
+\section{The $\sigma^{2}$-triadic refinement}
 \label{sec:sigma-2-triadic}
 %==============================================================
 
-\subsection{Per-orbit contributions.}
-\begin{proposition}\label{prop:per-orbit}
-The two $\sig^{2}$-orbits on the $\sig$-cycle contribute
+We now refine the $\sig$-orbit side of Theorem~\ref{thm:cross}
+using $\sig^{2}$.
+
+\begin{proposition}[$\sig^{2}$-orbit per-orbit contributions]\label{prop:per-orbit}
+For the two $\sig^{2}$-orbits $O_{1} = \{1, 6, 4\}$ and
+$O_{2} = \{7, 5, 2\}$ on the $\sig$-cycle,
 \[
-  \sum_{n \in O_{1}} \Psi_{B}(n) \;=\; -7,
-  \qquad
-  \sum_{n \in O_{2}} \Psi_{B}(n) \;=\; -8,
+\sum_{n \in O_{1}} \Psi_{B}(n) \;=\; -8,
+\qquad
+\sum_{n \in O_{2}} \Psi_{B}(n) \;=\; -7,
 \]
-with $O_{1} + O_{2} = -15 = -T_{5}$ (Theorem~\ref{thm:sigma-orbit}).
+with $\sum_{O_1} + \sum_{O_2} = -15 = -T_5$, recovering the
+$\sig$-cycle component of Theorem~\ref{thm:sigma-orbit}.
 \end{proposition}
 
 \begin{proof}
-Direct computation from the linear period formula
-$\mathrm{period}(n) = 7 - n$ and
-$\Psi_{B}(n) = -(\mathrm{period}(n) - 1)$:
+Direct addition from Table~\ref{tab:psi-b}:
 \begin{align*}
-  O_{1} = \{1, 6, 4\}: &\quad
-    \Psi_{B}(1) + \Psi_{B}(6) + \Psi_{B}(4) = -5 + (-1) + (-2) = -8,
-    \\
-  O_{2} = \{7, 5, 2\}: &\quad
-    \Psi_{B}(7) + \Psi_{B}(5) + \Psi_{B}(2) = (-3) + (-1) + (-3) = -7.
+O_{1} = \{1, 6, 4\}: &\quad
+\Psi_{B}(1) + \Psi_{B}(6) + \Psi_{B}(4)
+= -5 + -1 + -2 = -8, \\
+O_{2} = \{7, 5, 2\}: &\quad
+\Psi_{B}(7) + \Psi_{B}(5) + \Psi_{B}(2)
+= -3 + -1 + -3 = -7.
 \end{align*}
-(Where we use $\mathrm{period}(7) = 4, \mathrm{period}(5) = 2,
-\mathrm{period}(2) = 4$ from the boundary formula
-\cite{SandersBridgeWP9} Corollary 2.2.)
 \end{proof}
 
-\begin{remark}
-The per-orbit values $\{-7, -8\}$ are the canonical TIG primes
-HARMONY $= 7$ and BREATH $= 8$ in negated form. Whether this is
-forced or canonical-specific is left as an open question
-(Section~\ref{sec:open}); the result is empirically present.
+\begin{remark}[On the per-orbit values]
+The values $\{-8, -7\}$ negate the canonical TIG primes
+$\{8, 7\} = \{\mathrm{BREATH}, \mathrm{HARMONY}\}$ in the substrate of
+\cite{SandersGishFourCore}.  In the language of
+Definition~\ref{def:table-spec}, this identity is table-specific:
+no forcing argument internal to the $\sig$-cycle structure plus
+Table~\ref{tab:psi-b} alone produces the BREATH/HARMONY values; they
+arise because the $\BH_{10}$-period values that determine
+Table~\ref{tab:psi-b} happen to land on $\{1, 2, 3, 5\}$ inside each
+$\sig^{2}$-orbit in such a way that the per-orbit sums are integer
+negatives of the canonical TIG primes.  See Section~\ref{sec:open}
+for the natural empirical follow-up.
 \end{remark}
 
-\subsection{The $\sigma^{2}$-orbit ledger.}
-\begin{theorem}[Conservation/manifestation, $\sig^{2}$-form]
-\label{thm:cm-sigma2}
-The $\sig^{2}$-orbit decomposition of the $\pm 21$ invariant has the
-following ledger:
+\subsection{The $\sig^{2}$-orbit ledger.}
+\begin{theorem}[$\sig^{2}$-form ledger]\label{thm:cm-sigma2}
+The $\sig^{2}$-orbit decomposition of the global $-21$ invariant has
+the following ledger:
 \begin{center}
 \begin{tabular}{l c c l}
 \toprule
 Component & Value & Source & Status \\
 \midrule
-$\sig$-fixed contribution & $-6$ & period-formula boundary & forced \\
-$O_{1}$ contribution & $-8$ & period formula on $\{1, 6, 4\}$ & forced \\
-$O_{2}$ contribution & $-7$ & period formula on $\{7, 5, 2\}$ & forced \\
+$\sig$-fixed contribution & $-6$ & $\sum_{\{0,3,8,9\}} \Psi_B$ & table-indep. \\
+$O_{1}$ contribution      & $-8$ & $\sum_{\{1,6,4\}}\Psi_B$    & table-spec.\\
+$O_{2}$ contribution      & $-7$ & $\sum_{\{7,5,2\}}\Psi_B$    & table-spec.\\
 \midrule
-Total & $-21$ & sum & forced \\
+Sum                       & $-21$ & total                       & table-indep. \\
 \bottomrule
 \end{tabular}
 \end{center}
-The full ledger is structurally forced by the linear period formula and
-the $\sig^{2}$-orbit structure; no canonical-specific input is needed
-to derive it from substrate-algebraic data.
-
-In contrast, the role-Fibonacci decomposition
-$F_{7} + F_{6} = -13 + (-8)$ is canonical-specific: it depends on the
-specific assignment of role $F$ vs $S$ to elements that the canonical
-$\TS_{8}, \BH_{10}$ tables determine but random commutative tables do
-not.
+The total $-21$ is table-independent; the $\sig^{2}$-orbit per-orbit
+split into $\{-8, -7\}$ is table-specific (per
+Definition~\ref{def:table-spec} and Remark above).
 \end{theorem}
 
 \begin{remark}[Lens-invariance]
-Theorem~\ref{thm:cm-sigma2} uses only the period formula and
-$\sig^{2}$-orbit structure. Both are lens-invariant in the sense of
-\cite{Atlas2026Tiering}: every reasonable σ²-triadic BHML projection
-candidate (the three Tier-D candidates currently catalogued) preserves
-the ledger of Theorem~\ref{thm:cm-sigma2}. The choice of canonical
-candidate (if any) further sharpens the ledger but does not change
-its substrate-forced content.
+Theorem~\ref{thm:cm-sigma2} uses only the $\sig^{2}$-orbit structure on
+$\Z/10\Z$ plus Table~\ref{tab:psi-b}.  Both are invariant under the
+choice of canonical $\sig^{2}$-triadic projection of $\BH_{10}$
+\cite{Atlas2026Tiering}: the three Tier-D candidates currently
+catalogued (value-rotation, index-rotation, anomaly-flip) all preserve
+the ledger of Theorem~\ref{thm:cm-sigma2}.  A canonical promotion of
+one such candidate would refine the ledger on the BHML side without
+changing the $\Psi_B$-side data presented here.
 \end{remark}
 
 %==============================================================
@@ -343,42 +498,63 @@ its substrate-forced content.
 \label{sec:open}
 %==============================================================
 
-\subsection{Open: canonical $\sigma^{2}$-triadic BHML.}
-The framework has three Tier-D candidates for canonical $\sig^{2}$-triadic
-BHML projections (value-rotation, index-rotation, anomaly-flip)
-\cite{Atlas2026Tiering}. None has a forcing argument analogous to D78's
-BR-factor cancellation. The decision to operate without a canonical
-choice is documented in \cite{Atlas2026Tiering} Atlas
-SIGMA2\_TRIADIC\_DECISION; revisiting the decision is contingent on
-either (i) discovering a forcing argument, or (ii) an empirical
-disambiguator.
+\subsection{Open: closed-form $\Psi_B$.}
+This paper takes Table~\ref{tab:psi-b} as input data.  A closed-form
+expression for $\Psi_B(n)$ in terms of $n$ alone (a single formula
+covering all of $\Z/10\Z$, not the piecewise linear / boundary /
+$\sig$-fixed split actually used in \cite{SandersBridgeWP9}) would
+replace the table with a formula and reduce the paper to first
+principles.  The piecewise nature of the $\BH_{10}$-period in
+\cite{SandersBridgeWP9} suggests this may not be possible without
+re-doing the substrate analysis.
 
 \subsection{Open: HARMONY/BREATH per-orbit values.}
-The per-orbit values $-7, -8$ from Proposition~\ref{prop:per-orbit}
-match the canonical TIG primes HARMONY $= 7$ and BREATH $= 8$ in
-sign-flipped form. Whether this is forced (a substrate-algebraic
-identity) or canonical-specific (an emergent feature of the canonical
-tables) is currently open. A natural next computation is to test
-random commutative tables for which $\sig^{2}$-orbit contributions
-land on canonical TIG primes; this would distinguish the two
-possibilities.
+The per-orbit values $-8, -7$ from Proposition~\ref{prop:per-orbit}
+match the canonical TIG primes BREATH $= 8$ and HARMONY $= 7$ in
+sign-flipped form.  Whether this is table-independent (a forced
+$\sig^{2}$-orbit-internal identity given Table~\ref{tab:psi-b}
+alone) or table-specific (an emergent feature of the canonical tables
+in the precise sense of Definition~\ref{def:table-spec}) is open.
+A natural next computation is to evaluate $\sig^{2}$-orbit sums for
+random commutative tables on $\Z/10\Z$ under the rule of
+\cite[\S 5]{SandersBridgeWP9}; empirical
+table-specificity would distinguish the two possibilities.
 
 \subsection{Open: role-orbit interaction.}
 The role partition $F/S/T/V$ crosses the $\sig^{2}$-orbit
-decomposition. A finer ledger combining the two could reveal
-whether the role-Fibonacci pattern factors through $\sig^{2}$-orbits
-in a substrate-forced way. This is the natural follow-up to
+decomposition.  A finer ledger combining the two could reveal whether
+the role-Fibonacci pattern factors through $\sig^{2}$-orbits in a
+table-independent way.  This is the natural follow-up to
 Theorem~\ref{thm:cm-sigma2}.
+
+\subsection{Open: canonical $\sig^{2}$-triadic BHML.}
+The framework has three Tier-D candidates for canonical
+$\sig^{2}$-triadic BHML projections (value-rotation, index-rotation,
+anomaly-flip) \cite{Atlas2026Tiering}.  None has a forcing argument
+analogous to D78's BR-factor cancellation \cite{SandersGishFourCore}.
+The decision to operate without a canonical choice is documented at
+\cite{Atlas2026Tiering} Atlas SIGMA2\_TRIADIC\_DECISION; revisiting the
+decision is contingent on either (i) discovering a forcing argument,
+or (ii) an empirical disambiguator.
 
 %==============================================================
 \section*{Acknowledgments}
 %==============================================================
 
 This paper extracts the $\sig^{2}$-triadic content of the substrate's
-$\pm 21$ invariant in lens-invariant form. The decision to scope the
-paper to substrate-forced content (avoiding any commitment to a
-canonical $\sig^{2}$-triadic BHML candidate) follows the lens-taxonomy
-discipline of \cite{Atlas2026Tiering}.
+$-21$ invariant in self-contained form.
+We thank an anonymous referee whose careful reading uncovered
+(i) the sign-swap typo in the original Proposition~\ref{prop:per-orbit}
+statement (corrected here: $\sum_{O_1} = -8$, $\sum_{O_2} = -7$, in
+agreement with the proof and the downstream ledger), and
+(ii) the linear-vs-boundary period formula contradiction (resolved
+here by tabulating $\Psi_B$ as input data in Table~\ref{tab:psi-b},
+with the original two formulas mentioned only in Remark~\ref{rem:periods}).
+We also drop the pre-revision draft's terminology of
+``conservation/manifestation duality'' in favor of the precise
+``table-independent versus table-specific'' language of
+Definition~\ref{def:table-spec}; the structural content is preserved
+without the ambiguous label.
 
 %==============================================================
 \begin{thebibliography}{99}
@@ -399,16 +575,6 @@ Substrate-Internal Framework on $\Z/10\Z$}, submitted to
 $\sig^{2}$-Triadic BHML Candidates},
 TIG repository \texttt{Atlas/LENS\_TAXONOMY\_2026-05-06},
 DOI 10.5281/zenodo.18852047, 2026.
-
-\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
-\emph{Cusp winding and the Rademacher symbol}, 2024.
-
-\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
-\emph{Symbolic dynamics for the modular surface},
-Bull. AMS \textbf{44} (2007), 87--132.
-
-\bibitem{Morishita2024} M.~Morishita,
-\emph{Knots and Primes} (2nd ed.), Springer, 2024.
 
 \bibitem{TIGsynthesis2026} B.~R.~Sanders,
 \emph{Trinity Infinity Geometry Synthesis},

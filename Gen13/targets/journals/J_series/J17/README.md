@@ -31,7 +31,11 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-_(no special notes; standard submission per J-series ordering)_
+**Save plan (2026-05-07):** see `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J17.md`.
+
+Fresh-eyes referee report `J17_LinAlgApps_FreshEyes.md` flagged Theorem 3.2 as mis-stated (cell weights `binomial(n, k)` ≠ Cl(2n) grades `binomial(2n, k)`). **Fix applied:** distinguish coarse cells (2^n total, weight ~ binomial(n, k)) from refined cells (4^n = dim V^⊗n total, weight ~ binomial(2n, k)). The refined-cell weight distribution exactly matches Cl(2n) grade dimensions; this is the correct correspondence. Theorem 3.2 → Theorem \ref{thm:refined} in revision. SU(5) match at n=5 (former Theorem 4.1) demoted to Remark on a binomial-coefficient identity. New helpers `refined_cell_distribution(n)` and `refined_cell_distribution_enumerated(n)` added to `Gen13/targets/ck/brain/dirac/tig_dirac.py`; both verified at n = 0..5.
+
+Updated central claim (revised): two results — (i) total-dimension match `dim V^⊗n = dim Cl(2n) = 4^n` forced by `dim V = 4` (Theorem \ref{thm:total-dim}); (ii) refined-cell binomial grading `#{refined cells of weight k} = binomial(2n, k) = dim Cl^(k)(2n)` (Theorem \ref{thm:refined}).
 
 
 

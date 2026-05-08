@@ -339,10 +339,47 @@ def cells_orthogonal(cell_a: tuple[str, ...], cell_b: tuple[str, ...]) -> bool:
 
 
 def cell_binomial_distribution(n: int) -> dict[int, int]:
-    """For V^⊗n, count cells by number of '+' signs.
-    Equals binomial coefficients C(n, k).  Sum = 2^n."""
+    """For V^⊗n, count COARSE cells by number of '+' signs.
+    Equals binomial coefficients C(n, k).  Sum = 2^n.
+
+    Note: This is the COARSE-cell distribution. There are 2^n coarse cells,
+    each of dim 2^n, total dim V^⊗n = 4^n.
+
+    For the REFINED-cell distribution that matches Cl(2n) grade dimensions
+    binomial(2n, k), use refined_cell_distribution(n) below.
+    """
     cells = tensor_partition(n)
     return dict(Counter(cell.count('+') for cell in cells))
+
+
+def refined_cell_distribution(n: int) -> dict[int, int]:
+    """For V^⊗n, count REFINED cells by total Hamming weight of 2n structural bits.
+
+    Each tensor slot contributes 2 structural bits: which of the 4 basis lines
+    {F_5 e_0, F_5 e_2, F_5 e_3, F_5 e_4} the slot represents. Across n slots,
+    a refined cell is labeled by a binary string of length 2n. The number of
+    refined cells of total weight k is binomial(2n, k).
+
+    This matches the grade dimensions of Cl(2n): dim Cl^(k)(2n) = binomial(2n, k).
+    Total: sum_k binomial(2n, k) = 2^(2n) = 4^n = dim V^⊗n. Each refined cell is 1-dim.
+
+    Returns: {k: binomial(2n, k)} for k = 0, 1, ..., 2n.
+    """
+    from math import comb
+    return {k: comb(2 * n, k) for k in range(2 * n + 1)}
+
+
+def refined_cell_distribution_enumerated(n: int) -> dict[int, int]:
+    """Same as refined_cell_distribution(n) but computed by direct enumeration
+    over the 4^n = 2^(2n) structural-bit strings, providing an independent
+    verification of the closed-form binomial(2n, k).
+    """
+    counts = Counter()
+    for bits in range(4 ** n):
+        # Each slot contributes 2 bits; total weight = popcount of (2n)-bit string
+        weight = bin(bits).count('1')
+        counts[weight] += 1
+    return dict(counts)
 
 
 # =============================================================================

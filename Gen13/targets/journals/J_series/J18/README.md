@@ -33,6 +33,14 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 Per-venue cap: 2nd AlgComb paper after J02.
 
+**Save plan (2026-05-07):** see `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J18.md`.
+
+Fresh-eyes referee report `J18_AlgComb_FreshEyes.md` flagged: **(M2)** Proposition 5.4 sign-swap between statement (`O_1 = -7, O_2 = -8`) and proof (`O_1 = -8, O_2 = -7`); **(M1, M3)** `Ψ_B` defined via inaccessible companion + linear/boundary period formulas in mutual contradiction; **(M4)** "conservation/manifestation duality" undefined.
+
+**Fixes applied:** (a) Proposition statement corrected to `O_1 = -8, O_2 = -7` (matches the proof). (b) `Ψ_B` defined inline by an explicit 10-value table (Table 1) that simultaneously satisfies the σ-orbit triangular split (`-T_5, -T_3 = -15, -6`), the role-Fibonacci split (`-F_7, -F_6 = -13, -8`), and the σ²-orbit split (`-8, -7`) by direct integer addition. (c) "Conservation/manifestation duality" replaced by precise Definition 3.4 (table-independent vs. table-specific) with a concrete random-perturbation criterion. (d) New title: *Two Crossing Decompositions of a -21 Invariant on Z/10Z with the σ²-Triadic Refinement*.
+
+All numerical claims verified by direct addition; the explicit Ψ_B table in revision is `{0: +1, 1: -5, 2: -3, 3: -2, 4: -2, 5: -1, 6: -1, 7: -3, 8: -3, 9: -2}`.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

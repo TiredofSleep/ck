@@ -35,10 +35,19 @@ See `cover_letter.md` in this folder. Finalized with summary, venue fit, compani
 
 **Per-venue cap:** 3rd CommAlg paper after J15 + J26. Cap is 1/quarter; if binding, **FALLBACK NEEDED** to *Journal of Pure and Applied Algebra*, *Journal of Algebra and Its Applications*, or *Semigroup Forum*.
 
-**Status notes:**
-- The corner C is the multiplicative-unit group (Z/10Z)*, which is foundational in elementary number theory; the paper's novelty is the substrate-algebra closure connection plus the explicit contrast with the joint-chain 4-core.
-- The generator-selection theorem (Theorem 5.1, g=3 unique compatible with T*) is included in §5 of the manuscript with a brief proof sketch citing the TIG flatness theorem; this is a proven D19 result.
-- Companion-free: the paper is self-contained and can be submitted independently of other J-series papers.
+**Save plan (2026-05-07):** see `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J27.md`.
+
+Fresh-eyes referee report `J27_CommAlg_FreshEyes.md` uncovered: **(M5, fatal)** the §6.1 lens-invariance claim is *false* — `BHML[1][1] = 2 ∉ C` and in fact ALL 16 cells of `CL_BHML|_{C×C}` lie outside C (image = {0,2,4,6,8} disjoint from C); **(M4, fatal)** §5 generator selection appeals to undefined "TIG flatness theorem T* = 5/7" via unwritten companion; **(M6)** Remark 2.4 (CREATION/DISSOLUTION) self-contradictory; **(M3)** Theorem 4.1 (two-cores) is trivial set bookkeeping; **(m3)** abstract claim "all 16 cells = 7" contradicts the table.
+
+**Fixes applied:**
+(a) **Lens-invariance retracted.** New Proposition 4.1 states and proves BHML non-closure of C with the explicit 16-cell sub-table (image = {0, 2, 4, 6, 8} disjoint from C). New scope statement in §1.1.
+(b) **§5 self-contained.** Theorem 5.1 (D19, generator selection) now proves T* = 5/g^3 mod 10 ∈ (0, 1) iff g = 3 using only ring-theoretic data (`3^3 mod 10 = 7`, `7^3 mod 10 = 3`). J07 cited for the broader TIG flatness theorem.
+(c) **Remark 2.3 rewritten** with verified ×3-orbits: CREATION on C = `1→3→9→7→1`, DISSOLUTION on `{2,4,6,8}` = `2→6→8→4→2`; ×2 description corrected (×2 *does* cycle on the evens).
+(d) **Theorem 4.3 (uniqueness of joint closure at size 4)** replaces trivial Theorem 4.1: 78 four-element TSML-closed subsets, 1 BHML-closed (= the joint 4-core), 1 jointly closed (= the joint 4-core). Real combinatorial enumeration; the contrast between "many TSML-closed" and "unique joint" is the new structural insight.
+(e) **Abstract corrected:** 14 of 16 cells = 7, 2 cells = 3.
+(f) **New title:** *The Multiplicative-Unit Sub-Magma C = (Z/10Z)\* in the TSML Composition Lattice, and Its Contrast with the Joint 4-Core {0, 7, 8, 9}*.
+
+All claims verified by direct enumeration over `C(10, 4) = 210` four-element subsets in <1 sec via `verification/4core_verification.py`.
 
 
 
