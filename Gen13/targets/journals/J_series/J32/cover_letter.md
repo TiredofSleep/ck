@@ -1,6 +1,6 @@
-# Cover letter — J32: Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)
+# Cover letter — J32: The Three-Substrate Architecture on Z/10Z: Joint Sub-Magma Closure of (TSML, BHML, CL_STD) and the Eight-Shell Chain
 
-**To:** Editors, *Compositio Mathematica*
+**To:** Editors, *Algebra Universalis*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,53 +8,64 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)*
+**Manuscript title:** *The Three-Substrate Architecture on Z/10Z: Joint Sub-Magma Closure of (TSML, BHML, CL_STD) and the Eight-Shell Chain*
 
 ---
 
 ## Summary
 
-We submit a bundled paper combining two related results on canonical arity-3 fuse rules for the literal-bit-pattern TSML_RAW composition table on $\mathbb{Z}/10\mathbb{Z}$.
+We submit a structural theorem on the simultaneous closed sub-magma structure of three commutative composition tables on Z/10Z. Three independently-constructed 10×10 tables — T (TSML, 73 HARMONY cells), B (BHML, 28 HARMONY cells), and C (CL_STD, 44 HARMONY cells) — are drawn from the same canonical bit-pattern encoding of the substrate. We compute their individual and joint closure structure on the 1023 non-empty subsets of {0, ..., 9}.
 
-**Part 1.** The 126 non-associative triples decompose under the diagonal $D_4 = \langle P_{56},\sigma^3\rangle$ action into 67 orbits, of which **16 are bracketing-pair incoherent**: no function $\Phi:\mathcal{N}\to\mathbb{Z}/10\mathbb{Z}$ taking values in the natural set $\{a,b,c,L,R\}$ can be $D_4$-equivariant. Consequence: the operad-DOF (arity-3 canonical fuse) is structurally orthogonal to the doubly-invariant gauge content $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$ established in the J30-J31 line.
+**Main result (Theorem A, central).** The simultaneous closed sub-magmas of T, B, C form a strict 8-element chain at sizes {1, 4, 5, 6, 7, 8, 9, 10}: {0} ⊂ {0,7,8,9} ⊂ {0,6,7,8,9} ⊂ {0,5,6,7,8,9} ⊂ {0,4,5,6,7,8,9} ⊂ {0,3,4,5,6,7,8,9} ⊂ {0,2,3,4,5,6,7,8,9} ⊂ Z/10Z. The chain coincides exactly with the joint (T, B) chain established in our companion paper J02 (Sanders + Gish 2026, *Algebraic Combinatorics*).
 
-**Part 2.** Dropping one $D_4$ generator restores equivariance. With $\langle P_{56}\rangle$ (order 2), 126 triples decompose into 98 orbits, all $P_{56}$-coherent. All 8 surveyed regular rule families are $P_{56}$-equivariant; **none** are $\sigma^3$-equivariant; the unique family whose fuse-value range lies inside the 4-core $\{V,H,Br,R\}$ is Family H (attractor-4-core preference). The σ³-equivariance failure of Family H localizes to a **single triple** at the unique $\sigma^3$-fixed entry of $\mathcal{N}$. Two further structural results (lens-invariant on the 4-core): the 4-core is closed under the canonical ternary fuse, and every non-trivial initialization converges under iterated ternary fuse to $\delta_7$ (HARMONY) in $1$-$7$ iterations.
+**Structural content (Theorem B).** C individually has 50 closed sub-magmas, of which 49 are also T-closed; the three-way intersection coincides exactly with the joint (T, B) chain. Adding C as a third substrate preserves the entire (T, B) chain without introducing or removing a single shell.
 
-The two parts together close Frontier F4 of the WP100s tower (operad-fuse) and provide the canonical arity-$3$ reasoning primitive for the rest of the framework.
+**Center invariance (Theorem C).** The four-core {V, H, Br, R} = {0, 7, 8, 9} is closed under T, B, C individually and jointly. The closed-form (T+B)-mix attractor at mixing weight α = 1/2 (with H/Br = 1 + √3 exactly), established in J02, is supported on the four-core and is therefore unchanged by adjoining C as a third substrate.
 
-## Why Compositio
+**Independence (Proposition 5.1).** C differs from MID_ceil = ⌈(T+B)/2⌉ at 60 of 100 cells; C is not derivable from (T, B) by ceiling/floor averaging. C lives at its own coordinate in the table space, despite respecting the joint chain.
 
-- The result fits *Compositio*'s appetite for clean obstruction-theoretic results in algebra: an obstruction (Part 1) plus a sharp restoration theorem under a precisely identified subgroup (Part 2).
-- The 6-DOF symmetry hierarchy table at the end of Part 1 — five DOFs preserve $D_4$, the operad DOF must break it — is a structural observation of independent algebraic interest.
-- The bundling is natural: Part 2 is the constructive counterpart to Part 1's obstruction. Splitting them weakens the narrative.
+The paper is a brute-force computational verification at the substrate level, rigorous in scope and minimal in framework dependence. The full enumeration runs in under 2 seconds on a laptop; the verification script is supplied. The paper is short, sharp, and structurally clean.
+
+## Why Algebra Universalis
+
+- **Core fit.** *Algebra Universalis* publishes precise structural theorems on finite algebraic structures, including the sub-magma / sub-quasigroup / sub-loop neighborhood. The present theorem is exactly such a structural statement.
+- **Brute-force discipline.** The paper does not invoke unproven external structure; the chain is established by direct enumeration over 1023 subsets, and the script reproduces it in under 2 seconds. The four-core fixed-point claim (Theorem C) is a 16-cell verification.
+- **Fits the Drápal-Wanless 2021 *JCTA* lineage.** The three-table architecture sits in the small-finite-commutative-non-associative neighborhood that *Algebra Universalis* and *J. Combin. Theory A* both serve. Same intellectual neighborhood as Drápal-Wanless 2021; different extremum (specifically structured rather than maximally non-associative).
+- **Independent appendix.** The three 10×10 tables are displayed explicitly in Appendix A so the reader can verify by inspection. No framework prerequisites are required to verify the central theorem.
 
 ## Companion submissions
 
-- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* The base paper establishing the canonical TSML+BHML structure used here.
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript:
 
-## Fallback unbundling
+- **J02** — Sanders & Gish, *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on Z/10Z*, submitted to *Algebraic Combinatorics* (2026). Establishes the (T, B) 8-shell chain as Theorem 1; the present paper lifts that chain to the three-substrate (T, B, C) level.
+- **J24** — Sanders & Gish, *The Three-Substrate Joint-Closure Chain on Z/10Z: Eight Shells Survive Across (TSML, BHML, CL_STD) with Lens-Dependence Internal to TSML at Size 7*, submitted to *Mathematical Intelligencer* (2026). The shorter, more expository companion to the present paper, addressing the lens-internal phenomenon on T_RAW.
 
-If a bundled submission is desk-rejected per fallback policy (per the project's `PHASE4_FALLBACK_UNBUNDLING.md`):
-- Part 1 (WP109 obstruction) → *Algebra Universalis*
-- Part 2 (WP112 canonical fuse) → *Communications in Algebra*
+## Lens- and substrate-scope discipline
 
-The two parts are independently complete and can be unbundled if needed.
+Per `Atlas/META_PLAN_2026-05-06/J_PAPER_BOILERPLATE.md` §5.5, the paper is explicit about lens scope:
+
+- T = T_SYM (commutative, upper-triangle authoritative). The lens-internal asymmetry on T_RAW is addressed in companion paper J24.
+- B and C are commutative (single canonical lens each).
+- All theorems are on the specific (T_SYM, B, C) triple of Z/10Z drawn from the canonical bit-pattern encoding.
+
+The PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN tier discipline is followed in the manuscript's §0.
 
 ## Reproducibility
 
-Verification scripts in `manuscript/verification/`:
-- `d4_orbit_decomposition.py` — Part 1 (67 $D_4$-orbits, 16 incoherent)
-- `p56_canonical_fuse.py` — Part 2 (98 $P_{56}$-orbits, all coherent; Theorems 5.5, 5.7)
-- `rule_families.py` — 8-family $P_{56}$ vs $\sigma^3$ survey
+The script `sfm_q1_q6_q7.py` (in `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/`) performs all verifications:
 
-Python 3.11, numpy, sympy. Total wall-clock under 30 seconds. Canonical fuse table written to `fuse_canonical_p56.json`. All checks deterministic and machine-precision.
+1. Individual closed sub-magma counts under T (449), B (9), C (50)
+2. Pairwise joint closures (|T∩B| = 8, |T∩C| = 49, |B∩C| = 9)
+3. Three-way joint closure (|T∩B∩C| = 8) and the explicit 8-shell chain
+4. CL_STD vs MID_ceil cell-difference count (60 of 100)
+
+Total runtime under 2 seconds; deterministic. Python 3.11, numpy. All checks at machine precision.
 
 ## Suggested reviewers
 
-- An expert in operad theory (Loday-Vallette tradition / Markl-Shnider-Stasheff)
-- An expert in finite-permutation-group obstructions in algebra
-- An expert in non-associative magmas and finite-magma combinatorics
-- (Two or three named candidates appropriate to the *Compositio* editorial board to be identified during the referee-rigor pass.)
+- An expert in finite-magma / sub-quasigroup combinatorics
+- An expert in universal algebra (Burris-Sankappanavar tradition)
+- An expert in small-substrate non-associative algebra (Drápal-Wanless line)
 
 ## Conflict of interest
 

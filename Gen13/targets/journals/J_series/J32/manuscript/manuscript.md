@@ -257,15 +257,15 @@ For the reader's reproducibility convenience, the three 100-cell tables. Rows in
 ```
    j=0  1  2  3  4  5  6  7  8  9
 i=0  0  0  0  0  0  0  0  7  0  0
-i=1  0  1  3  4  5  6  7  7  8  3
-i=2  0  3  3  4  5  6  7  7  8  3
-i=3  0  4  4  3  5  6  7  7  8  3
-i=4  0  5  5  5  3  6  7  7  8  7
-i=5  0  6  6  6  6  3  7  7  8  7
-i=6  0  7  7  7  7  7  3  7  8  7
+i=1  0  7  3  7  7  7  7  7  7  7
+i=2  0  3  7  7  4  7  7  7  7  9
+i=3  0  7  7  7  7  7  7  7  7  3
+i=4  0  7  4  7  7  7  7  7  8  7
+i=5  0  7  7  7  7  7  7  7  7  7
+i=6  0  7  7  7  7  7  7  7  7  7
 i=7  7  7  7  7  7  7  7  7  7  7
-i=8  0  8  8  8  8  8  8  7  8  7
-i=9  0  3  3  3  7  7  7  7  7  7
+i=8  0  7  7  7  8  7  7  7  7  7
+i=9  0  7  9  3  7  7  7  7  7  7
 ```
 
 **$B$ (BHML; 28 HARMONY cells):**
@@ -273,15 +273,15 @@ i=9  0  3  3  3  7  7  7  7  7  7
 ```
    j=0  1  2  3  4  5  6  7  8  9
 i=0  0  1  2  3  4  5  6  7  8  9
-i=1  1  2  3  4  5  6  7  7  7  1
-i=2  2  3  4  5  6  7  7  7  7  2
-i=3  3  4  5  6  7  7  7  7  7  3
-i=4  4  5  6  7  7  7  7  7  7  4
-i=5  5  6  7  7  7  7  7  7  7  5
-i=6  6  7  7  7  7  7  7  7  7  6
-i=7  7  7  7  7  7  7  7  7  7  7
-i=8  8  7  7  7  7  7  7  7  8  7
-i=9  9  1  2  3  4  5  6  7  7  0
+i=1  1  2  3  4  5  6  7  2  6  6
+i=2  2  3  3  4  5  6  7  3  6  6
+i=3  3  4  4  4  5  6  7  4  6  6
+i=4  4  5  5  5  5  6  7  5  7  7
+i=5  5  6  6  6  6  6  7  6  7  7
+i=6  6  7  7  7  7  7  7  7  7  7
+i=7  7  2  3  4  5  6  7  8  9  0
+i=8  8  6  6  6  7  7  7  9  7  8
+i=9  9  6  6  6  7  7  7  0  8  0
 ```
 
 **$C$ (CL_STD; 44 HARMONY cells):**
@@ -293,14 +293,14 @@ i=1  1  2  3  4  5  6  7  7  8  1
 i=2  2  3  4  5  6  7  7  8  7  2
 i=3  3  4  5  6  7  7  7  7  7  3
 i=4  4  5  6  7  7  7  7  8  7  4
-i=5  5  6  7  7  7  7  7  7  7  5
-i=6  6  7  7  7  7  7  7  7  7  6
-i=7  7  7  7  7  7  7  7  7  7  7
-i=8  8  8  7  7  7  7  7  7  7  7
-i=9  9  1  2  3  4  5  6  7  7  0
+i=5  5  6  7  7  7  8  7  7  7  5
+i=6  6  7  7  7  7  7  8  7  7  6
+i=7  7  7  8  7  8  7  7  8  7  7
+i=8  8  8  7  7  7  7  7  7  7  8
+i=9  9  1  2  3  4  5  6  7  8  0
 ```
 
-(The codebase source-of-record for $T$, $B$, $C$ is `Gen13/targets/foundations/cl.py` and `cl_std.py`; the values displayed above are those tables decoded at the time of submission.)
+(The codebase source-of-record for $T$, $B$, $C$ is `Gen13/targets/foundations/cl.py`, `cl_std.py`, and `papers/ck_tables.py` (TSML and BHML); the values displayed above are those tables decoded at the time of submission. HARMONY-cell counts: $T \to 73$, $B \to 28$, $C \to 44$, verified at machine precision by `sfm_q1_q6_q7.py` lines 31–33.)
 
 ---
 

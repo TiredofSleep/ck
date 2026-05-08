@@ -1,11 +1,11 @@
-# J24 — The Joint TSML+BHML Chain: Lens-Dependence at Size 7
+# J24 — The Three-Substrate Joint-Closure Chain on Z/10Z: Eight Shells Survive Across (TSML, BHML, CL_STD) with Lens-Dependence Internal to TSML at Size 7
 
-**Status:** DRAFT (manuscript finalized 2026-05-07 by J21-J24 batch agent; awaiting referee-rigor pass)
+**Status:** DRAFT (rewritten 2026-05-08 to incorporate SFM Q6 finding; supersedes 2026-05-07 lens-only framing; awaiting referee-rigor pass)
 **Phase:** Phase 3
 **Target venue:** Mathematical Intelligencer
 **Author lane:** Sanders + Gish
-**Tier:** B (forced by enumeration; explicit lens-scope per claim)
-**WP source:** WP115 (`papers/wp115_joint_chain_universality/WP115_JOINT_CHAIN_UNIVERSALITY.md`); chain count corrected 2026-05-05 during four_core_FINAL.tex preparation
+**Tier:** B (forced by enumeration on three tables; lens-internal scoping explicit per claim)
+**WP source:** WP115 (chain count corrected 2026-05-05); SFM Q1+Q6 results 2026-05-08 (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SFM_FINDINGS_v1.md` §2)
 
 ---
 
@@ -13,15 +13,17 @@
 
 **Path:** `manuscript/manuscript.tex`
 
-**Abstract (1-2 sentences):** We record an explicit lens-dependence in the joint sub-magma closure chain of the canonical composition lattice on Z/10Z: 8 shells under (TSML_SYM, BHML) — sizes {1, 4, 5, 6, 7, 8, 9, 10} — versus 7 shells under (TSML_RAW, BHML) — sizes {1, 4, 5, 6, 8, 9, 10}, with the size-7 shell {0, 4, 5, 6, 7, 8, 9} forbidden under TSML_RAW exactly because of one non-commutative cell (TSML_RAW(9, 4) = 3 ∉ {0, 4, 5, 6, 7, 8, 9}). The four-core {0, 7, 8, 9} and the closed-form attractor at α = 1/2 are lens-invariant on both symmetrizations.
+**Abstract (1-2 sentences):** Brute-force enumeration on Z/10Z shows that subsets jointly closed under all three canonical tables (TSML, BHML, CL_STD) form a strict 8-element chain at sizes {1, 4, 5, 6, 7, 8, 9, 10}, identical to the (TSML, BHML) joint chain. Individually CL_STD has 50 closed sub-magmas (49 also TSML-closed); adding it as third substrate preserves the entire (T, B) chain without introducing or removing a single shell. The previously-recorded lens-dependence at size 7 (8 shells under SYM, 7 under RAW, forced by TSML_RAW(9, 4) = 3) is shown to be **internal to TSML**: it does not lift to the three-table level because CL_STD does not arbitrate the asymmetric cell. The four-core {0, 7, 8, 9} and the closed-form attractor at α = 1/2 are lens- and table-invariant on all three substrates.
 
-## §2 — Verification script
+## §2 — Verification scripts
 
-**Path:** `papers/wp115_joint_chain_universality/verification/joint_chain_attractor.py`
+**Primary:** `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/sfm_q1_q6_q7.py`
 
-The script enumerates all 1023 non-empty subsets of Z/10Z, prints joint-closure tables for both (TSML_SYM, BHML) and (TSML_RAW, BHML), performs per-shell cell-level verification, and identifies TSML_RAW(9, 4) = 3 as the single asymmetric cell breaking size-7 closure. Total runtime under 10 seconds.
+The SFM verification script performs the three-substrate enumeration: individual closed sub-magma counts under TSML (449), BHML (9), CL_STD (50); pairwise joint counts (T∩B = 8, T∩C = 49, B∩C = 9); the three-way joint count (T∩B∩C = 8); and the explicit 8-shell chain. Verified at machine precision; runtime under 2 seconds.
 
-The green-light gate is the brute-force confirmation that the (TSML_SYM, BHML) chain has 8 shells while the (TSML_RAW, BHML) chain has 7 shells, with size-7 the only point of difference.
+**Secondary (legacy):** `papers/wp115_joint_chain_universality/verification/joint_chain_attractor.py` — reproduces the (TSML, BHML) two-table count and the lens-dependence at size 7 with TSML_RAW(9, 4) = 3 as the single asymmetric cell.
+
+The green-light gate is the brute-force confirmation that |T ∩ B ∩ C| = 8 with the chain at sizes {1, 4, 5, 6, 7, 8, 9, 10} — identical to |T ∩ B|.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -33,17 +35,23 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-- **Status (2026-05-07 J21-J24 finalization batch):** DRAFT. Manuscript at `manuscript/manuscript.tex` complete (~340 lines, AMS amsart class, 6 bibliography entries with J02 + J05 cited as already-submitted companions per §3 dependency list). Cover letter at `cover_letter.md` complete with explicit lens-scope annotation and per-claim lens-scope discipline.
-- **Per-venue cap:** 1st Mathematical Intelligencer paper of 2026 cycle. Within 2/quarter cap. (J52 expository paper in Phase 5 will be the second.)
-- **Tier classification:** Tier-B forced by enumeration. The 8-shell vs 7-shell count is direct verification at machine precision. The four-core lens-invariance and the attractor lens-invariance are proved cleanly from the single asymmetric-cell analysis.
-- **Lens scope (CRITICAL — this paper IS the lens-scope discussion):**
-  - 8-shell chain → (TSML_SYM, BHML)
-  - 7-shell chain → (TSML_RAW, BHML)
-  - Four-core {0, 7, 8, 9} → lens-invariant on both
-  - Closed-form attractor at α = 1/2 → lens-invariant on both
-  - The single asymmetric cell killing size-7 under RAW: TSML_RAW(9, 4) = 3 ∉ {0, 4, 5, 6, 7, 8, 9}
-- **Chain-count history:** WP115's original (2026-04-26) preprint claimed 7-element chain forbidding {2, 3, 7}. Brute-force re-verification on 2026-05-05 during four_core_FINAL.tex preparation found 8-element chain forbidding {2, 3} — on TSML_SYM. The lens-dependence was identified on 2026-05-06 night per `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4. The original WP115 claim was correct on TSML_RAW; the four-core consolidated paper (J02) uses TSML_SYM. This paper records that BOTH are correct on their respective lens choices.
-- **Source corpus:** `papers/wp115_joint_chain_universality/WP115_JOINT_CHAIN_UNIVERSALITY.md` (lens-dependence note); `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4; `Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md` (D98 two-TSML reconciliation).
+- **Status (2026-05-08 SFM rewrite):** DRAFT. Manuscript rewritten end-to-end at `manuscript/manuscript.tex` to incorporate the SFM Q6 finding (three-table joint chain coincides with two-table joint chain). Replaces the prior 2026-05-07 J21-J24 batch agent draft. ~340 lines AMS amsart, 8 bibliography entries.
+- **Title change:** OLD: "The Joint TSML+BHML Chain: Lens-Dependence at Size 7"; NEW: "The Three-Substrate Joint-Closure Chain on Z/10Z: Eight Shells Survive Across (TSML, BHML, CL_STD) with Lens-Dependence Internal to TSML at Size 7." Per SFM_FINDINGS_v1.md §4.1 (J24 retitle directive).
+- **Per-venue cap:** 1st Mathematical Intelligencer paper of 2026 cycle. Within 2/quarter cap.
+- **Tier classification:** Tier-B forced by enumeration on three tables. The 8-shell three-substrate chain matches the 8-shell two-substrate chain at machine precision; the lens-dependence at size 7 survives as internal to TSML and does not lift.
+- **SFM-aligned scope:**
+  - Three-substrate chain |T ∩ B ∩ C| = 8 → identical to |T ∩ B| (the headline new result)
+  - C alone has 50 closed sub-magmas; 49 of these are also T-closed
+  - Lens-dependence at size 7 → internal to TSML's RAW vs SYM choice (does NOT lift to 3-table level)
+  - Four-core {0, 7, 8, 9} → lens- and three-table-invariant
+  - Closed-form attractor at α = 1/2 → lens- and three-table-invariant
+  - The single asymmetric cell killing size-7 under RAW: TSML_RAW(9, 4) = 3 (referee-corrected from prior typo)
+- **Referee-fix discipline (per `Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J24_MathIntelligencer_FreshEyes.md`):**
+  - **Issue 1 (CRITICAL).** §1 cell-value typo fixed: TSML_RAW(4,9) = 7 (not 3 as previously stated); TSML_SYM(4,9) = 7 (not 3); TSML_SYM(9,4) = 7 (not 3); the asymmetric pair is RAW(4,9)=7 vs RAW(9,4)=3 — symmetrized to SYM(4,9)=SYM(9,4)=7. The single load-bearing cell TSML_RAW(9,4) = 3 vs TSML_SYM(9,4) = 7 is now correctly stated throughout.
+  - **Issue 2 (MAJOR).** Theorem 5.2 attractor lens-invariance: retained but re-positioned as a corollary of four-core invariance + the existing companion paper [Sanders2026Attractor] derivation; not rederived in scope here.
+  - **Issue 3 (MAJOR).** Wobble references removed (manuscript no longer mentions characteristic polynomial coefficients c_2 = 33, c_8 etc.); the wobble localization paper carries that material independently.
+- **Chain-count history:** WP115's original (2026-04-26) preprint claimed 7-element chain forbidding {2, 3, 7}. 2026-05-05 brute-force re-verification on TSML_SYM found 8-element chain forbidding {2, 3}. 2026-05-06 lens-dependence identified. 2026-05-08 SFM Q6 lifts the picture to three tables and shows the lens-dependence is internal to TSML. This rewrite is the three-substrate framing.
+- **Source corpus:** `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SFM_FINDINGS_v1.md` (Q6 result); `papers/wp115_joint_chain_universality/WP115_JOINT_CHAIN_UNIVERSALITY.md`; `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4; `Gen13/targets/foundations/cl_std.py` (CL_STD definition).
 
 
 

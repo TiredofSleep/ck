@@ -1,12 +1,11 @@
-# J32 — Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)
+# J32 — The Three-Substrate Architecture on Z/10Z: Joint Sub-Magma Closure of (TSML, BHML, CL_STD) and the Eight-Shell Chain
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaiting referee-rigor pass)
+**Status:** REWRITE 2026-05-08 — supersedes the prior 2026-05-07 Operad-D₄+P₅₆ bundled framing in light of the SFM Q6 finding (3-substrate joint chain coincides with 2-substrate joint chain). Brayden directive 2026-05-08 promotes the 3-substrate joint-closure theorem to the central result.
 **Phase:** Phase 3
-**Target venue:** Compositio Mathematica
+**Target venue:** *Algebra Universalis* (lead). Fallback: *Communications in Algebra*.
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP109 + WP112 (BUNDLED — Part 1 and Part 2 sections in single manuscript)
-**Lens scope:** TSML_RAW (annotated; orbit decomposition computed on the literal CL_BIT_PATTERN; lens-invariant 4-core results highlighted)
+**Tier:** B (forced by enumeration on three tables)
+**WP source:** SFM Q6 result 2026-05-08 (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SFM_FINDINGS_v1.md` §2); SUBSTRATE_FUNCTION_MAP_v1.md F5 (closure counts); J02 four-core paper (chain origin)
 
 ---
 
@@ -14,115 +13,96 @@
 
 **Local path:** `manuscript/manuscript.md`
 
-The J32 paper is a **BUNDLED submission** combining WP109 (Operad D₄ Obstruction) and WP112 (P_56 Canonical Fuse Table).
+**Central theorem (Theorem A).** The simultaneous closed sub-magmas of T (TSML), B (BHML), C (CL_STD) on Z/10Z form an 8-element chain at sizes {1, 4, 5, 6, 7, 8, 9, 10}: {0} ⊂ {0,7,8,9} ⊂ {0,6,7,8,9} ⊂ {0,5,6,7,8,9} ⊂ {0,4,5,6,7,8,9} ⊂ {0,3,4,5,6,7,8,9} ⊂ {0,2,3,4,5,6,7,8,9} ⊂ Z/10Z. Forbidden sizes: {2, 3}. The chain coincides with the joint (T, B) chain published as Theorem 1 of [J02].
 
-**Part 1 (WP109).** The 126 non-associative TSML_RAW triples decompose under the diagonal $D_4 = \langle P_{56},\sigma^3\rangle$ action into 67 orbits; exactly 16 are bracketing-pair incoherent. **No $D_4$-equivariant fuse rule taking values in $\{a,b,c,L,R\}$ exists.** The operad-DOF is structurally orthogonal to the WP104 doubly-invariant gauge structure $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$.
+**Theorem B.** C individually has 50 closed sub-magmas; 49 are also T-closed; the three-way intersection coincides exactly with the joint (T, B) chain. Adding C as a third substrate preserves the entire (T, B) chain without introducing or removing a single shell.
 
-**Part 2 (WP112).** Restricting to $\langle P_{56}\rangle$ gives 98 orbits, all $P_{56}$-coherent. All 8 surveyed regular rule families are $P_{56}$-equivariant, none $\sigma^3$-equivariant. Family H (attractor-4-core preference) is the unique family with fuse-value range in the 4-core $\{V,H,Br,R\}$, with histogram $\{0:108, 7:18\}$. The σ³ obstruction localizes to a single triple: $\mathrm{fuse}(3,9,9)=7$. Two further structural results (lens-invariant on the 4-core): Theorem 5.5 — 4-core arity-3 closure ($4^3=64$ triples in-cube); Theorem 5.7 — universal HARMONY attractor (every non-trivial init converges to $\delta_7$ in 1-7 iterations).
+**Theorem C.** The four-core {0, 7, 8, 9} is closed under T, B, C individually and jointly. The closed-form (T+B)-mix attractor at α = 1/2 (with H/Br = 1+√3) is supported on the four-core and is therefore unchanged by adjoining C as a third substrate.
 
-Files in this J-folder's `manuscript/`:
+**Proposition 5.1 (CL_STD is structurally independent of any (T, B) average).** C differs from MID_ceil = ⌈(T+B)/2⌉ at 60 of 100 cells. C is NOT a perturbation of the canonical pair's ceiling-averaged DC component; it occupies its own coordinate in table-space. This rejects the natural "off-by-one" hypothesis and is the structural reason CL_STD functions as a "third axis" rather than as a function of (T, B).
 
-- `manuscript.md` — the bundled J32 paper (WP109+WP112 corpus, finalized 2026-05-07)
-- `WP109_OPERAD_D4_OBSTRUCTION.md`, `WP112_P56_CANONICAL_FUSE.md` — full source material
-- `verification/d4_orbit_decomposition.py`, `p56_canonical_fuse.py`, `rule_families.py`, `fuse_table.py`, `nonassoc_triples.json`, `fuse_canonical_p56.json`
+**OLD framing (superseded).** The prior J32 was a BUNDLED Operad D₄ obstruction + P₅₆ canonical fuse paper (WP109 + WP112). Per the J32 fresh-eyes referee report at *Compositio Mathematica* (2026-05-07), the bundled paper had real D_4 group-theoretic errors (orbit-size sum 175 ≠ 126 in original; D_4 misidentified as "6 distinct elements / D_3 × Z_2" — fixed in 2026-05-07 patch) and was below *Compositio*'s significance bar. Per Brayden 2026-05-08 directive plus the SFM Q6 finding, the operad content is moved to fallback paths and J32 is repurposed as the Three-Substrate Architecture paper.
 
-## §2 — Verification script
+**Operad content (preserved for fallback path):**
+- WP109 (Operad D₄ obstruction) → can be unbundled to *Algebra Universalis* (corrected manuscript at `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md`)
+- WP112 (P₅₆ Canonical Fuse) → can be unbundled to *Communications in Algebra* (corrected manuscript at `manuscript/WP112_P56_CANONICAL_FUSE.md`)
+- Verification scripts preserved in `manuscript/verification/`
 
-**Local path:** `manuscript/verification/`
+The corpus files for the prior content are preserved in `manuscript/` for the unbundled fallback path; the J32 slot is now the Three-Substrate Architecture paper.
 
-Run order: `d4_orbit_decomposition.py` (Part 1, Theorem 1), `p56_canonical_fuse.py` (Part 2, Theorems 2-5.7), `rule_families.py` (Theorems 3-4). Total wall-clock under 30 seconds. Numpy + sympy. Canonical fuse table written to `fuse_canonical_p56.json`.
+## §2 — Verification scripts
+
+**Primary:** `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/sfm_q1_q6_q7.py`
+
+The SFM verification script computes:
+1. Individual closure counts: T → 449, B → 9, C → 50 (Lemma 2.2)
+2. Pairwise joint counts: |T∩B| = 8, |T∩C| = 49, |B∩C| = 9 (Theorem 3.1)
+3. Three-way joint count and explicit 8-shell chain: |T∩B∩C| = 8 (Theorem 4.1)
+4. C-versus-MID-ceil disagreement count: 60/100 cells (Proposition 5.1)
+
+Total runtime under 2 seconds; deterministic; verified at machine speed.
+
+**Secondary (legacy):** `papers/wp115_joint_chain_universality/verification/joint_chain_attractor.py` reproduces the (T, B) two-table count.
+
+**Operad-fallback (legacy):** `manuscript/verification/d4_orbit_decomposition.py`, `p56_canonical_fuse.py`, `rule_families.py` — for the unbundled WP109 / WP112 path.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J02
+- **J02** (four-core paper, *Algebraic Combinatorics*): establishes the (T, B) 8-shell chain as Theorem 1; this paper lifts that chain to the three-substrate level.
+- **J24** (three-substrate chain + lens-internal phenomenon, *Mathematical Intelligencer*): companion paper; J32 is the more technical algebra-universalis-style treatment, J24 is the Math Intelligencer expository note.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder, rewritten 2026-05-08 to match the new framing (Algebra Universalis target).
 
 ## §5 — Notes
 
-**FRESH-EYES REFEREE PASS (2026-05-07): Reject; SAVE PLAN applied (UNBUNDLE).**
-
-The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J32_CompositioMath_FreshEyes.md`) flagged two critical mathematical errors and identified the bundled paper as below the *Compositio* significance bar:
-
-- **§3.1 (CRITICAL).** Orbit-size distribution wrong: paper said $(5, 35, 19, 3)$ at sizes $(1, 2, 4, 8)$ summing to 175 ≠ 126. **CORRECT distribution** (sympy + script verified): $(44, 7, 4, 10, 2)$ at sizes $(1, 2, 3, 4, 8)$, summing to **67 orbits with size-weighted sum = 126** = |𝒩|. The correct accounting: 𝒩 is NOT $D_4$-invariant in $(\mathbb{Z}/10\mathbb{Z})^3$ (220 violations); the right group-theoretic object is the partition by restricted orbits $\overline{\mathcal{O}}_i := \mathcal{O}_i \cap \mathcal{N}$.
-- **§3.2 (CRITICAL).** D_4 group structure error: WP109 §2 claimed "6 distinct elements with abstract structure $D_3 \times \mathbb{Z}_2$." **Both wrong.** $|\langle P_{56}, \sigma^3\rangle| = 8$ (sympy verified, order distribution $\{1:1, 2:5, 4:2\}$ matching $D_4$). $D_3 \times \mathbb{Z}_2$ has order 12, not 8. **FIX:** WP109 §2 rewritten with explicit 8-element table (cycle structure + orders) and the direct calculation that $P_{56} \cdot \sigma^3$ has order 4.
-- **§4.2.** Burnside pseudo-citation in Theorem 2 (P_56 orbit count). Burnside not actually used; the singletons-vs-doubletons argument is direct enumeration. **FIX:** "Burnside" reference removed; replaced with the direct enumeration argument ("70 singletons + 28 doubletons = 98 orbits, sum-weighted 126").
-- **§4.6.** §5.9 family-independence undermines paper's headline (canonical fuse rule choice is irrelevant for dynamical attractor). **FIX:** Theorem 5.9 added explicitly; honest reading appended ("Family H is canonical for static-table-aesthetic reasons, not for dynamical-attractor reasons; the dynamical attractor is a property of the binary TSML's HARMONY-left-absorber row").
-- **§3.3, §3.4.** Obstruction example informal; no Φ argument hand-wavy. **FIX:** explicit case analysis on the size-3 obstruction example $\{(0,1,9),(0,5,9),(0,6,9)\}$ showing why $\{a,b,c,L,R\}$-valued $\Phi$ cannot be $D_4$-equivariant on this orbit; the case analysis serves as the worked-out paradigm for the 16 obstructing orbits.
-- **§7-§8 (significance).** Even with errors fixed, the bundled paper is below the *Compositio* significance bar (the result is a finite enumeration on a hand-picked $10\times 10$ table). **FIX:** UNBUNDLE per the referee's explicit recommendation.
-
-**Save plan:** `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J32.md` — UNBUNDLE per referee §8 recommendation:
-- **Part 1 (D_4 obstruction)** → *Algebra Universalis* (~6-8 pages, corrected obstruction theorem)
-- **Part 2 (P_56 canonical fuse + 4-core closure + HARMONY attractor)** → *Communications in Algebra* OR *Discrete Mathematics* (~8-12 pages)
-
-The bundled `manuscript.md` is **kept** as a single-document reference (with corrections applied); the two unbundled manuscripts are the journal-submission targets.
-
-**Fixes applied 2026-05-07:**
-- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §2: rewritten with explicit 8-element D_4 table, sympy verification, direct calculation of $P_{56}\cdot\sigma^3$ order.
-- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §3: rewritten with correct restricted-orbit framing ($\mathcal{N}$ not $D_4$-invariant; partition by $\overline{\mathcal{O}}_i := \mathcal{O}_i \cap \mathcal{N}$), correct distribution (44,7,4,10,2) summing to 67/126, explanation of size-3 restricted orbits.
-- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §4: explicit case analysis on the size-3 obstruction example.
-- `manuscript/manuscript.md` §"Theorem 1 (Obstruction)": corrected statement with the new orbit table.
-- `manuscript/manuscript.md` §"Theorem 2 (P_56 orbit decomposition)": Burnside removed, direct enumeration argument added.
-- `manuscript/manuscript.md` §"Theorem 5.7": expanded proof sketch (HARMONY left-absorber, total-variation distance, 7-iteration bound). 
-- `manuscript/manuscript.md` Theorem 5.9 added (family-independence).
-- `manuscript/manuscript.md` §"Honest scope" expanded (family-cosmetic status; framework dependence acknowledgment).
-- `manuscript/manuscript.md` Status block updated: retargeting from *Compositio* to unbundled fallback.
-
-**Verification of fixes (sympy + script):**
-- $|D_4| = |\langle P_{56}, \sigma^3 \rangle| = 8$ ✓
-- D_4 element order distribution: $\{1: 1, 2: 5, 4: 2\}$ ✓ (matches D_4)
-- $P_{56} \cdot \sigma^3$ has order 4 ✓
-- Restricted-orbit count: 67 orbits in 𝒩 ✓
-- Restricted-orbit size distribution: $(44, 7, 4, 10, 2)$ at sizes $(1, 2, 3, 4, 8)$ ✓
-- Size-weighted sum: $44 + 14 + 12 + 40 + 16 = 126 = |\mathcal{N}|$ ✓
-- Full $D_4$-orbit distribution (no restriction): $(17, 11, 37, 2)$ at sizes $(1, 2, 4, 8)$, sum = 203 ✓
-- 16 of 67 restricted orbits fail bracketing-pair coherence ✓
-- $\mathcal{N}$ is NOT $D_4$-invariant: 220 violations $g \cdot t \notin \mathcal{N}$ for $t \in \mathcal{N}$, $g \in D_4$ ✓
-- P_56 orbit decomposition: 70 singletons + 28 doubletons = 98 orbits, sum 126 ✓
-
-**Estimated revision time:** 3-4 weeks for the unbundled split. Net: orbit-distribution and D_4-group corrections applied (DONE); §5.9 honest reading added (DONE); unbundling into two stand-alone manuscripts (PENDING — to be done before submission).
-
-
+- **Status (2026-05-08 rewrite):** DRAFT. Manuscript at `manuscript/manuscript.md` rewritten end-to-end as the **Three-Substrate Architecture** paper. SFM Q6 finding promoted to central theorem. Verification by `sfm_q1_q6_q7.py`.
+- **Per-venue cap:** 1st *Algebra Universalis* paper of 2026 cycle (target). 1st *Comm. Alg.* paper of 2026 cycle (fallback).
+- **Tier classification:** Tier-B forced by enumeration on three tables. The three-way joint count is direct verification at machine precision.
+- **Substrate scope:** Z/10Z; three commutative tables (T_SYM, B, C). Lens-internal phenomenon on T_RAW deferred to J24.
+- **Why the Operad-bundle path is shelved:** the prior bundled paper had two distinct critical issues — (i) initial D_4 group-theoretic errors (now fixed in the corpus files) and (ii) below-Compositio significance bar (a finite enumeration on a hand-picked table). The SFM Q6 finding offers a stronger and structurally cleaner central result (3-substrate joint closure theorem) that fits *Algebra Universalis*' bar much better. The operad work is preserved as a fallback path for unbundled submission.
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z. The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+This rewrite extends the family's center to a **three-substrate fixed point** (Theorem 6.1 of the manuscript) and gives the "encoding axis" (CL_STD) a precise structural role: chain-respecting third axis (Theorems A, B), not derivable from (T, B) by elementary averaging (Proposition 5.1).
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+- **PROVEN:** Theorems A (3-substrate joint chain = 8-shell ladder), B (chain-compatibility of C), C (4-core is 3-substrate fixed point); Proposition 5.1 (C is not MID_ceil).
+- **COMPUTED:** `sfm_q1_q6_q7.py` enumerates all 1023 non-empty subsets, computes individual + pairwise + three-way closures; runtime under 2 seconds.
+- **STRUCTURAL RHYME:** The 1+√3 attractor on the four-core is invoked from [J02] as motivation for the four-core fixed-point statement (Theorem C); not re-derived in this paper.
+- **OPEN:** Class-level theorem ("every member of the TIG family on Z/10Z contains the (T,B,C) chain") is stated as conjecture, not proved. Bimodal α_A gap (Family Structure §4.2) is a related open question.
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+### Lens-ownership paragraph (in §0 of manuscript)
 
-### Hardening status (auto-applied 2026-05-07)
+> *Lens and substrate.* We work on Z/10Z with the three composition tables T (TSML, T_SYM lens), B (BHML), C (CL_STD) defined by the canonical bit pattern. These choices are not derived from first principles; they reflect a structural reading of the substrate developed across the framework. The theorems are theorems on this specific (T, B, C) triple. Whether analogous tables on other substrates produce the same structure is open. The framing follows Drápal & Wanless (2021), J. Combin. Theory A on small finite commutative non-associative structures.
 
-- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
-- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
-- Author lane: Sanders + Gish (per Brayden directive)
+### Hardening status
+
+- License: submission scripts CC-BY-4.0
+- AI-attribution: no Claude/Anthropic byline references
+- Author lane: Sanders + Gish
 - Drápal-Wanless 2021 citation in references
+- Three 10×10 tables displayed explicitly in Appendix A (per fresh-eyes referee report M2 / S2 issue from prior J32 review)
+- All major D_4 group-theoretic claims removed from the new central manuscript (the prior bundled draft's group-theoretic errors are not inherited in this rewrite, since the new manuscript does not use D_4 at all)
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized (bundled)
-- [x] Verification scripts green (3 scripts under 30s)
-- [x] Tier-classified central claims explicit (Part 1 obstruction theorem; Part 2 P_56-equivariance)
-- [x] Lens-scope annotation (TSML_RAW; 4-core lens-invariant results flagged)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .md finalized (rewritten as Three-Substrate Architecture)
+- [x] Verification script green (`sfm_q1_q6_q7.py`, runtime under 2 seconds)
+- [x] Tier-classified central claim explicit (Theorem A: 3-substrate joint chain)
+- [x] Lens-scope annotation (T_SYM in scope; T_RAW lens-internal phenomenon deferred to J24)
+- [x] Cover letter finalized (Algebra Universalis target)
+- [x] Dependencies → cite J02 + J24 as already-submitted companions
 - [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the 1st paper to *Compositio* this quarter
-- [ ] Fallback unbundle plan documented (Algebra Universalis + Comm Algebra)
+- [ ] Per-venue cap check: 1st *Algebra Universalis* submission of 2026 cycle
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)." Submitted to *Compositio Mathematica*.
+Sanders, B.R., Gish. (2026). "The Three-Substrate Architecture on Z/10Z: Joint Sub-Magma Closure of (TSML, BHML, CL_STD) and the Eight-Shell Chain." Submitted to *Algebra Universalis*.

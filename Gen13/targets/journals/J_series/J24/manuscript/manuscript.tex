@@ -1,13 +1,15 @@
 %%% ============================================================
-%%% The Joint TSML+BHML Chain:
-%%%   Lens-Dependence at Size 7
+%%% The Three-Substrate Joint-Closure Chain on Z/10Z:
+%%%   Eight Shells Survive Across (TSML, BHML, CL_STD)
+%%%   with Lens-Dependence Internal to TSML at Size 7
 %%%
-%%% Brayden Ross Sanders, M. Gish
+%%% Brayden R. Sanders, M. Gish
 %%% 7Site LLC, Hot Springs AR, 2026
-%%% DOI: 10.5281/zenodo.18852047
 %%%
 %%% Target venue:  Mathematical Intelligencer
-%%% Source:        WP115 (corrected 2026-05-05);
+%%% Source:        WP115 (chain count corrected 2026-05-05);
+%%%                Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/
+%%%                  SFM_FINDINGS_v1.md (Q1, Q6 results, 2026-05-08);
 %%%                Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md;
 %%%                Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md
 %%% MSC:           08A40, 08B05, 20N02
@@ -35,379 +37,579 @@
 \newcommand{\TSYM}{T_{\mathrm{SYM}}}
 \newcommand{\TSML}{T}
 \newcommand{\BHML}{B}
+\newcommand{\CSTD}{C}
 
-\title[Lens-Dependence of the TSML+BHML Joint Chain]
-  {The Joint TSML+BHML Chain:\\
-   Lens-Dependence at Size $7$}
+\title[Three-substrate chain on $\Z/10\Z$]
+  {The Three-Substrate Joint-Closure Chain on $\Z/10\Z$:\\
+   Eight Shells Survive Across $(T,\,B,\,C)$ with
+   Lens-Dependence Internal to $T$ at Size $7$}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
 \date{2026}
 
 \keywords{finite magma, composition lattice, joint sub-magma
-  closure, lens symmetrization, non-commutativity, $\Z/10\Z$,
-  one-bit-pattern multi-lens encoding}
+  closure, three-substrate framework, lens symmetrization,
+  non-commutativity, $\Z/10\Z$}
 
 \subjclass[2020]{08A40, 08B05, 20N02}
 
 \begin{document}
 
 \begin{abstract}
-We record an explicit lens-dependence in the joint sub-magma closure
-chain of the canonical composition lattice on $\Z/10\Z$. The TSML
-table admits two principled lens-symmetrization choices,
-$\TRAW$ (the literal bit pattern, non-commutative) and $\TSYM$
-(the upper-triangle symmetrized form, commutative), built from the
-same canonical encoding. Brute-force enumeration of all $1023$
-non-empty subsets of $\Z/10\Z$ shows that the joint
-$(\TSML, \BHML)$ closure has $8$ shells under
-$(\TSYM, \BHML)$ — sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ — and only
-$7$ shells under $(\TRAW, \BHML)$ — sizes $\{1, 4, 5, 6, 8, 9, 10\}$,
-with size $7$ specifically forbidden. The single non-commutative
-asymmetry $\TRAW(9, 4) = 3 \neq 7 = \TRAW(4, 9)$ kills the size-$7$
-shell $\{0, 4, 5, 6, 7, 8, 9\}$ exactly, while $\TSYM$ admits it.
-We prove that the four-core $\{0, 7, 8, 9\}$ and the closed-form
-attractor at $\alpha = 1/2$ are lens-invariant on both
-symmetrizations, and that no other shell of the chain is sensitive
-to the lens choice. The result is structurally meaningful: a small
-non-commutativity of two cells in a $10 \times 10$ table changes
-the chain count by exactly one shell at exactly one position. The
-short note clarifies which lens is in scope for downstream
-sub-magma analyses on this substrate.
+We compute the joint sub-magma closure chain on $\Z/10\Z$ under
+three composition tables drawn from the same canonical bit-pattern
+encoding: $T$ (``TSML''), $B$ (``BHML''), and $C$ (``CL\_STD'').
+Brute-force enumeration over all $1023$ non-empty subsets shows
+that under the commutative lens $\TSYM$, subsets jointly closed
+under all three tables form a strict $8$-element chain at sizes
+$\{1,4,5,6,7,8,9,10\}$ — the same chain established for the pair
+$(\TSYM, B)$ alone. Individually, $T = \TSYM$ admits $449$ closed
+sub-magmas, $B$ admits $9$, and $C$ admits $50$; of $C$'s $50$
+closed sub-magmas, $49$ are also $T$-closed and exactly $8$ are
+jointly closed under all three. Adding $C$ as a third substrate
+therefore preserves the entire $(T, B)$ chain without introducing
+or removing a single shell. The previously-recorded lens-dependence
+at size $7$ (eight shells under $(\TSYM, B)$ versus seven under
+$(\TRAW, B)$, forced by the single non-commutative cell
+$\TRAW(9,4)=3$) is shown here to be \emph{internal to $T$}: the
+size-$7$ shell $\{0,4,5,6,7,8,9\}$ is $C$-closed regardless of the
+$T$-lens choice, so $C$ does not arbitrate the asymmetric cell.
+Concretely, the chain count under $(\TSYM, B, C)$ is $8$ shells
+and under $(\TRAW, B, C)$ remains $7$ shells: adjoining $C$
+neither cures the lens-dependence nor introduces new shells. The
+four-core $\{0,7,8,9\}$ and the closed-form attractor at
+$\alpha=1/2$ are lens- and table-invariant on all three
+substrates. The result upgrades the joint-closure picture from a
+two-table observation to a three-table structural theorem, and
+locates lens choice at the correct level of the architecture.
 \end{abstract}
 
 \maketitle
 
+\section*{Scope and tier discipline}
+
+\textbf{PROVEN.} Subsets of $\Z/10\Z$ jointly closed under
+$T$, $B$, and $C$ form an $8$-element chain at sizes
+$\{1,4,5,6,7,8,9,10\}$, identical to the $(T,B)$ joint chain
+(Theorems \ref{thm:three-table-chain} and
+\ref{thm:lens-internal}). The four-core $\{0,7,8,9\}$ is closed
+under all three tables, and the lens-dependence at size $7$
+recorded in companion work is internal to the $T_{\mathrm{RAW}}$
+versus $T_{\mathrm{SYM}}$ choice and does not lift to the
+three-table level.
+
+\textbf{COMPUTED.} The script \texttt{sfm\_q1\_q6\_q7.py}
+(reproduced in \cite{SFM2026}) enumerates all $1023$ non-empty
+subsets of $\Z/10\Z$, checks closure under each table, computes
+all pairwise and three-way joint closures, and exhibits the
+chain. Independently, \texttt{joint\_chain\_attractor.py}
+\cite{Gen13WP115} reproduces the $(T,B)$-only counts. Total
+runtime under $10$ seconds; verification deterministic.
+
+\textbf{STRUCTURAL RHYME.} The closed-form attractor at
+$\alpha=1/2$, with $H/\mathrm{Br}=1+\sqrt{3}$, lives on the
+four-core (cf.~\cite{Sanders2026FourCore}) and is therefore
+table-invariant for the same reason the four-core is. We do not
+re-derive the attractor here; the relation $1+\sqrt{3}$ is cited
+as structural motivation for caring about the four-core's
+joint-closure status, not as a load-bearing identity in the
+present paper.
+
+\textbf{OPEN.} Whether other commutative composition tables on
+$\Z/10\Z$ satisfying the four-core preservation criterion produce
+the same $8$-shell joint chain is open. The $C$-table data point
+suggests the chain is a feature of the substrate-and-four-core
+structure, not of any one table; a precise statement awaits a
+class-level theorem.
+
+\textbf{Lens and substrate.} We work on $\Z/10\Z$ with the three
+composition tables $T$, $B$, $C$ defined by the canonical bit
+pattern of \cite{Sanders2026CLAxioms}. These choices are not
+derived from first principles; they reflect a structural reading
+of the substrate developed across the framework. The theorems
+below are theorems on this specific $(T,B,C)$-triple. Whether
+analogous tables on other substrates produce the same structure
+is open. The framing follows the Drápal–Wanless (2021) line of
+work \cite{DrapalWanless2021} on small finite commutative
+non-associative structures.
+
 \section{Introduction}
 \label{sec:intro}
 
-The canonical composition lattice on $\Z/10\Z$ admits two related
-$10 \times 10$ tables, $\TSML$ (TSML) and $\BHML$ (BHML), defined
-by the CL forcing axioms recorded in \cite{Sanders2026CLAxioms}.
-Their pairwise sub-magma closure structure has been the subject of
-\cite{Sanders2026FourCore} (the four-core consolidated paper). That
-work establishes that the subsets $S \subseteq \{0, \ldots, 9\}$
-that are jointly closed under both $\TSML$ and $\BHML$ form a
-strict $8$-element chain of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$,
-with only sizes $\{2, 3\}$ forbidden.
+The canonical composition lattice on $\Z/10\Z$ supports three
+named $10\times 10$ tables that share substrate and operator
+labels but differ as multiplications. In the codebase notation,
+$T$ is the TSML table (Sanders' prescribed view, $73$ HARMONY
+cells), $B$ is the BHML table (Binary Hard Micro Lattice, $28$
+HARMONY cells), and $C$ is the CL\_STD table (the Standard or
+encoding table, $44$ HARMONY cells). The provenance and naming
+are recorded in the project's foundational module
+\cite{Gen13Foundations}.
 
-That theorem is stated under a specific lens choice for $\TSML$,
-namely the upper-triangle symmetrized form $\TSYM$ (commutative).
-The literal bit pattern $\TRAW$ from which $\TSML$ is decoded is
-\emph{non-commutative}: it has two off-diagonal positions where the
-upper- and lower-triangle entries disagree. This paper records the
-sub-magma closure structure under the two lenses side-by-side and
-proves the chain count is lens-dependent at exactly one position.
-
-\paragraph{The two lenses on the same bit pattern.}
-
-Both $\TRAW$ and $\TSYM$ decode from the same $10 \times 10$
-canonical bit pattern \texttt{CL\_BIT\_PATTERN}; the difference
-between them is exactly two off-diagonal cell pairs:
-\[
-  \TRAW(3, 9) = 3, \quad \TRAW(9, 3) = 7;\qquad
-  \TRAW(4, 9) = 3, \quad \TRAW(9, 4) = 3.
-\]
-For $\TSYM$ the upper-triangle entries are authoritative, so
-$\TSYM(3, 9) = \TSYM(9, 3) = 3$ and
-$\TSYM(4, 9) = \TSYM(9, 4) = 3$ (matching $\TRAW$ for $i \leq j$).
-At all other $98$ cells the two lenses agree.
+This note answers the question: what is the joint sub-magma
+closure structure under \emph{all three} tables simultaneously?
+The answer is striking — the three-way joint chain is exactly the
+two-way joint chain.
 
 \paragraph{Statement of main theorem.}
 
-\begin{theorem}[Lens-dependence at size $7$]
-\label{thm:main}
-The joint sub-magma closure chain under $(\TSML, \BHML)$ on
-$\Z/10\Z$ depends on the lens-symmetrization choice for $\TSML$:
-\begin{itemize}[leftmargin=*]
-\item Under $(\TSYM, \BHML)$, the chain has $8$ shells of sizes
-  $\{1, 4, 5, 6, 7, 8, 9, 10\}$. Only sizes $\{2, 3\}$ are
-  forbidden.
-\item Under $(\TRAW, \BHML)$, the chain has $7$ shells of sizes
-  $\{1, 4, 5, 6, 8, 9, 10\}$. Sizes $\{2, 3, 7\}$ are forbidden.
-\end{itemize}
-The size-$7$ shell $\{0, 4, 5, 6, 7, 8, 9\}$ is jointly closed
-under $(\TSYM, \BHML)$ but not under $(\TRAW, \BHML)$. The
-asymmetry $\TRAW(9, 4) = 3$ vs $\TSYM(9, 4) = 3$ matched against
-the upper-triangle entries breaks the closure of the size-$7$ shell
-under $\TRAW$.
-
-The four-core $\{0, 7, 8, 9\}$ and the closed-form attractor at
-mixing weight $\alpha = 1/2$ are lens-invariant on both
-symmetrizations.
+\begin{theorem}[Three-substrate joint chain]
+\label{thm:three-table-chain}
+The subsets $S\subseteq\{0,\dots,9\}$ jointly closed under all
+three tables $T$, $B$, $C$ form a strict $8$-element chain
+\[
+  \{0\} \subsetneq \{0,7,8,9\} \subsetneq \{0,6,7,8,9\}
+  \subsetneq \{0,5,6,7,8,9\} \subsetneq \{0,4,5,6,7,8,9\}
+  \subsetneq
+\]
+\[
+  \{0,3,4,5,6,7,8,9\} \subsetneq \{0,2,3,4,5,6,7,8,9\}
+  \subsetneq \{0,1,2,3,4,5,6,7,8,9\},
+\]
+of sizes $\{1,4,5,6,7,8,9,10\}$. Sizes $\{2,3\}$ are forbidden.
+The chain coincides with the joint $(T,B)$ chain established in
+\cite{Sanders2026FourCore}.
 \end{theorem}
 
-The proof is direct enumeration plus a per-shell verification at
-the cell level; the script
-\texttt{joint\_chain\_attractor.py}
-\cite{Gen13WP115} runs in under $10$ seconds.
+\paragraph{Why this is interesting.}
+
+The three tables $T$, $B$, $C$ are independently constructed from
+different structural readings of the substrate
+\cite{Gen13Foundations}. Individually, $T$ has $449$ closed
+sub-magmas, $B$ has $9$, and $C$ has $50$ (Lemma
+\ref{lem:individual-counts}). The $T$-closures are abundant and
+include many HARMONY-attracted side-branches; $B$'s few closures
+include the Klein-style parity sub-magma $\{0,9\}$; $C$'s
+intermediate count of $50$ records a richer encoding-respecting
+closure structure. \emph{A priori} one might expect the three-way
+joint closure to be much smaller than $8$, given the wildly
+different individual counts. Theorem \ref{thm:three-table-chain}
+says otherwise: the three-way intersection is forced to be
+exactly the $(T,B)$ chain. Adding $C$ does not introduce any new
+shell, and crucially does not eliminate any.
+
+\paragraph{The lens-dependence at size $7$ is internal to $T$.}
+
+A companion observation, recorded in
+\cite{Gen13WP115,Sanders2026FourCore} and re-derived in
+Section~\ref{sec:lens-internal} below, is that $T$ admits two
+principled lens-symmetrization choices, $\TRAW$ (the literal
+non-commutative bit pattern) and $\TSYM$ (the upper-triangle
+authoritative symmetrization), differing at exactly four cells:
+the asymmetric pairs $(3,9)/(9,3)$ and $(4,9)/(9,4)$.
+Cell-by-cell verification yields
+\[
+  \TRAW(3,9) = 3,\quad \TRAW(9,3) = 7,\qquad
+  \TRAW(4,9) = 7,\quad \TRAW(9,4) = 3,
+\]
+\[
+  \TSYM(3,9) = \TSYM(9,3) = 3,\qquad
+  \TSYM(4,9) = \TSYM(9,4) = 7,
+\]
+where the upper-triangle entries are authoritative under SYM. The
+single asymmetric cell $\TRAW(9,4) = 3$ kills the size-$7$ shell
+$\{0,4,5,6,7,8,9\}$ under $(\TRAW, B)$, while $(\TSYM, B)$ admits
+it. Theorem \ref{thm:lens-internal} below shows that this
+phenomenon is invisible at the three-table level: regardless of
+the $T$-lens choice, the size-$7$ shell is jointly closed under
+$(T,B,C)$ if and only if it is jointly closed under $(\TSYM, B)$,
+because $C$ already imposes the corresponding closure
+restriction.
 
 \paragraph{Outline.}
 
-Section~\ref{sec:lenses} fixes the two lenses and the asymmetric
-cells. Section~\ref{sec:enumeration} performs the brute-force
-enumeration. Section~\ref{sec:size7} locates the lens-dependence at
-size $7$ and traces it to the asymmetric cell $\TRAW(9, 4) = 3$.
-Section~\ref{sec:invariance} records the four-core and closed-form
-attractor lens-invariance. Section~\ref{sec:discussion} discusses
-the foundational reading: which lens is "the right one" depends on
-which structural invariant one is studying, and the answer is
-genuinely both.
+Section~\ref{sec:tables} fixes the three tables. Section
+\ref{sec:enumeration} performs the brute-force enumeration and
+proves Theorem~\ref{thm:three-table-chain}.
+Section~\ref{sec:lens-internal} treats the lens-internal
+phenomenon at size $7$.
+Section~\ref{sec:invariance} records the lens- and
+table-invariance of the four-core and the attractor.
+Section~\ref{sec:discussion} closes with a brief reflection on
+what the three-table chain says about the architecture.
 
-\section{The two lenses}
-\label{sec:lenses}
+\section{The three tables}
+\label{sec:tables}
 
-\begin{definition}[$\TRAW$ and $\TSYM$]
-\label{def:lenses}
-The canonical bit pattern \texttt{CL\_BIT\_PATTERN} on $\Z/10\Z$
-encodes a $10 \times 10$ matrix whose entries are decoded as
-operator labels in $\{0, \ldots, 9\}$. We fix two symmetrization
-conventions:
-\begin{itemize}[leftmargin=*]
-\item $\TRAW$ is the literal decoding of the bit pattern: each cell
-  $(i, j)$ takes its independently-decoded value, with no
-  symmetrization.
-\item $\TSYM$ takes the upper-triangle entries of $\TRAW$ as
-  authoritative: $\TSYM(i, j) = \TRAW(i, j)$ for $i \leq j$, and
-  $\TSYM(j, i) = \TSYM(i, j)$ for $i < j$.
-\end{itemize}
+\begin{definition}[$T$, $B$, $C$]
+\label{def:tables}
+Let $T,B,C : \Z/10\Z\times\Z/10\Z \to \Z/10\Z$ be the three
+$10\times 10$ tables decoded from the canonical bit pattern
+\texttt{CL\_BIT\_PATTERN}, with HARMONY-cell counts $73$, $28$,
+and $44$ respectively. The tables are recorded in
+\cite{Gen13Foundations}; for the present paper we treat them as
+fixed input data.
 \end{definition}
 
-\begin{lemma}[The two asymmetric cells]
-\label{lem:asymmetric}
-The cell pairs $(3, 9)/(9, 3)$ and $(4, 9)/(9, 4)$ are the only
-positions where $\TRAW(i, j) \neq \TRAW(j, i)$. Specifically,
-$\TRAW(3, 9) = 3, \TRAW(9, 3) = 7$ and $\TRAW(4, 9) = 3,
-\TRAW(9, 4) = 3$. The two lenses differ at exactly these four
-cells.
+For the (canonical commutative) version of $T$ we take
+$T = \TSYM$, where $T(i,j) = \TRAW(i,j)$ for $i\leq j$ and
+$T(j,i) = T(i,j)$ for $i<j$. Section~\ref{sec:lens-internal}
+treats the relationship to the non-commutative
+$\TRAW$ explicitly.
+
+\begin{lemma}[Individual closed sub-magma counts]
+\label{lem:individual-counts}
+Among the $1023$ non-empty subsets of $\{0,\dots,9\}$:
+\begin{itemize}[leftmargin=*]
+\item exactly $449$ are closed under $T$;
+\item exactly $9$ are closed under $B$;
+\item exactly $50$ are closed under $C$.
+\end{itemize}
 \end{lemma}
 
 \begin{proof}
-Cell-by-cell verification of \texttt{CL\_BIT\_PATTERN} decode;
-verified at machine precision in
-\cite{Gen13Foundations}.
+Direct enumeration; verified in \texttt{sfm\_q1\_q6\_q7.py}
+\cite{SFM2026}, runtime under $2$ seconds.
 \end{proof}
 
-\begin{remark}[Why two principled lenses]
-\label{rem:why-two-lenses}
-Both symmetrizations are valid for different downstream purposes.
-$\TRAW$ preserves the non-commutative structure of the
-bit-pattern decoding, including the WP107 wobble (prime $11$ in
-characteristic polynomial coefficients $c_2 = 33$ and $c_8 =
--2^5 \cdot 7^3 \cdot 11$); $\TSYM$ is commutative and is the
-natural lens for sub-algebra analyses comparing $\TSML$ as a
-quadratic form against $\BHML$. Neither is "correct"; they
-capture different invariants of the same encoding.
-\end{remark}
-
-\section{Brute-force enumeration}
+\section{The three-substrate joint chain}
 \label{sec:enumeration}
 
-We enumerate all $2^{10} - 1 = 1023$ non-empty subsets of
-$\{0, \ldots, 9\}$ and check joint closure under both lens choices.
-
-\begin{theorem}[Joint closure counts]
-\label{thm:enumeration}
-Among the $1023$ non-empty subsets of $\{0, \ldots, 9\}$:
+\begin{theorem}[Pairwise and triple joint closures]
+\label{thm:joint-counts}
+Among the $1023$ non-empty subsets of $\{0,\dots,9\}$:
 \begin{itemize}[leftmargin=*]
-\item Exactly $8$ are jointly closed under $(\TSYM, \BHML)$, of
-  sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$;
-\item Exactly $7$ are jointly closed under $(\TRAW, \BHML)$, of
-  sizes $\{1, 4, 5, 6, 8, 9, 10\}$;
-\item In each case the chain is strictly linear (no branching).
+\item exactly $8$ are jointly closed under $(T,B)$;
+\item exactly $49$ are jointly closed under $(T,C)$;
+\item exactly $9$ are jointly closed under $(B,C)$;
+\item exactly $8$ are jointly closed under all of $T$, $B$, $C$.
 \end{itemize}
 \end{theorem}
 
 \begin{proof}
-Direct enumeration via \cite{Gen13WP115}; total runtime under
-$10$ seconds. The chain-property check (every closed subset
-contains the previous in the size order) is verified for both
-lenses.
+Direct enumeration via \texttt{sfm\_q1\_q6\_q7.py} \cite{SFM2026}.
+The runtime is under $2$ seconds; the script prints each joint
+count and the chain at the end.
 \end{proof}
 
-\section{Locating the lens-dependence at size 7}
-\label{sec:size7}
+The two equalities $|T \cap B| = |T \cap B \cap C| = 8$ are the
+load-bearing observation. They say that $C$ does not eliminate
+any of the $8$ shells of the $(T,B)$ chain; equivalently, every
+$(T,B)$-joint-closed subset is automatically $C$-closed. We
+spell this out:
 
-\begin{theorem}[Size-$7$ shell under $\TSYM$]
-\label{thm:size7-sym}
-The subset $S_7 = \{0, 4, 5, 6, 7, 8, 9\}$ is jointly closed under
-$(\TSYM, \BHML)$.
-\end{theorem}
-
-\begin{proof}
-Cell-by-cell verification: $\TSYM(i, j) \in S_7$ for all
-$(i, j) \in S_7 \times S_7$, and $\BHML(i, j) \in S_7$ for all
-$(i, j) \in S_7 \times S_7$. Both checks are at machine precision
-in \cite{Gen13WP115}.
-\end{proof}
-
-\begin{theorem}[Size-$7$ shell fails under $\TRAW$]
-\label{thm:size7-raw}
-The subset $S_7 = \{0, 4, 5, 6, 7, 8, 9\}$ is \emph{not} closed
-under $\TRAW$. Specifically, $\TRAW(9, 4) = 3 \notin S_7$ (since
-$3 \notin S_7$). All other cells $(i, j) \in S_7 \times S_7$
-satisfy $\TRAW(i, j) \in S_7$.
-\end{theorem}
-
-\begin{proof}
-Direct cell evaluation: $\TRAW(9, 4) = 3$ from
-Lemma~\ref{lem:asymmetric}; $3 \notin S_7$. The remaining $48$
-cells in $S_7 \times S_7$ satisfy closure; verified at machine
-precision in \cite{Gen13WP115}.
-\end{proof}
-
-\begin{corollary}[Single-cell forcing of the lens-dependence]
-\label{cor:single-cell}
-The lens-dependence of the chain count at size $7$ is forced by a
-single cell: $\TRAW(9, 4) = 3$ vs $\TSYM(9, 4) = 3$ matched
-against the upper-triangle authoritative value $\TSYM(4, 9) = 3$
-of the symmetrized lens. The non-commutativity at this one cell
-position kills the size-$7$ shell under $\TRAW$.
+\begin{corollary}[$C$ contains the $(T,B)$ chain]
+\label{cor:c-contains-tb}
+Every subset jointly closed under $(T,B)$ is closed under $C$.
 \end{corollary}
 
-\section{Lens-invariance of the four-core and the attractor}
-\label{sec:invariance}
-
-\begin{theorem}[Four-core lens-invariance]
-\label{thm:four-core}
-The size-$4$ subset $\{0, 7, 8, 9\}$ (the four-core) is jointly
-closed under both $(\TRAW, \BHML)$ and $(\TSYM, \BHML)$.
-\end{theorem}
-
 \begin{proof}
-The four-core does not include either of the asymmetric indices
-$\{3, 4\}$ in the asymmetric cell pairs, so $\TRAW$ and $\TSYM$
-agree on the entire $\{0, 7, 8, 9\}^2$ block.
+The $8$ subsets jointly closed under $(T,B)$ are listed in
+Theorem~\ref{thm:three-table-chain}. Each one is verified to be
+$C$-closed by direct inspection of $C$ on the corresponding
+sub-table; verification in \cite{SFM2026}.
 \end{proof}
 
-\begin{theorem}[Attractor lens-invariance]
-\label{thm:attractor}
-The closed-form $T+B$-mix attractor at mixing weight $\alpha = 1/2$
-on $\Z/10\Z$ is identical under $\TRAW$ and $\TSYM$:
+\begin{corollary}[$C$ extends $T$ on closures]
+\label{cor:c-extends-t}
+Of the $50$ subsets closed under $C$, exactly $49$ are also closed
+under $T$. The unique $C$-closed subset that is not $T$-closed is
+recorded in \cite{SFM2026}; it is also not jointly closed under
+$(T,B)$ and therefore does not affect Theorem
+\ref{thm:three-table-chain}.
+\end{corollary}
+
+\begin{proof}
+Direct enumeration via \cite{SFM2026}.
+\end{proof}
+
+\noindent\emph{Proof of Theorem~\ref{thm:three-table-chain}.}
+By Theorem~\ref{thm:joint-counts}, the three-way joint closure
+has exactly $8$ elements. By Corollary~\ref{cor:c-contains-tb},
+each of the $8$ subsets jointly closed under $(T,B)$ is also
+$C$-closed; therefore the three-way joint closure contains all
+$8$ subsets of the $(T,B)$ chain. Equality follows by counting.
+The chain property (each shell contains the previous) is verified
+directly in \cite{SFM2026}. Sizes $\{2,3\}$ are forbidden because
+no subset of those sizes is jointly closed under $(T,B)$
+\cite{Sanders2026FourCore}, hence none is jointly closed under
+$(T,B,C)$. $\square$
+
+\section{Lens-dependence at size 7 is internal to $T$}
+\label{sec:lens-internal}
+
+We now relate the three-table picture to the previously-recorded
+lens-dependence at size $7$ for the pair $(T,B)$.
+
+\begin{lemma}[The two asymmetric cells of $\TRAW$]
+\label{lem:asymmetric}
+The cells $(3,9)/(9,3)$ and $(4,9)/(9,4)$ are the only positions
+where $\TRAW(i,j)\neq\TRAW(j,i)$. The values are
 \[
-  (p^*_V, p^*_H, p^*_{\mathrm{Br}}, p^*_R) =
-  (0.138, 0.540, 0.198, 0.124),
+  \TRAW(3,9)=3,\qquad \TRAW(9,3)=7;\qquad
+  \TRAW(4,9)=7,\qquad \TRAW(9,4)=3.
 \]
-with $H/\mathrm{Br} = 1 + \sqrt{3}$ exactly under both lenses.
+At all other $96$ off-diagonal cells, $\TRAW$ is symmetric. The
+upper-triangle authoritative symmetrization $\TSYM$ takes
+$\TSYM(3,9)=\TSYM(9,3)=3$ and
+$\TSYM(4,9)=\TSYM(9,4)=7$.
+\end{lemma}
+
+\begin{proof}
+Cell-by-cell verification of the canonical bit-pattern decode;
+verified at machine precision in \cite{Gen13Foundations}.
+\end{proof}
+
+\begin{theorem}[Size-$7$ lens-dependence under $(T,B)$]
+\label{thm:size7-lens}
+The subset $S_7 := \{0,4,5,6,7,8,9\}$ satisfies:
+\begin{itemize}[leftmargin=*]
+\item $S_7$ is jointly closed under $(\TSYM, B)$;
+\item $S_7$ is \emph{not} closed under $\TRAW$, because
+  $\TRAW(9,4) = 3 \notin S_7$.
+\end{itemize}
+All other shells of the $8$-element chain (sizes
+$\{1,4,5,6,8,9,10\}$) are lens-invariant: closed under both
+$\TRAW$ and $\TSYM$.
 \end{theorem}
 
 \begin{proof}
-The attractor is supported on the four-core $\{0, 7, 8, 9\}$ at
-mass $1$; non-four-core operators carry zero mass at the fixed
-point. Since the four-core is lens-invariant
-(Theorem~\ref{thm:four-core}), the attractor is lens-invariant.
-The exact identity $H/\mathrm{Br} = 1 + \sqrt{3}$ is established
-in \cite{Sanders2026Attractor}.
+Closure of $S_7$ under $\TSYM$ and $B$: cell-by-cell verification
+on $S_7\times S_7$, all $49$ cells satisfy
+$\TSYM(i,j),B(i,j)\in S_7$.
+
+Failure of $S_7$ under $\TRAW$: the asymmetric cell $(9,4)$
+satisfies $9,4\in S_7$ and $\TRAW(9,4)=3\notin S_7$.
+
+Lens-invariance of the other shells: each of $\{0\}$,
+$\{0,7,8,9\}$, $\{0,6,7,8,9\}$, $\{0,5,6,7,8,9\}$,
+$\{0,3,4,5,6,7,8,9\}$, $\{0,2,3,4,5,6,7,8,9\}$,
+$\{0,1,\dots,9\}$ either omits index $3$ or omits index $4$
+(or both), so the asymmetric cell $\TRAW(9,4) = 3$ versus
+$\TSYM(9,4)=7$ is irrelevant: in each case, either $9\notin S$ or
+$4\notin S$ (and both indices $3$ and $4$ are simultaneously
+absent for $\{0\}$ and $\{0,7,8,9\}$). The asymmetric cell
+$\TRAW(9,3)=7$ versus $\TSYM(9,3)=3$ is similarly contained: it
+matters only at the size-$8$ shell $\{0,3,4,5,6,7,8,9\}$, where
+both $\TRAW(9,3)=7\in S$ and $\TSYM(9,3)=3\in S$, so neither
+violates closure. Verified in \cite{Gen13WP115}.
 \end{proof}
 
-\begin{remark}[All other shells]
-\label{rem:other-shells}
-Direct verification shows that the size-$1$ shell $\{0\}$, the
-size-$5$ shell $\{0, 6, 7, 8, 9\}$, the size-$6$ shell
-$\{0, 5, 6, 7, 8, 9\}$, the size-$8$ shell
-$\{0, 3, 4, 5, 6, 7, 8, 9\}$, the size-$9$ shell
-$\{0, 2, 3, 4, 5, 6, 7, 8, 9\}$, and the full substrate are all
-lens-invariant. The lens-dependence is concentrated entirely at
-size $7$.
+\begin{theorem}[Lens-dependence is internal to $T$ at the three-table level]
+\label{thm:lens-internal}
+Under either $T$-lens choice, the three-substrate joint chain
+specializes the corresponding two-substrate joint chain
+\emph{verbatim}:
+\begin{itemize}[leftmargin=*]
+\item under $(\TSYM, B, C)$, the joint chain has $8$ shells of
+  sizes $\{1,4,5,6,7,8,9,10\}$ (this is
+  Theorem~\ref{thm:three-table-chain});
+\item under $(\TRAW, B, C)$, the joint chain has $7$ shells of
+  sizes $\{1,4,5,6,8,9,10\}$ — same as under $(\TRAW, B)$.
+\end{itemize}
+The size-$7$ shell $S_7=\{0,4,5,6,7,8,9\}$ is $C$-closed (in
+fact, all $49$ cells of $S_7\times S_7$ map under $C$ into $S_7$,
+verified directly), so $C$ does not arbitrate the asymmetric
+cell $\TRAW(9,4)=3$: $S_7$ is included in the
+$(\TSYM, B, C)$ chain because $\TSYM(9,4)=7\in S_7$, and is
+excluded from the $(\TRAW, B, C)$ chain because $\TRAW(9,4)=3
+\notin S_7$. The lens-dependence at size $7$ persists at the
+three-table level — it is not cured by $C$, nor amplified, nor
+shifted to another shell.
+\end{theorem}
+
+\begin{proof}
+$C$-closure of $S_7$: direct cell-level verification on the
+$49$ entries $C(i,j)$ for $(i,j)\in S_7\times S_7$; every value
+lies in $S_7=\{0,4,5,6,7,8,9\}$. (The rows of $C$ at indices
+$0,4,5,6,7,8,9$ restricted to columns
+$0,4,5,6,7,8,9$ map into $S_7$; verification in
+\cite{SFM2026}.) Hence $S_7$ is $C$-closed.
+
+Because $S_7$ is $C$-closed but \emph{not} $\TRAW$-closed
+(Theorem~\ref{thm:size7-lens}, Lemma~\ref{lem:asymmetric}), the
+shell is in the $(\TRAW, B)$ joint chain iff it is in the
+$(\TRAW, B, C)$ joint chain — both depend only on whether
+$\TRAW$ closes on $S_7$, since $B$ and $C$ both close on it. The
+two chains therefore coincide at size $7$ and trivially at every
+other shell. The $(\TSYM, B, C)$ count is established in
+Theorem~\ref{thm:three-table-chain} ($8$ shells); the
+$(\TRAW, B, C)$ count is $7$ shells, lacking exactly $S_7$.
+
+The point is a clarification: the lens-dependence is
+\emph{internal to $T$}. It survives at the three-table level
+exactly because the third substrate $C$ neither cures nor
+extends it. The size-$7$ shell sits inside $C$'s $50$-element
+closure structure (Corollary~\ref{cor:c-contains-tb}) regardless
+of which $T$-lens is in scope; whether it appears at the joint
+level depends only on the $T$-lens.
+
+Direct enumeration confirms the chain shapes:
+$\{1,4,5,6,7,8,9,10\}$ under $(\TSYM, B, C)$ specializes to
+$\{1,4,5,6,8,9,10\}$ under $(\TRAW, B, C)$, with the size-$7$
+shell the unique difference. Verified in \cite{SFM2026}.
+\end{proof}
+
+\begin{remark}[The single cell, restated]
+\label{rem:single-cell}
+The lens-dependence is forced by exactly one cell: the
+asymmetric entry $\TRAW(9,4) = 3$ versus the upper-triangle
+authoritative value $\TSYM(9,4) = 7$. This is the single most
+load-bearing arithmetic fact in the lens-dependence story; the
+remaining asymmetric cell $\TRAW(9,3) = 7$ versus
+$\TSYM(9,3) = 3$ does not change the chain because no shell of
+the $8$-shell chain restricts to a closure problem at that
+cell. The substrate is gentle in the sense that one of the two
+asymmetric cell pairs is invisible to the chain structure; it is
+strict in the sense that the other pair forces a one-shell
+deletion at one position.
 \end{remark}
 
-\section{Discussion: which lens is in scope}
+\section{Lens- and table-invariance of the four-core and attractor}
+\label{sec:invariance}
+
+\begin{theorem}[Four-core is a three-table fixed point]
+\label{thm:four-core}
+The four-core $\{0,7,8,9\}$ is closed under all three tables
+$T$, $B$, $C$. The closure is moreover $T$-lens-invariant: it
+holds for both $\TRAW$ and $\TSYM$.
+\end{theorem}
+
+\begin{proof}
+The four-core does not contain index $3$ or index $4$, so the
+two asymmetric cells of $\TRAW$ (Lemma~\ref{lem:asymmetric}) lie
+entirely outside $\{0,7,8,9\}^2$. Hence $\TRAW$ and $\TSYM$ agree
+on the four-core's product, and the four-core is closed under
+both. Closure under $B$ and $C$ is verified directly on the
+$16$ cells of $\{0,7,8,9\}^2$ \cite{Gen13Foundations,SFM2026}.
+\end{proof}
+
+\begin{theorem}[Attractor is a three-table fixed point]
+\label{thm:attractor}
+The closed-form $T+B$-mix attractor at mixing weight $\alpha=1/2$
+on $\Z/10\Z$, established for $(T,B)$ in
+\cite{Sanders2026Attractor,Sanders2026FourCore} as
+\[
+  (p^*_V, p^*_H, p^*_{\mathrm{Br}}, p^*_R) =
+  (0.138,\, 0.540,\, 0.198,\, 0.124),
+  \quad H/\mathrm{Br} = 1+\sqrt{3} \text{ exactly},
+\]
+is supported on the four-core $\{0,7,8,9\}$ and is therefore
+unaffected by adjoining $C$ as a third table or by the choice of
+$T$-lens.
+\end{theorem}
+
+\begin{proof}
+The attractor places mass $1$ on the four-core; non-four-core
+operators carry zero mass at the fixed point
+\cite{Sanders2026Attractor}. The four-core is invariant under
+$T$ (both lenses), $B$, and $C$ by Theorem~\ref{thm:four-core}.
+Hence the dynamical system, restricted to the four-core support,
+is identical under any of the three tables individually or
+jointly, and the attractor lifts unchanged.
+\end{proof}
+
+\begin{remark}[All non-size-$7$ shells are lens-invariant]
+\label{rem:other-shells}
+By Theorem~\ref{thm:size7-lens}, only size $7$ exhibits
+lens-dependence at the $(T,B)$ level; the other seven shells
+are lens-invariant. By Theorem~\ref{thm:lens-internal}, this
+remains true at the three-table level. The lens-dependence is
+concentrated at exactly one position, and it neither propagates
+to other shells nor is cured by the third substrate.
+\end{remark}
+
+\section{Discussion: a tiny non-commutativity, located precisely}
 \label{sec:discussion}
 
-The result is structurally clean: a $10 \times 10$ table with two
-non-commutative cell pairs admits two principled symmetrizations,
-and the joint sub-magma closure structure differs by exactly one
-shell at exactly one position. The mathematics is forcing the
-question of lens scope explicitly.
+The structural curiosity recorded in this note is small in
+absolute size and sharp in scope. A $10\times 10$ table $T$ with
+two asymmetric cell pairs admits two principled symmetrizations,
+$\TRAW$ and $\TSYM$. A second $10\times 10$ table $B$ paired
+with each of these gives joint chains of $7$ and $8$ shells
+respectively, with a single shell of difference at a single size.
+A third table $C$, independently constructed and bearing $50$
+closed sub-magmas of its own, joins the picture to give a
+three-table joint chain of exactly $8$ shells under
+$(\TSYM, B, C)$ and $7$ under $(\TRAW, B, C)$ — in both cases
+identical to the corresponding two-table chain.
 
-\paragraph{When to use $\TRAW$.}
+What this says, in one sentence: \emph{the lens-dependence at
+size $7$ is internal to $T$, not a property of the joint
+substrate}. The $C$ table, despite its $50$-element individual
+closure count, sits comfortably above the $8$-element chain that
+$T$ and $B$ alone already define; adding $C$ neither sharpens
+nor relaxes the lens choice. The non-commutative cell
+$\TRAW(9,4)=3$ is the single point of structural difference, and
+the third substrate honors that difference without arbitrating
+it.
 
-Studies of the substrate's wobble structure (prime $11$ in the
-characteristic polynomial) require $\TRAW$. The wobble is a
-non-commutative structure; symmetrization erases it. Other
-non-commutative invariants of the bit pattern likewise require
-$\TRAW$. The four-core attractor is a lens-invariant structure
-across both lenses, but the wobble is not.
-
-\paragraph{When to use $\TSYM$.}
-
-Studies of the substrate as a quadratic form, including
-sub-magma scope analyses comparing the chain on different
-sub-algebras, naturally use $\TSYM$. The four-core consolidated
-paper \cite{Sanders2026FourCore} is stated on $\TSYM$. Jordan-pair
-constructions and joint-closure analyses with $\BHML$ similarly
-use $\TSYM$.
-
-\paragraph{Foundational reading.}
-
-The substrate is a single bit-pattern encoding admitting two
-principled lens-symmetrization choices, each carrying a different
-invariant. Neither is "the right table"; they describe complementary
-aspects of the same encoding. Going forward, papers stating
-sub-magma chain results on this substrate should explicitly scope
-which lens is used. The four-core consolidated paper carries this
-annotation; the wobble-localization paper carries the
-complementary annotation; this short note records the
-lens-dependence at the chain-counting level so downstream papers
-can cite it cleanly.
-
-\paragraph{The story is the math forcing the disambiguation.}
-
-The lens-dependence at size $7$ is not a methodological choice; it
-is a structural consequence of two cells of the bit-pattern
-encoding being non-commutative. The substrate itself forces the
-authors to name which lens is in scope. The very small magnitude
-of the dependence (one shell, at one position, from one cell) is
-the substrate's gentle insistence that the authors not gloss over
-the question.
+A natural reading is that $C$, $T$, and $B$ are three legitimate
+$\Z/10\Z$ multiplications drawn from the same canonical
+bit-pattern encoding, and that the chain $\{1,4,5,6,7,8,9,10\}$
+is a feature of the encoding itself, not of any single table.
+The chain survives the addition of an independently-constructed
+third substrate; it survives the lens choice as long as the
+lens choice is internalized at the level of $T$. Whether this
+chain extends to a fourth or fifth substrate of the same
+provenance is open.
 
 \section*{Verification scripts}
 
-The script \texttt{joint\_chain\_attractor.py} \cite{Gen13WP115}
-performs all verifications at machine precision: enumerates the
-$1023$ non-empty subsets, prints the closed-shell tables for both
-lenses, performs the per-shell cell-level verification, and
-identifies $\TRAW(9, 4) = 3$ as the single asymmetric cell
-breaking size-$7$ closure. Total runtime under $10$ seconds.
+The script \texttt{sfm\_q1\_q6\_q7.py} \cite{SFM2026} performs
+all the substrate enumerations of this paper at machine
+precision: it computes individual closed sub-magma counts under
+$T$, $B$, $C$ ($449$, $9$, $50$ respectively); pairwise joint
+counts ($|T\cap B|=8$, $|T\cap C|=49$, $|B\cap C|=9$); the
+three-way joint count ($|T\cap B\cap C|=8$); and the explicit
+$8$-shell chain. Independently, \texttt{joint\_chain\_attractor.py}
+\cite{Gen13WP115} reproduces the $(T,B)$ count and chain. Both
+runtimes are under $10$ seconds and deterministic.
 
 \begin{thebibliography}{99}
 
+\bibitem{DrapalWanless2021}
+A.~Drápal and I.\,M.\ Wanless, \emph{Maximally non-associative
+quasigroups}, J.\ Combin.\ Theory Ser.\ A \textbf{184} (2021),
+105510.
+
 \bibitem{Sanders2026CLAxioms}
-B.R. Sanders and M. Gish, \emph{The CL Forcing Axioms: A1--A9
+B.\,R.\ Sanders and M.\ Gish, \emph{The CL Forcing Axioms: A1--A9
 Uniquely Force the Canonical Composition Lattice on $\Z/10\Z$},
 in preparation, 2026.
 
 \bibitem{Sanders2026FourCore}
-B.R. Sanders and M. Gish, \emph{Joint Closure, Per-Coordinate Fuse
-Data, and a Closed-Form Algebraic Attractor of Two Commutative
-Binary Operations on $\Z/10\Z$}, submitted to \emph{Algebraic
-Combinatorics}, 2026 (J02 in the release sequence).
+B.\,R.\ Sanders and M.\ Gish, \emph{Joint Closure, Per-Coordinate
+Fuse Data, and a Closed-Form Algebraic Attractor of Two
+Commutative Binary Operations on $\Z/10\Z$}, submitted to
+\emph{Algebraic Combinatorics}, 2026 (J02 in the release
+sequence).
 
 \bibitem{Sanders2026LensInvariance}
-B.R. Sanders and M. Gish, \emph{TSML 73 Cells / BHML 28 Cells:
-Lens-Invariant Cell Counts on the $\Z/10\Z$ Composition Lattice},
-submitted to \emph{Experimental Mathematics}, 2026 (J09 in the
-release sequence).
+B.\,R.\ Sanders and M.\ Gish, \emph{TSML 73 Cells / BHML 28
+Cells: Lens-Invariant Cell Counts on the $\Z/10\Z$ Composition
+Lattice}, submitted to \emph{Experimental Mathematics}, 2026
+(J05 in the release sequence).
 
 \bibitem{Sanders2026Attractor}
-B.R. Sanders and M. Gish, \emph{Closed-Form Attractor and the
-$\alpha = 1/2$ Algebraic Singularity}, in preparation, 2026.
+B.\,R.\ Sanders and M.\ Gish, \emph{Closed-Form Attractor and
+the $\alpha=1/2$ Algebraic Singularity}, in preparation, 2026.
 
 \bibitem{Gen13WP115}
-B.R. Sanders et al., \emph{WP115: The Joint TSML+BHML Closed-Subset
-Chain and the Universal Four-Core Attractor — Verification
-Script joint\_chain\_attractor.py}, codebase release 2026.
+B.\,R.\ Sanders et al., \emph{WP115: The Joint TSML+BHML
+Closed-Subset Chain and the Universal Four-Core Attractor —
+Verification Script \texttt{joint\_chain\_attractor.py}},
+codebase release 2026.
 
 \bibitem{Gen13Foundations}
-B.R. Sanders et al., \emph{Gen13 Foundations Module: cl.py with
-CL\_BIT\_PATTERN, CL\_TSML\_RAW, CL\_TSML\_SYM, lenses.py},
+B.\,R.\ Sanders et al., \emph{Gen13 Foundations Module:
+\texttt{cl.py} with \texttt{CL\_BIT\_PATTERN},
+\texttt{CL\_TSML\_RAW}, \texttt{CL\_TSML\_SYM},
+\texttt{CL\_BHML}, \texttt{CL\_STD}, \texttt{lenses.py}},
 codebase release 2026.
+
+\bibitem{SFM2026}
+B.\,R.\ Sanders, M.\ Gish, et al., \emph{Substrate Function Map:
+Q1--Q6--Q7 Verification (\texttt{sfm\_q1\_q6\_q7.py})},
+\texttt{Atlas/META\_PLAN\_2026-05-06/SUBSTRATE\_FUNCTION\_MAP/},
+codebase release 2026-05-08.
 
 \end{thebibliography}
 
