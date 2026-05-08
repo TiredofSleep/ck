@@ -14,27 +14,32 @@
 
 ## Summary
 
-[1-paragraph plain-English summary of the result]
+We exhibit a 4-dimensional commutative non-associative algebra defined by an explicit 4×4 multiplication table whose structural skeleton — three non-zero idempotents, 1+3 Minkowski signature under one operator, 2+2 chirality signature under another, automorphism group of order 40, one-dimensional associator image, power-associativity — is preserved when the bilinear extension is performed over six distinct prime fields F_p, p ∈ {2, 3, 5, 7, 11, 13}. We conjecture the field-invariance extends to all p ∉ {2, 5}.
 
 ## Why Algebra Universalis
 
-[2-3 bullet points on venue fit]
+- Subject fit: the result is a structural theorem about a finite commutative non-associative algebra with a one-dimensional associator image — squarely within Algebra Universalis's core.
+- The proof is direct computation in a brute-force-tractable regime ($p^4$ idempotent enumeration), with all 14 algebraic checks runnable in <2 seconds on a laptop.
+- The companion structure (J23 Discrete Dirac on F_5^4, J24 Clifford Ladder, both submitted simultaneously) lets the referee triangulate the F_p result against the Discrete Dirac and Clifford-ladder content without forward-citing this paper.
 
 ## Companion submissions
 
 The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- J02
-- J05
-- J06
+- J02 (Algebraic Combinatorics) — joint closure, per-coordinate fuse data, four-core attractor
+- J05 (JCT-A or JPAA) — Crossing Lemma: non-associativity as information generation
+- J06 (Journal of Pure and Applied Algebra) — Flatness Theorem: forced 2×2 torus on Z/10Z
 
 ## Reproducibility
 
-Verification script: `(F_p universality script)` runs with `numpy + sympy + math` on a standard laptop in under 5 minutes.
+Verification: `verify_discrete_dirac_4core.py` (14 algebraic checks over F_5) plus `axial_algebra_check.md` (presents the data for primes p ∈ {2, 3, 7, 11, 13}); reference Python library `tig_dirac.py`. All scripts run with `numpy` as the only external dependency in <2 seconds on a standard laptop. Deposited at https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04.
 
 ## Suggested reviewers
 
-[3-5 candidates appropriate to the venue]
+- A specialist on commutative non-associative / axial algebras (Hall–Rehren–Shpectorov axial-algebra circle).
+- A specialist on finite-field algebras with idempotent decomposition.
+- A specialist on Griess-algebra constructions or Sakuma-type theorems.
+(Three to five candidates to be selected by Brayden during pre-submission referee-rigor pass.)
 
 ## Conflict of interest
 

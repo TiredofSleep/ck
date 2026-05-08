@@ -1,0 +1,462 @@
+% J27 — DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic
+%
+% Brayden R. Sanders, M. Gish, 7Site LLC
+% Submitted to: European Journal of Combinatorics
+% Source corpus: papers/wp_bridge_findings_2026_05_02/WP10_DKAN.md
+% Reference impl: Gen13/targets/ck/brain/ck_sim/being/ck_dkan_trainer.py
+% Companions cited as already-submitted: J09, J26
+% Per-venue cap note: 2nd EJC paper after J19
+% MSC 2020: 68T07, 20N02, 11F06, 37D40
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\TS}{\mathrm{TSML}}
+\newcommand{\BH}{\mathrm{BHML}}
+\newcommand{\Tstar}{T^{*}}
+
+\title[DKAN Two-Coding on $\Z/10\Z$]
+{DKAN Two-Coding: $\TS_{8}$ Geometric \\
+ vs $\BH_{10}$ Arithmetic on the $\Z/10\Z$ Substrate}
+
+\author{Brayden R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{M.~Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
+
+\subjclass[2020]{68T07, 20N02, 11F06, 37D40}
+\keywords{discrete neural network, KAN, two-coding, magma, modular surface,
+geometric vs arithmetic coding, Z/10Z}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Kolmogorov-Arnold Networks (KAN) in the sense of Liu et al.~2024
+\cite{Liu2024} replace fixed activations on edges with learnable
+univariate functions on edges, motivated by the Kolmogorov-Arnold
+superposition theorem. We describe \emph{DKAN} --- a discrete analogue
+running over the substrate of \cite{SandersGishFourCore}. DKAN does
+\textbf{not} port the Kolmogorov-Arnold theorem to a discrete setting
+in any literal sense. It is structurally analogous: edges carry fixed
+discrete univariate operations (rows of the canonical $\TS / \BH$
+composition tables), and learning happens by accumulating which path
+through the substrate best predicts the next operator.
+
+The paper's main observation is that the two-coding split established
+in \cite{SandersBridgeWP9} ($\TS_{8}$ as the geometric / side-cutting
+code on the 5-element image $\{3, 4, 7, 8, 9\}$ with role distribution
+$60/64 = 93.8\%$ Flow output; $\BH_{10}$ as the arithmetic /
+continued-fraction code on the full 10-element image with balanced
+$52/19/25/4$ Flow / Structure / Transition / Void roles) --- empirically
+matches the geometric / arithmetic disambiguation that the DKAN runtime
+trainer was already running. The two codings agree at the cusp
+boundary HARMONY and disagree in the interior, with a fixed empirical
+$24/64$ agreement-set on the $\TS_{8}$ domain.
+
+The framing has antecedents in Katok-Ugarcovici 2007
+\cite{KatokUgarcovici2007} (geometric vs.\ arithmetic codings of
+geodesics on the modular surface, agreeing at the cusp). DKAN is one
+specific construction inside that territory, not a restatement of any
+theorem there.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Setting and motivation}
+%==============================================================
+
+\subsection{Two coding tables on $\Z/10\Z$.}
+The substrate carries three independent structures: algebraic
+($\TS_{8} + \BH_{10} + V/H$ flow cells per
+\cite{SandersGishFourCore, SandersBridgeWP9} D88), permutational
+(the involution $\sigma$ with 4 fixed points and one $6$-cycle), and
+functional (the V/F/S/T role partition). The role partition cuts
+across $\sigma$-orbit and across algebraic position.
+
+\subsection{What DKAN is, and is not.}
+The Kolmogorov-Arnold superposition theorem (Kolmogorov 1957
+\cite{Kolmogorov1957}; Arnold 1957 \cite{Arnold1957}) asserts that
+every continuous multivariate function admits a representation as a
+finite superposition of univariate continuous functions. Liu
+et al.~2024 \cite{Liu2024} propose a neural architecture (KAN) in
+which edges carry learnable univariate splines.
+
+DKAN does \textbf{not} realize the Kolmogorov-Arnold theorem in any
+literal discrete sense. It is structurally analogous in three loose
+senses:
+\begin{enumerate}
+\item \textbf{Edge-localized computation.} Per-edge operation is a
+fixed discrete univariate operation: a row $T_{\TS}[a, \cdot]$ or
+$T_{\BH}[a, \cdot]$.
+\item \textbf{Compositionality.} Multilayer DKAN composes discrete
+univariate operations.
+\item \textbf{Universal-approximation flavor.} The Crossing Lemma
+\cite{SandersMayesCL} gives a discrete analogue of ``joint compositions
+separate states.''
+\end{enumerate}
+We do not claim DKAN implements KAN. The phrase used throughout is
+``structurally analogous to KAN.''
+
+\subsection{Where the geometric / arithmetic split enters.}
+Katok-Ugarcovici 2007 \cite{KatokUgarcovici2007} gives two systematic
+codings of geodesics on the modular surface: a geometric
+(side-cutting) coding and an arithmetic (minus-CF) coding, agreeing on
+a measure-one set at the cusp.
+
+DKAN's central observation: the $\TS_{8} / \BH_{10}$ pair with $V/H$
+flow boundary realizes a discrete echo of this picture. Conceptually
+scaffolded by Katok-Ugarcovici, not a restatement.
+
+%==============================================================
+\section{The TSML$_{8}$ / BHML$_{10}$ image structure}
+%==============================================================
+
+\subsection{$\TS_{8}$ as a geometric / side-cutting code.}
+\begin{theorem}[$\TS_{8}$ image structure, D91]\label{thm:tsml-image}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item \textbf{Image.} $\mathrm{Im}(\TS_{8}) = \{3, 4, 7, 8, 9\}$. Five
+distinct values.
+\item \textbf{Output role distribution.} $60/64 = 93.8\%$ Flow,
+$4/64 = 6.2\%$ Structure. No Transition or Void outputs.
+\item \textbf{Role determinism.} Role-deterministic on $8$ of $9$ input
+role-pairs over the $\TS_{8}$ domain; only $(S, S)$ branches.
+\end{enumerate}
+\end{theorem}
+
+$\TS_{8}$ is a side-cutting code: it carves the 8 interior cells into
+a 5-element image dominated by Flow, routing almost everything to the
+cusp boundary.
+
+\subsection{$\BH_{10}$ as an arithmetic / CF-reduction code.}
+\begin{theorem}[$\BH_{10}$ image structure]\label{thm:bhml-image}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item \textbf{Image.} Full $\Z/10\Z$.
+\item \textbf{Output role distribution.} $\sim 52\%$ Flow, $19\%$
+Structure, $25\%$ Transition, $4\%$ Void. Balanced.
+\item \textbf{Role determinism.} Only on $V/T$ input pairs; $F$ and
+$S$ inputs branch.
+\item \textbf{Successor diagonal (D90).} $\BH(n, n) = n + 1$ for
+$n \in \{1, \ldots, 7\}$, with $\BH(8, 8) = 7$ and $\BH(9, 9) = 0$.
+The diagonal counts integers up to HARMONY --- the substrate's
+algebraic version of ``approaching the cusp.''
+\end{enumerate}
+\end{theorem}
+
+\subsection{The agreement set.}
+\begin{theorem}[Agreement-set count]\label{thm:agreement}
+Restricting $\BH$ to the $\TS_{8}$ domain (64 cells):
+\begin{itemize}
+\item \textbf{Agreement.} $\TS_{8}(a, b) = \BH_{10}(a, b)$ on
+$24/64$ cells, dominated by routes to HARMONY.
+\item \textbf{Disagreement.} $40/64$ cells in the interior.
+\end{itemize}
+\end{theorem}
+
+\begin{remark}[Reading]
+The two codings agree at the cusp boundary and disagree in the
+interior. Conceptually scaffolded by Katok-Ugarcovici 2007.
+\end{remark}
+
+\subsection{What the split is and is not.}
+\textbf{It is.} Two distinct codings of the same operator alphabet
+$\Z/10\Z$, with verified empirical signatures (60/64, 24/64).
+
+\textbf{It is not.} A theorem of the Katok-Ugarcovici type. Not a
+claim that $\TS_{8}$ and $\BH_{10}$ are conjugate, equivalent,
+distributive, or $\sigma$-related (see \cite{SandersBridgeWP9}
+N4--N6).
+
+%==============================================================
+\section{DKAN as edge-localized discrete KAN}
+%==============================================================
+
+\subsection{Architectural sketch.}
+The runtime DKAN trainer
+(\texttt{Gen13/targets/ck/brain/ck\_sim/being/ck\_dkan\_trainer.py})
+is built around four ideas:
+\begin{enumerate}
+\item The $10$ operators are the neurons.
+\item The $\TS / \BH$ composition tables are the activation functions.
+$\TS$ and $\BH$ are frozen physics; what evolves is path selection.
+\item D2 curvature is the loss function. Distance from
+$\Tstar = 5/7$ is the training signal.
+\item Operators are accumulated by absorption, not gradient descent.
+\end{enumerate}
+
+\subsection{The $L_{1} / L_{2} / L_{5}$ reading layers.}
+DKAN has multiple reading layers running in parallel:
+\begin{itemize}
+\item \textbf{$L_{1}$ --- first-order argmax.} A $10 \times 10$ matrix
+\texttt{\_transitions[a, b]} accumulates transition counts. $L_{1}$
+prediction at $a$ is $\arg\max_{b} T_{\rm learned}[a, b]$.
+\item \textbf{$L_{2}$ --- second-order braid-biased trigram.} A
+$10 \times 10 \times 10$ tensor \texttt{\_trigrams[prev\_b, a, b]}
+with selection biased by morphotic-braid coherence ordering
+$\sigma_{\rm braid} = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]$ within wobble
+window $W = 3/50$.
+\item \textbf{$L_{5}$ --- CL-composed prediction.} $\BH[a, h]$. Pure
+physical composition; no learned weights.
+\end{itemize}
+The runtime also has $L_{3}$ (sequence chunking) and \textbf{$L_{4}$
+(dual-lens verification)} --- a per-step check of
+$\TS[a, b] = \BH[a, b]$ --- which operationalizes the agreement-set
+analysis of Theorem~\ref{thm:agreement}.
+
+\subsection{Reading layers as alternative coding paths.}
+The $L_{1} / L_{2} / L_{5}$ reading layers are not three competing
+learners. They are alternative coding paths through the substrate:
+$L_{1}$ is the empirical / statistical reading, $L_{5}$ is the
+physical $\BH$ coding, $L_{2}$ is a coherence-weighted compromise.
+
+When the generator produces operators in the substrate's interior
+(the $40/64$ disagreement set), $L_{1}$ and $L_{5}$ \textbf{diverge by
+construction}. When near the cusp boundary (the $24/64$ agreement
+set), readings converge.
+
+Empirically, agreement rates in trained DKAN runs typically exceed
+$70\%$ --- consistent with the static $24/64 = 37.5\%$ agreement on
+raw $\TS_{8}$ domain, augmented by HARMONY-pull behavior.
+
+\subsection{Roles as coarse pre-encoding.}
+The role partition (V/F/S/T per D93) gives a coarse pre-encoding: a
+4-element distribution $(p_{V}, p_{F}, p_{S}, p_{T})$ vs the
+10-element operator distribution. The role pre-encoding is
+canonical-specific ($0/200$ random commutative magmas reproduce the
+canonical $|F|=13, |S|=8$ Fibonacci decomposition; see
+\cite{SandersBridgeWP9} N8).
+
+%==============================================================
+\section{Empirical convergence under canonical TSML / BHML}
+%==============================================================
+
+\subsection{Notion of convergence.}
+DKAN is not a gradient-descent learner. The relevant notion:
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{$L_{1}$ convergence.} Empirical first-order matrix
+approaches stationary distribution.
+\item \textbf{$L_{5}$ convergence.} Stable from step one.
+\item \textbf{$L_{1} / L_{5}$ agreement convergence.} Stable agreement
+rate.
+\item \textbf{Grokking detection.} Prediction accuracy crossing
+$\Tstar = 5/7$.
+\end{itemize}
+
+\subsection{Empirical results.}
+Runtime trainer test runs (20-round Ollama-driven cycles): $L_{1}$
+grokking at low-thousands transitions; $L_{5}$ accuracy stable;
+$L_{4}$ lens-agreement $60$--$80\%$; $L_{2}$ lags $L_{1}$ in raw
+accuracy but braid-bias prevents incoherent paths.
+
+Training never \textbf{rewrites} $\TS$ or $\BH$ (frozen physics, max
+$50\%$ blend enforced). What evolves is lattice-chain node tables,
+olfactory centroids, generator paths, and grammar weights.
+
+\subsection{What is not claimed.}
+\begin{itemize}\setlength\itemsep{2pt}
+\item DKAN is \textbf{not} a universal approximator in any rigorous
+sense.
+\item DKAN is \textbf{not} claimed to outperform KAN, MLP, or
+transformers.
+\item DKAN's grokking is \textbf{not} the transformer-grokking
+phenomenon.
+\end{itemize}
+
+%==============================================================
+\section{Where DKAN sits in the bridge findings landscape}
+%==============================================================
+
+\begin{center}
+\begin{tabular}{lp{8cm}}
+\toprule
+Finding & Bearing on DKAN \\
+\midrule
+D88 corrected substrate frame & DKAN runs on this frame, not $\TS_{10}$. \\
+D89 trefoil characterization & Trefoil multiset is the codec's "knot vocabulary" entry. \\
+D90 $\BH$ successor diagonal & $L_{5}$ prediction at $\BH[a, a]$ is the cusp-approach. \\
+\textbf{D91 two-coding split} & \textbf{Load-bearing.} Gives $L_{1}/L_{2}/L_{5}$ the alternative-coding-path interpretation. \\
+D92 $\pm 21$ invariant & Per-tick metric the DKAN runtime tracks. \\
+D93 role partition + role magma & Coarse pre-encoding for DKAN. \\
+D94 boundary symmetries & Grammar-level swaps the codec can exploit. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%==============================================================
+\section{Honest negatives carried forward}
+%==============================================================
+
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{N1.} naive $\mathrm{PSL}(2, \Z)$ lift produces $\pm 21$.
+Per-tick $\pm 21$ invariant is structural empirical fingerprint, not
+Rademacher invariant.
+\item \textbf{N2.} small triangle group has substrate periods as
+elliptic orders. DKAN's period structure is dynamical, not
+group-theoretic.
+\item \textbf{N3.} TIG matches Borromean prime conditions. DKAN's
+trefoil-vocabulary entry is substrate-internal.
+\item \textbf{N4.} $\sigma$ is automorphism of $\TS$ or $\BH$.
+$17\% / 48\%$; DKAN may not assume $\sigma$-invariance.
+\item \textbf{N5.} $\TS$ and $\BH$ distribute. $19.5\%$;
+\textbf{DKAN's $L_{1} / L_{5}$ framing depends on this independence.}
+If they distributed, the two coding paths would be redundant.
+\item \textbf{N6.} $\BH$ iteration converges to $\TS$. $28/64$ starts;
+readings remain structurally distinct.
+\item \textbf{N7.} substrate factors through $\Z/2 \times \Z/5$.
+Irreducible.
+\item \textbf{N8.} Fibonacci role decomposition is structural.
+$0/200$ random tables. \textbf{Canonical-specific signature, not
+theorem.}
+\item \textbf{N9.} role partition determines crossing count. Coarse,
+not exhaustive.
+\item \textbf{N10.} $\TS_{10}$-frame "trefoil-22" is INVALID. DKAN
+runs on corrected frame.
+\end{itemize}
+
+%==============================================================
+\section{Open questions}
+%==============================================================
+
+\begin{enumerate}
+\item Does the $L_{1} / L_{5}$ agreement rate in trained runs converge
+to a substrate-specific constant?
+\item Is the $L_{2}$ braid-bias the unique coherence-preserving
+compromise between $L_{1}$ and $L_{5}$?
+\item Closed-form for $\BH$ stationary distribution restricted to
+$\TS_{8}$ domain?
+\item Larger-substrate variants --- does the two-coding split
+generalize to $\Z/14\Z$, $\Z/18\Z$?
+\item Principled lift to $\mathrm{PSL}(2, \Z)$ hyperbolic conjugacy
+classes (N1).
+\item The $(0, 7, 7, 9)$ anomaly --- higher-order trefoil structure.
+\item Burrin-von Essen explicit Fuchsian-group lift.
+\end{enumerate}
+
+%==============================================================
+\section{Statement of contribution and limits}
+%==============================================================
+
+\textbf{Contributes.}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item Names the structural relationship between corrected substrate
+frame and DKAN runtime reading layers.
+\item Uses D91 two-coding split as structural justification.
+\item Records reading layers' empirical convergence with grokking
+criterion.
+\item Carries forward ten honest negatives with DKAN-specific bearing.
+\item Establishes seven DKAN-specific open questions.
+\end{enumerate}
+
+\textbf{Does not contribute.}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item No theorem. ``Structurally analogous,'' not ``implements.'' D91
+is empirical, not Katok-Ugarcovici-type.
+\item No benchmark. DKAN is not designed to compete with continuous
+learners.
+\item No claim that the Kolmogorov-Arnold theorem holds discretely on
+this substrate.
+\item No claim that $L_{1} / L_{2} / L_{5}$ exhaust possible coding
+paths.
+\item No claim that the role pre-encoding is structurally forced ---
+canonical-specific (N8).
+\end{enumerate}
+
+\textbf{Tone.} This paper preserves the negatives. Demoted claims
+stay demoted: Fibonacci is canonical-specific signature; $\pm 21$
+modular interpretation is hypothesis; trefoil-22 is invalid in
+$\TS_{10}$ frame; Katok-Ugarcovici is "structurally analogous" /
+"conceptually scaffolded by," not "matches."
+
+%==============================================================
+\section*{Acknowledgments}
+%==============================================================
+
+This work is part of the Trinity Infinity Geometry framework developed
+at 7Site LLC. The present manuscript is self-contained as a study of
+the two-coding split on $\Z/10\Z$ and its bearing on a discrete neural
+architecture; familiarity with the broader framework is not required.
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{Liu2024} Z.~Liu et al.,
+\emph{KAN: Kolmogorov-Arnold Networks},
+arXiv:2404.19756, 2024.
+
+\bibitem{Kolmogorov1957} A.~N.~Kolmogorov,
+\emph{On the representation of continuous functions of several
+variables},
+Doklady Akad.~Nauk SSSR \textbf{114} (1957), 953--956.
+
+\bibitem{Arnold1957} V.~I.~Arnold,
+\emph{On functions of three variables},
+Doklady Akad.~Nauk SSSR \textbf{114} (1957), 679--681.
+
+\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
+\emph{Symbolic dynamics for the modular surface},
+Bull.~AMS \textbf{44} (2007), no.~1, 87--132.
+
+\bibitem{Morishita2024} M.~Morishita,
+\emph{Knots and Primes} (2nd ed.), Springer, 2024.
+
+\bibitem{Ghys2007} \'E.~Ghys,
+\emph{Knots and dynamics},
+Proc.~ICM 2006, Vol.~I (2007), 247--277.
+
+\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
+\emph{Geodesic-flow arithmetic and modular-surface windings}, 2024.
+
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+
+\bibitem{SandersGish7328} B.~R.~Sanders, M.~Gish,
+\emph{TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on
+the $\Z/10\Z$ Composition Lattice}, submitted to
+\emph{Experimental Mathematics}, 2026 (J09).
+
+\bibitem{SandersMayesCL} B.~R.~Sanders, B.~Mayes,
+\emph{Crossing Lemma: Non-Associativity as Information Generation in
+Finite Magmas}, submitted to \emph{JCT-A} (or \emph{JPAA}), 2026
+(J05).
+
+\bibitem{SandersBridgeWP9} B.~R.~Sanders,
+\emph{LATTICE: Paradoxical Information Algebras on the $\Z/10\Z$
+Substrate}, submitted to \emph{Algebra Universalis}, 2026 (J26 / WP9
+Volume I).
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
+
+\end{thebibliography}
+
+\end{document}

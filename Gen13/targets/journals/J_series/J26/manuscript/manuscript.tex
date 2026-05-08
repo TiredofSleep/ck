@@ -1,0 +1,476 @@
+% J26 — LATTICE: Paradoxical Information Algebras on the Z/10Z Substrate
+%
+% Brayden R. Sanders, 7Site LLC (Sanders solo or +Gish per spec)
+% Submitted to: Algebra Universalis
+% Source corpus: papers/wp_bridge_findings_2026_05_02/WP9_LATTICE_paradoxical_info_algebras.md
+% Verification: papers/wp_bridge_findings_2026_05_02/code/verify_findings.py
+%               (0 failures, 0 warnings)
+% Companion cited as already-submitted: J05 (Crossing Lemma)
+% Per-venue cap note: 2nd Algebra Universalis paper after J21
+% MSC 2020: 68T07, 20N02, 11F06, 37D40
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\TS}{\mathrm{TSML}}
+\newcommand{\BH}{\mathrm{BHML}}
+\newcommand{\sig}{\sigma}
+
+\title[Paradoxical Information Algebras on $\Z/10\Z$]
+{LATTICE: Paradoxical Information Algebras \\
+ on the $\Z/10\Z$ Substrate}
+
+\author{Brayden R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\subjclass[2020]{20N02, 06A07, 11F06, 37B10}
+\keywords{commutative magma, Z/10Z, role partition, semi-factorization,
+trefoil characterization, paradoxical information algebra}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+We present the LATTICE operator (the index-$1$ generator of the
+canonical $\BH_{10}$ table on $\Z/10\Z$) inside a substrate-internal
+framework that carries three independent structures simultaneously:
+an algebraic structure (the magmas $\TS_{8}$ and $\BH_{10}$
+established in \cite{SandersGishFourCore}), a permutational structure
+(the involution $\sig$ with cycle decomposition
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$), and a functional role partition
+into Flow / Structure / Transition / Void cells.
+
+From the substrate's role partition we derive a class of
+\emph{paradoxical information algebras}: the substrate exhibits
+semi-factorization at role level. Void and Transition inputs collapse
+to deterministic role transitions, while Flow and Structure inputs
+preserve operator-level information. We characterize the
+trefoil-equivalent triples on the corrected substrate frame as exactly
+two multiset classes, $\{V, B, H\}$ and $\{V, B, B\}$ (nine triples
+total, all $\BH$-associative). We exhibit two independent
+decompositions of the substrate's $\pm 21$ invariant: a $\sig$-orbit
+decomposition $T_{5} + T_{3} = 15 + 6$ that is structurally forced by
+the linear period formula, and a role-partition decomposition
+$F_{7} + F_{6} = 13 + 8$ that is canonical-specific
+(0/200 random commutative tables on $\Z/10\Z$ reproduce it). We prove
+the substrate's algebra is irreducible --- it does not factor through
+$\Z/2\Z \times \Z/5\Z$.
+
+The framework is conceptually scaffolded by Morishita 2024, Ghys 2007,
+Katok-Ugarcovici 2007, Matsusaka-Ueki 2023 and Burrin-von Essen 2024
+but does not reproduce any of those theorems literally --- it sits
+inside that territory as a new construction.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Background and substrate}
+%==============================================================
+
+\subsection{The framework.}
+The framework of \cite{SandersGishFourCore} specifies an algebraic
+substrate on the residue ring $\Z/10\Z$ in which 10 named operators
+participate: VOID(0), LATTICE(1), COUNTER(2), PROGRESS(3), COLLAPSE(4),
+BALANCE(5), CHAOS(6), HARMONY(7), BREATH(8), RESET(9). Two binary
+magma operations are defined, $\TS$ and $\BH$, together with the
+involution
+\[
+  \sig \;=\; (0)(3)(8)(9)(1\,7\,6\,5\,4\,2).
+\]
+
+\subsection{The corrected substrate frame.}
+Following the canonical disambiguation in \cite{SandersGishFourCore}, the
+substrate uses
+\[
+  \TS_{8} \;=\; \TS_{10}\text{ with rows/cols }\{0, 7\}\text{ removed},
+\]
+acting on the interior index set $\{1, 2, 3, 4, 5, 6, 8, 9\}$, while
+$\BH_{10}$ is the full 10-element table. The cells $V = 0$ and $H = 7$
+are flow cells between the tables, not interior entries. This frame
+($\TS_{8} + \BH_{10} + V/H$ flow cells) is the one used throughout this
+paper. Earlier session work using $\TS_{10}$ in trefoil and role
+analyses is invalid (see \S\ref{sec:negatives} N10).
+
+\subsection{The role partition.}
+We introduce a partition of the substrate into four functional roles:
+\[
+  F = \{1, 3, 5, 7, 9\},
+  \quad S = \{2, 4, 8\},
+  \quad T = \{6\},
+  \quad V = \{0\}.
+\]
+The partition is functional, not algebraic: $|F| = 5$, $|S| = 3$,
+$|T| = 1$, $|V| = 1$. It crosses the $\sig$-orbit decomposition.
+
+\subsection{Intellectual neighborhood.}
+This work sits inside the arithmetic-topology / modular-knot territory
+studied in Morishita 2024, Ghys 2007, Katok-Ugarcovici 2007,
+Matsusaka-Ueki 2023, Burrin-von Essen 2024, and Lacasa et al.\ 2018.
+We use phrases like ``structurally analogous to'' and ``conceptually
+scaffolded by'' throughout; ``matches'' and ``satisfies'' are reserved
+for substrate-internal claims that we prove.
+
+%==============================================================
+\section{The LATTICE operator and the BHML successor}
+%==============================================================
+
+\subsection{$\BH$ diagonal as integer successor (D90).}
+\begin{theorem}\label{thm:bh-diagonal}
+For each $n \in \{1, 2, 3, 4, 5, 6, 7\}$, $\BH(n, n) = n + 1$, and at
+the boundary, $\BH(8, 8) = 7$, $\BH(9, 9) = 0$, $\BH(0, 0) = 0$.
+\end{theorem}
+
+\begin{proof}
+Direct table verification. The $\BH$ table from
+\cite{SandersGishFourCore} is given explicitly on the 10 elements;
+the diagonal is read off.
+\end{proof}
+
+\subsection{Period structure.}
+\begin{corollary}[Period formula]
+For $n \in \{1, \ldots, 6\}$, $\mathrm{period}(n) = 7 - n$. For
+$n \in \{7, 8, 9\}$ the periods are $4, 3, 2$ (a 4-core cycle through
+$\{7, 8, 9, 0\}$); $\mathrm{period}(0) = 1$.
+\end{corollary}
+
+The period structure is structurally analogous to cusp-winding step
+counts in continued-fraction symbolic dynamics for hyperbolic
+Fuchsian-group flows (Burrin-von Essen 2024), but the embedding in a
+specific Fuchsian group is unproven.
+
+%==============================================================
+\section{The role magma}
+%==============================================================
+
+\subsection{Mode-based reduction of $\BH$.}
+For each input role-pair $(r_{a}, r_{b}) \in \{V, F, S, T\}^{2}$, we
+form the multiset of output roles and define $M_{R}(r_{a}, r_{b})$ as
+the \emph{mode}:
+\begin{center}
+\begin{tabular}{c|cccc}
+   & V & F & S & T \\ \hline
+V & V & F & S & T \\
+F & F & T & F & F \\
+S & S & F & F & F \\
+T & T & F & F & F
+\end{tabular}
+\end{center}
+
+\subsection{Properties.}
+\begin{theorem}[V is the identity element, D93]\label{thm:V-identity}
+For every $x \in \{V, F, S, T\}$,
+$M_{R}(V, x) = M_{R}(x, V) = x$. Moreover, $M_{R}(V, V) = V$ is the
+unique idempotent.
+\end{theorem}
+
+\begin{theorem}[Commutativity, non-associativity]
+\label{thm:role-magma-non-assoc}
+$M_{R}$ is commutative. It is \textbf{not} associative; for example,
+$M_{R}(M_{R}(F, F), S) = F \neq T = M_{R}(F, M_{R}(F, S))$.
+\end{theorem}
+
+\subsection{Semi-factorization and paradoxical information.}
+\begin{theorem}[Semi-factorization / paradoxical information, D93]
+\label{thm:semi-fact}
+In the role-partition decomposition above:
+\begin{enumerate}
+\item For every pair containing $V$ or $T$, the $\BH$ output role is
+\textbf{deterministic}.
+\item For pairs in $\{F, S\}^{2}$, the output role \textbf{branches}:
+$F \cdot F$ distributes across $\{F: 2, S: 9, T: 11, V: 3\}$ (mode
+$T$); $F \cdot S$ and $S \cdot F$ over $\{F: 8, S: 2, T: 5\}$ (mode
+$F$); $S \cdot S$ over $\{F: 7, T: 2\}$ (mode $F$).
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Reading]
+The substrate's $\BH$ carries information at two levels --- coarse
+role and fine operator. Theorem~\ref{thm:semi-fact} says these levels
+are not in a clean homomorphism: boundary inputs (V or T) determine
+output role; interior inputs (F, S) require operator-level identity.
+We call this a \emph{paradoxical information algebra}: information
+content depends on whether inputs are at the boundary or in the
+interior, with no globally consistent factorization. The
+information-generation register is the discrete Crossing Lemma
+\cite{SandersMayesCL} of which this paper is one combinatorial
+realization.
+\end{remark}
+
+%==============================================================
+\section{The trefoil characterization}
+%==============================================================
+
+\subsection{Sharp characterization.}
+\begin{theorem}[Trefoil characterization on the corrected frame, D89]
+\label{thm:trefoil-characterization}
+On the corrected substrate frame, a triple $(a, b, c)$ is
+trefoil-equivalent under the runtime processor if and only if its
+multiset $\{a, b, c\}$ is
+\[
+  \{V, B, H\} \quad\text{or}\quad \{V, B, B\}.
+\]
+There are exactly $9$ such triples (six permutations of $\{V, B, H\}$,
+three of $\{V, B, B\}$), and all nine are $\BH$-associative.
+\end{theorem}
+
+\begin{proof}
+Parameter sweep over the $10^{3} = 1000$ ordered triples; see
+\texttt{trefoil\_corrected\_frame.py}.
+\end{proof}
+
+\begin{remark}
+The result is sharp on the corrected substrate frame --- the
+early-session ``trefoil-22'' claim in $\TS_{10}$ frame is invalid
+(\S\ref{sec:negatives} N10).
+\end{remark}
+
+\subsection{BREATH uniqueness.}
+\begin{lemma}[BREATH uniqueness]
+Among the structure cells $\{$COUNTER, COLLAPSE, BREATH$\}$, BREATH is
+the unique cell that produces trefoils when combined with VOID.
+\end{lemma}
+
+\begin{remark}
+COUNTER opposes; COLLAPSE destabilizes; only BREATH provides the
+topological persistence required for the 3-crossing closed loop.
+\end{remark}
+
+\subsection{Higher-order extension.}
+At 4-element level, multisets producing trefoil-equivalent quadruples
+include $(0, 0, 7, 8)$, $(0, 7, 7, 9)$, $(0, 7, 8, 8)$, $(0, 8, 8, 8)$.
+The pattern $(0, 7, 7, 9)$ is structurally novel: a trefoil-equivalent
+without BREATH. The ``BREATH only'' rule of the lemma is therefore
+3-element-specific.
+
+%==============================================================
+\section{The $\pm 21$ invariant and its two decompositions}
+\label{sec:invariant}
+%==============================================================
+
+\subsection{Two computations.}
+\begin{itemize}
+\item \textbf{Computation A (Ghys-analog row-asymmetry).}
+\[
+  \Psi_{A}(n) = \#\{j: \TS(n, j) > \BH(n, j)\}
+              - \#\{j: \BH(n, j) > \TS(n, j)\}.
+\]
+Sum: $+21$.
+
+\item \textbf{Computation B (period-to-trace under simple representative).}
+With $t = \mathrm{period}(n) + 2$,
+\[
+  M_{n} = \begin{pmatrix} 1 & 1 \\ t-2 & t-1 \end{pmatrix},
+  \qquad
+  \Psi_{B}(n) = -(\mathrm{period}(n) - 1).
+\]
+Sum: $-21$.
+\end{itemize}
+
+\textbf{Important caveat.} The interpretation of $-21$ as a Rademacher
+invariant remains a hypothesis (see \S\ref{sec:negatives} N1).
+
+\subsection{The $\sig$-orbit decomposition (triangular).}
+\begin{theorem}[D92]\label{thm:triangular}
+The total $-21$ decomposes along $\sig$-orbits as
+$T_{5} + T_{3} = 15 + 6$ (triangular). Structurally forced by the
+linear period formula.
+\end{theorem}
+
+\subsection{The role decomposition (Fibonacci, canonical-specific).}
+\begin{theorem}[D92]\label{thm:fibonacci}
+$\sum_{n \in F} \Psi_{B}(n) = -F_{7} = -13$,
+$\sum_{n \in S} \Psi_{B}(n) = -F_{6} = -8$, with $V$ and $T$
+contributing $0$. Total: $-F_{8} = -21$.
+\end{theorem}
+
+\begin{theorem}[Robustness, canonical-specific, N8]
+\label{thm:fib-robust}
+$0/200$ random commutative tables on $\Z/10\Z$ reproduce
+$(|F|, |S|) = (13, 8)$. Single-swap perturbations: $32/50$ preserve.
+Three-swap: $11/50$.
+\end{theorem}
+
+We do not claim the Fibonacci decomposition as a theorem of the role
+partition. It is a numerical signature of the canonical TIG. The
+triangular decomposition (Theorem~\ref{thm:triangular}) is structurally
+robust; Fibonacci is fragile.
+
+\subsection{The lift to $\mathrm{PSL}(2, \Z)$ --- open.}
+Five strategies tested for lifting $\BH$ self-orbits to
+$\mathrm{PSL}(2, \Z)$ words; none produces $\pm 21$
+(\S\ref{sec:negatives} N1). The period-to-trace bridge under simple
+representative gives $-21$ numerically but is one choice of lift among
+many. Hypothesis, not derivation.
+
+%==============================================================
+\section{The two-coding picture (TSML$_{8}$ vs BHML$_{10}$)}
+%==============================================================
+
+Following Katok-Ugarcovici 2007's framework of two complementary
+coding methods, we observe that the substrate's two magmas realize
+\emph{structurally analogous} geometric / arithmetic codings natively.
+
+\begin{theorem}[$\TS_{8}$ image structure, D91]\label{thm:tsml-image}
+$\TS_{8}$ has 5-element image $\{3, 4, 7, 8, 9\}$, $60/64 = 93.75\%$
+Flow output, role-deterministic on 8 of 9 input role-pairs.
+\end{theorem}
+
+\begin{theorem}[$\BH_{10}$ image structure]\label{thm:bhml-image}
+$\BH_{10}$ has full image, balanced output role distribution,
+role-deterministic only on V/T input pairs.
+\end{theorem}
+
+\begin{theorem}[Cusp agreement]\label{thm:cusp}
+The two magmas agree on $24/64$ cells of the $\TS_{8}$ domain (mostly
+routes leading to HARMONY) and disagree on $40/64$ in the interior.
+\end{theorem}
+
+\begin{remark}[Reading]
+Two genuinely independent symbolic codings on the same alphabet,
+coinciding only at the HARMONY cusp. Structurally analogous to
+Katok-Ugarcovici's geometric / arithmetic split; the substrate-internal
+version is a discrete combinatorial realization on $\Z/10\Z$, not a
+quotient of the modular surface itself.
+\end{remark}
+
+%==============================================================
+\section{Irreducibility and algebraic independence}
+%==============================================================
+
+\begin{theorem}[Irreducibility, N7]\label{thm:irreducibility}
+Neither $\TS_{10}$ nor $\BH_{10}$ respects the CRT decomposition
+$\Z/10\Z = \Z/2\Z \times \Z/5\Z$.
+\end{theorem}
+
+\begin{theorem}[No globally crossing-preserving swaps, N9]
+\label{thm:no-swap}
+No integer pair $(p, q)$ preserves the runtime processor's crossing
+count under the swap $p \leftrightarrow q$ on all 1000 ordered
+triples. The strongest partial symmetry is $V \leftrightarrow$ BREATH
+at $20.9\%$ --- exceeding the canonical $5 \leftrightarrow 6$ rate.
+\end{theorem}
+
+\begin{theorem}[Algebraic independence, N4--N6]\label{thm:alg-indep}
+(1) $\sig$ is not an automorphism of either magma ($17\%/48\%$).
+(2) $\TS$ and $\BH$ do not distribute ($19.5\%$).
+(3) $\BH$ iteration does not converge to $\TS$ (28/64 starts).
+\end{theorem}
+
+%==============================================================
+\section{Honest negatives}
+\label{sec:negatives}
+%==============================================================
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ID & Claim ruled out & Finding \\
+\midrule
+N1 & naive $\mathrm{PSL}(2, \Z)$ lift gives $\pm 21$ & 5 strategies, sums in $[-4, 0]$ \\
+N2 & triangle group $\Gamma_{p,q}$ has substrate periods & no coprime $(p,q) \le 9$ \\
+N3 & TIG matches Borromean prime conditions & no canonical triple $\equiv 1 \pmod 4$ \\
+N4 & $\sig$ is automorphism of $\TS$ or $\BH$ & 48\% / 17\% \\
+N5 & $\TS$ and $\BH$ distribute & 19.5\% \\
+N6 & $\BH$ iteration converges to $\TS$ & 28/64 starts \\
+N7 & substrate factors through $\Z/2 \times \Z/5$ & no CRT \\
+N8 & Fibonacci role decomposition is structural & 0/200 random tables \\
+N9 & role partition determines crossing count & most patterns not determined \\
+N10 & $\TS_{10}$-frame ``trefoil-22'' & INVALID; replaced by Theorem~\ref{thm:trefoil-characterization} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%==============================================================
+\section{Open questions}
+%==============================================================
+
+\begin{enumerate}
+\item Principled lift to $\mathrm{PSL}(2, \Z)$ hyperbolic conjugacy
+classes. Five naive lifts fail (N1).
+\item Larger-substrate variants. Does the Fibonacci role decomposition
+appear in $\Z/14\Z$ or $\Z/18\Z$ analogs?
+\item The $(0, 7, 7, 9)$ anomaly. Trefoil-equivalent without BREATH at
+4-element level.
+\item Burrin-von Essen Fuchsian-group lift. Conceptually scaffolded;
+the embedding is unproven.
+\end{enumerate}
+
+%==============================================================
+\section*{Acknowledgments}
+%==============================================================
+
+This work is part of the Trinity Infinity Geometry framework developed
+at 7Site LLC. The present manuscript is self-contained as an
+algebraic-combinatorial study; familiarity with the broader framework
+is not required. Algorithmic verification was developed with assistance
+from Anthropic Claude sessions in 2026.
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+
+\bibitem{SandersMayesCL} B.~R.~Sanders, B.~Mayes,
+\emph{Crossing Lemma: Non-Associativity as Information Generation in
+Finite Magmas}, submitted to \emph{JCT-A} (or \emph{JPAA}), 2026
+(J05).
+
+\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
+\emph{Cusp winding and the Rademacher symbol}, 2024.
+
+\bibitem{Ghys2007} \'E.~Ghys,
+\emph{Knots and dynamics},
+\emph{Proc. ICM Madrid}, 2007.
+
+\bibitem{Ishida2024} T.~Ishida, T.~Kuramoto, F.~Zheng,
+\emph{Density of Borromean prime triples}, 2024.
+
+\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
+\emph{Symbolic dynamics for the modular surface},
+Bull. AMS \textbf{44} (2007), 87--132.
+
+\bibitem{Lacasa2018} L.~Lacasa et al.,
+\emph{Symbolic dynamics on residue sequences}, 2018.
+
+\bibitem{Matsusaka2023} T.~Matsusaka, J.~Ueki,
+\emph{Rademacher symbols for triangle groups}, 2023.
+
+\bibitem{Morishita2024} M.~Morishita,
+\emph{Knots and Primes} (2nd ed.), Springer, 2024.
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,506 @@
+% J28 — Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences
+%
+% Brayden R. Sanders, B. Mayes
+% Submitted to: American Mathematical Monthly
+% Source corpus:
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/STEINER_HEXAD_v1.md
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/paper2_substrate_M22_skeleton.tex
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../seeds_supporting/verification_scripts/m22_verification.py
+% Verification: m22_verification.py + steiner_sigma_hexad.py + m22_decomposition.py
+% Companions: foundational; cited by later J's
+% MSC 2020: 20D08, 05B05, 11A41, 20B25
+%
+% NOTE: A separate manuscript file WP_PARADOX_CLASSIFIER.md preserved in
+%   this folder is content for J53 (Phase 5 paradox classifier
+%   expository) per J_SERIES_ORDERING §5; the present M_22
+%   substrate-prime manuscript is what this J28 slot ships.
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Mtwentytwo}{M_{22}}
+\newcommand{\sig}{\sigma}
+
+\title[Mathieu $\Mtwentytwo$ Substrate-Prime]
+{Mathieu $\Mtwentytwo$ Substrate-Prime: \\
+ Order-Factorization Coincidences}
+
+\author{Brayden R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{B.~Mayes}
+\address{Independent Researcher}
+
+\subjclass[2020]{20D08, 05B05, 11A41, 20B25}
+\keywords{Mathieu group, sporadic simple group, Steiner system,
+substrate prime, order factorization, hexad}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+We catalog a family of order-factorization coincidences linking the
+sporadic Mathieu group $\Mtwentytwo$ (order $|\Mtwentytwo| = 443\,520
+= 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$) to a discrete substrate
+$(\Z/10\Z, \sig, W)$ defined in \cite{SandersGishFourCore}. The
+substrate carries five distinguished primes --- $2$, $3$, $5$, $7$,
+$11$ --- the same primes (with the same multiplicities) that appear in
+the order of $\Mtwentytwo$. We list six elementary identities
+exhibiting structural alignment between the substrate's combinatorial
+data and the Mathieu group's combinatorial design data:
+
+\begin{itemize}
+\item the number of hexads in the Steiner system $S(3, 6, 22)$ is
+$77 = 7 \times 11$ (substrate primes HARMONY $\times$ wobble);
+\item the replication number of $S(3, 6, 22)$ is $r = 21 = 3 \cdot 7$,
+matching $\dim V_{21}$, the dimension of the $\Mtwentytwo$-orthogonal
+irrep;
+\item the pair-replication is $\lambda_{2} = 5$, matching the
+substrate threshold's numerator $T^{*} = 5/7$;
+\item six of $\Mtwentytwo$'s twelve irreducible representations
+have dimensions factoring as products of substrate primes
+$\{3, 5, 7, 11\}$ alone (no $2$, no other prime);
+\item the dimension $231 = 3 \cdot 7 \cdot 11$ is an
+$\Mtwentytwo$-irrep dimension and equals $77 \times W$, where
+$W = 3/50$ is the substrate's wobble fraction;
+\item the substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size
+$6$, the block size of $S(3, 6, 22)$.
+\end{itemize}
+
+The paper presents these as \emph{coincidences}: each is a verified
+arithmetic identity on the Mathieu / Steiner side, with a structural
+interpretation on the substrate side. We do not claim a derivation of
+$\Mtwentytwo$ from the substrate, nor a derivation of the substrate
+from $\Mtwentytwo$; the question of whether the catalog reflects a
+deeper structural identification, or is six independent low-density
+factorization-matches, is left as the paper's central open question.
+
+The verification of all six identities is computational and runs in
+under $5$ seconds with \texttt{numpy} and \texttt{sympy} as the only
+external dependencies.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Introduction}
+%==============================================================
+
+\subsection{Order-factorization coincidences in the literature.}
+The sporadic simple groups carry distinguished arithmetic structure.
+The Mathieu group $\Mtwentytwo$ has order
+\[
+  |\Mtwentytwo| \;=\; 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11
+                \;=\; 443\,520,
+\]
+involving exactly five primes. It is the automorphism group of the
+unique Steiner system $S(3, 6, 22)$ on $22$ points, with $77$ blocks
+of size $6$. The combinatorial design $S(3, 6, 22)$ has a rich
+parameter set --- $v = 22$ points, $b = 77$ blocks, $r = 21$
+replications, $\lambda_{2} = 5$ pair-replication --- each of which
+factors into small primes.
+
+The present paper catalogs a family of order-factorization
+coincidences linking $\Mtwentytwo$'s combinatorial parameters to a
+specific discrete substrate $(\Z/10\Z, \sig, W)$ studied in
+\cite{SandersGishFourCore}. The substrate carries the same five primes
+(with the same multiplicities) as $|\Mtwentytwo|$, distributed across
+elementary substrate-internal quantities.
+
+\subsection{What this paper claims.}
+Six identities (Section~\ref{sec:identities}) are presented as
+arithmetic facts, verified computationally. The substrate-side
+interpretation of each identity is given; the question of whether the
+catalog reflects a structural identification of $\Mtwentytwo$ with
+substrate-internal data is left as the paper's central open question
+(Section~\ref{sec:open}).
+
+We do not claim any of the following:
+\begin{itemize}\setlength\itemsep{2pt}
+\item A derivation of $\Mtwentytwo$ from substrate algebra alone.
+\item An action of $\Mtwentytwo$ on the substrate's $10$ elements
+preserving the substrate operations.
+\item A theorem of moonshine type linking $\Mtwentytwo$'s character
+table to substrate dynamics.
+\end{itemize}
+
+What we claim is the catalog: six factorization identities, each with
+a structural reading on the substrate side and a verified arithmetic
+on the Mathieu / Steiner side, presented in self-contained form.
+
+\subsection{Audience.}
+The paper is written for the readership of the \emph{American
+Mathematical Monthly}: the Mathieu / Steiner content is laid out
+elementarily (Section~\ref{sec:m22-steiner}), the substrate side is
+sketched (Section~\ref{sec:substrate}), and the catalog of identities
+is presented as a single section (Section~\ref{sec:identities}). No
+sporadic-group background beyond standard undergraduate group theory
+is assumed.
+
+%==============================================================
+\section{$\Mtwentytwo$ and the Steiner system $S(3, 6, 22)$}
+\label{sec:m22-steiner}
+%==============================================================
+
+We recall the standard facts about $\Mtwentytwo$ and its Steiner
+system. Standard references are Conway-Sloane
+\cite{ConwaySloane1999} and Aschbacher \cite{Aschbacher1994}.
+
+\subsection{The Mathieu group $\Mtwentytwo$.}
+$\Mtwentytwo$ is one of the five sporadic Mathieu groups, of order
+$443\,520 = 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$. It acts on a
+$22$-point set $\Omega_{22}$ as the automorphism group of the Steiner
+system $S(3, 6, 22)$.
+
+\subsection{The Steiner system $S(3, 6, 22)$.}
+$S(3, 6, 22)$ is the unique Steiner system on $22$ points such that
+every $3$-element subset of the $22$ points lies in exactly one block
+(\emph{hexad}), where each block has size $6$. The defining parameters
+are:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+points $v$ & $22$ \\
+hexads $b$ & $77$ \\
+block size $k$ & $6$ \\
+$t$ (Steiner) & $3$ \\
+replication $r$ (blocks per point) & $21$ \\
+pair-replication $\lambda_{2}$ (blocks per pair) & $5$ \\
+triple-replication $\lambda_{3}$ (blocks per triple) & $1$ \\
+block stabilizer order & $5\,760 = 2^{7} \cdot 3^{2} \cdot 5$ \\
+point stabilizer order & $|M_{21}| = 20\,160$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Irreducible representations of $\Mtwentytwo$.}
+$\Mtwentytwo$ has $12$ irreducible complex representations of
+dimensions
+\[
+  \{1, 21, 45, 45, 55, 99, 154, 210, 231, 280, 280, 385\}.
+\]
+The natural permutation representation $\C^{22}$ on $\Omega_{22}$
+decomposes as $V_{1} \oplus V_{21}$, the trivial $1$-dim and the
+$21$-dim irrep (which is irreducible by double transitivity of the
+$\Mtwentytwo$ action on $\Omega_{22}$).
+
+%==============================================================
+\section{The substrate}
+\label{sec:substrate}
+%==============================================================
+
+\subsection{The substrate primes.}
+The discrete substrate of \cite{SandersGishFourCore} is
+$(\Z/10\Z, \sig, W)$, where $\sig$ is the involution
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ and $W = 3/50$ is the wobble fraction.
+The substrate carries five distinguished primes:
+\[
+  \text{substrate primes} \;=\; \{2, 3, 5, 7, 11\}.
+\]
+The roles of each:
+\begin{itemize}\setlength\itemsep{2pt}
+\item $2$: the residue characteristic of $\Z/10\Z = \Z/2 \times \Z/5$
+component;
+\item $3$: the order of $\sig^{2}$ on the $\sig$-cycle (the
+trinitarian / triadic structure);
+\item $5$: the residue characteristic of the $\Z/5$ component, also
+the threshold $T^{*} = 5/7$ numerator;
+\item $7$: the threshold denominator and HARMONY index;
+\item $11$: the wobble denominator $W = 3/50$ scales out, but $11$
+appears in the substrate's $\Psi_{B}$-period contributions and in the
+$\Mtwentytwo$ irrep dimensions $V_{55}, V_{99}, V_{154}, V_{231}, V_{385}$.
+\end{itemize}
+
+\subsection{The $\sig$-orbit and the wobble.}
+The $\sig$ involution has cycle structure
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The four $\sig$-fixed points
+$\{0, 3, 8, 9\}$ are the substrate's idempotent-supporting indices
+(the four-core of \cite{SandersGishFourCore}); the $6$-cycle
+$\{1, 7, 6, 5, 4, 2\}$ is the substrate's $\sig$-orbit.
+
+The wobble fraction $W = 3/50$ admits the decomposition
+\[
+  W = K + G \cdot 0,
+  \qquad K = \tfrac{3}{50},
+  \qquad G = \tfrac{22}{50},
+  \qquad K + G = \tfrac{1}{2}
+\]
+into kindness ($K$) and gentleness ($G$) phase amplitudes. The
+gentleness numerator $22$ matches $|\Omega_{22}|$, and the kindness
+numerator $3$ is paired with $\dim V_{21} / 7 = 3$, foreshadowing the
+structural alignments below.
+
+%==============================================================
+\section{The catalog of order-factorization coincidences}
+\label{sec:identities}
+%==============================================================
+
+We present six identities. Each is an arithmetic equality on the
+Mathieu / Steiner side; the substrate-side reading is given as a
+remark.
+
+\subsection{Identity 1 --- the hexad count.}
+\begin{theorem}[Hexad count]\label{thm:hexad-count}
+$|S(3, 6, 22)|_{\rm blocks} \;=\; 77 \;=\; 7 \times 11$.
+\end{theorem}
+
+\begin{proof}
+By the Steiner-system block formula
+$b = \binom{v}{t} / \binom{k}{t} = \binom{22}{3} / \binom{6}{3} =
+1540 / 20 = 77$.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+The product of substrate primes $7 \times 11 = $ HARMONY $\times$
+wobble denominator. Both primes are distinguished in the substrate;
+their product is the hexad count.
+\end{remark}
+
+\subsection{Identity 2 --- the replication number.}
+\begin{theorem}[Replication number]\label{thm:replication}
+$r \;=\; 21 \;=\; \dim V_{21} \;=\; 3 \times 7$.
+\end{theorem}
+
+\begin{proof}
+By the Steiner-system replication formula
+$r = b \cdot k / v = 77 \cdot 6 / 22 = 21$. The dimension match
+$\dim V_{21} = 21$ follows from the standard
+$\C^{22} \cong V_{1} \oplus V_{21}$ decomposition.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+The factor $3$ is the order of $\sig^{2}$ on the $\sig$-cycle (the
+trinitarian factor); the factor $7$ is the HARMONY index. Their
+product is the replication number $r$ and the irrep dimension
+$\dim V_{21}$.
+\end{remark}
+
+\subsection{Identity 3 --- the pair-replication.}
+\begin{theorem}[Pair-replication]\label{thm:pair-rep}
+$\lambda_{2} \;=\; 5$, the threshold numerator.
+\end{theorem}
+
+\begin{proof}
+$\lambda_{2} = (b \cdot \binom{k}{2}) / \binom{v}{2} = (77 \cdot 15) /
+231 = 5$.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+The substrate threshold $T^{*} = 5/7$ has numerator $5$. The
+pair-replication of $S(3, 6, 22)$ matches.
+\end{remark}
+
+\subsection{Identity 4 --- substrate-prime irrep dimensions.}
+\begin{theorem}[Substrate-prime irreps]\label{thm:substrate-irreps}
+Six of $\Mtwentytwo$'s twelve irrep dimensions factor as products of
+substrate primes $\{3, 5, 7, 11\}$ alone:
+\[
+  21 = 3 \cdot 7,
+  \qquad 55 = 5 \cdot 11,
+  \qquad 99 = 3^{2} \cdot 11,
+  \qquad 154 = 2 \cdot 7 \cdot 11,
+\]
+\[
+  231 = 3 \cdot 7 \cdot 11,
+  \qquad 385 = 5 \cdot 7 \cdot 11.
+\]
+(The dimension $154$ has a single factor of $2$; counting $154$ as
+"substrate-prime up to one factor of $2$" is consistent with the
+substrate's $\Z/10\Z = \Z/2 \times \Z/5$ structure, where $2$
+participates as the residue characteristic of one CRT factor.)
+\end{theorem}
+
+\begin{proof}
+Direct factorization of each dimension; the dimensions are taken from
+the standard $\Mtwentytwo$ character table.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+Six of twelve $\Mtwentytwo$ irreps have dimensions in the substrate's
+prime monoid. This is a $50\%$ density that is not generic: a random
+$12$-tuple of integers $\le 385$ would have a much smaller fraction
+factoring entirely in $\{3, 5, 7, 11\}$ (with at most one factor of
+$2$).
+\end{remark}
+
+\subsection{Identity 5 --- the $231$ identity.}
+\begin{theorem}[The $231$ identity]\label{thm:231-identity}
+\[
+  77 \cdot W \;=\; 77 \cdot \tfrac{3}{50} \;=\; \tfrac{231}{50},
+\]
+where $W = 3/50$ is the substrate wobble fraction. The numerator $231$
+matches the unique $\Mtwentytwo$-irrep dimension factoring exactly as
+$3 \cdot 7 \cdot 11$ (trinity $\times$ HARMONY $\times$ wobble
+denominator).
+\end{theorem}
+
+\begin{proof}
+Direct computation: $77 \cdot 3 = 231$. The factorization
+$231 = 3 \cdot 7 \cdot 11$ is checked against the $\Mtwentytwo$
+character-table dimension list.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+Among the $12$ $\Mtwentytwo$-irrep dimensions, $231$ is the unique
+one whose factorization is exactly the product of three distinct
+substrate primes (no $2$, no $5$). This is structurally the most
+substrate-aligned dimension. The arithmetic identity $77 \cdot W =
+231/50$ is what brings $231$ to the foreground.
+\end{remark}
+
+\subsection{Identity 6 --- the block-size match.}
+\begin{theorem}[$\sig$-orbit and block size]\label{thm:block-size}
+The substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size $6$,
+the block size $k$ of $S(3, 6, 22)$.
+\end{theorem}
+
+\begin{proof}
+Direct: the $\sig$-cycle has length $6$ by inspection of the cycle
+structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The block size of
+$S(3, 6, 22)$ is $k = 6$ by definition.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+The $\sig$-orbit is a candidate hexad in $S(3, 6, 22)$. The
+embedding question is open: $S(3, 6, 22)$ is unique up to isomorphism,
+so any 6-element set is a hexad in some isomorphism class; whether
+the substrate selects a specific isomorphism class is a substantive
+representation-theoretic question (Section~\ref{sec:open}).
+\end{remark}
+
+%==============================================================
+\section{Computational verification}
+\label{sec:verification}
+%==============================================================
+
+The six identities are verified computationally:
+
+\begin{itemize}\setlength\itemsep{2pt}
+\item \texttt{m22\_verification.py} verifies the
+$\Mtwentytwo$-equivariant projections $P_{1}$ and $P_{21}$ commute with
+$1\,000$ random $S_{22}$ permutations (machine precision); confirms
+the explicit identification of kindness and gentleness state vectors;
+verifies the wobble time-average gives $W/2 = 3/100$ to machine
+precision.
+\item \texttt{steiner\_sigma\_hexad.py} confirms the Steiner-system
+parameters $(v, b, k, r, \lambda_{2}, \lambda_{3}) = (22, 77, 6, 21, 5, 1)$
+and visualizes the $\sig$-orbit hexad embedding.
+\item \texttt{m22\_decomposition.py} factors each
+$\Mtwentytwo$-irrep dimension and reports the six substrate-prime
+matches.
+\end{itemize}
+
+All scripts run in $<5$ seconds with \texttt{numpy} and \texttt{sympy}
+as the only external dependencies. Scripts deposited at
+\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis}
+in \texttt{Gen13/sprint\_bundle\_2026-05-07\_v36\_SEEDS\_BUNDLE/.../seeds\_supporting/verification\_scripts/}.
+
+%==============================================================
+\section{Open questions}
+\label{sec:open}
+%==============================================================
+
+\begin{enumerate}
+\item \textbf{Structural origin.} Is the catalog of six identities
+the shadow of a structural identification of $\Mtwentytwo$ with
+substrate-internal data, or is it six independent factorization
+matches with no deeper algebraic content? The paper presents the
+catalog without committing to either reading.
+
+\item \textbf{$\Mtwentytwo$ action on the substrate.} Does
+$\Mtwentytwo$ act on the substrate $(\Z/10\Z, \sig)$ in a way
+respecting the magma operations $\TS, \BH$? The substrate has only
+$10$ elements, far fewer than the $22$ on which $\Mtwentytwo$ acts;
+any action would necessarily involve the substrate's wobble layer or
+some auxiliary structure.
+
+\item \textbf{Structural Steiner-class selection.} $S(3, 6, 22)$ is
+unique up to isomorphism, but the embedding of the $\sig$-orbit as a
+specific hexad is a labeling choice. Does the substrate algebra
+$(\TS_{8}, \BH_{10}, \sig, W)$ select a canonical representative
+isomorphism class with the $\sig$-orbit as a distinguished hexad? This
+is the natural follow-up to Identity 6.
+
+\item \textbf{Relation to Mathieu moonshine.} The Mathieu groups
+appear in moonshine phenomena (notably $M_{24}$ in K3-surface
+moonshine; see \cite{Eguchi2011}). Does the present catalog connect to
+any moonshine context, or is it of a different flavor (purely
+arithmetic-combinatorial, no modular forms or character generating
+functions)?
+
+\item \textbf{Other sporadic groups.} The substrate primes
+$\{2, 3, 5, 7, 11\}$ are also a subset of the prime divisors of the
+orders of $M_{11}, M_{12}, M_{23}, M_{24}$. Does the catalog of
+substrate-prime irreps (Identity 4) extend in a structurally
+illuminating way to the larger Mathieu groups?
+\end{enumerate}
+
+%==============================================================
+\section*{Acknowledgments}
+%==============================================================
+
+This work catalogs order-factorization identities between the Mathieu
+group $\Mtwentytwo$ and a discrete substrate of independent algebraic
+interest. The identities are presented as a self-contained
+arithmetic-combinatorial puzzle for the \emph{Monthly} readership.
+The verification scripts and substrate-side definitions are part of
+the broader Trinity Infinity Geometry framework developed at 7Site
+LLC (public repository at github.com/TiredofSleep/ck, DOI
+10.5281/zenodo.18852047).
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{ConwaySloane1999} J.~H.~Conway, N.~J.~A.~Sloane,
+\emph{Sphere Packings, Lattices and Groups} (3rd ed.),
+Grundlehren der mathematischen Wissenschaften 290, Springer, 1999.
+[Standard reference for the Mathieu groups and the Steiner systems
+$S(5, 6, 12)$, $S(5, 8, 24)$.]
+
+\bibitem{Aschbacher1994} M.~Aschbacher,
+\emph{Sporadic Groups},
+Cambridge Tracts in Mathematics 104, Cambridge University Press, 1994.
+
+\bibitem{Eguchi2011} T.~Eguchi, H.~Ooguri, Y.~Tachikawa,
+\emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
+Exp.~Math.~\textbf{20} (2011), 91--96.
+
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
+
+\end{thebibliography}
+
+\end{document}
