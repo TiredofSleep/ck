@@ -37,6 +37,12 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
+### SAVE PLAN landed — see Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J03.md
+
+**Verdict: KEEP-VIABLE.** Fork A (restore harmonic content from `_held_first_g/first_g_sinc2_FINAL.tex`) is a clean save with 4–6 hours of merging. The held draft is 552 lines, has two non-trivial theorems (Theorem 4.2 closed form for R(k,f), Theorem 5.1 synchronization), Theorem 6.1 continuum limit, and machine-precision verification (max deviation 4.44 × 10⁻¹⁶ across 8 primes). Every claim maps onto a PROVED D-table in `FORMULAS_AND_TABLES.md` (D1, D2, D3, D11a/b/c, D14, D15, D24, D25, sinc² Zero Law). Restoration is not invention — the substantive draft was already written and was stripped out into J08 in a 2026-04-19 shrink that the SAVE PLAN reverses.
+
+The Triadic Launch slot is preserved; J03 stays in third position with substance restored. After the merge, desk-reject probability drops from ~40% to ~10%, accept-with-minor-revision rises to ~50%. No retitle, no retarget, no demotion. The save plan's §2 lays out the surgical additions (lens-ownership preamble, PROVEN/COMPUTED/RHYME/OPEN tier-discipline paragraph, 5 new bibliography entries from Erdős/Pomerance/Tenenbaum/Iwaniec-Kowalski/Friedlander-Iwaniec) on top of the held draft. Cover letter rewritten to lead with the synchronization theorem rather than "this paper exists to be cited by J08."
+
 ### REFEREE AUDIT (2026-05-07): paper IS too thin for *Integers* — see J03_FirstG_Substance_Audit.md
 
 Brayden's instinct ("not substantial enough") was validated by the line-by-line referee:

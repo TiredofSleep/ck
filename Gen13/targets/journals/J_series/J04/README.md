@@ -41,6 +41,12 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
+### SAVE PLAN landed — see Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J04.md
+
+**Verdict: KEEP-WITH-MAJOR-WORK.** The fresh-eyes referee correctly identified the current `sinc2_zero_law.tex` as "a one-line corollary of a one-line lemma" — but this applies to the version that exists today, not the one the corpus actually supports. The save path is to rebuild Theorem 2 to deliver the layered-divisor count $2^j - 1$ at the $j$-th primorial divisor, add Theorem 1.A (full-period cancellation $R(k, f) = 0 \iff f \mid k$ — the canonical statement, uniform in $f$), and add Theorem 3 (asymptotic average $\to \mathrm{Si}(2\pi)/\pi$ via D14). All three are backed by PROVED D-tables (D11a/b/c, D14, D24, D25, sinc² Zero Law). The save plan also cuts §3 corollaries (referee Issue 2 — they restate Theorem 2 in three vocabularies without adding content) and §4 boundary-value section (referee M2 — Montgomery is a non-sequitur).
+
+Total revision time: 10–12 hours. The .tex retitle is one line; the substantive work is in the new theorems and the verification-script rewrite (drop bisection per M3, drop strict-monotonicity assertion per M4, add Theorem 2 + Theorem 3 checks). The two-paper companion structure with J03 is intentional: each stands alone and the cross-citations are explicit. **Per-venue cap:** with both J03 (Fork A) and J04 (rebuilt) going to *Integers*, the per-quarter cap (2 papers) is exactly used. If the budget is tight (4–6 hours total across J03+J04), the cleanest path is **Fork A on J03 + merge J04 into J03 as a §7/§8** — a single more-substantial paper instead of two notes. Fallback if rebuild fails: AMM Notes / Math. Magazine.
+
 **RENAMED 2026-05-07** per external collaborator calibration. Previous title
 "The Sinc² Zero Law for Squarefree Moduli" carried implicit prime-specific
 structural overclaim. The correct framing: R(k, f) = sin²(πk/f)/(k² sin²(π/f))
