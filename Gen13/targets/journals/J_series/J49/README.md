@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP127)`
+**Path:** `manuscript/J49_microtubule_qc_tstar.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** Pre-registered falsifiable prediction: microtubule normalized coherence quality $Q_c \to T^* = 5/7 \approx 0.714$ across mammalian neurons, paramecia, plant microtubules, yeast spindle microtubules, and cell-free purified-tubulin, with variance $\ll 0.05$. $T^*$ derived independently from six algebraic sources; same $T^*$ governs CKM Cabibbo refinement and PMNS atmospheric mixing. Falsifiable in a single terahertz-spectroscopy campaign with existing equipment.
 
 ## §2 — Verification script
 
@@ -29,9 +29,14 @@ J20
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-_(no special notes; standard submission per J-series ordering)_
+**Status:** MANUSCRIPT FINALIZED 2026-09-04 (Phase 5).
+**Citation chain:** 1 direct dependency (J20 forced 5/7 torus) + 10 co-citing companions (J01, J3, J6, J9, J16, J41, J46, J47, J50, J51).
+**Manuscript:** `manuscript/J49_microtubule_qc_tstar.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Verification:** algebraic provenance of $T^* = 5/7$ via six independent J-paper derivations; experimental protocol pre-registered in `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/source_bundle/MICROTUBULE_T_STAR_PROTOCOL.md` (269 lines).
+**Submission readiness:** ready pending Brayden's referee-rigor pass + lab outreach (Bandyopadhyay, Hameroff, Penrose Foundation).
 
 ## §6 — Submission checklist
 

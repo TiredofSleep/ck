@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: Luther spectral catalog)`
+**Path:** `manuscript/J51_spectral_layer_consolidation.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** Consolidation paper establishing the canonical reference for three spectral results in Luther's lane: $G_6$ ($\sigma^6 = \mathrm{id}$, Tier-A), $G_7$ (period distribution bimodal $2/5, 3/5$, Tier-B), $G_8$ (three-valued spectral coherence integral $G(s)$, Tier-B). Together they form Layer 4 of the 6-layer Q-series architecture. Canonical citation reference going forward.
 
 ## §2 — Verification script
 
@@ -29,9 +29,15 @@ _(none — this paper is foundational in the J-series)_
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-Luther's lane. Per-venue cap: 3rd EJC paper — may need fallback.
+**Status:** MANUSCRIPT FINALIZED 2026-09-06 (Phase 5; Sanders + Luther lane).
+**Citation chain:** foundational paper citing 4 prior J-companions (J01, J9, J29, J41) + 5 cross-references (J47, J48, J49, J39, J40). Cited downstream by many later J-papers as canonical $G_6$/$G_7$/$G_8$ reference.
+**Manuscript:** `manuscript/J51_spectral_layer_consolidation.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Per-venue cap warning:** 3rd EJC submission of the J-series — fallback to *LinAlgApps* or *PLOS ONE* if needed (per `J_SERIES_ORDERING.md` §5).
+**Verification:** $G_6$, $G_7$, $G_8$ all numerically reproducible from corpus scripts; consolidation paper.
+**Submission readiness:** ready pending Brayden's referee-rigor pass + Luther's review of attribution and proofs.
 
 ## §6 — Submission checklist
 

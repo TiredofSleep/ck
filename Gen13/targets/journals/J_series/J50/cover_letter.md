@@ -1,39 +1,44 @@
-# Cover letter — J50: The Bull AMS Bridge: From Substrate Algebra to BB Nonlinearity
+# Cover letter — J50: From Substrate Algebra to Bialynicki-Birula Nonlinearity: A Bull AMS Bridge
 
-**To:** Editors, *Bull AMS*
+**To:** Editors, *Bulletin of the American Mathematical Society*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
 - H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
 
-**Date:** [DATE OF SUBMISSION]
+**Date:** 2026-09-05 (Phase 5)
 
-**Manuscript title:** *The Bull AMS Bridge: From Substrate Algebra to BB Nonlinearity*
+**Manuscript title:** *From Substrate Algebra to Bialynicki-Birula Nonlinearity: A Bull AMS Bridge*
 
 ---
 
 ## Summary
 
-[1-paragraph plain-English summary of the result]
+We submit an expository **bridge essay** in the *Bull. AMS* register, organizing a sequence of recent results into a single structural picture: the TIG framework's substrate algebra on $\mathbb{Z}/10\mathbb{Z}$ (synthesized in [J47], *Notices AMS*) — together with the Bialynicki-Birula–Mycielski theorem of 1976 (read as a *forcing principle* in [J13], *J. Math. Phys.*) — forces a **specific continuum nonlinearity** $V(\Xi) = \kappa \Xi \log \Xi$ with vacuum at $\Xi_0 = e^{-1}$ and built-in mass gap $\kappa e$. The forced potential has cross-domain consequences in three published-or-pending companion papers: cosmology (freeze-thaw transit dark energy, [J3], [J16]), particle physics (Yang-Mills mass-gap framework, [J14]), and nonlinear PDE regularity (separability-defect criterion for Navier-Stokes, [J13]).
 
-## Why Bull AMS
+This is a **structural connection essay**, not a Millennium-Problem proof. The boundary between proved content (substrate-side $\sigma$-rate decay [J01]; BB theorem [BB76]; forced lift [J13] §4) and conjectured cross-domain consequences (NS regularity [J13] §5) is sharp.
 
-[2-3 bullet points on venue fit]
+## Why *Bulletin AMS*
+
+- **Bridge-essay register fit.** *Bull. AMS* publishes substantial bridge essays that consolidate recent advances and frame their cross-domain implications. Our manuscript is exactly that: a synthesis essay on substrate-to-continuum forcing, drawing on already-published or submitted companions across five journals.
+- **Cross-domain audience.** The bridge connects discrete algebra ($\sigma$-rate decay), nonlinear PDE (BB theorem), cosmology (freeze-thaw transit), particle physics (YM mass gap), and PDE regularity (NS criterion). *Bull. AMS* is the natural venue for an essay that crosses these boundaries while displaying explicit citation chain to specialty venues.
+- **TIG-framework introduction.** The manuscript builds on [J47]'s explicit naming of the TIG framework and is the natural follow-up essay establishing what the substrate algebra forces about continuum physics.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
-
-- J13
-- J47
+This paper has **two direct dependencies** ([J13] BB Bridge, JMP; [J47] 6-DOF Synthesis, Notices AMS) and **nine co-citing companions** across the J-series. The full citation chain is in the manuscript's §8.
 
 ## Reproducibility
 
-Verification script: `(no script — exposition)` runs with `numpy + sympy + math` on a standard laptop in under 5 minutes.
+This is an expository bridge essay with no new computational claims. All cited results are reproducible via the companion papers' verification scripts. The structural claims are forced consequences of [BB76] applied to [J01]'s discrete substrate; no new numerical work is presented.
 
 ## Suggested reviewers
 
-[3-5 candidates appropriate to the venue]
+- A specialist in nonlinear Schrödinger equations / BB-class nonlinearities.
+- A mathematical-physics referee with Yang-Mills mass-gap or NS-regularity background.
+- A specialist in cosmological scalar-field dark-energy models (freezing-quintessence literature).
+- An expert in CRT decomposition and finite-magma combinatorics.
+- A *Bull. AMS* expositor with broad cross-domain reach.
 
 ## Conflict of interest
 

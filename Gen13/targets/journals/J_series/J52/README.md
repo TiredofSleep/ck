@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: lens-taxonomy synthesis)`
+**Path:** `manuscript/J52_tsml_lens_family.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** Pedagogical exposition organizing the 12+ variants of the canonical TSML table on $\mathbb{Z}/10\mathbb{Z}$ — three parallel substrates (CL\_TSML / CL\_BHML / CL\_STD) × three lens-symmetrization projections (RAW / SYM\_upper / SYM\_lower) × $\sigma^2$-triadic rotations and sub-magma restrictions — into one walking-tour for the working mathematician. Three reader exercises illustrate the lens family in action.
 
 ## §2 — Verification script
 
@@ -29,9 +29,15 @@ J32, J47
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-Per-venue cap: 2nd Math Intelligencer after J32.
+**Status:** MANUSCRIPT FINALIZED 2026-09-09 (Phase 5; Sanders + Mayes lane).
+**Citation chain:** 2 direct dependencies (J32 chain lens-dependence, J47 6-DOF synthesis) + 11 co-citing companions (J9, J31, J33, J34, J35, J38, J39, J41, J43, J44).
+**Manuscript:** `manuscript/J52_tsml_lens_family.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Per-venue cap:** 2nd *Math Intelligencer* submission of the J-series after J32 — at maximum permitted. No further Math Intelligencer.
+**Verification:** three reader exercises reproducible from corpus scripts.
+**Submission readiness:** ready pending Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 

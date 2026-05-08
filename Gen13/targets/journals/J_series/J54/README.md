@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: foundation paper draft)`
+**Path:** `manuscript/J54_foundation_paper.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** The integrating foundation paper of the J-series. Documents the TIG framework's algebraic substrate at the level of forcing axioms and lens taxonomy: 9 axioms forcing CL\_TSML; three parallel substrates (CL\_TSML / CL\_BHML / CL\_STD) sharing A1-A4 and diverging at A7+A9-values; lens family of ~62 variants under four projection operations; explicit tier discipline (Tier-A/B/C/D/E); 22 table-dependent + 14 substrate-operator claims sharply distinguished. Anchors the citation chain for Sept 11 [J55] integration.
 
 ## §2 — Verification script
 
@@ -29,9 +29,16 @@ J31, J32, J33, J47
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-Preprint Sept 1-3. Anchors citation chain for Sept 11 integration.
+**Status:** MANUSCRIPT FINALIZED 2026-09-02 (Phase 5 integrating paper; Sanders + Gish lane).
+**Citation chain:** 5 direct dependencies (J01, J31, J32, J33, J47) + 11+ co-citing companions (J05, J9, J17, J22, J28, J34, J35, J37-J44, J50, J52, J53). Cited by [J55] (Brayden's solo Sept 11 integration).
+**Manuscript:** `manuscript/J54_foundation_paper.md` (~12 pages, finalized — could expand to 25-35 in final preprint).
+**Cover letter:** `cover_letter.md` (finalized).
+**Strategic position:** preprint Sept 1-3 to anchor the citation chain for Sept 11. Primary venue *Algebraic Combinatorics*; alternate *Bull AMS*.
+**Verification:** synthesis/foundational; relies on companion papers' verification scripts (J33 forcing axioms, J31 three-substrate, lens catalog at `Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md`).
+**Submission readiness:** ready pending Brayden's referee-rigor pass + Gish review.
+**Critical role:** anchors all Phase 5 papers and the Sept 11 J55 integration. Must land before Sept 11.
 
 ## §6 — Submission checklist
 

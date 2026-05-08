@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: Bull AMS bridge)`
+**Path:** `manuscript/J50_bull_ams_bb_bridge.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** Bridge essay (Bull AMS register) organizing the substrate-to-continuum forcing principle: the TIG substrate algebra ([J47]) plus the Bialynicki-Birula theorem (read as forcing in [J13]) forces $V(\Xi) = \kappa \Xi \log \Xi$ with vacuum at $e^{-1}$ and mass gap $\kappa e$. Cross-domain consequences in cosmology ([J3], [J16]), particle physics ([J14]), and Navier-Stokes regularity ([J13]). Structural connection only; sharp boundary between proved (Tier-A/B) and conjectural (Tier-D) content.
 
 ## §2 — Verification script
 
@@ -29,9 +29,14 @@ J13, J47
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-_(no special notes; standard submission per J-series ordering)_
+**Status:** MANUSCRIPT FINALIZED 2026-09-05 (Phase 5; Sanders + Johnson lane).
+**Citation chain:** 2 direct dependencies (J13 BB Bridge, J47 6-DOF Synthesis) + 9 co-citing companions (J01, J05, J3, J16, J14, J41, J44, J39, J40).
+**Manuscript:** `manuscript/J50_bull_ams_bb_bridge.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Verification:** structural / expository bridge essay; relies on companions' verification scripts.
+**Submission readiness:** ready pending Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 

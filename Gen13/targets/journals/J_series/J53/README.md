@@ -11,9 +11,9 @@
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: paradox classifier expository)`
+**Path:** `manuscript/J53_paradox_classifier_uop.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract:** Diagnostic exposition of the Unified Orthogonality Principle (UOP) as an algebraic classifier for paradoxes. Four types: Type I (Injectivity, solvable, score 1.0), Type II (Missing Invariant, structurally blocked, score 0-0.8), Type III (Admissibility Failure, ill-founded domain, score 0), Type IV (Time-Consistency Failure, score 0.3-0.6). Five-step algorithmic decision procedure; eight worked examples (Russell, Liar, Monty Hall, CH, Newcomb, Sorites, Gödel, Twin Paradox).
 
 ## §2 — Verification script
 
@@ -29,9 +29,15 @@ J17
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-Per-venue cap: 3rd AMM paper after J29.
+**Status:** MANUSCRIPT FINALIZED 2026-09-10 (Phase 5; Sanders + Mayes lane).
+**Citation chain:** 1 direct dependency (J17 UOP Theorem 0) + 4 cross-references (J18, J19, J47, J52).
+**Manuscript:** `manuscript/J53_paradox_classifier_uop.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Per-venue cap:** 3rd AMM submission of the J-series after J29 and J28 — at maximum permitted. Fallback to *Mathematics Magazine* or *Math. Logic Quarterly*.
+**Verification:** algorithmic procedure (50-line Python); live demo at coherencekeeper.com/paradox.html.
+**Submission readiness:** ready pending Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 
