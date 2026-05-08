@@ -41,6 +41,22 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 **Per-venue cap warning:** This is potentially the **3rd PRD paper** in the J-series (after J44 dark-sector and J45 mass hierarchy in Phase 2). PRD per-venue cap is conventionally 2/quarter for tightly-related papers. **FALLBACK NEEDED if PRD's per-venue cap blocks acceptance.** Proposed fallback venue: *Physics Letters B* (short note format suits this 4-page result).
 
+### Save-plan summary (2026-05-07 — see `SAVE_PLAN_J37.md`)
+
+The fresh-eyes referee report (J37_PRD_FreshEyes.md) recommends **REJECT for PRD** — math is sound (independently re-verified at machine precision: $c_2=33=3\cdot 11$, $c_8=-2^5\cdot 7^3\cdot 11$, $\mathrm{disc}(g) = 2^{16}\cdot 7^7 \cdot 659 \cdot \ldots$, no factor of 11 in disc), but no SM observable is computed; the manuscript's own §3.2 calls the physics interpretation "interpretive, not derived"; the result is lens-dependent (RAW $c_2=11$-divisible, SYM $c_2=17$ no factor of 11).
+
+**SAVE PATH (per `SAVE_PLAN_J37.md`):**
+
+- **Retarget** to *Linear Algebra and Its Applications* (LAA) as a short note. The referee's explicit recommendation: *"the math is correct, the framing is wrong for PRD, the right venue is LAA. Estimated effort to retarget: 1-2 days … Estimated probability of acceptance after retargeting: ~80% at LAA, vs ~10% at PRD as currently constituted."* Alternates: *Linear and Multilinear Algebra* or *Experimental Mathematics*.
+- **Retitle** to *"On the Prime-Divisibility Pattern of the Characteristic Polynomial of a 10×10 Integer Matrix Arising in a Discrete Magma on $\mathbb{Z}/10\mathbb{Z}$"*. Strip "wobble" / "HARMONY" / "TIG" terminology entirely from the body; replace with neutral mathematical labels (the prime-11 divisor pattern; the seventh power of the recurring entry 7).
+- **Promote** the lens-dependence remark to a §4 theorem (Theorem 4.1, lens-dependence: $T_\mathrm{RAW}$ has $c_2 = 33$, $T_\mathrm{SYM}$ has $c_2 = 17$). Lens-dependence is itself a clean linear-algebra observation in the LAA neighborhood, not a flaw.
+- **Excise** physics-side claims; the cover-letter slogan "gauge symmetry IS the wobble-free part" becomes a one-line "structural co-occurrence" remark in §3 with explicit "no physical interpretation claimed" caveat.
+- **Add** §5 *Family-wide observations* (BHML char-poly, the 4-core sub-magma's char poly per Z/4Z extension) — converts the finite verification from "one matrix" to "a small family with sharp lens-and-table-dependent prime-divisibility."
+
+**Per-venue cap effect:** retargeting to LAA removes J37 from PRD; combined with SAVE_PLAN_J38, the quarter's PRD load goes from 4 (J37, J38, J44, J45) to 2 (J44, J45) — cap concern dissolves entirely.
+
+**Effort:** 1-2 days. **Expected outcome:** ~80% acceptance at LAA, minor revision, 4-page short note.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

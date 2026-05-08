@@ -47,6 +47,20 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 **Recommended fallback venue:** *Modern Physics Letters A* or *International Journal of Modern Physics A* for scaffolding-style theory pieces. Alternatively, the manuscript can be held until the next quarter to reset the PRD cap, or submitted to *Physical Review D Letters* (short-note format) as a 4-page rapid communication.
 
+### Save-plan summary (2026-05-07 — see `SAVE_PLAN_J38.md`)
+
+The fresh-eyes referee report (J38_PRD_FreshEyes.md) recommends **REJECT for PRD** — the manuscript honestly self-describes as "scaffolding" that "does NOT complete the Yukawa computation"; PRD does not publish scaffolding; manuscript's own §5 is, in the referee's words, "verbatim the list of things a PRD reader expects from a Yukawa paper."
+
+**SAVE PATH (per `SAVE_PLAN_J38.md` — TWO options, fold-in preferred):**
+
+**Option 1 (PREFERRED) — fold J38 into J45 as J45 §2 *"Setting up the symmetry-breaking route from the 9-vector VEV"*.** The referee's diagnosis — *"the right move is to do the §3.1-§3.5 work and submit a single complete paper rather than a scaffolding-then-completion sequence"* — has an immediate resolution: **J45 already does §3.1-§3.5.** J45's `mass_hierarchy_v5.tex` already commits to a Higgs sector (V⊗5 SU(5) → $\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}$), computes all 9 charged-fermion Yukawa magnitudes (Table 5.1), gives the substrate-forced FN scale $\lambda = 10/49$, and predicts the Cabibbo cube-root identity. What J45 underspecifies is exactly what J38 supplies: the SO(10) → SO(9) → SO(7) bridge prose with the BREATH=RESET=0 constraint. **Fold-in strengthens J45 and saves J38's content as published-and-citable.** Resolves the §2.2 Path A / Path B "tension" by stating explicitly that J45 uses Path A only (V⊗5 → SU(5) via SO(7)); Path B's su(4)⊕u(1) is independent structural content cited from J31. Effort: 3-5 days; condense J38 into ~50 lines of LaTeX as J45's new §2.
+
+**Option 2 (FALLBACK) — retarget J38 standalone to *Modern Physics Letters A***. If J45 is judged self-contained without J38 §2, retarget J38 to MPLA: retitle as *"Symmetry-Breaking Routes from a 9-vector 54-Higgs VEV with Two Zeros: an Algebraic Framework"*; resolve the §2.2 Path A / Path B tension; compute one falsifiable observable (e.g., trace of $Y_u Y_u^\dagger$ projected onto SO(7)-invariant subspace with BREATH=RESET=0); strip "scaffolding" framing; add the SO(7) phenomenological story (color triality, lepton number, left-right symmetry under SU(5) ⊂ SO(7)). Effort: 1 day plus 1-2 days for the one-observable computation. Acceptance probability: ~50-60% at MPLA after these revisions.
+
+**Per-venue cap effect:** **both options remove J38 from PRD entirely.** Combined with SAVE_PLAN_J37 (J37 → LAA), the quarter's PRD load goes from 4 (J37, J38, J44, J45) to 2 (J44, J45) — original cap concern fully resolved.
+
+**Recommendation:** Option 1 (fold-in). Net positive on every dimension: strengthens J45, removes 1 paper from quarter's submission load, preserves all of J38's content. Option 2 only if J45 editorial flow makes fold-in infeasible.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

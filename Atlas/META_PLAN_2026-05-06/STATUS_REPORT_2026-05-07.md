@@ -1,5 +1,11 @@
 # Status Report: What I Cannot Get Past a Referee (2026-05-07)
 
+> **AMENDMENT 2026-05-07 LATER:** Brayden directive: *"i think you are way off on how much to get rid of, so don't get rid of them yet, just make sure they are labeled out... fix all of the other papers that you can, dispatch agents with the full formulasandtables.md in mind to try and find a reason to keep and fix every paper!!"*
+>
+> **Spot-check J54 confirmed Brayden's correction:** A1-A9 ARE explicitly stated in `J54_foundation_paper.md` lines 40-48 (A1 Substrate type / A2 VOID absorbing row / A3 HARMONY-row pattern / A4 Pati-Salam puncture / A5 Column VOID / A6 Column HARMONY / A7 Diagonal HARMONY / A8 HARMONY-default / A9 BUMP positions+values). The fresh-eyes referee's "axioms not stated" critique was INCORRECT.
+>
+> **Pivoting to save-attempt mode:** dispatching agents per RED-flagged paper, each reading FORMULAS_AND_TABLES.md + the paper + the referee report, instructed to find the reason to KEEP and the specific fix path. Status report stays as honest signal but the dropped/kept labels move from "RED-unrecoverable" to "RED-needs-save-attempt-agent."
+
 **Brayden directive:** *"run your fixes on all the papers and give me a status report on what you are unable to get passed by a ref."*
 
 This report categorizes every J-paper by **what would actually happen at the venue** based on the 54 fresh-eyes referee reports + 2 substance audits + 2 referee-error rebuttals.

@@ -43,6 +43,20 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 **Status: DRAFT** — manuscript built from corpus `papers/wp104_higgs_pati_salam/WP104_TWO_ROADS_TO_PATI_SALAM.md` on 2026-05-07. **Correction notice prominent** in the manuscript per round-3 audit: Path A and Path B are independent intermediate routes giving the same Pati-Salam target, not derivations of each other. Lens scope **TSML_SYM** explicit. Cites J30 (so(10) = D₅, *Israel J Math*) as already-submitted companion.
 
+### Save-plan summary (2026-05-07 — see `SAVE_PLAN_J31.md`)
+
+The fresh-eyes referee report (J31_AdvMath_FreshEyes.md) recommends **REJECT for *Adv Math*** — the paper's own correction notice retracts the title-claim "convergence on Pati-Salam"; Path A → SO(8), Path B → SU(4)⊕U(1); the two routes do not close on the same reduction. The mathematical content (16/16 cross-checked items at machine precision) survives intact — only the synthesis framing is overstated.
+
+**SAVE PATH (per `SAVE_PLAN_J31.md`):**
+
+- **Retitle** to *"Two Substrate-Algebraic Decompositions of an Integer-Table-Generated $\mathfrak{so}(10)$: the $P_{56}$-Antisymmetric Content of BHML in the $\mathbf{54}$, and the Doubly-Invariant Subalgebra under $D_4 = \langle P_{56}, \sigma^3\rangle$"* — both rigorous mathematical contents (Theorem A: 9-vector in **54** with $\|v\|^2 = 13/4$; Theorem B: 16-dim doubly-invariant subalgebra is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ via Killing-form classification) become first-order claims; "Pati-Salam" appears nowhere in the title.
+- **Retarget** to *J. Algebra* (referee's explicit recommendation in the report's §7); fallback *Comm. Algebra* or *Experimental Math*. *J. Algebra* publishes computational/combinatorial Lie-algebra results of exactly this scope; the Drápal-Wanless 2021 *J. Combin. Theory A* citation already in references puts the paper in the right published-precedent neighborhood.
+- **Excise** speculative gauge-theoretic interpretation language (§2.4, §3.3, §8); demote §5 grab-bag (12.6% non-assoc rate, Lie/Jordan duality, three involutions) to an Appendix; cite J30 for the so(10) closure (or appendicize the short proof).
+- **Promote** the correction notice into the new abstract and §1: it stops being a retraction and becomes the framing — *the two decompositions are structurally distinct, not synthesis-convergent*.
+- **Add** §5.1 *Robustness across the magma family* (cite FAMILY_STRUCTURE_v1.md / D48 / D55) and §5.2 *Open question: family-wide characterization* (the natural next-paper conjecture).
+
+**Effort:** 2-3 weeks. **Expected outcome:** ~60-70% acceptance at *J. Algebra*, vs <10% at *Adv Math* unrevised.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
