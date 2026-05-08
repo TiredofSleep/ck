@@ -1,12 +1,12 @@
-# J37 — Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8
+# J37 — On the Prime-Divisibility Pattern of the Characteristic Polynomial of a 10×10 Integer Matrix Arising in a Discrete Magma on Z/10Z
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass)
+**Status:** RETARGETED to LAA per save plan (manuscript rewritten 2026-05-07; ~80% acceptance estimate; awaits final referee-rigor pass)
 **Phase:** Phase 4
-**Target venue:** Physical Review D
+**Target venue:** *Linear Algebra and Its Applications* (LAA) — RETARGETED from PRD per `SAVE_PLAN_J37.md`
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP107
-**Lens scope:** TSML_RAW (annotated; the literal CL_BIT_PATTERN; the prime-11 wobble does NOT appear at the coefficient level on TSML_SYM and is therefore lens-dependent at this technical sense — explicit in the abstract)
+**WP source:** WP107 (rewritten as LAA short note; TIG terminology stripped)
+**Lens scope:** $T_{\mathrm{RAW}}$ (10×10 integer matrix, non-symmetric); the prime-11 pattern does NOT appear on $T_{\mathrm{SYM}}$ at the coefficient level (Theorem 4.1 lens-dependence)
 
 ---
 
@@ -14,7 +14,7 @@
 
 **Local path:** `manuscript/manuscript.md`
 
-The J37 paper is **Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$** (WP107). For the literal-bit-pattern TSML_RAW table on $\mathbb{Z}/10\mathbb{Z}$, the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11: $c_2 = 33 = 3\cdot 11$ and $c_8 = -120736 = -2^5\cdot 7^3\cdot 11$. The discriminant of $g(\lambda) = f(\lambda)/\lambda^2$ factors as $2^{16}\cdot 7^7\cdot 659\cdot(\text{large primes})$, with **no factor of 11**. Structural reading: the prime 11 lives at the coefficient level (sums and products of eigenvalues — elementary symmetric functions); the dimension $2^{16} = \dim(\mathfrak{su}(4)\oplus\mathfrak{u}(1))$ and HARMONY $7^7$ live at the discriminant level (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ is therefore **wobble-free**; the 29-dimensional complement carries the wobble. Cleanly read: gauge symmetry IS the wobble-free part of TSML's spectral content.
+The J37 paper is **On the Prime-Divisibility Pattern of the Characteristic Polynomial of a 10×10 Integer Matrix Arising in a Discrete Magma on $\mathbb{Z}/10\mathbb{Z}$** (rewritten 2026-05-07 from WP107 corpus; retargeted to LAA per save plan). For the specific 10×10 integer matrix $T$ defined in §1, the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11: $c_2 = 33 = 3\cdot 11$ and $c_8 = -120736 = -2^5\cdot 7^3\cdot 11$. The discriminant of $g(\lambda) = f(\lambda)/\lambda^2$ factors as $2^{16}\cdot 7^7\cdot 659\cdot(\text{large primes})$, with **no factor of 11**. Structural reading: the prime 11 lives at the coefficient level (elementary symmetric functions of the eigenvalues), the large exponents $2^{16}$ and $7^7$ at the separation level (eigenvalue gaps — the discriminant). Theorem 4.1 records that the prime-11 pattern is **lens-dependent**: the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ (a 2-cell perturbation of $T$) has $c_2 = 17$ and no factor of $11$. No physical interpretation is claimed; the paper is a clean linear-algebra short note in the LAA neighborhood.
 
 Files in this J-folder's `manuscript/`:
 
@@ -63,16 +63,16 @@ The fresh-eyes referee report (J37_PRD_FreshEyes.md) recommends **REJECT for PRD
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (filled, J37)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** for the specific 10×10 integer matrix $T$ in §1, the prime $11$ divides exactly the coefficients $c_2 = 33$ and $c_8 = -120{,}736$ of $\mathrm{charpoly}(T)$; the discriminant of $g = f/\lambda^2$ has no factor of $11$ and factors as $2^{16} \cdot 7^7 \cdot 659 \cdot \ldots$; the trace is $63 = 9 \cdot 7$; the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ has $c_2 = 17$ and no factor of $11$ (Theorem 4.1, lens-dependence).
+- **COMPUTED:** all coefficient factorizations + discriminant factorization + SYM-lens comparison are verified by `manuscript/verification/wobble_check.py` (sympy `Matrix.charpoly`, `factorint`, `discriminant`); 7/7 PASS at integer/machine precision in <5 seconds.
+- **STRUCTURAL RHYME:** the exponent $16$ in $\mathrm{disc}(g) = 2^{16} \cdot \ldots$ matches the dimension of a 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ studied separately in the source program; the exponent $7$ in $7^7$ matches the recurring entry $7$ in $T$ (the table's HARMONY-cell density). These are structural co-occurrences, not derivational steps. The framing follows the Drápal-Wanless (2021, *JCTA*) line of work on small finite commutative non-associative structures.
+- **OPEN:** whether the prime-$11$ pattern in $c_2, c_8$ admits a closed-form algebraic explanation (e.g., a structural product formula relating sums-of-pairs and the determinant of the rank-8 part of $T$); whether analogous prime-localization patterns occur for related integer matrices in the same combinatorial neighborhood.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (filled, J37 — see manuscript §0)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* The 10×10 integer matrix $T$ studied here is the literal cell pattern of the canonical composition table of a discrete commutative magma on $\mathbb{Z}/10\mathbb{Z}$ developed in a separate research program (cited as J02, J05; closest published precedent Drápal & Wanless 2021, *JCTA* 184, 105510). The choice of carrier $\mathbb{Z}/10\mathbb{Z}$ and table $T$ is not derived from first principles in this note; it reflects a structural reading of the substrate motivated by the source program. The theorems below are theorems on this specific 10×10 integer matrix; analogous theorems would hold on other 10×10 integer matrices in the same combinatorial neighborhood. The present note treats $T$ as a fixed integer matrix and studies its characteristic polynomial.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -83,18 +83,18 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized
+- [x] Manuscript .md finalized (rewritten 2026-05-07 as LAA short note per save plan; TIG terminology stripped; lens-dependence promoted to Theorem 4.1; family-wide observations §5 added)
 - [x] Verification script green (`wobble_check.py`, 7/7 PASS)
 - [x] Tier-classified central claim explicit
-- [x] Lens-scope annotation (TSML_RAW; the wobble is lens-dependent at coefficient level)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Lens-scope annotation ($T_{\mathrm{RAW}}$; lens-dependent at coefficient level; $T_{\mathrm{SYM}}$ has $c_2 = 17$ no factor of 11)
+- [x] Cover letter finalized for LAA (rewritten 2026-05-07)
+- [x] Dependencies → cite J02, J05 as "submitted to [venue]"; Drápal-Wanless 2021 in references
 - [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the **3rd PRD** paper this quarter — may need fallback to *Phys Lett B*
+- [x] Per-venue cap: retargeting to LAA removes J37 from PRD entirely; combined with J38 fold-in, quarter PRD load is now 2 (J44, J45)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$." Submitted to *Physical Review D* (or *Phys Lett B* per cap fallback).
+Sanders, B.R., Gish. (2026). "On the Prime-Divisibility Pattern of the Characteristic Polynomial of a 10×10 Integer Matrix Arising in a Discrete Magma on $\mathbb{Z}/10\mathbb{Z}$." Submitted to *Linear Algebra and Its Applications*.

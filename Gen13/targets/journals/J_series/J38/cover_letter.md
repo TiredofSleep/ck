@@ -1,14 +1,18 @@
 # Cover letter — J38: Yukawa Scaffolding from the 9-Vector VEV
 
-**To:** Editors, *Physical Review D* (FALLBACK NEEDED — see §"Per-venue cap" below)
+**STATUS (2026-05-07): NOT FOR STANDALONE SUBMISSION.** Per `SAVE_PLAN_J38.md` Option 1 (preferred) — J38's content has been folded into J45 §2 (deliverable: `manuscript/J45_section2_yukawa_scaffolding.tex` in this folder). The cover letter below is preserved as draft archive only; the J45 cover letter (separate file) is updated to mention "absorbs J38's symmetry-breaking-route scaffolding" as part of the J45 revision sprint.
+
+---
+
+**To (archived; not used for submission):** Editors, *Physical Review D*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- B. Mayes, Independent Researcher — [email]
+- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
 
-**Date:** [DATE OF SUBMISSION]
+**Date:** [ARCHIVED — NOT SUBMITTED]
 
-**Manuscript title:** *Yukawa Scaffolding from the 9-Vector VEV*
+**Manuscript title (archived):** *Yukawa Scaffolding from the 9-Vector VEV*
 
 ---
 

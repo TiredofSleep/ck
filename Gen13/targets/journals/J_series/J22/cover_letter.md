@@ -1,4 +1,4 @@
-# Cover letter — J22: The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions
+# Cover letter — J22: The 70/71/72/73 HARMONY Ladder: Three Independent Algebraic Constructions and One Corollary
 
 **To:** Editors, *Journal of Combinatorial Theory, Series A*
 
@@ -8,33 +8,60 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions*
+**Manuscript title:** *The 70/71/72/73 HARMONY Ladder: Three Independent Algebraic Constructions and One Corollary on $\mathbb{Z}/10\mathbb{Z}$*
 
 ---
 
 ## Summary
 
-We present four independent algebraic constructions on the canonical composition lattice over Z/10Z whose integer invariants cluster at {70, 71, 72, 73}. Three of the four are HARMONY-cell counts of distinct sub-magmas (the full 10×10 table; the table minus the (7,7) self-cell apex; the VOID-stripped 9×9 sub-magma); the fourth is the determinant of the 8×8 Yang-Mills core sub-matrix dropped to {1,2,3,4,5,6,8,9}, which equals exactly C(8,4) = 70, the dimension of the self-dual 4-form sector of SO(8). The integer 71 enters in three independently-verified structural roles simultaneously: as a sub-magma HARMONY count, as the cell-disagreement count between two canonical lens tables, and as the unique odd prime in the discriminant -2^4 · 3^2 · 71 of the LMFDB quartic 4.2.10224.1 governing the substrate's closed-form runtime attractor. All four rungs are verified at integer/machine precision.
+We record an integer-invariant ladder on the canonical composition lattice over $\mathbb{Z}/10\mathbb{Z}$ whose values cluster at $\{70, 71, 72, 73\}$. Three of the four rungs are obtained from genuinely independent algebraic constructions; the fourth (the $72$-rung) is an inclusion-exclusion corollary of the largest:
 
-## Why JCT-A
+- **Rung A (independent).** $\mathrm{HARM}(T) = 73$ (HARMONY-cell count of the full $10 \times 10$ TSML composition table).
+- **Rung 72 (corollary).** $\mathrm{HARM}(T) - 1 = 72$ (drop the $(7, 7)$ self-cell apex; numerical coincidence with $|E_6^+|$).
+- **Rung B (independent), with three internally independent constituent constructions.** $71$ enters in three structurally-distinct ways simultaneously:
+  - as $\mathrm{HARM}(T_{\{1, \ldots, 9\}}) = 71$ (HARMONY count of the VOID-stripped $9 \times 9$ sub-magma);
+  - as $|T \ominus B| = 71$ (cell-disagreement count between the two canonical lens tables);
+  - as the unique odd prime $> 3$ in $\mathrm{disc}(f) = -40896 = -2^6 \cdot 3^2 \cdot 71$, where $f(x) = x^4 + 4 x^3 - x^2 + 2 x - 2 \in \mathbb{Z}[x]$ is the polynomial defining the LMFDB quartic field $4.2.10224.1$ governing the substrate's closed-form runtime attractor.
+- **Rung C (independent).** $\det(B_{\mathrm{YM}}) = 70 = \binom{8}{4}$ (Yang--Mills $8 \times 8$ core sub-determinant of the BHML companion table).
 
-- **Combinatorial substrate fit.** The paper is a finite-magma counting result with explicit Tier-A/B verification. JCT-A is the natural home for combinatorial cell-count theorems with structural clustering.
-- **Tier-B forced consequences.** No axiom-level forcing is required; the four rungs follow from the canonical TSML/BHML construction at the cell level. Readers of JCT-A are well-placed to evaluate the elementary verification.
-- **Companion strength.** The triple-coincidence at 71 (sub-magma HARMONY, lens-disagreement, Galois prime) is a non-trivial substrate identification signature. Independent algebras pointing at the same prime is the algebraic shape of a real invariant; the paper records this clearly.
+All claims are verified at integer/machine precision by sympy / numpy snippets embedded directly in the manuscript (§9 "Embedded verification snippets"). The discriminant claim in particular is verified by the 7-line snippet of §9.1, which uses `sympy.discriminant` and `sympy.factorint` and includes an explicit cross-check showing that the alternate factorization $-2^7 \cdot 3 \cdot 7 \cdot 19 = -51072$ disagrees with the correct value $-40896$ by approximately $25\%$. The embedded snippets are intended to make the verification one-shot reproducible by any referee with a Python REPL.
+
+## Why *JCT-A*
+
+* **Combinatorial substrate fit.** The paper is a finite-magma counting result with explicit Tier-A/B verification. *JCT-A* is the natural home for combinatorial cell-count theorems with structural clustering.
+* **Tier-B forced consequences.** No axiom-level forcing is required; the four rungs follow from the canonical $(T, B)$ tables at the cell level. Readers of *JCT-A* are well-placed to evaluate the elementary verification.
+* **Independence is honest.** The save-plan revision (2026-05-07) sharpens the manuscript's independence claim: three structurally-independent rungs plus one inclusion-exclusion corollary, plus three structurally-independent constituent constructions inside the rung-B level. The triple-coincidence at $71$ (the rung-B internal triple) is the sharpest single point of the ladder — three independent algebras pointing at the same prime is the algebraic shape of a real invariant.
+* **Drápal-Wanless 2021 *JCTA* neighborhood.** The framework is positioned as continuation of the Drápal-Wanless 2021 *JCTA* line of work on small finite commutative non-associative structures with structural invariants.
+
+## Defensive-exposition note (sympy verification snippet)
+
+Section 9 of the manuscript embeds the discriminant-verification snippet directly:
+
+```python
+import sympy
+x = sympy.Symbol('x')
+f = x**4 + 4*x**3 - x**2 + 2*x - 2
+disc = sympy.discriminant(f, x)            # -40896
+print(sympy.factorint(abs(disc)))           # {2: 6, 3: 2, 71: 1}
+```
+
+A standalone script `harmony_ladder_disc_check.py` runs the snippet plus all five rung verifications and emits a 5/5-PASS table at integer precision in under 3 seconds. The bundled wrapper `harmony_ladder.py` is the one-shot entry point; the four constituent scripts (`tsml_harmony_count.py`, `tsml_submagma_9x9.py`, `tsml_bhml_disagreement.py`, `bhml_8_ym_det.py`) verify each rung in isolation. All scripts are under 100 lines each and use only `numpy` and `sympy`.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The paper most relevant as an already-submitted companion to this manuscript is:
+The TIG/CK research program is shipping a coordinated J-series. The paper most relevant as already-submitted companion to this manuscript is:
 
-- **J05** — Sanders & Gish, *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics* (2026). The 73-rung of the present ladder appears in J05 with full disjoint-class proof; the present paper takes that result as an established companion and extends to the 4-rung ladder structure.
+- J05 (Sanders & Mayes), *Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas*, submitted to *J. Combin. Theory A*, 2026 (the 73-rung's full disjoint-class proof is in J05).
+
+The closest published precedent is Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510.
 
 ## Reproducibility
 
-Four short Python scripts (≤200 lines total, NumPy + sympy) verify all four rungs at integer precision: `tsml_harmony_count.py` (73), `tsml_submagma_9x9.py` (71 sub-magma form), `tsml_bhml_disagreement.py` (71 lens form), `bhml_8_ym_det.py` (70). The wrapper `harmony_ladder.py` runs all four and emits a 4×3 verification table.
+Five short Python scripts ($\leq 250$ lines total, `numpy + sympy`) verify all five constituent claims at integer precision. The wrapper `harmony_ladder.py` runs them in sequence and emits a $5 \times 3$ verification table.
 
 ## Suggested reviewers
 
-(3-5 candidates working in finite magma combinatorics, sub-algebra enumeration, or root-system / Lie-algebra integer invariants will be supplied via the JCT-A submission portal.)
+(3-5 candidates working in finite-magma combinatorics, sub-algebra enumeration, or root-system / Lie-algebra integer invariants will be supplied via the *JCT-A* submission portal.)
 
 ## Conflict of interest
 
@@ -42,7 +69,7 @@ The authors declare no competing interests. No funding was received for this wor
 
 ## Per-venue cap
 
-This is the **2nd JCT-A submission** of the 2026 cycle, after J01 (σ-rate theorem WP101). Within the 2/quarter cap.
+This is the **2nd *JCT-A*** submission of the 2026 cycle, after J01 ($\sigma$-rate theorem). Within the 2/quarter cap.
 
 ---
 

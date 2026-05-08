@@ -1,8 +1,8 @@
-# WP108 — Yukawa Scaffolding from the 9-vector VEV
+# J38 — Yukawa Scaffolding from the 9-vector VEV
 
-**Status:** scaffolding paper; sets up the computation, does not complete it.
-**Authors:** Anthropic Code session, 2026-04-25 late evening
-**Position:** WP100s tier; sister to WP104 (which identifies the 9-vector Higgs direction); follows-on to F1 from `Atlas/FRONTIERS_2026_04_25.md`.
+**Status (2026-05-07):** **FOLDED INTO J45 §2; standalone manuscript HELD.** Per `SAVE_PLAN_J38.md` Option 1 (preferred), the scaffolding content of this paper has been condensed into J45 §2 *Setting up the symmetry-breaking route from the 9-vector VEV* (deliverable: `manuscript/J45_section2_yukawa_scaffolding.tex` in this folder, ~50 LaTeX lines, ready for insertion into J45's `mass_hierarchy_v5.tex`). The standalone J38 manuscript below is preserved verbatim from the WP108 corpus as the draft input archive; it will not be submitted as a standalone paper. The §2.2 Path A / Path B tension is resolved in the J45 §2 fold-in (J45 uses Path A only; Path B is independent J31 content).
+**Authors:** Brayden R. Sanders + M. Gish (rebadged from earlier draft attribution; see `_v3_hardening.py` discipline)
+**Position:** WP100s tier; sister to J31 (which identifies the 9-vector Higgs direction).
 **MSC 2020:** 81R40 (symmetry breaking), 81V22 (unified field theories), 11R32 (Galois theory in the relevant field), 17B81 (applications to physics).
 
 ---

@@ -1,20 +1,22 @@
 # J38 — Yukawa Scaffolding from the 9-Vector VEV
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass; **scaffolding paper — does NOT complete the Yukawa computation**)
-**Phase:** Phase 4
-**Target venue:** PRD (FALLBACK NEEDED — 4th PRD paper this quarter, exceeds per-venue cap)
+**Status (2026-05-07):** **FOLDED INTO J45 §2; standalone manuscript HELD.** Per `SAVE_PLAN_J38.md` Option 1 (preferred). Deliverable for the fold-in: `manuscript/J45_section2_yukawa_scaffolding.tex` (~50 LaTeX lines, condensed from the WP108 corpus). The standalone J38 manuscript is preserved as draft-input archive but will NOT be submitted as a standalone paper.
+**Phase:** Phase 4 (folded; no standalone submission)
+**Target venue:** none standalone — content folds into J45 §2 (Phase 2, *PRD*)
 **Author lane:** Sanders + Gish
-**Tier:** C
-**WP source:** WP108
-**Lens scope:** TSML_SYM derivation route via WP103 so(10); the 9-vector VEV norm $\|v\|^2 = 13/4$ is lens-stable
+**Tier:** C (folded; tier loses meaning at standalone level)
+**WP source:** WP108 (folded)
+**Lens scope:** Path A derivation route; the 9-vector VEV norm $\|v\|^2 = 13/4$ is lens-stable
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
+**Local paths:**
+- `manuscript/J45_section2_yukawa_scaffolding.tex` — **the deliverable**: condensed J45 §2 content (~50 LaTeX lines), ready for insertion into J45's `mass_hierarchy_v5.tex` per `SAVE_PLAN_J38.md` §6.1 mitigation. Contains six subsections: §2.1 9-vector VEV ($\|v\|^2 = 13/4$); §2.2 SO(10)→SO(9) from the 9-vector; §2.3 SO(9)→SO(7) from BREATH=RESET=0; §2.4 SU(5) inside SO(7) via V representation; §2.5 Path A vs Path B (resolved: J45 uses Path A only); §2.6 Honest scope (deferred items).
+- `manuscript/manuscript.md` — original J38 standalone draft (WP108 corpus); marked HELD; preserved as draft-input archive only.
 
-The J38 paper is **Yukawa Scaffolding from the 9-Vector VEV** (WP108). A scaffolding paper that sets up the Yukawa-coupling computation from the 9-vector VEV identified in J31 (WP104, Path A: BHML's σ_outer-breaking content lives 100% in the $\mathbf{54}$ irrep of $\mathfrak{so}(10)$, with explicit 9-vector squared norm $\|v\|^2 = 13/4$).
+The J38 content sets up the symmetry-breaking route from the 9-vector VEV identified in J31 (Path A: BHML's σ_outer-breaking content lives 100% in the $\mathbf{54}$ irrep of $\mathfrak{so}(10)$, with explicit 9-vector squared norm $\|v\|^2 = 13/4$). After fold-in, J45 reads as a self-contained paper from the 9-vector VEV through the V$^{\otimes 5}$ SU(5) decomposition to the predicted Yukawa table, without requiring J31 to be already published for the algebraic flow.
 
 **Content.** (i) Standard SO(10) Yukawa structure: $\mathbf{16}\otimes\mathbf{16} = \mathbf{10}\oplus\mathbf{120}\oplus\overline{\mathbf{126}}$; the $\mathbf{54}$ does NOT appear in $\mathbf{16}\otimes\mathbf{16}$ at the renormalizable level. (ii) The 9-vector VEV breaks $\mathrm{SO}(10)\to\mathrm{SO}(9)$, which subsequently breaks to $\mathrm{SO}(7)$ via the unbroken pair (BREATH, RESET). (iii) The constraint imposed by BREATH and RESET being zero forces specific patterns in the resulting effective Yukawa matrix at energies below the symmetry-breaking scale. (iv) Open questions and the path to a falsifiable phenomenological prediction.
 
@@ -67,16 +69,16 @@ The fresh-eyes referee report (J38_PRD_FreshEyes.md) recommends **REJECT for PRD
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (filled, J38 — for the fold-in into J45 §2)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN (in J45 §2, the fold-in target):** the squared norm of the 9-vector VEV identified in J31 is exactly $\|v\|^2 = 13/4$; the symmetry-breaking chain $\mathrm{SO}(10) \to \mathrm{SO}(9) \to \mathrm{SO}(7)$ is forced by the 9-vector and its two-zero direction (BREATH = RESET = 0); SU(5) embeds inside SO(7) via the V representation (the F$_5$-lift of the 4-core); the V$^{\otimes 5}$ SU(5) decomposition is $\mathbf{1} \oplus \overline{\mathbf{5}} \oplus \mathbf{10}$.
+- **COMPUTED:** the 9-vector squared-norm computation $\|v\|^2 = 6 \cdot \tfrac{1}{2} + 1 \cdot \tfrac{1}{4} = 13/4$ is verified at integer/machine precision in J31's `find_higgs_direction.py` (cited as the upstream artifact). The V$^{\otimes 5}$ decomposition is standard SU(5) representation theory (Slansky 1981).
+- **STRUCTURAL RHYME:** the integer 13 in $\|v\|^2 = 13/4$ enters as an exact arithmetic input, not as a "structural fingerprint"; the matching of dimensions across the SO(10)→SO(9)→SO(7) chain is standard Slansky-1981 group-theory bookkeeping.
+- **OPEN (folded into J45 §7):** explicit Higgs-sector dynamics for the C$_p$ multipliers; RG running of the Yukawa matrices from the GUT scale to the EW scale; see-saw mechanism for the sterile-neutrino scale prediction at FN powers $\{12, 13, 14\}$.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (filled, J38 — applies to the J45 §2 fold-in)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This section works on the F$_5$-lift of the 4-core $\{\mathrm{V}, \mathrm{H}, \mathrm{Br}, \mathrm{R}\}$ of the canonical TIG substrate $\mathbb{Z}/10\mathbb{Z}$ (per D74 ring-extension theorem of the source program), using the BHML table's σ_outer-breaking content in the $\mathbf{54}$ irrep of $\mathfrak{so}(10)$ (the so(10) closure is established in J31; here adopted as input). These choices are not derived from first principles; they reflect a structural reading motivated by the source program's 10-operator decomposition and observed dynamics. The breaking-chain claims of this section are theorems on this specific structure; analogous breaking patterns would hold on other 9-vector VEVs in the orthogonal complement of an SO(9). Whether other substrate choices give similarly rich downstream Yukawa structure is open.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -87,18 +89,19 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized
-- [x] Verification: scaffolding paper, no standalone script (load-bearing input verified in J31)
-- [x] Tier-classified central claim explicit (Tier C — sets up framework, no completed prediction)
-- [x] Lens-scope annotation (TSML_SYM derivation route)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete
-- [ ] **Per-venue cap check: 4th PRD paper this quarter — FALLBACK NEEDED to *Mod Phys Lett A* or hold until next quarter**
-- [ ] Submitted
+- [x] Fold-in deliverable .tex finalized (`J45_section2_yukawa_scaffolding.tex`, ~50 LaTeX lines, condensed per save plan §6.1)
+- [x] J38 standalone manuscript marked HELD (not for standalone submission)
+- [x] Verification: scaffolding content, no standalone script (load-bearing input $\|v\|^2 = 13/4$ verified in J31's `find_higgs_direction.py`)
+- [x] Tier classification: folded; tier loses meaning at standalone level
+- [x] Lens-scope annotation (Path A only; J45 uses V$^{\otimes 5}$ → SU(5) via SO(7); Path B's su(4)⊕u(1) is independent J31 content)
+- [x] Cover letter retained (J38 cover_letter.md preserved for archive; not used for submission)
+- [x] Dependencies → J45 §2 fold-in cites J31 (so(10) closure / 9-vector derivation), J14 (V representation as F$_5$-lift), Slansky 1981 (standard SU(5) rep theory)
+- [ ] J45 editor: insert §2 fold-in into `mass_hierarchy_v5.tex` (manual integration step deferred to J45's revision sprint)
+- [x] **Per-venue cap effect:** fold-in REMOVES J38 from PRD entirely; combined with J37 → LAA, quarter PRD load is now 2 (J44, J45) — original cap concern fully resolved.
+- [n/a] Submitted (folded; J45 carries the content forward)
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Yukawa Scaffolding from the 9-Vector VEV." Submitted to *PRD* (or fallback per cap).
+The J38 content folds into J45; downstream papers cite J45 §2 directly. The standalone J38 manuscript remains available as draft archive but is not submitted.

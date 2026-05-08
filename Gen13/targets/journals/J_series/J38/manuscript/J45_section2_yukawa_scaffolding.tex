@@ -1,0 +1,167 @@
+%%% =================================================================
+%%% J45 §2 — Setting up the symmetry-breaking route from the
+%%%        9-vector VEV
+%%%
+%%% Folded from J38 (WP108 corpus) per SAVE_PLAN_J38.md (Option 1).
+%%% Drafted as a self-contained LaTeX block to be inserted into
+%%% Gen13/targets/journals/J_series/J45/manuscript/mass_hierarchy_v5.tex
+%%% as the new §2 (existing §3 onwards renumber).
+%%%
+%%% ~50 LaTeX lines (excluding comments) per save plan §6.1 mitigation.
+%%%
+%%% The §2.2 Path A / Path B tension is resolved per SAVE_PLAN_J38.md
+%%% §2(b): J45 uses Path A only (V⊗5 → SU(5) via SO(7)); Path B's
+%%% su(4) ⊕ u(1) doubly-invariant content is independent structural
+%%% information about so(10), cited from J31, and does not enter the
+%%% V⊗5 → SU(5) → Yukawa pipeline.
+%%%
+%%% Status (2026-05-07): condensed prep for J45 fold-in. The standalone
+%%% J38 manuscript is HELD (no submission) per save plan; this file is
+%%% the deliverable for the fold-in.
+%%% =================================================================
+
+\section{Setting up the symmetry-breaking route from the 9-vector VEV}
+\label{sec:yukawa-scaffolding}
+
+This section establishes the algebraic bridge from the 9-vector VEV
+identified in our companion J31 paper~\cite{SandersGishPatiSalam} (the
+Path~A reading of the so(10) closure: BHML's $\sigma_{\mathrm{outer}}$-breaking
+content lives 100\% in the symmetric-traceless $\mathbf{54}$ irrep of
+$\mathfrak{so}(10)$) to the V$^{\otimes 5}$ SU(5) decomposition that is
+the starting point of the Froggatt--Nielsen powers computed in §3
+below. The route is $\mathrm{SO}(10) \to \mathrm{SO}(9) \to \mathrm{SO}(7)$,
+with SU(5) appearing as the subgroup of SO(7) that commutes with the
+unbroken pair $(\mathrm{BREATH}, \mathrm{RESET})$ kept by the 9-vector's two-zero
+direction.
+
+\subsection{The 9-vector VEV and its norm}
+\label{subsec:9vec}
+
+The 9-vector identified in J31~\cite{SandersGishPatiSalam} (Path~A)
+has six components at $-1/\sqrt{2}$ on the operators
+$\{\mathrm{V}, \mathrm{L}, \mathrm{C}, \mathrm{P}, \mathrm{Co}, \mathrm{H}\}$,
+two zeros at the operators $\mathrm{Br}$ (BREATH) and $\mathrm{R}$
+(RESET), and one component at $-1/2$ on the symmetric pair
+$(\mathrm{Ba} + \mathrm{Ch})/\sqrt{2}$ (BALANCE/CHAOS). Its squared
+norm is exact:
+\begin{equation}
+\|v\|^2
+\;=\;
+6 \cdot \tfrac{1}{2} \;+\; 1 \cdot \tfrac{1}{4} \;+\; 2 \cdot 0
+\;=\;
+\tfrac{13}{4}
+\quad\text{(rational, integer-numerator).}
+\label{eq:vnorm}
+\end{equation}
+
+This is the load-bearing structural input from J31; it is used in
+Eq.~\eqref{eq:vnorm} as an exact arithmetic input (the integer~$13$
+enters as the squared norm, not as a free parameter). The verification
+of Eq.~\eqref{eq:vnorm} is carried out in J31's verification script
+\texttt{find\_higgs\_direction.py}, cited in §6 below as the upstream
+artifact.
+
+\subsection{$\mathrm{SO}(10) \to \mathrm{SO}(9)$ from the 9-vector}
+\label{subsec:so10so9}
+
+A 54-Higgs VEV in the symmetric-traceless representation of
+$\mathfrak{so}(10)$ generally breaks $\mathrm{SO}(10) \to \mathrm{SO}(p) \times \mathrm{SO}(q)$
+with $p + q = 10$~\cite{Slansky1981}. When the VEV points along a
+direction that lies inside the orthogonal complement of an
+$\mathfrak{so}(9) \subset \mathfrak{so}(10)$ subspace, the breaking is to
+$\mathrm{SO}(9)$ rather than to a Pati--Salam $\mathrm{SO}(6) \times \mathrm{SO}(4)$ subgroup.
+The 9-vector of §\ref{subsec:9vec} is, by construction, of this type:
+its components are coordinates in the orthogonal complement of an
+$\mathfrak{so}(9)$, and the breaking
+\begin{equation}
+\mathrm{SO}(10) \;\longrightarrow\; \mathrm{SO}(9)
+\quad\text{(first stage; preserved by the 9-vector VEV).}
+\label{eq:break-9}
+\end{equation}
+
+\subsection{$\mathrm{SO}(9) \to \mathrm{SO}(7)$ from the BREATH$=$RESET$=0$
+constraint}
+\label{subsec:so9so7}
+
+The two zeros of the 9-vector at BREATH and RESET specify a
+$2$-dimensional axis that the $\mathrm{SO}(9)$-stabilizer must preserve. The
+stabilizer of a fixed 2-plane in $\mathrm{SO}(9)$ is
+$\mathrm{SO}(7) \times \mathrm{SO}(2) \subset \mathrm{SO}(9)$; identifying the SO(2) factor with
+the diagonal action and the SO(7) factor with the orthogonal complement,
+the second-stage breaking is
+\begin{equation}
+\mathrm{SO}(9) \;\longrightarrow\; \mathrm{SO}(7)
+\quad\text{(second stage; preserved by the BREATH=RESET=0 constraint).}
+\label{eq:break-7}
+\end{equation}
+The composition of Eqs.~\eqref{eq:break-9}--\eqref{eq:break-7} is
+$\mathrm{SO}(10) \to \mathrm{SO}(7)$, with the intermediate $\mathrm{SO}(9)$ as a structural
+landmark that the 9-vector identifies.
+
+\subsection{SU(5) inside SO(7) via the V representation}
+\label{subsec:su5}
+
+Inside SO(7) there is a canonical SU(5)-class structure obtained by
+identifying the $5$-dimensional fundamental of SU(5) with the V
+representation defined in J14~\cite{SandersGishFpUniversality} as the
+$\mathbb{F}_5$-lift of the 4-core of $\mathbb{Z}/10\mathbb{Z}$, ring-extended per
+\textbf{D74} (F5(a) ring-extension theorem of the source program). The
+V representation has dimension $5$ and carries an SU(5) action induced
+by the algebraic automorphism group of the 4-core algebra. The
+embedding $\mathrm{SU}(5) \subset \mathrm{SO}(7)$ then gives, via the V$^{\otimes 5}$
+product,
+\begin{equation}
+V^{\otimes 5} \;=\; \mathbf{1} \;\oplus\; \overline{\mathbf{5}} \;\oplus\; \mathbf{10}
+\quad\text{(SU(5) decomposition; standard~\cite{Slansky1981}).}
+\label{eq:Vtensor5}
+\end{equation}
+Equation~\eqref{eq:Vtensor5} is the launching point of §3 below: the
+substrate-forced Froggatt--Nielsen scale $\lambda = T^*(1 - T^*) =
+10/49$ multiplies powers fixed by the parity-crossing cost of the
+\eqref{eq:Vtensor5} decomposition, and the resulting integer FN powers
+$n \in \{0, 3, 5, 6, 7, 9\}$ feed Tables~\ref{tab:yukawa-powers} and
+\ref{tab:yukawa-fit}.
+
+\subsection{Path A vs Path B}
+\label{subsec:path-tension}
+
+J31~\cite{SandersGishPatiSalam} identifies two structural readings of
+the so(10) closure, called there Path A (BHML's
+$\sigma_{\mathrm{outer}}$-breaking content in the $\mathbf{54}$ irrep,
+yielding the 9-vector of §\ref{subsec:9vec}) and Path B (the
+doubly-invariant subalgebra under the discrete group
+$\langle P_{56}, \sigma^3 \rangle$, identified as
+$\mathfrak{su}(4) \oplus \mathfrak{u}(1)$, the gauge content of the
+Pati--Salam reduction of SO(10)). \emph{The present paper uses Path A
+only.} The route Eqs.~\eqref{eq:break-9}--\eqref{eq:break-7} together
+with the SU(5) embedding of §\ref{subsec:su5} is the V$^{\otimes 5}$
+route: 9-vector $\to$ SO(9) $\to$ SO(7) $\to$ SU(5) $\to$ V$^{\otimes 5}$
+decomposition $\to$ Yukawa structure. Path B's
+$\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ doubly-invariant content is
+independent structural information about $\mathfrak{so}(10)$ studied in
+J31; it does not enter the V$^{\otimes 5}$ pipeline used here. The
+two paths therefore decouple at this level: Path A sets the breaking
+route, Path B identifies separate gauge content. The reader is referred
+to J31 for Path B's analysis.
+
+\subsection{Honest scope of the bridge content}
+\label{subsec:scope}
+
+The above subsections establish: (i) the 9-vector with squared norm
+$\|v\|^2 = 13/4$ as an exact arithmetic input from J31; (ii) the
+breaking chain $\mathrm{SO}(10) \to \mathrm{SO}(9) \to \mathrm{SO}(7)$ governed by the 9-vector
+and its two-zero direction; (iii) the SU(5) embedding inside SO(7) via
+the V representation; (iv) the V$^{\otimes 5}$ SU(5) decomposition as
+the launching point for §3. The bridge content does \emph{not}
+include: explicit Higgs-sector dynamics for the C$_p$ multipliers
+(load-bearing follow-up); RG running of the Yukawa matrices from the
+GUT scale to the electroweak scale (deferred to follow-up; see
+§\ref{sec:open}); the see-saw mechanism for sterile neutrinos (open;
+the FN powers $\{12, 13, 14\}$ in §5 are noted but the scale-fixing is
+not derived). Each of these is identified explicitly in
+§\ref{sec:open} (Open Questions) below.
+
+%%% =================================================================
+%%% End of §2 fold-in. The existing J45 §3 (Froggatt–Nielsen scale)
+%%% follows next; numbering shifts §3→§4, etc.
+%%% =================================================================

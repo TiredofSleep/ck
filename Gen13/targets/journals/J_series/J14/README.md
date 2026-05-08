@@ -1,29 +1,31 @@
-# J14 — F_p Universality: The Operator-Substrate Construction over Prime Fields
+# J14 — F$_p$ Structural Invariance of a Commutative Non-Associative 4-Algebra Arising from the 4-Core of Z/10Z
 
-**Status:** DRAFT
+**Status:** DRAFT — defensive-exposition rewrite complete (2026-05-07); awaits Brayden's referee-rigor pass.
 **Phase:** Phase 2
-**Target venue:** Algebra Universalis
+**Target venue:** *Algebra Universalis* (retained per save plan; venue fit is correct, the rewrite is exposition-level)
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP118
+**WP source:** WP118 (revised 2026-05-07 per `SAVE_PLAN_J14.md`)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP118)`
+**Path:** `manuscript/manuscript.tex` (retitled from "F_p Universality" per save plan §6).
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+The J14 paper is **F$_p$ Structural Invariance of a Commutative Non-Associative 4-Algebra Arising from the 4-Core of $\mathbb{Z}/10\mathbb{Z}$**. For a 4-dimensional commutative non-associative algebra $V$ defined by an explicit $4 \times 4$ multiplication table (printed inline as Equation~\eqref{eq:Ttable} in §2), the lens-invariant structural skeleton — 3 non-zero idempotents, $(1,3)$ Minkowski signature on $L_{e_2}$, $(2,2)$ chirality signature on $L_{e_0}$, empty intersection, commuting operators, $1$-dim associator image, power-associativity — transfers across the verified primes $p \in \{2, 3, 5, 7, 11, 13\}$. Distinct from this skeleton, two features vary with $p$: $|\mathrm{Aut}(V_p)|$ which equals $40$ over $\mathbb{F}_5$ specifically (with structure $F_{20} \times \mathbb{Z}/2$) but takes values $\{6, 24, 40, 336, 1320, 2184\}$ at $p \in \{2, 3, 5, 7, 11, 13\}$ respectively; and the explicit form of orthogonal idempotent pairs (depends on whether $4 \mid (p-1)$). Conjecture 4.1 restricts the F$_p$-invariance claim to lens-invariant items only.
+
+The defensive-exposition rewrite (2026-05-07) adds: the multiplication table inline (preempts coding errors at the table-lookup level); a worked associator example showing failures localize to span$\{e_0, e_2\}$; a 5-line `numpy/sympy` verification snippet in §2.3 (any referee with Python open reproduces the core checks instantly); a tabulated list of $|\mathrm{Aut}(V_p)|$ values for the verified primes in §4.1 (preempts the misreading that "$|\mathrm{Aut}|=40$ universally"); and removal of axial-algebra framing (the paper does not produce Miyamoto involutions or fusion rules and the framing was decorative). The Drápal-Wanless 2021 *JCTA* neighborhood is cited as the closest published structural precedent.
 
 ## §2 — Verification script
 
-**Path:** `(F_p universality script)`
+**Path:** `verify_discrete_dirac_4core.py` (14 algebraic checks over $\mathbb{F}_5$, output 14/14 PASS at integer/machine precision in <2 seconds); parametric variant for $p \in \{2, 3, 7, 11, 13\}$. Reference library: `tig_dirac.py` (functions `mul`, `all_automorphisms`, `T_F5`).
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+A 5-line `numpy/sympy` verification snippet is embedded directly in the manuscript at §2.3 — any referee with Python open reproduces the associator-failure count (8 of 64) and the |Aut(V_5)| = 40 result without consulting the upstream library.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J02, J06, J07
+J02 (Algebraic Combinatorics — combinatorial origin); J05 (J. Combin. Theory A — Crossing Lemma); J06 (J. Pure Appl. Algebra — Flatness Theorem). Drápal-Wanless 2021 (JCTA 184, 105510) cited as closest published precedent.
 
 ## §4 — Cover letter
 
@@ -65,16 +67,16 @@ Revision time: 15-25 hours (exposition only; mathematical content does not chang
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (filled, J14 — see manuscript §1.1)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN (Theorems 3.1, 4.1):** for each prime $p \in \{2, 3, 5, 7, 11, 13\}$, the algebra $V_p$ has the lens-invariant structural skeleton (3 non-zero idempotents; (1,3) Minkowski signature on $L_{e_2}$; (2,2) chirality signature on $L_{e_0}$; empty intersection; commuting $L_{e_2}, L_{e_0}$; 1-dim associator image; power-associativity). Over $\mathbb{F}_5$ specifically, $|\mathrm{Aut}(V_5)| = 40$ with structure $F_{20} \times \mathbb{Z}/2$.
+- **COMPUTED:** all skeleton invariants verified by `tig_dirac.py` (`mul`, `all_automorphisms`, `T_F5`); 14 algebraic checks for $\mathbb{F}_5$, parametric scan for $p \in \{2, 3, 7, 11, 13\}$; deterministic, $<2$ s/prime.
+- **STRUCTURAL RHYME:** the (1,3) Minkowski signature numerically matches physical Minkowski spacetime; the 4-dim substrate matches physical spacetime dimension. We record these as numerical rhymes, not derivational steps.
+- **OPEN:** Conjecture 4.1 — the lens-invariant skeleton items hold for all primes $p \neq 2$. Verified at six primes; not proved general. A general proof would either confirm the skeleton is truly characteristic-free (modulo $p = 2$) or identify a sufficiently large $p^*$ where some structural feature breaks.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (filled, J14 — see manuscript §1.2)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on the basis $\{e_0, e_2, e_3, e_4\}$ of a 4-dimensional $\mathbb{F}_p$-vector space, with the multiplication table of Equation~\eqref{eq:Ttable}. The basis labels and table are not derived from first principles; they reflect the closure of a 4-element subset of $\mathbb{Z}/10\mathbb{Z}$ under the canonical operator-substrate composition of [SandersGishFourCore]. The theorems below are theorems on this specific algebra; analogous theorems would hold for other 4-dimensional commutative non-associative algebras in the same combinatorial neighborhood (the Drápal–Wanless 2021 *JCTA* neighborhood).
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -85,18 +87,18 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Algebra Universalis this quarter
-- [ ] Submitted
+- [x] Manuscript .tex finalized (defensive-exposition rewrite 2026-05-07: T_F5 inline; worked associator example; 5-line numpy/sympy snippet; |Aut(V_p)| tabulated for verified primes; F_5 specificity of |Aut|=40 explicit; axial-algebra framing removed; Drápal-Wanless 2021 neighborhood cited; title retitled per save plan §6; J21→J14 source comment fixed; \author blocks merged; HARM/VOID mnemonics removed from Definition 2.1 in favor of $e_0, e_2$ throughout).
+- [x] Verification script green (`verify_discrete_dirac_4core.py`, 14/14 PASS over F_5; parametric variant for {2, 3, 7, 11, 13}).
+- [x] Tier-classified central claim explicit (Tier B; PROVEN/COMPUTED/STRUCTURAL RHYME/OPEN in §1.1).
+- [x] Lens-scope annotation in §1.2 (lens-and-substrate paragraph; explicit Drápal-Wanless 2021 neighborhood citation).
+- [x] Cover letter finalized for *Algebra Universalis* (rewritten 2026-05-07).
+- [x] Dependencies → cite J02 (Alg. Combin.), J05 (JCTA), J06 (JPAA), Drápal-Wanless 2021 (JCTA 184, 105510).
+- [ ] Brayden's referee-rigor pass complete.
+- [ ] Per-venue cap check: 1st *Algebra Universalis* paper of the quarter; cap not in play.
+- [ ] Submitted.
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "F_p Universality: The Operator-Substrate Construction over Prime Fields." Submitted to *Algebra Universalis*.
+Sanders, B.R., Gish. (2026). "F$_p$ Structural Invariance of a Commutative Non-Associative 4-Algebra Arising from the 4-Core of $\mathbb{Z}/10\mathbb{Z}$." Submitted to *Algebra Universalis*.
