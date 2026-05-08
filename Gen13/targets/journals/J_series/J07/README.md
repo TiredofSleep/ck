@@ -58,6 +58,18 @@ See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companio
 
 **Per ClaudeChat J13 advice:** appendix-route was the faster path (vs spawning a separate "J13 T*=5/7 paper"). T* = 5/7 is now citable from any downstream paper without dependencies on a not-yet-shipped J13.
 
+**SAVE-PLAN SUMMARY (2026-05-07; full plan at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J07.md`):**
+
+JPAA referee REJECTED: the cyclotomic facts are correct but no theorem connects them to torus 5/7. Appendix A's "six derivations" doesn't survive (D3=D6 are the same argument; D5 has factual π-convergent error; D4 admitted not derived; D1/D2 are internal citations). §5 (7 zeros), §6 (Riemann zeta + prime gap), §7 (CK runtime) are out of scope.
+
+**Save path:** RETITLE + RETARGET + RESTRUCTURE.
+- **New title:** "A Flatness Obstruction on Squarefree Z/nZ: Four Algebraic Structures and the 4-Core Algebraic Center."
+- **New venue:** *Algebraic Combinatorics* (preferred — same neighborhood as J02 4-core paper) OR *Discrete Mathematics*. Backup: *INTEGERS* / *Math. Magazine* for compressed Theorem-1-only note.
+- **New main content:** preserve Theorem 1 (flatness obstruction; M1 fix inlines the 3-line partition-incompatibility proof) + Theorem 2 (rewritten as configuration-space statement, not "torus is forced"). Replace Appendix A entirely with new appendix on **D48 (4-core joint-closure under TSML+BHML) + D78 (Galois-proven 1+√3 at α=1/2 via BR-factor cancellation)** — the actual algebraic center per FAMILY_STRUCTURE_v1.md.
+- **Drop entirely:** §4 ("torus aspect ratio = 5/7"), §5 (7 zeros), §6 (curvature/Riemann), §7 (CK applications), original Appendix A (6 derivations + 3 conjectures).
+- **T*=5/7 narrative future:** the save explicitly **abandons** the T*=5/7 algebraic-derivation claim for J07 (and per J13 referee, the standalone J13 attempt also fails — wrong minimal polynomial of A_7). T*=5/7 should be cited going forward only as a coherence-threshold operational value, not as an algebraic theorem.
+- **Estimated revision time:** 4-6 weeks.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

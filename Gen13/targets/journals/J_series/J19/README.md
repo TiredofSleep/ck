@@ -33,6 +33,20 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 Per-venue cap: 2nd EJC paper after J19.
 
+**SAVE-PLAN SUMMARY (2026-05-07; full plan at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J19.md`):**
+
+EJC referee REJECTED: Theorems 2.1-2.3 are direct table counts ("by inspection"); Katok-Ugarcovici invoked five times and disavowed five times (decorative analogy, not a theorem); DKAN architecture (§3-§4) has no theorem; empirical claims (60-80% lens-agreement) lack replication/baselines. Referee explicitly maps three save paths (A: combinatorial classification; B: architecture theorem; C: role-quotient categorical structure).
+
+**Save path:** PATH C (role-quotient theorem) — best match to corpus's actual D-table backing.
+- **New title:** "A Role-Quotient Theorem for the (TSML, BHML) Magma Pair on Z/10Z: The Functional Partition V/F/S/T as a Categorical Coarsening with VOID-Identity."
+- **Keep at *European Journal of Combinatorics*** (referee Path C is EJC-viable).
+- **New main theorem:** restate **D93 (role partition + role magma with VOID identity)** in EJC form — V/F/S/T = {0} | {1,3,5,7,9} | {2,4,8} | {6} is well-defined; induced role-quotient magma B-bar is well-defined (constructive proof: explicit table); V is two-sided identity; B-bar is non-associative (explicit witness (F·F)·S = F ≠ T = F·(F·S)); branching pairs are exactly {F-F, F-S, S-F, S-S}; role partition is independent of σ-orbit (cuts σ's 6-cycle into 3F+1T+2S and σ-fixed into 1V+2F+1S — third independent decomposition).
+- **Drop entirely:** §3-§4 (DKAN architecture; no theorem, no replication); KU two-coding framing in title/abstract/§1.3/§2.3-§2.4; §6 N1-N10 list (belongs in J26 bridge-findings companion); §7 "Tone" section; all empirical claims (60-80% rates, ±21 invariant, etc.).
+- **Inline (M4 fix):** D93 (role partition + magma); σ permutation; explicit TSML/BHML 10×10 tables in appendix for self-containment. Drop forward references to J26.
+- **Keep as supporting data (not theorems):** D91 image-structure counts (TSML_8 image = {3,4,7,8,9}; 60/64 Flow output) — framed as motivation for the role partition choice in §5, not as Theorems 2.1-2.2.
+- **DKAN architecture / runtime work future:** belongs in a separate paper to an experimental-AI venue with proper baselines + replication. **Not J19's save.**
+- **Estimated revision time:** 4-6 weeks.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

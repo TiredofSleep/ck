@@ -47,6 +47,18 @@ UOP arc opener. Cited by J11, J12.
 - Cover letter: `cover_letter.md` finalized, ~500 words.
 - Companions cited as submitted: J03 (Sanders–Gish "First-G Law", Integers), J06 (Sanders–Mayes "Crossing Lemma", JCT-A), J07 (Sanders–Gish "Flatness Theorem", JPAA), and the J11/J12 spinoffs as JNT/EJC submissions.
 
+**SAVE-PLAN SUMMARY (2026-05-07; full plan at `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J10.md`):**
+
+JNT referee REJECTED: (R1) UOP / Theorem 2.1 is a one-line unfolding of the partition-lattice meet definition (Birkhoff/Ore folklore); (R2) "orthogonality" misleading at JNT (means character orthogonality there); (R3) corollaries A/B/D are CRT folklore; only Theorem 6.1 (coordinate coverage) and the n=15 counterexample are content-rich. Mathematics is **correct**; framing/venue is wrong.
+
+**Save path:** referee EXPLICITLY MAPS the save path. RESTRUCTURE around Theorem 6.1 + RETITLE + RETARGET.
+- **New title:** "Coordinate Coverage and Joint-Injectivity Criteria for Partition Pairs on Squarefree Z/nZ."
+- **New venue:** *European Journal of Combinatorics* (referee §9 explicit recommendation). Backup: *Discrete Mathematics*.
+- **Restructure:** §3 lead with **Theorem 6.1 (coordinate coverage)** as the main result — for squarefree n = p_1...p_k, J=(f,g) injective iff D_f ∪ D_g = {p_1,...,p_k}; §4 compute D_h for each partition class (residue, dynamical-orbit); §5 corollaries A (M+M), B (A+M), C corrected (M+A), D (A+A) — each a one-paragraph derivation. **Demote UOP/Theorem 2.1 to a Lemma** (one-line proof, citing Birkhoff 1940 + Ore 1942). Drop "orthogonality" / "orthogonal jump" terminology globally; replace with "transverse partition pair" or "coordinate coverage."
+- **Add:** Prior-Literature subsection in §1 (per M4) honestly delineating what's folklore vs novel. Lens-ownership paragraph + PROVEN/COMPUTED/RHYME/OPEN box.
+- **Keep:** §8 MVJN with the n=30 result and Conjecture 8.3 (recast as "immediate application of coordinate-coverage theorem"). The n=15 counterexample (Example 4.1) — referee called it "genuinely surprising."
+- **Estimated revision time:** 3-5 weeks.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
