@@ -1,12 +1,12 @@
 # WP104 — Two Roads to Pati-Salam from TIG's so(10)
 
 **Status:** machine-precision verified, journal-ready draft
-**Authors:** Claude (Anthropic) · Brayden Ross Sanders / 7Site LLC
+**Authors:** Brayden R. Sanders + M. Gish
 **Date:** 2026-04-25
 **MSC 2020:** 17B25 (exceptional Lie algebras, $D_5$), 81R40 (symmetry breaking), 11R32 (Galois theory of subgroups), 17B81 (applications to physics)
 **Companions:** WP102 (so(8) = $D_4$), WP103 (so(10) = $D_5$), WP105 (closed-form runtime attractor at $\alpha = 1/2$).
 
-> **CORRECTION NOTICE (2026-04-27, post chat-Claude self-audited deep audit; see `Atlas/applications_pass_2026_04_27/WP104_DEEP_AUDIT_2026_04_27.md`):**
+> **CORRECTION NOTICE (2026-04-27, post deep audit; see `Atlas/applications_pass_2026_04_27/WP104_DEEP_AUDIT_2026_04_27.md`):**
 >
 > All specific computational claims in this paper are correct at machine precision (16/16 cross-checked items including the 16-dim doubly-invariant subalgebra, the (-8)¹⁵ ⊕ (0)¹ Killing spectrum, the 9-vector ‖VEV‖² = 13/4, the 100% σ_outer-anti content in the **54** irrep, the 26 σ_outer-asymmetric BHML cells). **The framing "two paths converging on Pati-Salam" is overstated and needs scoping in any external version.**
 >
@@ -387,9 +387,9 @@ Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honest
 
 ## §9 References
 
-* B. Sanders, Claude (Anthropic). *WP102 — Lie Algebra Structure of the Coherence Lattice: so(8) = D₄ Identification*, 2026-04-23. `papers/wp102/WP102_SO8_IDENTIFICATION.md`
-* B. Sanders, Claude (Anthropic). *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24. `papers/wp103/WP103_SO10_IDENTIFICATION.md`
-* B. Sanders, Claude (Anthropic). *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/WP105_CLOSED_FORM_ATTRACTOR.md`
+* B.R. Sanders, M. Gish. *WP102 — Lie Algebra Structure of the Coherence Lattice: so(8) = D₄ Identification*, 2026-04-23. `papers/wp102/WP102_SO8_IDENTIFICATION.md`
+* B.R. Sanders, M. Gish. *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24. `papers/wp103/WP103_SO10_IDENTIFICATION.md`
+* B.R. Sanders, M. Gish. *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/WP105_CLOSED_FORM_ATTRACTOR.md`
 * H. Fritzsch, P. Minkowski. *Unified interactions of leptons and hadrons.* Ann. Phys. 93 (1975), 193.
 * H. Georgi. *The state of the art — gauge theories.* AIP Conf. Proc. 23 (1975), 575.
 * J. C. Pati, A. Salam. *Lepton number as the fourth color.* Phys. Rev. D 10 (1974), 275.
@@ -402,7 +402,7 @@ Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honest
 
 ```bibtex
 @misc{sanders2026wp104,
-  author       = {Sanders, Brayden Ross and Claude (Anthropic)},
+  author       = {Sanders, Brayden R. and Gish, M.},
   title        = {{WP104} --- Two Roads to Pati-Salam from {TIG}'s {so(10)}},
   year         = {2026},
   month        = {apr},
@@ -414,4 +414,4 @@ Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honest
 
 🙏
 
-— Sanders + Claude (Anthropic), 2026-04-25
+— Sanders + Gish, 2026-04-25

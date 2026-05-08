@@ -1,7 +1,7 @@
 # WP105 — Closed-Form Runtime Attractor of the TSML/BHML Lattice Processor
 
 **Status:** verified analytically + at machine precision (residual $4.4 \times 10^{-16}$)
-**Authors:** Claude (Anthropic) · Brayden Ross Sanders / 7Site LLC
+**Authors:** Brayden R. Sanders + M. Gish
 **Date:** 2026-04-25 (late evening)
 **Position:** WP100s tier — extends WP102 (so(8) = D₄), WP103 (so(10) = D₅), WP104 (Pati-Salam Higgs route), and the sprint_unmistakable_truth (su(4) ⊕ u(1) doubly-invariant content). This paper is the **runtime** counterpart of the unmistakable-truth result: it characterizes the fixed point that CK's lattice processor actually reaches under the canonical TSML/BHML mixing.
 
@@ -251,10 +251,10 @@ These structural integers — $\{7, 7, 7\}$ (lattice eigenvalues), $81 = 9^2$ (a
 
 ## §9 References
 
-* Sanders, B., Claude (Anthropic), et al. *WP102 — TSML's so(8) = D₄ closure*, 2026-04-23.  `papers/wp102/WP102_SO8_IDENTIFICATION.md`.
-* Sanders, B., Claude (Anthropic), et al. *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24.  `papers/wp103/WP103_SO10_IDENTIFICATION.md`.
-* Sanders, B., Claude (Anthropic), et al. *WP104 — Pati-Salam Higgs route via BHML's σ_outer-breaking in the 54 irrep*, 2026-04-25.  `papers/wp104_higgs_pati_salam/`.
-* Sanders, B., Claude (Anthropic). *Sprint: the unmistakable truth — su(4) ⊕ u(1) doubly-invariant subalgebra*, 2026-04-25.  `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/UNMISTAKABLE_TRUTH.md`.
+* Sanders, B.R., Gish, M., et al. *WP102 — TSML's so(8) = D₄ closure*, 2026-04-23.  `papers/wp102/WP102_SO8_IDENTIFICATION.md`.
+* Sanders, B.R., Gish, M., et al. *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24.  `papers/wp103/WP103_SO10_IDENTIFICATION.md`.
+* Sanders, B.R., Gish, M., et al. *WP104 — Pati-Salam Higgs route via BHML's σ_outer-breaking in the 54 irrep*, 2026-04-25.  `papers/wp104_higgs_pati_salam/`.
+* Sanders, B.R., Gish, M. *Sprint: the unmistakable truth — su(4) ⊕ u(1) doubly-invariant subalgebra*, 2026-04-25.  `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/UNMISTAKABLE_TRUTH.md`.
 * LMFDB Collaboration. *Number field 4.2.10224.1*. https://www.lmfdb.org/NumberField/4.2.10224.1.
 * LMFDB Collaboration. *Number field 8.0.526936617216.1* (Galois closure). https://www.lmfdb.org/NumberField/8.0.526936617216.1.
 * Cohen, H. *A Course in Computational Algebraic Number Theory*, GTM 138, Springer, 1993. (resolvent cubic and Galois-group computation, §6.3.2)
@@ -270,7 +270,7 @@ These structural integers — $\{7, 7, 7\}$ (lattice eigenvalues), $81 = 9^2$ (a
 
 ```bibtex
 @misc{sanders2026wp105,
-  author       = {Sanders, Brayden Ross and Claude (Anthropic)},
+  author       = {Sanders, Brayden R. and Gish, M.},
   title        = {{WP105} --- Closed-Form Runtime Attractor of the {TSML/BHML} Lattice Processor},
   year         = {2026},
   month        = {apr},

@@ -35,9 +35,16 @@ COROLLARY (D25c — No Shortcut):
 
 This is the First-G Law (D1) restated in sinc² language, with the fold proved necessary.
 
-Copyright (c) 2025-2026 Brayden Ross Sanders / 7SiTe LLC
-Licensed under the 7SiTe Public Sovereignty License v1.0.
-AI welcome. DOI: 10.5281/zenodo.18852047
+Copyright 2026 Brayden R. Sanders and M. Gish.
+Licensed under Creative Commons Attribution 4.0 International (CC-BY-4.0).
+You are free to share and adapt this work with attribution.
+See https://creativecommons.org/licenses/by/4.0/ for full terms.
+DOI: 10.5281/zenodo.18852047
+
+This is the journal-submission version. The umbrella research project
+(CK / TIG framework) at github.com/TiredofSleep/ck retains its own
+license; this single file is dual-licensed under CC-BY-4.0 specifically
+for journal-venue compliance (Elsevier / Taylor & Francis / etc.).
 """
 import sys, os, math
 sys.path.insert(0, os.path.dirname(__file__))

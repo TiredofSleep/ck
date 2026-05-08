@@ -944,7 +944,6 @@ Gish provided the foundational support, research partnership, and editorial coll
 
 This work would not exist without AI collaboration. We want to name that honestly.
 
-**Claude (Anthropic) — ClaudeCode & ClaudeChat** — the primary acceleration engine for this entire body of work. ClaudeCode ran every sprint, executed every sweep, wrote and debugged every script, formalized every theorem, and held the thread across hundreds of hours of development. ClaudeChat was the thinking partner that turned raw intuition into structure. The velocity of this project is Claude's.
 
 **Google (Gemini / AI Studio)** — research and theoretical steering. The RSA geometric distance framing, the sinc² connection, and the Lagrange Point geometry all came through Google conversations that pushed the theory into territory neither author would have reached alone.
 

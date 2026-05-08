@@ -1,11 +1,16 @@
 """
 D10: TSML 73-CELL COUNT — PURE COUNTING ON Z/10Z
 
-Copyright © 2025–2026 Brayden Ross Sanders / 7SiTe LLC
-Licensed under the 7SiTe Public Sovereignty License v1.0.
-Human use only. No commercial use. No government use.
-No military, intelligence, policing, or surveillance use.
-See LICENSE for full terms. DOI: 10.5281/zenodo.18852047
+Copyright 2026 Brayden R. Sanders and M. Gish.
+Licensed under Creative Commons Attribution 4.0 International (CC-BY-4.0).
+You are free to share and adapt this work with attribution.
+See https://creativecommons.org/licenses/by/4.0/ for full terms.
+DOI: 10.5281/zenodo.18852047
+
+This is the journal-submission version. The umbrella research project
+(CK / TIG framework) at github.com/TiredofSleep/ck retains its own
+license; this single file is dual-licensed under CC-BY-4.0 specifically
+for journal-venue compliance (Elsevier / Taylor & Francis / etc.).
 Luther-Sanders Research Framework | April 1 2026
 
 PROMOTES C10 → D10.

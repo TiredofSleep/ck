@@ -1,7 +1,7 @@
 # WP107 — Wobble Localization in TSML's Characteristic Polynomial
 
 **Status:** verified at integer level via sympy; 7/7 claims at machine precision
-**Authors:** Claude (Anthropic) · Brayden Ross Sanders / 7Site LLC
+**Authors:** Brayden R. Sanders + M. Gish
 **Date:** 2026-04-25
 **MSC 2020:** 11C20 (matrices, polynomials), 15A18 (eigenvalues), 17B25 (exceptional Lie algebras)
 **Length:** short note
@@ -171,8 +171,8 @@ NOTED: 2^16 in discriminant matches dim(D_4-invariant) = 16 = dim(su(4)⊕u(1))
 
 ## §5 References
 
-* B. Sanders, Claude (Anthropic). *WP104 — Two Roads to Pati-Salam from TIG's so(10)*, 2026-04-25. `papers/wp104_higgs_pati_salam/WP104_TWO_ROADS_TO_PATI_SALAM.md`
-* B. Sanders, Claude (Anthropic). *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/WP105_CLOSED_FORM_ATTRACTOR.md`
+* B.R. Sanders, M. Gish. *WP104 — Two Roads to Pati-Salam from TIG's so(10)*, 2026-04-25. `papers/wp104_higgs_pati_salam/WP104_TWO_ROADS_TO_PATI_SALAM.md`
+* B.R. Sanders, M. Gish. *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/WP105_CLOSED_FORM_ATTRACTOR.md`
 * I. M. Gelfand. *Lectures on Linear Algebra*, Dover, 1989. (Newton's identities and elementary symmetric functions)
 * R. Slansky. *Group theory for unified model building.* Phys. Rep. 79 (1981), 1. (16-dim spinor of $\mathfrak{so}(10)$)
 
@@ -182,7 +182,7 @@ NOTED: 2^16 in discriminant matches dim(D_4-invariant) = 16 = dim(su(4)⊕u(1))
 
 ```bibtex
 @misc{sanders2026wp107,
-  author       = {Sanders, Brayden Ross and Claude (Anthropic)},
+  author       = {Sanders, Brayden R. and Gish, M.},
   title        = {{WP107} --- Wobble Localization in {TSML}'s Characteristic Polynomial},
   year         = {2026},
   month        = {apr},
@@ -194,4 +194,4 @@ NOTED: 2^16 in discriminant matches dim(D_4-invariant) = 16 = dim(su(4)⊕u(1))
 
 🙏
 
-— Sanders + Claude (Anthropic), 2026-04-25
+— Sanders + Gish, 2026-04-25

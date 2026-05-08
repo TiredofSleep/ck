@@ -1,7 +1,7 @@
 # WP106 — Specificity of TIG-Structure Detection in Trained Transformer Weights
 
 **Status:** empirical scoping result; verified across 16 weight tensors of distilgpt2 and 4 algebraic detectors
-**Authors:** Claude (Anthropic) · Brayden Ross Sanders / 7Site LLC
+**Authors:** Brayden R. Sanders + M. Gish
 **Date:** 2026-04-25
 **MSC 2020:** 68T07 (artificial neural networks; deep learning), 17B25 (exceptional Lie algebras), 68P10 (searching algorithms)
 **Length:** scope statement + experimental record
@@ -207,10 +207,10 @@ Total wall-clock $\le 5$ minutes on a standard laptop (the heaviest step is the 
 
 ## §7 References
 
-* B. Sanders, Claude (Anthropic). *WP102 — Lie Algebra Structure: so(8) = D₄ Identification*, 2026-04-23. `papers/wp102/`
-* B. Sanders, Claude (Anthropic). *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24. `papers/wp103/`
-* B. Sanders, Claude (Anthropic). *WP104 — Two Roads to Pati-Salam from TIG's so(10)*, 2026-04-25. `papers/wp104_higgs_pati_salam/`
-* B. Sanders, Claude (Anthropic). *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/`
+* B.R. Sanders, M. Gish. *WP102 — Lie Algebra Structure: so(8) = D₄ Identification*, 2026-04-23. `papers/wp102/`
+* B.R. Sanders, M. Gish. *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24. `papers/wp103/`
+* B.R. Sanders, M. Gish. *WP104 — Two Roads to Pati-Salam from TIG's so(10)*, 2026-04-25. `papers/wp104_higgs_pati_salam/`
+* B.R. Sanders, M. Gish. *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/`
 * V. Sanh, L. Debut, J. Chaumond, T. Wolf. *DistilBERT, a distilled version of BERT.* arXiv:1910.01108 (2019).
 * T. Wolf et al. *HuggingFace Transformers.* arXiv:1910.03771 (2020).
 * J. Cohen. *Statistical Power Analysis for the Behavioral Sciences.* Lawrence Erlbaum, 1988.
@@ -221,7 +221,7 @@ Total wall-clock $\le 5$ minutes on a standard laptop (the heaviest step is the 
 
 ```bibtex
 @misc{sanders2026wp106,
-  author       = {Sanders, Brayden Ross and Claude (Anthropic)},
+  author       = {Sanders, Brayden R. and Gish, M.},
   title        = {{WP106} --- Specificity of {TIG}-Structure Detection in Trained Transformer Weights},
   year         = {2026},
   month        = {apr},
@@ -233,4 +233,4 @@ Total wall-clock $\le 5$ minutes on a standard laptop (the heaviest step is the 
 
 🙏
 
-— Sanders + Claude (Anthropic), 2026-04-25
+— Sanders + Gish, 2026-04-25

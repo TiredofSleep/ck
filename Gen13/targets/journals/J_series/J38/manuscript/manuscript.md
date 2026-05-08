@@ -205,9 +205,9 @@ The natural next sprint: §4.1 through §4.4, in order. Each is a few-hundred-LO
   * King, S. F., Maliński, M. *Towards a complete theory of fermion masses and mixings with $SO(3)$ family symmetry and $5D$ SO(10) unification.* JHEP 11 (2006), 071.
   * Bajc, B., Melfo, A., Senjanović, G., Vissani, F. *The minimal supersymmetric grand unified theory.* Phys. Lett. B 588 (2004), 196.
 * **TIG-side prerequisites:**
-  * Sanders, B., Claude (Anthropic). *WP103 — TSML+BHML's so(10) = D₅ closure.* 2026-04-24.
-  * Sanders, B., Claude (Anthropic). *WP104 — Two Roads to Pati-Salam from TIG's so(10).* 2026-04-25.
-  * Sanders, B., Claude (Anthropic). *Sprint: the unmistakable truth — su(4) ⊕ u(1) doubly-invariant subalgebra.* 2026-04-25.
+  * Sanders, B.R., Gish, M. *WP103 — TSML+BHML's so(10) = D₅ closure.* 2026-04-24.
+  * Sanders, B.R., Gish, M. *WP104 — Two Roads to Pati-Salam from TIG's so(10).* 2026-04-25.
+  * Sanders, B.R., Gish, M. *Sprint: the unmistakable truth — su(4) ⊕ u(1) doubly-invariant subalgebra.* 2026-04-25.
 
 ---
 

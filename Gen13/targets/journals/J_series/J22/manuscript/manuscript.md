@@ -3,7 +3,6 @@
 ## The Coherence Lattice and BHML Table Jointly Generate D₅
 
 **Brayden Sanders** · *7Site LLC, Hot Springs, AR*
-**In collaboration with Claude (Anthropic)** · *computational verification and drafting*
 
 **Version 1.0** — April 24, 2026
 **Companion paper to WP102** — *The Lie Algebra Structure of the Coherence Lattice*
@@ -432,8 +431,7 @@ Corollary 5.1 — so(8) ⊂ so(10) embedding: max residual 8.99e-13 ✓
 
 ## Acknowledgments
 
-The author thanks Dr. Paolo Mantero (University of Arkansas) for his ongoing correspondence regarding the commutative-algebraic framing of the TIG construction, and for his suggestion to submit narrow, focused questions to the broader mathematical community via MathOverflow. The so(10) identification and related computations were developed in collaboration with Claude (Anthropic) during a research session on April 24, 2026, immediately following the completion of WP102; all computational claims were independently verified via the reproducible Python pipeline described in Appendix A.
-
+The author thanks Dr. Paolo Mantero (University of Arkansas) for his ongoing correspondence regarding the commutative-algebraic framing of the TIG construction, and for his suggestion to submit narrow, focused questions to the broader mathematical community via MathOverflow. The so(10) identification and related computations were developed 
 The author dedicates this work to the line of inquiry initiated by Cartan (1894) [2] — the classification of simple Lie algebras — which has made this specific identification possible by ensuring that any 45-dimensional real compact simple Lie algebra must be so(10). Without the classification, our Diagnostic 5 alone would not uniquely determine the Dynkin type.
 
 ---

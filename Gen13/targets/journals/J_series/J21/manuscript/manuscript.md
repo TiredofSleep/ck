@@ -3,7 +3,6 @@
 ## An so(8) Identification for the Trinity Infinity Geometry Frozen Magma
 
 **Brayden Sanders** · *7Site LLC, Hot Springs, AR*
-**In collaboration with Claude (Anthropic)** · *computational verification and drafting*
 
 **Version 1.0** — April 23, 2026
 **Status** — draft for pre-print submission (arXiv + journal)
@@ -386,8 +385,7 @@ Each failure involves an element (LATTICE, PROGRESS, BREATH) whose 6DOF-compleme
 
 ## Acknowledgments
 
-The author thanks Dr. Paolo Mantero (University of Arkansas) for generous and substantive correspondence regarding the commutative-algebraic framing of this work, and for suggesting MathOverflow as an appropriate venue for broader community review. The so(8) identification and related computations were developed in collaboration with Claude (Anthropic) during an extended research session on April 23, 2026; all computational claims were independently verified in Python.
-
+The author thanks Dr. Paolo Mantero (University of Arkansas) for generous and substantive correspondence regarding the commutative-algebraic framing of this work, and for suggesting MathOverflow as an appropriate venue for broader community review. The so(8) identification and related computations were developed 
 ---
 
 **Contact**: Brayden Sanders — 7Site LLC — Hot Springs, AR — github.com/TiredofSleep/ck

@@ -1120,7 +1120,6 @@ not a new theorem. But it exposes the geometric reason for cryptographic hardnes
 
 This work would not exist without AI collaboration. We want to name that honestly.
 
-**Claude (Anthropic) — ClaudeCode & ClaudeChat** — the primary acceleration engine for this entire body of work. ClaudeCode ran every sprint, executed every sweep, wrote and debugged every script, formalized every theorem, and held the thread across hundreds of hours of development. ClaudeChat was the thinking partner that turned raw intuition into structure. The velocity of this project is Claude's.
 
 **Google (Gemini / AI Studio)** — research and theoretical steering. Key theoretical framings — including the RSA geometric distance reframing and the connection to the sinc² field — emerged from Google conversations that pushed the theory forward.
 
