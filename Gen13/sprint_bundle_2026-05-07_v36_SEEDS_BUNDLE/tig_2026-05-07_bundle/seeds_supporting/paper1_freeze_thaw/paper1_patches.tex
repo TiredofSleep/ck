@@ -1,0 +1,118 @@
+% ============================================================
+% PAPER 1 PATCH: §6.X TYPE-T/F/A SUBSECTION
+% Paste after §6.1 in the existing logarithmic quintessence draft.
+% Matches manuscript voice and labeling conventions.
+% ============================================================
+
+\subsection{Type-T/F/A classification of the trajectory}\label{sec:typeTFA}
+
+The cosmological trajectory of the field $\Xi$ in the documented fit
+\eqref{eq:desibestfit} traverses three dynamically distinct regimes within
+a single physical history. We classify these as follows.
+
+\paragraph{Type-T (Thawing regime).}
+The field is displaced from the vacuum ($\Xi$ noticeably above $\Xi_0
+= e^{-1}$) with non-negligible kinetic energy, $\dot\Xi \neq 0$. The
+combined-sector effective equation of state $w_{\rm DE}(z)$ deviates
+from $-1$ by an amount controlled by the ratio of the scalar's kinetic
+energy to the renormalized dark-energy density of the combined sector
+(\S\ref{sec:vacrenorm}). In the documented fit the current cosmological
+epoch $z = 0$ is in the Type-T regime: the field is on the inbound leg
+of the trajectory, having passed through the turnaround at $z \approx
+2$, and $w_{\rm DE}(z = 0) \approx -0.79$ reflects the integrated
+kinetic-to-potential ratio of the combined sector at the present epoch.
+
+\paragraph{Type-F (Frozen turnaround).}
+At a specific redshift $z_\star$ on the trajectory, the field reaches
+its outbound maximum and $\dot\Xi = 0$ momentarily, with the bare
+scalar EoS $w_\Xi(z_\star) = -1$ instantaneously. The combined-sector
+$w_{\rm DE}(z_\star)$ takes its minimum value over the observable
+range, approaching $-1$ from above. In the documented fit, $z_\star
+\approx 2$. The Type-F state is not a fixed point of the equation of
+motion: the field has zero velocity but nonzero potential gradient
+($V'(\Xi_{\max}) > 0$ since $\Xi_{\max} > \Xi_0$), and immediately
+begins to roll inbound under the potential force, modulated by Hubble
+friction.
+
+\paragraph{Type-A (Asymptotic refreeze).}
+In the cosmological future ($z \to -1$, $a \to \infty$), the field
+rolls back toward $\Xi_0 = e^{-1}$ with Hubble friction damping the
+inbound motion. As $\Xi \to \Xi_0$ and $\dot\Xi \to 0$, both $\rho_\Xi$
+and $V_{\rm dev}(\Xi) = V(\Xi) - V(\Xi_0)$ vanish, and the
+combined-sector EoS asymptotes $w_{\rm DE} \to -1$ from above. This is
+the late-time attractor identified in \S\ref{sec:lateattractor}: the
+universe approaches an effective $\Lambda$CDM state with cosmological
+constant $\rho_{\Lambda,\rm obs}$.
+
+\paragraph{The geometric anchor at $\Xi_0 = e^{-1}$.}
+The vacuum value $\Xi_0 = e^{-1}$ plays three independent roles in the
+model: (a) the global minimum of the potential $V(\Xi) = \Lambda^4\,\Xi
+\log\Xi$, (b) the unique maximizer of the per-bin Gibbs functional
+$H_{\rm Gibbs}(x) = -x \log x$ on $(0, 1]$, and (c) the geometric
+anchor of the freeze-thaw transit --- in the sense that the Type-A
+endpoint is exactly $\Xi_0$, and the Type-F turnaround at $\Xi_{\max}$
+is the locus where outbound kinetic energy is exactly balanced by the
+integrated potential force originating at the gradient $V'(\Xi)$
+referenced to $\Xi_0$. The three characterizations are independent:
+(a) is an analytic property of $V$, (b) is a structural correspondence
+with the per-bin Gibbs integrand, and (c) is a dynamical property of
+the FRW trajectory. We do not claim that these three roles being
+played by the same numerical value $e^{-1}$ constitutes a derivation
+of the action --- only that the same geometric anchor organizes the
+potential's analytic structure, its information-theoretic content, and
+its cosmological dynamics simultaneously.
+
+\paragraph{Distinction from standard quintessence.}
+Caldwell-Linder \cite{CaldwellLinder2005} classify quintessence
+trajectories into two dynamical regimes: freezing, with monotone
+$w(z) \to -1$ from above as $z$ decreases and no local minimum, and
+thawing, with monotone departure from $-1$ over the observable epoch
+and no return. The dual-regime trajectory studied here is in neither
+class: it traverses Type-T (post-turnaround thaw on the inbound leg),
+Type-F (instantaneous frozen turnaround at $z_\star \approx 2$), and
+Type-A (asymptotic refreeze in the cosmological future) within a
+single physical history. The observational signature distinguishing
+this dual-regime trajectory from single-regime quintessence is the
+existence of a local minimum in $w(z)$ at intermediate redshift, with
+the minimum value approaching $-1$ from above; falsification criterion
+$(F_5)$ in \S\ref{sec:falsify} makes this prediction explicit and
+testable at Stage-IV precision.
+
+
+% ============================================================
+% PAPER 1 PATCH: F_5 FALSIFICATION CRITERION
+% Add after F_4 in the existing falsification list in §6.5.
+% ============================================================
+
+  \item[(F$_5$)] \emph{Non-monotone $w(z)$ with local minimum near $-1$
+        at intermediate redshift.}
+        The dual-regime transit predicts that the combined-sector
+        effective $w_{\rm DE}(z)$ reaches a local minimum at $z = z_\star$
+        corresponding to the Type-F turnaround, with $w_{\rm DE}(z_\star)
+        \to -1$ from above. In the documented fit \eqref{eq:desibestfit},
+        $z_\star \approx 2$, with the precise value determined by
+        $(\Lambda^4, \Xi_i, \dot\Xi_i)$ and shifting within
+        $1.5 \lesssim z_\star \lesssim 3.0$ over the manuscript's $1\sigma$
+        confidence region (precise range to be reported from
+        \texttt{desi\_xi\_optimize\_v2.py} sensitivity output). Standard
+        freezing quintessence predicts monotone $w(z) \to -1$ from above
+        with no local minimum; standard thawing quintessence predicts
+        monotone departure from $-1$ with no return. Only a trajectory
+        that traverses both regimes admits a local minimum.
+        \emph{Falsification:} a reconstructed $w(z)$ that is monotonic
+        over $0 \leq z \leq 5$ at $\geq 3\sigma$ confidence in the joint
+        DR2 + Pantheon+ + Planck likelihood, with no local minimum
+        detected within the Stage-IV measurement uncertainty
+        $\sigma(w(z)) \approx 0.03$ \cite{ShajibFrieman2025}, would
+        disfavor the dual-regime transit interpretation.
+
+
+% ============================================================
+% PAPER 1 PATCH: ADDITIONAL CITATION NEEDED
+% Add to bibliography:
+% ============================================================
+
+\bibitem{CaldwellLinder2005}
+R.~R.~Caldwell and E.~V.~Linder,
+\emph{The limits of quintessence},
+Phys. Rev. Lett. \textbf{95}, 141301 (2005); arXiv:astro-ph/0505494.

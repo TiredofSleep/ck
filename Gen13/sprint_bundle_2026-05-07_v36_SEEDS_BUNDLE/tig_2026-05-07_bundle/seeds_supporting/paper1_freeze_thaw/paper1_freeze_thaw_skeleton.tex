@@ -1,0 +1,600 @@
+%%% ============================================================
+%%% PAPER 1 SKELETON: The Freeze-Thaw Transit
+%%% A Dual-Regime Scalar Dark-Energy Model with an
+%%% Analytic Turnaround at e^{-1}
+%%%
+%%% B.R. Sanders, M. Gish (2026)
+%%% Target venue: JCAP
+%%%
+%%% STATUS: SKELETON for ClaudeCode expansion.
+%%% Source materials for fill-in:
+%%%   - Existing detailed draft (logarithmic_quintessence_v3.tex)
+%%%   - desi_xi_optimize_v2.py (the actual fit script)
+%%%   - paper1_patches.tex (§6.X Type-T/F/A subsection, F5 criterion)
+%%% Companion: paper2_substrate_M22_skeleton.tex
+%%%
+%%% UNIT NOTE FOR EXPANSION: the supplementary script v2 uses
+%%%   N_start = -4  ==> z_init ~ 54 (NOT z=20 as text says)
+%%%   xi_dot     ==> dxi/dN (e-folding derivative)
+%%%   Lambda4    ==> Λ^4/(3 H_0^2 M_Pl^2)  [= 0.231 in fit]
+%%% Manuscript text "z_i ≈ 20" is a discrepancy to harmonize.
+%%% ============================================================
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{array}
+
+%% theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%% macros
+\newcommand{\Pl}{\mathrm{Pl}}
+\newcommand{\SM}{\mathrm{SM}}
+\newcommand{\Gibbs}{\mathrm{Gibbs}}
+\newcommand{\DE}{\mathrm{DE}}
+\DeclareMathOperator{\diag}{diag}
+
+%% TODO macro for ClaudeCode expansion targets
+\newcommand{\TODO}[1]{\par\noindent\fbox{\parbox{0.95\linewidth}{\small\textbf{TODO:} #1}}\par}
+
+%% title matter
+\title[The Freeze-Thaw Transit]{The Freeze-Thaw Transit:\\
+A Dual-Regime Scalar Dark-Energy Model with\\
+an Analytic Turnaround at $e^{-1}$}
+
+\author{B.~R.~Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{M.~Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
+
+\date{\today}
+
+\keywords{quintessence, dark energy, freeze-thaw transit, scalar field,
+logarithmic potential, analytic vacuum, paradox classification, Stage-IV
+cosmology}
+
+\subjclass[2020]{83F05, 83C56, 85A40}
+
+\begin{document}
+
+\begin{abstract}
+Scalar-field models of dark energy traditionally fall into two
+dynamical classes: \emph{freezing quintessence}, where $w(z)$
+approaches $-1$ from above asymptotically, and \emph{thawing
+quintessence}, where $w(z)$ departs from $-1$ over the observable
+epoch. A given quintessence potential typically produces only one of
+these regimes within its physical history. We study a minimally
+coupled real, positive, dimensionless scalar field $\Xi$ with
+self-interaction $V(\Xi) = \Lambda^{4}\,\Xi\log\Xi$, where $\Lambda$
+is a mass scale that sets the dark-energy density. The potential
+admits an analytic minimum at $\Xi_{0} = e^{-1}$, independent of the
+coupling. Linearizing about the vacuum gives a stable massive scalar
+with $m_\Xi^{2} = \Lambda^{4} e / M_\Pl^{2}$, numerically near the
+Hubble scale today when $\Lambda \approx 1.7$~meV.
+
+We show that the model's FRW trajectory exhibits \emph{both freezing
+and thawing within a single physical history}: an outbound thaw at
+high redshift, a momentary frozen turnaround at $z \approx 2$ in the
+documented fit (where $\dot\Xi = 0$ and $w_\Xi = -1$ instantaneously),
+and an asymptotic refreeze toward $\Xi_{0}$ in the cosmological future.
+The current cosmological epoch lies in the post-turnaround thaw phase.
+We classify the trajectory using a three-regime taxonomy (T-thaw,
+F-frozen, A-asymptotic) and identify the vacuum $\Xi_{0} = e^{-1}$ as
+the geometric anchor of the freeze-thaw transit, simultaneously the
+minimum of $V$ and the maximizer of the per-bin Gibbs functional
+$H_\Gibbs(x) = -x\log x$ on $(0, 1]$, a structural correspondence we
+discuss as motivational rather than derivational.
+
+A DESI~2024 DR1 $(w_0, w_a)$ consistency check places the documented
+fit within $\sim 1.2\sigma$ of the published Gaussian summary under
+the uncorrelated approximation; under the correlated metric
+($\rho \approx -0.9$) $\Lambda$CDM remains marginally preferred. The
+$\chi^{2}$ values reported quantify proximity to the published
+$(w_0, w_a)$ marginal Gaussian and are not derived from the
+underlying joint BAO + CMB + SN likelihood, which is deferred to a
+companion numerical paper. Five falsifiability criteria $(F_1$--$F_5)$
+are testable at Stage-IV precision, including a new criterion specific
+to the dual-regime trajectory: a non-monotone $w(z)$ with a local
+minimum near $-1$ at intermediate redshift. We position this paper as
+the dynamical-setup component of a synthesis program on
+substrate-algebraic dark-energy structure; a companion paper
+\cite{SandersGish2026M22} derives $\Omega_\DE = 479/700 = 0.6843$
+(matching Planck~2018 to $0.06\%$) from substrate algebra mediated by
+the Mathieu group $M_{22}$.
+\end{abstract}
+
+\maketitle
+
+%%% ============================================================
+\section{Introduction}\label{sec:introduction}
+
+\TODO{Open with DESI~2024 DR1 / DR2 results
+(\cite{DESI2024BAO,DESI2024VI,DESI2025DR2}) suggesting dynamical
+dark energy at $2.8$--$4.2\sigma$ in joint analyses; review revival
+of quintessence \cite{RatraPeebles1988,Wetterich1988,Frieman1995}.}
+
+\subsection{The freezing/thawing dichotomy}
+
+\TODO{Present the Caldwell--Linder \cite{CaldwellLinder2005}
+classification of quintessence into freezing vs. thawing regimes;
+note that standard potentials produce only one regime per trajectory;
+cite examples (inverse power law $\to$ freezing; PNGB $\to$ thawing).
+Argue that the observational picture (averaged $w \approx -1$ in the
+recent past, but DESI-preferred dynamical $(w_0, w_a)$ at $z \lesssim
+1.5$) is naturally read as both regimes occurring in one history,
+not as the universe selecting between them.}
+
+\subsection{The minimal model}
+
+\TODO{Introduce $V(\Xi) = \Lambda^{4} \Xi \log \Xi$ with dimensionless
+$\Xi$. State the two structural anchors: analytic vacuum at
+$\Xi_{0} = e^{-1}$, fluctuation mass
+$m_\Xi^{2} = \Lambda^{4} e / M_\Pl^{2}$. Note structural rhyme with
+Gibbs functional $H_\Gibbs(x) = -x \log x$ and reference
+\S\ref{sec:entropy} for the explicit caveat that this is a structural
+correspondence, not a derivation.}
+
+\subsection{The freeze-thaw transit}
+
+\TODO{Preview the Type-T/F/A regime structure: outbound thaw, frozen
+turnaround at $z \approx 2$, asymptotic refreeze. Note that the
+current epoch is in the post-turnaround Type-T regime. State that
+this dual-regime trajectory is the natural reading of the
+observational picture.}
+
+\subsection{Scope and the synthesis program}
+
+\TODO{This paper establishes dynamical content (action, vacuum, mass,
+FRW evolution, Type-T/F/A classification). $\Lambda$ is fixed
+phenomenologically; $\Omega_\DE$ is taken as Planck input. Companion
+paper \cite{SandersGish2026M22} derives $\Omega_\DE = 479/700$ from
+substrate algebra. Together: dynamical setup (here) + structural
+source (companion).}
+
+\subsection{Organization}
+
+\TODO{One-paragraph overview of \S\S 2--10.}
+
+%%% ============================================================
+\section{Canonical Action}\label{sec:action}
+
+\subsection{Field content and conventions}\label{sec:fieldcontent}
+
+\TODO{Field content $\{g_{\mu\nu}, \mathrm{SM}, \Xi(x)\}$;
+$(-,+,+,+)$ signature; $\Xi$ real, positive, dimensionless, gauge
+singlet. Field domain $\Xi > 0$. Footnote on $\psi = \log\Xi$
+reparametrization and on canonical $\phi = M_\Pl \Xi$ alternative;
+state we work in $\Xi$ for vacuum-transparency.}
+
+\subsection{Action}
+
+\TODO{Equation \eqref{eq:action} — state minimal action with
+$M_\Pl^{2}$ kinetic prefactor and $\Lambda^{4}$ potential
+prefactor. Verify dimensional analysis. Note single
+model-specific parameter $\Lambda$. End with remark that
+information-theoretic origin story is supplementary, deferred to
+\S\ref{sec:entropy}.}
+
+\begin{equation}\label{eq:action}
+\TODO{[INSERT MINIMAL ACTION FROM EXISTING DRAFT]}
+\end{equation}
+
+%%% ============================================================
+\section{Derivations}\label{sec:derivations}
+
+\subsection{Euler-Lagrange equation}\label{sec:EL}
+
+\TODO{Derive
+$M_\Pl^{2}\,\Box\Xi = \Lambda^{4}(1 + \log\Xi)$
+(label \texttt{eq:EL}); note the characteristic mass scale
+$\Lambda^{4}/M_\Pl^{2}$. Vacuum condition $\Box\Xi = 0$
+gives $1 + \log\Xi_{0} = 0$ coupling-independently.}
+
+\subsection{Stress-energy tensor}\label{sec:stress}
+
+\TODO{Derive
+$T^\Xi_{\mu\nu}$ from variation w.r.t.\ $g^{\mu\nu}$
+(label \texttt{eq:stress}). Confirm covariant conservation on
+shell.}
+
+\subsection{Vacuum/ground state}\label{sec:vacrenorm}
+
+\TODO{Derive $\Xi_{0} = e^{-1}$, $V'(\Xi_{0}) = 0$,
+$V''(\Xi_{0}) = \Lambda^{4} e > 0$. Discuss bare vs renormalized
+vacuum: $\Lambda_\mathrm{obs} = \Lambda_\mathrm{bare} - \Lambda^{4}/e$.
+This subsection is critical for the §6.2 energy-budget framing.}
+
+\subsection{Fluctuation mass and stability}\label{sec:mass}
+
+\TODO{Linearize about $\Xi_0$: $m_\Xi^{2} = \Lambda^{4} e / M_\Pl^{2}$
+(label \texttt{eq:mass}). Note dark-energy scale match: $\Lambda \sim
+1.5$~meV from dimensional analysis, $\Lambda \approx 1.7$~meV from
+the documented fit; discrepancy explained by geometric factor
+$(3 e \Omega_\Lambda)^{1/4}$.}
+
+\subsection{Global behavior of $V$}\label{sec:globalV}
+
+\TODO{$V \to 0^-$ as $\Xi \to 0^+$; $V(\Xi_0) = -\Lambda^4/e$ global
+minimum on $\Xi > 0$; $V \to +\infty$ as $\Xi \to \infty$.}
+
+%%% ============================================================
+\section{FRW Cosmology}\label{sec:frw}
+
+\subsection{Background equations}\label{sec:bgequations}
+
+\TODO{In flat FRW: derive $\rho_\Xi$, $p_\Xi$
+(labels \texttt{eq:rho}, \texttt{eq:p}). Friedmann equations
+\texttt{eq:friedmann}. Field EoM in FRW \texttt{eq:xieom}:
+$M_\Pl^{2}(\ddot\Xi + 3H\dot\Xi) = -\Lambda^{4}(1 + \log\Xi)$.}
+
+\subsection{Equation of state}\label{sec:eos}
+
+\TODO{Derive
+$w_\Xi = -1 + M_\Pl^{2}\dot\Xi^{2}/\rho_\Xi$ (label \texttt{eq:w}).
+State Proposition on limiting regimes:
+(i) $w_\Xi = -1$ at vacuum;
+(ii) $w_\Xi \to -1$ from above on rolling branch;
+(iii) $w_\Xi \to +1$ in kinetic limit.}
+
+\subsection{Late-time attractor}\label{sec:lateattractor}
+
+\TODO{Damping argument: $3H\dot\Xi \to 0$, $\Xi \to \Xi_0$,
+$w_\Xi \to -1$. This is the Type-A asymptotic regime per
+\S\ref{sec:typeTFA} below.}
+
+\subsection{Type-T/F/A classification of the trajectory}\label{sec:typeTFA}
+
+\TODO{INSERT THE FULL §6.X SUBSECTION FROM \texttt{paper1\_patches.tex}.
+Three regimes (T, F, A). Geometric anchor at $\Xi_0 = e^{-1}$.
+Distinction from Caldwell--Linder dichotomy. Forward-reference $F_5$.}
+
+%%% ============================================================
+\section{Structural Connections to Information-Theoretic Functionals}\label{sec:entropy}
+
+\subsection{The Gibbs functional}
+
+\TODO{$H_\Gibbs(x) = -x \log x$ on $(0, 1]$, max at $x = e^{-1}$.
+Formal relation $V(\Xi) = -\Lambda^{4} H_\Gibbs(\Xi)$. Explicit
+caveat: $\Xi$ is unbounded scalar, not probability density;
+relation is structural, not operational.}
+
+\subsection{Bialynicki-Birula--Mycielski nonlinearity}
+
+\TODO{Cite \cite{BialynickiBirulaMycielski1976}; note BBM uniqueness
+applies to $|\psi|^2 \log |\psi|^2$ on probability densities, not to
+scalar fields. Structural rhyme, not derivation.}
+
+\subsection{Information-theoretic precedents}
+
+\TODO{Brief note on \cite{Verlinde2011,CHLZ2012,Ensslin2013,Caticha2012}
+as adjacent literature; structural rather than derivational connection.
+The empirical content of the paper (\S\ref{sec:obs}) does not depend
+on these connections.}
+
+%%% ============================================================
+\section{Observational Predictions}\label{sec:obs}
+
+\subsection{The $w(z)$ trajectory on the rolling branch}\label{sec:wzrolling}
+
+\TODO{Reframe this subsection from existing draft: the documented fit
+shows the post-turnaround thaw on the inbound leg toward $\Xi_0$,
+\emph{not} a pure freezing trajectory. Set up the DESI consistency
+check that follows.}
+
+\subsection{Numerical integration and DESI consistency check}\label{sec:desifit}
+
+\TODO{The supplementary script \texttt{desi\_xi\_optimize\_v2.py}
+performs a $30 \times 25 \times 15 = 11{,}250$-point grid search over
+$(\Lambda^4, \Xi_i, \dot\Xi_i)$ at $N_\mathrm{start} = -4$
+($z_\mathrm{init} \approx 54$ — note discrepancy with manuscript text
+\textbf{``z\_i ≈ 20''}; harmonize on expansion). Best fit at
+$\chi^2_{\rho=-0.9}$ minimum. Report:
+\begin{itemize}
+\item Best-fit parameters $(\Lambda^4, \Xi_i, \dot\Xi_i)$ from script
+output
+\item $w(z)$ table at $z \in \{0, 0.3, 0.5, 0.8, 1, 1.5, 2\}$
+\item $\chi^2_\mathrm{Gauss,\rho=0}$ and $\chi^2_\mathrm{Gauss,\rho=-0.9}$
+for $\Xi$ model and $\Lambda$CDM
+\item Honest framing: under the correlated metric
+($\rho = -0.9$, the disciplined comparison), $\Lambda$CDM remains
+marginally preferred by $\Delta\chi^2 \approx 5.6$. Lead with this.
+\end{itemize}}
+
+\paragraph{Energy-budget framing.}
+\TODO{Rewrite from existing draft. The reported $\Omega_\Xi$
+fraction includes both the renormalized cosmological constant and
+the scalar's dynamical deviation. Distinguish bare $w_\Xi$ from
+combined-sector effective $w_\DE$ tracked by the script.}
+
+\paragraph{On the freeze-thaw transit.}
+\TODO{Reframe ``On the freezing label'' from existing draft to
+emphasize the dual-regime structure: outbound thaw $\to$ frozen
+turnaround at $z \approx 2$ $\to$ inbound thaw $\to$ asymptotic
+refreeze. Current epoch is in Type-T post-turnaround regime.}
+
+\paragraph{Initial-condition tuning.}
+\TODO{Honest acknowledgment of $(\Xi_i, \dot\Xi_i)$ tuning.
+Note that the outbound initial direction $\dot\Xi_i > 0$ is itself
+a choice. No naturalness argument singles out these values; the
+freezing-branch + dual-regime structure restricts but does not
+derive them. Reduction to fewer free parameters via attractor
+mechanism is target for follow-up.}
+
+\paragraph{Methodological scope of this consistency check.}
+\TODO{Restate explicitly: $\chi^2_\mathrm{Gauss}$ values quantify
+proximity to published $(w_0, w_a)$ Gaussian summary, not
+goodness-of-fit to underlying joint likelihood. Full DR2 + Pantheon+ +
+Planck likelihood is deferred to companion numerical paper.}
+
+\paragraph{Reproducibility.}
+\TODO{State that \texttt{desi\_xi\_optimize\_v2.py} reproduces the
+fit. Total runtime $\sim 30$~s on standard laptop. Verification
+script \texttt{proof\_xi\_canonical.py} runs 22 algebraic and
+stability tests. Both archived at DOI \texttt{10.5281/zenodo.18852047}.}
+
+\subsection{Falsification criteria}\label{sec:falsify}
+
+\TODO{Insert the existing F1--F4 from the draft (do not replace).
+Then append F5 from \texttt{paper1\_patches.tex}.}
+
+\begin{enumerate}
+\item[$(F_1)$] \TODO{$w_\Xi(z) \geq -1$ on rolling branch; phantom
+preference at $\geq 3\sigma$ in joint DR2 + Pantheon+ + Planck would
+disfavor.}
+
+\item[$(F_2)$] \TODO{Monotone $w(z) \to -1$ from above over
+$0 \leq z \leq 1.5$; non-monotone over that range at $\geq 3\sigma$
+would falsify the rolling-branch fit.}
+
+\item[$(F_3)$] \TODO{Asymptotic $w \to -1$; late-time inconsistency
+at $\geq 3\sigma$ disfavors.}
+
+\item[$(F_4)$] \TODO{Specific $w(z=0.5) = -0.943 \pm 0.05$ at Stage-IV
+precision; deviation would disfavor documented fit.}
+
+\item[$(F_5)$] \TODO{INSERT F5 FROM \texttt{paper1\_patches.tex}.
+Non-monotone $w(z)$ with local minimum near $-1$ at intermediate
+redshift; the dual-regime distinguishing prediction.}
+\end{enumerate}
+
+\subsection{Fifth-force and local tests}\label{sec:fifthforce}
+
+\TODO{No direct matter coupling in minimal action; gravitational
+strength only; consistent with E\"ot-Wash, MICROSCOPE
+\cite{EotWash,MICROSCOPE}.}
+
+\subsection{EFT validity over field excursion}\label{sec:eft}
+
+\TODO{Acknowledge transplanckian field excursion
+$\Delta\phi \sim 0.5\,M_\Pl$ in canonical variables. No shift
+symmetry. UV completion is open question (shared with most
+quintessence). Tree-level effective treatment.}
+
+\subsection{Perturbations}\label{sec:perts}
+
+\TODO{Rest-frame sound speed $c_s^2 = 1$ (canonical scalar).
+Standard quintessence subhorizon clustering suppression.
+Full perturbation analysis (ISW, CMB lensing) deferred to
+companion numerical paper.}
+
+\subsection{Gravitational-wave speed}\label{sec:gw}
+
+\TODO{Tensor perturbations propagate at $c$; consistent with GW170817
+\cite{GW170817}. No predicted superluminal signal.}
+
+%%% ============================================================
+\section{Comparison to Literature}\label{sec:comparison}
+
+\TODO{Insert comparison table from existing draft. Discuss
+\cite{RatraPeebles1988,Wetterich1988,Frieman1995,BarrowParsons1995,
+ColemanWeinberg1973,Thompson2019,KouwnOh2012,Chavanis2015,Oikonomou2019}.
+Add row for \emph{dual-regime trajectory} characterizing the present
+work's distinctive feature. Update novelty remark to current literature
+search date.}
+
+%%% ============================================================
+\section{Scope and Limitations}\label{sec:scope}
+
+\TODO{Two-sided list: what the paper claims (locked) vs.\ what it does
+\emph{not} claim. Match parallel structure to companion paper
+\cite{SandersGish2026M22}. Explicit non-claims: derivation of $\Lambda$
+from microphysics, derivation of $\Omega_\DE$ (deferred to companion),
+direct-matter coupling, mathematical uniqueness theorem.}
+
+%%% ============================================================
+\section{The Synthesis Program}\label{sec:synthesis}
+
+\TODO{This paper as the dynamical-setup component of a larger program.
+Companion papers in the synthesis program:
+\begin{itemize}
+\item \cite{SandersGishSigma2026}: Substrate non-associativity decay over $\mathbb{Z}/N\mathbb{Z}$
+\item \cite{SandersGishFourCore2026}: Joint closure / four-core attractor on $\mathbb{Z}/10\mathbb{Z}$
+\item \cite{SandersGish2026M22}: Substrate-algebraic derivation of $\Omega_\DE = 479/700$ via $M_{22}$
+\end{itemize}
+Position the present paper's freeze-thaw transit as the dynamical face
+of the substrate-algebraic structure derived in \cite{SandersGish2026M22}.
+The Type-T/F/A taxonomy of \S\ref{sec:typeTFA} is the dynamical
+expression of substrate paradox classes (forthcoming work).}
+
+%%% ============================================================
+\section{Summary}\label{sec:summary}
+
+\TODO{One-paragraph wrap-up. Six key items as in existing draft, but
+reframed:
+\begin{enumerate}
+\item Analytic vacuum $\Xi_0 = e^{-1}$ (geometric anchor of transit).
+\item Stable mass $m_\Xi^2 = \Lambda^4 e / M_\Pl^2$;
+$\Lambda \approx 1.7$~meV.
+\item Dual-regime trajectory: T-thaw, F-frozen at $z \approx 2$,
+A-asymptotic.
+\item Structural connection $V = -\Lambda^4 H_\Gibbs$
+(motivational).
+\item No direct fifth force in minimal theory.
+\item DESI consistency check at proximity level; full likelihood
+in companion.
+\end{enumerate}
+Falsifiability via $F_1$--$F_5$ at Stage-IV precision.}
+
+%%% ============================================================
+\section*{Acknowledgments}
+
+\TODO{Acknowledgments. Note verification scripts and DESI fit script
+at zenodo deposit DOI \texttt{10.5281/zenodo.18852047}. All errors are
+the authors'.}
+
+\begin{thebibliography}{99}
+
+%% ===== Foundational refs =====
+
+\bibitem{BialynickiBirulaMycielski1976}
+I.~Bialynicki-Birula and J.~Mycielski,
+\emph{Nonlinear wave mechanics},
+Ann. Phys. (N.Y.) \textbf{100}, 62--93 (1976).
+
+\bibitem{RatraPeebles1988}
+B.~Ratra and P.~J.~E.~Peebles,
+\emph{Cosmological consequences of a rolling homogeneous scalar field},
+Phys. Rev. D \textbf{37}, 3406 (1988).
+
+\bibitem{Wetterich1988}
+C.~Wetterich,
+\emph{Cosmology and the fate of dilatation symmetry},
+Nucl. Phys. B \textbf{302}, 668 (1988).
+
+\bibitem{Frieman1995}
+J.~A.~Frieman \emph{et al.},
+\emph{Cosmology with ultralight pseudo-Nambu-Goldstone bosons},
+Phys. Rev. Lett. \textbf{75}, 2077 (1995).
+
+\bibitem{CPL2001}
+M.~Chevallier and D.~Polarski,
+\emph{Accelerating universes with scaling dark matter},
+Int. J. Mod. Phys. D \textbf{10}, 213 (2001).
+
+\bibitem{CaldwellLinder2005}
+R.~R.~Caldwell and E.~V.~Linder,
+\emph{The limits of quintessence},
+Phys. Rev. Lett. \textbf{95}, 141301 (2005); arXiv:astro-ph/0505494.
+
+\bibitem{BarrowParsons1995}
+J.~D.~Barrow and P.~Parsons,
+\emph{Inflationary models with logarithmic potentials},
+Phys. Rev. D \textbf{52}, 5576 (1995); arXiv:astro-ph/9506049.
+
+\bibitem{ColemanWeinberg1973}
+S.~Coleman and E.~Weinberg,
+Phys. Rev. D \textbf{7}, 1888 (1973).
+
+%% ===== DESI =====
+
+\bibitem{DESI2024BAO}
+DESI Collaboration, arXiv:2404.03000 (2024).
+
+\bibitem{DESI2024VI}
+DESI Collaboration, arXiv:2404.03002 (2024).
+
+\bibitem{DESI2025DR2}
+DESI Collaboration, arXiv:2503.14738; Phys. Rev. D \textbf{112},
+083515 (2025).
+
+%% ===== Planck =====
+
+\bibitem{Planck2020}
+Planck Collaboration, A\&A \textbf{641}, A6 (2020).
+
+%% ===== Stage-IV forecasts =====
+
+\bibitem{ShajibFrieman2025}
+A.~J.~Shajib and J.~A.~Frieman, arXiv:2502.06929 (2025).
+
+\bibitem{Turyshev2026Review}
+S.~G.~Turyshev, arXiv:2602.05368 (2026).
+
+%% ===== Adjacent quintessence/log-DE literature =====
+
+\bibitem{Thompson2019}
+R.~I.~Thompson, MNRAS \textbf{482}, 5448 (2019); arXiv:1811.03164.
+
+\bibitem{KouwnOh2012}
+S.~Kouwn and P.~Oh, JKPS \textbf{65}, 814 (2014); arXiv:1201.4544.
+
+\bibitem{Chavanis2015}
+P.-H.~Chavanis, Phys. Rev. D \textbf{92}, 103004 (2015); arXiv:1505.00034.
+
+\bibitem{Oikonomou2019}
+V.~K.~Oikonomou, Ann. Phys. \textbf{409}, 167912 (2019); arXiv:1907.02600.
+
+\bibitem{Wang2026QReconstruction}
+S.~Wang \emph{et al.}, arXiv:2603.21125 (2026).
+
+\bibitem{Adil2026Analytic}
+S.~A.~Adil \emph{et al.}, arXiv:2603.14693 (2026).
+
+\bibitem{AdamEtAl2025}
+H.~Adam \emph{et al.}, arXiv:2509.13302 (2025).
+
+%% ===== GW + local tests =====
+
+\bibitem{GW170817}
+LIGO/Virgo, ApJL \textbf{848}, L13 (2017).
+
+\bibitem{EotWash}
+D.~J.~Kapner \emph{et al.}, PRL \textbf{98}, 021101 (2007).
+
+\bibitem{MICROSCOPE}
+P.~Touboul \emph{et al.}, PRL \textbf{129}, 121102 (2022).
+
+%% ===== Information-theoretic / entropic =====
+
+\bibitem{Verlinde2011}
+E.~Verlinde, JHEP \textbf{04}, 029 (2011).
+
+\bibitem{CHLZ2012}
+A.~Sheykhi \emph{et al.}, Astrophys. Space Sci. \textbf{342}, 93 (2012).
+
+\bibitem{Ensslin2013}
+T.~A.~En{\ss}lin, Ann. Phys. \textbf{525}, 895 (2013).
+
+\bibitem{Caticha2012}
+A.~Caticha, EBEB 2012.
+
+%% ===== Companion papers =====
+
+\bibitem{SandersGishSigma2026}
+B.~R.~Sanders and M.~Gish,
+\emph{Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$},
+companion paper, in preparation (2026).
+
+\bibitem{SandersGishFourCore2026}
+B.~R.~Sanders and M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\mathbb{Z}/10\mathbb{Z}$},
+companion paper, in preparation (2026).
+
+\bibitem{SandersGish2026M22}
+B.~R.~Sanders and M.~Gish,
+\emph{Substrate-Algebraic Dark Energy: $\Omega_\DE = T^* - W/2$ from
+Mathieu Group $M_{22}$ Mediation},
+companion paper, in preparation (2026).
+
+\end{thebibliography}
+
+\end{document}
