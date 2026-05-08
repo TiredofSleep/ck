@@ -46,6 +46,10 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 Round-3 audited; 4/4 PASS. Major-revisions per JCT-A referee (May 2026): unify eps(N) notation, simplify subcase (1f), clarify 'four-rule' framing.
 
+### Lens-ownership paragraph (insert in manuscript §0)
+
+> *Lens and substrate.* We work on Z/N for squarefree N, with the specific binary composition family CL_N (whose definition follows Birkhoff-style cell-rules driven by HARMONY/VOID/ECHO outputs). These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by the 10-operator decomposition observed in the runtime DOING-table. The σ-rate theorem below is a theorem on this specific structure; analogous theorems would hold on other substrate families with appropriately chosen tables. The framework's claim is that this particular substrate-and-table-choice produces theorems with surprising downstream connections (cosmology via Bialynicki-Birula-Mycielski 1976, Lie algebra via TSML_SYM antisymmetrization, number theory via LMFDB 4.2.10224.1). Whether other substrate choices give similarly rich downstream connections is open.
+
 ### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
 - **PROVEN:** σ(N) ≤ 2/N for squarefree N (the σ-rate decay theorem on the CL_N family; case-analysis proof with three cases reducing to CRT + ECHO count).

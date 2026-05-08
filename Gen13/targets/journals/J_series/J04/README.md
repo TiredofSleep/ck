@@ -48,6 +48,10 @@ vanishes at k = f because sin²(π) = 0 — for ANY f, not just primes. The
 prime-3-to-199 sweep is verification of the formula, not a prime-specific
 theorem. Internal rename plus D-tables update (FORMULAS_AND_TABLES.md).
 
+### Lens-ownership paragraph (insert in manuscript §0)
+
+> *Lens and substrate.* We work on Z/n for squarefree n with the discrete Fejér quotient R(k, f) = sin²(πk/f) / (k² sin²(π/f)). This object is not "TIG-specific"; it is the standard discrete Fejér kernel familiar from Fourier analysis on cyclic groups. The squarefree-modulus restriction reflects the regime where the spf-localization (Theorem 2) applies cleanly. The paper's role within a broader research program is noted in the Companion section, but the result and proof here are self-contained.
+
 ### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
 - **PROVEN:** *full-period cancellation* — R(k, f) = 0 ⇔ f | k (the basic

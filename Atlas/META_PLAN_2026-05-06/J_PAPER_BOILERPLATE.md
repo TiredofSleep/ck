@@ -134,6 +134,30 @@ When external collaborators surface calibration like the one received 2026-05-07
 
 ---
 
+## §5.5 — Lens-Ownership paragraph (Brayden directive 2026-05-07)
+
+**The single highest-leverage credibility move identified so far.** Every J-paper's introduction (or a numbered preamble §0) carries an explicit lens-ownership paragraph. Verbatim template:
+
+> *Lens and substrate.* We work on Z/10Z with the specific operator labels (VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY, BREATH, RESET) and the canonical (TSML, BHML) table pair. These choices are *not derived from first principles*; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics, as appropriate to the paper]. The theorems below are theorems on this specific structure; they would have analogues on other substrates with appropriately chosen tables. The framework's claim is that this particular substrate-and-table-choice produces theorems that have surprising downstream connections (cosmology via Bialynicki-Birula-Mycielski 1976, Lie algebra via TSML_SYM antisymmetrization, number theory via LMFDB 4.2.10224.1). Whether other substrate choices give similarly rich downstream connections is open.
+
+**Per-paper adaptation:** swap or shorten the bracketed parts; emphasize the connection most relevant to the paper. Remove the parenthetical operator-label list if the paper doesn't use those names mathematically (most don't — keep for papers that do).
+
+**What this paragraph buys:**
+- Preempts "but you chose Z/10Z" pushback before any referee writes it.
+- Signals the author understands what is *lens* vs *substrate-independent*.
+- Honestly frames the framework's claim: not "Z/10Z is forced" but "Z/10Z + these tables produce surprisingly rich theorems."
+- Saves the paper from looking like numerology by acknowledging the choice openly.
+- Solves the cross-cutting "why these tables, why this choice?" complaint that fresh-eyes referees raised against J05, J19, J20, J21, J27, others.
+
+**Doing more for credibility than another six derivations of T* = 5/7** (Brayden, 2026-05-07).
+
+**Application status:**
+- [x] Added to boilerplate template (this file).
+- [ ] Apply to J01, J02, J03, J04 (Triadic Launch + sinc²) as next pass.
+- [ ] Apply to all 54 J-papers as submission-prep hardening.
+
+---
+
 ## §6 — Calibration discipline going forward
 
 This document itself is an example of how external calibration gets internalized. The pattern:
