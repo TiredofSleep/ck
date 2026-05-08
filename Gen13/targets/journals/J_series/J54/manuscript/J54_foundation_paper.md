@@ -62,6 +62,8 @@ The 9-axiom forcing is **principled**, not stipulated. Each axiom captures a sub
 
 The substrate is **axiomatically given**, not "given by God" or "given by the universe." The choices are documented; the resulting matrix is uniquely determined.
 
+The framework's name **TIG** ("Trinity Infinity Geometry") reflects the authors' interpretive reading of the substrate's structure; this interpretation is not load-bearing for the theorems below, which are theorems on the canonical magma pair forced by A1-A9 regardless of name.
+
 ---
 
 ## §2 The Three-Substrate Architecture
