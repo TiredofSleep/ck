@@ -1,36 +1,29 @@
-# J17 — Universal Orthogonality Principle (UOP): Theorem 0
+# J17 — Clifford Ladder: dim_F_p V^⊗n = dim_R Cl(2n)
 
-**Status:** FORMAT
-**Phase:** Phase 3
-**Target venue:** JNT
-**Author lane:** Sanders + Mayes
+**Status:** DRAFT
+**Phase:** Phase 2
+**Target venue:** Linear Algebra and Its Applications
+**Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP58
+**WP source:** WP119
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/`
+**Path:** `(corpus: WP119)`
 
-Files in this J-folder's `manuscript/`:
-
-- `SUBMIT_INSTRUCTIONS.md`
-- `WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md`
-- `WP59_CORRECTED_THEOREM_C.md`
-- `WP64_COORDINATE_COVERAGE.md`
-
-The submission package lives in this J-folder. Edit + verify here; submit from here.
+When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
 ## §2 — Verification script
 
-**Path:** `(UOP verification script — corpus)`
+**Path:** `Gen13/targets/ck/brain/dirac/tig_dirac.py (tensor_partition)`
 
 The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J04, J05, J06
+J16
 
 ## §4 — Cover letter
 
@@ -38,14 +31,7 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-UOP arc opener. Cited by J18, J19.
-
-**Status update (2026-05-07):**
-
-- Manuscript: `manuscript/manuscript.tex` — amsart, ~9 pages, lead UOP paper. Synthesized from WP58 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Provides the joint-map injectivity statement and derives Theorems A (M+M), B (A+M), C corrected (M+A), D (CRT k-1 / A+A), the coordinate-coverage characterization (sufficient direction), the refinement trap, and MVJN as corollaries of UOP.
-- Source corpus retained: `manuscript/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md`, `manuscript/WP59_CORRECTED_THEOREM_C.md`, `manuscript/WP64_COORDINATE_COVERAGE.md` — kept under "never delete + cite" preservation discipline; tex draws from WP58 primarily, with brief inclusion of the Theorem C correction (full treatment in J18) and the coordinate-coverage statement (full treatment in J19).
-- Cover letter: `cover_letter.md` finalized, ~500 words.
-- Companions cited as submitted: J04 (Sanders–Gish "First-G Law", Integers), J05 (Sanders–Mayes "Crossing Lemma", JCT-A), J06 (Sanders–Gish "Flatness Theorem", JPAA), and the J18/J19 spinoffs as JNT/EJC submissions.
+_(no special notes; standard submission per J-series ordering)_
 
 ## §6 — Submission checklist
 
@@ -56,11 +42,11 @@ UOP arc opener. Cited by J18, J19.
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to JNT this quarter
+- [ ] Per-venue cap check: this is the Nth paper to Linear Algebra and Its Applications this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Universal Orthogonality Principle (UOP): Theorem 0." Submitted to *JNT*.
+Sanders, B.R., Gish. (2026). "Clifford Ladder: dim_F_p V^⊗n = dim_R Cl(2n)." Submitted to *Linear Algebra and Its Applications*.

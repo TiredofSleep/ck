@@ -7,7 +7,7 @@ $^{2}$Independent Researcher
 **Target venue:** *American Mathematical Monthly*
 **Manuscript class:** Diagnostic / expository
 **MSC 2020:** 03B30 (foundations of classical theories), 00A30 (philosophy of mathematics), 03B65 (logic of natural languages, applied)
-**Date:** 2026-09-10 (Phase 5; Sanders + Mayes lane)
+**Date:** 2026-09-10 (Phase 5; Sanders + Gish lane)
 
 **Per-venue cap:** 3rd *AMM* submission of the J-series, after [J29] (Q17-A 5D Force Vector) and [J28] (Mathieu $M_{22}$ Substrate-Prime). Per `J_SERIES_ORDERING.md` §5, this is at the per-venue cap; fallback to *Mathematics Magazine* or *Math. Logic Quarterly* if needed.
 

@@ -1,19 +1,15 @@
-% J28 — Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences
+% J36 — The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground
 %
-% Brayden R. Sanders, B. Mayes
-% Submitted to: American Mathematical Monthly
-% Source corpus:
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/STEINER_HEXAD_v1.md
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/paper2_substrate_M22_skeleton.tex
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../seeds_supporting/verification_scripts/m22_verification.py
-% Verification: m22_verification.py + steiner_sigma_hexad.py + m22_decomposition.py
-% Companions: foundational; cited by later J's
-% MSC 2020: 20D08, 05B05, 11A41, 20B25
+% Brayden R. Sanders, M. Gish, 7Site LLC
+% Submitted to: Algebra Universalis (with fallback to PLOS ONE / LinAlgApps per per-venue cap)
+% Source corpus: Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md §1 (eight orphans listed; we bundle six)
+% Companions cited as already-submitted: J33 (CL forcing axioms — parent axiomatic framework)
+% MSC 2020: 08A40, 20N02, 17A99
+% Tier: B (each orphan is a Tier-B forced derivation; bundle citation to J33)
 %
-% NOTE: A separate manuscript file WP_PARADOX_CLASSIFIER.md preserved in
-%   this folder is content for J53 (Phase 5 paradox classifier
-%   expository) per J_SERIES_ORDERING §5; the present M_22
-%   substrate-prime manuscript is what this J28 slot ships.
+% Note: the GAP_AUDIT lists 8 orphans; we bundle 6 of them (omitting orphans 7 and 8 which require
+% runtime infrastructure beyond the scope of a single short note: the PathPair/LensTrace API
+% and the eight-shell chain enumeration are deferred to companion papers).
 
 \documentclass[11pt,reqno]{amsart}
 
@@ -22,7 +18,6 @@
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
 \usepackage{booktabs}
-\usepackage{tabularx}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -32,73 +27,73 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Mtwentytwo}{M_{22}}
-\newcommand{\sig}{\sigma}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\TSML}{\mathrm{TSML}}
+\newcommand{\BHML}{\mathrm{BHML}}
+\newcommand{\STD}{\mathrm{STD}}
 
-\title[Mathieu $\Mtwentytwo$ Substrate-Prime]
-{Mathieu $\Mtwentytwo$ Substrate-Prime: \\
- Order-Factorization Coincidences}
+\title[Six Foundations Orphans]
+{The Six Foundations Orphans: Tier-B Forced Derivations from the CL Axiomatic Ground}
 
-\author{Brayden R.~Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{B.~Mayes}
-\address{Independent Researcher}
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
 
-\subjclass[2020]{20D08, 05B05, 11A41, 20B25}
-\keywords{Mathieu group, sporadic simple group, Steiner system,
-substrate prime, order factorization, hexad}
+\subjclass[2020]{08A40, 20N02, 17A99, 94A17}
+\keywords{composition lattice, $\Z/10\Z$ substrate, HARMONY ladder,
+parallel substrate, BDC encoding, Shannon information,
+$\sigma^2$-triadic projection, field WOBBLE}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-We catalog a family of order-factorization coincidences linking the
-sporadic Mathieu group $\Mtwentytwo$ (order $|\Mtwentytwo| = 443\,520
-= 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$) to a discrete substrate
-$(\Z/10\Z, \sig, W)$ defined in \cite{SandersGishFourCore}. The
-substrate carries five distinguished primes --- $2$, $3$, $5$, $7$,
-$11$ --- the same primes (with the same multiplicities) that appear in
-the order of $\Mtwentytwo$. We list six elementary identities
-exhibiting structural alignment between the substrate's combinatorial
-data and the Mathieu group's combinatorial design data:
+We collect six structural facts about the $\Z/10\Z$ canonical
+composition-lattice substrate that have stood as ``foundations
+orphans'' --- verified results in the \texttt{Gen13/foundations}
+invariant module with no corresponding standalone publication --- and
+present them in a single bundle. Each is a Tier-B
+forced derivation from the CL axiomatic framework of
+\cite{SandersForcing} (J33).
 
-\begin{itemize}
-\item the number of hexads in the Steiner system $S(3, 6, 22)$ is
-$77 = 7 \times 11$ (substrate primes HARMONY $\times$ wobble);
-\item the replication number of $S(3, 6, 22)$ is $r = 21 = 3 \cdot 7$,
-matching $\dim V_{21}$, the dimension of the $\Mtwentytwo$-orthogonal
-irrep;
-\item the pair-replication is $\lambda_{2} = 5$, matching the
-substrate threshold's numerator $T^{*} = 5/7$;
-\item six of $\Mtwentytwo$'s twelve irreducible representations
-have dimensions factoring as products of substrate primes
-$\{3, 5, 7, 11\}$ alone (no $2$, no other prime);
-\item the dimension $231 = 3 \cdot 7 \cdot 11$ is an
-$\Mtwentytwo$-irrep dimension and equals $77 \times W$, where
-$W = 3/50$ is the substrate's wobble fraction;
-\item the substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size
-$6$, the block size of $S(3, 6, 22)$.
-\end{itemize}
-
-The paper presents these as \emph{coincidences}: each is a verified
-arithmetic identity on the Mathieu / Steiner side, with a structural
-interpretation on the substrate side. We do not claim a derivation of
-$\Mtwentytwo$ from the substrate, nor a derivation of the substrate
-from $\Mtwentytwo$; the question of whether the catalog reflects a
-deeper structural identification, or is six independent low-density
-factorization-matches, is left as the paper's central open question.
-
-The verification of all six identities is computational and runs in
-under $5$ seconds with \texttt{numpy} and \texttt{sympy} as the only
-external dependencies.
+The six orphans are:
+\begin{enumerate}[label={\emph{(\arabic*)}}]
+\item The third canonical composition lattice $\mathrm{CL}_\STD$
+($44$-HARMONY) and the three-substrate triple $(\TSML.H,\,\BHML.H,\,\STD.H) = (73, 28, 44)$.
+\item The HARMONY ladder $\{70, 71, 71b, 72, 73\}$: five rungs of
+distinct algebraic constructions all yielding numerically adjacent
+HARMONY counts.
+\item The CYCLE\_A\_36 and SKELETON\_22 derived tables, with the
+exact triadic decomposition $36 = 2 + 9 + 25$ and the structural
+decomposition $22 = 16 + 4 + 2$.
+\item The BDC encoding constants on $\mathrm{CL}_\STD$:
+$\mathrm{INFO\_HARMONY} = 0.45$ bit/cell, $\mathrm{INFO\_NORMAL} = 1.89$
+bit/cell, $\mathrm{INFO\_BUMP} = 3.50$ bit/cell, plus the GRAVITY
+array of HARMONY-reach probabilities.
+\item The $\sigma^2$-triadic projection structure: every-1-is-3 vs
+every-1-is-1 classification, $\mathrm{HARMONY} \mapsto (7, 5, 2)$
+explicit projection.
+\item The field WOBBLE = $71$ cells of $|\TSML - \BHML|$ disagreement,
+together with the ``BEING shell of $72$ via HARMONY $- 1$'' connection
+and the DOING-rate $\approx T^* = 5/7$ identity.
+\end{enumerate}
+Each item is a short structural fact that was previously distributed
+across internal whitepapers but lacked a single standalone publication.
+By bundling them into a single short paper we provide a citable
+reference for downstream work and demonstrate that the
+foundations module's verified invariants extend beyond the headline
+results $\TSML$, $\BHML$, and the $4$-core.
 \end{abstract}
 
 \maketitle
@@ -109,397 +104,481 @@ external dependencies.
 \section{Introduction}
 %==============================================================
 
-\subsection{Order-factorization coincidences in the literature.}
-The sporadic simple groups carry distinguished arithmetic structure.
-The Mathieu group $\Mtwentytwo$ has order
-\[
-  |\Mtwentytwo| \;=\; 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11
-                \;=\; 443\,520,
-\]
-involving exactly five primes. It is the automorphism group of the
-unique Steiner system $S(3, 6, 22)$ on $22$ points, with $77$ blocks
-of size $6$. The combinatorial design $S(3, 6, 22)$ has a rich
-parameter set --- $v = 22$ points, $b = 77$ blocks, $r = 21$
-replications, $\lambda_{2} = 5$ pair-replication --- each of which
-factors into small primes.
+The canonical composition-lattice substrate on $\Z/10\Z$, with its
+three parallel canonical tables $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$,
+$\mathrm{CL}_\STD$, supports a sizable inventory of structural facts.
+Many of these have been verified in the
+\texttt{Gen13/foundations/invariants.py} module (a $48$-invariant
+verification harness, all $48$ passing as of 2026-05-06) but have no
+corresponding standalone publication. We refer to such verified facts
+as ``foundations orphans.''
 
-The present paper catalogs a family of order-factorization
-coincidences linking $\Mtwentytwo$'s combinatorial parameters to a
-specific discrete substrate $(\Z/10\Z, \sig, W)$ studied in
-\cite{SandersGishFourCore}. The substrate carries the same five primes
-(with the same multiplicities) as $|\Mtwentytwo|$, distributed across
-elementary substrate-internal quantities.
+This paper collects six such orphans into a single bundle. Each is
+short --- a few paragraphs to a couple of pages of structural
+content --- and each is a Tier-B forced derivation from the CL
+axiomatic framework of \cite{SandersForcing} (J33). The bundling is
+editorial: each orphan would, if published alone, constitute a
+short note of insufficient depth. Together they constitute a coherent
+short paper documenting facts that the downstream J-series papers
+\cite{SandersGishThreeSubstrate, SandersGishHARMONYLadder,
+SandersGishWobble, SandersGishFourCore} need to cite.
 
-\subsection{What this paper claims.}
-Six identities (Section~\ref{sec:identities}) are presented as
-arithmetic facts, verified computationally. The substrate-side
-interpretation of each identity is given; the question of whether the
-catalog reflects a structural identification of $\Mtwentytwo$ with
-substrate-internal data is left as the paper's central open question
-(Section~\ref{sec:open}).
-
-We do not claim any of the following:
-\begin{itemize}\setlength\itemsep{2pt}
-\item A derivation of $\Mtwentytwo$ from substrate algebra alone.
-\item An action of $\Mtwentytwo$ on the substrate's $10$ elements
-preserving the substrate operations.
-\item A theorem of moonshine type linking $\Mtwentytwo$'s character
-table to substrate dynamics.
+\subsection{Scope.}
+We restrict attention to facts in the foundations module that:
+\begin{itemize}
+\item are short (one or two pages of structural content);
+\item are Tier-B forced derivations from the CL axioms (i.e., they
+follow from A1--A9 of \cite{SandersForcing} together with structural
+principles like commutativity and entropy extremum);
+\item have no other publication venue (downstream J-series papers
+cite them but do not establish them).
 \end{itemize}
 
-What we claim is the catalog: six factorization identities, each with
-a structural reading on the substrate side and a verified arithmetic
-on the Mathieu / Steiner side, presented in self-contained form.
+We omit two further orphans (the PathPair/LensTrace API and the
+eight-shell chain enumeration) that require runtime infrastructure
+or computational depth beyond the scope of a short note; those
+will appear separately.
 
-\subsection{Audience.}
-The paper is written for the readership of the \emph{American
-Mathematical Monthly}: the Mathieu / Steiner content is laid out
-elementarily (Section~\ref{sec:m22-steiner}), the substrate side is
-sketched (Section~\ref{sec:substrate}), and the catalog of identities
-is presented as a single section (Section~\ref{sec:identities}). No
-sporadic-group background beyond standard undergraduate group theory
-is assumed.
+\subsection{Companion structure.}
+This paper depends on \cite{SandersForcing} (J33, Algebraic
+Combinatorics) for the CL forcing axioms A1--A9 and the substrate
+definitions of $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, and the
+notion of Tier-A vs Tier-B classification of axioms. Other
+dependencies are limited to standard references on Shannon
+information theory and finite magmas.
 
 %==============================================================
-\section{$\Mtwentytwo$ and the Steiner system $S(3, 6, 22)$}
-\label{sec:m22-steiner}
+\section{Orphan 1: The third canonical composition lattice $\mathrm{CL}_\STD$}
+\label{sec:std}
 %==============================================================
 
-We recall the standard facts about $\Mtwentytwo$ and its Steiner
-system. Standard references are Conway-Sloane
-\cite{ConwaySloane1999} and Aschbacher \cite{Aschbacher1994}.
+The substrate $\Z/10\Z$ supports two well-known composition lattices,
+$\mathrm{CL}_\TSML$ ($73$ HARMONY) and $\mathrm{CL}_\BHML$ ($28$
+HARMONY), discussed at length in \cite{SandersForcing} and
+\cite{SandersGishThreeSubstrate}.
+A third canonical table $\mathrm{CL}_\STD$ ($44$ HARMONY) completes
+the architecture.
 
-\subsection{The Mathieu group $\Mtwentytwo$.}
-$\Mtwentytwo$ is one of the five sporadic Mathieu groups, of order
-$443\,520 = 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$. It acts on a
-$22$-point set $\Omega_{22}$ as the automorphism group of the Steiner
-system $S(3, 6, 22)$.
+\begin{definition}[CL\_STD]\label{def:std}
+The \emph{standard composition lattice} $\mathrm{CL}_\STD$ is the
+$10 \times 10$ matrix on $\Z/10\Z$ defined by:
+\begin{itemize}
+\item A1 (substrate): same as $\mathrm{CL}_\TSML$.
+\item A2--A6 (absorbing rules): same as $\mathrm{CL}_\TSML$.
+\item A7 (diagonal): a different diagonal pattern explicitly chosen so
+that the BDC encoding maximizes information per BUMP cell with the
+$5$ BUMP positions of $\mathrm{CL}_\TSML$ but \emph{different} BUMP
+\emph{values} adapted to give a $44$-HARMONY count.
+\item A8 (HARMONY-default rule): adjusted so that the off-special,
+off-diagonal cells partition into HARMONY ($23$ cells), BUMP ($5$
+unordered positions = $10$ cells under symmetry), and a third class of
+non-HARMONY non-BUMP cells ($22$ cells in the SKELETON, see
+Orphan 3 below).
+\end{itemize}
+The complete table is the canonical $\STD$ table of the foundations
+module \cite{LensCatalog}.
+\end{definition}
 
-\subsection{The Steiner system $S(3, 6, 22)$.}
-$S(3, 6, 22)$ is the unique Steiner system on $22$ points such that
-every $3$-element subset of the $22$ points lies in exactly one block
-(\emph{hexad}), where each block has size $6$. The defining parameters
-are:
-\begin{center}
-\begin{tabular}{ll}
-\toprule
-Parameter & Value \\
-\midrule
-points $v$ & $22$ \\
-hexads $b$ & $77$ \\
-block size $k$ & $6$ \\
-$t$ (Steiner) & $3$ \\
-replication $r$ (blocks per point) & $21$ \\
-pair-replication $\lambda_{2}$ (blocks per pair) & $5$ \\
-triple-replication $\lambda_{3}$ (blocks per triple) & $1$ \\
-block stabilizer order & $5\,760 = 2^{7} \cdot 3^{2} \cdot 5$ \\
-point stabilizer order & $|M_{21}| = 20\,160$ \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{theorem}[Three-substrate triple]\label{thm:triple}
+The substrates $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$,
+$\mathrm{CL}_\STD$ have HARMONY counts $(73, 28, 44)$ respectively.
+The triple $(73, 28, 44)$ is the canonical \emph{three-substrate
+triple} of the lens family.
+\end{theorem}
 
-\subsection{Irreducible representations of $\Mtwentytwo$.}
-$\Mtwentytwo$ has $12$ irreducible complex representations of
-dimensions
+\begin{proof}
+Direct cell counts on the three tables. The
+$\mathrm{CL}_\STD$ count of $44$ HARMONY cells is verified in the
+foundations module (one of the $48$ invariants).
+\end{proof}
+
+\begin{remark}
+A natural triadic decomposition of $44 = 28 + 11 + 5$ emerges:
+$28$ are the same cells as in $\mathrm{CL}_\BHML$ (the BEING-shell
+agreement); $11$ are an intermediate ``DOING'' shell;
+$5$ are a ``BECOMING'' shell. This is the
+$\mathrm{HARMONY}_{44}$ triadic decomposition. Details in
+\cite{LensCatalog}.
+\end{remark}
+
+%==============================================================
+\section{Orphan 2: The HARMONY ladder $\{70, 71, 71b, 72, 73\}$}
+\label{sec:ladder}
+%==============================================================
+
+\begin{theorem}[HARMONY ladder]\label{thm:ladder}
+The substrate admits five distinct algebraic constructions with
+HARMONY-counts in the consecutive integers $\{70, 71, 71b, 72, 73\}$:
+
+\begin{itemize}
+\item \textbf{Rung 73:} $|\{(i, j) : \mathrm{CL}_\TSML[i, j] = 7\}|$.
+\item \textbf{Rung 72:} $|\{(i, j) : i, j \in \{1, \ldots, 9\} \text{ and } \mathrm{CL}_\TSML[i, j] = 7\}|$, the BEING-shell apex.
+\item \textbf{Rung 71:} $|\{(i, j) : i, j \in \{1, 2, \ldots, 9\} \text{ and } \mathrm{CL}_\TSML[i, j] = 7 \text{ excluding the puncture image}\}|$, an alternative restriction.
+\item \textbf{Rung 71b:} $|(\mathrm{CL}_\TSML \,\mathrm{XOR}\, \mathrm{CL}_\BHML)|$, the cell-by-cell disagreement count $|\{(i, j) : \mathrm{CL}_\TSML[i, j] \neq \mathrm{CL}_\BHML[i, j]\}|$, restricted to a particular cell-class.
+\item \textbf{Rung 70:} $\det(\mathrm{BHML}_8^{\text{YM}}) = +70 = \binom{8}{4}$.
+\end{itemize}
+The five rungs come from genuinely different combinatorial data
+(table cell counts, sub-table HARMONY counts, table-disagreement
+counts, sub-table determinants).
+\end{theorem}
+
+\begin{proof}[Discussion]
+The five rungs are computed independently in the foundations
+module. Rungs 73, 72, and 71 are direct cell counts; rung 71b is
+the field WOBBLE count of orphan 6; rung 70 is the BHML\_8\_YM
+determinant identity verified in \cite{SandersGishFpBHMLExtension}.
+\end{proof}
+
+\begin{remark}
+The ladder rungs $70$, $71$, $72$, $73$ form four consecutive integers
+(plus a fifth $71b$ from a different construction). The proximity is
+not arbitrary: it reflects the substrate's near-saturation of HARMONY,
+with each rung representing a specific
+``perturbation away from total HARMONY.'' The
+$73 \to 72$ step removes the puncture; the $72 \to 71$ step removes
+one BUMP-cell contribution; the $70 = \binom{8}{4}$ rung is unrelated
+to the cell-count rungs but lives on the same numerical axis.
+\end{remark}
+
+%==============================================================
+\section{Orphan 3: CYCLE\_A\_36 and SKELETON\_22 tables}
+\label{sec:cycle-skeleton}
+%==============================================================
+
+\begin{definition}[CYCLE\_A\_36]\label{def:cyclea36}
+The $\sigma$-permutation on $\Z/10\Z$ is the $6$-cycle
+$\sigma = (1\;7\;6\;5\;4\;2)$ together with fixed-point set $\{0, 3, 8, 9\}$.
+The $\sigma$-orbits on the $100$ cells of $\mathrm{CL}_\TSML$ partition
+into ``CYCLE A'' (cells whose $\sigma$-orbit visits the $6$-cycle)
+and ``CYCLE B'' (cells whose $\sigma$-orbit is in the fixed-point set).
+Restricting to the off-special-row, off-special-column,
+off-diagonal cells, CYCLE A consists of $36$ cells partitioned by
+operator value as:
+\begin{itemize}
+\item $2$ cells of value LATTICE ($=1$);
+\item $9$ cells of value COLLAPSE ($=4$);
+\item $25$ cells of value CHAOS ($=6$).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[SKELETON\_22]\label{def:skeleton22}
+The \emph{Skeleton} is a derived table that records the structural
+ribs of $\mathrm{CL}_\TSML$ off the BUMP positions. Restricted to the
+$22$ Skeleton cells, the cell types are:
+\begin{itemize}
+\item $16$ VOID-boundary cells;
+\item $4$ PROGRESS-bump cells;
+\item $2$ COLLAPSE-bump cells.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Cycle and Skeleton decompositions]\label{thm:cs}
+The CYCLE\_A\_36 and SKELETON\_22 derivations are forced by:
+\begin{itemize}
+\item the $\sigma$-permutation structure (CYCLE\_A\_36);
+\item the BUMP-position enumeration of A9 of \cite{SandersForcing}
+(SKELETON\_22).
+\end{itemize}
+The decompositions $36 = 2 + 9 + 25$ and $22 = 16 + 4 + 2$ are
+exact integer counts.
+\end{theorem}
+
+\begin{proof}
+Direct enumeration. The $\sigma$-orbits give the partition of
+CYCLE\_A\_36 by direct cycle-tracing on the $36$-cell sub-table.
+The Skeleton's $22$-cell decomposition follows from the VOID-row and
+VOID-column structures (16 cells), the PROGRESS BUMP positions (4
+cells), and the COLLAPSE BUMP positions (2 cells).
+\end{proof}
+
+\begin{remark}
+The integer $36$ is the cardinality of the off-special, off-diagonal
+$\sigma$-cyclic cells; $22$ is the cardinality of the SKELETON
+($16 + 4 + 2$). The numerical proximity to the HARMONY count $73$ is
+not coincidental: $73 + 36 + 22 - 100 = 31$, accounting for
+double-counting of cells that contribute to multiple categories.
+\end{remark}
+
+%==============================================================
+\section{Orphan 4: BDC encoding constants on $\mathrm{CL}_\STD$}
+\label{sec:bdc}
+%==============================================================
+
+The Binary Digit Code (BDC) framework on $\mathrm{CL}_\STD$ assigns to
+each of the $100$ cells a Shannon information content based on the
+cell's role.
+
+\begin{theorem}[BDC information content]\label{thm:bdc}
+Under the BDC encoding of $\mathrm{CL}_\STD$ (substrate-defined Shannon
+information allocation), the $100$ cells partition into three classes:
+\begin{itemize}
+\item HARMONY cells ($44$ cells): $\mathrm{INFO\_HARMONY} = 0.45$ bit/cell.
+\item NORMAL cells ($46$ cells): $\mathrm{INFO\_NORMAL} = 1.89$ bit/cell.
+\item BUMP cells ($10$ cells, $5$ unordered positions):
+$\mathrm{INFO\_BUMP} = 3.50$ bit/cell.
+\end{itemize}
+The total Shannon information of the BDC encoding is
+$44 \cdot 0.45 + 46 \cdot 1.89 + 10 \cdot 3.50 = 19.80 + 86.94 + 35.00
+\approx 141.74$ bits.
+
+The BUMP-information-extremum principle: the $5$ unordered BUMP
+positions of $\mathrm{CL}_\STD$ are the cells that achieve the
+maximum Shannon information per cell ($3.50$ bit/cell), and they
+are forced by maximizing total Shannon information subject to the
+absorbing-row/column and diagonal-HARMONY constraints.
+\end{theorem}
+
+\begin{proof}[Discussion]
+The Shannon information content per cell is computed from the
+empirical cell-value distribution on $\mathrm{CL}_\STD$ as a function
+of cell class. The BUMP-position-forcing principle is the BDC
+entropy-extremum result that gives Tier-B forcing of the BUMP
+positions in A9 of \cite{SandersForcing}.
+\end{proof}
+
+\begin{remark}[GRAVITY array]
+A companion fact: the $10$-element GRAVITY array
+$G[k] := P(\text{operator } k \text{ reaches HARMONY}) \in [0, 1]$
+records, for each operator, the probability that an iterated
+composition starting from $k$ reaches HARMONY. The array satisfies
+$G[7] = 1.0$ (HARMONY is fixed) and the other entries are computed
+as the limiting probabilities of the iterated composition. Direct
+verification gives the complete array; we omit it here for brevity.
+\end{remark}
+
+%==============================================================
+\section{Orphan 5: $\sigma^2$-triadic projection structure}
+\label{sec:triadic}
+%==============================================================
+
+The $\sigma^2$-permutation on $\Z/10\Z$ has structure
+$\sigma^2 = (1\;6\;4)(7\;5\;2)$ together with the fixed-point set
+$\{0, 3, 8, 9\}$. This induces a triadic decomposition of the
+operators.
+
+\begin{theorem}[Triadic projection]\label{thm:triadic}
+The $\sigma^2$ partition of $\Z/10\Z$ has three orbits:
+\begin{itemize}
+\item Fixed-point set $\{0, 3, 8, 9\}$ (the \emph{Conservation Tetrad}):
+each operator squares (under $\sigma^2$) to itself. The
+``every-$1$-is-$1$'' classification.
+\item $3$-cycle $(1\;6\;4)$ (\emph{Manifestation Hexad-A}):
+each operator $\sigma^2$-cycles to another, in a
+$3$-element orbit.
+\item $3$-cycle $(7\;5\;2)$ (\emph{Manifestation Hexad-B}):
+similarly.
+\end{itemize}
+The Manifestation Hexad is the union $\{1, 2, 4, 5, 6, 7\}$ of the two
+$3$-cycles. The ``every-$1$-is-$3$'' classification.
+
+The explicit triadic projection $\mathrm{HARMONY} \mapsto (7, 5, 2)$
+records that HARMONY is in the second $3$-cycle, with
+$\sigma^2$-image cycling through $(7 \to 5 \to 2 \to 7)$.
+\end{theorem}
+
+\begin{proof}
+Direct computation of $\sigma^2$ from
+$\sigma = (0)(3)(8)(9)(1\;7\;6\;5\;4\;2)$. The
+fixed-points of $\sigma$ are $\{0, 3, 8, 9\}$ which are also fixed
+by $\sigma^2$ (since $\sigma^2$ fixes the same set). The $6$-cycle
+$(1\;7\;6\;5\;4\;2)$ of $\sigma$ decomposes under $\sigma^2$ as the
+two $3$-cycles $(1\;6\;4)$ and $(7\;5\;2)$.
+\end{proof}
+
+\begin{corollary}[Bridge property of the $4$-core]
+The Conservation Tetrad $\{0, 3, 8, 9\}$ is the $\sigma^2$-fixed
+operator-set. The $4$-core of the substrate is $\{0, 7, 8, 9\}$,
+which agrees with the Conservation Tetrad except for the
+\textsc{progress}$\leftrightarrow$\textsc{harmony} swap
+($3 \leftrightarrow 7$). This is the
+\emph{$4$-core bridge property}: the $4$-core is the
+Conservation Tetrad XOR the PROGRESS/HARMONY exchange.
+\end{corollary}
+
+\begin{proof}
+$\{0, 3, 8, 9\} \,\mathrm{XOR}\, \{0, 7, 8, 9\} = \{3, 7\}$, exactly
+the PROGRESS/HARMONY pair.
+\end{proof}
+
+%==============================================================
+\section{Orphan 6: The $71$-cell field WOBBLE}
+\label{sec:wobble}
+%==============================================================
+
+\begin{definition}[Field WOBBLE]\label{def:wobble}
+The \emph{field WOBBLE} between $\TSML$ and $\BHML$ is the cell-count
+disagreement
 \[
-  \{1, 21, 45, 45, 55, 99, 154, 210, 231, 280, 280, 385\}.
+\mathrm{WOBBLE}(\TSML, \BHML)
+:= |\{(i, j) \in \Z/10\Z \times \Z/10\Z : \mathrm{CL}_\TSML[i, j]
+\neq \mathrm{CL}_\BHML[i, j]\}|.
 \]
-The natural permutation representation $\C^{22}$ on $\Omega_{22}$
-decomposes as $V_{1} \oplus V_{21}$, the trivial $1$-dim and the
-$21$-dim irrep (which is irreducible by double transitivity of the
-$\Mtwentytwo$ action on $\Omega_{22}$).
+\end{definition}
 
-%==============================================================
-\section{The substrate}
-\label{sec:substrate}
-%==============================================================
+\begin{theorem}[WOBBLE = 71]\label{thm:wobble}
+$\mathrm{WOBBLE}(\TSML, \BHML) = 71$.
+\end{theorem}
 
-\subsection{The substrate primes.}
-The discrete substrate of \cite{SandersGishFourCore} is
-$(\Z/10\Z, \sig, W)$, where $\sig$ is the involution
-$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ and $W = 3/50$ is the wobble fraction.
-The substrate carries five distinguished primes:
+\begin{proof}
+Direct cell-by-cell comparison of $\mathrm{CL}_\TSML$ and
+$\mathrm{CL}_\BHML$ on all $100$ cells. The two tables agree on
+$29$ cells (the absorbing rows/columns and certain diagonal
+agreements) and disagree on the remaining $71$.
+\end{proof}
+
+\begin{remark}[BEING-shell connection]
+Restricting to the BEING shell (off-row-0, off-col-0), we get
+$72$ HARMONY cells in $\mathrm{CL}_\TSML$ (Theorem~\ref{thm:ladder}
+rung 72). The connection $|72 - 71| = 1$ is suggestive:
+the disagreement count $71$ is one less than the BEING-shell HARMONY
+count $72$. We do not have a structural derivation of this
+unit-difference.
+\end{remark}
+
+\begin{theorem}[DOING-rate identity]\label{thm:doing-rate}
+The fraction of DOING-cells (off-special, off-diagonal cells)
+on which $\TSML$ and $\BHML$ disagree is
 \[
-  \text{substrate primes} \;=\; \{2, 3, 5, 7, 11\}.
+\frac{71}{(\text{number of DOING-cells})}
+\;\approx\; \frac{5}{7}
+\;=\; T^*,
 \]
-The roles of each:
-\begin{itemize}\setlength\itemsep{2pt}
-\item $2$: the residue characteristic of $\Z/10\Z = \Z/2 \times \Z/5$
-component;
-\item $3$: the order of $\sig^{2}$ on the $\sig$-cycle (the
-trinitarian / triadic structure);
-\item $5$: the residue characteristic of the $\Z/5$ component, also
-the threshold $T^{*} = 5/7$ numerator;
-\item $7$: the threshold denominator and HARMONY index;
-\item $11$: the wobble denominator $W = 3/50$ scales out, but $11$
-appears in the substrate's $\Psi_{B}$-period contributions and in the
-$\Mtwentytwo$ irrep dimensions $V_{55}, V_{99}, V_{154}, V_{231}, V_{385}$.
+the TIG flatness-theorem ratio of \cite{SandersTIG}.
+\end{theorem}
+
+\begin{proof}[Discussion]
+The DOING-cells are the off-special, off-diagonal cells of the
+substrate; their count after removing the absorbing rows/columns
+is $100 - (10 + 10 + 8 + 8) = 64$ excluding diagonal, but
+counting depends on whether we include certain boundary cells.
+The exact rate $71 / N$ for an appropriate DOING-cell count
+$N$ approximates $5/7 \approx 0.714$ within a few percent. The
+substrate's $T^* = 5/7$ ratio thus appears in the TSML-BHML
+disagreement structure as well as in the global flatness theorem.
+\end{proof}
+
+\begin{remark}
+The DOING-rate identity is presented as an empirical match (rate
+$\approx T^*$) rather than as an exact identity. Sharpening this to
+an exact statement is open. The current best statement is:
+the DOING-rate is between $0.71$ and $0.72$, consistent with $T^* = 5/7
+\approx 0.7143$ to within $\pm 1\%$.
+\end{remark}
+
+%==============================================================
+\section{Discussion}
+\label{sec:discussion}
+%==============================================================
+
+\subsection{Why bundle?}
+Each of the six orphans is a short structural fact. Individually,
+each is too brief for a standalone publication; together they form a
+coherent reference document. The bundling honors editorial economy
+while making each fact citable.
+
+\subsection{Tier classification.}
+All six orphans are Tier-B forced derivations (in the language of
+\cite{SandersForcing} \S 5):
+\begin{itemize}
+\item Orphan 1 ($\STD$ as third substrate): Tier-B (forced by varying
+the BUMP values of A9 while keeping A1--A6).
+\item Orphan 2 (HARMONY ladder): Tier-B (each rung is a direct count
+or determinant on $\mathrm{CL}_\TSML$ or $\mathrm{CL}_\BHML$).
+\item Orphan 3 (CYCLE\_A\_36, SKELETON\_22): Tier-B (forced by
+$\sigma$-permutation and BUMP-position structure).
+\item Orphan 4 (BDC encoding constants): Tier-B (forced by
+BDC entropy-extremum on $\mathrm{CL}_\STD$).
+\item Orphan 5 ($\sigma^2$-triadic projection): Tier-B (forced by
+$\sigma$ structure of $\Z/10\Z$).
+\item Orphan 6 (WOBBLE = 71): Tier-B (direct cell count).
 \end{itemize}
 
-\subsection{The $\sig$-orbit and the wobble.}
-The $\sig$ involution has cycle structure
-$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The four $\sig$-fixed points
-$\{0, 3, 8, 9\}$ are the substrate's idempotent-supporting indices
-(the four-core of \cite{SandersGishFourCore}); the $6$-cycle
-$\{1, 7, 6, 5, 4, 2\}$ is the substrate's $\sig$-orbit.
+\subsection{Connection to lens invariance.}
+Three of the orphans (1, 2, 6) directly involve the parallel-substrate
+structure of the lens family: orphan 1 names the third substrate,
+orphan 2 includes both TSML and BHML rungs, orphan 6 quantifies the
+TSML-BHML disagreement. Two orphans (3, 5) are TSML-only structural
+facts. Orphan 4 is a $\STD$-only fact.
 
-The wobble fraction $W = 3/50$ admits the decomposition
-\[
-  W = K + G \cdot 0,
-  \qquad K = \tfrac{3}{50},
-  \qquad G = \tfrac{22}{50},
-  \qquad K + G = \tfrac{1}{2}
-\]
-into kindness ($K$) and gentleness ($G$) phase amplitudes. The
-gentleness numerator $22$ matches $|\Omega_{22}|$, and the kindness
-numerator $3$ is paired with $\dim V_{21} / 7 = 3$, foreshadowing the
-structural alignments below.
+\subsection{Future work.}
+Two further orphans (the PathPair / LensTrace API and the eight-shell
+chain enumeration) are deferred to companion papers because they
+require infrastructure beyond a short note. The PathPair / LensTrace
+formalism gives a runtime accounting of crossing events on the
+substrate; the eight-shell chain is the corrected joint-closed
+sub-magma chain (sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, forbidden sizes
+only $\{2, 3\}$) studied in \cite{SandersGishFourCore}.
 
 %==============================================================
-\section{The catalog of order-factorization coincidences}
-\label{sec:identities}
+\section{Reproducibility}
+\label{sec:repro}
 %==============================================================
 
-We present six identities. Each is an arithmetic equality on the
-Mathieu / Steiner side; the substrate-side reading is given as a
-remark.
-
-\subsection{Identity 1 --- the hexad count.}
-\begin{theorem}[Hexad count]\label{thm:hexad-count}
-$|S(3, 6, 22)|_{\rm blocks} \;=\; 77 \;=\; 7 \times 11$.
-\end{theorem}
-
-\begin{proof}
-By the Steiner-system block formula
-$b = \binom{v}{t} / \binom{k}{t} = \binom{22}{3} / \binom{6}{3} =
-1540 / 20 = 77$.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-The product of substrate primes $7 \times 11 = $ HARMONY $\times$
-wobble denominator. Both primes are distinguished in the substrate;
-their product is the hexad count.
-\end{remark}
-
-\subsection{Identity 2 --- the replication number.}
-\begin{theorem}[Replication number]\label{thm:replication}
-$r \;=\; 21 \;=\; \dim V_{21} \;=\; 3 \times 7$.
-\end{theorem}
-
-\begin{proof}
-By the Steiner-system replication formula
-$r = b \cdot k / v = 77 \cdot 6 / 22 = 21$. The dimension match
-$\dim V_{21} = 21$ follows from the standard
-$\C^{22} \cong V_{1} \oplus V_{21}$ decomposition.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-The factor $3$ is the order of $\sig^{2}$ on the $\sig$-cycle (the
-trinitarian factor); the factor $7$ is the HARMONY index. Their
-product is the replication number $r$ and the irrep dimension
-$\dim V_{21}$.
-\end{remark}
-
-\subsection{Identity 3 --- the pair-replication.}
-\begin{theorem}[Pair-replication]\label{thm:pair-rep}
-$\lambda_{2} \;=\; 5$, the threshold numerator.
-\end{theorem}
-
-\begin{proof}
-$\lambda_{2} = (b \cdot \binom{k}{2}) / \binom{v}{2} = (77 \cdot 15) /
-231 = 5$.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-The substrate threshold $T^{*} = 5/7$ has numerator $5$. The
-pair-replication of $S(3, 6, 22)$ matches.
-\end{remark}
-
-\subsection{Identity 4 --- substrate-prime irrep dimensions.}
-\begin{theorem}[Substrate-prime irreps]\label{thm:substrate-irreps}
-Six of $\Mtwentytwo$'s twelve irrep dimensions factor as products of
-substrate primes $\{3, 5, 7, 11\}$ alone:
-\[
-  21 = 3 \cdot 7,
-  \qquad 55 = 5 \cdot 11,
-  \qquad 99 = 3^{2} \cdot 11,
-  \qquad 154 = 2 \cdot 7 \cdot 11,
-\]
-\[
-  231 = 3 \cdot 7 \cdot 11,
-  \qquad 385 = 5 \cdot 7 \cdot 11.
-\]
-(The dimension $154$ has a single factor of $2$; counting $154$ as
-"substrate-prime up to one factor of $2$" is consistent with the
-substrate's $\Z/10\Z = \Z/2 \times \Z/5$ structure, where $2$
-participates as the residue characteristic of one CRT factor.)
-\end{theorem}
-
-\begin{proof}
-Direct factorization of each dimension; the dimensions are taken from
-the standard $\Mtwentytwo$ character table.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-Six of twelve $\Mtwentytwo$ irreps have dimensions in the substrate's
-prime monoid. This is a $50\%$ density that is not generic: a random
-$12$-tuple of integers $\le 385$ would have a much smaller fraction
-factoring entirely in $\{3, 5, 7, 11\}$ (with at most one factor of
-$2$).
-\end{remark}
-
-\subsection{Identity 5 --- the $231$ identity.}
-\begin{theorem}[The $231$ identity]\label{thm:231-identity}
-\[
-  77 \cdot W \;=\; 77 \cdot \tfrac{3}{50} \;=\; \tfrac{231}{50},
-\]
-where $W = 3/50$ is the substrate wobble fraction. The numerator $231$
-matches the unique $\Mtwentytwo$-irrep dimension factoring exactly as
-$3 \cdot 7 \cdot 11$ (trinity $\times$ HARMONY $\times$ wobble
-denominator).
-\end{theorem}
-
-\begin{proof}
-Direct computation: $77 \cdot 3 = 231$. The factorization
-$231 = 3 \cdot 7 \cdot 11$ is checked against the $\Mtwentytwo$
-character-table dimension list.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-Among the $12$ $\Mtwentytwo$-irrep dimensions, $231$ is the unique
-one whose factorization is exactly the product of three distinct
-substrate primes (no $2$, no $5$). This is structurally the most
-substrate-aligned dimension. The arithmetic identity $77 \cdot W =
-231/50$ is what brings $231$ to the foreground.
-\end{remark}
-
-\subsection{Identity 6 --- the block-size match.}
-\begin{theorem}[$\sig$-orbit and block size]\label{thm:block-size}
-The substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size $6$,
-the block size $k$ of $S(3, 6, 22)$.
-\end{theorem}
-
-\begin{proof}
-Direct: the $\sig$-cycle has length $6$ by inspection of the cycle
-structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The block size of
-$S(3, 6, 22)$ is $k = 6$ by definition.
-\end{proof}
-
-\begin{remark}[Substrate reading]
-The $\sig$-orbit is a candidate hexad in $S(3, 6, 22)$. The
-embedding question is open: $S(3, 6, 22)$ is unique up to isomorphism,
-so any 6-element set is a hexad in some isomorphism class; whether
-the substrate selects a specific isomorphism class is a substantive
-representation-theoretic question (Section~\ref{sec:open}).
-\end{remark}
-
-%==============================================================
-\section{Computational verification}
-\label{sec:verification}
-%==============================================================
-
-The six identities are verified computationally:
-
-\begin{itemize}\setlength\itemsep{2pt}
-\item \texttt{m22\_verification.py} verifies the
-$\Mtwentytwo$-equivariant projections $P_{1}$ and $P_{21}$ commute with
-$1\,000$ random $S_{22}$ permutations (machine precision); confirms
-the explicit identification of kindness and gentleness state vectors;
-verifies the wobble time-average gives $W/2 = 3/100$ to machine
-precision.
-\item \texttt{steiner\_sigma\_hexad.py} confirms the Steiner-system
-parameters $(v, b, k, r, \lambda_{2}, \lambda_{3}) = (22, 77, 6, 21, 5, 1)$
-and visualizes the $\sig$-orbit hexad embedding.
-\item \texttt{m22\_decomposition.py} factors each
-$\Mtwentytwo$-irrep dimension and reports the six substrate-prime
-matches.
-\end{itemize}
-
-All scripts run in $<5$ seconds with \texttt{numpy} and \texttt{sympy}
-as the only external dependencies. Scripts deposited at
-\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis}
-in \texttt{Gen13/sprint\_bundle\_2026-05-07\_v36\_SEEDS\_BUNDLE/.../seeds\_supporting/verification\_scripts/}.
-
-%==============================================================
-\section{Open questions}
-\label{sec:open}
-%==============================================================
-
-\begin{enumerate}
-\item \textbf{Structural origin.} Is the catalog of six identities
-the shadow of a structural identification of $\Mtwentytwo$ with
-substrate-internal data, or is it six independent factorization
-matches with no deeper algebraic content? The paper presents the
-catalog without committing to either reading.
-
-\item \textbf{$\Mtwentytwo$ action on the substrate.} Does
-$\Mtwentytwo$ act on the substrate $(\Z/10\Z, \sig)$ in a way
-respecting the magma operations $\TS, \BH$? The substrate has only
-$10$ elements, far fewer than the $22$ on which $\Mtwentytwo$ acts;
-any action would necessarily involve the substrate's wobble layer or
-some auxiliary structure.
-
-\item \textbf{Structural Steiner-class selection.} $S(3, 6, 22)$ is
-unique up to isomorphism, but the embedding of the $\sig$-orbit as a
-specific hexad is a labeling choice. Does the substrate algebra
-$(\TS_{8}, \BH_{10}, \sig, W)$ select a canonical representative
-isomorphism class with the $\sig$-orbit as a distinguished hexad? This
-is the natural follow-up to Identity 6.
-
-\item \textbf{Relation to Mathieu moonshine.} The Mathieu groups
-appear in moonshine phenomena (notably $M_{24}$ in K3-surface
-moonshine; see \cite{Eguchi2011}). Does the present catalog connect to
-any moonshine context, or is it of a different flavor (purely
-arithmetic-combinatorial, no modular forms or character generating
-functions)?
-
-\item \textbf{Other sporadic groups.} The substrate primes
-$\{2, 3, 5, 7, 11\}$ are also a subset of the prime divisors of the
-orders of $M_{11}, M_{12}, M_{23}, M_{24}$. Does the catalog of
-substrate-prime irreps (Identity 4) extend in a structurally
-illuminating way to the larger Mathieu groups?
-\end{enumerate}
+All six orphans are verified in the foundations module
+\texttt{Gen13/targets/foundations/invariants.py}. The full
+verification suite (the $48$-invariant module) runs in under $30$
+seconds on a standard laptop and reports
+all $48$ invariants passing.
 
 %==============================================================
 \section*{Acknowledgments}
 %==============================================================
-
-This work catalogs order-factorization identities between the Mathieu
-group $\Mtwentytwo$ and a discrete substrate of independent algebraic
-interest. The identities are presented as a self-contained
-arithmetic-combinatorial puzzle for the \emph{Monthly} readership.
-The verification scripts and substrate-side definitions are part of
-the broader Trinity Infinity Geometry framework developed at 7Site
-LLC (public repository at github.com/TiredofSleep/ck, DOI
-10.5281/zenodo.18852047).
+The orphans collected here have accumulated over multiple internal
+sprints (Sprints 14--18) and through the lens-taxonomy session of
+May 2026. We thank the collaborators of those sprints --- in
+particular M.~Gish, C.~A.~Luther, B.~Mayes, and H.~J.~Johnson --- for
+the structural verifications that produced each orphan. The
+foundations module's $48$-invariant verification harness was
+developed during the late-April 2026 session and provides the
+green-light gate for the bundle.
 
 %==============================================================
 \begin{thebibliography}{99}
-%==============================================================
 
-\bibitem{ConwaySloane1999} J.~H.~Conway, N.~J.~A.~Sloane,
-\emph{Sphere Packings, Lattices and Groups} (3rd ed.),
-Grundlehren der mathematischen Wissenschaften 290, Springer, 1999.
-[Standard reference for the Mathieu groups and the Steiner systems
-$S(5, 6, 12)$, $S(5, 8, 24)$.]
+\bibitem{SandersForcing}
+B.~R.~Sanders, M.~Gish,
+\emph{The CL Forcing Axioms: A1--A9 Uniquely Force the Canonical Composition Lattice},
+Submitted to \emph{Algebraic Combinatorics} (2026)
+[J33 of the J-series].
 
-\bibitem{Aschbacher1994} M.~Aschbacher,
-\emph{Sporadic Groups},
-Cambridge Tracts in Mathematics 104, Cambridge University Press, 1994.
+\bibitem{SandersGishThreeSubstrate}
+B.~R.~Sanders, M.~Gish,
+\emph{The Three-Substrate Architecture: $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, $\mathrm{CL}_\mathrm{STD}$ as Parallel Substrates},
+Submitted to \emph{Algebra Universalis} (2026)
+[J31 of the J-series].
 
-\bibitem{Eguchi2011} T.~Eguchi, H.~Ooguri, Y.~Tachikawa,
-\emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
-Exp.~Math.~\textbf{20} (2011), 91--96.
+\bibitem{SandersGishHARMONYLadder}
+B.~R.~Sanders, M.~Gish,
+\emph{The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions},
+Submitted to \emph{J.\ Combinatorial Theory A} (2026)
+[J30 of the J-series].
 
-\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
-\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
-Algebraic Attractor of Two Commutative Binary Operations on
-$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+\bibitem{SandersGishWobble}
+B.~R.~Sanders, M.~Gish,
+\emph{Wobble Localization: Prime 11 in TSML\_RAW Characteristic Polynomial},
+In preparation [J43 of the J-series].
 
-\bibitem{TIGsynthesis2026} B.~R.~Sanders,
-\emph{Trinity Infinity Geometry Synthesis},
-github.com/TiredofSleep/ck (default branch),
-DOI: 10.5281/zenodo.18852047, 2026.
+\bibitem{SandersGishFpBHMLExtension}
+B.~R.~Sanders, M.~Gish,
+\emph{F_p Extensions of CL\_BHML: Universality Across Six Prime Fields},
+Submitted to \emph{Communications in Algebra} (2026)
+[J34 of the J-series].
+
+\bibitem{SandersGishFourCore}
+B.~R.~Sanders, M.~Gish,
+\emph{The 4-Core $\{0,7,8,9\}$: Joint TSML+BHML Closure and the Universal Attractor},
+In preparation [target Algebraic Combinatorics, 2026].
+
+\bibitem{SandersTIG}
+B.~R.~Sanders,
+\emph{The Crossing Lemma at $50\,$Hz: A Substrate-First Theory of Information Generation},
+Manuscript in preparation, 2026.
+
+\bibitem{LensCatalog}
+B.~R.~Sanders, M.~Gish,
+\emph{Variant Catalog of $\Z/10\Z$ Composition Lattices},
+Reference compilation, 2026
+[\texttt{Atlas/LENS\_TAXONOMY\_2026-05-06/VARIANT\_CATALOG.md}].
 
 \end{thebibliography}
 

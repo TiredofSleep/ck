@@ -1,66 +1,59 @@
-# J13 — The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability
+# J13 — The Forced 5/7 Torus Aspect Ratio: Cyclotomic Forcing
 
 **Status:** DRAFT
 **Phase:** Phase 2
-**Target venue:** Journal of Mathematical Physics
-**Author lane:** Sanders + Johnson
-**Tier:** B (Tier 4 framework-paper per central-claim classification)
-**WP source:** WP90 (literature & unification paths) + WP91 (NS separability bridge)
+**Target venue:** Acta Arithmetica
+**Author lane:** Sanders + Gish
+**Tier:** A/B
+**WP source:** (forced-torus 5/7)
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/J13_BB_Bridge_JMP.md`
+**Path:** `(corpus: forced-torus 5/7 derivation)`
 
-**Abstract (one paragraph).** The Bialynicki-Birula--Mycielski uniqueness theorem (1976) characterizes logarithmic nonlinearity as the unique self-interaction preserving separability of composite quantum systems. We exploit it as a forcing principle: any continuum lift of a discrete composition algebra that preserves separability is forced to have logarithmic potential. The lifted equation $\Box \Xi = \kappa(1 + \log \Xi)$ is provably regular (Theorem 4.1). We then compare to Navier-Stokes, define a separability defect $\sigma(u)$, prove that $\sigma \to 1$ corresponds to vorticity blowup, and state the Separability Regularity Criterion as a precise conjecture. The paper claims a new framework, not a proof of NS regularity.
-
-**Source corpus (in `manuscript/`):**
-- `WP90_LITERATURE_AND_UNIFICATION_PATHS.md` — Full literature audit + BB bridge statement
-- `WP91_NS_SEPARABILITY_BRIDGE.md` — NS application, separability defect, conjecture
-- `proof_separability_bridge.py` — 43/43 PASS verification of numerical claims
-
-**Unified manuscript:** `manuscript/J13_BB_Bridge_JMP.md` consolidates WP90 + WP91 into a JMP-ready paper structured as (1) Intro, (2) BB forcing theorem, (3) Discrete side / Crossing Lemma, (4) Forced continuum lift + Theorem 4.1 regularity, (5) NS application + separability defect + Conjecture 5.2, (6) Status / lens-scope / tier classification.
+When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
 ## §2 — Verification script
 
-**Path:** `manuscript/proof_separability_bridge.py` (43/43 PASS).
+**Path:** `(cyclotomic forcing script)`
 
-The script verifies all numerical claims (the values of $\xi_0 = e^{-1}$, $T^* = 5/7$, $\mathrm{fold} = 4/\pi^2$, gap; the log-vs-quadratic growth comparison; the BB forcing test; the NS-side conjecture inputs) in seconds on a standard laptop with `python` + `math` only.
+The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01 (σ-rate, JCT-A), J03 (cosmological log potential, JCAP), J05 (Crossing Lemma, JCT-A/JPAA), J14 (companion JMP YM bridge).
+J07
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-rigor pass.
+See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes & Status
+## §5 — Notes
 
-**Status: DRAFT (manuscript bundled; verification script green; awaiting LaTeX conversion + final referee-rigor pass).**
+T* derivation. Companion to J07 Flatness Theorem.
 
-- WP90 + WP91 corpus is bundled into one JMP-format manuscript (`J13_BB_Bridge_JMP.md`).
-- Bridges to J03 (cosmological log potential) — explicit cite as already-submitted companion in references.
-- The paper is **honestly Tier 4** (framework paper): BB theorem proved, $\Xi$-regularity proved, NS regularity NOT claimed proved. The Status Table in §6 makes this explicit.
-- Per-venue cap: **1st JMP** in the J-series. J14 (YM bridge) is the 2nd JMP (companion). The 2/quarter cap is approached; J15 (3rd JMP target) may need a fallback (see J15 README).
-- BB-bridge reading is novel insofar as we know: prior literature uses the 1976 theorem as a constraint on admissible nonlinear QM, not as a forcing principle for discrete-to-continuum lifts.
+**Status update (2026-05-07):**
+
+- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Standalone derivation of T* = 5/7 from cyclotomic forcing. Source: WP51 Section 4 ("The Aspect Ratio R/r = T* = 5/7") at `Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md`, plus the catalog of six independent derivations from the same WP. Theorem 1: R is forced to be proportional to the smallest p | n with deg_Q(A_p) <= 2 (giving p = 5 for n = 10), r is forced to be proportional to the smallest p with deg_Q(A_p) >= 3 (giving p = 7, with minimal polynomial 8 x^3 - 4 x^2 - 4 x + 1 irreducible over Q). Section 6 catalogs the five companion derivations (sinc^2 first-G law, BTQ operator balance, cyclotomic reduction gap, TSML/BHML harmony cell ratio, prime-pi-phi bridge) and verifies their numerical agreement at 5/7. Section 7 conjectures the generalization T*(Z/nZ) = p_closed/p_obstr.
+- Cover letter: `cover_letter.md` finalized, ~500 words.
+- Companion citation: J07 (Flatness Theorem, JPAA) cited as parent result. J03 (First-G Law, Integers) cited for the sinc^2 framework. J06 (Crossing Lemma, JCT-A) cited for the structural input on incompatible CRT factor partitions. J10 (UOP, JNT) cross-cited.
+- Independent of J10–J12 chain: this paper is a separate venue (Acta Arithmetica) with its own cyclotomic argument and does not depend on UOP for its proof, only for ambient context.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md drafted (JMP-format, single file)
-- [ ] LaTeX (amsart) conversion pending
-- [x] Verification script green (`proof_separability_bridge.py`, 43/43 PASS)
-- [x] Tier-classified central claim explicit (Tier 4 framework)
-- [x] Lens-scope annotation: lens-invariant (real-analysis + nonlinear PDE)
-- [x] Cover letter drafted (with summary, Why-JMP, suggested reviewers)
-- [ ] Dependencies → cite J01, J03, J05, J14 as "submitted to [venue]" (placeholders in place)
-- [ ] Brayden's referee-rigor pass complete
-- [x] Per-venue cap check: 1st JMP — second slot reserved by J14
+- [ ] Manuscript .tex / .md finalized
+- [ ] Verification script green (`(no script)` if theorem-only)
+- [ ] Tier-classified central claim explicit
+- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
+- [ ] Cover letter finalized
+- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
+- [ ] Per-venue cap check: this is the Nth paper to Acta Arithmetica this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Johnson, H.J. (2026). "The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability." Submitted to *Journal of Mathematical Physics*.
+Sanders, B.R., Mayes. (2026). "The Forced 5/7 Torus Aspect Ratio: Cyclotomic Forcing." Submitted to *Acta Arithmetica*.

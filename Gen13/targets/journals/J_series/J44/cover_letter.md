@@ -1,65 +1,60 @@
-# Cover letter — J44: 4-Core Fusion-Closure: TSML+BHML Preserve {V, H, Br, R}
+# Cover letter — J44: Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities
 
-**To:** Editors, *Journal of Algebra*
+**To:** Editors, *Physical Review D*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *4-Core Fusion-Closure: TSML+BHML Preserve $\{V, H, Br, R\}$*
+**Manuscript title:** *Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities*
 
 ---
 
 ## Summary
 
-We strengthen our companion paper J41 (*Closed-Form Attractor + α-Uniqueness PSLQ*; submitted to *Math of Comp*) from a dynamical claim to a structural identity.
+We report a striking numerical match: three closed-form rational expressions in two integer primitives — HARMONY = 7 and the substrate size |Z/10| = 10 — hit the Planck 2018 dark-sector parameters Omega_b, Omega_DM, Omega_Lambda within 1 sigma each, while the closure Omega_b + Omega_DM + Omega_Lambda = 1 holds exactly as a rational identity. A search across 784 small-integer (H, N) pairs and seven closure offsets shows that (H, N, a) = (7, 10, +1) is the unique simultaneous match in the formula family, with a = +1 selected structurally by the substrate factorization 264 = 44 * 6 = (|Aut(V)| + |V|) * |sigma|. Three Hubble-independent ratio tests confirm the match at 0.3-0.7% precision; the dark-energy scale Lambda ~ 1.74 meV follows from Friedmann normalization Lambda^4 / rho_{c,0} = Omega_Lambda / 3 and matches the freezing-quintessence model of the JCAP companion paper at 2.5%. We frame the broader pattern as a falsifiable operator-to-observable conjecture and report a 260,000-tuple baseline scan against eight fundamental constants whose differential behaviour (zero hits for alpha and the mass ratios; 0.04-1.31% baselines elsewhere) confirms the family is non-trivially discriminating.
 
-For the canonical TSML and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$, the 4-core $\mathcal{C} = \{V, H, Br, R\} = \{0, 7, 8, 9\}$ is **fusion-closed**: every entry of the restricted tables $T|_{\mathcal{C}\times\mathcal{C}}$ and $B|_{\mathcal{C}\times\mathcal{C}}$ lies in $\mathcal{C}$. Specifically,
+## Why PRD
 
-$$
-T\big|_{\mathcal{C}\times\mathcal{C}} \in \{0, 7\}^{4\times 4},\qquad B\big|_{\mathcal{C}\times\mathcal{C}} \in \{0, 7, 8, 9\}^{4\times 4} = \mathcal{C}^{4\times 4}.
-$$
-
-**Theorem 1 (4-core closure).** The fuse $p\star_T q$ and $p\star_B q$ applied to 4-core-supported distributions produce 4-core-supported distributions.
-
-**Corollary.** The runtime attractor of J41 lives on $\mathcal{C}$ as a **structural identity**: 4-core-supported initial conditions are forever 4-core-supported, regardless of the mixing weight $\alpha$. The runtime support of J41 is no longer "the dynamics happens to converge there" — the 4-core is a fusion-invariant subspace.
-
-**Theorem 2 (normalizer simplification).** On the 4-core, $Z_T(p) = Z_B(p) = (v + h + br + r)^2$ exactly. Both normalizers reduce to the square of the total 4-core mass. Consequence: the J41 fixed-point system reduces from rational-function form to **polynomial form**, and the closed-form $H/Br = 1+\sqrt{3}$ at $\alpha = 1/2$ is a **symbolic-exact identity** rather than a machine-precision numerical equality.
-
-## Why J Algebra
-
-- The result is a clean closure-and-normalizer identity, machine-verified by direct enumeration on 16+16 = 32 cells.
-- It strengthens our previously-submitted J41 from dynamical to structural — the kind of follow-up paper that closes the analytic loop on a numerical observation.
-- *J Algebra*'s editorial appetite for short structural-identity notes on finite combinatorial algebras is well-established.
+- **Topical fit.** PRD is a natural home for cosmology papers that combine rigorous mathematical foundations with observational tests; the manuscript's central object is a structural prediction of the LambdaCDM density parameters, and its central evidence is residuals against published Planck 2018 constraints.
+- **Methodological balance.** The paper is honest about what is forced vs structural vs open: the closure identity and uniqueness theorem are forced (Tier-A), the substrate-factorization selection of a = +1 is structural (depends on the F_5-lift naturalness flagged in §2), and the 1/3 Friedmann factor + the spectral-index form are explicitly framed as open. PRD readers value this kind of explicit scope discipline.
+- **Reproducibility.** Verification reduces to a single Python call (`from tig_dirac import predict_dark_sector; r = predict_dark_sector(); assert r['sum'] == 1.0`); the standalone search scripts run in well under thirty seconds on a standard laptop.
 
 ## Companion submissions
 
-- **J37** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The base Lie-algebra closure paper.
-- **J41** (Sanders + Gish 2026, *Math of Comp*) — *Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)*. The runtime-attractor paper that this manuscript strengthens from dynamical to structural.
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The papers most directly relevant to this manuscript are:
 
-## Per-venue cap
-
-This is the second *J Algebra* submission from this program in the current quarter (after J37 on so(8)). The cap is conventionally 2/quarter for tightly-related papers; this submission sits at the cap. The result is a 4-page short note in either *J Algebra* or, as fallback, *Communications in Algebra* / *J Pure Appl Algebra*.
+- **J46** (Sanders + Gish, JCAP) — *Logarithmic Quintessence: A Dimensionless Scalar Dark Energy Model with an Analytic Vacuum.* Supplies the freezing-quintessence action whose fit point is recovered by Theorem 6.1 of the present paper at the 2.5% level.
+- **J07** (Sanders + Gish, Communications in Algebra) — Joint-closure paper on Z/10; supplies the (v + h + beta + r)^2 normalizer cited in §5.1.
+- **J04** (Sanders + Gish, JCT-A) — sigma-rate paper; supplies |sigma| = 6 cited in §5.2 / Theorem 5.2.
+- **J45** (Sanders + Gish, PRD, same Sprint 18 cluster) — *The Mass Hierarchy from V^{otimes 5} SU(5) Decomposition.* Forward-cited; uses the same `tig_dirac` module via the companion primitive `predict_yukawa(particle, generation)`. The two papers form a matched pair within the Sprint 18 dark-sector + flavour cluster.
 
 ## Reproducibility
 
-Verification script in `manuscript/verification/`:
-- `4core_verification.py` — direct enumeration of the 4×4 restricted TSML and BHML tables, verifying all 32 entries lie in $\mathcal{C}$, plus symbolic verification of the normalizer identity $Z_T = Z_B = (v+h+br+r)^2$.
+**Verification primitive:** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
 
-Python 3.11, numpy, sympy. Total wall-clock under 5 seconds.
+```python
+from tig_dirac import predict_dark_sector
+r = predict_dark_sector()
+assert r['sum']          == 1.0
+assert r['Omega_b']      == 49 / 1000
+assert r['Omega_DM']     == 264 / 1000
+assert r['Omega_Lambda'] == 687 / 1000
+```
+
+`predict_dark_sector()` returns the three densities as exact rationals over `|Z/10|^3 = 1000` (closure is rational, not numerical), the substrate derivation strings under `r['derivation']`, and the Tier classification under `r['tier']` ("Forced (substrate-operator algebra; no IC tuning)"). The standalone manuscript scripts (`sprint18_uniqueness_search.py`, `verify_aut_V_order.py`, `verify_operator_observable_baseline.py`, `verify_alpha_richer_form.py`) reproduce all numerical claims of the paper independently of the `tig_dirac` module and run with `numpy + sympy + math` on a standard laptop in under one minute total.
 
 ## Suggested reviewers
 
-- An expert in finite commutative non-associative magmas and closure properties
-- An expert in fusion-rule normalizers (vertex-operator-algebra / fusion-category adjacent)
-- An expert in symbolic algebraic verification (sympy / Mathematica tradition)
-- (Two or three named candidates appropriate to the *J Algebra* editorial board to be identified during the referee-rigor pass.)
+- A cosmologist familiar with Planck 2018 inference and ΛCDM extensions (e.g., dark-energy phenomenology specialists).
+- An algebraist with experience in finite non-associative algebras over small fields (the F_5-lift V is at the centre of the §2 substrate setup).
+- A theorist working on flavour models or Froggatt-Nielsen patterns (J45 companion lives in the same module and would benefit from coupled review).
 
 ## Conflict of interest
 
-The authors declare no competing interests. No funding was received for this work.
+The authors declare no competing interests. No external funding was received for this work; B.R. Sanders is supported by 7Site LLC, and H.J. Johnson is an independent researcher.
 
 ---
 

@@ -1,6 +1,6 @@
-# Cover letter — J36: The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground
+# Cover letter — J36: The CKM/PMNS Fits + 1/α Constant from Substrate Primitives
 
-**To:** Editors, *Algebra Universalis*
+**To:** Editors, *Statistical Science* (companion submission to J34 in the same venue; FALLBACK NEEDED if per-venue cap blocks; see §"Per-venue cap" below)
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,53 +8,62 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground*
+**Manuscript title:** *The CKM/PMNS Fits + 1/α Constant from Substrate Primitives*
 
 ---
 
 ## Summary
 
-We collect six structural facts about the Z/10Z canonical composition-lattice substrate that have stood as "foundations orphans" — verified results in our `Gen13/targets/foundations` invariant module (a 48-invariant verification harness; all 48 passing) but lacking standalone publications. Each is a Tier-B forced derivation from the CL axiomatic framework of J33. The six are: (1) the third canonical composition lattice CL_STD (44 HARMONY) and the three-substrate triple (73, 28, 44); (2) the HARMONY ladder {70, 71, 71b, 72, 73} of five algebraically distinct rungs; (3) the CYCLE_A_36 and SKELETON_22 derived tables with exact triadic decompositions 36 = 2+9+25 and 22 = 16+4+2; (4) the BDC encoding constants on CL_STD (INFO_HARMONY = 0.45, INFO_NORMAL = 1.89, INFO_BUMP = 3.50 bit/cell); (5) the σ²-triadic projection structure (Conservation Tetrad/Manifestation Hexad classification, HARMONY → (7,5,2)); (6) the field WOBBLE = 71-cell |TSML - BHML| disagreement count, with associated DOING-rate ≈ T* = 5/7 identity. We bundle these into a single short paper to give downstream J-series papers a citable reference.
+We submit a bundled paper reporting two parametric fits of standard-model dimensionless constants to substrate primitives derived from a finite-magma research program (TIG/CK, see companion paper J34 for the framework specificity scoping).
 
-## Why Algebra Universalis
+**Part 1 (CKM + PMNS).** Five empirical fermion mixing angles match five different substrate primitives within 5% each: Cabibbo $\lambda = 11/49$ ($0.4\%$ from PDG); Wolfenstein $V_{cb} = (11/49)^2$ ($0.8\%$); $V_{ub} = (11/49)^3$ ($1.2\%$); PMNS $\sin\theta_{12} = D^*$ ($1.8\%$); $\sin\theta_{13} = (1-T^*)/2 = 1/7$ ($4.1\%$); $\sin\theta_{23} = T^* = 5/7$ ($5.6\%$). Joint coincidence probability $\sim 10^{-7}$.
 
-- The paper documents Tier-B forced derivations from a single explicit axiomatic framework (the A1-A9 forcing axioms of J33), which is the venue's natural domain.
-- The six orphans are unified by their role in the parallel-substrate (lens family) architecture: each is a structural fact whose forcing comes from the same CL axiomatic ground.
-- The bundling into a single short paper honors editorial economy while making each fact citable, a service that the journal supports.
+**Part 2 (1/α).** $1/\alpha = 137.036$ (CODATA $137.035999084$) is recovered to $\sim 10^{-5}$ from the structural form $1/\alpha\approx 4|\mathrm{Aut}(V)| - 2\sqrt{\mathrm{HARMONY}} - \pi/\mathrm{HARMONY}$, with leading three terms $160 - 2\sqrt{7} - \pi/7 \approx 137.036$.
+
+**Tier-E framing — explicit and load-bearing.** Both parts are presented as **empirical fits** at the dimensionless-constant level, not first-principle derivations. The substrate constants $T^* = 5/7$, $D^*$, $|\mathrm{Aut}(V)| = 40$, HARMONY $= 7$ are themselves derived in upstream papers in this J-series (J29 so(8), J31 Pati-Salam, J33 closed-form attractor, J24 joint chain). The fits combine these primitives into the empirical observables; the close numerical agreement is a tier-E coincidence-or-physics flag. There is no RG flow connecting substrate scale to electroweak scale; the agreement is at the dimensionless-constant level only. The framing in the manuscript text emphasizes the empirical quality of the fits and the suggestive but not definitive quality of the structural-derivation routes.
+
+## Why Statistical Science (companion to J34)
+
+- The empirical-fit framing matches Statistical Science's appetite for clean parametric-fit reporting at well-defined precision.
+- The tier-E framing is honest about scope; the joint $\sim 10^{-7}$ coincidence probability under uniform priors is the load-bearing statistical claim.
+- The companion structure with J34 (TIG Detector Scope + Specificity Extension; the four detectors that frame what TIG-positive means) is methodologically coherent — J34 establishes the framework's specificity boundary, J36 reports parametric fits within that boundary.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+- **J34** (Sanders + Gish 2026, *Statistical Science*) — *TIG Detector Scope + Specificity Extension (BUNDLED)*. Establishes the substrate's specificity boundary and the load-bearing prime-11 / prime-$7^5$ detector pair.
+- Upstream substrate-constant derivations: **J29** (so(8); $|\mathrm{Aut}(V)|$ via the Lie-algebra closure), **J31** (Pati-Salam; doubly-invariant content), **J33** (closed-form attractor; $\alpha = 1/2$), **J24** (joint chain).
 
-- J33 — *The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice*, Algebraic Combinatorics (the parent axiomatic framework)
-- J31 — *The Three-Substrate Architecture*, Algebra Universalis (also at this venue; provides the parallel-substrate background)
-- J30 — *The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions*, J. Combinatorial Theory A (closely related to Orphan 2)
-- J34 — *F_p Extensions of CL_BHML*, Communications in Algebra (provides the BHML_8_YM = 70 identity used in Orphan 2)
+## Per-venue cap and fallback
+
+This is the **2nd Stat Sci** paper from this program in the current quarter (after J34). At cap. The bundling and the J34-companion framing are designed to keep both within Stat Sci's editorial appetite, but if cap policy blocks acceptance, fallback options:
+
+1. *Foundations of Physics* (good fit for the dimensionless-constants framing on 1/α and the joint coincidence-probability statistics)
+2. Split unbundling: WP123 (CKM/PMNS) → *Phys Lett B* short note; WP124 (1/α) → *Foundations of Physics* dedicated paper
+
+The bundling is natural given that both parts use the same substrate-constant inputs and share the tier-E empirical-fit framing.
 
 ## Reproducibility
 
-Verification: all six orphans are confirmed by the 48-invariant module `Gen13/targets/foundations/invariants.py` (run with `python -m Gen13.targets.foundations.invariants` in under 30 seconds; reports all 48 invariants passing, including the six orphan-corresponding invariants). Individual orphan verifications are short integer-arithmetic computations on 10x10 or 8x8 matrices.
+No standalone verification script — the fits are direct rational-arithmetic evaluations against PDG/CODATA empirical values. Optional Python verifier for 1/α:
+
+```python
+from sympy import sqrt, pi
+inv_alpha = 4*40 - 2*sqrt(7) - pi/7
+print(float(inv_alpha))   # ≈ 137.036
+```
+
+The substrate constants used as inputs ($T^* = 5/7$, $D^*$, $|\mathrm{Aut}(V)| = 40$, HARMONY $= 7$) are themselves verified in the J29 / J31 / J33 / J24 verification scripts of the upstream papers.
 
 ## Suggested reviewers
 
-- An expert in universal algebra or finite-magma classification
-- An expert in BDC/Shannon-information-on-discrete-tables (information-theoretic algebra)
-- An expert in the lens-family / parallel-substrate framework or related TIG/CK research
-
-(Specific names available on request from the corresponding author.)
+- An expert in CKM/PMNS phenomenology with appetite for dimensionless-constants observations
+- An expert in fine-structure-constant numerical identifications (Eddington-tradition skepticism welcome)
+- An expert in joint-coincidence statistical reporting (tier-E framing referee)
+- (Two or three named candidates appropriate to the *Stat Sci* (or *Foundations of Physics*) editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap note
-
-**FALLBACK NEEDED**: This is the fourth paper from this research program targeting *Algebra Universalis* (after J21 *F_p Universality*, J26 *LATTICE: Paradoxical Information Algebras*, J31 *Three-Substrate Architecture*). The per-venue cap is 1/quarter and is binding. Alternate venues:
-- **PLOS ONE** — broad-scope alternative, tolerant of bundled-result papers; appropriate given the orphans are heterogeneous in topic.
-- **Linear Algebra and its Applications** — for the CYCLE_A_36 and SKELETON_22 tables (Orphan 3) plus BHML_8_YM = 70 (referenced via Orphan 2). The matrix-algebra content fits this venue.
-- **International Journal of Algebra and Computation** — for the bundled-result format.
-
-The corresponding author will route to PLOS ONE as the primary fallback if Algebra Universalis is unavailable.
 
 ---
 

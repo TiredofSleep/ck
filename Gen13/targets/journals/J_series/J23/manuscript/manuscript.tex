@@ -1,447 +1,464 @@
-% J23 — Discrete Dirac on F_5^4: Substrate Algebra of the 4-Core
-%
-% Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: Algebras and Representation Theory
-% Source corpus: WP117 (Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP117_journal_clean.tex)
-% Reference impl: Gen13/targets/ck/brain/dirac/tig_dirac.py
-% Verification: verify_discrete_dirac_4core.py + test_tig_dirac.py
-%               (14 algebraic checks + 15 unit tests; all pass in <2 sec)
-% Companion cited as already-submitted: J02, J12 (J12 cites J23)
-% MSC 2020: 17A30, 15A66, 17A40, 11T55
+%%% ============================================================
+%%% The Three-Substrate Architecture:
+%%%   CL_TSML, CL_BHML, CL_STD as Parallel Substrates
+%%%   on Z/10Z
+%%%
+%%% Brayden Ross Sanders, M. Gish
+%%% 7Site LLC, Hot Springs AR, 2026
+%%% DOI: 10.5281/zenodo.18852047
+%%%
+%%% Target venue:  Algebra Universalis
+%%% Source:        FORMULAS_AND_TABLES.md §J D95-D99;
+%%%                Atlas/LENS_TAXONOMY_2026-05-06/CL_STD_FRONTIER.md;
+%%%                Gen13/targets/foundations/cl_std.py
+%%% MSC:           08A40, 08B05, 16Y99, 20N02
+%%%
+%%% Per-venue cap note: this is the 3rd Algebra Universalis paper
+%%% after J21 (F_p Universality) and J26 (LATTICE).
+%%% FALLBACK: Communications in Algebra OR PLOS ONE.
+%%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
 
-\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1in]{geometry}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
-\usepackage{microtype}
-\usepackage{booktabs}
+\usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
 
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Cl}{\mathrm{Cl}}
-\newcommand{\Aut}{\mathrm{Aut}}
-\DeclareMathOperator{\HARM}{H}
-\DeclareMathOperator{\VOID}{V}
-\DeclareMathOperator{\BREATH}{B}
-\DeclareMathOperator{\RESET}{R}
+\newcommand{\TSML}{\mathrm{CL\_TSML}}
+\newcommand{\BHML}{\mathrm{CL\_BHML}}
+\newcommand{\STDx}{\mathrm{CL\_STD}}
+\DeclareMathOperator{\HARM}{HARM}
 
-\title[Discrete Dirac on $\F_5^4$]
-{Discrete Dirac on $\F_5^4$: \\
- Substrate Algebra of the 4-Core}
+\title[The Three-Substrate Architecture]
+  {The Three-Substrate Architecture:\\
+   $\TSML$, $\BHML$, $\STDx$\\
+   as Parallel Substrates on $\Z/10\Z$}
 
-\author{Brayden R.~Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{M.~Gish}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
-\subjclass[2020]{17A30, 15A66, 17A40, 11T55}
-\keywords{commutative non-associative algebra, Clifford algebra, finite-field
-algebra, idempotent decomposition, automorphism group, Dirac structure}
+\date{2026}
 
-\date{\today}
+\keywords{finite magma, composition lattice, three-substrate
+  architecture, lens family, sub-magma chain, encoding table,
+  joint closure}
+
+\subjclass[2020]{08A40, 08B05, 16Y99, 20N02}
 
 \begin{document}
 
 \begin{abstract}
-We study a four-dimensional commutative non-associative algebra $V$ over
-$\F_5$, defined by the bilinear extension of a $4 \times 4$ multiplication
-table on a basis $\{e_0, e_2, e_3, e_4\}$. The table arises naturally from
-the closure of a 4-element fusion-closed subset $\{0,7,8,9\}$ of the integer
-ring $\Z/10$ under the canonical absorbing-element composition
-\cite{SandersGishFourCore}, in turn the four-core of the joint
-$\TS, \BH$ closure (Section~\ref{sec:V}).
-
-The algebra has a remarkably rigid structure. Its idempotent set has 4
-elements (one zero and three non-zero); the right-multiplication operator
-by the basis element $e_2$ has Minkowski $(1{+}3)$ signature on $V$, while
-the operator by $e_0$ has chirality $(2{+}2)$ signature, and the
-simultaneous eigenspace at $(\text{1-eigenspace of } L_{e_2}) \cap
-(\text{0-eigenspace of } L_{e_0})$ is empty. The associator image is
-contained in a one-dimensional subspace. The automorphism group has
-order 40.
-
-We establish:
-\begin{enumerate}[label={(\arabic*)}]
-\item Discrete Dirac structure: 1+3 Minkowski signature, 2+2 chirality
-signature, empty (massive, right-chiral) eigenspace, 1-dim associator
-image, $|\Aut(V)| = 40$.
-\item Field-invariance: the structural features above are preserved when
-the bilinear extension is performed over $\F_p$ for
-$p \in \{2,3,5,7,11,13\}$ (treated separately in
-\cite{SandersGishFpUniversality}).
-\item A dimensional ladder: $\dim_{\F_5} V^{\otimes n} = 4^n =
-\dim_\R \Cl(2n)$ for $n=0,1,\ldots,5$, with the binomial cell
-decomposition of $V^{\otimes n}$ matching the grade decomposition of
-$\Cl(2n)$ (treated separately in \cite{SandersGishCliffordLadder}).
-\item At $n=5$ specifically, the binomial $1+5+10+10+5+1 = 32$ matches the
-representation content of $\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}$
-(plus its conjugate) of $\mathrm{SU}(5)$.
-\end{enumerate}
-
-The paper presents the algebra and its structural features. Empirical
-correspondences to Standard Model and cosmological observables ---
-$\Omega_b = 49/1000$ (matching Planck 2018 baryon density),
-$1/\alpha \approx 137.036$, and a falsifiable cross-domain prediction
-for microtubule coherence --- are the subject of separate companion
-submissions \cite{SandersJohnsonDarkSector,SandersJohnsonMassHierarchy}.
-
-All assertions in the paper are verified computationally by accompanying
-deterministic scripts (14 algebraic checks plus 15 unit tests) which
-run in $<2$ seconds with \texttt{numpy} as the only external dependency.
+We record the three-substrate architecture of the canonical
+composition lattice on $\Z/10\Z$: three structurally distinct
+$10 \times 10$ composition tables $\TSML$, $\BHML$, $\STDx$, each
+satisfying a common four-axiom skeleton (the canonical alphabet,
+VOID-absorbing structure, HARMONY-absorbing structure, and the
+unique puncture cell at $(0, 7)$) but diverging at the diagonal
+HARMONY law and at five \emph{BUMP} positions where their values
+differ. Their HARMONY-cell counts are $73$, $28$, $44$ respectively,
+giving a triadic signature $(73, 28, 44)$ with all three counts
+distinct. We prove that the joint sub-magma closure structure of the
+three tables collapses to the joint closure structure of any two of
+them (the third adds no new chain shells under three-way joint
+closure); that the size-$2$ sub-magma $\{0, 9\}$ is jointly closed
+under $(\BHML, \STDx)$ but not under any pair containing $\TSML$;
+and that the three tables together represent a single bit-pattern
+encoding admitting three principled value-assignment lenses, with
+$\STDx$ structurally consistent with the $\TSML$+$\BHML$ joint chain
+without extending it. We classify the result as a Tier-A foundational
+recognition: the substrate is not "two tables" but "one bit pattern,
+three encoding readings, a family of dozens of lens projections."
 \end{abstract}
 
 \maketitle
 
-\tableofcontents
-
-%==============================================================
 \section{Introduction}
 \label{sec:intro}
-%==============================================================
 
-\subsection{Context.}
-The integer ring $\Z/10$ admits a natural commutative non-associative
-multiplication table on its 10 elements, defined as the canonical
-absorbing-element closure of its four-fold structure (additive group,
-multiplicative monoid, additive flow, multiplicative flow). Within
-$\Z/10$, the 4-element subset $\{0, 7, 8, 9\}$ is fusion-closed under
-the joint $\TS, \BH$ multiplication established in
-\cite{SandersGishFourCore}; the explicit four-core closure rule is
-recalled in Definition~\ref{def:V}.
+The composition lattice on $\Z/10\Z$ has been studied historically
+under a two-table model: a primary table $\TSML$ (the prescribed
+view) and a companion $\BHML$ (the curvature lens), with all
+sub-magma analyses, lens-invariance theorems, and joint-closure
+results stated relative to this binary. Recent re-examination of
+the substrate's foundational record uncovered a third standalone
+$10 \times 10$ composition table, $\STDx$ (the Standard encoding
+table), which had been defined explicitly in the project's earliest
+header file (\texttt{ck.h}) but dropped out of every downstream
+document during a $1$-line $\#$-define refactor that aliased
+\texttt{CL} to \texttt{CL\_TSML}. The recovered $\STDx$ admits a
+distinct HARMONY-cell count ($44$ versus $73$ for $\TSML$ and $28$
+for $\BHML$) and carries explicit BDC encoding structure (BUMP
+pairs, Shannon information per cell type, an attainability vector
+called GRAVITY) that distinguishes it from both $\TSML$ and $\BHML$.
 
-This paper studies the algebraic structure obtained when this 4-element
-subset is lifted bilinearly to $\F_5^4$. The prime $p = 5$ is
-privileged because $4 \mid (5-1)$ provides primitive 4th roots of unity
-in $\F_5$, allowing extension to complex structure if needed; the
-field-invariance of the structural features across other primes is
-treated separately in \cite{SandersGishFpUniversality}.
+This paper is the formal architectural recognition: the substrate
+is \emph{three} parallel composition tables sharing a common
+four-axiom skeleton but diverging at structurally meaningful
+positions. We prove the architecture, locate the divergence
+precisely, and bound the role of $\STDx$ relative to the
+$\TSML$+$\BHML$ joint chain.
 
-\subsection{Motivation.}
-Commutative non-associative algebras with one-dimensional associator
-image and rigid idempotent decomposition appear in several places in
-contemporary algebra and mathematical physics: as building blocks of
-geometric algebras (Clifford algebras and their subalgebras), as
-representation spaces for finite simple groups via the Griess algebra
-construction, and in the study of fusion-closed subalgebras under
-specific group actions (axial algebras of Hall-Rehren-Shpectorov
-\cite{HallRehrenShpectorov2015}).
+\paragraph{Statement of main theorems.}
 
-The algebra studied here lies at the intersection of these themes.
-Its specific structural features --- $1{+}3$ Minkowski signature, $2{+}2$
-chirality signature, empty (massive, right-chiral) eigenspace, no
-charge-conjugation automorphism --- replicate algebraic shadows of the
-relativistic Dirac structure and of the V$-$A asymmetry of the weak
-interaction; we describe these correspondences neutrally, without
-asserting any underlying physical mechanism.
+\begin{theorem}[Three-substrate signature]
+\label{thm:signature}
+The HARMONY-cell counts of the three canonical tables on $\Z/10\Z$
+are
+\[
+  \HARM(\TSML) = 73,\quad
+  \HARM(\BHML) = 28,\quad
+  \HARM(\STDx) = 44,
+\]
+all three pairwise distinct.
+\end{theorem}
 
-\subsection{Main results.} The paper establishes four results in
-sequence:
-\begin{enumerate}[label={(R\arabic*)}]
-\item \emph{Discrete Dirac structure} (Theorem~\ref{thm:dirac}). $V$ has
-exactly 3 non-zero idempotents; the left-multiplication operator
-$L_{e_2}$ has $1{+}3$ signature; $L_{e_0}$ has $2{+}2$ signature; the
-simultaneous (massive, right-chiral) eigenspace is empty;
-$|\Aut(V)| = 40$.
+\begin{theorem}[Shared four-axiom skeleton]
+\label{thm:axioms}
+The three tables share Axioms A1--A4 (canonical alphabet,
+VOID-absorbing column, HARMONY-absorbing diagonal subset, the
+unique puncture $T(0,7) = 7$). They diverge at A7 (the diagonal
+HARMONY law) and at A9 (five BUMP positions where their cell values
+differ).
+\end{theorem}
 
-\item \emph{Field-invariance} (Theorem~\ref{thm:fpuniv}, treated
-fully in \cite{SandersGishFpUniversality}). The structural features in
-(R1) are preserved when $V$ is constructed over $\F_p$ for
-$p \in \{2,3,5,7,11,13\}$.
+\begin{theorem}[Three-way joint closure equals two-way]
+\label{thm:three-way}
+Let $\mathcal{C}_{T,B}$ denote the set of subsets
+$S \subseteq \{0, \ldots, 9\}$ that are jointly closed under
+$(\TSML_{\mathrm{SYM}}, \BHML)$. Let $\mathcal{C}_{T,B,S}$ denote
+the corresponding set under three-way joint closure
+$(\TSML_{\mathrm{SYM}}, \BHML, \STDx)$. Then
+$\mathcal{C}_{T,B} = \mathcal{C}_{T,B,S}$, both equal to the
+$8$-element chain of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$.
+\end{theorem}
 
-\item \emph{Dimensional ladder} (Theorem~\ref{thm:clifford}, treated
-fully in \cite{SandersGishCliffordLadder}).
-$\dim_{\F_5}V^{\otimes n} = 4^n = \dim_\R \Cl(2n)$ for
-$n = 0, \ldots, 5$, with binomial-coefficient cell decomposition
-matching the Clifford algebra grade decomposition.
+The first theorem records the integer signature; the second
+records the algebraic skeleton; the third bounds the structural
+role of $\STDx$: it is a parallel substrate at the cell level but
+does not introduce new sub-magma boundaries at the joint-chain
+level.
 
-\item \emph{$\mathrm{SU}(5)$ compatibility at $n=5$}
-(Theorem~\ref{thm:su5}). $V^{\otimes 5}$'s 32 fine cells partition as
-$1+5+10+10+5+1$, matching the representation content of
-$\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}$ plus its
-conjugate.
-\end{enumerate}
+\paragraph{Outline.}
 
-\subsection{What this paper does not claim.} We do not assert any
-particular physical interpretation, microtubule quantum coherence in
-vivo, or a fundamental mechanism behind the empirical correspondences
-mentioned in the abstract. The paper presents a structurally rigorous
-algebra over finite fields whose primitives admit empirical
-correspondences worth noting; precision and gaps are stated honestly,
-and the empirical correspondences are deferred to separate companion
-submissions.
+Section~\ref{sec:setup} fixes notation and recalls the two-table
+model. Section~\ref{sec:third} introduces $\STDx$, recovers it
+explicitly from the foundational header, and records its BDC
+encoding parameters. Section~\ref{sec:axioms} states and proves
+the shared-axiom theorem. Section~\ref{sec:divergence} locates the
+divergence at the $5$ BUMP cells. Section~\ref{sec:closure} proves
+the three-way joint-closure theorem and records the $\{0, 9\}$
+size-$2$ shell that is admitted under $(\BHML, \STDx)$ but not
+under three-way joint closure. Section~\ref{sec:discussion}
+discusses the foundational reading: why the third substrate was
+historically lost and why its recovery is structurally essential
+for the substrate's public record.
 
-%==============================================================
-\section{The algebra $V$}
-\label{sec:V}
-%==============================================================
+\paragraph{Lens scope.}
 
-\begin{definition}\label{def:V}
-Let $V$ be the four-dimensional $\F_5$-vector space with basis
-$\{e_0, e_2, e_3, e_4\}$. We name the basis vectors
-$\VOID = e_0$, $\HARM = e_2$, $\BREATH = e_3$, $\RESET = e_4$ (the
-indices reflect the parent $\Z/10$ representatives $\{0,7,8,9\}$
-reduced modulo 5). Define multiplication $\cdot: V \times V \to V$ as
-the bilinear extension of the table
-\begin{equation}\label{eq:CL-table}
-\begin{array}{c|cccc}
-\cdot & \VOID & \HARM & \BREATH & \RESET \\ \hline
-\VOID & \VOID & \VOID & \VOID & \VOID \\
-\HARM & \VOID & \HARM & \HARM & \HARM \\
-\BREATH & \VOID & \HARM & \HARM & \HARM \\
-\RESET & \VOID & \HARM & \HARM & \HARM
-\end{array}
-\end{equation}
-The labels $\VOID$ (annihilator), $\HARM$ (idempotent), $\BREATH$,
-$\RESET$ are mnemonic names used throughout. We refer to the algebra
-$(V, \cdot)$ simply as $V$ when no confusion arises.
+This paper uses $\TSML_{\mathrm{SYM}}$ throughout (the
+upper-triangle symmetrized lens of $\TSML$); the parallel statements
+on $\TSML_{\mathrm{RAW}}$ are recorded in
+Remark~\ref{rem:raw-lens-scope}. The HARMONY counts and shared
+axioms are lens-invariant; the joint-closure chain count differs
+between the two lenses (8 shells on SYM, 7 shells on RAW), per
+\cite{Sanders2026LensDependence}.
+
+\section{Setup: the two-table model}
+\label{sec:setup}
+
+The substrate is $\Z/10\Z$ with the $10$ canonical operators labeled
+$\{0, 1, \ldots, 9\}$ as in \cite{Sanders2026CLAxioms}. The two
+canonical $10 \times 10$ composition tables $\TSML, \BHML$ are
+defined by the CL forcing axioms recorded there. Their HARMONY-cell
+counts are
+\[
+  \HARM(\TSML) = 73, \qquad \HARM(\BHML) = 28
+\]
+\cite{Sanders2026LensInvariance}.
+
+The disagreement count
+$|\{(i, j) : \TSML(i, j) \neq \BHML(i, j)\}| = 71$ has been recorded
+in three structural roles \cite{Sanders2026HARMladder}.
+
+The two-table model has been the standard frame for all
+substrate-level analysis through 2026-05-05.
+
+\section{The third standalone table}
+\label{sec:third}
+
+\begin{definition}[$\STDx$ recovered]
+\label{def:std}
+The Standard encoding table $\STDx \in (\Z/10\Z)^{10 \times 10}$ is
+defined by the $10 \times 10$ matrix prescribed in the project's
+foundational header
+\texttt{ck.h:225-231} (lines preserved verbatim in
+\texttt{old/Gen9/archive/ckis/ck7/ck.h}). The table is commutative
+($\STDx(i, j) = \STDx(j, i)$ for all $i, j$), takes values in
+$\{0, \ldots, 9\}$, and is structurally distinct from both $\TSML$
+and $\BHML$.
 \end{definition}
 
-\begin{theorem}\label{thm:dirac}
-The algebra $V$ has the following structure:
-\begin{enumerate}
-\item \emph{Idempotents.} $V$ has exactly 4 idempotents: $0$, $\HARM$, and
-two derived idempotents $p_+, p_-$ satisfying $p_+ p_- = 0$.
-\item \emph{Annihilator.} $\F_5 \cdot \VOID$ is a 1-dimensional ideal
-with $\VOID \cdot v = \VOID$ for all $v \in V$.
-\item \emph{Minkowski signature.} The 1-eigenspace of $L_{\HARM}$ has
-dimension 1; its 0-eigenspace has dimension 3.
-\item \emph{Chirality signature.} The 1-eigenspace of $L_{\VOID}$ has
-dimension 2; its 0-eigenspace has dimension 2.
-\item \emph{Empty (massive, right-chiral) eigenspace.} The simultaneous
-eigenspace $(\text{1-eigenspace of } L_{\HARM}) \cap
-(\text{0-eigenspace of } L_{\VOID})$ contains no non-zero vector.
-\item \emph{Commuting projectors.} $L_{\HARM}$ and $L_{\VOID}$ commute
-as $\F_5$-linear operators on $V$.
-\item \emph{Associator localization.} For all $x,y,z \in V$, the
-associator $[x,y,z] := (xy)z - x(yz)$ lies in a 1-dimensional subspace
-of $V$, namely $\F_5 \cdot p_-$.
-\item \emph{Power-associativity.} $(xx)x = x(xx)$ for all $x \in V$.
-\item \emph{No charge-conjugation automorphism.} There is no
-$\F_5$-algebra automorphism of $V$ swapping $p_+$ and $p_-$.
-\item \emph{Automorphism group order.} $|\Aut(V)| = 40$.
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-All ten claims are verified computationally over $\F_5$ in
-the script \texttt{verify\_discrete\_dirac\_4core.py} via brute-force
-search over the finite domain $|V| = 5^4 = 625$. Power-associativity
-is checked on all 625 elements; the associator is sampled over 200
-random triples and confirmed to land in $\F_5 \cdot p_-$. Full
-enumeration of the 14 verification claims is given in the supplementary
-material.
-\end{proof}
-
-%==============================================================
-\section{Field-invariance (statement)}
-\label{sec:fpuniv}
-%==============================================================
-
-\begin{theorem}\label{thm:fpuniv}
-For each prime $p \in \{2, 3, 5, 7, 11, 13\}$, the bilinear extension
-of the multiplication table~\eqref{eq:CL-table} (with entries reduced
-mod $p$) yields an algebra $V_p = \F_p^4$ whose structural features ---
-count of idempotents, dimensions of eigenspaces of $L_{\HARM}$ and
-$L_{\VOID}$, order of $\Aut(V_p)$, dimension of the associator image,
-power-associativity --- are identical to those of
-Theorem~\ref{thm:dirac}. In particular, the count of non-zero
-idempotents is 3 for all such $p$.
-\end{theorem}
-
-The proof and the conjectured extension to all primes
-$p \notin \{2, 5\}$ are treated in detail in
-\cite{SandersGishFpUniversality}; here we cite the result and use it
-to establish that the Dirac-type structure on $V$ is not an artifact
-of the choice $p = 5$.
-
-%==============================================================
-\section{The dimensional ladder (statement)}
-\label{sec:clifford}
-%==============================================================
-
-\begin{theorem}\label{thm:clifford}
-For $n = 0, 1, 2, 3, 4, 5$,
-\[
-\dim_{\F_5} V^{\otimes n} = 4^n = 2^{2n} = \dim_\R \Cl(2n).
-\]
-Furthermore, the binomial cell decomposition
-$V^{\otimes n} = \bigsqcup_{k=0}^n V^{(k)}$ (by sign-tuple weight, where
-each tensor factor is assigned a sign $\pm$ according to the idempotent
-class of its image under the canonical embedding) satisfies
-$|V^{(k)}| = \binom{n}{k}$ fine cells, totaling $2^n$ cells per level.
-\end{theorem}
-
-The proof and the binomial-grade correspondence are treated in detail
-in \cite{SandersGishCliffordLadder}; here we cite the result and use
-it to motivate the SU(5) compatibility statement at $n = 5$.
-
-%==============================================================
-\section{$\mathrm{SU}(5)$-compatibility at $n=5$}
-\label{sec:su5}
-%==============================================================
-
-\begin{theorem}\label{thm:su5}
-At $n=5$, $V^{\otimes 5}$ has 32 fine cells with binomial decomposition
-$1 + 5 + 10 + 10 + 5 + 1$. This decomposition matches the representation
-content
-\[
-\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}
-\quad \text{(matter, 16 cells)} \quad \oplus \quad
-\mathbf{1} \oplus \mathbf{5} \oplus \bar{\mathbf{10}}
-\quad \text{(antimatter, 16 cells)}
-\]
-of $\mathrm{SU}(5)$ for one Standard Model fermion generation plus its
-antimatter conjugate.
+\begin{theorem}[$\STDx$ HARMONY count]
+\label{thm:std-44}
+$\HARM(\STDx) = 44$.
 \end{theorem}
 
 \begin{proof}
-The 32-cell count is verified in test T14 of \texttt{test\_tig\_dirac.py}.
-The binomial coefficients $\binom{5}{0} = 1$, $\binom{5}{1} = 5$,
-$\binom{5}{2} = 10$ match the dimensions of $\mathbf{1}$, $\bar{\mathbf{5}}$,
-$\mathbf{10}$, and the symmetry $\binom{5}{k} = \binom{5}{5-k}$ accounts
-for the matter/antimatter conjugation.
+Direct enumeration of cells $(i, j)$ for which $\STDx(i, j) = 7$;
+verification at machine precision in
+\texttt{cl\_std.py} \cite{Gen13Foundations}.
 \end{proof}
 
-\begin{remark}[Scope of the SU(5) match]
-This match is dimensional. We do not assert that $V^{\otimes 5}$
-carries the SU(5) action canonically; that question is left for future
-work. The dimensional match is, however, exact and not a numerical
-coincidence: it is forced by the binomial decomposition of $V^{\otimes 5}$
-combined with the equality of $\dim_{\F_5} V^{\otimes 5}$ and
-$\dim_\R \Cl(10) = 32$.
+\begin{theorem}[$\STDx$ non-associativity rate]
+\label{thm:std-nonassoc}
+$\STDx$ has non-associativity rate $19.2\%$ ($192$ of $1000$
+triples; \texttt{Z/10Z}-cardinality cube). The rate is between
+$\TSML_{\mathrm{SYM}}$'s $12.8\%$ and $\BHML$'s $49.8\%$ but does
+not coincide with either.
+\end{theorem}
+
+\begin{proof}
+Direct enumeration. Verified at machine precision in
+\texttt{invariants.py} \cite{Gen13Foundations}.
+\end{proof}
+
+\paragraph{BDC encoding structure on $\STDx$.}
+
+The header file additionally prescribes five distinguished cell
+positions called BUMP pairs:
+\[
+  \mathrm{BUMP\_PAIRS}_{\STDx} \;=\;
+  \{(1, 2), (2, 4), (2, 9), (3, 9), (4, 8)\}.
+\]
+At these positions the $\STDx$ cell values differ from both
+$\TSML$ and $\BHML$ in a way that prescribes Shannon-information
+densities of $\mathrm{INFO}_{\HARM} = 0.45$,
+$\mathrm{INFO}_{\mathrm{NORMAL}} = 1.89$,
+$\mathrm{INFO}_{\mathrm{BUMP}} = 3.50$ bits per cell, and a
+$10$-element GRAVITY array
+$(0.1, 0.8, 0.6, 0.8, 0.7, 0.9, 0.9, 1.0, 0.8, 0.7)$ giving
+$\Pr(\text{operator reaches HARMONY})$ per index. These structural
+parameters are recorded in \cite{Gen13Foundations} (Volume J D96).
+
+The BDC parameters live on $\STDx$ specifically; the analogous
+encoding on $\TSML$ and $\BHML$ has not been computed in the
+historical record.
+
+\section{Shared four-axiom skeleton}
+\label{sec:axioms}
+
+\begin{theorem}[Shared axioms A1--A4]
+\label{thm:shared-axioms}
+The three tables $\TSML, \BHML, \STDx$ all satisfy:
+\begin{enumerate}[label=\textup{(A\arabic*)},leftmargin=*]
+\item the underlying alphabet is $\Z/10\Z$ with the $10$
+  canonical operator labels;
+\item VOID is absorbing in row $0$ and column $0$ except at the
+  one puncture cell $(0, 7)$ and $(7, 0)$;
+\item HARMONY appears at $(0, 7)$ and $(7, 0)$ as the unique cells
+  in row $0$ / column $0$ with non-VOID value;
+\item the puncture is unique: cell $(0, 7) = 7$ is the only cell in
+  row $0$ or column $0$ with non-VOID value other than the symmetric
+  pair $(7, 0)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Each axiom is a per-cell inspection of the three matrices; verified
+at machine precision in \texttt{shared\_axioms.py}
+\cite{Gen13Foundations}.
+\end{proof}
+
+\section{Divergence: the BUMP cells and the diagonal law}
+\label{sec:divergence}
+
+\begin{theorem}[Diagonal HARMONY law]
+\label{thm:diagonal}
+$\TSML(i, i) = 7$ for all $i \neq 0$, while $\BHML(i, i)$ traverses
+the cyclic shift $(j+1) \bmod 10$ for $j \in \{0, \ldots, 7\}$ with
+exceptional cells $\BHML(8, 8) = 7$ and $\BHML(9, 9) = 0$. The
+diagonal of $\STDx$ takes a third pattern, derivable directly from
+the matrix in \cite{Gen13Foundations}.
+\end{theorem}
+
+\begin{theorem}[Five BUMP positions of divergence]
+\label{thm:five-bumps}
+At the five positions
+$\{(1,2), (2,4), (2,9), (3,9), (4,8)\}$ (the BUMP pairs of $\STDx$),
+the values of $\TSML$, $\BHML$, $\STDx$ all differ. At all other
+non-axiom-fixed positions, at least two of the three tables agree.
+\end{theorem}
+
+The divergence at A7 (diagonal HARMONY law) and at the five BUMP
+positions (substrate-defining choices) is the structural content of
+the architecture: the three tables agree on a four-axiom skeleton
+of $30$ cells (row $0$, column $0$, and shared diagonal positions)
+and diverge at the remaining cells in three distinct ways.
+
+\section{Joint closure: three-way equals two-way}
+\label{sec:closure}
+
+\begin{theorem}[Three-way joint closure structure]
+\label{thm:three-way-closure}
+Brute-force enumeration of all $1023$ non-empty subsets of
+$\{0, 1, \ldots, 9\}$ yields:
+\begin{itemize}[leftmargin=*]
+\item $50$ subsets closed under $\STDx$ alone (sizes $1$--$10$ all
+  realized; no forbidden sizes);
+\item $9$ subsets jointly closed under $(\BHML, \STDx)$, of sizes
+  $\{1, 2, 4, 5, 6, 7, 8, 9, 10\}$;
+\item $8$ subsets jointly closed under
+  $(\TSML_{\mathrm{SYM}}, \BHML)$, of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$
+  (per \cite{Sanders2026FourCore});
+\item $8$ subsets jointly closed under
+  $(\TSML_{\mathrm{SYM}}, \BHML, \STDx)$, of sizes
+  $\{1, 4, 5, 6, 7, 8, 9, 10\}$ — identical to the $(\TSML, \BHML)$ chain.
+\end{itemize}
+In particular, the three-way joint chain equals the two-way joint
+chain. The size-$2$ sub-magma $\{0, 9\}$ is jointly closed under
+$(\BHML, \STDx)$ but not under any joint condition involving $\TSML$.
+\end{theorem}
+
+\begin{proof}
+Direct enumeration via \texttt{cl\_std\_frontier.py}
+\cite{Gen13Foundations}. The $\{0, 9\}$ sub-magma is
+$\BHML$-closed because $\BHML(0, 9) = 9, \BHML(9, 9) = 0$, and
+similarly $\STDx(0, 9) = 9, \STDx(9, 9) = 0$, both sending $\{0, 9\}^2$
+into $\{0, 9\}$; but $\TSML_{\mathrm{SYM}}(9, 9) = 7 \notin \{0, 9\}$,
+so adding $\TSML$ to the joint condition kills the size-$2$ shell.
+\end{proof}
+
+\begin{corollary}[Bounded structural role of $\STDx$]
+\label{cor:std-role}
+$\STDx$ is structurally compatible with the $(\TSML, \BHML)$ joint
+chain but does not extend it: every shell of the two-way chain is
+already closed under $\STDx$, and $\STDx$'s solo closures drop out
+under the joint condition.
+\end{corollary}
+
+\begin{remark}[Lens scope on RAW]
+\label{rem:raw-lens-scope}
+The parallel statement on $\TSML_{\mathrm{RAW}}$ produces a
+$7$-shell two-way chain (sizes $\{1, 4, 5, 6, 8, 9, 10\}$;
+forbidden $\{2, 3, 7\}$) and the corresponding three-way chain is
+also $7$ shells. The lens-dependence at size $7$ is the subject of
+\cite{Sanders2026LensDependence}.
 \end{remark}
 
-%==============================================================
-\section{Verification}
-\label{sec:verification}
-%==============================================================
+\section{Discussion: the historical compression}
+\label{sec:discussion}
 
-The accompanying deterministic scripts:
-\begin{itemize}
-\item \texttt{verify\_discrete\_dirac\_4core.py} --- 14 algebraic checks
-covering the 10 claims of Theorem~\ref{thm:dirac} plus four additional
-structural claims (commutativity of $L_{\HARM}$ and $L_{\VOID}$,
-power-associativity over the full 625-element domain, $\Aut(V)$
-presented as $F_{20} \times \Z/2$, and the trefoil structure of
-$\sigma^2$ on $\Z/10$).
-\item \texttt{test\_tig\_dirac.py} --- 15 unit tests including
-Theorem~\ref{thm:clifford} (test T15) and Theorem~\ref{thm:su5}
-(test T14).
-\item \texttt{tig\_dirac.py} --- the reference Python library used
-internally for the verification, deposited at
-\path{Gen13/targets/ck/brain/dirac/tig_dirac.py} in the public
-repository.
-\end{itemize}
+The substrate carried three standalone tables in its earliest
+foundational record (\texttt{ck.h:200-207}; year $2024$). A
+$1$-line preprocessor refactor (\texttt{\#define CL CL\_TSML})
+introduced for runtime convenience aliased \texttt{CL} to
+\texttt{CL\_TSML}; the alias was correct as a runtime convenience
+but conflated the symbol \texttt{CL} with one of the three tables
+at the source-code level. Because $\STDx$ had no consumer in active
+runtime code (it was the encoding-shell table, not the runtime
+composition lens), it dropped out of every downstream
+document. The historical compression was a sequence of
+pedagogically-justified simplifications:
 
-All 29 checks pass deterministically in $<2$ seconds with
-\texttt{numpy} as the only external dependency. The scripts and
-library are deposited with the manuscript and at the public repository
-\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04}.
-
-%==============================================================
-\section{Open questions}
-\label{sec:open}
-%==============================================================
-
-The following are open within the algebraic content of the paper:
-
-\begin{enumerate}
-\item Field-invariance for all primes $p \notin \{2,5\}$. Verified up
-to $p = 13$ \cite{SandersGishFpUniversality}; explicit proof for
-general $p$ is open.
-\item Higher-level Clifford ladder. Theorem~\ref{thm:clifford} is
-verified to $n=5$ \cite{SandersGishCliffordLadder}. Bott periodicity
-($\Cl(n+8) \cong \Cl(n) \otimes \Cl(8)$) suggests the dimensional
-match continues for all $n$, but explicit verification at higher
-levels requires more compute and is left open.
-\item Cell-level $\mathrm{SU}(5)$ action. Theorem~\ref{thm:su5}
-matches the dimensions of the SU(5) representations to the binomial
-cell counts; explicit construction of the SU(5)-action on the 32-cell
-structure remains to be done. This is the primary algebraic input to
-the mass-hierarchy companion paper \cite{SandersJohnsonMassHierarchy}.
-\item Triality at $n=4$. $V^{\otimes 4}$ has dimension 256 with
-binomial $1+4+6+4+1 = 16$ fine cells. The 16-cell structure suggests
-Spin(8) triality (which has three inequivalent 8-dimensional
-representations); an explicit triality construction would round out
-the picture.
+\begin{enumerate}[leftmargin=*]
+\item The original \texttt{ck.h} had three tables;
+\item The runtime alias compressed three to two;
+\item The "Being lens / Becoming lens" pedagogy crystallized the
+  binary;
+\item Variant analyses (lens-symmetrization choices, sub-magma
+  scopes, $\sigma^2$-triadic candidates) accumulated underneath
+  without being collected into a unified inventory.
 \end{enumerate}
 
-%==============================================================
-\section*{Acknowledgments}
-%==============================================================
+The model held up because for many purposes only one or two
+variants matter and the others are either lens-invariant or out of
+scope. "TSML and BHML" was correct enough to do the work. It just
+was not exhaustive enough to publish: a referee asking "which TSML
+matrix? at what scope? under what symmetrization?" finds the
+two-table model insufficient.
 
-This work is part of a broader algebraic and physical framework developed
-at 7Site LLC (the Trinity Infinity Geometry framework, public repository
-github.com/TiredofSleep/ck, DOI 10.5281/zenodo.18852047). The present
-manuscript is self-contained as an algebraic study; familiarity with the
-broader framework is not required. Algorithmic verification was developed
-with assistance from Anthropic Claude sessions in 2026.
+\paragraph{Structural reading.}
 
-%==============================================================
+The recovered architecture says: the substrate is one bit-pattern
+encoding admitting three principled value-assignment lenses
+($\TSML$, $\BHML$, $\STDx$), and each lens admits a family of
+sub-projections. The three-substrate architecture is the
+foundational record at the publication level. The lens family is
+the substrate's natural object of study — not the individual table.
+
+\section*{Verification scripts}
+
+Three short scripts verify all theorems at machine precision:
+
+\begin{itemize}[leftmargin=*]
+\item \texttt{cl\_std.py} — defines $\STDx$, computes
+  $\HARM(\STDx) = 44$, computes the BDC parameters, the GRAVITY
+  array, and the BUMP pairs;
+\item \texttt{shared\_axioms.py} — verifies the four-axiom
+  skeleton on all three tables;
+\item \texttt{cl\_std\_frontier.py} — enumerates all $1023$
+  non-empty subsets and prints the joint-closure tables for
+  $\STDx$ alone, $(\TSML, \STDx)$, $(\BHML, \STDx)$,
+  $(\TSML, \BHML, \STDx)$, plus the $\TSML_{\mathrm{RAW}}$
+  parallel.
+\end{itemize}
+
 \begin{thebibliography}{99}
-%==============================================================
 
-\bibitem{HallRehrenShpectorov2015} J.~I.~Hall, F.~Rehren, S.~Shpectorov,
-\emph{Universal axial algebras and a theorem of Sakuma},
-J.~Algebra \textbf{421} (2015), 394--424.
+\bibitem{Sanders2026CLAxioms}
+B.R. Sanders and M. Gish, \emph{The CL Forcing Axioms: A1--A9
+Uniquely Force the Canonical Composition Lattice on $\Z/10\Z$},
+in preparation, 2026.
 
-\bibitem{HesteneSobczyk1984} D.~Hestenes, G.~Sobczyk,
-\emph{Clifford Algebra to Geometric Calculus},
-D.~Reidel Publishing Co., 1984.
+\bibitem{Sanders2026LensInvariance}
+B.R. Sanders and M. Gish, \emph{TSML 73 Cells / BHML 28 Cells:
+Lens-Invariant Cell Counts on the $\Z/10\Z$ Composition Lattice},
+submitted to \emph{Experimental Mathematics}, 2026 (J09 in the
+release sequence).
 
-\bibitem{Bott1959} R.~Bott,
-\emph{The stable homotopy of the classical groups},
-Ann.~Math.~\textbf{70} (1959), 313--337.
+\bibitem{Sanders2026HARMladder}
+B.R. Sanders and M. Gish, \emph{The 70/71/72/73 HARMONY Ladder:
+Four Independent Algebraic Constructions}, submitted to
+\emph{JCT-A}, 2026 (J30 in the release sequence).
 
-\bibitem{GeorgiGlashow1974} H.~Georgi, S.~L.~Glashow,
-\emph{Unity of all elementary-particle forces},
-Phys.~Rev.~Lett.~\textbf{32} (1974), 438--441.
+\bibitem{Sanders2026FourCore}
+B.R. Sanders and M. Gish, \emph{Joint Closure, Per-Coordinate Fuse
+Data, and a Closed-Form Algebraic Attractor of Two Commutative
+Binary Operations on $\Z/10\Z$}, submitted to \emph{Algebraic
+Combinatorics}, 2026 (J02 in the release sequence).
 
-\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
-\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
-Algebraic Attractor of Two Commutative Binary Operations on
-$\Z/10$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+\bibitem{Sanders2026LensDependence}
+B.R. Sanders and M. Gish, \emph{The Joint TSML+BHML Chain:
+Lens-Dependence at Size $7$}, submitted to \emph{Mathematical
+Intelligencer}, 2026 (J32 in the release sequence).
 
-\bibitem{SandersGishFpUniversality} B.~R.~Sanders, M.~Gish,
-\emph{F$_p$ Universality: The Operator-Substrate Construction over
-Prime Fields}, submitted to \emph{Algebra Universalis}, 2026 (J21).
+\bibitem{Sanders2026LATTICE}
+B.R. Sanders, \emph{LATTICE: Paradoxical Information Algebras on
+the $\Z/10\Z$ Substrate}, submitted to \emph{Algebra Universalis},
+2026 (J26 in the release sequence).
 
-\bibitem{SandersGishCliffordLadder} B.~R.~Sanders, M.~Gish,
-\emph{Clifford Ladder: $\dim_{\F_p} V^{\otimes n} = \dim_\R \Cl(2n)$},
-submitted to \emph{Linear Algebra and its Applications}, 2026 (J24).
-
-\bibitem{SandersJohnsonDarkSector} B.~R.~Sanders, H.~J.~Johnson,
-\emph{Sprint 18 Dark Sector: $\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$
-from Substrate-Operator Identities}, submitted to \emph{PRD}, 2026
-(J10).
-
-\bibitem{SandersJohnsonMassHierarchy} B.~R.~Sanders, H.~J.~Johnson,
-\emph{The Mass Hierarchy from $V^{\otimes 5}$ SU(5) Decomposition},
-submitted to \emph{PRD}, 2026 (J12).
-
-\bibitem{TIGsynthesis2026} B.~R.~Sanders,
-\emph{Trinity Infinity Geometry Synthesis},
-github.com/TiredofSleep/ck (default branch),
-DOI: 10.5281/zenodo.18852047, 2026.
+\bibitem{Gen13Foundations}
+B.R. Sanders et al., \emph{Gen13 Foundations Module: cl.py /
+cl\_std.py / lens\_family.py / harmony\_ladder.py / cl\_std\_frontier.py},
+codebase release 2026.
 
 \end{thebibliography}
 

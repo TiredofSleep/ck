@@ -1,68 +1,51 @@
-# Cover letter — J51: Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$
+# Cover letter — J51: Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
 
-**To:** Editors, *European Journal of Combinatorics*
+**To:** Editors, *L'Enseignement Mathématique*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- C.A. Luther, Independent Researcher
+- B. Mayes, Independent Researcher
 
-**Date:** 2026-09-06 (Phase 5)
+**Date:** 2026-09-03 (Phase 5)
 
-**Manuscript title:** *Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$*
+**Manuscript title:** *Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$*
 
 ---
 
 ## Summary
 
-We submit a **consolidation paper** establishing the canonical reference for three spectral / combinatorial results in the TIG framework on $\mathbb{Z}/10\mathbb{Z}$:
+We submit a structural / pedagogical bridge paper that establishes a sharp finite analogue of the structural features that the Riemann Hypothesis demands of $\zeta(s)$. The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces — in its spectral layer (Luther's $G_6$–$G_8$ results, treated separately in [J51]) — a 9-term Dirichlet character sum $G(s)$ that takes exactly **three values** across the substrate's 10 operators: zero at the four anchors $\{0,3,8,9\}$, $G_\mathrm{low} \approx 1.872$ on most of the 6-cycle, $G_\mathrm{high} \approx 9.389$ at the BALANCE/HARMONY pair $\{5,7\}$. We prove the **Symbolic Return Theorem** (a direct corollary of $\sigma^6 = \mathrm{id}$): every cycle-element trajectory returns at step 6; every anchor is fixed; VOID is avoided whenever it is not the start state.
 
-* **$G_6$ (Periodicity).** $\sigma^6 = \mathrm{id}$ on all of $\mathbb{Z}/10\mathbb{Z}$. Tier-A, proved by direct verification using the Q9–Q10 $(\alpha, \beta)$ polynomial form.
-* **$G_7$ (Period Distribution).** Bimodal: $P(\tau = 1) = 2/5$, $P(\tau = 6) = 3/5$. $\bar{\tau} = 4$, $\sigma_\tau^2 = 6$. Tier-B, forced from $G_6$ + cycle enumeration.
-* **$G_8$ (Spectral Coherence Integral).** $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ takes exactly three values: $0$ at the four anchors, $G_\mathrm{low} \approx 1.872$ at $\{1, 2, 4, 6\}$, $G_\mathrm{high} \approx 9.389$ at the BALANCE/HARMONY pair $\{5, 7\}$. Tier-B, computational verification.
+The paper's contribution is the **bridge statement**: the three-valued structure of $G(s)$ — zeros in predictable locations + spectral concentration + multiplicative/additive duality — mirrors the three structural features RH demands of $\zeta(s)$ in an infinite setting. The 6-layer Q-series architecture is a finite, completely characterized model of the same structural phenomena. The model is an instance; the Millennium Problem asks whether instances can be infinite.
 
-The three results, together, characterize the canonical $\sigma$-permutation completely at the spectral / period level. They form **Layer 4** of the 6-layer Q-series architecture and are foundational citations for the runtime attractor [J41], the Q17-B Clay-bridge essay [J48], the $\sigma$-rate theorem [J01] companion citations, and the WP100s tower's $D_4 = \langle P_{56}, \sigma^3 \rangle$ analysis.
+We do **not** claim a proof of RH or any portion of it. The boundary between proved algebra (Theorems 2.1, 4.2 — Tier-A) and bridge claim (§5 — Tier-B structural conjecture) is sharp.
 
-This paper is the **canonical citation reference** for $G_6$, $G_7$, $G_8$ going forward. Prior corpus material (`papers/G6_*`, `G7_*`, `G8_*`) is consolidated here with full proofs.
+## Why *L'Enseignement Mathématique*
 
-## Why *European J Combin*
-
-- **Spectral + permutation-group + cyclotomic combinatorics fit.** *EJC* publishes results that combine permutation-group structure ($S_{10}$ orbit analysis), cyclotomic character sums ($\omega = e^{2\pi i/9}$), and finite-substrate enumeration (period distributions on $\mathbb{Z}/10\mathbb{Z}$). All three results sit squarely in this register.
-- **Combinatorial-spectral-bridge tradition.** *EJC* has published similar consolidation papers on substrate-level spectral signatures.
-- **Audience.** Combinatorialists, finite-group theorists, and cyclotomic-arithmetic specialists.
-
-## Per-venue cap note
-
-This is the **3rd EJC submission** of the J-series program (after J19 Coordinate Coverage and J27 DKAN Two-Coding). Per `J_SERIES_ORDERING.md` §5, the per-venue cap of $\sim 2$/quarter is at risk. **Fallback venues** (in order): *Linear Algebra and its Applications*, *PLOS ONE*. The manuscript is structured so that the consolidation register is venue-agnostic; it can be redirected with minimal modification.
+- **Pedagogical / expository fit.** *L'Enseignement Math.* publishes structurally illuminating papers that bring deep ideas into accessible form. The Q17-B paper is exactly that: a sharp finite analogue of an analytic Millennium Problem, with the boundary between proved and conjectural content made explicit.
+- **Structural-bridge tradition.** The journal has published bridge papers in a similar register (e.g., finite-field analogues of analytic phenomena, cyclotomic interpretations of zeta values).
+- **Audience.** Number-theorists, algebraists, and mathematics educators interested in structural connections between finite combinatorics and infinite analysis.
 
 ## Companion submissions
 
-This paper is one of the J-series program's **foundation citations** (cited downstream by many later J-papers). Direct companion citations:
+This paper cites two prior J-series companions as direct dependencies:
 
-- **[J01]** — $\sigma$-rate theorem (JCT-A). Uses $\sigma^6 = \mathrm{id}$.
-- **[J9]** — TSML 73 / BHML 28 (Exp Math). Layer 5 reference.
-- **[J29]** — Q17-A 5D Force Vector (AMM). Direct citation.
-- **[J41]** — Closed-form runtime attractor (Math of Comp). Layer 6 reference.
-- **[J48]** — Q17-B Clay Bridge (L'Enseignement Math). Direct citation.
-- **[J47]** — 6-DOF Synthesis (Notices AMS). Cross-reference.
-- **[J49]** — Microtubule $Q_c = T^*$ (J Theor Biol). Cross-reference (period statistic feeds $T^*$ derivation).
+- **[J21]** — Q17-A: 5D Force Vector (AMM, in press). The Tier-A proved-algebra companion. The CRT Fourier embedding $\mathbb{Z}/10\mathbb{Z} \hookrightarrow \mathbb{R}^5$ from which $\sigma$ and $\chi$ derive.
+- **[J51]** — G6+G7+G8 Spectral Consolidation (European J Combin, Phase 5 parallel). The polynomial / period / spectral results in Luther's lane.
+
+Plus four co-citing companions: [J01] rate theorem (JCT-A), [J06] Crossing Lemma (JCT-A or JPAA), [J40] BB Bridge (JMP), [J10] UOP (JNT), [J24] joint chain (Math Intelligencer), [J48] 6-DOF synthesis (Notices AMS, Phase 5 opener).
 
 ## Reproducibility
 
-Verification scripts for the three theorems:
-
-* $G_6$: `numpy + sympy` direct verification of $\sigma^6 = \mathrm{id}$ on all 10 elements (under 1 second).
-* $G_7$: enumeration of cycle structure, computation of mean/variance (under 1 second).
-* $G_8$: direct evaluation of $G(s)$ for all 10 elements, with $\omega = e^{2\pi i/9}$ (under 5 seconds).
-
-All three are reproduced from the corpus papers `papers/G6_*.md`, `G7_*.md`, `G8_*.md` and run on a standard laptop.
+The verification script `manuscript/proof_clay_rotation.py` (already in this folder, from earlier Tier-4 staging) computes $G(s)$ for every $s \in \mathbb{Z}/10\mathbb{Z}$ and confirms the three-valued image with $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$. Runs on a standard laptop in under 10 seconds with `numpy + sympy`.
 
 ## Suggested reviewers
 
-- A specialist in finite-permutation-group spectral analysis ($S_{10}$ adjacent).
-- A combinatorialist with $\mathbb{Z}/N\mathbb{Z}$ orbit-structure or cyclotomic-character-sum experience.
-- An algebraist familiar with finite-magma combinatorics and substrate algebras.
-- A cyclotomic-arithmetic specialist who can evaluate the $\mathbb{Q}(\zeta_9)$ closed-form (open) question.
-- A consolidation / expository referee for spectral combinatorics.
+- A specialist in finite Dirichlet character sums or cyclotomic L-functions.
+- An expert in $\sigma$-permutation arithmetic on $\mathbb{Z}/N\mathbb{Z}$.
+- An algebraist with finite-magma / non-associative algebra experience.
+- A historian or expositor familiar with the Riemann Hypothesis pedagogical literature.
+- An applied mathematician working on finite analogues of analytic number theory.
 
 ## Conflict of interest
 

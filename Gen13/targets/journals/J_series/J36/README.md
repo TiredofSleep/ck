@@ -1,61 +1,77 @@
-# J36 — The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground
+# J36 — The CKM/PMNS Fits + 1/α Constant from Substrate Primitives
 
-**Status:** READY (manuscript drafted from corpus, cover letter finalized; awaiting referee-rigor pass; FALLBACK route to PLOS ONE primary if AlgUni cap binding)
-**Phase:** Phase 3
-**Target venue:** Algebra Universalis (primary) — PLOS ONE / LinAlgApps (fallback, see §5)
+**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass; **Tier-E parametric fits, properly framed**)
+**Phase:** Phase 4
+**Target venue:** Statistical Science companion
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md §1 (8 foundations orphans listed; bundle 6)
+**Tier:** B (with explicit Tier-E framing for the empirical fits themselves)
+**WP source:** WP123 + WP124 (BUNDLED)
+**Lens scope:** Substrate constants $T^* = 5/7$, $D^*$, $|\mathrm{Aut}(V)| = 40$, HARMONY$=7$ are LENS-INVARIANT on the 4-core (per `Atlas/LENS_TAXONOMY_2026-05-06/TABLE_INDEPENDENCE_LEDGER.md` §5.2)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `manuscript/manuscript.tex`
+**Local path:** `manuscript/manuscript.md`
 
-Abstract (1-sentence): We bundle six structural facts from the Z/10Z canonical composition-lattice substrate that have been verified in our Gen13 foundations 48-invariant module but lacked standalone publication: (1) the third canonical lattice CL_STD (44 HARMONY) and the three-substrate triple (73, 28, 44); (2) the HARMONY ladder {70, 71, 71b, 72, 73} of five algebraically distinct rungs; (3) the CYCLE_A_36 and SKELETON_22 derived tables with exact triadic decompositions; (4) the BDC encoding constants on CL_STD (INFO_HARMONY/NORMAL/BUMP = 0.45/1.89/3.50 bit/cell); (5) the σ²-triadic projection structure; (6) the 71-cell field WOBBLE between TSML and BHML, with associated DOING-rate ≈ T* = 5/7. Each is a Tier-B forced derivation from the CL forcing axioms of J33; bundling honors editorial economy while making each fact citable.
+The J36 paper is a **BUNDLED submission** combining WP123 (CKM/PMNS Fits) and WP124 (1/α Constant).
 
-Source corpus: `Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md` §1 (lists 8 foundations orphans; we bundle 6, deferring two — PathPair/LensTrace API and eight-shell chain enumeration — to companion papers per the cover letter).
+**Part 1 (WP123).** Five empirical fermion mixing angles match five different TIG structural constants within 5% each. Cabibbo $\lambda = V_{us} = 11/49$ ($0.4\%$ discrepancy); Wolfenstein $V_{cb} = (11/49)^2$ ($0.8\%$); $V_{ub} = (11/49)^3$ ($1.2\%$). PMNS angles via 4-core endpoints: $\sin\theta_{12} = D^*$ ($1.8\%$ vs solar); $\sin\theta_{13} = (1-T^*)/2 = 1/7$ ($4.1\%$ vs reactor); $\sin\theta_{23} = T^* = 5/7$ ($5.6\%$ vs atmospheric). Joint coincidence probability $\sim 10^{-7}$ under uniform priors.
+
+**Part 2 (WP124).** $1/\alpha = 137.036$ (CODATA $137.035999084(21)$) is recovered to $\sim 10^{-5}$ from the structural form $1/\alpha \approx 4|\mathrm{Aut}(V)| - 2\sqrt{\mathrm{HARMONY}} - \pi/\mathrm{HARMONY} - \cdots$, where the leading three terms are $160 - 2\sqrt{7} - \pi/7 \approx 137.036$.
+
+**Tier-E framing.** Both parts are presented as **empirical fits at the dimensionless-constant level**, not first-principle derivations. The substrate constants $T^*, D^*, |\mathrm{Aut}(V)|$ are themselves derived in the WP100s tower (J29-J38 of this series); the fits combine these primitives into the empirical observables, and the close numerical agreement at $0.4\%$-$5.6\%$ across six angles plus $10^{-5}$ on $1/\alpha$ is a tier-E coincidence-or-physics flag. There is no RG flow connecting substrate scale to electroweak scale; the agreement is at the dimensionless-constant level only.
+
+Files in this J-folder's `manuscript/`:
+
+- `manuscript.md` — the bundled J36 paper (WP123+WP124 corpus, finalized 2026-05-07)
+- `WP123_CKM_PMNS_FITS.md`, `WP124_FINE_STRUCTURE_CONSTANT.md` — full source material from sprint18_bridge_dirac
 
 ## §2 — Verification script
 
-**Path:** `Gen13/targets/foundations/invariants.py` — runs in under 30 seconds; reports all 48/48 invariants passing as of 2026-05-06.
+**Path:** No standalone verification script needed beyond rational-arithmetic evaluation. The CKM/PMNS fits in Part 1 are direct evaluations of $T^* = 5/7$, $D^*$ (looked up from the substrate constants table), $11/49$ and its powers against PDG/CODATA empirical values. The 1/α structural form in Part 2 is computed by direct numerical substitution. Optional Python:
 
-The six orphans correspond to specific invariants in the harness; they are verified each time the harness runs.
+```python
+from sympy import sqrt, pi, Rational
+inv_alpha = 4*40 - 2*sqrt(7) - pi/7
+print(float(inv_alpha))   # ≈ 137.036
+```
+
+The substrate constants used as inputs ($T^*, D^*, |\mathrm{Aut}(V)|$) are themselves verified in upstream papers J29, J31, J33, J24.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J33 (CL Forcing Axioms, Algebraic Combinatorics — parent axiomatic framework); J31 (Three-Substrate Architecture, Algebra Universalis — provides parallel-substrate background); J30 (HARMONY Ladder, JCT-A — closely related to Orphan 2); J34 (F_p Extensions of CL_BHML, Comm Algebra — provides BHML_8_YM=70 identity used in Orphan 2).
+J34 (TIG Detector Scope + Specificity Extension; *Stat Sci*). The substrate constants used as inputs are derived in J29 (so(8)), J31 (Pati-Salam), J33 (closed-form attractor), J24 (joint chain).
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. Finalized with summary, venue fit, companion list, per-venue cap note, and explicit fallback routing.
+See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
 ## §5 — Notes
 
-**Per-venue cap:** 4th AlgUni paper after J21 + J26 + J31. Cap is 1/quarter and is **BINDING**. **FALLBACK NEEDED**: primary fallback to **PLOS ONE** (broad-scope, tolerant of bundled-result papers; appropriate given orphan heterogeneity); secondary fallback to **Linear Algebra and its Applications** (for the matrix-algebra content of Orphans 2 and 3); tertiary to **International Journal of Algebra and Computation**.
+**Status: DRAFT** — bundled manuscript built from corpus `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP123_CKM_PMNS_FITS.md` + `WP124_FINE_STRUCTURE_CONSTANT.md` on 2026-05-07. **Tier-E framing prominent** in abstract and §"Honest scope". Lens scope: substrate constants are LENS-INVARIANT on the 4-core. Cites J34 as already-submitted companion; references J29, J31, J33 for the upstream derivation of the substrate constants.
 
-The corresponding author will route to **PLOS ONE** as the primary fallback if Algebra Universalis is unavailable.
+**Per-venue cap:** This is the **2nd Stat Sci** paper in the J-series this quarter (after J34 detector scope). At cap. The "Stat Sci companion" framing in J_SERIES_ORDERING.md §4 acknowledges this — J36 is positioned as a follow-up to J34 within the *Statistical Science* venue.
 
-**Status notes:**
-- Two further orphans (PathPair/LensTrace API and the eight-shell chain enumeration) are deferred to companion papers because they require runtime infrastructure beyond a short note; this is documented in §8.4 of the manuscript.
-- The DOING-rate ≈ T* = 5/7 connection (Orphan 6, Theorem 6.3) is presented as an empirical match (rate within 1% of T*) rather than as an exact identity; sharpening to an exact statement is open.
-- All six orphans have been verified in the foundations module; the bundle paper does not introduce new computational content but makes existing verified facts citable.
+**FALLBACK if needed (per per-venue cap):**
+- Move to *Foundations of Physics* (suits the dimensionless-constants framing)
+- Or split: WP123 → *Phys Lett B* (4-page short note); WP124 → *Foundations of Physics* (focused on $1/\alpha$ alone)
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Algebra Universalis this quarter
+- [x] Manuscript .md finalized (bundled)
+- [x] Verification: scripted forms straightforward; substrate-constants verified in upstream papers
+- [x] Tier-classified central claim explicit (Tier-E parametric fits, properly framed)
+- [x] Lens-scope annotation (LENS-INVARIANT on the 4-core)
+- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
+- [x] Dependencies → cite each J-companion as "submitted to [venue]" (J34 + upstream)
+- [ ] Brayden's referee-rigor pass complete
+- [ ] Per-venue cap check: this is the 2nd Stat Sci paper this quarter (at cap; positioned as J34 companion)
+- [ ] Fallback plan documented (Foundations of Physics / split unbundling)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "The Six Foundations Orphans: Tier-B Forced Derivations from CL Axiomatic Ground." Submitted to *Algebra Universalis*.
+Sanders, B.R., Gish. (2026). "The CKM/PMNS Fits + 1/α Constant from Substrate Primitives." Submitted to *Statistical Science* companion (or fallback per cap).

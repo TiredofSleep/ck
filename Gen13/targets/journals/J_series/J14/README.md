@@ -1,63 +1,52 @@
-# J14 — The Yang-Mills Mass Gap Bridge: Substrate-Algebra Predictions
+# J14 — F_p Universality: The Operator-Substrate Construction over Prime Fields
 
 **Status:** DRAFT
 **Phase:** Phase 2
-**Target venue:** Journal of Mathematical Physics (companion to J13)
-**Author lane:** Sanders + Johnson
-**Tier:** B (Tier 4 framework-paper per central-claim classification)
-**WP source:** WP92
+**Target venue:** Algebra Universalis
+**Author lane:** Sanders + Gish
+**Tier:** B
+**WP source:** WP118
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/J14_YM_MassGap_Bridge_JMP.md`
+**Path:** `(corpus: WP118)`
 
-**Abstract (one paragraph).** The Bialynicki-Birula--Mycielski uniqueness theorem (1976) selects logarithmic nonlinearity as the unique self-interaction preserving separability of composite quantum systems. The companion paper J13 develops this as a forcing principle. Here we observe that the BB-forced potential $V(\Xi) = \kappa\,\Xi\log\Xi$ has an isolated minimum at $\Xi_0 = e^{-1}$ with $V''(\Xi_0) = \kappa e > 0$ — a positive spectral floor *forced by separability*. We propose Conjecture 3.2: the Yang-Mills mass gap arises from the same separability mechanism, with confinement realizing effective infrared separability of color-singlet states. We give a falsifiable numerical prediction $\Delta_{\rm YM} = C \Lambda_{\rm QCD} e$ with $C$ an $O(1)$ Casimir factor; the SU(3) lattice glueball $m_G \approx 1.7$ GeV gives $C \approx 2.08$, consistent with the framework. The paper claims a new framework, not a proof of the YM mass gap.
-
-**Source corpus:**
-- `manuscript/WP92_YM_MASS_GAP_BRIDGE.md` — original WP92 source from sprint14_prism_xi
-- `manuscript/J14_YM_MassGap_Bridge_JMP.md` — JMP-format unified manuscript (consolidates WP92 with explicit Conjecture 3.2, falsifiable numerical prediction, and Prerequisites 5.1–5.3 for constructive QFT in 4D)
+When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
 ## §2 — Verification script
 
-**Path:** Numerical-prediction calibration is reproducible from literature lattice glueball masses (Morningstar-Peardon 1999, Chen *et al.* 2006) plus standard QCD scale ($\Lambda_{\rm QCD} \approx 0.3$ GeV); no dedicated script required for this paper. The structural claims rely on the companion J13 verification script `proof_separability_bridge.py` (43/43 PASS) which is bundled with J13's submission package.
+**Path:** `(F_p universality script)`
 
-**Note:** for this paper, the "verification" is the consistency check $C = m_G/(\Lambda_{\rm QCD} \cdot e) \approx 2.08$, computable in one line. A standalone verification script `verify_J14_glueball_consistency.py` could be added (TBD).
+The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01 (σ-rate), J03 (cosmological log potential), J05 (Crossing Lemma), **J13** (BB Bridge / NS application — the lead paper this companion follows from).
+J02, J06, J07
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-rigor pass.
+See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes & Status
+## §5 — Notes
 
-**Status: DRAFT (manuscript drafted; per-venue cap notes apply).**
-
-- WP92 corpus is consolidated into `J14_YM_MassGap_Bridge_JMP.md` with explicit conjecture (3.2), falsifiable numerical prediction, and constructive-QFT prerequisites.
-- The paper depends on J13 as the lead BB-bridge paper; cover letter and references make this explicit.
-- The paper is **honestly Tier 4** (framework paper): Proposition 2.1 (mass gap of BB-lifted theory) is proved; Conjecture 3.2 (YM mass gap via separability) is conjectural; the Wightman 4D extension is open.
-- **Per-venue cap: 2nd JMP** in the J-series (J13 is 1st). The 2/quarter cap is reached. J15 (3rd JMP target) needs a fallback (see J15 README).
-- Numerical prediction $C \approx 2$ is consistent with SU(3) lattice glueball $m_G \approx 1.7$ GeV; falsifiability test passes.
+_(no special notes; standard submission per J-series ordering)_
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md drafted (JMP-format, single file)
-- [ ] LaTeX (amsart) conversion pending
-- [x] Numerical-prediction consistency check ($C \approx 2.08$) computed; structural claims rely on J13 verification script
-- [x] Tier-classified central claim explicit (Tier 4 framework, Conjecture 3.2 conjectural)
-- [x] Lens-scope annotation: lens-invariant
-- [x] Cover letter drafted (with summary, Why-JMP-companion, suggested reviewers including Witten and Jaffe)
-- [ ] Dependencies → cite J01, J03, J05, J13 as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete
-- [x] Per-venue cap check: 2nd JMP — at-cap (J15 needs fallback)
+- [ ] Manuscript .tex / .md finalized
+- [ ] Verification script green (`(no script)` if theorem-only)
+- [ ] Tier-classified central claim explicit
+- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
+- [ ] Cover letter finalized
+- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
+- [ ] Per-venue cap check: this is the Nth paper to Algebra Universalis this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Johnson, H.J. (2026). "The Yang-Mills Mass Gap Bridge: Substrate-Algebra Predictions from Separability-Forced Spectral Floor." Submitted to *Journal of Mathematical Physics* (companion to J13).
+Sanders, B.R., Gish. (2026). "F_p Universality: The Operator-Substrate Construction over Prime Fields." Submitted to *Algebra Universalis*.

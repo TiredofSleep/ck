@@ -1,29 +1,29 @@
-# J19 — Coordinate Coverage on Z/10Z
+# J19 — DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic
 
 **Status:** DRAFT
-**Phase:** Phase 3
+**Phase:** Phase 2
 **Target venue:** European Journal of Combinatorics
-**Author lane:** Sanders + Mayes
+**Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP64
+**WP source:** WP10
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP64)`
+**Path:** `(corpus: WP10 Volume I)`
 
 When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
 ## §2 — Verification script
 
-**Path:** `(coordinate coverage script)`
+**Path:** `(DKAN script)`
 
 The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J17
+J05, J09
 
 ## §4 — Cover letter
 
@@ -31,13 +31,7 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-UOP arc closeout.
-
-**Status update (2026-05-07):**
-
-- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Coordinate-coverage and partition-lattice paper for European Journal of Combinatorics. Synthesized from WP64 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Main results: rigidity of the prime-factor family (k-1 jumps), three sufficient 2-partition families on Z/30Z (one orthogonal jump each, giving MVJN(Z/30Z) = 1), the orbit-pair classification via coprime-order at every CRT prime, the three mechanisms (focused / same-prime coprime-orders / mixed) with criterion for mechanism (M2) existence (some p_i - 1 has >= 2 distinct prime factors). Detailed treatment of the n = 10 partition lattice. Conjecture: MVJN(Z/nZ) = 1 for all squarefree n >= 6.
-- Cover letter: `cover_letter.md` finalized, ~500 words.
-- Companion citation: J17 (UOP lead, JNT) cited for the joint-map injectivity criterion. J18 (Corrected Theorem C, JNT) cited for the M+A correction.
+Per-venue cap: 2nd EJC paper after J19.
 
 ## §6 — Submission checklist
 
@@ -55,4 +49,4 @@ UOP arc closeout.
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Coordinate Coverage on Z/10Z." Submitted to *European Journal of Combinatorics*.
+Sanders, B.R., Gish. (2026). "DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic." Submitted to *European Journal of Combinatorics*.

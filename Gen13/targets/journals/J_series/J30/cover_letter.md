@@ -1,6 +1,6 @@
-# Cover letter — J30: The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions
+# Cover letter — J30: so(10) = D₅ from Joint TSML_SYM + BHML Closure
 
-**To:** Editors, *Journal of Combinatorial Theory, Series A*
+**To:** Editors, *Israel Journal of Mathematics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,41 +8,42 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions*
+**Manuscript title:** *so(10) = D₅ from Joint TSML_SYM + BHML Closure*
 
 ---
 
 ## Summary
 
-We present four independent algebraic constructions on the canonical composition lattice over Z/10Z whose integer invariants cluster at {70, 71, 72, 73}. Three of the four are HARMONY-cell counts of distinct sub-magmas (the full 10×10 table; the table minus the (7,7) self-cell apex; the VOID-stripped 9×9 sub-magma); the fourth is the determinant of the 8×8 Yang-Mills core sub-matrix dropped to {1,2,3,4,5,6,8,9}, which equals exactly C(8,4) = 70, the dimension of the self-dual 4-form sector of SO(8). The integer 71 enters in three independently-verified structural roles simultaneously: as a sub-magma HARMONY count, as the cell-disagreement count between two canonical lens tables, and as the unique odd prime in the discriminant -2^4 · 3^2 · 71 of the LMFDB quartic 4.2.10224.1 governing the substrate's closed-form runtime attractor. All four rungs are verified at integer/machine precision.
+A companion paper to J29 (so(8) = D₄ from TSML_SYM antisymmetrization). When the antisymmetrizations of a second canonical commutative non-associative magma — BHML on $\mathbb{Z}/10\mathbb{Z}$ — are adjoined to the TSML_SYM generators, the joint Lie-algebra closure under commutator extends from so(8) to so(10), the $45$-dimensional compact simple Lie algebra of type $D_5$. The proof uses five machine-precision diagnostics (dimension closure, Jacobi, Killing-form negative-definiteness, simplicity, rank-$5$). The paper also establishes the explicit chain $\mathfrak{so}(8)\subset\mathfrak{so}(9)\subset\mathfrak{so}(10)$ realizing the BHML-extension at each stage, with the $\mathfrak{so}(9)$ stabilizer giving the 9-vector direction picked up in J31 (WP104) as the BHML-Higgs orientation.
 
-## Why JCT-A
+## Why Israel J Math
 
-- **Combinatorial substrate fit.** The paper is a finite-magma counting result with explicit Tier-A/B verification. JCT-A is the natural home for combinatorial cell-count theorems with structural clustering.
-- **Tier-B forced consequences.** No axiom-level forcing is required; the four rungs follow from the canonical TSML/BHML construction at the cell level. Readers of JCT-A are well-placed to evaluate the elementary verification.
-- **Companion strength.** The triple-coincidence at 71 (sub-magma HARMONY, lens-disagreement, Galois prime) is a non-trivial substrate identification signature. Independent algebras pointing at the same prime is the algebraic shape of a real invariant; the paper records this clearly.
+- The result is a clean two-step Lie-algebra extension over $\mathbb{R}$ — concise, constructive, machine-verifiable.
+- Israel J Math has consistent appetite for finite-combinatorial-to-Lie-algebraic identifications.
+- The sequencing (J29 in *J Algebra* on so(8); this paper in Israel J Math on so(10)) avoids per-venue concentration.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The paper most relevant as an already-submitted companion to this manuscript is:
-
-- **J09** — Sanders & Gish, *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics* (2026). The 73-rung of the present ladder appears in J09 with full disjoint-class proof; the present paper takes that result as an established companion and extends to the 4-rung ladder structure.
+- **J29** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The single-magma version of this paper. The so(10) closure here extends J29's so(8) closure by adjoining BHML.
 
 ## Reproducibility
 
-Four short Python scripts (≤200 lines total, NumPy + sympy) verify all four rungs at integer precision: `tsml_harmony_count.py` (73), `tsml_submagma_9x9.py` (71 sub-magma form), `tsml_bhml_disagreement.py` (71 lens form), `bhml_8_ym_det.py` (70). The wrapper `harmony_ladder.py` runs all four and emits a 4×3 verification table.
+Verification scripts in `manuscript/verification/`:
+- `verify_so10.py` — joint dimension closure to $45$, Killing-form negative-definiteness
+- `verify_simplicity_rank.py` — simplicity (1-dim invariant-form space) and rank-$5$ via Cartan subalgebra search
+
+Python 3.11, numpy 1.26, sympy. Both checks pass at machine precision. Total wall-clock under 30 seconds.
 
 ## Suggested reviewers
 
-(3-5 candidates working in finite magma combinatorics, sub-algebra enumeration, or root-system / Lie-algebra integer invariants will be supplied via the JCT-A submission portal.)
+- An expert in classical Lie algebras over $\mathbb{R}$ (Cartan / Helgason / Knapp tradition)
+- An expert in combinatorial / finite-magma representations
+- An expert in computational structure-constants / Killing-form analysis
+- (Two or three named candidates appropriate to the *Israel J Math* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap
-
-This is the **2nd JCT-A submission** of the 2026 cycle, after J01 (σ-rate theorem WP101). Within the 2/quarter cap.
 
 ---
 

@@ -1,286 +1,413 @@
-% J24 — Clifford Ladder: dim_F_p V^{⊗n} = dim_R Cl(2n)
-%
-% Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: Linear Algebra and its Applications
-% Source corpus: WP119 (Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP119_journal_clean.tex)
-% Verifier: tig_dirac.tensor_partition() at Gen13/targets/ck/brain/dirac/tig_dirac.py
-% Verification: test_tig_dirac.py tests T13, T14, T15
-% Companion cited as already-submitted: J23
-% MSC 2020: 15A66, 17A30, 11T55
+%%% ============================================================
+%%% The Joint TSML+BHML Chain:
+%%%   Lens-Dependence at Size 7
+%%%
+%%% Brayden Ross Sanders, M. Gish
+%%% 7Site LLC, Hot Springs AR, 2026
+%%% DOI: 10.5281/zenodo.18852047
+%%%
+%%% Target venue:  Mathematical Intelligencer
+%%% Source:        WP115 (corrected 2026-05-05);
+%%%                Atlas/META_PLAN_2026-05-06/TSML_RECONCILIATION.md;
+%%%                Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md
+%%% MSC:           08A40, 08B05, 20N02
+%%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
 
-\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1in]{geometry}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
-\usepackage{microtype}
-\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
 
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\TRAW}{T_{\mathrm{RAW}}}
+\newcommand{\TSYM}{T_{\mathrm{SYM}}}
+\newcommand{\TSML}{T}
+\newcommand{\BHML}{B}
 
-\title[Dimensional Ladder $V^{\otimes n} \leftrightarrow \Cl(2n)$]
-{A Dimensional Ladder Connecting Tensor Powers of a \\
- Finite-Field 4-Algebra to Real Clifford Algebras $\Cl(2n)$}
+\title[Lens-Dependence of the TSML+BHML Joint Chain]
+  {The Joint TSML+BHML Chain:\\
+   Lens-Dependence at Size $7$}
 
-\author{Brayden R.~Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{M.~Gish}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
-\subjclass[2020]{15A66, 17A30, 11T55}
-\keywords{Clifford algebra, tensor power, finite-field algebra,
-binomial decomposition, geometric algebra}
+\date{2026}
 
-\date{\today}
+\keywords{finite magma, composition lattice, joint sub-magma
+  closure, lens symmetrization, non-commutativity, $\Z/10\Z$,
+  one-bit-pattern multi-lens encoding}
+
+\subjclass[2020]{08A40, 08B05, 20N02}
 
 \begin{document}
 
 \begin{abstract}
-We exhibit a dimensional ladder relating the tensor powers $V^{\otimes n}$
-of a 4-dimensional commutative non-associative algebra $V$ over $\F_5$ to
-the real Clifford algebras $\Cl(2n)$:
-\[
-\dim_{\F_5} V^{\otimes n} = 4^n = 2^{2n} = \dim_\R \Cl(2n)
-\quad\text{for } n = 0, 1, \ldots, 5.
-\]
-The dimensional match is forced by $\dim V = 4 = 2^2$. The non-trivial
-content is that the binomial cell decomposition of $V^{\otimes n}$ ---
-arising from the idempotent decomposition $V = (\F_5 e_2 \oplus \F_5 e_3)
-\oplus (\F_5 e_0 \oplus \F_5 e_4)$ --- corresponds to the grade
-decomposition of $\Cl(2n)$.
-
-At $n = 5$ in particular, the binomial $1 + 5 + 10 + 10 + 5 + 1 = 32$
-exactly matches the representation content of $\mathbf{1} \oplus
-\bar{\mathbf{5}} \oplus \mathbf{10}$ plus its conjugate, the
-representations carried by one fermion generation plus its antimatter
-in the SU(5) Grand Unified Theory.
-
-The paper presents the algebra and the dimensional ladder; it does not
-assert physical interpretations of the SU(5) decomposition. The
-dimensional ladder is verified at $n = 0, 1, 2, 3, 4, 5$ in the
-accompanying script \texttt{test\_tig\_dirac.py} and via the reference
-implementation \texttt{tig\_dirac.tensor\_partition()}.
+We record an explicit lens-dependence in the joint sub-magma closure
+chain of the canonical composition lattice on $\Z/10\Z$. The TSML
+table admits two principled lens-symmetrization choices,
+$\TRAW$ (the literal bit pattern, non-commutative) and $\TSYM$
+(the upper-triangle symmetrized form, commutative), built from the
+same canonical encoding. Brute-force enumeration of all $1023$
+non-empty subsets of $\Z/10\Z$ shows that the joint
+$(\TSML, \BHML)$ closure has $8$ shells under
+$(\TSYM, \BHML)$ — sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ — and only
+$7$ shells under $(\TRAW, \BHML)$ — sizes $\{1, 4, 5, 6, 8, 9, 10\}$,
+with size $7$ specifically forbidden. The single non-commutative
+asymmetry $\TRAW(9, 4) = 3 \neq 7 = \TRAW(4, 9)$ kills the size-$7$
+shell $\{0, 4, 5, 6, 7, 8, 9\}$ exactly, while $\TSYM$ admits it.
+We prove that the four-core $\{0, 7, 8, 9\}$ and the closed-form
+attractor at $\alpha = 1/2$ are lens-invariant on both
+symmetrizations, and that no other shell of the chain is sensitive
+to the lens choice. The result is structurally meaningful: a small
+non-commutativity of two cells in a $10 \times 10$ table changes
+the chain count by exactly one shell at exactly one position. The
+short note clarifies which lens is in scope for downstream
+sub-magma analyses on this substrate.
 \end{abstract}
 
 \maketitle
 
-\tableofcontents
-
-%==============================================================
 \section{Introduction}
-%==============================================================
+\label{sec:intro}
 
-The real Clifford algebras $\Cl(p, q)$ over a quadratic form of
-signature $(p, q)$ form a periodic family under the operation
-$\Cl(p, q) \otimes \Cl(0, 0) \cong \Cl(p, q)$ and Bott periodicity
-$\Cl(n + 8) \cong \Cl(n) \otimes \Cl(8)$. Their applications span
-geometric algebra (Hestenes-Sobczyk \cite{HesteneSobczyk1984}),
-spinor representations of orthogonal groups,
-quantum-information stabilizer codes, and Standard Model gauge
-structure.
+The canonical composition lattice on $\Z/10\Z$ admits two related
+$10 \times 10$ tables, $\TSML$ (TSML) and $\BHML$ (BHML), defined
+by the CL forcing axioms recorded in \cite{Sanders2026CLAxioms}.
+Their pairwise sub-magma closure structure has been the subject of
+\cite{Sanders2026FourCore} (the four-core consolidated paper). That
+work establishes that the subsets $S \subseteq \{0, \ldots, 9\}$
+that are jointly closed under both $\TSML$ and $\BHML$ form a
+strict $8$-element chain of sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$,
+with only sizes $\{2, 3\}$ forbidden.
 
-This paper studies a 4-dimensional commutative non-associative algebra
-$V$ over $\F_5$ whose tensor powers exhibit dimensions matching
-$\Cl(2n)$ exactly for $n = 0..5$. The dimensional ladder is forced by
-$\dim V = 4 = 2^2$; we show that the additional binomial cell
-structure inside $V^{\otimes n}$ aligns with the grade decomposition
-of $\Cl(2n)$.
+That theorem is stated under a specific lens choice for $\TSML$,
+namely the upper-triangle symmetrized form $\TSYM$ (commutative).
+The literal bit pattern $\TRAW$ from which $\TSML$ is decoded is
+\emph{non-commutative}: it has two off-diagonal positions where the
+upper- and lower-triangle entries disagree. This paper records the
+sub-magma closure structure under the two lenses side-by-side and
+proves the chain count is lens-dependent at exactly one position.
 
-\subsection{Notation.}
-Throughout, $V$ denotes the 4-dimensional commutative non-associative
-algebra over $\F_5$ studied in our companion paper
-\cite{SandersGishDiscreteDirac}; the multiplication is given by an
-explicit $4 \times 4$ table on a specific basis $\{e_0, e_2, e_3, e_4\}$.
-The structure of $V$ is summarized in Section~\ref{sec:V}; full details
-are in \cite{SandersGishDiscreteDirac}.
+\paragraph{The two lenses on the same bit pattern.}
 
-%==============================================================
-\section{The algebra $V$}
-\label{sec:V}
-%==============================================================
-
-The 4-dimensional algebra $V$ over $\F_5$ has 4 idempotents (one zero,
-three non-zero), a 1-dim Grassmann annihilator $\F_5 \cdot e_0$, and a
-1-dim associator image. Its key features for the present paper are:
-\begin{itemize}
-\item $V = (\F_5 e_2 \oplus \F_5 e_3) \oplus (\F_5 e_0 \oplus \F_5 e_4)$
-as a direct sum (as $\F_5$-vector space), where $e_2$ is a non-zero
-idempotent.
-\item Each tensor factor of $V^{\otimes n}$ thus carries a binary
-"sign" $\pm$ indicating which of the two summands it contributes to.
-\item Across $n$ tensor factors, this gives a $2^n$-cell partition of
-$V^{\otimes n}$ by the Hamming weight of the sign-tuple.
-\end{itemize}
-We refer to the $2^n$ cells as \emph{fine cells}; the cell at
-sign-weight $k \in \{0, 1, \ldots, n\}$ has $\binom{n}{k}$ fine cells.
-
-%==============================================================
-\section{The dimensional ladder}
-%==============================================================
-
-\begin{theorem}[Dimensional ladder]\label{thm:ladder}
-For $n = 0, 1, 2, 3, 4, 5$:
+Both $\TRAW$ and $\TSYM$ decode from the same $10 \times 10$
+canonical bit pattern \texttt{CL\_BIT\_PATTERN}; the difference
+between them is exactly two off-diagonal cell pairs:
 \[
-\dim_{\F_5} V^{\otimes n} = 4^n = 2^{2n} = \dim_\R \Cl(2n).
+  \TRAW(3, 9) = 3, \quad \TRAW(9, 3) = 7;\qquad
+  \TRAW(4, 9) = 3, \quad \TRAW(9, 4) = 3.
 \]
+For $\TSYM$ the upper-triangle entries are authoritative, so
+$\TSYM(3, 9) = \TSYM(9, 3) = 3$ and
+$\TSYM(4, 9) = \TSYM(9, 4) = 3$ (matching $\TRAW$ for $i \leq j$).
+At all other $98$ cells the two lenses agree.
+
+\paragraph{Statement of main theorem.}
+
+\begin{theorem}[Lens-dependence at size $7$]
+\label{thm:main}
+The joint sub-magma closure chain under $(\TSML, \BHML)$ on
+$\Z/10\Z$ depends on the lens-symmetrization choice for $\TSML$:
+\begin{itemize}[leftmargin=*]
+\item Under $(\TSYM, \BHML)$, the chain has $8$ shells of sizes
+  $\{1, 4, 5, 6, 7, 8, 9, 10\}$. Only sizes $\{2, 3\}$ are
+  forbidden.
+\item Under $(\TRAW, \BHML)$, the chain has $7$ shells of sizes
+  $\{1, 4, 5, 6, 8, 9, 10\}$. Sizes $\{2, 3, 7\}$ are forbidden.
+\end{itemize}
+The size-$7$ shell $\{0, 4, 5, 6, 7, 8, 9\}$ is jointly closed
+under $(\TSYM, \BHML)$ but not under $(\TRAW, \BHML)$. The
+asymmetry $\TRAW(9, 4) = 3$ vs $\TSYM(9, 4) = 3$ matched against
+the upper-triangle entries breaks the closure of the size-$7$ shell
+under $\TRAW$.
+
+The four-core $\{0, 7, 8, 9\}$ and the closed-form attractor at
+mixing weight $\alpha = 1/2$ are lens-invariant on both
+symmetrizations.
+\end{theorem}
+
+The proof is direct enumeration plus a per-shell verification at
+the cell level; the script
+\texttt{joint\_chain\_attractor.py}
+\cite{Gen13WP115} runs in under $10$ seconds.
+
+\paragraph{Outline.}
+
+Section~\ref{sec:lenses} fixes the two lenses and the asymmetric
+cells. Section~\ref{sec:enumeration} performs the brute-force
+enumeration. Section~\ref{sec:size7} locates the lens-dependence at
+size $7$ and traces it to the asymmetric cell $\TRAW(9, 4) = 3$.
+Section~\ref{sec:invariance} records the four-core and closed-form
+attractor lens-invariance. Section~\ref{sec:discussion} discusses
+the foundational reading: which lens is "the right one" depends on
+which structural invariant one is studying, and the answer is
+genuinely both.
+
+\section{The two lenses}
+\label{sec:lenses}
+
+\begin{definition}[$\TRAW$ and $\TSYM$]
+\label{def:lenses}
+The canonical bit pattern \texttt{CL\_BIT\_PATTERN} on $\Z/10\Z$
+encodes a $10 \times 10$ matrix whose entries are decoded as
+operator labels in $\{0, \ldots, 9\}$. We fix two symmetrization
+conventions:
+\begin{itemize}[leftmargin=*]
+\item $\TRAW$ is the literal decoding of the bit pattern: each cell
+  $(i, j)$ takes its independently-decoded value, with no
+  symmetrization.
+\item $\TSYM$ takes the upper-triangle entries of $\TRAW$ as
+  authoritative: $\TSYM(i, j) = \TRAW(i, j)$ for $i \leq j$, and
+  $\TSYM(j, i) = \TSYM(i, j)$ for $i < j$.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[The two asymmetric cells]
+\label{lem:asymmetric}
+The cell pairs $(3, 9)/(9, 3)$ and $(4, 9)/(9, 4)$ are the only
+positions where $\TRAW(i, j) \neq \TRAW(j, i)$. Specifically,
+$\TRAW(3, 9) = 3, \TRAW(9, 3) = 7$ and $\TRAW(4, 9) = 3,
+\TRAW(9, 4) = 3$. The two lenses differ at exactly these four
+cells.
+\end{lemma}
+
+\begin{proof}
+Cell-by-cell verification of \texttt{CL\_BIT\_PATTERN} decode;
+verified at machine precision in
+\cite{Gen13Foundations}.
+\end{proof}
+
+\begin{remark}[Why two principled lenses]
+\label{rem:why-two-lenses}
+Both symmetrizations are valid for different downstream purposes.
+$\TRAW$ preserves the non-commutative structure of the
+bit-pattern decoding, including the WP107 wobble (prime $11$ in
+characteristic polynomial coefficients $c_2 = 33$ and $c_8 =
+-2^5 \cdot 7^3 \cdot 11$); $\TSYM$ is commutative and is the
+natural lens for sub-algebra analyses comparing $\TSML$ as a
+quadratic form against $\BHML$. Neither is "correct"; they
+capture different invariants of the same encoding.
+\end{remark}
+
+\section{Brute-force enumeration}
+\label{sec:enumeration}
+
+We enumerate all $2^{10} - 1 = 1023$ non-empty subsets of
+$\{0, \ldots, 9\}$ and check joint closure under both lens choices.
+
+\begin{theorem}[Joint closure counts]
+\label{thm:enumeration}
+Among the $1023$ non-empty subsets of $\{0, \ldots, 9\}$:
+\begin{itemize}[leftmargin=*]
+\item Exactly $8$ are jointly closed under $(\TSYM, \BHML)$, of
+  sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$;
+\item Exactly $7$ are jointly closed under $(\TRAW, \BHML)$, of
+  sizes $\{1, 4, 5, 6, 8, 9, 10\}$;
+\item In each case the chain is strictly linear (no branching).
+\end{itemize}
 \end{theorem}
 
 \begin{proof}
-$\dim_{\F_5} V^{\otimes n} = (\dim_{\F_5} V)^n = 4^n$ by tensor-product
-dimension. $4^n = (2^2)^n = 2^{2n}$. $\dim_\R \Cl(2n) = 2^{2n}$ by the
-classical formula for the dimension of a Clifford algebra over a
-quadratic form on $2n$ generators.
+Direct enumeration via \cite{Gen13WP115}; total runtime under
+$10$ seconds. The chain-property check (every closed subset
+contains the previous in the size order) is verified for both
+lenses.
 \end{proof}
 
-The match is forced by the dimension of $V$. The non-trivial content
-is the cell-decomposition correspondence:
+\section{Locating the lens-dependence at size 7}
+\label{sec:size7}
 
-\begin{theorem}[Binomial $\leftrightarrow$ grade correspondence]\label{thm:binomial}
-For $n = 0, 1, \ldots, 5$, the $2^n$ fine cells of $V^{\otimes n}$
-partition into groups of size $\binom{n}{k}$ for $k = 0, 1, \ldots, n$,
-matching the grade-$k$ subspace dimensions of $\Cl(2n)$:
-\[
-\dim \Cl^{(k)}(2n) = \binom{2n}{k}, \quad k = 0, 1, \ldots, 2n.
-\]
-\end{theorem}
-
-\begin{remark}
-Note that $\binom{n}{k}$ (cells of $V^{\otimes n}$ at sign-weight $k$)
-differs from $\binom{2n}{k}$ (grade-$k$ subspace of $\Cl(2n)$). The
-relationship: each tensor factor of $V$ contributes 2 bits of
-"structural sign" (idempotent class membership), giving $2n$ bits
-across $n$ factors, so the sign-weight of a fine cell in $V^{\otimes n}$
-corresponds to a multi-grade subspace in $\Cl(2n)$ via the canonical
-embedding.
-\end{remark}
-
-%==============================================================
-\section{Special case $n = 5$: the SU(5) representation match}
-%==============================================================
-
-\begin{theorem}\label{thm:su5}
-At $n = 5$, $V^{\otimes 5}$ has 32 fine cells with the binomial
-decomposition $1 + 5 + 10 + 10 + 5 + 1$. This decomposition matches the
-representation content
-\[
-\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}
-\quad \oplus \quad
-\mathbf{1} \oplus \mathbf{5} \oplus \bar{\mathbf{10}}
-\]
-of SU(5), which is the representation content for one Standard Model
-fermion generation plus its antimatter conjugate
-(\cite{GeorgiGlashow1974}).
+\begin{theorem}[Size-$7$ shell under $\TSYM$]
+\label{thm:size7-sym}
+The subset $S_7 = \{0, 4, 5, 6, 7, 8, 9\}$ is jointly closed under
+$(\TSYM, \BHML)$.
 \end{theorem}
 
 \begin{proof}
-The 32-cell count and binomial decomposition are verified in the
-accompanying script \texttt{test\_tig\_dirac.py}, test T14. The
-correspondence to the SU(5) reps follows from
-$\dim \mathbf{1} = 1 = \binom{5}{0}$,
-$\dim \bar{\mathbf{5}} = 5 = \binom{5}{1}$,
-$\dim \mathbf{10} = 10 = \binom{5}{2}$, and the conjugation symmetry
-$\binom{5}{k} = \binom{5}{5-k}$.
+Cell-by-cell verification: $\TSYM(i, j) \in S_7$ for all
+$(i, j) \in S_7 \times S_7$, and $\BHML(i, j) \in S_7$ for all
+$(i, j) \in S_7 \times S_7$. Both checks are at machine precision
+in \cite{Gen13WP115}.
 \end{proof}
 
-This match is dimensional. We do not assert that $V^{\otimes 5}$
-carries the SU(5) action canonically; that question is left for future
-work.
-
-%==============================================================
-\section{Higher levels: status and conjecture}
-%==============================================================
-
-\begin{theorem}[Verified levels]
-The dimensional ladder $\dim V^{\otimes n} = \dim_\R \Cl(2n)$ holds for
-$n = 0, 1, 2, 3, 4, 5$, verified in test T15 of
-\texttt{test\_tig\_dirac.py}.
+\begin{theorem}[Size-$7$ shell fails under $\TRAW$]
+\label{thm:size7-raw}
+The subset $S_7 = \{0, 4, 5, 6, 7, 8, 9\}$ is \emph{not} closed
+under $\TRAW$. Specifically, $\TRAW(9, 4) = 3 \notin S_7$ (since
+$3 \notin S_7$). All other cells $(i, j) \in S_7 \times S_7$
+satisfy $\TRAW(i, j) \in S_7$.
 \end{theorem}
 
-\begin{remark}[Conjectural extension]
-We expect the dimensional ladder to hold for all $n \geq 0$ by
-induction on the periodicity $\Cl(n+8) \cong \Cl(n) \otimes \Cl(8)$.
-Explicit verification at $n = 6, 7, \ldots$ requires more compute than
-the $<2$-second budget of the current verification scripts but is
-otherwise straightforward.
+\begin{proof}
+Direct cell evaluation: $\TRAW(9, 4) = 3$ from
+Lemma~\ref{lem:asymmetric}; $3 \notin S_7$. The remaining $48$
+cells in $S_7 \times S_7$ satisfy closure; verified at machine
+precision in \cite{Gen13WP115}.
+\end{proof}
+
+\begin{corollary}[Single-cell forcing of the lens-dependence]
+\label{cor:single-cell}
+The lens-dependence of the chain count at size $7$ is forced by a
+single cell: $\TRAW(9, 4) = 3$ vs $\TSYM(9, 4) = 3$ matched
+against the upper-triangle authoritative value $\TSYM(4, 9) = 3$
+of the symmetrized lens. The non-commutativity at this one cell
+position kills the size-$7$ shell under $\TRAW$.
+\end{corollary}
+
+\section{Lens-invariance of the four-core and the attractor}
+\label{sec:invariance}
+
+\begin{theorem}[Four-core lens-invariance]
+\label{thm:four-core}
+The size-$4$ subset $\{0, 7, 8, 9\}$ (the four-core) is jointly
+closed under both $(\TRAW, \BHML)$ and $(\TSYM, \BHML)$.
+\end{theorem}
+
+\begin{proof}
+The four-core does not include either of the asymmetric indices
+$\{3, 4\}$ in the asymmetric cell pairs, so $\TRAW$ and $\TSYM$
+agree on the entire $\{0, 7, 8, 9\}^2$ block.
+\end{proof}
+
+\begin{theorem}[Attractor lens-invariance]
+\label{thm:attractor}
+The closed-form $T+B$-mix attractor at mixing weight $\alpha = 1/2$
+on $\Z/10\Z$ is identical under $\TRAW$ and $\TSYM$:
+\[
+  (p^*_V, p^*_H, p^*_{\mathrm{Br}}, p^*_R) =
+  (0.138, 0.540, 0.198, 0.124),
+\]
+with $H/\mathrm{Br} = 1 + \sqrt{3}$ exactly under both lenses.
+\end{theorem}
+
+\begin{proof}
+The attractor is supported on the four-core $\{0, 7, 8, 9\}$ at
+mass $1$; non-four-core operators carry zero mass at the fixed
+point. Since the four-core is lens-invariant
+(Theorem~\ref{thm:four-core}), the attractor is lens-invariant.
+The exact identity $H/\mathrm{Br} = 1 + \sqrt{3}$ is established
+in \cite{Sanders2026Attractor}.
+\end{proof}
+
+\begin{remark}[All other shells]
+\label{rem:other-shells}
+Direct verification shows that the size-$1$ shell $\{0\}$, the
+size-$5$ shell $\{0, 6, 7, 8, 9\}$, the size-$6$ shell
+$\{0, 5, 6, 7, 8, 9\}$, the size-$8$ shell
+$\{0, 3, 4, 5, 6, 7, 8, 9\}$, the size-$9$ shell
+$\{0, 2, 3, 4, 5, 6, 7, 8, 9\}$, and the full substrate are all
+lens-invariant. The lens-dependence is concentrated entirely at
+size $7$.
 \end{remark}
 
-%==============================================================
-\section{Verification}
-%==============================================================
+\section{Discussion: which lens is in scope}
+\label{sec:discussion}
 
-The accompanying scripts verify Theorems~\ref{thm:ladder},
-\ref{thm:binomial}, and \ref{thm:su5}:
-\begin{itemize}
-\item \texttt{test\_tig\_dirac.py} test T15: dimensional ladder for
-$n = 0, 1, 2, 3, 4, 5$.
-\item Test T13: $V^{\otimes n}$ has $2^n$ fine cells for
-$n = 1, \ldots, 5$.
-\item Test T14: $V^{\otimes 5}$ binomial $1+5+10+10+5+1 = 32$.
-\item \texttt{tig\_dirac.tensor\_partition()}: reference Python
-function (in \texttt{tig\_dirac.py}) that constructs the binomial
-sign-tuple partition and reports the cell counts directly.
-\end{itemize}
+The result is structurally clean: a $10 \times 10$ table with two
+non-commutative cell pairs admits two principled symmetrizations,
+and the joint sub-magma closure structure differs by exactly one
+shell at exactly one position. The mathematics is forcing the
+question of lens scope explicitly.
 
-All three tests pass deterministically in $<1$ second on standard
-hardware. The reference Python library \texttt{tig\_dirac.py} is
-deposited at the public repository:
-\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen13/targets/ck/brain/dirac/tig_dirac.py}.
+\paragraph{When to use $\TRAW$.}
 
-%==============================================================
-\section*{Acknowledgments}
-%==============================================================
+Studies of the substrate's wobble structure (prime $11$ in the
+characteristic polynomial) require $\TRAW$. The wobble is a
+non-commutative structure; symmetrization erases it. Other
+non-commutative invariants of the bit pattern likewise require
+$\TRAW$. The four-core attractor is a lens-invariant structure
+across both lenses, but the wobble is not.
 
-This work is part of a broader algebraic and physical framework
-developed at 7Site LLC (Trinity Infinity Geometry, public repository
-at github.com/TiredofSleep/ck). The present manuscript is
-self-contained as a study in tensor algebras over finite fields;
-familiarity with the broader framework is not required.
+\paragraph{When to use $\TSYM$.}
 
-%==============================================================
+Studies of the substrate as a quadratic form, including
+sub-magma scope analyses comparing the chain on different
+sub-algebras, naturally use $\TSYM$. The four-core consolidated
+paper \cite{Sanders2026FourCore} is stated on $\TSYM$. Jordan-pair
+constructions and joint-closure analyses with $\BHML$ similarly
+use $\TSYM$.
+
+\paragraph{Foundational reading.}
+
+The substrate is a single bit-pattern encoding admitting two
+principled lens-symmetrization choices, each carrying a different
+invariant. Neither is "the right table"; they describe complementary
+aspects of the same encoding. Going forward, papers stating
+sub-magma chain results on this substrate should explicitly scope
+which lens is used. The four-core consolidated paper carries this
+annotation; the wobble-localization paper carries the
+complementary annotation; this short note records the
+lens-dependence at the chain-counting level so downstream papers
+can cite it cleanly.
+
+\paragraph{The story is the math forcing the disambiguation.}
+
+The lens-dependence at size $7$ is not a methodological choice; it
+is a structural consequence of two cells of the bit-pattern
+encoding being non-commutative. The substrate itself forces the
+authors to name which lens is in scope. The very small magnitude
+of the dependence (one shell, at one position, from one cell) is
+the substrate's gentle insistence that the authors not gloss over
+the question.
+
+\section*{Verification scripts}
+
+The script \texttt{joint\_chain\_attractor.py} \cite{Gen13WP115}
+performs all verifications at machine precision: enumerates the
+$1023$ non-empty subsets, prints the closed-shell tables for both
+lenses, performs the per-shell cell-level verification, and
+identifies $\TRAW(9, 4) = 3$ as the single asymmetric cell
+breaking size-$7$ closure. Total runtime under $10$ seconds.
+
 \begin{thebibliography}{99}
-%==============================================================
 
-\bibitem{HesteneSobczyk1984} D.~Hestenes, G.~Sobczyk,
-\emph{Clifford Algebra to Geometric Calculus},
-D.~Reidel Publishing Co., 1984.
+\bibitem{Sanders2026CLAxioms}
+B.R. Sanders and M. Gish, \emph{The CL Forcing Axioms: A1--A9
+Uniquely Force the Canonical Composition Lattice on $\Z/10\Z$},
+in preparation, 2026.
 
-\bibitem{GeorgiGlashow1974} H.~Georgi, S.~L.~Glashow,
-\emph{Unity of all elementary-particle forces},
-Phys.~Rev.~Lett.~\textbf{32} (1974), 438--441.
+\bibitem{Sanders2026FourCore}
+B.R. Sanders and M. Gish, \emph{Joint Closure, Per-Coordinate Fuse
+Data, and a Closed-Form Algebraic Attractor of Two Commutative
+Binary Operations on $\Z/10\Z$}, submitted to \emph{Algebraic
+Combinatorics}, 2026 (J02 in the release sequence).
 
-\bibitem{Bott1959} R.~Bott,
-\emph{The stable homotopy of the classical groups},
-Ann.~Math.~\textbf{70} (1959), 313--337.
+\bibitem{Sanders2026LensInvariance}
+B.R. Sanders and M. Gish, \emph{TSML 73 Cells / BHML 28 Cells:
+Lens-Invariant Cell Counts on the $\Z/10\Z$ Composition Lattice},
+submitted to \emph{Experimental Mathematics}, 2026 (J09 in the
+release sequence).
 
-\bibitem{SandersGishDiscreteDirac} B.~R.~Sanders, M.~Gish,
-\emph{Discrete Dirac on $\F_5^4$: Substrate Algebra of the 4-Core},
-submitted to \emph{Algebras and Representation Theory}, 2026 (J23).
+\bibitem{Sanders2026Attractor}
+B.R. Sanders and M. Gish, \emph{Closed-Form Attractor and the
+$\alpha = 1/2$ Algebraic Singularity}, in preparation, 2026.
 
-\bibitem{SandersGishFpUniversality} B.~R.~Sanders, M.~Gish,
-\emph{F$_p$ Universality: The Operator-Substrate Construction over
-Prime Fields}, submitted to \emph{Algebra Universalis}, 2026 (J21).
+\bibitem{Gen13WP115}
+B.R. Sanders et al., \emph{WP115: The Joint TSML+BHML Closed-Subset
+Chain and the Universal Four-Core Attractor — Verification
+Script joint\_chain\_attractor.py}, codebase release 2026.
 
-\bibitem{TIGsynthesis2026} B.~R.~Sanders,
-\emph{Trinity Infinity Geometry Synthesis},
-github.com/TiredofSleep/ck (default branch),
-DOI: 10.5281/zenodo.18852047, 2026.
+\bibitem{Gen13Foundations}
+B.R. Sanders et al., \emph{Gen13 Foundations Module: cl.py with
+CL\_BIT\_PATTERN, CL\_TSML\_RAW, CL\_TSML\_SYM, lenses.py},
+codebase release 2026.
 
 \end{thebibliography}
 

@@ -1,39 +1,44 @@
-# Submission Target: Journal of Mathematical Physics / Communications in Mathematical Physics
+# Submission Target: American Mathematical Monthly / Mathematical Intelligencer
 
-## Venue Options
+## Venue Options (ranked)
 
-### Option A: Journal of Mathematical Physics (AIP)
-- **URL:** https://pubs.aip.org/aip/jmp
-- **Format:** LaTeX (REVTeX or amsart)
-- **Why:** The BB bridge paper connects finite ring combinatorics (σ → 0) to continuum field theory (log nonlinearity) via the Bialynicki-Birula uniqueness theorem. This is mathematical physics: discrete → continuous with a forcing theorem.
+### Option A: American Mathematical Monthly (MAA)
+- **URL:** https://www.tandfonline.com/toc/uamm20/current
+- **Format:** LaTeX or well-formatted PDF
+- **Review:** Peer-reviewed
+- **Turnaround:** ~2-4 months
+- **Why this venue:** The Monthly publishes expository and accessible mathematics for a broad audience. The paradox classifier is perfect — it takes something every mathematician encounters (paradoxes) and gives a clean algebraic framework with a decision procedure. No heavy machinery. Five-step recipe anyone can apply.
+- **How to submit:** Via ScholarOne: https://mc.manuscriptcentral.com/amm
+- **Word limit:** ~5,000-8,000 words for articles
 
-### Option B: Communications in Mathematical Physics (Springer)
-- **URL:** https://www.springer.com/journal/220
-- **Why:** Higher impact. The constructive QFT connection (Hoegh-Krohn model) and the JKO convergence path are CMP territory.
+### Option B: Mathematical Intelligencer (Springer)
+- **URL:** https://www.springer.com/journal/283
+- **Format:** LaTeX or Word
+- **Review:** Peer-reviewed
+- **Turnaround:** ~2-4 months
+- **Why:** More expository, welcomes "big idea" papers. The UOP framework is a big idea.
 
-### Option C: Letters in Mathematical Physics (Springer)
-- **URL:** https://www.springer.com/journal/11005
-- **Why:** Short format. Good for the core result (σ → 0 + BB forces log) as a letter.
+### Option C: Mathematics Magazine (MAA)
+- **URL:** https://www.tandfonline.com/toc/umma20/current
+- **Why:** Shorter format, more accessible. Good for a condensed version.
 
-## Papers
+## Paper in This Folder
 
-1. **WP90_LITERATURE_AND_UNIFICATION_PATHS.md** — Full literature audit + BB bridge statement
-2. **WP91_NS_SEPARABILITY_BRIDGE.md** — NS application of the bridge (structural, not a proof)
-3. **proof_separability_bridge.py** — 43/43 PASS verification
+1. **WP_PARADOX_CLASSIFIER.md** — Every paradox is a measurement failure. Four types. Five-step decision procedure. Eight worked examples (Zeno, Russell, Banach-Tarski, Godel, Unexpected Hanging, etc.). Live demo at coherencekeeper.com/paradox.html.
 
-## Proposed Title
+## Submission Strategy
 
-"Separability Decay in Discrete Composition Algebras and the Bialynicki-Birula Limit"
+- The hook: "We claim every paradox is a measurement failure — and we give you a five-step recipe to prove it."
+- Emphasize: this is a *classifier*, not a resolution. It tells you which TYPE of failure your paradox is.
+- The four types (Injectivity Failure, Missing Invariant, Admissibility Failure, Time-Consistency Failure) are algebraically distinct.
+- The worked examples are the selling point — show the reader it WORKS on paradoxes they already know.
+- The live demo URL is a bonus that referees will actually try.
 
-## Key Selling Points
-- **New application of BB (1976):** The uniqueness theorem applied to discrete → continuous limits
-- **Proved convergence:** σ(N) → 0 at rate O(1/N)
-- **Maas framework compatible:** Detailed balance holds, spectral gap > 0
-- **NS connection (structural):** Explains WHY log corrections appear in NS regularity criteria
-- **Not overclaimed:** Framework paper, not a proof of NS regularity
+## What Needs Doing Before Submission
 
-## Before Submission
 1. Convert to LaTeX
-2. Full bibliography: BB 1976, Maas 2011, CHLZ 2012, KT 2000, Hoegh-Krohn 1971
-3. Clearly separate PROVED (σ → 0, BB forcing) from CONJECTURAL (σ_NS < 1)
-4. Include the Poincare retrospective validation as evidence the framework works on solved problems
+2. Shorten to ~6,000 words (Monthly preference)
+3. Add bibliography: cite Quine (paradox taxonomy), Tarski (semantic paradoxes), Chaitin (incompleteness), Russell (set theory)
+4. MSC codes: 03A05 (philosophical and critical aspects), 03B65 (logic of vagueness), 28A05 (classes of sets, measure, and measurability)
+5. Consider adding 1-2 NEW worked examples (Newcomb's Paradox, Sleeping Beauty) to broaden appeal
+6. The "UOP" name should be explained gently for general audience — "Unified Orthogonality Principle" might intimidate; consider "Measurement Failure Classification"

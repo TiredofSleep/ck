@@ -1,51 +1,52 @@
-# Cover letter — J48: Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
+# Cover letter — J48: The Six Algebraic Degrees of Freedom of the TIG Framework: A Synthesis
 
-**To:** Editors, *L'Enseignement Mathématique*
+**To:** Editors, *Notices of the American Mathematical Society*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
 - B. Mayes, Independent Researcher
 
-**Date:** 2026-09-03 (Phase 5)
+**Date:** 2026-09-02 (Phase 5 opener)
 
-**Manuscript title:** *Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$*
+**Manuscript title:** *The Six Algebraic Degrees of Freedom of the TIG Framework: A Synthesis (Lie / Jordan / Clifford / Permutation / Lattice / Operad)*
 
 ---
 
 ## Summary
 
-We submit a structural / pedagogical bridge paper that establishes a sharp finite analogue of the structural features that the Riemann Hypothesis demands of $\zeta(s)$. The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces — in its spectral layer (Luther's $G_6$–$G_8$ results, treated separately in [J51]) — a 9-term Dirichlet character sum $G(s)$ that takes exactly **three values** across the substrate's 10 operators: zero at the four anchors $\{0,3,8,9\}$, $G_\mathrm{low} \approx 1.872$ on most of the 6-cycle, $G_\mathrm{high} \approx 9.389$ at the BALANCE/HARMONY pair $\{5,7\}$. We prove the **Symbolic Return Theorem** (a direct corollary of $\sigma^6 = \mathrm{id}$): every cycle-element trajectory returns at step 6; every anchor is fixed; VOID is avoided whenever it is not the start state.
+We submit a synthesis-class manuscript that consolidates a tower of algebraic results on the canonical $10 \times 10$ composition tables (TSML and BHML) on $\mathbb{Z}/10\mathbb{Z}$ — the **TIG framework**. Five recent papers (J29, J30, J31, J32, J35) — already in the referee pipeline at *J Algebra*, *Israel J Math*, *Adv Math*, *Compositio*, and *J Algebra* — establish a $\mathfrak{so}(10) = D_5$ Lie closure, a doubly-invariant Pati-Salam $\oplus B-L$ subalgebra, an arity-3 operad obstruction theorem, and a 4-core fusion-closure. This paper organizes those results around a single observation: **TIG decomposes into six computationally-irreducible algebraic degrees of freedom (Lie, Jordan, Clifford-Dirac, Permutation, Lattice, Operad), five of which respect the dihedral $D_4 = \langle P_{56}, \sigma^3 \rangle$ symmetry while only the Operad DOF carries content orthogonal to that symmetry.**
 
-The paper's contribution is the **bridge statement**: the three-valued structure of $G(s)$ — zeros in predictable locations + spectral concentration + multiplicative/additive duality — mirrors the three structural features RH demands of $\zeta(s)$ in an infinite setting. The 6-layer Q-series architecture is a finite, completely characterized model of the same structural phenomena. The model is an instance; the Millennium Problem asks whether instances can be infinite.
+This is the **first paper in the J-series program to use the name "TIG framework" explicitly**. Phases 1-4 deferred this naming so each result could be evaluated on lens-invariant or properly-scoped algebraic merits; the synthesis-level term is introduced now that the foundation is on the record.
 
-We do **not** claim a proof of RH or any portion of it. The boundary between proved algebra (Theorems 2.1, 4.2 — Tier-A) and bridge claim (§5 — Tier-B structural conjecture) is sharp.
+## Why *Notices AMS*
 
-## Why *L'Enseignement Mathématique*
-
-- **Pedagogical / expository fit.** *L'Enseignement Math.* publishes structurally illuminating papers that bring deep ideas into accessible form. The Q17-B paper is exactly that: a sharp finite analogue of an analytic Millennium Problem, with the boundary between proved and conjectural content made explicit.
-- **Structural-bridge tradition.** The journal has published bridge papers in a similar register (e.g., finite-field analogues of analytic phenomena, cyclotomic interpretations of zeta values).
-- **Audience.** Number-theorists, algebraists, and mathematics educators interested in structural connections between finite combinatorics and infinite analysis.
+- **Synthesis-class fit.** *Notices* publishes expository syntheses that connect previously-published results into a single conceptual frame. The 6-DOF picture is exactly that: an organizing claim about a corpus already on the record at peer-reviewed venues.
+- **Audience reach.** The TIG framework's algebraic substrate touches Lie theory, Jordan algebras, Clifford theory, permutation groups, lattice theory, and operad theory — a six-way intersection well-suited to *Notices*' broad readership.
+- **Citation chain visibility.** Each section of the paper points to a peer-reviewed companion (J29–J35) at a specialty venue. *Notices* is the natural place to display the integration.
 
 ## Companion submissions
 
-This paper cites two prior J-series companions as direct dependencies:
+This paper cites five prior J-series companions, all already submitted:
 
-- **[J29]** — Q17-A: 5D Force Vector (AMM, in press). The Tier-A proved-algebra companion. The CRT Fourier embedding $\mathbb{Z}/10\mathbb{Z} \hookrightarrow \mathbb{R}^5$ from which $\sigma$ and $\chi$ derive.
-- **[J51]** — G6+G7+G8 Spectral Consolidation (European J Combin, Phase 5 parallel). The polynomial / period / spectral results in Luther's lane.
+- J29 — $\mathfrak{so}(8) = D_4$ from TSML\_SYM (J Algebra)
+- J30 — $\mathfrak{so}(10) = D_5$ from joint closure (Israel J Math)
+- J31 — Two roads to Pati-Salam (Adv Math)
+- J32 — Operad $D_4$ obstruction + $P_{56}$ canonical fuse (Compositio)
+- J35 — 4-core fusion-closure (J Algebra)
 
-Plus four co-citing companions: [J01] rate theorem (JCT-A), [J05] Crossing Lemma (JCT-A or JPAA), [J13] BB Bridge (JMP), [J17] UOP (JNT), [J32] joint chain (Math Intelligencer), [J47] 6-DOF synthesis (Notices AMS, Phase 5 opener).
+The full J-series sequence (J01–J55, summer 2026) is a coordinated submission program; details available on request.
 
 ## Reproducibility
 
-The verification script `manuscript/proof_clay_rotation.py` (already in this folder, from earlier Tier-4 staging) computes $G(s)$ for every $s \in \mathbb{Z}/10\mathbb{Z}$ and confirms the three-valued image with $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$. Runs on a standard laptop in under 10 seconds with `numpy + sympy`.
+This is a synthesis paper with no new computational claims. All cited diagnostics are reproduced from the companion papers' verification scripts — `numpy + sympy` on a standard laptop, under 5 minutes per script. The integer/rational signature (§7) is verified at machine precision throughout.
 
 ## Suggested reviewers
 
-- A specialist in finite Dirichlet character sums or cyclotomic L-functions.
-- An expert in $\sigma$-permutation arithmetic on $\mathbb{Z}/N\mathbb{Z}$.
-- An algebraist with finite-magma / non-associative algebra experience.
-- A historian or expositor familiar with the Riemann Hypothesis pedagogical literature.
-- An applied mathematician working on finite analogues of analytic number theory.
+- A specialist in Lie algebras and representation theory (Pati-Salam / SO(10) GUT background)
+- A specialist in algebraic operads and arity-3 composition (Loday-Vallette tradition)
+- A specialist in finite-magma combinatorics or Jordan algebras
+- An expert in cyclotomic number fields (LMFDB 4.2.10224.1 context)
+- An applied mathematician familiar with discrete-substrate / runtime-attractor frameworks
 
 ## Conflict of interest
 

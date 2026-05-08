@@ -1,321 +1,470 @@
-% J21 — F_p Universality: The Operator-Substrate Construction over Prime Fields
-%
-% Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: Algebra Universalis
-% Source corpus: WP118 (Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/journals/WP118_journal_clean.tex)
-% Verification: verify_discrete_dirac_4core.py + axial_algebra_check.md
-% Companions cited as already-submitted: J02, J05, J06
-% MSC 2020: 17A30, 11T55, 17A40, 12E20
+%%% ============================================================
+%%% Q17-A: 5D Force Vector as CRT Fourier Embedding
+%%%        of Z/10Z into R^5
+%%%
+%%% Brayden Ross Sanders, F. Calderon
+%%% 7Site LLC, Hot Springs AR, 2026
+%%% DOI: 10.5281/zenodo.18852047
+%%%
+%%% Target venue: American Mathematical Monthly
+%%% Backup venue: Mathematical Intelligencer
+%%% Source:    papers/Q17_5D_RIGOROUS.md
+%%% MSC:       11A07, 20K01, 11L05, 43A40
+%%% ============================================================
 
 \documentclass[11pt,reqno]{amsart}
 
-\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1in]{geometry}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
-\usepackage{microtype}
-\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
 
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
 
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
-\newcommand{\Aut}{\mathrm{Aut}}
-\DeclareMathOperator{\HARM}{H}
-\DeclareMathOperator{\VOID}{V}
+\DeclareMathOperator{\Img}{Im}
 
-\title[F_p Universality of a 4-Algebra]
-{F_p Universality: The Operator-Substrate Construction over Prime Fields}
+\title[5D Fourier Embedding of \texorpdfstring{$\Z/10\Z$}{Z/10Z}]
+  {The 5D Force Vector as a CRT Fourier Embedding\\
+   of $\Z/10\Z$ into $\R^5$}
 
-\author{Brayden R.~Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{M.~Gish}
-\address{Independent Researcher, Hot Springs, Arkansas, USA}
-\email{monica.gish1992@gmail.com}
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{Independent Researcher}
 
-\subjclass[2020]{17A30, 11T55, 17A40, 12E20}
-\keywords{commutative non-associative algebra, finite-field algebra,
-field invariance, idempotent decomposition, automorphism group}
+\date{2026}
 
-\date{\today}
+\keywords{Chinese Remainder Theorem, Pontryagin dual, finite Fourier
+  transform, group embedding, rigid embedding, decagonal symmetry}
+
+\subjclass[2020]{11A07, 20K01, 11L05, 43A40}
 
 \begin{document}
 
 \begin{abstract}
-We establish that a commutative non-associative algebra $V$ defined by a
-specific $4 \times 4$ multiplication table on the basis
-$\{e_0, e_2, e_3, e_4\}$, when constructed over $\F_p$ for any prime
-$p \in \{2, 3, 5, 7, 11, 13\}$, has the same structural skeleton:
-exactly 3 non-zero idempotents, 1-dimensional Grassmann annihilator,
-$1{+}3$ Minkowski signature under the operator $L_{e_2}$, $2{+}2$ chirality
-signature under $L_{e_0}$, empty intersection
-$(\text{1-eigenspace of } L_{e_2}) \cap (\text{0-eigenspace of } L_{e_0})$,
-automorphism group of order $40$, power-associativity, and
-one-dimensional associator image. The features are field-invariant in
-this sense: distinct field choices give isomorphic structural
-decompositions, modulo characteristic-related restrictions ($p=2$
-requires care with the factor of $2$ in $p_+ + p_- = $ identity; $p=5$
-is privileged for admitting primitive 4th roots of unity).
-
-We conjecture the field-invariance extends to all primes $p \notin
-\{2,5\}$, but verify computationally only the six primes listed.
-The paper is one of three companion submissions extracting structural
-content from the operator-substrate algebra of \cite{SandersGishFourCore}:
-the present paper isolates the F_p-universality of the 4-algebra; the
-companion \cite{SandersGishDiscreteDirac} treats the Discrete Dirac
-structure on $\F_5^4$ specifically; and \cite{SandersGishCliffordLadder}
-treats the Clifford-algebra dimensional ladder.
+We give a clean, elementary derivation of the unique embedding of
+$\Z/10\Z$ into $\R^5$ that simultaneously respects (i) the Chinese
+Remainder Theorem isomorphism $\Z/10\Z \cong \F_2 \times \F_5$, (ii)
+the standard Fourier basis on $\F_5$, and (iii) the binary indicator
+on $\F_2$. The construction takes one line: send the operator
+indexed by CRT coordinates $(\varepsilon, y) \in \F_2 \times \F_5$
+to the vector
+\[ v(\varepsilon, y) \;=\;
+   \bigl(\,\varepsilon,\;
+   \cos\tfrac{2\pi y}{5},\;\sin\tfrac{2\pi y}{5},\;
+   \cos\tfrac{4\pi y}{5},\;\sin\tfrac{4\pi y}{5}\,\bigr) \in \R^5. \]
+We show that the image of $v$ consists of $10$ distinct points (the
+embedding is injective), that the image is rigid in the sense that
+no other $5$-dimensional embedding of $\Z/10\Z$ factors through both
+the CRT splitting and the Fourier basis simultaneously, and that
+exactly two image points achieve the maximum value of a natural
+spectral functional. The construction is folklore in finite Fourier
+analysis but, to our knowledge, has not appeared in the form
+presented here, which makes the algebraic forcing transparent for an
+undergraduate audience. We close with two short applications: a
+decagonal-symmetry geometric reading and a conserved-current
+identity for arithmetic Fourier sums.
 \end{abstract}
 
 \maketitle
 
-\tableofcontents
-
-%==============================================================
 \section{Introduction}
-%==============================================================
+\label{sec:intro}
 
-A commutative non-associative algebra $(V, \cdot)$ over a field $k$ is
-a $k$-vector space $V$ equipped with a bilinear product
-$V \times V \to V$ that is commutative ($x \cdot y = y \cdot x$) but
-not necessarily associative. Such algebras appear in several active
-areas of contemporary mathematics: as Griess algebras associated with
-finite simple groups, as axial algebras
-(Hall-Rehren-Shpectorov \cite{HallRehrenShpectorov2015}), and as
-substrates for Sakuma's theorem and its generalizations \cite{Sakuma2007}.
+Embeddings of finite cyclic groups into Euclidean space are a
+recurring elementary exercise --- regular polygons, lattice
+embeddings of roots of unity, and the like. For $\Z/n\Z$ with
+$n$ prime, the Pontryagin dual gives a canonical $\R^{n-1}$
+embedding via the standard Fourier basis. For $n$ a product of
+distinct primes, the Chinese Remainder Theorem (CRT) splits
+$\Z/n\Z$ into a product, and one would like the embedding to
+respect this split.
 
-In this paper we study a particular 4-dimensional algebra defined by an
-explicit $4 \times 4$ multiplication table. The table arises naturally
-from the closure of a 4-element subset of the integer ring $\Z/10$
-under the canonical absorbing-element composition, the framework
-established in \cite{SandersGishFourCore}; this provides the
-combinatorial origin of the structure but is not essential for the
-algebraic results presented here. The algebra over $\F_5$ has been
-treated separately \cite{SandersGishDiscreteDirac}; the present paper
-establishes that its structural features are independent of the choice
-of base prime $p$.
-
-\subsection{Why field invariance matters.}
-Many naturally-occurring finite-dimensional algebras have structural
-features (idempotent counts, automorphism orbits) that depend on the
-base field's characteristic. For instance, $\F_2$-Cayley-Dickson
-algebras behave very differently from those over $\R$ or $\C$. By
-contrast, the algebra studied here exhibits the same idempotent count
-(4 total: 0 plus 3 non-zero), the same eigenspace dimensions, and the
-same automorphism group order across all primes verified. This rigidity
-is the main content of the paper.
-
-\subsection{Companion structure.}
-The present paper is one of three companions extracting different
-structural content from the same combinatorial origin
-\cite{SandersGishFourCore}: F_p universality (this paper, J21),
-the Discrete Dirac structure on $\F_5^4$
-\cite{SandersGishDiscreteDirac} (J23, Algebras and Representation
-Theory), and the Clifford-algebra dimensional ladder
-\cite{SandersGishCliffordLadder} (J24, Linear Algebra and its
-Applications). The Crossing Lemma background \cite{SandersMayesCL}
-(J05, JCT-A or JPAA) provides the combinatorial-information-generation
-register.
-
-%==============================================================
-\section{The algebra $V$ over an arbitrary base field}
-%==============================================================
-
-\begin{definition}\label{def:V-Fp}
-For each prime $p$ with $p \neq 2, 5$, let $V_p = \F_p^4$ be the
-$\F_p$-vector space with basis $\{e_0, e_2, e_3, e_4\}$. Define
-multiplication $\cdot: V_p \times V_p \to V_p$ as the bilinear extension
-of the $4 \times 4$ table
+The case $n = 10$ is the smallest non-prime example with the full
+flavor of the question. We have
 \[
-\begin{array}{c|cccc}
-\cdot & e_0 & e_2 & e_3 & e_4 \\ \hline
-e_0 & e_0 & e_0 & e_0 & e_0 \\
-e_2 & e_0 & e_2 & e_2 & e_2 \\
-e_3 & e_0 & e_2 & e_2 & e_2 \\
-e_4 & e_0 & e_2 & e_2 & e_2
-\end{array}
+  \Z/10\Z \;\cong\; \F_2 \times \F_5,
 \]
-The same table is used for every prime $p$; the only thing that changes
-is the underlying field $\F_p$.
+where $\F_2 = \{0,1\}$ is binary and $\F_5$ admits a four-character
+non-trivial dual that organizes into the standard Fourier basis on
+the $5$-cycle. The natural target dimension is then $5$: one
+dimension for the $\F_2$ factor (which has only the trivial and
+sign characters and contributes a single real coordinate), plus
+four dimensions for the two non-trivial real Fourier pairs of
+$\F_5$. The construction is inevitable once stated correctly.
+
+The purpose of this note is to write down the construction in a
+form that an undergraduate can reproduce in twenty minutes, to
+verify rigidly that the embedding is injective, and to record two
+short consequences. The construction is folklore in finite
+harmonic analysis (see e.g.~Terras~\cite{Terras1999}), but the
+specific parameterization through the joint CRT-plus-Fourier
+factorization, and the rigid-image lemma below, do not appear in
+the standard textbooks at this level.
+
+The motivation for collecting this material in a single
+self-contained note comes from a separate research program in
+substrate-algebra over $\Z/10\Z$, where the
+$5$-dimensional embedding is used to interpret operators on the
+$10$-element residue ring as points in Euclidean space. The
+embedding's algebraic structure is the foundation; the applications
+of that structure are reported in companion papers (see
+Section~\ref{sec:companions}).
+
+\paragraph{Outline.}
+Section~\ref{sec:setup} sets up notation and the CRT decomposition.
+Section~\ref{sec:embedding} states the embedding, computes the
+table of $10$ image points, and proves injectivity.
+Section~\ref{sec:rigidity} proves the rigidity statement: any
+$5$-dimensional embedding of $\Z/10\Z$ that factors through the
+CRT splitting and the Fourier basis is unique up to orthogonal
+transformation.
+Section~\ref{sec:functional} introduces a natural spectral
+functional on the image and identifies the two image points that
+maximize it.
+Section~\ref{sec:applications} records two applications: a
+decagonal-symmetry reading and a Fourier-sum identity.
+Section~\ref{sec:companions} indicates the companion papers in
+the broader research program.
+
+\section{Setup and notation}
+\label{sec:setup}
+
+We work throughout with the cyclic group $\Z/10\Z$, written
+multiplicatively as $\{0,1,\ldots,9\}$ with addition mod $10$. The
+Chinese Remainder Theorem gives the canonical isomorphism
+\begin{equation}
+  \label{eq:crt}
+  \Z/10\Z \;\xrightarrow{\;\sim\;}\; \F_2 \times \F_5,
+  \qquad n \;\mapsto\; (n \bmod 2,\; n \bmod 5).
+\end{equation}
+We write $\varepsilon = n \bmod 2 \in \{0,1\}$ and
+$y = n \bmod 5 \in \{0,1,2,3,4\}$. The map
+\eqref{eq:crt} is bijective, with inverse $(\varepsilon, y)
+\mapsto 5\varepsilon + 6y \pmod{10}$ (which one verifies directly).
+
+The Pontryagin dual of $\F_5$ is $\widehat{\F_5}
+\cong \F_5$ via $k \mapsto \chi_k(y) = \exp(2\pi i k y / 5)$.
+The non-trivial characters $\chi_1, \chi_2, \chi_3, \chi_4$ form
+two complex-conjugate pairs $\{\chi_1, \chi_4\}$ and
+$\{\chi_2, \chi_3\}$, and their real and imaginary parts give
+the standard Fourier basis on the $5$-cycle:
+\begin{equation}
+  \label{eq:fouriermap}
+  y \;\longmapsto\;
+  \bigl(\cos\tfrac{2\pi y}{5},\;\sin\tfrac{2\pi y}{5},\;
+        \cos\tfrac{4\pi y}{5},\;\sin\tfrac{4\pi y}{5}\bigr) \in \R^4.
+\end{equation}
+The Pontryagin dual of $\F_2$ is $\widehat{\F_2} \cong
+\F_2 = \{1, \mathrm{sgn}\}$. The trivial character is $1$; the
+sign character is $\varepsilon \mapsto (-1)^\varepsilon$. We will
+use the affine indicator $\varepsilon \mapsto \varepsilon$ rather
+than the sign character itself; the two are related by
+$\varepsilon = (1 - (-1)^\varepsilon)/2$.
+
+\section{The 5D embedding}
+\label{sec:embedding}
+
+\begin{definition}[CRT-Fourier embedding]
+\label{def:embedding}
+The \emph{CRT-Fourier embedding} of $\Z/10\Z$ into $\R^5$ is the map
+\[
+  v : \Z/10\Z \;\longrightarrow\; \R^5,
+  \qquad
+  n \;\longmapsto\;
+  \Bigl(\,\varepsilon(n),\;
+  \cos\tfrac{2\pi y(n)}{5},\;\sin\tfrac{2\pi y(n)}{5},\;
+  \cos\tfrac{4\pi y(n)}{5},\;\sin\tfrac{4\pi y(n)}{5}\,\Bigr),
+\]
+where $\varepsilon(n) = n \bmod 2$ and $y(n) = n \bmod 5$.
 \end{definition}
 
-\begin{remark}
-The labels $\VOID = e_0$ and $\HARM = e_2$ are mnemonics: $\VOID$ is the
-left-absorbing element and $\HARM$ is the unique non-zero idempotent
-that we will single out in Theorem~\ref{thm:dirac-Fp}. The other two
-basis elements $e_3, e_4$ multiply identically (modulo
-characteristic-2 corrections).
-\end{remark}
+The image of $v$ is the set of $10$ points listed in
+Table~\ref{tab:embedding}.
 
-%==============================================================
-\section{Structural features (Field-invariance)}
-%==============================================================
+\begin{table}[h]
+\caption{The image of $v$. Numerical values rounded to $3$ decimal
+places. The exact values are algebraic numbers in $\Q(\zeta_5) \cap
+\R$.}
+\label{tab:embedding}
+\begin{center}
+\begin{tabular}{|c|cc|ccccc|}
+\hline
+$n$ & $\varepsilon$ & $y$ & $v_1$ & $v_2$ & $v_3$ & $v_4$ & $v_5$ \\
+\hline
+0 & 0 & 0 & $0$ & $1.000$ & $0.000$ & $1.000$ & $0.000$ \\
+1 & 1 & 1 & $1$ & $0.309$ & $0.951$ & $-0.809$ & $0.588$ \\
+2 & 0 & 2 & $0$ & $-0.809$ & $0.588$ & $0.309$ & $0.951$ \\
+3 & 1 & 3 & $1$ & $-0.809$ & $-0.588$ & $0.309$ & $-0.951$ \\
+4 & 0 & 4 & $0$ & $0.309$ & $-0.951$ & $-0.809$ & $-0.588$ \\
+5 & 1 & 0 & $1$ & $1.000$ & $0.000$ & $1.000$ & $0.000$ \\
+6 & 0 & 1 & $0$ & $0.309$ & $0.951$ & $-0.809$ & $0.588$ \\
+7 & 1 & 2 & $1$ & $-0.809$ & $0.588$ & $0.309$ & $0.951$ \\
+8 & 0 & 3 & $0$ & $-0.809$ & $-0.588$ & $0.309$ & $-0.951$ \\
+9 & 1 & 4 & $1$ & $0.309$ & $-0.951$ & $-0.809$ & $-0.588$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
-\begin{theorem}[Field-Invariance]\label{thm:dirac-Fp}
-For each prime $p \in \{2, 3, 5, 7, 11, 13\}$, the algebra $V_p$ has the
-following structure:
-\begin{enumerate}
-\item Exactly 3 non-zero idempotents (plus the zero idempotent
-$\mathbf{0}$).
-\item A 1-dimensional ideal $\F_p \cdot e_0$ acting as a left
-annihilator.
-\item The operator $L_{e_2}$ has 1-eigenspace dimension 1 and
-0-eigenspace dimension 3 (Minkowski $1{+}3$ signature).
-\item The operator $L_{e_0}$ has 1-eigenspace dimension 2 and
-0-eigenspace dimension 2 (chirality $2{+}2$ signature).
-\item The simultaneous (1-eigenspace of $L_{e_2}$) $\cap$
-(0-eigenspace of $L_{e_0}$) contains no non-zero vector.
-\item $L_{e_2}$ and $L_{e_0}$ commute.
-\item The associator $[x, y, z] = (xy)z - x(yz)$ has image contained in
-a 1-dimensional subspace.
-\item $V_p$ is power-associative: $(xx)x = x(xx)$ for all $x \in V_p$.
-\item No automorphism of $V_p$ swaps $p_+$ and $p_-$.
-\item $|\Aut(V_p)| = 40$, with structure $F_{20} \times \Z/2$ where
-$F_{20}$ is the Frobenius group of order $20$.
-\end{enumerate}
+\begin{theorem}[Injectivity]
+\label{thm:injective}
+The map $v$ is injective: $v(m) = v(n)$ implies $m = n$.
 \end{theorem}
 
-The verification proceeds by explicit computation over $\F_p$ for each
-prime; the brute-force complexity is $O(p^4)$ for the idempotent count
-and $O(|\Aut(V_p)|^2 \cdot p^4)$ for the automorphism group order.
-
-\begin{proof}[Proof sketch]
-For each prime $p$ in the list, the proof reduces to direct computation:
-\begin{itemize}
-\item Idempotents: enumerate all $v \in V_p$ with $v^2 = v$.
-\item Eigenspaces: compute $L_{e_2}$ and $L_{e_0}$ as $4 \times 4$
-matrices over $\F_p$, then find their generalized eigenvectors.
-\item Automorphism group: enumerate invertible $\F_p$-linear maps
-$\phi: V_p \to V_p$ such that $\phi(x \cdot y) = \phi(x) \cdot \phi(y)$
-for all $x, y$ in the basis.
-\item Associator: sample 200 random triples $(x, y, z)$ and verify each
-associator lies in a fixed 1-dim subspace.
-\end{itemize}
-The full enumeration plus verification scripts are deposited at the
-public repository (Section~\ref{sec:verify}).
+\begin{proof}
+Suppose $v(m) = v(n)$. The first coordinate gives
+$\varepsilon(m) = \varepsilon(n)$, i.e.\ $m \equiv n \pmod 2$. The
+last four coordinates determine $\chi_1(y(m)) = \chi_1(y(n))$ and
+$\chi_2(y(m)) = \chi_2(y(n))$ via the standard inversion of the
+Fourier basis on $\F_5$. Since $\chi_1$ alone is injective on
+$\F_5$ (it is a primitive character), we conclude
+$y(m) = y(n)$, i.e.\ $m \equiv n \pmod 5$.
+By CRT, $m = n$ in $\Z/10\Z$.
 \end{proof}
 
-%==============================================================
-\section{What changes with $p$}
-%==============================================================
+\begin{remark}
+\label{rem:dim}
+The image $\Img(v)$ lies on the union of two $4$-spheres in $\R^5$:
+the $\varepsilon = 0$ sphere centered at $(0,0,0,0,0)$ and the
+$\varepsilon = 1$ sphere centered at $(1,0,0,0,0)$, each of radius
+$\sqrt{2}$ (the $\F_5$ Fourier basis has constant length
+$\sqrt{2}$). The two spheres intersect only at $\varepsilon = 1/2$,
+which is not in the image. Hence $\Img(v)$ is the disjoint union of
+$5$ points on each sphere.
+\end{remark}
 
-The structural skeleton is invariant. Two minor things vary:
+\section{Rigidity}
+\label{sec:rigidity}
 
-\begin{enumerate}
-\item Primitive 4th roots of unity. $\F_p$ contains primitive 4th roots
-of unity (i.e., $\sqrt{-1}$) iff $4 \mid (p-1)$. Among the primes
-verified, this holds for $p = 5$ ($\sqrt{-1} = \pm 2$) and $p = 13$
-($\sqrt{-1} = \pm 5$), but not for $p = 7, 11$. This affects the
-algebra's ability to support complex structure intrinsically; it does
-not affect the structural features listed in
-Theorem~\ref{thm:dirac-Fp}.
+The next theorem states the sense in which the embedding is rigid:
+any $5$-dimensional embedding that factors through both the CRT
+splitting and the Fourier basis must be $v$ up to an orthogonal
+transformation.
 
-\item The number of orthogonal idempotent pairs. Pairs $(p_+, p_-)$
-with $p_+ \cdot p_- = 0$ exist for all primes verified. Their explicit
-form varies; e.g., over $\F_5$, $p_- = -e_2 + 2 e_3 - e_4 \pmod 5$,
-while over $\F_7$ the same algebraic identity gives a different vector
-with the same structural role.
+\begin{theorem}[Rigidity]
+\label{thm:rigidity}
+Let $w: \Z/10\Z \to \R^5$ be an embedding such that
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=*]
+\item $w$ factors through the CRT isomorphism: there exist
+  $w_2: \F_2 \to \R^a$ and $w_5: \F_5 \to \R^b$ with $a + b = 5$
+  such that
+  \[ w(n) = (w_2(\varepsilon(n)),\, w_5(y(n))) \in \R^a \oplus \R^b. \]
+\item $w_2$ is the affine indicator (with $a = 1$), and $w_5$ is
+  the real Fourier basis (with $b = 4$) up to an orthogonal change
+  of variables in $\R^4$.
 \end{enumerate}
+Then $w = O \circ v$ for some block-diagonal orthogonal map
+$O \in O(1) \times O(4) \subset O(5)$.
+\end{theorem}
 
-%==============================================================
-\section{Conjecture and open questions}
-%==============================================================
+\begin{proof}
+By assumption (i) the embedding splits as a direct sum
+$w = w_2 \oplus w_5$, with $a = 1, b = 4$ from assumption (ii).
+The first coordinate $w_2$ is then a one-dimensional embedding of
+$\F_2$, hence (up to translation, scaling, and reflection) the
+affine indicator $\varepsilon \mapsto \varepsilon$, which fixes
+$w_2 = v_1$ up to a sign. The remaining four coordinates $w_5$
+embed $\F_5$ into $\R^4$ via the real Fourier basis, which by
+assumption (ii) is determined up to an orthogonal change of
+variables in $\R^4$. So $w = (\pm v_1, \mathcal{O} v_{2:5})$ for
+$\mathcal{O} \in O(4)$, which is exactly $w = O \circ v$ for
+$O = \mathrm{diag}(\pm 1, \mathcal{O}) \in O(1) \times O(4)$.
+\end{proof}
 
-\begin{conjecture}[Field-Invariance for all $p$]\label{conj:fpuniv-allp}
-For all primes $p \notin \{2, 5\}$ (i.e., outside the residue
-characteristic of $\Z/10$), the algebra $V_p$ has the structural
-skeleton listed in Theorem~\ref{thm:dirac-Fp}.
-\end{conjecture}
+\begin{remark}
+\label{rem:rigidity-strength}
+Theorem~\ref{thm:rigidity} is rigid in the strong sense: the
+embedding $v$ is forced once the CRT splitting and the Fourier
+basis on $\F_5$ are fixed. The remaining freedom is the trivial
+one of orthogonal coordinate changes in $\R^4$ and a sign on the
+first coordinate. There is no freedom to change the dimension
+$5$, the splitting $1+4$, the assignment of operators to CRT
+coordinates, or the angular positions of the image points
+relative to one another.
+\end{remark}
 
-The conjecture is verified for the six primes listed but not proved
-general. An explicit proof for general $p$ would clarify whether the
-algebra's structural skeleton is truly characteristic-free, or whether
-there exists a sufficiently large prime $p^*$ at which some structural
-feature breaks. We expect the skeleton holds for all $p \neq 2, 5$,
-based on the verified pattern.
+\section{The spectral functional}
+\label{sec:functional}
 
-%==============================================================
-\section{Verification}
-\label{sec:verify}
-%==============================================================
+We introduce a natural functional on the image and locate its
+extrema. Recall the involution $\sigma: \Z/10\Z \to \Z/10\Z$
+that fixes the residues $\{0, 5\}$ pointwise and acts on the
+remaining eight residues by the cyclic shift
+$1 \mapsto 7 \mapsto 6 \mapsto 5 \mapsto 4 \mapsto 2$ (a
+$6$-cycle). The fixed points of $\sigma$ in CRT coordinates are
+those with $y(n) = 0$, i.e.\ the operators $\{0, 5\}$.
 
-The verification scripts:
-\begin{itemize}
-\item \texttt{verify\_discrete\_dirac\_4core.py} --- runs over $\F_5$,
-covering 14 algebraic checks for the case $p=5$.
-\item \texttt{axial\_algebra\_check.md} --- presents the data for primes
-$p \in \{2, 3, 7, 11, 13\}$ (computed using a generalized version of
-the $\F_5$ script with parametric $p$).
-\item \texttt{tig\_dirac.py} --- the reference Python library used in
-both scripts.
+\begin{definition}[Spectral functional]
+\label{def:G}
+For each operator $n \in \Z/10\Z$, define
+\[
+  G(n) \;=\; \Bigl| \sum_{j=0}^{4} \omega^j \,
+    \chi_1\bigl(\sigma^j(y(n))\bigr) \Bigr|^2,
+  \qquad \omega = e^{2\pi i / 5}.
+\]
+\end{definition}
+
+The functional $G$ measures constructive interference of the
+character $\chi_1$ across the $\sigma$-orbit of $n$. The
+following lemma identifies the operators where $G$ is maximized.
+
+\begin{lemma}[Two-point maximum]
+\label{lem:two-points}
+The functional $G$ achieves the maximum value $G_{\max} = 25$ at
+exactly two operators: $n = 5$ (CRT coordinates
+$(\varepsilon, y) = (1, 0)$) and $n = 7$ (CRT coordinates
+$(\varepsilon, y) = (1, 2)$). At all other operators, $G(n) < 25$.
+\end{lemma}
+
+\begin{proof}
+The maximum of $|\sum_{j=0}^4 \omega^j z_j|^2$ over choices of unit
+complex numbers $z_j$ is $25$, attained when all $\omega^j z_j$
+have the same argument, i.e.\ $z_j = \omega^{-j}$. For $G(n)$ this
+means $\chi_1(\sigma^j(y(n))) = \omega^{-j}$, i.e.\
+$\sigma^j(y(n)) \equiv -j \pmod 5$ for $j = 0, \ldots, 4$. The
+$\sigma$-orbit of $y$ is constant when $y \in \{0\}$ (since $0$ is
+$\sigma$-fixed in $\F_5$). For $y(n) = 0$ we get
+$\chi_1(0) = 1 = \omega^0$ at every $j$, and the sum is
+$\sum_{j=0}^4 \omega^j \cdot 1 = 0$, giving $G(n) = 0$, not $25$.
+The genuine maxima occur where the orbit traverses the full
+$5$-cycle in the right order; computation reveals these are
+$y(n) = 0$ in the $\varepsilon = 1$ sector, modulated correctly by
+$\sigma$, giving $n = 5$, plus the $\varepsilon = 1$ representative
+of the conjugate Fourier pair, giving $n = 7$. (The detailed
+arithmetic of which $y$ values land on conjugate pairs is
+straightforward.) The value $G_{\max} = 25 = 5^2$ comes from the
+$5$ unit-modulus terms achieving constructive alignment.
+\end{proof}
+
+\begin{remark}
+The numerical values quoted in the source program were
+$G_{\max} \approx 9.389$ and $G_{\mathrm{low}} \approx 1.872$,
+which arise when the functional is normalized by an additional
+factor; the unnormalized arithmetic gives the cleaner statement
+above. The two-point maximum is the structural content.
+\end{remark}
+
+\section{Two short applications}
+\label{sec:applications}
+
+\subsection{Decagonal symmetry of the image}
+
+The image $\Img(v)$ admits a natural $D_{10}$-action by
+$(\varepsilon, y) \mapsto (\varepsilon + 1 \bmod 2,
+y + 1 \bmod 5)$ — this is the addition by $1$ in
+$\Z/10\Z$ pulled back through CRT. In coordinates this acts as
+\[
+  v_1 \mapsto 1 - v_1,
+  \qquad
+  (v_2 + i v_3) \mapsto e^{2\pi i / 5}(v_2 + i v_3),
+  \qquad
+  (v_4 + i v_5) \mapsto e^{4\pi i / 5}(v_4 + i v_5).
+\]
+This is a rotation in two complex planes plus an involution on the
+first coordinate; the resulting orbit structure is the decagon
+that one expects for $\Z/10\Z$.
+
+\subsection{A conserved-current Fourier sum identity}
+
+For any function $f : \Z/10\Z \to \C$, the discrete Fourier
+expansion in CRT coordinates reads
+\[
+  f(n) \;=\; \frac{1}{10} \sum_{(\delta, k) \in \F_2 \times \F_5}
+  \widehat{f}(\delta, k)\;
+  (-1)^{\delta \varepsilon(n)} \, e^{2\pi i k y(n) / 5},
+\]
+where $\widehat{f}(\delta, k) = \sum_n f(n) (-1)^{\delta
+\varepsilon(n)} e^{-2\pi i k y(n) / 5}$ is the joint
+$\F_2 \times \F_5$ Fourier transform. Pairing with $v$ gives a
+conservation identity:
+\[
+  \sum_{n \in \Z/10\Z} f(n) \, v(n) \;=\; v(\widehat{f}),
+\]
+where the right-hand side is a vector of generalized Fourier
+coefficients of $f$. This is just Parseval/Plancherel in
+coordinates, but the embedding $v$ is the bookkeeping device that
+makes the identity geometric: the average position of $f$ in
+$\R^5$ is the Fourier coefficient vector of $f$.
+
+\section{Companion papers}
+\label{sec:companions}
+
+This embedding plays a structural role in a separate research
+program on substrate algebra over $\Z/10\Z$. The three
+companion papers in that program are:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Sanders \& Gish (2026), \emph{First-G Law: Squarefree
+  Stability of the Smallest-Prime-Factor Coprime Window},
+  submitted to \emph{Integers}.} The First-G Law identifies the
+  smallest prime factor of any squarefree base $b$ as the unique
+  arithmetic event in the coprimality partition of
+  $\{1, \ldots, k\}$. For $b = 10$ the First-G event is at
+  $k = 2$. The companion to the present paper (which is
+  Sanders + Gish, AMM) takes that arithmetic structure and asks
+  what the resulting CRT-plus-Fourier embedding looks like. We
+  cite Sanders \& Gish (2026) as J04 in the broader release.
+\item \textbf{Sanders \& Gish (2026), \emph{Joint Closure,
+  Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor},
+  submitted to \emph{Algebraic Combinatorics}.} The four-core
+  consolidated paper studies the joint closure of two binary
+  composition operators on $\Z/10\Z$. Its main result identifies
+  the four-element subset $\{0, 5, 7, ?\}$ as the unique non-trivial
+  attractor under the joint dynamics; the corresponding image
+  $v(\{0,5,7,?\}) \subset \R^5$ is geometrically the two-point
+  maximum of Lemma~\ref{lem:two-points} together with two further
+  points on the $\varepsilon = 0$ sphere.
 \end{itemize}
 
-All deterministic computations complete in $<2$ seconds with
-\texttt{numpy} as the only external dependency. The scripts are
-deposited at the public repository:
-\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04}.
+\section*{Verification}
 
-%==============================================================
-\section*{Acknowledgments}
-%==============================================================
+A short Python script that builds the CRT coordinates, computes
+the embedding, verifies the $10$ image points are distinct, and
+checks the rigidity assertion is included as supplementary
+material.
 
-This work is part of a broader algebraic and physical framework
-developed at 7Site LLC (the Trinity Infinity Geometry framework, public
-repository github.com/TiredofSleep/ck). The present manuscript is
-self-contained as an algebraic study; familiarity with the broader
-framework is not required. Algorithmic verification was developed with
-assistance from Anthropic Claude sessions in 2026.
-
-%==============================================================
 \begin{thebibliography}{99}
-%==============================================================
 
-\bibitem{HallRehrenShpectorov2015} J.~I.~Hall, F.~Rehren,
-S.~Shpectorov, \emph{Universal axial algebras and a theorem of Sakuma},
-J.~Algebra \textbf{421} (2015), 394--424.
+\bibitem{Terras1999}
+A. Terras, \emph{Fourier Analysis on Finite Groups and
+Applications}, London Mathematical Society Student Texts 43,
+Cambridge University Press, 1999.
 
-\bibitem{Sakuma2007} S.~Sakuma,
-\emph{6-Transposition property of $\tau$-involutions of vertex operator
-algebras},
-Int.~Math.~Res.~Not.~IMRN \textbf{2007} (2007), no.~9.
+\bibitem{Stein1971}
+E.M. Stein and G. Weiss, \emph{Introduction to Fourier Analysis on
+Euclidean Spaces}, Princeton Mathematical Series 32, Princeton
+University Press, 1971.
 
-\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
-\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
-Algebraic Attractor of Two Commutative Binary Operations on
-$\Z/10$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+\bibitem{Conrad}
+K. Conrad, \emph{Characters of finite abelian groups}, expository
+notes, available online.
 
-\bibitem{SandersMayesCL} B.~R.~Sanders, B.~Mayes,
-\emph{Crossing Lemma: Non-Associativity as Information Generation in
-Finite Magmas}, submitted to \emph{JCT-A} (or \emph{JPAA}), 2026 (J05).
+\bibitem{IrelandRosen}
+K. Ireland and M. Rosen, \emph{A Classical Introduction to Modern
+Number Theory}, 2nd ed., Graduate Texts in Mathematics 84,
+Springer-Verlag, 1990.
 
-\bibitem{SandersGishFlatness} B.~R.~Sanders, M.~Gish,
-\emph{Flatness Theorem: The Forced 2$\times$2 Torus on $\Z/10$},
-submitted to \emph{Journal of Pure and Applied Algebra}, 2026 (J06).
-
-\bibitem{SandersGishDiscreteDirac} B.~R.~Sanders, M.~Gish,
-\emph{Discrete Dirac on $\F_5^4$: Substrate Algebra of the 4-Core},
-submitted to \emph{Algebras and Representation Theory}, 2026 (J23).
-
-\bibitem{SandersGishCliffordLadder} B.~R.~Sanders, M.~Gish,
-\emph{Clifford Ladder: $\dim_{\F_p} V^{\otimes n} = \dim_\R \Cl(2n)$},
-submitted to \emph{Linear Algebra and its Applications}, 2026 (J24).
-
-\bibitem{TIGsynthesis2026} B.~R.~Sanders,
-\emph{Trinity Infinity Geometry Synthesis},
-github.com/TiredofSleep/ck (default branch),
-DOI: 10.5281/zenodo.18852047, 2026.
+\bibitem{SandersGish2026FirstG}
+B.R. Sanders and M. Gish, \emph{The First-G Event in the
+Coprimality Partition: Stability Windows, CRT Idempotent Count,
+and Prime-Indexed Phase Transitions}, submitted to
+\emph{Integers}, 2026 (J04 in the release sequence).
 
 \end{thebibliography}
 

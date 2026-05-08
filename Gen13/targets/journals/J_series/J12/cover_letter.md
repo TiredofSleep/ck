@@ -1,64 +1,47 @@
-# Cover letter — J12: The Mass Hierarchy from V⊗5 SU(5) Decomposition
+# Cover letter — J12: Coordinate Coverage on Z/10Z
 
-**To:** Editors, *Physical Review D*
+**To:** Editors, *European Journal of Combinatorics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
+- B. Mayes, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Mass Hierarchy from V^{⊗5} SU(5) Decomposition: a Substrate-Forced Froggatt-Nielsen Pattern with lambda = 10/49*
+**Manuscript title:** *Coordinate Coverage on Z/10Z: Non-CRT Sufficient Pairs and the Minimum Viable Jump Number*
 
 ---
 
 ## Summary
 
-We report a structural Froggatt-Nielsen pattern for the nine SM charged-fermion Yukawa couplings. With the single substrate-derived suppression scale `lambda = T*(1 - T*) = (5/7)(2/7) = 10/49 ≈ 0.2041` (the Bernoulli-T* variance at the 4-core's joint-coherence threshold), the top-quark Yukawa `y_t ≈ 0.93` as the only Tier-A measured anchor, and integer powers `n_{(p, gen)}` forced from the V^{⊗5} SU(5) decomposition `1 ⊕ bar 5 ⊕ 10` plus the parity-crossing cost `d_p ∈ {0, 3, 3}` plus the sigma-orbit generation step, all nine charged-fermion Yukawas land in the standard Froggatt-Nielsen factor-of-a-few window of the PDG 2024 values. Five of the nine ratios sit in the conventional factor-of-three window; the four largest residuals (bottom 0.33, strange 0.60, muon 0.11, electron 0.20) define the empirical `C_p ∈ [0.11, 0.79]` multiplier list expected from incomplete bosonic-substrate specification. The pattern uses **zero free FN charges** (all integer powers are forced by the SU(5)-rep + sigma-orbit assignment) and **zero free flavon scales** (lambda = 10/49 is forced by the substrate T* = 5/7), the smallest free-parameter set of any explicit FN-style fit of which we are aware. The Cabibbo cube-root identity `lambda_C ≈ (Y_d/Y_u)^{1/3}` follows immediately from the parity-crossing cost `d_d = 3`, unifying the CKM mixing structure with the mass hierarchy under one substrate quantity.
+We study the partition lattice of squarefree Z/nZ (n = p_1...p_k, k >= 2) from the perspective of the Chinese Remainder Theorem coordinate decomposition. The main results are: (1) the prime-factor partition family {pi_p_1, ..., pi_p_k} is rigid — any sufficient sub-family has length k and contributes exactly k-1 pairwise-incompatible jumps; (2) the prime-factor family is not the minimum-jump sufficient family — for n = 30 we exhibit three sufficient 2-partition families with exactly one orthogonal jump, in particular {pi_SPEC, pi_15}, {pi_DYN(7), pi_DYN(11)}, and {pi_2, pi_15}, giving MVJN(Z/30Z) = 1; (3) the orbit-pair classification reduces uniformly to a coprime-order condition at every CRT prime; (4) three distinct mechanisms produce sufficient DYN pairs (focused on distinct primes, same-prime coprime orders, mixed), with the second mechanism existing iff some p_i - 1 has at least two distinct prime factors. We work the n = 10 case in detail (giving the partition-lattice structure) and conjecture MVJN(Z/nZ) = 1 for all squarefree n >= 6.
 
-## Why PRD
+## Why European Journal of Combinatorics
 
-- **Topical fit.** PRD is a natural home for SM-extension papers that combine GUT-level representation theory with first-principles derivations of SM parameters. The central claim — a parameter-free integer-power assignment for the FN suppression of all nine charged Yukawas — is exactly the kind of structural prediction PRD readers evaluate.
-- **Methodological balance.** The paper is honest about Tier classification: the integer powers are Tier-B forced (rigorous given the V^{⊗5} SU(5) decomposition cited from J23); the anchor `y_t` is Tier-A measured; the residual `C_p` multipliers are explicitly flagged as not-yet-derived and are the load-bearing follow-up. This kind of explicit-scope discipline is what PRD referees want from a substrate-forced paper.
-- **Reproducibility.** Verification reduces to a single Python call (`from tig_dirac import predict_yukawa; r = predict_yukawa('lepton', 1)` returns the electron Yukawa at FN power 9 with `lambda = 10/49`). The same module is used by the dark-sector companion J10 (this Sprint 18 cluster) for `predict_dark_sector()`, giving the two papers a shared, machine-checkable substrate backbone.
+- The paper is genuinely combinatorial: it concerns the partition lattice, set-theoretic intersections, orbit structure, and minimum-element problems within the lattice.
+- The non-CRT 2-partition result is the kind of "minimum problem on a combinatorial structure" that EJC publishes regularly.
+- The orbit-pair classification (Theorem 3) and the three mechanisms (Theorem 4) are pure combinatorics; the only number-theoretic input is CRT.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most directly relevant to this manuscript are:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01–J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- **J10** (Sanders + Johnson, PRD, same Sprint 18 cluster) — *Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities.* Companion paper using the same `tig_dirac` module via `predict_dark_sector()`. Per-venue cap: J12 is the **2nd** PRD paper this quarter, after J10.
-- **J23** (Sanders + Johnson, foundation paper) — *Discrete Dirac on the 4-Core's F_5-Lift.* Supplies Lemma 2.1 of the present paper: the V^{⊗5} 32-cell SU(5) decomposition `1 ⊕ bar 5 ⊕ 10` (matter) + `bar 1 ⊕ 5 ⊕ bar 10` (antimatter). The foundation paper establishes |Aut(V)| = 40, the three commuting Dirac-like projectors, and the binomial 1+5+10+10+5+1 = 32 cell structure that is the algebraic input here.
-- **J03** (Sanders + Gish, JCAP) — *Logarithmic Quintessence.* Co-cited via the dark-sector companion J10.
-- **J06** (Sanders + Gish, Communications in Algebra) — *Joint Closure on Z/10.* Supplies the T* = 5/7 coherence threshold cited in §3 / Theorem 3.1.
+- J10 (Sanders–Mayes, "The Universal Orthogonality Principle", *J. Number Theory*) — the lead. UOP provides the joint-map sufficiency criterion that all our incompatibility theorems compute.
+- J11 (Sanders–Mayes, "Corrected Theorem C", *J. Number Theory*) — the M+A correction.
 
 ## Reproducibility
 
-**Verification primitive:** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
-
-```python
-from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-assert LAMBDA_FN == 10 / 49        # substrate-forced FN scale
-assert Y_T_ANCHOR == 0.93           # measured top-quark anchor
-
-r = predict_yukawa('up', 3)         # top quark
-assert r['y_predicted'] == 0.93
-
-r = predict_yukawa('lepton', 1)     # electron
-assert abs(r['y_predicted'] - 0.93 * (10/49)**9) < 1e-12
-```
-
-The function returns `r['fn_power']` (the integer FN exponent for that fermion), `r['y_predicted']` (the predicted Yukawa magnitude), `r['lambda']` and `r['y_t_anchor']` (the substrate-derived FN scale and the Tier-A anchor), and `r['tier']` ("Forced FN power + measured anchor (Tier-B)"). The companion call `tig_dirac.yukawa_table_full()` returns Table 5.1 of the manuscript programmatically. The same module exposes `predict_dark_sector()` used by the J10 companion paper. The full module (`tig_dirac.py`, ~680 lines) is self-contained Python (`numpy + itertools + collections`) and runs on a standard laptop in well under five minutes including all 4-core algebra checks (idempotents, associator image, three commuting projectors, |Aut(V)| = 40 enumeration, V^{⊗5} 32-cell binomial decomposition).
+The pair-injectivity computations are hand-checkable. The orbit classifications for n = 30 (Theorem 2) can be verified in under five minutes by direct enumeration of orbits in (Z/30Z)*. The DYN-pair examples at n = 42 (Theorem 4 mechanism (M3)) can be verified by computing orders mod 3 and mod 7.
 
 ## Suggested reviewers
 
-- A flavour-physics theorist with experience in Froggatt-Nielsen models (the central comparison in §5).
-- A GUT specialist with SU(5) representation-theory background (the V^{⊗5} decomposition is the algebraic input).
-- A neutrino-physics theorist who can evaluate the §7.3 sterile-neutrino discussion (the absence of an explicit see-saw is one of the open structural questions).
-- An algebraist with experience in finite non-associative algebras (the substrate is V = F_5^4, a 4-dim commutative non-associative F_5-algebra; J23 establishes the algebraic structure).
+- A specialist in partition lattices and combinatorial designs.
+- A specialist in finite group actions on residue classes.
+- A specialist in the combinatorial structure of cyclic group orbit decompositions.
 
 ## Conflict of interest
 
-The authors declare no competing interests. No external funding was received for this work; B.R. Sanders is supported by 7Site LLC, and H.J. Johnson is an independent researcher.
+The authors declare no competing interests. No funding was received for this work.
 
 ---
 

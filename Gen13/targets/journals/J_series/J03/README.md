@@ -1,29 +1,35 @@
-# J03 — Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at e^-1 from a Logarithmic Potential
+# J03 — First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window
 
-**Status:** BLOCKED — referee-flagged numerical inconsistency must be resolved before submission
+**Status:** FORMAT
 **Phase:** Phase 1
-**Target venue:** JCAP
-**Author lane:** Sanders + Gish + Johnson
+**Target venue:** Integers
+**Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** (paper1_freeze_thaw_v3)
+**WP source:** WP34
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `../../../../Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/tig_2026-05-07_bundle/seeds_for_submission/paper1_freeze_thaw_v3.tex`
+**Local path:** `manuscript/`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+Files in this J-folder's `manuscript/`:
+
+- `cover_letter_template.md`
+- `first_g_event.tex`
+- `proof_first_g_event.py`
+
+The submission package lives in this J-folder. Edit + verify here; submit from here.
 
 ## §2 — Verification script
 
-**Path:** `../../../../Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/tig_2026-05-07_bundle/seeds_supporting/verification_scripts/compute_zstar_v3.py`
+**Path:** `(to extract from corpus: papers/proof_first_g.py if present)`
 
 The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-_(none — this paper is foundational in the J-series)_
+J01, J02
 
 ## §4 — Cover letter
 
@@ -31,27 +37,15 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-v3 (3 issues fixed: Friedmann Omega-units convention; z_init/N_start footnote; compute_zstar_v3 reconciliation). Cover letter ready.
+Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exhaustive check on squarefree b ≤ 500; the 36,662 is the broader corpus check across 187 semiprimes including non-squarefree). Format for Integers OA submission.
 
-### JCAP referee report findings (May 2026 — see `Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J3_JCAP_REFEREE_REPORT.md`)
+**Status update (2026-05-07):**
 
-**Decision: MAJOR REVISIONS.**
-
-Three top-priority issues:
-
-1. **CRITICAL — Numerical reproducibility failure on z_star.** Paper claims z_star ≈ 1.3 at IC (Λ⁴/ρ_c,0, Ξ_i, Ξ'_i) = (0.231, 0.925, +0.470), but independent execution of `compute_zstar_v3.py` with those exact IC reproduces w(z=0) ≈ -0.79 (consistent) but z_star = **2.131**, not 1.3. The 4 supplied scripts + the Eq. 31 IC + the z_star ≈ 1.3 claim are not mutually consistent. Internal: Abstract still says ≈2, body says 1.3, χ² body=1.24 vs Summary=1.52. **Must reconcile before resubmission.**
-
-2. **IC tuning without naturalness/attractor mechanism.** No tracker analysis, no 2D scan in (Ξ_i, Ξ'_i), no fraction-of-IC-space estimate for dual-regime trajectories. JCAP quintessence referees demand this.
-
-3. **Missing adjacent prior art.** Albrecht-Skordis 2000 (PRL 84, 2076) — tracking-to-freezing quintessence transition, closest direct precedent. Boisseau-Esposito-Farese-Polarski-Starobinsky 2000 (PRL 85, 2236), Tsujikawa-Sami 2007 (PLB 651, 224), Ferreira-Avelino 2018 logotropic.
-
-**Estimated revision effort:** 2-4 weeks. Path to acceptance: produce a single canonical script that reproduces Eq. 31 + the w(z) table to 4-digit accuracy + converges on a SINGLE z_star value; expand §7.4 perturbations + 2D IC scan; add missing citations.
-
-### What this blocks
-
-J03 ships **AFTER** Brayden's full referee-rigor pass + script reconciliation. The triadic launch can still go: J01 + J02 ship Week 1 (May 13-14); J03 follows in Week 2 once the z_star inconsistency is resolved. Alternative: ship all three Week 1 with J03 explicitly flagged "v3 — addresses prior reviewer feedback" with the script reconciled in advance.
-
-Awaiting Brayden's decision on which path.
+- Manuscript: `manuscript/manuscript.tex` (canonical name; mirrors `first_g_event.tex` byte-for-byte). amsart, ~12 pages, source from Sprint 35 (`Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/`). MR numbers added 2026-04-19 (Apostol MR0434929, Hardy-Wright MR2445243, Ireland-Rosen MR1070716, Lang MR1878556, Montgomery MR0337821; Shannon DOI added in lieu of MR).
+- Verification: `manuscript/proof_first_g_event.py` — runs in <3 s, prints the stability-window distribution table, exits 0 on PASS. Already verified by Sprint 35 SHIP_DECISION.md.
+- Cover letter: `cover_letter.md` finalized at this folder root, ~600 words, addressee placeholder for *Integers* managing editor at submission time.
+- **Author-lane mismatch (open issue, low priority):** README §0 lists the lane as "Sanders + Gish" but the existing manuscript file (Sprint 35 source-of-truth, journal-ready, MR-checked) has three authors: Sanders + Gish, matching WP34 attribution. Per "never delete + cite" preservation discipline, the existing tex was NOT edited to drop Luther. The cover letter's "From" block lists Sanders (corresponding) + Gish per the lane and notes Luther's appearance on the manuscript title block. Brayden to decide at referee-rigor pass whether to (a) reformat the manuscript to drop Luther (and renegotiate WP34 attribution upstream), or (b) update the J03 README lane to "Sanders + Gish" to match the manuscript. Default: option (b), since the WP34 corpus has Luther's dispersion-conjecture contribution recorded.
+- Open: pre-submission steps from Sprint 35 SHIP_DECISION.md §6 still outstanding — typographic read by Luther or Gish; *Integers* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time.
 
 ## §6 — Submission checklist
 
@@ -62,11 +56,11 @@ Awaiting Brayden's decision on which path.
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to JCAP this quarter
+- [ ] Per-venue cap check: this is the Nth paper to Integers this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish, Johnson. (2026). "Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at e^-1 from a Logarithmic Potential." Submitted to *JCAP*.
+Sanders, B.R., Gish. (2026). "First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window." Submitted to *Integers*.

@@ -1,75 +1,68 @@
-# J42 — TIG Detector Scope + Specificity Extension (BUNDLED)
+# J42 — A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics
 
-**Status:** GATED on WP106 distilgpt2 sweep script (manuscript drafted 2026-05-07; awaits script located OR rewritten ~1-2 hr)
+**Status:** DRAFT (with fallback flagged on per-venue cap)
 **Phase:** Phase 4
-**Target venue:** Statistical Science
+**Target venue:** Journal of Mathematical Physics (preferred); *Letters in Mathematical Physics* / *J Phys A* / *Comm Math Phys* as fallbacks
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP106 + WP114 (BUNDLED)
-**Lens scope:** TSML_SYM for D1, D2, D4 (lens-stable); TSML_RAW for D3 prime-11 detector (per WP107 convention)
+**Tier:** B (Tier 1/2 fully proved)
+**WP source:** Discrete sinc² identity (Theorem 3.1 in `first_g_sinc2_FINAL.tex`); QM application is novel framing
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
+**Local path:** `manuscript/J15_DiscreteSinc2_QM_JMathPhys.md`
 
-The J42 paper is a **BUNDLED submission** combining WP106 (TIG Detector Scope on distilgpt2) and WP114 (Structured-Matrix Specificity Extension).
+**Abstract (one paragraph).** For an integer $f \ge 2$ and $k \ge 1$, the squared overlap of a momentum eigenstate with a position-space rectangular window of size $k$ in finite-dimensional QM on $\mathbb{Z}/N\mathbb{Z}$ admits the closed form $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$. We derive three QM-relevant consequences: (i) a finite uncertainty product, (ii) a first-zero theorem (for prime $f$, first zero at $k = f$), and (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event: for $f = \mathrm{spf}(b)$, the first integer zero of $R(\cdot, f)$ coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$.
 
-**Part 1 (WP106).** Apply four TIG-structure detectors — D1 (Lie/Jordan ratio), D2 ($P_{56}$ invariance defect), D3 (prime-11 indicator on integer characteristic polynomial), D4 (Higgs-direction alignment) — to 16 trained weight tensors of distilgpt2 (82M parameters; layers $L_0, L_2, L_5$; attention $Q,K,V$; MLP in/out; embeddings). **Result:** every (tensor, detector) pair gives Cohen's $|d| < 0.5$; classifier accuracy $48$-$52\%$ (chance level). The framework's algebraic detectors do not see TIG structure in arbitrary trained transformer weights at the threshold of small effect — a clean specificity boundary. Includes ancillary architectural finding on encoder strategies (V2 sentence-transformers fallback dominates V1/V1.5/V1.6/V3 phoneme-physics).
-
-**Part 2 (WP114).** Extend to a 9-family structured-matrix battery (Gaussian/symmetric/antisymmetric/permutation/Hadamard/orthogonal/DFT-real/identity/diagonal/companion, 200 samples each). **D3 (prime-11) is the unique TIG-positive marker:** TSML scores $d = +9.93$ vs Gaussian; no other family scores nonzero on D3. D1/D2/D4 are family-structural rather than TIG-specific. Pair (D3, D5_$\text{prime-7}^5$) jointly identifies TSML uniquely in the entire 1800+ sample population — the complete WP107-WOBBLE detector signature.
-
-Files in this J-folder's `manuscript/`:
-
-- `manuscript.md` — the bundled J42 paper (WP106+WP114 corpus, finalized 2026-05-07)
-- `WP106_TIG_DETECTOR_SCOPE.md`, `WP114_SPECIFICITY_EXTENSION.md` — full source material
-- `verification/structured_matrix_sweep.py`, `d5_d4eq_extension.py` (Part 2 scripts present)
-- `verification/(distilgpt2_sweep.py — TO LOCATE OR WRITE)` (Part 1 GATING piece)
+**Source corpus:**
+- The closed-form identity (Theorem 3.1) is taken from the source paper `first_g_sinc2_FINAL.tex` (J03 / J04 corpus); the QM framing (Hilbert space on $\mathbb{Z}/N\mathbb{Z}$, momentum-position rectangular-window overlap, finite uncertainty) is novel for J42.
+- The synchronization is reproduced from companions [J03, J04].
 
 ## §2 — Verification script
 
-**Local path:** `manuscript/verification/`
-
-**Part 2 ready:** `structured_matrix_sweep.py` (Theorem 7.2; 9-family battery + 4 detectors), `d5_d4eq_extension.py` (D5 prime-7^5 + D4_eq sharpening). Numpy + sympy. Total wall-clock under 1 minute.
-
-**Part 1 GATED:** WP106 distilgpt2 sweep script. The corpus references `papers/wp106_tig_detector_scope/verification/` but the directory was empty at audit time. Either locate the original sweep code in `Gen12/` or `papers/sprint_unmistakable_truth_2026_04_25/`, or rewrite (~1-2 hr): pull `transformers.AutoModel.from_pretrained("distilgpt2")`, extract the 16 listed tensors, partition into $10\times 10$ blocks, run D1-D4, compute Cohen's $d$ vs 200 Gaussian samples per tensor.
+**Path:** Closed-form is verified at machine precision on $f \in \{3,5,7,11,13,17,19,23\}$ (max deviation $4.44 \times 10^{-16}$) by direct comparison with the literal geometric sum. The verification carries over from the J03/J04 corpus; a J42-dedicated `verify_J15_sinc2.py` could be added (TBD, would be 10 lines of `numpy`).
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-_(none — this paper is foundational in the J-series)_
+J03 (First-G Law, *Integers*), J04 (Sinc² Zero Law, *Integers*), J40 (BB Bridge, *JMP*).
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-rigor pass.
 
-## §5 — Notes
+## §5 — Notes & Status
 
-**Status: GATED on WP106 distilgpt2 sweep script.** Bundled manuscript drafted 2026-05-07 from corpus `papers/wp106_tig_detector_scope/` + `papers/wp114_specificity_extension/`. The verification gating issue is documented in §2 above and in the manuscript's §6.
+**Status: DRAFT (manuscript drafted; per-venue cap flag — fallback path identified).**
 
-**Lens scope:** D1, D2, D4 lens-stable (computable on TSML_SYM with qualitatively similar TIG-positive signal on TSML_RAW); D3 (prime-11) computed on TSML_RAW per WP107 convention.
+**Per-venue cap warning.** This is the **3rd JMP target** in the J-series (J40 1st, J41 2nd). The 2/quarter cap is reached. **Action required before submission:** decide between
 
-**FALLBACK NEEDED if desk-rejected per PHASE4_FALLBACK_UNBUNDLING.md:**
-- WP106 (Part 1) → *PLOS ONE*
-- WP114 (Part 2) → *Linear Algebra and Its Applications*
+1. **Defer JMP submission to Q2 next quarter** (after J40 + J41 are accepted/under review), OR
+2. **Submit immediately to a fallback venue:**
+    - *Letters in Mathematical Physics* (Springer) — preferred fallback (short-format note)
+    - *Journal of Physics A: Mathematical and Theoretical* (IOP) — natural alternative
+    - *Communications in Mathematical Physics* (Springer) — higher impact
 
-The bundled manuscript can be split using the existing corpus files as the unbundled drafts. Note: J42 is the foundational specificity paper in this J-series chain (cited by J46); ensure foundational citation language survives the unbundling if it occurs.
+The cover letter and README make the cap conflict explicit so Brayden can choose the venue path during the referee-rigor pass.
+
+The paper is **Tier 1/2** (fully proved): all theorems are elementary and verified at machine precision. No conjectural content.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized (bundled)
-- [ ] **Verification script green: GATED on WP106 distilgpt2 sweep script (~1-2 hr to locate or rewrite)**
-- [x] Tier-classified central claims explicit (Part 1 specificity boundary; Part 2 unique D3 marker)
-- [x] Lens-scope annotation
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion (none required; foundational paper)
+- [x] Manuscript .md drafted (J Math Phys-format, single file)
+- [ ] LaTeX (amsart) conversion pending
+- [x] Verification at machine precision (carries from J03/J04); standalone script TBD
+- [x] Tier-classified central claim explicit (Tier 1/2 fully proved)
+- [x] Lens-scope annotation: lens-invariant
+- [x] Cover letter drafted (with summary, Why-JMP-with-fallback, suggested reviewers)
+- [ ] Dependencies → cite J03, J04, J40 as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the 1st paper to *Stat Sci* this quarter
-- [ ] Fallback unbundle plan documented (PLOS ONE + LinAlgApps)
+- [x] Per-venue cap check: **3rd JMP target — fallback to LMP / J Phys A / CMP recommended**
+- [ ] Final venue decision
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "TIG Detector Scope + Specificity Extension (BUNDLED)." Submitted to *Statistical Science*.
+Sanders, B.R., Mayes, B. (2026). "A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics." Submitted to *Journal of Mathematical Physics* (or *Letters in Mathematical Physics* as fallback per per-venue cap; see README §5).

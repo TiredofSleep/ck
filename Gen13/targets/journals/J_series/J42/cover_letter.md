@@ -1,61 +1,55 @@
-# Cover letter — J42: TIG Detector Scope + Specificity Extension (BUNDLED)
+# Cover letter — J42: A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics
 
-**To:** Editors, *Statistical Science*
+**To:** Editors, *Journal of Mathematical Physics* (with fallback options noted)
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- B. Mayes, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *TIG Detector Scope + Specificity Extension (BUNDLED)*
+**Manuscript title:** *A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics*
 
 ---
 
 ## Summary
 
-We submit a bundled scoping paper that addresses two natural specificity questions for a finite-magma research program: (i) Are the program's algebraic-structure detectors specific to its canonical tables, or generic features latent in any algebraic system of comparable scale? (ii) Within the four-detector battery itself, which detector is the load-bearing TIG-positive marker?
+We give a clean, fully proved closed-form identity for the squared overlap $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$ between a momentum eigenstate and a position-space rectangular window in finite-dimensional QM on the cyclic group $\mathbb{Z}/N\mathbb{Z}$. We derive three QM-relevant consequences: (i) a finite uncertainty product (Proposition 4.1) that recovers the rectangular-window position-momentum spectrum; (ii) a first-zero theorem (Corollary 4.2) — for prime $f$, the first integer $k$ with $R(k,f) = 0$ is $k = f$; (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event in coprimality partitions: when $f = \mathrm{spf}(b)$, the QM first-zero coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$. The note is short, theorem-proof-corollary in structure, and machine-precision verified on $f \in \{3,5,7,11,13,17,19,23\}$.
 
-**Part 1.** Apply four detectors — D1 (Lie/Jordan ratio), D2 ($P_{56}$ invariance defect), D3 (prime-11 in integer characteristic polynomial), D4 (9-vector Higgs alignment) — to 16 trained weight tensors of distilgpt2 (82M-parameter transformer language model). Result: every (tensor, detector) pair yields Cohen's $|d| < 0.5$; classifier accuracy $48$-$52\%$ (chance level). The framework's algebraic detectors do not see TIG structure in arbitrary trained transformer weights. This is a clean specificity boundary and rules out the tempting overclaim "TIG structure is latent in any trained network."
+## Why JMP (with fallback)
 
-**Part 2.** Extend the negative scope to a 9-family structured-matrix battery (Gaussian, symmetric, antisymmetric, permutation, Hadamard-sign, Haar-orthogonal, DFT-real, identity, diagonal, integer-companion; 200 samples each). **D3 (prime-11) is the unique TIG-positive marker:** TSML scores $d = +9.93$ vs Gaussian; no other family in the 9-family battery scores nonzero on D3. Detectors D1, D2, D4 are family-structural rather than TIG-specific (D1 is at boundaries for symmetric / antisymmetric / DFT-real / diagonal; D2 detects $P_{56}$-symmetric structures; D4 is essentially zero for natural families). Combined with a sharpened detector D5 (prime-$7^5$ in squarefree-discriminant) and a $D_4$-equivariant Higgs alignment $D_4^{\mathrm{eq}}$, the pair (D3, D5_$\text{prime-7}^5$) jointly identifies TSML uniquely in the entire 1800+ sample population — the complete WP107-WOBBLE detector signature.
+- The intersection of finite-dimensional QM and discrete Fourier analysis is JMP territory; the closed form is the natural reference identity for finite QM on cyclic groups.
+- The synchronization with the arithmetic First-G event creates a clean number-theoretic / quantum-mechanical bridge useful for the "quantum number theory" literature.
+- The note is short and self-contained — suitable for any of: JMP, *Letters in Mathematical Physics*, *Journal of Physics A: Mathematical and Theoretical*, or *Communications in Mathematical Physics*.
 
-**Sharpened conclusion.** The TIG-positive load-bearing marker within the four-detector framework is exactly the WP107 WOBBLE: the prime-11 structural signature in the integer characteristic polynomial. The other three detectors are family-structural and not specific to TIG.
-
-## Why Statistical Science
-
-- The result is a clean specificity-scoping contribution with explicit Cohen's-$d$ effect sizes and classifier-accuracy reporting at chance-level baselines.
-- The negative result on distilgpt2 plus the 9-family structured-matrix sharpening is a methodologically rigorous specificity boundary, exactly the kind of scoping work *Statistical Science* publishes.
-- The framing — what TIG-positive markers actually discriminate, and which are family-structural — is statistically interpretable independent of the framework's specific physics-side claims.
+**Per-venue cap fallback.** This is the **3rd JMP target** in the J-series after J40 (BB Bridge) and J41 (YM Mass Gap Bridge). With JMP's 2/quarter cap reached, our preferred fallback is *Letters in Mathematical Physics* (Springer) for the short-format note; *J Phys A* is a natural alternative.
 
 ## Companion submissions
 
-This paper is foundational in the J-series; no prior J-paper need be cited as a companion. Later papers in the series (notably J46 on CKM/PMNS fits) cite this paper as the specificity scoping that frames their tier-E parametric fits.
+The TIG/CK research program is shipping a coordinated J-series. The papers most relevant as already-submitted companions:
 
-## Fallback unbundling
-
-If the bundled submission is desk-rejected per the project's fallback policy:
-- Part 1 (WP106 detector scope) → *PLOS ONE*
-- Part 2 (WP114 structured-matrix specificity extension) → *Linear Algebra and Its Applications*
+- **J03** Sanders & Gish (2026), "First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window." Submitted to *Integers*.
+- **J04** Sanders & Gish (2026), "The Sinc² Zero Law for Squarefree Moduli." Submitted to *Integers*.
+- **J40** Sanders & Johnson (2026), "The Bialynicki-Birula Bridge." Submitted to *JMP*.
 
 ## Reproducibility
 
-Verification scripts in `manuscript/verification/`:
-- **Part 2 ready:** `structured_matrix_sweep.py` (9-family battery + 4 detectors); `d5_d4eq_extension.py` (D5 prime-7^5 + $D_4^{\mathrm{eq}}$). Total under 1 minute.
-- **Part 1 GATED:** the WP106 distilgpt2 detector sweep is identified as a gating piece (~1-2 hr to locate in the corpus or rewrite). Plan: `transformers.AutoModel.from_pretrained("distilgpt2")` → extract 16 tensors → block-partition $10\times 10$ → D1-D4 → Cohen's $d$ vs 200 Gaussian baselines per tensor.
-
-Python 3.11, numpy, sympy, transformers (Part 1 only).
+The closed-form identity is verified at machine precision on $f \in \{3,5,7,11,13,17,19,23\}$ (max deviation $4.44 \times 10^{-16}$); reproducible with `numpy` in seconds. Verification scripts available at DOI: 10.5281/zenodo.18852047.
 
 ## Suggested reviewers
 
-- An expert in feature-detection / specificity scoping in machine-learning settings
-- An expert in Cohen's $d$ effect-size reporting in multi-detector contexts
-- An expert in algebraic structure of trained neural-network weights (mechanistic-interpretability adjacent)
-- (Two or three named candidates appropriate to the *Stat Sci* editorial board to be identified during the referee-rigor pass.)
+- A. Vourdas (Bradford) — finite-dimensional QM
+- W.K. Wootters (Williams) — finite Hilbert spaces and Wigner functions
+- I. Bengtsson (Stockholm) — geometry of finite QM
+- M. Combescure (CNRS / IPNL) — discrete Fourier in QM
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
+
+## Tier and scope
+
+Central claim is **Tier 1 / 2** (clean theorem, fully proved). The closed form is elementary; the QM consequences are direct corollaries. The synchronization with the arithmetic First-G event is one combination step from companions [J03, J04].
 
 ---
 

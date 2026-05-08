@@ -22,7 +22,7 @@
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
 J54-J54 (foundational + Phase 1-4 chain). See repo `Atlas/META_PLAN_2026-05-06/J_SERIES_ORDERING.md` for the full citation chain.
 

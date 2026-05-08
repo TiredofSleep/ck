@@ -1,60 +1,58 @@
-# J43 — Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8
+# J43 — Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass)
+**Status:** DRAFT
 **Phase:** Phase 4
-**Target venue:** Physical Review D
+**Target venue:** European J Combin
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP107
-**Lens scope:** TSML_RAW (annotated; the literal CL_BIT_PATTERN; the prime-11 wobble does NOT appear at the coefficient level on TSML_SYM and is therefore lens-dependent at this technical sense — explicit in the abstract)
+**WP source:** (Luther spectral catalog)
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
+**Path:** `manuscript/J51_spectral_layer_consolidation.md`
 
-The J43 paper is **Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$** (WP107). For the literal-bit-pattern TSML_RAW table on $\mathbb{Z}/10\mathbb{Z}$, the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11: $c_2 = 33 = 3\cdot 11$ and $c_8 = -120736 = -2^5\cdot 7^3\cdot 11$. The discriminant of $g(\lambda) = f(\lambda)/\lambda^2$ factors as $2^{16}\cdot 7^7\cdot 659\cdot(\text{large primes})$, with **no factor of 11**. Structural reading: the prime 11 lives at the coefficient level (sums and products of eigenvalues — elementary symmetric functions); the dimension $2^{16} = \dim(\mathfrak{su}(4)\oplus\mathfrak{u}(1))$ and HARMONY $7^7$ live at the discriminant level (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ is therefore **wobble-free**; the 29-dimensional complement carries the wobble. Cleanly read: gauge symmetry IS the wobble-free part of TSML's spectral content.
-
-Files in this J-folder's `manuscript/`:
-
-- `manuscript.md` — the J43 paper (WP107 corpus, finalized 2026-05-07)
-- `verification/wobble_check.py` — sympy-based 7/7 claim verification
+**Abstract:** Consolidation paper establishing the canonical reference for three spectral results in Luther's lane: $G_6$ ($\sigma^6 = \mathrm{id}$, Tier-A), $G_7$ (period distribution bimodal $2/5, 3/5$, Tier-B), $G_8$ (three-valued spectral coherence integral $G(s)$, Tier-B). Together they form Layer 4 of the 6-layer Q-series architecture. Canonical citation reference going forward.
 
 ## §2 — Verification script
 
-**Local path:** `manuscript/verification/wobble_check.py`
+**Path:** `(spectral consolidation script)`
 
-Run: `PYTHONIOENCODING=utf-8 python wobble_check.py`. 7/7 claims at machine precision: integer char poly, trace = $63 = 9\cdot 7$, $c_2 = 33 = 3\cdot 11$, $c_8 = -2^5\cdot 7^3\cdot 11$, only $c_2, c_8$ have factor 11, $\mathrm{disc}(g)$ factors with $2^{16}\cdot 7^7$ and no 11, $2^{16}$ matches $\dim$ of doubly-invariant subalgebra. Sympy. Wall-clock under 5 seconds.
+The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J37
+_(none — this paper is foundational in the J-series)_
 
 ## §4 — Cover letter
 
 See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Notes
+## §5 — Notes / Status
 
-**Status: DRAFT** — manuscript built from corpus `papers/wp107_wobble_localization/WP107_WOBBLE_LOCALIZATION.md` on 2026-05-07. Lens scope **TSML_RAW** explicit (the wobble does NOT appear on TSML_SYM at the coefficient level — that lens has $c_2 = 17$, no factor of 11). Cites J37 (so(8) = D₄, *J Algebra*) as already-submitted companion; references J39 (Pati-Salam) for the doubly-invariant content.
-
-**Per-venue cap warning:** This is potentially the **3rd PRD paper** in the J-series (after J10 dark-sector and J12 mass hierarchy in Phase 2). PRD per-venue cap is conventionally 2/quarter for tightly-related papers. **FALLBACK NEEDED if PRD's per-venue cap blocks acceptance.** Proposed fallback venue: *Physics Letters B* (short note format suits this 4-page result).
+**Status:** MANUSCRIPT FINALIZED 2026-09-06 (Phase 5; Sanders + Gish lane).
+**Citation chain:** foundational paper citing 4 prior J-companions (J01, J05, J21, J33) + 5 cross-references (J48, J51, J49, J31, J32). Cited downstream by many later J-papers as canonical $G_6$/$G_7$/$G_8$ reference.
+**Manuscript:** `manuscript/J51_spectral_layer_consolidation.md` (~10 pages, finalized).
+**Cover letter:** `cover_letter.md` (finalized).
+**Per-venue cap warning:** 3rd EJC submission of the J-series — fallback to *LinAlgApps* or *PLOS ONE* if needed (per `J_SERIES_ORDERING.md` §5).
+**Verification:** $G_6$, $G_7$, $G_8$ all numerically reproducible from corpus scripts; consolidation paper.
+**Submission readiness:** ready pending Brayden's referee-rigor pass + Luther's review of attribution and proofs.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized
-- [x] Verification script green (`wobble_check.py`, 7/7 PASS)
-- [x] Tier-classified central claim explicit
-- [x] Lens-scope annotation (TSML_RAW; the wobble is lens-dependent at coefficient level)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the **3rd PRD** paper this quarter — may need fallback to *Phys Lett B*
+- [ ] Manuscript .tex / .md finalized
+- [ ] Verification script green (`(no script)` if theorem-only)
+- [ ] Tier-classified central claim explicit
+- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
+- [ ] Cover letter finalized
+- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
+- [ ] Per-venue cap check: this is the Nth paper to European J Combin this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$." Submitted to *Physical Review D* (or *Phys Lett B* per cap fallback).
+Sanders, B.R., Luther. (2026). "Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture." Submitted to *European J Combin*.

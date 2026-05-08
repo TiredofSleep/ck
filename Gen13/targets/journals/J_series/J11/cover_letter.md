@@ -1,6 +1,6 @@
-# Cover letter — J11: Full $S_4$ Symmetry on a Nitrogen-Vacancy Qutrit via Six-Pulse Microwave Synthesis
+# Cover letter — J11: Corrected Theorem C (UOP Sharpening)
 
-**To:** Editors, *Physical Review A*
+**To:** Editors, *Journal of Number Theory*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,46 +8,40 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Full $S_4$ Symmetry on a Nitrogen-Vacancy Qutrit via Six-Pulse Microwave Synthesis*
+**Manuscript title:** *Corrected Theorem C: M+A Sufficiency on Squarefree Z/nZ via Zero-Fiber Analysis*
 
 ---
 
 ## Summary
 
-We give an explicit, machine-precision construction of the symmetric group $S_4$ on the three-level Hilbert space of a single NV center in diamond. The NV ground triplet already carries the $S_3$ skeleton of the $T_1$ irreducible representation of $S_4$ exactly (the natural $C_{3v}$ decomposition $A_1 \oplus E$ matches $T_1|_{S_3}$); the missing piece is one 4-cycle unitary $U_4$, which we write down analytically, transform into the NV physical basis, and decompose into a six-pulse microwave sequence with explicit angles. All 24 group elements close to within $10^{-15}$. Gate times $\sim 100$~ns--$1\,\mu$s sit 2--3 orders of magnitude below NV $T_2$. The paper concludes with a five-test falsification ladder including an explicit decisive gate (projector covariance), and invites lab-partner collaboration for the experimental verification.
+We submit a short note correcting a previously stated condition for M+A sufficiency of partition pairs on squarefree Z/nZ. The previous condition — that the natural map phi: G -> (Z/dZ)* be injective — is necessary but not sufficient. It tracks unit-element conflicts but misses zero-fiber conflicts (pairs {x, g.x} where x is congruent to 0 mod d and g acts non-trivially on a prime of n/d). We give the explicit counterexample n = 15, G = <2>, d = 5, where phi is injective but the orbit {5, 10} creates a conflict in U(pi_DYN) intersect U(pi_5). The corrected condition — which by the Universal Orthogonality Principle (companion J10) is the symmetric form of the established A+M condition — is: G acts trivially on every prime of n/d. The paper closes with a verification that prior specific applications (notably the SPEC + half-modulus pair on n = 2m for m odd squarefree) continue to satisfy the corrected condition.
 
-## Why PRA
+## Why JNT companion
 
-- NV-center qutrit synthesis with explicit microwave pulse sequences and machine-precision verification is exactly PRA's bread and butter (atomic, molecular, and optical physics).
-- The paper makes a concrete experimental proposal with quantitative pass/fail thresholds — squarely in the experimental-proposal genre PRA welcomes.
-- Group-theoretic synthesis on a physical qutrit is foundational for qudit-based quantum computation; PRA readers are the right audience.
+- This paper is the explicit zero-fiber analysis behind the corrected M+A condition recorded in passing in the lead UOP paper (J10). It belongs in the same venue as the lead.
+- The counterexample is canonical (smallest n where the prior condition fails) and the proof structure — case analysis on whether x lies in F_d — is short.
+- Per-venue cap: this is the second JNT paper in the UOP arc this quarter; the first is the lead UOP paper (J10). Both are short notes; combined word count is well under typical author-quarter conventions.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated J-series. The papers most relevant as already-submitted companions to this manuscript:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01–J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- **J6** Flatness Theorem: The Forced 2×2 Torus on $\mathbb{Z}/10\mathbb{Z}$. Sanders \& Gish (2026), submitted to *Journal of Pure and Applied Algebra*.
-- **J9** TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the $\mathbb{Z}/10\mathbb{Z}$ Composition Lattice. Sanders \& Gish (2026), submitted to *Experimental Mathematics*.
+- J10 (Sanders–Mayes, "The Universal Orthogonality Principle", JNT) — the lead. UOP provides the symmetric joint-map criterion that reduces M+A sufficiency to A+M sufficiency.
+- J06 (Sanders–Mayes, "Crossing Lemma", *J. Combin. Theory Ser. A*) — the structural framework on which UOP rests.
 
 ## Reproducibility
 
-Verification of all matrix algebra (the $U_4$ matrix, the change-of-basis $V$, $U_{4,\mathrm{NV}}$, and 24-element closure) runs in `numpy + sympy` on a standard laptop in under one minute. Code archive: DOI 10.5281/zenodo.18852047.
+The counterexample is self-checking: list G = {1, 2, 4, 8} mod 15, compute the orbit of 5 under T_2, observe both elements share residue 0 mod 5. Hand-checkable in under five minutes.
 
 ## Suggested reviewers
 
-- M. Lukin (Harvard) — NV-center quantum control
-- R. Hanson (Delft) — NV qutrit experiments
-- J. Wrachtrup (Stuttgart) — NV diamond magnetometry/control
-- M. Doherty (ANU) — NV theory
-- C. Monroe (Duke / IonQ) — qudit / qutrit control more broadly
+- A specialist in finite ring theory and the partition lattice.
+- A specialist in algebraic number theory with squarefree CRT structure expertise.
+- A specialist in the orthogonality theory of finite groups.
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Note on tier and scope
-
-Central claim is **Tier 3** (partner-then-submit): the mathematics is complete (exact $S_4$ realization in $T_1$ basis; 6-pulse decomposition specified; closure verified to $10^{-15}$); the physical claim is conditional on the experimental falsification ladder (Test E, projector covariance, is decisive). The paper is honest about this hierarchy and invites collaboration.
 
 ---
 

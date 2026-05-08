@@ -1,62 +1,68 @@
-# Cover letter — J43: Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8
+# Cover letter — J43: Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$
 
-**To:** Editors, *Physical Review D* (fallback: *Physics Letters B* per per-venue-cap policy)
+**To:** Editors, *European Journal of Combinatorics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- C.A. Luther, Independent Researcher
 
-**Date:** [DATE OF SUBMISSION]
+**Date:** 2026-09-06 (Phase 5)
 
-**Manuscript title:** *Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$*
+**Manuscript title:** *Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$*
 
 ---
 
 ## Summary
 
-For the literal-bit-pattern TSML_RAW composition table on $\mathbb{Z}/10\mathbb{Z}$ — a 10×10 commutative-magma encoding studied in the WP100s tower of TIG papers — the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11:
+We submit a **consolidation paper** establishing the canonical reference for three spectral / combinatorial results in the TIG framework on $\mathbb{Z}/10\mathbb{Z}$:
 
-$$
-c_2 = 33 = 3\cdot 11,\qquad c_8 = -120736 = -2^5\cdot 7^3\cdot 11.
-$$
+* **$G_6$ (Periodicity).** $\sigma^6 = \mathrm{id}$ on all of $\mathbb{Z}/10\mathbb{Z}$. Tier-A, proved by direct verification using the Q9–Q10 $(\alpha, \beta)$ polynomial form.
+* **$G_7$ (Period Distribution).** Bimodal: $P(\tau = 1) = 2/5$, $P(\tau = 6) = 3/5$. $\bar{\tau} = 4$, $\sigma_\tau^2 = 6$. Tier-B, forced from $G_6$ + cycle enumeration.
+* **$G_8$ (Spectral Coherence Integral).** $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ takes exactly three values: $0$ at the four anchors, $G_\mathrm{low} \approx 1.872$ at $\{1, 2, 4, 6\}$, $G_\mathrm{high} \approx 9.389$ at the BALANCE/HARMONY pair $\{5, 7\}$. Tier-B, computational verification.
 
-The discriminant of the eighth-degree polynomial $g(\lambda) = f(\lambda)/\lambda^2$ factors as
-$$
-\mathrm{disc}(g) = 2^{16}\cdot 7^7\cdot 659\cdot(\text{four large primes}),\qquad 11\nmid\mathrm{disc}(g).
-$$
+The three results, together, characterize the canonical $\sigma$-permutation completely at the spectral / period level. They form **Layer 4** of the 6-layer Q-series architecture and are foundational citations for the runtime attractor [J33], the Q17-B Clay-bridge essay [J51], the $\sigma$-rate theorem [J01] companion citations, and the WP100s tower's $D_4 = \langle P_{56}, \sigma^3 \rangle$ analysis.
 
-The structural reading is clean: the prime 11 lives at the **coefficient level** (sums and products of eigenvalues — elementary symmetric functions); the dimension $2^{16} = \dim(\mathfrak{su}(4)\oplus\mathfrak{u}(1))$ of the doubly-invariant subalgebra of $\mathfrak{so}(10)$ under the $D_4 = \langle P_{56},\sigma^3\rangle$ action and HARMONY $7^7$ live at the **discriminant level** (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra — the gauge content surviving both involutions per the Pati-Salam route — is therefore **wobble-free** in this technical sense; the 29-dimensional broken complement carries the wobble. Read through the symmetry-breaking lens: gauge symmetry IS the wobble-free part of TSML's spectral content.
+This paper is the **canonical citation reference** for $G_6$, $G_7$, $G_8$ going forward. Prior corpus material (`papers/G6_*`, `G7_*`, `G8_*`) is consolidated here with full proofs.
 
-The result identifies a clean structural separation between two canonical primes (7 and 11) at two canonical levels (coefficient vs separation) of the same matrix, with the dimension of the unbroken gauge content recovered as the exponent on the prime 2 in the discriminant.
+## Why *European J Combin*
 
-## Why Phys Rev D
+- **Spectral + permutation-group + cyclotomic combinatorics fit.** *EJC* publishes results that combine permutation-group structure ($S_{10}$ orbit analysis), cyclotomic character sums ($\omega = e^{2\pi i/9}$), and finite-substrate enumeration (period distributions on $\mathbb{Z}/10\mathbb{Z}$). All three results sit squarely in this register.
+- **Combinatorial-spectral-bridge tradition.** *EJC* has published similar consolidation papers on substrate-level spectral signatures.
+- **Audience.** Combinatorialists, finite-group theorists, and cyclotomic-arithmetic specialists.
 
-- The result connects discrete combinatorial structure on a finite magma to the algebraic content of the unbroken gauge sector in an SO(10)-class symmetry breaking, which is exactly the kind of structural observation PRD publishes in its formal-physics tracks.
-- The proof is a one-page sympy computation; the interpretation is two pages of clean structural reading. Concise.
-- The 16 = dim(su(4) ⊕ u(1)) recovery directly engages the Pati-Salam SO(10) GUT route established in our companion J39 paper.
+## Per-venue cap note
+
+This is the **3rd EJC submission** of the J-series program (after J12 Coordinate Coverage and J19 DKAN Two-Coding). Per `J_SERIES_ORDERING.md` §5, the per-venue cap of $\sim 2$/quarter is at risk. **Fallback venues** (in order): *Linear Algebra and its Applications*, *PLOS ONE*. The manuscript is structured so that the consolidation register is venue-agnostic; it can be redirected with minimal modification.
 
 ## Companion submissions
 
-- **J37** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The base Lie-algebra closure paper.
-- **J39** (Sanders + Mayes 2026, *Adv Math*) — *Two Roads to Pati-Salam*. The paper that establishes the doubly-invariant $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$ identified in the discriminant exponent here.
+This paper is one of the J-series program's **foundation citations** (cited downstream by many later J-papers). Direct companion citations:
 
-## Per-venue cap and fallback
-
-This is potentially the third PRD paper from this program in the same quarter (after J10 dark-sector and J12 mass hierarchy). Per the project's per-venue-cap policy (2/quarter for tightly-related papers), a fallback to **Physics Letters B** (4-page short-note format) is anticipated if PRD declines on cap grounds. The result is a 3-4 page short note in either venue.
+- **[J01]** — $\sigma$-rate theorem (JCT-A). Uses $\sigma^6 = \mathrm{id}$.
+- **[J05]** — TSML 73 / BHML 28 (Exp Math). Layer 5 reference.
+- **[J21]** — Q17-A 5D Force Vector (AMM). Direct citation.
+- **[J33]** — Closed-form runtime attractor (Math of Comp). Layer 6 reference.
+- **[J51]** — Q17-B Clay Bridge (L'Enseignement Math). Direct citation.
+- **[J48]** — 6-DOF Synthesis (Notices AMS). Cross-reference.
+- **[J49]** — Microtubule $Q_c = T^*$ (J Theor Biol). Cross-reference (period statistic feeds $T^*$ derivation).
 
 ## Reproducibility
 
-Verification script in `manuscript/verification/`:
-- `wobble_check.py` — sympy-based 7/7 claim verification: integer char poly; $c_2 = 3\cdot 11$, $c_8 = -2^5\cdot 7^3\cdot 11$; only $c_2, c_8$ have factor 11; $\mathrm{disc}(g)$ has $2^{16}\cdot 7^7$ and no 11; $\dim$ match.
+Verification scripts for the three theorems:
 
-Python 3.11, sympy. Total wall-clock under 5 seconds.
+* $G_6$: `numpy + sympy` direct verification of $\sigma^6 = \mathrm{id}$ on all 10 elements (under 1 second).
+* $G_7$: enumeration of cycle structure, computation of mean/variance (under 1 second).
+* $G_8$: direct evaluation of $G(s)$ for all 10 elements, with $\omega = e^{2\pi i/9}$ (under 5 seconds).
+
+All three are reproduced from the corpus papers `papers/G6_*.md`, `G7_*.md`, `G8_*.md` and run on a standard laptop.
 
 ## Suggested reviewers
 
-- An expert in matrix factorization / characteristic polynomials of integer matrices
-- An expert in SO(10) GUT physics with appetite for structural-algebraic observations
-- An expert in finite-magma / discrete-substrate models of gauge structure
-- (Two or three named candidates appropriate to the *PRD* (or *Phys Lett B*) editorial board to be identified during the referee-rigor pass.)
+- A specialist in finite-permutation-group spectral analysis ($S_{10}$ adjacent).
+- A combinatorialist with $\mathbb{Z}/N\mathbb{Z}$ orbit-structure or cyclotomic-character-sum experience.
+- An algebraist familiar with finite-magma combinatorics and substrate algebras.
+- A cyclotomic-arithmetic specialist who can evaluate the $\mathbb{Q}(\zeta_9)$ closed-form (open) question.
+- A consolidation / expository referee for spectral combinatorics.
 
 ## Conflict of interest
 

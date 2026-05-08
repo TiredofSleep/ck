@@ -7,7 +7,7 @@ $^{2}$Independent Researcher
 **Target venue:** *Mathematical Intelligencer*
 **Manuscript class:** Pedagogical exposition
 **MSC 2020:** 20N02 (sets with one binary operation, applied), 11C99 (number theory misc.), 05E18 (group actions on combinatorial structures)
-**Date:** 2026-09-09 (Phase 5; Sanders + Mayes lane)
+**Date:** 2026-09-09 (Phase 5; Sanders + Gish lane)
 
 **Per-venue cap:** 2nd *Mathematical Intelligencer* submission of the J-series, after [J32] (Joint TSML+BHML Chain). Per `J_SERIES_ORDERING.md`, this is the maximum permitted.
 

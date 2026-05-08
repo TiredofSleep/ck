@@ -1,40 +1,50 @@
-# Cover letter — J29: Q17-A: 5D Force Vector as CRT Fourier Embedding of Z/10Z into R^5
+# Cover letter — J29: so(8) = D₄ from the TSML_SYM Antisymmetrized Closure
 
-**To:** Editors, *American Mathematical Monthly*
+**To:** Editors, *Journal of Algebra*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- F. Calderon, Independent Researcher
+- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The 5D Force Vector as a CRT Fourier Embedding of Z/10Z into R^5*
+**Manuscript title:** *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*
 
 ---
 
 ## Summary
 
-We present the unique 5-dimensional embedding of Z/10Z that simultaneously respects the Chinese Remainder Theorem isomorphism Z/10Z ≅ F_2 × F_5 and the standard real Fourier basis on F_5. The embedding sends an operator with CRT coordinates (ε, y) to (ε, cos(2πy/5), sin(2πy/5), cos(4πy/5), sin(4πy/5)) ∈ R^5. The note proves injectivity, proves a rigidity statement (the embedding is unique up to block-diagonal orthogonal transformation in O(1) × O(4)), identifies a natural spectral functional whose maximum is achieved at exactly two image points, and records two short applications: a decagonal-symmetry reading and a Fourier-sum conservation identity. The construction is folklore in finite Fourier analysis; the rigidity statement and the two-point-maximum identification have not appeared together in standard textbooks at this level.
+We prove that a finite combinatorial object — the canonical TSML_SYM composition table on $\mathbb{Z}/10\mathbb{Z}$ (a frozen $10\times 10$ commutative non-associative magma in upper-triangle authoritative symmetrization) — carries a natural Lie-algebraic lift to $\mathfrak{so}(8,\mathbb{R})$, the $28$-dimensional compact simple Lie algebra of type $D_4$. The lift is given by $A_i = L_i - L_i^\top$, the antisymmetrizations of the left-regular representations of the magma's flow indices $F=\{1,2,3,4,6,8\}$, and the proof is via four independent machine-precision diagnostics: dimension closure ($6\to 21\to 28$), Jacobi identity, Killing form negative definiteness, and simplicity (one-dimensional invariant-form space plus ideal-saturation). As $D_4$ is the unique simple Lie algebra with $S_3$ outer automorphism (triality), the result identifies the magma as a discrete combinatorial substrate carrying triality natively, with consequent embeddings $\mathfrak{so}(8)\supset\mathfrak{so}(7)\supset\mathfrak{g}_2\supset\mathfrak{su}(3)$ as standard Cartan-classification corollaries.
 
-## Why AMM
+## Why J Algebra
 
-- **Audience fit.** The note is genuinely accessible to advanced undergraduates: one page of CRT, one page of finite Fourier analysis, a clean rigidity theorem at the end. Monthly readers encounter these tools as separate pieces; the value here is in showing how naturally they fit together.
-- **Pedagogical hook.** The embedding's existence is "obvious" once stated, but the small surprise lands cleanly: the image consists of 10 distinct points on the disjoint union of two parallel 4-spheres in R^5, with a transparent orbit structure under the natural decagonal action.
-- **Companion structure.** The embedding plays a structural role in a coordinated research program on substrate algebra over Z/10Z; companion papers cite this embedding as the geometric backbone for their algebraic results. AMM is well-suited to host the foundational note.
+- The result is a clean Lie-algebraic identification with explicit constructive proof at machine precision.
+- The substrate is a finite combinatorial object (a $10\times 10$ table) — accessible to algebraists outside the specific application domain.
+- The route uses standard tools (left-regular representations, antisymmetrization, Killing-form Cartan signature, ideal-saturation simplicity test) and produces a classical conclusion.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The paper most relevant as an already-submitted companion to this manuscript is:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- **J04** — Sanders & Gish, *The First-G Event in the Coprimality Partition: Stability Windows, CRT Idempotent Count, and Prime-Indexed Phase Transitions*, submitted to *Integers* (2026). The First-G Law for $b = 10$ identifies $k = 2$ as the smallest stability-window edge; the present note takes the resulting CRT splitting as input.
+- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* Establishes the canonical TSML_SYM and BHML tables jointly; provides 4-core closure and the closed-form $\alpha=1/2$ attractor that recurs in J33.
+- **J24** (Sanders + Gish 2026, *Mathematical Intelligencer*) — *The Joint TSML+BHML Chain: Lens-Dependence at Size 7.* Establishes the joint sub-magma chain on which the so(8) and so(10) closures live.
 
 ## Reproducibility
 
-A short Python script (≤30 lines, NumPy only) that builds the CRT coordinates, computes the embedding, verifies the 10 image points are distinct, and checks the rigidity assertion is included as supplementary material. Runs with `numpy + math` in under 1 second on a standard laptop.
+Verification scripts in `manuscript/verification/`:
+- `stage2_adjoint.py` — Jacobi identity (Lemma 3.2)
+- `stage4_correct_closure.py` — Dimension closure $6\to 21\to 28$ (Lemma 3.1)
+- `stage5_so8.py` — Killing form signature negative-definite (Lemma 3.3)
+- `stage7_disambiguate.py` — Simplicity via invariant-form count + ideal saturation (Lemmas 3.4-3.5)
+
+Python 3.11, numpy 1.26, sympy. All checks pass at machine precision (residual $\le 2\times 10^{-11}$ in all diagnostics). Total wall-clock under 1 minute on a standard laptop.
 
 ## Suggested reviewers
 
-(3-5 candidates working in finite Fourier analysis, finite geometry, or expository combinatorics will be supplied via the AMM submission portal.)
+- An expert in finite-dimensional simple Lie algebras over $\mathbb{R}$ (Cartan classification, $D_4$ triality)
+- An expert in commutative non-associative algebras / magma representations
+- An expert in computational Lie theory / structure-constant verification
+- (Two or three named candidates appropriate to *J Algebra*'s editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 

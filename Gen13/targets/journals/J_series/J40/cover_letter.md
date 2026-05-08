@@ -1,64 +1,61 @@
-# Cover letter — J40: Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)
+# Cover letter — J40: The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability
 
-**To:** Editors, *Compositio Mathematica*
+**To:** Editors, *Journal of Mathematical Physics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)*
+**Manuscript title:** *The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability*
 
 ---
 
 ## Summary
 
-We submit a bundled paper combining two related results on canonical arity-3 fuse rules for the literal-bit-pattern TSML_RAW composition table on $\mathbb{Z}/10\mathbb{Z}$.
+We exploit the Bialynicki-Birula--Mycielski uniqueness theorem (1976) — that logarithmic nonlinearity is the unique self-interaction preserving separability of composite quantum systems — as a *forcing principle*: any continuum lift of a discrete composition algebra that respects partition independence is forced to take the logarithmic form. The continuum lifted equation $\Box \Xi = \kappa(1 + \log \Xi)$ is then provably regular (Theorem 4.1, Sobolev + Grönwall + double-exponential bound). We compare to Navier-Stokes, define a separability defect $\sigma(u)$ on velocity fields, and state the Separability Regularity Criterion as a precise conjecture: NS regularity holds iff $\sigma(u(t)) < 1$ for all $t > 0$. The paper claims a new framework, not a proof of the Millennium Problem.
 
-**Part 1.** The 126 non-associative triples decompose under the diagonal $D_4 = \langle P_{56},\sigma^3\rangle$ action into 67 orbits, of which **16 are bracketing-pair incoherent**: no function $\Phi:\mathcal{N}\to\mathbb{Z}/10\mathbb{Z}$ taking values in the natural set $\{a,b,c,L,R\}$ can be $D_4$-equivariant. Consequence: the operad-DOF (arity-3 canonical fuse) is structurally orthogonal to the doubly-invariant gauge content $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$ established in the J38-J39 line.
+## Why JMP
 
-**Part 2.** Dropping one $D_4$ generator restores equivariance. With $\langle P_{56}\rangle$ (order 2), 126 triples decompose into 98 orbits, all $P_{56}$-coherent. All 8 surveyed regular rule families are $P_{56}$-equivariant; **none** are $\sigma^3$-equivariant; the unique family whose fuse-value range lies inside the 4-core $\{V,H,Br,R\}$ is Family H (attractor-4-core preference). The σ³-equivariance failure of Family H localizes to a **single triple** at the unique $\sigma^3$-fixed entry of $\mathcal{N}$. Two further structural results (lens-invariant on the 4-core): the 4-core is closed under the canonical ternary fuse, and every non-trivial initialization converges under iterated ternary fuse to $\delta_7$ (HARMONY) in $1$-$7$ iterations.
-
-The two parts together close Frontier F4 of the WP100s tower (operad-fuse) and provide the canonical arity-$3$ reasoning primitive for the rest of the framework.
-
-## Why Compositio
-
-- The result fits *Compositio*'s appetite for clean obstruction-theoretic results in algebra: an obstruction (Part 1) plus a sharp restoration theorem under a precisely identified subgroup (Part 2).
-- The 6-DOF symmetry hierarchy table at the end of Part 1 — five DOFs preserve $D_4$, the operad DOF must break it — is a structural observation of independent algebraic interest.
-- The bundling is natural: Part 2 is the constructive counterpart to Part 1's obstruction. Splitting them weakens the narrative.
+- The paper sits at the intersection of nonlinear PDE, constructive QFT, and discrete-to-continuum transport — the natural JMP audience.
+- The BB-bridge reading of the theorem is, to our knowledge, novel: previous work has used BB as a constraint on admissible nonlinear QM, not as a forcing principle for continuum lifts.
+- Three precisely stated open problems (Open Problem 1: $\Phi_N$ construction; Open Problem 2: nonlinearity gap $\delta^*$; Open Problem 3: separability bound) are concrete attack surfaces.
+- Theorem 4.1 is fully proved; the BB result it relies on is the classical 1976 paper; only the NS connection is conjectural, and that conjectural status is stated explicitly.
 
 ## Companion submissions
 
-- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* The base paper establishing the canonical TSML+BHML structure used here.
+The TIG/CK research program is shipping a coordinated J-series. The papers most relevant as already-submitted companions:
 
-## Fallback unbundling
-
-If a bundled submission is desk-rejected per fallback policy (per the project's `PHASE4_FALLBACK_UNBUNDLING.md`):
-- Part 1 (WP109 obstruction) → *Algebra Universalis*
-- Part 2 (WP112 canonical fuse) → *Communications in Algebra*
-
-The two parts are independently complete and can be unbundled if needed.
+- **J01** Sanders & Gish (2026), "Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$." Submitted to *JCT-A* (provides the $\sigma(N) \to 0$ rate input).
+- **J46** Sanders, Gish, Johnson (2026), "Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at $e^{-1}$ from a Logarithmic Potential." Submitted to *JCAP* (cosmological realization of the same $V(\Xi) = \kappa\,\Xi\log\Xi$).
+- **J06** Sanders & Mayes (2026), "Crossing Lemma." Submitted to *JCT-A* / *JPAA* (the discrete partition-independence reading of information generation).
+- **J41** Sanders & Johnson (2026), "The Yang-Mills Mass Gap Bridge." Companion JMP submission.
 
 ## Reproducibility
 
-Verification scripts in `manuscript/verification/`:
-- `d4_orbit_decomposition.py` — Part 1 (67 $D_4$-orbits, 16 incoherent)
-- `p56_canonical_fuse.py` — Part 2 (98 $P_{56}$-orbits, all coherent; Theorems 5.5, 5.7)
-- `rule_families.py` — 8-family $P_{56}$ vs $\sigma^3$ survey
-
-Python 3.11, numpy, sympy. Total wall-clock under 30 seconds. Canonical fuse table written to `fuse_canonical_p56.json`. All checks deterministic and machine-precision.
+`proof_separability_bridge.py` (43/43 PASS) verifies all numerical claims appearing in this paper. Runs in `python` with `math` only on a standard laptop in seconds. DOI: 10.5281/zenodo.18852047.
 
 ## Suggested reviewers
 
-- An expert in operad theory (Loday-Vallette tradition / Markl-Shnider-Stasheff)
-- An expert in finite-permutation-group obstructions in algebra
-- An expert in non-associative magmas and finite-magma combinatorics
-- (Two or three named candidates appropriate to the *Compositio* editorial board to be identified during the referee-rigor pass.)
+- T. Tao (UCLA) — NS regularity, log-improvements
+- C. Fefferman (Princeton) — Clay NS problem
+- I. Bialynicki-Birula (Polish Academy) — original 1976 author, if available
+- J. Maas (IST Austria) — discrete-to-continuum transport, log-Sobolev
+- N. Gigli (SISSA) — Maas / JKO framework
+- K.G. Zloshchastiev — logarithmic Schrödinger applications
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
+
+## Tier and scope
+
+Central claim is **Tier 4** (framework paper, structural). The BB theorem and Theorem 4.1 are proved; the bridge premise relies on a discrete-to-continuum lift $\Phi_N$ whose explicit construction is left open (Open Problem 1); NS regularity is *not* claimed proved. The Status Table in §6 of the manuscript makes this explicit.
+
+## Per-venue cap note
+
+This is the **first** JMP submission in the J-series; the second (J41, YM bridge) follows as the companion. Both papers cite each other; the 2/quarter cap is approached, not exceeded. J42 may need a fallback (see J42 README).
 
 ---
 

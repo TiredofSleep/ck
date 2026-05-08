@@ -1,9 +1,9 @@
 # J52 — The TSML Lens Family: A Pedagogical Exposition
 
 **Status:** DRAFT
-**Phase:** Phase 5
+**Phase:** Phase 6
 **Target venue:** Mathematical Intelligencer
-**Author lane:** Sanders + Mayes
+**Author lane:** Sanders + Gish
 **Tier:** B
 **WP source:** (lens-taxonomy expository)
 
@@ -23,7 +23,7 @@ The proof script (where applicable) is the green-light gate before submission. I
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J32, J47
+J24, J48
 
 ## §4 — Cover letter
 
@@ -31,11 +31,11 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-09 (Phase 5; Sanders + Mayes lane).
-**Citation chain:** 2 direct dependencies (J32 chain lens-dependence, J47 6-DOF synthesis) + 11 co-citing companions (J9, J31, J33, J34, J35, J38, J39, J41, J43, J44).
+**Status:** MANUSCRIPT FINALIZED 2026-09-09 (Phase 5; Sanders + Gish lane).
+**Citation chain:** 2 direct dependencies (J24 chain lens-dependence, J48 6-DOF synthesis) + 11 co-citing companions (J05, J23, J25, J26, J27, J30, J31, J33, J37, J35).
 **Manuscript:** `manuscript/J52_tsml_lens_family.md` (~10 pages, finalized).
 **Cover letter:** `cover_letter.md` (finalized).
-**Per-venue cap:** 2nd *Math Intelligencer* submission of the J-series after J32 — at maximum permitted. No further Math Intelligencer.
+**Per-venue cap:** 2nd *Math Intelligencer* submission of the J-series after J24 — at maximum permitted. No further Math Intelligencer.
 **Verification:** three reader exercises reproducible from corpus scripts.
 **Submission readiness:** ready pending Brayden's referee-rigor pass.
 

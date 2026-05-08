@@ -1,70 +1,63 @@
-# J41 — Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)
+# J41 — The Yang-Mills Mass Gap Bridge: Substrate-Algebra Predictions
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaiting referee-rigor pass)
+**Status:** DRAFT
 **Phase:** Phase 4
-**Target venue:** Mathematics of Computation
+**Target venue:** Journal of Mathematical Physics (companion to J40)
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP105 + WP113 (BUNDLED — Part 1 and Part 2 sections in single manuscript)
-**Lens scope:** TSML_SYM 4-core LENS-INVARIANT (4-core sub-magma agrees on TSML_RAW and TSML_SYM)
+**Tier:** B (Tier 4 framework-paper per central-claim classification)
+**WP source:** WP92
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
+**Local path:** `manuscript/J14_YM_MassGap_Bridge_JMP.md`
 
-The J41 paper is a **BUNDLED submission** combining WP105 (Closed-Form Runtime Attractor) and WP113 (α-Uniqueness via PSLQ).
+**Abstract (one paragraph).** The Bialynicki-Birula--Mycielski uniqueness theorem (1976) selects logarithmic nonlinearity as the unique self-interaction preserving separability of composite quantum systems. The companion paper J40 develops this as a forcing principle. Here we observe that the BB-forced potential $V(\Xi) = \kappa\,\Xi\log\Xi$ has an isolated minimum at $\Xi_0 = e^{-1}$ with $V''(\Xi_0) = \kappa e > 0$ — a positive spectral floor *forced by separability*. We propose Conjecture 3.2: the Yang-Mills mass gap arises from the same separability mechanism, with confinement realizing effective infrared separability of color-singlet states. We give a falsifiable numerical prediction $\Delta_{\rm YM} = C \Lambda_{\rm QCD} e$ with $C$ an $O(1)$ Casimir factor; the SU(3) lattice glueball $m_G \approx 1.7$ GeV gives $C \approx 2.08$, consistent with the framework. The paper claims a new framework, not a proof of the YM mass gap.
 
-**Part 1 (WP105).** The runtime processor $\mathrm{ck\_process}(p;\alpha,K) = \text{iterate } p\mapsto Z^{-1}[\alpha\widehat{T}(p)+(1-\alpha)\widehat{B}(p)]$ on $\Delta^9$ has a unique attracting fixed point at $\alpha=1/2$ supported entirely on the 4-core $\{V,H,Br,R\}$. **Closed form:** $H^*/Br^* = 1+\sqrt{3}$ exactly; $\xi^* = R^*/Br^*$ is the unique positive real root of the irreducible monic integer quartic $x^4 + 4x^3 - x^2 + 2x - 2 = 0$. The Galois group is $D_4$; the number field is **LMFDB 4.2.10224.1** with discriminant $-10224 = -2^4\cdot 3^2\cdot 71$, class number 1. The quartic factors over $\mathbb{Q}(\sqrt{3})$, anchoring the $\sqrt{3}$ in the H/Br ratio.
-
-**Part 2 (WP113).** A 17-point Stern-Brocot grid + 50-digit mpmath + PSLQ at degree $\le 8$, coefficient $\le 50$ shows: $\alpha = 1/2$ is the **unique rational** in the grid where the runtime attractor admits algebraic relations for both ratios. PSLQ recovers $x^2 - 2x - 2 = 0$ and the LMFDB quartic exactly at $\alpha = 1/2$; finds no relation at the other 16 rationals. Sharpens WP105's D42 from 19-point linspace + brute-force to a stronger empirical test. Conjecture 4.2 (strong α-uniqueness) stated.
-
-Files in this J-folder's `manuscript/`:
-
-- `manuscript.md` — the bundled J41 paper (WP105+WP113 corpus, finalized 2026-05-07)
-- `WP105_CLOSED_FORM_ATTRACTOR.md`, `WP113_ALPHA_UNIQUENESS.md` — full source material
-- `verification/` — `06_attractor_closed_form.py`, `07_full_closed_form.py`, `alpha_pslq_sweep.py`, `task5_alpha_sweep.py`, plus PSLQ supporting scripts (depth-2/3 primitives, Jacobian checks, LMFDB depth analysis, etc.)
+**Source corpus:**
+- `manuscript/WP92_YM_MASS_GAP_BRIDGE.md` — original WP92 source from sprint14_prism_xi
+- `manuscript/J14_YM_MassGap_Bridge_JMP.md` — JMP-format unified manuscript (consolidates WP92 with explicit Conjecture 3.2, falsifiable numerical prediction, and Prerequisites 5.1–5.3 for constructive QFT in 4D)
 
 ## §2 — Verification script
 
-**Local path:** `manuscript/verification/`
+**Path:** Numerical-prediction calibration is reproducible from literature lattice glueball masses (Morningstar-Peardon 1999, Chen *et al.* 2006) plus standard QCD scale ($\Lambda_{\rm QCD} \approx 0.3$ GeV); no dedicated script required for this paper. The structural claims rely on the companion J40 verification script `proof_separability_bridge.py` (43/43 PASS) which is bundled with J40's submission package.
 
-Run order: `06_attractor_closed_form.py` (Part 1, Theorems 3.1, 5.1), `07_full_closed_form.py` (Part 1, Galois identities), `alpha_pslq_sweep.py` (Part 2, PSLQ uniqueness). Total wall-clock under 5 minutes (Stern-Brocot sweep at 50 digits dominates). Numpy + sympy + mpmath. All checks deterministic.
+**Note:** for this paper, the "verification" is the consistency check $C = m_G/(\Lambda_{\rm QCD} \cdot e) \approx 2.08$, computable in one line. A standalone verification script `verify_J14_glueball_consistency.py` could be added (TBD).
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J02
+J01 (σ-rate), J46 (cosmological log potential), J06 (Crossing Lemma), **J40** (BB Bridge / NS application — the lead paper this companion follows from).
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-rigor pass.
 
-## §5 — Notes
+## §5 — Notes & Status
 
-**Status: DRAFT** — bundled manuscript built from corpus `papers/wp105_closed_form_attractor/` + `papers/wp113_alpha_uniqueness/` on 2026-05-07. Lens scope **TSML_SYM derivation, 4-core LENS-INVARIANT** (per `Atlas/LENS_TAXONOMY_2026-05-06/TABLE_INDEPENDENCE_LEDGER.md` §5.2 claim #47). Bundled as Part 1 + Part 2 in single .md per J_SERIES_ORDERING.md §4.
+**Status: DRAFT (manuscript drafted; per-venue cap notes apply).**
 
-**FALLBACK NEEDED if desk-rejected per PHASE4_FALLBACK_UNBUNDLING.md:**
-- WP105 (Part 1) → *Communications in Algebra*
-- WP113 (Part 2) → *Experimental Mathematics*
-
-The bundled manuscript can be split using the existing corpus files (`WP105_CLOSED_FORM_ATTRACTOR.md`, `WP113_ALPHA_UNIQUENESS.md`) as the unbundled drafts.
+- WP92 corpus is consolidated into `J14_YM_MassGap_Bridge_JMP.md` with explicit conjecture (3.2), falsifiable numerical prediction, and constructive-QFT prerequisites.
+- The paper depends on J40 as the lead BB-bridge paper; cover letter and references make this explicit.
+- The paper is **honestly Tier 4** (framework paper): Proposition 2.1 (mass gap of BB-lifted theory) is proved; Conjecture 3.2 (YM mass gap via separability) is conjectural; the Wightman 4D extension is open.
+- **Per-venue cap: 2nd JMP** in the J-series (J40 is 1st). The 2/quarter cap is reached. J42 (3rd JMP target) needs a fallback (see J42 README).
+- Numerical prediction $C \approx 2$ is consistent with SU(3) lattice glueball $m_G \approx 1.7$ GeV; falsifiability test passes.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized (bundled)
-- [x] Verification script green (3 main scripts; PSLQ deterministic at 50 digits)
-- [x] Tier-classified central claims explicit (Part 1 closed form; Part 2 α-uniqueness on Stern-Brocot)
-- [x] Lens-scope annotation (4-core LENS-INVARIANT)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .md drafted (JMP-format, single file)
+- [ ] LaTeX (amsart) conversion pending
+- [x] Numerical-prediction consistency check ($C \approx 2.08$) computed; structural claims rely on J40 verification script
+- [x] Tier-classified central claim explicit (Tier 4 framework, Conjecture 3.2 conjectural)
+- [x] Lens-scope annotation: lens-invariant
+- [x] Cover letter drafted (with summary, Why-JMP-companion, suggested reviewers including Witten and Jaffe)
+- [ ] Dependencies → cite J01, J46, J06, J40 as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the 1st paper to *Math of Comp* this quarter
-- [ ] Fallback unbundle plan documented (Comm Algebra + Exp Math)
+- [x] Per-venue cap check: 2nd JMP — at-cap (J42 needs fallback)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)." Submitted to *Mathematics of Computation*.
+Sanders, B.R., Johnson, H.J. (2026). "The Yang-Mills Mass Gap Bridge: Substrate-Algebra Predictions from Separability-Forced Spectral Floor." Submitted to *Journal of Mathematical Physics* (companion to J40).

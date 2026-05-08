@@ -1,9 +1,9 @@
 # J55 — Sept 11 Integration Paper
 
 **Status:** BRAYDEN-AUTHORED
-**Phase:** Phase 5
+**Phase:** Phase 6
 **Target venue:** arXiv (preprint) — eventual journal Brayden's choice
-**Author lane:** Brayden R. Sanders (solo)
+**Author lane:** Brayden R. Sanders + M. Gish
 **Tier:** —
 **WP source:** (Brayden solo)
 

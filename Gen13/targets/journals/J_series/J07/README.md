@@ -1,62 +1,62 @@
-# J07 — The Prime Phase Transition: First-G Stability Across Squarefree Bases
+# J07 — Flatness Theorem: The Forced 2x2 Torus on Z/10Z
 
-**Status:** FORMAT
+**Status:** APPENDIX-COMPLETE (T*=5/7 proof-sketch landed; manuscript ready for Brayden's referee-rigor pass)
 **Phase:** Phase 1
-**Target venue:** Experimental Mathematics
+**Target venue:** Journal of Pure and Applied Algebra
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP35
+**WP source:** WP51
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.tex` (amsart, ~14 pages)
-
-**Abstract (1-sentence):** For b > 1 with smallest prime factor p₁ = spf(b), the J04 First-G localization at k = p₁ co-localizes with the zero of a closed-form discrete-Fejér harmonic signal R(k, p₁) = sin²(πk/p₁) / (k² sin²(π/p₁)) whose continuum limit is sinc²; verified across 8 primes and 187 semiprimes (712 distinct checks; max error 3.33×10⁻¹⁶; zero counterexamples).
+**Local path:** `manuscript/WP51_FLATNESS_THEOREM.md`
 
 Files in this J-folder's `manuscript/`:
 
-- `manuscript.tex` (main submission file)
-- `verify_prime_phase_transition.py` (verification script — exits 0 on PASS in under three minutes)
-- `WP35_PRIME_PHASE_TRANSITION.md` (corpus source: archival-only, full WP35 exposition with the corollary and §6A–§11 material that the journal paper crops; cited from the manuscript as `Sanders2026WP35`)
+- `SUBMIT_INSTRUCTIONS.md`
+- `WP51_FLATNESS_THEOREM.md` (revised 2026-05-07: added Appendix A — T*=5/7 proof-sketch)
+- `WP52_D2_AS_RING_CURVATURE.md`
+
+The submission package lives in this J-folder. Edit + verify here; submit from here.
 
 ## §2 — Verification script
 
-**Local path:** `manuscript/verify_prime_phase_transition.py`
+**Path:** `(no script — theorem-paper)`
 
-Runs Theorems 3.1, 3.2, 3.3, 3.4 against literal double-precision sums. Tested green at 2026-05-07: 712 checks, max error 3.33×10⁻¹⁶ (machine epsilon), runtime ~30 s on `lora312` Python 3.12. Verified output:
-
-```
-Theorem 3.1 (countdown closed form):  primes = 8, (k,f) pairs = 106, max error = 3.33e-16
-Theorem 3.2 (zero-width gate):        semiprimes = 187, checks = 561, counterexamples = 0
-Theorem 3.3 (omega-blindness):        p = 7, b values = 7 (omega in {1,2,3}), counterexamples = 0
-Theorem 3.4 (continuum 4/pi^2):       p = 1009, 10007, 100003 — deviations 8e-4, 8e-5, 8e-6
-TOTAL: 712 checks, STATUS PASS, zero counterexamples
-```
+The proof of Theorem 3 (aspect ratio R/r = 5/7) reduces to two cyclotomic minimal-polynomial calculations: deg A_5 = 2 over ℚ (A_5 = φ, polynomial x² − x − 1), deg A_7 = 3 over ℚ (A_7 = 2cos(π/7), polynomial 8x³ − 4x² − 4x + 1, irreducible). Both verifiable by hand or in any CAS. The gate is referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-- **J04** (foundational lemma; cited as already-submitted to *Integers*) — *The First-G Event in the Coprimality Partition*. Theorem 3.2 of J07 directly invokes J04's First-G Localization Theorem 3.1.
-- **J01** (combinatorial sibling) — cited in §1 introduction as part of the coordinated J-series; not invoked in any proof.
-- **J02** (b = 10 specialization) — cited similarly.
+J01, J02, J03 (cited in Appendix A.3 for D1), **J06 (cited as algebraic ground throughout new Appendix A)**
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder, finalized at this folder root (~600 words). Suggested-reviewer slots and addressee placeholder remain TBD pending Brayden's submission-day pass.
+See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companions, Reproducibility, Reviewers all populated, includes new Appendix A note.)
 
 ## §5 — Notes
 
-Top-cited (14×). Builds directly on J04.
+**Status (2026-05-07):** T*=5/7 proof-sketch appendix landed. Manuscript ready for referee-rigor pass.
 
-**Status update (2026-05-07):**
+**What was done:**
+- Added **Appendix A — Proof-Sketch: T* = 5/7 from the Forced 2×2 Torus** to `manuscript/WP51_FLATNESS_THEOREM.md` immediately before the Bibliography section. The appendix includes:
+  - **§A.1** Six independent derivations table (D1–D6) with status labels (PROVED / STRUCTURAL / CONJECTURAL).
+  - **§A.2** Self-contained proof-sketch: forced 2×2 torus → cyclotomic closure at p=5 (R ∝ 5) and cyclotomic obstruction at p=7 (r ∝ 7) → R/r = 5/7. Hand-checkable via deg A_5 = 2 vs deg A_7 = 3 over ℚ.
+  - **§A.3** Cross-check of all six derivations with explicit mechanism for each.
+  - **§A.4** Conjectural extensions (A.1: general aspect ratio; A.2: universal T*=5/7; A.3: continuous T*) all clearly labeled.
+  - **§A.5** Statement that this appendix renders T*=5/7 citable from any J-series paper downstream of J07.
+- Cited **J06 (Crossing Lemma; Sanders & Mayes 2026)** as already-submitted algebraic ground throughout Appendix A. Added J06 reference to companion-submissions section in the Bibliography.
+- Added M. Gish to the author block (joint authorship for J07 submission, alongside corpus author Sanders).
+- Cover letter: finalized with Summary, Why-JPAA (3 bullets including J06 companion framing), Companions (J01, J02, J03, J06), Reproducibility (cyclotomic CAS check), Suggested reviewers, COI.
 
-- Manuscript: `manuscript/manuscript.tex` — newly drafted at this session from the WP35 corpus (`papers/WP35_PRIME_PHASE_TRANSITION.md`, ~900 lines / 32,000 tokens), cropped to the four headline theorems (Theorem 3.1 countdown / 3.2 zero-width / 3.3 ω-blindness / 3.4 continuum) plus a short §5 Montgomery complementarity remark. The full WP35 exposition (§6A seeded RPS, §7A D1/D2 kinematics, §8A RSA geometric distance, §9.5 sinc² scale-free description, §10 Balance Invisibility, §11 Clay-problem connections) was deliberately deferred from the J07 manuscript and lives only in the archival `WP35_PRIME_PHASE_TRANSITION.md` copied alongside; cited from the manuscript as `Sanders2026WP35`.
-- Verification: `manuscript/verify_prime_phase_transition.py` — passes green (712 checks, max error 3.33×10⁻¹⁶, zero counterexamples; tested 2026-05-07 with `lora312` Python 3.12).
-- Cover letter: `cover_letter.md` at this folder root, finalized at ~600 words. Identifies J07 as 1st *Experimental Mathematics* paper of the quarter (per-venue cap awareness).
-- **Author lane (clean):** README §0 lists "Sanders + Gish"; manuscript title block lists Sanders + Gish (Luther's WP35 contribution acknowledged in §Acknowledgements but not on the title block); no lane mismatch with J07.
-- **Honest accounting note:** the manuscript states 36,662 exact computations as the broader-corpus number and reports 712 distinct algebraic checks (8 primes + 187 semiprimes + 6 ω-rings + 3 continuum-limit witnesses) for the J07-specific verification harness. Both numbers are real; the 712 is the harness check count, the 36,662 is the cumulative WP35 corpus value. The cover letter and manuscript both reflect this accurately.
-- Open: pre-submission steps — typographic read by Gish; *Experimental Mathematics* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time. Scope-disclaimer paragraph in §6 (Scope and limitations) is load-bearing; keep unchanged.
+**Open issues:**
+- Conjecture A.1 (general aspect ratio R/r = p_closed / p_obstructed for arbitrary squarefree n) is *not* proved in this paper; if a JPAA referee asks for it, refer them to Open Problem 1 in §8.
+- Conjecture A.2 (universal T*=5/7 — i.e., p_obstructed = 7 for *every* squarefree n) is held strongly but not formally proved. D1 (first-G law) provides 36,662 cases of empirical support per J03; rigor of universality across the family is open.
+- D4 (TSML/BHML cell geometry) is labeled STRUCTURAL — the cell counts (73, 28, 5) are exact, the precise algebraic path from cell counts to T*=5/7 is held as structural pending fully formalized derivation. Reviewer may flag this; the appendix is honest about it.
+- The author block on the manuscript was updated to add M. Gish; the original WP51 source has only Sanders. If desired before submission, the original author line can be reverted and Gish added as J07-specific co-author in a separate front-matter note.
+
+**Per ClaudeChat J13 advice:** appendix-route was the faster path (vs spawning a separate "J13 T*=5/7 paper"). T* = 5/7 is now citable from any downstream paper without dependencies on a not-yet-shipped J13.
 
 ## §6 — Submission checklist
 
@@ -67,11 +67,11 @@ Top-cited (14×). Builds directly on J04.
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Experimental Mathematics this quarter
+- [ ] Per-venue cap check: this is the Nth paper to Journal of Pure and Applied Algebra this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "The Prime Phase Transition: First-G Stability Across Squarefree Bases." Submitted to *Experimental Mathematics*.
+Sanders, B.R., Gish. (2026). "Flatness Theorem: The Forced 2x2 Torus on Z/10Z." Submitted to *Journal of Pure and Applied Algebra*.

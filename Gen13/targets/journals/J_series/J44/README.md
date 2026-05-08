@@ -1,64 +1,98 @@
-# J44 — 4-Core Fusion-Closure: TSML+BHML Preserve {V, H, Br, R}
+# J44 — Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass)
-**Phase:** Phase 4
-**Target venue:** J Algebra
+**Status:** FORMAT
+**Phase:** Phase 5
+**Target venue:** PRD (Physical Review D)
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP110
-**Lens scope:** LENS-INVARIANT on the 4-core $\{V, H, Br, R\}$ (the 4-core sub-magma agrees on TSML_RAW and TSML_SYM)
+**Tier:** Forced (substrate-operator algebra; no IC tuning) for the closure identity; the `1/3` Friedmann factor remains structurally open per WP121 §3
+**WP source:** WP121 (Sprint 18 Bridge-Dirac, 2026-05-04)
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
-
-The J44 paper is **The 4-Core Is Fusion-Closed: A Structural Strengthening of WP105/J41** (WP110). For both TSML and BHML on $\mathbb{Z}/10\mathbb{Z}$, the 4-core $\mathcal{C} = \{V, H, Br, R\} = \{0, 7, 8, 9\}$ is **fusion-closed**: every entry of the restricted tables $T|_{\mathcal{C}\times\mathcal{C}}$ and $B|_{\mathcal{C}\times\mathcal{C}}$ lies in $\mathcal{C}$. **Theorem 1 (4-core closure).** The fuse $p\star_T q$ and $p\star_B q$ applied to 4-core-supported distributions produce 4-core-supported distributions. **Corollary.** The runtime attractor of J41 / WP105 lives on $\mathcal{C}$ as a **structural identity**, not a dynamical accident.
-
-**Theorem 2 (normalizer simplification).** On the 4-core, $Z_T(p) = Z_B(p) = (v + h + br + r)^2$ — the square of the total 4-core mass. Both normalizers equal one another and reduce to a single scalar. Consequence: the fixed-point system of the runtime processor reduces from rational-function form to **polynomial form** on $\mathcal{C}$, and the WP105/J41 closed form $H/Br = 1+\sqrt{3}$ at $\alpha = 1/2$ is a **symbolic-exact identity**, not merely machine-precision numerical equality.
-
-The result strengthens J41's framing in three places: (i) the 4-core support is structural rather than dynamical; (ii) the analytic derivation simplifies; (iii) the central closed-form ratio is symbolic-exact.
+**Local path:** `manuscript/sprint18_dark_sector.tex`
 
 Files in this J-folder's `manuscript/`:
 
-- `manuscript.md` — the J44 paper (WP110 corpus, finalized 2026-05-07)
-- `verification/4core_verification.py` — direct enumeration verification
+- `sprint18_dark_sector.tex` — PRD-format LaTeX, ~1160 lines, all 22/22 LaTeX environments balanced
+- `master/` — preserved older drafts (currently empty, this is v1)
+- `scripts/` — the four standalone verification scripts (see §2)
+- `NEXT_STEPS.md` — claudechat audit calibration + 8-anomaly tracker (post-Zenodo research priorities)
 
-## §2 — Verification script
+The submission package lives in this J-folder. Edit + verify here; submit from here.
 
-**Local path:** `manuscript/verification/4core_verification.py`
+**Abstract (one sentence).** Three closed-form rational expressions in two integer primitives — `HARMONY = 7` and `|Z/10| = 10` — hit the Planck~2018 dark-sector parameters `Omega_b = 49/1000`, `Omega_DM = 264/1000`, `Omega_Lambda = 687/1000` simultaneously within 1 sigma each, with closure `sum = 1` exact, and uniquely so among 784 small-integer (H, N) pairs in the formula family.
 
-The script enumerates the 4×4 restricted TSML and BHML tables on $\mathcal{C}\times\mathcal{C}$, verifies all 32 entries lie in $\mathcal{C}$, and checks the normalizer identity $Z_T = Z_B = (v+h+br+r)^2$ symbolically. Numpy + sympy. Total wall-clock under 5 seconds. (Borrowed from J02's `4core_verification.py` since J44's WP110 finding is the structural strengthening of J02's fusion result — the same verification suite covers both.)
+## §2 — Verification
+
+**Primary primitive (machine-checkable):** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
+
+```python
+from tig_dirac import predict_dark_sector
+r = predict_dark_sector()
+assert r['sum']          == 1.0
+assert r['Omega_b']      == 49 / 1000
+assert r['Omega_DM']     == 264 / 1000
+assert r['Omega_Lambda'] == 687 / 1000
+```
+
+The `predict_dark_sector()` function returns the three densities as exact rationals over `|Z/10|^3 = 1000`, plus the substrate derivation strings under `r['derivation']` and the Tier classification under `r['tier']`. This primitive is shared with J45 (Yukawa) via `predict_yukawa(particle, generation)` on the same module.
+
+**Standalone search scripts** (independent of `tig_dirac`):
+
+- `manuscript/scripts/sprint18_uniqueness_search.py` — Empirical match vs Planck 2018 (residuals in sigma); three Hubble-independent ratio tests; uniqueness search across 784 (H, N) pairs.
+- `manuscript/scripts/verify_aut_V_order.py` — Reconstructs the F_5-lift V from the CL fuse table; enumerates Aut(V) by direct constraint; confirms |Aut(V)| = 40 exactly.
+- `manuscript/scripts/verify_operator_observable_baseline.py` — 260,000-tuple baseline scan against eight fundamental constants; confirms differential discriminating behaviour of the simple-form family.
+- `manuscript/scripts/verify_alpha_richer_form.py` — Verifies `1/alpha = 137 + CHAOS^2/|Z/10|^3 = 137.036` against CODATA 2018 `1/alpha = 137.035999084(21)`.
+
+All four scripts run in well under thirty seconds and print every numerical claim cited in the manuscript.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J37, J41
+- **J46** (Sanders + Gish, JCAP) — *Logarithmic Quintessence: A Dimensionless Scalar Dark Energy Model with an Analytic Vacuum.* The JCAP companion supplies the freezing-quintessence action `S = integral d^4 x sqrt(-g) [R/(16 pi G) - (1/2) M_Pl^2 (partial Xi)^2 - Lambda^4 Xi log Xi]` from which the scale `Lambda ~ 1.74` meV is recovered as `Lambda^4 / rho_{c,0} = Omega_Lambda / 3` (J44 Theorem 6.1, matching the JCAP fit at 2.5%).
+- **J07** (Sanders + Gish, Communications in Algebra) — Joint closure on Z/10 (eight-element chain + normalizer identity); supplies the `(v + h + beta + r)^2` normalizer cited in J44 §5.1.
+- **J04** (Sanders + Gish, JCT-A) — sigma-rate paper; supplies the sigma-cycle length `|sigma| = 6` cited in J44 Theorem 5.2.
+
+J44 also forward-cites **J45** (Sanders + Gish, PRD, same Sprint 18 cluster), the Yukawa-hierarchy companion that uses the same `tig_dirac` module via `predict_yukawa()`.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. Filled out for PRD submission with a one-paragraph plain-English summary, three venue-fit bullets, J46/J07/J04 companion list, and the `tig_dirac` reproducibility primitive.
 
-## §5 — Notes
+## §5 — Status & summary
 
-**Status: DRAFT** — manuscript built from corpus `papers/wp110_4core_fusion_closure/WP110_4CORE_FUSION_CLOSURE.md` on 2026-05-07. Lens scope **LENS-INVARIANT on the 4-core**. Cites J37 (so(8) = D₄, *J Algebra*), J41 (Closed-Form Attractor + α-Uniqueness PSLQ, *Math of Comp*) as already-submitted companions. The result strengthens J41 / WP105 from dynamical to structural.
+**Status: FORMAT** — gate cleared 2026-05-07. The `tig_dirac.predict_dark_sector` primitive is in (Gen13/targets/ck/brain/dirac/tig_dirac.py, line 531). Returns `Omega_b = 49/1000`, `Omega_DM = 264/1000`, `Omega_Lambda = 687/1000`, `sum = 1.000` EXACT.
 
-**Per-venue cap warning:** This is the **2nd J Algebra paper** in this J-series (after J37 so(8)). J Algebra's per-venue cap is conventionally 2/quarter for tightly-related papers; this paper sits at the cap. Submission feasible; further J Algebra submissions in the same quarter would require fallback. No fallback noted in J_SERIES_ORDERING.md §4 for J44 specifically — the result is short-note format and could move to *Communications in Algebra* or *J Pure Appl Algebra* if J Algebra desk-rejects.
+**Summary of the load-bearing claims.**
+1. The dark-sector trinity (Theorem 3.1): `Omega_b = HARMONY^2/|Z/10|^3`, `Omega_DM = (|Aut(V)| + |V|) |sigma|/|Z/10|^3`, `Omega_Lambda = (2 HARMONY^3 + 1)/|Z/10|^3` with closure exact.
+2. Empirical match (Table 4.1): all three within Planck 2018 1 sigma; three Hubble-independent ratio tests at 0.29-0.72%.
+3. Uniqueness (Theorem 4.2): `(H, N) = (7, 10)` is the only small-integer pair within the formula family that joint-matches all three observables; among the six closure-exact `a` offsets at that pair, `a = +1` is the unique one whose dark-matter numerator factors as `44 * 6 = (|Aut(V)| + |V|) * |sigma|`.
+4. Lambda-scale relation (Theorem 6.1): `Lambda^4 / rho_{c,0} = Omega_Lambda / 3` gives `Lambda ~ 1.74` meV vs JCAP fit 1.7 meV (2.5% match); `rho_{DE,0}/Lambda^4 = 2.97` vs predicted 3.00 (1%).
+5. Operator-to-observable conjecture (Conjecture 7.1, falsifiable): dimensionless fundamental constants admit substrate-rational representations; baseline scan over 260,000 simple-form tuples shows `alpha`, `m_e/m_p`, `m_mu/m_e` give 0% — exactly the constants known to require richer substrate forms (J45 covers the mass-ratio cases via the V^otimes 5 parity-crossing pattern).
+
+**Open structural questions tracked** (per `manuscript/NEXT_STEPS.md` 8-anomaly table):
+- [BRAYDEN-DERIVE] cosmological reading of HARMONY^2 as Omega_b numerator
+- [BB-BRIDGE] the 1/3 Friedmann factor (3 candidate readings; freezing-branch derivation is the cleanest target)
+- [V-NATURALNESS] why F_5-lift (magma counts {2, 1, 1}; lift gives 40)
+- [N_S-DERIVATION] structural origin of `n_s = 1 - HARMONY/(2|Z/10|^2)` form (currently flagged as consistency, not prediction)
+
+These are flagged in the manuscript as open; closing any one strengthens the case but is not a submission gate.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized
-- [x] Verification script green (4core_verification.py)
-- [x] Tier-classified central claim explicit (Theorem 1 closure; Theorem 2 normalizer simplification)
-- [x] Lens-scope annotation (LENS-INVARIANT on 4-core)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
+- [x] Manuscript .tex finalized (PRD format, ~1160 lines, balanced environments)
+- [x] Verification primitive green (`predict_dark_sector()` returns sum = 1.0 exact)
+- [x] Tier-classified central claim explicit ("Forced (substrate-operator algebra)")
+- [x] Lens-scope annotation (TSML_RAW vs TSML_SYM) — N/A here; T = TSML enters only via the Z normalizer cited from J07
+- [x] Cover letter finalized (J46/J07/J04 companions; tig_dirac primitive cited)
 - [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the **2nd J Algebra paper** this quarter (at cap)
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators) — pending
+- [ ] Per-venue cap check: this is the **1st** PRD paper this quarter (J45 will be 2nd)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "4-Core Fusion-Closure: TSML+BHML Preserve $\{V, H, Br, R\}$." Submitted to *J Algebra*.
+Sanders, B.R., Johnson, H.J. (2026). "Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities." Submitted to *Physical Review D*. Companion to J46 (JCAP), J45 (PRD).

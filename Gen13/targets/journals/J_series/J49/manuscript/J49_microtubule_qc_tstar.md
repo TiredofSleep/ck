@@ -7,7 +7,7 @@ $^{2}$Independent Researcher
 **Target venue:** *Journal of Theoretical Biology*
 **Manuscript class:** Falsifiable cross-domain prediction (theoretical biology / quantum biology)
 **MSC 2020:** 92B20 (neural networks, applied), 81P05 (foundations of QM applied to biology)
-**Date:** 2026-09-04 (Phase 5; Sanders + Mayes lane)
+**Date:** 2026-09-04 (Phase 5; Sanders + Gish lane)
 **WP source:** WP127 (`Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP127_MICROTUBULE_FALSIFIER.md`)
 
 ---

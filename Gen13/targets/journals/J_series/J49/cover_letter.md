@@ -32,7 +32,7 @@ This is the framework's **most testable** prediction. Because $T^*$ is fixed *a 
 
 ## Companion submissions
 
-This paper cites **one direct dependency** ([J20] forced 5/7 torus, Acta Arithmetica) and **ten co-citing companions** across the J-series. The coordinated cross-domain referee pipeline (algebra, cosmology, biology) is documented in the companion paper [J47] (6-DOF Synthesis, Notices AMS, Phase 5 opener).
+This paper cites **one direct dependency** ([J13] forced 5/7 torus, Acta Arithmetica) and **ten co-citing companions** across the J-series. The coordinated cross-domain referee pipeline (algebra, cosmology, biology) is documented in the companion paper [J48] (6-DOF Synthesis, Notices AMS, Phase 5 opener).
 
 ## Reproducibility
 

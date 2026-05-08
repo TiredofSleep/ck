@@ -1,11 +1,11 @@
-# J04 — First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window
+# J04 — The Sinc² Zero Law for Squarefree Moduli
 
-**Status:** FORMAT
+**Status:** SUBMISSION-READY
 **Phase:** Phase 1
 **Target venue:** Integers
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP34
+**WP source:** (sinc² zero law)
 
 ---
 
@@ -16,20 +16,24 @@
 Files in this J-folder's `manuscript/`:
 
 - `cover_letter_template.md`
-- `first_g_event.tex`
-- `proof_first_g_event.py`
+- `LATEX_BUNDLE_NOTES.md`
+- `proof_d25_loop_closure.py`
+- `sinc2_zero_law.tex`
+- `SUBMIT_INSTRUCTIONS.md`
+- `WP34_FIRST_G_LAW.md`
+- `WP_SINC2_ZERO_LAW.md`
 
 The submission package lives in this J-folder. Edit + verify here; submit from here.
 
 ## §2 — Verification script
 
-**Path:** `(to extract from corpus: papers/proof_first_g.py if present)`
+**Path:** `papers/proof_d25_loop_closure.py`
 
 The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01, J02
+J04
 
 ## §4 — Cover letter
 
@@ -37,15 +41,26 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exhaustive check on squarefree b ≤ 500; the 36,662 is the broader corpus check across 187 semiprimes including non-squarefree). Format for Integers OA submission.
+**Status (2026-05-07): SUBMISSION-READY (FORMAT pass).** Manuscript re-scoped from
+the 2026-04-18 prime-only draft (which was pulled back on 2026-04-19 after a
+pre-push audit observed that the basic biconditional sinc²(k/n) = 0 ⇔ n | k is
+uniform in n) to the squarefree-modulus formulation. The basic biconditional is
+retained as Lemma 1; the squarefree-specific Theorem 2 ("the smallest k at which
+any non-trivial divisor d | b produces a sinc² zero is k = spf(b)") is the
+genuinely prime-dependent statement, and is the sinc² image of the First-G Event
+Localization Theorem of J04 (cited as already-submitted *Integers* companion).
 
-**Status update (2026-05-07):**
+**Verification:** `proof_d25_loop_closure.py` runs green for all primes 3..199
+(zero exceptions, exact arithmetic, runtime < 5s; ALL ASSERTIONS PASSED on
+2026-05-07). The multi-prime squarefree case is verified by the J04 companion
+script (`proof_first_g_event.py`, all squarefree b ≤ 500, 36,662 pairs, zero
+exceptions); not duplicated here.
 
-- Manuscript: `manuscript/manuscript.tex` (canonical name; mirrors `first_g_event.tex` byte-for-byte). amsart, ~12 pages, source from Sprint 35 (`Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/`). MR numbers added 2026-04-19 (Apostol MR0434929, Hardy-Wright MR2445243, Ireland-Rosen MR1070716, Lang MR1878556, Montgomery MR0337821; Shannon DOI added in lieu of MR).
-- Verification: `manuscript/proof_first_g_event.py` — runs in <3 s, prints the stability-window distribution table, exits 0 on PASS. Already verified by Sprint 35 SHIP_DECISION.md.
-- Cover letter: `cover_letter.md` finalized at this folder root, ~600 words, addressee placeholder for *Integers* managing editor at submission time.
-- **Author-lane mismatch (open issue, low priority):** README §0 lists the lane as "Sanders + Gish" but the existing manuscript file (Sprint 35 source-of-truth, journal-ready, MR-checked) has three authors: Sanders + Luther + Gish, matching WP34 attribution. Per "never delete + cite" preservation discipline, the existing tex was NOT edited to drop Luther. The cover letter's "From" block lists Sanders (corresponding) + Gish per the lane and notes Luther's appearance on the manuscript title block. Brayden to decide at referee-rigor pass whether to (a) reformat the manuscript to drop Luther (and renegotiate WP34 attribution upstream), or (b) update the J04 README lane to "Sanders + Luther + Gish" to match the manuscript. Default: option (b), since the WP34 corpus has Luther's dispersion-conjecture contribution recorded.
-- Open: pre-submission steps from Sprint 35 SHIP_DECISION.md §6 still outstanding — typographic read by Luther or Gish; *Integers* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time.
+**Per-venue cap:** 2nd *Integers* paper this quarter after J04 (within cap).
+
+**Authors:** Sanders + Gish.
+
+**Cite:** J04 (First-G companion, submitted to *Integers*).
 
 ## §6 — Submission checklist
 
@@ -63,4 +78,4 @@ Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exh
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window." Submitted to *Integers*.
+Sanders, B.R., Gish. (2026). "The Sinc² Zero Law for Squarefree Moduli." Submitted to *Integers*.

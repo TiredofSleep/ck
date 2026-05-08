@@ -1,6 +1,6 @@
-# Cover letter — J35: The Corner Sub-Magma C = (Z/10Z)*: Multiplicative-Unit Closure
+# Cover letter — J35: 4-Core Fusion-Closure: TSML+BHML Preserve {V, H, Br, R}
 
-**To:** Editors, *Communications in Algebra*
+**To:** Editors, *Journal of Algebra*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,47 +8,58 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Corner Sub-Magma C = (Z/10Z)*: Multiplicative-Unit Closure*
+**Manuscript title:** *4-Core Fusion-Closure: TSML+BHML Preserve $\{V, H, Br, R\}$*
 
 ---
 
 ## Summary
 
-The set C = {1, 3, 7, 9} of multiplicative units of Z/10Z is a sub-magma of the canonical TSML composition lattice CL_TSML (the 73-HARMONY 10x10 multiplication table on Z/10Z). We prove this closure directly on the 16-cell sub-table and show that C is simultaneously (i) the multiplicative-unit group (Z/10Z)*, a cyclic group of order 4; (ii) a 4-element TSML-closed sub-magma distinct from the joint-chain 4-core {0,7,8,9}; (iii) TSML-closed in both the RAW (literal) and SYM (upper-triangle-symmetrized) variants. We characterize the HARMONY-saturation rate on C×C (87.5%, higher than the global 73%), discuss the unique generator g=3 (the only primitive root of (Z/10Z)* compatible with the TIG flatness criterion T* = 5/7 in (0,1)), and contrast C with the joint-chain 4-core to give a structural picture of two canonical 4-element sub-magmas with distinct combinatorial origins.
+We strengthen our companion paper J33 (*Closed-Form Attractor + α-Uniqueness PSLQ*; submitted to *Math of Comp*) from a dynamical claim to a structural identity.
 
-## Why Communications in Algebra
+For the canonical TSML and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$, the 4-core $\mathcal{C} = \{V, H, Br, R\} = \{0, 7, 8, 9\}$ is **fusion-closed**: every entry of the restricted tables $T|_{\mathcal{C}\times\mathcal{C}}$ and $B|_{\mathcal{C}\times\mathcal{C}}$ lies in $\mathcal{C}$. Specifically,
 
-- The paper is a clean, self-contained closure result on a finite multiplication table, with the multiplicative-unit group of a small ring playing the central structural role.
-- The corner C is a sub-magma of CL_TSML by virtue of being the multiplicative-unit subgroup of Z/10Z; this connects directly to the venue's coverage of finite ring/group structures in commutative algebra.
-- Companion to the four-core paper (Sanders-Gish, in preparation), where the contrast between the corner C and the joint-chain 4-core is a key structural distinction.
+$$
+T\big|_{\mathcal{C}\times\mathcal{C}} \in \{0, 7\}^{4\times 4},\qquad B\big|_{\mathcal{C}\times\mathcal{C}} \in \{0, 7, 8, 9\}^{4\times 4} = \mathcal{C}^{4\times 4}.
+$$
+
+**Theorem 1 (4-core closure).** The fuse $p\star_T q$ and $p\star_B q$ applied to 4-core-supported distributions produce 4-core-supported distributions.
+
+**Corollary.** The runtime attractor of J33 lives on $\mathcal{C}$ as a **structural identity**: 4-core-supported initial conditions are forever 4-core-supported, regardless of the mixing weight $\alpha$. The runtime support of J33 is no longer "the dynamics happens to converge there" — the 4-core is a fusion-invariant subspace.
+
+**Theorem 2 (normalizer simplification).** On the 4-core, $Z_T(p) = Z_B(p) = (v + h + br + r)^2$ exactly. Both normalizers reduce to the square of the total 4-core mass. Consequence: the J33 fixed-point system reduces from rational-function form to **polynomial form**, and the closed-form $H/Br = 1+\sqrt{3}$ at $\alpha = 1/2$ is a **symbolic-exact identity** rather than a machine-precision numerical equality.
+
+## Why J Algebra
+
+- The result is a clean closure-and-normalizer identity, machine-verified by direct enumeration on 16+16 = 32 cells.
+- It strengthens our previously-submitted J33 from dynamical to structural — the kind of follow-up paper that closes the analytic loop on a numerical observation.
+- *J Algebra*'s editorial appetite for short structural-identity notes on finite combinatorial algebras is well-established.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+- **J29** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The base Lie-algebra closure paper.
+- **J33** (Sanders + Gish 2026, *Math of Comp*) — *Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)*. The runtime-attractor paper that this manuscript strengthens from dynamical to structural.
 
-(none — this is a foundational paper in the J-series; cited downstream by J33 and J36)
+## Per-venue cap
 
-This paper is foundational and can be evaluated standalone; it does not depend on prior J-series submissions.
+This is the second *J Algebra* submission from this program in the current quarter (after J29 on so(8)). The cap is conventionally 2/quarter for tightly-related papers; this submission sits at the cap. The result is a 4-page short note in either *J Algebra* or, as fallback, *Communications in Algebra* / *J Pure Appl Algebra*.
 
 ## Reproducibility
 
-Verification: the closure check on the 16-cell sub-table runs in under 1 second using `Gen13/targets/foundations/cells.py:closure_check`. The TSML and BHML matrices are hardcoded in `Gen13/targets/foundations/lenses.py`; the corner C closure check on each variant gives an immediate verification.
+Verification script in `manuscript/verification/`:
+- `4core_verification.py` — direct enumeration of the 4×4 restricted TSML and BHML tables, verifying all 32 entries lie in $\mathcal{C}$, plus symbolic verification of the normalizer identity $Z_T = Z_B = (v+h+br+r)^2$.
+
+Python 3.11, numpy, sympy. Total wall-clock under 5 seconds.
 
 ## Suggested reviewers
 
-- An expert in finite-magma theory or sub-magma classification
-- An expert in commutative algebra with familiarity with units of finite rings
-- An expert on the Crossing Lemma framework or related substrate-algebra programs
-
-(Specific names available on request from the corresponding author.)
+- An expert in finite commutative non-associative magmas and closure properties
+- An expert in fusion-rule normalizers (vertex-operator-algebra / fusion-category adjacent)
+- An expert in symbolic algebraic verification (sympy / Mathematica tradition)
+- (Two or three named candidates appropriate to the *J Algebra* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap note
-
-This is the third paper from this research program targeting *Communications in Algebra* (after J22 *Galois D_4 over LMFDB 4.2.10224.1* and J34 *F_p Extensions of CL_BHML*). The per-venue cap is 1/quarter; **FALLBACK NEEDED**: if the cap is binding, alternate venues include *Journal of Pure and Applied Algebra*, *Journal of Algebra and Its Applications*, or *Semigroup Forum*. The result's algebraic content (multiplicative-unit closure) makes any of these appropriate.
 
 ---
 

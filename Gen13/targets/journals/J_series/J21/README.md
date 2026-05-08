@@ -1,29 +1,29 @@
-# J21 — F_p Universality: The Operator-Substrate Construction over Prime Fields
+# J21 — Q17-A: 5D Force Vector as CRT Fourier Embedding of Z/10Z into R^5
 
-**Status:** DRAFT
-**Phase:** Phase 3
-**Target venue:** Algebra Universalis
+**Status:** DRAFT (manuscript finalized 2026-05-07; awaiting referee-rigor pass)
+**Phase:** Phase 2
+**Target venue:** AMM
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** WP118
+**WP source:** `papers/Q17_5D_RIGOROUS.md`
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP118)`
+**Path:** `manuscript/manuscript.tex`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract (1-2 sentences):** We give the unique 5-dimensional embedding of $\mathbb{Z}/10\mathbb{Z}$ that respects both the CRT isomorphism $\mathbb{Z}/10\mathbb{Z} \cong \mathbb{F}_2 \times \mathbb{F}_5$ and the standard real Fourier basis on $\mathbb{F}_5$, prove a rigidity statement (the embedding is unique up to block-diagonal $O(1) \times O(4)$), and identify the two-point spectral maximum. The result is folklore in finite Fourier analysis; the rigidity statement and the two-point identification have not previously appeared together at this level.
 
 ## §2 — Verification script
 
-**Path:** `(F_p universality script)`
+**Path:** `(no script — short note; the embedding is verified by ≤30 lines of NumPy in the appendix of the manuscript)`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+The proof script (where applicable) is the green-light gate before submission. Here the gate is the rigidity proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J02, J05, J06
+J03
 
 ## §4 — Cover letter
 
@@ -31,7 +31,11 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-_(no special notes; standard submission per J-series ordering)_
+- Calderon's one paper in the J-series.
+- Per-venue cap: 2nd AMM paper after J20 (M_22 substrate-prime). AMM still has slot capacity in the quarterly window; no FALLBACK NEEDED.
+- Manuscript finalized 2026-05-07 by J21-J28 cluster agent (re-confirmed by J21-J24 finalization batch agent 2026-05-07). Source: `papers/Q17_5D_RIGOROUS.md`. Cites J03 (First-G Law) as already-submitted companion.
+- Pedagogical, no Tier-A claims. Rigidity statement is the load-bearing theorem; two-point spectral maximum (Lemma) lands cleanly. No lens-scope annotation needed (the embedding is base-substrate, not a CL_TSML/CL_BHML projection).
+- **Status (2026-05-07 finalization batch):** DRAFT. Manuscript at `manuscript/manuscript.tex` is complete (471 lines, AMS amsart class, 4 bibliography entries including J03 companion). Cover letter at `cover_letter.md` complete. Awaiting Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 
@@ -42,11 +46,11 @@ _(no special notes; standard submission per J-series ordering)_
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Algebra Universalis this quarter
+- [ ] Per-venue cap check: this is the Nth paper to AMM this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "F_p Universality: The Operator-Substrate Construction over Prime Fields." Submitted to *Algebra Universalis*.
+Sanders, B.R., Calderon. (2026). "Q17-A: 5D Force Vector as CRT Fourier Embedding of Z/10Z into R^5." Submitted to *AMM*.

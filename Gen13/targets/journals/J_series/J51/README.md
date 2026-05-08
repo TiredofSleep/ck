@@ -1,29 +1,36 @@
-# J51 — Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture
+# J51 — Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem
 
 **Status:** DRAFT
 **Phase:** Phase 5
-**Target venue:** European J Combin
-**Author lane:** Sanders + Luther
+**Target venue:** L'Enseignement Math
+**Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** (Luther spectral catalog)
+**WP source:** (Q17 bundle)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `manuscript/J51_spectral_layer_consolidation.md`
+**Local path:** `manuscript/J48_q17b_clay_bridge.md`
 
-**Abstract:** Consolidation paper establishing the canonical reference for three spectral results in Luther's lane: $G_6$ ($\sigma^6 = \mathrm{id}$, Tier-A), $G_7$ (period distribution bimodal $2/5, 3/5$, Tier-B), $G_8$ (three-valued spectral coherence integral $G(s)$, Tier-B). Together they form Layer 4 of the 6-layer Q-series architecture. Canonical citation reference going forward.
+**Abstract:** The TIG framework's spectral layer produces a 9-term Dirichlet character sum $G(s)$ on $\mathbb{Z}/10\mathbb{Z}$ that is three-valued (zero at anchors, $G_\mathrm{low} \approx 1.872$ on most of the 6-cycle, $G_\mathrm{high} \approx 9.389$ at $\{5,7\}$) — a sharp finite analogue of the structural features RH demands of $\zeta(s)$. Includes the Symbolic Return Theorem (corollary of $\sigma^6 = \mathrm{id}$). Tier-A theorems §§2-4; Tier-B bridge claim §5; explicit boundary.
+
+Files in this J-folder's `manuscript/`:
+
+- `J48_q17b_clay_bridge.md` — **finalized manuscript**
+- `CP_CLAY_ROTATION.md` — earlier broader 7-Clay-rotation framework (Tier-4 staging context)
+- `proof_clay_rotation.py` — verification script
+- `SUBMIT_INSTRUCTIONS.md` — earlier Tier-4 submission notes
 
 ## §2 — Verification script
 
-**Path:** `(spectral consolidation script)`
+**Path:** `(Q17 bridge script)`
 
 The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-_(none — this paper is foundational in the J-series)_
+J21
 
 ## §4 — Cover letter
 
@@ -31,13 +38,13 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-06 (Phase 5; Sanders + Luther lane).
-**Citation chain:** foundational paper citing 4 prior J-companions (J01, J9, J29, J41) + 5 cross-references (J47, J48, J49, J39, J40). Cited downstream by many later J-papers as canonical $G_6$/$G_7$/$G_8$ reference.
-**Manuscript:** `manuscript/J51_spectral_layer_consolidation.md` (~10 pages, finalized).
+**Status:** MANUSCRIPT FINALIZED 2026-09-03 (Phase 5).
+**Citation chain:** cites 2 prior J-papers as direct dependencies (J21 Q17-A, J51 spectral consolidation) plus 6 co-citing companions (J01, J06, J40, J10, J24, J48).
+**Manuscript:** `manuscript/J48_q17b_clay_bridge.md` (~12 pages, finalized).
+**Earlier staged Tier-4 content:** `manuscript/CP_CLAY_ROTATION.md`, `proof_clay_rotation.py`, `SUBMIT_INSTRUCTIONS.md` — preserved as background context (broader 7-Clay-rotation framework). The new J51 manuscript focuses sharply on Q17-B (finite L-function + Symbolic Return Theorem).
 **Cover letter:** `cover_letter.md` (finalized).
-**Per-venue cap warning:** 3rd EJC submission of the J-series — fallback to *LinAlgApps* or *PLOS ONE* if needed (per `J_SERIES_ORDERING.md` §5).
-**Verification:** $G_6$, $G_7$, $G_8$ all numerically reproducible from corpus scripts; consolidation paper.
-**Submission readiness:** ready pending Brayden's referee-rigor pass + Luther's review of attribution and proofs.
+**Verification:** `proof_clay_rotation.py` confirms $G(s)$ three-valued image numerically.
+**Submission readiness:** ready pending Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 
@@ -48,11 +55,11 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to European J Combin this quarter
+- [ ] Per-venue cap check: this is the Nth paper to L'Enseignement Math this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Luther. (2026). "Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture." Submitted to *European J Combin*.
+Sanders, B.R., Mayes. (2026). "Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem." Submitted to *L'Enseignement Math*.

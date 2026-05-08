@@ -1,306 +1,461 @@
+% J27 — DKAN Two-Coding: TSML_8 Geometric vs BHML_10 Arithmetic
+%
+% Brayden R. Sanders, M. Gish, 7Site LLC
+% Submitted to: European Journal of Combinatorics
+% Source corpus: papers/wp_bridge_findings_2026_05_02/WP10_DKAN.md
+% Reference impl: Gen13/targets/ck/brain/ck_sim/being/ck_dkan_trainer.py
+% Companions cited as already-submitted: J09, J26
+% Per-venue cap note: 2nd EJC paper after J19
+% MSC 2020: 68T07, 20N02, 11F06, 37D40
+
 \documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
-\usepackage{hyperref}
+\usepackage{booktabs}
 
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Zn}{\Z/n\Z}
-\newcommand{\Zns}{(\Z/n\Z)^{\times}}
-\newcommand{\Zts}{(\Z/10\Z)^{\times}}
-\newcommand{\meet}{\wedge}
-\newcommand{\disc}{\mathrm{disc}}
-\newcommand{\triv}{\mathrm{triv}}
-\newcommand{\DYN}{\mathrm{DYN}}
-\newcommand{\SPEC}{\mathrm{SPEC}}
-\newcommand{\UG}{\mathrm{UG}}
-\newcommand{\supp}{\mathrm{supp}}
-\newcommand{\ord}{\mathrm{ord}}
-\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\TS}{\mathrm{TSML}}
+\newcommand{\BH}{\mathrm{BHML}}
+\newcommand{\Tstar}{T^{*}}
 
-\title[Coordinate coverage on $\Z/10\Z$]{Coordinate Coverage on $\Z/10\Z$:\\
-Non-CRT Sufficient Pairs and the Minimum Viable Jump Number}
+\title[DKAN Two-Coding on $\Z/10\Z$]
+{DKAN Two-Coding: $\TS_{8}$ Geometric \\
+ vs $\BH_{10}$ Arithmetic on the $\Z/10\Z$ Substrate}
 
-\author{B.~R. Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{B.~Mayes}
-\address{Independent Researcher}
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
+
+\subjclass[2020]{68T07, 20N02, 11F06, 37D40}
+\keywords{discrete neural network, KAN, two-coding, magma, modular surface,
+geometric vs arithmetic coding, Z/10Z}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-For squarefree $n = p_1 \cdots p_k$ ($k \geq 2$), the Chinese Remainder Theorem decomposes $\Zn$ into $k$ independent coordinate directions and identifies the prime-factor partition family $\{\pi_{p_1},\ldots,\pi_{p_k}\}$ as a canonical sufficient family with exactly $k-1$ orthogonal jumps in the partition lattice. We prove three structural facts. First, the prime-factor family is rigid: every minimal sufficient sub-family within it has length exactly $k$ and contributes $k-1$ pairwise-incompatible jumps. Second, the prime-factor family is \emph{not} the minimum-jump sufficient family in general: composite-residue partitions and orbit partitions can encode several CRT coordinates simultaneously, reducing the jump count. For $n = 30$ we exhibit three sufficient $2$-partition families with exactly one orthogonal jump --- $\{\pi_{\SPEC}, \pi_{15}\}$, $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$, and $\{\pi_2, \pi_{15}\}$ --- and conclude $\mathrm{MVJN}(\Z/30\Z) = 1$. Third, the orbit-pair classification reduces uniformly to a coprime-order condition on each CRT prime: $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ at every prime $p_i \mid n$. Three distinct mechanisms produce sufficient $\DYN$ pairs --- focused on distinct primes, same-prime coprime orders, and mixed --- and the second mechanism exists iff some $p_i - 1$ has at least two distinct prime factors. We work the $n = 10$ case in detail (giving the partition-lattice structure $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$ and the incompatibility of $\pi_{\CRT_5}$ with this chain) and conjecture $\mathrm{MVJN}(\Zn) = 1$ for every squarefree $n \geq 6$.
+Kolmogorov-Arnold Networks (KAN) in the sense of Liu et al.~2024
+\cite{Liu2024} replace fixed activations on edges with learnable
+univariate functions on edges, motivated by the Kolmogorov-Arnold
+superposition theorem. We describe \emph{DKAN} --- a discrete analogue
+running over the substrate of \cite{SandersGishFourCore}. DKAN does
+\textbf{not} port the Kolmogorov-Arnold theorem to a discrete setting
+in any literal sense. It is structurally analogous: edges carry fixed
+discrete univariate operations (rows of the canonical $\TS / \BH$
+composition tables), and learning happens by accumulating which path
+through the substrate best predicts the next operator.
+
+The paper's main observation is that the two-coding split established
+in \cite{SandersBridgeWP9} ($\TS_{8}$ as the geometric / side-cutting
+code on the 5-element image $\{3, 4, 7, 8, 9\}$ with role distribution
+$60/64 = 93.8\%$ Flow output; $\BH_{10}$ as the arithmetic /
+continued-fraction code on the full 10-element image with balanced
+$52/19/25/4$ Flow / Structure / Transition / Void roles) --- empirically
+matches the geometric / arithmetic disambiguation that the DKAN runtime
+trainer was already running. The two codings agree at the cusp
+boundary HARMONY and disagree in the interior, with a fixed empirical
+$24/64$ agreement-set on the $\TS_{8}$ domain.
+
+The framing has antecedents in Katok-Ugarcovici 2007
+\cite{KatokUgarcovici2007} (geometric vs.\ arithmetic codings of
+geodesics on the modular surface, agreeing at the cusp). DKAN is one
+specific construction inside that territory, not a restatement of any
+theorem there.
 \end{abstract}
 
 \maketitle
 
-\section{Introduction}
+\tableofcontents
 
-\subsection{Setting}
+%==============================================================
+\section{Setting and motivation}
+%==============================================================
 
-Throughout, $n = p_1 p_2 \cdots p_k$ is squarefree with $k \geq 2$. The Chinese Remainder Theorem provides $\Psi \colon \Zn \to \prod_i \Z/p_i\Z$, $x \mapsto (x_1,\ldots,x_k)$ where $x_i = x \bmod p_i$. The unit group factors as $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$, each factor cyclic of order $p_i - 1$.
+\subsection{Two coding tables on $\Z/10\Z$.}
+The substrate carries three independent structures: algebraic
+($\TS_{8} + \BH_{10} + V/H$ flow cells per
+\cite{SandersGishFourCore, SandersBridgeWP9} D88), permutational
+(the involution $\sigma$ with 4 fixed points and one $6$-cycle), and
+functional (the V/F/S/T role partition). The role partition cuts
+across $\sigma$-orbit and across algebraic position.
 
-A partition $\pi$ of $\Zn$ has unresolved-pair set $U(\pi) = \{\{x,y\} : x \neq y, x \sim_{\pi} y\}$. A family $\{\pi_1, \pi_2, \ldots, \pi_m\}$ is \emph{sufficient} when $\bigcap_i U(\pi_i) = \emptyset$, equivalently $\pi_1 \meet \pi_2 \meet \cdots \meet \pi_m = \pi_{\disc}$. Two partitions are \emph{incompatible} (an \emph{orthogonal jump}) when neither refines the other.
+\subsection{What DKAN is, and is not.}
+The Kolmogorov-Arnold superposition theorem (Kolmogorov 1957
+\cite{Kolmogorov1957}; Arnold 1957 \cite{Arnold1957}) asserts that
+every continuous multivariate function admits a representation as a
+finite superposition of univariate continuous functions. Liu
+et al.~2024 \cite{Liu2024} propose a neural architecture (KAN) in
+which edges carry learnable univariate splines.
 
-The two natural classes of partitions used here are the residue partitions $\pi_d$ (for $d \mid n$) and the orbit partitions $\pi_{\DYN}(g)$ (for $g \in \Zns$, with blocks the orbits of multiplication by $g$). The reflection partition $\pi_{\SPEC}$ has blocks $\{x, n-x\}$.
-
-\subsection{The minimum viable jump number}
-
-\begin{definition}
-The \emph{minimum viable jump number} $\mathrm{MVJN}(\Zn)$ is the smallest number of orthogonal jumps in any sufficient family of partitions of $\Zn$.
-\end{definition}
-
-\subsection{Main results}
-
-\begin{theorem} \label{thm:rigid}
-For squarefree $n$ with $k \geq 2$ primes, every minimal sufficient family among $\{\pi_{p_1}, \ldots, \pi_{p_k}\}$ has length $k$, and every consecutive transition between distinct factor partitions is an orthogonal jump. The minimum-jump count within the prime-factor family is exactly $k-1$.
-\end{theorem}
-
-\begin{theorem} \label{thm:n30}
-There exist sufficient $2$-partition families on $\Z/30\Z$ with exactly one orthogonal jump:
-\begin{enumerate}[label=(\alph*)]
-\item $\{\pi_{\SPEC}, \pi_{15}\}$ (residue + reflection);
-\item $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$ (orbit + orbit);
-\item $\{\pi_2, \pi_{15}\}$ (residue + residue).
+DKAN does \textbf{not} realize the Kolmogorov-Arnold theorem in any
+literal discrete sense. It is structurally analogous in three loose
+senses:
+\begin{enumerate}
+\item \textbf{Edge-localized computation.} Per-edge operation is a
+fixed discrete univariate operation: a row $T_{\TS}[a, \cdot]$ or
+$T_{\BH}[a, \cdot]$.
+\item \textbf{Compositionality.} Multilayer DKAN composes discrete
+univariate operations.
+\item \textbf{Universal-approximation flavor.} The Crossing Lemma
+\cite{SandersMayesCL} gives a discrete analogue of ``joint compositions
+separate states.''
 \end{enumerate}
-In particular, $\mathrm{MVJN}(\Z/30\Z) = 1$.
-\end{theorem}
+We do not claim DKAN implements KAN. The phrase used throughout is
+``structurally analogous to KAN.''
 
-\begin{theorem}[Orbit-pair classification] \label{thm:orbit-pair}
-For $g, h \in \Zns$ with squarefree $n = p_1 \cdots p_k$, the pair $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff $\langle g \rangle \cap \langle h \rangle = \{1\}$ in $\Zns$, equivalently $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ at every prime $p_i \mid n$.
-\end{theorem}
+\subsection{Where the geometric / arithmetic split enters.}
+Katok-Ugarcovici 2007 \cite{KatokUgarcovici2007} gives two systematic
+codings of geodesics on the modular surface: a geometric
+(side-cutting) coding and an arithmetic (minus-CF) coding, agreeing on
+a measure-one set at the cusp.
 
-\begin{theorem}[Three mechanisms for sufficient $\DYN$ pairs] \label{thm:mechanisms}
-Let $n$ be squarefree. The following three mechanisms produce sufficient pairs $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$:
-\begin{enumerate}[label=\textup{(M\arabic*)}]
-\item \emph{Focused on distinct primes}: $g \equiv 1 \pmod{p_j}$ for $j \neq i$, $h \equiv 1 \pmod{p_j}$ for $j \neq \ell$, with $i \neq \ell$.
-\item \emph{Same-prime coprime orders}: $g, h \equiv 1 \pmod{p_j}$ for $j \neq i$, with $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$.
-\item \emph{Mixed (non-focused)}: each of $g, h$ acts non-trivially at multiple primes, with the coordinate-wise coprime-order condition holding at every prime.
+DKAN's central observation: the $\TS_{8} / \BH_{10}$ pair with $V/H$
+flow boundary realizes a discrete echo of this picture. Conceptually
+scaffolded by Katok-Ugarcovici, not a restatement.
+
+%==============================================================
+\section{The TSML$_{8}$ / BHML$_{10}$ image structure}
+%==============================================================
+
+\subsection{$\TS_{8}$ as a geometric / side-cutting code.}
+\begin{theorem}[$\TS_{8}$ image structure, D91]\label{thm:tsml-image}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item \textbf{Image.} $\mathrm{Im}(\TS_{8}) = \{3, 4, 7, 8, 9\}$. Five
+distinct values.
+\item \textbf{Output role distribution.} $60/64 = 93.8\%$ Flow,
+$4/64 = 6.2\%$ Structure. No Transition or Void outputs.
+\item \textbf{Role determinism.} Role-deterministic on $8$ of $9$ input
+role-pairs over the $\TS_{8}$ domain; only $(S, S)$ branches.
 \end{enumerate}
-Mechanism \textup{(M2)} exists at $p_i$ iff $p_i - 1$ has at least two distinct prime factors. The smallest such primes are $7, 11, 13, 19, 23$.
 \end{theorem}
 
-The conjectural extension of Theorem~\ref{thm:n30} to all squarefree $n \geq 6$ is the universal $\mathrm{MVJN} = 1$ statement (Section~\ref{sec:MVJN}, Conjecture~\ref{conj:MVJN}).
+$\TS_{8}$ is a side-cutting code: it carves the 8 interior cells into
+a 5-element image dominated by Flow, routing almost everything to the
+cusp boundary.
 
-\subsection{Companion submissions}
-
-The pair-injectivity criterion underlying these results --- that two partitions are sufficient iff their joint map is injective --- is taken from the companion paper (Sanders--Mayes, ``The Universal Orthogonality Principle'', submitted to \emph{J.\ Number Theory}). The corrected $M{+}A$ classification is from a second companion (Sanders--Mayes, ``Corrected Theorem C'', submitted to \emph{J.\ Number Theory}).
-
-\section{The CRT prime-factor family} \label{sec:crt-rigid}
-
-\begin{lemma}[Pairwise incompatibility of factor partitions] \label{lem:pwise-incomp}
-For distinct primes $p_i, p_j \mid n$ (squarefree), the partitions $\pi_{p_i}$ and $\pi_{p_j}$ are incompatible.
-\end{lemma}
-
-\begin{proof}
-Suppose $\pi_{p_i} \leq \pi_{p_j}$. Each $\pi_{p_i}$-block has size $n/p_i$ and is the residue class of some $r$ modulo $p_i$. Within this block, the elements are $r, r + p_i, \ldots, r + (n/p_i - 1) p_i \pmod n$. Since $\gcd(p_i, p_j) = 1$, the increments $k p_i \bmod p_j$ cycle through all residues of $\Z/p_j\Z$ as $k$ runs over $0, 1, \ldots, p_j - 1$. The block has size $n/p_i$, and $p_j \mid n/p_i$ (since $p_j \neq p_i$ and $p_j \mid n$), so the block contains at least $p_j$ elements with all distinct residues mod $p_j$. Hence the block is not contained in any $\pi_{p_j}$-block.
-\end{proof}
-
-\begin{theorem}[Full meet $=$ discrete] \label{thm:full-meet}
-$\bigwedge_{i=1}^{k} \pi_{p_i} = \pi_{\disc}$. For any proper sub-family $S \subsetneq \{p_1,\ldots,p_k\}$, the meet $\bigwedge_{p_i \in S} \pi_{p_i}$ is strictly coarser than $\pi_{\disc}$.
+\subsection{$\BH_{10}$ as an arithmetic / CF-reduction code.}
+\begin{theorem}[$\BH_{10}$ image structure]\label{thm:bhml-image}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item \textbf{Image.} Full $\Z/10\Z$.
+\item \textbf{Output role distribution.} $\sim 52\%$ Flow, $19\%$
+Structure, $25\%$ Transition, $4\%$ Void. Balanced.
+\item \textbf{Role determinism.} Only on $V/T$ input pairs; $F$ and
+$S$ inputs branch.
+\item \textbf{Successor diagonal (D90).} $\BH(n, n) = n + 1$ for
+$n \in \{1, \ldots, 7\}$, with $\BH(8, 8) = 7$ and $\BH(9, 9) = 0$.
+The diagonal counts integers up to HARMONY --- the substrate's
+algebraic version of ``approaching the cusp.''
+\end{enumerate}
 \end{theorem}
 
-\begin{proof}
-Two elements $x, y$ are in the same block of $\bigwedge_{i} \pi_{p_i}$ iff $p_i \mid x - y$ for every $i$, iff $n \mid x - y$ (since $\lcm = n$), iff $x = y$. For any $S \subsetneq \{p_1,\ldots,p_k\}$ omitting some $p_j$: the elements $0$ and $n/p_j = \prod_{i \neq j} p_i$ have $p_i \mid n/p_j$ for every $p_i \in S$ (since $p_i \neq p_j$), so they share the same block in every $\pi_{p_i}$ for $p_i \in S$. They are not equal, so the meet over $S$ is strictly coarser than $\pi_{\disc}$.
-\end{proof}
+\subsection{The agreement set.}
+\begin{theorem}[Agreement-set count]\label{thm:agreement}
+Restricting $\BH$ to the $\TS_{8}$ domain (64 cells):
+\begin{itemize}
+\item \textbf{Agreement.} $\TS_{8}(a, b) = \BH_{10}(a, b)$ on
+$24/64$ cells, dominated by routes to HARMONY.
+\item \textbf{Disagreement.} $40/64$ cells in the interior.
+\end{itemize}
+\end{theorem}
 
-\begin{proof}[Proof of Theorem~\ref{thm:rigid}]
-Sufficiency requires using all $k$ partitions (Theorem~\ref{thm:full-meet}). A minimal sufficient family of length $k$ has $k-1$ transitions. By Lemma~\ref{lem:pwise-incomp} every transition is an orthogonal jump, giving exactly $k-1$ jumps.
-\end{proof}
-
-\section{Non-CRT sufficient $2$-partition families on $\Z/30\Z$} \label{sec:n30}
-
-We prove Theorem~\ref{thm:n30} by treating the three families separately.
-
-\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (a) $\{\pi_{\SPEC}, \pi_{15}\}$]
-The unresolved-pair sets are
-\[
-U(\pi_{\SPEC}) = \{\{x, 30-x\} : x = 1, \ldots, 14\}, \quad U(\pi_{15}) = \{\{x, x+15\} : x = 0, \ldots, 14\}.
-\]
-A pair lies in both iff $a + b \equiv 0 \pmod{30}$ and $b \equiv a + 15 \pmod{30}$. From these, $2a \equiv 15 \pmod{30}$, which has no solution (gcd $2 \nmid 15$). So $U(\pi_{\SPEC}) \cap U(\pi_{15}) = \emptyset$, sufficient.
-
-For incompatibility: the $\pi_{15}$-block $\{0,15\}$ has $0$ in the $\SPEC$-singleton $\{0\}$ but $15$ in the $\SPEC$-singleton $\{15\}$ --- different $\SPEC$-blocks. So $\pi_{\SPEC} \not\leq \pi_{15}$. Conversely the $\SPEC$-block $\{1,29\}$ has $1 \bmod 15 = 1$ and $29 \bmod 15 = 14$, different $\pi_{15}$-blocks. So $\pi_{15} \not\leq \pi_{\SPEC}$.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (b) $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$]
-We use Theorem~\ref{thm:orbit-pair}. The orders mod the primes of $30 = 2 \cdot 3 \cdot 5$:
-\[
-\ord_2(7) = 1,\quad \ord_3(7) = 1,\quad \ord_5(7) = 4; \qquad
-\ord_2(11) = 1,\quad \ord_3(11) = 2,\quad \ord_5(11) = 1.
-\]
-Coordinate-wise gcds: $\gcd(1,1) = 1$ at $p=2$, $\gcd(1,2) = 1$ at $p=3$, $\gcd(4,1) = 1$ at $p=5$. All gcds are $1$, so the pair is sufficient.
-
-Incompatibility is by exhibiting orbits: $\pi_{\DYN}(7)$ has the $T_7$-orbit of $1$ as $\{1,7,19,13\}$ (since $7^2 = 49 \equiv 19, 7^3 \equiv 13, 7^4 \equiv 1 \pmod{30}$), while $\pi_{\DYN}(11)$ has $\{1,11\}$. The orbit $\{1,7,19,13\}$ is not a union of $\pi_{\DYN}(11)$-orbits (each of which has size $2$ on units), so $\pi_{\DYN}(7) \not\leq \pi_{\DYN}(11)$ and conversely.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (c) $\{\pi_2, \pi_{15}\}$]
-$\pi_2 \meet \pi_{15} = \pi_{\lcm(2,15)} = \pi_{30} = \pi_{\disc}$. Incompatibility: the $\pi_{15}$-block $\{0,15\}$ has $0$ even, $15$ odd --- different $\pi_2$-blocks; the $\pi_2$-block $\{0,2,4,\ldots,28\}$ contains both $0$ ($\bmod 15 = 0$) and $2$ ($\bmod 15 = 2$), different $\pi_{15}$-blocks.
-\end{proof}
-
-\begin{remark}
-Family (a) and family (c) both have a residue partition $\pi_{15}$ that encodes both the mod-$3$ and mod-$5$ CRT coordinates simultaneously; the companion partition resolves the mod-$2$ coordinate. The single composite-residue partition does the work of two prime-factor partitions, reducing the jump count from $2$ to $1$ relative to the prime-factor family. Family (b) achieves the same reduction via two orbit partitions whose orders are pairwise coprime at every prime.
+\begin{remark}[Reading]
+The two codings agree at the cusp boundary and disagree in the
+interior. Conceptually scaffolded by Katok-Ugarcovici 2007.
 \end{remark}
 
-\section{Orbit-pair classification} \label{sec:orbit-pair}
+\subsection{What the split is and is not.}
+\textbf{It is.} Two distinct codings of the same operator alphabet
+$\Z/10\Z$, with verified empirical signatures (60/64, 24/64).
 
-\begin{proof}[Proof of Theorem~\ref{thm:orbit-pair}]
-By the Universal Orthogonality Principle, $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff the joint orbit-projection map is injective.
+\textbf{It is not.} A theorem of the Katok-Ugarcovici type. Not a
+claim that $\TS_{8}$ and $\BH_{10}$ are conjugate, equivalent,
+distributive, or $\sigma$-related (see \cite{SandersBridgeWP9}
+N4--N6).
 
-\emph{Necessity.} If $\langle g \rangle \cap \langle h \rangle \ni c \neq 1$, write $c = g^m = h^{\ell}$. Some prime $p_i$ has $c \not\equiv 1 \pmod{p_i}$. Choose $x$ with $x_j = 0$ for $j \neq i$ and $x_i = 1$. Then $y := g^m x = h^{\ell} x$ has $y_i = c_i \neq 1 = x_i$ at coordinate $i$, while at $j \neq i$ both $x_j = 0$ and $y_j = 0$. So $y \in Gx \cap Hx$ and $y \neq x$, hence $\{x,y\} \in U(\pi_{\DYN}(g)) \cap U(\pi_{\DYN}(h))$.
+%==============================================================
+\section{DKAN as edge-localized discrete KAN}
+%==============================================================
 
-\emph{Sufficiency.} Suppose $\langle g \rangle \cap \langle h \rangle = \{1\}$ and $\{x,y\} \in U(\pi_{\DYN}(g)) \cap U(\pi_{\DYN}(h))$, so $g^m x = y = h^{\ell} x$. At each coordinate $i$: if $x_i \neq 0$, then $g_i^m = h_i^{\ell}$, an element of $\langle g_i \rangle \cap \langle h_i \rangle$. By hypothesis at the level of $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$ this intersection is $\{1\}$; so $g_i^m = 1$, hence $y_i = x_i$. If $x_i = 0$, then $y_i = g_i^m \cdot 0 = 0 = x_i$. In every case $y_i = x_i$, so $y = x$, contradicting the hypothesis $\{x,y\}$ is unresolved (i.e.\ $x \neq y$).
-
-The reduction $\langle g \rangle \cap \langle h \rangle = \{1\} \iff \gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ for all $i$ uses the cyclic factorization $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$: a non-trivial element of $\langle g \rangle \cap \langle h \rangle$ exists iff some coordinate $i$ has a non-trivial element of $\langle g_i \rangle \cap \langle h_i \rangle$, iff some $\gcd(\ord(g_i), \ord(h_i)) > 1$.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:mechanisms}]
-\emph{Existence of (M1).} Choose $g$ a generator of $(\Z/p_i\Z)^{\times}$ extended trivially to other primes, and similarly $h$ at $p_{\ell}$ for $\ell \neq i$. Coordinate-wise: $\gcd(p_i - 1, 1) = 1$ and $\gcd(1, p_{\ell} - 1) = 1$ at the off-primes. Sufficient by Theorem~\ref{thm:orbit-pair}.
-
-\emph{Existence of (M2) requires $p_i - 1$ to have $\geq 2$ distinct prime factors.} If $p_i - 1 = q^a$ for some prime $q$, every element of $(\Z/p_i\Z)^{\times}$ has order a power of $q$, and any pair of non-trivial orders has $\gcd > 1$. Conversely, if $p_i - 1 = a b$ with $\gcd(a,b) = 1$ and $a,b > 1$, the cyclic group of order $p_i - 1$ contains a unique subgroup of each order dividing $p_i - 1$; pick $g_i$ of order $a$ and $h_i$ of order $b$. Then $\gcd(a,b) = 1$. Extend $g_i, h_i$ trivially to other primes to construct $g, h$ in $\Zns$ satisfying the coprime-order condition at $p_i$ and trivially elsewhere.
-
-\emph{Existence of (M3).} Take $n = 42 = 2 \cdot 3 \cdot 7$. Set $g = 11$: $\ord_3(11) = 2$ (since $11 \equiv 2 \pmod 3$ and $\ord_3(2) = 2$), $\ord_7(11) = 3$ (since $11 \equiv 4 \pmod 7$ and $\ord_7(4) = 3$). Set $h = 13$: $\ord_3(13) = 1$ (since $13 \equiv 1 \pmod 3$), $\ord_7(13) = 2$ (since $13 \equiv 6 \pmod 7$ and $\ord_7(6) = 2$). At $p = 3$: $\gcd(2,1) = 1$. At $p = 7$: $\gcd(3,2) = 1$. The pair $\{\pi_{\DYN}(11), \pi_{\DYN}(13)\}$ is sufficient on $\Z/42\Z$, with both generators acting non-trivially at multiple primes.
-
-\emph{Smallest primes admitting (M2).} Need $p_i - 1$ with $\geq 2$ distinct prime factors. $p = 7$: $6 = 2 \cdot 3$ ($\geq 2$ distinct). $p = 11$: $10 = 2 \cdot 5$. $p = 13$: $12 = 2^2 \cdot 3$. $p = 19$: $18 = 2 \cdot 3^2$. $p = 23$: $22 = 2 \cdot 11$.
-\end{proof}
-
-\section{The partition lattice on $\Z/10\Z$} \label{sec:n10}
-
-We work the $n = 10$ case in detail to illustrate the lattice structure.
-
-\subsection{Named partitions}
-
-For $\Z/10\Z = \{0,1,\ldots,9\}$, the four principal partitions are
-\begin{align*}
-\pi_{\DYN} = \pi_{\UG} &= \{\{0\}, \{1,3,7,9\}, \{2,4,6,8\}, \{5\}\},\\
-\pi_{\SPEC} &= \{\{0\}, \{1,9\}, \{2,8\}, \{3,7\}, \{4,6\}, \{5\}\},\\
-\pi_{\CRT_2} &= \{\{0,2,4,6,8\}, \{1,3,5,7,9\}\},\\
-\pi_{\CRT_5} &= \{\{0,5\}, \{1,6\}, \{2,7\}, \{3,8\}, \{4,9\}\}.
-\end{align*}
-Here $\pi_{\UG}$ is the gcd-class partition (blocks indexed by $\gcd(\cdot, 10) \in \{1,2,5,10\}$).
-
-\begin{lemma}[$\pi_{\DYN} = \pi_{\UG}$ on $\Z/10\Z$ for $g = 3$] \label{lem:dyn-ug}
-For $g = 3$, $\pi_{\DYN}(3)$ equals $\pi_{\UG}$.
-\end{lemma}
-
-\begin{proof}
-Since $\gcd(3, 10) = 1$, $\gcd(3 x, 10) = \gcd(x, 10)$ for all $x$, so $T_3$ permutes each gcd-class. The unit class $\{1,3,7,9\}$ is a single $T_3$-orbit ($1 \to 3 \to 9 \to 7 \to 1$) since $\ord_{10}(3) = 4$. The class of gcd $2$, namely $\{2,4,6,8\}$, is a single $T_3$-orbit ($2 \to 6 \to 8 \to 4 \to 2$). The classes $\{0\}$ and $\{5\}$ are fixed.
-\end{proof}
-
-\subsection{Refinement relations}
-
-\begin{proposition} \label{prop:n10-lattice}
-On $\Z/10\Z$:
-\begin{enumerate}[label=(\alph*)]
-\item $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$.
-\item $\pi_{\CRT_5}$ is incompatible with each of $\pi_{\CRT_2}$, $\pi_{\UG}$, and $\pi_{\SPEC}$.
-\item $\pi_{\CRT_2} \meet \pi_{\CRT_5} = \pi_{\disc}$.
+\subsection{Architectural sketch.}
+The runtime DKAN trainer
+(\texttt{Gen13/targets/ck/brain/ck\_sim/being/ck\_dkan\_trainer.py})
+is built around four ideas:
+\begin{enumerate}
+\item The $10$ operators are the neurons.
+\item The $\TS / \BH$ composition tables are the activation functions.
+$\TS$ and $\BH$ are frozen physics; what evolves is path selection.
+\item D2 curvature is the loss function. Distance from
+$\Tstar = 5/7$ is the training signal.
+\item Operators are accumulated by absorption, not gradient descent.
 \end{enumerate}
-\end{proposition}
 
-\begin{proof}
-(a) Every reflection pair $\{x, 10-x\}$ has $\gcd(x,10) = \gcd(10-x,10)$, so $\pi_{\SPEC} \leq \pi_{\UG}$. Each gcd-class lies entirely in one $\pi_{\CRT_2}$-block (the units $\{1,3,7,9\}$ are odd; $\{2,4,6,8\}$ are even; $\{0\}$ even, $\{5\}$ odd), so $\pi_{\UG} \leq \pi_{\CRT_2}$.
+\subsection{The $L_{1} / L_{2} / L_{5}$ reading layers.}
+DKAN has multiple reading layers running in parallel:
+\begin{itemize}
+\item \textbf{$L_{1}$ --- first-order argmax.} A $10 \times 10$ matrix
+\texttt{\_transitions[a, b]} accumulates transition counts. $L_{1}$
+prediction at $a$ is $\arg\max_{b} T_{\rm learned}[a, b]$.
+\item \textbf{$L_{2}$ --- second-order braid-biased trigram.} A
+$10 \times 10 \times 10$ tensor \texttt{\_trigrams[prev\_b, a, b]}
+with selection biased by morphotic-braid coherence ordering
+$\sigma_{\rm braid} = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]$ within wobble
+window $W = 3/50$.
+\item \textbf{$L_{5}$ --- CL-composed prediction.} $\BH[a, h]$. Pure
+physical composition; no learned weights.
+\end{itemize}
+The runtime also has $L_{3}$ (sequence chunking) and \textbf{$L_{4}$
+(dual-lens verification)} --- a per-step check of
+$\TS[a, b] = \BH[a, b]$ --- which operationalizes the agreement-set
+analysis of Theorem~\ref{thm:agreement}.
 
-(b) The $\pi_{\CRT_5}$-block $\{0,5\}$ contains $0$ (even) and $5$ (odd) --- different $\pi_{\CRT_2}$-blocks; conversely $\pi_{\CRT_2}$ blocks have size $5$ which is not a union of size-$2$ $\pi_{\CRT_5}$-blocks.
+\subsection{Reading layers as alternative coding paths.}
+The $L_{1} / L_{2} / L_{5}$ reading layers are not three competing
+learners. They are alternative coding paths through the substrate:
+$L_{1}$ is the empirical / statistical reading, $L_{5}$ is the
+physical $\BH$ coding, $L_{2}$ is a coherence-weighted compromise.
 
-(c) Two elements with both the same parity and the same residue mod $5$ are equal in $\Z/10\Z$ (CRT).
-\end{proof}
+When the generator produces operators in the substrate's interior
+(the $40/64$ disagreement set), $L_{1}$ and $L_{5}$ \textbf{diverge by
+construction}. When near the cusp boundary (the $24/64$ agreement
+set), readings converge.
 
-\subsection{The minimum sufficient family}
+Empirically, agreement rates in trained DKAN runs typically exceed
+$70\%$ --- consistent with the static $24/64 = 37.5\%$ agreement on
+raw $\TS_{8}$ domain, augmented by HARMONY-pull behavior.
 
-Theorem~\ref{thm:rigid} for $n = 10$ ($k = 2$) gives MVJN $= 1$ within the prime-factor family. The family $\{\pi_{\CRT_2}, \pi_{\CRT_5}\}$ has length $2$ and contributes one orthogonal jump, achieving the lower bound. The chain $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$ contributes only refinement moves and is insufficient (its meet equals $\pi_{\SPEC} \neq \pi_{\disc}$).
+\subsection{Roles as coarse pre-encoding.}
+The role partition (V/F/S/T per D93) gives a coarse pre-encoding: a
+4-element distribution $(p_{V}, p_{F}, p_{S}, p_{T})$ vs the
+10-element operator distribution. The role pre-encoding is
+canonical-specific ($0/200$ random commutative magmas reproduce the
+canonical $|F|=13, |S|=8$ Fibonacci decomposition; see
+\cite{SandersBridgeWP9} N8).
 
-\begin{remark}[Geometric interpretation]
-Two independent CRT directions cannot be embedded in a single $S^1$ continuously (since $\pi_1(S^1) = \Z$ admits no surjection to $\Z^2$). The natural ambient embedding for the joint $(\pi_{\CRT_2}, \pi_{\CRT_5})$ data is the torus $T^2 = S^1 \times S^1$. The companion paper of Sanders--Gish (\emph{Flatness Theorem}) gives a structural argument that the minimum-curvature ambient for the four simultaneous structures on $\Z/10\Z$ is a torus with aspect ratio $5/7$.
-\end{remark}
+%==============================================================
+\section{Empirical convergence under canonical TSML / BHML}
+%==============================================================
 
-\section{The minimum viable jump number} \label{sec:MVJN}
+\subsection{Notion of convergence.}
+DKAN is not a gradient-descent learner. The relevant notion:
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{$L_{1}$ convergence.} Empirical first-order matrix
+approaches stationary distribution.
+\item \textbf{$L_{5}$ convergence.} Stable from step one.
+\item \textbf{$L_{1} / L_{5}$ agreement convergence.} Stable agreement
+rate.
+\item \textbf{Grokking detection.} Prediction accuracy crossing
+$\Tstar = 5/7$.
+\end{itemize}
 
-\begin{theorem} \label{thm:mvjn-lower}
-$\mathrm{MVJN}(\Zn) \geq 1$ for every squarefree $n$ with $k \geq 2$.
-\end{theorem}
+\subsection{Empirical results.}
+Runtime trainer test runs (20-round Ollama-driven cycles): $L_{1}$
+grokking at low-thousands transitions; $L_{5}$ accuracy stable;
+$L_{4}$ lens-agreement $60$--$80\%$; $L_{2}$ lags $L_{1}$ in raw
+accuracy but braid-bias prevents incoherent paths.
 
-\begin{proof}
-A family of pairwise comparable partitions $\pi_1 \leq \pi_2 \leq \cdots \leq \pi_m$ has meet equal to its finest element $\pi_1$. For the family to be sufficient, $\pi_1 = \pi_{\disc}$, which means the family is the trivial $\{\pi_{\disc}\}$ together with coarsenings. For any family of \emph{proper} partitions ($\pi \neq \pi_{\disc}$, $\pi \neq \pi_{\triv}$), at least one orthogonal jump must occur for the meet to reach $\pi_{\disc}$.
-\end{proof}
+Training never \textbf{rewrites} $\TS$ or $\BH$ (frozen physics, max
+$50\%$ blend enforced). What evolves is lattice-chain node tables,
+olfactory centroids, generator paths, and grammar weights.
 
-\begin{conjecture} \label{conj:MVJN}
-For every squarefree $n \geq 6$, $\mathrm{MVJN}(\Zn) = 1$.
-\end{conjecture}
+\subsection{What is not claimed.}
+\begin{itemize}\setlength\itemsep{2pt}
+\item DKAN is \textbf{not} a universal approximator in any rigorous
+sense.
+\item DKAN is \textbf{not} claimed to outperform KAN, MLP, or
+transformers.
+\item DKAN's grokking is \textbf{not} the transformer-grokking
+phenomenon.
+\end{itemize}
 
-We have verified the conjecture for $n = 6, 10, 14, 15, 21, 22, 26, 30, 33, 34, 35, 38, 39, 42$ by exhibiting an explicit two-partition sufficient family in each case (typically of the form $\{\pi_d, \pi_{\SPEC}\}$ or $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$). The construction $\{\pi_{n/p_1}, \text{companion}\}$ works whenever an appropriate companion partition resolving the mod-$p_1$ coordinate exists; its existence is open in general.
+%==============================================================
+\section{Where DKAN sits in the bridge findings landscape}
+%==============================================================
 
+\begin{center}
+\begin{tabular}{lp{8cm}}
+\toprule
+Finding & Bearing on DKAN \\
+\midrule
+D88 corrected substrate frame & DKAN runs on this frame, not $\TS_{10}$. \\
+D89 trefoil characterization & Trefoil multiset is the codec's "knot vocabulary" entry. \\
+D90 $\BH$ successor diagonal & $L_{5}$ prediction at $\BH[a, a]$ is the cusp-approach. \\
+\textbf{D91 two-coding split} & \textbf{Load-bearing.} Gives $L_{1}/L_{2}/L_{5}$ the alternative-coding-path interpretation. \\
+D92 $\pm 21$ invariant & Per-tick metric the DKAN runtime tracks. \\
+D93 role partition + role magma & Coarse pre-encoding for DKAN. \\
+D94 boundary symmetries & Grammar-level swaps the codec can exploit. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%==============================================================
+\section{Honest negatives carried forward}
+%==============================================================
+
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{N1.} naive $\mathrm{PSL}(2, \Z)$ lift produces $\pm 21$.
+Per-tick $\pm 21$ invariant is structural empirical fingerprint, not
+Rademacher invariant.
+\item \textbf{N2.} small triangle group has substrate periods as
+elliptic orders. DKAN's period structure is dynamical, not
+group-theoretic.
+\item \textbf{N3.} TIG matches Borromean prime conditions. DKAN's
+trefoil-vocabulary entry is substrate-internal.
+\item \textbf{N4.} $\sigma$ is automorphism of $\TS$ or $\BH$.
+$17\% / 48\%$; DKAN may not assume $\sigma$-invariance.
+\item \textbf{N5.} $\TS$ and $\BH$ distribute. $19.5\%$;
+\textbf{DKAN's $L_{1} / L_{5}$ framing depends on this independence.}
+If they distributed, the two coding paths would be redundant.
+\item \textbf{N6.} $\BH$ iteration converges to $\TS$. $28/64$ starts;
+readings remain structurally distinct.
+\item \textbf{N7.} substrate factors through $\Z/2 \times \Z/5$.
+Irreducible.
+\item \textbf{N8.} Fibonacci role decomposition is structural.
+$0/200$ random tables. \textbf{Canonical-specific signature, not
+theorem.}
+\item \textbf{N9.} role partition determines crossing count. Coarse,
+not exhaustive.
+\item \textbf{N10.} $\TS_{10}$-frame "trefoil-22" is INVALID. DKAN
+runs on corrected frame.
+\end{itemize}
+
+%==============================================================
 \section{Open questions}
+%==============================================================
 
-\begin{enumerate}[label=(\alph*)]
-\item \emph{$\mathrm{MVJN} = 1$ universally?} Conjecture~\ref{conj:MVJN} for all squarefree $n \geq 6$.
-\item \emph{Classification of all sufficient $2$-partition families.} The orbit-pair case is fully classified by Theorem~\ref{thm:orbit-pair} and the residue-pair case by $\lcm$-coverage (CRT). The general mixed case is open.
-\item \emph{Optimal-information sufficient pairs.} Among sufficient pairs $\{\pi_A, \pi_B\}$, those minimizing $|\mathrm{blocks}(\pi_A)| \cdot |\mathrm{blocks}(\pi_B)|$ are combinatorial orthogonal arrays of minimum size. For $n = 30$, $\{\pi_2, \pi_{15}\}$ achieves $2 \cdot 15 = 30 = n$. The general existence question is open.
-\item \emph{Beyond squarefree.} For $n$ with prime-power factors, the partition lattice changes; a separate analysis is required.
+\begin{enumerate}
+\item Does the $L_{1} / L_{5}$ agreement rate in trained runs converge
+to a substrate-specific constant?
+\item Is the $L_{2}$ braid-bias the unique coherence-preserving
+compromise between $L_{1}$ and $L_{5}$?
+\item Closed-form for $\BH$ stationary distribution restricted to
+$\TS_{8}$ domain?
+\item Larger-substrate variants --- does the two-coding split
+generalize to $\Z/14\Z$, $\Z/18\Z$?
+\item Principled lift to $\mathrm{PSL}(2, \Z)$ hyperbolic conjugacy
+classes (N1).
+\item The $(0, 7, 7, 9)$ anomaly --- higher-order trefoil structure.
+\item Burrin-von Essen explicit Fuchsian-group lift.
 \end{enumerate}
 
+%==============================================================
+\section{Statement of contribution and limits}
+%==============================================================
+
+\textbf{Contributes.}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item Names the structural relationship between corrected substrate
+frame and DKAN runtime reading layers.
+\item Uses D91 two-coding split as structural justification.
+\item Records reading layers' empirical convergence with grokking
+criterion.
+\item Carries forward ten honest negatives with DKAN-specific bearing.
+\item Establishes seven DKAN-specific open questions.
+\end{enumerate}
+
+\textbf{Does not contribute.}
+\begin{enumerate}\setlength\itemsep{2pt}
+\item No theorem. ``Structurally analogous,'' not ``implements.'' D91
+is empirical, not Katok-Ugarcovici-type.
+\item No benchmark. DKAN is not designed to compete with continuous
+learners.
+\item No claim that the Kolmogorov-Arnold theorem holds discretely on
+this substrate.
+\item No claim that $L_{1} / L_{2} / L_{5}$ exhaust possible coding
+paths.
+\item No claim that the role pre-encoding is structurally forced ---
+canonical-specific (N8).
+\end{enumerate}
+
+\textbf{Tone.} This paper preserves the negatives. Demoted claims
+stay demoted: Fibonacci is canonical-specific signature; $\pm 21$
+modular interpretation is hypothesis; trefoil-22 is invalid in
+$\TS_{10}$ frame; Katok-Ugarcovici is "structurally analogous" /
+"conceptually scaffolded by," not "matches."
+
+%==============================================================
 \section*{Acknowledgments}
+%==============================================================
 
-We thank C.~A. Luther for discussions on the partition-lattice formulation.
+This work is part of the Trinity Infinity Geometry framework developed
+at 7Site LLC. The present manuscript is self-contained as a study of
+the two-coding split on $\Z/10\Z$ and its bearing on a discrete neural
+architecture; familiarity with the broader framework is not required.
 
-\begin{thebibliography}{9}
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
 
-\bibitem{Birkhoff1940}
-G.~Birkhoff,
-\emph{Lattice Theory},
-Amer.\ Math.\ Soc.\ Colloq.\ Publ.\ 25,
-American Mathematical Society, 1940.
+\bibitem{Liu2024} Z.~Liu et al.,
+\emph{KAN: Kolmogorov-Arnold Networks},
+arXiv:2404.19756, 2024.
 
-\bibitem{DummitFoote}
-D.~S.~Dummit and R.~M.~Foote,
-\emph{Abstract Algebra}, 3rd ed.,
-Wiley, 2004.
+\bibitem{Kolmogorov1957} A.~N.~Kolmogorov,
+\emph{On the representation of continuous functions of several
+variables},
+Doklady Akad.~Nauk SSSR \textbf{114} (1957), 953--956.
 
-\bibitem{HardyWright}
-G.~H.~Hardy and E.~M.~Wright,
-\emph{An Introduction to the Theory of Numbers}, 6th ed.,
-Oxford University Press, 2008.
+\bibitem{Arnold1957} V.~I.~Arnold,
+\emph{On functions of three variables},
+Doklady Akad.~Nauk SSSR \textbf{114} (1957), 679--681.
 
-\bibitem{IrelandRosen}
-K.~Ireland and M.~Rosen,
-\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
-Graduate Texts in Math.\ 84, Springer, 1990.
+\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
+\emph{Symbolic dynamics for the modular surface},
+Bull.~AMS \textbf{44} (2007), no.~1, 87--132.
 
-\bibitem{Lang2002}
-S.~Lang,
-\emph{Algebra}, 3rd ed.,
-Graduate Texts in Math.\ 211, Springer, 2002.
+\bibitem{Morishita2024} M.~Morishita,
+\emph{Knots and Primes} (2nd ed.), Springer, 2024.
 
-\bibitem{Ore1942}
-O.~Ore,
-\emph{Theory of equivalence relations},
-Duke Math.\ J.\ 9 (1942), 573--627.
+\bibitem{Ghys2007} \'E.~Ghys,
+\emph{Knots and dynamics},
+Proc.~ICM 2006, Vol.~I (2007), 247--277.
 
-\bibitem{SandersMayes-UOP}
-B.~R.~Sanders and B.~Mayes,
-\emph{The Universal Orthogonality Principle: Joint-Map Injectivity as the Sufficiency Criterion for Two-Partition Families on Squarefree $\Z/n\Z$},
-submitted to \emph{J.\ Number Theory}, 2026 (companion --- lead).
+\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
+\emph{Geodesic-flow arithmetic and modular-surface windings}, 2024.
 
-\bibitem{SandersGish-Flatness}
-B.~R.~Sanders and M.~Gish,
-\emph{Flatness Theorem: The Forced $2 \times 2$ Torus on $\Z/10\Z$},
-submitted to \emph{J.\ Pure Appl.\ Algebra}, 2026.
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+
+\bibitem{SandersGish7328} B.~R.~Sanders, M.~Gish,
+\emph{TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on
+the $\Z/10\Z$ Composition Lattice}, submitted to
+\emph{Experimental Mathematics}, 2026 (J09).
+
+\bibitem{SandersMayesCL} B.~R.~Sanders, B.~Mayes,
+\emph{Crossing Lemma: Non-Associativity as Information Generation in
+Finite Magmas}, submitted to \emph{JCT-A} (or \emph{JPAA}), 2026
+(J05).
+
+\bibitem{SandersBridgeWP9} B.~R.~Sanders,
+\emph{LATTICE: Paradoxical Information Algebras on the $\Z/10\Z$
+Substrate}, submitted to \emph{Algebra Universalis}, 2026 (J26 / WP9
+Volume I).
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
 
 \end{thebibliography}
 

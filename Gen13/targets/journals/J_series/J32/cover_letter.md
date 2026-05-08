@@ -1,6 +1,6 @@
-# Cover letter — J32: The Joint TSML+BHML Chain: Lens-Dependence at Size 7
+# Cover letter — J32: Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)
 
-**To:** Editors, *Mathematical Intelligencer*
+**To:** Editors, *Compositio Mathematica*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,49 +8,57 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Joint TSML+BHML Chain: Lens-Dependence at Size 7*
+**Manuscript title:** *Operad D₄ Obstruction + P_56 Canonical Fuse (BUNDLED)*
 
 ---
 
 ## Summary
 
-We record an explicit lens-dependence in the joint sub-magma closure chain of the canonical composition lattice on Z/10Z. The TSML table admits two principled lens-symmetrization choices, T_RAW (the literal bit pattern, non-commutative) and T_SYM (the upper-triangle symmetrized form, commutative), built from the same canonical encoding. Brute-force enumeration of all 1023 non-empty subsets of Z/10Z shows that the joint (TSML, BHML) closure has 8 shells under (T_SYM, BHML) — sizes {1, 4, 5, 6, 7, 8, 9, 10} — and only 7 shells under (T_RAW, BHML) — sizes {1, 4, 5, 6, 8, 9, 10}, with size 7 specifically forbidden. The single non-commutative asymmetry T_RAW(9, 4) = 3 ≠ 7 = T_RAW(4, 9) kills the size-7 shell {0, 4, 5, 6, 7, 8, 9} exactly, while T_SYM admits it. The four-core {0, 7, 8, 9} and the closed-form attractor at α = 1/2 are lens-invariant on both symmetrizations. The story is small but structurally clean: a 10×10 table with two non-commutative cell pairs admits two principled symmetrizations, and the joint sub-magma closure structure differs by exactly one shell at exactly one position. The substrate itself forces the authors to disambiguate which lens is in scope.
+We submit a bundled paper combining two related results on canonical arity-3 fuse rules for the literal-bit-pattern TSML_RAW composition table on $\mathbb{Z}/10\mathbb{Z}$.
 
-## Why Mathematical Intelligencer
+**Part 1.** The 126 non-associative triples decompose under the diagonal $D_4 = \langle P_{56},\sigma^3\rangle$ action into 67 orbits, of which **16 are bracketing-pair incoherent**: no function $\Phi:\mathcal{N}\to\mathbb{Z}/10\mathbb{Z}$ taking values in the natural set $\{a,b,c,L,R\}$ can be $D_4$-equivariant. Consequence: the operad-DOF (arity-3 canonical fuse) is structurally orthogonal to the doubly-invariant gauge content $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$ established in the J30-J31 line.
 
-- **Expository fit.** The lens-dependence is a small, sharp, beautiful result whose central content is forced by exactly one off-diagonal cell. Mathematical Intelligencer is the natural venue for such "small surprise that lands cleanly" results.
-- **Pedagogical hook.** A 10×10 table, two cell pairs that disagree, two principled lens choices, one shell of difference. Readers can verify the entire story with paper and pencil after reading; the brute-force enumeration is the closer, not the substance.
-- **Foundational reading without overreach.** The paper records the lens-dependence and discusses what it means for downstream substrate analysis (which lens to use when), but does not claim the result is foundational beyond its scope. The Mathematical Intelligencer's mid-register tone is appropriate.
+**Part 2.** Dropping one $D_4$ generator restores equivariance. With $\langle P_{56}\rangle$ (order 2), 126 triples decompose into 98 orbits, all $P_{56}$-coherent. All 8 surveyed regular rule families are $P_{56}$-equivariant; **none** are $\sigma^3$-equivariant; the unique family whose fuse-value range lies inside the 4-core $\{V,H,Br,R\}$ is Family H (attractor-4-core preference). The σ³-equivariance failure of Family H localizes to a **single triple** at the unique $\sigma^3$-fixed entry of $\mathcal{N}$. Two further structural results (lens-invariant on the 4-core): the 4-core is closed under the canonical ternary fuse, and every non-trivial initialization converges under iterated ternary fuse to $\delta_7$ (HARMONY) in $1$-$7$ iterations.
+
+The two parts together close Frontier F4 of the WP100s tower (operad-fuse) and provide the canonical arity-$3$ reasoning primitive for the rest of the framework.
+
+## Why Compositio
+
+- The result fits *Compositio*'s appetite for clean obstruction-theoretic results in algebra: an obstruction (Part 1) plus a sharp restoration theorem under a precisely identified subgroup (Part 2).
+- The 6-DOF symmetry hierarchy table at the end of Part 1 — five DOFs preserve $D_4$, the operad DOF must break it — is a structural observation of independent algebraic interest.
+- The bundling is natural: Part 2 is the constructive counterpart to Part 1's obstruction. Splitting them weakens the narrative.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* The base paper establishing the canonical TSML+BHML structure used here.
 
-- **J02** — Sanders & Gish, *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on Z/10Z*, submitted to *Algebraic Combinatorics* (2026). Establishes the (T_SYM, BHML) 8-shell chain as the four-core consolidated paper's Theorem 1; the present paper records the parallel statement on T_RAW and proves the lens-dependence at size 7.
-- **J09** — Sanders & Gish, *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics* (2026). Establishes the lens-invariance of the HARMONY-cell counts (which is a Tier-B forced result on both lenses); the present paper records a complementary lens-dependence at the joint-chain level.
+## Fallback unbundling
 
-## Lens-scope annotation (per the Lens Taxonomy)
+If a bundled submission is desk-rejected per fallback policy (per the project's `PHASE4_FALLBACK_UNBUNDLING.md`):
+- Part 1 (WP109 obstruction) → *Algebra Universalis*
+- Part 2 (WP112 canonical fuse) → *Communications in Algebra*
 
-Per `Atlas/LENS_TAXONOMY_2026-05-06/TIER_CONFLATION_AUDIT.md` M4 and the four-core consolidated paper's lens-scope discipline, this paper is explicit about which lens is in scope at each statement:
-- The 8-shell chain is on **(T_SYM, BHML)**.
-- The 7-shell chain is on **(T_RAW, BHML)**.
-- The four-core, the attractor, and HARMONY counts at the substrate level are **lens-invariant on both**.
+The two parts are independently complete and can be unbundled if needed.
 
 ## Reproducibility
 
-The script `joint_chain_attractor.py` (already in the codebase per WP115) performs all verifications: enumerates the 1023 non-empty subsets, prints the closed-shell tables for both lenses, performs the per-shell cell-level verification, and identifies T_RAW(9, 4) = 3 as the single asymmetric cell breaking size-7 closure. Total runtime under 10 seconds.
+Verification scripts in `manuscript/verification/`:
+- `d4_orbit_decomposition.py` — Part 1 (67 $D_4$-orbits, 16 incoherent)
+- `p56_canonical_fuse.py` — Part 2 (98 $P_{56}$-orbits, all coherent; Theorems 5.5, 5.7)
+- `rule_families.py` — 8-family $P_{56}$ vs $\sigma^3$ survey
+
+Python 3.11, numpy, sympy. Total wall-clock under 30 seconds. Canonical fuse table written to `fuse_canonical_p56.json`. All checks deterministic and machine-precision.
 
 ## Suggested reviewers
 
-(3-5 candidates working in finite-magma combinatorics, sub-algebra enumeration, or universal algebra will be supplied via the Mathematical Intelligencer submission portal.)
+- An expert in operad theory (Loday-Vallette tradition / Markl-Shnider-Stasheff)
+- An expert in finite-permutation-group obstructions in algebra
+- An expert in non-associative magmas and finite-magma combinatorics
+- (Two or three named candidates appropriate to the *Compositio* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap
-
-This is the **1st Mathematical Intelligencer submission** of the 2026 cycle. Within the 2/quarter cap (J52 expository in Phase 5 will be the second).
 
 ---
 

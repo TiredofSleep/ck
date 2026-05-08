@@ -1,45 +1,40 @@
-# Cover letter — J21: F_p Universality: The Operator-Substrate Construction over Prime Fields
+# Cover letter — J21: Q17-A: 5D Force Vector as CRT Fourier Embedding of Z/10Z into R^5
 
-**To:** Editors, *Algebra Universalis*
+**To:** Editors, *American Mathematical Monthly*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- F. Calderon, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *F_p Universality: The Operator-Substrate Construction over Prime Fields*
+**Manuscript title:** *The 5D Force Vector as a CRT Fourier Embedding of Z/10Z into R^5*
 
 ---
 
 ## Summary
 
-We exhibit a 4-dimensional commutative non-associative algebra defined by an explicit 4×4 multiplication table whose structural skeleton — three non-zero idempotents, 1+3 Minkowski signature under one operator, 2+2 chirality signature under another, automorphism group of order 40, one-dimensional associator image, power-associativity — is preserved when the bilinear extension is performed over six distinct prime fields F_p, p ∈ {2, 3, 5, 7, 11, 13}. We conjecture the field-invariance extends to all p ∉ {2, 5}.
+We present the unique 5-dimensional embedding of Z/10Z that simultaneously respects the Chinese Remainder Theorem isomorphism Z/10Z ≅ F_2 × F_5 and the standard real Fourier basis on F_5. The embedding sends an operator with CRT coordinates (ε, y) to (ε, cos(2πy/5), sin(2πy/5), cos(4πy/5), sin(4πy/5)) ∈ R^5. The note proves injectivity, proves a rigidity statement (the embedding is unique up to block-diagonal orthogonal transformation in O(1) × O(4)), identifies a natural spectral functional whose maximum is achieved at exactly two image points, and records two short applications: a decagonal-symmetry reading and a Fourier-sum conservation identity. The construction is folklore in finite Fourier analysis; the rigidity statement and the two-point-maximum identification have not appeared together in standard textbooks at this level.
 
-## Why Algebra Universalis
+## Why AMM
 
-- Subject fit: the result is a structural theorem about a finite commutative non-associative algebra with a one-dimensional associator image — squarely within Algebra Universalis's core.
-- The proof is direct computation in a brute-force-tractable regime ($p^4$ idempotent enumeration), with all 14 algebraic checks runnable in <2 seconds on a laptop.
-- The companion structure (J23 Discrete Dirac on F_5^4, J24 Clifford Ladder, both submitted simultaneously) lets the referee triangulate the F_p result against the Discrete Dirac and Clifford-ladder content without forward-citing this paper.
+- **Audience fit.** The note is genuinely accessible to advanced undergraduates: one page of CRT, one page of finite Fourier analysis, a clean rigidity theorem at the end. Monthly readers encounter these tools as separate pieces; the value here is in showing how naturally they fit together.
+- **Pedagogical hook.** The embedding's existence is "obvious" once stated, but the small surprise lands cleanly: the image consists of 10 distinct points on the disjoint union of two parallel 4-spheres in R^5, with a transparent orbit structure under the natural decagonal action.
+- **Companion structure.** The embedding plays a structural role in a coordinated research program on substrate algebra over Z/10Z; companion papers cite this embedding as the geometric backbone for their algebraic results. AMM is well-suited to host the foundational note.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The paper most relevant as an already-submitted companion to this manuscript is:
 
-- J02 (Algebraic Combinatorics) — joint closure, per-coordinate fuse data, four-core attractor
-- J05 (JCT-A or JPAA) — Crossing Lemma: non-associativity as information generation
-- J06 (Journal of Pure and Applied Algebra) — Flatness Theorem: forced 2×2 torus on Z/10Z
+- **J03** — Sanders & Gish, *The First-G Event in the Coprimality Partition: Stability Windows, CRT Idempotent Count, and Prime-Indexed Phase Transitions*, submitted to *Integers* (2026). The First-G Law for $b = 10$ identifies $k = 2$ as the smallest stability-window edge; the present note takes the resulting CRT splitting as input.
 
 ## Reproducibility
 
-Verification: `verify_discrete_dirac_4core.py` (14 algebraic checks over F_5) plus `axial_algebra_check.md` (presents the data for primes p ∈ {2, 3, 7, 11, 13}); reference Python library `tig_dirac.py`. All scripts run with `numpy` as the only external dependency in <2 seconds on a standard laptop. Deposited at https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04.
+A short Python script (≤30 lines, NumPy only) that builds the CRT coordinates, computes the embedding, verifies the 10 image points are distinct, and checks the rigidity assertion is included as supplementary material. Runs with `numpy + math` in under 1 second on a standard laptop.
 
 ## Suggested reviewers
 
-- A specialist on commutative non-associative / axial algebras (Hall–Rehren–Shpectorov axial-algebra circle).
-- A specialist on finite-field algebras with idempotent decomposition.
-- A specialist on Griess-algebra constructions or Sakuma-type theorems.
-(Three to five candidates to be selected by Brayden during pre-submission referee-rigor pass.)
+(3-5 candidates working in finite Fourier analysis, finite geometry, or expository combinatorics will be supplied via the AMM submission portal.)
 
 ## Conflict of interest
 

@@ -1,6 +1,6 @@
-# Cover letter — J37: so(8) = D₄ from the TSML_SYM Antisymmetrized Closure
+# Cover letter — J37: Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8
 
-**To:** Editors, *Journal of Algebra*
+**To:** Editors, *Physical Review D* (fallback: *Physics Letters B* per per-venue-cap policy)
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,43 +8,55 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*
+**Manuscript title:** *Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$*
 
 ---
 
 ## Summary
 
-We prove that a finite combinatorial object — the canonical TSML_SYM composition table on $\mathbb{Z}/10\mathbb{Z}$ (a frozen $10\times 10$ commutative non-associative magma in upper-triangle authoritative symmetrization) — carries a natural Lie-algebraic lift to $\mathfrak{so}(8,\mathbb{R})$, the $28$-dimensional compact simple Lie algebra of type $D_4$. The lift is given by $A_i = L_i - L_i^\top$, the antisymmetrizations of the left-regular representations of the magma's flow indices $F=\{1,2,3,4,6,8\}$, and the proof is via four independent machine-precision diagnostics: dimension closure ($6\to 21\to 28$), Jacobi identity, Killing form negative definiteness, and simplicity (one-dimensional invariant-form space plus ideal-saturation). As $D_4$ is the unique simple Lie algebra with $S_3$ outer automorphism (triality), the result identifies the magma as a discrete combinatorial substrate carrying triality natively, with consequent embeddings $\mathfrak{so}(8)\supset\mathfrak{so}(7)\supset\mathfrak{g}_2\supset\mathfrak{su}(3)$ as standard Cartan-classification corollaries.
+For the literal-bit-pattern TSML_RAW composition table on $\mathbb{Z}/10\mathbb{Z}$ — a 10×10 commutative-magma encoding studied in the WP100s tower of TIG papers — the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11:
 
-## Why J Algebra
+$$
+c_2 = 33 = 3\cdot 11,\qquad c_8 = -120736 = -2^5\cdot 7^3\cdot 11.
+$$
 
-- The result is a clean Lie-algebraic identification with explicit constructive proof at machine precision.
-- The substrate is a finite combinatorial object (a $10\times 10$ table) — accessible to algebraists outside the specific application domain.
-- The route uses standard tools (left-regular representations, antisymmetrization, Killing-form Cartan signature, ideal-saturation simplicity test) and produces a classical conclusion.
+The discriminant of the eighth-degree polynomial $g(\lambda) = f(\lambda)/\lambda^2$ factors as
+$$
+\mathrm{disc}(g) = 2^{16}\cdot 7^7\cdot 659\cdot(\text{four large primes}),\qquad 11\nmid\mathrm{disc}(g).
+$$
+
+The structural reading is clean: the prime 11 lives at the **coefficient level** (sums and products of eigenvalues — elementary symmetric functions); the dimension $2^{16} = \dim(\mathfrak{su}(4)\oplus\mathfrak{u}(1))$ of the doubly-invariant subalgebra of $\mathfrak{so}(10)$ under the $D_4 = \langle P_{56},\sigma^3\rangle$ action and HARMONY $7^7$ live at the **discriminant level** (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra — the gauge content surviving both involutions per the Pati-Salam route — is therefore **wobble-free** in this technical sense; the 29-dimensional broken complement carries the wobble. Read through the symmetry-breaking lens: gauge symmetry IS the wobble-free part of TSML's spectral content.
+
+The result identifies a clean structural separation between two canonical primes (7 and 11) at two canonical levels (coefficient vs separation) of the same matrix, with the dimension of the unbroken gauge content recovered as the exponent on the prime 2 in the discriminant.
+
+## Why Phys Rev D
+
+- The result connects discrete combinatorial structure on a finite magma to the algebraic content of the unbroken gauge sector in an SO(10)-class symmetry breaking, which is exactly the kind of structural observation PRD publishes in its formal-physics tracks.
+- The proof is a one-page sympy computation; the interpretation is two pages of clean structural reading. Concise.
+- The 16 = dim(su(4) ⊕ u(1)) recovery directly engages the Pati-Salam SO(10) GUT route established in our companion J31 paper.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+- **J37** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The base Lie-algebra closure paper.
+- **J31** (Sanders + Gish 2026, *Adv Math*) — *Two Roads to Pati-Salam*. The paper that establishes the doubly-invariant $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$ identified in the discriminant exponent here.
 
-- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* Establishes the canonical TSML_SYM and BHML tables jointly; provides 4-core closure and the closed-form $\alpha=1/2$ attractor that recurs in J41.
-- **J32** (Sanders + Gish 2026, *Mathematical Intelligencer*) — *The Joint TSML+BHML Chain: Lens-Dependence at Size 7.* Establishes the joint sub-magma chain on which the so(8) and so(10) closures live.
+## Per-venue cap and fallback
+
+This is potentially the third PRD paper from this program in the same quarter (after J44 dark-sector and J45 mass hierarchy). Per the project's per-venue-cap policy (2/quarter for tightly-related papers), a fallback to **Physics Letters B** (4-page short-note format) is anticipated if PRD declines on cap grounds. The result is a 3-4 page short note in either venue.
 
 ## Reproducibility
 
-Verification scripts in `manuscript/verification/`:
-- `stage2_adjoint.py` — Jacobi identity (Lemma 3.2)
-- `stage4_correct_closure.py` — Dimension closure $6\to 21\to 28$ (Lemma 3.1)
-- `stage5_so8.py` — Killing form signature negative-definite (Lemma 3.3)
-- `stage7_disambiguate.py` — Simplicity via invariant-form count + ideal saturation (Lemmas 3.4-3.5)
+Verification script in `manuscript/verification/`:
+- `wobble_check.py` — sympy-based 7/7 claim verification: integer char poly; $c_2 = 3\cdot 11$, $c_8 = -2^5\cdot 7^3\cdot 11$; only $c_2, c_8$ have factor 11; $\mathrm{disc}(g)$ has $2^{16}\cdot 7^7$ and no 11; $\dim$ match.
 
-Python 3.11, numpy 1.26, sympy. All checks pass at machine precision (residual $\le 2\times 10^{-11}$ in all diagnostics). Total wall-clock under 1 minute on a standard laptop.
+Python 3.11, sympy. Total wall-clock under 5 seconds.
 
 ## Suggested reviewers
 
-- An expert in finite-dimensional simple Lie algebras over $\mathbb{R}$ (Cartan classification, $D_4$ triality)
-- An expert in commutative non-associative algebras / magma representations
-- An expert in computational Lie theory / structure-constant verification
-- (Two or three named candidates appropriate to *J Algebra*'s editorial board to be identified during the referee-rigor pass.)
+- An expert in matrix factorization / characteristic polynomials of integer matrices
+- An expert in SO(10) GUT physics with appetite for structural-algebraic observations
+- An expert in finite-magma / discrete-substrate models of gauge structure
+- (Two or three named candidates appropriate to the *PRD* (or *Phys Lett B*) editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 

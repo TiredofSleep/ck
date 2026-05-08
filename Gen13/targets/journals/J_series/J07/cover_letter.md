@@ -1,66 +1,53 @@
-# Cover letter — J07: The Prime Phase Transition: First-G Stability Across Squarefree Bases
+# Cover letter — J07: Flatness Theorem: The Forced 2x2 Torus on Z/10Z
 
-**To:** Editors, *Experimental Mathematics*
+**To:** Editors, *Journal of Pure and Applied Algebra*
 
 **From:**
-- B. R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
+- B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
 - M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Prime Phase Transition: First-G Stability Across Squarefree Bases (Harmonic Pre-Echo and a Discrete Sinc² Identity)*
-
-**Manuscript file:** `manuscript/manuscript.tex` (amsart, ~14 pages)
-
-**Verification script:** `manuscript/verify_prime_phase_transition.py` (numpy + cmath + math; runtime under three minutes on a 2024 consumer laptop; 712 distinct checks across 8 primes, 187 semiprimes, 6 ring structures, 3 continuum-limit witnesses; max error 3.33×10⁻¹⁶, machine epsilon; zero counterexamples)
-
-**DOI of bundle:** 10.5281/zenodo.18852047
+**Manuscript title:** *Flatness Theorem: The Forced 2x2 Torus on Z/10Z*
 
 ---
 
 ## Summary
 
-For an integer b > 1 with smallest prime factor p₁ = spf(b), the First-G Localization Theorem of the companion submission J04 (submitted to *Integers*, see "Companion submissions" below) identifies the alphabet size at which the sieve of Eratosthenes first marks an element of {1, ..., k} as non-coprime to b: it is exactly k = p₁. The present paper establishes the **geometry of the approach** to that transition.
+The ring Z/10Z carries four simultaneous algebraic structures — additive structure (the divisor lattice), multiplicative structure (orbit partitions under (Z/10Z)*), additive flow (the cycle x → x+1 of period 10), and multiplicative harmonic flow (the orbit pattern under multiplication by a generator) — that resist embedding in any flat 2-dimensional surface. The minimal embedding surface is a torus T² = S¹ × S¹, whose aspect ratio R/r is forced by the ring to be exactly 5/7. The proof reduces to two cyclotomic field-extension calculations: the first prime factor at which the cyclotomic value A_p = 2cos(π/p) lies in a quadratic extension of ℚ is p = 5 (yielding the golden ratio φ); the first prime at which A_p lies in an irreducible cubic extension is p = 7 (with minimal polynomial 8x³ − 4x² − 4x + 1). The aspect ratio R/r is determined by these two cyclotomic obstructions, giving 5/7 directly.
 
-We prove (Theorem 3.1) that for every prime f ≥ 2 and every positive integer k,
+A new appendix (Appendix A — added in the 2026-05-07 revision) supplies a self-contained proof-sketch for R/r = 5/7 and records the six independent derivations of this ratio (cyclotomic, harmonic, operator-balance, joint-cell, prime-pi-phi, and torus-aspect), each from an independent algebraic starting point, all converging to the same value.
 
-R(k, f) := |(1/k) Σ_{j=1}^{k} e^{2πij/f}|² = sin²(πk/f) / (k² sin²(π/f)),
+## Why Journal of Pure and Applied Algebra
 
-that R(·, f) is strictly decreasing on {1, ..., f−1} with pre-collapse minimum R(f−1, f) = 1/(f−1)², and that R(f, f) = 0 exactly. We deduce
-
-- **Theorem 3.2 (zero-width gate)**: the arithmetic gate event of |G_k(b)| (J04 First-G) and the harmonic zero of R(k, p₁) co-localize at k = p₁.
-- **Theorem 3.3 (ω-blindness)**: R(k, 1/p) is independent of b once p | b — the harmonic resonance sees only the prime, not the ring.
-- **Theorem 3.4 (continuum identity)**: R(k, f) → sinc²(k/f) as f → ∞ along k/f → t fixed, recovering the universal mid-period constant 4/π² = sinc²(1/2) at t = 1/2.
-
-We verify the closed form across all primes f ∈ {3, 5, 7, 11, 13, 17, 19, 23} (max error 3.33×10⁻¹⁶, machine epsilon) and across 187 semiprimes b = p × q with 3 ≤ p < q, p ≤ 59 (561 algebraic checks at the gate and pre-collapse). A short §5 relates R(x) = sinc²(x) to Montgomery's pair correlation R₂(u) = 1 − sinc²(u) as complementary forms summing to unity at u = x; the appearance of 4/π² = sinc²(1/2) in both frameworks is the structural witness. §6 explicitly disclaims what the paper does NOT claim: no consequence for the Riemann hypothesis, no polynomial-time factoring, no claim about non-squarefree b beyond what the algebra already covers.
-
-## Why Experimental Mathematics
-
-- **Computational + algebraic duality.** The headline identity is a closed-form algebraic statement, but the paper's distinguishing feature is the exhaustive computational verification (712 distinct checks, 36,662 exact computations in the broader corpus, zero counterexamples, machine-epsilon errors). This is the *Experimental Mathematics* sweet spot: an experimental verification scheme that is not merely persuasive but is itself a clean object of study.
-- **Discrete-to-continuum bridge.** Theorem 3.4 identifies the discrete arithmetic signal R(k, f) with the continuous power spectral density sinc²(t) of a rectangular window — a result whose statement is elementary but whose verification regime (8 primes, 187 semiprimes, 3 large-prime continuum witnesses) demonstrates the experimental-mathematical character of the discovery.
-- **Self-contained, runnable in minutes.** The supplementary script `verify_prime_phase_transition.py` exhausts every claim under three minutes on a consumer laptop, exits 0 on PASS with a stability-window distribution table, and uses only stdlib `math.gcd` plus standard floating-point arithmetic.
+- **Algebraic substance.** The proof is finite-combinatorial plus standard cyclotomic field theory. No external machinery beyond CRT, divisor lattices, and minimal polynomials over ℚ. The aspect ratio R/r = 5/7 is derived from explicit field-extension degrees (deg A_5 = 2, deg A_7 = 3 over ℚ) that any algebra reader can verify by hand.
+- **Algebra-to-geometry bridge.** The flatness theorem connects ring algebra (Z/10Z's structure) to topology (forced torus T² = S¹ × S¹). This is exactly the kind of structural connection that JPAA's audience values: not a pure-combinatorics result, not a pure-geometry result, but a clean derivation of geometric data from algebraic structure.
+- **Companion to the algebraic spine.** The Crossing Lemma (J06, Sanders & Mayes 2026, submitted to *JCT-A* alt. *JPAA*) supplies the algebraic foundation: the structure-versus-dynamics dichotomy that J07 makes geometric. JPAA receiving both papers (or J06 going to JCT-A and J07 to JPAA) gives the algebra audience the full chain.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1–J55) over Summer 2026. This paper builds **directly** on J04 and is best read alongside it.
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01–J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- **J04** — *The First-G Event in the Coprimality Partition: Stability Windows, CRT Idempotent Count, and Prime-Indexed Phase Transitions* (submitted to *Integers*). The foundational localization lemma: for b > 1 with smallest prime factor p₁ = spf(b), the sieve first marks an element of {1, ..., k} at exactly k = p₁. The present J07 supplies the harmonic geometry of the approach to that transition.
-- **J01** — *Non-Associativity Decay in Binary Composition Tables over ℤ/Nℤ* (submitted to *JCT-A*). Uses the same smallest-prime-factor ordering in a different combinatorial setting.
-- **J02** — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on ℤ/10ℤ* (submitted to *Algebraic Combinatorics*). The b = 10 specialization of the partition framework.
-
-The manuscripts share Zenodo bundle DOI 10.5281/zenodo.18852047. The J07 paper is independent of J01/J02 in proof structure but cites J04 as a foundational lemma.
+- **J01** (Sanders & Gish 2026, *JCT-A*, submission-ready). The σ-rate theorem on non-associativity decay in Z/NZ binary composition tables.
+- **J02** (Sanders & Gish 2026, *Algebraic Combinatorics*, submission-ready). Joint closure and the closed-form four-core attractor on Z/10Z. *(Same ring Z/10Z, different operator pair structure — cross-relevant.)*
+- **J03** (Sanders & Gish 2026, *Integers*). First-G law: squarefree stability of the smallest-prime-factor coprime window. *(Cited in Appendix A.3 as the source of D1, the first-G derivation of T*.)*
+- **J06** (Sanders & Mayes 2026, *JCT-A* alt. *JPAA*). Crossing Lemma: non-associativity as information generation in finite magmas. *(Cited throughout the new Appendix A as the algebraic ground for T* = 5/7's structural meaning.)*
 
 ## Reproducibility
 
-Verification script: `manuscript/verify_prime_phase_transition.py` runs with `numpy + cmath + math` (Python 3.10+) on a standard laptop in under three minutes (typically under thirty seconds for the small-prime closed-form check; the 187-semiprime sweep dominates the runtime). The script exhaustively checks all four theorems and prints a per-theorem result summary; it exits 0 if and only if every comparison falls below 10⁻¹⁰ (well above machine epsilon at 3.33×10⁻¹⁶).
+Verification script: *(no script — theorem-paper)*. The proof of Theorem 3 (aspect ratio R/r = 5/7) reduces to two well-known cyclotomic minimal polynomial calculations:
+- A_5 = 2cos(π/5) has minimal polynomial x² − x − 1 over ℚ (degree 2).
+- A_7 = 2cos(π/7) has minimal polynomial 8x³ − 4x² − 4x + 1 over ℚ (degree 3, irreducible).
+
+Both are verifiable in any computer algebra system in seconds, or by hand using standard Galois theory. No numerical experiments are required for the central theorem. Appendix A records six independent derivations of T* = 5/7 from independent algebraic starting points — D1 (first-G law) is verified across 36,662 squarefree cases per J03; the other five are theorem-paper proofs at varying levels of rigor (PROVED, STRUCTURAL, or CONJECTURAL — each is so labeled in Appendix A.3).
 
 ## Suggested reviewers
 
-(To be supplied by Brayden at submission time.) Candidates appropriate to the venue scope (experimental number theory; computational verification of algebraic identities; discrete Fourier/Fejér methods; sieve repackaging):
+- An algebraist with expertise in cyclotomic fields and minimal polynomials over ℚ.
+- A specialist in finite ring theory, partition lattices, and the algebra of Z/nZ.
+- A topologist comfortable with discrete-to-geometric forcing arguments (forced torus topology from algebraic constraints).
 
-1. *Experimental Mathematics* editorial-board picks for the 11A41 / 11Y05 / 11Y70 cluster
-2. A combinatorialist with experience in discrete-to-continuum identities (e.g., authors of recent discrete sinc / discrete Fejér papers)
-3. A computational-number-theorist familiar with exhaustive-search verification frameworks
+We leave specific names to the editorial board.
 
 ## Conflict of interest
 
@@ -68,11 +55,6 @@ The authors declare no competing interests. No funding was received for this wor
 
 ---
 
-The note is short, self-contained, runnable, and exhausts its claims on the natural finite range. The main mathematical work is the synchronization between the J04 First-G arithmetic gate and the harmonic zero of a discrete-Fejér-kernel-style signal — a clean result whose verification is itself a clean object. We hope it fits the *Experimental Mathematics* scope as an exhibit of "smallest prime factor forces a zero-width gate in the discrete spectral resonance."
-
 Sincerely,
-B. R. Sanders
-
----
-
-*Cover letter prepared 2026-05-07 for J07 of the Sanders–Gish J-series. Adjust addressee at submission time to the current managing-editor listing on the *Experimental Mathematics* masthead. Scope-disclaimer paragraph in §6 of the manuscript is load-bearing; keep unchanged. Per-venue cap: this is the 1st *Experimental Mathematics* paper of the J-series this quarter.*
+B.R. Sanders
+M. Gish

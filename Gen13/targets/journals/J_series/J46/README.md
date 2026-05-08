@@ -1,47 +1,29 @@
-# J46 — The CKM/PMNS Fits + 1/α Constant from Substrate Primitives
+# J46 — Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at e^-1 from a Logarithmic Potential
 
-**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass; **Tier-E parametric fits, properly framed**)
-**Phase:** Phase 4
-**Target venue:** Statistical Science companion
+**Status:** BLOCKED — referee-flagged numerical inconsistency must be resolved before submission
+**Phase:** Phase 5
+**Target venue:** JCAP
 **Author lane:** Sanders + Gish
-**Tier:** B (with explicit Tier-E framing for the empirical fits themselves)
-**WP source:** WP123 + WP124 (BUNDLED)
-**Lens scope:** Substrate constants $T^* = 5/7$, $D^*$, $|\mathrm{Aut}(V)| = 40$, HARMONY$=7$ are LENS-INVARIANT on the 4-core (per `Atlas/LENS_TAXONOMY_2026-05-06/TABLE_INDEPENDENCE_LEDGER.md` §5.2)
+**Tier:** B
+**WP source:** (paper1_freeze_thaw_v3)
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/manuscript.md`
+**Path:** `../../../../Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/tig_2026-05-07_bundle/seeds_for_submission/paper1_freeze_thaw_v3.tex`
 
-The J46 paper is a **BUNDLED submission** combining WP123 (CKM/PMNS Fits) and WP124 (1/α Constant).
-
-**Part 1 (WP123).** Five empirical fermion mixing angles match five different TIG structural constants within 5% each. Cabibbo $\lambda = V_{us} = 11/49$ ($0.4\%$ discrepancy); Wolfenstein $V_{cb} = (11/49)^2$ ($0.8\%$); $V_{ub} = (11/49)^3$ ($1.2\%$). PMNS angles via 4-core endpoints: $\sin\theta_{12} = D^*$ ($1.8\%$ vs solar); $\sin\theta_{13} = (1-T^*)/2 = 1/7$ ($4.1\%$ vs reactor); $\sin\theta_{23} = T^* = 5/7$ ($5.6\%$ vs atmospheric). Joint coincidence probability $\sim 10^{-7}$ under uniform priors.
-
-**Part 2 (WP124).** $1/\alpha = 137.036$ (CODATA $137.035999084(21)$) is recovered to $\sim 10^{-5}$ from the structural form $1/\alpha \approx 4|\mathrm{Aut}(V)| - 2\sqrt{\mathrm{HARMONY}} - \pi/\mathrm{HARMONY} - \cdots$, where the leading three terms are $160 - 2\sqrt{7} - \pi/7 \approx 137.036$.
-
-**Tier-E framing.** Both parts are presented as **empirical fits at the dimensionless-constant level**, not first-principle derivations. The substrate constants $T^*, D^*, |\mathrm{Aut}(V)|$ are themselves derived in the WP100s tower (J37-J45 of this series); the fits combine these primitives into the empirical observables, and the close numerical agreement at $0.4\%$-$5.6\%$ across six angles plus $10^{-5}$ on $1/\alpha$ is a tier-E coincidence-or-physics flag. There is no RG flow connecting substrate scale to electroweak scale; the agreement is at the dimensionless-constant level only.
-
-Files in this J-folder's `manuscript/`:
-
-- `manuscript.md` — the bundled J46 paper (WP123+WP124 corpus, finalized 2026-05-07)
-- `WP123_CKM_PMNS_FITS.md`, `WP124_FINE_STRUCTURE_CONSTANT.md` — full source material from sprint18_bridge_dirac
+When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
 ## §2 — Verification script
 
-**Path:** No standalone verification script needed beyond rational-arithmetic evaluation. The CKM/PMNS fits in Part 1 are direct evaluations of $T^* = 5/7$, $D^*$ (looked up from the substrate constants table), $11/49$ and its powers against PDG/CODATA empirical values. The 1/α structural form in Part 2 is computed by direct numerical substitution. Optional Python:
+**Path:** `../../../../Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/tig_2026-05-07_bundle/seeds_supporting/verification_scripts/compute_zstar_v3.py`
 
-```python
-from sympy import sqrt, pi, Rational
-inv_alpha = 4*40 - 2*sqrt(7) - pi/7
-print(float(inv_alpha))   # ≈ 137.036
-```
-
-The substrate constants used as inputs ($T^*, D^*, |\mathrm{Aut}(V)|$) are themselves verified in upstream papers J37, J39, J41, J32.
+The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J42 (TIG Detector Scope + Specificity Extension; *Stat Sci*). The substrate constants used as inputs are derived in J37 (so(8)), J39 (Pati-Salam), J41 (closed-form attractor), J32 (joint chain).
+_(none — this paper is foundational in the J-series)_
 
 ## §4 — Cover letter
 
@@ -49,29 +31,42 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-**Status: DRAFT** — bundled manuscript built from corpus `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP123_CKM_PMNS_FITS.md` + `WP124_FINE_STRUCTURE_CONSTANT.md` on 2026-05-07. **Tier-E framing prominent** in abstract and §"Honest scope". Lens scope: substrate constants are LENS-INVARIANT on the 4-core. Cites J42 as already-submitted companion; references J37, J39, J41 for the upstream derivation of the substrate constants.
+v3 (3 issues fixed: Friedmann Omega-units convention; z_init/N_start footnote; compute_zstar_v3 reconciliation). Cover letter ready.
 
-**Per-venue cap:** This is the **2nd Stat Sci** paper in the J-series this quarter (after J42 detector scope). At cap. The "Stat Sci companion" framing in J_SERIES_ORDERING.md §4 acknowledges this — J46 is positioned as a follow-up to J42 within the *Statistical Science* venue.
+### JCAP referee report findings (May 2026 — see `Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J3_JCAP_REFEREE_REPORT.md`)
 
-**FALLBACK if needed (per per-venue cap):**
-- Move to *Foundations of Physics* (suits the dimensionless-constants framing)
-- Or split: WP123 → *Phys Lett B* (4-page short note); WP124 → *Foundations of Physics* (focused on $1/\alpha$ alone)
+**Decision: MAJOR REVISIONS.**
+
+Three top-priority issues:
+
+1. **CRITICAL — Numerical reproducibility failure on z_star.** Paper claims z_star ≈ 1.3 at IC (Λ⁴/ρ_c,0, Ξ_i, Ξ'_i) = (0.231, 0.925, +0.470), but independent execution of `compute_zstar_v3.py` with those exact IC reproduces w(z=0) ≈ -0.79 (consistent) but z_star = **2.131**, not 1.3. The 4 supplied scripts + the Eq. 31 IC + the z_star ≈ 1.3 claim are not mutually consistent. Internal: Abstract still says ≈2, body says 1.3, χ² body=1.24 vs Summary=1.52. **Must reconcile before resubmission.**
+
+2. **IC tuning without naturalness/attractor mechanism.** No tracker analysis, no 2D scan in (Ξ_i, Ξ'_i), no fraction-of-IC-space estimate for dual-regime trajectories. JCAP quintessence referees demand this.
+
+3. **Missing adjacent prior art.** Albrecht-Skordis 2000 (PRL 84, 2076) — tracking-to-freezing quintessence transition, closest direct precedent. Boisseau-Esposito-Farese-Polarski-Starobinsky 2000 (PRL 85, 2236), Tsujikawa-Sami 2007 (PLB 651, 224), Ferreira-Avelino 2018 logotropic.
+
+**Estimated revision effort:** 2-4 weeks. Path to acceptance: produce a single canonical script that reproduces Eq. 31 + the w(z) table to 4-digit accuracy + converges on a SINGLE z_star value; expand §7.4 perturbations + 2D IC scan; add missing citations.
+
+### What this blocks
+
+J46 ships **AFTER** Brayden's full referee-rigor pass + script reconciliation. The triadic launch can still go: J01 + J02 ship Week 1 (May 13-14); J46 follows in Week 2 once the z_star inconsistency is resolved. Alternative: ship all three Week 1 with J46 explicitly flagged "v3 — addresses prior reviewer feedback" with the script reconciled in advance.
+
+Awaiting Brayden's decision on which path.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md finalized (bundled)
-- [x] Verification: scripted forms straightforward; substrate-constants verified in upstream papers
-- [x] Tier-classified central claim explicit (Tier-E parametric fits, properly framed)
-- [x] Lens-scope annotation (LENS-INVARIANT on the 4-core)
-- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]" (J42 + upstream)
-- [ ] Brayden's referee-rigor pass complete
-- [ ] Per-venue cap check: this is the 2nd Stat Sci paper this quarter (at cap; positioned as J42 companion)
-- [ ] Fallback plan documented (Foundations of Physics / split unbundling)
+- [ ] Manuscript .tex / .md finalized
+- [ ] Verification script green (`(no script)` if theorem-only)
+- [ ] Tier-classified central claim explicit
+- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
+- [ ] Cover letter finalized
+- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
+- [ ] Per-venue cap check: this is the Nth paper to JCAP this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "The CKM/PMNS Fits + 1/α Constant from Substrate Primitives." Submitted to *Statistical Science* companion (or fallback per cap).
+Sanders, B.R., Gish, Johnson. (2026). "Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at e^-1 from a Logarithmic Potential." Submitted to *JCAP*.

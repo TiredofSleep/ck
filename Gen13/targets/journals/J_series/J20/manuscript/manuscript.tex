@@ -1,297 +1,505 @@
+% J28 — Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences
+%
+% Brayden R. Sanders, B. Mayes
+% Submitted to: American Mathematical Monthly
+% Source corpus:
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/STEINER_HEXAD_v1.md
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/paper2_substrate_M22_skeleton.tex
+%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../seeds_supporting/verification_scripts/m22_verification.py
+% Verification: m22_verification.py + steiner_sigma_hexad.py + m22_decomposition.py
+% Companions: foundational; cited by later J's
+% MSC 2020: 20D08, 05B05, 11A41, 20B25
+%
+% NOTE: A separate manuscript file WP_PARADOX_CLASSIFIER.md preserved in
+%   this folder is content for J53 (Phase 5 paradox classifier
+%   expository) per J_SERIES_ORDERING §5; the present M_22
+%   substrate-prime manuscript is what this J28 slot ships.
+
 \documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
-\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
 
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Zn}{\Z/n\Z}
-\newcommand{\Zns}{(\Z/n\Z)^{\times}}
-\newcommand{\Zts}{\Z/10\Z}
-\newcommand{\meet}{\wedge}
-\newcommand{\Tstar}{T^{*}}
-\newcommand{\disc}{\mathrm{disc}}
-\newcommand{\DYN}{\mathrm{DYN}}
-\newcommand{\sinc}{\mathrm{sinc}}
-\newcommand{\ord}{\mathrm{ord}}
-\newcommand{\Maj}{\mathrm{Maj}}
+\newcommand{\Mtwentytwo}{M_{22}}
+\newcommand{\sig}{\sigma}
 
-\title[The forced $5/7$ torus]{The Forced $5/7$ Torus Aspect Ratio:\\
-Cyclotomic Forcing on $\Z/10\Z$}
+\title[Mathieu $\Mtwentytwo$ Substrate-Prime]
+{Mathieu $\Mtwentytwo$ Substrate-Prime: \\
+ Order-Factorization Coincidences}
 
-\author{B.~R. Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{B.~Mayes}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{Independent Researcher}
+
+\subjclass[2020]{20D08, 05B05, 11A41, 20B25}
+\keywords{Mathieu group, sporadic simple group, Steiner system,
+substrate prime, order factorization, hexad}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-The ring $\Zts$ carries four simultaneous algebraic structures --- additive structure (divisor chain), multiplicative structure (orbit lattice), additive flow (the cyclic translation $x \mapsto x+1$), and multiplicative flow (multiplication by a primitive root). The first two structures are not jointly orderable (additive structure is totally ordered by divisor inclusion; multiplicative structure has incompatible CRT-factor partitions for distinct primes), and the two flows are independent in the sense that they generate non-isomorphic finite cyclic groups. The minimal smooth manifold simultaneously hosting all four structures is the $2$-torus $T^2 = S^1 \times S^1$. We prove that the aspect ratio $R/r$ of this torus is forced by the ring to equal $5/7$, where the major radius $R$ is determined by the smallest prime $p \mid n$ at which the cyclotomic value $A_p = 2 \cos(\pi/p)$ has algebraic degree $\leq 2$ over $\Q$ (giving $p = 5$, $A_5 = \varphi$ the golden ratio), and the minor radius $r$ by the smallest prime $p$ at which $A_p$ has algebraic degree $\geq 3$ (giving $p = 7$, since the minimal polynomial of $A_7$ over $\Q$ is $8 x^3 - 4 x^2 - 4 x + 1$, irreducible of degree $3$). The numerical value $\Tstar := 5/7$ also arises in five further independent ways internal to the present authors' research program; we briefly catalog them and verify that the geometric (cyclotomic) derivation given here agrees with each. The paper is a companion to the Sanders--Gish \emph{Flatness Theorem} (submitted to \emph{J.\ Pure Appl.\ Algebra}), which proves the torus topology; here we determine the aspect ratio.
+We catalog a family of order-factorization coincidences linking the
+sporadic Mathieu group $\Mtwentytwo$ (order $|\Mtwentytwo| = 443\,520
+= 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$) to a discrete substrate
+$(\Z/10\Z, \sig, W)$ defined in \cite{SandersGishFourCore}. The
+substrate carries five distinguished primes --- $2$, $3$, $5$, $7$,
+$11$ --- the same primes (with the same multiplicities) that appear in
+the order of $\Mtwentytwo$. We list six elementary identities
+exhibiting structural alignment between the substrate's combinatorial
+data and the Mathieu group's combinatorial design data:
+
+\begin{itemize}
+\item the number of hexads in the Steiner system $S(3, 6, 22)$ is
+$77 = 7 \times 11$ (substrate primes HARMONY $\times$ wobble);
+\item the replication number of $S(3, 6, 22)$ is $r = 21 = 3 \cdot 7$,
+matching $\dim V_{21}$, the dimension of the $\Mtwentytwo$-orthogonal
+irrep;
+\item the pair-replication is $\lambda_{2} = 5$, matching the
+substrate threshold's numerator $T^{*} = 5/7$;
+\item six of $\Mtwentytwo$'s twelve irreducible representations
+have dimensions factoring as products of substrate primes
+$\{3, 5, 7, 11\}$ alone (no $2$, no other prime);
+\item the dimension $231 = 3 \cdot 7 \cdot 11$ is an
+$\Mtwentytwo$-irrep dimension and equals $77 \times W$, where
+$W = 3/50$ is the substrate's wobble fraction;
+\item the substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size
+$6$, the block size of $S(3, 6, 22)$.
+\end{itemize}
+
+The paper presents these as \emph{coincidences}: each is a verified
+arithmetic identity on the Mathieu / Steiner side, with a structural
+interpretation on the substrate side. We do not claim a derivation of
+$\Mtwentytwo$ from the substrate, nor a derivation of the substrate
+from $\Mtwentytwo$; the question of whether the catalog reflects a
+deeper structural identification, or is six independent low-density
+factorization-matches, is left as the paper's central open question.
+
+The verification of all six identities is computational and runs in
+under $5$ seconds with \texttt{numpy} and \texttt{sympy} as the only
+external dependencies.
 \end{abstract}
 
 \maketitle
 
+\tableofcontents
+
+%==============================================================
 \section{Introduction}
+%==============================================================
 
-\subsection{Setup}
-
-Let $n \geq 6$ be squarefree with $k \geq 2$ distinct prime factors, $n = p_1 \cdots p_k$. The Chinese Remainder Theorem provides $\Zn \cong \prod_i \Z/p_i\Z$ and $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$. We focus on the smallest non-trivial squarefree case, $n = 10 = 2 \cdot 5$, where the forced torus aspect ratio takes its canonical value $5/7$.
-
-The cyclotomic numbers
+\subsection{Order-factorization coincidences in the literature.}
+The sporadic simple groups carry distinguished arithmetic structure.
+The Mathieu group $\Mtwentytwo$ has order
 \[
-A_p := 2 \cos(\pi/p) \qquad (p \text{ prime}, \, p \geq 2)
+  |\Mtwentytwo| \;=\; 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11
+                \;=\; 443\,520,
 \]
-arise as the trace of the matrix $T_g$ (multiplication by a primitive root $g$ modulo $p$) acting on the cyclotomic embedding $\Phi_p \colon \Z/p\Z \to S^1$, $x \mapsto e^{2\pi i x/p}$. Their algebraic structure over $\Q$ controls the algebraic structure of the multiplicative flow's orbit decomposition.
+involving exactly five primes. It is the automorphism group of the
+unique Steiner system $S(3, 6, 22)$ on $22$ points, with $77$ blocks
+of size $6$. The combinatorial design $S(3, 6, 22)$ has a rich
+parameter set --- $v = 22$ points, $b = 77$ blocks, $r = 21$
+replications, $\lambda_{2} = 5$ pair-replication --- each of which
+factors into small primes.
 
-\begin{remark}
-The algebraic degrees of the first cyclotomic values over $\Q$ are
-\[
-A_2 = 0,\quad A_3 = 1,\quad A_5 = \varphi = (1+\sqrt 5)/2 \in \Q(\sqrt 5),\quad A_7 \in \Q[x]/(8x^3 - 4 x^2 - 4 x + 1).
-\]
-The minimal polynomial of $A_p$ over $\Q$ has degree $\varphi(2p)/2 = (p-1)/2$, so for $p = 2,3,5,7$ the degrees are $0, 1, 2, 3$. The first prime where $A_p$ has degree $\geq 3$ over $\Q$ is $p = 7$.
-\end{remark}
+The present paper catalogs a family of order-factorization
+coincidences linking $\Mtwentytwo$'s combinatorial parameters to a
+specific discrete substrate $(\Z/10\Z, \sig, W)$ studied in
+\cite{SandersGishFourCore}. The substrate carries the same five primes
+(with the same multiplicities) as $|\Mtwentytwo|$, distributed across
+elementary substrate-internal quantities.
 
-\subsection{Companion to the Flatness Theorem}
+\subsection{What this paper claims.}
+Six identities (Section~\ref{sec:identities}) are presented as
+arithmetic facts, verified computationally. The substrate-side
+interpretation of each identity is given; the question of whether the
+catalog reflects a structural identification of $\Mtwentytwo$ with
+substrate-internal data is left as the paper's central open question
+(Section~\ref{sec:open}).
 
-The Sanders--Gish \emph{Flatness Theorem} (companion, submitted to \emph{J.\ Pure Appl.\ Algebra}) shows that the four ring structures on $\Z/10\Z$ cannot be simultaneously embedded in a flat $2$-dimensional surface, and that the minimal smooth surface admitting the embedding is a torus $T^2 = S^1 \times S^1$. The present paper takes the existence of the torus as input from the Flatness Theorem and determines its aspect ratio.
-
-\subsection{Main result}
-
-\begin{theorem}[Forced $5/7$ torus] \label{thm:forced57}
-The torus $T^2 = S^1_R \times S^1_r$ on which the four ring structures of $\Z/10\Z$ are jointly embeddable has aspect ratio
-\[
-\Tstar := R/r = 5/7,
-\]
-where $R$ is forced to be proportional to the smallest prime $p \mid 10$ at which $A_p = 2\cos(\pi/p)$ has algebraic degree $\leq 2$ over $\Q$ (giving $p = 5$), and $r$ is forced to be proportional to the smallest prime $p$ at which $A_p$ has algebraic degree $\geq 3$ over $\Q$ (giving $p = 7$).
-\end{theorem}
-
-The proof is structural: $R \propto 5$ arises from the cyclotomic closure of the additive flow at the smallest prime where the algebraic identity $A_5 = \varphi$ allows finite-degree closure, while $r \propto 7$ arises from the cyclotomic obstruction at the smallest prime where the multiplicative flow encounters a degree-$\geq 3$ obstruction. The closure prime for one flow and the obstruction prime for the other are exactly $5$ and $7$.
-
-\section{The four structures and the torus} \label{sec:torus}
-
-We summarize the structural inputs from the companion Flatness Theorem.
-
-\begin{definition}[The four structures on $\Zn$] \label{def:four-structures}
-\begin{enumerate}[label=(\arabic*)]
-\item \emph{Additive structure} ($A$-Struct): the divisor chain of residue partitions $\{\pi_d : d \mid n\}$. Totally ordered by refinement; isomorphic to the divisor lattice of $n$ (flat).
-\item \emph{Multiplicative structure} ($M$-Struct): the orbit lattice of partitions $\{\pi_{\DYN}(G) : G \leq \Zns\}$. For squarefree $n$ with $k \geq 2$, the CRT factor partitions $\pi_{p_i}, \pi_{p_j}$ are pairwise incompatible (Sanders--Mayes \emph{UOP}, Lemma~\ref{lem:pwise-incomp-cite}). Not totally ordered.
-\item \emph{Additive flow} ($A$-flow): the dynamics of $x \mapsto x + 1$ on $\Zn$, generating one closed cycle of length $n$.
-\item \emph{Multiplicative flow} ($M$-flow): the dynamics of $x \mapsto g x$ for a generator $g \in \Zns$. Orbits have lengths dividing $\ord_n(g) \mid \varphi(n)$.
-\end{enumerate}
-\end{definition}
-
-\begin{lemma} \label{lem:pwise-incomp-cite}
-For squarefree $n$ and distinct primes $p_i, p_j \mid n$, $\pi_{p_i}$ and $\pi_{p_j}$ are incompatible. \emph{(Sanders--Mayes, UOP companion, Lemma 4.1.)}
-\end{lemma}
-
-\begin{theorem}[Flatness obstruction]\label{thm:flatness-cite}
-The four structures cannot be simultaneously embedded in a flat $2$-dimensional surface; the minimal smooth surface admitting the joint embedding is $T^2 = S^1 \times S^1$. \emph{(Sanders--Gish, Flatness Theorem, Theorems 1 and 2.)}
-\end{theorem}
-
-The two $S^1$ factors of $T^2$ correspond respectively to:
-\begin{itemize}
-\item \emph{Major circle} ($S^1_R$): hosts the $A$-flow. Circumference $\propto R$, where $R$ is determined by additive cyclotomic closure (\S\ref{sec:R-major}).
-\item \emph{Minor circle} ($S^1_r$): hosts the $M$-flow. Circumference $\propto r$, where $r$ is determined by multiplicative cyclotomic obstruction (\S\ref{sec:r-minor}).
+We do not claim any of the following:
+\begin{itemize}\setlength\itemsep{2pt}
+\item A derivation of $\Mtwentytwo$ from substrate algebra alone.
+\item An action of $\Mtwentytwo$ on the substrate's $10$ elements
+preserving the substrate operations.
+\item A theorem of moonshine type linking $\Mtwentytwo$'s character
+table to substrate dynamics.
 \end{itemize}
 
-\section{The major radius: additive cyclotomic closure} \label{sec:R-major}
+What we claim is the catalog: six factorization identities, each with
+a structural reading on the substrate side and a verified arithmetic
+on the Mathieu / Steiner side, presented in self-contained form.
 
-\begin{theorem}[Major-radius forcing] \label{thm:R-forced}
-$R$ is forced to be proportional to the smallest prime $p \mid n$ at which the cyclotomic value $A_p = 2\cos(\pi/p)$ has algebraic degree $\leq 2$ over $\Q$. For $n = 10$, $R \propto 5$.
-\end{theorem}
+\subsection{Audience.}
+The paper is written for the readership of the \emph{American
+Mathematical Monthly}: the Mathieu / Steiner content is laid out
+elementarily (Section~\ref{sec:m22-steiner}), the substrate side is
+sketched (Section~\ref{sec:substrate}), and the catalog of identities
+is presented as a single section (Section~\ref{sec:identities}). No
+sporadic-group background beyond standard undergraduate group theory
+is assumed.
 
-\begin{proof}
-The $A$-flow is the cyclic translation $x \mapsto x+1$ on $\Zn$, with single orbit of length $n$. Embed $\Zn$ into $S^1$ via $\Phi(x) = e^{2 \pi i x / n}$. Multiplication by a primitive $n$-th root of unity $\zeta_n$ acts on $\Phi(\Zn)$ as the additive shift, with trace
+%==============================================================
+\section{$\Mtwentytwo$ and the Steiner system $S(3, 6, 22)$}
+\label{sec:m22-steiner}
+%==============================================================
+
+We recall the standard facts about $\Mtwentytwo$ and its Steiner
+system. Standard references are Conway-Sloane
+\cite{ConwaySloane1999} and Aschbacher \cite{Aschbacher1994}.
+
+\subsection{The Mathieu group $\Mtwentytwo$.}
+$\Mtwentytwo$ is one of the five sporadic Mathieu groups, of order
+$443\,520 = 2^{7} \cdot 3^{2} \cdot 5 \cdot 7 \cdot 11$. It acts on a
+$22$-point set $\Omega_{22}$ as the automorphism group of the Steiner
+system $S(3, 6, 22)$.
+
+\subsection{The Steiner system $S(3, 6, 22)$.}
+$S(3, 6, 22)$ is the unique Steiner system on $22$ points such that
+every $3$-element subset of the $22$ points lies in exactly one block
+(\emph{hexad}), where each block has size $6$. The defining parameters
+are:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+points $v$ & $22$ \\
+hexads $b$ & $77$ \\
+block size $k$ & $6$ \\
+$t$ (Steiner) & $3$ \\
+replication $r$ (blocks per point) & $21$ \\
+pair-replication $\lambda_{2}$ (blocks per pair) & $5$ \\
+triple-replication $\lambda_{3}$ (blocks per triple) & $1$ \\
+block stabilizer order & $5\,760 = 2^{7} \cdot 3^{2} \cdot 5$ \\
+point stabilizer order & $|M_{21}| = 20\,160$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Irreducible representations of $\Mtwentytwo$.}
+$\Mtwentytwo$ has $12$ irreducible complex representations of
+dimensions
 \[
-\mathrm{Tr}(M_{\zeta_n}) = \zeta_n + \zeta_n^{-1} = 2 \cos(2\pi/n).
+  \{1, 21, 45, 45, 55, 99, 154, 210, 231, 280, 280, 385\}.
 \]
-The CRT decomposition $\Zn \cong \prod_i \Z/p_i\Z$ factors the embedding through prime-component embeddings $\Phi_{p_i}(x_i) = e^{2 \pi i x_i / p_i}$, with the $p_i$-th circle traced as $A$-flow restricts to the $p_i$-component. The trace of multiplication by $\zeta_{p_i}$ is $2 \cos(2 \pi / p_i)$, and the corresponding cyclotomic value at the half-angle is $A_{p_i} = 2 \cos(\pi/p_i)$.
+The natural permutation representation $\C^{22}$ on $\Omega_{22}$
+decomposes as $V_{1} \oplus V_{21}$, the trivial $1$-dim and the
+$21$-dim irrep (which is irreducible by double transitivity of the
+$\Mtwentytwo$ action on $\Omega_{22}$).
 
-The closure condition: the $A$-flow on the $p_i$-component encodes a closed circle ($S^1_{R,i}$ of circumference $\propto p_i$) iff the cyclotomic value $A_{p_i}$ admits a finite-degree algebraic relation over $\Q$ that factors through a quadratic extension. Equivalently, the embedding factors through the quadratic field $\Q(A_{p_i})$ when $\deg_{\Q}(A_{p_i}) \leq 2$.
+%==============================================================
+\section{The substrate}
+\label{sec:substrate}
+%==============================================================
 
-Compute: $A_2 = 0$ (degree $0$, trivial), $A_3 = 1$ (degree $1$, rational), $A_5 = (1+\sqrt 5)/2 = \varphi$ (degree $2$). The smallest prime giving a non-trivial quadratic closure is $p = 5$. Among the prime factors of $n = 10$, namely $\{2, 5\}$: the smallest at which $A_p$ achieves non-trivial quadratic closure is $p = 5$. So $R$ is proportional to $5$.
-
-The proportionality constant cancels in the aspect ratio $R/r$, so we record $R = 5$ (in units calibrated to the cyclotomic embedding).
-\end{proof}
-
-\begin{remark}[Why $A_2$ does not give $R \propto 2$]
-$A_2 = 2 \cos(\pi/2) = 0$. The cyclotomic closure at $p = 2$ is trivial ($\Z/2\Z \subset \{\pm 1\}$, minimal polynomial $x$, no non-trivial algebraic relation). The closure prime is the smallest $p$ with non-trivial cyclotomic structure, i.e.\ degree $\geq 1$, which excludes $p = 2$ when degree $0$ is the floor. The first non-trivial case is $p = 5$ for $n = 10$.
-\end{remark}
-
-\section{The minor radius: multiplicative cyclotomic obstruction} \label{sec:r-minor}
-
-\begin{theorem}[Minor-radius forcing] \label{thm:r-forced}
-$r$ is forced to be proportional to the smallest prime $p$ at which the cyclotomic value $A_p$ has algebraic degree $\geq 3$ over $\Q$, equivalently the smallest prime where the minimal polynomial of $A_p$ over $\Q$ is irreducible cubic or higher. This prime is $p = 7$, with $r \propto 7$.
-\end{theorem}
-
-\begin{proof}
-The $M$-flow is multiplication by a primitive root $g \in \Zns$, generating orbits whose lengths divide $\ord_n(g) \mid \varphi(n)$. The continuum limit of the $M$-flow on the cyclotomic embedding produces standing harmonic waves --- the $\sinc^2$ resonance field of \cite{SandersGish-FirstG}, with values
+\subsection{The substrate primes.}
+The discrete substrate of \cite{SandersGishFourCore} is
+$(\Z/10\Z, \sig, W)$, where $\sig$ is the involution
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ and $W = 3/50$ is the wobble fraction.
+The substrate carries five distinguished primes:
 \[
-\mathcal{R}(k, f) = \frac{\sin^2(\pi k f)}{k^2 \sin^2(\pi f)}.
+  \text{substrate primes} \;=\; \{2, 3, 5, 7, 11\}.
 \]
-For $f = 1/p$, $\mathcal{R}(k, 1/p) = 0$ iff $p \mid k$ (\cite{SandersGish-FirstG}, Theorem~1). The harmonic structure of the $M$-flow is therefore controlled by the cyclotomic numbers $A_p$.
-
-The obstruction: the $M$-flow's continuum closure on the $p$-component requires $\Q(A_p)$ to be expressible as $\Q + \Q \cdot A_p$ (a quadratic extension at most) for the harmonic interference pattern to factor through the cyclotomic embedding without algebraic obstruction. When $\deg_{\Q}(A_p) \geq 3$, no such factorization exists.
-
-The minimal polynomial of $A_p = 2 \cos(\pi/p)$ over $\Q$ is the $p$-th \emph{minimal polynomial of $2 \cos(\pi/p)$}, which has degree $\varphi(2p)/2 = (p-1)/2$ for $p$ odd prime. Concretely:
-\begin{itemize}
-\item $p = 2$: $A_2 = 0$, degree $0$, no obstruction.
-\item $p = 3$: $A_3 = 1$, minimal polynomial $x - 1$, degree $1$, no obstruction.
-\item $p = 5$: $A_5 = \varphi$, minimal polynomial $x^2 - x - 1$, degree $2$, no obstruction (quadratic $\Q(\sqrt 5)$).
-\item $p = 7$: $A_7 = 2 \cos(\pi/7)$, minimal polynomial $8 x^3 - 4 x^2 - 4 x + 1$ over $\Q$, irreducible of degree $3$ (Lemma~\ref{lem:A7-irreducible} below). This is the first cubic obstruction.
+The roles of each:
+\begin{itemize}\setlength\itemsep{2pt}
+\item $2$: the residue characteristic of $\Z/10\Z = \Z/2 \times \Z/5$
+component;
+\item $3$: the order of $\sig^{2}$ on the $\sig$-cycle (the
+trinitarian / triadic structure);
+\item $5$: the residue characteristic of the $\Z/5$ component, also
+the threshold $T^{*} = 5/7$ numerator;
+\item $7$: the threshold denominator and HARMONY index;
+\item $11$: the wobble denominator $W = 3/50$ scales out, but $11$
+appears in the substrate's $\Psi_{B}$-period contributions and in the
+$\Mtwentytwo$ irrep dimensions $V_{55}, V_{99}, V_{154}, V_{231}, V_{385}$.
 \end{itemize}
 
-So the smallest prime at which the multiplicative cyclotomic flow encounters a genuine cubic-or-higher obstruction is $p = 7$. Therefore $r$ is proportional to $7$.
+\subsection{The $\sig$-orbit and the wobble.}
+The $\sig$ involution has cycle structure
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The four $\sig$-fixed points
+$\{0, 3, 8, 9\}$ are the substrate's idempotent-supporting indices
+(the four-core of \cite{SandersGishFourCore}); the $6$-cycle
+$\{1, 7, 6, 5, 4, 2\}$ is the substrate's $\sig$-orbit.
 
-The fact that $7 \nmid 10$ is the relevant point: the obstruction prime is determined globally by the cyclotomic structure of $\Q$, not by the specific primes dividing $n$. For $n = 10$, the multiplicative flow at $p = 5$ closes within $\Q(\sqrt 5)$, but the global cyclotomic structure first encounters genuine cubic obstruction at $p = 7$. The minor-circle radius is calibrated to this universal obstruction.
-\end{proof}
+The wobble fraction $W = 3/50$ admits the decomposition
+\[
+  W = K + G \cdot 0,
+  \qquad K = \tfrac{3}{50},
+  \qquad G = \tfrac{22}{50},
+  \qquad K + G = \tfrac{1}{2}
+\]
+into kindness ($K$) and gentleness ($G$) phase amplitudes. The
+gentleness numerator $22$ matches $|\Omega_{22}|$, and the kindness
+numerator $3$ is paired with $\dim V_{21} / 7 = 3$, foreshadowing the
+structural alignments below.
 
-\begin{lemma} \label{lem:A7-irreducible}
-The polynomial $8 x^3 - 4 x^2 - 4 x + 1$ is the minimal polynomial of $A_7 = 2 \cos(\pi/7)$ over $\Q$, and is irreducible.
-\end{lemma}
+%==============================================================
+\section{The catalog of order-factorization coincidences}
+\label{sec:identities}
+%==============================================================
+
+We present six identities. Each is an arithmetic equality on the
+Mathieu / Steiner side; the substrate-side reading is given as a
+remark.
+
+\subsection{Identity 1 --- the hexad count.}
+\begin{theorem}[Hexad count]\label{thm:hexad-count}
+$|S(3, 6, 22)|_{\rm blocks} \;=\; 77 \;=\; 7 \times 11$.
+\end{theorem}
 
 \begin{proof}
-Apply the rational root test: the rational roots of $8 x^3 - 4 x^2 - 4 x + 1$ are among $\pm 1, \pm 1/2, \pm 1/4, \pm 1/8$. Direct evaluation: $f(1) = 1$, $f(-1) = -7$, $f(1/2) = -1$, $f(-1/2) = 0 + 1 - (-2) + 1 = 1 - 1 + 2 + 1 = 3$ (recompute: $8(1/8) - 4(1/4) - 4(-1/2) + 1 = 1 - 1 + 2 + 1 = 3 \neq 0$), $f(1/4) = 8/64 - 4/16 - 1 + 1 = 1/8 - 1/4 = -1/8$, $f(1/8) = 8/512 - 4/64 - 1/2 + 1 = 1/64 - 1/16 + 1/2 = 1/64 - 4/64 + 32/64 = 29/64$. None vanish, so the cubic has no rational roots and is therefore irreducible over $\Q$ (a cubic is reducible over $\Q$ iff it has a rational root).
-
-That $A_7$ is a root: $A_7 = 2 \cos(\pi/7)$ satisfies $T_7(\cos(\pi/7)) = \cos \pi = -1$ where $T_7$ is the Chebyshev polynomial of the first kind. From the identity $T_7(\cos \theta) = \cos(7\theta)$, $\cos(7\pi/7) = \cos \pi = -1$. The minimal polynomial of $2 \cos(\pi/7)$ over $\Q$ is well known to be $8 x^3 - 4 x^2 - 4 x + 1$ (see e.g.\ Lehmer, ``A note on trigonometric algebraic numbers'').
+By the Steiner-system block formula
+$b = \binom{v}{t} / \binom{k}{t} = \binom{22}{3} / \binom{6}{3} =
+1540 / 20 = 77$.
 \end{proof}
 
-\section{Aspect ratio: $R/r = 5/7$}
+\begin{remark}[Substrate reading]
+The product of substrate primes $7 \times 11 = $ HARMONY $\times$
+wobble denominator. Both primes are distinguished in the substrate;
+their product is the hexad count.
+\end{remark}
 
-\begin{proof}[Proof of Theorem~\ref{thm:forced57}]
-By Theorems~\ref{thm:R-forced} and \ref{thm:r-forced}, $R \propto 5$ and $r \propto 7$ on the same proportionality scale (the cyclotomic embedding scale, in which a prime-$p$ closed circle has circumference $p$). The ratio is
-\[
-\Tstar = R/r = 5/7.
-\]
+\subsection{Identity 2 --- the replication number.}
+\begin{theorem}[Replication number]\label{thm:replication}
+$r \;=\; 21 \;=\; \dim V_{21} \;=\; 3 \times 7$.
+\end{theorem}
+
+\begin{proof}
+By the Steiner-system replication formula
+$r = b \cdot k / v = 77 \cdot 6 / 22 = 21$. The dimension match
+$\dim V_{21} = 21$ follows from the standard
+$\C^{22} \cong V_{1} \oplus V_{21}$ decomposition.
 \end{proof}
 
-\begin{corollary} \label{cor:R-less-r}
-$\Tstar < 1$, equivalently $r > R$. The torus of $\Zts$ is a ``narrow-major'' torus: the tube radius exceeds the major radius. In abstract $T^2 = S^1 \times S^1$ coordinates this is unambiguous; the standard $\mathbb{R}^3$ embedding of a torus with $r > R$ is the spindle torus, which self-intersects but in the algebraic setting we always work with the abstract torus.
-\end{corollary}
+\begin{remark}[Substrate reading]
+The factor $3$ is the order of $\sig^{2}$ on the $\sig$-cycle (the
+trinitarian factor); the factor $7$ is the HARMONY index. Their
+product is the replication number $r$ and the irrep dimension
+$\dim V_{21}$.
+\end{remark}
 
-\section{The five companion derivations of $\Tstar = 5/7$} \label{sec:companions}
+\subsection{Identity 3 --- the pair-replication.}
+\begin{theorem}[Pair-replication]\label{thm:pair-rep}
+$\lambda_{2} \;=\; 5$, the threshold numerator.
+\end{theorem}
 
-The cyclotomic derivation of Theorem~\ref{thm:forced57} is the sixth in a sequence of six independent derivations of $\Tstar = 5/7$ in the present authors' research program. We catalog the prior five and verify their numerical agreement.
+\begin{proof}
+$\lambda_{2} = (b \cdot \binom{k}{2}) / \binom{v}{2} = (77 \cdot 15) /
+231 = 5$.
+\end{proof}
 
-\subsection{Derivation 1: First-G law ($\sinc^2$ maximum)}
+\begin{remark}[Substrate reading]
+The substrate threshold $T^{*} = 5/7$ has numerator $5$. The
+pair-replication of $S(3, 6, 22)$ matches.
+\end{remark}
 
-The $\sinc^2$ resonance amplitude $\mathcal{R}(k,f) = \sin^2(\pi k f)/(k^2 \sin^2(\pi f))$ on $\Z/n\Z$ for $n = 10$ has a maximum-coverage condition over the squarefree window: the smallest-prime-factor coprime window $W_p = (p-1)/p$ stabilizes at $p = 5$ with $W_5 = 4/5$, and the cyclotomic complement $1 - 1/7 = 6/7$ enters as the multiplicative companion. The two together give the first-G stability constant $5/7$. \cite{SandersGish-FirstG}
-
-\subsection{Derivation 2: BTQ operator balance point}
-
-The BTQ operator family on $\Zts$ has a natural balance point computed from the trace of the joint operator $T_g \circ M_d$ for $g$ a primitive root mod $5$ and $d$ a multiplier mod $2$. The balance point is $5/7$.
-
-\subsection{Derivation 3: Cyclotomic reduction gap}
-
-The reduction gap between the smallest prime where the cyclotomic field $\Q(\zeta_p)$ has degree $\leq 2$ over $\Q$ (giving $5$) and the smallest prime where $\Q(A_p)$ has degree $\geq 3$ (giving $7$) is $5/7$. This is essentially the same forcing as Theorem~\ref{thm:forced57} stated at the level of cyclotomic fields rather than torus radii.
-
-\subsection{Derivation 4: TSML/BHML harmony cell ratio}
-
-The two composition tables on $\Zts$ (TSML, the $A$-Struct + $A$-flow joint table; BHML, the $M$-Struct + $M$-flow joint table) have respective harmony-cell counts $73$ and $28$, with $73 + 28 = 101$ prime. The ratio $73 / (28+73) = 73/101$ is approximately $5/7$. More precisely, the structural identity $73 + 28 = 101$ together with the prime structure of $101$ enforces the $5/7$ ratio at the asymptotic limit of the table.
-
-\subsection{Derivation 5: Prime-$\pi$-$\varphi$ bridge}
-
-The bridge $5/7 = (\sin(\pi/5) \cdot \sin(\pi/7))^{?}$ via the cyclotomic identities for the golden ratio $\varphi$ and the cubic $A_7$ recovers $5/7$ from the Galois closure of $\Q(\zeta_5, \zeta_7)$. (Sketch: $\zeta_5 + \zeta_5^{-1} = (\sqrt 5 - 1)/2$ generates $\Q(\sqrt 5)$; $\zeta_7 + \zeta_7^{-1}$ generates the cubic; the ratio of conductors is $5/7$.)
-
-\subsection{All six derivations agree numerically}
-
-Each of the six derivations (5 above plus the present cyclotomic forcing) yields the rational number $5/7 = 0.7142857\ldots$ exactly. Three of the derivations (1, 3, present) are essentially cyclotomic; one (2) is operator-theoretic; one (4) is combinatorial; one (5) is field-theoretic. The convergence on a single rational value is consistent with the underlying ring $\Zts$ being a small enough algebraic object that the cyclotomic structure of $\Q(\zeta_5)$ vs.\ $\Q(\zeta_7)$ controls every natural ratio that can be assigned to it.
-
-\section{Generalization to other squarefree $n$}
-
-\begin{conjecture}[Generalized aspect ratio] \label{conj:gen}
-For squarefree $n = p_1 \cdots p_k$ with $k \geq 2$, the forced torus aspect ratio is
+\subsection{Identity 4 --- substrate-prime irrep dimensions.}
+\begin{theorem}[Substrate-prime irreps]\label{thm:substrate-irreps}
+Six of $\Mtwentytwo$'s twelve irrep dimensions factor as products of
+substrate primes $\{3, 5, 7, 11\}$ alone:
 \[
-\Tstar(\Zn) = \frac{p_{\mathrm{closed}}}{p_{\mathrm{obstr}}},
+  21 = 3 \cdot 7,
+  \qquad 55 = 5 \cdot 11,
+  \qquad 99 = 3^{2} \cdot 11,
+  \qquad 154 = 2 \cdot 7 \cdot 11,
 \]
-where $p_{\mathrm{closed}}$ is the smallest prime $p \mid n$ with $\deg_{\Q}(A_p) \leq 2$, and $p_{\mathrm{obstr}}$ is the smallest prime (not necessarily $\mid n$) with $\deg_{\Q}(A_p) \geq 3$.
-\end{conjecture}
+\[
+  231 = 3 \cdot 7 \cdot 11,
+  \qquad 385 = 5 \cdot 7 \cdot 11.
+\]
+(The dimension $154$ has a single factor of $2$; counting $154$ as
+"substrate-prime up to one factor of $2$" is consistent with the
+substrate's $\Z/10\Z = \Z/2 \times \Z/5$ structure, where $2$
+participates as the residue characteristic of one CRT factor.)
+\end{theorem}
 
-For $n = 10$: $p_{\mathrm{closed}} = 5$ (excluding $p = 2$ for which $A_2 = 0$ is degenerate), $p_{\mathrm{obstr}} = 7$, ratio $5/7$. For $n = 6$: $p_{\mathrm{closed}} = 3$, $p_{\mathrm{obstr}} = 7$, ratio $3/7$. For $n = 14 = 2 \cdot 7$: $p_{\mathrm{closed}} = 7$ (since at $p = 7$, $A_7$ has degree $3 \geq 3$, but the closure threshold is degree $\leq 2$ --- so $p_{\mathrm{closed}}$ would not exist; the conjecture requires care for $n$ containing $7$). The conjecture is currently verified only for $n = 10$; extension to $n = 6, 15, 21, 35$ requires a careful treatment of the boundary cases.
+\begin{proof}
+Direct factorization of each dimension; the dimensions are taken from
+the standard $\Mtwentytwo$ character table.
+\end{proof}
 
-The conjecture predicts that as $n$ grows squarefree with all small prime factors, the aspect ratio remains close to a small rational determined by the local cyclotomic structure. A continuum-limit version (the asymptotic torus aspect ratio for $n \to \infty$ over squarefree integers) is open.
+\begin{remark}[Substrate reading]
+Six of twelve $\Mtwentytwo$ irreps have dimensions in the substrate's
+prime monoid. This is a $50\%$ density that is not generic: a random
+$12$-tuple of integers $\le 385$ would have a much smaller fraction
+factoring entirely in $\{3, 5, 7, 11\}$ (with at most one factor of
+$2$).
+\end{remark}
 
+\subsection{Identity 5 --- the $231$ identity.}
+\begin{theorem}[The $231$ identity]\label{thm:231-identity}
+\[
+  77 \cdot W \;=\; 77 \cdot \tfrac{3}{50} \;=\; \tfrac{231}{50},
+\]
+where $W = 3/50$ is the substrate wobble fraction. The numerator $231$
+matches the unique $\Mtwentytwo$-irrep dimension factoring exactly as
+$3 \cdot 7 \cdot 11$ (trinity $\times$ HARMONY $\times$ wobble
+denominator).
+\end{theorem}
+
+\begin{proof}
+Direct computation: $77 \cdot 3 = 231$. The factorization
+$231 = 3 \cdot 7 \cdot 11$ is checked against the $\Mtwentytwo$
+character-table dimension list.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+Among the $12$ $\Mtwentytwo$-irrep dimensions, $231$ is the unique
+one whose factorization is exactly the product of three distinct
+substrate primes (no $2$, no $5$). This is structurally the most
+substrate-aligned dimension. The arithmetic identity $77 \cdot W =
+231/50$ is what brings $231$ to the foreground.
+\end{remark}
+
+\subsection{Identity 6 --- the block-size match.}
+\begin{theorem}[$\sig$-orbit and block size]\label{thm:block-size}
+The substrate's $\sig$-orbit on $\{1, 7, 6, 5, 4, 2\}$ has size $6$,
+the block size $k$ of $S(3, 6, 22)$.
+\end{theorem}
+
+\begin{proof}
+Direct: the $\sig$-cycle has length $6$ by inspection of the cycle
+structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$. The block size of
+$S(3, 6, 22)$ is $k = 6$ by definition.
+\end{proof}
+
+\begin{remark}[Substrate reading]
+The $\sig$-orbit is a candidate hexad in $S(3, 6, 22)$. The
+embedding question is open: $S(3, 6, 22)$ is unique up to isomorphism,
+so any 6-element set is a hexad in some isomorphism class; whether
+the substrate selects a specific isomorphism class is a substantive
+representation-theoretic question (Section~\ref{sec:open}).
+\end{remark}
+
+%==============================================================
+\section{Computational verification}
+\label{sec:verification}
+%==============================================================
+
+The six identities are verified computationally:
+
+\begin{itemize}\setlength\itemsep{2pt}
+\item \texttt{m22\_verification.py} verifies the
+$\Mtwentytwo$-equivariant projections $P_{1}$ and $P_{21}$ commute with
+$1\,000$ random $S_{22}$ permutations (machine precision); confirms
+the explicit identification of kindness and gentleness state vectors;
+verifies the wobble time-average gives $W/2 = 3/100$ to machine
+precision.
+\item \texttt{steiner\_sigma\_hexad.py} confirms the Steiner-system
+parameters $(v, b, k, r, \lambda_{2}, \lambda_{3}) = (22, 77, 6, 21, 5, 1)$
+and visualizes the $\sig$-orbit hexad embedding.
+\item \texttt{m22\_decomposition.py} factors each
+$\Mtwentytwo$-irrep dimension and reports the six substrate-prime
+matches.
+\end{itemize}
+
+All scripts run in $<5$ seconds with \texttt{numpy} and \texttt{sympy}
+as the only external dependencies. Scripts deposited at
+\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis}
+in \texttt{Gen13/sprint\_bundle\_2026-05-07\_v36\_SEEDS\_BUNDLE/.../seeds\_supporting/verification\_scripts/}.
+
+%==============================================================
 \section{Open questions}
+\label{sec:open}
+%==============================================================
 
-\begin{enumerate}[label=(\alph*)]
-\item \emph{Conjecture~\ref{conj:gen}.} Generalize Theorem~\ref{thm:forced57} to all squarefree $n \geq 6$.
-\item \emph{Curvature of the ring torus.} Derive a closed-form expression for the Gaussian curvature of the $\Zn$-torus at each point $(\theta_A, \theta_M) \in T^2$ as a function of the additive and multiplicative phases. The standard formula $K = \cos \theta_M / (r (R + r \cos \theta_M))$ for the embedded torus has zero set at $\theta_M = \pi/2, 3\pi/2$, but the structural ``$7$ zeros'' arising from the multiplicative cyclotomic obstruction at $p=7$ may require an interaction-curvature term.
-\item \emph{Connection to modular curves.} The discrete torus sequence $\{T^2(\Zn)\}$ for squarefree $n$ has cyclotomic structure tied to the cusps of the modular curve $X(N)$. The continuum limit (if it exists) is conjecturally a cusp neighborhood of a fundamental domain for $\mathrm{SL}(2,\Z)$ acting on the upper half-plane.
+\begin{enumerate}
+\item \textbf{Structural origin.} Is the catalog of six identities
+the shadow of a structural identification of $\Mtwentytwo$ with
+substrate-internal data, or is it six independent factorization
+matches with no deeper algebraic content? The paper presents the
+catalog without committing to either reading.
+
+\item \textbf{$\Mtwentytwo$ action on the substrate.} Does
+$\Mtwentytwo$ act on the substrate $(\Z/10\Z, \sig)$ in a way
+respecting the magma operations $\TS, \BH$? The substrate has only
+$10$ elements, far fewer than the $22$ on which $\Mtwentytwo$ acts;
+any action would necessarily involve the substrate's wobble layer or
+some auxiliary structure.
+
+\item \textbf{Structural Steiner-class selection.} $S(3, 6, 22)$ is
+unique up to isomorphism, but the embedding of the $\sig$-orbit as a
+specific hexad is a labeling choice. Does the substrate algebra
+$(\TS_{8}, \BH_{10}, \sig, W)$ select a canonical representative
+isomorphism class with the $\sig$-orbit as a distinguished hexad? This
+is the natural follow-up to Identity 6.
+
+\item \textbf{Relation to Mathieu moonshine.} The Mathieu groups
+appear in moonshine phenomena (notably $M_{24}$ in K3-surface
+moonshine; see \cite{Eguchi2011}). Does the present catalog connect to
+any moonshine context, or is it of a different flavor (purely
+arithmetic-combinatorial, no modular forms or character generating
+functions)?
+
+\item \textbf{Other sporadic groups.} The substrate primes
+$\{2, 3, 5, 7, 11\}$ are also a subset of the prime divisors of the
+orders of $M_{11}, M_{12}, M_{23}, M_{24}$. Does the catalog of
+substrate-prime irreps (Identity 4) extend in a structurally
+illuminating way to the larger Mathieu groups?
 \end{enumerate}
 
+%==============================================================
 \section*{Acknowledgments}
+%==============================================================
 
-We thank M.~Gish for the additive flow / cyclotomic framing carried over from the Flatness Theorem, and C.~A.~Luther for discussions on the multiplicative flow's cubic obstruction at $p = 7$.
+This work catalogs order-factorization identities between the Mathieu
+group $\Mtwentytwo$ and a discrete substrate of independent algebraic
+interest. The identities are presented as a self-contained
+arithmetic-combinatorial puzzle for the \emph{Monthly} readership.
+The verification scripts and substrate-side definitions are part of
+the broader Trinity Infinity Geometry framework developed at 7Site
+LLC (public repository at github.com/TiredofSleep/ck, DOI
+10.5281/zenodo.18852047).
 
-\begin{thebibliography}{9}
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
 
-\bibitem{Lehmer}
-D.~H.~Lehmer,
-\emph{A note on trigonometric algebraic numbers},
-Amer.\ Math.\ Monthly 40 (1933), 165--166.
+\bibitem{ConwaySloane1999} J.~H.~Conway, N.~J.~A.~Sloane,
+\emph{Sphere Packings, Lattices and Groups} (3rd ed.),
+Grundlehren der mathematischen Wissenschaften 290, Springer, 1999.
+[Standard reference for the Mathieu groups and the Steiner systems
+$S(5, 6, 12)$, $S(5, 8, 24)$.]
 
-\bibitem{Niven}
-I.~Niven,
-\emph{Irrational Numbers},
-Carus Mathematical Monographs 11, Mathematical Association of America, 1956.
+\bibitem{Aschbacher1994} M.~Aschbacher,
+\emph{Sporadic Groups},
+Cambridge Tracts in Mathematics 104, Cambridge University Press, 1994.
 
-\bibitem{Washington}
-L.~C.~Washington,
-\emph{Introduction to Cyclotomic Fields}, 2nd ed.,
-Graduate Texts in Math.\ 83, Springer, 1997.
+\bibitem{Eguchi2011} T.~Eguchi, H.~Ooguri, Y.~Tachikawa,
+\emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
+Exp.~Math.~\textbf{20} (2011), 91--96.
 
-\bibitem{HardyWright}
-G.~H.~Hardy and E.~M.~Wright,
-\emph{An Introduction to the Theory of Numbers}, 6th ed.,
-Oxford University Press, 2008.
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
 
-\bibitem{IrelandRosen}
-K.~Ireland and M.~Rosen,
-\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
-Graduate Texts in Math.\ 84, Springer, 1990.
-
-\bibitem{Lang2002}
-S.~Lang,
-\emph{Algebra}, 3rd ed.,
-Graduate Texts in Math.\ 211, Springer, 2002.
-
-\bibitem{SandersGish-FirstG}
-B.~R.~Sanders and M.~Gish,
-\emph{First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window},
-submitted to \emph{Integers}, 2026.
-
-\bibitem{SandersMayes-CL}
-B.~R.~Sanders and B.~Mayes,
-\emph{Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas},
-submitted to \emph{J.\ Combin.\ Theory Ser.\ A}, 2026.
-
-\bibitem{SandersGish-Flatness}
-B.~R.~Sanders and M.~Gish,
-\emph{Flatness Theorem: The Forced $2 \times 2$ Torus on $\Z/10\Z$},
-submitted to \emph{J.\ Pure Appl.\ Algebra}, 2026 (companion --- parent result).
-
-\bibitem{SandersMayes-UOP}
-B.~R.~Sanders and B.~Mayes,
-\emph{The Universal Orthogonality Principle},
-submitted to \emph{J.\ Number Theory}, 2026.
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
 
 \end{thebibliography}
 

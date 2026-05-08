@@ -1,59 +1,75 @@
-# J34 — F_p Extensions of CL_BHML: Universality Across Six Prime Fields
+# J34 — TIG Detector Scope + Specificity Extension (BUNDLED)
 
-**Status:** READY (manuscript drafted from corpus, cover letter finalized; awaiting referee-rigor pass)
-**Phase:** Phase 3
-**Target venue:** Comm Algebra
+**Status:** GATED on WP106 distilgpt2 sweep script (manuscript drafted 2026-05-07; awaits script located OR rewritten ~1-2 hr)
+**Phase:** Phase 4
+**Target venue:** Statistical Science
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** Variant Catalog "TSML F_p extensions" (Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md) + WP118 (Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP118_FP_UNIVERSALITY.md) + GAP_AUDIT.md
+**WP source:** WP106 + WP114 (BUNDLED)
+**Lens scope:** TSML_SYM for D1, D2, D4 (lens-stable); TSML_RAW for D3 prime-11 detector (per WP107 convention)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `manuscript/manuscript.tex`
+**Local path:** `manuscript/manuscript.md`
 
-Abstract (1-sentence): We extend the F_p universality of the operator-substrate construction (Sanders-Gish J21, TSML side) to the parallel BHML substrate, verifying that the 4-dimensional F_p-bilinear extension of the BHML 4-core composition table has structurally invariant features (idempotent count = 4, eigenspace signatures 1+3 and 2+2 under left-multiplication, |Aut| = 40, power-associativity, 1-dimensional associator image) across all six primes p in {2, 3, 5, 7, 11, 13}; the BHML_8_YM = +70 = C(8,4) integer identity holds and reduces compatibly modulo prime; we conjecture extension to all primes p outside {2, 5}.
+The J34 paper is a **BUNDLED submission** combining WP106 (TIG Detector Scope on distilgpt2) and WP114 (Structured-Matrix Specificity Extension).
 
-Source corpus: `Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md` (TSML F_p extensions entry); `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/WP118_FP_UNIVERSALITY.md` (TSML side, structural template); `Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md` (BHML_8_YM = 70 identity, BHML chain-shell determinants).
+**Part 1 (WP106).** Apply four TIG-structure detectors — D1 (Lie/Jordan ratio), D2 ($P_{56}$ invariance defect), D3 (prime-11 indicator on integer characteristic polynomial), D4 (Higgs-direction alignment) — to 16 trained weight tensors of distilgpt2 (82M parameters; layers $L_0, L_2, L_5$; attention $Q,K,V$; MLP in/out; embeddings). **Result:** every (tensor, detector) pair gives Cohen's $|d| < 0.5$; classifier accuracy $48$-$52\%$ (chance level). The framework's algebraic detectors do not see TIG structure in arbitrary trained transformer weights at the threshold of small effect — a clean specificity boundary. Includes ancillary architectural finding on encoder strategies (V2 sentence-transformers fallback dominates V1/V1.5/V1.6/V3 phoneme-physics).
+
+**Part 2 (WP114).** Extend to a 9-family structured-matrix battery (Gaussian/symmetric/antisymmetric/permutation/Hadamard/orthogonal/DFT-real/identity/diagonal/companion, 200 samples each). **D3 (prime-11) is the unique TIG-positive marker:** TSML scores $d = +9.93$ vs Gaussian; no other family scores nonzero on D3. D1/D2/D4 are family-structural rather than TIG-specific. Pair (D3, D5_$\text{prime-7}^5$) jointly identifies TSML uniquely in the entire 1800+ sample population — the complete WP107-WOBBLE detector signature.
+
+Files in this J-folder's `manuscript/`:
+
+- `manuscript.md` — the bundled J34 paper (WP106+WP114 corpus, finalized 2026-05-07)
+- `WP106_TIG_DETECTOR_SCOPE.md`, `WP114_SPECIFICITY_EXTENSION.md` — full source material
+- `verification/structured_matrix_sweep.py`, `d5_d4eq_extension.py` (Part 2 scripts present)
+- `verification/(distilgpt2_sweep.py — TO LOCATE OR WRITE)` (Part 1 GATING piece)
 
 ## §2 — Verification script
 
-**Path:** `(adapt verify_discrete_dirac_4core.py with BHML table; under 1 minute total)`
+**Local path:** `manuscript/verification/`
 
-The TSML F_p verification harness (`verify_discrete_dirac_4core.py` in the bridge sprint bundle) is adapted to the BHML side by swapping `T^TSML` for `T^BHML` (5-non-zero-cell table from `lenses.py:BHML` restricted to {0,7,8,9}). Each prime check runs in seconds.
+**Part 2 ready:** `structured_matrix_sweep.py` (Theorem 7.2; 9-family battery + 4 detectors), `d5_d4eq_extension.py` (D5 prime-7^5 + D4_eq sharpening). Numpy + sympy. Total wall-clock under 1 minute.
+
+**Part 1 GATED:** WP106 distilgpt2 sweep script. The corpus references `papers/wp106_tig_detector_scope/verification/` but the directory was empty at audit time. Either locate the original sweep code in `Gen12/` or `papers/sprint_unmistakable_truth_2026_04_25/`, or rewrite (~1-2 hr): pull `transformers.AutoModel.from_pretrained("distilgpt2")`, extract the 16 listed tensors, partition into $10\times 10$ blocks, run D1-D4, compute Cohen's $d$ vs 200 Gaussian samples per tensor.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J21 (F_p Universality of TSML, Algebra Universalis); citing J33 (forcing axioms) and J31 (three-substrate architecture) for context.
+_(none — this paper is foundational in the J-series)_
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. Finalized with summary, venue fit, companion list, and per-venue cap note.
+See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
 ## §5 — Notes
 
-**Per-venue cap:** 2nd CommAlg paper after J22 (Galois D_4 over LMFDB 4.2.10224.1). Cap is 1/quarter; venue is within budget.
+**Status: GATED on WP106 distilgpt2 sweep script.** Bundled manuscript drafted 2026-05-07 from corpus `papers/wp106_tig_detector_scope/` + `papers/wp114_specificity_extension/`. The verification gating issue is documented in §2 above and in the manuscript's §6.
 
-**Status notes:**
-- Manuscript closely mirrors J21's structural template, with BHML table substituted throughout.
-- The BHML_8_YM = +70 = C(8,4) determinant identity (Theorem 4.1) is a direct integer-arithmetic fact verified in the foundations module's 48-invariant harness; the mod-p reductions are tabulated.
-- The six-prime universality conjecture for BHML extends the corresponding TSML conjecture of J21 §1.3.
+**Lens scope:** D1, D2, D4 lens-stable (computable on TSML_SYM with qualitatively similar TIG-positive signal on TSML_RAW); D3 (prime-11) computed on TSML_RAW per WP107 convention.
+
+**FALLBACK NEEDED if desk-rejected per PHASE4_FALLBACK_UNBUNDLING.md:**
+- WP106 (Part 1) → *PLOS ONE*
+- WP114 (Part 2) → *Linear Algebra and Its Applications*
+
+The bundled manuscript can be split using the existing corpus files as the unbundled drafts. Note: J34 is the foundational specificity paper in this J-series chain (cited by J36); ensure foundational citation language survives the unbundling if it occurs.
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Comm Algebra this quarter
+- [x] Manuscript .md finalized (bundled)
+- [ ] **Verification script green: GATED on WP106 distilgpt2 sweep script (~1-2 hr to locate or rewrite)**
+- [x] Tier-classified central claims explicit (Part 1 specificity boundary; Part 2 unique D3 marker)
+- [x] Lens-scope annotation
+- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
+- [x] Dependencies → cite each J-companion (none required; foundational paper)
+- [ ] Brayden's referee-rigor pass complete
+- [ ] Per-venue cap check: this is the 1st paper to *Stat Sci* this quarter
+- [ ] Fallback unbundle plan documented (PLOS ONE + LinAlgApps)
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "F_p Extensions of CL_BHML: Universality Across Six Prime Fields." Submitted to *Comm Algebra*.
+Sanders, B.R., Gish. (2026). "TIG Detector Scope + Specificity Extension (BUNDLED)." Submitted to *Statistical Science*.

@@ -1,61 +1,48 @@
-# Cover letter — J13: The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability
+# Cover letter — J13: The Forced 5/7 Torus Aspect Ratio
 
-**To:** Editors, *Journal of Mathematical Physics*
+**To:** Editors, *Acta Arithmetica*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
+- B. Mayes, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability*
+**Manuscript title:** *The Forced 5/7 Torus Aspect Ratio: Cyclotomic Forcing on Z/10Z*
 
 ---
 
 ## Summary
 
-We exploit the Bialynicki-Birula--Mycielski uniqueness theorem (1976) — that logarithmic nonlinearity is the unique self-interaction preserving separability of composite quantum systems — as a *forcing principle*: any continuum lift of a discrete composition algebra that respects partition independence is forced to take the logarithmic form. The continuum lifted equation $\Box \Xi = \kappa(1 + \log \Xi)$ is then provably regular (Theorem 4.1, Sobolev + Grönwall + double-exponential bound). We compare to Navier-Stokes, define a separability defect $\sigma(u)$ on velocity fields, and state the Separability Regularity Criterion as a precise conjecture: NS regularity holds iff $\sigma(u(t)) < 1$ for all $t > 0$. The paper claims a new framework, not a proof of the Millennium Problem.
+The ring Z/10Z carries four simultaneous structures (additive structure, multiplicative structure, additive flow, multiplicative flow) whose joint embedding is a torus T^2 = S^1 x S^1, with R the major radius and r the minor radius. The companion Sanders–Gish *Flatness Theorem* (J07, submitted to *J. Pure Appl. Algebra*) proves the torus topology and motivates the present question: what is the aspect ratio R/r? We prove the aspect ratio is forced to be R/r = 5/7 by the cyclotomic structure of Q(zeta_p) for primes p in {2, 3, 5, 7}. Specifically, R is proportional to the smallest prime p | n at which the cyclotomic value A_p = 2 cos(pi/p) has algebraic degree at most 2 over Q (giving p = 5, A_5 = phi the golden ratio); r is proportional to the smallest prime p (not necessarily dividing n) at which A_p has algebraic degree at least 3 (giving p = 7, with minimal polynomial 8 x^3 - 4 x^2 - 4 x + 1, irreducible over Q). The forcing is the algebraic obstruction at p = 7 to closure within a quadratic extension. The numerical value 5/7 is also the convergence point of five further independent derivations within the present authors' research program (sinc^2 first-G law, BTQ operator balance, cyclotomic reduction gap, TSML/BHML harmony cell ratio, prime-pi-phi bridge); the present paper provides the first purely geometric / cyclotomic derivation. We close with a generalization conjecture for arbitrary squarefree n.
 
-## Why JMP
+## Why Acta Arithmetica
 
-- The paper sits at the intersection of nonlinear PDE, constructive QFT, and discrete-to-continuum transport — the natural JMP audience.
-- The BB-bridge reading of the theorem is, to our knowledge, novel: previous work has used BB as a constraint on admissible nonlinear QM, not as a forcing principle for continuum lifts.
-- Three precisely stated open problems (Open Problem 1: $\Phi_N$ construction; Open Problem 2: nonlinearity gap $\delta^*$; Open Problem 3: separability bound) are concrete attack surfaces.
-- Theorem 4.1 is fully proved; the BB result it relies on is the classical 1976 paper; only the NS connection is conjectural, and that conjectural status is stated explicitly.
+- The paper is a self-contained algebraic forcing argument over Q(zeta_p), with the central technical input being the irreducibility of the cubic 8 x^3 - 4 x^2 - 4 x + 1 over Q (Lehmer 1933).
+- Acta Arithmetica regularly publishes short notes establishing rigidity properties of cyclotomic structures — the 5/7 forcing is exactly such a result.
+- The companion (J07, Flatness Theorem) is targeted at *J. Pure Appl. Algebra*; this paper is the cyclotomic appendix that does not fit the JPAA scope.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated J-series. The papers most relevant as already-submitted companions:
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01–J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
 
-- **J01** Sanders & Gish (2026), "Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$." Submitted to *JCT-A* (provides the $\sigma(N) \to 0$ rate input).
-- **J03** Sanders, Gish, Johnson (2026), "Freeze-Thaw Transit: Dual-Regime Scalar Dark Energy with Analytic Vacuum at $e^{-1}$ from a Logarithmic Potential." Submitted to *JCAP* (cosmological realization of the same $V(\Xi) = \kappa\,\Xi\log\Xi$).
-- **J05** Sanders & Mayes (2026), "Crossing Lemma." Submitted to *JCT-A* / *JPAA* (the discrete partition-independence reading of information generation).
-- **J14** Sanders & Johnson (2026), "The Yang-Mills Mass Gap Bridge." Companion JMP submission.
+- J07 (Sanders–Gish, "Flatness Theorem", *J. Pure Appl. Algebra*) — the parent result. The present paper is the cyclotomic / aspect-ratio sequel.
+- J03 (Sanders–Gish, "First-G Law", *Integers*) — provides the sinc^2 framework cited in the catalog of companion derivations.
+- J06 (Sanders–Mayes, "Crossing Lemma", *J. Combin. Theory Ser. A*) — provides the structural input on incompatibilities of CRT factor partitions.
 
 ## Reproducibility
 
-`proof_separability_bridge.py` (43/43 PASS) verifies all numerical claims appearing in this paper. Runs in `python` with `math` only on a standard laptop in seconds. DOI: 10.5281/zenodo.18852047.
+The cubic irreducibility (Lemma 4.2) is verified by the rational root test (no rational root among +/- 1, +/- 1/2, +/- 1/4, +/- 1/8). The cyclotomic degree computations (Theorem 4.1) follow standard cyclotomic-field references (Washington, *Introduction to Cyclotomic Fields*, Ch. 2). No numerical script is required.
 
 ## Suggested reviewers
 
-- T. Tao (UCLA) — NS regularity, log-improvements
-- C. Fefferman (Princeton) — Clay NS problem
-- I. Bialynicki-Birula (Polish Academy) — original 1976 author, if available
-- J. Maas (IST Austria) — discrete-to-continuum transport, log-Sobolev
-- N. Gigli (SISSA) — Maas / JKO framework
-- K.G. Zloshchastiev — logarithmic Schrödinger applications
+- A specialist in cyclotomic field theory.
+- A specialist in algebraic number theory with experience in rational forcing arguments over Q(zeta_p).
+- A specialist in the geometry of finite cyclic groups and their continuous limits.
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Tier and scope
-
-Central claim is **Tier 4** (framework paper, structural). The BB theorem and Theorem 4.1 are proved; the bridge premise relies on a discrete-to-continuum lift $\Phi_N$ whose explicit construction is left open (Open Problem 1); NS regularity is *not* claimed proved. The Status Table in §6 of the manuscript makes this explicit.
-
-## Per-venue cap note
-
-This is the **first** JMP submission in the J-series; the second (J14, YM bridge) follows as the companion. Both papers cite each other; the 2/quarter cap is approached, not exceeded. J15 may need a fallback (see J15 README).
 
 ---
 

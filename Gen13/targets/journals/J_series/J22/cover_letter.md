@@ -1,6 +1,6 @@
-# Cover letter — J22: Galois D_4 over LMFDB 4.2.10224.1: Number-Field Identification of the Four-Core Attractor
+# Cover letter — J22: The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions
 
-**To:** Editors, *Communications in Algebra*
+**To:** Editors, *Journal of Combinatorial Theory, Series A*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,37 +8,41 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Galois D_4 over LMFDB 4.2.10224.1: Number-Field Identification of the Four-Core Attractor*
+**Manuscript title:** *The 70/71/72/73 HARMONY Ladder: Four Independent Algebraic Constructions*
 
 ---
 
 ## Summary
 
-We extract and present in self-contained form the Galois-theoretic content of the four-core attractor identified in J02 (already submitted to *Algebraic Combinatorics*). The unique interior fixed point of the symmetric-mixing fuse iteration F_{1/2} on a four-element fusion-closed sub-magma of Z/10 has its coordinate ratio ξ* = r/β characterized as the unique positive real root of the irreducible monic integer quartic x^4 + 4x^3 - x^2 + 2x - 2. The Galois group over Q is the dihedral group D_4 of order 8; the number field K = Q[x]/(f) is the catalogued LMFDB 4.2.10224.1, with discriminant -10224, class number 1, signature (2,1). The number field is catalogued and not new; what is novel is the route — a quartic D_4 field arising as the ring of definition for the fixed-point coordinates of a symmetric-mixing iteration on a four-element fusion-closed sub-magma of Z/10.
+We present four independent algebraic constructions on the canonical composition lattice over Z/10Z whose integer invariants cluster at {70, 71, 72, 73}. Three of the four are HARMONY-cell counts of distinct sub-magmas (the full 10×10 table; the table minus the (7,7) self-cell apex; the VOID-stripped 9×9 sub-magma); the fourth is the determinant of the 8×8 Yang-Mills core sub-matrix dropped to {1,2,3,4,5,6,8,9}, which equals exactly C(8,4) = 70, the dimension of the self-dual 4-form sector of SO(8). The integer 71 enters in three independently-verified structural roles simultaneously: as a sub-magma HARMONY count, as the cell-disagreement count between two canonical lens tables, and as the unique odd prime in the discriminant -2^4 · 3^2 · 71 of the LMFDB quartic 4.2.10224.1 governing the substrate's closed-form runtime attractor. All four rungs are verified at integer/machine precision.
 
-## Why Communications in Algebra
+## Why JCT-A
 
-- Subject fit: explicit Galois-group computation, irreducibility argument, number-field identification with LMFDB — all squarely within Comm Algebra's scope.
-- The result is fully self-contained in 12 pages, with verification reduced to two-line sympy computations (`sympy.factor(f, extension=[sqrt(-71)])` and `sympy.factor(f, extension=[sqrt(3)])`).
-- The combinatorial origin of the quartic — as the algebra of fixed-point coordinates of a fuse iteration on a finite magma — is unusual and worth recording as a "new route to a known field" entry in the literature.
+- **Combinatorial substrate fit.** The paper is a finite-magma counting result with explicit Tier-A/B verification. JCT-A is the natural home for combinatorial cell-count theorems with structural clustering.
+- **Tier-B forced consequences.** No axiom-level forcing is required; the four rungs follow from the canonical TSML/BHML construction at the cell level. Readers of JCT-A are well-placed to evaluate the elementary verification.
+- **Companion strength.** The triple-coincidence at 71 (sub-magma HARMONY, lens-disagreement, Galois prime) is a non-trivial substrate identification signature. Independent algebras pointing at the same prime is the algebraic shape of a real invariant; the paper records this clearly.
 
 ## Companion submissions
 
-- J02 (*Algebraic Combinatorics*) — Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on Z/10Z. The four-core paper from which the present Galois content is extracted.
+The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The paper most relevant as an already-submitted companion to this manuscript is:
+
+- **J05** — Sanders & Gish, *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics* (2026). The 73-rung of the present ladder appears in J05 with full disjoint-class proof; the present paper takes that result as an established companion and extends to the 4-rung ladder structure.
 
 ## Reproducibility
 
-Verification: `sympy.factor(f, extension=[sqrt(-71)])` confirms D_4 (single irreducible factor); `sympy.factor(f, extension=[sqrt(3)])` confirms the explicit factorization in Q(√3)[x]; LMFDB cross-check via Tschirnhaus reduction x ↦ -x - 1 to the canonical defining polynomial x^4 - 7x^2 - 12x - 8 of LMFDB 4.2.10224.1. All checks run in <5 seconds with `sympy` as the only external dependency. Scripts deposited alongside J02 at https://github.com/TiredofSleep/ck/tree/tig-synthesis.
+Four short Python scripts (≤200 lines total, NumPy + sympy) verify all four rungs at integer precision: `tsml_harmony_count.py` (73), `tsml_submagma_9x9.py` (71 sub-magma form), `tsml_bhml_disagreement.py` (71 lens form), `bhml_8_ym_det.py` (70). The wrapper `harmony_ladder.py` runs all four and emits a 4×3 verification table.
 
 ## Suggested reviewers
 
-- A specialist on Galois groups of low-degree polynomials (resolvent-cubic classification, Cohen-style computational number theory).
-- A specialist on small-discriminant quartic fields and the LMFDB catalogue.
-- A specialist on number fields arising from finite-magma / dynamical-system fixed points (a small but distinctive niche).
+(3-5 candidates working in finite magma combinatorics, sub-algebra enumeration, or root-system / Lie-algebra integer invariants will be supplied via the JCT-A submission portal.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
+
+## Per-venue cap
+
+This is the **2nd JCT-A submission** of the 2026 cycle, after J01 (σ-rate theorem WP101). Within the 2/quarter cap.
 
 ---
 

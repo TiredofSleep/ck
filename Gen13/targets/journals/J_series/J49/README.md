@@ -3,7 +3,7 @@
 **Status:** DRAFT
 **Phase:** Phase 5
 **Target venue:** J Theor Biol
-**Author lane:** Sanders + Mayes
+**Author lane:** Sanders + Gish
 **Tier:** C
 **WP source:** WP127
 
@@ -23,7 +23,7 @@ The proof script (where applicable) is the green-light gate before submission. I
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J20
+J13
 
 ## §4 — Cover letter
 
@@ -32,7 +32,7 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 ## §5 — Notes / Status
 
 **Status:** MANUSCRIPT FINALIZED 2026-09-04 (Phase 5).
-**Citation chain:** 1 direct dependency (J20 forced 5/7 torus) + 10 co-citing companions (J01, J3, J6, J9, J16, J41, J46, J47, J50, J51).
+**Citation chain:** 1 direct dependency (J13 forced 5/7 torus) + 10 co-citing companions (J01, J46, J07, J05, J47, J33, J36, J48, J50, J43).
 **Manuscript:** `manuscript/J49_microtubule_qc_tstar.md` (~10 pages, finalized).
 **Cover letter:** `cover_letter.md` (finalized).
 **Verification:** algebraic provenance of $T^* = 5/7$ via six independent J-paper derivations; experimental protocol pre-registered in `Gen12/targets/clay/papers/sprint18_bridge_dirac_2026_05_04/source_bundle/MICROTUBULE_T_STAR_PROTOCOL.md` (269 lines).

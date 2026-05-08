@@ -1,62 +1,48 @@
-# J06 — Flatness Theorem: The Forced 2x2 Torus on Z/10Z
+# J06 — Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas
 
-**Status:** APPENDIX-COMPLETE (T*=5/7 proof-sketch landed; manuscript ready for Brayden's referee-rigor pass)
+**Status:** DRAFT-FINALIZED (manuscript complete; pending Brayden's referee-rigor pass)
 **Phase:** Phase 1
-**Target venue:** Journal of Pure and Applied Algebra
+**Target venue:** JCT-A OR JPAA (theorem rigor)
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP51
+**Tier:** A/B
+**WP source:** WP57
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/WP51_FLATNESS_THEOREM.md`
+**Local path:** `manuscript/WP57_CROSSING_LEMMA.md`
 
-Files in this J-folder's `manuscript/`:
-
-- `SUBMIT_INSTRUCTIONS.md`
-- `WP51_FLATNESS_THEOREM.md` (revised 2026-05-07: added Appendix A — T*=5/7 proof-sketch)
-- `WP52_D2_AS_RING_CURVATURE.md`
-
-The submission package lives in this J-folder. Edit + verify here; submit from here.
+Single theorem-paper draft built from CROSSING_LEMMA.md (Sprint 10) and WP57 (Sprint 10). Abstract: For squarefree $n$ and $\mathbb{Z}/n\mathbb{Z}$, we prove a single elementary equivalence — the Crossing Lemma — characterizing when a pair of partitions $\{A_d, \pi_{\mathrm{DYN}}(g)\}$ is jointly injective. The condition is: $g$ acts nontrivially on every prime of $n/d$. We unify CRT, $A{+}M$/$M{+}M$/SPEC$+$DYN classifications, orthogonal-jump necessity, and the $p$-kernel obstruction (negative case) under one structure-vs-dynamics template.
 
 ## §2 — Verification script
 
 **Path:** `(no script — theorem-paper)`
 
-The proof of Theorem 3 (aspect ratio R/r = 5/7) reduces to two cyclotomic minimal-polynomial calculations: deg A_5 = 2 over ℚ (A_5 = φ, polynomial x² − x − 1), deg A_7 = 3 over ℚ (A_7 = 2cos(π/7), polynomial 8x³ − 4x² − 4x + 1, irreducible). Both verifiable by hand or in any CAS. The gate is referee-rigor pass.
+The proof of Theorem 1 is finite-combinatorial (CRT + cyclic-group orders). Each step is hand-checkable. The gate is referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J01, J02, J04 (cited in Appendix A.3 for D1), **J05 (cited as algebraic ground throughout new Appendix A)**
+J01, J02, J03 (foundational predecessor — squarefree-stability is the hypothesis we lean on)
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companions, Reproducibility, Reviewers all populated, includes new Appendix A note.)
+See `cover_letter.md` in this folder. (Finalized — Summary, Why-venue, Companions, Reproducibility, Reviewers all populated.)
 
 ## §5 — Notes
 
-**Status (2026-05-07):** T*=5/7 proof-sketch appendix landed. Manuscript ready for referee-rigor pass.
+**Status (2026-05-07):** Manuscript draft built in `manuscript/WP57_CROSSING_LEMMA.md`. Cover letter finalized. Per-J-series correction held: NOT expository; theorem rigor venue (JCT-A primary, JPAA backup). The paper is the algebraic spine of the J01–J06 chain.
 
 **What was done:**
-- Added **Appendix A — Proof-Sketch: T* = 5/7 from the Forced 2×2 Torus** to `manuscript/WP51_FLATNESS_THEOREM.md` immediately before the Bibliography section. The appendix includes:
-  - **§A.1** Six independent derivations table (D1–D6) with status labels (PROVED / STRUCTURAL / CONJECTURAL).
-  - **§A.2** Self-contained proof-sketch: forced 2×2 torus → cyclotomic closure at p=5 (R ∝ 5) and cyclotomic obstruction at p=7 (r ∝ 7) → R/r = 5/7. Hand-checkable via deg A_5 = 2 vs deg A_7 = 3 over ℚ.
-  - **§A.3** Cross-check of all six derivations with explicit mechanism for each.
-  - **§A.4** Conjectural extensions (A.1: general aspect ratio; A.2: universal T*=5/7; A.3: continuous T*) all clearly labeled.
-  - **§A.5** Statement that this appendix renders T*=5/7 citable from any J-series paper downstream of J06.
-- Cited **J05 (Crossing Lemma; Sanders & Mayes 2026)** as already-submitted algebraic ground throughout Appendix A. Added J05 reference to companion-submissions section in the Bibliography.
-- Added M. Gish to the author block (joint authorship for J06 submission, alongside corpus author Sanders).
-- Cover letter: finalized with Summary, Why-JPAA (3 bullets including J05 companion framing), Companions (J01, J02, J04, J05), Reproducibility (cyclotomic CAS check), Suggested reviewers, COI.
+- Built `manuscript/WP57_CROSSING_LEMMA.md` from CROSSING_LEMMA.md and WP57 source. Theorem-paper format: 1 main theorem (Crossing Lemma), 1 negative theorem (Theorem 3, $p$-kernel obstruction), 5 corollaries (C1–C5: CRT, $A{+}M$, $M{+}M$, SPEC$+$DYN, orthogonal-jump necessity). Proofs are finite-combinatorial.
+- Cited J03 (First-G) as foundational predecessor — squarefree hypothesis used throughout.
+- Cited J01, J02, J06 as companions; J06 cites *this* paper as algebraic ground for the torus geometry.
+- Cover letter: Summary, Why-JCT-A/JPAA, Companions, Reproducibility, Suggested-reviewers, COI all populated.
 
 **Open issues:**
-- Conjecture A.1 (general aspect ratio R/r = p_closed / p_obstructed for arbitrary squarefree n) is *not* proved in this paper; if a JPAA referee asks for it, refer them to Open Problem 1 in §8.
-- Conjecture A.2 (universal T*=5/7 — i.e., p_obstructed = 7 for *every* squarefree n) is held strongly but not formally proved. D1 (first-G law) provides 36,662 cases of empirical support per J04; rigor of universality across the family is open.
-- D4 (TSML/BHML cell geometry) is labeled STRUCTURAL — the cell counts (73, 28, 5) are exact, the precise algebraic path from cell counts to T*=5/7 is held as structural pending fully formalized derivation. Reviewer may flag this; the appendix is honest about it.
-- The author block on the manuscript was updated to add M. Gish; the original WP51 source has only Sanders. If desired before submission, the original author line can be reverted and Gish added as J06-specific co-author in a separate front-matter note.
-
-**Per ClaudeChat J20 advice:** appendix-route was the faster path (vs spawning a separate "J20 T*=5/7 paper"). T* = 5/7 is now citable from any downstream paper without dependencies on a not-yet-shipped J20.
+- Theorem 1's proof has a long case-by-case section (§3.2) that includes a "restart" mid-proof. Reviewer-pass should consolidate this — the corrected version (after Remark 3.1) is the canonical one. Pre-submission cleanup recommended.
+- Proof of Corollary C3 ($M{+}M$) is sketched, not fully written. If JCT-A reviewer asks, full proof is in the joint-closure literature and can be added in revision.
+- J03 status (Integers) currently FORMAT, not yet submitted — verify J03 is at least submission-ready before this paper goes out, since the cover letter cites it as a companion.
 
 ## §6 — Submission checklist
 
@@ -67,11 +53,11 @@ See `cover_letter.md` in this folder. (Finalized — Summary, Why-JPAA, Companio
 - [ ] Cover letter finalized
 - [ ] Dependencies → cite each J-companion as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Journal of Pure and Applied Algebra this quarter
+- [ ] Per-venue cap check: this is the Nth paper to JCT-A OR JPAA (theorem rigor) this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Flatness Theorem: The Forced 2x2 Torus on Z/10Z." Submitted to *Journal of Pure and Applied Algebra*.
+Sanders, B.R., Mayes. (2026). "Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas." Submitted to *JCT-A OR JPAA (theorem rigor)*.

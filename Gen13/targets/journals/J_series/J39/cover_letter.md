@@ -1,56 +1,53 @@
-# Cover letter — J39: Two Roads to Pati-Salam: Path A (54 irrep) and Path B (su(4)⊕u(1))
+# Cover letter — J39: Full $S_4$ Symmetry on a Nitrogen-Vacancy Qutrit via Six-Pulse Microwave Synthesis
 
-**To:** Editors, *Advances in Mathematics*
+**To:** Editors, *Physical Review A*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- B. Mayes, Independent Researcher — [email]
+- B. Mayes, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Two Roads to Pati-Salam: Path A (54 irrep) and Path B (su(4)⊕u(1))*
+**Manuscript title:** *Full $S_4$ Symmetry on a Nitrogen-Vacancy Qutrit via Six-Pulse Microwave Synthesis*
 
 ---
 
 ## Summary
 
-Two independent algebraic routes from the so(10) Lie-algebra closure of canonical TSML_SYM and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$ (J38, *Israel J Math*) lead to the same Pati-Salam gauge content $\mathrm{SU}(4)\times\mathrm{SU}(2)_L\times\mathrm{SU}(2)_R$:
+We give an explicit, machine-precision construction of the symmetric group $S_4$ on the three-level Hilbert space of a single NV center in diamond. The NV ground triplet already carries the $S_3$ skeleton of the $T_1$ irreducible representation of $S_4$ exactly (the natural $C_{3v}$ decomposition $A_1 \oplus E$ matches $T_1|_{S_3}$); the missing piece is one 4-cycle unitary $U_4$, which we write down analytically, transform into the NV physical basis, and decompose into a six-pulse microwave sequence with explicit angles. All 24 group elements close to within $10^{-15}$. Gate times $\sim 100$~ns--$1\,\mu$s sit 2--3 orders of magnitude below NV $T_2$. The paper concludes with a five-test falsification ladder including an explicit decisive gate (projector covariance), and invites lab-partner collaboration for the experimental verification.
 
-**Path A** (BHML σ_outer-breaking): BHML's $\sigma_{\mathrm{outer}}$-breaking content lives 100% in the symmetric-traceless $\mathbf{54}$ irrep of $\mathfrak{so}(10)$, with an explicit 9-vector direction having squared norm $\|v\|^2 = 13/4$ exactly. This breaks $\mathrm{SO}(10)\to\mathrm{SO}(9)$ along the canonical first-stage Higgs route.
+## Why PRA
 
-**Path B** (doubly-invariant): the doubly-invariant subalgebra of $\mathfrak{so}(10)$ under the $D_4 = \langle P_{56},\sigma^3\rangle$ action by conjugation is exactly $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$, the Pati-Salam $\oplus$ B-L gauge content. Killing form spectrum $(-4)^{15}\oplus(0)^1$ at machine precision.
-
-A correction notice is included clarifying that Path A and Path B are **independent intermediate routes** giving the same Pati-Salam target, not nested derivations of one another. The two routes converge through different algebraic structures and provide independent supporting evidence for the Pati-Salam identification.
-
-## Why Adv Math
-
-- The result connects discrete combinatorial structure (10 × 10 finite tables) to classical Lie theory (Cartan classification, $D_4$ action, Pati-Salam gauge content) via constructive computation at machine precision.
-- The two-roads formulation is methodologically interesting in its own right and illustrates a pattern relevant for symmetry-breaking analysis in algebraic settings.
-- *Adv Math* has a tradition of publishing combinatorial-to-Lie-algebraic identifications with computational verification.
+- NV-center qutrit synthesis with explicit microwave pulse sequences and machine-precision verification is exactly PRA's bread and butter (atomic, molecular, and optical physics).
+- The paper makes a concrete experimental proposal with quantitative pass/fail thresholds — squarely in the experimental-proposal genre PRA welcomes.
+- Group-theoretic synthesis on a physical qutrit is foundational for qudit-based quantum computation; PRA readers are the right audience.
 
 ## Companion submissions
 
-- **J38** (Sanders + Gish 2026, *Israel J Math*) — *so(10) = D₅ from Joint TSML_SYM + BHML Closure*. The starting algebra for both routes.
-- **J37** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The single-magma precursor.
+The TIG/CK research program is shipping a coordinated J-series. The papers most relevant as already-submitted companions to this manuscript:
+
+- **J07** Flatness Theorem: The Forced 2×2 Torus on $\mathbb{Z}/10\mathbb{Z}$. Sanders \& Gish (2026), submitted to *Journal of Pure and Applied Algebra*.
+- **J05** TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the $\mathbb{Z}/10\mathbb{Z}$ Composition Lattice. Sanders \& Gish (2026), submitted to *Experimental Mathematics*.
 
 ## Reproducibility
 
-Verification scripts in `manuscript/verification/`:
-- `find_higgs_irrep.py` — verifies BHML's σ_outer-breaking is 100% in the $\mathbf{54}$
-- `find_higgs_direction.py` — extracts the 9-vector with explicit components and zeros
-
-Python 3.11, numpy 1.26, sympy. Total wall-clock under 1 minute.
+Verification of all matrix algebra (the $U_4$ matrix, the change-of-basis $V$, $U_{4,\mathrm{NV}}$, and 24-element closure) runs in `numpy + sympy` on a standard laptop in under one minute. Code archive: DOI 10.5281/zenodo.18852047.
 
 ## Suggested reviewers
 
-- An expert in classical Lie theory and outer automorphisms (Helgason / Knapp / Vogan tradition)
-- An expert in finite-magma representations and combinatorial-to-algebraic lifts
-- An expert in symmetry breaking and grand unified theories (algebraic-side, not phenomenology-side)
-- (Two or three named candidates appropriate to the *Adv Math* editorial board to be identified during the referee-rigor pass.)
+- M. Lukin (Harvard) — NV-center quantum control
+- R. Hanson (Delft) — NV qutrit experiments
+- J. Wrachtrup (Stuttgart) — NV diamond magnetometry/control
+- M. Doherty (ANU) — NV theory
+- C. Monroe (Duke / IonQ) — qudit / qutrit control more broadly
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
+
+## Note on tier and scope
+
+Central claim is **Tier 3** (partner-then-submit): the mathematics is complete (exact $S_4$ realization in $T_1$ basis; 6-pulse decomposition specified; closure verified to $10^{-15}$); the physical claim is conditional on the experimental falsification ladder (Test E, projector covariance, is decisive). The paper is honest about this hierarchy and invites collaboration.
 
 ---
 

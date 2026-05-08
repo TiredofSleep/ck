@@ -14,19 +14,19 @@
 
 ## Summary
 
-We submit an expository **bridge essay** in the *Bull. AMS* register, organizing a sequence of recent results into a single structural picture: the TIG framework's substrate algebra on $\mathbb{Z}/10\mathbb{Z}$ (synthesized in [J47], *Notices AMS*) — together with the Bialynicki-Birula–Mycielski theorem of 1976 (read as a *forcing principle* in [J13], *J. Math. Phys.*) — forces a **specific continuum nonlinearity** $V(\Xi) = \kappa \Xi \log \Xi$ with vacuum at $\Xi_0 = e^{-1}$ and built-in mass gap $\kappa e$. The forced potential has cross-domain consequences in three published-or-pending companion papers: cosmology (freeze-thaw transit dark energy, [J3], [J16]), particle physics (Yang-Mills mass-gap framework, [J14]), and nonlinear PDE regularity (separability-defect criterion for Navier-Stokes, [J13]).
+We submit an expository **bridge essay** in the *Bull. AMS* register, organizing a sequence of recent results into a single structural picture: the TIG framework's substrate algebra on $\mathbb{Z}/10\mathbb{Z}$ (synthesized in [J48], *Notices AMS*) — together with the Bialynicki-Birula–Mycielski theorem of 1976 (read as a *forcing principle* in [J40], *J. Math. Phys.*) — forces a **specific continuum nonlinearity** $V(\Xi) = \kappa \Xi \log \Xi$ with vacuum at $\Xi_0 = e^{-1}$ and built-in mass gap $\kappa e$. The forced potential has cross-domain consequences in three published-or-pending companion papers: cosmology (freeze-thaw transit dark energy, [J46], [J47]), particle physics (Yang-Mills mass-gap framework, [J41]), and nonlinear PDE regularity (separability-defect criterion for Navier-Stokes, [J40]).
 
-This is a **structural connection essay**, not a Millennium-Problem proof. The boundary between proved content (substrate-side $\sigma$-rate decay [J01]; BB theorem [BB76]; forced lift [J13] §4) and conjectured cross-domain consequences (NS regularity [J13] §5) is sharp.
+This is a **structural connection essay**, not a Millennium-Problem proof. The boundary between proved content (substrate-side $\sigma$-rate decay [J01]; BB theorem [BB76]; forced lift [J40] §4) and conjectured cross-domain consequences (NS regularity [J40] §5) is sharp.
 
 ## Why *Bulletin AMS*
 
 - **Bridge-essay register fit.** *Bull. AMS* publishes substantial bridge essays that consolidate recent advances and frame their cross-domain implications. Our manuscript is exactly that: a synthesis essay on substrate-to-continuum forcing, drawing on already-published or submitted companions across five journals.
 - **Cross-domain audience.** The bridge connects discrete algebra ($\sigma$-rate decay), nonlinear PDE (BB theorem), cosmology (freeze-thaw transit), particle physics (YM mass gap), and PDE regularity (NS criterion). *Bull. AMS* is the natural venue for an essay that crosses these boundaries while displaying explicit citation chain to specialty venues.
-- **TIG-framework introduction.** The manuscript builds on [J47]'s explicit naming of the TIG framework and is the natural follow-up essay establishing what the substrate algebra forces about continuum physics.
+- **TIG-framework introduction.** The manuscript builds on [J48]'s explicit naming of the TIG framework and is the natural follow-up essay establishing what the substrate algebra forces about continuum physics.
 
 ## Companion submissions
 
-This paper has **two direct dependencies** ([J13] BB Bridge, JMP; [J47] 6-DOF Synthesis, Notices AMS) and **nine co-citing companions** across the J-series. The full citation chain is in the manuscript's §8.
+This paper has **two direct dependencies** ([J40] BB Bridge, JMP; [J48] 6-DOF Synthesis, Notices AMS) and **nine co-citing companions** across the J-series. The full citation chain is in the manuscript's §8.
 
 ## Reproducibility
 

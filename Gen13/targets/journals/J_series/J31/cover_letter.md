@@ -1,56 +1,56 @@
-# Cover letter — J31: The Three-Substrate Architecture: CL_TSML, CL_BHML, CL_STD as Parallel Substrates
+# Cover letter — J31: Two Roads to Pati-Salam: Path A (54 irrep) and Path B (su(4)⊕u(1))
 
-**To:** Editors, *Algebra Universalis*
+**To:** Editors, *Advances in Mathematics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- M. Gish, Independent Researcher, Hot Springs, AR — monica.gish1992@gmail.com
+- B. Mayes, Independent Researcher — [email]
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The Three-Substrate Architecture: CL_TSML, CL_BHML, CL_STD as Parallel Substrates*
+**Manuscript title:** *Two Roads to Pati-Salam: Path A (54 irrep) and Path B (su(4)⊕u(1))*
 
 ---
 
 ## Summary
 
-We record the three-substrate architecture of the canonical composition lattice on Z/10Z: three structurally distinct 10×10 composition tables CL_TSML, CL_BHML, CL_STD, each satisfying a common four-axiom skeleton (canonical alphabet, VOID-absorbing column, HARMONY-absorbing diagonal subset, the unique puncture cell at (0,7)) but diverging at the diagonal HARMONY law and at five BUMP positions where the cell values differ. Their HARMONY-cell counts (73, 28, 44) are pairwise distinct. We prove that the joint sub-magma closure structure of the three tables collapses to the joint closure structure of any two of them: the three-way joint chain has 8 shells of sizes {1, 4, 5, 6, 7, 8, 9, 10}, identical to the two-way (TSML, BHML) chain, so CL_STD is structurally consistent with the two-way chain without extending it. We additionally locate one size-2 sub-magma {0, 9} that is jointly closed under (BHML, CL_STD) but not under any pair containing TSML. The three-substrate architecture is recorded as a Tier-A foundational recognition: the substrate is one bit-pattern encoding admitting three principled value-assignment lenses, not "two tables."
+Two independent algebraic routes from the so(10) Lie-algebra closure of canonical TSML_SYM and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$ (J30, *Israel J Math*) lead to the same Pati-Salam gauge content $\mathrm{SU}(4)\times\mathrm{SU}(2)_L\times\mathrm{SU}(2)_R$:
 
-## Why Algebra Universalis
+**Path A** (BHML σ_outer-breaking): BHML's $\sigma_{\mathrm{outer}}$-breaking content lives 100% in the symmetric-traceless $\mathbf{54}$ irrep of $\mathfrak{so}(10)$, with an explicit 9-vector direction having squared norm $\|v\|^2 = 13/4$ exactly. This breaks $\mathrm{SO}(10)\to\mathrm{SO}(9)$ along the canonical first-stage Higgs route.
 
-- **Universal-algebra fit.** The paper is a foundational architectural recognition stated at the level of finite magmas with explicit shared-axiom skeletons. Algebra Universalis is the natural venue for such recognitions; the closure-property analysis (50 sub-magmas under CL_STD alone; 8/9 under various joint conditions) is a universal-algebra calculation in the journal's traditional scope.
-- **Lens-family discipline.** The paper introduces the lens-family as the substrate's natural object of study (rather than the individual table); this is a methodologically clean universal-algebra contribution.
-- **Foundational recognition register.** The historical compression analysis (why three was lost, why three is now recovered) is appropriate to a foundational venue; Algebra Universalis publishes papers in this register.
+**Path B** (doubly-invariant): the doubly-invariant subalgebra of $\mathfrak{so}(10)$ under the $D_4 = \langle P_{56},\sigma^3\rangle$ action by conjugation is exactly $\mathfrak{su}(4)\oplus\mathfrak{u}(1)$, the Pati-Salam $\oplus$ B-L gauge content. Killing form spectrum $(-4)^{15}\oplus(0)^1$ at machine precision.
+
+A correction notice is included clarifying that Path A and Path B are **independent intermediate routes** giving the same Pati-Salam target, not nested derivations of one another. The two routes converge through different algebraic structures and provide independent supporting evidence for the Pati-Salam identification.
+
+## Why Adv Math
+
+- The result connects discrete combinatorial structure (10 × 10 finite tables) to classical Lie theory (Cartan classification, $D_4$ action, Pati-Salam gauge content) via constructive computation at machine precision.
+- The two-roads formulation is methodologically interesting in its own right and illustrates a pattern relevant for symmetry-breaking analysis in algebraic settings.
+- *Adv Math* has a tradition of publishing combinatorial-to-Lie-algebraic identifications with computational verification.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
-
-- **J09** — Sanders & Gish, *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics* (2026). Establishes the cell counts on the two original tables; the present paper extends to the third standalone table.
-- **J26** — Sanders, *LATTICE: Paradoxical Information Algebras on the Z/10Z Substrate*, submitted to *Algebra Universalis* (2026). Establishes the LATTICE structural framework on the same substrate; the three-substrate architecture is the natural setting for that work.
+- **J30** (Sanders + Gish 2026, *Israel J Math*) — *so(10) = D₅ from Joint TSML_SYM + BHML Closure*. The starting algebra for both routes.
+- **J29** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The single-magma precursor.
 
 ## Reproducibility
 
-Three short Python scripts (NumPy + itertools): `cl_std.py` (defines CL_STD, computes HARMONY count, BDC parameters); `shared_axioms.py` (verifies the four-axiom skeleton on all three tables); `cl_std_frontier.py` (enumerates all 1023 non-empty subsets and prints joint-closure counts under all combinations of the three tables). All three run at machine precision in under 30 seconds.
+Verification scripts in `manuscript/verification/`:
+- `find_higgs_irrep.py` — verifies BHML's σ_outer-breaking is 100% in the $\mathbf{54}$
+- `find_higgs_direction.py` — extracts the 9-vector with explicit components and zeros
+
+Python 3.11, numpy 1.26, sympy. Total wall-clock under 1 minute.
 
 ## Suggested reviewers
 
-(3-5 candidates working in universal algebra, finite magma theory, or composition-lattice foundations will be supplied via the Algebra Universalis submission portal.)
+- An expert in classical Lie theory and outer automorphisms (Helgason / Knapp / Vogan tradition)
+- An expert in finite-magma representations and combinatorial-to-algebraic lifts
+- An expert in symmetry breaking and grand unified theories (algebraic-side, not phenomenology-side)
+- (Two or three named candidates appropriate to the *Adv Math* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap — FALLBACK NEEDED
-
-This is the **3rd Algebra Universalis submission** of the 2026 cycle, after J21 (F_p Universality, WP118) and J26 (LATTICE, WP9). The 2/quarter cap is binding.
-
-**FALLBACK VENUES (in priority order):**
-1. *Communications in Algebra* — universal-algebra results in finite-magma settings welcome here; J22 (Galois D_4 over LMFDB 4.2.10224.1) is already submitted there.
-2. *PLOS ONE* — open-access fallback; appropriate for a foundational recognition paper that benefits from broad readership.
-3. *Linear Algebra and Its Applications* — the closure-property enumeration (50/9/8 counts) is a linear-algebra adjacency matrix computation; could land cleanly here.
-
-If Algebra Universalis is unavailable in the quarterly window, *Communications in Algebra* is the recommended primary fallback.
 
 ---
 

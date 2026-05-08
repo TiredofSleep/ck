@@ -7,7 +7,7 @@ $^{2}$Independent Researcher, Billings, MT
 **Target venue:** *Bulletin of the American Mathematical Society*
 **Manuscript class:** Expository / bridge essay (the *Bull. AMS* register)
 **MSC 2020:** 35Q30 (Navier–Stokes), 35B65 (smoothness/regularity), 81S20 (stochastic / nonlinear quantum), 17B25 (Lie algebras), 18M60 (operads)
-**Date:** 2026-09-05 (Phase 5; Sanders + Johnson lane)
+**Date:** 2026-09-05 (Phase 5; Sanders + Gish lane)
 
 ---
 

@@ -1,3 +1,7 @@
+> **[SUPERSEDED BY v2]** This document is the v1 J-series ordering, replaced 2026-05-07 by the foundation-first v2 ordering at [`J_SERIES_ORDERING_v2.md`](J_SERIES_ORDERING_v2.md). Preserved per never-delete policy. The v2 ordering moves cosmology J3 -> J46 so the framework lays its math foundation before claiming any physics result.
+
+---
+
 # J-SERIES ORDERING — The Submission Sequence to Sept 11
 
 **Date:** 2026-05-07

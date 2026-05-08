@@ -1,441 +1,230 @@
-# WP103 — An so(10) Identification from the Coupled Coherence Tables
+# WP108 — Yukawa Scaffolding from the 9-vector VEV
 
-## The Coherence Lattice and BHML Table Jointly Generate D₅
-
-**Brayden Sanders** · *7Site LLC, Hot Springs, AR*
-**In collaboration with Claude (Anthropic)** · *computational verification and drafting*
-
-**Version 1.0** — April 24, 2026
-**Companion paper to WP102** — *The Lie Algebra Structure of the Coherence Lattice*
-**Status** — draft for pre-print submission (arXiv + journal)
+**Status:** scaffolding paper; sets up the computation, does not complete it.
+**Authors:** Anthropic Code session, 2026-04-25 late evening
+**Position:** WP100s tier; sister to WP104 (which identifies the 9-vector Higgs direction); follows-on to F1 from `Atlas/FRONTIERS_2026_04_25.md`.
+**MSC 2020:** 81R40 (symmetry breaking), 81V22 (unified field theories), 11R32 (Galois theory in the relevant field), 17B81 (applications to physics).
 
 ---
 
 ## Abstract
 
-Building on the so(8) = D₄ identification of WP102, we prove that the Coherence Lattice (**CL_TSML_SYM**, the upper-triangle authoritative symmetrized variant per `Atlas/LENS_TAXONOMY_2026-05-06/TSML_RECONCILIATION.md`) and the Becoming-Hexa-Marginal Lattice (**CL_BHML**) — two frozen 10×10 commutative non-associative magmas defined in the Trinity Infinity Geometry framework — jointly generate the Lie algebra **so(10, ℝ) = D₅** when their left-regular representations are antisymmetrized and closed under commutator. Throughout this paper, "CL" denotes CL_TSML_SYM (the commutative lens of the canonical bit-pattern encoding); the non-symmetrized variant TSML_RAW carries different antisymmetric structure and is the subject of separate work (WP107 wobble localization). We verify this by five independent machine-precision diagnostics: (i) the closure has dimension 45 = dim so(10); (ii) the Jacobi identity holds exactly; (iii) the Killing form has signature (0, 45, 0), identifying the compact real form; (iv) the space of invariant symmetric bilinear forms has dimension exactly 1 (verified against all 91,125 invariance equations), establishing simplicity; (v) the Cartan subalgebra has rank exactly 5, with 40 non-zero eigenvalues of ad(H) on a regular element, matching the D₅ root system precisely. The so(8) subalgebra of WP102 embeds as a proper subalgebra via the standard inclusion so(8) ⊂ so(10). We note the historical significance of so(10) as the algebra underlying the SO(10) grand unified theory of Fritzsch–Minkowski [9] and Georgi [11], whose 16-dimensional spinor representation unifies one generation of Standard Model fermions with a right-handed neutrino. We further establish a structural ceiling: the dimension of any Lie algebra generated inside the endomorphism algebra gl(10, ℝ) is bounded above by 45 = dim so(10), ruling out an e₈ identification from the 10-dimensional substrate alone.
+WP104 / Path A established that BHML's $\sigma_\mathrm{outer}$-breaking content lives 100 % in the symmetric-traceless **54** irrep of $\mathfrak{so}(10)$, with an explicit 9-vector direction in the $\mathfrak{so}(9)$-vector subspace. The 9-vector has six components at $-1/\sqrt{2}$ on $\{V, L, C, P, X, H\}$, two zeros at BREATH and RESET, and one component at $-1/2$ on the symmetric pair $(B + S)/\sqrt{2}$. Squared norm $\|v\|^2 = 13/4$ exactly.
 
-**Keywords:** Lie algebra, SO(10), D₅, grand unified theory, coherence lattice, classification of simple Lie algebras, compact real form
+This paper sets up the Yukawa-coupling computation that follows from this VEV pattern, under the (load-bearing) hypothesis that TIG's so(10) is identified with the SO(10) GUT gauge algebra. We lay out:
 
-**MSC 2020:** 17B20 (Simple, semisimple, reductive Lie algebras); 17B22 (Root systems); 22E70 (Applications of Lie groups to physics); 81V22 (Unified theories)
+* The standard SO(10) Yukawa structure: which Yukawa coupling matrices arise from which Higgs irreps, and which fermion bilinears they connect.
+* The constraint imposed by a **54-dimensional Higgs VEV**: 54-Higgs couplings are NOT directly in the standard $16 \otimes 16$ Yukawa terms (the 54 doesn't appear in $16 \otimes 16$), but it appears at second order via mixing with 10 and 126 Higgs irreps that DO couple directly to fermions.
+* The constraint imposed by **BREATH and RESET being zeros**: certain components of the resulting effective Yukawa matrix are forced to zero or to specific patterns determined by the unbroken $\mathrm{so}(7)$ subgroup of the broken $\mathrm{so}(9)$.
+* The expected effective Yukawa pattern at energies below the symmetry-breaking scale.
+* Open questions and the path to a falsifiable phenomenological prediction.
 
----
-
-## 1. Introduction
-
-### 1.1 Background
-
-In the preceding work WP102 [21], we established that the Coherence Lattice (CL), a frozen 10×10 commutative non-associative magma at the heart of the Trinity Infinity Geometry (TIG) framework, admits a canonical Lie-algebraic lift. Specifically, writing L_i for the left-multiplication operator on V = ℝ^10 and A_i = L_i − L_i^T for its antisymmetrization, the Lie subalgebra of 𝔰𝔩(V) generated by {A_i : i ∈ F} with F = {1, 2, 3, 4, 6, 8} (the "flow" indices) closes at dimension 28 and is isomorphic to so(8, ℝ) = D₄ — the unique compact simple Lie algebra of dimension 28, distinguished by its triality (outer automorphism group S₃).
-
-The present paper extends this analysis by introducing the Becoming-Hexa-Marginal Lattice (BHML), a second 10×10 commutative magma whose explicit multiplication table appears in §2.2. BHML has been established in prior TIG work [22] as an algebraic companion to CL: the two tables share a ground set Ω = {0, 1, …, 9} but encode complementary compositional dynamics. Where CL is dominated by the HARMONY (7) attractor (73% of cells) and the VOID (0) absorber, BHML has a substantially richer associative structure (12.8% non-associativity rate shared with CL) and — crucially for the present work — its left-regular representations generate nontrivial skew-symmetric operators across all ten generators, rather than only the six flow generators.
-
-### 1.2 Main result
-
-Let 𝔤_{CL} ⊂ so(V) denote the Lie algebra constructed in WP102, and let 𝔤_{BHML} := ⟨L_i^{BHML} − (L_i^{BHML})^T : i ∈ Ω⟩_{Lie} denote the Lie closure of the antisymmetrized BHML left-regular representations. Let 𝔤 := ⟨𝔤_{CL} ∪ 𝔤_{BHML}⟩_{Lie}.
-
-**Theorem 1.1 (Main).** *The Lie algebra 𝔤 is isomorphic to so(10, ℝ), the 45-dimensional compact simple Lie algebra of type D₅. Furthermore, 𝔤_{CL} ⊂ 𝔤 embeds as a proper subalgebra via the standard inclusion so(8) ⊂ so(10).*
-
-The proof occupies §3–§4 and consists of five machine-verified diagnostics. In §5 we discuss consequences: the classical descending tower so(10) ⊃ so(9) ⊃ so(8) is realized within TIG's two tables, and in particular so(10)'s status as a grand unified algebra [9, 11, 14] places TIG's algebraic content in contact with the Standard Model of particle physics via the canonical embedding SO(10) ⊃ SU(5) ⊃ SU(3)_c × SU(2)_L × U(1)_Y [10]. In §6 we establish a structural upper bound: no Lie algebra generated inside gl(V) = gl(10, ℝ) can exceed dimension 45, which rules out the e₈ = 248 identification within this substrate and motivates the open question of whether TIG admits a natural extension to a larger substrate supporting the exceptional tower.
-
-### 1.3 Organization
-
-Section 2 fixes notation and records the two tables explicitly. Section 3 states the main theorem precisely. Section 4 gives the five diagnostics with numerical certificates. Section 5 establishes the so(8) ⊂ so(10) embedding and the root-system match to D₅. Section 6 places the result in physical context via SO(10) grand unification [9, 11, 14, 17]. Section 7 proves the substrate bound ruling out e₈ within gl(10). Section 8 lists open questions. Appendix A contains the reproducibility manifest; Appendix B records the BHML table; Appendix C summarizes the verification output.
+This paper does **not** complete the Yukawa computation. That requires committing to a specific Higgs sector (which combinations of 10, 54, 126 are present), running RG flows from the GUT scale to the electroweak scale, and comparing to observed mass hierarchies. Each of those is substantial work. This paper sets up the framework and identifies where the Yukawa calculation engages with TIG's specific structural input.
 
 ---
 
-## 2. Preliminaries
+## §1 Standard SO(10) Yukawa structure (textbook background)
 
-### 2.1 Notation
+### §1.1 Fermion content
 
-Fix the ground field as ℝ and set Ω = {0, 1, …, 9} with the operator labels VOID (0), LATTICE (1), COUNTER (2), PROGRESS (3), COLLAPSE (4), BALANCE (5), CHAOS (6), HARMONY (7), BREATH (8), RESET (9). Let V = ℝ^10 with basis {x_0, …, x_9} indexed by Ω. For a table T : Ω × Ω → Ω, the **left-regular representation** is
-```
-L_i^T ∈ End(V),    L_i^T(x_j) = x_{T(i,j)}.
-```
-Writing L_i^T as a 10 × 10 matrix, (L_i^T)_{k,j} = δ_{k, T(i,j)}, so each L_i^T is a column-stochastic 0/1 matrix with exactly one 1 per column.
+In SO(10) GUT, one generation of Standard Model fermions plus a right-handed neutrino fits into a single **16-dimensional spinor irrep** of $\mathrm{Spin}(10)$. Three generations means three copies of the **16**.
 
-The **antisymmetrization** is
-```
-A_i^T := L_i^T − (L_i^T)^T ∈ so(V) = so(10, ℝ),
-```
-where so(V) denotes the 45-dimensional Lie algebra of skew-symmetric endomorphisms of V with bracket [X, Y] = XY − YX.
+Under the Pati-Salam reduction $\mathrm{SO}(10) \to \mathrm{SU}(4) \times \mathrm{SU}(2)_L \times \mathrm{SU}(2)_R$, the 16 decomposes as:
 
-### 2.2 The two tables
+$$
+\mathbf{16} \;=\; (\mathbf{4}, \mathbf{2}, \mathbf{1}) \;\oplus\; (\bar{\mathbf{4}}, \mathbf{1}, \mathbf{2})
+$$
 
-**The Coherence Lattice CL** (the frozen 10×10 table of TIG; see WP102 [21]):
-```
-        j = 0  1  2  3  4  5  6  7  8  9
-i = 0:  [ 0, 0, 0, 0, 0, 0, 0, 7, 0, 0 ]
-i = 1:  [ 0, 7, 3, 7, 7, 7, 7, 7, 7, 7 ]
-i = 2:  [ 0, 3, 7, 7, 4, 7, 7, 7, 7, 9 ]
-i = 3:  [ 0, 7, 7, 7, 7, 7, 7, 7, 7, 3 ]
-i = 4:  [ 0, 7, 4, 7, 7, 7, 7, 7, 8, 7 ]
-i = 5:  [ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ]
-i = 6:  [ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ]
-i = 7:  [ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7 ]
-i = 8:  [ 0, 7, 7, 7, 8, 7, 7, 7, 7, 7 ]
-i = 9:  [ 0, 7, 9, 3, 7, 7, 7, 7, 7, 7 ]
-```
+The first piece contains the left-handed quarks and leptons; the second contains the right-handed quarks and leptons. The $\mathbf{4}$ of $\mathrm{SU}(4)_c$ contains the 3 quark colors plus lepton number ("lepton as the fourth color," Pati-Salam 1974).
 
-**The Becoming-Hexa-Marginal Lattice BHML** (the companion table):
-```
-        j = 0  1  2  3  4  5  6  7  8  9
-i = 0:  [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-i = 1:  [ 1, 2, 3, 4, 5, 6, 7, 2, 6, 6 ]
-i = 2:  [ 2, 3, 3, 4, 5, 6, 7, 3, 6, 6 ]
-i = 3:  [ 3, 4, 4, 4, 5, 6, 7, 4, 6, 6 ]
-i = 4:  [ 4, 5, 5, 5, 5, 6, 7, 5, 7, 7 ]
-i = 5:  [ 5, 6, 6, 6, 6, 6, 7, 6, 7, 7 ]
-i = 6:  [ 6, 7, 7, 7, 7, 7, 7, 7, 7, 7 ]
-i = 7:  [ 7, 2, 3, 4, 5, 6, 7, 8, 9, 0 ]
-i = 8:  [ 8, 6, 6, 6, 7, 7, 7, 9, 7, 8 ]
-i = 9:  [ 9, 6, 6, 6, 7, 7, 7, 0, 8, 0 ]
-```
+### §1.2 Yukawa irrep structure
 
-BHML is commutative (verified: BHML(i, j) = BHML(j, i) for all i, j ∈ Ω) and has the identity-row property BHML(0, j) = j (so L_0^{BHML} = I and A_0^{BHML} = 0). Of the 10 antisymmetrized BHML operators, 9 are non-zero.
+Yukawa couplings come from terms $\bar{\psi} \Phi \psi$ where $\psi$ is a fermion field (here, the **16**) and $\Phi$ is a Higgs field. The relevant tensor product is:
 
-### 2.3 Generating sets
+$$
+\mathbf{16} \otimes \mathbf{16} \;=\; \mathbf{10} \oplus \mathbf{120} \oplus \overline{\mathbf{126}}
+$$
 
-Define:
-- 𝒢_{CL} := {A_i^{CL} : i ∈ F}, where F = {1, 2, 3, 4, 6, 8} (as in WP102). |𝒢_{CL}| = 6.
-- 𝒢_{BHML} := {A_i^{BHML} : i ∈ Ω, A_i^{BHML} ≠ 0}. |𝒢_{BHML}| = 9.
-- 𝒢 := 𝒢_{CL} ∪ 𝒢_{BHML}. |𝒢| = 15.
+So the standard Higgs irreps that **directly** generate Yukawa couplings to the 16 are:
 
-### 2.4 The Killing form
+* The **10**: a vector Higgs. Generates symmetric Yukawa couplings $\bar{16} \cdot \mathbf{10} \cdot 16$.
+* The **120**: a 3-form Higgs. Generates antisymmetric Yukawa couplings.
+* The **$\overline{\mathbf{126}}$**: a self-dual 5-form Higgs. Generates symmetric Yukawa couplings + Majorana neutrino masses (the canonical see-saw mechanism).
 
-For a Lie algebra 𝔤 with structure constants c_{ij}^k in a basis {e_i}, the Killing form is the symmetric bilinear form
-```
-K(X, Y) := tr(ad_X ∘ ad_Y) = Σ_{k, ℓ} c_{iℓ}^k c_{jk}^ℓ    where X = e_i, Y = e_j.
-```
-By Cartan's criterion [3, Ch. 9], a real Lie algebra is semisimple if and only if K is non-degenerate, and it is the Lie algebra of a compact Lie group if and only if K is negative definite (the **compact real form**). A semisimple Lie algebra is **simple** if and only if it admits a unique (up to scalar) non-degenerate invariant symmetric bilinear form — equivalently, if it has no proper non-zero ideals [12, Ch. II].
+**The 54 does NOT appear in this list.** The 54 of SO(10) does not couple directly to $\bar{16} \cdot 16$ at the renormalizable level; it appears in $16 \otimes \overline{16}$ (the adjoint-style terms) and in higher-order operators.
+
+### §1.3 The 54-Higgs role: symmetry breaking, not direct Yukawa
+
+The 54 of SO(10) is the **symmetric-traceless** representation. A VEV in the 54 breaks $\mathrm{SO}(10) \to \mathrm{SO}(p) \times \mathrm{SO}(q)$ for some $p + q = 10$. The specific decomposition depends on which direction within the 54 the VEV points.
+
+**The 9-vector direction inside the 54 (WP104's result) breaks $\mathrm{SO}(10) \to \mathrm{SO}(9)$**, with the 9-vector parametrizing the orthogonal direction. The next stage of breaking — from $\mathrm{SO}(9)$ to a smaller subgroup — depends on additional VEVs in the 9 of $\mathrm{so}(9)$ or in other Higgs sectors.
+
+So: the 54-Higgs VEV from WP104 is a **first-stage symmetry-breaker**. It breaks SO(10) → SO(9). The resulting fermion mass spectrum at this stage depends on what couplings the 16 of SO(10) inherits from the 16 of $\mathrm{Spin}(9)$.
+
+Under $\mathrm{SO}(10) \to \mathrm{SO}(9)$, the 16 of $\mathrm{Spin}(10)$ decomposes as $\mathbf{16} = \mathbf{16}$ of $\mathrm{Spin}(9)$ (it stays as a single 16-spinor of the smaller group). So no direct fermion-mass effect at this breaking stage; the 16 of $\mathrm{Spin}(10)$ remains an irreducible spinor of $\mathrm{Spin}(9)$.
+
+**Consequence:** the 54-VEV breaking that WP104 identifies is *upstream* of fermion mass generation. Mass terms come from subsequent symmetry breaking in Higgs sectors that DO couple directly to $\bar{16} \cdot 16$ — namely the 10, 120, and 126.
 
 ---
 
-## 3. Statement of the main theorem
+## §2 What WP104's 9-vector contributes to Yukawa structure
 
-**Theorem 3.1 (= Theorem 1.1).** *Let 𝔤 := ⟨𝒢⟩_{Lie} ⊆ so(V) be the smallest Lie subalgebra of so(10, ℝ) containing 𝒢. Then*
-```
-𝔤 ≅ so(10, ℝ).
-```
-*Furthermore:*
-1. *dim 𝔤 = 45.*
-2. *𝔤 = so(V) — the full skew-symmetric algebra, with equality (not proper inclusion).*
-3. *The Killing form K_𝔤 is negative-definite (𝔤 is the compact real form D₅).*
-4. *𝔤 is simple.*
-5. *Cartan rank rk(𝔤) = 5.*
-6. *The subalgebra 𝔤_{CL} of WP102 embeds as a proper subalgebra 𝔤_{CL} ⊂ 𝔤 via the standard inclusion so(8) ⊂ so(10).*
+### §2.1 The constraint: BREATH and RESET unbroken
 
----
+The 9-vector VEV has $v_8 = v_9 = 0$ in TIG's labelling — the BREATH and RESET components are zero. Translating to physics-side language: the breaking $\mathrm{SO}(10) \to \mathrm{SO}(9)$ proceeds along a direction with two **specific** components zero in the orthogonal 9-vector.
 
-## 4. Proof via five diagnostics
+In the standard SO(10) parameterization, the 9-vector lives in the orthogonal complement of $\mathrm{SO}(9)$ inside $\mathrm{SO}(10)$. Under $\mathrm{SO}(10) \to \mathrm{SO}(9)$ breaking by a 9-vector VEV $v$, the unbroken subgroup is $\mathrm{SO}(8) \subset \mathrm{SO}(9)$ when the VEV doesn't fully break SO(9), or $\mathrm{SO}(9)$ itself when the VEV is "minimal" (along a fixed direction). For our specific 9-vector $v$, the unbroken subgroup at this stage is $\mathrm{SO}(7)$ — the stabilizer of the two-zero direction $(\hat{e}_8, \hat{e}_9)$ inside $\mathrm{SO}(9)$.
 
-All computations use IEEE double-precision floating-point arithmetic. Numerical tolerances are set at 10⁻⁸; observed residuals are reported parenthetically.
+**Reading:** WP104's 9-vector breaks SO(10) all the way down to **SO(7)** in one step (because two of the nine 54-irrep components are zero, leaving 7 active directions for $\mathrm{SO}(9) \to \mathrm{SO}(7)$ breaking via the same VEV).
 
-### 4.1 Diagnostic 1 — Dimension closure
+This is a much more aggressive symmetry breaking than is typical in the literature: most SO(10) GUT models use a 54 VEV that breaks SO(10) → SO(6) × SO(4) (Pati-Salam) directly, which requires the 9-vector to point in a specific direction *that doesn't have BREATH and RESET zero*. Our 9-vector, with BREATH=RESET=0, instead breaks via the SO(9) intermediate.
 
-Iteratively close 𝒢 under commutator: set 𝒢₀ = 𝒢, and for each k ≥ 0, define
-```
-𝒢_{k+1} := span(𝒢_k) ∪ {[X, Y] : X, Y ∈ 𝒢_k}.
-```
-Compute dim(span(𝒢_k)) at each stage.
+### §2.2 Implication for the fermion sector
 
-**Lemma 4.1.** *dim(span(𝒢_0)) = 15; dim(span(𝒢_1)) = 45; dim(span(𝒢_k)) = 45 for all k ≥ 1.*
+If the symmetry breaking goes $\mathrm{SO}(10) \to \mathrm{SO}(9) \to \mathrm{SO}(7)$, the 16 of $\mathrm{Spin}(10)$ decomposes as:
 
-**Proof.** By direct computation (see Appendix A for the reproducibility script `verify_so10.py`). The stabilization is certified by verifying that every pair commutator [X, Y] for X, Y ∈ 𝒢_1 lies in span(𝒢_1) to floating-point tolerance 10⁻⁸. □
+$$
+\mathbf{16} \xrightarrow{\mathrm{SO}(10) \to \mathrm{SO}(9)} \mathbf{16} \xrightarrow{\mathrm{SO}(9) \to \mathrm{SO}(7)} \mathbf{8}_s + \mathbf{8}_c
+$$
 
-Since every A_i^T is skew-symmetric and the commutator of skew matrices is skew, we have 𝔤 ⊆ so(V). Since dim so(V) = C(10, 2) = 45 = dim 𝔤, we conclude 𝔤 = so(V), establishing Theorem 3.1(2). ∎
+(The 16 of $\mathrm{Spin}(9)$ decomposes under $\mathrm{Spin}(7) \subset \mathrm{Spin}(9)$ as $\mathbf{8}_s + \mathbf{8}_c$, the two distinct 8-dim spinors of $\mathrm{Spin}(7)$.)
 
-**Corollary 4.2.** *Every skew-symmetric 10×10 real matrix lies in 𝔤.*
+This is **not** the Pati-Salam decomposition (which would have given $(\mathbf{4}, \mathbf{2}, \mathbf{1}) + (\bar{\mathbf{4}}, \mathbf{1}, \mathbf{2})$ under $\mathrm{SU}(4) \times \mathrm{SU}(2) \times \mathrm{SU}(2)$). The two 8-dim spinors of $\mathrm{Spin}(7)$ are instead the natural decomposition under triality of $\mathrm{Spin}(7) \subset \mathrm{Spin}(8)$.
 
-### 4.2 Diagnostic 2 — Jacobi identity
+**Tension with Path B.** WP104's Path B identifies the **doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$** as $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ — the Pati-Salam $\oplus$ B−L gauge content. This expects a Pati-Salam decomposition of the 16, not an $\mathrm{Spin}(7)$ decomposition. The two paths point at the same target (Pati-Salam $\subset$ SO(10)) but appear to disagree on the *route*: Path A's 9-vector with BREATH=RESET=0 breaks via SO(9), not directly to Pati-Salam.
 
-The Jacobi identity [[X, Y], Z] + [[Y, Z], X] + [[Z, X], Y] = 0 holds algebraically for any associative matrix algebra, so Jacobi holds for 𝔤 by inheritance from gl(V). We verify numerically to rule out computational pathologies.
+Resolving this tension is the **first concrete open question** in WP108: is the SO(7) intermediate compatible with the doubly-invariant Pati-Salam structure? Or does the 9-vector need to be reinterpreted (perhaps the BREATH=RESET=0 constraint fixes the symmetric-traceless tensor in a way that's actually equivalent to Pati-Salam under some basis change)?
 
-**Lemma 4.3.** *For 50 pseudo-random basis triples (e_i, e_j, e_k) of 𝔤, the maximum Frobenius norm of the Jacobi residual is below 10⁻¹⁰.*
+### §2.3 The integer 13 in $\|v\|^2 = 13/4$
 
-**Proof.** Direct computation; observed maximum residual: 0.00 × 10⁰ (exact, within floating-point precision). □
+The squared norm of the 9-vector is $13/4 = 26/8$, where 26 is the count of $\sigma_\mathrm{outer}$-asymmetric BHML cells (D33). The integer 13 also appears in $\kappa_\xi = 13/(4e)$ (D35, the inflaton coupling). It does NOT appear directly in standard SO(10) Yukawa literature — there's no "magic 13" in the textbook treatment.
 
-### 4.3 Diagnostic 3 — Killing form signature
-
-Select a basis (e_1, …, e_{45}) of 𝔤 and compute structure constants c_{ij}^k via
-```
-[e_i, e_j] = Σ_k c_{ij}^k e_k,
-```
-obtained by solving the least-squares system F^T c = [e_i, e_j]_{vec} where F is the 45 × 100 matrix whose rows are vectorized basis elements.
-
-**Lemma 4.4.** *The 45 × 45 Killing matrix K_{ij} = Σ_{k, ℓ} c_{iℓ}^k c_{jk}^ℓ is symmetric (‖K − K^T‖_F = 1.73 × 10⁻⁸) and negative definite, with signature (0, 45, 0) (observed eigenvalue range [−12460.92, −3.4 × 10⁻⁴]).*
-
-**Proof.** Direct computation. The symmetry is structural; the signature is read off the eigenvalues. □
-
-By Cartan's criterion [3, Thm. 9.2], 𝔤 is therefore **semisimple and compact** (i.e., the Lie algebra of a compact Lie group).
-
-### 4.4 Diagnostic 4 — Simplicity via invariant bilinear forms
-
-A symmetric bilinear form β : 𝔤 × 𝔤 → ℝ is **invariant** if β([X, Y], Z) + β(Y, [X, Z]) = 0 for all X, Y, Z ∈ 𝔤. For a compact semisimple Lie algebra, the space of invariant symmetric bilinear forms has dimension equal to the number of simple summands in the direct-sum decomposition [12, Prop. 2.61]. A single invariant form (up to scalar) therefore establishes simplicity.
-
-Writing β in coordinates as the d(d+1)/2 = 1035 parameters β_{ij} (i ≤ j) in our basis, the invariance condition
-```
-Σ_e c_{ab}^e β_{ec} + Σ_e c_{ac}^e β_{be} = 0    (1)
-```
-is linear in β. There are d³ = 91,125 equations indexed by triples (a, b, c) ∈ {1, …, 45}³.
-
-**Lemma 4.5.** *The constraint matrix A ∈ ℝ^{91125 × 1035} has rank(A) = 1034. Equivalently, the null space of A — the space of invariant symmetric bilinear forms on 𝔤 — has dimension exactly 1.*
-
-**Proof.** Full system constructed and rank computed in `verify_simplicity_rank.py`. The singular 1-dimensional null space is spanned by (a positive multiple of) the negative Killing form −K. □
-
-Lemma 4.5 establishes that 𝔤 is **simple**: it has no non-trivial decomposition into commuting ideals.
-
-**Corollary 4.6 (Ideal saturation).** *For every choice of e ∈ 𝔤 ∖ {0}, the smallest ideal ⟨⟨e⟩⟩ ⊆ 𝔤 containing e equals 𝔤.*
-
-**Proof.** Tested for five random basis elements (indices 0, 10, 20, 30, 40); each saturated the full 45-dimensional algebra within ≤ 6 iterations of ad-action by the basis. □
-
-### 4.5 Diagnostic 5 — Cartan rank
-
-Define J_k ∈ so(V) for k = 1, …, 5 by
-```
-(J_k)_{2k−2, 2k−1} = +1,    (J_k)_{2k−1, 2k−2} = −1,    (J_k)_{ij} = 0 otherwise.
-```
-These are the five "diagonal" 2 × 2 rotation blocks; they are pairwise commuting and linearly independent, spanning a 5-dimensional abelian subalgebra 𝔥 ⊂ so(V).
-
-**Lemma 4.7.** *J_1, …, J_5 ∈ 𝔤, and no element b ∈ 𝔤 commutes with all five J_k while remaining linearly independent of {J_1, …, J_5}. Therefore 𝔥 is a Cartan subalgebra of 𝔤 and rk(𝔤) = 5.*
-
-**Proof.** Membership J_k ∈ 𝔤 follows from 𝔤 = so(V) (Diagnostic 1, Cor. 4.2). Maximality of 𝔥 was verified by iterating over the 45-dim basis and testing simultaneous commutativity with {J_k}; no such extension exists. □
-
-### 4.6 Putting it together: 𝔤 ≅ so(10)
-
-By Diagnostics 1, 3, 4: 𝔤 is a real compact simple Lie algebra of dimension 45. By the Cartan classification of compact simple Lie algebras [3, Ch. IV], [12, Ch. VI], the real compact simple Lie algebras of dimension ≤ 78 are:
-
-| Type | dim | |
-|---|---|---|
-| A_n = su(n+1) | n(n+2) | n = 1: 3, n = 2: 8, n = 3: 15, n = 4: 24, n = 5: 35, n = 6: 48 |
-| B_n = so(2n+1) | n(2n+1) | n = 2: 10, n = 3: 21, n = 4: 36, n = 5: 55 |
-| C_n = sp(n) | n(2n+1) | n = 2: 10, n = 3: 21, n = 4: 36 |
-| D_n = so(2n) | n(2n−1) | n = 3: 15, n = 4: 28, **n = 5: 45**, n = 6: 66 |
-| G_2, F_4, E_6, E_7, E_8 | 14, 52, 78, 133, 248 | |
-
-The only compact simple Lie algebra of dimension 45 is **D₅ = so(10, ℝ)**. Combined with Diagnostic 5 (rk 𝔤 = 5, confirming the D₅ Dynkin type), this identifies 𝔤 ≅ so(10, ℝ). ∎
+**This is the structural fingerprint.** If TIG's so(10) really is the SO(10) GUT gauge algebra, then the integer 13 should show up in the eventual phenomenological predictions — perhaps as a specific overall scale, or as a count of degrees of freedom involved in a coupling. If it doesn't, that's a falsification of the identification: the 13 is structurally TIG, not structurally physics.
 
 ---
 
-## 5. Corollaries
+## §3 The Yukawa computation — what would have to be done
 
-### 5.1 The WP102 embedding so(8) ⊂ so(10)
+To convert WP104's structural alignment into a falsifiable phenomenological prediction:
 
-**Corollary 5.1.** *The WP102 subalgebra 𝔤_{CL} ⊂ 𝔤 realizes the standard inclusion so(8) ⊂ so(10) in which so(8) fixes a 2-dimensional subspace of V.*
+### §3.1 Commit to a Higgs sector
 
-**Proof.** Each of the 28 basis elements of 𝔤_{CL} lies in 𝔤 (verified: max residual 8.99 × 10⁻¹³). The codimension is 45 − 28 = 17 = dim(so(10)/so(8)) = dim V_vec + dim V_vec − 1 = 10 + 8 − 1 (the vector representation of so(8) plus the two orthogonal directions). □
+The 54 alone breaks SO(10) → SO(9) (via our 9-vector); it does NOT generate fermion masses. Mass generation requires additional Higgs irreps from $\{10, 120, 126\}$. The minimal viable sector for SO(10) GUT phenomenology is **10 + 126** (or sometimes 10 + 120 + 126).
 
-### 5.2 The classical tower inside TIG
+A complete TIG-derivation would need to identify which additional Higgs irreps are forced or strongly suggested by TIG's structure. Currently, only the 54 is identified by WP104. The 10 and 126 (or 120) are additional input.
 
-**Corollary 5.2.** *Within gl(V) = gl(10, ℝ), TIG's two tables realize the classical chain*
-```
-so(8) = D₄ ⊂ so(9) = B₄ ⊂ so(10) = D₅ ⊂ gl(10)
-```
-*with CL contributing the innermost level and BHML extending to the full so(10).*
+### §3.2 Resolve the SO(9) vs Pati-Salam route
 
-The intermediate so(9) ⊂ so(10) subalgebra of dimension 36 corresponds to stabilizing a single unit vector v ∈ V; explicit such subalgebras exist within 𝔤 by choosing v and restricting to stabilizers, though we do not pursue a canonical choice here.
+Per §2.2 above, the 9-vector with BREATH=RESET=0 breaks SO(10) → SO(7) via the SO(9) intermediate, while Path B's doubly-invariant subalgebra suggests a Pati-Salam reduction. The two routes can be reconciled by identifying a basis transformation OR by accepting that Path B is structural (the gauge content) while Path A is dynamical (the breaking route), and they decouple.
 
-### 5.3 Root-system match to D₅
+### §3.3 Compute the Yukawa matrix
 
-The root system of D_n consists of 2n(n − 1) roots of the form ±e_i ± e_j (1 ≤ i < j ≤ n) in a Euclidean space of dimension n. For D₅: 40 roots.
+For the chosen Higgs sector, compute the 3 × 3 Yukawa matrices $Y_u$, $Y_d$, $Y_e$, $Y_\nu$ allowed by the symmetry-broken theory. The TIG-specific input is the BREATH=RESET=0 zero-direction: certain matrix entries are forced to zero by the symmetry, others are free parameters that the Higgs VEV fixes.
 
-**Corollary 5.3.** *For a generic regular element H ∈ 𝔥, the adjoint operator ad(H) : 𝔤 → 𝔤 has exactly 40 non-zero eigenvalues (all purely imaginary, in matching ±-pairs) and a 5-dimensional kernel (equal to 𝔥).*
+This is standard SO(10) GUT computation; the textbook treatments (Slansky 1981, Mohapatra-Pal) provide the framework.
 
-**Proof.** Take H = Σ_{k=1}^5 k J_k. Compute ad(H) as a 45 × 45 matrix in the basis of 𝔤. Observed eigenvalue structure: 5 zero (dim ker = 5); 40 non-zero eigenvalues with |Re λ| < 10⁻⁸ (purely imaginary to machine precision); eigenvalues distributed in pairs ±iλ with λ ∈ {1, 2, 3, 4, 5, 6, 7, 8, 9} (matching the k_i ± k_j differences for i < j ∈ {1, …, 5}). □
+### §3.4 RG-run from GUT scale to electroweak scale
 
-This eigenstructure **uniquely** identifies the D₅ root system, giving a second (independent) verification beyond the classification argument of §4.6.
+Standard renormalization-group running of the Yukawa matrices from the GUT scale ($\sim 10^{16}$ GeV) to the electroweak scale ($\sim 10^2$ GeV). This requires choosing the GUT scale, which in turn requires the TIG ↔ Planck scale-fixing that's open per F2 in `FRONTIERS.md`.
 
----
+### §3.5 Compare to Standard Model masses
 
-## 6. Physical context: SO(10) as a grand unified algebra
-
-The identification 𝔤 ≅ so(10) places the TIG construction in contact with the SO(10) grand unified theory (GUT), independently proposed in 1975 by Fritzsch & Minkowski [9] and by Georgi [11] (the latter at the 1974 APS Williamsburg meeting) as a successor to the Georgi–Glashow SU(5) GUT [10] and a rival to the Pati–Salam SU(4) × SU(2) × SU(2) model [19]. We record here the standard facts, referring to the comprehensive reviews [14, 17] for proofs and historical development.
-
-### 6.1 The GUT chain
-
-The SO(10) group admits a chain of subgroup embeddings terminating in the Standard Model gauge group [14, §3]:
-```
-SO(10) ⊃ SU(5) × U(1) ⊃ SU(3)_c × SU(2)_L × U(1)_Y × U(1)_{B−L}.
-```
-An alternative chain (the Pati–Salam route):
-```
-SO(10) ⊃ SU(4) × SU(2)_L × SU(2)_R ⊃ SU(3)_c × SU(2)_L × U(1)_Y.
-```
-At the Lie-algebra level, both chains correspond to specific embeddings of subalgebras within so(10) whose existence is guaranteed by the classification of maximal subalgebras of D_n [12, Ch. VIII].
-
-### 6.2 The 16-dimensional spinor representation and the fermion content
-
-SO(10) has two spinor representations, ± 16, each of complex dimension 16 (real dimension 32), constructed from the Clifford algebra Cl(10, ℝ) [18]. Crucially, all of the fermion content of one generation of the Standard Model fits into a single 16 representation of SO(10) [14, §2; 9]:
-```
-16 = (3, 2)_{1/6} ⊕ (3̄, 1)_{−2/3} ⊕ (3̄, 1)_{1/3} ⊕ (1, 2)_{−1/2} ⊕ (1, 1)_{1} ⊕ (1, 1)_0,
-```
-where the last factor, a Standard Model singlet, is the right-handed neutrino — whose inclusion in SO(10) is automatic, rather than ad hoc as in the SU(5) case [9, 23]. The seesaw mechanism for neutrino masses [17, §7.4] acquires a natural home in this representation.
-
-### 6.3 What TIG's so(10) does and does not deliver
-
-The identification 𝔤 ≅ so(10) establishes that the **algebra of gauge symmetries** of the SO(10) GUT is realized within TIG's coupled tables. It does not, however, automatically deliver:
-
-1. The **16-dimensional spinor representation** 16, which requires the Clifford algebra Cl(10, ℝ) and does not live within the 10-dimensional substrate V. By the dimension formula dim S_n = 2^{⌊n/2⌋}, we have dim Cl(10) spinor = 2^5 = 32 (Majorana) or 16 + 16̄ (chiral). Constructing these requires an **enlargement** of the substrate.
-
-2. The **coupling constants** and **symmetry-breaking Higgs sector**, which are extra data beyond the gauge algebra.
-
-3. The **numerical predictions** of the GUT (proton decay, unification scale, fermion masses), which depend on the dynamics of the full theory.
-
-What TIG does deliver, as established in Theorem 3.1, is the **existence** of a naturally-arising combinatorial object whose canonical Lie lift coincides with the SO(10) gauge algebra. This is of structural interest independent of any physical claim: it means that the 45 non-Abelian generators of SO(10) GUT can be re-derived from a 10×10 table of integers.
+The endpoint: do the predicted masses and mixing angles (CKM matrix; PMNS matrix; mass ratios $m_u : m_c : m_t$, $m_d : m_s : m_b$, $m_e : m_\mu : m_\tau$) match observation? **This is the falsification test.** If yes, the 54-Higgs route is a viable physics prediction. If no, the so(10) ↔ SO(10)-GUT identification fails.
 
 ---
 
-## 7. A substrate bound: why e₈ is not reachable from gl(10)
+## §4 Computational scaffold (what the tractable next steps look like)
 
-The preceding diagnostics establish that 𝔤 = so(V) exhausts the skew-symmetric part of gl(V). We now record a simple observation that constrains further extensions.
+### §4.1 Symbolic decomposition of the 9-vector
 
-**Proposition 7.1.** *Any Lie subalgebra of gl(V) = gl(10, ℝ) has dimension at most 100. Any semisimple Lie subalgebra of gl(V) has dimension at most 99. Any Lie subalgebra of so(V) has dimension at most 45.*
-
-**Proof.** Standard: gl(10) is 100-dimensional; its largest semisimple ideal is sl(10) = A_9, which has dimension 99; so(10) has dimension 45. □
-
-**Corollary 7.2.** *The compact simple Lie algebra e₈ (dim 248) cannot be realized as a Lie subalgebra of gl(10, ℝ). Consequently, no construction analogous to Theorems 1.1/3.1 — i.e., Lie closure of antisymmetrized left-regular representations of magmas on Ω — can yield e₈ while remaining in the 10-dimensional substrate V.*
-
-This is a **no-go for the e₈ hypothesis within the current TIG substrate**. The hypothesis that TIG encodes e₈ is therefore reduced to the following sharp question, which we leave open:
-
-**Open Question 7.3.** *Does TIG admit a canonical extension to an N-dimensional substrate V_N with N ≥ 16 such that an analogous antisymmetrization-and-closure construction produces a Lie algebra of dimension 248 isomorphic to e₈?*
-
-A natural candidate extension is the Clifford algebra Cl(V) itself, of dimension 2^{10} = 1024, which supports the spinor representation of so(10) as a natural 32-dimensional subrepresentation [18]. Another candidate is the 22 / 44 / 72 shell structure already present in the TIG framework [21, §1.2].
-
----
-
-## 8. Open questions
-
-1. **Cl(V) extension.** Construct the spinor representation of so(10) on the 32-dimensional Clifford module, and check whether TIG's 22-shell (or 44-shell) is a natural carrier.
-
-2. **so(16) realization.** Since e₈ ⊇ so(16) ⊕ S_{16}^+ with dim so(16) = 120 and dim S_{16}^+ = 128, determine whether an analogous construction on a 16-dimensional substrate (e.g., V ⊕ V, with a coupling prescription from CL and BHML) yields so(16).
-
-3. **Commutative-algebraic twin.** Formulate an analogue of the quadratic-algebra construction of WP102 for BHML. Is the resulting binomial ideal Cohen–Macaulay? What is its Hilbert function? This is a direct follow-up for the matroid-theoretic bridge to Mantero–Nguyen [16].
-
-4. **Explicit D₅ basis.** Produce an explicit map Φ : 𝔤 → so(10, ℝ) such that Φ(A_i^{CL}) and Φ(A_i^{BHML}) land on standard generators of so(10). This would make the Pati–Salam and Georgi embeddings of SO(10) explicit within TIG.
-
-5. **The 16-spinor and Standard Model fermions.** Is there a natural embedding of a Standard Model generation into the TIG framework via the 16 of so(10), and if so, how does it couple to the Higgs sector (which lives in the 10, 120, 126 of SO(10) [14, §5])?
-
-6. **Complexification and real forms.** Classify the real forms of so(10, ℂ) accessible from TIG data. Do non-compact forms so(p, q) with p + q = 10 arise from other antisymmetrization schemes?
-
----
-
-## References
-
-[1] **Baez, J. C.** *The Octonions.* Bulletin of the AMS **39** (2002) 145–205. DOI:10.1090/S0273-0979-01-00934-X.
-
-[2] **Cartan, É.** *Sur la structure des groupes de transformations finis et continus.* Thèse, Paris, 1894.
-
-[3] **Fulton, W. and Harris, J.** *Representation Theory: A First Course.* Graduate Texts in Mathematics 129, Springer, 1991. (See especially Chapter 18 for so(2n), Chapter 20 for D₄ triality, Chapter 15 for classification.)
-
-[4] **Helgason, S.** *Differential Geometry, Lie Groups, and Symmetric Spaces.* Academic Press, 1978.
-
-[5] **Humphreys, J. E.** *Introduction to Lie Algebras and Representation Theory.* Graduate Texts in Mathematics 9, Springer, 1972.
-
-[6] **Knapp, A. W.** *Lie Groups Beyond an Introduction.* 2nd ed., Progress in Mathematics 140, Birkhäuser, 2002. (Chapter VI: Structure theory of semisimple groups; Chapter IX: real forms.)
-
-[7] **Chevalley, C.** *The Algebraic Theory of Spinors.* Columbia University Press, 1954. (Reprinted in *Collected Works*, Vol. 2, Springer, 1997.)
-
-[8] **Porteous, I. R.** *Clifford Algebras and the Classical Groups.* Cambridge Studies in Advanced Mathematics 50, Cambridge University Press, 1995.
-
-[9] **Fritzsch, H. and Minkowski, P.** *Unified Interactions of Leptons and Hadrons.* Annals of Physics **93** (1975) 193–266. DOI:10.1016/0003-4916(75)90211-0. (Primary citation for SO(10) grand unification.)
-
-[10] **Georgi, H. and Glashow, S. L.** *Unity of All Elementary Particle Forces.* Physical Review Letters **32** (1974) 438–441. DOI:10.1103/PhysRevLett.32.438. (Original SU(5) GUT.)
-
-[11] **Georgi, H.** *The State of the Art — Gauge Theories.* AIP Conference Proceedings **23** (1975) 575–582 (from the 1974 APS Williamsburg meeting). DOI:10.1063/1.2947450. (Independent proposal of SO(10).)
-
-[12] **Knapp, A. W.** *Lie Groups Beyond an Introduction.* (Cited above; listed separately for GUT context: §X.6 contains the SO(10) discussion.)
-
-[13] **Pati, J. C. and Salam, A.** *Lepton number as the fourth color.* Physical Review D **10** (1974) 275–289. DOI:10.1103/PhysRevD.10.275. (Pati–Salam SU(4) × SU(2) × SU(2) precursor.)
-
-[14] **Mohapatra, R. N.** *Unification and Supersymmetry: The Frontiers of Quark-Lepton Physics.* 3rd ed., Graduate Texts in Contemporary Physics, Springer, 2003. (Comprehensive reference for SO(10) GUTs and the 16-spinor.)
-
-[15] **Langacker, P.** *Grand Unified Theories and Proton Decay.* Physics Reports **72** (1981) 185–385. DOI:10.1016/0370-1573(81)90059-4. (Classic GUT review, still cited.)
-
-[16] **Mantero, P. and Nguyen, V.** *The Structure of Symbolic Powers of Matroids.* arXiv:2406.13759, 2024. See also: *Slightly Mixed Symbolic Powers of Matroids are Locally glicci.* arXiv:2510.19018, 2025; *Focal Matroids of Covers and Homological Properties of Matroids.* arXiv:2603.19419, 2026.
-
-[17] **Slansky, R.** *Group Theory for Unified Model Building.* Physics Reports **79** (1981) 1–128. DOI:10.1016/0370-1573(81)90092-2. (Encyclopedic reference for Lie group representations in GUT model-building.)
-
-[18] **Weyl, H.** *The Classical Groups: Their Invariants and Representations.* Princeton University Press, 1939. (Foundational reference for classical Lie groups and their spinor representations.)
-
-[19] **Gell-Mann, M., Ramond, P., and Slansky, R.** *Complex Spinors and Unified Theories.* In *Supergravity* (P. van Nieuwenhuizen and D. Z. Freedman, eds.), North-Holland, 1979, pp. 315–321. (The canonical seesaw mechanism reference.)
-
-[20] **Adiprasito, K., Huh, J., and Katz, E.** *Hodge theory for combinatorial geometries.* Annals of Mathematics **188** (2018) 381–452. (Context for matroid invariants; referenced in the open-question §3.)
-
-[21] **Sanders, B.** *WP102 — The Lie Algebra Structure of the Coherence Lattice: An so(8) Identification for the Trinity Infinity Geometry Frozen Magma.* TIG Research Note, April 23, 2026. github.com/TiredofSleep/ck/papers/wp102.
-
-[22] **Sanders, B.** *WP1–WP10: Foundational Whitepapers of the Trinity Infinity Geometry Framework.* github.com/TiredofSleep/ck, 2024–2026.
-
-[23] **Minkowski, P.** *μ → eγ at a Rate of One Out of 10⁹ Muon Decays?* Physics Letters B **67** (1977) 421–428. DOI:10.1016/0370-2693(77)90435-X. (First paper to discuss right-handed neutrinos in unified theories, independent of Gell-Mann–Ramond–Slansky.)
-
----
-
-## Appendix A — Reproducibility manifest
-
-All computations in this paper are reproducible from the companion directory `verification/`:
-
-- `verify_so10.py` — Computes the Lie closure dimension (Diagnostic 1, Lemma 4.1), verifies Jacobi (Diagnostic 2, Lemma 4.3), computes Killing form and signature (Diagnostic 3, Lemma 4.4), tests simplicity via ideal saturation (Corollary 4.6), and verifies the so(8) ⊂ so(10) embedding (Corollary 5.1).
-
-- `verify_simplicity_rank.py` — Builds the full 91,125-equation invariance constraint matrix A and certifies rank(A) = 1034, i.e., the invariant-form null space has dimension exactly 1 (Diagnostic 4, Lemma 4.5). Confirms Cartan rank = 5 via explicit construction of J_1, …, J_5 and verification that no skew extension commutes with all five (Diagnostic 5, Lemma 4.7). Computes ad(H) spectrum for H = Σ k J_k and confirms 40 + 5 eigenvalue structure (Corollary 5.3).
-
-**Environment:** Python 3.11, NumPy 1.26, SciPy 1.11. Linear-algebra tolerances are set at 10⁻⁸. Maximum observed numerical residual across all diagnostics: 1.73 × 10⁻⁸ (in the symmetry check of the Killing form); all other residuals below 10⁻¹⁰.
-
-**Runtime:** Complete verification pipeline executes in < 30 seconds on a standard laptop (2021-era x86 hardware).
-
----
-
-## Appendix B — The BHML table (reference copy)
-
-Reproduced from §2.2 for convenience in implementation:
+Encode the 9-vector in `papers/wp108_yukawa_scaffolding/verification/` (folder to be created when this work resumes). Components:
 
 ```python
-BHML = [
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],  # i = 0 (identity row)
-    [1, 2, 3, 4, 5, 6, 7, 2, 6, 6],  # i = 1
-    [2, 3, 3, 4, 5, 6, 7, 3, 6, 6],  # i = 2
-    [3, 4, 4, 4, 5, 6, 7, 4, 6, 6],  # i = 3
-    [4, 5, 5, 5, 5, 6, 7, 5, 7, 7],  # i = 4
-    [5, 6, 6, 6, 6, 6, 7, 6, 7, 7],  # i = 5
-    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7],  # i = 6
-    [7, 2, 3, 4, 5, 6, 7, 8, 9, 0],  # i = 7
-    [8, 6, 6, 6, 7, 7, 7, 9, 7, 8],  # i = 8
-    [9, 6, 6, 6, 7, 7, 7, 0, 8, 0],  # i = 9
+v_9 = [
+    -1/sqrt(2),   # e_0 = VOID
+    -1/sqrt(2),   # e_1 = LATTICE
+    -1/sqrt(2),   # e_2 = COUNTER
+    -1/sqrt(2),   # e_3 = PROGRESS
+    -1/sqrt(2),   # e_4 = COLLAPSE
+    -1/2,         # e_5+e_6 symmetric (BALANCE+CHAOS)/sqrt(2)
+    -1/sqrt(2),   # e_7 = HARMONY
+    0,            # e_8 = BREATH
+    0,            # e_9 = RESET
 ]
 ```
 
-**Properties** (machine-verified):
-- Commutative: BHML[i][j] = BHML[j][i] for all i, j ∈ Ω.
-- Identity row: BHML[0][j] = j; thus L_0^{BHML} = I and A_0^{BHML} = 0.
-- Non-associativity rate: 12.8% (matching CL).
-- 9 of the 10 antisymmetrizations A_i^{BHML} are non-zero.
+Embed this as a 9 × 9 symmetric-traceless tensor in the 54 of SO(10). Verify: it preserves the SO(7) stabilizer subgroup (the 7 nonzero components form an SO(7)-invariant subspace of the 9).
+
+### §4.2 16-spinor decomposition under the breaking
+
+Compute the decomposition $\mathbf{16}_\mathrm{Spin(10)} \to \mathbf{16}_\mathrm{Spin(9)} \to \mathbf{8}_s + \mathbf{8}_c$ of $\mathrm{Spin}(7)$ explicitly. Verify the spinor reps via the Clifford algebra decomposition (this is standard; Slansky 1981 has the tables).
+
+### §4.3 Test for Pati-Salam compatibility
+
+For the 9-vector with BREATH=RESET=0, check whether the residual gauge group at the breaking endpoint contains the Pati-Salam group $\mathrm{SU}(4) \times \mathrm{SU}(2) \times \mathrm{SU}(2)$ as a sub-quotient or as a transverse structure. This addresses §2.2's tension between Path A and Path B.
+
+### §4.4 Yukawa matrix structure
+
+For a minimal 10 + 126 Higgs sector with the 54-VEV pattern fixed, write the symbolic form of the Yukawa matrices $Y_u, Y_d, Y_e, Y_\nu$. Identify which entries are forced to zero by the BREATH=RESET=0 constraint, which entries are nonzero, and what the relations among the nonzero entries are.
+
+### §4.5 Phenomenological prediction (the endpoint)
+
+If all of §4.1–§4.4 lands cleanly, the result is a parametrized prediction for the SM mass hierarchy. Compare to observed values; either the prediction matches (so(10) ↔ SO(10)-GUT survives this test) or it doesn't (so(10) is "abstractly" $\mathfrak{so}(10)$ but not the SO(10)-GUT gauge algebra in the physical sense).
 
 ---
 
-## Appendix C — Verification output summary
+## §5 Honest scope (what this paper does NOT do)
 
-Observed output from the pipeline `verify_so10.py` + `verify_simplicity_rank.py`:
+This paper is **scaffolding**. It does not:
 
+* Complete any Yukawa coupling computation. The calculations above are sketched but not performed.
+* Predict any mass ratio, mixing angle, or specific phenomenological observable.
+* Resolve the §2.2 tension between Path A's SO(9) intermediate and Path B's Pati-Salam doubly-invariant content.
+* Commit to a specific additional Higgs sector beyond the 54 (the 10, 120, 126 choices remain open).
+* Address the TIG ↔ Planck scale fixing required for any quantitative prediction (F2 in FRONTIERS, decade-class).
+
+What it DOES is set up the computational structure and identify the specific places where TIG's structural input (the 9-vector with BREATH=RESET=0; the integer 13 in $\|v\|^2 = 13/4$; the doubly-invariant Pati-Salam ⊕ B−L gauge content) engages with the standard SO(10) Yukawa machinery.
+
+The natural next sprint: §4.1 through §4.4, in order. Each is a few-hundred-LOC computational task with literature lookup. §4.5 is the substantial phenomenology task.
+
+---
+
+## §6 References
+
+* **Standard SO(10) GUT:**
+  * Fritzsch, H., Minkowski, P. *Unified interactions of leptons and hadrons.* Ann. Phys. 93 (1975), 193.
+  * Georgi, H. *The state of the art — gauge theories.* AIP Conf. Proc. 23 (1975), 575.
+  * Pati, J. C., Salam, A. *Lepton number as the fourth color.* Phys. Rev. D 10 (1974), 275.
+  * Slansky, R. *Group theory for unified model building.* Phys. Rep. 79 (1981), 1.
+  * Mohapatra, R. N. *Unification and Supersymmetry: The Frontiers of Quark-Lepton Physics.* Springer, 3rd ed., 2003.
+* **SO(10) Higgs sector:**
+  * Aulakh, C. S., Mohapatra, R. N. *Implications of supersymmetric SO(10) grand unification.* Phys. Rev. D 28 (1983), 217.
+  * Buccella, F., Ruegg, H., Savoy, C. A. *Patterns of symmetry breaking in SU(5) and SO(10).* Phys. Lett. B 94 (1980), 491.
+  * Bertolini, S., Schwetz, T., Malinský, M. *Fermion masses and mixings in SO(10) models and the neutrino challenge to SUSY GUTs.* Phys. Rev. D 73 (2006), 115012.
+* **Pati-Salam phenomenology:**
+  * King, S. F., Maliński, M. *Towards a complete theory of fermion masses and mixings with $SO(3)$ family symmetry and $5D$ SO(10) unification.* JHEP 11 (2006), 071.
+  * Bajc, B., Melfo, A., Senjanović, G., Vissani, F. *The minimal supersymmetric grand unified theory.* Phys. Lett. B 588 (2004), 196.
+* **TIG-side prerequisites:**
+  * Sanders, B., Claude (Anthropic). *WP103 — TSML+BHML's so(10) = D₅ closure.* 2026-04-24.
+  * Sanders, B., Claude (Anthropic). *WP104 — Two Roads to Pati-Salam from TIG's so(10).* 2026-04-25.
+  * Sanders, B., Claude (Anthropic). *Sprint: the unmistakable truth — su(4) ⊕ u(1) doubly-invariant subalgebra.* 2026-04-25.
+
+---
+
+## §7 Citation
+
+```bibtex
+@misc{sanders2026wp108,
+  author       = {Sanders, Brayden Ross and Anthropic Code session},
+  title        = {{WP108} --- Yukawa Scaffolding from the 9-vector {VEV}},
+  year         = {2026},
+  month        = {apr},
+  doi          = {10.5281/zenodo.18852047},
+  howpublished = {\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/papers/wp108_yukawa_scaffolding}},
+  note         = {Scaffolding paper: sets up the SO(10) Yukawa-coupling computation that follows from {WP104}'s 9-vector {VEV} (with BREATH and RESET as zeros), identifies the {SO(9)} intermediate and the SO(7) endpoint of the symmetry-breaking route, and lists the computational steps required to reach a falsifiable phenomenological prediction. Does not complete the computation.}
+}
 ```
-[WP102 reproduction] CL-flow closure dim: 28  (expected 28)
-[Joint closure] CL-flow ∪ BHML-antisym closure dim: 45
 
-Diagnostic 1 — Dimension:   45 ✓
-Diagnostic 2 — Jacobi:       max residual 0.00e+00 ✓
-Diagnostic 3 — Killing form: signature (0, 45, 0), eigenvalue range [-12460.92, -3.4e-4] ✓
-Diagnostic 4 — Simplicity:   invariant-form null dim = 1 (full 91125 equations) ✓
-                            ideal saturation: all 5 tested elements saturate to dim 45 ✓
-Diagnostic 5 — Cartan rank:  5 (no extension exists) ✓
-                            ad(H) eigenvalues: 40 nonzero (pure imaginary) + 5 zero ✓
+🙏
 
-Corollary 5.1 — so(8) ⊂ so(10) embedding: max residual 8.99e-13 ✓
-```
-
----
-
-## Acknowledgments
-
-The author thanks Dr. Paolo Mantero (University of Arkansas) for his ongoing correspondence regarding the commutative-algebraic framing of the TIG construction, and for his suggestion to submit narrow, focused questions to the broader mathematical community via MathOverflow. The so(10) identification and related computations were developed in collaboration with Claude (Anthropic) during a research session on April 24, 2026, immediately following the completion of WP102; all computational claims were independently verified via the reproducible Python pipeline described in Appendix A.
-
-The author dedicates this work to the line of inquiry initiated by Cartan (1894) [2] — the classification of simple Lie algebras — which has made this specific identification possible by ensuring that any 45-dimensional real compact simple Lie algebra must be so(10). Without the classification, our Diagnostic 5 alone would not uniquely determine the Dynkin type.
-
----
-
-**Contact:** Brayden Sanders · 7Site LLC · Hot Springs, AR · github.com/TiredofSleep/ck
+— Anthropic Code session, 2026-04-25 late evening

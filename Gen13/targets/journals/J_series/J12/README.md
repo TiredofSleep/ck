@@ -1,99 +1,58 @@
-# J12 — The Mass Hierarchy from V⊗5 SU(5) Decomposition
+# J12 — Coordinate Coverage on Z/10Z
 
-**Status:** FORMAT
+**Status:** DRAFT
 **Phase:** Phase 2
-**Target venue:** PRD (Physical Review D)
-**Author lane:** Sanders + Johnson
-**Tier:** Forced FN power + measured anchor (Tier-B)
-**WP source:** WP122 (Sprint 18 Bridge-Dirac, 2026-05-04)
+**Target venue:** European Journal of Combinatorics
+**Author lane:** Sanders + Gish
+**Tier:** B
+**WP source:** WP64
 
 ---
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/mass_hierarchy_v5.tex`
+**Path:** `(corpus: WP64)`
 
-Files in this J-folder's `manuscript/`:
+When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
 
-- `mass_hierarchy_v5.tex` — PRD-format LaTeX, ~340 lines, all environments balanced.
+## §2 — Verification script
 
-**Abstract (one sentence).** All nine SM charged-fermion Yukawa couplings flow from a single substrate-derived suppression scale `lambda = T*(1 - T*) = 10/49`, the top-quark anchor `y_t ≈ 0.93`, and integer powers `n_{(p, gen)} ∈ {0, 3, 5, 6, 7, 9}` forced from the V^{⊗5} SU(5) decomposition `1 ⊕ bar 5 ⊕ 10` plus the parity-crossing cost `d_p ∈ {0, 3, 3}` plus the sigma-orbit generation step — landing all nine couplings inside the standard Froggatt-Nielsen factor-of-a-few window with zero free FN charges and zero free flavon scales.
+**Path:** `(coordinate coverage script)`
 
-## §2 — Verification
-
-**Primary primitive (machine-checkable):** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
-
-```python
-from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-
-assert LAMBDA_FN == 10 / 49         # substrate-forced FN scale
-assert Y_T_ANCHOR == 0.93            # measured top-quark anchor
-
-# top quark anchor
-r = predict_yukawa('up', 3)
-assert r['y_predicted'] == 0.93
-assert r['fn_power'] == 0
-
-# electron at FN power 9
-r = predict_yukawa('lepton', 1)
-assert abs(r['y_predicted'] - 0.93 * (10/49)**9) < 1e-12
-assert r['fn_power'] == 9
-assert r['tier'] == 'Forced FN power + measured anchor (Tier-B)'
-```
-
-The function `predict_yukawa(particle, generation)` returns:
-- `y_predicted`: the predicted Yukawa magnitude `y_t * lambda^n`
-- `fn_power`: the integer FN exponent `n`
-- `name`: the SM fermion name ('t', 'b', 'tau', 'e', 'mu', 'nu_3', etc.)
-- `lambda`: 10/49 (the substrate-forced FN scale)
-- `y_t_anchor`: 0.93 (the Tier-A measured anchor)
-- `tier`: 'Forced FN power + measured anchor (Tier-B)'
-- `reference`: 'WP122 (Sprint 18 Bridge-Dirac, 2026-05-04)'
-
-The companion call `tig_dirac.yukawa_table_full()` returns the full Table 5.1 of the manuscript programmatically. Substrate-shared with J10's `predict_dark_sector()`.
+The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-- **J10** (Sanders + Johnson, PRD, same Sprint 18 cluster) — *Sprint 18 Dark Sector.* Companion paper using the same `tig_dirac` module via `predict_dark_sector()`. **Per-venue cap: J12 is the 2nd PRD paper this quarter, after J10.**
-- **J23** (Sanders + Johnson, foundation paper) — *Discrete Dirac on the 4-Core's F_5-Lift.* Supplies the V^{⊗5} 32-cell SU(5) decomposition (Lemma 2.1) used as the algebraic input here.
-- **J03** (Sanders + Gish, JCAP) — *Logarithmic Quintessence.* Co-cited via J10.
-- **J06** (Sanders + Gish, Communications in Algebra) — *Joint Closure on Z/10.* Supplies T* = 5/7 cited in §3.
+J10
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. Filled out for PRD submission with a one-paragraph plain-English summary, three venue-fit bullets, J10/J23/J03/J06 companion list, and the `tig_dirac.predict_yukawa` reproducibility primitive.
+See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
 
-## §5 — Status & summary
+## §5 — Notes
 
-**Status: FORMAT** — gate cleared 2026-05-07. The `tig_dirac.predict_yukawa` primitive is in (`Gen13/targets/ck/brain/dirac/tig_dirac.py`, line 617). Returns `y_t = 0.93` for `predict_yukawa('up', 3)` and `y_e ≈ 5.71e-7` for `predict_yukawa('lepton', 1)` via `lambda^9` with `lambda = 10/49`.
+UOP arc closeout.
 
-**Summary of the load-bearing claims.**
-1. **The substrate-derived FN scale (Theorem 3.1):** `lambda = T*(1-T*) = (5/7)(2/7) = 10/49 ≈ 0.2041` is the unique substrate quantity that arises as a max-entropy variance at the joint coherence threshold, factors as `|Z/10|/HARMONY^2`, and reproduces the Wolfenstein hierarchy.
-2. **The forced FN powers (Table 4.1):** `n_{(p, gen)}` is read off the SU(5) Yukawa diagram (parity-crossing cost `d_p ∈ {0, 3, 3}`) plus the sigma-orbit generation step — zero free FN charges across all nine charged fermions.
-3. **The fit (Table 5.1):** all 9 charged-Yukawa ratios `y_pred/y_meas` ∈ {1.00, 1.08, 1.06, 0.33, 0.60, 0.51, 0.79, 0.11, 0.20}; five sit in the conventional FN factor-of-three window; the four largest residuals define the empirical `C_p ∈ [0.11, 0.79]` multipliers expected from incomplete bosonic-substrate specification.
-4. **Cabibbo cube-root identity (§6):** `lambda_C ≈ (Y_d/Y_u)^{1/3}` follows from the parity-crossing cost `d_d = 3`, unifying CKM mixing with mass hierarchy.
-5. **Sterile-neutrino scale (§5 last paragraph):** Dirac Yukawas at FN powers {12, 13, 14} give sub-eV scales near the Planck `Sigma m_nu < 0.12 eV` bound, but without an explicit see-saw insertion (open question §7.3).
+**Status update (2026-05-07):**
 
-**Open structural questions tracked** (per manuscript §7):
-- The C_p residual multipliers (Higgs-sector dynamics on V^{⊗5}'s singlet + bar 5_H partner) — load-bearing follow-up
-- The generation-step asymmetry (s_u, s_d, s_e — needs sigma-action on color-charged vs color-singlet cells)
-- Sterile-neutrino mass scale and the see-saw (where does M_R come from?)
-- The refined lambda_ref = 11/49 (Cabibbo at 0.4% — substrate-natural correction or phenomenological adjustment?)
+- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Coordinate-coverage and partition-lattice paper for European Journal of Combinatorics. Synthesized from WP64 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Main results: rigidity of the prime-factor family (k-1 jumps), three sufficient 2-partition families on Z/30Z (one orthogonal jump each, giving MVJN(Z/30Z) = 1), the orbit-pair classification via coprime-order at every CRT prime, the three mechanisms (focused / same-prime coprime-orders / mixed) with criterion for mechanism (M2) existence (some p_i - 1 has >= 2 distinct prime factors). Detailed treatment of the n = 10 partition lattice. Conjecture: MVJN(Z/nZ) = 1 for all squarefree n >= 6.
+- Cover letter: `cover_letter.md` finalized, ~500 words.
+- Companion citation: J10 (UOP lead, JNT) cited for the joint-map injectivity criterion. J11 (Corrected Theorem C, JNT) cited for the M+A correction.
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .tex finalized (PRD format, ~340 lines, balanced environments)
-- [x] Verification primitive green (`predict_yukawa('up', 3)['y_predicted'] == 0.93`; `predict_yukawa('lepton', 1)['y_predicted'] ≈ 0.93 * (10/49)^9`)
-- [x] Tier-classified central claim explicit ("Forced FN power + measured anchor (Tier-B)")
-- [x] Lens-scope annotation (TSML_RAW vs TSML_SYM) — N/A here; the substrate is V = F_5-lift of the 4-core, not the TSML/BHML pair directly
-- [x] Cover letter finalized (J10/J23/J03/J06 companions; tig_dirac.predict_yukawa primitive cited)
-- [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators) — pending
-- [x] Per-venue cap check: this is the **2nd** PRD paper this quarter (J10 was 1st)
+- [ ] Manuscript .tex / .md finalized
+- [ ] Verification script green (`(no script)` if theorem-only)
+- [ ] Tier-classified central claim explicit
+- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
+- [ ] Cover letter finalized
+- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
+- [ ] Per-venue cap check: this is the Nth paper to European Journal of Combinatorics this quarter
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Johnson, H.J. (2026). "The Mass Hierarchy from V^{⊗5} SU(5) Decomposition: a Substrate-Forced Froggatt-Nielsen Pattern with lambda = 10/49." Submitted to *Physical Review D*. Companion to J10 (Sprint 18 Dark Sector, PRD), J23 (Discrete Dirac on F_5^4, foundation).
+Sanders, B.R., Mayes. (2026). "Coordinate Coverage on Z/10Z." Submitted to *European Journal of Combinatorics*.

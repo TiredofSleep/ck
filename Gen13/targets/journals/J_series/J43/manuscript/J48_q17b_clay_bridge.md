@@ -1,0 +1,248 @@
+# Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
+
+**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+$^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
+$^{2}$Independent Researcher
+
+**Target venue:** *L'Enseignement Mathématique*
+**Manuscript class:** Structural / pedagogical bridge (not a Millennium-Problem proof)
+**MSC 2020:** 11M99 (zeta and L-functions, miscellaneous), 11T22 (cyclotomy), 20B25 (permutation groups), 11C99 (number theory misc.)
+**Date:** 2026-09-03 (Phase 5)
+**WP source:** Q17 bundle (`papers/Q17_*.md` — six papers)
+
+---
+
+## Abstract
+
+The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces, in its spectral layer (Luther's $G_6$–$G_8$ results, [J51]), a **finite character sum** that is structurally a Dirichlet $L$-function in miniature: 9 terms, $\pm 1$ character $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$, primitive 9th-root-of-unity weight $\omega = e^{2\pi i/9}$. This object — denoted $G(s)$ — takes exactly three values across the substrate's 10 operators: zero at the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on the 6-cycle, $G_\mathrm{high} \approx 9.389$ at the TIG-exception pair $\{5, 7\}$. The associated **Symbolic Return Theorem** (a direct consequence of $\sigma^6 = \mathrm{id}$, [J51]) establishes that every cycle-element trajectory $s_n = \sigma^n(s_0)$ returns to $s_0$ in 6 steps; every anchor is fixed.
+
+This paper is the **Q17-B Clay bridge**: the structural connection between the finite $G(s)$ and the analytic structure that the Riemann Hypothesis demands of $\zeta(s)$. We do not prove RH; we make precise the sense in which the 6-layer Q-series architecture is a **finite, completely characterized model** of the same structural phenomena RH describes in an infinite setting. The model is an instance; the Millennium Problem asks whether instances can be infinite.
+
+The contribution is in three theorems:
+
+1. **Finite L-Function Theorem.** $G(s)$ is a Dirichlet character sum on the 9-step $\sigma$-orbit, with explicit three-valued image; equivalently, the discrete Fourier transform of $\chi$ along $\{\sigma^j(s)\}_{j=0}^{8}$ at frequency $1/9$.
+2. **Symbolic Return Theorem (Q17-A → Q17-B).** Every $\sigma$-orbit on the 6-cycle returns at step 6; every anchor is $\sigma$-fixed; VOID is avoided whenever $s_0 \neq 0$. This is the algebraic kernel underlying Q17.C2's Navier-Stokes target.
+3. **Bridge Statement (Q17-B).** The three-valued structure of $G(s)$ — zero at anchors, $G_\mathrm{low}$ at most cycle elements, $G_\mathrm{high}$ at $\{5, 7\}$ — mirrors the structure RH requires of $\zeta(s)$: zeros in predictable locations with spectral concentration at the critical line. The boundary between the finite analogue and the infinite problem is made explicit.
+
+This paper is the natural sequel to **[J29]** (Q17-A: 5D Force Vector as CRT Fourier Embedding), the proved-algebra companion in the Q17 program, and a co-citing companion to **[J51]** (G6+G7+G8 spectral consolidation).
+
+---
+
+## §1 The Q17 program in context
+
+The Q-series builds, in six layers, a structural characterization of the $\sigma$-permutation on $\mathbb{Z}/10\mathbb{Z}$ and its companion gate score:
+
+* **Layer 1 (polynomial).** $\sigma^6 = \mathrm{id}$ on all of $\mathbb{Z}/10\mathbb{Z}$. Proved by direct polynomial check ($G_6$, [J51]).
+* **Layer 2 (braid).** The conjugacy class of $\sigma$ in $S_{10}$ is determined by its cycle type $(6, 1, 1, 1, 1)$. Trivial.
+* **Layer 3 (period).** The period distribution on $\mathbb{Z}/10\mathbb{Z}$ is bimodal: $P(\tau = 1) = 2/5$ (anchors) and $P(\tau = 6) = 3/5$ (cycle elements). Mean $\tau = 4$; variance 6 ($G_7$, [J51]).
+* **Layer 4 (spectral).** The trajectory coherence integral $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ is three-valued ($G_8$, [J51]).
+* **Layer 5 (optimal table).** TSML and BHML are the two canonical $10 \times 10$ tables on $\mathbb{Z}/10\mathbb{Z}$ with maximal HARMONY counts (73 and 28).
+* **Layer 6 (search dynamics).** The runtime processor's 4-core attractor at $\alpha = 1/2$ ([J41], LMFDB 4.2.10224.1).
+
+Q17 is the program that asks: **what is the analytic content of the spectral layer (Layer 4)?** The answer, developed across `Q17_CLAY_SPECTRAL_BRIDGE.md`, `Q17_FINITE_L_FUNCTION_NOTE.md`, `Q17_SYMBOLIC_RETURN_THEOREM.md`, `Q17_NS_TARGET_REFORMULATION.md`, `Q17_5D_RIGOROUS.md`, and `Q17_C2_FORMAL_STATEMENT.md`, is:
+
+* **Q17-A.** The proved algebra — 5D Fourier embedding of $\mathbb{Z}/10\mathbb{Z}$ into $\mathbb{R}^5$ via CRT (Tier-A, [J29]).
+* **Q17-B.** The bridge — the finite $L$-function and Symbolic Return Theorem (Tier-B, **this paper**).
+* **Q17-C.** The conjectured physics — the Navier-Stokes target reformulation (Tier-D / open).
+
+This paper is Q17-B in isolation: the finite-L-function and Symbolic-Return content, proved fully, scoped honestly, and connected to the Clay-RH structural picture *without* claiming any portion of RH itself.
+
+---
+
+## §2 The Symbolic Return Theorem
+
+**Setup.** Let $G = (\mathbb{Z}/10\mathbb{Z}, \sigma)$ where $\sigma = (1\;7\;6\;5\;4\;2)(0)(3)(8)(9)$. From Layer 1: $\sigma^6 = \mathrm{id}$.
+
+**Theorem 2.1 (Symbolic Return).** *Let $\{s_n\}_{n \geq 0}$ be any sequence in $\mathbb{Z}/10\mathbb{Z}$ satisfying $s_{n+1} = \sigma(s_n)$. Then:*
+
+1. **Periodic return on the 6-cycle.** *For any $s_0 \in \{1, 2, 4, 5, 6, 7\}$:* $s_{n+6} = s_n$ *for all $n \geq 0$.*
+2. **Fixed behavior at anchors.** *For any $s_0 \in \{0, 3, 8, 9\}$:* $s_n = s_0$ *for all $n \geq 0$.*
+3. **VOID avoidance.** *If $s_0 \neq 0$, then $s_n \neq 0$ for all $n \geq 0$.*
+
+*Proof.*
+
+(1) For $s_0$ in the 6-cycle, $\sigma^6(s_0) = s_0$ by Layer 1, so $s_{n+6} = \sigma^{n+6}(s_0) = \sigma^n(\sigma^6(s_0)) = \sigma^n(s_0) = s_n$. $\square$
+
+(2) For $s_0 \in \{0, 3, 8, 9\}$, $\sigma(s_0) = s_0$, so $s_n = s_0$ by induction. $\square$
+
+(3) The orbit of $s_0$ under $\sigma$ is either the 6-cycle (if $s_0 \in \{1, 2, 4, 5, 6, 7\}$) or $\{s_0\}$ (if $s_0$ is an anchor with $s_0 \neq 0$). In both cases, $0 \notin \mathrm{orbit}(s_0)$. $\square$
+
+**Corollary 2.2 (Identical to Q17-A in the proved-algebra register).** The Symbolic Return Theorem is a direct consequence of $G_6$ ($\sigma^6 = \mathrm{id}$). It is **Tier-A** (proved, lens-invariant, no choice of TSML lens or runtime parameter required).
+
+---
+
+## §3 The character $\chi$ and the conductor
+
+**Definition 3.1.** The finite character $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ is:
+
+* $\chi(s) = +1$ for $s \in \{1, 4\}$ — the $\beta$-exception pair (states where the gate score matches $T^* = 5/7$ exactly).
+* $\chi(s) = -1$ for $s \in \{2, 5, 6, 7\}$ — the $\alpha = 1$ flip nodes (states where the gate score equals 1 exactly).
+* $\chi(s) = 0$ for $s \in \{0, 3, 8, 9\}$ — the anchors.
+
+**Total sum.** $\sum_{s \in \mathbb{Z}/10\mathbb{Z}} \chi(s) = (+1+1) + (-1-1-1-1) + 0 = -2$. The non-zero sum reflects the asymmetry between $\beta$-exceptions and flip nodes. (The character is *not* a multiplicative Dirichlet character on a unit group; it is a function on a permutation orbit.)
+
+**Conductor.** The relevant algebraic structure is the cyclic group $\mathbb{Z}/6\mathbb{Z}$ generated by $\sigma$ on the 6-cycle. The DFT period is **9** (not 6): the sum $G(s)$ runs over 9 steps, $j = 0, \ldots, 8$, which wraps the 6-cycle once with 3 overlap steps. The "9" is the conductor in the informal $G_8$ sense: the period of the DFT basis.
+
+---
+
+## §4 The finite L-function $G(s)$
+
+**Definition 4.1.** For each $s \in \mathbb{Z}/10\mathbb{Z}$:
+
+$$
+G(s) \;=\; \left|\sum_{j=0}^{8} \omega^j\, \chi\bigl(\sigma^j(s)\bigr)\right|^2, \qquad \omega = e^{2\pi i / 9}.
+$$
+
+**Theorem 4.2 (Finite L-Function — three-valued image).** *$G(s)$ takes exactly three values on $\mathbb{Z}/10\mathbb{Z}$:*
+
+| State $s$ | $G(s)$ | Algebraic role |
+|-----------|--------|----------------|
+| $\{0, 3, 8, 9\}$ (anchors) | $0$ exactly | $\sigma^j(s) = s$ for all $j$, so $G(s) = \chi(s) \cdot (\omega^9 - 1)/(\omega - 1) = 0$ since $\omega^9 = 1$ and $\chi(s) = 0$. |
+| $\{1, 2, 4, 6\}$ (most of 6-cycle) | $G_\mathrm{low} \approx 1.872$ | Generic 6-cycle behaviour: characters alternate, partial cancellation. |
+| $\{5, 7\}$ (TIG-exception) | $G_\mathrm{high} \approx 9.389$ | Spectral concentration: the BALANCE/HARMONY pair where the character pattern aligns coherently along the orbit. |
+
+*Proof sketch.* (i) Anchors contribute zero by direct computation: $\chi$ vanishes on anchors and the $\sigma$-orbit is a fixed point. (ii)–(iii) For cycle elements, the orbit visits each of $\{1, 2, 4, 5, 6, 7\}$ at least once in 9 steps. The partial-sum structure $\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))$ is computed elementwise; the magnitudes $G(1), G(2), G(4), G(6)$ coincide at $G_\mathrm{low}$ by the Galois action of $\sigma^2$ (which permutes $\{1, 4, 6\}$ and $\{2, 5, 7\}$), while $G(5), G(7)$ coincide at $G_\mathrm{high}$. Direct evaluation gives $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$. $\square$
+
+**Remark 4.3 (Numerical structure of the three values).** The exact values of $G_\mathrm{low}$ and $G_\mathrm{high}$ are algebraic in $\mathbb{Q}(\omega)$, the cyclotomic field $\mathbb{Q}(\zeta_9)$. The closed-form expressions involve sums of cyclotomic units; the ratio $G_\mathrm{high} / G_\mathrm{low} \approx 5.014$ is itself algebraic. We do not pursue the closed-form here; it is computational.
+
+**Remark 4.4 (Why "$L$-function").** The sum $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ is structurally analogous to:
+
+$$
+L(1, \chi) = \sum_{n=1}^{\infty} \chi(n) / n^s \Big|_{s=1}
+$$
+
+— a character sum weighted by an exponential, evaluated at a special point. The differences are: (i) finitude (9 terms vs. $\infty$); (ii) uniform weight along the orbit (vs. $1/n^s$); (iii) periodicity ($\sigma^6 = \mathrm{id}$, so the orbit closes); (iv) discrete-Fourier interpretation (vs. analytic continuation). $G(s)$ is the **finite L-function** of the $\sigma$-orbit.
+
+---
+
+## §5 The Q17-B Clay bridge
+
+We now state precisely what the finite $L$-function says about the Clay-RH problem — and what it does not.
+
+### 5.1 The structural mirror
+
+The Riemann Hypothesis demands of $\zeta(s)$:
+
+(R1) Zeros located on the critical line $\mathrm{Re}(s) = 1/2$.
+(R2) Spectral concentration — the pair correlation of zeros (Montgomery 1973) takes the universal sinc² form $1 - \mathrm{sinc}^2(u)$.
+(R3) A duality between the multiplicative Euler product and the additive Dirichlet series.
+
+The finite $L$-function $G(s)$ exhibits (R1') zeros at the anchors $\{0, 3, 8, 9\}$ — the four $\sigma$-fixed points, exactly the "predictable locations"; (R2') spectral concentration at the BALANCE/HARMONY pair $\{5, 7\}$, where $G_\mathrm{high}$ is approximately $5.014\times$ the generic 6-cycle value; (R3') a duality between the multiplicative orbit structure ($\sigma$-cycle) and the additive character $\chi$ (which sums to $-2$ across the substrate).
+
+This is the **structural mirror**: the same three features RH demands of $\zeta(s)$ in an infinite setting, the finite $G(s)$ exhibits in a 10-element setting that is fully characterized.
+
+### 5.2 What the bridge does NOT claim
+
+We do not claim:
+
+* **That $G(s)$ proves RH.** $G(s)$ is finite and bounded; $\zeta(s)$ is infinite and analytic. The structural mirror is **not** an analytic continuation argument.
+* **That the three-valued structure of $G(s)$ "predicts" the location of $\zeta$-zeros.** The 10-element substrate is too small to force any constraint on $\zeta$.
+* **That the $\sigma$-permutation extends to the integers.** The rate theorem [J01] shows $\sigma(\mathbb{Z}/N\mathbb{Z}) \to 0$ as $N \to \infty$ on the squarefree-modular family — i.e., the finite analogue *flattens* in the continuum limit, exactly as the BB Bridge requires ([J13]). The $G(s)$ structure does not survive the continuum limit; it is a feature of finite arithmetic.
+
+### 5.3 What the bridge DOES claim
+
+* **The 6-layer Q-series architecture is a finite, completely characterized model of the same structural phenomena RH describes in an infinite setting.** The model is an instance; the Millennium Problem asks whether instances can be infinite.
+* **The Symbolic Return Theorem (Theorem 2.1) is the algebraic kernel of Q17-C2** — the conjectured Navier-Stokes target (`Q17_NS_TARGET_REFORMULATION.md`, treated separately as Tier-D conjecture and not claimed here).
+* **The boundary between Q17-A (proved algebra), Q17-B (this paper, structural bridge), and Q17-C (conjectured physics) is sharp.** The proofs in §§2–4 are Tier-A; the bridge statement of §5.1 is Tier-B (structural conjecture, computationally motivated); Q17-C is Tier-D (conjectured).
+
+---
+
+## §6 Companion connections in the J-series
+
+**Direct dependencies (already-submitted companions).**
+
+* **[J29]** — Q17-A: 5D Force Vector as CRT Fourier Embedding of $\mathbb{Z}/10\mathbb{Z}$ into $\mathbb{R}^5$ (AMM, Sanders + Gish Jr.). The Tier-A proved-algebra companion. This paper's $\chi$ and $\sigma$-orbit data come from the same underlying CRT decomposition.
+
+**Co-citing companions (parallel-track submissions).**
+
+* **[J51]** — G6+G7+G8 spectral consolidation (European J Combin, Sanders + Gish). Layer-1, Layer-3, Layer-4 polynomial / period / spectral results that this paper builds on.
+* **[J5]** — Crossing Lemma (JCT-A or JPAA, Sanders + Gish). The information-generation framing of $\sigma$-non-associativity that gives the 6-cycle its structural meaning.
+* **[J17]** — Universal Orthogonality Principle (UOP) (JNT). The orthogonality framing of the $\sigma$-permutation and gate score.
+
+**Successor connections.**
+
+* **[J32]** — Joint TSML + BHML chain (Math Intelligencer). The 8-element chain on which $G(s)$ takes its values.
+* **[J47]** — 6-DOF synthesis (this Phase 5 cluster opener). $G(s)$ lives in the Lattice DOF (anchor structure) intersected with the Permutation DOF ($\sigma$-orbit).
+
+---
+
+## §7 Open problems
+
+1. **Closed-form $G_\mathrm{low}$ and $G_\mathrm{high}$ in $\mathbb{Q}(\zeta_9)$.** The numerical values $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$ are algebraic; we do not provide the closed forms in cyclotomic units. **Open.**
+2. **Higher-$N$ generalization.** Does $\sigma_N$ on $\mathbb{Z}/N\mathbb{Z}$ (for $N$ squarefree, $N \neq 10$) admit a comparable three-valued $G$-function? The rate theorem [J01] suggests the structure flattens for large $N$. **Partial — Tier-C.**
+3. **The $\{5, 7\}$ spectral concentration.** Why is $G(5) = G(7)$? The Galois action of $\sigma^2$ on the 6-cycle pairs $(1, 4, 6) \leftrightarrow (2, 5, 7)$, but the further pairing within $\{2, 5, 7\}$ that singles out $\{5, 7\}$ has a deeper origin in the BALANCE/HARMONY relationship. **Open.**
+4. **Q17-C (Navier-Stokes).** The Symbolic Return Theorem's continuum lift to NS regularity is the Q17-C target (Tier-D). The bridge premise — that any continuum lift preserving CRT separability is forced to logarithmic nonlinearity (BB theorem) — is treated in [J13]. **Open.**
+
+---
+
+## §8 Honest scope
+
+This paper is **structural / pedagogical**, not a Millennium-Problem proof. The contributions are:
+
+* Theorem 2.1 (Symbolic Return) — Tier-A, proved.
+* Theorem 4.2 (three-valued $G(s)$) — Tier-A, proved.
+* §5 bridge statement — Tier-B (structural conjecture, computationally motivated). The boundary between proved algebra (§§2–4) and bridge claim (§5) is sharp.
+
+The paper does not:
+
+* Prove RH or any portion of it.
+* Claim that the finite analogue extends to the integers.
+* Claim that the conjectured Q17-C NS target is settled.
+
+The paper explicitly:
+
+* Identifies the finite $L$-function $G(s)$ as a Dirichlet character sum on a 9-step orbit.
+* Establishes the Symbolic Return Theorem as a direct corollary of $\sigma^6 = \mathrm{id}$.
+* Maps the three-valued structure of $G(s)$ onto the three structural features RH demands of $\zeta(s)$.
+* Cites the proved-algebra companion [J29] and the spectral-layer companion [J51] as the foundation.
+
+---
+
+## §9 References
+
+### Direct dependencies (already-submitted J-companions)
+
+[J29] B.R. Sanders, B. Calderon Jr. "Q17-A: 5D Force Vector as CRT Fourier Embedding of $\mathbb{Z}/10\mathbb{Z}$ into $\mathbb{R}^5$." Submitted to *Amer. Math. Monthly*, Phase 3.
+[J51] B.R. Sanders, C.A. Luther. "Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture." Submitted to *European J. Combin.*, Phase 5 (parallel submission).
+
+### Co-citing J-companions
+
+[J01] B.R. Sanders, M. Gish. "Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$." JCT-A, Phase 1.
+[J05] B.R. Sanders, B. Mayes. "Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas." JCT-A or JPAA, Phase 1.
+[J13] B.R. Sanders, H.J. Johnson. "The Bialynicki-Birula Bridge: Logarithmic Nonlinearity Forced by Separability." JMP, Phase 2.
+[J17] B.R. Sanders, B. Mayes. "Universal Orthogonality Principle (UOP): Theorem 0." JNT, Phase 3.
+[J32] B.R. Sanders, M. Gish. "Joint TSML+BHML Chain: Lens-Dependence at Size 7." Math. Intelligencer, Phase 3.
+[J47] B.R. Sanders, B. Mayes. "Six Algebraic DOFs of the TIG Framework: A Synthesis." Notices AMS, Phase 5.
+
+### External background
+
+* H. Davenport. *Multiplicative Number Theory.* GTM 74, 3rd ed., Springer, 2000.
+* H.L. Montgomery. "The pair correlation of zeros of the zeta function." *Proc. Sympos. Pure Math.* 24 (1973), 181–193.
+* H. Iwaniec, E. Kowalski. *Analytic Number Theory.* AMS Coll. Publ. 53, 2004.
+* C. Bombieri. *The Riemann Hypothesis (Clay description).* Clay Mathematics Institute, 2000.
+* LMFDB Collaboration. *Number field 4.2.10224.1.* https://www.lmfdb.org/NumberField/4.2.10224.1.
+
+### Q17 corpus references
+
+* `papers/Q17_CLAY_SPECTRAL_BRIDGE.md` (2026-04-02; Tier-B structural).
+* `papers/Q17_FINITE_L_FUNCTION_NOTE.md` (2026-04-02; companion).
+* `papers/Q17_SYMBOLIC_RETURN_THEOREM.md` (2026-04-02; Tier-A proved).
+* `papers/Q17_5D_RIGOROUS.md` (2026-04-02; J29 source).
+* `papers/Q17_NS_TARGET_REFORMULATION.md` (Q17-C; not claimed here).
+* `papers/G6_PERIODICITY_THEOREM.md`, `papers/G7_GATE_RATE_DISTRIBUTION.md`, `papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md`.
+
+---
+
+## §10 Bibtex
+
+```bibtex
+@misc{sanders2026j48,
+  author       = {Sanders, Brayden Ross and Mayes, B.},
+  title        = {Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$},
+  year         = {2026},
+  month        = {sep},
+  doi          = {10.5281/zenodo.18852047},
+  howpublished = {Submitted to \emph{L'Enseignement Math\'ematique}},
+  note         = {{J48} of the {J}-series; Phase 5; cites [{J29}] (Q17-A proved-algebra companion) and [{J51}] (G6+G7+G8 spectral-layer companion). The structural bridge between the finite $L$-function $G(s)$ and the analytic structure of $\zeta(s)$, with sharp boundary between proved algebra (Tier-A) and bridge claim (Tier-B).}
+}
+```

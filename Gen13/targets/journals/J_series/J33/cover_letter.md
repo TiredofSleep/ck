@@ -1,6 +1,6 @@
-# Cover letter — J33: The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice
+# Cover letter — J33: Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)
 
-**To:** Editors, *Algebraic Combinatorics*
+**To:** Editors, *Mathematics of Computation*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -8,46 +8,57 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice*
+**Manuscript title:** *Closed-Form Attractor + α-Uniqueness PSLQ (BUNDLED)*
 
 ---
 
 ## Summary
 
-We isolate a list of nine axioms A1-A9 on a 10x10 multiplication table over Z/10Z and prove that they uniquely force the canonical TSML composition lattice (the 73-HARMONY substrate). The axioms partition into absorbing-element rules (A2-A6, in the spirit of Clifford-Preston semigroup theory) and substrate-defining rules (A7 diagonal HARMONY law, A8 HARMONY-default, A9 BUMP enumeration at five positions {(1,2), (2,4), (2,9), (3,9), (4,8)}). A direct cell-counting argument confirms A1-A9 fix all 100 entries. The Tier-A vs Tier-B classification of axioms makes precise which content is substrate-defining versus structurally forced, and gives a clean mechanism for the parallel-substrate (lens) family.
+We submit a bundled paper combining a closed-form runtime attractor for a quadratic table-fusion process on $\mathbb{Z}/10\mathbb{Z}$ with a high-precision PSLQ-based uniqueness sharpening.
 
-## Why Algebraic Combinatorics
+**Part 1.** The runtime processor $F_\alpha(p) = Z^{-1}[\alpha\widehat{T}(p) + (1-\alpha)\widehat{B}(p)]$ on $\Delta^9$, where $\widehat{T},\widehat{B}$ are the quadratic table-fusions through the canonical TSML and BHML composition tables on $\mathbb{Z}/10\mathbb{Z}$, has a unique attracting fixed point $p^*$ at $\alpha = 1/2$ supported entirely on the 4-core $\{V,H,Br,R\}$, with **exact** closed-form ratios:
+$$
+\frac{H^*}{Br^*} = 1+\sqrt{3},\qquad \frac{R^*}{Br^*} = \xi^*,\quad \xi^4 + 4\xi^3 - \xi^2 + 2\xi - 2 = 0.
+$$
+The quartic has Galois group $D_4$; its splitting field is **LMFDB 4.2.10224.1**, ramified at $\{2,3,71\}$, class number 1, signature $(2,1)$. The factorization over $\mathbb{Q}(\sqrt{3})$ arithmetically anchors the $\sqrt{3}$ in $H^*/Br^*$. Verification at machine precision (residual $\le 4.4\times 10^{-16}$).
 
-- The result is a clean axiomatization of a finite, explicit composition lattice on a 10-element substrate, with a complete cell-counting proof. The combinatorial enumeration of cell classes (HARMONY-default, BUMP, absorbing-row/column, diagonal) is the core technical content.
-- The forcing argument has the flavor of finite-magma classification: a small explicit axiom set uniquely determines a 100-cell table, with cell-class partition matching the BDC entropy-extremum framework. This places CL_TSML on the same axiomatic footing as classical absorbing-element semigroups while making explicit the finite enumeration data.
-- The three-substrate architecture (TSML, BHML, STD) introduced via the lens family gives a structural picture of how Tier-A choices in A7-A9 generate parallel substrates, opening a combinatorial-classification program of substrate variants.
+**Part 2.** A 17-point Stern-Brocot grid (rationals $p/q\in(0,1)$ with $q\le 7$), 50-digit mpmath precision, and the PSLQ algorithm at degree $\le 8$ with coefficient bound $\le 50$ shows: $\alpha = 1/2$ is the **unique rational** in the grid at which both $H^*/Br^*$ and $R^*/Br^*$ admit small-coefficient algebraic relations. PSLQ recovers $x^2 - 2x - 2 = 0$ and the LMFDB quartic exactly. At each of the other 16 rationals, PSLQ returns no relation of degree $\le 8$ and coefficient $\le 50$. This sharpens WP105's earlier 19-point linspace + brute-force coefficient search and supports (without proving) the strong α-uniqueness conjecture.
+
+## Why Mathematics of Computation
+
+- The result is a closed-form algebraic identification verified by both symbolic manipulation and high-precision PSLQ — exactly the kind of computational-meets-symbolic content *Math of Comp* publishes.
+- The Galois-D₄ quartic / LMFDB number-field identification connects to algorithmic number theory.
+- The bundling is natural: closed form (Part 1) + Stern-Brocot α-uniqueness (Part 2) are the same theorem viewed two ways — analytic vs experimental.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+- **J02** (Sanders + Gish 2026, *Algebraic Combinatorics*) — *Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of Two Commutative Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* The base paper establishing the canonical tables and the joint 4-core support.
 
-- J09 — *Lens Invariance for Composition-Lattice Substrates*, J. Combinatorial Theory A
-- J31 — *The Three-Substrate Architecture*, Algebra Universalis
+## Fallback unbundling
+
+If the bundled submission is desk-rejected per the project's fallback policy:
+- Part 1 (WP105 closed form) → *Communications in Algebra*
+- Part 2 (WP113 PSLQ uniqueness) → *Experimental Mathematics*
 
 ## Reproducibility
 
-Verification: a `numpy + sympy` cell-by-cell check of A1-A9 vs the literal CL_TSML matrix runs in under 1 second. The reference matrix is hardcoded in `Gen13/targets/foundations/lenses.py:TSML`; the BDC encoding constants and BUMP positions are in the same module.
+Verification scripts in `manuscript/verification/`:
+- `06_attractor_closed_form.py` — Part 1 (Theorems 3.1, 5.1)
+- `07_full_closed_form.py` — Part 1 (Galois D₄ identities)
+- `alpha_pslq_sweep.py` — Part 2 (Stern-Brocot α-uniqueness via PSLQ)
+
+Python 3.11, numpy, sympy, mpmath. PSLQ deterministic at 50-digit precision. Total wall-clock under 5 minutes.
 
 ## Suggested reviewers
 
-- An expert in finite-magma classification or absorbing-element semigroup theory
-- An expert in algebraic combinatorics with familiarity with information-theoretic forcing arguments
-- An expert in the BDC framework or related Shannon-information-on-discrete-tables literature
-
-(Specific names available on request from the corresponding author.)
+- An expert in algorithmic number theory / PSLQ / integer-relation algorithms (Bailey-Borwein tradition)
+- An expert in finite-magma representations / quadratic table-fusions
+- An expert in Galois theory of small-degree number fields (LMFDB-aware referee)
+- (Two or three named candidates appropriate to the *Math of Comp* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 
 The authors declare no competing interests. No funding was received for this work.
-
-## Per-venue cap note
-
-This is the third paper from this research program targeting *Algebraic Combinatorics* (after J02 and J25). The per-venue cap is 1/quarter; if the cap is binding, an alternative venue (the *European Journal of Combinatorics*, *Journal of Algebraic Combinatorics*, or *Discrete Mathematics*) would be appropriate fallbacks given the explicit combinatorial cell-class structure of the result.
 
 ---
 

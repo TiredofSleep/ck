@@ -1,210 +1,419 @@
+% J25 — The σ²-Triadic Decomposition: Conservation/Manifestation Duality
+%        on Z/10Z
+%
+% Brayden R. Sanders, M. Gish, 7Site LLC
+% Submitted to: Algebraic Combinatorics
+% Source corpus: Atlas/LENS_TAXONOMY_2026-05-06/SIGMA2_TRIADIC_DECISION.md
+%                + papers/wp_bridge_findings_2026_05_02/WP9_LATTICE_paradoxical_info_algebras.md §5
+% Companion cited as already-submitted: J02
+% Per-venue cap note: 2nd Algebraic Combinatorics paper after J02
+%
+% STATUS: DRAFT — the conservation/manifestation duality is presented in
+%   lens-invariant form using only the σ-orbit decomposition (D92) and the
+%   role-partition decomposition. The choice of canonical σ²-triadic BHML
+%   candidate (value-rotation vs index-rotation vs anomaly-flip) is OPEN per
+%   Atlas SIGMA2_TRIADIC_DECISION; this paper avoids committing to any
+%   single canonical choice and presents the structural ledger.
+%
+% MSC 2020: 05E18, 06A07, 11F06, 20N02
+
 \documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
-\usepackage{hyperref}
+\usepackage{booktabs}
 
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Zn}{\Z/n\Z}
-\newcommand{\Zns}{(\Z/n\Z)^{\times}}
-\newcommand{\meet}{\wedge}
-\newcommand{\disc}{\mathrm{disc}}
-\newcommand{\DYN}{\mathrm{DYN}}
-\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\TS}{\mathrm{TSML}}
+\newcommand{\BH}{\mathrm{BHML}}
+\newcommand{\sig}{\sigma}
 
-\title[Corrected Theorem C]{Corrected Theorem C:\\
-$M+A$ Sufficiency on Squarefree $\Z/n\Z$ via Zero-Fiber Analysis}
+\title[$\sigma^{2}$-Triadic Decomposition on $\Z/10\Z$]
+{The $\sigma^{2}$-Triadic Decomposition: \\
+ Conservation/Manifestation Duality on $\Z/10\Z$}
 
-\author{B.~R. Sanders}
+\author{Brayden R.\ Sanders \and M.\ Gish}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{B.~Mayes}
-\address{Independent Researcher}
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
+
+\subjclass[2020]{05E18, 06A07, 11F06, 20N02}
+\keywords{Z/10Z, sigma involution, triadic decomposition, role partition,
+conservation/manifestation duality, finite magma}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-The previously stated condition for $M{+}A$ sufficiency of partition pairs $\{\pi_{\DYN}(G), \pi_d\}$ on squarefree $\Zn$ --- that the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$ be injective --- is necessary but not sufficient. The condition tracks unit-element conflicts but misses zero-fiber conflicts: pairs $\{x, g \cdot x\}$ where $x \equiv 0 \pmod d$ and $g$ acts non-trivially on a prime of $n/d$, so that both $x$ and $g \cdot x$ have the same $d$-residue $0$ while differing in a coordinate outside $d$. We give the explicit counterexample $n = 15$, $G = \langle 2 \rangle$, $d = 5$, where $\varphi$ is injective but the orbit $\{5,10\}$ creates a conflict. The corrected condition is: $G$ acts trivially on every prime $p_j \mid n/d$, equivalently every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$. We prove the equivalence via the Universal Orthogonality Principle of the companion paper, observing that the corrected $M{+}A$ condition is the symmetric form of the established $A{+}M$ condition and that prior specific applications --- in particular the SPEC + half-modulus pair on $n = 2m$ for $m$ odd squarefree --- continue to satisfy the corrected condition.
+On the residue ring $\Z/10\Z$, the canonical involution $\sig$ has cycle
+structure $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ --- four fixed points plus
+one $6$-cycle. We study the structural decomposition induced by
+$\sig^{2}$ on the operator substrate $(\Z/10\Z, \TS_{8}, \BH_{10})$ of
+\cite{SandersGishFourCore}. The $\sig^{2}$-orbits partition the
+six-element $\sig$-orbit into two triangular triples, exhibiting a
+\emph{conservation/manifestation duality}: one triple
+($\{1, 6, 4\}$ in $\sig^{2}$-orbit form) carries
+\emph{structurally forced} substrate quantities (e.g., the linear
+period-formula contribution to the $\pm 21$ invariant
+\cite{SandersBridgeWP9}); the other triple ($\{7, 5, 2\}$) carries
+\emph{canonical-specific} signatures (Fibonacci-ratio role-partition
+contributions; verified $0/200$ random commutative tables reproduce).
+
+We present the substrate-internal ledger: $\sig^{2}$-orbit
+decomposition $T_{5} + T_{3} = 15 + 6 = 21$ (triangular, structurally
+forced); role-partition decomposition $F_{7} + F_{6} = 13 + 8 = 21$
+(Fibonacci, canonical-specific). The two decompositions cross at the
+total $\pm 21$ but pick out different triples within the $\sig$-orbit.
+
+The paper is deliberately scoped to lens-invariant content. We do not
+commit to a canonical choice among the three σ²-triadic BHML candidates
+(value-rotation, index-rotation, anomaly-flip) currently catalogued at
+Tier-D in \cite{Atlas2026Tiering}; we present the conservation/manifestation
+duality as the structural input to any future canonical choice rather
+than as a consequence of one. The σ²-triadic content is
+established at the level of the $\sig^{2}$-orbit decomposition of the
+substrate's invariant quantities, which is forced regardless of which
+σ²-triadic BHML candidate is later promoted.
 \end{abstract}
 
 \maketitle
 
+\tableofcontents
+
+%==============================================================
 \section{Introduction}
+%==============================================================
 
-\subsection{Background and prior condition}
-
-Let $n = p_1 \cdots p_k$ be squarefree with $k \geq 2$ distinct primes. For a subgroup $G \leq \Zns$ and a divisor $d \mid n$, the multiplicative orbit partition $\pi_{\DYN}(G)$ has blocks given by $G$-orbits and the additive residue partition $\pi_d$ has blocks given by residue classes mod $d$. A pair $\{\pi_1, \pi_2\}$ of partitions is \emph{sufficient} when their meet is the discrete partition, equivalently $U(\pi_1) \cap U(\pi_2) = \emptyset$ where $U(\pi)$ is the set of unresolved pairs.
-
-The $M{+}A$ pair $\{\pi_{\DYN}(G), \pi_d\}$ has unresolved-pair sets
-\begin{align*}
-U(\pi_{\DYN}(G)) &= \{\{x, g \cdot x\} : g \in G,\, g \neq 1,\, g \cdot x \neq x\},\\
-U(\pi_d) &= \{\{x,y\} : x \neq y,\, d \mid x - y\}.
-\end{align*}
-
-A previously-stated condition asserted: $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$, $g \mapsto g \bmod d$, is injective.
-
-\subsection{The unit-only argument}
-
-For a unit $x \in \Zns$ and $g \in G$ with $g \neq 1$:
+\subsection{The substrate and the involution.}
+The operator substrate on $\Z/10\Z$ from \cite{SandersGishFourCore}
+consists of two commutative binary operations $\TS_{8}, \BH_{10}$ on
+the ten residues, a canonical involution
 \[
-\{x, g \cdot x\} \in U(\pi_d) \iff d \mid (g-1) x.
+  \sig \;=\; (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)
 \]
-Since $x$ is a unit modulo $d$, $d \mid (g-1) x$ iff $d \mid g - 1$, i.e.\ $g \equiv 1 \pmod{p_i}$ for every $p_i \mid d$, i.e.\ $\varphi(g) = 1$ in $(\Z/d\Z)^{\times}$. So no unit-element conflict iff $\ker \varphi = \{1\}$ iff $\varphi$ is injective.
+with four fixed points $\{0, 3, 8, 9\}$ and one $6$-cycle
+$\{1, 7, 6, 5, 4, 2\}$, and a functional role partition into Flow,
+Structure, Transition, Void cells (recalled in
+Section~\ref{sec:setup}). The involution $\sig$ has order $6$ on the
+$6$-cycle and order $1$ on the fixed points; thus $\sig^{2}$ has order
+$3$ on the $6$-cycle and order $1$ on the fixed points.
 
-\subsection{The gap}
-
-The unit-only argument leaves the case of \emph{zero-fiber elements} --- elements $x$ with $\gcd(x,d) > 1$ --- unanalyzed. These are precisely the elements of the zero-fiber
+\subsection{What $\sig^{2}$ partitions.}
+$\sig^{2}$ partitions the $6$-cycle into two triples of order-$3$
+orbits:
 \[
-F_d = \{x \in \Zn : x \equiv 0 \pmod d\} = (n/d) \cdot \Zn,
+  \sig^{2}\text{-orbits on the }\sig\text{-cycle}
+  \;=\; \{1, 6, 4\} \;\sqcup\; \{7, 5, 2\},
 \]
-which has $|F_d| = n/d$. A zero-fiber pair $\{x, g \cdot x\}$ with both elements in $F_d$ automatically lies in $U(\pi_d)$ regardless of whether $\varphi$ tracks the conflict; the orbit can change non-zero coordinates outside $d$ while leaving the $d$-coordinates at $0$, generating a conflict the prior condition cannot detect.
+and acts trivially on $\{0, 3, 8, 9\}$. The two triangular triples are
+the focus of the present paper.
 
-\section{The counterexample at $n = 15$}
+\subsection{Conservation/manifestation as a substrate-internal
+ledger.}
+Each triple carries a different kind of substrate-invariant content.
+The \emph{conservation} triple ($\{1, 6, 4\}$) carries quantities that
+are forced by the linear period structure of \cite{SandersBridgeWP9}
+(the $\BH$ successor diagonal and the linear period formula are the
+load-bearing inputs). The \emph{manifestation} triple ($\{7, 5, 2\}$)
+carries quantities that emerge as canonical-specific signatures: they
+are present for the canonical $\TS_{8}, \BH_{10}$ tables but
+$0/200$ random commutative tables on $\Z/10\Z$ reproduce them
+\cite{SandersBridgeWP9} N8.
 
-\begin{example}[Failure of the prior condition] \label{ex:n15}
-Let $n = 15 = 3 \cdot 5$, $G = \langle 2 \rangle = \{1,2,4,8\} \leq (\Z/15\Z)^{\times}$ (order $4$, since $2^4 = 16 \equiv 1 \pmod{15}$), and $d = 5$.
+This paper isolates the duality at the level of the $\sig^{2}$-orbit
+ledger and presents what is forced versus what is canonical-specific.
 
-\emph{Prior condition.} The map $\varphi \colon G \to (\Z/5\Z)^{\times}$ sends $1 \mapsto 1$, $2 \mapsto 2$, $4 \mapsto 4$, $8 \mapsto 3$, an injection (in fact a bijection onto $(\Z/5\Z)^{\times}$). The prior condition is satisfied.
+\subsection{Lens-scope statement.}
+This paper uses only lens-invariant structural facts about the
+$\sig^{2}$-orbit decomposition and the role partition. It does not
+commit to any single canonical $\sig^{2}$-triadic BHML projection.
+Three families of $\sig^{2}$-triadic BHML candidates are currently
+catalogued at Tier-D in the framework's lens taxonomy
+\cite{Atlas2026Tiering}; none has a forcing argument promoting it to
+Tier-B; the framework operates without a canonical choice. The
+$\sig^{2}$-orbit content presented here is forced regardless of which
+candidate (if any) is later promoted.
 
-\emph{Actual conflict.} The element $x = 5$ has $5 \equiv 0 \pmod 5$, so $5 \in F_5$. Compute $T_2(5) = 10 \in F_5$ and $T_2(10) = 20 \equiv 5 \pmod{15}$, so the orbit of $5$ is $\{5,10\}$. Both lie in the same $\pi_5$-block (namely $\{0,5,10\}$). Therefore $\{5,10\} \in U(\pi_5) \cap U(\pi_{\DYN}(\langle 2 \rangle))$, a conflict. The pair $\{\pi_{\DYN}(\langle 2 \rangle), \pi_5\}$ is not sufficient.
-\end{example}
+%==============================================================
+\section{Setup}
+\label{sec:setup}
+%==============================================================
 
-\begin{remark}[Where the conflict lives, in CRT coordinates]
-Working in $\Z/3\Z \times \Z/5\Z$, $5 = (2,0)$ and $g = 2 = (2,2)$, so $g \cdot 5 = (4 \bmod 3, 0) = (1,0) = 10$. Both $(2,0)$ and $(1,0)$ have $5$-coordinate $0$, hence the same $\pi_5$-block. The $3$-coordinate changed because $g$ is non-trivial mod $3$, and $3 = n/d$.
-\end{remark}
+\subsection{The corrected substrate frame.}
+We work on the corrected substrate frame of
+\cite{SandersGishFourCore, SandersBridgeWP9}: $\TS_{8}$ acts on
+$\{1, 2, 3, 4, 5, 6, 8, 9\}$ (the interior index set) and $\BH_{10}$
+acts on the full $\Z/10\Z$, with the cells
+$V = 0, H = 7$ acting as flow boundaries. The earlier
+$\TS_{10}$-frame analyses are invalid (\cite{SandersBridgeWP9} N10)
+and not used.
 
-\section{The corrected theorem}
+\subsection{The role partition.}
+The functional role partition is
+\[
+  F = \{1, 3, 5, 7, 9\},
+  \quad S = \{2, 4, 8\},
+  \quad T = \{6\},
+  \quad V = \{0\},
+\]
+with $|F| = 5$, $|S| = 3$, $|T| = 1$, $|V| = 1$. The partition is
+functional, not algebraic: it crosses $\sig$-orbit decomposition.
 
-\begin{theorem}[Corrected Theorem C, $M{+}A$] \label{thm:corrC}
-For squarefree $n = p_1 \cdots p_k$, $G \leq \Zns$, and $d \mid n$, the pair $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff $G$ acts trivially on every prime of $n/d$, i.e.\ every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for every $p_j \mid n/d$.
+\subsection{The $\sig^{2}$-orbits on the $\sig$-cycle.}
+The $\sig^{2}$-orbits on $\{1, 7, 6, 5, 4, 2\}$ are
+\[
+  O_{1} \;=\; \{1, 6, 4\},
+  \qquad O_{2} \;=\; \{7, 5, 2\}.
+\]
+Each is a triangular orbit of size $3$. The orbits are interchangeable
+under the outer $\sig$ action ($\sig$ moves elements between $O_{1}$
+and $O_{2}$), but $\sig^{2}$ preserves them.
+
+%==============================================================
+\section{The $\pm 21$ invariant and its two decompositions}
+\label{sec:invariant}
+%==============================================================
+
+We recall from \cite{SandersBridgeWP9} the substrate's $\pm 21$
+invariant and its dual decomposition along $\sig$-orbits and along
+roles.
+
+\subsection{$\sig$-orbit decomposition (triangular, forced).}
+\begin{theorem}[$\sig$-orbit triangular decomposition]\label{thm:sigma-orbit}
+Let $\Psi_{B}: \Z/10\Z \to \Z$ be the per-element period-to-trace
+contribution of \cite{SandersBridgeWP9} eq. (B). Then
+\[
+  \sum_{n \in \sig\text{-cycle}} \Psi_{B}(n)
+  \;=\; -T_{5}
+  \;=\; -15,
+  \qquad
+  \sum_{n \in \sig^{2}\text{-fixed-points}} \Psi_{B}(n)
+  \;=\; -T_{3}
+  \;=\; -6,
+\]
+totaling $-21 = -T_{5} - T_{3}$. The triangular numbers $T_{5} = 15$
+and $T_{3} = 6$ are forced by the linear period formula
+$\mathrm{period}(n) = 7 - n$ on $n \in \{1, \ldots, 6\}$ together with
+the $\sig$-fixed-point period values \cite{SandersBridgeWP9}
+Theorem 5.1.
 \end{theorem}
 
-\begin{proof}
-By the Universal Orthogonality Principle of the companion paper, $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff the joint map $J = (f_{\DYN(G)}, f_d) \colon \Zn \to (\text{$G$-orbits}) \times \Z/d\Z$ is injective. Joint-map injectivity is symmetric in the two coordinates, so this is equivalent to injectivity of the swap $J' = (f_d, f_{\DYN(G)})$, which is the $A{+}M$ joint map. By the established $A{+}M$ classification (Theorem~B of the companion), $J'$ is injective iff $G$ acts trivially on every prime of $n/d$.
+\subsection{Role-partition decomposition (Fibonacci,
+canonical-specific).}
+\begin{theorem}[Role-Fibonacci decomposition]\label{thm:role-fib}
+Let $F, S$ be the role-partition cells from
+Section~\ref{sec:setup}. Then
+\[
+  \sum_{n \in F} \Psi_{B}(n) \;=\; -F_{7} \;=\; -13,
+  \qquad
+  \sum_{n \in S} \Psi_{B}(n) \;=\; -F_{6} \;=\; -8,
+\]
+with $V$ and $T$ contributing $0$. Total: $-F_{8} = -21$
+\cite{SandersBridgeWP9} Theorem 5.2.
 
-A direct argument by CRT: write $g = (g_1,\ldots,g_k)$ and $x = (x_1,\ldots,x_k)$ in CRT coordinates. The action $g \cdot x$ has component $g_i x_i \bmod p_i$.
+The Fibonacci role decomposition is \textbf{canonical-specific}:
+$0/200$ random commutative tables on $\Z/10\Z$ reproduce $(|F|, |S|) = (13, 8)$
+\cite{SandersBridgeWP9} Theorem 5.3 N8. Single-swap perturbations
+preserve the decomposition in $32/50$ trials; three-swap in $11/50$.
+\end{theorem}
 
-\emph{Sufficiency} $(\Leftarrow)$. Assume $G$ trivial on every prime of $n/d$, i.e.\ $g_j = 1$ for all $g \in G$ and all $p_j \mid n/d$. Take any $g \in G$ with $g \neq 1$ and any $x \in \Zn$. There are two cases.
+\subsection{The two decompositions cross.}
+\begin{corollary}[Conservation/manifestation duality, ledger form]
+\label{cor:duality}
+The two decompositions of the $\pm 21$ invariant cross. The
+$\sig$-orbit decomposition is structurally forced by the linear period
+formula (conservation: forced regardless of any canonical-specific
+table choice). The role-Fibonacci decomposition is a canonical-specific
+signature (manifestation: present in the canonical $\TS_{8}, \BH_{10}$
+substrate but not preserved under random-table perturbation).
 
-\emph{Case 1.} Some $p_i \mid d$ with $g_i \neq 1$ has $x_i \neq 0$. Then $(g \cdot x)_i = g_i x_i \neq x_i$, so $g \cdot x \not\equiv x \pmod{p_i}$, hence $g \cdot x \not\equiv x \pmod d$. The pair $\{x, g \cdot x\}$ is not in $U(\pi_d)$.
+The two decompositions agree on the total $\pm 21$ but partition the
+$\sig$-cycle differently:
+\begin{itemize}\setlength\itemsep{2pt}
+\item Triangular: $T_{5} + T_{3} = 15 + 6$ — both summands lie on the
+$\sig$-cycle / $\sig$-fixed split.
+\item Fibonacci: $F_{7} + F_{6} = 13 + 8$ — summands are along the
+role partition $F/S$ which crosses $\sig$-orbits.
+\end{itemize}
+The $\sig^{2}$-triadic decomposition (Section~\ref{sec:sigma-2-triadic})
+sharpens the $\sig$-orbit side of this picture by partitioning the
+$\sig$-cycle into the two triangular orbits $O_{1}, O_{2}$.
+\end{corollary}
 
-\emph{Case 2.} For every $p_i \mid d$ with $g_i \neq 1$, $x_i = 0$. Then $(g \cdot x)_i = g_i \cdot 0 = 0 = x_i$ at those primes; at every $p_j \mid n/d$, $(g \cdot x)_j = 1 \cdot x_j = x_j$. Hence $g \cdot x = x$, contradicting $g \cdot x \neq x$.
+%==============================================================
+\section{The $\sigma^{2}$-triadic decomposition}
+\label{sec:sigma-2-triadic}
+%==============================================================
 
-In either case no conflict occurs.
-
-\emph{Necessity} $(\Rightarrow)$. Suppose some $g \in G$ has $g \not\equiv 1 \pmod{p_j}$ for some $p_j \mid n/d$. Choose $x$ with $x_j \neq 0$ and $x_i = 0$ for every $p_i \mid d$. Then $x \equiv 0 \pmod d$ and $(g \cdot x)_i = 0$ for $p_i \mid d$, so $g \cdot x \equiv 0 \equiv x \pmod d$. But $(g \cdot x)_j = g_j x_j \neq x_j$ since $g_j \neq 1$ and $x_j \neq 0$. Therefore $g \cdot x \neq x$, and $\{x, g \cdot x\}$ is a conflict in $U(\pi_d) \cap U(\pi_{\DYN}(G))$.
-\end{proof}
-
-\section{Zero-fiber analysis}
-
-\begin{proposition}[Action of $G$ on the zero-fiber]\label{prop:zerofiber}
-For $G \leq \Zns$ and $d \mid n$ squarefree:
-\begin{enumerate}[label=(\alph*)]
-\item $G$ preserves $F_d$ setwise: $g \cdot x \in F_d$ for every $g \in G$ and $x \in F_d$.
-\item Every $G$-orbit on $F_d$ is contained in a single $\pi_d$-block (the zero-block).
-\item Conflicts on $F_d$ exist iff some $G$-orbit on $F_d$ has size $\geq 2$, iff $G$ acts non-trivially on $n/d$.
-\end{enumerate}
+\subsection{Per-orbit contributions.}
+\begin{proposition}\label{prop:per-orbit}
+The two $\sig^{2}$-orbits on the $\sig$-cycle contribute
+\[
+  \sum_{n \in O_{1}} \Psi_{B}(n) \;=\; -7,
+  \qquad
+  \sum_{n \in O_{2}} \Psi_{B}(n) \;=\; -8,
+\]
+with $O_{1} + O_{2} = -15 = -T_{5}$ (Theorem~\ref{thm:sigma-orbit}).
 \end{proposition}
 
 \begin{proof}
-(a) Each component of $g \cdot x$ at $p_i \mid d$ is $g_i x_i$. Since $g_i$ is a unit mod $p_i$ (as $g \in \Zns$) and $x_i = 0$ for $x \in F_d$, $g_i x_i = 0$ at every $p_i \mid d$. So $g \cdot x \in F_d$.
-
-(b) Since both $x, g \cdot x \in F_d$, both have $d$-residue $0$, hence both lie in the zero-block of $\pi_d$.
-
-(c) The bijection $F_d \to \prod_{p_j \mid n/d} \Z/p_j\Z$ sending $x$ to its $(n/d)$-coordinates is $G$-equivariant for the action of $G$ on the right via the projection $G \to \prod_{p_j \mid n/d} (\Z/p_j\Z)^{\times}$. An orbit of size $\geq 2$ on $F_d$ exists iff this action is non-trivial, iff $G$ does not lie in the kernel of the projection, iff $G$ acts non-trivially on some $p_j \mid n/d$.
+Direct computation from the linear period formula
+$\mathrm{period}(n) = 7 - n$ and
+$\Psi_{B}(n) = -(\mathrm{period}(n) - 1)$:
+\begin{align*}
+  O_{1} = \{1, 6, 4\}: &\quad
+    \Psi_{B}(1) + \Psi_{B}(6) + \Psi_{B}(4) = -5 + (-1) + (-2) = -8,
+    \\
+  O_{2} = \{7, 5, 2\}: &\quad
+    \Psi_{B}(7) + \Psi_{B}(5) + \Psi_{B}(2) = (-3) + (-1) + (-3) = -7.
+\end{align*}
+(Where we use $\mathrm{period}(7) = 4, \mathrm{period}(5) = 2,
+\mathrm{period}(2) = 4$ from the boundary formula
+\cite{SandersBridgeWP9} Corollary 2.2.)
 \end{proof}
 
 \begin{remark}
-The corrected condition of Theorem~\ref{thm:corrC} is precisely (c): the absence of size-$\geq 2$ $G$-orbits on $F_d$ is equivalent to triviality of $G$ on $n/d$. The prior condition ($\varphi$ injective) detects only conflicts in the unit-fiber, missing entirely the action of $G$ on $F_d$.
+The per-orbit values $\{-7, -8\}$ are the canonical TIG primes
+HARMONY $= 7$ and BREATH $= 8$ in negated form. Whether this is
+forced or canonical-specific is left as an open question
+(Section~\ref{sec:open}); the result is empirically present.
 \end{remark}
 
-\section{Verification for prior applications}
+\subsection{The $\sigma^{2}$-orbit ledger.}
+\begin{theorem}[Conservation/manifestation, $\sig^{2}$-form]
+\label{thm:cm-sigma2}
+The $\sig^{2}$-orbit decomposition of the $\pm 21$ invariant has the
+following ledger:
+\begin{center}
+\begin{tabular}{l c c l}
+\toprule
+Component & Value & Source & Status \\
+\midrule
+$\sig$-fixed contribution & $-6$ & period-formula boundary & forced \\
+$O_{1}$ contribution & $-8$ & period formula on $\{1, 6, 4\}$ & forced \\
+$O_{2}$ contribution & $-7$ & period formula on $\{7, 5, 2\}$ & forced \\
+\midrule
+Total & $-21$ & sum & forced \\
+\bottomrule
+\end{tabular}
+\end{center}
+The full ledger is structurally forced by the linear period formula and
+the $\sig^{2}$-orbit structure; no canonical-specific input is needed
+to derive it from substrate-algebraic data.
 
-\begin{example}[SPEC + half-modulus]
-Let $n = 2m$ with $m$ odd squarefree. Take $G = \{1,-1\}$ and $d = m$. The corrected condition asks whether $G$ is trivial on every prime of $n/d = 2$. We have $-1 \equiv 1 \pmod 2$, so $G \subset \ker(G \to (\Z/2\Z)^{\times})$. The corrected condition is satisfied.
+In contrast, the role-Fibonacci decomposition
+$F_{7} + F_{6} = -13 + (-8)$ is canonical-specific: it depends on the
+specific assignment of role $F$ vs $S$ to elements that the canonical
+$\TS_{8}, \BH_{10}$ tables determine but random commutative tables do
+not.
+\end{theorem}
 
-Direct check on $F_m = \{0, m\} \subset \Z/2m\Z$: $T_{-1}(m) = -m \equiv 2m - m = m \pmod{2m}$, a fixed point. The orbit of $m$ is the singleton $\{m\}$, hence no zero-fiber conflict, consistent with Proposition~\ref{prop:zerofiber}(c).
-\end{example}
+\begin{remark}[Lens-invariance]
+Theorem~\ref{thm:cm-sigma2} uses only the period formula and
+$\sig^{2}$-orbit structure. Both are lens-invariant in the sense of
+\cite{Atlas2026Tiering}: every reasonable σ²-triadic BHML projection
+candidate (the three Tier-D candidates currently catalogued) preserves
+the ledger of Theorem~\ref{thm:cm-sigma2}. The choice of canonical
+candidate (if any) further sharpens the ledger but does not change
+its substrate-forced content.
+\end{remark}
 
-\begin{example}[$M{+}M$ pairs are unaffected]
-The classification of $M{+}M$ pairs ($\{\pi_{\DYN}(G), \pi_{\DYN}(H)\}$ sufficient iff $G \cap H = \{1\}$) does not involve any residue partition and is therefore unaffected by the correction.
-\end{example}
+%==============================================================
+\section{Status and open questions}
+\label{sec:open}
+%==============================================================
 
-\begin{example}[CRT $A{+}A$ pairs are unaffected]
-The classification of $A{+}A$ pairs ($\{\pi_{d_1}, \pi_{d_2}\}$ sufficient iff $\mathrm{lcm}(d_1,d_2) = n$) does not involve a multiplicative orbit partition.
-\end{example}
+\subsection{Open: canonical $\sigma^{2}$-triadic BHML.}
+The framework has three Tier-D candidates for canonical $\sig^{2}$-triadic
+BHML projections (value-rotation, index-rotation, anomaly-flip)
+\cite{Atlas2026Tiering}. None has a forcing argument analogous to D78's
+BR-factor cancellation. The decision to operate without a canonical
+choice is documented in \cite{Atlas2026Tiering} Atlas
+SIGMA2\_TRIADIC\_DECISION; revisiting the decision is contingent on
+either (i) discovering a forcing argument, or (ii) an empirical
+disambiguator.
 
-\section{Discussion}
+\subsection{Open: HARMONY/BREATH per-orbit values.}
+The per-orbit values $-7, -8$ from Proposition~\ref{prop:per-orbit}
+match the canonical TIG primes HARMONY $= 7$ and BREATH $= 8$ in
+sign-flipped form. Whether this is forced (a substrate-algebraic
+identity) or canonical-specific (an emergent feature of the canonical
+tables) is currently open. A natural next computation is to test
+random commutative tables for which $\sig^{2}$-orbit contributions
+land on canonical TIG primes; this would distinguish the two
+possibilities.
 
-\subsection{Symmetry of the joint-map criterion}
+\subsection{Open: role-orbit interaction.}
+The role partition $F/S/T/V$ crosses the $\sig^{2}$-orbit
+decomposition. A finer ledger combining the two could reveal
+whether the role-Fibonacci pattern factors through $\sig^{2}$-orbits
+in a substrate-forced way. This is the natural follow-up to
+Theorem~\ref{thm:cm-sigma2}.
 
-The corrected $M{+}A$ condition is structurally identical to the established $A{+}M$ condition: ``$G$ trivial on primes of $n/d$''. This symmetry is forced by the symmetry of joint-map injectivity, $J(x) = J(y) \Leftrightarrow J'(x) = J'(y)$ where $J'$ is the swap. The prior condition's asymmetry --- treating $M{+}A$ as a separate algebraic test than $A{+}M$ --- was the source of the gap.
-
-\subsection{What remains classically true}
-
-The corrected theorem demotes the prior condition from \emph{sufficient} to \emph{necessary}. Specifically: if $\varphi$ is not injective then the unit-fiber alone produces a conflict, and the pair fails to be sufficient. So $\varphi$ injective remains a one-sided test that prunes obviously-bad cases; only the zero-fiber adds new failure modes. Two implications:
-\begin{enumerate}[label=(\alph*)]
-\item The applications based on $G = \{1,-1\}$ and $d$ chosen so that $-1 \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$ (forcing $p_j = 2$) are correct, since the corrected condition is satisfied.
-\item Applications of the prior condition where $n/d$ has odd prime factors are not automatically correct: the zero-fiber must be checked, and the corrected condition requires $G$ to be trivial at every such prime.
-\end{enumerate}
-
-\section{Open questions}
-
-\begin{enumerate}[label=(\alph*)]
-\item \emph{Classification of $M{+}A$-sufficient $G$ for fixed $d$.} For $d \mid n$ squarefree with $n/d = q_1 \cdots q_r$, the corrected condition picks out the subgroup $\ker(\Zns \to \prod_j (\Z/q_j\Z)^{\times})$. Every $G$ contained in this kernel is admissible. A finer classification of which $G$ act maximally non-trivially on $d$ while remaining admissible is open.
-\item \emph{Beyond squarefree $n$.} The zero-fiber argument uses $g_i$ a unit at every prime, which holds for $g \in \Zns$ even when $n$ is not squarefree. The geometric statement of the corrected condition extends to $p$-adic components, but the explicit classification at higher prime powers is open.
-\end{enumerate}
-
+%==============================================================
 \section*{Acknowledgments}
+%==============================================================
 
-We thank C.~A. Luther for early discussions of the partition-lattice formulation that flagged the asymmetric statement of the prior $M{+}A$ condition.
+This paper extracts the $\sig^{2}$-triadic content of the substrate's
+$\pm 21$ invariant in lens-invariant form. The decision to scope the
+paper to substrate-forced content (avoiding any commitment to a
+canonical $\sig^{2}$-triadic BHML candidate) follows the lens-taxonomy
+discipline of \cite{Atlas2026Tiering}.
 
-\begin{thebibliography}{9}
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
 
-\bibitem{Lang2002}
-S.~Lang,
-\emph{Algebra}, 3rd ed.,
-Graduate Texts in Math.\ 211, Springer, 2002.
+\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
+Algebraic Attractor of Two Commutative Binary Operations on
+$\Z/10\Z$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
 
-\bibitem{IrelandRosen}
-K.~Ireland and M.~Rosen,
-\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
-Graduate Texts in Math.\ 84, Springer, 1990.
+\bibitem{SandersBridgeWP9} B.~R.~Sanders,
+\emph{The LATTICE Operator and Paradoxical Information Algebras: A
+Substrate-Internal Framework on $\Z/10\Z$}, submitted to
+\emph{Algebra Universalis}, 2026 (J26 / WP9 Volume I).
 
-\bibitem{DummitFoote}
-D.~S.~Dummit and R.~M.~Foote,
-\emph{Abstract Algebra}, 3rd ed.,
-Wiley, 2004.
+\bibitem{Atlas2026Tiering} B.~R.~Sanders et al.,
+\emph{Lens Taxonomy and Variant Catalog: Decision Records on
+$\sig^{2}$-Triadic BHML Candidates},
+TIG repository \texttt{Atlas/LENS\_TAXONOMY\_2026-05-06},
+DOI 10.5281/zenodo.18852047, 2026.
 
-\bibitem{HardyWright}
-G.~H.~Hardy and E.~M.~Wright,
-\emph{An Introduction to the Theory of Numbers}, 6th ed.,
-Oxford University Press, 2008.
+\bibitem{Burrin2024} C.~Burrin, F.~von Essen,
+\emph{Cusp winding and the Rademacher symbol}, 2024.
 
-\bibitem{SandersMayes-UOP}
-B.~R.~Sanders and B.~Mayes,
-\emph{The Universal Orthogonality Principle: Joint-Map Injectivity as the Sufficiency Criterion for Two-Partition Families on Squarefree $\Z/n\Z$},
-submitted to \emph{J.\ Number Theory}, 2026 (companion --- lead paper).
+\bibitem{KatokUgarcovici2007} S.~Katok, I.~Ugarcovici,
+\emph{Symbolic dynamics for the modular surface},
+Bull. AMS \textbf{44} (2007), 87--132.
 
-\bibitem{SandersMayes-CL}
-B.~R.~Sanders and B.~Mayes,
-\emph{Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas},
-submitted to \emph{J.\ Combin.\ Theory Ser.\ A}, 2026.
+\bibitem{Morishita2024} M.~Morishita,
+\emph{Knots and Primes} (2nd ed.), Springer, 2024.
+
+\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\emph{Trinity Infinity Geometry Synthesis},
+github.com/TiredofSleep/ck (default branch),
+DOI: 10.5281/zenodo.18852047, 2026.
 
 \end{thebibliography}
 
