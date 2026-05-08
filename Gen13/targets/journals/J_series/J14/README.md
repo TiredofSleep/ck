@@ -33,6 +33,32 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 _(no special notes; standard submission per J-series ordering)_
 
+### Save-plan summary (2026-05-07)
+
+Fresh-eyes referee verdict at *Algebra Universalis*: REJECT — claimed (1) algebra is associative, (2) eigenspace signatures are swapped, (3) |Aut(V)| ≠ 40 universally.
+
+**Rebuttal verified all three referee claims are WRONG** (`Atlas/.../REFEREE_REPORTS/J14_AlgUni_FreshEyes_REBUTTAL.md`):
+- 8 of 64 associator triples fail under direct check against `tig_dirac.py` (algebra IS non-associative).
+- L_{e_2} eigenvalues {0:3, 1:1} = (1, 3) signature; L_{e_0} eigenvalues {0:2, 1:2} = (2, 2) signature — exactly as paper states.
+- |Aut(V)| = 40 over F_5 specifically (the paper does not claim universality across all primes).
+
+**Save plan:** `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J14.md`.
+
+**Path forward (defensive exposition revision; venue stays *Algebra Universalis*):**
+- (a) PRINT T_F5 multiplication table inline + worked associator example (e_0·e_3)·e_3 vs e_0·(e_3·e_3) showing failures localize to span{e_0, e_2}; add 5-line numpy/sympy snippet for eigenspace verification.
+- (b) TIGHTEN the F_p universality framing — distinguish **invariants** (idempotent count, signatures, empty intersection, commutativity, power-associativity, 1-dim associator image) from **non-invariants** (|Aut(V_p)|, primitive 4th roots availability).
+- (c) STATE F_5 specificity of |Aut(V)| = 40 explicitly; tabulate other-prime values per |GL_2(F_p)| × stabilizer.
+- (d2) REMOVE axial-algebra framing (no Miyamoto involutions, no fusion rules in the paper); relocate to Drápal-Wanless 2021 *JCTA* neighborhood.
+- (e) SHARPEN Conjecture 4.1 — restrict to lens-invariant items (1)-(7) of Theorem 3.1 (drop F_5-specific items 8-10); drop p=5 exclusion (F_5 is the distinguished case, not an exclusion); precisely motivate p=2 exclusion (char-2 collapses the orthogonal-idempotent structure).
+- (f) REDUCE dependency on inaccessible companion papers (J02, J23); make J14 self-contained on algebraic content.
+- (g) RECONCILE J21/J14 numbering in .tex source.
+- (h) MERGE duplicate \author blocks.
+- (i) REPLACE $\HARM$/$\VOID$ mnemonics with neutral notation (or one-line footnote).
+
+Revision time: 15-25 hours (exposition only; mathematical content does not change).
+
+**Family-Structure context:** J14 maps the **substrate-size boundary** (FAMILY_STRUCTURE_v1.md §3.5) inward to F_p for p ∈ {2, 3, 5, 7, 11, 13}. F_5 is the distinguished member of the family (D74 ring extension); the F_p-invariance of the structural skeleton is the boundary-mapping result.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

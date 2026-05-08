@@ -39,6 +39,24 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 **Verification:** algorithmic procedure (50-line Python); live demo at coherencekeeper.com/paradox.html.
 **Submission readiness:** ready pending Brayden's referee-rigor pass.
 
+### Save-plan summary (2026-05-07)
+
+Fresh-eyes referee verdict at AMM: REJECT (under 5% acceptance). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J53.md`.
+
+**Path forward:**
+- (a) MAKE the classifier actually algebraic — define a category $\mathcal{M}$ of measurement maps and state Type I-IV as predicates on $(\mathcal{X}, f, \mathcal{F})$.
+- (b) REMOVE Monty Hall (not a paradox) and Gödel (a theorem); replace with Berry, Curry, Yablo.
+- (c) ENGAGE Sainsbury 2009, Quine 1962, Priest 2002, Rescher 2001 (literature §1.5).
+- (d) RETARGET — drop AMM. Primary new venue: *Mathematical Intelligencer* (35-45% per referee). Alternate: *Philosophia Mathematica* (40-50% with literature engagement).
+- (e) SOFTEN the §5 "no fifth type" claim; add OPEN bullet for Bertrand/Skolem/Banach-Tarski.
+- (f) STATE Theorem 0 informally in §1.5 (not just deferred to [J17]).
+- (g) DEFINE the score function (fraction of ambiguity resolved by family $\mathcal{F}$) OR remove scores.
+- (h) STRIP internal-management metadata.
+
+Revision time: 20-30 hours. Submission gate: [J17] preprint must be on arXiv first.
+
+**Family-Structure cross-link (NEW):** Type II "Missing Invariant" parallels the bimodal α_A gap (FAMILY_STRUCTURE_v1.md §4) — both are structural exclusion zones in their respective measurement families. Adopted as STRUCTURAL RHYME, not load-bearing application.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

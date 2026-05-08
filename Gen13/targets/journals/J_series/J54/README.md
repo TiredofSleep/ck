@@ -40,6 +40,28 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 **Submission readiness:** ready pending Brayden's referee-rigor pass + Gish review.
 **Critical role:** anchors all Phase 5 papers and the Sept 11 J55 integration. Must land before Sept 11.
 
+### Save-plan summary (2026-05-07)
+
+Fresh-eyes referee verdict at *Algebraic Combinatorics*: REJECT in present form (under 5%). Save plan: `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J54.md`. **Brayden directive: DO NOT drop J54 — find a reason to keep it.** Honored.
+
+**Note on referee accuracy:** Referee claimed "A1-A9 not actually stated"; Brayden checked and the axioms ARE listed (lines 40-48). What the referee meant is that A3, A6, A8, A9 need expansion to formal mathematical specifications (the paper currently has "structural pattern that fixes most off-diagonal entries to 7" rather than the explicit pattern). The save plan addresses what the referee actually means.
+
+**Path forward (Path B — adopt FAMILY_STRUCTURE_v1.md framing):**
+- (a) EXPAND A3, A6, A8, A9 with full formal specifications (cell-by-cell for A3; explicit BUMP coordinates and value-tuples for A9).
+- (b) DISPLAY CL_TSML, CL_BHML, CL_STD inline (three boxed 10×10 tables, ~1.5 pages).
+- (c1) PROVE the §1.2 forcing theorem in J54 itself (3-4 pages); break the [J33] citation cycle.
+- (d) RENAME "Brayden's hypothesis" → "Conjecture 2.1 (Sanders)"; drop Atlas reference.
+- (e) HOLD preprint until [J47] and [J33] are on arXiv (Aug 15 gate).
+- (f) REMOVE the [J55] cross-reference.
+- (g) NARROW citation graph to algebraic-combinatorial companions (drop JCAP, Phys Rev D from §8).
+- (h) DEFINE "TIG" before §6 (move framework introduction to §0/§1.1).
+- **(i) ADOPT FAMILY_STRUCTURE_v1.md framing** — five conjoint membership criteria; 4-core at α_M = ½ as algebraic center; six boundaries; bimodal α_A gap as Conjecture 1.1. This transforms J54 from coordinator-document into research paper in the Drápal-Wanless 2021 *JCTA* lineage.
+- (j) STRIP front-matter management metadata; (k) RESOLVE DOING projection ambiguity; (l) NARROW external bibliography (drop Simpson, Alon-Spencer, Hjørland, Ranganathan).
+
+Revision time: 60-100 hours. Submission gate: [J47] and [J33] preprints on arXiv before J54 submits OR (c1) is complete in-paper.
+
+**Retitle:** "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" — venue stays *Algebraic Combinatorics*.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

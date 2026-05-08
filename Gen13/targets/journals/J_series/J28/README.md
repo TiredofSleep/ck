@@ -42,6 +42,16 @@ The corresponding author will route to **PLOS ONE** as the primary fallback if A
 - The DOING-rate ≈ T* = 5/7 connection (Orphan 6, Theorem 6.3) is presented as an empirical match (rate within 1% of T*) rather than as an exact identity; sharpening to an exact statement is open.
 - All six orphans have been verified in the foundations module; the bundle paper does not introduce new computational content but makes existing verified facts citable.
 
+### §5.1 — SAVE-ATTEMPT plan (2026-05-07, per Brayden directive)
+
+Fresh-eyes referee verdict: REJECT/MAJOR REV (folder/file/title COMPLETELY MISMATCHED — `.tex` header says "J36," `manuscript.md` is for J46 CKM/PMNS, folder is J28; CL_STD table referenced but never displayed). Full rescue plan in `SAVE_PLAN_J28.md`. Summary:
+
+- **Save status: SAVABLE.** Mathematical content is real; every orphan has D-table backing (D95-D99 anchor the three-substrate triple, the BDC constants, the 70/71/72/73 signature, and the two-TSML reconciliation; verified at the `Gen13/targets/foundations/invariants.py` 48/48 level).
+- **Headline fixes:** (a) resolve the v2-transition packaging residual: relabel `.tex` from J36 to J28, delete misplaced `manuscript.md` + WP123/WP124 files (they belong in J46), reconcile bibliography J33 vs J25 across .tex / README / cover letter; (b) inline the CL_STD 10×10 table in §2 with direct cell-count derivation of HARMONY = 44; (c) define "Tier-B forced" within this paper, not by reference; (d) demote Theorem 6.3 (DOING-rate ≈ 5/7) to a Remark with explicit "we do not assert algebraic identity"; (e) define rung 71 as TSML_9 sub-magma HARMONY (distinct from rung 71b = WOBBLE = §6); (f) **promote bimodal α_A gap framing per FAMILY_STRUCTURE_v1.md §4 as the unifying motivation** — the six orphans become the structural fingerprint of the bimodal gap, not a heterogeneous registry.
+- **Estimated revision time:** ~6 hours of careful editing; no new computation.
+- **Retitle:** "The Three-Substrate HARMONY Signature on Z/10Z: Six Forced Structural Facts, with the Bimodal Associativity-Index Gap as Their Common Thread."
+- **Retarget recommendation:** Move primary fallback from PLOS ONE to **Linear Algebra and its Applications** — the matrix-algebra and three-table set-algebra content fits LinAlgApps better than PLOS ONE.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

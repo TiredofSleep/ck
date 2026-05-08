@@ -44,6 +44,16 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 The previous `manuscript/` contents (Sprint 17 TSML 3-layer tower / Z/10Z; targeting JSC or JCT-A) belong to **J01**, not J29, and are archived in `manuscript/_archived_sprint17_3layer_tower/`.
 
+### §5.1 — SAVE-ATTEMPT plan (2026-05-07, per Brayden directive)
+
+Fresh-eyes referee verdict: MAJOR REV (F = {1,2,3,4,6,8} flow-index choice ad hoc; load-bearing "other natural choices yield the same closure" UNSUBSTANTIATED; numerical-only verification; §§5-7 tangential to main result; TIG framing excessive). Full rescue plan in `SAVE_PLAN_J29.md`. Summary:
+
+- **Save status: SAVABLE.** Core identification g ≅ so(8) is correct per the referee; the diagnostic methodology is sound; substantiation hooks already exist in `stage4_correct_closure.py` (alternate-generator-set enumeration computed but not in-text).
+- **Headline fixes:** (a) **substantiate the F-choice** by promoting `stage4_correct_closure.py` lines 74–87 enumeration to an in-text Lemma 2.5 ("for any F' ⊃ F with F' ⊂ Ω \ {0,7}, closure is so(8); removing any index from F drops dimension"); (b) **add Cartan-rank Diagnostic 5** (already computed in `stage5_so8.py` at rank 4, parallels J30's structure); (c) **re-run diagnostics in exact arithmetic** (SymPy; integer Killing-form structure; resolves the −0.004 small eigenvalue concern); (d) **run full 21,952-equation simplicity test** (replaces sample of 3010 triples); (e) **split off §§5–7** (Jordan variants, Stanley-Reisner / matroid, Macaulay2 binomial-ideal) as separate companion papers; (f) **reduce TIG framing** for J Algebra readers — display the table, drop operator-name labels from proofs, neutral phrasing of "TIG carries triality" claims; (g) move "Claude (Anthropic) collaboration" to AI-tool disclosure per Elsevier policy; (h) move "[M2-RESOLVED]" tagged questions out of §9 (they belong in §6/§7 companion papers, not in J29's open list).
+- **Estimated revision time:** ~12-14 hours (editing + exact-arithmetic re-runs); §§5-7 companion papers are separate efforts.
+- **Retitle:** "so(8) = D_4 from the Antisymmetrized Closure of a Canonical Z/10Z Magma" (cleaner; drops jargon from title).
+- **Venue retain:** J Algebra primary; first paper to that venue this quarter (cap not binding); fallback to *Communications in Algebra* or *International Journal of Algebra and Computation*.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)

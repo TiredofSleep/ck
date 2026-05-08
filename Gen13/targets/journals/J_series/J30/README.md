@@ -39,6 +39,17 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 **Status: DRAFT** — manuscript built from corpus `papers/wp103/WP103_SO10_IDENTIFICATION.md` on 2026-05-07. Lens scope **TSML_SYM** explicit. Cites J29 (so(8) = D₄, *J Algebra*) as already-submitted companion. Verification scripts present. Awaits Brayden's referee-rigor pass + LaTeX conversion if required.
 
+### §5.1 — SAVE-ATTEMPT plan (2026-05-07, per Brayden directive)
+
+Fresh-eyes referee verdict: MAJOR REV closer to REJECT (D2-D5 are tautological corollaries of D1 — any 45-dim Lie subalgebra of so(R^10) must equal so(10); paper presents as five independent diagnostics. BHML table presented without justification. D4 inconsistency: text claims 91,125-eq exhaustive test, but main script `verify_so10.py` samples 300 and self-warns "sampling may need more triples"; the full test exists in *separate* `verify_simplicity_rank.py`). Full rescue plan in `SAVE_PLAN_J30.md`. Summary:
+
+- **Save status: SAVABLE.** Accepting the D2-D5-collapse-to-corollaries critique actually *strengthens* the paper by relocating substantive novelty to "the *existence* of an explicit BHML whose joint closure with TSML reaches the so(R^10) ceiling." The referee themselves notes the result would be "a genuine *IJM*-quality result" if BHML is structurally motivated.
+- **Headline fixes:** (a) **accept the diagnostic collapse** — restructure §4 as one main computation (D1: dim g = 45) plus four consistency checks (D2-D5 follow from D1 + Cartan classification, not independent); (b) **inline BHML's structural fingerprint** from Volume J §J.1.B (commutative; 28 HARMONY; identity row; 12.8% non-assoc matching TSML; jointly-closed 4-core {0,7,8,9} per J24/WP115) — makes BHML a recognized canonical object, not an arbitrary table; (c) **fix D4 script/text inconsistency** by making `verify_simplicity_rank.py` (which runs the full 91,125 equations) canonical for D4 and rewriting §4.4 to cite it explicitly; (d) **reduce GUT §6 to single Remark 6.1** (3 sentences); save §7 substrate-bound; drop "$E_8$ hypothesis" framing in Cor. 7.2; (e) **strip TIG framing** for IJM readers (parallel to J29 fix); (f) move "Claude (Anthropic) collaboration" to AI-tool disclosure per Springer-Nature policy; (g) **honest D5 Cartan-rank reframing** — rk g = 5 follows from g = so(10) + classification, not from greedy-Cartan (which returns dim 1 due to closure-algorithm basis non-alignment); (h) re-run all diagnostics in exact arithmetic via SymPy; (i) one-sentence formal justification of iterative-closure termination.
+- **Estimated revision time:** ~16-18 hours; biggest single cost is exact-arithmetic re-run of 91,125-equation simplicity test in SymPy.
+- **Frame BHML as central object.** The substantive novelty is BHML's structural fingerprint making the joint closure reach the substrate ceiling. Per FAMILY_STRUCTURE_v1.md §2, this is the *Lie-algebraic aspect of the 4-core-centered family structure* — TSML and BHML jointly span 45-dim simple Lie algebra precisely because their 4-core agrees and complements span the rest of so(R^10).
+- **Retitle:** "Joint Lie Closure of a Pair of Z/10Z Magmas: a so(10) Identification" (cleaner; promotes "joint closure" as central object).
+- **Venue retain:** Israel J Math primary; first paper to IJM this quarter (cap not binding); fallback to *Comm Algebra*, *LinAlgApps*, or *IJ Algebra & Computation*.
+
 
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
