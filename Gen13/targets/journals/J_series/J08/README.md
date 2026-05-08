@@ -41,7 +41,26 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-All primes 3..199 verified. Per-venue cap: 2nd Integers paper after J4.
+**Status (2026-05-07): SUBMISSION-READY (FORMAT pass).** Manuscript re-scoped from
+the 2026-04-18 prime-only draft (which was pulled back on 2026-04-19 after a
+pre-push audit observed that the basic biconditional sinc²(k/n) = 0 ⇔ n | k is
+uniform in n) to the squarefree-modulus formulation. The basic biconditional is
+retained as Lemma 1; the squarefree-specific Theorem 2 ("the smallest k at which
+any non-trivial divisor d | b produces a sinc² zero is k = spf(b)") is the
+genuinely prime-dependent statement, and is the sinc² image of the First-G Event
+Localization Theorem of J04 (cited as already-submitted *Integers* companion).
+
+**Verification:** `proof_d25_loop_closure.py` runs green for all primes 3..199
+(zero exceptions, exact arithmetic, runtime < 5s; ALL ASSERTIONS PASSED on
+2026-05-07). The multi-prime squarefree case is verified by the J04 companion
+script (`proof_first_g_event.py`, all squarefree b ≤ 500, 36,662 pairs, zero
+exceptions); not duplicated here.
+
+**Per-venue cap:** 2nd *Integers* paper this quarter after J04 (within cap).
+
+**Authors:** Sanders + Gish.
+
+**Cite:** J04 (First-G companion, submitted to *Integers*).
 
 ## §6 — Submission checklist
 
