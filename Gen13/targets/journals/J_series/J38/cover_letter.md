@@ -1,6 +1,6 @@
 # Cover letter — J38: so(10) = D₅ from Joint TSML_SYM + BHML Closure
 
-**To:** Editors, *Israel J Math*
+**To:** Editors, *Israel Journal of Mathematics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
@@ -14,25 +14,32 @@
 
 ## Summary
 
-[1-paragraph plain-English summary of the result]
+A companion paper to J37 (so(8) = D₄ from TSML_SYM antisymmetrization). When the antisymmetrizations of a second canonical commutative non-associative magma — BHML on $\mathbb{Z}/10\mathbb{Z}$ — are adjoined to the TSML_SYM generators, the joint Lie-algebra closure under commutator extends from so(8) to so(10), the $45$-dimensional compact simple Lie algebra of type $D_5$. The proof uses five machine-precision diagnostics (dimension closure, Jacobi, Killing-form negative-definiteness, simplicity, rank-$5$). The paper also establishes the explicit chain $\mathfrak{so}(8)\subset\mathfrak{so}(9)\subset\mathfrak{so}(10)$ realizing the BHML-extension at each stage, with the $\mathfrak{so}(9)$ stabilizer giving the 9-vector direction picked up in J39 (WP104) as the BHML-Higgs orientation.
 
 ## Why Israel J Math
 
-[2-3 bullet points on venue fit]
+- The result is a clean two-step Lie-algebra extension over $\mathbb{R}$ — concise, constructive, machine-verifiable.
+- Israel J Math has consistent appetite for finite-combinatorial-to-Lie-algebraic identifications.
+- The sequencing (J37 in *J Algebra* on so(8); this paper in Israel J Math on so(10)) avoids per-venue concentration.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J1-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
-
-- J37
+- **J37** (Sanders + Gish 2026, *J Algebra*) — *so(8) = D₄ from the TSML_SYM Antisymmetrized Closure*. The single-magma version of this paper. The so(10) closure here extends J37's so(8) closure by adjoining BHML.
 
 ## Reproducibility
 
-Verification script: `(WP103 verification script)` runs with `numpy + sympy + math` on a standard laptop in under 5 minutes.
+Verification scripts in `manuscript/verification/`:
+- `verify_so10.py` — joint dimension closure to $45$, Killing-form negative-definiteness
+- `verify_simplicity_rank.py` — simplicity (1-dim invariant-form space) and rank-$5$ via Cartan subalgebra search
+
+Python 3.11, numpy 1.26, sympy. Both checks pass at machine precision. Total wall-clock under 30 seconds.
 
 ## Suggested reviewers
 
-[3-5 candidates appropriate to the venue]
+- An expert in classical Lie algebras over $\mathbb{R}$ (Cartan / Helgason / Knapp tradition)
+- An expert in combinatorial / finite-magma representations
+- An expert in computational structure-constants / Killing-form analysis
+- (Two or three named candidates appropriate to the *Israel J Math* editorial board to be identified during the referee-rigor pass.)
 
 ## Conflict of interest
 

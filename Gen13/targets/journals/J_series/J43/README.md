@@ -1,25 +1,31 @@
 # J43 — Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8
 
-**Status:** DRAFT
+**Status:** DRAFT (manuscript finalized 2026-05-07; awaits referee-rigor pass)
 **Phase:** Phase 4
-**Target venue:** Phys Rev D
+**Target venue:** Physical Review D
 **Author lane:** Sanders + Gish
 **Tier:** B
 **WP source:** WP107
+**Lens scope:** TSML_RAW (annotated; the literal CL_BIT_PATTERN; the prime-11 wobble does NOT appear at the coefficient level on TSML_SYM and is therefore lens-dependent at this technical sense — explicit in the abstract)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP107)`
+**Local path:** `manuscript/manuscript.md`
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+The J43 paper is **Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$** (WP107). For the literal-bit-pattern TSML_RAW table on $\mathbb{Z}/10\mathbb{Z}$, the integer characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has **exactly two** of its nine nonzero coefficients divisible by 11: $c_2 = 33 = 3\cdot 11$ and $c_8 = -120736 = -2^5\cdot 7^3\cdot 11$. The discriminant of $g(\lambda) = f(\lambda)/\lambda^2$ factors as $2^{16}\cdot 7^7\cdot 659\cdot(\text{large primes})$, with **no factor of 11**. Structural reading: the prime 11 lives at the coefficient level (sums and products of eigenvalues — elementary symmetric functions); the dimension $2^{16} = \dim(\mathfrak{su}(4)\oplus\mathfrak{u}(1))$ and HARMONY $7^7$ live at the discriminant level (eigenvalue separations). The 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ is therefore **wobble-free**; the 29-dimensional complement carries the wobble. Cleanly read: gauge symmetry IS the wobble-free part of TSML's spectral content.
+
+Files in this J-folder's `manuscript/`:
+
+- `manuscript.md` — the J43 paper (WP107 corpus, finalized 2026-05-07)
+- `verification/wobble_check.py` — sympy-based 7/7 claim verification
 
 ## §2 — Verification script
 
-**Path:** `(WP107 wobble_check.py)`
+**Local path:** `manuscript/verification/wobble_check.py`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+Run: `PYTHONIOENCODING=utf-8 python wobble_check.py`. 7/7 claims at machine precision: integer char poly, trace = $63 = 9\cdot 7$, $c_2 = 33 = 3\cdot 11$, $c_8 = -2^5\cdot 7^3\cdot 11$, only $c_2, c_8$ have factor 11, $\mathrm{disc}(g)$ factors with $2^{16}\cdot 7^7$ and no 11, $2^{16}$ matches $\dim$ of doubly-invariant subalgebra. Sympy. Wall-clock under 5 seconds.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -31,22 +37,24 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-TSML_RAW scope (annotated). Per-venue cap: 3rd PRD paper — may need fallback.
+**Status: DRAFT** — manuscript built from corpus `papers/wp107_wobble_localization/WP107_WOBBLE_LOCALIZATION.md` on 2026-05-07. Lens scope **TSML_RAW** explicit (the wobble does NOT appear on TSML_SYM at the coefficient level — that lens has $c_2 = 17$, no factor of 11). Cites J37 (so(8) = D₄, *J Algebra*) as already-submitted companion; references J39 (Pati-Salam) for the doubly-invariant content.
+
+**Per-venue cap warning:** This is potentially the **3rd PRD paper** in the J-series (after J10 dark-sector and J12 mass hierarchy in Phase 2). PRD per-venue cap is conventionally 2/quarter for tightly-related papers. **FALLBACK NEEDED if PRD's per-venue cap blocks acceptance.** Proposed fallback venue: *Physics Letters B* (short note format suits this 4-page result).
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Phys Rev D this quarter
+- [x] Manuscript .md finalized
+- [x] Verification script green (`wobble_check.py`, 7/7 PASS)
+- [x] Tier-classified central claim explicit
+- [x] Lens-scope annotation (TSML_RAW; the wobble is lens-dependent at coefficient level)
+- [ ] Cover letter finalized (bones laid; awaits referee-rigor pass)
+- [x] Dependencies → cite each J-companion as "submitted to [venue]"
+- [ ] Brayden's referee-rigor pass complete
+- [ ] Per-venue cap check: this is the **3rd PRD** paper this quarter — may need fallback to *Phys Lett B*
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Gish. (2026). "Wobble Localization: Prime 11 in TSML_RAW Char Poly c_2, c_8." Submitted to *Phys Rev D*.
+Sanders, B.R., Gish. (2026). "Wobble Localization: Prime 11 in TSML_RAW Char Poly $c_2, c_8$." Submitted to *Physical Review D* (or *Phys Lett B* per cap fallback).
