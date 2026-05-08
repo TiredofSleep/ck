@@ -33,8 +33,9 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 - Calderon's one paper in the J-series.
 - Per-venue cap: 2nd AMM paper after J28 (M_22 substrate-prime). AMM still has slot capacity in the quarterly window; no FALLBACK NEEDED.
-- Manuscript finalized 2026-05-07 by J29-J36 cluster agent. Source: `papers/Q17_5D_RIGOROUS.md`. Cites J04 (First-G Law) as already-submitted companion.
+- Manuscript finalized 2026-05-07 by J29-J36 cluster agent (re-confirmed by J29-J32 finalization batch agent 2026-05-07). Source: `papers/Q17_5D_RIGOROUS.md`. Cites J04 (First-G Law) as already-submitted companion.
 - Pedagogical, no Tier-A claims. Rigidity statement is the load-bearing theorem; two-point spectral maximum (Lemma) lands cleanly. No lens-scope annotation needed (the embedding is base-substrate, not a CL_TSML/CL_BHML projection).
+- **Status (2026-05-07 finalization batch):** DRAFT. Manuscript at `manuscript/manuscript.tex` is complete (471 lines, AMS amsart class, 4 bibliography entries including J04 companion). Cover letter at `cover_letter.md` complete. Awaiting Brayden's referee-rigor pass.
 
 ## §6 — Submission checklist
 
