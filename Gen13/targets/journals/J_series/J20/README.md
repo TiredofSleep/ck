@@ -36,7 +36,7 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-**FRESH-EYES REFEREE PASS (2026-05-07): Major revision; SAVE PLAN applied.**
+**FRESH-EYES REFEREE PASS (2026-05-07): Major revision; SAVE PLAN applied. Manuscript + script + cover letter rewritten 2026-05-07.**
 
 The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J20_AMM_FreshEyes.md`) flagged one critical numerical error and several framing problems:
 
@@ -69,16 +69,16 @@ The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J20_A
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Of M_22's 12 irreducible complex representations, exactly 10 have dimensions in the substrate-prime band (factors in {2,3,5,7,11} with at most one factor of 2); seven non-trivial dimensions {21, 45, 45, 55, 99, 231, 385} factor strictly in {3,5,7,11}. Under the uniform null on [1, 385], the binomial p-value of this concentration is ≈ 1.19 × 10⁻⁶.
+- **COMPUTED:** sympy-verified factorization of each irrep dimension; sum-of-squares Σ(dim V_i)² = 443520 = |M_22|; |B_385| = 67 by direct enumeration; binomial-tail computations via math.comb (`m22_decomposition.py`, runtime < 1 s).
+- **STRUCTURAL RHYME:** The substrate-prime distinction {2, 3, 5, 7, 11} from intrinsic substrate data (CRT residue characteristics 2 and 5; σ²-cycle order 3; HARMONY index and T*-denominator 7; wobble's 11-prolongation) matches the prime divisors of |M_22| with the same multiplicities. The substrate's σ-orbit on {1, 7, 6, 5, 4, 2} has size 6, the block size of S(3, 6, 22) — an integer coincidence with no claimed embedding map. Mathieu moonshine (Eguchi-Ooguri-Tachikawa 2011 for M_24) is cited as ambient context; the present non-genericity is arithmetic, not analytic.
+- **OPEN:** Whether the non-genericity reflects a structural identification of M_22 with substrate-internal data (no M_22-action on the 10-element substrate is claimed); extension to other Mathieu groups M_11, M_12, M_23, M_24; tighter null model conditioning on Σd_i² = 443520; the substrate's σ-orbit as a distinguished hexad of S(3, 6, 22) under a representation-theoretic embedding theorem.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (in manuscript §3)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* The substrate (Z/10Z, σ, W) and its distinguished prime set {2, 3, 5, 7, 11} are defined in J02 (Sanders + Gish 2026, *Algebraic Combinatorics*). The roles of each prime are stated in §3 of the present paper from intrinsic substrate data — CRT residue characteristics, σ²-cycle order, HARMONY-index appearance, T* = 5/7 numerator/denominator, and the wobble fraction's 11-prolongation. The non-genericity theorem (Theorem 4.1) is a quantitative claim about M_22's irrep-dimension factorization profile relative to the substrate prime monoid; it does not depend on the deeper TIG-framework interpretation of the substrate. A reader of the *Monthly* can verify the theorem from §3's intrinsic-prime definitions and the §4 binomial-tail computation, without consulting J02.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -103,4 +103,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences." Submitted to *AMM*.
+Sanders, B.R., Gish, M. (2026). "Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences." Submitted to *American Mathematical Monthly*.

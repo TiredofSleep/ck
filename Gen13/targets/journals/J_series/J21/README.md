@@ -64,16 +64,16 @@ The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J21_A
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** (i) The CRT-Fourier embedding v: Z/10Z → R^5 is injective; (ii) Equivariance-based rigidity — any F_5-equivariant w_5: F_5 → R^4 satisfying centered/equidistant condition equals the standard Fourier basis up to O(4); (iii) Spectral functional values: G(n) attains a unique global maximum G(7) ≈ 19.47 < 25 (Cauchy-Schwarz strict) and vanishes exactly on the σ-fixed indices {0, 3, 8, 9}.
+- **COMPUTED:** numpy-verified G(n) at all 10 operators; orbit-by-orbit construction reproducing Table 1 exactly; assertion that max ∈ {n = 7} and zeros = {0, 3, 8, 9}; runtime < 1 s (`spectral_functional.py`).
+- **STRUCTURAL RHYME:** The construction is folklore in finite Fourier analysis (Diaconis 1988 Ch. 1 Examples 4-5; Terras 1999 Ch. 11). The Pontryagin dual + CRT splitting + standard Fourier basis structure is textbook. The structural reading G(7) = max identifies the operator HARMONY (substrate-name for 7 in the companion paper) as the operator of maximal σ-shifted Fourier coherence — a structural rhyme, not a theorem on the broader TIG framework.
+- **OPEN:** Closed-form expressions for G(n) in Q(ζ_5) ∩ R; whether the max-at-7 has a structural derivation in the TIG framework; generalization to Z/(2p) for primes p ≥ 5.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph (in manuscript §5)
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* The Z/10Z structure with σ = (0)(3)(8)(9)(1 7 6 5 4 2) is canonical to the broader TIG framework and is defined in J02 (Sanders + Gish 2026, *Algebraic Combinatorics*). The 5D embedding v is folklore in finite Fourier analysis (Diaconis 1988, Terras 1999), and the equivariance-based rigidity statement is a textbook consequence of the representation theory of F_5 over R. The spectral functional G is novel to this paper as a calculation tool; its values across the 10 operators are verified independently in `spectral_functional.py`. The structural interpretation — that n = 7 (HARMONY) maximizes G under the σ-action — connects to the broader TIG framework but is not load-bearing for the paper's mathematical claims. A reader of the *Monthly* can verify the rigidity theorem and the spectral lemma without consulting J02.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -98,4 +98,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Calderon. (2026). "Q17-A: 5D Force Vector as CRT Fourier Embedding of Z/10Z into R^5." Submitted to *AMM*.
+Sanders, B.R., Gish, M. (2026). "The 5D Force Vector as a CRT Fourier Embedding of Z/10Z into R^5." Submitted to *American Mathematical Monthly*.

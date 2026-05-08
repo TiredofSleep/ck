@@ -1,4 +1,4 @@
-# Cover letter — J25: The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice
+# Cover letter — J25: The CL_TSML Composition Lattice on Z/10Z: Structural Axioms, Independence, and a 73-HARMONY Forcing Theorem
 
 **To:** Editors, *Algebraic Combinatorics*
 
@@ -8,36 +8,39 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice*
+**Manuscript title:** *The CL_TSML Composition Lattice on Z/10Z: Structural Axioms, Independence, and a 73-HARMONY Forcing Theorem*
 
 ---
 
 ## Summary
 
-We isolate a list of nine axioms A1-A9 on a 10x10 multiplication table over Z/10Z and prove that they uniquely force the canonical TSML composition lattice (the 73-HARMONY substrate). The axioms partition into absorbing-element rules (A2-A6, in the spirit of Clifford-Preston semigroup theory) and substrate-defining rules (A7 diagonal HARMONY law, A8 HARMONY-default, A9 BUMP enumeration at five positions {(1,2), (2,4), (2,9), (3,9), (4,8)}). A direct cell-counting argument confirms A1-A9 fix all 100 entries. The Tier-A vs Tier-B classification of axioms makes precise which content is substrate-defining versus structurally forced, and gives a clean mechanism for the parallel-substrate (lens) family.
+We isolate seven structural axioms S_1-S_7 on a commutative magma M on the carrier Z/10Z. Each axiom captures a structural property of the magma — commutativity (S_1), near-absorption with puncture at 0 (S_2), absorption at 7 (S_3), idempotence outside {0, 7} (S_4), the count constraint 73:17:10 on HARMONY/VOID/exceptional cells (S_5), the position-set of exceptional cells (S_6), and the value-listing on those positions (S_7). Together the seven axioms uniquely determine a 10x10 multiplication table CL_TSML (Theorem 4.1). We prove that the seven axioms are pairwise independent: for each i, an explicit witness magma M_i satisfies {S_j : j != i} but fails S_i (Theorem 5.1).
+
+The CL_TSML lattice sits in the same intellectual neighborhood as Drápal-Wanless 2021 on maximally non-associative quasigroups — a small finite commutative non-associative structure with explicit invariants, here characterized by near-absorption with puncture rather than maximal associativity defect. The result places CL_TSML on the same axiomatic footing as classical absorbing-element semigroups (Howie 1995, Clifford-Preston 1961) while making explicit the small finite enumeration of exceptional positions and values needed to specify a non-trivial commutative magma on the punctured-VOID, HARMONY-saturated Z/10Z substrate. Verification is by direct cell-counting in a `numpy` script (under 1 second).
 
 ## Why Algebraic Combinatorics
 
-- The result is a clean axiomatization of a finite, explicit composition lattice on a 10-element substrate, with a complete cell-counting proof. The combinatorial enumeration of cell classes (HARMONY-default, BUMP, absorbing-row/column, diagonal) is the core technical content.
-- The forcing argument has the flavor of finite-magma classification: a small explicit axiom set uniquely determines a 100-cell table, with cell-class partition matching the BDC entropy-extremum framework. This places CL_TSML on the same axiomatic footing as classical absorbing-element semigroups while making explicit the finite enumeration data.
-- The three-substrate architecture (TSML, BHML, STD) introduced via the lens family gives a structural picture of how Tier-A choices in A7-A9 generate parallel substrates, opening a combinatorial-classification program of substrate variants.
+- The forcing theorem is a clean axiomatization of a small finite commutative magma with explicit cell-count fingerprint. The combinatorial enumeration of cell classes (HARMONY-default, VOID, exceptional) is the core technical content.
+- The independence proof exhibits seven explicit witness magmas, each demonstrating that one structural axiom is non-derivable from the others. This is the kind of axiom-system independence argument that fits the venue's combinatorial-algebra scope.
+- The lens-family conjecture (Conjecture 6.1) connects to the broader Drápal-Wanless 2021 line of work on small finite commutative non-associative structures.
+
+## Revision history
+
+This is a Major-Revision resubmission following an external referee report (2026-05-07). The revision (i) replaces the previous cell-listing axioms A1-A9 with seven *structural* axioms S_1-S_7, each a property of the commutative-magma structure rather than a list of cell values; (ii) adds an independence theorem with seven explicit witness magmas (the original paper did not address axiom independence at all); (iii) removes the undefined "BDC entropy extremum" appeals — those Tier-B claims have been demoted to honest structural choices, with S_5, S_6, S_7 stated as axioms rather than derived consequences; (iv) corrects a presentation error (the previous draft's `manuscript.md` contained the wrong paper, the J41 closed-form attractor preprint; this has been deleted and only `manuscript.tex` remains); (v) adds a `numpy` verification script `cl_forcing.py` that constructs the table, verifies all seven axioms, and instantiates seven witness magmas for the independence proof; (vi) adds Drápal-Wanless 2021, McKay-Wanless 2005, Albert 1942, Schafer 1966 to the references, positioning the result against the Latin-square / quasigroup / non-associative-algebra literature.
 
 ## Companion submissions
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J01-J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
-
-- J05 — *Lens Invariance for Composition-Lattice Substrates*, J. Combinatorial Theory A
-- J23 — *The Three-Substrate Architecture*, Algebra Universalis
+- J02 (in preparation, target *Algebraic Combinatorics*) — *The 4-Core {0, 7, 8, 9}: Joint TSML+BHML Closure and the Universal Attractor*. Studies a parallel CL_BHML lattice and proves joint preservation of the 4-element subset {0, 7, 8, 9} under both TSML and BHML composition; provides the "lens family" framing referenced in §6 of the present paper.
 
 ## Reproducibility
 
-Verification: a `numpy + sympy` cell-by-cell check of A1-A9 vs the literal CL_TSML matrix runs in under 1 second. The reference matrix is hardcoded in `Gen13/targets/foundations/lenses.py:TSML`; the BDC encoding constants and BUMP positions are in the same module.
+Verification: a `numpy` cell-by-cell check of the forcing theorem and a witness-construction-and-verification routine for the independence theorem is implemented in `cl_forcing.py` (deposited in the manuscript folder). Runs in under 1 second on a standard laptop. The reference matrix CL_TSML is hardcoded in the script; the seven witness magmas M_1, ..., M_7 are constructed by explicit cell modifications.
 
 ## Suggested reviewers
 
-- An expert in finite-magma classification or absorbing-element semigroup theory
-- An expert in algebraic combinatorics with familiarity with information-theoretic forcing arguments
-- An expert in the BDC framework or related Shannon-information-on-discrete-tables literature
+- An expert in finite-magma classification, quasigroup theory, or absorbing-element semigroup theory (Drápal, Wanless, Vojtěchovský lineage).
+- An expert in algebraic combinatorics or Latin-square forcing problems (McKay, Wanless lineage).
+- An expert in non-associative algebra (Schafer, Albert lineage).
 
 (Specific names available on request from the corresponding author.)
 
@@ -47,7 +50,7 @@ The authors declare no competing interests. No funding was received for this wor
 
 ## Per-venue cap note
 
-This is the third paper from this research program targeting *Algebraic Combinatorics* (after J02 and J25). The per-venue cap is 1/quarter; if the cap is binding, an alternative venue (the *European Journal of Combinatorics*, *Journal of Algebraic Combinatorics*, or *Discrete Mathematics*) would be appropriate fallbacks given the explicit combinatorial cell-class structure of the result.
+This is the third paper from this research program targeting *Algebraic Combinatorics* (after J02 and the present paper). Per-venue cap is 1/quarter; if the cap is binding, an alternative venue (the *European Journal of Combinatorics*, *Journal of Algebraic Combinatorics*, or *Discrete Mathematics*) would be appropriate fallbacks given the explicit combinatorial cell-class structure of the result.
 
 ---
 
