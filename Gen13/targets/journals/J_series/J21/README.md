@@ -31,11 +31,32 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-- Calderon's one paper in the J-series.
-- Per-venue cap: 2nd AMM paper after J20 (M_22 substrate-prime). AMM still has slot capacity in the quarterly window; no FALLBACK NEEDED.
-- Manuscript finalized 2026-05-07 by J21-J28 cluster agent (re-confirmed by J21-J24 finalization batch agent 2026-05-07). Source: `papers/Q17_5D_RIGOROUS.md`. Cites J03 (First-G Law) as already-submitted companion.
-- Pedagogical, no Tier-A claims. Rigidity statement is the load-bearing theorem; two-point spectral maximum (Lemma) lands cleanly. No lens-scope annotation needed (the embedding is base-substrate, not a CL_TSML/CL_BHML projection).
-- **Status (2026-05-07 finalization batch):** DRAFT. Manuscript at `manuscript/manuscript.tex` is complete (471 lines, AMS amsart class, 4 bibliography entries including J03 companion). Cover letter at `cover_letter.md` complete. Awaiting Brayden's referee-rigor pass.
+**FRESH-EYES REFEREE PASS (2026-05-07): Reject without prejudice; SAVE PLAN applied.**
+
+The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J21_AMM_FreshEyes.md`) flagged two critical mathematical errors and several framing problems:
+
+- **M1 (CRITICAL).** Theorem 4.1 (Rigidity) had a tautological premise (ii): "$w_5$ is the real Fourier basis up to $O(4)$" — exactly the conclusion. **FIX:** premise (ii) replaced with $F_5$-equivariance + centered/equidistant condition (regular-pentagon condition). The conclusion ($w_5$ equals Fourier basis up to $O(4)$) now follows from the standard $F_5$-rep-theory $V_1 \oplus V_2$ decomposition (Diaconis Ch. 1, Steinberg §3). No longer tautological.
+- **M2 (CRITICAL).** Lemma 5.2 (two-point maximum at $G_{\max} = 25$) was numerically wrong. Independent computation (numpy): $G(7) \approx 19.472$ at a single operator, NOT 25 at both n=5,7. The value 25 was a Cauchy-Schwarz upper bound, not an attained value. **FIX:** Lemma 5.2 replaced with Lemma (Spectral functional values), tabulating $G(n)$ for all 10 operators (matches referee's exact computation), identifying $n=7$ as the unique global max ($G(7) \approx 19.472$) and $\{0, 3, 8, 9\}$ as the four σ-fixed zeros. Cauchy-Schwarz bound $G(n) < 25$ for all n proved via direct orbit inspection.
+- **M3 (MAJOR).** σ inconsistency: the §5 prose said σ "fixes {0, 5}" but described a 6-cycle "1→7→6→5→4→2" containing 5 — internally contradictory. **FIX:** σ stated explicitly as $(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ matching J20; σ has order 6, NOT 2. Inconsistent prose removed.
+- **M4 (MAJOR).** Folklore-novelty conflation. **FIX:** Introduction rewritten honestly to state two genuine contributions: equivariance-based rigidity + corrected spectral table. The "specific parameterization" claim of novelty is dropped (this is exactly Diaconis Ch. 1 / Terras Ch. 11).
+- **M5 (MAJOR).** §7 companion description had literal "$\{0, 5, 7, ?\}$" with unspecified element. **FIX:** 4-core stated correctly as $\{0, 7, 8, 9\}$; connection to spectral lemma made precise (n=7 is the global max on the $\varepsilon=1$ sphere; {0, 8, 9} are three σ-fixed zeros on the $\varepsilon=0$ sphere).
+- **S6.** Diaconis 1988 missing — **FIX:** added. Stein-Weiss 1971 removed (irrelevant). Steinberg 2012 added (rep-theory in rigidity proof).
+
+**Save plan:** `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J21.md` — Paths B + C combined (genuine equivariance-based rigidity + corrected spectral table). Resubmit to AMM (the referee's recommended path).
+
+**Fixes applied 2026-05-07:**
+- `manuscript/manuscript.tex`: rewritten with corrected rigidity (equivariance premise), corrected G(n) table matching referee's exact computation, σ stated correctly as order-6 permutation, single author block (Sanders + Gish, no Calderon), §7 with actual 4-core, Diaconis/Steinberg added, Stein-Weiss removed, Conrad URL added.
+- `manuscript/spectral_functional.py`: new verification script written; reproduces Table 1 exactly; identifies n=7 as global max (G(7) ≈ 19.472) and {0, 3, 8, 9} as zero set.
+
+**Verification of fixes (numpy):**
+- G(0) = 0.000, G(1) = 10.528, G(2) = 3.292, G(3) = 0.000 ✓
+- G(4) = 5.000, G(5) = 9.472, G(6) = 16.708, G(7) = 19.472 ✓ (global max at n=7)
+- G(8) = 0.000, G(9) = 0.000 ✓
+- All values < 25 (Cauchy-Schwarz bound, strict) ✓
+- σ-fixed indices {0, 3, 8, 9} all yield G = 0 (geometric-series cancellation) ✓
+- Lemma 5.2 (corrected) verified.
+
+**Estimated revision time:** 1-2 weeks. Net: substantial restructure, no new mathematics. The corrected spectral table reproduces the referee's exact computation; the equivariance-based rigidity is a textbook result presented in self-contained form.
 
 
 

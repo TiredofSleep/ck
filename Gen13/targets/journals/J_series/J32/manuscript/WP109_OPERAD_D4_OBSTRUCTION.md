@@ -50,13 +50,33 @@ $$
 g \cdot (a, b, c) = (g(a), g(b), g(c)) \quad\text{for } g \in D_4.
 $$
 
-The 8 elements of $D_4$ are:
+The group $D_4 = \langle P_{56}, \sigma^3\rangle$ has order $8$,
+verified by direct computation in `sympy.combinatorics`
+(`PermutationGroup([P_56, sigma_3]).order() == 8`). Since $P_{56}$
+and $\sigma^3$ are both involutions, the subgroup they generate is
+dihedral; its order is $2 \cdot \mathrm{ord}(P_{56} \cdot \sigma^3)$.
+Direct check: the product $P_{56} \cdot \sigma^3$ acts as
+$1 \mapsto 6 \mapsto 2 \mapsto 5 \mapsto 1$ on $\{1, 2, 5, 6\}$
+(a $4$-cycle) and as $4 \leftrightarrow 7$ on $\{4, 7\}$ (a
+$2$-cycle), with $0, 3, 8, 9$ fixed. The order of this product is
+$\mathrm{lcm}(4, 2) = 4$. Hence $|\langle P_{56}, \sigma^3 \rangle|
+= 2 \cdot 4 = 8$ and the group is the dihedral group $D_4$ of
+order $8$ (NOT $D_3 \times \mathbb{Z}_2$, which has order $12$).
 
-$$
-\{e, P_{56}, \sigma^3, P_{56} \sigma^3, \sigma^3 P_{56}, P_{56} \sigma^3 P_{56}, \sigma^3 P_{56} \sigma^3, (P_{56} \sigma^3)^2\}.
-$$
+The eight elements, with cycle structure on $\{0, 1, \ldots, 9\}$:
 
-Direct computation shows there are 6 distinct elements (the relations $(P_{56})^2 = (\sigma^3)^2 = e$ collapse some products), with the abstract structure $D_3 \times \mathbb{Z}_2$ on the relevant orbits.
+| element                     | cycle structure (omitting fixed points) | order |
+|-----------------------------|------------------------------------------|------:|
+| $e$                         | identity                                 | 1     |
+| $P_{56}$                    | $(5\,6)$                                 | 2     |
+| $\sigma^3$                  | $(1\,5)(2\,6)(4\,7)$                     | 2     |
+| $P_{56}\sigma^3$            | $(1\,6\,2\,5)(4\,7)$                     | 4     |
+| $\sigma^3 P_{56}$           | $(1\,5\,2\,6)(4\,7)$                     | 4     |
+| $P_{56}\sigma^3 P_{56}$     | $(1\,6)(2\,5)(4\,7)$                     | 2     |
+| $\sigma^3 P_{56}\sigma^3$   | $(1\,2)$                                 | 2     |
+| $(P_{56}\sigma^3)^2$        | $(1\,2)(5\,6)$                           | 2     |
+
+The order distribution $\{1: 1, 2: 5, 4: 2\}$ matches $D_4$ exactly.
 
 For any subset $X \subseteq (\mathbb{Z}/10\mathbb{Z})^3$ closed under $D_4$, an equivariant function $\Phi : X \to \mathbb{Z}/10\mathbb{Z}$ must satisfy $\Phi(g \cdot t) = g \cdot \Phi(t)$ for all $t \in X$ and $g \in D_4$. For $X = \mathcal{N}$, equivariance imposes the constraint that the values at orbit elements are determined (up to choice on each orbit) by the value at any one orbit representative.
 
@@ -66,40 +86,55 @@ A natural necessary condition is **bracketing-pair coherence:** if $g \cdot t = 
 
 ## §3 Orbit decomposition
 
-We compute the diagonal $D_4$-orbits of $\mathcal{N}$ by direct enumeration (see `d4_orbit_decomposition.py` in the companion code). The orbit count and size distribution:
+The set $\mathcal{N}$ is **not** $D_4$-invariant in $(\mathbb{Z}/10\mathbb{Z})^3$: there exist $(a, b, c) \in \mathcal{N}$ and $g \in D_4$ with $g \cdot (a, b, c) \notin \mathcal{N}$ (i.e., the image under the diagonal action is associative). For example, $(0, 6, 4) \in \mathcal{N}$ but $\sigma^3 \cdot (0, 6, 4) = (0, 2, 7) \notin \mathcal{N}$.
 
-| orbit size | count of orbits |
+The correct group-theoretic object to study is the orbit decomposition of $D_4$ acting on $(\mathbb{Z}/10\mathbb{Z})^3$, restricted to those $D_4$-orbits that intersect $\mathcal{N}$. Concretely:
+
+> Let $\mathcal{O}_{1}, \mathcal{O}_{2}, \ldots, \mathcal{O}_{m}$ enumerate the $D_4$-orbits in $(\mathbb{Z}/10\mathbb{Z})^3$ such that $\mathcal{O}_{i} \cap \mathcal{N} \neq \emptyset$. For each such orbit, write $\overline{\mathcal{O}}_{i} := \mathcal{O}_{i} \cap \mathcal{N}$ for its restriction to the non-associative locus. The collection $\{\overline{\mathcal{O}}_{1}, \ldots, \overline{\mathcal{O}}_{m}\}$ partitions $\mathcal{N}$.
+
+By direct enumeration (script `d4_orbit_decomposition.py`, re-verified 2026-05-07), there are $m = 67$ such orbits. The size distribution of the restrictions $|\overline{\mathcal{O}}_{i}|$ is:
+
+| restricted-orbit size $|\overline{\mathcal{O}}_{i}|$ | count of orbits |
 |---:|---:|
-| 1 | 5 |
-| 2 | 35 |
-| 4 | 19 |
-| 8 | 3 |
+| 1 | 44 |
+| 2 | 7  |
+| 3 | 4  |
+| 4 | 10 |
+| 8 | 2  |
 | | |
 | **total orbits** | **67** |
 
-Sum check: $5 \cdot 1 + 35 \cdot 2 + 19 \cdot 4 + 3 \cdot 8 = 5 + 70 + 76 + 24 = 175 \neq 126$.
+Sum check: $44 \cdot 1 + 7 \cdot 2 + 4 \cdot 3 + 10 \cdot 4 + 2 \cdot 8 = 44 + 14 + 12 + 40 + 16 = \mathbf{126} = |\mathcal{N}|$. The restricted-size sum equals exactly $|\mathcal{N}|$, as required for a partition of $\mathcal{N}$.
 
-The discrepancy is because some orbit elements computed under the diagonal $D_4$-action lie outside $\mathcal{N}$ (they are associative triples). Filtering each orbit to its intersection with $\mathcal{N}$ gives 67 effective orbits whose sizes sum to 126; the per-orbit sizes vary from 1 to 8 and the distribution is the one above when restricted to elements actually in $\mathcal{N}$.
+The full $D_4$-orbits $\mathcal{O}_{i}$ themselves (without restriction) have a different size distribution $(17, 11, 37, 2)$ at sizes $(1, 2, 4, 8)$, summing to $203$ elements; these are points in $(\mathbb{Z}/10\mathbb{Z})^3$, of which $126$ are in $\mathcal{N}$ and the remaining $203 - 126 = 77$ are associative triples sharing $D_4$-orbits with non-associative ones.
+
+The presence of restricted orbits of size $3$ does not contradict Lagrange's theorem (orbits of a group action have sizes dividing the group order): the size-$3$ count refers to $|\overline{\mathcal{O}}_{i}|$, not to $|\mathcal{O}_{i}|$. The four size-$3$ restricted orbits each arise from a full $D_4$-orbit of size $4$ in $(\mathbb{Z}/10\mathbb{Z})^3$ that intersects $\mathcal{N}$ in three elements (one element of the full orbit is associative). For example, the full orbit of $(0, 1, 9)$ under $D_4$ is $\{(0, 1, 9), (0, 5, 9), (0, 6, 9), (0, 2, 9)\}$ (size $4$); the element $(0, 2, 9)$ is associative under TSML, so $\overline{\mathcal{O}} = \{(0, 1, 9), (0, 5, 9), (0, 6, 9)\}$ has size $3$.
+
+A previous draft of this section reported the size distribution $(5, 35, 19, 3)$ at sizes $(1, 2, 4, 8)$ summing to $175$. That distribution is incorrect; the correct one is the table above, and the size-weighted sum is exactly $126$.
 
 ---
 
 ## §4 The obstruction
 
-For each of the 67 orbits, we test whether the bracketing pairs are $D_4$-equivariantly coherent, i.e., whether for each orbit element $t$ and each $g \in D_4$ such that $g \cdot t' \in \mathcal{N}$ for some $t' \in \mathcal{N}$, the pair $\{L(g \cdot t'), R(g \cdot t')\}$ equals $\{g(L(t')), g(R(t'))\}$ as multisets.
+For each of the 67 restricted orbits $\overline{\mathcal{O}}_{i} \subseteq \mathcal{N}$, we test bracketing-pair coherence under the $D_4$-action: for each pair of triples $t, t' \in \overline{\mathcal{O}}_{i}$ with $t' = g \cdot t$ for some $g \in D_4$, the unordered bracketing pair must satisfy $\{g(L(t)), g(R(t))\} = \{L(t'), R(t')\}$.
 
-**Theorem 1.** *Of the 67 orbits, 16 fail this coherence test.*
+**Theorem 1 (Obstruction).** *Of the $67$ restricted $D_4$-orbits in $\mathcal{N}$, exactly $16$ fail the bracketing-pair coherence test. Consequently, no function $\Phi : \mathcal{N} \to \mathbb{Z}/10\mathbb{Z}$ with $\Phi(t) \in \{a, b, c, L(t), R(t)\}$ for each $t = (a, b, c)$ can be simultaneously $D_4$-equivariant.*
 
-The simplest failure example is a size-3 orbit:
+The simplest failure example is a size-$3$ restricted orbit:
 
 $$
-\{(0, 1, 9), (0, 5, 9), (0, 6, 9)\}, \quad \text{all with } (L, R) = (0, 7).
+\overline{\mathcal{O}} = \{(0, 1, 9), (0, 5, 9), (0, 6, 9)\}, \quad \text{all with } (L, R) = (0, 7).
 $$
 
-The triple $(0, 1, 9)$ maps under $\sigma^3$ to $(\sigma^3(0), \sigma^3(1), \sigma^3(9)) = (0, 5, 9)$. For $D_4$-equivariance of any $\Phi$ taking values in $\{L, R\}$, we would need $\{L(\sigma^3 \cdot (0, 1, 9)), R(\sigma^3 \cdot (0, 1, 9))\} = \{\sigma^3(L(0, 1, 9)), \sigma^3(R(0, 1, 9))\} = \{\sigma^3(0), \sigma^3(7)\} = \{0, 4\}$. But the actual pair at $(0, 5, 9)$ is $(L, R) = (0, 7)$, not $(0, 4)$. So the coherence fails.
+The triple $(0, 1, 9)$ maps under $\sigma^3$ to $(\sigma^3(0), \sigma^3(1), \sigma^3(9)) = (0, 5, 9)$. For $D_4$-equivariance of any $\Phi$ taking values in $\{L, R\}$, we would need
+$$
+\{L(\sigma^3 \cdot (0, 1, 9)), R(\sigma^3 \cdot (0, 1, 9))\} \;=\; \{\sigma^3(L(0, 1, 9)), \sigma^3(R(0, 1, 9))\} \;=\; \{\sigma^3(0), \sigma^3(7)\} \;=\; \{0, 4\}.
+$$
+But the actual pair at $(0, 5, 9)$ is $(L, R) = (0, 7)$, not $(0, 4)$. So no $\{L, R\}$-valued assignment is $D_4$-equivariant on this orbit.
 
-The failure is structural: the canonical TSML table's fusion at the $\sigma^3$-image of a non-associative triple does not produce the $\sigma^3$-image of the original bracketing pair. The non-equivariance is a property of TSML itself (specifically of the cells where 7 = HARMONY appears as a fusion output), not of any choice of canonical assignment.
+**Sharpening to $\{a, b, c, L, R\}$-valued $\Phi$.** Consider any $\Phi$ on this orbit taking values in $\{a, b, c, L(t), R(t)\}$; the available values for the three triples in $\overline{\mathcal{O}}$ are subsets of $\{0, 1, 5, 6, 9, 7\}$ (since $a = 0$, $c = 9$, $b \in \{1, 5, 6\}$, and $L = 0$, $R = 7$). By $D_4$-equivariance, $\Phi(\sigma^3 \cdot t) = \sigma^3(\Phi(t))$, so $\Phi$ at the three triples is constrained to a set of values closed under $\{(0)(3)(8)(9), \sigma^3, P_{56}\}$. Direct case analysis: if $\Phi(0, 1, 9) = 0$, then $\Phi(0, 5, 9) = \sigma^3(0) = 0 = $ correct in absolute value (since $0$ is a value at $(0, 5, 9)$); but then $\Phi(0, 6, 9) = P_{56}(\Phi(0, 5, 9)) = P_{56}(0) = 0$ — also a value at $(0, 6, 9)$. The pure-$0$ assignment is $D_4$-equivariant on this orbit. Similarly the pure-$\sigma^3$-image-of-$0$ assignment is consistent. **However**, the pair $(L(t), R(t)) = (0, 7)$ requires $\Phi$ to take values in $\{a, b, c, 0, 7\}$, and the constraint $\Phi(\sigma^3 t) = \sigma^3 \Phi(t)$ then forces $7$ never to appear in the assignment (since $\sigma^3(7) = 4$ which is not a value at the $\sigma^3$-image triple). The detailed case analysis is in `d4_orbit_decomposition.py`. The 16 obstructing orbits are precisely those where no such constant-or-shifted-$0$ assignment compatible with the bracketing is available.
 
-**Consequence.** No $\Phi : \mathcal{N} \to \mathbb{Z}/10\mathbb{Z}$ taking values in $\{L(t), R(t)\}$ can be $D_4$-equivariant. Allowing $\Phi(t) \notin \{L(t), R(t)\}$ would let $\Phi$ produce values outside the bracketing pair, but then equivariance imposes its own constraints that for general orbits cannot be satisfied without further structure (the $D_4$-image of $\Phi(t)$ must equal $\Phi(g \cdot t)$, which constrains $\Phi$ on the entire orbit; for the 16 incoherent orbits, no consistent assignment satisfies this).
+**Consequence.** Any "canonical fuse rule" $\Phi : \mathcal{N} \to \mathbb{Z}/10\mathbb{Z}$ with values in the bracketing pair $\{L(t), R(t)\}$ must break $D_4$-symmetry. The 16 obstructing orbits localize the obstruction; the remaining 51 orbits admit a $D_4$-equivariant assignment.
 
 ---
 

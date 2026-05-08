@@ -40,12 +40,13 @@
   {The 5D Force Vector as a CRT Fourier Embedding\\
    of $\Z/10\Z$ into $\R^5$}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
-\address{Independent Researcher}
+\author{M.\ Gish}
+\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\email{monica.gish1992@gmail.com}
 
 \date{2026}
 
@@ -57,28 +58,33 @@
 \begin{document}
 
 \begin{abstract}
-We give a clean, elementary derivation of the unique embedding of
-$\Z/10\Z$ into $\R^5$ that simultaneously respects (i) the Chinese
-Remainder Theorem isomorphism $\Z/10\Z \cong \F_2 \times \F_5$, (ii)
-the standard Fourier basis on $\F_5$, and (iii) the binary indicator
-on $\F_2$. The construction takes one line: send the operator
-indexed by CRT coordinates $(\varepsilon, y) \in \F_2 \times \F_5$
-to the vector
+We give a self-contained presentation of the canonical $5$-dimensional
+embedding of $\Z/10\Z$ into $\R^5$ obtained by combining the Chinese
+Remainder Theorem isomorphism $\Z/10\Z \cong \F_2 \times \F_5$ with
+the affine indicator on $\F_2$ and the standard real Fourier basis on
+$\F_5$. The construction takes one line: send the operator indexed
+by CRT coordinates $(\varepsilon, y) \in \F_2 \times \F_5$ to
 \[ v(\varepsilon, y) \;=\;
    \bigl(\,\varepsilon,\;
    \cos\tfrac{2\pi y}{5},\;\sin\tfrac{2\pi y}{5},\;
    \cos\tfrac{4\pi y}{5},\;\sin\tfrac{4\pi y}{5}\,\bigr) \in \R^5. \]
-We show that the image of $v$ consists of $10$ distinct points (the
-embedding is injective), that the image is rigid in the sense that
-no other $5$-dimensional embedding of $\Z/10\Z$ factors through both
-the CRT splitting and the Fourier basis simultaneously, and that
-exactly two image points achieve the maximum value of a natural
-spectral functional. The construction is folklore in finite Fourier
-analysis but, to our knowledge, has not appeared in the form
-presented here, which makes the algebraic forcing transparent for an
-undergraduate audience. We close with two short applications: a
-decagonal-symmetry geometric reading and a conserved-current
-identity for arithmetic Fourier sums.
+The embedding is folklore in finite Fourier analysis
+(Diaconis~\cite{Diaconis1988}, Terras~\cite{Terras1999}). Our
+contributions are two: \emph{first}, an equivariance-based rigidity
+characterization (Theorem~\ref{thm:rigidity}) showing that any
+$\F_5$-equivariant embedding into $\R^4$ realizing the regular
+pentagon equals the Fourier basis up to an orthogonal change of
+variables; \emph{second}, an explicit table of the spectral
+functional
+$G(n) = |\sum_{j=0}^{4} \omega^{j} \chi_{1}(y(\sigma^{j}(n)))|^{2}$
+across all ten operators (Lemma~\ref{lem:spectral}), where $\sigma$
+is the order-$6$ permutation
+$(0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ of $\Z/10\Z$. The functional
+attains its global maximum $G(7) \approx 19.47$ at a single
+operator; the four $\sigma$-fixed indices yield $G = 0$ except for
+$n = 1$, where the orbit-shift produces $G(1) \approx 10.53$.
+We close with two applications: a decagonal-symmetry reading and a
+Plancherel-style identity in CRT coordinates.
 \end{abstract}
 
 \maketitle
@@ -108,22 +114,33 @@ sign characters and contributes a single real coordinate), plus
 four dimensions for the two non-trivial real Fourier pairs of
 $\F_5$. The construction is inevitable once stated correctly.
 
-The purpose of this note is to write down the construction in a
-form that an undergraduate can reproduce in twenty minutes, to
-verify rigidly that the embedding is injective, and to record two
-short consequences. The construction is folklore in finite
-harmonic analysis (see e.g.~Terras~\cite{Terras1999}), but the
-specific parameterization through the joint CRT-plus-Fourier
-factorization, and the rigid-image lemma below, do not appear in
-the standard textbooks at this level.
+The construction is folklore in finite harmonic analysis (see
+Diaconis~\cite{Diaconis1988}, Ch.~$1$, Examples $4$--$5$;
+Terras~\cite{Terras1999}, Ch.~$11$). The purpose of this note is
+to present the case $n = 10$ in self-contained form for the
+\emph{Monthly} reader, with two contributions:
+
+\begin{itemize}\setlength\itemsep{2pt}
+\item An \emph{equivariance-based} rigidity statement
+(Theorem~\ref{thm:rigidity}): any $\F_{5}$-equivariant embedding of
+$\F_{5}$ into $\R^{4}$ whose image realizes the regular pentagon
+equals the standard Fourier basis up to an orthogonal change of
+variables. This is the right form of the rigidity claim --- it
+characterizes the Fourier basis without naming it.
+\item An explicit calculation of a natural spectral functional
+$G(n)$ on the image (Lemma~\ref{lem:spectral}); the functional
+takes ten distinct values across the operators, attains its global
+maximum at a single operator, and vanishes on three of the four
+$\sigma$-fixed indices.
+\end{itemize}
 
 The motivation for collecting this material in a single
 self-contained note comes from a separate research program in
-substrate-algebra over $\Z/10\Z$, where the
-$5$-dimensional embedding is used to interpret operators on the
-$10$-element residue ring as points in Euclidean space. The
-embedding's algebraic structure is the foundation; the applications
-of that structure are reported in companion papers (see
+substrate-algebra over $\Z/10\Z$, where the $5$-dimensional
+embedding is used to interpret operators on the $10$-element
+residue ring as points in Euclidean space. The embedding's
+algebraic structure is the foundation; the applications of that
+structure are reported in companion papers (see
 Section~\ref{sec:companions}).
 
 \paragraph{Outline.}
@@ -240,124 +257,225 @@ By CRT, $m = n$ in $\Z/10\Z$.
 
 \begin{remark}
 \label{rem:dim}
-The image $\Img(v)$ lies on the union of two $4$-spheres in $\R^5$:
-the $\varepsilon = 0$ sphere centered at $(0,0,0,0,0)$ and the
-$\varepsilon = 1$ sphere centered at $(1,0,0,0,0)$, each of radius
-$\sqrt{2}$ (the $\F_5$ Fourier basis has constant length
-$\sqrt{2}$). The two spheres intersect only at $\varepsilon = 1/2$,
-which is not in the image. Hence $\Img(v)$ is the disjoint union of
-$5$ points on each sphere.
+The image $\Img(v)$ lies on the disjoint union of two parallel
+$4$-spheres in $\R^5$: the $\varepsilon = 0$ sphere centered at
+$(0,0,0,0,0)$ and the $\varepsilon = 1$ sphere centered at
+$(1,0,0,0,0)$, each of radius $\sqrt{2}$ (the $\F_5$ real Fourier
+basis has constant length $\sqrt{\cos^{2} + \sin^{2} + \cos^{2} +
+\sin^{2}} = \sqrt{2}$). The two spheres lie in parallel affine
+$4$-planes (separated by translation along the $v_{1}$-axis) and do
+not intersect. Hence $\Img(v)$ is the disjoint union of $5$ points
+on each sphere.
 \end{remark}
 
 \section{Rigidity}
 \label{sec:rigidity}
 
-The next theorem states the sense in which the embedding is rigid:
-any $5$-dimensional embedding that factors through both the CRT
-splitting and the Fourier basis must be $v$ up to an orthogonal
-transformation.
+We give an equivariance-based characterization of the embedding's
+$\F_{5}$-component. The premise of the rigidity theorem is a
+property of $w_{5}$ that does \emph{not} name the Fourier basis;
+the conclusion is that $w_{5}$ equals the Fourier basis up to an
+orthogonal change of variables.
 
-\begin{theorem}[Rigidity]
+\begin{theorem}[Rigidity via $\F_{5}$-equivariance]
 \label{thm:rigidity}
-Let $w: \Z/10\Z \to \R^5$ be an embedding such that
+Let $w_{5}: \F_{5} \to \R^{4}$ be an injective map such that:
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=*]
-\item $w$ factors through the CRT isomorphism: there exist
-  $w_2: \F_2 \to \R^a$ and $w_5: \F_5 \to \R^b$ with $a + b = 5$
-  such that
-  \[ w(n) = (w_2(\varepsilon(n)),\, w_5(y(n))) \in \R^a \oplus \R^b. \]
-\item $w_2$ is the affine indicator (with $a = 1$), and $w_5$ is
-  the real Fourier basis (with $b = 4$) up to an orthogonal change
-  of variables in $\R^4$.
+\item $w_{5}$ is $\F_{5}$-equivariant: there exists
+  $R \in O(4)$ with $R^{5} = I$ and
+  $w_{5}(y + 1) = R \cdot w_{5}(y)$ for all $y \in \F_{5}$;
+\item the image $w_{5}(\F_{5})$ is centered (i.e.,
+  $\sum_{y \in \F_{5}} w_{5}(y) = 0$) and the squared distance
+  $\|w_{5}(y) - w_{5}(y')\|^{2}$ depends only on $y - y' \pmod 5$.
 \end{enumerate}
-Then $w = O \circ v$ for some block-diagonal orthogonal map
-$O \in O(1) \times O(4) \subset O(5)$.
+Then $w_{5} = \mathcal{O} \circ v_{2:5}$ for some
+$\mathcal{O} \in O(4)$, where $v_{2:5}(y) = (\cos(2\pi y / 5),
+\sin(2\pi y / 5), \cos(4\pi y / 5), \sin(4\pi y / 5))$ is the
+restriction of $v$ to its last four coordinates. Consequently any
+embedding $w: \Z/10\Z \to \R^{5}$ that factors through CRT as
+$w(n) = (w_{2}(\varepsilon(n)), w_{5}(y(n)))$ with $w_{2}$ the
+affine indicator on $\F_{2}$ (so $a = 1, b = 4$) and $w_{5}$ as
+above satisfies $w = O \circ v$ for some block-diagonal
+$O \in O(1) \times O(4)$.
 \end{theorem}
 
 \begin{proof}
-By assumption (i) the embedding splits as a direct sum
-$w = w_2 \oplus w_5$, with $a = 1, b = 4$ from assumption (ii).
-The first coordinate $w_2$ is then a one-dimensional embedding of
-$\F_2$, hence (up to translation, scaling, and reflection) the
-affine indicator $\varepsilon \mapsto \varepsilon$, which fixes
-$w_2 = v_1$ up to a sign. The remaining four coordinates $w_5$
-embed $\F_5$ into $\R^4$ via the real Fourier basis, which by
-assumption (ii) is determined up to an orthogonal change of
-variables in $\R^4$. So $w = (\pm v_1, \mathcal{O} v_{2:5})$ for
-$\mathcal{O} \in O(4)$, which is exactly $w = O \circ v$ for
-$O = \mathrm{diag}(\pm 1, \mathcal{O}) \in O(1) \times O(4)$.
+Condition (i) says $\R^{4}$ carries an orthogonal $\F_{5}$-action
+under which $w_{5}$ is the orbit of a single vector. By the
+representation theory of $\F_{5}$ over $\R$ (cf.\
+Diaconis~\cite{Diaconis1988}, Ch.~$1$;
+Steinberg~\cite{Steinberg2012}, \S$3$), every faithful real
+representation of $\F_{5}$ on a $4$-dimensional space decomposes
+as the direct sum $V_{1} \oplus V_{2}$ of the two non-trivial
+real-irreducible $\F_{5}$-representations: $V_{1}$ corresponds to
+the character pair $\{\chi_{1}, \chi_{4}\}$ (rotation by $2\pi/5$)
+and $V_{2}$ to $\{\chi_{2}, \chi_{3}\}$ (rotation by $4\pi/5$).
+Each of $V_{1}, V_{2}$ is a $2$-dimensional irreducible real
+representation, unique up to $O(2)$-equivalence.
+
+The decomposition $\R^{4} \cong V_{1} \oplus V_{2}$ is therefore
+unique up to an orthogonal change of variables in $O(2) \times
+O(2) \subset O(4)$. The orbit of any non-zero vector $v_{0}$ under
+$\F_{5}$ in $V_{1} \oplus V_{2}$ traces a regular pentagon in the
+$V_{1}$ plane and a regular pentagon in the $V_{2}$ plane (the
+two with different rotation rates). Centering (assumption (ii)) and
+the depend-only-on-difference distance condition (assumption (ii))
+determine the orbit up to scale within each plane.
+
+Choose a generator $y \mapsto y + 1$ of $\F_{5}$, fix
+$w_{5}(0)$ to lie in a chosen direction, and write $w_{5}(y)$ in
+the $V_{1} \oplus V_{2}$ basis. Direct computation gives
+$w_{5}(y) = \mathcal{O}_{1}(\cos(2\pi y/5), \sin(2\pi y/5)) \oplus
+\mathcal{O}_{2}(\cos(4\pi y/5), \sin(4\pi y/5))$ for some
+$\mathcal{O}_{1}, \mathcal{O}_{2} \in O(2)$, scaled so that the
+distance condition is met (which forces equal scale on both
+factors, equal to that of $v_{2:5}$). Therefore
+$w_{5} = \mathcal{O} \circ v_{2:5}$ with
+$\mathcal{O} = \mathrm{diag}(\mathcal{O}_{1}, \mathcal{O}_{2}) \in
+O(2) \times O(2) \subset O(4)$.
+
+The full statement for $w$ follows by observing that $w_{2}$ being
+the affine indicator on $\F_{2}$ uniquely determines $w_{2}$ up to
+a sign in $O(1)$.
 \end{proof}
 
 \begin{remark}
 \label{rem:rigidity-strength}
-Theorem~\ref{thm:rigidity} is rigid in the strong sense: the
-embedding $v$ is forced once the CRT splitting and the Fourier
-basis on $\F_5$ are fixed. The remaining freedom is the trivial
-one of orthogonal coordinate changes in $\R^4$ and a sign on the
-first coordinate. There is no freedom to change the dimension
-$5$, the splitting $1+4$, the assignment of operators to CRT
-coordinates, or the angular positions of the image points
-relative to one another.
+The premise of Theorem~\ref{thm:rigidity} is a structural condition
+on $w_{5}$: $\F_{5}$-equivariance under an $O(4)$-action plus the
+centered-and-equidistant condition. The conclusion is that $w_{5}$
+equals the standard Fourier basis up to $O(4)$. This is a genuine
+characterization, not a tautology: given only that $w_{5}$ is
+$\F_{5}$-equivariant (without naming the Fourier basis), we
+recover that $w_{5}$ \emph{must} be the Fourier basis. The remaining
+freedom is the trivial one of orthogonal coordinate changes in
+$\R^4$ and a sign on the first coordinate.
 \end{remark}
 
 \section{The spectral functional}
 \label{sec:functional}
 
-We introduce a natural functional on the image and locate its
-extrema. Recall the involution $\sigma: \Z/10\Z \to \Z/10\Z$
-that fixes the residues $\{0, 5\}$ pointwise and acts on the
-remaining eight residues by the cyclic shift
-$1 \mapsto 7 \mapsto 6 \mapsto 5 \mapsto 4 \mapsto 2$ (a
-$6$-cycle). The fixed points of $\sigma$ in CRT coordinates are
-those with $y(n) = 0$, i.e.\ the operators $\{0, 5\}$.
+We introduce a natural functional on $\Z/10\Z$ obtained by
+constructive interference of the basic Fourier character
+$\chi_{1}(y) = e^{2\pi i y / 5}$ along an explicit orbit, and
+compute its values at all ten operators.
+
+\paragraph{The permutation $\sigma$.}
+Throughout this section, $\sigma : \Z/10\Z \to \Z/10\Z$ denotes
+the permutation
+\[
+  \sigma \;=\; (0)(3)(8)(9)\,(1\,7\,6\,5\,4\,2).
+\]
+That is, $\sigma$ fixes $\{0, 3, 8, 9\}$ pointwise and cycles the
+remaining six residues $\{1, 2, 4, 5, 6, 7\}$ as a single
+$6$-cycle (so $\sigma$ has order $6$ in $S_{10}$, not order $2$).
+The four $\sigma$-fixed indices in $\Z/10\Z$ are $\{0, 3, 8, 9\}$.
 
 \begin{definition}[Spectral functional]
 \label{def:G}
 For each operator $n \in \Z/10\Z$, define
 \[
-  G(n) \;=\; \Bigl| \sum_{j=0}^{4} \omega^j \,
-    \chi_1\bigl(\sigma^j(y(n))\bigr) \Bigr|^2,
-  \qquad \omega = e^{2\pi i / 5}.
+  G(n) \;=\; \Bigl| \sum_{j=0}^{4} \omega^{j} \,
+    \chi_{1}\bigl(y(\sigma^{j}(n))\bigr) \Bigr|^{2},
+  \qquad \omega = e^{2\pi i / 5},
 \]
+where $y(m) = m \bmod 5$ and $\chi_{1}(y) = e^{2\pi i y / 5}$.
 \end{definition}
 
-The functional $G$ measures constructive interference of the
-character $\chi_1$ across the $\sigma$-orbit of $n$. The
-following lemma identifies the operators where $G$ is maximized.
+The functional $G$ measures the constructive interference of the
+character $\chi_{1}$ along the first five steps of the
+$\sigma$-orbit of $n$ (each weighted by a fifth root of unity).
 
-\begin{lemma}[Two-point maximum]
-\label{lem:two-points}
-The functional $G$ achieves the maximum value $G_{\max} = 25$ at
-exactly two operators: $n = 5$ (CRT coordinates
-$(\varepsilon, y) = (1, 0)$) and $n = 7$ (CRT coordinates
-$(\varepsilon, y) = (1, 2)$). At all other operators, $G(n) < 25$.
+\begin{lemma}[Spectral functional values]
+\label{lem:spectral}
+The functional $G$ takes the values listed in
+Table~\ref{tab:Gvalues}. In particular:
+\begin{enumerate}\setlength\itemsep{2pt}
+\item $G$ attains its global maximum $G(7) \approx 19.472$ at the
+single operator $n = 7$.
+\item $G(n) = 0$ at exactly four operators: $n \in \{0, 3, 8, 9\}$
+(the $\sigma$-fixed indices, where the geometric-series
+cancellation $\sum_{j=0}^{4} \omega^{j} = 0$ applies).
+\item The maximum value $G(7) \approx 19.472$ is strictly less
+than the generic upper bound $25$ on a sum of five unit-modulus
+complex numbers, because the $\sigma$-orbit of $7$ does not align
+the five characters $\chi_{1}(y(\sigma^{j}(n)))$ to share a
+common argument.
+\end{enumerate}
 \end{lemma}
 
+\begin{table}[h]
+\caption{The spectral functional $G(n)$ for $n = 0, \ldots, 9$,
+rounded to three decimal places. The maximum is at $n = 7$.}
+\label{tab:Gvalues}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$n$ & $\varepsilon$ & $y$ & $G(n)$ \\
+\hline
+0 & 0 & 0 & $0.000$ \\
+1 & 1 & 1 & $10.528$ \\
+2 & 0 & 2 & $3.292$ \\
+3 & 1 & 3 & $0.000$ \\
+4 & 0 & 4 & $5.000$ \\
+5 & 1 & 0 & $9.472$ \\
+6 & 0 & 1 & $16.708$ \\
+7 & 1 & 2 & $\mathbf{19.472}$ \\
+8 & 0 & 3 & $0.000$ \\
+9 & 1 & 4 & $0.000$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \begin{proof}
-The maximum of $|\sum_{j=0}^4 \omega^j z_j|^2$ over choices of unit
-complex numbers $z_j$ is $25$, attained when all $\omega^j z_j$
-have the same argument, i.e.\ $z_j = \omega^{-j}$. For $G(n)$ this
-means $\chi_1(\sigma^j(y(n))) = \omega^{-j}$, i.e.\
-$\sigma^j(y(n)) \equiv -j \pmod 5$ for $j = 0, \ldots, 4$. The
-$\sigma$-orbit of $y$ is constant when $y \in \{0\}$ (since $0$ is
-$\sigma$-fixed in $\F_5$). For $y(n) = 0$ we get
-$\chi_1(0) = 1 = \omega^0$ at every $j$, and the sum is
-$\sum_{j=0}^4 \omega^j \cdot 1 = 0$, giving $G(n) = 0$, not $25$.
-The genuine maxima occur where the orbit traverses the full
-$5$-cycle in the right order; computation reveals these are
-$y(n) = 0$ in the $\varepsilon = 1$ sector, modulated correctly by
-$\sigma$, giving $n = 5$, plus the $\varepsilon = 1$ representative
-of the conjugate Fourier pair, giving $n = 7$. (The detailed
-arithmetic of which $y$ values land on conjugate pairs is
-straightforward.) The value $G_{\max} = 25 = 5^2$ comes from the
-$5$ unit-modulus terms achieving constructive alignment.
+Direct computation. For each $n$, compute the orbit segment
+$(n, \sigma(n), \sigma^{2}(n), \sigma^{3}(n), \sigma^{4}(n))$,
+then the residues $y_{j} = y(\sigma^{j}(n))$, then the
+weighted sum $\sum_{j=0}^{4} \omega^{j} e^{2\pi i y_{j}/5}$, and
+finally $|\cdot|^{2}$.
+
+Two illustrative cases:
+
+\textit{Case $n = 7$ (the maximum).} The $\sigma$-orbit segment
+is $7 \to 6 \to 5 \to 4 \to 2$, with $y$-values $(2, 1, 0, 4, 2)$.
+Numerically, $G(7) \approx 19.472$.
+
+\textit{Case $n = 0$ (a zero).} Since $\sigma(0) = 0$, the orbit
+is $(0, 0, 0, 0, 0)$ and all $y_{j} = 0$, so $\chi_{1}(0) = 1$
+for each $j$ and the sum is $\sum_{j=0}^{4} \omega^{j} = 0$,
+giving $G(0) = 0$. The same vanishing occurs at $n = 3, 8, 9$ by
+the same mechanism.
+
+The bound $G(n) \le 25$ for all $n$ follows from the
+Cauchy-Schwarz inequality applied to the sum of five unit-modulus
+complex numbers: $|z_{0} + \omega z_{1} + \cdots + \omega^{4}
+z_{4}|^{2} \le 5 \cdot (|z_{0}|^{2} + \cdots + |z_{4}|^{2}) = 25$.
+Equality requires $\omega^{j} z_{j}$ to share a common argument
+for $j = 0, \ldots, 4$, equivalently $y(\sigma^{j}(n)) \equiv -j
+\pmod{5}$. Inspection of the orbits in Table~\ref{tab:Gvalues}
+shows this exact pattern fails at every $n$, so $G(n) < 25$
+strictly for all $n$.
+
+The values in Table~\ref{tab:Gvalues} are reproduced by the
+script \texttt{spectral\_functional.py} (deposited at the public
+repository).
 \end{proof}
 
 \begin{remark}
-The numerical values quoted in the source program were
-$G_{\max} \approx 9.389$ and $G_{\mathrm{low}} \approx 1.872$,
-which arise when the functional is normalized by an additional
-factor; the unnormalized arithmetic gives the cleaner statement
-above. The two-point maximum is the structural content.
+\label{rem:G-structural}
+The structural reading of Lemma~\ref{lem:spectral}: the spectral
+functional $G$ takes ten distinct values across the operators of
+$\Z/10\Z$, attains its global maximum at the single operator
+$n = 7$, and vanishes on the four $\sigma$-fixed indices
+$\{0, 3, 8, 9\}$. The maximum at $n = 7$ identifies the operator
+HARMONY (the substrate-name for $7$ in
+\cite{SandersGishFourCore}) as the operator of maximal
+$\sigma$-shifted Fourier coherence. We note that the previously
+circulated draft of this section asserted a two-point maximum at
+$\{5, 7\}$ with value $25$; that claim conflated the
+Cauchy-Schwarz upper bound with an attained value and is
+corrected here.
 \end{remark}
 
 \section{Two short applications}
@@ -425,35 +543,54 @@ companion papers in that program are:
   submitted to \emph{Algebraic Combinatorics}.} The four-core
   consolidated paper studies the joint closure of two binary
   composition operators on $\Z/10\Z$. Its main result identifies
-  the four-element subset $\{0, 5, 7, ?\}$ as the unique non-trivial
-  attractor under the joint dynamics; the corresponding image
-  $v(\{0,5,7,?\}) \subset \R^5$ is geometrically the two-point
-  maximum of Lemma~\ref{lem:two-points} together with two further
-  points on the $\varepsilon = 0$ sphere.
+  the four-element subset $\{0, 7, 8, 9\}$ (the substrate's
+  ``$4$-core'': VOID, HARMONY, BREATH, RESET) as the unique
+  non-trivial attractor under the joint dynamics. Under the
+  embedding $v$, the image $v(\{0, 7, 8, 9\}) \subset \R^{5}$
+  consists of the operator $n = 7$ (which maximizes the spectral
+  functional, Lemma~\ref{lem:spectral}) on the
+  $\varepsilon = 1$ sphere, together with the three operators
+  $\{0, 8, 9\}$ (all $\sigma$-fixed, all yielding $G = 0$) on the
+  $\varepsilon = 0$ sphere. Three of these four points are exactly
+  the spectral-functional zeros from
+  Table~\ref{tab:Gvalues}, and the remaining point ($n = 7$) is
+  the global maximum.
 \end{itemize}
 
 \section*{Verification}
 
-A short Python script that builds the CRT coordinates, computes
-the embedding, verifies the $10$ image points are distinct, and
-checks the rigidity assertion is included as supplementary
-material.
+A short Python script \texttt{spectral\_functional.py} (deposited
+with this paper) builds the CRT coordinates, computes the
+embedding, verifies the $10$ image points are distinct, computes
+the spectral functional $G(n)$ at each operator (reproducing
+Table~\ref{tab:Gvalues}), and checks the rigidity assertion at
+random orthogonal perturbations. Wall-clock under $1$ second with
+\texttt{numpy} as the only dependency.
 
 \begin{thebibliography}{99}
+
+\bibitem{Diaconis1988}
+P.~Diaconis, \emph{Group Representations in Probability and
+Statistics}, IMS Lecture Notes -- Monograph Series 11, Institute
+of Mathematical Statistics, 1988. [Canonical
+\emph{Monthly}-level treatment of finite-Fourier embeddings;
+Ch.~$1$ Examples $4$--$5$ and Ch.~$2$.]
 
 \bibitem{Terras1999}
 A. Terras, \emph{Fourier Analysis on Finite Groups and
 Applications}, London Mathematical Society Student Texts 43,
-Cambridge University Press, 1999.
+Cambridge University Press, 1999. [Ch.~$11$ for the abelian case
+with CRT splitting.]
 
-\bibitem{Stein1971}
-E.M. Stein and G. Weiss, \emph{Introduction to Fourier Analysis on
-Euclidean Spaces}, Princeton Mathematical Series 32, Princeton
-University Press, 1971.
+\bibitem{Steinberg2012}
+B.~Steinberg, \emph{Representation Theory of Finite Groups: An
+Introductory Approach}, Universitext, Springer, 2012. [\S$3$ for
+the Pontryagin dual and the Fourier basis on finite abelian
+groups.]
 
 \bibitem{Conrad}
 K. Conrad, \emph{Characters of finite abelian groups}, expository
-notes, available online.
+notes, available at \url{https://kconrad.math.uconn.edu/blurbs/}.
 
 \bibitem{IrelandRosen}
 K. Ireland and M. Rosen, \emph{A Classical Introduction to Modern

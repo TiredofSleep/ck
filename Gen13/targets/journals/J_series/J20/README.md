@@ -36,7 +36,32 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-_(no special notes; standard submission per J-series ordering)_
+**FRESH-EYES REFEREE PASS (2026-05-07): Major revision; SAVE PLAN applied.**
+
+The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J20_AMM_FreshEyes.md`) flagged one critical numerical error and several framing problems:
+
+- **M1 (CRITICAL).** Identity 4 misclaimed: the paper said "six of twelve M_22 irrep dimensions factor in {3,5,7,11} alone" listing {21, 55, 99, 154, 231, 385}, but the correct strict count is **seven** non-trivial dimensions: {21, 45, 45, 55, 99, 231, 385}. The original list silently omitted 45 (with multiplicity 2) and incorrectly included 154 (which has factor of 2). Corrected via direct sympy enumeration; sum-of-squares verified against |M_22| = 443520.
+- **M2.** Non-genericity asserted but not computed. Direct enumeration: 67 of 385 integers in [1, 385] lie in the substrate-prime band B (factors in {2,3,5,7,11}, at-most-one factor of 2), density 0.1740 = 17.40%. Binomial p-value P[X ≥ 10 | Bin(12, 0.1740)] ≈ 1.19 × 10⁻⁶. The 17.4% null density matches the referee's exact prediction.
+- **M3.** Identity 5 (77·W = 231/50) is arithmetic tautology; dropped.
+- **M4.** Identities 1, 2, 3, 6 are textbook Steiner parameters renamed; consolidated into one §"Backdrop" table.
+- **M5.** Substrate prime distinction not self-contained; rewritten with intrinsic substrate origin for each prime.
+- **M6.** Identity 6 (σ-orbit size = block size = 6) downgraded to a Remark.
+
+**Save plan:** `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J20.md` — Path A revision-and-resubmit to AMM (the referee's recommended path). Single-theorem framing centered on Theorem (Non-genericity); Steiner parameters as backdrop §; corrected count + computed null model + verification script.
+
+**Fixes applied 2026-05-07:**
+- `manuscript/manuscript.tex`: rewritten with corrected count, null-model computation, equivariance-based rigidity, single-author-block, ATLAS/Cameron/Wilson/Diaconis citations added, wobble-decomposition typo fixed, σ described correctly as order-6 permutation (not involution).
+- `manuscript/m22_decomposition.py`: new verification script written; reproduces all numerical claims (10 of 12 in B-band, 67 of 385 in B_385, 17.4% density, p ≈ 1.19 × 10⁻⁶).
+
+**Verification of fixes (sympy + math.comb):**
+- Sum-of-squares: $\sum (\dim V_i)^2 = 443520 = |M_{22}|$ ✓
+- Strict {3,5,7,11} count: 8 of 12 (including trivial); 7 non-trivial ✓
+- B-band count: 10 of 12 ✓
+- |B_385| = 67, density 0.1740 ✓ (matches referee's 17.4%)
+- P[X ≥ 10 | Bin(12, 0.1740)] = 1.191859 × 10⁻⁶ ✓
+- P[X ≥ 7 | Bin(11, 0.0990)] = 2.136594 × 10⁻⁵ ✓
+
+**Estimated revision time:** 1-2 weeks. Net: substantial restructure, no new mathematics.
 
 
 

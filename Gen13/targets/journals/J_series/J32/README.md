@@ -42,13 +42,47 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-**Status: DRAFT** — bundled manuscript built from corpus `papers/wp109_operad_d4_obstruction/` + `papers/wp112_p56_canonical_fuse/` on 2026-05-07. Lens scope **TSML_RAW** explicit at the top of the manuscript; the 4-core results (5.5, 5.7) flagged as **lens-invariant**. Bundled as Part 1 + Part 2 in a single .md per J_SERIES_ORDERING.md §4.
+**FRESH-EYES REFEREE PASS (2026-05-07): Reject; SAVE PLAN applied (UNBUNDLE).**
 
-**FALLBACK NEEDED if desk-rejected per PHASE4_FALLBACK_UNBUNDLING.md:**
-- WP109 (Part 1) → *Algebra Universalis*
-- WP112 (Part 2) → *Communications in Algebra*
+The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J32_CompositioMath_FreshEyes.md`) flagged two critical mathematical errors and identified the bundled paper as below the *Compositio* significance bar:
 
-The bundled manuscript can be split into two standalone manuscripts using the existing corpus files (`WP109_OPERAD_D4_OBSTRUCTION.md` and `WP112_P56_CANONICAL_FUSE.md`) as the unbundled drafts.
+- **§3.1 (CRITICAL).** Orbit-size distribution wrong: paper said $(5, 35, 19, 3)$ at sizes $(1, 2, 4, 8)$ summing to 175 ≠ 126. **CORRECT distribution** (sympy + script verified): $(44, 7, 4, 10, 2)$ at sizes $(1, 2, 3, 4, 8)$, summing to **67 orbits with size-weighted sum = 126** = |𝒩|. The correct accounting: 𝒩 is NOT $D_4$-invariant in $(\mathbb{Z}/10\mathbb{Z})^3$ (220 violations); the right group-theoretic object is the partition by restricted orbits $\overline{\mathcal{O}}_i := \mathcal{O}_i \cap \mathcal{N}$.
+- **§3.2 (CRITICAL).** D_4 group structure error: WP109 §2 claimed "6 distinct elements with abstract structure $D_3 \times \mathbb{Z}_2$." **Both wrong.** $|\langle P_{56}, \sigma^3\rangle| = 8$ (sympy verified, order distribution $\{1:1, 2:5, 4:2\}$ matching $D_4$). $D_3 \times \mathbb{Z}_2$ has order 12, not 8. **FIX:** WP109 §2 rewritten with explicit 8-element table (cycle structure + orders) and the direct calculation that $P_{56} \cdot \sigma^3$ has order 4.
+- **§4.2.** Burnside pseudo-citation in Theorem 2 (P_56 orbit count). Burnside not actually used; the singletons-vs-doubletons argument is direct enumeration. **FIX:** "Burnside" reference removed; replaced with the direct enumeration argument ("70 singletons + 28 doubletons = 98 orbits, sum-weighted 126").
+- **§4.6.** §5.9 family-independence undermines paper's headline (canonical fuse rule choice is irrelevant for dynamical attractor). **FIX:** Theorem 5.9 added explicitly; honest reading appended ("Family H is canonical for static-table-aesthetic reasons, not for dynamical-attractor reasons; the dynamical attractor is a property of the binary TSML's HARMONY-left-absorber row").
+- **§3.3, §3.4.** Obstruction example informal; no Φ argument hand-wavy. **FIX:** explicit case analysis on the size-3 obstruction example $\{(0,1,9),(0,5,9),(0,6,9)\}$ showing why $\{a,b,c,L,R\}$-valued $\Phi$ cannot be $D_4$-equivariant on this orbit; the case analysis serves as the worked-out paradigm for the 16 obstructing orbits.
+- **§7-§8 (significance).** Even with errors fixed, the bundled paper is below the *Compositio* significance bar (the result is a finite enumeration on a hand-picked $10\times 10$ table). **FIX:** UNBUNDLE per the referee's explicit recommendation.
+
+**Save plan:** `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J32.md` — UNBUNDLE per referee §8 recommendation:
+- **Part 1 (D_4 obstruction)** → *Algebra Universalis* (~6-8 pages, corrected obstruction theorem)
+- **Part 2 (P_56 canonical fuse + 4-core closure + HARMONY attractor)** → *Communications in Algebra* OR *Discrete Mathematics* (~8-12 pages)
+
+The bundled `manuscript.md` is **kept** as a single-document reference (with corrections applied); the two unbundled manuscripts are the journal-submission targets.
+
+**Fixes applied 2026-05-07:**
+- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §2: rewritten with explicit 8-element D_4 table, sympy verification, direct calculation of $P_{56}\cdot\sigma^3$ order.
+- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §3: rewritten with correct restricted-orbit framing ($\mathcal{N}$ not $D_4$-invariant; partition by $\overline{\mathcal{O}}_i := \mathcal{O}_i \cap \mathcal{N}$), correct distribution (44,7,4,10,2) summing to 67/126, explanation of size-3 restricted orbits.
+- `manuscript/WP109_OPERAD_D4_OBSTRUCTION.md` §4: explicit case analysis on the size-3 obstruction example.
+- `manuscript/manuscript.md` §"Theorem 1 (Obstruction)": corrected statement with the new orbit table.
+- `manuscript/manuscript.md` §"Theorem 2 (P_56 orbit decomposition)": Burnside removed, direct enumeration argument added.
+- `manuscript/manuscript.md` §"Theorem 5.7": expanded proof sketch (HARMONY left-absorber, total-variation distance, 7-iteration bound). 
+- `manuscript/manuscript.md` Theorem 5.9 added (family-independence).
+- `manuscript/manuscript.md` §"Honest scope" expanded (family-cosmetic status; framework dependence acknowledgment).
+- `manuscript/manuscript.md` Status block updated: retargeting from *Compositio* to unbundled fallback.
+
+**Verification of fixes (sympy + script):**
+- $|D_4| = |\langle P_{56}, \sigma^3 \rangle| = 8$ ✓
+- D_4 element order distribution: $\{1: 1, 2: 5, 4: 2\}$ ✓ (matches D_4)
+- $P_{56} \cdot \sigma^3$ has order 4 ✓
+- Restricted-orbit count: 67 orbits in 𝒩 ✓
+- Restricted-orbit size distribution: $(44, 7, 4, 10, 2)$ at sizes $(1, 2, 3, 4, 8)$ ✓
+- Size-weighted sum: $44 + 14 + 12 + 40 + 16 = 126 = |\mathcal{N}|$ ✓
+- Full $D_4$-orbit distribution (no restriction): $(17, 11, 37, 2)$ at sizes $(1, 2, 4, 8)$, sum = 203 ✓
+- 16 of 67 restricted orbits fail bracketing-pair coherence ✓
+- $\mathcal{N}$ is NOT $D_4$-invariant: 220 violations $g \cdot t \notin \mathcal{N}$ for $t \in \mathcal{N}$, $g \in D_4$ ✓
+- P_56 orbit decomposition: 70 singletons + 28 doubletons = 98 orbits, sum 126 ✓
+
+**Estimated revision time:** 3-4 weeks for the unbundled split. Net: orbit-distribution and D_4-group corrections applied (DONE); §5.9 honest reading added (DONE); unbundling into two stand-alone manuscripts (PENDING — to be done before submission).
 
 
 
