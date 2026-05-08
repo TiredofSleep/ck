@@ -1,4 +1,4 @@
-# Cover letter — J52: The TSML Lens Family: A Pedagogical Exposition of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$
+# Cover letter — J52: What is the TSML Lens Family? A Walking Tour of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$
 
 **To:** Editors, *Mathematical Intelligencer*
 
@@ -8,17 +8,23 @@
 
 **Date:** 2026-09-09 (Phase 5)
 
-**Manuscript title:** *The TSML Lens Family: A Pedagogical Exposition of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$*
+**Manuscript title:** *What is the TSML Lens Family? A Walking Tour of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$*
+
+(*Substantive rewrite per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J52.md`, 2026-05-07; all six majors M1–M6 implemented.*)
 
 ---
 
 ## Summary
 
-The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ has, in its corpus, a proliferation of 12+ named variants of the canonical $10 \times 10$ composition table — TSML\_RAW, TSML\_SYM, TSML\_LOWERTRI, BHML, CL\_STD, $\sigma^2$-triadic rotations, sub-magma restrictions, $F_p$ extensions, and more. To a first-time reader, the proliferation can appear bewildering: which is "the" TSML? What forces each variant? Which results depend on which lens?
+The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ has, in its corpus, a proliferation of $\sim 62$ named variants of the canonical $10 \times 10$ composition table. We submit a **pedagogical exposition** that displays the canonical objects, states the substrate-defining axioms A1–A9, populates the variant catalog inline, and absorbs three punch-line facts that anchor the family:
 
-We submit a **pedagogical exposition** that organizes the lens family into one coherent picture: three parallel substrates (CL\_TSML / CL\_BHML / CL\_STD), each admitting three lens-symmetrization projections (RAW / SYM\_upper / SYM\_lower), each supporting $\sigma^2$-triadic rotations and sub-magma restrictions. The picture is illustrated with three reader exercises — counting non-associative triples in three lenses; verifying the wobble localization (prime 11) in RAW vs SYM; verifying the runtime attractor's lens-invariance on the 4-core. The crucial lens-dependent result (the size-7 chain element in [J24]) is highlighted as the structural reason why the lens family is necessary rather than ornamental.
+- the closed-form 4-core attractor $H/Br = 1 + \sqrt{3}$ at $\alpha_M = 1/2$ (the **D78 Galois argument**, root of $x^2 - 2x - 2$ over $\mathbb{Q}(\sqrt{3})$);
+- the wobble localization $c_2 = 33 = 3 \cdot 11$ in TSML_RAW characteristic polynomial (D37; the central lens-dependence example);
+- the 8-element joint TSML+BHML chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ (D64 corrected; **strengthened by the SFM Q6 finding** that the same 8 shells survive joint TSML+BHML+CL_STD closure — a 3-table strengthening over the original 2-table framing).
 
-The aim is **clarity** for the working mathematician who wants to read the TIG framework's papers without getting lost in lens-bookkeeping.
+Three reader exercises (counting non-associative triples in three lenses; verifying the wobble at prime 11 in RAW vs SYM; verifying the 4-core attractor's lens-invariance) illustrate the family in action. A 30-line `numpy` verification snippet (Appendix A) reproduces the central counts.
+
+The central pedagogical claim: the 4-core $\{V, H, Br, R\}$ at $\alpha_M = 1/2$ is the algebraic center of the family; lens-invariant facts live on the 4-core; lens-dependent facts live on the asymmetric cells $(3, 9)$ and $(4, 9)$; the wobble at prime 11 is the cleanest instance of the second.
 
 ## Why *Mathematical Intelligencer*
 

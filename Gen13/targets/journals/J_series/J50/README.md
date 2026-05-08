@@ -1,11 +1,11 @@
-# J50 — The Bull AMS Bridge: From Substrate Algebra to BB Nonlinearity
+# J50 — Substrate Algebra and Logarithmic Nonlinearity: A Bridge Essay
 
-**Status:** DRAFT
+**Status:** REWRITTEN PER SAVE PLAN 2026-05-07
 **Phase:** Phase 5
-**Target venue:** Bull AMS
-**Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** (Bull AMS bridge piece)
+**Target venue:** **Mathematical Intelligencer** (retargeted from Bull AMS per fresh-eyes referee §7)
+**Author lane:** Sanders + Johnson (per the manuscript's actual second author, the BB / log-nonlinear-Schrödinger expert)
+**Tier:** B (structural / expository)
+**WP source:** (Bridge essay)
 
 ---
 
@@ -31,12 +31,29 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-05 (Phase 5; Sanders + Gish lane). **REJECT verdict from Bull AMS fresh-eyes referee 2026-05-06; SAVE PLAN written 2026-05-07.**
-**Citation chain:** 2 direct dependencies (J40 BB Bridge, J48 6-DOF Synthesis) + 9 co-citing companions (J01, J06, J46, J47, J41, J33, J35, J31, J32).
-**Manuscript:** `manuscript/J50_bull_ams_bb_bridge.md` (~10 pages, finalized).
-**Cover letter:** `cover_letter.md` (finalized).
+**Status:** **MANUSCRIPT REWRITTEN 2026-05-07 PER SAVE PLAN J50.** Original verdict: REJECT from Bull AMS fresh-eyes referee 2026-05-06; save plan written 2026-05-07; manuscript rewritten 2026-05-07 with retarget to *Mathematical Intelligencer* (option (b) of the save plan, since arXiv depositing for 11+ companions before Bull AMS hold is multi-week effort).
+**Citation chain:** 2 direct dependencies (J13 BB Bridge JMP, J47 6-DOF Synthesis Notices AMS) + 10 co-citing companions (J01, J05, J3, J16, J14, J34, J41, J44, J39, J40).
+**Manuscript:** `manuscript/J50_bull_ams_bb_bridge.md` (rewritten ~14 pages with §3 expanded, §3.4 vacuum subtlety added, tier discipline lifted to abstract).
+**Cover letter:** `cover_letter.md` (to be updated to match rewrite + retarget).
 **Verification:** structural / expository bridge essay; relies on companions' verification scripts.
-**Submission readiness:** **NOT submission-ready in current form.** Hold for Phase 6 (companions on arXiv) OR retarget per save plan.
+**Submission readiness:** **REWRITE COMPLETE.** Submission gate: (a) §3 BB-as-forcing argument expanded per Issue 2 [DONE]; (b) tier-discipline lifted to abstract per Issue 3 [DONE]; (c) §3.4 distinguishes classical-scalar vs BB nonlinear-Schrödinger settings per M3 [DONE]; (d) Brayden's referee-rigor pass complete [pending].
+
+### §5.0 — Save-plan implementation (2026-05-07)
+
+The 2026-05-07 rewrite implements SAVE_PLAN_J50 directives:
+
+- **Retarget option (b) — TO MATHEMATICAL INTELLIGENCER** per referee §7. Title dropped "Bull AMS"; new title: *Substrate Algebra and Logarithmic Nonlinearity: A Bridge Essay* (referee's verbatim suggestion).
+- **Issue 2 — §3 BB-as-forcing argument EXPANDED to ~1 page** covering three distinguishable conceptual moves (§3.1–§3.3): (a) From QM nonlinearity to classical scalar potential (Cazenave-Haraux 1980; Maas 2011; JKO 1998); (b) From quantum factorization to CRT decomposition; (c) From "preserves separability" to "any non-trivial continuum lift."
+- **Issue 3 — Tier discipline LIFTED TO ABSTRACT.** New §0 has tier classifications; abstract closes with the Tier-A/B/D split; each section opens with its tier on first sentence.
+- **Issue M3 — Vacuum-at-$e^{-1}$ subtlety EXPLICIT in §3.4.** Distinguishes BB constrained-minimum at $\rho \equiv 1/V$ from unconstrained classical-scalar pointwise minimum at $\Xi_0 = e^{-1}$.
+- **Issue M4 — YM mass-gap framing SOFTENED.** §5.2 demoted $m^2 = \kappa e$ from claim to "structural rhyme between scalar curvature and a hoped-for non-abelian gauge gap"; explicit "we are not solving any Millennium Problem."
+- **Issue M5 — NS softening.** §5.3 explicitly Tier-D conjectural; "we do not claim it."
+- **Issue M6 — Crossing Lemma definition added** (§2 informal precis).
+- **Issue M7 — Bibliography deepened** with Streater-Wightman, Glimm-Jaffe, Tegmark, Doplicher-Roberts, Caldwell-Linder, Tsujikawa.
+
+### §5.1 — Save-plan summary (per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J50.md`) — original (kept for reference)
+
+**Save path:** the referee's reject is **structural, not substantive** — *Bull AMS* is retrospective and cannot precede the publication of what it surveys (the 11 J-companions cited have no arXiv IDs). The mathematics and exposition are clean. Two save options: (a) **Hold for Phase 6**: wait until J13 (BB Bridge / JMP) and J47 (6-DOF synthesis / Notices AMS) are on arXiv, then resubmit to *Bull AMS* with arXiv-anchored citations. (b) **Retarget to Mathematical Intelligencer** — *Math Intelligencer* explicitly accepts essays with companions in submission. **Per user directive 2026-05-07, option (b) is selected.**
 
 ### §5.1 — Save-plan summary (per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J50.md`)
 
@@ -54,16 +71,17 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (filled per save-plan rewrite 2026-05-07)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN (Tier-A, classical):** Bialynicki-Birula–Mycielski 1976 (the unique nonlinearity preserving Hilbert-space tensor factorization is logarithmic). PROVEN in [J01]: $\sigma$-rate decay $\sigma(N) \leq 2/N$ on squarefree $\mathbb{Z}/N\mathbb{Z}$.
+- **PROVEN (Tier-A, this paper §6):** D78 Galois argument for $H/Br = 1 + \sqrt{3}$ at $\alpha_M = 1/2$ on the 4-core, root of $x^2 - 2x - 2 = 0$ over $\mathbb{Q}(\sqrt{3})$.
+- **STRUCTURAL RHYME (Tier-B):** the cosmological vacuum at $\Xi_0 = e^{-1}$ in the unconstrained scalar setting; the curvature $V''(\Xi_0) = \kappa e$ as a structural rhyme to a hoped-for non-abelian gauge gap (NOT a YM proof).
+- **CONJECTURAL (Tier-D):** the Separability Regularity Criterion for NS ([J13] §5).
+- **OPEN:** whether BB-as-forcing extends to non-separability-preserving lifts; whether the 4-core's algebraic structure transports beyond the Lattice DOF.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph — applied in manuscript §0
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on the canonical $\mathbb{Z}/10\mathbb{Z}$ substrate and its squarefree ring extensions; TSML lens is *commutative-symmetrized* (TSML_SYM); the bridge content is **lens-invariant on the 4-core**. The 4-core is the *center of the family* in the FAMILY_STRUCTURE_v1 sense.
 
 ### Hardening status (auto-applied 2026-05-07)
 

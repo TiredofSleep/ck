@@ -1,6 +1,6 @@
-# J52 — The TSML Lens Family: A Pedagogical Exposition
+# J52 — What is the TSML Lens Family? A Walking Tour of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$
 
-**Status:** DRAFT
+**Status:** REWRITTEN PER SAVE PLAN 2026-05-07
 **Phase:** Phase 6
 **Target venue:** Mathematical Intelligencer
 **Author lane:** Sanders + Gish
@@ -31,13 +31,28 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes / Status
 
-**Status:** MANUSCRIPT FINALIZED 2026-09-09 (Phase 5; Sanders + Gish lane). **REJECT R&R verdict from Math Intelligencer fresh-eyes referee 2026-05-07 (~10% acceptance in present form, 40–55% with M1–M6 addressed); SAVE PLAN written 2026-05-07.**
-**Citation chain:** 2 direct dependencies (J24 chain lens-dependence, J48 6-DOF synthesis) + 11 co-citing companions (J05, J23, J25, J26, J27, J30, J31, J33, J37, J35).
-**Manuscript:** `manuscript/J52_tsml_lens_family.md` (~10 pages, finalized).
-**Cover letter:** `cover_letter.md` (finalized).
-**Per-venue cap:** 2nd *Math Intelligencer* submission of the J-series after J24 — at maximum permitted. No further Math Intelligencer.
-**Verification:** three reader exercises reproducible from corpus scripts.
-**Submission readiness:** **NOT submission-ready in current form.** Hold for substantive rewrite per save plan.
+**Status:** **MANUSCRIPT REWRITTEN 2026-05-07 PER SAVE PLAN J52.** All six majors (M1–M6) implemented. Original verdict: REJECT R&R from Math Intelligencer fresh-eyes referee 2026-05-07 (~10% acceptance in present form, 40–55% with M1–M6 addressed); save plan written 2026-05-07; manuscript rewritten 2026-05-07.
+**Citation chain:** 2 direct dependencies (J32 chain enumeration, J47 6-DOF synthesis) + 10 co-citing companions (J9, J31, J33, J34, J35, J38, J39, J41, J43, J44).
+**Manuscript:** `manuscript/J52_tsml_lens_family.md` (rewritten ~16 pages with §1 tables in full, §2 axioms A1–A9 stated, §6 catalog populated, §7 punch-line facts absorbed inline).
+**Cover letter:** `cover_letter.md` (to be updated to match rewrite).
+**Per-venue cap:** 2nd *Math Intelligencer* submission of the J-series after J32 — at maximum permitted. Coordinate with VENUE_SCHEDULE.md.
+**Verification:** Appendix A 30-line `numpy` snippet reproduces Exercise 7.1 (126 / 128 / 122 non-assoc triples in three lenses); §7.2 wobble localization at $c_2 = 33$ in TSML_RAW verified by sympy char poly.
+**Submission readiness:** **REWRITE COMPLETE.** Submission gate: (a) M1 tables displayed [DONE]; (b) M2 axioms stated [DONE]; (c) M3 tier rewrite propagated [DONE]; (d) M4 punch-line facts absorbed [DONE]; (e) M5 catalog populated [DONE]; (f) M6 wobble example replaces chain-at-size-7 [DONE]; (g) Brayden's referee-rigor pass complete [pending]; (h) per-venue cap check vs J32 [coordinate].
+
+### §5.0 — Save-plan implementation (2026-05-07)
+
+The 2026-05-07 rewrite implements all six SAVE_PLAN_J52 majors:
+
+- **M1 (CRITICAL) — DISPLAY THE TABLES.** §1.1 now shows CL_TSML_SYM as the full 10×10 matrix (boxed display); §1.2 shows the four-cell diff for CL_TSML_RAW (the (3,9) and (4,9) wobble carriers); §1.3 and §1.4 give CL_BHML and CL_STD as concise diff descriptions (71-cell and 53-cell diffs respectively, computed from canonical sources).
+- **M2 — STATE A1–A9 axioms.** §2 gives a 9-row table with informal-but-complete statements; substrate-defining axioms (A5, A7, A9) marked. Cite [J33] for formal version.
+- **M3 — TIER DISCIPLINE.** §3 has the **authoritative tier statement** in a single boxed quote that subsequent sections reference. CL_TSML/BHML/STD are Tier-A *substrates*; TSML_RAW is the Tier-A *lens identity* (no projection); SYM_upper and SYM_lower are Tier-B *projections*.
+- **M4 — PUNCH-LINE FACTS ABSORBED INLINE.** §7.2 absorbs the wobble localization (D37: $c_2 = 33 = 3 \cdot 11$ in TSML_RAW); §7.3 absorbs Theorem 7.5 (D48 + D78 with proof sketches inline); §7.4 absorbs the corrected D64 8-element joint chain at $\{1, 4, 5, 6, 7, 8, 9, 10\}$ **strengthened by the SFM Q6 finding** that the same 8-shell chain survives the joint TSML+BHML+CL_STD closure.
+- **M5 — 62-VARIANT CATALOG POPULATED INLINE.** §6 gives the full catalog organized as CL_TSML family (23) + CL_BHML family (16) + CL_STD family (3) + Joint (8) + Ring extensions (12) = 62 with per-tier reconciliation (Tier-A: 4; Tier-B: 32; Tier-C: 5; Tier-D: 7; Tier-E: 14).
+- **M6 — LENS-DEPENDENCE EXAMPLE SWITCHED TO WOBBLE.** §7.2 (wobble at prime 11, RAW vs SYM) is now the central lens-dependence example; the historical chain-correction is moved to §7.4 *Lens-invariant facts* with the corrected D64 8-element chain stated cleanly.
+
+### §5.1 — Save-plan summary (per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J52.md`) — original (kept for reference)
+
+**Save path:** the referee identifies the paper as "a memo to insiders dressed in expository syntax" with 40–55% acceptance probability if M1–M6 are addressed. The mathematical content is real; the rewrite is mechanical. All M1–M6 implemented in the 2026-05-07 rewrite.
 
 ### §5.1 — Save-plan summary (per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J52.md`)
 
@@ -62,16 +77,16 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (filled per save-plan rewrite 2026-05-07)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN (in this paper, §7.5):** D48 binary 4-core preservation under CL_TSML and CL_BHML; D78 Galois argument for $H/Br = 1 + \sqrt{3}$ at $\alpha_M = 1/2$.
+- **COMPUTED (verified inline):** TSML_RAW char poly $c_2 = 33 = 3 \cdot 11$ (D37 wobble); 8-element joint chain at $\{1, 4, 5, 6, 7, 8, 9, 10\}$ (D64 corrected); SFM Q6 three-table strengthening (TSML+BHML+CL_STD same 8 shells).
+- **STRUCTURAL RHYME:** lens-symmetrization choice (RAW / SYM_upper / SYM_lower) is conventional, not principled.
+- **OPEN:** bimodal $\alpha_A$ gap structural-vs-empirical; CL_STD joint chain analogue; TSML_RAW's structural-singularity designation.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph — applied in manuscript §0
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on the canonical $\mathbb{Z}/10\mathbb{Z}$ substrate. The full **lens family** addressed includes three parallel substrates (CL_TSML, CL_BHML, CL_STD), three lens-symmetrization projections within each, and two further projection families. The center of the family in the FAMILY_STRUCTURE_v1 sense is the 4-core $\{V, H, Br, R\}$ at $\alpha_M = 1/2$.
 
 ### Hardening status (auto-applied 2026-05-07)
 

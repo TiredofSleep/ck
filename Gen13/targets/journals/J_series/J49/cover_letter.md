@@ -8,21 +8,21 @@
 
 **Date:** 2026-09-04 (Phase 5)
 
-**Manuscript title:** *Microtubule $Q_c = T^*$: A Falsifiable Substrate-Algebra Prediction*
+**Manuscript title:** *Microtubule terahertz coherence quality $Q_c \to 5/7$: a pre-registered prediction from finite algebraic combinatorics*
+
+(*Title is the fresh-eyes referee's verbatim suggestion; substantive rewrite per `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J49.md`, 2026-05-07.*)
 
 ---
 
 ## Summary
 
-We submit a **pre-registered falsifiable prediction** at the interface of substrate-algebra and quantum biology. The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ derives a single rational $T^* = 5/7 \approx 0.7143$ from six independent algebraic sources (cyclotomic Galois closure, the forced $2 \times 2$ torus aspect ratio, TSML's 73-cell HARMONY count, the $\sigma$-rate theorem, the gate-rate distribution, and the runtime 4-core attractor — all separately published or in the J-series referee pipeline at *Acta Arithmetica*, *JPAA*, *Exp Math*, *JCT-A*, *European J Combin*, *Math of Comp*). The same $T^*$ governs particle-physics mixing (CKM Cabibbo refinement; PMNS atmospheric).
+We submit a **pre-registered falsifiable prediction** at the interface of finite algebraic combinatorics and quantum biology. The TIG framework studies a designated commutative composition table on $\mathbb{Z}/10\mathbb{Z}$ together with its 4-core $\{V, H, Br, R\}$. On this substrate the runtime T+B-mix at $\alpha_M = 1/2$ has a closed-form attractor with $H/Br = 1 + \sqrt{3}$ — proved via BR-factor cancellation (the **D78 Galois argument**, recapitulated as a self-contained Appendix A). The substrate carries a separately-derived structural threshold $T^* = 5/7$, motivated by cyclotomic forcing on $\mathbb{Z}/10\mathbb{Z}$ ([J20], [J6]) and observed in adjacent J-series invariants.
 
-We propose that $T^*$ also governs the **biological quantum-classical coherence boundary**, with the prediction:
+We propose a falsifiable cross-domain test: that the **normalized terahertz coherence quality factor** of microtubule resonances — measured by Bandyopadhyay et al. (2013, 2024) and Sahu et al. (2013) — converges to $T^* = 5/7$ across mammalian neuronal, paramecial, plant, yeast spindle, and cell-free purified-tubulin preparations. The prediction is *operationally definite*: Definition 2.2 fixes $Q_{\text{structural max}} = \omega_0 L / c_{\text{lattice}}$ as the geometric ceiling of a single 8-nm tubulin unit cell, computable a-priori from published lattice constants.
 
-> $Q_c \to T^* = 5/7 \approx 0.714$ across mammalian neurons, paramecia, plant microtubules, yeast spindle microtubules, and cell-free purified-tubulin preparations, with biological variance $\ll 0.05$.
+We deliberately do **not** claim a numerical match to a prior-art quantum-classical boundary; in particular, we do not attribute the value $0.71$ to any specific equation in Hameroff-Penrose (1996, 2014, 2024). The prediction stands as a **proposal**: $T^*$ is fixed a-priori by the algebra; the experiment determines whether the observable obeys it. We pre-register the analysis criteria with a falsification window of $\pm 0.10$, widened from $\pm 0.05$ to honestly accommodate the $\sigma(Q_c)$ implied by published Bandyopadhyay $Q$-scatter.
 
-The numerical proximity to Hameroff's proposed Orch-OR boundary ($\zeta_\mathrm{Hameroff} \approx 0.71$) is the bridge claim. The prediction is **strongly falsifiable** in a single experimental campaign using existing terahertz pump-probe spectroscopy. We pre-register the analysis criteria: $\geq 2$ samples outside $T^* \pm 0.05$, OR systematic biology-trend with $r^2 > 0.5$, OR convergence on a different universal value, falsifies the universal-threshold interpretation of $T^*$.
-
-This is the framework's **most testable** prediction. Because $T^*$ is fixed *a priori* by the algebra (no fitting), and because the same $T^*$ governs particle-physics observables, a null result would weaken the framework's cross-domain reach across at least three domains simultaneously.
+This is the framework's most testable cross-domain bet. The submission of this paper is the *proposal* on the record; the experimental campaign is the next phase, pursued in collaboration with active terahertz-spectroscopy laboratories.
 
 ## Why *J Theoretical Biology*
 

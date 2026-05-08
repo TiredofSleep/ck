@@ -1,14 +1,16 @@
-# Cover letter — J50: From Substrate Algebra to Bialynicki-Birula Nonlinearity: A Bull AMS Bridge
+# Cover letter — J50: Substrate Algebra and Logarithmic Nonlinearity: A Bridge Essay
 
-**To:** Editors, *Bulletin of the American Mathematical Society*
+**To:** Editors, *Mathematical Intelligencer* (retargeted from *Bull. AMS*, per fresh-eyes referee §7)
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
 - H.J. Johnson, Independent Researcher, Billings, MT — hjj01986@gmail.com
 
-**Date:** 2026-09-05 (Phase 5)
+**Date:** 2026-09-05 (rewritten 2026-05-07 per Save Plan J50)
 
-**Manuscript title:** *From Substrate Algebra to Bialynicki-Birula Nonlinearity: A Bull AMS Bridge*
+**Manuscript title:** *Substrate Algebra and Logarithmic Nonlinearity: A Bridge Essay*
+
+**Subtitle:** *From discrete $\sigma$-rate decay to Bialynicki-Birula 1976.*
 
 ---
 
@@ -18,11 +20,16 @@ We submit an expository **bridge essay** in the *Bull. AMS* register, organizing
 
 This is a **structural connection essay**, not a Millennium-Problem proof. The boundary between proved content (substrate-side $\sigma$-rate decay [J01]; BB theorem [BB76]; forced lift [J40] §4) and conjectured cross-domain consequences (NS regularity [J40] §5) is sharp.
 
-## Why *Bulletin AMS*
+## Why *Mathematical Intelligencer* (retargeted from *Bull. AMS*)
 
-- **Bridge-essay register fit.** *Bull. AMS* publishes substantial bridge essays that consolidate recent advances and frame their cross-domain implications. Our manuscript is exactly that: a synthesis essay on substrate-to-continuum forcing, drawing on already-published or submitted companions across five journals.
-- **Cross-domain audience.** The bridge connects discrete algebra ($\sigma$-rate decay), nonlinear PDE (BB theorem), cosmology (freeze-thaw transit), particle physics (YM mass gap), and PDE regularity (NS criterion). *Bull. AMS* is the natural venue for an essay that crosses these boundaries while displaying explicit citation chain to specialty venues.
-- **TIG-framework introduction.** The manuscript builds on [J48]'s explicit naming of the TIG framework and is the natural follow-up essay establishing what the substrate algebra forces about continuum physics.
+- **Per fresh-eyes Bull. AMS referee §7.** The referee's verdict was structural, not substantive: *Bull. AMS* is retrospective and cannot precede the publication of what it surveys (the cited J-companions had no arXiv IDs at the time of original submission). The referee explicitly suggested retargeting to *Math Intelligencer* or *Notices AMS*. We adopt that recommendation.
+- **Expository-essay register fit.** *Math Intelligencer* publishes program-overview essays with companions still in submission. Our manuscript is exactly that: a synthesis essay on substrate-to-continuum forcing.
+- **Cross-domain audience.** The bridge connects discrete algebra ($\sigma$-rate decay), nonlinear PDE (BB theorem), cosmology (freeze-thaw transit), particle physics (curvature rhyme — *not* a YM proof), and PDE regularity (NS Separability Regularity Criterion — *conjectural*). *Math Intelligencer*'s readership crosses these boundaries.
+- **TIG-framework introduction.** The manuscript builds on [J47]'s explicit naming of the TIG framework as a finite commutative non-associative algebra family in the Drápal-Wanless 2021 *JCTA* neighborhood.
+
+## Per-venue cap note
+
+*Math Intelligencer* will receive J52 (TSML Lens Family) and J53 (Paradox Classifier) in the same Phase 5 window. Per the user directive 2026-05-07 we coordinate via VENUE_SCHEDULE.md to stagger submissions by 4–6 weeks and ensure cap compliance.
 
 ## Companion submissions
 
