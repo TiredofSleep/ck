@@ -1,82 +1,80 @@
-# J12 — Coordinate Coverage on Z/10Z
+# J12 — Non-CRT Sufficient Pairs and the Minimum Viable Jump Number on Squarefree Z/nZ
 
-**Status:** DRAFT
+**Status:** REVISED (post fresh-eyes referee, 2026-05-08)
 **Phase:** Phase 2
-**Target venue:** European Journal of Combinatorics
+**Target venue:** *European Journal of Combinatorics*
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP64
+**Tier:** B (PROVEN)
+**WP source:** WP64 (Sprint 12 corpus)
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: WP64)`
+**Path:** `manuscript/manuscript.tex` (amsart, ~10 pages)
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**Abstract.** For squarefree $n = p_1 \cdots p_k$ ($k \geq 2$), we study the partition lattice of Z/nZ from the perspective of CRT coordinate decomposition. Three structural results: (1) the orbit-pair classification ($\{\pi_{\mathrm{DYN}}(g), \pi_{\mathrm{DYN}}(h)\}$ sufficient iff coordinate-wise coprime orders at every CRT prime); (2) the three-mechanism support classification (focused, same-prime coprime, mixed) with mechanism (M2) existing iff some $p_i - 1$ has ≥ 2 distinct prime factors; (3) on Z/30Z, three sufficient 2-partition families with one orthogonal jump exhibit three distinct mechanisms. We work the n=10 case in detail and prove $\mathrm{MVJN}(\Z/n) = 1$ for all squarefree $n$ with $k \geq 2$ primes.
 
-## §2 — Verification script
+## §2 — Verification
 
-**Path:** `(coordinate coverage script)`
+No standalone script needed; numerical claims hand-checkable. Independently verified via numpy:
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+- $\{\pi_{\mathrm{DYN}}(7), \pi_{\mathrm{DYN}}(11)\}$ on Z/30Z: sufficient (no joint-conflict pair); orders confirmed.
+- $\{\pi_{\mathrm{SPEC}}, \pi_{15}\}$ on Z/30Z: sufficient.
+- $\{\pi_2, \pi_{15}\}$ on Z/30Z: sufficient.
+- M3 example on Z/42 with $g=11, h=13$: sufficient by direct enumeration.
+- Smallest primes $p$ with $p-1$ multi-prime: 7, 11, 13, 19, 23, 29, 31, 37, ... (verified through 50).
 
-## §3 — Dependencies (J-papers cited as already-submitted companions)
+## §3 — Dependencies
 
-J10
+None as load-bearing companions. Theorem 3.1 (orbit-pair classification) is now proven inline by direct CRT-coordinate argument; the previous UOP-companion appeal has been removed.
+
+J10 (UOP) is mentioned only for related context.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+See `cover_letter.md` in this folder. Updated 2026-05-08 post-revision.
 
 ## §5 — Notes
 
-UOP arc closeout.
+**Family-Structure framing.** The paper sits in the same intellectual neighborhood as Drápal & Wanless (2021), *JCTA* **184**, 105510, on small finite combinatorial structures with explicit CRT-coordinate criteria.
 
-**Status update (2026-05-07):**
+**PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — filled.**
 
-- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Coordinate-coverage and partition-lattice paper for European Journal of Combinatorics. Synthesized from WP64 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Main results: rigidity of the prime-factor family (k-1 jumps), three sufficient 2-partition families on Z/30Z (one orthogonal jump each, giving MVJN(Z/30Z) = 1), the orbit-pair classification via coprime-order at every CRT prime, the three mechanisms (focused / same-prime coprime-orders / mixed) with criterion for mechanism (M2) existence (some p_i - 1 has >= 2 distinct prime factors). Detailed treatment of the n = 10 partition lattice. Conjecture: MVJN(Z/nZ) = 1 for all squarefree n >= 6.
-- Cover letter: `cover_letter.md` finalized, ~500 words.
-- Companion citation: J10 (UOP lead, JNT) cited for the joint-map injectivity criterion. J11 (Corrected Theorem C, JNT) cited for the M+A correction.
+- **PROVEN:** Theorem 3.1 (orbit-pair classification); Theorem 4.1 (three-mechanism support classification); Theorem 2.3 (rigid CRT prime-factor family); **Theorem 7.2 (MVJN(Z/n) = 1 for squarefree n with k ≥ 2 primes — was a conjecture in the v1 manuscript, now upgraded to a theorem)**; Theorem 5.1 (three explicit non-CRT pairs on Z/30Z with mechanism identifications).
+- **COMPUTED:** All sufficiency claims on Z/10, Z/30, Z/42 verified by direct enumeration. All order computations verified. Smallest primes admitting (M2) verified through 50.
+- **STRUCTURAL RHYME:** Connection to orthogonal cyclic Latin squares (existence theory of Bose–Shrikhande–Parker line) noted in §3 Remark; full development deferred.
+- **OPEN:** Classification of mixed (residue + orbit) sufficient pairs; optimal-information sufficient pairs minimizing block-size product; extension to non-squarefree n.
 
+**Lens-ownership paragraph.** Works on squarefree Z/nZ with the two natural partition classes (residue partitions $\pi_d$ and orbit partitions $\pi_{\mathrm{DYN}}(g)$). These choices are foundational; analogous theorems would hold for other natural partition classes.
 
+### Revision summary (post fresh-eyes referee, 2026-05-08)
 
-### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
+Major fixes:
+1. **M1.** MVJN now defined precisely (Definition 1.1) as the minimum count of incompatible pairs in a sufficient 2-partition family.
+2. **M2.** Theorem 5.1 (was 1.2) reframed: family (a) $\{\pi_{\mathrm{DYN}}(7), \pi_{\mathrm{DYN}}(11)\}$ is the genuinely novel sufficient pair (orbit-pair only); families (b) and (c) are CRT-style.
+3. **M3.** Theorem 3.1 (orbit-pair classification) now precedes Theorem 5.1 in the body, so family (b) is its corollary.
+4. **M4.** Theorem 4.1 (three mechanisms) now stated as a partition by support pattern (mutually exclusive and exhaustive).
+5. **M5.** Conjecture 6.2 promoted to **Theorem 7.2**: the conjecture follows from the CRT-prime-factor sufficiency $\{\pi_{p_1}, \pi_{n/p_1}\}$ combined with the refinement-trap lower bound.
+6. **M6.** Standalone the proofs (UOP appeals removed; direct CRT arguments used).
+7. **M7.** **Geometric "5/7 torus aspect ratio" remark removed** — TIG-bleed-through into supposedly pure combinatorial paper.
+8. **M8.** Smallest-primes list extended to include 29 (and noted continuation 31, 37, ...).
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
-
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
-
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
-
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
-
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
-
-### Hardening status (auto-applied 2026-05-07)
-
-- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
-- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
-- Author lane: Sanders + Gish (per Brayden directive)
-- Drápal-Wanless 2021 citation in references
+Minor fixes adopted: m1 (title generalized to squarefree Z/nZ), m2 (duplicate author block removed), m3 (abstract tightened), m4 (consistent terminology), m5–m17 — see SAVE_PLAN_J12.md.
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to European Journal of Combinatorics this quarter
+- [x] Manuscript .tex finalized
+- [x] No verification script needed (hand-checkable; independently verified by numpy)
+- [x] Tier-classified central claim explicit (Theorems 3.1, 4.1, 5.1, 2.3, 7.2 PROVEN)
+- [x] Lens-scope annotation in §1.4
+- [x] Cover letter finalized (post-revision)
+- [x] Dependencies removed (paper standalone)
+- [ ] Brayden's referee-rigor pass complete
 - [ ] Submitted
 
 ---
 
-## §7 — Citation footprint (for downstream J's to cite this one)
+## §7 — Citation footprint
 
-Sanders, B.R., Mayes. (2026). "Coordinate Coverage on Z/10Z." Submitted to *European Journal of Combinatorics*.
+Sanders, B.R., Gish, M. (2026). "Non-CRT Sufficient Pairs and the Minimum Viable Jump Number on Squarefree Z/nZ." Submitted to *European Journal of Combinatorics*.

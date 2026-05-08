@@ -1,37 +1,46 @@
-# Cover letter — J12: Coordinate Coverage on Z/10Z
+# Cover letter — J12: Non-CRT Sufficient Pairs and the Minimum Viable Jump Number on Squarefree Z/nZ
 
 **To:** Editors, *European Journal of Combinatorics*
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- B. Mayes, Independent Researcher
+- M. Gish, Independent Researcher
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Coordinate Coverage on Z/10Z: Non-CRT Sufficient Pairs and the Minimum Viable Jump Number*
+**Manuscript title:** *Non-CRT Sufficient Pairs and the Minimum Viable Jump Number on Squarefree Z/nZ*
 
 ---
 
 ## Summary
 
-We study the partition lattice of squarefree Z/nZ (n = p_1...p_k, k >= 2) from the perspective of the Chinese Remainder Theorem coordinate decomposition. The main results are: (1) the prime-factor partition family {pi_p_1, ..., pi_p_k} is rigid — any sufficient sub-family has length k and contributes exactly k-1 pairwise-incompatible jumps; (2) the prime-factor family is not the minimum-jump sufficient family — for n = 30 we exhibit three sufficient 2-partition families with exactly one orthogonal jump, in particular {pi_SPEC, pi_15}, {pi_DYN(7), pi_DYN(11)}, and {pi_2, pi_15}, giving MVJN(Z/30Z) = 1; (3) the orbit-pair classification reduces uniformly to a coprime-order condition at every CRT prime; (4) three distinct mechanisms produce sufficient DYN pairs (focused on distinct primes, same-prime coprime orders, mixed), with the second mechanism existing iff some p_i - 1 has at least two distinct prime factors. We work the n = 10 case in detail (giving the partition-lattice structure) and conjecture MVJN(Z/nZ) = 1 for all squarefree n >= 6.
+For squarefree $n = p_1 \cdots p_k$ ($k \geq 2$), we study the partition lattice of $\Z/n\Z$ from the CRT coordinate decomposition. Main results:
+
+1. **Orbit-pair classification (Theorem 3.1).** $\{\pi_{\mathrm{DYN}}(g), \pi_{\mathrm{DYN}}(h)\}$ is sufficient iff $\langle g \rangle \cap \langle h \rangle = \{1\}$, equivalently $\gcd(\mathrm{ord}_{p_i}(g), \mathrm{ord}_{p_i}(h)) = 1$ at every prime $p_i \mid n$.
+
+2. **Three-mechanism support classification (Theorem 4.1).** Sufficient orbit-pairs partition uniquely into three types: focused at distinct primes (M1), same-prime coprime orders (M2), or mixed (M3). Mechanism (M2) at a prime $p_i$ exists iff $p_i - 1$ has ≥ 2 distinct prime factors. Smallest five: 7, 11, 13, 19, 23.
+
+3. **Three explicit non-CRT pairs on Z/30Z (Theorem 5.1).** $\{\pi_{\mathrm{DYN}}(7), \pi_{\mathrm{DYN}}(11)\}$ (orbit + orbit, mechanism M3), $\{\pi_2, \pi_{15}\}$ (residue + residue), $\{\pi_{\mathrm{SPEC}}, \pi_{15}\}$ (reflection + composite residue) — all sufficient with one orthogonal jump.
+
+4. **Universal $\mathrm{MVJN} = 1$ (Theorem 7.2).** $\mathrm{MVJN}(\Z/n) = 1$ for every squarefree $n$ with $k \geq 2$ primes (this was a conjecture in earlier drafts; now promoted to a theorem via the construction $\{\pi_{p_1}, \pi_{n/p_1}\}$).
+
+We work the $n = 10$ case in detail and provide an explicit parametrization of mechanism (M3) at $n = 42$.
 
 ## Why European Journal of Combinatorics
 
-- The paper is genuinely combinatorial: it concerns the partition lattice, set-theoretic intersections, orbit structure, and minimum-element problems within the lattice.
-- The non-CRT 2-partition result is the kind of "minimum problem on a combinatorial structure" that EJC publishes regularly.
-- The orbit-pair classification (Theorem 3) and the three mechanisms (Theorem 4) are pure combinatorics; the only number-theoretic input is CRT.
+The paper is genuinely combinatorial: partition lattice structure, set-theoretic intersections, orbit structure, and minimum-element problems within the lattice. The orbit-pair classification (Theorem 3.1) is in the intellectual neighborhood of orthogonal cyclic Latin square existence theory (Bose–Shrikhande–Parker line). The three-mechanism support classification (Theorem 4.1) gives a clean number-theoretic-flavored combinatorial constraint ($p_i - 1$ has ≥ 2 distinct prime factors).
 
-## Companion submissions
+## Standalone scope
 
-The TIG/CK research program is shipping a coordinated 55-paper sequence (J01–J55) over Summer 2026. The papers most relevant as already-submitted companions to this manuscript are:
+This paper is now standalone. All theorems proved by direct CRT-coordinate arguments; no dependencies on companion submissions for load-bearing content.
 
-- J10 (Sanders–Mayes, "The Universal Orthogonality Principle", *J. Number Theory*) — the lead. UOP provides the joint-map sufficiency criterion that all our incompatibility theorems compute.
-- J11 (Sanders–Mayes, "Corrected Theorem C", *J. Number Theory*) — the M+A correction.
+## Closest published precedent
+
+Drápal & Wanless (2021), *J. Combin. Theory Ser. A* **184**, 105510, on small finite combinatorial structures with explicit CRT-coordinate criteria — same intellectual neighborhood, different specific topic.
 
 ## Reproducibility
 
-The pair-injectivity computations are hand-checkable. The orbit classifications for n = 30 (Theorem 2) can be verified in under five minutes by direct enumeration of orbits in (Z/30Z)*. The DYN-pair examples at n = 42 (Theorem 4 mechanism (M3)) can be verified by computing orders mod 3 and mod 7.
+The pair-injectivity computations are hand-checkable. The orbit classifications for n = 30 (Theorem 5.1) can be verified in under five minutes by direct enumeration of orbits in (Z/30Z)*. The DYN-pair examples at n = 42 (Theorem 4.1 mechanism (M3)) can be verified by computing orders mod 3 and mod 7. We have independently verified all numerical claims via numpy enumeration.
 
 ## Suggested reviewers
 
