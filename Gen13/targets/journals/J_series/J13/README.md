@@ -33,12 +33,34 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 T* derivation. Companion to J07 Flatness Theorem.
 
-**Status update (2026-05-07):**
+**Save-plan summary (2026-05-07):** see `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J13.md` for the full plan.
 
-- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Standalone derivation of T* = 5/7 from cyclotomic forcing. Source: WP51 Section 4 ("The Aspect Ratio R/r = T* = 5/7") at `Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md`, plus the catalog of six independent derivations from the same WP. Theorem 1: R is forced to be proportional to the smallest p | n with deg_Q(A_p) <= 2 (giving p = 5 for n = 10), r is forced to be proportional to the smallest p with deg_Q(A_p) >= 3 (giving p = 7, with minimal polynomial 8 x^3 - 4 x^2 - 4 x + 1 irreducible over Q). Section 6 catalogs the five companion derivations (sinc^2 first-G law, BTQ operator balance, cyclotomic reduction gap, TSML/BHML harmony cell ratio, prime-pi-phi bridge) and verifies their numerical agreement at 5/7. Section 7 conjectures the generalization T*(Z/nZ) = p_closed/p_obstr.
-- Cover letter: `cover_letter.md` finalized, ~500 words.
-- Companion citation: J07 (Flatness Theorem, JPAA) cited as parent result. J03 (First-G Law, Integers) cited for the sinc^2 framework. J06 (Crossing Lemma, JCT-A) cited for the structural input on incompatible CRT factor partitions. J10 (UOP, JNT) cross-cited.
-- Independent of J10–J12 chain: this paper is a separate venue (Acta Arithmetica) with its own cyclotomic argument and does not depend on UOP for its proof, only for ambient context.
+The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J13_ActaArith_FreshEyes.md`) flagged two hard errors plus four structural issues. Both hard errors are fixed in `manuscript/manuscript.tex`:
+
+- **Error 1 (M1):** The polynomial $8x^3 - 4x^2 - 4x + 1$ originally cited as the minimal polynomial of $A_7 = 2\cos(\pi/7)$ is actually the minimal polynomial of $\cos(\pi/7)$. The correct minimal polynomial of $A_7$ is $x^3 - x^2 - 2x + 1$. Sympy-verified. Both are degree-3 irreducible, so the structural conclusion (deg-3 obstruction at $p = 7$) is preserved; the manuscript now cites the correct polynomial.
+- **Error 2 (M2):** Lemma 4.2 evaluated $f(-1/2) = 3$ when the correct value (for the paper's original polynomial) is $1$ — error in the cube's sign. Moot after M1 fix; rewritten using the correct polynomial $g(x) = x^3 - x^2 - 2x + 1$, where the rational root test reduces to $g(1) = -1, g(-1) = 1$.
+
+Structural corrections (M3–M6, m1–m8):
+
+- **M3 — Calibration retreat.** Theorem 1.1 is retitled "Cyclotomic-calibrated 5/7 aspect ratio" and explicitly conditioned on a new Definition 2.4 (cyclotomic-embedding calibration). The forcing is conditional on this calibration, which is itself imported from J07 (Flatness Theorem). Open question (b) added: a calibration-free derivation would make 5/7 unconditional. Paper retitled "**The Forced 5/7 Torus Aspect Ratio (Up to a Calibration Choice)**".
+- **M4 — Companion derivations honesty pass.** §6 reorganized: two were reformulations of the same theorem (so labeled), two are independent appearances of the same threshold (not independent derivations of the ratio itself), two were deleted entirely (BTQ balance and the $5/7 = (\sin(\pi/5)\sin(\pi/7))^?$ bridge had no self-contained content). The earlier claim that $73/101 = 5/7$ exactly is **retracted**: $73/101 - 5/7 = 6/707 \approx 1.2\%$, recorded as an open numerical question.
+- **M6 — Conjecture scope restricted.** Conjecture 7.1 now requires that some prime divisor $p_i \mid n$ has $A_{p_i}$ irrational and degree $\le 2$ over $\mathbb{Q}$. New Proposition 7.2 identifies the domain as $\{n : 5 \mid n, \text{squarefree}, n > 5\}$. Cases $n = 14, 21$ (with $7 \mid n$) are explicitly outside the conjecture.
+- **m1, m3, m4, m7:** duplicate `\author` blocks fixed; "narrow-major" terminology replaced; abstract uses precise language; "structural 7 zeros" deleted from open questions.
+
+**What survives.** The structural deg-2 / deg-3 cyclotomic obstruction (the cyclotomic threshold between $p = 5$ and $p = 7$) is real and is what drives the $5/7$ ratio under the calibration. Conditional on the cyclotomic-embedding calibration, the theorem is now rigorous and verifiable. The $73/101$ "near-derivation" is honestly demoted from claim to open problem.
+
+**Retarget recommendation.** Acta Arithmetica is likely still the wrong venue — the result is a calibration-conditional cyclotomic threshold theorem, which fits **Integers** (open access, short notes) better. Alternative: fold into J07 retarget. Brayden's call.
+
+**Manuscript state.** `manuscript/manuscript.tex` revised in place; LaTeX environment balance verified (30 begin / 30 end, all matched); ready for Brayden's referee-rigor pass (~1 hour to submission-ready).
+
+---
+
+**Original note (2026-05-07):**
+
+- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Source: WP51 Section 4 ("The Aspect Ratio R/r = T* = 5/7") at `Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md`.
+- Cover letter: `cover_letter.md` (needs update to reflect calibration-conditional framing).
+- Companion citation: J07 (Flatness Theorem, JPAA) cited as parent result. J03 (First-G Law, Integers) cited for the sinc^2 framework. J06 (Crossing Lemma, JCT-A) cited for incompatible CRT factor partitions. J10 (UOP, JNT) cross-cited.
+- Independent of J10–J12 chain: separate cyclotomic argument; does not depend on UOP for its proof.
 
 
 
