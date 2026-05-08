@@ -33,6 +33,12 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 UOP arc closeout.
 
+**Status update (2026-05-07):**
+
+- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Coordinate-coverage and partition-lattice paper for European Journal of Combinatorics. Synthesized from WP64 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Main results: rigidity of the prime-factor family (k-1 jumps), three sufficient 2-partition families on Z/30Z (one orthogonal jump each, giving MVJN(Z/30Z) = 1), the orbit-pair classification via coprime-order at every CRT prime, the three mechanisms (focused / same-prime coprime-orders / mixed) with criterion for mechanism (M2) existence (some p_i - 1 has >= 2 distinct prime factors). Detailed treatment of the n = 10 partition lattice. Conjecture: MVJN(Z/nZ) = 1 for all squarefree n >= 6.
+- Cover letter: `cover_letter.md` finalized, ~500 words.
+- Companion citation: J17 (UOP lead, JNT) cited for the joint-map injectivity criterion. J18 (Corrected Theorem C, JNT) cited for the M+A correction.
+
 ## §6 — Submission checklist
 
 - [ ] Manuscript .tex / .md finalized

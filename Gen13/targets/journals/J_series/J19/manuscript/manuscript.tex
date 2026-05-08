@@ -1,0 +1,307 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zns}{(\Z/n\Z)^{\times}}
+\newcommand{\Zts}{(\Z/10\Z)^{\times}}
+\newcommand{\meet}{\wedge}
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\triv}{\mathrm{triv}}
+\newcommand{\DYN}{\mathrm{DYN}}
+\newcommand{\SPEC}{\mathrm{SPEC}}
+\newcommand{\UG}{\mathrm{UG}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+
+\title[Coordinate coverage on $\Z/10\Z$]{Coordinate Coverage on $\Z/10\Z$:\\
+Non-CRT Sufficient Pairs and the Minimum Viable Jump Number}
+
+\author{B.~R. Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{B.~Mayes}
+\address{Independent Researcher}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+For squarefree $n = p_1 \cdots p_k$ ($k \geq 2$), the Chinese Remainder Theorem decomposes $\Zn$ into $k$ independent coordinate directions and identifies the prime-factor partition family $\{\pi_{p_1},\ldots,\pi_{p_k}\}$ as a canonical sufficient family with exactly $k-1$ orthogonal jumps in the partition lattice. We prove three structural facts. First, the prime-factor family is rigid: every minimal sufficient sub-family within it has length exactly $k$ and contributes $k-1$ pairwise-incompatible jumps. Second, the prime-factor family is \emph{not} the minimum-jump sufficient family in general: composite-residue partitions and orbit partitions can encode several CRT coordinates simultaneously, reducing the jump count. For $n = 30$ we exhibit three sufficient $2$-partition families with exactly one orthogonal jump --- $\{\pi_{\SPEC}, \pi_{15}\}$, $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$, and $\{\pi_2, \pi_{15}\}$ --- and conclude $\mathrm{MVJN}(\Z/30\Z) = 1$. Third, the orbit-pair classification reduces uniformly to a coprime-order condition on each CRT prime: $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ at every prime $p_i \mid n$. Three distinct mechanisms produce sufficient $\DYN$ pairs --- focused on distinct primes, same-prime coprime orders, and mixed --- and the second mechanism exists iff some $p_i - 1$ has at least two distinct prime factors. We work the $n = 10$ case in detail (giving the partition-lattice structure $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$ and the incompatibility of $\pi_{\CRT_5}$ with this chain) and conjecture $\mathrm{MVJN}(\Zn) = 1$ for every squarefree $n \geq 6$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Setting}
+
+Throughout, $n = p_1 p_2 \cdots p_k$ is squarefree with $k \geq 2$. The Chinese Remainder Theorem provides $\Psi \colon \Zn \to \prod_i \Z/p_i\Z$, $x \mapsto (x_1,\ldots,x_k)$ where $x_i = x \bmod p_i$. The unit group factors as $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$, each factor cyclic of order $p_i - 1$.
+
+A partition $\pi$ of $\Zn$ has unresolved-pair set $U(\pi) = \{\{x,y\} : x \neq y, x \sim_{\pi} y\}$. A family $\{\pi_1, \pi_2, \ldots, \pi_m\}$ is \emph{sufficient} when $\bigcap_i U(\pi_i) = \emptyset$, equivalently $\pi_1 \meet \pi_2 \meet \cdots \meet \pi_m = \pi_{\disc}$. Two partitions are \emph{incompatible} (an \emph{orthogonal jump}) when neither refines the other.
+
+The two natural classes of partitions used here are the residue partitions $\pi_d$ (for $d \mid n$) and the orbit partitions $\pi_{\DYN}(g)$ (for $g \in \Zns$, with blocks the orbits of multiplication by $g$). The reflection partition $\pi_{\SPEC}$ has blocks $\{x, n-x\}$.
+
+\subsection{The minimum viable jump number}
+
+\begin{definition}
+The \emph{minimum viable jump number} $\mathrm{MVJN}(\Zn)$ is the smallest number of orthogonal jumps in any sufficient family of partitions of $\Zn$.
+\end{definition}
+
+\subsection{Main results}
+
+\begin{theorem} \label{thm:rigid}
+For squarefree $n$ with $k \geq 2$ primes, every minimal sufficient family among $\{\pi_{p_1}, \ldots, \pi_{p_k}\}$ has length $k$, and every consecutive transition between distinct factor partitions is an orthogonal jump. The minimum-jump count within the prime-factor family is exactly $k-1$.
+\end{theorem}
+
+\begin{theorem} \label{thm:n30}
+There exist sufficient $2$-partition families on $\Z/30\Z$ with exactly one orthogonal jump:
+\begin{enumerate}[label=(\alph*)]
+\item $\{\pi_{\SPEC}, \pi_{15}\}$ (residue + reflection);
+\item $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$ (orbit + orbit);
+\item $\{\pi_2, \pi_{15}\}$ (residue + residue).
+\end{enumerate}
+In particular, $\mathrm{MVJN}(\Z/30\Z) = 1$.
+\end{theorem}
+
+\begin{theorem}[Orbit-pair classification] \label{thm:orbit-pair}
+For $g, h \in \Zns$ with squarefree $n = p_1 \cdots p_k$, the pair $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff $\langle g \rangle \cap \langle h \rangle = \{1\}$ in $\Zns$, equivalently $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ at every prime $p_i \mid n$.
+\end{theorem}
+
+\begin{theorem}[Three mechanisms for sufficient $\DYN$ pairs] \label{thm:mechanisms}
+Let $n$ be squarefree. The following three mechanisms produce sufficient pairs $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$:
+\begin{enumerate}[label=\textup{(M\arabic*)}]
+\item \emph{Focused on distinct primes}: $g \equiv 1 \pmod{p_j}$ for $j \neq i$, $h \equiv 1 \pmod{p_j}$ for $j \neq \ell$, with $i \neq \ell$.
+\item \emph{Same-prime coprime orders}: $g, h \equiv 1 \pmod{p_j}$ for $j \neq i$, with $\gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$.
+\item \emph{Mixed (non-focused)}: each of $g, h$ acts non-trivially at multiple primes, with the coordinate-wise coprime-order condition holding at every prime.
+\end{enumerate}
+Mechanism \textup{(M2)} exists at $p_i$ iff $p_i - 1$ has at least two distinct prime factors. The smallest such primes are $7, 11, 13, 19, 23$.
+\end{theorem}
+
+The conjectural extension of Theorem~\ref{thm:n30} to all squarefree $n \geq 6$ is the universal $\mathrm{MVJN} = 1$ statement (Section~\ref{sec:MVJN}, Conjecture~\ref{conj:MVJN}).
+
+\subsection{Companion submissions}
+
+The pair-injectivity criterion underlying these results --- that two partitions are sufficient iff their joint map is injective --- is taken from the companion paper (Sanders--Mayes, ``The Universal Orthogonality Principle'', submitted to \emph{J.\ Number Theory}). The corrected $M{+}A$ classification is from a second companion (Sanders--Mayes, ``Corrected Theorem C'', submitted to \emph{J.\ Number Theory}).
+
+\section{The CRT prime-factor family} \label{sec:crt-rigid}
+
+\begin{lemma}[Pairwise incompatibility of factor partitions] \label{lem:pwise-incomp}
+For distinct primes $p_i, p_j \mid n$ (squarefree), the partitions $\pi_{p_i}$ and $\pi_{p_j}$ are incompatible.
+\end{lemma}
+
+\begin{proof}
+Suppose $\pi_{p_i} \leq \pi_{p_j}$. Each $\pi_{p_i}$-block has size $n/p_i$ and is the residue class of some $r$ modulo $p_i$. Within this block, the elements are $r, r + p_i, \ldots, r + (n/p_i - 1) p_i \pmod n$. Since $\gcd(p_i, p_j) = 1$, the increments $k p_i \bmod p_j$ cycle through all residues of $\Z/p_j\Z$ as $k$ runs over $0, 1, \ldots, p_j - 1$. The block has size $n/p_i$, and $p_j \mid n/p_i$ (since $p_j \neq p_i$ and $p_j \mid n$), so the block contains at least $p_j$ elements with all distinct residues mod $p_j$. Hence the block is not contained in any $\pi_{p_j}$-block.
+\end{proof}
+
+\begin{theorem}[Full meet $=$ discrete] \label{thm:full-meet}
+$\bigwedge_{i=1}^{k} \pi_{p_i} = \pi_{\disc}$. For any proper sub-family $S \subsetneq \{p_1,\ldots,p_k\}$, the meet $\bigwedge_{p_i \in S} \pi_{p_i}$ is strictly coarser than $\pi_{\disc}$.
+\end{theorem}
+
+\begin{proof}
+Two elements $x, y$ are in the same block of $\bigwedge_{i} \pi_{p_i}$ iff $p_i \mid x - y$ for every $i$, iff $n \mid x - y$ (since $\lcm = n$), iff $x = y$. For any $S \subsetneq \{p_1,\ldots,p_k\}$ omitting some $p_j$: the elements $0$ and $n/p_j = \prod_{i \neq j} p_i$ have $p_i \mid n/p_j$ for every $p_i \in S$ (since $p_i \neq p_j$), so they share the same block in every $\pi_{p_i}$ for $p_i \in S$. They are not equal, so the meet over $S$ is strictly coarser than $\pi_{\disc}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:rigid}]
+Sufficiency requires using all $k$ partitions (Theorem~\ref{thm:full-meet}). A minimal sufficient family of length $k$ has $k-1$ transitions. By Lemma~\ref{lem:pwise-incomp} every transition is an orthogonal jump, giving exactly $k-1$ jumps.
+\end{proof}
+
+\section{Non-CRT sufficient $2$-partition families on $\Z/30\Z$} \label{sec:n30}
+
+We prove Theorem~\ref{thm:n30} by treating the three families separately.
+
+\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (a) $\{\pi_{\SPEC}, \pi_{15}\}$]
+The unresolved-pair sets are
+\[
+U(\pi_{\SPEC}) = \{\{x, 30-x\} : x = 1, \ldots, 14\}, \quad U(\pi_{15}) = \{\{x, x+15\} : x = 0, \ldots, 14\}.
+\]
+A pair lies in both iff $a + b \equiv 0 \pmod{30}$ and $b \equiv a + 15 \pmod{30}$. From these, $2a \equiv 15 \pmod{30}$, which has no solution (gcd $2 \nmid 15$). So $U(\pi_{\SPEC}) \cap U(\pi_{15}) = \emptyset$, sufficient.
+
+For incompatibility: the $\pi_{15}$-block $\{0,15\}$ has $0$ in the $\SPEC$-singleton $\{0\}$ but $15$ in the $\SPEC$-singleton $\{15\}$ --- different $\SPEC$-blocks. So $\pi_{\SPEC} \not\leq \pi_{15}$. Conversely the $\SPEC$-block $\{1,29\}$ has $1 \bmod 15 = 1$ and $29 \bmod 15 = 14$, different $\pi_{15}$-blocks. So $\pi_{15} \not\leq \pi_{\SPEC}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (b) $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$]
+We use Theorem~\ref{thm:orbit-pair}. The orders mod the primes of $30 = 2 \cdot 3 \cdot 5$:
+\[
+\ord_2(7) = 1,\quad \ord_3(7) = 1,\quad \ord_5(7) = 4; \qquad
+\ord_2(11) = 1,\quad \ord_3(11) = 2,\quad \ord_5(11) = 1.
+\]
+Coordinate-wise gcds: $\gcd(1,1) = 1$ at $p=2$, $\gcd(1,2) = 1$ at $p=3$, $\gcd(4,1) = 1$ at $p=5$. All gcds are $1$, so the pair is sufficient.
+
+Incompatibility is by exhibiting orbits: $\pi_{\DYN}(7)$ has the $T_7$-orbit of $1$ as $\{1,7,19,13\}$ (since $7^2 = 49 \equiv 19, 7^3 \equiv 13, 7^4 \equiv 1 \pmod{30}$), while $\pi_{\DYN}(11)$ has $\{1,11\}$. The orbit $\{1,7,19,13\}$ is not a union of $\pi_{\DYN}(11)$-orbits (each of which has size $2$ on units), so $\pi_{\DYN}(7) \not\leq \pi_{\DYN}(11)$ and conversely.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:n30}, family (c) $\{\pi_2, \pi_{15}\}$]
+$\pi_2 \meet \pi_{15} = \pi_{\lcm(2,15)} = \pi_{30} = \pi_{\disc}$. Incompatibility: the $\pi_{15}$-block $\{0,15\}$ has $0$ even, $15$ odd --- different $\pi_2$-blocks; the $\pi_2$-block $\{0,2,4,\ldots,28\}$ contains both $0$ ($\bmod 15 = 0$) and $2$ ($\bmod 15 = 2$), different $\pi_{15}$-blocks.
+\end{proof}
+
+\begin{remark}
+Family (a) and family (c) both have a residue partition $\pi_{15}$ that encodes both the mod-$3$ and mod-$5$ CRT coordinates simultaneously; the companion partition resolves the mod-$2$ coordinate. The single composite-residue partition does the work of two prime-factor partitions, reducing the jump count from $2$ to $1$ relative to the prime-factor family. Family (b) achieves the same reduction via two orbit partitions whose orders are pairwise coprime at every prime.
+\end{remark}
+
+\section{Orbit-pair classification} \label{sec:orbit-pair}
+
+\begin{proof}[Proof of Theorem~\ref{thm:orbit-pair}]
+By the Universal Orthogonality Principle, $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$ is sufficient iff the joint orbit-projection map is injective.
+
+\emph{Necessity.} If $\langle g \rangle \cap \langle h \rangle \ni c \neq 1$, write $c = g^m = h^{\ell}$. Some prime $p_i$ has $c \not\equiv 1 \pmod{p_i}$. Choose $x$ with $x_j = 0$ for $j \neq i$ and $x_i = 1$. Then $y := g^m x = h^{\ell} x$ has $y_i = c_i \neq 1 = x_i$ at coordinate $i$, while at $j \neq i$ both $x_j = 0$ and $y_j = 0$. So $y \in Gx \cap Hx$ and $y \neq x$, hence $\{x,y\} \in U(\pi_{\DYN}(g)) \cap U(\pi_{\DYN}(h))$.
+
+\emph{Sufficiency.} Suppose $\langle g \rangle \cap \langle h \rangle = \{1\}$ and $\{x,y\} \in U(\pi_{\DYN}(g)) \cap U(\pi_{\DYN}(h))$, so $g^m x = y = h^{\ell} x$. At each coordinate $i$: if $x_i \neq 0$, then $g_i^m = h_i^{\ell}$, an element of $\langle g_i \rangle \cap \langle h_i \rangle$. By hypothesis at the level of $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$ this intersection is $\{1\}$; so $g_i^m = 1$, hence $y_i = x_i$. If $x_i = 0$, then $y_i = g_i^m \cdot 0 = 0 = x_i$. In every case $y_i = x_i$, so $y = x$, contradicting the hypothesis $\{x,y\}$ is unresolved (i.e.\ $x \neq y$).
+
+The reduction $\langle g \rangle \cap \langle h \rangle = \{1\} \iff \gcd(\ord_{p_i}(g), \ord_{p_i}(h)) = 1$ for all $i$ uses the cyclic factorization $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$: a non-trivial element of $\langle g \rangle \cap \langle h \rangle$ exists iff some coordinate $i$ has a non-trivial element of $\langle g_i \rangle \cap \langle h_i \rangle$, iff some $\gcd(\ord(g_i), \ord(h_i)) > 1$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:mechanisms}]
+\emph{Existence of (M1).} Choose $g$ a generator of $(\Z/p_i\Z)^{\times}$ extended trivially to other primes, and similarly $h$ at $p_{\ell}$ for $\ell \neq i$. Coordinate-wise: $\gcd(p_i - 1, 1) = 1$ and $\gcd(1, p_{\ell} - 1) = 1$ at the off-primes. Sufficient by Theorem~\ref{thm:orbit-pair}.
+
+\emph{Existence of (M2) requires $p_i - 1$ to have $\geq 2$ distinct prime factors.} If $p_i - 1 = q^a$ for some prime $q$, every element of $(\Z/p_i\Z)^{\times}$ has order a power of $q$, and any pair of non-trivial orders has $\gcd > 1$. Conversely, if $p_i - 1 = a b$ with $\gcd(a,b) = 1$ and $a,b > 1$, the cyclic group of order $p_i - 1$ contains a unique subgroup of each order dividing $p_i - 1$; pick $g_i$ of order $a$ and $h_i$ of order $b$. Then $\gcd(a,b) = 1$. Extend $g_i, h_i$ trivially to other primes to construct $g, h$ in $\Zns$ satisfying the coprime-order condition at $p_i$ and trivially elsewhere.
+
+\emph{Existence of (M3).} Take $n = 42 = 2 \cdot 3 \cdot 7$. Set $g = 11$: $\ord_3(11) = 2$ (since $11 \equiv 2 \pmod 3$ and $\ord_3(2) = 2$), $\ord_7(11) = 3$ (since $11 \equiv 4 \pmod 7$ and $\ord_7(4) = 3$). Set $h = 13$: $\ord_3(13) = 1$ (since $13 \equiv 1 \pmod 3$), $\ord_7(13) = 2$ (since $13 \equiv 6 \pmod 7$ and $\ord_7(6) = 2$). At $p = 3$: $\gcd(2,1) = 1$. At $p = 7$: $\gcd(3,2) = 1$. The pair $\{\pi_{\DYN}(11), \pi_{\DYN}(13)\}$ is sufficient on $\Z/42\Z$, with both generators acting non-trivially at multiple primes.
+
+\emph{Smallest primes admitting (M2).} Need $p_i - 1$ with $\geq 2$ distinct prime factors. $p = 7$: $6 = 2 \cdot 3$ ($\geq 2$ distinct). $p = 11$: $10 = 2 \cdot 5$. $p = 13$: $12 = 2^2 \cdot 3$. $p = 19$: $18 = 2 \cdot 3^2$. $p = 23$: $22 = 2 \cdot 11$.
+\end{proof}
+
+\section{The partition lattice on $\Z/10\Z$} \label{sec:n10}
+
+We work the $n = 10$ case in detail to illustrate the lattice structure.
+
+\subsection{Named partitions}
+
+For $\Z/10\Z = \{0,1,\ldots,9\}$, the four principal partitions are
+\begin{align*}
+\pi_{\DYN} = \pi_{\UG} &= \{\{0\}, \{1,3,7,9\}, \{2,4,6,8\}, \{5\}\},\\
+\pi_{\SPEC} &= \{\{0\}, \{1,9\}, \{2,8\}, \{3,7\}, \{4,6\}, \{5\}\},\\
+\pi_{\CRT_2} &= \{\{0,2,4,6,8\}, \{1,3,5,7,9\}\},\\
+\pi_{\CRT_5} &= \{\{0,5\}, \{1,6\}, \{2,7\}, \{3,8\}, \{4,9\}\}.
+\end{align*}
+Here $\pi_{\UG}$ is the gcd-class partition (blocks indexed by $\gcd(\cdot, 10) \in \{1,2,5,10\}$).
+
+\begin{lemma}[$\pi_{\DYN} = \pi_{\UG}$ on $\Z/10\Z$ for $g = 3$] \label{lem:dyn-ug}
+For $g = 3$, $\pi_{\DYN}(3)$ equals $\pi_{\UG}$.
+\end{lemma}
+
+\begin{proof}
+Since $\gcd(3, 10) = 1$, $\gcd(3 x, 10) = \gcd(x, 10)$ for all $x$, so $T_3$ permutes each gcd-class. The unit class $\{1,3,7,9\}$ is a single $T_3$-orbit ($1 \to 3 \to 9 \to 7 \to 1$) since $\ord_{10}(3) = 4$. The class of gcd $2$, namely $\{2,4,6,8\}$, is a single $T_3$-orbit ($2 \to 6 \to 8 \to 4 \to 2$). The classes $\{0\}$ and $\{5\}$ are fixed.
+\end{proof}
+
+\subsection{Refinement relations}
+
+\begin{proposition} \label{prop:n10-lattice}
+On $\Z/10\Z$:
+\begin{enumerate}[label=(\alph*)]
+\item $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$.
+\item $\pi_{\CRT_5}$ is incompatible with each of $\pi_{\CRT_2}$, $\pi_{\UG}$, and $\pi_{\SPEC}$.
+\item $\pi_{\CRT_2} \meet \pi_{\CRT_5} = \pi_{\disc}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Every reflection pair $\{x, 10-x\}$ has $\gcd(x,10) = \gcd(10-x,10)$, so $\pi_{\SPEC} \leq \pi_{\UG}$. Each gcd-class lies entirely in one $\pi_{\CRT_2}$-block (the units $\{1,3,7,9\}$ are odd; $\{2,4,6,8\}$ are even; $\{0\}$ even, $\{5\}$ odd), so $\pi_{\UG} \leq \pi_{\CRT_2}$.
+
+(b) The $\pi_{\CRT_5}$-block $\{0,5\}$ contains $0$ (even) and $5$ (odd) --- different $\pi_{\CRT_2}$-blocks; conversely $\pi_{\CRT_2}$ blocks have size $5$ which is not a union of size-$2$ $\pi_{\CRT_5}$-blocks.
+
+(c) Two elements with both the same parity and the same residue mod $5$ are equal in $\Z/10\Z$ (CRT).
+\end{proof}
+
+\subsection{The minimum sufficient family}
+
+Theorem~\ref{thm:rigid} for $n = 10$ ($k = 2$) gives MVJN $= 1$ within the prime-factor family. The family $\{\pi_{\CRT_2}, \pi_{\CRT_5}\}$ has length $2$ and contributes one orthogonal jump, achieving the lower bound. The chain $\pi_{\SPEC} \leq \pi_{\UG} \leq \pi_{\CRT_2}$ contributes only refinement moves and is insufficient (its meet equals $\pi_{\SPEC} \neq \pi_{\disc}$).
+
+\begin{remark}[Geometric interpretation]
+Two independent CRT directions cannot be embedded in a single $S^1$ continuously (since $\pi_1(S^1) = \Z$ admits no surjection to $\Z^2$). The natural ambient embedding for the joint $(\pi_{\CRT_2}, \pi_{\CRT_5})$ data is the torus $T^2 = S^1 \times S^1$. The companion paper of Sanders--Gish (\emph{Flatness Theorem}) gives a structural argument that the minimum-curvature ambient for the four simultaneous structures on $\Z/10\Z$ is a torus with aspect ratio $5/7$.
+\end{remark}
+
+\section{The minimum viable jump number} \label{sec:MVJN}
+
+\begin{theorem} \label{thm:mvjn-lower}
+$\mathrm{MVJN}(\Zn) \geq 1$ for every squarefree $n$ with $k \geq 2$.
+\end{theorem}
+
+\begin{proof}
+A family of pairwise comparable partitions $\pi_1 \leq \pi_2 \leq \cdots \leq \pi_m$ has meet equal to its finest element $\pi_1$. For the family to be sufficient, $\pi_1 = \pi_{\disc}$, which means the family is the trivial $\{\pi_{\disc}\}$ together with coarsenings. For any family of \emph{proper} partitions ($\pi \neq \pi_{\disc}$, $\pi \neq \pi_{\triv}$), at least one orthogonal jump must occur for the meet to reach $\pi_{\disc}$.
+\end{proof}
+
+\begin{conjecture} \label{conj:MVJN}
+For every squarefree $n \geq 6$, $\mathrm{MVJN}(\Zn) = 1$.
+\end{conjecture}
+
+We have verified the conjecture for $n = 6, 10, 14, 15, 21, 22, 26, 30, 33, 34, 35, 38, 39, 42$ by exhibiting an explicit two-partition sufficient family in each case (typically of the form $\{\pi_d, \pi_{\SPEC}\}$ or $\{\pi_{\DYN}(g), \pi_{\DYN}(h)\}$). The construction $\{\pi_{n/p_1}, \text{companion}\}$ works whenever an appropriate companion partition resolving the mod-$p_1$ coordinate exists; its existence is open in general.
+
+\section{Open questions}
+
+\begin{enumerate}[label=(\alph*)]
+\item \emph{$\mathrm{MVJN} = 1$ universally?} Conjecture~\ref{conj:MVJN} for all squarefree $n \geq 6$.
+\item \emph{Classification of all sufficient $2$-partition families.} The orbit-pair case is fully classified by Theorem~\ref{thm:orbit-pair} and the residue-pair case by $\lcm$-coverage (CRT). The general mixed case is open.
+\item \emph{Optimal-information sufficient pairs.} Among sufficient pairs $\{\pi_A, \pi_B\}$, those minimizing $|\mathrm{blocks}(\pi_A)| \cdot |\mathrm{blocks}(\pi_B)|$ are combinatorial orthogonal arrays of minimum size. For $n = 30$, $\{\pi_2, \pi_{15}\}$ achieves $2 \cdot 15 = 30 = n$. The general existence question is open.
+\item \emph{Beyond squarefree.} For $n$ with prime-power factors, the partition lattice changes; a separate analysis is required.
+\end{enumerate}
+
+\section*{Acknowledgments}
+
+We thank C.~A. Luther for discussions on the partition-lattice formulation.
+
+\begin{thebibliography}{9}
+
+\bibitem{Birkhoff1940}
+G.~Birkhoff,
+\emph{Lattice Theory},
+Amer.\ Math.\ Soc.\ Colloq.\ Publ.\ 25,
+American Mathematical Society, 1940.
+
+\bibitem{DummitFoote}
+D.~S.~Dummit and R.~M.~Foote,
+\emph{Abstract Algebra}, 3rd ed.,
+Wiley, 2004.
+
+\bibitem{HardyWright}
+G.~H.~Hardy and E.~M.~Wright,
+\emph{An Introduction to the Theory of Numbers}, 6th ed.,
+Oxford University Press, 2008.
+
+\bibitem{IrelandRosen}
+K.~Ireland and M.~Rosen,
+\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
+Graduate Texts in Math.\ 84, Springer, 1990.
+
+\bibitem{Lang2002}
+S.~Lang,
+\emph{Algebra}, 3rd ed.,
+Graduate Texts in Math.\ 211, Springer, 2002.
+
+\bibitem{Ore1942}
+O.~Ore,
+\emph{Theory of equivalence relations},
+Duke Math.\ J.\ 9 (1942), 573--627.
+
+\bibitem{SandersMayes-UOP}
+B.~R.~Sanders and B.~Mayes,
+\emph{The Universal Orthogonality Principle: Joint-Map Injectivity as the Sufficiency Criterion for Two-Partition Families on Squarefree $\Z/n\Z$},
+submitted to \emph{J.\ Number Theory}, 2026 (companion --- lead).
+
+\bibitem{SandersGish-Flatness}
+B.~R.~Sanders and M.~Gish,
+\emph{Flatness Theorem: The Forced $2 \times 2$ Torus on $\Z/10\Z$},
+submitted to \emph{J.\ Pure Appl.\ Algebra}, 2026.
+
+\end{thebibliography}
+
+\end{document}

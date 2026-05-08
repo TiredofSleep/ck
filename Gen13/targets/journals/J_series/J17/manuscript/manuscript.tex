@@ -1,0 +1,305 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zns}{(\Z/n\Z)^{\times}}
+\newcommand{\meet}{\wedge}
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\DYN}{\mathrm{DYN}}
+\newcommand{\SPEC}{\mathrm{SPEC}}
+\newcommand{\UG}{\mathrm{UG}}
+\newcommand{\CRT}{\mathrm{CRT}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\lcm}{\mathrm{lcm}}
+
+\title[The Universal Orthogonality Principle]{The Universal Orthogonality Principle:\\
+Joint-Map Injectivity as the Sufficiency Criterion\\
+for Two-Partition Families on Squarefree $\Z/n\Z$}
+\author{B.~R. Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{B.~Mayes}
+\address{Independent Researcher}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+For squarefree $n = p_1 \cdots p_k$ with $k \geq 2$ and any pair of partitions $\pi_1, \pi_2$ of $\Zn$ induced by maps $f \colon \Zn \to A$ and $g \colon \Zn \to B$, we record the elementary equivalence
+\[
+\{\pi_1,\pi_2\} \text{ is sufficient (i.e.\ } \pi_1 \meet \pi_2 = \pi_{\disc} \text{)} \iff
+J = (f,g)\colon \Zn \to A \times B \text{ is injective}.
+\]
+We call this the \emph{Universal Orthogonality Principle} (UOP). Every two-partition sufficiency theorem in the squarefree setting --- multiplicative + multiplicative ($M{+}M$), additive + multiplicative ($A{+}M$), the corrected multiplicative + additive ($M{+}A$), additive + additive (CRT), and the minimum-jump theorem (MVJN) --- is the computation of when $J$ is injective for a specific algebraic choice of $f$ and $g$. The corollaries are uniform: $\{\pi_{\DYN}(G), \pi_{\DYN}(H)\}$ is sufficient iff $G \cap H = \{1\}$ in $\Zns$; $\{\pi_d, \pi_{\DYN}(G)\}$ is sufficient iff $G$ acts trivially on every prime of $n/d$; $\{\pi_{d_1}, \pi_{d_2}\}$ is sufficient iff $\lcm(d_1,d_2) = n$. We also prove the \emph{coordinate-coverage characterization}: if two maps together resolve every CRT prime coordinate of $\Zn$, then $J$ is injective (the converse fails in general). As a corollary we obtain the \emph{refinement trap}: no family lying in a single refinement chain of the partition lattice can be sufficient unless it already contains $\pi_{\disc}$.
+
+The contribution is not the individual sufficiency theorems but their unification under a single three-line geometric criterion.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Motivation}
+
+Several classical and recent sufficiency theorems for partition pairs on squarefree finite cyclic rings are formally distinct in their algebraic statements but share an identical geometric content. We collect them under one criterion, the Universal Orthogonality Principle (UOP, Theorem~\ref{thm:uop}).
+
+The setting is fixed throughout: $n = p_1 p_2 \cdots p_k$ is squarefree with $k \geq 2$ distinct primes, and the Chinese Remainder Theorem provides the canonical isomorphism
+\[
+\Psi \colon \Zn \xrightarrow{\sim} \Z/p_1\Z \times \cdots \times \Z/p_k\Z, \qquad x \mapsto (x \bmod p_1, \ldots, x \bmod p_k).
+\]
+We refer to the components $x_i = x \bmod p_i$ as the \emph{$i$-th CRT coordinate} of $x$.
+
+\subsection{Sufficient pairs}
+
+A partition $\pi$ of $\Zn$ has unresolved-pair set $U(\pi) = \{\{x,y\} : x \neq y, \, x \sim_{\pi} y\}$. A family $\{\pi_1,\pi_2\}$ is \emph{sufficient} when $\pi_1 \meet \pi_2 = \pi_{\disc}$ (the partition of $\Zn$ into singletons), equivalently when $U(\pi_1) \cap U(\pi_2) = \emptyset$. Every partition $\pi$ is induced by a map $f_{\pi} \colon \Zn \to X_{\pi}$ whose fibers are the blocks of $\pi$. Two natural classes of partitions on $\Zn$ are the \emph{multiplicative orbit partitions} $\pi_{\DYN}(G)$ for subgroups $G \leq \Zns$ (blocks $= G$-orbits), and the \emph{additive residue partitions} $\pi_d$ for divisors $d \mid n$ (blocks $= $ residue classes mod $d$).
+
+\subsection{Main result and outline}
+
+The Universal Orthogonality Principle (Theorem~\ref{thm:uop}) is an immediate three-line equivalence between sufficiency of $\{\pi_1,\pi_2\}$ and injectivity of the joint map $J = (f_{\pi_1}, f_{\pi_2})$. The interest is not the proof, which is trivial, but the consequences: every two-partition sufficiency theorem in the squarefree setting reduces to a computation of when $J$ is injective for a specific choice of $f_{\pi_1}$ and $f_{\pi_2}$.
+
+Section~\ref{sec:uop} states UOP. Sections~\ref{sec:mm}--\ref{sec:aa} derive Theorems A ($M{+}M$, \S\ref{sec:mm}), B ($A{+}M$, \S\ref{sec:am}), C corrected ($M{+}A$, \S\ref{sec:ma}), and D ($A{+}A$, the CRT $k-1$ theorem, \S\ref{sec:aa}) as corollaries. Section~\ref{sec:cc} states and proves the coordinate-coverage characterization. Section~\ref{sec:rt} proves the refinement trap. Section~\ref{sec:mvjn} reduces the MVJN theorem to UOP. Section~\ref{sec:open} records open questions.
+
+\subsection{Companion submissions}
+
+This paper is the lead in a coordinated three-paper UOP sequence. The companion (Sanders--Mayes, ``Corrected Theorem C: UOP Sharpening'', submitted to \emph{JNT}) addresses a correction to the previously stated $M{+}A$ condition with an explicit counterexample at $n=15$. A second companion (Sanders--Mayes, ``Coordinate Coverage on $\Z/10\Z$'', submitted to \emph{Eur.\ J.\ Combin.}) develops the partition-lattice and orbit-classification consequences in detail.
+
+We also cite as foundational predecessors in the same author program: Sanders--Gish, ``First-G Law'' (submitted to \emph{Integers}); Sanders--Mayes, ``Crossing Lemma'' (submitted to \emph{JCT-A}); and Sanders--Gish, ``Flatness Theorem'' (submitted to \emph{J.\ Pure Appl.\ Algebra}). The Crossing Lemma is the structural ancestor of UOP: UOP states the equivalence in its abstract form, while the Crossing Lemma provides the algebraic test for one specific pair-class ($A_d \times \pi_{\DYN}(g)$).
+
+\section{The Universal Orthogonality Principle} \label{sec:uop}
+
+\begin{theorem}[Universal Orthogonality Principle] \label{thm:uop}
+Let $\pi_1,\pi_2$ be partitions of $\Zn$ induced by maps $f \colon \Zn \to A$ and $g \colon \Zn \to B$. Then
+\[
+\{\pi_1,\pi_2\} \text{ is sufficient} \iff J = (f,g) \colon \Zn \to A \times B \text{ is injective.}
+\]
+\end{theorem}
+
+\begin{proof}
+$J$ is injective iff for every $x \neq y$, $(f(x),g(x)) \neq (f(y),g(y))$, i.e.\ $f(x) \neq f(y)$ or $g(x) \neq g(y)$. This is precisely the condition that $x$ and $y$ are not simultaneously in the same $\pi_1$-block and the same $\pi_2$-block, i.e.\ $\{x,y\} \notin U(\pi_1) \cap U(\pi_2)$. Sufficiency is $U(\pi_1) \cap U(\pi_2) = \emptyset$, equivalent to $\pi_1 \meet \pi_2 = \pi_{\disc}$.
+\end{proof}
+
+\begin{remark}
+All prior two-partition sufficiency theorems for squarefree $\Zn$ are computations of when $J$ is injective for specific algebraic choices of $f$ and $g$. The ``different forms'' of Theorems A, B, and C (corrected) below all arise from different algebraic translations of one underlying criterion.
+\end{remark}
+
+\section{Theorem A as a corollary ($M{+}M$ sufficiency)} \label{sec:mm}
+
+\begin{theorem}[$M{+}M$] \label{thm:A}
+For $G,H \leq \Zns$, the pair $\{\pi_{\DYN}(G), \pi_{\DYN}(H)\}$ is sufficient iff $G \cap H = \{1\}$ in $\Zns$.
+\end{theorem}
+
+\begin{proof}
+Apply Theorem~\ref{thm:uop} with $f = f_G$, $g = f_H$ the orbit-projection maps. $J$ fails injectivity iff there exist $x \neq y$ with $y \in Gx$ and $y \in Hx$, i.e.\ $y x^{-1} \in G \cap H$ (for unit $x$); equivalently, on each non-zero CRT coordinate, $G$ and $H$ share a non-trivial action. By the CRT factorization $\Zns \cong \prod_i (\Z/p_i\Z)^{\times}$, $G \cap H = \{1\}$ iff $\gcd(\ord_{p_i}(G), \ord_{p_i}(H)) = 1$ at every prime $p_i \mid n$.
+\end{proof}
+
+\section{Theorem B as a corollary ($A{+}M$ sufficiency)} \label{sec:am}
+
+\begin{theorem}[$A{+}M$] \label{thm:B}
+For $d \mid n$ and $G \leq \Zns$, the pair $\{\pi_d, \pi_{\DYN}(G)\}$ is sufficient iff $G$ acts trivially on every prime of $n/d$, i.e.\ every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for all $p_j \mid n/d$.
+\end{theorem}
+
+\begin{proof}
+Take $f = f_d$ the residue map and $g = f_G$. $J$ fails injectivity iff there exist $x \in \Zn$ and $g \in G$ with $g \neq 1$, $g \cdot x \neq x$, and $g \cdot x \equiv x \pmod d$.
+
+In CRT coordinates: $g \cdot x \equiv x \pmod d$ means $g_i x_i \equiv x_i \pmod{p_i}$ for every $p_i \mid d$, i.e.\ $g_i = 1$ in $(\Z/p_i\Z)^{\times}$ or $x_i = 0$.
+
+\emph{Sufficiency} $(\Leftarrow)$. If $G$ is trivial on $n/d$, then any $g \in G$ acts non-trivially only at primes $p_i \mid d$. If $g \cdot x \equiv x \pmod d$, then at every $p_i \mid d$ where $g_i \neq 1$ we have $x_i = 0$, hence $(g \cdot x)_i = g_i \cdot 0 = 0 = x_i$. At every $p_j \mid n/d$ we have $g_j = 1$, hence $(g \cdot x)_j = x_j$. So $g \cdot x = x$, contradicting the assumption $g \cdot x \neq x$. No conflict exists.
+
+\emph{Necessity} $(\Rightarrow)$. If some $g \in G$ has $g \not\equiv 1 \pmod{p_j}$ for some $p_j \mid n/d$, choose $x$ with $x_j \neq 0$ and $x_i = 0$ for all $p_i \mid d$. Then $x \equiv 0 \pmod d$ (all $d$-coordinates zero), and $g \cdot x$ leaves all $d$-coordinates at $0$ but changes the $j$-coordinate. So $g \cdot x \equiv 0 \equiv x \pmod d$ and $g \cdot x \neq x$, a conflict.
+\end{proof}
+
+\section{Corrected Theorem C ($M{+}A$ sufficiency)} \label{sec:ma}
+
+The previously stated $M{+}A$ condition asserted that $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$ is injective. The condition is necessary but not sufficient: it tracks unit-element conflicts but misses zero-fiber conflicts at elements $x$ with $x \equiv 0 \pmod d$.
+
+\begin{theorem}[Corrected $M{+}A$] \label{thm:C}
+For $G \leq \Zns$ and $d \mid n$, the pair $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff $G$ acts trivially on every prime of $n/d$.
+\end{theorem}
+
+\begin{proof}
+Joint-map injectivity is symmetric in the pair, so Theorem~\ref{thm:C} is Theorem~\ref{thm:B} with the roles of $f$ and $g$ exchanged. The same algebraic test applies.
+\end{proof}
+
+\begin{example}[Counterexample to the prior condition at $n=15$] \label{ex:n15}
+Let $n = 15 = 3 \cdot 5$, $G = \langle 2 \rangle = \{1,2,4,8\} \leq (\Z/15\Z)^{\times}$, $d = 5$. The prior map $\varphi$ sends $1,2,4,8$ to $1,2,4,3$, an injection (in fact a bijection) into $(\Z/5\Z)^{\times}$. The prior condition is satisfied. Yet the orbit of $5$ under $T_2$ is $\{5,10\}$ (since $T_2(5) = 10$ and $T_2(10) = 20 \equiv 5 \pmod{15}$), and $5 \equiv 10 \equiv 0 \pmod 5$. So $\{5,10\} \in U(\pi_{\DYN}(\langle 2 \rangle)) \cap U(\pi_5)$, a conflict. The corrected condition correctly identifies $\langle 2 \rangle$ as nontrivial mod $3 = n/d$, predicting the conflict.
+\end{example}
+
+\section{Theorem D as a corollary (CRT $k-1$, $A{+}A$)} \label{sec:aa}
+
+\begin{theorem}[CRT $k-1$, $A{+}A$] \label{thm:D}
+For $d_1, d_2 \mid n$, the pair $\{\pi_{d_1}, \pi_{d_2}\}$ is sufficient iff $\lcm(d_1,d_2) = n$. For squarefree $n$, equivalently every prime $p_i \mid n$ divides $d_1$ or $d_2$.
+\end{theorem}
+
+\begin{proof}
+$J = (f_{d_1}, f_{d_2})$ fails injectivity iff there exist $x \neq y$ with $d_1 \mid x-y$ and $d_2 \mid x-y$, i.e.\ $\lcm(d_1,d_2) \mid x-y$. For injectivity on $\Zn$ we require no nonzero $x-y$ to be divisible by $\lcm(d_1,d_2)$, i.e.\ $\lcm(d_1,d_2) = n$. For squarefree $n = p_1 \cdots p_k$, this holds iff every $p_i$ divides at least one of $d_1, d_2$.
+\end{proof}
+
+\begin{remark}
+The CRT prime-factor theorem is the special case $d_1 = p_1$, $d_2 = p_2 \cdots p_k$ (or any partition of the prime set into two non-empty groups); for $k=2$ the minimal sufficient pair is $\{\pi_{p_1}, \pi_{p_2}\}$, which is the CRT isomorphism in partition form.
+\end{remark}
+
+\section{Coordinate-coverage characterization} \label{sec:cc}
+
+\begin{definition}
+For squarefree $n = p_1 \cdots p_k$ and a map $f \colon \Zn \to X$, say $f$ \emph{resolves prime $p_i$} if $f(x) \neq f(y)$ for every $x,y$ that differ in coordinate $i$ alone (i.e.\ $x_j = y_j$ for $j \neq i$ and $x_i \neq y_i$).
+\end{definition}
+
+\begin{theorem}[Coordinate coverage --- sufficient direction] \label{thm:CC}
+Let $f$ resolve all primes in $D_f \subseteq \{p_1,\ldots,p_k\}$ and $g$ resolve all primes in $D_g$. If $D_f \cup D_g = \{p_1,\ldots,p_k\}$, then $J = (f,g)$ is injective; equivalently, $\{\pi_f, \pi_g\}$ is sufficient.
+\end{theorem}
+
+\begin{proof}
+For $x \neq y$ in $\Zn$, choose $p_i$ with $x_i \neq y_i$ (exists by CRT). If $p_i \in D_f$ then $f(x) \neq f(y)$; if $p_i \in D_g$ then $g(x) \neq g(y)$. In either case $J(x) \neq J(y)$.
+\end{proof}
+
+\begin{remark}[Necessity does not hold] \label{rem:CC-not-necessary}
+Two maps may each be ``confused'' at some prime yet still jointly inject, when the confusions never coincide on the same pair. The exact criterion for joint injectivity is UOP (Theorem~\ref{thm:uop}); coordinate coverage is a clean sufficient condition.
+\end{remark}
+
+\section{The refinement trap} \label{sec:rt}
+
+\begin{theorem}[Refinement trap] \label{thm:RT}
+For squarefree $n$ with $k \geq 2$ primes, if all partitions in a family $\mathcal F$ lie in a single refinement chain of the partition lattice (every pair in $\mathcal F$ is comparable), then no pair in $\mathcal F$ is sufficient unless one element is already $\pi_{\disc}$.
+\end{theorem}
+
+\begin{proof}
+A refinement chain among additive residue partitions corresponds to a chain of divisors $d_1 \mid d_2 \mid \cdots \mid d_m \mid n$. Each map $f_{d_i}$ resolves exactly the primes dividing $d_i$. The prime sets $D_{d_1} \subseteq \cdots \subseteq D_{d_m}$ are nested, so $\bigcup_i D_{d_i} = D_{d_m}$. Unless $d_m = n$, some prime is uncovered, and the family fails to be sufficient (Theorem~\ref{thm:D}). The general case for arbitrary partition chains follows by replacing the divisor labels with the partition's coordinate support (Definition~\ref{def:supp}); the conclusion is identical.
+\end{proof}
+
+\begin{remark}
+The refinement trap is the structural reason that adding more partitions of the same type cannot complete a globally insufficient family: only an orthogonal jump --- the introduction of a partition resolving a previously uncovered prime --- changes the union of coordinate supports.
+\end{remark}
+
+\begin{definition} \label{def:supp}
+The \emph{coordinate support} of a partition $\pi$ on squarefree $\Zn$ is $\supp(\pi) = \{i : \pi \text{ resolves } p_i\}$.
+\end{definition}
+
+\section{MVJN as a corollary} \label{sec:mvjn}
+
+\begin{definition}
+The \emph{Minimum Viable Jump Number} $\mathrm{MVJN}(\Zn)$ is the smallest number of incompatible-pair transitions in any minimal sufficient family of partitions of $\Zn$.
+\end{definition}
+
+\begin{theorem}[MVJN $\geq 1$, MVJN $= 1$ for $n=30$] \label{thm:MVJN}
+$\mathrm{MVJN}(\Zn) \geq 1$ for every squarefree $n$ with $k \geq 2$. Equality holds for $n = 30$, achieved by $\{\pi_{\SPEC}, \pi_{15}\}$ and $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$.
+\end{theorem}
+
+\begin{proof}
+The lower bound is the refinement trap (Theorem~\ref{thm:RT}). For the upper bound at $n = 30$: $U(\pi_{\SPEC}) \cap U(\pi_{15}) = \emptyset$ since a pair $\{a,b\}$ in both would require $a + b \equiv 0 \pmod{30}$ and $b \equiv a \pmod{15}$, hence $2a \equiv 15 \pmod{30}$, which has no solution; the two partitions are incompatible (one orthogonal jump). The orbit-pair $\{\pi_{\DYN}(7), \pi_{\DYN}(11)\}$ is verified by orbit-by-orbit comparison.
+\end{proof}
+
+\begin{conjecture} \label{conj:MVJN}
+$\mathrm{MVJN}(\Zn) = 1$ for every squarefree $n \geq 6$.
+\end{conjecture}
+
+The conjecture is open in general; the supporting evidence is the construction $\{\pi_{n/p_1}, \pi_{n/p_2}\}$ together with a SPEC-type companion at small $n$.
+
+\section{Open questions} \label{sec:open}
+
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Beyond squarefree $n$.} For $n$ with repeated prime factors, the CRT structure is replaced by $p$-adic components and UOP still holds abstractly, but the algebraic computation of which maps satisfy it requires $p$-adic analysis not covered here.
+\item \emph{Mixed partition types.} Partitions defined by quadratic residues, Legendre symbols, or character sums fit UOP as maps $f_{\pi}$, but computing when their joint maps are injective requires different algebraic tools.
+\item \emph{Coverage necessity.} The converse direction of Theorem~\ref{thm:CC} fails in general (Remark~\ref{rem:CC-not-necessary}). Is there a clean structural characterization of when two maps are jointly injective without full coordinate coverage?
+\end{enumerate}
+
+\section*{Acknowledgments}
+
+The authors thank C.~A. Luther for discussions on the partition-lattice formulation and M.~Gish for the squarefree-stability framework that motivated the unified treatment.
+
+\section*{Classification table}
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+$\pi_1$ type & $\pi_2$ type & Injectivity condition & Theorem \\
+\hline
+$\pi_{\DYN}(G)$ & $\pi_{\DYN}(H)$ & $G \cap H = \{1\}$ in $\Zns$ & A (Thm \ref{thm:A}) \\
+$\pi_d$ & $\pi_{\DYN}(G)$ & $G$ trivial on primes of $n/d$ & B (Thm \ref{thm:B}) \\
+$\pi_{\DYN}(G)$ & $\pi_d$ & $G$ trivial on primes of $n/d$ & C corrected (Thm \ref{thm:C}) \\
+$\pi_{d_1}$ & $\pi_{d_2}$ & $\lcm(d_1,d_2) = n$ & D / CRT (Thm \ref{thm:D}) \\
+any & any & $J = (f_{\pi_1},f_{\pi_2})$ injective & UOP (Thm \ref{thm:uop}) \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{99}
+
+\bibitem{Birkhoff1940}
+G.~Birkhoff,
+\emph{Lattice Theory},
+Amer.\ Math.\ Soc.\ Colloq.\ Publ.\ 25,
+American Mathematical Society, 1940.
+
+\bibitem{DummitFoote}
+D.~S.~Dummit and R.~M.~Foote,
+\emph{Abstract Algebra}, 3rd ed.,
+Wiley, 2004.
+
+\bibitem{HardyWright}
+G.~H.~Hardy and E.~M.~Wright,
+\emph{An Introduction to the Theory of Numbers}, 6th ed.,
+Oxford University Press, 2008.
+
+\bibitem{IrelandRosen}
+K.~Ireland and M.~Rosen,
+\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
+Graduate Texts in Math.\ 84, Springer, 1990.
+
+\bibitem{Lang2002}
+S.~Lang,
+\emph{Algebra}, 3rd ed.,
+Graduate Texts in Math.\ 211, Springer, 2002.
+
+\bibitem{Ore1942}
+O.~Ore,
+\emph{Theory of equivalence relations},
+Duke Math.\ J.\ 9 (1942), 573--627.
+
+\bibitem{SandersGish-FirstG}
+B.~R.~Sanders and M.~Gish,
+\emph{First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window},
+submitted to \emph{Integers}, 2026.
+
+\bibitem{SandersMayes-CL}
+B.~R.~Sanders and B.~Mayes,
+\emph{Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas},
+submitted to \emph{J.\ Combin.\ Theory Ser.\ A}, 2026.
+
+\bibitem{SandersGish-Flatness}
+B.~R.~Sanders and M.~Gish,
+\emph{Flatness Theorem: The Forced $2 \times 2$ Torus on $\Z/10\Z$},
+submitted to \emph{J.\ Pure Appl.\ Algebra}, 2026.
+
+\bibitem{SandersMayes-CorrC}
+B.~R.~Sanders and B.~Mayes,
+\emph{Corrected Theorem C: UOP Sharpening},
+submitted to \emph{J.\ Number Theory}, 2026 (companion).
+
+\bibitem{SandersMayes-CC}
+B.~R.~Sanders and B.~Mayes,
+\emph{Coordinate Coverage on $\Z/10\Z$},
+submitted to \emph{Eur.\ J.\ Combin.}, 2026 (companion).
+
+\end{thebibliography}
+
+\end{document}

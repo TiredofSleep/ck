@@ -33,6 +33,12 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 Per-venue cap: 2nd JNT paper after J17.
 
+**Status update (2026-05-07):**
+
+- Manuscript: `manuscript/manuscript.tex` — amsart, ~7 pages. Focused note on the corrected M+A condition. Synthesized from WP59 (Sprint 12 corpus, source-of-truth at `Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/`). Treats the n=15 counterexample explicitly, gives the corrected condition, the zero-fiber analysis (Proposition on the action of G on F_d), and the verification that prior applications (SPEC + half-modulus on n = 2m for m odd squarefree) continue to satisfy the corrected condition.
+- Cover letter: `cover_letter.md` finalized, ~400 words. Per-venue cap noted: 2nd JNT paper this quarter, with cumulative word count well below typical author-quarter conventions.
+- Companion citation: J17 cited as already-submitted JNT lead. UOP is invoked once (in the proof of Theorem 1) to convert the M+A criterion to the symmetric A+M form via joint-map injectivity.
+
 ## §6 — Submission checklist
 
 - [ ] Manuscript .tex / .md finalized
