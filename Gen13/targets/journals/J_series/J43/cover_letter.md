@@ -4,7 +4,7 @@
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- C.A. Luther, Independent Researcher
+- M. Gish, Independent Researcher
 
 **Date:** 2026-09-06 (Phase 5)
 
@@ -18,7 +18,7 @@ We submit a **consolidation paper** establishing the canonical reference for thr
 
 * **$G_6$ (Periodicity).** $\sigma^6 = \mathrm{id}$ on all of $\mathbb{Z}/10\mathbb{Z}$. Tier-A, proved by direct verification using the Q9–Q10 $(\alpha, \beta)$ polynomial form.
 * **$G_7$ (Period Distribution).** Bimodal: $P(\tau = 1) = 2/5$, $P(\tau = 6) = 3/5$. $\bar{\tau} = 4$, $\sigma_\tau^2 = 6$. Tier-B, forced from $G_6$ + cycle enumeration.
-* **$G_8$ (Spectral Coherence Integral).** $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ takes exactly three values: $0$ at the four anchors, $G_\mathrm{low} \approx 1.872$ at $\{1, 2, 4, 6\}$, $G_\mathrm{high} \approx 9.389$ at the BALANCE/HARMONY pair $\{5, 7\}$. Tier-B, computational verification.
+* **$G_8$ (Spectral Coherence Integral).** $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ takes exactly three values: $0$ at the four anchors $\{0,3,8,9\}$, $G_\mathrm{low} \approx 1.872$ at $\{1, 2, 5, 6\}$, $G_\mathrm{high} \approx 9.389$ at the σ³-coherent pair $\{4, 7\}$. Tier-B, computational verification (`manuscript/verify_G6_G7_G8.py`). The pairing of $G$-values within the $\sigma^3$-orbits $\{1,5\}, \{2,6\}, \{4,7\}$ is a structural consequence of $\sigma^3$ having order 2 on the 6-cycle.
 
 The three results, together, characterize the canonical $\sigma$-permutation completely at the spectral / period level. They form **Layer 4** of the 6-layer Q-series architecture and are foundational citations for the runtime attractor [J33], the Q17-B Clay-bridge essay [J51], the $\sigma$-rate theorem [J01] companion citations, and the WP100s tower's $D_4 = \langle P_{56}, \sigma^3 \rangle$ analysis.
 
@@ -48,13 +48,15 @@ This paper is one of the J-series program's **foundation citations** (cited down
 
 ## Reproducibility
 
-Verification scripts for the three theorems:
+Bundled verification: `manuscript/verify_G6_G7_G8.py` (single `python` script using `cmath` only; runtime $<2$ s on a laptop). Confirms:
 
-* $G_6$: `numpy + sympy` direct verification of $\sigma^6 = \mathrm{id}$ on all 10 elements (under 1 second).
-* $G_7$: enumeration of cycle structure, computation of mean/variance (under 1 second).
-* $G_8$: direct evaluation of $G(s)$ for all 10 elements, with $\omega = e^{2\pi i/9}$ (under 5 seconds).
+* $G_6$: $\sigma^6 = \mathrm{id}$ on all 10 elements (direct iteration).
+* $G_7$: bimodal period distribution $\{1: 2/5, 6: 3/5\}$ with $\bar\tau = 4$, $\sigma_\tau^2 = 6$.
+* $G_8$: corrected three-valued partition: ZERO on $\{0,3,8,9\}$, LOW on $\{1,2,5,6\} \approx 1.872$, HIGH on $\{4,7\} \approx 9.389$.
+* $\sigma^3$-pairing: $|G(s)|^2 = |G(\sigma^3(s))|^2$ algebraically (complex amplitudes anti-paired).
+* $\nu_+$ discriminator: $\nu_+ \in \{0,2\}$ on $\{4,7\}$ vs $\nu_+ = 1$ on $\{1,2,5,6\}$.
 
-All three are reproduced from the corpus papers `papers/G6_*.md`, `G7_*.md`, `G8_*.md` and run on a standard laptop.
+A note on revision: an earlier draft swapped elements 4 and 5 in the partition (claiming HIGH = $\{5, 7\}$). The corrected partition above is what the verification script computes from the manuscript's stated $\sigma$ and $\chi$.
 
 ## Suggested reviewers
 

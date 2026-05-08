@@ -2,10 +2,10 @@
 
 **Status:** DRAFT
 **Phase:** Phase 4
-**Target venue:** European J Combin
+**Target venue:** European J Combin (3rd EJC submission this quarter; fallback: LinAlgApps or PLOS ONE)
 **Author lane:** Sanders + Gish
 **Tier:** B
-**WP source:** (Luther spectral catalog)
+**WP source:** Q-series spectral catalog (G6 / G7 / G8 working papers)
 
 ---
 
@@ -13,13 +13,13 @@
 
 **Path:** `manuscript/J51_spectral_layer_consolidation.md`
 
-**Abstract:** Consolidation paper establishing the canonical reference for three spectral results in Luther's lane: $G_6$ ($\sigma^6 = \mathrm{id}$, Tier-A), $G_7$ (period distribution bimodal $2/5, 3/5$, Tier-B), $G_8$ (three-valued spectral coherence integral $G(s)$, Tier-B). Together they form Layer 4 of the 6-layer Q-series architecture. Canonical citation reference going forward.
+**Abstract:** Consolidation paper establishing the canonical reference for three spectral results on the canonical $\sigma$-permutation on $\mathbb{Z}/10\mathbb{Z}$: $G_6$ ($\sigma^6 = \mathrm{id}$, Tier-A), $G_7$ (period distribution bimodal $P(\tau=1)=2/5$, $P(\tau=6)=3/5$; mean $4$, variance $6$; Tier-B), $G_8$ (three-valued spectral coherence integral $G(s)$ with corrected partition: zero on $\{0,3,8,9\}$, low ≈ 1.872 on $\{1,2,5,6\}$, high ≈ 9.389 on $\{4,7\}$; Tier-B). Together they form Layer 4 of the 6-layer Q-series architecture (Layers 5, 6 deferred to companions).
 
 ## §2 — Verification script
 
-**Path:** `(spectral consolidation script)`
+**Path:** `manuscript/verify_G6_G7_G8.py` (run with `python manuscript/verify_G6_G7_G8.py`).
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+Confirms G6 ($\sigma^6 = \mathrm{id}$ on all of $\mathbb{Z}/10\mathbb{Z}$), G7 (period bimodal $\{1: 2/5, 6: 3/5\}$ with mean 4 and variance 6), and G8 (three-valued $G(s)$ with the corrected partition: ZERO $\{0,3,8,9\}$, LOW $\{1,2,5,6\} \approx 1.872$, HIGH $\{4,7\} \approx 9.389$). Also verifies the $\sigma^3$-pairing algebraically (complex amplitudes satisfy $G_\mathrm{cplx}(\sigma^3(s)) = -G_\mathrm{cplx}(s)$) and the $\nu_+$ discriminator (high-locus $\{4,7\}$ has extremal $\nu_+ \in \{0, 2\}$ in the first three orbit positions; the other states have $\nu_+ = 1$). Runtime $<2$ s; deterministic.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -53,16 +53,16 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Theorem G6 ($\sigma^6 = \mathrm{id}$ on $\mathbb{Z}/10\mathbb{Z}$, via $(\alpha,\beta)$ polynomial form + 4 ≡ 0 (mod 2), -5 ≡ 0 (mod 5)); Theorem G7 (period bimodal $P(\tau=1)=2/5, P(\tau=6)=3/5$; mean 4, variance 6); Theorem G8 (three-valued $G(s)$; ZERO $\{0,3,8,9\}$; LOW $\{1,2,5,6\} \approx 1.872$; HIGH $\{4,7\} \approx 9.389$); $\sigma^3$-pairing on the 6-cycle ($|G(s)|^2 = |G(\sigma^3(s))|^2$, complex amplitudes anti-paired).
+- **COMPUTED:** $G(s)$ values to machine precision in `manuscript/verify_G6_G7_G8.py`; ratio $G_\mathrm{high}/G_\mathrm{low} \approx 5.0165$; $\nu_+$ discriminator (extremal $\nu_+ \in \{0, 2\}$ on $\{4, 7\}$ vs $\nu_+ = 1$ on $\{1, 2, 5, 6\}$); $\sigma^3$-pairing checked algebraically (sum of complex amplitudes within each pair = 0 to $10^{-15}$).
+- **STRUCTURAL RHYME:** the three-valued image (zeros at predictable locations + spectral concentration on a structurally-distinguished pair) rhymes with the pattern RH demands of $\zeta(s)$. The mathematical analogue here is the function-field zeta function (Weil/Deligne); the present paper does not engage that machinery, only registers the structural rhyme. The companion paper [J51] discusses the rhyme in more depth.
+- **OPEN:** closed forms of $G_\mathrm{low}, G_\mathrm{high}$ in $\mathbb{Q}(\zeta_9)$ (cyclotomic units); whether the same three-valued structure with $\sigma^3$-coherent doubleton appears for $\sigma$-permutations on $\mathbb{Z}/N$ for other squarefree $N$.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on $\mathbb{Z}/10\mathbb{Z}$ with the canonical $\sigma$-permutation $(0)(3)(8)(9)(1\;7\;6\;5\;4\;2)$ and the $\beta$-exception character $\chi$ (defined in §4.1). Both choices reflect the structural reading of the substrate developed in the broader Q-series corpus; they are not derived from first principles. The theorems below are theorems on this specific (substrate, $\sigma$, $\chi$) triple; analogous results would require choosing a corresponding triple on another base ring. Whether other choices give similarly rich downstream connections is open.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -87,4 +87,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Luther. (2026). "Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture." Submitted to *European J Combin*.
+Sanders, B.R., Gish, M. (2026). "Spectral Layer Consolidation: G6 + G7 + G8 from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$." Submitted to *European Journal of Combinatorics* (3rd EJC of the J-series; fallback: *Linear Algebra and its Applications* or *PLOS ONE*).

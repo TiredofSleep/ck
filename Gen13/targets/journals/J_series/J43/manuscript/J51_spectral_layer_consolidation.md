@@ -1,6 +1,6 @@
 # Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$
 
-**Authors:** B.R. Sanders$^{1}$, C.A. Luther$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
 $^{2}$Independent Researcher
 
@@ -22,7 +22,7 @@ We consolidate three spectral / combinatorial results in the **TIG framework**'s
 
 * **G7 (Period Distribution).** The period $\tau(s)$ of an element $s \in \mathbb{Z}/10\mathbb{Z}$ under $\sigma$ is bimodal: $P(\tau = 1) = 2/5$ (the four $\sigma$-fixed anchors) and $P(\tau = 6) = 3/5$ (the six 6-cycle elements). Mean $\bar{\tau} = (1)(2/5) + (6)(3/5) = 4$; variance $\sigma_\tau^2 = 6$. Forced from G6 + cycle-structure enumeration. Tier-B.
 
-* **G8 (Spectral Coherence Integral).** The coherence integral $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ — with $\omega = e^{2\pi i /9}$ and $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ the canonical $\beta$-exception character — takes **exactly three values**: $G(s) = 0$ at the four anchors, $G(s) \approx 1.872$ on the σ³-orbits $\{1, 5\} \cup \{2, 6\}$, and $G(s) \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The σ³ pairing is structural: σ³ has order 2 on the 6-cycle, partitioning $\{1,2,4,5,6,7\}$ into the three 2-cycles $\{1,5\}$, $\{2,6\}$, $\{4,7\}$, and $|G|^2$ is invariant under s → σ³(s). Tier-B (constructed; computational verification of the three values).
+* **G8 (Spectral Coherence Integral).** The coherence integral $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ — with $\omega = e^{2\pi i /9}$ and $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ the canonical $\beta$-exception character — takes **exactly three values**: $G(s) = 0$ at the four anchors $\{0, 3, 8, 9\}$, $G(s) \approx 1.872$ on $\{1, 2, 5, 6\}$ (the union of the two σ³-orbits $\{1,5\} \cup \{2,6\}$), and $G(s) \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The σ³ pairing is structural: σ³ has order 2 on the 6-cycle, partitioning $\{1,2,4,5,6,7\}$ into the three 2-cycles $\{1,5\}$, $\{2,6\}$, $\{4,7\}$, and $|G|^2$ is invariant under $s \mapsto \sigma^3(s)$ (the complex amplitudes satisfy $G_\mathrm{cplx}(\sigma^3(s)) = -G_\mathrm{cplx}(s)$). The high/low discrimination between $\{4,7\}$ and the other two σ³-orbits is the χ-imbalance $\nu_+ \in \{0, 2\}$ versus $\nu_+ = 1$ in the first three orbit positions (§4.3). Tier-B (constructed; computational verification of the three values; partition verified by `manuscript/verify_G6_G7_G8.py`).
 
 **The architectural reading.** Together, $G_6$, $G_7$, $G_8$ form the **spectral layer** (Layer 4 in the 6-layer Q-series architecture) of the TIG framework's $\mathbb{Z}/10\mathbb{Z}$ substrate. They are the foundation for the Q17-B Clay-bridge structural reading ([J48]), the Symbolic Return Theorem (a direct corollary of $G_6$), and the trajectory-coherence structure that underlies the runtime processor's 4-core attractor ([J41]).
 
@@ -156,8 +156,8 @@ $$
 | $s$ | $G(s)$ | Justification |
 |-----|--------|---------------|
 | $\{0, 3, 8, 9\}$ (anchors) | $0$ exactly | $\chi(s) = 0$ and $\sigma^j(s) = s$ for all $j$, so the sum vanishes. |
-| $\{1, 2, 5, 6\}$ ($\sigma^3$-orbits $\{1,5\} \cup \{2,6\}$) | $\approx 1.872$ ($G_\mathrm{low}$) | Interleaved $\chi$-sequence along $\sigma$-orbit; partial cancellation under $\omega$-weights. |
-| $\{4, 7\}$ ($\sigma^3$-orbit) | $\approx 9.389$ ($G_\mathrm{high}$) | $\chi$-sequence has length-3 run of constant sign; constructive interference under $\omega$-weights. |
+| $\{1, 2, 5, 6\}$ ($\sigma^3$-orbits $\{1,5\} \cup \{2,6\}$) | $\approx 1.872$ ($G_\mathrm{low}$) | First-three-orbit $\chi$-balance $\nu_+ = 1$; partial cancellation under $\omega$-weights. |
+| $\{4, 7\}$ ($\sigma^3$-orbit) | $\approx 9.389$ ($G_\mathrm{high}$) | First-three-orbit $\chi$-imbalance $\nu_+ \in \{0, 2\}$ (extremal); constructive interference under $\omega$-weights. See §4.3 for the orbit-doubling argument. |
 
 ### 4.3 Proof
 
@@ -199,7 +199,7 @@ The three theorems form a coherent spectral layer:
 
 * **$G_6$** establishes that the substrate is *finite-period* — every orbit closes in 6 steps.
 * **$G_7$** quantifies *how* the orbit structure splits — bimodally between fixed and cyclic.
-* **$G_8$** shows that the *spectral content* of orbit-following character sums is three-valued, with concentration at the BALANCE/HARMONY pair.
+* **$G_8$** shows that the *spectral content* of orbit-following character sums is three-valued, with concentration on the σ³-orbit $\{4, 7\}$ (the σ³-coherent χ-pair).
 
 Together, the three results characterize the canonical $\sigma$-permutation completely at the spectral / period level. The substrate's spectral signature is *completely determined* by these three results.
 
@@ -258,11 +258,11 @@ Each result is proved at the tier it claims; no upgrades.
 
 ### TIG corpus (consolidated here)
 
-* `papers/G6_PERIODICITY_THEOREM.md` (2026; Sanders, Luther, Calderon Jr.).
-* `papers/G7_GATE_RATE_DISTRIBUTION.md` (2026; Sanders, Luther).
-* `papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md` (2026; Sanders, Luther).
+* `papers/G6_PERIODICITY_THEOREM.md` (2026; Sanders, Gish).
+* `papers/G7_GATE_RATE_DISTRIBUTION.md` (2026; Sanders, Gish).
+* `papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md` (2026; Sanders, Gish).
 * `papers/Q_SERIES_ARCHITECTURE.md` — six-layer architecture.
-* `papers/Q_SERIES_INTEGRATED_SYNTHESIS.md` — Luther-Sanders attribution.
+* `papers/Q_SERIES_INTEGRATED_SYNTHESIS.md` — Sanders + Gish synthesis.
 * `papers/Q9_*.md`, `papers/Q10_*.md` — the $(\alpha, \beta)$ polynomial form.
 
 ### External background
@@ -276,8 +276,8 @@ Each result is proved at the tier it claims; no upgrades.
 ## §8 Bibtex
 
 ```bibtex
-@misc{sanders2026j51,
-  author       = {Sanders, Brayden Ross and Luther, C.A.},
+@misc{sanders2026j43,
+  author       = {Sanders, Brayden Ross and Gish, M.},
   title        = {Spectral Layer Consolidation: $G_6$, $G_7$, $G_8$ from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$},
   year         = {2026},
   month        = {sep},

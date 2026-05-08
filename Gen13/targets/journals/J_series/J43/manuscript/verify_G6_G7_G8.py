@@ -90,27 +90,30 @@ def main() -> None:
     print(f"Sigma^3 pairing {sigma3_pairs}: |G(a)| = |G(b)| within each pair (verified algebraically).")
 
     # ------------------------------------------------------------------
-    # Run-structure discriminator: chi-sequence has length-3 monotone run
-    # iff s is in the high-locus {4, 7}.
+    # nu_+ discriminator (manuscript §4.3): the high-locus {4, 7} is exactly
+    # the set of starting states whose first three sigma-orbit positions have
+    # an extremal +1 count nu_+ = 0 or nu_+ = 2 (rather than the typical 1).
+    # The 9-step sum visits the orbit's first three positions twice, weighting
+    # them in the spectral-coherence integral G(s).
     # ------------------------------------------------------------------
     print()
-    print("chi-sequence along sigma-orbit (one full period of sigma):")
+    print("nu_+ discriminator (count of chi=+1 in first 3 orbit positions):")
+    nu_plus = {}
     for s in [1, 2, 4, 5, 6, 7]:
         cur = s
-        seq = []
-        for _ in range(6):
-            seq.append(chi[cur])
+        first_three = []
+        for _ in range(3):
+            first_three.append(cur)
             cur = sigma[cur]
-        max_run = 1
-        cur_run = 1
-        for k in range(1, 6):
-            if seq[k] == seq[k - 1]:
-                cur_run += 1
-                max_run = max(max_run, cur_run)
-            else:
-                cur_run = 1
-        marker = " <-- high-locus" if s in {4, 7} else ""
-        print(f"  s={s}: chi={seq}   max run={max_run}{marker}")
+        chi_first3 = [chi[x] for x in first_three]
+        nu = sum(1 for v in chi_first3 if v == 1)
+        nu_plus[s] = nu
+        marker = " <-- high-locus (extremal nu)" if s in {4, 7} else ""
+        print(f"  s={s}: first3={first_three}  chi={chi_first3}  nu_+={nu}{marker}")
+    # Verify the claim: high-locus = extremal nu_+
+    extremal = {s for s, nu in nu_plus.items() if nu in {0, 2}}
+    assert extremal == {4, 7}, f"extremal nu_+ states {extremal}, expected {{4, 7}}"
+    print("Verified: nu_+ = 0 or 2 occurs exactly on s in {4, 7}; nu_+ = 1 on s in {1, 2, 5, 6}.")
 
     print("\nAll J43 verifications PASSED.")
 

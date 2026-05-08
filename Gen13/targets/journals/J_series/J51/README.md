@@ -1,4 +1,4 @@
-# J51 — Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem
+# J51 — Q17-B Clay Bridge: A Finite Gauss Sum (Trajectory Coherence Integral) and the Symbolic Return Theorem
 
 **Status:** DRAFT
 **Phase:** Phase 5
@@ -13,7 +13,7 @@
 
 **Local path:** `manuscript/J48_q17b_clay_bridge.md`
 
-**Abstract:** The TIG framework's spectral layer produces a 9-term Dirichlet character sum $G(s)$ on $\mathbb{Z}/10\mathbb{Z}$ that is three-valued (zero at anchors, $G_\mathrm{low} \approx 1.872$ on most of the 6-cycle, $G_\mathrm{high} \approx 9.389$ at $\{5,7\}$) — a sharp finite analogue of the structural features RH demands of $\zeta(s)$. Includes the Symbolic Return Theorem (corollary of $\sigma^6 = \mathrm{id}$). Tier-A theorems §§2-4; Tier-B bridge claim §5; explicit boundary.
+**Abstract:** The TIG framework's spectral layer produces a 9-term finite Gauss sum $G(s)$ (the *trajectory coherence integral*) on $\mathbb{Z}/10\mathbb{Z}$ that is three-valued: zero on the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on $\{1, 2, 5, 6\}$, $G_\mathrm{high} \approx 9.389$ on the σ³-orbit $\{4, 7\}$. Together with the Symbolic Return Theorem (corollary of $\sigma^6 = \mathrm{id}$), this paper is the **Q17-B Clay bridge**: a structural rhyme between $G(s)$ and the structural features RH demands of $\zeta(s)$ — explicitly disclaimed as a vocabulary correspondence rather than a Weil-Deligne function-field analogue. Tier-A theorems §§2-4; Tier-B structural rhyme §5; explicit boundary.
 
 Files in this J-folder's `manuscript/`:
 
@@ -24,9 +24,9 @@ Files in this J-folder's `manuscript/`:
 
 ## §2 — Verification script
 
-**Path:** `(Q17 bridge script)`
+**Path:** `manuscript/verify_J51_G_function.py` (run with `python manuscript/verify_J51_G_function.py`).
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+Confirms Theorem 2.1 ($\sigma^6 = \mathrm{id}$ → Symbolic Return), Theorem 4.2 (corrected three-valued partition: ZERO on $\{0,3,8,9\}$, LOW on $\{1,2,5,6\}$ ≈ 1.872, HIGH on $\{4,7\}$ ≈ 9.389), the σ³-pairing of complex amplitudes (within $\{1,5\}, \{2,6\}, \{4,7\}$ the amplitudes are anti-paired so $|G|^2$ matches), and the $\nu_+$ discriminator (extremal $\nu_+ \in \{0,2\}$ on $\{4,7\}$ vs $\nu_+ = 1$ on $\{1,2,5,6\}$). Runtime $<2$ s; deterministic. The earlier `proof_clay_rotation.py` (which tests $T^* = 5/7$, $\xi_0 = e^{-1}$, sinc² identities — *not* $G(s)$) is preserved as supplementary context only and is not the verification for this paper.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -62,16 +62,16 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN:** Theorem 2.1 (Symbolic Return — direct corollary of $\sigma^6 = \mathrm{id}$); Theorem 4.2 (three-valued $G(s)$ with corrected partition: ZERO $\{0,3,8,9\}$, LOW $\{1,2,5,6\}$, HIGH $\{4,7\}$); $\sigma^3$-pairing on the 6-cycle ($G_\mathrm{cplx}(\sigma^3(s)) = -G_\mathrm{cplx}(s)$).
+- **COMPUTED:** $G(s)$ values to machine precision; $\sigma^3$-pairing checked algebraically (sum of complex amplitudes within each pair = 0 to $10^{-15}$); $\nu_+$ discriminator (high-locus $\{4, 7\}$ has $\nu_+ \in \{0, 2\}$; the other σ³-orbits have $\nu_+ = 1$). All in `manuscript/verify_J51_G_function.py`.
+- **STRUCTURAL RHYME:** the three-valued image (R1' zeros at predictable locations + R2' spectral concentration on a structurally-distinguished pair + R3' transverse multiplicative-additive interplay) rhymes with what RH demands of $\zeta(s)$. The rhyme is at vocabulary level only; the genuine finite analogue of RH (Weil-Deligne function-field zeta) is not engaged here.
+- **OPEN:** closed forms of $G_\mathrm{low}, G_\mathrm{high}$ in $\mathbb{Q}(\zeta_9)$; higher-$N$ generalization (does $\sigma_N$ on $\mathbb{Z}/N\mathbb{Z}$ for squarefree $N$ admit comparable structure? Rate theorem [J01] suggests it flattens); why $\{4, 7\}$ specifically is the high-locus σ³-orbit; whether a Weil-Deligne-style analogue exists for σ.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership paragraph
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+> *Lens and substrate.* This paper works on $\mathbb{Z}/10\mathbb{Z}$ with the canonical $\sigma$-permutation $(1\;7\;6\;5\;4\;2)(0)(3)(8)(9)$ and the $\beta$-exception character $\chi$ defined in §3. These choices reflect the structural reading of the substrate developed in the broader Q-series corpus and the J29 (Q17-A) proved-algebra companion; they are not derived from first principles. The theorems below are theorems on this specific (substrate, $\sigma$, $\chi$) triple. The bridge claim of §5 is explicitly a structural rhyme — a vocabulary correspondence between this finite setting and the analytic structure of $\zeta(s)$ — not a function-field analogue.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -96,4 +96,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem." Submitted to *L'Enseignement Math*.
+Sanders, B.R., Gish, M. (2026). "Q17-B Clay Bridge: A Finite Gauss Sum (Trajectory Coherence Integral) and the Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$." Submitted to *L'Enseignement Mathématique*.

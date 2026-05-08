@@ -1,4 +1,10 @@
-# Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
+# [STALE — NOT THE J43 MANUSCRIPT]
+
+> **NOTE (2026-05-07):** This file is a stale copy of the Q17-B manuscript that lives canonically at `Gen13/targets/journals/J_series/J51/manuscript/J48_q17b_clay_bridge.md`. The J43 manuscript is `J51_spectral_layer_consolidation.md` in this same folder (not this file). This stale copy contains the original (incorrect) partition $\{5, 7\}$/$\{1, 2, 4, 6\}$ and should not be used for submission. See the canonical J51 manuscript for the corrected partition $\{4, 7\}$/$\{1, 2, 5, 6\}$ and the σ³-pairing argument.
+
+---
+
+# Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$ (STALE COPY — see header above)
 
 **Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co

@@ -16,13 +16,13 @@
 
 We give a clean, fully proved closed-form identity for the squared overlap $R(k,f) = \sin^2(\pi k/f)/(k^2 \sin^2(\pi/f))$ between a momentum eigenstate and a position-space rectangular window in finite-dimensional QM on the cyclic group $\mathbb{Z}/N\mathbb{Z}$. The closed form is the **Fejér kernel** [Fejér 1900] in disguise; the present note's contribution is the QM-on-cyclic-group interpretation and the arithmetic-bridge synchronization with the First-G event (§5). We derive three QM-relevant consequences: (i) the squared overlap of a momentum eigenstate with the normalized rectangular position window (corrected from the earlier "probability mass" reading; Proposition 4.1); (ii) a first-zero theorem (Corollary 4.2) — **for every $f \ge 2$**, the first integer $k$ with $R(k,f) = 0$ is $k = f$ (no primality needed); (iii) the continuum limit $R(k,f) \to \sinc^2(k/f)$. We close with the synchronization with the arithmetic First-G event in coprimality partitions: when $f = \mathrm{spf}(b)$, the QM first-zero coincides with the smallest $k$ at which $\{1,\dots,k\}$ contains a non-coprime element of $\mathbb{Z}/b\mathbb{Z}$. The note is short, theorem-proof-corollary in structure, and machine-precision verified on $f \in \{3,4,\ldots,13,17,19,23\}$ via the bundled `manuscript/verify_J42_sinc2.py`.
 
-## Why JMP (with fallback)
+## Why LMP (with JMP per-venue-cap rationale)
 
-- The intersection of finite-dimensional QM and discrete Fourier analysis is JMP territory; the closed form is the natural reference identity for finite QM on cyclic groups.
+- The note is a short-format theorem-proof-corollary contribution — exactly the LMP register.
+- The intersection of finite-dimensional QM and discrete Fourier analysis (with the Fejér-kernel attribution honestly registered) is squarely within LMP scope.
 - The synchronization with the arithmetic First-G event creates a clean number-theoretic / quantum-mechanical bridge useful for the "quantum number theory" literature.
-- The note is short and self-contained — suitable for any of: JMP, *Letters in Mathematical Physics*, *Journal of Physics A: Mathematical and Theoretical*, or *Communications in Mathematical Physics*.
 
-**Per-venue cap fallback.** This is the **3rd JMP target** in the J-series after J40 (BB Bridge) and J41 (YM Mass Gap Bridge). With JMP's 2/quarter cap reached, our preferred fallback is *Letters in Mathematical Physics* (Springer) for the short-format note; *J Phys A* is a natural alternative.
+**Per-venue cap rationale for LMP over JMP.** This would have been the **3rd JMP target** in the J-series after J40 (BB Bridge) and J41 (YM Mass Gap Bridge). With JMP's 2/quarter cap reached, we redirect to LMP as our preferred venue; *J Phys A: Mathematical and Theoretical* and *Communications in Mathematical Physics* are alternatives if the LMP editors find the scope outside their format.
 
 ## Companion submissions
 
@@ -34,7 +34,7 @@ The TIG/CK research program is shipping a coordinated J-series. The papers most 
 
 ## Reproducibility
 
-The closed-form identity is verified at machine precision on $f \in \{3,5,7,11,13,17,19,23\}$ (max deviation $4.44 \times 10^{-16}$); reproducible with `numpy` in seconds. Verification scripts available at DOI: 10.5281/zenodo.18852047.
+The closed-form identity is verified at machine precision on $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ (max deviation $3.33 \times 10^{-16}$); reproducible with `numpy` + `sympy` in seconds via the bundled `manuscript/verify_J42_sinc2.py`. The script also confirms the corrected special value $\sinc^2(1/10) = 25(\sqrt{5}-1)^2/(4\pi^2) \approx 0.9675312093$ (a transcription error in an earlier draft printed `0.9355`; the closed form was always correct, only the decimal was wrong). Verification scripts also available at DOI: 10.5281/zenodo.18852047.
 
 ## Suggested reviewers
 

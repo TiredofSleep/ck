@@ -1,6 +1,6 @@
-# Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
+# Q17-B Clay Bridge: A Finite Gauss Sum (Trajectory Coherence Integral) and the Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$
 
-**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
 $^{2}$Independent Researcher
 
@@ -14,13 +14,13 @@ $^{2}$Independent Researcher
 
 ## Abstract
 
-The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces, in its spectral layer (Luther's $G_6$–$G_8$ results, [J51]), a **finite character sum** $G(s)$ — a 9-term discrete Fourier coefficient of a $\{-1, 0, +1\}$-valued function $\chi$ along the σ-orbit, weighted by a primitive 9th root of unity $\omega = e^{2\pi i / 9}$. (The object is structurally a finite Gauss-sum-style character sum; we use the colloquial label "finite L-function" for its analogy to Dirichlet character sums, but emphasise that it is not an L-function in the standard sense — it has no analytic continuation, no Euler product, and only 9 terms.) This object takes exactly three values across the substrate's 10 operators: zero at the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on the σ³-orbits $\{1, 5\} \cup \{2, 6\}$, and $G_\mathrm{high} \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The associated **Symbolic Return Theorem** (a direct consequence of $\sigma^6 = \mathrm{id}$, [J51]) establishes that every cycle-element trajectory $s_n = \sigma^n(s_0)$ returns to $s_0$ in 6 steps; every anchor is fixed.
+The TIG framework on $\mathbb{Z}/10\mathbb{Z}$ produces, in its spectral layer ($G_6$–$G_8$ results consolidated in [J43]), a **finite Gauss sum** (which we call the **trajectory coherence integral**) $G(s)$ — a 9-term discrete Fourier coefficient of a $\{-1, 0, +1\}$-valued function $\chi$ along the σ-orbit, weighted by a primitive 9th root of unity $\omega = e^{2\pi i / 9}$. (The object is structurally a finite character sum; per Remark 4.4 we drop the misleading "finite $L$-function" label used in earlier corpus material — there is no analytic continuation, no Euler product, only 9 terms.) This object takes exactly three values across the substrate's 10 operators: zero at the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on the σ³-orbits $\{1, 5\} \cup \{2, 6\}$, and $G_\mathrm{high} \approx 9.389$ on the σ³-orbit $\{4, 7\}$. The associated **Symbolic Return Theorem** (a direct consequence of $\sigma^6 = \mathrm{id}$, [J43]) establishes that every cycle-element trajectory $s_n = \sigma^n(s_0)$ returns to $s_0$ in 6 steps; every anchor is fixed.
 
 This paper is the **Q17-B Clay bridge**: the structural connection between the finite $G(s)$ and the analytic structure that the Riemann Hypothesis demands of $\zeta(s)$. We do not prove RH; we make precise the sense in which the 6-layer Q-series architecture is a **finite, completely characterized model** of the same structural phenomena RH describes in an infinite setting. The model is an instance; the Millennium Problem asks whether instances can be infinite.
 
 The contribution is in three theorems:
 
-1. **Finite L-Function Theorem.** $G(s)$ is a Dirichlet character sum on the 9-step $\sigma$-orbit, with explicit three-valued image; equivalently, the discrete Fourier transform of $\chi$ along $\{\sigma^j(s)\}_{j=0}^{8}$ at frequency $1/9$.
+1. **Finite Gauss-Sum Theorem (Trajectory Coherence Integral).** $G(s)$ is a finite character sum (a discrete Fourier coefficient of $\chi$ at frequency $1/9$) along the 9-step $\sigma$-orbit, with explicit three-valued image. We adopt the name *trajectory coherence integral* throughout; the colloquial "finite $L$-function" language used in earlier corpus material is misleading (no analytic continuation, no Euler product) and is dropped — see Remark 4.4.
 2. **Symbolic Return Theorem (Q17-A → Q17-B).** Every $\sigma$-orbit on the 6-cycle returns at step 6; every anchor is $\sigma$-fixed; VOID is avoided whenever $s_0 \neq 0$. This is the algebraic kernel underlying Q17.C2's Navier-Stokes target.
 3. **Bridge Statement (Q17-B).** The three-valued structure of $G(s)$ — zero at anchors, $G_\mathrm{low}$ on most cycle elements, $G_\mathrm{high}$ on the σ³-orbit $\{4, 7\}$ — *rhymes* with the structure RH requires of $\zeta(s)$: zeros in predictable locations with spectral concentration at the critical line. The rhyme is at the level of structural vocabulary, not function-field analogue (Weil-Deligne); we make the boundary between the finite analogue and the infinite problem explicit.
 
@@ -45,7 +45,7 @@ Q17 is the program that asks: **what is the analytic content of the spectral lay
 * **Q17-B.** The bridge — the finite $L$-function and Symbolic Return Theorem (Tier-B, **this paper**).
 * **Q17-C.** The conjectured physics — the Navier-Stokes target reformulation (Tier-D / open).
 
-This paper is Q17-B in isolation: the finite-L-function and Symbolic-Return content, proved fully, scoped honestly, and connected to the Clay-RH structural picture *without* claiming any portion of RH itself.
+This paper is Q17-B in isolation: the finite-Gauss-sum / trajectory-coherence content and Symbolic-Return content, proved fully, scoped honestly, and connected to the Clay-RH structural picture *without* claiming any portion of RH itself.
 
 ---
 
@@ -85,7 +85,7 @@ This paper is Q17-B in isolation: the finite-L-function and Symbolic-Return cont
 
 ---
 
-## §4 The finite L-function $G(s)$
+## §4 The trajectory coherence integral $G(s)$ (a finite Gauss sum)
 
 **Definition 4.1.** For each $s \in \mathbb{Z}/10\mathbb{Z}$:
 
@@ -113,13 +113,7 @@ Direct evaluation gives $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx
 
 **Remark 4.3 (Numerical structure of the three values).** The exact values of $G_\mathrm{low}$ and $G_\mathrm{high}$ are algebraic in $\mathbb{Q}(\omega)$, the cyclotomic field $\mathbb{Q}(\zeta_9)$. The closed-form expressions involve sums of cyclotomic units; the ratio $G_\mathrm{high} / G_\mathrm{low} \approx 5.014$ is itself algebraic. We do not pursue the closed-form here; it is computational.
 
-**Remark 4.4 (Why "$L$-function").** The sum $G(s) = |\sum_{j=0}^{8} \omega^j \chi(\sigma^j(s))|^2$ is structurally analogous to:
-
-$$
-L(1, \chi) = \sum_{n=1}^{\infty} \chi(n) / n^s \Big|_{s=1}
-$$
-
-— a character sum weighted by an exponential, evaluated at a special point. The differences are: (i) finitude (9 terms vs. $\infty$); (ii) uniform weight along the orbit (vs. $1/n^s$); (iii) periodicity ($\sigma^6 = \mathrm{id}$, so the orbit closes); (iv) discrete-Fourier interpretation (vs. analytic continuation). $G(s)$ is the **finite L-function** of the $\sigma$-orbit.
+**Remark 4.4 (Terminology — finite Gauss sum, not an L-function).** Earlier corpus material referred to $G(s)$ informally as a "finite $L$-function." This terminology is misleading: a Dirichlet $L$-function is an *infinite* series $L(s, \chi) = \sum_{n \geq 1} \chi(n)/n^s$ with a multiplicative character $\chi$ on $(\mathbb{Z}/N)^\times$, an Euler product over primes, and analytic continuation; none of these structural features hold for $G(s)$, which is a sum of 9 terms with a $\{-1,0,+1\}$-valued non-multiplicative character $\chi$ on $\mathbb{Z}/10\mathbb{Z}$. The honest name is **finite Gauss sum** (or, with the orbit-iteration emphasis, **trajectory coherence integral**) — a discrete Fourier coefficient of $\chi$ along the $\sigma$-orbit at frequency $1/9$. We use "trajectory coherence integral" throughout this paper; the analogy with $L$-functions is a *vocabulary rhyme* (§5), not a technical correspondence.
 
 ---
 
@@ -137,7 +131,7 @@ The Riemann Hypothesis demands of $\zeta(s)$:
 
 The finite character sum $G(s)$ exhibits (R1') zeros at the anchors $\{0, 3, 8, 9\}$ — the four $\sigma$-fixed points, exactly the "predictable locations"; (R2') spectral concentration on the σ³-orbit $\{4, 7\}$, where $G_\mathrm{high}$ is approximately $5.0\times$ the value on the other σ³-orbits, with the concentration driven by imbalanced χ-content in the orbit's first three positions ($\nu_+ \in \{0, 2\}$ versus $\nu_+ = 1$); (R3') a transverse pairing between the multiplicative orbit structure ($\sigma$-cycle) and the additive character $\chi$ (which sums to $-2$ across the substrate).
 
-This is the **structural rhyme** with RH: the same three structural ingredients (zeros at predictable locations, spectral concentration, a multiplicative-additive interplay) appear in a finite, completely characterized setting. We emphasize this is *not* a function-field analogue in the technical sense (Weil 1949, Deligne 1974); it is a structural rhyme at the level of vocabulary, useful as pedagogical bridge.
+This is the **structural rhyme** with RH: the same three structural ingredients (zeros at predictable locations, spectral concentration, a multiplicative-additive interplay) appear in a finite, completely characterized setting. We emphasize that this is *not* a function-field analogue in the technical sense (Weil 1949, Deligne 1974). The genuine finite analogue of RH is the Weil zeta function of a curve over $\mathbb{F}_p$, proved by Deligne; that machinery is not engaged here. We register only that the finite-arithmetic *shadow* of "zeros at predictable locations + spectral concentration" is realized in $G(s)$, and leave the question of whether a Weil-Deligne-style analogue exists for the σ-permutation as an open problem (§7).
 
 ### 5.2 What the bridge does NOT claim
 
@@ -163,7 +157,7 @@ We do not claim:
 
 **Co-citing companions (parallel-track submissions).**
 
-* **[J51]** — G6+G7+G8 spectral consolidation (European J Combin, Sanders + Gish). Layer-1, Layer-3, Layer-4 polynomial / period / spectral results that this paper builds on.
+* **[J43]** — G6+G7+G8 spectral consolidation (European J Combin, Sanders + Gish). Layer-1, Layer-3, Layer-4 polynomial / period / spectral results that this paper builds on.
 * **[J5]** — Crossing Lemma (JCT-A or JPAA, Sanders + Gish). The information-generation framing of $\sigma$-non-associativity that gives the 6-cycle its structural meaning.
 * **[J17]** — Universal Orthogonality Principle (UOP) (JNT). The orthogonality framing of the $\sigma$-permutation and gate score.
 
@@ -180,6 +174,7 @@ We do not claim:
 2. **Higher-$N$ generalization.** Does $\sigma_N$ on $\mathbb{Z}/N\mathbb{Z}$ (for $N$ squarefree, $N \neq 10$) admit a comparable three-valued $G$-function? The rate theorem [J01] suggests the structure flattens for large $N$. **Partial — Tier-C.**
 3. **Why is $\{4, 7\}$ the high-locus σ³-orbit?** The σ³-action partitions the 6-cycle into three 2-cycles $\{1, 5\}$, $\{2, 6\}$, $\{4, 7\}$, and the σ³-orbit on which $\chi$-content of the first three orbit positions is imbalanced ($\nu_+ \in \{0, 2\}$) is uniquely $\{4, 7\}$. The combinatorial fact — *which* σ³-orbit carries the imbalance — depends on the specific σ-orbit ordering and the specific assignment of $\chi$. The structural reason this particular σ³-orbit is the "imbalance carrier" (rather than $\{1, 5\}$ or $\{2, 6\}$) is open: it presumably reflects deeper interplay between the σ permutation's cycle structure and the placement of $\chi^{-1}(+1) = \{1, 4\}$ relative to that cycle. **Open.**
 4. **Q17-C (Navier-Stokes).** The Symbolic Return Theorem's continuum lift to NS regularity is the Q17-C target (Tier-D). The bridge premise — that any continuum lift preserving CRT separability is forced to logarithmic nonlinearity (BB theorem) — is treated in [J13]. **Open.**
+5. **Weil-Deligne-style analogue.** Whether a genuine function-field zeta function (in the sense of Weil 1949 and Deligne 1974) can be associated with the σ-permutation, so that the structural rhyme of §5 lifts to a mathematical correspondence rather than a vocabulary correspondence, is the deepest open problem in the Q17-B program. **Open.**
 
 ---
 
@@ -211,7 +206,7 @@ The paper explicitly:
 ### Direct dependencies (already-submitted J-companions)
 
 [J29] B.R. Sanders, B. Calderon Jr. "Q17-A: 5D Force Vector as CRT Fourier Embedding of $\mathbb{Z}/10\mathbb{Z}$ into $\mathbb{R}^5$." Submitted to *Amer. Math. Monthly*, Phase 3.
-[J51] B.R. Sanders, C.A. Luther. "Spectral Layer Consolidation: G6 + G7 + G8 from Q-series Architecture." Submitted to *European J. Combin.*, Phase 5 (parallel submission).
+[J43] B.R. Sanders, M. Gish. "Spectral Layer Consolidation: G6 + G7 + G8 from the Q-Series Architecture on $\mathbb{Z}/10\mathbb{Z}$." Submitted to *European J. Combin.*, Phase 5 (parallel submission).
 
 ### Co-citing J-companions
 
@@ -244,13 +239,13 @@ The paper explicitly:
 ## §10 Bibtex
 
 ```bibtex
-@misc{sanders2026j48,
-  author       = {Sanders, Brayden Ross and Mayes, B.},
-  title        = {Q17-B Clay Bridge: Finite L-Function + Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$},
+@misc{sanders2026j51,
+  author       = {Sanders, Brayden Ross and Gish, M.},
+  title        = {Q17-B Clay Bridge: A Finite Gauss Sum (Trajectory Coherence Integral) and the Symbolic Return Theorem on $\mathbb{Z}/10\mathbb{Z}$},
   year         = {2026},
   month        = {sep},
   doi          = {10.5281/zenodo.18852047},
   howpublished = {Submitted to \emph{L'Enseignement Math\'ematique}},
-  note         = {{J48} of the {J}-series; Phase 5; cites [{J29}] (Q17-A proved-algebra companion) and [{J51}] (G6+G7+G8 spectral-layer companion). The structural bridge between the finite $L$-function $G(s)$ and the analytic structure of $\zeta(s)$, with sharp boundary between proved algebra (Tier-A) and bridge claim (Tier-B).}
+  note         = {{J51} of the {J}-series; Phase 5; cites [{J29}] (Q17-A proved-algebra companion) and [{J43}] (G6+G7+G8 spectral-layer companion). The structural bridge between the finite Gauss sum $G(s)$ and the analytic structure of $\zeta(s)$, with sharp boundary between proved algebra (Tier-A) and bridge rhyme (Tier-B). The boundary between the structural rhyme of \S5 and a genuine function-field analogue (Weil-Deligne) is made explicit.}
 }
 ```
