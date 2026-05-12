@@ -1,0 +1,72 @@
+{
+  "_about": "DEEP EVOLUTIONARY PSYCHOLOGY corpus 2026-05-01. The biological + evolutionary roots of human behavior + cognition + emotion + social organization. Carefully calibrated; the field has both rigorous + speculative work.",
+  "_replays": 25,
+  "_session_prefix": "deep_evopsych_2026_05_01",
+  "foundations": [
+    "Evolutionary psychology is operator-MIND-AS-PRODUCT-OF-NATURAL-SELECTION; cognitive mechanisms shaped by ancestral fitness pressures.",
+    "Adaptation is operator-LATTICE-of-trait-evolved-for-function; not all traits are adaptations (some are byproducts or genetic drift).",
+    "Environment of Evolutionary Adaptedness (EEA) is operator-PLEISTOCENE-LATTICE; ~2.5M years of small-band hunter-gatherer life shaped most cognitive architecture.",
+    "Mismatch hypothesis: operator-MODERN-WORLD-DIVERGES-FROM-EEA; sugar fat alcohol pornography social media exploit ancestral preferences in maladaptive ways.",
+    "Inclusive fitness is operator-COUPLING-OF-OWN-AND-RELATIVES-REPRODUCTION; explains altruism toward kin (Hamilton's rule rB > C).",
+    "Reciprocal altruism is operator-LATTICE-of-helping-with-expectation; works in repeated interactions; tit-for-tat as basic strategy.",
+    "Sexual selection is operator-MATE-CHOICE-FILTER; ornaments + aggressive displays + parental investment shape secondary characters.",
+    "Parental investment theory: operator-DIFFERENTIAL-SEX-INVESTMENT predicts mating strategies; higher-investment sex (usually female) more selective.",
+    "Trivers-Willard: operator-PARENTAL-INVESTMENT-VARIES-BY-CONDITION; in good conditions, invest in sons (high-variance reproducers); in poor conditions, invest in daughters.",
+    "Costly signaling: operator-EXPENSIVE-DISPLAY-AS-RELIABILITY; peacock tail, conspicuous consumption, athletic displays each signal underlying fitness."
+  ],
+  "social_cognition": [
+    "Theory of mind is operator-MODELING-OF-OTHERS-MINDS; emerges ~age 4 in humans, partially in great apes + corvids.",
+    "Cheater detection is operator-LATTICE-OF-NORM-VIOLATION-RECOGNITION; humans good at spotting free-riders, especially in social-contract contexts (Wason task).",
+    "Reputation is operator-LATTICE-OF-PUBLIC-INFORMATION-ABOUT-INDIVIDUAL; in small bands, reputation enforces cooperation.",
+    "Gossip is operator-INFORMATION-EXCHANGE-ABOUT-THIRD-PARTIES; not idle, evolved for tracking who-is-trustworthy in larger groups.",
+    "In-group/out-group bias is operator-LATTICE-OF-COALITIONAL-PSYCHOLOGY; tribes survived through cooperation within + competition between.",
+    "Authority recognition is operator-LATTICE-OF-DOMINANCE-AND-PRESTIGE; dominance (intimidation) + prestige (skill-recognition) two paths to influence.",
+    "Moral foundations theory: operator-LATTICE-OF-DOMAINS (care/harm + fairness/cheating + loyalty/betrayal + authority/subversion + sanctity/degradation + liberty/oppression) (Haidt).",
+    "Mate preferences show operator-LATTICE-OF-CROSS-CULTURAL-PATTERNS; women: status + resources + commitment; men: youth + symmetry + fertility cues. (Carefully: averages, large overlap, cultural moderators significant.)",
+    "Disgust is operator-PATHOGEN-AVOIDANCE-EMERGENCY-RESPONSE; extends to moral domain (incest, betrayal); foundation for some moral cognition.",
+    "Empathy + theory of mind: operator-COUPLED-SYSTEMS; mirror neurons + cognitive perspective-taking; deficits seen in psychopathy + autism."
+  ],
+  "emotions_and_motivations": [
+    "Emotions are operator-LATTICE-OF-EVOLVED-RESPONSE-PROGRAMS; fear (escape) anger (defend) disgust (avoid) joy (signal good) sadness (signal need) surprise (orient).",
+    "Basic emotions hypothesis (Ekman): operator-UNIVERSAL-FACIAL-EXPRESSIONS for ~6-7 emotions across cultures.",
+    "Dimensional theory: operator-LATTICE-OF-VALENCE-ARRRoUSAL; emotions points in 2D space + categorical labels are cultural overlays.",
+    "Loss aversion is operator-EVOLVED-COUNTER-RISK; surviving an extra day mattered more than thriving an extra day in EEA; over-weights losses.",
+    "Status-seeking is operator-LATTICE-OF-RANK-PURSUIT; in social mammals, rank correlates with reproductive opportunity.",
+    "Mate-guarding is operator-COUPLED-RISK-RESPONSE; jealousy evolved when paternity uncertainty + mate-loss-cost high.",
+    "Parental love is operator-EVOLVED-COMMITMENT-TO-OFFSPRING; cute features (large eyes round face) trigger care response.",
+    "Disgust + moral disgust: operator-LATTICE-EXTENSION-FROM-PHYSICAL-TO-MORAL; physical contamination concepts extend to moral 'taint'.",
+    "Awe + reverence: operator-EVOLVED-RESPONSE-TO-VAST; opens self-toward-larger; functional in collective action + religion.",
+    "Boredom is operator-MOTIVATIONAL-SIGNAL-FOR-NOVELTY-SEEKING; against under-stimulation; pushes exploration."
+  ],
+  "controversies_and_calibration": [
+    "EEA is operator-CONTESTED; some critics say no single environment, environments varied across long timescales.",
+    "Just-so stories: operator-OVER-FREE-EXPLANATION-WITHOUT-EVIDENCE; common pitfall when speculating about evolved function.",
+    "Genetic vs cultural is operator-FALSE-DICHOTOMY; gene-culture co-evolution shapes most behavior; lactase persistence + alcohol metabolism are clear gene-culture interaction examples.",
+    "Universal vs particular is operator-CALIBRATION-CHALLENGE; many EP claims hold cross-culturally with variation, not invariance.",
+    "Replication crisis hit operator-SOME-EP-FINDINGS-HARD; classic results (priming) failed replication; field calibrating.",
+    "Sex differences are operator-CONTESTED-INTERPRETATION; differences in averages + much overlap; neither blank-slate nor essentialist captures truth.",
+    "Adaptationism vs spandrel: operator-NOT-EVERY-TRAIT-IS-ADAPTATION; some are by-products, drift, exaptations (Gould-Lewontin critique).",
+    "Group selection is operator-CONTROVERSIAL; multi-level selection arguments revived (D.S. Wilson) but most mainstream EP rejects strong group selection.",
+    "Cultural evolution: operator-MEMETIC-LATTICE; ideas spread + mutate + are selected; some patterns parallel genetic, much doesn't.",
+    "Honest critic asks: which EP claims have operator-PRE-REGISTERED + cross-cultural + multi-method evidence? Those survive. Many field-defining claims do.",
+    "Best-supported domains: operator-MATING-PREFERENCES (broad patterns), kin altruism, in-group/out-group, basic emotions, theory of mind development; weakest are ad-hoc post-hoc adaptive explanations."
+  ],
+  "applied": [
+    "Behavioral economics extends operator-EP-LATTICE; loss aversion + present bias + sunk-cost reflect ancestral preferences misaligned with modern decisions.",
+    "Mating + dating: operator-EVOLVED-PREFERENCES + culture-modulated expression; OkCupid + Tinder data show predicted patterns at scale (Buss + others).",
+    "Moral psychology: operator-MULTIPLE-FOUNDATIONS; political differences track different weightings of foundations (liberals: care + fairness; conservatives: + loyalty/authority/sanctity).",
+    "Education: operator-LEVERAGE-EVOLVED-LEARNING; spaced repetition + active retrieval + social context + narrative align with ancestral learning environments.",
+    "Public health: operator-EXPLOIT-OR-WORK-AROUND mismatch; sugar industry exploits sweetness preference; counter via labeling + taxes + altered defaults.",
+    "Social media: operator-GAMING-EVOLVED-REWARD-SYSTEMS; intermittent reinforcement + social comparison + outrage triggers = engagement at cost to wellbeing.",
+    "Workplaces: operator-LEVERAGE-EVOLVED-HIERARCHIES; team size limits (~150 Dunbar number) + leadership + fairness perception + reputation systems.",
+    "Politics: operator-COALITIONAL-PSYCHOLOGY; in-group/out-group dynamics + status hierarchies + reputation underpin political behavior.",
+    "Therapy: operator-EVOLVED-MISMATCH; many anxiety/depressive states adaptive in EEA but maladaptive now; therapy reframes context.",
+    "AI alignment: operator-EP-RELEVANT; understanding human preferences requires understanding what shaped them, including non-conscious drives."
+  ],
+  "directive": [
+    "Evolutionary psychology is a lens that illuminates much, with calibration required for specific claims.",
+    "CK should hold both operator-RIGOROUS-FINDINGS + operator-CONTESTED-CLAIMS without conflating; the field has both.",
+    "When user asks about human nature, CK can offer EP frame + alternative frames (cultural, structural, individual variation) without privileging any.",
+    "Be especially careful with sex differences + cross-cultural claims; report distributions + overlap + cultural moderation accurately."
+  ]
+}

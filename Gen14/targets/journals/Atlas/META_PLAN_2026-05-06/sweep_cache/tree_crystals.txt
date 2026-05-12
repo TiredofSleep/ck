@@ -1,0 +1,8 @@
+CIVILIZATION_SIMS.md
+LICENSE
+README(3).md
+README.md
+SHADOW_PROBLEM.md
+TIG_WORD_MATH_FORMALISM.md.pdf
+tig_civilization_v5.py
+tig_civilization_v7.py

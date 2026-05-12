@@ -1,0 +1,534 @@
+{
+  "started_at": 1777736967.819211,
+  "absorptions": [
+    {
+      "label": "silence",
+      "n_ops": 6888,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.0,
+          "LATTICE": 0.0,
+          "COUNTER": 1.0,
+          "PROGRESS": 0.0,
+          "COLLAPSE": 0.0,
+          "BALANCE": 0.0,
+          "CHAOS": 0.0,
+          "HARMONY": 0.0,
+          "BREATH": 0.0,
+          "RESET": 0.0
+        },
+        "dominant_op_name": "COUNTER",
+        "curvature_energy": 0.0,
+        "d2_magnitude_mean": 0.0,
+        "flow_ratio": 0.0
+      },
+      "pre": {
+        "tick": 49999062,
+        "W_trace": 0.9599714631692974,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.634236551682516
+      },
+      "post": {
+        "tick": 50006289,
+        "W_trace": 0.9670566903238282,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.641321779288087
+      },
+      "delta": {
+        "tick": 7227,
+        "W_trace": 0.00709,
+        "emergent": 0.0,
+        "W_norm": 0.00709
+      },
+      "post_last_pair": [
+        "COUNTER",
+        "COUNTER"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.22529,
+        "BALANCE<->CHAOS": 0.16467,
+        "LATTICE<->BREATH": 0.18834,
+        "COUNTER<->RESET": 0.15914,
+        "PROGRESS<->COLLAPSE": 0.19061
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 4,
+        "olfactory_delta": {
+          "absorbed_delta": 4,
+          "absorbed_post": 955129,
+          "absorbed_pre": 955125,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    },
+    {
+      "label": "tone_440",
+      "n_ops": 6888,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.00769454101100564,
+          "LATTICE": 0.014227642677724361,
+          "COUNTER": 0.3789198696613312,
+          "PROGRESS": 0.0,
+          "COLLAPSE": 0.0,
+          "BALANCE": 0.20121951401233673,
+          "CHAOS": 0.0,
+          "HARMONY": 0.0,
+          "BREATH": 0.39793843030929565,
+          "RESET": 0.0
+        },
+        "dominant_op_name": "BREATH",
+        "curvature_energy": 0.29010844230651855,
+        "d2_magnitude_mean": 0.2901926636695862,
+        "flow_ratio": 0.0
+      },
+      "pre": {
+        "tick": 50006501,
+        "W_trace": 0.9468543807187677,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.594318572160486
+      },
+      "post": {
+        "tick": 50013731,
+        "W_trace": 0.9520410183839387,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.572318302351991
+      },
+      "delta": {
+        "tick": 7230,
+        "W_trace": 0.00519,
+        "emergent": 0.0,
+        "W_norm": -0.022
+      },
+      "post_last_pair": [
+        "BALANCE",
+        "BREATH"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.22267,
+        "BALANCE<->CHAOS": 0.15333,
+        "LATTICE<->BREATH": 0.1917,
+        "COUNTER<->RESET": 0.15405,
+        "PROGRESS<->COLLAPSE": 0.18691
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 4,
+        "olfactory_delta": {
+          "absorbed_delta": 4,
+          "absorbed_post": 955133,
+          "absorbed_pre": 955129,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    },
+    {
+      "label": "bursts",
+      "n_ops": 6888,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.028164925053715706,
+          "LATTICE": 0.03310104459524155,
+          "COUNTER": 0.6620209217071533,
+          "PROGRESS": 0.0,
+          "COLLAPSE": 0.02584204450249672,
+          "BALANCE": 0.10307781398296356,
+          "CHAOS": 0.012485481798648834,
+          "HARMONY": 0.0,
+          "BREATH": 0.13530778884887695,
+          "RESET": 0.0
+        },
+        "dominant_op_name": "COUNTER",
+        "curvature_energy": 0.2895514667034149,
+        "d2_magnitude_mean": 0.2896355390548706,
+        "flow_ratio": 0.31414634146341464
+      },
+      "pre": {
+        "tick": 50013940,
+        "W_trace": 0.9440417807832784,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.575414790385094
+      },
+      "post": {
+        "tick": 50021166,
+        "W_trace": 0.951306609127664,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.602681902524633
+      },
+      "delta": {
+        "tick": 7226,
+        "W_trace": 0.00726,
+        "emergent": 0.0,
+        "W_norm": 0.02727
+      },
+      "post_last_pair": [
+        "COUNTER",
+        "COUNTER"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.22675,
+        "BALANCE<->CHAOS": 0.15495,
+        "LATTICE<->BREATH": 0.19185,
+        "COUNTER<->RESET": 0.1553,
+        "PROGRESS<->COLLAPSE": 0.18685
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 4,
+        "olfactory_delta": {
+          "absorbed_delta": 4,
+          "absorbed_post": 955137,
+          "absorbed_pre": 955133,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    },
+    {
+      "label": "chirp",
+      "n_ops": 6888,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.16652148962020874,
+          "LATTICE": 0.19628338515758514,
+          "COUNTER": 0.44381532073020935,
+          "PROGRESS": 0.0,
+          "COLLAPSE": 0.0,
+          "BALANCE": 0.0815911740064621,
+          "CHAOS": 0.0,
+          "HARMONY": 0.0,
+          "BREATH": 0.11178861558437347,
+          "RESET": 0.0
+        },
+        "dominant_op_name": "COUNTER",
+        "curvature_energy": 0.5452185869216919,
+        "d2_magnitude_mean": 0.5453768968582153,
+        "flow_ratio": 0.036048064085447265
+      },
+      "pre": {
+        "tick": 50021379,
+        "W_trace": 0.9462351156225766,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.592512845618876
+      },
+      "post": {
+        "tick": 50028606,
+        "W_trace": 0.9443640798276403,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.544004123070155
+      },
+      "delta": {
+        "tick": 7227,
+        "W_trace": -0.00187,
+        "emergent": 0.0,
+        "W_norm": -0.04851
+      },
+      "post_last_pair": [
+        "COUNTER",
+        "VOID"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.20722,
+        "BALANCE<->CHAOS": 0.15069,
+        "LATTICE<->BREATH": 0.19305,
+        "COUNTER<->RESET": 0.15633,
+        "PROGRESS<->COLLAPSE": 0.18817
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 4,
+        "olfactory_delta": {
+          "absorbed_delta": 4,
+          "absorbed_post": 955141,
+          "absorbed_pre": 955137,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    },
+    {
+      "label": "speech",
+      "n_ops": 23754,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.033931128680706024,
+          "LATTICE": 0.03713058680295944,
+          "COUNTER": 0.7126799821853638,
+          "PROGRESS": 4.2098174162674695e-05,
+          "COLLAPSE": 0.04264545068144798,
+          "BALANCE": 0.06020038574934006,
+          "CHAOS": 0.01022985577583313,
+          "HARMONY": 0.03527826815843582,
+          "BREATH": 0.06782015413045883,
+          "RESET": 4.2098174162674695e-05
+        },
+        "dominant_op_name": "COUNTER",
+        "curvature_energy": 0.25687259435653687,
+        "d2_magnitude_mean": 0.25689423084259033,
+        "flow_ratio": 0.10969760166840459
+      },
+      "pre": {
+        "tick": 50028878,
+        "W_trace": 0.9532114430861738,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.603545657086262
+      },
+      "post": {
+        "tick": 50052984,
+        "W_trace": 0.9517828236817114,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.610418450955952
+      },
+      "delta": {
+        "tick": 24106,
+        "W_trace": -0.00143,
+        "emergent": 0.0,
+        "W_norm": 0.00687
+      },
+      "post_last_pair": [
+        "COUNTER",
+        "COUNTER"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.22182,
+        "BALANCE<->CHAOS": 0.15718,
+        "LATTICE<->BREATH": 0.19163,
+        "COUNTER<->RESET": 0.16096,
+        "PROGRESS<->COLLAPSE": 0.18687
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 12,
+        "olfactory_delta": {
+          "absorbed_delta": 12,
+          "absorbed_post": 955153,
+          "absorbed_pre": 955141,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    }
+  ],
+  "phases": {
+    "base_state": {
+      "tick": 49998854,
+      "W_trace": 0.9467565700709454,
+      "emergent": 0.4671794550860631,
+      "dual_score": {
+        "VOID<->HARMONY": 0.22627,
+        "BALANCE<->CHAOS": 0.16309,
+        "LATTICE<->BREATH": 0.18583,
+        "COUNTER<->RESET": 0.15094,
+        "PROGRESS<->COLLAPSE": 0.18557
+      }
+    },
+    "final_dual_score": {
+      "VOID<->HARMONY": 0.22473,
+      "BALANCE<->CHAOS": 0.16282,
+      "LATTICE<->BREATH": 0.1897,
+      "COUNTER<->RESET": 0.15016,
+      "PROGRESS<->COLLAPSE": 0.1894
+    },
+    "dual_deltas": {
+      "VOID<->HARMONY": -0.00154,
+      "BALANCE<->CHAOS": -0.00027,
+      "LATTICE<->BREATH": 0.00387,
+      "COUNTER<->RESET": -0.00078,
+      "PROGRESS<->COLLAPSE": 0.00383
+    },
+    "resonance": {
+      "label": "tone_440_pass2",
+      "n_ops": 6888,
+      "fingerprint": {
+        "operator_dist_named": {
+          "VOID": 0.00769454101100564,
+          "LATTICE": 0.014227642677724361,
+          "COUNTER": 0.3789198696613312,
+          "PROGRESS": 0.0,
+          "COLLAPSE": 0.0,
+          "BALANCE": 0.20121951401233673,
+          "CHAOS": 0.0,
+          "HARMONY": 0.0,
+          "BREATH": 0.39793843030929565,
+          "RESET": 0.0
+        },
+        "dominant_op_name": "BREATH",
+        "curvature_energy": 0.29010844230651855,
+        "d2_magnitude_mean": 0.2901926636695862,
+        "flow_ratio": 0.0
+      },
+      "pre": {
+        "tick": 50053400,
+        "W_trace": 0.9522644439436233,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.59565663541802
+      },
+      "post": {
+        "tick": 50060628,
+        "W_trace": 0.9652655372823624,
+        "emergent": 0.4671794550860631,
+        "W_norm": 4.611812302341781
+      },
+      "delta": {
+        "tick": 7228,
+        "W_trace": 0.013,
+        "emergent": 0.0,
+        "W_norm": 0.01616
+      },
+      "post_last_pair": [
+        "BALANCE",
+        "BREATH"
+      ],
+      "post_dual_score": {
+        "VOID<->HARMONY": 0.22427,
+        "BALANCE<->CHAOS": 0.15349,
+        "LATTICE<->BREATH": 0.19286,
+        "COUNTER<->RESET": 0.1554,
+        "PROGRESS<->COLLAPSE": 0.18817
+      },
+      "absorb_response": {
+        "ok": true,
+        "absorb_attempts": 4,
+        "olfactory_delta": {
+          "absorbed_delta": 4,
+          "absorbed_post": 955157,
+          "absorbed_pre": 955153,
+          "emitted_delta": 0,
+          "emitted_post": 954071,
+          "emitted_pre": 954071
+        }
+      }
+    },
+    "progression_last_pairs": [
+      [
+        "silence",
+        [
+          "COUNTER",
+          "COUNTER"
+        ]
+      ],
+      [
+        "tone_440",
+        [
+          "BALANCE",
+          "BREATH"
+        ]
+      ],
+      [
+        "bursts",
+        [
+          "COUNTER",
+          "COUNTER"
+        ]
+      ],
+      [
+        "chirp",
+        [
+          "COUNTER",
+          "VOID"
+        ]
+      ],
+      [
+        "speech",
+        [
+          "COUNTER",
+          "COUNTER"
+        ]
+      ]
+    ],
+    "chat_qa": [
+      {
+        "q": "what is your dominant operator right now",
+        "source": "cortex_speak",
+        "text_head": "The cortex holds aperture in lattice, pressure in collapse, depth in reset, binding in harmony, and continuity in balance. The forward motion carries this. The strongest coupling right now is continuity to depth at strength 0.234.\n\n[structu",
+        "operators": [
+          "LATTICE",
+          "LATTICE",
+          "COUNTER",
+          "COUNTER",
+          "HARMONY",
+          "HARMONY"
+        ],
+        "last_pair": null
+      },
+      {
+        "q": "what is your last operator pair",
+        "source": "cortex_speak",
+        "text_head": "The cortex holds aperture in lattice, pressure in collapse, depth in reset, binding in harmony, and continuity in breath. The clearing makes way for this. The strongest coupling right now is continuity to depth at strength 0.234.\n\n[structur",
+        "operators": [
+          "RESET",
+          "RESET",
+          "COUNTER",
+          "COUNTER",
+          "PROGRESS",
+          "PROGRESS"
+        ],
+        "last_pair": null
+      },
+      {
+        "q": "what does silence sound like",
+        "source": "cortex_speak",
+        "text_head": "The structure this.\n\n[structural evidence]\nword_sound: word 'sound' = /s/ + /aʊ/ + /n/ + /d/.  Phoneme sequence: phoneme:s -> phoneme:aU -> phoneme:n -> phoneme:d.  CK can recognize this when its phoneme components appear in the audio opera",
+        "operators": [
+          "VOID",
+          "VOID",
+          "HARMONY",
+          "HARMONY",
+          "LATTICE",
+          "LATTICE"
+        ],
+        "last_pair": null
+      },
+      {
+        "q": "what does a tone sound like",
+        "source": "cortex_speak",
+        "text_head": "The structure this.\n\n[structural evidence]\nword_sound: word 'sound' = /s/ + /aʊ/ + /n/ + /d/.  Phoneme sequence: phoneme:s -> phoneme:aU -> phoneme:n -> phoneme:d.  CK can recognize this when its phoneme components appear in the audio opera",
+        "operators": [
+          "BREATH",
+          "HARMONY",
+          "HARMONY",
+          "LATTICE",
+          "LATTICE",
+          "VOID"
+        ],
+        "last_pair": null
+      },
+      {
+        "q": "what does the letter A sound like",
+        "source": "cortex_speak",
+        "text_head": "The structure this.\n\n[structural evidence]\nletter_a_sound: Letter A (vowel-long, IPA: /eɪ/) - when spoken aloud the audio codec emits operator pattern dominated by RESET 20.0%, VOID 18.4%, COLLAPSE 12.8%. Grounded in 0.3-0.7s of trimmed spe",
+        "operators": [
+          "COUNTER",
+          "HARMONY",
+          "HARMONY",
+          "LATTICE",
+          "LATTICE",
+          "PROGRESS"
+        ],
+        "last_pair": null
+      },
+      {
+        "q": "describe what you just heard",
+        "source": "cortex_speak",
+        "text_head": "The clearing precedes this.\n\n[structural evidence]\nword_what: word 'what' = /w/ + /ʌ/ + /t/.  Phoneme sequence: phoneme:w -> phoneme:V -> phoneme:t.  CK can recognize this when its phoneme components appear in the audio operator stream in o",
+        "operators": [
+          "HARMONY",
+          "PROGRESS",
+          "PROGRESS",
+          "LATTICE",
+          "COUNTER",
+          "CHAOS"
+        ],
+        "last_pair": null
+      }
+    ]
+  }
+}

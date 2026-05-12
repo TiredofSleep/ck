@@ -1,0 +1,123 @@
+{
+  "phonemes": {
+    "phoneme:tS": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.445,
+      "n_operators_avg": 3065,
+      "histogram_pct": {
+        "VOID": 20.9,
+        "LATTICE": 7.6,
+        "COUNTER": 6.4,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 16.5,
+        "BALANCE": 6.0,
+        "CHAOS": 12.5,
+        "HARMONY": 10.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:Th": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 1.195,
+      "n_operators_avg": 8230,
+      "histogram_pct": {
+        "VOID": 22.1,
+        "LATTICE": 10.1,
+        "COUNTER": 7.6,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 16.9,
+        "BALANCE": 5.5,
+        "CHAOS": 9.8,
+        "HARMONY": 8.0,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:Dh": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.365,
+      "n_operators_avg": 2515,
+      "histogram_pct": {
+        "VOID": 23.5,
+        "LATTICE": 10.2,
+        "COUNTER": 4.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.4,
+        "BALANCE": 6.6,
+        "CHAOS": 8.2,
+        "HARMONY": 14.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:Ng": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.42000000000000004,
+      "n_operators_avg": 2890,
+      "histogram_pct": {
+        "VOID": 25.1,
+        "LATTICE": 9.2,
+        "COUNTER": 6.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.7,
+        "BALANCE": 6.2,
+        "CHAOS": 8.8,
+        "HARMONY": 13.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:O": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.29000000000000004,
+      "n_operators_avg": 1997,
+      "histogram_pct": {
+        "VOID": 21.1,
+        "LATTICE": 10.1,
+        "COUNTER": 8.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.8,
+        "BALANCE": 6.2,
+        "CHAOS": 9.7,
+        "HARMONY": 12.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:OI": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.29500000000000004,
+      "n_operators_avg": 2032,
+      "histogram_pct": {
+        "VOID": 22.7,
+        "LATTICE": 9.0,
+        "COUNTER": 5.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.8,
+        "BALANCE": 6.6,
+        "CHAOS": 10.3,
+        "HARMONY": 15.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "phoneme:aU": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.265,
+      "n_operators_avg": 1822,
+      "histogram_pct": {
+        "VOID": 21.4,
+        "LATTICE": 11.1,
+        "COUNTER": 8.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.1,
+        "BALANCE": 6.9,
+        "CHAOS": 8.9,
+        "HARMONY": 11.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    }
+  }
+}

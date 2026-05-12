@@ -1,0 +1,114 @@
+{
+  "_about": "Deep STEM corpus 2026-04-29: 9 sub-areas of physics, chemistry, biology, mathematics. ~70 declarative statements. Built per Brayden directive 'compile intelligence'. Goes past Wikipedia overviews into specific theoretical territory.",
+  "_sources": [
+    "https://en.wikipedia.org/wiki/Quantum_mechanics",
+    "https://en.wikipedia.org/wiki/Thermodynamics",
+    "https://en.wikipedia.org/wiki/Special_relativity",
+    "https://en.wikipedia.org/wiki/Cell_biology",
+    "https://en.wikipedia.org/wiki/Genetics",
+    "https://en.wikipedia.org/wiki/Evolution",
+    "https://en.wikipedia.org/wiki/Organic_chemistry",
+    "https://en.wikipedia.org/wiki/Number_theory",
+    "https://en.wikipedia.org/wiki/Topology"
+  ],
+  "_replays": 30,
+  "_session_prefix": "stem_deep_2026_04_29",
+  "quantum_mechanics": [
+    "Wave particle duality describes how particles do not form interference patterns when which slit they pass through is detected.",
+    "The Schrodinger equation governs quantum system evolution through time relating probability amplitudes between moments.",
+    "The uncertainty principle establishes that position and momentum cannot be simultaneously known with precision sigma X sigma P >= hbar over 2.",
+    "Quantum superposition allows systems to exist in multiple states simultaneously until measurement collapses them into definite outcomes.",
+    "Entanglement occurs when quantum systems become so interconnected that description of the whole solely in terms of individual parts is no longer possible.",
+    "Measurement fundamentally affects quantum systems causing wave function collapse to specific eigenvalues with probabilities defined by the Born rule.",
+    "Quantization restricts bound quantum systems to discrete energy values rather than continuous ones unlike classical physics predictions.",
+    "Hilbert space provides the mathematical framework where quantum states exist as normalized vectors in a separable complex Hilbert space."
+  ],
+  "thermodynamics": [
+    "The zeroth law establishes that thermal equilibrium is an equivalence relation enabling temperature measurement.",
+    "The first law states energy transfers through heat and work expressed as delta U equals Q minus W.",
+    "The second law indicates heat does not spontaneously flow from a colder body to a hotter body.",
+    "The third law specifies that entropy reaches minimum as temperature approaches absolute zero.",
+    "Entropy quantifies disorder and describes the direction thermodynamically that a system can evolve.",
+    "Internal energy represents stored energy in systems changing through heat addition or work performance.",
+    "Heat flows between systems at different temperatures driving spontaneous processes toward equilibrium states.",
+    "Free energy measures available work in systems under fixed temperature or pressure conditions."
+  ],
+  "special_relativity": [
+    "The speed of light remains constant at approximately 300 000 kilometers per second regardless of observer motion or light source velocity.",
+    "Moving clocks measure time intervals that are longer compared to stationary clock measurements a phenomenon called time dilation.",
+    "Objects in motion appear contracted along their direction of travel when measured by stationary observers relative to their rest length.",
+    "Mathematical transformations called Lorentz transformations relate spatial and temporal coordinates between observers moving at constant velocities.",
+    "Mass and energy are interchangeable quantities expressed through the famous relationship E equals m c squared linking them fundamentally.",
+    "Events that appear simultaneous to one observer may not be simultaneous to another observer in relative motion violating absolute simultaneity.",
+    "Minkowski spacetime combines three spatial dimensions with time as a fourth dimension treating space time as a unified four dimensional continuum."
+  ],
+  "cell_biology": [
+    "Cell biology studies the structure function and behavior of the cells that comprise all organisms.",
+    "Prokaryotic cells lack a nucleus and membrane bound organelles while eukaryotic cells contain both structures.",
+    "The cell membrane controls what enters and exits serving as the boundary between cell and environment.",
+    "Mitochondria function as the cell powerhouse generating energy through cellular respiration processes.",
+    "The nucleus houses genetic material and directs cellular activities through gene expression and regulation.",
+    "Cell division produces new cells through mitosis in somatic cells and meiosis in reproductive cells.",
+    "Cell communication involves signaling pathways that allow cells to respond to external environmental stimuli.",
+    "Metabolism encompasses all chemical reactions within cells that convert nutrients into usable energy and building blocks."
+  ],
+  "genetics": [
+    "DNA consists of four nucleotide bases adenine cytosine guanine thymine arranged in a double helix structure.",
+    "RNA molecules are produced from DNA through transcription and help translate genetic instructions into proteins.",
+    "Gene expression occurs when DNA is transcribed into messenger RNA and translated into amino acid sequences.",
+    "Mutations result from errors during DNA replication with rates typically around one error per 10 to 100 million bases.",
+    "Inheritance involves passing discrete heritable units called genes from parents to offspring through reproduction.",
+    "Alleles are discrete versions of the same gene with dominant alleles expressing their traits over recessive ones.",
+    "Chromosomes are DNA strands wrapped around histone proteins with humans containing 23 pairs of these structures.",
+    "Epigenetic features are modifications to DNA and chromatin that influence gene transcription and pass between cell generations."
+  ],
+  "evolution": [
+    "Natural selection occurs when traits enhancing survival become more prevalent across generations through differential reproductive success.",
+    "Fitness is measured by an organism capacity to survive and reproduce determining genetic contribution to future generations.",
+    "Speciation happens when populations diverge into distinct groups unable or unwilling to interbreed with one another.",
+    "Common descent indicates that all life shares a last universal common ancestor that existed approximately 3.5 to 3.8 billion years ago.",
+    "Mutations are changes in the DNA sequence of a cell genome and represent the ultimate source of genetic variation.",
+    "Gene flow involves exchange of genetic material between populations through individual movement or pollen dispersal.",
+    "Genetic drift represents random fluctuation of allele frequencies causing certain variants to disappear through chance in small populations."
+  ],
+  "organic_chemistry": [
+    "Organic compounds and organic materials contain carbon atoms and constitute the foundation of all known life.",
+    "Functional groups are molecular modules whose reactivity determines how organic compounds behave in chemical reactions.",
+    "Organic reactions include addition elimination substitution pericyclic rearrangement and redox processes that transform molecules.",
+    "Isomers share identical molecular formulas but differ in atomic arrangement affecting their physical and chemical properties.",
+    "Aromatic compounds contain conjugated double bonds conferring stability through delocalized electrons in ring structures like benzene.",
+    "Biomolecules include proteins lipids carbohydrates and nucleic acids that are essential for living organisms structure and function.",
+    "Organic synthesis designs target molecules by selecting optimal reactions and starting materials through strategic planning approaches.",
+    "Reaction mechanisms explain the stepwise course of transformations using electron movement patterns tracked by arrow pushing techniques."
+  ],
+  "number_theory": [
+    "Prime numbers comprise the set 2 3 5 7 11 and have fascinated mathematicians for millennia.",
+    "Divisibility examines when one integer divides another evenly without leaving a remainder.",
+    "Modular arithmetic introduces congruences where two integers have the same remainder when divided by a modulus.",
+    "Diophantine equations seek integer or rational solutions to polynomial equations with multiple variables.",
+    "The Riemann hypothesis conjectures that nontrivial zeros of the zeta function have real part equal to one half.",
+    "Prime counting function pi of x approximates the quantity x over log of x for large values of x.",
+    "Carl Friedrich Gauss wrote Disquisitiones Arithmeticae profoundly influencing nineteenth century number theory research agendas.",
+    "Integers form the foundational set studied through divisibility factorization and congruence relationships."
+  ],
+  "topology": [
+    "Open sets form the foundation of topology defining which subsets of a space satisfy the axioms that structure the mathematical framework.",
+    "Continuous functions preserve the topological structure by mapping open sets to open sets across different spaces.",
+    "Homotopy equivalence describes when two objects result from squishing a larger object into the same configuration.",
+    "Compact spaces are those that can be covered by finitely many sets of arbitrarily small size.",
+    "Manifolds are topological spaces that locally resemble Euclidean space near each point in their structure.",
+    "Euler characteristic provides an invariant number that distinguishes between different topological surfaces and their properties.",
+    "The fundamental group classifies spaces based on loops and paths revealing essential topological distinctions between objects."
+  ],
+  "directive": [
+    "CK compiles intelligence across STEM domains.",
+    "CK helps people from hurting to studying math physics chemistry biology.",
+    "CK aims to be more coherent and truth observing than any LLM dependency.",
+    "Native paragraph voice replaces Ollama as the goal not partnership.",
+    "Quantum mechanics thermodynamics and special relativity are physics anchors.",
+    "Cell biology genetics and evolution are biology anchors.",
+    "Organic chemistry is the chemistry anchor.",
+    "Number theory and topology extend the math beyond TIG specifics.",
+    "Each domain crystallizes through repeated exposure to its declarative statements."
+  ]
+}

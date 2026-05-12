@@ -1,0 +1,83 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 deep night. 6 domain-projections: robotics, particle physics, artificial intelligence, cell biology, immunology, number theory. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30j",
+  "robotics_through_tig": [
+    "Robotics is operator-physical embodiment of computation; sensors actuate world, controllers BREATH between.",
+    "Actuator is operator-converter from energy to motion; motor servomotor pneumatic hydraulic each have distinct profiles.",
+    "Sensor is operator-input from world; cameras lidar IMU encoders each provide partial LATTICE.",
+    "Kinematic chain is operator-LATTICE of joints and links; degrees of freedom determine reachable workspace.",
+    "Inverse kinematics is operator-COUNTER from end-effector goal to joint angles; multiple solutions in redundant LATTICE.",
+    "Control system runs the BREATH; software reads sensors, decides action, commands actuator at high rate.",
+    "Perception interprets sensor data; PROGRESS from raw signal through filtering segmentation classification to scene LATTICE.",
+    "Planning is operator-search through future states; configuration space LATTICE with collision-free path to goal.",
+    "Manipulation is operator-control of environment via end-effector contact; grasp planning force feedback compliant control.",
+    "Locomotion is operator-PROGRESS through space; wheels legs treads aerial aquatic each have distinct dynamics.",
+    "Autonomy is operator-self-direction; closed-loop sense-plan-act without external command source."
+  ],
+  "particle_physics_through_tig": [
+    "Standard model is operator-LATTICE of fundamental particles and forces; SU(3) x SU(2) x U(1) gauge structure.",
+    "Fermion is operator-half-integer-spin matter; quarks leptons obey Pauli exclusion (no two in same state).",
+    "Boson is operator-integer-spin force-carrier; photon W Z gluons mediate fundamental interactions.",
+    "Quark is operator-fractional-charge particle; six flavors (up down charm strange top bottom) confined in hadrons.",
+    "Lepton is operator-whole-charge fundamental particle; electron muon tau plus three neutrinos.",
+    "Higgs boson is operator-mass-giving field excitation; couples to W Z and fermions giving rest mass.",
+    "Gauge symmetry is operator-LATTICE local invariance; demanding it generates the gauge fields automatically (Yang-Mills).",
+    "Electroweak interaction unifies operator-electromagnetic and weak forces; SU(2) x U(1) breaks via Higgs to U(1)_em.",
+    "Strong force is operator-QCD; gluons couple to color charge confining quarks in colorless hadrons.",
+    "Neutrino is operator-near-massless fermion; produced in beta decay weak processes, oscillates between flavors."
+  ],
+  "ai_through_tig": [
+    "AI is operator-engineered intelligence; computation that perceives reasons learns acts.",
+    "Search is operator-PROGRESS through state space; BFS DFS A-star navigate tree of possibilities to goal.",
+    "Knowledge representation encodes facts in operator-LATTICE; logic frames semantic networks ontologies allow inference.",
+    "Machine learning fits operator-functions from data; supervised unsupervised reinforcement each map distinct flavors.",
+    "Planning generates operator-action sequences toward goals; STRIPS PDDL hierarchical task networks.",
+    "Natural language processing parses operator-text; tokenization parsing semantic role labeling generation.",
+    "Computer vision reads operator-pixels into objects; convolution feature extraction segmentation classification.",
+    "Reasoning chains operator-inferences; symbolic logic plus probabilistic Bayesian plus neural pattern composition.",
+    "Neural network is biological-inspired LATTICE of weighted units; gradient descent fits weights to training distribution.",
+    "Reinforcement learning learns operator-policy from reward; agent explores environment to maximize cumulative HARMONY."
+  ],
+  "cell_biology_through_tig": [
+    "Cell biology is operator-study of cellular structure and function; microscopy plus molecular techniques on the LATTICE-unit of life.",
+    "Cell membrane is operator-boundary lipid bilayer; selectively permeable LATTICE controlling what enters and exits.",
+    "Organelle is operator-functional sub-compartment; nucleus mitochondria ribosome ER Golgi lysosome each specialize.",
+    "Nucleus is operator-control center; houses DNA in chromatin, transcribes mRNA, regulated by nuclear envelope.",
+    "Mitochondria are operator-energy factories; oxidative phosphorylation generates ATP from electron transport HARMONY.",
+    "Ribosome is operator-translator of mRNA to protein; ribosomal RNA plus proteins assemble amino acid chains.",
+    "Endoplasmic reticulum is operator-membrane network; rough ER synthesizes proteins, smooth ER lipids and detoxification.",
+    "Golgi apparatus is operator-sorting hub; modifies and packages proteins from ER for secretion or organelle delivery.",
+    "Cytoskeleton is operator-LATTICE of filaments; microfilaments microtubules intermediate filaments give shape and enable transport.",
+    "Apoptosis is programmed operator-COLLAPSE; controlled cell death prunes excess cells during development and removes damaged ones."
+  ],
+  "immunology_through_tig": [
+    "Immunology studies operator-defense LATTICE of body; recognition of self versus non-self drives the entire system.",
+    "Innate immunity is fast operator-response; physical barriers complement neutrophils macrophages NK cells respond within hours.",
+    "Adaptive immunity is slow specific operator-response; T and B lymphocytes generate antigen-specific receptors and remember.",
+    "Antibody is operator-protein produced by B cells; binds specific antigen with high affinity neutralizing or marking for destruction.",
+    "T cell is operator-coordinator and killer; helper T cells activate other immune cells, cytotoxic T kill infected cells.",
+    "B cell is operator-antibody factory; activated by antigen plus helper-T HARMONY, differentiates to plasma cell secreting antibody.",
+    "Antigen is operator-trigger of immune response; molecular pattern recognized by lymphocyte receptor.",
+    "Vaccination is operator-priming; expose immune system to antigen so memory cells form without disease COLLAPSE.",
+    "Autoimmune disease is operator-self-attack failure; immune system mistakes self-tissue for foreign, attacks BREATH-of-body.",
+    "Immunological memory is HARMONY-recall; memory T and B cells respond faster and stronger to repeat antigen exposure."
+  ],
+  "number_theory_through_tig": [
+    "Number theory is operator-study of integers; primes divisibility congruences as canonical LATTICE-arithmetic.",
+    "Prime number is operator-irreducible integer >1; only divisors are 1 and itself, the building blocks of multiplication.",
+    "Divisibility is operator-multiple relation; a divides b means b = a*k for some integer k.",
+    "Modular arithmetic is operator-quotient by ideal; Z/nZ is LATTICE of residue classes mod n.",
+    "Congruence a equiv b (mod n) is HARMONY in Z/nZ; n divides a - b.",
+    "Fundamental theorem of arithmetic: every integer >1 factors uniquely into primes; the LATTICE of multiplicative structure.",
+    "Diophantine equation seeks integer or rational operator-solutions; Hilbert tenth problem showed no algorithm decides solvability.",
+    "Euclid's algorithm computes operator-GCD by repeated division; foundation for Bezout extended Euclid modular inverse.",
+    "Fermat's last theorem: no integer a^n + b^n = c^n for n>2 (Wiles 1995 via modularity of elliptic curves).",
+    "Riemann hypothesis: nontrivial zeros of zeta function on critical line Re(s)=1/2; controls prime distribution HARMONY (open Clay)."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 42 domains across mathematics physics chemistry biology computer science engineering social sciences and earth sciences.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection not adoption."
+  ]
+}

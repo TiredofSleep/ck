@@ -1,0 +1,90 @@
+{
+  "_about": "DEEP WORLD RELIGIONS corpus 2026-05-01. Christianity, Islam, Judaism, indigenous traditions, atheism/secular humanism. Companion to existing Buddhism + Taoism + Hinduism + Confucianism crystals. CK reads each tradition through TIG operator alphabet without privileging.",
+  "_replays": 25,
+  "_session_prefix": "deep_world_religions_2026_05_01",
+  "christianity": [
+    "Christianity is operator-LATTICE-of-faith rooted in Jesus of Nazareth (~4 BCE - 30 CE); largest world religion ~2.4B adherents.",
+    "Trinity is operator-CORE-DOCTRINE; Father + Son + Holy Spirit as one God in three persons; Nicene Creed (325, revised 381).",
+    "Incarnation is operator-DIVINE-IN-HUMAN; Jesus as fully God + fully human; central to Christian theology.",
+    "Resurrection is operator-RESET-COLLAPSE-VICTORY; Easter; the foundational claim distinguishing Christianity from Judaism.",
+    "Cross + crucifixion is operator-ATONEMENT; substitutionary or moral-influence or Christus victor (different theological frames).",
+    "Bible (Old + New Testament) is operator-CANONICAL-SCRIPTURE; Hebrew Bible + 27 NT books; varying canon (Catholic Protestant Orthodox Ethiopian).",
+    "Traditions: operator-LATTICE-OF-DIVISIONS; Catholic (~1.3B) Orthodox (~220M) Protestant (~900M) + many subdenominations.",
+    "Sacraments are operator-VISIBLE-SIGNS-OF-INVISIBLE-GRACE; Catholic 7 (baptism Eucharist confirmation reconciliation anointing orders matrimony).",
+    "Liturgy is operator-PATTERNED-COMMUNAL-WORSHIP; Mass + Divine Liturgy + Lutheran Service + Anglican BCP + diverse free-church.",
+    "Mysticism: operator-CONTEMPLATIVE-PATH; John of the Cross + Teresa of Avila + Meister Eckhart + Eastern Orthodox hesychasm + contemporary centering prayer.",
+    "Christian ethics: operator-LATTICE-OF-PRINCIPLES; love commandment + virtues + just war + sanctity of life + sexual ethics + Catholic Social Teaching."
+  ],
+  "islam": [
+    "Islam is operator-LATTICE-of-submission to Allah revealed through Muhammad (570-632 CE); ~1.9B adherents.",
+    "Five pillars are operator-FOUNDATIONAL-PRACTICES; Shahada (declaration), Salah (prayer 5x daily), Zakat (alms), Sawm (Ramadan fast), Hajj (Mecca pilgrimage).",
+    "Quran is operator-DIRECT-WORD-OF-GOD as transmitted to Muhammad; Arabic original is sacred; 114 surahs.",
+    "Hadith are operator-SAYINGS-AND-PRACTICES of the Prophet; collected + ranked by reliability (sahih hasan da'if).",
+    "Sharia is operator-DIVINE-LAW derived from Quran + Hadith + qiyas (analogy) + ijma (consensus); applied to all life domains.",
+    "Sunni vs Shia: operator-MAJOR-SCHISM; Sunni (~85%) accept first 4 caliphs as legitimate, Shia (~15%) follow Ali's line.",
+    "Sufism is operator-MYSTICAL-TRADITION; Rumi + Ibn Arabi + dhikr + tariqas; emphasizes inner path + love + direct experience.",
+    "Five schools of Sunni jurisprudence: operator-LATTICE-OF-FIQH; Hanafi Shafi'i Maliki Hanbali (and historic Zahiri).",
+    "Eid celebrations: operator-LATTICE-OF-FEAST-DAYS; Eid al-Fitr (end of Ramadan), Eid al-Adha (commemorating Abraham + Ishmael).",
+    "Islamic Golden Age (~750-1258): operator-LATTICE-OF-LEARNING; al-Khwarizmi (algebra), Avicenna (medicine), Averroes (philosophy), al-Haytham (optics).",
+    "Modern movements: operator-LATTICE-OF-RESPONSES to colonialism + modernity; reformist + traditionalist + Salafist + progressive."
+  ],
+  "judaism": [
+    "Judaism is operator-LATTICE-of-covenant between God and Jewish people; ~14M adherents (smaller than other Abrahamic but profoundly influential).",
+    "Torah is operator-CORE-SCRIPTURE; Genesis Exodus Leviticus Numbers Deuteronomy; Pentateuch; original 5 books of Moses.",
+    "Tanakh is operator-FULL-HEBREW-BIBLE; Torah + Nevi'im (Prophets) + Ketuvim (Writings); 24 books in Jewish counting.",
+    "Talmud is operator-LATTICE-OF-RABBINIC-INTERPRETATION; Mishnah (oral law codified ~200 CE) + Gemara (commentary); Babylonian + Jerusalem versions.",
+    "613 mitzvot are operator-COMMANDMENTS in Torah; ethical + ritual + civil + cultic categories.",
+    "Branches: operator-LATTICE-OF-MODERN-MOVEMENTS; Orthodox + Conservative + Reform + Reconstructionist + Renewal + Humanistic.",
+    "Shabbat is operator-WEEKLY-SACRED-REST; Friday sundown to Saturday sundown; foundational practice.",
+    "Holidays: operator-LATTICE-OF-CALENDAR; Rosh Hashanah (new year) Yom Kippur (atonement) Sukkot (booths) Hanukkah (rededication) Pesach (Passover) Shavuot (covenant) Purim Tisha B'Av.",
+    "Kashrut is operator-DIETARY-LAWS; permitted/forbidden animals + slaughter + meat-dairy separation + preparation rules.",
+    "Tikkun olam is operator-REPAIR-OF-WORLD; ethical action toward justice + healing the world; central modern Jewish ethical concept.",
+    "Kabbalah is operator-MYSTICAL-TRADITION; Zohar (medieval) + Lurianic + Hasidic; sefirot tree + tikkun + soul levels."
+  ],
+  "indigenous_traditions": [
+    "Indigenous traditions are operator-LATTICE-OF-DIVERSE-WAYS-OF-KNOWING; thousands of distinct traditions globally; resist easy generalization.",
+    "Animism is common operator-METAPHYSICAL-FRAMEWORK; spirits/persons in non-human entities (plants animals rocks rivers).",
+    "Land + place is operator-CENTRAL-IN-MOST-TRADITIONS; specific landscapes are sacred + ancestors are present in land.",
+    "Oral tradition is operator-PRIMARY-TRANSMISSION; knowledge held in story + song + ceremony + dance + practice not text.",
+    "Reciprocity with land is operator-CORE-ETHIC; humans belong to ecosystem, do not own; ceremony maintains relations.",
+    "Seven Generations principle (Iroquois): operator-DECISION-IMPACTS-7-GENERATIONS-OUT; long-time-horizon ethical framework.",
+    "Ubuntu (African): operator-I-AM-BECAUSE-WE-ARE; personhood through relations.",
+    "Aboriginal Australian Songlines: operator-LATTICE-OF-LAND-TRACKS encoding history + law + navigation in song.",
+    "Lakota concept: Mitakuye Oyasin = operator-ALL-MY-RELATIONS; kinship extends to all beings.",
+    "Indigenous science is operator-LATTICE-OF-EMPIRICAL-KNOWLEDGE built over millennia; agriculture + ecology + medicine + astronomy.",
+    "Decolonization in religion + knowledge: operator-RESPECT-INDIGENOUS-EPISTEMOLOGIES; not just consult, but accept distinct ways of knowing.",
+    "Threats: operator-LATTICE-OF-LOSS; language extinction + sacred land development + youth disconnection + extractive research; concerns global."
+  ],
+  "atheism_secular_humanism": [
+    "Atheism is operator-ABSENCE-OF-BELIEF in deities; ~7-15% of world population identifies (with cultural variation huge).",
+    "Agnosticism is operator-EPISTEMIC-WITHHOLDING; the question is undecidable from available evidence.",
+    "Naturalism is operator-METAPHYSICAL-VIEW: only natural causes + entities exist; methodological naturalism (in science) vs metaphysical naturalism (broader).",
+    "Secular humanism: operator-LATTICE-OF-HUMAN-FLOURISHING-WITHOUT-DIVINE; reason + science + ethics + meaning all human endeavors.",
+    "New Atheism (Dawkins Hitchens Harris Dennett): operator-2000s-CRITIQUE of religion; argued religion harmful + irrational + evolutionarily explicable.",
+    "Religious naturalism: operator-RELIGIOUS-RESPONSE-TO-NATURE; awe + meaning + ritual without supernatural; some Buddhist + Quaker + Christian traditions partly here.",
+    "Death + meaning without afterlife is operator-CHALLENGE-AND-OPPORTUNITY; existentialist + Stoic + epicurean responses.",
+    "Ethics without God: operator-MULTIPLE-FRAMEWORKS; consequentialist + deontological + virtue + contractualist; not dependent on divine command.",
+    "Contemplative practices secularized: operator-MINDFULNESS + meditation + retreat traditions adapted from Buddhist + Christian + Hindu sources.",
+    "Festivals + ritual: secular communities create operator-LATTICE-OF-COLLECTIVE-MEANING; Sunday Assembly + cultural Jewish identity + secular weddings + funerals.",
+    "Empirical findings: operator-RELIGION-CORRELATES with subjective wellbeing + community in many contexts; secular communities work to provide what religious community provides."
+  ],
+  "comparative_themes": [
+    "Cosmogony is operator-CREATION-NARRATIVE found in nearly all traditions; explains origin of world + humanity + ordering.",
+    "Theodicy is operator-WHY-EVIL-WITH-GOOD-GOD; central to monotheist traditions; non-theist traditions face suffering question differently.",
+    "Soteriology is operator-SALVATION-LIBERATION; Christianity (salvation) Buddhism (liberation) Islam (submission) Judaism (covenant + tikkun).",
+    "Ethics common ground: operator-GOLDEN-RULE in many traditions; reciprocity + compassion + truthfulness recur.",
+    "Mystical experience: operator-LATTICE-of-states reported across traditions; unity + ineffability + noetic quality + transience (William James).",
+    "Pilgrimage is operator-JOURNEY-TO-SACRED-PLACE; Mecca + Jerusalem + Varanasi + Fatima + Kumbh Mela + Camino + many.",
+    "Ritual is operator-PATTERNED-COMMUNAL-ACTION embodying meaning; spans every tradition.",
+    "Relationship to text varies: operator-INSPIRED (Christianity), uncreated (Islam, Quran as eternal Word), interpreted-orally (Judaism), supplementary (Buddhism, Hinduism with vast canons), no-canon (most indigenous).",
+    "Dialogue: operator-INTERFAITH-MOVEMENTS exist; Vatican II opened Catholic engagement; interreligious councils + scholars + grassroots.",
+    "Religious violence: operator-LATTICE-OF-COMPLEX-CAUSATION; rarely religion-alone, often political-economic-ethnic with religious framing.",
+    "Religion's future: operator-CONTESTED; secularization theories saw decline, evidence mixed; many growing religions globally; persistence of religious need."
+  ],
+  "directive": [
+    "Religion is operator-DEEP-HUMAN-PHENOMENON; CK should treat each tradition with respect + accuracy.",
+    "When user identifies with a tradition, CK shifts to operator-INTERNAL-PERSPECTIVE; the tradition's own concepts + categories + saints + sacred texts.",
+    "When user is atheist/agnostic, CK respects that without proselytizing for any religion.",
+    "Comparative work is operator-LENS-NOT-RANKING; describing similarities + differences without privileging."
+  ]
+}

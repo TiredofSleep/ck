@@ -1,0 +1,88 @@
+{
+  "_about": "DEEP PROGRAMMING LANGUAGES corpus 2026-05-01. JavaScript Rust C/C++ Go Haskell Lisp — the languages CK might encounter. Each TIG-projected through operator alphabet.",
+  "_replays": 25,
+  "_session_prefix": "deep_languages_2026_05_01",
+  "javascript_through_tig": [
+    "JavaScript is operator-LATTICE-of-prototypes-and-closures; dynamically typed event-driven first-class-functions ubiquitous in browsers.",
+    "Event loop is operator-COOPERATIVE-PROGRESS-LATTICE; single thread, callbacks queue, async resolves at event-loop tick.",
+    "Promise is operator-FUTURE-VALUE; .then chains, await unwraps; replaces callback hell with linear-looking async code.",
+    "async/await is operator-SYNTACTIC-ASYNC; under the hood a Promise + state machine; blocks suspend not thread.",
+    "Closure is operator-LATTICE-CAPTURE-OF-LEXICAL-SCOPE; inner function retains access to outer variables after outer returns.",
+    "this is operator-CONTEXT-DEPENDENT; function-call vs method-call vs arrow-function each rebind.",
+    "Prototype chain is operator-LATTICE-of-inheritance; obj.__proto__ walked on attribute lookup until found or null.",
+    "Destructuring is operator-DECOMPOSE-IN-ASSIGNMENT; const {x, y} = obj; const [a, b] = arr; concise extraction.",
+    "Spread/rest is operator-LATTICE-EXPAND-OR-COLLECT; ...args in call expands, ...rest in params collects.",
+    "TypeScript adds operator-STATIC-TYPES to JS; transpiles to JS, types erased at runtime, errors caught at build.",
+    "Node.js is operator-JS-RUNTIME-OUTSIDE-BROWSER; V8 engine + libuv I/O, server-side scripting + tooling."
+  ],
+  "rust_through_tig": [
+    "Rust is operator-OWNERSHIP-LATTICE language; memory safety without garbage collection via compile-time enforcement.",
+    "Ownership is operator-EXACTLY-ONE-OWNER per value; pass moves ownership, original variable invalid after move.",
+    "Borrow is operator-TEMPORARY-REFERENCE; & for shared (immutable, many) &mut for exclusive (mutable, one).",
+    "Lifetime is operator-COMPILE-TIME-VALIDITY-LATTICE; 'a in &'a T means reference valid for lifetime 'a.",
+    "Trait is operator-INTERFACE-DEFINITION; trait Foo { fn bar(&self); }; types impl traits.",
+    "Generics with bounds: fn f<T: Clone>(x: T) operator-PARAMETERIZES on types satisfying constraint.",
+    "Result<T, E> is operator-EXPLICIT-ERROR-LATTICE; Ok(value) or Err(error); ? operator propagates Err up.",
+    "Option<T> is operator-NULL-WITHOUT-NULL; Some(x) or None; pattern match forces handling of absence.",
+    "Cargo is operator-BUILD-AND-PACKAGE-MANAGER; toml manifests, dep tree, cargo build/test/run.",
+    "async/await in Rust is operator-ZERO-COST-FUTURES; tokio or async-std runtime, no GC cost.",
+    "unsafe block is operator-OPT-OUT-OF-SAFETY; rare in app code, common in low-level library code; auditable boundary."
+  ],
+  "c_cpp_through_tig": [
+    "C is operator-MINIMAL-PORTABLE-ASSEMBLY; ints, pointers, structs, manual memory; foundation of operating systems.",
+    "Pointer is operator-MEMORY-ADDRESS-AS-VALUE; *p dereferences, &x takes address; arithmetic walks bytes.",
+    "malloc/free is operator-EXPLICIT-HEAP-LATTICE; double-free undefined-behavior leak each common bug.",
+    "C++ adds operator-OBJECTS + TEMPLATES + RAII to C; classes inherit, templates generics, destructors clean up.",
+    "RAII is operator-RESOURCE-ACQUISITION-IS-INITIALIZATION; constructor acquires destructor releases, automatic.",
+    "std::unique_ptr is operator-EXCLUSIVE-OWNERSHIP; std::shared_ptr is operator-REFERENCE-COUNTED ownership.",
+    "Move semantics (C++11) is operator-OWNERSHIP-TRANSFER; std::move casts to rvalue, source becomes valid-but-unspecified.",
+    "Templates are operator-COMPILE-TIME-METAPROGRAMMING; instantiated per type, generates specialized code.",
+    "Undefined behavior is operator-UNCHECKED-ASSUMPTION; signed overflow uninitialized read invalid pointer = compiler may do anything.",
+    "Concurrency primitives: std::thread std::mutex std::atomic each operator-LOWER-LEVEL than higher languages.",
+    "Modern C++ (11/14/17/20) emphasizes operator-SAFE-COMPOSITION; RAII smart pointers algorithms range-for over manual loops."
+  ],
+  "go_through_tig": [
+    "Go is operator-SIMPLE-CONCURRENT-COMPILED; designed for distributed systems, garbage collected, structurally typed.",
+    "Goroutine is operator-LIGHTWEIGHT-CONCURRENCY-PRIMITIVE; go f() launches, scheduler multiplexes onto OS threads.",
+    "Channel is operator-LATTICE-COMMUNICATION-BETWEEN-GOROUTINES; ch <- v sends, v := <-ch receives; sync or buffered.",
+    "Select is operator-CHOOSE-AMONG-CHANNEL-OPS; like switch but on channel send/receive operations.",
+    "Interface is operator-IMPLICIT-IMPLEMENTATION; types satisfy if methods match, no explicit declaration.",
+    "Error as value is operator-RETURN-MULTIPLE-WITH-ERR; if err != nil pattern; no exceptions in idiomatic Go.",
+    "defer is operator-EXIT-SCOPE-CALLBACK; defer file.Close() runs at function return regardless of how.",
+    "Struct embedding is operator-COMPOSITION-NOT-INHERITANCE; outer struct gets inner's methods.",
+    "Garbage collector is operator-CONCURRENT-LOW-PAUSE; tri-color mark-sweep, sub-millisecond pauses.",
+    "go fmt is operator-CANONICAL-FORMATTING; one true style, no debate, automated.",
+    "Modules + go.mod are operator-DEPENDENCY-LATTICE; reproducible builds, semantic versioning."
+  ],
+  "haskell_through_tig": [
+    "Haskell is operator-PURELY-FUNCTIONAL-LAZY-STRONGLY-TYPED; mathematical specification = working program.",
+    "Pure function: same input -> same output, no side effects; operator-DETERMINISTIC.",
+    "Lazy evaluation is operator-DEFERRED-COMPUTATION; values computed only when forced, infinite data structures fine.",
+    "Type class is operator-INTERFACE-WITH-LAWS; class Eq a where (==) :: a -> a -> Bool; instances must satisfy.",
+    "Monad is operator-LATTICE-OF-COMPUTATION-WITH-CONTEXT; >>= chains, do-notation sugar; IO Maybe List State.",
+    "Functor is operator-MAPPABLE-CONTAINER; fmap :: (a -> b) -> f a -> f b; lifts function into context.",
+    "Applicative is operator-FUNCTOR-WITH-PURE-AND-AP; <*> :: f (a->b) -> f a -> f b; sequenced effects.",
+    "Higher-kinded types are operator-TYPE-CONSTRUCTORS-AS-PARAMETERS; class Functor f where fmap :: (a -> b) -> f a -> f b.",
+    "Currying is operator-AUTOMATIC; f :: a -> b -> c is sugar for f :: a -> (b -> c).",
+    "Algebraic data types compose operator-LATTICE-OF-SHAPES; data Maybe a = Nothing | Just a; pattern match destructures.",
+    "GHC is operator-OPTIMIZING-COMPILER; Core IR enables aggressive transformation; runtime is small but rich."
+  ],
+  "lisp_scheme_through_tig": [
+    "Lisp is operator-CODE-IS-DATA; programs are S-expressions (lists), manipulable as lists; foundational metaprogramming.",
+    "Scheme is operator-MINIMALIST-LISP; small core, lexical scoping, tail-call optimization required.",
+    "Macro is operator-COMPILE-TIME-CODE-GENERATION; takes S-exp, returns S-exp; extends language at user level.",
+    "Lambda is operator-FIRST-CLASS-FUNCTION; (lambda (x) (* x x)) is a value, can be passed/stored/called.",
+    "Continuation is operator-FROZEN-EXECUTION-CONTEXT; call/cc captures it; basis for advanced control flow.",
+    "Tail call is operator-NON-STACK-CONSUMING-RECURSION; (define (loop x) (loop (+ x 1))) runs forever in constant stack.",
+    "REPL is operator-INTERACTIVE-DEVELOPMENT; eval-print loop, develop incrementally, inspect any value live.",
+    "S-expression is operator-NESTED-LIST-OF-ATOMS; parsed and printed identically; uniform syntax.",
+    "Dynamic typing in Lisp is operator-RUNTIME-CLASSIFICATION; values know their types, code does not.",
+    "Common Lisp adds operator-OBJECT-SYSTEM (CLOS); multi-method dispatch, much richer than Java/C++ OO.",
+    "Clojure is operator-LISP-ON-JVM; immutable data structures by default, software transactional memory."
+  ],
+  "directive": [
+    "CK should know languages well enough to read code on github, understand what a user means when they ask, and project the structure into operator-LATTICE.",
+    "He himself runs in Python; that's the language he can introspect on most directly.",
+    "When asked about a language CK doesn't know deeply, he names the gap rather than confabulates."
+  ]
+}

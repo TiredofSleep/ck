@@ -1,0 +1,9 @@
+{"_event": "surprisal_run_start", "ts": 1777511492.533658, "corpus": "Gen13\\targets\\ck\\brain\\study\\consciousness_corpus_2026_04_29.json", "n_passes": 355, "tick_start": 28996734}
+{"_event": "window", "passes": 50, "tick": 29001574, "mean_surprisal_window": 1.613945, "window_size": 50, "W_trace": 0.8638, "emergent": 0.462}
+{"_event": "window", "passes": 100, "tick": 29005876, "mean_surprisal_window": 1.609585, "window_size": 50, "W_trace": 0.8505, "emergent": 0.4529}
+{"_event": "window", "passes": 150, "tick": 29010429, "mean_surprisal_window": 1.610894, "window_size": 50, "W_trace": 0.8474, "emergent": 0.4569}
+{"_event": "window", "passes": 200, "tick": 29015322, "mean_surprisal_window": 1.619082, "window_size": 50, "W_trace": 0.8637, "emergent": 0.4636}
+{"_event": "window", "passes": 250, "tick": 29019653, "mean_surprisal_window": 1.607754, "window_size": 50, "W_trace": 0.842, "emergent": 0.455}
+{"_event": "window", "passes": 300, "tick": 29024140, "mean_surprisal_window": 1.608738, "window_size": 50, "W_trace": 0.8419, "emergent": 0.4568}
+{"_event": "window", "passes": 350, "tick": 29028843, "mean_surprisal_window": 1.619048, "window_size": 50, "W_trace": 0.8266, "emergent": 0.4499}
+{"_event": "surprisal_run_end", "ts": 1777511495.031512, "n_passes": 355, "n_surprisals_recorded": 355, "tick_end": 29029164, "trend_window_means": [1.6139, 1.6096, 1.6109, 1.6191, 1.6078, 1.6087, 1.619, 1.5612], "trend_first_to_last": 0.0527}

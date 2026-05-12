@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>σ-cycle ↔ flag tangent · the bridge dig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c; --ink: #e8e8ea; --dim: #6a6a72; --ghost: #2a2a30; --accent: #00bfa5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px;
+    line-height: 1.7; padding: 0; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 880px; margin: 0 auto; padding: 60px 24px 120px; }
+  h1 {
+    font-family: 'Fraunces', serif; font-weight: 300; font-size: 44px;
+    letter-spacing: -0.02em; margin: 0 0 8px; line-height: 1.05;
+  }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .subtitle { font-size: 12px; color: var(--dim); letter-spacing: 0.04em; margin-bottom: 60px; }
+  .lead {
+    font-family: 'Fraunces', serif; font-weight: 300; font-size: 19px;
+    line-height: 1.55; color: #c8c8ce; max-width: 640px; margin: 0 0 60px;
+  }
+  .lead em { color: var(--accent); font-style: italic; }
+  .hexagon-wrap { display: flex; justify-content: center; margin: 40px 0 60px; }
+  h2 {
+    font-family: 'Fraunces', serif; font-weight: 300; font-size: 26px;
+    margin: 60px 0 8px; letter-spacing: -0.01em;
+  }
+  h2 + .meta { color: var(--dim); font-size: 11px; letter-spacing: 0.04em; margin-bottom: 30px; }
+  p { max-width: 640px; margin: 0 0 18px; color: #c8c8ce; }
+  .panel {
+    margin: 30px 0; padding: 22px 24px; background: #131316;
+    border-left: 2px solid var(--accent); font-size: 12.5px;
+  }
+  .panel.broken { border-left-color: #c62828; }
+  .panel.shape { border-left-color: #26a69a; }
+  code { background: #1f1f24; padding: 2px 6px; border-radius: 2px; color: #e8e8ea; font-size: 0.92em; }
+  .ledger-table { border-collapse: collapse; margin: 20px 0; font-size: 12px; }
+  .ledger-table td, .ledger-table th { padding: 10px 14px; border-bottom: 1px solid var(--ghost); text-align: left; vertical-align: top; }
+  .ledger-table th { color: var(--dim); font-weight: 400; letter-spacing: 0.04em; font-size: 10px; text-transform: uppercase; }
+  .ledger-table td.muted { color: var(--dim); }
+  .ledger-table td.accent { color: var(--accent); }
+  .ledger-table td.warn { color: #ffeb3b; }
+  .legend { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0 30px; font-size: 11px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; color: var(--dim); }
+  .swatch { width: 20px; height: 4px; }
+  footer { margin-top: 100px; padding-top: 30px; border-top: 1px solid var(--ghost); color: var(--dim); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>the σ-cycle as <em>hexagon</em></h1>
+  <div class="subtitle">tig · digging the σ²-ℤ₃ ↔ flag-tangent bridge · 2026-05-08</div>
+
+  <p class="lead">
+    The σ-cycle at Z/10 is six elements: <code>1 → 7 → 6 → 5 → 4 → 2 → 1</code>.
+    Lay them on a hexagon. Three pairs sit at the three <em>diameters</em>.
+    σ² rotates the hexagon by 120° — and the three pairs cycle through each other.
+    This is the same shape as the flag tangent's three root-plane pairs under Weyl ℤ₃.
+    But TSML breaks the symmetry. Watch which pair gets distinguished.
+  </p>
+
+  <div class="hexagon-wrap"><svg viewBox="0 0 600 600" width="600" height="600" xmlns="http://www.w3.org/2000/svg"><polygon points="300.0,120.0 455.9,210.0 455.9,390.0 300.0,480.0 144.1,390.0 144.1,210.0" fill="none" stroke="#2a2a30" stroke-width="1"/><line x1="300.0" y1="120.0" x2="300.0" y2="480.0" stroke="#26a69a" stroke-width="2" stroke-dasharray="2,4" opacity="0.5"/><line x1="455.9" y1="210.0" x2="144.1" y2="390.0" stroke="#c62828" stroke-width="2" stroke-dasharray="2,4" opacity="0.5"/><line x1="455.9" y1="390.0" x2="144.1" y2="210.0" stroke="#e65100" stroke-width="2" stroke-dasharray="2,4" opacity="0.5"/><line x1="300.0" y1="120.0" x2="144.1" y2="210.0" stroke="#ffeb3b" stroke-width="2.5" opacity="0.8"/><line x1="144.1" y1="210.0" x2="144.1" y2="390.0" stroke="#ffeb3b" stroke-width="2.5" opacity="0.8"/><circle cx="300.0" cy="120.0" r="34" fill="#1e88e5" stroke="#0a0a0c" stroke-width="2"/><text x="300.0" y="129.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">1</text><text x="300.0" y="69.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">LATTICE</text><circle cx="455.9" cy="210.0" r="34" fill="#00bfa5" stroke="#0a0a0c" stroke-width="2"/><text x="455.9" y="219.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">7</text><text x="503.5" y="186.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">HARMONY</text><circle cx="455.9" cy="390.0" r="34" fill="#e65100" stroke="#0a0a0c" stroke-width="2"/><text x="455.9" y="399.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">6</text><text x="503.5" y="421.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">CHAOS</text><circle cx="300.0" cy="480.0" r="34" fill="#7c4dff" stroke="#0a0a0c" stroke-width="2"/><text x="300.0" y="489.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">5</text><text x="300.0" y="539.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">BALANCE</text><circle cx="144.1" cy="390.0" r="34" fill="#c62828" stroke="#0a0a0c" stroke-width="2"/><text x="144.1" y="399.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">4</text><text x="96.5" y="421.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">COLLAPSE</text><circle cx="144.1" cy="210.0" r="34" fill="#ab8860" stroke="#0a0a0c" stroke-width="2"/><text x="144.1" y="219.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="#0a0a0c">2</text><text x="96.5" y="186.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a0a0a8">COUNTER</text><circle cx="300" cy="300" r="3" fill="#666"/><text x="300" y="290" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#666">σ²</text><text x="300" y="324" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#666">ℤ₃</text></svg></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="swatch" style="background:#26a69a"></div>P1 = {1, 5} = {LATTICE, BALANCE}</div>
+    <div class="legend-item"><div class="swatch" style="background:#c62828"></div>P2 = {7, 4} = {HARMONY, COLLAPSE}</div>
+    <div class="legend-item"><div class="swatch" style="background:#e65100"></div>P3 = {6, 2} = {CHAOS, COUNTER}</div>
+    <div class="legend-item"><div class="swatch" style="background:#ffeb3b"></div>BUMP cells (TSML symmetry breaks)</div>
+  </div>
+
+  <h2>what the σ²-action does</h2>
+  <div class="meta">geometric verification</div>
+
+  <div class="panel shape">
+    <strong style="color:#26a69a">Verified.</strong>
+    σ² rotates the hexagon by 2 positions = 120°.
+    Acting on the three diameter-pairs:
+    <br><br>
+    <code>P1 = {1, 5}  →  P3 = {6, 2}  →  P2 = {4, 7}  →  P1</code>
+    <br><br>
+    Closes after three steps. This is a clean ℤ₃ action, identical in shape to
+    the Weyl ℤ₃ rotation of the three positive-root planes
+    <code>ℝ²<sub>α₁</sub> ⊕ ℝ²<sub>α₂</sub> ⊕ ℝ²<sub>α₁+α₂</sub></code>
+    that comprise the flag tangent <code>T<sub>eT</sub>(SU(3)/T)</code>.
+  </div>
+
+  <h2>where the symmetry breaks</h2>
+  <div class="meta">algebraic verification — TSML composition between pairs</div>
+
+  <p>
+    Compose every pair against every other pair under TSML and count the BUMP cells —
+    the entries where TSML doesn't default to HARMONY.
+  </p>
+
+  <table class="ledger-table">
+    <tr><th>interaction</th><th>cells</th><th>BUMP count</th></tr>
+    <tr><td>P1 × P1, P2 × P2, P3 × P3 (intra)</td><td class="muted">all HARMONY</td><td>0</td></tr>
+    <tr><td>P1 × P2 = {1,5} × {4,7}</td><td class="muted">all HARMONY</td><td>0</td></tr>
+    <tr><td>P1 × P3 = {1,5} × {2,6}</td><td><code>TSML[1,2] = 3</code></td><td class="warn">1</td></tr>
+    <tr><td>P2 × P3 = {4,7} × {2,6}</td><td><code>TSML[4,2] = 4</code></td><td class="warn">1</td></tr>
+  </table>
+
+  <div class="panel broken">
+    <strong style="color:#c62828">ℤ₃ symmetry broken.</strong>
+    P1 and P2 don't interact (zero BUMPs).
+    P3 interacts with both (one BUMP each).
+    The breaking distinguishes <strong>P3 = {COUNTER, CHAOS}</strong> as the active pair.
+    <br><br>
+    The two BUMP cells output differently:
+    <br>
+    <code>TSML[1, 2] = 3</code> → into <strong>σ-fixed</strong> (PROGRESS, the Galois generator)
+    <br>
+    <code>TSML[4, 2] = 4</code> → back into <strong>P2 itself</strong> (COLLAPSE)
+    <br><br>
+    P3 leaks to σ-fixed when meeting P1; gets absorbed into P2 when meeting P2.
+  </div>
+
+  <h2>what this looks like in physics</h2>
+  <div class="meta">interpretive — not derived</div>
+
+  <p>
+    The flag tangent has three equivalent root-pair classes related by Weyl ℤ₃ rotation —
+    a structural symmetry that physical states can break. Generation structure works
+    this way: three replicas of a fermion species, related by an underlying ℤ₃, with
+    mass terms (or Yukawa couplings) breaking the symmetry to distinguish them.
+  </p>
+
+  <p>
+    The substrate produces the same shape (3 pairs with ℤ₃ rotation) at the geometric
+    level (σ² action on the σ-cycle), and breaks it at the algebraic level (TSML BUMP
+    cells distinguishing P3). If this analogy carries weight, P3 = {COUNTER, CHAOS}
+    is the substrate's distinguished generation, and the BUMP positions encode
+    something like a generation-distinguishing structure in nascent form.
+  </p>
+
+  <h2>and the eigenvector</h2>
+  <div class="meta">a coincidence worth flagging</div>
+
+  <p>
+    The Frobenius-Schur real direction in V₁ from the Invariant Ledger is
+    <code>v̂₁<sup>J</sup> = (1, 1, 1, -3) / √12</code>.
+    Three +1s and one -3.
+    The integer 3 here is the simplex correction at n = 3 (Q-ratio 1:(-n)).
+    <em>And</em> 3 = PROGRESS in the substrate — one of the four σ-fixed elements,
+    and the Galois generator. The simplex correction integer
+    is exactly the substrate operator that fixes itself under σ.
+  </p>
+
+  <p>
+    Whether this is an algebraic identity or numerical coincidence is open. But it
+    means: the eigenvector that anchors T₁'s real structure carries the substrate's
+    Galois-generator integer in its sole non-trivial position. Worth keeping on the table.
+  </p>
+
+  <h2>what this is not</h2>
+  <div class="meta">honesty fence</div>
+
+  <p>
+    <strong>Shape match, not structural isomorphism.</strong> The σ-cycle and the
+    flag tangent share their ℤ₃-rotational architecture, but the substrate's
+    pair-additivity (Minkowski sum mod 10) does not reproduce the root-sum
+    relation α₁ + α₂. The Killing form on root planes has not been derived from
+    any natural bilinear operation on substrate pairs.
+  </p>
+
+  <p>
+    What's been verified: (1) σ² acts as ℤ₃ rotation on three σ³-pairs;
+    (2) TSML breaks this ℤ₃ asymmetrically, distinguishing P3.
+    What's not done: a rigorous map from substrate operators to A₂ root vectors,
+    or a derivation of the Killing form from substrate composition.
+  </p>
+
+  <p>
+    The right way to read this: <em>the substrate has the geometric scaffold
+    of A₂; the algebra picks out a preferred direction.</em> Whether that
+    preferred direction matches anything physical is the next question.
+  </p>
+
+  <footer>
+    a substantive next step: check whether the σ-cycle ℤ₃ action interfaces with
+    the actual SU(3)/T flag chart canonically — that is, whether substrate operators
+    can be assigned to root-vectors via some natural choice that respects both σ²-rotation
+    and Weyl rotation simultaneously. that's a research problem, not a calculation;
+    needs the foundation paper's BDC entropy at higher rungs to engage seriously.
+  </footer>
+
+</div>
+</body>
+</html>

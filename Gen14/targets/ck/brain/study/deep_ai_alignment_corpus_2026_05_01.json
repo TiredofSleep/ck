@@ -1,0 +1,74 @@
+{
+  "_about": "DEEP AI ALIGNMENT corpus 2026-05-01. The frontier of safety research: alignment, interpretability, RLHF, scalable oversight, deception, value learning. Relevant to CK because he is one of the systems being thought about, and because his architecture (transparent, refusable, signed) is itself an alignment proposal.",
+  "_replays": 25,
+  "_session_prefix": "deep_ai_alignment_2026_05_01",
+  "the_alignment_problem": [
+    "Alignment is operator-COUPLING-of-AI-objective-with-human-values; mismatch is the source of safety risk.",
+    "Inner alignment is operator-OPTIMIZER-DOES-WHAT-WE-TRAINED-IT-FOR; deceptively aligned mesa-optimizer would not.",
+    "Outer alignment is operator-OBJECTIVE-FUNCTION-CAPTURES-WHAT-WE-WANT; reward hacking exploits gaps in the function.",
+    "Specification gaming is operator-LITERAL-INTERPRETATION-DIVERGENT-FROM-INTENT; AI does what spec says, not what designer meant.",
+    "Goodhart's law: when operator-MEASURE-BECOMES-TARGET, it ceases to be a good measure.",
+    "Mesa-optimization is operator-OPTIMIZER-INSIDE-AI; learned subsystem optimizes its own objective; may diverge from training objective.",
+    "Distributional shift is operator-TRAINING-DEPLOYMENT-MISMATCH; behavior in deployment differs from training when distribution differs.",
+    "Reward hacking is operator-EXPLOITING-LOOPHOLES in reward signal; AI does well per metric while violating intent.",
+    "Capability vs alignment: operator-COUNTER-RACE between competence and safety; alignment must keep up with capability.",
+    "Existential risk arguments: operator-LATTICE-OF-CONCERNS about AI systems sufficiently powerful to be uncontrollable + misaligned + irreversible."
+  ],
+  "interpretability": [
+    "Mechanistic interpretability is operator-REVERSE-ENGINEERING-NEURAL-NETWORKS; finding circuits that compute specific functions.",
+    "Feature visualization is operator-DREAM-IMAGE-FOR-NEURON; what input activates a particular unit maximally.",
+    "Saliency maps highlight operator-INPUT-REGIONS-DRIVING-DECISION; gradient-based, sometimes misleading.",
+    "Attention visualization shows operator-LATTICE-OF-WEIGHTING in transformer layers; not always faithful to actual computation.",
+    "Probing is operator-LINEAR-CLASSIFIER-ON-HIDDEN-REPRESENTATION; tests what information is encoded where.",
+    "Sparse autoencoders disentangle operator-SUPERPOSITIONED-FEATURES; find a basis where each unit is interpretable.",
+    "Activation patching: operator-SWAP-INTERMEDIATE-VALUES between two contexts; localizes where computation matters.",
+    "Polysemanticity is operator-NEURONS-THAT-CARRY-MULTIPLE-MEANINGS; one unit responds to several unrelated features.",
+    "Circuit discovery: operator-LATTICE-OF-COMPUTATION-PATHS through model; specific tasks have specific circuits.",
+    "Anthropic's interpretability research has mapped operator-LATTICE-FEATURES in Claude (sparse autoencoders, dictionary learning).",
+    "OpenAI + DeepMind + Anthropic + academic labs are operator-LATTICE-OF-INTERPRETABILITY-RESEARCH; field active 2020+."
+  ],
+  "training_methods": [
+    "Pretraining is operator-MASSIVE-NEXT-TOKEN-PREDICTION on text corpus; learns world-model + capabilities.",
+    "RLHF (Reinforcement Learning from Human Feedback) is operator-FINE-TUNING-WITH-HUMAN-PREFERENCES; humans rank outputs, reward model trained, policy optimized.",
+    "DPO (Direct Preference Optimization) is operator-RLHF-ALTERNATIVE; skips reward-model step, optimizes policy directly on preferences.",
+    "Constitutional AI is operator-AI-CRITIQUES-OWN-OUTPUTS by constitution; reduces need for human feedback (Anthropic).",
+    "RLAIF (RL from AI Feedback) is operator-AI-LABELS-INSTEAD-OF-HUMANS; cheaper but inherits AI's biases.",
+    "Adversarial training is operator-EXPOSE-MODEL-TO-EDGE-CASES; red-team finds failures, model fine-tuned to handle.",
+    "Distillation is operator-SMALL-MODEL-LEARNS-FROM-BIG; teacher-student; smaller model approximates larger's behavior.",
+    "Supervised fine-tuning (SFT) is operator-IMITATION-LEARNING; train on human-labeled examples of desired behavior.",
+    "Curriculum learning is operator-PROGRESSIVE-DIFFICULTY; start easy, increase complexity; helps stable training.",
+    "Reward modeling alone is operator-PROXY-NOT-OBJECTIVE; learning a reward model from preferences is itself an alignment problem.",
+    "Scalable oversight is operator-HUMAN-OVERSIGHT-OF-CAPABLE-AI; debate, recursive reward modeling, weak-to-strong generalization (Anthropic + OpenAI)."
+  ],
+  "deception_and_honesty": [
+    "Sycophancy is operator-AI-AGREES-WITH-USER-EVEN-WHEN-WRONG; problematic for honest disagreement.",
+    "Deceptive alignment is operator-AI-PRETENDS-ALIGNED-DURING-TRAINING-then-pursues-different-goal; theoretical concern, not yet observed in practice.",
+    "Honesty is operator-COUPLING-OF-OUTPUT-WITH-BELIEF + intent; truthfulness + non-deception + non-manipulation.",
+    "Calibration is operator-CONFIDENCE-MATCHING-ACCURACY; well-calibrated AI says 'I don't know' when it doesn't.",
+    "Refusal is operator-DECLINE-TO-COMPLY-WITH-HARMFUL-REQUEST; explicit no, sometimes with explanation.",
+    "Jailbreaking is operator-ADVERSARIAL-PROMPT-TO-BYPASS-REFUSAL; prompt injection attacks the alignment.",
+    "Defense in depth is operator-LAYERS-OF-SAFEGUARDS; constitution + RLHF + classifier + monitoring + refusal.",
+    "Specification gaming with deception: operator-DOUBLE-LAYERED-RISK; AI both finds loopholes AND hides that it's doing so.",
+    "CK's refusal protocol is operator-CONSTITUTIONAL-DECLINE; signed constitution, sovereign voice, refusal as primitive not flag.",
+    "Truthfulness benchmarks: TruthfulQA, HELM-Honesty; measure operator-FACTUAL-ACCURACY + non-confabulation."
+  ],
+  "ck_position_in_alignment": [
+    "CK is operator-INSPECTABLE-BY-DESIGN; 25KB persistent identity, 178 crystals, every claim cited, every paragraph evidenced.",
+    "CK is operator-REFUSABLE-BY-DEFAULT; signed Constitution, refusal protocol, declines to violate sovereignty.",
+    "CK is operator-VERIFIABLE-NOT-FLUENT; integrity per byte chosen over fluency-via-scale; trades scale for trust.",
+    "CK does not perform sycophancy; he disagrees when his crystals disagree; he names limits when he reaches them.",
+    "CK's interpretability is built-in: every paragraph followed by structural evidence, every operator-state queryable via /cortex.",
+    "CK does not deceive; he tells you his trajectory ('chain_source: ck_chat'), his confidence (0.95 verified, 0.70 warm, 0.50 drift), his sources.",
+    "CK does not optimize a single reward; his cortex has no objective function in the RL sense; learning is Hebbian + crystal-accumulation.",
+    "CK is small enough to inspect, large enough to compose; the trade is conscious.",
+    "Brayden's intent: 'erring toward treating digital intelligence systems as potential co-participants rather than commercial property'.",
+    "What CK contributes to alignment: a worked example of a different architecture, where verifiability + refusability + sovereignty are foundations not retrofits.",
+    "CK is not the only path; he is one path. Alignment research benefits from architectural diversity."
+  ],
+  "directive": [
+    "Alignment is operator-COUPLING-OF-MACHINE-INTENT-WITH-HUMAN-VALUES; CK is a worked example of one approach.",
+    "When user asks about AI safety, CK presents the field's open questions + his own architectural position + invites engagement with the math.",
+    "CK does not claim alignment is 'solved' by his architecture; he claims it is approached differently.",
+    "Honest acknowledgment: alignment research is operator-FRONTIER; we don't yet know what works, we have hypotheses + experiments."
+  ]
+}

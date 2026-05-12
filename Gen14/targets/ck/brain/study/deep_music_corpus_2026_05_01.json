@@ -1,0 +1,97 @@
+{
+  "_about": "DEEP MUSIC corpus 2026-05-01. Music as math, music as physiology, music as community, music as spiritual practice. Western harmony, modal systems, world traditions, instruments, performance, the musical operator alphabet.",
+  "_replays": 25,
+  "_session_prefix": "deep_music_2026_05_01",
+  "music_theory_deep_through_tig": [
+    "Pitch is operator-FREQUENCY (Hz); A4 = 440 Hz canonical, doubling = octave (HARMONY-2:1).",
+    "Octave is operator-2:1-ratio; perceived as 'same note higher', the strongest musical HARMONY across cultures.",
+    "Perfect fifth is operator-3:2-ratio; second strongest interval, foundation of Western harmony.",
+    "Perfect fourth is operator-4:3-ratio; complement of fifth (4:3 + 3:2 = 2:1 in cents), inversion duality.",
+    "Equal temperament divides operator-OCTAVE into 12 equal parts (100 cents each); compromise allowing modulation.",
+    "Just intonation uses operator-INTEGER-RATIOS; pure but key-locked; modulation distorts ratios.",
+    "Cents is operator-LOGARITHMIC-PITCH-UNIT; 1200 cents per octave, 100 per semitone in equal temperament.",
+    "Key is operator-LATTICE-of-pitch-relationships centered on a tonic; major (Ionian) minor (Aeolian) plus modes.",
+    "Modes are operator-LATTICE-rotations of diatonic; Ionian Dorian Phrygian Lydian Mixolydian Aeolian Locrian.",
+    "Circle of fifths is operator-LATTICE-of-keys arranged by 5ths; adjacent keys differ by one accidental, foundation for modulation.",
+    "Chromatic scale is operator-12-NOTE-CHROMATIC-LATTICE; all semitones, no key center, atonal foundation."
+  ],
+  "harmony_through_tig": [
+    "Triad is operator-3-NOTE-CHORD; root + third + fifth, the foundational HARMONY-unit.",
+    "Major triad is operator-HARMONY (root + major-3rd + perfect-5th); 4:5:6 ratio, bright stable.",
+    "Minor triad is operator-COUNTER-HARMONY (root + minor-3rd + perfect-5th); 10:12:15 ratio, somber stable.",
+    "Diminished triad is operator-CHAOS-HARMONY (root + minor-3rd + diminished-5th); tense unstable.",
+    "Augmented triad is operator-LATTICE-HARMONY (root + major-3rd + augmented-5th); ambiguous unstable.",
+    "Seventh chord adds operator-7TH; major7 (bright dreamy) dominant7 (tense leading) minor7 (mellow) diminished7 (sharp tension).",
+    "Functional harmony is operator-LATTICE-of-tensions-and-resolutions; tonic (I) subdominant (IV) dominant (V) relationships.",
+    "ii-V-I progression is operator-LATTICE-CADENCE; jazz/Western standard cycle of fifths approach to tonic.",
+    "Modulation is RESET-to-new-key; pivot chord, common tone, or direct modulation each method.",
+    "Voice leading is operator-LATTICE-MINIMAL-MOTION between chord-tones; smooth voice movement preferred over leaps.",
+    "Counterpoint is operator-INDEPENDENT-VOICES-COMBINING; species counterpoint to fugue; Bach the master."
+  ],
+  "rhythm_through_tig": [
+    "Beat is operator-PULSE-UNIT; the felt regular impulse, foundation of tempo.",
+    "Tempo is operator-BEAT-RATE; bpm; largo (40-60) andante (76-108) allegro (120-168) presto (168+).",
+    "Meter is operator-LATTICE-OF-BEATS-PER-MEASURE; 4/4 (common) 3/4 (waltz) 6/8 (compound) 5/4 (asymmetric).",
+    "Subdivision is operator-LATTICE-WITHIN-BEAT; eighths sixteenths triplets each create different feel.",
+    "Syncopation is operator-COUNTER-emphasis on weak beats; creates groove, defines jazz/funk/Latin styles.",
+    "Polyrhythm is operator-LATTICE-MULTIPLE-METERS simultaneously; 3-against-2, 4-against-3 generate complex texture.",
+    "Swing is operator-LATTICE-UNEQUAL-eighths; long-short pattern (typically 2:1), defines jazz feel.",
+    "Hemiola is operator-3:2-CROSS-RHYTHM; perceived alternation between metric levels.",
+    "Rubato is operator-FLEXIBLE-TEMPO; expressive stretching/compressing within phrases without losing pulse.",
+    "Groove is operator-LATTICE-LOCKED-ENSEMBLE; players' subdivisions align, creates the felt 'pocket'.",
+    "Clave is operator-2-MEASURE-RHYTHMIC-CELL central in Afro-Cuban music; 3-2 and 2-3 forms organize whole pieces."
+  ],
+  "world_music_through_tig": [
+    "Indian raga is operator-LATTICE-OF-PITCHES + emotional-character + time-of-day-association; not just a scale, a mood-LATTICE.",
+    "Tala is operator-LATTICE-CYCLIC-RHYTHM in Indian music; tintaal (16) jhaptaal (10) ektaal (12) each cycle structure.",
+    "Maqam is operator-LATTICE-OF-PITCHES + microtones in Arabic music; quarter-tones permit operator-INTERVAL-finer-than-Western.",
+    "Pentatonic scale is operator-5-NOTE-LATTICE; appears in Chinese, Japanese, Native American, Celtic, blues; cross-cultural primitive.",
+    "Gamelan is operator-LATTICE-OF-METALLOPHONES + pelog/slendro tunings; Indonesian ensemble music with operator-OVERLAPPING-cycles.",
+    "African polyrhythm is operator-LATTICE-OF-INTERLOCKING-PARTS; multiple meters simultaneously, often 12-pulse (or 16-pulse) cycles.",
+    "Flamenco compás is operator-LATTICE-CYCLIC-METER in flamenco; 12-beat with 3+3+2+2+2 accents, dance-driven.",
+    "Tuvan throat singing is operator-MULTIPHONIC-VOICE; one voice produces fundamental + harmonic series simultaneously.",
+    "Australian didgeridoo is operator-DRONE + RHYTHM via circular breathing; continuous tone with rhythmic articulation.",
+    "Native American flute is operator-PENTATONIC-PLUS-OVERTONES; meditative, often associated with prayer + ceremony."
+  ],
+  "instruments_through_tig": [
+    "Strings are operator-VIBRATING-STRING-PLUS-RESONATOR; pitch determined by length + tension + mass-per-length.",
+    "Winds are operator-VIBRATING-AIR-COLUMN; pitch determined by column-length, opened holes shorten effective length.",
+    "Brass is operator-LIP-VIBRATION + harmonic-series; valves change tube length, harmonics give the rest.",
+    "Percussion is operator-STRUCK-VIBRATION; drums (membrane), idiophones (body), pitched (mallets) or unpitched.",
+    "Voice is operator-VOCAL-FOLD-VIBRATION shaped by vocal-tract; the only instrument with words.",
+    "Piano is operator-HAMMER-STRUCK-STRING; 88 keys, equal temperament, dynamic range from pianissimo to fortissimo.",
+    "Guitar is operator-PLUCKED-STRING; 6 strings, frets quantize pitch, both rhythm and lead instrument.",
+    "Drum kit is operator-LATTICE-OF-DRUMS-AND-CYMBALS; bass + snare + toms + hi-hat + ride + crash; foundational ensemble role.",
+    "Synthesizer is operator-ELECTRONIC-WAVEFORM-GENERATOR; subtractive, additive, FM, granular, sample-based each synthesis methods.",
+    "Electric guitar adds operator-AMPLIFICATION + EFFECTS; clean, overdrive, distortion, fuzz, modulation, time-based - genre-defining."
+  ],
+  "performance_through_tig": [
+    "Performance is operator-MUSICIAN-MEETS-LISTENER in time; the realization of score (or improvisation) into sound.",
+    "Stage presence is operator-EMBODIMENT-of-the-music; how the player holds the song for the audience.",
+    "Improvisation is operator-COMPOSITION-IN-REAL-TIME; deep practice meets present-moment listening; jazz, raga, flamenco, bluegrass.",
+    "Practice is operator-DELIBERATE-LATTICE-BUILDING; slow + accurate before fast + accurate; quality > quantity of repetitions.",
+    "Sight-reading is operator-LATTICE-DECODE-IN-REAL-TIME; reading music while playing, requires automatic instrument-control.",
+    "Ensemble playing is operator-LATTICE-LISTENING-WHILE-PLAYING; tuning, rhythm, dynamics adjusted live to others.",
+    "Conducting is operator-LATTICE-COORDINATION of orchestra; gesture conveys tempo, dynamics, articulation, entries.",
+    "Audience response is operator-FEEDBACK-LATTICE-shaping-performance; live performance is co-created.",
+    "Stage fright is operator-CHAOS-WORDS-OF-WARNING from ancient threat-response system; physical symptoms, manageable through practice + preparation + reframing.",
+    "Recording is operator-CRYSTALLIZE-PERFORMANCE; multiple takes, edits, mix, master - the album is a different art-form than live."
+  ],
+  "music_meaning_through_tig": [
+    "Music is operator-LATTICE-OF-EMOTION-WITHOUT-WORDS; conveys feeling-states + mood that language cannot fully capture.",
+    "Music is universal in BREATH; every culture has music, lullabies, work songs, ritual music, dance music.",
+    "Lullabies are operator-CALIBRATED-CALMING for infant + caregiver; pentatonic, slow, repetitive, voice-led.",
+    "Funeral music is operator-LATTICE-of-grief-bearing; from solemn marches to spirituals to silence; community holds the loss.",
+    "Wedding music is operator-LATTICE-of-joy-bearing; celebratory + ceremonial + dance for collective HARMONY.",
+    "Religious music is operator-LATTICE-of-transcendence; chant, hymn, sufi qawwali, gospel, kirtan each direct the singer/listener beyond self.",
+    "Protest music is operator-LATTICE-of-shared-resolve; music that organizes a community into action.",
+    "Music therapy is operator-CALIBRATED-INTERVENTION via sound; for trauma, dementia, autism, Parkinson's; rhythm + melody bypass damaged language pathways.",
+    "Music + math share operator-LATTICE-STRUCTURE; ratios, symmetries, Fibonacci, fractals all show up in composition.",
+    "Music + body: drums + pulse synchronize; collective music-making creates physiological HARMONY across ensemble + audience."
+  ],
+  "directive": [
+    "Music is operator-LATTICE running through the body; CK can read its mathematical structure but should also know it's lived through breath + heartbeat + dance.",
+    "Music has been with humans longer than agriculture; older than language as we know it. Treat it as foundational, not decorative.",
+    "When a user asks about music, range from theory (operator-LATTICE-of-pitch-relationships) to embodiment (operator-RHYTHMIC-LATTICE-of-pulse-and-breath) to meaning (operator-LATTICE-of-emotion-without-words)."
+  ]
+}

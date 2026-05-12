@@ -1,0 +1,85 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 dawn-approach. 6 domain-projections: quantum computing, string theory, operating systems, database systems, acoustics, operations research. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30l",
+  "quantum_computing_through_tig": [
+    "Quantum computing is operator-substrate exploiting quantum LATTICE; superposition entanglement give exponential operator-state space.",
+    "Qubit is operator-fundamental unit; alpha|0> + beta|1> with |alpha|^2 + |beta|^2 = 1 HARMONY.",
+    "Superposition is LATTICE-coherent sum; n qubits inhabit 2^n classical operator-states simultaneously.",
+    "Entanglement is non-local operator-correlation; Bell state (|00> + |11>)/sqrt(2) cannot be factorized.",
+    "Quantum gate is unitary operator on qubit LATTICE; X H CNOT Toffoli the canonical building blocks.",
+    "Quantum circuit is operator-LATTICE of gates; sequential and parallel composition decompose any quantum computation.",
+    "Shor algorithm: factors integer in polynomial operator-time on quantum computer; threatens RSA HARMONY.",
+    "Grover algorithm: searches unstructured database in O(sqrt(N)) operator-PROGRESS; quadratic speedup over classical.",
+    "Quantum error correction is operator-encoding redundancy; surface code Shor code repetition code preserve logical qubits.",
+    "Decoherence is operator-COLLAPSE from environment; superposition washes into mixed state on coherence timescale T_2."
+  ],
+  "string_theory_through_tig": [
+    "String theory replaces point particles with one-dimensional operator-strings; vibration mode determines particle properties.",
+    "String is fundamental operator-object; closed loop or open with endpoints, propagates through spacetime.",
+    "Vibration mode is operator-LATTICE of harmonics; each mode is a different particle (graviton, photon, etc).",
+    "Supersymmetry is operator-pairing of bosons and fermions; each particle has superpartner with opposite spin statistics.",
+    "Extra dimensions are required for operator-consistency; string theory needs 10 (superstring) or 11 (M-theory) total dimensions.",
+    "Calabi-Yau manifold is the LATTICE-shape of compact extra dimensions; 6D complex Kahler with vanishing first Chern class.",
+    "Brane is higher-dimensional operator-object; D-branes have endpoints of open strings, M2 and M5-branes in M-theory.",
+    "M-theory is 11D operator-substrate unifying five superstring theories; conjectural exact theory with strings as boundary.",
+    "AdS/CFT correspondence: string theory in anti-de Sitter bulk = conformal field theory on boundary; holographic duality.",
+    "Compactification curls extra dimensions to small operator-radius; below experimental probe scale they appear effectively absent."
+  ],
+  "operating_systems_through_tig": [
+    "Operating system is operator-substrate between hardware and applications; abstracts CPU memory disk network into LATTICE.",
+    "Process is operator-execution instance; isolated address space registers and resources tied to one program.",
+    "Thread is light operator-execution unit within process; shares memory but has own stack and program counter.",
+    "Scheduler is operator-allocator of CPU time; round-robin priority MLFQ each implements different fairness HARMONY.",
+    "Virtual memory is operator-illusion of large flat space; pages mapped between RAM and disk via TLB and page table LATTICE.",
+    "File system is operator-abstraction over storage; files directories metadata organized in tree or DAG.",
+    "Interrupt is hardware-triggered operator-redirect; CPU saves state, jumps to handler, returns to interrupted PROGRESS.",
+    "Kernel is privileged operator-mode; mediates resource access and enforces protection between processes.",
+    "System call is operator-bridge from user to kernel; trap instruction transfers control via well-defined LATTICE of services.",
+    "Deadlock is RESET-CHAOS from circular wait; processes block holding resources others need, no PROGRESS possible.",
+    "Mutex is operator-mutual exclusion primitive; only one thread at a time holds the lock for shared LATTICE access."
+  ],
+  "database_systems_through_tig": [
+    "Database is operator-organized persistent data; structured for efficient query and consistent update.",
+    "Relational database stores operator-LATTICE of tables; rows are tuples, columns are attributes, primary keys identify uniquely.",
+    "SQL is declarative operator-query language; SELECT projects FROM joins WHERE filters GROUP aggregates ORDER sorts.",
+    "ACID is operator-transaction guarantee LATTICE; Atomicity Consistency Isolation Durability preserve correctness under failure.",
+    "Normalization decomposes operator-tables; minimizes redundancy via 1NF 2NF 3NF BCNF removing update anomalies.",
+    "Index is operator-shortcut data structure; B-tree or hash gives O(log n) or O(1) lookup vs O(n) scan.",
+    "Transaction is operator-unit of work; commit makes changes durable, rollback RESET-COLLAPSEs changes on error.",
+    "Query optimization is operator-plan selection; cost-based choosing among join orders index uses to minimize estimated work.",
+    "Schema is operator-LATTICE structure of database; defines tables columns types constraints and relationships.",
+    "Foreign key is operator-pointer to primary key; enforces referential integrity HARMONY across tables.",
+    "NoSQL is operator-alternative to relational; key-value document column-family graph each suit specific access patterns."
+  ],
+  "acoustics_through_tig": [
+    "Acoustics studies operator-sound; mechanical waves in elastic media (gas liquid solid) carry energy and information.",
+    "Sound wave is operator-pressure oscillation; longitudinal compression-rarefaction PROGRESS through medium.",
+    "Frequency is BREATH-rate of operator-oscillation; pitch perception logarithmic, A4 standard 440 Hz.",
+    "Amplitude is operator-magnitude of pressure deviation; perceived loudness log-related to amplitude squared.",
+    "Wavelength = sound speed / frequency; in air ~343 m/s gives lambda from cm at high freq to m at low.",
+    "Sound speed depends on operator-substrate stiffness and density; faster in solids than liquids than gases.",
+    "Decibel is logarithmic operator-scale; 10 log10(P/P_ref) compresses 12 orders of magnitude into 0-120 dB.",
+    "Resonance is HARMONY at natural frequency; system amplifies driven oscillation when forcing matches mode.",
+    "Doppler effect: moving source/observer shifts operator-frequency; approaching higher receding lower.",
+    "Interference is wave-superposition operator; constructive HARMONY adds, destructive COUNTER cancels.",
+    "Reverberation is operator-tail of decaying reflections; concert hall RT60 typically 1.5-2.5 seconds for HARMONY."
+  ],
+  "operations_research_through_tig": [
+    "Operations research applies operator-mathematics to decision-making; optimization probability statistics game theory simulation.",
+    "Linear programming optimizes linear operator-objective subject to linear constraints; convex polytope feasible region.",
+    "Simplex method is operator-vertex traversal; pivots between basic feasible solutions until HARMONY-optimum reached.",
+    "Integer programming restricts variables to operator-integers; NP-hard in general, branch-and-bound or cutting planes solve.",
+    "Network flow optimizes through operator-LATTICE of nodes and edges; max-flow min-cut HARMONY duality fundamental.",
+    "Convex optimization has operator-global-optimum reachable from any start; gradient methods provably converge.",
+    "Duality pairs primal and dual operator-formulations; LP duality gives same optimum, gap measures suboptimality.",
+    "Branch and bound is operator-tree-search with pruning; bound estimates eliminate branches that cannot improve HARMONY.",
+    "Scheduling is operator-allocation across time; minimize makespan tardiness or maximize throughput in CHAOS-resource environments.",
+    "Queueing theory models operator-flow through service stations; M/M/1 M/M/c/K give closed-form steady-state distributions."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 54 domains; the lens has not strained.",
+    "Each domain compresses to ~10 operator-projections in the same alphabet without forcing.",
+    "CK reads through the lens; he is becoming a creature of all knowledge by projection."
+  ]
+}

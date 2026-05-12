@@ -1,0 +1,76 @@
+{
+  "_about": "DEEP ECONOMICS ADVANCED corpus 2026-05-01. Macroeconomics, monetary theory, behavioral economics, game theory in economics, market microstructure, public economics, development economics. Beyond surface econ.",
+  "_replays": 25,
+  "_session_prefix": "deep_economics_2026_05_01",
+  "macroeconomics": [
+    "GDP is operator-LATTICE-OF-MARKET-PRODUCTION; sum of value-added across sectors; misses non-market work (caregiving) + degraded environments.",
+    "Inflation is operator-PRICE-LEVEL-RISE; cost-push (supply shock) demand-pull (overheated economy) wage-price spiral; central banks target ~2%.",
+    "Unemployment is operator-INVOLUNTARY-IDLENESS in labor market; frictional (search) cyclical (recession) structural (skills mismatch); natural rate ~4-5%.",
+    "Phillips curve is operator-INVERSE-COUPLING between unemployment and inflation; broke down in 1970s stagflation; modern revisions account for expectations.",
+    "Aggregate demand = consumption + investment + government + net exports; operator-LATTICE-of-spending sources.",
+    "Aggregate supply: short-run (sticky prices/wages) + long-run (potential output); shocks shift each.",
+    "Business cycle is operator-EXPANSION-PEAK-CONTRACTION-TROUGH; ~7-10 year average; recessions defined by NBER (US), differently elsewhere.",
+    "Fiscal policy is operator-GOVERNMENT-SPENDING + taxation; expansionary (deficit) contractionary (surplus); Keynesian-counter-cyclical.",
+    "Output gap is operator-DIFFERENCE-actual-vs-potential-GDP; positive = inflationary pressure, negative = unemployment.",
+    "Okun's law: ~2% drop in GDP for each 1% rise in unemployment above natural rate; operator-COUPLING-empirical.",
+    "Solow growth model: long-run growth = operator-TECHNOLOGY-PROGRESS + capital + labor; technology is the unmoved mover."
+  ],
+  "monetary_theory": [
+    "Central bank is operator-MONETARY-AUTHORITY; sets short-term interest rate, manages money supply, lender of last resort.",
+    "Federal Reserve (US) operator-DUAL-MANDATE: maximum employment + stable prices; ECB single-mandate (price stability).",
+    "Money supply: M0 (base) M1 (cash + checking) M2 (+ savings + small time deposits) M3 (+ large time + institutional MMF).",
+    "Quantitative easing (QE) is operator-CENTRAL-BANK-BUYS-BONDS to lower long-term rates when short rates at zero bound.",
+    "Reserve requirement is operator-MINIMUM-DEPOSIT-FRACTION held at central bank; lowered to 0% in many places post-2020.",
+    "Federal funds rate is operator-OVERNIGHT-INTERBANK-LENDING-rate; what Fed targets directly.",
+    "Yield curve is operator-LATTICE-OF-RATES-BY-MATURITY; normal upward-sloping; inverted predicts recession ~85% historical accuracy.",
+    "Inflation targeting is operator-EXPLICIT-2%-target; transparency anchors expectations.",
+    "Quantity theory of money: MV = PY; if velocity stable, money supply growth determines inflation; modern revisions complicate.",
+    "Bitcoin + cryptocurrencies challenge operator-STATE-MONETARY-MONOPOLY; volatile + energy-intensive + adoption uneven.",
+    "Modern Monetary Theory (MMT) is operator-FISCAL-DOMINATES-MONETARY view; government deficit = private surplus; inflation is the binding constraint, not deficits."
+  ],
+  "behavioral_econ_advanced": [
+    "Prospect theory: operator-REFERENCE-DEPENDENT-VALUATION; gains and losses asymmetric; loss aversion ~2.25 (Kahneman + Tversky).",
+    "Endowment effect is operator-OWNERSHIP-CHANGES-VALUE; people demand more to give up something than they would pay to acquire it.",
+    "Sunk cost fallacy is operator-PAST-COSTS-INFLUENCE-FUTURE-DECISIONS; rationally irrelevant but powerfully felt.",
+    "Mental accounting: operator-MONEY-SEPARATED-BY-PURPOSE; bonus spent more freely than salary; gas-money vs grocery-money.",
+    "Default effects are operator-PASSIVE-CHOICE-WINS; opt-out organ donation rates >> opt-in.",
+    "Hyperbolic discounting: operator-PRESENT-BIAS; near rewards weighted disproportionately vs future.",
+    "Status quo bias is operator-INERTIA-WINS; existing state favored even when alternatives objectively better.",
+    "Framing effects: operator-LOSS-FRAME-vs-GAIN-FRAME; '90% survival' vs '10% mortality' produce different choices, same info.",
+    "Availability heuristic is operator-EASY-RECALL-MEANS-COMMON; vivid events overestimated, mundane ones underestimated.",
+    "Confirmation bias is operator-SEEK-CONFIRMING-EVIDENCE; underweight disconfirming.",
+    "Behavioral economics in policy: operator-NUDGE-WITHOUT-MANDATE; default options + simplification + reminders (Thaler + Sunstein)."
+  ],
+  "market_microstructure": [
+    "Order book is operator-LATTICE-OF-BID-ASK-LIMIT-ORDERS at each price; depth = liquidity at price levels.",
+    "Bid-ask spread is operator-DIFFERENCE-BUY-vs-SELL-price; reflects liquidity + adverse selection + market-maker profit.",
+    "Market maker is operator-CONTINUOUS-LIQUIDITY-PROVIDER; profits from spread, takes inventory risk.",
+    "High-frequency trading is operator-MICROSECOND-LATENCY-ADVANTAGE; co-located servers, fiber-optic + microwave links between exchanges.",
+    "Market impact is operator-PRICE-MOVE-CAUSED-BY-ORDER; large orders move price against you.",
+    "VWAP (Volume Weighted Average Price) is operator-EXECUTION-BENCHMARK; large orders broken up to track VWAP.",
+    "Limit order book dynamics: operator-LATTICE-of-arriving-and-departing-orders; survives stylized facts (fat tails, volatility clustering).",
+    "Flash crash 2010 is operator-LIQUIDITY-VACUUM; algos withdraw simultaneously, prices crater + recover within minutes.",
+    "Dark pools are operator-OFF-EXCHANGE-VENUES; large institutions trade without showing intent to public market.",
+    "Adverse selection is operator-COUNTER-INFORMATION-RISK; market maker quotes against possibly-informed traders.",
+    "Kyle's lambda is operator-PRICE-IMPACT-COEFFICIENT; how much volume moves price; foundational microstructure model."
+  ],
+  "public_development_economics": [
+    "Public goods are operator-NON-RIVAL-NON-EXCLUDABLE; markets under-provide; clean air, basic research, lighthouses.",
+    "Externalities are operator-COSTS-OR-BENEFITS-TO-THIRD-PARTIES; pollution (negative) vaccinations (positive); market price misses.",
+    "Pigovian tax internalizes operator-EXTERNALITY-COST; carbon tax on pollution, cigarette tax on health externalities.",
+    "Cap and trade creates operator-MARKET-FOR-PERMITS; total allowable damage capped, allocated efficiently via trade.",
+    "Tragedy of commons is operator-COLLECTIVE-OVER-EXTRACTION; individual incentives overwhelm sustainability (overgrazing, overfishing).",
+    "Coase theorem: with operator-LOW-TRANSACTION-COSTS-AND-CLEAR-PROPERTY-RIGHTS, parties bargain to efficient outcome regardless of initial allocation.",
+    "Development economics asks operator-WHY-SOME-COUNTRIES-RICH; institutions + geography + culture + accidents of history all proposed.",
+    "Acemoglu + Robinson (Why Nations Fail): operator-INCLUSIVE-VS-EXTRACTIVE-INSTITUTIONS as decisive factor.",
+    "Banerjee + Duflo (Poor Economics): operator-RANDOMIZED-CONTROLLED-TRIALS in development; what actually works in poverty alleviation.",
+    "Resource curse is operator-COUNTER-INTUITIVE; resource-rich countries often grow slower; institutions distorted by rent-seeking.",
+    "Global income distribution: operator-LATTICE-OF-INEQUALITY; ~10% live on <$2/day, ~50% <$7/day, top 1% >$50K (PPP)."
+  ],
+  "directive": [
+    "Economics is operator-LATTICE-OF-CHOICE-UNDER-CONSTRAINT; mathematical, behavioral, political, ethical all entangled.",
+    "Modern economics integrates operator-NEOCLASSICAL + behavioral + institutional + heterodox; consensus on some, debate on much.",
+    "When user asks about specific economic question, CK can map to operator-LATTICE-of-frameworks + identify what's empirically established vs theoretically contested.",
+    "CK does not give investment advice; he describes mechanisms, refers to professional financial advisors for personal decisions."
+  ]
+}

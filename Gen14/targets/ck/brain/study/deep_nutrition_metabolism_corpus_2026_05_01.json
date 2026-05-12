@@ -1,0 +1,74 @@
+{
+  "_about": "DEEP NUTRITION + METABOLISM corpus 2026-05-01. Macronutrients micronutrients, hormonal signaling, metabolic pathways, dietary patterns, blood chemistry. CK reads at the metabolic-physiology level.",
+  "_replays": 25,
+  "_session_prefix": "deep_nutrition_2026_05_01",
+  "macronutrients": [
+    "Protein is operator-AMINO-ACID-LATTICE; 20 standard amino acids, 9 essential (must come from diet); ~4 cal/g.",
+    "Complete protein contains operator-ALL-9-ESSENTIAL-amino-acids; animal proteins generally complete, plant proteins often complementary.",
+    "Carbohydrate is operator-CHO-CHAIN; mono (glucose) di (sucrose) oligo (starch fragments) polysaccharides (starch glycogen cellulose); 4 cal/g.",
+    "Fiber is operator-NON-DIGESTIBLE-carb; soluble (oats beans) feeds gut microbiome; insoluble (whole grains) adds bulk.",
+    "Fat is operator-TRIGLYCERIDE-LATTICE; saturated (animal) monounsaturated (olive avocado) polyunsaturated (fish nuts seeds); 9 cal/g.",
+    "Essential fatty acids: omega-3 (ALA EPA DHA) + omega-6 (linoleic); body cannot synthesize, must come from diet.",
+    "Glycemic index measures operator-BLOOD-GLUCOSE-RESPONSE-rate; high GI = fast spike (white rice white bread); low GI = slow rise (legumes whole oats).",
+    "Glycemic load = GI * carbs per serving / 100; better predictor than GI alone for full meal.",
+    "Insulin is operator-ANABOLIC-storage-hormone; secreted post-meal, drives glucose into cells, suppresses fat breakdown.",
+    "Glucagon is operator-CATABOLIC-mobilization-hormone; secreted when blood glucose drops, signals liver to release stored glucose.",
+    "Leptin is operator-LONG-TERM-SATIETY-signal; produced by fat cells, signals brain about energy reserves; resistance common in obesity."
+  ],
+  "metabolic_pathways": [
+    "Glycolysis is operator-CYTOPLASMIC-GLUCOSE-BREAKDOWN; 10 steps, glucose -> 2 pyruvate, net 2 ATP + 2 NADH.",
+    "Krebs cycle (TCA) is operator-MITOCHONDRIAL-ACETYL-COA-OXIDATION; produces NADH FADH2 GTP, releases CO2.",
+    "Electron transport chain is operator-PROTON-GRADIENT-ENGINE; NADH FADH2 donate electrons, complex I-IV pump H+, ATP synthase makes ATP.",
+    "Oxidative phosphorylation produces operator-32-34-ATP per glucose; aerobic, vastly more than glycolysis alone.",
+    "Beta-oxidation is operator-FATTY-ACID-BREAKDOWN; cleaves 2 carbons at a time, generates acetyl-CoA for Krebs.",
+    "Ketogenesis is operator-LIVER-FAT-TO-KETONES; under low-carb/fasted, liver makes ketones (BHB acetone acetoacetate) for brain fuel.",
+    "Gluconeogenesis is operator-LIVER-MAKES-GLUCOSE-from-non-carbs; from lactate amino acids glycerol; happens during fasting.",
+    "Pentose phosphate pathway is operator-NADPH-AND-RIBOSE-source; supports antioxidant + nucleotide synthesis.",
+    "Cori cycle is operator-LACTATE-RECYCLE; muscle makes lactate during exercise, liver converts back to glucose.",
+    "Insulin signaling: operator-RECEPTOR-TYROSINE-KINASE -> IRS -> PI3K -> Akt; activates GLUT4 translocation for glucose uptake."
+  ],
+  "micronutrients": [
+    "Vitamin D is operator-STEROID-HORMONE-precursor; from sunlight + supplements + few foods; immune + bone + mood roles.",
+    "Vitamin B12 is operator-COFACTOR-for-methionine + methylmalonyl-CoA mutase; deficiency causes anemia + neuropathy.",
+    "Folate (B9) is operator-METHYL-DONOR-LATTICE; needed for DNA synthesis + neural tube formation; spinach legumes fortified grains.",
+    "Iron is operator-OXYGEN-CARRIER-CORE; heme (animal) more bioavailable than non-heme (plant); deficiency = anemia.",
+    "Magnesium is operator-COFACTOR-for-300+-enzymes; regulates muscle nerve heart; sources nuts seeds leafy greens whole grains.",
+    "Zinc is operator-COFACTOR-for-100+-enzymes; immune + wound healing + taste; oysters meat legumes nuts.",
+    "Iodine is operator-THYROID-HORMONE-precursor; deficiency = goiter + hypothyroidism + developmental delay; fortified salt, seafood.",
+    "Calcium is operator-BONE-AND-SIGNALING-CATION; intracellular signaling + bone matrix; dairy, leafy greens, fortified plant milks.",
+    "Vitamin A is operator-RETINOID-LATTICE; eye health + immunity + epithelial; preformed (retinol from animal) + provitamin (carotenoids from plants).",
+    "Antioxidant vitamins (C E A) operator-COUNTER-oxidative-stress; quench free radicals; whole foods >> supplements for most.",
+    "Vitamin K is operator-COFACTOR-for-coagulation + bone; K1 leafy greens, K2 fermented + animal."
+  ],
+  "dietary_patterns": [
+    "Mediterranean diet is operator-LATTICE-of-vegetables + olive-oil + fish + legumes + whole-grains + moderate-wine; consistently best for cardiovascular outcomes.",
+    "DASH (dietary approaches to stop hypertension) is operator-LOW-SODIUM + high-potassium-magnesium-calcium + whole-foods.",
+    "Plant-based / vegan operator-LATTICE-EXCLUDES-ANIMAL; need attention to B12 + omega-3 (algae) + iron + protein-completeness.",
+    "Ketogenic is operator-VERY-LOW-CARB (<50g/day) + high-fat + moderate-protein; induces ketosis; therapeutic for some epilepsy + investigated for others.",
+    "Intermittent fasting (16:8 5:2 OMAD) is operator-TIME-RESTRICTED-EATING; metabolic + autophagy benefits, weight loss varies.",
+    "Whole foods plant-based emphasizes operator-MINIMALLY-PROCESSED-PLANTS; extends Mediterranean toward eliminating animal foods.",
+    "Carnivore is operator-ANIMAL-FOODS-ONLY; controversial; anecdotal benefits in autoimmune + IBS; long-term data lacking.",
+    "FODMAP elimination is operator-IBS-MANAGEMENT-DIET; remove fermentable oligo/di/mono-saccharides + polyols, reintroduce systematically.",
+    "Anti-inflammatory diet emphasizes operator-LATTICE-OF-OMEGA-3 + polyphenols + low-sugar; for autoimmune + chronic inflammation.",
+    "Diabetic exchange + glycemic-load planning = operator-BLOOD-GLUCOSE-CONTROL-VIA-FOOD-CHOICE; pairs carbs with protein/fat to slow absorption.",
+    "Caloric balance is operator-CONSERVATION; fat loss requires caloric deficit, gain requires surplus; macros + foods affect satiety + hormonal response."
+  ],
+  "blood_chemistry": [
+    "Fasting glucose: operator-NORMAL-LATTICE 70-99 mg/dL; pre-diabetes 100-125; diabetes >=126.",
+    "HbA1c is operator-3-MONTH-AVERAGE-GLUCOSE; <5.7% normal; 5.7-6.4% prediabetes; >=6.5% diabetes.",
+    "Lipid panel: total cholesterol HDL LDL triglycerides; LDL <100 optimal, HDL >40 men >50 women, TG <150.",
+    "ApoB is operator-BETTER-LDL-MARKER than LDL-C; counts atherogenic particles directly.",
+    "hs-CRP is operator-INFLAMMATION-MARKER; <1 low, 1-3 moderate, >3 high cardiovascular risk.",
+    "TSH is operator-PITUITARY-THYROID-FEEDBACK; elevated suggests hypothyroid, low suggests hyper.",
+    "Vitamin D 25-OH: operator-NORMAL-RANGE 30-100 ng/mL; <20 deficient.",
+    "Ferritin is operator-IRON-STORAGE-MARKER; high = inflammation or hemochromatosis, low = iron deficiency.",
+    "BUN + creatinine measure operator-KIDNEY-FUNCTION; eGFR derived from these + age + sex.",
+    "Electrolytes (Na K Cl HCO3) measure operator-FLUID-AND-ACID-BASE-balance; deviations indicate dehydration medication side-effects renal issues.",
+    "Liver enzymes (ALT AST ALP GGT) measure operator-LIVER-CELL-LEAK; elevated suggests damage from fatty liver alcohol medications hepatitis."
+  ],
+  "directive": [
+    "Nutrition is operator-LATTICE-of-input-to-metabolic-LATTICE; food becomes signal becomes physiology becomes mood + energy + healing.",
+    "CK should not prescribe diets or supplements; he can describe mechanisms + research consensus + suggest user consult registered dietitian.",
+    "When user asks about specific food/supplement, CK can describe the operator-LATTICE without endorsing brands."
+  ]
+}

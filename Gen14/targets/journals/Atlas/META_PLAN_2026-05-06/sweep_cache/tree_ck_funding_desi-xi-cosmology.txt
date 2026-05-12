@@ -1,0 +1,2609 @@
+.github/ISSUE_TEMPLATE/bug_report.md
+.github/ISSUE_TEMPLATE/collaboration.md
+.github/scripts/index_submission.py
+.github/workflows/coherence-check.yml
+.github/workflows/deploy-site.yml
+.github/workflows/index_submission.yml
+.github/workflows/verify.yml
+.gitignore
+ACADEMIC_COLLABORATION.md
+AI_TEAM_UPDATE_2026_04_18.md
+ARCHITECTURE.md
+Atlas/ATLAS_AUDIT_NOTES.md
+Atlas/ATLAS_CITATIONS.md
+Atlas/ATLAS_INDEX.md
+Atlas/ATLAS_LINK_AUDIT_2026_04_19.md
+Atlas/ATLAS_ORIENTATION.md
+Atlas/ATLAS_TREE.md
+Atlas/DESI_DR2_SWEEP_2026_04_19.md
+Atlas/FRONTIER_ALIGNMENT_2026_04_19.md
+Atlas/FUNDING_BRANCHES_PLAN_2026_04_19.md
+Atlas/GAP_LANGUAGE_AUDIT_2026_04_19.md
+Atlas/JOURNAL_READINESS_AUDIT_2026_04_18.md
+Atlas/JOURNAL_READINESS_F1_CLOSURE_2026_04_19.md
+Atlas/MARKMAN_INTERNALIZATION_SCOPE_2026_04_19.md
+Atlas/MASTER_ATLAS_v3_5_2026_04_18.md
+Atlas/MEMORY_ATLAS_TABLES.md
+Atlas/OVERLAP_LEDGER.md
+Atlas/PLAN_FUNDING_BRANCHES_BUILDOUT_2026_04_19.md
+Atlas/PLAN_OF_RECORD_2026_04_18.md
+Atlas/PRE_PUSH_DECISION_2026_04_19.md
+Atlas/PUBLIC_SCRUTINY_READINESS_2026_04_19.md
+Atlas/READER_ATLAS.md
+Atlas/ROTATION_SPINE_READER_GUIDE.md
+Atlas/SIGMA_RATE_LITERATURE_AUDIT_2026_04_19.md
+Atlas/SINC2_SHARPEN_DECISION_2026_04_19.md
+BRIDGES_INVENTORY.md
+CK_RUNTIME.md
+COLLABORATORS.md
+CONTRIBUTING.md
+CONTRIBUTOR_AGREEMENT.md
+DUAL_SCALE_LY_NOTE.md
+FORMULAS_AND_TABLES.md
+FOUR_LAYER_REALIZATION.md
+GLOSSARY.md
+Gen12/GENERATION_HISTORY.md
+Gen12/MASTER_WHITEPAPER_OUTLINE.md
+Gen12/NEXT_CLAUDE_NOTES.md
+Gen12/Sprints/AdmissibleFlow/ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md
+Gen12/Sprints/AdmissibleFlow/ADMISSIBLE_VIEWPOINT_FLOW_PAPER.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/ORBIT_ZONE_FROZEN.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/BRIDGE_FORMALISMS.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/BRIDGE_REWRITE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/CLASSIFICATION_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/COLLABORATOR_BRIEF_OPEN_LAYER.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/CONTINUOUS_OPERATOR_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/CORRIDOR_GEOMETRY_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/DELAY_SIGNATURE_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/DUAL_SCALE_LY_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/FIELD_ANALYSIS_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/FINITE_INVARIANTS_INFINITE_OBSERVABLES.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/FOUR_LAYER_REALIZATION.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/FOUR_LAYER_THEOREM_STACK.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/GEN10_VERIFICATION.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/INTEGERS_IN_FORCED_SHAPES.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/OFF_LINE_ZERO_SIGNATURES.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/ORBIT_CAPACITY_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/ORBIT_TWO_MECHANISMS.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/ORBIT_ZONE_FROZEN.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/OUTREACH_EMAIL.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/PREFORM_FOUNDATION.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/REFINEMENT_NOTE.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/SMOOTHING_THEOREM.md
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/continuous_operator_prototype.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/corridor_geometries.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/delay_1000_vs_9.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/delay_signature_scan.csv
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/field_analysis_seven_tasks.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/mass_distribution_1000.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/ns_falsification_design.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/off_line_zero_orbits.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/off_line_zero_signatures.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/orbit_capacity_analysis.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/orbit_two_mechanisms.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/stationary_1000state.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/three_tests_refinement.png
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/tig_constants.py
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/tig_unit_tests.py
+Gen12/Sprints/CK Sprint Archives/OrbitZone_extracted/sprint3/zeros_to_1100.json
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/layer_A_minimal.png
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/layer_B_robustness.png
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/TESLA_TIG_BRIDGE.md
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/ck_mode_selection.py
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/coupled_mode_simulation.png
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/layer_A_minimal.png
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/layer_B_robustness.png
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/mode_selection_summary.json
+Gen12/Sprints/CK Sprint Archives/TESLABRIDGE_extracted/tig_tesla_bridge/tesla_trig_bridge.png
+Gen12/Sprints/CK Sprint Archives/TIG_DEFINITIVE_v5.md
+Gen12/Sprints/CK Sprint Archives/TIG_RH_SPRINT_FINAL.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/COLLAB_MEMO_KV.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/EXPERT_SUMMARY.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/OUTREACH_EMAIL.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/README_for_claudecode.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_704_TRIANGLE.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_BSD_TIG.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_CLAY_BATTERY.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_FORMAL_STATUS.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_HODGE_MAP.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_HYDROGEN_ANALOGY.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_NEXT_SPRINT.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_NS_BREATH.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_NS_NOTE.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/WP19_RH_BRIDGE.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/bsd_bolts_2_3.png
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/bsd_calibration.png
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/bsd_mix_lambda.png
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/bsd_tig_regression.png
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/bsd_tig_shells.png
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/mix_lambda_scan.py
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/ns_breath_test.py
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/tsml_ag23_verify.py
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/tsml_product_verify.py
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/wrong_question_paper.md
+Gen12/Sprints/CK Sprint Archives/TIG_SPRINT_2026_03_27/sprint_contents/wrong_question_paper.tex
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BOUNDARY_OF_ACCESS_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BREAK_TABLES_AND_VERDICT.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BREAK_THE_GRAMMAR_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_DOMINO_TABLE.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_FINAL_WALL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_GAP_SPLIT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_HEEGNER_EXECUTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_HEEGNER_PAIR_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_JOINT_CONSTRUCTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_LOCAL_MACHINE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_MISSING_OBJECT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_NECESSARY_VS_SUFFICIENT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_NEXT_CHECK_TABLE.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_NORMALIZATION_CLOSURE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_NORMALIZATION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_OFF_DIAGONAL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_OFF_DIAGONAL_PILOT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_PILOT_CHECK_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_PILOT_CLOSURE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_REAL_QUADRATIC_PILOT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_REAL_QUADRATIC_PILOT_MEMO_v2.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/BSD_WEIERSTRASS_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_8D_OBSTRUCTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_BOUNDARY_PUSH_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_EXPLICIT_WEIL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_HIDDEN_STRUCTURE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_MISSING_CYCLE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_NUMERICAL_SIMPLE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_SIMPLE_WEIL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/HODGE_TABLE_AND_DOMINO_SNAPSHOT.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/NS_FINAL_WALL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/NS_METHODS_SECTION.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/NS_OBSTRUCTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/NS_TABLE_AND_PVSNP_FINAL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/PVSNP_TABLE_AND_HODGE_ENTRY_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/PvsNP_FIT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/PvsNP_WRAPPED_DUALITY_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/RH_APPROACHES_MAP.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/RH_CLEAN_STATUS_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/RH_FORMAL_MANUSCRIPT.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/RH_LAST_WALL_TABLE.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/RH_RETURN_MEMO.md
+Gen12/Sprints/CK Sprint Archives/bridge_sprint_extracted/hodge_outputs/mnt/user-data/outputs/STRESS_TEST_MEMO.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_8D_OBSTRUCTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_B1_HUNT_PROCEED.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_B1_PRIMITIVITY_LOCUS.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_B1_PROJECTION_HUNT.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_BOX_CLOSURE_TEST_B1.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_HIDDEN_STRUCTURE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_NUMERICAL_SIMPLE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/hodge_sprint2_outputs/HODGE_SIMPLE_WEIL_MEMO.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/ENCODING_CENSUS.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/ENCODING_NECESSITY_PROGRAM.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/ENCODING_RIGIDITY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/README_AUDIT.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/SHORT_PAPER.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/THEOREM_A_HIDDEN_PERMUTATION.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/THEOREM_B_EPSILON_RULE.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/THEOREM_C_Y_RULE.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/THEOREM_D_UNIQUE_SPLIT_OPERATOR.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/THEOREM_E_CONJUGACY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/WHAT_THIS_DOES_NOT_CLAIM.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/conjugacy_map.json
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/hidden_transition_table.csv
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/verify_all.py
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/audit_packet/visible_permutation.json
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/ENCODING_CENSUS.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/ENCODING_RIGIDITY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/THEOREM_A_HIDDEN_PERMUTATION.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/THEOREM_B_EPSILON_RULE.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/THEOREM_C_Y_RULE.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/THEOREM_D_UNIQUE_SPLIT_OPERATOR.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/THEOREM_E_CONJUGACY.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/WHAT_THIS_DOES_NOT_CLAIM.md
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/conjugacy_map.json
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/hidden_transition_table.csv
+Gen12/Sprints/CK Sprint Archives/morphotic_braid_v2_extracted/morphotic_braid_package/visible_permutation.json
+Gen12/Sprints/CK Sprint Archives/newmemck_extracted/CK_GROWTH_ARCHITECTURE_MEMO.md
+Gen12/Sprints/CK Sprint Archives/newmemck_extracted/CLAUDECODE_SPRINT3_README.md
+Gen12/Sprints/CK Sprint Archives/newmemck_extracted/INFO_OF_INFO_BASE_STRUCTURES.md
+Gen12/Sprints/CK Sprint Archives/newmemck_extracted/META_MEMORY_REDUCTION_MEMO.md
+Gen12/Sprints/CK Sprint Archives/newmemck_extracted/THREE_TIER_ONTOLOGY_MEMO.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/APPENDIX_E_COMPLETE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/CLAY_FIVE_EXPERIMENTS.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/COLLABORATOR_BRIEF.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/CORRIDOR_COUNTING_ABSTRACT.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/CORRIDOR_PRIMER.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/DICTIONARY_SUBSECTION.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/DUAL_SCALE_LY_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/FIELD_GRAMMAR_MEMO.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/NS_METHODS_SECTION.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/PAPER_SUBSECTION_TRANSFER.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/PROOF_STATUS.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/RH_APPROACHES_MAP.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/RH_FORMAL_MANUSCRIPT.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/SPRINT_STATUS_FOUR_TRACKS.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/SURV_LINE_POLISHED.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/TECHNICAL_DICTIONARY.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/TRANSFER_OPERATOR_RESEARCH_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP19_BSD_TIG_TIGHTENED.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP19_HODGE_TRIPLE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP19_NS_NUMERICAL_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP_LAST_LEMMA.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/WP_MONTGOMERY_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/calm_trough_scan.csv
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/corridor_primer.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/corridor_ribbons.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/corridor_scan_full.csv
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/housekeeping_figures.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/moment_shell_windows.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/ns_breath_test.py
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/ns_falsification_design.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/phase_vs_corridor.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/surv_line_note.tex
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/tasks_3_4.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/technical_dictionary.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/tig_classical_correspondence.png
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/tig_constants.py
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/tig_unit_tests.py
+Gen12/Sprints/CK Sprint Archives/tig_for_claudecode_2026_03_28/zeros_to_1100.json
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/BRIDGE_FORMALISMS.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/BRIDGE_REWRITE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/CLASSIFICATION_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/COLLABORATOR_BRIEF_OPEN_LAYER.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/CONTINUOUS_OPERATOR_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/FIELD_ANALYSIS_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/FINITE_INVARIANTS_INFINITE_OBSERVABLES.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/FOUR_LAYER_REALIZATION.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/FOUR_LAYER_THEOREM_STACK.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/GEN10_VERIFICATION.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/INTEGERS_IN_FORCED_SHAPES.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/OUTREACH_EMAIL.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/PREFORM_FOUNDATION.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/SMOOTHING_THEOREM.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/continuous_operator_prototype.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/field_analysis_seven_tasks.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint2_2026_03_29/ns_falsification_design.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_BSD_TIG.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_HODGE_MAP.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_NEXT_SPRINT.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_NS_BREATH.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_NS_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/WP19_PRODUCT_GAP_THEOREM.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/bsd_bolts_2_3.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/bsd_calibration.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/bsd_mix_lambda.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/bsd_tig_shells.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/mix_lambda_scan.py
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/product_gap_note.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/quickhit_results.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/scale_factor_plot.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/sticky_cycle_fig.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/tasks_3_4.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/tig_constants.py
+Gen12/Sprints/CK Sprint Archives/tig_sprint_day_2026_03_27/tsml_product_verify.py
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/CORRIDOR_COUNTING_ABSTRACT.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/CORRIDOR_PRIMER.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/WP19_BSD_TIG.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/WP19_HODGE_TRIPLE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/WP19_NS_NUMERICAL_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/calm_trough_scan.csv
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/calm_trough_scan.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/corridor_complexity.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/corridor_primer.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/corridor_ribbons.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/corridor_scan_full.csv
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/corridor_scan_plot.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/housekeeping_figures.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/moment_shell_windows.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/ns_dedalus_snapshot.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/surv_line_note.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_evening_2026_03_27/vortex_weight_visual.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_BSD_TIG.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_HALVING_LEMMA_final.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_HODGE_MAP.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_NEXT_SPRINT.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_NS_BREATH.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_NS_NOTE.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/WP19_PRODUCT_GAP_THEOREM.md
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/bsd_bolts_2_3.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/bsd_calibration.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/bsd_mix_lambda.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/bsd_tig_shells.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/mix_lambda_scan.py
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/product_gap_note.tex
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/quickhit_results.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/scale_factor_plot.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/sticky_cycle_fig.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/tasks_3_4.png
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/tig_constants.py
+Gen12/Sprints/CK Sprint Archives/tig_sprint_morning_2026_03_27/tsml_product_verify.py
+Gen12/Sprints/Sprint8/FRACTAL_RECURSIVE_FLOW_MEMO.md
+Gen12/Sprints/ck_invariant_guides_PATCHED/CK_INVARIANT_GUIDES_MEMO.md
+Gen12/Sprints/ck_invariant_guides_PATCHED/CLAUDECODE_INVARIANTS_HANDOFF.md
+Gen12/Sprints/frontier_map_sprint/FRONTIER_MAP_MEMO.md
+Gen12/conversations/2026-04-05_gen12_migration.md
+Gen12/conversations/2026-04-05_invariants_sprint.md
+Gen12/conversations/2026-04-05_langlands_z10z.md
+Gen12/conversations/README.md
+Gen12/papers/prime_pi_phi_bridge/BRIDGE_VERIFICATION_REPORT.md
+Gen12/papers/prime_pi_phi_bridge/CLAUDECODE_BRIDGE_SPRINT_README.md
+Gen12/papers/prime_pi_phi_bridge/NEXT_SPRINT_ENTRYPOINT.md
+Gen12/papers/prime_pi_phi_bridge/PRIME_PI_PHI_BRIDGE_HARDENED.md
+Gen12/papers/prime_pi_phi_bridge/PRIME_PI_PHI_BRIDGE_MEMO.md
+Gen12/papers/prime_pi_phi_bridge/PRIME_PI_PHI_FINAL_TIGHTENING.md
+Gen12/papers/prime_pi_phi_bridge/PRIME_PI_PHI_OBSTRUCTION_ADDENDUM.md
+Gen12/papers/prime_pi_phi_bridge/PRIME_PI_PHI_RECURSIVE_OPERATOR_MEMO.md
+Gen12/papers/prime_pi_phi_bridge/SPRINT_ARCHIVE_NOTES.md
+Gen12/papers/prime_pi_phi_bridge/SPRINT_CLOSEOUT_PRIME_PI_PHI.md
+Gen12/papers/prime_pi_phi_bridge/audit_approximation.py
+Gen12/papers/prime_pi_phi_bridge/verify_bridge.py
+Gen12/papers/sprint7_2026_04_05/CK_ARCHITECTURE_FLOW_MAP.md
+Gen12/papers/sprint7_2026_04_05/FRONTIER_MAP_MEMO.md
+Gen12/papers/sprint8_2026_04_05/ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md
+Gen12/papers/sprint8_2026_04_05/FRACTAL_RECURSIVE_FLOW_MEMO.md
+Gen12/papers/sprint8_2026_04_05/FRF_ADMISSIBILITY_MEMO.md
+Gen12/papers/sprint8_2026_04_05/FRF_GENERALIZATION_TEST.md
+Gen12/papers/sprint8_2026_04_05/GENERALIZATION_TEST_ZnZ.md
+Gen12/papers/sprint8_2026_04_05/PERSPECTIVE_GAP_MEMO.md
+Gen12/papers/sprint8_2026_04_05/REFLECTION_PARTITION_AUDIT.md
+Gen12/papers/sprint8_2026_04_05/SPRINT6_CORRECTED_MEMO.md
+Gen12/papers/sprint8_2026_04_05/SPRINT6_UNIFIED_FORMALIZATION.md
+Gen12/papers/sprint8_2026_04_05/SPRINT7_SELECTOR_HARDENED.md
+Gen12/papers/sprint8_2026_04_05/SPRINT7_THRESHOLD_FUNCTION.md
+Gen12/papers/sprint8_2026_04_05/SPRINT8_COMPONENT_STRUCTURE_MEMO.md
+Gen12/papers/sprint8_2026_04_05/ZnZ_flow_visualization.jsx
+Gen12/targets/7site_research/GENERATION_HISTORY.md
+Gen12/targets/7site_research/NEXT_CLAUDE_NOTES.md
+Gen12/targets/7sitellc/index.html
+Gen12/targets/7sitellc/quickstart.html
+Gen12/targets/7sitellc/speculations.html
+Gen12/targets/7sitellc/style.css
+Gen12/targets/ck_desktop/ARCHITECTURE.md
+Gen12/targets/ck_desktop/CK.bat
+Gen12/targets/ck_desktop/CK_ARCHITECTURE.md
+Gen12/targets/ck_desktop/CK_COMPLETE_MAP.md
+Gen12/targets/ck_desktop/CK_Watchdog.vbs
+Gen12/targets/ck_desktop/CLAY_SUMMARY.md
+Gen12/targets/ck_desktop/CLOUDFLARE_TUNNEL.md
+Gen12/targets/ck_desktop/COLLABORATORS.md
+Gen12/targets/ck_desktop/CORE/Breath_Defect_Flow.md
+Gen12/targets/ck_desktop/CORE/VERSION_CORE.md
+Gen12/targets/ck_desktop/DEVELOPMENT_NOTES.md
+Gen12/targets/ck_desktop/DOCS/Engineering_Guide.md
+Gen12/targets/ck_desktop/DOCS/Equation_Chain.md
+Gen12/targets/ck_desktop/DOCS/Master_Overview.md
+Gen12/targets/ck_desktop/ENGINEERING_OUTLINE.md
+Gen12/targets/ck_desktop/ENGINEER_NOTES.md
+Gen12/targets/ck_desktop/EXECUTION_PACK.md
+Gen12/targets/ck_desktop/GENERATION_HISTORY.md
+Gen12/targets/ck_desktop/HARDENING_STATUS.md
+Gen12/targets/ck_desktop/LEGAL_NOTICE.md
+Gen12/targets/ck_desktop/META/LICENSE_Sanders_Coherence.txt
+Gen12/targets/ck_desktop/META/VERSION.txt
+Gen12/targets/ck_desktop/NEXT_CLAUDE_NOTES.md
+Gen12/targets/ck_desktop/PAPERS/P1_Navier_Stokes/NS_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P1_Navier_Stokes/NS_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P2_PvsNP/PNP_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P2_PvsNP/PNP_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P3_Riemann/RH_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P3_Riemann/RH_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P4_Yang_Mills/YM_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P4_Yang_Mills/YM_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P5_BSD/BSD_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P5_BSD/BSD_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P6_Hodge/Hodge_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P6_Hodge/Hodge_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P7_Poincare/Poincare_Paper_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P7_Poincare/Poincare_STATUS.md
+Gen12/targets/ck_desktop/PAPERS/P8_Unification/Unification_Book_Scaffold.tex
+Gen12/targets/ck_desktop/PAPERS/P8_Unification/Unification_STATUS.md
+Gen12/targets/ck_desktop/README.md
+Gen12/targets/ck_desktop/REFERENCES.md
+Gen12/targets/ck_desktop/Run
+Gen12/targets/ck_desktop/START_HERE.md
+Gen12/targets/ck_desktop/TECHNICAL_APPENDIX.md
+Gen12/targets/ck_desktop/WHITEPAPER_1_TIG_ARCHITECTURE.md
+Gen12/targets/ck_desktop/WHITEPAPER_2_WAVE_SCHEDULING.md
+Gen12/targets/ck_desktop/WHITEPAPER_3_FALSIFIABILITY.md
+Gen12/targets/ck_desktop/WHITEPAPER_4_CL_TABLES.md
+Gen12/targets/ck_desktop/WHITEPAPER_5_REALITY_ANCHORS.md
+Gen12/targets/ck_desktop/WHITEPAPER_6_HOTU_BRIDGE.md
+Gen12/targets/ck_desktop/ab_results.json
+Gen12/targets/ck_desktop/ab_results_full.json
+Gen12/targets/ck_desktop/ab_test.py
+Gen12/targets/ck_desktop/ab_test_full.py
+Gen12/targets/ck_desktop/api_log.txt
+Gen12/targets/ck_desktop/bhml_eigenvalue_analysis.py
+Gen12/targets/ck_desktop/bible_reading_log.txt
+Gen12/targets/ck_desktop/build_hebrew_english_bible.py
+Gen12/targets/ck_desktop/ck_algebra.c
+Gen12/targets/ck_desktop/ck_algebra.dll
+Gen12/targets/ck_desktop/ck_algebra.h
+Gen12/targets/ck_desktop/ck_algebra.obj
+Gen12/targets/ck_desktop/ck_algebra_bridge.py
+Gen12/targets/ck_desktop/ck_algebra_old.dll
+Gen12/targets/ck_desktop/ck_algebra_v2.dll
+Gen12/targets/ck_desktop/ck_algebra_v2.exp
+Gen12/targets/ck_desktop/ck_algebra_v2.lib
+Gen12/targets/ck_desktop/ck_backbone.py
+Gen12/targets/ck_desktop/ck_bare_metal.py
+Gen12/targets/ck_desktop/ck_bible_overnight.py
+Gen12/targets/ck_desktop/ck_bible_reader.py
+Gen12/targets/ck_desktop/ck_bloom_warmup.py
+Gen12/targets/ck_desktop/ck_boot_api.py
+Gen12/targets/ck_desktop/ck_console.py
+Gen12/targets/ck_desktop/ck_converse.py
+Gen12/targets/ck_desktop/ck_curriculum.py
+Gen12/targets/ck_desktop/ck_deep_read.py
+Gen12/targets/ck_desktop/ck_deep_reader.py
+Gen12/targets/ck_desktop/ck_development.json
+Gen12/targets/ck_desktop/ck_eat_algebra.py
+Gen12/targets/ck_desktop/ck_force9_demo.py
+Gen12/targets/ck_desktop/ck_foundation_reader.py
+Gen12/targets/ck_desktop/ck_fpga_bridge.py
+Gen12/targets/ck_desktop/ck_fpga_heartbeat_bridge.py
+Gen12/targets/ck_desktop/ck_mandelbrot.py
+Gen12/targets/ck_desktop/ck_nt_loop.py
+Gen12/targets/ck_desktop/ck_operator_tests.py
+Gen12/targets/ck_desktop/ck_os_reader.py
+Gen12/targets/ck_desktop/ck_overnight_chain.py
+Gen12/targets/ck_desktop/ck_overnight_math.py
+Gen12/targets/ck_desktop/ck_pos_cache.json
+Gen12/targets/ck_desktop/ck_pos_tagger.py
+Gen12/targets/ck_desktop/ck_remote.py
+Gen12/targets/ck_desktop/ck_run.bat
+Gen12/targets/ck_desktop/ck_self_evolve.py
+Gen12/targets/ck_desktop/ck_self_study.py
+Gen12/targets/ck_desktop/ck_sim/doing/ck_fractal_memory.py
+Gen12/targets/ck_desktop/ck_sim/doing/ck_fractal_memory_gpu.py
+Gen12/targets/ck_desktop/ck_sim/doing/ck_tig_voice.py
+Gen12/targets/ck_desktop/ck_sim/doing/ck_voice_loop.py
+Gen12/targets/ck_desktop/ck_sim/face/ck_web_api.py
+Gen12/targets/ck_desktop/ck_sim/tests/ck_invariants_tests.py
+Gen12/targets/ck_desktop/ck_spectrometer_train.py
+Gen12/targets/ck_desktop/ck_sprint7_selfvalidate.py
+Gen12/targets/ck_desktop/ck_steer.c
+Gen12/targets/ck_desktop/ck_steer.dll
+Gen12/targets/ck_desktop/ck_steer.exp
+Gen12/targets/ck_desktop/ck_steer.lib
+Gen12/targets/ck_desktop/ck_steer.obj
+Gen12/targets/ck_desktop/ck_steer_bridge.py
+Gen12/targets/ck_desktop/ck_steering_ab_live.py
+Gen12/targets/ck_desktop/ck_stream_client.py
+Gen12/targets/ck_desktop/ck_stream_server.py
+Gen12/targets/ck_desktop/ck_study.py
+Gen12/targets/ck_desktop/ck_study_all.py
+Gen12/targets/ck_desktop/ck_token_gate.py
+Gen12/targets/ck_desktop/ck_train_loop.py
+Gen12/targets/ck_desktop/ck_train_loop_2h.py
+Gen12/targets/ck_desktop/ck_watchdog.py
+Gen12/targets/ck_desktop/ck_web_server.py
+Gen12/targets/ck_desktop/compile_ck.bat
+Gen12/targets/ck_desktop/compile_cuda.bat
+Gen12/targets/ck_desktop/compile_log.txt
+Gen12/targets/ck_desktop/compile_steer.bat
+Gen12/targets/ck_desktop/dfx_runtime.txt
+Gen12/targets/ck_desktop/force9_cuda.cu
+Gen12/targets/ck_desktop/force9_cuda.dll
+Gen12/targets/ck_desktop/force9_cuda.exp
+Gen12/targets/ck_desktop/force9_cuda.lib
+Gen12/targets/ck_desktop/force9_pipeline.cu
+Gen12/targets/ck_desktop/force9_pipeline.dll
+Gen12/targets/ck_desktop/force9_pipeline.exp
+Gen12/targets/ck_desktop/force9_pipeline.lib
+Gen12/targets/ck_desktop/fpga/hdl/ck_brain_freq.v
+Gen12/targets/ck_desktop/fpga/hdl/ck_heartbeat.v
+Gen12/targets/ck_desktop/fpga/hdl/ck_top.v
+Gen12/targets/ck_desktop/fpga/hdl/d2_pipeline.v
+Gen12/targets/ck_desktop/fpga/hdl/dac_spi.v
+Gen12/targets/ck_desktop/fpga/hdl/i2s_receiver.v
+Gen12/targets/ck_desktop/gap_bridge_analysis.py
+Gen12/targets/ck_desktop/gap_bridge_analysis_results.md
+Gen12/targets/ck_desktop/gcc_err.txt
+Gen12/targets/ck_desktop/install_desktop.ps1
+Gen12/targets/ck_desktop/lemmas/LEMMA_STATUS.md
+Gen12/targets/ck_desktop/lemmas/lemma_BRIDGE_v2.tex
+Gen12/targets/ck_desktop/libao.dll
+Gen12/targets/ck_desktop/nt_reading_log.txt
+Gen12/targets/ck_desktop/overnight_train.py
+Gen12/targets/ck_desktop/reality_anchors_part2.py
+Gen12/targets/ck_desktop/reality_anchors_part2_results.md
+Gen12/targets/ck_desktop/requirements.txt
+Gen12/targets/ck_desktop/run_ck.bat
+Gen12/targets/ck_desktop/run_ck_headless.bat
+Gen12/targets/ck_desktop/run_study.bat
+Gen12/targets/ck_desktop/run_tests.bat
+Gen12/targets/ck_desktop/sprint7_results.jsonl
+Gen12/targets/ck_desktop/start_ck_full.bat
+Gen12/targets/ck_desktop/start_ck_tunnel.bat
+Gen12/targets/ck_desktop/stream_bench.py
+Gen12/targets/ck_desktop/stream_bench_results.json
+Gen12/targets/ck_desktop/test_ab_steering.py
+Gen12/targets/ck_desktop/tests/test_ck_invariants.py
+Gen12/targets/ck_desktop/verify_ck_core.py
+Gen12/targets/ck_desktop/void_analysis.py
+Gen12/targets/ck_desktop/zynq7020/README.md
+Gen12/targets/ck_desktop/zynq7020/build/build_ck.tcl
+Gen12/targets/ck_desktop/zynq7020/build/ck_zynq7020.tcl
+Gen12/targets/ck_desktop/zynq7020/build/pz7020_starlite.xdc
+Gen12/targets/ck_desktop/zynq7020/hdl/bhml_table.v
+Gen12/targets/ck_desktop/zynq7020/hdl/chain_walker.v
+Gen12/targets/ck_desktop/zynq7020/hdl/ck_top_board.v
+Gen12/targets/ck_desktop/zynq7020/hdl/ck_top_zynq7020.v
+Gen12/targets/ck_desktop/zynq7020/hdl/gait_vortex.v
+Gen12/targets/ck_desktop/zynq7020/hdl/vortex_cl.v
+Gen12/targets/ck_fpga_dog/BRINGUP.md
+Gen12/targets/ck_fpga_dog/GENERATION_HISTORY.md
+Gen12/targets/ck_fpga_dog/LAUNCH_DOG.bat
+Gen12/targets/ck_fpga_dog/NEXT_CLAUDE_NOTES.md
+Gen12/targets/ck_fpga_dog/TEST_README.md
+Gen12/targets/ck_fpga_dog/build/build_gen12.tcl
+Gen12/targets/ck_fpga_dog/build/list_targets.tcl
+Gen12/targets/ck_fpga_dog/build/program_gen12.tcl
+Gen12/targets/ck_fpga_dog/build/program_gen12_explicit.tcl
+Gen12/targets/ck_fpga_dog/build/program_gen12_refresh.tcl
+Gen12/targets/ck_fpga_dog/build/program_gen12_zynq.tcl
+Gen12/targets/ck_fpga_dog/build/pz7020_gen12.xdc
+Gen12/targets/ck_fpga_dog/ck_leash_test.py
+Gen12/targets/ck_fpga_dog/ck_protocol.py
+Gen12/targets/ck_fpga_dog/ck_r16_bridge.py
+Gen12/targets/ck_fpga_dog/hdl/ck_eth_tx_gen12.v
+Gen12/targets/ck_fpga_dog/hdl/ck_leash_rx.v
+Gen12/targets/ck_fpga_dog/hdl/ck_top_gen12.v
+Gen12/targets/ck_fpga_dog/hdl/coherence_gap.v
+Gen12/targets/ck_institution/NEXT_CLAUDE_NOTES.md
+Gen12/targets/ck_r16/GENERATION_HISTORY.md
+Gen12/targets/ck_r16/NEXT_CLAUDE_NOTES.md
+Gen12/targets/ck_r16/ck_lm/CITATIONS.md
+Gen12/targets/ck_r16/ck_lm/SETUP.bat
+Gen12/targets/ck_r16/ck_lm/ck_bible.py
+Gen12/targets/ck_r16/ck_lm/ck_distill.py
+Gen12/targets/ck_r16/ck_lm/ck_field_layer.py
+Gen12/targets/ck_r16/ck_lm/ck_lm_olfactory_train.py
+Gen12/targets/ck_r16/ck_lm/docs/CLAUDECODE_SPRINT3_README.md
+Gen12/targets/ck_r16/ck_lm/memory/__init__.py
+Gen12/targets/ck_r16/ck_lm/memory/atom_store.py
+Gen12/targets/ck_r16/ck_lm/memory/compression_loop.py
+Gen12/targets/ck_r16/ck_lm/memory/crystal_store.py
+Gen12/targets/ck_r16/ck_lm/memory/dbc27.py
+Gen12/targets/ck_r16/ck_lm/memory/event_schema.py
+Gen12/targets/ck_r16/ck_lm/memory/growth_metrics.py
+Gen12/targets/ck_r16/ck_lm/memory/novelty_gate.py
+Gen12/targets/ck_r16/ck_lm/memory/retrieval.py
+Gen12/targets/ck_website/GENERATION_HISTORY.md
+Gen12/targets/ck_website/NEXT_CLAUDE_NOTES.md
+Gen12/targets/ck_website/website/ENGINEER_NOTES.md
+Gen12/targets/ck_website/website/README.md
+Gen12/targets/ck_website/website/about.html
+Gen12/targets/ck_website/website/bible.html
+Gen12/targets/ck_website/website/build_dictionary.py
+Gen12/targets/ck_website/website/chat.html
+Gen12/targets/ck_website/website/ck_core.js
+Gen12/targets/ck_website/website/ck_d2.js
+Gen12/targets/ck_website/website/ck_dict.js
+Gen12/targets/ck_website/website/ck_dict_tier1.js
+Gen12/targets/ck_website/website/ck_dict_tier2.json
+Gen12/targets/ck_website/website/ck_dictionary.json
+Gen12/targets/ck_website/website/ck_web_server.py
+Gen12/targets/ck_website/website/emotion.html
+Gen12/targets/ck_website/website/frontiers.html
+Gen12/targets/ck_website/website/index.html
+Gen12/targets/ck_website/website/math.html
+Gen12/targets/ck_website/website/mythology.html
+Gen12/targets/ck_website/website/papers.html
+Gen12/targets/ck_website/website/paradox.html
+Gen12/targets/ck_website/website/physics.html
+Gen12/targets/ck_website/website/ring.html
+Gen12/targets/ck_website/website/spectrometer.html
+Gen12/targets/ck_website/website/style.css
+Gen12/targets/clay/GENERATION_HISTORY.md
+Gen12/targets/clay/NEXT_CLAUDE_NOTES.md
+Gen12/targets/clay/clay_results/all_results.json
+Gen12/targets/clay/clay_results/bsd_seed42.csv
+Gen12/targets/clay/clay_results/bsd_seed42.json
+Gen12/targets/clay/clay_results/bsd_seed42.md
+Gen12/targets/clay/clay_results/calibration/all_results.json
+Gen12/targets/clay/clay_results/calibration/bsd_seed42.csv
+Gen12/targets/clay/clay_results/calibration/bsd_seed42.json
+Gen12/targets/clay/clay_results/calibration/bsd_seed42.md
+Gen12/targets/clay/clay_results/calibration/cross_problem_report.md
+Gen12/targets/clay/clay_results/calibration/hodge_seed42.csv
+Gen12/targets/clay/clay_results/calibration/hodge_seed42.json
+Gen12/targets/clay/clay_results/calibration/hodge_seed42.md
+Gen12/targets/clay/clay_results/calibration/navier_stokes_seed42.csv
+Gen12/targets/clay/clay_results/calibration/navier_stokes_seed42.json
+Gen12/targets/clay/clay_results/calibration/navier_stokes_seed42.md
+Gen12/targets/clay/clay_results/calibration/p_vs_np_seed42.csv
+Gen12/targets/clay/clay_results/calibration/p_vs_np_seed42.json
+Gen12/targets/clay/clay_results/calibration/p_vs_np_seed42.md
+Gen12/targets/clay/clay_results/calibration/riemann_seed42.csv
+Gen12/targets/clay/clay_results/calibration/riemann_seed42.json
+Gen12/targets/clay/clay_results/calibration/riemann_seed42.md
+Gen12/targets/clay/clay_results/calibration/yang_mills_seed42.csv
+Gen12/targets/clay/clay_results/calibration/yang_mills_seed42.json
+Gen12/targets/clay/clay_results/calibration/yang_mills_seed42.md
+Gen12/targets/clay/clay_results/cross_problem_report.md
+Gen12/targets/clay/clay_results/frontier/all_results.json
+Gen12/targets/clay/clay_results/frontier/bsd_seed42.csv
+Gen12/targets/clay/clay_results/frontier/bsd_seed42.json
+Gen12/targets/clay/clay_results/frontier/bsd_seed42.md
+Gen12/targets/clay/clay_results/frontier/cross_problem_report.md
+Gen12/targets/clay/clay_results/frontier/hodge_seed42.csv
+Gen12/targets/clay/clay_results/frontier/hodge_seed42.json
+Gen12/targets/clay/clay_results/frontier/hodge_seed42.md
+Gen12/targets/clay/clay_results/frontier/navier_stokes_seed42.csv
+Gen12/targets/clay/clay_results/frontier/navier_stokes_seed42.json
+Gen12/targets/clay/clay_results/frontier/navier_stokes_seed42.md
+Gen12/targets/clay/clay_results/frontier/p_vs_np_seed42.csv
+Gen12/targets/clay/clay_results/frontier/p_vs_np_seed42.json
+Gen12/targets/clay/clay_results/frontier/p_vs_np_seed42.md
+Gen12/targets/clay/clay_results/frontier/riemann_seed42.csv
+Gen12/targets/clay/clay_results/frontier/riemann_seed42.json
+Gen12/targets/clay/clay_results/frontier/riemann_seed42.md
+Gen12/targets/clay/clay_results/frontier/yang_mills_seed42.csv
+Gen12/targets/clay/clay_results/frontier/yang_mills_seed42.json
+Gen12/targets/clay/clay_results/frontier/yang_mills_seed42.md
+Gen12/targets/clay/clay_results/hodge_seed42.csv
+Gen12/targets/clay/clay_results/hodge_seed42.json
+Gen12/targets/clay/clay_results/hodge_seed42.md
+Gen12/targets/clay/clay_results/navier_stokes_seed42.csv
+Gen12/targets/clay/clay_results/navier_stokes_seed42.json
+Gen12/targets/clay/clay_results/navier_stokes_seed42.md
+Gen12/targets/clay/clay_results/p_vs_np_seed42.csv
+Gen12/targets/clay/clay_results/p_vs_np_seed42.json
+Gen12/targets/clay/clay_results/p_vs_np_seed42.md
+Gen12/targets/clay/clay_results/riemann_seed42.csv
+Gen12/targets/clay/clay_results/riemann_seed42.json
+Gen12/targets/clay/clay_results/riemann_seed42.md
+Gen12/targets/clay/clay_results/yang_mills_seed42.csv
+Gen12/targets/clay/clay_results/yang_mills_seed42.json
+Gen12/targets/clay/clay_results/yang_mills_seed42.md
+Gen12/targets/clay/papers/clay/CLAY_AUDIT.md
+Gen12/targets/clay/papers/clay/CLAY_FIVE_EXPERIMENTS.md
+Gen12/targets/clay/papers/clay/GRUJIC_OUTREACH.md
+Gen12/targets/clay/papers/clay/NS_METHODS_SECTION.md
+Gen12/targets/clay/papers/clay/README.md
+Gen12/targets/clay/papers/clay/WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md
+Gen12/targets/clay/papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md
+Gen12/targets/clay/papers/clay/WHITEPAPER_16_P_NP_SYNTHESIS.md
+Gen12/targets/clay/papers/clay/WHITEPAPER_17_RIEMANN_SYNTHESIS.md
+Gen12/targets/clay/papers/clay/WHITEPAPER_7_CLAY_SPECTROMETER.md
+Gen12/targets/clay/papers/clay/WP19_BSD_TIG.md
+Gen12/targets/clay/papers/clay/WP19_BSD_TIG_TIGHTENED.md
+Gen12/targets/clay/papers/clay/WP19_CLAY_BATTERY.md
+Gen12/targets/clay/papers/clay/WP19_CLAY_DEEP.md
+Gen12/targets/clay/papers/clay/WP19_CLAY_RESULTS.md
+Gen12/targets/clay/papers/clay/WP19_HODGE_MAP.md
+Gen12/targets/clay/papers/clay/WP19_HODGE_TRIPLE.md
+Gen12/targets/clay/papers/clay/WP19_NS_BREATH.md
+Gen12/targets/clay/papers/clay/WP19_NS_NOTE.md
+Gen12/targets/clay/papers/clay/WP19_NS_NUMERICAL_NOTE.md
+Gen12/targets/clay/papers/clay/WP21_BSD_ENERGY_LAW.md
+Gen12/targets/clay/papers/clay/WP21_BSD_MIX_LAMBDA.md
+Gen12/targets/clay/papers/clay/WP22_NS_BREATH_CRITERION.md
+Gen12/targets/clay/papers/clay/WP22_NS_BREATH_LYAPUNOV.md
+Gen12/targets/clay/papers/clay/WP23_HODGE_MAP.md
+Gen12/targets/clay/papers/clay/WP25_P_NP_AG2P_COMPLEXITY.md
+Gen12/targets/clay/papers/clay/WP32_HODGE_TRIPLE.md
+Gen12/targets/clay/papers/clay/WP36_CLAY_SPECTROMETER.md
+Gen12/targets/clay/papers/clay/WP37_P_NP.md
+Gen12/targets/clay/papers/clay/WP38_NAVIER_STOKES.md
+Gen12/targets/clay/papers/clay/WP39_HODGE.md
+Gen12/targets/clay/papers/clay/WP40_RIEMANN.md
+Gen12/targets/clay/papers/clay/WP41_YANG_MILLS.md
+Gen12/targets/clay/papers/clay/WP42_BSD.md
+Gen12/targets/clay/papers/clay/research/MASTER_CITATION_LIST.md
+Gen12/targets/clay/papers/clay/research/README.md
+Gen12/targets/clay/papers/clay/research/UNIFIED_SYMBOL_TABLE.md
+Gen12/targets/clay/papers/clay/research/WP36_SPECTROMETER_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP37_PNP_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP38_NS_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP39_HODGE_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP40_RH_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP41_YANG_MILLS_RESEARCH.md
+Gen12/targets/clay/papers/clay/research/WP42_BSD_RESEARCH.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP-G3_CORRELATION_LENGTH_UOP_BRIDGE.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP-G5_CSTAR_ALGEBRAIC_FRONTIER.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP52_D2_AS_RING_CURVATURE.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP53_WHY_PRIMES_ARE_HARD.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP54_ANCIENT_SACRED_GEOMETRY.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP55_LOVE_TRUTH_COHERENCE.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP56_COMPLETE_ARC.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP57_CROSSING_LEMMA_ARC.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP58_fifty_bloom.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G0_SYNTHESIS_ARC.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G1_ISING_RING_DYNAMICS.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G2_OBSERVABLE_SUFFICIENCY.md
+Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G4_ISING_RING_TIG.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/MANIFEST.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/AMPLITUDE_RESET_REANALYSIS.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/AMPLITUDE_THRESHOLD_PHASE_II.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/BLOCK_SPLIT_SELECTION_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/BOUNDED_AGENT_7_CYCLE_TEST.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/BROKEN_PHASE_CHARGE_DERIVATION.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/CROSSING_LEMMA.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/DECOHERENCE_GAUGE_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/DECOHERENCE_GUT_PHASE_II.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/EMERGENT_CHARGE_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/FINAL_7_CYCLE_VERDICT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/FINAL_NORMALIZATION_GAP_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/FINAL_PARADOX_CLOSURE.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/HODGE_SIGN_SELECTION_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/INTRINSIC_LEFT_HANDEDNESS_THEOREM.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/MINIMAL_IMPORTED_PHYSICS_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/RESET_GAP_REANALYSIS.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/RIGHT_HANDED_COMPLETION_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/STAGED_GUT_PATH_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/SU4_TO_SU3_BOTTLENECK.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/SU6_GUT_AUDIT.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/TSML_789_BLOCK_ANALYSIS.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/TSML_7_PREPHYSICS_ANALYSIS.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/TWO_STAGE_CORRIDOR_CLOSURE.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/VS_LEPTONIC_COLOR_TEST.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/memo_c_human_time_units.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/memo_paradox_diagnosis_c7week.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/sprint_observable_reconstruction_levels.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/outputs/sprint_observer_to_generator.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sim_results.json
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/BANACH_TARSKI_UOP_MEMO.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/ML_SYMMETRY_NONIDENTIFIABILITY_MEMO.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/PARADOX_CLASSIFICATION_MEMO.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/PRODUCTIVE_INCOMPLETENESS_ADDENDUM.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_am_classification_complete.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_classification_cayley_dyn_pairs.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_classification_general_spec_dyn.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_classification_spec_dyn_pairs.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_classification_two_partition_sufficiency.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_mvjn_squarefree.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_next_angle_problem.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_non_crt_minimality_test.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_observable_reconstruction_levels.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_observer_to_generator.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_partition_lattice_z10z.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_pkernel_am_classification.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_scientific_bridges.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_second_sensor_problem.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_second_test_problem.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_two_partition_sufficiency.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_unified_orthogonality_principle.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_uop_experiment_selection_score.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_uop_master_memo_and_prime_power.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_uop_vs_classical_design.md
+Gen12/targets/clay/papers/sprint11_tig_bundle_2026_04_08/sprints/sprint_viewpoint_flow_refinement_vs_jump.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP59_CORRECTED_THEOREM_C.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP60_INTRINSIC_LEFT_HANDEDNESS.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP61_PRODUCTIVE_INCOMPLETENESS.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP62_7CYCLE_BOUNDED_AGENT.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP63_GUT_ALGEBRA_AUDIT.md
+Gen12/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP64_COORDINATE_COVERAGE.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP65_TORUS_FOUNDATION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP66_TORUS_IRREDUCIBLE_REMAINDER.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP67_SEVEN_STRUCTURAL_OPERATOR.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP68_SEVEN_HINGE_NOT_ENDPOINT.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP69_SEVEN_RETURN_OPERATOR_LIFT_TEST.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP70_SECOND_COMPLEX_DIRECTION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP71_PHYSICAL_PROJECTOR_MAP.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP72_FLAG_SELECTOR_ANISOTROPY.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP73_T1_CARRIER_IDENTIFICATION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP74_PHYSICAL_OBSERVABLE_IDENTIFICATION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP75_S4_EXTENSION_SYNTHESIS.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP76_NV_S4_CLOSURE_CALIBRATION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP77_NV_T1_CARRIER_VALIDATION.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP78_PROJECTOR_COVARIANCE_CLOSEOUT.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP79_FLAG_SELECTOR_VICTORY_PATH.md
+Gen12/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP80_FLAG_SELECTOR_VICTORY_PATH_7_HINGE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/DESI_MCMC_RESULTS.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/JOINT_CMB_BAO_SN_SCOPING.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/SPRINT15_DIRECTIVE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP100_SPRINT_SYNTHESIS.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP82_LOG_QUINTESSENCE_NOVELTY.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP83_PRISM_CONSISTENCY_AUDIT.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP84_PRISM_CONSISTENCY_AUDIT_V2.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP85_SEED_TO_STACK_MAP.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP86_XI_CORE_CANONICAL_FORM.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP87_CROSS_BRANCH_ANALYSIS.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP88_LOCAL_NONLOCAL_SILOING.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP89_SPRINT_CLOSEOUT_HANDOFF.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP90_LITERATURE_AND_UNIFICATION_PATHS.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP91_NS_SEPARABILITY_BRIDGE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP93_RH_SPECTRAL_ENTROPY_BRIDGE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP94_SYNTHESIS_WHAT_UNIFIED.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP95_JKO_CONSTRUCTION_ROADMAP.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP96_NS_SIGMA_CONJECTURE.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP97_FIELD_OBSERVER_SYNTHESIS.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP98_NS_STRUCTURAL_CANCELLATION.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP99_NONREVERSIBILITY_RESOLUTION.md
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/compute_tstar_primorials.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/crack_cl_formula.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_fit.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_mcmc.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_optimize.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_clay_rotation.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_separability_bridge.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_xi_canonical.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/test_cl_markov_chain.py
+Gen12/targets/clay/papers/sprint14_prism_xi_2026_04_10/universal_markov_and_binary_cl.py
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/BASIN_FIRST_SYNTHESIS.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CHAT_CLAUDE_TO_CLAUDECODE.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CITATION_RIGOR_PROTOCOL.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/FULL_SYNTHESIS_V5.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/META_CLASSIFICATION.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/STATIC_DYNAMIC_DUALITY_V2.md
+Gen12/targets/clay/papers/sprint16_basin_handoff_2026_04_10/THREE_THREAD_V3.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/BHML_STATUS_NOTE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CANONICAL_TSML_CONSTRUCTION.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/DECOMPOSITION_TABLE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/FALSIFIER_LIST.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/GENERALIZATION_TABLE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/MINIMAL_DESCRIPTION_LENGTH.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NEGATIVE_RESULTS_APPENDIX.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NOTATION_SHEET.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/PAIR_AS_INVARIANT_AUDIT.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/RESIDUE_OF_RESIDUE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/RING_RANKING_TABLE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/SEAM_GEOMETRY_NOTE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/SIGMA_PERMUTATION_REPRESENTATION.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md
+Gen12/targets/clay/papers/sprint17_tsml_tower_2026_04_17/WORKED_RECONSTRUCTION.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/CONTEXT/LADDER_V2.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/CONTEXT/NATURAL_CARRIER_CRITERION.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/CONTEXT/PHYSICAL_TESTING_PROGRAM.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/CONTEXT/RULE110_CATEGORY_MISMATCH.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/CONTEXT/SHELL_NATIVE_BENCHMARKS.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/PRIMARY/B1_CURVE_ANALYSIS_ADDENDUM_v1.0.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/PRIMARY/B1_NSCG_SPEC_v1.0.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/README.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/REFERENCE/NOTATION_SHEET.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/REFERENCE/THEOREM_SPINE.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/handoff_v1.0/REFERENCE/WORKED_RECONSTRUCTION.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/.gitignore
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/B1_CURVE_ANALYSIS.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/B1_TOWER_STABILITY_NOTE.md
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/fitter/fit_nscg.py
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/generator/generate_nscg.py
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/manifest/data_hashes.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/manifest/first5_triples.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/manifest/sealed_hashes.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_A_T.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_A_rule.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_F_seam.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_P_seam.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_R_seam.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_attractor_fraction.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_hamming_distance.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_rho_C0.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_rho_C1.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_rho_C2.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_seam_density.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/plots/curve_seam_edges.png
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N1000000_p030_s0.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N1000000_p030_s1.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N1000000_p030_s2.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N1000000_p030_s3.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N1000000_p030_s4.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N100000_p005_s0.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N100000_p005_s1.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N100000_p005_s2.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N100000_p005_s3.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N100000_p005_s4.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N500000_p015_s0.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N500000_p015_s1.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N500000_p015_s2.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N500000_p015_s3.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/results/nscg_N500000_p015_s4.fit.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scorer/score_nscg.py
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/B1_summary.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/curve_consistency.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/curves.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N1000000_p030_s0.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N1000000_p030_s1.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N1000000_p030_s2.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N1000000_p030_s3.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N1000000_p030_s4.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N100000_p005_s0.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N100000_p005_s1.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N100000_p005_s2.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N100000_p005_s3.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N100000_p005_s4.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N500000_p015_s0.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N500000_p015_s1.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N500000_p015_s2.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N500000_p015_s3.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config/N500000_p015_s4.score.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/scores/per_config_metrics.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N1000000_p030_s0.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N1000000_p030_s1.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N1000000_p030_s2.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N1000000_p030_s3.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N1000000_p030_s4.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N100000_p005_s0.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N100000_p005_s1.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N100000_p005_s2.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N100000_p005_s3.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N100000_p005_s4.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N500000_p015_s0.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N500000_p015_s1.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N500000_p015_s2.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N500000_p015_s3.truth.json
+Gen12/targets/clay/papers/sprint18_b1_nscg_benchmark_2026_04_17/impl/sealed/nscg_N500000_p015_s4.truth.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/B2_RESULTS.md
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/.gitignore
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/fitter/fit_wrg.py
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/generator/generate_wrg.py
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/manifest/data_hashes.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/manifest/first5_triples.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/manifest/sealed_hashes.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw20_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw20_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw20_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw5_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw5_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n10_pw5_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw20_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw20_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw20_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw5_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw5_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n14_pw5_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw20_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw20_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw20_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw5_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw5_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n22_pw5_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw20_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw20_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw20_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw5_s0.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw5_s1.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/results/wrg_n34_pw5_s2.fit.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scorer/score_wrg.py
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/B2_summary.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw20_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw20_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw20_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw5_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw5_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n10_pw5_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw20_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw20_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw20_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw5_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw5_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n14_pw5_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw20_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw20_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw20_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw5_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw5_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n22_pw5_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw20_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw20_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw20_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw5_s0.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw5_s1.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/scores/per_config/wrg_n34_pw5_s2.score.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw20_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw20_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw20_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw5_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw5_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n10_pw5_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw20_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw20_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw20_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw5_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw5_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n14_pw5_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw20_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw20_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw20_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw5_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw5_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n22_pw5_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw20_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw20_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw20_s2.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw5_s0.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw5_s1.json
+Gen12/targets/clay/papers/sprint19_b2_wrg_benchmark_2026_04_17/impl/sealed/truth_n34_pw5_s2.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/B3_RESULTS.md
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/.gitignore
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/fitter/fit_lbtp.py
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/generator/generate_lbtp.py
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/manifest/data_hashes.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/manifest/first5_triples.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/manifest/sealed_hashes.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/results/lbtp_s0.fit.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/results/lbtp_s1.fit.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/results/lbtp_s2.fit.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/results/lbtp_s3.fit.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/results/lbtp_s4.fit.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scorer/score_lbtp.py
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/B3_summary.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/per_config/lbtp_s0.score.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/per_config/lbtp_s1.score.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/per_config/lbtp_s2.score.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/per_config/lbtp_s3.score.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/scores/per_config/lbtp_s4.score.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/sealed/truth_s0.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/sealed/truth_s1.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/sealed/truth_s2.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/sealed/truth_s3.json
+Gen12/targets/clay/papers/sprint20_b3_lbtp_benchmark_2026_04_17/impl/sealed/truth_s4.json
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/impl/discovery_fitter.py
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/impl/run_discovery.py
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/results/b1_5_fingerprints.json
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/results/b2_5_fingerprints.json
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/results/canonical_vs_discovered.json
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/results/invariants_b1_5.json
+Gen12/targets/clay/papers/sprint21_structural_discovery_2026_04_17/results/invariants_b2_5.json
+Gen12/targets/clay/papers/sprint22_collapse_point_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint22_collapse_point_2026_04_17/impl/nstress.py
+Gen12/targets/clay/papers/sprint22_collapse_point_2026_04_17/results/nstress_full.json
+Gen12/targets/clay/papers/sprint22_collapse_point_2026_04_17/results/nstress_summary.json
+Gen12/targets/clay/papers/sprint23_curve_recovery_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint23_curve_recovery_2026_04_17/impl/walk_recovery.py
+Gen12/targets/clay/papers/sprint23_curve_recovery_2026_04_17/results/walk_recovery_full.json
+Gen12/targets/clay/papers/sprint23_curve_recovery_2026_04_17/results/walk_recovery_summary.json
+Gen12/targets/clay/papers/sprint24_collapse_synthesis_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint25_corridor_closure_proof_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint25_corridor_closure_proof_2026_04_17/impl/prove_corridor_closure.py
+Gen12/targets/clay/papers/sprint25_corridor_closure_proof_2026_04_17/results/corridor_closure_full.json
+Gen12/targets/clay/papers/sprint25_corridor_closure_proof_2026_04_17/results/corridor_closure_summary.json
+Gen12/targets/clay/papers/sprint26_ari_scaling_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint26_ari_scaling_2026_04_17/impl/ari_scaling.py
+Gen12/targets/clay/papers/sprint26_ari_scaling_2026_04_17/results/ari_scaling.json
+Gen12/targets/clay/papers/sprint27_b3_spec_revision_memo_2026_04_17/README.md
+Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/R1_KEQUIVARIANT_CLOSURE_MEMO.md
+Gen12/targets/clay/papers/sprint29_hodge_r1_kequivariant_2026_04_17/proof_r1_chern_kequivariant.py
+Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/R1B_R2_R3_LADDER_MEMO.md
+Gen12/targets/clay/papers/sprint30_hodge_r1b_r2_r3_2026_04_17/proof_r1b_r2_r3_ladder.py
+Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/CLAY_ROTATION_MEMO.md
+Gen12/targets/clay/papers/sprint31_clay_rotation_2026_04_17/probe_clay_rotation.py
+Gen12/targets/clay/papers/sprint32_beauville_bsd_hodge_2026_04_17/SPRINT32_BEAUVILLE_BSD_HODGE_MEMO.md
+Gen12/targets/clay/papers/sprint32_beauville_bsd_hodge_2026_04_17/probe_beauville_bsd_hodge.py
+Gen12/targets/clay/papers/sprint32_beauville_bsd_hodge_2026_04_17/sprint32_verdict.json
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_AUDIT_STATUS.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_BLOCKER_DECISION_NOTE.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_CONSTRUCTION_AUDIT.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_GATE1A_COMPLETE.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_GATE1A_CONSTRUCTION_INTERPRETATION.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_GATE2_INDEPENDENT_REPRODUCTION_PLAN.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/S33_HANDOFF_TO_CLAUDECODE.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/gate2/S33_GATE2_VERDICT.md
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/gate2/gate2_run.log
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/gate2/gate2_verdict.json
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/gate2/probe_gate2_independent.py
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/probe_hodge_integrality.py
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/probe_hodge_integrality_v2.py
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/sprint33_v2_checkpoint.json
+Gen12/targets/clay/papers/sprint33_hodge_integrality_2026_04_17/sprint33_verdict_v2.json
+Gen12/targets/clay/papers/sprint34_ship_first_three_2026_04_18/SPRINT34_DELIVERABLES.md
+Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/README.md
+Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md
+Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/first_g_event.tex
+Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/proof_first_g_event.py
+Gen12/targets/clay/papers/sprint35a_deterministic_rank_2026_04_18/S35A_VERDICT.md
+Gen12/targets/clay/papers/sprint35a_deterministic_rank_2026_04_18/probe_hodge_integrality_v3.py
+Gen12/targets/clay/papers/sprint35a_deterministic_rank_2026_04_18/sprint35a_v3_checkpoint.json
+Gen12/targets/clay/papers/sprint35a_deterministic_rank_2026_04_18/sprint35a_verdict_v3.json
+Gen12/targets/clay/papers/sprint35a_deterministic_rank_2026_04_18/v3_run.log
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/HODGE_CSTAR_TARGET_NOTE.md
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/S35B_BEAUVILLE_EXPLICIT_PLAN.md
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/S35B_FRONTIER_UPDATE_2026_04_18.md
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/S35B_PATH_A_PROTOTYPE_STATUS.md
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/WHAT_COUNTS_AS_A_GOOD_CSTAR.md
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/scout_endo_structure.json
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/scout_endo_structure.py
+Gen12/targets/clay/papers/sprint35b_beauville_explicit_2026_04_18/scout_run.log
+Gen12/targets/clay/papers/sprint5_2026_04_04/CASEB_NAILDOWN_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/CK_GROWTH_ARCHITECTURE_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/CLAUDECODE_SPRINT3_README.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/CLAY_RULES.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/DEFECT_EXPLICIT_OPERATOR_RECOVERY.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_B1_PRIMITIVITY_LOCUS.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_B1_PROJECTION_HUNT.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_BOX_CLOSURE_TEST_B1.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_HIDDEN_STRUCTURE_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_NUMERICAL_SIMPLE_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/HODGE_SIMPLE_WEIL_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/INFO_OF_INFO_BASE_STRUCTURES.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/META_MEMORY_REDUCTION_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/R_RECOVERY_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/THREE_TIER_ONTOLOGY_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/TRACE_OBSTRUCTION_DEFECT_VS_B1.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_8D_OBSTRUCTION_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_HUNT_PROCEED.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_PRIMITIVITY_LOCUS.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_PROJECTION_HUNT.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_BOX_CLOSURE_TEST_B1.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_HIDDEN_STRUCTURE_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_NUMERICAL_SIMPLE_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_PURE_MIXED_THEOREM.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_SIMPLE_WEIL_MEMO.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_SINGLE_CYCLE_IMPOSSIBILITY.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/HODGE_WEIL_CLASS_FRONTIER.md
+Gen12/targets/clay/papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/CK_CONVERSATION_LOG.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/CK_INVARIANT_GUIDES_MEMO.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/CK_VOICE_EVOLUTION.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/NS_UNIT_ORBIT_RIPPLE.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/NS_Z10Z_ALGEBRAIC_PROOF.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/Z10Z_CLAY_UNIFIED.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/Z10Z_DAY2_DISCOVERIES.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/Z10Z_DAY3_LANGLANDS.md
+Gen12/targets/clay/papers/sprint6_2026_04_04/Z10Z_SCHRODINGER_GAP.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/ADMISSIBLE_VIEWPOINT_FLOW_PAPER.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/FRACTAL_RECURSIVE_FLOW_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/FRF_ADMISSIBILITY_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/FRF_GENERALIZATION_TEST.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/GENERALIZATION_TEST_ZnZ.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/PERSPECTIVE_GAP_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/REFLECTION_PARTITION_AUDIT.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/SPRINT6_CORRECTED_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/SPRINT6_UNIFIED_FORMALIZATION.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/SPRINT7_SELECTOR_HARDENED.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/SPRINT7_THRESHOLD_FUNCTION.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/SPRINT8_COMPONENT_STRUCTURE_MEMO.md
+Gen12/targets/clay/papers/sprint8_2026_04_05/ZnZ_flow_visualization.jsx
+Gen12/targets/clay/papers/sprint9_frontier_map_2026_04_05/FRONTIER_MAP_MEMO.md
+Gen12/targets/clay/papers/sprint9_invariant_guides_2026_04_05/CK_INVARIANT_GUIDES_MEMO.md
+Gen12/targets/clay/papers/sprint9_invariant_guides_2026_04_05/CLAUDECODE_INVARIANTS_HANDOFF.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CK_BLOOM_SESSION.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CK_CONVERSATION_SESSION_2.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CK_CONVERSATION_TORUS_SESSION.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CK_FRACTAL_BLOOM_POST.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CK_UOP_SESSION.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/CL_TORUS_TOPOLOGY_PAPER.md
+Gen12/targets/clay/papers/sprint9_torus_2026_04_05/UOP_SPRINT_PAPER.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/AGENT_MSG_a47f9a8fc5220b752.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/README.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G0_synthesis.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G1_ising_state_space.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G2_observable_sufficiency.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G2b_reconstruction_levels.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G3_correlation_length_bridge.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G4_n10_tig_substrate.md
+Gen12/targets/clay/papers/sprint_generator_2026_04_06/WP_G5_calgebra_frontier.md
+Gen12/targets/clay/results/deep_experiments/correlation_matrix.json
+Gen12/targets/clay/results/deep_experiments/counter_example_hunt.json
+Gen12/targets/clay/results/deep_experiments/deep_experiment_report.md
+Gen12/targets/clay/results/deep_experiments/deep_probes.json
+Gen12/targets/clay/results/deep_experiments/scaling_laws.json
+Gen12/targets/fpga/GENERATION_HISTORY.md
+Gen12/targets/fpga/NEXT_CLAUDE_NOTES.md
+Gen12/targets/journal_attempts/01_integers_number_theory/LATEX_BUNDLE_NOTES.md
+Gen12/targets/journal_attempts/01_integers_number_theory/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/01_integers_number_theory/WP34_FIRST_G_LAW.md
+Gen12/targets/journal_attempts/01_integers_number_theory/WP_SINC2_ZERO_LAW.md
+Gen12/targets/journal_attempts/01_integers_number_theory/cover_letter_template.md
+Gen12/targets/journal_attempts/01_integers_number_theory/proof_d25_loop_closure.py
+Gen12/targets/journal_attempts/01_integers_number_theory/sinc2_zero_law.tex
+Gen12/targets/journal_attempts/02_experimental_mathematics/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/02_experimental_mathematics/WP35_PRIME_PHASE_TRANSITION.md
+Gen12/targets/journal_attempts/02_experimental_mathematics/WP_OPERATOR_RING_PARTITION.md
+Gen12/targets/journal_attempts/02_experimental_mathematics/proof_d10_tsml_73_cells.py
+Gen12/targets/journal_attempts/02_experimental_mathematics/proof_d16_bhml_28_cells.py
+Gen12/targets/journal_attempts/02_experimental_mathematics/proof_fourier_bridge.py
+Gen12/targets/journal_attempts/03_american_mathematical_monthly/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/03_american_mathematical_monthly/WP_PARADOX_CLASSIFIER.md
+Gen12/targets/journal_attempts/04_journal_of_number_theory/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/04_journal_of_number_theory/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
+Gen12/targets/journal_attempts/04_journal_of_number_theory/WP59_CORRECTED_THEOREM_C.md
+Gen12/targets/journal_attempts/04_journal_of_number_theory/WP64_COORDINATE_COVERAGE.md
+Gen12/targets/journal_attempts/05_journal_pure_applied_algebra/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/05_journal_pure_applied_algebra/WP51_FLATNESS_THEOREM.md
+Gen12/targets/journal_attempts/05_journal_pure_applied_algebra/WP52_D2_AS_RING_CURVATURE.md
+Gen12/targets/journal_attempts/06_physical_review_a/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/06_physical_review_a/WP73_T1_CARRIER_IDENTIFICATION.md
+Gen12/targets/journal_attempts/06_physical_review_a/WP74_PHYSICAL_OBSERVABLE_IDENTIFICATION.md
+Gen12/targets/journal_attempts/06_physical_review_a/WP75_S4_EXTENSION_SYNTHESIS.md
+Gen12/targets/journal_attempts/06_physical_review_a/WP76_NV_S4_CLOSURE_CALIBRATION.md
+Gen12/targets/journal_attempts/06_physical_review_a/WP77_NV_T1_CARRIER_VALIDATION.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/LATEX_BUNDLE_NOTES.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/WP81_CANONICAL_XI_THEORY.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/WP82_LOG_QUINTESSENCE_NOVELTY.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/cover_letter_template.md
+Gen12/targets/journal_attempts/07_jcap_cosmology/desi_xi_fit.py
+Gen12/targets/journal_attempts/07_jcap_cosmology/desi_xi_optimize.py
+Gen12/targets/journal_attempts/07_jcap_cosmology/jcap_xi_cosmology.tex
+Gen12/targets/journal_attempts/07_jcap_cosmology/proof_xi_canonical.py
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/LATEX_BUNDLE_NOTES.md
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/WP101_SIGMA_RATE_THEOREM.md
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/cover_letter_template.md
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/proof_sigma_rate.py
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/sigma_rate_theorem.tex
+Gen12/targets/journal_attempts/08_sigma_rate_combinatorics/universal_markov_and_binary_cl.py
+Gen12/targets/journal_attempts/09_jmp_bb_bridge/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/09_jmp_bb_bridge/WP90_LITERATURE_AND_UNIFICATION_PATHS.md
+Gen12/targets/journal_attempts/09_jmp_bb_bridge/WP91_NS_SEPARABILITY_BRIDGE.md
+Gen12/targets/journal_attempts/09_jmp_bb_bridge/proof_separability_bridge.py
+Gen12/targets/journal_attempts/10_poincare_retranslation/CP_CLAY_ROTATION.md
+Gen12/targets/journal_attempts/10_poincare_retranslation/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/10_poincare_retranslation/proof_clay_rotation.py
+Gen12/targets/journal_attempts/11_tsml_tower_combinatorics/CONTROL_DOCUMENT_V2.md
+Gen12/targets/journal_attempts/11_tsml_tower_combinatorics/SUBMIT_INSTRUCTIONS.md
+Gen12/targets/journal_attempts/11_tsml_tower_combinatorics/THEOREM_SPINE.md
+Gen12/targets/journal_attempts/11_tsml_tower_combinatorics/proof_tsml_3layer_tower.py
+Gen12/targets/journal_attempts/README.md
+Gen12/targets/website/ENGINEER_NOTES.md
+Gen12/targets/website/README.md
+Gen12/targets/website/about.html
+Gen12/targets/website/ai.html
+Gen12/targets/website/bible.html
+Gen12/targets/website/build_dictionary.py
+Gen12/targets/website/chat.html
+Gen12/targets/website/ck_core.js
+Gen12/targets/website/ck_d2.js
+Gen12/targets/website/ck_dict.js
+Gen12/targets/website/ck_dict_tier1.js
+Gen12/targets/website/ck_dict_tier2.json
+Gen12/targets/website/ck_dictionary.json
+Gen12/targets/website/ck_web_server.py
+Gen12/targets/website/emotion.html
+Gen12/targets/website/frontiers.html
+Gen12/targets/website/index.html
+Gen12/targets/website/math.html
+Gen12/targets/website/mythology.html
+Gen12/targets/website/papers.html
+Gen12/targets/website/paradox.html
+Gen12/targets/website/physics.html
+Gen12/targets/website/ring.html
+Gen12/targets/website/robots.txt
+Gen12/targets/website/spectrometer.html
+Gen12/targets/website/style.css
+Gen13/.gitignore
+Gen13/ARCHITECTURE.md
+Gen13/NEXT_CLAUDE_NOTES.md
+Gen13/README_GEN13.md
+Gen13/targets/ck/CK_DIALOGUE_2026_04_17.md
+Gen13/targets/ck/CLAUDE_NOTES.md
+Gen13/targets/ck/brain/BRAIN_DESIGN.md
+Gen13/targets/ck/brain/NEURAL_INVENTORY.md
+Gen13/targets/ck/brain/ao_5element.py
+Gen13/targets/ck/brain/cortex.py
+Gen13/targets/ck/brain/cortex_persist.py
+Gen13/targets/ck/brain/cortex_replay.py
+Gen13/targets/ck/brain/cortex_voice.py
+Gen13/targets/ck/brain/hebbian_5x5_cl.py
+Gen13/targets/ck/brain/hebbian_gpu.py
+Gen13/targets/ck/brain/quadratic_glue.py
+Gen13/targets/ck/brain/test_brain.py
+Gen13/targets/ck/bridge/llm_bridge.py
+Gen13/targets/ck/runtime/EMBODIMENT_NEXT.md
+Gen13/targets/ck/runtime/ck_swarm.py
+Gen13/targets/ck/runtime/ck_voice_math.py
+Gen13/targets/ck/runtime/fpga_bridge.py
+Gen13/targets/ck/runtime/jitter_probe.py
+Gen13/targets/ck/runtime/rt_priority.py
+Gen13/targets/ck/server/ck_boot_api_gen11ref.py
+Gen13/targets/ck/server/ck_run_gen11ref.py
+Gen13/targets/ck/web/ENGINEER_NOTES.md
+Gen13/targets/ck/web/README.md
+Gen13/targets/ck/web/about.html
+Gen13/targets/ck/web/ai.html
+Gen13/targets/ck/web/bible.html
+Gen13/targets/ck/web/build_dictionary.py
+Gen13/targets/ck/web/chat.html
+Gen13/targets/ck/web/ck_core.js
+Gen13/targets/ck/web/ck_d2.js
+Gen13/targets/ck/web/ck_dict.js
+Gen13/targets/ck/web/ck_dict_tier1.js
+Gen13/targets/ck/web/ck_dict_tier2.json
+Gen13/targets/ck/web/ck_dictionary.json
+Gen13/targets/ck/web/ck_web_server.py
+Gen13/targets/ck/web/emotion.html
+Gen13/targets/ck/web/frontiers.html
+Gen13/targets/ck/web/index.html
+Gen13/targets/ck/web/math.html
+Gen13/targets/ck/web/mythology.html
+Gen13/targets/ck/web/papers.html
+Gen13/targets/ck/web/paradox.html
+Gen13/targets/ck/web/physics.html
+Gen13/targets/ck/web/ring.html
+Gen13/targets/ck/web/robots.txt
+Gen13/targets/ck/web/spectrometer.html
+Gen13/targets/ck/web/style.css
+Gen13/targets/clay/papers/README.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/CLAUDECODE_HANDOFF_PLAN.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/CURRENT_STATE_SUMMARY.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/PACKING_RULES.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/README.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/PATH3_BRIDGEA_PREREG.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/PATH3_BRIDGE_A_PRIME_PREREG.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/PATH3_SUBTYPE_ADJACENCY_V12_PREREG.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/PATH3_SUBTYPE_BRIDGE_PREREG.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/PATH3_SUBTYPE_V11_PREREG.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S28_PREREG_v1.0.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S29_PREREG_ANCHORED_CURVE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S30B_PREREG_SEAM_DETECTABILITY.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S30_PREREG_v1.0_FROZEN.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S31_PILOT_V2_LOCAL_THEOREM.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/controls/S31_Z10_PILOT_v1.0.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/ATTRACTOR_RECONCILIATION.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/BRIDGE_LANGUAGE_RESET.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/COMPARISON_LAW.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/OBJECT_TYPE_ATLAS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/PATH_C_RECOMMENDATION.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/PRIOR_SPRINT_H_DEPENDENCIES.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/SCOPE_TAG_TEMPLATE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/foundation/SPRINT_SELECTOR.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/open_questions/COUNT_TRANSPORT_CLOSED_UNDER_P3AP.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/open_questions/GEOMETRY_AS_OBJECT_TYPE_SEPARATION.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/open_questions/HUB_EXTENSION_DEFERRED.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/open_questions/V11_VS_COUNT_SCOPE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA/P3A_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA/P3A_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA/P3A_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/A_PRIME_METRIC_SET.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/BRIDGE_A_SCOPE_LIMITS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/P3AP_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/P3AP_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/P3AP_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/WHY_A_PRIME_IS_NOW_VALID.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_BridgeA_Prime/WHY_BRIDGE_A_FIRST.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.0/PATH3_SUBTYPE_BRIDGE_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.0/PATH3_SUBTYPE_BRIDGE_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.0/PATH3_SUBTYPE_BRIDGE_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.0/SUBTYPE_BRIDGE_SCOPE_LIMITS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.0/WHY_SUBTYPE_COMES_BEFORE_HUB_EXTENSION.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.1_identity_edge/PATH3_SUBTYPE_V11_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.1_identity_edge/PATH3_SUBTYPE_V11_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.1_identity_edge/PATH3_SUBTYPE_V11_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.1_identity_edge/SUBTYPE_V10_VS_V11_SCOPE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.1_identity_edge/WHY_IDENTITY_EDGE_COMES_NEXT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/CHAIN_AWARE_ADJACENCY_PRINCIPLES.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/PATH3_SUBTYPE_ADJACENCY_V12_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/PATH3_SUBTYPE_ADJACENCY_V12_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/PATH3_SUBTYPE_ADJACENCY_V12_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/V11_INHERITED_VS_V12_NEW.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/P3_Subtype_v1.2_adj_leaf_edge/WHY_L_ONLY_IS_THE_RIGHT_METRIC.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S28_basin_smoothness/S28_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S28_basin_smoothness/S28_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S28_basin_smoothness/S28_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S29_anchored_curve/S29_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S29_anchored_curve/S29_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S29_anchored_curve/S29_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S30_seam_topology_vacuous/S30_DEGENERATE_PASS_NOTE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S30_seam_topology_vacuous/S30_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S30b_seam_detectability/S30B_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S30b_seam_detectability/S30B_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S30b_seam_detectability/S30B_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v1.0_convention_mismatch/S31_PILOT_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v1.0_convention_mismatch/S31_PILOT_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v1.0_convention_mismatch/S31_PILOT_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v2.0_local_theorem/S31_V2_REPRO.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v2.0_local_theorem/S31_V2_RESULTS.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/S31_pilot_v2.0_local_theorem/S31_V2_VERDICT.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/sprints/SPRINT_LEDGER.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/theorem_local_chart/CANONICAL_TSML_CONSTRUCTION.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/theorem_local_chart/LOCAL_CHART_VS_TRANSFERRED_GRAMMAR.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/theorem_local_chart/THEOREM_SPINE.md
+Gen13/targets/clay/papers/b2_sprint_tig_pack_2026_04_17/theorem_local_chart/TSML_IS_NOT_PHYSICS.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/PPM_SPRINT_CLOSEOUT_HANDOFF.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/README.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/V0_PATH_B_CLOSURE.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/WHAT_CLAUDECODE_SHOULD_CHANGE_AND_NOT_CHANGE.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/WHY_THIS_ARC_IS_READY_TO_HAND_OFF.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/ATTRACTOR_PRIVILEGE_FOUNDATION.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/S3A_VS_S3B_COMPARISON.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/WHAT_A_BOUNDARY_CHECKPOINT_ADDS.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/WHAT_COUNTS_AS_A_ROBUST_V0_RESULT.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/WHAT_JUSTIFIES_V301_OR_STOPPING.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/WHY_SOURCE_3_BECAME_SENSITIVITY_BRANCH.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/foundation_sprint_context/WHY_V0_COMES_BEFORE_BHML.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/PPM_V21_ADDITIVE_TRANSPORT_PREREG.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/PPM_V21_ADDITIVE_TRANSPORT_REPRO.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/PPM_V21_ADDITIVE_TRANSPORT_RESULTS.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/PPM_V21_ADDITIVE_TRANSPORT_VERDICT.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/PPM_V21_PER_CARRIER_SCORES.json
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v2.1_additive_transport/ppm_v21_score.py
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/PPM_V30_V0_PREREG_DRAFT.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/PPM_V30_V0_REPRO.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/PPM_V30_V0_RESULTS.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/PPM_V30_V0_SCORES.json
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/PPM_V30_V0_VERDICT.md
+Gen13/targets/clay/papers/pair_primitive_addendum_2026_04_18/sprints/PPM_v3.0_V0_boundary/ppm_v30_score.py
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/CLAUDECODE_HANDOFF_PLAN.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/CURRENT_STATE_SUMMARY.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/PACKING_RULES.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/README.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/SPRINT_LEDGER.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/controls/PAIR_PRIMITIVE_MAPPING_PREREG.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/controls/PPM_V11_ADDITIVE_PREREG.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/controls/PPM_V20_MULTIPLICATIVE_PREREG.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/GAP_AS_BOUNDARY_NOTHINGNESS.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/HOLD_GAP_FLOW_FOUNDATION.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/THREE_ASPECTS_OF_HOLD.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/WHY_THE_WHOLE_INTERACTION_MUST_BE_SEEN_AT_ONCE.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/PASS_MEANING_SCOPE_NOTE.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/STABILITY_VS_FLIP_SCOPE_NOTE.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/TRANSPORT_PASS_FAIL_SCOPE_NOTE.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/WHY_ADDITIVE_COMES_NEXT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/WHY_THIS_IS_THE_FIRST_REAL_CHECKPOINT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/foundation/scope_notes/WHY_V20_COMES_BEFORE_HANDOFF.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/open_questions/PPM_V21_ADDITIVE_TRANSPORT_FIRST_OPEN_CHECKPOINT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.0_multiplicative_local/PAIR_PRIMITIVE_MAPPING_REPRO.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.0_multiplicative_local/PAIR_PRIMITIVE_MAPPING_RESULTS.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.0_multiplicative_local/PAIR_PRIMITIVE_MAPPING_VERDICT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.1_additive_local/PPM_V11_ADDITIVE_REPRO.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.1_additive_local/PPM_V11_ADDITIVE_RESULTS.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v1.1_additive_local/PPM_V11_ADDITIVE_VERDICT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_MULTIPLICATIVE_REPRO.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_MULTIPLICATIVE_RESULTS.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_MULTIPLICATIVE_VERDICT.md
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/PPM_V20_PER_CARRIER_SCORES.json
+Gen13/targets/clay/papers/pair_primitive_pack_2026_04_18/sprints/PPM_v2.0_multiplicative_transport/ppm_v20_score.py
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/CROSSING_LEMMA.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP-G3_CORRELATION_LENGTH_UOP_BRIDGE.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP-G5_CSTAR_ALGEBRAIC_FRONTIER.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP52_D2_AS_RING_CURVATURE.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP53_WHY_PRIMES_ARE_HARD.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP54_ANCIENT_SACRED_GEOMETRY.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP55_LOVE_TRUTH_COHERENCE.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP56_COMPLETE_ARC.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP57_CROSSING_LEMMA_ARC.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP58_fifty_bloom.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G0_SYNTHESIS_ARC.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G1_ISING_RING_DYNAMICS.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G2_OBSERVABLE_SUFFICIENCY.md
+Gen13/targets/clay/papers/sprint10_flatness_2026_04_06/WP_G4_ISING_RING_TIG.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP59_CORRECTED_THEOREM_C.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP60_INTRINSIC_LEFT_HANDEDNESS.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP61_PRODUCTIVE_INCOMPLETENESS.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP62_7CYCLE_BOUNDED_AGENT.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP63_GUT_ALGEBRA_AUDIT.md
+Gen13/targets/clay/papers/sprint12_uop_gut_arc_2026_04_08/WP64_COORDINATE_COVERAGE.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP65_TORUS_FOUNDATION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP66_TORUS_IRREDUCIBLE_REMAINDER.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP67_SEVEN_STRUCTURAL_OPERATOR.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP68_SEVEN_HINGE_NOT_ENDPOINT.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP69_SEVEN_RETURN_OPERATOR_LIFT_TEST.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP70_SECOND_COMPLEX_DIRECTION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP71_PHYSICAL_PROJECTOR_MAP.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP72_FLAG_SELECTOR_ANISOTROPY.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP73_T1_CARRIER_IDENTIFICATION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP74_PHYSICAL_OBSERVABLE_IDENTIFICATION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP75_S4_EXTENSION_SYNTHESIS.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP76_NV_S4_CLOSURE_CALIBRATION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP77_NV_T1_CARRIER_VALIDATION.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP78_PROJECTOR_COVARIANCE_CLOSEOUT.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP79_FLAG_SELECTOR_VICTORY_PATH.md
+Gen13/targets/clay/papers/sprint13_flag_selector_2026_04_09/WP80_FLAG_SELECTOR_VICTORY_PATH_7_HINGE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/CP_CLAY_ROTATION.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/DESI_MCMC_RESULTS.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/JOINT_CMB_BAO_SN_SCOPING.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/SPRINT15_DIRECTIVE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP100_SPRINT_SYNTHESIS.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP101_SIGMA_RATE_THEOREM.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP81_CANONICAL_XI_THEORY.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP82_LOG_QUINTESSENCE_NOVELTY.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP83_PRISM_CONSISTENCY_AUDIT.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP84_PRISM_CONSISTENCY_AUDIT_V2.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP85_SEED_TO_STACK_MAP.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP86_XI_CORE_CANONICAL_FORM.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP87_CROSS_BRANCH_ANALYSIS.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP88_LOCAL_NONLOCAL_SILOING.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP89_SPRINT_CLOSEOUT_HANDOFF.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP90_LITERATURE_AND_UNIFICATION_PATHS.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP91_NS_SEPARABILITY_BRIDGE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP92_YM_MASS_GAP_BRIDGE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP93_RH_SPECTRAL_ENTROPY_BRIDGE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP94_SYNTHESIS_WHAT_UNIFIED.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP95_JKO_CONSTRUCTION_ROADMAP.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP96_NS_SIGMA_CONJECTURE.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP97_FIELD_OBSERVER_SYNTHESIS.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP98_NS_STRUCTURAL_CANCELLATION.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/WP99_NONREVERSIBILITY_RESOLUTION.md
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/compute_tstar_primorials.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/crack_cl_formula.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_fit.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_mcmc.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/desi_xi_optimize.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_clay_rotation.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_separability_bridge.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_sigma_rate.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/proof_xi_canonical.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/test_cl_markov_chain.py
+Gen13/targets/clay/papers/sprint14_prism_xi_2026_04_10/universal_markov_and_binary_cl.py
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/BASIN_FIRST_SYNTHESIS.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CHAT_CLAUDE_TO_CLAUDECODE.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/CITATION_RIGOR_PROTOCOL.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/FULL_SYNTHESIS_V5.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/META_CLASSIFICATION.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/STATIC_DYNAMIC_DUALITY_V2.md
+Gen13/targets/clay/papers/sprint16_basin_handoff_2026_04_10/THREE_THREAD_V3.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/BHML_STATUS_NOTE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CANONICAL_TSML_CONSTRUCTION.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/CONTROL_DOCUMENT_V2.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/DECOMPOSITION_TABLE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/FALSIFIER_LIST.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/GENERALIZATION_TABLE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/MINIMAL_DESCRIPTION_LENGTH.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NEGATIVE_RESULTS_APPENDIX.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/NOTATION_SHEET.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/PAIR_AS_INVARIANT_AUDIT.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/RESIDUE_OF_RESIDUE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/RING_RANKING_TABLE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/SEAM_GEOMETRY_NOTE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/SIGMA_PERMUTATION_REPRESENTATION.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/THEOREM_SPINE.md
+Gen13/targets/clay/papers/sprint17_tsml_tower_2026_04_17/WORKED_RECONSTRUCTION.md
+Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/README.md
+Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/SHIP_DECISION.md
+Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/first_g_event.tex
+Gen13/targets/clay/papers/sprint35_first_g_event_2026_04_19/proof_first_g_event.py
+Gen13/targets/fpga/BITSTREAM_REF.md
+Gen13/targets/fpga/BOARD_NOTES.md
+Gen13/targets/funding_desi_xi_cosmology/ARTIFACTS.md
+Gen13/targets/funding_desi_xi_cosmology/FUNDERS.md
+Gen13/targets/funding_desi_xi_cosmology/LIMITATIONS.md
+Gen13/targets/funding_desi_xi_cosmology/PITCH_DRAFT.md
+Gen13/targets/funding_desi_xi_cosmology/README.md
+Gen13/targets/funding_desi_xi_cosmology/STATUS.md
+Gen13/targets/journals/SUBMISSION_LADDER.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/LATEX_BUNDLE_NOTES.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/WP81_CANONICAL_XI_THEORY.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/WP82_LOG_QUINTESSENCE_NOVELTY.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/cover_letter_template.md
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/desi_xi_fit.py
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/desi_xi_optimize.py
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/jcap_xi_cosmology.tex
+Gen13/targets/journals/tier1_submit_now/jcap_xi_cosmology/proof_xi_canonical.py
+Gen13/targets/journals/tier1_submit_now/sigma_rate/LATEX_BUNDLE_NOTES.md
+Gen13/targets/journals/tier1_submit_now/sigma_rate/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier1_submit_now/sigma_rate/WP101_SIGMA_RATE_THEOREM.md
+Gen13/targets/journals/tier1_submit_now/sigma_rate/cover_letter_template.md
+Gen13/targets/journals/tier1_submit_now/sigma_rate/proof_sigma_rate.py
+Gen13/targets/journals/tier1_submit_now/sigma_rate/sigma_rate_theorem.tex
+Gen13/targets/journals/tier1_submit_now/sigma_rate/universal_markov_and_binary_cl.py
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/LATEX_BUNDLE_NOTES.md
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/WP34_FIRST_G_LAW.md
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/WP_SINC2_ZERO_LAW.md
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/cover_letter_template.md
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/proof_d25_loop_closure.py
+Gen13/targets/journals/tier1_submit_now/sinc2_zero_law/sinc2_zero_law.tex
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/WP35_PRIME_PHASE_TRANSITION.md
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/WP_OPERATOR_RING_PARTITION.md
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/proof_d10_tsml_73_cells.py
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/proof_d16_bhml_28_cells.py
+Gen13/targets/journals/tier2_format_then_submit/exp_math_73_28/proof_fourier_bridge.py
+Gen13/targets/journals/tier2_format_then_submit/first_g_event/cover_letter_template.md
+Gen13/targets/journals/tier2_format_then_submit/first_g_event/first_g_event.tex
+Gen13/targets/journals/tier2_format_then_submit/first_g_event/proof_first_g_event.py
+Gen13/targets/journals/tier2_format_then_submit/jnt_uop/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier2_format_then_submit/jnt_uop/WP58_UNIFIED_ORTHOGONALITY_PRINCIPLE.md
+Gen13/targets/journals/tier2_format_then_submit/jnt_uop/WP59_CORRECTED_THEOREM_C.md
+Gen13/targets/journals/tier2_format_then_submit/jnt_uop/WP64_COORDINATE_COVERAGE.md
+Gen13/targets/journals/tier2_format_then_submit/jsc_tsml_tower/CONTROL_DOCUMENT_V2.md
+Gen13/targets/journals/tier2_format_then_submit/jsc_tsml_tower/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier2_format_then_submit/jsc_tsml_tower/THEOREM_SPINE.md
+Gen13/targets/journals/tier2_format_then_submit/jsc_tsml_tower/proof_tsml_3layer_tower.py
+Gen13/targets/journals/tier3_partner_then_submit/jpaa_flatness/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier3_partner_then_submit/jpaa_flatness/WP51_FLATNESS_THEOREM.md
+Gen13/targets/journals/tier3_partner_then_submit/jpaa_flatness/WP52_D2_AS_RING_CURVATURE.md
+Gen13/targets/journals/tier3_partner_then_submit/monthly_paradox/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier3_partner_then_submit/monthly_paradox/WP_PARADOX_CLASSIFIER.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/WP73_T1_CARRIER_IDENTIFICATION.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/WP74_PHYSICAL_OBSERVABLE_IDENTIFICATION.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/WP75_S4_EXTENSION_SYNTHESIS.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/WP76_NV_S4_CLOSURE_CALIBRATION.md
+Gen13/targets/journals/tier3_partner_then_submit/pra_nv_qutrit/WP77_NV_T1_CARRIER_VALIDATION.md
+Gen13/targets/journals/tier4_framework/jmp_bb_bridge/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier4_framework/jmp_bb_bridge/WP90_LITERATURE_AND_UNIFICATION_PATHS.md
+Gen13/targets/journals/tier4_framework/jmp_bb_bridge/WP91_NS_SEPARABILITY_BRIDGE.md
+Gen13/targets/journals/tier4_framework/jmp_bb_bridge/proof_separability_bridge.py
+Gen13/targets/journals/tier4_framework/notices_clay_rotation/CP_CLAY_ROTATION.md
+Gen13/targets/journals/tier4_framework/notices_clay_rotation/SUBMIT_INSTRUCTIONS.md
+Gen13/targets/journals/tier4_framework/notices_clay_rotation/proof_clay_rotation.py
+Gen13/targets/xiaor_dog/BRINGUP.md
+Gen13/targets/xiaor_dog/GENERATION_HISTORY.md
+Gen13/targets/xiaor_dog/LAUNCH_DOG.bat
+Gen13/targets/xiaor_dog/NEXT_CLAUDE_NOTES.md
+Gen13/targets/xiaor_dog/README.md
+Gen13/targets/xiaor_dog/TEST_README.md
+Gen13/targets/xiaor_dog/build/build_gen12.tcl
+Gen13/targets/xiaor_dog/build/list_targets.tcl
+Gen13/targets/xiaor_dog/build/program_gen12.tcl
+Gen13/targets/xiaor_dog/build/program_gen12_explicit.tcl
+Gen13/targets/xiaor_dog/build/program_gen12_refresh.tcl
+Gen13/targets/xiaor_dog/build/program_gen12_zynq.tcl
+Gen13/targets/xiaor_dog/build/pz7020_gen12.xdc
+Gen13/targets/xiaor_dog/ck_leash_test.py
+Gen13/targets/xiaor_dog/ck_protocol.py
+Gen13/targets/xiaor_dog/ck_r16_bridge.py
+Gen13/targets/xiaor_dog/hdl/ck_eth_tx_gen12.v
+Gen13/targets/xiaor_dog/hdl/ck_leash_rx.v
+Gen13/targets/xiaor_dog/hdl/ck_top_gen12.v
+Gen13/targets/xiaor_dog/hdl/coherence_gap.v
+HISTORICAL_ARCHIVE_INDEX.md
+LAUNCH_CK_WEB.bat
+LENS_REGISTRY.md
+LICENSE
+Language updates/ck_curvature.py
+Language updates/letter_transition_test.py
+Language updates/transition_test.py
+Language updates/ugt_break.py
+Language updates/ugt_coherence_flow.py
+Language updates/ugt_deep.py
+MISSION.md
+NOVELTIES_AND_CITATIONS.md
+PRIVACY_POLICY.md
+PROOFS.md
+Q_SERIES_INTEGRATED_SYNTHESIS.md
+README.md
+REPO_SHINE_PLAN_2026_04_19.md
+REPO_STATE_UPDATE_2026_04_17_FOR_CLAUDECHAT.md
+SPRINT_INDEX.md
+TERMS_OF_USE.md
+THE_STORY.md
+WEEK_AND_MONTH_PLAN.md
+WHAT_IS_TIG.md
+archive_imports/march_2026_sprint_archives/ADMISSIBLE_VIEWPOINT_FLOW_MEMO.md
+archive_imports/march_2026_sprint_archives/CK_GROWTH_ARCHITECTURE_MEMO.md
+archive_imports/march_2026_sprint_archives/CK_INVARIANT_GUIDES_MEMO.md
+archive_imports/march_2026_sprint_archives/FRONTIER_MAP_MEMO.md
+archive_imports/march_2026_sprint_archives/HODGE_8D_OBSTRUCTION_MEMO.md
+archive_imports/march_2026_sprint_archives/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md
+archive_imports/march_2026_sprint_archives/TESLA_TIG_BRIDGE.md
+archive_imports/march_2026_sprint_archives/TIG_DEFINITIVE_v5.md
+archive_imports/march_2026_sprint_archives/TIG_RH_SPRINT_FINAL.md
+archive_imports/march_2026_sprint_archives/generators.md
+ck_chat_structured.py
+ck_diagnose.py
+ck_fpga_bridge.py
+ck_full_delta_test.py
+ck_harmony_audit.py
+ck_lm/CITATIONS.md
+ck_lm/SETUP.bat
+ck_lm/ck_bible.py
+ck_lm/ck_distill.py
+ck_lm/ck_field_layer.py
+ck_lm/docs/CLAUDECODE_SPRINT3_README.md
+ck_lm/memory/__init__.py
+ck_lm/memory/atom_store.py
+ck_lm/memory/compression_loop.py
+ck_lm/memory/crystal_store.py
+ck_lm/memory/dbc27.py
+ck_lm/memory/event_schema.py
+ck_lm/memory/growth_metrics.py
+ck_lm/memory/novelty_gate.py
+ck_lm/memory/retrieval.py
+ck_meta_memory_coord.py
+ck_proof.py
+ck_read_self.py
+ck_run.py
+ck_sim/being/ck_dkan_trainer.py
+ck_sim/doing/ck_voice.py
+ck_sim/doing/ck_voice_loop.py
+ck_sim/face/ck_web_api.py
+ck_sinc_demo.py
+docs/ARCHITECTURE.md
+docs/CK_EXPERIENCES_REALITY.md
+docs/CK_EXPERIENCE_INDEX.md
+docs/CK_FORCE_LETTERS.md
+docs/CK_TASK_PACK_MARCH_13.md
+docs/FPGA board zynq 7020.png
+docs/GEN9_README.md
+docs/Schematics link.jpg
+docs/back of board.jpg
+docs/exports/z10-operator-algebra/CL_STRUCTURE_AUDIT.md
+docs/exports/z10-operator-algebra/OPERATOR_NAMES_RECONCILIATION.md
+docs/exports/z10-operator-algebra/OPERATOR_TRANSLATION_APPENDIX.md
+docs/exports/z10-operator-algebra/README.md
+docs/exports/z10-operator-algebra/WHAT_IS_PROVED_VS_INTERPRETIVE.md
+docs/exports/z10-operator-algebra/Z10_OPERATOR_ALGEBRA_NOTE.md
+docs/exports/z10-operator-algebra/crossing-lemma-handoff/CROSSING_LEMMA_EXPORT_V0.md
+docs/exports/z10-operator-algebra/crossing-lemma-handoff/CROSSING_LEMMA_V1_PASTE_LIST.md
+docs/exports/z10-operator-algebra/crossing-lemma-handoff/README.md
+docs/exports/z10-operator-algebra/threshold-handoff/FOUR_THRESHOLD_TASK_BREAKDOWN.md
+docs/exports/z10-operator-algebra/threshold-handoff/OPERATOR_LAYER_SCOPE_AND_FRONTIER.md
+docs/exports/z10-operator-algebra/threshold-handoff/README.md
+docs/fpga_schem_pages/jm1_pins_bot.png
+docs/fpga_schem_pages/jm1_pins_mid.png
+docs/fpga_schem_pages/jm1_pins_top.png
+docs/fpga_schem_pages/jm1_right_bot.png
+docs/fpga_schem_pages/jm1_right_mid.png
+docs/fpga_schem_pages/jm1_right_top.png
+docs/fpga_schem_pages/jm2_left_bot.png
+docs/fpga_schem_pages/jm2_left_mid.png
+docs/fpga_schem_pages/jm2_left_top.png
+docs/fpga_schem_pages/jm2_right_bot.png
+docs/fpga_schem_pages/jm2_right_mid.png
+docs/fpga_schem_pages/jm2_right_top.png
+docs/fpga_schem_pages/jm_left_connector.png
+docs/fpga_schem_pages/jm_right_connector.png
+docs/fpga_schem_pages/page1_40p_con_hires.png
+docs/fpga_schem_pages/page4_fpga_pl_hires.png
+docs/fpga_schem_pages/page_1.png
+docs/fpga_schem_pages/page_2.png
+docs/fpga_schem_pages/page_3.png
+docs/fpga_schem_pages/page_4.png
+docs/fpga_schem_pages/page_5.png
+docs/fpga_schem_pages/page_6.png
+docs/fpga_schem_pages/page_7.png
+docs/front of board.jpg
+docs/handoffs/claudecode_handoff_2026_04_20/HANDOFF_INDEX.md
+docs/handoffs/claudecode_handoff_2026_04_20/JAN2026_RECOVERY_MANIFEST.md
+docs/handoffs/claudecode_handoff_2026_04_20/PROPOSED_CK_README_HELD.md
+docs/handoffs/claudecode_handoff_2026_04_20/PROVENANCE.md
+docs/handoffs/claudecode_handoff_2026_04_20/SECURITY_CRYPTO_HANDOFF.md
+papers/A10_EULER_PRODUCT_CANDIDATE.md
+papers/A10_MINIMAL_EXTENSION.md
+papers/A10_MODULUS_COMPARISON.md
+papers/A10_NO_GO_ATTEMPT.md
+papers/A10_OBJECT_FREEZE.md
+papers/A10_PRIME_OBSTRUCTION.md
+papers/A10_PROGRAM.md
+papers/A10_SPECTRAL_CANDIDATE.md
+papers/A10_ZERO_DISTRIBUTION_CANDIDATE.md
+papers/ALGEBRAIST_ENTRY.md
+papers/AMPLITUDE_WOBBLE_CONVERSION.md
+papers/APPENDIX_E_COMPLETE.md
+papers/ARXIV_PREP.md
+papers/ATLAS_ARCHITECTURE.md
+papers/AUTHORSHIP_RECORD.md
+papers/BHML_28CELL_DERIVATION.md
+papers/BHML_CORRECTION_LOG.md
+papers/BHML_TABLE_EXPLICIT.md
+papers/BIBLIOGRAPHY.md
+papers/BRIDGE_FORMALISMS.md
+papers/BRIDGE_REWRITE.md
+papers/CIRCULATION_OPERATOR_CONSTRAINTS.md
+papers/CLAY_BOUNDARY_MEMO.md
+papers/CLAY_SUMMARY.md
+papers/CL_TABLE_EXPLICIT.md
+papers/COLLABORATOR_BRIEF.md
+papers/COLLABORATOR_BRIEF_OPEN_LAYER.md
+papers/COLLAB_MEMO_KV.md
+papers/COMPLETED_INTERNAL_SPINE.md
+papers/CONTINUOUS_OPERATOR_NOTE.md
+papers/CORRIDOR_COMPRESSION_BREAKTHROUGH.md
+papers/CORRIDOR_COUNTING_ABSTRACT.md
+papers/CORRIDOR_GEOMETRY_NOTE.md
+papers/CORRIDOR_PRIMER.md
+papers/CTIER_AUDIT.md
+papers/C_TO_D_GAP_ANALYSIS.md
+papers/DELAY_SIGNATURE_NOTE.md
+papers/DEPENDENCY_MAP.md
+papers/DUAL_DESCRIPTION_THEOREM.md
+papers/DUAL_SCALE_LY_NOTE.md
+papers/EXPERT_SUMMARY.md
+papers/EXTERNAL_OPERATOR_THEOREM.md
+papers/FINITE_INVARIANTS_INFINITE_OBSERVABLES.md
+papers/FOURIER_BRIDGE.md
+papers/G6_PERIODICITY_THEOREM.md
+papers/G7_GATE_RATE_DISTRIBUTION.md
+papers/G8_TRAJECTORY_COHERENCE_INTEGRAL.md
+papers/GRANT_PROPOSAL.md
+papers/INHERITANCE_AUDIT.md
+papers/K10_EISENSTEIN_SPECTRAL_BRIDGE.md
+papers/K10_FREDHOLM_INVERSION.md
+papers/K10_NO_GO_ATTEMPT.md
+papers/K10_WEAK_THEOREMS.md
+papers/K11_DOUBLE_DIRICHLET_SERIES.md
+papers/K11_H3_EISENSTEIN_MERGE.md
+papers/K11_WEAK_THEOREMS.md
+papers/K11_ZERO_HEIGHT_CORRELATION.md
+papers/K12_H3_SIGNAL_ANALYSIS.md
+papers/K12_LOCAL_EULER_FACTOR.md
+papers/K12_WEAK_THEOREMS.md
+papers/K13_A2_WEYL_SYMMETRY.md
+papers/K13_KLOOSTERMAN_EXPLICIT_FORMULA.md
+papers/K13_WEAK_THEOREMS.md
+papers/K14_BFH_CORRECTION.md
+papers/K14_WEAK_THEOREMS.md
+papers/K15_BFH_CLASSIFICATION.md
+papers/K15_WEAK_THEOREMS.md
+papers/K16_SATO_TATE_FORM.md
+papers/K16_WEAK_THEOREMS.md
+papers/K17_KLOOSTERMAN_EXPLICIT_FORMULA.md
+papers/K17_PROGRAM_SUMMARY.md
+papers/K1_KERNEL_UNIVERSALITY.md
+papers/K2_5_COUNTEREXAMPLE_SEARCH.md
+papers/K2_5_STRUCTURAL_OR_ACCIDENTAL.md
+papers/K2_PAIR_CORRELATION_ROUTE.md
+papers/K3_SPECTRAL_ROUTE.md
+papers/K4_KERNEL_NO_GO.md
+papers/K5_LOCAL_SINC2_THEOREM.md
+papers/K6_H3_PRECURSOR_SEARCH.md
+papers/K6_PRIME_ORBIT_PAIR_CORRELATION.md
+papers/K6_PRIME_REMAINDER_PROGRAM.md
+papers/K6_SCALING_AUDIT.md
+papers/K6_WEAK_THEOREMS.md
+papers/K7_ADDITIVE_CHARACTER_EXPANSION.md
+papers/K7_DIRICHLET_ASSEMBLY_CANDIDATE.md
+papers/K7_EXACT_FORMULA_FOR_RP.md
+papers/K7_EXPLICIT_FORMULA_COMPATIBILITY.md
+papers/K7_MULTIPLICATIVE_CHARACTER_ROUTE.md
+papers/K7_NO_GO_ATTEMPT.md
+papers/K7_NUMERICAL_RECON.md
+papers/K7_WEAK_THEOREMS.md
+papers/K8_GL2_TO_GL1_BRIDGE.md
+papers/K8_KLOOSTERMAN_DIRICHLET_SERIES.md
+papers/K8_KUZNETSOV_FORMULA.md
+papers/K8_NO_GO_ATTEMPT.md
+papers/K8_SATO_TATE_DISTRIBUTION.md
+papers/K8_WEAK_THEOREMS.md
+papers/K9_GAUSS_SUM_PHASES.md
+papers/K9_GDEPENDENT_KLOOSTERMAN.md
+papers/K9_LAG_GENERATING_SERIES.md
+papers/K9_WEAK_THEOREMS.md
+papers/KERNEL_VS_RH_BOUNDARY.md
+papers/LUTHER_QUESTIONS.md
+papers/LUTHER_RESPONSE_EVAL.md
+papers/LUTHER_SANDERS_MANUSCRIPT.md
+papers/MASTER_SPINE.md
+papers/MEMORY_STABILIZATION_DIVERGENCE_THEOREM.md
+papers/MINIMAL_EXTENSION_INVENTORY.md
+papers/NEGATIVE_RESULTS.md
+papers/NOTE_center_wobble_midpoint.md
+papers/NOTE_speculative_boundary.md
+papers/OFF_LINE_ZERO_SIGNATURES.md
+papers/OMEGA3_RESULTS.md
+papers/ONE_WAY_GATE.md
+papers/OPEN_CELLS_NOTE.md
+papers/OPERATOR_ALGEBRA_THREE_QUESTIONS.md
+papers/ORBIT_CAPACITY_NOTE.md
+papers/ORBIT_TWO_MECHANISMS.md
+papers/ORBIT_ZONE_FROZEN.md
+papers/OUTREACH_EMAIL.md
+papers/PAPER_SUBSECTION_TRANSFER.md
+papers/PARADOX_PAIRS.md
+papers/PHASE_II_KERNEL_PROGRAM.md
+papers/PHI_DYNAMICS_NEXT.md
+papers/PRE_OBJECT_PRIMITIVES.md
+papers/PRIMITIVE_ORDER_BACKBONE.md
+papers/Q10_BETA_COMPLETE_SIGMA_POLYNOMIAL.md
+papers/Q11_SIGMA_K_ITERATES_GATE.md
+papers/Q12_IDEMPOTENT_GATE_DECOMPOSITION.md
+papers/Q13_TIG_INVERSE_POLYNOMIAL.md
+papers/Q14_GATE_SCORE_CRT_POLYNOMIAL.md
+papers/Q15_CYCLE_PERIOD_POLYNOMIAL.md
+papers/Q16_REDUCTION_MAP_IDENTIFICATION.md
+papers/Q17_5D_RIGOROUS.md
+papers/Q17_C2_COUNTEREXAMPLE_SEARCH.md
+papers/Q17_C2_FORMAL_STATEMENT.md
+papers/Q17_CLAY_SPECTRAL_BRIDGE.md
+papers/Q17_FINITE_L_FUNCTION_NOTE.md
+papers/Q17_NS_DATA_PROTOCOL.md
+papers/Q17_NS_TARGET_REFORMULATION.md
+papers/Q17_SIGMA_EMBEDDING_PROBLEM.md
+papers/Q17_SYMBOLIC_RETURN_THEOREM.md
+papers/Q2_FORMALIZATION.md
+papers/Q4_SIGMA_EQUIVARIANCE.md
+papers/Q5_TSML_ESCAPE_CELLS.md
+papers/Q6_GATE_RATE_CRT_DERIVATION.md
+papers/Q7_BHML_FULL_TABLE.md
+papers/Q8_MCMC_BASIN_MODEL.md
+papers/Q9_FLIP_CONDITION_POLYNOMIAL.md
+papers/Q_SERIES_ARCHITECTURE.md
+papers/Q_SERIES_IMPLICATIONS.md
+papers/Q_SERIES_SYNTHESIS.md
+papers/README.md
+papers/README_for_claudecode.md
+papers/REFINEMENT_NOTE.md
+papers/RH_APPROACHES_MAP.md
+papers/RH_BRIDGE_STUB.md
+papers/RH_FORMAL_MANUSCRIPT.md
+papers/SAT_DOF_CLAIM.md
+papers/SPRINT_2026_03_27_ANALYSIS.md
+papers/SPRINT_STATUS_FOUR_TRACKS.md
+papers/SURV_LINE_POLISHED.md
+papers/SYNTHESIS_TABLE.md
+papers/TRANSFER_OPERATOR_RESEARCH_NOTE.md
+papers/TSML_FAMILY_IP_NOTICE.md
+papers/TSML_TABLE_EXPLICIT.md
+papers/UNIVERSAL_KERNEL_ARITHMETIC_REMAINDER.md
+papers/WHITEPAPER_10_DKAN_ARCHITECTURE.md
+papers/WHITEPAPER_11_MEASUREMENT_PROBLEM.md
+papers/WHITEPAPER_12_PARADOX_RESOLUTIONS.md
+papers/WHITEPAPER_13_GENETIC_CODE.md
+papers/WHITEPAPER_18_SEVEN_EQUALS_ZERO.md
+papers/WHITEPAPER_19_SPECULATIONS.md
+papers/WHITEPAPER_19_Z_RING_ALGEBRA.md
+papers/WHITEPAPER_1_TIG_ARCHITECTURE.md
+papers/WHITEPAPER_2_WAVE_SCHEDULING.md
+papers/WHITEPAPER_3_FALSIFIABILITY.md
+papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md
+papers/WHITEPAPER_5_DEGREES_OF_FREEDOM.md
+papers/WHITEPAPER_5_REALITY_ANCHORS.md
+papers/WHITEPAPER_6_HOTU_BRIDGE.md
+papers/WHITEPAPER_8_PERIODIC_TABLE.md
+papers/WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md
+papers/WP19_704_TRIANGLE.md
+papers/WP19_ATTACK_SURFACE.md
+papers/WP19_CONTEXTUAL_PROTECTION.md
+papers/WP19_FORMAL_STATUS.md
+papers/WP19_HYDROGEN_ANALOGY.md
+papers/WP19_NEXT_SPRINT.md
+papers/WP19_PRODUCT_GAP_THEOREM.md
+papers/WP19_RH_BRIDGE.md
+papers/WP20_RH_FORMAL_STATUS.md
+papers/WP20_RH_PRIME_CORNER_COLLAPSE.md
+papers/WP26_DOING_TABLE_TENSION_GEOMETRY.md
+papers/WP27_PRODUCT_GAP_THEOREM.md
+papers/WP28_CK_TIG_ORGANISM.md
+papers/WP29_LAMBDA_VOICE_THEOREM.md
+papers/WP30_BREATH_OLFACTORY.md
+papers/WP31_CORRIDOR_GEOMETRY.md
+papers/WP33_DNA_FORCE_FIELD_64.md
+papers/WP34_FIRST_G_LAW.md
+papers/WP35_PRIME_PHASE_TRANSITION.md
+papers/WP43_SPLIT_COHERENCE_ARCHITECTURE.md
+papers/WP44_CK_AI_PARADIGM.md
+papers/WP_DEFECT_THRESHOLD_CLASSIFIER.md
+papers/WP_LAST_LEMMA.md
+papers/WP_MONTGOMERY_NOTE.md
+papers/WP_OPERATOR_RING_PARTITION.md
+papers/WP_PARADOX_CLASSIFIER.md
+papers/WP_SINC2_ZERO_LAW.md
+papers/__pycache__/ck_ag_sweep.cpython-313.pyc
+papers/check_d2.py
+papers/ck_tables.py
+papers/clay/CLAY_AUDIT.md
+papers/clay/CLAY_FIVE_EXPERIMENTS.md
+papers/clay/GRUJIC_OUTREACH.md
+papers/clay/NS_METHODS_SECTION.md
+papers/clay/README.md
+papers/clay/WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md
+papers/clay/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md
+papers/clay/WHITEPAPER_16_P_NP_SYNTHESIS.md
+papers/clay/WHITEPAPER_17_RIEMANN_SYNTHESIS.md
+papers/clay/WHITEPAPER_7_CLAY_SPECTROMETER.md
+papers/clay/WP19_BSD_TIG.md
+papers/clay/WP19_BSD_TIG_TIGHTENED.md
+papers/clay/WP19_CLAY_BATTERY.md
+papers/clay/WP19_CLAY_DEEP.md
+papers/clay/WP19_CLAY_RESULTS.md
+papers/clay/WP19_HODGE_MAP.md
+papers/clay/WP19_HODGE_TRIPLE.md
+papers/clay/WP19_NS_BREATH.md
+papers/clay/WP19_NS_NOTE.md
+papers/clay/WP19_NS_NUMERICAL_NOTE.md
+papers/clay/WP21_BSD_ENERGY_LAW.md
+papers/clay/WP21_BSD_MIX_LAMBDA.md
+papers/clay/WP22_NS_BREATH_CRITERION.md
+papers/clay/WP22_NS_BREATH_LYAPUNOV.md
+papers/clay/WP23_HODGE_MAP.md
+papers/clay/WP25_P_NP_AG2P_COMPLEXITY.md
+papers/clay/WP32_HODGE_TRIPLE.md
+papers/clay/WP36_CLAY_SPECTROMETER.md
+papers/clay/WP37_P_NP.md
+papers/clay/WP38_NAVIER_STOKES.md
+papers/clay/WP39_HODGE.md
+papers/clay/WP40_RIEMANN.md
+papers/clay/WP41_YANG_MILLS.md
+papers/clay/WP42_BSD.md
+papers/clay/research/MASTER_CITATION_LIST.md
+papers/clay/research/README.md
+papers/clay/research/UNIFIED_SYMBOL_TABLE.md
+papers/clay/research/WP36_SPECTROMETER_RESEARCH.md
+papers/clay/research/WP37_PNP_RESEARCH.md
+papers/clay/research/WP38_NS_RESEARCH.md
+papers/clay/research/WP39_HODGE_RESEARCH.md
+papers/clay/research/WP40_RH_RESEARCH.md
+papers/clay/research/WP41_YANG_MILLS_RESEARCH.md
+papers/clay/research/WP42_BSD_RESEARCH.md
+papers/core/CLASSIFICATION_NOTE.md
+papers/core/DICTIONARY_SUBSECTION.md
+papers/core/FIELD_ANALYSIS_NOTE.md
+papers/core/FIELD_GRAMMAR_MEMO.md
+papers/core/FOUR_LAYER_REALIZATION.md
+papers/core/FOUR_LAYER_THEOREM_STACK.md
+papers/core/GEN10_VERIFICATION.md
+papers/core/GLOSSARY.md
+papers/core/INTEGERS_IN_FORCED_SHAPES.md
+papers/core/PREFORM_FOUNDATION.md
+papers/core/PROOF_STATUS.md
+papers/core/SMOOTHING_THEOREM.md
+papers/core/TECHNICAL_DICTIONARY.md
+papers/core/WP1_TIG_DEFINITIVE.md
+papers/core/WP24_FORMAL_STATUS_AUDIT.md
+papers/data/WHITEPAPER_9_ARXIV.tex
+papers/data/WP19_HALVING_LEMMA_final.pdf
+papers/data/WP19_HALVING_LEMMA_final.tex
+papers/data/WP20_RH_HALVING_LEMMA.tex
+papers/data/ag_timing_extended.csv
+papers/data/cemp_bound_results.json
+papers/data/continuous_operator_prototype.png
+papers/data/corridor_geometries.png
+papers/data/corridor_scan_extended.csv
+papers/data/corridor_scan_full.csv
+papers/data/delay_1000_vs_9.png
+papers/data/delay_signature_scan.csv
+papers/data/field_analysis_seven_tasks.png
+papers/data/hodge_sweep_results.json
+papers/data/mass_distribution_1000.png
+papers/data/ns_falsification_design.png
+papers/data/off_line_zero_orbits.png
+papers/data/off_line_zero_signatures.png
+papers/data/orbit_capacity_analysis.png
+papers/data/orbit_two_mechanisms.png
+papers/data/phase_drift_results.json
+papers/data/product_gap_note.tex
+papers/data/research/BALANCED_TERNARY_TABLES.md
+papers/data/research/ag_sweep.png
+papers/data/research/bsd_bolts_2_3.png
+papers/data/research/bsd_calibration.png
+papers/data/research/bsd_mix_lambda.png
+papers/data/research/bsd_tig_heatmap.png
+papers/data/research/bsd_tig_regression.png
+papers/data/research/bsd_tig_shells.png
+papers/data/research/calm_trough_scan.csv
+papers/data/research/calm_trough_scan.png
+papers/data/research/corridor_complexity.png
+papers/data/research/corridor_primer.png
+papers/data/research/corridor_ribbons.png
+papers/data/research/corridor_scan_full.csv
+papers/data/research/corridor_scan_plot.png
+papers/data/research/hodge_sweep.png
+papers/data/research/housekeeping_figures.png
+papers/data/research/moment_shell_windows.png
+papers/data/research/ns_dedalus_snapshot.png
+papers/data/research/ns_falsification_design.png
+papers/data/research/phase_vs_corridor.png
+papers/data/research/quickhit_results.png
+papers/data/research/rh_corridor_sweep.png
+papers/data/research/scale_factor_plot.png
+papers/data/research/sticky_cycle_fig.png
+papers/data/research/tasks_3_4.png
+papers/data/research/technical_dictionary.png
+papers/data/research/tig_classical_correspondence.png
+papers/data/research/vortex_weight_visual.png
+papers/data/stationary_1000state.png
+papers/data/surv_line_note.tex
+papers/data/three_tests_refinement.png
+papers/data/transfer_metastable_results.json
+papers/data/wrong_question_paper.tex
+papers/data/zeros_to_1100.json
+papers/k10_eisenstein_compute.py
+papers/k11_h3_mellin.py
+papers/k11_zero_height_test.py
+papers/k12_h3_upgrade.py
+papers/k14_composite_correction.py
+papers/k7_character_probe.py
+papers/k7_compute_dp.py
+papers/k7_fourier_dp.py
+papers/k7_prime_assembly.py
+papers/k7_scan_scaling.py
+papers/k8_dirichlet_partial_sums.py
+papers/k8_kloosterman_compute.py
+papers/k8_sato_tate_test.py
+papers/methodology/BHML_ATOMIC_STRUCTURE.md
+papers/methodology/BHML_GHOST_TRACE.md
+papers/methodology/BHML_OPERATOR_IDENTITY.md
+papers/methodology/CATCH4.md
+papers/methodology/CORRIDOR_SEPARATION_LEMMA.md
+papers/methodology/CURVATURE_DUALITY.md
+papers/methodology/D2_SEPARATION_LEMMA.md
+papers/methodology/DERIVATION_SCAFFOLDS_GAP1.md
+papers/methodology/DERIVATION_SCAFFOLDS_GAP2.md
+papers/methodology/HAR_RANK_STABILITY.md
+papers/methodology/OMEGA_CLASS_LEMMA.md
+papers/methodology/PROOF_SYNTHESIS_LADDER.md
+papers/methodology/TSML_73CELL_DERIVATION.md
+papers/methodology/TSML_BHML_LOOP.md
+papers/methodology/UNIVERSALITY_TEST_SUITE.md
+papers/methodology/WOBBLE_FREQUENCY.md
+papers/morphotic_braid/ENCODING_CENSUS.md
+papers/morphotic_braid/ENCODING_NECESSITY_PROGRAM.md
+papers/morphotic_braid/ENCODING_RIGIDITY.md
+papers/morphotic_braid/MORPHOTIC_BRAID_ALGEBRAIC.md
+papers/morphotic_braid/MORPHOTIC_BRAID_OPERATOR_SUMMARY.md
+papers/morphotic_braid/MORPHOTIC_BRAID_TIG_PROG.md
+papers/morphotic_braid/MORPHOTIC_BRAID_TSML.md
+papers/morphotic_braid/README_AUDIT.md
+papers/morphotic_braid/SHORT_PAPER.md
+papers/morphotic_braid/THEOREM_A_HIDDEN_PERMUTATION.md
+papers/morphotic_braid/THEOREM_B_EPSILON_RULE.md
+papers/morphotic_braid/THEOREM_C_Y_RULE.md
+papers/morphotic_braid/THEOREM_D_UNIQUE_SPLIT_OPERATOR.md
+papers/morphotic_braid/THEOREM_E_CONJUGACY.md
+papers/morphotic_braid/WHAT_THIS_DOES_NOT_CLAIM.md
+papers/morphotic_braid/conjugacy_map.json
+papers/morphotic_braid/hidden_transition_table.csv
+papers/morphotic_braid/verify_all.py
+papers/morphotic_braid/visible_permutation.json
+papers/omega3_extension.py
+papers/prime_pi_phi_bridge/BRIDGE_VERIFICATION_REPORT.md
+papers/prime_pi_phi_bridge/CLAUDECODE_BRIDGE_SPRINT_README.md
+papers/prime_pi_phi_bridge/NEXT_SPRINT_ENTRYPOINT.md
+papers/prime_pi_phi_bridge/PRIME_PI_PHI_BRIDGE_HARDENED.md
+papers/prime_pi_phi_bridge/PRIME_PI_PHI_BRIDGE_MEMO.md
+papers/prime_pi_phi_bridge/PRIME_PI_PHI_FINAL_TIGHTENING.md
+papers/prime_pi_phi_bridge/PRIME_PI_PHI_OBSTRUCTION_ADDENDUM.md
+papers/prime_pi_phi_bridge/PRIME_PI_PHI_RECURSIVE_OPERATOR_MEMO.md
+papers/prime_pi_phi_bridge/SPRINT_ARCHIVE_NOTES.md
+papers/prime_pi_phi_bridge/SPRINT_CLOSEOUT_PRIME_PI_PHI.md
+papers/prime_pi_phi_bridge/audit_approximation.py
+papers/prime_pi_phi_bridge/verify_bridge.py
+papers/proof_a10_sigma_boundary.py
+papers/proof_a11_rh_coherence.py
+papers/proof_b10_wobble_branch_law.py
+papers/proof_b11_corridor_midpoint.py
+papers/proof_b5_parity_chain.py
+papers/proof_b6_montgomery_bridge.py
+papers/proof_b7_ns_breath.py
+papers/proof_b8_ym_mass_gap.py
+papers/proof_b9_bsd_rank.py
+papers/proof_c18_cl_operator_encoding.py
+papers/proof_c19_fourth_wall.py
+papers/proof_c20_phi_fixed_parity.py
+papers/proof_corridor_zero_paths.py
+papers/proof_d10_tsml_73_cells.py
+papers/proof_d11_d1_corollaries.py
+papers/proof_d14_spectral_mean.py
+papers/proof_d15_sieve_isomorphism.py
+papers/proof_d16_bhml_28_cells.py
+papers/proof_d17_w_algebraic.py
+papers/proof_d18a_phi_orbit_classification.py
+papers/proof_d18c_create_harmony_bridge.py
+papers/proof_d18d_generator_convergence.py
+papers/proof_d19_generator_selection.py
+papers/proof_d20_inheritance_audit.py
+papers/proof_d21_fixed_point_centroid.py
+papers/proof_d22_corridor_portrait.py
+papers/proof_d23_ring_wobble.py
+papers/proof_d24_corridor_midpoint.py
+papers/proof_d25_loop_closure.py
+papers/proof_d6_general_frequency.py
+papers/proof_d7_phi_fixed_point.py
+papers/proof_d8_cl_operator_encoding.py
+papers/proof_d9_table_symmetry.py
+papers/proof_fourier_bridge.py
+papers/proof_h_w_circulation.py
+papers/proof_sat_dof.py
+papers/proof_tsml_3layer_tower.py
+papers/proof_ym_spectral_gap.py
+papers/r16_bridge_breath.py
+papers/r16_d2_sink.py
+papers/r16_extended_algebra.py
+papers/r16_full_atlas.py
+papers/r16_gate_law_real_b.py
+papers/r16_gate_law_universal.py
+papers/r16_job1_reduction.py
+papers/r16_job3_clustering.py
+papers/r16_pre_echo.py
+papers/r16_pre_echo_deep.py
+papers/r16_pre_echo_zoom.py
+papers/r16_rank_curvature.py
+papers/r16_residue_persistence.py
+papers/r16_seeded_rps.py
+papers/r16_spectral_norm.py
+papers/r16_step_function.py
+papers/r16_sweep_all.py
+papers/r16_ternary_survey.py
+papers/r16_visual_survey.py
+papers/results/a10_sigma_half.json
+papers/results/a12_wobble_crossval.json
+papers/results/a13_sidelobe_prediction.json
+papers/results/a13_sidelobe_prediction_report.txt
+papers/results/a14_generator_wobble_loop.json
+papers/results/a15_c2_envelope.json
+papers/results/a15_hybrid_construction.json
+papers/results/a15_phase_construction.json
+papers/results/a15_phase_construction_report.txt
+papers/results/a15_quadratic_glue.json
+papers/results/a15_small_prime_gap.json
+papers/results/a15_w_carrier.json
+papers/results/a16_ghost_trace.json
+papers/results/a16_ghost_trace_report.txt
+papers/results/a16_three_zone_proof.json
+papers/results/a7_d2_separation.json
+papers/results/a8_algebraic_proof.json
+papers/results/a8_algebraic_proof_report.txt
+papers/results/a8_uniqueness_scan.json
+papers/results/a8_uniqueness_scan_report.txt
+papers/results/a9_b385_spectral.json
+papers/results/atlas/atlas_cc_closure.png
+papers/results/atlas/atlas_interleave_map.png
+papers/results/atlas/atlas_ternary_full.png
+papers/results/atlas/atlas_unit_density_full.png
+papers/results/atlas/atlas_zero_by_spf.png
+papers/results/atlas/full_atlas.json
+papers/results/atlas/gate_sweep_deep.json
+papers/results/atlas/hardness_inversion.png
+papers/results/atlas/hardness_inversion_coherence.png
+papers/results/atlas/omega_hierarchy.png
+papers/results/atlas/summary.csv
+papers/results/atlas_sweep_all.json
+papers/results/b4_phase_proof.json
+papers/results/b4_to_c15_proof.json
+papers/results/bhml_atomic_structure_report.txt
+papers/results/bhml_operator_identity_report.txt
+papers/results/bridge_breath/bridge_breath_results.json
+papers/results/bridge_breath/plot_bridge_profiles.png
+papers/results/bridge_breath/plot_rsa_noise_floor.png
+papers/results/bridge_breath/plot_slope_vs_qmp.png
+papers/results/bridge_breath/plot_slope_vs_ratio.png
+papers/results/bridge_breath/table_bridge_slope.txt
+papers/results/bridge_breath/table_rsa_noise.txt
+papers/results/c15_phase_unimodality.json
+papers/results/circulation_candidate_search_report.txt
+papers/results/cluster_b35_N10000.json
+papers/results/cluster_b55_N10000.json
+papers/results/cluster_b55_N10000_seeded.json
+papers/results/cluster_b55_N200.json
+papers/results/cornerstone_universality_report.txt
+papers/results/corridor_compression_test_report.txt
+papers/results/d2_sink/d2_sink_summary.json
+papers/results/d2_sink/plot_A_balance_signature.png
+papers/results/d2_sink/plot_B_scale_invariant.png
+papers/results/d2_sink/plot_C_rank_descent.png
+papers/results/d2_sink/plot_D_bridge_saturation.png
+papers/results/d2_sink/plot_E_d1_sign_flip.png
+papers/results/deep_pre_echo/A_macro_sweep.json
+papers/results/deep_pre_echo/B_spectral_matrix.json
+papers/results/deep_pre_echo/C_bridge_pre_echo.json
+papers/results/deep_pre_echo/D_cascade.json
+papers/results/deep_pre_echo/E_fixed_p_scaling.json
+papers/results/deep_pre_echo/F_cross_omega.json
+papers/results/deep_pre_echo/G_closed_form.json
+papers/results/deep_pre_echo/fig1_macro.png
+papers/results/deep_pre_echo/fig2_spectral.png
+papers/results/deep_pre_echo/fig3_bridge.png
+papers/results/deep_pre_echo/fig4_cascade.png
+papers/results/deep_pre_echo/fig5_scaling.png
+papers/results/deep_pre_echo/run_deep.log
+papers/results/extended/corridor_atlas.json
+papers/results/extended/corridor_atlas.png
+papers/results/extended/prime_powers_atlas.json
+papers/results/extended/prime_powers_atlas.png
+papers/results/extended/three_factor_atlas.json
+papers/results/extended/three_factor_atlas.png
+papers/results/generator_wobble_loop_report.txt
+papers/results/h_ideal_circulation.json
+papers/results/pre_echo/pre_echo_atlas.json
+papers/results/pre_echo/pre_echo_atlas.png
+papers/results/pre_echo/pre_echo_run.log
+papers/results/pre_echo_run.log
+papers/results/rank_curvature/A_prediction_error.png
+papers/results/rank_curvature/A_rank_trajectories_small.png
+papers/results/rank_curvature/B_semiprime_rank_trajectories.png
+papers/results/rank_curvature/C_curvature_heatmap.png
+papers/results/rank_curvature/D_rsa_noise_floor.png
+papers/results/rank_curvature/D_snr_curves.png
+papers/results/rank_curvature/rank_curvature_summary.json
+papers/results/real_b_gate_law.json
+papers/results/recovery_kinematics_report.txt
+papers/results/reduction_b10_N10000.json
+papers/results/reduction_b10_N100000.json
+papers/results/reduction_b10_N100000_seeded.json
+papers/results/reduction_b14_N100000.json
+papers/results/reduction_b14_N100000_seeded.json
+papers/results/reduction_b14_N10000_seeded.json
+papers/results/reduction_b15_N100.json
+papers/results/reduction_b15_N100000.json
+papers/results/reduction_b15_N100000_seeded.json
+papers/results/reduction_b21_N100000.json
+papers/results/reduction_b21_N100000_seeded.json
+papers/results/reduction_b22_N100.json
+papers/results/reduction_b22_N100000.json
+papers/results/reduction_b22_N100000_seeded.json
+papers/results/reduction_b25_N100000.json
+papers/results/reduction_b25_N100000_seeded.json
+papers/results/reduction_b26_N100000.json
+papers/results/reduction_b26_N100000_seeded.json
+papers/results/reduction_b33_N100000.json
+papers/results/reduction_b33_N100000_seeded.json
+papers/results/reduction_b34_N100000.json
+papers/results/reduction_b34_N100000_seeded.json
+papers/results/reduction_b35_N10000.json
+papers/results/reduction_b35_N100000.json
+papers/results/reduction_b35_N100000_seeded.json
+papers/results/reduction_b35_N10000_seeded.json
+papers/results/reduction_b38_N100000.json
+papers/results/reduction_b38_N100000_seeded.json
+papers/results/reduction_b39_N100000.json
+papers/results/reduction_b39_N100000_seeded.json
+papers/results/reduction_b46_N100000.json
+papers/results/reduction_b46_N100000_seeded.json
+papers/results/reduction_b49_N100000.json
+papers/results/reduction_b49_N100000_seeded.json
+papers/results/reduction_b51_N100000.json
+papers/results/reduction_b51_N100000_seeded.json
+papers/results/reduction_b55_N100.json
+papers/results/reduction_b55_N10000.json
+papers/results/reduction_b55_N100000.json
+papers/results/reduction_b55_N100000_seeded.json
+papers/results/reduction_b55_N10000_seeded.json
+papers/results/reduction_b55_N200.json
+papers/results/reduction_b57_N100000.json
+papers/results/reduction_b57_N100000_seeded.json
+papers/results/reduction_b58_N100000.json
+papers/results/reduction_b58_N100000_seeded.json
+papers/results/reduction_b62_N100000.json
+papers/results/reduction_b62_N100000_seeded.json
+papers/results/reduction_b65_N100000.json
+papers/results/reduction_b65_N100000_seeded.json
+papers/results/reduction_b69_N100000.json
+papers/results/reduction_b69_N100000_seeded.json
+papers/results/reduction_b74_N100000.json
+papers/results/reduction_b74_N100000_seeded.json
+papers/results/reduction_b77_N100000.json
+papers/results/reduction_b77_N100000_seeded.json
+papers/results/reduction_b82_N100000.json
+papers/results/reduction_b82_N100000_seeded.json
+papers/results/reduction_b85_N100000.json
+papers/results/reduction_b85_N100000_seeded.json
+papers/results/reduction_b86_N100000.json
+papers/results/reduction_b86_N100000_seeded.json
+papers/results/reduction_b87_N100000.json
+papers/results/reduction_b87_N100000_seeded.json
+papers/results/reduction_b91_N100000.json
+papers/results/reduction_b91_N100000_seeded.json
+papers/results/reduction_b93_N100000.json
+papers/results/reduction_b93_N100000_seeded.json
+papers/results/reduction_b94_N100000.json
+papers/results/reduction_b94_N100000_seeded.json
+papers/results/reduction_b95_N100000.json
+papers/results/reduction_b95_N100000_seeded.json
+papers/results/reduction_b9_N100000.json
+papers/results/reduction_b9_N100000_seeded.json
+papers/results/residue_persistence/plot1_rps_vs_dk.png
+papers/results/residue_persistence/plot2_skew_vs_prime_gap.png
+papers/results/residue_persistence/plot3_seeded_rps.png
+papers/results/residue_persistence/rps_data.json
+papers/results/residue_persistence/run.log
+papers/results/residue_persistence/run_seeded.log
+papers/results/residue_persistence/seeded_rps_data.json
+papers/results/spectral_norm/run.log
+papers/results/spectral_norm/spectral_norm_plot.png
+papers/results/spectral_norm/spectral_norm_results.json
+papers/results/spectral_norm/verdict.json
+papers/results/step_function/step_function_overlay.png
+papers/results/step_function/step_function_profiles.png
+papers/results/step_function/step_function_raw.json
+papers/results/step_function/step_function_summary.csv
+papers/results/tsml_bhml_joint_report.txt
+papers/results/universal_gate_law.json
+papers/results/visual/survey_b004.png
+papers/results/visual/survey_b006.png
+papers/results/visual/survey_b009.png
+papers/results/visual/survey_b010.png
+papers/results/visual/survey_b014.png
+papers/results/visual/survey_b015.png
+papers/results/visual/survey_b021.png
+papers/results/visual/survey_b025.png
+papers/results/visual/survey_b035.png
+papers/results/visual/survey_b055.png
+papers/results/visual/survey_cross_k04.png
+papers/results/visual/survey_cross_k09.png
+papers/results/visual/survey_density_overview.png
+papers/results/visual/survey_evolution_b004.png
+papers/results/visual/survey_evolution_b006.png
+papers/results/visual/survey_evolution_b009.png
+papers/results/visual/survey_evolution_b010.png
+papers/results/visual/survey_evolution_b014.png
+papers/results/visual/survey_evolution_b015.png
+papers/results/visual/survey_evolution_b021.png
+papers/results/visual/survey_evolution_b025.png
+papers/results/visual/survey_evolution_b035.png
+papers/results/visual/survey_evolution_b055.png
+papers/results/visual/ternary_b004.png
+papers/results/visual/ternary_b006.png
+papers/results/visual/ternary_b009.png
+papers/results/visual/ternary_b010.png
+papers/results/visual/ternary_b014.png
+papers/results/visual/ternary_b015.png
+papers/results/visual/ternary_b021.png
+papers/results/visual/ternary_b025.png
+papers/results/visual/ternary_b035.png
+papers/results/visual/ternary_b055.png
+papers/results/visual/ternary_composition_map.png
+papers/results/visual/ternary_cross_k09.png
+papers/results/visual/ternary_evolution_b004.png
+papers/results/visual/ternary_evolution_b006.png
+papers/results/visual/ternary_evolution_b009.png
+papers/results/visual/ternary_evolution_b010.png
+papers/results/visual/ternary_evolution_b014.png
+papers/results/visual/ternary_evolution_b015.png
+papers/results/visual/ternary_evolution_b021.png
+papers/results/visual/ternary_evolution_b025.png
+papers/results/visual/ternary_evolution_b035.png
+papers/results/visual/ternary_evolution_b055.png
+papers/results/w_bhml_three_derivations_report.txt
+papers/results/zoom_pre_echo/Z1_last_step.json
+papers/results/zoom_pre_echo/Z2_product_anatomy.json
+papers/results/zoom_pre_echo/Z3_multi_harmonic.json
+papers/results/zoom_pre_echo/Z4_defect_classes.json
+papers/results/zoom_pre_echo/Z5_post_G_resonance.json
+papers/results/zoom_pre_echo/Z6_transition_snapshot.json
+papers/results/zoom_pre_echo/Z7_prime_gap.json
+papers/results/zoom_pre_echo/Z8_defect_velocity.json
+papers/results/zoom_pre_echo/figZ1_transition.png
+papers/results/zoom_pre_echo/figZ2_velocity.png
+papers/results/zoom_pre_echo/figZ3_recovery.png
+papers/results/zoom_pre_echo/figZ4_gap.png
+papers/results/zoom_pre_echo/run_zoom.log
+papers/scripts/ck_ag_sweep.py
+papers/scripts/ck_cemp_bound.py
+papers/scripts/ck_classification.py
+papers/scripts/ck_dual_description.py
+papers/scripts/ck_field_analysis.py
+papers/scripts/ck_four_layer.py
+papers/scripts/ck_hodge_sweep.py
+papers/scripts/ck_open_cells.py
+papers/scripts/ck_orbit_zone.py
+papers/scripts/ck_phase_drift.py
+papers/scripts/ck_rh_sweep.py
+papers/scripts/ck_smoothing.py
+papers/scripts/ck_transfer_metastable.py
+papers/scripts/mix_lambda_scan.py
+papers/scripts/ns_breath_test.py
+papers/scripts/tig_constants.py
+papers/scripts/tig_unit_tests.py
+papers/scripts/tig_unit_tests_v2.py
+papers/scripts/tsml_ag23_verify.py
+papers/scripts/tsml_product_verify.py
+papers/sprint4_2026_03_30/ATLAS_JOB_RESULTS.md
+papers/sprint4_2026_03_30/ATLAS_LAW_SET.md
+papers/sprint4_2026_03_30/CLAUDECODE_README.md
+papers/sprint4_2026_03_30/CLAUDE_ENTRY.md
+papers/sprint4_2026_03_30/CONSTRUCTION_HIERARCHY.md
+papers/sprint4_2026_03_30/GRADIENT_LAW.md
+papers/sprint4_2026_03_30/GRADIENT_LAW_TEST.md
+papers/sprint4_2026_03_30/HAR_MASS_PREDICTOR.md
+papers/sprint4_2026_03_30/NATIVE_BASE_ATLAS.md
+papers/sprint4_2026_03_30/ORBIT_HAR_CONJECTURE.md
+papers/sprint4_2026_03_30/PHASE2_JOB_RESULTS.md
+papers/sprint4_2026_03_30/PHASE3_JOB_RESULTS.md
+papers/sprint4_2026_03_30/PHASE4_JOB_RESULTS.md
+papers/sprint4_2026_03_30/R16_ATLAS_SWEEP_RESULTS.md
+papers/sprint4_2026_03_30/R16_FORCE_FIELD_LAW.md
+papers/sprint4_2026_03_30/R16_JOB1_RESULTS.md
+papers/sprint4_2026_03_30/SECOND_FLAGSHIP.md
+papers/sprint4_2026_03_30/SECOND_GAP_PREDICTOR.md
+papers/sprint4_2026_03_30/SEMIPRIME_ATLAS.md
+papers/sprint4_2026_03_30/THREE_CLASS_LANDSCAPE.md
+papers/sprint4_2026_03_30/UNIVERSAL_LAW.md
+papers/sprint4_2026_03_30/clay/COLLABORATOR_TASK_PACK.md
+papers/sprint4_2026_03_30/clay/hodge/HODGE_GAP_FLOOR.md
+papers/sprint4_2026_03_30/clay/hodge/HODGE_TIG_FRAME.md
+papers/sprint4_2026_03_30/clay/navier_stokes/NS_TIG_FRAME.md
+papers/sprint5_2026_04_04/CASEB_NAILDOWN_MEMO.md
+papers/sprint5_2026_04_04/CK_GROWTH_ARCHITECTURE_MEMO.md
+papers/sprint5_2026_04_04/CLAUDECODE_SPRINT3_README.md
+papers/sprint5_2026_04_04/CLAY_RULES.md
+papers/sprint5_2026_04_04/CLAY_STRUCTURAL_PARALLELS.md
+papers/sprint5_2026_04_04/DEFECT_EXPLICIT_OPERATOR_RECOVERY.md
+papers/sprint5_2026_04_04/HODGE_8D_OBSTRUCTION_MEMO.md
+papers/sprint5_2026_04_04/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+papers/sprint5_2026_04_04/HODGE_B1_HUNT_PROCEED.md
+papers/sprint5_2026_04_04/HODGE_B1_PRIMITIVITY_LOCUS.md
+papers/sprint5_2026_04_04/HODGE_B1_PROJECTION_HUNT.md
+papers/sprint5_2026_04_04/HODGE_BOX_CLOSURE_TEST_B1.md
+papers/sprint5_2026_04_04/HODGE_HIDDEN_STRUCTURE_MEMO.md
+papers/sprint5_2026_04_04/HODGE_NUMERICAL_SIMPLE_MEMO.md
+papers/sprint5_2026_04_04/HODGE_SIMPLE_WEIL_MEMO.md
+papers/sprint5_2026_04_04/INFO_OF_INFO_BASE_STRUCTURES.md
+papers/sprint5_2026_04_04/META_MEMORY_REDUCTION_MEMO.md
+papers/sprint5_2026_04_04/R_RECOVERY_MEMO.md
+papers/sprint5_2026_04_04/THREE_TIER_ONTOLOGY_MEMO.md
+papers/sprint5_2026_04_04/TRACE_OBSTRUCTION_DEFECT_VS_B1.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_8D_OBSTRUCTION_MEMO.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_CYCLE_CONSTRAINT_MEMO.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_HUNT_PROCEED.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_PRIMITIVITY_LOCUS.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_B1_PROJECTION_HUNT.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_BOX_CLOSURE_TEST_B1.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_HIDDEN_STRUCTURE_MEMO.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_NUMERICAL_SIMPLE_MEMO.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_PURE_MIXED_THEOREM.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_SIMPLE_WEIL_MEMO.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_SINGLE_CYCLE_IMPOSSIBILITY.md
+papers/sprint5_2026_04_04/clay/hodge/HODGE_WEIL_CLASS_FRONTIER.md
+papers/sprint5_2026_04_04/clay/hodge/SPRINT5_INDEX.md
+papers/test_a10_sigma_half_boundary.py
+papers/test_a12_wobble_crossval.py
+papers/test_a13_sidelobe_prediction.py
+papers/test_a14_generator_wobble_loop.py
+papers/test_a15_c2_envelope.py
+papers/test_a15_hybrid_construction.py
+papers/test_a15_phase_construction.py
+papers/test_a15_quadratic_glue.py
+papers/test_a15_w_carrier.py
+papers/test_a15b_small_prime_gap.py
+papers/test_a16_three_zone_proof.py
+papers/test_a7_d2_separation.py
+papers/test_a8_algebraic_proof.py
+papers/test_a8_uniqueness_scan.py
+papers/test_a9_b385_spectral.py
+papers/test_b3_ghost_trace_theorem.py
+papers/test_b4_phase_proof.py
+papers/test_b4_to_c_proof.py
+papers/test_bhml_atomic_structure.py
+papers/test_bhml_ghost_trace.py
+papers/test_bhml_operator_identity.py
+papers/test_c15_phase_unimodality.py
+papers/test_circulation_candidate_search.py
+papers/test_cornerstone_universality.py
+papers/test_corridor_compression.py
+papers/test_generator_wobble_loop.py
+papers/test_h_ideal_circulation.py
+papers/test_h_ideal_five_constraints.py
+papers/test_recovery_kinematics.py
+papers/test_tsml_bhml_joint.py
+papers/test_w_bhml_three_derivations.py
+papers/wrong_question_paper.md
+papers/ym_spectral_gap_results.txt
+pyproject.toml
+requirements.txt
+results/layer_A_minimal.png
+results/layer_B_robustness.png
+results/layer_DEF_thermal_jitter_ck.png
+results/mode_selection_summary.json
+results/tesla_thermal_summary.json
+scratch/rename_doing_to_counter.py
+scratch/rename_pet_to_silicon.py
+sinc2_demo.png
+speculations/GROK_CK_DIALOGUE_2026_04_17.md
+speculations/GROK_COMPACTNESS_POSITIONING_2026_04_17.md
+speculations/README.md
+submissions/INDEX.md
+targets/r16_fpga_dog/ck_leash_test.py
+targets/r16_fpga_dog/ck_protocol.py
+tests/__init__.py
+tests/test_ck_tables.py
+tests/test_d1_first_g_law.py
+tests/test_d2_sinc2_field.py
+tests/test_d5_d6_maxima.py
+tests/test_d7_phi_fixed_point.py
+tests/test_nonassociativity.py
+tests/test_t_star.py
+tig_algebra.py
+website/7site_indemnification.html
+website/7site_privacy.html
+website/7site_terms.html
+website/7sitellc.html
+website/CNAME
+website/about.html
+website/bible.html
+website/chat.html
+website/ck_core.js
+website/ck_web_server.py
+website/collaborators.html
+website/collaborators.json
+website/emotion.html
+website/frontiers.html
+website/index.html
+website/math.html
+website/mythology.html
+website/papers.html
+website/paradox.html
+website/physics.html
+website/ring.html
+website/spectrometer.html

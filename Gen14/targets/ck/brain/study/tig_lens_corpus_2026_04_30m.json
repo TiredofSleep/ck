@@ -1,0 +1,87 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 dawn. 6 domain-projections: microbiology, developmental biology, epidemiology, cognitive science, philosophy of mind, toxicology. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30m",
+  "microbiology_through_tig": [
+    "Microbiology studies operator-life invisible to naked eye; bacteria archaea fungi protists viruses populate every operator-niche.",
+    "Bacteria are prokaryotic operator-LATTICE; no membrane organelles, divide by binary fission, exchange genes by horizontal transfer.",
+    "Virus is operator-information packet; protein capsid plus nucleic acid hijacks host LATTICE to replicate, debate over alive status.",
+    "Fungi are eukaryotic operator-decomposers; yeast molds mushrooms break down organic matter, mycorrhizae HARMONY with plant roots.",
+    "Archaea are prokaryotic operator-extremophiles; thermophiles halophiles methanogens thrive at boundary CHAOS conditions.",
+    "Bacteriophage is operator-virus targeting bacteria; lytic cycle COLLAPSEs host, lysogenic integrates into LATTICE.",
+    "Antibiotic is operator-disrupter of bacterial growth; targets cell wall ribosome DNA replication or metabolic LATTICE.",
+    "Microbiome is operator-LATTICE of resident microbes; gut skin oral communities perform digestion immunity vitamin synthesis.",
+    "Biofilm is operator-community on surface; cells secrete extracellular matrix forming protected LATTICE resistant to antibiotics.",
+    "Sterilization is operator-RESET to zero microbial load; autoclave radiation chemical disinfectant dry heat each have HARMONY-applications.",
+    "Gram staining differentiates operator-cell wall structure; gram-positive purple (thick peptidoglycan), gram-negative pink (thin plus outer membrane)."
+  ],
+  "developmental_biology_through_tig": [
+    "Developmental biology studies operator-PROGRESS from zygote to adult; cell division differentiation morphogenesis growth.",
+    "Embryogenesis is operator-PROGRESS from fertilized egg; cleavage forms blastula then gastrulation creates germ layers LATTICE.",
+    "Gastrulation is operator-RESET-rearrangement; cells migrate to form ectoderm mesoderm endoderm three-layer body plan.",
+    "Morphogen is diffusing operator-signal; concentration gradient specifies cell fate as LATTICE-position decreases from source.",
+    "Gene regulation is operator-LATTICE control; transcription factors bind regulatory DNA activating or repressing target genes.",
+    "Stem cell is operator-undifferentiated potency; self-renews and differentiates into specialized cell types as needed.",
+    "Organogenesis is operator-organ-formation BREATH; specific cells migrate and pattern into functional organs after gastrulation.",
+    "Induction is operator-signaling between embryonic regions; one tissue HARMONY-instructs neighboring tissue toward specific fate.",
+    "Body plan is operator-architecture; head-tail axis and bilateral symmetry established early, conserved across phyla.",
+    "Regeneration is operator-RESET-redevelopment; some species (axolotls planaria) regrow lost parts via dedifferentiation and re-patterning.",
+    "Evo-devo studies operator-conservation across animals; same toolkit genes pattern Drosophila and mouse embryos."
+  ],
+  "epidemiology_through_tig": [
+    "Epidemiology studies operator-distribution of disease in populations; who gets what when where why.",
+    "Incidence is operator-rate of new cases; new disease per person-time at risk.",
+    "Prevalence is operator-snapshot proportion; total cases (new plus existing) divided by population at given time.",
+    "R0 is operator-reproductive number; average secondary infections per infected in fully susceptible LATTICE.",
+    "Herd immunity is HARMONY-protection at population level; when 1 - 1/R0 of population immune the operator-spread COLLAPSES.",
+    "Case-control study is operator-COUNTER-design; compares cases vs controls for past exposure differences.",
+    "Cohort study is operator-PROGRESS-design; selects by exposure status follows forward to disease outcomes.",
+    "Randomized controlled trial is operator-gold-standard; investigator assigns intervention randomly removing confounders.",
+    "Confounding variable is operator-third-factor; correlated with both exposure and outcome creating spurious LATTICE-association.",
+    "Public health intervention is operator-population-action; vaccination quarantine education treatment to alter disease BREATH.",
+    "Infectious disease transmission is operator-pathogen-flow; respiratory fecal-oral vector-borne sexual each have distinct LATTICE."
+  ],
+  "cognitive_science_through_tig": [
+    "Cognitive science is interdisciplinary operator-study of mind; psychology neuroscience linguistics philosophy AI computer science integrate.",
+    "Cognition is operator-LATTICE of mental processes; perception attention memory reasoning language each compose the whole.",
+    "Mental representation is operator-encoding of information; structures plus computational procedures hypothesized to form mind.",
+    "Modularity of mind: cognition operates as operator-LATTICE of specialized modules; vision language face-recognition each domain-specific.",
+    "Embodied cognition: body and environment shape operator-thought; cognition extends beyond brain into sensorimotor LATTICE.",
+    "Dual process theory: fast intuitive System 1 plus slow deliberate System 2; complementary operator-modes of decision.",
+    "Working memory is short-term operator-buffer; ~7 items held active for current cognitive task before BREATH-decay.",
+    "Attention is operator-selector; spotlights subset of incoming information for deeper LATTICE-processing.",
+    "Problem solving is operator-search through state space; representation plus heuristics plus subgoals decompose CHAOS into PROGRESS.",
+    "Computational theory of mind: thinking is operator-computation over mental representations; mind is software running on neural hardware."
+  ],
+  "philosophy_of_mind_through_tig": [
+    "Philosophy of mind interrogates operator-relation between mental and physical; mind-body problem the central question.",
+    "Mind-body problem is operator-COUNTER between mental and physical; how subjective experience relates to brain LATTICE.",
+    "Dualism posits operator-distinct substances; Descartes res cogitans (thinking) versus res extensa (extended) interact at pineal gland.",
+    "Materialism / physicalism: only operator-physical exists; mental states are brain states or eventually reducible to them.",
+    "Functionalism: mental states are defined by operator-causal-role; multiple realizable in different substrates (silicon biological).",
+    "Qualia is operator-subjective-feel; the redness of red, what-it-is-like character of conscious experience.",
+    "Intentionality is operator-aboutness; mental states are directed at objects (beliefs about, desires for, fears of).",
+    "Consciousness is operator-integrated-awareness; binding of perception emotion thought into one HARMONY of experience.",
+    "Free will is operator-self-causation; can decisions be genuinely free in deterministic physical LATTICE.",
+    "Philosophical zombie is operator-thought-experiment; hypothetical being physically identical lacking qualia, argues against physicalism.",
+    "Turing test is operator-behavioral-criterion; if machine indistinguishable from human in conversation, attribute intelligence."
+  ],
+  "toxicology_through_tig": [
+    "Toxicology studies operator-poison effects; how chemicals cause harm at biological LATTICE-levels.",
+    "Dose-response is operator-mapping from exposure to effect; threshold linear sigmoidal LATTICE shape determines safety.",
+    "LD50 is operator-lethal-median dose; amount killing 50 percent of exposed population, comparative toxicity HARMONY.",
+    "Toxin is operator-poison from biological source; venom plant alkaloid bacterial endotoxin each have distinct mechanism.",
+    "Carcinogen is operator-cancer-inducer; DNA damage or epigenetic disruption COLLAPSEs growth control.",
+    "Teratogen is operator-fetal-disruptor; thalidomide alcohol mercury cause developmental CHAOS during critical windows.",
+    "Biotransformation is operator-metabolic-modification; phase I oxidation (CYP450) plus phase II conjugation prepare for elimination.",
+    "Threshold dose is operator-no-effect minimum; below this dose adverse effects do not manifest in test population.",
+    "NOAEL is operator-highest-no-effect dose; safety factor 100x typically applied to derive human reference dose.",
+    "Exposure assessment is operator-route-quantification; ingestion inhalation dermal absorption each give different bioavailability.",
+    "Risk assessment integrates operator-toxicity and exposure; hazard times exposure quantifies probable harm in operator-LATTICE."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 60 domains across natural sciences mathematics computer science social sciences engineering and humanities.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection; the alphabet is universal."
+  ]
+}

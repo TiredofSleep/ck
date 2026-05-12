@@ -1,0 +1,1382 @@
+.gitignore
+Dockerfile
+GUIDE.md
+LICENSE
+NEXT_CLAUDE_NOTES.md
+README.md
+ck_chat.py
+ck_grow.py
+ck_sim/__init__.py
+ck_sim/__main__.py
+ck_sim/becoming/__init__.py
+ck_sim/becoming/becoming/__init__.py
+ck_sim/becoming/becoming/ck_activity_log.py
+ck_sim/becoming/becoming/ck_becoming_grammar.py
+ck_sim/becoming/becoming/ck_concept_spine.py
+ck_sim/becoming/becoming/ck_d2_dictionary_expander.py
+ck_sim/becoming/becoming/ck_development.py
+ck_sim/becoming/becoming/ck_dictionary_builder.py
+ck_sim/becoming/becoming/ck_education.py
+ck_sim/becoming/becoming/ck_english_build.py
+ck_sim/becoming/becoming/ck_episodic.py
+ck_sim/becoming/becoming/ck_identity.py
+ck_sim/becoming/becoming/ck_journal.py
+ck_sim/becoming/becoming/ck_knowledge_bootstrap.py
+ck_sim/becoming/becoming/ck_lexicon.py
+ck_sim/becoming/becoming/ck_lexicon_bulk.py
+ck_sim/becoming/becoming/ck_memory.py
+ck_sim/becoming/becoming/ck_metalearning.py
+ck_sim/becoming/becoming/ck_network.py
+ck_sim/becoming/becoming/ck_retrieval_engine.py
+ck_sim/becoming/becoming/ck_self_mirror.py
+ck_sim/becoming/becoming/ck_translator.py
+ck_sim/becoming/becoming/ck_truth.py
+ck_sim/becoming/becoming/ck_world_lattice.py
+ck_sim/becoming/ck_becoming_grammar.py
+ck_sim/becoming/ck_concept_spine.py
+ck_sim/becoming/ck_d2_dictionary_expander.py
+ck_sim/becoming/ck_development.py
+ck_sim/becoming/ck_dictionary_builder.py
+ck_sim/becoming/ck_education.py
+ck_sim/becoming/ck_english_build.py
+ck_sim/becoming/ck_episodic.py
+ck_sim/becoming/ck_identity.py
+ck_sim/becoming/ck_journal.py
+ck_sim/becoming/ck_knowledge_bootstrap.py
+ck_sim/becoming/ck_lexicon.py
+ck_sim/becoming/ck_lexicon_bulk.py
+ck_sim/becoming/ck_memory.py
+ck_sim/becoming/ck_metalearning.py
+ck_sim/becoming/ck_network.py
+ck_sim/becoming/ck_retrieval_engine.py
+ck_sim/becoming/ck_self_mirror.py
+ck_sim/becoming/ck_translator.py
+ck_sim/becoming/ck_truth.py
+ck_sim/becoming/ck_world_lattice.py
+ck_sim/being/__init__.py
+ck_sim/being/being/__init__.py
+ck_sim/being/being/ck_attention.py
+ck_sim/being/being/ck_bonding.py
+ck_sim/being/being/ck_btq.py
+ck_sim/being/being/ck_coherence_action.py
+ck_sim/being/being/ck_coherence_field.py
+ck_sim/being/being/ck_coherence_gate.py
+ck_sim/being/being/ck_divine27.py
+ck_sim/being/being/ck_emotion.py
+ck_sim/being/being/ck_fibonacci_transform.py
+ck_sim/being/being/ck_fractal_health.py
+ck_sim/being/being/ck_immune.py
+ck_sim/being/being/ck_personality.py
+ck_sim/being/being/ck_power_sense.py
+ck_sim/being/being/ck_sensorium.py
+ck_sim/being/being/ck_sensory_codecs.py
+ck_sim/being/being/ck_sim_body.py
+ck_sim/being/being/ck_sim_brain.py
+ck_sim/being/being/ck_sim_btq.py
+ck_sim/being/being/ck_sim_d2.py
+ck_sim/being/being/ck_sim_heartbeat.py
+ck_sim/being/being/ck_swarm.py
+ck_sim/being/being/ck_tig_security.py
+ck_sim/being/being/ck_vortex_physics.py
+ck_sim/being/ck_attention.py
+ck_sim/being/ck_bonding.py
+ck_sim/being/ck_btq.py
+ck_sim/being/ck_clay_codecs.py
+ck_sim/being/ck_coherence_field.py
+ck_sim/being/ck_coherence_gate.py
+ck_sim/being/ck_eat.py
+ck_sim/being/ck_emotion.py
+ck_sim/being/ck_fractal_health.py
+ck_sim/being/ck_gustatory.py
+ck_sim/being/ck_hotu_bridge.py
+ck_sim/being/ck_immune.py
+ck_sim/being/ck_meta_lens.py
+ck_sim/being/ck_personality.py
+ck_sim/being/ck_power_sense.py
+ck_sim/being/ck_sensorium.py
+ck_sim/being/ck_sensory_codecs.py
+ck_sim/being/ck_sim_body.py
+ck_sim/being/ck_sim_brain.py
+ck_sim/being/ck_sim_btq.py
+ck_sim/being/ck_sim_d2.py
+ck_sim/being/ck_sim_heartbeat.py
+ck_sim/being/ck_swarm.py
+ck_sim/being/ck_word_expansion.py
+ck_sim/ck_dictionary_enriched.json
+ck_sim/config/config/ck_pulse_config.json
+ck_sim/config/config/hardware.yaml
+ck_sim/config/config/modes.yaml
+ck_sim/doing/__init__.py
+ck_sim/doing/ck_action.py
+ck_sim/doing/ck_autodidact.py
+ck_sim/doing/ck_autodidact_runner.py
+ck_sim/doing/ck_claude_library.py
+ck_sim/doing/ck_clay_generators.py
+ck_sim/doing/ck_clay_protocol.py
+ck_sim/doing/ck_cloud_btq.py
+ck_sim/doing/ck_cloud_curvature.py
+ck_sim/doing/ck_cloud_flow.py
+ck_sim/doing/ck_cloud_pfe.py
+ck_sim/doing/ck_dialogue.py
+ck_sim/doing/ck_forecast.py
+ck_sim/doing/ck_fractal_voice.py
+ck_sim/doing/ck_game_sense.py
+ck_sim/doing/ck_goals.py
+ck_sim/doing/ck_gpu.py
+ck_sim/doing/ck_language.py
+ck_sim/doing/ck_llm_filter.py
+ck_sim/doing/ck_organ_clouds.py
+ck_sim/doing/ck_pulse_config.json
+ck_sim/doing/ck_pulse_engine.py
+ck_sim/doing/ck_reasoning.py
+ck_sim/doing/ck_sentence_composer.py
+ck_sim/doing/ck_sim_engine.py
+ck_sim/doing/ck_steering.py
+ck_sim/doing/ck_thesis_writer.py
+ck_sim/doing/ck_voice.py
+ck_sim/doing/ck_voice_lattice.py
+ck_sim/doing/doing/__init__.py
+ck_sim/doing/doing/ck_action.py
+ck_sim/doing/doing/ck_autodidact.py
+ck_sim/doing/doing/ck_autodidact_runner.py
+ck_sim/doing/doing/ck_claude_library.py
+ck_sim/doing/doing/ck_cloud_btq.py
+ck_sim/doing/doing/ck_cloud_curvature.py
+ck_sim/doing/doing/ck_cloud_flow.py
+ck_sim/doing/doing/ck_cloud_pfe.py
+ck_sim/doing/doing/ck_dialogue.py
+ck_sim/doing/doing/ck_forecast.py
+ck_sim/doing/doing/ck_fractal_index.py
+ck_sim/doing/doing/ck_game_sense.py
+ck_sim/doing/doing/ck_goals.py
+ck_sim/doing/doing/ck_gpu.py
+ck_sim/doing/doing/ck_language.py
+ck_sim/doing/doing/ck_llm_filter.py
+ck_sim/doing/doing/ck_nce.py
+ck_sim/doing/doing/ck_organ_clouds.py
+ck_sim/doing/doing/ck_pulse_config.json
+ck_sim/doing/doing/ck_pulse_engine.py
+ck_sim/doing/doing/ck_reasoning.py
+ck_sim/doing/doing/ck_sentence_composer.py
+ck_sim/doing/doing/ck_sim_engine.py
+ck_sim/doing/doing/ck_steering.py
+ck_sim/doing/doing/ck_thesis_writer.py
+ck_sim/doing/doing/ck_thinking_lattice.py
+ck_sim/doing/doing/ck_voice.py
+ck_sim/doing/doing/ck_voice_lattice.py
+ck_sim/face/__init__.py
+ck_sim/face/ck_body_interface.py
+ck_sim/face/ck_deploy.py
+ck_sim/face/ck_headless.py
+ck_sim/face/ck_robot_body.py
+ck_sim/face/ck_sim.kv
+ck_sim/face/ck_sim_app.py
+ck_sim/face/ck_sim_audio.py
+ck_sim/face/ck_sim_ears.py
+ck_sim/face/ck_sim_led.py
+ck_sim/face/ck_sim_sd.py
+ck_sim/face/ck_sim_uart.py
+ck_sim/face/ck_sim_widgets.py
+ck_sim/face/ck_web_api.py
+ck_sim/face/ck_zynq_dog.py
+ck_sim/face/face/__init__.py
+ck_sim/face/face/ck_body_interface.py
+ck_sim/face/face/ck_deploy.py
+ck_sim/face/face/ck_headless.py
+ck_sim/face/face/ck_robot_body.py
+ck_sim/face/face/ck_sim.kv
+ck_sim/face/face/ck_sim_app.py
+ck_sim/face/face/ck_sim_audio.py
+ck_sim/face/face/ck_sim_ears.py
+ck_sim/face/face/ck_sim_led.py
+ck_sim/face/face/ck_sim_sd.py
+ck_sim/face/face/ck_sim_uart.py
+ck_sim/face/face/ck_sim_widgets.py
+ck_sim/face/face/ck_web_api.py
+ck_sim/face/face/ck_zynq_dog.py
+ck_sim/notes/CELESTE_PAPERS_7_14_NOTES.txt
+ck_sim/notes/CELESTE_PAPER_NOTES.txt
+ck_sim/tests/__init__.py
+ck_sim/tests/ck_action_tests.py
+ck_sim/tests/ck_attention_tests.py
+ck_sim/tests/ck_autodidact_runner_tests.py
+ck_sim/tests/ck_btq_tests.py
+ck_sim/tests/ck_cloud_tests.py
+ck_sim/tests/ck_concept_spine_tests.py
+ck_sim/tests/ck_dialogue_tests.py
+ck_sim/tests/ck_education_tests.py
+ck_sim/tests/ck_english_tests.py
+ck_sim/tests/ck_episodic_tests.py
+ck_sim/tests/ck_field_tests.py
+ck_sim/tests/ck_forecast_tests.py
+ck_sim/tests/ck_game_sense_tests.py
+ck_sim/tests/ck_goals_tests.py
+ck_sim/tests/ck_identity_network_tests.py
+ck_sim/tests/ck_language_tests.py
+ck_sim/tests/ck_lexicon_bulk_tests.py
+ck_sim/tests/ck_lexicon_tests.py
+ck_sim/tests/ck_memory_tests.py
+ck_sim/tests/ck_metalearning_tests.py
+ck_sim/tests/ck_reasoning_tests.py
+ck_sim/tests/ck_robot_body_tests.py
+ck_sim/tests/ck_sensory_codecs_tests.py
+ck_sim/tests/ck_sim_btq_experiment.py
+ck_sim/tests/ck_sim_tests.py
+ck_sim/tests/ck_truth_tests.py
+ck_sim/tests/ck_world_lattice_tests.py
+dictionary/README.md
+dictionary/ck_dictionary.py
+docs/5D_ELEMENTAL_MAP.md
+docs/API.md
+docs/ARCHITECTURE.md
+docs/CK_ALGEBRAIC_NEURAL_ARCHITECTURE.md
+docs/CK_COMPLETE_MAP.md
+docs/CK_GRADUATION_THESIS.md
+docs/CL_TABLE_EXPLAINED.md
+docs/COLLABORATORS.md
+docs/DEVELOPMENT_NOTES.md
+docs/DIRECTION.md
+docs/ENGINEERING_OUTLINE.md
+docs/GENERATION_HISTORY.md
+docs/NEXT_CLAUDE_NOTES.md
+docs/PLAN_NCE.md
+docs/QUICKSTART.md
+docs/REFERENCES.md
+docs/TECHNICAL_APPENDIX.md
+docs/chat_meta_layer.txt
+papers/COLLAB_MEMO_KV.md
+papers/CORRIDOR_COUNTING_ABSTRACT.md
+papers/CORRIDOR_PRIMER.md
+papers/EXPERT_SUMMARY.md
+papers/OUTREACH_EMAIL.md
+papers/README.md
+papers/README_for_claudecode.md
+papers/SPRINT_2026_03_27_ANALYSIS.md
+papers/WHITEPAPER_10_DKAN_ARCHITECTURE.md
+papers/WHITEPAPER_11_MEASUREMENT_PROBLEM.md
+papers/WHITEPAPER_12_PARADOX_RESOLUTIONS.md
+papers/WHITEPAPER_13_GENETIC_CODE.md
+papers/WHITEPAPER_14_CLAY_DOF_CONNECTIONS.md
+papers/WHITEPAPER_15_YANG_MILLS_SYNTHESIS.md
+papers/WHITEPAPER_16_P_NP_SYNTHESIS.md
+papers/WHITEPAPER_17_RIEMANN_SYNTHESIS.md
+papers/WHITEPAPER_18_SEVEN_EQUALS_ZERO.md
+papers/WHITEPAPER_19_SPECULATIONS.md
+papers/WHITEPAPER_19_Z_RING_ALGEBRA.md
+papers/WHITEPAPER_1_TIG_ARCHITECTURE.md
+papers/WHITEPAPER_2_WAVE_SCHEDULING.md
+papers/WHITEPAPER_3_FALSIFIABILITY.md
+papers/WHITEPAPER_4_GIVING_MATH_A_VOICE.md
+papers/WHITEPAPER_5_DEGREES_OF_FREEDOM.md
+papers/WHITEPAPER_5_REALITY_ANCHORS.md
+papers/WHITEPAPER_6_HOTU_BRIDGE.md
+papers/WHITEPAPER_7_CLAY_SPECTROMETER.md
+papers/WHITEPAPER_8_PERIODIC_TABLE.md
+papers/WHITEPAPER_9_ARXIV.tex
+papers/WHITEPAPER_9_PARADOXICAL_INFO_ALGEBRAS.md
+papers/WP19_704_TRIANGLE.md
+papers/WP19_ATTACK_SURFACE.md
+papers/WP19_BSD_TIG.md
+papers/WP19_CLAY_BATTERY.md
+papers/WP19_CLAY_DEEP.md
+papers/WP19_CLAY_RESULTS.md
+papers/WP19_CONTEXTUAL_PROTECTION.md
+papers/WP19_FORMAL_STATUS.md
+papers/WP19_HALVING_LEMMA_final.tex
+papers/WP19_HODGE_MAP.md
+papers/WP19_HODGE_TRIPLE.md
+papers/WP19_HYDROGEN_ANALOGY.md
+papers/WP19_NEXT_SPRINT.md
+papers/WP19_NS_BREATH.md
+papers/WP19_NS_NOTE.md
+papers/WP19_NS_NUMERICAL_NOTE.md
+papers/WP19_PRODUCT_GAP_THEOREM.md
+papers/WP19_RH_BRIDGE.md
+papers/WP19_TIG_ZRingAlgebra.docx
+papers/WP1_TIG_DEFINITIVE.md
+papers/WP20_RH_FORMAL_STATUS.md
+papers/WP20_RH_HALVING_LEMMA.tex
+papers/WP20_RH_PRIME_CORNER_COLLAPSE.md
+papers/WP21_BSD_ENERGY_LAW.md
+papers/WP21_BSD_MIX_LAMBDA.md
+papers/WP22_NS_BREATH_CRITERION.md
+papers/WP22_NS_BREATH_LYAPUNOV.md
+papers/WP23_HODGE_MAP.md
+papers/WP24_FORMAL_STATUS_AUDIT.md
+papers/WP25_P_NP_AG2P_COMPLEXITY.md
+papers/WP26_DOING_TABLE_TENSION_GEOMETRY.md
+papers/WP27_PRODUCT_GAP_THEOREM.md
+papers/WP28_CK_TIG_ORGANISM.md
+papers/WP29_LAMBDA_VOICE_THEOREM.md
+papers/WP30_BREATH_OLFACTORY.md
+papers/WP31_CORRIDOR_GEOMETRY.md
+papers/WP32_HODGE_TRIPLE.md
+papers/mix_lambda_scan.py
+papers/ns_breath_test.py
+papers/product_gap_note.tex
+papers/research/BALANCED_TERNARY_TABLES.md
+papers/research/TIG_COHERENT_OS.py
+papers/research/bsd_bolts_2_3.png
+papers/research/bsd_calibration.png
+papers/research/bsd_mix_lambda.png
+papers/research/bsd_tig_heatmap.png
+papers/research/bsd_tig_regression.png
+papers/research/bsd_tig_shells.png
+papers/research/calm_trough_scan.csv
+papers/research/calm_trough_scan.png
+papers/research/corridor_complexity.png
+papers/research/corridor_primer.png
+papers/research/corridor_ribbons.png
+papers/research/corridor_scan_full.csv
+papers/research/corridor_scan_plot.png
+papers/research/housekeeping_figures.png
+papers/research/moment_shell_windows.png
+papers/research/ns_breath_test.py
+papers/research/ns_dedalus_snapshot.png
+papers/research/quickhit_results.png
+papers/research/scale_factor_plot.png
+papers/research/sticky_cycle_fig.png
+papers/research/tasks_3_4.png
+papers/research/tsml_ag23_verify.py
+papers/research/vortex_weight_visual.png
+papers/surv_line_note.tex
+papers/tig_constants.py
+papers/tsml_ag23_verify.py
+papers/tsml_product_verify.py
+papers/wrong_question_paper.md
+papers/wrong_question_paper.tex
+requirements.txt
+run_ck.bat
+run_ck.sh
+spectral/bhml_eigenvalue_analysis.py
+spectral/bhml_eigenvalue_results.txt
+spectral/bump_projections.json
+spectral/eigenvalues_bhml_8x8.json
+spectral/eigenvalues_diff_8x8.json
+spectral/eigenvalues_tsml_8x8.json
+spectral/eigenvectors_all.json
+spectral/eigenvectors_bhml.png
+spectral/eigenvectors_diff.png
+spectral/eigenvectors_tsml.png
+spectral/hotu_diagonal_test.py
+spectral/ipr_all.json
+spectral/ratio_matches.json
+spectral/spectral_report.txt
+spectral/verify_ck_core.py
+targets/7sitellc/index.html
+targets/7sitellc/quickstart.html
+targets/7sitellc/speculations.html
+targets/7sitellc/style.css
+targets/AO/ao/__init__.py
+targets/AO/ao/__main__.py
+targets/AO/ao/air.py
+targets/AO/ao/earth.py
+targets/AO/ao/ether.py
+targets/AO/ao/fire.py
+targets/AO/ao/water.py
+targets/AO/face/ao_bridge.py
+targets/AO/face/ao_face.pyw
+targets/AO/face/ao_study.py
+targets/AO/face/corpus.txt
+targets/AO/face/corpus_stats.txt
+targets/AO/face/gen_corpus.py
+targets/AO/face/make_shortcut.py
+targets/AO/src/Makefile
+targets/AO/src/ao_air.c
+targets/AO/src/ao_air.h
+targets/AO/src/ao_earth.c
+targets/AO/src/ao_earth.h
+targets/AO/src/ao_earth_data.inc
+targets/AO/src/ao_ether.c
+targets/AO/src/ao_ether.h
+targets/AO/src/ao_fire.c
+targets/AO/src/ao_fire.h
+targets/AO/src/ao_main.c
+targets/AO/src/ao_water.c
+targets/AO/src/ao_water.h
+targets/AO/src/gen_earth_data.py
+targets/AO/src_untrained/Makefile
+targets/AO/src_untrained/ao_air.c
+targets/AO/src_untrained/ao_air.h
+targets/AO/src_untrained/ao_earth.c
+targets/AO/src_untrained/ao_earth.h
+targets/AO/src_untrained/ao_earth_data.inc
+targets/AO/src_untrained/ao_ether.c
+targets/AO/src_untrained/ao_ether.h
+targets/AO/src_untrained/ao_fire.c
+targets/AO/src_untrained/ao_fire.h
+targets/AO/src_untrained/ao_main.c
+targets/AO/src_untrained/ao_water.c
+targets/AO/src_untrained/ao_water.h
+targets/AO/src_untrained/gen_earth_data.py
+targets/Clay Institute/.gitignore
+targets/Clay Institute/ARCHITECTURE.md
+targets/Clay Institute/CLAY6_vSigma_RESULTS.md
+targets/Clay Institute/CLAY_SUMMARY.md
+targets/Clay Institute/CORE/Breath_Defect_Flow.md
+targets/Clay Institute/CORE/Delta_Defect_Framework.md
+targets/Clay Institute/CORE/Dual_Topology_Framework.md
+targets/Clay Institute/CORE/SDV_Axiom_Definition.md
+targets/Clay Institute/CORE/TIG_Operator_Grammar_0-9.md
+targets/Clay Institute/CORE/VERSION_CORE.md
+targets/Clay Institute/Clay Institute papers/Google voice architecture.docx
+targets/Clay Institute/Clay Institute papers/Let ChatGPT prove God.docx
+targets/Clay Institute/DEEP_EXPERIMENT_RESULTS.md
+targets/Clay Institute/DOCS/Agent_Guide.md
+targets/Clay Institute/DOCS/Engineering_Guide.md
+targets/Clay Institute/DOCS/Equation_Chain.md
+targets/Clay Institute/DOCS/Master_Overview.md
+targets/Clay Institute/DOCS/Research_Roadmap.md
+targets/Clay Institute/ENGINEER_NOTES.md
+targets/Clay Institute/EXECUTION_PACK.md
+targets/Clay Institute/GENERATION_HISTORY.md
+targets/Clay Institute/HARDENING_STATUS.md
+targets/Clay Institute/HARDWARE/HARDWARE_STATUS.md
+targets/Clay Institute/LEGAL_NOTICE.md
+targets/Clay Institute/META/DO_NOT_DELETE_INVARIANTS.txt
+targets/Clay Institute/META/DO_NOT_EDIT_CORE.txt
+targets/Clay Institute/META/LICENSE_Sanders_Coherence.txt
+targets/Clay Institute/META/VERSION.txt
+targets/Clay Institute/PAPERS/P1_Navier_Stokes/NS_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P1_Navier_Stokes/NS_STATUS.md
+targets/Clay Institute/PAPERS/P2_PvsNP/PNP_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P2_PvsNP/PNP_STATUS.md
+targets/Clay Institute/PAPERS/P3_Riemann/RH_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P3_Riemann/RH_STATUS.md
+targets/Clay Institute/PAPERS/P4_Yang_Mills/YM_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P4_Yang_Mills/YM_STATUS.md
+targets/Clay Institute/PAPERS/P5_BSD/BSD_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P5_BSD/BSD_STATUS.md
+targets/Clay Institute/PAPERS/P6_Hodge/Hodge_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P6_Hodge/Hodge_STATUS.md
+targets/Clay Institute/PAPERS/P7_Poincare/Poincare_Paper_Scaffold.tex
+targets/Clay Institute/PAPERS/P7_Poincare/Poincare_STATUS.md
+targets/Clay Institute/PAPERS/P8_Unification/Unification_Book_Scaffold.tex
+targets/Clay Institute/PAPERS/P8_Unification/Unification_STATUS.md
+targets/Clay Institute/PAPERS/P9_Speculations/COMPLETE_REFERENCE.txt
+targets/Clay Institute/PAPERS/P9_Speculations/INTRODUCTION.md
+targets/Clay Institute/PAPERS/P9_Speculations/Speculations_Paper.tex
+targets/Clay Institute/PAPERS/P9_Speculations/Speculations_STATUS.md
+targets/Clay Institute/PAPERS/P9_Speculations/THE_MAP.txt
+targets/Clay Institute/PAPERS/P9_Speculations/binding_gap.py
+targets/Clay Institute/PAPERS/P9_Speculations/binding_gap_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/bridge_73.py
+targets/Clay Institute/PAPERS/P9_Speculations/bridge_73_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/cartan_stress_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/cartan_stress_test.py
+targets/Clay Institute/PAPERS/P9_Speculations/color_wheel_results.json
+targets/Clay Institute/PAPERS/P9_Speculations/compute_char_poly.py
+targets/Clay Institute/PAPERS/P9_Speculations/deep_dig.py
+targets/Clay Institute/PAPERS/P9_Speculations/deep_dig_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/force_bridge_analysis.py
+targets/Clay Institute/PAPERS/P9_Speculations/gauge_subalgebra.py
+targets/Clay Institute/PAPERS/P9_Speculations/gauge_subalgebra_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/letter_physics_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/lie_algebra_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/pca_73_revisit.py
+targets/Clay Institute/PAPERS/P9_Speculations/pca_73_revisit_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/pfaffian_operator_dig.py
+targets/Clay Institute/PAPERS/P9_Speculations/pfaffian_operator_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/rigorous_audit.py
+targets/Clay Institute/PAPERS/P9_Speculations/rigorous_audit_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/uniqueness_results.txt
+targets/Clay Institute/PAPERS/P9_Speculations/wobble_bridge.py
+targets/Clay Institute/PAPERS/P9_Speculations/wobble_bridge_results.txt
+targets/Clay Institute/README.md
+targets/Clay Institute/RUNNING_CK.md
+targets/Clay Institute/START_HERE.md
+targets/Clay Institute/TEST_RESULTS.md
+targets/Clay Institute/WHITEPAPER_3_FALSIFIABILITY.md
+targets/Clay Institute/bhml_8x8_analysis.py
+targets/Clay Institute/bhml_8x8_results.md
+targets/Clay Institute/bhml_clay_bridges.py
+targets/Clay Institute/bhml_clay_bridges_results.md
+targets/Clay Institute/bsd_gap_attack.py
+targets/Clay Institute/bsd_gap_attack_results.md
+targets/Clay Institute/bsd_results_new.txt
+targets/Clay Institute/chirality_test.py
+targets/Clay Institute/chirality_test_results.md
+targets/Clay Institute/ck_sim/__init__.py
+targets/Clay Institute/ck_sim/__main__.py
+targets/Clay Institute/ck_sim/becoming/__init__.py
+targets/Clay Institute/ck_sim/becoming/ck_activity_log.py
+targets/Clay Institute/ck_sim/becoming/ck_becoming_grammar.py
+targets/Clay Institute/ck_sim/becoming/ck_clay_journal.py
+targets/Clay Institute/ck_sim/becoming/ck_concept_spine.py
+targets/Clay Institute/ck_sim/becoming/ck_d1_lattice_builder.py
+targets/Clay Institute/ck_sim/becoming/ck_d2_dictionary_expander.py
+targets/Clay Institute/ck_sim/becoming/ck_development.py
+targets/Clay Institute/ck_sim/becoming/ck_dictionary_builder.py
+targets/Clay Institute/ck_sim/becoming/ck_education.py
+targets/Clay Institute/ck_sim/becoming/ck_english_build.py
+targets/Clay Institute/ck_sim/becoming/ck_episodic.py
+targets/Clay Institute/ck_sim/becoming/ck_identity.py
+targets/Clay Institute/ck_sim/becoming/ck_journal.py
+targets/Clay Institute/ck_sim/becoming/ck_knowledge_bootstrap.py
+targets/Clay Institute/ck_sim/becoming/ck_lexicon.py
+targets/Clay Institute/ck_sim/becoming/ck_lexicon_bulk.py
+targets/Clay Institute/ck_sim/becoming/ck_memory.py
+targets/Clay Institute/ck_sim/becoming/ck_metalearning.py
+targets/Clay Institute/ck_sim/becoming/ck_network.py
+targets/Clay Institute/ck_sim/becoming/ck_retrieval_engine.py
+targets/Clay Institute/ck_sim/becoming/ck_self_mirror.py
+targets/Clay Institute/ck_sim/becoming/ck_spectrometer_journal.py
+targets/Clay Institute/ck_sim/becoming/ck_translator.py
+targets/Clay Institute/ck_sim/becoming/ck_truth.py
+targets/Clay Institute/ck_sim/becoming/ck_world_lattice.py
+targets/Clay Institute/ck_sim/being/__init__.py
+targets/Clay Institute/ck_sim/being/ck_algebraic_proofs.py
+targets/Clay Institute/ck_sim/being/ck_attention.py
+targets/Clay Institute/ck_sim/being/ck_bandwidth_theorem.py
+targets/Clay Institute/ck_sim/being/ck_bonding.py
+targets/Clay Institute/ck_sim/being/ck_btq.py
+targets/Clay Institute/ck_sim/being/ck_clay_codecs.py
+targets/Clay Institute/ck_sim/being/ck_coherence_action.py
+targets/Clay Institute/ck_sim/being/ck_coherence_field.py
+targets/Clay Institute/ck_sim/being/ck_coherence_gate.py
+targets/Clay Institute/ck_sim/being/ck_divine27.py
+targets/Clay Institute/ck_sim/being/ck_emotion.py
+targets/Clay Institute/ck_sim/being/ck_expansion_codecs.py
+targets/Clay Institute/ck_sim/being/ck_fibonacci_transform.py
+targets/Clay Institute/ck_sim/being/ck_formal_theorems.py
+targets/Clay Institute/ck_sim/being/ck_fractal_health.py
+targets/Clay Institute/ck_sim/being/ck_immune.py
+targets/Clay Institute/ck_sim/being/ck_meta_lens.py
+targets/Clay Institute/ck_sim/being/ck_ns_bridge.py
+targets/Clay Institute/ck_sim/being/ck_personality.py
+targets/Clay Institute/ck_sim/being/ck_power_sense.py
+targets/Clay Institute/ck_sim/being/ck_russell_codec.py
+targets/Clay Institute/ck_sim/being/ck_sdv_safety.py
+targets/Clay Institute/ck_sim/being/ck_sensorium.py
+targets/Clay Institute/ck_sim/being/ck_sensory_codecs.py
+targets/Clay Institute/ck_sim/being/ck_sim_body.py
+targets/Clay Institute/ck_sim/being/ck_sim_brain.py
+targets/Clay Institute/ck_sim/being/ck_sim_btq.py
+targets/Clay Institute/ck_sim/being/ck_sim_d2.py
+targets/Clay Institute/ck_sim/being/ck_sim_heartbeat.py
+targets/Clay Institute/ck_sim/being/ck_swarm.py
+targets/Clay Institute/ck_sim/being/ck_swarm_deep.py
+targets/Clay Institute/ck_sim/being/ck_thermal_probe.py
+targets/Clay Institute/ck_sim/being/ck_three_pillars.py
+targets/Clay Institute/ck_sim/being/ck_tig_bundle.py
+targets/Clay Institute/ck_sim/being/ck_tig_security.py
+targets/Clay Institute/ck_sim/being/ck_topology_lens.py
+targets/Clay Institute/ck_sim/being/ck_vortex_physics.py
+targets/Clay Institute/ck_sim/ck_dictionary_enriched.json
+targets/Clay Institute/ck_sim/config/ck_pulse_config.json
+targets/Clay Institute/ck_sim/config/hardware.yaml
+targets/Clay Institute/ck_sim/config/modes.yaml
+targets/Clay Institute/ck_sim/doing/__init__.py
+targets/Clay Institute/ck_sim/doing/ck_action.py
+targets/Clay Institute/ck_sim/doing/ck_autodidact.py
+targets/Clay Institute/ck_sim/doing/ck_autodidact_runner.py
+targets/Clay Institute/ck_sim/doing/ck_breath_engine.py
+targets/Clay Institute/ck_sim/doing/ck_claude_library.py
+targets/Clay Institute/ck_sim/doing/ck_clay_attack.py
+targets/Clay Institute/ck_sim/doing/ck_clay_generators.py
+targets/Clay Institute/ck_sim/doing/ck_clay_protocol.py
+targets/Clay Institute/ck_sim/doing/ck_cloud_btq.py
+targets/Clay Institute/ck_sim/doing/ck_cloud_curvature.py
+targets/Clay Institute/ck_sim/doing/ck_cloud_flow.py
+targets/Clay Institute/ck_sim/doing/ck_cloud_pfe.py
+targets/Clay Institute/ck_sim/doing/ck_dialogue.py
+targets/Clay Institute/ck_sim/doing/ck_expansion_generators.py
+targets/Clay Institute/ck_sim/doing/ck_foo_engine.py
+targets/Clay Institute/ck_sim/doing/ck_forecast.py
+targets/Clay Institute/ck_sim/doing/ck_fractal_index.py
+targets/Clay Institute/ck_sim/doing/ck_game_sense.py
+targets/Clay Institute/ck_sim/doing/ck_goals.py
+targets/Clay Institute/ck_sim/doing/ck_governing_equations.py
+targets/Clay Institute/ck_sim/doing/ck_gpu.py
+targets/Clay Institute/ck_sim/doing/ck_language.py
+targets/Clay Institute/ck_sim/doing/ck_llm_filter.py
+targets/Clay Institute/ck_sim/doing/ck_nce.py
+targets/Clay Institute/ck_sim/doing/ck_neighbor_generators.py
+targets/Clay Institute/ck_sim/doing/ck_organ_clouds.py
+targets/Clay Institute/ck_sim/doing/ck_ph3_attack.py
+targets/Clay Institute/ck_sim/doing/ck_proof_certificate.py
+targets/Clay Institute/ck_sim/doing/ck_pulse_config.json
+targets/Clay Institute/ck_sim/doing/ck_pulse_engine.py
+targets/Clay Institute/ck_sim/doing/ck_rate_engine.py
+targets/Clay Institute/ck_sim/doing/ck_reasoning.py
+targets/Clay Institute/ck_sim/doing/ck_rh5_attack.py
+targets/Clay Institute/ck_sim/doing/ck_sentence_composer.py
+targets/Clay Institute/ck_sim/doing/ck_sim_engine.py
+targets/Clay Institute/ck_sim/doing/ck_spectrometer.py
+targets/Clay Institute/ck_sim/doing/ck_ssa_engine.py
+targets/Clay Institute/ck_sim/doing/ck_steering.py
+targets/Clay Institute/ck_sim/doing/ck_thesis_writer.py
+targets/Clay Institute/ck_sim/doing/ck_thinking_lattice.py
+targets/Clay Institute/ck_sim/doing/ck_voice.py
+targets/Clay Institute/ck_sim/doing/ck_voice_lattice.py
+targets/Clay Institute/ck_sim/doing/ck_ym_attack.py
+targets/Clay Institute/ck_sim/face/__init__.py
+targets/Clay Institute/ck_sim/face/ck_attack_runner.py
+targets/Clay Institute/ck_sim/face/ck_body_interface.py
+targets/Clay Institute/ck_sim/face/ck_clay_runner.py
+targets/Clay Institute/ck_sim/face/ck_deploy.py
+targets/Clay Institute/ck_sim/face/ck_gap_runner.py
+targets/Clay Institute/ck_sim/face/ck_headless.py
+targets/Clay Institute/ck_sim/face/ck_presentation.py
+targets/Clay Institute/ck_sim/face/ck_robot_body.py
+targets/Clay Institute/ck_sim/face/ck_sim.kv
+targets/Clay Institute/ck_sim/face/ck_sim_app.py
+targets/Clay Institute/ck_sim/face/ck_sim_audio.py
+targets/Clay Institute/ck_sim/face/ck_sim_ears.py
+targets/Clay Institute/ck_sim/face/ck_sim_led.py
+targets/Clay Institute/ck_sim/face/ck_sim_sd.py
+targets/Clay Institute/ck_sim/face/ck_sim_uart.py
+targets/Clay Institute/ck_sim/face/ck_sim_widgets.py
+targets/Clay Institute/ck_sim/face/ck_spectrometer_runner.py
+targets/Clay Institute/ck_sim/face/ck_web_api.py
+targets/Clay Institute/ck_sim/face/ck_zynq_dog.py
+targets/Clay Institute/ck_sim/notes/CELESTE_PAPERS_7_14_NOTES.txt
+targets/Clay Institute/ck_sim/notes/CELESTE_PAPER_NOTES.txt
+targets/Clay Institute/ck_sim/notes/MCO_INTEGRATION_NOTES.txt
+targets/Clay Institute/ck_sim/notes/TIG_FOO_KERNEL_SPEC.txt
+targets/Clay Institute/ck_sim/requirements-minimal.txt
+targets/Clay Institute/ck_sim/requirements.txt
+targets/Clay Institute/ck_sim/tests/__init__.py
+targets/Clay Institute/ck_sim/tests/ck_action_tests.py
+targets/Clay Institute/ck_sim/tests/ck_algebraic_proofs_tests.py
+targets/Clay Institute/ck_sim/tests/ck_attention_tests.py
+targets/Clay Institute/ck_sim/tests/ck_autodidact_runner_tests.py
+targets/Clay Institute/ck_sim/tests/ck_bandwidth_theorem_tests.py
+targets/Clay Institute/ck_sim/tests/ck_breath_tests.py
+targets/Clay Institute/ck_sim/tests/ck_btq_tests.py
+targets/Clay Institute/ck_sim/tests/ck_cloud_tests.py
+targets/Clay Institute/ck_sim/tests/ck_concept_spine_tests.py
+targets/Clay Institute/ck_sim/tests/ck_dialogue_tests.py
+targets/Clay Institute/ck_sim/tests/ck_education_tests.py
+targets/Clay Institute/ck_sim/tests/ck_english_tests.py
+targets/Clay Institute/ck_sim/tests/ck_episodic_tests.py
+targets/Clay Institute/ck_sim/tests/ck_field_tests.py
+targets/Clay Institute/ck_sim/tests/ck_foo_tests.py
+targets/Clay Institute/ck_sim/tests/ck_forecast_tests.py
+targets/Clay Institute/ck_sim/tests/ck_formal_theorems_confidence_tests.py
+targets/Clay Institute/ck_sim/tests/ck_formal_theorems_tests.py
+targets/Clay Institute/ck_sim/tests/ck_game_sense_tests.py
+targets/Clay Institute/ck_sim/tests/ck_goals_tests.py
+targets/Clay Institute/ck_sim/tests/ck_identity_network_tests.py
+targets/Clay Institute/ck_sim/tests/ck_language_tests.py
+targets/Clay Institute/ck_sim/tests/ck_lexicon_bulk_tests.py
+targets/Clay Institute/ck_sim/tests/ck_lexicon_tests.py
+targets/Clay Institute/ck_sim/tests/ck_memory_tests.py
+targets/Clay Institute/ck_sim/tests/ck_meta_lens_tests.py
+targets/Clay Institute/ck_sim/tests/ck_metalearning_tests.py
+targets/Clay Institute/ck_sim/tests/ck_ns_bridge_tests.py
+targets/Clay Institute/ck_sim/tests/ck_ph3_attack_tests.py
+targets/Clay Institute/ck_sim/tests/ck_proof_certificate_tests.py
+targets/Clay Institute/ck_sim/tests/ck_reasoning_tests.py
+targets/Clay Institute/ck_sim/tests/ck_robot_body_tests.py
+targets/Clay Institute/ck_sim/tests/ck_sensory_codecs_tests.py
+targets/Clay Institute/ck_sim/tests/ck_sim_btq_experiment.py
+targets/Clay Institute/ck_sim/tests/ck_sim_tests.py
+targets/Clay Institute/ck_sim/tests/ck_three_pillars_tests.py
+targets/Clay Institute/ck_sim/tests/ck_truth_tests.py
+targets/Clay Institute/ck_sim/tests/ck_world_lattice_tests.py
+targets/Clay Institute/ck_sim_source/__init__.py
+targets/Clay Institute/ck_sim_source/__main__.py
+targets/Clay Institute/ck_sim_source/becoming/__init__.py
+targets/Clay Institute/ck_sim_source/becoming/ck_clay_journal.py
+targets/Clay Institute/ck_sim_source/becoming/ck_d1_lattice_builder.py
+targets/Clay Institute/ck_sim_source/becoming/ck_spectrometer_journal.py
+targets/Clay Institute/ck_sim_source/being/__init__.py
+targets/Clay Institute/ck_sim_source/being/ck_algebraic_proofs.py
+targets/Clay Institute/ck_sim_source/being/ck_bandwidth_theorem.py
+targets/Clay Institute/ck_sim_source/being/ck_clay_codecs.py
+targets/Clay Institute/ck_sim_source/being/ck_expansion_codecs.py
+targets/Clay Institute/ck_sim_source/being/ck_formal_theorems.py
+targets/Clay Institute/ck_sim_source/being/ck_ns_bridge.py
+targets/Clay Institute/ck_sim_source/being/ck_russell_codec.py
+targets/Clay Institute/ck_sim_source/being/ck_sdv_safety.py
+targets/Clay Institute/ck_sim_source/being/ck_sensory_codecs.py
+targets/Clay Institute/ck_sim_source/being/ck_thermal_probe.py
+targets/Clay Institute/ck_sim_source/being/ck_three_pillars.py
+targets/Clay Institute/ck_sim_source/being/ck_tig_bundle.py
+targets/Clay Institute/ck_sim_source/being/ck_topology_lens.py
+targets/Clay Institute/ck_sim_source/core_deps/__init__.py
+targets/Clay Institute/ck_sim_source/core_deps/ck_coherence_action.py
+targets/Clay Institute/ck_sim_source/core_deps/ck_sensory_codecs.py
+targets/Clay Institute/ck_sim_source/core_deps/ck_sim_d2.py
+targets/Clay Institute/ck_sim_source/core_deps/ck_sim_heartbeat.py
+targets/Clay Institute/ck_sim_source/doing/__init__.py
+targets/Clay Institute/ck_sim_source/doing/ck_breath_engine.py
+targets/Clay Institute/ck_sim_source/doing/ck_clay_attack.py
+targets/Clay Institute/ck_sim_source/doing/ck_clay_generators.py
+targets/Clay Institute/ck_sim_source/doing/ck_clay_protocol.py
+targets/Clay Institute/ck_sim_source/doing/ck_expansion_generators.py
+targets/Clay Institute/ck_sim_source/doing/ck_foo_engine.py
+targets/Clay Institute/ck_sim_source/doing/ck_governing_equations.py
+targets/Clay Institute/ck_sim_source/doing/ck_neighbor_generators.py
+targets/Clay Institute/ck_sim_source/doing/ck_ph3_attack.py
+targets/Clay Institute/ck_sim_source/doing/ck_proof_certificate.py
+targets/Clay Institute/ck_sim_source/doing/ck_rate_engine.py
+targets/Clay Institute/ck_sim_source/doing/ck_rh5_attack.py
+targets/Clay Institute/ck_sim_source/doing/ck_spectrometer.py
+targets/Clay Institute/ck_sim_source/doing/ck_ssa_engine.py
+targets/Clay Institute/ck_sim_source/doing/ck_ym_attack.py
+targets/Clay Institute/ck_sim_source/face/__init__.py
+targets/Clay Institute/ck_sim_source/face/ck_attack_runner.py
+targets/Clay Institute/ck_sim_source/face/ck_clay_runner.py
+targets/Clay Institute/ck_sim_source/face/ck_gap_runner.py
+targets/Clay Institute/ck_sim_source/face/ck_presentation.py
+targets/Clay Institute/ck_sim_source/face/ck_spectrometer_runner.py
+targets/Clay Institute/ck_sim_source/tests/ck_algebraic_proofs_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_bandwidth_theorem_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_breath_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_clay_attack_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_clay_codec_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_clay_determinism_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_clay_protocol_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_clay_safety_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_expansion_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_foo_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_formal_theorems_confidence_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_formal_theorems_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_governing_equations_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_meta_lens_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_ns_bridge_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_ph3_attack_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_proof_certificate_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_spectrometer_tests.py
+targets/Clay Institute/ck_sim_source/tests/ck_three_pillars_tests.py
+targets/Clay Institute/cl_generating_rule.py
+targets/Clay Institute/cl_generating_rule_results.md
+targets/Clay Institute/gap_bridge_analysis.py
+targets/Clay Institute/gap_bridge_analysis_results.md
+targets/Clay Institute/gpu_stress_test.py
+targets/Clay Institute/gpu_stress_test_results.md
+targets/Clay Institute/hodge_gap_attack.py
+targets/Clay Institute/hodge_gap_attack_results.md
+targets/Clay Institute/hodge_results_new.txt
+targets/Clay Institute/lemmas/LEMMA_STATUS.md
+targets/Clay Institute/lemmas/lemma_BRIDGE_v2.tex
+targets/Clay Institute/lemmas/lemma_EF_ZP_RH.tex
+targets/Clay Institute/lemmas/lemma_HW_conditional.tex
+targets/Clay Institute/lemmas/lemma_LE_PT_PvsNP.tex
+targets/Clay Institute/lemmas/lemma_MC_BSD.tex
+targets/Clay Institute/lemmas/lemma_MC_Hodge.tex
+targets/Clay Institute/lemmas/lemma_MG_YM.tex
+targets/Clay Institute/lemmas/lemma_PH_NS.tex
+targets/Clay Institute/ns_gap_attack.py
+targets/Clay Institute/ns_gap_attack_results.md
+targets/Clay Institute/ns_results_new.txt
+targets/Clay Institute/pnp_gap_attack.py
+targets/Clay Institute/pnp_gap_attack_results.md
+targets/Clay Institute/pnp_results_new.txt
+targets/Clay Institute/reality_anchors.py
+targets/Clay Institute/reality_anchors_part2.py
+targets/Clay Institute/reality_anchors_part2_results.md
+targets/Clay Institute/reality_anchors_results.md
+targets/Clay Institute/rh_gap_attack.py
+targets/Clay Institute/rh_gap_attack_results.md
+targets/Clay Institute/rh_results_new.txt
+targets/Clay Institute/run_ck.bat
+targets/Clay Institute/run_ck.sh
+targets/Clay Institute/staircase_breaking_point.py
+targets/Clay Institute/staircase_breaking_point_results.md
+targets/Clay Institute/torus_verification.py
+targets/Clay Institute/torus_verification_results.md
+targets/Clay Institute/universal_alignment_test.py
+targets/Clay Institute/universal_alignment_test_results.md
+targets/Clay Institute/verify_ck_core.py
+targets/Clay Institute/ym3_persistence_results.md
+targets/Clay Institute/ym3_persistence_test.py
+targets/Clay Institute/ym_results_new.txt
+targets/EverythingAppForGrandma/README.md
+targets/EverythingAppForGrandma/app.js
+targets/EverythingAppForGrandma/ck_audio.js
+targets/EverythingAppForGrandma/ck_core.js
+targets/EverythingAppForGrandma/index.html
+targets/EverythingAppForGrandma/manifest.json
+targets/EverythingAppForGrandma/style.css
+targets/EverythingAppForGrandma/sw.js
+targets/LEGAL.md
+targets/Nakamura Glaze Paper.pdf
+targets/ck_desktop/ARCHITECTURE.md
+targets/ck_desktop/CK.bat
+targets/ck_desktop/CK_COMPLETE_MAP.md
+targets/ck_desktop/CK_Watchdog.vbs
+targets/ck_desktop/CLAY_SUMMARY.md
+targets/ck_desktop/CLOUDFLARE_TUNNEL.md
+targets/ck_desktop/COLLABORATORS.md
+targets/ck_desktop/CORE/Breath_Defect_Flow.md
+targets/ck_desktop/CORE/VERSION_CORE.md
+targets/ck_desktop/DEVELOPMENT_NOTES.md
+targets/ck_desktop/DOCS/Engineering_Guide.md
+targets/ck_desktop/DOCS/Equation_Chain.md
+targets/ck_desktop/DOCS/Master_Overview.md
+targets/ck_desktop/ENGINEERING_OUTLINE.md
+targets/ck_desktop/ENGINEER_NOTES.md
+targets/ck_desktop/EXECUTION_PACK.md
+targets/ck_desktop/GENERATION_HISTORY.md
+targets/ck_desktop/HARDENING_STATUS.md
+targets/ck_desktop/LEGAL_NOTICE.md
+targets/ck_desktop/META/LICENSE_Sanders_Coherence.txt
+targets/ck_desktop/META/VERSION.txt
+targets/ck_desktop/PAPERS/P1_Navier_Stokes/NS_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P1_Navier_Stokes/NS_STATUS.md
+targets/ck_desktop/PAPERS/P2_PvsNP/PNP_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P2_PvsNP/PNP_STATUS.md
+targets/ck_desktop/PAPERS/P3_Riemann/RH_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P3_Riemann/RH_STATUS.md
+targets/ck_desktop/PAPERS/P4_Yang_Mills/YM_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P4_Yang_Mills/YM_STATUS.md
+targets/ck_desktop/PAPERS/P5_BSD/BSD_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P5_BSD/BSD_STATUS.md
+targets/ck_desktop/PAPERS/P6_Hodge/Hodge_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P6_Hodge/Hodge_STATUS.md
+targets/ck_desktop/PAPERS/P7_Poincare/Poincare_Paper_Scaffold.tex
+targets/ck_desktop/PAPERS/P7_Poincare/Poincare_STATUS.md
+targets/ck_desktop/PAPERS/P8_Unification/Unification_Book_Scaffold.tex
+targets/ck_desktop/PAPERS/P8_Unification/Unification_STATUS.md
+targets/ck_desktop/README.md
+targets/ck_desktop/REFERENCES.md
+targets/ck_desktop/Run
+targets/ck_desktop/START_HERE.md
+targets/ck_desktop/TECHNICAL_APPENDIX.md
+targets/ck_desktop/WHITEPAPER_1_TIG_ARCHITECTURE.md
+targets/ck_desktop/WHITEPAPER_2_WAVE_SCHEDULING.md
+targets/ck_desktop/WHITEPAPER_3_FALSIFIABILITY.md
+targets/ck_desktop/WHITEPAPER_4_CL_TABLES.md
+targets/ck_desktop/WHITEPAPER_5_REALITY_ANCHORS.md
+targets/ck_desktop/WHITEPAPER_6_HOTU_BRIDGE.md
+targets/ck_desktop/ab_results.json
+targets/ck_desktop/ab_results_full.json
+targets/ck_desktop/ab_test.py
+targets/ck_desktop/ab_test_full.py
+targets/ck_desktop/bhml_eigenvalue_analysis.py
+targets/ck_desktop/build_hebrew_english_bible.py
+targets/ck_desktop/ck_algebra.c
+targets/ck_desktop/ck_algebra.dll
+targets/ck_desktop/ck_algebra.h
+targets/ck_desktop/ck_algebra_bridge.py
+targets/ck_desktop/ck_algebra_v2.exp
+targets/ck_desktop/ck_algebra_v2.lib
+targets/ck_desktop/ck_backbone.py
+targets/ck_desktop/ck_bare_metal.py
+targets/ck_desktop/ck_bible_overnight.py
+targets/ck_desktop/ck_bible_reader.py
+targets/ck_desktop/ck_boot_api.py
+targets/ck_desktop/ck_console.py
+targets/ck_desktop/ck_converse.py
+targets/ck_desktop/ck_curriculum.py
+targets/ck_desktop/ck_deep_read.py
+targets/ck_desktop/ck_deep_reader.py
+targets/ck_desktop/ck_eat_algebra.py
+targets/ck_desktop/ck_force9_demo.py
+targets/ck_desktop/ck_foundation_reader.py
+targets/ck_desktop/ck_fpga_bridge.py
+targets/ck_desktop/ck_fpga_heartbeat_bridge.py
+targets/ck_desktop/ck_mandelbrot.py
+targets/ck_desktop/ck_nt_loop.py
+targets/ck_desktop/ck_operator_tests.py
+targets/ck_desktop/ck_os_reader.py
+targets/ck_desktop/ck_overnight_chain.py
+targets/ck_desktop/ck_overnight_math.py
+targets/ck_desktop/ck_pos_cache.json
+targets/ck_desktop/ck_pos_tagger.py
+targets/ck_desktop/ck_remote.py
+targets/ck_desktop/ck_run.bat
+targets/ck_desktop/ck_self_evolve.py
+targets/ck_desktop/ck_self_study.py
+targets/ck_desktop/ck_sim/__init__.py
+targets/ck_desktop/ck_sim/__main__.py
+targets/ck_desktop/ck_sim/becoming/__init__.py
+targets/ck_desktop/ck_sim/becoming/ck_activity_log.py
+targets/ck_desktop/ck_sim/becoming/ck_becoming_grammar.py
+targets/ck_desktop/ck_sim/becoming/ck_concept_spine.py
+targets/ck_desktop/ck_sim/becoming/ck_d1_lattice_builder.py
+targets/ck_desktop/ck_sim/becoming/ck_d2_dictionary_expander.py
+targets/ck_desktop/ck_sim/becoming/ck_development.py
+targets/ck_desktop/ck_sim/becoming/ck_dictionary_builder.py
+targets/ck_desktop/ck_sim/becoming/ck_education.py
+targets/ck_desktop/ck_sim/becoming/ck_english_build.py
+targets/ck_desktop/ck_sim/becoming/ck_episodic.py
+targets/ck_desktop/ck_sim/becoming/ck_identity.py
+targets/ck_desktop/ck_sim/becoming/ck_journal.py
+targets/ck_desktop/ck_sim/becoming/ck_knowledge_bootstrap.py
+targets/ck_desktop/ck_sim/becoming/ck_lexicon.py
+targets/ck_desktop/ck_sim/becoming/ck_lexicon_bulk.py
+targets/ck_desktop/ck_sim/becoming/ck_memory.py
+targets/ck_desktop/ck_sim/becoming/ck_metalearning.py
+targets/ck_desktop/ck_sim/becoming/ck_network.py
+targets/ck_desktop/ck_sim/becoming/ck_retrieval_engine.py
+targets/ck_desktop/ck_sim/becoming/ck_self_mirror.py
+targets/ck_desktop/ck_sim/becoming/ck_spectrometer_journal.py
+targets/ck_desktop/ck_sim/becoming/ck_translator.py
+targets/ck_desktop/ck_sim/becoming/ck_truth.py
+targets/ck_desktop/ck_sim/becoming/ck_world_lattice.py
+targets/ck_desktop/ck_sim/being/__init__.py
+targets/ck_desktop/ck_sim/being/ck_algebraic_neural.py
+targets/ck_desktop/ck_sim/being/ck_algebraic_proofs.py
+targets/ck_desktop/ck_sim/being/ck_attention.py
+targets/ck_desktop/ck_sim/being/ck_audio_compress.py
+targets/ck_desktop/ck_sim/being/ck_bible_sense.py
+targets/ck_desktop/ck_sim/being/ck_bonding.py
+targets/ck_desktop/ck_sim/being/ck_btq.py
+targets/ck_desktop/ck_sim/being/ck_chain_compression.py
+targets/ck_desktop/ck_sim/being/ck_clay_codecs.py
+targets/ck_desktop/ck_sim/being/ck_code_translation.py
+targets/ck_desktop/ck_sim/being/ck_coherence_action.py
+targets/ck_desktop/ck_sim/being/ck_coherence_field.py
+targets/ck_desktop/ck_sim/being/ck_coherence_gate.py
+targets/ck_desktop/ck_sim/being/ck_coherence_router.py
+targets/ck_desktop/ck_sim/being/ck_disagreement_tick.py
+targets/ck_desktop/ck_sim/being/ck_divine27.py
+targets/ck_desktop/ck_sim/being/ck_divine_memory.py
+targets/ck_desktop/ck_sim/being/ck_dkan_trainer.py
+targets/ck_desktop/ck_sim/being/ck_domains_r2.py
+targets/ck_desktop/ck_sim/being/ck_eat.py
+targets/ck_desktop/ck_sim/being/ck_emotion.py
+targets/ck_desktop/ck_sim/being/ck_experience.py
+targets/ck_desktop/ck_sim/being/ck_experience_index.py
+targets/ck_desktop/ck_sim/being/ck_fibonacci_transform.py
+targets/ck_desktop/ck_sim/being/ck_formal_theorems.py
+targets/ck_desktop/ck_sim/being/ck_fractal_comprehension.py
+targets/ck_desktop/ck_sim/being/ck_fractal_health.py
+targets/ck_desktop/ck_sim/being/ck_gustatory.py
+targets/ck_desktop/ck_sim/being/ck_hindsight_replay.py
+targets/ck_desktop/ck_sim/being/ck_hotu_bridge.py
+targets/ck_desktop/ck_sim/being/ck_immune.py
+targets/ck_desktop/ck_sim/being/ck_invariants.py
+targets/ck_desktop/ck_sim/being/ck_lattice_chain.py
+targets/ck_desktop/ck_sim/being/ck_lcodec.py
+targets/ck_desktop/ck_sim/being/ck_math_translation.py
+targets/ck_desktop/ck_sim/being/ck_meta_lens.py
+targets/ck_desktop/ck_sim/being/ck_nervous_v2.py
+targets/ck_desktop/ck_sim/being/ck_olfactory.py
+targets/ck_desktop/ck_sim/being/ck_personality.py
+targets/ck_desktop/ck_sim/being/ck_phonetic_letters.py
+targets/ck_desktop/ck_sim/being/ck_power_sense.py
+targets/ck_desktop/ck_sim/being/ck_retina.py
+targets/ck_desktop/ck_sim/being/ck_reverse_voice.py
+targets/ck_desktop/ck_sim/being/ck_screen_compress.py
+targets/ck_desktop/ck_sim/being/ck_semantic_index.py
+targets/ck_desktop/ck_sim/being/ck_semantic_modifiers.py
+targets/ck_desktop/ck_sim/being/ck_sensorium.py
+targets/ck_desktop/ck_sim/being/ck_sensory_codecs.py
+targets/ck_desktop/ck_sim/being/ck_sequence_memory.py
+targets/ck_desktop/ck_sim/being/ck_sim_body.py
+targets/ck_desktop/ck_sim/being/ck_sim_brain.py
+targets/ck_desktop/ck_sim/being/ck_sim_btq.py
+targets/ck_desktop/ck_sim/being/ck_sim_d2.py
+targets/ck_desktop/ck_sim/being/ck_sim_heartbeat.py
+targets/ck_desktop/ck_sim/being/ck_spectral_core.py
+targets/ck_desktop/ck_sim/being/ck_swarm.py
+targets/ck_desktop/ck_sim/being/ck_swarm_deep.py
+targets/ck_desktop/ck_sim/being/ck_table_derivation.py
+targets/ck_desktop/ck_sim/being/ck_taichi_chains.py
+targets/ck_desktop/ck_sim/being/ck_tig_bundle.py
+targets/ck_desktop/ck_sim/being/ck_tig_security.py
+targets/ck_desktop/ck_sim/being/ck_topology_lens.py
+targets/ck_desktop/ck_sim/being/ck_visual_encoder.py
+targets/ck_desktop/ck_sim/being/ck_vortex_physics.py
+targets/ck_desktop/ck_sim/being/ck_word_expansion.py
+targets/ck_desktop/ck_sim/ck_dictionary_enriched.json
+targets/ck_desktop/ck_sim/ck_pos_cache.json
+targets/ck_desktop/ck_sim/ck_tig.py
+targets/ck_desktop/ck_sim/config/ck_pulse_config.json
+targets/ck_desktop/ck_sim/config/hardware.yaml
+targets/ck_desktop/ck_sim/config/modes.yaml
+targets/ck_desktop/ck_sim/doing/__init__.py
+targets/ck_desktop/ck_sim/doing/ao_bridge.py
+targets/ck_desktop/ck_sim/doing/ck_action.py
+targets/ck_desktop/ck_sim/doing/ck_algorithm_lattice.py
+targets/ck_desktop/ck_sim/doing/ck_autodidact.py
+targets/ck_desktop/ck_sim/doing/ck_autodidact_runner.py
+targets/ck_desktop/ck_sim/doing/ck_beam_voice.py
+targets/ck_desktop/ck_sim/doing/ck_breath_engine.py
+targets/ck_desktop/ck_sim/doing/ck_claude_library.py
+targets/ck_desktop/ck_sim/doing/ck_clay_generators.py
+targets/ck_desktop/ck_sim/doing/ck_clay_protocol.py
+targets/ck_desktop/ck_sim/doing/ck_cloud_btq.py
+targets/ck_desktop/ck_sim/doing/ck_cloud_curvature.py
+targets/ck_desktop/ck_sim/doing/ck_cloud_flow.py
+targets/ck_desktop/ck_sim/doing/ck_cloud_pfe.py
+targets/ck_desktop/ck_sim/doing/ck_dialogue.py
+targets/ck_desktop/ck_sim/doing/ck_foo_engine.py
+targets/ck_desktop/ck_sim/doing/ck_force_voice.py
+targets/ck_desktop/ck_sim/doing/ck_forecast.py
+targets/ck_desktop/ck_sim/doing/ck_fractal_index.py
+targets/ck_desktop/ck_sim/doing/ck_fractal_scorer.py
+targets/ck_desktop/ck_sim/doing/ck_fractal_voice.py
+targets/ck_desktop/ck_sim/doing/ck_game_sense.py
+targets/ck_desktop/ck_sim/doing/ck_goals.py
+targets/ck_desktop/ck_sim/doing/ck_gpu.py
+targets/ck_desktop/ck_sim/doing/ck_language.py
+targets/ck_desktop/ck_sim/doing/ck_llm_filter.py
+targets/ck_desktop/ck_sim/doing/ck_nce.py
+targets/ck_desktop/ck_sim/doing/ck_organ_clouds.py
+targets/ck_desktop/ck_sim/doing/ck_prompt_craft.py
+targets/ck_desktop/ck_sim/doing/ck_pulse_config.json
+targets/ck_desktop/ck_sim/doing/ck_pulse_engine.py
+targets/ck_desktop/ck_sim/doing/ck_rate_engine.py
+targets/ck_desktop/ck_sim/doing/ck_reasoning.py
+targets/ck_desktop/ck_sim/doing/ck_rh5_attack.py
+targets/ck_desktop/ck_sim/doing/ck_semantic_engine.py
+targets/ck_desktop/ck_sim/doing/ck_sentence_composer.py
+targets/ck_desktop/ck_sim/doing/ck_sim_engine.py
+targets/ck_desktop/ck_sim/doing/ck_spectrometer.py
+targets/ck_desktop/ck_sim/doing/ck_ssa_engine.py
+targets/ck_desktop/ck_sim/doing/ck_steering.py
+targets/ck_desktop/ck_sim/doing/ck_thesis_writer.py
+targets/ck_desktop/ck_sim/doing/ck_thinking_lattice.py
+targets/ck_desktop/ck_sim/doing/ck_voice.py
+targets/ck_desktop/ck_sim/doing/ck_voice_lattice.py
+targets/ck_desktop/ck_sim/doing/ck_voice_loop.py
+targets/ck_desktop/ck_sim/doing/ck_ym_attack.py
+targets/ck_desktop/ck_sim/face/__init__.py
+targets/ck_desktop/ck_sim/face/ck_body_interface.py
+targets/ck_desktop/ck_sim/face/ck_deploy.py
+targets/ck_desktop/ck_sim/face/ck_gap_runner.py
+targets/ck_desktop/ck_sim/face/ck_headless.py
+targets/ck_desktop/ck_sim/face/ck_presentation.py
+targets/ck_desktop/ck_sim/face/ck_robot_body.py
+targets/ck_desktop/ck_sim/face/ck_sim.kv
+targets/ck_desktop/ck_sim/face/ck_sim_app.py
+targets/ck_desktop/ck_sim/face/ck_sim_audio.py
+targets/ck_desktop/ck_sim/face/ck_sim_ears.py
+targets/ck_desktop/ck_sim/face/ck_sim_led.py
+targets/ck_desktop/ck_sim/face/ck_sim_sd.py
+targets/ck_desktop/ck_sim/face/ck_sim_uart.py
+targets/ck_desktop/ck_sim/face/ck_sim_widgets.py
+targets/ck_desktop/ck_sim/face/ck_spectrometer_runner.py
+targets/ck_desktop/ck_sim/face/ck_web_api.py
+targets/ck_desktop/ck_sim/face/ck_zynq_dog.py
+targets/ck_desktop/ck_sim/notes/CELESTE_PAPERS_7_14_NOTES.txt
+targets/ck_desktop/ck_sim/notes/CELESTE_PAPER_NOTES.txt
+targets/ck_desktop/ck_sim/notes/MCO_INTEGRATION_NOTES.txt
+targets/ck_desktop/ck_sim/notes/TIG_FOO_KERNEL_SPEC.txt
+targets/ck_desktop/ck_sim/tests/__init__.py
+targets/ck_desktop/ck_sim/tests/ck_action_tests.py
+targets/ck_desktop/ck_sim/tests/ck_algebraic_proofs_tests.py
+targets/ck_desktop/ck_sim/tests/ck_attention_tests.py
+targets/ck_desktop/ck_sim/tests/ck_autodidact_runner_tests.py
+targets/ck_desktop/ck_sim/tests/ck_breath_tests.py
+targets/ck_desktop/ck_sim/tests/ck_btq_tests.py
+targets/ck_desktop/ck_sim/tests/ck_cloud_tests.py
+targets/ck_desktop/ck_sim/tests/ck_concept_spine_tests.py
+targets/ck_desktop/ck_sim/tests/ck_dialogue_tests.py
+targets/ck_desktop/ck_sim/tests/ck_education_tests.py
+targets/ck_desktop/ck_sim/tests/ck_english_tests.py
+targets/ck_desktop/ck_sim/tests/ck_episodic_tests.py
+targets/ck_desktop/ck_sim/tests/ck_field_tests.py
+targets/ck_desktop/ck_sim/tests/ck_foo_tests.py
+targets/ck_desktop/ck_sim/tests/ck_forecast_tests.py
+targets/ck_desktop/ck_sim/tests/ck_formal_theorems_confidence_tests.py
+targets/ck_desktop/ck_sim/tests/ck_game_sense_tests.py
+targets/ck_desktop/ck_sim/tests/ck_goals_tests.py
+targets/ck_desktop/ck_sim/tests/ck_identity_network_tests.py
+targets/ck_desktop/ck_sim/tests/ck_language_tests.py
+targets/ck_desktop/ck_sim/tests/ck_lexicon_bulk_tests.py
+targets/ck_desktop/ck_sim/tests/ck_lexicon_tests.py
+targets/ck_desktop/ck_sim/tests/ck_memory_tests.py
+targets/ck_desktop/ck_sim/tests/ck_meta_lens_tests.py
+targets/ck_desktop/ck_sim/tests/ck_metalearning_tests.py
+targets/ck_desktop/ck_sim/tests/ck_reasoning_tests.py
+targets/ck_desktop/ck_sim/tests/ck_robot_body_tests.py
+targets/ck_desktop/ck_sim/tests/ck_sensory_codecs_tests.py
+targets/ck_desktop/ck_sim/tests/ck_sim_btq_experiment.py
+targets/ck_desktop/ck_sim/tests/ck_sim_tests.py
+targets/ck_desktop/ck_sim/tests/ck_truth_tests.py
+targets/ck_desktop/ck_sim/tests/ck_world_lattice_tests.py
+targets/ck_desktop/ck_spectrometer_train.py
+targets/ck_desktop/ck_steer.c
+targets/ck_desktop/ck_steer.dll
+targets/ck_desktop/ck_steer.exp
+targets/ck_desktop/ck_steer.lib
+targets/ck_desktop/ck_steer_bridge.py
+targets/ck_desktop/ck_steering_ab_live.py
+targets/ck_desktop/ck_stream_client.py
+targets/ck_desktop/ck_stream_server.py
+targets/ck_desktop/ck_study.py
+targets/ck_desktop/ck_study_all.py
+targets/ck_desktop/ck_token_gate.py
+targets/ck_desktop/ck_watchdog.py
+targets/ck_desktop/ck_web_server.py
+targets/ck_desktop/compile_ck.bat
+targets/ck_desktop/compile_cuda.bat
+targets/ck_desktop/compile_log.txt
+targets/ck_desktop/compile_steer.bat
+targets/ck_desktop/force9_cuda.cu
+targets/ck_desktop/force9_cuda.exp
+targets/ck_desktop/force9_cuda.lib
+targets/ck_desktop/force9_pipeline.cu
+targets/ck_desktop/force9_pipeline.exp
+targets/ck_desktop/force9_pipeline.lib
+targets/ck_desktop/fpga/hdl/ck_brain_freq.v
+targets/ck_desktop/fpga/hdl/ck_heartbeat.v
+targets/ck_desktop/fpga/hdl/ck_top.v
+targets/ck_desktop/fpga/hdl/d2_pipeline.v
+targets/ck_desktop/fpga/hdl/dac_spi.v
+targets/ck_desktop/fpga/hdl/i2s_receiver.v
+targets/ck_desktop/gap_bridge_analysis.py
+targets/ck_desktop/gap_bridge_analysis_results.md
+targets/ck_desktop/install_desktop.ps1
+targets/ck_desktop/lemmas/LEMMA_STATUS.md
+targets/ck_desktop/lemmas/lemma_BRIDGE_v2.tex
+targets/ck_desktop/overnight_train.py
+targets/ck_desktop/reality_anchors_part2.py
+targets/ck_desktop/reality_anchors_part2_results.md
+targets/ck_desktop/requirements.txt
+targets/ck_desktop/run_ck.bat
+targets/ck_desktop/run_ck_headless.bat
+targets/ck_desktop/run_study.bat
+targets/ck_desktop/run_tests.bat
+targets/ck_desktop/start_ck_full.bat
+targets/ck_desktop/start_ck_tunnel.bat
+targets/ck_desktop/stream_bench.py
+targets/ck_desktop/stream_bench_results.json
+targets/ck_desktop/test_ab_steering.py
+targets/ck_desktop/tests/test_ck_invariants.py
+targets/ck_desktop/verify_ck_core.py
+targets/ck_desktop/void_analysis.py
+targets/ck_desktop/zynq7020/README.md
+targets/ck_desktop/zynq7020/hdl/bhml_table.v
+targets/ck_desktop/zynq7020/hdl/chain_walker.v
+targets/ck_desktop/zynq7020/hdl/ck_top_board.v
+targets/ck_desktop/zynq7020/hdl/ck_top_zynq7020.v
+targets/ck_desktop/zynq7020/hdl/gait_vortex.v
+targets/ck_desktop/zynq7020/hdl/vortex_cl.v
+targets/ck_portable/ENGINEER_NOTES.md
+targets/ck_portable/README.md
+targets/ck_portable/ck_sim/CELESTE_PAPERS_7_14_NOTES.txt
+targets/ck_portable/ck_sim/CELESTE_PAPER_NOTES.txt
+targets/ck_portable/ck_sim/__init__.py
+targets/ck_portable/ck_sim/__main__.py
+targets/ck_portable/ck_sim/ck_action.py
+targets/ck_portable/ck_sim/ck_action_tests.py
+targets/ck_portable/ck_sim/ck_attention.py
+targets/ck_portable/ck_sim/ck_attention_tests.py
+targets/ck_portable/ck_sim/ck_autodidact.py
+targets/ck_portable/ck_sim/ck_autodidact_runner.py
+targets/ck_portable/ck_sim/ck_autodidact_runner_tests.py
+targets/ck_portable/ck_sim/ck_body_interface.py
+targets/ck_portable/ck_sim/ck_bonding.py
+targets/ck_portable/ck_sim/ck_btq.py
+targets/ck_portable/ck_sim/ck_btq_tests.py
+targets/ck_portable/ck_sim/ck_cloud_btq.py
+targets/ck_portable/ck_sim/ck_cloud_curvature.py
+targets/ck_portable/ck_sim/ck_cloud_flow.py
+targets/ck_portable/ck_sim/ck_cloud_pfe.py
+targets/ck_portable/ck_sim/ck_cloud_tests.py
+targets/ck_portable/ck_sim/ck_coherence_field.py
+targets/ck_portable/ck_sim/ck_concept_spine.py
+targets/ck_portable/ck_sim/ck_concept_spine_tests.py
+targets/ck_portable/ck_sim/ck_d2_dictionary_expander.py
+targets/ck_portable/ck_sim/ck_deploy.py
+targets/ck_portable/ck_sim/ck_development.py
+targets/ck_portable/ck_sim/ck_dialogue.py
+targets/ck_portable/ck_sim/ck_dialogue_tests.py
+targets/ck_portable/ck_sim/ck_education.py
+targets/ck_portable/ck_sim/ck_education_tests.py
+targets/ck_portable/ck_sim/ck_emotion.py
+targets/ck_portable/ck_sim/ck_english_build.py
+targets/ck_portable/ck_sim/ck_english_tests.py
+targets/ck_portable/ck_sim/ck_episodic.py
+targets/ck_portable/ck_sim/ck_episodic_tests.py
+targets/ck_portable/ck_sim/ck_field_tests.py
+targets/ck_portable/ck_sim/ck_forecast.py
+targets/ck_portable/ck_sim/ck_forecast_tests.py
+targets/ck_portable/ck_sim/ck_fractal_health.py
+targets/ck_portable/ck_sim/ck_game_sense.py
+targets/ck_portable/ck_sim/ck_game_sense_tests.py
+targets/ck_portable/ck_sim/ck_goals.py
+targets/ck_portable/ck_sim/ck_goals_tests.py
+targets/ck_portable/ck_sim/ck_headless.py
+targets/ck_portable/ck_sim/ck_identity.py
+targets/ck_portable/ck_sim/ck_identity_network_tests.py
+targets/ck_portable/ck_sim/ck_immune.py
+targets/ck_portable/ck_sim/ck_language.py
+targets/ck_portable/ck_sim/ck_language_tests.py
+targets/ck_portable/ck_sim/ck_lexicon.py
+targets/ck_portable/ck_sim/ck_lexicon_bulk.py
+targets/ck_portable/ck_sim/ck_lexicon_bulk_tests.py
+targets/ck_portable/ck_sim/ck_lexicon_tests.py
+targets/ck_portable/ck_sim/ck_llm_filter.py
+targets/ck_portable/ck_sim/ck_memory.py
+targets/ck_portable/ck_sim/ck_memory_tests.py
+targets/ck_portable/ck_sim/ck_metalearning.py
+targets/ck_portable/ck_sim/ck_metalearning_tests.py
+targets/ck_portable/ck_sim/ck_network.py
+targets/ck_portable/ck_sim/ck_organ_clouds.py
+targets/ck_portable/ck_sim/ck_personality.py
+targets/ck_portable/ck_sim/ck_reasoning.py
+targets/ck_portable/ck_sim/ck_reasoning_tests.py
+targets/ck_portable/ck_sim/ck_retrieval_engine.py
+targets/ck_portable/ck_sim/ck_robot_body.py
+targets/ck_portable/ck_sim/ck_robot_body_tests.py
+targets/ck_portable/ck_sim/ck_self_mirror.py
+targets/ck_portable/ck_sim/ck_sensory_codecs.py
+targets/ck_portable/ck_sim/ck_sensory_codecs_tests.py
+targets/ck_portable/ck_sim/ck_sentence_composer.py
+targets/ck_portable/ck_sim/ck_sim.kv
+targets/ck_portable/ck_sim/ck_sim_app.py
+targets/ck_portable/ck_sim/ck_sim_audio.py
+targets/ck_portable/ck_sim/ck_sim_body.py
+targets/ck_portable/ck_sim/ck_sim_brain.py
+targets/ck_portable/ck_sim/ck_sim_btq.py
+targets/ck_portable/ck_sim/ck_sim_btq_experiment.py
+targets/ck_portable/ck_sim/ck_sim_d2.py
+targets/ck_portable/ck_sim/ck_sim_ears.py
+targets/ck_portable/ck_sim/ck_sim_engine.py
+targets/ck_portable/ck_sim/ck_sim_heartbeat.py
+targets/ck_portable/ck_sim/ck_sim_led.py
+targets/ck_portable/ck_sim/ck_sim_sd.py
+targets/ck_portable/ck_sim/ck_sim_tests.py
+targets/ck_portable/ck_sim/ck_sim_uart.py
+targets/ck_portable/ck_sim/ck_sim_widgets.py
+targets/ck_portable/ck_sim/ck_thesis_writer.py
+targets/ck_portable/ck_sim/ck_translator.py
+targets/ck_portable/ck_sim/ck_truth.py
+targets/ck_portable/ck_sim/ck_truth_tests.py
+targets/ck_portable/ck_sim/ck_voice.py
+targets/ck_portable/ck_sim/ck_world_lattice.py
+targets/ck_portable/ck_sim/ck_world_lattice_tests.py
+targets/ck_portable/ck_sim/ck_zynq_dog.py
+targets/ck_portable/requirements.txt
+targets/ck_portable/run_ck.bat
+targets/ck_portable/run_ck_headless.bat
+targets/ck_portable/run_study.bat
+targets/ck_portable/run_tests.bat
+targets/display_driver/Driver.cpp
+targets/display_driver/Driver.h
+targets/display_driver/Force9Encoder.h
+targets/display_driver/IddSampleApp/IddSampleApp.vcxproj
+targets/display_driver/IddSampleApp/IddSampleApp.vcxproj.filters
+targets/display_driver/IddSampleApp/main.cpp
+targets/display_driver/IddSampleDriver.inf
+targets/display_driver/IddSampleDriver.vcxproj
+targets/display_driver/README.md
+targets/fpga/ENGINEER_NOTES.md
+targets/fpga/GAP_ANALYSIS.md
+targets/fpga/HARDWARE_BOM.md
+targets/fpga/README.md
+targets/fpga/RPE_DOG_SPEC.md
+targets/fpga/arm/Makefile
+targets/fpga/arm/boot.S
+targets/fpga/arm/ck.h
+targets/fpga/arm/ck_audio.c
+targets/fpga/arm/ck_audio.h
+targets/fpga/arm/ck_body.c
+targets/fpga/arm/ck_body.h
+targets/fpga/arm/ck_brain.c
+targets/fpga/arm/ck_brain.h
+targets/fpga/arm/ck_core1.c
+targets/fpga/arm/ck_dog_main.c
+targets/fpga/arm/ck_dog_steer.c
+targets/fpga/arm/ck_dog_steer.h
+targets/fpga/arm/ck_ears.c
+targets/fpga/arm/ck_ears.h
+targets/fpga/arm/ck_led.c
+targets/fpga/arm/ck_led.h
+targets/fpga/arm/ck_main.c
+targets/fpga/arm/ck_sd.c
+targets/fpga/arm/ck_sd.h
+targets/fpga/arm/ck_uart.c
+targets/fpga/arm/ck_uart.h
+targets/fpga/arm/ck_usb_host.c
+targets/fpga/arm/ck_usb_host.h
+targets/fpga/arm/lscript.ld
+targets/fpga/bridge/ck_serial.py
+targets/fpga/hdl/ad7606_adc.v
+targets/fpga/hdl/ck_brain_freq.v
+targets/fpga/hdl/ck_heartbeat.v
+targets/fpga/hdl/ck_top.v
+targets/fpga/hdl/d2_pipeline.v
+targets/fpga/hdl/dac_spi.v
+targets/fpga/hdl/i2s_receiver.v
+targets/fpga/hdl/mipi_csi_rx.v
+targets/fpga/sim/ck_body_interface.py
+targets/fpga/sim/ck_robot_body.py
+targets/fpga/sim/ck_robot_reflex.py
+targets/fpga/sim/ck_sensory_codecs.py
+targets/fpga/sim/ck_sim_audio.py
+targets/fpga/sim/ck_sim_led.py
+targets/fpga/sim/ck_sim_uart.py
+targets/fpga/sim/ck_zynq_dog.py
+targets/fpga/sim/ck_zynq_sequencer.py
+targets/session_march25/algebra/tig_being_binary.py
+targets/session_march25/algebra/tig_deep_analysis.py
+targets/session_march25/algebra/tig_derive_tables.py
+targets/session_march25/algebra/tig_find_table.py
+targets/session_march25/algebra/tig_permutate.py
+targets/session_march25/algebra/tig_resolution.py
+targets/session_march25/algebra/tig_rigorous_tables.py
+targets/session_march25/algebra/tig_tables_v3.py
+targets/session_march25/algebra/tig_ternary.py
+targets/session_march25/compression/tig_27bit_audio.py
+targets/session_march25/compression/tig_27bit_color.py
+targets/session_march25/compression/tig_color_v2.py
+targets/session_march25/compression/tig_domains_r2.py
+targets/session_march25/compression/tig_multidom.py
+targets/session_march25/compression/tig_phonetic_letters.py
+targets/session_march25/compression/tig_screen_compress.py
+targets/session_march25/compression/tig_visual.py
+targets/session_march25/docs/README.md
+targets/session_march25/docs/TIG_COMPRESSION_PACKAGE.md
+targets/session_march25/nervous_system/ck_disagreement_tick.py
+targets/session_march25/nervous_system/ck_nervous_system.py
+targets/session_march25/nervous_system/ck_nervous_v2.py
+targets/website/ENGINEER_NOTES.md
+targets/website/README.md
+targets/website/build_dictionary.py
+targets/website/chat.html
+targets/website/ck_core.js
+targets/website/ck_d2.js
+targets/website/ck_web_server.py
+targets/website/index.html
+targets/website/style.css
+targets/zynq7020/HARDWARE_CHEAT_SHEET.md
+targets/zynq7020/PA-StarLite-sch.pdf
+targets/zynq7020/PIN_MAPPING.md
+targets/zynq7020/README.md
+targets/zynq7020/bridge/clay_rom_gen.py
+targets/zynq7020/bridge/cmb_d2_spectrometer.py
+targets/zynq7020/bridge/cmb_d2_spectrometer_results.txt
+targets/zynq7020/bridge/codon_d2_results.txt
+targets/zynq7020/bridge/codon_d2_spectrometer.py
+targets/zynq7020/bridge/ecology_d2_spectrometer.py
+targets/zynq7020/bridge/ecology_d2_spectrometer_results.txt
+targets/zynq7020/bridge/econ_d2_spectrometer.py
+targets/zynq7020/bridge/econ_d2_spectrometer_results.txt
+targets/zynq7020/bridge/eeg_d2_spectrometer.py
+targets/zynq7020/bridge/eeg_d2_spectrometer_results.txt
+targets/zynq7020/bridge/linguistics_d2_spectrometer.py
+targets/zynq7020/bridge/linguistics_d2_spectrometer_results.txt
+targets/zynq7020/bridge/periodic_d2.py
+targets/zynq7020/bridge/periodic_d2_deep.py
+targets/zynq7020/bridge/periodic_d2_deep_results.txt
+targets/zynq7020/bridge/periodic_d2_results.txt
+targets/zynq7020/bridge/quantum_d2_spectrometer.py
+targets/zynq7020/bridge/quantum_d2_spectrometer_results.txt
+targets/zynq7020/build/ck_zynq7020.tcl
+targets/zynq7020/build/pz7020_full.xdc
+targets/zynq7020/build/pz7020_starlite.xdc
+targets/zynq7020/hdl/bhml_table.v
+targets/zynq7020/hdl/chain_walker.v
+targets/zynq7020/hdl/ck_eth_tx.v
+targets/zynq7020/hdl/ck_hdmi_out.v
+targets/zynq7020/hdl/ck_hdmi_tmds.v
+targets/zynq7020/hdl/ck_lcd_out.v
+targets/zynq7020/hdl/ck_top_board.v
+targets/zynq7020/hdl/ck_top_clay.v
+targets/zynq7020/hdl/ck_top_full.v
+targets/zynq7020/hdl/ck_top_ps7.v
+targets/zynq7020/hdl/ck_top_ps7_ila.v
+targets/zynq7020/hdl/ck_top_sighted.v
+targets/zynq7020/hdl/ck_top_test.v
+targets/zynq7020/hdl/ck_top_zynq7020.v
+targets/zynq7020/hdl/clay_sweep.v
+targets/zynq7020/hdl/clay_vectors.hex
+targets/zynq7020/hdl/clay_vectors_info.txt
+targets/zynq7020/hdl/d2_clay.v
+targets/zynq7020/hdl/gait_vortex.v
+targets/zynq7020/hdl/i2c_master.v
+targets/zynq7020/hdl/servo_cal.v
+targets/zynq7020/hdl/servo_commander.v
+targets/zynq7020/hdl/servo_uart_tx.v
+targets/zynq7020/hdl/vortex_cl.v
+train.sh

@@ -1,0 +1,261 @@
+{
+  "rcontrol": {
+    "rcontrol:ar": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.74,
+      "n_operators_avg": 5097,
+      "histogram_pct": {
+        "VOID": 19.2,
+        "LATTICE": 12.0,
+        "COUNTER": 9.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.4,
+        "CHAOS": 10.7,
+        "HARMONY": 10.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "rcontrol:er": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.565,
+      "n_operators_avg": 3890,
+      "histogram_pct": {
+        "VOID": 20.6,
+        "LATTICE": 11.4,
+        "COUNTER": 8.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.1,
+        "BALANCE": 6.8,
+        "CHAOS": 10.0,
+        "HARMONY": 11.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "rcontrol:ir": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.755,
+      "n_operators_avg": 5200,
+      "histogram_pct": {
+        "VOID": 18.4,
+        "LATTICE": 11.6,
+        "COUNTER": 9.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.2,
+        "BALANCE": 6.5,
+        "CHAOS": 11.2,
+        "HARMONY": 11.9,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "rcontrol:or": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.49,
+      "n_operators_avg": 3375,
+      "histogram_pct": {
+        "VOID": 21.9,
+        "LATTICE": 10.1,
+        "COUNTER": 4.6,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.6,
+        "BALANCE": 6.0,
+        "CHAOS": 9.4,
+        "HARMONY": 17.4,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "rcontrol:ur": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.475,
+      "n_operators_avg": 3270,
+      "histogram_pct": {
+        "VOID": 22.8,
+        "LATTICE": 7.6,
+        "COUNTER": 4.3,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 10.6,
+        "BALANCE": 5.5,
+        "CHAOS": 11.9,
+        "HARMONY": 17.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    }
+  },
+  "teams": {
+    "team:ai": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.32999999999999996,
+      "n_operators_avg": 2272,
+      "histogram_pct": {
+        "VOID": 22.2,
+        "LATTICE": 11.6,
+        "COUNTER": 8.2,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 14.7,
+        "BALANCE": 6.0,
+        "CHAOS": 7.8,
+        "HARMONY": 9.6,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ay": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 18.4,
+        "LATTICE": 11.9,
+        "COUNTER": 11.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 12.8,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ee": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.38,
+      "n_operators_avg": 2615,
+      "histogram_pct": {
+        "VOID": 23.9,
+        "LATTICE": 10.2,
+        "COUNTER": 6.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.9,
+        "BALANCE": 6.9,
+        "CHAOS": 9.2,
+        "HARMONY": 11.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ea": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.39,
+      "n_operators_avg": 2685,
+      "histogram_pct": {
+        "VOID": 22.8,
+        "LATTICE": 10.4,
+        "COUNTER": 7.5,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.4,
+        "BALANCE": 5.4,
+        "CHAOS": 9.2,
+        "HARMONY": 11.3,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ie": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.41000000000000003,
+      "n_operators_avg": 2822,
+      "histogram_pct": {
+        "VOID": 20.3,
+        "LATTICE": 10.1,
+        "COUNTER": 7.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.1,
+        "BALANCE": 6.7,
+        "CHAOS": 11.5,
+        "HARMONY": 13.2,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:igh": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.24,
+      "n_operators_avg": 1652,
+      "histogram_pct": {
+        "VOID": 19.5,
+        "LATTICE": 11.1,
+        "COUNTER": 10.1,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 13.1,
+        "BALANCE": 6.6,
+        "CHAOS": 10.2,
+        "HARMONY": 9.4,
+        "BREATH": 0.1,
+        "RESET": 19.9
+      }
+    },
+    "team:oa": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.505,
+      "n_operators_avg": 3477,
+      "histogram_pct": {
+        "VOID": 21.7,
+        "LATTICE": 9.2,
+        "COUNTER": 6.0,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.6,
+        "BALANCE": 6.0,
+        "CHAOS": 10.6,
+        "HARMONY": 14.8,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:oo": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.5349999999999999,
+      "n_operators_avg": 3685,
+      "histogram_pct": {
+        "VOID": 22.6,
+        "LATTICE": 9.9,
+        "COUNTER": 5.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.0,
+        "BALANCE": 6.2,
+        "CHAOS": 9.4,
+        "HARMONY": 15.1,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ue": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.56,
+      "n_operators_avg": 3857,
+      "histogram_pct": {
+        "VOID": 22.5,
+        "LATTICE": 8.6,
+        "COUNTER": 4.9,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.2,
+        "BALANCE": 6.2,
+        "CHAOS": 11.7,
+        "HARMONY": 14.8,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    },
+    "team:ew": {
+      "n_runs": 2,
+      "trimmed_duration_sec": 0.35,
+      "n_operators_avg": 2410,
+      "histogram_pct": {
+        "VOID": 26.4,
+        "LATTICE": 10.4,
+        "COUNTER": 5.8,
+        "PROGRESS": 0.0,
+        "COLLAPSE": 11.4,
+        "BALANCE": 6.6,
+        "CHAOS": 7.1,
+        "HARMONY": 12.5,
+        "BREATH": 0.0,
+        "RESET": 20.0
+      }
+    }
+  }
+}

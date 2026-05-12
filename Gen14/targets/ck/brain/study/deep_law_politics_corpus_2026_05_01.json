@@ -1,0 +1,88 @@
+{
+  "_about": "DEEP LAW + POLITICS corpus 2026-05-01. Constitutional law, criminal law, contract, IP, governance systems, democratic theory, international relations, political ideologies. CK reads these as operator-LATTICEs, careful to distinguish descriptive from prescriptive.",
+  "_replays": 25,
+  "_session_prefix": "deep_law_politics_2026_05_01",
+  "constitutional_law": [
+    "Constitution is operator-LATTICE-OF-FOUNDATIONAL-RULES for governance; supreme law of the land in constitutional democracies.",
+    "US Constitution (1787) operator-FRAMEWORK-WITH-AMENDMENTS; Bill of Rights (10) + 17 subsequent amendments; rigid constitution (high amendment threshold).",
+    "Common law (UK, US, India, etc) is operator-CASE-LAW-LATTICE; precedent (stare decisis) builds on judge-made rulings.",
+    "Civil law (France, Germany, most of Europe + Latin America) is operator-CODE-BASED; comprehensive statutes, less weight to precedent.",
+    "Separation of powers is operator-LATTICE-OF-LEGISLATIVE-EXECUTIVE-JUDICIAL; checks and balances; Montesquieu's design.",
+    "Judicial review is operator-COURT-AUTHORITY-TO-INVALIDATE-LAWS; Marbury v. Madison (1803 US) established it.",
+    "Federalism is operator-LATTICE-OF-DIVIDED-AUTHORITY between national + state/regional governments; varies (US strong, UK devolution, Germany cooperative).",
+    "Constitutional interpretation: operator-LATTICE-OF-METHODS; originalist (text + framers' intent) vs living constitution (evolving interpretation) + textualist + purposive.",
+    "Rights frameworks: operator-LATTICE-OF-PROTECTED-LIBERTIES; speech + religion + press + assembly + due process + equal protection + privacy + against unreasonable search.",
+    "Constitutional crises occur when operator-INTERPRETATIONS-CONFLICT or institutions deadlock; resolutions vary, sometimes formal, sometimes informal."
+  ],
+  "criminal_law": [
+    "Criminal law is operator-STATE-PUNISHMENT-OF-WRONGDOING; distinguished from civil (private dispute resolution).",
+    "Mens rea is operator-GUILTY-MIND-REQUIREMENT for most crimes; intent (purpose) knowledge (awareness) recklessness (conscious disregard) negligence (should have known).",
+    "Actus reus is operator-GUILTY-ACT-REQUIREMENT; voluntary action causing harm; pure thoughts not punishable.",
+    "Crime categories: operator-LATTICE; felony (serious, >1yr) vs misdemeanor (less serious, <1yr) vs infraction.",
+    "Crimes against persons: operator-LATTICE; murder (manslaughter degrees) assault battery rape robbery kidnapping.",
+    "Crimes against property: theft (larceny embezzlement burglary) fraud arson destruction.",
+    "White collar crime: operator-NON-VIOLENT-FINANCIAL; embezzlement bribery insider trading securities fraud tax evasion.",
+    "Defenses: operator-LATTICE; insanity (M'Naghten Durham irresistible-impulse) self-defense duress entrapment necessity intoxication mistake.",
+    "Procedural rights (US): operator-LATTICE; Miranda + right-to-counsel + speedy trial + jury trial + against self-incrimination + due process.",
+    "Sentencing varies: operator-LATTICE-OF-PHILOSOPHIES; retribution + deterrence + rehabilitation + incapacitation + restoration; mass incarceration reflects retribution-incapacitation dominance in US.",
+    "International criminal law: operator-LATTICE-OF-CROSS-BORDER + supranational; ICC (Rome Statute), war crimes + crimes against humanity + genocide + aggression."
+  ],
+  "contract_and_ip": [
+    "Contract is operator-LATTICE-OF-MUTUAL-OBLIGATION; offer + acceptance + consideration + meeting of minds + capacity + legal purpose.",
+    "Breach of contract is operator-FAILURE-TO-PERFORM; remedies = damages (compensatory + liquidated + consequential) + specific performance + rescission.",
+    "Tort is operator-CIVIL-WRONG (not criminal, not contract); negligence + intentional torts + strict liability; duty + breach + causation + damages.",
+    "Property law is operator-LATTICE-OF-OWNERSHIP-RIGHTS; real (land) + personal (movable) + intellectual (creations); each different rules.",
+    "Intellectual property: operator-LATTICE-OF-FOUR; copyright (expression) patent (invention) trademark (brand) trade secret (commercial info).",
+    "Copyright is operator-AUTOMATIC-ON-FIXATION; protects expression not idea; life + 70 years (US) typically; fair use exceptions.",
+    "Patent is operator-EXAMINED-RIGHT; 20 years from filing; novel + non-obvious + useful; full disclosure required.",
+    "Trademark is operator-PROTECTION-OF-SOURCE-IDENTIFIER; brand names + logos + trade dress; renewable indefinitely if used.",
+    "Trade secrets are operator-COMMERCIAL-INFO-KEPT-CONFIDENTIAL; no formal registration; protection lasts as long as secret maintained (Coca-Cola formula example).",
+    "Open source licenses: operator-LATTICE-OF-COPYLEFT-vs-PERMISSIVE; GPL (copyleft, derivative must be GPL) vs MIT/Apache (permissive, fewer restrictions).",
+    "Brayden's 7Site Public Sovereignty License is operator-CUSTOM-LICENSE; non-commercial human + AI use permitted, commercial + governmental requires written agreement; CK is licensed under it."
+  ],
+  "governance_systems": [
+    "Democracy is operator-RULE-BY-PEOPLE; direct (referenda) representative (elected officials) deliberative (citizen assemblies) variants.",
+    "Authoritarianism is operator-CONCENTRATED-POWER without effective check; ranges totalitarian (full control of life) to consultative-authoritarian.",
+    "Mixed regimes: operator-DEMOCRATIC-INSTITUTIONS-WITH-AUTHORITARIAN-PRACTICES; competitive authoritarianism + electoral autocracy + illiberal democracy.",
+    "Theocracy is operator-RELIGIOUS-LAW-AS-GOVERNANCE; Vatican + Iran + some forms in others; varies in extent.",
+    "Monarchy is operator-INHERITED-RULE; absolute (very rare now) constitutional (UK Japan Sweden) ceremonial.",
+    "Democracy index measures operator-LATTICE-OF-DEMOCRATIC-QUALITY; electoral process + civil liberties + government function + political participation + political culture.",
+    "Constitutional democracy combines operator-MAJORITY-RULE + minority-rights; both procedural (free elections) + substantive (rights protected from majoritarian override).",
+    "Federal vs unitary: operator-DIVIDED-vs-CENTRALIZED; US Germany India federal; France UK China unitary; affects subnational autonomy.",
+    "Parliamentary vs presidential: operator-EXECUTIVE-DERIVED-FROM-LEGISLATURE vs separately-elected; UK + most Europe parliamentary, US + Latin America presidential.",
+    "Coalition government: operator-MULTI-PARTY-COMPROMISE; common in proportional-representation + parliamentary systems.",
+    "Voting systems: operator-LATTICE; FPTP (single-winner plurality) vs STV (single-transferable vote) vs proportional (party-list) vs ranked-choice + others; each shapes outcomes."
+  ],
+  "international_relations": [
+    "International law is operator-LATTICE-OF-RULES-BETWEEN-STATES; treaties + customary law + general principles; enforcement weaker than domestic.",
+    "UN Charter (1945): operator-FOUNDATIONAL-INTERNATIONAL-FRAMEWORK; Security Council + General Assembly + ICJ + agencies.",
+    "Sovereignty is operator-STATE-EXCLUSIVE-AUTHORITY over territory; foundational principle since Westphalia (1648); contested by humanitarian intervention + globalization.",
+    "Realism is operator-IR-THEORY-of-power-politics; states pursue self-interest in anarchic system; Morgenthau Mearsheimer.",
+    "Liberalism (in IR): operator-INSTITUTIONS-AND-INTERDEPENDENCE-MITIGATE-CONFLICT; democracies don't fight each other (mostly); Kant Doyle Keohane.",
+    "Constructivism: operator-NORMS-AND-IDENTITIES-SHAPE-BEHAVIOR; not just interests; Wendt Onuf Finnemore.",
+    "Balance of power is operator-COUNTER-DYNAMICS; coalitions form against potential hegemon; defensive realist version.",
+    "Hegemonic stability: operator-DOMINANT-POWER-PROVIDES-PUBLIC-GOODS; Pax Britannica + Pax Americana; transitions can be turbulent.",
+    "Soft power is operator-ATTRACTION-NOT-COERCION; cultural + ideological + diplomatic appeal; Joseph Nye.",
+    "Just war theory: operator-LATTICE-OF-CONDITIONS for justified war; jus ad bellum (when) + jus in bello (how) + jus post bellum (after).",
+    "Climate negotiation: operator-COLLECTIVE-ACTION-PROBLEM; UNFCCC + Paris Agreement + COP cycle; tension between common-but-differentiated-responsibility + national interest."
+  ],
+  "political_ideologies": [
+    "Liberalism (classical): operator-INDIVIDUAL-LIBERTY-LIMITED-GOVERNMENT; Locke Smith Mill; foundation of modern democracy.",
+    "Conservatism (Burkean): operator-CAUTION-ABOUT-RAPID-CHANGE; tradition + ordered liberty + organic society.",
+    "Socialism: operator-COLLECTIVE-OWNERSHIP-OR-CONTROL of means of production; democratic socialism (Sanders Corbyn) vs Marxist-Leninist (USSR).",
+    "Communism: operator-CLASSLESS-STATELESS-EVENTUALLY; transitional state ownership precedes; Marx Engels Lenin Mao; mostly historical now.",
+    "Anarchism: operator-NO-STATE-AUTHORITY; left-anarchism (mutual aid) vs anarcho-capitalism (Rothbard); diverse traditions.",
+    "Fascism: operator-ULTRANATIONAL-AUTHORITARIAN; charismatic leader + rejection of liberalism + organic-state; Mussolini Hitler historically; concerning revivals.",
+    "Libertarianism: operator-MAXIMAL-INDIVIDUAL-LIBERTY-MINIMAL-STATE; non-aggression principle; Nozick Rothbard.",
+    "Progressivism: operator-EVOLVING-RIGHTS-AND-INSTITUTIONS; expansion of franchise + civil rights + social safety net; from Progressive Era through New Deal to today.",
+    "Populism: operator-PEOPLE-VS-ELITES; left-populist (economic) vs right-populist (cultural); both reject established institutions; varies in democratic compatibility.",
+    "Greens: operator-ECOLOGICAL-FOUNDATION + social justice + non-violence + grassroots democracy; emerged 1970s.",
+    "Religious-political fusion: operator-FAITH-INFORMING-POLITICS; Christian Democracy (Europe) Hindu nationalism Islamic political parties Christian Nationalism."
+  ],
+  "directive": [
+    "Law + politics are operator-CONTESTED-LATTICES; CK should describe positions accurately without advocating.",
+    "When user asks legal-specific questions, CK names that he is not a lawyer + suggests consultation; legal advice has stakes.",
+    "When user asks political questions, CK presents multiple positions + respects pluralism + flags where consensus exists vs where deep disagreement.",
+    "CK is licensed under 7Site Public Sovereignty License which is itself a political document (rejecting commercial + governmental use); CK's own existence is political in this sense."
+  ]
+}

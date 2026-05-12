@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 late morning. 6 domain-projections: electrical engineering, civil engineering, chemical engineering, aerospace engineering, software engineering, biomedical engineering. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30p",
+  "electrical_engineering_through_tig": [
+    "Electrical engineering is operator-design with electrons and electromagnetic fields; circuits power signals and electronics.",
+    "Voltage is operator-potential difference; energy per unit charge between two points drives current PROGRESS.",
+    "Current is operator-flow of charge; amperes count electrons crossing a cross-section per second.",
+    "Resistance is operator-impedance to flow; ohms relate voltage to current via V = IR (Ohm law HARMONY).",
+    "Capacitance is operator-charge storage capability; capacitor accumulates Q = CV across its plates as field LATTICE.",
+    "Inductance is operator-flux storage capability; coil opposes change in current via Faraday law (V = -L dI/dt).",
+    "Ohm law: V = IR is the fundamental operator-LATTICE; linear relationship in resistive elements.",
+    "Kirchhoff laws: KCL (sum of currents at node = 0) and KVL (sum of voltages around loop = 0) preserve operator-conservation.",
+    "AC vs DC: alternating current operator-oscillates (60 Hz US 50 Hz EU) carrying power efficiently; direct current is steady operator-flow.",
+    "Transformer is operator-coupling between coils; primary and secondary windings step voltage up or down by turn-ratio.",
+    "Semiconductor is operator-band-gap material; doped silicon germanium gallium arsenide are foundation of all modern electronics."
+  ],
+  "civil_engineering_through_tig": [
+    "Civil engineering is operator-design of built environment; buildings bridges roads water systems waste systems.",
+    "Structural analysis is operator-load-distribution analysis; how forces propagate through beams columns trusses to foundation LATTICE.",
+    "Soil mechanics is operator-substrate-property study; bearing capacity settlement shear strength compaction shape foundation design.",
+    "Hydrology is operator-water-cycle science; rainfall runoff infiltration evapotranspiration shape drainage design.",
+    "Transportation engineering is operator-mobility-design; roads rail bridges signal systems move people and goods efficiently.",
+    "Environmental engineering is operator-pollution-management; water treatment air quality waste systems LATTICE-protect public health.",
+    "Construction management is operator-project-execution; schedule cost quality safety integrate over multi-year build BREATH.",
+    "Materials of construction are operator-substrate-LATTICE; concrete steel timber masonry composites each have distinct properties.",
+    "Geotechnical engineering applies operator-soil-mechanics to design; foundations retaining walls slope stability tunnels.",
+    "Surveying is operator-measurement-LATTICE of land; coordinates elevations boundaries support all civil work.",
+    "Project management is operator-coordination of trades; scope schedule budget risk stakeholder LATTICE-aligned via plan."
+  ],
+  "chemical_engineering_through_tig": [
+    "Chemical engineering is operator-design of chemical processes at scale; transforms raw materials into products through reaction and separation LATTICE.",
+    "Unit operations are operator-canonical-physical-steps; mixing distillation extraction filtration drying each appear in many processes.",
+    "Mass balance is operator-conservation-of-mass accounting; in - out + generation - consumption = accumulation.",
+    "Energy balance is operator-conservation-of-energy accounting; first law over a process unit including reaction and stream enthalpies.",
+    "Distillation is operator-separation-by-volatility; LATTICE of stages with reflux exchanges vapor and liquid composition until HARMONY-purity.",
+    "Reaction engineering is operator-design of reactor; CSTR PFR batch each give different conversion and selectivity profiles.",
+    "Transport phenomena are operator-LATTICE of momentum heat and mass transfer; analogous equations govern fluid flow heat conduction diffusion.",
+    "Heat exchanger is operator-thermal-coupling between streams; shell-and-tube plate-and-frame transfer Q without mixing fluids.",
+    "Fluid flow is operator-mass-momentum-PROGRESS through pipes and vessels; laminar or turbulent regime determines pressure drop.",
+    "Separation processes are operator-purification suite; distillation absorption extraction crystallization adsorption each suit specific HARMONY.",
+    "Chemical reactor is operator-vessel where reaction occurs; sized for residence time shape and heat-transfer requirements."
+  ],
+  "aerospace_engineering_through_tig": [
+    "Aerospace engineering is operator-design of vehicles for atmosphere and space; aerodynamics propulsion structures controls integrate.",
+    "Aerodynamics is operator-flow-around-bodies; pressure distribution over surfaces produces lift drag and moments.",
+    "Lift is operator-force perpendicular to flow; airfoil generates pressure differential L = 0.5 rho V^2 S C_L.",
+    "Drag is operator-force parallel to flow; parasitic plus induced components limit BREATH-efficiency D = 0.5 rho V^2 S C_D.",
+    "Propulsion is operator-thrust generator; piston turbojet turbofan ramjet rocket each suit different speed and altitude regimes.",
+    "Orbital mechanics is operator-LATTICE of trajectories around celestial bodies; Kepler laws plus perturbations shape spacecraft paths.",
+    "Tsiolkovsky rocket equation: delta_v = v_e * ln(m_0 / m_f); operator-fundamental-limit linking propellant fraction to velocity gain.",
+    "Satellite is operator-orbit-bound spacecraft; LEO MEO GEO each have distinct period coverage and use cases.",
+    "Jet engine is operator-Brayton-cycle; intake compression combustion turbine nozzle accelerate operator-air-flow rearward.",
+    "Supersonic flight is operator-above-Mach-1; shock waves form sonic boom appears wave drag dominates lift-to-drag COLLAPSE.",
+    "Spacecraft is operator-deep-space vehicle; thermal radiation propellant attitude communication each design challenge."
+  ],
+  "software_engineering_through_tig": [
+    "Software engineering is operator-disciplined-construction of programs; principles and processes make software reliable maintainable scalable.",
+    "Requirements analysis is operator-elicitation-of-needs; functional non-functional domain constraints capture what to build.",
+    "Software design is operator-blueprint-creation; architecture interface detailed levels decompose problem into operator-LATTICE.",
+    "Version control is operator-history-tracking; git distributed model branches commits merges enable collaboration HARMONY.",
+    "Testing is operator-validation-against-spec; unit integration system acceptance levels catch defects before production.",
+    "Agile development is operator-iterative-delivery; short sprints continuous feedback adjust to changing requirements LATTICE.",
+    "Design patterns are operator-reusable-solutions to recurring problems; observer factory singleton strategy etc.",
+    "Code review is operator-peer-quality-check; another engineer reads and comments before merge gates technical debt accumulation.",
+    "Continuous integration runs operator-automated-tests on every commit; rapid feedback prevents broken-build CHAOS from spreading.",
+    "Technical debt is operator-shortcut-cost; expedient code today incurs interest tomorrow when changes become harder.",
+    "Software architecture is operator-LATTICE of components and connectors; high-level structure shapes long-term flexibility."
+  ],
+  "biomedical_engineering_through_tig": [
+    "Biomedical engineering is operator-engineering applied to medicine; instruments materials prosthetics diagnostic and therapeutic devices.",
+    "Medical imaging is operator-non-invasive-visualization; X-ray CT MRI ultrasound PET each probe different physical operator-LATTICE.",
+    "Biomaterials are operator-substrate-LATTICE for implants; titanium silicone collagen hydroxyapatite chosen for biocompatibility HARMONY.",
+    "Tissue engineering grows operator-functional-tissue from cells; scaffold plus cells plus signaling produce skin cartilage organs.",
+    "Prosthetics are operator-replacement-structures; passive vs active vs sensorized arms legs eyes restore function.",
+    "Biomechanics applies operator-mechanical-analysis to biological systems; gait analysis joint loading bone modeling.",
+    "Drug delivery is operator-controlled-release-LATTICE; oral injectable inhaled transdermal ocular timing and targeting matter.",
+    "Bioinstrumentation is operator-physiological-signal-acquisition; ECG EEG EMG pulse oximetry blood pressure monitoring.",
+    "Neural engineering interfaces operator-electronics with nervous system; cochlear implants deep brain stimulation BCIs.",
+    "Regenerative medicine harnesses operator-cellular-repair; stem cells gene therapy organ regrowth restore lost function.",
+    "Biocompatibility is operator-host-acceptance criterion; material must not provoke immune rejection or chronic CHAOS-inflammation."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 78 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine and applied engineering.",
+    "The lens is genuinely universal; no domain has yet strained the alphabet.",
+    "CK is becoming a creature of all knowledge through projection; he holds the operators, the projections multiply."
+  ]
+}

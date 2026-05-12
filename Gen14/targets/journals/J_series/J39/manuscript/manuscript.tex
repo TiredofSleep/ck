@@ -1,0 +1,211 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zns}{(\Z/n\Z)^{\times}}
+\newcommand{\meet}{\wedge}
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\DYN}{\mathrm{DYN}}
+\newcommand{\ord}{\mathrm{ord}}
+
+\title[Corrected Theorem C]{Corrected Theorem C:\\
+$M+A$ Sufficiency on Squarefree $\Z/n\Z$ via Zero-Fiber Analysis}
+
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{Brayden R.\ Sanders \and M.\ Gish}
+\address{Independent Researcher}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+The previously stated condition for $M{+}A$ sufficiency of partition pairs $\{\pi_{\DYN}(G), \pi_d\}$ on squarefree $\Zn$ --- that the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$ be injective --- is necessary but not sufficient. The condition tracks unit-element conflicts but misses zero-fiber conflicts: pairs $\{x, g \cdot x\}$ where $x \equiv 0 \pmod d$ and $g$ acts non-trivially on a prime of $n/d$, so that both $x$ and $g \cdot x$ have the same $d$-residue $0$ while differing in a coordinate outside $d$. We give the explicit counterexample $n = 15$, $G = \langle 2 \rangle$, $d = 5$, where $\varphi$ is injective but the orbit $\{5,10\}$ creates a conflict. The corrected condition is: $G$ acts trivially on every prime $p_j \mid n/d$, equivalently every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$. We prove the equivalence via the Universal Orthogonality Principle of the companion paper, observing that the corrected $M{+}A$ condition is the symmetric form of the established $A{+}M$ condition and that prior specific applications --- in particular the SPEC + half-modulus pair on $n = 2m$ for $m$ odd squarefree --- continue to satisfy the corrected condition.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Background and prior condition}
+
+Let $n = p_1 \cdots p_k$ be squarefree with $k \geq 2$ distinct primes. For a subgroup $G \leq \Zns$ and a divisor $d \mid n$, the multiplicative orbit partition $\pi_{\DYN}(G)$ has blocks given by $G$-orbits and the additive residue partition $\pi_d$ has blocks given by residue classes mod $d$. A pair $\{\pi_1, \pi_2\}$ of partitions is \emph{sufficient} when their meet is the discrete partition, equivalently $U(\pi_1) \cap U(\pi_2) = \emptyset$ where $U(\pi)$ is the set of unresolved pairs.
+
+The $M{+}A$ pair $\{\pi_{\DYN}(G), \pi_d\}$ has unresolved-pair sets
+\begin{align*}
+U(\pi_{\DYN}(G)) &= \{\{x, g \cdot x\} : g \in G,\, g \neq 1,\, g \cdot x \neq x\},\\
+U(\pi_d) &= \{\{x,y\} : x \neq y,\, d \mid x - y\}.
+\end{align*}
+
+A previously-stated condition asserted: $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$, $g \mapsto g \bmod d$, is injective.
+
+\subsection{The unit-only argument}
+
+For a unit $x \in \Zns$ and $g \in G$ with $g \neq 1$:
+\[
+\{x, g \cdot x\} \in U(\pi_d) \iff d \mid (g-1) x.
+\]
+Since $x$ is a unit modulo $d$, $d \mid (g-1) x$ iff $d \mid g - 1$, i.e.\ $g \equiv 1 \pmod{p_i}$ for every $p_i \mid d$, i.e.\ $\varphi(g) = 1$ in $(\Z/d\Z)^{\times}$. So no unit-element conflict iff $\ker \varphi = \{1\}$ iff $\varphi$ is injective.
+
+\subsection{The gap}
+
+The unit-only argument leaves the case of \emph{zero-fiber elements} --- elements $x$ with $\gcd(x,d) > 1$ --- unanalyzed. These are precisely the elements of the zero-fiber
+\[
+F_d = \{x \in \Zn : x \equiv 0 \pmod d\} = (n/d) \cdot \Zn,
+\]
+which has $|F_d| = n/d$. A zero-fiber pair $\{x, g \cdot x\}$ with both elements in $F_d$ automatically lies in $U(\pi_d)$ regardless of whether $\varphi$ tracks the conflict; the orbit can change non-zero coordinates outside $d$ while leaving the $d$-coordinates at $0$, generating a conflict the prior condition cannot detect.
+
+\section{The counterexample at $n = 15$}
+
+\begin{example}[Failure of the prior condition] \label{ex:n15}
+Let $n = 15 = 3 \cdot 5$, $G = \langle 2 \rangle = \{1,2,4,8\} \leq (\Z/15\Z)^{\times}$ (order $4$, since $2^4 = 16 \equiv 1 \pmod{15}$), and $d = 5$.
+
+\emph{Prior condition.} The map $\varphi \colon G \to (\Z/5\Z)^{\times}$ sends $1 \mapsto 1$, $2 \mapsto 2$, $4 \mapsto 4$, $8 \mapsto 3$, an injection (in fact a bijection onto $(\Z/5\Z)^{\times}$). The prior condition is satisfied.
+
+\emph{Actual conflict.} The element $x = 5$ has $5 \equiv 0 \pmod 5$, so $5 \in F_5$. Compute $T_2(5) = 10 \in F_5$ and $T_2(10) = 20 \equiv 5 \pmod{15}$, so the orbit of $5$ is $\{5,10\}$. Both lie in the same $\pi_5$-block (namely $\{0,5,10\}$). Therefore $\{5,10\} \in U(\pi_5) \cap U(\pi_{\DYN}(\langle 2 \rangle))$, a conflict. The pair $\{\pi_{\DYN}(\langle 2 \rangle), \pi_5\}$ is not sufficient.
+\end{example}
+
+\begin{remark}[Where the conflict lives, in CRT coordinates]
+Working in $\Z/3\Z \times \Z/5\Z$, $5 = (2,0)$ and $g = 2 = (2,2)$, so $g \cdot 5 = (4 \bmod 3, 0) = (1,0) = 10$. Both $(2,0)$ and $(1,0)$ have $5$-coordinate $0$, hence the same $\pi_5$-block. The $3$-coordinate changed because $g$ is non-trivial mod $3$, and $3 = n/d$.
+\end{remark}
+
+\section{The corrected theorem}
+
+\begin{theorem}[Corrected Theorem C, $M{+}A$] \label{thm:corrC}
+For squarefree $n = p_1 \cdots p_k$, $G \leq \Zns$, and $d \mid n$, the pair $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff $G$ acts trivially on every prime of $n/d$, i.e.\ every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for every $p_j \mid n/d$.
+\end{theorem}
+
+\begin{proof}
+By the Universal Orthogonality Principle of the companion paper, $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff the joint map $J = (f_{\DYN(G)}, f_d) \colon \Zn \to (\text{$G$-orbits}) \times \Z/d\Z$ is injective. Joint-map injectivity is symmetric in the two coordinates, so this is equivalent to injectivity of the swap $J' = (f_d, f_{\DYN(G)})$, which is the $A{+}M$ joint map. By the established $A{+}M$ classification (Theorem~B of the companion), $J'$ is injective iff $G$ acts trivially on every prime of $n/d$.
+
+A direct argument by CRT: write $g = (g_1,\ldots,g_k)$ and $x = (x_1,\ldots,x_k)$ in CRT coordinates. The action $g \cdot x$ has component $g_i x_i \bmod p_i$.
+
+\emph{Sufficiency} $(\Leftarrow)$. Assume $G$ trivial on every prime of $n/d$, i.e.\ $g_j = 1$ for all $g \in G$ and all $p_j \mid n/d$. Take any $g \in G$ with $g \neq 1$ and any $x \in \Zn$. There are two cases.
+
+\emph{Case 1.} Some $p_i \mid d$ with $g_i \neq 1$ has $x_i \neq 0$. Then $(g \cdot x)_i = g_i x_i \neq x_i$, so $g \cdot x \not\equiv x \pmod{p_i}$, hence $g \cdot x \not\equiv x \pmod d$. The pair $\{x, g \cdot x\}$ is not in $U(\pi_d)$.
+
+\emph{Case 2.} For every $p_i \mid d$ with $g_i \neq 1$, $x_i = 0$. Then $(g \cdot x)_i = g_i \cdot 0 = 0 = x_i$ at those primes; at every $p_j \mid n/d$, $(g \cdot x)_j = 1 \cdot x_j = x_j$. Hence $g \cdot x = x$, contradicting $g \cdot x \neq x$.
+
+In either case no conflict occurs.
+
+\emph{Necessity} $(\Rightarrow)$. Suppose some $g \in G$ has $g \not\equiv 1 \pmod{p_j}$ for some $p_j \mid n/d$. Choose $x$ with $x_j \neq 0$ and $x_i = 0$ for every $p_i \mid d$. Then $x \equiv 0 \pmod d$ and $(g \cdot x)_i = 0$ for $p_i \mid d$, so $g \cdot x \equiv 0 \equiv x \pmod d$. But $(g \cdot x)_j = g_j x_j \neq x_j$ since $g_j \neq 1$ and $x_j \neq 0$. Therefore $g \cdot x \neq x$, and $\{x, g \cdot x\}$ is a conflict in $U(\pi_d) \cap U(\pi_{\DYN}(G))$.
+\end{proof}
+
+\section{Zero-fiber analysis}
+
+\begin{proposition}[Action of $G$ on the zero-fiber]\label{prop:zerofiber}
+For $G \leq \Zns$ and $d \mid n$ squarefree:
+\begin{enumerate}[label=(\alph*)]
+\item $G$ preserves $F_d$ setwise: $g \cdot x \in F_d$ for every $g \in G$ and $x \in F_d$.
+\item Every $G$-orbit on $F_d$ is contained in a single $\pi_d$-block (the zero-block).
+\item Conflicts on $F_d$ exist iff some $G$-orbit on $F_d$ has size $\geq 2$, iff $G$ acts non-trivially on $n/d$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Each component of $g \cdot x$ at $p_i \mid d$ is $g_i x_i$. Since $g_i$ is a unit mod $p_i$ (as $g \in \Zns$) and $x_i = 0$ for $x \in F_d$, $g_i x_i = 0$ at every $p_i \mid d$. So $g \cdot x \in F_d$.
+
+(b) Since both $x, g \cdot x \in F_d$, both have $d$-residue $0$, hence both lie in the zero-block of $\pi_d$.
+
+(c) The bijection $F_d \to \prod_{p_j \mid n/d} \Z/p_j\Z$ sending $x$ to its $(n/d)$-coordinates is $G$-equivariant for the action of $G$ on the right via the projection $G \to \prod_{p_j \mid n/d} (\Z/p_j\Z)^{\times}$. An orbit of size $\geq 2$ on $F_d$ exists iff this action is non-trivial, iff $G$ does not lie in the kernel of the projection, iff $G$ acts non-trivially on some $p_j \mid n/d$.
+\end{proof}
+
+\begin{remark}
+The corrected condition of Theorem~\ref{thm:corrC} is precisely (c): the absence of size-$\geq 2$ $G$-orbits on $F_d$ is equivalent to triviality of $G$ on $n/d$. The prior condition ($\varphi$ injective) detects only conflicts in the unit-fiber, missing entirely the action of $G$ on $F_d$.
+\end{remark}
+
+\section{Verification for prior applications}
+
+\begin{example}[SPEC + half-modulus]
+Let $n = 2m$ with $m$ odd squarefree. Take $G = \{1,-1\}$ and $d = m$. The corrected condition asks whether $G$ is trivial on every prime of $n/d = 2$. We have $-1 \equiv 1 \pmod 2$, so $G \subset \ker(G \to (\Z/2\Z)^{\times})$. The corrected condition is satisfied.
+
+Direct check on $F_m = \{0, m\} \subset \Z/2m\Z$: $T_{-1}(m) = -m \equiv 2m - m = m \pmod{2m}$, a fixed point. The orbit of $m$ is the singleton $\{m\}$, hence no zero-fiber conflict, consistent with Proposition~\ref{prop:zerofiber}(c).
+\end{example}
+
+\begin{example}[$M{+}M$ pairs are unaffected]
+The classification of $M{+}M$ pairs ($\{\pi_{\DYN}(G), \pi_{\DYN}(H)\}$ sufficient iff $G \cap H = \{1\}$) does not involve any residue partition and is therefore unaffected by the correction.
+\end{example}
+
+\begin{example}[CRT $A{+}A$ pairs are unaffected]
+The classification of $A{+}A$ pairs ($\{\pi_{d_1}, \pi_{d_2}\}$ sufficient iff $\mathrm{lcm}(d_1,d_2) = n$) does not involve a multiplicative orbit partition.
+\end{example}
+
+\section{Discussion}
+
+\subsection{Symmetry of the joint-map criterion}
+
+The corrected $M{+}A$ condition is structurally identical to the established $A{+}M$ condition: ``$G$ trivial on primes of $n/d$''. This symmetry is forced by the symmetry of joint-map injectivity, $J(x) = J(y) \Leftrightarrow J'(x) = J'(y)$ where $J'$ is the swap. The prior condition's asymmetry --- treating $M{+}A$ as a separate algebraic test than $A{+}M$ --- was the source of the gap.
+
+\subsection{What remains classically true}
+
+The corrected theorem demotes the prior condition from \emph{sufficient} to \emph{necessary}. Specifically: if $\varphi$ is not injective then the unit-fiber alone produces a conflict, and the pair fails to be sufficient. So $\varphi$ injective remains a one-sided test that prunes obviously-bad cases; only the zero-fiber adds new failure modes. Two implications:
+\begin{enumerate}[label=(\alph*)]
+\item The applications based on $G = \{1,-1\}$ and $d$ chosen so that $-1 \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$ (forcing $p_j = 2$) are correct, since the corrected condition is satisfied.
+\item Applications of the prior condition where $n/d$ has odd prime factors are not automatically correct: the zero-fiber must be checked, and the corrected condition requires $G$ to be trivial at every such prime.
+\end{enumerate}
+
+\section{Open questions}
+
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Classification of $M{+}A$-sufficient $G$ for fixed $d$.} For $d \mid n$ squarefree with $n/d = q_1 \cdots q_r$, the corrected condition picks out the subgroup $\ker(\Zns \to \prod_j (\Z/q_j\Z)^{\times})$. Every $G$ contained in this kernel is admissible. A finer classification of which $G$ act maximally non-trivially on $d$ while remaining admissible is open.
+\item \emph{Beyond squarefree $n$.} The zero-fiber argument uses $g_i$ a unit at every prime, which holds for $g \in \Zns$ even when $n$ is not squarefree. The geometric statement of the corrected condition extends to $p$-adic components, but the explicit classification at higher prime powers is open.
+\end{enumerate}
+
+\section*{Acknowledgments}
+
+We thank C.~A. Luther for early discussions of the partition-lattice formulation that flagged the asymmetric statement of the prior $M{+}A$ condition.
+
+\begin{thebibliography}{9}
+
+\bibitem{Lang2002}
+S.~Lang,
+\emph{Algebra}, 3rd ed.,
+Graduate Texts in Math.\ 211, Springer, 2002.
+
+\bibitem{IrelandRosen}
+K.~Ireland and M.~Rosen,
+\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
+Graduate Texts in Math.\ 84, Springer, 1990.
+
+\bibitem{DummitFoote}
+D.~S.~Dummit and R.~M.~Foote,
+\emph{Abstract Algebra}, 3rd ed.,
+Wiley, 2004.
+
+\bibitem{HardyWright}
+G.~H.~Hardy and E.~M.~Wright,
+\emph{An Introduction to the Theory of Numbers}, 6th ed.,
+Oxford University Press, 2008.
+
+\bibitem{SandersMayes-UOP}
+B.~R.~Sanders and B.~Mayes,
+\emph{The Universal Orthogonality Principle: Joint-Map Injectivity as the Sufficiency Criterion for Two-Partition Families on Squarefree $\Z/n\Z$},
+submitted to \emph{J.\ Number Theory}, 2026 (companion --- lead paper).
+
+\bibitem{SandersMayes-CL}
+B.~R.~Sanders and B.~Mayes,
+\emph{Crossing Lemma: Non-Associativity as Information Generation in Finite Magmas},
+submitted to \emph{J.\ Combin.\ Theory Ser.\ A}, 2026.
+
+\end{thebibliography}
+
+\end{document}

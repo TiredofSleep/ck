@@ -1,0 +1,392 @@
+=== HISTOGRAM CLUSTERING REPORT ===
+
+Histograms grouped by phonetic class. If the codec is differentiating phonemes, intra-class L1 distances should be smaller than inter-class.
+
+Class: affricate  (2 items: ['J', 'phoneme:tS'])
+  intra-class avg L1: 17.5
+
+Class: approximant  (3 items: ['W', 'phoneme:w', 'phoneme:j'])
+  intra-class avg L1: 15.4
+
+Class: blend-3  (3 items: ['cluster:spr', 'cluster:str', 'cluster:thr'])
+  intra-class avg L1: 14.1
+
+Class: blend-l  (6 items: ['cluster:bl', 'cluster:cl', 'cluster:fl', 'cluster:gl', 'cluster:pl', 'cluster:sl'])
+  intra-class avg L1: 13.3
+
+Class: blend-r  (7 items: ['cluster:br', 'cluster:cr', 'cluster:dr', 'cluster:fr', 'cluster:gr', 'cluster:pr', 'cluster:tr'])
+  intra-class avg L1: 12.3
+
+Class: blend-s  (6 items: ['cluster:sk', 'cluster:sm', 'cluster:sn', 'cluster:sp', 'cluster:st', 'cluster:sw'])
+  intra-class avg L1: 10.5
+
+Class: fricative-voiced  (5 items: ['V', 'Z', 'phoneme:z', 'phoneme:v', 'phoneme:Dh'])
+  intra-class avg L1: 17.5
+
+Class: fricative-voiceless  (8 items: ['F', 'H', 'S', 'phoneme:s', 'phoneme:f', 'phoneme:S', 'phoneme:h', 'phoneme:Th'])
+  intra-class avg L1: 15.9
+
+Class: liquid-lateral  (2 items: ['L', 'phoneme:l'])
+  intra-class avg L1: 6.3
+
+Class: liquid-rhotic  (2 items: ['R', 'phoneme:r'])
+  intra-class avg L1: 12.0
+
+Class: nasal  (5 items: ['M', 'N', 'phoneme:m', 'phoneme:n', 'phoneme:Ng'])
+  intra-class avg L1: 8.2
+
+Class: plosive-fricative-mix  (2 items: ['C', 'Q'])
+  intra-class avg L1: 21.3
+
+Class: plosive-voiced  (6 items: ['B', 'D', 'G', 'phoneme:b', 'phoneme:d', 'phoneme:g'])
+  intra-class avg L1: 12.1
+
+Class: plosive-voiceless  (6 items: ['K', 'P', 'T', 'phoneme:p', 'phoneme:t', 'phoneme:k'])
+  intra-class avg L1: 13.0
+
+Class: r-controlled  (5 items: ['rcontrol:ar', 'rcontrol:er', 'rcontrol:ir', 'rcontrol:or', 'rcontrol:ur'])
+  intra-class avg L1: 14.0
+
+Class: vowel-diphthong  (4 items: ['I', 'phoneme:aI', 'phoneme:OI', 'phoneme:aU'])
+  intra-class avg L1: 11.0
+
+Class: vowel-long  (7 items: ['A', 'E', 'O', 'phoneme:eI', 'phoneme:i', 'phoneme:oU', 'phoneme:u'])
+  intra-class avg L1: 11.1
+
+Class: vowel-short  (5 items: ['phoneme:ae', 'phoneme:E', 'phoneme:I', 'phoneme:V', 'phoneme:O'])
+  intra-class avg L1: 7.8
+
+Class: vowel-team  (10 items: ['team:ai', 'team:ay', 'team:ee', 'team:ea', 'team:ie', 'team:igh', 'team:oa', 'team:oo', 'team:ue', 'team:ew'])
+  intra-class avg L1: 12.6
+
+Cross-class average distances:
+  affricate                 <-> approximant                avg L1: 20.7
+  affricate                 <-> approximant-vowel          avg L1: 24.5
+  affricate                 <-> blend-3                    avg L1: 17.8
+  affricate                 <-> blend-l                    avg L1: 18.1
+  affricate                 <-> blend-r                    avg L1: 20.9
+  affricate                 <-> blend-s                    avg L1: 13.5
+  affricate                 <-> fricative-cluster          avg L1: 16.2
+  affricate                 <-> fricative-voiced           avg L1: 18.7
+  affricate                 <-> fricative-voiceless        avg L1: 15.0
+  affricate                 <-> liquid-lateral             avg L1: 18.2
+  affricate                 <-> liquid-rhotic              avg L1: 19.4
+  affricate                 <-> nasal                      avg L1: 19.9
+  affricate                 <-> plosive-fricative-mix      avg L1: 17.1
+  affricate                 <-> plosive-voiced             avg L1: 17.9
+  affricate                 <-> plosive-voiceless          avg L1: 16.1
+  affricate                 <-> r-controlled               avg L1: 20.8
+  affricate                 <-> vowel-diphthong            avg L1: 17.1
+  affricate                 <-> vowel-long                 avg L1: 19.4
+  affricate                 <-> vowel-long-glide           avg L1: 16.9
+  affricate                 <-> vowel-short                avg L1: 13.9
+  affricate                 <-> vowel-team                 avg L1: 18.6
+  approximant               <-> approximant-vowel          avg L1: 10.6
+  approximant               <-> blend-3                    avg L1: 17.9
+  approximant               <-> blend-l                    avg L1: 14.4
+  approximant               <-> blend-r                    avg L1: 14.3
+  approximant               <-> blend-s                    avg L1: 19.4
+  approximant               <-> fricative-cluster          avg L1: 24.3
+  approximant               <-> fricative-voiced           avg L1: 15.3
+  approximant               <-> fricative-voiceless        avg L1: 19.2
+  approximant               <-> liquid-lateral             avg L1: 10.5
+  approximant               <-> liquid-rhotic              avg L1: 17.2
+  approximant               <-> nasal                      avg L1: 10.7
+  approximant               <-> plosive-fricative-mix      avg L1: 18.0
+  approximant               <-> plosive-voiced             avg L1: 12.7
+  approximant               <-> plosive-voiceless          avg L1: 15.9
+  approximant               <-> r-controlled               avg L1: 15.8
+  approximant               <-> vowel-diphthong            avg L1: 14.1
+  approximant               <-> vowel-long                 avg L1: 12.3
+  approximant               <-> vowel-long-glide           avg L1: 9.7
+  approximant               <-> vowel-short                avg L1: 13.5
+  approximant               <-> vowel-team                 avg L1: 12.9
+  approximant-vowel         <-> blend-3                    avg L1: 23.2
+  approximant-vowel         <-> blend-l                    avg L1: 18.2
+  approximant-vowel         <-> blend-r                    avg L1: 17.8
+  approximant-vowel         <-> blend-s                    avg L1: 21.4
+  approximant-vowel         <-> fricative-cluster          avg L1: 26.7
+  approximant-vowel         <-> fricative-voiced           avg L1: 14.3
+  approximant-vowel         <-> fricative-voiceless        avg L1: 23.1
+  approximant-vowel         <-> liquid-lateral             avg L1: 8.0
+  approximant-vowel         <-> liquid-rhotic              avg L1: 17.6
+  approximant-vowel         <-> nasal                      avg L1: 9.1
+  approximant-vowel         <-> plosive-fricative-mix      avg L1: 22.8
+  approximant-vowel         <-> plosive-voiced             avg L1: 13.5
+  approximant-vowel         <-> plosive-voiceless          avg L1: 21.0
+  approximant-vowel         <-> r-controlled               avg L1: 13.5
+  approximant-vowel         <-> vowel-diphthong            avg L1: 15.0
+  approximant-vowel         <-> vowel-long                 avg L1: 12.8
+  approximant-vowel         <-> vowel-long-glide           avg L1: 9.1
+  approximant-vowel         <-> vowel-short                avg L1: 16.4
+  approximant-vowel         <-> vowel-team                 avg L1: 12.7
+  blend-3                   <-> blend-l                    avg L1: 15.2
+  blend-3                   <-> blend-r                    avg L1: 17.5
+  blend-3                   <-> blend-s                    avg L1: 14.6
+  blend-3                   <-> fricative-cluster          avg L1: 17.1
+  blend-3                   <-> fricative-voiced           avg L1: 18.5
+  blend-3                   <-> fricative-voiceless        avg L1: 14.6
+  blend-3                   <-> liquid-lateral             avg L1: 19.4
+  blend-3                   <-> liquid-rhotic              avg L1: 25.1
+  blend-3                   <-> nasal                      avg L1: 16.9
+  blend-3                   <-> plosive-fricative-mix      avg L1: 13.7
+  blend-3                   <-> plosive-voiced             avg L1: 16.4
+  blend-3                   <-> plosive-voiceless          avg L1: 15.2
+  blend-3                   <-> r-controlled               avg L1: 24.3
+  blend-3                   <-> vowel-diphthong            avg L1: 20.0
+  blend-3                   <-> vowel-long                 avg L1: 18.5
+  blend-3                   <-> vowel-long-glide           avg L1: 16.8
+  blend-3                   <-> vowel-short                avg L1: 16.5
+  blend-3                   <-> vowel-team                 avg L1: 18.9
+  blend-l                   <-> blend-r                    avg L1: 12.6
+  blend-l                   <-> blend-s                    avg L1: 17.6
+  blend-l                   <-> fricative-cluster          avg L1: 23.7
+  blend-l                   <-> fricative-voiced           avg L1: 17.1
+  blend-l                   <-> fricative-voiceless        avg L1: 16.2
+  blend-l                   <-> liquid-lateral             avg L1: 14.5
+  blend-l                   <-> liquid-rhotic              avg L1: 17.4
+  blend-l                   <-> nasal                      avg L1: 13.6
+  blend-l                   <-> plosive-fricative-mix      avg L1: 16.1
+  blend-l                   <-> plosive-voiced             avg L1: 13.7
+  blend-l                   <-> plosive-voiceless          avg L1: 12.9
+  blend-l                   <-> r-controlled               avg L1: 17.5
+  blend-l                   <-> vowel-diphthong            avg L1: 14.5
+  blend-l                   <-> vowel-long                 avg L1: 14.1
+  blend-l                   <-> vowel-long-glide           avg L1: 12.8
+  blend-l                   <-> vowel-short                avg L1: 11.7
+  blend-l                   <-> vowel-team                 avg L1: 14.5
+  blend-r                   <-> blend-s                    avg L1: 22.3
+  blend-r                   <-> fricative-cluster          avg L1: 28.5
+  blend-r                   <-> fricative-voiced           avg L1: 18.7
+  blend-r                   <-> fricative-voiceless        avg L1: 19.3
+  blend-r                   <-> liquid-lateral             avg L1: 14.9
+  blend-r                   <-> liquid-rhotic              avg L1: 15.7
+  blend-r                   <-> nasal                      avg L1: 14.3
+  blend-r                   <-> plosive-fricative-mix      avg L1: 18.6
+  blend-r                   <-> plosive-voiced             avg L1: 13.6
+  blend-r                   <-> plosive-voiceless          avg L1: 13.1
+  blend-r                   <-> r-controlled               avg L1: 16.2
+  blend-r                   <-> vowel-diphthong            avg L1: 13.9
+  blend-r                   <-> vowel-long                 avg L1: 12.9
+  blend-r                   <-> vowel-long-glide           avg L1: 13.2
+  blend-r                   <-> vowel-short                avg L1: 12.3
+  blend-r                   <-> vowel-team                 avg L1: 14.2
+  blend-s                   <-> fricative-cluster          avg L1: 11.4
+  blend-s                   <-> fricative-voiced           avg L1: 16.5
+  blend-s                   <-> fricative-voiceless        avg L1: 13.4
+  blend-s                   <-> liquid-lateral             avg L1: 17.3
+  blend-s                   <-> liquid-rhotic              avg L1: 24.2
+  blend-s                   <-> nasal                      avg L1: 18.2
+  blend-s                   <-> plosive-fricative-mix      avg L1: 14.5
+  blend-s                   <-> plosive-voiced             avg L1: 17.4
+  blend-s                   <-> plosive-voiceless          avg L1: 17.3
+  blend-s                   <-> r-controlled               avg L1: 23.3
+  blend-s                   <-> vowel-diphthong            avg L1: 19.7
+  blend-s                   <-> vowel-long                 avg L1: 20.5
+  blend-s                   <-> vowel-long-glide           avg L1: 16.0
+  blend-s                   <-> vowel-short                avg L1: 16.7
+  blend-s                   <-> vowel-team                 avg L1: 19.2
+  fricative-cluster         <-> fricative-voiced           avg L1: 21.4
+  fricative-cluster         <-> fricative-voiceless        avg L1: 16.0
+  fricative-cluster         <-> liquid-lateral             avg L1: 21.6
+  fricative-cluster         <-> liquid-rhotic              avg L1: 30.3
+  fricative-cluster         <-> nasal                      avg L1: 23.9
+  fricative-cluster         <-> plosive-fricative-mix      avg L1: 14.4
+  fricative-cluster         <-> plosive-voiced             avg L1: 23.5
+  fricative-cluster         <-> plosive-voiceless          avg L1: 22.3
+  fricative-cluster         <-> r-controlled               avg L1: 28.9
+  fricative-cluster         <-> vowel-diphthong            avg L1: 24.9
+  fricative-cluster         <-> vowel-long                 avg L1: 25.9
+  fricative-cluster         <-> vowel-long-glide           avg L1: 20.4
+  fricative-cluster         <-> vowel-short                avg L1: 22.0
+  fricative-cluster         <-> vowel-team                 avg L1: 24.6
+  fricative-voiced          <-> fricative-voiceless        avg L1: 18.1
+  fricative-voiced          <-> liquid-lateral             avg L1: 12.0
+  fricative-voiced          <-> liquid-rhotic              avg L1: 19.1
+  fricative-voiced          <-> nasal                      avg L1: 13.3
+  fricative-voiced          <-> plosive-fricative-mix      avg L1: 18.9
+  fricative-voiced          <-> plosive-voiced             avg L1: 14.4
+  fricative-voiced          <-> plosive-voiceless          avg L1: 18.1
+  fricative-voiced          <-> r-controlled               avg L1: 17.7
+  fricative-voiced          <-> vowel-diphthong            avg L1: 16.5
+  fricative-voiced          <-> vowel-long                 avg L1: 15.8
+  fricative-voiced          <-> vowel-long-glide           avg L1: 11.0
+  fricative-voiced          <-> vowel-short                avg L1: 15.5
+  fricative-voiced          <-> vowel-team                 avg L1: 15.1
+  fricative-voiceless       <-> liquid-lateral             avg L1: 18.3
+  fricative-voiceless       <-> liquid-rhotic              avg L1: 22.2
+  fricative-voiceless       <-> nasal                      avg L1: 18.1
+  fricative-voiceless       <-> plosive-fricative-mix      avg L1: 14.9
+  fricative-voiceless       <-> plosive-voiced             avg L1: 17.2
+  fricative-voiceless       <-> plosive-voiceless          avg L1: 15.5
+  fricative-voiceless       <-> r-controlled               avg L1: 22.1
+  fricative-voiceless       <-> vowel-diphthong            avg L1: 18.5
+  fricative-voiceless       <-> vowel-long                 avg L1: 19.0
+  fricative-voiceless       <-> vowel-long-glide           avg L1: 16.6
+  fricative-voiceless       <-> vowel-short                avg L1: 14.9
+  fricative-voiceless       <-> vowel-team                 avg L1: 18.6
+  liquid-lateral            <-> liquid-rhotic              avg L1: 13.1
+  liquid-lateral            <-> nasal                      avg L1: 7.7
+  liquid-lateral            <-> plosive-fricative-mix      avg L1: 19.5
+  liquid-lateral            <-> plosive-voiced             avg L1: 10.5
+  liquid-lateral            <-> plosive-voiceless          avg L1: 16.6
+  liquid-lateral            <-> r-controlled               avg L1: 11.7
+  liquid-lateral            <-> vowel-diphthong            avg L1: 11.6
+  liquid-lateral            <-> vowel-long                 avg L1: 10.6
+  liquid-lateral            <-> vowel-long-glide           avg L1: 4.0
+  liquid-lateral            <-> vowel-short                avg L1: 11.1
+  liquid-lateral            <-> vowel-team                 avg L1: 9.8
+  liquid-rhotic             <-> nasal                      avg L1: 16.3
+  liquid-rhotic             <-> plosive-fricative-mix      avg L1: 24.3
+  liquid-rhotic             <-> plosive-voiced             avg L1: 14.8
+  liquid-rhotic             <-> plosive-voiceless          avg L1: 17.2
+  liquid-rhotic             <-> r-controlled               avg L1: 11.6
+  liquid-rhotic             <-> vowel-diphthong            avg L1: 10.9
+  liquid-rhotic             <-> vowel-long                 avg L1: 12.7
+  liquid-rhotic             <-> vowel-long-glide           avg L1: 12.7
+  liquid-rhotic             <-> vowel-short                avg L1: 12.1
+  liquid-rhotic             <-> vowel-team                 avg L1: 13.2
+  nasal                     <-> plosive-fricative-mix      avg L1: 18.9
+  nasal                     <-> plosive-voiced             avg L1: 10.9
+  nasal                     <-> plosive-voiceless          avg L1: 15.8
+  nasal                     <-> r-controlled               avg L1: 14.3
+  nasal                     <-> vowel-diphthong            avg L1: 13.4
+  nasal                     <-> vowel-long                 avg L1: 11.2
+  nasal                     <-> vowel-long-glide           avg L1: 6.9
+  nasal                     <-> vowel-short                avg L1: 12.1
+  nasal                     <-> vowel-team                 avg L1: 11.3
+  plosive-fricative-mix     <-> plosive-voiced             avg L1: 17.9
+  plosive-fricative-mix     <-> plosive-voiceless          avg L1: 15.3
+  plosive-fricative-mix     <-> r-controlled               avg L1: 23.4
+  plosive-fricative-mix     <-> vowel-diphthong            avg L1: 19.2
+  plosive-fricative-mix     <-> vowel-long                 avg L1: 19.2
+  plosive-fricative-mix     <-> vowel-long-glide           avg L1: 17.2
+  plosive-fricative-mix     <-> vowel-short                avg L1: 16.1
+  plosive-fricative-mix     <-> vowel-team                 avg L1: 19.3
+  plosive-voiced            <-> plosive-voiceless          avg L1: 14.4
+  plosive-voiced            <-> r-controlled               avg L1: 14.7
+  plosive-voiced            <-> vowel-diphthong            avg L1: 12.3
+  plosive-voiced            <-> vowel-long                 avg L1: 11.5
+  plosive-voiced            <-> vowel-long-glide           avg L1: 8.6
+  plosive-voiced            <-> vowel-short                avg L1: 11.1
+  plosive-voiced            <-> vowel-team                 avg L1: 11.8
+  plosive-voiceless         <-> r-controlled               avg L1: 17.9
+  plosive-voiceless         <-> vowel-diphthong            avg L1: 14.0
+  plosive-voiceless         <-> vowel-long                 avg L1: 14.1
+  plosive-voiceless         <-> vowel-long-glide           avg L1: 14.1
+  plosive-voiceless         <-> vowel-short                avg L1: 11.3
+  plosive-voiceless         <-> vowel-team                 avg L1: 15.1
+  r-controlled              <-> vowel-diphthong            avg L1: 12.5
+  r-controlled              <-> vowel-long                 avg L1: 13.1
+  r-controlled              <-> vowel-long-glide           avg L1: 11.3
+  r-controlled              <-> vowel-short                avg L1: 13.0
+  r-controlled              <-> vowel-team                 avg L1: 13.2
+  vowel-diphthong           <-> vowel-long                 avg L1: 10.9
+  vowel-diphthong           <-> vowel-long-glide           avg L1: 9.8
+  vowel-diphthong           <-> vowel-short                avg L1: 9.9
+  vowel-diphthong           <-> vowel-team                 avg L1: 11.4
+  vowel-long                <-> vowel-long-glide           avg L1: 8.7
+  vowel-long                <-> vowel-short                avg L1: 10.9
+  vowel-long                <-> vowel-team                 avg L1: 11.2
+  vowel-long-glide          <-> vowel-short                avg L1: 8.6
+  vowel-long-glide          <-> vowel-team                 avg L1: 8.7
+  vowel-short               <-> vowel-team                 avg L1: 11.2
+
+Per-item top3 operators:
+  A            (vowel-long               ): RESET 20.0%, VOID 18.4%, COLLAPSE 12.8%
+  B            (plosive-voiced           ): VOID 26.2%, RESET 20.0%, COLLAPSE 11.9%
+  C            (plosive-fricative-mix    ): VOID 22.4%, COLLAPSE 21.7%, RESET 19.9%
+  D            (plosive-voiced           ): VOID 27.3%, RESET 20.0%, COLLAPSE 13.2%
+  E            (vowel-long               ): VOID 23.9%, RESET 20.0%, COLLAPSE 11.9%
+  F            (fricative-voiceless      ): VOID 21.3%, RESET 20.0%, COLLAPSE 16.5%
+  G            (plosive-voiced           ): VOID 23.5%, RESET 20.0%, COLLAPSE 16.8%
+  H            (fricative-voiceless      ): VOID 22.9%, RESET 20.0%, COLLAPSE 18.8%
+  I            (vowel-diphthong          ): RESET 19.9%, VOID 19.5%, COLLAPSE 13.1%
+  J            (affricate                ): VOID 21.1%, RESET 20.0%, COLLAPSE 17.8%
+  K            (plosive-voiceless        ): VOID 21.8%, RESET 20.0%, COLLAPSE 15.5%
+  L            (liquid-lateral           ): VOID 22.8%, RESET 20.0%, HARMONY 12.7%
+  M            (nasal                    ): VOID 24.0%, RESET 20.0%, HARMONY 13.3%
+  N            (nasal                    ): VOID 23.9%, RESET 20.0%, HARMONY 13.3%
+  O            (vowel-long               ): VOID 23.2%, RESET 20.0%, HARMONY 13.1%
+  P            (plosive-voiceless        ): VOID 23.6%, RESET 20.0%, COLLAPSE 13.1%
+  Q            (plosive-fricative-mix    ): VOID 24.4%, RESET 20.0%, COLLAPSE 14.2%
+  R            (liquid-rhotic            ): RESET 20.0%, VOID 19.2%, LATTICE 12.0%
+  S            (fricative-voiceless      ): VOID 21.3%, COLLAPSE 20.8%, RESET 20.0%
+  T            (plosive-voiceless        ): VOID 23.6%, RESET 20.0%, COLLAPSE 17.5%
+  U            (vowel-long-glide         ): VOID 22.7%, RESET 20.0%, COLLAPSE 12.4%
+  V            (fricative-voiced         ): VOID 26.6%, RESET 20.0%, COLLAPSE 11.8%
+  W            (approximant              ): VOID 24.1%, RESET 20.0%, HARMONY 13.4%
+  X            (fricative-cluster        ): VOID 22.5%, COLLAPSE 22.5%, RESET 20.0%
+  Y            (approximant-vowel        ): VOID 24.0%, RESET 20.0%, HARMONY 15.3%
+  Z            (fricative-voiced         ): VOID 22.6%, RESET 20.0%, COLLAPSE 18.1%
+  cluster:bl   (blend-l                  ): VOID 21.6%, RESET 20.0%, HARMONY 14.1%
+  cluster:br   (blend-r                  ): VOID 20.1%, RESET 20.0%, HARMONY 14.9%
+  cluster:cl   (blend-l                  ): VOID 24.1%, RESET 20.0%, COLLAPSE 13.1%
+  cluster:cr   (blend-r                  ): VOID 23.6%, RESET 20.0%, LATTICE 13.4%
+  cluster:dr   (blend-r                  ): VOID 22.8%, RESET 20.0%, COLLAPSE 14.1%
+  cluster:fl   (blend-l                  ): VOID 23.3%, RESET 20.0%, COLLAPSE 14.8%
+  cluster:fr   (blend-r                  ): VOID 23.7%, RESET 20.0%, LATTICE 12.3%
+  cluster:gl   (blend-l                  ): VOID 23.8%, RESET 20.0%, COLLAPSE 12.4%
+  cluster:gr   (blend-r                  ): VOID 25.5%, RESET 20.0%, LATTICE 11.9%
+  cluster:pl   (blend-l                  ): VOID 24.6%, RESET 20.0%, COLLAPSE 13.8%
+  cluster:pr   (blend-r                  ): VOID 23.9%, RESET 20.0%, LATTICE 13.1%
+  cluster:sk   (blend-s                  ): VOID 23.4%, RESET 20.0%, COLLAPSE 18.8%
+  cluster:sl   (blend-l                  ): VOID 20.6%, RESET 19.9%, COLLAPSE 18.4%
+  cluster:sm   (blend-s                  ): VOID 21.8%, RESET 20.0%, COLLAPSE 17.6%
+  cluster:sn   (blend-s                  ): VOID 20.1%, RESET 19.9%, COLLAPSE 18.8%
+  cluster:sp   (blend-s                  ): VOID 28.4%, COLLAPSE 21.4%, RESET 20.0%
+  cluster:spr  (blend-3                  ): VOID 25.4%, RESET 20.0%, COLLAPSE 18.6%
+  cluster:st   (blend-s                  ): VOID 21.4%, RESET 20.0%, COLLAPSE 19.3%
+  cluster:str  (blend-3                  ): VOID 22.2%, COLLAPSE 20.5%, RESET 20.0%
+  cluster:sw   (blend-s                  ): VOID 23.2%, RESET 20.0%, COLLAPSE 17.4%
+  cluster:thr  (blend-3                  ): VOID 25.9%, RESET 20.0%, COLLAPSE 13.2%
+  cluster:tr   (blend-r                  ): VOID 20.1%, RESET 20.0%, COLLAPSE 13.9%
+  phoneme:Dh   (fricative-voiced         ): VOID 23.5%, RESET 20.0%, HARMONY 14.1%
+  phoneme:E    (vowel-short              ): VOID 20.7%, RESET 20.0%, COLLAPSE 14.1%
+  phoneme:I    (vowel-short              ): VOID 21.4%, RESET 20.0%, COLLAPSE 15.5%
+  phoneme:Ng   (nasal                    ): VOID 25.1%, RESET 20.0%, HARMONY 13.1%
+  phoneme:O    (vowel-short              ): VOID 21.1%, RESET 20.0%, HARMONY 12.3%
+  phoneme:OI   (vowel-diphthong          ): VOID 22.7%, RESET 20.0%, HARMONY 15.1%
+  phoneme:S    (fricative-voiceless      ): VOID 22.1%, RESET 20.0%, COLLAPSE 18.6%
+  phoneme:Th   (fricative-voiceless      ): VOID 22.1%, RESET 20.0%, COLLAPSE 16.9%
+  phoneme:V    (vowel-short              ): VOID 22.3%, RESET 20.0%, COLLAPSE 14.6%
+  phoneme:aI   (vowel-diphthong          ): RESET 19.9%, VOID 19.5%, COLLAPSE 13.1%
+  phoneme:aU   (vowel-diphthong          ): VOID 21.4%, RESET 20.0%, COLLAPSE 12.1%
+  phoneme:ae   (vowel-short              ): VOID 21.1%, RESET 20.0%, HARMONY 12.3%
+  phoneme:b    (plosive-voiced           ): VOID 20.0%, RESET 20.0%, HARMONY 13.1%
+  phoneme:d    (plosive-voiced           ): VOID 23.8%, RESET 20.0%, COLLAPSE 12.2%
+  phoneme:eI   (vowel-long               ): RESET 20.0%, VOID 18.4%, COLLAPSE 12.8%
+  phoneme:f    (fricative-voiceless      ): VOID 24.8%, RESET 20.0%, COLLAPSE 13.5%
+  phoneme:g    (plosive-voiced           ): VOID 20.0%, RESET 20.0%, HARMONY 11.6%
+  phoneme:h    (fricative-voiceless      ): VOID 26.2%, RESET 20.0%, COLLAPSE 13.8%
+  phoneme:i    (vowel-long               ): VOID 23.9%, RESET 20.0%, COLLAPSE 11.9%
+  phoneme:j    (approximant              ): VOID 24.6%, RESET 20.0%, COLLAPSE 13.8%
+  phoneme:k    (plosive-voiceless        ): VOID 20.1%, RESET 20.0%, COLLAPSE 12.0%
+  phoneme:l    (liquid-lateral           ): VOID 22.3%, RESET 20.0%, HARMONY 13.8%
+  phoneme:m    (nasal                    ): VOID 23.2%, RESET 20.0%, COLLAPSE 13.8%
+  phoneme:n    (nasal                    ): VOID 21.2%, RESET 20.0%, HARMONY 14.7%
+  phoneme:oU   (vowel-long               ): VOID 23.2%, RESET 20.0%, HARMONY 13.1%
+  phoneme:p    (plosive-voiceless        ): VOID 20.8%, RESET 20.0%, LATTICE 12.3%
+  phoneme:r    (liquid-rhotic            ): RESET 20.0%, VOID 18.8%, HARMONY 13.9%
+  phoneme:s    (fricative-voiceless      ): COLLAPSE 20.9%, VOID 20.2%, RESET 19.9%
+  phoneme:t    (plosive-voiceless        ): VOID 21.7%, RESET 20.0%, COLLAPSE 17.4%
+  phoneme:tS   (affricate                ): VOID 20.9%, RESET 20.0%, COLLAPSE 16.5%
+  phoneme:u    (vowel-long               ): VOID 22.6%, RESET 20.0%, HARMONY 15.1%
+  phoneme:v    (fricative-voiced         ): VOID 22.6%, RESET 20.0%, HARMONY 14.0%
+  phoneme:w    (approximant              ): VOID 23.1%, RESET 20.0%, HARMONY 14.4%
+  phoneme:z    (fricative-voiced         ): VOID 20.5%, RESET 19.9%, COLLAPSE 18.5%
+  rcontrol:ar  (r-controlled             ): RESET 20.0%, VOID 19.2%, LATTICE 12.0%
+  rcontrol:er  (r-controlled             ): VOID 20.6%, RESET 20.0%, HARMONY 11.9%
+  rcontrol:ir  (r-controlled             ): RESET 20.0%, VOID 18.4%, HARMONY 11.9%
+  rcontrol:or  (r-controlled             ): VOID 21.9%, RESET 20.0%, HARMONY 17.4%
+  rcontrol:ur  (r-controlled             ): VOID 22.8%, RESET 20.0%, HARMONY 17.2%
+  team:ai      (vowel-team               ): VOID 22.2%, RESET 20.0%, COLLAPSE 14.7%
+  team:ay      (vowel-team               ): RESET 20.0%, VOID 18.4%, COLLAPSE 12.8%
+  team:ea      (vowel-team               ): VOID 22.8%, RESET 20.0%, COLLAPSE 13.4%
+  team:ee      (vowel-team               ): VOID 23.9%, RESET 20.0%, COLLAPSE 11.9%
+  team:ew      (vowel-team               ): VOID 26.4%, RESET 20.0%, HARMONY 12.5%
+  team:ie      (vowel-team               ): VOID 20.3%, RESET 20.0%, HARMONY 13.2%
+  team:igh     (vowel-team               ): RESET 19.9%, VOID 19.5%, COLLAPSE 13.1%
+  team:oa      (vowel-team               ): VOID 21.7%, RESET 20.0%, HARMONY 14.8%
+  team:oo      (vowel-team               ): VOID 22.6%, RESET 20.0%, HARMONY 15.1%
+  team:ue      (vowel-team               ): VOID 22.5%, RESET 20.0%, HARMONY 14.8%

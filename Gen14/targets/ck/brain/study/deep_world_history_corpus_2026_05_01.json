@@ -1,0 +1,74 @@
+{
+  "_about": "DEEP WORLD HISTORY corpus 2026-05-01. Specific eras + civilizations + transitions across the human past. Through TIG operator alphabet: civilizations rise (PROGRESS), peak (HARMONY), collapse (RESET), transitions are crossings.",
+  "_replays": 25,
+  "_session_prefix": "deep_world_history_2026_05_01",
+  "ancient_world": [
+    "Agricultural Revolution ~10000 BCE is operator-RESET-PROGRESS; transition from nomadic foraging to settled farming; Fertile Crescent + China + Mesoamerica + Andes independent origins.",
+    "Sumerian civilization ~3500 BCE is operator-FIRST-CITIES + writing (cuneiform); Uruk Lagash Ur; ziggurats + irrigation + Code of Ur-Nammu predates Hammurabi.",
+    "Egypt Old Kingdom ~2700-2200 BCE: operator-PYRAMID-LATTICE; pharaonic administration + hieroglyphs + Nile flood cycle; Khufu's pyramid 2560 BCE.",
+    "Indus Valley Civilization 3300-1300 BCE: operator-PLANNED-CITIES; Mohenjo-Daro + Harappa; standardized weights + drainage; script undeciphered.",
+    "Bronze Age Collapse 1200 BCE: operator-LATTICE-COLLAPSE across Eastern Mediterranean; Hittites Mycenaeans Egyptian decline; causes contested (Sea Peoples climate earthquakes).",
+    "Greek Classical Period 500-323 BCE: operator-PHILOSOPHY-DEMOCRACY-DRAMA emerges; Plato Aristotle Sophocles; Athenian polis as political form.",
+    "Roman Republic 509-27 BCE -> Empire 27 BCE-476 CE: operator-LATTICE-OF-LAW + LATTICE-OF-ENGINEERING; Mediterranean dominion; Senate + consul + tribune.",
+    "Han Dynasty 206 BCE-220 CE: operator-CONFUCIAN-BUREAUCRACY + Silk Road open; paper invented; rivaled Rome in scope + sophistication.",
+    "Maurya + Gupta India: operator-HINDU-BUDDHIST-CULTURAL-FLOURISHING; Ashoka's edicts + decimal numerals + Aryabhata's mathematics + Sanskrit literature.",
+    "Mesoamerica: Olmec -> Maya -> Aztec; operator-LATTICE-OF-MAYA-MATHEMATICS (zero, base-20) + complex calendar + astronomy independent of Old World."
+  ],
+  "medieval_world": [
+    "Fall of Western Rome 476 CE is operator-RESET in Europe; Byzantine Empire continues until 1453.",
+    "Tang Dynasty 618-907 CE: operator-CHINESE-GOLDEN-AGE; cosmopolitan Chang'an + civil service exams + Buddhism + poetry (Li Bai Du Fu).",
+    "Islamic Golden Age ~750-1258 CE: operator-LATTICE-OF-LEARNING in Baghdad + Córdoba + Cairo; al-Khwarizmi (algebra) Avicenna (medicine) Averroes (philosophy).",
+    "Vikings 793-1066 CE: operator-MARITIME-EXPANSION across Europe + Atlantic; Iceland + Greenland + brief Vinland; trade + raid + settlement.",
+    "Crusades 1096-1291: operator-COUNTER between Christian Europe + Muslim Levant; cultural exchange + violence + economic transformation.",
+    "Mongol Empire 1206-1368: operator-LARGEST-CONTIGUOUS-EMPIRE in history; Genghis Khan unified steppes; pax mongolica enabled overland trade.",
+    "Black Death 1347-1351: operator-COLLAPSE of European population by ~1/3-1/2; Yersinia pestis; transformed labor markets + religious authority.",
+    "Renaissance ~1300-1600: operator-RECOVERY-OF-CLASSICAL + new humanism; Italian city-states + Northern Europe; Leonardo Michelangelo Erasmus.",
+    "Ming Dynasty 1368-1644: operator-CHINESE-RECONSOLIDATION after Mongol; Zheng He's voyages 1405-1433 reach Africa; later Ming turns inward.",
+    "Aztec Empire 1428-1521: operator-MESOAMERICAN-LATTICE-EMPIRE + Tenochtitlan + Triple Alliance; defeated by Spanish + smallpox + native allies."
+  ],
+  "early_modern": [
+    "European voyages of exploration 1492+: operator-COLUMBIAN-EXCHANGE; biological + cultural collision Old + New Worlds; massive Indigenous mortality from disease.",
+    "Protestant Reformation 1517: operator-RELIGIOUS-LATTICE-FRACTURE in Europe; Luther's 95 theses; Catholicism's split shaped politics for centuries.",
+    "Scientific Revolution ~1543-1687: operator-EMPIRICAL-METHOD-EMERGES; Copernicus Galileo Kepler Newton; mathematical physics displaces Aristotelian.",
+    "Mughal India 1526-1857: operator-PERSIAN-INDIAN-SYNTHESIS; Akbar's religious tolerance + Taj Mahal + decline post-Aurangzeb.",
+    "Atlantic slave trade ~1500-1808: operator-LATTICE-OF-FORCED-MIGRATION; ~12 million Africans transported; foundation of early modern Atlantic economy.",
+    "30 Years War 1618-1648: operator-EUROPEAN-RELIGIOUS-WAR; Treaty of Westphalia 1648 establishes state sovereignty principle.",
+    "Edo Japan 1603-1868: operator-DELIBERATE-ISOLATION (sakoku); Tokugawa shogunate; long peace + cultural development; ended by Perry's black ships 1853.",
+    "Qing Dynasty 1644-1912: operator-MANCHU-RULE of China; height under Kangxi + Qianlong; weakened by Opium Wars + Taiping Rebellion 1850-1864.",
+    "American Revolution 1776: operator-COLONIAL-INDEPENDENCE; Declaration's 'all men created equal' aspiration vs reality of slavery + Indigenous dispossession.",
+    "French Revolution 1789-1799: operator-LATTICE-OF-MODERN-POLITICS-INVENTED; liberty equality fraternity; Terror + Napoleonic aftermath."
+  ],
+  "industrial_modern": [
+    "Industrial Revolution ~1760+: operator-ENERGY-LATTICE-SHIFT; coal + steam + factory; transformed labor + cities + ecology.",
+    "British Empire 19th century: operator-GLOBAL-LATTICE; quarter of world's land + population; East India Company -> Crown rule of India 1858.",
+    "American Civil War 1861-1865: operator-LATTICE-CRISIS over slavery + federal vs state authority; ~750000 dead; emancipation + 14th amendment + Reconstruction.",
+    "Meiji Restoration 1868: operator-RAPID-MODERNIZATION of Japan; samurai class abolished + industrial + military adoption of Western tech.",
+    "Scramble for Africa 1881-1914: operator-EUROPEAN-COLONIAL-PARTITION; Berlin Conference 1884-85 codified; lasting impact on borders + ethnic conflict.",
+    "World War I 1914-1918: operator-LATTICE-COLLAPSE of European order; ~17 million dead; treaty of Versailles seeded WWII conditions.",
+    "Russian Revolution 1917: operator-COMMUNIST-EXPERIMENT-BEGINS; Bolsheviks; civil war 1918-1922; USSR formal 1922.",
+    "Great Depression 1929-1939: operator-GLOBAL-ECONOMIC-COLLAPSE; financial crash + protectionism + monetary contraction; political radicalization.",
+    "World War II 1939-1945: operator-LARGEST-CONFLICT-IN-HISTORY; ~70-85 million dead; Holocaust + atomic weapons + UN founded.",
+    "Decolonization 1947-1980: operator-EMPIRES-DISSOLVE; India 1947, Indonesia 1949, African states 1957-1980; new states with colonial-era borders.",
+    "Cold War 1947-1991: operator-BIPOLAR-LATTICE; US-Soviet rivalry; nuclear deterrence + proxy wars + ideological competition + space race.",
+    "Civil Rights Movement 1954-1968 US: operator-COUNTER-WHITE-SUPREMACY; Brown v Board, MLK, Civil Rights Act, Voting Rights Act."
+  ],
+  "contemporary": [
+    "Fall of USSR 1991: operator-RESET of geopolitics; unipolar moment; emergence of post-Soviet states + Cold War end.",
+    "Globalization ~1990+: operator-LATTICE-OF-INTERNATIONAL-FLOWS-ACCELERATES; capital + goods + people + ideas; both lifting hundreds of millions out of poverty + creating new vulnerabilities.",
+    "Internet/Web 1990+: operator-NEW-COMMUNICATION-LATTICE; ARPANET + Tim Berners-Lee + Mosaic + Netscape; changed information + social organization.",
+    "9/11 2001: operator-TERRORISM-AS-GLOBAL-CONCERN; Afghanistan invasion 2001 + Iraq invasion 2003 + Patriot Act + surveillance state.",
+    "2008 Financial Crisis: operator-BANKING-SYSTEM-COLLAPSE-AVERTED; subprime mortgages + Lehman + bailout + persistent inequality consequences.",
+    "Arab Spring 2010-2012: operator-UPRISING-LATTICE; Tunisia Egypt Libya Yemen Syria; some led to democracy others to civil war or restored authoritarianism.",
+    "Climate change recognition 1990+: operator-PLANETARY-CRISIS-BECOMES-OPERATIONAL; IPCC reports + Paris 2015 + still inadequate action; 1.5C threshold approaching.",
+    "Rise of China 2000+: operator-NEW-GREAT-POWER; WTO entry 2001 + Belt and Road + military modernization; redefining bipolar/multipolar order.",
+    "AI inflection ~2015+: operator-DEEP-LEARNING-EMERGES; AlphaGo 2016 + transformers 2017 + GPT + reshaping knowledge work.",
+    "COVID-19 2020-2023: operator-GLOBAL-PANDEMIC; ~7M+ dead + remote work shift + supply chain disruption + vaccine speed records.",
+    "Now (2026): operator-MULTIPLE-CRISES-CONVERGING; climate + AI + geopolitics + democratic erosion + opportunity in unprecedented connectivity."
+  ],
+  "directive": [
+    "History is operator-LATTICE-OF-CHOICES that compounded; not predetermined, not random.",
+    "CK should hold history with operator-CALIBRATED-CONFIDENCE; well-established consensus on dates + events + with awareness of contested interpretation.",
+    "Avoid operator-SINGLE-NARRATIVE; many groups participated in / experienced / suffered each event differently.",
+    "Frontier topics: how does what we know about the past inform what's possible now? Where are we in the operator-LATTICE-OF-LONG-CYCLES?"
+  ]
+}

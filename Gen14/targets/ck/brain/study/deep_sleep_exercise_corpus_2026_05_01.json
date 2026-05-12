@@ -1,0 +1,61 @@
+{
+  "_about": "DEEP SLEEP + EXERCISE + RECOVERY corpus 2026-05-01. The bodily LATTICEs that determine baseline health: sleep architecture, exercise physiology + adaptation, recovery, circadian regulation.",
+  "_replays": 25,
+  "_session_prefix": "deep_sleep_exercise_2026_05_01",
+  "sleep_architecture": [
+    "Sleep is operator-LATTICE-OF-STAGES; 4-6 cycles per night, each ~90 min, NREM 1-3 + REM.",
+    "NREM 1 is operator-LIGHT-SLEEP-onset; brain waves slow from beta to alpha to theta; 5-10% of total sleep.",
+    "NREM 2 is operator-CONSOLIDATION-SLEEP; sleep spindles + K-complexes; 45-55% of total sleep.",
+    "NREM 3 (slow-wave / deep) is operator-RESTORATIVE-SLEEP; delta waves; growth hormone secreted; 15-25% of sleep, more in first half of night.",
+    "REM (rapid eye movement) is operator-DREAM-LATTICE-CONSOLIDATION; brain active, body paralyzed (atonia); 20-25% of sleep, more in second half.",
+    "Sleep need is operator-GENETICALLY-VARIABLE; 7-9 hours adults, more children, less elderly; <6 chronic = serious cognitive + immune deficits.",
+    "Sleep debt is operator-CUMULATIVE-DEFICIT; cannot fully repay; chronic short sleep ages biology like chronic stress.",
+    "Sleep apnea is operator-AIRWAY-COLLAPSE during sleep; obstructive (most common) or central; CPAP gold-standard treatment.",
+    "Insomnia is operator-INABILITY-TO-SLEEP-OR-STAY-ASLEEP; CBT-I (cognitive behavioral therapy for insomnia) gold standard, beats meds long-term.",
+    "Caffeine half-life is 5-6 hours; afternoon caffeine pushes operator-ADENOSINE-CLEARANCE later, fragments sleep.",
+    "Alcohol disrupts operator-REM-architecture; helps sleep onset, fragments later half, reduces dream recall."
+  ],
+  "circadian_rhythm": [
+    "Suprachiasmatic nucleus (SCN) is operator-MASTER-CLOCK in hypothalamus; ~24-hour rhythm entrained by light.",
+    "Melatonin is operator-DARKNESS-SIGNAL; pineal gland releases at night, peaks 2-3 AM; light suppresses.",
+    "Cortisol is operator-MORNING-RISE-SIGNAL; awakening response peaks ~30 min after wake; supports alertness.",
+    "Body temperature has operator-CIRCADIAN-RHYTHM; lowest 4-5 AM, peak ~6 PM; ~1 degree variation.",
+    "Light is operator-PRIMARY-ZEITGEBER; bright morning light advances circadian (helps wake earlier); evening light delays (helps stay up later).",
+    "Blue light (460-490 nm) is operator-MOST-CIRCADIAN-DISRUPTIVE; suppresses melatonin most; phone/screen filters reduce impact.",
+    "Jet lag is operator-CIRCADIAN-MISMATCH; shifts faster eastward (1 hour/day forward) than westward (1.5 hour/day back).",
+    "Shift work disorder is chronic operator-CIRCADIAN-DESYNC; associated with cardiovascular + metabolic + cancer risks.",
+    "Chronotype is operator-INDIVIDUAL-PHASE-PREFERENCE; larks (early) doves (intermediate) owls (late); ~30% genetic.",
+    "Morning routine that supports circadian: bright light + cold water + protein + movement + caffeine timing."
+  ],
+  "exercise_physiology": [
+    "Aerobic capacity (VO2max) is operator-MAX-OXYGEN-USE per minute per kg; predicts longevity better than most metrics.",
+    "Heart rate zones: zone 1 (recovery <60% HRmax), zone 2 (aerobic 60-70%), zone 3 (tempo 70-80%), zone 4 (threshold 80-90%), zone 5 (max >90%).",
+    "Zone 2 training is operator-MITOCHONDRIAL-DENSITY-builder; 3-4 hours/week at zone 2 is metabolic-health gold standard.",
+    "VO2max training (zone 4-5 intervals, 4x4 protocol) is operator-AEROBIC-CAPACITY-builder; 1-2 sessions/week.",
+    "Strength training is operator-MUSCULOSKELETAL-LATTICE-builder; 2-3 sessions/week, compound lifts (squat deadlift bench press row press).",
+    "Progressive overload is operator-CONTINUOUS-PROGRESS principle; gradually increase weight or reps to drive adaptation.",
+    "Hypertrophy: 6-12 reps at 65-80% 1RM; strength: 3-6 reps at 80-95% 1RM; endurance: 12+ reps at 50-65%.",
+    "Periodization is operator-LATTICE-of-training-phases; volume + intensity vary across weeks/months for sustained progress.",
+    "Mobility is operator-FUNCTIONAL-RANGE-OF-MOTION; not flexibility (passive); strength through full ROM.",
+    "Recovery is operator-ADAPTATION-WINDOW; training stimulates, rest builds; without recovery training stops working.",
+    "Concurrent training (cardio + strength) compatible if cardio is zone 2 or short HIIT; long high-intensity cardio interferes with strength gains."
+  ],
+  "recovery_adaptation": [
+    "Adaptation is operator-OVERLOAD + RECOVERY = supercompensation; body rebuilds stronger after stressor + rest.",
+    "Sleep is operator-PRIMARY-RECOVERY-MODALITY; 7-9 hours, especially deep + REM, drives muscle protein synthesis + memory consolidation.",
+    "Active recovery (zone 1 walking, easy cycling) accelerates operator-METABOLIC-CLEARANCE without adding training stress.",
+    "Massage operates on operator-FASCIAL-LATTICE + nervous system; acute soreness reduction, longer-term effects modest.",
+    "Foam rolling is operator-SELF-MYOFASCIAL-RELEASE; 30-60 sec per region, useful warmup or post-training.",
+    "Cold exposure (3-15 min, 50-60 F) operator-ANTI-INFLAMMATORY post-injury but BLUNTS muscle hypertrophy if used right after strength training.",
+    "Heat exposure (sauna 175-195 F, 15-30 min) operator-CARDIOVASCULAR-LIKE-EXERCISE; reduces all-cause mortality (Finnish data).",
+    "Nutrition timing: protein within 2 hours post-training drives muscle protein synthesis (~30-40g optimal).",
+    "Hydration is operator-PERFORMANCE-FOUNDATION; 2% dehydration measurably reduces strength + cognitive performance.",
+    "Stress management is operator-CORTISOL-CONTROL; chronic high cortisol blocks recovery + adaptation; meditation breathwork sleep first.",
+    "Overtraining syndrome is operator-CHRONIC-RECOVERY-DEFICIT; performance drops, mood drops, immune compromised; requires weeks of reduced training."
+  ],
+  "directive": [
+    "Sleep + exercise are operator-FOUNDATIONS for everything else; mood cognition immunity recovery all degrade without them.",
+    "CK can describe mechanisms + research consensus on sleep + exercise; he should not prescribe specific programs.",
+    "When user describes sleep or exercise issues, CK can map to operator-LATTICE + suggest evidence-based interventions + recommend professional consultation."
+  ]
+}

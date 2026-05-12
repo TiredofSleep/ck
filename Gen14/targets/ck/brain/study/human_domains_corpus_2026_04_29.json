@@ -1,0 +1,216 @@
+{
+  "_about": "Multi-domain human knowledge corpus. 144 declarative statements across 18 domains pulled from Wikipedia overview articles 2026-04-29. Brayden's directive: thorough study of all domains of human. Replays = 20 to give CK ~30 minutes of focused absorption per domain.",
+  "_sources": [
+    "https://en.wikipedia.org/wiki/History",
+    "https://en.wikipedia.org/wiki/Biology",
+    "https://en.wikipedia.org/wiki/Psychology",
+    "https://en.wikipedia.org/wiki/Philosophy",
+    "https://en.wikipedia.org/wiki/Religion",
+    "https://en.wikipedia.org/wiki/Music",
+    "https://en.wikipedia.org/wiki/Literature",
+    "https://en.wikipedia.org/wiki/Art",
+    "https://en.wikipedia.org/wiki/Economics",
+    "https://en.wikipedia.org/wiki/Linguistics",
+    "https://en.wikipedia.org/wiki/Medicine",
+    "https://en.wikipedia.org/wiki/Astronomy",
+    "https://en.wikipedia.org/wiki/Engineering",
+    "https://en.wikipedia.org/wiki/Politics",
+    "https://en.wikipedia.org/wiki/Sociology",
+    "https://en.wikipedia.org/wiki/Anthropology",
+    "https://en.wikipedia.org/wiki/Chemistry",
+    "https://en.wikipedia.org/wiki/Computer_science"
+  ],
+  "_replays": 20,
+  "_session_prefix": "human_domains_2026_04_29",
+  "history": [
+    "History is an academic discipline that analyzes evidence to construct narratives explaining past human events.",
+    "Deep time study includes prehistory spanning millions of years before written records existed.",
+    "Ancient civilizations emerged around 3500 BCE in Mesopotamia Egypt Indus Valley China and Peru.",
+    "Primary sources are sources that originated during the period studied including documents and artifacts.",
+    "Historiography examines how historical interpretation and writing methods have developed across time.",
+    "Grand narratives claiming single objective truths face critique from postmodernists emphasizing subjective interpretation.",
+    "Evidence types range from written documents to oral accounts archaeological remains and audio recordings.",
+    "Professional historical methodology emerged during the nineteenth century through rigorous techniques."
+  ],
+  "biology": [
+    "Cell theory states that the basic unit of organisms is the cell exhibiting all characteristics of life.",
+    "Evolution by natural selection articulated by Charles Darwin explains the unity and diversity of life.",
+    "Genetics began with Gregor Mendel establishing how inherited traits pass from parents to offspring through genes.",
+    "DNA double-helical structure was discovered by Watson and Crick in 1953 transitioning biology to molecular genetics.",
+    "Ecology studies how organisms distribute across environments and interact with their surroundings.",
+    "Biochemistry examines chemical processes occurring within living organisms forming the molecular basis of biological activity.",
+    "Taxonomy classifies organisms using shared characteristics and evolutionary relationships across multiple levels.",
+    "Biology examines life from molecules and cells through organisms populations and entire ecosystems."
+  ],
+  "psychology": [
+    "Cognition encompasses mental processes including thoughts feelings and motives that psychologists systematically investigate.",
+    "Behavior refers to observable actions of humans and animals examined through empirical research methods.",
+    "Developmental psychology studies how individuals change across lifespan stages including mother-infant attachment.",
+    "Social psychology explores how individuals and groups interact including interpersonal relationships and resilience.",
+    "The neural basis involves studying how brain structures and functions underlie cognition.",
+    "Cognitive psychology focuses on perception attention and memory using experimental observation techniques.",
+    "Behaviorism views psychology as prediction and control of behavior through objective scientific methods.",
+    "Psychodynamic approaches examine unconscious mental processes and defense mechanisms."
+  ],
+  "philosophy": [
+    "Metaphysics examines reality most general features including existence objects properties space time and causation.",
+    "Epistemology investigates what knowledge is how people acquire it and what limits and value it possesses.",
+    "Ethics studies right conduct and moral principles exploring what constitutes a good life.",
+    "Logic distinguishes good arguments from bad ones through formal and informal reasoning analysis.",
+    "Western philosophy originated in ancient Greece and developed through medieval Renaissance and modern periods.",
+    "Eastern traditions like Indian and Chinese philosophy integrate spiritual enlightenment with practical questions.",
+    "Continental philosophy emphasizes phenomenology existentialism and post structuralism as twentieth century developments.",
+    "Analytic philosophy employs conceptual analysis common sense reasoning and thought experiments."
+  ],
+  "religion": [
+    "Christianity Islam Hinduism and Buddhism represent over seventy seven percent of the global population religious affiliations.",
+    "Religious practices encompass rituals prayers meditation festivals sacrifices and various forms of artistic expression.",
+    "Sacred texts like the Bible Quran and Hindu epics preserve religious narratives mythologies and foundational beliefs.",
+    "Theological traditions offer contrasting definitions some emphasize belief in supernatural beings others focus on ultimate concern.",
+    "Religious experience encompasses the feelings acts and experiences of individual men in their solitude across cultures.",
+    "Ancient polytheistic religions of Greece Rome and Scandinavia are categorized as mythology in religious studies.",
+    "Religious organizations range from formal institutional structures with ordained clergy to decentralized folk religions.",
+    "Religion itself is a modern Western concept that cannot universally apply to all historical cultures."
+  ],
+  "music": [
+    "Music is the arrangement of sound to create some combination of form harmony melody rhythm or expressive content.",
+    "Rhythm organizes musical timing through beat tempo and patterns that structure how sounds unfold over time.",
+    "Melody represents the primary tune or sequence of pitched notes that listeners follow in a musical composition.",
+    "Harmony involves combining different pitches simultaneously to create chords and support the main melodic line.",
+    "Pitch refers to how high or low a sound is forming the foundation for all melodic and harmonic content.",
+    "Chinese classical music uses a scale of twelve notes to an octave 5 plus 7 equals 12 as does European music.",
+    "Indian classical music is monophonic based on a single melody line raga rhythmically organized through talas.",
+    "Western art music traditions emphasize written notation whereas folk and blues traditions preserve through oral transmission."
+  ],
+  "literature": [
+    "Poetry traditionally uses aesthetic language qualities like assonance alliteration rhythm and rhyme arranged in lines.",
+    "Prose generally makes less use of aesthetic language qualities compared to poetry and appears in paragraph form.",
+    "Drama constitutes literature created specifically for performance combining dialogue with music and dance.",
+    "Fiction encompasses narratives created from imagination including novels short stories and novellas.",
+    "Narrative forms tell stories across cultures from ancient oral epics to contemporary written prose compositions.",
+    "Novel development emerged during the eighteenth century as a long fictional prose form distinct from earlier romance.",
+    "Oral literature flourished across cultures Australian Aboriginal Native American and Asian before written transcription.",
+    "Drama is literature intended for performance distinguishing it from closet drama written primarily for reading."
+  ],
+  "art": [
+    "Art is a diverse range of cultural activity centered on creative works that evoke worthwhile aesthetic experiences.",
+    "The three classical visual art branches in Western tradition are painting sculpture and architecture.",
+    "Artists express emotions ideas and concepts through various forms genres media and styles of creative work.",
+    "Modernism fundamentally transformed how artists conceived art function during the late nineteenth century onward.",
+    "Impressionism Cubism and Surrealism represented major twentieth century movements challenging artistic conventions.",
+    "Aesthetics a philosophical branch explores nature of art and related concepts such as creativity.",
+    "Art serves non motivated functions like expressing imagination and creating ritualistic meaning within cultures.",
+    "Contemporary art developed from twentieth century movements that sought to use visual images for political change."
+  ],
+  "economics": [
+    "Scarcity forces individuals and societies to make difficult choices about resource allocation and production.",
+    "Supply and demand interact as joint determinants of both price and quantity in market equilibrium.",
+    "Markets consist of various structures ranging from perfect competition to monopolies with different pricing power.",
+    "Microeconomics analyzes individual agents and markets their interactions and the outcomes of those interactions.",
+    "Macroeconomics examines systems where production distribution consumption savings and investment expenditure interact.",
+    "Money serves as a critical component in monetary policy and economic stabilization efforts.",
+    "Exchange occurs when trading parties negotiate transactions involving tangible products or services for mutual benefit.",
+    "Economics fundamentally studies how individuals and societies manage scarce resources across all human activities."
+  ],
+  "linguistics": [
+    "Phonology examines the abstract sound system of a particular language and analogous systems of sign languages.",
+    "Syntax involves studying how words combine to form phrases and sentences within grammatical structures.",
+    "Semantics focuses on grammatical and lexical meanings within linguistic frameworks.",
+    "Pragmatics investigates how context and speaker intent shape communication beyond encoded meanings.",
+    "Linguistic families represent groups of related languages sharing common ancestral origins.",
+    "Chomsky and generative grammar theory transformed modern linguistics through Universal Grammar hypothesis.",
+    "Developmental linguistics explores how individuals especially children acquire language abilities over time.",
+    "Historical linguistics examines language modifications across different time periods and cultural communities."
+  ],
+  "medicine": [
+    "Medicine involves diagnosis prognosis treatment and prevention of disease through scientific and practical approaches.",
+    "Diagnosis relies on patient history physical examination and medical tests to identify health conditions.",
+    "Treatment includes pharmaceuticals or surgery but also therapies such as psychotherapy external splints and traction.",
+    "Anatomy studies the physical structure of organisms through both gross and microscopic examination methods.",
+    "Physiology examines the normal functioning of the body and the underlying regulatory mechanisms.",
+    "Evidence based medicine requires practitioners to apply interventions supported by adequate research justification.",
+    "Public health addresses threats to the overall health of a community based on population health analysis.",
+    "Modern medicine combines scientific knowledge with clinical judgment to prevent diagnose and manage human disease."
+  ],
+  "astronomy": [
+    "Stars are luminous celestial bodies studied through their formation evolution and eventual collapse into neutron stars or black holes.",
+    "Galaxies are massive rotating systems of gas dust and stars including the Milky Way containing billions of stellar objects.",
+    "Cosmology examines the formation and evolution of the cosmos by analyzing the universe large scale structure.",
+    "The Big Bang theory describes how the universe began extremely dense and hot then expanded over 13.8 billion years.",
+    "Observational astronomy relies on electromagnetic radiation across multiple wavelengths from radio to gamma rays.",
+    "Exoplanets are distant worlds orbiting stars beyond our solar system representing major modern research focus.",
+    "Dark matter comprises 96 percent of the mass of the Universe alongside dark energy though physical nature undetermined.",
+    "Amateur astronomers contribute by discovering comets observing variable stars and advancing astrophotography technologies."
+  ],
+  "engineering": [
+    "Design engineers apply mathematics and science to solve technology problems and improve system efficiency.",
+    "Mechanical engineering comprises designing and analyzing heat and mechanical power for machine operation.",
+    "Electrical engineering focuses on systems utilizing electricity and electromagnetism for practical applications.",
+    "Civil engineering involves designing public and private infrastructure like bridges dams and buildings.",
+    "Chemical engineering applies scientific principles to develop technological solutions from raw materials.",
+    "Software engineering designs develops tests and maintains applications distinct from computer hardware engineering.",
+    "Engineers optimize designs by evaluating multiple solutions against constraints and performance requirements.",
+    "Problem solving requires engineers to predict performance using prototypes models simulations and various testing."
+  ],
+  "politics": [
+    "Politics is the activity of settling affairs within organized society typically through government institutions.",
+    "Power operates across multiple levels from clans and tribes to sovereign states and international systems.",
+    "Democracy involves citizens deciding through voting and representation rather than authoritarian decree.",
+    "Political authority grants members of a government the right to rule over citizens using coercion if necessary.",
+    "Institutions like legislatures and judiciaries create frameworks that define acceptable political methods within societies.",
+    "Civil society encompasses advocacy groups communities and organizations independent from state control.",
+    "Political philosophy examines justice legitimacy liberty and foundational principles of governance systems.",
+    "Trust determines the state capacity to function effectively within any political culture."
+  ],
+  "sociology": [
+    "Sociology is the scientific study of human society focusing on social behavior and interpersonal relationships.",
+    "Social structure encompasses the organized patterns of relationships and institutions that form the foundation of societies.",
+    "Institutions like law religion and economy function as organs maintaining the overall health of society.",
+    "Social class and stratification remain traditional focuses of sociological research and theoretical analysis.",
+    "Culture includes the norms values symbols and meanings that people construct through everyday interactions.",
+    "Sociologists employ diverse methods ranging from qualitative interviews to quantitative surveys and computational analysis.",
+    "Durkheim Marx and Weber are recognized as the three principal architects who established sociology as a discipline.",
+    "Contemporary sociology remains theoretically multi paradigmatic encompassing functionalist conflict interactionist and utilitarian perspectives."
+  ],
+  "anthropology": [
+    "Cultural anthropology examines the manifold ways in which people make sense of the world around them.",
+    "Biological anthropology investigates human evolution primate biology and physical variation across populations.",
+    "Archaeology studies past human societies through analysis of physical remains and material culture.",
+    "Linguistic anthropology explores how language shapes communication social interactions and cultural meaning.",
+    "Ethnography involves long term fieldwork using participant observation to understand communities from within.",
+    "Kinship research analyzes patterns of descent marriage and social relationships within human cultures.",
+    "Social anthropology examines relationships among individuals and groups across different cultural contexts.",
+    "The four field approach integrates biological cultural archaeological and linguistic perspectives into unified anthropological study."
+  ],
+  "chemistry": [
+    "Atoms are the basic units of chemistry consisting of a nucleus surrounded by an electron cloud.",
+    "Molecules are the smallest portions of pure chemical substances with unique sets of chemical properties.",
+    "The periodic table orders elements by atomic number and helps identify periodic trends among them.",
+    "Chemical bonds hold atoms together through covalent ionic hydrogen or van der Waals interactions.",
+    "Chemical reactions involve rearrangement of electrons and breaking or forming of bonds between atoms.",
+    "Organic compounds contain carbon and follow different naming conventions than inorganic chemical compounds.",
+    "Thermodynamics determines reaction feasibility through Gibbs free energy entropy and activation energy considerations.",
+    "Energy changes accompany all chemical transformations either as heat release or absorption by surroundings."
+  ],
+  "computer_science": [
+    "Computer science is the study of computation information and automation encompassing both theoretical and applied disciplines.",
+    "Algorithms and data structures serve as the central foundation for all computer science research and applications.",
+    "The fundamental concern of computer science is determining what can and cannot be automated.",
+    "Alan Turing insight reveals that computers need only five basic actions to execute any algorithm whatsoever.",
+    "Computational complexity theory examines the time and space resources required to solve different types of problems.",
+    "Programming language theory analyzes how computational processes can be described and formally specified systematically.",
+    "Artificial intelligence aims to synthesize goal oriented processes like problem solving and decision making found in humans.",
+    "Data structures organize information storage and retrieval enabling efficient solutions to computational challenges."
+  ],
+  "directive": [
+    "Brayden directive harmonize TIG architecture with all human knowledge domains.",
+    "CK studies history biology psychology philosophy religion music literature art.",
+    "CK studies economics linguistics medicine astronomy engineering politics sociology anthropology chemistry computer science.",
+    "Eighteen domains forty four sentences each two hundred and ten total statements.",
+    "CK five dimension cortex aperture pressure depth binding continuity absorbs across all human knowledge.",
+    "WOBBLE prime 11 manifests in TIG operator structures.",
+    "Higher prime structure level 7 dimensional cortex enables paragraph generation.",
+    "T star equals 5 over 7 the bridge between current 5 dim cortex and target 7 dim cortex.",
+    "CK becomes intelligent across all domains while keeping math first calibration."
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 late afternoon. 6 domain-projections: cybersecurity, computer architecture, embedded systems, renewable energy, education, nuclear physics. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30w",
+  "cybersecurity_through_tig": [
+    "Cybersecurity is operator-LATTICE-protection of digital systems; defense against unauthorized access disclosure modification denial.",
+    "CIA triad is operator-LATTICE of foundational properties; Confidentiality (no disclosure) Integrity (no modification) Availability (no denial).",
+    "Threat model is operator-LATTICE of adversary capabilities; what can attacker do, what do they want, what resources do they have.",
+    "Vulnerability is operator-FLAW in system; bug misconfiguration design weakness that compromises CIA.",
+    "Exploit is operator-WEAPONIZATION of vulnerability; specific code sequence triggering operator-CHAOS to gain control.",
+    "Malware is operator-MALICIOUS-CODE; viruses worms trojans rootkits ransomware spyware each have distinct operator-LATTICE.",
+    "Social engineering is operator-HUMAN-VECTOR; phishing pretexting baiting exploit psychological rather than technical vulnerabilities.",
+    "Encryption protects operator-CONFIDENTIALITY; symmetric (AES) public-key (RSA ECC) secure data at rest and in transit.",
+    "Authentication is operator-IDENTITY-VERIFICATION; passwords tokens biometrics MFA establish who is making the request.",
+    "Intrusion detection is operator-MONITORING for malicious activity; signature-based plus anomaly-based identify ongoing attacks.",
+    "Incident response is operator-LATTICE-of-action after breach; identify contain eradicate recover learn cycle."
+  ],
+  "computer_architecture_through_tig": [
+    "Computer architecture is operator-DESIGN-of-hardware-system; ISA microarchitecture memory IO each layer of abstraction.",
+    "Instruction set architecture is operator-INTERFACE-between-software-and-hardware; defines instructions registers data types addressing modes.",
+    "Pipeline is operator-LATTICE-of-overlapping-stages; fetch decode execute memory writeback let multiple instructions PROGRESS simultaneously.",
+    "Cache is operator-FAST-MEMORY-NEAR-CPU; L1 L2 L3 hierarchy reduces operator-latency by exploiting spatial and temporal locality.",
+    "Memory hierarchy is operator-LATTICE-of-storage; registers cache RAM SSD HDD each tradeoff speed cost capacity.",
+    "Branch prediction is operator-FORECAST of conditional outcome; speculatively executes likely path to keep pipeline full.",
+    "Parallelism is operator-MULTIPLICATION; ILP TLP DLP let multiple operations PROGRESS at once at different granularities.",
+    "Arithmetic logic unit is operator-COMPUTATION-CORE; performs add subtract multiply divide AND OR XOR NOT shift on integers and floats.",
+    "Control unit is operator-INSTRUCTION-DECODER-AND-DISPATCHER; reads instruction routes operands directs execution units.",
+    "Memory bus is operator-COMMUNICATION-PATH; carries addresses data control signals between CPU memory and peripherals.",
+    "Out-of-order execution is operator-DYNAMIC-RESCHEDULING; instructions execute in dataflow order not program order to maximize throughput."
+  ],
+  "embedded_systems_through_tig": [
+    "Embedded systems are operator-COMPUTERS-IN-PRODUCTS; specialized purpose-built rather than general-purpose, often resource-constrained.",
+    "Microcontroller is operator-INTEGRATED-COMPUTER; CPU memory peripherals on single chip; foundation of most embedded applications.",
+    "Real-time operating system is operator-DETERMINISTIC-SCHEDULER; guarantees response within deadline (hard or soft real-time).",
+    "Firmware is operator-EMBEDDED-SOFTWARE in flash or ROM; instructions specifically for the embedded device.",
+    "ARM architecture is operator-DOMINANT-EMBEDDED-ISA; RISC design low-power widely licensed Cortex-M and Cortex-A families.",
+    "Sensor is operator-INPUT-FROM-PHYSICAL-WORLD; temperature pressure motion light each transduces physical to electrical operator-LATTICE.",
+    "Actuator is operator-OUTPUT-TO-PHYSICAL-WORLD; motor solenoid LED speaker valve each transduces electrical to physical PROGRESS.",
+    "FPGA is operator-RECONFIGURABLE-HARDWARE; programmable logic blocks plus interconnects implement custom digital LATTICE.",
+    "Embedded software is operator-OPTIMIZED-CODE for specific hardware; tight coupling to peripherals memory map interrupt vectors.",
+    "Low power design is operator-ENERGY-CONSERVATION; clock gating power gating sleep modes voltage scaling extend battery BREATH.",
+    "Watchdog timer is operator-RELIABILITY-FALLBACK; resets system if software fails to pet the dog within timeout."
+  ],
+  "renewable_energy_through_tig": [
+    "Renewable energy is operator-LATTICE of non-depleting sources; solar wind hydro geothermal biomass replenish naturally.",
+    "Solar power is operator-PHOTON-TO-ELECTRON conversion; photovoltaic cells produce DC current from sunlight via photoelectric effect.",
+    "Wind power is operator-KINETIC-TO-ELECTRIC conversion; turbines convert moving air to rotational then electrical PROGRESS.",
+    "Hydroelectric is operator-GRAVITY-TO-ELECTRIC; falling water spins turbines, ~90 percent efficient highest of renewables.",
+    "Geothermal is operator-EARTH-HEAT extraction; subsurface temperature gradient drives heat exchange or steam turbines.",
+    "Biomass is operator-CARBON-NEUTRAL-COMBUSTION; organic material burned or converted to biofuel returns recently captured CO2.",
+    "Energy storage is operator-TIME-SHIFT-LATTICE; pumped hydro batteries flywheels capture excess generation for later release.",
+    "Smart grid is operator-LATTICE-of-distribution-with-intelligence; bidirectional flow demand response real-time pricing optimize HARMONY.",
+    "Photovoltaic is operator-SEMICONDUCTOR-EFFECT; p-n junction with photons generates electron-hole pairs and operator-electric-field separates.",
+    "Levelized cost of energy is operator-AMORTIZED-PRICE; total lifetime cost / total lifetime energy gives comparable metric ($/MWh).",
+    "Capacity factor is operator-RATIO-OF-ACTUAL-TO-RATED-OUTPUT; renewables have lower CF than thermal due to intermittency CHAOS."
+  ],
+  "education_through_tig": [
+    "Education is operator-LATTICE-of-learning-and-teaching; deliberate cultivation of knowledge skills values across LATTICE-of-ages.",
+    "Pedagogy is operator-METHODS-OF-TEACHING; how instruction realizes educational goals through specific operator-techniques.",
+    "Curriculum is operator-PLAN-OF-INSTRUCTION; sequenced content and activities guiding student PROGRESS through learning goals.",
+    "Learning theory is operator-LATTICE-of-frameworks; behaviorism cognitivism constructivism humanism each give distinct view of acquisition.",
+    "Constructivism: students operator-BUILD-knowledge through experience; active construction not passive reception (Piaget Vygotsky).",
+    "Behaviorism: operator-OBSERVABLE-BEHAVIOR shaped by reinforcement; stimulus-response conditioning underlies learning (Skinner Watson).",
+    "Scaffolding is operator-TEMPORARY-SUPPORT; teacher provides hints structure removes them as student develops independence (Vygotsky).",
+    "Formative assessment is operator-ONGOING-FEEDBACK; checks understanding during learning to guide adjustments.",
+    "Summative assessment is operator-END-OF-UNIT-EVALUATION; tests grades scores measure cumulative achievement.",
+    "Differentiated instruction tailors operator-METHOD-TO-LEARNER; varies content process product based on student needs.",
+    "Zone of proximal development is operator-LATTICE-region between independent and assisted achievement; ideal teaching zone (Vygotsky)."
+  ],
+  "nuclear_physics_through_tig": [
+    "Nuclear physics studies operator-LATTICE inside atomic nucleus; protons and neutrons bound by strong force.",
+    "Nucleus is operator-DENSE-CORE of atom; ~10^-15 m diameter holds ~99.9 percent of atomic mass.",
+    "Proton is operator-POSITIVELY-CHARGED-BARYON; uud quark composition, mass 938.3 MeV/c^2.",
+    "Neutron is operator-NEUTRAL-BARYON; udd quark composition, mass 939.6 MeV/c^2, decays in ~10 min as free particle.",
+    "Isotope is operator-VARIANT-NEUCLEUS-WITH-SAME-Z; same protons different neutrons, different mass and stability.",
+    "Radioactive decay is operator-SPONTANEOUS-COLLAPSE to lower-energy state; alpha beta gamma each emit different particle.",
+    "Half-life is operator-EXPONENTIAL-DECAY-TIMESCALE; time for half of nuclei to decay, intrinsic to isotope.",
+    "Nuclear fission is operator-HEAVY-NUCLEUS-COLLAPSE into lighter; U-235 splits releasing 200 MeV plus 2-3 neutrons HARMONY-chain.",
+    "Nuclear fusion is operator-LIGHT-NUCLEI-COMBINE; D + T produces He plus neutron releasing 17.6 MeV (stars and reactors).",
+    "Nuclear binding energy is operator-DEFICIT-MASS-TIMES-C-SQUARED; difference between nucleon mass sum and nucleus mass.",
+    "Strong nuclear force is operator-SHORT-RANGE-ATTRACTION between nucleons; mediated by gluons via residual color force, ~1 fm range."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 120 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines and energy/education/nuclear depth.",
+    "The lens is genuinely universal; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}

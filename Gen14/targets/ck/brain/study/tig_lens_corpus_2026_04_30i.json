@@ -1,0 +1,82 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 night. 6 domain-projections: optics, cryptography, biochemistry, network science, complexity science, real analysis. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30i",
+  "optics_through_tig": [
+    "Optics is operator-study of light; geometric ray-tracing and wave field complementary lenses on the same phenomenon.",
+    "Refraction is operator-bending at boundary; speed change between media follows Snell's law sin theta_1 / sin theta_2 = n_2 / n_1.",
+    "Reflection is operator-reversal at surface; angle of incidence equals angle of reflection in HARMONY-mirror.",
+    "Diffraction is operator-spreading at aperture; light bends around obstacles producing interference LATTICE.",
+    "Interference is wave-superposition operator; in-phase HARMONY brightens, out-of-phase COUNTER cancels.",
+    "Polarization is operator-orientation of oscillation; transverse waves can have linear circular elliptic LATTICE-state.",
+    "Lens is operator-bender of rays; converging focal length plus diverging focal length determine image formation.",
+    "Mirror is operator-reflector; specular preserves image LATTICE, diffuse scatters into CHAOS distribution.",
+    "Prism disperses operator-spectrum; differential refraction by wavelength separates white into rainbow LATTICE.",
+    "Holography records operator-phase plus amplitude; interference pattern with reference beam encodes 3D scene."
+  ],
+  "cryptography_through_tig": [
+    "Cryptography is operator-protection of information; mathematical hardness shields message against unauthorized read.",
+    "Symmetric encryption uses one shared operator-key; AES is the modern standard cipher LATTICE.",
+    "Public key cryptography pairs operator-keys: public for encryption, private for decryption (Diffie-Hellman 1976 RSA Rivest-Shamir-Adleman 1977).",
+    "Hash function is one-way operator-collapse; arbitrary input produces fixed-length digest with collision resistance HARMONY.",
+    "Digital signature is operator-binding to identity; private-key signs, public-key verifies, non-repudiable.",
+    "Key exchange establishes shared operator-secret over insecure channel; Diffie-Hellman uses discrete-log hardness.",
+    "RSA is operator-asymmetry from factoring; encryption uses public n=pq, decryption requires knowing primes.",
+    "AES is operator-block cipher; 128 bits in, 128 bits out, 10-14 rounds of substitution permutation LATTICE.",
+    "Elliptic curve cryptography uses point-LATTICE on algebraic curve; smaller keys than RSA for same security HARMONY.",
+    "Zero-knowledge proof: prover convinces verifier of true statement without revealing operator-witness."
+  ],
+  "biochemistry_through_tig": [
+    "Biochemistry is operator-chemistry of life; biomolecules in living cells follow physical-chemical LATTICE.",
+    "Enzyme is operator-catalyst protein; lowers activation energy barrier accelerating reaction by orders of magnitude.",
+    "Metabolism is operator-LATTICE of reaction networks; catabolic breakdown for energy plus anabolic synthesis for structure.",
+    "ATP is operator-energy currency; phosphate hydrolysis releases ~30 kJ/mol driving endergonic PROGRESS.",
+    "Glycolysis is BREATH-pathway from glucose to pyruvate; 10 enzymatic steps yielding net 2 ATP without oxygen.",
+    "Citric acid cycle (Krebs) extracts operator-electrons from acetyl-CoA; feeds electron transport for oxidative phosphorylation.",
+    "Photosynthesis is operator-CHAOS-into-LATTICE; light energy drives CO2 + H2O to glucose + O2 (Calvin cycle plus light reactions).",
+    "Protein folding is operator-COLLAPSE from chain to structure; sequence determines tertiary fold via hydrophobic and hydrogen-bond LATTICE.",
+    "Lipid bilayer is operator-substrate of membrane; amphipathic phospholipids self-assemble into 2D fluid LATTICE.",
+    "Signal transduction is operator-relay across membrane; receptor-ligand binding triggers cascade of phosphorylation HARMONY."
+  ],
+  "network_science_through_tig": [
+    "Network science studies operator-LATTICE of nodes and edges; emergent structure from local connection rules.",
+    "Degree distribution is operator-histogram of connections; tells how many nodes have each connectivity level.",
+    "Scale-free network has power-law degree distribution; few hubs plus many low-degree nodes form fractal LATTICE.",
+    "Small-world network has short paths and high clustering; six degrees of separation HARMONY between any two nodes.",
+    "Clustering coefficient measures operator-triangle density; how often a node's neighbors are connected to each other.",
+    "Centrality ranks node importance by operator-position; degree betweenness eigenvector closeness each capture different aspect.",
+    "Community detection partitions network into operator-clusters; dense within sparse between using modularity or related criteria.",
+    "Random graph (Erdos-Renyi) has uniform edge probability; baseline for comparing real-world LATTICE structure.",
+    "Network resilience is operator-robustness to node removal; targeted attack on hubs shatters scale-free networks faster than random.",
+    "Power law P(k) ~ k^-gamma is operator-signature of scale invariance; same shape across orders of magnitude in degree."
+  ],
+  "complexity_science_through_tig": [
+    "Complexity science studies operator-emergence from many interacting parts; the whole exceeds sum of parts.",
+    "Emergence is HARMONY at higher operator-level; properties present in collective absent in individual components.",
+    "Self-organization is operator-spontaneous order; pattern arises without external blueprint, driven by local interaction rules.",
+    "Adaptive systems learn operator-rules from experience; CHAOS shapes rule LATTICE through feedback HARMONY.",
+    "Edge of chaos is operator-balance; just past order, just before randomness, where complex behavior is richest.",
+    "Critical transition is RESET-COLLAPSE; system jumps abruptly between operator-states at bifurcation point.",
+    "Power laws are scale-invariant operator-distributions; same statistics across many orders of magnitude.",
+    "Agent-based modeling represents system as operator-LATTICE of autonomous units; macro emerges from micro-interaction rules.",
+    "Feedback loops are operator-circular causality; positive amplifies CHAOS, negative restores BALANCE.",
+    "Nonlinearity is operator-disproportionate response; small input can produce large output, ruling out simple superposition."
+  ],
+  "real_analysis_through_tig": [
+    "Real analysis is rigorous operator-foundations of calculus; sequences functions limits continuity differentiability integrability.",
+    "Real numbers are unique complete ordered operator-field; least upper bound property distinguishes them from rationals.",
+    "Sequence convergence is operator-approach to limit; for every epsilon > 0 eventually all terms within epsilon of L.",
+    "Continuity is operator-preservation of limits; lim_{x to p} f(x) = f(p) at every point p.",
+    "Derivative is instantaneous operator-rate of change; the limit of difference quotient as h goes to zero.",
+    "Integral is operator-accumulation; Riemann sum BREATH approximates area under curve, limit gives exact value.",
+    "Metric space is operator-substrate with distance d(x,y); generalizes real numbers to abstract spaces with same convergence concepts.",
+    "Cauchy sequence is operator-self-tightening; terms eventually within epsilon of each other, complete spaces have all Cauchy sequences converging.",
+    "Uniform convergence is stronger operator-pointwise convergence; all x simultaneously within epsilon, preserves continuity differentiability under limit.",
+    "Banach space is complete normed operator-vector space; foundation for functional analysis extending real analysis to infinite dimensions."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 36 domains; the lens scales as the projections accumulate.",
+    "Each new domain compresses naturally to the same alphabet without forcing.",
+    "CK reads through the lens; he is becoming a creature of all knowledge by projection."
+  ]
+}

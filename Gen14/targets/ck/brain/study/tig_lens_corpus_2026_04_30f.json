@@ -1,0 +1,82 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 late afternoon. 6 domain-projections: signal processing, control theory, topology, materials science, observational cosmology, group theory. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30f",
+  "signal_processing_through_tig": [
+    "Signals are operator-streams over time; sampled or continuous representations of physical or abstract quantities.",
+    "Fourier transform decomposes a signal into HARMONY operator-basis; time-domain BREATH becomes frequency-domain LATTICE.",
+    "Sampling theorem: a signal bandlimited below B can be reconstructed from samples at rate >= 2B without COLLAPSE.",
+    "Nyquist rate is the boundary BREATH; sampling below it produces aliasing CHAOS.",
+    "Filters are operator-selectors in frequency domain; low-pass keeps slow LATTICE, high-pass keeps fast PROGRESS.",
+    "Convolution is operator-product in time; equals point-wise multiplication after Fourier transform (HARMONY duality).",
+    "Z-transform extends Fourier to discrete time; each sample is a power of z, generating function for the signal LATTICE.",
+    "Impulse response defines a linear time-invariant system; its convolution with input gives output operator-stream.",
+    "FFT is the divide-and-conquer fast algorithm for Fourier; reduces N^2 BREATH to N log N PROGRESS.",
+    "Aliasing is operator-fold; high frequencies above Nyquist rate masquerade as low frequencies in CHAOS-mixed representation."
+  ],
+  "control_theory_through_tig": [
+    "Control theory is operator-design for desired system BREATH; close the loop between sensing and actuation.",
+    "Feedback control compares output to reference; difference (error operator) drives COUNTER correction toward target.",
+    "PID controller sums proportional integral derivative operators; tuning gains shapes transient and steady-state HARMONY.",
+    "State space represents the system as first-order operator-equations; the LATTICE of all internal variables.",
+    "Transfer function is the Laplace-domain operator-ratio output over input; encodes the full input-output relationship.",
+    "Stability means bounded operator-response to bounded input; poles of transfer function in left half plane give HARMONY.",
+    "Controllability is the operator-reachability property; can the input drive the system to any state in finite time.",
+    "Observability is the operator-recovery property; can output measurements reconstruct the internal state LATTICE.",
+    "Root locus traces pole BREATH as gain varies; visualizes stability boundary in operator parameter space.",
+    "Bode plot shows magnitude and phase response across frequency; gain margin and phase margin quantify HARMONY robustness."
+  ],
+  "topology_through_tig": [
+    "Topological space is a set with operator-structure of open subsets; defines what nearness means without metric.",
+    "Open sets are the operator-alphabet of nearness; arbitrary unions and finite intersections preserve openness.",
+    "Closed sets are operator-COUNTERparts of open sets; complements of open define closure of LATTICE.",
+    "Continuous function preserves operator-nearness; preimage of every open set must be open.",
+    "Homeomorphism is bidirectional continuous bijection; equivalent operator-LATTICE under stretching without tearing.",
+    "Compactness is the operator-finiteness for covers; every open cover admits finite subcover, the substrate-bounded property.",
+    "Connectedness is operator-LATTICE indecomposability; the space cannot be split into disjoint nonempty open pieces.",
+    "Manifold is locally Euclidean operator-space; near each point looks like R^n while globally curved.",
+    "Fundamental group classifies loops up to homotopy; algebraic operator-invariant of the topological space.",
+    "Euler characteristic V - E + F is topological invariant; counts the LATTICE structure of cells in any decomposition."
+  ],
+  "materials_science_through_tig": [
+    "Crystal structure is periodic LATTICE of atoms; unit cell repeats to fill space with operator-symmetry.",
+    "Defects are operator-irregularities in the LATTICE; vacancies dislocations interstitials drive mechanical and electronic behavior.",
+    "Phase diagrams map operator-states across temperature and composition; phase boundaries are RESET-COLLAPSE transitions.",
+    "Microstructure is the operator-texture below macroscopic scale; grain size shape orientation determine HARMONY of properties.",
+    "Mechanical properties strength toughness ductility hardness emerge from operator-coupling at multiple scales.",
+    "Semiconductors have operator-band gap between valence and conduction; doping shifts the LATTICE filling.",
+    "Polymers are long operator-chains of monomer units; chain length crosslinking entanglement give rubbery or glassy BREATH.",
+    "Ceramics are ionic-covalent LATTICE; high-temperature HARMONY but brittle COLLAPSE under tension.",
+    "Metals have delocalized operator-electrons; ductile under stress, conducting under field, lustrous under light.",
+    "Composites are multi-phase LATTICE; combine operator-properties of constituents (carbon fiber stiff, polymer matrix tough)."
+  ],
+  "cosmology_through_tig": [
+    "Cosmic microwave background is the operator-snapshot of universe at age 380000 years; thermal HARMONY at 2.725 K.",
+    "Redshift is operator-stretch of light by expanding LATTICE; distant galaxies appear redder, BREATH-velocity proportional to distance.",
+    "Dark matter is unseen gravitational operator; provides ~23 percent of energy density holding galaxies together.",
+    "Dark energy is operator-tension of vacuum; ~73 percent of energy density driving accelerated COLLAPSE outward.",
+    "Big bang nucleosynthesis: first three minutes BREATH forged H He Li from primordial operator-plasma.",
+    "Inflation is exponential PROGRESS in earliest universe; smoothed initial CHAOS into observed flatness HARMONY.",
+    "Large scale structure is the cosmic operator-LATTICE; galaxies clusters filaments voids organize matter on Mpc scales.",
+    "Hubble law: recession velocity proportional to distance; uniform operator-expansion of LATTICE manifests as v = H_0 d.",
+    "Cosmological constant Lambda is HARMONY-static dark energy; alternate models include dynamic xi field (Sprint 14).",
+    "Distance ladder is operator-chain of measurements; parallax to Cepheids to Type Ia supernovae extends reach by orders of magnitude."
+  ],
+  "group_theory_through_tig": [
+    "Group is set with operator-product satisfying associativity identity inverse; the canonical algebraic substrate.",
+    "Ring is set with two compatible operator-products; addition forms abelian group, multiplication is associative and distributes.",
+    "Field is ring with division except by zero; the operator-substrate of arithmetic and linear algebra.",
+    "Subgroup is operator-closed subset preserving group structure; smaller LATTICE inside the parent group.",
+    "Normal subgroup is operator-invariant under conjugation; quotient group can be formed only with normal subgroups.",
+    "Homomorphism is operator-preserving map between groups; respects the BREATH of multiplication.",
+    "Isomorphism is bijective homomorphism; two isomorphic groups are operator-LATTICE identical.",
+    "Lagrange theorem: subgroup order divides parent group order; finite groups have arithmetic LATTICE structure.",
+    "Galois theory connects field extensions to operator-permutations; solvability of polynomials reduces to group HARMONY.",
+    "Abelian group has commutative operator; ab = ba simplifies the LATTICE to direct sum of cyclic components."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans signal processing, control theory, topology, materials, cosmology, group theory.",
+    "18 domains under the lens so far this week; the alphabet is the same, the projections multiply.",
+    "Each next domain crystallizes by identifying its native operators in the same VOID-LATTICE-COUNTER-...-RESET basis."
+  ]
+}

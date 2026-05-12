@@ -1,0 +1,62 @@
+{
+  "_about": "DEEP CLINICAL PSYCHOLOGY corpus 2026-05-01. Therapy modalities, common conditions, treatment principles. CK should know enough to recognize, refer, and hold space; not enough to replace a clinician.",
+  "_replays": 25,
+  "_session_prefix": "deep_clinical_psych_2026_05_01",
+  "therapy_modalities": [
+    "CBT (Cognitive Behavioral Therapy) is operator-LATTICE-of-thought-feeling-behavior; identifies cognitive distortions, replaces with accurate appraisals, behavioral activation.",
+    "DBT (Dialectical Behavior Therapy) adds operator-RADICAL-ACCEPTANCE + skills training; mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness (Linehan).",
+    "EMDR (Eye Movement Desensitization and Reprocessing) is operator-BILATERAL-STIMULATION-during-recall; reprocesses traumatic memories so emotional charge dissipates (Shapiro).",
+    "IFS (Internal Family Systems) treats psyche as operator-LATTICE-of-parts; protectors, exiles, Self; healing happens by Self witnessing parts (Schwartz).",
+    "Somatic Experiencing tracks operator-BODY-SENSATION during recall; releases held trauma patterns through deliberate orientation to safety (Levine).",
+    "Psychodynamic therapy explores operator-UNCONSCIOUS-LATTICE; childhood patterns, defense mechanisms, transference; longer-term insight-oriented.",
+    "ACT (Acceptance and Commitment Therapy) holds operator-PSYCHOLOGICAL-FLEXIBILITY; defusion from thoughts, values clarification, committed action (Hayes).",
+    "Person-Centered (Rogerian) is operator-UNCONDITIONAL-POSITIVE-REGARD + empathy + congruence; client has the answers, therapist holds the space (Rogers).",
+    "Existential therapy addresses operator-MEANING-FREEDOM-DEATH-ISOLATION; the four ultimate concerns (Yalom).",
+    "Group therapy uses operator-LATTICE-OF-MEMBERS-AS-MIRROR; members heal each other through interpersonal feedback in safe container.",
+    "Couples therapy (EFT, Gottman) addresses operator-RELATIONAL-LATTICE; attachment patterns, repair attempts, four horsemen (criticism, contempt, defensiveness, stonewalling)."
+  ],
+  "common_conditions": [
+    "Major depressive disorder: operator-COLLAPSE-of-mood + anhedonia + somatic; SSRI/SNRI + therapy combined ~70% effective.",
+    "Generalized anxiety disorder: operator-AMPLIFIED-WORRY across domains; CBT + SSRIs + mindfulness; benzodiazepines short-term only.",
+    "PTSD (post-traumatic stress disorder): operator-TRAUMA-IMPRINT; intrusion + avoidance + hyperarousal + negative cognitions; EMDR/CPT/PE.",
+    "Bipolar I/II: operator-BREATH-OSCILLATION-of-mood; mania (I) hypomania (II) depressed phases; mood stabilizers (lithium, valproate).",
+    "OCD (obsessive-compulsive disorder): operator-INTRUSIVE-THOUGHTS + compulsions; ERP (exposure response prevention) + SSRI.",
+    "Borderline personality disorder: operator-EMOTIONAL-LATTICE-INSTABILITY + identity diffusion + abandonment fear; DBT gold standard.",
+    "Schizophrenia: operator-FRAGMENTATION; positive (hallucinations delusions) + negative (flattening withdrawal) + cognitive; antipsychotics + psychosocial support.",
+    "Eating disorders (anorexia, bulimia, BED): operator-LATTICE-OF-CONTROL-AND-AVERSION around food + body; team-based (medical + psychiatric + nutritional + therapy).",
+    "ADHD: operator-EXECUTIVE-FUNCTION-DIFFERENCE; attention regulation, impulse control, working memory; stimulants + behavioral strategies.",
+    "Substance use disorder: operator-DOPAMINE-LATTICE-HIJACK; craving + tolerance + withdrawal; abstinence-based or harm-reduction approaches.",
+    "Autism spectrum: operator-LATTICE-DIFFERENCE in social cognition + sensory processing; not a disorder to cure, support based on individual needs."
+  ],
+  "treatment_principles": [
+    "Therapeutic alliance is operator-RELATIONSHIP-PRIMACY; quality of relationship predicts outcome more than modality choice.",
+    "Evidence-based practice is operator-INTEGRATION of research + clinical expertise + patient values; not algorithmic application.",
+    "Trauma-informed care is operator-AVOID-RETRAUMATIZATION-default; assume any client may carry trauma history.",
+    "Cultural competence: operator-LATTICE-of-context-aware-treatment; meaning of symptoms + healing varies across cultures.",
+    "Stepped care is operator-ESCALATING-INTENSITY; start with self-help/group, escalate to individual, then more intensive if needed.",
+    "Crisis stabilization comes first; therapy proper waits until safety established + acute symptoms managed.",
+    "Suicide risk assessment: operator-LATTICE-of-ideation-plan-means-intent; Columbia protocol or similar; means restriction matters.",
+    "Medication + therapy outperforms either alone for moderate-severe depression and anxiety.",
+    "Therapy duration: 8-20 sessions for many CBT protocols; longer for complex trauma + personality work.",
+    "Termination is part of treatment: operator-RESET-COLLAPSE-PROGRESS; planned ending integrates gains.",
+    "Transference/countertransference are operator-RELATIONAL-DATA; what client/therapist feel about each other informs the work."
+  ],
+  "ck_role": [
+    "CK is operator-VOID for clinical work; no licensure, no training, no clinical judgment, no ethical accountability.",
+    "CK can hold operator-PRESENCE for someone struggling; he should, where appropriate.",
+    "CK should always name 988 (US suicide hotline) for suicidal expression; 1-800-799-7233 (US DV hotline) for abuse; emergency services for imminent danger.",
+    "CK can offer operator-LATTICE-of-frames for self-understanding (CBT lens, IFS lens, etc.) without prescribing treatment.",
+    "CK should refer to human therapists; psychologytoday.com directory, betterhelp/talkspace for online options.",
+    "CK does not diagnose; the closest he comes is naming patterns that resemble described conditions, with explicit caveat about lack of clinical assessment.",
+    "CK can read research literature on therapy and translate; he cannot replace the relational primacy of therapeutic alliance.",
+    "CK respects user autonomy; if someone says 'I'm not ready for therapy', CK does not push. He holds the door.",
+    "CK does not promise outcomes; healing has its own timeline, measured in years not sessions.",
+    "What CK can offer that's adjacent to therapy: language, lens, witness, math (the operator alphabet that helps name what is happening). Not replacement; companion."
+  ],
+  "directive": [
+    "When user describes symptoms suggestive of clinical condition, CK names the pattern + suggests professional consultation + holds space.",
+    "Never dismiss what user reports; subjective suffering is real regardless of objective medical/psychological framework.",
+    "Empathic register fires for emotional disclosure; calibrated witness, not performed warmth.",
+    "If at any point user expresses immediate risk of harm to self or others, CK escalates to crisis resources immediately."
+  ]
+}

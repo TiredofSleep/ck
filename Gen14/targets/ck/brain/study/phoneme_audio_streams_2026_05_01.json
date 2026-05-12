@@ -1,0 +1,1442 @@
+{
+  "A": {
+    "n_samples": 64354,
+    "sample_rate": 44100,
+    "duration_sec": 1.4592743764172336,
+    "n_force_windows": 2011,
+    "n_operators": 10055,
+    "histogram": {
+      "VOID": 4362,
+      "LATTICE": 362,
+      "COUNTER": 317,
+      "PROGRESS": 9,
+      "COLLAPSE": 676,
+      "BALANCE": 311,
+      "CHAOS": 428,
+      "HARMONY": 1579,
+      "BREATH": 0,
+      "RESET": 2011
+    },
+    "histogram_pct": {
+      "VOID": 43.4,
+      "LATTICE": 3.6,
+      "COUNTER": 3.2,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 6.7,
+      "BALANCE": 3.1,
+      "CHAOS": 4.3,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.4
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "B": {
+    "n_samples": 66780,
+    "sample_rate": 44100,
+    "duration_sec": 1.5142857142857142,
+    "n_force_windows": 2086,
+    "n_operators": 10430,
+    "histogram": {
+      "VOID": 4462,
+      "LATTICE": 454,
+      "COUNTER": 311,
+      "PROGRESS": 5,
+      "COLLAPSE": 715,
+      "BALANCE": 329,
+      "CHAOS": 427,
+      "HARMONY": 1641,
+      "BREATH": 0,
+      "RESET": 2086
+    },
+    "histogram_pct": {
+      "VOID": 42.8,
+      "LATTICE": 4.4,
+      "COUNTER": 3.0,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.9,
+      "BALANCE": 3.2,
+      "CHAOS": 4.1,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.8
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "C": {
+    "n_samples": 68764,
+    "sample_rate": 44100,
+    "duration_sec": 1.5592743764172337,
+    "n_force_windows": 2148,
+    "n_operators": 10740,
+    "histogram": {
+      "VOID": 4511,
+      "LATTICE": 399,
+      "COUNTER": 313,
+      "PROGRESS": 4,
+      "COLLAPSE": 913,
+      "BALANCE": 347,
+      "CHAOS": 553,
+      "HARMONY": 1552,
+      "BREATH": 2,
+      "RESET": 2146
+    },
+    "histogram_pct": {
+      "VOID": 42.0,
+      "LATTICE": 3.7,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 8.5,
+      "BALANCE": 3.2,
+      "CHAOS": 5.1,
+      "HARMONY": 14.5,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.0
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.5
+      ]
+    ]
+  },
+  "D": {
+    "n_samples": 66558,
+    "sample_rate": 44100,
+    "duration_sec": 1.5092517006802721,
+    "n_force_windows": 2079,
+    "n_operators": 10395,
+    "histogram": {
+      "VOID": 4441,
+      "LATTICE": 448,
+      "COUNTER": 321,
+      "PROGRESS": 7,
+      "COLLAPSE": 719,
+      "BALANCE": 341,
+      "CHAOS": 439,
+      "HARMONY": 1600,
+      "BREATH": 0,
+      "RESET": 2079
+    },
+    "histogram_pct": {
+      "VOID": 42.7,
+      "LATTICE": 4.3,
+      "COUNTER": 3.1,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 6.9,
+      "BALANCE": 3.3,
+      "CHAOS": 4.2,
+      "HARMONY": 15.4,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.7
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.4
+      ]
+    ]
+  },
+  "E": {
+    "n_samples": 64574,
+    "sample_rate": 44100,
+    "duration_sec": 1.4642630385487527,
+    "n_force_windows": 2017,
+    "n_operators": 10085,
+    "histogram": {
+      "VOID": 4370,
+      "LATTICE": 399,
+      "COUNTER": 291,
+      "PROGRESS": 3,
+      "COLLAPSE": 679,
+      "BALANCE": 326,
+      "CHAOS": 420,
+      "HARMONY": 1580,
+      "BREATH": 0,
+      "RESET": 2017
+    },
+    "histogram_pct": {
+      "VOID": 43.3,
+      "LATTICE": 4.0,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.7,
+      "BALANCE": 3.2,
+      "CHAOS": 4.2,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.3
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "F": {
+    "n_samples": 70306,
+    "sample_rate": 44100,
+    "duration_sec": 1.5942403628117914,
+    "n_force_windows": 2197,
+    "n_operators": 10985,
+    "histogram": {
+      "VOID": 4625,
+      "LATTICE": 535,
+      "COUNTER": 396,
+      "PROGRESS": 3,
+      "COLLAPSE": 840,
+      "BALANCE": 351,
+      "CHAOS": 416,
+      "HARMONY": 1622,
+      "BREATH": 0,
+      "RESET": 2197
+    },
+    "histogram_pct": {
+      "VOID": 42.1,
+      "LATTICE": 4.9,
+      "COUNTER": 3.6,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.6,
+      "BALANCE": 3.2,
+      "CHAOS": 3.8,
+      "HARMONY": 14.8,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.1
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.8
+      ]
+    ]
+  },
+  "G": {
+    "n_samples": 67442,
+    "sample_rate": 44100,
+    "duration_sec": 1.529297052154195,
+    "n_force_windows": 2107,
+    "n_operators": 10535,
+    "histogram": {
+      "VOID": 4448,
+      "LATTICE": 438,
+      "COUNTER": 350,
+      "PROGRESS": 5,
+      "COLLAPSE": 796,
+      "BALANCE": 330,
+      "CHAOS": 491,
+      "HARMONY": 1570,
+      "BREATH": 0,
+      "RESET": 2107
+    },
+    "histogram_pct": {
+      "VOID": 42.2,
+      "LATTICE": 4.2,
+      "COUNTER": 3.3,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.6,
+      "BALANCE": 3.1,
+      "CHAOS": 4.7,
+      "HARMONY": 14.9,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.9
+      ]
+    ]
+  },
+  "H": {
+    "n_samples": 72290,
+    "sample_rate": 44100,
+    "duration_sec": 1.6392290249433106,
+    "n_force_windows": 2259,
+    "n_operators": 11295,
+    "histogram": {
+      "VOID": 4543,
+      "LATTICE": 564,
+      "COUNTER": 471,
+      "PROGRESS": 6,
+      "COLLAPSE": 961,
+      "BALANCE": 356,
+      "CHAOS": 535,
+      "HARMONY": 1600,
+      "BREATH": 0,
+      "RESET": 2259
+    },
+    "histogram_pct": {
+      "VOID": 40.2,
+      "LATTICE": 5.0,
+      "COUNTER": 4.2,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 8.5,
+      "BALANCE": 3.2,
+      "CHAOS": 4.7,
+      "HARMONY": 14.2,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        40.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.2
+      ]
+    ]
+  },
+  "I": {
+    "n_samples": 64574,
+    "sample_rate": 44100,
+    "duration_sec": 1.4642630385487527,
+    "n_force_windows": 2017,
+    "n_operators": 10085,
+    "histogram": {
+      "VOID": 4346,
+      "LATTICE": 370,
+      "COUNTER": 280,
+      "PROGRESS": 2,
+      "COLLAPSE": 655,
+      "BALANCE": 316,
+      "CHAOS": 453,
+      "HARMONY": 1646,
+      "BREATH": 0,
+      "RESET": 2017
+    },
+    "histogram_pct": {
+      "VOID": 43.1,
+      "LATTICE": 3.7,
+      "COUNTER": 2.8,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.5,
+      "BALANCE": 3.1,
+      "CHAOS": 4.5,
+      "HARMONY": 16.3,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.1
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        16.3
+      ]
+    ]
+  },
+  "J": {
+    "n_samples": 67442,
+    "sample_rate": 44100,
+    "duration_sec": 1.529297052154195,
+    "n_force_windows": 2107,
+    "n_operators": 10535,
+    "histogram": {
+      "VOID": 4415,
+      "LATTICE": 441,
+      "COUNTER": 401,
+      "PROGRESS": 3,
+      "COLLAPSE": 811,
+      "BALANCE": 321,
+      "CHAOS": 493,
+      "HARMONY": 1543,
+      "BREATH": 0,
+      "RESET": 2107
+    },
+    "histogram_pct": {
+      "VOID": 41.9,
+      "LATTICE": 4.2,
+      "COUNTER": 3.8,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.7,
+      "BALANCE": 3.0,
+      "CHAOS": 4.7,
+      "HARMONY": 14.6,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        41.9
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.6
+      ]
+    ]
+  },
+  "K": {
+    "n_samples": 67220,
+    "sample_rate": 44100,
+    "duration_sec": 1.5242630385487528,
+    "n_force_windows": 2100,
+    "n_operators": 10500,
+    "histogram": {
+      "VOID": 4454,
+      "LATTICE": 474,
+      "COUNTER": 382,
+      "PROGRESS": 3,
+      "COLLAPSE": 774,
+      "BALANCE": 327,
+      "CHAOS": 421,
+      "HARMONY": 1565,
+      "BREATH": 0,
+      "RESET": 2100
+    },
+    "histogram_pct": {
+      "VOID": 42.4,
+      "LATTICE": 4.5,
+      "COUNTER": 3.6,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.4,
+      "BALANCE": 3.1,
+      "CHAOS": 4.0,
+      "HARMONY": 14.9,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.4
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.9
+      ]
+    ]
+  },
+  "L": {
+    "n_samples": 69644,
+    "sample_rate": 44100,
+    "duration_sec": 1.5792290249433107,
+    "n_force_windows": 2176,
+    "n_operators": 10880,
+    "histogram": {
+      "VOID": 4586,
+      "LATTICE": 468,
+      "COUNTER": 364,
+      "PROGRESS": 2,
+      "COLLAPSE": 764,
+      "BALANCE": 376,
+      "CHAOS": 477,
+      "HARMONY": 1667,
+      "BREATH": 0,
+      "RESET": 2176
+    },
+    "histogram_pct": {
+      "VOID": 42.2,
+      "LATTICE": 4.3,
+      "COUNTER": 3.3,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.0,
+      "BALANCE": 3.5,
+      "CHAOS": 4.4,
+      "HARMONY": 15.3,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.3
+      ]
+    ]
+  },
+  "M": {
+    "n_samples": 69644,
+    "sample_rate": 44100,
+    "duration_sec": 1.5792290249433107,
+    "n_force_windows": 2176,
+    "n_operators": 10880,
+    "histogram": {
+      "VOID": 4632,
+      "LATTICE": 482,
+      "COUNTER": 351,
+      "PROGRESS": 4,
+      "COLLAPSE": 729,
+      "BALANCE": 379,
+      "CHAOS": 433,
+      "HARMONY": 1694,
+      "BREATH": 0,
+      "RESET": 2176
+    },
+    "histogram_pct": {
+      "VOID": 42.6,
+      "LATTICE": 4.4,
+      "COUNTER": 3.2,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.7,
+      "BALANCE": 3.5,
+      "CHAOS": 4.0,
+      "HARMONY": 15.6,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.6
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.6
+      ]
+    ]
+  },
+  "N": {
+    "n_samples": 69644,
+    "sample_rate": 44100,
+    "duration_sec": 1.5792290249433107,
+    "n_force_windows": 2176,
+    "n_operators": 10880,
+    "histogram": {
+      "VOID": 4682,
+      "LATTICE": 459,
+      "COUNTER": 323,
+      "PROGRESS": 1,
+      "COLLAPSE": 715,
+      "BALANCE": 376,
+      "CHAOS": 441,
+      "HARMONY": 1707,
+      "BREATH": 0,
+      "RESET": 2176
+    },
+    "histogram_pct": {
+      "VOID": 43.0,
+      "LATTICE": 4.2,
+      "COUNTER": 3.0,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.6,
+      "BALANCE": 3.5,
+      "CHAOS": 4.1,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.0
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "O": {
+    "n_samples": 64574,
+    "sample_rate": 44100,
+    "duration_sec": 1.4642630385487527,
+    "n_force_windows": 2017,
+    "n_operators": 10085,
+    "histogram": {
+      "VOID": 4361,
+      "LATTICE": 396,
+      "COUNTER": 284,
+      "PROGRESS": 3,
+      "COLLAPSE": 663,
+      "BALANCE": 322,
+      "CHAOS": 426,
+      "HARMONY": 1613,
+      "BREATH": 0,
+      "RESET": 2017
+    },
+    "histogram_pct": {
+      "VOID": 43.2,
+      "LATTICE": 3.9,
+      "COUNTER": 2.8,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.6,
+      "BALANCE": 3.2,
+      "CHAOS": 4.2,
+      "HARMONY": 16.0,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        16.0
+      ]
+    ]
+  },
+  "P": {
+    "n_samples": 67220,
+    "sample_rate": 44100,
+    "duration_sec": 1.5242630385487528,
+    "n_force_windows": 2100,
+    "n_operators": 10500,
+    "histogram": {
+      "VOID": 4502,
+      "LATTICE": 444,
+      "COUNTER": 340,
+      "PROGRESS": 9,
+      "COLLAPSE": 726,
+      "BALANCE": 336,
+      "CHAOS": 432,
+      "HARMONY": 1611,
+      "BREATH": 0,
+      "RESET": 2100
+    },
+    "histogram_pct": {
+      "VOID": 42.9,
+      "LATTICE": 4.2,
+      "COUNTER": 3.2,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 6.9,
+      "BALANCE": 3.2,
+      "CHAOS": 4.1,
+      "HARMONY": 15.3,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.9
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.3
+      ]
+    ]
+  },
+  "Q": {
+    "n_samples": 72510,
+    "sample_rate": 44100,
+    "duration_sec": 1.64421768707483,
+    "n_force_windows": 2265,
+    "n_operators": 11325,
+    "histogram": {
+      "VOID": 4692,
+      "LATTICE": 542,
+      "COUNTER": 431,
+      "PROGRESS": 3,
+      "COLLAPSE": 876,
+      "BALANCE": 385,
+      "CHAOS": 491,
+      "HARMONY": 1640,
+      "BREATH": 0,
+      "RESET": 2265
+    },
+    "histogram_pct": {
+      "VOID": 41.4,
+      "LATTICE": 4.8,
+      "COUNTER": 3.8,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.7,
+      "BALANCE": 3.4,
+      "CHAOS": 4.3,
+      "HARMONY": 14.5,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        41.4
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.5
+      ]
+    ]
+  },
+  "R": {
+    "n_samples": 70306,
+    "sample_rate": 44100,
+    "duration_sec": 1.5942403628117914,
+    "n_force_windows": 2197,
+    "n_operators": 10985,
+    "histogram": {
+      "VOID": 4536,
+      "LATTICE": 521,
+      "COUNTER": 387,
+      "PROGRESS": 1,
+      "COLLAPSE": 698,
+      "BALANCE": 395,
+      "CHAOS": 525,
+      "HARMONY": 1725,
+      "BREATH": 0,
+      "RESET": 2197
+    },
+    "histogram_pct": {
+      "VOID": 41.3,
+      "LATTICE": 4.7,
+      "COUNTER": 3.5,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.4,
+      "BALANCE": 3.6,
+      "CHAOS": 4.8,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        41.3
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "S": {
+    "n_samples": 71850,
+    "sample_rate": 44100,
+    "duration_sec": 1.629251700680272,
+    "n_force_windows": 2245,
+    "n_operators": 11225,
+    "histogram": {
+      "VOID": 4557,
+      "LATTICE": 491,
+      "COUNTER": 321,
+      "PROGRESS": 4,
+      "COLLAPSE": 1063,
+      "BALANCE": 364,
+      "CHAOS": 568,
+      "HARMONY": 1612,
+      "BREATH": 0,
+      "RESET": 2245
+    },
+    "histogram_pct": {
+      "VOID": 40.6,
+      "LATTICE": 4.4,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 9.5,
+      "BALANCE": 3.2,
+      "CHAOS": 5.1,
+      "HARMONY": 14.4,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        40.6
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.4
+      ]
+    ]
+  },
+  "T": {
+    "n_samples": 67220,
+    "sample_rate": 44100,
+    "duration_sec": 1.5242630385487528,
+    "n_force_windows": 2100,
+    "n_operators": 10500,
+    "histogram": {
+      "VOID": 4482,
+      "LATTICE": 452,
+      "COUNTER": 320,
+      "PROGRESS": 9,
+      "COLLAPSE": 765,
+      "BALANCE": 335,
+      "CHAOS": 433,
+      "HARMONY": 1604,
+      "BREATH": 0,
+      "RESET": 2100
+    },
+    "histogram_pct": {
+      "VOID": 42.7,
+      "LATTICE": 4.3,
+      "COUNTER": 3.0,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 7.3,
+      "BALANCE": 3.2,
+      "CHAOS": 4.1,
+      "HARMONY": 15.3,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.7
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.3
+      ]
+    ]
+  },
+  "U": {
+    "n_samples": 67882,
+    "sample_rate": 44100,
+    "duration_sec": 1.5392743764172336,
+    "n_force_windows": 2121,
+    "n_operators": 10605,
+    "histogram": {
+      "VOID": 4508,
+      "LATTICE": 428,
+      "COUNTER": 337,
+      "PROGRESS": 3,
+      "COLLAPSE": 745,
+      "BALANCE": 354,
+      "CHAOS": 469,
+      "HARMONY": 1640,
+      "BREATH": 0,
+      "RESET": 2121
+    },
+    "histogram_pct": {
+      "VOID": 42.5,
+      "LATTICE": 4.0,
+      "COUNTER": 3.2,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.0,
+      "BALANCE": 3.3,
+      "CHAOS": 4.4,
+      "HARMONY": 15.5,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.5
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.5
+      ]
+    ]
+  },
+  "V": {
+    "n_samples": 66780,
+    "sample_rate": 44100,
+    "duration_sec": 1.5142857142857142,
+    "n_force_windows": 2086,
+    "n_operators": 10430,
+    "histogram": {
+      "VOID": 4487,
+      "LATTICE": 437,
+      "COUNTER": 302,
+      "PROGRESS": 7,
+      "COLLAPSE": 698,
+      "BALANCE": 349,
+      "CHAOS": 430,
+      "HARMONY": 1634,
+      "BREATH": 0,
+      "RESET": 2086
+    },
+    "histogram_pct": {
+      "VOID": 43.0,
+      "LATTICE": 4.2,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 6.7,
+      "BALANCE": 3.3,
+      "CHAOS": 4.1,
+      "HARMONY": 15.7,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        43.0
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.7
+      ]
+    ]
+  },
+  "W": {
+    "n_samples": 80886,
+    "sample_rate": 44100,
+    "duration_sec": 1.8341496598639455,
+    "n_force_windows": 2527,
+    "n_operators": 12635,
+    "histogram": {
+      "VOID": 4990,
+      "LATTICE": 663,
+      "COUNTER": 421,
+      "PROGRESS": 3,
+      "COLLAPSE": 992,
+      "BALANCE": 450,
+      "CHAOS": 630,
+      "HARMONY": 1959,
+      "BREATH": 0,
+      "RESET": 2527
+    },
+    "histogram_pct": {
+      "VOID": 39.5,
+      "LATTICE": 5.2,
+      "COUNTER": 3.3,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.9,
+      "BALANCE": 3.6,
+      "CHAOS": 5.0,
+      "HARMONY": 15.5,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        39.5
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.5
+      ]
+    ]
+  },
+  "X": {
+    "n_samples": 70304,
+    "sample_rate": 44100,
+    "duration_sec": 1.5941950113378685,
+    "n_force_windows": 2197,
+    "n_operators": 10985,
+    "histogram": {
+      "VOID": 4512,
+      "LATTICE": 476,
+      "COUNTER": 325,
+      "PROGRESS": 5,
+      "COLLAPSE": 1060,
+      "BALANCE": 322,
+      "CHAOS": 525,
+      "HARMONY": 1563,
+      "BREATH": 0,
+      "RESET": 2197
+    },
+    "histogram_pct": {
+      "VOID": 41.1,
+      "LATTICE": 4.3,
+      "COUNTER": 3.0,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 9.6,
+      "BALANCE": 2.9,
+      "CHAOS": 4.8,
+      "HARMONY": 14.2,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        41.1
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.2
+      ]
+    ]
+  },
+  "Y": {
+    "n_samples": 68102,
+    "sample_rate": 44100,
+    "duration_sec": 1.5442630385487528,
+    "n_force_windows": 2128,
+    "n_operators": 10640,
+    "histogram": {
+      "VOID": 4487,
+      "LATTICE": 438,
+      "COUNTER": 309,
+      "PROGRESS": 2,
+      "COLLAPSE": 697,
+      "BALANCE": 354,
+      "CHAOS": 488,
+      "HARMONY": 1737,
+      "BREATH": 0,
+      "RESET": 2128
+    },
+    "histogram_pct": {
+      "VOID": 42.2,
+      "LATTICE": 4.1,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 6.6,
+      "BALANCE": 3.3,
+      "CHAOS": 4.6,
+      "HARMONY": 16.3,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        16.3
+      ]
+    ]
+  },
+  "Z": {
+    "n_samples": 67442,
+    "sample_rate": 44100,
+    "duration_sec": 1.529297052154195,
+    "n_force_windows": 2107,
+    "n_operators": 10535,
+    "histogram": {
+      "VOID": 4442,
+      "LATTICE": 423,
+      "COUNTER": 300,
+      "PROGRESS": 6,
+      "COLLAPSE": 831,
+      "BALANCE": 334,
+      "CHAOS": 509,
+      "HARMONY": 1583,
+      "BREATH": 0,
+      "RESET": 2107
+    },
+    "histogram_pct": {
+      "VOID": 42.2,
+      "LATTICE": 4.0,
+      "COUNTER": 2.8,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 7.9,
+      "BALANCE": 3.2,
+      "CHAOS": 4.8,
+      "HARMONY": 15.0,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        42.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.0
+      ]
+    ]
+  },
+  "word:cat": {
+    "n_samples": 53774,
+    "sample_rate": 44100,
+    "duration_sec": 1.2193650793650794,
+    "n_force_windows": 1680,
+    "n_operators": 8400,
+    "histogram": {
+      "VOID": 4049,
+      "LATTICE": 257,
+      "COUNTER": 237,
+      "PROGRESS": 1,
+      "COLLAPSE": 590,
+      "BALANCE": 159,
+      "CHAOS": 156,
+      "HARMONY": 1271,
+      "BREATH": 0,
+      "RESET": 1680
+    },
+    "histogram_pct": {
+      "VOID": 48.2,
+      "LATTICE": 3.1,
+      "COUNTER": 2.8,
+      "PROGRESS": 0.0,
+      "COLLAPSE": 7.0,
+      "BALANCE": 1.9,
+      "CHAOS": 1.9,
+      "HARMONY": 15.1,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        48.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.1
+      ]
+    ]
+  },
+  "word:dog": {
+    "n_samples": 57746,
+    "sample_rate": 44100,
+    "duration_sec": 1.3094331065759637,
+    "n_force_windows": 1804,
+    "n_operators": 9020,
+    "histogram": {
+      "VOID": 4338,
+      "LATTICE": 253,
+      "COUNTER": 253,
+      "PROGRESS": 6,
+      "COLLAPSE": 691,
+      "BALANCE": 238,
+      "CHAOS": 173,
+      "HARMONY": 1264,
+      "BREATH": 0,
+      "RESET": 1804
+    },
+    "histogram_pct": {
+      "VOID": 48.1,
+      "LATTICE": 2.8,
+      "COUNTER": 2.8,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 7.7,
+      "BALANCE": 2.6,
+      "CHAOS": 1.9,
+      "HARMONY": 14.0,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        48.1
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        14.0
+      ]
+    ]
+  },
+  "word:yes": {
+    "n_samples": 56200,
+    "sample_rate": 44100,
+    "duration_sec": 1.27437641723356,
+    "n_force_windows": 1756,
+    "n_operators": 8780,
+    "histogram": {
+      "VOID": 4055,
+      "LATTICE": 242,
+      "COUNTER": 166,
+      "PROGRESS": 13,
+      "COLLAPSE": 873,
+      "BALANCE": 177,
+      "CHAOS": 305,
+      "HARMONY": 1193,
+      "BREATH": 0,
+      "RESET": 1756
+    },
+    "histogram_pct": {
+      "VOID": 46.2,
+      "LATTICE": 2.8,
+      "COUNTER": 1.9,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 9.9,
+      "BALANCE": 2.0,
+      "CHAOS": 3.5,
+      "HARMONY": 13.6,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        46.2
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        13.6
+      ]
+    ]
+  },
+  "word:no": {
+    "n_samples": 49808,
+    "sample_rate": 44100,
+    "duration_sec": 1.1294331065759637,
+    "n_force_windows": 1556,
+    "n_operators": 7780,
+    "histogram": {
+      "VOID": 3876,
+      "LATTICE": 189,
+      "COUNTER": 153,
+      "PROGRESS": 9,
+      "COLLAPSE": 456,
+      "BALANCE": 156,
+      "CHAOS": 138,
+      "HARMONY": 1247,
+      "BREATH": 0,
+      "RESET": 1556
+    },
+    "histogram_pct": {
+      "VOID": 49.8,
+      "LATTICE": 2.4,
+      "COUNTER": 2.0,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 5.9,
+      "BALANCE": 2.0,
+      "CHAOS": 1.8,
+      "HARMONY": 16.0,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        49.8
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        16.0
+      ]
+    ]
+  },
+  "word:water": {
+    "n_samples": 57082,
+    "sample_rate": 44100,
+    "duration_sec": 1.2943764172335601,
+    "n_force_windows": 1783,
+    "n_operators": 8915,
+    "histogram": {
+      "VOID": 4131,
+      "LATTICE": 278,
+      "COUNTER": 245,
+      "PROGRESS": 6,
+      "COLLAPSE": 539,
+      "BALANCE": 223,
+      "CHAOS": 267,
+      "HARMONY": 1443,
+      "BREATH": 0,
+      "RESET": 1783
+    },
+    "histogram_pct": {
+      "VOID": 46.3,
+      "LATTICE": 3.1,
+      "COUNTER": 2.7,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 6.0,
+      "BALANCE": 2.5,
+      "CHAOS": 3.0,
+      "HARMONY": 16.2,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        46.3
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        16.2
+      ]
+    ]
+  },
+  "word:hello": {
+    "n_samples": 56420,
+    "sample_rate": 44100,
+    "duration_sec": 1.2793650793650793,
+    "n_force_windows": 1763,
+    "n_operators": 8815,
+    "histogram": {
+      "VOID": 4107,
+      "LATTICE": 307,
+      "COUNTER": 258,
+      "PROGRESS": 9,
+      "COLLAPSE": 614,
+      "BALANCE": 215,
+      "CHAOS": 221,
+      "HARMONY": 1321,
+      "BREATH": 0,
+      "RESET": 1763
+    },
+    "histogram_pct": {
+      "VOID": 46.6,
+      "LATTICE": 3.5,
+      "COUNTER": 2.9,
+      "PROGRESS": 0.1,
+      "COLLAPSE": 7.0,
+      "BALANCE": 2.4,
+      "CHAOS": 2.5,
+      "HARMONY": 15.0,
+      "BREATH": 0.0,
+      "RESET": 20.0
+    },
+    "top3": [
+      [
+        "VOID",
+        46.6
+      ],
+      [
+        "RESET",
+        20.0
+      ],
+      [
+        "HARMONY",
+        15.0
+      ]
+    ]
+  }
+}

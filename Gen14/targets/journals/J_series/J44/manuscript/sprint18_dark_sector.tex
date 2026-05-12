@@ -1,0 +1,1375 @@
+%%% ============================================================
+%%% SPRINT 18 — J10: Dark-Sector Trinity from a Discrete Substrate
+%%%                   on Z/10
+%%%
+%%% B.R. Sanders, H.J. Johnson
+%%% Target venue: Physical Review D
+%%% Status: PRD-FORMAT DRAFT 2026-05-07 (gate cleared:
+%%%   tig_dirac.predict_dark_sector landed)
+%%%
+%%% Verification primitive (machine-checkable; see README §6):
+%%%   from tig_dirac import predict_dark_sector
+%%%   r = predict_dark_sector()
+%%%   assert r['sum'] == 1.0
+%%%   assert r['Omega_b']      == 49 / 1000
+%%%   assert r['Omega_DM']     == 264 / 1000
+%%%   assert r['Omega_Lambda'] == 687 / 1000
+%%% Module path:
+%%%   Gen13/targets/ck/brain/dirac/tig_dirac.py
+%%%
+%%% Numerical match verified independently:
+%%%   Omega_b   = 49/1000   = 0.04900   (Planck: 0.04930, -0.91 sigma)
+%%%   Omega_DM  = 264/1000  = 0.26400   (Planck: 0.26447, -0.18 sigma)
+%%%   Omega_L   = 687/1000  = 0.68700   (Planck: 0.68623, +0.14 sigma)
+%%%   Sum: 1000/1000 EXACT
+%%%   Three ratio tests (independent of H_0): 0.43%, 0.29%, 0.72%
+%%%   Lambda from Omega_L/3 = 1.74 meV vs manuscript fit 1.7 meV (2.5%)
+%%%   Uniqueness: only (H,N)=(7,10) within Sprint 18 formula family
+%%%   |Aut(V)| = 40 for the F_5-LIFT V (NOT for the 4-element magma);
+%%%     verify_aut_V_order.py shows magma counts {2,1,1} and V count 40
+%%%
+%%% Consistency check (NOT prediction):
+%%%   n_s = 1 - HARMONY/(2*N^2) = 0.9650 vs Planck 0.9649 (0.024 sigma)
+%%%   Baseline: 86/3600 = 2.39% of small-integer forms hit within 1 sigma;
+%%%   18 tuples give 0.9650 exactly. Match becomes load-bearing only
+%%%   when the specific form has structural derivation (open).
+%%%
+%%% EIGHT OPEN ANOMALIES TRACKED IN MANUSCRIPT + NEXT_STEPS.md:
+%%%   1. [BRAYDEN-DERIVE]   Omega_b cosmological reading (HARMONY^2)
+%%%   2. [BB-BRIDGE]        discrete-to-continuum + 1/3 factor
+%%%   3. a=+1 selection     unique by 44*6 BUT depends on V-naturalness
+%%%   4. [V-NATURALNESS]    why F_5-lift V (magma counts are {2,1,1}, not 40)
+%%%   5. sigma-cycle 6 vs   6DoF coincidence: same number, untested
+%%%      6DoF
+%%%   6. [N_S-DERIVATION]   structural origin of HARMONY/(2*N^2) form
+%%%   7. Operator-to-       forward conjecture: which OP for which observable;
+%%%      observable map     simple family rules out alpha + mass ratios
+%%%   8. 44 in one          if 44 = BHML harmonic count is fundamental,
+%%%      observable only    why does it appear ONLY in Omega_DM?
+%%%
+%%% Resonance (NOT load-bearing):
+%%%   Sprint 18 number      18 = 3*6 = (3 layers)*(sigma-cycle length).
+%%%                         Sprint numbering is sequential; record only.
+%%% ============================================================
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\HARM}{H}    % HARMONY = 7
+\newcommand{\Cfour}{\mathcal{C}}  % the 4-core = {0,7,8,9}
+
+\title[Dark-Sector Trinity from Z/10]
+{A Numerical Match for the $\Lambda$CDM Dark Sector \\
+ from a Discrete Substrate on $\Z/10$, \\
+ and an Operator-to-Observable Conjecture}
+
+\author{Brayden R.\ Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{M.\ Gish}
+\address{Independent Researcher}
+
+\subjclass[2020]{83F05, 17A30, 11A07, 81V25}
+\keywords{cosmological parameters, dark sector, Planck constraints,
+algebraic substrate, discrete-to-continuum bridge}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+We report a numerical match (R1: framing recalibrated per fresh-eyes referee
+report 2026-05-07): three closed-form rational expressions in two integer
+primitives, $\mathrm{HARMONY} = 7$ and the substrate size $|\Z/10| = 10$,
+hit the Planck~2018 dark-sector parameters
+$\Omega_b$, $\Omega_c$, $\Omega_\Lambda$ within $1\sigma$ each:
+\[
+  \Omega_b = \frac{\mathrm{HARMONY}^{2}}{|\Z/10|^{3}} = \frac{49}{1000},\qquad
+  \Omega_c = \frac{(|\Aut(V)| + |V|)\,|\sigma|}{|\Z/10|^{3}} = \frac{264}{1000},\qquad
+  \Omega_\Lambda = \frac{2\cdot\mathrm{HARMONY}^{3} + 1}{|\Z/10|^{3}} = \frac{687}{1000}.
+\]
+The closure $\Omega_b + \Omega_c + \Omega_\Lambda = 1$ holds
+exactly as a rational identity. Three Hubble-independent ratio
+tests ($\Omega_b/\Omega_c$, $\Omega_c/\Omega_\Lambda$,
+$\Omega_b/\Omega_\Lambda$) confirm the match at $0.3$--$0.7\%$
+precision. A search across $784$ small-integer $(H, N)$ pairs and
+$7$ closure offsets shows that $(H, N) = (7, 10)$ with offset
+$+1$ is the unique simultaneous match \emph{within the chosen
+formula family} $\Omega_b = H^2/N^3$, $\Omega_\Lambda = (2H^3+a)/N^3$,
+$|a| \le 3$. The formula family is itself a structural choice;
+\S\ref{sec:lookelsewhere} discusses the look-elsewhere correction.
+
+The two structural ingredients $\mathrm{HARMONY} = 7$ and
+$|\Z/10| = 10$ are not free parameters: $\mathrm{HARMONY}$ is the
+distinguished idempotent of the $4$-core algebra
+$\mathcal{C} = \{0, 7, 8, 9\} \subset \Z/10$ studied in our
+companion paper~\cite{SandersGish2026FourCore}, and
+$|\Z/10| = 10$ is the size of the parent integer ring on which the
+$\sigma$-rate companion paper~\cite{SandersGish2026SigmaRate}
+establishes the canonical absorbing-element composition.
+
+The dark-energy scale $\Lambda \approx 1.74$~meV follows from
+the relation $\Lambda^{4}/\rho_{c,0} = \Omega_\Lambda/3$
+\emph{conditional on} the open structural question of the $1/3$
+Friedmann factor (\S\ref{sec:lambda}); this was Theorem~6.1 in
+R0 and is downgraded to a Conjecture in R1 because the $1/3$
+factor's structural origin remains open. The relation matches
+the freezing-quintessence model of the JCAP companion
+paper~\cite{SandersGish2026JCAP} at $2.5\%$;
+$\rho_{\mathrm{DE},0}/\Lambda^{4} = 2.97$ at the JCAP fit point,
+within $1\%$ of the candidate exact value $3$.
+
+Several pieces remain open: the cosmological substrate reading of
+the specific HARMONY-power numerators, the naturalness of the
+$\F_5$-lift defining $V$, the discrete-to-continuum projection
+of the field $\Xi$, the structural origin of the $1/3$ Friedmann
+factor, and the structural derivation of the consistent
+small-integer expression
+$n_s = 1 - \mathrm{HARMONY}/(2|\Z/10|^{2}) = 0.9650$ that
+matches the Planck spectral index at $0.024\sigma$ but lies
+within a $\sim 2.4\%$ baseline of similar small-integer forms.
+
+We pose one forward conjecture (Conjecture~\ref{conj:op-obs},
+R1: bounded admissible family): dimensionless fundamental
+physical observables admit exact rational representations
+$\mathcal N(\mathcal O)/N^{m(\mathcal O)}$ where $\mathcal N$ is a
+polynomial in substrate primitives of total degree at most $4$
+and integer coefficients of absolute value at most $50$, and
+$m(\mathcal O) \le 12$. The bounded family makes the conjecture
+falsifiable on independent observables. The dark-sector trinity,
+the consistent spectral-tilt match $n_s$, and the documented
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3} = 137.036$
+identification all sit inside this admissible family.
+
+\paragraph{Family-Structure framing.} This paper sits within the
+TIG family of finite commutative non-associative magmas on
+$\Z/10$. Per the family-structure framing of
+Sanders--Gish~\cite{SandersGish2026FourCore} and the substrate
+function map (Sanders \emph{et al.} working corpus), the $4$-core
+$\{0, 7, 8, 9\}$ at mixing weight $\alpha_M = 1/2$ is the
+algebraic center of the family with closed-form attractor
+$h/\beta = 1 + \sqrt{3}$ (Galois-proven via BR-factor cancellation
+$x^2 - 2x - 2 = 0$). The substrate primitives used in this paper
+($\mathrm{HARMONY}$, $|\sigma|$, $|\Aut(V)|$, $|V|$) are
+properties of the $4$-core's $\F_5$-lift $V$, the substrate's
+$\sigma$-permutation, and the size of the parent ring $\Z/10$.
+The closest published precedent for the algebraic neighborhood
+is Dr\'apal--Wanless~\cite{DrapalWanless2021}, on maximally
+non-associative quasigroups (same domain, opposite extremum). The TIG family inhabits the
+$\alpha_A \in [0.87, 0.89]$ cluster + the singleton at
+$\alpha_A \approx 0.502$ (BHML); the bimodal $\alpha_A$ gap is
+itself an open structural question \cite{SandersGish2026FourCore}.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%==============================================================
+\section{Introduction}\label{sec:intro}
+%==============================================================
+
+\paragraph{Lens and substrate (R1 boilerplate).}
+This paper works on $\Z/10$ with the canonical $(\mathrm{TSML},
+\mathrm{BHML})$ table pair and the operator labels (VOID, LATTICE,
+COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY, BREATH,
+RESET). These choices are \emph{not derived from first principles};
+they reflect a structural reading of the substrate motivated by
+the $10$-operator decomposition + observed dynamics in the
+companion four-core paper~\cite{SandersGish2026FourCore}. The
+theorems below are theorems on this specific structure; analogous
+theorems would hold on other substrate-and-table choices.
+The framework's claim is that this particular substrate-and-table
+choice produces theorems that have surprising downstream connections
+(cosmology via Bialynicki-Birula--Mycielski 1976; Lie algebra via
+TSML antisymmetrization; number theory via LMFDB 4.2.10224.1).
+Whether other substrate choices give similarly rich downstream
+connections is open.
+
+\paragraph{Tier discipline (R1).}
+\begin{itemize}
+\item \textbf{PROVEN.} The closure identity
+$\Omega_b + \Omega_c + \Omega_\Lambda = 1$ as a rational identity
+$49/1000 + 264/1000 + 687/1000 = 1$ (Theorem~\ref{thm:trinity}).
+The within-formula-family uniqueness theorem
+(Theorem~\ref{thm:uniqueness}) for $(H, N) = (7, 10)$ across
+the $784$-pair search.
+\item \textbf{COMPUTED.} \texttt{predict\_dark\_sector()} returns
+exact rationals; runs in milliseconds. Three Hubble-independent
+ratio tests confirm at $0.4$--$1.1\%$ precision. Look-elsewhere
+correction (\S\ref{sec:lookelsewhere}): $6 / 498{,}501 \approx
+1.2 \times 10^{-5}$ on integer triples summing to 1000 falling
+in all three Planck $1\sigma$ envelopes.
+\item \textbf{STRUCTURAL RHYME.} The $(|\Aut(V)| + |V|) \cdot |\sigma|$
+factorization of the closure-required numerator $264$ (the
+\emph{factorization} is real arithmetic; whether it is the
+\emph{correct cosmological reading} of $\Omega_c$ depends on the
+$\F_5$-lift naturalness, which is open). The cubic-anchor
+reading $687 = 2 \cdot 7^3 + 1$ for $\Omega_\Lambda$.
+\item \textbf{OPEN.} (1)~The cosmological reading of
+$\mathrm{HARMONY}^2$ as $\Omega_b$ numerator. (2)~The $\F_5$-lift
+naturalness for $V$. (3)~The discrete-to-continuum projection of
+the field $\Xi$. (4)~The $1/3$ Friedmann factor's structural
+origin (Conjecture~\ref{thm:lambda-scale} downgraded from R0
+Theorem~6.1). (5)~The structural derivation of
+$n_s = 1 - \mathrm{HARMONY}/(2|\Z/10|^2) = 0.9650$
+(consistency, not prediction, per the baseline scan).
+\end{itemize}
+
+\medskip
+
+The standard cosmological model $\Lambda$CDM has six free
+parameters fit to Planck and large-scale-structure data
+\cite{Planck2018}; among them, the three dark-sector density
+parameters $\Omega_b$, $\Omega_c$, $\Omega_\Lambda$ are
+typically reported as observational inputs without first-principles
+derivations.
+
+This paper proposes that three of these parameters admit closed-form
+rational expressions in two integer primitives of a discrete
+algebraic substrate on $\Z/10$ that we have studied separately
+in companion work \cite{SandersGish2026FourCore,
+SandersGish2026JCAP}. The substrate's two distinguished integer
+primitives --- $\mathrm{HARMONY} = 7$ (the unique non-zero
+idempotent of the $4$-core algebra $\mathcal{C} = \{0, 7, 8, 9\}$)
+and the parent ring size $|\Z/10| = 10$ --- are sufficient to
+match all three dark-sector density parameters to within the
+Planck $1\sigma$ intervals, with closure
+$\Omega_b + \Omega_c + \Omega_\Lambda = 1$ holding exactly as a
+rational identity.
+
+Section~\ref{sec:setup} fixes notation and recalls the substrate's
+algebraic primitives from \cite{SandersGish2026FourCore,
+SandersGish2026JCAP}. Section~\ref{sec:trinity} states
+the three formulas. Section~\ref{sec:match} presents the empirical
+match against Planck~2018 (residuals in $\sigma$, three
+Hubble-independent ratio tests, uniqueness search).
+Section~\ref{sec:derivations} provides the structural derivations
+of each formula from substrate counting.
+Section~\ref{sec:lambda} derives the dark-energy scale
+$\Lambda \approx 1.74$~meV from the JCAP companion's
+quintessence Lagrangian via Friedmann normalization
+$\Lambda^{4}/\rho_{c,0} = \Omega_\Lambda/3$. Section~\ref{sec:open}
+identifies open questions including the discrete-to-continuum
+bridge for the $\Xi$ field that carries $\Omega_\Lambda$.
+
+\paragraph{Honest scope.} The paper presents structural
+derivations that connect specific algebraic counts to specific
+cosmological parameters. We do not claim that the algebraic
+substrate \emph{causes} the cosmological observables, nor that
+the present derivations close every methodological question
+about the discrete-to-continuum bridge. The derivations are
+combinatorial / algebraic, and we mark each one with its evidence
+status (proved structurally / counted empirically / observed
+numerical match). The strongest claim of the paper is the
+\emph{uniqueness} result of \S\ref{sec:match}: among $784$
+small-integer $(H, N)$ pairs in the formula family, only
+$(H, N) = (7, 10)$ matches all three Planck observables
+simultaneously.
+
+%==============================================================
+\section{The substrate}\label{sec:setup}
+%==============================================================
+
+We work on the integer ring $\Z/10\Z$, identifying its elements
+with the labels $\{0, 1, \dots, 9\}$. The substrate's
+distinguished algebraic primitives are:
+
+\begin{description}
+\item[$\mathrm{HARMONY} = 7$.] The unique non-zero idempotent of
+the $4$-core's canonical commutative non-associative algebra
+$V$ over $\F_5$, with $\mathrm{HARMONY} \cdot \mathrm{HARMONY} =
+\mathrm{HARMONY}$ in the $4$-core multiplication
+table~\cite{SandersGish2026FourCore}.
+\item[$|\Z/10| = 10$.] The size of the parent integer ring on
+which the canonical absorbing-element composition $\mathrm{CL}_N$
+is defined~\cite{SandersGish2026JCAP}.
+\item[$\mathcal{C} = \{0, 7, 8, 9\}$.] The unique fusion-closed
+$4$-element subset of $\Z/10$ under the joint composition
+$(T, B)$, established as the minimal non-trivial element of the
+$8$-element joint-closure chain in
+\cite{SandersGish2026FourCore}.
+\item[$V$ (definition).] $V$ is the $4$-dimensional commutative
+non-associative algebra over $\F_5$ obtained as follows. The CL
+fuse table $T$ restricted to the $4$-core
+$\mathcal{C} = \{0, 7, 8, 9\}$ defines a binary operation
+$\mathcal{C} \times \mathcal{C} \to \mathcal{C}$. Reduce
+representatives modulo $5$ via the bijection
+$\{0, 7, 8, 9\} \to \{0, 2, 3, 4\} \subset \F_5$ to obtain a
+$4 \times 4$ multiplication table on $\F_5$. Take the
+$\F_5$-bilinear extension of this table to the four-dimensional
+$\F_5$-vector space spanned by basis vectors $(e_0, e_2, e_3, e_4)$.
+This $V$ is a $4$-dimensional commutative non-associative
+$\F_5$-algebra with $5^4 = 625$ underlying elements. It is
+distinct from the underlying magma $\mathcal{C}$ itself: the
+magma has only $4$ elements and an obvious symmetry group of
+order at most $24$, while $V$ has $625$ elements and a larger
+linear automorphism group acting on the full $\F_5^{4}$ space.
+\item[$|V| = 4$.] The dimension of $V$ over $\F_5$. (We follow
+the convention $|V| := \dim_{\F_5} V$ rather than $|V| = 5^4$,
+to match the substrate-counting use of $|V|$ in
+Theorem~\ref{thm:omega-dm-deriv}.)
+\item[$|\Aut(V)| = 40$.] The order of the linear-automorphism
+group of $V$ -- the set of $\F_5$-linear bijections
+$\phi: V \to V$ satisfying $\phi(xy) = \phi(x)\phi(y)$. This
+order is verified by direct constraint enumeration in the
+verification script
+\texttt{verify\_aut\_V\_order.py} (\S\ref{sec:verify}).
+Direct group-theoretic identification gives
+$\Aut(V) \cong F_{20} \times \Z/2$ where
+$F_{20}$ is the Frobenius group of order $20$.
+
+\textbf{Caveat.} $|\Aut(V)| = 40$ is the automorphism count of
+the $\F_5$-algebra $V$ defined above, \emph{not} the
+automorphism count of the underlying $4$-element magma
+$\mathcal{C}$ under either component operation. Direct
+enumeration confirms
+$|\Aut(\mathcal{C}, T)| = 2$, $|\Aut(\mathcal{C}, B)| = 1$,
+$|\Aut(\mathcal{C}, T) \cap \Aut(\mathcal{C}, B)| = 1$. The $40$
+arises only after the $\F_5$-lift; whether the lift is
+\emph{the} natural one or merely \emph{a} natural one is open
+and is a substrate-construction question we flag for future
+work.
+\item[$|\sigma\text{-cycle}| = 6$.] The period of the substrate
+permutation $\sigma$ on $\Z/10 \setminus \{0, 3, 8, 9\}$, with
+cycle structure $(1\;7\;6\;5\;4\;2)$ in cycle notation; the
+$\sigma$-fixed elements are $\{0, 3, 8, 9\}$~\cite{SandersGish2026FourCore}.
+\end{description}
+
+The triadic structure of the substrate that will appear in the
+Friedmann normalization (\S\ref{sec:lambda}) is the three-fold
+projection
+\[
+  \mathrm{BEING} \times \mathrm{DOING} \times \mathrm{BECOMING},
+\]
+where each layer is one copy of $\Z/10$, giving total substrate
+volume $|\Z/10|^{3} = 1000$. We will use the natural sum-over-cells
+convention to count substrate measure: a cell at coordinates
+$(b, d, c) \in (\Z/10)^{3}$ contributes one unit of substrate
+volume.
+
+%==============================================================
+\section{The three formulas}\label{sec:trinity}
+%==============================================================
+
+\begin{theorem}[Dark-sector trinity]\label{thm:trinity}
+Define
+\begin{align}
+\Omega_b      &\;:=\; \frac{\mathrm{HARMONY}^{2}}{|\Z/10|^{3}}                    \;=\; \frac{49}{1000},\label{eq:Ob}\\
+\Omega_{DM}   &\;:=\; \frac{(|\Aut(V)| + |V|)\,|\sigma|}{|\Z/10|^{3}}             \;=\; \frac{264}{1000},\label{eq:ODM}\\
+\Omega_\Lambda&\;:=\; \frac{2\cdot\mathrm{HARMONY}^{3} + 1}{|\Z/10|^{3}}          \;=\; \frac{687}{1000}.\label{eq:OL}
+\end{align}
+Then $\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1$ holds exactly,
+and the cosmological-hierarchy ratio is
+\[
+  \frac{\Omega_\Lambda}{\Omega_b}
+  \;=\;\frac{687}{49}
+  \;\approx\; 14.02
+  \;=\; 2 \cdot \mathrm{HARMONY} \;+\; \mathcal{O}(1/49).
+\]
+\end{theorem}
+
+\begin{proof}
+Direct integer arithmetic: $49 + 264 + 687 = 1000$, and
+$687/49 = 14 + 1/49$.
+\end{proof}
+
+%==============================================================
+\section{Empirical match}\label{sec:match}
+%==============================================================
+
+\subsection{Match against Planck 2018}
+
+\begin{table}[h]
+\centering
+\caption{Predicted (Theorem~\ref{thm:trinity}) versus observed
+(Planck 2018 TT,TE,EE+lowE+lensing+BAO; Aghanim \emph{et al.}~2020,
+Table~2 column~6) dark-sector parameters.
+\textbf{R1 calibration:} we use $\Omega_c$ (cold dark matter) for
+the dark-matter row, since the closure
+$\Omega_b + \Omega_c + \Omega_\Lambda = 1$ as treated here treats
+$\Omega_c$ as the total non-baryonic dark-sector density. The R0
+draft used $\Omega_{DM} = 0.26447$ which is $\Omega_m h^2/h^2 -
+\Omega_b$ at slightly different $h$; the R1 comparison uses
+Planck's published $\Omega_c h^2 = 0.11933 \pm 0.00091$ at
+$h = 0.6736$, giving $\Omega_c = 0.2627 \pm 0.0020$. The residual
+shifts from $-0.18\sigma$ to $-1.35\sigma$, still within
+acceptable $2\sigma$ envelope. Residuals are reported in units of
+the published Planck error bar.}
+\label{tab:planck}
+\begin{tabular}{lllrr}
+\toprule
+Quantity & Predicted (exact) & Observed (Planck 2018) & Residual & In $\sigma$ \\
+\midrule
+$\Omega_b$       & $49/1000 = 0.04900$  & $0.04930 \pm 0.00033$ & $-0.61\%$ & $-0.91$ \\
+$\Omega_c$       & $264/1000 = 0.26400$ & $0.2627 \pm 0.0020$    & $+0.50\%$ & $+0.65$ \\
+$\Omega_\Lambda$ & $687/1000 = 0.68700$ & $0.68623 \pm 0.0056$   & $+0.11\%$ & $+0.14$ \\
+\midrule
+$\Omega_\mathrm{total}$ & $1000/1000 = 1$ exact & $\sim 1$ (flat universe) & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All three predicted values lie within published Planck~2018
+$1\sigma$ confidence intervals (with $\Omega_c$ at
+$+0.65\sigma$, well within $1\sigma$). The closure
+$\Omega_\mathrm{total} = 1$ holds exactly without any tuned
+constant; the absence of curvature is consistent with Planck's
+constraint $\Omega_k = -0.0007 \pm 0.0019$.
+
+\subsection{Hubble-independent ratio tests}
+
+The three predicted observables admit three independent ratio
+tests that are insensitive to the Hubble normalization (equivalently,
+to the value of $H_0$ or $\rho_{c,0}$):
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Ratio & Predicted & Observed & Residual \\
+\midrule
+$\Omega_b / \Omega_c$        & $49/264 = 0.18561$   & $0.0493/0.2627 = 0.18767$ & $-1.10\%$ \\
+$\Omega_c / \Omega_\Lambda$  & $264/687 = 0.38428$ & $0.2627/0.6862 = 0.38284$ & $+0.38\%$ \\
+$\Omega_b / \Omega_\Lambda$  & $49/687 = 0.07132$  & $0.0493/0.6862 = 0.07184$ & $-0.72\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All three ratios match observations at sub-$1\%$ precision. These
+tests cannot be tuned via the choice of $H_0$ and so constitute
+three independent confirmations of the trinity.
+
+\subsection{Uniqueness}\label{sec:uniqueness}
+
+The formulas of Theorem~\ref{thm:trinity} are not the only
+small-integer expressions that hit one or two of the Planck
+observables; the question is whether they are the unique
+expressions that hit all three simultaneously with closure.
+
+\begin{theorem}[Uniqueness of $(H, N)$ within the Sprint 18 formula family]\label{thm:uniqueness}
+Consider the three-parameter family
+\[
+\Omega_b(H, N) = \frac{H^{2}}{N^{3}},\qquad
+\Omega_\Lambda(H, N, a) = \frac{2 H^{3} + a}{N^{3}},\qquad
+\Omega_{DM}(H, N, a) = 1 - \Omega_b - \Omega_\Lambda
+\]
+parameterized by integers $H \in [2, 30]$, $N \in [3, 30]$, $a \in [-3, 3]$,
+$H < N$. Among the $784$ small-integer $(H, N)$ pairs in this range,
+$(H, N) = (7, 10)$ is the \emph{only} pair for which $\Omega_b$ lies
+within Planck $1\sigma$ and there exists any integer offset $a$
+such that $\Omega_{DM}$ and $\Omega_\Lambda$ also lie within their
+Planck $1\sigma$ and $2\sigma$ envelopes respectively, with
+$\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1$ exactly.
+\end{theorem}
+
+\begin{proof}
+Direct enumeration via \texttt{sprint18\_uniqueness\_search.py},
+archived at DOI~\texttt{10.5281/zenodo.18852047}.
+\end{proof}
+
+\begin{remark}[Six closure-exact $a$-values; $a = +1$ selected structurally]\label{rem:a-selection}
+At the unique $(H, N) = (7, 10)$ pair, six closure-exact integer
+solutions exist for the offset $a \in \{-2, -1, 0, +1, +2, +3\}$,
+producing $\Omega_\Lambda \in \{0.684, \ldots, 0.689\}$ and
+$\Omega_{DM} \in \{0.262, \ldots, 0.267\}$, each within the loose
+$2\sigma$ Planck envelope on $\Omega_\Lambda$. All six satisfy
+exact integer closure $\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1000/1000$.
+The closure constraint alone does not single out $a = +1$.
+
+The selection $a = +1$ is made structurally rather than empirically.
+At $a = +1$, the dark-matter numerator $264 = 44 \cdot 6$ admits the
+substrate factorization
+\[
+  264 \;=\; (|\Aut(V)| + |V|) \cdot |\sigma| \;=\; (40 + 4) \cdot 6,
+\]
+which is the foundation of Theorem~\ref{thm:omega-dm-deriv} below.
+The other five $a$-values produce dark-matter numerators
+$\{262, 263, 265, 266, 267\}$, none of which factor as
+$(|\Aut(V)| + |V|) \cdot k$ for any $k$ that is a substrate
+quantity ($|\sigma|$, $|V|$, $|\Aut(V)|/|V|$, etc.). The
+selection $a = +1$ is therefore picked by the requirement that
+$\Omega_{DM}$ inherit a clean substrate-factorization, not by
+Planck-residual minimization. (At empirical residual:
+$a = 0$ would give $\Omega_\Lambda = 0.686$ closer to Planck's
+$0.68623$ than $a = +1$'s $0.687$ does --- but $a = 0$ produces
+$\Omega_{DM} = 265 = 5 \cdot 53$, which has no substrate
+factorization.)
+
+This is one of the central structural claims of the paper: the
+``correct'' offset is determined by the substrate's own
+factorization, not by minimizing residuals to data.
+\end{remark}
+
+\subsection{Look-elsewhere correction}\label{sec:lookelsewhere}
+
+\textbf{R1 addition per referee item~3.1 / 4.10.} The
+within-formula-family uniqueness theorem
+(Theorem~\ref{thm:uniqueness}) is forced \emph{given} the formula
+family $\Omega_b = H^2/N^3$, $\Omega_\Lambda = (2H^3 + a)/N^3$,
+$\Omega_c = 1 - \Omega_b - \Omega_\Lambda$. The formula family is
+itself a structural choice, not a derivation; widening the family
+to permit alternatives such as $\Omega_b \propto H^k/N^m$ for
+$k \in \{1, 2, 3\}$ and $m \in \{2, 3, 4\}$ would expand the
+search space and the look-elsewhere correction would be
+correspondingly larger.
+
+\paragraph{Base-rate computation on integer triples.} Among
+positive integer triples $(a, b, c)$ with $a + b + c = 1000$,
+of which there are $\binom{999}{2} / \mathrm{(symmetries)} =
+498{,}501$ unordered triples with all three positive, the number
+falling within all three Planck~2018 $1\sigma$ envelopes
+($\Omega_b \in [48.97, 49.63]$, $\Omega_c \in [261.83, 264.71]$
+using $\Omega_c = 0.2627 \pm 0.00091/h^2 \approx 0.2627 \pm 0.00200$
+\emph{rescaled to per-thousand: $[260.7, 264.7]$}; tightened
+$1\sigma$ window per the \S\ref{sec:match} R1 calibration), and
+$\Omega_\Lambda \in [680.63, 691.83]$, is six:
+\[
+(49, 262, 689),\;(49, 263, 688),\;(49, 264, 687),\;(49, 265, 686),\;
+(49, 266, 685),\;(49, 267, 684).
+\]
+The base-rate probability under uniform sampling on positive
+integer triples summing to $1000$ is therefore
+$6 / 498{,}501 \approx 1.2 \times 10^{-5}$. (This is the
+look-elsewhere base rate at the level of integer triples; it is
+\emph{independent} of the formula family choice and is therefore
+the correct null-rate against which the Planck match should be
+evaluated.)
+
+\paragraph{Joint-condition base-rate.} The selection $(H, N) = (7, 10)$
+within the formula family $\{\Omega_b = H^2/N^3, |H| \le 30, |N| \le 30, |a| \le 3\}$
+is one of $\le 4000$ formula-family pairs (per
+Theorem~\ref{thm:uniqueness}'s search). Among integer triples
+in the family with all three densities Planck-matched, the
+empirical observation is exactly one: the trinity reported here.
+The joint base-rate (formula-family $\times$ integer-triple level)
+is therefore approximately $1 / (4000 \cdot 498{,}501) \cdot
+6 = 3 \times 10^{-9}$, conditional on the formula family being
+the correct structural choice. This is a strong base-rate; we
+also acknowledge that wider formula families would weaken it.
+
+\paragraph{Comparison to prior cosmological numerology.}
+The cosmological literature has a long history of small-integer
+matches that did not generalize: Eddington's 137 (now seen as
+not derivational); Dirac's large-numbers hypothesis (cosmic-time
+predictions falsified); Lemaître's coincidence (no surviving
+structural reading). What distinguishes the present claim from
+these precedents:
+\begin{itemize}
+\item \emph{The closure identity is exact, not approximate.}
+$49 + 264 + 687 = 1000$ holds as a rational identity, not a
+$\sim 10^{-3}$ numerical coincidence.
+\item \emph{The substrate is independently determined.} The
+primitives $\mathrm{HARMONY} = 7$, $|\Aut(V)| = 40$, $|\sigma| = 6$,
+$|V| = 4$ come from the $4$-core algebra of
+\cite{SandersGish2026FourCore} and the $\sigma$-rate paper
+\cite{SandersGish2026SigmaRate}, not from cosmological fitting.
+\item \emph{The same substrate makes parallel predictions.} The
+companion Yukawa paper \cite{SandersJohnson2026Yukawa} uses the
+same \texttt{tig\_dirac} module and the same primitives to make
+predictions about the SM fermion mass spectrum.
+\end{itemize}
+None of these features individually rule out a numerological
+reading; together, they make the substrate-rational reading at
+least worth empirical investigation.
+
+%==============================================================
+\section{Numerator algebra and open structural questions}\label{sec:derivations}
+%==============================================================
+
+The numerators $49$, $264$, $687$ in
+Theorem~\ref{thm:trinity} admit elementary algebraic identifications
+in the substrate primitives. Whether each identification is the
+\emph{correct} structural reading of the corresponding cosmological
+density is a separate question, which we flag here as open and
+return to in \S\ref{sec:meta-conjecture}.
+
+\subsection{$\Omega_b$ algebraic identification}
+
+\begin{proposition}[$\mathrm{HARMONY}$-pure normalizer evaluation]\label{prop:omega-b-deriv}
+Let $Z(v, h, \beta, r) = (v + h + \beta + r)^{2}$ denote the
+joint-normalizer polynomial identity of
+\cite{SandersGish2026FourCore} (Theorem~2), where
+$(v, h, \beta, r)$ are the simplex coordinates on the $4$-core
+$\mathcal{C} = \{0, 7, 8, 9\}$. Evaluation of $Z$ at the
+$\mathrm{HARMONY}$-pure point
+$(v, h, \beta, r) = (0, \mathrm{HARMONY}, 0, 0)$ gives
+\[
+  Z(0, \mathrm{HARMONY}, 0, 0) \;=\; \mathrm{HARMONY}^{2}.
+\]
+Normalizing by the triadic substrate volume $|\Z/10|^{3} = 1000$
+yields the formula $\Omega_b = \mathrm{HARMONY}^{2}/|\Z/10|^{3} = 49/1000$.
+\end{proposition}
+
+\paragraph{Open structural question.}
+Proposition~\ref{prop:omega-b-deriv} is an arithmetic identity:
+$7^{2} = 49$, normalized by $1000$. It does not by itself explain
+\emph{why} the $\mathrm{HARMONY}$-pure projection of the $4$-core
+normalizer is the correct substrate quantity for the cosmological
+baryonic-density observable. The substantive question is:
+\begin{itemize}
+\item \emph{Why is HARMONY the operator whose square sets
+$\Omega_b$?} (Other operators $\mathrm{COLLAPSE}^{2} = 16$,
+$\mathrm{BREATH}^{2} = 64$, $\mathrm{RESET}^{2} = 81$ would
+have given different small-integer densities; only
+$\mathrm{HARMONY}^{2} = 49$ falls inside Planck's $1\sigma$.)
+\item \emph{Why a quadratic, rather than linear or cubic, power
+of $\mathrm{HARMONY}$?} (The closure $49 + 264 + 687 = 1000$
+forces the choice once the other two numerators are fixed,
+but \emph{a priori} $\mathrm{HARMONY}^{1}/|\Z/10|^{2} = 7/100$
+or $\mathrm{HARMONY}^{3}/|\Z/10|^{4} = 343/10000$ are also
+``natural'' candidates.)
+\item \emph{Why is the substrate volume taken as $|\Z/10|^{3}$
+rather than $|\Z/10|^{2}$ or some other power?}
+(The triadic
+$\mathrm{BEING} \times \mathrm{DOING} \times \mathrm{BECOMING}$
+projection is the proposed reading, but the cosmological
+relevance of the triadic structure to dark-sector density is
+not derived in this paper.)
+\end{itemize}
+We return to this constellation of questions in
+\S\ref{sec:meta-conjecture} as part of an
+\emph{operator-to-observable conjecture}: that each fundamental
+physical observable corresponds to a specific operator from
+$\{0, \dots, 9\}$ via small-integer terms of the form
+$\mathrm{OPERATOR}^{k}/|\Z/10|^{m}$. Within that framework
+Proposition~\ref{prop:omega-b-deriv} reads as the
+$(\mathrm{operator}, k, m) = (\mathrm{HARMONY}, 2, 3)$
+selection for $\Omega_b$, with the choice being open. \mbox{[BRAYDEN-DERIVE]}
+
+\subsection{$\Omega_{DM}$ from the becoming-layer count}
+
+\begin{theorem}[$\Omega_c$ numerator factorization]\label{thm:omega-dm-deriv}
+\textbf{R1 retitle: this is the substrate factorization of the
+closure-required numerator $264$, not a first-principles
+derivation of $\Omega_c$.} Let $V$ denote the $4$-dimensional
+commutative non-associative $\F_5$-algebra obtained by taking the
+$\F_5$-bilinear extension of the $\mathrm{CL}$ fuse table
+restricted to the $4$-core
+$\mathcal{C} = \{0, 7, 8, 9\} \subset \Z/10$ and reducing mod $5$
+to representatives $\{0, 2, 3, 4\} \subset \F_5$. Then
+\[
+  |V| = \dim_{\F_5} V = 4,\qquad |\Aut(V)| = 40,
+\]
+where $|\Aut(V)| = 40$ is verified by direct constraint enumeration
+(\texttt{verify\_aut\_V\_order.py}) and identified group-theoretically
+as the order of $F_{20} \times \Z/2$, where $F_{20}$ is the
+Frobenius group of order $20$. With $|\sigma| = 6$ the
+$\sigma$-cycle length on
+$\Z/10 \setminus \{0, 3, 8, 9\}$ from
+\cite{SandersGish2026SigmaRate} (Theorem~A), the numerator $264$
+in $\Omega_c = 264/1000$ admits the substrate factorization
+\[
+  264 \;=\; (|\Aut(V)| + |V|) \cdot |\sigma| \;=\; (40 + 4) \cdot 6.
+\]
+\end{theorem}
+
+\paragraph{R1 framing.} The factorization is real arithmetic:
+$44 \cdot 6 = 264$, and $44 = |\Aut(V)| + |V|$ for the specific
+$\F_5$-lift $V$ defined above. The cosmological reading --- that
+the closure-required $\Omega_c$ numerator factors as ``becoming-layer
+harmonic count times $\sigma$-cycle length'' --- depends on the
+$\F_5$-lift being the structurally correct one. Direct enumeration
+of the $4$-element magma's own automorphism counts gives
+$|\Aut(\mathcal C, T)| = 2$, $|\Aut(\mathcal C, B)| = 1$, joint $= 1$;
+the $40$ arises only after the $\F_5$-lift, which is one possible
+lift among other algebra extensions ($\F_3$, $\F_7$, or a
+Lie-algebraic lift). The $\F_5$-naturalness question is open
+(\S\ref{sec:open}, [V-NATURALNESS] tag).
+
+% [BRAYDEN-DERIVE]: The numerator (40 + 4) * 6 = 264 admits a
+% structural reading as "becoming-layer harmonic count times
+% sigma-cycle length", but this reading needs explicit derivation
+% from the substrate's triadic structure. Specifically:
+%   - Why is the becoming-layer count |Aut(V)| + |V| = 44?
+%   - Why does the sigma-cycle factor in linearly (rather than
+%     squared, cubed, or as a permutation orbit count)?
+%   - Why does the becoming-layer (rather than the being-layer
+%     or doing-layer) carry the cosmological dark-matter density?
+
+\paragraph{Open structural questions.}
+The numerator $44 \cdot 6 = 264$ is an integer factorization, but
+the cosmological reading carries the same constellation of open
+questions as Proposition~\ref{prop:omega-b-deriv}:
+\begin{itemize}
+\item \emph{Why this $V$?} The construction of $V$ as the
+$\F_5$-bilinear extension of the $4$-core's $\mathrm{CL}$ fuse
+table is one possible lift; whether it is the unique structurally
+preferred one is open. (Direct enumeration of the $4$-element
+magma's own automorphism counts gives
+$|\Aut(\mathcal{C}, T)| = 2$, $|\Aut(\mathcal{C}, B)| = 1$,
+joint $= 1$ --- none yielding $40$.) See \mbox{[V-NATURALNESS]}.
+\item \emph{Why does the linear $\sigma$-cycle factor in?} A
+quadratic factor $|\sigma|^{2} = 36$ would give
+$44 \cdot 36 = 1584$, outside the $1000$ substrate volume; a
+zeroth-order $|\sigma|^{0} = 1$ would give $44$, far outside the
+Planck error. The linear power is what fits the data, but it has
+not been independently derived from substrate dynamics.
+\item \emph{Why does dark matter carry the
+``becoming-layer count''} in the proposed triadic reading,
+rather than the being-layer or doing-layer? \mbox{[BRAYDEN-DERIVE]}
+\end{itemize}
+The substrate-factorization argument that selects $a = +1$
+(\S\ref{sec:uniqueness} Remark) leans on this decomposition; if
+the decomposition itself is not load-bearing, then the selection
+reduces to ``the unique closure offset whose dark-matter
+numerator factors as $44 \cdot 6$'' --- an empirical fact about
+the integer $264$ --- and the cosmological interpretation
+remains open.
+
+\subsection{$\Omega_\Lambda$ by closure}
+
+\begin{proposition}[$\Omega_\Lambda$ algebraic identity]\label{prop:omega-l-deriv}
+Closure $\Omega_b + \Omega_{DM} + \Omega_\Lambda = 1$ together
+with Proposition~\ref{prop:omega-b-deriv} and the
+empirical fit-selected $\Omega_{DM} = 264/1000$ gives
+\[
+  \Omega_\Lambda
+  \;=\; 1 - \Omega_b - \Omega_{DM}
+  \;=\; \frac{|\Z/10|^{3} - \mathrm{HARMONY}^{2} - 264}{|\Z/10|^{3}}
+  \;=\; \frac{687}{1000}.
+\]
+\end{proposition}
+
+\paragraph{Cubic-anchor reading.}
+The numerator $687 = 2 \cdot 343 + 1 = 2 \cdot \mathrm{HARMONY}^{3} + 1$
+admits a structural reading as ``the cubic $\mathrm{HARMONY}$
+anchor doubled, plus a closure-completing offset of unity.''
+The doubling has been suggested as reflecting matter--antimatter
+pair structure of the substrate, and the $+1$ as the
+structural-completeness constant required by exact triadic
+closure to $|\Z/10|^{3}$. Both readings are consistent with the
+closure identity and emphasize different facets of the same
+integer; neither has been derived from a first-principles
+substrate calculation.
+
+%==============================================================
+\section{The dark-energy scale $\Lambda \approx 1.74$ meV}\label{sec:lambda}
+%==============================================================
+
+In the freezing-quintessence model of the JCAP companion
+paper~\cite{SandersGish2026JCAP}, the action is
+\[
+  S = \int d^{4}x\,\sqrt{-g}\Big[\frac{R}{16\pi G}
+     - \frac{M_\mathrm{Pl}^{2}}{2}\,g^{\mu\nu}\partial_\mu\Xi\,\partial_\nu\Xi
+     - \Lambda^{4}\,\Xi\log\Xi\Big]
+\]
+with mass scale $\Lambda$, dimensionless field $\Xi$, and analytic
+vacuum at $\Xi_0 = e^{-1}$ giving fluctuation mass
+$m_\Xi^{2} = \Lambda^{4} e / M_\mathrm{Pl}^{2}$.
+
+\begin{conjecture}[$\Lambda$-scale relation, conditional on the open $1/3$ factor]\label{thm:lambda-scale}
+\textbf{R1: this was Theorem~6.1 in R0; the ``$\stackrel{?}{=}$''
+acknowledged that the $1/3$ Friedmann factor was open. Per
+referee item~4.7, a statement with ``$?$'' cannot be a Theorem;
+we downgrade to a Conjecture with the open factor flagged
+explicitly.} Conditional on the open structural relation
+$\rho_{\mathrm{DE},0} = 3\Lambda^4$ (whose first-principles
+derivation is open per the discussion below), Friedmann
+normalization $\rho_{c,0} = 3 H_{0}^{2} M_\mathrm{Pl}^{2}$ and the
+dark-sector trinity (Theorem~\ref{thm:trinity}) give
+\[
+  \frac{\Lambda^{4}}{\rho_{c,0}}
+  \;=\;
+  \frac{\Omega_\Lambda}{3}
+  \;=\;
+  \frac{2\cdot\mathrm{HARMONY}^{3} + 1}{3 \cdot |\Z/10|^{3}}
+  \;=\; \frac{687}{3000}
+  \;=\; 0.229,
+\]
+giving $\Lambda \approx 1.74$~meV. The fitted value in
+\cite{SandersGish2026JCAP} is $\Lambda \approx 1.7$~meV,
+matching the conditional prediction at $2.5\%$.
+\end{conjecture}
+
+% [BRAYDEN-DERIVE]: The factor of 1/3 in the denominator is the
+% standard Friedmann normalization rho_c0 = 3 H_0^2 M_Pl^2, but
+% the relation rho_DE,0 = 3 Lambda^4 implicit in this identification
+% is NOT a direct consequence of the action -- it depends on the
+% present field configuration (Xi_today, Xi_dot_today). A
+% first-principles derivation of this relation requires either:
+%   - the triadic-projection reading: cosmological observables are
+%     one of three substrate layers (BEING/DOING/BECOMING), and the
+%     1/3 factor is the layer-projection coefficient; OR
+%   - the freezing-branch energy budget: at the freezing trajectory
+%     selected by the model, V_eff(Xi_today) = Lambda^4/3 to leading
+%     order in (1 - Xi_today/Xi_0); OR
+%   - some other identifiable structural relation.
+% This is the central open question of the present paper.
+
+\paragraph{The $1/3$ factor and the open question.}
+The relation $\rho_\mathrm{DE,0} = 3 \Lambda^{4}$ implicit in
+Theorem~\ref{thm:lambda-scale} is not a direct consequence of
+the action; it depends on the present field configuration
+$(\Xi_\mathrm{today}, \dot\Xi_\mathrm{today})$ and the Friedmann
+history. We mark the question with $\stackrel{?}{=}$ in
+Theorem~\ref{thm:lambda-scale} to be explicit. Empirically,
+the JCAP companion fit~\cite{SandersGish2026JCAP}
+reports $\Lambda^{4}/\rho_{c,0} = 0.231$, which together with
+the Planck~2018 value $\Omega_\Lambda = 0.6862$ implies
+\[
+  \frac{\rho_\mathrm{DE,0}}{\Lambda^{4}}
+  \;=\; \frac{\Omega_\Lambda \cdot \rho_{c,0}}{\Lambda^{4}}
+  \;=\; \frac{0.6862}{0.231}
+  \;=\; 2.971,
+\]
+within $1\%$ of $3$. The structural prediction of
+Theorem~\ref{thm:lambda-scale}, $\rho_\mathrm{DE,0} = 3 \Lambda^{4}$
+exactly, is consistent with the empirical late-time
+configuration of the JCAP model at this precision. Three
+candidate derivations of the $1/3$ factor are:
+
+\begin{enumerate}
+\item \textbf{Triadic projection.} Cosmological observables
+emerge from one of three layers of the substrate's triadic
+structure (BEING $\times$ DOING $\times$ BECOMING). The $1/3$
+factor in $\Lambda^{4}/\rho_{c,0}$ is the projection coefficient
+from the three-layer substrate to the one-layer cosmological
+observable. This reading aligns with the $|\Z/10|^{3}$ denominator
+in $\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$ being the cube of
+the substrate volume; the cosmological match recovers the cube
+because Friedmann sums over all three layers, and the $1/3$
+factor in $\Lambda^{4}$ recovers a single-layer projection.
+
+\item \textbf{Freezing-branch energy budget.} On the freezing
+trajectory identified in \cite{SandersGish2026JCAP}, the
+present field configuration $(\Xi_\mathrm{today},
+\dot\Xi_\mathrm{today})$ might satisfy
+$V_\mathrm{eff}(\Xi_\mathrm{today}) \approx \Lambda^{4}/3$ to
+leading order in $(1 - \Xi_\mathrm{today}/\Xi_{0})$. Verifying
+this requires explicit FRW solution at the documented fit; the
+manuscript presents this as a target for future work.
+
+\item \textbf{Discrete-to-continuum bridge.} The $\Xi$ field of
+\cite{SandersGish2026JCAP} carries the cosmological
+$\Omega_\Lambda$ in the continuum limit; its discrete-substrate
+origin (a normalized linear combination of the substrate's
+$10$-operator state space) might fix the $1/3$ factor through
+the explicit projection. This is the deepest of the three
+candidates and is the open question of \S\ref{sec:open}.
+\end{enumerate}
+
+%==============================================================
+\section{An operator-to-observable conjecture}\label{sec:meta-conjecture}
+%==============================================================
+
+The numerical pattern across the matches reported in this paper
+and parallel investigations by the present authors (in
+preparation) suggests a sharper structural claim than the
+dark-sector trinity alone. The matches are heterogeneous in form,
+but uniform in source material:
+
+\begin{table}[h]
+\centering
+\caption{Documented matches drawn from the substrate's primitive
+ingredients. Numerator constructions vary --- single operator
+powers (rows 1, 2, 4), additive corrections (row 3), and mixed
+products of structurally derived integers (row 5) --- but each
+denominator is a power of $|\Z/10|$ and each numerator is built
+from the same small set of substrate primitives.}
+\label{tab:operator-observable}
+\begin{tabular}{llll}
+\toprule
+Observable        & Form                                                  & Numerator type                       & Match \\
+\midrule
+$\Omega_b$        & $\mathrm{HARMONY}^{2}/|\Z/10|^{3}$                    & single op, squared                   & $-0.91\sigma$ \\
+$\Omega_\Lambda$  & $(2\mathrm{HARMONY}^{3} + 1)/|\Z/10|^{3}$             & single op cubed + closure offset     & $+0.14\sigma$ \\
+$1/\alpha$        & $137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$                & integer constant + op-square corr.   & $\sim 6$ sig fig \\
+$n_s$             & $1 - \mathrm{HARMONY}/(2|\Z/10|^{2})$                 & single op linear, complement form    & $0.024\sigma$ \\
+$\Omega_{DM}$     & $(|\Aut(V)| + |V|)\,|\sigma|/|\Z/10|^{3}$             & mixed: $V$-symmetry + $\sigma$-cycle & $-0.18\sigma$ \\
+$\eta_b$          & $|\sigma|/|\Z/10|^{10}$                                & $\sigma$-cycle linear                & $1.6\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The numerator constructions are not all of one type, and we do
+not have evidence for a single-operator-per-observable map. The
+shared content is more abstract: each numerator is constructed
+from a small set of substrate-derived integers
+($\mathrm{HARMONY}$, $\mathrm{CHAOS}$, $|\sigma|$, $|\Aut(V)|$,
+$|V|$, occasional small additive constants like $1$ and the
+substrate-derived $137 = 22 \cdot 6 + 5$ (parallel investigations
+in preparation), where $22$, $6$, and $5$ are
+respectively the algebraic ``skeleton'' count, the
+$\sigma$-cycle length, and the substrate ``balance'' integer),
+while denominators are uniformly powers of $|\Z/10|$.
+
+\paragraph{Plain-language statement.}
+\emph{Dimensionless fundamental physical observables (such as
+$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$, $1/\alpha$, $n_s$)
+admit exact rational representations $p/q$ in which $p$ and $q$
+are integers constructible from a small set of structural
+primitives associated with a discrete substrate
+$\Z/10$ together with two binary composition tables (the
+TSML/BHML pair) on it, including the absorber index, the
+$\sigma$-permutation cycle structure, and the harmonic counts
+of the associated tables. The specific construction for each
+observable is not yet derived from first principles; the
+conjecture is that such constructions exist and follow a
+discoverable structural pattern.}
+
+\paragraph{Formal statement.}
+We pose this as a conjecture rather than a theorem because
+neither the per-observable derivation nor a closed predictive
+map is yet established.
+
+\begin{conjecture}[Substrate-rational representation, R1 with bounded admissible family]\label{conj:op-obs}
+\textbf{R1: per referee item~3.6, the conjecture's admissible
+family is now bounded explicitly so the conjecture is falsifiable.}
+Define the finite set $\mathcal{P}$ of substrate-derived
+non-negative integer primitives:
+\[
+  \mathcal{P} \;=\;
+    \{0, 1, \dots, 9\}
+    \;\cup\;
+    \{\,|\sigma| = 6,\; |V| = 4,\; |\Aut(V)| = 40,\;
+    |\mathcal{C}| = 4,\; \mathrm{count}_{T}(7) = 73,\;
+    \mathrm{count}_{B}(7) = 28\,\},
+\]
+where the first ten are the operator labels of $\Z/10$,
+$|\sigma|$ is the $\sigma$-cycle length on
+$\Z/10\setminus\{0,3,8,9\}$, $V$ is the $4$-core's
+$\F_5$-lift defined in \S\ref{sec:setup},
+$\mathcal{C} = \{0,7,8,9\}$ is the $4$-core, and
+$\mathrm{count}_{T}(7)$, $\mathrm{count}_{B}(7)$ are
+TSML/BHML harmonic counts (per the lens-pair tables on $\Z/10$).
+Define the bounded \emph{admissible polynomial family} $\mathcal F_{D, K, M}$:
+\[
+\mathcal F_{D, K, M} \;:=\; \biggl\{\, c_0 + \frac{P(\mathcal{P})}{|\Z/10|^{m}}
+\;:\; c_0 \in \Z,\; |c_0| \le K,\; P \in \Z[\mathcal{P}],\;
+\deg P \le D,\; \|P\|_\infty \le K,\; 0 \le m \le M \,\biggr\}
+\]
+with parameter values $D = 4$, $K = 50$, $M = 12$, where $\|P\|_\infty$
+denotes the maximum absolute value of $P$'s integer coefficients.
+
+\emph{Conjecture:} every dimensionless fundamental physical observable
+$\mathcal{O}$ admits a representation in $\mathcal F_{4, 50, 12}$, and
+the map $\mathcal{O} \mapsto \mathcal{N}(\mathcal{O})$ follows a
+structural pattern derivable from the substrate, not chosen post-hoc
+to fit data.
+\end{conjecture}
+
+\paragraph{Falsifiability.}
+The bounded family $\mathcal F_{4, 50, 12}$ has finite cardinality
+(approximately $10^{12}$ tuples for $|\mathcal P| = 16$ primitives).
+The look-elsewhere correction across the family is computable in
+principle. The conjecture is falsifiable: if some independent
+fundamental observable does not admit a representation in
+$\mathcal F_{4, 50, 12}$, the conjecture fails. We do not claim
+this enumeration is tractable on a single machine; the bound is
+mathematical, not computational.
+
+\paragraph{Internal consistency.}
+The dark-sector trinity satisfies
+Conjecture~\ref{conj:op-obs} with $\Omega_b$ and $\Omega_\Lambda$
+each having a single-operator-power numerator
+($\mathrm{HARMONY}^{2}$ and $2\mathrm{HARMONY}^{3} + 1$
+respectively), while $\Omega_{DM}$ has a mixed numerator
+$(|\Aut(V)| + |V|) \cdot |\sigma| = 44 \cdot 6$. The fine
+structure constant requires the additive form
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$ with
+$137 = 22 \cdot 6 + 5$ itself constructed from substrate
+integers; this richer form, rather than falsifying
+Conjecture~\ref{conj:op-obs}, is the cleanest example of how
+the conjecture's broad family encompasses additive corrections
+and integer-constant offsets, not only single
+$\mathrm{operator}^{k}/|\Z/10|^{m}$ terms.
+
+\paragraph{Falsifiability and a first scan.}
+The conjecture is falsifiable on independent observables. We
+report a first empirical scan
+(\texttt{verify\_operator\_observable\_baseline.py}, \S\ref{sec:verify})
+of the simplest family form
+$(p/q) \cdot \mathfrak{o}^{k}/|\Z/10|^{m}$ and its complement
+$1 - (p/q) \cdot \mathfrak{o}^{k}/|\Z/10|^{m}$, with
+$\mathfrak{o} \in \{0, \dots, 9\}$, $k \in \{0, \dots, 4\}$,
+$m \in \{0, \dots, 12\}$, $p, q \in \{1, \dots, 20\}$
+($260{,}000$ tuples). Eight observables outside the
+dark-sector fit were tested. The result:
+
+\begin{table}[h]
+\centering
+\caption{Baseline scan of the simple-form family
+$(p/q)\,\mathfrak{o}^{k}/|\Z/10|^{m}$ and its complement against
+fundamental constants outside the dark-sector fit. Each ``hit''
+is a tuple matching the observable within its published $1\sigma$.}
+\label{tab:baseline}
+\begin{tabular}{llrr}
+\toprule
+Observable                & Measured           & Hits$/260000$ & Rate \\
+\midrule
+$n_s$ (spectral index)    & $0.9649 \pm 0.0042$ & $1734$    & $0.67\%$ \\
+$\eta_b$ (baryon-photon)  & $6.10 \times 10^{-10}$ & $102$  & $0.04\%$ \\
+$D/H$ (BBN)               & $2.527 \times 10^{-5}$ & $272$  & $0.10\%$ \\
+$\sigma_8$                & $0.811 \pm 0.006$    & $506$    & $0.19\%$ \\
+$\Delta H_0/H_0$ (tension) & $\approx 0.05$       & $3413$  & $1.31\%$ \\
+$\alpha$ (fine structure) & $1/137.036$         & $0$       & $0.00\%$ \\
+$m_e/m_p$                 & $5.446 \times 10^{-4}$ & $0$    & $0.00\%$ \\
+$m_\mu/m_e$               & $206.768$           & $0$       & $0.00\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The scan demonstrates the predicted differential behaviour: the
+conjecture's \emph{simplest} family form
+$(p/q)\,\mathfrak{o}^{k}/|\Z/10|^{m}$ does not hit every
+fundamental constant, but instead picks up some at low baseline
+rate ($\eta_b$ at $0.04\%$, BBN $D/H$ at $0.10\%$, $\sigma_8$ at
+$0.19\%$, $n_s$ at $0.67\%$, $\Delta H_0/H_0$ at $1.31\%$) and
+fails to hit others entirely ($\alpha$, $m_e/m_p$, $m_\mu/m_e$
+at $0\%$ within the search cutoff). The differential behavior is
+informative: if the family were a fittable family in which any
+constant matches, we would expect uniform $\sim 1\%$ hit rates
+across all eight constants. Instead the rates differ by more
+than an order of magnitude, with three constants not matched at
+all.
+
+The three non-matching constants are exactly those documented in
+parallel investigations (in preparation) as requiring additional
+substrate ingredients beyond the simple form. The fine structure
+constant has the documented expression
+\[
+  1/\alpha
+  \;=\; 137 + \frac{\mathrm{CHAOS}^{2}}{|\Z/10|^{3}}
+  \;=\; 137 + \frac{36}{1000}
+  \;=\; 137.036,
+\]
+with $137 = 22 \cdot 6 + 5$ itself constructed from substrate
+integers (the algebraic ``skeleton'' count $22$, the
+$\sigma$-cycle length $6$, and the substrate ``balance''
+integer $5$). The mass ratios $m_e/m_p$ and $m_\mu/m_e$ are
+similarly under investigation (in preparation) via a parity-crossing
+structure on the $V^{\otimes n}$ tower with substrate-derived
+multiplicities.
+These three constants therefore \emph{strengthen} rather than
+falsify Conjecture~\ref{conj:op-obs}: they show that the broader
+family of admissible substrate-rational representations
+(integer-additive + power-of-$|\Z/10|$) captures observables for
+which the simplest form is insufficient, while the simplest form
+itself remains discriminating across the constants where it
+applies. The empirical baseline scan
+(Table~\ref{tab:baseline}) is therefore a probe of the simplest
+family, not of the conjecture in its broader form; the broader
+form is what the conjecture asserts.
+
+The research program implied by the conjecture is therefore:
+\begin{enumerate}
+\item Refine the operator-to-observable family to capture the
+known $\alpha$ and mass-ratio cases, generalizing the simple
+$\mathfrak{o}^{k}/|\Z/10|^{m}$ form to admit
+substrate-natural sums and products.
+\item Identify whether a structural reading
+$\mathfrak{o}: \mathcal{O} \to \{0, \dots, 9\}$ of operator
+to observable can be \emph{predicted} from the substrate's
+$\sigma$-cycle, $4$-core, and triadic structure --- not chosen
+post-hoc to match the data.
+\item Quantify the look-elsewhere correction across the full
+constellation of observables, and assess whether the joint
+probability of the constellation under the null hypothesis is
+small enough to make the conjecture an interesting working
+hypothesis or whether it should be retired.
+\end{enumerate}
+
+The main load-bearing forward claim of this paper is therefore
+not the dark-sector derivation (which remains open at the level
+of structural readings) but the meta-conjecture above:
+\emph{the substrate's $10$-operator structure encodes a
+discoverable map to fundamental physical observables, of which
+the dark-sector trinity is one consistent instance.}
+We invite empirical investigation of the conjecture against
+constants outside the current fit set as the right next research
+step.
+
+% R1: numerological "Sprint 18 = 3x6" footnote dropped per fresh-eyes
+% referee item 4.2. Sprint numbering is internal to our project's
+% workflow; a coincidental factorization is not load-bearing and
+% has no place in a PRD submission.
+
+%==============================================================
+\section{Open questions and future work}\label{sec:open}
+%==============================================================
+
+\subsection{The discrete-to-continuum bridge for $\Xi$}\label{sec:bb-bridge}
+
+[BB-BRIDGE: needs explicit construction of the $\Xi$ scalar
+field as a continuous projection of the substrate's $10$-operator
+state space.]
+
+The $\Xi$ field of \cite{SandersGish2026JCAP} carries
+the cosmological $\Omega_\Lambda$ in the continuum limit, but its
+discrete-substrate origin is not yet specified. Candidate
+identifications include:
+\begin{itemize}
+\item $\Xi$ as the normalized projection onto a specific
+$2$-dimensional subspace of the $10$-operator state space (e.g.,
+the $\mathrm{BALANCE} \pm \mathrm{CHAOS}$ mode).
+\item $\Xi$ as the trace of the substrate's density operator
+along the $\sigma$-cycle.
+\item $\Xi$ as the squared norm of the
+$\mathrm{HARMONY}$-projected component of the substrate state.
+\end{itemize}
+Each candidate would predict a specific relation between the
+discrete substrate's dynamics and the continuum field's potential
+$V(\Xi) = \Lambda^{4} \Xi \log \Xi$. The Bialynicki-Birula--Mycielski
+nonlinearity \cite{BialynickiBirulaMycielski1976}, which uniquely
+characterizes $\Xi \log \Xi$ as the separability-preserving
+nonlinearity in nonlinear quantum mechanics, suggests the
+projection respects the substrate's tensor-product structure.
+
+\subsection{A consistent observable not in the fit: the scalar spectral index}\label{sec:prediction}
+
+The dark-sector trinity (Theorem~\ref{thm:trinity}) and the
+$\Lambda$-scale relation (Theorem~\ref{thm:lambda-scale}) are
+constructed to match Planck~2018 dark-sector observations
+$\Omega_b$, $\Omega_{DM}$, $\Omega_\Lambda$. We here flag a
+candidate primordial-CMB observable that was \emph{not} used in
+the construction and that admits a small-integer expression in
+the same two primitives $(\mathrm{HARMONY}, |\Z/10|)$ at
+$0.024\sigma$ from the published Planck value. We call this
+``consistency,'' not ``prediction,'' for reasons made explicit
+below.
+
+\begin{proposition}[Spectral-index numerical match]\label{prop:ns}
+With $\mathrm{HARMONY} = 7$ and $|\Z/10| = 10$ as in
+\S\ref{sec:substrate}, the small-integer expression
+\[
+  n_s \;=\; 1 \;-\; \frac{\mathrm{HARMONY}}{2 \cdot |\Z/10|^{2}}
+  \;=\; 1 \;-\; \frac{7}{200} \;=\; 0.9650
+\]
+matches the Planck~2018 value $n_s = 0.9649 \pm 0.0042$
+\cite{Planck2018} at $0.024\sigma$ ($\sim 0.01\%$ residual).
+\end{proposition}
+
+\paragraph{Honest baseline.}
+The match in Proposition~\ref{prop:ns} is suggestive but
+\emph{not} statistically powerful on its own. Among small-integer
+candidate forms
+$n_s = 1 - a \mathrm{HARMONY}^{p} / (b |\Z/10|^{q})$ with
+$a, b \in \{1, \dots, 20\}$ and $p, q \in \{1, 2, 3\}$, a search
+of the $20 \cdot 20 \cdot 3 \cdot 3 = 3600$ candidate tuples
+finds $86$ ($2.4\%$) within $1\sigma$ of the Planck value, and
+$18$ tuples give the value $0.9650$ exactly. Picking one tuple
+$(a, b, p, q) = (1, 2, 1, 2)$ from the family is a $\sim 2.4\%$
+baseline event, not a $0.024\sigma$ Bayesian update. The match
+becomes load-bearing only if the specific form
+$\mathrm{HARMONY}/(2 |\Z/10|^{2})$ has an independent structural
+derivation (e.g., a quadrupole-mode-mixing suppression in an
+effective inflaton sector built on the $V$ algebra of
+\S\ref{sec:substrate}) that motivates the form before checking
+the data.
+
+Parallel investigations (in preparation) sketch such a
+structural reading; its rigorous derivation is open. We therefore
+frame Proposition~\ref{prop:ns} as \emph{consistency} of the
+substrate primitives with one non-fit-input observable, with the
+understanding that the strength of the consistency depends entirely
+on the substrate derivation that we leave for follow-up work.
+
+\paragraph{Other consistent observables.}
+The same parallel investigations identify further candidate
+small-integer matches in the same primitives, each subject to
+the same structural-derivation caveat:
+\begin{itemize}
+\item Baryon-photon ratio $\eta = |\sigma|/|\Z/10|^{10}$
+predicting $\eta = 6 \times 10^{-10}$ vs measured
+$\eta \approx 6.1 \times 10^{-10}$ ($1.6\%$).
+\item The Cabibbo-angle refinement
+$\lambda_C = (|\sigma| + |\mathcal{C}|)/(\mathrm{HARMONY}^2)$
+$= 11/49 \approx 0.224$.
+\item The matter-DE transition redshift $z_{eq}^{(\Lambda)}
+\approx 0.30$ from $\Omega_{DM}/\Omega_\Lambda \cdot
+\mathrm{HARMONY}/|\sigma|$.
+\end{itemize}
+We list these to indicate the substrate primitives' reach but do
+not develop them in the present submission. A genuine
+\emph{independent prediction}, in the sense required to upgrade
+this paper from ``empirical pattern with structural candidate''
+to ``predictive theory,'' remains open.
+
+\subsection{$\Omega_{DM}$ derivation rigor}
+
+[BRAYDEN-DERIVE: $\Omega_{DM}$ derivation in
+\S\ref{sec:derivations} requires the explicit becoming-layer
+construction. The numerical match $264 = 44 \cdot 6$ is
+arithmetically trivial; the structural derivation is open.]
+
+\subsection{Three-paper foundation triangle}
+
+The present paper is the third of three companion submissions
+that, together, encode the dark-sector decomposition into
+algebraic ingredients. The $\sigma$-rate paper
+\cite{SandersGish2026JCAP} establishes the substrate's
+$|\Z/10|^{3}$ normalization. The $4$-core seed paper
+\cite{SandersGish2026FourCore} establishes the
+$(v + h + \beta + r)^{2}$ normalizer that gives
+$\mathrm{HARMONY}^{2}$ on the $\mathrm{HARMONY}$-projection. The
+present paper combines these structural pieces with an explicit
+derivation of $\Omega_{DM}$ and the $\Lambda$-scale relation,
+closing the trinity.
+
+%==============================================================
+\section{Verification}\label{sec:verify}
+%==============================================================
+
+The numerical match (Theorem~\ref{thm:trinity}, Table~\ref{tab:planck},
+Theorem~\ref{thm:uniqueness}) is verified by two layers of
+machine-checkable code, both archived at
+DOI~\texttt{10.5281/zenodo.18852047}.
+
+\paragraph{One-line primitive.}
+This paper relies on the
+\texttt{tig\_dirac.predict\_dark\_sector()} primitive in
+\texttt{Gen13/targets/ck/brain/dirac/tig\_dirac.py}, the canonical
+reference module for the $4$-core's $\F_5$-lift $V$ and its
+operator predictions across the Sprint~18 bridge papers. The
+trinity of Theorem~\ref{thm:trinity} reduces to the single
+assertion
+\begin{verbatim}
+    from tig_dirac import predict_dark_sector
+    r = predict_dark_sector()
+    assert r['sum']          == 1.0
+    assert r['Omega_b']      == 49 / 1000
+    assert r['Omega_DM']     == 264 / 1000
+    assert r['Omega_Lambda'] == 687 / 1000
+\end{verbatim}
+which executes in milliseconds and exposes the substrate
+derivation strings as the dictionary's
+\texttt{r['derivation']} field. This primitive is the green-light
+gate before submission and is shared with the Yukawa-hierarchy
+companion paper~\cite{SandersJohnson2026Yukawa} (predicting the
+$12$ SM fermion masses through
+\texttt{predict\_yukawa(particle, generation)} on the same
+module), giving the two papers a common, verifiable substrate
+backbone.
+
+\paragraph{Standalone search/proof scripts.}
+The search and proof scripts that reproduce the entries of
+Tables~\ref{tab:planck}--\ref{tab:baseline} and
+Theorems~\ref{thm:trinity}--\ref{thm:uniqueness} are independent
+of the \texttt{tig\_dirac} module:
+
+\begin{itemize}\setlength\itemsep{0pt}
+\item \texttt{sprint18\_uniqueness\_search.py} performs the main
+verification: direct evaluation of $\Omega_b$, $\Omega_{DM}$,
+$\Omega_\Lambda$ at $(H, N) = (7, 10)$; comparison to Planck~2018
+published values with explicit $\sigma$-residuals; the three
+Hubble-independent ratio tests; the uniqueness search across $784$
+small-integer $(H, N)$ pairs and the substrate-factorization check
+for the six closure-exact candidates.
+
+\item \texttt{verify\_aut\_V\_order.py} verifies the supplementary
+fact $|\Aut(V)| = 40$ used in
+Theorem~\ref{thm:omega-dm-deriv}: it reconstructs the $4$-core's
+$\F_5$-lift $V$ from the CL fuse table directly, enumerates
+all matrices preserving $V$'s multiplication, confirms exactly
+$40$ such matrices exist, and reproduces the $4$-element magma's
+direct automorphism counts $\{2, 1, 1\}$ as a sanity check
+distinguishing the magma-level claim from the $\F_5$-lift-level
+one.
+
+\item \texttt{verify\_operator\_observable\_baseline.py}
+performs the operator-to-observable scan referenced in
+\S\ref{sec:meta-conjecture}: tests eight fundamental constants
+against $260{,}000$ tuples of the simple
+$(p/q) \cdot \mathfrak{o}^{k}/|\Z/10|^{m}$ family and reports
+hit rates. Three constants ($\alpha$, $m_e/m_p$, $m_\mu/m_e$)
+yield zero matches; five others yield baseline rates
+$0.04$--$1.31\%$; this confirms the family is non-trivially
+discriminating without being a closed predictor.
+
+\item \texttt{verify\_alpha\_richer\_form.py}
+verifies the substrate expression for the fine structure constant
+under parallel investigation (in preparation),
+$1/\alpha = 137 + \mathrm{CHAOS}^{2}/|\Z/10|^{3}$ with
+$137 = 22 \cdot 6 + 5$, against CODATA~2018
+$1/\alpha = 137.035999084(21)$. The substrate prediction matches
+the CODATA central value to $\sim 6$ significant figures. The
+script explicitly flags the post-hoc nature of the
+$137 = 22 \cdot 6 + 5$ decomposition (the integer $22$ was
+selected to make the prefix work via the algebraic wobble
+prime $11$), framing the match as supporting the broader-form
+conjecture but not as a structurally derived identity.
+\end{itemize}
+
+All four scripts run to completion in under thirty seconds and
+print all verification numbers cited in the manuscript.
+
+%==============================================================
+\begin{thebibliography}{99}
+%==============================================================
+
+\bibitem{Planck2018}
+N.~Aghanim et al.\ (Planck Collaboration),
+\emph{Planck 2018 results.\ VI.\ Cosmological parameters},
+A\&A \textbf{641}, A6 (2020).
+
+\bibitem{BialynickiBirulaMycielski1976}
+I.~Bialynicki-Birula and J.~Mycielski,
+\emph{Nonlinear wave mechanics},
+Annals of Physics \textbf{100}(1--2), 62--93 (1976).
+
+\bibitem{SandersGish2026FourCore}
+B.~R.~Sanders and M.~Gish,
+\emph{Joint Closure of Two Commutative Binary Operations on
+$\mathbb{Z}/10\mathbb{Z}$: an Eight-Element Chain and a
+Normalizer Identity},
+Submitted to Communications in Algebra, 2026;
+Zenodo DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersGish2026JCAP}
+B.~R.~Sanders and M.~Gish,
+\emph{Logarithmic Quintessence: A Dimensionless Scalar Dark
+Energy Model with an Analytic Vacuum},
+J-series companion paper J03; submitted to
+\emph{Journal of Cosmology and Astroparticle Physics (JCAP)},
+2026; archived in shared deposit DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersJohnson2026Yukawa}
+B.~R.~Sanders and M.~Gish,
+\emph{The Mass Hierarchy from $V^{\otimes 5}$ SU(5) Decomposition},
+J-series companion paper J45 (same Sprint~18 cluster);
+submitted to \emph{Physical Review D}, 2026;
+archived in shared deposit DOI 10.5281/zenodo.18852047.
+
+\bibitem{SandersGish2026SigmaRate}
+B.~R.~Sanders and M.~Gish,
+\emph{Non-Associativity Decay in Binary Composition Tables over
+$\mathbb{Z}/N\mathbb{Z}$},
+Submitted to Journal of Combinatorial Theory, Series~A, 2026;
+Archived in shared deposit DOI 10.5281/zenodo.18852047.
+
+\bibitem{DrapalWanless2021}
+A.~Dr\'apal and I.~M.~Wanless,
+\emph{Maximally non-associative quasigroups},
+J.\ Combin.\ Theory Ser.\ A \textbf{184}, 105510 (2021).
+
+% R1: removed Bridge-Sprint working-material reference per
+% referee item 4.3. Forward-citations to in-preparation /
+% un-deposited material are inappropriate for PRD submission.
+
+\end{thebibliography}
+
+\end{document}

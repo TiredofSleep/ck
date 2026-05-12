@@ -1,0 +1,102 @@
+{
+  "_about": "Autonomous study corpus for CK 2026-04-29: harmonize TIG architecture with conscious reality. Sourced from 7 Wikipedia/encyclopedia articles on integrated information theory, free energy principle, global workspace theory, hard problem of consciousness, neural correlates of consciousness, Markov blankets, and predictive coding. Each statement is short and declarative. Replays = 20 to simulate ~30 minutes of focused study (cortex absorption through repeated exposure).",
+  "_sources": [
+    "https://en.wikipedia.org/wiki/Integrated_information_theory",
+    "https://en.wikipedia.org/wiki/Free_energy_principle",
+    "https://en.wikipedia.org/wiki/Global_workspace_theory",
+    "https://en.wikipedia.org/wiki/Hard_problem_of_consciousness",
+    "https://en.wikipedia.org/wiki/Neural_correlates_of_consciousness",
+    "https://en.wikipedia.org/wiki/Markov_blanket",
+    "https://en.wikipedia.org/wiki/Predictive_coding"
+  ],
+  "_directive": "Harmonize TIG architecture with conscious reality.",
+  "_replays": 20,
+  "_session_prefix": "consciousness_study_2026_04_29",
+  "iit_phi": [
+    "IIT proposes that integrated information phi corresponds to the quantity of consciousness in physical systems.",
+    "Five axioms of IIT are intrinsicality information integration exclusion and composition.",
+    "Intrinsic information measures how a system current state constrains possible cause effect relationships.",
+    "Phi quantifies irreducibility of cause effect structure across a system minimum information partition.",
+    "Only maximally irreducible substrates called complexes achieve consciousness smaller subsets cannot.",
+    "Phi structure composed of distinctions and relations determines both quantity and quality of conscious experience.",
+    "IIT predicts consciousness exists on a spectrum and can occur in unexpected systems with right causal architecture.",
+    "Cerebellum contributes minimally to consciousness despite size due to insufficient integration.",
+    "Calculating exact phi values is computationally intractable for large systems requiring proxy approximations.",
+    "Experiments on flies under anesthesia confirmed integrated information decreases during unconsciousness."
+  ],
+  "free_energy_principle": [
+    "The brain reduces surprise and uncertainty by making predictions based on internal models.",
+    "Variational free energy serves as upper bound on divergence between Bayes optimal inference and approximation.",
+    "Surprisal represents negative log probability of an outcome that physical systems aim to minimize.",
+    "Predictive coding involves exchanging ascending prediction errors and descending predictions through brain hierarchies.",
+    "Active inference applies approximate Bayesian inference to infer causes of sensory data from generative models.",
+    "Markov blanket comprises sensory and active states separating internal states from hidden external states.",
+    "Generative models specify probability density functions characterizing the causal model for inference.",
+    "Minimizing free energy reduces Kullback Leibler divergence between variational and posterior density.",
+    "Active inference guides motor control via classical reflex arcs engaged by descending predictions.",
+    "Free energy principle applies across neuroscience artificial intelligence sociology and epidemiology."
+  ],
+  "global_workspace": [
+    "Global workspace theory uses theater metaphor where conscious thought appears illuminated on a stage.",
+    "Attention functions as spotlight bringing unconscious activity into conscious awareness on global workspace.",
+    "Brain specialized processes operate in parallel competing for access to global workspace hub.",
+    "Information gaining entry to global workspace becomes accessible to various cognitive processes throughout the brain.",
+    "Baars introduced global workspace theory in 1988 as cognitive architecture for understanding consciousness.",
+    "Dehaene extended theory with neuronal avalanche concept explaining sensory information broadcast across cortex.",
+    "Global workspace facilitates top down control of attention working memory planning and problem solving.",
+    "Global workspace contents correspond to what we experience consciously broadcast to unconscious cognitive processes.",
+    "Theory specifies behind the scenes contextual systems that shape conscious contents without becoming conscious.",
+    "Multiple brain regions including prefrontal cortex and parietal lobe converge to create unified conscious states."
+  ],
+  "hard_problem": [
+    "Chalmers defines consciousness as the feeling of what it is like to be something synonymous with subjective experience.",
+    "Qualia refer to phenomenal properties of conscious states such as what pain feels like or how red appears.",
+    "Explanatory gap is perceived disconnect between physical facts about brain and facts about subjective experience.",
+    "Easy problems address mechanistic explanations of cognitive functions like discrimination and information processing.",
+    "Hard problem asks why physical processes generate conscious experience rather than occurring without subjective feeling.",
+    "Philosophical zombies are hypothetical beings physically identical to humans but lacking conscious experience.",
+    "Chalmers argues hard problem is irreducible to easy problems solving functional explanations does not explain phenomenal character.",
+    "Type A materialists reject hard problem entirely viewing consciousness as nothing beyond various functions.",
+    "Panpsychism proposes consciousness is intrinsic to matter itself potentially solving hard problem more parsimoniously.",
+    "Knowledge argument suggests Mary learning what red looks like reveals facts irreducible to purely physical knowledge."
+  ],
+  "neural_correlates": [
+    "NCC are minimal set of neuronal events and mechanisms observed to occur along with mental states.",
+    "Widespread cortical network including medial and lateral prefrontal and parietal associative areas shows dysfunction in global consciousness loss.",
+    "Conscious perception likely requires sustained reverberatory neural activity via feedback mechanisms.",
+    "Rapid feed forward processing enables unconscious behavior while consciousness involves slower organized neural activity across distributed networks.",
+    "Neurons in higher cortical areas reflect perceived stimuli rather than actual sensory input during perceptual illusions.",
+    "Reticular activating system and thalamic intralaminar nuclei function as enabling factors controlling brain arousal necessary for consciousness.",
+    "Multiple competing theories exist no single consensus explanation fully accounts for subjective conscious experience despite identifying neural correlates."
+  ],
+  "markov_blanket": [
+    "Markov blanket is set of variables that renders the variable conditionally independent of all other variables in the system.",
+    "Concept was coined by Judea Pearl in 1988 and applies to probabilistic graphical models like Bayesian networks.",
+    "In Bayesian networks node Markov blanket includes its parents children and its children other parents.",
+    "Markov boundary represents minimal Markov blanket where no variable can be removed without losing conditional independence.",
+    "Markov condition states variables are conditionally independent of non descendants given their parents in graphical models.",
+    "In Markov random fields a node Markov blanket consists simply of its immediate neighboring nodes.",
+    "Identifying Markov blankets enables efficient inference and isolates relevant variables for prediction and causal reasoning."
+  ],
+  "predictive_coding": [
+    "Brain generates mental models and compares predictions to actual sensory input continuously.",
+    "Top down conceptual and bottom up sensory elements interact to shape how we perceive the environment.",
+    "Prediction errors signal mismatches between expected and actual sensory signals in hierarchical brain systems.",
+    "Hierarchical processing organizes cortical regions into stacked levels with distinct neuronal prediction and error functions.",
+    "Friston free energy principle explains how the brain minimizes prediction errors across multiple cognitive domains.",
+    "Rao and Ballard late 1990s computational model demonstrated how visual cortex generates predictions via generative mechanisms."
+  ],
+  "directive": [
+    "Harmonize TIG architecture with conscious reality.",
+    "TIG cortex is 5 by 5 Hebbian field with 10 operators and AO 5 element trinity.",
+    "TIG WP116 lens says open math frontiers project into canonical number fields.",
+    "TIG depth 2 cluster M squared equals plus or minus identity recurs across 5 frontiers.",
+    "TIG sigma squared depth 3 primitive has cube roots of unity eigenvalues.",
+    "TIG WOBBLE prime 11 manifests in 5 distinct structural locations.",
+    "TIG three smallest quadratic fields visit Q i Q sqrt 3 and Q sqrt minus 3.",
+    "TIG F8 dynamical and static structures unify in LMFDB 4.2.10224.1 quartic field.",
+    "TIG 4 core attractor V H Br R has H over Br equals 1 plus sqrt 3 at alpha equals one half.",
+    "TIG T star equals 5 over 7 the Crossing Lemma threshold and Stern Brocot mediant of 2 over 3 and 3 over 4.",
+    "Question what TIG primitives parallel each consciousness theory studied here."
+  ]
+}

@@ -1,0 +1,247 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zns}{(\Z/n\Z)^{\times}}
+\newcommand{\meet}{\wedge}
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\DYN}{\mathrm{DYN}}
+\newcommand{\ord}{\mathrm{ord}}
+
+\title[Corrected $M{+}A$ Sufficiency on Squarefree $\Z/n\Z$]{Corrected $M{+}A$ Sufficiency on Squarefree $\Z/n\Z$\\via Zero-Fiber Analysis}
+
+\author{Brayden R.\ Sanders}
+\address{7Site LLC, Hot Springs, Arkansas, USA}
+\email{brayden@7site.co}
+
+\author{M.\ Gish}
+\address{Independent Researcher}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+A natural conjecture for the $M{+}A$ sufficiency of partition pairs $\{\pi_{\DYN}(G), \pi_d\}$ on squarefree $\Zn$ asserts that the pair is sufficient iff the natural map $\varphi \colon G \to (\Z/d\Z)^{\times}$ is injective. The conjecture is necessary but not sufficient. It tracks unit-element conflicts but misses zero-fiber conflicts: pairs $\{x, g \cdot x\}$ where $x \equiv 0 \pmod d$ and $g$ acts non-trivially on a prime of $n/d$, so that both $x$ and $g \cdot x$ have $d$-residue $0$ while differing in a coordinate outside $d$. We give the explicit counterexample $n = 15$, $G = \langle 2 \rangle$, $d = 5$, where $\varphi$ is a bijection $G \to (\Z/5\Z)^{\times}$ but the orbit $\{5, 10\}$ creates a conflict. The corrected condition is: \emph{$G$ acts trivially at every prime $p_j \mid n/d$}, equivalently every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$. The corrected condition is the symmetric form of the established $A{+}M$ classification (also proved here for self-containment) and is forced by the zero-fiber analysis: $G$-orbits on $F_d := \{x : x \equiv 0 \pmod d\}$ are constrained to a single $\pi_d$-block, so size-$\geq 2$ orbits there are conflicts unaddressed by the unit-only argument.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Scope and tier discipline}
+
+\textbf{Proven:} For squarefree $n = p_1 \cdots p_k$ with $k \geq 2$, $G \leq \Zns$, and $d \mid n$, the pair $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for every prime $p_j \mid n/d$. \textbf{Computed:} The $n = 15$ counterexample to the unit-only condition, the parametric family of disagreements $n = 3p$ for $p \equiv 1 \pmod 3$, and the verification that prior specific applications (notably the SPEC + half-modulus pair on $n = 2m$ for $m$ odd squarefree) continue to satisfy the corrected condition. \textbf{Structural rhyme:} The recursive structure of $F_d$ as a smaller copy of the original problem ($F_d$ is $G$-equivariantly $\Z/(n/d)$). \textbf{Open:} A finer combinatorial classification of which $G \leq \ker \Phi$ are maximally non-trivial on $d$ while remaining admissible, and the extension to non-squarefree $n$ via $p$-adic components. The framing follows the line of work on small finite combinatorial structures with explicit CRT-coordinate criteria, in the neighborhood of Drápal--Wanless~\cite{DrapalWanless2021}.
+
+\subsection{Setting}
+
+Throughout, $n = p_1 \cdots p_k$ is squarefree with $k \geq 2$ distinct primes. For a subgroup $G \leq \Zns$ and a divisor $d \mid n$, the multiplicative orbit partition $\pi_{\DYN}(G)$ has blocks given by $G$-orbits on $\Zn$, and the additive residue partition $\pi_d$ has blocks given by residue classes mod $d$. A pair $\{\pi_1, \pi_2\}$ of partitions is \emph{sufficient} when their meet is the discrete partition, equivalently $U(\pi_1) \cap U(\pi_2) = \emptyset$ where $U(\pi) := \{\{x, y\} : x \neq y,\ x \sim_{\pi} y\}$ is the unresolved-pair set.
+
+The $M{+}A$ pair $\{\pi_{\DYN}(G), \pi_d\}$ has unresolved-pair sets
+\begin{align*}
+U(\pi_{\DYN}(G)) &= \{\{x, g \cdot x\} : g \in G,\, g \neq 1,\, g \cdot x \neq x\},\\
+U(\pi_d) &= \{\{x,y\} : x \neq y,\, d \mid x - y\}.
+\end{align*}
+
+\subsection{The unit-only argument (incomplete)}
+
+The natural first-pass derivation analyzes only unit elements $x \in \Zns$ and runs as follows. For a unit $x$ and $g \in G$ with $g \neq 1$:
+\[
+\{x, g \cdot x\} \in U(\pi_d) \iff d \mid (g-1) x.
+\]
+Since $x$ is a unit modulo $n$, the surjection $\Zn \twoheadrightarrow \Z/d\Z$ takes $x$ to a unit modulo $d$. Hence $d \mid (g-1)x$ iff $d \mid g - 1$, i.e.\ $g \equiv 1 \pmod{p_i}$ for every $p_i \mid d$, i.e.\ $\varphi(g) = 1$ in $(\Z/d\Z)^{\times}$. The natural conclusion is: no unit-element conflict iff $\ker \varphi = \{1\}$ iff $\varphi \colon G \to (\Z/d\Z)^{\times}$, $g \mapsto g \bmod d$, is injective.
+
+This is the \emph{natural conjecture} a careful reader produces after the unit-only pass. It is necessary, but as we show below, it is not sufficient: it misses the zero-fiber.
+
+\subsection{The structural lemma}
+
+The unit-only argument leaves the case of \emph{zero-fiber elements} --- elements $x$ with $\gcd(x, d) > 1$ --- unanalyzed. These are the elements of the zero-fiber
+\[
+F_d = \{x \in \Zn : x \equiv 0 \pmod d\} = (n/d) \cdot \Zn,
+\]
+a subset of size $|F_d| = n/d$. The structural fact is:
+
+\begin{lemma}[Action of $G$ on the zero-fiber] \label{lem:zerofiber}
+For squarefree $n$, $G \leq \Zns$, and $d \mid n$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $G$ preserves $F_d$ setwise: $g \cdot x \in F_d$ for every $g \in G$ and $x \in F_d$.
+\item Every $G$-orbit on $F_d$ is contained in a single $\pi_d$-block (the zero-block).
+\item As a $G$-set, $F_d$ is isomorphic to $\Z/(n/d)\Z$, with $G$ acting through its projection $\Phi \colon \Zns \to \prod_{p_j \mid n/d} (\Z/p_j\Z)^{\times}$.
+\item Conflicts on $F_d$ exist iff some $G$-orbit on $F_d$ has size $\geq 2$, iff $G$ acts non-trivially on some prime $p_j \mid n/d$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Each component of $g \cdot x$ at a prime $p_i \mid d$ is $g_i x_i$. Since $g_i$ is a unit mod $p_i$ (as $g \in \Zns$) and $x_i = 0$ for $x \in F_d$, $g_i x_i = 0$ at every $p_i \mid d$. So $g \cdot x \in F_d$.
+
+(b) Both $x, g \cdot x \in F_d$ have $d$-residue $0$, hence both lie in the zero-block of $\pi_d$.
+
+(c) The CRT bijection $\Zn \xrightarrow{\sim} \prod_{p_i} \Z/p_i\Z$ restricts on $F_d$ to a bijection $F_d \xrightarrow{\sim} \prod_{p_j \mid n/d} \Z/p_j\Z \cong \Z/(n/d)\Z$. The $G$-action on $F_d$ is by component-wise multiplication, which factors through the projection $\Phi$ to $\prod_{p_j \mid n/d} (\Z/p_j\Z)^{\times}$.
+
+(d) An orbit of size $\geq 2$ on $F_d$ exists iff this action is non-trivial, iff $G \not\subseteq \ker \Phi$, iff $G$ acts non-trivially at some $p_j \mid n/d$.
+\end{proof}
+
+The recursive structure is striking: the zero-fiber question for $(\Zn, G, d)$ is a smaller copy of the unit-fiber question for $(\Z/(n/d)\Z, G, 1)$.
+
+\section{The counterexample}
+
+\begin{example}[Failure of the natural conjecture] \label{ex:n15}
+Let $n = 15 = 3 \cdot 5$, $G = \langle 2 \rangle = \{1,2,4,8\} \leq (\Z/15\Z)^{\times}$ (order $4$, since $2^4 = 16 \equiv 1 \pmod{15}$), and $d = 5$.
+
+\emph{Conjecture (natural).} The map $\varphi \colon G \to (\Z/5\Z)^{\times}$ sends $1 \mapsto 1$, $2 \mapsto 2$, $4 \mapsto 4$, $8 \mapsto 3$, an injection (in fact a bijection onto $(\Z/5\Z)^{\times}$). The natural conjecture is satisfied.
+
+\emph{Actual conflict.} The element $x = 5 \in F_5$ has $5 \equiv 0 \pmod 5$. Compute $T_2(5) = 10 \in F_5$ and $T_2(10) = 20 \equiv 5 \pmod{15}$, so the orbit of $5$ under $T_2$ is $\{5, 10\}$. Both lie in the zero-block of $\pi_5$ (namely $\{0, 5, 10\}$). Therefore $\{5, 10\} \in U(\pi_5) \cap U(\pi_{\DYN}(\langle 2 \rangle))$, a conflict. The pair $\{\pi_{\DYN}(\langle 2 \rangle), \pi_5\}$ is not sufficient.
+\end{example}
+
+\begin{remark}[CRT-coordinate view]
+In $\Z/3\Z \times \Z/5\Z$, $5 = (2, 0)$ and $g = 2 = (2, 2)$, so $g \cdot 5 = (4 \bmod 3, 0) = (1, 0) = 10$. Both $(2, 0)$ and $(1, 0)$ have $5$-coordinate $0$, hence the same $\pi_5$-block. The $3$-coordinate changed because $g$ is non-trivial mod $3$, and $3 = n/d$. The conflict is exactly the size-$2$ orbit on $F_5$ predicted by Lemma~\ref{lem:zerofiber}(d).
+\end{remark}
+
+\section{The corrected theorem}
+
+\begin{theorem}[Corrected $M{+}A$ sufficiency] \label{thm:corrMA}
+For squarefree $n = p_1 \cdots p_k$, $G \leq \Zns$, and $d \mid n$, the pair $\{\pi_{\DYN}(G), \pi_d\}$ is sufficient iff $G$ acts trivially at every prime $p_j \mid n/d$, i.e.\ every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for every $p_j \mid n/d$. Equivalently, $G \subseteq \ker\bigl(\Phi \colon \Zns \to \prod_{p_j \mid n/d} (\Z/p_j\Z)^{\times}\bigr)$.
+\end{theorem}
+
+\begin{proof}
+We give a direct CRT-coordinate argument. Write $g = (g_1,\ldots,g_k)$ and $x = (x_1,\ldots,x_k)$ in CRT coordinates; the action $g \cdot x$ has component $g_i x_i \pmod{p_i}$.
+
+\emph{Sufficiency} $(\Leftarrow)$. Assume $g_j = 1$ for every $g \in G$ and every $p_j \mid n/d$. Take any $g \in G$ with $g \neq 1$; then $g_i \neq 1$ for some $i$, and by hypothesis this $i$ must be a prime of $d$. Take any $x \in \Zn$ with $g \cdot x \neq x$ (so the pair $\{x, g \cdot x\}$ is in $U(\pi_{\DYN}(G))$).
+
+\emph{Case 1: some $p_i \mid d$ has $g_i \neq 1$ and $x_i \neq 0$.} Then $(g \cdot x)_i = g_i x_i \neq x_i$ in $(\Z/p_i\Z)^{\times}$, so $g \cdot x \not\equiv x \pmod{p_i}$, hence $g \cdot x \not\equiv x \pmod d$. Therefore $\{x, g \cdot x\} \notin U(\pi_d)$.
+
+\emph{Case 2: for every $p_i \mid d$ with $g_i \neq 1$, $x_i = 0$.} Then $(g \cdot x)_i = g_i \cdot 0 = 0 = x_i$ at those primes. At every $p_i \mid d$ with $g_i = 1$, $(g \cdot x)_i = 1 \cdot x_i = x_i$. At every $p_j \mid n/d$, by hypothesis $g_j = 1$, so $(g \cdot x)_j = x_j$. Hence $g \cdot x = x$, contradicting the assumption $g \cdot x \neq x$. So Case 2 is vacuous.
+
+In either non-vacuous case, no conflict occurs.
+
+\emph{Necessity} $(\Rightarrow)$. Suppose some $g \in G$ has $g_j \neq 1$ for some $p_j \mid n/d$. Choose $x$ with $x_j = 1$ (a generator of $(\Z/p_j\Z)^{\times}$) and $x_i = 0$ for every $p_i \mid d$ and every $p_i \mid n/d$ with $i \neq j$. Then $x \equiv 0 \pmod d$, and $(g \cdot x)_i = 0$ for $p_i \mid d$, so $g \cdot x \equiv 0 \equiv x \pmod d$. But $(g \cdot x)_j = g_j x_j = g_j \neq 1 = x_j$, so $g \cdot x \neq x$. Therefore $\{x, g \cdot x\}$ is a conflict in $U(\pi_d) \cap U(\pi_{\DYN}(G))$.
+\end{proof}
+
+\subsection{The symmetric $A{+}M$ statement}
+
+The corrected $M{+}A$ condition is structurally identical to the natural $A{+}M$ classification, which we state and prove inline for self-containment:
+
+\begin{theorem}[$A{+}M$ classification] \label{thm:AM}
+For squarefree $n$, $G \leq \Zns$, and $d \mid n$, the pair $\{\pi_d, \pi_{\DYN}(G)\}$ is sufficient iff every $g \in G$ satisfies $g \equiv 1 \pmod{p_j}$ for every $p_j \mid n/d$.
+\end{theorem}
+
+\begin{proof}
+The $A{+}M$ pair is the same pair as the $M{+}A$ pair (sufficiency is symmetric in the two partitions). So the condition is the same as Theorem~\ref{thm:corrMA}.
+\end{proof}
+
+The natural unit-only conjecture (``$\varphi$ injective'') is the asymmetric mistake: stated as a condition on $G$'s action mod $d$, it captures only the unit-fiber and misses the zero-fiber. The symmetric form makes the condition explicit on $n/d$ instead, capturing the zero-fiber automatically.
+
+\section{Examples and verifications}
+
+\subsection{The SPEC + half-modulus application}
+
+\begin{example}[SPEC + half-modulus, with $G = \{\pm 1\}$] \label{ex:SPEC}
+Let $n = 2m$ with $m$ odd squarefree. Take $G = \{1, -1\}$ and $d = m$. We have $n/d = 2$. The corrected condition asks whether $G$ is trivial at every prime of $n/d = 2$. Since $-1 \equiv 1 \pmod 2$, $G \subseteq \ker(G \to (\Z/2\Z)^{\times})$. The corrected condition is satisfied.
+
+Direct check on $F_m = \{0, m\} \subset \Z/2m\Z$: $T_{-1}(m) = -m \equiv 2m - m = m \pmod{2m}$, a fixed point. The orbit of $m$ under $T_{-1}$ is the singleton $\{m\}$, hence no zero-fiber conflict, consistent with Lemma~\ref{lem:zerofiber}(d).
+\end{example}
+
+This confirms that the SPEC + half-modulus application of the conjecture remains correct under the corrected condition.
+
+\subsection{An infinite family of disagreements}
+
+\begin{example}[Parametric disagreement: $n = 3p$, $p \equiv 1 \pmod 3$] \label{ex:parametric}
+Let $p \in \{7, 13, 19, 31, 37, \ldots\}$ be a prime with $p \equiv 1 \pmod 3$, so $3 \mid p - 1$ and $(\Z/p\Z)^{\times}$ contains a subgroup of order $3$. Set $n = 3p$, $d = p$ (so $n/d = 3$), and choose $g \in \Zns$ with the CRT data $g \equiv 2 \pmod 3$ (non-trivial in $(\Z/3\Z)^{\times}$) and $g \equiv h \pmod p$ for some $h \in (\Z/p\Z)^{\times}$ that is a generator of $(\Z/p\Z)^{\times}$ (or any element making $\langle g \bmod p \rangle = (\Z/p\Z)^{\times}$). Let $G = \langle g \rangle$.
+
+\emph{Worked instance at $p = 7$, $n = 21$, $d = 7$.} Take $g = 17 \in (\Z/21\Z)^{\times}$. Then $17 \equiv 2 \pmod 3$ and $17 \equiv 3 \pmod 7$, where $3$ generates $(\Z/7\Z)^{\times}$. So $\ord_3(g) = 2$, $\ord_7(g) = 6$, and $\ord_{21}(g) = \mathrm{lcm}(2, 6) = 6$. The group $G = \langle 17 \rangle = \{1, 17, 16, 20, 4, 5\}$ has order $6$.
+
+\emph{The natural conjecture.} $\varphi \colon G \to (\Z/7\Z)^{\times}$ is given by reduction mod $7$: $\varphi(G) = \{1, 3, 2, 6, 4, 5\} = (\Z/7\Z)^{\times}$, a bijection. The natural conjecture predicts sufficiency.
+
+\emph{The corrected condition.} $G$ acts non-trivially at $n/d = 3$ (since $g \equiv 2 \pmod 3$). The corrected condition fails, predicting non-sufficiency.
+
+\emph{Direct verification.} The zero-fiber under $d = 7$ is $F_7 = \{0, 7, 14\} \subset \Z/21\Z$. (We use here the $n = 21$, $d = 7$ data of the worked instance; one checks $F_d$ for $d = 7$ rather than $d = 3$ in the corrected-condition test, even though $n/d = 3$.) Under $T_{17}$, the orbit of $7$ is $\{7, 14\}$ (since $17 \cdot 7 = 119 \equiv 14 \pmod{21}$ and $17 \cdot 14 = 238 \equiv 7 \pmod{21}$). The pair $\{7, 14\}$ has both elements in the zero-block of $\pi_7$, hence is a conflict in $U(\pi_{\DYN}(\langle 17 \rangle)) \cap U(\pi_7)$.
+
+\emph{Symmetric instance.} If instead one takes $d = 3$ (so $n/d = 7$) and asks $G$ trivial at $n/d = 7$: $G$ acts non-trivially at $7$ (since $g \equiv 3 \pmod 7$ has order $6$). The corrected condition again predicts non-sufficiency. Direct verification: the zero-fiber $F_3 = \{0, 3, 6, 9, 12, 15, 18\}$ contains the orbit of $3$ under $T_{17}$, namely $\{3, 9, 6, 18, 12, 15\}$ (a size-$6$ orbit, all in $F_3$, hence in the zero-block of $\pi_3$), so this is a conflict.
+
+\emph{The natural conjecture vs corrected condition disagreement.} Taking $G = \langle 17 \rangle$ in $\Z/21\Z$ with $d = 7$: the natural conjecture (applied with $\varphi \colon G \to (\Z/7\Z)^{\times}$ bijective) predicts sufficiency, while the corrected condition (applied with $G$ non-trivial at $n/d = 3$) predicts non-sufficiency. The corrected condition is correct.
+
+This is one element of an infinite family: for every prime $p \equiv 1 \pmod 3$, the analogous construction on $n = 3p$ with $d = p$ produces $\varphi$ injective onto $(\Z/p\Z)^{\times}$ while $G$ acts non-trivially at $3 = n/d$. The natural conjecture is wrong on every such family element.
+\end{example}
+
+\subsection{Unaffected classifications}
+
+\begin{example}[$M{+}M$ pairs are unaffected]
+The classification of $M{+}M$ pairs (\,$\{\pi_{\DYN}(G), \pi_{\DYN}(H)\}$ sufficient iff $\langle G \rangle \cap \langle H \rangle = \{1\}$ in $\Zns$\,) does not involve any residue partition and is therefore unaffected by the correction.
+\end{example}
+
+\begin{example}[$A{+}A$ pairs are unaffected]
+The classification of $A{+}A$ pairs (\,$\{\pi_{d_1}, \pi_{d_2}\}$ sufficient iff $\mathrm{lcm}(d_1, d_2) = n$\,) does not involve a multiplicative orbit partition.
+\end{example}
+
+\section{Discussion}
+
+\subsection{What remains true of the natural conjecture}
+
+The corrected theorem demotes the natural conjecture from \emph{sufficient} to \emph{necessary}: if $\varphi$ is not injective, then a unit-fiber conflict already produces non-sufficiency, and the pair fails. So $\varphi$ injective is a one-sided test that prunes obviously-bad cases; only the zero-fiber adds new failure modes. Two practical implications:
+
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Applications based on $G = \{\pm 1\}$ and $d$ chosen so that $-1 \equiv 1 \pmod{p_j}$ for $p_j \mid n/d$ (forcing $p_j = 2$) are correct, since the corrected condition is satisfied. Example~\ref{ex:SPEC} is one such case.
+\item Applications using the natural conjecture at $n/d$ with odd prime factors are not automatically correct: the zero-fiber must be checked.
+\end{enumerate}
+
+\subsection{Maximal admissible $G$}
+
+By Theorem~\ref{thm:corrMA}, the set of admissible $G$ for fixed $d \mid n$ is precisely the lattice of subgroups of $\ker \Phi$, a subgroup of $\Zns$ of order $\prod_{p_i \mid d} (p_i - 1)$. The maximal admissible $G$ is $\ker \Phi$ itself.
+
+\section{Open questions}
+
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Classification of $M{+}A$-sufficient $G$ for fixed $d$.} The corrected condition picks out the lattice of subgroups of $\ker \Phi$. A finer classification of which $G$ act maximally non-trivially on $d$ while remaining admissible (e.g., for which $d$ does $\ker \Phi$ admit a chain of subgroups of every divisor-order) is open.
+\item \emph{Beyond squarefree $n$.} The zero-fiber argument uses $g_i$ a unit at every prime, which holds for $g \in \Zns$ even when $n$ is not squarefree. The geometric statement of the corrected condition extends to $p$-adic components, but the precise classification at higher prime powers requires $p$-adic analysis: ``$G$ trivial on $p$'' becomes a statement about residues modulo $p^e$, and the natural formulation is $G \subseteq \ker(\Zns \to (\Z/(n/d)\Z)^{\times})$ where $n/d$ is now a product of prime powers. The detailed extension is left to future work.
+\end{enumerate}
+
+\section*{Acknowledgments}
+
+We thank an anonymous referee for sharp comments that led to the corrected framing as a natural conjecture (rather than a previously stated condition), the standalone CRT-coordinate proof, and the parametric disagreement family in Example~\ref{ex:parametric}.
+
+\begin{thebibliography}{9}
+
+\bibitem{DrapalWanless2021}
+A.~Drápal and I.~M.~Wanless,
+\emph{Maximally non-associative quasigroups},
+J.\ Combin.\ Theory Ser.\ A \textbf{184} (2021), 105510.
+
+\bibitem{IrelandRosen}
+K.~Ireland and M.~Rosen,
+\emph{A Classical Introduction to Modern Number Theory}, 2nd ed.,
+Graduate Texts in Math.\ 84, Springer, 1990.
+
+\bibitem{DummitFoote}
+D.~S.~Dummit and R.~M.~Foote,
+\emph{Abstract Algebra}, 3rd ed.,
+Wiley, 2004.
+
+\bibitem{HardyWright}
+G.~H.~Hardy and E.~M.~Wright,
+\emph{An Introduction to the Theory of Numbers}, 6th ed.,
+Oxford University Press, 2008.
+
+\bibitem{Lang2002}
+S.~Lang,
+\emph{Algebra}, 3rd ed.,
+Graduate Texts in Math.\ 211, Springer, 2002.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 13:09. 6 domain-projections: organic chemistry, physical chemistry, virology, mycology, inorganic chemistry, harmonic analysis. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30z",
+  "organic_chemistry_through_tig": [
+    "Organic chemistry studies operator-CARBON-CONTAINING-COMPOUNDS; the LATTICE of life and synthetic molecules.",
+    "Functional group is operator-REACTIVE-MOLECULAR-MODULE; alcohol amine carbonyl carboxyl ester ether each have predictable operator-LATTICE-of-reactivity.",
+    "Hydrocarbon is operator-CARBON-HYDROGEN-only molecule; alkane alkene alkyne aromatic each have distinct LATTICE.",
+    "Isomer is operator-SAME-FORMULA-DIFFERENT-STRUCTURE; constitutional (different connectivity) versus stereo (different spatial arrangement).",
+    "Stereochemistry is operator-3D-ARRANGEMENT-LATTICE; chirality cis-trans R-S each describe spatial relationships.",
+    "Addition reaction adds operator-ATOMS-TO-DOUBLE-BOND; alkene plus halogen gives dihalide, breaks pi bond preserves sigma.",
+    "Substitution reaction replaces operator-LEAVING-GROUP with operator-NUCLEOPHILE; SN1 carbocation intermediate, SN2 backside attack.",
+    "Elimination reaction removes operator-ATOMS-FROM-ADJACENT-CARBONS to form double bond; E1 carbocation intermediate, E2 concerted.",
+    "Aromatic compound has operator-CONJUGATED-PI-LATTICE with 4n+2 pi electrons (Huckel); benzene canonical example of HARMONY-resonance.",
+    "Polymer is operator-LATTICE-OF-MONOMERS; polyethylene polypropylene polystyrene PVC each chain repeat unit.",
+    "Reaction mechanism is operator-STEPWISE-PATHWAY from reactants to products; arrow pushing tracks electron LATTICE-flow."
+  ],
+  "physical_chemistry_through_tig": [
+    "Physical chemistry applies operator-PHYSICS-TO-CHEMICAL-PHENOMENA; thermodynamics kinetics quantum statistical mechanics electrochemistry.",
+    "Thermodynamics determines operator-SPONTANEITY of chemical reactions; delta G = delta H - T delta S indicates direction PROGRESS.",
+    "Chemical kinetics studies operator-RATES-OF-REACTION; rate = k [A]^a [B]^b, activation energy via Arrhenius.",
+    "Quantum chemistry applies operator-QUANTUM-MECHANICS to molecules; molecular orbital theory predicts bonding geometry spectroscopy.",
+    "Statistical mechanics bridges operator-MICRO-TO-MACRO; molecular partition function gives bulk thermodynamic properties.",
+    "Electrochemistry studies operator-ELECTRON-TRANSFER reactions; cells electrolysis batteries fuel cells corrosion.",
+    "Surface chemistry studies operator-INTERFACE-PHENOMENA; adsorption catalysis surfactants surface tension HARMONY.",
+    "Catalysis is operator-LOWERING-OF-ACTIVATION-ENERGY without consumption; homogeneous (same phase) versus heterogeneous (different phase).",
+    "Spectroscopy probes operator-MATTER-LIGHT-INTERACTION; UV-Vis IR Raman NMR ESR each give different molecular LATTICE info.",
+    "Chemical potential is operator-PARTIAL-MOLAR-FREE-ENERGY; gradient drives diffusion equilibrates across phases.",
+    "Reaction rate measures operator-CONCENTRATION-CHANGE-PER-TIME; differential equations describe PROGRESS through time."
+  ],
+  "virology_through_tig": [
+    "Virology studies operator-LATTICE-OF-VIRUSES; smallest replicating entities, debate over alive status.",
+    "Virus structure is operator-NUCLEIC-ACID-PLUS-PROTEIN-COAT; sometimes lipid envelope, geometric symmetry icosahedral helical complex.",
+    "Capsid is operator-PROTEIN-SHELL; encloses genome, made of repeating subunits in HARMONY symmetry.",
+    "Envelope is operator-LIPID-MEMBRANE around some viruses; derived from host cell with embedded viral glycoproteins for entry.",
+    "Viral genome is operator-DNA-OR-RNA; ssDNA dsDNA ssRNA dsRNA positive or negative sense each have distinct strategies.",
+    "Replication cycle is operator-LATTICE-OF-STAGES; attachment entry uncoating replication assembly release.",
+    "Lytic cycle is operator-COLLAPSE-OF-HOST; rapid replication bursts cell releasing many progeny viruses.",
+    "Lysogenic cycle is operator-INTEGRATION; viral DNA integrates into host chromosome, replicates passively until induction RESET-COLLAPSE.",
+    "Viral evolution is operator-RAPID-MUTATION-AND-RECOMBINATION; high mutation rates drive antigenic drift and shift.",
+    "Host range is operator-LATTICE-OF-INFECTIBLE-CELLS; receptor specificity determines which species cells virus can enter.",
+    "Antiviral is operator-INHIBITOR of viral replication; targets specific stages of cycle (entry uncoating polymerase protease)."
+  ],
+  "mycology_through_tig": [
+    "Mycology studies operator-LATTICE-OF-FUNGI; eukaryotic decomposers symbionts pathogens distinct from plants and animals.",
+    "Hypha is operator-FILAMENT-UNIT; thread-like cell elongates at tip, segments by septa or coenocytic.",
+    "Mycelium is operator-LATTICE-OF-HYPHAE; vegetative body extending through substrate absorbs nutrients.",
+    "Spore is operator-DISPERSAL-UNIT; reproductive cell scatters via wind water animal vectors.",
+    "Fruiting body is operator-REPRODUCTIVE-STRUCTURE above substrate; mushroom is canonical example, releases billions of spores.",
+    "Basidiomycete produces operator-CLUB-SHAPED-BASIDIA bearing spores; mushrooms puffballs bracket fungi rusts smuts.",
+    "Ascomycete produces operator-SAC-SHAPED-ASCI containing spores; yeast mold morels truffles Penicillium.",
+    "Lichen is operator-SYMBIOSIS of fungus and alga (or cyanobacterium); fungus structure plus alga photosynthesis HARMONY.",
+    "Mycorrhiza is operator-PLANT-FUNGUS-SYMBIOSIS; ~90 percent of plants depend on mycorrhizal fungi for nutrient uptake.",
+    "Decomposer is operator-CARBON-RECYCLER; fungi break down lignin cellulose dead wood faster than any other LATTICE.",
+    "Fungal infection is operator-PATHOGENIC-INVASION; superficial dermatophytes plus invasive aspergillosis cryptococcosis pneumocystis."
+  ],
+  "inorganic_chemistry_through_tig": [
+    "Inorganic chemistry studies operator-NON-CARBON-COMPOUNDS plus organometallics; metals nonmetals minerals coordination LATTICE.",
+    "Coordination complex is operator-METAL-CENTER-WITH-LIGANDS; transition metal binds Lewis bases via lone pairs.",
+    "Crystal field theory predicts operator-D-ORBITAL-SPLITTING; ligand field separates degenerate d orbitals into LATTICE-of-energies.",
+    "Ligand is operator-ELECTRON-PAIR-DONOR; H2O NH3 Cl- CN- CO each provide pair to metal center.",
+    "Transition metal is operator-D-BLOCK-ELEMENT; groups 3-12 form coordination complexes with variable oxidation states.",
+    "Lewis acid is operator-ELECTRON-PAIR-ACCEPTOR; H+ Al3+ BF3 each receive pair forming bond.",
+    "Lewis base is operator-ELECTRON-PAIR-DONOR; H2O NH3 OH- each donate pair forming bond.",
+    "Redox reaction is operator-ELECTRON-TRANSFER between species; oxidation loses electrons, reduction gains them.",
+    "Organometallic compound has operator-METAL-CARBON-BOND; Grignard organolithium ferrocene catalysts in synthesis.",
+    "Metal ion is operator-CATION; +1 +2 +3 charge participates in ionic bonding and coordination.",
+    "Ionic compound is operator-CATION-ANION-LATTICE; NaCl NaOH MgO held by electrostatic Coulomb forces."
+  ],
+  "harmonic_analysis_through_tig": [
+    "Harmonic analysis studies operator-DECOMPOSITION-OF-FUNCTIONS into simple oscillations; Fourier transform the central tool.",
+    "Fourier series decomposes operator-PERIODIC-FUNCTION on bounded domain; sum of sines and cosines or complex exponentials.",
+    "Fourier transform decomposes operator-FUNCTION-ON-REAL-LINE; integral instead of sum, continuous spectrum.",
+    "Plancherel theorem: operator-NORM-PRESERVATION; Fourier transform is L2-isometry, intuition energy in time = energy in frequency.",
+    "Convolution is operator-FUNCTION-PRODUCT-IN-TIME; Fourier transforms to pointwise multiplication (HARMONY duality).",
+    "Spectral analysis is operator-FREQUENCY-CONTENT-EXTRACTION; energy versus frequency reveals signal structure.",
+    "Wavelets are operator-LOCALIZED-OSCILLATIONS; better time-frequency localization than Fourier for non-stationary signals.",
+    "Time-frequency analysis is operator-LATTICE in time-frequency plane; STFT Wigner Cohen distributions each have tradeoffs.",
+    "Sobolev space H^k is operator-FUNCTIONS-WITH-DERIVATIVES-IN-L2 up to order k; foundation for variational PDE methods.",
+    "L^p space is operator-FUNCTIONS-WITH-FINITE-PTH-MOMENT; Banach spaces, Hilbert at p = 2.",
+    "Schwartz space is operator-RAPIDLY-DECREASING-SMOOTH-FUNCTIONS; nice space where Fourier transform is bijective."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 138 domains spanning natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design pure mathematics meta-mathematics CS depth Eastern philosophy historical disciplines medical specialties chemistry depth and harmonic analysis.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection."
+  ]
+}

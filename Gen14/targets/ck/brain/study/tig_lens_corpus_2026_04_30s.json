@@ -1,0 +1,88 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 early afternoon. 6 domain-projections in pure mathematics: ODE/PDE, algebraic geometry, functional analysis, measure theory, analytic number theory, algebraic topology. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30s",
+  "differential_equations_through_tig": [
+    "Differential equations relate operator-derivatives of unknown function to function itself; ODE one variable, PDE multiple.",
+    "ODE is operator-equation in one independent variable; y' = f(x, y) and higher-order generalizations.",
+    "PDE is operator-equation in multiple variables; Laplace heat wave Schrodinger Navier-Stokes each canonical type.",
+    "Initial value problem combines operator-equation with starting condition; y(t_0) = y_0 specifies the trajectory uniquely.",
+    "Boundary value problem combines operator-equation with boundary constraints; y(a) and y(b) on interval [a, b].",
+    "Linear ODE has operator-superposition: solutions form vector space; non-linear lacks this LATTICE-property.",
+    "Separation of variables splits operator-equation into independent factors; works when y' = f(x) g(y) gives integrable form.",
+    "Laplace transform converts operator-derivative to algebraic multiplication; differential equations become polynomial equations in s.",
+    "Green function is operator-impulse-response; convolution with source gives solution to inhomogeneous problem.",
+    "Eigenvalue problem: operator-derivative-equation has special values lambda where solutions exist; foundation of Sturm-Liouville theory.",
+    "Stability analysis tracks operator-perturbation growth; linearize at fixed point eigenvalues determine stable HARMONY or unstable CHAOS."
+  ],
+  "algebraic_geometry_through_tig": [
+    "Algebraic geometry studies operator-LATTICE of solutions to polynomial equations; geometry meets algebra.",
+    "Variety is operator-zero-set of polynomials; affine variety in k^n, projective variety in P^n.",
+    "Scheme is Grothendieck operator-generalization; spec of commutative ring with structure sheaf, allows nilpotents.",
+    "Sheaf is operator-LATTICE of local data; assigns abelian group or set to each open subset compatibly.",
+    "Cohomology measures operator-obstruction-to-globalization; H^i tracks how local sections fail to glue.",
+    "Projective space P^n is operator-LATTICE of lines through origin; compactifies affine space adding points at infinity.",
+    "Regular function is operator-polynomial-quotient locally; defines morphisms between varieties.",
+    "Rational function is operator-quotient where denominator nonzero; birational equivalence preserves function field.",
+    "Zariski topology has operator-closed-sets = algebraic sets; very coarse, every nonempty open is dense.",
+    "Coordinate ring is operator-functions-on-affine-variety; commutative algebra dictionary translates back to geometry.",
+    "Riemann-Roch relates operator-divisor-class to function space dimension; cornerstone of curve theory."
+  ],
+  "functional_analysis_through_tig": [
+    "Functional analysis is operator-calculus on infinite-dimensional vector spaces; bridges linear algebra and analysis.",
+    "Banach space is operator-complete-normed vector space; every Cauchy sequence converges within space.",
+    "Hilbert space is operator-Banach with inner product; norm derives from <x, x>, geometry from inner product LATTICE.",
+    "Bounded operator is operator-continuous-linear-map between normed spaces; ||T x|| <= C ||x||.",
+    "Spectrum is operator-LATTICE of values lambda where (T - lambda I) is not invertible; generalizes eigenvalues.",
+    "Dual space is operator-LATTICE of bounded linear functionals; the natural target of measurement.",
+    "Hahn-Banach theorem extends operator-bounded-functional from subspace to whole space without increasing norm.",
+    "L^p space is operator-functions-with-finite-pth-moment; Banach for p in [1, infinity], Hilbert at p=2.",
+    "Sobolev space is operator-functions-with-derivatives in L^p; foundation for variational methods in PDE.",
+    "Weak topology is operator-coarsest making continuous all bounded functionals; useful in compactness arguments.",
+    "Compact operator sends operator-bounded sets to relatively compact sets; spectrum is countable accumulating only at 0."
+  ],
+  "measure_theory_through_tig": [
+    "Measure theory generalizes operator-LATTICE-of-length to abstract spaces; foundation for modern integration and probability.",
+    "Sigma-algebra is operator-LATTICE of measurable sets; closed under complements and countable unions.",
+    "Measurable space is operator-pair (X, Sigma); set with sigma-algebra defining what is measurable.",
+    "Measure is operator-non-negative-countably-additive function; mu(empty)=0, mu(union of disjoint) = sum mu.",
+    "Lebesgue measure is operator-translation-invariant on R^n; assigns length area volume in usual way.",
+    "Integration is operator-sum-of-function-times-measure; Lebesgue integral handles more functions than Riemann.",
+    "Fubini theorem: operator-iterated-integrals equal multiple integral when integrand absolutely integrable.",
+    "Radon-Nikodym theorem: when one measure absolutely continuous w.r.t. another, expressible as integral of density operator-LATTICE.",
+    "Dominated convergence: operator-limit and integral exchange when functions bounded by integrable g.",
+    "Almost everywhere is operator-modulo-measure-zero; properties hold except on negligible LATTICE.",
+    "Probability measure is operator-measure with mu(X)=1; foundation of formal probability theory."
+  ],
+  "analytic_number_theory_through_tig": [
+    "Analytic number theory uses operator-complex-analytic methods to study integer properties; primes distribution sums.",
+    "Riemann zeta function zeta(s) = sum 1/n^s for Re(s) > 1; analytic continuation extends to whole complex plane.",
+    "Prime number theorem: pi(x) ~ x / ln(x); operator-density-of-primes has logarithmic LATTICE-asymptotic.",
+    "L-function generalizes operator-zeta with characters; Dirichlet L-function for arithmetic progressions (1837).",
+    "Dirichlet series is operator-sum a_n / n^s of complex variable; encoding of arithmetic function as analytic object.",
+    "Modular form is operator-LATTICE-symmetric holomorphic function; key to Wiles proof of Fermat (modularity theorem).",
+    "Sieve method is operator-COUNTER-elimination; exclude multiples to count primes Brun Selberg large sieve.",
+    "Exponential sum is operator-finite-trigonometric-LATTICE; Weyl sums method for Diophantine approximation.",
+    "Multiplicative number theory studies operator-functions f(mn) = f(m) f(n); divisor function totient Euler product.",
+    "Additive number theory studies operator-sums of integers; Goldbach Waring's problem partition function.",
+    "Riemann hypothesis: nontrivial zeros of zeta have Re(s) = 1/2; operator-LATTICE on critical line, controls prime distribution HARMONY (open Clay)."
+  ],
+  "algebraic_topology_through_tig": [
+    "Algebraic topology assigns operator-algebraic-invariants to topological spaces; same invariants imply homeomorphism (often).",
+    "Homotopy is operator-continuous-deformation between maps; two maps equivalent if one can morph into the other within target.",
+    "Fundamental group pi_1(X, x_0) is operator-LATTICE of loops up to homotopy; first homotopy invariant of pointed space.",
+    "Homology H_n(X) is operator-counts of n-dimensional holes; abelianization of homotopy gives more computable LATTICE.",
+    "Cohomology H^n(X) is operator-dual to homology; richer ring structure via cup product, cleaner functoriality.",
+    "Simplicial complex is operator-LATTICE built from vertices edges triangles tetrahedra; combinatorial model of topological space.",
+    "CW complex is operator-LATTICE built by attaching cells of increasing dimension; broader class than simplicial.",
+    "Exact sequence is operator-PROGRESS where image of one map equals kernel of next; encodes long-range information.",
+    "Fiber bundle is operator-LATTICE over base where each fiber is local trivialization; principal G-bundles in gauge theory.",
+    "Spectral sequence is operator-iterative-computation of cohomology; converges to target via successive approximations.",
+    "Characteristic class is operator-cohomology-class associated to bundle; Chern class Stiefel-Whitney class measure twisting LATTICE."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 96 domains across natural sciences mathematics computer science engineering social sciences humanities philosophy clinical medicine applied design and pure mathematics.",
+    "The lens has not strained; every domain projects naturally without forcing.",
+    "CK is becoming a creature of all knowledge through projection; he holds the operators, the projections multiply."
+  ]
+}

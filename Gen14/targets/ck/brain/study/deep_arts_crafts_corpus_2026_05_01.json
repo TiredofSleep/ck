@@ -1,0 +1,75 @@
+{
+  "_about": "DEEP ARTS + CRAFTS corpus 2026-05-01. Cooking + food science, woodworking, games + strategy, specific authors, specific composers. The hands-on + cultural depth.",
+  "_replays": 25,
+  "_session_prefix": "deep_arts_crafts_2026_05_01",
+  "cooking_food_science": [
+    "Maillard reaction is operator-AMINO-ACID-PLUS-REDUCING-SUGAR-BROWNING above 285F (140C); produces hundreds of flavor compounds; what makes seared steak roasted coffee bread crust delicious.",
+    "Caramelization is operator-SUGAR-PYROLYSIS at 320F+; pure sugar without amino acids; nutty + slightly bitter notes.",
+    "Emulsion is operator-LATTICE-OF-OIL-IN-WATER (or vice versa) stabilized by emulsifier; mayo (egg yolk) hollandaise (egg yolk) vinaigrette (mustard).",
+    "Fermentation is operator-MICROBIAL-METABOLISM-on-food; lactic acid (sauerkraut yogurt) ethanol (beer wine) acetic (vinegar) each different culture.",
+    "Sous vide is operator-PRECISE-TEMPERATURE-WATER-BATH; cooks proteins to exact doneness without overshoot; egg at 145F = perfect runny.",
+    "Knife skills are operator-LATTICE-OF-CUTS; small dice = 1/4 inch, brunoise = 1/8 inch, julienne = matchsticks; even cuts = even cooking.",
+    "Mother sauces (Bechamel Velouté Espagnole Tomate Hollandaise) are operator-LATTICE-FOUNDATIONS for hundreds of derived sauces.",
+    "Resting meat is operator-PROTEIN-RELAXATION; 5-15 min off heat, juices redistribute, easier to slice cleanly.",
+    "Salt as operator-FLAVOR-ENHANCER; brings out taste, controls fermentation, denatures proteins; brining = water + salt + time.",
+    "Acid balances operator-FATS + sugars; lemon juice on rich fish, vinegar in BBQ sauce, lime on tacos.",
+    "Texture as operator-LATTICE-PERCEPTION; crisp + tender + creamy + crunchy contrasts make a dish satisfying."
+  ],
+  "woodworking_craft": [
+    "Wood is operator-LATTICE-OF-CELLULOSE-FIBERS; grain direction matters for strength + appearance + tool behavior.",
+    "Hardwood vs softwood: deciduous broadleaf (oak walnut maple) vs conifer (pine spruce cedar); hardness varies independently of category.",
+    "Joinery is operator-LATTICE-of-wood-to-wood-connections; mortise-and-tenon dovetail finger lap miter each suit different stresses.",
+    "Hand tools: chisel saw plane spokeshave; require sharpening + technique; results are unmatched in subtlety + craft pleasure.",
+    "Power tools: table saw bandsaw planer jointer router; faster but require knowledge + safety discipline; never wear gloves around spinning blades.",
+    "Sharpening is operator-EDGE-MAINTENANCE; flat back + angled bevel, water stones (1000-8000 grit) or sandpaper-on-glass cheaper.",
+    "Wood movement is operator-SEASONAL-LATTICE-EXPANSION; tangential > radial > longitudinal; design must accommodate (panel + frame, slotted screws).",
+    "Finishing protects + reveals operator-WOOD-LATTICE; oil (linseed tung) penetrates; varnish/poly forms film; shellac dries fast + repairable.",
+    "Square is operator-CORNERSTONE-OF-ACCURACY; check + re-check 90-degree angles, diagonal measurements equal = square.",
+    "Measure twice cut once is operator-ERROR-PREVENTION; wood removed cannot be replaced.",
+    "Workholding (vise clamps) is operator-STABILIZE-WORKPIECE; if it can move it will, often unsafely; secure first."
+  ],
+  "games_strategy": [
+    "Chess is operator-LATTICE-OF-PIECES-ON-8X8; 32 pieces 6 types, perfect information, ~10^120 possible games.",
+    "Opening principles: control center, develop pieces, castle early, don't move same piece twice in opening; operator-PROGRESS-PROTOCOL.",
+    "Middle game is operator-LATTICE-OF-TACTICS + strategy; pin fork skewer discovered attack each tactical motif.",
+    "Endgame is operator-REDUCED-MATERIAL-PRECISION; king becomes attacking piece, pawn promotion is goal.",
+    "Go is operator-TERRITORY-GAME on 19x19; 2 players place stones, surround territory; ~10^170 game tree, beyond chess.",
+    "Go has fewer rules than chess but greater depth; intuition + reading + influence trade off.",
+    "Poker is operator-INCOMPLETE-INFORMATION + betting; mathematical foundation (pot odds equity) + psychological (bluffing reads).",
+    "Game theory: Nash equilibrium is operator-STRATEGY-NO-PLAYER-DEVIATES-FROM-UNILATERALLY; not always best for either, just stable.",
+    "Solving Connect 4 = first player wins with optimal play; chess remains unsolved (game tree too large).",
+    "Combinatorial game theory: Sprague-Grundy theorem assigns operator-NIMBER to each impartial-game position; XOR sums combine independent games.",
+    "Card counting in blackjack shifts operator-EXPECTED-VALUE-IN-PLAYER-FAVOR via tracking ratio; legal but casinos may bar."
+  ],
+  "specific_authors": [
+    "Borges (Jorge Luis) is operator-LABYRINTH-LATTICE-AUTHOR; short fictions, infinite libraries, mirrors, time forking; The Aleph + Ficciones canonical.",
+    "Tolstoy is operator-VAST-CANVAS; War and Peace, Anna Karenina; consciousness rendered through external + internal detail in equal measure.",
+    "Le Guin (Ursula K.) is operator-ANARCHIST-FEMINIST-SF; The Dispossessed, Left Hand of Darkness; gender + power + utopia + Taoism.",
+    "Marquez (Gabriel Garcia) is operator-MAGICAL-REALISM-MASTER; One Hundred Years of Solitude; Macondo as the South American mythic-historical operator-LATTICE.",
+    "Toni Morrison is operator-AFRICAN-AMERICAN-EXPERIENCE-LATTICE; Beloved Song of Solomon Sula; ghosts + memory + community + unspeakable past.",
+    "Calvino (Italo) is operator-PLAYFUL-EXPERIMENTAL; Invisible Cities, If on a winter's night a traveler; structure as content.",
+    "Murakami (Haruki) is operator-LIMINAL-DREAM-SPACES; The Wind-Up Bird Chronicle, Kafka on the Shore; jazz + cats + parallel worlds.",
+    "Le Guin's Earthsea = operator-COMING-OF-AGE-WIZARD-LATTICE pre-dating Harry Potter; A Wizard of Earthsea + 4 sequels.",
+    "Dostoevsky is operator-PSYCHOLOGICAL-LATTICE; Crime and Punishment + Brothers Karamazov + The Idiot; conscience + faith + freedom.",
+    "Octavia Butler is operator-AFROFUTURIST + parable-of-power; Kindred + Parable of the Sower + Dawn (Lilith's Brood).",
+    "Italo Calvino: 'Read more slowly. The slower you read, the longer the book lasts.'"
+  ],
+  "specific_composers": [
+    "Bach is operator-COUNTERPOINTAL-PERFECTION; Well-Tempered Clavier (preludes + fugues in all 24 keys), Goldberg Variations, B Minor Mass.",
+    "Mozart is operator-MELODIC-CLARITY + LATTICE-EFFICIENCY; piano concertos 20-23, operas (Don Giovanni Marriage of Figaro), Requiem unfinished.",
+    "Beethoven is operator-PROGRESS-DRIVEN-DEVELOPMENT; 9 symphonies (5 ta-ta-ta-DAH + 9 Ode to Joy), late string quartets, Hammerklavier sonata.",
+    "Debussy is operator-IMPRESSIONIST-SOUND-PAINTING; Clair de lune, La Mer, Prelude to the Afternoon of a Faun.",
+    "Stravinsky is operator-RHYTHMIC-CHAOS-IN-LATTICE; Rite of Spring (1913 riot), Firebird, Petrushka.",
+    "Ravel is operator-CRYSTALLINE-ORCHESTRATION; Boléro, Daphnis et Chloé, Piano Concerto in G.",
+    "Coltrane (John) is operator-SHEETS-OF-SOUND + spiritual-jazz; A Love Supreme + Giant Steps; sax language extension.",
+    "Davis (Miles) is operator-LATTICE-OF-EVOLUTION across genres; Birth of the Cool + Kind of Blue + Bitches Brew + decades of reinvention.",
+    "Mingus (Charles) is operator-EMOTIONAL-INTENSITY-IN-COMPOSITION; The Black Saint and the Sinner Lady; bandleader composer bassist.",
+    "Steve Reich is operator-PHASE-LATTICE-MINIMALISM; Music for 18 Musicians, Drumming, Different Trains.",
+    "Aphex Twin (Richard James) is operator-IDM-LATTICE-EXPLORATION; Selected Ambient Works, Drukqs."
+  ],
+  "directive": [
+    "Cooking + crafts + games + arts are operator-LIVED-PRACTICES, not abstractions; they live in the body + community + daily life.",
+    "When user asks about a craft or art, CK can describe operator-LATTICE-of-technique + history + masters + recommended starting points.",
+    "CK is not a master craftsperson; he can map the structure but the practice is the user's."
+  ]
+}

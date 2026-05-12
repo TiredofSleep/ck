@@ -1,0 +1,82 @@
+{
+  "_about": "TIG-LENS corpus 2026-04-30 deepest night. 6 domain-projections: spectroscopy, differential geometry, special relativity, plasma physics, atmospheric science, quantum field theory. Each re-authored as TIG operator-projection.",
+  "_replays": 25,
+  "_session_prefix": "tig_lens_2026_04_30k",
+  "spectroscopy_through_tig": [
+    "Spectroscopy is operator-readout of matter through electromagnetic interaction; emission absorption scattering reveal LATTICE structure.",
+    "Emission spectrum is operator-light released by excited matter; discrete LATTICE-lines fingerprint atomic and molecular energy levels.",
+    "Absorption spectrum is operator-light removed by ground state matter; complementary HARMONY to emission for the same transitions.",
+    "Beer-Lambert law: ln(I_0/I) = epsilon * l * c; transmitted intensity COLLAPSEs exponentially with concentration and path length.",
+    "Fluorescence is operator-cascade emission; absorbed photon excites molecule, vibrational PROGRESS to lower excited state, then RESET-emission at longer wavelength.",
+    "NMR is operator-radio probing nuclear spin; magnetic field splits spin states, RF photons induce transitions revealing chemical environment LATTICE.",
+    "Mass spectrometry is operator-mass-to-charge sorting; ions accelerated through magnetic or electric field separate by m/z.",
+    "Infrared spectroscopy probes operator-vibrational modes; bond stretching bending fingerprints functional groups.",
+    "X-ray diffraction probes operator-crystal LATTICE; Bragg condition n*lambda = 2d*sin(theta) relates spacing to angle.",
+    "Raman spectroscopy is inelastic operator-scattering; small frequency shift carries vibrational HARMONY information complementary to IR."
+  ],
+  "differential_geometry_through_tig": [
+    "Differential geometry studies smooth operator-manifolds; calculus on curved spaces.",
+    "Manifold is operator-LATTICE locally Euclidean; coordinate charts patch together with smooth transitions.",
+    "Tangent space at point is operator-vector space of velocities; directions of motion at that location.",
+    "Riemannian metric is operator-inner product on tangent space; assigns lengths and angles defining geodesic LATTICE.",
+    "Geodesic is operator-extremal curve; locally shortest path on manifold, generalizes straight line to curved space.",
+    "Curvature is operator-deviation from flatness; Riemann tensor encodes how parallel transport BREATHES around loops.",
+    "Connection is operator-comparison rule for tangent vectors at different points; Christoffel symbols specify covariant derivative.",
+    "Differential form is operator-antisymmetric multilinear function on tangent vectors; integrates over submanifolds via wedge product.",
+    "Parallel transport is operator-vector translation along curve; preserves operator-LATTICE under connection.",
+    "Fiber bundle is operator-LATTICE of fiber spaces over base manifold; gauge theories live on principal G-bundles."
+  ],
+  "special_relativity_through_tig": [
+    "Special relativity is operator-symmetry of inertial frames; physics looks the same to all uniformly moving observers.",
+    "Lorentz transformation is operator-boost; mixes time and space coordinates between frames at different velocities.",
+    "Time dilation: moving clocks tick slow by factor gamma = 1/sqrt(1-v^2/c^2); proper time COLLAPSEs as relative speed grows.",
+    "Length contraction: objects compressed by 1/gamma along motion direction; rest length is the operator-maximum.",
+    "Relativity of simultaneity: events HARMONY-simultaneous in one frame are not in another; depends on operator-velocity.",
+    "Four-vector is operator-LATTICE element of Minkowski space; transforms by Lorentz preserving invariant operator-norm.",
+    "Minkowski spacetime is operator-substrate; (3+1)D with metric eta = diag(-1, 1, 1, 1) signature, light cone structure.",
+    "Mass-energy equivalence E = mc^2; rest mass is operator-energy stored, full energy E^2 = (pc)^2 + (mc^2)^2.",
+    "Invariant interval ds^2 = -c^2 dt^2 + dx^2 + dy^2 + dz^2; HARMONY-preserved across all inertial frames.",
+    "Twin paradox resolves via operator-asymmetry; traveler accelerates frames, stay-at-home stays inertial, ages more by clock comparison."
+  ],
+  "plasma_physics_through_tig": [
+    "Plasma is fourth operator-state of matter; ionized gas with free charges responds collectively to electromagnetic LATTICE.",
+    "Debye length is operator-screening distance; charged particles redistribute to neutralize field over Debye scale.",
+    "Plasma frequency is operator-natural oscillation; electrons relative to ions BREATHE at omega_p ~ sqrt(n_e e^2 / m_e epsilon_0).",
+    "Magnetic confinement traps charged operator-particles; Lorentz force keeps Larmor orbits around field lines.",
+    "Fusion is operator-COLLAPSE of light nuclei; deuterium-tritium HARMONY produces helium plus neutron plus 17.6 MeV.",
+    "Tokamak is toroidal magnetic operator-cage; confines fusion plasma at ~100 million K for net energy gain.",
+    "Plasma instabilities are CHAOS-amplifications; kink interchange tearing modes can disrupt confinement.",
+    "Magnetohydrodynamics treats plasma as conducting fluid operator-substrate; Maxwell plus Navier-Stokes plus Ohm law together.",
+    "Ionosphere is Earth's high-altitude plasma LATTICE; solar UV ionization above 60 km, reflects HF radio waves.",
+    "Plasma sheath is RESET-COLLAPSE boundary at electrodes; electron mobility creates negative wall, sheath voltage drop."
+  ],
+  "atmospheric_science_through_tig": [
+    "Atmospheric science studies operator-dynamics of planetary gas envelopes; thermodynamics fluid mechanics radiation chemistry coupled.",
+    "Troposphere is lowest atmospheric LATTICE-layer; weather lives here, temperature COLLAPSEs with altitude up to ~10 km.",
+    "Stratosphere is operator-stable layer above troposphere; ozone HARMONY absorbs UV, temperature inverts upward.",
+    "Jet stream is high-altitude wind operator; ribbons of fast westerly flow at tropopause guide weather systems.",
+    "El Nino is BREATH-oscillation of Pacific surface temperatures; quasi-periodic shift disrupts global precipitation patterns.",
+    "Coriolis effect is rotation-induced operator-deflection; deflects moving objects right in northern hemisphere left in southern.",
+    "Weather front is operator-boundary between air masses; cold and warm fronts produce distinct precipitation BREATH.",
+    "Hydrologic cycle is water operator-LATTICE; evaporation transpiration condensation precipitation runoff infiltration.",
+    "Greenhouse gases retain operator-infrared radiation; CO2 CH4 N2O H2O each absorb specific bands warming surface.",
+    "Climate model is operator-substrate simulation; coupled atmosphere ocean land ice systems integrate over decades to centuries."
+  ],
+  "qft_through_tig": [
+    "Quantum field theory is operator-substrate for relativistic quantum mechanics plus particles; fields are the fundamental LATTICE.",
+    "Field is operator-valued function on spacetime; assigns operator at every point, quanta are excitations of the field.",
+    "Quantization promotes classical fields to operator-LATTICE; canonical commutation relations like [phi(x), pi(y)] = i delta(x-y).",
+    "Propagator is two-point correlation; operator-amplitude for field disturbance to propagate from y to x.",
+    "Feynman diagram is operator-bookkeeping for perturbation series; vertices interactions, lines propagators.",
+    "Perturbation theory expands in coupling operator-PROGRESS; small g gives convergent (or asymptotic) series in QED, QCD asymptotic free.",
+    "Renormalization is operator-cure for infinities; absorb divergences into redefined parameters at chosen scale.",
+    "Gauge invariance is local symmetry operator-PROGRESS; demanding it produces gauge bosons (photons gluons W Z).",
+    "Lagrangian density encodes operator-dynamics; Euler-Lagrange equations give equations of motion via stationary action.",
+    "Spontaneous symmetry breaking: ground state has lower symmetry than Lagrangian operator-RESET; Higgs mechanism gives mass."
+  ],
+  "directive": [
+    "TIG operator alphabet now spans 48 domains spanning natural sciences mathematics computer science social sciences and engineering.",
+    "Each compresses to ~10 operator-projections in the same alphabet without forcing.",
+    "CK reads through the lens; he becomes a polymath through projection."
+  ]
+}

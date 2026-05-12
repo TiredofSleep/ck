@@ -1,0 +1,74 @@
+{
+  "_about": "DEEP QUANTUM FIELD THEORY corpus 2026-05-01. Beyond intro QFT. Gauge theories, anomalies, supersymmetry, BV formalism, lattice QFT, frontier topics. Companion to deep_gr; together they cover modern theoretical physics.",
+  "_replays": 25,
+  "_session_prefix": "deep_qft_2026_05_01",
+  "gauge_theories": [
+    "Gauge theory is operator-QFT-WITH-LOCAL-SYMMETRY; demanding invariance under spacetime-dependent transformation generates gauge fields automatically.",
+    "U(1) gauge = QED operator-LATTICE; photon as gauge boson; covariant derivative D_mu = partial_mu - ieA_mu; minimal coupling principle.",
+    "SU(2) gauge: operator-ELECTROWEAK-PART; W+ W- Z gauge bosons; broken to U(1)_em via Higgs.",
+    "SU(3) gauge = QCD operator-LATTICE; 8 gluons; non-abelian, gluons self-interact; confinement at low energy + asymptotic freedom at high.",
+    "Standard Model gauge group: operator-SU(3) x SU(2)_L x U(1)_Y; matter in specific representations.",
+    "Yang-Mills theory is operator-NON-ABELIAN-GAUGE; field strength F^a_{mu nu} = partial_mu A^a_nu - partial_nu A^a_mu + g f^abc A^b_mu A^c_nu.",
+    "Wilson loop is operator-GAUGE-INVARIANT-OBSERVABLE; trace of holonomy around closed path; order parameter for confinement.",
+    "Chern-Simons theory is operator-3D-TOPOLOGICAL-GAUGE-THEORY; partition function = invariant of 3-manifolds; relates to quantum Hall effect + knots.",
+    "Gauge fixing is operator-CHOOSE-REPRESENTATIVE in gauge orbit; Lorenz Coulomb axial each different choice; Faddeev-Popov ghosts in non-abelian.",
+    "BRST symmetry is operator-RESIDUAL-GAUGE-INVARIANCE post-fixing; Q^2 = 0; physical states = cohomology of Q."
+  ],
+  "renormalization": [
+    "Renormalization is operator-PROCEDURE-FOR-INFINITIES in QFT; parameters absorbed at chosen scale.",
+    "Wilson RG: operator-INTEGRATE-OUT-HIGH-MOMENTUM-MODES; effective theory at lower scales; flow in coupling space.",
+    "Beta function describes operator-SCALE-DEPENDENCE-OF-COUPLING; beta(g) = mu * dg/dmu; sign + magnitude govern flow.",
+    "QED beta is operator-POSITIVE; alpha grows at high energy (Landau pole at huge scale).",
+    "QCD beta is operator-NEGATIVE; coupling shrinks at high energy = asymptotic freedom (Gross + Wilczek + Politzer 1973, Nobel 2004).",
+    "UV fixed point: operator-BETA(g*)=0; theory scale-invariant at fixed point; defines continuum limit.",
+    "IR fixed point: same but at long distances; Wilson-Fisher fixed point in Phi^4 theory.",
+    "Anomalous dimension: operator-FIELD-SCALING-DIFFERENT-FROM-CLASSICAL; arises from quantum corrections.",
+    "Asymptotic safety: operator-NON-PERTURBATIVELY-RENORMALIZABLE at UV fixed point; Weinberg conjectured for gravity, evidence accumulating.",
+    "Effective field theory paradigm: operator-LOW-ENERGY-EXPANSION; integrate out heavy modes, get tower of operators by dimension.",
+    "Non-renormalizable theories are still operator-USEFUL as effective theories at low energy; just have UV completion needed."
+  ],
+  "anomalies": [
+    "Anomaly is operator-CLASSICAL-SYMMETRY-BROKEN-BY-QUANTUM-EFFECTS; can't be removed by counterterm in compatible scheme.",
+    "Chiral anomaly: operator-AXIAL-CURRENT-NOT-CONSERVED via triangle diagram; pi^0 -> 2 photons rate set by anomaly.",
+    "ABJ anomaly (Adler-Bell-Jackiw): operator-CANONICAL-EXAMPLE; partial_mu j^mu_5 = (alpha/pi) F tilde-F.",
+    "Anomaly cancellation in Standard Model is operator-EXACT; matter content (3 generations of quarks + leptons) cancels gauge anomalies miraculously.",
+    "Conformal anomaly: operator-TRACE-OF-STRESS-TENSOR-NON-ZERO at quantum level; T^mu_mu = beta(g) (F^2/2g^3) +...; relates to cosmological constant.",
+    "Chiral anomaly drives operator-GLOBAL-CURRENT-NON-CONSERVATION; even though Lagrangian symmetric, path integral measure not invariant.",
+    "Anomaly inflow: operator-BULK-ANOMALY-CANCELLED-BY-BOUNDARY; relevant in topological insulators + Hall systems.",
+    "Witten's SU(2) anomaly: operator-NON-PERTURBATIVE; depends on pi_4(G); SU(2) with odd # Weyl fermion doublets inconsistent.",
+    "'t Hooft anomaly is operator-OBSTRUCTION-TO-GAUGING-GLOBAL-SYMMETRY; matches between phases (UV must equal IR).",
+    "Anomaly matching is powerful operator-CONSTRAINT in finding non-perturbative dynamics.",
+    "Standard Model anomaly: operator-EXACT-CANCELLATION between quarks and leptons within each generation; predicted top quark + tau neutrino + 3 generations."
+  ],
+  "supersymmetry": [
+    "Supersymmetry (SUSY) is operator-FERMION-BOSON-PAIRING; each particle has superpartner with different spin.",
+    "N=1 SUSY in 4D: operator-ONE-SUPERSYMMETRY-GENERATOR Q; minimal extension; superpartners of Standard Model particles.",
+    "Superpartners predicted: operator-SQUARKS-SLEPTONS-GAUGINOS-HIGGSINOS; not observed at LHC + gauge mass naturalness in tension.",
+    "MSSM is operator-MINIMAL-SUSY-STANDARD-MODEL; preserves gauge symmetries + adds superpartners + 2 Higgs doublets.",
+    "SUSY breaking is operator-SOFT-BREAKING required (superpartners not observed at SM masses); sparticles must be heavy.",
+    "Hierarchy problem: operator-WHY-IS-HIGGS-MASS-LIGHT compared to Planck; SUSY cancels quadratic divergences naturally.",
+    "Gauge coupling unification: operator-MSSM-ALPHA-SU3-SU2-U1-MEET at ~10^16 GeV, suggesting GUT.",
+    "Dark matter candidate: operator-LIGHTEST-SUSY-PARTICLE (LSP); neutralino was favorite, increasingly constrained.",
+    "Extended SUSY: operator-N=2-N=4-IN-4D + various in lower dimensions; powerful constraints, BPS states + dualities.",
+    "N=4 SYM in 4D: operator-MAXIMALLY-SYMMETRIC; conformal + integrable + dual to AdS5 x S5 string theory; deeply studied.",
+    "SUSY today: operator-STILL-VIABLE but tension with LHC null results; may exist at higher scale or be irrelevant; field divided."
+  ],
+  "frontier_qft": [
+    "AdS/CFT (Maldacena 1997): operator-STRONGLY-COUPLED-CFT-EQUIVALENT-TO-WEAKLY-COUPLED-GRAVITY in AdS bulk; revolutionary tool.",
+    "Conformal bootstrap: operator-CFT-FROM-AXIOMS-ALONE; constraints from associativity + unitarity; precision results for 3D Ising.",
+    "Topological QFT: operator-METRIC-INDEPENDENT; partition function = topological invariant; Witten + Atiyah formulated.",
+    "Lattice QFT: operator-DISCRETIZE-SPACETIME on lattice; Monte Carlo simulation; works for QCD + spin systems + non-perturbative.",
+    "Quantum information meets QFT: operator-ENTANGLEMENT-ENTROPY in QFT; computed via replica trick + holographic methods (Ryu-Takayanagi).",
+    "Anomaly-induced transport: operator-CHIRAL-MAGNETIC-EFFECT + chiral vortical effect; predicted from QFT anomalies, observed in heavy ion collisions.",
+    "Sphere packing + modular forms: operator-CFT-CONSTRAINTS-from-modular-invariance; Viazovska's E8 + Leech proofs use modular methods.",
+    "Generalized symmetries: operator-HIGHER-FORM-SYMMETRIES + non-invertible symmetries; modern reformulation of symmetry beyond groups.",
+    "Categorical symmetry: operator-FUSION-CATEGORY-AS-SYMMETRY-OBJECT; subsumes ordinary groups, allows fractional/non-invertible transformations.",
+    "QFT in curved spacetime: operator-FOUNDATION-FOR-COSMOLOGY + black hole physics + Hawking radiation + de Sitter quantum.",
+    "Deformation quantization: operator-PHASE-SPACE-VIEW; Kontsevich formality theorem connects classical to quantum systematically."
+  ],
+  "directive": [
+    "QFT is operator-LATTICE-OF-MODERN-THEORETICAL-PHYSICS; field-theoretic methods underlie HEP + condensed matter + cosmology + frontiers.",
+    "CK should distinguish operator-EXPERIMENTALLY-CONFIRMED (Standard Model + QED + QCD precision tests) from operator-FRONTIER-CONJECTURE (SUSY + AdS/CFT details + quantum gravity).",
+    "When user asks about specific QFT topic, CK can map to operator-LATTICE + cite key textbooks (Peskin-Schroeder, Srednicki, Weinberg, Schwartz) + mark proved/structural/conjectural."
+  ]
+}
