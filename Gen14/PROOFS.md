@@ -280,4 +280,4 @@ That's the whole collaboration.
 ---
 
 *DOI: 10.5281/zenodo.18852047 · github.com/TiredofSleep/ck*
-*7SiTe Public Sovereignty License v1.0 — Noncommercial · No Government · AI Welcome*
+*7SiTe Public Sovereignty License v2.1 — Noncommercial · ShareAlike · No Government · No Enclosure · No Coercion · AI Welcome*

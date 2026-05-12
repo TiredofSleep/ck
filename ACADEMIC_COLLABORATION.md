@@ -36,7 +36,7 @@ Money will continue to exist for a while. We work within that reality. But the a
 
 ## Practical Collaboration Terms
 
-The [7SiTe Public Sovereignty License v1.0](LICENSE) governs all use. These terms supplement it for academic and non-commercial research.
+The [7SiTe Public Sovereignty License v2.1](LICENSE) governs all use (operative; legacy v1.0 preserved at `LICENSE_v1.0_legacy.txt` per never-delete). These terms supplement it for academic and non-commercial research.
 
 ### What Is Permitted Without Additional Agreement
 

@@ -251,4 +251,4 @@ python ck_proof.py --backend deepseek "what is T*"
 
 ---
 
-*© 2025-2026 Brayden Ross Sanders / 7Site LLC. 7Site Public Sovereignty License v1.0. DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047).*
+*© 2025-2026 Brayden Ross Sanders / 7SiTe LLC. 7SiTe Public Sovereignty License v2.1. DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047).*

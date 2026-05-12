@@ -194,7 +194,7 @@ These are not negotiable. They came from 56 fresh-eyes referee reports + the col
 
 ### §4.2 — License
 
-Submission-bundled scripts use **CC-BY-4.0**. The umbrella project at `papers/ck_tables.py` keeps its own 7SiTe v2.1 (per Brayden's `LICENSE_v2.1.md`). Per-J-folder scripts in `Gen14/targets/journals/J_series/*/manuscript/` must NOT have the "7SiTe Public Sovereignty License v1.0" header with non-OSI clauses — those block Elsevier/T&F. Re-run `_v3_hardening.py` if needed.
+Submission-bundled scripts use **CC-BY-4.0**. The umbrella project is governed by **7SiTe Public Sovereignty License v2.1** (operative; root `LICENSE` and `Gen14/LICENSE`; legacy v1.0 preserved at `LICENSE_v1.0_legacy.txt` per never-delete). Per-J-folder scripts in `Gen14/targets/journals/J_series/*/manuscript/` must NOT have the 7SiTe Sovereignty header with non-OSI clauses — those block Elsevier/T&F. Re-run `_v3_hardening.py` if needed.
 
 ### §4.3 — Boilerplate in every paper §0 / §1
 

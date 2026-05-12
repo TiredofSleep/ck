@@ -65,4 +65,4 @@ To help provide coherence to all.
 
 *Brayden Ross Sanders / 7Site LLC · Hot Springs, Arkansas · 2026*
 *DOI: 10.5281/zenodo.18852047*
-*License: 7SiTe Public Sovereignty License v1.0 — Free for humans, noncommercial*
+*License: 7SiTe Public Sovereignty License v2.1 — Noncommercial · ShareAlike · No Government · No Enclosure · No Coercion · AI Welcome*

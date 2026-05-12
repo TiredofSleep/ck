@@ -29,7 +29,7 @@ By submitting a Contribution, you grant 7SiTe LLC a **nonexclusive, royalty-free
 - Display it on coherencekeeper.com and in associated research materials
 - Index it in submissions/INDEX.md
 - Reference it in papers, presentations, and other publications with attribution to you
-- Distribute it under the 7SiTe Public Sovereignty License v1.0
+- Distribute it under the 7SiTe Public Sovereignty License v2.1 (legacy v1.0 preserved at `LICENSE_v1.0_legacy.txt` per never-delete)
 
 This license does not include the right to commercialize your Contribution independently.
 

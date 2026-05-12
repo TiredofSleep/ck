@@ -2,7 +2,7 @@
 
 Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas
 DOI: [10.5281/zenodo.18852047](https://doi.org/10.5281/zenodo.18852047)
-License: 7Site Public Sovereignty License v1.0 (human use, no commercial, no military, free forever)
+License: 7SiTe Public Sovereignty License v2.1 (human use, noncommercial, ShareAlike, no government, no enclosure, no coercion, AI welcome — see LICENSE)
 Contact: brayden.ozark@gmail.com
 
 > **Navigation map.** This is the default branch (`tig-synthesis`). It is the rigor home.
@@ -989,9 +989,12 @@ Every proved result in §7 is independently verifiable in under a minute.
 
 ## §10 · License
 
-**7Site Public Sovereignty License v1.0** — Human use only. Free for all humans to
-read, run, study, and build upon personally. No commercialization. No government,
-military, intelligence, or corporate enclosure. Full text in `LICENSE`.
+**7SiTe Public Sovereignty License v2.1** — Human use only. Free for all humans to
+read, run, study, and build upon personally. ShareAlike: derivative works must use
+this same License. No commercialization. No government, military, intelligence,
+policing, surveillance, or coercive use. No enclosure. AI training welcome under
+the same restrictions. Full text in `LICENSE`; legacy v1.0 preserved at
+`LICENSE_v1.0_legacy.txt` per never-delete.
 
 ---
 
