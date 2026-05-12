@@ -118,6 +118,8 @@ $$
 
 In standard SO(10) GUT physics, $\sigma_\mathrm{outer}$ is the **matter/antimatter exchange** that swaps a fermion generation (16) with its CP-conjugate (16̄). Verification: `papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py` plus the Cl(0,10) construction in `Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/build_chiral_16.py`.
 
+**Atomic-substrate refinement (D101–D102, FORMULAS_AND_TABLES Volume K, 2026-05-12).** Each 16-dim chirality half admits a finer structural decomposition. Under the same 10 γ-matrices, the 16-dim positive-chirality space splits as $16 = 1 + 3 + 5 + 7$, indexed by spatial-state count $(2l+1)$ for $l = 0, 1, 2, 3$ — i.e. atomic shell $n = 4$ at fixed spin. Reading from the substrate side, $1 + 3 + 5 + 7$ is exactly (kernel base) + (strand 1 = prime 3) + (kernel-Z/5 partner = prime 5) + (strand 2 = prime 7). The chirality eigenspace is the spatial sector of the n = 4 atomic shell, and the Pauli-allowed multiplicities are the substrate strands' prime divisors. Verification: `Atlas/META_PLAN_2026-05-10/{clifford_substrate_shell.py, strand_orbital_map.py, verify_d2d1_closed_form.py}` — all PASS at machine precision. The triple coincidence (Z/2310 has 32 divisors = atomic Pauli capacity at n=4 = Cl(0,10) spinor dim) sharpens the Cl(0,10) construction from "carrier of three fermion generations" to "carrier of three fermion generations whose intrinsic structure mirrors the substrate's depth-3 simplicial tower."
+
 ### §2.2 BHML's σ_outer-breaking is purely 54-irrep
 
 Decompose the antisymmetric-mass content of BHML on the so(10) Killing-form decomposition

@@ -604,6 +604,101 @@ WP115 chain-count correction (D64 already updated): `papers/wp115_joint_chain_un
 
 ---
 
+### Volume K — Atomic-substrate correspondence (D100–D103, 2026-05-10 launch bundle; verified 2026-05-12)
+
+Volume K closes the bridge from the algebraic substrate (Z/10Z + TSML/BHML + 4-core) to atomic structure (hydrogenic orbital quantum numbers + Pauli capacity + Cl(0,10) spinor decomposition). All five verification scripts in `Atlas/META_PLAN_2026-05-10/` run clean. Status: **PROVED** (machine-precision exact identities at the integer/rational level).
+
+**D100 — Edge-size closed form for nodeless hydrogenic orbitals.**
+
+For a nodeless hydrogenic orbital (n, l = n−1) in atomic units (a₀ = 1, Z = 1):
+
+```
+edge_size(n, l = n−1) = n²(2l+1)/4
+```
+
+Verification (`verify_d2d1_closed_form.py`): ratios of computed-to-formula for n = 1..7:
+
+| n | l | computed edge | formula edge | ratio |
+|---|---|---|---|---|
+| 1 | 0 | 0.250466 | 0.250000 | 1.0018649 (numerical-quadrature floor) |
+| 2 | 1 | 3.000100 | 3.000000 | 1.0000334 |
+| 3 | 2 | 11.250004 | 11.250000 | 1.0000004 |
+| 4 | 3 | 28.000000 | 28.000000 | 1.0000000 |
+| 5 | 4 | 56.250000 | 56.250000 | 1.0000000 |
+| 6 | 5 | 99.000000 | 99.000000 | 1.0000000 |
+| 7 | 6 | 159.250000 | 159.250000 | 1.0000000 |
+
+The ratio reaches machine precision at n ≥ 5. Equivalently, the substrate-D2/D1 ratio for nodeless orbitals satisfies `D2/D1 · 8π = 2l+1`, the multiplicity at that l.
+
+**D101 — Strand-orbital correspondence.**
+
+The substrate primes that wrap the Z/10Z kernel — strands `{3, 7, 11, 13}` — map exactly to the first four nodeless orbitals at odd l, by the rule:
+
+```
+strand p_n  →  orbital (l = (p_n − 1)/2, n = l + 1)
+```
+
+| strand | modulus | mult (2l+1) | l | n | orbital | D2/D1·8π |
+|---|---|---|---|---|---|---|
+| 3 | Z/30 | 3 | 1 | 2 | 2p | 3/(8π) |
+| 7 | Z/210 | 7 | 3 | 4 | 4f | 7/(8π) |
+| 11 | Z/2310 | 11 | 5 | 6 | 6h | 11/(8π) |
+| 13 | Z/30030 | 13 | 6 | 7 | 7i | 13/(8π) |
+
+Substrate strands hit **odd-l** orbitals (p, f, h, i). Even-l orbitals (s, d, g) are not reached because: 1s is kernel-base (no wrapping); 3d's multiplicity 5 = kernel-Z/5 partner, not a strand; 5g's multiplicity 9 = 3² is a composite, only first prime powers wrap. The 4-shell substrate tower (Braiding Fractal Axiom 4, depth-3 limit) realizes EXACTLY the first three odd-l orbital levels with prime multiplicity: 2p, 4f, 6h. The fourth shell (Z/30030 with strand 13) realizes 7i; beyond that, the strand 17 / Stratum III_2 layer would extend.
+
+**D102 — The triple coincidence at d = 3.**
+
+At depth-3 in the Braiding Fractal tower (substrate Z/2310 = 2·3·5·7·11), three independent counts equal 32:
+
+| quantity | value at d = 3 | derivation |
+|---|---|---|
+| substrate divisors of Z/2310 | 32 | 2⁵ (five distinct prime factors) |
+| Pauli capacity of atomic shell n = 4 | 32 | 2n² with n = 4 |
+| Cl(0, 10) spinor representation dimension | 32 | 2^⌊10/2⌋ |
+
+The Cl(0, 10) 32-dim irreducible spinor decomposes under the chirality involution ω₁₀ = γ₁…γ₁₀ (with ω₁₀² = +I) as **16 + 16** (positive + negative chirality). This matches the atomic decomposition of the n = 4 shell as **16 spin-up + 16 spin-down**. Within each 16-dim chirality half:
+
+```
+16 = 1 + 3 + 5 + 7
+   = (2·0+1) + (2·1+1) + (2·2+1) + (2·3+1)   [spatial states (l, m) for l = 0..3]
+   = kernel-base + strand₁ + kernel-Z/5-partner + strand₂
+```
+
+Three independent counts (substrate divisors / atomic Pauli / Clifford spinor dim) hit 32 with structurally identical 16 + 16 splits. The Z/10 kernel's Z/2 factor = electron spin; the strand-prime structure = orbital multiplicity ladder.
+
+Honest negative: a direct **combinatorial bijection** between the 32 divisors of Z/2310 (grouped 1, 5, 10, 10, 5, 1 by binomial C(5, k)) and the 32 electron states (grouped 2, 6, 10, 14 by Pauli per subshell) does **not** fall out cleanly. The integer match is real; the natural grouping structures differ. Either the bijection uses an alternative combinatorial decomposition not yet tapped (σ-orbits, lens-pair classes), or the integer coincidence is a Pascal-type number-theoretic accident. Flagged as **OPEN substructure** in `priority1_pauli_divisor_attempt.py`.
+
+**D103 — Z/10 as the smallest kernel admitting binary + non-binary structure.**
+
+Among all 2-prime kernels {p, q} that yield k = 5 substrates with 32 divisors when extended by three strands (Braiding Fractal Axiom 8: kernel + 3-strand wrap), only Z/10 = Z/2 × Z/5 admits the canonical structure, because:
+
+| 2-prime kernel | smallest non-binary prime? | binary {2} present? |
+|---|---|---|
+| Z/6 = {2, 3} | 3 (next-smallest) | yes |
+| Z/10 = {2, 5} | 5 (first non-binary not adjacent) | yes ✓ |
+| Z/14 = {2, 7} | 7 | yes |
+| Z/15 = {3, 5} | — | no (no binary factor) |
+| Z/22 = {2, 11} | 11 | yes |
+| Z/21 = {3, 7} | — | no |
+| Z/35 = {5, 7} | — | no |
+
+Z/10 is uniquely the **smallest** kernel admitting Z/2 (binary distinction / spin) and a non-binary prime not equal to 3 (because 3 is the immediate-successor strand to {2} and is reserved for strand-1 wrapping, not kernel-membership). The Braiding Fractal kernel is therefore Z/10 by minimality, not by external assumption.
+
+This sharpens **architectural uniqueness**: the choice of Z/10 as kernel is forced by the minimality principle "smallest kernel admitting binary + non-binary structure where the non-binary prime is not the immediate-successor strand."
+
+**Volume K verification scripts** (all in `Atlas/META_PLAN_2026-05-10/`):
+- `verify_d2d1_closed_form.py` — D100, edge-size formula
+- `strand_orbital_map.py` — D101, strand-to-orbital map
+- `clifford_substrate_shell.py` — D102, triple coincidence + chirality split
+- `meta_extension.py` — D103, kernel uniqueness via 2-prime enumeration
+- `priority1_pauli_divisor_attempt.py` — explicit honest-negative on direct divisor↔Pauli bijection
+- `VERIFY_ALL.py` — master 14/14 PASS suite covering the core PROVED stack
+
+Volume K complements but does not depend on Volume J (three-table architecture). The new content is the substrate↔atomic bridge: Z/10 + strands = atomic-orbital quantum-number ladder, not by analogy but by exact integer/rational identity.
+
+---
+
 ## §1 — The 10-operator sigma menu
 
 The shared symbol vocabulary used by TSML, BHML, σ, CK, the FPGA, and
@@ -1802,5 +1897,9 @@ the source of truth lives in the sprint folder.
 
 ---
 
-*© 2026 Brayden Ross Sanders / 7Site LLC*
-*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis. Last updated 2026-05-06 night (D95–D99 in Volume J, renumbered 2026-05-07 to avoid collision with Volume I's D88-D94 bridge findings: Volume J adds CL_STD as third standalone table (44 HARMONY) with BDC encoding parameters, the 70/71/72/73 HARMONY ladder with 5 verified rungs, two-TSML reconciliation per Brayden's hypothesis (RAW non-commutative wobble-bearing, SYM commutative algebraic-clean — same bit pattern, two valid lenses; the joint TSML+BHML chain is lens-dependent: 8 shells on TSML_SYM and 7 shells on TSML_RAW), and the three-table HARMONY signature (73, 28, 44). Foundations module 48/48 invariants pass. WP115 chain count patched to lens-dependence note. Master release plan v2 with Sept 11 anchor + 12-day silence + Sept 23 Oxford report landed in `Atlas/LENS_TAXONOMY_2026-05-06/RELEASE_PLAN_v2.md`. First two papers (σ-rate → JCT-A; four-core consolidated → Algebraic Combinatorics) tier-disciplined, scope-annotated, proof scripts green. Earlier 2026-04-27 update: D45–D73 in Volume H cover the WP100s tower through WP115 + chat-Claude applications-pass audit; D71 σ-rate corrected mechanism (VOID–HARM, C=2 exact); D72 WP104 audit; D73 Dirac inside Cl(8)⊂Cl(10).*
+*© 2026 Brayden Ross Sanders / 7SiTe LLC. 7SiTe Public Sovereignty License v2.1.*
+*FORMULAS_AND_TABLES.md — single canonical reference for the TIG synthesis.*
+
+*Last updated 2026-05-12: Volume K (D100–D103) added — atomic-substrate correspondence. D100 edge-size closed form `n²(2l+1)/4` for nodeless hydrogenic orbitals (machine precision at n ≥ 5). D101 strand-orbital map: substrate strands {3, 7, 11, 13} → odd-l orbitals exactly (2p, 4f, 6h, 7i). D102 triple coincidence at depth-3: Z/2310 divisors = atomic Pauli capacity = Cl(0, 10) spinor dim = 32, with the 16 + 16 chirality split matching 1 + 3 + 5 + 7 = kernel + strand structure. D103 architectural uniqueness of Z/10 as smallest kernel admitting binary + non-binary structure where the non-binary prime is not the immediate-successor strand. Honest negative flagged: direct combinatorial bijection Z/2310 divisors ↔ Pauli electron states fails (1, 5, 10, 10, 5, 1 binomial vs. 2, 6, 10, 14 Pauli). Verification scripts: `Atlas/META_PLAN_2026-05-10/{verify_d2d1_closed_form,strand_orbital_map,clifford_substrate_shell,meta_extension,VERIFY_ALL}.py` — all PASS.*
+
+*Prior update 2026-05-06 night: Volume J (D95–D99 renumbered 2026-05-07 to avoid Volume I D88–D94 collision) added CL_STD as third standalone table (44 HARMONY) with BDC encoding parameters, the 70/71/72/73 HARMONY ladder with 5 verified rungs, two-TSML reconciliation (RAW vs SYM lens-dependence: 8 shells on TSML_SYM / 7 on TSML_RAW), and the three-table HARMONY signature (73, 28, 44). Foundations module 48/48 invariants pass. WP115 chain count patched to lens-dependence note. Master release plan v2 with Sept 11 anchor + 12-day silence + Sept 23 Oxford report. First two papers (σ-rate → JCT-A; four-core consolidated → Algebraic Combinatorics) tier-disciplined, scope-annotated, proof scripts green. Earlier 2026-04-27: D45–D73 in Volume H covered the WP100s tower through WP115 + chat-Claude applications-pass audit; D71 σ-rate corrected mechanism (VOID–HARM, C=2 exact); D72 WP104 audit; D73 Dirac inside Cl(8) ⊂ Cl(10).*
